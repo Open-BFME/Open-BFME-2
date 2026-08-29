@@ -43,6 +43,14 @@ struct RGBAColorReal
     float alpha;
 };
 
+struct RGBAColorInt
+{
+    unsigned int red;
+    unsigned int green;
+    unsigned int blue;
+    unsigned int alpha;
+};
+
 int RGBColor::getAsInt() const
 {
     return ((int)(red * 255.0) << 16) | ((int)(green * 255.0) << 8) | ((int)(blue * 255.0) << 0);
@@ -69,6 +77,12 @@ bool operator!=(const RGBColor &left, const RGBColor &right)
 }
 
 Debug &operator<<(Debug &debug, const RGBAColorReal &color)
+{
+    debug << "(" << color.red << ", " << color.green << ", " << color.blue << ", " << color.alpha << ")";
+    return debug;
+}
+
+Debug &operator<<(Debug &debug, const RGBAColorInt &color)
 {
     debug << "(" << color.red << ", " << color.green << ", " << color.blue << ", " << color.alpha << ")";
     return debug;
