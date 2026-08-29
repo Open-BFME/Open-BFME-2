@@ -4,6 +4,7 @@ class Coord2D
 {
 public:
     Coord2D(int x, int y);
+    bool IsExactlyEqualTo(const Coord2D &that) const;
     Coord2D &Negate();
     Coord2D &SetZero();
 
@@ -15,6 +16,11 @@ Coord2D::Coord2D(int x, int y)
 {
     this->x = (float)x;
     this->y = (float)y;
+}
+
+bool Coord2D::IsExactlyEqualTo(const Coord2D &that) const
+{
+    return x == that.x && y == that.y;
 }
 
 Coord2D &Coord2D::Negate()
