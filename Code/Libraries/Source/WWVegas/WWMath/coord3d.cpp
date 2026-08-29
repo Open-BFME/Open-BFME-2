@@ -55,6 +55,7 @@ public:
     float GetLength2D() const;
     float GetLengthSqrd() const;
     float GetLengthSqrd2D() const;
+    float Normalize2D();
     Coord3D &Set2D(float x, float y);
     Coord3D &SetMaxVect();
     Coord3D &SetMinVect();
@@ -67,6 +68,8 @@ public:
     float y;
     float z;
 };
+
+static const float one = 1.0f;
 
 Coord3D &Coord3D::Add(const Coord2D &left, const Coord3DBase &right)
 {
@@ -153,6 +156,15 @@ float Coord3D::GetLengthSqrd2D() const
     float y_value = y;
 
     return x_value * x_value + y_value * y_value;
+}
+
+float Coord3D::Normalize2D()
+{
+    float len = GetLength2D();
+    float scale = one / len;
+    x *= scale;
+    y *= scale;
+    return len;
 }
 
 Coord3D &Coord3D::Set2D(float x, float y)
