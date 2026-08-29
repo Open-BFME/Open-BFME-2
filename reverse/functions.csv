@@ -315,7 +315,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_0000508b@@YAXXZ,,0x0000508B,47,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=operator<<
 ?d_000050ba@@YAXXZ,,0x000050BA,103,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=operator<<
 ?d_0000517c@@YAXXZ,,0x0000517C,47,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=operator<<
-?d_000051ab@@YAXXZ,,0x000051AB,47,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=operator<<
 ?d_000051da@@YAXXZ,,0x000051DA,125,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=operator<<
 ?d_00005257@@YAXXZ,,0x00005257,109,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=operator<<
 ?d_00005394@@YAXXZ,,0x00005394,18,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=operator=
@@ -645,3 +644,4 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?expandBy@Region2D@@QAEXABVCoord2D@@@Z,0x00006423,0x00006423,70,Code/Libraries/Source/WWVegas/WWMath/region.cpp,matched,Open-BFME5 clean C++; verbatim Open-BFME-1 Region2D expandBy source
 ?expandBy@Region3D@@QAEXABVCoord3D@@@Z,0x00006495,0x00006495,103,Code/Libraries/Source/WWVegas/WWMath/region.cpp,matched,Open-BFME5 clean C++; verbatim Open-BFME-1 Region3D expandBy source
 ??0Region2D@@QAE@ABVCoord2D@@0@Z,0x00004C06,0x00004C06,34,Code/Libraries/Source/WWVegas/WWMath/region.cpp,matched,Open-BFME5 clean C++; Open-BFME-1 Region2D ctor; LineSegment2D export folded alias
+??6@YAAAVDebug@@AAV0@ABUIRegion3D@@@Z,0x000051AB,0x000051AB,47,Code/Libraries/Source/WWVegas/WWMath/region.cpp,matched,Open-BFME5 clean C++; Open-BFME-1 IRegion3D Debug streamer

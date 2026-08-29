@@ -1,5 +1,30 @@
 // cl: /O1 /arch:SSE2 /ICode/GameEngine/Source/Common
 
+class Debug
+{
+public:
+    virtual void v0();
+    virtual void v1();
+    virtual void v2();
+    virtual void v3();
+    virtual void v4();
+    virtual void v5();
+    virtual void v6();
+    virtual void v7();
+    virtual Debug &operator<<(const char *value);
+    virtual Debug &operator<<(int value);
+    virtual Debug &operator<<(unsigned int value);
+    virtual Debug &operator<<(unsigned char value);
+    virtual Debug &operator<<(short value);
+    virtual Debug &operator<<(unsigned short value);
+    virtual void v9();
+    virtual void v10();
+    virtual void v11();
+    virtual void v12();
+    virtual void v13();
+    virtual Debug &operator<<(float value);
+};
+
 struct IRegion2D
 {
     bool operator==(const IRegion2D &that) const;
@@ -26,6 +51,15 @@ struct IRegion3D
     int y_max;
     int z_max;
 };
+
+struct ICoord3D
+{
+    int x;
+    int y;
+    int z;
+};
+
+Debug &operator<<(Debug &debug, const ICoord3D &coord);
 
 class Coord3D
 {
@@ -228,4 +262,10 @@ bool Region3D::isInRegionWithZ(const Coord3D *point) const
         point->y < y_max &&
         z_min < point->z &&
         point->z < z_max;
+}
+
+Debug &operator<<(Debug &debug, const IRegion3D &region)
+{
+    debug << *(const ICoord3D *)&region.x_min << " - " << *(const ICoord3D *)&region.x_max;
+    return debug;
 }
