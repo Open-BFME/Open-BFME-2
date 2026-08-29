@@ -232,7 +232,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_000034fa@@YAXXZ,,0x000034FA,42,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=areApproxEqual
 ?d_00003524@@YAXXZ,,0x00003524,11,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=rad2deg
 ?d_0000352f@@YAXXZ,,0x0000352F,11,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=deg2rad
-?d_0000353a@@YAXXZ,,0x0000353A,18,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=operator=
 ?d_0000354c@@YAXXZ,,0x0000354C,37,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Coord3D
 ?d_00003571@@YAXXZ,,0x00003571,69,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=length
 ?d_000035b6@@YAXXZ,,0x000035B6,86,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=normalize
@@ -645,3 +644,4 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_00013fd0@@YAXXZ,,0x00013FD0,54,Code/gen_asm/d_000112aa.asm,matched,gen-dump;ghidra=FUN_00413fd0
 ?d_000143a0@@YAXXZ,,0x000143A0,35,Code/gen_asm/d_000112aa.asm,matched,gen-dump;ghidra=FUN_004143a0
 ?zero@ICoord3D@@QAEXXZ,0x00004DCF,0x00004DCF,11,Code/Libraries/Source/WWVegas/WWMath/icoord.cpp,matched,Open-BFME5 clean C++; ICoord3D zero from EA reference
+??4ICoord3D@@QAEAAU0@ABU0@@Z,0x0000353A,0x0000353A,18,Code/Libraries/Source/WWVegas/WWMath/icoord.cpp,matched,Open-BFME5 clean C++; ICoord3D aggregate assignment from EA reference
