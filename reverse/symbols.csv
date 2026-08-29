@@ -9,3 +9,4 @@ _fabs,0x00629210,MSVCRT import thunk identified by four retail call targets and 
 _sqrt,0x0062921C,MSVCRT import thunk identified by retail call target and Ghidra
 __ftol2,0x00629228,MSVC float-to-int helper byte-identical to pinned BFME1 CRT body
 ?set@?$StringBase@D@@QAEXPBDH@Z,0x00036780,BFME2 export and retail call target for StringBase<char>::set(const char *, int)
+?concat@?$StringBase@D@@QAEXPBDH@Z,0x000369A0,BFME2 export and retail call target for StringBase<char>::concat(const char *, int)
