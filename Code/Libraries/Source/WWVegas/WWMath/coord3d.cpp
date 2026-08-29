@@ -1,5 +1,7 @@
 // cl: /O1 /arch:SSE2 /ICode/GameEngine/Source/Common
 
+#include <math.h>
+
 class Debug
 {
 public:
@@ -49,6 +51,7 @@ public:
     Coord3D &Add2D(const Coord3DBase &left, const Coord3DBase &right);
     Coord3D &Sub2D(const Coord3DBase &left, const Coord3DBase &right);
     Coord3D &Scale2D(const Coord3DBase &that, float scale);
+    float GetLength2D() const;
     float GetLengthSqrd() const;
     float GetLengthSqrd2D() const;
     Coord3D &Set2D(float x, float y);
@@ -115,6 +118,14 @@ Coord3D &Coord3D::Scale2D(const Coord3DBase &that, float scale)
     x = that.x * scale;
     y = that.y * scale;
     return *this;
+}
+
+float Coord3D::GetLength2D() const
+{
+    float x_value = x;
+    float y_value = y;
+
+    return (float)sqrt(x_value * x_value + y_value * y_value);
 }
 
 float Coord3D::GetLengthSqrd() const
