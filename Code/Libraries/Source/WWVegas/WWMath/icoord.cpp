@@ -36,6 +36,7 @@ struct ICoord2DBase
 struct ICoord2D : public ICoord2DBase
 {
     ICoord2D &operator+=(const ICoord2DBase &that);
+    ICoord2D &operator-=(const ICoord2DBase &that);
     bool operator==(const ICoord2DBase &that) const;
     bool operator!=(const ICoord2DBase &that) const;
 };
@@ -55,6 +56,13 @@ ICoord2D &ICoord2D::operator+=(const ICoord2DBase &that)
 {
     x += that.x;
     y += that.y;
+    return *this;
+}
+
+ICoord2D &ICoord2D::operator-=(const ICoord2DBase &that)
+{
+    x -= that.x;
+    y -= that.y;
     return *this;
 }
 
