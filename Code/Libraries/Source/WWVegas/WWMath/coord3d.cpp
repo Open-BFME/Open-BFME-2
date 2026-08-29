@@ -31,6 +31,7 @@ public:
     Coord3D &SetMaxVect();
     Coord3D &SetMinVect();
     Coord3D &SetXAxis();
+    Coord3D &SetYAxis();
     Coord3D &SetZAxis();
 
     float x;
@@ -58,6 +59,14 @@ Coord3D &Coord3D::SetXAxis()
 {
     x = 1.0f;
     y = 0.0f;
+    z = 0.0f;
+    return *this;
+}
+
+Coord3D &Coord3D::SetYAxis()
+{
+    x = 0.0f;
+    y = 1.0f;
     z = 0.0f;
     return *this;
 }
