@@ -1,7 +1,17 @@
+// cl: /O1
+
 #include "string_base.h"
 
 #define _DLL
 #include <string.h>
+
+template <>
+int StringBase<char>::compare(const StringBase<char> &str) const
+{
+    const int len = str.m_data ? str.m_data->length : 0;
+    const char *data = str.m_data ? &str.m_data->data[0] : "";
+    return compare(data, len);
+}
 
 template <typename T>
 void StringBase<T>::concat(T c)
