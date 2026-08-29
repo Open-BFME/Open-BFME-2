@@ -44,3 +44,8 @@ int IRegion3D::height() const
 {
     return y_max - y_min;
 }
+
+int IRegion3D::depth() const
+{
+    return z_max - z_min;
+}
