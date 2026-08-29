@@ -8,8 +8,47 @@ struct HDC__;
 typedef HDC__ *HDC;
 
 typedef void *HGDIOBJ;
+typedef void *HANDLE;
 typedef long LONG;
 typedef unsigned int UINT;
+typedef unsigned long DWORD;
+typedef unsigned short WORD;
+typedef unsigned char *LPBYTE;
+
+struct BITMAP
+{
+    LONG bmType;
+    LONG bmWidth;
+    LONG bmHeight;
+    LONG bmWidthBytes;
+    WORD bmPlanes;
+    WORD bmBitsPixel;
+    void *bmBits;
+};
+
+struct BITMAPINFOHEADER
+{
+    DWORD biSize;
+    LONG biWidth;
+    LONG biHeight;
+    WORD biPlanes;
+    WORD biBitCount;
+    DWORD biCompression;
+    DWORD biSizeImage;
+    LONG biXPelsPerMeter;
+    LONG biYPelsPerMeter;
+    DWORD biClrUsed;
+    DWORD biClrImportant;
+};
+
+struct DIBSECTION
+{
+    BITMAP dsBm;
+    BITMAPINFOHEADER dsBmih;
+    DWORD dsBitfields[3];
+    HANDLE dshSection;
+    DWORD dsOffset;
+};
 
 struct tagRGBQUAD;
 typedef tagRGBQUAD RGBQUAD;
@@ -25,8 +64,10 @@ extern "C" __declspec(dllimport) int __stdcall DeleteDC(HDC dc);
 extern "C" __declspec(dllimport) HGDIOBJ __stdcall SelectObject(HDC dc, HGDIOBJ object);
 extern "C" __declspec(dllimport) UINT __stdcall SetDIBColorTable(
     HDC dc, UINT firstColor, UINT colors, const RGBQUAD *colorTable);
+extern "C" __declspec(dllimport) int __stdcall GetObjectA(HGDIOBJ object, int bytes, void *data);
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(CRITICAL_SECTION *section);
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(CRITICAL_SECTION *section);
+extern "C" int __cdecl abs(int value);
 
 namespace Gdiplus
 {
@@ -63,6 +104,13 @@ private:
     };
 
 public:
+    enum DIBOrientation
+    {
+        DIBOR_DEFAULT,
+        DIBOR_TOPDOWN,
+        DIBOR_BOTTOMUP
+    };
+
     virtual ~CImage() throw();
 
     HBITMAP Detach() throw();
@@ -85,6 +133,7 @@ private:
     mutable HBITMAP m_hOldBitmap;
 
     static CDCCache s_cache;
+    void UpdateBitmapInfo(DIBOrientation orientation);
 };
 
 void CImage::CInitGDIPlus::ReleaseGDIPlus() throw()
@@ -173,6 +222,42 @@ void CImage::SetColorTable(UINT firstColor, UINT colors, const RGBQUAD *colorTab
     GetDC();
     SetDIBColorTable(m_hDC, firstColor, colors, colorTable);
     ReleaseDC();
+}
+
+void CImage::UpdateBitmapInfo(DIBOrientation orientation)
+{
+    DIBSECTION dibsection;
+    int bytes = GetObjectA(m_hBitmap, sizeof(DIBSECTION), &dibsection);
+
+    if (bytes == sizeof(DIBSECTION))
+    {
+        m_bIsDIBSection = true;
+        m_nWidth = dibsection.dsBmih.biWidth;
+        m_nHeight = abs(dibsection.dsBmih.biHeight);
+        m_nBPP = dibsection.dsBmih.biBitCount;
+        m_nPitch = (((m_nWidth * m_nBPP) + 31) / 32) * 4;
+        m_pBits = dibsection.dsBm.bmBits;
+        if (orientation == DIBOR_DEFAULT)
+        {
+            orientation = (dibsection.dsBmih.biHeight > 0) ? DIBOR_BOTTOMUP : DIBOR_TOPDOWN;
+        }
+        if (orientation == DIBOR_BOTTOMUP)
+        {
+            m_pBits = LPBYTE(m_pBits) + ((m_nHeight - 1) * m_nPitch);
+            m_nPitch = -m_nPitch;
+        }
+    }
+    else
+    {
+        m_bIsDIBSection = false;
+        m_nWidth = dibsection.dsBm.bmWidth;
+        m_nHeight = dibsection.dsBm.bmHeight;
+        m_nBPP = dibsection.dsBm.bmBitsPixel;
+        m_nPitch = 0;
+        m_pBits = 0;
+    }
+    m_iTransparentColor = -1;
+    m_bHasAlphaChannel = false;
 }
 
 HBITMAP CImage::Detach() throw()

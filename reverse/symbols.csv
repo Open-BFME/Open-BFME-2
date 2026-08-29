@@ -18,3 +18,4 @@ __ftol2,0x00629228,MSVC float-to-int helper byte-identical to pinned BFME1 CRT b
 ?compareNoCase@?$StringBase@G@@QBEHPBGH@Z,0x000067F0,BFME2 export and retail call target for StringBase<wchar_t>::compareNoCase(const wchar_t *, int)
 _strlen,0x00629170,BFME2 retail strlen thunk and call target for StringBase<char>::compare(const char *)
 ?GdiplusShutdown@Gdiplus@@YGXK@Z,0x00628F6E,GDI+ import thunk identified by official ATL 7.1 call and retail target
+_abs,0x0062909A,MSVCR71 import thunk identified by official ATL 7.1 call and retail target
