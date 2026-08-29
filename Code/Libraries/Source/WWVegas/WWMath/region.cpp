@@ -3,6 +3,7 @@
 struct IRegion2D
 {
     bool operator==(const IRegion2D &that) const;
+    bool operator!=(const IRegion2D &that) const;
     int width() const;
     int height() const;
 
@@ -32,6 +33,11 @@ bool IRegion2D::operator==(const IRegion2D &that) const
         y_min == that.y_min &&
         x_max == that.x_max &&
         y_max == that.y_max;
+}
+
+bool IRegion2D::operator!=(const IRegion2D &that) const
+{
+    return !(*this == that);
 }
 
 int IRegion2D::width() const
