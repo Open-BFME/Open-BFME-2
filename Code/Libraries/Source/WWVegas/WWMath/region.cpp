@@ -1,4 +1,4 @@
-// cl: /O1 /ICode/GameEngine/Source/Common
+// cl: /O1 /arch:SSE2 /ICode/GameEngine/Source/Common
 
 struct IRegion2D
 {
@@ -32,6 +32,7 @@ struct Region3D
     float width() const;
     float height() const;
     float depth() const;
+    void zero();
 
     float x_min;
     float y_min;
@@ -92,4 +93,14 @@ float Region3D::height() const
 float Region3D::depth() const
 {
     return z_max - z_min;
+}
+
+void Region3D::zero()
+{
+    x_min = 0.0f;
+    y_min = 0.0f;
+    z_min = 0.0f;
+    x_max = 0.0f;
+    y_max = 0.0f;
+    z_max = 0.0f;
 }
