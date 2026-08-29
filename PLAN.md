@@ -31,9 +31,11 @@ day 1).
   sha256 `af1d464083e45f65331aab2ee1d0b3f4a0b89ac719d875a686a440fe04792f68`,
   33,771,520 bytes. Provenance: BFME All-In-One Launcher install.
 - **Same toolchain as BFME 1: MSVC 7.1** (linker 7.10). The committed
-  `build/toolchains/vs2003` is reused as-is, and every codegen recipe in
-  BFME 1's `docs/lessons.md` (vptr scheduling, `throw()` states, `novtable`,
-  the EH-transposition wall, private static-call convention) transfers 1:1.
+  `build/toolchains/vs2003` is reused as-is, and BFME 1's codegen findings
+  (vptr scheduling, `throw()` states, `novtable`, the EH-transposition wall,
+  private static-call convention) transfer 1:1. This repo deliberately keeps
+  NO lessons.md — do not create one; the commit message is the place for the
+  war story.
 - **`.text` is 8,096,994 bytes with only 1.5% `0xCC` padding** — BFME 2 is
   NOT incrementally linked (BFME 1: 13.0MB `.text`, 25.7% padding, ILT thunks
   everywhere). Real code ≈ 8.0MB vs BFME 1's 9.7MB: a slightly smaller
@@ -124,7 +126,7 @@ Phase 0 — repo skeleton — DONE 2026-08-29
       (game.dat + worldbuilder.exe + manifest; hashes preflight-verified).
 - [x] `tools/` + hooks copied and adapted (toolchain + ZH reference resolve
       through the submodule; `vendor/` and `reference/shims/` copied);
-      `docs/lessons.md` seeded with the pointer + no-incremental-link note.
+      no lessons.md by owner decision — war stories go in commit messages.
 
 Phase 1 — prove the loop — DONE 2026-08-29
 - [x] Flag calibration: 756 BFME 1-matched bodies appear VERBATIM in

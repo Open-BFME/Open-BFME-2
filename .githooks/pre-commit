@@ -17,6 +17,13 @@ fail() {
 # clones. Reflects the staged index, so a colliding add is caught before it lands.
 python3 tools/check_case_collisions.py || fail "case-only path collision (see above)"
 
+# Owner decision (2026-08-29): this repo keeps NO lessons.md — in Open-BFME-1 it
+# is a plague that keeps growing back. Codegen findings go in the commit message
+# of the body that proved them.
+if git diff --cached --name-only --diff-filter=ACR | grep -qiE '(^|/)lessons[^/]*\.md$'; then
+    fail "lessons.md is banned in this repo — put the finding in the commit message"
+fi
+
 # A script under tools/ is neither a Code/ source nor a ledger file, so nothing
 # else in this hook looks at it: one with a syntax error commits cleanly and only
 # fails when somebody next runs it. That has happened. One parse per staged tool

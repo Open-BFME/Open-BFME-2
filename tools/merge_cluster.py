@@ -28,11 +28,14 @@ byte-matches while being wrong, which is the one failure ./build.sh cannot see;
 writing the merged TU is the step between `--plan` and `--apply`.
 
 24 files carry bodies for more than one destination (`ini_parsers.cpp` for ten),
-so a cluster is not a set of files a merge may consume whole. `--apply` never
-deletes a donor still carrying a marker for a different destination -- it moves
-that donor's rows for THIS destination, strips only those markers and leaves the
-file in place. Deleting it would destroy another cluster's un-migrated work,
-which is the single way this tool could lose code.
+so a cluster is not a set of files a merge may consume whole. Selection is by
+ROW, never by file: a marker names a symbol, so the rows that move are the ones
+this donor owns whose symbol one of its markers for THIS destination names.
+Everything else stays, and a donor that still owns a row keeps its file -- whether
+what holds it back is a marker for another destination or a row no marker claims
+at all. Deleting such a donor would leave its remaining rows naming a path that no
+longer exists, which is the single way this tool could lose code. `--plan` prints
+the marked share against the rows owned so a partial donor is visible first.
 
 Usage:
   python3 tools/merge_cluster.py --list [--root DIR]
@@ -56,6 +59,7 @@ LEDGER_COLUMNS = ["name", "export_rva", "target_rva", "target_size", "source",
                   "status", "notes"]
 SOURCE_AT = LEDGER_COLUMNS.index("source")
 NAME_AT = LEDGER_COLUMNS.index("name")
+SIZE_AT = LEDGER_COLUMNS.index("target_size")
 SRC_EXT = (".cpp", ".c", ".h", ".inl")
 
 MARKER = re.compile(r"^\s*//\s*readable body of\s+(\S.*?)\s*:\s*(\S+)\s*$")
@@ -161,6 +165,31 @@ def ledger_index(root, wanted):
         if row[SOURCE_AT] in owned:
             owned[row[SOURCE_AT]].append(row[NAME_AT])
     return owned
+
+
+# An ILT thunk is 5 bytes of jmp. A donor whose every row is thunk-sized holds no
+# body at all -- folding it DELETES the destination's readable body and leaves a
+# forwarding stub. That is a net loss whenever the jump target is still an
+# unconverted dump, and the file count says the opposite, so say it here rather
+# than let --plan present it like an ordinary merge.
+THUNK_BYTES = 8
+
+
+def thunk_donors(root, wanted):
+    """Sources in `wanted` whose every ledger row is thunk-sized."""
+    sizes = {source: [] for source in wanted}
+    for number, payload, _term in records(ledger_path(root)):
+        if number == 1:
+            continue
+        row = ledger_io.fields(payload)
+        if not row or len(row) != len(LEDGER_COLUMNS):
+            continue
+        if row[SOURCE_AT] in sizes:
+            try:
+                sizes[row[SOURCE_AT]].append(int(row[SIZE_AT]))
+            except ValueError:
+                sizes[row[SOURCE_AT]].append(THUNK_BYTES + 1)
+    return {s for s, got in sizes.items() if got and max(got) <= THUNK_BYTES}
 
 
 def ledger_path(root):
@@ -301,9 +330,35 @@ def do_plan(root, dest, only):
     print(f"planning {len(chosen)} of them, {sum(lines)} lines:")
     sets = [set(declarations(read_text(root / rel))) for rel in chosen]
     common = set.intersection(*sets)
+    # Rows owned vs rows a marker actually sends here. These are usually equal;
+    # when they are not, --apply moves only the marked ones and keeps the donor,
+    # and seeing "2 of 20" BEFORE applying is what tells you the file is a
+    # partial donor rather than a whole one. Without it the only way to know was
+    # `grep -c ',<donor>,' reverse/functions.csv` by hand.
     for rel, own, count in zip(chosen, sets, lines):
-        print(f"  {rel}  ({count} lines, {len(owned[rel])} row(s), "
+        marked = [n for n in owned[rel] if claims(declared[rel], dest, n)]
+        share = (f"{len(marked)} of {len(owned[rel])} row(s) marked for {dest}"
+                 if len(marked) != len(owned[rel]) else f"{len(owned[rel])} row(s)")
+        print(f"  {rel}  ({count} lines, {share}, "
               f"{len(own - common)} unique declaration(s))")
+    partial = [(rel, [n for n in owned[rel] if claims(declared[rel], dest, n)])
+               for rel in chosen]
+    partial = [(rel, marked) for rel, marked in partial if len(marked) != len(owned[rel])]
+    if partial:
+        print(f"  {len(partial)} PARTIAL donor(s) — --apply moves only the marked rows "
+              f"and keeps the file:")
+        for rel, marked in partial:
+            for name in sorted(set(owned[rel]) - set(marked)):
+                print(f"      {rel} keeps {name}")
+    thunks = thunk_donors(root, set(chosen))
+    if thunks:
+        print(f"  {len(thunks)} THUNK-ONLY donor(s) — every row is <= {THUNK_BYTES} bytes, so the")
+        print(f"      donor holds no body. Folding one DELETES {dest}'s readable body and")
+        print(f"      leaves a forwarding stub. Decode the jump target first: if it is still")
+        print(f"      an unconverted dump, the destination is the only readable statement of")
+        print(f"      that function and the merge is a net loss the file count will not show.")
+        for rel in sorted(thunks):
+            print(f"      {rel}")
     print(f"  declarations common to ALL {len(chosen)} (free to hoist): {len(common)}")
     differing = sorted(set.union(*sets) - common)
     print(f"  declarations needing reconciliation: {len(differing)}")
@@ -377,14 +432,25 @@ def do_apply(root, dest, into, only):
     moving, keep_donor = {}, {}
     for rel in chosen:
         elsewhere = sorted({d for _s, d in declared[rel] if d != dest})
-        names = owned[rel] if not elsewhere else [
-            name for name in owned[rel] if claims(declared[rel], dest, name)]
+        # A marker names a SYMBOL, so the rows bound for `dest` are the rows this
+        # donor owns whose symbol one of its markers for `dest` names -- always,
+        # not only when the donor also serves another destination. Selecting by
+        # donor file alone moved every row a donor owned: 2 markers on
+        # SkirmishBattleHonorsLoyalGames.cpp repointed all 20 of its rows and
+        # deleted it, orphaning 18 bodies. The build caught it, but the tool
+        # promised this in its own docstring and did the opposite.
+        names = [name for name in owned[rel] if claims(declared[rel], dest, name)]
         if not names:
             fail(f"--only names {rel}, which owns no ledger row bound for {dest}",
                  "its marker and the ledger disagree; fix one before merging")
         moving[rel] = set(names)
-        if elsewhere:
-            keep_donor[rel] = elsewhere
+        # Rows no marker assigns here stay, and a donor still owning one keeps its
+        # file -- the same protection a donor bound for a second destination
+        # already had, at row granularity rather than file granularity. Deleting
+        # it would leave those rows naming a path that does not exist.
+        left = [name for name in owned[rel] if name not in moving[rel]]
+        if elsewhere or left:
+            keep_donor[rel] = (elsewhere, left)
     for rel in moving:
         if rel not in files:
             fail(f"row owner {rel} is not in the cluster for {dest}")
@@ -408,10 +474,14 @@ def do_apply(root, dest, into, only):
     print(f"  deleted {len(removed)} donor(s) with nothing left:")
     for rel in removed:
         print(f"      {rel}")
-    print(f"  kept {len(keep_donor)} donor(s) still holding another destination's body:")
-    for rel, elsewhere in sorted(keep_donor.items()):
-        print(f"      {rel} ({stripped[rel]} marker line(s) dropped, still bound for "
-              f"{', '.join(elsewhere)})")
+    print(f"  kept {len(keep_donor)} donor(s) that still own rows:")
+    for rel, (elsewhere, left) in sorted(keep_donor.items()):
+        why = []
+        if left:
+            why.append(f"{len(left)} row(s) no marker sends to {dest}")
+        if elsewhere:
+            why.append(f"still bound for {', '.join(elsewhere)}")
+        print(f"      {rel} ({stripped[rel]} marker line(s) dropped, {'; '.join(why)})")
     remaining = [rel for rel in files if rel not in removed]
     print(f"  cluster now: {len(remaining)} file(s) still carry a marker for {dest}")
     stage(root, [into_rel, LEDGER, *removed, *sorted(keep_donor)])

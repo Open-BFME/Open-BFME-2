@@ -84,7 +84,8 @@ def repo(tmp_path, sources, rows):
     """A tree merge_cluster can operate on: sources, a ledger, and a git index.
 
     `rows` are (name, source, terminator) so a test can choose the mix of line
-    endings the real ledger carries."""
+    endings the real ledger carries; an optional 4th element sets target_size,
+    which is what distinguishes a 5-byte ILT thunk from a real body."""
     for rel, text in sources.items():
         path = tmp_path / rel
         path.parent.mkdir(parents=True, exist_ok=True)
@@ -92,8 +93,10 @@ def repo(tmp_path, sources, rows):
     ledger = tmp_path / "reverse" / "functions.csv"
     ledger.parent.mkdir(parents=True, exist_ok=True)
     payload = (HEADER + "\r\n").encode()
-    for name, source, term in rows:
-        payload += f"{name},,0x000F0000,52,{source},matched,".encode() + term
+    for row in rows:
+        name, source, term = row[0], row[1], row[2]
+        size = row[3] if len(row) > 3 else 52
+        payload += f"{name},,0x000F0000,{size},{source},matched,".encode() + term
     ledger.write_bytes(payload)
     subprocess.run(["git", "init", "-q", str(tmp_path)], check=True,
                    capture_output=True)
@@ -280,6 +283,75 @@ def test_a_donor_holding_a_second_destinations_body_is_never_deleted(tmp_path, c
     assert sources_of(ledger) == [MERGED, shared]
 
 
+# -------------------------------------------- a donor that is only partly ours ---
+
+# The real shape, from Code/GameEngine/Source/Common/SkirmishBattleHonorsLoyalGames.cpp:
+# two markers naming one destination, twenty rows owned. Selecting rows by donor
+# FILE moved all twenty and deleted the file, leaving eighteen bodies whose ledger
+# rows named a path that no longer existed. The build caught it
+# ("symbol not found in object: ?builtNuke@SkirmishBattleHonors@@QBE_NXZ"), but the
+# tool's docstring had promised row granularity all along.
+MARKED = ["?loyalGames@SkirmishBattleHonors@@QBE_NXZ",
+          "?loyalGamesCount@SkirmishBattleHonors@@QBE_NXZ"]
+UNMARKED = [f"?builtNuke{n:02d}@SkirmishBattleHonors@@QBE_NXZ" for n in range(18)]
+
+
+def partial_donor(tmp_path):
+    donor = "Code/GameEngine/Source/Common/SkirmishBattleHonorsLoyalGames.cpp"
+    ledger = repo(tmp_path, {
+        donor: sibling(MARKED[0], DEST, extra_marker=(MARKED[1], DEST)),
+        MERGED: "// merged\n",
+    }, [(name, donor, b"\r\n") for name in MARKED + UNMARKED])
+    return donor, ledger
+
+
+def test_only_the_rows_a_marker_names_move_and_the_donor_survives(tmp_path, capsys):
+    donor, ledger = partial_donor(tmp_path)
+
+    assert run("--apply", DEST, "--into", MERGED, "--only", donor,
+               "--root", str(tmp_path)) == 0
+
+    moved = sources_of(ledger)
+    assert moved[:2] == [MERGED, MERGED], "the two marked rows go to the merged TU"
+    assert moved[2:] == [donor] * len(UNMARKED), \
+        "the eighteen rows no marker names must keep their source"
+    assert (tmp_path / donor).exists(), \
+        "deleting a donor that still owns rows orphans every one of them"
+    out = capsys.readouterr().out
+    assert "kept 1 donor(s)" in out
+    assert f"18 row(s) no marker sends to {DEST}" in out
+    assert f": {DEST}" not in (tmp_path / donor).read_text(), \
+        "the drained markers must go, or the cluster still advertises them"
+
+
+def test_a_donor_whose_every_row_is_marked_is_still_deleted(tmp_path, capsys):
+    """The fix must not make every donor immortal: one with nothing left goes."""
+    donor = "Code/GameEngine/Source/Common/RTS/TeamPrototype_hasAnyUnits.cpp"
+    symbol = "?hasAnyUnits@TeamPrototype@@QBE_NXZ"
+    ledger = repo(tmp_path, {donor: sibling(symbol, DEST), MERGED: "// merged\n"},
+                  [(symbol, donor, b"\r\n")])
+
+    assert run("--apply", DEST, "--into", MERGED, "--only", donor,
+               "--root", str(tmp_path)) == 0
+
+    assert sources_of(ledger) == [MERGED]
+    assert not (tmp_path / donor).exists(), "a donor owning nothing must be deleted"
+    assert "deleted 1 donor(s)" in capsys.readouterr().out
+
+
+def test_plan_shows_the_marked_share_before_anyone_applies(tmp_path, capsys):
+    """The count that would have prevented the incident, visible without a
+    hand-run `grep -c ',<donor>,' reverse/functions.csv`."""
+    donor, _ledger = partial_donor(tmp_path)
+
+    assert run("--plan", DEST, "--only", donor, "--root", str(tmp_path)) == 0
+
+    out = capsys.readouterr().out
+    assert f"2 of 20 row(s) marked for {DEST}" in out
+    assert "1 PARTIAL donor(s)" in out
+    assert f"{donor} keeps {UNMARKED[0]}" in out
+
+
 # ------------------------------------------------------------------ green ---
 
 def test_only_moves_and_deletes_exactly_the_named_files(tmp_path, capsys):
@@ -327,3 +399,26 @@ def test_the_merged_file_may_not_be_its_own_donor(tmp_path, capsys):
     assert exc.value.code == 1
     assert "its own donor" in capsys.readouterr().err
     assert ledger.read_bytes() == before
+
+
+def test_plan_flags_a_thunk_only_donor_whose_fold_would_delete_the_real_body(
+        tmp_path, capsys):
+    """A donor whose every row is ILT-sized holds no body. Folding it deletes the
+    destination's readable body and leaves a stub -- a net loss the file count
+    reports as progress, so --plan has to say so before anyone applies."""
+    thunk = "Code/GameEngine/Source/Common/RTS/BridgeIsPointOnBridgeThunk.cpp"
+    real = "Code/GameEngine/Source/Common/RTS/TeamPrototype_hasAnyUnits.cpp"
+    repo(tmp_path, {
+        thunk: sibling("?isPointOnBridge@Bridge@@QBE_NPBUCoord3D@@@Z", DEST),
+        real: sibling("?hasAnyUnits@TeamPrototype@@QBE_NXZ", DEST),
+        MERGED: "// merged\n",
+    }, [("?isPointOnBridge@Bridge@@QBE_NPBUCoord3D@@@Z", thunk, b"\r\n", 5),
+        ("?hasAnyUnits@TeamPrototype@@QBE_NXZ", real, b"\r\n", 52)])
+
+    run("--plan", DEST, "--root", str(tmp_path))
+    plan = capsys.readouterr().out
+
+    assert "THUNK-ONLY donor(s)" in plan
+    assert thunk in plan.split("THUNK-ONLY")[1]
+    # the real body must NOT be flagged, or the warning is noise
+    assert real not in plan.split("THUNK-ONLY")[1].split("declarations common")[0]

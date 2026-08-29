@@ -2,26 +2,26 @@
 
 Goal: Source code that rebuilds BFME 2's engine binary (`game.dat`) byte-for-byte, and game modernization improvements that you've only seen in your dreams.
 
-Sister project of [Open-BFME-1](https://github.com/Open-BFME/Open-BFME-1) — same engine family, same MSVC 7.1 toolchain, same byte-matching workflow. BFME 1's converted source is this repo's nearest-ancestor reference and rides in as a submodule.
+[Join our Discord to participate!](https://discord.gg/wCvA2XqPUT)
 
 ## What?
 
 * If you take a part of the BFME 2 binary, recreate the exact source code that would make that part of the binary, then compile the source code and inject it into the binary, you get the same binary
 * Doing this piece by piece will eventually give you a full, open source recreation of BFME 2, and enable some (insane) mods
-* The target is `game.dat` — the real engine PE. `lotrbfme2.exe` is only a launcher stub.
+* The target is `game.dat` — the real engine PE; `lotrbfme2.exe` is only a launcher stub
+* Sister project of [Open-BFME-1](https://github.com/Open-BFME/Open-BFME-1): same engine family, same MSVC 7.1 toolchain, same workflow — and BFME 1's converted source rides in as a submodule reference
 
 ## Status
 
-**0.59% of `game.dat`'s code rebuilds byte-exact from clean C++** — 146
-functions on day one: all of zlib 1.1.4, the EAC codecs, LZHCompress,
-CompressionManager and md5, every one byte-verified by the full gate. Flag
-calibration is proven (756 Open-BFME-1 bodies transfer verbatim), so the
-reference sweeps are wide open.
+**0.59% of the game rebuilds from what we hold** — 146 byte-verified functions on
+day one (zlib 1.1.4, EAC codecs, LZHCompress, md5). Flag calibration is proven:
+756 Open-BFME-1 bodies transfer to `game.dat` verbatim, so the reference sweeps
+are wide open.
 
 ## Roadmap
 
-* [ ] BFME 2 Source Code
-* [ ] 60/120 FPS (logic/render decoupling — the INI cap unlock just speeds up the game)
+* [ ] BFME 2 Source Code (0.59%)
+* [ ] 60/120 FPS
 * [ ] Memory fix
 * [ ] Better crash logs
 * [ ] Multi CPU
@@ -29,9 +29,7 @@ reference sweeps are wide open.
 * [ ] Bigger maps
 * [ ] RotWK support
 
-Off-host delay is already fixed by the community (BFME 2 patch 1.09v3, RotWK 2.02 v9) and is deliberately not on this roadmap.
-
-ping `redbracket` on Discord if there's something else you want to change this roadmap
+Off-host delay is already fixed by the community (BFME 2 patch 1.09v3, RotWK 2.02 v9), so it is deliberately not on this roadmap.
 
 ## How You Can Help
 
@@ -50,7 +48,8 @@ Each commit in the PR is one verified function, and I will be able to merge it.
 ## Build
 
 The baseline executables are committed directly; the MSVC 7.1 toolchain and the
-Zero Hour reference source live in the Open-BFME-1 submodule. A full setup is:
+Zero Hour reference source live in the Open-BFME-1 submodule, so clone with
+submodules:
 
 ```bash
 git clone --recurse-submodules https://github.com/Open-BFME/Open-BFME-2.git
