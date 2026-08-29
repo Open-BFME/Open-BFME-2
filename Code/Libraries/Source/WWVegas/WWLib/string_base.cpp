@@ -12,6 +12,12 @@ int StringBase<char>::compare(const char *str) const
 }
 
 template <>
+int StringBase<wchar_t>::compare(const wchar_t *str) const
+{
+    return compare(str, str ? (int)wcslen(str) : 0);
+}
+
+template <>
 int StringBase<char>::compare(const StringBase<char> &str) const
 {
     const int len = str.m_data ? str.m_data->length : 0;
