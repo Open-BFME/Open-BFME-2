@@ -35,9 +35,17 @@ public:
     float z;
 };
 
+class Coord2D
+{
+public:
+    float x;
+    float y;
+};
+
 struct Region2D
 {
     float width() const;
+    bool isInside(const Coord2D &point) const;
 
     float x_min;
     float y_min;
@@ -73,6 +81,14 @@ bool IRegion2D::operator==(const IRegion2D &that) const
 float Region2D::width() const
 {
     return x_max - x_min;
+}
+
+bool Region2D::isInside(const Coord2D &point) const
+{
+    return point.x > x_min &&
+        point.x < x_max &&
+        point.y > y_min &&
+        point.y < y_max;
 }
 
 bool IRegion2D::operator!=(const IRegion2D &that) const
