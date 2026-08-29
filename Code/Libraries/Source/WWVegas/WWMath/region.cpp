@@ -27,12 +27,21 @@ struct IRegion3D
     int z_max;
 };
 
+class Coord3D
+{
+public:
+    float x;
+    float y;
+    float z;
+};
+
 struct Region3D
 {
     float width() const;
     float height() const;
     float depth() const;
     void zero();
+    bool isInRegionNoZ(const Coord3D *point) const;
 
     float x_min;
     float y_min;
@@ -103,4 +112,12 @@ void Region3D::zero()
     x_max = 0.0f;
     y_max = 0.0f;
     z_max = 0.0f;
+}
+
+bool Region3D::isInRegionNoZ(const Coord3D *point) const
+{
+    return x_min < point->x &&
+        point->x < x_max &&
+        y_min < point->y &&
+        point->y < y_max;
 }
