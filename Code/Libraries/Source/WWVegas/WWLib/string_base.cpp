@@ -29,6 +29,14 @@ void StringBase<char>::concat(const StringBase<char> &str)
     concat(data, len);
 }
 
+template <>
+void StringBase<wchar_t>::concat(const StringBase<wchar_t> &str)
+{
+    const int len = str.m_data ? str.m_data->length : 0;
+    const wchar_t *data = str.m_data ? &str.m_data->data[0] : L"";
+    concat(data, len);
+}
+
 template <typename T>
 void StringBase<T>::concat(T c)
 {
