@@ -29,3 +29,8 @@ bool operator==(const RGBColor &left, const RGBColor &right)
         left.green == right.green &&
         left.blue == right.blue;
 }
+
+bool operator!=(const RGBColor &left, const RGBColor &right)
+{
+    return !(left == right);
+}

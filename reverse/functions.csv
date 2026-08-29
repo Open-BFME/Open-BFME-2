@@ -305,7 +305,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_00004d0b@@YAXXZ,,0x00004D0B,25,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=operator*=
 ?d_00004d24@@YAXXZ,,0x00004D24,25,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=operator/=
 ?d_00004d3d@@YAXXZ,,0x00004D3D,14,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=MoveBy
-?d_00004f65@@YAXXZ,,0x00004F65,21,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=operator!=
 ?d_00004f7a@@YAXXZ,,0x00004F7A,78,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=operator<<
 ?d_00004fc8@@YAXXZ,,0x00004FC8,78,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=operator<<
 ?d_0000505c@@YAXXZ,,0x0000505C,47,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=operator<<
@@ -645,3 +644,4 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?getAsInt@RGBColor@@QBEHXZ,0x00004EA7,0x00004EA7,56,Code/Libraries/Source/WWVegas/WWMath/color.cpp,matched,Open-BFME5 clean C++; Open-BFME-1 RGBColor getAsInt with BFME2 O1 codegen
 ?setFromInt@RGBColor@@QAEXH@Z,0x00004EDF,0x00004EDF,76,Code/Libraries/Source/WWVegas/WWMath/color.cpp,matched,Open-BFME5 clean C++; Open-BFME-1 RGBColor setFromInt with BFME2 SSE2 codegen
 ??8@YA_NABURGBColor@@0@Z,0x00004F2B,0x00004F2B,58,Code/Libraries/Source/WWVegas/WWMath/color.cpp,matched,Open-BFME5 clean C++; Open-BFME-1 RGBColor equality source
+??9@YA_NABURGBColor@@0@Z,0x00004F65,0x00004F65,21,Code/Libraries/Source/WWVegas/WWMath/color.cpp,matched,Open-BFME5 clean C++; Open-BFME-1 RGBColor inequality source
