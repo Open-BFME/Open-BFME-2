@@ -33,6 +33,7 @@ public:
     Coord2D(int x, int y);
     bool IsExactlyEqualTo(const Coord2D &that) const;
     float length() const;
+    void normalize();
     Coord2D &Negate();
     Coord2D &operator/=(float divisor);
     Coord2D &Rotate(float sine, float cosine);
@@ -61,6 +62,15 @@ bool Coord2D::IsExactlyEqualTo(const Coord2D &that) const
 float Coord2D::length() const
 {
     return (float)sqrt(x * x + y * y);
+}
+
+void Coord2D::normalize()
+{
+    float len = length();
+    if (len != 0.0f) {
+        x /= len;
+        y /= len;
+    }
 }
 
 Coord2D &Coord2D::Negate()

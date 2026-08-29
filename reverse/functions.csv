@@ -230,7 +230,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_00003318@@YAXXZ,,0x00003318,122,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00403318
 ?d_000034fa@@YAXXZ,,0x000034FA,42,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=areApproxEqual
 ?d_000036d1@@YAXXZ,,0x000036D1,49,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=scale
-?d_0000378a@@YAXXZ,,0x0000378A,71,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=normalize
 ?d_00003916@@YAXXZ,,0x00003916,101,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Rotate
 ?d_000039bb@@YAXXZ,,0x000039BB,80,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Rotate
 ?d_00003ace@@YAXXZ,,0x00003ACE,372,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=GetLengthEstimate
@@ -645,3 +644,4 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?Rotate@Coord2D@@QAEAAV1@MM@Z,0x0000397B,0x0000397B,64,Code/Libraries/Source/WWVegas/WWMath/coord2d.cpp,matched,
 ?Rotate@Coord2D@@QAEAAV1@AAV1@MM@Z,0x00003A0B,0x00003A0B,67,Code/Libraries/Source/WWVegas/WWMath/coord2d.cpp,matched,
 ??6@YAAAVDebug@@AAV0@ABVCoord2D@@@Z,0x00004FC8,0x00004FC8,78,Code/Libraries/Source/WWVegas/WWMath/coord2d.cpp,matched,
+?normalize@Coord2D@@QAEXXZ,0x0000378A,0x0000378A,71,Code/Libraries/Source/WWVegas/WWMath/coord2d.cpp,matched,
