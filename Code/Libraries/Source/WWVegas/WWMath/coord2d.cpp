@@ -6,6 +6,7 @@ public:
     Coord2D(int x, int y);
     bool IsExactlyEqualTo(const Coord2D &that) const;
     Coord2D &Negate();
+    Coord2D &operator/=(float divisor);
     Coord2D &SetMaxVect();
     Coord2D &SetMinVect();
     Coord2D &SetXAxis();
@@ -31,6 +32,14 @@ Coord2D &Coord2D::Negate()
 {
     x = -x;
     y = -y;
+    return *this;
+}
+
+Coord2D &Coord2D::operator/=(float divisor)
+{
+    float scale = 1.0f / divisor;
+    x *= scale;
+    y *= scale;
     return *this;
 }
 
