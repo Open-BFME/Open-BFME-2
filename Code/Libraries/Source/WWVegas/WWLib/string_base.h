@@ -5,6 +5,7 @@ class StringBase
 {
 public:
     int compare(const StringBase<T> &str) const;
+    int compare(const T *str) const;
     int compare(const T *str, int len) const;
     int compareNoCase(const StringBase<T> &str) const;
     int compareNoCase(const T *str, int len) const;

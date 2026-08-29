@@ -6,6 +6,12 @@
 #include <string.h>
 
 template <>
+int StringBase<char>::compare(const char *str) const
+{
+    return compare(str, str ? (int)strlen(str) : 0);
+}
+
+template <>
 int StringBase<char>::compare(const StringBase<char> &str) const
 {
     const int len = str.m_data ? str.m_data->length : 0;

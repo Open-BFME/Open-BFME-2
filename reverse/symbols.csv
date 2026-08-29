@@ -16,3 +16,4 @@ __ftol2,0x00629228,MSVC float-to-int helper byte-identical to pinned BFME1 CRT b
 ?compareNoCase@?$StringBase@D@@QBEHPBDH@Z,0x00006772,BFME2 export and retail call target for StringBase<char>::compareNoCase(const char *, int)
 ?compare@?$StringBase@G@@QBEHPBGH@Z,0x000067B1,BFME2 export and retail call target for StringBase<wchar_t>::compare(const wchar_t *, int)
 ?compareNoCase@?$StringBase@G@@QBEHPBGH@Z,0x000067F0,BFME2 export and retail call target for StringBase<wchar_t>::compareNoCase(const wchar_t *, int)
+_strlen,0x00629170,BFME2 retail strlen thunk and call target for StringBase<char>::compare(const char *)
