@@ -1,0 +1,4 @@
+[submodule "reference/open-bfme-1"]
+	path = reference/open-bfme-1
+	url = https://github.com/Open-BFME/Open-BFME-1.git
+	shallow = true

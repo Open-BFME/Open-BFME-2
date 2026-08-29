@@ -1,0 +1,14 @@
+# Byte-exact payloads the build verifies by hash; EOL normalization would
+# silently break byte-matching. (The MSVC toolchain lives in the Open-BFME-1
+# submodule, which carries its own attributes.)
+baselines/** -text
+
+# Append-mostly ledgers written concurrently by many agents. The built-in union
+# merge driver combines both sides' added lines instead of emitting conflict
+# markers, so parallel row appends never conflict. This repo's ledgers are
+# LF-terminated from birth — keep them that way (BFME 1's mixed terminators
+# were pure legacy pain; `check_csv` rejects a mixed file).
+reverse/functions.csv merge=union
+reverse/symbols.csv merge=union
+reverse/deleted_rows.csv merge=union
+reverse/re_attempts.log merge=union

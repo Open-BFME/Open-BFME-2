@@ -1,0 +1,110 @@
+#!/usr/bin/env bash
+# Push gate: static ledger integrity of the outgoing commit + byte-verify of
+# every source whose ledger claims changed vs the remote. Bounded by push size
+# — never the full gate.
+set -euo pipefail
+
+ROOT="$(git rev-parse --show-toplevel)"
+cd "$ROOT"
+
+fail() {
+    echo "PRE-PUSH FAILED: $*" >&2
+    exit 1
+}
+
+refs="$(cat || true)"
+
+ZERO=0000000000000000000000000000000000000000
+
+while read -r _local_ref local_sha _remote_ref remote_sha; do
+    [ -z "${local_sha:-}" ] && continue
+    [ "$local_sha" = "$ZERO" ] && continue   # deleting a remote ref
+
+    python3 tools/check_csv.py --ref "$local_sha" || fail "ledger integrity at $local_sha (see above)"
+
+    if [ "$remote_sha" != "$ZERO" ] && git cat-file -e "$remote_sha" 2>/dev/null; then
+        base="$remote_sha"
+    else
+        base="$(git merge-base "$local_sha" origin/master 2>/dev/null || true)"
+    fi
+    if [ -z "$base" ]; then
+        echo "pre-push: no known remote base; static ledger check only" >&2
+        continue
+    fi
+
+    # Direction gate over the OUTGOING range, same call verify_pr.sh makes on a
+    # PR. pre-commit runs it too, but --no-verify and clones that never ran
+    # tools/setup_hooks.sh skip that entirely, and the byte-verify below cannot
+    # see a backward conversion: an __emit spray of retail bytes byte-matches BY
+    # CONSTRUCTION. 89 lift commits reached origin through exactly this gap.
+    # Runs before the build because it costs a second and the build costs minutes.
+    python3 tools/conversion_gate.py "$base" "$local_sha" || fail "conversion direction (see above)"
+
+    # Identity, for the same reason conversion_gate runs here: byte-verification
+    # cannot see it. reverse/symbols.csv is an ADDITIVE candidate list, so a pin
+    # naming the WRONG function still reproduces its caller's bytes and every
+    # scoped build below stays green. This guard only ever ran in the full gate,
+    # which no hook path reaches — pre-commit runs it for header/shim changes
+    # only, and this hook is bounded by push size and never full — so a wrong
+    # pin could reach origin without one check ever looking at it. 1.6s.
+    python3 tools/pin_consistency.py --check || fail "pin consistency (see above)"
+    python3 tools/pin_consistency.py --assert-shrink-only "$base" --at "$local_sha" \
+        || fail "pin_consistency_baseline.csv grew across the outgoing range (see above)"
+
+    mapfile -t delta < <(python3 tools/delta_sources.py --range "$base" "$local_sha")
+
+    # Sources the range EDITS while leaving their ledger rows alone are absent
+    # from that delta, so nothing byte-verifies them — yet one such edit can
+    # break every other row in the same translation unit. Disabling a body
+    # (#if 0, or just deleting it) removes the inlines and template
+    # instantiations only that body referenced, and sibling rows stop resolving
+    # with "symbol not found in object": one assignDefaultGadgetLook orphaned 67
+    # rows in GameWindowManager.cpp. pre-commit already byte-verifies every
+    # staged Code/*.cpp for exactly this reason; --no-verify skips pre-commit
+    # entirely, so the push gate has to repeat it.
+    mapfile -t edited < <(python3 - "$base" "$local_sha" <<'PY'
+import csv, io, subprocess, sys
+base, rev = sys.argv[1], sys.argv[2]
+
+
+def git(*argv):
+    return subprocess.run(("git",) + argv, capture_output=True, text=True,
+                          check=True).stdout
+
+
+claimed = {r["source"] for r in csv.DictReader(io.StringIO(
+    git("show", "%s:reverse/functions.csv" % rev))) if r.get("status") == "matched"}
+touched = git("diff", "--name-only", "--diff-filter=ACMRT", base, rev,
+              "--", "Code/*.cpp", "Code/*.c").splitlines()
+sys.stdout.reconfigure(newline="\n")
+for path in sorted(set(touched) & claimed):
+    print(path)
+PY
+    )
+
+    verify=()
+    declare -A seen=()
+    for s in "${delta[@]}" "${edited[@]}"; do
+        [ -z "$s" ] && continue
+        [ -n "${seen[$s]:-}" ] && continue
+        seen["$s"]=1
+        [ -f "$s" ] || fail "outgoing rows reference missing source $s"
+        git diff --quiet HEAD -- "$s" || fail "$s differs from HEAD; commit or stash before pushing"
+        verify+=("$s")
+    done
+    # Verify in chunks: a first push of a branch whose remote ref does not exist
+    # yet falls back to merge-base, which on a fork rebased onto a much newer
+    # upstream can list thousands of sources. Windows caps the argument list, so
+    # one giant ./build.sh call dies with "Argument list too long" and the push
+    # fails for an environment reason rather than a byte mismatch.
+    if [ "${#verify[@]}" -ne 0 ]; then
+        chunk=200
+        i=0
+        while [ "$i" -lt "${#verify[@]}" ]; do
+            BUILD_POOL="${BUILD_POOL:-4}" ./build.sh "${verify[@]:$i:$chunk}" \
+                || fail "byte-verify of outgoing sources (see above)"
+            i=$((i + chunk))
+        done
+    fi
+    echo "PRE-PUSH OK (${#verify[@]} outgoing source(s) byte-verified)"
+done <<< "$refs"
