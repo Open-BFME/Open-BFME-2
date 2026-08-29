@@ -9,11 +9,17 @@ typedef HDC__ *HDC;
 
 typedef void *HGDIOBJ;
 typedef long LONG;
+typedef unsigned int UINT;
+
+struct tagRGBQUAD;
+typedef tagRGBQUAD RGBQUAD;
 
 extern "C" __declspec(dllimport) LONG __stdcall InterlockedExchange(volatile LONG *target, LONG value);
 extern "C" __declspec(dllimport) HDC __stdcall CreateCompatibleDC(HDC dc);
 extern "C" __declspec(dllimport) int __stdcall DeleteDC(HDC dc);
 extern "C" __declspec(dllimport) HGDIOBJ __stdcall SelectObject(HDC dc, HGDIOBJ object);
+extern "C" __declspec(dllimport) UINT __stdcall SetDIBColorTable(
+    HDC dc, UINT firstColor, UINT colors, const RGBQUAD *colorTable);
 
 namespace ATL
 {
@@ -37,6 +43,7 @@ public:
     HBITMAP Detach() throw();
     HDC GetDC() const throw();
     void ReleaseDC() const throw();
+    void SetColorTable(UINT firstColor, UINT colors, const RGBQUAD *colorTable) throw();
 
 private:
     HBITMAP m_hBitmap;
@@ -108,6 +115,13 @@ void CImage::ReleaseDC() const throw()
         s_cache.ReleaseDC(m_hDC);
         m_hDC = 0;
     }
+}
+
+void CImage::SetColorTable(UINT firstColor, UINT colors, const RGBQUAD *colorTable) throw()
+{
+    GetDC();
+    SetDIBColorTable(m_hDC, firstColor, colors, colorTable);
+    ReleaseDC();
 }
 
 HBITMAP CImage::Detach() throw()
