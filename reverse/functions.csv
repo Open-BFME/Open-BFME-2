@@ -296,7 +296,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_000047da@@YAXXZ,,0x000047DA,918,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Multiply
 ?d_00004d0b@@YAXXZ,,0x00004D0B,25,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=operator*=
 ?d_00004d24@@YAXXZ,,0x00004D24,25,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=operator/=
-?d_00004d3d@@YAXXZ,,0x00004D3D,14,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=MoveBy
 ?d_00004f7a@@YAXXZ,,0x00004F7A,78,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=operator<<
 ?d_00004fc8@@YAXXZ,,0x00004FC8,78,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=operator<<
 ?d_0000505c@@YAXXZ,,0x0000505C,47,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=operator<<
@@ -645,3 +644,4 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?GetZVector@Matrix4D@@QBEAAVCoord3D@@AAV2@@Z,0x00004BEE,0x00004BEE,24,Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp,matched,
 ??YICoord2D@@QAEAAU0@ABUICoord2DBase@@@Z,0x00004CE5,0x00004CE5,19,Code/Libraries/Source/WWVegas/WWMath/icoord.cpp,matched,
 ??ZICoord2D@@QAEAAU0@ABUICoord2DBase@@@Z,0x00004CF8,0x00004CF8,19,Code/Libraries/Source/WWVegas/WWMath/icoord.cpp,matched,
+?MoveBy@ICoord2D@@QAEAAU1@H@Z,0x00004D3D,0x00004D3D,14,Code/Libraries/Source/WWVegas/WWMath/icoord.cpp,matched,
