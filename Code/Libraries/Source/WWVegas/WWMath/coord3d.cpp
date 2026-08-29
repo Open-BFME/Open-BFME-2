@@ -55,6 +55,7 @@ public:
     Coord3D &Sub(const Coord3DBase &left, const Coord3DBase &right);
     Coord3D &Add2D(const Coord3DBase &left, const Coord3DBase &right);
     Coord3D &Sub2D(const Coord3DBase &left, const Coord3DBase &right);
+    Coord3D &Scale(float scale);
     Coord3D &Scale(const Coord3DBase &that, float scale);
     Coord3D &Scale2D(float scale);
     Coord3D &Scale2D(const Coord3DBase &that, float scale);
@@ -169,6 +170,14 @@ Coord3D &Coord3D::Sub2D(const Coord3DBase &left, const Coord3DBase &right)
 {
     x = left.x - right.x;
     y = left.y - right.y;
+    return *this;
+}
+
+Coord3D &Coord3D::Scale(float scale)
+{
+    x *= scale;
+    y *= scale;
+    z *= scale;
     return *this;
 }
 
