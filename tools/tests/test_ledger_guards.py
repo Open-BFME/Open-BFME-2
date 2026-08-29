@@ -119,11 +119,31 @@ def test_check_csv_allows_rows_that_are_not_tombstoned(tmp_path, monkeypatch):
     assert not any("come back" in p for p in problems), problems
 
 
-def test_shipped_tombstone_file_parses():
-    """The real reverse/deleted_rows.csv must load, or the guard is silently off."""
+def test_shipped_tombstone_file_parses_even_when_bootstrap_is_empty():
+    """A fresh BFME2 ledger has no tombstones yet, but must still parse."""
     entries = check_csv.tombstones()
-    assert entries, "reverse/deleted_rows.csv produced no entries"
+    assert isinstance(entries, dict)
     assert all(isinstance(rva, int) and reason for (_, rva), reason in entries.items()), entries
+
+
+def test_check_functions_uses_the_gated_tombstone_snapshot(tmp_path, monkeypatch):
+    """--staged/--ref must not consult a different working-tree deletion state."""
+    monkeypatch.setattr(check_csv, "DELETED", tmp_path / "deleted_rows.csv")
+    check_csv.DELETED.write_bytes(b"name,target_rva,reason\n")
+    name = "?gone@@YAXXZ"
+    src = "Code/GameEngine/gone.cpp"
+    functions_raw = (
+        HEADER + "\n" + f"{name},,0x00401000,8,{src},matched,\n"
+    ).encode()
+    gated_deleted = (
+        "name,target_rva,reason\n" + f"{name},0x00401000,staged deletion\n"
+    ).encode()
+
+    problems = []
+    check_csv.check_functions(functions_raw, problems, {src}, gated_deleted)
+
+    assert any("come back" in problem and "staged deletion" in problem
+               for problem in problems), problems
 
 
 # --- banked near-miss attempts (reverse/attempts/) -------------------------

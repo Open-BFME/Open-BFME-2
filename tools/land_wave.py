@@ -27,9 +27,9 @@ Per attempt the transaction is exactly gen_small.land_batch's:
                            the exact range may be superseded, and dumpness is
                            that NOTE, never a directory
   retract_dump_rows        drops each superseded dump and tombstones it
-  binary append            CRLF rows, symbols.csv's own terminator for pins
+  binary append            canonical LF rows and pins
   git add                  a row's source must be in git or check_csv rejects it
-  ./build.sh <sources> && tools/check_csv.py
+  platform build gate <sources> && tools/check_csv.py
   on ANY failure from retract_dump_rows onward — a gate verdict, a lost
   .git/index.lock under `git add`, a KeyboardInterrupt — all three ledgers are
   restored byte for byte before the error leaves this module. The guard has to
@@ -220,12 +220,7 @@ Attempt = collections.namedtuple("Attempt", "ok appended already_landed retracte
 
 def snapshot():
     functions_raw = B.FUNCTIONS.read_bytes()
-    if b"\r\n" not in functions_raw[:200]:
-        raise SystemExit("land_wave: functions.csv has lost its CRLF line endings — "
-                         "restore it from git before landing anything")
-    if not functions_raw.endswith(b"\n"):
-        raise SystemExit("land_wave: functions.csv does not end with a newline "
-                         "(truncated last row?) — repair it before landing anything")
+    G.line_terminator(functions_raw, "functions.csv")
     return functions_raw, B.SYMBOLS.read_bytes(), G.DELETED.read_bytes()
 
 
@@ -333,17 +328,11 @@ def attempt(rows, pins):
         if to_retract:
             G.retract_dump_rows(functions_raw, to_retract)
         with B.FUNCTIONS.open("ab") as handle:
-            handle.write(b"".join(row.encode("utf-8") + b"\r\n" for row in to_append))
+            handle.write(b"".join(row.encode("utf-8") + b"\n" for row in to_append))
         if new_pins:
-            # Asked for HERE, not at the top of the transaction: line_terminator
-            # refuses a symbols.csv that mixes CRLF and LF, and the shared ledger
-            # does mix them — agents append pins with whichever their tool wrote.
-            # A wave carrying no pins never writes that file, so demanding the
-            # file be uniform before it could matter blocked every pinless wave
-            # on damage none of them would have touched. Repairing it is not the
-            # alternative: symbols.csv is merge=union, so rewriting a line that
-            # another clone still holds in the old spelling gives the next rebase
-            # BOTH spellings of the same pin.
+            # Asked for HERE, not at the top of the transaction: a pinless wave
+            # does not write symbols.csv.  A wave carrying pins must require the
+            # canonical LF spelling before the first pin is appended.
             symbols_eol = G.line_terminator(symbols_raw, "symbols.csv")
             with B.SYMBOLS.open("ab") as handle:
                 handle.write(b"".join(pin.encode("utf-8") + symbols_eol for pin in new_pins))
@@ -351,8 +340,13 @@ def attempt(rows, pins):
         print(f"land_wave: appended {len(to_append)} row(s) and {len(new_pins)} pin(s) over "
               f"{len(selectors)} source(s) ({landed_count} already landed, {len(to_retract)} "
               "dump row(s) superseded)")
-        code, output = run_streamed([str(ROOT / "build.sh"), *selectors],
-                                    "./build.sh " + " ".join(selectors))
+        if sys.platform == "win32":
+            build_command = [sys.executable, str(ROOT / "tools" / "build.py"), *selectors]
+            build_label = "python3 tools/build.py " + " ".join(selectors)
+        else:
+            build_command = [str(ROOT / "build.sh"), *selectors]
+            build_label = "./build.sh " + " ".join(selectors)
+        code, output = run_streamed(build_command, build_label)
         if code == 0:
             code, check_output = run_streamed(
                 [sys.executable, str(ROOT / "tools" / "check_csv.py")],

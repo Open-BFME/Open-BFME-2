@@ -30,15 +30,13 @@ import ledger_io  # noqa: E402  (after the path insert that makes it importable)
 
 ROOT = Path(__file__).resolve().parents[1]
 FIELDS = ["name", "export_rva", "target_rva", "target_size", "source", "status", "notes"]
+CANONICAL_EOL = b"\n"
 
 
 def dedup_functions(path):
-    # Each row is carried as the bytes it arrived as, terminator included, and a
-    # survivor is re-emitted verbatim. Rebuilding rows through csv.DictWriter
-    # rewrote all three of functions.csv's historical terminators as \r\n --
-    # 95,184 lines on the live ledger, for rows that already exist byte for byte
-    # on every other branch, which is 95,184 fresh lines to a union merge. It
-    # collapsed nothing at all on that run (157,958 -> 157,958).
+    # Open-BFME-2 started with LF-only ledgers. Canonicalize every surviving row
+    # while this file is still small, so a mixed terminator cannot become a
+    # second union-merge identity for the same claim.
     raw = path.read_bytes()
     header, *records = ledger_io.split_records(raw)
     rows = []
@@ -49,7 +47,7 @@ def dedup_functions(path):
         row = {field: values[i] if i < len(values) else "" for i, field in enumerate(FIELDS)}
         if row["name"] == "name" and row["target_rva"] == "target_rva":
             continue    # a header line a union merge pushed into the body
-        row["_record"] = payload + term
+        row["_payload"] = payload
         rows.append(row)
 
     def rank(row):
@@ -80,8 +78,14 @@ def dedup_functions(path):
               "the losing row, then re-run.", file=sys.stderr)
         raise SystemExit(1)
 
-    ordered = sorted(best.values(), key=lambda r: r["name"])
-    out = header[0] + header[1] + b"".join(row["_record"] for row in ordered)
+    # A terminator-only repair must not move every row: union merge treats a
+    # moved line as delete+add and an older branch can reintroduce the original.
+    # Preserve live order when there is nothing to deduplicate; retain the
+    # established deterministic sort only for a real duplicate collapse.
+    ordered = (rows if len(rows) == len(best)
+               else sorted(best.values(), key=lambda r: r["name"]))
+    out = header[0] + CANONICAL_EOL + b"".join(
+        row["_payload"] + CANONICAL_EOL for row in ordered)
     # Sorting is what makes two agents merging differently converge on one file,
     # but it also moves every row appended since the last run. Writing only on a
     # real change keeps `dedup_csv.py` -- the fix every check_csv message names --
@@ -95,17 +99,13 @@ def dedup_symbols(path):
     if not path.exists():
         return 0, 0
     raw = path.read_bytes()
-    # This rewrites every line, so it decides the file's terminator -- and it used
-    # to decide LF unconditionally, which flipped all 70,871 CRLF pins at once and
-    # handed the union merge driver a brand-new line for each. Keep what the file
-    # already uses; being the tool that rewrites everything also makes this the
-    # right place to repair a merged-in stray, out loud.
+    # This rewrites every line, so it also restores BFME2's canonical LF.
     census = ledger_io.terminator_census(raw)
-    eol = max(census, key=lambda term: len(census[term]), default=b"\r\n").decode("latin1")
+    eol = CANONICAL_EOL.decode("ascii")
     for term, lines in census.items():
-        if term != eol.encode("latin1"):
-            print(f"symbols.csv:   {len(lines)} line(s) rewritten to the file's own "
-                  f"terminator (first line {lines[0]})")
+        if term != b"\n":
+            print(f"symbols.csv:   {len(lines)} line(s) rewritten to LF "
+                  f"(first line {lines[0]})")
     lines = raw.decode("utf-8").splitlines()
     header, body = lines[0], lines[1:]
     # Key on (name,address): union merges can land the same pin twice with

@@ -1,16 +1,8 @@
 """Terminator-preserving ledger rewrite. The ONLY safe way to drop/edit rows.
 
-reverse/functions.csv is not uniformly CRLF: at fa05aaa4b it holds 93,713 rows
-ending \r\r\n, 11,140 ending \r\n and 309 ending with a bare \n. Every rewrite
-that has split on "\r\n" or used str.splitlines() has silently dropped or
-duplicated rows (twice this session):
-
-    text.split("\r\n")   -> 104,854 pieces  (loses 306 rows)
-    text.splitlines()    -> 198,875 pieces  (invents 93,713 rows)
-    csv.reader(StringIO) -> 105,162 records (correct)
-
-So: parse records with csv.reader for *identity*, but rewrite by operating on
-the raw bytes record-by-record, keeping each record's own terminator.
+Parse records with csv.reader for identity, but rewrite by operating on the raw
+bytes record-by-record. The Open-BFME-2 ledgers are LF-only; retaining each
+record's bytes and refusing mixed input keeps union merges deterministic.
 """
 import collections
 import csv
@@ -60,9 +52,8 @@ def uniform_terminator(raw, label):
     every later rebase compounds it -- that is how 4,172 pins became 8,784.
     Matching the file keeps each batch a pure append.
 
-    functions.csv legitimately mixes all three terminators, so this is asked of
-    symbols.csv only; there a duplicate pin is legal and nothing downstream
-    catches it, while a duplicated function row trips check_csv's name rule.
+    Open-BFME-2 applies the same uniform-terminator rule to every union-merged
+    ledger, including functions.csv.
     """
     census = terminator_census(raw)
     if len(census) > 1:
@@ -71,9 +62,17 @@ def uniform_terminator(raw, label):
             f"{spelling.get(term, repr(term))} on {len(lines)} line(s) "
             f"(first {lines[0]})" for term, lines in sorted(census.items()))
         raise SystemExit(f"{label} mixes line terminators -- {detail}. Union-merging it "
-                         "duplicates every pin whose terminator differs. Repair it with "
+                         "duplicates every row whose terminator differs. Repair it with "
                          "python3 tools/dedup_csv.py before appending.")
-    return next(iter(census), b"\r\n")
+    return next(iter(census), b"\n")
+
+
+def lf_terminator(raw, label):
+    """Require the canonical Open-BFME-2 LF terminator and return it."""
+    eol = uniform_terminator(raw, label)
+    if eol != b"\n":
+        raise SystemExit(f"{label} must use LF line endings; normalize it before appending")
+    return eol
 
 
 def rewrite(raw, keep):

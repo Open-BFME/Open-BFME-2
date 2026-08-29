@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """Append ONE matched row to reverse/functions.csv, safely.
 
-Hand-editing the ledger has repeatedly corrupted it (LF damage, wrong column
-counts, duplicate/overlapping claims). This tool is the safe path: it validates
-the claim against the existing ledger, appends in binary mode with CRLF, strips
-the source's `// <name> present-unmatched` marker, and byte-verifies the result
+Hand-editing the ledger has repeatedly corrupted it (mixed line terminators,
+wrong column counts, duplicate/overlapping claims). This tool is the safe path:
+it validates the claim against the existing ledger, appends with canonical LF,
+strips the source's `// <name> present-unmatched` marker,
+and byte-verifies the result
 with ./build.sh — reverting everything if verification fails. A row never
 survives unverified (unless you explicitly pass --no-verify).
 
@@ -201,12 +202,10 @@ def main():
          wait_notice="add_match: waiting for ledger lock (another add_match is running)...")
 
     raw = functions_csv.read_bytes()
-    if b"\r\n" not in raw[:200]:
-        fail("functions.csv has lost its CRLF line endings — restore it from git "
-             "before appending (see python3 tools/check_csv.py)")
     if not raw.endswith(b"\n"):
         fail("functions.csv does not end with a newline (truncated last row?) — "
              "fix the ledger before appending")
+    eol = ledger_io.lf_terminator(raw, "functions.csv")
 
     rows = parse_ledger(raw)
     claims = [row for row in rows if row["name"] == name]
@@ -278,27 +277,22 @@ def main():
 
     if replaced is not None:
         # Drop the old row by CONTENT, not by line number. parse_ledger numbers
-        # csv records while raw.splitlines() counts physical lines, and the two
-        # disagree whenever a row carries a stray CR (the ledger is currently
-        # written with \r\r\n): indexing physical lines with a record number
-        # deletes an unrelated row and silently glues its neighbours together.
-        # parse_ledger already guaranteed exactly one row for this name.
-        # Drop it through ledger_io, which keeps each record's own terminator:
-        # the ledger mixes \r\r\n, \r\n and bare \n, so splitting on \r\n glues a
-        # bare-\n row onto its neighbour and deletes both.
+        # CSV records while a malformed terminator can make physical-line
+        # indexing disagree. ledger_io preserves every retained record byte for
+        # byte and the uniform-terminator guard above refuses mixed input.
         key = (replaced["name"], replaced["rva"])
         new_raw, dropped = ledger_io.rewrite(
             raw, lambda f: ledger_key(f) != key)
         if dropped != 1:
             fail(f"internal error: {dropped} ledger rows match {key} — "
                  "expected exactly one")
-        functions_csv.write_bytes(new_raw + ledger_row.encode("utf-8") + b"\r\n")
+        functions_csv.write_bytes(new_raw + ledger_row.encode("utf-8") + eol)
         print(f"add_match: replaced row {replaced['line']}: "
               f"0x{replaced['rva']:08X}/{replaced['size']}B {replaced['source']}")
         print(f"add_match: with: {ledger_row}")
     else:
         with functions_csv.open("ab") as handle:
-            handle.write(ledger_row.encode("utf-8") + b"\r\n")
+            handle.write(ledger_row.encode("utf-8") + eol)
         print(f"add_match: appended: {ledger_row}")
 
     if args.no_verify:

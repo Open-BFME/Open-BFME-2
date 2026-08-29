@@ -3,12 +3,16 @@
 # submodule, which carries its own attributes.)
 baselines/** -text
 
+# Git for Windows executes these through bash; CRLF corrupts the shebang and
+# can make the verification policy disappear before it runs.
+.githooks/* text eol=lf
+
 # Append-mostly ledgers written concurrently by many agents. The built-in union
 # merge driver combines both sides' added lines instead of emitting conflict
 # markers, so parallel row appends never conflict. This repo's ledgers are
 # LF-terminated from birth — keep them that way (BFME 1's mixed terminators
 # were pure legacy pain; `check_csv` rejects a mixed file).
-reverse/functions.csv merge=union
-reverse/symbols.csv merge=union
-reverse/deleted_rows.csv merge=union
-reverse/re_attempts.log merge=union
+reverse/functions.csv text eol=lf merge=union
+reverse/symbols.csv text eol=lf merge=union
+reverse/deleted_rows.csv text eol=lf merge=union
+reverse/re_attempts.log text eol=lf merge=union

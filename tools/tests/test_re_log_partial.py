@@ -101,6 +101,32 @@ def test_stash_round_trips_through_its_header(log, tmp_path):
 
     row = log.read_text(encoding="utf-8")
     assert "score=0.92" in row and "stash=reverse/attempts/0x00401000.cpp" in row
+    assert b"\r" not in log.read_bytes(), "record must append canonical LF"
+
+
+def test_record_refuses_a_legacy_terminator_without_appending(log):
+    log.write_bytes(f"{SYM}\t0x00401000\t16\tno-match\told\r\n".encode())
+    before = log.read_bytes()
+
+    refusal = record(SYM, "0x00401000", "16", "blocked", "new attempt")
+
+    assert refusal is not None and "must use LF" in refusal
+    assert log.read_bytes() == before
+
+
+def test_legacy_log_is_rejected_before_a_stash_can_be_overwritten(log, tmp_path):
+    body = tmp_path / "attempt.cpp"
+    body.write_text("void Sym() {}\n", encoding="utf-8")
+    target = re_log._stash_path(RVA)
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.write_bytes(b"existing evidence\n")
+    log.write_bytes(f"{SYM}\t0x00401000\t16\tblocked\told\r\n".encode())
+
+    refusal = record(SYM, "0x00401000", "16", "partial", "new evidence",
+                     "--stash", str(body), "--score", "0.8")
+
+    assert refusal is not None and "must use LF" in refusal
+    assert target.read_bytes() == b"existing evidence\n"
 
 
 def test_stash_absent_reads_as_none(log):

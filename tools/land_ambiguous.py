@@ -17,9 +17,12 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import build
+import ledger_io
 from locate import object_functions
+from portable_lock import lock, unlock
 
 ROOT = build.ROOT
+LOCK_FILE = ROOT / "reverse" / ".add_match.lock"
 
 
 def main():
@@ -102,21 +105,28 @@ def main():
                             f"exact-ambiguous copy; assignment proven by verify_string_refs")
         if not new_rows:
             continue
-        with build.FUNCTIONS.open("a", encoding="utf-8", newline="") as fh:
-            for line in new_rows:
-                fh.write(line + "\n")
-        verify = subprocess.run([sys.executable, str(ROOT / "tools" / "build.py"),
-                                 rel_src],
-                                cwd=ROOT, capture_output=True, text=True, timeout=420)
-        if verify.returncode != 0:
-            # revert this file's additions — fail loudly, land nothing unproven
-            text = build.FUNCTIONS.read_text().splitlines(keepends=True)
-            keep = [l for l in text if not any(l.startswith(r.split(",")[0] + ",") and
-                                               f",{rel_src}," in l for r in new_rows)]
-            build.FUNCTIONS.write_text("".join(keep))
-            print(f"{cpp_name}: byte-verify REJECTED the assignment — reverted "
-                  f"({(verify.stdout.strip().splitlines() or ['?'])[-1]})")
-            continue
+        lock_handle = LOCK_FILE.open("a")
+        lock(lock_handle, exclusive=True,
+             wait_notice="land_ambiguous: waiting for the ledger lock...")
+        functions_raw = build.FUNCTIONS.read_bytes()
+        try:
+            eol = ledger_io.lf_terminator(functions_raw, "functions.csv")
+            with build.FUNCTIONS.open("ab") as fh:
+                fh.write(b"".join(line.encode("utf-8") + eol for line in new_rows))
+            verify = subprocess.run(
+                [sys.executable, str(ROOT / "tools" / "build.py"), rel_src],
+                cwd=ROOT, capture_output=True, text=True, timeout=420)
+            if verify.returncode != 0:
+                build.FUNCTIONS.write_bytes(functions_raw)
+                print(f"{cpp_name}: byte-verify REJECTED the assignment — reverted "
+                      f"({(verify.stdout.strip().splitlines() or ['?'])[-1]})")
+                continue
+        except BaseException:
+            build.FUNCTIONS.write_bytes(functions_raw)
+            raise
+        finally:
+            unlock(lock_handle)
+            lock_handle.close()
         emitted_total += len(new_rows)
         print(f"{cpp_name}: +{len(new_rows)} exact-ambiguous landed "
               f"({(verify.stdout.strip().splitlines() or [''])[-1]})")

@@ -130,10 +130,9 @@ def main():
          wait_notice="add_match_batch: waiting for ledger lock...")
 
     raw = functions_csv.read_bytes()
-    if b"\r\n" not in raw[:200]:
-        add_match.fail("functions.csv has lost its CRLF line endings")
     if not raw.endswith(b"\n"):
         add_match.fail("functions.csv does not end with a newline")
+    eol = ledger_io.lf_terminator(raw, "functions.csv")
 
     rows = add_match.parse_ledger(raw)
     by_name = {}
@@ -218,7 +217,7 @@ def main():
         export_rva = add_match.lookup_export_rva(root, c["name"])
         line = (f"{c['name']},{export_rva},0x{c['rva']:08X},{c['size']},"
                 f"{c['source']},matched,{c['notes']}")
-        appended.write(line.encode("utf-8") + b"\r\n")
+        appended.write(line.encode("utf-8") + eol)
     functions_csv.write_bytes(new_raw + appended.getvalue())
 
     def revert(why):

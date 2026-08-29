@@ -45,10 +45,10 @@ class Ledgers:
         self.functions = tmp_path / "functions.csv"
         self.symbols = tmp_path / "symbols.csv"
         self.deleted = tmp_path / "deleted_rows.csv"
-        self.functions.write_text(
-            HEADER + "\r\n" + "".join(r + "\r\n" for r in ledger_rows), encoding="utf-8")
-        self.symbols.write_text("name,address,notes\n", encoding="utf-8")
-        self.deleted.write_text(DELETED_HEADER + "\n", encoding="utf-8")
+        self.functions.write_bytes(
+            (HEADER + "\n" + "".join(r + "\n" for r in ledger_rows)).encode("utf-8"))
+        self.symbols.write_bytes(b"name,address,notes\n")
+        self.deleted.write_bytes((DELETED_HEADER + "\n").encode("utf-8"))
         monkeypatch.setattr(gen_small.B, "FUNCTIONS", self.functions)
         monkeypatch.setattr(gen_small.B, "SYMBOLS", self.symbols)
         monkeypatch.setattr(gen_small, "DELETED", self.deleted)
@@ -74,6 +74,18 @@ def test_exact_dump_row_is_superseded_and_tombstoned(tmp_path, monkeypatch):
     tombstone = led.deleted.read_text(encoding="utf-8")
     assert "?d_00abcd00@@YAXXZ,0x00ABCD00," in tombstone
     assert "?realBody@Thing@@QAEXXZ" in tombstone, "the tombstone names its successor"
+    assert b"\r" not in led.deleted.read_bytes(), "tombstones must append canonical LF"
+
+
+def test_a_legacy_tombstone_ledger_is_rejected_before_any_write(tmp_path, monkeypatch):
+    led = Ledgers(tmp_path, monkeypatch, ledger_rows=[DUMP])
+    led.deleted.write_bytes((DELETED_HEADER + "\r\n").encode("utf-8"))
+    before = led.snapshot()
+
+    with pytest.raises(SystemExit, match="deleted_rows.csv must use LF"):
+        gen_small.land_batch([REAL], [], ["Code/GameEngine/Source/Common/Thing.cpp"])
+
+    assert led.snapshot() == before
 
 
 def test_wrong_extent_at_the_same_rva_is_a_loud_conflict(tmp_path, monkeypatch):

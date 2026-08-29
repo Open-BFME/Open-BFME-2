@@ -80,21 +80,23 @@ Bool TeamPrototype::{plain}( void ) const
 {extra_body}"""
 
 
-def repo(tmp_path, sources, rows):
+def repo(tmp_path, sources, rows, *, preserve_terms=False):
     """A tree merge_cluster can operate on: sources, a ledger, and a git index.
 
-    `rows` are (name, source, terminator) so a test can choose the mix of line
-    endings the real ledger carries; an optional 4th element sets target_size,
-    which is what distinguishes a 5-byte ILT thunk from a real body."""
+    `rows` retain the historical (name, source, terminator) fixture shape, but
+    normal cases are canonical LF. `preserve_terms` exists only to prove that a
+    malformed legacy ledger is rejected. An optional 4th element sets
+    target_size, which distinguishes a 5-byte ILT thunk from a real body."""
     for rel, text in sources.items():
         path = tmp_path / rel
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(text)
     ledger = tmp_path / "reverse" / "functions.csv"
     ledger.parent.mkdir(parents=True, exist_ok=True)
-    payload = (HEADER + "\r\n").encode()
+    payload = (HEADER + ("\r\n" if preserve_terms else "\n")).encode()
     for row in rows:
-        name, source, term = row[0], row[1], row[2]
+        name, source = row[0], row[1]
+        term = row[2] if preserve_terms else b"\n"
         size = row[3] if len(row) > 3 else 52
         payload += f"{name},,0x000F0000,{size},{source},matched,".encode() + term
     ledger.write_bytes(payload)
@@ -177,9 +179,8 @@ def test_a_const_overload_is_a_reconciliation_not_a_contradiction(tmp_path, caps
 
 # ------------------------------------------------------------ terminators ---
 
-def test_every_terminator_survives_a_repoint(tmp_path):
-    """functions.csv mixes all three; a rewrite that normalises them hands the
-    union merge driver a brand-new line for every row it did not change."""
+def test_a_non_lf_ledger_is_rejected_before_repointing(tmp_path):
+    """A repoint must not carry invalid framing into a fresh commit."""
     a = "Code/GameEngine/Source/Common/RTS/TeamPrototype_hasAnyUnits.cpp"
     keep = "Code/GameEngine/Source/Common/RTS/Untouched.cpp"
     ledger = repo(tmp_path, {
@@ -189,19 +190,14 @@ def test_every_terminator_survives_a_repoint(tmp_path):
     }, [("?alpha@@YAXXZ", keep, b"\r\r\n"),
         ("?hasAnyUnits@TeamPrototype@@QBE_NXZ", a, b"\r\r\n"),
         ("?beta@@YAXXZ", keep, b"\r\n"),
-        ("?gamma@@YAXXZ", keep, b"\n")])
+        ("?gamma@@YAXXZ", keep, b"\n")], preserve_terms=True)
     before = ledger.read_bytes()
 
-    assert run("--apply", DEST, "--into", MERGED, "--only", a,
-               "--root", str(tmp_path)) == 0
+    with pytest.raises(SystemExit, match="functions.csv"):
+        run("--apply", DEST, "--into", MERGED, "--only", a,
+            "--root", str(tmp_path))
 
-    after = ledger.read_bytes()
-    assert terminators(after) == terminators(before)
-    assert set(terminators(after)) == {b"\r\n", b"\r\r\n", b"\n"}, "fixture lost its mix"
-    assert sources_of(ledger) == [keep, MERGED, keep, keep]
-    problems = []
-    check_csv.check_functions(after, problems, {keep, MERGED})
-    assert problems == []
+    assert ledger.read_bytes() == before
 
 
 # --------------------------------------------------------------- refusals ---

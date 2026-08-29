@@ -4905,8 +4905,7 @@ def retract_dump_rows(functions_raw, to_retract):
     driver, which cannot express a deletion, so without a row in
     deleted_rows.csv the next rebase from a branch that forked earlier silently
     puts the dump back on top of the real body. Drop by CONTENT through
-    ledger_io — the ledger mixes \\r\\r\\n, \\r\\n and bare \\n terminators, and
-    every rewrite that split on one of them has lost or duplicated rows.
+    ledger_io so the rewrite preserves the canonical LF record framing.
     """
     keys = {(owner["name"], f"0x{owner['rva']:08X}") for owner, _, _ in to_retract}
     kept, dropped = ledger_io.rewrite(
@@ -4937,20 +4936,21 @@ def write_tombstones(entries):
     branch that forked before the removal, and the reason column is the only
     place the next reader learns why it went.
     """
+    eol = ledger_io.lf_terminator(DELETED.read_bytes(), "deleted_rows.csv")
     lines = []
     for name, rva, reason in entries:
         buf = io.StringIO()
-        csv.writer(buf, lineterminator="\n").writerow([name, f"0x{rva:08X}", reason])
-        lines.append(buf.getvalue())
+        csv.writer(buf, lineterminator="").writerow([name, f"0x{rva:08X}", reason])
+        lines.append(buf.getvalue().encode("utf-8") + eol)
     with DELETED.open("ab") as handle:
-        handle.write("".join(lines).encode("utf-8"))
+        handle.write(b"".join(lines))
 
 
-# land_wave reaches for this as G.line_terminator, and check_csv now refuses the
-# commit that mixes symbols.csv in the first place; all three have to be asking
-# ledger_io the one question, or the scan/land drift this file already documents
-# repeats itself one layer down.
-line_terminator = ledger_io.uniform_terminator
+# land_wave and zh_sweep reach for this as G.line_terminator.  Open-BFME-2's
+# union-merged ledgers are canonical LF, so every writer must reject a legacy
+# spelling before appending rather than preserving it into a commit the hook
+# will reject.
+line_terminator = ledger_io.lf_terminator
 
 
 def run(command, label):
@@ -5011,13 +5011,11 @@ def land_batch(rows, pins, selectors, stage=None):
          wait_notice="land: waiting for ledger lock (another append is running)...")
 
     functions_raw = B.FUNCTIONS.read_bytes()
-    if b"\r\n" not in functions_raw[:200]:
-        raise SystemExit("functions.csv has lost its CRLF line endings — restore it from git")
-    if not functions_raw.endswith(b"\n"):
-        raise SystemExit("functions.csv does not end with a newline (truncated last row?)")
+    functions_eol = line_terminator(functions_raw, "functions.csv")
     symbols_raw = B.SYMBOLS.read_bytes()
     symbols_eol = line_terminator(symbols_raw, "symbols.csv")
     deleted_raw = DELETED.read_bytes()
+    line_terminator(deleted_raw, "deleted_rows.csv")
 
     to_append, landed, to_retract = validate_rows(rows, parse_ledger(functions_raw))
     pinned = load_pins()
@@ -5038,7 +5036,7 @@ def land_batch(rows, pins, selectors, stage=None):
     if to_retract:
         retract_dump_rows(functions_raw, to_retract)
     with B.FUNCTIONS.open("ab") as handle:
-        handle.write(b"".join(row.encode("utf-8") + b"\r\n" for row in to_append))
+        handle.write(b"".join(row.encode("utf-8") + functions_eol for row in to_append))
     if new_pins:
         with B.SYMBOLS.open("ab") as handle:
             handle.write(b"".join(pin.encode("utf-8") + symbols_eol for pin in new_pins))

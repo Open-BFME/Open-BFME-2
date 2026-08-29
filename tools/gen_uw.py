@@ -876,16 +876,8 @@ def rewrite_lines(path, owned, fresh, newline):
     """Replace the lines this generator owns IN PLACE, leaving every other byte
     alone.
 
-    Splitting on b"\\n" and rejoining reproduces the file exactly, which matters:
-    functions.csv carries three shapes of historical line-ending damage that a
-    csv round-trip would silently normalise.
-
-    `owned` is asked about the payload with its trailing b"\\r"s removed, never
-    the raw split piece.  A predicate that ends in `endswith(note)` matched the
-    pins only while they were written LF; the commit that gave symbols.csv its
-    real CRLF terminator stopped every one of them being recognised, so each run
-    appended 511 pins it believed it had removed.  Nothing caught it because
-    land() had no gate -- check_csv says `exact duplicate row` the moment it does.
+    The caller first proves the ledger is canonical LF.  Splitting and rejoining
+    with that same terminator preserves every unowned row byte for byte.
 
     The fresh block goes back at the index the old block started at, never at the
     end of the file.  Appending instead relocates every row another session
@@ -897,20 +889,18 @@ def rewrite_lines(path, owned, fresh, newline):
     makes a re-land of an unchanged population a byte no-op, which is what makes
     the two-run idempotence check a real regression test.
     """
-    lines = path.read_bytes().split(b"\n")
-    if lines and lines[-1] == b"":
-        lines.pop()
+    lines = [payload for payload, _ in ledger_io.split_records(path.read_bytes())]
     kept, at = [], None
     for line in lines:
-        if owned(line.rstrip(b"\r")):
+        if owned(line):
             if at is None:
                 at = len(kept)
             continue
         kept.append(line)
     if at is None:      # first land into this file: the block starts at the end
         at = len(kept)
-    kept[at:at] = [text.encode("utf-8") + newline for text in fresh]
-    path.write_bytes(b"\n".join(kept) + b"\n")
+    kept[at:at] = [text.encode("utf-8") for text in fresh]
+    path.write_bytes(newline.join(kept) + newline)
 
 
 def owned_sources():
@@ -1057,6 +1047,13 @@ def emit_and_write(ledger, on_ladder, snapshot):
 
     Returns the build selectors that prove what was written.
     """
+    # Validate both union-merged ledgers before writing even the first generated
+    # source.  The snapshot would restore them later, but fail-fast makes the
+    # canonical LF policy independent of which generated population is present.
+    functions_raw = FUNCTIONS.read_bytes()
+    functions_eol = ledger_io.lf_terminator(functions_raw, "functions.csv")
+    symbols_eol = ledger_io.lf_terminator(SYMBOLS.read_bytes(), "symbols.csv")
+
     files = plan(on_ladder)
     by_key = collections.defaultdict(list)
     for funclet in on_ladder:
@@ -1138,16 +1135,10 @@ def emit_and_write(ledger, on_ladder, snapshot):
 
     rows.sort(key=lambda row: row[2])
     formatted = [",".join(row) for row in rows]
-    # symbols.csv is asked its terminator BEFORE functions.csv is touched: a
-    # mixed file makes that question fatal, and asking it after the first write
-    # is what left functions.csv rewritten with no pins behind it.
-    symbols_eol = ledger_io.uniform_terminator(SYMBOLS.read_bytes(), "symbols.csv")[:-1]
-
     # gen_small.validate_rows is the one place a double claim is decided. Run
     # against the ledger MINUS our own rows (Ledger already drops them), so every
     # fresh row is new to it and the two answers it gives -- refuse, or supersede
     # an exact-range gen-dump -- are the only two outcomes.
-    functions_raw = FUNCTIONS.read_bytes()
     outside = [row for row in parse_ledger(functions_raw)
                if OWNED_SOURCE_DIR not in row["source"]]
     to_append, already, to_retract = gen_small.validate_rows(formatted, outside)
@@ -1174,13 +1165,7 @@ def emit_and_write(ledger, on_ladder, snapshot):
         print("  tombstoned %d owned row(s) the fresh compile no longer emits" % len(dropped))
 
     rewrite_lines(FUNCTIONS, OWNED_ROW_RE.search,
-                  [",".join(row) for row in rows], b"\r")
-    # rewrite_lines rejoins on b"\n", so `newline` is whatever precedes it -- b"\r"
-    # for the CRLF file symbols.csv actually is. Hardcoding b"" wrote LF pins into
-    # it, which is a NEW line to the union merge driver for a pin that already
-    # existed, and gen_small then refuses to append to a mixed file at all.
-    # functions.csv below keeps its own b"\r": it legitimately mixes all three
-    # terminators, so there is nothing uniform to ask it for.
+                  [",".join(row) for row in rows], functions_eol)
     rewrite_lines(SYMBOLS, lambda line: line.startswith(b"?") and line.endswith(PIN_NOTE_BYTES),
                   ["%s,0x%08X,%s" % (name, address, PIN_NOTE) for name, address in pins],
                   symbols_eol)

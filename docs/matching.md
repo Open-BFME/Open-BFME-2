@@ -17,10 +17,10 @@
      automatically; for anything else (CRT helpers like `__ftol2`, not-yet-matched functions)
      add `name,address` to `reverse/symbols.csv`. The build prints the unresolved name on
      failure. Find the address by disassembling the target and computing the call destination,
-     or look it up in the Ghidra inventory (`tools/ghidra/`). Append with the file's own line
-     terminator (CRLF today): it is `merge=union`, so a pin that differs from its twin only by
-     a `\r` is a new line to the merge driver and duplicates on the next rebase. `check_csv`
-     rejects a mixed file; `python3 tools/dedup_csv.py` repairs one.
+     or look it up in the Ghidra inventory (`tools/ghidra/`). Append with canonical LF: the
+     file is `merge=union`, so a pin that differs from its twin only by a `\r` is a new line
+     to the merge driver and duplicates on the next rebase. `check_csv` rejects any other
+     terminator; `python3 tools/dedup_csv.py` repairs one.
 
 Leaf functions (no calls) are easiest; `reverse/symbols.csv` is what makes call-using functions matchable.
 

@@ -28,10 +28,12 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import build
 import harvest
 import ledger_io
+from portable_lock import lock, unlock
 
 MIN_SIZE_DEFAULT = 24
 MIN_NEEDLE = 8
 IMAGE_SCN_MEM_EXECUTE = 0x20000000
+LOCK_FILE = build.ROOT / "reverse" / ".add_match.lock"
 
 
 def object_functions(obj_path):
@@ -494,18 +496,34 @@ of the ladder (python3 tools/next_work.py).""")
               + ", ".join(f"{n}({s}B)" for n, s in sorted(unlocated, key=lambda e: -e[1])[:20]))
 
     if args.emit and rows:
-        with build.FUNCTIONS.open("a", encoding="utf-8", newline="") as handle:
-            for row in rows:
-                handle.write(row + "\n")
-        if new_symbols:
-            # symbols.csv is union-merged and must stay on ONE terminator: a pin
-            # written with a bare \n into the CRLF file is a new line to the merge
-            # driver, so it duplicates on the next rebase and gen_small refuses to
-            # append to the file at all. Ask the file, do not assume.
-            eol = ledger_io.uniform_terminator(build.SYMBOLS.read_bytes(), "symbols.csv")
-            with build.SYMBOLS.open("ab") as handle:
-                for sym, addr in new_symbols:
-                    handle.write(f"{sym},0x{addr:08X}".encode("utf-8") + eol)
+        lock_handle = LOCK_FILE.open("a")
+        lock(lock_handle, exclusive=True,
+             wait_notice="locate: waiting for the ledger lock...")
+        functions_raw = build.FUNCTIONS.read_bytes()
+        symbols_raw = build.SYMBOLS.read_bytes() if new_symbols else None
+        try:
+            # Validate every ledger this invocation will touch before the first
+            # append, so an invalid symbols.csv cannot leave functions rows live.
+            functions_eol = ledger_io.lf_terminator(functions_raw, "functions.csv")
+            symbols_eol = (ledger_io.lf_terminator(symbols_raw, "symbols.csv")
+                           if symbols_raw is not None else None)
+            try:
+                with build.FUNCTIONS.open("ab") as handle:
+                    for row in rows:
+                        handle.write(row.encode("utf-8") + functions_eol)
+                if new_symbols:
+                    with build.SYMBOLS.open("ab") as handle:
+                        for sym, addr in new_symbols:
+                            handle.write(
+                                f"{sym},0x{addr:08X}".encode("utf-8") + symbols_eol)
+            except BaseException:
+                build.FUNCTIONS.write_bytes(functions_raw)
+                if symbols_raw is not None:
+                    build.SYMBOLS.write_bytes(symbols_raw)
+                raise
+        finally:
+            unlock(lock_handle)
+            lock_handle.close()
         print(f"emitted {len(rows)} row(s) to functions.csv"
               + (f", {len(new_symbols)} to symbols.csv" if new_symbols else ""))
 

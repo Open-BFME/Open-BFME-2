@@ -39,13 +39,17 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import build
+import ledger_io
 import progress
 import yield_model
+from portable_lock import lock, unlock
 
 ROOT = Path(__file__).resolve().parents[1]
 GHIDRA = ROOT / "reverse" / "ghidra_functions.csv"
 ANCHORED = ROOT / "reverse" / "anchored_candidates.csv"
 FUNCTIONS = ROOT / "reverse" / "functions.csv"
+DELETED = ROOT / "reverse" / "deleted_rows.csv"
+LOCK_FILE = ROOT / "reverse" / ".add_match.lock"
 
 HEADER = """\
 // cl: /DNDEBUG /MD /EHsc
@@ -180,6 +184,8 @@ def asm_wave(args):
     Files are named for the RVA of their first function and never renumbered,
     so a later wave inserts instead of forcing a rename across every file.
     """
+    functions_raw = FUNCTIONS.read_bytes()
+    eol = ledger_io.lf_terminator(functions_raw, "functions.csv")
     exe = build.EXE.read_bytes()
     text = next(s for s in build.pe_sections(exe) if s["name"] == ".text")
     text_lo, text_hi = text["rva"], text["rva"] + text["size"]
@@ -261,10 +267,10 @@ def asm_wave(args):
             origin = ("bounds=%s" % args.tier if args.source_csv
                       else "ghidra=%s" % ghidra_name)
             rows_out.append(f"?d_{rva:08x}@@YAXXZ,,0x{rva:08X},{size},{rel},"
-                            f"matched,gen-dump;{origin}\r\n")
+                            f"matched,gen-dump;{origin}")
 
     with FUNCTIONS.open("ab") as handle:   # binary append: never rewrite
-        handle.write("".join(rows_out).encode("ascii"))
+        handle.write(b"".join(row.encode("ascii") + eol for row in rows_out))
 
     total = sum(size for _, size, _, _ in picked)
     print(f"asm wave: {len(rows_out)} dumps, {total:,} retail bytes, "
@@ -301,17 +307,32 @@ def retract(sha):
     if not wave:
         raise SystemExit(f"{sha} adds no Code/gen_asm/ rows — nothing to retract")
 
+    lock_handle = LOCK_FILE.open("a")
+    lock(lock_handle, exclusive=True,
+         wait_notice="gen_dump retract: waiting for the ledger lock...")
     raw = FUNCTIONS.read_bytes()
-    kept, dropped = ledger_io.rewrite(
-        raw, lambda f: len(f) < 3 or (f[0], f[2]) not in wave)
-    if dropped != len(wave):
-        raise SystemExit(f"{sha} added {len(wave)} rows but {dropped} are live — "
-                         f"refusing a partial retraction; reconcile by hand")
-    FUNCTIONS.write_bytes(kept)
-    with (ROOT / "reverse" / "deleted_rows.csv").open("a", encoding="utf-8",
-                                                      newline="") as handle:
-        for name, rva in sorted(wave):
-            handle.write(f"{name},{rva},retracted gen-dump wave {sha}\n")
+    deleted_raw = DELETED.read_bytes()
+    try:
+        ledger_io.lf_terminator(raw, "functions.csv")
+        deleted_eol = ledger_io.lf_terminator(deleted_raw, "deleted_rows.csv")
+        kept, dropped = ledger_io.rewrite(
+            raw, lambda f: len(f) < 3 or (f[0], f[2]) not in wave)
+        if dropped != len(wave):
+            raise SystemExit(f"{sha} added {len(wave)} rows but {dropped} are live — "
+                             f"refusing a partial retraction; reconcile by hand")
+        try:
+            FUNCTIONS.write_bytes(kept)
+            with DELETED.open("ab") as handle:
+                handle.write(b"".join(
+                    f"{name},{rva},retracted gen-dump wave {sha}".encode("utf-8")
+                    + deleted_eol for name, rva in sorted(wave)))
+        except BaseException:
+            FUNCTIONS.write_bytes(raw)
+            DELETED.write_bytes(deleted_raw)
+            raise
+    finally:
+        unlock(lock_handle)
+        lock_handle.close()
     print(f"retracted {dropped} dump row(s) from the ledger and tombstoned them; "
           f"now `git revert {sha}` for the sources")
 
@@ -356,6 +377,8 @@ def main():
     if args.wave is None:
         parser.error("--wave is required without --asm")
 
+    functions_raw = FUNCTIONS.read_bytes()
+    eol = ledger_io.lf_terminator(functions_raw, "functions.csv")
     source = ROOT / "Code" / "gen_small" / f"dumps_{args.wave:03d}.cpp"
     if source.exists():
         raise SystemExit(f"{source.relative_to(ROOT)} already exists — waves are "
@@ -380,10 +403,10 @@ def main():
 
     source.write_text("".join(pieces), newline="\n")
     rel = source.relative_to(ROOT).as_posix()
-    with FUNCTIONS.open("ab") as handle:   # binary append, CRLF, like add_match
+    with FUNCTIONS.open("ab") as handle:   # binary append, never rewrite
         for name, rva, size, notes in rows:
-            handle.write(f"{name},,0x{rva:08X},{size},{rel},matched,{notes}\r\n"
-                         .encode("ascii"))
+            line = f"{name},,0x{rva:08X},{size},{rel},matched,{notes}"
+            handle.write(line.encode("ascii") + eol)
 
     total = sum(size for _, _, size, _ in rows)
     anchored_count = sum(1 for *_, is_anchored in picked if is_anchored)

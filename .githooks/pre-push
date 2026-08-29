@@ -12,6 +12,13 @@ fail() {
     exit 1
 }
 
+run_build() {
+    case "$(uname -s)" in
+        MINGW*|MSYS*|CYGWIN*) py -3 tools/build.py "$@" ;;
+        *) ./build.sh "$@" ;;
+    esac
+}
+
 refs="$(cat || true)"
 
 ZERO=0000000000000000000000000000000000000000
@@ -101,7 +108,7 @@ PY
         chunk=200
         i=0
         while [ "$i" -lt "${#verify[@]}" ]; do
-            BUILD_POOL="${BUILD_POOL:-4}" ./build.sh "${verify[@]:$i:$chunk}" \
+            BUILD_POOL="${BUILD_POOL:-4}" run_build "${verify[@]:$i:$chunk}" \
                 || fail "byte-verify of outgoing sources (see above)"
             i=$((i + chunk))
         done

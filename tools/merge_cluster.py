@@ -209,8 +209,8 @@ def repoint(payload, number, new_source):
     """Rebuild one record's bytes with a different `source`, changing nothing else.
 
     Only `notes` is ever quoted (286 rows hold a comma there), and it is last, so
-    a 6-way split isolates `source` byte for byte -- no csv writer, which would
-    re-quote fields and rewrite terminators the ledger legitimately mixes."""
+    a 6-way split isolates `source` byte for byte -- no csv writer, which could
+    re-quote fields or rewrite record framing."""
     parts = payload.split(b",", len(LEDGER_COLUMNS) - 1)
     if len(parts) != len(LEDGER_COLUMNS):
         fail(f"ledger line {number} splits into {len(parts)} raw fields, expected "
@@ -536,6 +536,10 @@ def rewrite_ledger(root, moving, into_rel):
     scratch = path.with_name(f"{path.name}.{os.getpid()}.tmp")
     written = 0
     try:
+        # Repointing preserves every untouched record byte-for-byte, but this
+        # repository permits only canonical LF. Refuse invalid input before the
+        # scratch rewrite rather than carrying legacy framing into a new commit.
+        ledger_io.lf_terminator(path.read_bytes(), "functions.csv")
         with open(scratch, "wb") as out:
             for number, payload, term in records(path):
                 if number > 1:

@@ -34,6 +34,8 @@ import re
 from datetime import date
 from pathlib import Path
 
+import ledger_io
+
 ROOT = Path(__file__).resolve().parents[1]
 RE_ATTEMPTS = ROOT / "reverse" / "re_attempts.log"
 
@@ -312,7 +314,8 @@ def _record(argv):
     Hand-appending has produced three shapes of damage this index has to
     tolerate: LF/CRLF mixes (editor tools normalise the whole file on touch),
     missing columns, and status words nothing recognises. This writes exactly
-    one 5-field CRLF row and refuses statuses outside the vocabulary, loudly.
+    one canonical-LF 5-field row and refuses statuses outside the vocabulary,
+    loudly.
 
     Usage:
       python3 tools/re_log.py record <symbol> <rva> <size> <status> <evidence...>
@@ -365,6 +368,9 @@ def _record(argv):
             f"that only describes the near miss measured WORSE than recording "
             f"nothing (5.1% vs 7.5% landing). Bank the body you are about to "
             f"revert, or record `blocked` with your evidence instead.")
+    # Validate the append-only log before _bank can create or overwrite a stash.
+    # A framing refusal must be side-effect free.
+    eol = ledger_io.lf_terminator(RE_ATTEMPTS.read_bytes(), "re_attempts.log")
     if stash_text is not None:
         if status != STASH_STATUS:
             raise SystemExit(
@@ -372,9 +378,9 @@ def _record(argv):
                 f"{status!r}: a dead end has nothing worth handing on, and a "
                 f"landed body belongs in Code/.")
         evidence = f"{evidence} {_bank(symbol, rva_text, stash_text, score_text)}"
-    row = f"{symbol}\t{rva_text}\t{size_text}\t{status}\t{evidence}\r\n"
+    row = f"{symbol}\t{rva_text}\t{size_text}\t{status}\t{evidence}".encode("utf-8") + eol
     with RE_ATTEMPTS.open("ab") as handle:
-        handle.write(row.encode("utf-8"))
+        handle.write(row)
     print(f"recorded: {symbol} @ {rva_text} -> {status}")
 
 

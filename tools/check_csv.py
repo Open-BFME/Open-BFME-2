@@ -3,8 +3,9 @@
 
 Catches the corruption classes that break the full gate long after the fact:
 duplicate rows from union merges, two agents claiming overlapping bytes,
-malformed rows, rows pointing at missing sources, and LF damage to the CRLF
-ledgers. Run it before committing, after every merge/rebase, and in hooks.
+malformed rows, rows pointing at missing sources, and mixed line terminators in
+the union-merged ledgers. Run it before committing, after every merge/rebase,
+and in hooks.
 
 Exit 0: both ledgers clean. Exit 1: every problem printed with the fix.
 """
@@ -23,6 +24,7 @@ ROOT = Path(__file__).resolve().parents[1]
 FUNCTIONS = ROOT / "reverse" / "functions.csv"
 SYMBOLS = ROOT / "reverse" / "symbols.csv"
 DELETED = ROOT / "reverse" / "deleted_rows.csv"
+RE_ATTEMPTS = ROOT / "reverse" / "re_attempts.log"
 
 # realcrc.cpp is linked twice in the retail exe, so these two symbols
 # legitimately appear at two addresses each. Any other duplicate name is a bug.
@@ -33,6 +35,26 @@ ALLOWED_DUP_NAMES = {
 
 FUNCTIONS_HEADER = "name,export_rva,target_rva,target_size,source,status,notes"
 SYMBOLS_HEADER = "name,address,notes"
+
+
+def check_lf_ledger(raw, label, problems, *, allow_empty=False):
+    """Require canonical LF framing for one union-merged ledger."""
+    if allow_empty and not raw:
+        return
+    try:
+        census = ledger_io.terminator_census(raw)
+    except ValueError as exc:
+        problems.append(f"{label}: {exc}")
+        return
+    if set(census) == {b"\n"}:
+        return
+    spelling = {b"\n": "LF", b"\r\n": "CRLF", b"\r\r\n": "CRCRLF"}
+    detail = "; ".join(
+        f"{spelling.get(term, repr(term))} on {len(lines)} line(s) "
+        f"(line {lines[0]})" for term, lines in sorted(census.items()))
+    problems.append(
+        f"{label} must use LF line terminators: {detail}. It is union-merged, "
+        "so differently terminated rows duplicate on the next rebase.")
 
 
 def read_ledger(path, spec):
@@ -75,17 +97,19 @@ def known_sources(spec):
     return allowed
 
 
-def tombstones():
+def tombstones(raw=None):
     """(name, rva) pairs deleted on purpose -> why. See reverse/deleted_rows.csv.
 
     functions.csv merges with git's union driver, which cannot express a
     deletion: any branch forked before the delete puts the row back with no
     conflict. Without this, a proven-wrong row silently returns to master.
     """
-    if not DELETED.exists():
-        return {}
+    if raw is None:
+        if not DELETED.exists():
+            return {}
+        raw = DELETED.read_bytes()
     out = {}
-    for line in DELETED.read_text(encoding="utf-8").splitlines():
+    for line in raw.decode("utf-8", errors="replace").splitlines():
         if not line.strip() or line.startswith("#") or line.startswith("name,"):
             continue
         row = next(csv.reader(io.StringIO(line)))
@@ -98,13 +122,9 @@ def tombstones():
     return out
 
 
-def check_functions(raw, problems, sources_ok):
-    deleted = tombstones()
-    if b"\r\n" not in raw[:200]:
-        problems.append("functions.csv: CRLF line endings were lost (file is LF). "
-                        "Restore from git and use binary-safe edits (tools/dedup_csv.py "
-                        "or tools/add_match.py), not csv.writer defaults.")
-        # keep checking the content anyway
+def check_functions(raw, problems, sources_ok, deleted_raw=None):
+    deleted = tombstones(deleted_raw)
+    check_lf_ledger(raw, "functions.csv", problems)
     text = raw.decode("utf-8", errors="replace")
     rows = list(csv.reader(io.StringIO(text)))
     if not rows or ",".join(rows[0]) != FUNCTIONS_HEADER:
@@ -219,25 +239,10 @@ def check_symbols(raw, problems):
     # addresses: build.py's load_symbol_map treats them all as REL32 resolution
     # candidates. Only exact duplicates and malformed rows are errors.
     #
-    # The file must carry ONE terminator, and this is where that is caught. It is
-    # merge=union, so a pin differing from its twin by a single \r is a distinct
-    # line to the merge driver and lands twice; a duplicate pin is legal, so
-    # nothing downstream notices, while the same mixing in functions.csv trips
-    # the duplicate-name rule above. gen_small.line_terminator refuses to append
-    # to a mixed file — that stops a whole wave, in a session that did not cause
-    # it. 66 LF pins reached master this way and blocked landing until they were
-    # repaired by hand.
-    census = ledger_io.terminator_census(raw)
-    if len(census) > 1:
-        spelling = {b"\n": "LF", b"\r\n": "CRLF", b"\r\r\n": "CRCRLF"}
-        odd = min(census.items(), key=lambda item: len(item[1]))
-        problems.append(
-            f"symbols.csv mixes line terminators: {len(odd[1])} "
-            f"{spelling.get(odd[0], repr(odd[0]))} line(s) in a file that is otherwise "
-            f"{spelling.get(max(census, key=lambda t: len(census[t])), '?')} "
-            f"(line {odd[1][0]}{', ...' if len(odd[1]) > 1 else ''}). It is union-merged, "
-            "so the odd lines duplicate every pin they carry on the next rebase. "
-            "Fix: python3 tools/dedup_csv.py")
+    # The file must carry canonical LF. It is merge=union, so a pin differing
+    # from its twin only by a carriage return is a distinct line and duplicates
+    # on the next merge.
+    check_lf_ledger(raw, "symbols.csv", problems)
     text = raw.decode("utf-8", errors="replace")
     rows = list(csv.reader(io.StringIO(text)))
     if not rows or ",".join(rows[0]) != SYMBOLS_HEADER:
@@ -396,8 +401,13 @@ def main():
 
     spec = "" if args.staged else args.ref  # None -> working tree
     problems = []
-    n_funcs = check_functions(read_ledger(FUNCTIONS, spec), problems, known_sources(spec))
+    deleted_raw = read_ledger(DELETED, spec)
+    n_funcs = check_functions(read_ledger(FUNCTIONS, spec), problems, known_sources(spec),
+                              deleted_raw)
     n_syms = check_symbols(read_ledger(SYMBOLS, spec), problems)
+    check_lf_ledger(deleted_raw, "deleted_rows.csv", problems)
+    check_lf_ledger(read_ledger(RE_ATTEMPTS, spec), "re_attempts.log", problems,
+                    allow_empty=True)
     check_attempts(spec, problems)
     n_orphans = check_orphans(spec, problems)
 

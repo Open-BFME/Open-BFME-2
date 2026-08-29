@@ -37,6 +37,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import boundary_validator
 import build
+import ledger_io
 
 ROOT = build.ROOT
 ZH = build.ZH_REFERENCE_ROOT
@@ -429,14 +430,15 @@ def do_land(args):
 def write_rows(records):
     """Rewrite the ledger with exactly this sweep's rows appended.
 
-    Binary, with explicit CRLF: the ledger is a CRLF file, and a text-mode
-    rewrite silently normalises every line in it to LF — check_csv rejects the
-    whole file for that, which reads as ledger corruption rather than as a
-    landing bug.
+    Binary, with canonical LF.  Validate before rewriting so an old or mixed
+    checkout fails without silently respelling union-merged rows.
     """
-    kept = [line for line in build.FUNCTIONS.read_bytes().splitlines(keepends=True)
-            if NOTE.encode() not in line]
-    rows = [(ledger_line(record) + "\r\n").encode()
+    raw = build.FUNCTIONS.read_bytes()
+    eol = ledger_io.lf_terminator(raw, "functions.csv")
+    kept = [payload + terminator
+            for payload, terminator in ledger_io.split_records(raw)
+            if NOTE.encode() not in payload]
+    rows = [ledger_line(record).encode() + eol
             for record in sorted(records, key=lambda r: r["rva"])]
     build.FUNCTIONS.write_bytes(b"".join(kept + rows))
 

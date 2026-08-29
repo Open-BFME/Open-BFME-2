@@ -16,7 +16,7 @@ Four guarantees are asserted here, each one absent before this file existed:
     functions.csv it was written against;
   * a superseded gen-dump row retracted AND tombstoned, through
     gen_small.retract_dump_rows rather than a second implementation;
-  * a FULL ./build.sh + check_csv before land() returns, with every ledger and
+  * a platform full build gate + check_csv before land() returns, with every ledger and
     every owned source reverted on anything short of green;
   * the rewritten block put back where it was, so a row another session appended
     after the last land is not relocated into a union-merge duplicate.
@@ -55,7 +55,7 @@ DUMP = (f"?d_00bf0000@@YAXXZ,,0x{RVA:08X},8,Code/gen_asm/d_00bf0000.asm,matched,
 class World:
     """A tiny tree with the three ledgers, an owned source dir, and a gate knob."""
 
-    def __init__(self, tmp_path, monkeypatch, *, rows=(), owned=(), symbols_eol="\r\n",
+    def __init__(self, tmp_path, monkeypatch, *, rows=(), owned=(), symbols_eol="\n",
                  gate=0, funclets=((RVA, 8, -16, TARGET),)):
         self.root = tmp_path
         self.functions = tmp_path / "functions.csv"
@@ -64,12 +64,12 @@ class World:
         self.source_dir = tmp_path / "Code" / "gen_small"
         self.source_dir.mkdir(parents=True)
         self.functions.write_bytes(
-            (FUNCTIONS_HEADER + "\r\n").encode()
-            + b"".join(row.encode() + b"\r\n" for row in (*rows, *owned)))
+            (FUNCTIONS_HEADER + "\n").encode()
+            + b"".join(row.encode() + b"\n" for row in (*rows, *owned)))
         self.symbols.write_bytes(
             (SYMBOLS_HEADER + symbols_eol).encode()
             + f"??1Other@@QAE@XZ,0x00009999,{symbols_eol}".encode())
-        self.deleted.write_text(DELETED_HEADER + "\n", encoding="utf-8")
+        self.deleted.write_bytes((DELETED_HEADER + "\n").encode("utf-8"))
         for name in {row.split(",")[4] for row in owned}:
             (tmp_path / name).write_text("// stale\n", encoding="utf-8")
         # check_csv rejects a row whose source is untracked, so land() puts the
@@ -136,7 +136,7 @@ def test_a_red_gate_reverts_every_ledger_and_every_owned_source(tmp_path, monkey
     with pytest.raises(SystemExit):
         gen_uw.land()
 
-    assert world.gate_calls, "land() must prove its rows with ./build.sh before returning"
+    assert world.gate_calls, "land() must prove its rows with the platform build gate"
     assert world.snapshot() == before, "a red gate must leave nothing behind"
 
 
@@ -193,7 +193,7 @@ def test_a_row_appended_after_the_landed_block_keeps_its_position(tmp_path, monk
     world = World(tmp_path, monkeypatch, funclets=TWO)
     gen_uw.land()
     with world.functions.open("ab") as handle:      # a concurrent single-row append
-        handle.write(CONCURRENT.encode() + b"\r\n")
+        handle.write(CONCURRENT.encode() + b"\n")
     once = world.snapshot()
 
     gen_uw.land()
@@ -214,12 +214,12 @@ def test_a_relocated_row_is_duplicated_by_the_union_merge_driver(tmp_path, monke
     world = World(tmp_path, monkeypatch, funclets=TWO)
     gen_uw.land()
     with world.functions.open("ab") as handle:
-        handle.write(CONCURRENT.encode() + b"\r\n")
+        handle.write(CONCURRENT.encode() + b"\n")
     base = world.functions.read_bytes()
 
     gen_uw.land()                                   # "ours": a fresh land on top
     ours = world.functions.read_bytes()
-    theirs = base + b"?other@@YAXXZ,,0x00AB0000,16,Code/other.cpp,matched,\r\n"
+    theirs = base + b"?other@@YAXXZ,,0x00AB0000,16,Code/other.cpp,matched,\n"
 
     paths = {}
     for name, raw in (("base", base), ("ours", ours), ("theirs", theirs)):
@@ -300,21 +300,19 @@ def test_a_red_gate_restores_the_superseded_dump_row_and_its_tombstone(
         "a guard that opens at the gate strands it against a reverted functions.csv")
 
 
-def test_a_failure_between_the_two_ledger_writes_restores_functions_csv(
+def test_a_non_lf_symbols_file_is_rejected_without_changing_anything(
         tmp_path, monkeypatch):
-    """symbols.csv is asked for its terminator only after functions.csv has been
-    rewritten, and a mixed file makes that question fatal. Nothing about the
-    funclets is wrong; the guard has to be open already."""
+    """A mixed ledger is invalid input, and rejection must be byte-atomic."""
     world = World(tmp_path, monkeypatch)
-    world.symbols.write_bytes(world.symbols.read_bytes() + b"??1Mixed@@QAE@XZ,0x0000AAAA,\n")
+    world.symbols.write_bytes(
+        world.symbols.read_bytes() + b"??1Mixed@@QAE@XZ,0x0000AAAA,\r\n")
     before = world.snapshot()
 
     with pytest.raises(SystemExit):
         gen_uw.land()
 
     assert world.snapshot() == before, (
-        "functions.csv was rewritten before symbols.csv was even asked its "
-        "terminator; the snapshot must cover both")
+        "rejecting a legacy terminator must not leave a source or ledger edit")
 
 
 def test_the_ledger_lock_is_held_across_the_whole_transaction(tmp_path, monkeypatch):

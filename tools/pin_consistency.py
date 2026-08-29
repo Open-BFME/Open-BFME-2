@@ -576,7 +576,7 @@ BASELINE_PREAMBLE = """\
 #        fell out of `lea eax,[eax+eax*2+d]` alone). Decompiled C is not proof.
 #   3. Delete the losing pin rows from reverse/symbols.csv -- splice in place,
 #        every surviving line byte-identical, terminators unchanged (uniform
-#        CRLF), and verify the census before/after. Deleting is a rewrite.
+#        LF), and verify the census before/after. Deleting is a rewrite.
 #   4. Delete this line, in the SAME commit. A fixed symbol leaves a stale line
 #        that fails too, on purpose: the fix and the removal are one change.
 #   5. Run the FULL ./build.sh. Not the scoped one -- see the warning below.
