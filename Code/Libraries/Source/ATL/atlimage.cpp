@@ -11,6 +11,7 @@ typedef long LONG;
 
 extern "C" __declspec(dllimport) LONG __stdcall InterlockedExchange(volatile LONG *target, LONG value);
 extern "C" __declspec(dllimport) HDC __stdcall CreateCompatibleDC(HDC dc);
+extern "C" __declspec(dllimport) int __stdcall DeleteDC(HDC dc);
 
 namespace ATL
 {
@@ -22,6 +23,7 @@ private:
     {
     public:
         HDC GetDC() throw();
+        void ReleaseDC(HDC dc) throw();
 
     private:
         HDC m_ahDCs[4];
@@ -62,6 +64,21 @@ HDC CImage::CDCCache::GetDC() throw()
 
     dc = CreateCompatibleDC(0);
     return dc;
+}
+
+void CImage::CDCCache::ReleaseDC(HDC dc) throw()
+{
+    for (int i = 0; i < 4; ++i)
+    {
+        HDC oldDC = (HDC)InterlockedExchange((volatile LONG *)&m_ahDCs[i], (LONG)dc);
+        if (oldDC == 0)
+        {
+            return;
+        }
+        dc = oldDC;
+    }
+
+    DeleteDC(dc);
 }
 
 HBITMAP CImage::Detach() throw()
