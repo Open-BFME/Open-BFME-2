@@ -13,6 +13,14 @@ int StringBase<char>::compare(const StringBase<char> &str) const
     return compare(data, len);
 }
 
+template <>
+void StringBase<char>::concat(const StringBase<char> &str)
+{
+    const int len = str.m_data ? str.m_data->length : 0;
+    const char *data = str.m_data ? &str.m_data->data[0] : "";
+    concat(data, len);
+}
+
 template <typename T>
 void StringBase<T>::concat(T c)
 {
