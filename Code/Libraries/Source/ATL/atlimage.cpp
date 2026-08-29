@@ -14,12 +14,19 @@ typedef unsigned int UINT;
 struct tagRGBQUAD;
 typedef tagRGBQUAD RGBQUAD;
 
+struct CRITICAL_SECTION
+{
+    unsigned char data[24];
+};
+
 extern "C" __declspec(dllimport) LONG __stdcall InterlockedExchange(volatile LONG *target, LONG value);
 extern "C" __declspec(dllimport) HDC __stdcall CreateCompatibleDC(HDC dc);
 extern "C" __declspec(dllimport) int __stdcall DeleteDC(HDC dc);
 extern "C" __declspec(dllimport) HGDIOBJ __stdcall SelectObject(HDC dc, HGDIOBJ object);
 extern "C" __declspec(dllimport) UINT __stdcall SetDIBColorTable(
     HDC dc, UINT firstColor, UINT colors, const RGBQUAD *colorTable);
+extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(CRITICAL_SECTION *section);
+extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(CRITICAL_SECTION *section);
 
 namespace ATL
 {
@@ -27,6 +34,17 @@ namespace ATL
 class CImage
 {
 private:
+    class CInitGDIPlus
+    {
+    public:
+        void IncreaseCImageCount() throw();
+
+    private:
+        unsigned long m_dwToken;
+        CRITICAL_SECTION m_sect;
+        LONG m_nCImageObjects;
+    };
+
     class CDCCache
     {
     public:
@@ -61,6 +79,13 @@ private:
 
     static CDCCache s_cache;
 };
+
+void CImage::CInitGDIPlus::IncreaseCImageCount() throw()
+{
+    EnterCriticalSection(&m_sect);
+    ++m_nCImageObjects;
+    LeaveCriticalSection(&m_sect);
+}
 
 HDC CImage::CDCCache::GetDC() throw()
 {
