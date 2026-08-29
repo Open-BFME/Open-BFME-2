@@ -28,12 +28,21 @@ public:
 class Coord3D
 {
 public:
+    Coord3D &SetMaxVect();
     Coord3D &SetMinVect();
 
     float x;
     float y;
     float z;
 };
+
+Coord3D &Coord3D::SetMaxVect()
+{
+    z = 3.4028234663852886e38f;
+    y = 3.4028234663852886e38f;
+    x = 3.4028234663852886e38f;
+    return *this;
+}
 
 Coord3D &Coord3D::SetMinVect()
 {
