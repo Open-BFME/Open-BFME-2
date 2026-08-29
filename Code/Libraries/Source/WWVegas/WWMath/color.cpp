@@ -1,5 +1,30 @@
 // cl: /O1 /arch:SSE2 /ICode/GameEngine/Source/Common
 
+class Debug
+{
+public:
+    virtual void v0();
+    virtual void v1();
+    virtual void v2();
+    virtual void v3();
+    virtual void v4();
+    virtual void v5();
+    virtual void v6();
+    virtual void v7();
+    virtual Debug &operator<<(const char *value);
+    virtual Debug &operator<<(int value);
+    virtual Debug &operator<<(unsigned int value);
+    virtual Debug &operator<<(unsigned char value);
+    virtual Debug &operator<<(short value);
+    virtual Debug &operator<<(unsigned short value);
+    virtual void v9();
+    virtual void v10();
+    virtual void v11();
+    virtual void v12();
+    virtual void v13();
+    virtual Debug &operator<<(float value);
+};
+
 struct RGBColor
 {
     int getAsInt() const;
@@ -8,6 +33,14 @@ struct RGBColor
     float red;
     float green;
     float blue;
+};
+
+struct RGBAColorReal
+{
+    float red;
+    float green;
+    float blue;
+    float alpha;
 };
 
 int RGBColor::getAsInt() const
@@ -33,4 +66,10 @@ bool operator==(const RGBColor &left, const RGBColor &right)
 bool operator!=(const RGBColor &left, const RGBColor &right)
 {
     return !(left == right);
+}
+
+Debug &operator<<(Debug &debug, const RGBAColorReal &color)
+{
+    debug << "(" << color.red << ", " << color.green << ", " << color.blue << ", " << color.alpha << ")";
+    return debug;
 }
