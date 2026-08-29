@@ -369,7 +369,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_00005cd4@@YAXXZ,,0x00005CD4,1497,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=Inverse
 ?d_000062ad@@YAXXZ,,0x000062AD,43,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=combine
 ?d_000062d8@@YAXXZ,,0x000062D8,37,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=combine
-?d_00006423@@YAXXZ,,0x00006423,70,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=expandBy
 ?d_00006469@@YAXXZ,,0x00006469,44,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=expandBy
 ?d_00006495@@YAXXZ,,0x00006495,103,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=expandBy
 ?d_000064fc@@YAXXZ,,0x000064FC,60,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=expandBy
@@ -645,3 +644,4 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?width@Region2D@@QBEMXZ,0x00004C28,0x00004C28,6,Code/Libraries/Source/WWVegas/WWMath/region.cpp,matched,Open-BFME5 clean C++; Region2D width from pinned BFME1 source
 ?isInside@Region2D@@QBE_NABVCoord2D@@@Z,0x00004C2E,0x00004C2E,55,Code/Libraries/Source/WWVegas/WWMath/region.cpp,matched,Open-BFME5 clean C++; direct Open-BFME-1 Region2D isInside source
 ?IsExactlyEqualTo@Region2D@@QBE_NABU1@@Z,0x00004C65,0x00004C65,72,Code/Libraries/Source/WWVegas/WWMath/region.cpp,matched,Open-BFME5 clean C++; direct Open-BFME-1 Region2D exact equality source
+?expandBy@Region2D@@QAEXABVCoord2D@@@Z,0x00006423,0x00006423,70,Code/Libraries/Source/WWVegas/WWMath/region.cpp,matched,Open-BFME5 clean C++; verbatim Open-BFME-1 Region2D expandBy source
