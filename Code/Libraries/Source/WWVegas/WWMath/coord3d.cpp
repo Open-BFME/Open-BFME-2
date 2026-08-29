@@ -65,6 +65,7 @@ public:
     float GetLengthSqrd2D() const;
     float length() const;
     Coord3D &Negate();
+    void normalize();
     float Normalize();
     float Normalize2D();
     Coord3D &operator+=(const Coord2D &that);
@@ -249,6 +250,17 @@ Coord3D &Coord3D::Negate()
     y = -y;
     z = -z;
     return *this;
+}
+
+void Coord3D::normalize()
+{
+    float len = length();
+    if (len != 0.0f) {
+        float scale = one / len;
+        x *= scale;
+        y *= scale;
+        z *= scale;
+    }
 }
 
 float Coord3D::Normalize()
