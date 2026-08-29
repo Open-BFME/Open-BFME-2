@@ -82,6 +82,7 @@ public:
     Coord3D &SetZero();
     void set(float x, float y, float z);
     void sub(const Coord3DBase *that);
+    void zero();
 
     float x;
     float y;
@@ -373,6 +374,13 @@ void Coord3D::sub(const Coord3DBase *that)
     x -= that->x;
     y -= that->y;
     z -= that->z;
+}
+
+void Coord3D::zero()
+{
+    x = 0.0f;
+    y = 0.0f;
+    z = 0.0f;
 }
 
 Debug &operator<<(Debug &debug, const Coord3D &coord)
