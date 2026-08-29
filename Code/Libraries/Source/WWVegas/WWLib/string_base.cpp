@@ -17,3 +17,4 @@ void StringBase<T>::set(T c)
 
 template class StringBase<char>;
 template void StringBase<wchar_t>::set(wchar_t c);
+template void StringBase<wchar_t>::concat(wchar_t c);

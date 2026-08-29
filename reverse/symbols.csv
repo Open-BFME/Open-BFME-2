@@ -11,3 +11,4 @@ __ftol2,0x00629228,MSVC float-to-int helper byte-identical to pinned BFME1 CRT b
 ?set@?$StringBase@D@@QAEXPBDH@Z,0x00036780,BFME2 export and retail call target for StringBase<char>::set(const char *, int)
 ?concat@?$StringBase@D@@QAEXPBDH@Z,0x000369A0,BFME2 export and retail call target for StringBase<char>::concat(const char *, int)
 ?set@?$StringBase@G@@QAEXPBGH@Z,0x000371E0,BFME2 export and retail call target for StringBase<wchar_t>::set(const wchar_t *, int)
+?concat@?$StringBase@G@@QAEXPBGH@Z,0x00037410,BFME2 export and retail call target for StringBase<wchar_t>::concat(const wchar_t *, int)
