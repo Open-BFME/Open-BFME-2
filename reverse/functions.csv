@@ -189,7 +189,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_00001db1@@YAXXZ,,0x00001DB1,98,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00401db1
 ?d_00001e2f@@YAXXZ,,0x00001E2F,20,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=isEmpty
 ?d_00001e43@@YAXXZ,,0x00001E43,36,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00401e43
-?d_00001e67@@YAXXZ,,0x00001E67,24,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=RGBColorKeyframe
 ?d_00001e7f@@YAXXZ,,0x00001E7F,47,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=RandomAlphaKeyframe
 ?d_00001ef9@@YAXXZ,,0x00001EF9,31,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=CategoryModuleTemplate<8>
 ?d_00001f18@@YAXXZ,,0x00001F18,24,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=~CategoryModuleTemplate<1>
@@ -645,3 +644,4 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ??9@YA_NABURGBColor@@0@Z,0x00004F65,0x00004F65,21,Code/Libraries/Source/WWVegas/WWMath/color.cpp,matched,Open-BFME5 clean C++; Open-BFME-1 RGBColor inequality source
 ??6@YAAAVDebug@@AAV0@ABURGBAColorReal@@@Z,0x000051DA,0x000051DA,125,Code/Libraries/Source/WWVegas/WWMath/color.cpp,matched,
 ??6@YAAAVDebug@@AAV0@ABURGBAColorInt@@@Z,0x00005257,0x00005257,109,Code/Libraries/Source/WWVegas/WWMath/color.cpp,matched,
+??0RGBColorKeyframe@FXParticleSystem@@QAE@XZ,0x00001E67,0x00001E67,24,Code/Libraries/Source/WWVegas/WWMath/color.cpp,matched,

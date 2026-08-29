@@ -87,3 +87,21 @@ Debug &operator<<(Debug &debug, const RGBAColorInt &color)
     debug << "(" << color.red << ", " << color.green << ", " << color.blue << ", " << color.alpha << ")";
     return debug;
 }
+
+namespace FXParticleSystem {
+
+struct RGBColorKeyframe
+{
+    RGBColorKeyframe();
+
+    RGBColor color;
+    unsigned int frame;
+};
+
+RGBColorKeyframe::RGBColorKeyframe()
+{
+    color.red = color.green = color.blue = 0.0f;
+    frame = 0;
+}
+
+}
