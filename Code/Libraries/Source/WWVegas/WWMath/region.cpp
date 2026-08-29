@@ -27,6 +27,18 @@ struct IRegion3D
     int z_max;
 };
 
+struct Region3D
+{
+    float width() const;
+
+    float x_min;
+    float y_min;
+    float z_min;
+    float x_max;
+    float y_max;
+    float z_max;
+};
+
 bool IRegion2D::operator==(const IRegion2D &that) const
 {
     return x_min == that.x_min &&
@@ -63,4 +75,9 @@ int IRegion3D::height() const
 int IRegion3D::depth() const
 {
     return z_max - z_min;
+}
+
+float Region3D::width() const
+{
+    return x_max - x_min;
 }
