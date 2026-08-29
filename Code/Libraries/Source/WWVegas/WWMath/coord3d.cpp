@@ -51,6 +51,7 @@ public:
     Coord3D &Add2D(const Coord3DBase &left, const Coord3DBase &right);
     Coord3D &Sub2D(const Coord3DBase &left, const Coord3DBase &right);
     Coord3D &Scale2D(const Coord3DBase &that, float scale);
+    float GetLength() const;
     float GetLength2D() const;
     float GetLengthSqrd() const;
     float GetLengthSqrd2D() const;
@@ -118,6 +119,15 @@ Coord3D &Coord3D::Scale2D(const Coord3DBase &that, float scale)
     x = that.x * scale;
     y = that.y * scale;
     return *this;
+}
+
+float Coord3D::GetLength() const
+{
+    float x_value = x;
+    float y_value = y;
+    float z_value = z;
+
+    return (float)sqrt(x_value * x_value + y_value * y_value + z_value * z_value);
 }
 
 float Coord3D::GetLength2D() const
