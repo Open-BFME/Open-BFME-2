@@ -44,6 +44,7 @@ public:
 class Coord3D
 {
 public:
+    Coord3D(int x, int y, int z);
     Coord3D &Add(const Coord2D &left, const Coord3DBase &right);
     Coord3D &Add(const Coord3DBase &left, const Coord2D &right);
     Coord3D &Sub(const Coord2D &left, const Coord3DBase &right);
@@ -71,6 +72,13 @@ public:
 };
 
 static const float one = 1.0f;
+
+Coord3D::Coord3D(int x, int y, int z)
+{
+    this->x = (float)x;
+    this->y = (float)y;
+    this->z = (float)z;
+}
 
 Coord3D &Coord3D::Add(const Coord2D &left, const Coord3DBase &right)
 {
