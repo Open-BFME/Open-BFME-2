@@ -67,6 +67,7 @@ public:
     float Normalize();
     float Normalize2D();
     Coord3D &operator+=(const Coord2D &that);
+    Coord3D &operator+=(const Coord3DBase &that);
     Coord3D &operator-=(const Coord2D &that);
     float operator*(const Coord2D &that) const;
     float operator*(const Coord3DBase &that) const;
@@ -262,6 +263,14 @@ Coord3D &Coord3D::operator+=(const Coord2D &that)
 {
     x += that.x;
     y += that.y;
+    return *this;
+}
+
+Coord3D &Coord3D::operator+=(const Coord3DBase &that)
+{
+    x += that.x;
+    y += that.y;
+    z += that.z;
     return *this;
 }
 
