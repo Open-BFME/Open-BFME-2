@@ -7,11 +7,26 @@ typedef HBITMAP__ *HBITMAP;
 struct HDC__;
 typedef HDC__ *HDC;
 
+typedef long LONG;
+
+extern "C" __declspec(dllimport) LONG __stdcall InterlockedExchange(volatile LONG *target, LONG value);
+extern "C" __declspec(dllimport) HDC __stdcall CreateCompatibleDC(HDC dc);
+
 namespace ATL
 {
 
 class CImage
 {
+private:
+    class CDCCache
+    {
+    public:
+        HDC GetDC() throw();
+
+    private:
+        HDC m_ahDCs[4];
+    };
+
 public:
     virtual ~CImage() throw();
 
@@ -31,6 +46,23 @@ private:
     mutable int m_nDCRefCount;
     mutable HBITMAP m_hOldBitmap;
 };
+
+HDC CImage::CDCCache::GetDC() throw()
+{
+    HDC dc;
+
+    for (int i = 0; i < 4; ++i)
+    {
+        dc = (HDC)InterlockedExchange((volatile LONG *)&m_ahDCs[i], 0);
+        if (dc != 0)
+        {
+            return dc;
+        }
+    }
+
+    dc = CreateCompatibleDC(0);
+    return dc;
+}
 
 HBITMAP CImage::Detach() throw()
 {
