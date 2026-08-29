@@ -30,6 +30,7 @@ struct IRegion3D
 struct Region3D
 {
     float width() const;
+    float height() const;
 
     float x_min;
     float y_min;
@@ -80,4 +81,9 @@ int IRegion3D::depth() const
 float Region3D::width() const
 {
     return x_max - x_min;
+}
+
+float Region3D::height() const
+{
+    return y_max - y_min;
 }
