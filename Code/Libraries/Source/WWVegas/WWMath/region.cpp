@@ -35,6 +35,16 @@ public:
     float z;
 };
 
+struct Region2D
+{
+    float width() const;
+
+    float x_min;
+    float y_min;
+    float x_max;
+    float y_max;
+};
+
 struct Region3D
 {
     float width() const;
@@ -58,6 +68,11 @@ bool IRegion2D::operator==(const IRegion2D &that) const
         y_min == that.y_min &&
         x_max == that.x_max &&
         y_max == that.y_max;
+}
+
+float Region2D::width() const
+{
+    return x_max - x_min;
 }
 
 bool IRegion2D::operator!=(const IRegion2D &that) const
