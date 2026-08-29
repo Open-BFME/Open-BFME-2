@@ -69,6 +69,7 @@ public:
     Coord3D &operator+=(const Coord2D &that);
     Coord3D &operator+=(const Coord3DBase &that);
     Coord3D &operator-=(const Coord2D &that);
+    bool operator==(const Coord3D &that) const;
     float operator*(const Coord2D &that) const;
     float operator*(const Coord3DBase &that) const;
     Coord3D &Set2D(float x, float y);
@@ -279,6 +280,11 @@ Coord3D &Coord3D::operator-=(const Coord2D &that)
     x -= that.x;
     y -= that.y;
     return *this;
+}
+
+bool Coord3D::operator==(const Coord3D &that) const
+{
+    return x == that.x && y == that.y && z == that.z;
 }
 
 float Coord3D::operator*(const Coord2D &that) const
