@@ -9,6 +9,7 @@ struct ICoord2DBase
 struct ICoord2D : public ICoord2DBase
 {
     bool operator==(const ICoord2DBase &that) const;
+    bool operator!=(const ICoord2DBase &that) const;
 };
 
 struct ICoord3D
@@ -24,6 +25,11 @@ struct ICoord3D
 bool ICoord2D::operator==(const ICoord2DBase &that) const
 {
     return x == that.x && y == that.y;
+}
+
+bool ICoord2D::operator!=(const ICoord2DBase &that) const
+{
+    return x != that.x || y != that.y;
 }
 
 ICoord3D &ICoord3D::operator=(const ICoord3D &that)

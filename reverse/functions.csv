@@ -304,7 +304,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_00004c28@@YAXXZ,,0x00004C28,6,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=width
 ?d_00004c2e@@YAXXZ,,0x00004C2E,55,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=isInside
 ?d_00004c65@@YAXXZ,,0x00004C65,72,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=IsExactlyEqualTo
-?d_00004cc9@@YAXXZ,,0x00004CC9,28,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=operator!=
 ?d_00004ce5@@YAXXZ,,0x00004CE5,19,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=operator+=
 ?d_00004cf8@@YAXXZ,,0x00004CF8,19,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=operator-=
 ?d_00004d0b@@YAXXZ,,0x00004D0B,25,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=operator*=
@@ -645,3 +644,4 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?zero@ICoord3D@@QAEXXZ,0x00004DCF,0x00004DCF,11,Code/Libraries/Source/WWVegas/WWMath/icoord.cpp,matched,Open-BFME5 clean C++; ICoord3D zero from EA reference
 ??4ICoord3D@@QAEAAU0@ABU0@@Z,0x0000353A,0x0000353A,18,Code/Libraries/Source/WWVegas/WWMath/icoord.cpp,matched,Open-BFME5 clean C++; ICoord3D aggregate assignment from EA reference
 ??8ICoord2D@@QBE_NABUICoord2DBase@@@Z,0x00004CAD,0x00004CAD,28,Code/Libraries/Source/WWVegas/WWMath/icoord.cpp,matched,Open-BFME5 clean C++; ICoord2D equality from EA reference
+??9ICoord2D@@QBE_NABUICoord2DBase@@@Z,0x00004CC9,0x00004CC9,28,Code/Libraries/Source/WWVegas/WWMath/icoord.cpp,matched,Open-BFME5 clean C++; ICoord2D inequality from EA reference
