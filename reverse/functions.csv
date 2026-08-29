@@ -321,7 +321,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_000058c3@@YAXXZ,,0x000058C3,96,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=AtlWinModuleTerm
 ?d_00005923@@YAXXZ,,0x00005923,124,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=toAngle
 ?d_000059d3@@YAXXZ,,0x000059D3,83,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Normalize
-?d_00005a70@@YAXXZ,,0x00005A70,66,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Normalize
 ?d_00005ae7@@YAXXZ,,0x00005AE7,102,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Matrix4D
 ?d_00005b4d@@YAXXZ,,0x00005B4D,107,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Matrix4D
 ?d_00005bb8@@YAXXZ,,0x00005BB8,116,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Matrix4D
@@ -645,3 +644,4 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?GetLength2D@Coord3D@@QBEMXZ,0x0000599F,0x0000599F,32,Code/Libraries/Source/WWVegas/WWMath/coord3d.cpp,matched,
 ?GetLength@Coord3D@@QBEMXZ,0x00005A26,0x00005A26,43,Code/Libraries/Source/WWVegas/WWMath/coord3d.cpp,matched,
 ?Normalize2D@Coord3D@@QAEMXZ,0x00005AB2,0x00005AB2,53,Code/Libraries/Source/WWVegas/WWMath/coord3d.cpp,matched,
+?Normalize@Coord3D@@QAEMXZ,0x00005A70,0x00005A70,66,Code/Libraries/Source/WWVegas/WWMath/coord3d.cpp,matched,
