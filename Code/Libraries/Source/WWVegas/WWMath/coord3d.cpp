@@ -66,6 +66,7 @@ public:
     Coord3D &SetZAxis();
     Coord3D &SetZero();
     void set(float x, float y, float z);
+    void sub(const Coord3DBase *that);
 
     float x;
     float y;
@@ -247,6 +248,13 @@ void Coord3D::set(float x, float y, float z)
     this->x = x;
     this->y = y;
     this->z = z;
+}
+
+void Coord3D::sub(const Coord3DBase *that)
+{
+    x -= that->x;
+    y -= that->y;
+    z -= that->z;
 }
 
 Debug &operator<<(Debug &debug, const Coord3D &coord)
