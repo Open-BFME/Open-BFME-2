@@ -36,6 +36,7 @@ public:
 
     HBITMAP Detach() throw();
     HDC GetDC() const throw();
+    void ReleaseDC() const throw();
 
 private:
     HBITMAP m_hBitmap;
@@ -96,6 +97,17 @@ HDC CImage::GetDC() const throw()
     }
 
     return m_hDC;
+}
+
+void CImage::ReleaseDC() const throw()
+{
+    --m_nDCRefCount;
+    if (m_nDCRefCount == 0)
+    {
+        HBITMAP bitmap = (HBITMAP)SelectObject(m_hDC, m_hOldBitmap);
+        s_cache.ReleaseDC(m_hDC);
+        m_hDC = 0;
+    }
 }
 
 HBITMAP CImage::Detach() throw()
