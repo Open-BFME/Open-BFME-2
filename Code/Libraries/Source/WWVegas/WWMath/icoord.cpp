@@ -1,5 +1,7 @@
 // cl: /O1 /ICode/GameEngine/Source/Common
 
+#include <math.h>
+
 struct ICoord2DBase
 {
     int x;
@@ -15,6 +17,7 @@ struct ICoord2D : public ICoord2DBase
 struct ICoord3D
 {
     ICoord3D &operator=(const ICoord3D &that);
+    int length() const;
     void zero();
 
     int x;
@@ -43,6 +46,11 @@ ICoord3D &ICoord3D::operator=(const ICoord3D &that)
 
     *(Raw *)this = *(const Raw *)&that;
     return *this;
+}
+
+int ICoord3D::length() const
+{
+    return (int)sqrt((double)(x * x + y * y + z * z));
 }
 
 void ICoord3D::zero()
