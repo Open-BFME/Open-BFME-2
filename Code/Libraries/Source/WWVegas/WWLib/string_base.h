@@ -6,6 +6,8 @@ class StringBase
 public:
     int compare(const StringBase<T> &str) const;
     int compare(const T *str, int len) const;
+    int compareNoCase(const StringBase<T> &str) const;
+    int compareNoCase(const T *str, int len) const;
     void concat(const StringBase<T> &str);
     void concat(T c);
     void concat(const T *str, int len);

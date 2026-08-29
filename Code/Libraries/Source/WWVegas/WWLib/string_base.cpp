@@ -14,6 +14,14 @@ int StringBase<char>::compare(const StringBase<char> &str) const
 }
 
 template <>
+int StringBase<char>::compareNoCase(const StringBase<char> &str) const
+{
+    const int len = str.m_data ? str.m_data->length : 0;
+    const char *data = str.m_data ? &str.m_data->data[0] : "";
+    return compareNoCase(data, len);
+}
+
+template <>
 void StringBase<char>::concat(const StringBase<char> &str)
 {
     const int len = str.m_data ? str.m_data->length : 0;
