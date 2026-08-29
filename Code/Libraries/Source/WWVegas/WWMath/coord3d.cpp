@@ -44,6 +44,7 @@ public:
 class Coord3D
 {
 public:
+    Coord3D(const Coord2D &that);
     Coord3D(int x, int y, int z);
     static void crossProduct(const Coord3D *left, const Coord3D *right, Coord3D *result);
     Coord3D &Add(const Coord2D &left, const Coord3DBase &right);
@@ -82,6 +83,13 @@ public:
 };
 
 static const float one = 1.0f;
+
+Coord3D::Coord3D(const Coord2D &that)
+{
+    x = that.x;
+    y = that.y;
+    z = 0.0f;
+}
 
 Coord3D::Coord3D(int x, int y, int z)
 {
