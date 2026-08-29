@@ -294,7 +294,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_000046bd@@YAXXZ,,0x000046BD,150,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=TransformCoord
 ?d_00004753@@YAXXZ,,0x00004753,135,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=RotateCoord
 ?d_000047da@@YAXXZ,,0x000047DA,918,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Multiply
-?d_00004bbf@@YAXXZ,,0x00004BBF,23,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=GetXVector
 ?d_00004bd6@@YAXXZ,,0x00004BD6,24,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=GetYVector
 ?d_00004bee@@YAXXZ,,0x00004BEE,24,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=GetZVector
 ?d_00004ce5@@YAXXZ,,0x00004CE5,19,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=operator+=
@@ -645,3 +644,4 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ??0RGBColorKeyframe@FXParticleSystem@@QAE@XZ,0x00001E67,0x00001E67,24,Code/Libraries/Source/WWVegas/WWMath/color.cpp,matched,
 ?rad2deg@@YAMM@Z,0x00003524,0x00003524,11,Code/GameEngine/Source/Common/System/Trig.cpp,matched,
 ?deg2rad@@YAMM@Z,0x0000352F,0x0000352F,11,Code/GameEngine/Source/Common/System/Trig.cpp,matched,
+?GetXVector@Matrix4D@@QBEAAVCoord3D@@AAV2@@Z,0x00004BBF,0x00004BBF,23,Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp,matched,
