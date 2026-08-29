@@ -44,6 +44,7 @@ public:
 
 struct Region2D
 {
+    Region2D(const Coord2D &lower_left, const Coord2D &upper_right);
     float width() const;
     bool isInside(const Coord2D &point) const;
     bool IsExactlyEqualTo(const Region2D &that) const;
@@ -79,6 +80,14 @@ bool IRegion2D::operator==(const IRegion2D &that) const
         y_min == that.y_min &&
         x_max == that.x_max &&
         y_max == that.y_max;
+}
+
+Region2D::Region2D(const Coord2D &lower_left, const Coord2D &upper_right)
+{
+    x_min = lower_left.x;
+    y_min = lower_left.y;
+    x_max = upper_right.x;
+    y_max = upper_right.y;
 }
 
 float Region2D::width() const
