@@ -3,11 +3,18 @@
 class Coord2D
 {
 public:
+    Coord2D(int x, int y);
     Coord2D &SetZero();
 
     float x;
     float y;
 };
+
+Coord2D::Coord2D(int x, int y)
+{
+    this->x = (float)x;
+    this->y = (float)y;
+}
 
 Coord2D &Coord2D::SetZero()
 {
