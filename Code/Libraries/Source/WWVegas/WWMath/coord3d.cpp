@@ -60,6 +60,7 @@ public:
     float GetLength2D() const;
     float GetLengthSqrd() const;
     float GetLengthSqrd2D() const;
+    float length() const;
     Coord3D &Negate();
     float Normalize();
     float Normalize2D();
@@ -204,6 +205,11 @@ float Coord3D::GetLengthSqrd2D() const
     float y_value = y;
 
     return x_value * x_value + y_value * y_value;
+}
+
+float Coord3D::length() const
+{
+    return (float)sqrt(x * x + y * y + z * z);
 }
 
 Coord3D &Coord3D::Negate()
