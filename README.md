@@ -12,8 +12,11 @@ Sister project of [Open-BFME-1](https://github.com/Open-BFME/Open-BFME-1) — sa
 
 ## Status
 
-Bootstrapping. Flag calibration against retail is proven: BFME 1-matched bodies
-transfer to `game.dat` byte-for-byte (same compiler, same flag families).
+**0.59% of `game.dat`'s code rebuilds byte-exact from clean C++** — 146
+functions on day one: all of zlib 1.1.4, the EAC codecs, LZHCompress,
+CompressionManager and md5, every one byte-verified by the full gate. Flag
+calibration is proven (756 Open-BFME-1 bodies transfer verbatim), so the
+reference sweeps are wide open.
 
 ## Roadmap
 
