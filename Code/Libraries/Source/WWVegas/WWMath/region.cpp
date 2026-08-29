@@ -60,6 +60,7 @@ struct Region3D
     float width() const;
     float height() const;
     float depth() const;
+    void expandBy(const Coord3D &point);
     void zero();
     bool isInRegionNoZ(const Coord3D *point) const;
     bool isInRegionWithZ(const Coord3D *point) const;
@@ -163,6 +164,33 @@ float Region3D::height() const
 float Region3D::depth() const
 {
     return z_max - z_min;
+}
+
+void Region3D::expandBy(const Coord3D &point)
+{
+    float x = point.x;
+
+    if (x < x_min) {
+        x_min = x;
+    } else if (x > x_max) {
+        x_max = x;
+    }
+
+    float y = point.y;
+
+    if (y < y_min) {
+        y_min = y;
+    } else if (y > y_max) {
+        y_max = y;
+    }
+
+    float z = point.z;
+
+    if (z < z_min) {
+        z_min = z;
+    } else if (z > z_max) {
+        z_max = z;
+    }
 }
 
 void Region3D::zero()
