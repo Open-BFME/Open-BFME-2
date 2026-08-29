@@ -6,6 +6,7 @@ class StringBase
 public:
     void concat(T c);
     void concat(const T *str, int len);
+    int getLength() const;
     void set(T c);
     void set(const T *str, int len);
 

@@ -274,7 +274,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_000056d1@@YAXXZ,,0x000056D1,103,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Init
 ?d_0000575a@@YAXXZ,,0x0000575A,39,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_0040575a
 ?d_000057f1@@YAXXZ,,0x000057F1,23,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_004057f1
-?d_00005808@@YAXXZ,,0x00005808,14,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=getLength
 ?d_00005816@@YAXXZ,,0x00005816,43,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00405816
 ?d_00005841@@YAXXZ,,0x00005841,44,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00405841
 ?d_0000586d@@YAXXZ,,0x0000586D,43,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_0040586d
@@ -645,3 +644,4 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?concat@?$StringBase@D@@QAEXD@Z,0x0000564E,0x0000564E,15,Code/Libraries/Source/WWVegas/WWLib/string_base.cpp,matched,
 ?set@?$StringBase@G@@QAEXG@Z,0x00005683,0x00005683,15,Code/Libraries/Source/WWVegas/WWLib/string_base.cpp,matched,
 ?concat@?$StringBase@G@@QAEXG@Z,0x000056B8,0x000056B8,15,Code/Libraries/Source/WWVegas/WWLib/string_base.cpp,matched,
+?getLength@?$StringBase@D@@QBEHXZ,0x00005808,0x00005808,14,Code/Libraries/Source/WWVegas/WWLib/string_base.cpp,matched,

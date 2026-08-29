@@ -10,6 +10,12 @@ void StringBase<T>::concat(T c)
 }
 
 template <typename T>
+int StringBase<T>::getLength() const
+{
+    return m_data ? m_data->length : 0;
+}
+
+template <typename T>
 void StringBase<T>::set(T c)
 {
     set(&c, 1);
