@@ -65,6 +65,7 @@ public:
     Coord3D &SetYAxis();
     Coord3D &SetZAxis();
     Coord3D &SetZero();
+    void set(float x, float y, float z);
 
     float x;
     float y;
@@ -239,6 +240,13 @@ Coord3D &Coord3D::SetZero()
     y = 0.0f;
     x = 0.0f;
     return *this;
+}
+
+void Coord3D::set(float x, float y, float z)
+{
+    this->x = x;
+    this->y = y;
+    this->z = z;
 }
 
 Debug &operator<<(Debug &debug, const Coord3D &coord)
