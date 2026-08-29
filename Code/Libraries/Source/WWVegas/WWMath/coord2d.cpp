@@ -10,6 +10,7 @@ public:
     float length() const;
     Coord2D &Negate();
     Coord2D &operator/=(float divisor);
+    Coord2D &Rotate(float sine, float cosine);
     Coord2D &SetMaxVect();
     Coord2D &SetMinVect();
     Coord2D &SetXAxis();
@@ -48,6 +49,15 @@ Coord2D &Coord2D::operator/=(float divisor)
     float scale = 1.0f / divisor;
     x *= scale;
     y *= scale;
+    return *this;
+}
+
+Coord2D &Coord2D::Rotate(float sine, float cosine)
+{
+    float new_x = cosine * x - sine * y;
+
+    y = cosine * y + sine * x;
+    x = new_x;
     return *this;
 }
 
