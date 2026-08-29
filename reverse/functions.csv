@@ -268,7 +268,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_00003d72@@YAXXZ,,0x00003D72,51,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Scale
 ?d_00003da5@@YAXXZ,,0x00003DA5,55,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Scale
 ?d_00003ddc@@YAXXZ,,0x00003DDC,40,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Negate
-?d_00003ea9@@YAXXZ,,0x00003EA9,46,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Add
 ?d_00003ed7@@YAXXZ,,0x00003ED7,53,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Sub
 ?d_00003f0c@@YAXXZ,,0x00003F0C,46,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Sub
 ?d_00003f3a@@YAXXZ,,0x00003F3A,26,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Coord2D
@@ -645,3 +644,4 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?Sub2D@Coord3D@@QAEAAV1@ABUCoord3DBase@@0@Z,0x00003E2C,0x00003E2C,40,Code/Libraries/Source/WWVegas/WWMath/coord3d.cpp,matched,
 ?Scale2D@Coord3D@@QAEAAV1@ABUCoord3DBase@@M@Z,0x00003E54,0x00003E54,39,Code/Libraries/Source/WWVegas/WWMath/coord3d.cpp,matched,
 ?Add@Coord3D@@QAEAAV1@ABVCoord2D@@ABUCoord3DBase@@@Z,0x00003E7B,0x00003E7B,46,Code/Libraries/Source/WWVegas/WWMath/coord3d.cpp,matched,
+?Add@Coord3D@@QAEAAV1@ABUCoord3DBase@@ABVCoord2D@@@Z,0x00003EA9,0x00003EA9,46,Code/Libraries/Source/WWVegas/WWMath/coord3d.cpp,matched,
