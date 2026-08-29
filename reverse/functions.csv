@@ -317,7 +317,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_00004d58@@YAXXZ,,0x00004D58,44,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=operator==
 ?d_00004d84@@YAXXZ,,0x00004D84,17,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=operator!=
 ?d_00004d95@@YAXXZ,,0x00004D95,58,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=length
-?d_00004dcf@@YAXXZ,,0x00004DCF,11,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=zero
 ?d_00004dda@@YAXXZ,,0x00004DDA,6,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=width
 ?d_00004de0@@YAXXZ,,0x00004DE0,7,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=height
 ?d_00004de7@@YAXXZ,,0x00004DE7,7,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=depth
@@ -645,3 +644,4 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_00013f10@@YAXXZ,,0x00013F10,189,Code/gen_asm/d_000112aa.asm,matched,gen-dump;ghidra=FUN_00413f10
 ?d_00013fd0@@YAXXZ,,0x00013FD0,54,Code/gen_asm/d_000112aa.asm,matched,gen-dump;ghidra=FUN_00413fd0
 ?d_000143a0@@YAXXZ,,0x000143A0,35,Code/gen_asm/d_000112aa.asm,matched,gen-dump;ghidra=FUN_004143a0
+?zero@ICoord3D@@QAEXXZ,0x00004DCF,0x00004DCF,11,Code/Libraries/Source/WWVegas/WWMath/icoord.cpp,matched,Open-BFME5 clean C++; ICoord3D zero from EA reference
