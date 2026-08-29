@@ -64,6 +64,7 @@ public:
     Coord3D &Negate();
     float Normalize();
     float Normalize2D();
+    float operator*(const Coord2D &that) const;
     float operator*(const Coord3DBase &that) const;
     Coord3D &Set2D(float x, float y);
     Coord3D &SetMaxVect();
@@ -237,6 +238,11 @@ float Coord3D::Normalize2D()
     x *= scale;
     y *= scale;
     return len;
+}
+
+float Coord3D::operator*(const Coord2D &that) const
+{
+    return x * that.x + y * that.y;
 }
 
 float Coord3D::operator*(const Coord3DBase &that) const
