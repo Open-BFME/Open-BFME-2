@@ -50,6 +50,7 @@ public:
     Coord3D &Add(const Coord3DBase &left, const Coord3DBase &right);
     Coord3D &Sub(const Coord2D &left, const Coord3DBase &right);
     Coord3D &Sub(const Coord3DBase &left, const Coord2D &right);
+    Coord3D &Sub(const Coord3DBase &left, const Coord3DBase &right);
     Coord3D &Add2D(const Coord3DBase &left, const Coord3DBase &right);
     Coord3D &Sub2D(const Coord3DBase &left, const Coord3DBase &right);
     Coord3D &Scale2D(const Coord3DBase &that, float scale);
@@ -121,6 +122,14 @@ Coord3D &Coord3D::Sub(const Coord3DBase &left, const Coord2D &right)
     x = left.x - right.x;
     y = left.y - right.y;
     z = left.z;
+    return *this;
+}
+
+Coord3D &Coord3D::Sub(const Coord3DBase &left, const Coord3DBase &right)
+{
+    x = left.x - right.x;
+    y = left.y - right.y;
+    z = left.z - right.z;
     return *this;
 }
 
