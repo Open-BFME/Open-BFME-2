@@ -69,6 +69,8 @@ public:
     float z;
 };
 
+Debug &operator<<(Debug &debug, const Coord3D &coord);
+
 class Coord2D
 {
 public:
@@ -267,5 +269,11 @@ bool Region3D::isInRegionWithZ(const Coord3D *point) const
 Debug &operator<<(Debug &debug, const IRegion3D &region)
 {
     debug << *(const ICoord3D *)&region.x_min << " - " << *(const ICoord3D *)&region.x_max;
+    return debug;
+}
+
+Debug &operator<<(Debug &debug, const Region3D &region)
+{
+    debug << *(const Coord3D *)&region.x_min << " - " << *(const Coord3D *)&region.x_max;
     return debug;
 }
