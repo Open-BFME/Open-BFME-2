@@ -58,6 +58,7 @@ public:
     float GetLengthSqrd2D() const;
     float Normalize();
     float Normalize2D();
+    float operator*(const Coord3DBase &that) const;
     Coord3D &Set2D(float x, float y);
     Coord3D &SetMaxVect();
     Coord3D &SetMinVect();
@@ -186,6 +187,11 @@ float Coord3D::Normalize2D()
     x *= scale;
     y *= scale;
     return len;
+}
+
+float Coord3D::operator*(const Coord3DBase &that) const
+{
+    return x * that.x + y * that.y + z * that.z;
 }
 
 Coord3D &Coord3D::Set2D(float x, float y)
