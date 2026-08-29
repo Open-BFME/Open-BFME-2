@@ -168,7 +168,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_00001405@@YAXXZ,,0x00001405,30,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00401405
 ?d_00001423@@YAXXZ,,0x00001423,34,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=`vector_constructor_iterator'
 ?d_0000145b@@YAXXZ,,0x0000145B,83,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_0040145b
-?d_000014f0@@YAXXZ,,0x000014F0,36,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_004014f0
 ?d_00001642@@YAXXZ,,0x00001642,174,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00401642
 ?d_00001720@@YAXXZ,,0x00001720,19,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00401720
 ?d_00001733@@YAXXZ,,0x00001733,18,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=operator=
@@ -645,3 +644,4 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?SetColorTable@CImage@ATL@@QAEXIIPBUtagRGBQUAD@@@Z,,0x0000161A,40,Code/Libraries/Source/ATL/atlimage.cpp,matched,vendored=atl-7.1
 ?IncreaseCImageCount@CInitGDIPlus@CImage@ATL@@QAEXXZ,,0x000014D5,27,Code/Libraries/Source/ATL/atlimage.cpp,matched,vendored=atl-7.1
 ?ReleaseGDIPlus@CInitGDIPlus@CImage@ATL@@QAEXXZ,,0x000014AE,39,Code/Libraries/Source/ATL/atlimage.cpp,matched,vendored=atl-7.1
+?DecreaseCImageCount@CInitGDIPlus@CImage@ATL@@QAEXXZ,,0x000014F0,36,Code/Libraries/Source/ATL/atlimage.cpp,matched,vendored=atl-7.1

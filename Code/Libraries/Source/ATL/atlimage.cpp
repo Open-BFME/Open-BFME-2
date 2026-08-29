@@ -44,6 +44,7 @@ private:
     public:
         void ReleaseGDIPlus() throw();
         void IncreaseCImageCount() throw();
+        void DecreaseCImageCount() throw();
 
     private:
         unsigned long m_dwToken;
@@ -101,6 +102,14 @@ void CImage::CInitGDIPlus::IncreaseCImageCount() throw()
 {
     EnterCriticalSection(&m_sect);
     ++m_nCImageObjects;
+    LeaveCriticalSection(&m_sect);
+}
+
+void CImage::CInitGDIPlus::DecreaseCImageCount() throw()
+{
+    EnterCriticalSection(&m_sect);
+    if (--m_nCImageObjects == 0)
+        ReleaseGDIPlus();
     LeaveCriticalSection(&m_sect);
 }
 
