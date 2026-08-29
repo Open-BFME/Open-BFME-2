@@ -33,6 +33,7 @@ public:
     Coord3D &SetXAxis();
     Coord3D &SetYAxis();
     Coord3D &SetZAxis();
+    Coord3D &SetZero();
 
     float x;
     float y;
@@ -76,6 +77,14 @@ Coord3D &Coord3D::SetZAxis()
     x = 0.0f;
     y = 0.0f;
     z = 1.0f;
+    return *this;
+}
+
+Coord3D &Coord3D::SetZero()
+{
+    z = 0.0f;
+    y = 0.0f;
+    x = 0.0f;
     return *this;
 }
 
