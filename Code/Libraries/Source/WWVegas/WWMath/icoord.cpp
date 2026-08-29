@@ -38,6 +38,7 @@ struct ICoord2D : public ICoord2DBase
     ICoord2D &operator+=(const ICoord2DBase &that);
     ICoord2D &operator-=(const ICoord2DBase &that);
     ICoord2D &operator*=(int factor);
+    ICoord2D &operator/=(int divisor);
     ICoord2D &MoveBy(int delta);
     bool operator==(const ICoord2DBase &that) const;
     bool operator!=(const ICoord2DBase &that) const;
@@ -72,6 +73,13 @@ ICoord2D &ICoord2D::operator*=(int factor)
 {
     x *= factor;
     y *= factor;
+    return *this;
+}
+
+ICoord2D &ICoord2D::operator/=(int divisor)
+{
+    x /= divisor;
+    y /= divisor;
     return *this;
 }
 
