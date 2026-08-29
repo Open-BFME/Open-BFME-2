@@ -117,34 +117,26 @@ day 1).
 
 ## Bootstrap sequence
 
-Phase 0 — repo skeleton (an afternoon)
-- [ ] Create `Open-BFME/Open-BFME-2`, seed README (mirror BFME 1's pitch +
-      roadmap below), LICENSE (GPLv3, same as BFME 1/ZH), `.gitattributes`,
-      `.githooks`, `tools/setup_hooks.sh`.
-- [ ] Add submodule `reference/open-bfme-1`, pin current master.
-- [ ] Commit baseline `baselines/bfme2/workshop-vanilla-1.06/` (game.dat +
-      worldbuilder.exe + manifest; hashes preflight-verified above).
-- [ ] Copy + adapt `tools/`, `build.sh`/`build.ps1`, `AGENTS.md`,
-      `docs/matching.md`, `docs/structural.md`; seed `docs/lessons.md` with a
-      pointer to BFME 1's (recipes are toolchain truths; only copy in what
-      gets re-verified here).
+Phase 0 — repo skeleton — DONE 2026-08-29
+- [x] Repo created, README/LICENSE/`.gitattributes`/`.githooks` seeded.
+- [x] Submodule `reference/open-bfme-1` pinned at 125e52fd0 (shallow).
+- [x] Baseline `baselines/bfme2/workshop-vanilla-1.06/` committed
+      (game.dat + worldbuilder.exe + manifest; hashes preflight-verified).
+- [x] `tools/` + hooks copied and adapted (toolchain + ZH reference resolve
+      through the submodule; `vendor/` and `reference/shims/` copied);
+      `docs/lessons.md` seeded with the pointer + no-incremental-link note.
 
-Phase 1 — prove the loop (a day or two)
-- [ ] Ghidra headless inventory of `game.dat` (adapted `tools/ghidra/`
-      scripts): `ghidra_functions.csv`, `string_xrefs.tsv`, `vtables.tsv`,
-      `exports.csv`. Validate vtables export the way BFME 1's README
-      prescribes. Import `worldbuilder.exe` as a second Ghidra project;
-      export its reloc-derived DIR32 truth.
-- [ ] Flag calibration BEFORE mass work: pick ~10 functions with known
-      identity (exported names + engine-core leaves BFME 1 already holds) and
-      confirm the flag families (`/O2`, `/EHs-c-`, STLport include set)
-      reproduce retail bytes. Any systematic delta (e.g. BFME 2 built
-      `/O1`, different STLport rev, `_INTERNAL`-style define drift — recall
-      the string-header +8 lesson) must be found NOW, not mid-sweep.
-- [ ] Land the first hand-matched function end to end: source under `Code/`,
-      ledger row, `./build.sh` green, hooks green, push. This is BFME 1's
-      "Match Coord3D SetZero" moment; prefer an exported-name function so
-      identity is free.
+Phase 1 — prove the loop — DONE 2026-08-29
+- [x] Flag calibration: 756 BFME 1-matched bodies appear VERBATIM in
+      game.dat (72KB), 1,534 more with call operands wildcarded — same
+      compiler, same flag families. No systematic drift found.
+- [x] Ghidra headless inventory of `game.dat` (`ghidra_functions.csv`,
+      `string_xrefs.tsv`, `vtables.tsv`); `exports.csv` generated from the
+      PE export table (1,964 names, 1,428 code). Worldbuilder Ghidra project
+      + reloc harvest still pending.
+- [x] Loop proven far past one function: zlib 1.1.4 (65 bodies, 11 TUs),
+      EAC codecs, LZHCompress, CompressionManager_decompressData, WWLib md5
+      — 143 byte-verified functions, six symbols.csv pins, hooks green.
 
 Phase 2 — mass landing, in measured-yield order (the first weeks)
 - [ ] Prebuilt-lib sweep (`lib_window_sweep.py`/`obj_sweep.py` lineage):

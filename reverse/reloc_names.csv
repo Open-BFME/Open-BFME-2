@@ -1,0 +1,6 @@
+name,target_rva,target_size,source,notes
+??3@YAXPAX@Z,0x0002FD60,21,Code/Libraries/Source/Compression/LZHCompress/CompLibSource/Huff.cpp,reloc-derived;call-sites=7;identity=real
+??2@YAPAXI@Z,0x0002FDA0,19,Code/Libraries/Source/Compression/LZHCompress/CompLibSource/Huff.cpp,reloc-derived;call-sites=10;identity=real
+?BTREE_decompress@@YAHPAE0@Z,0x0068EB60,258,Code/Libraries/Source/Compression/EAC/btreedecode.cpp,reloc-derived;call-sites=1;identity=real
+?LZHLDestroyDecompressor@@YAXPAX@Z,0x0068ED80,27,Code/Libraries/Source/Compression/LZHCompress/NoxCompress.cpp,reloc-derived;call-sites=1;identity=real
+?decompress@LZHLDecompressor@@QAEHPAEPAIPBE1@Z,0x00692440,807,Code/Libraries/Source/Compression/LZHCompress/NoxCompress.cpp,reloc-derived;call-sites=1;identity=real

@@ -1,1 +1,7 @@
 name,address,notes
+??2@YAPAXI@Z,0x0002FDA0
+??3@YAXPAX@Z,0x0002FD60
+?BTREE_decompress@@YAHPAE0@Z,0x0068EB60
+__chkstk,0x00629000
+?decompress@LZHLDecompressor@@QAEHPAEPAIPBE1@Z,0x00692440
+?LZHLDestroyDecompressor@@YAXPAX@Z,0x0068ED80

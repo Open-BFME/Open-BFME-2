@@ -1,1 +1,147 @@
 name,export_rva,target_rva,target_size,source,status,notes
+_compress2,,0x0068AAB0,169,Code/Libraries/Source/Compression/ZLib/compress.c,matched,vendored=zlib-1.1.4
+_compress,,0x0068AB60,31,Code/Libraries/Source/Compression/ZLib/compress.c,matched,vendored=zlib-1.1.4
+_uncompress,,0x0068DA00,156,Code/Libraries/Source/Compression/ZLib/uncompr.c,matched,vendored=zlib-1.1.4
+_deflateSetDictionary,,0x0068EDA0,238,Code/Libraries/Source/Compression/ZLib/deflate.c,matched,vendored=zlib-1.1.4
+_putShortMSB,,0x0068EE90,39,Code/Libraries/Source/Compression/ZLib/deflate.c,matched,vendored=zlib-1.1.4
+_flush_pending,,0x0068EEC0,100,Code/Libraries/Source/Compression/ZLib/deflate.c,matched,vendored=zlib-1.1.4
+_deflate,,0x0068EF30,656,Code/Libraries/Source/Compression/ZLib/deflate.c,matched,vendored=zlib-1.1.4
+_deflateEnd,,0x0068F1C0,178,Code/Libraries/Source/Compression/ZLib/deflate.c,matched,vendored=zlib-1.1.4
+_deflateCopy,,0x0068F280,423,Code/Libraries/Source/Compression/ZLib/deflate.c,matched,vendored=zlib-1.1.4
+_read_buf,,0x0068F430,109,Code/Libraries/Source/Compression/ZLib/deflate.c,matched,vendored=zlib-1.1.4
+_lm_init,,0x0068F4A0,135,Code/Libraries/Source/Compression/ZLib/deflate.c,matched,vendored=zlib-1.1.4
+_longest_match,,0x0068F530,359,Code/Libraries/Source/Compression/ZLib/deflate.c,matched,vendored=zlib-1.1.4
+_fill_window,,0x0068F6A0,392,Code/Libraries/Source/Compression/ZLib/deflate.c,matched,vendored=zlib-1.1.4
+_deflate_stored,,0x0068F830,525,Code/Libraries/Source/Compression/ZLib/deflate.c,matched,vendored=zlib-1.1.4
+_deflate_fast,,0x0068FA40,867,Code/Libraries/Source/Compression/ZLib/deflate.c,matched,vendored=zlib-1.1.4
+_deflate_slow,,0x0068FDB0,994,Code/Libraries/Source/Compression/ZLib/deflate.c,matched,vendored=zlib-1.1.4
+_deflateReset,,0x006901A0,114,Code/Libraries/Source/Compression/ZLib/deflate.c,matched,vendored=zlib-1.1.4
+_deflateParams,,0x00690220,631,Code/Libraries/Source/Compression/ZLib/deflate.c,matched,vendored=zlib-1.1.4
+_deflateInit2_,,0x006904A0,490,Code/Libraries/Source/Compression/ZLib/deflate.c,matched,vendored=zlib-1.1.4
+_deflateInit_,,0x00690690,37,Code/Libraries/Source/Compression/ZLib/deflate.c,matched,vendored=zlib-1.1.4
+_inflateReset,,0x006906C0,66,Code/Libraries/Source/Compression/ZLib/inflate.c,matched,vendored=zlib-1.1.4
+_inflateEnd,,0x00690710,72,Code/Libraries/Source/Compression/ZLib/inflate.c,matched,vendored=zlib-1.1.4
+_inflateInit2_,,0x00690760,250,Code/Libraries/Source/Compression/ZLib/inflate.c,matched,vendored=zlib-1.1.4
+_inflateInit_,,0x00690860,26,Code/Libraries/Source/Compression/ZLib/inflate.c,matched,vendored=zlib-1.1.4
+_inflate,,0x00690880,1020,Code/Libraries/Source/Compression/ZLib/inflate.c,matched,vendored=zlib-1.1.4
+_inflateSetDictionary,,0x00690C80,129,Code/Libraries/Source/Compression/ZLib/inflate.c,matched,vendored=zlib-1.1.4
+_inflateSync,,0x00690D10,198,Code/Libraries/Source/Compression/ZLib/inflate.c,matched,vendored=zlib-1.1.4
+_inflateSyncPoint,,0x00690DE0,37,Code/Libraries/Source/Compression/ZLib/inflate.c,matched,vendored=zlib-1.1.4
+_adler32,,0x00692AC0,297,Code/Libraries/Source/Compression/ZLib/adler32.c,matched,stock zlib 1.1.4 adler32.c as vendored in the tree
+_init_block,,0x00692BF0,100,Code/Libraries/Source/Compression/ZLib/trees.c,matched,vendored=zlib-1.1.4
+_pqdownheap,,0x00692C60,196,Code/Libraries/Source/Compression/ZLib/trees.c,matched,vendored=zlib-1.1.4
+_gen_bitlen,,0x00692D30,563,Code/Libraries/Source/Compression/ZLib/trees.c,matched,vendored=zlib-1.1.4
+_scan_tree,,0x00692F70,216,Code/Libraries/Source/Compression/ZLib/trees.c,matched,vendored=zlib-1.1.4
+_send_tree,,0x00693050,1290,Code/Libraries/Source/Compression/ZLib/trees.c,matched,vendored=zlib-1.1.4
+_send_all_trees,,0x00693560,621,Code/Libraries/Source/Compression/ZLib/trees.c,matched,vendored=zlib-1.1.4
+__tr_tally,,0x006937D0,161,Code/Libraries/Source/Compression/ZLib/trees.c,matched,vendored=zlib-1.1.4
+_compress_block,,0x00693880,1055,Code/Libraries/Source/Compression/ZLib/trees.c,matched,vendored=zlib-1.1.4
+_set_data_type,,0x00693CA0,129,Code/Libraries/Source/Compression/ZLib/trees.c,matched,vendored=zlib-1.1.4
+_bi_reverse,,0x00693D30,23,Code/Libraries/Source/Compression/ZLib/trees.c,matched,vendored=zlib-1.1.4
+_bi_flush,,0x00693D50,127,Code/Libraries/Source/Compression/ZLib/trees.c,matched,vendored=zlib-1.1.4
+_bi_windup,,0x00693DD0,109,Code/Libraries/Source/Compression/ZLib/trees.c,matched,vendored=zlib-1.1.4
+_copy_block,,0x00693E40,130,Code/Libraries/Source/Compression/ZLib/trees.c,matched,vendored=zlib-1.1.4
+__tr_init,,0x00693ED0,100,Code/Libraries/Source/Compression/ZLib/trees.c,matched,vendored=zlib-1.1.4
+_gen_codes,,0x00693F40,113,Code/Libraries/Source/Compression/ZLib/trees.c,matched,vendored=zlib-1.1.4
+_build_tree,,0x00693FC0,498,Code/Libraries/Source/Compression/ZLib/trees.c,matched,vendored=zlib-1.1.4
+_build_bl_tree,,0x006941C0,108,Code/Libraries/Source/Compression/ZLib/trees.c,matched,vendored=zlib-1.1.4
+__tr_stored_block,,0x00694230,160,Code/Libraries/Source/Compression/ZLib/trees.c,matched,vendored=zlib-1.1.4
+__tr_align,,0x006942D0,497,Code/Libraries/Source/Compression/ZLib/trees.c,matched,vendored=zlib-1.1.4
+__tr_flush_block,,0x006944D0,485,Code/Libraries/Source/Compression/ZLib/trees.c,matched,vendored=zlib-1.1.4
+_zcalloc,,0x006946F0,20,Code/Libraries/Source/Compression/ZLib/zutil.c,matched,vendored=zlib-1.1.4
+_inflate_blocks_reset,,0x00694720,123,Code/Libraries/Source/Compression/ZLib/infblock.c,matched,vendored=zlib-1.1.4
+_inflate_blocks_new,,0x006947A0,155,Code/Libraries/Source/Compression/ZLib/infblock.c,matched,vendored=zlib-1.1.4
+_inflate_blocks,,0x00694840,2960,Code/Libraries/Source/Compression/ZLib/infblock.c,matched,vendored=zlib-1.1.4
+_inflate_blocks_free,,0x006953D0,132,Code/Libraries/Source/Compression/ZLib/infblock.c,matched,vendored=zlib-1.1.4
+_inflate_set_dictionary,,0x00695460,49,Code/Libraries/Source/Compression/ZLib/infblock.c,matched,vendored=zlib-1.1.4
+_inflate_blocks_sync_point,,0x006954A0,15,Code/Libraries/Source/Compression/ZLib/infblock.c,matched,vendored=zlib-1.1.4
+_inflate_codes_new,,0x006954B0,57,Code/Libraries/Source/Compression/ZLib/infcodes.c,matched,vendored=zlib-1.1.4
+_inflate_codes,,0x006954F0,1812,Code/Libraries/Source/Compression/ZLib/infcodes.c,matched,vendored=zlib-1.1.4
+_inflate_codes_free,,0x00695C10,20,Code/Libraries/Source/Compression/ZLib/infcodes.c,matched,vendored=zlib-1.1.4
+_huft_build,,0x00695C30,1256,Code/Libraries/Source/Compression/ZLib/inftrees.c,matched,vendored=zlib-1.1.4
+_inflate_trees_bits,,0x00696120,163,Code/Libraries/Source/Compression/ZLib/inftrees.c,matched,vendored=zlib-1.1.4
+_inflate_trees_dynamic,,0x006961D0,387,Code/Libraries/Source/Compression/ZLib/inftrees.c,matched,vendored=zlib-1.1.4
+_inflate_trees_fixed,,0x00696360,46,Code/Libraries/Source/Compression/ZLib/inftrees.c,matched,vendored=zlib-1.1.4
+_inflate_flush,,0x00696390,300,Code/Libraries/Source/Compression/ZLib/infutil.c,matched,vendored=zlib-1.1.4
+_inflate_fast,,0x006964C0,917,Code/Libraries/Source/Compression/ZLib/inffast.c,matched,vendored=zlib-1.1.4
+?MD5Init@@YAXPAUMD5_CTX@@@Z,,0x00606220,40,Code/Libraries/Source/WWVegas/WWLib/md5.cpp,matched,
+?Encode@@YAXPAEPAKI@Z,,0x00606250,49,Code/Libraries/Source/WWVegas/WWLib/md5.cpp,matched,
+?Decode@@YAXPAKPAEI@Z,,0x00606290,57,Code/Libraries/Source/WWVegas/WWLib/md5.cpp,matched,
+?MD5Transform@@YAXQAKQAE@Z,,0x00606360,2268,Code/Libraries/Source/WWVegas/WWLib/md5.cpp,matched,
+?MD5Update@@YAXPAUMD5_CTX@@PAEI@Z,,0x00606C40,185,Code/Libraries/Source/WWVegas/WWLib/md5.cpp,matched,Open-BFME5 canonical C++ conversion using retail intrinsic memcpy
+?MD5Final@@YAXQAEPAUMD5_CTX@@@Z,,0x00606D00,174,Code/Libraries/Source/WWVegas/WWLib/md5.cpp,matched,
+?getCompressionType@CompressionManager@@SA?AW4CompressionType@@PBXH@Z,,0x0068A1B0,233,Code/Libraries/Source/Compression/CompressionManager_decompressData.cpp,matched,promoted from exact clean C++ proxy; proper CompressionManager owner
+?getUncompressedSize@CompressionManager@@SAHPBXH@Z,,0x0068A320,49,Code/Libraries/Source/Compression/CompressionManager_decompressData.cpp,matched,promoted from exact clean C++ proxy; proper CompressionManager owner
+?decompressData@CompressionManager@@SAHPBXHPAXH@Z,,0x0068A4E0,240,Code/Libraries/Source/Compression/CompressionManager_decompressData.cpp,matched,reference body unchanged; named by a byte-true call site in CachedFileInputStream_open_Thunk.cpp and confirmed arm for arm by the compression-type constants
+?isDataCompressed@CompressionManager@@SA_NPBXH@Z,,0x0068A5D0,25,Code/Libraries/Source/Compression/CompressionManager_decompressData.cpp,matched,promoted from exact clean C++ proxy; proper CompressionManager owner
+?DecompressMemory@@YA_NPAXH0AAH@Z,,0x0068A7B0,197,Code/Libraries/Source/Compression/LZHCompress/NoxCompress.cpp,matched,Open-BFME5 clean C++; EA reference Nox LZH decompressor
+?matchlen@@YAIPAE0I@Z,,0x0068AB80,35,Code/Libraries/Source/Compression/EAC/refencode.cpp,matched,
+?refcompress@@YAHPAEH0HH@Z,,0x0068ABB0,1095,Code/Libraries/Source/Compression/EAC/refencode.cpp,matched,real C++; needed galloc/gfree as __cdecl dllimports (they are IAT slots)
+?HUFF_deltabytes@@YAXPBXPAXH@Z,,0x0068B0C0,36,Code/Libraries/Source/Compression/EAC/huffencode.cpp,matched,
+?HUFF_writebits@@YAXPAUHuffEncodeContext@@PAUHUFFMemStruct@@II@Z,,0x0068B0F0,180,Code/Libraries/Source/Compression/EAC/huffencode.cpp,matched,
+?HUFF_treechase@@YAXPAUHuffEncodeContext@@II@Z,,0x0068B1B0,85,Code/Libraries/Source/Compression/EAC/huffencode.cpp,matched,
+?HUFF_maketree@@YAXPAUHuffEncodeContext@@@Z,,0x0068B210,398,Code/Libraries/Source/Compression/EAC/huffencode.cpp,matched,
+?HUFF_minrep@@YAHPAUHuffEncodeContext@@II@Z,,0x0068B3A0,174,Code/Libraries/Source/Compression/EAC/huffencode.cpp,matched,
+?HUFF_writenum@@YAXPAUHuffEncodeContext@@PAUHUFFMemStruct@@I@Z,,0x0068B450,348,Code/Libraries/Source/Compression/EAC/huffencode.cpp,matched,
+?HUFF_writeexp@@YAXPAUHuffEncodeContext@@PAUHUFFMemStruct@@I@Z,,0x0068B5B0,90,Code/Libraries/Source/Compression/EAC/huffencode.cpp,matched,
+?HUFF_writecode@@YAXPAUHuffEncodeContext@@PAUHUFFMemStruct@@I@Z,,0x0068B610,55,Code/Libraries/Source/Compression/EAC/huffencode.cpp,matched,
+?HUFF_init@@YAXPAUHuffEncodeContext@@@Z,,0x0068B650,292,Code/Libraries/Source/Compression/EAC/huffencode.cpp,matched,
+?HUFF_analysis@@YAXPAUHuffEncodeContext@@II@Z,,0x0068B780,2599,Code/Libraries/Source/Compression/EAC/huffencode.cpp,matched,true size 2599B; row claimed 453B
+?HUFF_pack@@YAXPAUHuffEncodeContext@@PAUHUFFMemStruct@@I@Z,,0x0068C1B0,1358,Code/Libraries/Source/Compression/EAC/huffencode.cpp,matched,
+?HUFF_packfile@@YAHPAUHuffEncodeContext@@PAUHUFFMemStruct@@1HH@Z,,0x0068C700,473,Code/Libraries/Source/Compression/EAC/huffencode.cpp,matched,
+_HUFF_encode@16,,0x0068C8E0,200,Code/Libraries/Source/Compression/EAC/huffencode.cpp,matched,pristine Lua 4.0.1 upstream source; located by masked-body search
+?BTREE_writebits@@YAXPAUBTreeEncodeContext@@PAUBTREEMemStruct@@II@Z,,0x0068C9B0,137,Code/Libraries/Source/Compression/EAC/btreeencode.cpp,matched,
+?BTREE_adjcount@@YAXPAE0PAF@Z,,0x0068CA40,365,Code/Libraries/Source/Compression/EAC/btreeencode.cpp,matched,
+?BTREE_clearcount@@YAXPAEPAF@Z,,0x0068CBB0,99,Code/Libraries/Source/Compression/EAC/btreeencode.cpp,matched,
+?BTREE_joinnodes@@YAXPAUBTreeEncodeContext@@PAE11I@Z,,0x0068CC20,154,Code/Libraries/Source/Compression/EAC/btreeencode.cpp,matched,
+?BTREE_findbest@@YAIPAFPAEPAI2H@Z,,0x0068CCC0,357,Code/Libraries/Source/Compression/EAC/btreeencode.cpp,matched,
+?BTREE_treepack@@YAXPAUBTreeEncodeContext@@PAUBTREEMemStruct@@IIIH@Z,,0x0068CE30,2593,Code/Libraries/Source/Compression/EAC/btreeencode.cpp,matched,real C++ already in tree; row pointed at the MASM dump (true size 2593B)
+?BTREE_compressfile@@YAHPAUBTreeEncodeContext@@PAUBTREEMemStruct@@1HH@Z,,0x0068D860,305,Code/Libraries/Source/Compression/EAC/btreeencode.cpp,matched,
+_BTREE_encode@16,,0x0068D9A0,92,Code/Libraries/Source/Compression/EAC/btreeencode.cpp,matched,
+_REF_decode@12,,0x0068DAA0,444,Code/Libraries/Source/Compression/EAC/refdecode.cpp,matched,
+_ggetm,,0x0068DC60,82,Code/Libraries/Source/Compression/EAC/refdecode.cpp,matched,
+dup_822d90,,0x0068DC60,82,Code/Libraries/Source/Compression/EAC/huffdecode.cpp,matched,dup-of=_ggetm;object-symbol=_ggetm;second static ggetm copy emitted into huffdecode.obj
+_REF_is@4,,0x0068DCC0,52,Code/Libraries/Source/Compression/EAC/refdecode.cpp,matched,stock EAC codec source; ggetm inlines here as it does in retail
+_REF_size@4,,0x0068DD00,56,Code/Libraries/Source/Compression/EAC/refdecode.cpp,matched,stock EAC codec source; ggetm is a static switch that inlines on constant byte counts
+?HUFF_decompress@@YAHPAE0@Z,,0x0068DD40,3195,Code/Libraries/Source/Compression/EAC/huffdecode.cpp,matched,true size 3195B; row claimed 3161B
+_HUFF_is@4,,0x0068E9C0,116,Code/Libraries/Source/Compression/EAC/huffdecode.cpp,matched,stock EAC codec source; ggetm inlines here as it does in retail
+_HUFF_decode@12,,0x0068EA80,20,Code/Libraries/Source/Compression/EAC/huffdecode.cpp,matched,
+?BTREE_chase@@YAXPAUBTreeDecodeContext@@E@Z,,0x0068EAA0,74,Code/Libraries/Source/Compression/EAC/btreedecode.cpp,matched,
+_BTREE_is@4,,0x0068EAF0,41,Code/Libraries/Source/Compression/EAC/btreedecode.cpp,matched,stock EAC codec source; ggetm inlines here as it does in retail
+_BTREE_decode@12,,0x0068EC70,16,Code/Libraries/Source/Compression/EAC/btreedecode.cpp,matched,
+?LZHLCreateDecompressor@@YAPAXXZ,,0x0068ECE0,27,Code/Libraries/Source/Compression/LZHCompress/NoxCompress.cpp,matched,LZH-Light decompressor factory wrapper
+?LZHLDecompress@@YAHPAXPAEPAIPBE2@Z,,0x0068ED00,30,Code/Libraries/Source/Compression/LZHCompress/NoxCompress.cpp,matched,LZH-Light decompression wrapper
+?_calcHash@@YAKPBE@Z,,0x00690E10,31,Code/Libraries/Source/Compression/LZHCompress/CompLibSource/Lz.cpp,matched,vendored=lzhl-1.0
+?_nMatch@LZBuffer@@IAEHHPBEH@Z,,0x00690E30,190,Code/Libraries/Source/Compression/LZHCompress/CompLibSource/Lz.cpp,matched,vendored=lzhl-1.0
+??0LZHLEncoder@@QAE@PAVLZHLEncoderStat@@PAE@Z,,0x00690EF0,40,Code/Libraries/Source/Compression/LZHCompress/CompLibSource/Lz.cpp,matched,vendored=lzhl-1.0
+??0LZBuffer@@IAE@XZ,,0x00690F20,29,Code/Libraries/Source/Compression/LZHCompress/CompLibSource/Lz.cpp,matched,vendored=lzhl-1.0
+?_toBuf@LZBuffer@@IAEXE@Z,,0x00690F60,26,Code/Libraries/Source/Compression/LZHCompress/CompLibSource/Lz.cpp,matched,vendored=lzhl-1.0
+?_toBuf@LZBuffer@@IAEXPBEI@Z,,0x00690F80,106,Code/Libraries/Source/Compression/LZHCompress/CompLibSource/Lz.cpp,matched,vendored=lzhl-1.0
+??0LZHLCompressor@@QAE@XZ,,0x00690FF0,133,Code/Libraries/Source/Compression/LZHCompress/CompLibSource/Lz.cpp,matched,vendored=lzhl-1.0
+??1LZHLCompressor@@QAE@XZ,,0x00691080,97,Code/Libraries/Source/Compression/LZHCompress/CompLibSource/Lz.cpp,matched,vendored=lzhl-1.0
+?_updateTable@LZHLCompressor@@AAEKKPBEKH@Z,,0x006910F0,186,Code/Libraries/Source/Compression/LZHCompress/CompLibSource/Lz.cpp,matched,vendored=lzhl-1.0
+??0HuffStat@@QAE@XZ,,0x00691880,35,Code/Libraries/Source/Compression/LZHCompress/CompLibSource/Huff.cpp,matched,vendored=lzhl-1.0
+?cmpHuffStatTmpStruct@@YAHABUHuffStatTmpStruct@@0@Z,,0x006918C0,31,Code/Libraries/Source/Compression/LZHCompress/CompLibSource/Huff.cpp,matched,vendored=lzhl-1.0
+??M@YAHABUHuffStatTmpStruct@@0@Z,,0x006918E0,40,Code/Libraries/Source/Compression/LZHCompress/CompLibSource/Huff.cpp,matched,vendored=lzhl-1.0
+?shellSort@@YAXPAUHuffStatTmpStruct@@H@Z,,0x00691910,155,Code/Libraries/Source/Compression/LZHCompress/CompLibSource/Huff.cpp,matched,vendored=lzhl-1.0
+?makeSortedTmp@HuffStat@@IAEHPAUHuffStatTmpStruct@@@Z,,0x006919B0,129,Code/Libraries/Source/Compression/LZHCompress/CompLibSource/Huff.cpp,matched,vendored=lzhl-1.0
+?_putBits@LZHLEncoder@@AAEXHK@Z,,0x00691A40,92,Code/Libraries/Source/Compression/LZHCompress/CompLibSource/Huff.cpp,matched,vendored=lzhl-1.0
+??0LZHLEncoderStat@@QAE@XZ,,0x00691AA0,115,Code/Libraries/Source/Compression/LZHCompress/CompLibSource/Huff.cpp,matched,vendored=lzhl-1.0
+??1LZHLEncoderStat@@QAE@XZ,,0x00691B20,81,Code/Libraries/Source/Compression/LZHCompress/CompLibSource/Huff.cpp,matched,vendored=lzhl-1.0
+?_addGroup@LZHLEncoderStat@@CAXPAHHH@Z,,0x00691B80,57,Code/Libraries/Source/Compression/LZHCompress/CompLibSource/Huff.cpp,matched,vendored=lzhl-1.0
+?calcStat@LZHLEncoderStat@@QAEXPAH@Z,,0x00691BC0,887,Code/Libraries/Source/Compression/LZHCompress/CompLibSource/Huff.cpp,matched,vendored=lzhl-1.0
+?_bufCpy@LZBuffer@@IAEXPAEHI@Z,,0x00691F40,119,Code/Libraries/Source/Compression/LZHCompress/CompLibSource/Huff.cpp,matched,vendored=lzhl-1.0
+?_callStat@LZHLEncoder@@AAEXXZ,,0x00691FC0,436,Code/Libraries/Source/Compression/LZHCompress/CompLibSource/Huff.cpp,matched,vendored=lzhl-1.0
+??0LZHLDecoderStat@@QAE@XZ,,0x00692180,126,Code/Libraries/Source/Compression/LZHCompress/CompLibSource/Huff.cpp,matched,vendored=lzhl-1.0
+??1LZHLDecoderStat@@QAE@XZ,,0x00692200,84,Code/Libraries/Source/Compression/LZHCompress/CompLibSource/Huff.cpp,matched,vendored=lzhl-1.0
+??0LZHLDecompressor@@QAE@XZ,,0x006922A0,93,Code/Libraries/Source/Compression/LZHCompress/CompLibSource/Huff.cpp,matched,vendored=lzhl-1.0
+??1LZHLDecompressor@@QAE@XZ,,0x00692300,82,Code/Libraries/Source/Compression/LZHCompress/CompLibSource/Huff.cpp,matched,vendored=lzhl-1.0
+?_get@LZHLDecompressor@@AAEHAAPBEPBEH@Z,,0x006923B0,132,Code/Libraries/Source/Compression/LZHCompress/CompLibSource/Huff.cpp,matched,vendored=lzhl-1.0
+?_put@LZHLEncoder@@AAEXG@Z,,0x00692780,67,Code/Libraries/Source/Compression/LZHCompress/CompLibSource/Huff.cpp,matched,vendored=lzhl-1.0
+?_put@LZHLEncoder@@AAEXGHK@Z,,0x006927D0,83,Code/Libraries/Source/Compression/LZHCompress/CompLibSource/Huff.cpp,matched,vendored=lzhl-1.0
+?putRaw@LZHLEncoder@@QAEXPBEI@Z,,0x00692830,183,Code/Libraries/Source/Compression/LZHCompress/CompLibSource/Huff.cpp,matched,vendored=lzhl-1.0
+?putMatch@LZHLEncoder@@QAEXPBEIII@Z,,0x006928F0,327,Code/Libraries/Source/Compression/LZHCompress/CompLibSource/Huff.cpp,matched,vendored=lzhl-1.0
+?flush@LZHLEncoder@@QAEIXZ,,0x00692A40,124,Code/Libraries/Source/Compression/LZHCompress/CompLibSource/Huff.cpp,matched,vendored=lzhl-1.0
+_zError,,0x006946D0,21,Code/Libraries/Source/Compression/ZLib/zutil.c,matched,vendored=zlib-1.1.4
+_zcfree,,0x00694710,13,Code/Libraries/Source/Compression/ZLib/zutil.c,matched,vendored=zlib-1.1.4
+_zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matched,vendored=zlib-1.1.4

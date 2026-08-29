@@ -676,6 +676,11 @@ def _blob_at(ref, path):
     import subprocess
     blob = subprocess.run(["git", "show", f"{ref}:{path.relative_to(ROOT).as_posix()}"],
                           capture_output=True, text=True, cwd=ROOT)
+    if blob.returncode and "exists on disk, but not in" in blob.stderr:
+        # The commit that INTRODUCES the baseline: nothing at REF means zero
+        # prior keys, so growth is judged against the empty set — a first
+        # baseline with violations still fails, one seeded clean passes.
+        return ""
     if blob.returncode:
         raise SystemExit(f"pin_consistency: cannot read {shown(path)} at {ref}: "
                          f"{blob.stderr.strip()}")

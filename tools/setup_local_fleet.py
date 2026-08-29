@@ -7,8 +7,8 @@ import subprocess
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_FLEET = Path.home() / "Projects" / "open-bfme-local-fleet"
-DEFAULT_ORIGIN = "https://github.com/Open-BFME/Open-BFME-1.git"
+DEFAULT_FLEET = Path.home() / "Projects" / "open-bfme2-local-fleet"
+DEFAULT_ORIGIN = "https://github.com/Open-BFME/Open-BFME-2.git"
 GH_EXE = Path("/mnt/c/Program Files/GitHub CLI/gh.exe")
 GENERATED_INPUTS = (
     "reverse/exports.csv",

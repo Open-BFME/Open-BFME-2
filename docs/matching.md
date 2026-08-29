@@ -60,10 +60,18 @@ so `float`, `unsigned int`, `int`, and `const char *` land at the target vtable 
 
 ## Reference source
 
-BFME is the SAGE engine — its original source largely survives in the vendored
-`reference/CnC_Generals_Zero_Hour/` (GPLv3, same license as this repo). **BFME forks from Zero
-Hour: always port from `GeneralsMD/` (= ZH), never `Generals/`.** Many functions match verbatim.
-Reconcile against the binary (the source of truth).
+BFME 2 is the SAGE engine — two ancestor trees ride in via the `reference/open-bfme-1`
+submodule (GPLv3, same license as this repo):
+
+1. **Open-BFME-1's converted `Code/`** (`reference/open-bfme-1/Code/`) — the nearest ancestor,
+   already ZH→BFME-reconciled, and still growing. Prefer it for anything BFME 1 has landed;
+   calibration measured 756 of its bodies transferring to game.dat verbatim.
+2. **Zero Hour** (`reference/open-bfme-1/reference/CnC_Generals_Zero_Hour/`). **Always port
+   from `GeneralsMD/` (= ZH), never `Generals/`.**
+
+Many functions match verbatim. Reconcile against the binary (the source of truth). game.dat's
+assert strings keep the original tree layout (`C:\projects\bfme2patch103\bfme2\Code\...`) —
+place each conversion at that exact `Code/` path.
 
 For exact function sizes, the full function inventory, and the bulk-port pipeline, see
 `tools/ghidra/README.md`.
@@ -94,33 +102,19 @@ never be swapped out from under a live clean claim.
 
 ## Third-party code the binary links, and where each one stands
 
-Two libraries the binary statically links are reachable byte-wise but carry no grant in
-their own sources. One is refused on the merits; the other is permitted by a project
-permission held outside the files. Read both before concluding anything from a source tree:
-the sources have not changed, so re-deriving them will keep producing the same evidence and
-the same wrong conclusion about the second one.
+These are Open-BFME-1's findings about the SAME third-party stack (game.dat links FESL,
+Miles, GameSpy-era netcode, d3dx9, STLport, zlib, EAC codecs). BFME 2 spans have not been
+sized yet — sweep before citing any numbers.
 
-**nbench / BYTEmark 2.2.3 — 26,719 B** over `0x008739A0-0x0087A4A0`, of which 10,495 B sits
-in the sub-span the retail evidence actually anchors (`0x008739F9-0x00876599`). Identity is
-not in doubt: `calc_confidence`'s error string, the `wordcat.h` catalogue, the
-`CPU:Stringsort` tag, and the 0.09 BETA constant in nbench1.c's back-prop loop are all in
-`.rdata`, and EA's own `Benchmark.dsp` names the files. The distribution contains **no
-permission grant of any kind** — every file carries a BYTE/McGraw-Hill *disclaimer* of
-warranty, and the README ships the BSD warranty paragraph with the permission clause absent.
-A BSD licence minus its grant is not a licence. Most of the hole is `gen_asm` dump anyway,
-so landing it would have been mostly lane transfer.
+**GameSpy SDK (Chat + Peer included) — permitted.** The owner confirmed on 2026-08-18 for
+Open-BFME-1 and on 2026-08-29 that the grant extends to this project. The SDK's own files
+carry no grant text (the circulating BSD-3-Clause copy is a 2014 republisher's file), so an
+agent reading only the tree will conclude "refused" — read
+`reference/open-bfme-1/.../PROVENANCE.txt` for the scope statement first, and mirror it into
+this repo's own `PROVENANCE.txt` when the sources are first vendored here.
 
-**GameSpy Chat + Peer — permitted; ~36,000 B of genuinely unclaimed bytes.**
-The owner confirmed on 2026-08-18 that the project's permission covers the 2007
-GameSpy SDK including Chat and Peer, so this is no longer refused; see that tree's
-`PROVENANCE.txt` for the scope statement and its limits. The licence evidence
-below stands as a description of the FILES — there is no grant text in them, and
-the BSD-3-Clause copy circulating with the SDK is a 2014 republisher's own file
-(it lands three minutes before the sources, alone) — which is why an agent reading
-only the tree will reach the wrong conclusion about the project and should read
-the PROVENANCE first.
-Sizing, re-derived at HEAD rather than from the original spike: the Chat region
-`0x0085E000-0x00870000` and Peer `0x00870000-0x00878000` hold 83,817 B not held as
-real source, but 51,910 B of that is already-attached `gen_asm` dump, so the large
-majority is lane transfer and new `Total exact` is bounded by the ~36,000 B
-currently unclaimed.
+**nbench / BYTEmark — refused on the merits** (in BFME 1; check whether game.dat links it at
+all before spending time). The distribution contains no permission grant of any kind — every
+file carries a BYTE/McGraw-Hill *disclaimer* of warranty, and the README ships the BSD
+warranty paragraph with the permission clause absent. A BSD licence minus its grant is not a
+licence. If game.dat contains it, hold it as `gen_asm` dump only.

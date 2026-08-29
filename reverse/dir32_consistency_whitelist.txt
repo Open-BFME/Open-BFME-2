@@ -1,0 +1,4 @@
+# DIR32 consistency whitelist — known-legitimate multi-base symbols (doubly-linked
+# TUs, investigated vtable artifacts). Hand-written only; build.py's
+# verify_dir32_consistency FAILS on any symbol not listed here. Seeded EMPTY on
+# 2026-08-29 after a clean 0-candidate full-gate run over the first 146 rows.
