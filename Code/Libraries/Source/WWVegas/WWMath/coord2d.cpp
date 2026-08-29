@@ -6,6 +6,7 @@ public:
     Coord2D(int x, int y);
     bool IsExactlyEqualTo(const Coord2D &that) const;
     Coord2D &Negate();
+    Coord2D &SetMaxVect();
     Coord2D &SetMinVect();
     Coord2D &SetXAxis();
     Coord2D &SetYAxis();
@@ -30,6 +31,13 @@ Coord2D &Coord2D::Negate()
 {
     x = -x;
     y = -y;
+    return *this;
+}
+
+Coord2D &Coord2D::SetMaxVect()
+{
+    y = 3.4028234663852886e38f;
+    x = 3.4028234663852886e38f;
     return *this;
 }
 
