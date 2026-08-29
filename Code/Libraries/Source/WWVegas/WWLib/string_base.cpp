@@ -1,5 +1,8 @@
 #include "string_base.h"
 
+#define _DLL
+#include <string.h>
+
 template <typename T>
 void StringBase<T>::concat(T c)
 {
@@ -13,3 +16,4 @@ void StringBase<T>::set(T c)
 }
 
 template class StringBase<char>;
+template void StringBase<wchar_t>::set(wchar_t c);
