@@ -28,6 +28,11 @@ extern "C" __declspec(dllimport) UINT __stdcall SetDIBColorTable(
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(CRITICAL_SECTION *section);
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(CRITICAL_SECTION *section);
 
+namespace Gdiplus
+{
+void __stdcall GdiplusShutdown(unsigned long token);
+}
+
 namespace ATL
 {
 
@@ -37,6 +42,7 @@ private:
     class CInitGDIPlus
     {
     public:
+        void ReleaseGDIPlus() throw();
         void IncreaseCImageCount() throw();
 
     private:
@@ -79,6 +85,17 @@ private:
 
     static CDCCache s_cache;
 };
+
+void CImage::CInitGDIPlus::ReleaseGDIPlus() throw()
+{
+    EnterCriticalSection(&m_sect);
+    if (m_dwToken != 0)
+    {
+        Gdiplus::GdiplusShutdown(m_dwToken);
+    }
+    m_dwToken = 0;
+    LeaveCriticalSection(&m_sect);
+}
 
 void CImage::CInitGDIPlus::IncreaseCImageCount() throw()
 {
