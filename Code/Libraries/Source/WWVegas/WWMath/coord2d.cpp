@@ -1,10 +1,13 @@
 // cl: /O1 /arch:SSE2 /ICode/GameEngine/Source/Common
 
+#include <math.h>
+
 class Coord2D
 {
 public:
     Coord2D(int x, int y);
     bool IsExactlyEqualTo(const Coord2D &that) const;
+    float length() const;
     Coord2D &Negate();
     Coord2D &operator/=(float divisor);
     Coord2D &SetMaxVect();
@@ -26,6 +29,11 @@ Coord2D::Coord2D(int x, int y)
 bool Coord2D::IsExactlyEqualTo(const Coord2D &that) const
 {
     return x == that.x && y == that.y;
+}
+
+float Coord2D::length() const
+{
+    return (float)sqrt(x * x + y * y);
 }
 
 Coord2D &Coord2D::Negate()

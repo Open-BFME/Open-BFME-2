@@ -230,7 +230,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_00003318@@YAXXZ,,0x00003318,122,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00403318
 ?d_000034fa@@YAXXZ,,0x000034FA,42,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=areApproxEqual
 ?d_000036d1@@YAXXZ,,0x000036D1,49,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=scale
-?d_00003755@@YAXXZ,,0x00003755,53,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=length
 ?d_0000378a@@YAXXZ,,0x0000378A,71,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=normalize
 ?d_00003916@@YAXXZ,,0x00003916,101,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Rotate
 ?d_0000397b@@YAXXZ,,0x0000397B,64,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Rotate
@@ -645,3 +644,4 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?SetMinVect@Coord2D@@QAEAAV1@XZ,0x00003A7C,0x00003A7C,20,Code/Libraries/Source/WWVegas/WWMath/coord2d.cpp,matched,
 ?SetMaxVect@Coord2D@@QAEAAV1@XZ,0x00003A90,0x00003A90,20,Code/Libraries/Source/WWVegas/WWMath/coord2d.cpp,matched,
 ??_0Coord2D@@QAEAAV0@M@Z,0x0000388A,0x0000388A,41,Code/Libraries/Source/WWVegas/WWMath/coord2d.cpp,matched,
+?length@Coord2D@@QBEMXZ,0x00003755,0x00003755,53,Code/Libraries/Source/WWVegas/WWMath/coord2d.cpp,matched,
