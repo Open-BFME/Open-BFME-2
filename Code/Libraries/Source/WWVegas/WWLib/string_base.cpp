@@ -30,6 +30,14 @@ int StringBase<char>::compareNoCase(const StringBase<char> &str) const
 }
 
 template <>
+int StringBase<wchar_t>::compareNoCase(const StringBase<wchar_t> &str) const
+{
+    const int len = str.m_data ? str.m_data->length : 0;
+    const wchar_t *data = str.m_data ? &str.m_data->data[0] : L"";
+    return compareNoCase(data, len);
+}
+
+template <>
 void StringBase<char>::concat(const StringBase<char> &str)
 {
     const int len = str.m_data ? str.m_data->length : 0;
