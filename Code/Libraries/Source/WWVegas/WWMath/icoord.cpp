@@ -90,3 +90,9 @@ Debug &operator<<(Debug &debug, const ICoord2DBase &coord)
     debug << "(" << coord.x << ", " << coord.y << ")";
     return debug;
 }
+
+Debug &operator<<(Debug &debug, const ICoord3D &coord)
+{
+    debug << "(" << coord.x << ", " << coord.y << ", " << coord.z << ")";
+    return debug;
+}
