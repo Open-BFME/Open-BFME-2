@@ -61,6 +61,7 @@ public:
     Coord3D &Scale2D(const Coord3DBase &that, float scale);
     float GetLength() const;
     float GetLength2D() const;
+    float GetLengthEstimate2D() const;
     float GetLengthSqrd() const;
     float GetLengthSqrd2D() const;
     float length() const;
@@ -90,6 +91,7 @@ public:
     float z;
 };
 
+static const float length_estimate_factor = 0.25f;
 static const float one = 1.0f;
 
 Coord3D::Coord3D(const Coord2D &that)
@@ -220,6 +222,14 @@ float Coord3D::GetLength2D() const
     float y_value = y;
 
     return (float)sqrt(x_value * x_value + y_value * y_value);
+}
+
+float Coord3D::GetLengthEstimate2D() const
+{
+    if (fabs(x) > fabs(y)) {
+        return (float)(fabs(x) + length_estimate_factor * fabs(y));
+    }
+    return (float)(fabs(y) + length_estimate_factor * fabs(x));
 }
 
 float Coord3D::GetLengthSqrd() const

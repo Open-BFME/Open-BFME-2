@@ -5,5 +5,6 @@ name,address,notes
 __chkstk,0x00629000
 ?decompress@LZHLDecompressor@@QAEHPAEPAIPBE1@Z,0x00692440
 ?LZHLDestroyDecompressor@@YAXPAX@Z,0x0068ED80
+_fabs,0x00629210,MSVCRT import thunk identified by four retail call targets and Ghidra
 _sqrt,0x0062921C,MSVCRT import thunk identified by retail call target and Ghidra
 __ftol2,0x00629228,MSVC float-to-int helper byte-identical to pinned BFME1 CRT body
