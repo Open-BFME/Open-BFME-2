@@ -1,4 +1,4 @@
-// cl: /O1 /ICode/GameEngine/Source/Common
+// cl: /O1 /arch:SSE2 /ICode/GameEngine/Source/Common
 
 class Debug
 {
@@ -28,10 +28,20 @@ public:
 class Coord3D
 {
 public:
+    Coord3D &SetMinVect();
+
     float x;
     float y;
     float z;
 };
+
+Coord3D &Coord3D::SetMinVect()
+{
+    z = -3.4028234663852886e38f;
+    y = -3.4028234663852886e38f;
+    x = -3.4028234663852886e38f;
+    return *this;
+}
 
 Debug &operator<<(Debug &debug, const Coord3D &coord)
 {

@@ -279,7 +279,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_00003f54@@YAXXZ,,0x00003F54,28,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=SetXAxis
 ?d_00003f70@@YAXXZ,,0x00003F70,28,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=SetYAxis
 ?d_00003f8c@@YAXXZ,,0x00003F8C,28,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=SetZAxis
-?d_00003fa8@@YAXXZ,,0x00003FA8,25,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=SetMinVect
 ?d_00003fc1@@YAXXZ,,0x00003FC1,25,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=SetMaxVect
 ?d_00003fda@@YAXXZ,,0x00003FDA,20,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=SetZero
 ?d_00003fee@@YAXXZ,,0x00003FEE,46,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=operator-
@@ -645,3 +644,4 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?MoveBy@ICoord2D@@QAEAAU1@H@Z,0x00004D3D,0x00004D3D,14,Code/Libraries/Source/WWVegas/WWMath/icoord.cpp,matched,
 ??XICoord2D@@QAEAAU0@H@Z,0x00004D0B,0x00004D0B,25,Code/Libraries/Source/WWVegas/WWMath/icoord.cpp,matched,
 ??_0ICoord2D@@QAEAAU0@H@Z,0x00004D24,0x00004D24,25,Code/Libraries/Source/WWVegas/WWMath/icoord.cpp,matched,
+?SetMinVect@Coord3D@@QAEAAV1@XZ,0x00003FA8,0x00003FA8,25,Code/Libraries/Source/WWVegas/WWMath/coord3d.cpp,matched,
