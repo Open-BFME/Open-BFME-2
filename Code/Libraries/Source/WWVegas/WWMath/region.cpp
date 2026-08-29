@@ -42,6 +42,7 @@ struct Region3D
     float depth() const;
     void zero();
     bool isInRegionNoZ(const Coord3D *point) const;
+    bool isInRegionWithZ(const Coord3D *point) const;
 
     float x_min;
     float y_min;
@@ -120,4 +121,14 @@ bool Region3D::isInRegionNoZ(const Coord3D *point) const
         point->x < x_max &&
         y_min < point->y &&
         point->y < y_max;
+}
+
+bool Region3D::isInRegionWithZ(const Coord3D *point) const
+{
+    return x_min < point->x &&
+        point->x < x_max &&
+        y_min < point->y &&
+        point->y < y_max &&
+        z_min < point->z &&
+        point->z < z_max;
 }

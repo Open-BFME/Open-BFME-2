@@ -309,7 +309,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_00004d0b@@YAXXZ,,0x00004D0B,25,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=operator*=
 ?d_00004d24@@YAXXZ,,0x00004D24,25,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=operator/=
 ?d_00004d3d@@YAXXZ,,0x00004D3D,14,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=MoveBy
-?d_00004e46@@YAXXZ,,0x00004E46,77,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=isInRegionWithZ
 ?d_00004ea7@@YAXXZ,,0x00004EA7,56,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=getAsInt
 ?d_00004edf@@YAXXZ,,0x00004EDF,76,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=setFromInt
 ?d_00004f2b@@YAXXZ,,0x00004F2B,58,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=operator==
@@ -645,3 +644,4 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?depth@Region3D@@QBEMXZ,0x00004DE7,0x00004DE7,7,Code/Libraries/Source/WWVegas/WWMath/region.cpp,matched,Open-BFME5 clean C++; Region3D depth from pinned BFME1 source
 ?zero@Region3D@@QAEXXZ,0x00004DEE,0x00004DEE,33,Code/Libraries/Source/WWVegas/WWMath/region.cpp,matched,Open-BFME5 clean C++; Region3D zero from EA source with SSE2 retail codegen
 ?isInRegionNoZ@Region3D@@QBE_NPBVCoord3D@@@Z,0x00004E0F,0x00004E0F,55,Code/Libraries/Source/WWVegas/WWMath/region.cpp,matched,Open-BFME5 clean C++; Region3D no-Z containment from EA source
+?isInRegionWithZ@Region3D@@QBE_NPBVCoord3D@@@Z,0x00004E46,0x00004E46,77,Code/Libraries/Source/WWVegas/WWMath/region.cpp,matched,Open-BFME5 clean C++; Region3D with-Z containment from EA source
