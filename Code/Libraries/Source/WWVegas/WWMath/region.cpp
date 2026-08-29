@@ -1,7 +1,8 @@
-// cl: /ICode/GameEngine/Source/Common
+// cl: /O1 /ICode/GameEngine/Source/Common
 
 struct IRegion2D
 {
+    bool operator==(const IRegion2D &that) const;
     int width() const;
     int height() const;
 
@@ -24,6 +25,14 @@ struct IRegion3D
     int y_max;
     int z_max;
 };
+
+bool IRegion2D::operator==(const IRegion2D &that) const
+{
+    return x_min == that.x_min &&
+        y_min == that.y_min &&
+        x_max == that.x_max &&
+        y_max == that.y_max;
+}
 
 int IRegion2D::width() const
 {
