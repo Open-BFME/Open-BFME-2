@@ -309,7 +309,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_00004d0b@@YAXXZ,,0x00004D0B,25,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=operator*=
 ?d_00004d24@@YAXXZ,,0x00004D24,25,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=operator/=
 ?d_00004d3d@@YAXXZ,,0x00004D3D,14,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=MoveBy
-?d_00004de7@@YAXXZ,,0x00004DE7,7,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=depth
 ?d_00004dee@@YAXXZ,,0x00004DEE,33,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=zero
 ?d_00004e0f@@YAXXZ,,0x00004E0F,55,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=isInRegionNoZ
 ?d_00004e46@@YAXXZ,,0x00004E46,77,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=isInRegionWithZ
@@ -645,3 +644,4 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ??9IRegion2D@@QBE_NABU0@@Z,0x00004D84,0x00004D84,17,Code/Libraries/Source/WWVegas/WWMath/region.cpp,matched,Open-BFME5 clean C++; IRegion2D inequality from EA reference
 ?width@Region3D@@QBEMXZ,0x00004DDA,0x00004DDA,6,Code/Libraries/Source/WWVegas/WWMath/region.cpp,matched,Open-BFME5 clean C++; Region3D width from pinned BFME1 source
 ?height@Region3D@@QBEMXZ,0x00004DE0,0x00004DE0,7,Code/Libraries/Source/WWVegas/WWMath/region.cpp,matched,Open-BFME5 clean C++; Region3D height from pinned BFME1 source
+?depth@Region3D@@QBEMXZ,0x00004DE7,0x00004DE7,7,Code/Libraries/Source/WWVegas/WWMath/region.cpp,matched,Open-BFME5 clean C++; Region3D depth from pinned BFME1 source
