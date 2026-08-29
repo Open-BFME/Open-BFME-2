@@ -22,3 +22,10 @@ void RGBColor::setFromInt(int color)
     green = (float)((color >> 8) & 0xFF) * scale;
     blue = (float)(color & 0xFF) * scale;
 }
+
+bool operator==(const RGBColor &left, const RGBColor &right)
+{
+    return left.red == right.red &&
+        left.green == right.green &&
+        left.blue == right.blue;
+}
