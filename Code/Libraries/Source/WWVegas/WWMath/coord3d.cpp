@@ -30,6 +30,7 @@ class Coord3D
 public:
     Coord3D &SetMaxVect();
     Coord3D &SetMinVect();
+    Coord3D &SetXAxis();
     Coord3D &SetZAxis();
 
     float x;
@@ -50,6 +51,14 @@ Coord3D &Coord3D::SetMinVect()
     z = -3.4028234663852886e38f;
     y = -3.4028234663852886e38f;
     x = -3.4028234663852886e38f;
+    return *this;
+}
+
+Coord3D &Coord3D::SetXAxis()
+{
+    x = 1.0f;
+    y = 0.0f;
+    z = 0.0f;
     return *this;
 }
 
