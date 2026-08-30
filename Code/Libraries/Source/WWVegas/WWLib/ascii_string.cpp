@@ -8,6 +8,7 @@ class StringBase
 {
 public:
     void set(const StringBase<T> &that);
+    void set(const T *text);
     void set(const T *text, int length);
     void concat(const StringBase<T> &that);
     void concat(const T *text, int length);
@@ -42,6 +43,7 @@ public:
     AsciiString(const AsciiString &that, int start, int length);
     AsciiString &operator=(const AsciiString &that);
     AsciiString &operator=(char character);
+    AsciiString &operator=(const char *text);
     AsciiString &operator+=(const AsciiString &that);
     AsciiString &operator+=(char character);
 
@@ -85,6 +87,12 @@ AsciiString &AsciiString::operator=(char character)
 {
     char text = character;
     ((StringBase<char> *)this)->set(&text, 1);
+    return *this;
+}
+
+AsciiString &AsciiString::operator=(const char *text)
+{
+    ((StringBase<char> *)this)->set(text);
     return *this;
 }
 
