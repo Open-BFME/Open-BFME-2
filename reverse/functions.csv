@@ -925,3 +925,4 @@ _free,,0x00030830,17,Code/GameEngine/Source/Common/System/GameMemoryFree.cpp,mat
 ?__valid_grouping@_STL@@YA_NPBD000@Z,,0x00017C80,77,Code/Libraries/Source/WWVegas/WWLib/stlport_valid_grouping.cpp,matched,stlport-4.5.3
 ?__get_fdigit@_STL@@YA_NAAGPBG@Z,,0x00018200,59,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_get_fdigit.cpp,matched,stlport-4.5.3
 ?__get_fdigit_or_sep@_STL@@YA_NAAGGPBG@Z,,0x00018240,78,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_get_fdigit.cpp,matched,stlport-4.5.3
+?_M_increment@?$_Rb_global@_N@_STL@@SAPAU_Rb_tree_node_base@2@PAU32@@Z,,0x00024250,105,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_increment.cpp,matched,stlport-4.5.3
