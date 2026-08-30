@@ -29,3 +29,7 @@ _abs,0x0062909A,MSVCR71 import thunk identified by official ATL 7.1 call and ret
 ??1locale@_STL@@QAE@XZ,0x00007150,STLport 4.5.3 locale destructor; address read from the retail wide basic_streambuf pubimbue REL32 displacement
 ??4locale@_STL@@QAEABV01@ABV01@@Z,0x00007160,STLport 4.5.3 locale assignment; address read from the retail wide basic_streambuf pubimbue REL32 displacement
 ?reserve@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAEXI@Z,0x0000C390,STLport 4.5.3 narrow string reserve; address read from the retail basic_string<char>::push_back REL32 displacement
+??0?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE@XZ,0x00007850,STLport 4.5.3 narrow string default constructor; address read from retail num_get<double>::do_get REL32 displacement
+??$_M_read_float@V?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@D@_STL@@YA_NAAV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@0@AAV?$istreambuf_iterator@DV?$char_traits@D@_STL@@@0@1AAVios_base@0@PAD@Z,0x0000F850,STLport 4.5.3 narrow floating-point scanner; address read from retail num_get<double>::do_get REL32 displacement
+?__string_to_float@_STL@@YAXABV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@1@AAN@Z,0x0001AFD0,STLport 4.5.3 narrow string-to-double conversion; address read from retail num_get<double>::do_get REL32 displacement
+?equal@?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@QBE_NABV12@@Z,0x0000FA00,STLport 4.5.3 narrow istreambuf_iterator equality member; address read from retail num_get<double>::do_get REL32 displacement
