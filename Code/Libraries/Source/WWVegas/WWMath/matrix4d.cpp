@@ -14,6 +14,7 @@ public:
     Coord3D &GetXVector(Coord3D &out) const;
     Coord3D &GetYVector(Coord3D &out) const;
     Coord3D &GetZVector(Coord3D &out) const;
+    Matrix4D &Transpose();
     float Determinant() const;
 
     float values[16];
@@ -41,6 +42,34 @@ Coord3D &Matrix4D::GetZVector(Coord3D &out) const
     out.y = values[6];
     out.z = values[10];
     return out;
+}
+
+Matrix4D &Matrix4D::Transpose()
+{
+    *(unsigned int *)&values[1] ^= *(unsigned int *)&values[4];
+    *(unsigned int *)&values[4] ^= *(unsigned int *)&values[1];
+    *(unsigned int *)&values[1] ^= *(unsigned int *)&values[4];
+
+    *(unsigned int *)&values[2] ^= *(unsigned int *)&values[8];
+    *(unsigned int *)&values[8] ^= *(unsigned int *)&values[2];
+    *(unsigned int *)&values[2] ^= *(unsigned int *)&values[8];
+
+    *(unsigned int *)&values[3] ^= *(unsigned int *)&values[12];
+    *(unsigned int *)&values[12] ^= *(unsigned int *)&values[3];
+    *(unsigned int *)&values[3] ^= *(unsigned int *)&values[12];
+
+    *(unsigned int *)&values[6] ^= *(unsigned int *)&values[9];
+    *(unsigned int *)&values[9] ^= *(unsigned int *)&values[6];
+    *(unsigned int *)&values[6] ^= *(unsigned int *)&values[9];
+
+    *(unsigned int *)&values[7] ^= *(unsigned int *)&values[13];
+    *(unsigned int *)&values[13] ^= *(unsigned int *)&values[7];
+    *(unsigned int *)&values[7] ^= *(unsigned int *)&values[13];
+
+    *(unsigned int *)&values[14] ^= *(unsigned int *)&values[11];
+    *(unsigned int *)&values[11] ^= *(unsigned int *)&values[14];
+    *(unsigned int *)&values[14] ^= *(unsigned int *)&values[11];
+    return *this;
 }
 
 float Matrix4D::Determinant() const
