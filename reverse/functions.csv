@@ -422,7 +422,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_0000fa80@@YAXXZ,,0x0000FA80,86,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040fa80
 ?d_0000fae0@@YAXXZ,,0x0000FAE0,282,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040fae0
 ?d_0000fc00@@YAXXZ,,0x0000FC00,184,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040fc00
-?d_00010610@@YAXXZ,,0x00010610,46,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_00410610
 ?d_00010640@@YAXXZ,,0x00010640,89,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_00410640
 ?d_000106a0@@YAXXZ,,0x000106A0,303,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_004106a0
 ?d_000107d0@@YAXXZ,,0x000107D0,195,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_004107d0
@@ -647,3 +646,4 @@ _free,,0x00030830,17,Code/GameEngine/Source/Common/System/GameMemoryFree.cpp,mat
 ??$_M_do_put_float@DV?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@N@_STL@@YA?AV?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@0@V10@AAVios_base@0@DN@Z,,0x00010260,222,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_num_get_double.cpp,matched,vendored=stlport-4.6;narrow double output formatter upstream body
 ?do_get@?$num_get@GV?$istreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@@_STL@@MBE?AV?$istreambuf_iterator@GV?$char_traits@G@_STL@@@2@V32@0AAVios_base@2@AAHAAO@Z,,0x00010340,217,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_num_get_long_double.cpp,matched,vendored=stlport-4.5.3;wide long-double numeric input upstream body
 ??$_M_read_float@V?$istreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@G@_STL@@YA_NAAV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@0@AAV?$istreambuf_iterator@GV?$char_traits@G@_STL@@@0@1AAVios_base@0@PAG@Z,,0x00010420,493,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_read_float.cpp,matched,vendored=stlport-4.5.3;wide floating-point scanner upstream-equivalent body
+?equal@?$istreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@QBE_NABV12@@Z,,0x00010610,46,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_istreambuf_iterator_equal.cpp,matched,vendored=stlport-4.5.3;wide istreambuf_iterator equality member upstream body
