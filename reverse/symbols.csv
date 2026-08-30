@@ -9,6 +9,7 @@ name,address,notes
 ??$__get_integer@V?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@K@_STL@@YA_NAAV?$istreambuf_iterator@DV?$char_traits@D@_STL@@@0@0HAAKH_NDABV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@0@ABU__false_type@0@@Z,0x000085B0,STLport 4.5.3 narrow unsigned-long integer accumulator; body uses positive accumulation and saturates overflow to ULONG_MAX
 ??$__lower_bound@PBIIU?$less@I@_STL@@H@_STL@@YAPBIPBI0ABIU?$less@I@0@PAH@Z,0x00568D2F,harvested from retail REL32 displacement at 0x0016DB60
 ??$append@PBD@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@AAEAAV01@PBD0ABUforward_iterator_tag@1@@Z,0x0001B3E0,STLport 4.5.3 narrow string forward-iterator append; address read from retail basic_string::assign REL32 displacement
+??$count@PADD@_STL@@YAHPAD0ABD@Z,0x000143A0,harvested from retail REL32 displacement at 0x00014010
 ??0?$StringBase@D@@AAE@ABV0@HH@Z,0x000380C0,BFME2 export and retail call target for AsciiString substring constructor
 ??0?$StringBase@D@@AAE@D@Z,0x00037B60,BFME2 export and retail call target for AsciiString char constructor
 ??0?$StringBase@D@@AAE@PBD@Z,0x00037BA0,BFME2 export and retail call target for AsciiString const char constructor
@@ -19,12 +20,17 @@ name,address,notes
 ??0?$StringBase@G@@AAE@PBG@Z,0x00037E30,BFME2 retail call target for StringBase<wchar_t>::StringBase(const wchar_t *)
 ??0?$StringBase@G@@AAE@PBGH@Z,0x00037E10,BFME2 retail call target for StringBase<wchar_t>::StringBase(const wchar_t *, int)
 ??0?$_STLP_alloc_proxy@PADDV?$allocator@D@_STL@@@_STL@@QAE@ABV?$allocator@D@1@PAD@Z,0x00007410,STLport 4.5.3 narrow string allocator proxy constructor; address read from retail _String_base constructor REL32 displacement
+??0?$basic_filebuf@DV?$char_traits@D@_STL@@@_STL@@QAE@XZ,0x00013C10,harvested from retail REL32 displacement at 0x0001F980
 ??0?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE@ABV01@@Z,0x00009170,STLport 4.6 narrow string copy constructor; address read from retail __put_float REL32 displacement
 ??0?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE@XZ,0x00007850,STLport 4.5.3 narrow string default constructor; address read from retail num_get<double>::do_get REL32 displacement
+??0_Filebuf_base@_STL@@QAE@XZ,0x0001D300,harvested from retail REL32 displacement at 0x00014670
 ??0ios_base@_STL@@IAE@XZ,0x0001C1A0,harvested from retail REL32 displacement at 0x0001C5C0
 ??0locale@_STL@@QAE@ABV01@@Z,0x00007130,STLport 4.5.3 locale copy constructor; address read from the retail wide basic_streambuf pubimbue REL32 displacement
 ??0locale@_STL@@QAE@XZ,0x00007100,harvested from retail REL32 displacement at 0x00016440
 ??1?$basic_filebuf@DV?$char_traits@D@_STL@@@_STL@@UAE@XZ,0x00015030,harvested from retail REL32 displacement at 0x00015010
+??1?$basic_filebuf@GV?$char_traits@G@_STL@@@_STL@@UAE@XZ,0x000151B0,harvested from retail REL32 displacement at 0x00015190
+??1?$basic_ios@DV?$char_traits@D@_STL@@@_STL@@UAE@XZ,0x00013420,harvested from retail REL32 displacement at 0x00013810
+??1?$basic_iostream@DV?$char_traits@D@_STL@@@_STL@@UAE@XZ,0x0001D950,harvested from retail REL32 displacement at 0x0001DE70
 ??1?$basic_streambuf@DV?$char_traits@D@_STL@@@_STL@@UAE@XZ,0x0001C6E0,harvested from retail REL32 displacement at 0x00015030
 ??1locale@_STL@@QAE@XZ,0x00007150,STLport 4.5.3 locale destructor; address read from the retail wide basic_streambuf pubimbue REL32 displacement
 ??2@YAPAXI@Z,0x0002FDA0
@@ -33,11 +39,14 @@ name,address,notes
 ??4?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@QAEAAV01@G@Z,0x0000E960,STLport wide output iterator character assignment; address read from retail wide floating-point copy-and-fill REL32 displacements
 ??4locale@_STL@@QAEABV01@ABV01@@Z,0x00007160,STLport 4.5.3 locale assignment; address read from the retail wide basic_streambuf pubimbue REL32 displacement
 ??_U@YAPAXI@Z,0x0002FDE0,harvested from retail REL32 displacement at 0x0001D9F0
+??_V@YAXPAX@Z,0x0002FD80,harvested from retail REL32 displacement at 0x00014010
 ?BTREE_decompress@@YAHPAE0@Z,0x0068EB60
 ?GdiplusShutdown@Gdiplus@@YGXK@Z,0x00628F6E,GDI+ import thunk identified by official ATL 7.1 call and retail target
 ?LZHLDestroyDecompressor@@YAXPAX@Z,0x0068ED80
 ?_Initialize_get_float@_STL@@YAXABV?$ctype@G@1@AAG111PAG@Z,0x0001A640,STLport 4.5.3 wide floating-point character-table initializer; address read from retail wide scanner REL32 displacement
+?_M_allocate_buffers@?$basic_filebuf@DV?$char_traits@D@_STL@@@_STL@@AAE_NPADH@Z,0x00013F10,harvested from retail REL32 displacement at 0x00015C00
 ?_M_allocate_buffers@?$basic_filebuf@DV?$char_traits@D@_STL@@@_STL@@AAE_NXZ,0x0001DF70,harvested from retail REL32 displacement at 0x0001E370
+?_M_allocate_buffers@?$basic_filebuf@GV?$char_traits@G@_STL@@@_STL@@AAE_NPAGH@Z,0x000148F0,harvested from retail REL32 displacement at 0x00014890
 ?_M_close@_Filebuf_base@_STL@@QAE_NXZ,0x0001D570,harvested from retail REL32 displacement at 0x000150B0
 ?_M_file_size@_Filebuf_base@_STL@@QAEJXZ,0x0001D360,harvested from retail REL32 displacement at 0x00013D20
 ?_M_fill_insert@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEXPAPAXIABQAX@Z,0x00029CA0,harvested from retail REL32 displacement at 0x00622410
@@ -52,8 +61,13 @@ name,address,notes
 ?_M_push_front_aux_v@?$deque@HV?$allocator@H@_STL@@@_STL@@IAEXABH@Z,0x00621690,harvested from retail REL32 displacement at 0x006223F0
 ?_M_reallocate_map@?$deque@HV?$allocator@H@_STL@@@_STL@@IAEXI_N@Z,0x0073D5E0,harvested from retail REL32 displacement at 0x00620FD0
 ?_M_seek@_Filebuf_base@_STL@@QAEJJH@Z,0x0001D6D0,harvested from retail REL32 displacement at 0x00013D20
+?_M_seek_return@?$basic_filebuf@DV?$char_traits@D@_STL@@@_STL@@AAE?AV?$fpos@H@2@JH@Z,0x000143D0,harvested from retail REL32 displacement at 0x00014010
 ?_M_setup_codecvt@?$basic_filebuf@DV?$char_traits@D@_STL@@@_STL@@AAEXABVlocale@2@@Z,0x00013B30,harvested from retail REL32 displacement at 0x00014650
+?_M_setup_codecvt@?$basic_filebuf@GV?$char_traits@G@_STL@@@_STL@@AAEXABVlocale@2@@Z,0x00013BA0,harvested from retail REL32 displacement at 0x00014670
+?_M_switch_to_input_mode@?$basic_filebuf@GV?$char_traits@G@_STL@@@_STL@@AAE_NXZ,0x00015EF0,harvested from retail REL32 displacement at 0x00015EA0
+?_M_switch_to_output_mode@?$basic_filebuf@GV?$char_traits@G@_STL@@@_STL@@AAE_NXZ,0x00015DD0,harvested from retail REL32 displacement at 0x00015C80
 ?_M_throw_failure@ios_base@_STL@@IAEXXZ,0x0001BC50,harvested from retail REL32 displacement at 0x000137E0
+?_M_underflow_aux@?$basic_filebuf@GV?$char_traits@G@_STL@@@_STL@@AAEGXZ,0x00015F50,harvested from retail REL32 displacement at 0x00015EA0
 ?_M_unmap@_Filebuf_base@_STL@@QAEXPAXJ@Z,0x0001D780,harvested from retail REL32 displacement at 0x00014430
 ?_M_unshift@?$basic_filebuf@DV?$char_traits@D@_STL@@@_STL@@AAE_NXZ,0x00014500,harvested from retail REL32 displacement at 0x000150B0
 ?_M_use_facet@locale@_STL@@QBEPAVfacet@12@ABVid@12@@Z,0x00007190,STLport 4.5.3 locale facet lookup; identity confirmed against live Open-BFME-1 and retail wide scanner REL32 displacement
