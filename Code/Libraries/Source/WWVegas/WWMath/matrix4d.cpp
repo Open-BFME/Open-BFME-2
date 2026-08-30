@@ -18,6 +18,7 @@ public:
         float m20, float m21, float m22, float m23,
         float m30, float m31, float m32, float m33);
     Matrix4D &operator*=(float scale);
+    Matrix4D &operator/=(float divisor);
     Matrix4D &operator+=(const Matrix4D &that);
     Matrix4D &operator-=(const Matrix4D &that);
     Coord3D &GetXVector(Coord3D &out) const;
@@ -79,6 +80,28 @@ Matrix4D::Matrix4D(
 
 Matrix4D &Matrix4D::operator*=(float scale)
 {
+    values[0] *= scale;
+    values[1] *= scale;
+    values[2] *= scale;
+    values[3] *= scale;
+    values[4] *= scale;
+    values[5] *= scale;
+    values[6] *= scale;
+    values[7] *= scale;
+    values[8] *= scale;
+    values[9] *= scale;
+    values[10] *= scale;
+    values[11] *= scale;
+    values[12] *= scale;
+    values[13] *= scale;
+    values[14] *= scale;
+    values[15] *= scale;
+    return *this;
+}
+
+Matrix4D &Matrix4D::operator/=(float divisor)
+{
+    float scale = 1.0f / divisor;
     values[0] *= scale;
     values[1] *= scale;
     values[2] *= scale;
