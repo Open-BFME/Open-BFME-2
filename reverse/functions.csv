@@ -285,7 +285,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_0000659e@@YAXXZ,,0x0000659E,26,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=AsciiString
 ?d_000065b8@@YAXXZ,,0x000065B8,18,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=operator=
 ?d_000065e8@@YAXXZ,,0x000065E8,18,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=operator+=
-?d_000065fa@@YAXXZ,,0x000065FA,30,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=operator+=
 ?d_00006618@@YAXXZ,,0x00006618,18,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=UnicodeString
 ?d_0000662a@@YAXXZ,,0x0000662A,18,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=UnicodeString
 ?d_0000663c@@YAXXZ,,0x0000663C,22,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=UnicodeString
@@ -645,3 +644,4 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?UpdateBitmapInfo@CImage@ATL@@AAEXW4DIBOrientation@12@@Z,,0x00001642,174,Code/Libraries/Source/ATL/atlimage.cpp,matched,vendored=atl-7.1
 ??4AsciiString@@QAEAAV0@ABV0@@Z,0x00001733,0x00001733,18,Code/Libraries/Source/WWVegas/WWLib/ascii_string.cpp,matched,
 ??4AsciiString@@QAEAAV0@D@Z,0x000065CA,0x000065CA,30,Code/Libraries/Source/WWVegas/WWLib/ascii_string.cpp,matched,
+??YAsciiString@@QAEAAV0@D@Z,0x000065FA,0x000065FA,30,Code/Libraries/Source/WWVegas/WWLib/ascii_string.cpp,matched,
