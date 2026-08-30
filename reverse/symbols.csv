@@ -25,13 +25,9 @@ name,address,notes
 ??0_Filebuf_base@_STL@@QAE@XZ,0x0001D300,harvested from retail REL32 displacement at 0x00014670
 ??0gslice@_STL@@QAE@ABV01@@Z,0x000B43E5,harvested from retail REL32 displacement at 0x000B68F0
 ??0ios_base@_STL@@IAE@XZ,0x0001C1A0,harvested from retail REL32 displacement at 0x0001C5C0
-??1?$basic_ios@DV?$char_traits@D@_STL@@@_STL@@UAE@XZ,0x00013420,harvested from retail REL32 displacement at 0x00013810
-??1?$basic_ios@GV?$char_traits@G@_STL@@@_STL@@UAE@XZ,0x00013440,harvested from retail REL32 displacement at 0x0001EB50
 ??1?$basic_streambuf@DV?$char_traits@D@_STL@@@_STL@@UAE@XZ,0x0001C6E0,harvested from retail REL32 displacement at 0x00015030
 ??2@YAPAXI@Z,0x0002FDA0
 ??3@YAXPAX@Z,0x0002FD60
-??4?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@QAEAAV01@D@Z,0x00009820,STLport 4.6 narrow ostreambuf_iterator character assignment; address read from retail __copy_float_and_fill REL32 displacements
-??4?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@QAEAAV01@G@Z,0x0000E960,STLport wide output iterator character assignment; address read from retail wide floating-point copy-and-fill REL32 displacements
 ??4locale@_STL@@QAEABV01@ABV01@@Z,0x00007160,STLport 4.5.3 locale assignment; address read from the retail wide basic_streambuf pubimbue REL32 displacement
 ??_U@YAPAXI@Z,0x0002FDE0,harvested from retail REL32 displacement at 0x0001D9F0
 ??_V@YAXPAX@Z,0x0002FD80,harvested from retail REL32 displacement at 0x00014010
