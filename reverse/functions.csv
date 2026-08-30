@@ -891,3 +891,4 @@ _free,,0x00030830,17,Code/GameEngine/Source/Common/System/GameMemoryFree.cpp,mat
 ?BTREE_decompress@@YAHPAE0@Z,,0x0068EB60,258,Code/Libraries/Source/Compression/EAC/btreedecode.cpp,matched,gen-alias;object-symbol=?BTREE_decompress@@YAHPAE0@Z;C++ alias
 ??$__lexicographical_compare_3way@PADPAD@_STL@@YAHPAD000@Z,,0x00017650,74,Code/Libraries/Source/WWVegas/WWLib/stlport_rope_char.cpp,matched,stlport-4.5.3
 ??0?$gslice_array@H@_STL@@QAE@ABV01@@Z,,0x000B68F0,27,Code/Libraries/Source/WWVegas/WWLib/stlport_valarray_int.cpp,matched,stlport-4.5.3
+?compress@LZHLCompressor@@QAEIPAEPBEI@Z,,0x006911B0,1741,Code/Libraries/Source/Compression/LZHCompress/CompLibSource/Lz.cpp,matched,stlport-4.5.3
