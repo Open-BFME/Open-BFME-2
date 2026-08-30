@@ -37,6 +37,5 @@ _abs,0x0062909A,MSVCR71 import thunk identified by official ATL 7.1 call and ret
 ?__write_float@_STL@@YAXAAV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@1@HHO@Z,0x0001BAF0,STLport 4.6 narrow long-double formatter wrapper; address read from retail _M_do_put_float<long double> REL32 displacement
 ?__adjust_float_buffer@_STL@@YAXPAD0D@Z,0x0001B3B0,STLport 4.6 narrow decimal-point buffer adjustment; address read from retail __put_float REL32 displacement
 ??0?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE@ABV01@@Z,0x00009170,STLport 4.6 narrow string copy constructor; address read from retail __put_float REL32 displacement
-??$__find@PADD@_STL@@YAPADPAD0ABDABUrandom_access_iterator_tag@0@@Z,0x00010080,STLport 4.6 narrow random-access find helper; address read from retail __put_float REL32 displacement
 ?__insert_grouping@_STL@@YAHPAD0ABV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@1@DDDH@Z,0x0001A600,STLport 4.6 narrow grouping insertion helper; address read from retail __put_float REL32 displacement
 ??$__copy_float_and_fill@DV?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@@_STL@@YA?AV?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@0@PBD0V10@HHDDD@Z,0x000100F0,STLport 4.6 narrow float copy-and-fill helper; address read from retail __put_float REL32 displacement

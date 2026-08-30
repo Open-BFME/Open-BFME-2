@@ -296,4 +296,42 @@ template narrow_output_iterator __put_float<narrow_output_iterator>(
 		char *, char *, narrow_output_iterator, ios_base &, char, char, char,
 		const narrow_string &);
 
+template <class RandomAccessIter, class Value>
+RandomAccessIter __cdecl __find(
+		RandomAccessIter first, RandomAccessIter last, const Value &value,
+		const random_access_iterator_tag &)
+{
+	int trip_count = (last - first) >> 2;
+	for (; trip_count > 0; --trip_count)
+	{
+		if (*first == value) return first;
+		++first;
+		if (*first == value) return first;
+		++first;
+		if (*first == value) return first;
+		++first;
+		if (*first == value) return first;
+		++first;
+	}
+
+	switch (last - first)
+	{
+	case 3:
+		if (*first == value) return first;
+		++first;
+	case 2:
+		if (*first == value) return first;
+		++first;
+	case 1:
+		if (*first == value) return first;
+		++first;
+	case 0:
+	default:
+		return last;
+	}
+}
+
+template char *__find<char *, char>(
+		char *, char *, const char &, const random_access_iterator_tag &);
+
 }
