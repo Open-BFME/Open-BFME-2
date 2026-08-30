@@ -17,6 +17,7 @@ private:
     StringBase(T character);
     StringBase(const T *text);
     StringBase(const T *text, int length);
+    StringBase(const StringBase<T> &that, int start, int length);
 
     struct Header
     {
@@ -35,6 +36,7 @@ public:
     AsciiString(char character);
     AsciiString(const char *text);
     AsciiString(const char *text, int length);
+    AsciiString(const AsciiString &that, int start, int length);
     AsciiString &operator=(const AsciiString &that);
     AsciiString &operator=(char character);
     AsciiString &operator+=(char character);
@@ -56,6 +58,12 @@ AsciiString::AsciiString(const char *text)
 AsciiString::AsciiString(const char *text, int length)
 {
     ((StringBase<char> *)this)->StringBase<char>::StringBase(text, length);
+}
+
+AsciiString::AsciiString(const AsciiString &that, int start, int length)
+{
+    ((StringBase<char> *)this)->StringBase<char>::StringBase(
+        *(const StringBase<char> *)&that, start, length);
 }
 
 AsciiString &AsciiString::operator=(const AsciiString &that)

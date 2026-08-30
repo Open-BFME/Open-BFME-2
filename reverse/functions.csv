@@ -278,7 +278,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_00006469@@YAXXZ,,0x00006469,44,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=expandBy
 ?d_000064fc@@YAXXZ,,0x000064FC,60,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=expandBy
 ?d_00006538@@YAXXZ,,0x00006538,18,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=RGBColor
-?d_00006584@@YAXXZ,,0x00006584,26,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=AsciiString
 ?d_0000659e@@YAXXZ,,0x0000659E,26,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=AsciiString
 ?d_000065b8@@YAXXZ,,0x000065B8,18,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=operator=
 ?d_000065e8@@YAXXZ,,0x000065E8,18,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=operator+=
@@ -645,3 +644,4 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ??0AsciiString@@QAE@PBD@Z,0x0000654A,0x0000654A,18,Code/Libraries/Source/WWVegas/WWLib/ascii_string.cpp,matched,
 ??0AsciiString@@QAE@D@Z,0x00006572,0x00006572,18,Code/Libraries/Source/WWVegas/WWLib/ascii_string.cpp,matched,
 ??0AsciiString@@QAE@PBDH@Z,0x0000655C,0x0000655C,22,Code/Libraries/Source/WWVegas/WWLib/ascii_string.cpp,matched,
+??0AsciiString@@QAE@ABV0@HH@Z,0x00006584,0x00006584,26,Code/Libraries/Source/WWVegas/WWLib/ascii_string.cpp,matched,
