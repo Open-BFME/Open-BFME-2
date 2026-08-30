@@ -42,8 +42,11 @@ name,address,notes
 ?_M_getc@?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@ABEXXZ,0x00007C40,STLport 4.5.3 narrow istreambuf_iterator cache fill; address read from retail signed 64-bit integer scanner REL32 displacements
 ?_M_getc@?$istreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@ABEXXZ,0x0000A0A0,STLport 4.5.3 wide istreambuf_iterator cache fill; address read from retail wide num_get<long double>::do_get REL32 displacements
 ?_M_insert_aux@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@AAEPAGPAGG@Z,0x00012D10,STLport 4.5.3 wide string single-character insert helper; address read from retail basic_string<wchar_t>::insert REL32 displacement
+?_M_insert_overflow@?$vector@HV?$allocator@H@_STL@@@_STL@@IAEXPAHABHABU__true_type@2@I_N@Z,0x006887F0,harvested from retail REL32 displacement at 0x00688940
 ?_M_open@_Filebuf_base@_STL@@QAE_NPBDH@Z,0x0001D500,harvested from retail REL32 displacement at 0x0001DDD0
 ?_M_open@_Filebuf_base@_STL@@QAE_NPBDHJ@Z,0x0001D390,harvested from retail REL32 displacement at 0x0001D7E0
+?_M_push_front_aux_v@?$deque@HV?$allocator@H@_STL@@@_STL@@IAEXABH@Z,0x00621690,harvested from retail REL32 displacement at 0x006223F0
+?_M_reallocate_map@?$deque@HV?$allocator@H@_STL@@@_STL@@IAEXI_N@Z,0x0073D5E0,harvested from retail REL32 displacement at 0x00620FD0
 ?_M_seek@_Filebuf_base@_STL@@QAEJJH@Z,0x0001D6D0,harvested from retail REL32 displacement at 0x00013D20
 ?_M_setup_codecvt@?$basic_filebuf@DV?$char_traits@D@_STL@@@_STL@@AAEXABVlocale@2@@Z,0x00013B30,harvested from retail REL32 displacement at 0x00014650
 ?_M_throw_failure@ios_base@_STL@@IAEXXZ,0x0001BC50,harvested from retail REL32 displacement at 0x000137E0
