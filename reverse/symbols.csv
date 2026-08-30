@@ -75,7 +75,6 @@ name,address,notes
 ?concat@?$StringBase@D@@QAEXPBDH@Z,0x000369A0,BFME2 export and retail call target for StringBase<char>::concat(const char *, int)
 ?concat@?$StringBase@G@@QAEXPBGH@Z,0x00037410,BFME2 export and retail call target for StringBase<wchar_t>::concat(const wchar_t *, int)
 ?decompress@LZHLDecompressor@@QAEHPAEPAIPBE1@Z,0x00692440
-?equal@?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@QBE_NABV12@@Z,0x0000FA00,STLport 4.5.3 narrow istreambuf_iterator equality member; address read from retail num_get<double>::do_get REL32 displacement
 ?free@@YAXPAX@Z,0x00030830,CRT free reached through the C++-linkage declaration STLport 4.5.3 compiles against; same body as _free at this address, and the C++ decoration is what makes the caller emit the unwind state store retail carries
 ?imbue@?$basic_ios@GV?$char_traits@G@_STL@@@_STL@@QAE?AVlocale@2@ABV32@@Z,0x00016200,harvested from retail REL32 displacement at 0x00016440
 ?init@?$basic_ios@DV?$char_traits@D@_STL@@@_STL@@IAEXPAV?$basic_streambuf@DV?$char_traits@D@_STL@@@2@@Z,0x000162F0,harvested from retail REL32 displacement at 0x0001C5C0
