@@ -371,9 +371,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_00013320@@YAXXZ,,0x00013320,60,Code/gen_asm/d_000112aa.asm,matched,gen-dump;ghidra=FUN_00413320
 ?d_00013560@@YAXXZ,,0x00013560,14,Code/gen_asm/d_000112aa.asm,matched,gen-dump;ghidra=FUN_00413560
 ?d_000135a0@@YAXXZ,,0x000135A0,30,Code/gen_asm/d_000112aa.asm,matched,gen-dump;ghidra=FUN_004135a0
-?d_00013b30@@YAXXZ,,0x00013B30,112,Code/gen_asm/d_000112aa.asm,matched,gen-dump;ghidra=FUN_00413b30
-?d_00013ba0@@YAXXZ,,0x00013BA0,97,Code/gen_asm/d_000112aa.asm,matched,gen-dump;ghidra=FUN_00413ba0
-?d_00013c10@@YAXXZ,,0x00013C10,264,Code/gen_asm/d_000112aa.asm,matched,gen-dump;ghidra=FUN_00413c10
 ?d_00013f10@@YAXXZ,,0x00013F10,189,Code/gen_asm/d_000112aa.asm,matched,gen-dump;ghidra=FUN_00413f10
 ?zero@ICoord3D@@QAEXXZ,0x00004DCF,0x00004DCF,11,Code/Libraries/Source/WWVegas/WWMath/icoord.cpp,matched,Open-BFME5 clean C++; ICoord3D zero from EA reference
 ??4ICoord3D@@QAEAAU0@ABU0@@Z,0x0000353A,0x0000353A,18,Code/Libraries/Source/WWVegas/WWMath/icoord.cpp,matched,Open-BFME5 clean C++; ICoord3D aggregate assignment from EA reference
@@ -898,3 +895,6 @@ _free,,0x00030830,17,Code/GameEngine/Source/Common/System/GameMemoryFree.cpp,mat
 ??4?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@QAEAAV01@G@Z,,0x0000E960,53,Code/Libraries/Source/WWVegas/WWLib/stlport_ostreambuf_iterator_assign.cpp,matched,stlport-4.5.3
 ?_M_getc@?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@ABEXXZ,,0x00007C40,35,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_istreambuf_iterator_getc.cpp,matched,stlport-4.5.3
 ?equal@?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@QBE_NABV12@@Z,,0x0000FA00,126,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_istreambuf_iterator_equal.cpp,matched,stlport-4.5.3
+?_M_setup_codecvt@?$basic_filebuf@DV?$char_traits@D@_STL@@@_STL@@AAEXABVlocale@2@@Z,,0x00013B30,112,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_filebuf.cpp,matched,stlport-4.5.3
+?_M_setup_codecvt@?$basic_filebuf@GV?$char_traits@G@_STL@@@_STL@@AAEXABVlocale@2@@Z,,0x00013BA0,97,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_filebuf.cpp,matched,stlport-4.5.3
+??0?$basic_filebuf@DV?$char_traits@D@_STL@@@_STL@@QAE@XZ,,0x00013C10,264,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_filebuf.cpp,matched,stlport-4.5.3
