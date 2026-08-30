@@ -213,6 +213,8 @@ protected:
 };
 
 void __cdecl __write_float(
+		narrow_string &, ios_base::fmtflags, int, double);
+void __cdecl __write_float(
 		narrow_string &, ios_base::fmtflags, int, long double);
 
 template <class OutputIter>
@@ -269,6 +271,10 @@ typedef ostreambuf_iterator<char, char_traits<char> > narrow_output_iterator;
 template narrow_output_iterator _M_do_put_float<
 		char, narrow_output_iterator, long double>(
 		narrow_output_iterator, ios_base &, char, long double);
+
+template narrow_output_iterator _M_do_put_float<
+		char, narrow_output_iterator, double>(
+		narrow_output_iterator, ios_base &, char, double);
 
 template <class OutputIter>
 OutputIter __cdecl __put_float(
