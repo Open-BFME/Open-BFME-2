@@ -11,10 +11,12 @@ public:
     int compareNoCase(const T *str, int len) const;
     void concat(const StringBase<T> &str);
     void concat(T c);
+    void concat(const T *str);
     void concat(const T *str, int len);
     int getLength() const;
     const T *str() const;
     void set(T c);
+    void set(const T *str);
     void set(const T *str, int len);
 
 private:
