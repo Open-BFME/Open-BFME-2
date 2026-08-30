@@ -14,6 +14,7 @@ public:
     Coord3D &GetXVector(Coord3D &out) const;
     Coord3D &GetYVector(Coord3D &out) const;
     Coord3D &GetZVector(Coord3D &out) const;
+    float Determinant() const;
 
     float values[16];
 };
@@ -40,4 +41,16 @@ Coord3D &Matrix4D::GetZVector(Coord3D &out) const
     out.y = values[6];
     out.z = values[10];
     return out;
+}
+
+float Matrix4D::Determinant() const
+{
+    float a5 = values[8] * values[13] - values[12] * values[9];
+    float b5 = values[7] * values[2] - values[6] * values[3];
+    return (values[10] * values[15] - values[14] * values[11]) * (values[0] * values[5] - values[4] * values[1])
+         - (values[6] * values[0] - values[4] * values[2]) * (values[15] * values[9] - values[11] * values[13])
+         + (values[8] * values[15] - values[12] * values[11]) * (values[6] * values[1] - values[2] * values[5])
+         + (values[7] * values[0] - values[4] * values[3]) * (values[14] * values[9] - values[10] * values[13])
+         - (values[14] * values[8] - values[10] * values[12]) * (values[7] * values[1] - values[3] * values[5])
+         + a5 * b5;
 }
