@@ -68,3 +68,4 @@ _sqrt,0x0062921C,MSVCRT import thunk identified by retail call target and Ghidra
 _strlen,0x00629170,BFME2 retail strlen thunk and call target for StringBase<char>::compare(const char *)
 ??0?$StringBase@G@@AAE@PBG@Z,0x00037E30,BFME2 retail call target for StringBase<wchar_t>::StringBase(const wchar_t *)
 ??0?$StringBase@G@@AAE@PBGH@Z,0x00037E10,BFME2 retail call target for StringBase<wchar_t>::StringBase(const wchar_t *, int)
+?set@?$StringBase@G@@QAEXABV1@@Z,0x00037150,BFME2 retail call target for StringBase<wchar_t>::set(const StringBase &)
