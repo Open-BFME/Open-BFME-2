@@ -21,6 +21,7 @@ name,address,notes
 ??0?$StringBase@G@@AAE@PBG@Z,0x00037E30,BFME2 retail call target for StringBase<wchar_t>::StringBase(const wchar_t *)
 ??0?$StringBase@G@@AAE@PBGH@Z,0x00037E10,BFME2 retail call target for StringBase<wchar_t>::StringBase(const wchar_t *, int)
 ??0?$_STLP_alloc_proxy@PADDV?$allocator@D@_STL@@@_STL@@QAE@ABV?$allocator@D@1@PAD@Z,0x00007410,STLport 4.5.3 narrow string allocator proxy constructor; address read from retail _String_base constructor REL32 displacement
+??0?$_STLP_alloc_proxy@PAIIV?$allocator@I@_STL@@@_STL@@QAE@ABV?$allocator@I@1@PAI@Z,0x0014F3C4,harvested from retail REL32 displacement at 0x0006BE8F
 ??0?$basic_filebuf@DV?$char_traits@D@_STL@@@_STL@@QAE@XZ,0x00013C10,harvested from retail REL32 displacement at 0x0001F980
 ??0?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE@ABV01@@Z,0x00009170,STLport 4.6 narrow string copy constructor; address read from retail __put_float REL32 displacement
 ??0?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE@XZ,0x00007850,STLport 4.5.3 narrow string default constructor; address read from retail num_get<double>::do_get REL32 displacement
