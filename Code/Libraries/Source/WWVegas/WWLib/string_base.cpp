@@ -77,6 +77,12 @@ void StringBase<T>::concat(const T *str)
     concat(str, str ? (int)strlen(str) : 0);
 }
 
+template <>
+void StringBase<wchar_t>::concat(const wchar_t *str)
+{
+    concat(str, str ? (int)wcslen(str) : 0);
+}
+
 template <typename T>
 int StringBase<T>::getLength() const
 {
