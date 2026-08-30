@@ -77,11 +77,14 @@ bool __cdecl _M_read_float(
 		narrow_string &, InputIter &, InputIter &, ios_base &, CharT *);
 
 void __cdecl __string_to_float(const narrow_string &, double &);
+void __cdecl __string_to_float(const narrow_string &, float &);
 
 template <class CharT, class InputIter>
 class num_get
 {
 protected:
+	virtual InputIter do_get(
+			InputIter, InputIter, ios_base &, ios_base::iostate &, float &) const;
 	virtual InputIter do_get(
 			InputIter, InputIter, ios_base &, ios_base::iostate &, double &) const;
 };
@@ -90,6 +93,21 @@ template <>
 narrow_iterator num_get<char, narrow_iterator>::do_get(
 		narrow_iterator in, narrow_iterator end, ios_base &stream,
 		ios_base::iostate &error, double &value) const
+{
+	narrow_string buffer;
+	bool ok = _M_read_float(buffer, in, end, stream, (char *)0);
+	__string_to_float(buffer, value);
+	error = static_cast<ios_base::iostate>(
+			ok ? ios_base::goodbit : ios_base::failbit);
+	if (in.equal(end))
+		error |= ios_base::eofbit;
+	return in;
+}
+
+template <>
+narrow_iterator num_get<char, narrow_iterator>::do_get(
+		narrow_iterator in, narrow_iterator end, ios_base &stream,
+		ios_base::iostate &error, float &value) const
 {
 	narrow_string buffer;
 	bool ok = _M_read_float(buffer, in, end, stream, (char *)0);
