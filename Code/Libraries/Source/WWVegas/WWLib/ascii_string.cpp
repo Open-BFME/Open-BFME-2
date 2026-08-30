@@ -14,6 +14,7 @@ public:
 private:
     friend class AsciiString;
 
+    StringBase(T character);
     StringBase(const T *text);
 
     struct Header
@@ -30,6 +31,7 @@ private:
 class AsciiString
 {
 public:
+    AsciiString(char character);
     AsciiString(const char *text);
     AsciiString &operator=(const AsciiString &that);
     AsciiString &operator=(char character);
@@ -38,6 +40,11 @@ public:
 private:
     char *m_text;
 };
+
+AsciiString::AsciiString(char character)
+{
+    ((StringBase<char> *)this)->StringBase<char>::StringBase(character);
+}
 
 AsciiString::AsciiString(const char *text)
 {

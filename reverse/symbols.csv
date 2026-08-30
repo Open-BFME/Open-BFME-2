@@ -21,3 +21,4 @@ _strlen,0x00629170,BFME2 retail strlen thunk and call target for StringBase<char
 _abs,0x0062909A,MSVCR71 import thunk identified by official ATL 7.1 call and retail target
 ?set@?$StringBase@D@@QAEXABV1@@Z,0x000366F0,BFME2 export and retail call target for AsciiString copy assignment
 ??0?$StringBase@D@@AAE@PBD@Z,0x00037BA0,BFME2 export and retail call target for AsciiString const char constructor
+??0?$StringBase@D@@AAE@D@Z,0x00037B60,BFME2 export and retail call target for AsciiString char constructor
