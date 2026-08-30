@@ -72,6 +72,12 @@ void StringBase<T>::concat(T c)
 }
 
 template <typename T>
+void StringBase<T>::concat(const T *str)
+{
+    concat(str, str ? (int)strlen(str) : 0);
+}
+
+template <typename T>
 int StringBase<T>::getLength() const
 {
     return m_data ? m_data->length : 0;
