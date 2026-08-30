@@ -713,3 +713,12 @@ _free,,0x00030830,17,Code/GameEngine/Source/Common/System/GameMemoryFree.cpp,mat
 ??E?$istreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@QAEAAV01@XZ,,0x00018440,40,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_num_get.cpp,matched,stlport-4.5.3
 ??$?8GV?$char_traits@G@_STL@@@_STL@@YA_NABV?$istreambuf_iterator@GV?$char_traits@G@_STL@@@0@0@Z,,0x00018470,48,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_num_get.cpp,matched,stlport-4.5.3
 ??$?9GV?$char_traits@G@_STL@@@_STL@@YA_NABV?$istreambuf_iterator@GV?$char_traits@G@_STL@@@0@0@Z,,0x000184A0,52,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_num_get.cpp,matched,stlport-4.5.3
+?setg@?$basic_streambuf@GV?$char_traits@G@_STL@@@_STL@@IAEXPAG00@Z,,0x0001C820,24,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_streambuf.cpp,matched,stlport-4.5.3
+?pubseekoff@?$basic_streambuf@GV?$char_traits@G@_STL@@@_STL@@QAE?AV?$fpos@H@2@JHH@Z,,0x0001C870,32,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_streambuf.cpp,matched,stlport-4.5.3
+?pubseekpos@?$basic_streambuf@GV?$char_traits@G@_STL@@@_STL@@QAE?AV?$fpos@H@2@V32@H@Z,,0x0001C890,32,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_streambuf.cpp,matched,stlport-4.5.3
+?getloc@?$basic_streambuf@GV?$char_traits@G@_STL@@@_STL@@QBE?AVlocale@2@XZ,,0x0001C8E0,32,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_streambuf.cpp,matched,stlport-4.5.3
+?sputbackc@?$basic_streambuf@GV?$char_traits@G@_STL@@@_STL@@QAEGG@Z,,0x0001CC50,40,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_streambuf.cpp,matched,stlport-4.5.3
+?sungetc@?$basic_streambuf@GV?$char_traits@G@_STL@@@_STL@@QAEGXZ,,0x0001CC80,29,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_streambuf.cpp,matched,stlport-4.5.3
+?_M_snextc_aux@?$basic_streambuf@GV?$char_traits@G@_STL@@@_STL@@AAEGXZ,,0x0001CCC0,63,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_streambuf.cpp,matched,stlport-4.5.3
+?snextc@?$basic_streambuf@GV?$char_traits@G@_STL@@@_STL@@QAEGXZ,,0x0001CD00,81,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_streambuf.cpp,matched,stlport-4.5.3
+?grouping@?$numpunct@D@_STL@@QBE?AV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@2@XZ,,0x00015E50,27,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_ostream.cpp,matched,stlport-4.5.3
