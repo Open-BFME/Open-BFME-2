@@ -1,7 +1,7 @@
 // cl: /GX- /MD /D_STLP_USE_STATIC_LIB
 // stlport
 //
-// STLport 4.5.3 narrow signed 64-bit integer scanner. The implementation is
+// STLport 4.5.3 narrow unsigned 64-bit integer scanner. The implementation is
 // the upstream _M_do_get_integer body from vendor/stlport/stl/_num_get.c.
 
 namespace _STL
@@ -150,7 +150,7 @@ private:
 
 typedef istreambuf_iterator<char, char_traits<char> > narrow_iterator;
 
-struct __true_type {};
+struct __false_type {};
 
 template <class InputIter, class CharT>
 int __cdecl _M_get_base_or_zero(
@@ -159,7 +159,7 @@ int __cdecl _M_get_base_or_zero(
 template <class InputIter, class Integer>
 bool __cdecl __get_integer(
         InputIter &, InputIter &, int, Integer &, int, bool, char,
-        const narrow_string &, const __true_type &);
+        const narrow_string &, const __false_type &);
 
 template <class InputIter, class Integer, class CharT>
 InputIter __cdecl _M_do_get_integer(
@@ -191,7 +191,7 @@ InputIter __cdecl _M_do_get_integer(
         const int base = base_or_zero >> 2;
         result = __get_integer(
                 in, end, base, value, got, negative,
-                punctuation.thousands_sep(), grouping, __true_type());
+                punctuation.thousands_sep(), grouping, __false_type());
     }
 
     error = static_cast<ios_base::iostate>(
@@ -200,9 +200,10 @@ InputIter __cdecl _M_do_get_integer(
         error |= ios_base::eofbit;
     return in;
 }
+
 template narrow_iterator __cdecl _M_do_get_integer<
-        narrow_iterator, __int64, char>(
+        narrow_iterator, unsigned __int64, char>(
         narrow_iterator &, narrow_iterator &, ios_base &,
-        ios_base::iostate &, __int64 &, char *);
+        ios_base::iostate &, unsigned __int64 &, char *);
 
 }
