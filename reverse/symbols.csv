@@ -74,3 +74,10 @@ _strlen,0x00629170,BFME2 retail strlen thunk and call target for StringBase<char
 ??0?$_STLP_alloc_proxy@PADDV?$allocator@D@_STL@@@_STL@@QAE@ABV?$allocator@D@1@PAD@Z,0x00007410,STLport 4.5.3 narrow string allocator proxy constructor; address read from retail _String_base constructor REL32 displacement
 ?reserve@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@QAEXI@Z,0x0000DEA0,STLport 4.5.3 wide string reserve; address read from retail basic_string<wchar_t>::push_back REL32 displacement
 ?_M_insert_aux@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@AAEPAGPAGG@Z,0x00012D10,STLport 4.5.3 wide string single-character insert helper; address read from retail basic_string<wchar_t>::insert REL32 displacement
+?_M_throw_failure@ios_base@_STL@@IAEXXZ,0x0001BC50,harvested from retail REL32 displacement at 0x000137E0
+??0ios_base@_STL@@IAE@XZ,0x0001C1A0,harvested from retail REL32 displacement at 0x0001C5C0
+?init@?$basic_ios@DV?$char_traits@D@_STL@@@_STL@@IAEXPAV?$basic_streambuf@DV?$char_traits@D@_STL@@@2@@Z,0x000162F0,harvested from retail REL32 displacement at 0x0001C5C0
+??0locale@_STL@@QAE@XZ,0x00007100,harvested from retail REL32 displacement at 0x00016440
+?imbue@?$basic_ios@GV?$char_traits@G@_STL@@@_STL@@QAE?AVlocale@2@ABV32@@Z,0x00016200,harvested from retail REL32 displacement at 0x00016440
+?init@?$basic_ios@GV?$char_traits@G@_STL@@@_STL@@IAEXPAV?$basic_streambuf@GV?$char_traits@G@_STL@@@2@@Z,0x00016440,harvested from retail REL32 displacement at 0x0001C620
+??$__find_if@PBDU?$_Eq_int_bound@V?$char_traits@D@_STL@@@_STL@@@_STL@@YAPBDPBD0U?$_Eq_int_bound@V?$char_traits@D@_STL@@@0@ABUrandom_access_iterator_tag@0@@Z,0x006BE8C0,harvested from retail REL32 displacement at 0x006BE980
