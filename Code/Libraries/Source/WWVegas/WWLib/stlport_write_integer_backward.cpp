@@ -4,6 +4,10 @@
 // STLport 4.5.3 integer writer. The upstream __write_integer_backward body
 // from vendor/stlport/stl/_num_put.c: the octal and hex arms build their
 // digits here and the decimal arm tails into __write_decimal_backward.
+//
+// The signed arm calls the out-of-line signed overload. The unsigned arm has
+// no sign to place, so its overload stayed small enough that retail inlined
+// the divide loop straight into the body.
 
 namespace _STL
 {
@@ -25,6 +29,19 @@ public:
 };
 
 struct __true_type {};
+struct __false_type {};
+
+template <class Integer>
+struct __integer_is_signed
+{
+    typedef __true_type _Ret;
+};
+
+template <>
+struct __integer_is_signed<unsigned long>
+{
+    typedef __false_type _Ret;
+};
 
 typedef unsigned __int64 __umax_int_t;
 
@@ -34,6 +51,20 @@ extern const char __hex_char_table_hi[];
 template <class Integer>
 char *__cdecl __write_decimal_backward(
         char *, Integer, ios_base::fmtflags, const __true_type &);
+
+template <class Integer>
+__declspec(dllimport) __forceinline char *__cdecl __write_decimal_backward(
+        char *ptr, Integer value, ios_base::fmtflags flags,
+        const __false_type &)
+{
+    for (; value != 0; value /= 10)
+        *--ptr = static_cast<int>(value % 10) + '0';
+
+    if (flags & ios_base::showpos)
+        *--ptr = '+';
+
+    return ptr;
+}
 
 template <class Integer>
 char *__cdecl __write_integer_backward(
@@ -84,7 +115,8 @@ char *__cdecl __write_integer_backward(
             break;
 
         default:
-            ptr = __write_decimal_backward(ptr, value, flags, __true_type());
+            ptr = __write_decimal_backward(ptr, value, flags,
+                    typename __integer_is_signed<Integer>::_Ret());
             break;
         }
     }
@@ -94,5 +126,8 @@ char *__cdecl __write_integer_backward(
 
 template char *__cdecl __write_integer_backward<long>(
         char *, ios_base::fmtflags, long);
+
+template char *__cdecl __write_integer_backward<unsigned long>(
+        char *, ios_base::fmtflags, unsigned long);
 
 }
