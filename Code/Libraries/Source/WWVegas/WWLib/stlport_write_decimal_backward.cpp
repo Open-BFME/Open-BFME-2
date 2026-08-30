@@ -1,5 +1,3 @@
-// ?d_0000d540@@YAXXZ
-// partial score=0.9 date=2026-08-30
 // cl: /O2 /EHsc /MD /D_STLP_USE_STATIC_LIB
 // stlport
 //

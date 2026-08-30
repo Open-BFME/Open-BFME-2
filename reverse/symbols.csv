@@ -99,3 +99,4 @@ _fabs,0x00629210,MSVCRT import thunk identified by four retail call targets and 
 _memcmp,0x0062929E,CRT memcmp import thunk (jmp [0x00BBA694]); ghidra labels this address memcmp and the StringBase<char> comparison helper calls it directly
 _sqrt,0x0062921C,MSVCRT import thunk identified by retail call target and Ghidra
 _strlen,0x00629170,BFME2 retail strlen thunk and call target for StringBase<char>::compare(const char *)
+??$__write_decimal_backward@J@_STL@@YAPADPADJHABU__true_type@0@@Z,0x0000D540,STLport 4.5.3 signed decimal writer; the retail body is the upstream __write_decimal_backward __true_type overload instruction for instruction (see reverse/attempts/0x0000d540.cpp) and 0x0000D460 is its only caller

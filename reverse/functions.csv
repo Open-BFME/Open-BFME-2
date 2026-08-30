@@ -333,7 +333,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_0000d050@@YAXXZ,,0x0000D050,214,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040d050
 ?d_0000d180@@YAXXZ,,0x0000D180,206,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040d180
 ?d_0000d250@@YAXXZ,,0x0000D250,124,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040d250
-?d_0000d460@@YAXXZ,,0x0000D460,216,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040d460
 ?d_0000d540@@YAXXZ,,0x0000D540,118,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040d540
 ?d_0000d650@@YAXXZ,,0x0000D650,818,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040d650
 ?d_0000daa0@@YAXXZ,,0x0000DAA0,277,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040daa0
@@ -913,3 +912,4 @@ _free,,0x00030830,17,Code/GameEngine/Source/Common/System/GameMemoryFree.cpp,mat
 ?put@?$time_put@GV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@@_STL@@QBE?AV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@2@V32@AAVios_base@2@GPBUtm@@PBG3@Z,,0x00018D30,264,Code/Libraries/Source/WWVegas/WWLib/stlport_time_put_wide.cpp,matched,stlport-4.5.3
 ?do_put@?$time_put@GV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@@_STL@@MBE?AV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@2@V32@AAVios_base@2@GPBUtm@@DD@Z,,0x0000F680,78,Code/Libraries/Source/WWVegas/WWLib/stlport_time_put_wide.cpp,matched,stlport-4.5.3
 ??$__put_time@V?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@@_STL@@YA?AV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@0@PAD0V10@ABVios_base@0@G@Z,,0x0000F6D0,103,Code/Libraries/Source/WWVegas/WWLib/stlport_time_put_wide.cpp,matched,stlport-4.5.3
+??$__write_integer_backward@J@_STL@@YAPADPADHJ@Z,,0x0000D460,216,Code/Libraries/Source/WWVegas/WWLib/stlport_write_integer_backward.cpp,matched,stlport-4.5.3
