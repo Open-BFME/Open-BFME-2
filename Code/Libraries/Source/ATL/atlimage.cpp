@@ -62,6 +62,7 @@ extern "C" __declspec(dllimport) LONG __stdcall InterlockedExchange(volatile LON
 extern "C" __declspec(dllimport) HDC __stdcall CreateCompatibleDC(HDC dc);
 extern "C" __declspec(dllimport) int __stdcall DeleteDC(HDC dc);
 extern "C" __declspec(dllimport) HGDIOBJ __stdcall SelectObject(HDC dc, HGDIOBJ object);
+extern "C" __declspec(dllimport) int __stdcall DeleteObject(HGDIOBJ object);
 extern "C" __declspec(dllimport) UINT __stdcall SetDIBColorTable(
     HDC dc, UINT firstColor, UINT colors, const RGBQUAD *colorTable);
 extern "C" __declspec(dllimport) int __stdcall GetObjectA(HGDIOBJ object, int bytes, void *data);
@@ -113,6 +114,9 @@ public:
 
     virtual ~CImage() throw();
 
+    CImage() throw();
+    void Attach(HBITMAP bitmap, DIBOrientation orientation) throw();
+    void Destroy() throw();
     HBITMAP Detach() throw();
     HDC GetDC() const throw();
     void ReleaseDC() const throw();
@@ -133,6 +137,7 @@ private:
     mutable HBITMAP m_hOldBitmap;
 
     static CDCCache s_cache;
+    static CInitGDIPlus s_initGDIPlus;
     void UpdateBitmapInfo(DIBOrientation orientation);
 };
 
@@ -258,6 +263,43 @@ void CImage::UpdateBitmapInfo(DIBOrientation orientation)
     }
     m_iTransparentColor = -1;
     m_bHasAlphaChannel = false;
+}
+
+CImage::CImage() throw() :
+    m_hBitmap(0),
+    m_pBits(0),
+    m_nWidth(0),
+    m_nHeight(0),
+    m_nPitch(0),
+    m_nBPP(0),
+    m_bIsDIBSection(false),
+    m_bHasAlphaChannel(false),
+    m_iTransparentColor(-1),
+    m_hDC(0),
+    m_nDCRefCount(0),
+    m_hOldBitmap(0)
+{
+    s_initGDIPlus.IncreaseCImageCount();
+}
+
+CImage::~CImage() throw()
+{
+    Destroy();
+    s_initGDIPlus.DecreaseCImageCount();
+}
+
+void CImage::Destroy() throw()
+{
+    if (m_hBitmap != 0)
+    {
+        DeleteObject(Detach());
+    }
+}
+
+void CImage::Attach(HBITMAP bitmap, DIBOrientation orientation) throw()
+{
+    m_hBitmap = bitmap;
+    UpdateBitmapInfo(orientation);
 }
 
 HBITMAP CImage::Detach() throw()

@@ -184,7 +184,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_00001fdc@@YAXXZ,,0x00001FDC,49,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00401fdc
 ?d_0000200d@@YAXXZ,,0x0000200D,260,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=operator=
 ?d_00002111@@YAXXZ,,0x00002111,27,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00402111
-?d_0000213f@@YAXXZ,,0x0000213F,19,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_0040213f
 ?d_00002152@@YAXXZ,,0x00002152,10,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00402152
 ?d_000021c7@@YAXXZ,,0x000021C7,28,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_004021c7
 ?d_000021e3@@YAXXZ,,0x000021E3,35,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Allocate
@@ -197,7 +196,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_00002600@@YAXXZ,,0x00002600,30,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=getName
 ?d_0000261e@@YAXXZ,,0x0000261E,27,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=getTextureFilename
 ?d_00002639@@YAXXZ,,0x00002639,66,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Clone
-?d_0000267b@@YAXXZ,,0x0000267B,21,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_0040267b
 ?d_00002690@@YAXXZ,,0x00002690,205,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00402690
 ?d_0000275d@@YAXXZ,,0x0000275D,395,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_0040275d
 ?d_000028e8@@YAXXZ,,0x000028E8,37,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=operator<<<char>
@@ -897,3 +895,6 @@ _free,,0x00030830,17,Code/GameEngine/Source/Common/System/GameMemoryFree.cpp,mat
 ??$__copy@PBU?$pair@HH@_STL@@PAU12@H@_STL@@YAPAU?$pair@HH@0@PBU10@0PAU10@ABUrandom_access_iterator_tag@0@PAH@Z,,0x00626F50,50,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_pair.cpp,matched,stlport-4.5.3
 ?do_get@?$num_get@GV?$istreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@@_STL@@MBE?AV?$istreambuf_iterator@GV?$char_traits@G@_STL@@@2@V32@0AAVios_base@2@AAHAA_K@Z,,0x00009F60,47,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_num_get.cpp,matched,stlport-4.5.3
 ?do_get@?$num_get@GV?$istreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@@_STL@@MBE?AV?$istreambuf_iterator@GV?$char_traits@G@_STL@@@2@V32@0AAVios_base@2@AAHAAPAX@Z,,0x0000A890,83,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_num_get.cpp,matched,stlport-4.5.3
+??0CImage@ATL@@QAE@XZ,,0x00001568,62,Code/Libraries/Source/ATL/atlimage.cpp,matched,stlport-4.5.3
+?Destroy@CImage@ATL@@QAEXXZ,,0x0000213F,19,Code/Libraries/Source/ATL/atlimage.cpp,matched,vendored=atl-7.1
+??1CImage@ATL@@UAE@XZ,,0x0000267B,21,Code/Libraries/Source/ATL/atlimage.cpp,matched,vendored=atl-7.1
