@@ -17,6 +17,7 @@ public:
         float m10, float m11, float m12, float m13,
         float m20, float m21, float m22, float m23,
         float m30, float m31, float m32, float m33);
+    Matrix4D &operator*=(float scale);
     Coord3D &GetXVector(Coord3D &out) const;
     Coord3D &GetYVector(Coord3D &out) const;
     Coord3D &GetZVector(Coord3D &out) const;
@@ -72,6 +73,27 @@ Matrix4D::Matrix4D(
     values[13] = m31;
     values[14] = m32;
     values[15] = m33;
+}
+
+Matrix4D &Matrix4D::operator*=(float scale)
+{
+    values[0] *= scale;
+    values[1] *= scale;
+    values[2] *= scale;
+    values[3] *= scale;
+    values[4] *= scale;
+    values[5] *= scale;
+    values[6] *= scale;
+    values[7] *= scale;
+    values[8] *= scale;
+    values[9] *= scale;
+    values[10] *= scale;
+    values[11] *= scale;
+    values[12] *= scale;
+    values[13] *= scale;
+    values[14] *= scale;
+    values[15] *= scale;
+    return *this;
 }
 
 Coord3D &Matrix4D::GetXVector(Coord3D &out) const
