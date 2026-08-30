@@ -62,12 +62,12 @@ name,target_rva,target_size,source,notes
 ??_V@YAXPAX@Z,0x0002FD80,21,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_ifstream.cpp,reloc-derived;call-sites=2;identity=real
 ??2@YAPAXI@Z,0x0002FDA0,19,Code/Libraries/Source/Compression/LZHCompress/CompLibSource/Huff.cpp,reloc-derived;call-sites=10;identity=real
 ??_U@YAPAXI@Z,0x0002FDE0,19,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_filebuf.cpp,reloc-derived;call-sites=3;identity=real
+??0gslice@_STL@@QAE@ABV01@@Z,0x000B43E5,47,Code/Libraries/Source/WWVegas/WWLib/stlport_valarray_int.cpp,reloc-derived;call-sites=1;identity=real
 ??0?$_STLP_alloc_proxy@PAIIV?$allocator@I@_STL@@@_STL@@QAE@ABV?$allocator@I@1@PAI@Z,0x0014F3C4,11,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_bool.cpp,reloc-derived;call-sites=1;identity=real
 ??$__lower_bound@PBIIU?$less@I@_STL@@H@_STL@@YAPBIPBI0ABIU?$less@I@0@PAH@Z,0x00568D2F,57,Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_int.cpp,reloc-derived;call-sites=2;identity=real
 ?_M_insert@?$hashtable@U?$pair@$$CBHH@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@QAEAAU?$pair@$$CBHH@2@ABU32@@Z,0x00620F60,112,Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_int.cpp,reloc-derived;call-sites=1;identity=real
 __ftol2,0x00629228,117,Code/Libraries/Source/WWVegas/WWMath/color.cpp,reloc-derived;call-sites=4;identity=real
 ?_M_insert_overflow@?$vector@HV?$allocator@H@_STL@@@_STL@@IAEXPAHABHABU__true_type@2@I_N@Z,0x006887F0,217,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_int.cpp,reloc-derived;call-sites=1;identity=real
-?BTREE_decompress@@YAHPAE0@Z,0x0068EB60,258,Code/Libraries/Source/Compression/EAC/btreedecode.cpp,reloc-derived;call-sites=1;identity=real
 ?LZHLDestroyDecompressor@@YAXPAX@Z,0x0068ED80,27,Code/Libraries/Source/Compression/LZHCompress/NoxCompress.cpp,reloc-derived;call-sites=1;identity=real
 ?decompress@LZHLDecompressor@@QAEHPAEPAIPBE1@Z,0x00692440,807,Code/Libraries/Source/Compression/LZHCompress/NoxCompress.cpp,reloc-derived;call-sites=1;identity=real
 ??$__find_if@PBDU?$_Eq_int_bound@V?$char_traits@D@_STL@@@_STL@@@_STL@@YAPBDPBD0U?$_Eq_int_bound@V?$char_traits@D@_STL@@@0@ABUrandom_access_iterator_tag@0@@Z,0x006BE8C0,115,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_istream.cpp,reloc-derived;call-sites=1;identity=real
