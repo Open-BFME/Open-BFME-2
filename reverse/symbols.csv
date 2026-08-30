@@ -24,3 +24,4 @@ _abs,0x0062909A,MSVCR71 import thunk identified by official ATL 7.1 call and ret
 ??0?$StringBase@D@@AAE@D@Z,0x00037B60,BFME2 export and retail call target for AsciiString char constructor
 ??0?$StringBase@D@@AAE@PBDH@Z,0x00037B80,BFME2 export and retail call target for AsciiString const char length constructor
 ??0?$StringBase@D@@AAE@ABV0@HH@Z,0x000380C0,BFME2 export and retail call target for AsciiString substring constructor
+??0?$StringBase@D@@AAE@PBDHH@Z,0x00038090,BFME2 export and retail call target for AsciiString const char substring constructor
