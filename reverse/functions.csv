@@ -169,7 +169,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_00001423@@YAXXZ,,0x00001423,34,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=`vector_constructor_iterator'
 ?d_0000145b@@YAXXZ,,0x0000145B,83,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_0040145b
 ?d_00001720@@YAXXZ,,0x00001720,19,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00401720
-?d_00001733@@YAXXZ,,0x00001733,18,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=operator=
 ?d_00001745@@YAXXZ,,0x00001745,11,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Snapshot
 ?d_0000179f@@YAXXZ,,0x0000179F,1167,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_0040179f
 ?d_00001c72@@YAXXZ,,0x00001C72,126,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00401c72
@@ -645,3 +644,4 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?ReleaseGDIPlus@CInitGDIPlus@CImage@ATL@@QAEXXZ,,0x000014AE,39,Code/Libraries/Source/ATL/atlimage.cpp,matched,vendored=atl-7.1
 ?DecreaseCImageCount@CInitGDIPlus@CImage@ATL@@QAEXXZ,,0x000014F0,36,Code/Libraries/Source/ATL/atlimage.cpp,matched,vendored=atl-7.1
 ?UpdateBitmapInfo@CImage@ATL@@AAEXW4DIBOrientation@12@@Z,,0x00001642,174,Code/Libraries/Source/ATL/atlimage.cpp,matched,vendored=atl-7.1
+??4AsciiString@@QAEAAV0@ABV0@@Z,0x00001733,0x00001733,18,Code/Libraries/Source/WWVegas/WWLib/ascii_string.cpp,matched,
