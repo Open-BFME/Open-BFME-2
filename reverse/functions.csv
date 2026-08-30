@@ -273,9 +273,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_00006ace@@YAXXZ,,0x00006ACE,35,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=CAtlWinModule
 ?d_00006b09@@YAXXZ,,0x00006B09,10,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00406b09
 ?d_00006cf0@@YAXXZ,,0x00006CF0,34,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00406cf0
-?d_00006ee0@@YAXXZ,,0x00006EE0,5,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00406ee0
-?d_00006f10@@YAXXZ,,0x00006F10,28,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00406f10
-?d_00006f30@@YAXXZ,,0x00006F30,17,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00406f30
 ?d_00006f80@@YAXXZ,,0x00006F80,241,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00406f80
 ?d_000070e0@@YAXXZ,,0x000070E0,27,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_004070e0
 ?d_00007100@@YAXXZ,,0x00007100,30,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00407100
@@ -287,7 +284,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_000072c0@@YAXXZ,,0x000072C0,30,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_004072c0
 ?d_000072e0@@YAXXZ,,0x000072E0,7,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_004072e0
 ?d_000072f0@@YAXXZ,,0x000072F0,107,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_004072f0
-?d_00007410@@YAXXZ,,0x00007410,11,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00407410
 ?d_00007460@@YAXXZ,,0x00007460,43,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00407460
 ?d_000074d0@@YAXXZ,,0x000074D0,30,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_004074d0
 ?d_00007510@@YAXXZ,,0x00007510,30,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00407510
@@ -305,9 +301,7 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_00007920@@YAXXZ,,0x00007920,212,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00407920
 ?d_00007a00@@YAXXZ,,0x00007A00,243,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00407a00
 ?d_00007c40@@YAXXZ,,0x00007C40,35,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00407c40
-?d_00007c70@@YAXXZ,,0x00007C70,21,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00407c70
 ?d_00007c90@@YAXXZ,,0x00007C90,508,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00407c90
-?d_00007e90@@YAXXZ,,0x00007E90,32,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00407e90
 ?d_00007eb0@@YAXXZ,,0x00007EB0,41,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00407eb0
 ?d_00008d00@@YAXXZ,,0x00008D00,84,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00408d00
 ?d_00008f40@@YAXXZ,,0x00008F40,30,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00408f40
@@ -323,8 +317,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_00009450@@YAXXZ,,0x00009450,385,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00409450
 ?d_000095e0@@YAXXZ,,0x000095E0,569,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_004095e0
 ?d_00009820@@YAXXZ,,0x00009820,52,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00409820
-?d_00009860@@YAXXZ,,0x00009860,49,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00409860
-?d_000098a0@@YAXXZ,,0x000098A0,114,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_004098a0
 ?d_00009920@@YAXXZ,,0x00009920,167,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00409920
 ?d_000099d0@@YAXXZ,,0x000099D0,371,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_004099d0
 ?d_00009b50@@YAXXZ,,0x00009B50,179,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00409b50
@@ -332,9 +324,7 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_00009d60@@YAXXZ,,0x00009D60,392,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00409d60
 ?d_00009ef0@@YAXXZ,,0x00009EF0,108,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00409ef0
 ?d_00009f90@@YAXXZ,,0x00009F90,260,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00409f90
-?d_0000a0a0@@YAXXZ,,0x0000A0A0,68,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_0040a0a0
 ?d_0000a0f0@@YAXXZ,,0x0000A0F0,523,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_0040a0f0
-?d_0000a300@@YAXXZ,,0x0000A300,23,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_0040a300
 ?d_0000a320@@YAXXZ,,0x0000A320,522,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_0040a320
 ?d_0000a560@@YAXXZ,,0x0000A560,260,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_0040a560
 ?d_0000a670@@YAXXZ,,0x0000A670,537,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_0040a670
@@ -377,10 +367,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_0000dea0@@YAXXZ,,0x0000DEA0,102,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040dea0
 ?d_0000df10@@YAXXZ,,0x0000DF10,5,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=thunk_FUN_004179b0
 ?d_0000e960@@YAXXZ,,0x0000E960,53,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040e960
-?d_0000e9a0@@YAXXZ,,0x0000E9A0,31,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040e9a0
-?d_0000e9c0@@YAXXZ,,0x0000E9C0,106,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040e9c0
-?d_0000ea30@@YAXXZ,,0x0000EA30,27,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040ea30
-?d_0000ea50@@YAXXZ,,0x0000EA50,27,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040ea50
 ?d_0000ea70@@YAXXZ,,0x0000EA70,27,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040ea70
 ?d_0000ea90@@YAXXZ,,0x0000EA90,102,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040ea90
 ?d_0000eb00@@YAXXZ,,0x0000EB00,84,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040eb00
@@ -409,8 +395,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_000130a0@@YAXXZ,,0x000130A0,102,Code/gen_asm/d_000112aa.asm,matched,gen-dump;ghidra=FUN_004130a0
 ?d_00013110@@YAXXZ,,0x00013110,65,Code/gen_asm/d_000112aa.asm,matched,gen-dump;ghidra=FUN_00413110
 ?d_00013160@@YAXXZ,,0x00013160,241,Code/gen_asm/d_000112aa.asm,matched,gen-dump;ghidra=FUN_00413160
-?d_00013260@@YAXXZ,,0x00013260,7,Code/gen_asm/d_000112aa.asm,matched,gen-dump;ghidra=FUN_00413260
-?d_00013270@@YAXXZ,,0x00013270,13,Code/gen_asm/d_000112aa.asm,matched,gen-dump;ghidra=FUN_00413270
 ?d_00013320@@YAXXZ,,0x00013320,60,Code/gen_asm/d_000112aa.asm,matched,gen-dump;ghidra=FUN_00413320
 ?d_00013360@@YAXXZ,,0x00013360,30,Code/gen_asm/d_000112aa.asm,matched,gen-dump;ghidra=FUN_00413360
 ?d_00013410@@YAXXZ,,0x00013410,15,Code/gen_asm/d_000112aa.asm,matched,gen-dump;ghidra=FUN_00413410
@@ -428,16 +412,12 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_00013560@@YAXXZ,,0x00013560,14,Code/gen_asm/d_000112aa.asm,matched,gen-dump;ghidra=FUN_00413560
 ?d_000135a0@@YAXXZ,,0x000135A0,30,Code/gen_asm/d_000112aa.asm,matched,gen-dump;ghidra=FUN_004135a0
 ?d_00013600@@YAXXZ,,0x00013600,46,Code/gen_asm/d_000112aa.asm,matched,gen-dump;ghidra=FUN_00413600
-?d_00013930@@YAXXZ,,0x00013930,35,Code/gen_asm/d_000112aa.asm,matched,gen-dump;ghidra=FUN_00413930
-?d_00013970@@YAXXZ,,0x00013970,180,Code/gen_asm/d_000112aa.asm,matched,gen-dump;ghidra=FUN_00413970
-?d_00013a30@@YAXXZ,,0x00013A30,154,Code/gen_asm/d_000112aa.asm,matched,gen-dump;ghidra=FUN_00413a30
 ?d_00013b30@@YAXXZ,,0x00013B30,112,Code/gen_asm/d_000112aa.asm,matched,gen-dump;ghidra=FUN_00413b30
 ?d_00013ba0@@YAXXZ,,0x00013BA0,97,Code/gen_asm/d_000112aa.asm,matched,gen-dump;ghidra=FUN_00413ba0
 ?d_00013c10@@YAXXZ,,0x00013C10,264,Code/gen_asm/d_000112aa.asm,matched,gen-dump;ghidra=FUN_00413c10
 ?d_00013eb0@@YAXXZ,,0x00013EB0,86,Code/gen_asm/d_000112aa.asm,matched,gen-dump;ghidra=FUN_00413eb0
 ?d_00013f10@@YAXXZ,,0x00013F10,189,Code/gen_asm/d_000112aa.asm,matched,gen-dump;ghidra=FUN_00413f10
 ?d_00013fd0@@YAXXZ,,0x00013FD0,54,Code/gen_asm/d_000112aa.asm,matched,gen-dump;ghidra=FUN_00413fd0
-?d_000143a0@@YAXXZ,,0x000143A0,35,Code/gen_asm/d_000112aa.asm,matched,gen-dump;ghidra=FUN_004143a0
 ?zero@ICoord3D@@QAEXXZ,0x00004DCF,0x00004DCF,11,Code/Libraries/Source/WWVegas/WWMath/icoord.cpp,matched,Open-BFME5 clean C++; ICoord3D zero from EA reference
 ??4ICoord3D@@QAEAAU0@ABU0@@Z,0x0000353A,0x0000353A,18,Code/Libraries/Source/WWVegas/WWMath/icoord.cpp,matched,Open-BFME5 clean C++; ICoord3D aggregate assignment from EA reference
 ??8ICoord2D@@QBE_NABUICoord2DBase@@@Z,0x00004CAD,0x00004CAD,28,Code/Libraries/Source/WWVegas/WWMath/icoord.cpp,matched,Open-BFME5 clean C++; ICoord2D equality from EA reference
@@ -860,3 +840,37 @@ _free,,0x00030830,17,Code/GameEngine/Source/Common/System/GameMemoryFree.cpp,mat
 ??0?$istreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@QAE@AAV?$basic_istream@GV?$char_traits@G@_STL@@@1@@Z,,0x00018300,32,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_streambuf_iterators.cpp,matched,stlport-4.5.3
 ??E?$istreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@QAE?AV01@H@Z,,0x00018320,69,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_streambuf_iterators.cpp,matched,stlport-4.5.3
 ?swap@?$StringBase@D@@QAEXAAV1@@Z,0x00035910,0x00035910,17,Code/Libraries/Source/WWVegas/WWLib/string_base.cpp,matched,
+?sbumpc@?$basic_streambuf@GV?$char_traits@G@_STL@@@_STL@@QAEGXZ,,0x0000A300,23,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_filebuf.cpp,matched,gen-alias;object-symbol=?sbumpc@?$basic_streambuf@GV?$char_traits@G@_STL@@@_STL@@QAEGXZ;C++ alias
+?uflow@?$basic_streambuf@GV?$char_traits@G@_STL@@@_STL@@MAEGXZ,,0x00013930,35,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_filebuf.cpp,matched,gen-alias;object-symbol=?uflow@?$basic_streambuf@GV?$char_traits@G@_STL@@@_STL@@MAEGXZ;C++ alias
+?xsputn@?$basic_streambuf@GV?$char_traits@G@_STL@@@_STL@@MAEHPBGH@Z,,0x00013970,180,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_filebuf.cpp,matched,gen-alias;object-symbol=?xsputn@?$basic_streambuf@GV?$char_traits@G@_STL@@@_STL@@MAEHPBGH@Z;C++ alias
+?_M_xsputnc@?$basic_streambuf@GV?$char_traits@G@_STL@@@_STL@@MAEHGH@Z,,0x00013A30,154,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_filebuf.cpp,matched,gen-alias;object-symbol=?_M_xsputnc@?$basic_streambuf@GV?$char_traits@G@_STL@@@_STL@@MAEHGH@Z;C++ alias
+?_M_exit_putback_mode@?$basic_filebuf@GV?$char_traits@G@_STL@@@_STL@@AAEXXZ,,0x00014E90,23,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_filebuf.cpp,matched,gen-alias;object-symbol=?_M_exit_putback_mode@?$basic_filebuf@GV?$char_traits@G@_STL@@@_STL@@AAEXXZ;C++ alias
+??$__copy@PBDV?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@H@_STL@@YA?AV?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@0@PBD0V10@ABUrandom_access_iterator_tag@0@PAH@Z,,0x000098A0,114,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_num_put.cpp,matched,gen-alias;object-symbol=??$__copy@PBDV?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@H@_STL@@YA?AV?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@0@PBD0V10@ABUrandom_access_iterator_tag@0@PAH@Z;C++ alias
+??0?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAE@ABV?$allocator@PAX@1@@Z,,0x00142E20,15,Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_int.cpp,matched,gen-alias;object-symbol=??0?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAE@ABV?$allocator@PAX@1@@Z;C++ alias
+?bucket_count@?$hash_map@HHU?$hash@H@_STL@@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@QBEIXZ,,0x002BEDAB,10,Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_int.cpp,matched,gen-alias;object-symbol=?bucket_count@?$hash_map@HHU?$hash@H@_STL@@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@QBEIXZ;C++ alias
+??0?$_Ht_iterator@U?$pair@$$CBHH@_STL@@U?$_Const_traits@U?$pair@$$CBHH@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@QAE@ABU?$_Ht_iterator@U?$pair@$$CBHH@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHH@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@1@@Z,,0x005CFBC2,19,Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_int.cpp,matched,gen-alias;object-symbol=??0?$_Ht_iterator@U?$pair@$$CBHH@_STL@@U?$_Const_traits@U?$pair@$$CBHH@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@QAE@ABU?$_Ht_iterator@U?$pair@$$CBHH@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHH@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@1@@Z;C++ alias
+?dup_0060c9d9@@YAXXZ,,0x0060C9D9,23,Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_int.cpp,matched,gen-alias;object-symbol=??$_Construct@U?$pair@$$CBHH@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBHH@0@ABU10@@Z;C++ alias
+??0?$_Hashtable_iterator@U?$pair@$$CBHH@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@QAE@PAU?$_Hashtable_node@U?$pair@$$CBHH@_STL@@@1@PAV?$hashtable@U?$pair@$$CBHH@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@1@@Z,,0x006200B0,18,Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_int.cpp,matched,gen-alias;object-symbol=??0?$_Hashtable_iterator@U?$pair@$$CBHH@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@QAE@PAU?$_Hashtable_node@U?$pair@$$CBHH@_STL@@@1@PAV?$hashtable@U?$pair@$$CBHH@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@1@@Z;C++ alias
+?dup_006204b0@@YAXXZ,,0x006204B0,23,Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_int.cpp,matched,gen-alias;object-symbol=??$_Construct@U?$pair@$$CBHH@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBHH@0@ABU10@@Z;C++ alias
+??$__copy@PBGV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@H@_STL@@YA?AV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@0@PBG0V10@ABUrandom_access_iterator_tag@0@PAH@Z,,0x0000E9C0,106,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_num_put.cpp,matched,gen-alias;object-symbol=??$__copy@PBGV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@H@_STL@@YA?AV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@0@PBG0V10@ABUrandom_access_iterator_tag@0@PAH@Z;C++ alias
+?sgetc@?$basic_streambuf@DV?$char_traits@D@_STL@@@_STL@@QAEHXZ,,0x00007C70,21,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_istream.cpp,matched,gen-alias;object-symbol=?sgetc@?$basic_streambuf@DV?$char_traits@D@_STL@@@_STL@@QAEHXZ;C++ alias
+?sbumpc@?$basic_streambuf@DV?$char_traits@D@_STL@@@_STL@@QAEHXZ,,0x00007E90,32,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_istream.cpp,matched,gen-alias;object-symbol=?sbumpc@?$basic_streambuf@DV?$char_traits@D@_STL@@@_STL@@QAEHXZ;C++ alias
+?sputc@?$basic_streambuf@DV?$char_traits@D@_STL@@@_STL@@QAEHD@Z,,0x00009860,49,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_istream.cpp,matched,gen-alias;object-symbol=?sputc@?$basic_streambuf@DV?$char_traits@D@_STL@@@_STL@@QAEHD@Z;C++ alias
+?_M_getc@?$istreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@ABEXXZ,,0x0000A0A0,68,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_num_get.cpp,matched,gen-alias;object-symbol=?_M_getc@?$istreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@ABEXXZ;C++ alias
+?_M_initialize@_STLP_mutex_base@_STL@@QAEXXZ,,0x00013260,7,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_filebuf.cpp,matched,gen-alias;object-symbol=?_M_initialize@_STLP_mutex_base@_STL@@QAEXXZ;C++ alias
+??$count@PADD@_STL@@YAHPAD0ABD@Z,,0x000143A0,35,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_filebuf.cpp,matched,gen-alias;object-symbol=??$count@PADD@_STL@@YAHPAD0ABD@Z;C++ alias
+?_FILE_I_begin@_STL@@YAPADPBU_iobuf@@@Z,,0x00030BE0,8,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_filebuf.cpp,matched,gen-alias;object-symbol=?_FILE_I_begin@_STL@@YAPADPBU_iobuf@@@Z;C++ alias
+??0_STLP_mutex@_STL@@QAE@XZ,,0x006CE7D0,9,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_filebuf.cpp,matched,gen-alias;object-symbol=??0_STLP_mutex@_STL@@QAE@XZ;C++ alias
+?truename@?$numpunct@D@_STL@@QBE?AV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@2@XZ,,0x0000EA30,27,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_num_get.cpp,matched,gen-alias;object-symbol=?truename@?$numpunct@D@_STL@@QBE?AV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@2@XZ;C++ alias
+?falsename@?$numpunct@D@_STL@@QBE?AV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@2@XZ,,0x0000EA50,27,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_num_get.cpp,matched,gen-alias;object-symbol=?falsename@?$numpunct@D@_STL@@QBE?AV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@2@XZ;C++ alias
+?sputc@?$basic_streambuf@GV?$char_traits@G@_STL@@@_STL@@QAEGG@Z,,0x0000E9A0,31,Code/Libraries/Source/WWVegas/WWLib/stlport_ostreambuf_iterator.cpp,matched,gen-alias;object-symbol=?sputc@?$basic_streambuf@GV?$char_traits@G@_STL@@@_STL@@QAEGG@Z;C++ alias
+?compare@?$char_traits@D@_STL@@SAHPBD0I@Z,,0x00006F10,28,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_string.cpp,matched,gen-alias;object-symbol=?compare@?$char_traits@D@_STL@@SAHPBD0I@Z;C++ alias
+??2@YAPAXIPAX@Z,,0x00006EE0,5,Code/Libraries/Source/WWVegas/WWLib/stlport_deque_int.cpp,matched,gen-alias;object-symbol=??2@YAPAXIPAX@Z;C++ alias
+?dup_00007410@@YAXXZ,,0x00007410,11,Code/Libraries/Source/WWVegas/WWLib/stlport_deque_int.cpp,matched,gen-alias;object-symbol=??0?$_STLP_alloc_proxy@IHV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@I@Z;C++ alias
+?dup_0014f3c4@@YAXXZ,,0x0014F3C4,11,Code/Libraries/Source/WWVegas/WWLib/stlport_deque_int.cpp,matched,gen-alias;object-symbol=??0?$_STLP_alloc_proxy@IHV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@I@Z;C++ alias
+??0?$_List_iterator@HU?$_Const_traits@H@_STL@@@_STL@@QAE@PAU?$_List_node@H@1@@Z,,0x0007B719,11,Code/Libraries/Source/WWVegas/WWLib/stlport_list_int.cpp,matched,gen-alias;object-symbol=??0?$_List_iterator@HU?$_Const_traits@H@_STL@@@_STL@@QAE@PAU?$_List_node@H@1@@Z;C++ alias
+??8_List_iterator_base@_STL@@QBE_NABU01@@Z,,0x001F4325,16,Code/Libraries/Source/WWVegas/WWLib/stlport_list_int.cpp,matched,gen-alias;object-symbol=??8_List_iterator_base@_STL@@QBE_NABU01@@Z;C++ alias
+?assign@?$char_traits@D@_STL@@SAXAADABD@Z,,0x00013270,13,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_fstream.cpp,matched,gen-alias;object-symbol=?assign@?$char_traits@D@_STL@@SAXAADABD@Z;C++ alias
+?_M_clear_nothrow@ios_base@_STL@@IAEXH@Z,,0x0013ED10,10,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_fstream.cpp,matched,gen-alias;object-symbol=?_M_clear_nothrow@ios_base@_STL@@IAEXH@Z;C++ alias
+?length@?$char_traits@D@_STL@@SAIPBD@Z,,0x00006F30,17,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_ostream.cpp,matched,gen-alias;object-symbol=?length@?$char_traits@D@_STL@@SAIPBD@Z;C++ alias
+?_S_left@?$_Rb_tree@HU?$pair@$$CBHH@_STL@@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@KAAAPAU?$_Rb_tree_node@U?$pair@$$CBHH@_STL@@@2@PAU32@@Z,,0x00169660,8,Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_int.cpp,matched,gen-alias;object-symbol=?_S_left@?$_Rb_tree@HU?$pair@$$CBHH@_STL@@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@KAAAPAU?$_Rb_tree_node@U?$pair@$$CBHH@_STL@@@2@PAU32@@Z;C++ alias
