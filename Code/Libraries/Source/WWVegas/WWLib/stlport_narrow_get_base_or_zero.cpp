@@ -1,5 +1,3 @@
-// ?d_00007c90@@YAXXZ
-// partial score=0.8 date=2026-08-30
 // cl: /GX- /MD /D_STLP_USE_STATIC_LIB
 // stlport
 
@@ -249,20 +247,20 @@ int __cdecl _M_get_base_or_zero(
 		break;
 	case ios_base::hex:
 		base = 16;
-		if (!in.equal(end) && *in == atoms[2])
+		if (!in._M_equal_inline(end) && *in == atoms[2])
 		{
 			++in;
-			if (!in.equal(end) && (*in == atoms[3] || *in == atoms[4]))
+			if (!in._M_equal_inline(end) && (*in == atoms[3] || *in == atoms[4]))
 				++in;
 			else
 				validZero = 1;
 		}
 		break;
 	default:
-		if (!in.equal(end) && *in == atoms[2])
+		if (!in._M_equal_inline(end) && *in == atoms[2])
 		{
 			++in;
-			if (!in.equal(end) && (*in == atoms[3] || *in == atoms[4]))
+			if (!in._M_equal_inline(end) && (*in == atoms[3] || *in == atoms[4]))
 			{
 				++in;
 				base = 16;
