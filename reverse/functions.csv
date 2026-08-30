@@ -1061,3 +1061,9 @@ _free,,0x00030830,17,Code/GameEngine/Source/Common/System/GameMemoryFree.cpp,mat
 ??_D?$basic_ifstream@DV?$char_traits@D@_STL@@@_STL@@QAEXXZ,,0x0001E9D0,22,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_ifstream.cpp,matched,vendored=stlport-4.5.3
 ?is_open@?$basic_ifstream@GV?$char_traits@G@_STL@@@_STL@@QAE_NXZ,,0x0001D8D0,11,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_ifstream.cpp,matched,vendored=stlport-4.5.3
 ??_D?$basic_ifstream@GV?$char_traits@G@_STL@@@_STL@@QAEXXZ,,0x0001EA30,22,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_ifstream.cpp,matched,vendored=stlport-4.5.3
+?is_open@?$basic_ofstream@DV?$char_traits@D@_STL@@@_STL@@QAE_NXZ,,0x0001D850,11,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_ofstream.cpp,matched,vendored=stlport-4.5.3
+??_D?$basic_ofstream@DV?$char_traits@D@_STL@@@_STL@@QAEXXZ,,0x0001E9F0,22,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_ofstream.cpp,matched,vendored=stlport-4.5.3
+?is_open@?$basic_ofstream@GV?$char_traits@G@_STL@@@_STL@@QAE_NXZ,,0x0001D8E0,11,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_ofstream.cpp,matched,vendored=stlport-4.5.3
+??_D?$basic_ofstream@GV?$char_traits@G@_STL@@@_STL@@QAEXXZ,,0x0001EA50,22,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_ofstream.cpp,matched,vendored=stlport-4.5.3
+?narrow@?$basic_ios@GV?$char_traits@G@_STL@@@_STL@@QBEDGD@Z,,0x0001BCA0,8,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_ios.cpp,matched,vendored=stlport-4.5.3
+??$_M_get_ostreambuf@DV?$char_traits@D@_STL@@@_STL@@YAPAV?$basic_streambuf@DV?$char_traits@D@_STL@@@0@AAV?$basic_ostream@DV?$char_traits@D@_STL@@@0@@Z,,0x00018170,14,Code/Libraries/Source/WWVegas/WWLib/stlport_ostreambuf_iterator.cpp,matched,vendored=stlport-4.5.3
