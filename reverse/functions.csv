@@ -648,3 +648,8 @@ _free,,0x00030830,17,Code/GameEngine/Source/Common/System/GameMemoryFree.cpp,mat
 ??0UnicodeString@@QAE@PBGH@Z,0x0000663C,0x0000663C,22,Code/Libraries/Source/WWVegas/WWLib/unicode_string.cpp,matched,
 ??YUnicodeString@@QAEAAV0@ABV0@@Z,0x00006D24,0x00006D24,18,Code/Libraries/Source/WWVegas/WWLib/unicode_string.cpp,matched,
 ??4UnicodeString@@QAEAAV0@ABV0@@Z,0x00005394,0x00005394,18,Code/Libraries/Source/WWVegas/WWLib/unicode_string.cpp,matched,
+?_M_bumpc@?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@AAEXXZ,,0x00017D50,41,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_istreambuf_iterator.cpp,matched,stlport-4.5.3
+??E?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@QAE?AV01@H@Z,,0x00017FF0,74,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_istreambuf_iterator.cpp,matched,stlport-4.5.3
+??E?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@QAEAAV01@XZ,,0x00018100,45,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_istreambuf_iterator.cpp,matched,stlport-4.5.3
+??D?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@QBEDXZ,,0x000182C0,55,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_istreambuf_iterator.cpp,matched,stlport-4.5.3
+??0?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@QAE@AAV?$basic_istream@DV?$char_traits@D@_STL@@@1@@Z,,0x00018370,32,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_istreambuf_iterator.cpp,matched,stlport-4.5.3
