@@ -348,8 +348,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_00012d10@@YAXXZ,,0x00012D10,232,Code/gen_asm/d_000112aa.asm,matched,gen-dump;ghidra=FUN_00412d10
 ?d_000130a0@@YAXXZ,,0x000130A0,102,Code/gen_asm/d_000112aa.asm,matched,gen-dump;ghidra=FUN_004130a0
 ?d_00013160@@YAXXZ,,0x00013160,241,Code/gen_asm/d_000112aa.asm,matched,gen-dump;ghidra=FUN_00413160
-?d_00013560@@YAXXZ,,0x00013560,14,Code/gen_asm/d_000112aa.asm,matched,gen-dump;ghidra=FUN_00413560
-?d_000135a0@@YAXXZ,,0x000135A0,30,Code/gen_asm/d_000112aa.asm,matched,gen-dump;ghidra=FUN_004135a0
 ?d_00013f10@@YAXXZ,,0x00013F10,189,Code/gen_asm/d_000112aa.asm,matched,gen-dump;ghidra=FUN_00413f10
 ?zero@ICoord3D@@QAEXXZ,0x00004DCF,0x00004DCF,11,Code/Libraries/Source/WWVegas/WWMath/icoord.cpp,matched,Open-BFME5 clean C++; ICoord3D zero from EA reference
 ??4ICoord3D@@QAEAAU0@ABU0@@Z,0x0000353A,0x0000353A,18,Code/Libraries/Source/WWVegas/WWMath/icoord.cpp,matched,Open-BFME5 clean C++; ICoord3D aggregate assignment from EA reference
@@ -933,3 +931,5 @@ _free,,0x00030830,17,Code/GameEngine/Source/Common/System/GameMemoryFree.cpp,mat
 ??$mismatch@V?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@PBD@_STL@@YA?AU?$pair@V?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@PBD@0@V?$istreambuf_iterator@DV?$char_traits@D@_STL@@@0@0PBD@Z,,0x00011C30,95,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_mismatch.cpp,matched,stlport-4.5.3
 ??$__get_string@V?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@PBD@_STL@@YA?AU?$pair@V?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@_N@0@V?$istreambuf_iterator@DV?$char_traits@D@_STL@@@0@0PBD1@Z,,0x00011C90,75,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_mismatch.cpp,matched,stlport-4.5.3
 ?insert@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAEPADPADD@Z,,0x00011CE0,49,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_string_insert.cpp,matched,stlport-4.5.3
+??1?$basic_streambuf@GV?$char_traits@G@_STL@@@_STL@@UAE@XZ,,0x00013560,14,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_streambuf.cpp,matched,vendored=stlport-4.5.3;wide streambuf destructor identified from the RTTI descriptor behind its vtable at 0x00BBBD14
+??_G?$basic_streambuf@GV?$char_traits@G@_STL@@@_STL@@UAEPAXI@Z,,0x000135A0,30,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_streambuf.cpp,matched,vendored=stlport-4.5.3;wide streambuf scalar deleting destructor calling the body at 0x00013560
