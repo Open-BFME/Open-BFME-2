@@ -262,8 +262,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_000064fc@@YAXXZ,,0x000064FC,60,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=expandBy
 ?d_00006538@@YAXXZ,,0x00006538,18,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=RGBColor
 ?d_00006618@@YAXXZ,,0x00006618,18,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=UnicodeString
-?d_0000662a@@YAXXZ,,0x0000662A,18,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=UnicodeString
-?d_0000663c@@YAXXZ,,0x0000663C,22,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=UnicodeString
 ?d_000066de@@YAXXZ,,0x000066DE,13,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_004066de
 ?d_000066f0@@YAXXZ,,0x000066F0,32,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=CW2AEX<>
 ?d_00006733@@YAXXZ,,0x00006733,63,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=compare
@@ -648,3 +646,5 @@ _free,,0x00030830,17,Code/GameEngine/Source/Common/System/GameMemoryFree.cpp,mat
 ??YUnicodeString@@QAEAAV0@G@Z,0x000066C0,0x000066C0,30,Code/Libraries/Source/WWVegas/WWLib/unicode_string.cpp,matched,
 ??0UnicodeString@@QAE@G@Z,0x00006652,0x00006652,18,Code/Libraries/Source/WWVegas/WWLib/unicode_string.cpp,matched,
 ??0UnicodeString@@QAE@ABV0@HH@Z,0x00006664,0x00006664,26,Code/Libraries/Source/WWVegas/WWLib/unicode_string.cpp,matched,
+??0UnicodeString@@QAE@PBG@Z,0x0000662A,0x0000662A,18,Code/Libraries/Source/WWVegas/WWLib/unicode_string.cpp,matched,
+??0UnicodeString@@QAE@PBGH@Z,0x0000663C,0x0000663C,22,Code/Libraries/Source/WWVegas/WWLib/unicode_string.cpp,matched,
