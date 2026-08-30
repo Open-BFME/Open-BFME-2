@@ -44,13 +44,16 @@ public:
 
 extern _Locale_impl *_Stl_classic_locale_impl;
 
+__declspec(dllimport) __forceinline _Locale_impl *_M_add_ref(_Locale_impl *impl)
+{
+    impl->_M_incr();
+    return impl;
+}
+
 locale::locale()
 {
     _M_impl = 0;
-
-    _Locale_impl *impl = _Stl_classic_locale_impl;
-    impl->_M_incr();
-    _M_impl = impl;
+    _M_impl = _M_add_ref(_Stl_classic_locale_impl);
 }
 
 locale::locale(const locale &that)

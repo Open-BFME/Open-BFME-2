@@ -25,7 +25,6 @@ name,address,notes
 ??0_Filebuf_base@_STL@@QAE@XZ,0x0001D300,harvested from retail REL32 displacement at 0x00014670
 ??0gslice@_STL@@QAE@ABV01@@Z,0x000B43E5,harvested from retail REL32 displacement at 0x000B68F0
 ??0ios_base@_STL@@IAE@XZ,0x0001C1A0,harvested from retail REL32 displacement at 0x0001C5C0
-??0locale@_STL@@QAE@XZ,0x00007100,harvested from retail REL32 displacement at 0x00016440
 ??1?$basic_ios@DV?$char_traits@D@_STL@@@_STL@@UAE@XZ,0x00013420,harvested from retail REL32 displacement at 0x00013810
 ??1?$basic_ios@GV?$char_traits@G@_STL@@@_STL@@UAE@XZ,0x00013440,harvested from retail REL32 displacement at 0x0001EB50
 ??1?$basic_streambuf@DV?$char_traits@D@_STL@@@_STL@@UAE@XZ,0x0001C6E0,harvested from retail REL32 displacement at 0x00015030
