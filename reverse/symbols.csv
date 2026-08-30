@@ -102,3 +102,4 @@ _abs,0x0062909A,MSVCR71 import thunk identified by official ATL 7.1 call and ret
 _fabs,0x00629210,MSVCRT import thunk identified by four retail call targets and Ghidra
 _sqrt,0x0062921C,MSVCRT import thunk identified by retail call target and Ghidra
 _strlen,0x00629170,BFME2 retail strlen thunk and call target for StringBase<char>::compare(const char *)
+??1ios_base@_STL@@UAE@XZ,0x0001C220,STLport 4.5.3 ios_base destructor; address read from the basic_ios<char> and basic_ios<wchar_t> destructor tail jumps
