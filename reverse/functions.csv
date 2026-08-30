@@ -153,7 +153,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_000011c4@@YAXXZ,,0x000011C4,11,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=ModuleTemplate
 ?d_00001240@@YAXXZ,,0x00001240,15,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=operator=
 ?d_0000124f@@YAXXZ,,0x0000124F,27,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=operator=
-?d_00001272@@YAXXZ,,0x00001272,6,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=GetSnapshotName
 ?d_00001278@@YAXXZ,,0x00001278,25,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=setUV
 ?d_000012a3@@YAXXZ,,0x000012A3,15,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_004012a3
 ?d_000012b2@@YAXXZ,,0x000012B2,36,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_004012b2
@@ -645,3 +644,4 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?set@?$StringBase@G@@QAEXPBG@Z,0x0000565D,0x0000565D,38,Code/Libraries/Source/WWVegas/WWLib/string_base.cpp,matched,
 ?concat@?$StringBase@G@@QAEXPBG@Z,0x00005692,0x00005692,38,Code/Libraries/Source/WWVegas/WWLib/string_base.cpp,matched,
 ??0EventModuleInfo@FXParticleSystem@@QAE@XZ,0x00001236,0x00001236,10,Code/GameEngine/Source/GameClient/System/FXParticleSystem/fx_particle_system.cpp,matched,
+?GetSnapshotName@ParticleSystemInfo@FXParticleSystem@@UAEPBDXZ,0x00001272,0x00001272,6,Code/GameEngine/Source/GameClient/System/FXParticleSystem/fx_particle_system.cpp,matched,

@@ -19,4 +19,15 @@ EventModuleInfo::EventModuleInfo()
     m_unk0 = true;
     m_unk1 = true;
 }
+
+class ParticleSystemInfo
+{
+public:
+    virtual const char *GetSnapshotName();
+};
+
+const char *ParticleSystemInfo::GetSnapshotName()
+{
+    return "FXParticleSystemInfo";
+}
 }
