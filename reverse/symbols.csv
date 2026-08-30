@@ -9,6 +9,8 @@ name,address,notes
 ??$__find_if@PBDU?$_Eq_int_bound@V?$char_traits@D@_STL@@@_STL@@@_STL@@YAPBDPBD0U?$_Eq_int_bound@V?$char_traits@D@_STL@@@0@ABUrandom_access_iterator_tag@0@@Z,0x006BE8C0,harvested from retail REL32 displacement at 0x006BE980
 ??$__lower_bound@PBIIU?$less@I@_STL@@H@_STL@@YAPBIPBI0ABIU?$less@I@0@PAH@Z,0x00568D2F,harvested from retail REL32 displacement at 0x0016DB60
 ??$__put_time@V?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@@_STL@@YA?AV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@0@PAD0V10@ABVios_base@0@G@Z,0x0000F6D0,harvested from retail REL32 displacement at 0x0000F680
+??$__write_decimal_backward@J@_STL@@YAPADPADJHABU__true_type@0@@Z,0x0000D540,STLport 4.5.3 signed decimal writer; the retail body is the upstream __write_decimal_backward __true_type overload instruction for instruction (see reverse/attempts/0x0000d540.cpp) and 0x0000D460 is its only caller
+??$__write_integer_backward@K@_STL@@YAPADPADHK@Z,0x0000D320,harvested from retail REL32 displacement at 0x00010C10
 ??$append@PBD@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@AAEAAV01@PBD0ABUforward_iterator_tag@1@@Z,0x0001B3E0,STLport 4.5.3 narrow string forward-iterator append; address read from retail basic_string::assign REL32 displacement
 ??$mismatch@V?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@PAD@_STL@@YA?AU?$pair@V?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@PAD@0@V?$istreambuf_iterator@DV?$char_traits@D@_STL@@@0@0PAD@Z,0x00012CA0,harvested from retail REL32 displacement at 0x00019C20
 ??0?$StringBase@D@@AAE@ABV0@HH@Z,0x000380C0,BFME2 export and retail call target for AsciiString substring constructor
@@ -99,4 +101,3 @@ _fabs,0x00629210,MSVCRT import thunk identified by four retail call targets and 
 _memcmp,0x0062929E,CRT memcmp import thunk (jmp [0x00BBA694]); ghidra labels this address memcmp and the StringBase<char> comparison helper calls it directly
 _sqrt,0x0062921C,MSVCRT import thunk identified by retail call target and Ghidra
 _strlen,0x00629170,BFME2 retail strlen thunk and call target for StringBase<char>::compare(const char *)
-??$__write_decimal_backward@J@_STL@@YAPADPADJHABU__true_type@0@@Z,0x0000D540,STLport 4.5.3 signed decimal writer; the retail body is the upstream __write_decimal_backward __true_type overload instruction for instruction (see reverse/attempts/0x0000d540.cpp) and 0x0000D460 is its only caller
