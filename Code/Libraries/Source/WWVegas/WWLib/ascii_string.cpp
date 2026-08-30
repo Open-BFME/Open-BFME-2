@@ -6,6 +6,7 @@ class StringBase
 {
 public:
     void set(const StringBase<T> &that);
+    void set(const T *text, int length);
 
 private:
     struct Header
@@ -23,6 +24,7 @@ class AsciiString
 {
 public:
     AsciiString &operator=(const AsciiString &that);
+    AsciiString &operator=(char character);
 
 private:
     char *m_text;
@@ -31,5 +33,12 @@ private:
 AsciiString &AsciiString::operator=(const AsciiString &that)
 {
     ((StringBase<char> *)this)->set(*(const StringBase<char> *)&that);
+    return *this;
+}
+
+AsciiString &AsciiString::operator=(char character)
+{
+    char text = character;
+    ((StringBase<char> *)this)->set(&text, 1);
     return *this;
 }
