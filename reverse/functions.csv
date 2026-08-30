@@ -933,3 +933,14 @@ _free,,0x00030830,17,Code/GameEngine/Source/Common/System/GameMemoryFree.cpp,mat
 ?insert@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAEPADPADD@Z,,0x00011CE0,49,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_string_insert.cpp,matched,stlport-4.5.3
 ??1?$basic_streambuf@GV?$char_traits@G@_STL@@@_STL@@UAE@XZ,,0x00013560,14,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_streambuf.cpp,matched,vendored=stlport-4.5.3;wide streambuf destructor identified from the RTTI descriptor behind its vtable at 0x00BBBD14
 ??_G?$basic_streambuf@GV?$char_traits@G@_STL@@@_STL@@UAEPAXI@Z,,0x000135A0,30,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_streambuf.cpp,matched,vendored=stlport-4.5.3;wide streambuf scalar deleting destructor calling the body at 0x00013560
+??$min@I@_STL@@YAABIABI0@Z,,0x000173C0,17,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_streambuf.cpp,matched,vendored=stlport-4.5.3
+?to_int_type@?$__char_traits_base@GG@_STL@@SAGABG@Z,,0x00017FC0,8,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_streambuf.cpp,matched,vendored=stlport-4.5.3
+?eq@?$__char_traits_base@GG@_STL@@SA_NABG0@Z,,0x00017FD0,21,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_streambuf.cpp,matched,vendored=stlport-4.5.3
+?sgetc@?$basic_streambuf@GV?$char_traits@G@_STL@@@_STL@@QAEGXZ,,0x00018130,17,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_streambuf.cpp,matched,vendored=stlport-4.5.3
+??0?$fpos@H@_STL@@QAE@J@Z,,0x0001C7F0,18,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_streambuf.cpp,matched,vendored=stlport-4.5.3
+?gbump@?$basic_streambuf@GV?$char_traits@G@_STL@@@_STL@@IAEXH@Z,,0x0001C810,13,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_streambuf.cpp,matched,vendored=stlport-4.5.3
+?pbump@?$basic_streambuf@GV?$char_traits@G@_STL@@@_STL@@IAEXH@Z,,0x0001C840,13,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_streambuf.cpp,matched,vendored=stlport-4.5.3
+?setp@?$basic_streambuf@GV?$char_traits@G@_STL@@@_STL@@IAEXPAG0@Z,,0x0001C850,20,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_streambuf.cpp,matched,vendored=stlport-4.5.3
+?in_avail@?$basic_streambuf@GV?$char_traits@G@_STL@@@_STL@@QAEHXZ,,0x0001C8C0,20,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_streambuf.cpp,matched,vendored=stlport-4.5.3
+?seekoff@?$basic_streambuf@GV?$char_traits@G@_STL@@@_STL@@MAE?AV?$fpos@H@2@JHH@Z,,0x0001C970,20,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_streambuf.cpp,matched,vendored=stlport-4.5.3
+?stossc@?$basic_streambuf@GV?$char_traits@G@_STL@@@_STL@@QAEXXZ,,0x0001CCA0,20,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_streambuf.cpp,matched,vendored=stlport-4.5.3
