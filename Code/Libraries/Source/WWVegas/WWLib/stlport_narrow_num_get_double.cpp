@@ -32,7 +32,21 @@ public:
 	typedef unsigned int size_type;
 
 	basic_string();
+	basic_string(const basic_string &);
 	void reserve(size_type amount);
+	void push_back(CharT value);
+	__declspec(dllimport) __forceinline bool empty() const
+	{
+		return _M_start == _M_finish;
+	}
+	__declspec(dllimport) __forceinline CharT &operator[](size_type offset)
+	{
+		return _M_start[offset];
+	}
+	__declspec(dllimport) __forceinline const CharT &operator[](size_type offset) const
+	{
+		return _M_start[offset];
+	}
 	__declspec(dllimport) __forceinline const CharT *c_str() const { return _M_start; }
 	__declspec(dllimport) __forceinline size_type size() const
 	{
@@ -73,6 +87,12 @@ public:
 	virtual ~ios_base();
 	__declspec(dllimport) __forceinline fmtflags flags() const { return _M_fmtflags; }
 	__declspec(dllimport) __forceinline streamsize precision() const { return _M_precision; }
+	__declspec(dllimport) __forceinline streamsize width(streamsize value)
+	{
+		streamsize old = _M_width;
+		_M_width = value;
+		return old;
+	}
 	__declspec(dllimport) __forceinline const void *_M_numpunct_facet() const
 	{
 		return _M_cached_numpunct;
@@ -200,6 +220,32 @@ OutputIter __cdecl __put_float(
 		char *, char *, OutputIter, ios_base &, char, char, char,
 		const narrow_string &);
 
+void __cdecl __adjust_float_buffer(char *, char *, char);
+
+int __cdecl __insert_grouping(
+		char *, char *, const narrow_string &, char, char, char, int);
+
+struct input_iterator_tag {};
+struct forward_iterator_tag : public input_iterator_tag {};
+struct bidirectional_iterator_tag : public forward_iterator_tag {};
+struct random_access_iterator_tag : public bidirectional_iterator_tag {};
+
+template <class InputIter, class Value>
+InputIter __cdecl __find(
+		InputIter, InputIter, const Value &, const random_access_iterator_tag &);
+
+template <class InputIter, class Value>
+__declspec(dllimport) __forceinline InputIter find(
+		InputIter first, InputIter last, const Value &value)
+{
+	return __find(first, last, value, random_access_iterator_tag());
+}
+
+template <class CharT, class OutputIter>
+OutputIter __cdecl __copy_float_and_fill(
+		const CharT *, const CharT *, OutputIter, ios_base::fmtflags,
+		ios_base::streamsize, CharT, CharT, CharT);
+
 template <class CharT, class OutputIter, class Float>
 OutputIter __cdecl _M_do_put_float(
 		OutputIter out, ios_base &stream, CharT fill, Float value)
@@ -223,5 +269,31 @@ typedef ostreambuf_iterator<char, char_traits<char> > narrow_output_iterator;
 template narrow_output_iterator _M_do_put_float<
 		char, narrow_output_iterator, long double>(
 		narrow_output_iterator, ios_base &, char, long double);
+
+template <class OutputIter>
+OutputIter __cdecl __put_float(
+		char *buffer, char *end, OutputIter out, ios_base &stream, char fill,
+		char decimal_point, char separator, const narrow_string &grouping)
+{
+	__adjust_float_buffer(buffer, end, decimal_point);
+	if (!grouping.empty())
+	{
+		narrow_string new_grouping = grouping;
+		const char *decimal_pos = find(buffer, end, decimal_point);
+		if (grouping.size() == 1)
+			new_grouping.push_back(grouping[0]);
+		new_grouping[0] += static_cast<char>(end - decimal_pos);
+		int length = __insert_grouping(
+				buffer, end, new_grouping, separator, '+', '-', 0);
+		end = buffer + length;
+	}
+
+	return __copy_float_and_fill(
+			buffer, end, out, stream.flags(), stream.width(0), fill, '+', '-');
+}
+
+template narrow_output_iterator __put_float<narrow_output_iterator>(
+		char *, char *, narrow_output_iterator, ios_base &, char, char, char,
+		const narrow_string &);
 
 }
