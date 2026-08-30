@@ -923,3 +923,5 @@ _free,,0x00030830,17,Code/GameEngine/Source/Common/System/GameMemoryFree.cpp,mat
 ??_U@YAPAXI@Z,,0x0002FDE0,19,Code/Libraries/Source/WWVegas/WWLib/mem_ops.cpp,matched,game memory-manager pointer table; class 1 scalar class 2 array
 ?__adjust_float_buffer@_STL@@YAXPAD0D@Z,,0x0001B3B0,34,Code/Libraries/Source/WWVegas/WWLib/stlport_adjust_float_buffer.cpp,matched,stlport-4.5.3
 ?__valid_grouping@_STL@@YA_NPBD000@Z,,0x00017C80,77,Code/Libraries/Source/WWVegas/WWLib/stlport_valid_grouping.cpp,matched,stlport-4.5.3
+?__get_fdigit@_STL@@YA_NAAGPBG@Z,,0x00018200,59,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_get_fdigit.cpp,matched,stlport-4.5.3
+?__get_fdigit_or_sep@_STL@@YA_NAAGGPBG@Z,,0x00018240,78,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_get_fdigit.cpp,matched,stlport-4.5.3
