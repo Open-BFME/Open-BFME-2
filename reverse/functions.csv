@@ -931,3 +931,4 @@ _free,,0x00030830,17,Code/GameEngine/Source/Common/System/GameMemoryFree.cpp,mat
 ?_M_file_size@_Filebuf_base@_STL@@QAEJXZ,,0x0001D360,48,Code/Libraries/Source/WWVegas/WWLib/stlport_filebuf_base.cpp,matched,stlport-4.5.3
 ?_M_close@_Filebuf_base@_STL@@QAE_NXZ,,0x0001D570,93,Code/Libraries/Source/WWVegas/WWLib/stlport_filebuf_base.cpp,matched,stlport-4.5.3
 ??0_Filebuf_base@_STL@@QAE@XZ,,0x0001D300,82,Code/Libraries/Source/WWVegas/WWLib/stlport_filebuf_base.cpp,matched,stlport-4.5.3
+?_M_seek@_Filebuf_base@_STL@@QAEJJH@Z,,0x0001D6D0,165,Code/Libraries/Source/WWVegas/WWLib/stlport_filebuf_base.cpp,matched,stlport-4.5.3

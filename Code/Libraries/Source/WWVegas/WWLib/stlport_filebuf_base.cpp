@@ -10,6 +10,8 @@ extern "C" __declspec(dllimport) int __stdcall CloseHandle(void *handle);
 extern "C" __declspec(dllimport) unsigned long __stdcall GetFileSize(
 		void *handle, unsigned long *high);
 extern "C" __declspec(dllimport) unsigned long __stdcall GetLastError(void);
+extern "C" __declspec(dllimport) unsigned long __stdcall SetFilePointer(
+		void *handle, long low, long *high, unsigned long method);
 
 struct _System_info
 {
@@ -31,10 +33,15 @@ extern "C" __declspec(dllimport) void __stdcall GetSystemInfo(
 namespace _STL
 {
 
-struct _Large_integer
+union _Large_integer
 {
-	unsigned long _M_low;
-	unsigned long _M_high;
+	struct
+	{
+		unsigned long _M_low;
+		long _M_high;
+	} _M_parts;
+
+	__int64 _M_quad;
 };
 
 class _Filebuf_base
@@ -43,6 +50,7 @@ public:
 	_Filebuf_base();
 
 	long _M_file_size();
+	long _M_seek(long offset, int direction);
 	void _M_unmap(void *base, long length);
 	bool _M_close();
 
@@ -76,16 +84,62 @@ _Filebuf_base::_Filebuf_base()
 		_M_page_size = 0x1000;
 }
 
-long _Filebuf_base::_M_file_size()
+__declspec(dllimport) __forceinline long __cdecl _File_size(void *handle)
 {
 	_Large_integer size;
 
-	size._M_low = GetFileSize(_M_file_id, &size._M_high);
+	size._M_parts._M_low = GetFileSize(handle,
+			reinterpret_cast<unsigned long *>(&size._M_parts._M_high));
 
-	if (size._M_low == 0xFFFFFFFF && GetLastError() != 0)
+	if (size._M_parts._M_low == 0xFFFFFFFF && GetLastError() != 0)
 		return 0;
 
-	return size._M_low;
+	return size._M_parts._M_low;
+}
+
+long _Filebuf_base::_M_file_size()
+{
+	return _File_size(_M_file_id);
+}
+
+long _Filebuf_base::_M_seek(long offset, int direction)
+{
+	unsigned long method;
+
+	switch (direction)
+	{
+	case 0x01:
+		if (offset < 0)
+			return -1;
+
+		method = 0;
+		break;
+
+	case 0x02:
+		method = 1;
+		break;
+
+	case 0x04:
+		if (-offset > _File_size(_M_file_id))
+			return -1;
+
+		method = 2;
+		break;
+
+	default:
+		return -1;
+	}
+
+	_Large_integer position;
+
+	position._M_quad = offset;
+	position._M_parts._M_low = SetFilePointer(_M_file_id,
+			position._M_parts._M_low, &position._M_parts._M_high, method);
+
+	if (position._M_parts._M_low == 0xFFFFFFFF && GetLastError() != 0)
+		return -1;
+
+	return position._M_parts._M_low;
 }
 
 void _Filebuf_base::_M_unmap(void *base, long)
