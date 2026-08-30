@@ -320,7 +320,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_00007e90@@YAXXZ,,0x00007E90,32,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00407e90
 ?d_00007eb0@@YAXXZ,,0x00007EB0,41,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00407eb0
 ?d_00007ee0@@YAXXZ,,0x00007EE0,522,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00407ee0
-?d_00008120@@YAXXZ,,0x00008120,260,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00408120
 ?d_00008230@@YAXXZ,,0x00008230,537,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00408230
 ?d_000084b0@@YAXXZ,,0x000084B0,252,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_004084b0
 ?d_000087a0@@YAXXZ,,0x000087A0,251,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_004087a0
@@ -647,3 +646,4 @@ _free,,0x00030830,17,Code/GameEngine/Source/Common/System/GameMemoryFree.cpp,mat
 ??$__copy_float_and_fill@GV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@@_STL@@YA?AV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@0@PBG0V10@HHGGG@Z,,0x00010FE0,300,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_copy_float_and_fill.cpp,matched,vendored=stlport-4.6;wide float copy-and-fill helper upstream-equivalent body
 ??$_M_do_put_float@GV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@N@_STL@@YA?AV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@0@V10@AAVios_base@0@GN@Z,,0x00011150,224,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_num_put_double.cpp,matched,vendored=stlport-4.6;wide double output formatter upstream body
 ??$_M_do_get_integer@V?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@_KD@_STL@@YA?AV?$istreambuf_iterator@DV?$char_traits@D@_STL@@@0@AAV10@0AAVios_base@0@AAHAA_KPAD@Z,,0x00007B30,260,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_do_get_integer_uint64.cpp,matched,vendored=stlport-4.5.3;narrow unsigned 64-bit integer scanner upstream body
+??$_M_do_get_integer@V?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@_JD@_STL@@YA?AV?$istreambuf_iterator@DV?$char_traits@D@_STL@@@0@AAV10@0AAVios_base@0@AAHAA_JPAD@Z,,0x00008120,260,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_do_get_integer_int64.cpp,matched,vendored=stlport-4.5.3;narrow signed 64-bit integer scanner upstream body
