@@ -1,6 +1,8 @@
 // cl: /O1
 // Upstream implementation and layout: Open-BFME-1 ascii_string.h.
 
+class AsciiString;
+
 template <typename T>
 class StringBase
 {
@@ -10,6 +12,10 @@ public:
     void concat(const T *text, int length);
 
 private:
+    friend class AsciiString;
+
+    StringBase(const T *text);
+
     struct Header
     {
         int ref_count;
@@ -24,6 +30,7 @@ private:
 class AsciiString
 {
 public:
+    AsciiString(const char *text);
     AsciiString &operator=(const AsciiString &that);
     AsciiString &operator=(char character);
     AsciiString &operator+=(char character);
@@ -31,6 +38,11 @@ public:
 private:
     char *m_text;
 };
+
+AsciiString::AsciiString(const char *text)
+{
+    ((StringBase<char> *)this)->StringBase<char>::StringBase(text);
+}
 
 AsciiString &AsciiString::operator=(const AsciiString &that)
 {
