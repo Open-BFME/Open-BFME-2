@@ -69,3 +69,6 @@ _strlen,0x00629170,BFME2 retail strlen thunk and call target for StringBase<char
 ??0?$StringBase@G@@AAE@PBG@Z,0x00037E30,BFME2 retail call target for StringBase<wchar_t>::StringBase(const wchar_t *)
 ??0?$StringBase@G@@AAE@PBGH@Z,0x00037E10,BFME2 retail call target for StringBase<wchar_t>::StringBase(const wchar_t *, int)
 ?set@?$StringBase@G@@QAEXABV1@@Z,0x00037150,BFME2 retail call target for StringBase<wchar_t>::set(const StringBase &)
+??$_M_assign_dispatch@PAD@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@AAEAAV01@PAD0ABU__false_type@1@@Z,0x000130A0,STLport 4.5.3 narrow string assign dispatch; address read from retail basic_string::operator= REL32 displacement
+??$append@PBD@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@AAEAAV01@PBD0ABUforward_iterator_tag@1@@Z,0x0001B3E0,STLport 4.5.3 narrow string forward-iterator append; address read from retail basic_string::assign REL32 displacement
+??0?$_STLP_alloc_proxy@PADDV?$allocator@D@_STL@@@_STL@@QAE@ABV?$allocator@D@1@PAD@Z,0x00007410,STLport 4.5.3 narrow string allocator proxy constructor; address read from retail _String_base constructor REL32 displacement
