@@ -386,7 +386,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_0000c000@@YAXXZ,,0x0000C000,277,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040c000
 ?d_0000c120@@YAXXZ,,0x0000C120,133,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040c120
 ?d_0000c1b0@@YAXXZ,,0x0000C1B0,382,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040c1b0
-?d_0000c330@@YAXXZ,,0x0000C330,84,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040c330
 ?d_0000c390@@YAXXZ,,0x0000C390,116,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040c390
 ?d_0000cf60@@YAXXZ,,0x0000CF60,238,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040cf60
 ?d_0000d050@@YAXXZ,,0x0000D050,214,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040d050
@@ -645,3 +644,4 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ??_0Matrix4D@@QAEAAV0@M@Z,0x000045DE,0x000045DE,223,Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp,matched,
 ?Inverse@Matrix4D@@QAEMXZ,0x00005CD4,0x00005CD4,1497,Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp,matched,
 ?pubimbue@?$basic_streambuf@GV?$char_traits@G@_STL@@@_STL@@QAE?AVlocale@2@ABV32@@Z,,0x00013660,132,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_streambuf_pubimbue.cpp,matched,vendored=stlport-4.5.3;wide basic_streambuf pubimbue upstream body
+?push_back@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAEXD@Z,,0x0000C330,84,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_string_push_back.cpp,matched,vendored=stlport-4.5.3;narrow basic_string push_back upstream body

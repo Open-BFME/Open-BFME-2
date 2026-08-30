@@ -28,3 +28,4 @@ _abs,0x0062909A,MSVCR71 import thunk identified by official ATL 7.1 call and ret
 ??0locale@_STL@@QAE@ABV01@@Z,0x00007130,STLport 4.5.3 locale copy constructor; address read from the retail wide basic_streambuf pubimbue REL32 displacement
 ??1locale@_STL@@QAE@XZ,0x00007150,STLport 4.5.3 locale destructor; address read from the retail wide basic_streambuf pubimbue REL32 displacement
 ??4locale@_STL@@QAEABV01@ABV01@@Z,0x00007160,STLport 4.5.3 locale assignment; address read from the retail wide basic_streambuf pubimbue REL32 displacement
+?reserve@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAEXI@Z,0x0000C390,STLport 4.5.3 narrow string reserve; address read from the retail basic_string<char>::push_back REL32 displacement
