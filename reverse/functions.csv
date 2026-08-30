@@ -422,7 +422,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_0000fa80@@YAXXZ,,0x0000FA80,86,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040fa80
 ?d_0000fae0@@YAXXZ,,0x0000FAE0,282,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040fae0
 ?d_0000fc00@@YAXXZ,,0x0000FC00,184,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040fc00
-?d_000107d0@@YAXXZ,,0x000107D0,195,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_004107d0
 ?d_000108a0@@YAXXZ,,0x000108A0,191,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_004108a0
 ?d_00010960@@YAXXZ,,0x00010960,191,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_00410960
 ?d_00010a70@@YAXXZ,,0x00010A70,332,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_00410a70
@@ -647,3 +646,4 @@ _free,,0x00030830,17,Code/GameEngine/Source/Common/System/GameMemoryFree.cpp,mat
 ?equal@?$istreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@QBE_NABV12@@Z,,0x00010610,46,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_istreambuf_iterator_equal.cpp,matched,vendored=stlport-4.5.3;wide istreambuf_iterator equality member upstream body
 ??$__copy_sign@V?$istreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@G@_STL@@YA?AV?$istreambuf_iterator@GV?$char_traits@G@_STL@@@0@V10@0AAV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@0@GG@Z,,0x00010640,89,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_copy_sign.cpp,matched,vendored=stlport-4.5.3;wide floating-point sign scanner upstream body
 ??$__copy_grouped_digits@V?$istreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@G@_STL@@YA_NAAV?$istreambuf_iterator@GV?$char_traits@G@_STL@@@0@0AAV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@0@PBGGABV20@AA_N@Z,,0x000106A0,303,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_copy_grouped_digits.cpp,matched,vendored=stlport-4.5.3;wide grouped-digit scanner upstream body
+??$__copy_digits@V?$istreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@G@_STL@@YA_NAAV?$istreambuf_iterator@GV?$char_traits@G@_STL@@@0@0AAV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@0@PBG@Z,,0x000107D0,195,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_copy_digits.cpp,matched,vendored=stlport-4.5.3;wide digit scanner upstream body
