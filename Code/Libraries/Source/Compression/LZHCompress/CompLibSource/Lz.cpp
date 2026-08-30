@@ -134,9 +134,10 @@ inline LZHASH LZHLCompressor::_updateTable( LZHASH hash, const BYTE* src, LZPOS 
     return hash;
     }
 
-// ?compress@LZHLCompressor@@QAEIPAEPBEI@Z present-unmatched -- see ../PROVENANCE.txt:
-// upstream compiles 1,741 bytes here (1,747 at branch tip); retail's body at
-// 0x00825680 is 1,724, and no compiler flag reaches it. EA's divergence.
+// upstream compiles 1,741 bytes here (1,747 at branch tip) and byte-matches the
+// copy at retail 0x006911B0, which is the row this body carries. The second
+// copy at 0x00825680 is 1,724 bytes and no compiler flag reaches it -- EA's
+// divergence -- so that address stays unclaimed.
 size_t LZHLCompressor::compress( BYTE* dst, const BYTE* src, size_t sz )
     {
     LZHLEncoder coder( &stat, dst );
