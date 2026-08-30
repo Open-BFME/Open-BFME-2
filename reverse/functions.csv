@@ -320,7 +320,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_00007e90@@YAXXZ,,0x00007E90,32,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00407e90
 ?d_00007eb0@@YAXXZ,,0x00007EB0,41,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00407eb0
 ?d_00008d00@@YAXXZ,,0x00008D00,84,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00408d00
-?d_00008ed0@@YAXXZ,,0x00008ED0,108,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00408ed0
 ?d_00008f40@@YAXXZ,,0x00008F40,30,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00408f40
 ?d_00008f60@@YAXXZ,,0x00008F60,73,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00408f60
 ?d_00008fb0@@YAXXZ,,0x00008FB0,30,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00408fb0
@@ -647,3 +646,4 @@ _free,,0x00030830,17,Code/GameEngine/Source/Common/System/GameMemoryFree.cpp,mat
 ??0?$time_get@DV?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@@_STL@@QAE@I@Z,,0x00008D80,108,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_time_get_ctor.cpp,matched,vendored=stlport-4.5.3;narrow time_get default constructor from _time_facets.h
 ??0?$time_put@DV?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@@_STL@@QAE@I@Z,,0x00008DF0,108,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_time_put_ctor.cpp,matched,vendored=stlport-4.5.3;narrow time_put default constructor from _time_facets.h
 ??0?$time_get@GV?$istreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@@_STL@@QAE@I@Z,,0x00008E60,108,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_time_get_ctor.cpp,matched,vendored=stlport-4.5.3;wide time_get default constructor from _time_facets.h
+??0?$time_put@GV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@@_STL@@QAE@I@Z,,0x00008ED0,108,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_time_put_ctor.cpp,matched,vendored=stlport-4.5.3;wide time_put default constructor from _time_facets.h
