@@ -83,6 +83,7 @@ void CA2WEX<t_nBufferLength>::Init(LPCSTR psz, UINT nCodePage)
 	}
 }
 
+template CA2WEX<128>::~CA2WEX();
 template void CA2WEX<128>::Init(LPCSTR psz, UINT nCodePage);
 
 }
