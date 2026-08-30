@@ -374,7 +374,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_0000dbc0@@YAXXZ,,0x0000DBC0,103,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040dbc0
 ?d_0000dc30@@YAXXZ,,0x0000DC30,133,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040dc30
 ?d_0000dcc0@@YAXXZ,,0x0000DCC0,384,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040dcc0
-?d_0000de40@@YAXXZ,,0x0000DE40,91,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040de40
 ?d_0000dea0@@YAXXZ,,0x0000DEA0,102,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040dea0
 ?d_0000df10@@YAXXZ,,0x0000DF10,5,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=thunk_FUN_004179b0
 ?d_0000e960@@YAXXZ,,0x0000E960,53,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040e960
@@ -662,3 +661,9 @@ _free,,0x00030830,17,Code/GameEngine/Source/Common/System/GameMemoryFree.cpp,mat
 ?assign@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAEAAV12@PBD0@Z,,0x0001B4E0,152,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_string.cpp,matched,stlport-4.5.3
 ??4?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAEAAV01@PBD@Z,,0x0001B790,36,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_string.cpp,matched,stlport-4.5.3
 ??0?$_String_base@DV?$allocator@D@_STL@@@_STL@@QAE@ABV?$allocator@D@1@@Z,,0x00689600,37,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_string.cpp,matched,stlport-4.5.3
+?length@?$__char_traits_base@GG@_STL@@SAIPBG@Z,,0x000179E0,22,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_string.cpp,matched,stlport-4.5.3
+?move@?$__char_traits_base@GG@_STL@@SAPAGPAGPBGI@Z,,0x000199A0,25,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_string.cpp,matched,stlport-4.5.3
+?copy@?$__char_traits_base@GG@_STL@@SAPAGPAGPBGI@Z,,0x0001C900,45,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_string.cpp,matched,stlport-4.5.3
+?assign@?$__char_traits_base@GG@_STL@@SAPAGPAGIG@Z,,0x0001C930,50,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_string.cpp,matched,stlport-4.5.3
+?push_back@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@QAEXG@Z,,0x0000DE40,91,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_string.cpp,matched,stlport-4.5.3
+?insert@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@QAEPAGPAGG@Z,,0x00019CB0,51,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_string.cpp,matched,stlport-4.5.3
