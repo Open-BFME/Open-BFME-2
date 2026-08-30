@@ -2,9 +2,10 @@
 // stlport
 //
 // STLport 4.5.3 mismatch over a narrow istreambuf_iterator and a plain char
-// pointer. The iterator's cache fill, its comparison and the streambuf bump
-// all stay external here, which is what leaves the loop itself as the only
-// code this body emits.
+// pointer, plus the money_get helper __get_string that wraps it. The
+// iterator's cache fill, its comparison and the streambuf bump all stay
+// external here, which is what leaves the loop itself as the only code the
+// mismatch body emits.
 
 namespace _STL
 {
@@ -83,5 +84,24 @@ pair<_InputIter1, _InputIter2> mismatch(_InputIter1 __first1,
 template pair<istreambuf_iterator<char, char_traits<char> >, const char *>
 mismatch(istreambuf_iterator<char, char_traits<char> >,
 		istreambuf_iterator<char, char_traits<char> >, const char *);
+
+template <class T1, class T2>
+inline pair<T1, T2> make_pair(const T1 &a, const T2 &b)
+{
+	return pair<T1, T2>(a, b);
+}
+
+template <class _InIt1, class _InIt2>
+pair<_InIt1, bool> __get_string(_InIt1 __first, _InIt1 __last,
+		_InIt2 __str_first, _InIt2 __str_last)
+{
+	pair<_InIt1, _InIt2> __pr = mismatch(__first, __last, __str_first);
+	return make_pair(__pr.first, __pr.second == __str_last);
+}
+
+template pair<istreambuf_iterator<char, char_traits<char> >, bool>
+__get_string(istreambuf_iterator<char, char_traits<char> >,
+		istreambuf_iterator<char, char_traits<char> >, const char *,
+		const char *);
 
 }
