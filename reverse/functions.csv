@@ -173,7 +173,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_00001d69@@YAXXZ,,0x00001D69,23,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=CategoryModuleTemplate<1>
 ?d_00001d80@@YAXXZ,,0x00001D80,26,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00401d80
 ?d_00001d9a@@YAXXZ,,0x00001D9A,18,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00401d9a
-?d_00001db1@@YAXXZ,,0x00001DB1,98,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00401db1
 ?d_00001e2f@@YAXXZ,,0x00001E2F,20,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=isEmpty
 ?d_00001e43@@YAXXZ,,0x00001E43,36,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00401e43
 ?d_00001e7f@@YAXXZ,,0x00001E7F,47,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=RandomAlphaKeyframe
@@ -933,3 +932,4 @@ _free,,0x00030830,17,Code/GameEngine/Source/Common/System/GameMemoryFree.cpp,mat
 ??0ios_base@_STL@@IAE@XZ,,0x0001C1A0,125,Code/Libraries/Source/WWVegas/WWLib/stlport_ios_base_ctor.cpp,matched,stlport-4.5.3
 ?do_get_monthname@?$time_get@GV?$istreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@@_STL@@MBE?AV?$istreambuf_iterator@GV?$char_traits@G@_STL@@@2@V32@0AAVios_base@2@AAHPAUtm@@@Z,,0x0000F5C0,179,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_time_get_names.cpp,matched,stlport-4.5.3
 ?do_get_weekday@?$time_get@GV?$istreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@@_STL@@MBE?AV?$istreambuf_iterator@GV?$char_traits@G@_STL@@@2@V32@0AAVios_base@2@AAHPAUtm@@@Z,,0x0000F510,167,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_time_get_names.cpp,matched,stlport-4.5.3
+?Init@?$CA2WEX@$0IA@@ATL@@AAEXPBDI@Z,,0x00001DB1,98,Code/Libraries/Source/ATL/atlconv.cpp,matched,vendored=atl-7.1
