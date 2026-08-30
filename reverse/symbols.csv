@@ -57,7 +57,6 @@ _abs,0x0062909A,MSVCR71 import thunk identified by official ATL 7.1 call and ret
 ??4?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@QAEAAV01@D@Z,0x00009820,STLport 4.6 narrow ostreambuf_iterator character assignment; address read from retail __copy_float_and_fill REL32 displacements
 ??$_M_get_base_or_zero@V?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@D@_STL@@YAHAAV?$istreambuf_iterator@DV?$char_traits@D@_STL@@@0@0AAVios_base@0@PAD@Z,0x00007C90,STLport 4.5.3 narrow integer base scanner; address read from retail signed 64-bit integer scanner REL32 displacement
 ?_M_getc@?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@ABEXXZ,0x00007C40,STLport 4.5.3 narrow istreambuf_iterator cache fill; address read from retail signed 64-bit integer scanner REL32 displacements
-??$__get_integer@V?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@G@_STL@@YA_NAAV?$istreambuf_iterator@DV?$char_traits@D@_STL@@@0@0HAAGH_NDABV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@0@ABU__false_type@0@@Z,0x000088A0,STLport 4.5.3 narrow unsigned-short integer accumulator; body zero-extends and saturates overflow to USHRT_MAX
 __alldiv,0x00629630,MSVCR71 signed 64-bit division helper; address confirmed by retail helper call and Ghidra symbol
 __allmul,0x00629580,MSVCR71 64-bit multiplication helper; address confirmed by retail helper call and Ghidra symbol
 ?sbumpc@?$basic_streambuf@DV?$char_traits@D@_STL@@@_STL@@QAEDXZ,0x00007E90,STLport 4.5.3 narrow streambuf bump member; address read from retail signed 64-bit accumulator REL32 displacements
