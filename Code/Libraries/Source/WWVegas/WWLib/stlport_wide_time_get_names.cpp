@@ -1,12 +1,14 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
 // stlport
 //
-// STLport 4.5.3 wide time_get::do_get_monthname. The retail body inlines
-// __get_short_or_long_monthname and the iterator comparison but keeps __match
-// and istreambuf_iterator::_M_getc out of line, so the helper is written out
-// here rather than pulled in from <locale>: the vendored header inlines the
-// opposite pair. _Time_Info always holds narrow strings, which is why the
-// month table strides 12 bytes even in the wide facet.
+// STLport 4.5.3 wide time_get::do_get_weekday and do_get_monthname. Both
+// retail bodies inline their __get_short_or_long_* helper and the iterator
+// comparison but keep __match and istreambuf_iterator::_M_getc out of line, so
+// the helpers are written out here rather than pulled in from <locale>: the
+// vendored header inlines the opposite pair. _Time_Info always holds narrow
+// strings, which is why both name tables stride 12 bytes even in the wide
+// facet, and the day table sits at offset 0 while the month table follows it
+// at 0xA8.
 
 struct tm
 {
@@ -134,6 +136,17 @@ _RAIt __cdecl __match(_InIt &__first, _InIt &__last, _RAIt __name,
 		_RAIt __name_end, _DiffType *);
 
 template <class _InIt>
+__forceinline bool __cdecl __get_short_or_long_dayname(_InIt &__first,
+		_InIt &__last, const _Time_Info &__table, tm *__t)
+{
+	const string *__pr =
+		__match(__first, __last, __table._M_dayname + 0,
+			__table._M_dayname + 14, (long *)0);
+	__t->tm_wday = (int)(__pr - __table._M_dayname) % 7;
+	return __pr != __table._M_dayname + 14;
+}
+
+template <class _InIt>
 __forceinline bool __cdecl __get_short_or_long_monthname(_InIt &__first, _InIt &__last,
 		const _Time_Info &__table, tm *__t)
 {
@@ -170,6 +183,22 @@ protected:
 };
 
 template <class CharT, class InIt>
+InIt time_get<CharT, InIt>::do_get_weekday(iter_type __s, iter_type __end,
+		ios_base & /* __str */, ios_base::iostate &__err, tm *__t) const
+{
+	bool __result =
+		__get_short_or_long_dayname(__s, __end, _M_timeinfo, __t);
+	if (__result)
+		__err = ios_base::goodbit;
+	else {
+		__err = ios_base::failbit;
+		if (__s == __end)
+			__err |= ios_base::eofbit;
+	}
+	return __s;
+}
+
+template <class CharT, class InIt>
 InIt time_get<CharT, InIt>::do_get_monthname(iter_type __s, iter_type __end,
 		ios_base & /* __str */, ios_base::iostate &__err, tm *__t) const
 {
@@ -184,6 +213,14 @@ InIt time_get<CharT, InIt>::do_get_monthname(iter_type __s, iter_type __end,
 	}
 	return __s;
 }
+
+template istreambuf_iterator<unsigned short, char_traits<unsigned short> >
+time_get<unsigned short,
+	istreambuf_iterator<unsigned short, char_traits<unsigned short> > >::
+	do_get_weekday(
+		istreambuf_iterator<unsigned short, char_traits<unsigned short> >,
+		istreambuf_iterator<unsigned short, char_traits<unsigned short> >,
+		ios_base &, ios_base::iostate &, tm *) const;
 
 template istreambuf_iterator<unsigned short, char_traits<unsigned short> >
 time_get<unsigned short,
