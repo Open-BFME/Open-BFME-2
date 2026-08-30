@@ -274,10 +274,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_00006f80@@YAXXZ,,0x00006F80,241,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00406f80
 ?d_000070e0@@YAXXZ,,0x000070E0,27,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_004070e0
 ?d_00007100@@YAXXZ,,0x00007100,30,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00407100
-?d_00007130@@YAXXZ,,0x00007130,32,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00407130
-?d_00007150@@YAXXZ,,0x00007150,7,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00407150
-?d_00007160@@YAXXZ,,0x00007160,39,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00407160
-?d_00007190@@YAXXZ,,0x00007190,27,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00407190
 ?d_000071b0@@YAXXZ,,0x000071B0,6,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_004071b0
 ?d_000072c0@@YAXXZ,,0x000072C0,30,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_004072c0
 ?d_000072e0@@YAXXZ,,0x000072E0,7,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_004072e0
@@ -898,3 +894,7 @@ _free,,0x00030830,17,Code/GameEngine/Source/Common/System/GameMemoryFree.cpp,mat
 ??0CImage@ATL@@QAE@XZ,,0x00001568,62,Code/Libraries/Source/ATL/atlimage.cpp,matched,stlport-4.5.3
 ?Destroy@CImage@ATL@@QAEXXZ,,0x0000213F,19,Code/Libraries/Source/ATL/atlimage.cpp,matched,vendored=atl-7.1
 ??1CImage@ATL@@UAE@XZ,,0x0000267B,21,Code/Libraries/Source/ATL/atlimage.cpp,matched,vendored=atl-7.1
+??0locale@_STL@@QAE@ABV01@@Z,,0x00007130,32,Code/Libraries/Source/WWVegas/WWLib/stlport_locale.cpp,matched,stlport-4.5.3
+??1locale@_STL@@QAE@XZ,,0x00007150,7,Code/Libraries/Source/WWVegas/WWLib/stlport_locale.cpp,matched,stlport-4.5.3
+??4locale@_STL@@QAEAAV01@ABV01@@Z,,0x00007160,39,Code/Libraries/Source/WWVegas/WWLib/stlport_locale.cpp,matched,stlport-4.5.3
+?_M_use_facet@locale@_STL@@QBEPAVfacet@12@ABVid@12@@Z,,0x00007190,27,Code/Libraries/Source/WWVegas/WWLib/stlport_locale.cpp,matched,stlport-4.5.3
