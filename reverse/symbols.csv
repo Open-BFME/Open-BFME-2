@@ -1,5 +1,6 @@
 name,address,notes
 ??$_M_assign_dispatch@PAD@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@AAEAAV01@PAD0ABU__false_type@1@@Z,0x000130A0,STLport 4.5.3 narrow string assign dispatch; address read from retail basic_string::operator= REL32 displacement
+??$_M_do_get_integer@V?$istreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@_KG@_STL@@YA?AV?$istreambuf_iterator@GV?$char_traits@G@_STL@@@0@AAV10@0AAVios_base@0@AAHAA_KPAG@Z,0x00009F90,harvested from retail REL32 displacement at 0x00009F60
 ??$_M_get_base_or_zero@V?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@D@_STL@@YAHAAV?$istreambuf_iterator@DV?$char_traits@D@_STL@@@0@0AAVios_base@0@PAD@Z,0x00007C90,STLport 4.5.3 narrow integer base scanner; address read from retail signed 64-bit integer scanner REL32 displacement
 ??$_M_get_base_or_zero@V?$istreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@D@_STL@@YAHAAV?$istreambuf_iterator@GV?$char_traits@G@_STL@@@0@0AAVios_base@0@PAD@Z,0x0000A0F0,STLport 4.5.3 wide integer base scanner; address read from retail wide _M_do_get_integer REL32 displacement
 ??$_M_read_float@V?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@D@_STL@@YA_NAAV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@0@AAV?$istreambuf_iterator@DV?$char_traits@D@_STL@@@0@1AAVios_base@0@PAD@Z,0x0000F850,STLport 4.5.3 narrow floating-point scanner; address read from retail num_get<double>::do_get REL32 displacement
@@ -102,6 +103,7 @@ name,address,notes
 ?concat@?$StringBase@G@@QAEXPBGH@Z,0x00037410,BFME2 export and retail call target for StringBase<wchar_t>::concat(const wchar_t *, int)
 ?decompress@LZHLDecompressor@@QAEHPAEPAIPBE1@Z,0x00692440
 ?equal@?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@QBE_NABV12@@Z,0x0000FA00,STLport 4.5.3 narrow istreambuf_iterator equality member; address read from retail num_get<double>::do_get REL32 displacement
+?free@@YAXPAX@Z,0x00030830,CRT free reached through the C++-linkage declaration STLport 4.5.3 compiles against; same body as _free at this address, and the C++ decoration is what makes the caller emit the unwind state store retail carries
 ?getloc@ios_base@_STL@@QBE?AVlocale@2@XZ,0x00007EB0,STLport 4.5.3 ios_base locale accessor; address read from retail wide floating-point scanner REL32 displacement
 ?imbue@?$basic_ios@GV?$char_traits@G@_STL@@@_STL@@QAE?AVlocale@2@ABV32@@Z,0x00016200,harvested from retail REL32 displacement at 0x00016440
 ?init@?$basic_ios@DV?$char_traits@D@_STL@@@_STL@@IAEXPAV?$basic_streambuf@DV?$char_traits@D@_STL@@@2@@Z,0x000162F0,harvested from retail REL32 displacement at 0x0001C5C0
@@ -126,4 +128,3 @@ _abs,0x0062909A,MSVCR71 import thunk identified by official ATL 7.1 call and ret
 _fabs,0x00629210,MSVCRT import thunk identified by four retail call targets and Ghidra
 _sqrt,0x0062921C,MSVCRT import thunk identified by retail call target and Ghidra
 _strlen,0x00629170,BFME2 retail strlen thunk and call target for StringBase<char>::compare(const char *)
-?free@@YAXPAX@Z,0x00030830,CRT free reached through the C++-linkage declaration STLport 4.5.3 compiles against; same body as _free at this address, and the C++ decoration is what makes the caller emit the unwind state store retail carries
