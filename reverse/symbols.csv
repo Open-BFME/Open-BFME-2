@@ -8,6 +8,7 @@ name,address,notes
 ??$__find_if@PBDU?$_Eq_int_bound@V?$char_traits@D@_STL@@@_STL@@@_STL@@YAPBDPBD0U?$_Eq_int_bound@V?$char_traits@D@_STL@@@0@ABUrandom_access_iterator_tag@0@@Z,0x006BE8C0,harvested from retail REL32 displacement at 0x006BE980
 ??$__lower_bound@PBIIU?$less@I@_STL@@H@_STL@@YAPBIPBI0ABIU?$less@I@0@PAH@Z,0x00568D2F,harvested from retail REL32 displacement at 0x0016DB60
 ??$append@PBD@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@AAEAAV01@PBD0ABUforward_iterator_tag@1@@Z,0x0001B3E0,STLport 4.5.3 narrow string forward-iterator append; address read from retail basic_string::assign REL32 displacement
+??$mismatch@V?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@PAD@_STL@@YA?AU?$pair@V?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@PAD@0@V?$istreambuf_iterator@DV?$char_traits@D@_STL@@@0@0PAD@Z,0x00012CA0,harvested from retail REL32 displacement at 0x00019C20
 ??0?$StringBase@D@@AAE@ABV0@HH@Z,0x000380C0,BFME2 export and retail call target for AsciiString substring constructor
 ??0?$StringBase@D@@AAE@D@Z,0x00037B60,BFME2 export and retail call target for AsciiString char constructor
 ??0?$StringBase@D@@AAE@PBD@Z,0x00037BA0,BFME2 export and retail call target for AsciiString const char constructor
@@ -25,6 +26,7 @@ name,address,notes
 ??0gslice@_STL@@QAE@ABV01@@Z,0x000B43E5,harvested from retail REL32 displacement at 0x000B68F0
 ??0ios_base@_STL@@IAE@XZ,0x0001C1A0,harvested from retail REL32 displacement at 0x0001C5C0
 ??1?$basic_streambuf@DV?$char_traits@D@_STL@@@_STL@@UAE@XZ,0x0001C6E0,harvested from retail REL32 displacement at 0x00015030
+??1ios_base@_STL@@UAE@XZ,0x0001C220,STLport 4.5.3 ios_base destructor; address read from the basic_ios<char> and basic_ios<wchar_t> destructor tail jumps
 ??2@YAPAXI@Z,0x0002FDA0
 ??3@YAXPAX@Z,0x0002FD60
 ??4locale@_STL@@QAEABV01@ABV01@@Z,0x00007160,STLport 4.5.3 locale assignment; address read from the retail wide basic_streambuf pubimbue REL32 displacement
@@ -91,7 +93,6 @@ __chkstk,0x00629000
 __ftol2,0x00629228,MSVC float-to-int helper byte-identical to pinned BFME1 CRT body
 _abs,0x0062909A,MSVCR71 import thunk identified by official ATL 7.1 call and retail target
 _fabs,0x00629210,MSVCRT import thunk identified by four retail call targets and Ghidra
+_memcmp,0x0062929E,CRT memcmp import thunk (jmp [0x00BBA694]); ghidra labels this address memcmp and the StringBase<char> comparison helper calls it directly
 _sqrt,0x0062921C,MSVCRT import thunk identified by retail call target and Ghidra
 _strlen,0x00629170,BFME2 retail strlen thunk and call target for StringBase<char>::compare(const char *)
-??1ios_base@_STL@@UAE@XZ,0x0001C220,STLport 4.5.3 ios_base destructor; address read from the basic_ios<char> and basic_ios<wchar_t> destructor tail jumps
-_memcmp,0x0062929E,CRT memcmp import thunk (jmp [0x00BBA694]); ghidra labels this address memcmp and the StringBase<char> comparison helper calls it directly
