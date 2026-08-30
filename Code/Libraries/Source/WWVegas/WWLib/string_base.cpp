@@ -101,6 +101,12 @@ void StringBase<T>::set(const T *str)
     set(str, str ? (int)strlen(str) : 0);
 }
 
+template <>
+void StringBase<wchar_t>::set(const wchar_t *str)
+{
+    set(str, str ? (int)wcslen(str) : 0);
+}
+
 template class StringBase<char>;
 template void StringBase<wchar_t>::set(wchar_t c);
 template void StringBase<wchar_t>::concat(wchar_t c);
