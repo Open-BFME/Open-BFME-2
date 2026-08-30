@@ -259,7 +259,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_00005923@@YAXXZ,,0x00005923,124,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=toAngle
 ?d_000059d3@@YAXXZ,,0x000059D3,83,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Normalize
 ?d_00005ae7@@YAXXZ,,0x00005AE7,102,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Matrix4D
-?d_00005b4d@@YAXXZ,,0x00005B4D,107,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Matrix4D
 ?d_00005bb8@@YAXXZ,,0x00005BB8,116,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Matrix4D
 ?d_00005c2c@@YAXXZ,,0x00005C2C,168,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Matrix4D
 ?d_00005cd4@@YAXXZ,,0x00005CD4,1497,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=Inverse
@@ -645,3 +644,4 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?Transpose@Matrix4D@@QAEAAV1@XZ,0x000041DE,0x000041DE,111,Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp,matched,
 ?RotateCoord@Matrix4D@@QAEAAVCoord3D@@ABV2@AAV2@@Z,0x00004753,0x00004753,135,Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp,matched,
 ?TransformCoord@Matrix4D@@QAEAAVCoord3D@@ABV2@AAV2@@Z,0x000046BD,0x000046BD,150,Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp,matched,
+??0Matrix4D@@QAE@ABV0@@Z,0x00005B4D,0x00005B4D,107,Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp,matched,
