@@ -857,3 +857,5 @@ _free,,0x00030830,17,Code/GameEngine/Source/Common/System/GameMemoryFree.cpp,mat
 ??0?$basic_fstream@GV?$char_traits@G@_STL@@@_STL@@QAE@PBDH@Z,,0x000202F0,244,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_fstream.cpp,matched,stlport-4.5.3
 ??0?$basic_fstream@GV?$char_traits@G@_STL@@@_STL@@QAE@PBDHJ@Z,,0x000203F0,249,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_fstream.cpp,matched,stlport-4.5.3
 ??_G?$basic_iostream@GV?$char_traits@G@_STL@@@_STL@@UAEPAXI@Z,,0x0001DEA0,45,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_fstream.cpp,matched,stlport-4.5.3
+??0?$istreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@QAE@AAV?$basic_istream@GV?$char_traits@G@_STL@@@1@@Z,,0x00018300,32,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_streambuf_iterators.cpp,matched,stlport-4.5.3
+??E?$istreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@QAE?AV01@H@Z,,0x00018320,69,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_streambuf_iterators.cpp,matched,stlport-4.5.3
