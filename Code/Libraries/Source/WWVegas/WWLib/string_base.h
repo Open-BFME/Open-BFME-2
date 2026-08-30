@@ -18,6 +18,7 @@ public:
     void set(T c);
     void set(const T *str);
     void set(const T *str, int len);
+    void swap(StringBase<T> &other);
 
 private:
     struct Header

@@ -113,6 +113,15 @@ void StringBase<wchar_t>::set(const wchar_t *str)
     set(str, str ? (int)wcslen(str) : 0);
 }
 
+
+template <typename T>
+void StringBase<T>::swap(StringBase<T> &other)
+{
+    Header *tmp = m_data;
+    m_data = other.m_data;
+    other.m_data = tmp;
+}
+
 template class StringBase<char>;
 template void StringBase<wchar_t>::set(wchar_t c);
 template void StringBase<wchar_t>::concat(wchar_t c);
