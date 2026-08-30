@@ -320,7 +320,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_00007e90@@YAXXZ,,0x00007E90,32,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00407e90
 ?d_00007eb0@@YAXXZ,,0x00007EB0,41,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00407eb0
 ?d_00008d00@@YAXXZ,,0x00008D00,84,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00408d00
-?d_00008d80@@YAXXZ,,0x00008D80,108,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00408d80
 ?d_00008df0@@YAXXZ,,0x00008DF0,108,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00408df0
 ?d_00008e60@@YAXXZ,,0x00008E60,108,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00408e60
 ?d_00008ed0@@YAXXZ,,0x00008ED0,108,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00408ed0
@@ -647,3 +646,4 @@ _free,,0x00030830,17,Code/GameEngine/Source/Common/System/GameMemoryFree.cpp,mat
 ??$_M_do_get_integer@V?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@JD@_STL@@YA?AV?$istreambuf_iterator@DV?$char_traits@D@_STL@@@0@AAV10@0AAVios_base@0@AAHAAJPAD@Z,,0x00008A60,252,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_do_get_integer_long.cpp,matched,vendored=stlport-4.5.3;narrow signed-long integer scanner upstream body
 ??$__get_integer@V?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@J@_STL@@YA_NAAV?$istreambuf_iterator@DV?$char_traits@D@_STL@@@0@0HAAJH_NDABV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@0@ABU__true_type@0@@Z,,0x00008B60,404,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_get_integer_long.cpp,matched,vendored=stlport-4.5.3;narrow signed-long integer accumulator upstream body
 ??1_Locale_impl@_STL@@UAE@XZ,,0x00008D60,21,Code/Libraries/Source/WWVegas/WWLib/stlport_locale_impl_dtor.cpp,matched,vendored=stlport-4.5.3;retail RTTI and scalar deleting destructor confirm _Locale_impl identity
+??0?$time_get@DV?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@@_STL@@QAE@I@Z,,0x00008D80,108,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_time_get_ctor.cpp,matched,vendored=stlport-4.5.3;narrow time_get default constructor from _time_facets.h
