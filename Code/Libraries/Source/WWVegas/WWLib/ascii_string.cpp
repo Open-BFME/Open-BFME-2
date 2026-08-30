@@ -11,6 +11,7 @@ public:
     void set(const T *text);
     void set(const T *text, int length);
     void concat(const StringBase<T> &that);
+    void concat(const T *text);
     void concat(const T *text, int length);
 
 private:
@@ -46,6 +47,7 @@ public:
     AsciiString &operator=(const char *text);
     AsciiString &operator+=(const AsciiString &that);
     AsciiString &operator+=(char character);
+    AsciiString &operator+=(const char *text);
 
 private:
     char *m_text;
@@ -106,5 +108,11 @@ AsciiString &AsciiString::operator+=(char character)
 {
     char text = character;
     ((StringBase<char> *)this)->concat(&text, 1);
+    return *this;
+}
+
+AsciiString &AsciiString::operator+=(const char *text)
+{
+    ((StringBase<char> *)this)->concat(text);
     return *this;
 }
