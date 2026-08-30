@@ -147,7 +147,6 @@ _zcfree,,0x00694710,13,Code/Libraries/Source/Compression/ZLib/zutil.c,matched,ve
 _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matched,vendored=zlib-1.1.4
 ?d_000010cf@@YAXXZ,,0x000010CF,80,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_004010cf
 ?d_00001125@@YAXXZ,,0x00001125,23,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00401125
-?d_0000113d@@YAXXZ,,0x0000113D,26,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_0040113d
 ?d_000011b4@@YAXXZ,,0x000011B4,9,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=ModuleTemplate
 ?d_000011bd@@YAXXZ,,0x000011BD,7,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=~ModuleTemplate
 ?d_000011c4@@YAXXZ,,0x000011C4,11,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=ModuleTemplate
@@ -933,3 +932,4 @@ _free,,0x00030830,17,Code/GameEngine/Source/Common/System/GameMemoryFree.cpp,mat
 ?do_get_weekday@?$time_get@GV?$istreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@@_STL@@MBE?AV?$istreambuf_iterator@GV?$char_traits@G@_STL@@@2@V32@0AAVios_base@2@AAHPAUtm@@@Z,,0x0000F510,167,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_time_get_names.cpp,matched,stlport-4.5.3
 ?Init@?$CA2WEX@$0IA@@ATL@@AAEXPBDI@Z,,0x00001DB1,98,Code/Libraries/Source/ATL/atlconv.cpp,matched,vendored=atl-7.1
 ??1?$CA2WEX@$0IA@@ATL@@QAE@XZ,,0x00001D9A,18,Code/Libraries/Source/ATL/atlconv.cpp,matched,vendored=atl-7.1
+?AtlThrowLastWin32@ATL@@YGXXZ,,0x0000113D,26,Code/Libraries/Source/ATL/atlconv.cpp,matched,vendored=atl-7.1

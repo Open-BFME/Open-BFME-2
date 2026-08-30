@@ -15,6 +15,7 @@ typedef long HRESULT;
 
 #define NULL 0
 #define E_OUTOFMEMORY ((HRESULT)0x8007000EL)
+#define HRESULT_FROM_WIN32(x) 	((HRESULT)(x) <= 0 ? ((HRESULT)(x)) 			   : ((HRESULT)(((x) & 0x0000FFFF) | 0x80070000)))
 
 extern "C" __declspec(dllimport) int __stdcall lstrlenA(LPCSTR string);
 extern "C" __declspec(dllimport) int __stdcall MultiByteToWideChar(
@@ -22,12 +23,18 @@ extern "C" __declspec(dllimport) int __stdcall MultiByteToWideChar(
 		LPWSTR wide, int wide_chars);
 extern "C" __declspec(dllimport) void *__cdecl malloc(unsigned int size);
 extern "C" __declspec(dllimport) void __cdecl free(void *block);
+extern "C" __declspec(dllimport) DWORD __stdcall GetLastError();
 
 namespace ATL
 {
 
 __declspec(noreturn) void __stdcall AtlThrow(HRESULT hr);
-__declspec(noreturn) void __stdcall AtlThrowLastWin32();
+
+__declspec(noinline) __declspec(noreturn) inline void __stdcall AtlThrowLastWin32()
+{
+	DWORD dwError = ::GetLastError();
+	AtlThrow(HRESULT_FROM_WIN32(dwError));
+}
 
 template <int t_nBufferLength = 128>
 class CA2WEX
