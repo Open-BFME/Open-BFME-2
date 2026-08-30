@@ -14,6 +14,7 @@ public:
     Coord3D &GetXVector(Coord3D &out) const;
     Coord3D &GetYVector(Coord3D &out) const;
     Coord3D &GetZVector(Coord3D &out) const;
+    Coord3D &RotateCoord(const Coord3D &coord, Coord3D &out);
     Matrix4D &Transpose();
     float Determinant() const;
 
@@ -41,6 +42,26 @@ Coord3D &Matrix4D::GetZVector(Coord3D &out) const
     out.x = values[2];
     out.y = values[6];
     out.z = values[10];
+    return out;
+}
+
+Coord3D &Matrix4D::RotateCoord(const Coord3D &coord, Coord3D &out)
+{
+    float y = values[4] * coord.x;
+    y += values[6] * coord.z;
+    y += values[5] * coord.y;
+
+    float z = values[8] * coord.x;
+    z += values[10] * coord.z;
+    z += values[9] * coord.y;
+
+    float x = values[2] * coord.z;
+    x += values[1] * coord.y;
+    x += values[0] * coord.x;
+
+    out.x = x;
+    out.y = y;
+    out.z = z;
     return out;
 }
 
