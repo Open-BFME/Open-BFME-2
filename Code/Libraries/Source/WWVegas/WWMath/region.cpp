@@ -52,6 +52,14 @@ struct IRegion3D
     int z_max;
 };
 
+struct ICoord2DBase
+{
+    int x;
+    int y;
+};
+
+Debug &operator<<(Debug &debug, const ICoord2DBase &coord);
+
 struct ICoord3D
 {
     int x;
@@ -76,6 +84,14 @@ class Coord2D
 public:
     float x;
     float y;
+};
+
+Debug &operator<<(Debug &debug, const Coord2D &coord);
+
+struct RealRange
+{
+    float min;
+    float max;
 };
 
 struct Region2D
@@ -275,5 +291,23 @@ Debug &operator<<(Debug &debug, const IRegion3D &region)
 Debug &operator<<(Debug &debug, const Region3D &region)
 {
     debug << *(const Coord3D *)&region.x_min << " - " << *(const Coord3D *)&region.x_max;
+    return debug;
+}
+
+Debug &operator<<(Debug &debug, const RealRange &range)
+{
+    debug << "[" << range.min << ", " << range.max << "]";
+    return debug;
+}
+
+Debug &operator<<(Debug &debug, const Region2D &region)
+{
+    debug << *(const Coord2D *)&region.x_min << " - " << *(const Coord2D *)&region.x_max;
+    return debug;
+}
+
+Debug &operator<<(Debug &debug, const IRegion2D &region)
+{
+    debug << *(const ICoord2DBase *)&region.x_min << " - " << *(const ICoord2DBase *)&region.x_max;
     return debug;
 }

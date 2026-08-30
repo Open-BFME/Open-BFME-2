@@ -217,9 +217,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_0000401c@@YAXXZ,,0x0000401C,93,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=SetIdentity
 ?d_00004079@@YAXXZ,,0x00004079,357,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Matrix4D
 ?d_000047da@@YAXXZ,,0x000047DA,918,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Multiply
-?d_00004f7a@@YAXXZ,,0x00004F7A,78,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=operator<<
-?d_0000505c@@YAXXZ,,0x0000505C,47,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=operator<<
-?d_0000508b@@YAXXZ,,0x0000508B,47,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=operator<<
 ?d_000053a6@@YAXXZ,,0x000053A6,9,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Snapshot
 ?d_000053de@@YAXXZ,,0x000053DE,9,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Xfer
 ?d_000053e7@@YAXXZ,,0x000053E7,7,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=~Xfer
@@ -933,3 +930,6 @@ _free,,0x00030830,17,Code/GameEngine/Source/Common/System/GameMemoryFree.cpp,mat
 ?Init@?$CA2WEX@$0IA@@ATL@@AAEXPBDI@Z,,0x00001DB1,98,Code/Libraries/Source/ATL/atlconv.cpp,matched,vendored=atl-7.1
 ??1?$CA2WEX@$0IA@@ATL@@QAE@XZ,,0x00001D9A,18,Code/Libraries/Source/ATL/atlconv.cpp,matched,vendored=atl-7.1
 ?AtlThrowLastWin32@ATL@@YGXXZ,,0x0000113D,26,Code/Libraries/Source/ATL/atlconv.cpp,matched,vendored=atl-7.1
+??6@YAAAVDebug@@AAV0@ABURealRange@@@Z,0x00004F7A,0x00004F7A,78,Code/Libraries/Source/WWVegas/WWMath/region.cpp,matched,Open-BFME5 RealRange debug insertion
+??6@YAAAVDebug@@AAV0@ABURegion2D@@@Z,0x0000505C,0x0000505C,47,Code/Libraries/Source/WWVegas/WWMath/region.cpp,matched,Open-BFME5 Region2D debug insertion
+??6@YAAAVDebug@@AAV0@ABUIRegion2D@@@Z,0x0000508B,0x0000508B,47,Code/Libraries/Source/WWVegas/WWMath/region.cpp,matched,Open-BFME5 IRegion2D debug insertion
