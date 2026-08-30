@@ -39,7 +39,6 @@ name,address,notes
 ?_M_close@_Filebuf_base@_STL@@QAE_NXZ,0x0001D570,harvested from retail REL32 displacement at 0x000150B0
 ?_M_file_size@_Filebuf_base@_STL@@QAEJXZ,0x0001D360,harvested from retail REL32 displacement at 0x00013D20
 ?_M_fill_insert@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEXPAPAXIABQAX@Z,0x00029CA0,harvested from retail REL32 displacement at 0x00622410
-?_M_getc@?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@ABEXXZ,0x00007C40,STLport 4.5.3 narrow istreambuf_iterator cache fill; address read from retail signed 64-bit integer scanner REL32 displacements
 ?_M_increment@?$_Rb_global@_N@_STL@@SAPAU_Rb_tree_node_base@2@PAU32@@Z,0x00024250,harvested from retail REL32 displacement at 0x0061F640
 ?_M_insert@?$hashtable@U?$pair@$$CBHH@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@QAEAAU?$pair@$$CBHH@2@ABU32@@Z,0x00620F60,harvested from retail REL32 displacement at 0x006215B0
 ?_M_insert_aux@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@AAEPAGPAGG@Z,0x00012D10,STLport 4.5.3 wide string single-character insert helper; address read from retail basic_string<wchar_t>::insert REL32 displacement
