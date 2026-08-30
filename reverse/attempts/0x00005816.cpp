@@ -1,5 +1,5 @@
 // ?d_00005816@@YAXXZ
-// partial score=0.9 date=2026-08-30
+// partial score=0.95 date=2026-08-30
 // cl: /O1 /Oy-
 // Retail 0x00005816: the shared data comparison the StringBase<char> compare
 // overloads tail into. The upstream name is not recoverable -- the body has
@@ -14,7 +14,10 @@ __declspec(noinline) int Rva00005816(const char *left, int leftLen,
                                      bool noCase)
 {
     (void)noCase;
-    int result = memcmp(left, right, leftLen < rightLen ? leftLen : rightLen);
+    int shortest = leftLen;
+    if (shortest >= rightLen)
+        shortest = rightLen;
+    int result = memcmp(left, right, shortest);
     if (result != 0) {
         return result;
     }
