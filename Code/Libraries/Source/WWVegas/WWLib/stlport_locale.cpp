@@ -31,6 +31,29 @@ private:
     _Locale_impl *_M_impl;
 };
 
+class ios_base
+{
+public:
+    typedef int fmtflags;
+    typedef int iostate;
+    typedef int openmode;
+    typedef int seekdir;
+    typedef int streamsize;
+
+    virtual ~ios_base();
+    locale getloc() const;
+
+private:
+    fmtflags _M_fmtflags;
+    iostate _M_iostate;
+    openmode _M_openmode;
+    seekdir _M_seekdir;
+    iostate _M_exception_mask;
+    streamsize _M_precision;
+    streamsize _M_width;
+    locale _M_locale;
+};
+
 class _Locale_impl
 {
 public:
@@ -89,6 +112,12 @@ locale::facet *locale::_M_use_facet(const id &index) const
         return _M_impl->_M_facets[index._M_index];
 
     return 0;
+}
+
+
+locale ios_base::getloc() const
+{
+    return _M_locale;
 }
 
 }
