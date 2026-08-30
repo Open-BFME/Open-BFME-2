@@ -256,7 +256,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_000059d3@@YAXXZ,,0x000059D3,83,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Normalize
 ?d_00005ae7@@YAXXZ,,0x00005AE7,102,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Matrix4D
 ?d_00005bb8@@YAXXZ,,0x00005BB8,116,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Matrix4D
-?d_00005cd4@@YAXXZ,,0x00005CD4,1497,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=Inverse
 ?d_000062ad@@YAXXZ,,0x000062AD,43,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=combine
 ?d_000062d8@@YAXXZ,,0x000062D8,37,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=combine
 ?d_00006469@@YAXXZ,,0x00006469,44,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=expandBy
@@ -645,3 +644,4 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ??YMatrix4D@@QAEAAV0@ABV0@@Z,0x00004309,0x00004309,246,Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp,matched,
 ??ZMatrix4D@@QAEAAV0@ABV0@@Z,0x000043FF,0x000043FF,246,Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp,matched,
 ??_0Matrix4D@@QAEAAV0@M@Z,0x000045DE,0x000045DE,223,Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp,matched,
+?Inverse@Matrix4D@@QAEMXZ,0x00005CD4,0x00005CD4,1497,Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp,matched,

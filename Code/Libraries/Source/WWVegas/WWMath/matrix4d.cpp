@@ -1,5 +1,7 @@
 // cl: /O1 /arch:SSE2
 
+extern "C" float __cdecl fabs(double value);
+
 class Coord3D
 {
 public:
@@ -28,6 +30,7 @@ public:
     Coord3D &TransformCoord(const Coord3D &coord, Coord3D &out);
     Matrix4D &Transpose();
     float Determinant() const;
+    float Inverse();
 
     float values[16];
 };
@@ -268,4 +271,84 @@ float Matrix4D::Determinant() const
          + (values[7] * values[0] - values[4] * values[3]) * (values[14] * values[9] - values[10] * values[13])
          - (values[14] * values[8] - values[10] * values[12]) * (values[7] * values[1] - values[3] * values[5])
          + a5 * b5;
+}
+
+float Matrix4D::Inverse()
+{
+    float s0 = values[0] * values[5] - values[1] * values[4];
+    float s1 = values[6] * values[0] - values[4] * values[2];
+    float s2 = values[7] * values[0] - values[3] * values[4];
+    float s3 = values[1] * values[6] - values[2] * values[5];
+    float s4 = values[7] * values[1] - values[3] * values[5];
+    float s5 = values[7] * values[2] - values[3] * values[6];
+    float c0 = values[8] * values[13] - values[9] * values[12];
+    float c1 = values[8] * values[14] - values[12] * values[10];
+    float c2 = values[8] * values[15] - values[11] * values[12];
+    float c3 = values[9] * values[14] - values[13] * values[10];
+    float c4 = values[15] * values[9] - values[13] * values[11];
+    float c5 = values[15] * values[10] - values[11] * values[14];
+
+    float det = c5 * s0 - c4 * s1 + c2 * s3 + c3 * s2 - c1 * s4 + c0 * s5;
+    if (fabs(det) <= 1.0e-4f) {
+        return 0.0f;
+    }
+
+    struct ResultStorage
+    {
+        float values[16];
+    } result;
+    result.values[0] = (c5 * values[5] - c4 * values[6] + c3 * values[7]);
+    result.values[4] = -(c5 * values[4] + c2 * values[6] - c1 * values[7]);
+    result.values[8] = (c4 * values[4] - c2 * values[5] + c0 * values[7]);
+    result.values[12] = -(c3 * values[4] + c1 * values[5] - c0 * values[6]);
+    result.values[1] = -(c5 * values[1] + c4 * values[2] - c3 * values[3]);
+    result.values[5] = (c5 * values[0] - c2 * values[2] + c1 * values[3]);
+    result.values[9] = -(c2 * values[1] + c4 * values[0] - c0 * values[3]);
+    result.values[13] = (c3 * values[0] - c1 * values[1] + c0 * values[2]);
+    result.values[2] = (s5 * values[13] - s4 * values[14] + s3 * values[15]);
+    result.values[6] = -(s5 * values[12] + s2 * values[14] - s1 * values[15]);
+    result.values[10] = (s4 * values[12] - s2 * values[13] + s0 * values[15]);
+    result.values[14] = -(s1 * values[13] + s3 * values[12] - s0 * values[14]);
+    result.values[3] = -(s5 * values[9] + s4 * values[10] - s3 * values[11]);
+    result.values[7] = (s5 * values[8] - s2 * values[10] + s1 * values[11]);
+    result.values[11] = -(s4 * values[8] + s2 * values[9] - s0 * values[11]);
+    result.values[15] = (s3 * values[8] - s1 * values[9] + s0 * values[10]);
+
+    float recip = 1.0f / det;
+    result.values[0] *= recip;
+    result.values[1] *= recip;
+    result.values[2] *= recip;
+    result.values[3] *= recip;
+    result.values[4] *= recip;
+    result.values[5] *= recip;
+    result.values[6] *= recip;
+    result.values[7] *= recip;
+    result.values[8] *= recip;
+    result.values[9] *= recip;
+    result.values[10] *= recip;
+    result.values[11] *= recip;
+    result.values[12] *= recip;
+    result.values[13] *= recip;
+    result.values[14] *= recip;
+    result.values[15] *= recip;
+
+    if ((void *)this != (void *)&result) {
+        values[0] = result.values[0];
+        values[1] = result.values[1];
+        values[2] = result.values[2];
+        values[3] = result.values[3];
+        values[4] = result.values[4];
+        values[5] = result.values[5];
+        values[6] = result.values[6];
+        values[7] = result.values[7];
+        values[8] = result.values[8];
+        values[9] = result.values[9];
+        values[10] = result.values[10];
+        values[11] = result.values[11];
+        values[12] = result.values[12];
+        values[13] = result.values[13];
+        values[14] = result.values[14];
+        values[15] = result.values[15];
+    }
+    return det;
 }
