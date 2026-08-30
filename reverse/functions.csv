@@ -917,3 +917,7 @@ _free,,0x00030830,17,Code/GameEngine/Source/Common/System/GameMemoryFree.cpp,mat
 ??$_M_get_base_or_zero@V?$istreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@G@_STL@@YAHAAV?$istreambuf_iterator@GV?$char_traits@G@_STL@@@0@0AAVios_base@0@PAG@Z,,0x0000A0F0,523,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_get_base_or_zero.cpp,matched,stlport-4.5.3
 ??$_M_range_initialize@PBD@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAEXPBD0ABUforward_iterator_tag@1@@Z,,0x000078C0,84,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_string_range_init.cpp,matched,stlport-4.5.3
 ??$?9DV?$char_traits@D@_STL@@V?$allocator@D@1@@_STL@@YA_NABV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@0@0@Z,,0x000077B0,65,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_string_not_equal.cpp,matched,stlport-4.5.3
+??3@YAXPAX@Z,,0x0002FD60,21,Code/Libraries/Source/WWVegas/WWLib/mem_ops.cpp,matched,game memory-manager pointer table; class 1 scalar class 2 array
+??_V@YAXPAX@Z,,0x0002FD80,21,Code/Libraries/Source/WWVegas/WWLib/mem_ops.cpp,matched,game memory-manager pointer table; class 1 scalar class 2 array
+??2@YAPAXI@Z,,0x0002FDA0,19,Code/Libraries/Source/WWVegas/WWLib/mem_ops.cpp,matched,game memory-manager pointer table; class 1 scalar class 2 array
+??_U@YAPAXI@Z,,0x0002FDE0,19,Code/Libraries/Source/WWVegas/WWLib/mem_ops.cpp,matched,game memory-manager pointer table; class 1 scalar class 2 array
