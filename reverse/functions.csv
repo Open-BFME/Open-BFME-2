@@ -226,7 +226,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_000043ff@@YAXXZ,,0x000043FF,246,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=operator-=
 ?d_000044f5@@YAXXZ,,0x000044F5,233,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=operator*=
 ?d_000045de@@YAXXZ,,0x000045DE,223,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=operator/=
-?d_000046bd@@YAXXZ,,0x000046BD,150,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=TransformCoord
 ?d_000047da@@YAXXZ,,0x000047DA,918,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Multiply
 ?d_00004f7a@@YAXXZ,,0x00004F7A,78,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=operator<<
 ?d_0000505c@@YAXXZ,,0x0000505C,47,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=operator<<
@@ -645,3 +644,4 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?Determinant@Matrix4D@@QBEMXZ,0x0000424D,0x0000424D,188,Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp,matched,
 ?Transpose@Matrix4D@@QAEAAV1@XZ,0x000041DE,0x000041DE,111,Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp,matched,
 ?RotateCoord@Matrix4D@@QAEAAVCoord3D@@ABV2@AAV2@@Z,0x00004753,0x00004753,135,Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp,matched,
+?TransformCoord@Matrix4D@@QAEAAVCoord3D@@ABV2@AAV2@@Z,0x000046BD,0x000046BD,150,Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp,matched,
