@@ -1069,3 +1069,8 @@ _free,,0x00030830,17,Code/GameEngine/Source/Common/System/GameMemoryFree.cpp,mat
 ??0Matrix4D@@QAE@ABVCoord3D@@@Z,0x00005BB8,0x00005BB8,116,Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp,matched,Open-BFME5 clean C++; Matrix4D translation constructor
 ??$?6D@@YAAAVDebug@@AAV0@ABV?$StringBase@D@@@Z,0x000028E8,0x000028E8,37,Code/Libraries/Source/WWVegas/WWLib/string_base.cpp,matched,Open-BFME5 clean C++; Debug stream insertion for StringBase<char>
 ??0?$CW2AEX@$0IA@@ATL@@QAE@PBG@Z,,0x000066F0,32,Code/Libraries/Source/ATL/atlconv.cpp,matched,Open-BFME5 clean C++; ATL 7.1 CW2AEX<> constructor primes its inline buffer and dispatches conversion through Init
+?Sin@@YAMM@Z,0x0002FBB0,0x0002FBB0,7,Code/Libraries/Source/WWVegas/WWMath/wwmath.cpp,matched,Open-BFME5 clean C++; x87 transcendental wrapper
+?Cos@@YAMM@Z,0x0002FBC0,0x0002FBC0,7,Code/Libraries/Source/WWVegas/WWMath/wwmath.cpp,matched,Open-BFME5 clean C++; x87 transcendental wrapper
+?Tan@@YAMM@Z,0x0002FBA0,0x0002FBA0,9,Code/Libraries/Source/WWVegas/WWMath/wwmath.cpp,matched,Open-BFME5 clean C++; x87 transcendental wrapper
+?ACos@@YAMM@Z,0x0002FB90,0x0002FB90,10,Code/Libraries/Source/WWVegas/WWMath/wwmath.cpp,matched,Open-BFME5 clean C++; x87 inverse trigonometric wrapper
+?ASin@@YAMM@Z,0x00711AC0,0x00711AC0,10,Code/Libraries/Source/WWVegas/WWMath/wwmath.cpp,matched,Open-BFME5 clean C++; x87 inverse trigonometric wrapper
