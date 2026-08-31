@@ -218,18 +218,18 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_00004079@@YAXXZ,,0x00004079,357,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Matrix4D
 ?d_000047da@@YAXXZ,,0x000047DA,918,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Multiply
 ?d_000053a6@@YAXXZ,,0x000053A6,9,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Snapshot
-?d_000053de@@YAXXZ,,0x000053DE,9,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Xfer
-?d_000053e7@@YAXXZ,,0x000053E7,7,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=~Xfer
-?d_000053ee@@YAXXZ,,0x000053EE,23,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Version1
-?d_0000546c@@YAXXZ,,0x0000546C,28,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=operator==
-?d_00005488@@YAXXZ,,0x00005488,28,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=operator==
-?d_000054a4@@YAXXZ,,0x000054A4,28,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=operator==
-?d_000054c0@@YAXXZ,,0x000054C0,28,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=operator==
-?d_000054dc@@YAXXZ,,0x000054DC,28,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=operator==
-?d_000054f8@@YAXXZ,,0x000054F8,28,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=operator==
-?d_00005514@@YAXXZ,,0x00005514,28,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=operator==
-?d_00005530@@YAXXZ,,0x00005530,28,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=operator==
-?d_0000554c@@YAXXZ,,0x0000554C,28,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=operator==
+??0Xfer@@QAE@XZ,0x000053DE,0x000053DE,9,Code/GameEngine/Source/Common/System/Xfer.cpp,matched,Open-BFME5 clean C++; Xfer constructor installing the vtable at 0x00BBB910
+??1Xfer@@UAE@XZ,0x000053E7,0x000053E7,7,Code/GameEngine/Source/Common/System/Xfer.cpp,matched,Open-BFME5 clean C++; Xfer destructor restoring the vtable at 0x00BBB910
+?Version1@Xfer@@QAEXXZ,0x000053EE,0x000053EE,23,Code/GameEngine/Source/Common/System/Xfer.cpp,matched,Open-BFME5 clean C++; Xfer::Version1 transferring a 1/1 Version pair through vtable slot 10
+??8Xfer@@UAEAAV0@AAD@Z,0x0000546C,0x0000546C,28,Code/GameEngine/Source/Common/System/Xfer.cpp,matched,Open-BFME5 clean C++; Xfer 'byte' transfer operator at slot 35 of the retail vtable
+??8Xfer@@UAEAAV0@AAE@Z,0x00005488,0x00005488,28,Code/GameEngine/Source/Common/System/Xfer.cpp,matched,Open-BFME5 clean C++; Xfer 'ubyt' transfer operator at slot 34 of the retail vtable
+??8Xfer@@UAEAAV0@AA_N@Z,0x000054A4,0x000054A4,28,Code/GameEngine/Source/Common/System/Xfer.cpp,matched,Open-BFME5 clean C++; Xfer 'bool' transfer operator at slot 36 of the retail vtable
+??8Xfer@@UAEAAV0@AAH@Z,0x000054C0,0x000054C0,28,Code/GameEngine/Source/Common/System/Xfer.cpp,matched,Open-BFME5 clean C++; Xfer 'int' transfer operator at slot 31 of the retail vtable
+??8Xfer@@UAEAAV0@AA_J@Z,0x000054DC,0x000054DC,28,Code/GameEngine/Source/Common/System/Xfer.cpp,matched,Open-BFME5 clean C++; Xfer 'i64' transfer operator at slot 29 of the retail vtable
+??8Xfer@@UAEAAV0@AAI@Z,0x000054F8,0x000054F8,28,Code/GameEngine/Source/Common/System/Xfer.cpp,matched,Open-BFME5 clean C++; Xfer 'uint' transfer operator at slot 30 of the retail vtable
+??8Xfer@@UAEAAV0@AAF@Z,0x00005514,0x00005514,28,Code/GameEngine/Source/Common/System/Xfer.cpp,matched,Open-BFME5 clean C++; Xfer 'shrt' transfer operator at slot 33 of the retail vtable
+??8Xfer@@UAEAAV0@AAG@Z,0x00005530,0x00005530,28,Code/GameEngine/Source/Common/System/Xfer.cpp,matched,Open-BFME5 clean C++; Xfer 'usht' transfer operator at slot 32 of the retail vtable
+??8Xfer@@UAEAAV0@AAM@Z,0x0000554C,0x0000554C,28,Code/GameEngine/Source/Common/System/Xfer.cpp,matched,Open-BFME5 clean C++; Xfer 'real' transfer operator at slot 28 of the retail vtable
 ?d_00005568@@YAXXZ,,0x00005568,51,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=operator==
 ?d_0000559b@@YAXXZ,,0x0000559B,21,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=operator!=
 ?d_000055b0@@YAXXZ,,0x000055B0,30,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_004055b0
