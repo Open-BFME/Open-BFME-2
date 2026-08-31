@@ -85,6 +85,9 @@ public:
     Coord2D &SetYAxis();
     Coord2D &SetZero();
 
+    float GetLength() const;
+    float GetLengthSqrd() const;
+
     float GetLengthEstimate() const;
 };
 
@@ -355,4 +358,24 @@ float Coord2D::GetLengthEstimate() const
     }
 
     return (float)(fabs(y) + fabs(x) * 0.25f);
+}
+
+// The two components have to be read into named locals first. Written as
+// `x * x + y * y` straight off the members MSVC loads y before x; hoisting them
+// is what puts the loads in retail's order, and coord3d.cpp's identical 2D pair
+// - the same bodies, ICF-folded - is where that shape came from.
+float Coord2D::GetLength() const
+{
+    float x_value = x;
+    float y_value = y;
+
+    return (float)sqrt(x_value * x_value + y_value * y_value);
+}
+
+float Coord2D::GetLengthSqrd() const
+{
+    float x_value = x;
+    float y_value = y;
+
+    return x_value * x_value + y_value * y_value;
 }

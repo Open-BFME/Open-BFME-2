@@ -34,21 +34,27 @@ struct Coord3DBase
     float z;
 };
 
-class Coord2D
+struct Coord2DBase
 {
-public:
     float x;
     float y;
 };
 
-class Coord3D
+class Coord2D : public Coord2DBase
+{
+};
+
+// The three floats live in a base, which is what splits the two assignments:
+// from another Coord3D the compiler block-copies the base with three movsd,
+// while from a bare Coord3DBase it copies field by field.
+class Coord3D : public Coord3DBase
 {
 public:
     // The default constructor is what the free operator- below needs for its
     // named return value, and the copy constructor is what makes MSVC 7.1 apply
     // NRV to it at all: with the implicit trivial one the return value is built
     // in a stack temporary and blockcopied out, frame pointer and all.
-    Coord3D() {}
+    Coord3D();
     Coord3D(const Coord3D &that)
     {
         x = that.x;
@@ -102,13 +108,85 @@ public:
     void sub(const Coord3DBase *that);
     void zero();
 
-    float x;
-    float y;
-    float z;
+    ~Coord3D();
+
+    Coord3D(const Coord3DBase &that);
+    Coord3D(float x, float y, float z);
+    Coord3D &operator=(const Coord3DBase &that);
+    Coord3D &operator=(const Coord2DBase &that);
+    Coord3D &operator=(const Coord2D &that);
+    Coord3D &Set(float x, float y, float z);
+    Coord3D &Add(const Coord2D &that);
+    Coord3D &Add2D(const Coord3DBase &that);
+    Coord3D &Add(const Coord3DBase &that);
+    Coord3D &Sub(const Coord2D &that);
+    Coord3D &Sub2D(const Coord3DBase &that);
+    Coord3D &Sub(const Coord3DBase &that);
+    Coord3D &operator-=(const Coord3DBase &that);
+    bool IsExactlyEqualTo(const Coord3D &that) const;
+    bool equals(const Coord3DBase &that) const;
 };
 
 static const float length_estimate_factor = 0.25f;
 static const float one = 1.0f;
+
+Coord3D::Coord3D()
+{
+}
+
+Coord3D::~Coord3D()
+{
+}
+
+Coord3D::Coord3D(const Coord3DBase &that)
+{
+    x = that.x;
+    y = that.y;
+    z = that.z;
+}
+
+Coord3D &Coord3D::operator=(const Coord3DBase &that)
+{
+    x = that.x;
+    y = that.y;
+    z = that.z;
+
+    return *this;
+}
+
+Coord3D::Coord3D(float x, float y, float z)
+{
+    this->x = x;
+    this->y = y;
+    this->z = z;
+}
+
+Coord3D &Coord3D::Set(float x, float y, float z)
+{
+    this->x = x;
+    this->y = y;
+    this->z = z;
+
+    return *this;
+}
+
+Coord3D &Coord3D::operator-=(const Coord3DBase &that)
+{
+    x -= that.x;
+    y -= that.y;
+    z -= that.z;
+
+    return *this;
+}
+
+Coord3D &Coord3D::Sub(const Coord3DBase &that)
+{
+    x -= that.x;
+    y -= that.y;
+    z -= that.z;
+
+    return *this;
+}
 
 Coord3D::Coord3D(const Coord2D &that)
 {
@@ -481,3 +559,78 @@ Debug &operator<<(Debug &debug, const Coord3D &coord)
     debug << "(" << coord.x << ", " << coord.y << ", " << coord.z << ")";
     return debug;
 }
+
+Coord3D &Coord3D::operator=(const Coord2DBase &that)
+{
+    x = that.x;
+    y = that.y;
+    z = 0.0f;
+
+    return *this;
+}
+
+Coord3D &Coord3D::operator=(const Coord2D &that)
+{
+    x = that.x;
+    y = that.y;
+    z = 0.0f;
+
+    return *this;
+}
+
+Coord3D &Coord3D::Add(const Coord2D &that)
+{
+    x += that.x;
+    y += that.y;
+
+    return *this;
+}
+
+Coord3D &Coord3D::Add2D(const Coord3DBase &that)
+{
+    x += that.x;
+    y += that.y;
+
+    return *this;
+}
+
+Coord3D &Coord3D::Sub(const Coord2D &that)
+{
+    x -= that.x;
+    y -= that.y;
+
+    return *this;
+}
+
+Coord3D &Coord3D::Sub2D(const Coord3DBase &that)
+{
+    x -= that.x;
+    y -= that.y;
+
+    return *this;
+}
+
+Coord3D &Coord3D::Add(const Coord3DBase &that)
+{
+    x += that.x;
+    y += that.y;
+    z += that.z;
+
+    return *this;
+}
+
+bool Coord3D::IsExactlyEqualTo(const Coord3D &that) const
+{
+    return x == that.x && y == that.y && z == that.z;
+}
+
+bool Coord3D::equals(const Coord3DBase &that) const
+{
+    return x == that.x && y == that.y && z == that.z;
+}
+
+// The generated assignment, which is the one that block-copies the base; the
+// declared overloads above hide it, so a member pointer is what names it.
+typedef Coord3D &(Coord3D::*Coord3DAssign)(const Coord3D &);
+
+Coord3DAssign g_coord3dAssign = &Coord3D::operator=;
