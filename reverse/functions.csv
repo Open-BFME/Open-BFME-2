@@ -1169,3 +1169,8 @@ _free,,0x00030830,17,Code/GameEngine/Source/Common/System/GameMemoryFree.cpp,mat
 ??0?$CategoryModuleClass@$05@FXParticleSystem@@IAE@_NPBD1@Z,0x003A8215,0x003A8215,51,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; CategoryModuleClass registration constructor
 ??0?$CategoryModuleClass@$06@FXParticleSystem@@IAE@_NPBD1@Z,0x003A87AA,0x003A87AA,51,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; CategoryModuleClass registration constructor
 ??0?$CategoryModuleClass@$07@FXParticleSystem@@IAE@_NPBD1@Z,0x003A87DD,0x003A87DD,39,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; CategoryModuleClass category 8 constructor
+?isNotEmpty@?$StringBase@G@@QBE_NXZ,0x000358E0,0x000358E0,40,Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp,matched,Open-BFME5 clean C++; StringBase search predicate
+?startsWith@?$StringBase@D@@QBE_NPBDH@Z,0x00035970,0x00035970,60,Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp,matched,Open-BFME5 clean C++; StringBase prefix and suffix test
+?endsWith@?$StringBase@D@@QBE_NPBDH@Z,0x00035A00,0x00035A00,75,Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp,matched,Open-BFME5 clean C++; StringBase prefix and suffix test
+?startsWith@?$StringBase@D@@QBE_NABV1@@Z,0x00035FB0,0x00035FB0,79,Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp,matched,Open-BFME5 clean C++; StringBase prefix and suffix test
+?endsWith@?$StringBase@D@@QBE_NABV1@@Z,0x00036060,0x00036060,111,Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp,matched,Open-BFME5 clean C++; StringBase prefix and suffix test

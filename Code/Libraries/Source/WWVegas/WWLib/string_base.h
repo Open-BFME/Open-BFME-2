@@ -23,6 +23,11 @@ public:
     bool isEmpty() const;
     bool isNotEmpty() const;
     bool isNone() const;
+    bool startsWith(const StringBase<T> &str) const;
+    bool startsWith(const T *str, int len) const;
+    bool endsWith(const StringBase<T> &str) const;
+    bool endsWith(const T *str, int len) const;
+    const T *find(T c) const;
     bool isNotNone() const;
     const T *str() const;
     void set(const StringBase<T> &str);
