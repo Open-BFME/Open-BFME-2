@@ -1,4 +1,4 @@
-// cl: /O1
+// cl: /O1 /G7
 // Microsoft Visual C++ .NET 2003 ATL 7.1 atlconv.h members.
 //
 // CA2WEX keeps a t_nBufferLength-wide-character buffer inside the object and
@@ -15,6 +15,7 @@ typedef unsigned int UINT;
 typedef unsigned long DWORD;
 typedef long HRESULT;
 typedef long LONG;
+typedef DWORD LCID;
 typedef int BOOL;
 typedef void *PVOID;
 
@@ -32,6 +33,7 @@ typedef OSVERSIONINFOA OSVERSIONINFO;
 
 #define NULL 0
 #define VER_PLATFORM_WIN32_NT 2
+#define LOCALE_IDEFAULTANSICODEPAGE 0x00001004
 #define InterlockedExchangePointer(target, value) \
 	(PVOID) InterlockedExchange((LONG *)(target), (LONG)(value))
 #define E_OUTOFMEMORY ((HRESULT)0x8007000EL)
@@ -50,6 +52,10 @@ extern "C" __declspec(dllimport) void __cdecl free(void *block);
 extern "C" __declspec(dllimport) DWORD __stdcall GetLastError();
 extern "C" __declspec(dllimport) BOOL __stdcall GetVersionExA(OSVERSIONINFOA *info);
 extern "C" __declspec(dllimport) LONG __stdcall InterlockedExchange(LONG *target, LONG value);
+extern "C" __declspec(dllimport) LCID __stdcall GetThreadLocale();
+extern "C" __declspec(dllimport) int __stdcall GetLocaleInfoA(
+		LCID locale, DWORD type, LPSTR data, int data_chars);
+extern "C" __declspec(dllimport) UINT __stdcall GetACP();
 
 LPWSTR __stdcall AtlA2WHelper(LPWSTR lpw, LPCSTR lpa, int nChars, UINT acp)
 {
@@ -88,10 +94,34 @@ __declspec(noreturn) void __stdcall AtlThrow(HRESULT hr);
 // to it; every later conversion then calls that one directly.
 typedef UINT(__stdcall *ATLGETTHREADACP)();
 
-// Bodies at 0x0044827C and 0x0000107F, both still unconverted; only their
-// addresses are needed here.
+// Body at 0x0044827C, still unconverted; only its address is needed here.
 UINT __stdcall _AtlGetThreadACPReal();
-UINT __stdcall _AtlGetThreadACPFake();
+
+UINT __stdcall _AtlGetThreadACPFake() throw()
+{
+	UINT nACP = 0;
+
+	LCID lcidThread = ::GetThreadLocale();
+
+	char szACP[7];
+	// GetLocaleInfoA will fail for a Unicode-only LCID, but those are only supported on
+	// Windows 2000.  Since Windows 2000 supports CP_THREAD_ACP, this code path is never
+	// executed on Windows 2000.
+	if (::GetLocaleInfoA(lcidThread, LOCALE_IDEFAULTANSICODEPAGE, szACP, 7) != 0)
+	{
+		char *pch = szACP;
+		while (*pch != '\0')
+		{
+			nACP *= 10;
+			nACP += *pch++ - '0';
+		}
+	}
+	// Use the Default ANSI Code Page if we were unable to get the thread ACP or if one does not exist.
+	if (nACP == 0)
+		nACP = ::GetACP();
+
+	return nACP;
+}
 
 extern ATLGETTHREADACP g_pfnGetThreadACP;
 

@@ -1777,3 +1777,4 @@ _free,,0x00030830,17,Code/GameEngine/Source/Common/System/GameMemoryFree.cpp,mat
 ?CreateEx@CImage@ATL@@QAEHHHHKPBKK@Z,,0x00002690,205,Code/Libraries/Source/ATL/atlimage.cpp,matched,vendored=atl-7.1
 ??0?$CA2WEX@$0IA@@ATL@@QAE@PBD@Z,,0x00002206,32,Code/Libraries/Source/ATL/atlconv.cpp,matched,vendored=atl-7.1
 ?_AtlGetThreadACPThunk@ATL@@YGIXZ,,0x000010CF,80,Code/Libraries/Source/ATL/atlconv.cpp,matched,vendored=atl-7.1
+?_AtlGetThreadACPFake@ATL@@YGIXZ,,0x0000107F,80,Code/Libraries/Source/ATL/atlconv.cpp,matched,vendored=atl-7.1
