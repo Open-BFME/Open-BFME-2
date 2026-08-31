@@ -192,7 +192,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_00002639@@YAXXZ,,0x00002639,66,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Clone
 ?d_00002690@@YAXXZ,,0x00002690,205,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00402690
 ?d_0000275d@@YAXXZ,,0x0000275D,395,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_0040275d
-?d_000028e8@@YAXXZ,,0x000028E8,37,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=operator<<<char>
 ?d_00002942@@YAXXZ,,0x00002942,28,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00402942
 ?d_0000295e@@YAXXZ,,0x0000295E,524,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_0040295e
 ?d_00002bb5@@YAXXZ,,0x00002BB5,132,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00402bb5
@@ -1069,3 +1068,4 @@ _free,,0x00030830,17,Code/GameEngine/Source/Common/System/GameMemoryFree.cpp,mat
 ?expandBy@IRegion3D@@QAEXABUICoord3D@@@Z,0x000064FC,0x000064FC,60,Code/Libraries/Source/WWVegas/WWMath/region.cpp,matched,Open-BFME5 clean C++; IRegion3D expandBy
 ??0Matrix4D@@QAE@_N@Z,0x00005AE7,0x00005AE7,102,Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp,matched,Open-BFME5 clean C++; Matrix4D identity-flag constructor
 ??0Matrix4D@@QAE@ABVCoord3D@@@Z,0x00005BB8,0x00005BB8,116,Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp,matched,Open-BFME5 clean C++; Matrix4D translation constructor
+??$?6D@@YAAAVDebug@@AAV0@ABV?$StringBase@D@@@Z,0x000028E8,0x000028E8,37,Code/Libraries/Source/WWVegas/WWLib/string_base.cpp,matched,Open-BFME5 clean C++; Debug stream insertion for StringBase<char>

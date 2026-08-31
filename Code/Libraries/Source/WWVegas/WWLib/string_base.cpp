@@ -5,6 +5,60 @@
 #define _DLL
 #include <string.h>
 
+class Debug
+{
+public:
+    virtual void v0();
+    virtual void v1();
+    virtual void v2();
+    virtual void v3();
+    virtual void v4();
+    virtual void v5();
+    virtual void v6();
+    virtual void v7();
+    virtual Debug &operator<<(const char *value);
+    virtual Debug &operator<<(int value);
+    virtual Debug &operator<<(unsigned int value);
+    virtual Debug &operator<<(unsigned char value);
+    virtual Debug &operator<<(short value);
+    virtual Debug &operator<<(unsigned short value);
+    virtual void v9();
+    virtual void v10();
+    virtual void v11();
+    virtual void v12();
+    virtual void v13();
+    virtual Debug &operator<<(float value);
+};
+
+// A translation-unit mirror of StringBase's private header block, so the
+// streamer below can inline the str() test the way retail does without opening
+// the member up in string_base.h.
+struct StringBaseHeader
+{
+    int ref_count;
+    unsigned short length;
+    unsigned short capacity;
+    char data[1];
+};
+
+// exports.csv names 0x000028E8 ??$?6D@@YAAAVDebug@@AAV0@ABV?$StringBase@D@@@Z -
+// the decoration says a function TEMPLATE specialization, not a plain overload.
+// It inlines str() and hands the result to the const char * overload, which
+// MSVC 7.1 places at vtable slot 0x38: the overload run is emitted in reverse
+// declaration order from the first overload's slot, so the float one declared
+// last lands at 0x20 and this one, declared first, last of all at 0x38.
+template <typename T>
+Debug &operator<<(Debug &debug, const StringBase<T> &str)
+{
+    const StringBaseHeader *header = *(const StringBaseHeader *const *)&str;
+
+    debug << (header ? &header->data[0] : "");
+
+    return debug;
+}
+
+template Debug &operator<<(Debug &debug, const StringBase<char> &str);
+
 // The four (const T *, int) comparison members hand five arguments to a shared
 // worker: this string's data and length, the argument's data and length, and a
 // one-byte trait object the callers zero with a lea/stosb pair. Neither narrow
