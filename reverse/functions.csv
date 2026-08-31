@@ -210,7 +210,7 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_000039bb@@YAXXZ,,0x000039BB,80,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Rotate
 ?d_00003ace@@YAXXZ,,0x00003ACE,372,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=GetLengthEstimate
 ?d_00003c70@@YAXXZ,,0x00003C70,97,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=CrossProduct
-??G@YA?AVCoord3D@@V0@@Z,0x00003FEE,0x00003FEE,46,Code/Libraries/Source/WWVegas/WWMath/coord3d_negate.cpp,matched,Open-BFME5 clean C++; Coord3D unary negation via POD value view
+?d_00003fee@@YAXXZ,,0x00003FEE,46,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=operator-
 ?d_0000401c@@YAXXZ,,0x0000401C,93,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=SetIdentity
 ?d_00004079@@YAXXZ,,0x00004079,357,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Matrix4D
 ?d_000047da@@YAXXZ,,0x000047DA,918,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Multiply
