@@ -54,6 +54,7 @@ public:
 
 private:
     StringBase(T character);
+    StringBase(const T *str);
     StringBase(const T *str, int len);
     StringBase(const T *str, int start, int len);
     StringBase(const StringBase<T> &str, int start, int len);

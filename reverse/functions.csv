@@ -1368,3 +1368,5 @@ _free,,0x00030830,17,Code/GameEngine/Source/Common/System/GameMemoryFree.cpp,mat
 ?format@?$StringBase@G@@QAAXPBGZZ,0x00037FF0,0x00037FF0,70,Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp,matched,Open-BFME5 clean C++; wide StringBase formatting
 ?format@AsciiString@@QAAXPBV1@ZZ,0x000381E0,0x000381E0,50,Code/Libraries/Source/WWVegas/WWLib/string_inline.cpp,matched,Open-BFME5 clean C++; string formatting from another string
 ?format@UnicodeString@@QAAXPBV1@ZZ,0x006CB660,0x006CB660,50,Code/Libraries/Source/WWVegas/WWLib/string_inline.cpp,matched,Open-BFME5 clean C++; string formatting from another string
+??0?$StringBase@D@@AAE@PBD@Z,0x00037BA0,0x00037BA0,65,Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp,matched,Open-BFME5 clean C++; StringBase C-string constructor
+??0?$StringBase@G@@AAE@PBG@Z,0x00037E30,0x00037E30,62,Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp,matched,Open-BFME5 clean C++; StringBase C-string constructor

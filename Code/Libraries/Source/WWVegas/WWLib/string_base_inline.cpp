@@ -30,6 +30,22 @@ StringBase<T>::StringBase(T character)
     set(&character, 1);
 }
 
+// Same shape as the length-taking one, with the length measured by an inlined
+// strlen or wcslen and the null guard the compare overloads use.
+template <>
+StringBase<char>::StringBase(const char *str)
+{
+    m_data = 0;
+    set(str, str ? (int)strlen(str) : 0);
+}
+
+template <>
+StringBase<wchar_t>::StringBase(const wchar_t *str)
+{
+    m_data = 0;
+    set(str, str ? (int)wcslen(str) : 0);
+}
+
 template <typename T>
 StringBase<T>::StringBase(const T *str, int len)
 {
