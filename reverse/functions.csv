@@ -166,12 +166,12 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_00001423@@YAXXZ,,0x00001423,34,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=`vector_constructor_iterator'
 ?d_0000145b@@YAXXZ,,0x0000145B,83,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_0040145b
 ?d_00001720@@YAXXZ,,0x00001720,19,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00401720
-?d_00001745@@YAXXZ,,0x00001745,11,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Snapshot
+??0Snapshot@@QAE@ABV0@@Z,0x00001745,0x00001745,11,Code/GameEngine/Source/Common/System/Snapshot.cpp,matched,Open-BFME5 clean C++; Snapshot copy constructor ignoring its argument
 ?d_0000179f@@YAXXZ,,0x0000179F,1167,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_0040179f
 ?d_00001c72@@YAXXZ,,0x00001C72,126,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00401c72
 ?d_00001d69@@YAXXZ,,0x00001D69,23,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=CategoryModuleTemplate<1>
 ?d_00001d80@@YAXXZ,,0x00001D80,26,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00401d80
-?d_00001e2f@@YAXXZ,,0x00001E2F,20,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=isEmpty
+?isEmpty@?$StringBase@D@@QBE_NXZ,0x00001E2F,0x00001E2F,20,Code/GameEngine/Source/Common/System/AsciiString.cpp,matched,Open-BFME5 clean C++; narrow StringBase emptiness test over the 16-bit length at offset 4
 ?d_00001e43@@YAXXZ,,0x00001E43,36,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00401e43
 ?d_00001e7f@@YAXXZ,,0x00001E7F,47,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=RandomAlphaKeyframe
 ?d_00001ef9@@YAXXZ,,0x00001EF9,31,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=CategoryModuleTemplate<8>
@@ -207,7 +207,7 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_00003295@@YAXXZ,,0x00003295,35,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=AtlWinModuleInit
 ?d_000032da@@YAXXZ,,0x000032DA,62,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_004032da
 ?d_00003318@@YAXXZ,,0x00003318,122,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00403318
-?d_000034fa@@YAXXZ,,0x000034FA,42,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=areApproxEqual
+?areApproxEqual@@YA_NMMM@Z,0x000034FA,0x000034FA,42,Code/Libraries/Source/WWVegas/WWMath/wwmath.cpp,matched,Open-BFME5 clean C++; float equality within a signed tolerance band
 ?d_000036d1@@YAXXZ,,0x000036D1,49,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=scale
 ?d_00003916@@YAXXZ,,0x00003916,101,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Rotate
 ?d_000039bb@@YAXXZ,,0x000039BB,80,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Rotate
@@ -217,7 +217,7 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_0000401c@@YAXXZ,,0x0000401C,93,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=SetIdentity
 ?d_00004079@@YAXXZ,,0x00004079,357,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Matrix4D
 ?d_000047da@@YAXXZ,,0x000047DA,918,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Multiply
-?d_000053a6@@YAXXZ,,0x000053A6,9,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Snapshot
+??0Snapshot@@QAE@XZ,0x000053A6,0x000053A6,9,Code/GameEngine/Source/Common/System/Snapshot.cpp,matched,Open-BFME5 clean C++; Snapshot default constructor installing the vtable at 0x00BBB554
 ??0Xfer@@QAE@XZ,0x000053DE,0x000053DE,9,Code/GameEngine/Source/Common/System/Xfer.cpp,matched,Open-BFME5 clean C++; Xfer constructor installing the vtable at 0x00BBB910
 ??1Xfer@@UAE@XZ,0x000053E7,0x000053E7,7,Code/GameEngine/Source/Common/System/Xfer.cpp,matched,Open-BFME5 clean C++; Xfer destructor restoring the vtable at 0x00BBB910
 ?Version1@Xfer@@QAEXXZ,0x000053EE,0x000053EE,23,Code/GameEngine/Source/Common/System/Xfer.cpp,matched,Open-BFME5 clean C++; Xfer::Version1 transferring a 1/1 Version pair through vtable slot 10
