@@ -1004,14 +1004,39 @@ public:
 template <class TAG>
 class ConcreteModuleTemplate : public TAG::TemplateType
 {
+public:
+    ConcreteModuleTemplate();
+
+    virtual void v1();
+    virtual typename TAG::TemplateType *clone() const;
 };
+
+template <class TAG>
+ConcreteModuleTemplate<TAG>::ConcreteModuleTemplate()
+{
+}
+
+template <class TAG>
+void ConcreteModuleTemplate<TAG>::v1()
+{
+}
+
+// clone is not claimed yet. Retail calls the generated copy constructor out of
+// line; MSVC 7.1 inlines it into every clone, so 0x003A8A1F and its siblings
+// come out with the three vtable stores in the body and the copy constructor
+// itself never emitted at all.
+template <class TAG>
+typename TAG::TemplateType *ConcreteModuleTemplate<TAG>::clone() const
+{
+    return new ConcreteModuleTemplate<TAG>(*this);
+}
 
 extern const char *const RENDEROBJECT_DRAW_MODULE_KEY;
 extern const char *const RENDEROBJECT_DRAW_MODULE_NAME;
 
 class RenderObjectDrawModule;
 
-class RenderObjectDrawModuleTemplate
+class RenderObjectDrawModuleTemplate : public ModuleTemplate, public SecondaryModuleBase, public RenderObjectDrawModuleInfo
 {
 public:
     RenderObjectDrawModuleTemplate &operator=(const RenderObjectDrawModuleTemplate &that);
@@ -1028,7 +1053,7 @@ extern const char *const LIGHTNING_DRAW_MODULE_NAME;
 
 class LightningDrawModule;
 
-class LightningDrawModuleTemplate
+class LightningDrawModuleTemplate : public ModuleTemplate, public SecondaryModuleBase, public LightningDrawModuleInfo
 {
 public:
     LightningDrawModuleTemplate &operator=(const LightningDrawModuleTemplate &that);
@@ -1045,7 +1070,7 @@ extern const char *const GPU_DRAW_MODULE_NAME;
 
 class GpuDrawModule;
 
-class GpuDrawModuleTemplate
+class GpuDrawModuleTemplate : public ModuleTemplate, public SecondaryModuleBase, public GpuDrawModuleInfo
 {
 public:
     GpuDrawModuleTemplate &operator=(const GpuDrawModuleTemplate &that);
@@ -1095,7 +1120,7 @@ extern const char *const LIGHTNING_EMISSION_MODULE_NAME;
 
 class LightningEmissionModule;
 
-class LightningEmissionModuleTemplate
+class LightningEmissionModuleTemplate : public ModuleTemplate, public SecondaryModuleBase, public LightningEmissionInfo
 {
 public:
     LightningEmissionModuleTemplate &operator=(const LightningEmissionModuleTemplate &that);
@@ -1112,7 +1137,7 @@ extern const char *const TERRAIN_FIRE_EMISSION_MODULE_NAME;
 
 class TerrainFireEmissionModule;
 
-class TerrainFireEmissionModuleTemplate
+class TerrainFireEmissionModuleTemplate : public ModuleTemplate, public SecondaryModuleBase, public TerrainFireEmissionInfo
 {
 public:
     TerrainFireEmissionModuleTemplate &operator=(const TerrainFireEmissionModuleTemplate &that);
@@ -1130,7 +1155,7 @@ extern const char *const LIFE_EVENT_MODULE_NAME;
 class LifeEventModule;
 class ParticleLifeEventModule;
 
-class LifeEventModuleTemplate
+class LifeEventModuleTemplate : public ModuleTemplate, public SecondaryModuleBase, public LifeEventModuleInfo
 {
 public:
     LifeEventModuleTemplate &operator=(const LifeEventModuleTemplate &that);
@@ -1148,7 +1173,7 @@ extern const char *const RENDEROBJECT_UPDATE_MODULE_NAME;
 class RenderObjectUpdateModule;
 class RenderObjectParticleUpdateModule;
 
-class RenderObjectUpdateModuleTemplate
+class RenderObjectUpdateModuleTemplate : public ModuleTemplate, public SecondaryModuleBase, public RenderObjectUpdateModuleInfo
 {
 public:
     RenderObjectUpdateModuleTemplate &operator=(const RenderObjectUpdateModuleTemplate &that);
@@ -1166,7 +1191,7 @@ extern const char *const TERRAIN_COLLISION_MODULE_NAME;
 class TerrainCollisionModule;
 class ParticleTerrainCollisionModule;
 
-class TerrainCollisionModuleTemplate
+class TerrainCollisionModuleTemplate : public ModuleTemplate, public SecondaryModuleBase, public TerrainCollisionModuleInfo
 {
 public:
     TerrainCollisionModuleTemplate &operator=(const TerrainCollisionModuleTemplate &that);
@@ -1179,8 +1204,19 @@ typedef TerrainCollisionModuleConcrete &(TerrainCollisionModuleConcrete::*Terrai
 TerrainCollisionModuleConcreteAssign g_terrainCollisionModuleConcreteAssign = &TerrainCollisionModuleConcrete::operator=;
 
 // The default modules use a tag with nothing but a category in it.
+// The default modules' info class is per category and not recovered yet; what
+// matters for the wrappers is that it carries a vtable of its own, which is what
+// keeps the template's three tables at 0, 4 and 8.
+class DefaultModuleInfoBase
+{
+public:
+    virtual ~DefaultModuleInfoBase();
+    virtual void v1() = 0;
+};
+
 template <int CATEGORY>
-class DefaultModuleTemplate
+class DefaultModuleTemplate : public ModuleTemplate, public SecondaryModuleBase,
+                              public DefaultModuleInfoBase
 {
 public:
     DefaultModuleTemplate<CATEGORY> &operator=(const DefaultModuleTemplate<CATEGORY> &that);
@@ -1221,7 +1257,7 @@ struct OrthoEmissionVelocityModuleTag
     typedef OrthoEmissionVelocityModuleTemplate TemplateType;
 };
 
-class OrthoEmissionVelocityModuleTemplate
+class OrthoEmissionVelocityModuleTemplate : public ModuleTemplate, public SecondaryModuleBase, public OrthoEmissionVelocityInfo
 {
 public:
     OrthoEmissionVelocityModuleTemplate &operator=(const OrthoEmissionVelocityModuleTemplate &that);
@@ -1234,5 +1270,63 @@ typedef OrthoEmissionVelocityConcrete &(
 
 OrthoEmissionVelocityConcreteAssign g_orthoEmissionVelocityConcreteAssign =
     &OrthoEmissionVelocityConcrete::operator=;
+
+// The concrete templates that carry a clone. ConcreteModuleTemplate overrides
+// virtuals of all three of its base's tables, so its constructors install three
+// vtables of their own after the base constructor runs, and clone is
+// operator new followed by its own copy constructor.
+template <class TAG>
+class ConcreteModuleTemplateWithClone;
+
+extern const char *const STREAK_DRAW_MODULE_KEY;
+extern const char *const STREAK_DRAW_MODULE_NAME;
+
+class StreakDrawModule;
+
+class StreakDrawModuleTemplate : public ModuleTemplate, public SecondaryModuleBase, public StreakDrawModuleInfo
+{
+public:
+    StreakDrawModuleTemplate();
+    StreakDrawModuleTemplate(const StreakDrawModuleTemplate &that);
+};
+
+typedef ConcreteModuleTemplate<ModuleTag<6, STREAK_DRAW_MODULE_KEY, STREAK_DRAW_MODULE_NAME, StreakDrawModule, StreakDrawModuleTemplate, DefaultParticleModule<6> > >
+    StreakDrawModuleConcrete;
+
+StreakDrawModuleConcrete g_streakDrawModuleConcrete;
+
+extern const char *const QUAD_DRAW_MODULE_KEY;
+extern const char *const QUAD_DRAW_MODULE_NAME;
+
+class QuadDrawModule;
+
+class QuadDrawModuleTemplate : public ModuleTemplate, public SecondaryModuleBase, public QuadDrawModuleInfo
+{
+public:
+    QuadDrawModuleTemplate();
+    QuadDrawModuleTemplate(const QuadDrawModuleTemplate &that);
+};
+
+typedef ConcreteModuleTemplate<ModuleTag<6, QUAD_DRAW_MODULE_KEY, QUAD_DRAW_MODULE_NAME, QuadDrawModule, QuadDrawModuleTemplate, DefaultParticleModule<6> > >
+    QuadDrawModuleConcrete;
+
+QuadDrawModuleConcrete g_quadDrawModuleConcrete;
+
+extern const char *const BUTTERFLY_DRAW_MODULE_KEY;
+extern const char *const BUTTERFLY_DRAW_MODULE_NAME;
+
+class ButterflyDrawModule;
+
+class ButterflyDrawModuleTemplate : public ModuleTemplate, public SecondaryModuleBase, public ButterflyDrawModuleInfo
+{
+public:
+    ButterflyDrawModuleTemplate();
+    ButterflyDrawModuleTemplate(const ButterflyDrawModuleTemplate &that);
+};
+
+typedef ConcreteModuleTemplate<ModuleTag<6, BUTTERFLY_DRAW_MODULE_KEY, BUTTERFLY_DRAW_MODULE_NAME, ButterflyDrawModule, ButterflyDrawModuleTemplate, DefaultParticleModule<6> > >
+    ButterflyDrawModuleConcrete;
+
+ButterflyDrawModuleConcrete g_butterflyDrawModuleConcrete;
 
 }
