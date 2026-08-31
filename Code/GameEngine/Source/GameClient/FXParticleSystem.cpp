@@ -984,4 +984,144 @@ typedef SphericalEmissionVelocityModuleTemplate &(SphericalEmissionVelocityModul
 
 SphericalEmissionVelocityModuleTemplateAssign g_sphericalEmissionVelocityModuleTemplateAssign = &SphericalEmissionVelocityModuleTemplate::operator=;
 
+// The module tag: a category, the INI key and display name it registers under,
+// the module and template classes it builds, and the default module for its
+// category. Only the tag's identity reaches the decorated names, so the classes
+// it names need declaring but not defining, and ConcreteModuleTemplate derives
+// from the template class the tag carries - which is what makes its generated
+// assignment one forwarding call.
+template <int CATEGORY>
+class DefaultParticleModule;
+
+template <int CATEGORY, const char *const &KEY, const char *const &NAME, class MODULE,
+    class TEMPLATE, class DEFAULT>
+class ModuleTag
+{
+public:
+    typedef TEMPLATE TemplateType;
+};
+
+template <class TAG>
+class ConcreteModuleTemplate : public TAG::TemplateType
+{
+};
+
+extern const char *const RENDEROBJECT_DRAW_MODULE_KEY;
+extern const char *const RENDEROBJECT_DRAW_MODULE_NAME;
+
+class RenderObjectDrawModule;
+
+class RenderObjectDrawModuleTemplate
+{
+public:
+    RenderObjectDrawModuleTemplate &operator=(const RenderObjectDrawModuleTemplate &that);
+};
+
+typedef ConcreteModuleTemplate<ModuleTag<6, RENDEROBJECT_DRAW_MODULE_KEY, RENDEROBJECT_DRAW_MODULE_NAME, RenderObjectDrawModule, RenderObjectDrawModuleTemplate, DefaultParticleModule<6> > >
+    RenderObjectDrawModuleConcrete;
+typedef RenderObjectDrawModuleConcrete &(RenderObjectDrawModuleConcrete::*RenderObjectDrawModuleConcreteAssign)(const RenderObjectDrawModuleConcrete &);
+
+RenderObjectDrawModuleConcreteAssign g_renderObjectDrawModuleConcreteAssign = &RenderObjectDrawModuleConcrete::operator=;
+
+extern const char *const LIGHTNING_DRAW_MODULE_KEY;
+extern const char *const LIGHTNING_DRAW_MODULE_NAME;
+
+class LightningDrawModule;
+
+class LightningDrawModuleTemplate
+{
+public:
+    LightningDrawModuleTemplate &operator=(const LightningDrawModuleTemplate &that);
+};
+
+typedef ConcreteModuleTemplate<ModuleTag<6, LIGHTNING_DRAW_MODULE_KEY, LIGHTNING_DRAW_MODULE_NAME, LightningDrawModule, LightningDrawModuleTemplate, DefaultParticleModule<6> > >
+    LightningDrawModuleConcrete;
+typedef LightningDrawModuleConcrete &(LightningDrawModuleConcrete::*LightningDrawModuleConcreteAssign)(const LightningDrawModuleConcrete &);
+
+LightningDrawModuleConcreteAssign g_lightningDrawModuleConcreteAssign = &LightningDrawModuleConcrete::operator=;
+
+extern const char *const GPU_DRAW_MODULE_KEY;
+extern const char *const GPU_DRAW_MODULE_NAME;
+
+class GpuDrawModule;
+
+class GpuDrawModuleTemplate
+{
+public:
+    GpuDrawModuleTemplate &operator=(const GpuDrawModuleTemplate &that);
+};
+
+typedef ConcreteModuleTemplate<ModuleTag<6, GPU_DRAW_MODULE_KEY, GPU_DRAW_MODULE_NAME, GpuDrawModule, GpuDrawModuleTemplate, DefaultParticleModule<6> > >
+    GpuDrawModuleConcrete;
+typedef GpuDrawModuleConcrete &(GpuDrawModuleConcrete::*GpuDrawModuleConcreteAssign)(const GpuDrawModuleConcrete &);
+
+GpuDrawModuleConcreteAssign g_gpuDrawModuleConcreteAssign = &GpuDrawModuleConcrete::operator=;
+
+extern const char *const LINE_EMISSION_VOLUME_MODULE_KEY;
+extern const char *const LINE_EMISSION_VOLUME_MODULE_NAME;
+
+class LineEmissionVolumeModule;
+
+typedef ConcreteModuleTemplate<ModuleTag<5, LINE_EMISSION_VOLUME_MODULE_KEY, LINE_EMISSION_VOLUME_MODULE_NAME, LineEmissionVolumeModule, LineEmissionVolumeModuleTemplate, DefaultParticleModule<5> > >
+    LineEmissionVolumeModuleConcrete;
+typedef LineEmissionVolumeModuleConcrete &(LineEmissionVolumeModuleConcrete::*LineEmissionVolumeModuleConcreteAssign)(const LineEmissionVolumeModuleConcrete &);
+
+LineEmissionVolumeModuleConcreteAssign g_lineEmissionVolumeModuleConcreteAssign = &LineEmissionVolumeModuleConcrete::operator=;
+
+extern const char *const BOX_EMISSION_VOLUME_MODULE_KEY;
+extern const char *const BOX_EMISSION_VOLUME_MODULE_NAME;
+
+class BoxEmissionVolumeModule;
+
+typedef ConcreteModuleTemplate<ModuleTag<5, BOX_EMISSION_VOLUME_MODULE_KEY, BOX_EMISSION_VOLUME_MODULE_NAME, BoxEmissionVolumeModule, BoxEmissionVolumeModuleTemplate, DefaultParticleModule<5> > >
+    BoxEmissionVolumeModuleConcrete;
+typedef BoxEmissionVolumeModuleConcrete &(BoxEmissionVolumeModuleConcrete::*BoxEmissionVolumeModuleConcreteAssign)(const BoxEmissionVolumeModuleConcrete &);
+
+BoxEmissionVolumeModuleConcreteAssign g_boxEmissionVolumeModuleConcreteAssign = &BoxEmissionVolumeModuleConcrete::operator=;
+
+extern const char *const CYLINDER_EMISSION_VOLUME_MODULE_KEY;
+extern const char *const CYLINDER_EMISSION_VOLUME_MODULE_NAME;
+
+class CylinderEmissionVolumeModule;
+
+typedef ConcreteModuleTemplate<ModuleTag<5, CYLINDER_EMISSION_VOLUME_MODULE_KEY, CYLINDER_EMISSION_VOLUME_MODULE_NAME, CylinderEmissionVolumeModule, CylinderEmissionVolumeModuleTemplate, DefaultParticleModule<5> > >
+    CylinderEmissionVolumeModuleConcrete;
+typedef CylinderEmissionVolumeModuleConcrete &(CylinderEmissionVolumeModuleConcrete::*CylinderEmissionVolumeModuleConcreteAssign)(const CylinderEmissionVolumeModuleConcrete &);
+
+CylinderEmissionVolumeModuleConcreteAssign g_cylinderEmissionVolumeModuleConcreteAssign = &CylinderEmissionVolumeModuleConcrete::operator=;
+
+extern const char *const LIGHTNING_EMISSION_MODULE_KEY;
+extern const char *const LIGHTNING_EMISSION_MODULE_NAME;
+
+class LightningEmissionModule;
+
+class LightningEmissionModuleTemplate
+{
+public:
+    LightningEmissionModuleTemplate &operator=(const LightningEmissionModuleTemplate &that);
+};
+
+typedef ConcreteModuleTemplate<ModuleTag<5, LIGHTNING_EMISSION_MODULE_KEY, LIGHTNING_EMISSION_MODULE_NAME, LightningEmissionModule, LightningEmissionModuleTemplate, DefaultParticleModule<5> > >
+    LightningEmissionModuleConcrete;
+typedef LightningEmissionModuleConcrete &(LightningEmissionModuleConcrete::*LightningEmissionModuleConcreteAssign)(const LightningEmissionModuleConcrete &);
+
+LightningEmissionModuleConcreteAssign g_lightningEmissionModuleConcreteAssign = &LightningEmissionModuleConcrete::operator=;
+
+extern const char *const TERRAIN_FIRE_EMISSION_MODULE_KEY;
+extern const char *const TERRAIN_FIRE_EMISSION_MODULE_NAME;
+
+class TerrainFireEmissionModule;
+
+class TerrainFireEmissionModuleTemplate
+{
+public:
+    TerrainFireEmissionModuleTemplate &operator=(const TerrainFireEmissionModuleTemplate &that);
+};
+
+typedef ConcreteModuleTemplate<ModuleTag<5, TERRAIN_FIRE_EMISSION_MODULE_KEY, TERRAIN_FIRE_EMISSION_MODULE_NAME, TerrainFireEmissionModule, TerrainFireEmissionModuleTemplate, DefaultParticleModule<5> > >
+    TerrainFireEmissionModuleConcrete;
+typedef TerrainFireEmissionModuleConcrete &(TerrainFireEmissionModuleConcrete::*TerrainFireEmissionModuleConcreteAssign)(const TerrainFireEmissionModuleConcrete &);
+
+TerrainFireEmissionModuleConcreteAssign g_terrainFireEmissionModuleConcreteAssign = &TerrainFireEmissionModuleConcrete::operator=;
+
 }

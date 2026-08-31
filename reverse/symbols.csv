@@ -127,3 +127,8 @@ __CIasin,0x006298B6,MSVCR71 import thunk (jmp [0x00BBA5CC]); same shape from the
 ?format_va@?$StringBase@G@@QAEXPBGPAD@Z,0x000377E0,BFME2 export and retail call target for the StringBase<wchar_t> varargs formatter
 ?translate@AsciiString@@QAEXPBG@Z,0x00038170,BFME2 export; the wide-string translate the UnicodeString overload tail-jumps into
 ?translate@UnicodeString@@QAEXPBD@Z,0x006CB5F0,BFME2 export; the narrow-string translate the AsciiString overload tail-jumps into
+??4RenderObjectDrawModuleTemplate@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A7DA9,BFME2 export; the module template assignment the ConcreteModuleTemplate wrapper forwards to
+??4LightningDrawModuleTemplate@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A7ECF,BFME2 export; the module template assignment the ConcreteModuleTemplate wrapper forwards to
+??4GpuDrawModuleTemplate@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A7F1D,BFME2 export; the module template assignment the ConcreteModuleTemplate wrapper forwards to
+??4LightningEmissionModuleTemplate@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A6CF0,BFME2 export; the module template assignment the ConcreteModuleTemplate wrapper forwards to
+??4TerrainFireEmissionModuleTemplate@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A6F64,BFME2 export; the module template assignment the ConcreteModuleTemplate wrapper forwards to
