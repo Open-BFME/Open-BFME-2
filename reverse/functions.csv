@@ -147,11 +147,11 @@ _zcfree,,0x00694710,13,Code/Libraries/Source/Compression/ZLib/zutil.c,matched,ve
 _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matched,vendored=zlib-1.1.4
 ?d_000010cf@@YAXXZ,,0x000010CF,80,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_004010cf
 ?d_00001125@@YAXXZ,,0x00001125,23,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00401125
-?d_000011b4@@YAXXZ,,0x000011B4,9,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=ModuleTemplate
-?d_000011bd@@YAXXZ,,0x000011BD,7,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=~ModuleTemplate
-?d_000011c4@@YAXXZ,,0x000011C4,11,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=ModuleTemplate
+??0ModuleTemplate@FXParticleSystem@@QAE@XZ,0x000011B4,0x000011B4,9,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; FXParticleSystem ModuleTemplate default constructor
+??1ModuleTemplate@FXParticleSystem@@UAE@XZ,0x000011BD,0x000011BD,7,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; FXParticleSystem ModuleTemplate destructor
+??0ModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x000011C4,0x000011C4,11,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; FXParticleSystem ModuleTemplate copy constructor
 ?d_00001240@@YAXXZ,,0x00001240,15,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=operator=
-?d_0000124f@@YAXXZ,,0x0000124F,27,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=operator=
+??4?$CategoryModuleTemplate@$07@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x0000124F,0x0000124F,27,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; generated assignment adjusting the source by 8 to reach the EventModuleInfo base
 ?d_00001278@@YAXXZ,,0x00001278,25,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=setUV
 ?d_000012a3@@YAXXZ,,0x000012A3,15,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_004012a3
 ?d_000012b2@@YAXXZ,,0x000012B2,36,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_004012b2
