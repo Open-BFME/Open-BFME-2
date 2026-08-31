@@ -528,22 +528,35 @@ const CategoryModuleClass<CATEGORY> *CategoryModuleClass<CATEGORY>::getFirst()
 
 // The four draw-module info classes carry nothing but their own vtable: both
 // constructors install it and the copy constructor ignores its argument.
-#define FX_VTABLE_ONLY_INFO(NAME)                                                                      class NAME                                                                                         {                                                                                                  public:                                                                                                NAME();                                                                                            NAME(const NAME &that);                                                                                                                                                                               virtual ~NAME() {}                                                                                    virtual void v1() = 0;                                                                             virtual const char *GetSnapshotName();                                                         };                                                                                                                                                                                                    NAME::NAME() {}                                                                                    NAME::NAME(const NAME &that) {}                                                                                                                                                                       const char *NAME::GetSnapshotName()                                                                {                                                                                                      return #NAME;                                                                                  }
+#define FX_VTABLE_ONLY_INFO(NAME)                                                                      class NAME                                                                                         {                                                                                                  public:                                                                                                NAME();                                                                                            NAME(const NAME &that);                                                                                                                                                                               virtual ~NAME();                                                                                    virtual void v1() = 0;                                                                             virtual const char *GetSnapshotName();                                                         };                                                                                                                                                                                                    NAME::NAME() {}                                                                                    NAME::NAME(const NAME &that) {}                                                                                                                                                                       const char *NAME::GetSnapshotName()                                                                {                                                                                                      return #NAME;                                                                                  }
 
 FX_VTABLE_ONLY_INFO(DefaultDrawModuleInfo)
 FX_VTABLE_ONLY_INFO(StreakDrawModuleInfo)
 FX_VTABLE_ONLY_INFO(QuadDrawModuleInfo)
 FX_VTABLE_ONLY_INFO(ButterflyDrawModuleInfo)
 
+// Out of line, one per class: an in-class body is implicitly inline and MSVC
+// then folds it into its callers rather than emitting the COMDAT the ledger
+// needs to compare.
+DefaultDrawModuleInfo::~DefaultDrawModuleInfo() {}
+StreakDrawModuleInfo::~StreakDrawModuleInfo() {}
+QuadDrawModuleInfo::~QuadDrawModuleInfo() {}
+ButterflyDrawModuleInfo::~ButterflyDrawModuleInfo() {}
+
 // These four carry members this file has not recovered, but their assignments
 // are real out-of-line functions their module templates call, so they are
 // declared rather than defaulted.
-#define FX_DECLARED_ASSIGN_INFO(NAME)                                                                  class NAME                                                                                         {                                                                                                  public:                                                                                                NAME();                                                                                            NAME(const NAME &that);                                                                                                                                                                               NAME &operator=(const NAME &that);                                                                                                                                                                    virtual ~NAME() {}                                                                                   virtual void v1() = 0;                                                                             virtual const char *GetSnapshotName();                                                         };                                                                                                                                                                                                    NAME::NAME() {}                                                                                    NAME::NAME(const NAME &that) {}                                                                                                                                                                       const char *NAME::GetSnapshotName()                                                                {                                                                                                      return #NAME;                                                                                  }
+#define FX_DECLARED_ASSIGN_INFO(NAME)                                                                  class NAME                                                                                         {                                                                                                  public:                                                                                                NAME();                                                                                            NAME(const NAME &that);                                                                                                                                                                               NAME &operator=(const NAME &that);                                                                                                                                                                    virtual ~NAME();                                                                                   virtual void v1() = 0;                                                                             virtual const char *GetSnapshotName();                                                         };                                                                                                                                                                                                    NAME::NAME() {}                                                                                    NAME::NAME(const NAME &that) {}                                                                                                                                                                       const char *NAME::GetSnapshotName()                                                                {                                                                                                      return #NAME;                                                                                  }
 
 FX_DECLARED_ASSIGN_INFO(RenderObjectDrawModuleInfo)
 FX_DECLARED_ASSIGN_INFO(GpuDrawModuleInfo)
 FX_DECLARED_ASSIGN_INFO(LifeEventModuleInfo)
 FX_DECLARED_ASSIGN_INFO(TerrainCollisionModuleInfo)
+
+RenderObjectDrawModuleInfo::~RenderObjectDrawModuleInfo() {}
+GpuDrawModuleInfo::~GpuDrawModuleInfo() {}
+LifeEventModuleInfo::~LifeEventModuleInfo() {}
+TerrainCollisionModuleInfo::~TerrainCollisionModuleInfo() {}
 
 // The module class itself. Every instantiation registers into two per-category
 // tables: the default slot at 0x00DFDD1C, written only when the first argument
@@ -795,7 +808,7 @@ class DefaultPhysicsModuleInfo
 public:
     DefaultPhysicsModuleInfo(const DefaultPhysicsModuleInfo &that);
 
-    virtual ~DefaultPhysicsModuleInfo() {}
+    virtual ~DefaultPhysicsModuleInfo();
     virtual void v1() = 0;
 
     FXCoord3D m_unknown04;
@@ -830,7 +843,7 @@ class LightningDrawModuleInfo
 public:
     LightningDrawModuleInfo(const LightningDrawModuleInfo &that);
 
-    virtual ~LightningDrawModuleInfo() {}
+    virtual ~LightningDrawModuleInfo();
     virtual void v1() = 0;
 
     FXCoord3D m_unknown04;
@@ -859,7 +872,7 @@ LightningDrawModuleInfo::LightningDrawModuleInfo(const LightningDrawModuleInfo &
 class OrthoEmissionVelocityInfo
 {
 public:
-    virtual ~OrthoEmissionVelocityInfo() {}
+    virtual ~OrthoEmissionVelocityInfo();
     virtual void v1() = 0;
 
     FXCoord3D m_unknown04;
@@ -881,6 +894,8 @@ OrthoEmissionVelocityAssign g_orthoEmissionVelocityAssign = &OrthoEmissionVeloci
 class TerrainFireEmissionInfo : public EmissionVolumeInfo
 {
 public:
+    virtual ~TerrainFireEmissionInfo();
+
     FXCoord3D m_unknown08;
     FXCoord3D m_unknown14;
     FXCoord3D m_unknown20;
@@ -891,6 +906,8 @@ class LightningEmissionInfo : public EmissionVolumeInfo
 {
 public:
     LightningEmissionInfo(const LightningEmissionInfo &that);
+
+    virtual ~LightningEmissionInfo();
 
     FXCoord3D m_unknown08;
     FXCoord3D m_unknown14;
@@ -935,7 +952,7 @@ class DefaultUpdateModuleInfo
 public:
     DefaultUpdateModuleInfo(const DefaultUpdateModuleInfo &that);
 
-    virtual ~DefaultUpdateModuleInfo() {}
+    virtual ~DefaultUpdateModuleInfo();
     virtual void v1() = 0;
 
     FXCoord3D m_unknown04;
@@ -985,7 +1002,7 @@ class RenderObjectUpdateModuleInfo
 public:
     RenderObjectUpdateModuleInfo(const RenderObjectUpdateModuleInfo &that);
 
-    virtual ~RenderObjectUpdateModuleInfo() {}
+    virtual ~RenderObjectUpdateModuleInfo();
     virtual void v1() = 0;
 
     FXCoord3D m_unknown04;
@@ -1022,7 +1039,7 @@ struct FXKeyframe
 class DefaultAlphaModuleInfo
 {
 public:
-    virtual ~DefaultAlphaModuleInfo() {}
+    virtual ~DefaultAlphaModuleInfo();
     virtual void v1();
 
     FXKeyframe m_keys[8];
@@ -1049,7 +1066,7 @@ DefaultAlphaModuleInfo *fxCopyDefaultAlphaModuleInfo(void *storage,
 class DefaultColorModuleInfo
 {
 public:
-    virtual ~DefaultColorModuleInfo() {}
+    virtual ~DefaultColorModuleInfo();
     virtual void v1();
 
     FXKeyframe m_keys[8];
@@ -1726,5 +1743,44 @@ void fxDestroyStreakDrawModuleTemplate(StreakDrawModuleTemplate *p) { p->~Streak
 // declaring one out of line drops the null-checked base adjustment retail
 // keeps, so this body is the ICF alias that cannot yet be proven.
 void fxDestroyTerrainFireEmissionModuleTemplate(TerrainFireEmissionModuleTemplate *p) { p->~TerrainFireEmissionModuleTemplate(); }
+
+
+// Every info destructor is one vtable store, and the linker folds all of them
+// onto 0x0049B47C - Snapshot's own destructor among them. Nothing here destroys
+// one, so an explicit call per class is what forces them out.
+
+void fxDestroyInfoBoxEmissionVolumeInfo(BoxEmissionVolumeInfo *p) { p->~BoxEmissionVolumeInfo(); }
+
+void fxDestroyInfoCylinderEmissionVolumeInfo(CylinderEmissionVolumeInfo *p) { p->~CylinderEmissionVolumeInfo(); }
+
+DefaultAlphaModuleInfo::~DefaultAlphaModuleInfo() {}
+
+DefaultColorModuleInfo::~DefaultColorModuleInfo() {}
+
+DefaultPhysicsModuleInfo::~DefaultPhysicsModuleInfo() {}
+
+DefaultUpdateModuleInfo::~DefaultUpdateModuleInfo() {}
+
+void fxDestroyInfoEmissionVelocityInfo(EmissionVelocityInfo *p) { p->~EmissionVelocityInfo(); }
+
+void fxDestroyInfoEmissionVolumeInfo(EmissionVolumeInfo *p) { p->~EmissionVolumeInfo(); }
+
+LightningDrawModuleInfo::~LightningDrawModuleInfo() {}
+
+LightningEmissionInfo::~LightningEmissionInfo() {}
+
+void fxDestroyInfoLineEmissionVolumeInfo(LineEmissionVolumeInfo *p) { p->~LineEmissionVolumeInfo(); }
+
+OrthoEmissionVelocityInfo::~OrthoEmissionVelocityInfo() {}
+
+RenderObjectUpdateModuleInfo::~RenderObjectUpdateModuleInfo() {}
+
+void fxDestroyInfoSphereEmissionVolumeInfo(SphereEmissionVolumeInfo *p) { p->~SphereEmissionVolumeInfo(); }
+
+void fxDestroyInfoSphericalEmissionVelocityInfo(SphericalEmissionVelocityInfo *p) { p->~SphericalEmissionVelocityInfo(); }
+
+TerrainFireEmissionInfo::~TerrainFireEmissionInfo() {}
+
+void fxDestroyInfoWindModuleInfo(WindModuleInfo *p) { p->~WindModuleInfo(); }
 
 }

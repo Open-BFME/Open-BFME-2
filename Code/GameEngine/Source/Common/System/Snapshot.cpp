@@ -26,3 +26,9 @@ Snapshot::Snapshot()
 Snapshot::Snapshot(const Snapshot &that)
 {
 }
+
+// One vtable store, and the linker folds it together with every FXParticleSystem
+// info destructor - which is what proves they all share Snapshot's table.
+Snapshot::~Snapshot()
+{
+}
