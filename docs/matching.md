@@ -72,6 +72,38 @@ an `esi`/`edi` pair; write the copy constructor out member by member and the sam
 straight through the return pointer with no frame at all. `operator-(Coord3D)` at 0x00003FEE
 is the case that shows it.
 
+A fourth, and the one that carried the most bodies: **a compiler-generated `operator=` never
+coalesces loose members, so its shape IS the class layout.** A `movsd` run always means a
+sub-object; a lone `mov` means a loose scalar; a byte move means a flag. `WindModuleInfo`
+(0x001F3654) proves it - seventeen adjacent members, seventeen separate moves. The generated
+COPY CONSTRUCTOR behaves differently: it expands the leading members one at a time and switches
+to blocks for the rest, so the two generated functions cross-check each other. Neither is emitted
+unless something uses it; force one with a pointer-to-member for `operator=`, and with a
+placement-new helper for the copy constructor.
+
+A fifth: **what the caller can SEE of its callee decides the register save set.** With the callee
+defined in the same unit MSVC 7.1 proves which registers it leaves alone and parks values there;
+with only a declaration it saves esi/edi like retail. This is a translation-unit question, not an
+ordering one - moving the definition later in the same file changes nothing. It moved
+`expandRange` out of `region.cpp`, split the FXParticleSystem module wrappers away from the module
+templates, and is why `??0RGBColor@@QAE@H@Z` cannot live in `color.cpp`.
+
+A sixth: **the same library is built at two optimization levels.** `string_base.cpp` and
+`ascii_string.cpp` are /O1; a set of their members only match at /O2 and live in
+`string_base_inline.cpp` and `string_inline.cpp`. The tells are `mov eax, 1` rather than xor/inc
+for a true, a duplicated `ret` in each arm rather than a jump to a shared epilogue, a full-width
+`movsx`/`movzx` rather than an 8-bit move, a tail `jmp` into a sibling overload rather than
+push/call, `mov dword ptr [reg], 0` rather than the three-byte `and dword ptr [reg], 0`, and a
+`rep cmpsb` rather than a `memcmp` call (/O2 implies /Oi). Recompiling a whole unit at the other
+level and counting what breaks is a cheap, decisive test.
+
+Two smaller ones. **`inline` is a lever in both directions**: MSVC will not auto-inline a 93-byte
+`SetIdentity` however the file is ordered, and marking it `inline` (with its address taken to keep
+the standalone copy) is what lets two constructors absorb it; conversely a base constructor that
+retail folds in has to be marked `inline` or it is called out of line. And **an empty
+non-polymorphic base of a polymorphic class is not folded away** - MSVC gives it offset 4, behind
+the vptr - so a stub base has to be modelled with its real vtable count or every member shifts.
+
 One positive pattern: MSVC 7.1 groups overloaded virtual operators at the first overload slot and
 emits them in reverse declaration order. The `Debug` shim intentionally declares stream overloads
 so `float`, `unsigned int`, `int`, and `const char *` land at the target vtable slots `0x20`,
