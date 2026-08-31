@@ -132,8 +132,17 @@ class CategoryModuleTemplateBase : public ModuleTemplate, public SecondaryModule
 {
 public:
     CategoryModuleTemplateBase() {}
-    CategoryModuleTemplateBase(const CategoryModuleTemplateBase<CATEGORY> &that);
+    __declspec(noinline) CategoryModuleTemplateBase(const CategoryModuleTemplateBase<CATEGORY> &that);
 };
+
+// Kept out of line so the derived copy constructors still call it, which is how
+// retail spells them. The body is the generated one: the two base copies fold
+// down to their vtable stores, and the derived fixup repeats the second.
+template <int CATEGORY>
+CategoryModuleTemplateBase<CATEGORY>::CategoryModuleTemplateBase(
+    const CategoryModuleTemplateBase<CATEGORY> &)
+{
+}
 
 template <int CATEGORY>
 class CategoryModuleTemplate : public CategoryModuleTemplateBase<CATEGORY>,
@@ -146,7 +155,13 @@ public:
 // The retail instantiations are reached through derived module templates, so
 // nothing in this translation unit would emit their constructors on its own.
 // A file-scope instance of each is what forces them out.
+CategoryModuleTemplate<0> g_categoryModuleTemplate0;
 CategoryModuleTemplate<1> g_categoryModuleTemplate1;
+CategoryModuleTemplate<2> g_categoryModuleTemplate2;
+CategoryModuleTemplate<3> g_categoryModuleTemplate3;
+CategoryModuleTemplate<4> g_categoryModuleTemplate4;
+CategoryModuleTemplate<5> g_categoryModuleTemplate5;
+CategoryModuleTemplate<6> g_categoryModuleTemplate6;
 CategoryModuleTemplate<8> g_categoryModuleTemplate8;
 
 typedef CategoryModuleTemplate<8> EventCategoryModuleTemplate;
@@ -166,6 +181,19 @@ CategoryModuleTemplate<8> *fxCopyEventCategoryModuleTemplate(void *storage,
 {
     return new (storage) CategoryModuleTemplate<8>(that);
 }
+
+// Every category whose info base is the empty ModuleInfo produces the same copy
+// constructor - base copy, then the two vtable stores - so ICF folds all seven
+// onto 0x0004CB7B. These force each one out.
+#define FX_FORCE_CATEGORY_COPY(N)                                                  CategoryModuleTemplate<N> *fxCopyCategoryModuleTemplate##N(void *storage,           const CategoryModuleTemplate<N> &that)                                     {                                                                                  return new (storage) CategoryModuleTemplate<N>(that);                       }
+
+FX_FORCE_CATEGORY_COPY(0)
+FX_FORCE_CATEGORY_COPY(1)
+FX_FORCE_CATEGORY_COPY(2)
+FX_FORCE_CATEGORY_COPY(3)
+FX_FORCE_CATEGORY_COPY(4)
+FX_FORCE_CATEGORY_COPY(5)
+FX_FORCE_CATEGORY_COPY(6)
 
 // Every module category has a display name and an INI key, kept side by side in
 // one eight-byte table entry; both accessors index it with the category and

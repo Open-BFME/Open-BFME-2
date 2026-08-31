@@ -200,3 +200,10 @@ __CIasin,0x006298B6,MSVCR71 import thunk (jmp [0x00BBA5CC]); same shape from the
 ?startsWithNoCase@?$StringBase@D@@QBE_NPBDH@Z,0x000359B0,BFME2 export and retail call target; the body is banked as a near miss on one register choice
 ??0?$CategoryModuleTemplateBase@$07@FXParticleSystem@@QAE@ABV01@@Z,0x001F421B,BFME2 export; the two-vtable module base copy constructor CategoryModuleTemplate calls - ICF folds all nine categories onto this address
 ??0?$CategoryModuleTemplateBase@$06@FXParticleSystem@@QAE@ABV01@@Z,0x001F421B,BFME2 export ordinal 82; same ICF-folded module base copy constructor as the $07 pin - category 7 is wind
+??0?$CategoryModuleTemplateBase@$0A@@FXParticleSystem@@QAE@ABV01@@Z,0x001F421B,BFME2 export; ICF-folded module base copy constructor - all nine categories share this address
+??0?$CategoryModuleTemplateBase@$00@FXParticleSystem@@QAE@ABV01@@Z,0x001F421B,BFME2 export; ICF-folded module base copy constructor - all nine categories share this address
+??0?$CategoryModuleTemplateBase@$01@FXParticleSystem@@QAE@ABV01@@Z,0x001F421B,BFME2 export; ICF-folded module base copy constructor - all nine categories share this address
+??0?$CategoryModuleTemplateBase@$02@FXParticleSystem@@QAE@ABV01@@Z,0x001F421B,BFME2 export; ICF-folded module base copy constructor - all nine categories share this address
+??0?$CategoryModuleTemplateBase@$03@FXParticleSystem@@QAE@ABV01@@Z,0x001F421B,BFME2 export; ICF-folded module base copy constructor - all nine categories share this address
+??0?$CategoryModuleTemplateBase@$04@FXParticleSystem@@QAE@ABV01@@Z,0x001F421B,BFME2 export; ICF-folded module base copy constructor - all nine categories share this address
+??0?$CategoryModuleTemplateBase@$05@FXParticleSystem@@QAE@ABV01@@Z,0x001F421B,BFME2 export; ICF-folded module base copy constructor - all nine categories share this address
