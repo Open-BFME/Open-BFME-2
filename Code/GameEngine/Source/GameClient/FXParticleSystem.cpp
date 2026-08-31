@@ -1124,4 +1124,115 @@ typedef TerrainFireEmissionModuleConcrete &(TerrainFireEmissionModuleConcrete::*
 
 TerrainFireEmissionModuleConcreteAssign g_terrainFireEmissionModuleConcreteAssign = &TerrainFireEmissionModuleConcrete::operator=;
 
+extern const char *const LIFE_EVENT_MODULE_KEY;
+extern const char *const LIFE_EVENT_MODULE_NAME;
+
+class LifeEventModule;
+class ParticleLifeEventModule;
+
+class LifeEventModuleTemplate
+{
+public:
+    LifeEventModuleTemplate &operator=(const LifeEventModuleTemplate &that);
+};
+
+typedef ConcreteModuleTemplate<ModuleTag<8, LIFE_EVENT_MODULE_KEY, LIFE_EVENT_MODULE_NAME, LifeEventModule, LifeEventModuleTemplate, ParticleLifeEventModule> >
+    LifeEventModuleConcrete;
+typedef LifeEventModuleConcrete &(LifeEventModuleConcrete::*LifeEventModuleConcreteAssign)(const LifeEventModuleConcrete &);
+
+LifeEventModuleConcreteAssign g_lifeEventModuleConcreteAssign = &LifeEventModuleConcrete::operator=;
+
+extern const char *const RENDEROBJECT_UPDATE_MODULE_KEY;
+extern const char *const RENDEROBJECT_UPDATE_MODULE_NAME;
+
+class RenderObjectUpdateModule;
+class RenderObjectParticleUpdateModule;
+
+class RenderObjectUpdateModuleTemplate
+{
+public:
+    RenderObjectUpdateModuleTemplate &operator=(const RenderObjectUpdateModuleTemplate &that);
+};
+
+typedef ConcreteModuleTemplate<ModuleTag<2, RENDEROBJECT_UPDATE_MODULE_KEY, RENDEROBJECT_UPDATE_MODULE_NAME, RenderObjectUpdateModule, RenderObjectUpdateModuleTemplate, RenderObjectParticleUpdateModule> >
+    RenderObjectUpdateModuleConcrete;
+typedef RenderObjectUpdateModuleConcrete &(RenderObjectUpdateModuleConcrete::*RenderObjectUpdateModuleConcreteAssign)(const RenderObjectUpdateModuleConcrete &);
+
+RenderObjectUpdateModuleConcreteAssign g_renderObjectUpdateModuleConcreteAssign = &RenderObjectUpdateModuleConcrete::operator=;
+
+extern const char *const TERRAIN_COLLISION_MODULE_KEY;
+extern const char *const TERRAIN_COLLISION_MODULE_NAME;
+
+class TerrainCollisionModule;
+class ParticleTerrainCollisionModule;
+
+class TerrainCollisionModuleTemplate
+{
+public:
+    TerrainCollisionModuleTemplate &operator=(const TerrainCollisionModuleTemplate &that);
+};
+
+typedef ConcreteModuleTemplate<ModuleTag<8, TERRAIN_COLLISION_MODULE_KEY, TERRAIN_COLLISION_MODULE_NAME, TerrainCollisionModule, TerrainCollisionModuleTemplate, ParticleTerrainCollisionModule> >
+    TerrainCollisionModuleConcrete;
+typedef TerrainCollisionModuleConcrete &(TerrainCollisionModuleConcrete::*TerrainCollisionModuleConcreteAssign)(const TerrainCollisionModuleConcrete &);
+
+TerrainCollisionModuleConcreteAssign g_terrainCollisionModuleConcreteAssign = &TerrainCollisionModuleConcrete::operator=;
+
+// The default modules use a tag with nothing but a category in it.
+template <int CATEGORY>
+class DefaultModuleTemplate
+{
+public:
+    DefaultModuleTemplate<CATEGORY> &operator=(const DefaultModuleTemplate<CATEGORY> &that);
+};
+
+template <int CATEGORY>
+class DefaultModuleTag
+{
+public:
+    typedef DefaultModuleTemplate<CATEGORY> TemplateType;
+};
+
+typedef ConcreteModuleTemplate<DefaultModuleTag<1> > DefaultConcrete1;
+typedef DefaultConcrete1 &(DefaultConcrete1::*DefaultConcrete1Assign)(const DefaultConcrete1 &);
+
+DefaultConcrete1Assign g_defaultConcrete1Assign = &DefaultConcrete1::operator=;
+
+typedef ConcreteModuleTemplate<DefaultModuleTag<0> > DefaultConcrete0;
+typedef DefaultConcrete0 &(DefaultConcrete0::*DefaultConcrete0Assign)(const DefaultConcrete0 &);
+
+DefaultConcrete0Assign g_defaultConcrete0Assign = &DefaultConcrete0::operator=;
+
+typedef ConcreteModuleTemplate<DefaultModuleTag<3> > DefaultConcrete3;
+typedef DefaultConcrete3 &(DefaultConcrete3::*DefaultConcrete3Assign)(const DefaultConcrete3 &);
+
+DefaultConcrete3Assign g_defaultConcrete3Assign = &DefaultConcrete3::operator=;
+
+typedef ConcreteModuleTemplate<DefaultModuleTag<2> > DefaultConcrete2;
+typedef DefaultConcrete2 &(DefaultConcrete2::*DefaultConcrete2Assign)(const DefaultConcrete2 &);
+
+DefaultConcrete2Assign g_defaultConcrete2Assign = &DefaultConcrete2::operator=;
+
+// One tag is a plain struct rather than an instantiation.
+class OrthoEmissionVelocityModuleTemplate;
+
+struct OrthoEmissionVelocityModuleTag
+{
+    typedef OrthoEmissionVelocityModuleTemplate TemplateType;
+};
+
+class OrthoEmissionVelocityModuleTemplate
+{
+public:
+    OrthoEmissionVelocityModuleTemplate &operator=(const OrthoEmissionVelocityModuleTemplate &that);
+};
+
+typedef ConcreteModuleTemplate<OrthoEmissionVelocityModuleTag> OrthoEmissionVelocityConcrete;
+typedef OrthoEmissionVelocityConcrete &(
+    OrthoEmissionVelocityConcrete::*OrthoEmissionVelocityConcreteAssign)(
+    const OrthoEmissionVelocityConcrete &);
+
+OrthoEmissionVelocityConcreteAssign g_orthoEmissionVelocityConcreteAssign =
+    &OrthoEmissionVelocityConcrete::operator=;
+
 }

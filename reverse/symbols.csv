@@ -132,3 +132,11 @@ __CIasin,0x006298B6,MSVCR71 import thunk (jmp [0x00BBA5CC]); same shape from the
 ??4GpuDrawModuleTemplate@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A7F1D,BFME2 export; the module template assignment the ConcreteModuleTemplate wrapper forwards to
 ??4LightningEmissionModuleTemplate@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A6CF0,BFME2 export; the module template assignment the ConcreteModuleTemplate wrapper forwards to
 ??4TerrainFireEmissionModuleTemplate@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A6F64,BFME2 export; the module template assignment the ConcreteModuleTemplate wrapper forwards to
+??4?$DefaultModuleTemplate@$00@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A626A,BFME2 export; the module template assignment the ConcreteModuleTemplate wrapper forwards to
+??4?$DefaultModuleTemplate@$0A@@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A63CD,BFME2 export; the module template assignment the ConcreteModuleTemplate wrapper forwards to
+??4?$DefaultModuleTemplate@$02@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A7832,BFME2 export; the module template assignment the ConcreteModuleTemplate wrapper forwards to
+??4?$DefaultModuleTemplate@$01@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A79E5,BFME2 export; the module template assignment the ConcreteModuleTemplate wrapper forwards to
+??4LifeEventModuleTemplate@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A7A7F,BFME2 export; the module template assignment the ConcreteModuleTemplate wrapper forwards to
+??4RenderObjectUpdateModuleTemplate@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A813F,BFME2 export; the module template assignment the ConcreteModuleTemplate wrapper forwards to
+??4TerrainCollisionModuleTemplate@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A81E2,BFME2 export; the module template assignment the ConcreteModuleTemplate wrapper forwards to
+??4OrthoEmissionVelocityModuleTemplate@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A71B3,BFME2 export; the module template assignment the ConcreteModuleTemplate wrapper forwards to
