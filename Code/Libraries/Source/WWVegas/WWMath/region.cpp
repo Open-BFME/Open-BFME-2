@@ -25,10 +25,14 @@ public:
     virtual Debug &operator<<(float value);
 };
 
+struct ICoord2D;
+struct ICoord3D;
+
 struct IRegion2D
 {
     bool operator==(const IRegion2D &that) const;
     bool operator!=(const IRegion2D &that) const;
+    void expandBy(const ICoord2D &point);
     int width() const;
     int height() const;
 
@@ -40,6 +44,7 @@ struct IRegion2D
 
 struct IRegion3D
 {
+    void expandBy(const ICoord3D &point);
     int width() const;
     int height() const;
     int depth() const;
@@ -57,6 +62,26 @@ struct ICoord2DBase
     int x;
     int y;
 };
+
+// exports.csv spells the expandBy parameter ICoord2D, which is a separate name
+// from the ICoord2DBase the Debug streamer takes; the layout is the same two
+// ints either way.
+struct ICoord2D
+{
+    int x;
+    int y;
+};
+
+// Both integer expandBy members widen one axis at a time through this shared
+// three-argument worker rather than inlining the comparison pair.
+void expandRange(int *low, int value, int *high)
+{
+    if (value < *low) {
+        *low = value;
+    } else if (value > *high) {
+        *high = value;
+    }
+}
 
 Debug &operator<<(Debug &debug, const ICoord2DBase &coord);
 
@@ -189,6 +214,19 @@ void Region2D::expandBy(const Coord2D &point)
     } else if (y > y_max) {
         y_max = y;
     }
+}
+
+void IRegion2D::expandBy(const ICoord2D &point)
+{
+    expandRange(&x_min, point.x, &x_max);
+    expandRange(&y_min, point.y, &y_max);
+}
+
+void IRegion3D::expandBy(const ICoord3D &point)
+{
+    expandRange(&x_min, point.x, &x_max);
+    expandRange(&y_min, point.y, &y_max);
+    expandRange(&z_min, point.z, &z_max);
 }
 
 bool IRegion2D::operator!=(const IRegion2D &that) const
