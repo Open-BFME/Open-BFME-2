@@ -170,6 +170,20 @@ typedef EventCategoryModuleTemplate &(EventCategoryModuleTemplate::*EventCategor
 
 EventCategoryAssign g_eventCategoryAssign = &EventCategoryModuleTemplate::operator=;
 
+// The generated assignments of every empty category - the two module bases and
+// the info base alike - are `mov eax, ecx; ret 4`, so all of them fold onto the
+// one address CategoryModuleInfo's assignment already owns. Nothing calls them,
+// so a pointer-to-member each is what forces them out.
+#define FX_FORCE_CATEGORY_ASSIGN(N)                                                typedef CategoryModuleTemplate<N> &(CategoryModuleTemplate<N>::                     *CategoryModuleTemplateAssign##N)(const CategoryModuleTemplate<N> &);       CategoryModuleTemplateAssign##N g_categoryModuleTemplateAssign##N =                 &CategoryModuleTemplate<N>::operator=;                                      typedef CategoryModuleTemplateBase<N> &(CategoryModuleTemplateBase<N>::             *CategoryModuleTemplateBaseAssign##N)(                                              const CategoryModuleTemplateBase<N> &);                                 CategoryModuleTemplateBaseAssign##N g_categoryModuleTemplateBaseAssign##N =         &CategoryModuleTemplateBase<N>::operator=;
+
+FX_FORCE_CATEGORY_ASSIGN(0)
+FX_FORCE_CATEGORY_ASSIGN(1)
+FX_FORCE_CATEGORY_ASSIGN(2)
+FX_FORCE_CATEGORY_ASSIGN(3)
+FX_FORCE_CATEGORY_ASSIGN(4)
+FX_FORCE_CATEGORY_ASSIGN(5)
+FX_FORCE_CATEGORY_ASSIGN(6)
+
 typedef EventModuleInfo &(EventModuleInfo::*EventModuleInfoAssign)(const EventModuleInfo &);
 
 EventModuleInfoAssign g_eventModuleInfoAssign = &EventModuleInfo::operator=;
@@ -427,12 +441,9 @@ protected:
     CategoryModuleClassBase(const CategoryModuleClass<CATEGORY> &that, bool registerIt);
 };
 
-// 0x001F433B and its seven siblings stay unclaimed. The body is `mov eax,
-// [default slot]; ret` and this reproduces it, but the decorated name does not
-// match: retail spells the return type's scope with back-reference 1 where MSVC
-// 7.1 emits 2 here, even though the constructor just above - same class, same
-// parameter type - agrees with retail. Whatever shifts that table has to be
-// found before the eight can be claimed.
+// One load of the category's default slot. Unlike almost everything else in
+// this family these do NOT fold: each category reads a different global, so
+// 0x001F433B and its seven siblings are eight separate six-byte bodies.
 template <int CATEGORY, int MODULE_COUNT>
 const CategoryModuleClass<CATEGORY> &CategoryModuleClassBase<CATEGORY, MODULE_COUNT>::getDefault()
 {
@@ -1595,5 +1606,46 @@ TerrainCollisionModuleTemplateAssign g_terrainCollisionModuleTemplateAssign = &T
 typedef OrthoEmissionVelocityModuleTemplate &(OrthoEmissionVelocityModuleTemplate::*OrthoEmissionVelocityModuleTemplateAssign)(const OrthoEmissionVelocityModuleTemplate &);
 
 OrthoEmissionVelocityModuleTemplateAssign g_orthoEmissionVelocityModuleTemplateAssign = &OrthoEmissionVelocityModuleTemplate::operator=;
+
+
+// The registry base's assignment folds onto the same address as every other
+// empty one: no members, no vtable, nothing to copy. Nothing calls them, so a
+// pointer-to-member each is what forces them out.
+
+typedef CategoryModuleClassBase<0, 1> &(CategoryModuleClassBase<0, 1>::*CategoryModuleClassBaseAssign0)(const CategoryModuleClassBase<0, 1> &);
+
+CategoryModuleClassBaseAssign0 g_categoryModuleClassBaseAssign0 = &CategoryModuleClassBase<0, 1>::operator=;
+
+typedef CategoryModuleClassBase<1, 1> &(CategoryModuleClassBase<1, 1>::*CategoryModuleClassBaseAssign1)(const CategoryModuleClassBase<1, 1> &);
+
+CategoryModuleClassBaseAssign1 g_categoryModuleClassBaseAssign1 = &CategoryModuleClassBase<1, 1>::operator=;
+
+typedef CategoryModuleClassBase<2, 1> &(CategoryModuleClassBase<2, 1>::*CategoryModuleClassBaseAssign2)(const CategoryModuleClassBase<2, 1> &);
+
+CategoryModuleClassBaseAssign2 g_categoryModuleClassBaseAssign2 = &CategoryModuleClassBase<2, 1>::operator=;
+
+typedef CategoryModuleClassBase<3, 1> &(CategoryModuleClassBase<3, 1>::*CategoryModuleClassBaseAssign3)(const CategoryModuleClassBase<3, 1> &);
+
+CategoryModuleClassBaseAssign3 g_categoryModuleClassBaseAssign3 = &CategoryModuleClassBase<3, 1>::operator=;
+
+typedef CategoryModuleClassBase<4, 1> &(CategoryModuleClassBase<4, 1>::*CategoryModuleClassBaseAssign4)(const CategoryModuleClassBase<4, 1> &);
+
+CategoryModuleClassBaseAssign4 g_categoryModuleClassBaseAssign4 = &CategoryModuleClassBase<4, 1>::operator=;
+
+typedef CategoryModuleClassBase<5, 1> &(CategoryModuleClassBase<5, 1>::*CategoryModuleClassBaseAssign5)(const CategoryModuleClassBase<5, 1> &);
+
+CategoryModuleClassBaseAssign5 g_categoryModuleClassBaseAssign5 = &CategoryModuleClassBase<5, 1>::operator=;
+
+typedef CategoryModuleClassBase<6, 1> &(CategoryModuleClassBase<6, 1>::*CategoryModuleClassBaseAssign6)(const CategoryModuleClassBase<6, 1> &);
+
+CategoryModuleClassBaseAssign6 g_categoryModuleClassBaseAssign6 = &CategoryModuleClassBase<6, 1>::operator=;
+
+typedef CategoryModuleClassBase<7, 1> &(CategoryModuleClassBase<7, 1>::*CategoryModuleClassBaseAssign7)(const CategoryModuleClassBase<7, 1> &);
+
+CategoryModuleClassBaseAssign7 g_categoryModuleClassBaseAssign7 = &CategoryModuleClassBase<7, 1>::operator=;
+
+typedef CategoryModuleClassBase<8, 0> &(CategoryModuleClassBase<8, 0>::*CategoryModuleClassBaseAssign8)(const CategoryModuleClassBase<8, 0> &);
+
+CategoryModuleClassBaseAssign8 g_categoryModuleClassBaseAssign8 = &CategoryModuleClassBase<8, 0>::operator=;
 
 }
