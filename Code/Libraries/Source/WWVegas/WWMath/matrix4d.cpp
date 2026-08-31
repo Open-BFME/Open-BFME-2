@@ -32,6 +32,8 @@ public:
     Coord3D &RotateCoord(const Coord3D &coord, Coord3D &out);
     Coord3D &TransformCoord(const Coord3D &coord, Coord3D &out);
     Matrix4D &SetIdentity();
+    Matrix4D &Multiply(const Matrix4D &left, const Matrix4D &right);
+    Matrix4D &Set(const Coord3D &translation);
 
     bool IsExactlyEqualTo(const Matrix4D &that);
     Matrix4D &Transpose();
@@ -442,3 +444,42 @@ float Matrix4D::Inverse()
 // way retail does; taking its address is what still forces the standalone copy
 // at 0x0000401C out.
 Matrix4D &(Matrix4D::*g_matrix4dSetIdentity)() = &Matrix4D::SetIdentity;
+
+// The full 4x4 product written out: sixteen dot products, row of left against
+// column of right, straight into this.
+Matrix4D &Matrix4D::Multiply(const Matrix4D &left, const Matrix4D &right)
+{
+    values[0] = left.values[0] * right.values[0] + left.values[1] * right.values[4] + left.values[2] * right.values[8] + left.values[3] * right.values[12];
+    values[1] = left.values[0] * right.values[1] + left.values[1] * right.values[5] + left.values[2] * right.values[9] + left.values[3] * right.values[13];
+    values[2] = left.values[0] * right.values[2] + left.values[1] * right.values[6] + left.values[2] * right.values[10] + left.values[3] * right.values[14];
+    values[3] = left.values[0] * right.values[3] + left.values[1] * right.values[7] + left.values[2] * right.values[11] + left.values[3] * right.values[15];
+
+    values[4] = left.values[4] * right.values[0] + left.values[5] * right.values[4] + left.values[6] * right.values[8] + left.values[7] * right.values[12];
+    values[5] = left.values[4] * right.values[1] + left.values[5] * right.values[5] + left.values[6] * right.values[9] + left.values[7] * right.values[13];
+    values[6] = left.values[4] * right.values[2] + left.values[5] * right.values[6] + left.values[6] * right.values[10] + left.values[7] * right.values[14];
+    values[7] = left.values[4] * right.values[3] + left.values[5] * right.values[7] + left.values[6] * right.values[11] + left.values[7] * right.values[15];
+
+    values[8] = left.values[8] * right.values[0] + left.values[9] * right.values[4] + left.values[10] * right.values[8] + left.values[11] * right.values[12];
+    values[9] = left.values[8] * right.values[1] + left.values[9] * right.values[5] + left.values[10] * right.values[9] + left.values[11] * right.values[13];
+    values[10] = left.values[8] * right.values[2] + left.values[9] * right.values[6] + left.values[10] * right.values[10] + left.values[11] * right.values[14];
+    values[11] = left.values[8] * right.values[3] + left.values[9] * right.values[7] + left.values[10] * right.values[11] + left.values[11] * right.values[15];
+
+    values[12] = left.values[12] * right.values[0] + left.values[13] * right.values[4] + left.values[14] * right.values[8] + left.values[15] * right.values[12];
+    values[13] = left.values[12] * right.values[1] + left.values[13] * right.values[5] + left.values[14] * right.values[9] + left.values[15] * right.values[13];
+    values[14] = left.values[12] * right.values[2] + left.values[13] * right.values[6] + left.values[14] * right.values[10] + left.values[15] * right.values[14];
+    values[15] = left.values[12] * right.values[3] + left.values[13] * right.values[7] + left.values[14] * right.values[11] + left.values[15] * right.values[15];
+
+    return *this;
+}
+
+// The same body as the translation constructor, folded onto it.
+Matrix4D &Matrix4D::Set(const Coord3D &translation)
+{
+    SetIdentity();
+
+    values[3] = translation.x;
+    values[7] = translation.y;
+    values[11] = translation.z;
+
+    return *this;
+}

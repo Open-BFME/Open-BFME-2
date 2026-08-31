@@ -203,7 +203,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_00003ace@@YAXXZ,,0x00003ACE,372,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=GetLengthEstimate
 ?d_00003c70@@YAXXZ,,0x00003C70,97,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=CrossProduct
 ?d_00004079@@YAXXZ,,0x00004079,357,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Matrix4D
-?d_000047da@@YAXXZ,,0x000047DA,918,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Multiply
 ??0Snapshot@@QAE@XZ,0x000053A6,0x000053A6,9,Code/GameEngine/Source/Common/System/Snapshot.cpp,matched,Open-BFME5 clean C++; Snapshot default constructor installing the vtable at 0x00BBB554
 ??0Xfer@@QAE@XZ,0x000053DE,0x000053DE,9,Code/GameEngine/Source/Common/System/Xfer.cpp,matched,Open-BFME5 clean C++; Xfer constructor installing the vtable at 0x00BBB910
 ??1Xfer@@UAE@XZ,0x000053E7,0x000053E7,7,Code/GameEngine/Source/Common/System/Xfer.cpp,matched,Open-BFME5 clean C++; Xfer destructor restoring the vtable at 0x00BBB910
@@ -1776,3 +1775,5 @@ _free,,0x00030830,17,Code/GameEngine/Source/Common/System/GameMemoryFree.cpp,mat
 ?getUV@ParticleSystemTemplate@FXParticleSystem@@QBEPBURegion2D@@XZ,0x0055C414,0x0055C414,7,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,
 ?getName@ParticleSystemTemplate@FXParticleSystem@@QBE?AVAsciiString@@XZ,0x00002600,0x00002600,30,Code/GameEngine/Source/GameClient/ParticleSystemTemplate.cpp,matched,
 ?getTextureFilename@ParticleSystemTemplate@FXParticleSystem@@QBE?AVAsciiString@@XZ,0x0000261E,0x0000261E,27,Code/GameEngine/Source/GameClient/ParticleSystemTemplate.cpp,matched,
+?Multiply@Matrix4D@@QAEAAV1@ABV1@0@Z,0x000047DA,0x000047DA,918,Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp,matched,
+?Set@Matrix4D@@QAEAAV1@ABVCoord3D@@@Z,0x00005BB8,0x00005BB8,116,Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp,matched,
