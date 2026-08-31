@@ -241,3 +241,6 @@ _atexit,0x006291F8,CRT atexit - forwards to _onexit at 0x006291D2 and folds its 
 ?parse@StreakDrawModuleTemplate@FXParticleSystem@@QAEXPAVINI@@@Z,0x0055FD2F,BFME2 export; the module template INI parser createTemplate calls after allocating
 ?parse@TerrainCollisionModuleTemplate@FXParticleSystem@@QAEXPAVINI@@@Z,0x00564497,BFME2 export; the module template INI parser createTemplate calls after allocating
 ?parse@TerrainFireEmissionModuleTemplate@FXParticleSystem@@QAEXPAVINI@@@Z,0x0055E5E4,BFME2 export; the module template INI parser createTemplate calls after allocating
+?Allocate@?$CAtlSafeAllocBufferManager@VCCRTAllocator@ATL@@@_ATL_SAFE_ALLOCA_IMPL@ATL@@QAEPAXK@Z,0x000021E3,ATL 7.1 _ATL_SAFE_ALLOCA heap arm; Ghidra names 0x21E3 Allocate and its body is the atlalloc.h node-list insert
+??1?$CAtlSafeAllocBufferManager@VCCRTAllocator@ATL@@@_ATL_SAFE_ALLOCA_IMPL@ATL@@QAE@XZ,0x00001D80,ATL 7.1 _ATL_SAFE_ALLOCA buffer-list destructor; body at 0x1D80 walks m_pHead freeing each node
+_memcpy,0x006291A8,CRT memcpy import thunk; Ghidra labels the retail call target at 0x6291A8

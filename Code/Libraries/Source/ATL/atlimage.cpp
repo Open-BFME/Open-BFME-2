@@ -14,6 +14,9 @@ typedef unsigned int UINT;
 typedef unsigned long DWORD;
 typedef unsigned short WORD;
 typedef unsigned char *LPBYTE;
+typedef unsigned short USHORT;
+typedef unsigned long SIZE_T;
+typedef int BOOL;
 
 struct BITMAP
 {
@@ -50,8 +53,22 @@ struct DIBSECTION
     DWORD dsOffset;
 };
 
-struct tagRGBQUAD;
+struct tagRGBQUAD
+{
+    unsigned char rgbBlue;
+    unsigned char rgbGreen;
+    unsigned char rgbRed;
+    unsigned char rgbReserved;
+};
 typedef tagRGBQUAD RGBQUAD;
+
+struct BITMAPINFO
+{
+    BITMAPINFOHEADER bmiHeader;
+    RGBQUAD bmiColors[1];
+};
+
+typedef BITMAPINFO *LPBITMAPINFO;
 
 struct CRITICAL_SECTION
 {
@@ -68,7 +85,30 @@ extern "C" __declspec(dllimport) UINT __stdcall SetDIBColorTable(
 extern "C" __declspec(dllimport) int __stdcall GetObjectA(HGDIOBJ object, int bytes, void *data);
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(CRITICAL_SECTION *section);
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(CRITICAL_SECTION *section);
+extern "C" __declspec(dllimport) HBITMAP __stdcall CreateDIBSection(
+    HDC dc, const BITMAPINFO *info, UINT usage, void **bits, HANDLE section, DWORD offset);
 extern "C" int __cdecl abs(int value);
+extern "C" void *__cdecl memset(void *dest, int value, unsigned int count);
+extern "C" void *__cdecl memcpy(void *dest, const void *src, unsigned int count);
+extern "C" void *__cdecl _alloca(unsigned int size);
+
+#define USES_ATL_SAFE_ALLOCA_EX(x) \
+    ATL::_ATL_SAFE_ALLOCA_IMPL::CAtlSafeAllocBufferManager<x> _AtlSafeAllocaManager
+#define USES_ATL_SAFE_ALLOCA USES_ATL_SAFE_ALLOCA_EX(ATL::CCRTAllocator)
+
+#define _ATL_SAFE_ALLOCA(nRequestedSize, nThreshold) \
+    ((nRequestedSize <= nThreshold && \
+        ATL::_ATL_SAFE_ALLOCA_IMPL::_AtlVerifyStackAvailable(nRequestedSize)) ? \
+        _alloca(nRequestedSize) : \
+        _AtlSafeAllocaManager.Allocate(nRequestedSize))
+
+#define _ATL_SAFE_ALLOCA_DEF_THRESHOLD 1024
+
+#define FALSE 0
+#define TRUE 1
+#define BI_RGB 0
+#define BI_BITFIELDS 3
+#define DIB_RGB_COLORS 0
 
 namespace Gdiplus
 {
@@ -77,6 +117,34 @@ void __stdcall GdiplusShutdown(unsigned long token);
 
 namespace ATL
 {
+
+class CCRTAllocator;
+
+namespace _ATL_SAFE_ALLOCA_IMPL
+{
+
+// Declared, never defined: the stack-probe arm of _ATL_SAFE_ALLOCA below is
+// dead whenever the request is over the threshold, so no call is emitted.
+bool _AtlVerifyStackAvailable(SIZE_T size);
+
+// atlalloc.h's heap fallback for _ATL_SAFE_ALLOCA. Declared, never defined:
+// Allocate and the destructor are out-of-line bodies of their own, and a
+// definition here would let MSVC inline them into every caller.
+template <class Allocator>
+class CAtlSafeAllocBufferManager
+{
+private:
+    struct CAtlSafeAllocBufferNode;
+
+    CAtlSafeAllocBufferNode *m_pHead;
+
+public:
+    CAtlSafeAllocBufferManager() : m_pHead(0) {}
+    void *Allocate(SIZE_T requestedSize);
+    ~CAtlSafeAllocBufferManager();
+};
+
+}
 
 class CImage
 {
@@ -112,10 +180,17 @@ public:
         DIBOR_BOTTOMUP
     };
 
+    enum
+    {
+        createAlphaChannel = 1
+    };
+
     virtual ~CImage() throw();
 
     CImage() throw();
     void Attach(HBITMAP bitmap, DIBOrientation orientation) throw();
+    BOOL CreateEx(int nWidth, int nHeight, int nBPP, DWORD eCompression,
+        const DWORD *pdwBitfields, DWORD dwFlags) throw();
     void Destroy() throw();
     HBITMAP Detach() throw();
     HDC GetDC() const throw();
@@ -296,10 +371,57 @@ void CImage::Destroy() throw()
     }
 }
 
-void CImage::Attach(HBITMAP bitmap, DIBOrientation orientation) throw()
+inline void CImage::Attach(HBITMAP bitmap, DIBOrientation orientation) throw()
 {
     m_hBitmap = bitmap;
     UpdateBitmapInfo(orientation);
+}
+
+BOOL CImage::CreateEx(int nWidth, int nHeight, int nBPP, DWORD eCompression,
+    const DWORD *pdwBitfields, DWORD dwFlags) throw()
+{
+    USES_ATL_SAFE_ALLOCA;
+    LPBITMAPINFO pbmi;
+    HBITMAP hBitmap;
+
+    pbmi = (LPBITMAPINFO)_ATL_SAFE_ALLOCA(
+        sizeof(BITMAPINFOHEADER) + sizeof(RGBQUAD) * 256, _ATL_SAFE_ALLOCA_DEF_THRESHOLD);
+    if (pbmi == 0)
+        return FALSE;
+
+    memset(&pbmi->bmiHeader, 0, sizeof(pbmi->bmiHeader));
+    pbmi->bmiHeader.biSize = sizeof(pbmi->bmiHeader);
+    pbmi->bmiHeader.biWidth = nWidth;
+    pbmi->bmiHeader.biHeight = nHeight;
+    pbmi->bmiHeader.biPlanes = 1;
+    pbmi->bmiHeader.biBitCount = USHORT(nBPP);
+    pbmi->bmiHeader.biCompression = eCompression;
+    if (nBPP <= 8)
+    {
+        memset(pbmi->bmiColors, 0, 256 * sizeof(RGBQUAD));
+    }
+    else
+    {
+        if (eCompression == BI_BITFIELDS)
+        {
+            memcpy(pbmi->bmiColors, pdwBitfields, 3 * sizeof(DWORD));
+        }
+    }
+
+    hBitmap = CreateDIBSection(0, pbmi, DIB_RGB_COLORS, &m_pBits, 0, 0);
+    if (hBitmap == 0)
+    {
+        return FALSE;
+    }
+
+    Attach(hBitmap, (nHeight < 0) ? DIBOR_TOPDOWN : DIBOR_BOTTOMUP);
+
+    if (dwFlags & createAlphaChannel)
+    {
+        m_bHasAlphaChannel = true;
+    }
+
+    return TRUE;
 }
 
 HBITMAP CImage::Detach() throw()
