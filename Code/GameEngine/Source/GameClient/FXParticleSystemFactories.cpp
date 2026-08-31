@@ -19,6 +19,10 @@
 // wrapper's size - with its constructors and assignment declared and not
 // defined.
 
+// Global scope, not the FXParticleSystem namespace: retail spells the parameter
+// PAVINI@@ rather than PAVINI@2@.
+class INI;
+
 namespace FXParticleSystem
 {
 
@@ -278,6 +282,8 @@ public:
         NAME(const NAME &that);                                                                    \
                                                                                                    \
         NAME &operator=(const NAME &that);                                                         \
+                                                                                                   \
+        void parse(INI *ini);                                      \
     };
 
 FX_MODULE_TEMPLATE(PointEmissionVolumeModuleTemplate, EmissionVolumeInfo)
@@ -378,13 +384,12 @@ typename TAG::TemplateType *ConcreteModuleTemplate<TAG>::clone() const
 
 // The module class that builds them. createTemplate is one operator new for the
 // wrapper's size and a tail jump into its default constructor.
-class INI;
-
 template <class TAG>
 class ConcreteModuleClass : public TAG::ClassBase
 {
 public:
     virtual typename TAG::TemplateType *createTemplate() const;
+    virtual typename TAG::TemplateType *createTemplate(INI *ini) const;
     virtual void v1();
 
 private:
@@ -414,6 +419,19 @@ template <class TAG>
 typename TAG::TemplateType *ConcreteModuleClass<TAG>::createTemplate() const
 {
     return new ConcreteModuleTemplate<TAG>();
+}
+
+// The INI-taking overload: allocate, then hand the block straight to the module
+// template's own parser. The allocation and the parse call sit in the same
+// unwind region, which is what puts the state stores around them.
+template <class TAG>
+typename TAG::TemplateType *ConcreteModuleClass<TAG>::createTemplate(INI *ini) const
+{
+    ConcreteModuleTemplate<TAG> *result = new ConcreteModuleTemplate<TAG>();
+
+    result->parse(ini);
+
+    return result;
 }
 
 #define FX_WRAPPER(CATEGORY, KEY, MOD, TMPL)                                                      \
@@ -499,7 +517,7 @@ OrthoEmissionVelocityModuleConcrete g_orthoEmissionVelocityModuleConcrete;
 template class ConcreteModuleClass<OrthoEmissionVelocityModuleTag>;
 
 // The per-category default templates, each over the info its own category uses.
-#define FX_DEFAULT_TEMPLATE(CATEGORY, INFO)                                                            template <>                                                                                        class DefaultModuleTemplate<CATEGORY> : public ModuleTemplate, public SecondaryModuleBase,                                                 public INFO                                                {                                                                                                  public:                                                                                                DefaultModuleTemplate();                                                                           DefaultModuleTemplate(const DefaultModuleTemplate<CATEGORY> &that);                            };
+#define FX_DEFAULT_TEMPLATE(CATEGORY, INFO)                                                            template <>                                                                                        class DefaultModuleTemplate<CATEGORY> : public ModuleTemplate, public SecondaryModuleBase,                                                 public INFO                                                {                                                                                                  public:                                                                                                DefaultModuleTemplate();                                                                           DefaultModuleTemplate(const DefaultModuleTemplate<CATEGORY> &that);                                                                                                                                   void parse(INI *ini);                                                                          };
 
 template <int CATEGORY>
 class DefaultModuleTemplate;

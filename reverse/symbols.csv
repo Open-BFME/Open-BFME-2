@@ -216,3 +216,28 @@ _atexit,0x006291F8,CRT atexit - forwards to _onexit at 0x006291D2 and folds its 
 ??1OutwardEmissionVelocityModuleTemplate@FXParticleSystem@@UAE@XZ,0x003A6201,BFME2 export; the module template destructor every category folds onto - three vtable stores walked back through the bases
 ??1RenderObjectUpdateModuleTemplate@FXParticleSystem@@UAE@XZ,0x003A6201,BFME2 export; the module template destructor every category folds onto - three vtable stores walked back through the bases
 ??1TerrainFireEmissionModuleTemplate@FXParticleSystem@@UAE@XZ,0x003A6201,BFME2 export; the module template destructor every category folds onto - three vtable stores walked back through the bases
+?parse@?$DefaultModuleTemplate@$00@FXParticleSystem@@QAEXPAVINI@@@Z,0x0055B2FD,BFME2 export; the module template INI parser createTemplate calls after allocating
+?parse@?$DefaultModuleTemplate@$01@FXParticleSystem@@QAEXPAVINI@@@Z,0x0055F4BC,BFME2 export; the module template INI parser createTemplate calls after allocating
+?parse@?$DefaultModuleTemplate@$02@FXParticleSystem@@QAEXPAVINI@@@Z,0x0055EE4C,BFME2 export; the module template INI parser createTemplate calls after allocating
+?parse@?$DefaultModuleTemplate@$05@FXParticleSystem@@QAEXPAVINI@@@Z,0x0055C434,BFME2 export; the module template INI parser createTemplate calls after allocating
+?parse@?$DefaultModuleTemplate@$0A@@FXParticleSystem@@QAEXPAVINI@@@Z,0x0055B93F,BFME2 export; the module template INI parser createTemplate calls after allocating
+?parse@BoxEmissionVolumeModuleTemplate@FXParticleSystem@@QAEXPAVINI@@@Z,0x0055CFB1,BFME2 export; the module template INI parser createTemplate calls after allocating
+?parse@ButterflyDrawModuleTemplate@FXParticleSystem@@QAEXPAVINI@@@Z,0x00560A9F,BFME2 export; the module template INI parser createTemplate calls after allocating
+?parse@CylinderEmissionVolumeModuleTemplate@FXParticleSystem@@QAEXPAVINI@@@Z,0x0055D604,BFME2 export; the module template INI parser createTemplate calls after allocating
+?parse@CylindricalEmissionVelocityModuleTemplate@FXParticleSystem@@QAEXPAVINI@@@Z,0x0055EB72,BFME2 export; the module template INI parser createTemplate calls after allocating
+?parse@GpuDrawModuleTemplate@FXParticleSystem@@QAEXPAVINI@@@Z,0x005638F8,BFME2 export; the module template INI parser createTemplate calls after allocating
+?parse@LifeEventModuleTemplate@FXParticleSystem@@QAEXPAVINI@@@Z,0x00563EBF,BFME2 export; the module template INI parser createTemplate calls after allocating
+?parse@LightningDrawModuleTemplate@FXParticleSystem@@QAEXPAVINI@@@Z,0x0056141C,BFME2 export; the module template INI parser createTemplate calls after allocating
+?parse@LightningEmissionModuleTemplate@FXParticleSystem@@QAEXPAVINI@@@Z,0x0055D976,BFME2 export; the module template INI parser createTemplate calls after allocating
+?parse@LineEmissionVolumeModuleTemplate@FXParticleSystem@@QAEXPAVINI@@@Z,0x0055CD26,BFME2 export; the module template INI parser createTemplate calls after allocating
+?parse@OrthoEmissionVelocityModuleTemplate@FXParticleSystem@@QAEXPAVINI@@@Z,0x0055E80D,BFME2 export; the module template INI parser createTemplate calls after allocating
+?parse@OutwardEmissionVelocityModuleTemplate@FXParticleSystem@@QAEXPAVINI@@@Z,0x0055ECE7,BFME2 export; the module template INI parser createTemplate calls after allocating
+?parse@PointEmissionVolumeModuleTemplate@FXParticleSystem@@QAEXPAVINI@@@Z,0x0055CA78,BFME2 export; the module template INI parser createTemplate calls after allocating
+?parse@QuadDrawModuleTemplate@FXParticleSystem@@QAEXPAVINI@@@Z,0x0056017F,BFME2 export; the module template INI parser createTemplate calls after allocating
+?parse@RenderObjectDrawModuleTemplate@FXParticleSystem@@QAEXPAVINI@@@Z,0x00562933,BFME2 export; the module template INI parser createTemplate calls after allocating
+?parse@RenderObjectUpdateModuleTemplate@FXParticleSystem@@QAEXPAVINI@@@Z,0x00561F0E,BFME2 export; the module template INI parser createTemplate calls after allocating
+?parse@SphereEmissionVolumeModuleTemplate@FXParticleSystem@@QAEXPAVINI@@@Z,0x0055D3C7,BFME2 export; the module template INI parser createTemplate calls after allocating
+?parse@SphericalEmissionVelocityModuleTemplate@FXParticleSystem@@QAEXPAVINI@@@Z,0x0055EA7C,BFME2 export; the module template INI parser createTemplate calls after allocating
+?parse@StreakDrawModuleTemplate@FXParticleSystem@@QAEXPAVINI@@@Z,0x0055FD2F,BFME2 export; the module template INI parser createTemplate calls after allocating
+?parse@TerrainCollisionModuleTemplate@FXParticleSystem@@QAEXPAVINI@@@Z,0x00564497,BFME2 export; the module template INI parser createTemplate calls after allocating
+?parse@TerrainFireEmissionModuleTemplate@FXParticleSystem@@QAEXPAVINI@@@Z,0x0055E5E4,BFME2 export; the module template INI parser createTemplate calls after allocating
