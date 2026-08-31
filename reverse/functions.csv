@@ -1118,3 +1118,4 @@ _free,,0x00030830,17,Code/GameEngine/Source/Common/System/GameMemoryFree.cpp,mat
 ?compareNoCase@PooledString@@QBEHABVAsciiString@@@Z,0x0060BE55,0x0060BE55,42,Code/GameEngine/Source/Common/System/PooledString.cpp,matched,Open-BFME5 clean C++; PooledString comparison and conversion
 ??0PooledString@@QAE@ABVAsciiString@@@Z,0x0060BE03,0x0060BE03,40,Code/GameEngine/Source/Common/System/PooledString.cpp,matched,Open-BFME5 clean C++; PooledString comparison and conversion
 ??YAsciiString@@QAEAAV0@ABVPooledString@@@Z,0x0060BD19,0x0060BD19,24,Code/Libraries/Source/WWVegas/WWLib/ascii_string.cpp,matched,Open-BFME5 clean C++; AsciiString append of a PooledString
+??8Xfer@@UAEAAV0@AAVSnapshot@@@Z,0x0060B8C6,0x0060B8C6,19,Code/GameEngine/Source/Common/System/Xfer.cpp,matched,Open-BFME5 clean C++; Xfer transfer operator for a Snapshot

@@ -1,6 +1,19 @@
 // cl: /O1
 
-class Snapshot;
+// Snapshot's own transfer entry point sits at vtable slot 3: the transfer
+// operator below calls [vtable+0x0C] with the Xfer as its only argument, which
+// is what orders the three pure virtuals behind the destructor.
+class Xfer;
+
+class Snapshot
+{
+public:
+    virtual ~Snapshot();
+    virtual void crc(Xfer *xfer) = 0;
+    virtual void loadPostProcess() = 0;
+    virtual void xfer(Xfer *xfer) = 0;
+};
+
 class AsciiString;
 class UnicodeString;
 class PooledString;
@@ -159,5 +172,12 @@ Xfer &Xfer::operator==(unsigned short &value)
 Xfer &Xfer::operator==(float &value)
 {
     XferData('real', &value, sizeof(float));
+    return *this;
+}
+
+Xfer &Xfer::operator==(Snapshot &value)
+{
+    value.xfer(this);
+
     return *this;
 }
