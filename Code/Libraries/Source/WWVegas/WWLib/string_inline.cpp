@@ -7,6 +7,9 @@
 // only match at /O2 - the tail jump into the sibling overload with the argument
 // slot rewritten in place is the giveaway, since /O1 emits a push and a call.
 
+#define _DLL
+#include <ctype.h>
+
 typedef unsigned short wchar_t;
 
 class AsciiString;
@@ -107,4 +110,30 @@ void UnicodeString::translate(const AsciiString &that)
     const StringHeader *header = *(const StringHeader *const *)&that;
 
     translate(header ? &header->data[0] : "");
+}
+
+// PooledString's hash lives here too - it sits at 0x006CB780, in the same run as
+// the format and translate bodies above and immediately ahead of setString,
+// while the rest of PooledString is down at 0x0060Bxxx and matches at /O1.
+class PooledString
+{
+private:
+    unsigned int getHash(const char *str, int len) const;
+};
+
+// Case-insensitive: each character is folded with tolower before it is mixed in,
+// and the accumulator is rotated left by four rather than shifted, which is what
+// the shl/shr/or triple is.
+unsigned int PooledString::getHash(const char *str, int len) const
+{
+    unsigned int hash = 0;
+
+    while (len > 0) {
+        hash = (unsigned int)tolower(*str) ^ ((hash << 4) | (hash >> 28));
+
+        ++str;
+        --len;
+    }
+
+    return hash;
 }

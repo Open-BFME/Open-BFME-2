@@ -1374,3 +1374,4 @@ _free,,0x00030830,17,Code/GameEngine/Source/Common/System/GameMemoryFree.cpp,mat
 ?IsExactlyEqualTo@Matrix4D@@QAE_NABV1@@Z,0x00004B70,0x00004B70,79,Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp,matched,Open-BFME5 clean C++; Matrix4D exact bitwise comparison
 ??4EventModuleInfo@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x00001240,0x00001240,15,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; EventModuleInfo generated assignment
 ??0?$CategoryModuleTemplate@$07@FXParticleSystem@@QAE@ABV01@@Z,0x00001F30,0x00001F30,52,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; CategoryModuleTemplate copy constructor
+?getHash@PooledString@@ABEIPBDH@Z,0x006CB780,0x006CB780,60,Code/Libraries/Source/WWVegas/WWLib/string_inline.cpp,matched,Open-BFME5 clean C++; PooledString case-insensitive hash
