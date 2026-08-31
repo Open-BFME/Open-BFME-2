@@ -172,7 +172,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?isEmpty@?$StringBase@D@@QBE_NXZ,0x00001E2F,0x00001E2F,20,Code/GameEngine/Source/Common/System/AsciiString.cpp,matched,Open-BFME5 clean C++; narrow StringBase emptiness test over the 16-bit length at offset 4
 ?d_00001e43@@YAXXZ,,0x00001E43,36,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00401e43
 ??0RandomAlphaKeyframe@FXParticleSystem@@QAE@XZ,0x00001E7F,0x00001E7F,47,Code/Libraries/Source/WWVegas/WWMath/color.cpp,matched,Open-BFME5 clean C++; RandomAlphaKeyframe initializes a zero uniform alpha range and frame
-?d_00001f30@@YAXXZ,,0x00001F30,52,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=CategoryModuleTemplate<8>
 ?d_00001faf@@YAXXZ,,0x00001FAF,45,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00401faf
 ?d_00001fdc@@YAXXZ,,0x00001FDC,49,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00401fdc
 ?d_0000200d@@YAXXZ,,0x0000200D,260,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=operator=
@@ -1374,3 +1373,4 @@ _free,,0x00030830,17,Code/GameEngine/Source/Common/System/GameMemoryFree.cpp,mat
 ?height@Region2D@@QBEMXZ,0x0004259B,0x0004259B,7,Code/Libraries/Source/WWVegas/WWMath/region.cpp,matched,Open-BFME5 clean C++; simple accessor
 ?IsExactlyEqualTo@Matrix4D@@QAE_NABV1@@Z,0x00004B70,0x00004B70,79,Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp,matched,Open-BFME5 clean C++; Matrix4D exact bitwise comparison
 ??4EventModuleInfo@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x00001240,0x00001240,15,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; EventModuleInfo generated assignment
+??0?$CategoryModuleTemplate@$07@FXParticleSystem@@QAE@ABV01@@Z,0x00001F30,0x00001F30,52,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; CategoryModuleTemplate copy constructor

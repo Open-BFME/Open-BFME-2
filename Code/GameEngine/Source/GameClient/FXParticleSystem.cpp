@@ -8,6 +8,13 @@ struct Region2D
     float y_max;
 };
 
+// Placement new, used only to force generated copy constructors out; nothing in
+// retail allocates through it.
+inline void *operator new(unsigned int, void *storage)
+{
+    return storage;
+}
+
 namespace FXParticleSystem
 {
 
@@ -116,9 +123,20 @@ struct CategoryInfo<8>
     typedef EventModuleInfo Type;
 };
 
+// The two module bases are themselves a template. Its default constructor is
+// folded into every derived one, but its COPY constructor is a real call - and
+// ICF folds the nine instantiations onto one address, since none of them
+// depends on the category.
 template <int CATEGORY>
-class CategoryModuleTemplate : public ModuleTemplate,
-                               public SecondaryModuleBase,
+class CategoryModuleTemplateBase : public ModuleTemplate, public SecondaryModuleBase
+{
+public:
+    CategoryModuleTemplateBase() {}
+    CategoryModuleTemplateBase(const CategoryModuleTemplateBase<CATEGORY> &that);
+};
+
+template <int CATEGORY>
+class CategoryModuleTemplate : public CategoryModuleTemplateBase<CATEGORY>,
                                public CategoryInfo<CATEGORY>::Type
 {
 public:
@@ -140,6 +158,14 @@ EventCategoryAssign g_eventCategoryAssign = &EventCategoryModuleTemplate::operat
 typedef EventModuleInfo &(EventModuleInfo::*EventModuleInfoAssign)(const EventModuleInfo &);
 
 EventModuleInfoAssign g_eventModuleInfoAssign = &EventModuleInfo::operator=;
+
+// The generated copy constructor is not emitted by the file-scope instances,
+// which only ever default-construct; this is what forces it out.
+CategoryModuleTemplate<8> *fxCopyEventCategoryModuleTemplate(void *storage,
+    const CategoryModuleTemplate<8> &that)
+{
+    return new (storage) CategoryModuleTemplate<8>(that);
+}
 
 // Every module category has a display name and an INI key, kept side by side in
 // one eight-byte table entry; both accessors index it with the category and
@@ -835,15 +861,6 @@ const char *DefaultAlphaModuleInfo::GetSnapshotName()
 // bytes with a single rep movsd, where a hand-written per-element loop walks the
 // array the way the assignment does. Nothing in this unit would emit it, so a
 // placement-new helper forces it out.
-}
-
-inline void *operator new(unsigned int, void *storage)
-{
-    return storage;
-}
-
-namespace FXParticleSystem
-{
 
 DefaultAlphaModuleInfo *fxCopyDefaultAlphaModuleInfo(void *storage,
     const DefaultAlphaModuleInfo &that)
