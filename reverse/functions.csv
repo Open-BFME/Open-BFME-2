@@ -185,8 +185,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_0000240e@@YAXXZ,,0x0000240E,10,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=~ParticleSystemInfo
 ?d_00002459@@YAXXZ,,0x00002459,10,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=ParticleSystemInfo
 ?d_00002596@@YAXXZ,,0x00002596,28,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00402596
-?d_00002600@@YAXXZ,,0x00002600,30,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=getName
-?d_0000261e@@YAXXZ,,0x0000261E,27,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=getTextureFilename
 ?d_00002639@@YAXXZ,,0x00002639,66,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Clone
 ?d_00002690@@YAXXZ,,0x00002690,205,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00402690
 ?d_0000275d@@YAXXZ,,0x0000275D,395,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_0040275d
@@ -1775,3 +1773,6 @@ _free,,0x00030830,17,Code/GameEngine/Source/Common/System/GameMemoryFree.cpp,mat
 ?compareNoCase@PooledString@@QBEHABV1@@Z,0x0060BDB3,0x0060BDB3,32,Code/GameEngine/Source/Common/System/PooledString.cpp,matched,
 ?Normalize@Coord2D@@QAEMXZ,0x000059D3,0x000059D3,83,Code/Libraries/Source/WWVegas/WWMath/coord2d.cpp,matched,
 ?toAngle@Coord2D@@QBEMXZ,0x00005923,0x00005923,124,Code/Libraries/Source/WWVegas/WWMath/coord2d.cpp,matched,
+?getUV@ParticleSystemTemplate@FXParticleSystem@@QBEPBURegion2D@@XZ,0x0055C414,0x0055C414,7,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,
+?getName@ParticleSystemTemplate@FXParticleSystem@@QBE?AVAsciiString@@XZ,0x00002600,0x00002600,30,Code/GameEngine/Source/GameClient/ParticleSystemTemplate.cpp,matched,
+?getTextureFilename@ParticleSystemTemplate@FXParticleSystem@@QBE?AVAsciiString@@XZ,0x0000261E,0x0000261E,27,Code/GameEngine/Source/GameClient/ParticleSystemTemplate.cpp,matched,

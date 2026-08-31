@@ -22,11 +22,17 @@ class ParticleSystemTemplate
 {
 public:
     void setUV(const Region2D *region);
+    const Region2D *getUV() const;
 
 private:
     char m_unknown[0x88];
     Region2D m_uv;
 };
+
+const Region2D *ParticleSystemTemplate::getUV() const
+{
+    return &m_uv;
+}
 
 void ParticleSystemTemplate::setUV(const Region2D *region)
 {
