@@ -536,4 +536,84 @@ FX_NAMED_WRAPPER(8, TERRAIN_COLLISION, TerrainCollisionModule, TerrainCollisionM
 FX_WRAPPER(6, RENDEROBJECT_DRAW, RenderObjectDrawModule, RenderObjectDrawModuleTemplate)
 FX_WRAPPER(6, GPU_DRAW, GpuDrawModule, GpuDrawModuleTemplate)
 
+// The wrappers' generated assignments. They forward to the module template's own
+// assignment, which this unit only declares - beside the definitions MSVC 7.1
+// inlines it instead.
+
+typedef PointEmissionVolumeModuleConcrete &(PointEmissionVolumeModuleConcrete::*PointEmissionVolumeModuleConcreteAssign)(const PointEmissionVolumeModuleConcrete &);
+
+PointEmissionVolumeModuleConcreteAssign g_pointEmissionVolumeModuleConcreteAssign = &PointEmissionVolumeModuleConcrete::operator=;
+
+typedef SphereEmissionVolumeModuleConcrete &(SphereEmissionVolumeModuleConcrete::*SphereEmissionVolumeModuleConcreteAssign)(const SphereEmissionVolumeModuleConcrete &);
+
+SphereEmissionVolumeModuleConcreteAssign g_sphereEmissionVolumeModuleConcreteAssign = &SphereEmissionVolumeModuleConcrete::operator=;
+
+typedef BoxEmissionVolumeModuleConcrete &(BoxEmissionVolumeModuleConcrete::*BoxEmissionVolumeModuleConcreteAssign)(const BoxEmissionVolumeModuleConcrete &);
+
+BoxEmissionVolumeModuleConcreteAssign g_boxEmissionVolumeModuleConcreteAssign = &BoxEmissionVolumeModuleConcrete::operator=;
+
+typedef LineEmissionVolumeModuleConcrete &(LineEmissionVolumeModuleConcrete::*LineEmissionVolumeModuleConcreteAssign)(const LineEmissionVolumeModuleConcrete &);
+
+LineEmissionVolumeModuleConcreteAssign g_lineEmissionVolumeModuleConcreteAssign = &LineEmissionVolumeModuleConcrete::operator=;
+
+typedef CylinderEmissionVolumeModuleConcrete &(CylinderEmissionVolumeModuleConcrete::*CylinderEmissionVolumeModuleConcreteAssign)(const CylinderEmissionVolumeModuleConcrete &);
+
+CylinderEmissionVolumeModuleConcreteAssign g_cylinderEmissionVolumeModuleConcreteAssign = &CylinderEmissionVolumeModuleConcrete::operator=;
+
+typedef OrthoEmissionVelocityModuleConcrete &(OrthoEmissionVelocityModuleConcrete::*OrthoEmissionVelocityModuleConcreteAssign)(const OrthoEmissionVelocityModuleConcrete &);
+
+OrthoEmissionVelocityModuleConcreteAssign g_orthoEmissionVelocityModuleConcreteAssign = &OrthoEmissionVelocityModuleConcrete::operator=;
+
+typedef LightningDrawModuleConcrete &(LightningDrawModuleConcrete::*LightningDrawModuleConcreteAssign)(const LightningDrawModuleConcrete &);
+
+LightningDrawModuleConcreteAssign g_lightningDrawModuleConcreteAssign = &LightningDrawModuleConcrete::operator=;
+
+typedef TerrainFireEmissionModuleConcrete &(TerrainFireEmissionModuleConcrete::*TerrainFireEmissionModuleConcreteAssign)(const TerrainFireEmissionModuleConcrete &);
+
+TerrainFireEmissionModuleConcreteAssign g_terrainFireEmissionModuleConcreteAssign = &TerrainFireEmissionModuleConcrete::operator=;
+
+typedef LightningEmissionModuleConcrete &(LightningEmissionModuleConcrete::*LightningEmissionModuleConcreteAssign)(const LightningEmissionModuleConcrete &);
+
+LightningEmissionModuleConcreteAssign g_lightningEmissionModuleConcreteAssign = &LightningEmissionModuleConcrete::operator=;
+
+typedef RenderObjectUpdateModuleConcrete &(RenderObjectUpdateModuleConcrete::*RenderObjectUpdateModuleConcreteAssign)(const RenderObjectUpdateModuleConcrete &);
+
+RenderObjectUpdateModuleConcreteAssign g_renderObjectUpdateModuleConcreteAssign = &RenderObjectUpdateModuleConcrete::operator=;
+
+typedef RenderObjectDrawModuleConcrete &(RenderObjectDrawModuleConcrete::*RenderObjectDrawModuleConcreteAssign)(const RenderObjectDrawModuleConcrete &);
+
+RenderObjectDrawModuleConcreteAssign g_renderObjectDrawModuleConcreteAssign = &RenderObjectDrawModuleConcrete::operator=;
+
+typedef GpuDrawModuleConcrete &(GpuDrawModuleConcrete::*GpuDrawModuleConcreteAssign)(const GpuDrawModuleConcrete &);
+
+GpuDrawModuleConcreteAssign g_gpuDrawModuleConcreteAssign = &GpuDrawModuleConcrete::operator=;
+
+typedef DefaultConcrete0 &(DefaultConcrete0::*DefaultConcrete0Assign)(const DefaultConcrete0 &);
+
+DefaultConcrete0Assign g_defaultConcrete0Assign = &DefaultConcrete0::operator=;
+
+typedef DefaultConcrete1 &(DefaultConcrete1::*DefaultConcrete1Assign)(const DefaultConcrete1 &);
+
+DefaultConcrete1Assign g_defaultConcrete1Assign = &DefaultConcrete1::operator=;
+
+typedef DefaultConcrete2 &(DefaultConcrete2::*DefaultConcrete2Assign)(const DefaultConcrete2 &);
+
+DefaultConcrete2Assign g_defaultConcrete2Assign = &DefaultConcrete2::operator=;
+
+typedef DefaultConcrete3 &(DefaultConcrete3::*DefaultConcrete3Assign)(const DefaultConcrete3 &);
+
+DefaultConcrete3Assign g_defaultConcrete3Assign = &DefaultConcrete3::operator=;
+
+typedef RenderObjectUpdateModuleNamedConcrete &(RenderObjectUpdateModuleNamedConcrete::*RenderObjectUpdateModuleNamedConcreteAssign)(const RenderObjectUpdateModuleNamedConcrete &);
+
+RenderObjectUpdateModuleNamedConcreteAssign g_renderObjectUpdateModuleNamedConcreteAssign = &RenderObjectUpdateModuleNamedConcrete::operator=;
+
+typedef LifeEventModuleNamedConcrete &(LifeEventModuleNamedConcrete::*LifeEventModuleNamedConcreteAssign)(const LifeEventModuleNamedConcrete &);
+
+LifeEventModuleNamedConcreteAssign g_lifeEventModuleNamedConcreteAssign = &LifeEventModuleNamedConcrete::operator=;
+
+typedef TerrainCollisionModuleNamedConcrete &(TerrainCollisionModuleNamedConcrete::*TerrainCollisionModuleNamedConcreteAssign)(const TerrainCollisionModuleNamedConcrete &);
+
+TerrainCollisionModuleNamedConcreteAssign g_terrainCollisionModuleNamedConcreteAssign = &TerrainCollisionModuleNamedConcrete::operator=;
+
 }

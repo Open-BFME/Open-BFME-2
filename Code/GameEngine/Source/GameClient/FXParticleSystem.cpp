@@ -1074,8 +1074,6 @@ class RenderObjectDrawModule;
 
 class RenderObjectDrawModuleTemplate : public ModuleTemplate, public SecondaryModuleBase, public RenderObjectDrawModuleInfo
 {
-public:
-    RenderObjectDrawModuleTemplate &operator=(const RenderObjectDrawModuleTemplate &that);
 };
 
 typedef ConcreteModuleTemplate<ModuleTag<6, RENDEROBJECT_DRAW_MODULE_KEY, RENDEROBJECT_DRAW_MODULE_NAME, RenderObjectDrawModule, RenderObjectDrawModuleTemplate, DefaultParticleModule<6> > >
@@ -1091,8 +1089,6 @@ class LightningDrawModule;
 
 class LightningDrawModuleTemplate : public ModuleTemplate, public SecondaryModuleBase, public LightningDrawModuleInfo
 {
-public:
-    LightningDrawModuleTemplate &operator=(const LightningDrawModuleTemplate &that);
 };
 
 typedef ConcreteModuleTemplate<ModuleTag<6, LIGHTNING_DRAW_MODULE_KEY, LIGHTNING_DRAW_MODULE_NAME, LightningDrawModule, LightningDrawModuleTemplate, DefaultParticleModule<6> > >
@@ -1108,8 +1104,6 @@ class GpuDrawModule;
 
 class GpuDrawModuleTemplate : public ModuleTemplate, public SecondaryModuleBase, public GpuDrawModuleInfo
 {
-public:
-    GpuDrawModuleTemplate &operator=(const GpuDrawModuleTemplate &that);
 };
 
 typedef ConcreteModuleTemplate<ModuleTag<6, GPU_DRAW_MODULE_KEY, GPU_DRAW_MODULE_NAME, GpuDrawModule, GpuDrawModuleTemplate, DefaultParticleModule<6> > >
@@ -1164,8 +1158,6 @@ class LightningEmissionModule;
 
 class LightningEmissionModuleTemplate : public ModuleTemplate, public SecondaryModuleBase, public LightningEmissionInfo
 {
-public:
-    LightningEmissionModuleTemplate &operator=(const LightningEmissionModuleTemplate &that);
 };
 
 typedef ConcreteModuleTemplate<ModuleTag<5, LIGHTNING_EMISSION_MODULE_KEY, LIGHTNING_EMISSION_MODULE_NAME, LightningEmissionModule, LightningEmissionModuleTemplate, DefaultParticleModule<5> > >
@@ -1181,8 +1173,6 @@ class TerrainFireEmissionModule;
 
 class TerrainFireEmissionModuleTemplate : public ModuleTemplate, public SecondaryModuleBase, public TerrainFireEmissionInfo
 {
-public:
-    TerrainFireEmissionModuleTemplate &operator=(const TerrainFireEmissionModuleTemplate &that);
 };
 
 typedef ConcreteModuleTemplate<ModuleTag<5, TERRAIN_FIRE_EMISSION_MODULE_KEY, TERRAIN_FIRE_EMISSION_MODULE_NAME, TerrainFireEmissionModule, TerrainFireEmissionModuleTemplate, DefaultParticleModule<5> > >
@@ -1199,8 +1189,6 @@ class ParticleLifeEventModule;
 
 class LifeEventModuleTemplate : public ModuleTemplate, public SecondaryModuleBase, public LifeEventModuleInfo
 {
-public:
-    LifeEventModuleTemplate &operator=(const LifeEventModuleTemplate &that);
 };
 
 typedef ConcreteModuleTemplate<ModuleTag<8, LIFE_EVENT_MODULE_KEY, LIFE_EVENT_MODULE_NAME, LifeEventModule, LifeEventModuleTemplate, ParticleLifeEventModule> >
@@ -1217,8 +1205,6 @@ class RenderObjectParticleUpdateModule;
 
 class RenderObjectUpdateModuleTemplate : public ModuleTemplate, public SecondaryModuleBase, public RenderObjectUpdateModuleInfo
 {
-public:
-    RenderObjectUpdateModuleTemplate &operator=(const RenderObjectUpdateModuleTemplate &that);
 };
 
 typedef ConcreteModuleTemplate<ModuleTag<2, RENDEROBJECT_UPDATE_MODULE_KEY, RENDEROBJECT_UPDATE_MODULE_NAME, RenderObjectUpdateModule, RenderObjectUpdateModuleTemplate, RenderObjectParticleUpdateModule> >
@@ -1235,8 +1221,6 @@ class ParticleTerrainCollisionModule;
 
 class TerrainCollisionModuleTemplate : public ModuleTemplate, public SecondaryModuleBase, public TerrainCollisionModuleInfo
 {
-public:
-    TerrainCollisionModuleTemplate &operator=(const TerrainCollisionModuleTemplate &that);
 };
 
 typedef ConcreteModuleTemplate<ModuleTag<8, TERRAIN_COLLISION_MODULE_KEY, TERRAIN_COLLISION_MODULE_NAME, TerrainCollisionModule, TerrainCollisionModuleTemplate, ParticleTerrainCollisionModule> >
@@ -1260,9 +1244,17 @@ template <int CATEGORY>
 class DefaultModuleTemplate : public ModuleTemplate, public SecondaryModuleBase,
                               public DefaultModuleInfoBase
 {
-public:
-    DefaultModuleTemplate<CATEGORY> &operator=(const DefaultModuleTemplate<CATEGORY> &that);
 };
+
+// Each category's default template is over that category's own info class, and
+// its generated assignment forwards to that info's - which is what identifies
+// the four: colour for category 0, alpha for 1, update for 2, physics for 3.
+#define FX_DEFAULT_TEMPLATE_SPEC(CATEGORY, INFO)                                                       template <>                                                                                        class DefaultModuleTemplate<CATEGORY> : public ModuleTemplate, public SecondaryModuleBase,                                                 public INFO                                                {                                                                                                  };                                                                                                                                                                                                    typedef DefaultModuleTemplate<CATEGORY> &(DefaultModuleTemplate<CATEGORY>::*                           DefaultModuleTemplate##CATEGORY##Assign)(const DefaultModuleTemplate<CATEGORY> &);                                                                                                                DefaultModuleTemplate##CATEGORY##Assign g_defaultModuleTemplate##CATEGORY##Assign =                    &DefaultModuleTemplate<CATEGORY>::operator=;
+
+FX_DEFAULT_TEMPLATE_SPEC(0, DefaultColorModuleInfo)
+FX_DEFAULT_TEMPLATE_SPEC(1, DefaultAlphaModuleInfo)
+FX_DEFAULT_TEMPLATE_SPEC(2, DefaultUpdateModuleInfo)
+FX_DEFAULT_TEMPLATE_SPEC(3, DefaultPhysicsModuleInfo)
 
 template <int CATEGORY>
 class DefaultModuleTag
@@ -1301,8 +1293,6 @@ struct OrthoEmissionVelocityModuleTag
 
 class OrthoEmissionVelocityModuleTemplate : public ModuleTemplate, public SecondaryModuleBase, public OrthoEmissionVelocityInfo
 {
-public:
-    OrthoEmissionVelocityModuleTemplate &operator=(const OrthoEmissionVelocityModuleTemplate &that);
 };
 
 typedef ConcreteModuleTemplate<OrthoEmissionVelocityModuleTag> OrthoEmissionVelocityConcrete;
@@ -1370,5 +1360,45 @@ typedef ConcreteModuleTemplate<ModuleTag<6, BUTTERFLY_DRAW_MODULE_KEY, BUTTERFLY
     ButterflyDrawModuleConcrete;
 
 ButterflyDrawModuleConcrete g_butterflyDrawModuleConcrete;
+
+// The module templates' own generated assignments. Each adjusts the source by 8
+// with the null-checked neg/sbb/and idiom and hands it to the info base's
+// assignment, which is what a base at offset 8 looks like from the outside.
+
+typedef RenderObjectDrawModuleTemplate &(RenderObjectDrawModuleTemplate::*RenderObjectDrawModuleTemplateAssign)(const RenderObjectDrawModuleTemplate &);
+
+RenderObjectDrawModuleTemplateAssign g_renderObjectDrawModuleTemplateAssign = &RenderObjectDrawModuleTemplate::operator=;
+
+typedef LightningDrawModuleTemplate &(LightningDrawModuleTemplate::*LightningDrawModuleTemplateAssign)(const LightningDrawModuleTemplate &);
+
+LightningDrawModuleTemplateAssign g_lightningDrawModuleTemplateAssign = &LightningDrawModuleTemplate::operator=;
+
+typedef GpuDrawModuleTemplate &(GpuDrawModuleTemplate::*GpuDrawModuleTemplateAssign)(const GpuDrawModuleTemplate &);
+
+GpuDrawModuleTemplateAssign g_gpuDrawModuleTemplateAssign = &GpuDrawModuleTemplate::operator=;
+
+typedef LightningEmissionModuleTemplate &(LightningEmissionModuleTemplate::*LightningEmissionModuleTemplateAssign)(const LightningEmissionModuleTemplate &);
+
+LightningEmissionModuleTemplateAssign g_lightningEmissionModuleTemplateAssign = &LightningEmissionModuleTemplate::operator=;
+
+typedef TerrainFireEmissionModuleTemplate &(TerrainFireEmissionModuleTemplate::*TerrainFireEmissionModuleTemplateAssign)(const TerrainFireEmissionModuleTemplate &);
+
+TerrainFireEmissionModuleTemplateAssign g_terrainFireEmissionModuleTemplateAssign = &TerrainFireEmissionModuleTemplate::operator=;
+
+typedef LifeEventModuleTemplate &(LifeEventModuleTemplate::*LifeEventModuleTemplateAssign)(const LifeEventModuleTemplate &);
+
+LifeEventModuleTemplateAssign g_lifeEventModuleTemplateAssign = &LifeEventModuleTemplate::operator=;
+
+typedef RenderObjectUpdateModuleTemplate &(RenderObjectUpdateModuleTemplate::*RenderObjectUpdateModuleTemplateAssign)(const RenderObjectUpdateModuleTemplate &);
+
+RenderObjectUpdateModuleTemplateAssign g_renderObjectUpdateModuleTemplateAssign = &RenderObjectUpdateModuleTemplate::operator=;
+
+typedef TerrainCollisionModuleTemplate &(TerrainCollisionModuleTemplate::*TerrainCollisionModuleTemplateAssign)(const TerrainCollisionModuleTemplate &);
+
+TerrainCollisionModuleTemplateAssign g_terrainCollisionModuleTemplateAssign = &TerrainCollisionModuleTemplate::operator=;
+
+typedef OrthoEmissionVelocityModuleTemplate &(OrthoEmissionVelocityModuleTemplate::*OrthoEmissionVelocityModuleTemplateAssign)(const OrthoEmissionVelocityModuleTemplate &);
+
+OrthoEmissionVelocityModuleTemplateAssign g_orthoEmissionVelocityModuleTemplateAssign = &OrthoEmissionVelocityModuleTemplate::operator=;
 
 }
