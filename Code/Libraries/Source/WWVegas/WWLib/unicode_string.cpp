@@ -19,6 +19,7 @@ public:
 private:
     friend class UnicodeString;
 
+    StringBase(const StringBase<T> &that);
     StringBase(T character);
     StringBase(const T *text);
     StringBase(const T *text, int length);
@@ -39,6 +40,7 @@ private:
 class UnicodeString
 {
 public:
+    UnicodeString(const UnicodeString &that);
     UnicodeString(wchar_t character);
     UnicodeString(const wchar_t *text);
     UnicodeString(const wchar_t *text, int length);
@@ -54,6 +56,12 @@ public:
 private:
     wchar_t *m_text;
 };
+
+UnicodeString::UnicodeString(const UnicodeString &that)
+{
+    ((StringBase<wchar_t> *)this)->StringBase<wchar_t>::StringBase(
+        *(const StringBase<wchar_t> *)&that);
+}
 
 UnicodeString::UnicodeString(wchar_t character)
 {

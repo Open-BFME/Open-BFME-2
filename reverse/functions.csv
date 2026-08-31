@@ -248,7 +248,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_00006469@@YAXXZ,,0x00006469,44,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=expandBy
 ?d_000064fc@@YAXXZ,,0x000064FC,60,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=expandBy
 ?d_00006538@@YAXXZ,,0x00006538,18,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=RGBColor
-?d_00006618@@YAXXZ,,0x00006618,18,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=UnicodeString
 ?d_000066de@@YAXXZ,,0x000066DE,13,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_004066de
 ?d_000066f0@@YAXXZ,,0x000066F0,32,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=CW2AEX<>
 ?d_00006733@@YAXXZ,,0x00006733,63,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=compare
@@ -1069,3 +1068,4 @@ _free,,0x00030830,17,Code/GameEngine/Source/Common/System/GameMemoryFree.cpp,mat
 ??0?$CategoryModuleTemplate@$00@FXParticleSystem@@QAE@XZ,0x00001D69,0x00001D69,23,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; CategoryModuleTemplate<1> default constructor
 ??0?$CategoryModuleTemplate@$07@FXParticleSystem@@QAE@XZ,0x00001EF9,0x00001EF9,31,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; CategoryModuleTemplate<8> default constructor
 ??1?$CategoryModuleTemplate@$00@FXParticleSystem@@UAE@XZ,0x00001F18,0x00001F18,24,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; CategoryModuleTemplate<1> destructor
+??0UnicodeString@@QAE@ABV0@@Z,0x00006618,0x00006618,18,Code/Libraries/Source/WWVegas/WWLib/unicode_string.cpp,matched,Open-BFME5 clean C++; UnicodeString copy constructor
