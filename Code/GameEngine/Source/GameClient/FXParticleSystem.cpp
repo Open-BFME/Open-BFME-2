@@ -1,7 +1,31 @@
 // cl: /O1 /GX-
 
+struct Region2D
+{
+    float x_min;
+    float y_min;
+    float x_max;
+    float y_max;
+};
+
 namespace FXParticleSystem
 {
+
+class ParticleSystemTemplate
+{
+public:
+    void setUV(const Region2D *region);
+
+private:
+    char m_unknown[0x88];
+    Region2D m_uv;
+};
+
+void ParticleSystemTemplate::setUV(const Region2D *region)
+{
+    if (region != 0)
+        m_uv = *region;
+}
 
 // ModuleTemplate holds nothing but its vtable (0x00BBB52C): the constructors
 // install it and the destructor restores it, with no member traffic at all.

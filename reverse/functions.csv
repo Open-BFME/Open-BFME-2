@@ -152,7 +152,7 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ??0ModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x000011C4,0x000011C4,11,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; FXParticleSystem ModuleTemplate copy constructor
 ?d_00001240@@YAXXZ,,0x00001240,15,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=operator=
 ??4?$CategoryModuleTemplate@$07@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x0000124F,0x0000124F,27,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; generated assignment adjusting the source by 8 to reach the EventModuleInfo base
-?d_00001278@@YAXXZ,,0x00001278,25,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=setUV
+?setUV@ParticleSystemTemplate@FXParticleSystem@@QAEXPBURegion2D@@@Z,0x00001278,0x00001278,25,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; ParticleSystemTemplate conditionally copies the 16-byte UV region at offset 0x88
 ?d_000012a3@@YAXXZ,,0x000012A3,15,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_004012a3
 ?d_000012b2@@YAXXZ,,0x000012B2,36,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_004012b2
 ?d_000012d6@@YAXXZ,,0x000012D6,36,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_004012d6
