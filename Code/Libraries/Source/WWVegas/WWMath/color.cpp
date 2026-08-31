@@ -88,6 +88,22 @@ Debug &operator<<(Debug &debug, const RGBAColorInt &color)
     return debug;
 }
 
+class GameClientRandomVariable
+{
+public:
+    enum DistributionType
+    {
+        CONSTANT, UNIFORM, GAUSSIAN, TRIANGULAR, LOW_BIAS, HIGH_BIAS
+    };
+
+    void setRange(float low, float high, DistributionType type = UNIFORM);
+
+public:
+    DistributionType m_type;
+    float m_low;
+    float m_high;
+};
+
 namespace FXParticleSystem {
 
 struct RGBColorKeyframe
@@ -101,6 +117,23 @@ struct RGBColorKeyframe
 RGBColorKeyframe::RGBColorKeyframe()
 {
     color.red = color.green = color.blue = 0.0f;
+    frame = 0;
+}
+
+struct RandomAlphaKeyframe
+{
+    RandomAlphaKeyframe();
+
+    GameClientRandomVariable alpha;
+    unsigned int frame;
+};
+
+RandomAlphaKeyframe::RandomAlphaKeyframe()
+{
+    alpha.m_type = GameClientRandomVariable::CONSTANT;
+    alpha.m_low = 0.0f;
+    alpha.m_high = 0.0f;
+    alpha.setRange(0.0f, 0.0f, GameClientRandomVariable::UNIFORM);
     frame = 0;
 }
 

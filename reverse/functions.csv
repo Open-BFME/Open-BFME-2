@@ -173,7 +173,7 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_00001d80@@YAXXZ,,0x00001D80,26,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00401d80
 ?isEmpty@?$StringBase@D@@QBE_NXZ,0x00001E2F,0x00001E2F,20,Code/GameEngine/Source/Common/System/AsciiString.cpp,matched,Open-BFME5 clean C++; narrow StringBase emptiness test over the 16-bit length at offset 4
 ?d_00001e43@@YAXXZ,,0x00001E43,36,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00401e43
-?d_00001e7f@@YAXXZ,,0x00001E7F,47,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=RandomAlphaKeyframe
+??0RandomAlphaKeyframe@FXParticleSystem@@QAE@XZ,0x00001E7F,0x00001E7F,47,Code/Libraries/Source/WWVegas/WWMath/color.cpp,matched,Open-BFME5 clean C++; RandomAlphaKeyframe initializes a zero uniform alpha range and frame
 ?d_00001ef9@@YAXXZ,,0x00001EF9,31,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=CategoryModuleTemplate<8>
 ?d_00001f18@@YAXXZ,,0x00001F18,24,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=~CategoryModuleTemplate<1>
 ?d_00001f30@@YAXXZ,,0x00001F30,52,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=CategoryModuleTemplate<8>
