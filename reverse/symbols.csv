@@ -153,3 +153,5 @@ __CIasin,0x006298B6,MSVCR71 import thunk (jmp [0x00BBA5CC]); same shape from the
 ??0LineEmissionVolumeModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A65E9,BFME2 export; the module template copy constructor the ConcreteModuleTemplate wrapper calls
 ??0BoxEmissionVolumeModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A6738,BFME2 export; the module template copy constructor the ConcreteModuleTemplate wrapper calls
 ??0CylinderEmissionVolumeModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A6A49,BFME2 export; the module template copy constructor the ConcreteModuleTemplate wrapper calls
+??0SphereEmissionVolumeModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A68AF,BFME2 export; the module template copy constructor the ConcreteModuleTemplate wrapper calls
+??0PointEmissionVolumeModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A64B0,BFME2 export; the module template copy constructor the ConcreteModuleTemplate wrapper calls
