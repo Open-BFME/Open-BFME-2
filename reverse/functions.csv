@@ -1074,3 +1074,13 @@ _free,,0x00030830,17,Code/GameEngine/Source/Common/System/GameMemoryFree.cpp,mat
 ?Tan@@YAMM@Z,0x0002FBA0,0x0002FBA0,9,Code/Libraries/Source/WWVegas/WWMath/wwmath.cpp,matched,Open-BFME5 clean C++; x87 transcendental wrapper
 ?ACos@@YAMM@Z,0x0002FB90,0x0002FB90,10,Code/Libraries/Source/WWVegas/WWMath/wwmath.cpp,matched,Open-BFME5 clean C++; x87 inverse trigonometric wrapper
 ?ASin@@YAMM@Z,0x00711AC0,0x00711AC0,10,Code/Libraries/Source/WWVegas/WWMath/wwmath.cpp,matched,Open-BFME5 clean C++; x87 inverse trigonometric wrapper
+?isNotEmpty@?$StringBase@D@@QBE_NXZ,0x00407101,0x00407101,11,Code/Libraries/Source/WWVegas/WWLib/string_base.cpp,matched,Open-BFME5 clean C++; StringBase predicate and accessor
+?isNone@?$StringBase@D@@QBE_NXZ,0x00037DE0,0x00037DE0,16,Code/Libraries/Source/WWVegas/WWLib/string_base.cpp,matched,Open-BFME5 clean C++; StringBase predicate and accessor
+?isNone@?$StringBase@G@@QBE_NXZ,0x00038040,0x00038040,16,Code/Libraries/Source/WWVegas/WWLib/string_base.cpp,matched,Open-BFME5 clean C++; StringBase predicate and accessor
+?isNotNone@?$StringBase@D@@QBE_NXZ,0x00038050,0x00038050,17,Code/Libraries/Source/WWVegas/WWLib/string_base.cpp,matched,Open-BFME5 clean C++; StringBase predicate and accessor
+?isNotNone@?$StringBase@G@@QBE_NXZ,0x00038070,0x00038070,17,Code/Libraries/Source/WWVegas/WWLib/string_base.cpp,matched,Open-BFME5 clean C++; StringBase predicate and accessor
+?getCharAt@?$StringBase@D@@QBEDH@Z,0x00035720,0x00035720,23,Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp,matched,Open-BFME5 clean C++; StringBase accessor from the speed-built unit
+?isEmpty@?$StringBase@G@@QBE_NXZ,0x00035740,0x00035740,22,Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp,matched,Open-BFME5 clean C++; StringBase accessor from the speed-built unit
+?getCharAt@?$StringBase@G@@QBEGH@Z,0x00035760,0x00035760,23,Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp,matched,Open-BFME5 clean C++; StringBase accessor from the speed-built unit
+??4?$StringBase@D@@QAEAAV0@ABV0@@Z,0x00036E50,0x00036E50,19,Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp,matched,Open-BFME5 clean C++; StringBase copy assignment
+??4?$StringBase@G@@QAEAAV0@ABV0@@Z,0x00037900,0x00037900,19,Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp,matched,Open-BFME5 clean C++; StringBase copy assignment

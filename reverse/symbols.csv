@@ -116,3 +116,5 @@ _strlen,0x00629170,BFME2 retail strlen thunk and call target for StringBase<char
 ?compareRangeNoCase@@YAHPBGH0HUCharCompare@@@Z,0x00005898,BFME2 retail worker the StringBase<wchar_t> compareNoCase(const wchar_t *, int) overload calls
 __CIacos,0x006298B0,MSVCR71 import thunk (jmp [0x00BBA5D0]); the ACos wrapper at 0x0002FB90 loads its float argument with fld and calls straight into it
 __CIasin,0x006298B6,MSVCR71 import thunk (jmp [0x00BBA5CC]); same shape from the ASin wrapper at 0x00711AC0
+?compareNoCase@?$StringBase@D@@QBEHPBD@Z,0x00037980,BFME2 export and retail call target for StringBase<char> compareNoCase against a C string; isNone and isNotNone both go through it
+?compareNoCase@?$StringBase@G@@QBEHPBG@Z,0x00037A90,BFME2 export and retail call target for the StringBase<wchar_t> twin

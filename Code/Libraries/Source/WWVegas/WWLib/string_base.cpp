@@ -211,6 +211,44 @@ void StringBase<wchar_t>::concat(const wchar_t *str)
 }
 
 template <typename T>
+bool StringBase<T>::isEmpty() const
+{
+    return m_data == 0 || m_data->length == 0;
+}
+
+template <typename T>
+bool StringBase<T>::isNotEmpty() const
+{
+    return !isEmpty();
+}
+
+// "None" is the INI sentinel for an unset asset name, and both tests go through
+// the case-insensitive comparison rather than a length check.
+template <>
+bool StringBase<char>::isNone() const
+{
+    return compareNoCase("None") == 0;
+}
+
+template <>
+bool StringBase<wchar_t>::isNone() const
+{
+    return compareNoCase(L"None") == 0;
+}
+
+template <>
+bool StringBase<char>::isNotNone() const
+{
+    return compareNoCase("None") != 0;
+}
+
+template <>
+bool StringBase<wchar_t>::isNotNone() const
+{
+    return compareNoCase(L"None") != 0;
+}
+
+template <typename T>
 int StringBase<T>::getLength() const
 {
     return m_data ? m_data->length : 0;
@@ -253,3 +291,4 @@ template class StringBase<char>;
 template void StringBase<wchar_t>::set(wchar_t c);
 template void StringBase<wchar_t>::concat(wchar_t c);
 template const wchar_t *StringBase<wchar_t>::str() const;
+template bool StringBase<wchar_t>::isEmpty() const;
