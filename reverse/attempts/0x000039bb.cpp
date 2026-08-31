@@ -1,22 +1,21 @@
 // ?Rotate@Coord2D@@QAEAAV1@ABV1@M@Z
-// partial score=0.5 date=2026-08-31
-// Coord2D::Rotate(const Coord2D &, float), retail 0x000039BB, 80 bytes.
-// The SSE tail is right by construction and the algebra is certain
-//   x = coord.x * cosine - coord.y * sine
-//   y = coord.y * cosine + coord.x * sine
-// but retail gets both trig values from a single x87 `fsincos` (d9 fb) and
-// spills them to float locals, while a plain sin()/cos() pair compiles to two
-// calls into the CRT and then stays in x87 for the whole body. /Oi does turn
-// the calls into intrinsics but emits separate fcos/fsin (d9 ff / d9 fe), still
-// not fsincos, and it also drags the rest of the TU off its matched shape. The
-// missing piece is whatever gave BFME 2 a fused sincos - most likely a small
-// inline helper - not the expression below.
-Coord2D &Coord2D::Rotate(const Coord2D &coord, float angle)
-{
-    float cosine = (float)cos(angle);
-    float sine = (float)sin(angle);
+// partial score=0.9 date=2026-08-31
+// Coord2D::Rotate(const Coord2D &, float) at 0x000039BB (80 bytes).
+//
+// The arithmetic is right; the sine and cosine are not. Retail opens with
+// `fld [ebp+0xc]; fsincos`, which MSVC 7.1 emits only under /Oi. This file
+// cannot have /Oi: it turns the four fabs calls in GetLengthEstimate into the
+// fabs instruction and breaks three landed bodies. The overload at 0x00003916
+// carries BOTH the library calls and an fsincos, so whichever unit these two
+// live in has /Oi and reaches sin and cos some other way as well.
 
-    x = coord.x * cosine - coord.y * sine;
-    y = coord.y * cosine + coord.x * sine;
+Coord2D &Coord2D::Rotate(const Coord2D &that, float angle)
+{
+    const float cosine = (float)cos(angle);
+    const float sine = (float)sin(angle);
+
+    x = that.x * cosine - that.y * sine;
+    y = that.y * cosine + that.x * sine;
+
     return *this;
 }

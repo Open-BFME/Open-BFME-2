@@ -84,6 +84,8 @@ public:
     Coord2D &SetXAxis();
     Coord2D &SetYAxis();
     Coord2D &SetZero();
+
+    float GetLengthEstimate() const;
 };
 
 // Out of line, because an in-class body is implicitly inline and MSVC folds it
@@ -341,4 +343,16 @@ Debug &operator<<(Debug &debug, const Coord2D &coord)
 {
     debug << "(" << coord.x << ", " << coord.y << ")";
     return debug;
+}
+
+// The larger component plus a quarter of the smaller - a cheap length that
+// never underestimates by more than about a tenth. fabs is called twice for the
+// comparison and twice again for the result, which is what the source says.
+float Coord2D::GetLengthEstimate() const
+{
+    if (fabs(x) > fabs(y)) {
+        return (float)(fabs(x) + fabs(y) * 0.25f);
+    }
+
+    return (float)(fabs(y) + fabs(x) * 0.25f);
 }
