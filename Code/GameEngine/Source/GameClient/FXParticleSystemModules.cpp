@@ -141,13 +141,43 @@ FX_MODULE_TEMPLATE(OrthoEmissionVelocityModuleTemplate, OrthoEmissionVelocityInf
 template <int CATEGORY>
 class DefaultParticleModule;
 
+// The module class the wrappers register into. Its constructor hands the key and
+// name the tag carries to the per-category base, along with a flag that is set
+// only for the two tags that are their category's default.
+template <int CATEGORY>
+class CategoryModuleClass
+{
+protected:
+    CategoryModuleClass(bool isDefault, const char *key, const char *name);
+
+    virtual ~CategoryModuleClass();
+    virtual void v1() = 0;
+};
+
 template <int CATEGORY, const char *const &KEY, const char *const &NAME, class MODULE,
     class TEMPLATE, class DEFAULT>
 class ModuleTag
 {
 public:
+    enum { IS_DEFAULT = 0 };
+
     typedef TEMPLATE TemplateType;
+    typedef CategoryModuleClass<CATEGORY> ClassBase;
+
+    // Static REFERENCES, not accessors: MSVC 7.1 gives each one a hidden
+    // pointer global, so reading them is a load of that pointer and a load
+    // through it - which is the double indirection retail does here.
+    static const char *const &s_key;
+    static const char *const &s_name;
 };
+
+template <int CATEGORY, const char *const &KEY, const char *const &NAME, class MODULE,
+    class TEMPLATE, class DEFAULT>
+const char *const &ModuleTag<CATEGORY, KEY, NAME, MODULE, TEMPLATE, DEFAULT>::s_key = KEY;
+
+template <int CATEGORY, const char *const &KEY, const char *const &NAME, class MODULE,
+    class TEMPLATE, class DEFAULT>
+const char *const &ModuleTag<CATEGORY, KEY, NAME, MODULE, TEMPLATE, DEFAULT>::s_name = NAME;
 
 template <class TAG>
 class ConcreteModuleTemplate : public TAG::TemplateType
@@ -187,11 +217,34 @@ typename TAG::TemplateType *ConcreteModuleTemplate<TAG>::clone() const
 class INI;
 
 template <class TAG>
-class ConcreteModuleClass
+class ConcreteModuleClass : public TAG::ClassBase
 {
 public:
     virtual typename TAG::TemplateType *createTemplate() const;
+    virtual void v1();
+
+private:
+    // Private, and its only caller is the class's own single instance - which is
+    // how a self-registering singleton is written, and the only way a private
+    // constructor gets called at all.
+    ConcreteModuleClass();
+
+    static ConcreteModuleClass<TAG> s_instance;
 };
+
+template <class TAG>
+ConcreteModuleClass<TAG> ConcreteModuleClass<TAG>::s_instance;
+
+template <class TAG>
+void ConcreteModuleClass<TAG>::v1()
+{
+}
+
+template <class TAG>
+ConcreteModuleClass<TAG>::ConcreteModuleClass()
+    : TAG::ClassBase(TAG::IS_DEFAULT != 0, TAG::s_key, TAG::s_name)
+{
+}
 
 template <class TAG>
 typename TAG::TemplateType *ConcreteModuleClass<TAG>::createTemplate() const
@@ -213,20 +266,32 @@ typename TAG::TemplateType *ConcreteModuleClass<TAG>::createTemplate() const
     typedef ConcreteModuleClass<MOD##Tag> MOD##ClassConcrete;                                     \
                                                                                                   \
     MOD##Concrete g_##MOD##Concrete;                                                              \
-    MOD##ClassConcrete g_##MOD##ClassConcrete;
+    template class ConcreteModuleClass<MOD##Tag>;
 
 // The point volume's tag is a plain struct rather than a ModuleTag
 // instantiation - the U rather than V in the decorated name is what says so.
+extern const char *const POINT_EMISSION_VOLUME_MODULE_KEY;
+extern const char *const POINT_EMISSION_VOLUME_MODULE_NAME;
+
 struct PointEmissionVolumeModuleTag
 {
+    enum { IS_DEFAULT = 1 };
+
     typedef PointEmissionVolumeModuleTemplate TemplateType;
+    typedef CategoryModuleClass<5> ClassBase;
+
+    static const char *const &s_key;
+    static const char *const &s_name;
 };
+
+const char *const &PointEmissionVolumeModuleTag::s_key = POINT_EMISSION_VOLUME_MODULE_KEY;
+const char *const &PointEmissionVolumeModuleTag::s_name = POINT_EMISSION_VOLUME_MODULE_NAME;
 
 typedef ConcreteModuleTemplate<PointEmissionVolumeModuleTag> PointEmissionVolumeModuleConcrete;
 typedef ConcreteModuleClass<PointEmissionVolumeModuleTag> PointEmissionVolumeModuleClassConcrete;
 
 PointEmissionVolumeModuleConcrete g_pointEmissionVolumeModuleConcrete;
-PointEmissionVolumeModuleClassConcrete g_pointEmissionVolumeModuleClassConcrete;
+template class ConcreteModuleClass<PointEmissionVolumeModuleTag>;
 
 FX_WRAPPER(5, SPHERE_EMISSION_VOLUME, SphereEmissionVolumeModule,
     SphereEmissionVolumeModuleTemplate)
@@ -245,16 +310,28 @@ FX_WRAPPER(4, OUTWARD_EMISSION_VELOCITY, OutwardEmissionVelocityModule,
     OutwardEmissionVelocityModuleTemplate)
 
 // The ortho velocity tag is the other plain struct.
+extern const char *const ORTHO_EMISSION_VELOCITY_MODULE_KEY;
+extern const char *const ORTHO_EMISSION_VELOCITY_MODULE_NAME;
+
 struct OrthoEmissionVelocityModuleTag
 {
+    enum { IS_DEFAULT = 1 };
+
     typedef OrthoEmissionVelocityModuleTemplate TemplateType;
+    typedef CategoryModuleClass<4> ClassBase;
+
+    static const char *const &s_key;
+    static const char *const &s_name;
 };
+
+const char *const &OrthoEmissionVelocityModuleTag::s_key = ORTHO_EMISSION_VELOCITY_MODULE_KEY;
+const char *const &OrthoEmissionVelocityModuleTag::s_name = ORTHO_EMISSION_VELOCITY_MODULE_NAME;
 
 typedef ConcreteModuleTemplate<OrthoEmissionVelocityModuleTag> OrthoEmissionVelocityModuleConcrete;
 typedef ConcreteModuleClass<OrthoEmissionVelocityModuleTag>
     OrthoEmissionVelocityModuleClassConcrete;
 
 OrthoEmissionVelocityModuleConcrete g_orthoEmissionVelocityModuleConcrete;
-OrthoEmissionVelocityModuleClassConcrete g_orthoEmissionVelocityModuleClassConcrete;
+template class ConcreteModuleClass<OrthoEmissionVelocityModuleTag>;
 
 }
