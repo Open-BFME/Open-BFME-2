@@ -99,6 +99,7 @@ __ftol2,0x00629228,MSVC float-to-int helper byte-identical to pinned BFME1 CRT b
 _abs,0x0062909A,MSVCR71 import thunk identified by official ATL 7.1 call and retail target
 _fabs,0x00629210,MSVCRT import thunk identified by four retail call targets and Ghidra
 _memcmp,0x0062929E,CRT memcmp import thunk (jmp [0x00BBA694]); ghidra labels this address memcmp and the StringBase<char> comparison helper calls it directly
+_memset,0x006291AE,CRT memset import thunk; Ghidra labels the retail call target at 0x6291AE
 _sqrt,0x0062921C,MSVCRT import thunk identified by retail call target and Ghidra
 _strlen,0x00629170,BFME2 retail strlen thunk and call target for StringBase<char>::compare(const char *)
 ?allocate@?$allocator@D@_STL@@SAPADIPBX@Z,0x000307F0,STLport 4.5.3 narrow allocator byte allocation; address read from retail basic_string _M_range_initialize REL32 displacement. Body forwards (size, memory class 3, hint) to the game allocator pointer at 0x00DE0404 - the same table _free at 0x00030830 uses - so it is __cdecl here, not the upstream const member
