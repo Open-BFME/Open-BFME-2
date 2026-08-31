@@ -87,6 +87,7 @@ public:
 
     float GetLength() const;
     float GetLengthSqrd() const;
+    float Normalize();
 
     float GetLengthEstimate() const;
 };
@@ -378,4 +379,21 @@ float Coord2D::GetLengthSqrd() const
     float y_value = y;
 
     return x_value * x_value + y_value * y_value;
+}
+
+static const float one = 1.0f;
+
+// Same shape as Coord3D::Normalize2D: the length through GetLength, one
+// reciprocal, two scales, and the length back.
+float Coord2D::Normalize()
+{
+    float x_value = x;
+    float y_value = y;
+    float len = (float)sqrt(x_value * x_value + y_value * y_value);
+    float scale = one / len;
+
+    x *= scale;
+    y *= scale;
+
+    return len;
 }
