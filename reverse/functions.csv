@@ -237,10 +237,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_000058c3@@YAXXZ,,0x000058C3,96,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=AtlWinModuleTerm
 ?d_00005923@@YAXXZ,,0x00005923,124,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=toAngle
 ?d_000059d3@@YAXXZ,,0x000059D3,83,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Normalize
-?d_00005ae7@@YAXXZ,,0x00005AE7,102,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Matrix4D
-?d_00005bb8@@YAXXZ,,0x00005BB8,116,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Matrix4D
-?d_00006469@@YAXXZ,,0x00006469,44,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=expandBy
-?d_000064fc@@YAXXZ,,0x000064FC,60,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=expandBy
 ?d_00006538@@YAXXZ,,0x00006538,18,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=RGBColor
 ?d_000066de@@YAXXZ,,0x000066DE,13,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_004066de
 ?d_000066f0@@YAXXZ,,0x000066F0,32,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=CW2AEX<>
@@ -1062,10 +1058,14 @@ _free,,0x00030830,17,Code/GameEngine/Source/Common/System/GameMemoryFree.cpp,mat
 ?compareNoCase@?$StringBase@D@@QBEHPBDH@Z,0x00006772,0x00006772,63,Code/Libraries/Source/WWVegas/WWLib/string_base.cpp,matched,Open-BFME5 clean C++; StringBase<char> compareNoCase with explicit length
 ?compare@?$StringBase@G@@QBEHPBGH@Z,0x000067B1,0x000067B1,63,Code/Libraries/Source/WWVegas/WWLib/string_base.cpp,matched,Open-BFME5 clean C++; StringBase<wchar_t> compare with explicit length
 ?compareNoCase@?$StringBase@G@@QBEHPBGH@Z,0x000067F0,0x000067F0,63,Code/Libraries/Source/WWVegas/WWLib/string_base.cpp,matched,Open-BFME5 clean C++; StringBase<wchar_t> compareNoCase with explicit length
-?expandRange@@YAXPAHH0@Z,,0x000057F1,23,Code/Libraries/Source/WWVegas/WWMath/region.cpp,matched,Open-BFME5 clean C++; shared integer expandBy axis worker
-?combine@RealRange@@QAEXAAU1@@Z,0x000062AD,0x000062AD,43,Code/Libraries/Source/WWVegas/WWMath/region.cpp,matched,Open-BFME5 clean C++; RealRange combine
-?combine@IntRange@@QAEXAAU1@@Z,0x000062D8,0x000062D8,37,Code/Libraries/Source/WWVegas/WWMath/region.cpp,matched,Open-BFME5 clean C++; IntRange combine
 ??0CComCriticalSection@ATL@@QAE@XZ,,0x00003227,20,Code/Libraries/Source/ATL/atlcore.cpp,matched,Open-BFME5 clean C++; ATL 7.1 CComCriticalSection zero-initializes its 24-byte critical-section storage
 ??G@YA?AVCoord3D@@V0@@Z,0x00003FEE,0x00003FEE,46,Code/Libraries/Source/WWVegas/WWMath/coord3d.cpp,matched,Open-BFME5 clean C++; Coord3D unary minus
 ??0_ATL_WIN_MODULE70@ATL@@QAE@XZ,,0x0000683C,26,Code/Libraries/Source/ATL/atlbase.cpp,matched,Open-BFME5 clean C++; ATL 7.1 _ATL_WIN_MODULE70 constructor initializes its window atom array after constructing the embedded critical section
 ?SetIdentity@Matrix4D@@QAEAAV1@XZ,0x0000401C,0x0000401C,93,Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp,matched,Open-BFME5 clean C++; Matrix4D SetIdentity
+?combine@RealRange@@QAEXAAU1@@Z,0x000062AD,0x000062AD,43,Code/Libraries/Source/WWVegas/WWMath/region.cpp,matched,Open-BFME5 clean C++; RealRange combine
+?combine@IntRange@@QAEXAAU1@@Z,0x000062D8,0x000062D8,37,Code/Libraries/Source/WWVegas/WWMath/region.cpp,matched,Open-BFME5 clean C++; IntRange combine
+?expandBy@IRegion2D@@QAEXABUICoord2D@@@Z,0x00006469,0x00006469,44,Code/Libraries/Source/WWVegas/WWMath/region.cpp,matched,Open-BFME5 clean C++; IRegion2D expandBy
+?expandRange@@YAXPAHH0@Z,,0x000057F1,23,Code/Libraries/Source/WWVegas/WWMath/icoord.cpp,matched,Open-BFME5 clean C++; shared integer expandBy axis worker
+?expandBy@IRegion3D@@QAEXABUICoord3D@@@Z,0x000064FC,0x000064FC,60,Code/Libraries/Source/WWVegas/WWMath/region.cpp,matched,Open-BFME5 clean C++; IRegion3D expandBy
+??0Matrix4D@@QAE@_N@Z,0x00005AE7,0x00005AE7,102,Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp,matched,Open-BFME5 clean C++; Matrix4D identity-flag constructor
+??0Matrix4D@@QAE@ABVCoord3D@@@Z,0x00005BB8,0x00005BB8,116,Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp,matched,Open-BFME5 clean C++; Matrix4D translation constructor

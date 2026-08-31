@@ -63,25 +63,16 @@ struct ICoord2DBase
     int y;
 };
 
-// exports.csv spells the expandBy parameter ICoord2D, which is a separate name
-// from the ICoord2DBase the Debug streamer takes; the layout is the same two
-// ints either way.
-struct ICoord2D
+struct ICoord2D : public ICoord2DBase
 {
-    int x;
-    int y;
 };
 
 // Both integer expandBy members widen one axis at a time through this shared
-// three-argument worker rather than inlining the comparison pair.
-void expandRange(int *low, int value, int *high)
-{
-    if (value < *low) {
-        *low = value;
-    } else if (value > *high) {
-        *high = value;
-    }
-}
+// three-argument worker rather than inlining the comparison pair. It is only
+// DECLARED here: with the body in front of them MSVC 7.1 sees that it leaves
+// edx alone and parks `this` there across the calls, while retail saves esi and
+// edi like a caller that has only seen the declaration.
+void expandRange(int *low, int value, int *high);
 
 Debug &operator<<(Debug &debug, const ICoord2DBase &coord);
 

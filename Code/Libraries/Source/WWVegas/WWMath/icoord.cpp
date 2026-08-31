@@ -55,6 +55,19 @@ struct ICoord3D
     int z;
 };
 
+// The worker both integer IRegion expandBy members call, one axis at a time, as
+// (&low, value, &high). It cannot share a translation unit with them: with the
+// body visible MSVC 7.1 proves it leaves edx alone and parks `this` there
+// across the calls, while retail saves esi and edi around them.
+void expandRange(int *low, int value, int *high)
+{
+    if (value < *low) {
+        *low = value;
+    } else if (value > *high) {
+        *high = value;
+    }
+}
+
 ICoord2D &ICoord2D::operator+=(const ICoord2DBase &that)
 {
     x += that.x;

@@ -31,6 +31,7 @@ public:
     Coord3D &RotateCoord(const Coord3D &coord, Coord3D &out);
     Coord3D &TransformCoord(const Coord3D &coord, Coord3D &out);
     Matrix4D &SetIdentity();
+
     Matrix4D &Transpose();
     float Determinant() const;
     float Inverse();
@@ -38,26 +39,7 @@ public:
     float values[16];
 };
 
-Matrix4D::Matrix4D(bool identity)
-{
-    if (identity) {
-        SetIdentity();
-    }
-}
-
-// The three translation slots are stored twice: MSVC hoists their zeroes out of
-// the inlined SetIdentity to the top of the body and leaves them there, dead,
-// ahead of the thirteen that are not overwritten.
-Matrix4D::Matrix4D(const Coord3D &translation)
-{
-    SetIdentity();
-
-    values[3] = translation.x;
-    values[7] = translation.y;
-    values[11] = translation.z;
-}
-
-Matrix4D &Matrix4D::SetIdentity()
+inline Matrix4D &Matrix4D::SetIdentity()
 {
     values[0] = 1.0f;
     values[1] = 0.0f;
@@ -77,6 +59,25 @@ Matrix4D &Matrix4D::SetIdentity()
     values[15] = 1.0f;
 
     return *this;
+}
+
+Matrix4D::Matrix4D(bool identity)
+{
+    if (identity) {
+        SetIdentity();
+    }
+}
+
+// The three translation slots are stored twice: MSVC hoists their zeroes out of
+// the inlined SetIdentity to the top of the body and leaves them there, dead,
+// ahead of the thirteen that are not overwritten.
+Matrix4D::Matrix4D(const Coord3D &translation)
+{
+    SetIdentity();
+
+    values[3] = translation.x;
+    values[7] = translation.y;
+    values[11] = translation.z;
 }
 
 Matrix4D::Matrix4D(const Matrix4D &that)
@@ -396,3 +397,8 @@ float Matrix4D::Inverse()
     }
     return det;
 }
+
+// SetIdentity has to be inline for the two constructors to absorb it whole, the
+// way retail does; taking its address is what still forces the standalone copy
+// at 0x0000401C out.
+Matrix4D &(Matrix4D::*g_matrix4dSetIdentity)() = &Matrix4D::SetIdentity;
