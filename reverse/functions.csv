@@ -1174,3 +1174,8 @@ _free,,0x00030830,17,Code/GameEngine/Source/Common/System/GameMemoryFree.cpp,mat
 ?endsWith@?$StringBase@D@@QBE_NPBDH@Z,0x00035A00,0x00035A00,75,Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp,matched,Open-BFME5 clean C++; StringBase prefix and suffix test
 ?startsWith@?$StringBase@D@@QBE_NABV1@@Z,0x00035FB0,0x00035FB0,79,Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp,matched,Open-BFME5 clean C++; StringBase prefix and suffix test
 ?endsWith@?$StringBase@D@@QBE_NABV1@@Z,0x00036060,0x00036060,111,Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp,matched,Open-BFME5 clean C++; StringBase prefix and suffix test
+??0BoxEmissionVolumeInfo@FXParticleSystem@@QAE@XZ,0x003A664A,0x003A664A,31,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; emission volume info body
+??4BoxEmissionVolumeInfo@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A6696,0x003A6696,28,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; emission volume info body
+??4LineEmissionVolumeInfo@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A657A,0x003A657A,37,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; emission volume info body
+??4CylinderEmissionVolumeInfo@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A6986,0x003A6986,46,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; emission volume info body
+??0BoxEmissionVolumeInfo@FXParticleSystem@@QAE@ABV01@@Z,0x003A6669,0x003A6669,45,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; BoxEmissionVolumeInfo copy constructor

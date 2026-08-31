@@ -204,6 +204,71 @@ SphereEmissionVolumeInfo::SphereEmissionVolumeInfo()
     m_radius = 0.0f;
 }
 
+// Three floats grouped as one member: the generated assignment copies them as a
+// twelve-byte block with movsd while the generated copy constructor copies them
+// one at a time, which is how MSVC 7.1 tells a sub-object apart from three loose
+// scalars.
+struct FXCoord3D
+{
+    float x;
+    float y;
+    float z;
+};
+
+class BoxEmissionVolumeInfo : public EmissionVolumeInfo
+{
+public:
+    BoxEmissionVolumeInfo();
+    BoxEmissionVolumeInfo(const BoxEmissionVolumeInfo &that);
+
+    FXCoord3D m_half;
+};
+
+BoxEmissionVolumeInfo::BoxEmissionVolumeInfo()
+{
+    m_half.x = 0.0f;
+    m_half.y = 0.0f;
+    m_half.z = 0.0f;
+}
+
+// Written out rather than left to the compiler: the generated copy constructor
+// is never emitted without a use, and retail copies the three floats one at a
+// time here even though the generated assignment blocks them together.
+BoxEmissionVolumeInfo::BoxEmissionVolumeInfo(const BoxEmissionVolumeInfo &that)
+    : EmissionVolumeInfo(that)
+{
+    m_half.x = that.m_half.x;
+    m_half.y = that.m_half.y;
+    m_half.z = that.m_half.z;
+}
+
+class LineEmissionVolumeInfo : public EmissionVolumeInfo
+{
+public:
+    FXCoord3D m_start;
+    FXCoord3D m_end;
+};
+
+class CylinderEmissionVolumeInfo : public EmissionVolumeInfo
+{
+public:
+    float m_radius;
+    float m_length;
+    float m_radius2;
+    FXCoord3D m_axis;
+};
+
+typedef BoxEmissionVolumeInfo &(BoxEmissionVolumeInfo::*BoxEmissionVolumeAssign)(
+    const BoxEmissionVolumeInfo &);
+typedef LineEmissionVolumeInfo &(LineEmissionVolumeInfo::*LineEmissionVolumeAssign)(
+    const LineEmissionVolumeInfo &);
+typedef CylinderEmissionVolumeInfo &(CylinderEmissionVolumeInfo::*CylinderEmissionVolumeAssign)(
+    const CylinderEmissionVolumeInfo &);
+BoxEmissionVolumeAssign g_boxEmissionVolumeAssign = &BoxEmissionVolumeInfo::operator=;
+LineEmissionVolumeAssign g_lineEmissionVolumeAssign = &LineEmissionVolumeInfo::operator=;
+CylinderEmissionVolumeAssign g_cylinderEmissionVolumeAssign =
+    &CylinderEmissionVolumeInfo::operator=;
+
 typedef SphereEmissionVolumeInfo &(SphereEmissionVolumeInfo::*SphereEmissionVolumeAssign)(
     const SphereEmissionVolumeInfo &);
 
