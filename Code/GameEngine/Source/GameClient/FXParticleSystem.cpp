@@ -221,4 +221,44 @@ typedef EmissionVolumeInfo &(EmissionVolumeInfo::*EmissionVolumeAssign)(const Em
 
 EmissionVolumeAssign g_emissionVolumeAssign = &EmissionVolumeInfo::operator=;
 
+// One module class per category, registered into a table of eight pointers
+// starting at 0x00DFDD1C. The registration is conditional on the second
+// constructor argument, and the slot is the only thing that varies across the
+// eight instantiations - which is what says the table is indexed by the
+// category rather than looked up.
+template <int CATEGORY>
+class CategoryModuleClass
+{
+public:
+    static const CategoryModuleClass<CATEGORY> *s_instance;
+};
+
+template <int CATEGORY>
+const CategoryModuleClass<CATEGORY> *CategoryModuleClass<CATEGORY>::s_instance;
+
+template <int CATEGORY, int MODULE_COUNT>
+class CategoryModuleClassBase
+{
+protected:
+    CategoryModuleClassBase(const CategoryModuleClass<CATEGORY> &that, bool registerIt);
+};
+
+template <int CATEGORY, int MODULE_COUNT>
+CategoryModuleClassBase<CATEGORY, MODULE_COUNT>::CategoryModuleClassBase(
+    const CategoryModuleClass<CATEGORY> &that, bool registerIt)
+{
+    if (registerIt) {
+        CategoryModuleClass<CATEGORY>::s_instance = &that;
+    }
+}
+
+template class CategoryModuleClassBase<0, 1>;
+template class CategoryModuleClassBase<1, 1>;
+template class CategoryModuleClassBase<2, 1>;
+template class CategoryModuleClassBase<3, 1>;
+template class CategoryModuleClassBase<4, 1>;
+template class CategoryModuleClassBase<5, 1>;
+template class CategoryModuleClassBase<6, 1>;
+template class CategoryModuleClassBase<7, 1>;
+
 }
