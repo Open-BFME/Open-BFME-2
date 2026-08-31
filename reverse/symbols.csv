@@ -147,3 +147,6 @@ __CIasin,0x006298B6,MSVCR71 import thunk (jmp [0x00BBA5CC]); same shape from the
 ?set@?$StringBase@D@@QAEXABV1@HH@Z,0x00037C70,BFME2 export and retail call target for the StringBase substring setter
 ?set@?$StringBase@G@@QAEXPBGHH@Z,0x00037E90,BFME2 export and retail call target for the StringBase substring setter
 ?set@?$StringBase@G@@QAEXABV1@HH@Z,0x00037EF0,BFME2 export and retail call target for the StringBase substring setter
+??0StreakDrawModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A7B5F,BFME2 export; the module template copy constructor the ConcreteModuleTemplate wrapper calls
+??0QuadDrawModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A7C4C,BFME2 export; the module template copy constructor the ConcreteModuleTemplate wrapper calls
+??0ButterflyDrawModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A7CEE,BFME2 export; the module template copy constructor the ConcreteModuleTemplate wrapper calls

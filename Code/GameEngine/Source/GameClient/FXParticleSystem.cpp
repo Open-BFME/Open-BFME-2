@@ -1006,6 +1006,7 @@ class ConcreteModuleTemplate : public TAG::TemplateType
 {
 public:
     ConcreteModuleTemplate();
+    __declspec(noinline) ConcreteModuleTemplate(const ConcreteModuleTemplate<TAG> &that);
 
     virtual void v1();
     virtual typename TAG::TemplateType *clone() const;
@@ -1017,14 +1018,22 @@ ConcreteModuleTemplate<TAG>::ConcreteModuleTemplate()
 }
 
 template <class TAG>
+ConcreteModuleTemplate<TAG>::ConcreteModuleTemplate(const ConcreteModuleTemplate<TAG> &that)
+    : TAG::TemplateType(that)
+{
+}
+
+template <class TAG>
 void ConcreteModuleTemplate<TAG>::v1()
 {
 }
 
-// clone is not claimed yet. Retail calls the generated copy constructor out of
-// line; MSVC 7.1 inlines it into every clone, so 0x003A8A1F and its siblings
-// come out with the three vtable stores in the body and the copy constructor
-// itself never emitted at all.
+// clone is one operator new and one call to the copy constructor. Keeping that
+// call is what the __declspec(noinline) above is for: retail does not inline the
+// copy constructor into clone, and MSVC 7.1 does at every optimization and
+// inline setting tried - /Ob1 breaks eleven other bodies in this unit and /EHsc
+// drags an unwind frame into clone that retail has not got. The marker stands in
+// for whatever kept retail's compiler out of it.
 template <class TAG>
 typename TAG::TemplateType *ConcreteModuleTemplate<TAG>::clone() const
 {
