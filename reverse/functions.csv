@@ -184,8 +184,8 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_00002206@@YAXXZ,,0x00002206,32,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00402206
 ?d_00002226@@YAXXZ,,0x00002226,141,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00402226
 ?d_0000232b@@YAXXZ,,0x0000232B,34,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_0040232b
-??1ParticleSystemInfo@FXParticleSystem@@UAE@XZ,0x0000240E,0x0000240E,10,Code/GameEngine/Source/GameClient/System/FXParticleSystem/fx_particle_system.cpp,matched,Open-BFME5 clean C++; FXParticleSystem ParticleSystemInfo destructor
-??0ParticleSystemInfo@FXParticleSystem@@QAE@ABV01@@Z,0x00002459,0x00002459,10,Code/GameEngine/Source/GameClient/System/FXParticleSystem/fx_particle_system.cpp,matched,Open-BFME5 clean C++; FXParticleSystem ParticleSystemInfo copy constructor
+?d_0000240e@@YAXXZ,,0x0000240E,10,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=~ParticleSystemInfo
+?d_00002459@@YAXXZ,,0x00002459,10,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=ParticleSystemInfo
 ?d_00002596@@YAXXZ,,0x00002596,28,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00402596
 ?d_00002600@@YAXXZ,,0x00002600,30,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=getName
 ?d_0000261e@@YAXXZ,,0x0000261E,27,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=getTextureFilename
@@ -205,7 +205,7 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_000032da@@YAXXZ,,0x000032DA,62,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_004032da
 ?d_00003318@@YAXXZ,,0x00003318,122,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00403318
 ?areApproxEqual@@YA_NMMM@Z,0x000034FA,0x000034FA,42,Code/Libraries/Source/WWVegas/WWMath/wwmath.cpp,matched,Open-BFME5 clean C++; float equality within a signed tolerance band
-?d_000036d1@@YAXXZ,,0x000036D1,49,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=scale
+?scale@Coord3D@@QAEXM@Z,0x000036D1,0x000036D1,49,Code/Libraries/Source/WWVegas/WWMath/region.cpp,matched,Open-BFME5 clean C++; Coord3D component-wise scalar multiplication
 ?d_00003916@@YAXXZ,,0x00003916,101,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Rotate
 ?d_000039bb@@YAXXZ,,0x000039BB,80,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Rotate
 ?d_00003ace@@YAXXZ,,0x00003ACE,372,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=GetLengthEstimate

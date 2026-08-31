@@ -72,10 +72,19 @@ Debug &operator<<(Debug &debug, const ICoord3D &coord);
 class Coord3D
 {
 public:
+    void scale(float scale);
+
     float x;
     float y;
     float z;
 };
+
+void Coord3D::scale(float scale)
+{
+    x *= scale;
+    y *= scale;
+    z *= scale;
+}
 
 Debug &operator<<(Debug &debug, const Coord3D &coord);
 
