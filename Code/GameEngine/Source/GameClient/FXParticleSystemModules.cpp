@@ -304,7 +304,10 @@ class CategoryModuleClass
 protected:
     CategoryModuleClass(bool isDefault, const char *key, const char *name);
 
-    virtual ~CategoryModuleClass();
+    // Protected and non-virtual, as FXParticleSystem.cpp proves from the IAE in
+    // its own decorated name. That is what makes every wrapper's destructor
+    // public and non-virtual too - retail spells them QAE.
+    ~CategoryModuleClass() {}
     virtual void v1() = 0;
 };
 
