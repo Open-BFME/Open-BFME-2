@@ -169,13 +169,10 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ??0Snapshot@@QAE@ABV0@@Z,0x00001745,0x00001745,11,Code/GameEngine/Source/Common/System/Snapshot.cpp,matched,Open-BFME5 clean C++; Snapshot copy constructor ignoring its argument
 ?d_0000179f@@YAXXZ,,0x0000179F,1167,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_0040179f
 ?d_00001c72@@YAXXZ,,0x00001C72,126,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00401c72
-?d_00001d69@@YAXXZ,,0x00001D69,23,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=CategoryModuleTemplate<1>
 ?d_00001d80@@YAXXZ,,0x00001D80,26,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00401d80
 ?isEmpty@?$StringBase@D@@QBE_NXZ,0x00001E2F,0x00001E2F,20,Code/GameEngine/Source/Common/System/AsciiString.cpp,matched,Open-BFME5 clean C++; narrow StringBase emptiness test over the 16-bit length at offset 4
 ?d_00001e43@@YAXXZ,,0x00001E43,36,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00401e43
 ??0RandomAlphaKeyframe@FXParticleSystem@@QAE@XZ,0x00001E7F,0x00001E7F,47,Code/Libraries/Source/WWVegas/WWMath/color.cpp,matched,Open-BFME5 clean C++; RandomAlphaKeyframe initializes a zero uniform alpha range and frame
-?d_00001ef9@@YAXXZ,,0x00001EF9,31,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=CategoryModuleTemplate<8>
-?d_00001f18@@YAXXZ,,0x00001F18,24,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=~CategoryModuleTemplate<1>
 ?d_00001f30@@YAXXZ,,0x00001F30,52,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=CategoryModuleTemplate<8>
 ?d_00001faf@@YAXXZ,,0x00001FAF,45,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00401faf
 ?d_00001fdc@@YAXXZ,,0x00001FDC,49,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00401fdc
@@ -187,8 +184,8 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_00002206@@YAXXZ,,0x00002206,32,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00402206
 ?d_00002226@@YAXXZ,,0x00002226,141,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00402226
 ?d_0000232b@@YAXXZ,,0x0000232B,34,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_0040232b
-?d_0000240e@@YAXXZ,,0x0000240E,10,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=~ParticleSystemInfo
-?d_00002459@@YAXXZ,,0x00002459,10,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=ParticleSystemInfo
+??1ParticleSystemInfo@FXParticleSystem@@UAE@XZ,0x0000240E,0x0000240E,10,Code/GameEngine/Source/GameClient/System/FXParticleSystem/fx_particle_system.cpp,matched,Open-BFME5 clean C++; FXParticleSystem ParticleSystemInfo destructor
+??0ParticleSystemInfo@FXParticleSystem@@QAE@ABV01@@Z,0x00002459,0x00002459,10,Code/GameEngine/Source/GameClient/System/FXParticleSystem/fx_particle_system.cpp,matched,Open-BFME5 clean C++; FXParticleSystem ParticleSystemInfo copy constructor
 ?d_00002596@@YAXXZ,,0x00002596,28,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00402596
 ?d_00002600@@YAXXZ,,0x00002600,30,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=getName
 ?d_0000261e@@YAXXZ,,0x0000261E,27,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=getTextureFilename
@@ -1069,3 +1066,6 @@ _free,,0x00030830,17,Code/GameEngine/Source/Common/System/GameMemoryFree.cpp,mat
 ??$_M_get_ostreambuf@DV?$char_traits@D@_STL@@@_STL@@YAPAV?$basic_streambuf@DV?$char_traits@D@_STL@@@0@AAV?$basic_ostream@DV?$char_traits@D@_STL@@@0@@Z,,0x00018170,14,Code/Libraries/Source/WWVegas/WWLib/stlport_ostreambuf_iterator.cpp,matched,vendored=stlport-4.5.3
 ?_wrap@LZBuffer@@KAHK@Z,,0x00690F50,10,Code/Libraries/Source/Compression/LZHCompress/CompLibSource/Huff.cpp,matched,vendored=stlport-4.5.3
 ?MD5_memcpy@@YAXPAE0I@Z,,0x006062D0,23,Code/Libraries/Source/WWVegas/WWLib/md5.cpp,matched,vendored=stlport-4.5.3
+??0?$CategoryModuleTemplate@$00@FXParticleSystem@@QAE@XZ,0x00001D69,0x00001D69,23,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; CategoryModuleTemplate<1> default constructor
+??0?$CategoryModuleTemplate@$07@FXParticleSystem@@QAE@XZ,0x00001EF9,0x00001EF9,31,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; CategoryModuleTemplate<8> default constructor
+??1?$CategoryModuleTemplate@$00@FXParticleSystem@@UAE@XZ,0x00001F18,0x00001F18,24,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; CategoryModuleTemplate<1> destructor
