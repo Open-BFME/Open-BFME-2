@@ -5,6 +5,79 @@
 #define _DLL
 #include <string.h>
 
+// The four (const T *, int) comparison members hand five arguments to a shared
+// worker: this string's data and length, the argument's data and length, and a
+// one-byte trait object the callers zero with a lea/stosb pair. Neither narrow
+// worker reads that object - only the wide pair takes its address - so it stays
+// an opaque byte here.
+struct CharCompare
+{
+    char m_unused;
+};
+
+int compareRange(const char *a, int alen, const char *b, int blen, CharCompare tag)
+{
+    // Retail selects the shorter length with cmovge; MSVC 7.1 will only emit
+    // cmp/jl here, which is the one instruction keeping 0x00005816 and
+    // 0x00005841 unclaimed. Everything around it matches byte for byte.
+    int len = alen;
+    if (len >= blen)
+        len = blen;
+    const int result = memcmp(a, b, len);
+    if (result != 0)
+        return result;
+    return alen - blen;
+}
+
+int compareRangeNoCase(const char *a, int alen, const char *b, int blen, CharCompare tag)
+{
+    // Retail selects the shorter length with cmovge; MSVC 7.1 will only emit
+    // cmp/jl here, which is the one instruction keeping 0x00005816 and
+    // 0x00005841 unclaimed. Everything around it matches byte for byte.
+    int len = alen;
+    if (len >= blen)
+        len = blen;
+    const int result = _memicmp(a, b, len);
+    if (result != 0)
+        return result;
+    return alen - blen;
+}
+
+template <>
+int StringBase<char>::compare(const char *str, int len) const
+{
+    return compareRange(m_data ? &m_data->data[0] : "", m_data ? m_data->length : 0, str, len,
+        CharCompare());
+}
+
+template <>
+int StringBase<char>::compareNoCase(const char *str, int len) const
+{
+    return compareRangeNoCase(m_data ? &m_data->data[0] : "", m_data ? m_data->length : 0, str, len,
+        CharCompare());
+}
+
+// The wide pair at 0x0000586D and 0x00005898 is the same worker shape against
+// StringBase<wchar_t>, except that both of them do read the trait object: each
+// takes its address and calls through it. Only the declarations are needed to
+// reproduce the two callers, so their bodies stay unclaimed.
+int compareRange(const wchar_t *a, int alen, const wchar_t *b, int blen, CharCompare tag);
+int compareRangeNoCase(const wchar_t *a, int alen, const wchar_t *b, int blen, CharCompare tag);
+
+template <>
+int StringBase<wchar_t>::compare(const wchar_t *str, int len) const
+{
+    return compareRange(m_data ? &m_data->data[0] : L"", m_data ? m_data->length : 0, str, len,
+        CharCompare());
+}
+
+template <>
+int StringBase<wchar_t>::compareNoCase(const wchar_t *str, int len) const
+{
+    return compareRangeNoCase(m_data ? &m_data->data[0] : L"", m_data ? m_data->length : 0, str,
+        len, CharCompare());
+}
+
 template <>
 int StringBase<char>::compare(const char *str) const
 {
