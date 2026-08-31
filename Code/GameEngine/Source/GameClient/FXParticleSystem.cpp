@@ -137,6 +137,10 @@ typedef EventCategoryModuleTemplate &(EventCategoryModuleTemplate::*EventCategor
 
 EventCategoryAssign g_eventCategoryAssign = &EventCategoryModuleTemplate::operator=;
 
+typedef EventModuleInfo &(EventModuleInfo::*EventModuleInfoAssign)(const EventModuleInfo &);
+
+EventModuleInfoAssign g_eventModuleInfoAssign = &EventModuleInfo::operator=;
+
 // Every module category has a display name and an INI key, kept side by side in
 // one eight-byte table entry; both accessors index it with the category and
 // differ only by which half they read.
