@@ -1134,3 +1134,14 @@ _free,,0x00030830,17,Code/GameEngine/Source/Common/System/GameMemoryFree.cpp,mat
 ??0?$CategoryModuleClassBase@$04$00@FXParticleSystem@@IAE@ABV?$CategoryModuleClass@$04@1@_N@Z,0x001F440C,0x001F440C,22,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; CategoryModuleClassBase registration constructor
 ??0?$CategoryModuleClassBase@$05$00@FXParticleSystem@@IAE@ABV?$CategoryModuleClass@$05@1@_N@Z,0x001F442E,0x001F442E,22,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; CategoryModuleClassBase registration constructor
 ??0?$CategoryModuleClassBase@$06$00@FXParticleSystem@@IAE@ABV?$CategoryModuleClass@$06@1@_N@Z,0x001F4450,0x001F4450,22,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; CategoryModuleClassBase registration constructor
+??0DefaultDrawModuleInfo@FXParticleSystem@@QAE@XZ,0x0055C446,0x0055C446,9,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; draw module info constructor
+??0DefaultDrawModuleInfo@FXParticleSystem@@QAE@ABV01@@Z,0x003A643C,0x003A643C,11,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; draw module info constructor
+??0StreakDrawModuleInfo@FXParticleSystem@@QAE@XZ,0x0055FD41,0x0055FD41,9,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; draw module info constructor
+??0StreakDrawModuleInfo@FXParticleSystem@@QAE@ABV01@@Z,0x003A7AB2,0x003A7AB2,11,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; draw module info constructor
+??0QuadDrawModuleInfo@FXParticleSystem@@QAE@XZ,0x005601AD,0x005601AD,9,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; draw module info constructor
+??0QuadDrawModuleInfo@FXParticleSystem@@QAE@ABV01@@Z,0x003A7BEA,0x003A7BEA,11,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; draw module info constructor
+??0ButterflyDrawModuleInfo@FXParticleSystem@@QAE@XZ,0x00560AB1,0x00560AB1,9,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; draw module info constructor
+??0ButterflyDrawModuleInfo@FXParticleSystem@@QAE@ABV01@@Z,0x003A7C8C,0x003A7C8C,11,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; draw module info constructor
+??0EmissionVolumeInfo@FXParticleSystem@@QAE@ABV01@@Z,0x001F3550,0x001F3550,21,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; emission volume info
+??0SphereEmissionVolumeInfo@FXParticleSystem@@QAE@XZ,0x003A67E8,0x003A67E8,21,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; emission volume info
+??4SphereEmissionVolumeInfo@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A681E,0x003A681E,21,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; emission volume info

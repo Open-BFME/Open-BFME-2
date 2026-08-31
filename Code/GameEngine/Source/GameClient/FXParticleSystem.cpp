@@ -170,6 +170,7 @@ class EmissionVolumeInfo
 {
 public:
     EmissionVolumeInfo();
+    EmissionVolumeInfo(const EmissionVolumeInfo &that);
 
     virtual ~EmissionVolumeInfo();
     virtual void v1() = 0;
@@ -181,6 +182,32 @@ EmissionVolumeInfo::EmissionVolumeInfo()
 {
     m_flag = false;
 }
+
+EmissionVolumeInfo::EmissionVolumeInfo(const EmissionVolumeInfo &that)
+{
+    m_flag = that.m_flag;
+}
+
+// One float behind the base's byte. The generated assignment copies both and
+// leaves the vtable alone; the constructor zeroes the float with an xorps store
+// after the vtable is in place.
+class SphereEmissionVolumeInfo : public EmissionVolumeInfo
+{
+public:
+    SphereEmissionVolumeInfo();
+
+    float m_radius;
+};
+
+SphereEmissionVolumeInfo::SphereEmissionVolumeInfo()
+{
+    m_radius = 0.0f;
+}
+
+typedef SphereEmissionVolumeInfo &(SphereEmissionVolumeInfo::*SphereEmissionVolumeAssign)(
+    const SphereEmissionVolumeInfo &);
+
+SphereEmissionVolumeAssign g_sphereEmissionVolumeAssign = &SphereEmissionVolumeInfo::operator=;
 
 class EmissionVelocityInfo
 {
@@ -260,5 +287,14 @@ template class CategoryModuleClassBase<4, 1>;
 template class CategoryModuleClassBase<5, 1>;
 template class CategoryModuleClassBase<6, 1>;
 template class CategoryModuleClassBase<7, 1>;
+
+// The four draw-module info classes carry nothing but their own vtable: both
+// constructors install it and the copy constructor ignores its argument.
+#define FX_VTABLE_ONLY_INFO(NAME)                                                                      class NAME                                                                                         {                                                                                                  public:                                                                                                NAME();                                                                                            NAME(const NAME &that);                                                                                                                                                                               virtual ~NAME();                                                                                    virtual void v1() = 0;                                                                         };                                                                                                                                                                                                    NAME::NAME() {}                                                                                    NAME::NAME(const NAME &that) {}
+
+FX_VTABLE_ONLY_INFO(DefaultDrawModuleInfo)
+FX_VTABLE_ONLY_INFO(StreakDrawModuleInfo)
+FX_VTABLE_ONLY_INFO(QuadDrawModuleInfo)
+FX_VTABLE_ONLY_INFO(ButterflyDrawModuleInfo)
 
 }
