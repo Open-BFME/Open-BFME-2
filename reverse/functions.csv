@@ -200,7 +200,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_0000319f@@YAXXZ,,0x0000319F,6,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Catch@0040319f
 ?d_000031a5@@YAXXZ,,0x000031A5,55,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=AtlA2WHelper
 ?d_000031dc@@YAXXZ,,0x000031DC,56,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=AtlW2AHelper
-?d_00003227@@YAXXZ,,0x00003227,20,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=CComCriticalSection
 ?d_00003295@@YAXXZ,,0x00003295,35,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=AtlWinModuleInit
 ?d_000032da@@YAXXZ,,0x000032DA,62,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_004032da
 ?d_00003318@@YAXXZ,,0x00003318,122,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00403318
@@ -242,8 +241,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_000059d3@@YAXXZ,,0x000059D3,83,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Normalize
 ?d_00005ae7@@YAXXZ,,0x00005AE7,102,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Matrix4D
 ?d_00005bb8@@YAXXZ,,0x00005BB8,116,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Matrix4D
-?d_000062ad@@YAXXZ,,0x000062AD,43,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=combine
-?d_000062d8@@YAXXZ,,0x000062D8,37,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=combine
 ?d_00006469@@YAXXZ,,0x00006469,44,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=expandBy
 ?d_000064fc@@YAXXZ,,0x000064FC,60,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=expandBy
 ?d_00006538@@YAXXZ,,0x00006538,18,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=RGBColor
@@ -1069,3 +1066,6 @@ _free,,0x00030830,17,Code/GameEngine/Source/Common/System/GameMemoryFree.cpp,mat
 ?compare@?$StringBase@G@@QBEHPBGH@Z,0x000067B1,0x000067B1,63,Code/Libraries/Source/WWVegas/WWLib/string_base.cpp,matched,Open-BFME5 clean C++; StringBase<wchar_t> compare with explicit length
 ?compareNoCase@?$StringBase@G@@QBEHPBGH@Z,0x000067F0,0x000067F0,63,Code/Libraries/Source/WWVegas/WWLib/string_base.cpp,matched,Open-BFME5 clean C++; StringBase<wchar_t> compareNoCase with explicit length
 ?expandRange@@YAXPAHH0@Z,,0x000057F1,23,Code/Libraries/Source/WWVegas/WWMath/region.cpp,matched,Open-BFME5 clean C++; shared integer expandBy axis worker
+?combine@RealRange@@QAEXAAU1@@Z,0x000062AD,0x000062AD,43,Code/Libraries/Source/WWVegas/WWMath/region.cpp,matched,Open-BFME5 clean C++; RealRange combine
+?combine@IntRange@@QAEXAAU1@@Z,0x000062D8,0x000062D8,37,Code/Libraries/Source/WWVegas/WWMath/region.cpp,matched,Open-BFME5 clean C++; IntRange combine
+??0CComCriticalSection@ATL@@QAE@XZ,,0x00003227,20,Code/Libraries/Source/ATL/atlcore.cpp,matched,Open-BFME5 clean C++; ATL 7.1 CComCriticalSection zero-initializes its 24-byte critical-section storage

@@ -44,7 +44,8 @@ Observed traps:
 - Equivalent x87 expressions can compile differently. `Coord3D::CrossProduct` commuted
   multiplication operands, changing `fld`/`fmul` order while preserving behavior.
 - Ternary min/max forms can switch between integer bit copies and x87 stores. `RealRange::combine`
-  needs both the target condition flags and the target raw float-copy shape.
+  needed both the target condition flags and the target raw float-copy shape; **solved** - see the
+  lvalue-ternary note below.
 - Pointer/index loops are unstable. `Matrix4D::IsExactlyEqualTo` compiled to a different loop shape
   from the target's four-dword xor/or block.
 - Virtual-call wrappers may match semantically while saving registers or branching differently.
@@ -52,6 +53,15 @@ Observed traps:
 
 Use these as negative patterns: once a diff shows one of these traps, prefer another function family
 or first find a source pattern that proves the exact instruction shape in a targeted build.
+
+A second positive pattern: **bind a reference to the ternary, do not assign its value.**
+`const T &low = b > a ? a : b; x = low;` makes MSVC 7.1 conditional-move the ADDRESS of the
+selected operand and then copy through it - a raw dword copy even for `float`, with no x87 and
+no `movss` store. Assigning the ternary's value instead moves the value and, for `float`, changes
+the whole shape. Which side each ternary is written from then decides the compare operand order
+and the cmov condition; the operands are not interchangeable even where the value is. This is
+what landed `RealRange::combine` (0x000062AD, `that.min > min ? min : that.min` then
+`that.max < max ? max : that.max`) and `IntRange::combine` (0x000062D8).
 
 One positive pattern: MSVC 7.1 groups overloaded virtual operators at the first overload slot and
 emits them in reverse declaration order. The `Debug` shim intentionally declares stream overloads

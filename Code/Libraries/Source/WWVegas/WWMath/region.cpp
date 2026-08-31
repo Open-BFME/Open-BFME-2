@@ -124,9 +124,42 @@ Debug &operator<<(Debug &debug, const Coord2D &coord);
 
 struct RealRange
 {
+    void combine(RealRange &that);
+
     float min;
     float max;
 };
+
+void RealRange::combine(RealRange &that)
+{
+    // Both selections bind a reference to the ternary rather than assigning its
+    // value: that is what makes MSVC 7.1 conditional-move the ADDRESS and then
+    // copy the float as a raw dword, which is the retail shape. Which side each
+    // ternary is written from decides the comiss operand order and the cmov
+    // condition, and only this pair reproduces cmovbe then cmova.
+    const float &low = that.min > min ? min : that.min;
+    min = low;
+
+    const float &high = that.max < max ? max : that.max;
+    max = high;
+}
+
+struct IntRange
+{
+    void combine(IntRange &that);
+
+    int min;
+    int max;
+};
+
+void IntRange::combine(IntRange &that)
+{
+    const int &low = min < that.min ? min : that.min;
+    min = low;
+
+    const int &high = max > that.max ? max : that.max;
+    max = high;
+}
 
 struct Region2D
 {
