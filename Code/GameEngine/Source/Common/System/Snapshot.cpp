@@ -32,3 +32,8 @@ Snapshot::Snapshot(const Snapshot &that)
 Snapshot::~Snapshot()
 {
 }
+
+// The generated assignment: nothing to copy, not even the vtable.
+typedef Snapshot &(Snapshot::*SnapshotAssign)(const Snapshot &);
+
+SnapshotAssign g_snapshotAssign = &Snapshot::operator=;

@@ -1783,4 +1783,43 @@ TerrainFireEmissionInfo::~TerrainFireEmissionInfo() {}
 
 void fxDestroyInfoWindModuleInfo(WindModuleInfo *p) { p->~WindModuleInfo(); }
 
+
+// More of the same nothing-to-copy assignments, each forced out by naming it.
+
+typedef ButterflyDrawModuleInfo &(ButterflyDrawModuleInfo::*ButterflyDrawModuleInfoAssignPtr)(const ButterflyDrawModuleInfo &);
+
+ButterflyDrawModuleInfoAssignPtr g_butterflyDrawModuleInfoAssign0 = &ButterflyDrawModuleInfo::operator=;
+
+typedef ButterflyDrawModuleTemplate &(ButterflyDrawModuleTemplate::*ButterflyDrawModuleTemplateAssignPtr)(const ButterflyDrawModuleTemplate &);
+
+ButterflyDrawModuleTemplateAssignPtr g_butterflyDrawModuleTemplateAssign1 = &ButterflyDrawModuleTemplate::operator=;
+
+typedef DefaultDrawModuleInfo &(DefaultDrawModuleInfo::*DefaultDrawModuleInfoAssignPtr)(const DefaultDrawModuleInfo &);
+
+DefaultDrawModuleInfoAssignPtr g_defaultDrawModuleInfoAssign2 = &DefaultDrawModuleInfo::operator=;
+
+typedef EmissionVelocityInfo &(EmissionVelocityInfo::*EmissionVelocityInfoAssignPtr)(const EmissionVelocityInfo &);
+
+EmissionVelocityInfoAssignPtr g_emissionVelocityInfoAssign3 = &EmissionVelocityInfo::operator=;
+
+typedef ModuleTemplate &(ModuleTemplate::*ModuleTemplateAssignPtr)(const ModuleTemplate &);
+
+ModuleTemplateAssignPtr g_moduleTemplateAssign4 = &ModuleTemplate::operator=;
+
+typedef QuadDrawModuleInfo &(QuadDrawModuleInfo::*QuadDrawModuleInfoAssignPtr)(const QuadDrawModuleInfo &);
+
+QuadDrawModuleInfoAssignPtr g_quadDrawModuleInfoAssign5 = &QuadDrawModuleInfo::operator=;
+
+typedef QuadDrawModuleTemplate &(QuadDrawModuleTemplate::*QuadDrawModuleTemplateAssignPtr)(const QuadDrawModuleTemplate &);
+
+QuadDrawModuleTemplateAssignPtr g_quadDrawModuleTemplateAssign6 = &QuadDrawModuleTemplate::operator=;
+
+typedef StreakDrawModuleInfo &(StreakDrawModuleInfo::*StreakDrawModuleInfoAssignPtr)(const StreakDrawModuleInfo &);
+
+StreakDrawModuleInfoAssignPtr g_streakDrawModuleInfoAssign7 = &StreakDrawModuleInfo::operator=;
+
+typedef StreakDrawModuleTemplate &(StreakDrawModuleTemplate::*StreakDrawModuleTemplateAssignPtr)(const StreakDrawModuleTemplate &);
+
+StreakDrawModuleTemplateAssignPtr g_streakDrawModuleTemplateAssign8 = &StreakDrawModuleTemplate::operator=;
+
 }
