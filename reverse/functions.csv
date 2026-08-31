@@ -230,8 +230,8 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ??8Xfer@@UAEAAV0@AAF@Z,0x00005514,0x00005514,28,Code/GameEngine/Source/Common/System/Xfer.cpp,matched,Open-BFME5 clean C++; Xfer 'shrt' transfer operator at slot 33 of the retail vtable
 ??8Xfer@@UAEAAV0@AAG@Z,0x00005530,0x00005530,28,Code/GameEngine/Source/Common/System/Xfer.cpp,matched,Open-BFME5 clean C++; Xfer 'usht' transfer operator at slot 32 of the retail vtable
 ??8Xfer@@UAEAAV0@AAM@Z,0x0000554C,0x0000554C,28,Code/GameEngine/Source/Common/System/Xfer.cpp,matched,Open-BFME5 clean C++; Xfer 'real' transfer operator at slot 28 of the retail vtable
-?d_00005568@@YAXXZ,,0x00005568,51,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=operator==
-?d_0000559b@@YAXXZ,,0x0000559B,21,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=operator!=
+??8@YA_NABVGameClientRandomVariable@@0@Z,0x00005568,0x00005568,51,Code/GameEngine/Source/GameClient/ClientRandomValue.cpp,matched,Open-BFME5 clean C++; GameClientRandomVariable equality over type and both Real bounds
+??9@YA_NABVGameClientRandomVariable@@0@Z,0x0000559B,0x0000559B,21,Code/GameEngine/Source/GameClient/ClientRandomValue.cpp,matched,Open-BFME5 clean C++; GameClientRandomVariable inequality forwarding to the equality body
 ?d_000055b0@@YAXXZ,,0x000055B0,30,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_004055b0
 ?d_000056c7@@YAXXZ,,0x000056C7,10,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_004056c7
 ?d_000056d1@@YAXXZ,,0x000056D1,103,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Init
