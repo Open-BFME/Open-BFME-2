@@ -44,6 +44,8 @@ struct IRegion2D
 
 struct IRegion3D
 {
+    IRegion3D();
+
     void expandBy(const ICoord3D &point);
     int width() const;
     int height() const;
@@ -115,6 +117,11 @@ Debug &operator<<(Debug &debug, const Coord2D &coord);
 
 struct RealRange
 {
+    RealRange();
+    RealRange(float min, float max);
+
+    RealRange &operator=(const RealRange &that);
+
     void combine(RealRange &that);
 
     float min;
@@ -154,7 +161,12 @@ void IntRange::combine(IntRange &that)
 
 struct Region2D
 {
+    Region2D();
+    ~Region2D();
+    Region2D(const Region2D &that);
     Region2D(const Coord2D &lower_left, const Coord2D &upper_right);
+
+    Region2D &operator=(const Region2D &that);
     float width() const;
     float height() const;
     bool isInside(const Coord2D &point) const;
@@ -169,6 +181,8 @@ struct Region2D
 
 struct Region3D
 {
+    Region3D();
+    ~Region3D();
     Region3D(const Region3D &that);
 
     float width() const;
@@ -401,3 +415,66 @@ Debug &operator<<(Debug &debug, const IRegion2D &region)
     debug << *(const ICoord2DBase *)&region.x_min << " - " << *(const ICoord2DBase *)&region.x_max;
     return debug;
 }
+
+// The empty pair once more, and the two block copies. A four-dword region and a
+// six-dword one each assign with a movsd run rather than field stores, which is
+// what an aggregate with no members of its own looks like from the outside.
+RealRange::RealRange()
+{
+}
+
+Region2D::Region2D()
+{
+}
+
+Region3D::Region3D()
+{
+}
+
+IRegion3D::IRegion3D()
+{
+}
+
+Region2D::~Region2D()
+{
+}
+
+Region3D::~Region3D()
+{
+}
+
+RealRange::RealRange(float min, float max)
+{
+    this->min = min;
+    this->max = max;
+}
+
+RealRange &RealRange::operator=(const RealRange &that)
+{
+    min = that.min;
+    max = that.max;
+
+    return *this;
+}
+
+Region2D::Region2D(const Region2D &that)
+{
+    x_min = that.x_min;
+    y_min = that.y_min;
+    x_max = that.x_max;
+    y_max = that.y_max;
+}
+
+// The generated assignments, forced out by naming them. Each is a movsd run
+// over the whole aggregate - four dwords for the 2D regions, six for the 3D -
+// rather than the field-by-field stores a hand-written one would give, and the
+// integer and float regions of the same width fold onto one body.
+typedef Region2D &(Region2D::*Region2DAssign)(const Region2D &);
+typedef Region3D &(Region3D::*Region3DAssign)(const Region3D &);
+typedef IRegion2D &(IRegion2D::*IRegion2DAssign)(const IRegion2D &);
+typedef IRegion3D &(IRegion3D::*IRegion3DAssign)(const IRegion3D &);
+
+Region2DAssign g_region2dAssign = &Region2D::operator=;
+Region3DAssign g_region3dAssign = &Region3D::operator=;
+IRegion2DAssign g_iregion2dAssign = &IRegion2D::operator=;
+IRegion3DAssign g_iregion3dAssign = &IRegion3D::operator=;

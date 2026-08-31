@@ -35,6 +35,13 @@ struct ICoord2DBase
 
 struct ICoord2D : public ICoord2DBase
 {
+    ICoord2D();
+    ICoord2D(int x, int y);
+    ICoord2D(const ICoord2DBase &that);
+
+    ICoord2D &operator=(const ICoord2D &that);
+    ICoord2D &operator=(const ICoord2DBase &that);
+
     ICoord2D &operator+=(const ICoord2DBase &that);
     ICoord2D &operator-=(const ICoord2DBase &that);
     ICoord2D &operator*=(int factor);
@@ -46,6 +53,7 @@ struct ICoord2D : public ICoord2DBase
 
 struct ICoord3D
 {
+    ICoord3D();
     ICoord3D(int x, int y, int z);
 
     ICoord3D &operator=(const ICoord3D &that);
@@ -157,4 +165,44 @@ Debug &operator<<(Debug &debug, const ICoord3D &coord)
 {
     debug << "(" << coord.x << ", " << coord.y << ", " << coord.z << ")";
     return debug;
+}
+
+// The empty pair: a bare `mov eax, ecx; ret`, ICF-folded across every default
+// constructor in the math headers.
+ICoord2D::ICoord2D()
+{
+}
+
+ICoord3D::ICoord3D()
+{
+}
+
+// Two integer stores from the stack, which is the same body as the float pair
+// one register class over.
+ICoord2D::ICoord2D(int x, int y)
+{
+    this->x = x;
+    this->y = y;
+}
+
+ICoord2D::ICoord2D(const ICoord2DBase &that)
+{
+    x = that.x;
+    y = that.y;
+}
+
+ICoord2D &ICoord2D::operator=(const ICoord2D &that)
+{
+    x = that.x;
+    y = that.y;
+
+    return *this;
+}
+
+ICoord2D &ICoord2D::operator=(const ICoord2DBase &that)
+{
+    x = that.x;
+    y = that.y;
+
+    return *this;
 }
