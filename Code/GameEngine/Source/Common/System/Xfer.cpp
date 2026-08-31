@@ -1,5 +1,89 @@
 // cl: /O1
 
+// The composite transfer operators need real layouts: each one announces a
+// four-character tag with a zero-length transfer and then moves the payload as
+// raw bytes, so the sizes are the whole story. The region types go across in
+// two halves rather than one block.
+struct Coord3DBase
+{
+    float x;
+    float y;
+    float z;
+};
+
+struct ICoord3D
+{
+    int x;
+    int y;
+    int z;
+};
+
+class Coord2D
+{
+public:
+    float x;
+    float y;
+};
+
+struct ICoord2D
+{
+    int x;
+    int y;
+};
+
+struct Region3D
+{
+    Coord3DBase lo;
+    Coord3DBase hi;
+};
+
+struct IRegion3D
+{
+    ICoord3D lo;
+    ICoord3D hi;
+};
+
+struct Region2D
+{
+    Coord2D lo;
+    Coord2D hi;
+};
+
+struct IRegion2D
+{
+    ICoord2D lo;
+    ICoord2D hi;
+};
+
+struct RealRange
+{
+    float lo;
+    float hi;
+};
+
+struct RGBColor
+{
+    float red;
+    float green;
+    float blue;
+};
+
+struct RGBAColorReal
+{
+    float red;
+    float green;
+    float blue;
+    float alpha;
+};
+
+struct RGBAColorInt
+{
+    unsigned int red;
+    unsigned int green;
+    unsigned int blue;
+    unsigned int alpha;
+};
+
 // Snapshot's own transfer entry point sits at vtable slot 3: the transfer
 // operator below calls [vtable+0x0C] with the Xfer as its only argument, which
 // is what orders the three pure virtuals behind the destructor.
@@ -17,18 +101,6 @@ public:
 class AsciiString;
 class UnicodeString;
 class PooledString;
-class Coord2D;
-struct Coord3DBase;
-struct ICoord2D;
-struct ICoord3D;
-struct Region2D;
-struct IRegion2D;
-struct Region3D;
-struct IRegion3D;
-struct RealRange;
-struct RGBColor;
-struct RGBAColorReal;
-struct RGBAColorInt;
 struct XferUnknown11;
 
 // The retail vtable at 0x00BBB910 is 39 slots wide and the primitive transfer
@@ -178,6 +250,106 @@ Xfer &Xfer::operator==(float &value)
 Xfer &Xfer::operator==(Snapshot &value)
 {
     value.xfer(this);
+
+    return *this;
+}
+
+Xfer &Xfer::operator==(Coord3DBase &value)
+{
+    XferData('c3d', 0, 0);
+    XferData(0, &value, sizeof(Coord3DBase));
+
+    return *this;
+}
+
+Xfer &Xfer::operator==(ICoord3D &value)
+{
+    XferData('ic3d', 0, 0);
+    XferData(0, &value, sizeof(ICoord3D));
+
+    return *this;
+}
+
+Xfer &Xfer::operator==(Coord2D &value)
+{
+    XferData('c2d', 0, 0);
+    XferData(0, &value, sizeof(Coord2D));
+
+    return *this;
+}
+
+Xfer &Xfer::operator==(ICoord2D &value)
+{
+    XferData('ic2d', 0, 0);
+    XferData(0, &value, sizeof(ICoord2D));
+
+    return *this;
+}
+
+Xfer &Xfer::operator==(RealRange &value)
+{
+    XferData('rnge', 0, 0);
+    XferData(0, &value, sizeof(RealRange));
+
+    return *this;
+}
+
+Xfer &Xfer::operator==(RGBColor &value)
+{
+    XferData('rgb', 0, 0);
+    XferData(0, &value, sizeof(RGBColor));
+
+    return *this;
+}
+
+Xfer &Xfer::operator==(RGBAColorReal &value)
+{
+    XferData('rgbr', 0, 0);
+    XferData(0, &value, sizeof(RGBAColorReal));
+
+    return *this;
+}
+
+Xfer &Xfer::operator==(RGBAColorInt &value)
+{
+    XferData('rgbi', 0, 0);
+    XferData(0, &value, sizeof(RGBAColorInt));
+
+    return *this;
+}
+
+Xfer &Xfer::operator==(Region3D &value)
+{
+    XferData('r3d', 0, 0);
+    XferData(0, &value.lo, sizeof(value.lo));
+    XferData(0, &value.hi, sizeof(value.hi));
+
+    return *this;
+}
+
+Xfer &Xfer::operator==(IRegion3D &value)
+{
+    XferData('ir3d', 0, 0);
+    XferData(0, &value.lo, sizeof(value.lo));
+    XferData(0, &value.hi, sizeof(value.hi));
+
+    return *this;
+}
+
+Xfer &Xfer::operator==(Region2D &value)
+{
+    XferData('r2d', 0, 0);
+    XferData(0, &value.lo, sizeof(value.lo));
+    XferData(0, &value.hi, sizeof(value.hi));
+
+    return *this;
+}
+
+Xfer &Xfer::operator==(IRegion2D &value)
+{
+    XferData('ir2d', 0, 0);
+    XferData(0, &value.lo, sizeof(value.lo));
+    XferData(0, &value.hi, sizeof(value.hi));
 
     return *this;
 }

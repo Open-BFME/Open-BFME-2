@@ -1145,3 +1145,15 @@ _free,,0x00030830,17,Code/GameEngine/Source/Common/System/GameMemoryFree.cpp,mat
 ??0EmissionVolumeInfo@FXParticleSystem@@QAE@ABV01@@Z,0x001F3550,0x001F3550,21,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; emission volume info
 ??0SphereEmissionVolumeInfo@FXParticleSystem@@QAE@XZ,0x003A67E8,0x003A67E8,21,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; emission volume info
 ??4SphereEmissionVolumeInfo@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A681E,0x003A681E,21,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; emission volume info
+??8Xfer@@UAEAAV0@AAUCoord3DBase@@@Z,0x0060B971,0x0060B971,44,Code/GameEngine/Source/Common/System/Xfer.cpp,matched,Open-BFME5 clean C++; Xfer composite transfer operator
+??8Xfer@@UAEAAV0@AAUICoord3D@@@Z,0x0060B99D,0x0060B99D,44,Code/GameEngine/Source/Common/System/Xfer.cpp,matched,Open-BFME5 clean C++; Xfer composite transfer operator
+??8Xfer@@UAEAAV0@AAVCoord2D@@@Z,0x0060BA4B,0x0060BA4B,44,Code/GameEngine/Source/Common/System/Xfer.cpp,matched,Open-BFME5 clean C++; Xfer composite transfer operator
+??8Xfer@@UAEAAV0@AAUICoord2D@@@Z,0x0060BA77,0x0060BA77,44,Code/GameEngine/Source/Common/System/Xfer.cpp,matched,Open-BFME5 clean C++; Xfer composite transfer operator
+??8Xfer@@UAEAAV0@AAURealRange@@@Z,0x0060BB25,0x0060BB25,44,Code/GameEngine/Source/Common/System/Xfer.cpp,matched,Open-BFME5 clean C++; Xfer composite transfer operator
+??8Xfer@@UAEAAV0@AAURGBColor@@@Z,0x0060BB51,0x0060BB51,44,Code/GameEngine/Source/Common/System/Xfer.cpp,matched,Open-BFME5 clean C++; Xfer composite transfer operator
+??8Xfer@@UAEAAV0@AAURGBAColorReal@@@Z,0x0060BB7D,0x0060BB7D,44,Code/GameEngine/Source/Common/System/Xfer.cpp,matched,Open-BFME5 clean C++; Xfer composite transfer operator
+??8Xfer@@UAEAAV0@AAURGBAColorInt@@@Z,0x0060BBA9,0x0060BBA9,44,Code/GameEngine/Source/Common/System/Xfer.cpp,matched,Open-BFME5 clean C++; Xfer composite transfer operator
+??8Xfer@@UAEAAV0@AAURegion3D@@@Z,0x0060B9C9,0x0060B9C9,65,Code/GameEngine/Source/Common/System/Xfer.cpp,matched,Open-BFME5 clean C++; Xfer composite transfer operator
+??8Xfer@@UAEAAV0@AAUIRegion3D@@@Z,0x0060BA0A,0x0060BA0A,65,Code/GameEngine/Source/Common/System/Xfer.cpp,matched,Open-BFME5 clean C++; Xfer composite transfer operator
+??8Xfer@@UAEAAV0@AAURegion2D@@@Z,0x0060BAA3,0x0060BAA3,65,Code/GameEngine/Source/Common/System/Xfer.cpp,matched,Open-BFME5 clean C++; Xfer composite transfer operator
+??8Xfer@@UAEAAV0@AAUIRegion2D@@@Z,0x0060BAE4,0x0060BAE4,65,Code/GameEngine/Source/Common/System/Xfer.cpp,matched,Open-BFME5 clean C++; Xfer composite transfer operator
