@@ -118,3 +118,4 @@ __CIacos,0x006298B0,MSVCR71 import thunk (jmp [0x00BBA5D0]); the ACos wrapper at
 __CIasin,0x006298B6,MSVCR71 import thunk (jmp [0x00BBA5CC]); same shape from the ASin wrapper at 0x00711AC0
 ?compareNoCase@?$StringBase@D@@QBEHPBD@Z,0x00037980,BFME2 export and retail call target for StringBase<char> compareNoCase against a C string; isNone and isNotNone both go through it
 ?compareNoCase@?$StringBase@G@@QBEHPBG@Z,0x00037A90,BFME2 export and retail call target for the StringBase<wchar_t> twin
+?setString@PooledString@@AAEXPBD@Z,0x006CB7C0,BFME2 export; the private setter both the const char * constructor and assignment forward to
