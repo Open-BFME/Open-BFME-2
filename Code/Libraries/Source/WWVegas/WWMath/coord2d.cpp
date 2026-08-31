@@ -27,10 +27,51 @@ public:
     virtual Debug &operator<<(float value);
 };
 
-class Coord2D
+// The two floats live in a base: retail's constructors and assignments take
+// ABUCoord2DBase, and the same seventeen-byte body serves Coord2DBase,
+// Coord3DBase and Coord2D itself, because all three start with the same pair.
+struct Coord2DBase
+{
+    float x;
+    float y;
+};
+
+struct Coord3DBase
+{
+    float x;
+    float y;
+    float z;
+};
+
+class Coord2D : public Coord2DBase
 {
 public:
+    Coord2D();
+    ~Coord2D();
+
+    Coord2D(const Coord2D &that);
+    Coord2D(const Coord2DBase &that);
+    Coord2D(const Coord3DBase &that);
+    Coord2D(float x, float y);
     Coord2D(int x, int y);
+
+    Coord2D &operator=(const Coord2D &that);
+    Coord2D &operator=(const Coord2DBase &that);
+    Coord2D &operator=(const Coord3DBase &that);
+
+    Coord2D &Set(float x, float y);
+    Coord2D &Add(const Coord2D &that);
+    Coord2D &Add(const Coord3DBase &that);
+    Coord2D &Sub(const Coord2D &that);
+    Coord2D &Sub(const Coord3DBase &that);
+    Coord2D &Scale(float scale);
+    Coord2D &operator+=(const Coord2D &that);
+    Coord2D &operator+=(const Coord3DBase &that);
+    Coord2D &operator-=(const Coord2D &that);
+    Coord2D &operator-=(const Coord3DBase &that);
+    Coord2D &operator*=(float scale);
+    float operator*(const Coord2D &that) const;
+    float operator*(const Coord3DBase &that) const;
     bool IsExactlyEqualTo(const Coord2D &that) const;
     float length() const;
     void normalize();
@@ -43,10 +84,167 @@ public:
     Coord2D &SetXAxis();
     Coord2D &SetYAxis();
     Coord2D &SetZero();
-
-    float x;
-    float y;
 };
+
+// Out of line, because an in-class body is implicitly inline and MSVC folds it
+// into its callers instead of emitting the COMDAT.
+Coord2D::Coord2D()
+{
+}
+
+Coord2D::~Coord2D()
+{
+}
+
+// Two loads and two stores of the base pair, whatever the argument is nominally
+// declared as - which is why one body carries six names.
+Coord2D::Coord2D(const Coord2D &that)
+{
+    x = that.x;
+    y = that.y;
+}
+
+Coord2D::Coord2D(const Coord2DBase &that)
+{
+    x = that.x;
+    y = that.y;
+}
+
+Coord2D::Coord2D(const Coord3DBase &that)
+{
+    x = that.x;
+    y = that.y;
+}
+
+Coord2D &Coord2D::operator=(const Coord2D &that)
+{
+    x = that.x;
+    y = that.y;
+
+    return *this;
+}
+
+Coord2D &Coord2D::operator=(const Coord2DBase &that)
+{
+    x = that.x;
+    y = that.y;
+
+    return *this;
+}
+
+Coord2D &Coord2D::operator=(const Coord3DBase &that)
+{
+    x = that.x;
+    y = that.y;
+
+    return *this;
+}
+
+Coord2D::Coord2D(float x, float y)
+{
+    this->x = x;
+    this->y = y;
+}
+
+Coord2D &Coord2D::Set(float x, float y)
+{
+    this->x = x;
+    this->y = y;
+
+    return *this;
+}
+
+Coord2D &Coord2D::Add(const Coord2D &that)
+{
+    x += that.x;
+    y += that.y;
+
+    return *this;
+}
+
+Coord2D &Coord2D::Add(const Coord3DBase &that)
+{
+    x += that.x;
+    y += that.y;
+
+    return *this;
+}
+
+Coord2D &Coord2D::operator+=(const Coord2D &that)
+{
+    x += that.x;
+    y += that.y;
+
+    return *this;
+}
+
+Coord2D &Coord2D::operator+=(const Coord3DBase &that)
+{
+    x += that.x;
+    y += that.y;
+
+    return *this;
+}
+
+Coord2D &Coord2D::Sub(const Coord2D &that)
+{
+    x -= that.x;
+    y -= that.y;
+
+    return *this;
+}
+
+Coord2D &Coord2D::Sub(const Coord3DBase &that)
+{
+    x -= that.x;
+    y -= that.y;
+
+    return *this;
+}
+
+Coord2D &Coord2D::operator-=(const Coord2D &that)
+{
+    x -= that.x;
+    y -= that.y;
+
+    return *this;
+}
+
+Coord2D &Coord2D::operator-=(const Coord3DBase &that)
+{
+    x -= that.x;
+    y -= that.y;
+
+    return *this;
+}
+
+Coord2D &Coord2D::Scale(float scale)
+{
+    x *= scale;
+    y *= scale;
+
+    return *this;
+}
+
+Coord2D &Coord2D::operator*=(float scale)
+{
+    x *= scale;
+    y *= scale;
+
+    return *this;
+}
+
+// x87, not SSE: the dot product returns a float, and a float return leaves the
+// value on the x87 stack whatever the rest of the file is built with.
+float Coord2D::operator*(const Coord2D &that) const
+{
+    return x * that.x + y * that.y;
+}
+
+float Coord2D::operator*(const Coord3DBase &that) const
+{
+    return x * that.x + y * that.y;
+}
 
 Coord2D::Coord2D(int x, int y)
 {
