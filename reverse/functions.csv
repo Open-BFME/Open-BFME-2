@@ -1206,3 +1206,29 @@ _free,,0x00030830,17,Code/GameEngine/Source/Common/System/GameMemoryFree.cpp,mat
 ??4CylinderEmissionVolumeModuleTemplate@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A6A89,0x003A6A89,33,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; emission module template
 ??0LineEmissionVolumeModuleTemplate@FXParticleSystem@@QAE@XZ,0x003A659F,0x003A659F,74,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; emission module template
 ??0CylinderEmissionVolumeModuleTemplate@FXParticleSystem@@QAE@XZ,0x003A69FF,0x003A69FF,74,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; emission module template
+?GetSnapshotName@EmissionVolumeInfo@FXParticleSystem@@UAEPBDXZ,0x001F354A,0x001F354A,6,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; snapshot name accessor
+?GetSnapshotName@EmissionVelocityInfo@FXParticleSystem@@UAEPBDXZ,0x001F35BF,0x001F35BF,6,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; snapshot name accessor
+?GetSnapshotName@WindModuleInfo@FXParticleSystem@@UAEPBDXZ,0x001F35D9,0x001F35D9,6,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; snapshot name accessor
+?GetSnapshotName@DefaultAlphaModuleInfo@FXParticleSystem@@UAEPBDXZ,0x003A611B,0x003A611B,6,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; snapshot name accessor
+?GetSnapshotName@DefaultColorModuleInfo@FXParticleSystem@@UAEPBDXZ,0x003A6121,0x003A6121,6,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; snapshot name accessor
+?GetSnapshotName@DefaultDrawModuleInfo@FXParticleSystem@@UAEPBDXZ,0x003A6127,0x003A6127,6,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; snapshot name accessor
+?GetSnapshotName@DefaultPhysicsModuleInfo@FXParticleSystem@@UAEPBDXZ,0x003A612D,0x003A612D,6,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; snapshot name accessor
+?GetSnapshotName@DefaultUpdateModuleInfo@FXParticleSystem@@UAEPBDXZ,0x003A6133,0x003A6133,6,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; snapshot name accessor
+?GetSnapshotName@LifeEventModuleInfo@FXParticleSystem@@UAEPBDXZ,0x003A6139,0x003A6139,6,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; snapshot name accessor
+?GetSnapshotName@StreakDrawModuleInfo@FXParticleSystem@@UAEPBDXZ,0x003A613F,0x003A613F,6,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; snapshot name accessor
+?GetSnapshotName@QuadDrawModuleInfo@FXParticleSystem@@UAEPBDXZ,0x003A6145,0x003A6145,6,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; snapshot name accessor
+?GetSnapshotName@ButterflyDrawModuleInfo@FXParticleSystem@@UAEPBDXZ,0x003A614B,0x003A614B,6,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; snapshot name accessor
+?GetSnapshotName@RenderObjectDrawModuleInfo@FXParticleSystem@@UAEPBDXZ,0x003A6151,0x003A6151,6,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; snapshot name accessor
+?GetSnapshotName@LightningDrawModuleInfo@FXParticleSystem@@UAEPBDXZ,0x003A6157,0x003A6157,6,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; snapshot name accessor
+?GetSnapshotName@GpuDrawModuleInfo@FXParticleSystem@@UAEPBDXZ,0x003A615D,0x003A615D,6,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; snapshot name accessor
+?GetSnapshotName@RenderObjectUpdateModuleInfo@FXParticleSystem@@UAEPBDXZ,0x003A6163,0x003A6163,6,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; snapshot name accessor
+?GetSnapshotName@TerrainCollisionModuleInfo@FXParticleSystem@@UAEPBDXZ,0x003A6169,0x003A6169,6,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; snapshot name accessor
+?getFirst@?$CategoryModuleClass@$0A@@FXParticleSystem@@SAPBV12@XZ,0x001F4335,0x001F4335,6,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; module class list head accessor
+?getFirst@?$CategoryModuleClass@$00@FXParticleSystem@@SAPBV12@XZ,0x001F4357,0x001F4357,6,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; module class list head accessor
+?getFirst@?$CategoryModuleClass@$01@FXParticleSystem@@SAPBV12@XZ,0x001F4379,0x001F4379,6,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; module class list head accessor
+?getFirst@?$CategoryModuleClass@$02@FXParticleSystem@@SAPBV12@XZ,0x001F439B,0x001F439B,6,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; module class list head accessor
+?getFirst@?$CategoryModuleClass@$03@FXParticleSystem@@SAPBV12@XZ,0x001F43DE,0x001F43DE,6,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; module class list head accessor
+?getFirst@?$CategoryModuleClass@$04@FXParticleSystem@@SAPBV12@XZ,0x001F4400,0x001F4400,6,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; module class list head accessor
+?getFirst@?$CategoryModuleClass@$05@FXParticleSystem@@SAPBV12@XZ,0x001F4422,0x001F4422,6,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; module class list head accessor
+?getFirst@?$CategoryModuleClass@$06@FXParticleSystem@@SAPBV12@XZ,0x001F4444,0x001F4444,6,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; module class list head accessor
+?getFirst@?$CategoryModuleClass@$07@FXParticleSystem@@SAPBV12@XZ,0x001F4466,0x001F4466,6,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; module class list head accessor

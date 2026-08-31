@@ -176,7 +176,14 @@ public:
     virtual void v1() = 0;
 
     bool m_flag;
+    virtual const char *GetSnapshotName();
 };
+
+const char *EmissionVolumeInfo::GetSnapshotName()
+{
+    return "EmissionVolumeInfo";
+}
+
 
 EmissionVolumeInfo::EmissionVolumeInfo()
 {
@@ -306,7 +313,14 @@ public:
 
     virtual ~EmissionVelocityInfo();
     virtual void v1() = 0;
+    virtual const char *GetSnapshotName();
 };
+
+const char *EmissionVelocityInfo::GetSnapshotName()
+{
+    return "EmissionVelocityInfo";
+}
+
 
 EmissionVelocityInfo::EmissionVelocityInfo()
 {
@@ -348,9 +362,24 @@ class CategoryModuleClass;
 template <int CATEGORY, int MODULE_COUNT>
 class CategoryModuleClassBase
 {
+public:
+    static const CategoryModuleClass<CATEGORY> &getDefault();
+
 protected:
     CategoryModuleClassBase(const CategoryModuleClass<CATEGORY> &that, bool registerIt);
 };
+
+// 0x001F433B and its seven siblings stay unclaimed. The body is `mov eax,
+// [default slot]; ret` and this reproduces it, but the decorated name does not
+// match: retail spells the return type's scope with back-reference 1 where MSVC
+// 7.1 emits 2 here, even though the constructor just above - same class, same
+// parameter type - agrees with retail. Whatever shifts that table has to be
+// found before the eight can be claimed.
+template <int CATEGORY, int MODULE_COUNT>
+const CategoryModuleClass<CATEGORY> &CategoryModuleClassBase<CATEGORY, MODULE_COUNT>::getDefault()
+{
+    return *CategoryModuleClass<CATEGORY>::s_instance;
+}
 
 // inline, and emitted anyway by the explicit instantiations below: without it
 // MSVC 7.1 calls this out of line from the derived constructors, while retail
@@ -368,6 +397,8 @@ template <int CATEGORY>
 class CategoryModuleClass : public CategoryModuleClassBase<CATEGORY, 1>
 {
 public:
+    static const CategoryModuleClass<CATEGORY> *getFirst();
+
     static const CategoryModuleClass<CATEGORY> *s_instance;
     static CategoryModuleClass<CATEGORY> *s_head;
 
@@ -388,15 +419,25 @@ const CategoryModuleClass<CATEGORY> *CategoryModuleClass<CATEGORY>::s_instance;
 template <int CATEGORY>
 CategoryModuleClass<CATEGORY> *CategoryModuleClass<CATEGORY>::s_head;
 
+template <int CATEGORY>
+const CategoryModuleClass<CATEGORY> *CategoryModuleClass<CATEGORY>::getFirst()
+{
+    return s_head;
+}
+
 
 // The four draw-module info classes carry nothing but their own vtable: both
 // constructors install it and the copy constructor ignores its argument.
-#define FX_VTABLE_ONLY_INFO(NAME)                                                                      class NAME                                                                                         {                                                                                                  public:                                                                                                NAME();                                                                                            NAME(const NAME &that);                                                                                                                                                                               virtual ~NAME();                                                                                    virtual void v1() = 0;                                                                         };                                                                                                                                                                                                    NAME::NAME() {}                                                                                    NAME::NAME(const NAME &that) {}
+#define FX_VTABLE_ONLY_INFO(NAME)                                                                      class NAME                                                                                         {                                                                                                  public:                                                                                                NAME();                                                                                            NAME(const NAME &that);                                                                                                                                                                               virtual ~NAME();                                                                                    virtual void v1() = 0;                                                                             virtual const char *GetSnapshotName();                                                         };                                                                                                                                                                                                    NAME::NAME() {}                                                                                    NAME::NAME(const NAME &that) {}                                                                                                                                                                       const char *NAME::GetSnapshotName()                                                                {                                                                                                      return #NAME;                                                                                  }
 
 FX_VTABLE_ONLY_INFO(DefaultDrawModuleInfo)
 FX_VTABLE_ONLY_INFO(StreakDrawModuleInfo)
 FX_VTABLE_ONLY_INFO(QuadDrawModuleInfo)
 FX_VTABLE_ONLY_INFO(ButterflyDrawModuleInfo)
+FX_VTABLE_ONLY_INFO(LifeEventModuleInfo)
+FX_VTABLE_ONLY_INFO(RenderObjectDrawModuleInfo)
+FX_VTABLE_ONLY_INFO(GpuDrawModuleInfo)
+FX_VTABLE_ONLY_INFO(TerrainCollisionModuleInfo)
 
 // The module class itself. Every instantiation registers into two per-category
 // tables: the default slot at 0x00DFDD1C, written only when the first argument
@@ -442,6 +483,8 @@ class CategoryModuleClass<8>
 public:
     static CategoryModuleClass<8> *s_head;
 
+    static const CategoryModuleClass<8> *getFirst();
+
 protected:
     CategoryModuleClass(bool isDefault, const char *key, const char *name);
 
@@ -452,6 +495,11 @@ protected:
     const char *m_name;
     CategoryModuleClass<8> *m_next;
 };
+
+const CategoryModuleClass<8> *CategoryModuleClass<8>::getFirst()
+{
+    return s_head;
+}
 
 CategoryModuleClass<8> *CategoryModuleClass<8>::s_head;
 
@@ -491,7 +539,14 @@ public:
     bool m_unknown3C;
     float m_unknown40;
     float m_unknown44;
+    virtual const char *GetSnapshotName();
 };
+
+const char *WindModuleInfo::GetSnapshotName()
+{
+    return "WindModuleInfo";
+}
+
 
 WindModuleInfo::WindModuleInfo(const WindModuleInfo &that)
 {
@@ -534,7 +589,14 @@ public:
     FXCoord3D m_unknown14;
     bool m_unknown20;
     bool m_unknown21;
+    virtual const char *GetSnapshotName();
 };
+
+const char *DefaultPhysicsModuleInfo::GetSnapshotName()
+{
+    return "DefaultPhysicsModuleInfo";
+}
+
 
 // 0x003A7736 stays unclaimed: identical to retail except that MSVC 7.1 spreads
 // the esi and edi saves through the scalar copies where retail groups them.
@@ -562,7 +624,14 @@ public:
     FXCoord3D m_unknown1C;
     float m_unknown28;
     bool m_unknown2C;
+    virtual const char *GetSnapshotName();
 };
+
+const char *LightningDrawModuleInfo::GetSnapshotName()
+{
+    return "LightningDrawModuleInfo";
+}
+
 
 LightningDrawModuleInfo::LightningDrawModuleInfo(const LightningDrawModuleInfo &that)
 {
@@ -637,7 +706,14 @@ public:
     FXCoord3D m_unknown44;
     FXCoord3D m_unknown50;
     FXCoord3D m_unknown5C;
+    virtual const char *GetSnapshotName();
 };
+
+const char *DefaultUpdateModuleInfo::GetSnapshotName()
+{
+    return "DefaultUpdateModuleInfo";
+}
+
 
 DefaultUpdateModuleInfo::DefaultUpdateModuleInfo(const DefaultUpdateModuleInfo &that)
 {
@@ -684,7 +760,14 @@ public:
     FXCoord3D m_unknown7C;
     FXCoord3D m_unknown88;
     float m_unknown94;
+    virtual const char *GetSnapshotName();
 };
+
+const char *RenderObjectUpdateModuleInfo::GetSnapshotName()
+{
+    return "RenderObjectUpdateModuleInfo";
+}
+
 
 // An eight-element array of a group-plus-scalar pair: the generated assignment
 // walks it one element at a time because the element type has an assignment of
@@ -702,7 +785,14 @@ public:
     virtual void v1();
 
     FXKeyframe m_keys[8];
+    virtual const char *GetSnapshotName();
 };
+
+const char *DefaultAlphaModuleInfo::GetSnapshotName()
+{
+    return "DefaultAlphaModuleInfo";
+}
+
 
 // The copy constructor has to be the GENERATED one - it block-copies all 128
 // bytes with a single rep movsd, where a hand-written per-element loop walks the
@@ -732,7 +822,14 @@ public:
 
     FXKeyframe m_keys[8];
     FXCoord3D m_unknown84;
+    virtual const char *GetSnapshotName();
 };
+
+const char *DefaultColorModuleInfo::GetSnapshotName()
+{
+    return "DefaultColorModuleInfo";
+}
+
 
 typedef RenderObjectUpdateModuleInfo &(
     RenderObjectUpdateModuleInfo::*RenderObjectUpdateAssign)(const RenderObjectUpdateModuleInfo &);
