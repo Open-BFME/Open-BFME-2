@@ -505,13 +505,40 @@ FX_DEFAULT_TEMPLATE(6, DefaultDrawModuleInfo)
 FX_DEFAULT_TEMPLATE(7, DefaultCategory7ModuleInfo)
 
 template <int CATEGORY>
+struct DefaultModuleKey
+{
+    static const char *const VALUE;
+};
+
+template <int CATEGORY>
+struct DefaultModuleName
+{
+    static const char *const VALUE;
+};
+
+template <int CATEGORY>
 class DefaultModuleTag
 {
 public:
+    // The default tag of a category, and the one whose registration flag is set:
+    // its key and name come from the pair of accessors in
+    // FXParticleSystemDefaults.cpp rather than from a string literal.
+    enum { IS_DEFAULT = 1 };
+
     typedef DefaultModuleTemplate<CATEGORY> TemplateType;
+    typedef CategoryModuleClass<CATEGORY> ClassBase;
+
+    static const char *const &s_key;
+    static const char *const &s_name;
 };
 
-#define FX_DEFAULT_WRAPPER(CATEGORY)                                                                   typedef ConcreteModuleTemplate<DefaultModuleTag<CATEGORY> > DefaultConcrete##CATEGORY;                                                                                                                DefaultConcrete##CATEGORY g_defaultConcrete##CATEGORY;
+template <int CATEGORY>
+const char *const &DefaultModuleTag<CATEGORY>::s_key = DefaultModuleKey<CATEGORY>::VALUE;
+
+template <int CATEGORY>
+const char *const &DefaultModuleTag<CATEGORY>::s_name = DefaultModuleName<CATEGORY>::VALUE;
+
+#define FX_DEFAULT_WRAPPER(CATEGORY)                                                                   typedef ConcreteModuleTemplate<DefaultModuleTag<CATEGORY> > DefaultConcrete##CATEGORY;                                                                                                                DefaultConcrete##CATEGORY g_defaultConcrete##CATEGORY;                                                                                                                                                              template class ConcreteModuleClass<DefaultModuleTag<CATEGORY> >;
 
 FX_DEFAULT_WRAPPER(0)
 FX_DEFAULT_WRAPPER(1)
