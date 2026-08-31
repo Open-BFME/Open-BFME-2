@@ -2,6 +2,9 @@
 // Upstream implementation and layout: Open-BFME-1 ascii_string.h.
 
 class AsciiString;
+class UnicodeString;
+
+typedef unsigned short wchar_t;
 
 template <typename T>
 class StringBase

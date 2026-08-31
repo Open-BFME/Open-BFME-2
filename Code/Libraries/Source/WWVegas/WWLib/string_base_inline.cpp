@@ -16,6 +16,30 @@ typedef unsigned short wchar_t;
 
 #include "string_base.h"
 
+// The three private constructors. Each one null-clears the buffer pointer and
+// then hands the work to the matching set overload; the character one takes the
+// address of its own by-value parameter and passes a length of 1.
+template <typename T>
+StringBase<T>::StringBase(T character)
+{
+    m_data = 0;
+    set(&character, 1);
+}
+
+template <typename T>
+StringBase<T>::StringBase(const T *str, int len)
+{
+    m_data = 0;
+    set(str, len);
+}
+
+template <typename T>
+StringBase<T>::StringBase(const CharSource<T> &source)
+{
+    m_data = 0;
+    set(source);
+}
+
 template <typename T>
 T StringBase<T>::getCharAt(int index) const
 {
@@ -41,3 +65,9 @@ template StringBase<wchar_t> &StringBase<wchar_t>::operator=(const StringBase<wc
 template char StringBase<char>::getCharAt(int index) const;
 template wchar_t StringBase<wchar_t>::getCharAt(int index) const;
 template bool StringBase<wchar_t>::isEmpty() const;
+template StringBase<char>::StringBase(char character);
+template StringBase<char>::StringBase(const char *str, int len);
+template StringBase<char>::StringBase(const CharSource<char> &source);
+template StringBase<wchar_t>::StringBase(wchar_t character);
+template StringBase<wchar_t>::StringBase(const wchar_t *str, int len);
+template StringBase<wchar_t>::StringBase(const CharSource<wchar_t> &source);

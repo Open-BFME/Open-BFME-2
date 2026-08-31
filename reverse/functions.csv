@@ -1098,3 +1098,13 @@ _free,,0x00030830,17,Code/GameEngine/Source/Common/System/GameMemoryFree.cpp,mat
 ?lengthSqr@Coord3D@@QBEMXZ,0x00065A1A,0x00065A1A,31,Code/Libraries/Source/WWVegas/WWMath/coord3d.cpp,matched,Open-BFME5 clean C++; Coord3D squared length
 ?AtlW2AHelper@@YGPADPADPBGHI@Z,,0x000031DC,56,Code/Libraries/Source/ATL/atlconv.cpp,matched,Open-BFME5 clean C++; ATL 7.1 global wide-to-ANSI conversion helper
 ?AtlA2WHelper@@YGPAGPAGPBDHI@Z,,0x000031A5,55,Code/Libraries/Source/ATL/atlconv.cpp,matched,Open-BFME5 clean C++; ATL 7.1 global ANSI-to-wide conversion helper
+??0?$StringBase@D@@AAE@D@Z,0x00037B60,0x00037B60,27,Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp,matched,Open-BFME5 clean C++; StringBase private constructor
+??0?$StringBase@D@@AAE@PBDH@Z,0x00037B80,0x00037B80,32,Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp,matched,Open-BFME5 clean C++; StringBase private constructor
+??0?$StringBase@G@@AAE@G@Z,0x00037DF0,0x00037DF0,27,Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp,matched,Open-BFME5 clean C++; StringBase private constructor
+??0?$StringBase@G@@AAE@PBGH@Z,0x00037E10,0x00037E10,32,Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp,matched,Open-BFME5 clean C++; StringBase private constructor
+??0?$StringBase@D@@AAE@ABV?$CharSource@D@@@Z,0x00037BF0,0x00037BF0,25,Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp,matched,Open-BFME5 clean C++; StringBase CharSource constructor
+??0?$StringBase@G@@AAE@ABV?$CharSource@G@@@Z,0x00037E70,0x00037E70,25,Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp,matched,Open-BFME5 clean C++; StringBase CharSource constructor
+?translate@AsciiString@@QAEXABVUnicodeString@@@Z,0x00038220,0x00038220,36,Code/Libraries/Source/WWVegas/WWLib/string_inline.cpp,matched,Open-BFME5 clean C++; string formatting and translation from the speed-built unit
+?translate@UnicodeString@@QAEXABVAsciiString@@@Z,0x006CB6A0,0x006CB6A0,36,Code/Libraries/Source/WWVegas/WWLib/string_inline.cpp,matched,Open-BFME5 clean C++; string formatting and translation from the speed-built unit
+?format@AsciiString@@QAAXPBDZZ,0x00038150,0x00038150,20,Code/Libraries/Source/WWVegas/WWLib/string_inline.cpp,matched,Open-BFME5 clean C++; varargs format forwarder
+?format@UnicodeString@@QAAXPBGZZ,0x006CB5D0,0x006CB5D0,20,Code/Libraries/Source/WWVegas/WWLib/string_inline.cpp,matched,Open-BFME5 clean C++; varargs format forwarder

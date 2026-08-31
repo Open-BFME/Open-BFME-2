@@ -1,6 +1,9 @@
 #pragma once
 
 template <typename T>
+class CharSource;
+
+template <typename T>
 class StringBase
 {
 public:
@@ -23,12 +26,17 @@ public:
     bool isNotNone() const;
     const T *str() const;
     void set(const StringBase<T> &str);
+    void set(const CharSource<T> &source);
     void set(T c);
     void set(const T *str);
     void set(const T *str, int len);
     void swap(StringBase<T> &other);
 
 private:
+    StringBase(T character);
+    StringBase(const T *str, int len);
+    StringBase(const CharSource<T> &source);
+
     struct Header
     {
         int ref_count;

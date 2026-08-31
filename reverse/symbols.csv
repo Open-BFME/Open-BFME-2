@@ -120,3 +120,9 @@ __CIasin,0x006298B6,MSVCR71 import thunk (jmp [0x00BBA5CC]); same shape from the
 ?compareNoCase@?$StringBase@G@@QBEHPBG@Z,0x00037A90,BFME2 export and retail call target for the StringBase<wchar_t> twin
 ?setString@PooledString@@AAEXPBD@Z,0x006CB7C0,BFME2 export; the private setter both the const char * constructor and assignment forward to
 ??0?$StringBase@D@@AAE@ABV0@@Z,0x000365F0,BFME2 export and retail call target for the StringBase<char> copy constructor
+?set@?$StringBase@D@@QAEXABV?$CharSource@D@@@Z,0x000368C0,BFME2 export and retail call target for the StringBase<char> CharSource setter
+?set@?$StringBase@G@@QAEXABV?$CharSource@G@@@Z,0x00037330,BFME2 export and retail call target for the StringBase<wchar_t> CharSource setter
+?format_va@?$StringBase@D@@QAEXPBDPAD@Z,0x00036D40,BFME2 export and retail call target for the StringBase<char> varargs formatter
+?format_va@?$StringBase@G@@QAEXPBGPAD@Z,0x000377E0,BFME2 export and retail call target for the StringBase<wchar_t> varargs formatter
+?translate@AsciiString@@QAEXPBG@Z,0x00038170,BFME2 export; the wide-string translate the UnicodeString overload tail-jumps into
+?translate@UnicodeString@@QAEXPBD@Z,0x006CB5F0,BFME2 export; the narrow-string translate the AsciiString overload tail-jumps into
