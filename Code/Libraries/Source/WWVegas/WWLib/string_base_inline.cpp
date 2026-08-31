@@ -139,6 +139,41 @@ bool StringBase<T>::endsWith(const T *str, int len) const
     return memcmp(&m_data->data[0] + ((m_data ? m_data->length : 0) - len), str, len) == 0;
 }
 
+// Both of these take the argument's length with an INLINED strlen - a scan loop
+// rather than a call - which is /Oi again and puts them in this unit rather than
+// beside the (const T *) prefix tests, where the strlen stays a call.
+template <typename T>
+bool StringBase<T>::endsWithNoCase(const T *str) const
+{
+    return endsWithNoCase(str, str ? (int)strlen(str) : 0);
+}
+
+template <typename T>
+bool StringBase<T>::endsWithNoCase(const StringBase<T> &str) const
+{
+    return endsWithNoCase(str.m_data ? &str.m_data->data[0] : "",
+        str.m_data ? str.m_data->length : 0);
+}
+
+template <typename T>
+int StringBase<T>::compareNoCase(T c) const
+{
+    const int mylen = m_data ? m_data->length : 0;
+    const T *data = m_data ? &m_data->data[0] : "";
+
+    int len = mylen;
+    if (len >= 1) {
+        len = 1;
+    }
+
+    const int result = _memicmp(data, &c, len);
+    if (result != 0) {
+        return result;
+    }
+
+    return mylen - 1;
+}
+
 template <typename T>
 bool StringBase<T>::startsWith(const StringBase<T> &str) const
 {
@@ -209,6 +244,9 @@ const T *StringBase<T>::find(T c) const
 }
 
 template int StringBase<char>::compare(char c) const;
+template int StringBase<char>::compareNoCase(char c) const;
+template bool StringBase<char>::endsWithNoCase(const char *str) const;
+template bool StringBase<char>::endsWithNoCase(const StringBase<char> &str) const;
 template bool StringBase<wchar_t>::isNotEmpty() const;
 template bool StringBase<char>::startsWithNoCase(const char *str, int len) const;
 template bool StringBase<char>::endsWithNoCase(const char *str, int len) const;

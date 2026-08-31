@@ -1355,3 +1355,6 @@ _free,,0x00030830,17,Code/GameEngine/Source/Common/System/GameMemoryFree.cpp,mat
 ??4?$DefaultModuleTemplate@$01@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A79E5,0x003A79E5,33,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; default module template assignment
 ??4RenderObjectDrawModuleTemplate@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A7DA9,0x003A7DA9,33,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; module template generated assignment
 ??4GpuDrawModuleTemplate@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A7F1D,0x003A7F1D,33,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; module template generated assignment
+?endsWithNoCase@?$StringBase@D@@QBE_NPBD@Z,0x000360D0,0x000360D0,50,Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp,matched,Open-BFME5 clean C++; case-insensitive string test
+?endsWithNoCase@?$StringBase@D@@QBE_NABV1@@Z,0x00036110,0x00036110,50,Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp,matched,Open-BFME5 clean C++; case-insensitive string test
+?compareNoCase@?$StringBase@D@@QBEHD@Z,0x000379E0,0x000379E0,66,Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp,matched,Open-BFME5 clean C++; case-insensitive string test

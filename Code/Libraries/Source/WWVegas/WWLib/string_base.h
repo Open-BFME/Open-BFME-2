@@ -14,6 +14,7 @@ public:
     int compare(const T *str, int len) const;
     int compareNoCase(const StringBase<T> &str) const;
     int compareNoCase(const T *str) const;
+    int compareNoCase(T c) const;
     int compareNoCase(const T *str, int len) const;
     void concat(const StringBase<T> &str);
     void concat(T c);
@@ -26,6 +27,8 @@ public:
     bool isNone() const;
     bool startsWithNoCase(const T *str, int len) const;
     bool endsWithNoCase(const T *str, int len) const;
+    bool endsWithNoCase(const T *str) const;
+    bool endsWithNoCase(const StringBase<T> &str) const;
     bool startsWith(const T *str) const;
     bool startsWith(const StringBase<T> &str) const;
     bool startsWith(const T *str, int len) const;
