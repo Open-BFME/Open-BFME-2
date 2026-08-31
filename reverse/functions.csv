@@ -1232,3 +1232,4 @@ _free,,0x00030830,17,Code/GameEngine/Source/Common/System/GameMemoryFree.cpp,mat
 ?getFirst@?$CategoryModuleClass@$05@FXParticleSystem@@SAPBV12@XZ,0x001F4422,0x001F4422,6,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; module class list head accessor
 ?getFirst@?$CategoryModuleClass@$06@FXParticleSystem@@SAPBV12@XZ,0x001F4444,0x001F4444,6,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; module class list head accessor
 ?getFirst@?$CategoryModuleClass@$07@FXParticleSystem@@SAPBV12@XZ,0x001F4466,0x001F4466,6,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; module class list head accessor
+?XferRawBytes@Xfer@@UAEAAV1@PAXI@Z,0x0060B886,0x0060B886,64,Code/GameEngine/Source/Common/System/Xfer.cpp,matched,Open-BFME5 clean C++; Xfer raw byte transfer

@@ -49,7 +49,9 @@ Observed traps:
 - Pointer/index loops are unstable. `Matrix4D::IsExactlyEqualTo` compiled to a different loop shape
   from the target's four-dword xor/or block.
 - Virtual-call wrappers may match semantically while saving registers or branching differently.
-  `Xfer::XferRawBytes` was a near-match but not byte-identical.
+  `Xfer::XferRawBytes` was a near-match until the guard was read literally: retail bails out only
+  when the size is non-zero AND the pointer is null, so a zero size falls through into both
+  transfers. `size != 0 && data != 0` is the obvious guard and the wrong one. **Solved.**
 
 Use these as negative patterns: once a diff shows one of these traps, prefer another function family
 or first find a source pattern that proves the exact instruction shape in a targeted build.

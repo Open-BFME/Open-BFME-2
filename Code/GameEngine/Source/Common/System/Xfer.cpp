@@ -353,3 +353,21 @@ Xfer &Xfer::operator==(IRegion2D &value)
 
     return *this;
 }
+
+// Announces 'raw' with the size itself as the payload, then moves the bytes.
+// The guard is not the obvious one: retail bails out only when the size is
+// non-zero AND the pointer is null - a zero size falls straight through into
+// both transfers - which is what a checked-pointer assert looks like once the
+// assert itself is compiled out.
+Xfer &Xfer::XferRawBytes(void *data, unsigned int size)
+{
+    if (size != 0 && data == 0) {
+        return *this;
+    }
+
+    XferData('raw', &size, sizeof(size));
+    XferData(0, data, size);
+
+    return *this;
+}
+

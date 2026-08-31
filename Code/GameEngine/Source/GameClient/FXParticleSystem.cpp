@@ -676,6 +676,8 @@ public:
 class LightningEmissionInfo : public EmissionVolumeInfo
 {
 public:
+    LightningEmissionInfo(const LightningEmissionInfo &that);
+
     FXCoord3D m_unknown08;
     FXCoord3D m_unknown14;
     FXCoord3D m_unknown20;
@@ -688,6 +690,31 @@ public:
     FXCoord3D m_unknown74;
     FXCoord3D m_unknown80;
 };
+
+// 0x003A6AF5 stays unclaimed. The generated copy constructor expands the first
+// two groups one float at a time and blocks the remaining nine, which this
+// reproduces; the only difference is where the edi save lands - MSVC 7.1 puts it
+// one scalar earlier than retail, the same scheduling gap that leaves
+// DefaultPhysicsModuleInfo's copy constructor unclaimed.
+LightningEmissionInfo::LightningEmissionInfo(const LightningEmissionInfo &that)
+    : EmissionVolumeInfo(that)
+{
+    m_unknown08.x = that.m_unknown08.x;
+    m_unknown08.y = that.m_unknown08.y;
+    m_unknown08.z = that.m_unknown08.z;
+    m_unknown14.x = that.m_unknown14.x;
+    m_unknown14.y = that.m_unknown14.y;
+    m_unknown14.z = that.m_unknown14.z;
+    m_unknown20 = that.m_unknown20;
+    m_unknown2C = that.m_unknown2C;
+    m_unknown38 = that.m_unknown38;
+    m_unknown44 = that.m_unknown44;
+    m_unknown50 = that.m_unknown50;
+    m_unknown5C = that.m_unknown5C;
+    m_unknown68 = that.m_unknown68;
+    m_unknown74 = that.m_unknown74;
+    m_unknown80 = that.m_unknown80;
+}
 
 class DefaultUpdateModuleInfo
 {
