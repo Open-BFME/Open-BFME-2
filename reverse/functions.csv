@@ -145,7 +145,6 @@ _BTREE_decode@12,,0x0068EC70,16,Code/Libraries/Source/Compression/EAC/btreedecod
 _zError,,0x006946D0,21,Code/Libraries/Source/Compression/ZLib/zutil.c,matched,vendored=zlib-1.1.4
 _zcfree,,0x00694710,13,Code/Libraries/Source/Compression/ZLib/zutil.c,matched,vendored=zlib-1.1.4
 _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matched,vendored=zlib-1.1.4
-?d_000010cf@@YAXXZ,,0x000010CF,80,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_004010cf
 ?d_00001125@@YAXXZ,,0x00001125,23,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00401125
 ??0ModuleTemplate@FXParticleSystem@@QAE@XZ,0x000011B4,0x000011B4,9,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; FXParticleSystem ModuleTemplate default constructor
 ??1ModuleTemplate@FXParticleSystem@@UAE@XZ,0x000011BD,0x000011BD,7,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; FXParticleSystem ModuleTemplate destructor
@@ -1777,3 +1776,4 @@ _free,,0x00030830,17,Code/GameEngine/Source/Common/System/GameMemoryFree.cpp,mat
 ?Set@Matrix4D@@QAEAAV1@ABVCoord3D@@@Z,0x00005BB8,0x00005BB8,116,Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp,matched,
 ?CreateEx@CImage@ATL@@QAEHHHHKPBKK@Z,,0x00002690,205,Code/Libraries/Source/ATL/atlimage.cpp,matched,vendored=atl-7.1
 ??0?$CA2WEX@$0IA@@ATL@@QAE@PBD@Z,,0x00002206,32,Code/Libraries/Source/ATL/atlconv.cpp,matched,vendored=atl-7.1
+?_AtlGetThreadACPThunk@ATL@@YGIXZ,,0x000010CF,80,Code/Libraries/Source/ATL/atlconv.cpp,matched,vendored=atl-7.1
