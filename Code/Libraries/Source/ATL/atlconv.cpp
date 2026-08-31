@@ -30,7 +30,6 @@ extern "C" __declspec(dllimport) int __stdcall WideCharToMultiByte(
 extern "C" __declspec(dllimport) void *__cdecl malloc(unsigned int size);
 extern "C" __declspec(dllimport) void __cdecl free(void *block);
 extern "C" __declspec(dllimport) DWORD __stdcall GetLastError();
-extern "C" __declspec(dllimport) UINT __stdcall GetACP();
 
 LPWSTR __stdcall AtlA2WHelper(LPWSTR lpw, LPCSTR lpa, int nChars, UINT acp)
 {
@@ -63,6 +62,18 @@ namespace ATL
 
 __declspec(noreturn) void __stdcall AtlThrow(HRESULT hr);
 
+// The conversion code page is reached through a global function pointer that
+// starts out at _AtlGetThreadACPThunk and rewrites itself on first use; the
+// pointer lives at 0x00DA5E40 and both bodies behind it are still unconverted.
+typedef UINT(__stdcall *ATLGETTHREADACP)();
+
+extern ATLGETTHREADACP g_pfnGetThreadACP;
+
+inline UINT __stdcall _AtlGetConversionACP() throw()
+{
+	return g_pfnGetThreadACP();
+}
+
 __declspec(noinline) __declspec(noreturn) inline void __stdcall AtlThrowLastWin32()
 {
 	DWORD dwError = ::GetLastError();
@@ -73,6 +84,10 @@ template <int t_nBufferLength = 128>
 class CA2WEX
 {
 public:
+	CA2WEX(LPCSTR psz) : m_psz(m_szBuffer)
+	{
+		Init(psz, _AtlGetConversionACP());
+	}
 	CA2WEX(LPCSTR psz, UINT nCodePage) : m_psz(m_szBuffer)
 	{
 		Init(psz, nCodePage);
@@ -103,7 +118,7 @@ class CW2AEX
 public:
     CW2AEX(const unsigned short *psz) : m_psz(m_szBuffer)
     {
-        Init(psz, GetACP());
+        Init(psz, _AtlGetConversionACP());
     }
     ~CW2AEX();
 
@@ -153,6 +168,7 @@ void CA2WEX<t_nBufferLength>::Init(LPCSTR psz, UINT nCodePage)
 	}
 }
 
+template CA2WEX<128>::CA2WEX(LPCSTR psz);
 template CA2WEX<128>::~CA2WEX();
 template void CA2WEX<128>::Init(LPCSTR psz, UINT nCodePage);
 template CW2AEX<128>::CW2AEX(const unsigned short *psz);

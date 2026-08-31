@@ -179,7 +179,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_00002152@@YAXXZ,,0x00002152,10,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00402152
 ?d_000021c7@@YAXXZ,,0x000021C7,28,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_004021c7
 ?d_000021e3@@YAXXZ,,0x000021E3,35,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Allocate
-?d_00002206@@YAXXZ,,0x00002206,32,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00402206
 ?d_00002226@@YAXXZ,,0x00002226,141,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00402226
 ?d_0000232b@@YAXXZ,,0x0000232B,34,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_0040232b
 ?d_0000240e@@YAXXZ,,0x0000240E,10,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=~ParticleSystemInfo
@@ -1777,3 +1776,4 @@ _free,,0x00030830,17,Code/GameEngine/Source/Common/System/GameMemoryFree.cpp,mat
 ?Multiply@Matrix4D@@QAEAAV1@ABV1@0@Z,0x000047DA,0x000047DA,918,Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp,matched,
 ?Set@Matrix4D@@QAEAAV1@ABVCoord3D@@@Z,0x00005BB8,0x00005BB8,116,Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp,matched,
 ?CreateEx@CImage@ATL@@QAEHHHHKPBKK@Z,,0x00002690,205,Code/Libraries/Source/ATL/atlimage.cpp,matched,vendored=atl-7.1
+??0?$CA2WEX@$0IA@@ATL@@QAE@PBD@Z,,0x00002206,32,Code/Libraries/Source/ATL/atlconv.cpp,matched,vendored=atl-7.1
