@@ -642,6 +642,8 @@ DefaultUpdateAssign g_defaultUpdateAssign = &DefaultUpdateModuleInfo::operator=;
 class RenderObjectUpdateModuleInfo
 {
 public:
+    RenderObjectUpdateModuleInfo(const RenderObjectUpdateModuleInfo &that);
+
     virtual ~RenderObjectUpdateModuleInfo();
     virtual void v1() = 0;
 
@@ -702,7 +704,7 @@ class DefaultColorModuleInfo
 {
 public:
     virtual ~DefaultColorModuleInfo();
-    virtual void v1() = 0;
+    virtual void v1();
 
     FXKeyframe m_keys[8];
     FXCoord3D m_unknown84;
@@ -718,5 +720,42 @@ typedef DefaultColorModuleInfo &(DefaultColorModuleInfo::*DefaultColorAssign)(
 RenderObjectUpdateAssign g_renderObjectUpdateAssign = &RenderObjectUpdateModuleInfo::operator=;
 DefaultAlphaAssign g_defaultAlphaAssign = &DefaultAlphaModuleInfo::operator=;
 DefaultColorAssign g_defaultColorAssign = &DefaultColorModuleInfo::operator=;
+
+class SphericalEmissionVelocityInfo : public EmissionVelocityInfo
+{
+public:
+    FXCoord3D m_unknown04;
+};
+
+DefaultColorModuleInfo *fxCopyDefaultColorModuleInfo(void *storage,
+    const DefaultColorModuleInfo &that)
+{
+    return new (storage) DefaultColorModuleInfo(that);
+}
+
+RenderObjectUpdateModuleInfo::RenderObjectUpdateModuleInfo(
+    const RenderObjectUpdateModuleInfo &that)
+{
+    m_unknown04 = that.m_unknown04;
+    m_unknown10 = that.m_unknown10;
+    m_unknown1C = that.m_unknown1C;
+    m_unknown28 = that.m_unknown28;
+    m_unknown34 = that.m_unknown34;
+    m_unknown40 = that.m_unknown40;
+    m_unknown4C = that.m_unknown4C;
+    m_unknown58 = that.m_unknown58;
+    m_unknown64 = that.m_unknown64;
+    m_unknown70 = that.m_unknown70;
+    m_unknown7C = that.m_unknown7C;
+    m_unknown88 = that.m_unknown88;
+    m_unknown94 = that.m_unknown94;
+}
+
+typedef SphericalEmissionVelocityInfo &(
+    SphericalEmissionVelocityInfo::*SphericalEmissionVelocityAssign)(
+    const SphericalEmissionVelocityInfo &);
+
+SphericalEmissionVelocityAssign g_sphericalEmissionVelocityAssign =
+    &SphericalEmissionVelocityInfo::operator=;
 
 }

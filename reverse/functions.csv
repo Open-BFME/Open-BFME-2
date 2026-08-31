@@ -1193,3 +1193,7 @@ _free,,0x00030830,17,Code/GameEngine/Source/Common/System/GameMemoryFree.cpp,mat
 ??4DefaultAlphaModuleInfo@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A618D,0x003A618D,38,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; module info layout
 ??4DefaultColorModuleInfo@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A6306,0x003A6306,57,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; module info layout
 ??0DefaultAlphaModuleInfo@FXParticleSystem@@QAE@ABV01@@Z,0x003A616F,0x003A616F,30,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; DefaultAlphaModuleInfo copy constructor
+?add@Coord3D@@QAEXPBUCoord3DBase@@@Z,0x000F0E3B,0x000F0E3B,49,Code/Libraries/Source/WWVegas/WWMath/coord3d.cpp,matched,Open-BFME5 clean C++; Coord3D add from a base pointer
+??4SphericalEmissionVelocityInfo@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A7296,0x003A7296,22,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; module info layout
+??0DefaultColorModuleInfo@FXParticleSystem@@QAE@ABV01@@Z,0x003A62D9,0x003A62D9,45,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; module info layout
+??0RenderObjectUpdateModuleInfo@FXParticleSystem@@QAE@ABV01@@Z,0x003A7F3E,0x003A7F3E,145,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; module info layout
