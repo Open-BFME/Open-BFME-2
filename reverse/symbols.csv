@@ -199,3 +199,4 @@ __CIasin,0x006298B6,MSVCR71 import thunk (jmp [0x00BBA5CC]); same shape from the
 ??4TerrainCollisionModuleInfo@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A81AE,BFME2 export; the module info assignment the module template forwards to
 ?startsWithNoCase@?$StringBase@D@@QBE_NPBDH@Z,0x000359B0,BFME2 export and retail call target; the body is banked as a near miss on one register choice
 ??0?$CategoryModuleTemplateBase@$07@FXParticleSystem@@QAE@ABV01@@Z,0x001F421B,BFME2 export; the two-vtable module base copy constructor CategoryModuleTemplate calls - ICF folds all nine categories onto this address
+??0?$CategoryModuleTemplateBase@$06@FXParticleSystem@@QAE@ABV01@@Z,0x001F421B,BFME2 export ordinal 82; same ICF-folded module base copy constructor as the $07 pin - category 7 is wind

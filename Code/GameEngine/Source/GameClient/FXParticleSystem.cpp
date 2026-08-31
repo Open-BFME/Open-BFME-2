@@ -423,11 +423,35 @@ inline CategoryModuleClassBase<CATEGORY, MODULE_COUNT>::CategoryModuleClassBase(
     }
 }
 
+// The second parameter is not a module count but a has-default flag, and 0
+// selects a different class rather than a different body: retail spells the
+// event category's base constructor QAE, public, where every other category
+// spells it IAE. It registers nothing - `mov eax, ecx; ret 8` - because there
+// is no default module in that category to register.
+template <int CATEGORY>
+class CategoryModuleClassBase<CATEGORY, 0>
+{
+public:
+    CategoryModuleClassBase(const CategoryModuleClass<CATEGORY> &that, bool registerIt);
+};
+
+template <int CATEGORY>
+inline CategoryModuleClassBase<CATEGORY, 0>::CategoryModuleClassBase(
+    const CategoryModuleClass<CATEGORY> &, bool)
+{
+}
+
 template <int CATEGORY>
 class CategoryModuleClass : public CategoryModuleClassBase<CATEGORY, 1>
 {
 public:
     static const CategoryModuleClass<CATEGORY> *getFirst();
+
+    // Offsets 4, 8 and 0xC, one load each. The three accessors ICF-fold across
+    // the nine categories, so nine names share three four-byte bodies.
+    const char *getKey() const { return m_key; }
+    const char *getName() const { return m_name; }
+    const CategoryModuleClass<CATEGORY> *getNext() const { return m_next; }
 
     static const CategoryModuleClass<CATEGORY> *s_instance;
     static CategoryModuleClass<CATEGORY> *s_head;
@@ -435,7 +459,9 @@ public:
 protected:
     CategoryModuleClass(bool isDefault, const char *key, const char *name);
 
-    virtual ~CategoryModuleClass();
+    // Protected and NOT virtual - retail spells it IAE - even though the class
+    // is polymorphic through v1. All it does is restore the vtable.
+    ~CategoryModuleClass();
     virtual void v1() = 0;
 
     const char *m_key;
@@ -448,6 +474,11 @@ const CategoryModuleClass<CATEGORY> *CategoryModuleClass<CATEGORY>::s_instance;
 
 template <int CATEGORY>
 CategoryModuleClass<CATEGORY> *CategoryModuleClass<CATEGORY>::s_head;
+
+template <int CATEGORY>
+CategoryModuleClass<CATEGORY>::~CategoryModuleClass()
+{
+}
 
 template <int CATEGORY>
 const CategoryModuleClass<CATEGORY> *CategoryModuleClass<CATEGORY>::getFirst()
@@ -521,10 +552,14 @@ public:
 
     static const CategoryModuleClass<8> *getFirst();
 
+    const char *getKey() const { return m_key; }
+    const char *getName() const { return m_name; }
+    const CategoryModuleClass<8> *getNext() const { return m_next; }
+
 protected:
     CategoryModuleClass(bool isDefault, const char *key, const char *name);
 
-    virtual ~CategoryModuleClass();
+    ~CategoryModuleClass();
     virtual void v1() = 0;
 
     const char *m_key;
@@ -532,12 +567,32 @@ protected:
     CategoryModuleClass<8> *m_next;
 };
 
+// The second template parameter is not a module count but a has-default flag.
+// The event category spells it 0, and the constructor collapses to
+// `mov eax, ecx; ret 8`: there is no default module here to register.
+template class CategoryModuleClassBase<8, 0>;
+
 const CategoryModuleClass<8> *CategoryModuleClass<8>::getFirst()
 {
     return s_head;
 }
 
 CategoryModuleClass<8> *CategoryModuleClass<8>::s_head;
+
+CategoryModuleClass<8>::~CategoryModuleClass()
+{
+}
+
+// A full specialization emits only the members something names, and nothing in
+// this file calls the event category's accessors; these force all three out.
+typedef const char *(CategoryModuleClass<8>::*EventCategoryStringAccessor)() const;
+
+EventCategoryStringAccessor g_eventCategoryGetKey = &CategoryModuleClass<8>::getKey;
+EventCategoryStringAccessor g_eventCategoryGetName = &CategoryModuleClass<8>::getName;
+
+typedef const CategoryModuleClass<8> *(CategoryModuleClass<8>::*EventCategoryNextAccessor)() const;
+
+EventCategoryNextAccessor g_eventCategoryGetNext = &CategoryModuleClass<8>::getNext;
 
 CategoryModuleClass<8>::CategoryModuleClass(bool isDefault, const char *key, const char *name)
 {
@@ -661,6 +716,22 @@ WindModuleInfo::WindModuleInfo(const WindModuleInfo &that)
 typedef WindModuleInfo &(WindModuleInfo::*WindModuleAssign)(const WindModuleInfo &);
 
 WindModuleAssign g_windModuleAssign = &WindModuleInfo::operator=;
+
+// Category 7 is wind: its module template copy constructor at 0x001F44E4 copies
+// the two module bases, then WindModuleInfo at offset 8, then rewrites all
+// three vtables. The specialization has to sit here rather than beside the
+// others because WindModuleInfo is only a complete type this far down.
+template <>
+struct CategoryInfo<7>
+{
+    typedef WindModuleInfo Type;
+};
+
+CategoryModuleTemplate<7> *fxCopyWindCategoryModuleTemplate(void *storage,
+    const CategoryModuleTemplate<7> &that)
+{
+    return new (storage) CategoryModuleTemplate<7>(that);
+}
 
 // Three more info classes read straight off their generated assignments: a
 // movsd run is a three-float group, a lone dword move is a loose float, and a
