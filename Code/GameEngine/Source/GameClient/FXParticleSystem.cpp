@@ -439,4 +439,136 @@ CategoryModuleClass<8>::CategoryModuleClass(bool isDefault, const char *key, con
     s_head = this;
 }
 
+// Seventeen members and no grouping anywhere: the generated assignment copies
+// every one of them with its own move rather than blocking any run together,
+// which is what separates loose scalars from a sub-object here.
+class WindModuleInfo
+{
+public:
+    WindModuleInfo(const WindModuleInfo &that);
+
+    virtual ~WindModuleInfo();
+    virtual void v1() = 0;
+
+    float m_unknown04;
+    float m_unknown08;
+    float m_unknown0C;
+    float m_unknown10;
+    float m_unknown14;
+    float m_unknown18;
+    float m_unknown1C;
+    float m_unknown20;
+    float m_unknown24;
+    float m_unknown28;
+    float m_unknown2C;
+    float m_unknown30;
+    float m_unknown34;
+    float m_unknown38;
+    bool m_unknown3C;
+    float m_unknown40;
+    float m_unknown44;
+};
+
+WindModuleInfo::WindModuleInfo(const WindModuleInfo &that)
+{
+    m_unknown04 = that.m_unknown04;
+    m_unknown08 = that.m_unknown08;
+    m_unknown0C = that.m_unknown0C;
+    m_unknown10 = that.m_unknown10;
+    m_unknown14 = that.m_unknown14;
+    m_unknown18 = that.m_unknown18;
+    m_unknown1C = that.m_unknown1C;
+    m_unknown20 = that.m_unknown20;
+    m_unknown24 = that.m_unknown24;
+    m_unknown28 = that.m_unknown28;
+    m_unknown2C = that.m_unknown2C;
+    m_unknown30 = that.m_unknown30;
+    m_unknown34 = that.m_unknown34;
+    m_unknown38 = that.m_unknown38;
+    m_unknown3C = that.m_unknown3C;
+    m_unknown40 = that.m_unknown40;
+    m_unknown44 = that.m_unknown44;
+}
+
+typedef WindModuleInfo &(WindModuleInfo::*WindModuleAssign)(const WindModuleInfo &);
+
+WindModuleAssign g_windModuleAssign = &WindModuleInfo::operator=;
+
+// Three more info classes read straight off their generated assignments: a
+// movsd run is a three-float group, a lone dword move is a loose float, and a
+// byte move is a flag.
+class DefaultPhysicsModuleInfo
+{
+public:
+    DefaultPhysicsModuleInfo(const DefaultPhysicsModuleInfo &that);
+
+    virtual ~DefaultPhysicsModuleInfo();
+    virtual void v1() = 0;
+
+    FXCoord3D m_unknown04;
+    float m_unknown10;
+    FXCoord3D m_unknown14;
+    bool m_unknown20;
+    bool m_unknown21;
+};
+
+// 0x003A7736 stays unclaimed: identical to retail except that MSVC 7.1 spreads
+// the esi and edi saves through the scalar copies where retail groups them.
+DefaultPhysicsModuleInfo::DefaultPhysicsModuleInfo(const DefaultPhysicsModuleInfo &that)
+{
+    m_unknown04.x = that.m_unknown04.x;
+    m_unknown04.y = that.m_unknown04.y;
+    m_unknown04.z = that.m_unknown04.z;
+    m_unknown10 = that.m_unknown10;
+    m_unknown14 = that.m_unknown14;
+    m_unknown20 = that.m_unknown20;
+    m_unknown21 = that.m_unknown21;
+}
+
+class LightningDrawModuleInfo
+{
+public:
+    LightningDrawModuleInfo(const LightningDrawModuleInfo &that);
+
+    virtual ~LightningDrawModuleInfo();
+    virtual void v1() = 0;
+
+    FXCoord3D m_unknown04;
+    FXCoord3D m_unknown10;
+    FXCoord3D m_unknown1C;
+    float m_unknown28;
+    bool m_unknown2C;
+};
+
+LightningDrawModuleInfo::LightningDrawModuleInfo(const LightningDrawModuleInfo &that)
+{
+    m_unknown04 = that.m_unknown04;
+    m_unknown10 = that.m_unknown10;
+    m_unknown1C = that.m_unknown1C;
+    m_unknown28 = that.m_unknown28;
+    m_unknown2C = that.m_unknown2C;
+}
+
+class OrthoEmissionVelocityInfo
+{
+public:
+    virtual ~OrthoEmissionVelocityInfo();
+    virtual void v1() = 0;
+
+    FXCoord3D m_unknown04;
+    FXCoord3D m_unknown10;
+    FXCoord3D m_unknown1C;
+};
+
+typedef DefaultPhysicsModuleInfo &(DefaultPhysicsModuleInfo::*DefaultPhysicsAssign)(
+    const DefaultPhysicsModuleInfo &);
+typedef LightningDrawModuleInfo &(LightningDrawModuleInfo::*LightningDrawAssign)(
+    const LightningDrawModuleInfo &);
+typedef OrthoEmissionVelocityInfo &(OrthoEmissionVelocityInfo::*OrthoEmissionVelocityAssign)(
+    const OrthoEmissionVelocityInfo &);
+
+DefaultPhysicsAssign g_defaultPhysicsAssign = &DefaultPhysicsModuleInfo::operator=;
+LightningDrawAssign g_lightningDrawAssign = &LightningDrawModuleInfo::operator=;
+OrthoEmissionVelocityAssign g_orthoEmissionVelocityAssign = &OrthoEmissionVelocityInfo::operator=;
+
 }

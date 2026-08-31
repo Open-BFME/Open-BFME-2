@@ -1179,3 +1179,9 @@ _free,,0x00030830,17,Code/GameEngine/Source/Common/System/GameMemoryFree.cpp,mat
 ??4LineEmissionVolumeInfo@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A657A,0x003A657A,37,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; emission volume info body
 ??4CylinderEmissionVolumeInfo@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A6986,0x003A6986,46,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; emission volume info body
 ??0BoxEmissionVolumeInfo@FXParticleSystem@@QAE@ABV01@@Z,0x003A6669,0x003A6669,45,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; BoxEmissionVolumeInfo copy constructor
+??4WindModuleInfo@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x001F3654,0x001F3654,111,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; WindModuleInfo
+??0WindModuleInfo@FXParticleSystem@@QAE@ABV01@@Z,0x001F35DF,0x001F35DF,117,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; WindModuleInfo
+??4DefaultPhysicsModuleInfo@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A7776,0x003A7776,49,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; module info layout
+??4LightningDrawModuleInfo@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A7E04,0x003A7E04,52,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; module info layout
+??0LightningDrawModuleInfo@FXParticleSystem@@QAE@ABV01@@Z,0x003A7DCA,0x003A7DCA,58,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; module info layout
+??4OrthoEmissionVelocityInfo@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A70A9,0x003A70A9,40,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; module info layout
