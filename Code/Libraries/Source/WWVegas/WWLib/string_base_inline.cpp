@@ -15,6 +15,7 @@
 typedef unsigned short wchar_t;
 
 #define _DLL
+#include <stdio.h>
 #include <string.h>
 
 #include "string_base.h"
@@ -142,6 +143,66 @@ bool StringBase<T>::endsWith(const T *str, int len) const
 // Both of these take the argument's length with an INLINED strlen - a scan loop
 // rather than a call - which is /Oi again and puts them in this unit rather than
 // beside the (const T *) prefix tests, where the strlen stays a call.
+// An 8192-byte stack buffer - big enough to need a stack probe - formatted with
+// the CRT's counted vsnprintf and then handed to the length-taking setter.
+template <>
+void StringBase<char>::format_va(const char *format, char *args)
+{
+    char buffer[8192];
+
+    const int length = _vsnprintf(buffer, sizeof(buffer), format, args);
+
+    set(buffer, length);
+}
+
+template <>
+void StringBase<char>::format_va(const StringBase<char> &format, char *args)
+{
+    char buffer[8192];
+
+    const int length = _vsnprintf(buffer, sizeof(buffer),
+        format.m_data ? &format.m_data->data[0] : "", args);
+
+    set(buffer, length);
+}
+
+// A member cdecl varargs function that inlines the formatter whole rather than
+// calling it - the argument pointer comes off the format parameter.
+template <>
+void __cdecl StringBase<char>::format(const char *format, ...)
+{
+    format_va(format, (char *)(&format + 1));
+}
+
+// The wide twins. The buffer is the same 8192 characters, so the stack probe is
+// 0x4000 bytes rather than 0x2000, and the count handed to the CRT stays 8192.
+template <>
+void StringBase<wchar_t>::format_va(const wchar_t *format, char *args)
+{
+    wchar_t buffer[8192];
+
+    const int length = _vsnwprintf(buffer, sizeof(buffer) / sizeof(buffer[0]), format, args);
+
+    set(buffer, length);
+}
+
+template <>
+void StringBase<wchar_t>::format_va(const StringBase<wchar_t> &format, char *args)
+{
+    wchar_t buffer[8192];
+
+    const int length = _vsnwprintf(buffer, sizeof(buffer) / sizeof(buffer[0]),
+        format.m_data ? &format.m_data->data[0] : L"", args);
+
+    set(buffer, length);
+}
+
+template <>
+void __cdecl StringBase<wchar_t>::format(const wchar_t *format, ...)
+{
+    format_va(format, (char *)(&format + 1));
+}
+
 template <typename T>
 bool StringBase<T>::endsWithNoCase(const T *str) const
 {
@@ -184,6 +245,25 @@ template <typename T>
 bool StringBase<T>::endsWith(const StringBase<T> &str) const
 {
     return endsWith(str.m_data ? &str.m_data->data[0] : "", str.m_data ? str.m_data->length : 0);
+}
+
+// Walks back from the end, and unlike the forward find it does hold the
+// character in a register across the loop.
+template <typename T>
+const T *StringBase<T>::reverseFind(T c) const
+{
+    const T *begin = m_data ? &m_data->data[0] : "";
+    const T *p = begin + (m_data ? m_data->length : 0);
+
+    while (p != begin) {
+        --p;
+
+        if (*p == c) {
+            return p;
+        }
+    }
+
+    return 0;
 }
 
 // 0x0002C459 stays unclaimed: retail keeps the character parameter as a memory
@@ -255,6 +335,7 @@ template bool StringBase<char>::startsWith(const char *str, int len) const;
 template bool StringBase<char>::endsWith(const StringBase<char> &str) const;
 template bool StringBase<char>::endsWith(const char *str, int len) const;
 template const char *StringBase<char>::find(char c) const;
+template const char *StringBase<char>::reverseFind(char c) const;
 template char StringBase<char>::getCharAt(int index) const;
 template wchar_t StringBase<wchar_t>::getCharAt(int index) const;
 template bool StringBase<wchar_t>::isEmpty() const;

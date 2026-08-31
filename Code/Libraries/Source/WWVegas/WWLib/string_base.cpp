@@ -136,6 +136,13 @@ int StringBase<wchar_t>::compareNoCase(const wchar_t *str, int len) const
 // the compare overloads do, and hand it to the length-bounded form in the
 // speed-built unit.
 template <>
+bool StringBase<char>::startsWithNoCase(const StringBase<char> &str) const
+{
+    return startsWithNoCase(str.m_data ? &str.m_data->data[0] : "",
+        str.m_data ? str.m_data->length : 0);
+}
+
+template <>
 bool StringBase<char>::startsWith(const char *str) const
 {
     return startsWith(str, str ? (int)strlen(str) : 0);

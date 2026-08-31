@@ -46,6 +46,7 @@ public:
     // the argument pointer comes off the format parameter and not off a
     // register-passed this.
     void __cdecl format(const char *format, ...);
+    void __cdecl format(const AsciiString *format, ...);
     void translate(const wchar_t *text);
     void translate(const UnicodeString &that);
 
@@ -57,6 +58,7 @@ class UnicodeString
 {
 public:
     void __cdecl format(const wchar_t *format, ...);
+    void __cdecl format(const UnicodeString *format, ...);
     void translate(const char *text);
     void translate(const AsciiString &that);
 
@@ -69,6 +71,17 @@ void __cdecl AsciiString::format(const char *format, ...)
     ((StringBase<char> *)this)->format_va(format, (char *)(&format + 1));
 }
 
+// Takes the format as a POINTER to another string of the same kind, and reads
+// its text out before forwarding - so the empty-string fallback is here rather
+// than inside the formatter.
+void __cdecl AsciiString::format(const AsciiString *format, ...)
+{
+    const StringHeader *header = *(const StringHeader *const *)format;
+
+    ((StringBase<char> *)this)->format_va(header ? &header->data[0] : "",
+        (char *)(&format + 1));
+}
+
 void AsciiString::translate(const UnicodeString &that)
 {
     const WideStringHeader *header = *(const WideStringHeader *const *)&that;
@@ -79,6 +92,14 @@ void AsciiString::translate(const UnicodeString &that)
 void __cdecl UnicodeString::format(const wchar_t *format, ...)
 {
     ((StringBase<wchar_t> *)this)->format_va(format, (char *)(&format + 1));
+}
+
+void __cdecl UnicodeString::format(const UnicodeString *format, ...)
+{
+    const WideStringHeader *header = *(const WideStringHeader *const *)format;
+
+    ((StringBase<wchar_t> *)this)->format_va(header ? &header->data[0] : L"",
+        (char *)(&format + 1));
 }
 
 void UnicodeString::translate(const AsciiString &that)

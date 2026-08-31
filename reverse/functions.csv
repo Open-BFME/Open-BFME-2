@@ -1358,3 +1358,13 @@ _free,,0x00030830,17,Code/GameEngine/Source/Common/System/GameMemoryFree.cpp,mat
 ?endsWithNoCase@?$StringBase@D@@QBE_NPBD@Z,0x000360D0,0x000360D0,50,Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp,matched,Open-BFME5 clean C++; case-insensitive string test
 ?endsWithNoCase@?$StringBase@D@@QBE_NABV1@@Z,0x00036110,0x00036110,50,Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp,matched,Open-BFME5 clean C++; case-insensitive string test
 ?compareNoCase@?$StringBase@D@@QBEHD@Z,0x000379E0,0x000379E0,66,Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp,matched,Open-BFME5 clean C++; case-insensitive string test
+?startsWithNoCase@?$StringBase@D@@QBE_NABV1@@Z,0x0002C42F,0x0002C42F,42,Code/Libraries/Source/WWVegas/WWLib/string_base.cpp,matched,Open-BFME5 clean C++; case-insensitive prefix test over another string
+?reverseFind@?$StringBase@D@@QBEPBDD@Z,0x00035930,0x00035930,53,Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp,matched,Open-BFME5 clean C++; StringBase reverse character search
+?format_va@?$StringBase@D@@QAEXPBDPAD@Z,0x00036D40,0x00036D40,71,Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp,matched,Open-BFME5 clean C++; StringBase varargs formatter
+?format@?$StringBase@D@@QAAXPBDZZ,0x00037D90,0x00037D90,70,Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp,matched,Open-BFME5 clean C++; StringBase formatting
+?format_va@?$StringBase@D@@QAEXABV1@PAD@Z,0x00037920,0x00037920,87,Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp,matched,Open-BFME5 clean C++; StringBase formatting
+?format_va@?$StringBase@G@@QAEXPBGPAD@Z,0x000377E0,0x000377E0,71,Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp,matched,Open-BFME5 clean C++; wide StringBase formatting
+?format_va@?$StringBase@G@@QAEXABV1@PAD@Z,0x00037A30,0x00037A30,87,Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp,matched,Open-BFME5 clean C++; wide StringBase formatting
+?format@?$StringBase@G@@QAAXPBGZZ,0x00037FF0,0x00037FF0,70,Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp,matched,Open-BFME5 clean C++; wide StringBase formatting
+?format@AsciiString@@QAAXPBV1@ZZ,0x000381E0,0x000381E0,50,Code/Libraries/Source/WWVegas/WWLib/string_inline.cpp,matched,Open-BFME5 clean C++; string formatting from another string
+?format@UnicodeString@@QAAXPBV1@ZZ,0x006CB660,0x006CB660,50,Code/Libraries/Source/WWVegas/WWLib/string_inline.cpp,matched,Open-BFME5 clean C++; string formatting from another string

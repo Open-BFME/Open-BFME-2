@@ -25,6 +25,7 @@ public:
     bool isEmpty() const;
     bool isNotEmpty() const;
     bool isNone() const;
+    bool startsWithNoCase(const StringBase<T> &str) const;
     bool startsWithNoCase(const T *str, int len) const;
     bool endsWithNoCase(const T *str, int len) const;
     bool endsWithNoCase(const T *str) const;
@@ -36,11 +37,15 @@ public:
     bool endsWith(const StringBase<T> &str) const;
     bool endsWith(const T *str, int len) const;
     const T *find(T c) const;
+    const T *reverseFind(T c) const;
     bool isNotNone() const;
     const T *str() const;
     void set(const StringBase<T> &str);
     void set(const StringBase<T> &str, int start, int len);
     void set(const T *str, int start, int len);
+    void format_va(const T *format, char *args);
+    void format_va(const StringBase<T> &format, char *args);
+    void __cdecl format(const T *format, ...);
     void set(const CharSource<T> &source);
     void set(T c);
     void set(const T *str);

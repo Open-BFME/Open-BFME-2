@@ -197,3 +197,4 @@ __CIasin,0x006298B6,MSVCR71 import thunk (jmp [0x00BBA5CC]); same shape from the
 ??4GpuDrawModuleInfo@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A7EF0,BFME2 export; the module info assignment the module template forwards to
 ??4LifeEventModuleInfo@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A7A51,BFME2 export; the module info assignment the module template forwards to
 ??4TerrainCollisionModuleInfo@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A81AE,BFME2 export; the module info assignment the module template forwards to
+?startsWithNoCase@?$StringBase@D@@QBE_NPBDH@Z,0x000359B0,BFME2 export and retail call target; the body is banked as a near miss on one register choice
