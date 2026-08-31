@@ -254,14 +254,7 @@ EmissionVolumeAssign g_emissionVolumeAssign = &EmissionVolumeInfo::operator=;
 // eight instantiations - which is what says the table is indexed by the
 // category rather than looked up.
 template <int CATEGORY>
-class CategoryModuleClass
-{
-public:
-    static const CategoryModuleClass<CATEGORY> *s_instance;
-};
-
-template <int CATEGORY>
-const CategoryModuleClass<CATEGORY> *CategoryModuleClass<CATEGORY>::s_instance;
+class CategoryModuleClass;
 
 template <int CATEGORY, int MODULE_COUNT>
 class CategoryModuleClassBase
@@ -270,13 +263,67 @@ protected:
     CategoryModuleClassBase(const CategoryModuleClass<CATEGORY> &that, bool registerIt);
 };
 
+// inline, and emitted anyway by the explicit instantiations below: without it
+// MSVC 7.1 calls this out of line from the derived constructors, while retail
+// folds it in ahead of the vtable store.
 template <int CATEGORY, int MODULE_COUNT>
-CategoryModuleClassBase<CATEGORY, MODULE_COUNT>::CategoryModuleClassBase(
+inline CategoryModuleClassBase<CATEGORY, MODULE_COUNT>::CategoryModuleClassBase(
     const CategoryModuleClass<CATEGORY> &that, bool registerIt)
 {
     if (registerIt) {
         CategoryModuleClass<CATEGORY>::s_instance = &that;
     }
+}
+
+template <int CATEGORY>
+class CategoryModuleClass : public CategoryModuleClassBase<CATEGORY, 1>
+{
+public:
+    static const CategoryModuleClass<CATEGORY> *s_instance;
+    static CategoryModuleClass<CATEGORY> *s_head;
+
+protected:
+    CategoryModuleClass(bool isDefault, const char *key, const char *name);
+
+    virtual ~CategoryModuleClass();
+    virtual void v1() = 0;
+
+    const char *m_key;
+    const char *m_name;
+    CategoryModuleClass<CATEGORY> *m_next;
+};
+
+template <int CATEGORY>
+const CategoryModuleClass<CATEGORY> *CategoryModuleClass<CATEGORY>::s_instance;
+
+template <int CATEGORY>
+CategoryModuleClass<CATEGORY> *CategoryModuleClass<CATEGORY>::s_head;
+
+
+// The four draw-module info classes carry nothing but their own vtable: both
+// constructors install it and the copy constructor ignores its argument.
+#define FX_VTABLE_ONLY_INFO(NAME)                                                                      class NAME                                                                                         {                                                                                                  public:                                                                                                NAME();                                                                                            NAME(const NAME &that);                                                                                                                                                                               virtual ~NAME();                                                                                    virtual void v1() = 0;                                                                         };                                                                                                                                                                                                    NAME::NAME() {}                                                                                    NAME::NAME(const NAME &that) {}
+
+FX_VTABLE_ONLY_INFO(DefaultDrawModuleInfo)
+FX_VTABLE_ONLY_INFO(StreakDrawModuleInfo)
+FX_VTABLE_ONLY_INFO(QuadDrawModuleInfo)
+FX_VTABLE_ONLY_INFO(ButterflyDrawModuleInfo)
+
+// The module class itself. Every instantiation registers into two per-category
+// tables: the default slot at 0x00DFDD1C, written only when the first argument
+// says so, and a singly linked list whose head is at 0x00DFDD3C - the new class
+// takes the old head as its next pointer and becomes the head. Category 8 has a
+// list head but no default slot, which is why its constructor is twelve bytes
+// shorter than the other eight.
+template <int CATEGORY>
+CategoryModuleClass<CATEGORY>::CategoryModuleClass(bool isDefault, const char *key,
+    const char *name)
+    : CategoryModuleClassBase<CATEGORY, 1>(*this, isDefault)
+{
+    m_key = key;
+    m_name = name;
+    m_next = s_head;
+    s_head = this;
 }
 
 template class CategoryModuleClassBase<0, 1>;
@@ -288,13 +335,43 @@ template class CategoryModuleClassBase<5, 1>;
 template class CategoryModuleClassBase<6, 1>;
 template class CategoryModuleClassBase<7, 1>;
 
-// The four draw-module info classes carry nothing but their own vtable: both
-// constructors install it and the copy constructor ignores its argument.
-#define FX_VTABLE_ONLY_INFO(NAME)                                                                      class NAME                                                                                         {                                                                                                  public:                                                                                                NAME();                                                                                            NAME(const NAME &that);                                                                                                                                                                               virtual ~NAME();                                                                                    virtual void v1() = 0;                                                                         };                                                                                                                                                                                                    NAME::NAME() {}                                                                                    NAME::NAME(const NAME &that) {}
+template class CategoryModuleClass<0>;
+template class CategoryModuleClass<1>;
+template class CategoryModuleClass<2>;
+template class CategoryModuleClass<3>;
+template class CategoryModuleClass<4>;
+template class CategoryModuleClass<5>;
+template class CategoryModuleClass<6>;
+template class CategoryModuleClass<7>;
 
-FX_VTABLE_ONLY_INFO(DefaultDrawModuleInfo)
-FX_VTABLE_ONLY_INFO(StreakDrawModuleInfo)
-FX_VTABLE_ONLY_INFO(QuadDrawModuleInfo)
-FX_VTABLE_ONLY_INFO(ButterflyDrawModuleInfo)
+// Category 8 is the odd one out: it has a list head at 0x00DFDD5C but no
+// default slot, so it does not derive from CategoryModuleClassBase at all and
+// its constructor ignores the flag it is still handed.
+template <>
+class CategoryModuleClass<8>
+{
+public:
+    static CategoryModuleClass<8> *s_head;
+
+protected:
+    CategoryModuleClass(bool isDefault, const char *key, const char *name);
+
+    virtual ~CategoryModuleClass();
+    virtual void v1() = 0;
+
+    const char *m_key;
+    const char *m_name;
+    CategoryModuleClass<8> *m_next;
+};
+
+CategoryModuleClass<8> *CategoryModuleClass<8>::s_head;
+
+CategoryModuleClass<8>::CategoryModuleClass(bool isDefault, const char *key, const char *name)
+{
+    m_key = key;
+    m_name = name;
+    m_next = s_head;
+    s_head = this;
+}
 
 }

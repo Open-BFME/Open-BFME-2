@@ -168,6 +168,8 @@ struct Region2D
 
 struct Region3D
 {
+    Region3D(const Region3D &that);
+
     float width() const;
     float height() const;
     float depth() const;
@@ -281,6 +283,17 @@ int IRegion3D::height() const
 int IRegion3D::depth() const
 {
     return z_max - z_min;
+}
+
+// Six field copies through the integer registers, in slot order.
+Region3D::Region3D(const Region3D &that)
+{
+    x_min = that.x_min;
+    y_min = that.y_min;
+    z_min = that.z_min;
+    x_max = that.x_max;
+    y_max = that.y_max;
+    z_max = that.z_max;
 }
 
 float Region3D::width() const

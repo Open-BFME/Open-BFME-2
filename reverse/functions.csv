@@ -1157,3 +1157,15 @@ _free,,0x00030830,17,Code/GameEngine/Source/Common/System/GameMemoryFree.cpp,mat
 ??8Xfer@@UAEAAV0@AAUIRegion3D@@@Z,0x0060BA0A,0x0060BA0A,65,Code/GameEngine/Source/Common/System/Xfer.cpp,matched,Open-BFME5 clean C++; Xfer composite transfer operator
 ??8Xfer@@UAEAAV0@AAURegion2D@@@Z,0x0060BAA3,0x0060BAA3,65,Code/GameEngine/Source/Common/System/Xfer.cpp,matched,Open-BFME5 clean C++; Xfer composite transfer operator
 ??8Xfer@@UAEAAV0@AAUIRegion2D@@@Z,0x0060BAE4,0x0060BAE4,65,Code/GameEngine/Source/Common/System/Xfer.cpp,matched,Open-BFME5 clean C++; Xfer composite transfer operator
+??XCoord3D@@QAEAAV0@M@Z,0x000852C4,0x000852C4,51,Code/Libraries/Source/WWVegas/WWMath/coord3d.cpp,matched,Open-BFME5 clean C++; Coord3D scalar operator
+??_0Coord3D@@QAEAAV0@M@Z,0x00083B9E,0x00083B9E,54,Code/Libraries/Source/WWVegas/WWMath/coord3d.cpp,matched,Open-BFME5 clean C++; Coord3D scalar operator
+??0Region3D@@QAE@ABU0@@Z,0x0009AC04,0x0009AC04,43,Code/Libraries/Source/WWVegas/WWMath/region.cpp,matched,Open-BFME5 clean C++; Region3D copy constructor
+??0?$CategoryModuleClass@$0A@@FXParticleSystem@@IAE@_NPBD1@Z,0x003A8711,0x003A8711,51,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; CategoryModuleClass registration constructor
+??0?$CategoryModuleClass@$00@FXParticleSystem@@IAE@_NPBD1@Z,0x003A86DE,0x003A86DE,51,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; CategoryModuleClass registration constructor
+??0?$CategoryModuleClass@$01@FXParticleSystem@@IAE@_NPBD1@Z,0x003A8777,0x003A8777,51,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; CategoryModuleClass registration constructor
+??0?$CategoryModuleClass@$02@FXParticleSystem@@IAE@_NPBD1@Z,0x003A8744,0x003A8744,51,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; CategoryModuleClass registration constructor
+??0?$CategoryModuleClass@$03@FXParticleSystem@@IAE@_NPBD1@Z,0x003A8848,0x003A8848,51,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; CategoryModuleClass registration constructor
+??0?$CategoryModuleClass@$04@FXParticleSystem@@IAE@_NPBD1@Z,0x003A8903,0x003A8903,51,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; CategoryModuleClass registration constructor
+??0?$CategoryModuleClass@$05@FXParticleSystem@@IAE@_NPBD1@Z,0x003A8215,0x003A8215,51,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; CategoryModuleClass registration constructor
+??0?$CategoryModuleClass@$06@FXParticleSystem@@IAE@_NPBD1@Z,0x003A87AA,0x003A87AA,51,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; CategoryModuleClass registration constructor
+??0?$CategoryModuleClass@$07@FXParticleSystem@@IAE@_NPBD1@Z,0x003A87DD,0x003A87DD,39,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; CategoryModuleClass category 8 constructor

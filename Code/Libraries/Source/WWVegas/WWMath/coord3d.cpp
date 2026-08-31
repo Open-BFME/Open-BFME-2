@@ -85,6 +85,8 @@ public:
     Coord3D &operator+=(const Coord2D &that);
     Coord3D &operator+=(const Coord3DBase &that);
     Coord3D &operator-=(const Coord2D &that);
+    Coord3D &operator*=(float scale);
+    Coord3D &operator/=(float divisor);
     bool operator==(const Coord3D &that) const;
     float operator*(const Coord2D &that) const;
     float operator*(const Coord3DBase &that) const;
@@ -343,6 +345,28 @@ Coord3D &Coord3D::operator+=(const Coord3DBase &that)
     x += that.x;
     y += that.y;
     z += that.z;
+    return *this;
+}
+
+Coord3D &Coord3D::operator*=(float scale)
+{
+    x *= scale;
+    y *= scale;
+    z *= scale;
+
+    return *this;
+}
+
+// Divides once and multiplies three times: the reciprocal is taken up front,
+// which is also why the first component is scheduled apart from the other two.
+Coord3D &Coord3D::operator/=(float divisor)
+{
+    const float scale = 1.0f / divisor;
+
+    x *= scale;
+    y *= scale;
+    z *= scale;
+
     return *this;
 }
 
