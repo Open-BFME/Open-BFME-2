@@ -162,24 +162,22 @@ int PooledString::compareNoCase(const char *str) const
     return compareNoCase(str, str ? (int)strlen(str) : 0);
 }
 
-// 0x0060BD6C and 0x0060BDB3 stay unclaimed. Both compile to the retail
-// instruction sequence but MSVC 7.1 schedules the entry load after the register
-// saves - mov esi,[eax] then add esi,8 where retail dereferences into eax first
-// and leas - and canonicalizes every way of writing it to the same code.
+// The entry has to be named and the text NOT: with a local for the text as well
+// MSVC schedules the entry load after the register saves and writes
+// `mov esi, [eax]; add esi, 8`, where retail dereferences into eax and leas.
+// Two names, one for each level of indirection, is one name too many.
 int PooledString::compare(const PooledString &that) const
 {
     const PooledStringEntry *entry = that.m_entry;
-    const char *text = entry->m_text;
 
-    return compare(text, (int)strlen(text));
+    return compare(entry->m_text, (int)strlen(entry->m_text));
 }
 
 int PooledString::compareNoCase(const PooledString &that) const
 {
     const PooledStringEntry *entry = that.m_entry;
-    const char *text = entry->m_text;
 
-    return compareNoCase(text, (int)strlen(text));
+    return compareNoCase(entry->m_text, (int)strlen(entry->m_text));
 }
 
 int PooledString::compare(const AsciiString &that) const

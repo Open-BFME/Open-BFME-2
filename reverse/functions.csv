@@ -1773,3 +1773,5 @@ _free,,0x00030830,17,Code/GameEngine/Source/Common/System/GameMemoryFree.cpp,mat
 ??4SphereEmissionVolumeModuleTemplate@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A68EF,0x003A68EF,30,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,
 ?GetValue@?$DefaultModuleKey@$0A@@FXParticleSystem@@CAPBDXZ,0x003AAAA8,0x003AAAA8,10,Code/GameEngine/Source/GameClient/FXParticleSystemDefaults.cpp,matched,
 ?GetValue@?$DefaultModuleName@$0A@@FXParticleSystem@@CAPBDXZ,0x003AAB27,0x003AAB27,10,Code/GameEngine/Source/GameClient/FXParticleSystemDefaults.cpp,matched,
+?compare@PooledString@@QBEHABV1@@Z,0x0060BD6C,0x0060BD6C,32,Code/GameEngine/Source/Common/System/PooledString.cpp,matched,
+?compareNoCase@PooledString@@QBEHABV1@@Z,0x0060BDB3,0x0060BDB3,32,Code/GameEngine/Source/Common/System/PooledString.cpp,matched,
