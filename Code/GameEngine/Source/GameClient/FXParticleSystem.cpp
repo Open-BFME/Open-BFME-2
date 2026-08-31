@@ -547,6 +547,59 @@ CategoryModuleClass<8>::CategoryModuleClass(bool isDefault, const char *key, con
     s_head = this;
 }
 
+// The per-category info base. Every module template carries one, which is what
+// the secondary vtable names spell out: CategoryModuleTemplate<0>'s second
+// table is "6B?$CategoryModuleInfo@$0A@@1@". The class itself is empty and
+// polymorphic - all four of its special members are a vtable store and nothing
+// else - so ICF folds each one across the nine categories onto one address.
+//
+// Its destructor is protected and non-virtual (IAE, not MAE), so the vptr store
+// it makes is the one a derived destructor inherits rather than dispatches to.
+template <int CATEGORY>
+class CategoryModuleInfo
+{
+public:
+    CategoryModuleInfo() {}
+    CategoryModuleInfo(const CategoryModuleInfo<CATEGORY> &that);
+    CategoryModuleInfo<CATEGORY> &operator=(const CategoryModuleInfo<CATEGORY> &that);
+
+    virtual void v1() = 0;
+
+protected:
+    ~CategoryModuleInfo();
+};
+
+// Written out rather than left to the compiler: the class is abstract, so
+// nothing in this file can name the generated copy constructor to force it out.
+// Both bodies are what the generated ones would be - the copy restores the
+// vtable it just overwrote, the assignment copies nothing at all.
+template <int CATEGORY>
+CategoryModuleInfo<CATEGORY>::CategoryModuleInfo(const CategoryModuleInfo<CATEGORY> &)
+{
+}
+
+template <int CATEGORY>
+CategoryModuleInfo<CATEGORY> &CategoryModuleInfo<CATEGORY>::operator=(
+    const CategoryModuleInfo<CATEGORY> &)
+{
+    return *this;
+}
+
+template <int CATEGORY>
+CategoryModuleInfo<CATEGORY>::~CategoryModuleInfo()
+{
+}
+
+template class CategoryModuleInfo<0>;
+template class CategoryModuleInfo<1>;
+template class CategoryModuleInfo<2>;
+template class CategoryModuleInfo<3>;
+template class CategoryModuleInfo<4>;
+template class CategoryModuleInfo<5>;
+template class CategoryModuleInfo<6>;
+template class CategoryModuleInfo<7>;
+template class CategoryModuleInfo<8>;
+
 // Seventeen members and no grouping anywhere: the generated assignment copies
 // every one of them with its own move rather than blocking any run together,
 // which is what separates loose scalars from a sub-object here.
