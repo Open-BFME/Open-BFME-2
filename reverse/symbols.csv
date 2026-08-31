@@ -185,3 +185,11 @@ __CIasin,0x006298B6,MSVCR71 import thunk (jmp [0x00BBA5CC]); same shape from the
 ??0RenderObjectUpdateModuleTemplate@FXParticleSystem@@QAE@XZ,0x003A80A8,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
 ??0TerrainFireEmissionModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A6F24,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
 ??0TerrainFireEmissionModuleTemplate@FXParticleSystem@@QAE@XZ,0x003A6ECD,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
+??0GpuDrawModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A9EC7,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
+??0GpuDrawModuleTemplate@FXParticleSystem@@QAE@XZ,0x003A9E29,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
+??0LifeEventModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A99E4,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
+??0LifeEventModuleTemplate@FXParticleSystem@@QAE@XZ,0x003A999C,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
+??0RenderObjectDrawModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A9C80,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
+??0RenderObjectDrawModuleTemplate@FXParticleSystem@@QAE@XZ,0x003A9BE2,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
+??0TerrainCollisionModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003AA107,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
+??0TerrainCollisionModuleTemplate@FXParticleSystem@@QAE@XZ,0x003AA078,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls

@@ -132,6 +132,10 @@ struct FXKeyframe
 #define FX_VTABLE_ONLY_INFO(NAME)                                                                      class NAME                                                                                         {                                                                                                  public:                                                                                                virtual ~NAME();                                                                                   virtual void v1() = 0;                                                                         };
 
 FX_VTABLE_ONLY_INFO(DefaultDrawModuleInfo)
+FX_VTABLE_ONLY_INFO(RenderObjectDrawModuleInfo)
+FX_VTABLE_ONLY_INFO(GpuDrawModuleInfo)
+FX_VTABLE_ONLY_INFO(LifeEventModuleInfo)
+FX_VTABLE_ONLY_INFO(TerrainCollisionModuleInfo)
 
 class DefaultPhysicsModuleInfo
 {
@@ -279,6 +283,10 @@ FX_MODULE_TEMPLATE(LightningDrawModuleTemplate, LightningDrawModuleInfo)
 FX_MODULE_TEMPLATE(TerrainFireEmissionModuleTemplate, TerrainFireEmissionInfo)
 FX_MODULE_TEMPLATE(LightningEmissionModuleTemplate, LightningEmissionInfo)
 FX_MODULE_TEMPLATE(RenderObjectUpdateModuleTemplate, RenderObjectUpdateModuleInfo)
+FX_MODULE_TEMPLATE(RenderObjectDrawModuleTemplate, RenderObjectDrawModuleInfo)
+FX_MODULE_TEMPLATE(GpuDrawModuleTemplate, GpuDrawModuleInfo)
+FX_MODULE_TEMPLATE(LifeEventModuleTemplate, LifeEventModuleInfo)
+FX_MODULE_TEMPLATE(TerrainCollisionModuleTemplate, TerrainCollisionModuleInfo)
 
 template <int CATEGORY>
 class DefaultParticleModule;
@@ -509,5 +517,19 @@ FX_WRAPPER(6, LIGHTNING_DRAW, LightningDrawModule, LightningDrawModuleTemplate)
 FX_WRAPPER(5, TERRAIN_FIRE_EMISSION, TerrainFireEmissionModule, TerrainFireEmissionModuleTemplate)
 FX_WRAPPER(5, LIGHTNING_EMISSION, LightningEmissionModule, LightningEmissionModuleTemplate)
 FX_WRAPPER(2, RENDEROBJECT_UPDATE, RenderObjectUpdateModule, RenderObjectUpdateModuleTemplate)
+
+// Five tags whose sixth argument is a plain class rather than a
+// DefaultParticleModule instantiation. Only the constructors are claimed from
+// them; their clones carry an EH prologue and are a separate problem.
+#define FX_NAMED_WRAPPER(CATEGORY, KEY, MOD, TMPL, DFLT)                                               extern const char *const KEY##_MODULE_KEY;                                                         extern const char *const KEY##_MODULE_NAME;                                                                                                                                                           class MOD;                                                                                         class DFLT;                                                                                                                                                                                           typedef ConcreteModuleTemplate<                                                                        ModuleTag<CATEGORY, KEY##_MODULE_KEY, KEY##_MODULE_NAME, MOD, TMPL, DFLT> >                        MOD##NamedConcrete;                                                                                                                                                                               MOD##NamedConcrete g_##MOD##NamedConcrete;
+
+FX_NAMED_WRAPPER(2, RENDEROBJECT_UPDATE, RenderObjectUpdateModule,
+    RenderObjectUpdateModuleTemplate, RenderObjectParticleUpdateModule)
+FX_NAMED_WRAPPER(8, LIFE_EVENT, LifeEventModule, LifeEventModuleTemplate, ParticleLifeEventModule)
+FX_NAMED_WRAPPER(8, TERRAIN_COLLISION, TerrainCollisionModule, TerrainCollisionModuleTemplate,
+    ParticleTerrainCollisionModule)
+
+FX_WRAPPER(6, RENDEROBJECT_DRAW, RenderObjectDrawModule, RenderObjectDrawModuleTemplate)
+FX_WRAPPER(6, GPU_DRAW, GpuDrawModule, GpuDrawModuleTemplate)
 
 }
