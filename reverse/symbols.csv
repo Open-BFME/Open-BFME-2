@@ -209,3 +209,10 @@ __CIasin,0x006298B6,MSVCR71 import thunk (jmp [0x00BBA5CC]); same shape from the
 ??0?$CategoryModuleTemplateBase@$05@FXParticleSystem@@QAE@ABV01@@Z,0x001F421B,BFME2 export; ICF-folded module base copy constructor - all nine categories share this address
 __EH_prolog,0x00629188,MSVC 7.1 EH frame prologue helper - push -1 / push eax / link fs:[0] / set up the unwind frame; every /EHsc body with a local static calls it first
 _atexit,0x006291F8,CRT atexit - forwards to _onexit at 0x006291D2 and folds its return to 0 or -1; the local-static destructor thunks register through it
+??1CylindricalEmissionVelocityModuleTemplate@FXParticleSystem@@UAE@XZ,0x003A6201,BFME2 export; the module template destructor every category folds onto - three vtable stores walked back through the bases
+??1LightningDrawModuleTemplate@FXParticleSystem@@UAE@XZ,0x003A6201,BFME2 export; the module template destructor every category folds onto - three vtable stores walked back through the bases
+??1LightningEmissionModuleTemplate@FXParticleSystem@@UAE@XZ,0x003A6201,BFME2 export; the module template destructor every category folds onto - three vtable stores walked back through the bases
+??1OrthoEmissionVelocityModuleTemplate@FXParticleSystem@@UAE@XZ,0x003A6201,BFME2 export; the module template destructor every category folds onto - three vtable stores walked back through the bases
+??1OutwardEmissionVelocityModuleTemplate@FXParticleSystem@@UAE@XZ,0x003A6201,BFME2 export; the module template destructor every category folds onto - three vtable stores walked back through the bases
+??1RenderObjectUpdateModuleTemplate@FXParticleSystem@@UAE@XZ,0x003A6201,BFME2 export; the module template destructor every category folds onto - three vtable stores walked back through the bases
+??1TerrainFireEmissionModuleTemplate@FXParticleSystem@@UAE@XZ,0x003A6201,BFME2 export; the module template destructor every category folds onto - three vtable stores walked back through the bases
