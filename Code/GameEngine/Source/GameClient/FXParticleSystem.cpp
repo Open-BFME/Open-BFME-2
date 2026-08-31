@@ -1,4 +1,4 @@
-// cl: /O1 /GX-
+// cl: /O1 /GX- /arch:SSE2
 
 struct Region2D
 {
@@ -136,5 +136,89 @@ typedef EventCategoryModuleTemplate &(EventCategoryModuleTemplate::*EventCategor
     const EventCategoryModuleTemplate &);
 
 EventCategoryAssign g_eventCategoryAssign = &EventCategoryModuleTemplate::operator=;
+
+// Every module category has a display name and an INI key, kept side by side in
+// one eight-byte table entry; both accessors index it with the category and
+// differ only by which half they read.
+struct ModuleCategoryNames
+{
+    const char *m_name;
+    const char *m_key;
+};
+
+extern const ModuleCategoryNames TheModuleCategoryNames[];
+
+enum ModuleCategory
+{
+    MODULE_CATEGORY_FIRST
+};
+
+const char *GetName(ModuleCategory category)
+{
+    return TheModuleCategoryNames[category].m_name;
+}
+
+const char *GetKey(ModuleCategory category)
+{
+    return TheModuleCategoryNames[category].m_key;
+}
+
+// Both emission info bases carry nothing but a vtable, except that the volume
+// one has a single byte behind it which its generated assignment copies on its
+// own - the vtable is left alone, as an assignment must.
+class EmissionVolumeInfo
+{
+public:
+    EmissionVolumeInfo();
+
+    virtual ~EmissionVolumeInfo();
+    virtual void v1() = 0;
+
+    bool m_flag;
+};
+
+EmissionVolumeInfo::EmissionVolumeInfo()
+{
+    m_flag = false;
+}
+
+class EmissionVelocityInfo
+{
+public:
+    EmissionVelocityInfo();
+    EmissionVelocityInfo(const EmissionVelocityInfo &that);
+
+    virtual ~EmissionVelocityInfo();
+    virtual void v1() = 0;
+};
+
+EmissionVelocityInfo::EmissionVelocityInfo()
+{
+}
+
+EmissionVelocityInfo::EmissionVelocityInfo(const EmissionVelocityInfo &that)
+{
+}
+
+// A time and a value, in that order: the constructor zeroes the float with an
+// xorps store and the frame with an `and dword ptr, 0`.
+class Keyframe
+{
+public:
+    Keyframe();
+
+    float m_value;
+    unsigned int m_frame;
+};
+
+Keyframe::Keyframe()
+{
+    m_value = 0.0f;
+    m_frame = 0;
+}
+
+typedef EmissionVolumeInfo &(EmissionVolumeInfo::*EmissionVolumeAssign)(const EmissionVolumeInfo &);
+
+EmissionVolumeAssign g_emissionVolumeAssign = &EmissionVolumeInfo::operator=;
 
 }

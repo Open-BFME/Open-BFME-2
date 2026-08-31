@@ -1119,3 +1119,10 @@ _free,,0x00030830,17,Code/GameEngine/Source/Common/System/GameMemoryFree.cpp,mat
 ??0PooledString@@QAE@ABVAsciiString@@@Z,0x0060BE03,0x0060BE03,40,Code/GameEngine/Source/Common/System/PooledString.cpp,matched,Open-BFME5 clean C++; PooledString comparison and conversion
 ??YAsciiString@@QAEAAV0@ABVPooledString@@@Z,0x0060BD19,0x0060BD19,24,Code/Libraries/Source/WWVegas/WWLib/ascii_string.cpp,matched,Open-BFME5 clean C++; AsciiString append of a PooledString
 ??8Xfer@@UAEAAV0@AAVSnapshot@@@Z,0x0060B8C6,0x0060B8C6,19,Code/GameEngine/Source/Common/System/Xfer.cpp,matched,Open-BFME5 clean C++; Xfer transfer operator for a Snapshot
+?GetName@FXParticleSystem@@YAPBDW4ModuleCategory@1@@Z,0x003AFD0A,0x003AFD0A,12,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; FXParticleSystem module category and emission info
+?GetKey@FXParticleSystem@@YAPBDW4ModuleCategory@1@@Z,0x003AFD16,0x003AFD16,12,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; FXParticleSystem module category and emission info
+??0EmissionVolumeInfo@FXParticleSystem@@QAE@XZ,0x001F353D,0x001F353D,13,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; FXParticleSystem module category and emission info
+??4EmissionVolumeInfo@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x001F3565,0x001F3565,15,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; FXParticleSystem module category and emission info
+??0EmissionVelocityInfo@FXParticleSystem@@QAE@XZ,0x001F35C5,0x001F35C5,9,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; FXParticleSystem module category and emission info
+??0EmissionVelocityInfo@FXParticleSystem@@QAE@ABV01@@Z,0x001F35CE,0x001F35CE,11,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; FXParticleSystem module category and emission info
+??0Keyframe@FXParticleSystem@@QAE@XZ,0x005993CD,0x005993CD,14,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; FXParticleSystem Keyframe default constructor
