@@ -238,7 +238,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_000059d3@@YAXXZ,,0x000059D3,83,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Normalize
 ?d_00006538@@YAXXZ,,0x00006538,18,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=RGBColor
 ?d_000066de@@YAXXZ,,0x000066DE,13,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_004066de
-?d_000066f0@@YAXXZ,,0x000066F0,32,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=CW2AEX<>
 ?d_0000685e@@YAXXZ,,0x0000685E,10,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_0040685e
 ?d_00006960@@YAXXZ,,0x00006960,34,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00406960
 ?d_00006ace@@YAXXZ,,0x00006ACE,35,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=CAtlWinModule
@@ -1069,3 +1068,4 @@ _free,,0x00030830,17,Code/GameEngine/Source/Common/System/GameMemoryFree.cpp,mat
 ??0Matrix4D@@QAE@_N@Z,0x00005AE7,0x00005AE7,102,Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp,matched,Open-BFME5 clean C++; Matrix4D identity-flag constructor
 ??0Matrix4D@@QAE@ABVCoord3D@@@Z,0x00005BB8,0x00005BB8,116,Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp,matched,Open-BFME5 clean C++; Matrix4D translation constructor
 ??$?6D@@YAAAVDebug@@AAV0@ABV?$StringBase@D@@@Z,0x000028E8,0x000028E8,37,Code/Libraries/Source/WWVegas/WWLib/string_base.cpp,matched,Open-BFME5 clean C++; Debug stream insertion for StringBase<char>
+??0?$CW2AEX@$0IA@@ATL@@QAE@PBG@Z,,0x000066F0,32,Code/Libraries/Source/ATL/atlconv.cpp,matched,Open-BFME5 clean C++; ATL 7.1 CW2AEX<> constructor primes its inline buffer and dispatches conversion through Init

@@ -24,6 +24,7 @@ extern "C" __declspec(dllimport) int __stdcall MultiByteToWideChar(
 extern "C" __declspec(dllimport) void *__cdecl malloc(unsigned int size);
 extern "C" __declspec(dllimport) void __cdecl free(void *block);
 extern "C" __declspec(dllimport) DWORD __stdcall GetLastError();
+extern "C" __declspec(dllimport) UINT __stdcall GetACP();
 
 namespace ATL
 {
@@ -64,6 +65,23 @@ private:
 	CA2WEX &operator=(const CA2WEX &);
 };
 
+template <int t_nBufferLength = 128>
+class CW2AEX
+{
+public:
+    CW2AEX(const unsigned short *psz) : m_psz(m_szBuffer)
+    {
+        Init(psz, GetACP());
+    }
+
+private:
+    void Init(const unsigned short *psz, UINT nCodePage);
+
+public:
+    char *m_psz;
+    char m_szBuffer[t_nBufferLength];
+};
+
 template <int t_nBufferLength>
 void CA2WEX<t_nBufferLength>::Init(LPCSTR psz, UINT nCodePage)
 {
@@ -92,5 +110,6 @@ void CA2WEX<t_nBufferLength>::Init(LPCSTR psz, UINT nCodePage)
 
 template CA2WEX<128>::~CA2WEX();
 template void CA2WEX<128>::Init(LPCSTR psz, UINT nCodePage);
+template CW2AEX<128>::CW2AEX(const unsigned short *psz);
 
 }
