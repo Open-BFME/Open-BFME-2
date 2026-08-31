@@ -209,7 +209,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_000039bb@@YAXXZ,,0x000039BB,80,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Rotate
 ?d_00003ace@@YAXXZ,,0x00003ACE,372,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=GetLengthEstimate
 ?d_00003c70@@YAXXZ,,0x00003C70,97,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=CrossProduct
-?d_0000401c@@YAXXZ,,0x0000401C,93,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=SetIdentity
 ?d_00004079@@YAXXZ,,0x00004079,357,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Matrix4D
 ?d_000047da@@YAXXZ,,0x000047DA,918,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Multiply
 ??0Snapshot@@QAE@XZ,0x000053A6,0x000053A6,9,Code/GameEngine/Source/Common/System/Snapshot.cpp,matched,Open-BFME5 clean C++; Snapshot default constructor installing the vtable at 0x00BBB554
@@ -245,7 +244,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_00006538@@YAXXZ,,0x00006538,18,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=RGBColor
 ?d_000066de@@YAXXZ,,0x000066DE,13,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_004066de
 ?d_000066f0@@YAXXZ,,0x000066F0,32,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=CW2AEX<>
-?d_0000683c@@YAXXZ,,0x0000683C,26,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=_ATL_WIN_MODULE70
 ?d_0000685e@@YAXXZ,,0x0000685E,10,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_0040685e
 ?d_00006960@@YAXXZ,,0x00006960,34,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00406960
 ?d_00006ace@@YAXXZ,,0x00006ACE,35,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=CAtlWinModule
@@ -1069,3 +1067,5 @@ _free,,0x00030830,17,Code/GameEngine/Source/Common/System/GameMemoryFree.cpp,mat
 ?combine@IntRange@@QAEXAAU1@@Z,0x000062D8,0x000062D8,37,Code/Libraries/Source/WWVegas/WWMath/region.cpp,matched,Open-BFME5 clean C++; IntRange combine
 ??0CComCriticalSection@ATL@@QAE@XZ,,0x00003227,20,Code/Libraries/Source/ATL/atlcore.cpp,matched,Open-BFME5 clean C++; ATL 7.1 CComCriticalSection zero-initializes its 24-byte critical-section storage
 ??G@YA?AVCoord3D@@V0@@Z,0x00003FEE,0x00003FEE,46,Code/Libraries/Source/WWVegas/WWMath/coord3d.cpp,matched,Open-BFME5 clean C++; Coord3D unary minus
+??0_ATL_WIN_MODULE70@ATL@@QAE@XZ,,0x0000683C,26,Code/Libraries/Source/ATL/atlbase.cpp,matched,Open-BFME5 clean C++; ATL 7.1 _ATL_WIN_MODULE70 constructor initializes its window atom array after constructing the embedded critical section
+?SetIdentity@Matrix4D@@QAEAAV1@XZ,0x0000401C,0x0000401C,93,Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp,matched,Open-BFME5 clean C++; Matrix4D SetIdentity

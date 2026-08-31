@@ -13,6 +13,8 @@ public:
 class Matrix4D
 {
 public:
+    Matrix4D(bool identity);
+    Matrix4D(const Coord3D &translation);
     Matrix4D(const Matrix4D &that);
     Matrix4D(
         float m00, float m01, float m02, float m03,
@@ -28,12 +30,54 @@ public:
     Coord3D &GetZVector(Coord3D &out) const;
     Coord3D &RotateCoord(const Coord3D &coord, Coord3D &out);
     Coord3D &TransformCoord(const Coord3D &coord, Coord3D &out);
+    Matrix4D &SetIdentity();
     Matrix4D &Transpose();
     float Determinant() const;
     float Inverse();
 
     float values[16];
 };
+
+Matrix4D::Matrix4D(bool identity)
+{
+    if (identity) {
+        SetIdentity();
+    }
+}
+
+// The three translation slots are stored twice: MSVC hoists their zeroes out of
+// the inlined SetIdentity to the top of the body and leaves them there, dead,
+// ahead of the thirteen that are not overwritten.
+Matrix4D::Matrix4D(const Coord3D &translation)
+{
+    SetIdentity();
+
+    values[3] = translation.x;
+    values[7] = translation.y;
+    values[11] = translation.z;
+}
+
+Matrix4D &Matrix4D::SetIdentity()
+{
+    values[0] = 1.0f;
+    values[1] = 0.0f;
+    values[2] = 0.0f;
+    values[3] = 0.0f;
+    values[4] = 0.0f;
+    values[5] = 1.0f;
+    values[6] = 0.0f;
+    values[7] = 0.0f;
+    values[8] = 0.0f;
+    values[9] = 0.0f;
+    values[10] = 1.0f;
+    values[11] = 0.0f;
+    values[12] = 0.0f;
+    values[13] = 0.0f;
+    values[14] = 0.0f;
+    values[15] = 1.0f;
+
+    return *this;
+}
 
 Matrix4D::Matrix4D(const Matrix4D &that)
 {
