@@ -63,6 +63,13 @@ and the cmov condition; the operands are not interchangeable even where the valu
 what landed `RealRange::combine` (0x000062AD, `that.min > min ? min : that.min` then
 `that.max < max ? max : that.max`) and `IntRange::combine` (0x000062D8).
 
+A third: **a class returned by value needs a user-written copy constructor before MSVC 7.1
+will apply NRV to it.** With the implicit trivial one the named return value is built in a
+stack temporary and block-copied through the hidden pointer, which drags in an `ebp` frame and
+an `esi`/`edi` pair; write the copy constructor out member by member and the same source writes
+straight through the return pointer with no frame at all. `operator-(Coord3D)` at 0x00003FEE
+is the case that shows it.
+
 One positive pattern: MSVC 7.1 groups overloaded virtual operators at the first overload slot and
 emits them in reverse declaration order. The `Debug` shim intentionally declares stream overloads
 so `float`, `unsigned int`, `int`, and `const char *` land at the target vtable slots `0x20`,

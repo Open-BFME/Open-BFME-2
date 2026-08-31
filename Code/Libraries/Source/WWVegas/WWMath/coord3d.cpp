@@ -44,6 +44,17 @@ public:
 class Coord3D
 {
 public:
+    // The default constructor is what the free operator- below needs for its
+    // named return value, and the copy constructor is what makes MSVC 7.1 apply
+    // NRV to it at all: with the implicit trivial one the return value is built
+    // in a stack temporary and blockcopied out, frame pointer and all.
+    Coord3D() {}
+    Coord3D(const Coord3D &that)
+    {
+        x = that.x;
+        y = that.y;
+        z = that.z;
+    }
     Coord3D(const Coord2D &that);
     Coord3D(int x, int y, int z);
     static void crossProduct(const Coord3D *left, const Coord3D *right, Coord3D *result);
@@ -252,6 +263,20 @@ float Coord3D::GetLengthSqrd2D() const
 float Coord3D::length() const
 {
     return (float)sqrt(x * x + y * y + z * z);
+}
+
+// Takes its operand by value: retail reads all three floats straight off the
+// argument slots at [esp+8], [esp+0x0C] and [esp+0x10] and writes the result
+// through the hidden return pointer at [esp+4], with no copy in between.
+Coord3D operator-(Coord3D that)
+{
+    Coord3D result;
+
+    result.x = -that.x;
+    result.y = -that.y;
+    result.z = -that.z;
+
+    return result;
 }
 
 Coord3D &Coord3D::Negate()
