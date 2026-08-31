@@ -1091,3 +1091,10 @@ _free,,0x00030830,17,Code/GameEngine/Source/Common/System/GameMemoryFree.cpp,mat
 ?isNotEmpty@PooledString@@QBE_NXZ,0x0060B7FB,0x0060B7FB,12,Code/GameEngine/Source/Common/System/PooledString.cpp,matched,Open-BFME5 clean C++; PooledString accessor
 ??4PooledString@@QAEAAV0@PBD@Z,0x0060B80E,0x0060B80E,18,Code/GameEngine/Source/Common/System/PooledString.cpp,matched,Open-BFME5 clean C++; PooledString accessor
 ??6@YAAAVDebug@@AAV0@ABVPooledString@@@Z,0x0060B84F,0x0060B84F,26,Code/GameEngine/Source/Common/System/PooledString.cpp,matched,Open-BFME5 clean C++; PooledString accessor
+??0AsciiString@@QAE@ABV0@@Z,0x001D8F56,0x001D8F56,18,Code/Libraries/Source/WWVegas/WWLib/ascii_string.cpp,matched,Open-BFME5 clean C++; AsciiString copy constructor
+??0GameClientRandomVariable@@QAE@XZ,0x000B4979,0x000B4979,19,Code/GameEngine/Source/GameClient/ClientRandomValue.cpp,matched,Open-BFME5 clean C++; GameClientRandomVariable
+?setRange@GameClientRandomVariable@@QAEXMMW4DistributionType@1@@Z,0x002341E7,0x002341E7,31,Code/GameEngine/Source/GameClient/ClientRandomValue.cpp,matched,Open-BFME5 clean C++; GameClientRandomVariable
+??0ICoord3D@@QAE@HHH@Z,0x005CC49A,0x005CC49A,25,Code/Libraries/Source/WWVegas/WWMath/icoord.cpp,matched,Open-BFME5 clean C++; ICoord3D component constructor
+?set@Coord3D@@QAEXPBUCoord3DBase@@@Z,0x000DFCB6,0x000DFCB6,23,Code/Libraries/Source/WWVegas/WWMath/coord3d.cpp,matched,Open-BFME5 clean C++; Coord3D set from a base pointer
+?GetTranslationVector@Matrix4D@@QBEAAVCoord3D@@AAV2@@Z,0x0009314A,0x0009314A,24,Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp,matched,Open-BFME5 clean C++; Matrix4D translation vector accessor
+?lengthSqr@Coord3D@@QBEMXZ,0x00065A1A,0x00065A1A,31,Code/Libraries/Source/WWVegas/WWMath/coord3d.cpp,matched,Open-BFME5 clean C++; Coord3D squared length

@@ -77,6 +77,8 @@ public:
     float GetLengthSqrd2D() const;
     float length() const;
     Coord3D &Negate();
+    void set(const Coord3DBase *that);
+    float lengthSqr() const;
     void normalize();
     float Normalize();
     float Normalize2D();
@@ -277,6 +279,18 @@ Coord3D operator-(Coord3D that)
     result.z = -that.z;
 
     return result;
+}
+
+float Coord3D::lengthSqr() const
+{
+    return (float)((double)x * x + (double)y * y + (double)z * z);
+}
+
+void Coord3D::set(const Coord3DBase *that)
+{
+    x = that->x;
+    y = that->y;
+    z = that->z;
 }
 
 Coord3D &Coord3D::Negate()

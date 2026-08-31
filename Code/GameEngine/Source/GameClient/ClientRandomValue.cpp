@@ -11,6 +11,8 @@ public:
         CONSTANT, UNIFORM, GAUSSIAN, TRIANGULAR, LOW_BIAS, HIGH_BIAS
     };
 
+    GameClientRandomVariable();
+
     void setRange(float low, float high, DistributionType type = UNIFORM);
     float getValue() const;
     float getMinimumValue() const { return m_low; }
@@ -23,6 +25,22 @@ protected:
 
     friend bool operator==(const GameClientRandomVariable &a, const GameClientRandomVariable &b);
 };
+
+GameClientRandomVariable::GameClientRandomVariable()
+{
+    m_type = CONSTANT;
+    m_low = 0.0f;
+    m_high = 0.0f;
+}
+
+// The distribution type is stored last: retail loads it into eax before either
+// bound reaches memory and writes it after both.
+void GameClientRandomVariable::setRange(float low, float high, DistributionType type)
+{
+    m_low = low;
+    m_high = high;
+    m_type = type;
+}
 
 bool operator==(const GameClientRandomVariable &a, const GameClientRandomVariable &b)
 {

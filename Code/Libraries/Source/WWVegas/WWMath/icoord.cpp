@@ -46,6 +46,8 @@ struct ICoord2D : public ICoord2DBase
 
 struct ICoord3D
 {
+    ICoord3D(int x, int y, int z);
+
     ICoord3D &operator=(const ICoord3D &that);
     int length() const;
     void zero();
@@ -66,6 +68,13 @@ void expandRange(int *low, int value, int *high)
     } else if (value > *high) {
         *high = value;
     }
+}
+
+ICoord3D::ICoord3D(int x, int y, int z)
+{
+    this->x = x;
+    this->y = y;
+    this->z = z;
 }
 
 ICoord2D &ICoord2D::operator+=(const ICoord2DBase &that)

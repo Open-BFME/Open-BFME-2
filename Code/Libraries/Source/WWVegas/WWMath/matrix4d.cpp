@@ -25,6 +25,7 @@ public:
     Matrix4D &operator/=(float divisor);
     Matrix4D &operator+=(const Matrix4D &that);
     Matrix4D &operator-=(const Matrix4D &that);
+    Coord3D &GetTranslationVector(Coord3D &out) const;
     Coord3D &GetXVector(Coord3D &out) const;
     Coord3D &GetYVector(Coord3D &out) const;
     Coord3D &GetZVector(Coord3D &out) const;
@@ -59,6 +60,17 @@ inline Matrix4D &Matrix4D::SetIdentity()
     values[15] = 1.0f;
 
     return *this;
+}
+
+// Only the first component goes through the x87; the other two are integer
+// moves. That mix is what MSVC emits for a float copy here, not a choice.
+Coord3D &Matrix4D::GetTranslationVector(Coord3D &out) const
+{
+    out.x = values[3];
+    out.y = values[7];
+    out.z = values[11];
+
+    return out;
 }
 
 Matrix4D::Matrix4D(bool identity)

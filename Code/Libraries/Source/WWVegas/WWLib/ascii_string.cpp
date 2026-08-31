@@ -17,6 +17,7 @@ public:
 private:
     friend class AsciiString;
 
+    StringBase(const StringBase<T> &that);
     StringBase(T character);
     StringBase(const T *text);
     StringBase(const T *text, int length);
@@ -37,6 +38,7 @@ private:
 class AsciiString
 {
 public:
+    AsciiString(const AsciiString &that);
     AsciiString(char character);
     AsciiString(const char *text);
     AsciiString(const char *text, int length);
@@ -52,6 +54,11 @@ public:
 private:
     char *m_text;
 };
+
+AsciiString::AsciiString(const AsciiString &that)
+{
+    ((StringBase<char> *)this)->StringBase<char>::StringBase(*(const StringBase<char> *)&that);
+}
 
 AsciiString::AsciiString(char character)
 {
