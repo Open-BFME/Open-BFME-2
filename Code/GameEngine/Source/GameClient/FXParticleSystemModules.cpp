@@ -135,6 +135,10 @@ FX_VTABLE_ONLY_INFO(DefaultDrawModuleInfo)
 FX_VTABLE_ONLY_INFO(RenderObjectDrawModuleInfo)
 FX_VTABLE_ONLY_INFO(GpuDrawModuleInfo)
 FX_VTABLE_ONLY_INFO(LifeEventModuleInfo)
+// TerrainCollisionModuleTemplate puts its info's vtable at 0x0C rather than
+// 0x08, so there is a four-byte base or member between the secondary base and
+// the info that the rest of the family has not got. Until that is identified
+// this info stays declared and its wrapper's constructors stay unclaimed.
 FX_VTABLE_ONLY_INFO(TerrainCollisionModuleInfo)
 
 class DefaultPhysicsModuleInfo
