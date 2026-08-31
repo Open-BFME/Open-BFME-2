@@ -931,24 +931,51 @@ SphereEmissionVolumeModuleTemplate g_sphereEmissionVolumeModuleTemplate;
 class BoxEmissionVolumeModuleTemplate : public ModuleTemplate, public SecondaryModuleBase, public BoxEmissionVolumeInfo
 {
 public:
+    BoxEmissionVolumeModuleTemplate();
+    BoxEmissionVolumeModuleTemplate(const BoxEmissionVolumeModuleTemplate &that);
+
     virtual void v1();
 };
+
+// The copy constructor stays a declaration: the wrapper calls it out of line.
+BoxEmissionVolumeModuleTemplate::BoxEmissionVolumeModuleTemplate()
+{
+}
+
 
 BoxEmissionVolumeModuleTemplate g_boxEmissionVolumeModuleTemplate;
 
 class LineEmissionVolumeModuleTemplate : public ModuleTemplate, public SecondaryModuleBase, public LineEmissionVolumeInfo
 {
 public:
+    LineEmissionVolumeModuleTemplate();
+    LineEmissionVolumeModuleTemplate(const LineEmissionVolumeModuleTemplate &that);
+
     virtual void v1();
 };
+
+// The copy constructor stays a declaration: the wrapper calls it out of line.
+LineEmissionVolumeModuleTemplate::LineEmissionVolumeModuleTemplate()
+{
+}
+
 
 LineEmissionVolumeModuleTemplate g_lineEmissionVolumeModuleTemplate;
 
 class CylinderEmissionVolumeModuleTemplate : public ModuleTemplate, public SecondaryModuleBase, public CylinderEmissionVolumeInfo
 {
 public:
+    CylinderEmissionVolumeModuleTemplate();
+    CylinderEmissionVolumeModuleTemplate(const CylinderEmissionVolumeModuleTemplate &that);
+
     virtual void v1();
 };
+
+// The copy constructor stays a declaration: the wrapper calls it out of line.
+CylinderEmissionVolumeModuleTemplate::CylinderEmissionVolumeModuleTemplate()
+{
+}
+
 
 CylinderEmissionVolumeModuleTemplate g_cylinderEmissionVolumeModuleTemplate;
 
@@ -1102,6 +1129,8 @@ typedef LineEmissionVolumeModuleConcrete &(LineEmissionVolumeModuleConcrete::*Li
 
 LineEmissionVolumeModuleConcreteAssign g_lineEmissionVolumeModuleConcreteAssign = &LineEmissionVolumeModuleConcrete::operator=;
 
+LineEmissionVolumeModuleConcrete g_lineEmissionVolumeModuleConcrete;
+
 extern const char *const BOX_EMISSION_VOLUME_MODULE_KEY;
 extern const char *const BOX_EMISSION_VOLUME_MODULE_NAME;
 
@@ -1113,6 +1142,8 @@ typedef BoxEmissionVolumeModuleConcrete &(BoxEmissionVolumeModuleConcrete::*BoxE
 
 BoxEmissionVolumeModuleConcreteAssign g_boxEmissionVolumeModuleConcreteAssign = &BoxEmissionVolumeModuleConcrete::operator=;
 
+BoxEmissionVolumeModuleConcrete g_boxEmissionVolumeModuleConcrete;
+
 extern const char *const CYLINDER_EMISSION_VOLUME_MODULE_KEY;
 extern const char *const CYLINDER_EMISSION_VOLUME_MODULE_NAME;
 
@@ -1123,6 +1154,8 @@ typedef ConcreteModuleTemplate<ModuleTag<5, CYLINDER_EMISSION_VOLUME_MODULE_KEY,
 typedef CylinderEmissionVolumeModuleConcrete &(CylinderEmissionVolumeModuleConcrete::*CylinderEmissionVolumeModuleConcreteAssign)(const CylinderEmissionVolumeModuleConcrete &);
 
 CylinderEmissionVolumeModuleConcreteAssign g_cylinderEmissionVolumeModuleConcreteAssign = &CylinderEmissionVolumeModuleConcrete::operator=;
+
+CylinderEmissionVolumeModuleConcrete g_cylinderEmissionVolumeModuleConcrete;
 
 extern const char *const LIGHTNING_EMISSION_MODULE_KEY;
 extern const char *const LIGHTNING_EMISSION_MODULE_NAME;
