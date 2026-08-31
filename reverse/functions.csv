@@ -1185,3 +1185,11 @@ _free,,0x00030830,17,Code/GameEngine/Source/Common/System/GameMemoryFree.cpp,mat
 ??4LightningDrawModuleInfo@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A7E04,0x003A7E04,52,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; module info layout
 ??0LightningDrawModuleInfo@FXParticleSystem@@QAE@ABV01@@Z,0x003A7DCA,0x003A7DCA,58,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; module info layout
 ??4OrthoEmissionVelocityInfo@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A70A9,0x003A70A9,40,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; module info layout
+??4TerrainFireEmissionInfo@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A6E4E,0x003A6E4E,52,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; module info layout
+??4LightningEmissionInfo@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A6B8F,0x003A6B8F,124,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; module info layout
+??4DefaultUpdateModuleInfo@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A78FF,0x003A78FF,91,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; module info layout
+??0DefaultUpdateModuleInfo@FXParticleSystem@@QAE@ABV01@@Z,0x003A789E,0x003A789E,97,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; module info layout
+??4RenderObjectUpdateModuleInfo@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A7FCF,0x003A7FCF,139,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; module info layout
+??4DefaultAlphaModuleInfo@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A618D,0x003A618D,38,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; module info layout
+??4DefaultColorModuleInfo@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A6306,0x003A6306,57,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; module info layout
+??0DefaultAlphaModuleInfo@FXParticleSystem@@QAE@ABV01@@Z,0x003A616F,0x003A616F,30,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; DefaultAlphaModuleInfo copy constructor

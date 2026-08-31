@@ -571,4 +571,152 @@ DefaultPhysicsAssign g_defaultPhysicsAssign = &DefaultPhysicsModuleInfo::operato
 LightningDrawAssign g_lightningDrawAssign = &LightningDrawModuleInfo::operator=;
 OrthoEmissionVelocityAssign g_orthoEmissionVelocityAssign = &OrthoEmissionVelocityInfo::operator=;
 
+class TerrainFireEmissionInfo : public EmissionVolumeInfo
+{
+public:
+    FXCoord3D m_unknown08;
+    FXCoord3D m_unknown14;
+    FXCoord3D m_unknown20;
+    float m_unknown2C;
+};
+
+class LightningEmissionInfo : public EmissionVolumeInfo
+{
+public:
+    FXCoord3D m_unknown08;
+    FXCoord3D m_unknown14;
+    FXCoord3D m_unknown20;
+    FXCoord3D m_unknown2C;
+    FXCoord3D m_unknown38;
+    FXCoord3D m_unknown44;
+    FXCoord3D m_unknown50;
+    FXCoord3D m_unknown5C;
+    FXCoord3D m_unknown68;
+    FXCoord3D m_unknown74;
+    FXCoord3D m_unknown80;
+};
+
+class DefaultUpdateModuleInfo
+{
+public:
+    DefaultUpdateModuleInfo(const DefaultUpdateModuleInfo &that);
+
+    virtual ~DefaultUpdateModuleInfo();
+    virtual void v1() = 0;
+
+    FXCoord3D m_unknown04;
+    FXCoord3D m_unknown10;
+    FXCoord3D m_unknown1C;
+    FXCoord3D m_unknown28;
+    FXCoord3D m_unknown34;
+    float m_unknown40;
+    FXCoord3D m_unknown44;
+    FXCoord3D m_unknown50;
+    FXCoord3D m_unknown5C;
+};
+
+DefaultUpdateModuleInfo::DefaultUpdateModuleInfo(const DefaultUpdateModuleInfo &that)
+{
+    m_unknown04 = that.m_unknown04;
+    m_unknown10 = that.m_unknown10;
+    m_unknown1C = that.m_unknown1C;
+    m_unknown28 = that.m_unknown28;
+    m_unknown34 = that.m_unknown34;
+    m_unknown40 = that.m_unknown40;
+    m_unknown44 = that.m_unknown44;
+    m_unknown50 = that.m_unknown50;
+    m_unknown5C = that.m_unknown5C;
+}
+
+typedef TerrainFireEmissionInfo &(TerrainFireEmissionInfo::*TerrainFireEmissionAssign)(
+    const TerrainFireEmissionInfo &);
+typedef LightningEmissionInfo &(LightningEmissionInfo::*LightningEmissionAssign)(
+    const LightningEmissionInfo &);
+typedef DefaultUpdateModuleInfo &(DefaultUpdateModuleInfo::*DefaultUpdateAssign)(
+    const DefaultUpdateModuleInfo &);
+
+TerrainFireEmissionAssign g_terrainFireEmissionAssign = &TerrainFireEmissionInfo::operator=;
+LightningEmissionAssign g_lightningEmissionAssign = &LightningEmissionInfo::operator=;
+DefaultUpdateAssign g_defaultUpdateAssign = &DefaultUpdateModuleInfo::operator=;
+
+class RenderObjectUpdateModuleInfo
+{
+public:
+    virtual ~RenderObjectUpdateModuleInfo();
+    virtual void v1() = 0;
+
+    FXCoord3D m_unknown04;
+    FXCoord3D m_unknown10;
+    FXCoord3D m_unknown1C;
+    FXCoord3D m_unknown28;
+    FXCoord3D m_unknown34;
+    FXCoord3D m_unknown40;
+    FXCoord3D m_unknown4C;
+    FXCoord3D m_unknown58;
+    FXCoord3D m_unknown64;
+    FXCoord3D m_unknown70;
+    FXCoord3D m_unknown7C;
+    FXCoord3D m_unknown88;
+    float m_unknown94;
+};
+
+// An eight-element array of a group-plus-scalar pair: the generated assignment
+// walks it one element at a time because the element type has an assignment of
+// its own, while the generated copy constructor blocks all 128 bytes at once.
+struct FXKeyframe
+{
+    FXCoord3D m_value;
+    unsigned int m_frame;
+};
+
+class DefaultAlphaModuleInfo
+{
+public:
+    virtual ~DefaultAlphaModuleInfo();
+    virtual void v1();
+
+    FXKeyframe m_keys[8];
+};
+
+// The copy constructor has to be the GENERATED one - it block-copies all 128
+// bytes with a single rep movsd, where a hand-written per-element loop walks the
+// array the way the assignment does. Nothing in this unit would emit it, so a
+// placement-new helper forces it out.
+}
+
+inline void *operator new(unsigned int, void *storage)
+{
+    return storage;
+}
+
+namespace FXParticleSystem
+{
+
+DefaultAlphaModuleInfo *fxCopyDefaultAlphaModuleInfo(void *storage,
+    const DefaultAlphaModuleInfo &that)
+{
+    return new (storage) DefaultAlphaModuleInfo(that);
+}
+
+class DefaultColorModuleInfo
+{
+public:
+    virtual ~DefaultColorModuleInfo();
+    virtual void v1() = 0;
+
+    FXKeyframe m_keys[8];
+    FXCoord3D m_unknown84;
+};
+
+typedef RenderObjectUpdateModuleInfo &(
+    RenderObjectUpdateModuleInfo::*RenderObjectUpdateAssign)(const RenderObjectUpdateModuleInfo &);
+typedef DefaultAlphaModuleInfo &(DefaultAlphaModuleInfo::*DefaultAlphaAssign)(
+    const DefaultAlphaModuleInfo &);
+typedef DefaultColorModuleInfo &(DefaultColorModuleInfo::*DefaultColorAssign)(
+    const DefaultColorModuleInfo &);
+
+RenderObjectUpdateAssign g_renderObjectUpdateAssign = &RenderObjectUpdateModuleInfo::operator=;
+DefaultAlphaAssign g_defaultAlphaAssign = &DefaultAlphaModuleInfo::operator=;
+DefaultColorAssign g_defaultColorAssign = &DefaultColorModuleInfo::operator=;
+
 }
