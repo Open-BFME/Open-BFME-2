@@ -224,7 +224,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ??8@YA_NABVGameClientRandomVariable@@0@Z,0x00005568,0x00005568,51,Code/GameEngine/Source/GameClient/ClientRandomValue.cpp,matched,Open-BFME5 clean C++; GameClientRandomVariable equality over type and both Real bounds
 ??9@YA_NABVGameClientRandomVariable@@0@Z,0x0000559B,0x0000559B,21,Code/GameEngine/Source/GameClient/ClientRandomValue.cpp,matched,Open-BFME5 clean C++; GameClientRandomVariable inequality forwarding to the equality body
 ?d_000055b0@@YAXXZ,,0x000055B0,30,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_004055b0
-?d_000056c7@@YAXXZ,,0x000056C7,10,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_004056c7
 ?d_000056d1@@YAXXZ,,0x000056D1,103,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Init
 ?d_0000575a@@YAXXZ,,0x0000575A,39,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_0040575a
 ?d_00005816@@YAXXZ,,0x00005816,43,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00405816
@@ -235,7 +234,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_00005923@@YAXXZ,,0x00005923,124,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=toAngle
 ?d_000059d3@@YAXXZ,,0x000059D3,83,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Normalize
 ?d_00006538@@YAXXZ,,0x00006538,18,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=RGBColor
-?d_000066de@@YAXXZ,,0x000066DE,13,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_004066de
 ?d_0000685e@@YAXXZ,,0x0000685E,10,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_0040685e
 ?d_00006960@@YAXXZ,,0x00006960,34,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00406960
 ?d_00006ace@@YAXXZ,,0x00006ACE,35,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=CAtlWinModule
@@ -1108,3 +1106,5 @@ _free,,0x00030830,17,Code/GameEngine/Source/Common/System/GameMemoryFree.cpp,mat
 ?translate@UnicodeString@@QAEXABVAsciiString@@@Z,0x006CB6A0,0x006CB6A0,36,Code/Libraries/Source/WWVegas/WWLib/string_inline.cpp,matched,Open-BFME5 clean C++; string formatting and translation from the speed-built unit
 ?format@AsciiString@@QAAXPBDZZ,0x00038150,0x00038150,20,Code/Libraries/Source/WWVegas/WWLib/string_inline.cpp,matched,Open-BFME5 clean C++; varargs format forwarder
 ?format@UnicodeString@@QAAXPBGZZ,0x006CB5D0,0x006CB5D0,20,Code/Libraries/Source/WWVegas/WWLib/string_inline.cpp,matched,Open-BFME5 clean C++; varargs format forwarder
+??1?$CW2AEX@$0IA@@ATL@@QAE@XZ,,0x000066DE,13,Code/Libraries/Source/ATL/atlconv.cpp,matched,Open-BFME5 clean C++; ATL 7.1 CW2AEX destructor tail-dispatches to its out-of-line deallocator
+?deallocate@?$CW2AEX@$0IA@@ATL@@QAEXXZ,,0x000056C7,10,Code/Libraries/Source/ATL/atlconv.cpp,matched,Open-BFME5 clean C++; ATL 7.1 CW2AEX out-of-line member deallocator
