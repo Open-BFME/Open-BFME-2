@@ -156,6 +156,7 @@ struct Region2D
 {
     Region2D(const Coord2D &lower_left, const Coord2D &upper_right);
     float width() const;
+    float height() const;
     bool isInside(const Coord2D &point) const;
     bool IsExactlyEqualTo(const Region2D &that) const;
     void expandBy(const Coord2D &point);
@@ -205,6 +206,11 @@ Region2D::Region2D(const Coord2D &lower_left, const Coord2D &upper_right)
 float Region2D::width() const
 {
     return x_max - x_min;
+}
+
+float Region2D::height() const
+{
+    return y_max - y_min;
 }
 
 bool Region2D::isInside(const Coord2D &point) const

@@ -15,8 +15,8 @@ public:
 
     void setRange(float low, float high, DistributionType type = UNIFORM);
     float getValue() const;
-    float getMinimumValue() const { return m_low; }
-    float getMaximumValue() const { return m_high; }
+    float getMinimumValue() const;
+    float getMaximumValue() const;
     DistributionType getDistributionType() const { return m_type; }
 
 protected:
@@ -25,6 +25,16 @@ protected:
 
     friend bool operator==(const GameClientRandomVariable &a, const GameClientRandomVariable &b);
 };
+
+float GameClientRandomVariable::getMinimumValue() const
+{
+    return m_low;
+}
+
+float GameClientRandomVariable::getMaximumValue() const
+{
+    return m_high;
+}
 
 GameClientRandomVariable::GameClientRandomVariable()
 {

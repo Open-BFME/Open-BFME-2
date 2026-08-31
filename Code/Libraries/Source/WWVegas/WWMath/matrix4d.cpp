@@ -33,6 +33,7 @@ public:
     Coord3D &TransformCoord(const Coord3D &coord, Coord3D &out);
     Matrix4D &SetIdentity();
 
+    bool IsExactlyEqualTo(const Matrix4D &that);
     Matrix4D &Transpose();
     float Determinant() const;
     float Inverse();
@@ -71,6 +72,33 @@ Coord3D &Matrix4D::GetTranslationVector(Coord3D &out) const
     out.z = values[11];
 
     return out;
+}
+
+// A raw bit comparison, four rows at a time: the sixteen slots are xored and
+// ored together in groups of four and the group tested once, with an early out
+// when the two are the same object.
+bool Matrix4D::IsExactlyEqualTo(const Matrix4D &that)
+{
+    if (this == &that) {
+        return true;
+    }
+
+    const int *a = (const int *)values;
+    const int *b = (const int *)that.values;
+
+    for (int row = 0; row < 4; ++row) {
+        int diff = *a++ ^ *b++;
+
+        diff |= *a++ ^ *b++;
+        diff |= *a++ ^ *b++;
+        diff |= *a++ ^ *b++;
+
+        if (diff != 0) {
+            return false;
+        }
+    }
+
+    return true;
 }
 
 Matrix4D::Matrix4D(bool identity)

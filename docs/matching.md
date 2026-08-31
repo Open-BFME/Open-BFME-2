@@ -46,8 +46,9 @@ Observed traps:
 - Ternary min/max forms can switch between integer bit copies and x87 stores. `RealRange::combine`
   needed both the target condition flags and the target raw float-copy shape; **solved** - see the
   lvalue-ternary note below.
-- Pointer/index loops are unstable. `Matrix4D::IsExactlyEqualTo` compiled to a different loop shape
-  from the target's four-dword xor/or block.
+- Pointer/index loops are unstable. `Matrix4D::IsExactlyEqualTo` needed the four-dword xor/or block
+  written out literally - four `*a++ ^ *b++` folded into one `diff` with `|=`, tested once per row,
+  over `const int *` casts of the float array, behind an early `this == &that` return. **Solved.**
 - Virtual-call wrappers may match semantically while saving registers or branching differently.
   `Xfer::XferRawBytes` was a near-match until the guard was read literally: retail bails out only
   when the size is non-zero AND the pointer is null, so a zero size falls through into both

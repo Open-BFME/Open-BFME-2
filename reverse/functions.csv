@@ -1370,3 +1370,7 @@ _free,,0x00030830,17,Code/GameEngine/Source/Common/System/GameMemoryFree.cpp,mat
 ?format@UnicodeString@@QAAXPBV1@ZZ,0x006CB660,0x006CB660,50,Code/Libraries/Source/WWVegas/WWLib/string_inline.cpp,matched,Open-BFME5 clean C++; string formatting from another string
 ??0?$StringBase@D@@AAE@PBD@Z,0x00037BA0,0x00037BA0,65,Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp,matched,Open-BFME5 clean C++; StringBase C-string constructor
 ??0?$StringBase@G@@AAE@PBG@Z,0x00037E30,0x00037E30,62,Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp,matched,Open-BFME5 clean C++; StringBase C-string constructor
+?getMinimumValue@GameClientRandomVariable@@QBEMXZ,0x00452D82,0x00452D82,4,Code/GameEngine/Source/GameClient/ClientRandomValue.cpp,matched,Open-BFME5 clean C++; simple accessor
+?getMaximumValue@GameClientRandomVariable@@QBEMXZ,0x004F5F92,0x004F5F92,4,Code/GameEngine/Source/GameClient/ClientRandomValue.cpp,matched,Open-BFME5 clean C++; simple accessor
+?height@Region2D@@QBEMXZ,0x0004259B,0x0004259B,7,Code/Libraries/Source/WWVegas/WWMath/region.cpp,matched,Open-BFME5 clean C++; simple accessor
+?IsExactlyEqualTo@Matrix4D@@QAE_NABV1@@Z,0x00004B70,0x00004B70,79,Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp,matched,Open-BFME5 clean C++; Matrix4D exact bitwise comparison
