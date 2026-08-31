@@ -32,6 +32,19 @@ extern "C" __declspec(dllimport) void __cdecl free(void *block);
 extern "C" __declspec(dllimport) DWORD __stdcall GetLastError();
 extern "C" __declspec(dllimport) UINT __stdcall GetACP();
 
+LPWSTR __stdcall AtlA2WHelper(LPWSTR lpw, LPCSTR lpa, int nChars, UINT acp)
+{
+    if (lpw == 0 || lpa == 0)
+        return 0;
+
+    lpw[0] = 0;
+    int ret = MultiByteToWideChar(acp, 0, lpa, -1, lpw, nChars);
+    if (ret == 0)
+        return 0;
+
+    return lpw;
+}
+
 LPSTR __stdcall AtlW2AHelper(LPSTR lpa, LPCWSTR lpw, int nChars, UINT acp)
 {
     if (lpa == 0 || lpw == 0)

@@ -197,7 +197,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_00002bb5@@YAXXZ,,0x00002BB5,132,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00402bb5
 ?d_00002c39@@YAXXZ,,0x00002C39,10,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00402c39
 ?d_0000319f@@YAXXZ,,0x0000319F,6,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Catch@0040319f
-?d_000031a5@@YAXXZ,,0x000031A5,55,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=AtlA2WHelper
 ?d_00003295@@YAXXZ,,0x00003295,35,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=AtlWinModuleInit
 ?d_000032da@@YAXXZ,,0x000032DA,62,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_004032da
 ?d_00003318@@YAXXZ,,0x00003318,122,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00403318
@@ -1098,3 +1097,4 @@ _free,,0x00030830,17,Code/GameEngine/Source/Common/System/GameMemoryFree.cpp,mat
 ?GetTranslationVector@Matrix4D@@QBEAAVCoord3D@@AAV2@@Z,0x0009314A,0x0009314A,24,Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp,matched,Open-BFME5 clean C++; Matrix4D translation vector accessor
 ?lengthSqr@Coord3D@@QBEMXZ,0x00065A1A,0x00065A1A,31,Code/Libraries/Source/WWVegas/WWMath/coord3d.cpp,matched,Open-BFME5 clean C++; Coord3D squared length
 ?AtlW2AHelper@@YGPADPADPBGHI@Z,,0x000031DC,56,Code/Libraries/Source/ATL/atlconv.cpp,matched,Open-BFME5 clean C++; ATL 7.1 global wide-to-ANSI conversion helper
+?AtlA2WHelper@@YGPAGPAGPBDHI@Z,,0x000031A5,55,Code/Libraries/Source/ATL/atlconv.cpp,matched,Open-BFME5 clean C++; ATL 7.1 global ANSI-to-wide conversion helper
