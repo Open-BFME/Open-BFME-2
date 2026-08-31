@@ -36,6 +36,21 @@ StringBase<T>::StringBase(const T *str, int len)
     set(str, len);
 }
 
+// The two substring constructors, both forwarding to the matching setter.
+template <typename T>
+StringBase<T>::StringBase(const T *str, int start, int len)
+{
+    m_data = 0;
+    set(str, start, len);
+}
+
+template <typename T>
+StringBase<T>::StringBase(const StringBase<T> &str, int start, int len)
+{
+    m_data = 0;
+    set(str, start, len);
+}
+
 template <typename T>
 StringBase<T>::StringBase(const CharSource<T> &source)
 {
@@ -65,6 +80,29 @@ StringBase<T> &StringBase<T>::operator=(const StringBase<T> &str)
 
 template StringBase<char> &StringBase<char>::operator=(const StringBase<char> &str);
 template StringBase<wchar_t> &StringBase<wchar_t>::operator=(const StringBase<wchar_t> &str);
+// The single-character comparison inlines the shared worker whole - the shorter
+// of the length and 1 as the count, a rep cmpsb, and the length difference as
+// the tie-break - rather than calling it the way the (const T *, int) overload
+// does.
+template <typename T>
+int StringBase<T>::compare(T c) const
+{
+    const int mylen = m_data ? m_data->length : 0;
+    const T *data = m_data ? &m_data->data[0] : "";
+
+    int len = mylen;
+    if (len >= 1) {
+        len = 1;
+    }
+
+    const int result = memcmp(data, &c, len);
+    if (result != 0) {
+        return result;
+    }
+
+    return mylen - 1;
+}
+
 template <typename T>
 bool StringBase<T>::isNotEmpty() const
 {
@@ -117,6 +155,43 @@ bool StringBase<T>::endsWith(const StringBase<T> &str) const
 // operand and loads the string byte into the register, while MSVC 7.1 hoists the
 // parameter into the register before the loop and compares against memory. Four
 // loop shapes all produce the hoisted form.
+// 0x000359B0 - the startsWith of this pair - stays unclaimed: retail holds the
+// string's own length in edx and the argument length in ecx, MSVC 7.1 the other
+// way round, and swapping the comparison, naming the length, casting the count
+// and splitting the result out all leave it unchanged. The endsWith twin, which
+// uses the length twice, comes out with retail's assignment on its own.
+//
+// The case-insensitive pair, identical to the case-sensitive one except that
+// the comparison is the _memicmp import rather than an inlined rep cmpsb, and
+// the result is inverted with neg/sbb/inc rather than a sete.
+template <typename T>
+bool StringBase<T>::startsWithNoCase(const T *str, int len) const
+{
+    if (*str == 0) {
+        return true;
+    }
+
+    if ((m_data ? m_data->length : 0) < len) {
+        return false;
+    }
+
+    return _memicmp(&m_data->data[0], str, len) == 0;
+}
+
+template <typename T>
+bool StringBase<T>::endsWithNoCase(const T *str, int len) const
+{
+    if (*str == 0) {
+        return true;
+    }
+
+    if ((m_data ? m_data->length : 0) < len) {
+        return false;
+    }
+
+    return _memicmp(&m_data->data[0] + ((m_data ? m_data->length : 0) - len), str, len) == 0;
+}
+
 template <typename T>
 const T *StringBase<T>::find(T c) const
 {
@@ -133,7 +208,10 @@ const T *StringBase<T>::find(T c) const
     return 0;
 }
 
+template int StringBase<char>::compare(char c) const;
 template bool StringBase<wchar_t>::isNotEmpty() const;
+template bool StringBase<char>::startsWithNoCase(const char *str, int len) const;
+template bool StringBase<char>::endsWithNoCase(const char *str, int len) const;
 template bool StringBase<char>::startsWith(const StringBase<char> &str) const;
 template bool StringBase<char>::startsWith(const char *str, int len) const;
 template bool StringBase<char>::endsWith(const StringBase<char> &str) const;
@@ -142,6 +220,10 @@ template const char *StringBase<char>::find(char c) const;
 template char StringBase<char>::getCharAt(int index) const;
 template wchar_t StringBase<wchar_t>::getCharAt(int index) const;
 template bool StringBase<wchar_t>::isEmpty() const;
+template StringBase<char>::StringBase(const char *str, int start, int len);
+template StringBase<char>::StringBase(const StringBase<char> &str, int start, int len);
+template StringBase<wchar_t>::StringBase(const wchar_t *str, int start, int len);
+template StringBase<wchar_t>::StringBase(const StringBase<wchar_t> &str, int start, int len);
 template StringBase<char>::StringBase(char character);
 template StringBase<char>::StringBase(const char *str, int len);
 template StringBase<char>::StringBase(const CharSource<char> &source);

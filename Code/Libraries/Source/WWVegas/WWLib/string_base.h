@@ -8,6 +8,7 @@ class StringBase
 {
 public:
     StringBase<T> &operator=(const StringBase<T> &str);
+    int compare(T c) const;
     int compare(const StringBase<T> &str) const;
     int compare(const T *str) const;
     int compare(const T *str, int len) const;
@@ -23,14 +24,20 @@ public:
     bool isEmpty() const;
     bool isNotEmpty() const;
     bool isNone() const;
+    bool startsWithNoCase(const T *str, int len) const;
+    bool endsWithNoCase(const T *str, int len) const;
+    bool startsWith(const T *str) const;
     bool startsWith(const StringBase<T> &str) const;
     bool startsWith(const T *str, int len) const;
+    bool endsWith(const T *str) const;
     bool endsWith(const StringBase<T> &str) const;
     bool endsWith(const T *str, int len) const;
     const T *find(T c) const;
     bool isNotNone() const;
     const T *str() const;
     void set(const StringBase<T> &str);
+    void set(const StringBase<T> &str, int start, int len);
+    void set(const T *str, int start, int len);
     void set(const CharSource<T> &source);
     void set(T c);
     void set(const T *str);
@@ -40,6 +47,8 @@ public:
 private:
     StringBase(T character);
     StringBase(const T *str, int len);
+    StringBase(const T *str, int start, int len);
+    StringBase(const StringBase<T> &str, int start, int len);
     StringBase(const CharSource<T> &source);
 
     struct Header

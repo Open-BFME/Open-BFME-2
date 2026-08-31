@@ -132,6 +132,21 @@ int StringBase<wchar_t>::compareNoCase(const wchar_t *str, int len) const
         len, CharCompare());
 }
 
+// Both take the argument's length with strlen, guarding the null the same way
+// the compare overloads do, and hand it to the length-bounded form in the
+// speed-built unit.
+template <>
+bool StringBase<char>::startsWith(const char *str) const
+{
+    return startsWith(str, str ? (int)strlen(str) : 0);
+}
+
+template <>
+bool StringBase<char>::endsWith(const char *str) const
+{
+    return endsWith(str, str ? (int)strlen(str) : 0);
+}
+
 template <>
 int StringBase<char>::compare(const char *str) const
 {
