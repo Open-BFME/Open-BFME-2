@@ -47,13 +47,39 @@ struct PooledStringEntry
 // pointer comparison against it rather than a length test.
 extern PooledStringEntry ThePooledStringEmptyEntry;
 
+class AsciiString;
+
+// The same one-byte trait object and shared workers string_base.cpp uses; the
+// pooled comparisons hand them the pooled text and its strlen.
+struct CharCompare
+{
+    char m_unused;
+};
+
+int compareRange(const char *a, int alen, const char *b, int blen, CharCompare tag);
+int compareRangeNoCase(const char *a, int alen, const char *b, int blen, CharCompare tag);
+
 class PooledString
 {
 public:
+    PooledString(const AsciiString &that);
+
     PooledString();
     PooledString(const char *text);
 
     PooledString &operator=(const char *text);
+    PooledString &operator=(const AsciiString &that);
+
+    void clear();
+
+    int compare(const char *str, int len) const;
+    int compare(const char *str) const;
+    int compare(const PooledString &that) const;
+    int compare(const AsciiString &that) const;
+    int compareNoCase(const char *str, int len) const;
+    int compareNoCase(const char *str) const;
+    int compareNoCase(const PooledString &that) const;
+    int compareNoCase(const AsciiString &that) const;
 
     int getLength() const;
     bool isEmpty() const;
@@ -76,6 +102,98 @@ PooledString::PooledString(const char *text)
 {
     m_entry = 0;
     setString(text);
+}
+
+// AsciiString is only ever read through its buffer pointer here, so this unit
+// models the header block rather than pulling the class in.
+struct AsciiStringHeader
+{
+    int ref_count;
+    unsigned short length;
+    unsigned short capacity;
+    char data[1];
+};
+
+PooledString::PooledString(const AsciiString &that)
+{
+    const AsciiStringHeader *const *slot = (const AsciiStringHeader *const *)&that;
+
+    m_entry = 0;
+    setString(*slot ? &(*slot)->data[0] : "");
+}
+
+PooledString &PooledString::operator=(const AsciiString &that)
+{
+    const AsciiStringHeader *header = *(const AsciiStringHeader *const *)&that;
+
+    setString(header ? &header->data[0] : "");
+
+    return *this;
+}
+
+void PooledString::clear()
+{
+    m_entry = &ThePooledStringEmptyEntry;
+}
+
+int PooledString::compare(const char *str, int len) const
+{
+    const CharCompare tag = CharCompare();
+    const int mylen = (int)strlen(m_entry->m_text);
+
+    return compareRange(m_entry->m_text, mylen, str, len, tag);
+}
+
+int PooledString::compareNoCase(const char *str, int len) const
+{
+    const CharCompare tag = CharCompare();
+    const int mylen = (int)strlen(m_entry->m_text);
+
+    return compareRangeNoCase(m_entry->m_text, mylen, str, len, tag);
+}
+
+int PooledString::compare(const char *str) const
+{
+    return compare(str, str ? (int)strlen(str) : 0);
+}
+
+int PooledString::compareNoCase(const char *str) const
+{
+    return compareNoCase(str, str ? (int)strlen(str) : 0);
+}
+
+// 0x0060BD6C and 0x0060BDB3 stay unclaimed. Both compile to the retail
+// instruction sequence but MSVC 7.1 schedules the entry load after the register
+// saves - mov esi,[eax] then add esi,8 where retail dereferences into eax first
+// and leas - and canonicalizes every way of writing it to the same code.
+int PooledString::compare(const PooledString &that) const
+{
+    const PooledStringEntry *entry = that.m_entry;
+    const char *text = entry->m_text;
+
+    return compare(text, (int)strlen(text));
+}
+
+int PooledString::compareNoCase(const PooledString &that) const
+{
+    const PooledStringEntry *entry = that.m_entry;
+    const char *text = entry->m_text;
+
+    return compareNoCase(text, (int)strlen(text));
+}
+
+int PooledString::compare(const AsciiString &that) const
+{
+    const AsciiStringHeader *header = *(const AsciiStringHeader *const *)&that;
+
+    return compare(header ? &header->data[0] : "", header ? header->length : 0);
+}
+
+int PooledString::compareNoCase(const AsciiString &that) const
+{
+    const AsciiStringHeader *header = *(const AsciiStringHeader *const *)&that;
+
+    return compareNoCase(header ? &header->data[0] : "", header ? header->length : 0);
 }
 
 PooledString &PooledString::operator=(const char *text)

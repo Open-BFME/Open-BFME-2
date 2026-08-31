@@ -2,6 +2,7 @@
 // Upstream implementation and layout: Open-BFME-1 ascii_string.h.
 
 class AsciiString;
+class PooledString;
 class UnicodeString;
 
 typedef unsigned short wchar_t;
@@ -41,6 +42,7 @@ private:
 class AsciiString
 {
 public:
+    AsciiString &operator+=(const PooledString &that);
     AsciiString(const AsciiString &that);
     AsciiString(char character);
     AsciiString(const char *text);
@@ -57,6 +59,24 @@ public:
 private:
     char *m_text;
 };
+
+// A PooledString is one pointer to a shared entry whose text starts at +8, and
+// the entry is never null, so there is no empty-string fallback here.
+struct PooledStringEntry
+{
+    void *m_unknown0;
+    PooledStringEntry *m_noCase;
+    char m_text[1];
+};
+
+AsciiString &AsciiString::operator+=(const PooledString &that)
+{
+    const PooledStringEntry *entry = *(const PooledStringEntry *const *)&that;
+
+    ((StringBase<char> *)this)->concat(entry->m_text);
+
+    return *this;
+}
 
 AsciiString::AsciiString(const AsciiString &that)
 {
