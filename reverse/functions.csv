@@ -229,7 +229,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_0000586d@@YAXXZ,,0x0000586D,43,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_0040586d
 ?d_00005898@@YAXXZ,,0x00005898,43,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00405898
 ?d_000058c3@@YAXXZ,,0x000058C3,96,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=AtlWinModuleTerm
-?d_00005923@@YAXXZ,,0x00005923,124,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=toAngle
 ?d_00006538@@YAXXZ,,0x00006538,18,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=RGBColor
 ?d_0000685e@@YAXXZ,,0x0000685E,10,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_0040685e
 ?d_00006960@@YAXXZ,,0x00006960,34,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00406960
@@ -1775,3 +1774,4 @@ _free,,0x00030830,17,Code/GameEngine/Source/Common/System/GameMemoryFree.cpp,mat
 ?compare@PooledString@@QBEHABV1@@Z,0x0060BD6C,0x0060BD6C,32,Code/GameEngine/Source/Common/System/PooledString.cpp,matched,
 ?compareNoCase@PooledString@@QBEHABV1@@Z,0x0060BDB3,0x0060BDB3,32,Code/GameEngine/Source/Common/System/PooledString.cpp,matched,
 ?Normalize@Coord2D@@QAEMXZ,0x000059D3,0x000059D3,83,Code/Libraries/Source/WWVegas/WWMath/coord2d.cpp,matched,
+?toAngle@Coord2D@@QBEMXZ,0x00005923,0x00005923,124,Code/Libraries/Source/WWVegas/WWMath/coord2d.cpp,matched,

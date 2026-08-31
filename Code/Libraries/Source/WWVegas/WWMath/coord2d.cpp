@@ -88,6 +88,7 @@ public:
     float GetLength() const;
     float GetLengthSqrd() const;
     float Normalize();
+    float toAngle() const;
 
     float GetLengthEstimate() const;
 };
@@ -396,4 +397,36 @@ float Coord2D::Normalize()
     y *= scale;
 
     return len;
+}
+
+float ACos(float value);
+
+// The angle of the vector, clamped so a rounding overshoot cannot reach acos
+// out of range. The sign of y picks the half-turn; MSVC stores the 1.0f
+// speculatively before the upper comparison, which is what the pair of
+// movss-to-[ebp-4] around the ja is.
+float Coord2D::toAngle() const
+{
+    float len = length();
+
+    if (len == 0.0f) {
+        return 0.0f;
+    }
+
+    const float raw = x / len;
+    float cosine;
+
+    if (raw < -1.0f) {
+        cosine = -1.0f;
+    } else if (raw > 1.0f) {
+        cosine = 1.0f;
+    } else {
+        cosine = raw;
+    }
+
+    if (y < 0.0f) {
+        return -ACos(cosine);
+    }
+
+    return ACos(cosine);
 }
