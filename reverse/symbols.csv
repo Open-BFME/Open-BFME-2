@@ -193,3 +193,7 @@ __CIasin,0x006298B6,MSVCR71 import thunk (jmp [0x00BBA5CC]); same shape from the
 ??0RenderObjectDrawModuleTemplate@FXParticleSystem@@QAE@XZ,0x003A9BE2,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
 ??0TerrainCollisionModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003AA107,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
 ??0TerrainCollisionModuleTemplate@FXParticleSystem@@QAE@XZ,0x003AA078,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
+??4RenderObjectDrawModuleInfo@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A7D2E,BFME2 export; the module info assignment the module template forwards to
+??4GpuDrawModuleInfo@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A7EF0,BFME2 export; the module info assignment the module template forwards to
+??4LifeEventModuleInfo@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A7A51,BFME2 export; the module info assignment the module template forwards to
+??4TerrainCollisionModuleInfo@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A81AE,BFME2 export; the module info assignment the module template forwards to

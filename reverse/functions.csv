@@ -1353,3 +1353,5 @@ _free,,0x00030830,17,Code/GameEngine/Source/Common/System/GameMemoryFree.cpp,mat
 ??4?$DefaultModuleTemplate@$0A@@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A63CD,0x003A63CD,33,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; default module template assignment
 ??4?$DefaultModuleTemplate@$02@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A7832,0x003A7832,33,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; default module template assignment
 ??4?$DefaultModuleTemplate@$01@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A79E5,0x003A79E5,33,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; default module template assignment
+??4RenderObjectDrawModuleTemplate@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A7DA9,0x003A7DA9,33,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; module template generated assignment
+??4GpuDrawModuleTemplate@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A7F1D,0x003A7F1D,33,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; module template generated assignment

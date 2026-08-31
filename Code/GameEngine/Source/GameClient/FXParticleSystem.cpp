@@ -434,10 +434,16 @@ FX_VTABLE_ONLY_INFO(DefaultDrawModuleInfo)
 FX_VTABLE_ONLY_INFO(StreakDrawModuleInfo)
 FX_VTABLE_ONLY_INFO(QuadDrawModuleInfo)
 FX_VTABLE_ONLY_INFO(ButterflyDrawModuleInfo)
-FX_VTABLE_ONLY_INFO(LifeEventModuleInfo)
-FX_VTABLE_ONLY_INFO(RenderObjectDrawModuleInfo)
-FX_VTABLE_ONLY_INFO(GpuDrawModuleInfo)
-FX_VTABLE_ONLY_INFO(TerrainCollisionModuleInfo)
+
+// These four carry members this file has not recovered, but their assignments
+// are real out-of-line functions their module templates call, so they are
+// declared rather than defaulted.
+#define FX_DECLARED_ASSIGN_INFO(NAME)                                                                  class NAME                                                                                         {                                                                                                  public:                                                                                                NAME();                                                                                            NAME(const NAME &that);                                                                                                                                                                               NAME &operator=(const NAME &that);                                                                                                                                                                    virtual ~NAME();                                                                                   virtual void v1() = 0;                                                                             virtual const char *GetSnapshotName();                                                         };                                                                                                                                                                                                    NAME::NAME() {}                                                                                    NAME::NAME(const NAME &that) {}                                                                                                                                                                       const char *NAME::GetSnapshotName()                                                                {                                                                                                      return #NAME;                                                                                  }
+
+FX_DECLARED_ASSIGN_INFO(RenderObjectDrawModuleInfo)
+FX_DECLARED_ASSIGN_INFO(GpuDrawModuleInfo)
+FX_DECLARED_ASSIGN_INFO(LifeEventModuleInfo)
+FX_DECLARED_ASSIGN_INFO(TerrainCollisionModuleInfo)
 
 // The module class itself. Every instantiation registers into two per-category
 // tables: the default slot at 0x00DFDD1C, written only when the first argument
@@ -1187,7 +1193,15 @@ extern const char *const LIFE_EVENT_MODULE_NAME;
 class LifeEventModule;
 class ParticleLifeEventModule;
 
-class LifeEventModuleTemplate : public ModuleTemplate, public SecondaryModuleBase, public LifeEventModuleInfo
+// Four bases, not three: retail copies a word at offset 8 before forwarding to
+// the info's assignment at 0x0C, and the wrapper stores its third vtable at
+// [esi+0x0C] rather than [esi+0x08]. So the two EventModuleInfo flags are at 8
+// and the module's own info starts at 0x0C - but MSVC 7.1 hoists the polymorphic
+// base ahead of the flags and lands them the other way round, which is what
+// leaves 0x003A7A7F and 0x003A81E2 unclaimed. Whatever keeps retail's order is
+// the missing piece.
+class LifeEventModuleTemplate : public ModuleTemplate, public SecondaryModuleBase, public EventModuleInfo,
+           public LifeEventModuleInfo
 {
 };
 
@@ -1219,7 +1233,15 @@ extern const char *const TERRAIN_COLLISION_MODULE_NAME;
 class TerrainCollisionModule;
 class ParticleTerrainCollisionModule;
 
-class TerrainCollisionModuleTemplate : public ModuleTemplate, public SecondaryModuleBase, public TerrainCollisionModuleInfo
+// Four bases, not three: retail copies a word at offset 8 before forwarding to
+// the info's assignment at 0x0C, and the wrapper stores its third vtable at
+// [esi+0x0C] rather than [esi+0x08]. So the two EventModuleInfo flags are at 8
+// and the module's own info starts at 0x0C - but MSVC 7.1 hoists the polymorphic
+// base ahead of the flags and lands them the other way round, which is what
+// leaves 0x003A7A7F and 0x003A81E2 unclaimed. Whatever keeps retail's order is
+// the missing piece.
+class TerrainCollisionModuleTemplate : public ModuleTemplate, public SecondaryModuleBase, public EventModuleInfo,
+           public TerrainCollisionModuleInfo
 {
 };
 
