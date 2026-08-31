@@ -155,3 +155,13 @@ __CIasin,0x006298B6,MSVCR71 import thunk (jmp [0x00BBA5CC]); same shape from the
 ??0CylinderEmissionVolumeModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A6A49,BFME2 export; the module template copy constructor the ConcreteModuleTemplate wrapper calls
 ??0SphereEmissionVolumeModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A68AF,BFME2 export; the module template copy constructor the ConcreteModuleTemplate wrapper calls
 ??0PointEmissionVolumeModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A64B0,BFME2 export; the module template copy constructor the ConcreteModuleTemplate wrapper calls
+??0SphericalEmissionVelocityModuleTemplate@FXParticleSystem@@QAE@XZ,0x003A72F7,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
+??0SphericalEmissionVelocityModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A734E,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
+??0HemisphericalEmissionVelocityModuleTemplate@FXParticleSystem@@QAE@XZ,0x003A73F8,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
+??0HemisphericalEmissionVelocityModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A7418,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
+??0CylindricalEmissionVelocityModuleTemplate@FXParticleSystem@@QAE@XZ,0x003A757D,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
+??0CylindricalEmissionVelocityModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A75D4,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
+??0OutwardEmissionVelocityModuleTemplate@FXParticleSystem@@QAE@XZ,0x003A767E,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
+??0OutwardEmissionVelocityModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A76D5,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
+??0OrthoEmissionVelocityModuleTemplate@FXParticleSystem@@QAE@XZ,0x003A711C,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
+??0OrthoEmissionVelocityModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A7173,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls

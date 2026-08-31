@@ -73,6 +73,50 @@ public:
     FXCoord3D m_axis;
 };
 
+class EmissionVelocityInfo
+{
+public:
+    virtual ~EmissionVelocityInfo();
+    virtual void v1() = 0;
+};
+
+// Sizes come from the clone bodies, which push the wrapper's size to operator
+// new: 24 for the spherical and hemispherical velocities, 36 for the
+// cylindrical and outward ones, 48 for the ortho one.
+class SphericalEmissionVelocityInfo : public EmissionVelocityInfo
+{
+public:
+    FXCoord3D m_unknown04;
+};
+
+class HemisphericalEmissionVelocityInfo : public EmissionVelocityInfo
+{
+public:
+    FXCoord3D m_unknown04;
+};
+
+class CylindricalEmissionVelocityInfo : public EmissionVelocityInfo
+{
+public:
+    FXCoord3D m_unknown04;
+    FXCoord3D m_unknown10;
+};
+
+class OutwardEmissionVelocityInfo : public EmissionVelocityInfo
+{
+public:
+    FXCoord3D m_unknown04;
+    FXCoord3D m_unknown10;
+};
+
+class OrthoEmissionVelocityInfo : public EmissionVelocityInfo
+{
+public:
+    FXCoord3D m_unknown04;
+    FXCoord3D m_unknown10;
+    FXCoord3D m_unknown1C;
+};
+
 #define FX_MODULE_TEMPLATE(NAME, INFO)                                                             \
     class NAME : public ModuleTemplate, public SecondaryModuleBase, public INFO                    \
     {                                                                                              \
@@ -88,6 +132,11 @@ FX_MODULE_TEMPLATE(SphereEmissionVolumeModuleTemplate, SphereEmissionVolumeInfo)
 FX_MODULE_TEMPLATE(BoxEmissionVolumeModuleTemplate, BoxEmissionVolumeInfo)
 FX_MODULE_TEMPLATE(LineEmissionVolumeModuleTemplate, LineEmissionVolumeInfo)
 FX_MODULE_TEMPLATE(CylinderEmissionVolumeModuleTemplate, CylinderEmissionVolumeInfo)
+FX_MODULE_TEMPLATE(SphericalEmissionVelocityModuleTemplate, SphericalEmissionVelocityInfo)
+FX_MODULE_TEMPLATE(HemisphericalEmissionVelocityModuleTemplate, HemisphericalEmissionVelocityInfo)
+FX_MODULE_TEMPLATE(CylindricalEmissionVelocityModuleTemplate, CylindricalEmissionVelocityInfo)
+FX_MODULE_TEMPLATE(OutwardEmissionVelocityModuleTemplate, OutwardEmissionVelocityInfo)
+FX_MODULE_TEMPLATE(OrthoEmissionVelocityModuleTemplate, OrthoEmissionVelocityInfo)
 
 template <int CATEGORY>
 class DefaultParticleModule;
@@ -150,17 +199,21 @@ typename TAG::TemplateType *ConcreteModuleClass<TAG>::createTemplate() const
     return new ConcreteModuleTemplate<TAG>();
 }
 
-#define FX_EMISSION_WRAPPER(KEY, MOD, TMPL)                                                        \
-    extern const char *const KEY##_MODULE_KEY;                                                     \
-    extern const char *const KEY##_MODULE_NAME;                                                    \
-                                                                                                   \
-    class MOD;                                                                                     \
-                                                                                                   \
-    typedef ConcreteModuleTemplate<                                                                \
-        ModuleTag<5, KEY##_MODULE_KEY, KEY##_MODULE_NAME, MOD, TMPL, DefaultParticleModule<5> > >  \
-        MOD##Concrete;                                                                             \
-                                                                                                   \
-    MOD##Concrete g_##MOD##Concrete;                                                                                                                                                                      typedef ConcreteModuleClass<                                                                           ModuleTag<5, KEY##_MODULE_KEY, KEY##_MODULE_NAME, MOD, TMPL, DefaultParticleModule<5> > >          MOD##ClassConcrete;                                                                                                                                                                               MOD##ClassConcrete g_##MOD##ClassConcrete;
+#define FX_WRAPPER(CATEGORY, KEY, MOD, TMPL)                                                      \
+    extern const char *const KEY##_MODULE_KEY;                                                    \
+    extern const char *const KEY##_MODULE_NAME;                                                   \
+                                                                                                  \
+    class MOD;                                                                                    \
+                                                                                                  \
+    typedef ModuleTag<CATEGORY, KEY##_MODULE_KEY, KEY##_MODULE_NAME, MOD, TMPL,                   \
+        DefaultParticleModule<CATEGORY> >                                                         \
+        MOD##Tag;                                                                                 \
+                                                                                                  \
+    typedef ConcreteModuleTemplate<MOD##Tag> MOD##Concrete;                                       \
+    typedef ConcreteModuleClass<MOD##Tag> MOD##ClassConcrete;                                     \
+                                                                                                  \
+    MOD##Concrete g_##MOD##Concrete;                                                              \
+    MOD##ClassConcrete g_##MOD##ClassConcrete;
 
 // The point volume's tag is a plain struct rather than a ModuleTag
 // instantiation - the U rather than V in the decorated name is what says so.
@@ -175,11 +228,33 @@ typedef ConcreteModuleClass<PointEmissionVolumeModuleTag> PointEmissionVolumeMod
 PointEmissionVolumeModuleConcrete g_pointEmissionVolumeModuleConcrete;
 PointEmissionVolumeModuleClassConcrete g_pointEmissionVolumeModuleClassConcrete;
 
-FX_EMISSION_WRAPPER(SPHERE_EMISSION_VOLUME, SphereEmissionVolumeModule,
+FX_WRAPPER(5, SPHERE_EMISSION_VOLUME, SphereEmissionVolumeModule,
     SphereEmissionVolumeModuleTemplate)
-FX_EMISSION_WRAPPER(BOX_EMISSION_VOLUME, BoxEmissionVolumeModule, BoxEmissionVolumeModuleTemplate)
-FX_EMISSION_WRAPPER(LINE_EMISSION_VOLUME, LineEmissionVolumeModule, LineEmissionVolumeModuleTemplate)
-FX_EMISSION_WRAPPER(CYLINDER_EMISSION_VOLUME, CylinderEmissionVolumeModule,
+FX_WRAPPER(5, BOX_EMISSION_VOLUME, BoxEmissionVolumeModule, BoxEmissionVolumeModuleTemplate)
+FX_WRAPPER(5, LINE_EMISSION_VOLUME, LineEmissionVolumeModule, LineEmissionVolumeModuleTemplate)
+FX_WRAPPER(5, CYLINDER_EMISSION_VOLUME, CylinderEmissionVolumeModule,
     CylinderEmissionVolumeModuleTemplate)
+
+FX_WRAPPER(4, SPHERICAL_EMISSION_VELOCITY, SphericalEmissionVelocityModule,
+    SphericalEmissionVelocityModuleTemplate)
+FX_WRAPPER(4, HEMISPHERICAL_EMISSION_VELOCITY, HemisphericalEmissionVelocityModule,
+    HemisphericalEmissionVelocityModuleTemplate)
+FX_WRAPPER(4, CYLINDRICAL_EMISSION_VELOCITY, CylindricalEmissionVelocityModule,
+    CylindricalEmissionVelocityModuleTemplate)
+FX_WRAPPER(4, OUTWARD_EMISSION_VELOCITY, OutwardEmissionVelocityModule,
+    OutwardEmissionVelocityModuleTemplate)
+
+// The ortho velocity tag is the other plain struct.
+struct OrthoEmissionVelocityModuleTag
+{
+    typedef OrthoEmissionVelocityModuleTemplate TemplateType;
+};
+
+typedef ConcreteModuleTemplate<OrthoEmissionVelocityModuleTag> OrthoEmissionVelocityModuleConcrete;
+typedef ConcreteModuleClass<OrthoEmissionVelocityModuleTag>
+    OrthoEmissionVelocityModuleClassConcrete;
+
+OrthoEmissionVelocityModuleConcrete g_orthoEmissionVelocityModuleConcrete;
+OrthoEmissionVelocityModuleClassConcrete g_orthoEmissionVelocityModuleClassConcrete;
 
 }
