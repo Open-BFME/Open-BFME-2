@@ -1197,3 +1197,12 @@ _free,,0x00030830,17,Code/GameEngine/Source/Common/System/GameMemoryFree.cpp,mat
 ??4SphericalEmissionVelocityInfo@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A7296,0x003A7296,22,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; module info layout
 ??0DefaultColorModuleInfo@FXParticleSystem@@QAE@ABV01@@Z,0x003A62D9,0x003A62D9,45,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; module info layout
 ??0RenderObjectUpdateModuleInfo@FXParticleSystem@@QAE@ABV01@@Z,0x003A7F3E,0x003A7F3E,145,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; module info layout
+??0PointEmissionVolumeModuleTemplate@FXParticleSystem@@QAE@XZ,0x003A6487,0x003A6487,41,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; emission module template
+??0SphereEmissionVolumeModuleTemplate@FXParticleSystem@@QAE@XZ,0x003A687E,0x003A687E,49,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; emission module template
+??0BoxEmissionVolumeModuleTemplate@FXParticleSystem@@QAE@XZ,0x003A66FD,0x003A66FD,59,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; emission module template
+??4BoxEmissionVolumeModuleTemplate@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A6778,0x003A6778,37,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; emission module template
+??4SphericalEmissionVelocityModuleTemplate@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A738E,0x003A738E,31,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; emission module template
+??4LineEmissionVolumeModuleTemplate@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A6629,0x003A6629,33,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; emission module template
+??4CylinderEmissionVolumeModuleTemplate@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A6A89,0x003A6A89,33,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; emission module template
+??0LineEmissionVolumeModuleTemplate@FXParticleSystem@@QAE@XZ,0x003A659F,0x003A659F,74,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; emission module template
+??0CylinderEmissionVolumeModuleTemplate@FXParticleSystem@@QAE@XZ,0x003A69FF,0x003A69FF,74,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; emission module template

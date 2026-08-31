@@ -245,18 +245,42 @@ BoxEmissionVolumeInfo::BoxEmissionVolumeInfo(const BoxEmissionVolumeInfo &that)
 class LineEmissionVolumeInfo : public EmissionVolumeInfo
 {
 public:
+    LineEmissionVolumeInfo();
+
     FXCoord3D m_start;
     FXCoord3D m_end;
 };
 
+inline LineEmissionVolumeInfo::LineEmissionVolumeInfo()
+{
+    m_start.x = 0.0f;
+    m_start.y = 0.0f;
+    m_start.z = 0.0f;
+    m_end.x = 0.0f;
+    m_end.y = 0.0f;
+    m_end.z = 0.0f;
+}
+
 class CylinderEmissionVolumeInfo : public EmissionVolumeInfo
 {
 public:
+    CylinderEmissionVolumeInfo();
+
     float m_radius;
     float m_length;
     float m_radius2;
     FXCoord3D m_axis;
 };
+
+inline CylinderEmissionVolumeInfo::CylinderEmissionVolumeInfo()
+{
+    m_radius = 0.0f;
+    m_length = 0.0f;
+    m_radius2 = 0.0f;
+    m_axis.x = 0.0f;
+    m_axis.y = 0.0f;
+    m_axis.z = 0.0f;
+}
 
 typedef BoxEmissionVolumeInfo &(BoxEmissionVolumeInfo::*BoxEmissionVolumeAssign)(
     const BoxEmissionVolumeInfo &);
@@ -757,5 +781,83 @@ typedef SphericalEmissionVelocityInfo &(
 
 SphericalEmissionVelocityAssign g_sphericalEmissionVelocityAssign =
     &SphericalEmissionVelocityInfo::operator=;
+
+// The concrete module templates are the CategoryModuleTemplate shape with a
+// real info class as the third base: the primary ModuleTemplate vtable at 0, the
+// secondary at 4, and the info's own vtable and members from 8 on. Each
+// constructor stores the secondary table twice, before and after the primary,
+// exactly as the category templates do.
+
+class PointEmissionVolumeModuleTemplate : public ModuleTemplate, public SecondaryModuleBase, public EmissionVolumeInfo
+{
+public:
+    virtual void v1();
+};
+
+PointEmissionVolumeModuleTemplate g_pointEmissionVolumeModuleTemplate;
+
+class SphereEmissionVolumeModuleTemplate : public ModuleTemplate, public SecondaryModuleBase, public SphereEmissionVolumeInfo
+{
+public:
+    virtual void v1();
+};
+
+SphereEmissionVolumeModuleTemplate g_sphereEmissionVolumeModuleTemplate;
+
+class BoxEmissionVolumeModuleTemplate : public ModuleTemplate, public SecondaryModuleBase, public BoxEmissionVolumeInfo
+{
+public:
+    virtual void v1();
+};
+
+BoxEmissionVolumeModuleTemplate g_boxEmissionVolumeModuleTemplate;
+
+class LineEmissionVolumeModuleTemplate : public ModuleTemplate, public SecondaryModuleBase, public LineEmissionVolumeInfo
+{
+public:
+    virtual void v1();
+};
+
+LineEmissionVolumeModuleTemplate g_lineEmissionVolumeModuleTemplate;
+
+class CylinderEmissionVolumeModuleTemplate : public ModuleTemplate, public SecondaryModuleBase, public CylinderEmissionVolumeInfo
+{
+public:
+    virtual void v1();
+};
+
+CylinderEmissionVolumeModuleTemplate g_cylinderEmissionVolumeModuleTemplate;
+
+class SphericalEmissionVelocityModuleTemplate : public ModuleTemplate, public SecondaryModuleBase, public SphericalEmissionVelocityInfo
+{
+public:
+    virtual void v1();
+};
+
+SphericalEmissionVelocityModuleTemplate g_sphericalEmissionVelocityModuleTemplate;
+
+typedef PointEmissionVolumeModuleTemplate &(PointEmissionVolumeModuleTemplate::*PointEmissionVolumeModuleTemplateAssign)(const PointEmissionVolumeModuleTemplate &);
+
+PointEmissionVolumeModuleTemplateAssign g_pointEmissionVolumeModuleTemplateAssign = &PointEmissionVolumeModuleTemplate::operator=;
+
+typedef SphereEmissionVolumeModuleTemplate &(SphereEmissionVolumeModuleTemplate::*SphereEmissionVolumeModuleTemplateAssign)(const SphereEmissionVolumeModuleTemplate &);
+
+SphereEmissionVolumeModuleTemplateAssign g_sphereEmissionVolumeModuleTemplateAssign = &SphereEmissionVolumeModuleTemplate::operator=;
+
+typedef BoxEmissionVolumeModuleTemplate &(BoxEmissionVolumeModuleTemplate::*BoxEmissionVolumeModuleTemplateAssign)(const BoxEmissionVolumeModuleTemplate &);
+
+BoxEmissionVolumeModuleTemplateAssign g_boxEmissionVolumeModuleTemplateAssign = &BoxEmissionVolumeModuleTemplate::operator=;
+
+typedef LineEmissionVolumeModuleTemplate &(LineEmissionVolumeModuleTemplate::*LineEmissionVolumeModuleTemplateAssign)(const LineEmissionVolumeModuleTemplate &);
+
+LineEmissionVolumeModuleTemplateAssign g_lineEmissionVolumeModuleTemplateAssign = &LineEmissionVolumeModuleTemplate::operator=;
+
+typedef CylinderEmissionVolumeModuleTemplate &(CylinderEmissionVolumeModuleTemplate::*CylinderEmissionVolumeModuleTemplateAssign)(const CylinderEmissionVolumeModuleTemplate &);
+
+CylinderEmissionVolumeModuleTemplateAssign g_cylinderEmissionVolumeModuleTemplateAssign = &CylinderEmissionVolumeModuleTemplate::operator=;
+
+typedef SphericalEmissionVelocityModuleTemplate &(SphericalEmissionVelocityModuleTemplate::*SphericalEmissionVelocityModuleTemplateAssign)(const SphericalEmissionVelocityModuleTemplate &);
+
+SphericalEmissionVelocityModuleTemplateAssign g_sphericalEmissionVelocityModuleTemplateAssign = &SphericalEmissionVelocityModuleTemplate::operator=;
 
 }
