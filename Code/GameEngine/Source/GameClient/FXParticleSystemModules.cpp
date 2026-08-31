@@ -117,6 +117,144 @@ public:
     FXCoord3D m_unknown1C;
 };
 
+
+// The remaining info classes, sized off the same clone bodies: 4 bytes for a
+// vtable-only one, 36 for the default physics info, 48 for the lightning draw
+// and terrain fire ones, 72 for the category 7 default, 104 for the default
+// update info, 132 and 144 for the default alpha and color ones, 140 for the
+// lightning emission info and 152 for the render object update info.
+struct FXKeyframe
+{
+    FXCoord3D m_value;
+    unsigned int m_frame;
+};
+
+#define FX_VTABLE_ONLY_INFO(NAME)                                                                      class NAME                                                                                         {                                                                                                  public:                                                                                                virtual ~NAME();                                                                                   virtual void v1() = 0;                                                                         };
+
+FX_VTABLE_ONLY_INFO(DefaultDrawModuleInfo)
+
+class DefaultPhysicsModuleInfo
+{
+public:
+    virtual ~DefaultPhysicsModuleInfo();
+    virtual void v1() = 0;
+
+    FXCoord3D m_unknown04;
+    float m_unknown10;
+    FXCoord3D m_unknown14;
+    bool m_unknown20;
+    bool m_unknown21;
+};
+
+class DefaultCategory7ModuleInfo
+{
+public:
+    virtual ~DefaultCategory7ModuleInfo();
+    virtual void v1() = 0;
+
+    FXCoord3D m_unknown04;
+    FXCoord3D m_unknown10;
+    FXCoord3D m_unknown1C;
+    FXCoord3D m_unknown28;
+    FXCoord3D m_unknown34;
+    FXCoord3D m_unknown40;
+};
+
+class DefaultUpdateModuleInfo
+{
+public:
+    virtual ~DefaultUpdateModuleInfo();
+    virtual void v1() = 0;
+
+    FXCoord3D m_unknown04;
+    FXCoord3D m_unknown10;
+    FXCoord3D m_unknown1C;
+    FXCoord3D m_unknown28;
+    FXCoord3D m_unknown34;
+    float m_unknown40;
+    FXCoord3D m_unknown44;
+    FXCoord3D m_unknown50;
+    FXCoord3D m_unknown5C;
+};
+
+class DefaultAlphaModuleInfo
+{
+public:
+    virtual ~DefaultAlphaModuleInfo();
+    virtual void v1() = 0;
+
+    FXKeyframe m_keys[8];
+};
+
+class DefaultColorModuleInfo
+{
+public:
+    virtual ~DefaultColorModuleInfo();
+    virtual void v1() = 0;
+
+    FXKeyframe m_keys[8];
+    FXCoord3D m_unknown84;
+};
+
+class LightningDrawModuleInfo
+{
+public:
+    virtual ~LightningDrawModuleInfo();
+    virtual void v1() = 0;
+
+    FXCoord3D m_unknown04;
+    FXCoord3D m_unknown10;
+    FXCoord3D m_unknown1C;
+    float m_unknown28;
+    bool m_unknown2C;
+};
+
+class RenderObjectUpdateModuleInfo
+{
+public:
+    virtual ~RenderObjectUpdateModuleInfo();
+    virtual void v1() = 0;
+
+    FXCoord3D m_unknown04;
+    FXCoord3D m_unknown10;
+    FXCoord3D m_unknown1C;
+    FXCoord3D m_unknown28;
+    FXCoord3D m_unknown34;
+    FXCoord3D m_unknown40;
+    FXCoord3D m_unknown4C;
+    FXCoord3D m_unknown58;
+    FXCoord3D m_unknown64;
+    FXCoord3D m_unknown70;
+    FXCoord3D m_unknown7C;
+    FXCoord3D m_unknown88;
+    float m_unknown94;
+};
+
+class TerrainFireEmissionInfo : public EmissionVolumeInfo
+{
+public:
+    FXCoord3D m_unknown08;
+    FXCoord3D m_unknown14;
+    FXCoord3D m_unknown20;
+    float m_unknown2C;
+};
+
+class LightningEmissionInfo : public EmissionVolumeInfo
+{
+public:
+    FXCoord3D m_unknown08;
+    FXCoord3D m_unknown14;
+    FXCoord3D m_unknown20;
+    FXCoord3D m_unknown2C;
+    FXCoord3D m_unknown38;
+    FXCoord3D m_unknown44;
+    FXCoord3D m_unknown50;
+    FXCoord3D m_unknown5C;
+    FXCoord3D m_unknown68;
+    FXCoord3D m_unknown74;
+    FXCoord3D m_unknown80;
+};
+
 #define FX_MODULE_TEMPLATE(NAME, INFO)                                                             \
     class NAME : public ModuleTemplate, public SecondaryModuleBase, public INFO                    \
     {                                                                                              \
@@ -137,6 +275,10 @@ FX_MODULE_TEMPLATE(HemisphericalEmissionVelocityModuleTemplate, HemisphericalEmi
 FX_MODULE_TEMPLATE(CylindricalEmissionVelocityModuleTemplate, CylindricalEmissionVelocityInfo)
 FX_MODULE_TEMPLATE(OutwardEmissionVelocityModuleTemplate, OutwardEmissionVelocityInfo)
 FX_MODULE_TEMPLATE(OrthoEmissionVelocityModuleTemplate, OrthoEmissionVelocityInfo)
+FX_MODULE_TEMPLATE(LightningDrawModuleTemplate, LightningDrawModuleInfo)
+FX_MODULE_TEMPLATE(TerrainFireEmissionModuleTemplate, TerrainFireEmissionInfo)
+FX_MODULE_TEMPLATE(LightningEmissionModuleTemplate, LightningEmissionInfo)
+FX_MODULE_TEMPLATE(RenderObjectUpdateModuleTemplate, RenderObjectUpdateModuleInfo)
 
 template <int CATEGORY>
 class DefaultParticleModule;
@@ -333,5 +475,39 @@ typedef ConcreteModuleClass<OrthoEmissionVelocityModuleTag>
 
 OrthoEmissionVelocityModuleConcrete g_orthoEmissionVelocityModuleConcrete;
 template class ConcreteModuleClass<OrthoEmissionVelocityModuleTag>;
+
+// The per-category default templates, each over the info its own category uses.
+#define FX_DEFAULT_TEMPLATE(CATEGORY, INFO)                                                            template <>                                                                                        class DefaultModuleTemplate<CATEGORY> : public ModuleTemplate, public SecondaryModuleBase,                                                 public INFO                                                {                                                                                                  public:                                                                                                DefaultModuleTemplate();                                                                           DefaultModuleTemplate(const DefaultModuleTemplate<CATEGORY> &that);                            };
+
+template <int CATEGORY>
+class DefaultModuleTemplate;
+
+FX_DEFAULT_TEMPLATE(0, DefaultColorModuleInfo)
+FX_DEFAULT_TEMPLATE(1, DefaultAlphaModuleInfo)
+FX_DEFAULT_TEMPLATE(2, DefaultUpdateModuleInfo)
+FX_DEFAULT_TEMPLATE(3, DefaultPhysicsModuleInfo)
+FX_DEFAULT_TEMPLATE(6, DefaultDrawModuleInfo)
+FX_DEFAULT_TEMPLATE(7, DefaultCategory7ModuleInfo)
+
+template <int CATEGORY>
+class DefaultModuleTag
+{
+public:
+    typedef DefaultModuleTemplate<CATEGORY> TemplateType;
+};
+
+#define FX_DEFAULT_WRAPPER(CATEGORY)                                                                   typedef ConcreteModuleTemplate<DefaultModuleTag<CATEGORY> > DefaultConcrete##CATEGORY;                                                                                                                DefaultConcrete##CATEGORY g_defaultConcrete##CATEGORY;
+
+FX_DEFAULT_WRAPPER(0)
+FX_DEFAULT_WRAPPER(1)
+FX_DEFAULT_WRAPPER(2)
+FX_DEFAULT_WRAPPER(3)
+FX_DEFAULT_WRAPPER(6)
+FX_DEFAULT_WRAPPER(7)
+
+FX_WRAPPER(6, LIGHTNING_DRAW, LightningDrawModule, LightningDrawModuleTemplate)
+FX_WRAPPER(5, TERRAIN_FIRE_EMISSION, TerrainFireEmissionModule, TerrainFireEmissionModuleTemplate)
+FX_WRAPPER(5, LIGHTNING_EMISSION, LightningEmissionModule, LightningEmissionModuleTemplate)
+FX_WRAPPER(2, RENDEROBJECT_UPDATE, RenderObjectUpdateModule, RenderObjectUpdateModuleTemplate)
 
 }
