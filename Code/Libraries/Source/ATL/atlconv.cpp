@@ -8,7 +8,9 @@
 // ATL_NOINLINE, which is why both stay out of line here.
 
 typedef const char *LPCSTR;
+typedef char *LPSTR;
 typedef unsigned short *LPWSTR;
+typedef const unsigned short *LPCWSTR;
 typedef unsigned int UINT;
 typedef unsigned long DWORD;
 typedef long HRESULT;
@@ -21,10 +23,27 @@ extern "C" __declspec(dllimport) int __stdcall lstrlenA(LPCSTR string);
 extern "C" __declspec(dllimport) int __stdcall MultiByteToWideChar(
 		UINT code_page, DWORD flags, LPCSTR multi_byte, int multi_byte_chars,
 		LPWSTR wide, int wide_chars);
+extern "C" __declspec(dllimport) int __stdcall WideCharToMultiByte(
+        UINT code_page, DWORD flags, LPCWSTR wide, int wide_chars,
+        LPSTR multi_byte, int multi_byte_chars, LPCSTR default_char,
+        int *used_default_char);
 extern "C" __declspec(dllimport) void *__cdecl malloc(unsigned int size);
 extern "C" __declspec(dllimport) void __cdecl free(void *block);
 extern "C" __declspec(dllimport) DWORD __stdcall GetLastError();
 extern "C" __declspec(dllimport) UINT __stdcall GetACP();
+
+LPSTR __stdcall AtlW2AHelper(LPSTR lpa, LPCWSTR lpw, int nChars, UINT acp)
+{
+    if (lpa == 0 || lpw == 0)
+        return 0;
+
+    lpa[0] = '\0';
+    int ret = WideCharToMultiByte(acp, 0, lpw, -1, lpa, nChars, 0, 0);
+    if (ret == 0)
+        return 0;
+
+    return lpa;
+}
 
 namespace ATL
 {
