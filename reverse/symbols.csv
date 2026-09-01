@@ -263,3 +263,5 @@ _GdipDrawImageI@16,0x00628F80,GDI+ flat-API import thunk; retail target of Gdipl
 ?Init@CComCriticalSection@ATL@@QAEJXZ,0x0000323B,ATL 7.1 CComCriticalSection::Init; retail call target of AtlWinModuleInit with ecx = the module critical section at +4
 __CxxThrowException@8,0x00629094,MSVC 7.1 C++ throw helper; retail target of the ATL AtlThrow body at 0x00001125
 _memcpy,0x006291A8,CRT memcpy import thunk; retail target of the BI_BITFIELDS copy in ATL CImage::CreateEx
+?CreateFromGdiplusBitmap@CImage@ATL@@QAEJAAVBitmap@Gdiplus@@@Z,0x0000295E,ATL 7.1 CImage::CreateFromGdiplusBitmap; retail call target of CImage::Load at 0x00002BB5
+??1Bitmap@Gdiplus@@UAE@XZ,0x000012A3,ICF alias of Gdiplus::Image::~Image. MSVC 7.1 drops the dead derived vptr store from the implicit ~Bitmap and inlines the base body so the two COMDATs come out byte-identical; retail CImage::Load destroys its local Bitmap through this address

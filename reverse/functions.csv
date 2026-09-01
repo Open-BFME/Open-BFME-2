@@ -171,7 +171,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_0000275d@@YAXXZ,,0x0000275D,395,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_0040275d
 ?d_00002942@@YAXXZ,,0x00002942,28,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00402942
 ?d_0000295e@@YAXXZ,,0x0000295E,524,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_0040295e
-?d_00002bb5@@YAXXZ,,0x00002BB5,132,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00402bb5
 ?d_00002c39@@YAXXZ,,0x00002C39,10,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00402c39
 ?d_0000319f@@YAXXZ,,0x0000319F,6,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Catch@0040319f
 ?d_000032da@@YAXXZ,,0x000032DA,62,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_004032da
@@ -1779,3 +1778,4 @@ _AtlWinModuleTerm@8,,0x000058C3,96,Code/Libraries/Source/ATL/atlbase.cpp,matched
 ?find@?$StringBase@D@@QBEPBDD@Z,0x0002C459,0x0002C459,44,Code/Libraries/Source/WWVegas/WWLib/string_base.cpp,matched,Open-BFME5 clean C++; while-loop scan at /O1 keeps the character parameter as a memory operand
 ?GetLengthEstimate@Coord3D@@QBEMXZ,0x00003ACE,0x00003ACE,372,Code/Libraries/Source/WWVegas/WWMath/coord3d_lengthestimate.cpp,matched,wip
 ?AtlThrow@ATL@@YGXJ@Z,,0x00001125,23,Code/Libraries/Source/ATL/atlconv.cpp,matched,Open-BFME5 clean C++; vendored=atl-7.1
+?Load@CImage@ATL@@QAEJPBD@Z,,0x00002BB5,132,Code/Libraries/Source/ATL/atlimage.cpp,matched,Open-BFME5 clean C++; vendored=atl-7.1

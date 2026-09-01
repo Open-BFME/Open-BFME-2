@@ -12,6 +12,7 @@ typedef void *HANDLE;
 typedef long LONG;
 typedef unsigned int UINT;
 typedef unsigned long DWORD;
+typedef long HRESULT;
 typedef unsigned short WORD;
 typedef unsigned char *LPBYTE;
 
@@ -69,9 +70,12 @@ extern "C" __declspec(dllimport) int __stdcall GetObjectA(HGDIOBJ object, int by
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(CRITICAL_SECTION *section);
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(CRITICAL_SECTION *section);
 extern "C" int __cdecl abs(int value);
+extern "C" __declspec(dllimport) void __cdecl free(void *block);
 
 namespace Gdiplus
 {
+
+class GpImage;
 
 enum Status
 {
@@ -111,6 +115,68 @@ struct GdiplusStartupOutput
 Status __stdcall GdiplusStartup(
     unsigned long *token, const GdiplusStartupInput *input, GdiplusStartupOutput *output);
 void __stdcall GdiplusShutdown(unsigned long token);
+
+// Only the pieces CImage::Load touches: the constructor and destructor it
+// calls out of line at 0x00001368 and 0x000012A3, and the inline
+// GetLastStatus it reads the result through.
+class Image
+{
+public:
+    virtual ~Image();
+    virtual Image *Clone();
+
+    Status GetLastStatus() const
+    {
+        Status lastStatus = lastResult;
+        lastResult = Ok;
+        return lastStatus;
+    }
+
+protected:
+    GpImage *nativeImage;
+    mutable Status lastResult;
+    mutable Status loadStatus;
+};
+
+class Bitmap : public Image
+{
+public:
+    Bitmap(const unsigned short *filename, int useEmbeddedColorManagement = 0);
+};
+
+}
+
+namespace ATL
+{
+
+// atlconv.h's CA2WEX, declared far enough for CImage::Load: retail calls the
+// constructor out of line at 0x00002206 and inlines the destructor.
+template <int t_nBufferLength = 128>
+class CA2WEX
+{
+public:
+    CA2WEX(const char *psz);
+
+    ~CA2WEX()
+    {
+        if (m_psz != m_szBuffer)
+        {
+            free(m_psz);
+        }
+    }
+
+    operator unsigned short *() const { return m_psz; }
+
+public:
+    unsigned short *m_psz;
+    unsigned short m_szBuffer[t_nBufferLength];
+
+private:
+    CA2WEX(const CA2WEX &);
+    CA2WEX &operator=(const CA2WEX &);
+};
+
+typedef CA2WEX<> CT2W;
 
 }
 
@@ -161,6 +227,13 @@ public:
     HDC GetDC() const throw();
     void ReleaseDC() const throw();
     void SetColorTable(UINT firstColor, UINT colors, const RGBQUAD *colorTable) throw();
+    HRESULT Load(const char *pszFileName) throw();
+    HRESULT CreateFromGdiplusBitmap(Gdiplus::Bitmap &bmSrc) throw();
+
+    static bool InitGDIPlus() throw()
+    {
+        return s_initGDIPlus.Init();
+    }
 
 private:
     HBITMAP m_hBitmap;
@@ -371,6 +444,22 @@ HBITMAP CImage::Detach() throw()
     m_bHasAlphaChannel = false;
     m_bIsDIBSection = false;
     return hBitmap;
+}
+
+HRESULT CImage::Load(const char *pszFileName) throw()
+{
+    if (!InitGDIPlus())
+    {
+        return (0x80004005L);
+    }
+
+    Gdiplus::Bitmap bmSrc((CT2W)pszFileName);
+    if (bmSrc.GetLastStatus() != Gdiplus::Ok)
+    {
+        return (0x80004005L);
+    }
+
+    return (CreateFromGdiplusBitmap(bmSrc));
 }
 
 }
