@@ -13,6 +13,7 @@ typedef long LONG;
 typedef unsigned int UINT;
 typedef unsigned long DWORD;
 typedef long HRESULT;
+typedef int BOOL;
 typedef unsigned short WORD;
 typedef unsigned char *LPBYTE;
 
@@ -227,6 +228,9 @@ public:
     HDC GetDC() const throw();
     void ReleaseDC() const throw();
     void SetColorTable(UINT firstColor, UINT colors, const RGBQUAD *colorTable) throw();
+    BOOL Create(int nWidth, int nHeight, int nBPP, DWORD dwFlags) throw();
+    BOOL CreateEx(int nWidth, int nHeight, int nBPP, DWORD eCompression,
+        const DWORD *pdwBitfields, DWORD dwFlags) throw();
     HRESULT Load(const char *pszFileName) throw();
     HRESULT CreateFromGdiplusBitmap(Gdiplus::Bitmap &bmSrc) throw();
 
@@ -444,6 +448,11 @@ HBITMAP CImage::Detach() throw()
     m_bHasAlphaChannel = false;
     m_bIsDIBSection = false;
     return hBitmap;
+}
+
+BOOL CImage::Create(int nWidth, int nHeight, int nBPP, DWORD dwFlags) throw()
+{
+    return (CreateEx(nWidth, nHeight, nBPP, 0, 0, dwFlags));
 }
 
 HRESULT CImage::Load(const char *pszFileName) throw()

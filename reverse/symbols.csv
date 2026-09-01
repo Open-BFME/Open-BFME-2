@@ -265,3 +265,4 @@ __CxxThrowException@8,0x00629094,MSVC 7.1 C++ throw helper; retail target of the
 _memcpy,0x006291A8,CRT memcpy import thunk; retail target of the BI_BITFIELDS copy in ATL CImage::CreateEx
 ?CreateFromGdiplusBitmap@CImage@ATL@@QAEJAAVBitmap@Gdiplus@@@Z,0x0000295E,ATL 7.1 CImage::CreateFromGdiplusBitmap; retail call target of CImage::Load at 0x00002BB5
 ??1Bitmap@Gdiplus@@UAE@XZ,0x000012A3,ICF alias of Gdiplus::Image::~Image. MSVC 7.1 drops the dead derived vptr store from the implicit ~Bitmap and inlines the base body so the two COMDATs come out byte-identical; retail CImage::Load destroys its local Bitmap through this address
+?CreateEx@CImage@ATL@@QAEHHHHKPBKK@Z,0x00002690,ATL 7.1 CImage::CreateEx; retail call target of CImage::Create at 0x00002942 and identified in reverse/attempts/0x00002690.cpp
