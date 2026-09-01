@@ -243,3 +243,14 @@ _atexit,0x006291F8,CRT atexit - forwards to _onexit at 0x006291D2 and folds its 
 ?parse@TerrainFireEmissionModuleTemplate@FXParticleSystem@@QAEXPAVINI@@@Z,0x0055E5E4,BFME2 export; the module template INI parser createTemplate calls after allocating
 _GdipAlloc@4,0x00628F86,GDI+ flat-API import thunk; retail target of the operator new in Gdiplus::GdiplusBase
 _GdipCloneImage@8,0x00628F8C,GDI+ flat-API import thunk; retail target of Gdiplus::Image::Clone
+_GdipDisposeImage@4,0x00628F26,GDI+ flat-API import thunk; retail target of Gdiplus::Image::~Image
+_GdipGetImageWidth@8,0x00628F2C,GDI+ flat-API import thunk; retail target of Gdiplus::Image::GetWidth
+_GdipGetImageHeight@8,0x00628F32,GDI+ flat-API import thunk; retail target of Gdiplus::Image::GetHeight
+_GdipGetImagePixelFormat@8,0x00628F38,GDI+ flat-API import thunk; retail target of Gdiplus::Image::GetPixelFormat
+_GdipGetImagePaletteSize@8,0x00628F3E,GDI+ flat-API import thunk; retail target of Gdiplus::Image::GetPaletteSize
+_GdipGetImagePalette@12,0x00628F44,GDI+ flat-API import thunk; retail target of Gdiplus::Image::GetPalette
+_GdipCreateBitmapFromFile@8,0x00628F4A,GDI+ flat-API import thunk; retail target of the Gdiplus::Bitmap filename constructor
+_GdipCreateBitmapFromFileICM@8,0x00628F50,GDI+ flat-API import thunk; ICM branch of the Gdiplus::Bitmap filename constructor
+_GdipCreateBitmapFromScan0@24,0x00628F56,GDI+ flat-API import thunk; retail target of the Gdiplus::Bitmap scan0 constructor
+_GdipBitmapLockBits@20,0x00628F5C,GDI+ flat-API import thunk; retail target of Gdiplus::Bitmap::LockBits
+_GdipBitmapUnlockBits@8,0x00628F62,GDI+ flat-API import thunk; retail target of Gdiplus::Bitmap::UnlockBits
