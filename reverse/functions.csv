@@ -180,7 +180,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?areApproxEqual@@YA_NMMM@Z,0x000034FA,0x000034FA,42,Code/Libraries/Source/WWVegas/WWMath/wwmath.cpp,matched,Open-BFME5 clean C++; float equality within a signed tolerance band
 ?scale@Coord3D@@QAEXM@Z,0x000036D1,0x000036D1,49,Code/Libraries/Source/WWVegas/WWMath/region.cpp,matched,Open-BFME5 clean C++; Coord3D component-wise scalar multiplication
 ?d_00003916@@YAXXZ,,0x00003916,101,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Rotate
-?d_00003ace@@YAXXZ,,0x00003ACE,372,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=GetLengthEstimate
 ?d_00003c70@@YAXXZ,,0x00003C70,97,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=CrossProduct
 ?d_00004079@@YAXXZ,,0x00004079,357,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Matrix4D
 ??0Snapshot@@QAE@XZ,0x000053A6,0x000053A6,9,Code/GameEngine/Source/Common/System/Snapshot.cpp,matched,Open-BFME5 clean C++; Snapshot default constructor installing the vtable at 0x00BBB554
@@ -1779,3 +1778,4 @@ _AtlWinModuleTerm@8,,0x000058C3,96,Code/Libraries/Source/ATL/atlbase.cpp,matched
 ??0CAtlWinModule@ATL@@QAE@XZ,,0x00006ACE,35,Code/Libraries/Source/ATL/atlbase.cpp,matched,Open-BFME5 clean C++; vendored=atl-7.1
 ??0RGBColor@@QAE@H@Z,0x00006538,0x00006538,18,Code/Libraries/Source/WWVegas/WWMath/color_rgbcolor_ctor.cpp,matched,Open-BFME5 clean C++; own TU so setFromInt is only a declaration
 ?find@?$StringBase@D@@QBEPBDD@Z,0x0002C459,0x0002C459,44,Code/Libraries/Source/WWVegas/WWLib/string_base.cpp,matched,Open-BFME5 clean C++; while-loop scan at /O1 keeps the character parameter as a memory operand
+?GetLengthEstimate@Coord3D@@QBEMXZ,0x00003ACE,0x00003ACE,372,Code/Libraries/Source/WWVegas/WWMath/coord3d_lengthestimate.cpp,matched,wip
