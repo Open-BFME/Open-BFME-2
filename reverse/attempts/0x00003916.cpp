@@ -28,6 +28,12 @@
 // Next shapes worth trying: a two-element array or a small struct for the pair,
 // a helper that returns both, or __asm writing through pointers - anything that
 // takes the slot choice away from the call-return spill allocator.
+//
+// Re-checked 2026-09-01 with the flags spelled -O1 -arch:SSE2 -Oi (leading
+// DASHES - Git Bash rewrites a slash-leading argument into a Windows path
+// before cl sees it, so a sweep passing "/O1" through the shell tests
+// something else): /Oi still gives fcos + fsin and keeps both results in x87
+// registers. The fsincos reading stands.
 
 Coord2D &Coord2D::Rotate(float angle)
 {
