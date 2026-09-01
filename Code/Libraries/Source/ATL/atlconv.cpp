@@ -74,6 +74,10 @@ template <int t_nBufferLength = 128>
 class CA2WEX
 {
 public:
+	CA2WEX(LPCSTR psz) : m_psz(m_szBuffer)
+	{
+		Init(psz, GetACP());
+	}
 	CA2WEX(LPCSTR psz, UINT nCodePage) : m_psz(m_szBuffer)
 	{
 		Init(psz, nCodePage);
@@ -181,6 +185,7 @@ void CA2WEX<t_nBufferLength>::Init(LPCSTR psz, UINT nCodePage)
 }
 
 template CA2WEX<128>::~CA2WEX();
+template CA2WEX<128>::CA2WEX(LPCSTR psz);
 template void CA2WEX<128>::Init(LPCSTR psz, UINT nCodePage);
 template void CW2AEX<128>::Init(LPCWSTR psz, UINT nCodePage);
 template CW2AEX<128>::CW2AEX(LPCWSTR psz);

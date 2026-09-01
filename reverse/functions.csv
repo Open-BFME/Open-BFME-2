@@ -163,7 +163,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_0000200d@@YAXXZ,,0x0000200D,260,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=operator=
 ?d_00002152@@YAXXZ,,0x00002152,10,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00402152
 ?d_000021c7@@YAXXZ,,0x000021C7,28,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_004021c7
-?d_00002206@@YAXXZ,,0x00002206,32,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00402206
 ?d_00002226@@YAXXZ,,0x00002226,141,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00402226
 ?d_0000232b@@YAXXZ,,0x0000232B,34,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_0040232b
 ?d_0000240e@@YAXXZ,,0x0000240E,10,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=~ParticleSystemInfo
@@ -1778,3 +1777,4 @@ _AtlWinModuleTerm@8,,0x000058C3,96,Code/Libraries/Source/ATL/atlbase.cpp,matched
 ?Init@?$CW2AEX@$0IA@@ATL@@AAEXPBGI@Z,,0x000056D1,103,Code/Libraries/Source/ATL/atlconv.cpp,matched,Open-BFME5 clean C++; vendored=atl-7.1
 ?Allocate@?$CAtlSafeAllocBufferManager@VCCRTAllocator@ATL@@@_ATL_SAFE_ALLOCA_IMPL@ATL@@QAEPAXI@Z,,0x000021E3,35,Code/Libraries/Source/ATL/atlalloc.cpp,matched,Open-BFME5 clean C++; vendored=atl-7.1
 ??1?$CAtlSafeAllocBufferManager@VCCRTAllocator@ATL@@@_ATL_SAFE_ALLOCA_IMPL@ATL@@QAE@XZ,,0x00001D80,26,Code/Libraries/Source/ATL/atlalloc.cpp,matched,Open-BFME5 clean C++; vendored=atl-7.1
+??0?$CA2WEX@$0IA@@ATL@@QAE@PBD@Z,,0x00002206,32,Code/Libraries/Source/ATL/atlconv.cpp,matched,Open-BFME5 clean C++; vendored=atl-7.1
