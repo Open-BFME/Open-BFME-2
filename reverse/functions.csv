@@ -248,7 +248,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_0000bda0@@YAXXZ,,0x0000BDA0,174,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040bda0
 ?d_0000be50@@YAXXZ,,0x0000BE50,205,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040be50
 ?d_0000bf20@@YAXXZ,,0x0000BF20,98,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040bf20
-?d_0000bf90@@YAXXZ,,0x0000BF90,53,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040bf90
 ?d_0000bfd0@@YAXXZ,,0x0000BFD0,48,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040bfd0
 ?d_0000c000@@YAXXZ,,0x0000C000,277,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040c000
 ?d_0000c120@@YAXXZ,,0x0000C120,133,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040c120
@@ -1779,3 +1778,4 @@ _AtlWinModuleTerm@8,,0x000058C3,96,Code/Libraries/Source/ATL/atlbase.cpp,matched
 ?Create@CImage@ATL@@QAEHHHHK@Z,,0x00002942,28,Code/Libraries/Source/ATL/atlimage.cpp,matched,Open-BFME5 clean C++; vendored=atl-7.1
 ?CreateFromGdiplusBitmap@CImage@ATL@@QAEJAAVBitmap@Gdiplus@@@Z,,0x0000295E,524,Code/Libraries/Source/ATL/atlimage.cpp,matched,Open-BFME5 clean C++; vendored=atl-7.1
 ??_G_Locale_impl@_STL@@UAEPAXI@Z,,0x0000B710,30,Code/Libraries/Source/WWVegas/WWLib/stlport_locale_impl_dtor.cpp,matched,Open-BFME5 clean C++; scalar deleting destructor emitted with the vtable
+??$_M_range_initialize@PBG@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@QAEXPBG0ABUforward_iterator_tag@1@@Z,,0x0000BF90,53,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_string_range_init.cpp,matched,Open-BFME5 clean C++; stlport 4.5.3 wide twin of 0x000078C0
