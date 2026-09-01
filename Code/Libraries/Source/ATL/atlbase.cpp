@@ -122,6 +122,26 @@ extern "C" HRESULT __stdcall AtlWinModuleTerm(_ATL_WIN_MODULE70 *pWinModule, HIN
     return 0;
 }
 
+class CAtlBaseModule
+{
+public:
+    static bool m_bInitFailed;
+};
+
+class CAtlWinModule : public _ATL_WIN_MODULE70
+{
+public:
+    CAtlWinModule();
+};
+
+CAtlWinModule::CAtlWinModule()
+{
+    cbSize = sizeof(_ATL_WIN_MODULE70);
+    HRESULT hr = AtlWinModuleInit(this);
+    if (hr < 0)
+        CAtlBaseModule::m_bInitFailed = true;
+}
+
 template void CSimpleArray<ATOM>::RemoveAll();
 template ATOM &CSimpleArray<ATOM>::operator[](int);
 

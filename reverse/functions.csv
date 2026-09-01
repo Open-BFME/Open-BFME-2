@@ -202,10 +202,8 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_00005841@@YAXXZ,,0x00005841,44,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00405841
 ?d_0000586d@@YAXXZ,,0x0000586D,43,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_0040586d
 ?d_00005898@@YAXXZ,,0x00005898,43,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00405898
-?d_00006538@@YAXXZ,,0x00006538,18,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=RGBColor
 ?d_0000685e@@YAXXZ,,0x0000685E,10,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_0040685e
 ?d_00006960@@YAXXZ,,0x00006960,34,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00406960
-?d_00006ace@@YAXXZ,,0x00006ACE,35,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=CAtlWinModule
 ?d_00006b09@@YAXXZ,,0x00006B09,10,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00406b09
 ?d_00006cf0@@YAXXZ,,0x00006CF0,34,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00406cf0
 ?d_00006f80@@YAXXZ,,0x00006F80,241,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00406f80
@@ -1778,3 +1776,5 @@ _AtlWinModuleTerm@8,,0x000058C3,96,Code/Libraries/Source/ATL/atlbase.cpp,matched
 ?Allocate@?$CAtlSafeAllocBufferManager@VCCRTAllocator@ATL@@@_ATL_SAFE_ALLOCA_IMPL@ATL@@QAEPAXI@Z,,0x000021E3,35,Code/Libraries/Source/ATL/atlalloc.cpp,matched,Open-BFME5 clean C++; vendored=atl-7.1
 ??1?$CAtlSafeAllocBufferManager@VCCRTAllocator@ATL@@@_ATL_SAFE_ALLOCA_IMPL@ATL@@QAE@XZ,,0x00001D80,26,Code/Libraries/Source/ATL/atlalloc.cpp,matched,Open-BFME5 clean C++; vendored=atl-7.1
 ??0?$CA2WEX@$0IA@@ATL@@QAE@PBD@Z,,0x00002206,32,Code/Libraries/Source/ATL/atlconv.cpp,matched,Open-BFME5 clean C++; vendored=atl-7.1
+??0CAtlWinModule@ATL@@QAE@XZ,,0x00006ACE,35,Code/Libraries/Source/ATL/atlbase.cpp,matched,Open-BFME5 clean C++; vendored=atl-7.1
+??0RGBColor@@QAE@H@Z,0x00006538,0x00006538,18,Code/Libraries/Source/WWVegas/WWMath/color_rgbcolor_ctor.cpp,matched,Open-BFME5 clean C++; own TU so setFromInt is only a declaration
