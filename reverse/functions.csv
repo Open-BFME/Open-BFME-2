@@ -206,7 +206,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ??9@YA_NABVGameClientRandomVariable@@0@Z,0x0000559B,0x0000559B,21,Code/GameEngine/Source/GameClient/ClientRandomValue.cpp,matched,Open-BFME5 clean C++; GameClientRandomVariable inequality forwarding to the equality body
 ?d_000055b0@@YAXXZ,,0x000055B0,30,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_004055b0
 ?d_000056d1@@YAXXZ,,0x000056D1,103,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Init
-?d_0000575a@@YAXXZ,,0x0000575A,39,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_0040575a
 ?d_00005816@@YAXXZ,,0x00005816,43,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00405816
 ?d_00005841@@YAXXZ,,0x00005841,44,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00405841
 ?d_0000586d@@YAXXZ,,0x0000586D,43,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_0040586d
@@ -1777,3 +1776,4 @@ _free,,0x00030830,17,Code/GameEngine/Source/Common/System/GameMemoryFree.cpp,mat
 ?Init@CInitGDIPlus@CImage@ATL@@QAE_NXZ,,0x0000145B,83,Code/Libraries/Source/ATL/atlimage.cpp,matched,Open-BFME5 clean C++; vendored=atl-7.1
 ??_GImage@Gdiplus@@UAEPAXI@Z,,0x00002111,27,Code/Libraries/Source/GdiPlus/gdiplusbitmap.cpp,matched,Open-BFME5 clean C++; vendored=gdiplus-1.0 Platform SDK inline
 ?Rotate@Coord2D@@QAEAAV1@ABV1@M@Z,0x000039BB,0x000039BB,80,Code/Libraries/Source/WWVegas/WWMath/coord2d_rotate.cpp,matched,Open-BFME5 clean C++; four x87 instructions for the fsincos retail fuses and ordinary C++ around them
+??$clamp@M@@YAMMMM@Z,,0x0000575A,39,Code/GameEngine/Source/Common/System/Geometry.cpp,matched,Open-BFME5 clean C++; PreRTS.h clamp template instantiated for Real
