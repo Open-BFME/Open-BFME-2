@@ -258,3 +258,5 @@ _GdipBitmapUnlockBits@8,0x00628F62,GDI+ flat-API import thunk; retail target of 
 _GdipFree@4,0x00628F74,GDI+ flat-API import thunk; retail target of the operator delete in Gdiplus::GdiplusBase
 _sin,0x00629216,CRT import thunk; retail target of the sin call in Coord2D::Rotate(float)
 _cos,0x0062920A,CRT import thunk; retail target of the cos call in Coord2D::Rotate(float)
+_GdipGetImageGraphicsContext@8,0x00628F7A,GDI+ flat-API import thunk; retail target of the Gdiplus::Graphics image constructor
+_GdipDrawImageI@16,0x00628F80,GDI+ flat-API import thunk; retail target of Gdiplus::Graphics::DrawImage

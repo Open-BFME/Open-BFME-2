@@ -161,8 +161,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?isEmpty@?$StringBase@D@@QBE_NXZ,0x00001E2F,0x00001E2F,20,Code/GameEngine/Source/Common/System/AsciiString.cpp,matched,Open-BFME5 clean C++; narrow StringBase emptiness test over the 16-bit length at offset 4
 ?d_00001e43@@YAXXZ,,0x00001E43,36,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00401e43
 ??0RandomAlphaKeyframe@FXParticleSystem@@QAE@XZ,0x00001E7F,0x00001E7F,47,Code/Libraries/Source/WWVegas/WWMath/color.cpp,matched,Open-BFME5 clean C++; RandomAlphaKeyframe initializes a zero uniform alpha range and frame
-?d_00001faf@@YAXXZ,,0x00001FAF,45,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00401faf
-?d_00001fdc@@YAXXZ,,0x00001FDC,49,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00401fdc
 ?d_0000200d@@YAXXZ,,0x0000200D,260,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=operator=
 ?d_00002152@@YAXXZ,,0x00002152,10,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00402152
 ?d_000021c7@@YAXXZ,,0x000021C7,28,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_004021c7
@@ -1777,3 +1775,5 @@ _free,,0x00030830,17,Code/GameEngine/Source/Common/System/GameMemoryFree.cpp,mat
 ??_GImage@Gdiplus@@UAEPAXI@Z,,0x00002111,27,Code/Libraries/Source/GdiPlus/gdiplusbitmap.cpp,matched,Open-BFME5 clean C++; vendored=gdiplus-1.0 Platform SDK inline
 ?Rotate@Coord2D@@QAEAAV1@ABV1@M@Z,0x000039BB,0x000039BB,80,Code/Libraries/Source/WWVegas/WWMath/coord2d_rotate.cpp,matched,Open-BFME5 clean C++; four x87 instructions for the fsincos retail fuses and ordinary C++ around them
 ??$clamp@M@@YAMMMM@Z,,0x0000575A,39,Code/GameEngine/Source/Common/System/Geometry.cpp,matched,Open-BFME5 clean C++; PreRTS.h clamp template instantiated for Real
+??0Graphics@Gdiplus@@QAE@PAVImage@1@@Z,,0x00001FAF,45,Code/Libraries/Source/GdiPlus/gdiplusgraphics.cpp,matched,Open-BFME5 clean C++; vendored=gdiplus-1.0 Platform SDK inline
+?DrawImage@Graphics@Gdiplus@@QAE?AW4Status@2@PAVImage@2@HH@Z,,0x00001FDC,49,Code/Libraries/Source/GdiPlus/gdiplusgraphics.cpp,matched,Open-BFME5 clean C++; vendored=gdiplus-1.0 Platform SDK inline
