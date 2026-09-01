@@ -1780,3 +1780,4 @@ _AtlWinModuleTerm@8,,0x000058C3,96,Code/Libraries/Source/ATL/atlbase.cpp,matched
 ??0_Time_Info@_STL@@QAE@XZ,,0x00007920,212,Code/Libraries/Source/WWVegas/WWLib/stlport_time_info_ctor.cpp,matched,Open-BFME5 clean C++; stlport 4.5.3
 ?_M_allocate_buffers@?$basic_filebuf@DV?$char_traits@D@_STL@@@_STL@@AAE_NPADH@Z,,0x00013F10,189,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_filebuf_allocate.cpp,matched,Open-BFME5 clean C++; stlport 4.5.3
 ?_M_allocate_buffers@?$basic_filebuf@GV?$char_traits@G@_STL@@@_STL@@AAE_NPAGH@Z,,0x000148F0,188,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_filebuf_allocate.cpp,matched,Open-BFME5 clean C++; stlport 4.5.3 wide twin of 0x00013F10
+??1?$basic_streambuf@DV?$char_traits@D@_STL@@@_STL@@UAE@XZ,,0x0001C6E0,14,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_streambuf_dtor.cpp,matched,Open-BFME5 clean C++; stlport 4.5.3
