@@ -262,3 +262,4 @@ _GdipGetImageGraphicsContext@8,0x00628F7A,GDI+ flat-API import thunk; retail tar
 _GdipDrawImageI@16,0x00628F80,GDI+ flat-API import thunk; retail target of Gdiplus::Graphics::DrawImage
 ?Init@CComCriticalSection@ATL@@QAEJXZ,0x0000323B,ATL 7.1 CComCriticalSection::Init; retail call target of AtlWinModuleInit with ecx = the module critical section at +4
 __CxxThrowException@8,0x00629094,MSVC 7.1 C++ throw helper; retail target of the ATL AtlThrow body at 0x00001125
+_memcpy,0x006291A8,CRT memcpy import thunk; retail target of the BI_BITFIELDS copy in ATL CImage::CreateEx
