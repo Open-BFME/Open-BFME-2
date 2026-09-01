@@ -1,4 +1,6 @@
 // ?getIdNoCase@PooledString@@QBEIXZ
+// partial score=0.9 date=2026-09-01
+// ?getIdNoCase@PooledString@@QBEIXZ
 // partial score=0.9 date=2026-08-31
 // ?getIdNoCase@PooledString@@QBEIXZ
 // partial score=0.9 date=2026-08-31
@@ -13,6 +15,15 @@
 // ternary - the last of which drags in a frame. /O2 does reach for cmov here
 // but breaks all seven other bodies in PooledString.cpp, so the unit is /O1 and
 // this is a codegen shape, not identity.
+//
+// 2026-09-01: the split-into-its-own-unit fix that landed RGBColor(int) does
+// NOT work here. In an isolated TU containing only these two bodies, none of
+// /O2, /Ox, /O2 /GX-, /O2 /Ot, /O2 /GR-, /O2 /Gy, /O1 /G6, /O2 /G6, /O2 /G7,
+// /O2 /arch:SSE2 or /Og /Oi /Ot /Oy /Ob2 reaches the cmov, and neither do an
+// if-statement over a pointer local, the same over unsigned locals, or a
+// reference bound to the ternary. So the earlier note's "/O2 does reach for
+// cmov here" was an effect of the rest of PooledString.cpp, not of the flag.
+// Whatever produces it needs surrounding code, not a shape or a switch.
 //
 // ?isEqualNoCase@PooledString@@QBE_NABV1@@Z at 0x0060B82B is blocked behind the
 // same thing: it is this body inlined twice and compared, and both copies carry
