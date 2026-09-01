@@ -277,3 +277,4 @@ _strlen,0x00629170,BFME2 retail strlen thunk and call target for StringBase<char
 __aulldvrm,0x006296E0,MSVC 7.1 unsigned 64-bit divide-and-remainder helper; Ghidra names this address and the decimal writers call it for the tens loop
 ?_Stl_string_to_double@_STL@@YANPBD@Z,0x0001ACE0,STLport 4.5.3 string-to-double conversion; address read from the __string_to_float wrappers REL32 at 0x0001AFB7
 ?_Stl_string_to_long_double@_STL@@YAOPBD@Z,0x0001AE40,STLport 4.5.3 string-to-long-double conversion; address read from the long double __string_to_float REL32 at 0x0001AFF7
+??1LZHLDecompressor@@QAE@XZ,0x00692300,LZH-Light decompressor destructor; address read from the LZHLDestroyDecompressor REL32 at 0x0068ED8B
