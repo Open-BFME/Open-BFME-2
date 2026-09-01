@@ -145,59 +145,35 @@ _BTREE_decode@12,,0x0068EC70,16,Code/Libraries/Source/Compression/EAC/btreedecod
 _zError,,0x006946D0,21,Code/Libraries/Source/Compression/ZLib/zutil.c,matched,vendored=zlib-1.1.4
 _zcfree,,0x00694710,13,Code/Libraries/Source/Compression/ZLib/zutil.c,matched,vendored=zlib-1.1.4
 _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matched,vendored=zlib-1.1.4
-?d_00001125@@YAXXZ,,0x00001125,23,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00401125
 ??0ModuleTemplate@FXParticleSystem@@QAE@XZ,0x000011B4,0x000011B4,9,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; FXParticleSystem ModuleTemplate default constructor
 ??1ModuleTemplate@FXParticleSystem@@UAE@XZ,0x000011BD,0x000011BD,7,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; FXParticleSystem ModuleTemplate destructor
 ??0ModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x000011C4,0x000011C4,11,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; FXParticleSystem ModuleTemplate copy constructor
 ??4?$CategoryModuleTemplate@$07@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x0000124F,0x0000124F,27,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; generated assignment adjusting the source by 8 to reach the EventModuleInfo base
 ?setUV@ParticleSystemTemplate@FXParticleSystem@@QAEXPBURegion2D@@@Z,0x00001278,0x00001278,25,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; ParticleSystemTemplate conditionally copies the 16-byte UV region at offset 0x88
-?d_000012a3@@YAXXZ,,0x000012A3,15,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_004012a3
-?d_000012b2@@YAXXZ,,0x000012B2,36,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_004012b2
-?d_000012d6@@YAXXZ,,0x000012D6,36,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_004012d6
-?d_000012fa@@YAXXZ,,0x000012FA,32,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_004012fa
-?d_0000131a@@YAXXZ,,0x0000131A,36,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_0040131a
-?d_0000133e@@YAXXZ,,0x0000133E,34,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_0040133e
-?d_00001368@@YAXXZ,,0x00001368,58,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Bitmap
-?d_000013a2@@YAXXZ,,0x000013A2,57,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Bitmap
-?d_000013db@@YAXXZ,,0x000013DB,42,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_004013db
-?d_00001405@@YAXXZ,,0x00001405,30,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00401405
 ?d_00001423@@YAXXZ,,0x00001423,34,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=`vector_constructor_iterator'
-?d_0000145b@@YAXXZ,,0x0000145B,83,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_0040145b
 ?d_00001720@@YAXXZ,,0x00001720,19,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00401720
 ??0Snapshot@@QAE@ABV0@@Z,0x00001745,0x00001745,11,Code/GameEngine/Source/Common/System/Snapshot.cpp,matched,Open-BFME5 clean C++; Snapshot copy constructor ignoring its argument
 ?d_0000179f@@YAXXZ,,0x0000179F,1167,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_0040179f
 ?d_00001c72@@YAXXZ,,0x00001C72,126,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00401c72
-?d_00001d80@@YAXXZ,,0x00001D80,26,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00401d80
 ?isEmpty@?$StringBase@D@@QBE_NXZ,0x00001E2F,0x00001E2F,20,Code/GameEngine/Source/Common/System/AsciiString.cpp,matched,Open-BFME5 clean C++; narrow StringBase emptiness test over the 16-bit length at offset 4
 ?d_00001e43@@YAXXZ,,0x00001E43,36,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00401e43
 ??0RandomAlphaKeyframe@FXParticleSystem@@QAE@XZ,0x00001E7F,0x00001E7F,47,Code/Libraries/Source/WWVegas/WWMath/color.cpp,matched,Open-BFME5 clean C++; RandomAlphaKeyframe initializes a zero uniform alpha range and frame
-?d_00001faf@@YAXXZ,,0x00001FAF,45,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00401faf
-?d_00001fdc@@YAXXZ,,0x00001FDC,49,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00401fdc
 ?d_0000200d@@YAXXZ,,0x0000200D,260,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=operator=
-?d_00002111@@YAXXZ,,0x00002111,27,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00402111
 ?d_00002152@@YAXXZ,,0x00002152,10,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00402152
 ?d_000021c7@@YAXXZ,,0x000021C7,28,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_004021c7
-?d_000021e3@@YAXXZ,,0x000021E3,35,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Allocate
 ?d_00002226@@YAXXZ,,0x00002226,141,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00402226
 ?d_0000232b@@YAXXZ,,0x0000232B,34,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_0040232b
 ?d_0000240e@@YAXXZ,,0x0000240E,10,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=~ParticleSystemInfo
 ?d_00002459@@YAXXZ,,0x00002459,10,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=ParticleSystemInfo
 ?d_00002596@@YAXXZ,,0x00002596,28,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00402596
-?d_00002639@@YAXXZ,,0x00002639,66,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Clone
 ?d_0000275d@@YAXXZ,,0x0000275D,395,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_0040275d
-?d_00002942@@YAXXZ,,0x00002942,28,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00402942
-?d_0000295e@@YAXXZ,,0x0000295E,524,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_0040295e
-?d_00002bb5@@YAXXZ,,0x00002BB5,132,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00402bb5
 ?d_00002c39@@YAXXZ,,0x00002C39,10,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00402c39
 ?d_0000319f@@YAXXZ,,0x0000319F,6,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Catch@0040319f
-?d_00003295@@YAXXZ,,0x00003295,35,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=AtlWinModuleInit
 ?d_000032da@@YAXXZ,,0x000032DA,62,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_004032da
 ?d_00003318@@YAXXZ,,0x00003318,122,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00403318
 ?areApproxEqual@@YA_NMMM@Z,0x000034FA,0x000034FA,42,Code/Libraries/Source/WWVegas/WWMath/wwmath.cpp,matched,Open-BFME5 clean C++; float equality within a signed tolerance band
 ?scale@Coord3D@@QAEXM@Z,0x000036D1,0x000036D1,49,Code/Libraries/Source/WWVegas/WWMath/region.cpp,matched,Open-BFME5 clean C++; Coord3D component-wise scalar multiplication
 ?d_00003916@@YAXXZ,,0x00003916,101,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Rotate
-?d_000039bb@@YAXXZ,,0x000039BB,80,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Rotate
-?d_00003ace@@YAXXZ,,0x00003ACE,372,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=GetLengthEstimate
 ?d_00003c70@@YAXXZ,,0x00003C70,97,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=CrossProduct
 ?d_00004079@@YAXXZ,,0x00004079,357,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Matrix4D
 ??0Snapshot@@QAE@XZ,0x000053A6,0x000053A6,9,Code/GameEngine/Source/Common/System/Snapshot.cpp,matched,Open-BFME5 clean C++; Snapshot default constructor installing the vtable at 0x00BBB554
@@ -215,18 +191,12 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ??8Xfer@@UAEAAV0@AAM@Z,0x0000554C,0x0000554C,28,Code/GameEngine/Source/Common/System/Xfer.cpp,matched,Open-BFME5 clean C++; Xfer 'real' transfer operator at slot 28 of the retail vtable
 ??8@YA_NABVGameClientRandomVariable@@0@Z,0x00005568,0x00005568,51,Code/GameEngine/Source/GameClient/ClientRandomValue.cpp,matched,Open-BFME5 clean C++; GameClientRandomVariable equality over type and both Real bounds
 ??9@YA_NABVGameClientRandomVariable@@0@Z,0x0000559B,0x0000559B,21,Code/GameEngine/Source/GameClient/ClientRandomValue.cpp,matched,Open-BFME5 clean C++; GameClientRandomVariable inequality forwarding to the equality body
-?d_000055b0@@YAXXZ,,0x000055B0,30,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_004055b0
-?d_000056d1@@YAXXZ,,0x000056D1,103,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Init
-?d_0000575a@@YAXXZ,,0x0000575A,39,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_0040575a
 ?d_00005816@@YAXXZ,,0x00005816,43,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00405816
 ?d_00005841@@YAXXZ,,0x00005841,44,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00405841
 ?d_0000586d@@YAXXZ,,0x0000586D,43,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_0040586d
 ?d_00005898@@YAXXZ,,0x00005898,43,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00405898
-?d_000058c3@@YAXXZ,,0x000058C3,96,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=AtlWinModuleTerm
-?d_00006538@@YAXXZ,,0x00006538,18,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=RGBColor
 ?d_0000685e@@YAXXZ,,0x0000685E,10,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_0040685e
 ?d_00006960@@YAXXZ,,0x00006960,34,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00406960
-?d_00006ace@@YAXXZ,,0x00006ACE,35,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=CAtlWinModule
 ?d_00006b09@@YAXXZ,,0x00006B09,10,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00406b09
 ?d_00006cf0@@YAXXZ,,0x00006CF0,34,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00406cf0
 ?d_00006f80@@YAXXZ,,0x00006F80,241,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00406f80
@@ -267,7 +237,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_00009ef0@@YAXXZ,,0x00009EF0,108,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00409ef0
 ?d_0000b3c0@@YAXXZ,,0x0000B3C0,63,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_0040b3c0
 ?d_0000b6e0@@YAXXZ,,0x0000B6E0,33,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040b6e0
-?d_0000b710@@YAXXZ,,0x0000B710,30,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040b710
 ?d_0000b730@@YAXXZ,,0x0000B730,908,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040b730
 ?d_0000bac0@@YAXXZ,,0x0000BAC0,31,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040bac0
 ?d_0000bae0@@YAXXZ,,0x0000BAE0,34,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040bae0
@@ -1774,7 +1743,40 @@ _free,,0x00030830,17,Code/GameEngine/Source/Common/System/GameMemoryFree.cpp,mat
 ?getTextureFilename@ParticleSystemTemplate@FXParticleSystem@@QBE?AVAsciiString@@XZ,0x0000261E,0x0000261E,27,Code/GameEngine/Source/GameClient/ParticleSystemTemplate.cpp,matched,
 ?Multiply@Matrix4D@@QAEAAV1@ABV1@0@Z,0x000047DA,0x000047DA,918,Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp,matched,
 ?Set@Matrix4D@@QAEAAV1@ABVCoord3D@@@Z,0x00005BB8,0x00005BB8,116,Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp,matched,
+?Clone@Image@Gdiplus@@UAEPAV12@XZ,,0x00002639,66,Code/Libraries/Source/GdiPlus/gdiplusbitmap.cpp,matched,Open-BFME5 clean C++; vendored=gdiplus-1.0 Platform SDK inline emitted by the ATL CImage TU
+??1Image@Gdiplus@@UAE@XZ,,0x000012A3,15,Code/Libraries/Source/GdiPlus/gdiplusbitmap.cpp,matched,Open-BFME5 clean C++; vendored=gdiplus-1.0 Platform SDK inline
+?GetWidth@Image@Gdiplus@@QAEIXZ,,0x000012B2,36,Code/Libraries/Source/GdiPlus/gdiplusbitmap.cpp,matched,Open-BFME5 clean C++; vendored=gdiplus-1.0 Platform SDK inline
+?GetHeight@Image@Gdiplus@@QAEIXZ,,0x000012D6,36,Code/Libraries/Source/GdiPlus/gdiplusbitmap.cpp,matched,Open-BFME5 clean C++; vendored=gdiplus-1.0 Platform SDK inline
+?GetPixelFormat@Image@Gdiplus@@QAEHXZ,,0x000012FA,32,Code/Libraries/Source/GdiPlus/gdiplusbitmap.cpp,matched,Open-BFME5 clean C++; vendored=gdiplus-1.0 Platform SDK inline
+?GetPaletteSize@Image@Gdiplus@@QAEHXZ,,0x0000131A,36,Code/Libraries/Source/GdiPlus/gdiplusbitmap.cpp,matched,Open-BFME5 clean C++; vendored=gdiplus-1.0 Platform SDK inline
+?GetPalette@Image@Gdiplus@@QAE?AW4Status@2@PAUColorPalette@2@H@Z,,0x0000133E,34,Code/Libraries/Source/GdiPlus/gdiplusbitmap.cpp,matched,Open-BFME5 clean C++; vendored=gdiplus-1.0 Platform SDK inline
+?LockBits@Bitmap@Gdiplus@@QAE?AW4Status@2@PBVRect@2@IHPAVBitmapData@2@@Z,,0x000013DB,42,Code/Libraries/Source/GdiPlus/gdiplusbitmap.cpp,matched,Open-BFME5 clean C++; vendored=gdiplus-1.0 Platform SDK inline
+?UnlockBits@Bitmap@Gdiplus@@QAE?AW4Status@2@PAVBitmapData@2@@Z,,0x00001405,30,Code/Libraries/Source/GdiPlus/gdiplusbitmap.cpp,matched,Open-BFME5 clean C++; vendored=gdiplus-1.0 Platform SDK inline
+??0Bitmap@Gdiplus@@QAE@PBGH@Z,,0x00001368,58,Code/Libraries/Source/GdiPlus/gdiplusbitmap.cpp,matched,Open-BFME5 clean C++; vendored=gdiplus-1.0 Platform SDK inline
+??0Bitmap@Gdiplus@@QAE@HHHHPAE@Z,,0x000013A2,57,Code/Libraries/Source/GdiPlus/gdiplusbitmap.cpp,matched,Open-BFME5 clean C++; vendored=gdiplus-1.0 Platform SDK inline
+?Init@CInitGDIPlus@CImage@ATL@@QAE_NXZ,,0x0000145B,83,Code/Libraries/Source/ATL/atlimage.cpp,matched,Open-BFME5 clean C++; vendored=atl-7.1
+??_GImage@Gdiplus@@UAEPAXI@Z,,0x00002111,27,Code/Libraries/Source/GdiPlus/gdiplusbitmap.cpp,matched,Open-BFME5 clean C++; vendored=gdiplus-1.0 Platform SDK inline
+?Rotate@Coord2D@@QAEAAV1@ABV1@M@Z,0x000039BB,0x000039BB,80,Code/Libraries/Source/WWVegas/WWMath/coord2d_rotate.cpp,matched,Open-BFME5 clean C++; four x87 instructions for the fsincos retail fuses and ordinary C++ around them
+??$clamp@M@@YAMMMM@Z,,0x0000575A,39,Code/GameEngine/Source/Common/System/Geometry.cpp,matched,Open-BFME5 clean C++; PreRTS.h clamp template instantiated for Real
+??0Graphics@Gdiplus@@QAE@PAVImage@1@@Z,,0x00001FAF,45,Code/Libraries/Source/GdiPlus/gdiplusgraphics.cpp,matched,Open-BFME5 clean C++; vendored=gdiplus-1.0 Platform SDK inline
+?DrawImage@Graphics@Gdiplus@@QAE?AW4Status@2@PAVImage@2@HH@Z,,0x00001FDC,49,Code/Libraries/Source/GdiPlus/gdiplusgraphics.cpp,matched,Open-BFME5 clean C++; vendored=gdiplus-1.0 Platform SDK inline
+?RemoveAll@?$CSimpleArray@GV?$CSimpleArrayEqualHelper@G@ATL@@@ATL@@QAEXXZ,,0x000055B0,30,Code/Libraries/Source/ATL/atlbase.cpp,matched,Open-BFME5 clean C++; vendored=atl-7.1
+_AtlWinModuleInit@4,,0x00003295,35,Code/Libraries/Source/ATL/atlbase.cpp,matched,Open-BFME5 clean C++; vendored=atl-7.1
+??A?$CSimpleArray@GV?$CSimpleArrayEqualHelper@G@ATL@@@ATL@@QAEAAGH@Z,,0x000055CE,39,Code/Libraries/Source/ATL/atlbase.cpp,matched,Open-BFME5 clean C++; vendored=atl-7.1
+_AtlWinModuleTerm@8,,0x000058C3,96,Code/Libraries/Source/ATL/atlbase.cpp,matched,Open-BFME5 clean C++; vendored=atl-7.1
+?Init@?$CW2AEX@$0IA@@ATL@@AAEXPBGI@Z,,0x000056D1,103,Code/Libraries/Source/ATL/atlconv.cpp,matched,Open-BFME5 clean C++; vendored=atl-7.1
+?Allocate@?$CAtlSafeAllocBufferManager@VCCRTAllocator@ATL@@@_ATL_SAFE_ALLOCA_IMPL@ATL@@QAEPAXI@Z,,0x000021E3,35,Code/Libraries/Source/ATL/atlalloc.cpp,matched,Open-BFME5 clean C++; vendored=atl-7.1
+??1?$CAtlSafeAllocBufferManager@VCCRTAllocator@ATL@@@_ATL_SAFE_ALLOCA_IMPL@ATL@@QAE@XZ,,0x00001D80,26,Code/Libraries/Source/ATL/atlalloc.cpp,matched,Open-BFME5 clean C++; vendored=atl-7.1
+??0?$CA2WEX@$0IA@@ATL@@QAE@PBD@Z,,0x00002206,32,Code/Libraries/Source/ATL/atlconv.cpp,matched,Open-BFME5 clean C++; vendored=atl-7.1
+??0CAtlWinModule@ATL@@QAE@XZ,,0x00006ACE,35,Code/Libraries/Source/ATL/atlbase.cpp,matched,Open-BFME5 clean C++; vendored=atl-7.1
+??0RGBColor@@QAE@H@Z,0x00006538,0x00006538,18,Code/Libraries/Source/WWVegas/WWMath/color_rgbcolor_ctor.cpp,matched,Open-BFME5 clean C++; own TU so setFromInt is only a declaration
+?find@?$StringBase@D@@QBEPBDD@Z,0x0002C459,0x0002C459,44,Code/Libraries/Source/WWVegas/WWLib/string_base.cpp,matched,Open-BFME5 clean C++; while-loop scan at /O1 keeps the character parameter as a memory operand
+?GetLengthEstimate@Coord3D@@QBEMXZ,0x00003ACE,0x00003ACE,372,Code/Libraries/Source/WWVegas/WWMath/coord3d_lengthestimate.cpp,matched,wip
+?AtlThrow@ATL@@YGXJ@Z,,0x00001125,23,Code/Libraries/Source/ATL/atlconv.cpp,matched,Open-BFME5 clean C++; vendored=atl-7.1
+?Load@CImage@ATL@@QAEJPBD@Z,,0x00002BB5,132,Code/Libraries/Source/ATL/atlimage.cpp,matched,Open-BFME5 clean C++; vendored=atl-7.1
+?Create@CImage@ATL@@QAEHHHHK@Z,,0x00002942,28,Code/Libraries/Source/ATL/atlimage.cpp,matched,Open-BFME5 clean C++; vendored=atl-7.1
+?CreateFromGdiplusBitmap@CImage@ATL@@QAEJAAVBitmap@Gdiplus@@@Z,,0x0000295E,524,Code/Libraries/Source/ATL/atlimage.cpp,matched,Open-BFME5 clean C++; vendored=atl-7.1
+??_G_Locale_impl@_STL@@UAEPAXI@Z,,0x0000B710,30,Code/Libraries/Source/WWVegas/WWLib/stlport_locale_impl_dtor.cpp,matched,Open-BFME5 clean C++; scalar deleting destructor emitted with the vtable
 ?CreateEx@CImage@ATL@@QAEHHHHKPBKK@Z,,0x00002690,205,Code/Libraries/Source/ATL/atlimage.cpp,matched,vendored=atl-7.1
-??0?$CA2WEX@$0IA@@ATL@@QAE@PBD@Z,,0x00002206,32,Code/Libraries/Source/ATL/atlconv.cpp,matched,vendored=atl-7.1
-?_AtlGetThreadACPThunk@ATL@@YGIXZ,,0x000010CF,80,Code/Libraries/Source/ATL/atlconv.cpp,matched,vendored=atl-7.1
 ?_AtlGetThreadACPFake@ATL@@YGIXZ,,0x0000107F,80,Code/Libraries/Source/ATL/atlconv.cpp,matched,vendored=atl-7.1
+?_AtlGetThreadACPThunk@ATL@@YGIXZ,,0x000010CF,80,Code/Libraries/Source/ATL/atlconv.cpp,matched,vendored=atl-7.1

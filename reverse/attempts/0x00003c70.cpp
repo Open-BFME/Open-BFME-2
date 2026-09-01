@@ -1,29 +1,40 @@
-// ?d_00003c70@@YAXXZ
-// partial score=0.95 date=2026-08-31
-// ?d_00003c70@@YAXXZ
-// partial score=0.95 date=2026-08-31
-// cl: /O1 /arch:SSE2
-// exports.csv names 0x00003C70 ?CrossProduct@Coord3D@@QAEAAV1@ABUCoord3DBase@@0@Z.
-// 97 bytes against 97, every instruction the same kind in the same place, and
-// the arithmetic is confirmed: the result is cross(param1, param2) written into
-// this and this returned.
+// ?CrossProduct@Coord3D@@QAEAAV1@ABUCoord3DBase@@0@Z
+// partial score=0.97 date=2026-09-01
+// ?CrossProduct@Coord3D@@QAEAAV1@ABUCoord3DBase@@0@Z
+// partial score=0.97 date=2026-09-01
+// Coord3D::CrossProduct(const Coord3DBase &, const Coord3DBase &) at
+// 0x00003C70 (97 bytes). Named by exports.csv.
 //
-// What is left is the operand side of two products. Retail loads the param2
-// member into the register and multiplies by the param1 member:
-//     movss xmm0,[esi+8] ; mulss xmm0,[edx+4]
-// MSVC 7.1 emits the swap for the first two terms, and hoists that load ahead
-// of `push esi` because param1 is already in edx:
-//     movss xmm1,[edx+8] ; push esi ; ... ; mulss xmm1,[esi+4]
-// The third term already matches. Writing the products the other way round
-// changes nothing - MSVC canonicalizes a*b and b*a to the same code here - and
-// neither do float temporaries per term nor split assign-then-subtract
-// statements. The remaining lever is whatever makes the second argument the
-// first thing loaded.
+// 2026-09-01: two of the three terms are now exact. The lever the previous
+// attempt was missing is a NAMED TEMPORARY FOR THE MINUEND. Written as one
+// expression, `a - b`, MSVC 7.1 evaluates the subtrahend first and then swaps
+// its operands so the load comes from whichever base register was set up
+// first; assigning the minuend to a local and subtracting into it forces
+// retail's order. That fixed x outright and fixed the first half of y.
+//
+// One 9-byte window is left, at +0x33: the subtrahend of y.
+//     retail:  movss xmm1,[edx]   ; mulss xmm1,[esi+8]   (left.x * right.z)
+//     MSVC:    movss xmm1,[esi+8] ; mulss xmm1,[edx]
+// Everywhere else - five of the six products - MSVC loads whichever operand is
+// written first, which is how the source below is ordered. Only this one gets
+// swapped. Refuted as the lever: writing it right.z * left.x, a named local
+// for the whole subtrahend, a named local for left.x (both immediately before
+// the statement and hoisted to the top of the function, the latter costing
+// four bytes), computing the subtrahend before the minuend, minuend temps for
+// all three terms, right's three members hoisted into locals, a pointer
+// instead of a reference for right, and writing every product left-first.
+//
+// Next lever to try: something that changes which of edx/esi is live at that
+// point - the register assignment is the only thing that distinguishes this
+// product from the five that work.
+
 Coord3D &Coord3D::CrossProduct(const Coord3DBase &left, const Coord3DBase &right)
 {
-    x = right.z * left.y - right.y * left.z;
-    y = right.x * left.z - left.x * right.z;
-    z = left.x * right.y - left.y * right.x;
+    const float mx = right.z * left.y;
+    x = mx - right.y * left.z;
+    const float my = right.x * left.z;
+    y = my - left.x * right.z;
+    z = left.x * right.y - right.x * left.y;
 
     return *this;
 }

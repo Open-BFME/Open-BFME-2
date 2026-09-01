@@ -1,4 +1,6 @@
 // ?getIdNoCase@PooledString@@QBEIXZ
+// partial score=0.9 date=2026-09-01
+// ?getIdNoCase@PooledString@@QBEIXZ
 // partial score=0.9 date=2026-08-31
 // ?getIdNoCase@PooledString@@QBEIXZ
 // partial score=0.9 date=2026-08-31
@@ -13,6 +15,21 @@
 // ternary - the last of which drags in a frame. /O2 does reach for cmov here
 // but breaks all seven other bodies in PooledString.cpp, so the unit is /O1 and
 // this is a codegen shape, not identity.
+//
+// 2026-09-01: the split-into-its-own-unit fix that landed RGBColor(int) does
+// NOT work here. In an isolated TU containing only these two bodies, none of
+// -O2, -O1, -Ox, -O2 -G7, -O1 -G7, -Ox -G7, -O2 -G6 or -O2 -G7 -GX- reaches
+// the cmov, and neither do an if-statement over a pointer local, the same over
+// unsigned locals, or a reference bound to the ternary. So the earlier note's
+// "/O2 does reach for cmov here" was an effect of the rest of
+// PooledString.cpp, not of the flag. Whatever produces it needs surrounding
+// code, not a shape or a switch.
+//
+// Method note for whoever runs the next sweep: write the flags into the
+// `// cl:` line with LEADING DASHES, not slashes. Git Bash rewrites a
+// slash-leading argument into a Windows path before python ever sees it, so a
+// sweep that passes "/O2" through the shell silently tests something else -
+// the first run of this sweep did exactly that and had to be redone.
 //
 // ?isEqualNoCase@PooledString@@QBE_NABV1@@Z at 0x0060B82B is blocked behind the
 // same thing: it is this body inlined twice and compared, and both copies carry

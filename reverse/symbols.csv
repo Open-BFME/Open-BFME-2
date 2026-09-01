@@ -241,6 +241,31 @@ _atexit,0x006291F8,CRT atexit - forwards to _onexit at 0x006291D2 and folds its 
 ?parse@StreakDrawModuleTemplate@FXParticleSystem@@QAEXPAVINI@@@Z,0x0055FD2F,BFME2 export; the module template INI parser createTemplate calls after allocating
 ?parse@TerrainCollisionModuleTemplate@FXParticleSystem@@QAEXPAVINI@@@Z,0x00564497,BFME2 export; the module template INI parser createTemplate calls after allocating
 ?parse@TerrainFireEmissionModuleTemplate@FXParticleSystem@@QAEXPAVINI@@@Z,0x0055E5E4,BFME2 export; the module template INI parser createTemplate calls after allocating
-?Allocate@?$CAtlSafeAllocBufferManager@VCCRTAllocator@ATL@@@_ATL_SAFE_ALLOCA_IMPL@ATL@@QAEPAXK@Z,0x000021E3,ATL 7.1 _ATL_SAFE_ALLOCA heap arm; Ghidra names 0x21E3 Allocate and its body is the atlalloc.h node-list insert
-??1?$CAtlSafeAllocBufferManager@VCCRTAllocator@ATL@@@_ATL_SAFE_ALLOCA_IMPL@ATL@@QAE@XZ,0x00001D80,ATL 7.1 _ATL_SAFE_ALLOCA buffer-list destructor; body at 0x1D80 walks m_pHead freeing each node
-_memcpy,0x006291A8,CRT memcpy import thunk; Ghidra labels the retail call target at 0x6291A8
+_GdipAlloc@4,0x00628F86,GDI+ flat-API import thunk; retail target of the operator new in Gdiplus::GdiplusBase
+_GdipCloneImage@8,0x00628F8C,GDI+ flat-API import thunk; retail target of Gdiplus::Image::Clone
+_GdipDisposeImage@4,0x00628F26,GDI+ flat-API import thunk; retail target of Gdiplus::Image::~Image
+_GdipGetImageWidth@8,0x00628F2C,GDI+ flat-API import thunk; retail target of Gdiplus::Image::GetWidth
+_GdipGetImageHeight@8,0x00628F32,GDI+ flat-API import thunk; retail target of Gdiplus::Image::GetHeight
+_GdipGetImagePixelFormat@8,0x00628F38,GDI+ flat-API import thunk; retail target of Gdiplus::Image::GetPixelFormat
+_GdipGetImagePaletteSize@8,0x00628F3E,GDI+ flat-API import thunk; retail target of Gdiplus::Image::GetPaletteSize
+_GdipGetImagePalette@12,0x00628F44,GDI+ flat-API import thunk; retail target of Gdiplus::Image::GetPalette
+_GdipCreateBitmapFromFile@8,0x00628F4A,GDI+ flat-API import thunk; retail target of the Gdiplus::Bitmap filename constructor
+_GdipCreateBitmapFromFileICM@8,0x00628F50,GDI+ flat-API import thunk; ICM branch of the Gdiplus::Bitmap filename constructor
+_GdipCreateBitmapFromScan0@24,0x00628F56,GDI+ flat-API import thunk; retail target of the Gdiplus::Bitmap scan0 constructor
+_GdipBitmapLockBits@20,0x00628F5C,GDI+ flat-API import thunk; retail target of Gdiplus::Bitmap::LockBits
+_GdipBitmapUnlockBits@8,0x00628F62,GDI+ flat-API import thunk; retail target of Gdiplus::Bitmap::UnlockBits
+?GdiplusStartup@Gdiplus@@YG?AW4Status@1@PAKPBUGdiplusStartupInput@1@PAUGdiplusStartupOutput@1@@Z,0x00628F68,GDI+ import thunk; retail target of ATL CImage::CInitGDIPlus::Init
+_GdipFree@4,0x00628F74,GDI+ flat-API import thunk; retail target of the operator delete in Gdiplus::GdiplusBase
+_sin,0x00629216,CRT import thunk; retail target of the sin call in Coord2D::Rotate(float)
+_cos,0x0062920A,CRT import thunk; retail target of the cos call in Coord2D::Rotate(float)
+_GdipGetImageGraphicsContext@8,0x00628F7A,GDI+ flat-API import thunk; retail target of the Gdiplus::Graphics image constructor
+_GdipDrawImageI@16,0x00628F80,GDI+ flat-API import thunk; retail target of Gdiplus::Graphics::DrawImage
+?Init@CComCriticalSection@ATL@@QAEJXZ,0x0000323B,ATL 7.1 CComCriticalSection::Init; retail call target of AtlWinModuleInit with ecx = the module critical section at +4
+__CxxThrowException@8,0x00629094,MSVC 7.1 C++ throw helper; retail target of the ATL AtlThrow body at 0x00001125
+_memcpy,0x006291A8,CRT memcpy import thunk; retail target of the BI_BITFIELDS copy in ATL CImage::CreateEx
+?CreateFromGdiplusBitmap@CImage@ATL@@QAEJAAVBitmap@Gdiplus@@@Z,0x0000295E,ATL 7.1 CImage::CreateFromGdiplusBitmap; retail call target of CImage::Load at 0x00002BB5
+??1Bitmap@Gdiplus@@UAE@XZ,0x000012A3,ICF alias of Gdiplus::Image::~Image. MSVC 7.1 drops the dead derived vptr store from the implicit ~Bitmap and inlines the base body so the two COMDATs come out byte-identical; retail CImage::Load destroys its local Bitmap through this address
+?CreateEx@CImage@ATL@@QAEHHHHKPBKK@Z,0x00002690,ATL 7.1 CImage::CreateEx; retail call target of CImage::Create at 0x00002942 and identified in reverse/attempts/0x00002690.cpp
+?_AtlVerifyStackAvailable@_ATL_SAFE_ALLOCA_IMPL@ATL@@YA_NI@Z,0x00001020,ATL 7.1 _ATL_SAFE_ALLOCA stack probe; retail call target of the palette allocation in CImage::CreateFromGdiplusBitmap at 0x0000295E
+_GdipDeleteGraphics@4,0x00628F20,GDI+ flat-API import thunk; retail target of the Gdiplus::Graphics destructor
+__alloca_probe,0x00629000,MSVC 7.1 stack probe behind _alloca; retail target of the _ATL_SAFE_ALLOCA stack arm in CImage::CreateFromGdiplusBitmap
