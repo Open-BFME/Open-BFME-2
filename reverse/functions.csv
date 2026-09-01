@@ -270,7 +270,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_00012d10@@YAXXZ,,0x00012D10,232,Code/gen_asm/d_000112aa.asm,matched,gen-dump;ghidra=FUN_00412d10
 ?d_000130a0@@YAXXZ,,0x000130A0,102,Code/gen_asm/d_000112aa.asm,matched,gen-dump;ghidra=FUN_004130a0
 ?d_00013160@@YAXXZ,,0x00013160,241,Code/gen_asm/d_000112aa.asm,matched,gen-dump;ghidra=FUN_00413160
-?d_00013f10@@YAXXZ,,0x00013F10,189,Code/gen_asm/d_000112aa.asm,matched,gen-dump;ghidra=FUN_00413f10
 ?zero@ICoord3D@@QAEXXZ,0x00004DCF,0x00004DCF,11,Code/Libraries/Source/WWVegas/WWMath/icoord.cpp,matched,Open-BFME5 clean C++; ICoord3D zero from EA reference
 ??4ICoord3D@@QAEAAU0@ABU0@@Z,0x0000353A,0x0000353A,18,Code/Libraries/Source/WWVegas/WWMath/icoord.cpp,matched,Open-BFME5 clean C++; ICoord3D aggregate assignment from EA reference
 ??8ICoord2D@@QBE_NABUICoord2DBase@@@Z,0x00004CAD,0x00004CAD,28,Code/Libraries/Source/WWVegas/WWMath/icoord.cpp,matched,Open-BFME5 clean C++; ICoord2D equality from EA reference
@@ -1779,3 +1778,4 @@ _AtlWinModuleTerm@8,,0x000058C3,96,Code/Libraries/Source/ATL/atlbase.cpp,matched
 ??1_Time_Info@_STL@@QAE@XZ,,0x00007A00,243,Code/Libraries/Source/WWVegas/WWLib/stlport_time_info_dtor.cpp,matched,Open-BFME5 clean C++; stlport 4.5.3
 ??$_M_assign_dispatch@PAD@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAEAAV01@PAD0ABU__false_type@1@@Z,,0x000120F0,96,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_string_assign_dispatch.cpp,matched,Open-BFME5 clean C++; stlport 4.5.3
 ??0_Time_Info@_STL@@QAE@XZ,,0x00007920,212,Code/Libraries/Source/WWVegas/WWLib/stlport_time_info_ctor.cpp,matched,Open-BFME5 clean C++; stlport 4.5.3
+?_M_allocate_buffers@?$basic_filebuf@DV?$char_traits@D@_STL@@@_STL@@AAE_NPADH@Z,,0x00013F10,189,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_filebuf_allocate.cpp,matched,Open-BFME5 clean C++; stlport 4.5.3
