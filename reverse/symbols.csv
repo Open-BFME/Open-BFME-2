@@ -271,3 +271,4 @@ _sin,0x00629216,CRT import thunk; retail target of the sin call in Coord2D::Rota
 _sqrt,0x0062921C,MSVCRT import thunk identified by retail call target and Ghidra
 _strlen,0x00629170,BFME2 retail strlen thunk and call target for StringBase<char>::compare(const char *)
 ??_M@YGXPAXIHP6EX0@Z@Z,0x00629110,MSVC 7.1 eh vector destructor iterator; Ghidra names this address and the _Time_Info destructor at 0x00007A00 calls it three times for the 14, 24 and 2 element string arrays
+??$append@PAD@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@AAEAAV01@PAD0ABUforward_iterator_tag@1@@Z,0x0001B3E0,STLport 4.5.3 basic_string<char> three-argument append over a char* range; address read from the retail _M_assign_dispatch REL32 displacement at 0x00012140
