@@ -72,7 +72,46 @@ extern "C" int __cdecl abs(int value);
 
 namespace Gdiplus
 {
+
+enum Status
+{
+    Ok = 0
+};
+
+typedef void(__stdcall *DebugEventProc)(int level, char *message);
+
+struct GdiplusStartupInput
+{
+    unsigned int GdiplusVersion;
+    DebugEventProc DebugEventCallback;
+    int SuppressBackgroundThread;
+    int SuppressExternalCodecs;
+
+    GdiplusStartupInput(
+        DebugEventProc debugEventCallback = 0,
+        int suppressBackgroundThread = 0,
+        int suppressExternalCodecs = 0)
+    {
+        GdiplusVersion = 1;
+        DebugEventCallback = debugEventCallback;
+        SuppressBackgroundThread = suppressBackgroundThread;
+        SuppressExternalCodecs = suppressExternalCodecs;
+    }
+};
+
+typedef Status(__stdcall *NotificationHookProc)(unsigned long *token);
+typedef void(__stdcall *NotificationUnhookProc)(unsigned long token);
+
+struct GdiplusStartupOutput
+{
+    NotificationHookProc NotificationHook;
+    NotificationUnhookProc NotificationUnhook;
+};
+
+Status __stdcall GdiplusStartup(
+    unsigned long *token, const GdiplusStartupInput *input, GdiplusStartupOutput *output);
 void __stdcall GdiplusShutdown(unsigned long token);
+
 }
 
 namespace ATL
@@ -84,6 +123,7 @@ private:
     class CInitGDIPlus
     {
     public:
+        bool Init() throw();
         void ReleaseGDIPlus() throw();
         void IncreaseCImageCount() throw();
         void DecreaseCImageCount() throw();
@@ -140,6 +180,22 @@ private:
     static CInitGDIPlus s_initGDIPlus;
     void UpdateBitmapInfo(DIBOrientation orientation);
 };
+
+bool CImage::CInitGDIPlus::Init() throw()
+{
+    EnterCriticalSection(&m_sect);
+    bool fRet = true;
+    if (m_dwToken == 0)
+    {
+        Gdiplus::GdiplusStartupInput input;
+        Gdiplus::GdiplusStartupOutput output;
+        Gdiplus::Status status = Gdiplus::GdiplusStartup(&m_dwToken, &input, &output);
+        if (status != Gdiplus::Ok)
+            fRet = false;
+    }
+    LeaveCriticalSection(&m_sect);
+    return fRet;
+}
 
 void CImage::CInitGDIPlus::ReleaseGDIPlus() throw()
 {

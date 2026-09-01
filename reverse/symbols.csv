@@ -254,3 +254,4 @@ _GdipCreateBitmapFromFileICM@8,0x00628F50,GDI+ flat-API import thunk; ICM branch
 _GdipCreateBitmapFromScan0@24,0x00628F56,GDI+ flat-API import thunk; retail target of the Gdiplus::Bitmap scan0 constructor
 _GdipBitmapLockBits@20,0x00628F5C,GDI+ flat-API import thunk; retail target of Gdiplus::Bitmap::LockBits
 _GdipBitmapUnlockBits@8,0x00628F62,GDI+ flat-API import thunk; retail target of Gdiplus::Bitmap::UnlockBits
+?GdiplusStartup@Gdiplus@@YG?AW4Status@1@PAKPBUGdiplusStartupInput@1@PAUGdiplusStartupOutput@1@@Z,0x00628F68,GDI+ import thunk; retail target of ATL CImage::CInitGDIPlus::Init
