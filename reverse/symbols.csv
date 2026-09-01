@@ -266,3 +266,6 @@ _memcpy,0x006291A8,CRT memcpy import thunk; retail target of the BI_BITFIELDS co
 ?CreateFromGdiplusBitmap@CImage@ATL@@QAEJAAVBitmap@Gdiplus@@@Z,0x0000295E,ATL 7.1 CImage::CreateFromGdiplusBitmap; retail call target of CImage::Load at 0x00002BB5
 ??1Bitmap@Gdiplus@@UAE@XZ,0x000012A3,ICF alias of Gdiplus::Image::~Image. MSVC 7.1 drops the dead derived vptr store from the implicit ~Bitmap and inlines the base body so the two COMDATs come out byte-identical; retail CImage::Load destroys its local Bitmap through this address
 ?CreateEx@CImage@ATL@@QAEHHHHKPBKK@Z,0x00002690,ATL 7.1 CImage::CreateEx; retail call target of CImage::Create at 0x00002942 and identified in reverse/attempts/0x00002690.cpp
+?_AtlVerifyStackAvailable@_ATL_SAFE_ALLOCA_IMPL@ATL@@YA_NI@Z,0x00001020,ATL 7.1 _ATL_SAFE_ALLOCA stack probe; retail call target of the palette allocation in CImage::CreateFromGdiplusBitmap at 0x0000295E
+_GdipDeleteGraphics@4,0x00628F20,GDI+ flat-API import thunk; retail target of the Gdiplus::Graphics destructor
+__alloca_probe,0x00629000,MSVC 7.1 stack probe behind _alloca; retail target of the _ATL_SAFE_ALLOCA stack arm in CImage::CreateFromGdiplusBitmap

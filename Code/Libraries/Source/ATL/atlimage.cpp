@@ -1,4 +1,4 @@
-// cl: /O1
+// cl: -O1 -G7
 // Microsoft Visual C++ .NET 2003 ATL 7.1 atlimage.h members.
 
 struct HBITMAP__;
@@ -52,7 +52,13 @@ struct DIBSECTION
     DWORD dsOffset;
 };
 
-struct tagRGBQUAD;
+struct tagRGBQUAD
+{
+    unsigned char rgbBlue;
+    unsigned char rgbGreen;
+    unsigned char rgbRed;
+    unsigned char rgbReserved;
+};
 typedef tagRGBQUAD RGBQUAD;
 
 struct CRITICAL_SECTION
@@ -72,11 +78,85 @@ extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(CRITICAL_SE
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(CRITICAL_SECTION *section);
 extern "C" int __cdecl abs(int value);
 extern "C" __declspec(dllimport) void __cdecl free(void *block);
+extern "C" void *__cdecl memcpy(void *destination, const void *source, unsigned int size);
+extern "C" void *__cdecl _alloca(unsigned int size);
 
 namespace Gdiplus
 {
 
 class GpImage;
+
+typedef int INT;
+typedef unsigned long ARGB;
+
+typedef INT PixelFormat;
+
+#define PixelFormatIndexed 0x00010000
+#define PixelFormatGDI 0x00020000
+#define PixelFormatAlpha 0x00040000
+#define PixelFormatPAlpha 0x00080000
+#define PixelFormatCanonical 0x00200000
+
+#define PixelFormat32bppRGB (9 | (32 << 8) | PixelFormatGDI)
+#define PixelFormat32bppARGB (10 | (32 << 8) | PixelFormatAlpha | PixelFormatGDI | PixelFormatCanonical)
+
+inline UINT GetPixelFormatSize(PixelFormat pixfmt)
+{
+    return (pixfmt >> 8) & 0xff;
+}
+
+inline BOOL IsIndexedPixelFormat(PixelFormat pixfmt)
+{
+    return (pixfmt & PixelFormatIndexed) != 0;
+}
+
+inline BOOL IsAlphaPixelFormat(PixelFormat pixfmt)
+{
+    return (pixfmt & PixelFormatAlpha) != 0;
+}
+
+struct ColorPalette
+{
+public:
+    UINT Flags;
+    UINT Count;
+    ARGB Entries[1];
+};
+
+class BitmapData
+{
+public:
+    UINT Width;
+    UINT Height;
+    INT Stride;
+    PixelFormat PixelFormat;
+    void *Scan0;
+    unsigned int Reserved;
+};
+
+class Rect
+{
+public:
+    Rect(INT x, INT y, INT width, INT height)
+    {
+        X = x;
+        Y = y;
+        Width = width;
+        Height = height;
+    }
+
+    INT X;
+    INT Y;
+    INT Width;
+    INT Height;
+};
+
+enum ImageLockMode
+{
+    ImageLockModeRead = 0x0001
+};
+
+class GpGraphics;
 
 enum Status
 {
@@ -103,6 +183,8 @@ struct GdiplusStartupInput
         SuppressExternalCodecs = suppressExternalCodecs;
     }
 };
+
+extern "C" Status __stdcall GdipDeleteGraphics(GpGraphics *graphics);
 
 typedef Status(__stdcall *NotificationHookProc)(unsigned long *token);
 typedef void(__stdcall *NotificationUnhookProc)(unsigned long token);
@@ -133,6 +215,12 @@ public:
         return lastStatus;
     }
 
+    UINT GetWidth();
+    UINT GetHeight();
+    PixelFormat GetPixelFormat();
+    INT GetPaletteSize();
+    Status GetPalette(ColorPalette *palette, INT size);
+
 protected:
     GpImage *nativeImage;
     mutable Status lastResult;
@@ -143,6 +231,31 @@ class Bitmap : public Image
 {
 public:
     Bitmap(const unsigned short *filename, int useEmbeddedColorManagement = 0);
+    Bitmap(INT width, INT height, INT stride, PixelFormat format, unsigned char *scan0);
+
+    Status LockBits(const Rect *rect, UINT flags, PixelFormat format, BitmapData *lockedBitmapData);
+    Status UnlockBits(BitmapData *lockedBitmapData);
+};
+
+class Graphics
+{
+public:
+    Graphics(Image *image);
+
+    ~Graphics()
+    {
+        GdipDeleteGraphics(nativeGraphics);
+    }
+
+    Status DrawImage(Image *image, INT x, INT y);
+
+protected:
+    GpGraphics *nativeGraphics;
+    mutable Status lastResult;
+
+private:
+    Graphics(const Graphics &);
+    Graphics &operator=(const Graphics &);
 };
 
 }
@@ -179,7 +292,43 @@ private:
 
 typedef CA2WEX<> CT2W;
 
+template <typename N>
+inline N __stdcall AtlAlignUp(N n, unsigned long nAlign) throw()
+{
+    return (N((n + (nAlign - 1)) & ~(N(nAlign) - 1)));
 }
+
+class CCRTAllocator;
+
+namespace _ATL_SAFE_ALLOCA_IMPL
+{
+bool __cdecl _AtlVerifyStackAvailable(unsigned int Size);
+
+template <class Allocator>
+class CAtlSafeAllocBufferManager
+{
+private:
+    struct CAtlSafeAllocBufferNode
+    {
+        CAtlSafeAllocBufferNode *m_pNext;
+        unsigned char _pad[4];
+    };
+
+    CAtlSafeAllocBufferNode *m_pHead;
+
+public:
+    CAtlSafeAllocBufferManager() : m_pHead(0) {}
+
+    void *Allocate(unsigned int nRequestedSize);
+    ~CAtlSafeAllocBufferManager();
+};
+}
+
+}
+
+#define _ATL_SAFE_ALLOCA(nRequestedSize, nThreshold)                                      ((nRequestedSize <= nThreshold &&                                                       ATL::_ATL_SAFE_ALLOCA_IMPL::_AtlVerifyStackAvailable(nRequestedSize))                    ? _alloca(nRequestedSize)                                                             : _AtlSafeAllocaManager.Allocate(nRequestedSize))
+
+#define _ATL_SAFE_ALLOCA_DEF_THRESHOLD 1024
 
 namespace ATL
 {
@@ -212,6 +361,8 @@ private:
     };
 
 public:
+    static const DWORD createAlphaChannel = 0x01;
+
     enum DIBOrientation
     {
         DIBOR_DEFAULT,
@@ -232,6 +383,11 @@ public:
     BOOL CreateEx(int nWidth, int nHeight, int nBPP, DWORD eCompression,
         const DWORD *pdwBitfields, DWORD dwFlags) throw();
     HRESULT Load(const char *pszFileName) throw();
+
+    void *GetBits() throw() { return (m_pBits); }
+    int GetHeight() const throw() { return (m_nHeight); }
+    int GetPitch() const throw() { return (m_nPitch); }
+    int GetWidth() const throw() { return (m_nWidth); }
     HRESULT CreateFromGdiplusBitmap(Gdiplus::Bitmap &bmSrc) throw();
 
     static bool InitGDIPlus() throw()
@@ -469,6 +625,87 @@ HRESULT CImage::Load(const char *pszFileName) throw()
     }
 
     return (CreateFromGdiplusBitmap(bmSrc));
+}
+
+HRESULT CImage::CreateFromGdiplusBitmap(Gdiplus::Bitmap &bmSrc) throw()
+{
+    Gdiplus::PixelFormat eSrcPixelFormat = bmSrc.GetPixelFormat();
+    UINT nBPP = 32;
+    DWORD dwFlags = 0;
+    Gdiplus::PixelFormat eDestPixelFormat = PixelFormat32bppRGB;
+    if (eSrcPixelFormat & PixelFormatGDI)
+    {
+        nBPP = Gdiplus::GetPixelFormatSize(eSrcPixelFormat);
+        eDestPixelFormat = eSrcPixelFormat;
+    }
+    if (Gdiplus::IsAlphaPixelFormat(eSrcPixelFormat))
+    {
+        nBPP = 32;
+        dwFlags |= createAlphaChannel;
+        eDestPixelFormat = PixelFormat32bppARGB;
+    }
+
+    BOOL bSuccess = Create(bmSrc.GetWidth(), bmSrc.GetHeight(), nBPP, dwFlags);
+    if (!bSuccess)
+    {
+        return (0x80004005L);
+    }
+    _ATL_SAFE_ALLOCA_IMPL::CAtlSafeAllocBufferManager<CCRTAllocator> _AtlSafeAllocaManager;
+    Gdiplus::ColorPalette *pPalette = 0;
+    if (Gdiplus::IsIndexedPixelFormat(eSrcPixelFormat))
+    {
+        UINT nPaletteSize = bmSrc.GetPaletteSize();
+
+        pPalette = static_cast<Gdiplus::ColorPalette *>(
+            _ATL_SAFE_ALLOCA(nPaletteSize, _ATL_SAFE_ALLOCA_DEF_THRESHOLD));
+        if (pPalette == 0)
+            return 0x8007000EL;
+
+        bmSrc.GetPalette(pPalette, nPaletteSize);
+
+        RGBQUAD argbPalette[256];
+        for (UINT iColor = 0; iColor < pPalette->Count; iColor++)
+        {
+            Gdiplus::ARGB color = pPalette->Entries[iColor];
+            argbPalette[iColor].rgbRed = (unsigned char)((color >> 16) & 0xff);
+            argbPalette[iColor].rgbGreen = (unsigned char)((color >> 8) & 0xff);
+            argbPalette[iColor].rgbBlue = (unsigned char)((color >> 0) & 0xff);
+            argbPalette[iColor].rgbReserved = 0;
+        }
+
+        SetColorTable(0, pPalette->Count, argbPalette);
+    }
+
+    if (eDestPixelFormat == eSrcPixelFormat)
+    {
+        // The pixel formats are identical, so just memcpy the rows.
+        Gdiplus::BitmapData data;
+        Gdiplus::Rect rect(0, 0, GetWidth(), GetHeight());
+        bmSrc.LockBits(&rect, Gdiplus::ImageLockModeRead, eSrcPixelFormat, &data);
+
+        UINT nBytesPerRow = AtlAlignUp(nBPP * GetWidth(), 8) / 8;
+        unsigned char *pbDestRow = static_cast<unsigned char *>(GetBits());
+        unsigned char *pbSrcRow = static_cast<unsigned char *>(data.Scan0);
+        for (int y = 0; y < GetHeight(); y++)
+        {
+            memcpy(pbDestRow, pbSrcRow, nBytesPerRow);
+            pbDestRow += GetPitch();
+            pbSrcRow += data.Stride;
+        }
+
+        bmSrc.UnlockBits(&data);
+    }
+    else
+    {
+        // Let GDI+ work its magic
+        Gdiplus::Bitmap bmDest(GetWidth(), GetHeight(), GetPitch(), eDestPixelFormat,
+            static_cast<unsigned char *>(GetBits()));
+        Gdiplus::Graphics gDest(&bmDest);
+
+        gDest.DrawImage(&bmSrc, 0, 0);
+    }
+
+    return (0);
 }
 
 }

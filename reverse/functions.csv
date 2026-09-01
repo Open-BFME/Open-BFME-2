@@ -169,7 +169,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_00002596@@YAXXZ,,0x00002596,28,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00402596
 ?d_00002690@@YAXXZ,,0x00002690,205,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00402690
 ?d_0000275d@@YAXXZ,,0x0000275D,395,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_0040275d
-?d_0000295e@@YAXXZ,,0x0000295E,524,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_0040295e
 ?d_00002c39@@YAXXZ,,0x00002C39,10,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00402c39
 ?d_0000319f@@YAXXZ,,0x0000319F,6,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Catch@0040319f
 ?d_000032da@@YAXXZ,,0x000032DA,62,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_004032da
@@ -1779,3 +1778,4 @@ _AtlWinModuleTerm@8,,0x000058C3,96,Code/Libraries/Source/ATL/atlbase.cpp,matched
 ?AtlThrow@ATL@@YGXJ@Z,,0x00001125,23,Code/Libraries/Source/ATL/atlconv.cpp,matched,Open-BFME5 clean C++; vendored=atl-7.1
 ?Load@CImage@ATL@@QAEJPBD@Z,,0x00002BB5,132,Code/Libraries/Source/ATL/atlimage.cpp,matched,Open-BFME5 clean C++; vendored=atl-7.1
 ?Create@CImage@ATL@@QAEHHHHK@Z,,0x00002942,28,Code/Libraries/Source/ATL/atlimage.cpp,matched,Open-BFME5 clean C++; vendored=atl-7.1
+?CreateFromGdiplusBitmap@CImage@ATL@@QAEJAAVBitmap@Gdiplus@@@Z,,0x0000295E,524,Code/Libraries/Source/ATL/atlimage.cpp,matched,Open-BFME5 clean C++; vendored=atl-7.1
