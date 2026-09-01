@@ -1,4 +1,4 @@
-// cl: /O1
+// cl: /O1 /EHsc
 // Microsoft Visual C++ .NET 2003 ATL 7.1 atlconv.h members.
 //
 // CA2WEX keeps a t_nBufferLength-wide-character buffer inside the object and
@@ -62,7 +62,27 @@ LPSTR __stdcall AtlW2AHelper(LPSTR lpa, LPCWSTR lpw, int nChars, UINT acp)
 namespace ATL
 {
 
-__declspec(noreturn) void __stdcall AtlThrow(HRESULT hr);
+class CAtlException
+{
+public:
+	CAtlException(HRESULT hr) throw() :
+		m_hr(hr)
+	{
+	}
+
+	operator HRESULT() const throw()
+	{
+		return (m_hr);
+	}
+
+public:
+	HRESULT m_hr;
+};
+
+__declspec(noinline) __declspec(noreturn) inline void __stdcall AtlThrow(HRESULT hr)
+{
+	throw CAtlException(hr);
+}
 
 __declspec(noinline) __declspec(noreturn) inline void __stdcall AtlThrowLastWin32()
 {

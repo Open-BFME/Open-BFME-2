@@ -261,3 +261,4 @@ _cos,0x0062920A,CRT import thunk; retail target of the cos call in Coord2D::Rota
 _GdipGetImageGraphicsContext@8,0x00628F7A,GDI+ flat-API import thunk; retail target of the Gdiplus::Graphics image constructor
 _GdipDrawImageI@16,0x00628F80,GDI+ flat-API import thunk; retail target of Gdiplus::Graphics::DrawImage
 ?Init@CComCriticalSection@ATL@@QAEJXZ,0x0000323B,ATL 7.1 CComCriticalSection::Init; retail call target of AtlWinModuleInit with ecx = the module critical section at +4
+__CxxThrowException@8,0x00629094,MSVC 7.1 C++ throw helper; retail target of the ATL AtlThrow body at 0x00001125

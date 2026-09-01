@@ -146,7 +146,6 @@ _zError,,0x006946D0,21,Code/Libraries/Source/Compression/ZLib/zutil.c,matched,ve
 _zcfree,,0x00694710,13,Code/Libraries/Source/Compression/ZLib/zutil.c,matched,vendored=zlib-1.1.4
 _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matched,vendored=zlib-1.1.4
 ?d_000010cf@@YAXXZ,,0x000010CF,80,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_004010cf
-?d_00001125@@YAXXZ,,0x00001125,23,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00401125
 ??0ModuleTemplate@FXParticleSystem@@QAE@XZ,0x000011B4,0x000011B4,9,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; FXParticleSystem ModuleTemplate default constructor
 ??1ModuleTemplate@FXParticleSystem@@UAE@XZ,0x000011BD,0x000011BD,7,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; FXParticleSystem ModuleTemplate destructor
 ??0ModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x000011C4,0x000011C4,11,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; FXParticleSystem ModuleTemplate copy constructor
@@ -1779,3 +1778,4 @@ _AtlWinModuleTerm@8,,0x000058C3,96,Code/Libraries/Source/ATL/atlbase.cpp,matched
 ??0RGBColor@@QAE@H@Z,0x00006538,0x00006538,18,Code/Libraries/Source/WWVegas/WWMath/color_rgbcolor_ctor.cpp,matched,Open-BFME5 clean C++; own TU so setFromInt is only a declaration
 ?find@?$StringBase@D@@QBEPBDD@Z,0x0002C459,0x0002C459,44,Code/Libraries/Source/WWVegas/WWLib/string_base.cpp,matched,Open-BFME5 clean C++; while-loop scan at /O1 keeps the character parameter as a memory operand
 ?GetLengthEstimate@Coord3D@@QBEMXZ,0x00003ACE,0x00003ACE,372,Code/Libraries/Source/WWVegas/WWMath/coord3d_lengthestimate.cpp,matched,wip
+?AtlThrow@ATL@@YGXJ@Z,,0x00001125,23,Code/Libraries/Source/ATL/atlconv.cpp,matched,Open-BFME5 clean C++; vendored=atl-7.1
