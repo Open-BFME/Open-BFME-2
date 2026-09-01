@@ -164,7 +164,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_00001faf@@YAXXZ,,0x00001FAF,45,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00401faf
 ?d_00001fdc@@YAXXZ,,0x00001FDC,49,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00401fdc
 ?d_0000200d@@YAXXZ,,0x0000200D,260,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=operator=
-?d_00002111@@YAXXZ,,0x00002111,27,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00402111
 ?d_00002152@@YAXXZ,,0x00002152,10,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00402152
 ?d_000021c7@@YAXXZ,,0x000021C7,28,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_004021c7
 ?d_000021e3@@YAXXZ,,0x000021E3,35,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Allocate
@@ -1777,3 +1776,4 @@ _free,,0x00030830,17,Code/GameEngine/Source/Common/System/GameMemoryFree.cpp,mat
 ??0Bitmap@Gdiplus@@QAE@PBGH@Z,,0x00001368,58,Code/Libraries/Source/GdiPlus/gdiplusbitmap.cpp,matched,Open-BFME5 clean C++; vendored=gdiplus-1.0 Platform SDK inline
 ??0Bitmap@Gdiplus@@QAE@HHHHPAE@Z,,0x000013A2,57,Code/Libraries/Source/GdiPlus/gdiplusbitmap.cpp,matched,Open-BFME5 clean C++; vendored=gdiplus-1.0 Platform SDK inline
 ?Init@CInitGDIPlus@CImage@ATL@@QAE_NXZ,,0x0000145B,83,Code/Libraries/Source/ATL/atlimage.cpp,matched,Open-BFME5 clean C++; vendored=atl-7.1
+??_GImage@Gdiplus@@UAEPAXI@Z,,0x00002111,27,Code/Libraries/Source/GdiPlus/gdiplusbitmap.cpp,matched,Open-BFME5 clean C++; vendored=gdiplus-1.0 Platform SDK inline
