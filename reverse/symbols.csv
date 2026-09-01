@@ -241,3 +241,5 @@ _atexit,0x006291F8,CRT atexit - forwards to _onexit at 0x006291D2 and folds its 
 ?parse@StreakDrawModuleTemplate@FXParticleSystem@@QAEXPAVINI@@@Z,0x0055FD2F,BFME2 export; the module template INI parser createTemplate calls after allocating
 ?parse@TerrainCollisionModuleTemplate@FXParticleSystem@@QAEXPAVINI@@@Z,0x00564497,BFME2 export; the module template INI parser createTemplate calls after allocating
 ?parse@TerrainFireEmissionModuleTemplate@FXParticleSystem@@QAEXPAVINI@@@Z,0x0055E5E4,BFME2 export; the module template INI parser createTemplate calls after allocating
+_GdipAlloc@4,0x00628F86,GDI+ flat-API import thunk; retail target of the operator new in Gdiplus::GdiplusBase
+_GdipCloneImage@8,0x00628F8C,GDI+ flat-API import thunk; retail target of Gdiplus::Image::Clone
