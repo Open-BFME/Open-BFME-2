@@ -232,7 +232,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_00009170@@YAXXZ,,0x00009170,81,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00409170
 ?d_00009450@@YAXXZ,,0x00009450,385,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00409450
 ?d_000095e0@@YAXXZ,,0x000095E0,569,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_004095e0
-?d_000099d0@@YAXXZ,,0x000099D0,371,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_004099d0
 ?d_00009ef0@@YAXXZ,,0x00009EF0,108,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00409ef0
 ?d_0000b3c0@@YAXXZ,,0x0000B3C0,63,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_0040b3c0
 ?d_0000b6e0@@YAXXZ,,0x0000B6E0,33,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040b6e0
@@ -264,7 +263,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_0000ea90@@YAXXZ,,0x0000EA90,102,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040ea90
 ?d_0000eb60@@YAXXZ,,0x0000EB60,371,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040eb60
 ?d_0000ef40@@YAXXZ,,0x0000EF40,822,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040ef40
-?d_0000f2f0@@YAXXZ,,0x0000F2F0,375,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040f2f0
 ?d_0000f740@@YAXXZ,,0x0000F740,37,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040f740
 ?d_00011230@@YAXXZ,,0x00011230,122,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_00411230
 ?d_000112aa@@YAXXZ,,0x000112AA,2406,Code/gen_asm/d_000112aa.asm,matched,gen-dump;ghidra=FUN_004112aa
@@ -1779,3 +1777,5 @@ _AtlWinModuleTerm@8,,0x000058C3,96,Code/Libraries/Source/ATL/atlbase.cpp,matched
 ??$_M_range_initialize@PBD@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAEXPBD0@Z,,0x00008D00,84,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_string_range_init_2arg.cpp,matched,Open-BFME5 clean C++; stlport 4.5.3 two-argument overload
 ?do_get_weekday@?$time_get@DV?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@@_STL@@MBE?AV?$istreambuf_iterator@DV?$char_traits@D@_STL@@@2@V32@0AAVios_base@2@AAHPAUtm@@@Z,,0x00009920,167,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_time_get_names.cpp,matched,Open-BFME5 clean C++; stlport 4.5.3 narrow twin of 0x0000F510
 ?do_get_monthname@?$time_get@DV?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@@_STL@@MBE?AV?$istreambuf_iterator@DV?$char_traits@D@_STL@@@2@V32@0AAVios_base@2@AAHPAUtm@@@Z,,0x00009B50,179,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_time_get_names.cpp,matched,Open-BFME5 clean C++; stlport 4.5.3 narrow twin of 0x0000F5C0
+??$__match@V?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@PBV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@2@J@_STL@@YAPBV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@0@AAV?$istreambuf_iterator@DV?$char_traits@D@_STL@@@0@0PBV10@1PAJ@Z,,0x000099D0,371,Code/Libraries/Source/WWVegas/WWLib/stlport_time_get_match.cpp,matched,Open-BFME5 clean C++; stlport 4.5.3
+??$__match@V?$istreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@PBV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@2@J@_STL@@YAPBV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@0@AAV?$istreambuf_iterator@GV?$char_traits@G@_STL@@@0@0PBV10@1PAJ@Z,,0x0000F2F0,375,Code/Libraries/Source/WWVegas/WWLib/stlport_time_get_match.cpp,matched,Open-BFME5 clean C++; stlport 4.5.3
