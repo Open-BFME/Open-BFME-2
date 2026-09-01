@@ -1778,3 +1778,4 @@ _AtlWinModuleTerm@8,,0x000058C3,96,Code/Libraries/Source/ATL/atlbase.cpp,matched
 ??0?$CA2WEX@$0IA@@ATL@@QAE@PBD@Z,,0x00002206,32,Code/Libraries/Source/ATL/atlconv.cpp,matched,Open-BFME5 clean C++; vendored=atl-7.1
 ??0CAtlWinModule@ATL@@QAE@XZ,,0x00006ACE,35,Code/Libraries/Source/ATL/atlbase.cpp,matched,Open-BFME5 clean C++; vendored=atl-7.1
 ??0RGBColor@@QAE@H@Z,0x00006538,0x00006538,18,Code/Libraries/Source/WWVegas/WWMath/color_rgbcolor_ctor.cpp,matched,Open-BFME5 clean C++; own TU so setFromInt is only a declaration
+?find@?$StringBase@D@@QBEPBDD@Z,0x0002C459,0x0002C459,44,Code/Libraries/Source/WWVegas/WWLib/string_base.cpp,matched,Open-BFME5 clean C++; while-loop scan at /O1 keeps the character parameter as a memory operand

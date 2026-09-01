@@ -302,6 +302,22 @@ void StringBase<wchar_t>::set(const wchar_t *str)
 
 
 template <typename T>
+const T *StringBase<T>::find(T c) const
+{
+    const T *p = m_data ? &m_data->data[0] : (const T *)"";
+    const T *end = p + (m_data ? m_data->length : 0);
+
+    while (p != end) {
+        if (*p == c) {
+            return p;
+        }
+        ++p;
+    }
+
+    return 0;
+}
+
+template <typename T>
 void StringBase<T>::swap(StringBase<T> &other)
 {
     Header *tmp = m_data;
