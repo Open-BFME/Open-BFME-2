@@ -240,7 +240,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_00011e30@@YAXXZ,,0x00011E30,648,Code/gen_asm/d_000112aa.asm,matched,gen-dump;ghidra=FUN_00411e30
 ?d_00012190@@YAXXZ,,0x00012190,122,Code/gen_asm/d_000112aa.asm,matched,gen-dump;ghidra=FUN_00412190
 ?d_0001220a@@YAXXZ,,0x0001220A,2680,Code/gen_asm/d_000112aa.asm,matched,gen-dump;ghidra=FUN_0041220a
-?d_00012ca0@@YAXXZ,,0x00012CA0,99,Code/gen_asm/d_000112aa.asm,matched,gen-dump;ghidra=FUN_00412ca0
 ?zero@ICoord3D@@QAEXXZ,0x00004DCF,0x00004DCF,11,Code/Libraries/Source/WWVegas/WWMath/icoord.cpp,matched,Open-BFME5 clean C++; ICoord3D zero from EA reference
 ??4ICoord3D@@QAEAAU0@ABU0@@Z,0x0000353A,0x0000353A,18,Code/Libraries/Source/WWVegas/WWMath/icoord.cpp,matched,Open-BFME5 clean C++; ICoord3D aggregate assignment from EA reference
 ??8ICoord2D@@QBE_NABUICoord2DBase@@@Z,0x00004CAD,0x00004CAD,28,Code/Libraries/Source/WWVegas/WWMath/icoord.cpp,matched,Open-BFME5 clean C++; ICoord2D equality from EA reference
@@ -1828,3 +1827,4 @@ _AtlWinModuleTerm@8,,0x000058C3,96,Code/Libraries/Source/ATL/atlbase.cpp,matched
 ??$__write_integer_backward@_J@_STL@@YAPADPADH_J@Z,,0x0000D180,206,Code/Libraries/Source/WWVegas/WWLib/stlport_write_integer_backward_int64.cpp,matched,Open-BFME5 clean C++; stlport 4.5.3; signed twin of 0x0000CF60
 ?_M_do_lock@?$_STLP_mutex_spin@$0A@@_STL@@SAXPCJ@Z,,0x00007690,235,Code/Libraries/Source/WWVegas/WWLib/stlport_mutex_spin.cpp,matched,Open-BFME5 clean C++; stlport 4.5.3 spin lock
 ?_M_acquire_lock@_STLP_mutex_base@_STL@@QAEXXZ,,0x00007820,8,Code/Libraries/Source/WWVegas/WWLib/stlport_mutex_acquire.cpp,matched,Open-BFME5 clean C++; stlport 4.5.3
+??$mismatch@V?$istreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@PBG@_STL@@YA?AU?$pair@V?$istreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@PBG@0@V?$istreambuf_iterator@GV?$char_traits@G@_STL@@@0@0PBG@Z,,0x00012CA0,99,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_mismatch.cpp,matched,Open-BFME5 clean C++; stlport 4.5.3; wide twin of 0x00011C30
