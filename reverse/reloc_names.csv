@@ -9,7 +9,6 @@ name,target_rva,target_size,source,notes
 ??0?$_STLP_alloc_proxy@PADDV?$allocator@D@_STL@@@_STL@@QAE@ABV?$allocator@D@1@PAD@Z,0x00007410,11,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_string.cpp,reloc-derived;call-sites=1;identity=real
 ??8locale@_STL@@QBE_NABV01@@Z,0x0000BB10,295,Code/Libraries/Source/WWVegas/WWLib/stlport_locale_not_equal.cpp,reloc-derived;call-sites=1;identity=real
 ??$__put_integer@V?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@@_STL@@YA?AV?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@0@PAD0V10@AAVios_base@0@HD@Z,0x0000D050,214,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_num_put.cpp,reloc-derived;call-sites=4;identity=real
-??$__write_integer_backward@_J@_STL@@YAPADPADH_J@Z,0x0000D180,206,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_num_put.cpp,reloc-derived;call-sites=2;identity=real
 ??$__write_decimal_backward@J@_STL@@YAPADPADJHABU__true_type@0@@Z,0x0000D540,118,Code/Libraries/Source/WWVegas/WWLib/stlport_write_integer_backward.cpp,reloc-derived;call-sites=1;identity=real
 ?reserve@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@QAEXI@Z,0x0000DEA0,102,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_string.cpp,reloc-derived;call-sites=1;identity=real
 ??$mismatch@V?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@PAD@_STL@@YA?AU?$pair@V?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@PAD@0@V?$istreambuf_iterator@DV?$char_traits@D@_STL@@@0@0PAD@Z,0x00012CA0,99,Code/Libraries/Source/WWVegas/WWLib/stlport_money_get.cpp,reloc-derived;call-sites=1;identity=real

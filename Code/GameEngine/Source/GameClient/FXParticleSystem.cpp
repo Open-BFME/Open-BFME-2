@@ -244,7 +244,19 @@ const char *GetKey(ModuleCategory category)
 // Both emission info bases carry nothing but a vtable, except that the volume
 // one has a single byte behind it which its generated assignment copies on its
 // own - the vtable is left alone, as an assignment must.
-class EmissionVolumeInfo
+// Every *Info class below derives from Snapshot. Their destructors install
+// the vtable at 0x00BBB554 that Snapshot.cpp models, and the derived store is
+// dead the moment the base's follows it, which is why each one is a single
+// seven-byte store. Only the DESTRUCTOR slot is modelled here: giving the
+// base Snapshot.cpp's other three virtuals pushes GetSnapshotName from slot 2
+// to slot 4 and breaks 87 of this file's rows.
+class Snapshot
+{
+public:
+    virtual ~Snapshot() {}
+};
+
+class EmissionVolumeInfo : public Snapshot
 {
 public:
     EmissionVolumeInfo();
@@ -383,7 +395,7 @@ typedef SphereEmissionVolumeInfo &(SphereEmissionVolumeInfo::*SphereEmissionVolu
 
 SphereEmissionVolumeAssign g_sphereEmissionVolumeAssign = &SphereEmissionVolumeInfo::operator=;
 
-class EmissionVelocityInfo
+class EmissionVelocityInfo : public Snapshot
 {
 public:
     EmissionVelocityInfo();
@@ -534,7 +546,7 @@ const CategoryModuleClass<CATEGORY> *CategoryModuleClass<CATEGORY>::getFirst()
 
 // The four draw-module info classes carry nothing but their own vtable: both
 // constructors install it and the copy constructor ignores its argument.
-#define FX_VTABLE_ONLY_INFO(NAME)                                                                      class NAME                                                                                         {                                                                                                  public:                                                                                                NAME();                                                                                            NAME(const NAME &that);                                                                                                                                                                               virtual ~NAME();                                                                                    virtual void v1() = 0;                                                                             virtual const char *GetSnapshotName();                                                         };                                                                                                                                                                                                    NAME::NAME() {}                                                                                    NAME::NAME(const NAME &that) {}                                                                                                                                                                       const char *NAME::GetSnapshotName()                                                                {                                                                                                      return #NAME;                                                                                  }
+#define FX_VTABLE_ONLY_INFO(NAME)                                                                      class NAME : public Snapshot                                                                       {                                                                                                  public:                                                                                                NAME();                                                                                            NAME(const NAME &that);                                                                                                                                                                               virtual ~NAME();                                                                                    virtual void v1() = 0;                                                                             virtual const char *GetSnapshotName();                                                         };                                                                                                                                                                                                    NAME::NAME() {}                                                                                    NAME::NAME(const NAME &that) {}                                                                                                                                                                       const char *NAME::GetSnapshotName()                                                                {                                                                                                      return #NAME;                                                                                  }
 
 FX_VTABLE_ONLY_INFO(DefaultDrawModuleInfo)
 FX_VTABLE_ONLY_INFO(StreakDrawModuleInfo)
@@ -552,7 +564,7 @@ ButterflyDrawModuleInfo::~ButterflyDrawModuleInfo() {}
 // These four carry members this file has not recovered, but their assignments
 // are real out-of-line functions their module templates call, so they are
 // declared rather than defaulted.
-#define FX_DECLARED_ASSIGN_INFO(NAME)                                                                  class NAME                                                                                         {                                                                                                  public:                                                                                                NAME();                                                                                            NAME(const NAME &that);                                                                                                                                                                               NAME &operator=(const NAME &that);                                                                                                                                                                    virtual ~NAME();                                                                                   virtual void v1() = 0;                                                                             virtual const char *GetSnapshotName();                                                         };                                                                                                                                                                                                    NAME::NAME() {}                                                                                    NAME::NAME(const NAME &that) {}                                                                                                                                                                       const char *NAME::GetSnapshotName()                                                                {                                                                                                      return #NAME;                                                                                  }
+#define FX_DECLARED_ASSIGN_INFO(NAME)                                                                  class NAME : public Snapshot                                                                       {                                                                                                  public:                                                                                                NAME();                                                                                            NAME(const NAME &that);                                                                                                                                                                               NAME &operator=(const NAME &that);                                                                                                                                                                    virtual ~NAME();                                                                                   virtual void v1() = 0;                                                                             virtual const char *GetSnapshotName();                                                         };                                                                                                                                                                                                    NAME::NAME() {}                                                                                    NAME::NAME(const NAME &that) {}                                                                                                                                                                       const char *NAME::GetSnapshotName()                                                                {                                                                                                      return #NAME;                                                                                  }
 
 FX_DECLARED_ASSIGN_INFO(RenderObjectDrawModuleInfo)
 FX_DECLARED_ASSIGN_INFO(GpuDrawModuleInfo)
@@ -716,7 +728,7 @@ template class CategoryModuleInfo<8>;
 // Seventeen members and no grouping anywhere: the generated assignment copies
 // every one of them with its own move rather than blocking any run together,
 // which is what separates loose scalars from a sub-object here.
-class WindModuleInfo
+class WindModuleInfo : public Snapshot
 {
 public:
     // Declared only: retail has a real one at 0x003A53C4 and this file has no
@@ -844,7 +856,7 @@ DefaultPhysicsModuleInfo::DefaultPhysicsModuleInfo(const DefaultPhysicsModuleInf
     m_unknown21 = that.m_unknown21;
 }
 
-class LightningDrawModuleInfo
+class LightningDrawModuleInfo : public Snapshot
 {
 public:
     LightningDrawModuleInfo(const LightningDrawModuleInfo &that);
@@ -953,7 +965,7 @@ LightningEmissionInfo::LightningEmissionInfo(const LightningEmissionInfo &that)
     m_unknown80 = that.m_unknown80;
 }
 
-class DefaultUpdateModuleInfo
+class DefaultUpdateModuleInfo : public Snapshot
 {
 public:
     DefaultUpdateModuleInfo(const DefaultUpdateModuleInfo &that);
@@ -1003,7 +1015,7 @@ TerrainFireEmissionAssign g_terrainFireEmissionAssign = &TerrainFireEmissionInfo
 LightningEmissionAssign g_lightningEmissionAssign = &LightningEmissionInfo::operator=;
 DefaultUpdateAssign g_defaultUpdateAssign = &DefaultUpdateModuleInfo::operator=;
 
-class RenderObjectUpdateModuleInfo
+class RenderObjectUpdateModuleInfo : public Snapshot
 {
 public:
     RenderObjectUpdateModuleInfo(const RenderObjectUpdateModuleInfo &that);
@@ -1042,7 +1054,7 @@ struct FXKeyframe
     unsigned int m_frame;
 };
 
-class DefaultAlphaModuleInfo
+class DefaultAlphaModuleInfo : public Snapshot
 {
 public:
     virtual ~DefaultAlphaModuleInfo();
@@ -1069,7 +1081,7 @@ DefaultAlphaModuleInfo *fxCopyDefaultAlphaModuleInfo(void *storage,
     return new (storage) DefaultAlphaModuleInfo(that);
 }
 
-class DefaultColorModuleInfo
+class DefaultColorModuleInfo : public Snapshot
 {
 public:
     virtual ~DefaultColorModuleInfo();
