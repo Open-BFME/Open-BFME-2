@@ -248,7 +248,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_00011230@@YAXXZ,,0x00011230,122,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_00411230
 ?d_000112aa@@YAXXZ,,0x000112AA,2406,Code/gen_asm/d_000112aa.asm,matched,gen-dump;ghidra=FUN_004112aa
 ?d_00011e30@@YAXXZ,,0x00011E30,648,Code/gen_asm/d_000112aa.asm,matched,gen-dump;ghidra=FUN_00411e30
-?d_000120c0@@YAXXZ,,0x000120C0,41,Code/gen_asm/d_000112aa.asm,matched,gen-dump;ghidra=FUN_004120c0
 ?d_00012190@@YAXXZ,,0x00012190,122,Code/gen_asm/d_000112aa.asm,matched,gen-dump;ghidra=FUN_00412190
 ?d_0001220a@@YAXXZ,,0x0001220A,2680,Code/gen_asm/d_000112aa.asm,matched,gen-dump;ghidra=FUN_0041220a
 ?d_00012ca0@@YAXXZ,,0x00012CA0,99,Code/gen_asm/d_000112aa.asm,matched,gen-dump;ghidra=FUN_00412ca0
@@ -1789,3 +1788,4 @@ _AtlWinModuleTerm@8,,0x000058C3,96,Code/Libraries/Source/ATL/atlbase.cpp,matched
 ??9locale@_STL@@QBE_NABV01@@Z,,0x0000BC40,18,Code/Libraries/Source/WWVegas/WWLib/stlport_locale_not_equal.cpp,matched,Open-BFME5 clean C++; stlport 4.5.3
 ??0?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE@PBDABV?$allocator@D@1@@Z,,0x00009100,108,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_string_cstr_ctor.cpp,matched,Open-BFME5 clean C++; stlport 4.5.3; two-argument c-string constructor
 ?_M_allocate_block@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@AAEXI@Z,,0x00007460,43,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_string_allocate_block.cpp,matched,Open-BFME5 clean C++; stlport 4.5.3; narrow twin of 0x0000BFD0
+?assign@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAEAAV12@ABV12@@Z,,0x000120C0,41,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_string_assign_copy.cpp,matched,Open-BFME5 clean C++; stlport 4.5.3
