@@ -1,41 +1,46 @@
-// ?Cross_Product@Vector3@@QAEXABV1@0@Z
-// partial score=0.96 date=2026-09-02
+// ?CrossProduct@Coord3D@@QAEAAV1@ABUCoord3DBase@@0@Z
+// partial score=0.98 date=2026-09-02
+// ?CrossProduct@Coord3D@@QAEAAV1@ABUCoord3DBase@@0@Z
+// partial score=0.98 date=2026-09-02
 // cl: /O2 /arch:SSE /DNDEBUG /MD
 //
-// WWMath Vector3 cross product, the SSE scalar form: three movss/mulss pairs
-// and a subss each, written straight through to the destination in ecx.
-// The arithmetic is the upstream body from WWMath/vector3.h -
-//   X = a.Y * b.Z - a.Z * b.Y
-//   Y = a.Z * b.X - a.X * b.Z
-//   Z = a.X * b.Y - a.Y * b.X
-// with the destination as `this` rather than a third pointer parameter, which
-// is what the `ret 8` and the two stack arguments say.
+// The SSE scalar cross product at 0x00003C70. Returning Coord3D & rather
+// than void is the lever the two earlier banks were missing: it is what
+// produces the mov eax, ecx and the push esi / pop esi that the void form
+// could not account for, and it takes the body from 93 bytes to exactly 97.
 //
-// 93 bytes against 97, and the four are one register choice. Retail copies the
-// destination out of ecx into eax and pushes esi to hold the second source;
-// MSVC 7.1 keeps the destination in ecx and gets by with eax and edx, so it
-// spends no push, no pop and no mov. /G5, /G6, /G7, /O1, /Ox, /arch:SSE2 and
-// aliasing `this` into a named local all give the same 93.
+// 81 of 97 bytes now match, in one window: 0x00 through 0x32 and 0x4F to the
+// end are exact, and every difference is inside 0x33..0x4E. Both differences
+// are the same thing - retail loads left.x into a register and multiplies by
+// the right operand, cl 13.10 loads the right operand and multiplies by
+// left.x. Naming the minuends is what fixed the x term and the first half of
+// y; naming the subtrahends too changes nothing, swapping the operands in the
+// source changes nothing (cl canonicalises), and hoisting left.x into a local
+// is much worse - it moves the first difference from 0x33 back to 0x03.
 //
-// The name is a hypothesis. The arithmetic is verbatim from WWMath's
-// vector3.h, but that header declares Cross_Product as a STATIC taking the
-// destination as a third pointer - which would be __cdecl and `ret 0`. Nothing
-// in the image calls this body directly, so the two-argument member form is
-// inferred from the calling convention alone.
-
-class Vector3
+// The name is still inferred: ret 8 with two stack arguments, the destination
+// in ecx and returned in eax makes it a two-argument member returning a
+// reference. Nothing in the image calls this body directly to settle it.
+struct Coord3DBase
 {
-public:
-	void Cross_Product(const Vector3 &a, const Vector3 &b);
-
-	float X;
-	float Y;
-	float Z;
+    float x;
+    float y;
+    float z;
 };
 
-void Vector3::Cross_Product(const Vector3 &a, const Vector3 &b)
+class Coord3D : public Coord3DBase
 {
-	X = (a.Y * b.Z - a.Z * b.Y);
-	Y = (a.Z * b.X - a.X * b.Z);
-	Z = (a.X * b.Y - a.Y * b.X);
+public:
+    Coord3D &CrossProduct(const Coord3DBase &left, const Coord3DBase &right);
+};
+
+Coord3D &Coord3D::CrossProduct(const Coord3DBase &left, const Coord3DBase &right)
+{
+    const float xt = left.y * right.z;
+    x = xt - left.z * right.y;
+    const float yt = left.z * right.x;
+    y = yt - left.x * right.z;
+    const float zt = left.x * right.y;
+    z = zt - left.y * right.x;
+    return *this;
 }
