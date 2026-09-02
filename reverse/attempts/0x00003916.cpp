@@ -1,56 +1,58 @@
 // ?Rotate@Coord2D@@QAEAAV1@M@Z
-// partial score=0.96 date=2026-09-01
-// ?Rotate@Coord2D@@QAEAAV1@M@Z
-// partial score=0.96 date=2026-09-01
-// Coord2D::Rotate(float) at 0x00003916 (101 bytes).
+// partial score=0.95 date=2026-09-02
+// cl: /O1 /arch:SSE2
+// Coord2D::Rotate(float) at 0x00003916 - the in-place twin of the two-argument
+// Rotate at 0x000039BB.
 //
-// 97 of 101 bytes are in place with the source below: prologue, both CRT
-// calls, the fsincos block, the mixed x87/SSE tail and both member stores all
-// land. What is left is which local sits at [ebp-4].
+// Retail computes the sine and cosine THREE times over: a call to sin, a call
+// to cos, and then the same fsincos block the other overload carries, which
+// overwrites both. The library calls are dead by the time the asm runs and the
+// compiler keeps them anyway, so the source has to spell all three out - that
+// is 0x17 bytes of the body and it matches exactly.
 //
-// Retail spills the FIRST call's result to [ebp-4] and the second to [ebp-8].
-// MSVC 7.1 does the opposite here: with two float locals that are spilled from
-// call returns it fills bottom-up, first spill to [ebp-8], second to [ebp-4].
-// Refuted as the deciding factor: declaration order, uninitialised-then-
-// assigned, identifier names (cosine/sine, acosine/zsine, aa/zzzz, sine/
-// tCosine - no alphabetical or length rule survives all four), the order of
-// the two fstp inside the __asm, and the order of the two tail statements.
-// The sibling at 0x000039BB, which has no calls before its __asm, DOES follow
-// declaration order, so the call spills are what take the choice away.
-//
-// Swapping the source to call cos() first makes all 101 bytes match except the
-// two REL32s, which then point at 0x0062920A/0x00629216 the other way round.
-// So either retail called cos first and reverse/ghidra_functions.csv has the
-// two thunks swapped, or MSVC needs a shape not tried here. The thunk table
-// reads cos/fabs/sin/sqrt at 0x62920A/0x629210/0x629216/0x62921C - alphabetical,
-// which is why the ledger pins were left as Ghidra names them.
-//
-// Next shapes worth trying: a two-element array or a small struct for the pair,
-// a helper that returns both, or __asm writing through pointers - anything that
-// takes the slot choice away from the call-return spill allocator.
-//
-// Re-checked 2026-09-01 with the flags spelled -O1 -arch:SSE2 -Oi (leading
-// DASHES - Git Bash rewrites a slash-leading argument into a Windows path
-// before cl sees it, so a sweep passing "/O1" through the shell tests
-// something else): /Oi still gives fcos + fsin and keeps both results in x87
-// registers. The fsincos reading stands.
+// STILL OPEN: the two float slots are swapped. Retail puts sin's result at
+// [ebp-4] and cos's at [ebp-8]; MSVC 7.1 does the reverse, and every later
+// reference follows, so 23 of the 101 bytes differ even though the length and
+// the instruction sequence are right. The slot choice is driven by the __asm
+// block, not by the declarations: swapping the declaration order, splitting
+// the declarations from the assignments, and swapping both the fstp order and
+// the names in the arithmetic all leave it where it is.
+
+extern "C" double __cdecl sin(double x);
+extern "C" double __cdecl cos(double x);
+
+struct Coord2DBase
+{
+    float x;
+    float y;
+};
+
+class Coord2D : public Coord2DBase
+{
+public:
+    Coord2D &Rotate(float angle);
+};
 
 Coord2D &Coord2D::Rotate(float angle)
 {
-    float sine = (float)sin(angle);
-    float tCosine = (float)cos(angle);
+    float sine;
+    float cosine;
+
+    sine = (float)sin(angle);
+    cosine = (float)cos(angle);
 
     __asm
     {
         fld angle
         fsincos
-        fstp tCosine
+        fstp cosine
         fstp sine
     }
 
-    float new_x = tCosine * x - sine * y;
+    float rotated = x * cosine - y * sine;
 
-    y = sine * x + tCosine * y;
-    x = new_x;
+    y = y * cosine + x * sine;
+    x = rotated;
+
     return *this;
 }
