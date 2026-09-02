@@ -278,3 +278,4 @@ __aulldvrm,0x006296E0,MSVC 7.1 unsigned 64-bit divide-and-remainder helper; Ghid
 ?_Stl_string_to_double@_STL@@YANPBD@Z,0x0001ACE0,STLport 4.5.3 string-to-double conversion; address read from the __string_to_float wrappers REL32 at 0x0001AFB7
 ?_Stl_string_to_long_double@_STL@@YAOPBD@Z,0x0001AE40,STLport 4.5.3 string-to-long-double conversion; address read from the long double __string_to_float REL32 at 0x0001AFF7
 ??1LZHLDecompressor@@QAE@XZ,0x00692300,LZH-Light decompressor destructor; address read from the LZHLDestroyDecompressor REL32 at 0x0068ED8B
+??1?$num_put@DV?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@@_STL@@MAE@XZ,0x000072E0,STLport 4.5.3 narrow num_put destructor; trivial so the linker folded it onto ??1facet at this address - slot 0 of its vftable at 0x007BBA2C reaches the folded scalar deleting destructor at 0x000072C0
