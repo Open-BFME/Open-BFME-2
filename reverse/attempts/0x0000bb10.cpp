@@ -1,5 +1,5 @@
 // ??8locale@_STL@@QBE_NABV01@@Z
-// partial score=0.97 date=2026-09-02
+// partial score=0.98 date=2026-09-02
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
 // stlport
 //
@@ -7,7 +7,7 @@
 // the same locale; otherwise the names decide, and a nameless locale is
 // never equal to anything.
 
-extern "C" void __cdecl free(void *block);
+void __cdecl free(void *block);
 
 namespace _STL
 {
