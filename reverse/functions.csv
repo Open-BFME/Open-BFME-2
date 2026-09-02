@@ -247,7 +247,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_00012190@@YAXXZ,,0x00012190,122,Code/gen_asm/d_000112aa.asm,matched,gen-dump;ghidra=FUN_00412190
 ?d_0001220a@@YAXXZ,,0x0001220A,2680,Code/gen_asm/d_000112aa.asm,matched,gen-dump;ghidra=FUN_0041220a
 ?d_00012ca0@@YAXXZ,,0x00012CA0,99,Code/gen_asm/d_000112aa.asm,matched,gen-dump;ghidra=FUN_00412ca0
-?d_000130a0@@YAXXZ,,0x000130A0,102,Code/gen_asm/d_000112aa.asm,matched,gen-dump;ghidra=FUN_004130a0
 ?zero@ICoord3D@@QAEXXZ,0x00004DCF,0x00004DCF,11,Code/Libraries/Source/WWVegas/WWMath/icoord.cpp,matched,Open-BFME5 clean C++; ICoord3D zero from EA reference
 ??4ICoord3D@@QAEAAU0@ABU0@@Z,0x0000353A,0x0000353A,18,Code/Libraries/Source/WWVegas/WWMath/icoord.cpp,matched,Open-BFME5 clean C++; ICoord3D aggregate assignment from EA reference
 ??8ICoord2D@@QBE_NABUICoord2DBase@@@Z,0x00004CAD,0x00004CAD,28,Code/Libraries/Source/WWVegas/WWMath/icoord.cpp,matched,Open-BFME5 clean C++; ICoord2D equality from EA reference
@@ -1789,3 +1788,4 @@ _AtlWinModuleTerm@8,,0x000058C3,96,Code/Libraries/Source/ATL/atlbase.cpp,matched
 ??$append@PBG@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@AAEAAV01@PBG0ABUforward_iterator_tag@1@@Z,,0x00013160,241,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_string_append.cpp,matched,Open-BFME5 clean C++; stlport 4.5.3; wide twin of the narrow append pinned at 0x0001B3E0
 ??$__write_integer_backward@_K@_STL@@YAPADPADH_K@Z,,0x0000CF60,238,Code/Libraries/Source/WWVegas/WWLib/stlport_write_integer_backward_64.cpp,matched,Open-BFME5 clean C++; stlport 4.5.3; 64-bit twin of 0x0000D320 and 0x0000D460
 ??_GBitmap@Gdiplus@@UAEPAXI@Z,,0x00001E43,36,Code/Libraries/Source/GdiPlus/gdiplusbitmap_dtor.cpp,matched,Open-BFME5 clean C++; slot 0 of the Bitmap vftable; ~Image folded in whole
+??$_M_assign_dispatch@PAG@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@QAEAAV01@PAG0ABU__false_type@1@@Z,,0x000130A0,102,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_string_assign_dispatch.cpp,matched,Open-BFME5 clean C++; stlport 4.5.3; wide twin of 0x000120F0
