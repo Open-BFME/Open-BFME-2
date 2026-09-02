@@ -258,7 +258,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_00012190@@YAXXZ,,0x00012190,122,Code/gen_asm/d_000112aa.asm,matched,gen-dump;ghidra=FUN_00412190
 ?d_0001220a@@YAXXZ,,0x0001220A,2680,Code/gen_asm/d_000112aa.asm,matched,gen-dump;ghidra=FUN_0041220a
 ?d_00012ca0@@YAXXZ,,0x00012CA0,99,Code/gen_asm/d_000112aa.asm,matched,gen-dump;ghidra=FUN_00412ca0
-?d_00012d10@@YAXXZ,,0x00012D10,232,Code/gen_asm/d_000112aa.asm,matched,gen-dump;ghidra=FUN_00412d10
 ?d_000130a0@@YAXXZ,,0x000130A0,102,Code/gen_asm/d_000112aa.asm,matched,gen-dump;ghidra=FUN_004130a0
 ?d_00013160@@YAXXZ,,0x00013160,241,Code/gen_asm/d_000112aa.asm,matched,gen-dump;ghidra=FUN_00413160
 ?zero@ICoord3D@@QAEXXZ,0x00004DCF,0x00004DCF,11,Code/Libraries/Source/WWVegas/WWMath/icoord.cpp,matched,Open-BFME5 clean C++; ICoord3D zero from EA reference
@@ -1788,3 +1787,4 @@ _AtlWinModuleTerm@8,,0x000058C3,96,Code/Libraries/Source/ATL/atlbase.cpp,matched
 ??_G?$time_get@GV?$istreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@@_STL@@MAEPAXI@Z,,0x00009020,30,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_time_get_dtor.cpp,matched,Open-BFME5 clean C++; stlport 4.5.3; slot 0 of vftable 0x00BBBBEC
 ??1?$time_put@GV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@@_STL@@MAE@XZ,,0x000090B0,73,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_time_put_dtor.cpp,matched,Open-BFME5 clean C++; stlport 4.5.3; vftable 0x00BBBC0C with _Time_Info at +0x0C
 ??_G?$time_put@GV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@@_STL@@MAEPAXI@Z,,0x00009090,30,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_time_put_dtor.cpp,matched,Open-BFME5 clean C++; stlport 4.5.3; slot 0 of vftable 0x00BBBC0C
+?_M_insert_aux@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@AAEPAGPAGG@Z,,0x00012D10,232,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_string_insert_aux.cpp,matched,Open-BFME5 clean C++; STLport 4.5.3 wide twin of 0x00011D20

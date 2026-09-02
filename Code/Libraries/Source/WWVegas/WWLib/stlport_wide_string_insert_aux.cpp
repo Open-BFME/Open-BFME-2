@@ -1,32 +1,24 @@
-// ?_M_insert_aux@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@AAEPAGPAGG@Z
-// partial score=0.96 date=2026-09-02
-// ?_M_insert_aux@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@AAEPAGPAGG@Z
-// partial score=0.96 date=2026-09-02
-//
-// The wide twin of the _M_insert_aux landed at 0x00011D20, name taken from the
-// reloc-derived table. Two corrections to the narrow unit carry it most of the
-// way: the traits move takes a BYTE count so the element count doubles, and
-// __copy_trivial is a DECLARATION here - retail calls 0x000179B0 twice where
-// the narrow unit inlines the memmove, and inlining it costs 57 bytes.
-//
-// 240 bytes against 232, and every one of those eight is the same choice:
-// retail keeps the position parameter in ebx, MSVC 7.1 keeps it in ebp, and
-// [ebp] needs a displacement byte that [ebx] does not. Nothing else differs -
-// normalise the two registers and the disassembly is identical throughout.
-// -G7 gives 236 by folding one memory operand differently but still picks ebp;
-// -O2 and -Ox give 240.
-//
-// The narrow twin, which does inline __copy_trivial, gets ebx. That extra
-// register pressure is the most likely lever and is what the next attempt
-// should reach for - something that occupies ebp without changing the calls.
-
 // cl: -DNDEBUG -DWIN32 -D_WINDOWS -MD -EHsc -D_STLP_USE_STATIC_LIB
 // stlport
 //
 // STLport 4.5.3 basic_string<wchar_t>::_M_insert_aux, the wide twin of
 // 0x00011D20. Same body; the character type carries through the traits move
 // (a byte count, so twice the element count), the uninitialized_copy and the
-// proxy's sizeof multiply.
+// proxy's sizeof multiply. __copy_trivial is a DECLARATION here where the
+// narrow unit defines it inline: retail calls 0x000179B0 twice, and inlining
+// the memmove costs 57 bytes.
+//
+// Two shapes in the else branch are load-bearing, and they pull in opposite
+// directions - a previous attempt sat eight bytes long with each of them
+// picked the other way round:
+//
+//   * `__new_finish = __new_pos + 1` and not the equivalent through
+//     __new_start. Written the long way MSVC 7.1 keeps the position parameter
+//     in ebp instead of ebx, and every [ebp] needs the displacement byte that
+//     [ebx] does not.
+//   * `__extra` has to be its own named constant. Folded into the __len
+//     expression the growth term becomes the base of the `lea` that adds it
+//     to the old length, and retail has the old length there.
 
 typedef unsigned int size_t;
 
@@ -148,7 +140,7 @@ basic_string<CharT, Traits, Alloc>::_M_insert_aux(CharT *__p, CharT __c)
         pointer __new_finish = __new_start;
         __new_pos = uninitialized_copy(_M_start, __p, __new_start);
         _Construct(__new_pos, __c);
-        __new_finish = __new_start + (__new_pos - __new_start + 1);
+        __new_finish = __new_pos + 1;
         __new_finish = uninitialized_copy(__p, _M_finish, __new_finish);
         _M_construct_null(__new_finish);
         _M_deallocate_block();
