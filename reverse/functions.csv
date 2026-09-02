@@ -218,14 +218,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_00007670@@YAXXZ,,0x00007670,27,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00407670
 ?d_00007690@@YAXXZ,,0x00007690,235,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00407690
 ?d_00007820@@YAXXZ,,0x00007820,8,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00407820
-?d_00008f40@@YAXXZ,,0x00008F40,30,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00408f40
-?d_00008f60@@YAXXZ,,0x00008F60,73,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00408f60
-?d_00008fb0@@YAXXZ,,0x00008FB0,30,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00408fb0
-?d_00008fd0@@YAXXZ,,0x00008FD0,73,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00408fd0
-?d_00009020@@YAXXZ,,0x00009020,30,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00409020
-?d_00009040@@YAXXZ,,0x00009040,73,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00409040
-?d_00009090@@YAXXZ,,0x00009090,30,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00409090
-?d_000090b0@@YAXXZ,,0x000090B0,73,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_004090b0
 ?d_00009100@@YAXXZ,,0x00009100,108,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00409100
 ?d_00009450@@YAXXZ,,0x00009450,385,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00409450
 ?d_000095e0@@YAXXZ,,0x000095E0,569,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_004095e0
@@ -1788,3 +1780,11 @@ _AtlWinModuleTerm@8,,0x000058C3,96,Code/Libraries/Source/ATL/atlbase.cpp,matched
 ?_M_seek_return@?$basic_filebuf@DV?$char_traits@D@_STL@@@_STL@@AAE?AV?$fpos@H@2@JH@Z,,0x000143D0,81,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_filebuf_seek_return.cpp,matched,Open-BFME5 clean C++; stlport 4.5.3
 ?_M_seek_return@?$basic_filebuf@GV?$char_traits@G@_STL@@@_STL@@AAE?AV?$fpos@H@2@JH@Z,,0x00014DA0,77,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_filebuf_seek_return.cpp,matched,Open-BFME5 clean C++; stlport 4.5.3 wide twin of 0x000143D0
 ??1?$_String_base@DV?$allocator@D@_STL@@@_STL@@QAE@XZ,,0x0000B3C0,63,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_string_base_dtor.cpp,matched,Open-BFME5 clean C++; stlport 4.5.3; unwind funclet destroys the proxy at this+8
+??1?$time_get@DV?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@@_STL@@MAE@XZ,,0x00008F60,73,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_time_get_dtor.cpp,matched,Open-BFME5 clean C++; stlport 4.5.3; vftable 0x00BBBBC0 with _Time_Info at +0x0C
+??_G?$time_get@DV?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@@_STL@@MAEPAXI@Z,,0x00008F40,30,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_time_get_dtor.cpp,matched,Open-BFME5 clean C++; stlport 4.5.3; slot 0 of vftable 0x00BBBBC0
+??1?$time_put@DV?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@@_STL@@MAE@XZ,,0x00008FD0,73,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_time_put_dtor.cpp,matched,Open-BFME5 clean C++; stlport 4.5.3; vftable 0x00BBBBE0 with _Time_Info at +0x0C
+??_G?$time_put@DV?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@@_STL@@MAEPAXI@Z,,0x00008FB0,30,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_time_put_dtor.cpp,matched,Open-BFME5 clean C++; stlport 4.5.3; slot 0 of vftable 0x00BBBBE0
+??1?$time_get@GV?$istreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@@_STL@@MAE@XZ,,0x00009040,73,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_time_get_dtor.cpp,matched,Open-BFME5 clean C++; stlport 4.5.3; vftable 0x00BBBBEC with _Time_Info at +0x0C
+??_G?$time_get@GV?$istreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@@_STL@@MAEPAXI@Z,,0x00009020,30,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_time_get_dtor.cpp,matched,Open-BFME5 clean C++; stlport 4.5.3; slot 0 of vftable 0x00BBBBEC
+??1?$time_put@GV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@@_STL@@MAE@XZ,,0x000090B0,73,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_time_put_dtor.cpp,matched,Open-BFME5 clean C++; stlport 4.5.3; vftable 0x00BBBC0C with _Time_Info at +0x0C
+??_G?$time_put@GV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@@_STL@@MAEPAXI@Z,,0x00009090,30,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_time_put_dtor.cpp,matched,Open-BFME5 clean C++; stlport 4.5.3; slot 0 of vftable 0x00BBBC0C
