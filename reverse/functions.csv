@@ -223,7 +223,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_0000b6e0@@YAXXZ,,0x0000B6E0,33,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040b6e0
 ?d_0000b730@@YAXXZ,,0x0000B730,908,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040b730
 ?d_0000bac0@@YAXXZ,,0x0000BAC0,31,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040bac0
-?d_0000bae0@@YAXXZ,,0x0000BAE0,34,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040bae0
 ?d_0000bb10@@YAXXZ,,0x0000BB10,295,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040bb10
 ?d_0000bc40@@YAXXZ,,0x0000BC40,18,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040bc40
 ?d_0000bc60@@YAXXZ,,0x0000BC60,314,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040bc60
@@ -1789,3 +1788,4 @@ _AtlWinModuleTerm@8,,0x000058C3,96,Code/Libraries/Source/ATL/atlbase.cpp,matched
 ??1facet@locale@_STL@@MAE@XZ,,0x000072E0,7,Code/Libraries/Source/WWVegas/WWLib/stlport_locale_facet_dtor.cpp,matched,Open-BFME5 clean C++; stlport 4.5.3; ICF owner of every trivial facet subclass destructor
 ??_Gfacet@locale@_STL@@MAEPAXI@Z,,0x00007490,30,Code/Libraries/Source/WWVegas/WWLib/stlport_locale_facet_dtor.cpp,matched,Open-BFME5 clean C++; stlport 4.5.3; slot 0 of the facet vftable at 0x00BBB9BC
 ??_G?$num_put@DV?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@@_STL@@MAEPAXI@Z,,0x000072C0,30,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_num_put.cpp,matched,Open-BFME5 clean C++; stlport 4.5.3; slot 0 of the num_put vftable at 0x007BBA2C; ICF-folded with every other trivial facet subclass
+?name@locale@_STL@@QBE?AV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@2@XZ,,0x0000BAE0,34,Code/Libraries/Source/WWVegas/WWLib/stlport_locale_name.cpp,matched,Open-BFME5 clean C++; stlport 4.5.3; the impl carries the name string at +0x0C
