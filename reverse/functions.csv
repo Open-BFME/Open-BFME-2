@@ -226,7 +226,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_0000c120@@YAXXZ,,0x0000C120,133,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040c120
 ?d_0000c1b0@@YAXXZ,,0x0000C1B0,382,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040c1b0
 ?d_0000d050@@YAXXZ,,0x0000D050,214,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040d050
-?d_0000d180@@YAXXZ,,0x0000D180,206,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040d180
 ?d_0000d540@@YAXXZ,,0x0000D540,118,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040d540
 ?d_0000d650@@YAXXZ,,0x0000D650,818,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040d650
 ?d_0000daa0@@YAXXZ,,0x0000DAA0,277,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040daa0
@@ -1828,3 +1827,4 @@ _AtlWinModuleTerm@8,,0x000058C3,96,Code/Libraries/Source/ATL/atlbase.cpp,matched
 ??4?$vector@U?$pair@HH@_STL@@V?$allocator@U?$pair@HH@_STL@@@2@@_STL@@QAEAAV01@ABV01@@Z,,0x00627CC0,208,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_pair.cpp,matched,Open-BFME5 clean C++; found by locate
 ?do_put@?$time_put@DV?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@@_STL@@MBE?AV?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@2@V32@AAVios_base@2@DPBUtm@@DD@Z,,0x00009EF0,108,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_time_put_do_put.cpp,matched,Open-BFME5 clean C++; stlport 4.5.3; narrow twin of 0x0000F680
 ??$__write_decimal_backward@_J@_STL@@YAPADPAD_JHABU__true_type@0@@Z,,0x0000D250,124,Code/Libraries/Source/WWVegas/WWLib/stlport_write_decimal_backward_64.cpp,matched,Open-BFME5 clean C++; stlport 4.5.3; the __int64 instantiation
+??$__write_integer_backward@_J@_STL@@YAPADPADH_J@Z,,0x0000D180,206,Code/Libraries/Source/WWVegas/WWLib/stlport_write_integer_backward_int64.cpp,matched,Open-BFME5 clean C++; stlport 4.5.3; signed twin of 0x0000CF60
