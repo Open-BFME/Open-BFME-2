@@ -231,7 +231,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_0000dcc0@@YAXXZ,,0x0000DCC0,384,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040dcc0
 ?d_0000dea0@@YAXXZ,,0x0000DEA0,102,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040dea0
 ?d_0000df10@@YAXXZ,,0x0000DF10,5,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=thunk_FUN_004179b0
-?d_0000ea90@@YAXXZ,,0x0000EA90,102,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040ea90
 ?d_0000eb60@@YAXXZ,,0x0000EB60,371,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040eb60
 ?d_0000ef40@@YAXXZ,,0x0000EF40,822,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040ef40
 ?d_0000f740@@YAXXZ,,0x0000F740,37,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040f740
@@ -1828,3 +1827,4 @@ _AtlWinModuleTerm@8,,0x000058C3,96,Code/Libraries/Source/ATL/atlbase.cpp,matched
 ?_M_do_lock@?$_STLP_mutex_spin@$0A@@_STL@@SAXPCJ@Z,,0x00007690,235,Code/Libraries/Source/WWVegas/WWLib/stlport_mutex_spin.cpp,matched,Open-BFME5 clean C++; stlport 4.5.3 spin lock
 ?_M_acquire_lock@_STLP_mutex_base@_STL@@QAEXXZ,,0x00007820,8,Code/Libraries/Source/WWVegas/WWLib/stlport_mutex_acquire.cpp,matched,Open-BFME5 clean C++; stlport 4.5.3
 ??$mismatch@V?$istreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@PBG@_STL@@YA?AU?$pair@V?$istreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@PBG@0@V?$istreambuf_iterator@GV?$char_traits@G@_STL@@@0@0PBG@Z,,0x00012CA0,99,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_mismatch.cpp,matched,Open-BFME5 clean C++; stlport 4.5.3; wide twin of 0x00011C30
+??0?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@QAE@ABV01@@Z,,0x0000EA90,102,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_string_copy_ctor.cpp,matched,STLport 4.5.3 wide string copy constructor; the narrow twin at 0x00009170 mirrored with get_allocator instead of a default-constructed allocator and the three-argument range initialiser
