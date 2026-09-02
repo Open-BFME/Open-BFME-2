@@ -230,7 +230,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_00009450@@YAXXZ,,0x00009450,385,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00409450
 ?d_000095e0@@YAXXZ,,0x000095E0,569,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_004095e0
 ?d_00009ef0@@YAXXZ,,0x00009EF0,108,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00409ef0
-?d_0000b3c0@@YAXXZ,,0x0000B3C0,63,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_0040b3c0
 ?d_0000b6e0@@YAXXZ,,0x0000B6E0,33,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040b6e0
 ?d_0000b730@@YAXXZ,,0x0000B730,908,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040b730
 ?d_0000bac0@@YAXXZ,,0x0000BAC0,31,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040bac0
@@ -1788,3 +1787,4 @@ _AtlWinModuleTerm@8,,0x000058C3,96,Code/Libraries/Source/ATL/atlbase.cpp,matched
 ?LZHLDestroyDecompressor@@YAXPAX@Z,,0x0068ED80,27,Code/Libraries/Source/Compression/LZHCompress/NoxCompress.cpp,matched,Open-BFME5 clean C++
 ?_M_seek_return@?$basic_filebuf@DV?$char_traits@D@_STL@@@_STL@@AAE?AV?$fpos@H@2@JH@Z,,0x000143D0,81,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_filebuf_seek_return.cpp,matched,Open-BFME5 clean C++; stlport 4.5.3
 ?_M_seek_return@?$basic_filebuf@GV?$char_traits@G@_STL@@@_STL@@AAE?AV?$fpos@H@2@JH@Z,,0x00014DA0,77,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_filebuf_seek_return.cpp,matched,Open-BFME5 clean C++; stlport 4.5.3 wide twin of 0x000143D0
+??1?$_String_base@DV?$allocator@D@_STL@@@_STL@@QAE@XZ,,0x0000B3C0,63,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_string_base_dtor.cpp,matched,Open-BFME5 clean C++; stlport 4.5.3; unwind funclet destroys the proxy at this+8
