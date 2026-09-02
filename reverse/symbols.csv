@@ -1,23 +1,48 @@
 name,address,notes
-?setRange@GameClientRandomVariable@@QAEXMMW4DistributionType@1@@Z,0x002341E7,BFME2 export and retail call target for RandomAlphaKeyframe construction
 ??$_M_assign_dispatch@PAD@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@AAEAAV01@PAD0ABU__false_type@1@@Z,0x000130A0,STLport 4.5.3 narrow string assign dispatch; address read from retail basic_string::operator= REL32 displacement
 ??$_M_do_get_integer@V?$istreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@_KG@_STL@@YA?AV?$istreambuf_iterator@GV?$char_traits@G@_STL@@@0@AAV10@0AAVios_base@0@AAHAA_KPAG@Z,0x00009F90,harvested from retail REL32 displacement at 0x00009F60
 ??$_M_get_base_or_zero@V?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@D@_STL@@YAHAAV?$istreambuf_iterator@DV?$char_traits@D@_STL@@@0@0AAVios_base@0@PAD@Z,0x00007C90,STLport 4.5.3 narrow integer base scanner; address read from retail signed 64-bit integer scanner REL32 displacement
 ??$_M_get_base_or_zero@V?$istreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@G@_STL@@YAHAAV?$istreambuf_iterator@GV?$char_traits@G@_STL@@@0@0AAVios_base@0@PAG@Z,0x0000A0F0,STLport 4.5.3 wide integer base scanner; address read from retail wide _M_do_get_integer REL32 displacement
 ??$__copy@PAGV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@H@_STL@@YA?AV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@0@PAG0V10@ABUrandom_access_iterator_tag@0@PAH@Z,0x0000E9C0,harvested from retail REL32 displacement at 0x0000F6D0
 ??$__copy_aux@PADPAD@_STL@@YAPADPAD00ABU__true_type@0@@Z,0x000179B0,harvested from retail REL32 displacement at 0x00015F50
+??$__find@PBGG@_STL@@YAPBGPBG0ABGABUrandom_access_iterator_tag@0@@Z,0x00010F60,STLport 4.5.3 wide random-access find over a const range; identical code to the non-const instantiation already matched at this address and folded onto it by /OPT:ICF. Address read from retail __get_fdigit REL32 displacement
 ??$__find_if@PBDU?$_Eq_int_bound@V?$char_traits@D@_STL@@@_STL@@@_STL@@YAPBDPBD0U?$_Eq_int_bound@V?$char_traits@D@_STL@@@0@ABUrandom_access_iterator_tag@0@@Z,0x006BE8C0,harvested from retail REL32 displacement at 0x006BE980
 ??$__lower_bound@PBIIU?$less@I@_STL@@H@_STL@@YAPBIPBI0ABIU?$less@I@0@PAH@Z,0x00568D2F,harvested from retail REL32 displacement at 0x0016DB60
+??$__match@V?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@PAV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@2@J@_STL@@YAPAV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@0@AAV?$istreambuf_iterator@DV?$char_traits@D@_STL@@@0@0PAV10@1PAJ@Z,0x000099D0,ICF alias of the const instantiation now claimed at this address; the narrow twin of the pin above
+??$__match@V?$istreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@PAV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@2@J@_STL@@YAPAV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@0@AAV?$istreambuf_iterator@GV?$char_traits@G@_STL@@@0@0PAV10@1PAJ@Z,0x0000F2F0,ICF alias of the const instantiation now claimed at this address; the non-const one compiles to identical code and do_get_monthname reaches __match through it
 ??$__put_integer@V?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@@_STL@@YA?AV?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@0@PAD0V10@AAVios_base@0@HD@Z,0x0000D050,harvested from retail REL32 displacement at 0x0000D2D0
 ??$__write_decimal_backward@J@_STL@@YAPADPADJHABU__true_type@0@@Z,0x0000D540,STLport 4.5.3 signed decimal writer; the retail body is the upstream __write_decimal_backward __true_type overload instruction for instruction (see reverse/attempts/0x0000d540.cpp) and 0x0000D460 is its only caller
 ??$__write_integer_backward@K@_STL@@YAPADPADHK@Z,0x0000D320,harvested from retail REL32 displacement at 0x00010C10
 ??$append@PBD@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@AAEAAV01@PBD0ABUforward_iterator_tag@1@@Z,0x0001B3E0,STLport 4.5.3 narrow string forward-iterator append; address read from retail basic_string::assign REL32 displacement
 ??$mismatch@V?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@PAD@_STL@@YA?AU?$pair@V?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@PAD@0@V?$istreambuf_iterator@DV?$char_traits@D@_STL@@@0@0PAD@Z,0x00012CA0,harvested from retail REL32 displacement at 0x00019C20
+??0?$CategoryModuleTemplateBase@$00@FXParticleSystem@@QAE@ABV01@@Z,0x001F421B,BFME2 export; ICF-folded module base copy constructor - all nine categories share this address
+??0?$CategoryModuleTemplateBase@$01@FXParticleSystem@@QAE@ABV01@@Z,0x001F421B,BFME2 export; ICF-folded module base copy constructor - all nine categories share this address
+??0?$CategoryModuleTemplateBase@$02@FXParticleSystem@@QAE@ABV01@@Z,0x001F421B,BFME2 export; ICF-folded module base copy constructor - all nine categories share this address
+??0?$CategoryModuleTemplateBase@$03@FXParticleSystem@@QAE@ABV01@@Z,0x001F421B,BFME2 export; ICF-folded module base copy constructor - all nine categories share this address
+??0?$CategoryModuleTemplateBase@$04@FXParticleSystem@@QAE@ABV01@@Z,0x001F421B,BFME2 export; ICF-folded module base copy constructor - all nine categories share this address
+??0?$CategoryModuleTemplateBase@$05@FXParticleSystem@@QAE@ABV01@@Z,0x001F421B,BFME2 export; ICF-folded module base copy constructor - all nine categories share this address
+??0?$CategoryModuleTemplateBase@$06@FXParticleSystem@@QAE@ABV01@@Z,0x001F421B,BFME2 export ordinal 82; same ICF-folded module base copy constructor as the $07 pin - category 7 is wind
+??0?$CategoryModuleTemplateBase@$07@FXParticleSystem@@QAE@ABV01@@Z,0x001F421B,BFME2 export; the two-vtable module base copy constructor CategoryModuleTemplate calls - ICF folds all nine categories onto this address
+??0?$CategoryModuleTemplateBase@$0A@@FXParticleSystem@@QAE@ABV01@@Z,0x001F421B,BFME2 export; ICF-folded module base copy constructor - all nine categories share this address
+??0?$DefaultModuleTemplate@$00@FXParticleSystem@@QAE@ABV01@@Z,0x003A622A,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
+??0?$DefaultModuleTemplate@$00@FXParticleSystem@@QAE@XZ,0x003A9732,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
+??0?$DefaultModuleTemplate@$01@FXParticleSystem@@QAE@ABV01@@Z,0x003A79A5,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
+??0?$DefaultModuleTemplate@$01@FXParticleSystem@@QAE@XZ,0x003A98A9,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
+??0?$DefaultModuleTemplate@$02@FXParticleSystem@@QAE@ABV01@@Z,0x003A77F2,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
+??0?$DefaultModuleTemplate@$02@FXParticleSystem@@QAE@XZ,0x003A9852,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
+??0?$DefaultModuleTemplate@$05@FXParticleSystem@@QAE@ABV01@@Z,0x003A6447,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
+??0?$DefaultModuleTemplate@$05@FXParticleSystem@@QAE@XZ,0x003A97E5,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
+??0?$DefaultModuleTemplate@$06@FXParticleSystem@@QAE@ABV01@@Z,0x003A8CA5,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
+??0?$DefaultModuleTemplate@$06@FXParticleSystem@@QAE@XZ,0x003AA1CA,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
+??0?$DefaultModuleTemplate@$0A@@FXParticleSystem@@QAE@ABV01@@Z,0x003A638D,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
+??0?$DefaultModuleTemplate@$0A@@FXParticleSystem@@QAE@XZ,0x003A9789,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
+??0?$StringBase@D@@AAE@ABV0@@Z,0x000365F0,BFME2 export and retail call target for the StringBase<char> copy constructor
 ??0?$StringBase@D@@AAE@ABV0@HH@Z,0x000380C0,BFME2 export and retail call target for AsciiString substring constructor
 ??0?$StringBase@D@@AAE@D@Z,0x00037B60,BFME2 export and retail call target for AsciiString char constructor
 ??0?$StringBase@D@@AAE@PBD@Z,0x00037BA0,BFME2 export and retail call target for AsciiString const char constructor
 ??0?$StringBase@D@@AAE@PBDH@Z,0x00037B80,BFME2 export and retail call target for AsciiString const char length constructor
 ??0?$StringBase@D@@AAE@PBDHH@Z,0x00038090,BFME2 export and retail call target for AsciiString const char substring constructor
+??0?$StringBase@G@@AAE@ABV0@@Z,0x00037050,BFME2 export and retail call target for StringBase<wchar_t> copy constructor
 ??0?$StringBase@G@@AAE@ABV0@HH@Z,0x00038120,BFME2 retail call target for StringBase<wchar_t>::StringBase(const StringBase &, int, int); ghidra names the same symbol at this address
 ??0?$StringBase@G@@AAE@G@Z,0x00037DF0,BFME2 retail call target for StringBase<wchar_t>::StringBase(wchar_t); ghidra names the same symbol at this address
 ??0?$StringBase@G@@AAE@PBG@Z,0x00037E30,BFME2 retail call target for StringBase<wchar_t>::StringBase(const wchar_t *)
@@ -26,18 +51,89 @@ name,address,notes
 ??0?$_STLP_alloc_proxy@PAIIV?$allocator@I@_STL@@@_STL@@QAE@ABV?$allocator@I@1@PAI@Z,0x0014F3C4,harvested from retail REL32 displacement at 0x0006BE8F
 ??0?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE@ABV01@@Z,0x00009170,STLport 4.6 narrow string copy constructor; address read from retail __put_float REL32 displacement
 ??0?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE@XZ,0x00007850,STLport 4.5.3 narrow string default constructor; address read from retail num_get<double>::do_get REL32 displacement
+??0BoxEmissionVolumeModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A6738,BFME2 export; the module template copy constructor the ConcreteModuleTemplate wrapper calls
+??0ButterflyDrawModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A7CEE,BFME2 export; the module template copy constructor the ConcreteModuleTemplate wrapper calls
+??0ButterflyDrawModuleTemplate@FXParticleSystem@@QAE@XZ,0x003A7C97,BFME2 export; the module template default constructor the ConcreteModuleTemplate wrapper calls
+??0CylinderEmissionVolumeModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A6A49,BFME2 export; the module template copy constructor the ConcreteModuleTemplate wrapper calls
+??0CylindricalEmissionVelocityModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A75D4,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
+??0CylindricalEmissionVelocityModuleTemplate@FXParticleSystem@@QAE@XZ,0x003A757D,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
+??0GpuDrawModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A9EC7,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
+??0GpuDrawModuleTemplate@FXParticleSystem@@QAE@XZ,0x003A9E29,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
+??0HemisphericalEmissionVelocityModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A7418,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
+??0HemisphericalEmissionVelocityModuleTemplate@FXParticleSystem@@QAE@XZ,0x003A73F8,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
+??0LifeEventModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A99E4,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
+??0LifeEventModuleTemplate@FXParticleSystem@@QAE@XZ,0x003A999C,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
+??0LightningDrawModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A7E8F,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
+??0LightningDrawModuleTemplate@FXParticleSystem@@QAE@XZ,0x003A7E38,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
+??0LightningEmissionModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A6CB0,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
+??0LightningEmissionModuleTemplate@FXParticleSystem@@QAE@XZ,0x003A6C59,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
+??0LineEmissionVolumeModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A65E9,BFME2 export; the module template copy constructor the ConcreteModuleTemplate wrapper calls
+??0OrthoEmissionVelocityModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A7173,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
+??0OrthoEmissionVelocityModuleTemplate@FXParticleSystem@@QAE@XZ,0x003A711C,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
+??0OutwardEmissionVelocityModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A76D5,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
+??0OutwardEmissionVelocityModuleTemplate@FXParticleSystem@@QAE@XZ,0x003A767E,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
+??0PointEmissionVolumeModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A64B0,BFME2 export; the module template copy constructor the ConcreteModuleTemplate wrapper calls
+??0QuadDrawModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A7C4C,BFME2 export; the module template copy constructor the ConcreteModuleTemplate wrapper calls
+??0QuadDrawModuleTemplate@FXParticleSystem@@QAE@XZ,0x003A7BF5,BFME2 export; the module template default constructor the ConcreteModuleTemplate wrapper calls
+??0RenderObjectDrawModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A9C80,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
+??0RenderObjectDrawModuleTemplate@FXParticleSystem@@QAE@XZ,0x003A9BE2,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
+??0RenderObjectUpdateModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A80FF,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
+??0RenderObjectUpdateModuleTemplate@FXParticleSystem@@QAE@XZ,0x003A80A8,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
+??0SphereEmissionVolumeModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A68AF,BFME2 export; the module template copy constructor the ConcreteModuleTemplate wrapper calls
+??0SphericalEmissionVelocityModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A734E,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
+??0SphericalEmissionVelocityModuleTemplate@FXParticleSystem@@QAE@XZ,0x003A72F7,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
+??0StreakDrawModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A7B5F,BFME2 export; the module template copy constructor the ConcreteModuleTemplate wrapper calls
+??0StreakDrawModuleTemplate@FXParticleSystem@@QAE@XZ,0x003A7B08,BFME2 export; the module template default constructor the ConcreteModuleTemplate wrapper calls
+??0TerrainCollisionModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003AA107,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
+??0TerrainCollisionModuleTemplate@FXParticleSystem@@QAE@XZ,0x003AA078,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
+??0TerrainFireEmissionModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A6F24,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
+??0TerrainFireEmissionModuleTemplate@FXParticleSystem@@QAE@XZ,0x003A6ECD,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
 ??0_Filebuf_base@_STL@@QAE@XZ,0x0001D300,harvested from retail REL32 displacement at 0x00014670
+??0_Time_Info@_STL@@QAE@XZ,0x00007920,STLport 4.5.3 _Time_Info constructor; target body constructs the exact 14 day 24 month 2 AM-PM and 5 format strings declared by the vendored header
 ??0gslice@_STL@@QAE@ABV01@@Z,0x000B43E5,harvested from retail REL32 displacement at 0x000B68F0
 ??0ios_base@_STL@@IAE@XZ,0x0001C1A0,harvested from retail REL32 displacement at 0x0001C5C0
 ??1?$basic_streambuf@DV?$char_traits@D@_STL@@@_STL@@UAE@XZ,0x0001C6E0,harvested from retail REL32 displacement at 0x00015030
+??1Bitmap@Gdiplus@@UAE@XZ,0x000012A3,ICF alias of Gdiplus::Image::~Image. MSVC 7.1 drops the dead derived vptr store from the implicit ~Bitmap and inlines the base body so the two COMDATs come out byte-identical; retail CImage::Load destroys its local Bitmap through this address
+??1CylindricalEmissionVelocityModuleTemplate@FXParticleSystem@@UAE@XZ,0x003A6201,BFME2 export; the module template destructor every category folds onto - three vtable stores walked back through the bases
+??1LightningDrawModuleTemplate@FXParticleSystem@@UAE@XZ,0x003A6201,BFME2 export; the module template destructor every category folds onto - three vtable stores walked back through the bases
+??1LightningEmissionModuleTemplate@FXParticleSystem@@UAE@XZ,0x003A6201,BFME2 export; the module template destructor every category folds onto - three vtable stores walked back through the bases
+??1OrthoEmissionVelocityModuleTemplate@FXParticleSystem@@UAE@XZ,0x003A6201,BFME2 export; the module template destructor every category folds onto - three vtable stores walked back through the bases
+??1OutwardEmissionVelocityModuleTemplate@FXParticleSystem@@UAE@XZ,0x003A6201,BFME2 export; the module template destructor every category folds onto - three vtable stores walked back through the bases
+??1RenderObjectUpdateModuleTemplate@FXParticleSystem@@UAE@XZ,0x003A6201,BFME2 export; the module template destructor every category folds onto - three vtable stores walked back through the bases
+??1TerrainFireEmissionModuleTemplate@FXParticleSystem@@UAE@XZ,0x003A6201,BFME2 export; the module template destructor every category folds onto - three vtable stores walked back through the bases
 ??1ios_base@_STL@@UAE@XZ,0x0001C220,STLport 4.5.3 ios_base destructor; address read from the basic_ios<char> and basic_ios<wchar_t> destructor tail jumps
 ??2@YAPAXI@Z,0x0002FDA0
 ??3@YAXPAX@Z,0x0002FD60
+??4?$DefaultModuleTemplate@$00@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A626A,BFME2 export; the module template assignment the ConcreteModuleTemplate wrapper forwards to
+??4?$DefaultModuleTemplate@$01@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A79E5,BFME2 export; the module template assignment the ConcreteModuleTemplate wrapper forwards to
+??4?$DefaultModuleTemplate@$02@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A7832,BFME2 export; the module template assignment the ConcreteModuleTemplate wrapper forwards to
+??4?$DefaultModuleTemplate@$0A@@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A63CD,BFME2 export; the module template assignment the ConcreteModuleTemplate wrapper forwards to
+??4GpuDrawModuleInfo@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A7EF0,BFME2 export; the module info assignment the module template forwards to
+??4GpuDrawModuleTemplate@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A7F1D,BFME2 export; the module template assignment the ConcreteModuleTemplate wrapper forwards to
+??4LifeEventModuleInfo@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A7A51,BFME2 export; the module info assignment the module template forwards to
+??4LifeEventModuleTemplate@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A7A7F,BFME2 export; the module template assignment the ConcreteModuleTemplate wrapper forwards to
+??4LightningDrawModuleTemplate@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A7ECF,BFME2 export; the module template assignment the ConcreteModuleTemplate wrapper forwards to
+??4LightningEmissionModuleTemplate@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A6CF0,BFME2 export; the module template assignment the ConcreteModuleTemplate wrapper forwards to
+??4OrthoEmissionVelocityModuleTemplate@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A71B3,BFME2 export; the module template assignment the ConcreteModuleTemplate wrapper forwards to
+??4RenderObjectDrawModuleInfo@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A7D2E,BFME2 export; the module info assignment the module template forwards to
+??4RenderObjectDrawModuleTemplate@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A7DA9,BFME2 export; the module template assignment the ConcreteModuleTemplate wrapper forwards to
+??4RenderObjectUpdateModuleTemplate@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A813F,BFME2 export; the module template assignment the ConcreteModuleTemplate wrapper forwards to
+??4TerrainCollisionModuleInfo@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A81AE,BFME2 export; the module info assignment the module template forwards to
+??4TerrainCollisionModuleTemplate@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A81E2,BFME2 export; the module template assignment the ConcreteModuleTemplate wrapper forwards to
+??4TerrainFireEmissionModuleTemplate@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A6F64,BFME2 export; the module template assignment the ConcreteModuleTemplate wrapper forwards to
 ??4locale@_STL@@QAEABV01@ABV01@@Z,0x00007160,STLport 4.5.3 locale assignment; address read from the retail wide basic_streambuf pubimbue REL32 displacement
 ??_U@YAPAXI@Z,0x0002FDE0,harvested from retail REL32 displacement at 0x0001D9F0
 ??_V@YAXPAX@Z,0x0002FD80,harvested from retail REL32 displacement at 0x00014010
+?AtlThrow@ATL@@YGXJ@Z,0x00001125,ATL 7.1 ATL_NOINLINE thrower; target body raises a CAtlException through _CxxThrowException. Address read from retail CA2WEX<128>::Init REL32 displacement at 0x00001DEC
+?CreateEx@CImage@ATL@@QAEHHHHKPBKK@Z,0x00002690,ATL 7.1 CImage::CreateEx; retail call target of CImage::Create at 0x00002942 and identified in reverse/attempts/0x00002690.cpp
+?CreateFromGdiplusBitmap@CImage@ATL@@QAEJAAVBitmap@Gdiplus@@@Z,0x0000295E,ATL 7.1 CImage::CreateFromGdiplusBitmap; retail call target of CImage::Load at 0x00002BB5
 ?GdiplusShutdown@Gdiplus@@YGXK@Z,0x00628F6E,GDI+ import thunk identified by official ATL 7.1 call and retail target
+?GdiplusStartup@Gdiplus@@YG?AW4Status@1@PAKPBUGdiplusStartupInput@1@PAUGdiplusStartupOutput@1@@Z,0x00628F68,GDI+ import thunk; retail target of ATL CImage::CInitGDIPlus::Init
+?Init@?$CW2AEX@$0IA@@ATL@@AAEXPBGI@Z,0x000056D1,ATL 7.1 CW2AEX<> conversion initializer; retail target is the exact adjacent ATL Init body
+?Init@CComCriticalSection@ATL@@QAEJXZ,0x0000323B,ATL 7.1 CComCriticalSection::Init; retail call target of AtlWinModuleInit with ecx = the module critical section at +4
 ?LZHLDestroyDecompressor@@YAXPAX@Z,0x0068ED80
+?_AtlVerifyStackAvailable@_ATL_SAFE_ALLOCA_IMPL@ATL@@YA_NI@Z,0x00001020,ATL 7.1 _ATL_SAFE_ALLOCA stack probe; retail call target of the palette allocation in CImage::CreateFromGdiplusBitmap at 0x0000295E
+?_Init_timeinfo@_STL@@YAXAAV_Time_Info@1@@Z,0x00019260,STLport 4.5.3 default time-info initializer; target body fills the _Time_Info string table declared by the vendored header
 ?_Initialize_get_float@_STL@@YAXABV?$ctype@G@1@AAG111PAG@Z,0x0001A640,STLport 4.5.3 wide floating-point character-table initializer; address read from retail wide scanner REL32 displacement
 ?_M_allocate_buffers@?$basic_filebuf@DV?$char_traits@D@_STL@@@_STL@@AAE_NPADH@Z,0x00013F10,harvested from retail REL32 displacement at 0x00015C00
 ?_M_allocate_buffers@?$basic_filebuf@GV?$char_traits@G@_STL@@@_STL@@AAE_NPAGH@Z,0x000148F0,harvested from retail REL32 displacement at 0x00014890
@@ -46,6 +142,7 @@ name,address,notes
 ?_M_fill_insert@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEXPAPAXIABQAX@Z,0x00029CA0,harvested from retail REL32 displacement at 0x00622410
 ?_M_increment@?$_Rb_global@_N@_STL@@SAPAU_Rb_tree_node_base@2@PAU32@@Z,0x00024250,harvested from retail REL32 displacement at 0x0061F640
 ?_M_insert@?$hashtable@U?$pair@$$CBHH@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@QAEAAU?$pair@$$CBHH@2@ABU32@@Z,0x00620F60,harvested from retail REL32 displacement at 0x006215B0
+?_M_insert_aux@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@AAEPADPADD@Z,0x00011D20,STLport 4.5.3 narrow string single-character insert helper; address read from retail basic_string<char>::insert REL32 displacement at 0x00011D08
 ?_M_insert_aux@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@AAEPAGPAGG@Z,0x00012D10,STLport 4.5.3 wide string single-character insert helper; address read from retail basic_string<wchar_t>::insert REL32 displacement
 ?_M_insert_overflow@?$vector@HV?$allocator@H@_STL@@@_STL@@IAEXPAHABHABU__true_type@2@I_N@Z,0x006887F0,harvested from retail REL32 displacement at 0x00688940
 ?_M_open@_Filebuf_base@_STL@@QAE_NPBDH@Z,0x0001D500,harvested from retail REL32 displacement at 0x0001DDD0
@@ -72,150 +169,27 @@ name,address,notes
 ?__write_float@_STL@@YAXAAV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@1@HHN@Z,0x0001BA00,STLport 4.6 narrow double formatter wrapper; address read from retail _M_do_put_float<double> REL32 displacement
 ?__write_float@_STL@@YAXAAV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@1@HHO@Z,0x0001BAF0,STLport 4.6 narrow long-double formatter wrapper; address read from retail _M_do_put_float<long double> REL32 displacement
 ?__write_formatted_time@_STL@@YAPADPADDDABV_Time_Info@1@PBUtm@@@Z,0x00018780,harvested from retail REL32 displacement at 0x0000F680
+?allocate@?$allocator@D@_STL@@SAPADIPBX@Z,0x000307F0,STLport 4.5.3 narrow allocator byte allocation; address read from retail basic_string _M_range_initialize REL32 displacement. Body forwards (size, memory class 3, hint) to the game allocator pointer at 0x00DE0404 - the same table _free at 0x00030830 uses - so it is __cdecl here, not the upstream const member
+?allocate@?$allocator@G@_STL@@SAPAGIPBX@Z,0x000307F0,ICF alias of the narrow allocator allocate at the same address. BFME replaced STLport allocator with a raw byte allocator so every instantiation compiles to the same forwarding body and the linker folds them
 ?compare@?$StringBase@D@@QBEHPBDH@Z,0x00006733,BFME2 export and retail call target for StringBase<char>::compare(const char *, int)
 ?compare@?$StringBase@G@@QBEHPBGH@Z,0x000067B1,BFME2 export and retail call target for StringBase<wchar_t>::compare(const wchar_t *, int)
+?compareNoCase@?$StringBase@D@@QBEHPBD@Z,0x00037980,BFME2 export and retail call target for StringBase<char> compareNoCase against a C string; isNone and isNotNone both go through it
 ?compareNoCase@?$StringBase@D@@QBEHPBDH@Z,0x00006772,BFME2 export and retail call target for StringBase<char>::compareNoCase(const char *, int)
+?compareNoCase@?$StringBase@G@@QBEHPBG@Z,0x00037A90,BFME2 export and retail call target for the StringBase<wchar_t> twin
 ?compareNoCase@?$StringBase@G@@QBEHPBGH@Z,0x000067F0,BFME2 export and retail call target for StringBase<wchar_t>::compareNoCase(const wchar_t *, int)
+?compareRange@@YAHPBDH0HUCharCompare@@@Z,0x00005816,BFME2 retail worker the StringBase<char> compare(const char *, int) overload calls; unmatched by one cmov, banked at reverse/attempts/0x00005816.cpp
+?compareRange@@YAHPBGH0HUCharCompare@@@Z,0x0000586D,BFME2 retail worker the StringBase<wchar_t> compare(const wchar_t *, int) overload calls; it reads the trait object rather than ignoring it
+?compareRangeNoCase@@YAHPBDH0HUCharCompare@@@Z,0x00005841,BFME2 retail worker the StringBase<char> compareNoCase(const char *, int) overload calls; same body as 0x00005816 against the _memicmp import
+?compareRangeNoCase@@YAHPBGH0HUCharCompare@@@Z,0x00005898,BFME2 retail worker the StringBase<wchar_t> compareNoCase(const wchar_t *, int) overload calls
 ?concat@?$StringBase@D@@QAEXPBDH@Z,0x000369A0,BFME2 export and retail call target for StringBase<char>::concat(const char *, int)
 ?concat@?$StringBase@G@@QAEXPBGH@Z,0x00037410,BFME2 export and retail call target for StringBase<wchar_t>::concat(const wchar_t *, int)
+?deallocate@?$CW2AEX@$0IA@@ATL@@QAEXXZ,0x000056C7,ATL 7.1 CW2AEX<> out-of-line deallocator; exact target of the destructor tail jump
 ?decompress@LZHLDecompressor@@QAEHPAEPAIPBE1@Z,0x00692440
+?format_va@?$StringBase@D@@QAEXPBDPAD@Z,0x00036D40,BFME2 export and retail call target for the StringBase<char> varargs formatter
+?format_va@?$StringBase@G@@QAEXPBGPAD@Z,0x000377E0,BFME2 export and retail call target for the StringBase<wchar_t> varargs formatter
 ?free@@YAXPAX@Z,0x00030830,CRT free reached through the C++-linkage declaration STLport 4.5.3 compiles against; same body as _free at this address, and the C++ decoration is what makes the caller emit the unwind state store retail carries
 ?imbue@?$basic_ios@GV?$char_traits@G@_STL@@@_STL@@QAE?AVlocale@2@ABV32@@Z,0x00016200,harvested from retail REL32 displacement at 0x00016440
 ?init@?$basic_ios@DV?$char_traits@D@_STL@@@_STL@@IAEXPAV?$basic_streambuf@DV?$char_traits@D@_STL@@@2@@Z,0x000162F0,harvested from retail REL32 displacement at 0x0001C5C0
-?reserve@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAEXI@Z,0x0000C390,STLport 4.5.3 narrow string reserve; address read from the retail basic_string<char>::push_back REL32 displacement
-?reserve@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@QAEXI@Z,0x0000DEA0,STLport 4.5.3 wide string reserve; address read from retail basic_string<wchar_t>::push_back REL32 displacement
-?reserve@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEXI@Z,0x00029BE0,harvested from retail REL32 displacement at 0x00622410
-?set@?$StringBase@D@@QAEXABV1@@Z,0x000366F0,BFME2 export and retail call target for AsciiString copy assignment
-?set@?$StringBase@D@@QAEXPBDH@Z,0x00036780,BFME2 export and retail call target for StringBase<char>::set(const char *, int)
-?set@?$StringBase@G@@QAEXABV1@@Z,0x00037150,BFME2 retail call target for StringBase<wchar_t>::set(const StringBase &)
-?set@?$StringBase@G@@QAEXPBGH@Z,0x000371E0,BFME2 export and retail call target for StringBase<wchar_t>::set(const wchar_t *, int)
-__alldiv,0x00629630,MSVCR71 signed 64-bit division helper; address confirmed by retail helper call and Ghidra symbol
-__allmul,0x00629580,MSVCR71 64-bit multiplication helper; address confirmed by retail helper call and Ghidra symbol
-__aulldiv,0x006295C0,MSVCR71 unsigned 64-bit division helper; address confirmed by retail accumulator call and Ghidra symbol
-??0_Time_Info@_STL@@QAE@XZ,0x00007920,STLport 4.5.3 _Time_Info constructor; target body constructs the exact 14 day 24 month 2 AM-PM and 5 format strings declared by the vendored header
-?_Init_timeinfo@_STL@@YAXAAV_Time_Info@1@@Z,0x00019260,STLport 4.5.3 default time-info initializer; target body fills the _Time_Info string table declared by the vendored header
-__chkstk,0x00629000
-__ftol2,0x00629228,MSVC float-to-int helper byte-identical to pinned BFME1 CRT body
-_abs,0x0062909A,MSVCR71 import thunk identified by official ATL 7.1 call and retail target
-_fabs,0x00629210,MSVCRT import thunk identified by four retail call targets and Ghidra
-_memcmp,0x0062929E,CRT memcmp import thunk (jmp [0x00BBA694]); ghidra labels this address memcmp and the StringBase<char> comparison helper calls it directly
-_memset,0x006291AE,CRT memset import thunk; Ghidra labels the retail call target at 0x6291AE
-_sqrt,0x0062921C,MSVCRT import thunk identified by retail call target and Ghidra
-_strlen,0x00629170,BFME2 retail strlen thunk and call target for StringBase<char>::compare(const char *)
-?allocate@?$allocator@D@_STL@@SAPADIPBX@Z,0x000307F0,STLport 4.5.3 narrow allocator byte allocation; address read from retail basic_string _M_range_initialize REL32 displacement. Body forwards (size, memory class 3, hint) to the game allocator pointer at 0x00DE0404 - the same table _free at 0x00030830 uses - so it is __cdecl here, not the upstream const member
-??$__find@PBGG@_STL@@YAPBGPBG0ABGABUrandom_access_iterator_tag@0@@Z,0x00010F60,STLport 4.5.3 wide random-access find over a const range; identical code to the non-const instantiation already matched at this address and folded onto it by /OPT:ICF. Address read from retail __get_fdigit REL32 displacement
-??$__match@V?$istreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@PAV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@2@J@_STL@@YAPAV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@0@AAV?$istreambuf_iterator@GV?$char_traits@G@_STL@@@0@0PAV10@1PAJ@Z,0x0000F2F0,STLport 4.5.3 wide name matcher; harvested from retail REL32 displacement at 0x0000F5E0
-??$__match@V?$istreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@PBV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@2@J@_STL@@YAPBV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@0@AAV?$istreambuf_iterator@GV?$char_traits@G@_STL@@@0@0PBV10@1PAJ@Z,0x0000F2F0,STLport 4.5.3 wide name matcher over a const range; identical code to the non-const instantiation already pinned at this address and folded onto it by /OPT:ICF. Address read from retail wide do_get_weekday REL32 displacement at 0x0000F52A
-?AtlThrow@ATL@@YGXJ@Z,0x00001125,ATL 7.1 ATL_NOINLINE thrower; target body raises a CAtlException through _CxxThrowException. Address read from retail CA2WEX<128>::Init REL32 displacement at 0x00001DEC
-?Init@?$CW2AEX@$0IA@@ATL@@AAEXPBGI@Z,0x000056D1,ATL 7.1 CW2AEX<> conversion initializer; retail target is the exact adjacent ATL Init body
-?deallocate@?$CW2AEX@$0IA@@ATL@@QAEXXZ,0x000056C7,ATL 7.1 CW2AEX<> out-of-line deallocator; exact target of the destructor tail jump
-?_M_insert_aux@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@AAEPADPADD@Z,0x00011D20,STLport 4.5.3 narrow string single-character insert helper; address read from retail basic_string<char>::insert REL32 displacement at 0x00011D08
-??0?$StringBase@G@@AAE@ABV0@@Z,0x00037050,BFME2 export and retail call target for StringBase<wchar_t> copy constructor
-?compareRange@@YAHPBDH0HUCharCompare@@@Z,0x00005816,BFME2 retail worker the StringBase<char> compare(const char *, int) overload calls; unmatched by one cmov, banked at reverse/attempts/0x00005816.cpp
-?compareRangeNoCase@@YAHPBDH0HUCharCompare@@@Z,0x00005841,BFME2 retail worker the StringBase<char> compareNoCase(const char *, int) overload calls; same body as 0x00005816 against the _memicmp import
-?compareRange@@YAHPBGH0HUCharCompare@@@Z,0x0000586D,BFME2 retail worker the StringBase<wchar_t> compare(const wchar_t *, int) overload calls; it reads the trait object rather than ignoring it
-?compareRangeNoCase@@YAHPBGH0HUCharCompare@@@Z,0x00005898,BFME2 retail worker the StringBase<wchar_t> compareNoCase(const wchar_t *, int) overload calls
-__CIacos,0x006298B0,MSVCR71 import thunk (jmp [0x00BBA5D0]); the ACos wrapper at 0x0002FB90 loads its float argument with fld and calls straight into it
-__CIasin,0x006298B6,MSVCR71 import thunk (jmp [0x00BBA5CC]); same shape from the ASin wrapper at 0x00711AC0
-?compareNoCase@?$StringBase@D@@QBEHPBD@Z,0x00037980,BFME2 export and retail call target for StringBase<char> compareNoCase against a C string; isNone and isNotNone both go through it
-?compareNoCase@?$StringBase@G@@QBEHPBG@Z,0x00037A90,BFME2 export and retail call target for the StringBase<wchar_t> twin
-?setString@PooledString@@AAEXPBD@Z,0x006CB7C0,BFME2 export; the private setter both the const char * constructor and assignment forward to
-??0?$StringBase@D@@AAE@ABV0@@Z,0x000365F0,BFME2 export and retail call target for the StringBase<char> copy constructor
-?set@?$StringBase@D@@QAEXABV?$CharSource@D@@@Z,0x000368C0,BFME2 export and retail call target for the StringBase<char> CharSource setter
-?set@?$StringBase@G@@QAEXABV?$CharSource@G@@@Z,0x00037330,BFME2 export and retail call target for the StringBase<wchar_t> CharSource setter
-?format_va@?$StringBase@D@@QAEXPBDPAD@Z,0x00036D40,BFME2 export and retail call target for the StringBase<char> varargs formatter
-?format_va@?$StringBase@G@@QAEXPBGPAD@Z,0x000377E0,BFME2 export and retail call target for the StringBase<wchar_t> varargs formatter
-?translate@AsciiString@@QAEXPBG@Z,0x00038170,BFME2 export; the wide-string translate the UnicodeString overload tail-jumps into
-?translate@UnicodeString@@QAEXPBD@Z,0x006CB5F0,BFME2 export; the narrow-string translate the AsciiString overload tail-jumps into
-??4RenderObjectDrawModuleTemplate@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A7DA9,BFME2 export; the module template assignment the ConcreteModuleTemplate wrapper forwards to
-??4LightningDrawModuleTemplate@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A7ECF,BFME2 export; the module template assignment the ConcreteModuleTemplate wrapper forwards to
-??4GpuDrawModuleTemplate@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A7F1D,BFME2 export; the module template assignment the ConcreteModuleTemplate wrapper forwards to
-??4LightningEmissionModuleTemplate@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A6CF0,BFME2 export; the module template assignment the ConcreteModuleTemplate wrapper forwards to
-??4TerrainFireEmissionModuleTemplate@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A6F64,BFME2 export; the module template assignment the ConcreteModuleTemplate wrapper forwards to
-??4?$DefaultModuleTemplate@$00@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A626A,BFME2 export; the module template assignment the ConcreteModuleTemplate wrapper forwards to
-??4?$DefaultModuleTemplate@$0A@@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A63CD,BFME2 export; the module template assignment the ConcreteModuleTemplate wrapper forwards to
-??4?$DefaultModuleTemplate@$02@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A7832,BFME2 export; the module template assignment the ConcreteModuleTemplate wrapper forwards to
-??4?$DefaultModuleTemplate@$01@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A79E5,BFME2 export; the module template assignment the ConcreteModuleTemplate wrapper forwards to
-??4LifeEventModuleTemplate@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A7A7F,BFME2 export; the module template assignment the ConcreteModuleTemplate wrapper forwards to
-??4RenderObjectUpdateModuleTemplate@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A813F,BFME2 export; the module template assignment the ConcreteModuleTemplate wrapper forwards to
-??4TerrainCollisionModuleTemplate@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A81E2,BFME2 export; the module template assignment the ConcreteModuleTemplate wrapper forwards to
-??4OrthoEmissionVelocityModuleTemplate@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A71B3,BFME2 export; the module template assignment the ConcreteModuleTemplate wrapper forwards to
-??0StreakDrawModuleTemplate@FXParticleSystem@@QAE@XZ,0x003A7B08,BFME2 export; the module template default constructor the ConcreteModuleTemplate wrapper calls
-??0QuadDrawModuleTemplate@FXParticleSystem@@QAE@XZ,0x003A7BF5,BFME2 export; the module template default constructor the ConcreteModuleTemplate wrapper calls
-??0ButterflyDrawModuleTemplate@FXParticleSystem@@QAE@XZ,0x003A7C97,BFME2 export; the module template default constructor the ConcreteModuleTemplate wrapper calls
-?set@?$StringBase@D@@QAEXPBDHH@Z,0x00037C10,BFME2 export and retail call target for the StringBase substring setter
-?set@?$StringBase@D@@QAEXABV1@HH@Z,0x00037C70,BFME2 export and retail call target for the StringBase substring setter
-?set@?$StringBase@G@@QAEXPBGHH@Z,0x00037E90,BFME2 export and retail call target for the StringBase substring setter
-?set@?$StringBase@G@@QAEXABV1@HH@Z,0x00037EF0,BFME2 export and retail call target for the StringBase substring setter
-??0StreakDrawModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A7B5F,BFME2 export; the module template copy constructor the ConcreteModuleTemplate wrapper calls
-??0QuadDrawModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A7C4C,BFME2 export; the module template copy constructor the ConcreteModuleTemplate wrapper calls
-??0ButterflyDrawModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A7CEE,BFME2 export; the module template copy constructor the ConcreteModuleTemplate wrapper calls
-??0LineEmissionVolumeModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A65E9,BFME2 export; the module template copy constructor the ConcreteModuleTemplate wrapper calls
-??0BoxEmissionVolumeModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A6738,BFME2 export; the module template copy constructor the ConcreteModuleTemplate wrapper calls
-??0CylinderEmissionVolumeModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A6A49,BFME2 export; the module template copy constructor the ConcreteModuleTemplate wrapper calls
-??0SphereEmissionVolumeModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A68AF,BFME2 export; the module template copy constructor the ConcreteModuleTemplate wrapper calls
-??0PointEmissionVolumeModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A64B0,BFME2 export; the module template copy constructor the ConcreteModuleTemplate wrapper calls
-??0SphericalEmissionVelocityModuleTemplate@FXParticleSystem@@QAE@XZ,0x003A72F7,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
-??0SphericalEmissionVelocityModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A734E,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
-??0HemisphericalEmissionVelocityModuleTemplate@FXParticleSystem@@QAE@XZ,0x003A73F8,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
-??0HemisphericalEmissionVelocityModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A7418,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
-??0CylindricalEmissionVelocityModuleTemplate@FXParticleSystem@@QAE@XZ,0x003A757D,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
-??0CylindricalEmissionVelocityModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A75D4,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
-??0OutwardEmissionVelocityModuleTemplate@FXParticleSystem@@QAE@XZ,0x003A767E,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
-??0OutwardEmissionVelocityModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A76D5,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
-??0OrthoEmissionVelocityModuleTemplate@FXParticleSystem@@QAE@XZ,0x003A711C,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
-??0OrthoEmissionVelocityModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A7173,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
-??0?$DefaultModuleTemplate@$00@FXParticleSystem@@QAE@ABV01@@Z,0x003A622A,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
-??0?$DefaultModuleTemplate@$00@FXParticleSystem@@QAE@XZ,0x003A9732,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
-??0?$DefaultModuleTemplate@$01@FXParticleSystem@@QAE@ABV01@@Z,0x003A79A5,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
-??0?$DefaultModuleTemplate@$01@FXParticleSystem@@QAE@XZ,0x003A98A9,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
-??0?$DefaultModuleTemplate@$02@FXParticleSystem@@QAE@ABV01@@Z,0x003A77F2,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
-??0?$DefaultModuleTemplate@$02@FXParticleSystem@@QAE@XZ,0x003A9852,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
-??0?$DefaultModuleTemplate@$05@FXParticleSystem@@QAE@ABV01@@Z,0x003A6447,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
-??0?$DefaultModuleTemplate@$05@FXParticleSystem@@QAE@XZ,0x003A97E5,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
-??0?$DefaultModuleTemplate@$06@FXParticleSystem@@QAE@ABV01@@Z,0x003A8CA5,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
-??0?$DefaultModuleTemplate@$06@FXParticleSystem@@QAE@XZ,0x003AA1CA,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
-??0?$DefaultModuleTemplate@$0A@@FXParticleSystem@@QAE@ABV01@@Z,0x003A638D,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
-??0?$DefaultModuleTemplate@$0A@@FXParticleSystem@@QAE@XZ,0x003A9789,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
-??0LightningDrawModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A7E8F,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
-??0LightningDrawModuleTemplate@FXParticleSystem@@QAE@XZ,0x003A7E38,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
-??0LightningEmissionModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A6CB0,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
-??0LightningEmissionModuleTemplate@FXParticleSystem@@QAE@XZ,0x003A6C59,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
-??0RenderObjectUpdateModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A80FF,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
-??0RenderObjectUpdateModuleTemplate@FXParticleSystem@@QAE@XZ,0x003A80A8,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
-??0TerrainFireEmissionModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A6F24,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
-??0TerrainFireEmissionModuleTemplate@FXParticleSystem@@QAE@XZ,0x003A6ECD,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
-??0GpuDrawModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A9EC7,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
-??0GpuDrawModuleTemplate@FXParticleSystem@@QAE@XZ,0x003A9E29,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
-??0LifeEventModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A99E4,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
-??0LifeEventModuleTemplate@FXParticleSystem@@QAE@XZ,0x003A999C,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
-??0RenderObjectDrawModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A9C80,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
-??0RenderObjectDrawModuleTemplate@FXParticleSystem@@QAE@XZ,0x003A9BE2,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
-??0TerrainCollisionModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003AA107,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
-??0TerrainCollisionModuleTemplate@FXParticleSystem@@QAE@XZ,0x003AA078,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
-??4RenderObjectDrawModuleInfo@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A7D2E,BFME2 export; the module info assignment the module template forwards to
-??4GpuDrawModuleInfo@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A7EF0,BFME2 export; the module info assignment the module template forwards to
-??4LifeEventModuleInfo@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A7A51,BFME2 export; the module info assignment the module template forwards to
-??4TerrainCollisionModuleInfo@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A81AE,BFME2 export; the module info assignment the module template forwards to
-?startsWithNoCase@?$StringBase@D@@QBE_NPBDH@Z,0x000359B0,BFME2 export and retail call target; the body is banked as a near miss on one register choice
-??0?$CategoryModuleTemplateBase@$07@FXParticleSystem@@QAE@ABV01@@Z,0x001F421B,BFME2 export; the two-vtable module base copy constructor CategoryModuleTemplate calls - ICF folds all nine categories onto this address
-??0?$CategoryModuleTemplateBase@$06@FXParticleSystem@@QAE@ABV01@@Z,0x001F421B,BFME2 export ordinal 82; same ICF-folded module base copy constructor as the $07 pin - category 7 is wind
-??0?$CategoryModuleTemplateBase@$0A@@FXParticleSystem@@QAE@ABV01@@Z,0x001F421B,BFME2 export; ICF-folded module base copy constructor - all nine categories share this address
-??0?$CategoryModuleTemplateBase@$00@FXParticleSystem@@QAE@ABV01@@Z,0x001F421B,BFME2 export; ICF-folded module base copy constructor - all nine categories share this address
-??0?$CategoryModuleTemplateBase@$01@FXParticleSystem@@QAE@ABV01@@Z,0x001F421B,BFME2 export; ICF-folded module base copy constructor - all nine categories share this address
-??0?$CategoryModuleTemplateBase@$02@FXParticleSystem@@QAE@ABV01@@Z,0x001F421B,BFME2 export; ICF-folded module base copy constructor - all nine categories share this address
-??0?$CategoryModuleTemplateBase@$03@FXParticleSystem@@QAE@ABV01@@Z,0x001F421B,BFME2 export; ICF-folded module base copy constructor - all nine categories share this address
-??0?$CategoryModuleTemplateBase@$04@FXParticleSystem@@QAE@ABV01@@Z,0x001F421B,BFME2 export; ICF-folded module base copy constructor - all nine categories share this address
-??0?$CategoryModuleTemplateBase@$05@FXParticleSystem@@QAE@ABV01@@Z,0x001F421B,BFME2 export; ICF-folded module base copy constructor - all nine categories share this address
-__EH_prolog,0x00629188,MSVC 7.1 EH frame prologue helper - push -1 / push eax / link fs:[0] / set up the unwind frame; every /EHsc body with a local static calls it first
-_atexit,0x006291F8,CRT atexit - forwards to _onexit at 0x006291D2 and folds its return to 0 or -1; the local-static destructor thunks register through it
-??1CylindricalEmissionVelocityModuleTemplate@FXParticleSystem@@UAE@XZ,0x003A6201,BFME2 export; the module template destructor every category folds onto - three vtable stores walked back through the bases
-??1LightningDrawModuleTemplate@FXParticleSystem@@UAE@XZ,0x003A6201,BFME2 export; the module template destructor every category folds onto - three vtable stores walked back through the bases
-??1LightningEmissionModuleTemplate@FXParticleSystem@@UAE@XZ,0x003A6201,BFME2 export; the module template destructor every category folds onto - three vtable stores walked back through the bases
-??1OrthoEmissionVelocityModuleTemplate@FXParticleSystem@@UAE@XZ,0x003A6201,BFME2 export; the module template destructor every category folds onto - three vtable stores walked back through the bases
-??1OutwardEmissionVelocityModuleTemplate@FXParticleSystem@@UAE@XZ,0x003A6201,BFME2 export; the module template destructor every category folds onto - three vtable stores walked back through the bases
-??1RenderObjectUpdateModuleTemplate@FXParticleSystem@@UAE@XZ,0x003A6201,BFME2 export; the module template destructor every category folds onto - three vtable stores walked back through the bases
-??1TerrainFireEmissionModuleTemplate@FXParticleSystem@@UAE@XZ,0x003A6201,BFME2 export; the module template destructor every category folds onto - three vtable stores walked back through the bases
 ?parse@?$DefaultModuleTemplate@$00@FXParticleSystem@@QAEXPAVINI@@@Z,0x0055B2FD,BFME2 export; the module template INI parser createTemplate calls after allocating
 ?parse@?$DefaultModuleTemplate@$01@FXParticleSystem@@QAEXPAVINI@@@Z,0x0055F4BC,BFME2 export; the module template INI parser createTemplate calls after allocating
 ?parse@?$DefaultModuleTemplate@$02@FXParticleSystem@@QAEXPAVINI@@@Z,0x0055EE4C,BFME2 export; the module template INI parser createTemplate calls after allocating
@@ -241,34 +215,66 @@ _atexit,0x006291F8,CRT atexit - forwards to _onexit at 0x006291D2 and folds its 
 ?parse@StreakDrawModuleTemplate@FXParticleSystem@@QAEXPAVINI@@@Z,0x0055FD2F,BFME2 export; the module template INI parser createTemplate calls after allocating
 ?parse@TerrainCollisionModuleTemplate@FXParticleSystem@@QAEXPAVINI@@@Z,0x00564497,BFME2 export; the module template INI parser createTemplate calls after allocating
 ?parse@TerrainFireEmissionModuleTemplate@FXParticleSystem@@QAEXPAVINI@@@Z,0x0055E5E4,BFME2 export; the module template INI parser createTemplate calls after allocating
+?reserve@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAEXI@Z,0x0000C390,STLport 4.5.3 narrow string reserve; address read from the retail basic_string<char>::push_back REL32 displacement
+?reserve@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@QAEXI@Z,0x0000DEA0,STLport 4.5.3 wide string reserve; address read from retail basic_string<wchar_t>::push_back REL32 displacement
+?reserve@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEXI@Z,0x00029BE0,harvested from retail REL32 displacement at 0x00622410
+?set@?$StringBase@D@@QAEXABV1@@Z,0x000366F0,BFME2 export and retail call target for AsciiString copy assignment
+?set@?$StringBase@D@@QAEXABV1@HH@Z,0x00037C70,BFME2 export and retail call target for the StringBase substring setter
+?set@?$StringBase@D@@QAEXABV?$CharSource@D@@@Z,0x000368C0,BFME2 export and retail call target for the StringBase<char> CharSource setter
+?set@?$StringBase@D@@QAEXPBDH@Z,0x00036780,BFME2 export and retail call target for StringBase<char>::set(const char *, int)
+?set@?$StringBase@D@@QAEXPBDHH@Z,0x00037C10,BFME2 export and retail call target for the StringBase substring setter
+?set@?$StringBase@G@@QAEXABV1@@Z,0x00037150,BFME2 retail call target for StringBase<wchar_t>::set(const StringBase &)
+?set@?$StringBase@G@@QAEXABV1@HH@Z,0x00037EF0,BFME2 export and retail call target for the StringBase substring setter
+?set@?$StringBase@G@@QAEXABV?$CharSource@G@@@Z,0x00037330,BFME2 export and retail call target for the StringBase<wchar_t> CharSource setter
+?set@?$StringBase@G@@QAEXPBGH@Z,0x000371E0,BFME2 export and retail call target for StringBase<wchar_t>::set(const wchar_t *, int)
+?set@?$StringBase@G@@QAEXPBGHH@Z,0x00037E90,BFME2 export and retail call target for the StringBase substring setter
+?setRange@GameClientRandomVariable@@QAEXMMW4DistributionType@1@@Z,0x002341E7,BFME2 export and retail call target for RandomAlphaKeyframe construction
+?setString@PooledString@@AAEXPBD@Z,0x006CB7C0,BFME2 export; the private setter both the const char * constructor and assignment forward to
+?startsWithNoCase@?$StringBase@D@@QBE_NPBDH@Z,0x000359B0,BFME2 export and retail call target; the body is banked as a near miss on one register choice
+?translate@AsciiString@@QAEXPBG@Z,0x00038170,BFME2 export; the wide-string translate the UnicodeString overload tail-jumps into
+?translate@UnicodeString@@QAEXPBD@Z,0x006CB5F0,BFME2 export; the narrow-string translate the AsciiString overload tail-jumps into
 _GdipAlloc@4,0x00628F86,GDI+ flat-API import thunk; retail target of the operator new in Gdiplus::GdiplusBase
+_GdipBitmapLockBits@20,0x00628F5C,GDI+ flat-API import thunk; retail target of Gdiplus::Bitmap::LockBits
+_GdipBitmapUnlockBits@8,0x00628F62,GDI+ flat-API import thunk; retail target of Gdiplus::Bitmap::UnlockBits
 _GdipCloneImage@8,0x00628F8C,GDI+ flat-API import thunk; retail target of Gdiplus::Image::Clone
-_GdipDisposeImage@4,0x00628F26,GDI+ flat-API import thunk; retail target of Gdiplus::Image::~Image
-_GdipGetImageWidth@8,0x00628F2C,GDI+ flat-API import thunk; retail target of Gdiplus::Image::GetWidth
-_GdipGetImageHeight@8,0x00628F32,GDI+ flat-API import thunk; retail target of Gdiplus::Image::GetHeight
-_GdipGetImagePixelFormat@8,0x00628F38,GDI+ flat-API import thunk; retail target of Gdiplus::Image::GetPixelFormat
-_GdipGetImagePaletteSize@8,0x00628F3E,GDI+ flat-API import thunk; retail target of Gdiplus::Image::GetPaletteSize
-_GdipGetImagePalette@12,0x00628F44,GDI+ flat-API import thunk; retail target of Gdiplus::Image::GetPalette
 _GdipCreateBitmapFromFile@8,0x00628F4A,GDI+ flat-API import thunk; retail target of the Gdiplus::Bitmap filename constructor
 _GdipCreateBitmapFromFileICM@8,0x00628F50,GDI+ flat-API import thunk; ICM branch of the Gdiplus::Bitmap filename constructor
 _GdipCreateBitmapFromScan0@24,0x00628F56,GDI+ flat-API import thunk; retail target of the Gdiplus::Bitmap scan0 constructor
-_GdipBitmapLockBits@20,0x00628F5C,GDI+ flat-API import thunk; retail target of Gdiplus::Bitmap::LockBits
-_GdipBitmapUnlockBits@8,0x00628F62,GDI+ flat-API import thunk; retail target of Gdiplus::Bitmap::UnlockBits
-?GdiplusStartup@Gdiplus@@YG?AW4Status@1@PAKPBUGdiplusStartupInput@1@PAUGdiplusStartupOutput@1@@Z,0x00628F68,GDI+ import thunk; retail target of ATL CImage::CInitGDIPlus::Init
-_GdipFree@4,0x00628F74,GDI+ flat-API import thunk; retail target of the operator delete in Gdiplus::GdiplusBase
-_sin,0x00629216,CRT import thunk; retail target of the sin call in Coord2D::Rotate(float)
-_cos,0x0062920A,CRT import thunk; retail target of the cos call in Coord2D::Rotate(float)
-_GdipGetImageGraphicsContext@8,0x00628F7A,GDI+ flat-API import thunk; retail target of the Gdiplus::Graphics image constructor
-_GdipDrawImageI@16,0x00628F80,GDI+ flat-API import thunk; retail target of Gdiplus::Graphics::DrawImage
-?Init@CComCriticalSection@ATL@@QAEJXZ,0x0000323B,ATL 7.1 CComCriticalSection::Init; retail call target of AtlWinModuleInit with ecx = the module critical section at +4
-__CxxThrowException@8,0x00629094,MSVC 7.1 C++ throw helper; retail target of the ATL AtlThrow body at 0x00001125
-_memcpy,0x006291A8,CRT memcpy import thunk; retail target of the BI_BITFIELDS copy in ATL CImage::CreateEx
-?CreateFromGdiplusBitmap@CImage@ATL@@QAEJAAVBitmap@Gdiplus@@@Z,0x0000295E,ATL 7.1 CImage::CreateFromGdiplusBitmap; retail call target of CImage::Load at 0x00002BB5
-??1Bitmap@Gdiplus@@UAE@XZ,0x000012A3,ICF alias of Gdiplus::Image::~Image. MSVC 7.1 drops the dead derived vptr store from the implicit ~Bitmap and inlines the base body so the two COMDATs come out byte-identical; retail CImage::Load destroys its local Bitmap through this address
-?CreateEx@CImage@ATL@@QAEHHHHKPBKK@Z,0x00002690,ATL 7.1 CImage::CreateEx; retail call target of CImage::Create at 0x00002942 and identified in reverse/attempts/0x00002690.cpp
-?_AtlVerifyStackAvailable@_ATL_SAFE_ALLOCA_IMPL@ATL@@YA_NI@Z,0x00001020,ATL 7.1 _ATL_SAFE_ALLOCA stack probe; retail call target of the palette allocation in CImage::CreateFromGdiplusBitmap at 0x0000295E
 _GdipDeleteGraphics@4,0x00628F20,GDI+ flat-API import thunk; retail target of the Gdiplus::Graphics destructor
+_GdipDisposeImage@4,0x00628F26,GDI+ flat-API import thunk; retail target of Gdiplus::Image::~Image
+_GdipDrawImageI@16,0x00628F80,GDI+ flat-API import thunk; retail target of Gdiplus::Graphics::DrawImage
+_GdipFree@4,0x00628F74,GDI+ flat-API import thunk; retail target of the operator delete in Gdiplus::GdiplusBase
+_GdipGetImageGraphicsContext@8,0x00628F7A,GDI+ flat-API import thunk; retail target of the Gdiplus::Graphics image constructor
+_GdipGetImageHeight@8,0x00628F32,GDI+ flat-API import thunk; retail target of Gdiplus::Image::GetHeight
+_GdipGetImagePalette@12,0x00628F44,GDI+ flat-API import thunk; retail target of Gdiplus::Image::GetPalette
+_GdipGetImagePaletteSize@8,0x00628F3E,GDI+ flat-API import thunk; retail target of Gdiplus::Image::GetPaletteSize
+_GdipGetImagePixelFormat@8,0x00628F38,GDI+ flat-API import thunk; retail target of Gdiplus::Image::GetPixelFormat
+_GdipGetImageWidth@8,0x00628F2C,GDI+ flat-API import thunk; retail target of Gdiplus::Image::GetWidth
+__CIacos,0x006298B0,MSVCR71 import thunk (jmp [0x00BBA5D0]); the ACos wrapper at 0x0002FB90 loads its float argument with fld and calls straight into it
+__CIasin,0x006298B6,MSVCR71 import thunk (jmp [0x00BBA5CC]); same shape from the ASin wrapper at 0x00711AC0
+__CxxThrowException@8,0x00629094,MSVC 7.1 C++ throw helper; retail target of the ATL AtlThrow body at 0x00001125
+__EH_prolog,0x00629188,MSVC 7.1 EH frame prologue helper - push -1 / push eax / link fs:[0] / set up the unwind frame; every /EHsc body with a local static calls it first
+__alldiv,0x00629630,MSVCR71 signed 64-bit division helper; address confirmed by retail helper call and Ghidra symbol
+__allmul,0x00629580,MSVCR71 64-bit multiplication helper; address confirmed by retail helper call and Ghidra symbol
 __alloca_probe,0x00629000,MSVC 7.1 stack probe behind _alloca; retail target of the _ATL_SAFE_ALLOCA stack arm in CImage::CreateFromGdiplusBitmap
-?allocate@?$allocator@G@_STL@@SAPAGIPBX@Z,0x000307F0,ICF alias of the narrow allocator allocate at the same address. BFME replaced STLport allocator with a raw byte allocator so every instantiation compiles to the same forwarding body and the linker folds them
-??$__match@V?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@PBV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@2@J@_STL@@YAPBV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@0@AAV?$istreambuf_iterator@DV?$char_traits@D@_STL@@@0@0PBV10@1PAJ@Z,0x000099D0,STLport 4.5.3 narrow name matcher over a const range; the narrow twin of the wide pin at 0x0000F2F0. Address read from retail narrow do_get_weekday REL32 displacement at 0x0000993A
-??$__match@V?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@PAV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@2@J@_STL@@YAPAV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@0@AAV?$istreambuf_iterator@DV?$char_traits@D@_STL@@@0@0PAV10@1PAJ@Z,0x000099D0,STLport 4.5.3 narrow name matcher; identical code to the const instantiation pinned at this address and folded onto it by /OPT:ICF, exactly as the wide pair at 0x0000F2F0
+__aulldiv,0x006295C0,MSVCR71 unsigned 64-bit division helper; address confirmed by retail accumulator call and Ghidra symbol
+__chkstk,0x00629000
+__ftol2,0x00629228,MSVC float-to-int helper byte-identical to pinned BFME1 CRT body
+_abs,0x0062909A,MSVCR71 import thunk identified by official ATL 7.1 call and retail target
+_atexit,0x006291F8,CRT atexit - forwards to _onexit at 0x006291D2 and folds its return to 0 or -1; the local-static destructor thunks register through it
+_cos,0x0062920A,CRT import thunk; retail target of the cos call in Coord2D::Rotate(float)
+_fabs,0x00629210,MSVCRT import thunk identified by four retail call targets and Ghidra
+_memcmp,0x0062929E,CRT memcmp import thunk (jmp [0x00BBA694]); ghidra labels this address memcmp and the StringBase<char> comparison helper calls it directly
+_memcpy,0x006291A8,CRT memcpy import thunk; retail target of the BI_BITFIELDS copy in ATL CImage::CreateEx
+_memset,0x006291AE,CRT memset import thunk; Ghidra labels the retail call target at 0x6291AE
+_sin,0x00629216,CRT import thunk; retail target of the sin call in Coord2D::Rotate(float)
+_sqrt,0x0062921C,MSVCRT import thunk identified by retail call target and Ghidra
+_strlen,0x00629170,BFME2 retail strlen thunk and call target for StringBase<char>::compare(const char *)
+??_M@YGXPAXIHP6EX0@Z@Z,0x00629110,MSVC 7.1 eh vector destructor iterator; Ghidra names this address and the _Time_Info destructor at 0x00007A00 calls it three times for the 14, 24 and 2 element string arrays
+??$append@PAD@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@AAEAAV01@PAD0ABUforward_iterator_tag@1@@Z,0x0001B3E0,STLport 4.5.3 basic_string<char> three-argument append over a char* range; address read from the retail _M_assign_dispatch REL32 displacement at 0x00012140
+??$_M_get_base_or_zero@V?$istreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@D@_STL@@YAHAAV?$istreambuf_iterator@GV?$char_traits@G@_STL@@@0@0AAVios_base@0@PAD@Z,0x0000A0F0,STLport 4.5.3 base reader over a wide iterator writing a NARROW buffer - the instantiation the five wide _M_do_get_integer bodies call. Address read from their REL32 at 0x0000AEC3. Shares the address with the PAG-buffer name already claimed there
+??_L@YGXPAXIHP6EX0@Z1@Z,0x00629512,MSVC 7.1 eh vector constructor iterator; Ghidra names this address and the _Time_Info constructor at 0x00007920 calls it three times for the 14, 24 and 2 element string arrays
+__aulldvrm,0x006296E0,MSVC 7.1 unsigned 64-bit divide-and-remainder helper; Ghidra names this address and the decimal writers call it for the tens loop
+?_Stl_string_to_double@_STL@@YANPBD@Z,0x0001ACE0,STLport 4.5.3 string-to-double conversion; address read from the __string_to_float wrappers REL32 at 0x0001AFB7
+?_Stl_string_to_long_double@_STL@@YAOPBD@Z,0x0001AE40,STLport 4.5.3 string-to-long-double conversion; address read from the long double __string_to_float REL32 at 0x0001AFF7
+??1LZHLDecompressor@@QAE@XZ,0x00692300,LZH-Light decompressor destructor; address read from the LZHLDestroyDecompressor REL32 at 0x0068ED8B

@@ -12,6 +12,7 @@ class LZHLDecompressor
 {
 public:
 	LZHLDecompressor();
+	~LZHLDecompressor();
 	int decompress( UnsignedByte *, UnsignedInt *, const UnsignedByte *, UnsignedInt * );
 
 private:
@@ -31,6 +32,11 @@ __declspec(noinline) int LZHLDecompress( LZHL_DHANDLE handle, UnsignedByte *dst,
 	const UnsignedByte *src, UnsignedInt *srcSz )
 {
 	return ( (LZHLDecompressor *)handle )->decompress( dst, dstSz, src, srcSz );
+}
+
+void LZHLDestroyDecompressor( LZHL_DHANDLE handle )
+{
+	delete (LZHLDecompressor *)handle;
 }
 
 Bool DecompressMemory(void *inBufferVoid, Int inSize, void *outBufferVoid, Int& outSize)

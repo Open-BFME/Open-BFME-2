@@ -6,6 +6,10 @@
 // three-argument one already landed at 0x000078C0 - it folds that in whole -
 // but two stack arguments instead of three, which is the `ret 8` that
 // distinguishes them and the only byte that differs between the two.
+//
+// The template argument is `char *`, not `const char *`: the copy constructor
+// at 0x00009170 reaches it as _M_range_initialize(__s._M_start, __s._M_finish),
+// and a const object's `_CharT * const` member deduces to `_CharT *`.
 
 extern "C" __declspec(dllimport) void *__cdecl memmove(void *destination,
 		const void *source, unsigned int count);
@@ -52,7 +56,7 @@ __declspec(dllimport) __forceinline void *__copy_trivial(
 }
 
 __declspec(dllimport) __forceinline char *uninitialized_copy(
-		const char *first, const char *last, char *result)
+		char *first, char *last, char *result)
 {
 	return static_cast<char *>(__copy_trivial(first, last, result));
 }
@@ -112,6 +116,6 @@ void basic_string<CharT, Traits, Alloc>::_M_range_initialize(InputIter first, In
 
 template void
 basic_string<char, char_traits<char>, allocator<char> >::_M_range_initialize<
-		const char *>(const char *, const char *);
+		char *>(char *, char *);
 
 }
