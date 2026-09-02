@@ -4,6 +4,15 @@
 // partial score=0.9 date=2026-09-02
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
 //
+// CORRECTION 2026-09-02: the length agreement claimed below is not real.
+// tools/build.py prints exactly target_size bytes of the compiled body, so a
+// compiled length equal to the target length says nothing - ask it for 900
+// bytes and it prints 900. The size locate.py reports for the emitted COMDAT
+// is the real one, and here it is 373 bytes against 277, not 277 against
+// 277. The identification still stands on the vtable slot and on the
+// callees; only the size corroboration is withdrawn.
+//
+//
 // The vendored instantiation is enough - no hand-written body is needed.
 // Identified from the facet vtable rather than from any caller: nothing calls
 // this address directly because it is a virtual. The three-slot vtable holding

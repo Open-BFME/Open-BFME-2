@@ -4,6 +4,15 @@
 // partial score=0.8 date=2026-09-02
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
 //
+// CORRECTION 2026-09-02: the length agreement claimed below is not real.
+// tools/build.py prints exactly target_size bytes of the compiled body, so a
+// compiled length equal to the target length says nothing - ask it for 900
+// bytes and it prints 900. The size locate.py reports for the emitted COMDAT
+// is the real one, and here it is 3066 bytes against 2610, not 2610 against
+// 2610. The identification still stands on the vtable slot and on the
+// callees; only the size corroboration is withdrawn.
+//
+//
 // Slot 1 of the wide money_put vtable, which vtable_gaps.py found as the one
 // unnamed entry in a three-slot run - deleting destructor plus the two do_put
 // overloads, the same shape as the money_get vtable two entries earlier. The

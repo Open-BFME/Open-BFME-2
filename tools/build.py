@@ -238,6 +238,11 @@ def exe_image():
     return data, pe_sections(data)
 
 
+# The comparison prints exactly `size` bytes of the compiled body, so a compiled
+# length equal to the target length is the printer's doing and not a finding: ask
+# for 900 bytes of a 631-byte target and it prints 900. Three banked partials were
+# recorded citing an "exact length match" that was this artefact. When you want the
+# real size of what cl emitted, read the COMDAT size locate.py reports.
 def read_target_bytes(rva, size):
     data, sections = exe_image()
     offset = rva_to_file_offset(sections, rva)
