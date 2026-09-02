@@ -217,7 +217,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_00009450@@YAXXZ,,0x00009450,385,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00409450
 ?d_000095e0@@YAXXZ,,0x000095E0,569,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_004095e0
 ?d_00009ef0@@YAXXZ,,0x00009EF0,108,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00409ef0
-?d_0000b6e0@@YAXXZ,,0x0000B6E0,33,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040b6e0
 ?d_0000b730@@YAXXZ,,0x0000B730,908,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040b730
 ?d_0000bac0@@YAXXZ,,0x0000BAC0,31,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040bac0
 ?d_0000bb10@@YAXXZ,,0x0000BB10,295,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040bb10
@@ -1789,3 +1788,4 @@ _AtlWinModuleTerm@8,,0x000058C3,96,Code/Libraries/Source/ATL/atlbase.cpp,matched
 ??$__write_integer_backward@_K@_STL@@YAPADPADH_K@Z,,0x0000CF60,238,Code/Libraries/Source/WWVegas/WWLib/stlport_write_integer_backward_64.cpp,matched,Open-BFME5 clean C++; stlport 4.5.3; 64-bit twin of 0x0000D320 and 0x0000D460
 ??_GBitmap@Gdiplus@@UAEPAXI@Z,,0x00001E43,36,Code/Libraries/Source/GdiPlus/gdiplusbitmap_dtor.cpp,matched,Open-BFME5 clean C++; slot 0 of the Bitmap vftable; ~Image folded in whole
 ??$_M_assign_dispatch@PAG@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@QAEAAV01@PAG0ABU__false_type@1@@Z,,0x000130A0,102,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_string_assign_dispatch.cpp,matched,Open-BFME5 clean C++; stlport 4.5.3; wide twin of 0x000120F0
+??0_Locale_impl@_STL@@QAE@PBD@Z,,0x0000B6E0,33,Code/Libraries/Source/WWVegas/WWLib/stlport_locale_impl_ctor.cpp,matched,Open-BFME5 clean C++; stlport 4.5.3; vftable 0x00BBBBB0 with the name string at +0x0C
