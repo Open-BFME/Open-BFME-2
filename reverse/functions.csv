@@ -212,7 +212,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_00007610@@YAXXZ,,0x00007610,30,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00407610
 ?d_00007650@@YAXXZ,,0x00007650,30,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00407650
 ?d_00007670@@YAXXZ,,0x00007670,27,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00407670
-?d_00007690@@YAXXZ,,0x00007690,235,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00407690
 ?d_00007820@@YAXXZ,,0x00007820,8,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00407820
 ?d_00009450@@YAXXZ,,0x00009450,385,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00409450
 ?d_000095e0@@YAXXZ,,0x000095E0,569,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_004095e0
@@ -1828,3 +1827,4 @@ _AtlWinModuleTerm@8,,0x000058C3,96,Code/Libraries/Source/ATL/atlbase.cpp,matched
 ?do_put@?$time_put@DV?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@@_STL@@MBE?AV?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@2@V32@AAVios_base@2@DPBUtm@@DD@Z,,0x00009EF0,108,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_time_put_do_put.cpp,matched,Open-BFME5 clean C++; stlport 4.5.3; narrow twin of 0x0000F680
 ??$__write_decimal_backward@_J@_STL@@YAPADPAD_JHABU__true_type@0@@Z,,0x0000D250,124,Code/Libraries/Source/WWVegas/WWLib/stlport_write_decimal_backward_64.cpp,matched,Open-BFME5 clean C++; stlport 4.5.3; the __int64 instantiation
 ??$__write_integer_backward@_J@_STL@@YAPADPADH_J@Z,,0x0000D180,206,Code/Libraries/Source/WWVegas/WWLib/stlport_write_integer_backward_int64.cpp,matched,Open-BFME5 clean C++; stlport 4.5.3; signed twin of 0x0000CF60
+?_M_do_lock@?$_STLP_mutex_spin@$0A@@_STL@@SAXPCJ@Z,,0x00007690,235,Code/Libraries/Source/WWVegas/WWLib/stlport_mutex_spin.cpp,matched,Open-BFME5 clean C++; stlport 4.5.3 spin lock
