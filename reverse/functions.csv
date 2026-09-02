@@ -205,7 +205,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_000070e0@@YAXXZ,,0x000070E0,27,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_004070e0
 ?d_000071b0@@YAXXZ,,0x000071B0,6,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_004071b0
 ?d_000072f0@@YAXXZ,,0x000072F0,107,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_004072f0
-?d_00007460@@YAXXZ,,0x00007460,43,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00407460
 ?d_000074d0@@YAXXZ,,0x000074D0,30,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_004074d0
 ?d_00007510@@YAXXZ,,0x00007510,30,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00407510
 ?d_00007550@@YAXXZ,,0x00007550,30,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00407550
@@ -1789,3 +1788,4 @@ _AtlWinModuleTerm@8,,0x000058C3,96,Code/Libraries/Source/ATL/atlbase.cpp,matched
 ?name@locale@_STL@@QBE?AV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@2@XZ,,0x0000BAE0,34,Code/Libraries/Source/WWVegas/WWLib/stlport_locale_name.cpp,matched,Open-BFME5 clean C++; stlport 4.5.3; the impl carries the name string at +0x0C
 ??9locale@_STL@@QBE_NABV01@@Z,,0x0000BC40,18,Code/Libraries/Source/WWVegas/WWLib/stlport_locale_not_equal.cpp,matched,Open-BFME5 clean C++; stlport 4.5.3
 ??0?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE@PBDABV?$allocator@D@1@@Z,,0x00009100,108,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_string_cstr_ctor.cpp,matched,Open-BFME5 clean C++; stlport 4.5.3; two-argument c-string constructor
+?_M_allocate_block@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@AAEXI@Z,,0x00007460,43,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_string_allocate_block.cpp,matched,Open-BFME5 clean C++; stlport 4.5.3; narrow twin of 0x0000BFD0
