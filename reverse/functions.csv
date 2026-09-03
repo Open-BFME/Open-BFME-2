@@ -216,8 +216,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_0000bda0@@YAXXZ,,0x0000BDA0,174,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040bda0
 ?d_0000be50@@YAXXZ,,0x0000BE50,205,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040be50
 ?d_0000c000@@YAXXZ,,0x0000C000,277,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040c000
-?d_0000c120@@YAXXZ,,0x0000C120,133,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040c120
-?d_0000c1b0@@YAXXZ,,0x0000C1B0,382,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040c1b0
 ?d_0000d050@@YAXXZ,,0x0000D050,214,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040d050
 ?d_0000d540@@YAXXZ,,0x0000D540,118,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040d540
 ?d_0000d650@@YAXXZ,,0x0000D650,818,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040d650
@@ -1861,3 +1859,5 @@ _AtlWinModuleTerm@8,,0x000058C3,96,Code/Libraries/Source/ATL/atlbase.cpp,matched
 ?Resize@?$VectorClass@H@@UAE_NHPBH@Z,,0x00002226,141,Code/Libraries/Source/WWVegas/WWLib/vector_class_resize.cpp,matched,WWLib Vector.H VectorClass<T>::Resize for a four-byte T; vftable 0x007BB5AC. Needs /arch:SSE for the cmovge and operator new[] declared so the array form binds. The last statement is the conjunction Vector && !array - not array == 0 - which is where the zeroed register in the final compare comes from
 ??$__get_decimal_integer@PAGO@_STL@@YA_NAAPAG0AAO@Z,,0x0000DC30,133,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_get_decimal_long_double.cpp,matched,stlport-4.5.3
 ??$__get_integer@PAGO@_STL@@YA_NAAPAG0HAAOH_NDABV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@0@ABU__false_type@0@@Z,,0x0000DCC0,384,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_get_integer_long_double.cpp,matched,stlport-4.5.3
+??$__get_integer@PADO@_STL@@YA_NAAPAD0HAAOH_NDABV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@0@ABU__false_type@0@@Z,,0x0000C1B0,382,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_get_integer_long_double.cpp,matched,stlport-4.5.3
+??$__get_decimal_integer@PADO@_STL@@YA_NAAPAD0AAO@Z,,0x0000C120,133,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_get_decimal_long_double.cpp,matched,stlport-4.5.3
