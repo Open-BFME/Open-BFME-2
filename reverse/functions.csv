@@ -2036,7 +2036,6 @@ _XMP_Test_Bit,,0x0061B780,33,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?Convert_Shader@W3dUtilityClass@@SAXABUW3dShaderStruct@@PAVShaderClass@@@Z,,0x001A4529,186,Code/Libraries/Source/WWVegas/WW3D2/w3d_util.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
 ?_M_lower_bound@?$_Rb_tree@IU?$pair@$$CBI_N@_STL@@U?$_Select1st@U?$pair@$$CBI_N@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@$$CBI_N@_STL@@@2@@_STL@@ABEPAU?$_Rb_tree_node@U?$pair@$$CBI_N@_STL@@@2@ABI@Z,,0x0061F660,38,Code/GameEngine/Source/Common/System/FileSystem.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
 ?lower_bound@?$_Rb_tree@IU?$pair@$$CBI_N@_STL@@U?$_Select1st@U?$pair@$$CBI_N@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@$$CBI_N@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBI_N@_STL@@U?$_Nonconst_traits@U?$pair@$$CBI_N@_STL@@@2@@2@ABI@Z,,0x00759D80,44,Code/GameEngine/Source/Common/System/FileSystem.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
-?Get_OS_Info@@YAXAAUOSInfoStruct@@IIII@Z,,0x00611930,387,Code/Libraries/Source/WWVegas/WWLib/cpudetect.cpp,matched,probe
 ?Get_Length@StringClass@@QBEHXZ,,0x0011FB10,48,Code/Libraries/Source/WWVegas/WWLib/cpudetect.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
 ?Init_AMD_Processor_Type@CPUDetectClass@@CAXXZ,,0x00611620,170,Code/Libraries/Source/WWVegas/WWLib/cpudetect.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
 ?Init_VIA_Processor_Type@CPUDetectClass@@CAXXZ,,0x00611700,85,Code/Libraries/Source/WWVegas/WWLib/cpudetect.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
@@ -2374,7 +2373,6 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?CPUID@CPUDetectClass@@SA_NAAI000I@Z,,0x006118C0,103,Code/Libraries/Source/WWVegas/WWLib/cpudetect_cpuid.cpp,matched,stlport-4.5.3
 ??$__lower_bound@PBIIU?$less@I@_STL@@H@_STL@@YAPBIPBI0ABIU?$less@I@0@PAH@Z,,0x00568D2F,57,Code/Libraries/Source/WWVegas/WWLib/stlport_lower_bound_uint.cpp,matched,stlport-4.5.3
 ?_M_clear@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@IAEXXZ,,0x00027480,78,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_voidptr_alloc.cpp,matched,stlport-4.5.3
-??$_M_allocate_and_copy@PBQAX@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@IAEPAPAXIPBQAX0@Z,,0x00027F60,117,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_voidptr_alloc.cpp,matched,probe
 ?reserve@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEXI@Z,,0x00029BE0,180,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_voidptr_alloc.cpp,matched,stlport-4.5.3
 ?_M_insert_overflow@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@IAEXPAPAXABQAXABU__true_type@2@I_N@Z,,0x00029010,263,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_voidptr_alloc.cpp,matched,stlport-4.5.3
 ??1?$_STLP_alloc_proxy@PAPAXPAXV?$allocator@PAX@_STL@@@_STL@@QAE@XZ,,0x00023A40,11,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_voidptr.cpp,matched,stlport-4.5.3
@@ -2411,3 +2409,10 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?Find_Entry@INISection@@QBEPAUINIEntry@@PBD@Z,,0x00616C00,89,Code/Libraries/Source/WWVegas/WWLib/ini.cpp,matched,placed
 ??0TimeCodedBitChannelClass@@QAE@XZ,,0x00195E00,22,Code/Libraries/Source/WWVegas/WW3D2/motchan.cpp,matched,placed
 ?Set_Frame_Row_Column_Count_Log2@PointGroupClass@@QAEXE@Z,,0x00179140,22,Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp,matched,placed
+??0?$_Vector_base@PAXV?$allocator@PAX@_STL@@@_STL@@QAE@IABV?$allocator@PAX@1@@Z,,0x00025140,171,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_voidptr_alloc.cpp,matched,stlport-4.5.3
+??0?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAE@I@Z,,0x00026AB0,162,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_voidptr_alloc.cpp,matched,stlport-4.5.3
+??0?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAE@IABQAXABV?$allocator@PAX@1@@Z,,0x00026A40,106,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_voidptr_alloc.cpp,matched,stlport-4.5.3
+??1?$_Vector_base@PAXV?$allocator@PAX@_STL@@@_STL@@QAE@XZ,,0x000251F0,109,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_voidptr_alloc.cpp,matched,stlport-4.5.3
+??1?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAE@XZ,,0x00027370,131,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_voidptr_alloc.cpp,matched,stlport-4.5.3
+?erase@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEPAPAXPAPAX0@Z,,0x0031BD55,34,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_voidptr_opt.cpp,matched,stlport-4.5.3
+?Get_OS_Info@@YAXAAUOSInfoStruct@@IIII@Z,,0x00611930,390,Code/Libraries/Source/WWVegas/WWLib/cpudetect.cpp,matched,placed
