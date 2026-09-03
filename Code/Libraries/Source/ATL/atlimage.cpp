@@ -80,6 +80,9 @@ extern "C" int __cdecl abs(int value);
 extern "C" __declspec(dllimport) void __cdecl free(void *block);
 extern "C" void *__cdecl memcpy(void *destination, const void *source, unsigned int size);
 extern "C" void *__cdecl _alloca(unsigned int size);
+extern "C" __declspec(dllimport) int __cdecl _resetstkoflw(void);
+extern "C" unsigned long __cdecl _exception_code(void);
+#define GetExceptionCode _exception_code
 
 namespace Gdiplus
 {
@@ -302,7 +305,27 @@ class CCRTAllocator;
 
 namespace _ATL_SAFE_ALLOCA_IMPL
 {
-bool __cdecl _AtlVerifyStackAvailable(unsigned int Size);
+// ATL 7.1 verbatim. The margin is _ATL_SAFE_ALLOCA_STACK_MARGIN, 0x2000, and
+// it shows in the body as `add eax, 0x2003 / and al, 0xFC` - the probe rounds
+// the request up to a dword before handing it to __chkstk. The filter tests
+// for STATUS_STACK_OVERFLOW, 0xC00000FD, and the handler calls _resetstkoflw
+// so the guard page is usable again. Named by the reloc sweep from the
+// _ATL_SAFE_ALLOCA call sites in this same unit.
+bool __cdecl _AtlVerifyStackAvailable(unsigned int Size)
+{
+    bool bStackAvailable = true;
+    __try
+    {
+        void *p = _alloca(Size + 0x2000);
+        p;
+    }
+    __except (GetExceptionCode() == 0xC00000FDL)
+    {
+        bStackAvailable = false;
+        _resetstkoflw();
+    }
+    return bStackAvailable;
+}
 
 template <class Allocator>
 class CAtlSafeAllocBufferManager
