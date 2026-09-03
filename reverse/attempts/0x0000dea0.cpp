@@ -1,4 +1,6 @@
 // ?reserve@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@QAEXI@Z
+// partial score=0.94 date=2026-09-03
+// ?reserve@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@QAEXI@Z
 // partial score=0.94 date=2026-09-02
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
 //
