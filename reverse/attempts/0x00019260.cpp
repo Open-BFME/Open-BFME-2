@@ -1,6 +1,16 @@
 // ?_Init_timeinfo@_STL@@YAXAAV_Time_Info@1@@Z
-// partial score=0.95 date=2026-09-02
+// partial score=0.96 date=2026-09-03
+// ?_Init_timeinfo@_STL@@YAXAAV_Time_Info@1@@Z
+// partial score=0.96 date=2026-09-02
 // cl: -O2
+//
+// 2026-09-03: the seven REL32s in this body all reach one address, 0x00019180,
+// and it is now pinned. That alone took the difference from 55 bytes to 27 -
+// the earlier count was mostly unresolved displacements, not code.
+//
+// What is left is a single spilled local. Retail opens push ebx / mov ebx,
+// [esp+8]; this opens push ecx / push ebx / mov ebx, [esp+0x0C], so it holds
+// one temporary retail does not and every stack displacement after it moves.
 
 // Locale-independent seed for _Time_Info: the "C" locale day/month names and
 // the strftime patterns that go with them.  The tables live in the library's

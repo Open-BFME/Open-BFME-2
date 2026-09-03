@@ -1,6 +1,13 @@
 // ?reserve@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@QAEXI@Z
 // partial score=0.94 date=2026-09-02
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
+//
+// 2026-09-03: re-measured. Six bytes differ, at 0x2F, 0x32, 0x34, 0x35, 0x55
+// and 0x5D, and they are a register swap and nothing else - retail does
+//   mov edx, [esi+4] / mov eax, [esi] / push edi / push edx / push eax
+// and cl does the same three loads and pushes in the same order through eax
+// and ecx. The values, their order and every other byte agree.
+// Also checked and refuted here: /arch:SSE changes nothing.
 // stlport
 //
 // STLport 4.5.3 basic_string<wchar_t>::reserve, the wide twin of 0x0000C390.
