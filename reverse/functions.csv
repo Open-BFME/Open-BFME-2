@@ -1911,3 +1911,4 @@ _AtlWinModuleTerm@8,,0x000058C3,96,Code/Libraries/Source/ATL/atlbase.cpp,matched
 ?Shrink@?$SimpleDynVecClass@VAABoxClass@@@@IAE_NXZ,,0x001440A0,32,Code/Libraries/Source/WWVegas/WWMath/aabtreecull.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
 ??4SplitChoiceStruct@AABTreeNodeClass@@QAEAAU01@ABU01@@Z,,0x00198BF0,109,Code/Libraries/Source/WWVegas/WWMath/aabtreecull.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
 ?Init@Matrix4x4@@QAEXABVVector4@@000@Z,,0x0006905B,110,Code/Libraries/Source/WWVegas/WWMath/matrix4x4.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
+??0?$pair@$$CBVAsciiString@@URva00466EA7Value@@@_STL@@QAE@ABU01@@Z,,0x00466EA7,27,Code/Libraries/Source/WWVegas/WWLib/RvaTreeInsertUniqueNoCase.cpp,matched,ported from the Open-BFME-1 conversion; the mapped-value struct is a placeholder named for the address it sits at here
