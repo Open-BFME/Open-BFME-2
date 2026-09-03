@@ -31,7 +31,20 @@ extern "C" __declspec(dllimport) int __stdcall WideCharToMultiByte(
 extern "C" __declspec(dllimport) void *__cdecl malloc(unsigned int size);
 extern "C" __declspec(dllimport) void __cdecl free(void *block);
 extern "C" __declspec(dllimport) DWORD __stdcall GetLastError();
-extern "C" __declspec(dllimport) UINT __stdcall GetACP();
+// Not GetACP. Both constructors call through the code-page slot at
+// 0x00DA5E40, which retail initialises to the dispatcher at 0x000010CF: that
+// body calls GetVersionExA and installs either the four-byte NT5+ path at
+// 0x0044827C, which is push 3 / pop eax / ret and so returns CP_THREAD_ACP,
+// or the downlevel path at 0x0000107F, which reads LOCALE_IDEFAULTANSICODEPAGE
+// for the thread locale and falls back to GetACP only if that yields zero.
+// The slot holds 0x004010CF to begin with, so the first call replaces itself.
+//
+// Spelling it GetACP() compiled to the same bytes, because both are ff 15
+// against a DIR32 the comparison masks - the byte check cannot see which
+// function an indirect call goes to, and the gate's DIR32 consistency check
+// cannot either, since a wrong name that is used consistently is consistent.
+// Modelling it as the pointer it is keeps the bytes and fixes the name.
+extern "C" UINT(__stdcall *_AtlGetConversionACP)();
 
 LPWSTR __stdcall AtlA2WHelper(LPWSTR lpw, LPCSTR lpa, int nChars, UINT acp)
 {
@@ -96,7 +109,7 @@ class CA2WEX
 public:
 	CA2WEX(LPCSTR psz) : m_psz(m_szBuffer)
 	{
-		Init(psz, GetACP());
+		Init(psz, _AtlGetConversionACP());
 	}
 	CA2WEX(LPCSTR psz, UINT nCodePage) : m_psz(m_szBuffer)
 	{
@@ -128,7 +141,7 @@ class CW2AEX
 public:
     CW2AEX(LPCWSTR psz) : m_psz(m_szBuffer)
     {
-        Init(psz, GetACP());
+        Init(psz, _AtlGetConversionACP());
     }
     ~CW2AEX();
 
