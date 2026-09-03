@@ -1,3 +1,5 @@
+// ??1ios_base@_STL@@UAE@XZ
+// partial score=0.9 date=2026-09-03
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
 // stlport
 //
@@ -6,6 +8,8 @@
 // locale is built and the nine cache words after it. The exception frame is
 // there for the two members that own storage - the locale at 0x20 and the
 // cached grouping string at 0x48.
+
+extern "C" __declspec(dllimport) void __cdecl free(void *block);
 
 namespace _STL
 {
@@ -93,6 +97,25 @@ private:
 	void *_M_cached_numpunct;
 	narrow_string _M_cached_grouping;
 };
+
+// The destructor. Two different frees, and the difference is the point: the
+// three raw arrays go through the CRT's free, the import at 0x00BBA6E8, while
+// the cached grouping string's buffer goes through the C++-linkage free at
+// 0x00030830 that STLport's allocator uses. Only the string's destructor is
+// inlined here; the locale's is called.
+ios_base::~ios_base()
+{
+	for (unsigned int i = _M_num_callbacks; i > 0; --i)
+	{
+		event_callback f = _M_callbacks[i - 1].first;
+		int n = _M_callbacks[i - 1].second;
+		f(0, *this, n);
+	}
+
+	free(_M_callbacks);
+	free(_M_iwords);
+	free(_M_pwords);
+}
 
 ios_base::ios_base()
 	: _M_fmtflags(0), _M_iostate(0), _M_openmode(0), _M_seekdir(0),
