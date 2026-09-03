@@ -2372,3 +2372,4 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?_AtlGetThreadACPFake@ATL@@YGIXZ,,0x0000107F,80,Code/Libraries/Source/ATL/atlconv.cpp,matched,vendored=atl-7.1
 ?get_allocator@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@QBE?AV?$allocator@G@2@XZ,,0x001627F0,7,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_string_default_ctor.cpp,matched,empty allocator returned by value; the body is the hidden return pointer
 ?CPUID@CPUDetectClass@@SA_NAAI000I@Z,,0x006118C0,103,Code/Libraries/Source/WWVegas/WWLib/cpudetect_cpuid.cpp,matched,stlport-4.5.3
+??$__lower_bound@PBIIU?$less@I@_STL@@H@_STL@@YAPBIPBI0ABIU?$less@I@0@PAH@Z,,0x00568D2F,57,Code/Libraries/Source/WWVegas/WWLib/stlport_lower_bound_uint.cpp,matched,stlport-4.5.3
