@@ -2254,3 +2254,49 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?eval_overlap_mask@CollisionMath@@CA?AW4OverlapType@1@H@Z,,0x00714BD0,36,Code/Libraries/Source/WWVegas/WWMath/colmathplane.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
 ??8@YAHABVMatrix4@@0@Z,,0x007166D0,226,Code/Libraries/Source/WWVegas/WWMath/matrix4.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
 ??0DebugIOFlat@@QAE@XZ,,0x0003FD00,90,Code/Libraries/Source/WWVegas/WWDebug/debug_io_flat.cpp,matched,ported from the Open-BFME-1 conversion
+??1BoxDynamicVBAccessClass@@QAE@XZ,,0x0013A780,80,Code/Libraries/Source/WWVegas/WW3D2/BoxDynamicVBAccessClassDestructor.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+??0MatPassTaskClass@@QAE@PAVMaterialPassClass@@PAVMeshClass@@@Z,,0x001438C0,39,Code/Libraries/Source/WWVegas/WW3D2/DX8RigidDelayedMaterialPass.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+?Set_Render_Target@DX8Wrapper@@SAXPAUIDirect3DSurface8@@_N@Z,,0x0011E250,400,Code/Libraries/Source/WWVegas/WW3D2/DX8Wrapper_Set_Render_Target_Surface.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+?Save_Header@HLodDefClass@@IAE_NAAVChunkSaveClass@@@Z,,0x0019B140,163,Code/Libraries/Source/WWVegas/WW3D2/HLodDefClass_Save_Bool_Local.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+??1MaterialPassClass@@UAE@XZ,,0x0013EE40,112,Code/Libraries/Source/WWVegas/WW3D2/MaterialPassClassDestructor.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+??_GMaterialPassClass@@UAEPAXI@Z,,0x0013EF80,30,Code/Libraries/Source/WWVegas/WW3D2/MaterialPassClassDestructor.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+?Save_Header@ParticleEmitterDefClass@@MAE_NAAVChunkSaveClass@@@Z,,0x001B0B40,116,Code/Libraries/Source/WWVegas/WW3D2/ParticleEmitterDefClassSaveHeaderBool.cpp,matched,ported from the Open-BFME-1 conversion
+?Save_Info@ParticleEmitterDefClass@@MAE_NAAVChunkSaveClass@@@Z,,0x001B0C50,67,Code/Libraries/Source/WWVegas/WW3D2/ParticleEmitterDefClassSaveInfoBool.cpp,matched,ported from the Open-BFME-1 conversion
+?Save_InfoV2@ParticleEmitterDefClass@@MAE_NAAVChunkSaveClass@@@Z,,0x001B0CA0,65,Code/Libraries/Source/WWVegas/WW3D2/ParticleEmitterDefClassSaveInfoV2Bool.cpp,matched,ported from the Open-BFME-1 conversion
+?Save_Line_Properties@ParticleEmitterDefClass@@MAE_NAAVChunkSaveClass@@@Z,,0x001B0E50,65,Code/Libraries/Source/WWVegas/WW3D2/ParticleEmitterDefClassSaveLinePropertiesBool.cpp,matched,ported from the Open-BFME-1 conversion
+?Save_User_Data@ParticleEmitterDefClass@@MAE_NAAVChunkSaveClass@@@Z,,0x001B0BC0,137,Code/Libraries/Source/WWVegas/WW3D2/ParticleEmitterDefClassSaveUserDataBool.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+?Save_W3D@ParticleEmitterDefClass@@UAE_NAAVChunkSaveClass@@@Z,,0x001B0A70,202,Code/Libraries/Source/WWVegas/WW3D2/ParticleEmitterDefClassSaveW3DBool.cpp,matched,ported from the Open-BFME-1 conversion
+??0ShareBufferClassBase@@QAE@HPBDH@Z,,0x0015AF30,195,Code/Libraries/Source/WWVegas/WW3D2/ShareBufferClassBaseCtor.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+??0FrustumClass@@QAE@ABV0@@Z,,0x00133F10,258,Code/Libraries/Source/WWVegas/WW3D2/camera.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+??1DynamicIBAccessClass@@QAE@XZ,,0x00138BE0,72,Code/Libraries/Source/WWVegas/WW3D2/dx8indexbuffer.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+?_Deinit@DynamicIBAccessClass@@SAXXZ,,0x00138C30,99,Code/Libraries/Source/WWVegas/WW3D2/dx8indexbuffer.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+?Add_Vertex_Material@MaterialInfoClass@@QAEHPAVVertexMaterialClass@@@Z,,0x00189670,85,Code/Libraries/Source/WWVegas/WW3D2/dynamesh.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+?Remap_Vertex_Material@MaterialRemapperClass@@QAEPAVVertexMaterialClass@@PAV2@@Z,,0x0016ECD0,81,Code/Libraries/Source/WWVegas/WW3D2/matinfo.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+?Find_Vertex_Material@MaterialCollectorClass@@QAEHPAVVertexMaterialClass@@@Z,,0x0016F550,38,Code/Libraries/Source/WWVegas/WW3D2/matinfo.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+?Set_Flag@MeshGeometryClass@@QAEXW4FlagsType@1@_N@Z,,0x001494B0,29,Code/Libraries/Source/WWVegas/WW3D2/mesh.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+??0?$ShareBufferClass@G@@QAE@HPBDH@Z,,0x001699E0,137,Code/Libraries/Source/WWVegas/WW3D2/meshgeometry.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+?Set_User_Text@MeshGeometryClass@@QAEXPAD@Z,,0x0016A6C0,192,Code/Libraries/Source/WWVegas/WW3D2/meshgeometry.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+?Set_Name@MeshGeometryClass@@QAEXPBD@Z,,0x0016A790,192,Code/Libraries/Source/WWVegas/WW3D2/meshgeometry.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+?Do_Mappers_Need_Normals@VertexMaterialClass@@QBE_NXZ,,0x0015A010,44,Code/Libraries/Source/WWVegas/WW3D2/meshmatdesc.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+?Set_Element@MatBufferClass@@QAEXHPAVVertexMaterialClass@@@Z,,0x0015A060,77,Code/Libraries/Source/WWVegas/WW3D2/meshmatdesc.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+?Clear@?$ShareBufferClass@PAVVertexMaterialClass@@@@QAEXXZ,,0x0015B0B0,31,Code/Libraries/Source/WWVegas/WW3D2/meshmatdesc.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+??0TriangleSide@@QAE@ABVVector3@@0@Z,,0x00171900,133,Code/Libraries/Source/WWVegas/WW3D2/meshmdl_sidehash.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+??8TriangleSide@@QAE_NABU0@@Z,,0x00171990,60,Code/Libraries/Source/WWVegas/WW3D2/meshmdl_sidehash.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+?Get_Hash_Value@?$HashTemplateKeyClass@VVector3@@@@SAIABVVector3@@@Z,,0x001719D0,122,Code/Libraries/Source/WWVegas/WW3D2/meshmdl_sidehash.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+?Get_Hash_Value@?$HashTemplateKeyClass@UTriangleSide@@@@SAIABUTriangleSide@@@Z,,0x00171A50,122,Code/Libraries/Source/WWVegas/WW3D2/meshmdl_sidehash.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+?Remove_All@?$HashTemplateClass@VVector3@@I@@QAEXXZ,,0x00171D00,95,Code/Libraries/Source/WWVegas/WW3D2/meshmdl_sidehash.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+?Remove_All@?$HashTemplateClass@UTriangleSide@@USideIndexInfo@@@@QAEXXZ,,0x00171DA0,95,Code/Libraries/Source/WWVegas/WW3D2/meshmdl_sidehash.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+?Get@?$HashTemplateClass@UTriangleSide@@USideIndexInfo@@@@QBE?AUSideIndexInfo@@ABUTriangleSide@@@Z,,0x001722F0,198,Code/Libraries/Source/WWVegas/WW3D2/meshmdl_sidehash.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+?Exists@?$HashTemplateClass@UTriangleSide@@USideIndexInfo@@@@QBE_NABUTriangleSide@@@Z,,0x001723C0,173,Code/Libraries/Source/WWVegas/WW3D2/meshmdl_sidehash.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+?Re_Hash@?$HashTemplateClass@VVector3@@I@@AAEXXZ,,0x00172470,388,Code/Libraries/Source/WWVegas/WW3D2/meshmdl_sidehash.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+?Re_Hash@?$HashTemplateClass@UTriangleSide@@USideIndexInfo@@@@AAEXXZ,,0x00172600,464,Code/Libraries/Source/WWVegas/WW3D2/meshmdl_sidehash.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+?Alloc_Entry@?$HashTemplateClass@VVector3@@I@@AAEHXZ,,0x00172E10,31,Code/Libraries/Source/WWVegas/WW3D2/meshmdl_sidehash.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+?Alloc_Entry@?$HashTemplateClass@UTriangleSide@@USideIndexInfo@@@@AAEHXZ,,0x00172E30,31,Code/Libraries/Source/WWVegas/WW3D2/meshmdl_sidehash.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+?Insert@?$HashTemplateClass@VVector3@@I@@QAEXABVVector3@@ABI@Z,,0x00172E70,118,Code/Libraries/Source/WWVegas/WW3D2/meshmdl_sidehash.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+?Insert@?$HashTemplateClass@UTriangleSide@@USideIndexInfo@@@@QAEXABUTriangleSide@@ABUSideIndexInfo@@@Z,,0x00172EF0,154,Code/Libraries/Source/WWVegas/WW3D2/meshmdl_sidehash.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+?Find_POT@@YAHH@Z,,0x0071CCF0,51,Code/Libraries/Source/WWVegas/WW3D2/pot.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+?Find_POT_Log2@@YAII@Z,,0x0071CD30,45,Code/Libraries/Source/WWVegas/WW3D2/pot.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+?Set_Point_Location@SegmentedLineClass@@QAEXIABVVector3@@@Z,,0x00741C30,53,Code/Libraries/Source/WWVegas/WW3D2/segline.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+?Delete_Point@SegmentedLineClass@@QAEXI@Z,,0x00742B00,105,Code/Libraries/Source/WWVegas/WW3D2/segline.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+?getVertexBuffer@SegLineRendererClass@@AAEPAUVertexFormatXYZDUV1@@I@Z,,0x001912B0,60,Code/Libraries/Source/WWVegas/WW3D2/seglinerenderer.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+?Set_Texture@StreakRendererClass@@QAEXPAVTextureClass@@@Z,,0x0014A0F0,39,Code/Libraries/Source/WWVegas/WW3D2/streakRender.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
