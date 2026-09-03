@@ -1868,3 +1868,34 @@ _AtlWinModuleTerm@8,,0x000058C3,96,Code/Libraries/Source/ATL/atlbase.cpp,matched
 ??$__push_heap@PAUS4SortElem8@@HU1@US4Cmp00625880@@@_STL@@YAXPAUS4SortElem8@@HHU1@US4Cmp00625880@@@Z,,0x00625A70,96,Code/Libraries/Source/WWVegas/WWLib/stlport_push_heap_s4sortelem8.cpp,matched,stlport-4.5.3 sift-up; ported from the Open-BFME-1 conversion
 ??RS4Cmp006258B0@@QBE_NABUS4SortElem8@@0@Z,,0x006258B0,34,Code/Libraries/Source/WWVegas/WWLib/stlport_push_heap_s4sortelem8_desc.cpp,matched,ported from the Open-BFME-1 conversion; located by masked byte-scan
 ??$__push_heap@PAUS4SortElem8@@HU1@US4Cmp006258B0@@@_STL@@YAXPAUS4SortElem8@@HHU1@US4Cmp006258B0@@@Z,,0x00625AD0,96,Code/Libraries/Source/WWVegas/WWLib/stlport_push_heap_s4sortelem8_desc.cpp,matched,stlport-4.5.3 sift-up with the reversed comparator; ported from the Open-BFME-1 conversion
+??4Matrix3D@@QAEAAV0@ABV0@@Z,,0x0006336E,79,Code/Libraries/Source/WWVegas/WWMath/matrix3d.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
+?Dot_Product@Vector3@@SAMABV1@0@Z,,0x000663EF,29,Code/Libraries/Source/WWVegas/WWMath/matrix3d.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
+?Set_Translation@Matrix3D@@QAEXABVVector3@@@Z,,0x0008E15A,24,Code/Libraries/Source/WWVegas/WWMath/matrix3d.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
+??4Vector4@@QAEAAV0@ABV0@@Z,,0x00133880,31,Code/Libraries/Source/WWVegas/WWMath/matrix3d.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
+??4Vector3@@QAEAAV0@ABV0@@Z,,0x00169FB0,25,Code/Libraries/Source/WWVegas/WWMath/matrix3d.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
+??0Vector3@@QAE@MMM@Z,,0x006CD510,25,Code/Libraries/Source/WWVegas/WWMath/matrix3d.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
+??0Vector4@@QAE@MMMM@Z,,0x006D8A30,32,Code/Libraries/Source/WWVegas/WWMath/matrix3d.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
+?Length2@Vector3@@QBEMXZ,,0x00711C40,31,Code/Libraries/Source/WWVegas/WWMath/matrix3d.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
+?Set_Rotation@Matrix3D@@QAEXABVMatrix3@@@Z,,0x00711EF0,59,Code/Libraries/Source/WWVegas/WWMath/matrix3d.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
+?Set_Rotation@Matrix3D@@QAEXABVQuaternion@@@Z,,0x00711F30,205,Code/Libraries/Source/WWVegas/WWMath/matrix3d.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
+?Set@Matrix3D@@QAEXABVQuaternion@@ABVVector3@@@Z,,0x00713260,34,Code/Libraries/Source/WWVegas/WWMath/matrix3d.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
+?Inv_Sqrt@WWMath@@SIMM@Z,,0x0004233A,82,Code/Libraries/Source/WWVegas/WWMath/vp.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
+?Copy@VectorProcessorClass@@SAXPAVVector2@@PBV2@H@Z,,0x0071D3E0,26,Code/Libraries/Source/WWVegas/WWMath/vp.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
+?Copy@VectorProcessorClass@@SAXPAVVector4@@PBV2@H@Z,,0x0071D450,38,Code/Libraries/Source/WWVegas/WWMath/vp.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
+?Reset@ColmathStatsStruct@CollisionMath@@QAEXXZ,,0x00714B70,44,Code/Libraries/Source/WWVegas/WWMath/colmath.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
+??0ColmathStatsStruct@CollisionMath@@QAE@XZ,,0x00714BA0,46,Code/Libraries/Source/WWVegas/WWMath/colmath.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
+?Set@Matrix3@@QAEXABVQuaternion@@@Z,,0x00716950,205,Code/Libraries/Source/WWVegas/WWMath/matrix3.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
+?Init@AABoxClass@@QAEXABVVector3@@0@Z,,0x0007E535,44,Code/Libraries/Source/WWVegas/WWMath/cullsys.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
+??4AABoxClass@@QAEAAV0@ABV0@@Z,,0x001492E0,43,Code/Libraries/Source/WWVegas/WWMath/cullsys.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
+?Is_Empty@VolumeStruct@GridCullSystemClass@@QBE_NXZ,,0x0071AB00,38,Code/Libraries/Source/WWVegas/WWMath/gridcull.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
+??0GridLinkClass@@QAE@PAVGridCullSystemClass@@@Z,,0x0071ACD0,33,Code/Libraries/Source/WWVegas/WWMath/gridcull.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
+?Reset_Statistics@GridCullSystemClass@@QAEXXZ,,0x0071AE20,30,Code/Libraries/Source/WWVegas/WWMath/gridcull.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
+?link_object_to_list@GridCullSystemClass@@IAEXPAPAVCullableClass@@PAV2@@Z,,0x0071AE50,42,Code/Libraries/Source/WWVegas/WWMath/gridcull.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
+??0GenericMultiListClass@@QAE@XZ,,0x00065815,39,Code/Libraries/Source/WWVegas/WWMath/lookuptable.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
+?Peek_Head@?$RefMultiListClass@VLookupTableClass@@@@QAEPAVLookupTableClass@@XZ,,0x00141120,24,Code/Libraries/Source/WWVegas/WWMath/lookuptable.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
+?Clear@?$VectorClass@M@@UAEXXZ,,0x00154A30,39,Code/Libraries/Source/WWVegas/WWMath/ode.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
+?Clear@?$DynamicVectorClass@M@@UAEXXZ,,0x0016FED0,42,Code/Libraries/Source/WWVegas/WWMath/ode.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
+??4_ArcInfoStruct@VehicleCurveClass@@QAEAAU01@ABU01@@Z,,0x000B2CE5,85,Code/Libraries/Source/WWVegas/WWMath/vehiclecurve.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
+?Delete_All@?$DynamicVectorClass@U_ArcInfoStruct@VehicleCurveClass@@@@QAEXXZ,,0x0011F660,25,Code/Libraries/Source/WWVegas/WWMath/vehiclecurve.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
+??8?$VectorClass@U_ArcInfoStruct@VehicleCurveClass@@@@UBE_NABV0@@Z,,0x00124580,25,Code/Libraries/Source/WWVegas/WWMath/vehiclecurve.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
+??0_ArcInfoStruct@VehicleCurveClass@@QAE@XZ,,0x0022239C,43,Code/Libraries/Source/WWVegas/WWMath/vehiclecurve.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
