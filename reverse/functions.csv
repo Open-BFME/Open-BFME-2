@@ -196,7 +196,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_00006b09@@YAXXZ,,0x00006B09,10,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00406b09
 ?d_00006cf0@@YAXXZ,,0x00006CF0,34,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00406cf0
 ?d_00006f80@@YAXXZ,,0x00006F80,241,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00406f80
-?d_000070e0@@YAXXZ,,0x000070E0,27,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_004070e0
 ?d_000071b0@@YAXXZ,,0x000071B0,6,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_004071b0
 ?d_000072f0@@YAXXZ,,0x000072F0,107,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_004072f0
 ?d_000074d0@@YAXXZ,,0x000074D0,30,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_004074d0
@@ -206,11 +205,9 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_000075d0@@YAXXZ,,0x000075D0,30,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_004075d0
 ?d_00007610@@YAXXZ,,0x00007610,30,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00407610
 ?d_00007650@@YAXXZ,,0x00007650,30,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00407650
-?d_00007670@@YAXXZ,,0x00007670,27,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00407670
 ?d_00009450@@YAXXZ,,0x00009450,385,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00409450
 ?d_000095e0@@YAXXZ,,0x000095E0,569,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_004095e0
 ?d_0000b730@@YAXXZ,,0x0000B730,908,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040b730
-?d_0000bac0@@YAXXZ,,0x0000BAC0,31,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040bac0
 ?d_0000bb10@@YAXXZ,,0x0000BB10,295,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040bb10
 ?d_0000bc60@@YAXXZ,,0x0000BC60,314,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040bc60
 ?d_0000bda0@@YAXXZ,,0x0000BDA0,174,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040bda0
@@ -1861,3 +1858,6 @@ _AtlWinModuleTerm@8,,0x000058C3,96,Code/Libraries/Source/ATL/atlbase.cpp,matched
 ??$__get_integer@PAGO@_STL@@YA_NAAPAG0HAAOH_NDABV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@0@ABU__false_type@0@@Z,,0x0000DCC0,384,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_get_integer_long_double.cpp,matched,stlport-4.5.3
 ??$__get_integer@PADO@_STL@@YA_NAAPAD0HAAOH_NDABV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@0@ABU__false_type@0@@Z,,0x0000C1B0,382,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_get_integer_long_double.cpp,matched,stlport-4.5.3
 ??$__get_decimal_integer@PADO@_STL@@YA_NAAPAD0AAO@Z,,0x0000C120,133,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_get_decimal_long_double.cpp,matched,stlport-4.5.3
+??1_Loc_init@ios_base@_STL@@QAE@XZ,,0x000070E0,27,Code/Libraries/Source/WWVegas/WWLib/stlport_loc_init.cpp,matched,STLport 4.5.3 ios_base::_Loc_init destructor - the != 0 guard that pairs with the == 0 guard in the constructor at 0x0000F740
+?_S_uninitialize@locale@_STL@@SAXXZ,,0x00007670,27,Code/Libraries/Source/WWVegas/WWLib/stlport_loc_init.cpp,matched,STLport 4.5.3 locale::_S_uninitialize - the > 0 guard that pairs with the <= 0 guard in _S_initialize at 0x0000BAC0
+?_S_initialize@locale@_STL@@SAXXZ,,0x0000BAC0,31,Code/Libraries/Source/WWVegas/WWLib/stlport_loc_init.cpp,matched,STLport 4.5.3 locale::_S_initialize - the static twin of ios_base::_Loc_init's constructor over the same counter
