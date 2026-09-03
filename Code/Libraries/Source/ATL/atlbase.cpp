@@ -17,6 +17,9 @@ extern "C" __declspec(dllimport) void __cdecl free(void *memory);
 extern "C" __declspec(dllimport) __declspec(noreturn) void __stdcall RaiseException(
     DWORD code, DWORD flags, DWORD argumentCount, const DWORD *arguments);
 extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(void *section);
+extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(void *section);
+extern "C" unsigned long __cdecl _exception_code(void);
+#define GetExceptionCode _exception_code
 extern "C" __declspec(dllimport) BOOL __stdcall UnregisterClassA(LPCSTR className, HINSTANCE instance);
 
 namespace ATL
@@ -30,8 +33,39 @@ public:
     HRESULT Init() throw();
     HRESULT Term() throw() { DeleteCriticalSection(&m_sec); return 0; }
 
+
     unsigned char m_sec[0x18];
 };
+
+// CComCriticalSection::Init. The reloc sweep named it from its call site; the
+// shape is read off the funclets rather than taken from the reference, because
+// this engine's is not the published ATL 7.1 body.
+//
+// The filter does not decide anything: it saves the exception code into a
+// frame slot and returns 1 unconditionally (xor eax, eax / inc eax / ret), so
+// the handler always runs. The handler then picks the result branchlessly -
+// setne on the saved code, dec, and 0x0006C009, add 0x80004005 - which is
+// E_FAIL plus the difference to E_OUTOFMEMORY, i.e. STATUS_NO_MEMORY gives
+// E_OUTOFMEMORY and anything else gives E_FAIL. Written as a filter that
+// tests the code, cl folds the test into the filter and the handler stops
+// matching.
+//
+// The saved code is the extra frame slot: __SEH_prolog takes 0x0C here where
+// a filter without it takes 0x08.
+inline HRESULT CComCriticalSection::Init() throw()
+{
+    HRESULT hRes = 0;
+    unsigned long code;
+    __try
+    {
+        InitializeCriticalSection(&m_sec);
+    }
+    __except (code = GetExceptionCode(), 1)
+    {
+        hRes = code == 0xC0000017L ? 0x8007000EL : 0x80004005L;
+    }
+    return hRes;
+}
 
 template <class T>
 class CSimpleArrayEqualHelper
