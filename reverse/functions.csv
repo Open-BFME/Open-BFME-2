@@ -2377,3 +2377,7 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ??$_M_allocate_and_copy@PBQAX@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@IAEPAPAXIPBQAX0@Z,,0x00027F60,117,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_voidptr_alloc.cpp,matched,probe
 ?reserve@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEXI@Z,,0x00029BE0,180,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_voidptr_alloc.cpp,matched,stlport-4.5.3
 ?_M_insert_overflow@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@IAEXPAPAXABQAXABU__true_type@2@I_N@Z,,0x00029010,263,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_voidptr_alloc.cpp,matched,stlport-4.5.3
+??1?$_STLP_alloc_proxy@PAPAXPAXV?$allocator@PAX@_STL@@@_STL@@QAE@XZ,,0x00023A40,11,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_voidptr.cpp,matched,stlport-4.5.3
+?begin@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEPAPAXXZ,,0x00023B90,16,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_voidptr.cpp,matched,stlport-4.5.3
+?end@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEPAPAXXZ,,0x00023BA0,17,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_voidptr.cpp,matched,stlport-4.5.3
+?max_size@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QBEIXZ,,0x00023B20,16,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_voidptr.cpp,matched,stlport-4.5.3
