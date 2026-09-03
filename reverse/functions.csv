@@ -2246,3 +2246,11 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?CopyIndexed@VectorProcessorClass@@SAXPAEPBEPBIH@Z,,0x0071D910,52,Code/Libraries/Source/WWVegas/WWMath/vp.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
 ?Clear@VectorProcessorClass@@SAXPAVVector3@@H@Z,,0x0071DAE0,38,Code/Libraries/Source/WWVegas/WWMath/vp.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
 ?CopyIndexed@VectorProcessorClass@@SAXPAVVector2@@PBV2@PBIH@Z,,0x0071DF00,192,Code/Libraries/Source/WWVegas/WWMath/vp.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+??Y?$Int@$0EA@@@QAEAAV0@ABV0@@Z,,0x0061DD50,33,Code/Libraries/Source/WWVegas/WWLib/pk.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+??O?$Int@$0EA@@@QBEHABV0@@Z,,0x0061DE90,28,Code/Libraries/Source/WWVegas/WWLib/pk.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+??L?$Int@$0EA@@@QBEGG@Z,,0x0061DF20,24,Code/Libraries/Source/WWVegas/WWLib/pk.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+?Is_ANSI@WideStringClass@@QAE_NXZ,,0x00619C00,40,Code/Libraries/Source/WWVegas/WWLib/widestring.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+?Project_To_Axis@AABoxClass@@QBEMABVVector3@@@Z,,0x007236F0,68,Code/Libraries/Source/WWVegas/WWMath/colmathaabox.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+?eval_overlap_mask@CollisionMath@@CA?AW4OverlapType@1@H@Z,,0x00714BD0,36,Code/Libraries/Source/WWVegas/WWMath/colmathplane.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+??8@YAHABVMatrix4@@0@Z,,0x007166D0,226,Code/Libraries/Source/WWVegas/WWMath/matrix4.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+??0DebugIOFlat@@QAE@XZ,,0x0003FD00,90,Code/Libraries/Source/WWVegas/WWDebug/debug_io_flat.cpp,matched,ported from the Open-BFME-1 conversion
