@@ -1960,3 +1960,10 @@ _XMP_Test_Bit,,0x0061B780,33,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ??RRandomClass@@QAEHXZ,,0x006192D0,24,Code/Libraries/Source/WWVegas/WWLib/random.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
 ?Clone@Vector3SolidCylinderRandomizer@@UBEPAVVector3Randomizer@@XZ,,0x00723660,41,Code/Libraries/Source/WWVegas/WWMath/v3_rnd.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
 ?Clone@Vector3SolidBoxRandomizer@@UBEPAVVector3Randomizer@@XZ,,0x00723690,47,Code/Libraries/Source/WWVegas/WWMath/v3_rnd.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
+??1Straw@@UAE@XZ,,0x006154D0,50,Code/Libraries/Source/WWVegas/WWLib/straw.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
+?Get_From@Straw@@UAEXPAV1@@Z,,0x00615510,67,Code/Libraries/Source/WWVegas/WWLib/straw.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
+??0SysTimeClass@@QAE@XZ,,0x0061AD40,28,Code/Libraries/Source/WWVegas/WWLib/systimer.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
+??0?$VectorClass@E@@QAE@HPBE@Z,,0x001791F0,71,Code/Libraries/Source/WWVegas/WWLib/vector.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
+?Put@FilePipe@@UAEHPBXH@Z,,0x0061B5B0,75,Code/Libraries/Source/WWVegas/WWLib/xpipe.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
+?Get@FileStraw@@UAEHPAXH@Z,,0x006155E0,93,Code/Libraries/Source/WWVegas/WWLib/xstraw.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
+??$swap@V?$TPoint2D@H@@@@YAXAAV?$TPoint2D@H@@0@Z,,0x006259C0,33,Code/Libraries/Source/WWVegas/WWLib/xsurface.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
