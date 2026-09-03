@@ -2374,3 +2374,5 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?CPUID@CPUDetectClass@@SA_NAAI000I@Z,,0x006118C0,103,Code/Libraries/Source/WWVegas/WWLib/cpudetect_cpuid.cpp,matched,stlport-4.5.3
 ??$__lower_bound@PBIIU?$less@I@_STL@@H@_STL@@YAPBIPBI0ABIU?$less@I@0@PAH@Z,,0x00568D2F,57,Code/Libraries/Source/WWVegas/WWLib/stlport_lower_bound_uint.cpp,matched,stlport-4.5.3
 ?_M_clear@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@IAEXXZ,,0x00027480,78,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_voidptr_alloc.cpp,matched,stlport-4.5.3
+??$_M_allocate_and_copy@PBQAX@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@IAEPAPAXIPBQAX0@Z,,0x00027F60,117,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_voidptr_alloc.cpp,matched,probe
+?reserve@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEXI@Z,,0x00029BE0,180,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_voidptr_alloc.cpp,matched,stlport-4.5.3
