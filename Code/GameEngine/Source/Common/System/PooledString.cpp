@@ -29,9 +29,9 @@ public:
 };
 
 // getIdNoCase (0x0060B820) and isEqualNoCase (0x0060B82B) are NOT here: both
-// select the alias with cmovne and MSVC 7.1 will only emit the shorter
-// test/je/mov for this shape at /O1, while /O2 - which does reach for cmov -
-// breaks every other body in this unit. Banked at reverse/attempts/.
+// select the alias with cmovne, and cl 13.10 emits a conditional move only
+// under /arch, which this unit cannot take without breaking its other bodies.
+// They live in pooled_string_nocase.cpp at /O1 /arch:SSE and both match.
 
 // A pooled entry is shared by every string with the same text. The alias at +4
 // points at the case-folded twin when there is one, which is what makes the two
