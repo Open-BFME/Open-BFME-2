@@ -2300,3 +2300,23 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?Delete_Point@SegmentedLineClass@@QAEXI@Z,,0x00742B00,105,Code/Libraries/Source/WWVegas/WW3D2/segline.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
 ?getVertexBuffer@SegLineRendererClass@@AAEPAUVertexFormatXYZDUV1@@I@Z,,0x001912B0,60,Code/Libraries/Source/WWVegas/WW3D2/seglinerenderer.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
 ?Set_Texture@StreakRendererClass@@QAEXPAVTextureClass@@@Z,,0x0014A0F0,39,Code/Libraries/Source/WWVegas/WW3D2/streakRender.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+?_M_bkt_num_key@?$hashtable@U?$pair@$$CBHUOpen2Mapped382010@_STL@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHUOpen2Mapped382010@_STL@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHUOpen2Mapped382010@_STL@@@_STL@@@2@@_STL@@ABEIABH@Z,,0x00148AE3,26,Code/Libraries/Source/WWVegas/WWLib/Open2Twins004.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+?_M_increment@?$_Deque_iterator_base@UGen_t_008fb350_p12pod@@@_STL@@QAEXXZ,,0x0054FA88,36,Code/Libraries/Source/WWVegas/WWLib/RvaDequeDestroyPod.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+??$?8$$CBHH@_STL@@YA_NABU?$pair@$$CBHH@0@0@Z,,0x00169FD0,31,Code/Libraries/Source/WWVegas/WWLib/RvaHashTableNextSizeInt.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+??0?$pair@$$CBVAsciiString@@D@_STL@@QAE@ABU01@@Z,,0x005117F6,27,Code/Libraries/Source/WWVegas/WWLib/RvaMapIndexAsciiString.cpp,matched,ported from the Open-BFME-1 conversion
+?_M_increment@?$_Deque_iterator_base@URva00642060Element@@@_STL@@QAEXXZ,,0x0073B580,42,Code/Libraries/Source/WWVegas/WWLib/RvaQueueDefaultCtor.cpp,matched,ported from the Open-BFME-1 conversion
+??E?$_Deque_iterator@URva00642060Element@@U?$_Nonconst_traits@URva00642060Element@@@_STL@@@_STL@@QAEAAU01@XZ,,0x0073CA90,45,Code/Libraries/Source/WWVegas/WWLib/RvaQueueDefaultCtor.cpp,matched,ported from the Open-BFME-1 conversion
+??$__destroy_aux@U?$_Deque_iterator@URva00642060Element@@U?$_Nonconst_traits@URva00642060Element@@@_STL@@@_STL@@@_STL@@YAXU?$_Deque_iterator@URva00642060Element@@U?$_Nonconst_traits@URva00642060Element@@@_STL@@@0@0ABU__false_type@0@@Z,,0x0073D030,46,Code/Libraries/Source/WWVegas/WWLib/RvaQueueDefaultCtor.cpp,matched,ported from the Open-BFME-1 conversion
+??$__destroy@U?$_Deque_iterator@URva00642060Element@@U?$_Nonconst_traits@URva00642060Element@@@_STL@@@_STL@@URva00642060Element@@@_STL@@YAXU?$_Deque_iterator@URva00642060Element@@U?$_Nonconst_traits@URva00642060Element@@@_STL@@@0@0PAURva00642060Element@@@Z,,0x0073D730,78,Code/Libraries/Source/WWVegas/WWLib/RvaQueueDefaultCtor.cpp,matched,ported from the Open-BFME-1 conversion
+?_M_bump_down@_Bit_iterator_base@_STL@@QAEXXZ,,0x000660DF,24,Code/Libraries/Source/WWVegas/WWLib/RvaVectorBoolAssignment.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+??0ChunkLoadClass@@QAE@PAVBFMEChunkInput@@@Z,,0x00614EF0,93,Code/Libraries/Source/WWVegas/WWLib/chunkio_load_ctor.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+??RCRCEngine@@QAEXD@Z,,0x006199D0,41,Code/Libraries/Source/WWVegas/WWLib/crc.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+??RCRCEngine@@QAEJPBXH@Z,,0x00619A00,181,Code/Libraries/Source/WWVegas/WWLib/crc.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+?Reset@HashTableClass@@QAEXXZ,,0x00613BA0,34,Code/Libraries/Source/WWVegas/WWLib/hash.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+?Advance_Next@HashTableIteratorClass@@AAEXXZ,,0x00613BF0,42,Code/Libraries/Source/WWVegas/WWLib/hash.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+?Next@HashTableIteratorClass@@QAEXXZ,,0x00613D70,58,Code/Libraries/Source/WWVegas/WWLib/hash.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+?First@HashTableIteratorClass@@QAEXXZ,,0x00613DB0,53,Code/Libraries/Source/WWVegas/WWLib/hash.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+?CRC_Stringi@@YAKPBDK@Z,,0x00615840,76,Code/Libraries/Source/WWVegas/WWLib/realcrc.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+?strtok_r@@YAPADPADPBDPAPAD@Z,,0x00619930,117,Code/Libraries/Source/WWVegas/WWLib/strtok_r.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+?strtrim@@YAPADPAD@Z,,0x0061B600,102,Code/Libraries/Source/WWVegas/WWLib/trim.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+?wcstrim@@YAPAGPAG@Z,,0x0061B670,102,Code/Libraries/Source/WWVegas/WWLib/trim.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
