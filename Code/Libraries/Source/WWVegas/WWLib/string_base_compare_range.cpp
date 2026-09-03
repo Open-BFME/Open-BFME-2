@@ -1,12 +1,18 @@
-// ?compareRange@@YAHPBDH0HUCharCompare@@@Z and ?compareRangeNoCase@...@Z
-// partial score=0.98 date=2026-09-02
-// cl: /O1 /G6
+// cl: /O1 /arch:SSE
 //
 // The two narrow (const char *, int) comparison workers, split out of
-// string_base.cpp so they can be built for the Pentium Pro. Both bodies pick
-// the shorter of the two lengths with cmovge, and cl 13.10 will not emit a
-// conditional move below /G6 - which is the whole reason these two sat
-// unclaimed while the members that call them were already matched.
+// string_base.cpp for one flag: /arch:SSE. Both bodies pick the shorter of the
+// two lengths with cmovge, and cl 13.10 will not emit a conditional move
+// without /arch - not at /G5, /G6, /G7, /GB, /Ot, /Os, /O1, /O2 or /Ox, which
+// is what kept these two unclaimed while the members calling them were
+// already matched. /O2 loses it again by dropping the ebp frame.
+//
+// The ternary is not cosmetic either: written as an if statement cl also
+// picks the other length for esi and three more bytes move.
+//
+// The trait object is a one-byte struct the callers zero with a lea/stosb
+// pair. Neither narrow worker reads it - only the wide pair takes its address
+// - so it stays opaque here.
 
 #define _DLL
 #include <string.h>

@@ -192,8 +192,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ??8Xfer@@UAEAAV0@AAM@Z,0x0000554C,0x0000554C,28,Code/GameEngine/Source/Common/System/Xfer.cpp,matched,Open-BFME5 clean C++; Xfer 'real' transfer operator at slot 28 of the retail vtable
 ??8@YA_NABVGameClientRandomVariable@@0@Z,0x00005568,0x00005568,51,Code/GameEngine/Source/GameClient/ClientRandomValue.cpp,matched,Open-BFME5 clean C++; GameClientRandomVariable equality over type and both Real bounds
 ??9@YA_NABVGameClientRandomVariable@@0@Z,0x0000559B,0x0000559B,21,Code/GameEngine/Source/GameClient/ClientRandomValue.cpp,matched,Open-BFME5 clean C++; GameClientRandomVariable inequality forwarding to the equality body
-?d_00005816@@YAXXZ,,0x00005816,43,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00405816
-?d_00005841@@YAXXZ,,0x00005841,44,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00405841
 ?d_0000586d@@YAXXZ,,0x0000586D,43,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_0040586d
 ?d_00005898@@YAXXZ,,0x00005898,43,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00405898
 ?d_0000685e@@YAXXZ,,0x0000685E,10,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_0040685e
@@ -1841,3 +1839,5 @@ _AtlWinModuleTerm@8,,0x000058C3,96,Code/Libraries/Source/ATL/atlbase.cpp,matched
 ?imbue@?$basic_streambuf@GV?$char_traits@G@_STL@@@_STL@@MAEXABVlocale@2@@Z,,0x00180FD0,3,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_streambuf.cpp,matched,STLport 4.5.3 wide streambuf base default - slot 13 - does nothing; ret 4. Found by reading the wide streambuf vtable against the filebuf vtable that overrides it
 ?underflow@?$basic_streambuf@DV?$char_traits@D@_STL@@@_STL@@MAEHXZ,,0x0013B5E0,4,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_streambuf_defaults.cpp,matched,STLport 4.5.3 narrow streambuf base underflow - slot 7 of the narrow streambuf vtable. Returns eof which for char_traits<char> is the int -1 so the body is or eax -1 / ret. Hand-written because basic_streambuf<char> is an explicit specialisation in the vendored headers and cannot be instantiated
 ?pbackfail@?$basic_streambuf@DV?$char_traits@D@_STL@@@_STL@@MAEHH@Z,,0x0001CA70,6,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_streambuf_defaults.cpp,matched,STLport 4.5.3 narrow streambuf base pbackfail - slot 9 of the narrow streambuf vtable. or eax -1 / ret 4. Slot 12 holds the same address so overflow folded onto it
+?compareRange@@YAHPBDH0HUCharCompare@@@Z,,0x00005816,43,Code/Libraries/Source/WWVegas/WWLib/string_base_compare_range.cpp,matched,WWLib narrow string comparison worker behind StringBase<char>::compare and PooledString::compare. The cmovge that blocked it needs /arch:SSE - no /G or /O flag produces a conditional move in cl 13.10
+?compareRangeNoCase@@YAHPBDH0HUCharCompare@@@Z,,0x00005841,44,Code/Libraries/Source/WWVegas/WWLib/string_base_compare_range.cpp,matched,The _memicmp twin of 0x00005816 - same body and same /arch:SSE requirement
