@@ -165,7 +165,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_0000240e@@YAXXZ,,0x0000240E,10,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=~ParticleSystemInfo
 ?d_00002459@@YAXXZ,,0x00002459,10,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=ParticleSystemInfo
 ?d_00002596@@YAXXZ,,0x00002596,28,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00402596
-?d_00002690@@YAXXZ,,0x00002690,205,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00402690
 ?d_0000275d@@YAXXZ,,0x0000275D,395,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_0040275d
 ?d_00002c39@@YAXXZ,,0x00002C39,10,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00402c39
 ?d_0000319f@@YAXXZ,,0x0000319F,6,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Catch@0040319f
@@ -2368,3 +2367,5 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ??$_M_find@H@?$_Rb_tree@HU?$pair@$$CBHH@_STL@@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@ABEPAU?$_Rb_tree_node@U?$pair@$$CBHH@_STL@@@1@ABH@Z,,0x00388F63,56,Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_int_os.cpp,matched,size-optimised sibling of the map unit; retail builds these bodies for size
 ?_M_upper_bound@?$_Rb_tree@HU?$pair@$$CBHH@_STL@@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@ABEPAU?$_Rb_tree_node@U?$pair@$$CBHH@_STL@@@2@ABH@Z,,0x004FF471,37,Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_int_os.cpp,matched,size-optimised sibling of the map unit; retail builds these bodies for size
 ?count@?$map@HHU?$less@H@_STL@@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@QBEIABH@Z,,0x004FF668,25,Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_int_os.cpp,matched,size-optimised sibling of the map unit; retail builds these bodies for size
+?CreateEx@CImage@ATL@@QAEHHHHKPBKK@Z,,0x00002690,205,Code/Libraries/Source/ATL/atlimage.cpp,matched,vendored=atl-7.1
+?Attach@CImage@ATL@@QAEXPAUHBITMAP__@@W4DIBOrientation@12@@Z,,0x0000212C,19,Code/Libraries/Source/ATL/atlimage.cpp,matched,vendored=atl-7.1
