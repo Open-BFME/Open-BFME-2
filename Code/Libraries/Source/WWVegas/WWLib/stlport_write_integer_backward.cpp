@@ -9,6 +9,9 @@
 // no sign to place, so its overload stayed small enough that retail inlined
 // the divide loop straight into the body.
 
+extern "C" __declspec(dllimport) void *__cdecl memmove(void *destination,
+		const void *source, unsigned int count);
+
 namespace _STL
 {
 
@@ -124,7 +127,36 @@ char *__cdecl __write_integer_backward(
     return ptr;
 }
 
+// The scratch-buffer wrapper the time and number writers call. It formats
+// backward into 64 bytes of stack and then copies the written span forward
+// into the caller's buffer; retail inlines __copy_trivial there rather than
+// calling the out-of-line one at 0x000179B0, which is why the equality test
+// and the memmove appear in the body.
+__declspec(dllimport) __forceinline void *__copy_trivial(
+        const void *first, const void *last, void *result)
+{
+    return last == first
+            ? result
+            : static_cast<char *>(memmove(result, first,
+                    static_cast<unsigned int>(static_cast<const char *>(last) -
+                            static_cast<const char *>(first)))) +
+                    (static_cast<const char *>(last) -
+                            static_cast<const char *>(first));
+}
+
+template <class Integer>
+char *__cdecl __write_integer(char *buf, ios_base::fmtflags flags, Integer x)
+{
+    char tmp[64];
+    char *bufend = tmp + 64;
+    char *beg = __write_integer_backward(bufend, flags, x);
+    return static_cast<char *>(__copy_trivial(beg, bufend, buf));
+}
+
 template char *__cdecl __write_integer_backward<long>(
+        char *, ios_base::fmtflags, long);
+
+template char *__cdecl __write_integer<long>(
         char *, ios_base::fmtflags, long);
 
 template char *__cdecl __write_integer_backward<unsigned long>(
