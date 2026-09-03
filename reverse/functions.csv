@@ -2111,7 +2111,6 @@ _XMP_Test_Bit,,0x0061B780,33,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?ID@?$DynamicVectorClass@PAVFontCharsBuffer@@@@UAEHABQAVFontCharsBuffer@@@Z,,0x001969C0,40,Code/Libraries/Source/WWVegas/WW3D2/render2dsentence.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
 ?Resize@?$VectorClass@PAVFontCharsBuffer@@@@UAE_NHPBQAVFontCharsBuffer@@@Z,,0x001A3720,178,Code/Libraries/Source/WWVegas/WW3D2/render2dsentence.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
 ?Add@?$DynamicVectorClass@PAVFontCharsBuffer@@@@QAE_NABQAVFontCharsBuffer@@@Z,,0x001A3A60,77,Code/Libraries/Source/WWVegas/WW3D2/render2dsentence.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
-??YStringClass@@QAEABV0@PBD@Z,,0x001214C0,131,Code/Libraries/Source/WWVegas/WW3D2/shader.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
 ?Set_DX8_Light@DX8Wrapper@@SAXHPAU_D3DLIGHT8@@@Z,,0x0011C470,134,Code/Libraries/Source/WWVegas/WW3D2/sortingrenderer.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
 ?Set_Flag@VertexMaterialClass@@QAEXW4FlagsType@1@_N@Z,,0x0013C780,38,Code/Libraries/Source/WWVegas/WW3D2/vertmaterial.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
 ?Set_Mapper@VertexMaterialClass@@QAEXPAVTextureMapperClass@@H@Z,,0x0013C7B0,56,Code/Libraries/Source/WWVegas/WW3D2/vertmaterial.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
