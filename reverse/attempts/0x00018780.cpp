@@ -133,6 +133,11 @@ char *__cdecl __write_formatted_time(char *buf, char format, char modifier,
 // either spelling, lets cl fold the two tests into one address computation
 // and the body stops matching.
 //
+// Flag search: the flag set is NOT the lever here. /Ob1, /Ox, /O2 /Ob1 and the
+// unit's own flags all reproduce the prologue and both switch tables exactly
+// and all leave the same residue; /Od /Ob1 loses the prologue entirely. So the
+// 42 bytes are a source-shape question and nothing else.
+//
 // Refuted for that, all of which cl folds back to one test: the chosen string
 // passed by reference; begin and size as separate arguments of one ternary
 // over the string; independent ternaries over begin() and size(); and two
