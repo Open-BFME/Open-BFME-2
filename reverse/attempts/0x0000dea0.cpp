@@ -10,6 +10,14 @@
 // and cl does the same three loads and pushes in the same order through eax
 // and ecx. The values, their order and every other byte agree.
 // Also checked and refuted here: /arch:SSE changes nothing.
+//
+// And one more, from a source rather than a guess. Open-BFME-1 landed this
+// same function for the BFME1 binary at its 0x00839590, 110 bytes, and its
+// body opens `if (resArg < capacity()) return;` where this one wraps the work
+// in an if. Rewriting to the early-return form changes nothing here - cl 13.10
+// emits the identical body either way, the same six bytes still differ. The
+// two binaries' reserve are not the same length, so BFME2's is its own shape;
+// the BFME1 conversion does not carry over.
 // stlport
 //
 // STLport 4.5.3 basic_string<wchar_t>::reserve, the wide twin of 0x0000C390.
