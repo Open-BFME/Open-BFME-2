@@ -2340,3 +2340,5 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?Resize@?$DynamicVectorClass@H@@UAE_NHPBH@Z,,0x00155460,47,Code/Libraries/Source/WWVegas/WWSaveLoad/twiddler.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
 ?compare@WideCharCompare@@QBEHPBG0H@Z,,0x000052F8,52,Code/Libraries/Source/WWVegas/WWLib/string_base_compare_range.cpp,matched,the trait member the wide compareRange calls; named by the reloc sweep from that call site
 ?swap@_STL@@YAXAAH0@Z,,0x00024750,34,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_rebalance_erase.cpp,matched,STLport int swap; placed by masked byte-scan while reconstructing the tree rebalance that uses it
+?_Rotate_left@?$_Rb_global@_N@_STL@@SAXPAU_Rb_tree_node_base@2@AAPAU32@@Z,,0x00024350,140,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_rebalance_erase.cpp,matched,STLport red-black left rotation
+?_Rotate_right@?$_Rb_global@_N@_STL@@SAXPAU_Rb_tree_node_base@2@AAPAU32@@Z,,0x000243E0,140,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_rebalance_erase.cpp,matched,STLport red-black right rotation
