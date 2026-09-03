@@ -219,7 +219,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_0000dea0@@YAXXZ,,0x0000DEA0,102,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040dea0
 ?d_0000df10@@YAXXZ,,0x0000DF10,5,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=thunk_FUN_004179b0
 ?d_0000eb60@@YAXXZ,,0x0000EB60,371,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040eb60
-?d_0000ef40@@YAXXZ,,0x0000EF40,822,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040ef40
 ?d_00011230@@YAXXZ,,0x00011230,122,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_00411230
 ?d_000112aa@@YAXXZ,,0x000112AA,2406,Code/gen_asm/d_000112aa.asm,matched,gen-dump;ghidra=FUN_004112aa
 ?d_00011e30@@YAXXZ,,0x00011E30,648,Code/gen_asm/d_000112aa.asm,matched,gen-dump;ghidra=FUN_00411e30
@@ -1861,3 +1860,4 @@ _AtlWinModuleTerm@8,,0x000058C3,96,Code/Libraries/Source/ATL/atlbase.cpp,matched
 ?_S_uninitialize@locale@_STL@@SAXXZ,,0x00007670,27,Code/Libraries/Source/WWVegas/WWLib/stlport_loc_init.cpp,matched,STLport 4.5.3 locale::_S_uninitialize - the > 0 guard that pairs with the <= 0 guard in _S_initialize at 0x0000BAC0
 ?_S_initialize@locale@_STL@@SAXXZ,,0x0000BAC0,31,Code/Libraries/Source/WWVegas/WWLib/stlport_loc_init.cpp,matched,STLport 4.5.3 locale::_S_initialize - the static twin of ios_base::_Loc_init's constructor over the same counter
 ??$__get_formatted_time@V?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@PBD@_STL@@YAPBDV?$istreambuf_iterator@DV?$char_traits@D@_STL@@@0@0PBD1ABV_Time_Info@0@AAHPAUtm@@@Z,,0x0000D650,818,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_get_formatted_time.cpp,matched,stlport-4.5.3;the time_get do_get worker. Post-increment on the iterator in the else arm is what produces the eight-byte frame - the temporary it copies - and everything downstream of the register pressure it adds
+??$__get_formatted_time@V?$istreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@PBD@_STL@@YAPBDV?$istreambuf_iterator@GV?$char_traits@G@_STL@@@0@0PBD1ABV_Time_Info@0@AAHPAUtm@@@Z,,0x0000EF40,822,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_get_formatted_time.cpp,matched,stlport-4.5.3;wide twin of 0x0000D650 - the call offsets are identical to the narrow body at every site - that is what identified it
