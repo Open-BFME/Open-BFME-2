@@ -132,6 +132,14 @@ char *__cdecl __write_formatted_time(char *buf, char format, char modifier,
 // those cases. Selecting the STRING once and then asking it for both, in
 // either spelling, lets cl fold the two tests into one address computation
 // and the body stops matching.
+//
+// Refuted for that, all of which cl folds back to one test: the chosen string
+// passed by reference; begin and size as separate arguments of one ternary
+// over the string; independent ternaries over begin() and size(); and two
+// separate if/else statements assigning to two locals. Retail also loads the
+// modifier into al once and compares the register twice, where every one of
+// these compares the stack slot directly - which is the same fact seen from
+// the other side, since a value tested once does not need a register.
 __forceinline char *__subformat(char *buf, const string &fmt,
 		const _Time_Info &table, const tm *t)
 {
