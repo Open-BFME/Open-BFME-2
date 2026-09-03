@@ -1915,3 +1915,11 @@ _AtlWinModuleTerm@8,,0x000058C3,96,Code/Libraries/Source/ATL/atlbase.cpp,matched
 ?RunResultFunctions@ProfileCmdInterface@@QAEXXZ,,0x006C6E30,71,Code/Libraries/Source/profile/profile_cmd_run_result_functions.cpp,matched,profile_cmd.cpp exit-time result flush; body verbatim from the Generals reference. Debug::Command is a virtual on the Debug global at 0x00DE0880 here rather than the reference's static
 ?Init_Processor_Manufacturer@CPUDetectClass@@CAXXZ,,0x00611B00,327,Code/Libraries/Source/WWVegas/WWLib/cpudetect.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
 ??0ProfileResultFileDOT@@QAE@PBD0H@Z,,0x006C6ED0,158,Code/Libraries/Source/profile/profile_result_filedot_ctor.cpp,matched,profile_result.cpp; body verbatim from the Generals reference. strlen and strcpy are inlined so the unit needs /Oi
+??6Debug@@UAEAAV0@VHResult@0@@Z,,0x00038C30,117,Code/Libraries/Source/WWVegas/WWDebug/DebugOperatorHResult.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
+?Read@DebugIONet@@UAEHPADH@Z,,0x0003F550,115,Code/Libraries/Source/WWVegas/WWDebug/debug_io_net.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
+?Write@DebugIONet@@UAEXW4StringType@DebugIOInterface@@PBD1@Z,,0x0003F5D0,188,Code/Libraries/Source/WWVegas/WWDebug/debug_io_net.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
+?Execute@DebugIONet@@UAEXAAVDebug@@PBD_NIPBQBD@Z,,0x0003F690,283,Code/Libraries/Source/WWVegas/WWDebug/debug_io_net.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
+?InitDbghelp@@YAXXZ,,0x0003B850,329,Code/Libraries/Source/WWVegas/WWDebug/debug_stack.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
+??4Signature@DebugStackwalk@@QAEAAV01@ABV01@@Z,,0x0003B9A0,32,Code/Libraries/Source/WWVegas/WWDebug/debug_stack.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
+?GetAddress@Signature@DebugStackwalk@@QBEIH@Z,,0x0003B9C0,31,Code/Libraries/Source/WWVegas/WWDebug/debug_stack.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
+?GetSymbol@Signature@DebugStackwalk@@SAXIPADI@Z,,0x0003B9E0,632,Code/Libraries/Source/WWVegas/WWDebug/debug_stack.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
