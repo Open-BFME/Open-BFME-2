@@ -14,8 +14,28 @@ typedef const unsigned short *LPCWSTR;
 typedef unsigned int UINT;
 typedef unsigned long DWORD;
 typedef long HRESULT;
+typedef long LONG;
+typedef int BOOL;
+typedef void *PVOID;
+typedef DWORD LCID;
+
+struct OSVERSIONINFOA
+{
+    DWORD dwOSVersionInfoSize;
+    DWORD dwMajorVersion;
+    DWORD dwMinorVersion;
+    DWORD dwBuildNumber;
+    DWORD dwPlatformId;
+    char szCSDVersion[128];
+};
+
+typedef OSVERSIONINFOA OSVERSIONINFO;
 
 #define NULL 0
+#define VER_PLATFORM_WIN32_NT 2
+#define LOCALE_IDEFAULTANSICODEPAGE 0x00001004
+#define InterlockedExchangePointer(target, value) \
+	(PVOID) InterlockedExchange((LONG *)(target), (LONG)(value))
 #define E_OUTOFMEMORY ((HRESULT)0x8007000EL)
 #define HRESULT_FROM_WIN32(x) 	((HRESULT)(x) <= 0 ? ((HRESULT)(x)) 			   : ((HRESULT)(((x) & 0x0000FFFF) | 0x80070000)))
 
@@ -31,20 +51,14 @@ extern "C" __declspec(dllimport) int __stdcall WideCharToMultiByte(
 extern "C" __declspec(dllimport) void *__cdecl malloc(unsigned int size);
 extern "C" __declspec(dllimport) void __cdecl free(void *block);
 extern "C" __declspec(dllimport) DWORD __stdcall GetLastError();
-// Not GetACP. Both constructors call through the code-page slot at
-// 0x00DA5E40, which retail initialises to the dispatcher at 0x000010CF: that
-// body calls GetVersionExA and installs either the four-byte NT5+ path at
-// 0x0044827C, which is push 3 / pop eax / ret and so returns CP_THREAD_ACP,
-// or the downlevel path at 0x0000107F, which reads LOCALE_IDEFAULTANSICODEPAGE
-// for the thread locale and falls back to GetACP only if that yields zero.
-// The slot holds 0x004010CF to begin with, so the first call replaces itself.
-//
-// Spelling it GetACP() compiled to the same bytes, because both are ff 15
-// against a DIR32 the comparison masks - the byte check cannot see which
-// function an indirect call goes to, and the gate's DIR32 consistency check
-// cannot either, since a wrong name that is used consistently is consistent.
-// Modelling it as the pointer it is keeps the bytes and fixes the name.
-extern "C" UINT(__stdcall *_AtlGetConversionACP)();
+extern "C" __declspec(dllimport) BOOL __stdcall GetVersionExA(OSVERSIONINFOA *info);
+extern "C" __declspec(dllimport) LONG __stdcall InterlockedExchange(LONG *target, LONG value);
+extern "C" __declspec(dllimport) LCID __stdcall GetThreadLocale();
+extern "C" __declspec(dllimport) int __stdcall GetLocaleInfoA(
+		LCID locale, DWORD type, LPSTR data, int data_chars);
+// Still imported, but only as _AtlGetThreadACPFake's last resort below — never
+// as the conversion code page itself. See g_pfnGetThreadACP.
+extern "C" __declspec(dllimport) UINT __stdcall GetACP();
 
 LPWSTR __stdcall AtlA2WHelper(LPWSTR lpw, LPCSTR lpa, int nChars, UINT acp)
 {
@@ -74,6 +88,60 @@ LPSTR __stdcall AtlW2AHelper(LPSTR lpa, LPCWSTR lpw, int nChars, UINT acp)
 
 namespace ATL
 {
+
+// Not GetACP. Both constructors below reach the conversion code page through
+// the slot at 0x00DA5E40, which retail initialises to the dispatcher at
+// 0x000010CF: that body calls GetVersionExA and installs either the NT5+
+// reader at 0x0044827C, which is push 3 / pop eax / ret and so returns
+// CP_THREAD_ACP, or the downlevel _AtlGetThreadACPFake at 0x0000107F, which
+// reads LOCALE_IDEFAULTANSICODEPAGE for the thread locale and falls back to
+// GetACP only if that yields zero. The slot holds 0x004010CF at rest, so the
+// first call replaces itself.
+//
+// Spelling the call GetACP() compiled to the same bytes, because both are
+// ff 15 against a DIR32 the comparison masks — the byte check cannot see which
+// function an indirect call goes to, and the gate's DIR32 consistency check
+// cannot either, since a wrong name used consistently is consistent. atlconv.h
+// splits this in two and so does this file: g_pfnGetThreadACP is the pointer,
+// _AtlGetConversionACP() the inline accessor over it. The dispatcher needs
+// that split — it assigns to the pointer through InterlockedExchange, which a
+// single callable-pointer spelling cannot express.
+typedef UINT(__stdcall *ATLGETTHREADACP)();
+
+// Body at 0x0044827C, still unconverted; only its address is needed here.
+UINT __stdcall _AtlGetThreadACPReal();
+UINT __stdcall _AtlGetThreadACPFake();
+
+extern ATLGETTHREADACP g_pfnGetThreadACP;
+
+// Not `inline` as in the header: the header gets its standalone copy from
+// g_pfnGetThreadACP's own initializer, which lives in another translation unit
+// here, so nothing in this one would force the body out.
+UINT __stdcall _AtlGetThreadACPThunk() throw()
+{
+	OSVERSIONINFO ver;
+	ATLGETTHREADACP pfnGetThreadACP;
+
+	ver.dwOSVersionInfoSize = sizeof(ver);
+	::GetVersionExA(&ver);
+	if ((ver.dwPlatformId == VER_PLATFORM_WIN32_NT) && (ver.dwMajorVersion >= 5))
+	{
+		// On Win2K, CP_THREAD_ACP is supported
+		pfnGetThreadACP = _AtlGetThreadACPReal;
+	}
+	else
+	{
+		pfnGetThreadACP = _AtlGetThreadACPFake;
+	}
+	InterlockedExchangePointer(reinterpret_cast<void **>(&g_pfnGetThreadACP), pfnGetThreadACP);
+
+	return g_pfnGetThreadACP();
+}
+
+inline UINT __stdcall _AtlGetConversionACP() throw()
+{
+	return g_pfnGetThreadACP();
+}
 
 class CAtlException
 {

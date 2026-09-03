@@ -145,7 +145,6 @@ _BTREE_decode@12,,0x0068EC70,16,Code/Libraries/Source/Compression/EAC/btreedecod
 _zError,,0x006946D0,21,Code/Libraries/Source/Compression/ZLib/zutil.c,matched,vendored=zlib-1.1.4
 _zcfree,,0x00694710,13,Code/Libraries/Source/Compression/ZLib/zutil.c,matched,vendored=zlib-1.1.4
 _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matched,vendored=zlib-1.1.4
-?d_000010cf@@YAXXZ,,0x000010CF,80,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_004010cf
 ??0ModuleTemplate@FXParticleSystem@@QAE@XZ,0x000011B4,0x000011B4,9,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; FXParticleSystem ModuleTemplate default constructor
 ??1ModuleTemplate@FXParticleSystem@@UAE@XZ,0x000011BD,0x000011BD,7,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; FXParticleSystem ModuleTemplate destructor
 ??0ModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x000011C4,0x000011C4,11,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; FXParticleSystem ModuleTemplate copy constructor
@@ -2369,3 +2368,4 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?count@?$map@HHU?$less@H@_STL@@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@QBEIABH@Z,,0x004FF668,25,Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_int_os.cpp,matched,size-optimised sibling of the map unit; retail builds these bodies for size
 ?CreateEx@CImage@ATL@@QAEHHHHKPBKK@Z,,0x00002690,205,Code/Libraries/Source/ATL/atlimage.cpp,matched,vendored=atl-7.1
 ?Attach@CImage@ATL@@QAEXPAUHBITMAP__@@W4DIBOrientation@12@@Z,,0x0000212C,19,Code/Libraries/Source/ATL/atlimage.cpp,matched,vendored=atl-7.1
+?_AtlGetThreadACPThunk@ATL@@YGIXZ,,0x000010CF,80,Code/Libraries/Source/ATL/atlconv.cpp,matched,vendored=atl-7.1
