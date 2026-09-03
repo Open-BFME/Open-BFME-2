@@ -179,12 +179,21 @@ Status Image::GetPalette(ColorPalette *palette, INT size)
     return SetStatus(DllExports::GdipGetImagePalette(nativeImage, palette, size));
 }
 
+// ?Image::Image present-unmatched
+// 25 bytes, and unlike the FXParticleSystem folds this one is unambiguous:
+// the shape occurs ten times in .text but at exactly one function start, and
+// there at exactly this extent — RVA 0x0059B7CB, which Ghidra has as
+// FUN_0099b7cb and no ledger row claims. Present in retail; not yet pinned.
 Image::Image(GpImage *nativeImage, Status status)
 {
     SetNativeImage(nativeImage);
     lastResult = status;
 }
 
+// ?Image::SetNativeImage absent-from-retail
+// Ten bytes with five occurrences in .text and not one of them at a function
+// start: every occurrence is interior to some larger body. This is an SDK
+// inline that retail expanded at each call site and never emitted standalone.
 void Image::SetNativeImage(GpImage *nativeImage)
 {
     this->nativeImage = nativeImage;
