@@ -5,8 +5,16 @@ a function - it is a fragment of one, and the derived boundary that produced it
 is wrong. Converting such a row can never match, because there is no C++ body
 whose compiled form is a basic block that falls into its neighbour.
 
-Run it over the gen-* placeholder rows before picking conversion work: a row
-that shows up here is a boundary bug to record, not a candidate to attempt.
+Run it over the gen-* placeholder rows before picking conversion work.
+2026-09-03: the raw count this prints is mostly noise. Of the 34 gen rows it
+flagged, exactly two are demonstrable fragments - 0x00011230 and 0x00012190,
+each the first basic block of a body that continues in the row the ledger
+lists next. The rest are the decoder mistaking bytes inside SSE operands and
+immediates for jump opcodes. Read a flag before believing it: the test that
+holds up is that EVERY escaping branch lands inside the row starting exactly
+where this one ends, and even that admits 0x000032DA and 0x00003916, both of
+which are complete functions ending in a ret.
+
 The decoder is deliberately naive - it walks bytes looking for jump opcodes
 and does not track instruction lengths - so an address far outside the image
 is a misparse and only the near, in-image targets are worth reading.
