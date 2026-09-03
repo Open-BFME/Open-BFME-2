@@ -85,6 +85,10 @@ public:
 
 	basic_string();
 
+	// Seven bytes: an empty allocator returned by value, so the whole body is
+	// handing back the hidden return pointer. Named by the reloc sweep.
+	Alloc get_allocator() const { return this->_M_end_of_storage; }
+
 private:
 	__declspec(dllimport) __forceinline void _M_terminate_string()
 	{
@@ -102,5 +106,9 @@ basic_string<CharT, Traits, Alloc>::basic_string()
 
 template class basic_string<unsigned short, char_traits<unsigned short>,
 		allocator<unsigned short> >;
+
+template allocator<unsigned short>
+basic_string<unsigned short, char_traits<unsigned short>,
+		allocator<unsigned short> >::get_allocator() const;
 
 }
