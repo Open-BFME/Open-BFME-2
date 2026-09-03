@@ -2040,3 +2040,14 @@ _XMP_Test_Bit,,0x0061B780,33,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?Convert_Shader@W3dUtilityClass@@SAXABUW3dShaderStruct@@PAVShaderClass@@@Z,,0x001A4529,186,Code/Libraries/Source/WWVegas/WW3D2/w3d_util.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
 ?_M_lower_bound@?$_Rb_tree@IU?$pair@$$CBI_N@_STL@@U?$_Select1st@U?$pair@$$CBI_N@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@$$CBI_N@_STL@@@2@@_STL@@ABEPAU?$_Rb_tree_node@U?$pair@$$CBI_N@_STL@@@2@ABI@Z,,0x0061F660,38,Code/GameEngine/Source/Common/System/FileSystem.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
 ?lower_bound@?$_Rb_tree@IU?$pair@$$CBI_N@_STL@@U?$_Select1st@U?$pair@$$CBI_N@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@$$CBI_N@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBI_N@_STL@@U?$_Nonconst_traits@U?$pair@$$CBI_N@_STL@@@2@@2@ABI@Z,,0x00759D80,44,Code/GameEngine/Source/Common/System/FileSystem.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
+?Get_OS_Info@@YAXAAUOSInfoStruct@@IIII@Z,,0x00611930,387,Code/Libraries/Source/WWVegas/WWLib/cpudetect.cpp,matched,probe
+?Get_Length@StringClass@@QBEHXZ,,0x0011FB10,48,Code/Libraries/Source/WWVegas/WWLib/cpudetect.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+?Init_AMD_Processor_Type@CPUDetectClass@@CAXXZ,,0x00611620,170,Code/Libraries/Source/WWVegas/WWLib/cpudetect.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+?Init_VIA_Processor_Type@CPUDetectClass@@CAXXZ,,0x00611700,85,Code/Libraries/Source/WWVegas/WWLib/cpudetect.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+?Init_CPUID_Instruction@CPUDetectClass@@CAXXZ,,0x006117D0,64,Code/Libraries/Source/WWVegas/WWLib/cpudetect.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+??0CPUIDStruct@@QAE@I@Z,,0x00611AC0,62,Code/Libraries/Source/WWVegas/WWLib/cpudetect.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+?Process_Extended_Cache_Info@CPUDetectClass@@CAXXZ,,0x00611C50,411,Code/Libraries/Source/WWVegas/WWLib/cpudetect.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+?Init_Cache@CPUDetectClass@@CAXXZ,,0x00611E20,300,Code/Libraries/Source/WWVegas/WWLib/cpudetect.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+?Init_Intel_Processor_Type@CPUDetectClass@@CAXXZ,,0x00611F50,544,Code/Libraries/Source/WWVegas/WWLib/cpudetect.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+?Init_Processor_Family@CPUDetectClass@@CAXXZ,,0x00612230,180,Code/Libraries/Source/WWVegas/WWLib/cpudetect.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+?Init_Processor_Features@CPUDetectClass@@CAXXZ,,0x00612300,230,Code/Libraries/Source/WWVegas/WWLib/cpudetect.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
