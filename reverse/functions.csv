@@ -1899,3 +1899,6 @@ _AtlWinModuleTerm@8,,0x000058C3,96,Code/Libraries/Source/ATL/atlbase.cpp,matched
 ?Delete_All@?$DynamicVectorClass@U_ArcInfoStruct@VehicleCurveClass@@@@QAEXXZ,,0x0011F660,25,Code/Libraries/Source/WWVegas/WWMath/vehiclecurve.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
 ??8?$VectorClass@U_ArcInfoStruct@VehicleCurveClass@@@@UBE_NABV0@@Z,,0x00124580,25,Code/Libraries/Source/WWVegas/WWMath/vehiclecurve.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
 ??0_ArcInfoStruct@VehicleCurveClass@@QAE@XZ,,0x0022239C,43,Code/Libraries/Source/WWVegas/WWMath/vehiclecurve.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
+?Clear@?$ShareBufferClass@E@@QAEXXZ,,0x00169930,27,Code/Libraries/Source/WWVegas/WW3D2/MeshGeometryShareBufferInstantiations.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
+??1bad_alloc@std@@UAE@XZ,,0x00023850,29,Code/Libraries/Source/WWVegas/WWLib/BadAllocDestructor.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
+??_Gbad_alloc@std@@UAEPAXI@Z,,0x00024CC0,44,Code/Libraries/Source/WWVegas/WWLib/BadAllocDestructor.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
