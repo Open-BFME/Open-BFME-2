@@ -101,10 +101,20 @@ public:
     virtual void v1() = 0;
 };
 
+// ?SecondaryModuleBase::SecondaryModuleBase present-unmatched
+// Nine bytes of vptr store. The shape occurs at 13 function starts in retail
+// at exactly this extent — ModuleTemplate at 0x000011B4, Snapshot at
+// 0x000053A6, Xfer at 0x000053DE, EmissionVelocityInfo at 0x001F35C5 and on —
+// so the body is in the image and ICF has folded every copy of it together.
+// Which fold the linker gave this class is what is not pinned.
 SecondaryModuleBase::SecondaryModuleBase()
 {
 }
 
+// ?SecondaryModuleBase::~SecondaryModuleBase present-unmatched
+// Seven bytes, and the most folded body in the image: 139 function starts
+// carry exactly these bytes at exactly this extent, ~ModuleTemplate at
+// 0x000011BD and ~Xfer at 0x000053E7 among them. Present, unpinnable.
 SecondaryModuleBase::~SecondaryModuleBase()
 {
 }
@@ -571,9 +581,16 @@ FX_DECLARED_ASSIGN_INFO(GpuDrawModuleInfo)
 FX_DECLARED_ASSIGN_INFO(LifeEventModuleInfo)
 FX_DECLARED_ASSIGN_INFO(TerrainCollisionModuleInfo)
 
+// ?RenderObjectDrawModuleInfo::~RenderObjectDrawModuleInfo present-unmatched
 RenderObjectDrawModuleInfo::~RenderObjectDrawModuleInfo() {}
+// ?GpuDrawModuleInfo::~GpuDrawModuleInfo present-unmatched
 GpuDrawModuleInfo::~GpuDrawModuleInfo() {}
+// ?LifeEventModuleInfo::~LifeEventModuleInfo present-unmatched
 LifeEventModuleInfo::~LifeEventModuleInfo() {}
+// ?TerrainCollisionModuleInfo::~TerrainCollisionModuleInfo present-unmatched
+// These four compile to the same seven bytes as ~SecondaryModuleBase above and
+// land in the same 139-way fold, so each is present in retail and none of them
+// can be told from the others by bytes alone.
 TerrainCollisionModuleInfo::~TerrainCollisionModuleInfo() {}
 
 // The module class itself. Every instantiation registers into two per-category
@@ -845,6 +862,10 @@ const char *DefaultPhysicsModuleInfo::GetSnapshotName()
 
 // 0x003A7736 stays unclaimed: identical to retail except that MSVC 7.1 spreads
 // the esi and edi saves through the scalar copies where retail groups them.
+// ?DefaultPhysicsModuleInfo::DefaultPhysicsModuleInfo absent-from-retail
+// 64 bytes that occur nowhere in .text, not once, at any alignment. Retail
+// inlined every use of this copy constructor; the out-of-line definition is
+// kept only so the class's matched siblings compile.
 DefaultPhysicsModuleInfo::DefaultPhysicsModuleInfo(const DefaultPhysicsModuleInfo &that)
 {
     m_unknown04.x = that.m_unknown04.x;
@@ -945,6 +966,10 @@ public:
 // reproduces; the only difference is where the edi save lands - MSVC 7.1 puts it
 // one scalar earlier than retail, the same scheduling gap that leaves
 // DefaultPhysicsModuleInfo's copy constructor unclaimed.
+// ?LightningEmissionInfo::LightningEmissionInfo absent-from-retail
+// Same verdict as DefaultPhysicsModuleInfo's copy constructor, and on stronger
+// evidence: 154 bytes, zero occurrences in .text. A body that long matching
+// nowhere is dead-stripped, not merely unrecognised.
 LightningEmissionInfo::LightningEmissionInfo(const LightningEmissionInfo &that)
     : EmissionVolumeInfo(that)
 {
