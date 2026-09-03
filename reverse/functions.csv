@@ -1923,8 +1923,6 @@ _AtlWinModuleTerm@8,,0x000058C3,96,Code/Libraries/Source/ATL/atlbase.cpp,matched
 ??4Signature@DebugStackwalk@@QAEAAV01@ABV01@@Z,,0x0003B9A0,32,Code/Libraries/Source/WWVegas/WWDebug/debug_stack.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
 ?GetAddress@Signature@DebugStackwalk@@QBEIH@Z,,0x0003B9C0,31,Code/Libraries/Source/WWVegas/WWDebug/debug_stack.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
 ?GetSymbol@Signature@DebugStackwalk@@SAXIPADI@Z,,0x0003B9E0,632,Code/Libraries/Source/WWVegas/WWDebug/debug_stack.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
-_bfme_RbGlobalBoolRotateLeft_82B970,,0x00024350,140,Code/Libraries/Source/WWVegas/WWLib/STLRbGlobalBoolRotateLeft.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
-_bfme_RbGlobalBoolRotateRight_82BA00,,0x000243E0,140,Code/Libraries/Source/WWVegas/WWLib/STLRbGlobalBoolRotateRight.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
 _bfme_SlGlobalBoolReverse_82BB20,,0x00024500,72,Code/Libraries/Source/WWVegas/WWLib/STLSlGlobalBoolReverse.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
 _bfme_SlGlobalBoolSpliceAfter3_82BB70,,0x00024550,68,Code/Libraries/Source/WWVegas/WWLib/STLSlGlobalBoolSpliceAfter3.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
 ?Greatest_Common_Divisor@@YAIII@Z,,0x006198D0,29,Code/Libraries/Source/WWVegas/WWLib/gcd_lcm.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
