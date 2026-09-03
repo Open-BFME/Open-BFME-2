@@ -176,11 +176,11 @@ inline _BidirectionalIter __copy_backward(_RandomAccessIter __first,
   return __result;
 }
 
-inline void*
-__copy_trivial_backward(const void* __first, const void* __last, void* __result) {
-  const ptrdiff_t _Num = (const char*)__last - (const char*)__first;
-  return (_Num > 0) ? memmove((char*)__result - _Num, __first, _Num) : __result ;
-}
+// BFME SHIM: declaration only, for the same reason as __copy_trivial above.
+// It is a real function in the image at 0x00620840, already landed out of
+// stlport_vector_int.cpp, and call sites reach it with a three-argument cdecl
+// call. Left inline, cl expands the memmove here and the call disappears.
+void* __copy_trivial_backward(const void* __first, const void* __last, void* __result);
 
 template <class _InputIter, class _OutputIter>
 __forceinline _OutputIter __copy_ptrs(_InputIter __first, _InputIter __last, _OutputIter __result, __false_type ) {
@@ -215,21 +215,21 @@ inline _OutputIter copy(_InputIter __first, _InputIter __last, _OutputIter __res
 }
 
 template <class _InputIter, class _OutputIter>
-inline _OutputIter __copy_backward_ptrs(_InputIter __first, _InputIter __last, _OutputIter __result, __false_type ) {
+__forceinline _OutputIter __copy_backward_ptrs(_InputIter __first, _InputIter __last, _OutputIter __result, const __false_type&) {
   return __copy_backward(__first, __last, __result, _STLP_ITERATOR_CATEGORY(__first, _InputIter), _STLP_DISTANCE_TYPE(__first, _InputIter));
 }
 template <class _InputIter, class _OutputIter>
-inline _OutputIter __copy_backward_ptrs(_InputIter __first, _InputIter __last, _OutputIter __result, __true_type ) {
+__forceinline _OutputIter __copy_backward_ptrs(_InputIter __first, _InputIter __last, _OutputIter __result, const __true_type&) {
   return (_OutputIter)__copy_trivial_backward(__first, __last, __result);  
 }
 
 template <class _InputIter, class _OutputIter>
-inline _OutputIter __copy_backward_aux(_InputIter __first, _InputIter __last, _OutputIter __result, __false_type ) {
+__forceinline _OutputIter __copy_backward_aux(_InputIter __first, _InputIter __last, _OutputIter __result, const __false_type&) {
   return __copy_backward(__first, __last, __result, _STLP_ITERATOR_CATEGORY(__first,_InputIter), _STLP_DISTANCE_TYPE(__first, _InputIter));
 }
 
 template <class _InputIter, class _OutputIter>
-inline _OutputIter __copy_backward_aux(_InputIter __first, _InputIter __last, _OutputIter __result, __true_type ) {
+__forceinline _OutputIter __copy_backward_aux(_InputIter __first, _InputIter __last, _OutputIter __result, const __true_type&) {
   return __copy_backward_ptrs(__first, __last, __result,  
                               _IsOKToMemCpy(_STLP_VALUE_TYPE(__first, _InputIter), 
                                             _STLP_VALUE_TYPE(__result, _OutputIter))._Ret());
