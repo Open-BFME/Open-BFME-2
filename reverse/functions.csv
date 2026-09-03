@@ -1958,3 +1958,5 @@ _XMP_Test_Bit,,0x0061B780,33,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?End_Micro_Chunk@ChunkSaveClass@@QAE_NXZ,,0x00614E30,81,Code/Libraries/Source/WWVegas/WWLib/chunkio.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
 ?Contains@GenericMultiListClass@@QAE_NPAVMultiListObjectClass@@@Z,,0x00610650,38,Code/Libraries/Source/WWVegas/WWLib/multilist.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
 ??RRandomClass@@QAEHXZ,,0x006192D0,24,Code/Libraries/Source/WWVegas/WWLib/random.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
+?Clone@Vector3SolidCylinderRandomizer@@UBEPAVVector3Randomizer@@XZ,,0x00723660,41,Code/Libraries/Source/WWVegas/WWMath/v3_rnd.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
+?Clone@Vector3SolidBoxRandomizer@@UBEPAVVector3Randomizer@@XZ,,0x00723690,47,Code/Libraries/Source/WWVegas/WWMath/v3_rnd.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
