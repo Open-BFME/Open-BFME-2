@@ -1,7 +1,3 @@
-// ?Resize@?$VectorClass@H@@UAE_NHPBH@Z
-// partial score=0.99 date=2026-09-03
-// ?Resize@?$VectorClass@H@@UAE_NHPBH@Z
-// partial score=0.99 date=2026-09-03
 // cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
 //
 // Westwood WWLib VectorClass<T>::Resize at 0x00002226, 141 bytes, for a
@@ -11,7 +7,8 @@
 // slot 2 tail-calls through [eax+0x0C] when newsize is zero, and the two ID
 // overloads at 0x000022E9 and 0x00002314.
 //
-// Three differences were banked here before. Two are now closed:
+// The body is Vector.H verbatim, placement-new branch included. Three
+// things about it are not obvious:
 //
 //   * the conditional move. cl 13.10 emits one only under /arch:SSE - no /G
 //     or /O flag does it. The operand order decides the condition: written as
@@ -23,24 +20,28 @@
 //     point the front end binds the array form and calls 0x0002FDE0, which is
 //     retail. The same declaration for operator delete[] fixes the matching
 //     call in the release branch. Neither declaration needs a definition.
+//   * the last statement, which is what the earlier banks were stuck on.
+//     Retail materialises the null into a register before the test -
+//       33 c0             xor eax, eax
+//       39 44 24 14       cmp [esp+0x14], eax
+//     where every spelling of `array == 0` gives the shorter immediate form
+//       83 7c 24 14 00    cmp dword ptr [esp+0x14], 0
+//     and no flag moves it - /G7, /arch:SSE2, /Og, /Gy, /Oi and /Os are all
+//     identical here, /Ot and /O2 rewrite the whole body. It is not a
+//     peephole. Vector.H does not test `array == 0`, it tests
+//     `Vector && !array`, and although cl folds the left operand away (Vector
+//     is newptr, which the early return already proved non-null) the zeroed
+//     register the conjunction set up survives into the compare. Restoring
+//     the real conjunction closes the body exactly.
 //
-// ONE byte is left, at 0x6A. Retail materialises the null in a register -
-//   33 c0             xor eax, eax
-//   39 44 24 14       cmp [esp+0x14], eax
-// where cl compares against the immediate in five bytes:
-//   83 7c 24 14 00    cmp dword ptr [esp+0x14], 0
-// The sete that follows only writes al and the byte store only reads al, so
-// retail's xor is dead - it is a peephole, not a semantic difference.
-// Refuted for it: naming the bool, the ?: form, an int cast, /Os (identical),
-// and /Ot or /O2, which rewrite the whole body back to 137 differences.
-//
-// STILL OPEN: T itself. The element is a four-byte scalar copied with a plain
-// dword move and allocated with shl eax, 2 and no array cookie, which fixes
-// its size but not its name. The mangled name above is a placeholder.
+// T itself is a four-byte scalar copied with a plain dword move and allocated
+// with shl eax, 2 and no array cookie, which fixes its size but not its name;
+// int is the representative instantiation and any four-byte POD emits these
+// same bytes.
+
 void *__cdecl operator new[](unsigned int);
 void __cdecl operator delete[](void *);
-
-struct Element { int value; };
+inline void *__cdecl operator new[](unsigned int, void *p) { return p; }
 
 template <class T>
 class VectorClass
@@ -48,7 +49,7 @@ class VectorClass
 public:
 	virtual ~VectorClass();
 	virtual bool operator==(const VectorClass<T> &that) const;
-	virtual bool Resize(int newsize, const T *array = 0);
+	virtual bool Resize(int newsize, T const *array = 0);
 	virtual void Clear();
 	virtual int ID(const T *ptr);
 	virtual int ID(const T &object);
@@ -61,36 +62,31 @@ protected:
 };
 
 template <class T>
-bool VectorClass<T>::Resize(int newsize, const T *array)
+bool VectorClass<T>::Resize(int newsize, T const *array)
 {
-	if (newsize != 0)
-	{
+	if (newsize) {
+
 		T *newptr;
 
 		IsValid = false;
-		if (array == 0)
-		{
+		if (!array) {
 			newptr = new T[newsize];
-		}
-		else
-		{
-			newptr = (T *)array;
+		} else {
+			newptr = new((void *)array) T[newsize];
 		}
 		IsValid = true;
-		if (newptr == 0)
-		{
-			return false;
+		if (!newptr) {
+			return(false);
 		}
 
-		if (Vector != 0)
-		{
-			const int copycount = newsize < VectorMax ? newsize : VectorMax;
-			for (int index = 0; index < copycount; index++)
-			{
+		if (Vector != 0) {
+
+			int copycount = (newsize < VectorMax) ? newsize : VectorMax;
+			for (int index = 0; index < copycount; index++) {
 				newptr[index] = Vector[index];
 			}
-			if (IsAllocated)
-			{
+
+			if (IsAllocated) {
 				delete[] Vector;
 				Vector = 0;
 			}
@@ -98,14 +94,13 @@ bool VectorClass<T>::Resize(int newsize, const T *array)
 
 		Vector = newptr;
 		VectorMax = newsize;
-		IsAllocated = (int)(array == 0) != 0;
-	}
-	else
-	{
+		IsAllocated = (Vector && !array);
+
+	} else {
+
 		Clear();
 	}
-
-	return true;
+	return(true);
 }
 
-template class VectorClass<Element>;
+template class VectorClass<int>;

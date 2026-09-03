@@ -161,7 +161,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_0000200d@@YAXXZ,,0x0000200D,260,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=operator=
 ?d_00002152@@YAXXZ,,0x00002152,10,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00402152
 ?d_000021c7@@YAXXZ,,0x000021C7,28,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_004021c7
-?d_00002226@@YAXXZ,,0x00002226,141,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00402226
 ?d_0000232b@@YAXXZ,,0x0000232B,34,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_0040232b
 ?d_0000240e@@YAXXZ,,0x0000240E,10,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=~ParticleSystemInfo
 ?d_00002459@@YAXXZ,,0x00002459,10,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=ParticleSystemInfo
@@ -1861,3 +1860,4 @@ _AtlWinModuleTerm@8,,0x000058C3,96,Code/Libraries/Source/ATL/atlbase.cpp,matched
 ?Get_DX8_Texture_Address_Name@DX8Wrapper@@SAPBDI@Z,,0x0011ED70,76,Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper_names.cpp,matched,located by masked byte-scan
 ?Get_DX8_Texture_Filter_Name@DX8Wrapper@@SAPBDI@Z,,0x0011ED30,46,Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper_names.cpp,matched,source-order slot ahead of Texture_Address; string relocs discriminate it from the identically shaped Fog_Mode
 ?Get_DX8_Fog_Mode_Name@DX8Wrapper@@SAPBDI@Z,,0x0011EFF0,46,Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper_names.cpp,matched,the other half of the ambiguous pair; sits between Cmp_Func and Stencil_Op exactly as source order predicts
+?Resize@?$VectorClass@H@@UAE_NHPBH@Z,,0x00002226,141,Code/Libraries/Source/WWVegas/WWLib/vector_class_resize.cpp,matched,WWLib Vector.H VectorClass<T>::Resize for a four-byte T; vftable 0x007BB5AC. Needs /arch:SSE for the cmovge and operator new[] declared so the array form binds. The last statement is the conjunction Vector && !array - not array == 0 - which is where the zeroed register in the final compare comes from
