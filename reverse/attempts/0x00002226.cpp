@@ -1,33 +1,44 @@
 // ?Resize@?$VectorClass@H@@UAE_NHPBH@Z
-// partial score=0.98 date=2026-09-02
-// cl: /O1 /G7 /DNDEBUG /MD /EHsc
+// partial score=0.99 date=2026-09-03
+// ?Resize@?$VectorClass@H@@UAE_NHPBH@Z
+// partial score=0.99 date=2026-09-03
+// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
 //
 // Westwood WWLib VectorClass<T>::Resize at 0x00002226, 141 bytes, for a
-// four-byte T.  Identity comes from the vftable at 0x007BB5AC, whose six slots
-// are exactly the VectorClass shape - scalar deleting destructor at
-// 0x0000232B, operator== at 0x000022B3, this body in slot 2, Clear at
-// 0x004F0CD4 (which slot 2 tail-calls through [eax+0x0C] when newsize is
-// zero), and the two ID overloads at 0x000022E9 and 0x00002314.
+// four-byte T. Identity comes from the vftable at 0x007BB5AC whose six slots
+// are the VectorClass shape - scalar deleting destructor at 0x0000232B,
+// operator== at 0x000022B3, this body in slot 2, Clear at 0x004F0CD4 which
+// slot 2 tail-calls through [eax+0x0C] when newsize is zero, and the two ID
+// overloads at 0x000022E9 and 0x00002314.
 //
-// Three differences remain, all one byte each and two of them cancelling:
+// Three differences were banked here before. Two are now closed:
 //
-//   * retail calls operator new[] at 0x0002FDE0; every spelling of `new
-//     T[newsize]` here reaches operator new at 0x0002FDA0 instead.  Giving T a
-//     user-declared constructor does flip the call to ??_U but drags a
-//     construction loop in with it.
-//   * retail computes the copy count with `cmovge`; both the ?: and the
-//     if-form give `jle`/`mov` at /O1, and /Ot (or /O2) rewrites the whole
-//     body.  /G5, /G6, /G7 and /GB make no difference to it.
-//   * retail's `IsAllocated = (array == 0)` materialises zero in eax and
-//     compares against the register; ours compares against an immediate.
+//   * the conditional move. cl 13.10 emits one only under /arch:SSE - no /G
+//     or /O flag does it. The operand order decides the condition: written as
+//     `newsize < VectorMax ? newsize : VectorMax` it is cmovge against
+//     cmp ebx, eax, which is retail. The other three spellings give cmovg,
+//     cmovle or the wrong compare direction.
+//   * the allocator. `new T[n]` on a POD T reaches operator new at 0x0002FDA0
+//     unless operator new[] is DECLARED in the translation unit, at which
+//     point the front end binds the array form and calls 0x0002FDE0, which is
+//     retail. The same declaration for operator delete[] fixes the matching
+//     call in the release branch. Neither declaration needs a definition.
 //
-// STILL OPEN: T itself.  The element is a four-byte scalar copied with a plain
-// dword move and allocated with `shl eax,2` (no array cookie), which fixes its
-// size but not its name, and nothing reaches the vftable except unclaimed
-// bodies - 0x00154C0D, 0x0015540B, 0x00158B49, 0x00158E3D store it and
-// 0x0015546F calls this.  The mangled name below is a placeholder: land the
-// vftable's other five slots first, or convert one of those five callers, and
-// the instantiation should fall out.
+// ONE byte is left, at 0x6A. Retail materialises the null in a register -
+//   33 c0             xor eax, eax
+//   39 44 24 14       cmp [esp+0x14], eax
+// where cl compares against the immediate in five bytes:
+//   83 7c 24 14 00    cmp dword ptr [esp+0x14], 0
+// The sete that follows only writes al and the byte store only reads al, so
+// retail's xor is dead - it is a peephole, not a semantic difference.
+// Refuted for it: naming the bool, the ?: form, an int cast, /Os (identical),
+// and /Ot or /O2, which rewrite the whole body back to 137 differences.
+//
+// STILL OPEN: T itself. The element is a four-byte scalar copied with a plain
+// dword move and allocated with shl eax, 2 and no array cookie, which fixes
+// its size but not its name. The mangled name above is a placeholder.
+void *__cdecl operator new[](unsigned int);
+void __cdecl operator delete[](void *);
 
 struct Element { int value; };
 
@@ -73,11 +84,7 @@ bool VectorClass<T>::Resize(int newsize, const T *array)
 
 		if (Vector != 0)
 		{
-			int copycount = newsize;
-			if (copycount > VectorMax)
-			{
-				copycount = VectorMax;
-			}
+			const int copycount = newsize < VectorMax ? newsize : VectorMax;
 			for (int index = 0; index < copycount; index++)
 			{
 				newptr[index] = Vector[index];
@@ -91,7 +98,7 @@ bool VectorClass<T>::Resize(int newsize, const T *array)
 
 		Vector = newptr;
 		VectorMax = newsize;
-		IsAllocated = (array == 0);
+		IsAllocated = (int)(array == 0) != 0;
 	}
 	else
 	{
