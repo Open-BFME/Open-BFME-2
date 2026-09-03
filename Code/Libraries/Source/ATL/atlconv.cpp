@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc
+// cl: /O1 /EHsc /G7
 // Microsoft Visual C++ .NET 2003 ATL 7.1 atlconv.h members.
 //
 // CA2WEX keeps a t_nBufferLength-wide-character buffer inside the object and
@@ -110,7 +110,32 @@ typedef UINT(__stdcall *ATLGETTHREADACP)();
 
 // Body at 0x0044827C, still unconverted; only its address is needed here.
 UINT __stdcall _AtlGetThreadACPReal();
-UINT __stdcall _AtlGetThreadACPFake();
+
+UINT __stdcall _AtlGetThreadACPFake() throw()
+{
+	UINT nACP = 0;
+
+	LCID lcidThread = ::GetThreadLocale();
+
+	char szACP[7];
+	// GetLocaleInfoA will fail for a Unicode-only LCID, but those are only supported on
+	// Windows 2000.  Since Windows 2000 supports CP_THREAD_ACP, this code path is never
+	// executed on Windows 2000.
+	if (::GetLocaleInfoA(lcidThread, LOCALE_IDEFAULTANSICODEPAGE, szACP, 7) != 0)
+	{
+		char *pch = szACP;
+		while (*pch != '\0')
+		{
+			nACP *= 10;
+			nACP += *pch++ - '0';
+		}
+	}
+	// Use the Default ANSI Code Page if we were unable to get the thread ACP or if one does not exist.
+	if (nACP == 0)
+		nACP = ::GetACP();
+
+	return nACP;
+}
 
 extern ATLGETTHREADACP g_pfnGetThreadACP;
 

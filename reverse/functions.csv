@@ -2369,3 +2369,4 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?CreateEx@CImage@ATL@@QAEHHHHKPBKK@Z,,0x00002690,205,Code/Libraries/Source/ATL/atlimage.cpp,matched,vendored=atl-7.1
 ?Attach@CImage@ATL@@QAEXPAUHBITMAP__@@W4DIBOrientation@12@@Z,,0x0000212C,19,Code/Libraries/Source/ATL/atlimage.cpp,matched,vendored=atl-7.1
 ?_AtlGetThreadACPThunk@ATL@@YGIXZ,,0x000010CF,80,Code/Libraries/Source/ATL/atlconv.cpp,matched,vendored=atl-7.1
+?_AtlGetThreadACPFake@ATL@@YGIXZ,,0x0000107F,80,Code/Libraries/Source/ATL/atlconv.cpp,matched,vendored=atl-7.1
