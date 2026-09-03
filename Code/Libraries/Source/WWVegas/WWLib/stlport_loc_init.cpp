@@ -1,5 +1,3 @@
-// ??0_Loc_init@ios_base@_STL@@QAE@XZ
-// partial score=0.9 date=2026-09-02
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
 // stlport
 //
@@ -8,6 +6,13 @@
 // Two are the ios_base::_Loc_init pair every stream translation unit drags
 // in, two are the locale statics they stand in front of; both pairs test the
 // same counter, and only the comparison differs.
+
+//
+// The two helpers it calls are pinned by ADDRESS from the REL32s here -
+// 0x00006F80 then 0x0000B730 - and their names are inferred from the role,
+// because they live in STLport's src/ which the vendored tree does not carry.
+// Nothing but the addresses is evidenced; the byte match would hold under any
+// name, so the names are labelled as inferred in symbols.csv too.
 
 namespace _STL
 {

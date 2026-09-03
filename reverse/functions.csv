@@ -231,7 +231,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_0000df10@@YAXXZ,,0x0000DF10,5,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=thunk_FUN_004179b0
 ?d_0000eb60@@YAXXZ,,0x0000EB60,371,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040eb60
 ?d_0000ef40@@YAXXZ,,0x0000EF40,822,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040ef40
-?d_0000f740@@YAXXZ,,0x0000F740,37,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040f740
 ?d_00011230@@YAXXZ,,0x00011230,122,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_00411230
 ?d_000112aa@@YAXXZ,,0x000112AA,2406,Code/gen_asm/d_000112aa.asm,matched,gen-dump;ghidra=FUN_004112aa
 ?d_00011e30@@YAXXZ,,0x00011E30,648,Code/gen_asm/d_000112aa.asm,matched,gen-dump;ghidra=FUN_00411e30
@@ -1843,3 +1842,4 @@ _AtlWinModuleTerm@8,,0x000058C3,96,Code/Libraries/Source/ATL/atlbase.cpp,matched
 ?compareRangeNoCase@@YAHPBDH0HUCharCompare@@@Z,,0x00005841,44,Code/Libraries/Source/WWVegas/WWLib/string_base_compare_range.cpp,matched,The _memicmp twin of 0x00005816 - same body and same /arch:SSE requirement
 ?getIdNoCase@PooledString@@QBEIXZ,0x0060B820,0x0060B820,11,Code/GameEngine/Source/Common/System/pooled_string_nocase.cpp,matched,PooledString case-folded alias accessor - selects the alias with cmovne which cl 13.10 emits only under /arch:SSE. Split out of PooledString.cpp because the rest of that unit matches at plain /O1
 ?isEqualNoCase@PooledString@@QBE_NABV1@@Z,0x0060B82B,0x0060B82B,36,Code/GameEngine/Source/Common/System/pooled_string_nocase.cpp,matched,getIdNoCase inlined twice and compared - blocked behind the same cmovne and lands with it
+??0_Loc_init@ios_base@_STL@@QAE@XZ,,0x0000F740,37,Code/Libraries/Source/WWVegas/WWLib/stlport_loc_init.cpp,matched,STLport 4.5.3 classic-locale initialisation guard. The banked body was already byte-exact - the eight bytes recorded as differing were the two unresolved REL32 displacements and nothing else. Pinning the two callees by address closed it
