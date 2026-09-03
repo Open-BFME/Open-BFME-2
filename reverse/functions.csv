@@ -1904,3 +1904,4 @@ _AtlWinModuleTerm@8,,0x000058C3,96,Code/Libraries/Source/ATL/atlbase.cpp,matched
 ??_Gbad_alloc@std@@UAEPAXI@Z,,0x00024CC0,44,Code/Libraries/Source/WWVegas/WWLib/BadAllocDestructor.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
 ??$__write_integer@J@_STL@@YAPADPADHJ@Z,,0x0001A450,72,Code/Libraries/Source/WWVegas/WWLib/stlport_write_integer_backward.cpp,matched,stlport-4.5.3;the 64-byte scratch wrapper over __write_integer_backward. __copy_trivial is inlined here rather than called
 ??6Debug@@QAEAAV0@_N@Z,,0x00038890,30,Code/Libraries/Source/WWVegas/WWDebug/debug_operator_bool.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
+?DuplicateCRCError@INIClass@@QAEXPBD00@Z,,0x00615C00,91,Code/Libraries/Source/WWVegas/WWLib/ini_duplicate_crc_error.cpp,matched,WWLib INIClass duplicate-CRC warning; named from the Generals declaration. This engine takes a third argument for the section
