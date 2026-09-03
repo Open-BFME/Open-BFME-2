@@ -2407,3 +2407,7 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ??4ModelNodeClass@HLodClass@@QAEAAV01@ABV01@@Z,,0x004ECEA8,37,Code/Libraries/Source/WWVegas/WW3D2/hlod.cpp,matched,placed
 ?Set_Shader@MeshMatDescClass@@QAEXHVShaderClass@@H@Z,,0x0015DCA0,26,Code/Libraries/Source/WWVegas/WW3D2/meshmatdesc.cpp,matched,placed
 ??0TimeCodedMotionChannelClass@@QAE@XZ,,0x00195CE0,25,Code/Libraries/Source/WWVegas/WW3D2/motchan.cpp,matched,placed
+?Reset@AABTreeBuilderClass@@AAEXXZ,,0x00198B70,118,Code/Libraries/Source/WWVegas/WW3D2/aabtreebuilder.cpp,matched,placed
+?Find_Entry@INISection@@QBEPAUINIEntry@@PBD@Z,,0x00616C00,89,Code/Libraries/Source/WWVegas/WWLib/ini.cpp,matched,placed
+??0TimeCodedBitChannelClass@@QAE@XZ,,0x00195E00,22,Code/Libraries/Source/WWVegas/WW3D2/motchan.cpp,matched,placed
+?Set_Frame_Row_Column_Count_Log2@PointGroupClass@@QAEXE@Z,,0x00179140,22,Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp,matched,placed
