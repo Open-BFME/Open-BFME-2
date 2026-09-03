@@ -1,6 +1,6 @@
 // __heap_abort
 // partial score=0.9 date=2026-09-03
-// cl: /MD /Oy-
+// cl: /Oy- /MD
 //
 // WWDebug's replacement for the CRT's _heap_abort, the hook the DLL runtime
 // calls when the heap is corrupt. The Generals reference spells the body
@@ -50,20 +50,30 @@ public:
 	virtual void _M_slot_50();
 	virtual void _M_slot_54();
 	virtual void _M_slot_58();
-	virtual void SetCrashAddress(void *address, bool set);
+	virtual bool SetCrashAddress(void *address, bool set);
 	virtual void SkipNext();
 	virtual void _M_slot_64();
 	virtual void _M_slot_68();
 	virtual Debug &CrashBegin(const char *file, int line, const char *group);
+
+	__forceinline static bool SkipNext(bool set);
 };
 
 Debug *theDebug;
 
-extern "C" void __cdecl _heap_abort(void)
+// Defined here rather than declared: this unit is debug_debug.cpp, where the
+// definition lives, so cl inlines it. profile.cpp calls the same function out
+// of line at 0x00038790 and that call site is what named it.
+bool Debug::SkipNext(bool set)
 {
 	void *volatile address = _ReturnAddress();
 
-	theDebug->SetCrashAddress(address, true);
+	return theDebug->SetCrashAddress(address, set);
+}
+
+extern "C" void __cdecl _heap_abort(void)
+{
+	Debug::SkipNext(true);
 	theDebug->SkipNext();
 	(theDebug->CrashBegin(0, 0, 0) << "Fatal heap error.").CrashDone(true);
 }
