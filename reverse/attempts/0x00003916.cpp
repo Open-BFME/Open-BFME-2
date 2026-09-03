@@ -1,6 +1,13 @@
 // ?Rotate@Coord2D@@QAEAAV1@M@Z
 // partial score=0.95 date=2026-09-02
 // cl: /O1 /arch:SSE2
+//
+// 2026-09-03: three more shapes refuted for the slot swap - declaring a third
+// unused float, initialising the two locals in their declarations instead of
+// assigning after, and declaring cosine first while keeping the assignment
+// order. All four spellings give the identical 23 bytes with the first
+// difference at 0x17, so the allocation is not driven by declaration order,
+// initialisation order, or the number of locals. It is the __asm block.
 // Coord2D::Rotate(float) at 0x00003916 - the in-place twin of the two-argument
 // Rotate at 0x000039BB.
 //
