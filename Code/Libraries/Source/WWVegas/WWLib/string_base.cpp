@@ -115,8 +115,10 @@ int StringBase<char>::compareNoCase(const char *str, int len) const
 
 // The wide pair at 0x0000586D and 0x00005898 is the same worker shape against
 // StringBase<wchar_t>, except that both of them do read the trait object: each
-// takes its address and calls through it. Only the declarations are needed to
-// reproduce the two callers, so their bodies stay unclaimed.
+// takes its address and calls through it, so the comparison is a member of the
+// trait rather than memcmp. Both now match in string_base_compare_range.cpp,
+// which is where the /arch:SSE the cmovge needs lives; only the declarations
+// are needed here.
 int compareRange(const wchar_t *a, int alen, const wchar_t *b, int blen, CharCompare tag);
 int compareRangeNoCase(const wchar_t *a, int alen, const wchar_t *b, int blen, CharCompare tag);
 

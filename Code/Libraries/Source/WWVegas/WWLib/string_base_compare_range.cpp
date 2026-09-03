@@ -44,3 +44,33 @@ int compareRangeNoCase(const char *a, int alen, const char *b, int blen, CharCom
         return result;
     return alen - blen;
 }
+
+// The wide pair at 0x0000586D and 0x00005898 is the same shape, except that
+// both of them DO read the trait object: each takes its address and calls
+// through it, which is why the narrow pair can leave it opaque and these
+// cannot. ecx holds &tag at the call, so the worker is a member of the trait.
+struct WideCharCompare
+{
+    char m_unused;
+
+    int compare(const wchar_t *a, const wchar_t *b, int len) const;
+    int compareNoCase(const wchar_t *a, const wchar_t *b, int len) const;
+};
+
+int compareRange(const wchar_t *a, int alen, const wchar_t *b, int blen, WideCharCompare tag)
+{
+    const int len = alen < blen ? alen : blen;
+    const int result = tag.compare(a, b, len);
+    if (result != 0)
+        return result;
+    return alen - blen;
+}
+
+int compareRangeNoCase(const wchar_t *a, int alen, const wchar_t *b, int blen, WideCharCompare tag)
+{
+    const int len = alen < blen ? alen : blen;
+    const int result = tag.compareNoCase(a, b, len);
+    if (result != 0)
+        return result;
+    return alen - blen;
+}

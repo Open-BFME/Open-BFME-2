@@ -192,8 +192,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ??8Xfer@@UAEAAV0@AAM@Z,0x0000554C,0x0000554C,28,Code/GameEngine/Source/Common/System/Xfer.cpp,matched,Open-BFME5 clean C++; Xfer 'real' transfer operator at slot 28 of the retail vtable
 ??8@YA_NABVGameClientRandomVariable@@0@Z,0x00005568,0x00005568,51,Code/GameEngine/Source/GameClient/ClientRandomValue.cpp,matched,Open-BFME5 clean C++; GameClientRandomVariable equality over type and both Real bounds
 ??9@YA_NABVGameClientRandomVariable@@0@Z,0x0000559B,0x0000559B,21,Code/GameEngine/Source/GameClient/ClientRandomValue.cpp,matched,Open-BFME5 clean C++; GameClientRandomVariable inequality forwarding to the equality body
-?d_0000586d@@YAXXZ,,0x0000586D,43,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_0040586d
-?d_00005898@@YAXXZ,,0x00005898,43,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00405898
 ?d_0000685e@@YAXXZ,,0x0000685E,10,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_0040685e
 ?d_00006960@@YAXXZ,,0x00006960,34,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00406960
 ?d_00006b09@@YAXXZ,,0x00006B09,10,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00406b09
@@ -1843,3 +1841,5 @@ _AtlWinModuleTerm@8,,0x000058C3,96,Code/Libraries/Source/ATL/atlbase.cpp,matched
 ?getIdNoCase@PooledString@@QBEIXZ,0x0060B820,0x0060B820,11,Code/GameEngine/Source/Common/System/pooled_string_nocase.cpp,matched,PooledString case-folded alias accessor - selects the alias with cmovne which cl 13.10 emits only under /arch:SSE. Split out of PooledString.cpp because the rest of that unit matches at plain /O1
 ?isEqualNoCase@PooledString@@QBE_NABV1@@Z,0x0060B82B,0x0060B82B,36,Code/GameEngine/Source/Common/System/pooled_string_nocase.cpp,matched,getIdNoCase inlined twice and compared - blocked behind the same cmovne and lands with it
 ??0_Loc_init@ios_base@_STL@@QAE@XZ,,0x0000F740,37,Code/Libraries/Source/WWVegas/WWLib/stlport_loc_init.cpp,matched,STLport 4.5.3 classic-locale initialisation guard. The banked body was already byte-exact - the eight bytes recorded as differing were the two unresolved REL32 displacements and nothing else. Pinning the two callees by address closed it
+?compareRange@@YAHPBGH0HUWideCharCompare@@@Z,,0x0000586D,43,Code/Libraries/Source/WWVegas/WWLib/string_base_compare_range.cpp,matched,WWLib wide string comparison worker behind StringBase<wchar_t>::compare. Same shape as the narrow pair but it reads the trait object: ecx holds its address at the call so the comparison is a member of the trait rather than memcmp
+?compareRangeNoCase@@YAHPBGH0HUWideCharCompare@@@Z,,0x00005898,43,Code/Libraries/Source/WWVegas/WWLib/string_base_compare_range.cpp,matched,The case-folded twin of 0x0000586D - identical body calling the other trait member
