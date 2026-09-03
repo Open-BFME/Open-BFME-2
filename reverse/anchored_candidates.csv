@@ -1,0 +1,129 @@
+target_rva,target_size,zh_source,alternates,confidence,ghidra_name,anchor
+0x003D46DB,62675,ScriptEngine.cpp,0,high,FUN_007d46db,"Multimedia_/Music Scripting Internal (music.scb only!)/Push music track to play as part of the music scripting system a certain number of times, then set a flag."
+0x0003E570,3471,debug_cmd.cpp,0,high,FUN_0043e570,"list (g|l|d|a|c) [ <pattern> ]  Shows some or all items of a specific type.  The following items are supported: - g: command groups - l: log groups (only those encountered yet) - d: log groups with descriptions (only those that have descriptions) - a: asserts (only those hit yet) - c: crashes (only those failed yet)  If a pattern is specified only items matching that pattern are shown. A pattern can contain any character, letter, or a wildcard '*'.  Please note that assert and crash items have their line number appended to the current file name, e.g. debug.cpp(13). "
+0x0019DB50,2501,hlod.cpp,0,high,FUN_0059db50,BOUNDINGBOX
+0x001AC860,2323,part_buf.cpp,0,high,FUN_005ac860,ParticleBufferClass::TailPosition
+0x002DE641,2137,GameState.cpp,0,high,FUN_006de641,CHUNK_MineshaftPortalNetworkManager
+0x00612770,1871,cpudetect.cpp,0,high,FUN_00a12770,"L1 Instruction Cache: %d byte cache lines, %d way set associative, %dk  "
+0x00617B10,1810,ini.cpp,0,high,FUN_00a17b10,INIClass::Load
+0x00697EC0,1617,PeerThread.cpp,0,high,FUN_00a97ec0,statechanged
+0x00040160,1364,debug_io_flat.cpp,0,high,FUN_00440160,"splitadd <types> <filter> <name> [ <size in kb> ]  Splits off part of the log data. Multiple splits can be defined. They  are written out to the first matching split file.  'types' defines one or more string types which should be split off: - a: asserts - c: crash - l: logs - x: exceptions - r: replies from commands - o: other messages   Next a filter is specified that determines which items are to be  filtered (only for string types a, c and l). Items can be listed with then 'list' command. The filter is exactly specified as in that command.  The third parameter defines a name for this split. If there is  already a split with the same name then both will write to the same  destination file.  Note: If splits are used and the filename given for 'add' is static  or does not contain 'n' or 'N' then the split name is automatically  appended to the log file name (before the extension).  If a size is specified then all data is internally written to a  fixed size memory based ring buffer. This data is flushed out once  the program exits.  If no size is given then the size of the log file is not limited and  any log data is written out immediately. "
+0x0003DCD0,1254,debug_except.cpp,0,high,FUN_0043dcd0,EA/DEBUG: EXCEPTION_STACK_OVERFLOW 
+0x006C7600,1117,profile_result.cpp,0,high,FUN_00ac7600,"Function,File,Call count,PTT (all),GTT (all),PT/C (all),GT/C (all),Caller (all)"
+0x0003A250,959,debug_debug.cpp,0,high,PostStaticInit, You are using an older version of the DBGHELP.DLL library. Please update to the newest available version in order to get reliable stack and symbol information.  
+0x00129E50,948,statistics.cpp,0,high,FUN_00529e50,Set_DX8_Texture count: %d actual changes: %d  id      refs changes  size      name -------------------------------------- 
+0x0003A8A0,915,debug_debug.cpp,0,high,FUN_0043a8a0,Assert hit too often - turning check off. 
+0x0016A320,911,meshgeometry.cpp,0,high,FUN_0056a320,MeshGeometryClass::VertexBinormals
+0x001AF060,907,part_buf.cpp,0,high,FUN_005af060,ParticleBufferClass::TailDiffuse
+0x00039E20,901,debug_debug.cpp,0,high,FUN_00439e20,"Unknown command, help not available"
+0x00189CD0,897,meshmdlio.cpp,0,high,FUN_00589cd0,MeshModelClass::DefMatDesc::TextureArray
+0x001A1070,881,part_emt.cpp,0,high,FUN_005a1070,ParticleEmitter
+0x0003D004,873,debug_except.cpp,0,high,FUN_0043d004,No stack data available - check for dbghelp.dll
+0x0075ACEE,849,Except.cpp,0,high,GetImageInfo,CreateToolhelp32Snapshot
+0x0003C7A0,845,debug_except.cpp,0,high,FUN_0043c7a0,"The thread tried to read or write data that is misaligned on hardware that does not provide alignment. For example, 16-bit values must be aligned on 2-byte boundaries; 32-bit values on 4-byte boundaries, and so on."
+0x0003BC80,736,debug_stack.cpp,0,high,FUN_0043bc80,(inv code addr)
+0x0007846F,712,FileSystem.h,0,high,FUN_0047846f,Art/CompiledTextures/
+0x0012B5B0,709,dx8caps.cpp,0,high,FUN_0052b5b0,Driver version status: Bad (Driver update recommended)  
+0x00039B70,664,debug_debug.cpp,0,high,FUN_00439b70,[%02i:%02i.%02i.%03i] 
+0x0003FA20,656,debug_io_flat.cpp,0,high,FUN_0043fa20,%04i%02i%02i-%02i%02i-%02i
+0x00616FB0,554,ini.cpp,0,high,FUN_00a16fb0,INIClass::Put_String
+0x006C9760,449,Download.cpp,0,high,FUN_00ac9760,download
+0x006BB240,421,Connection.h,0,high,FUN_00abb240,GameSpyHTTP/1.0
+0x000999E3,396,W3DMouse.cpp,0,high,FUN_004999e3,%s%04d.tga
+0x0014FAC2,390,presetexportoptionsdialog.cpp,0,high,FUN_0054fac2,NumDirectionalLights
+0x00230215,390,GameEngine.cpp,0,high,Catch@00630215,ERROR:D3DFailureMessage
+0x000AF917,379,FileSystem.h,0,high,FUN_004af917,Art/Terrain/
+0x004CB189,369,Module.cpp,0,high,FUN_008cb189,"An upgrade module references %s, which is not an Upgrade"
+0x001A8630,357,part_buf.cpp,0,high,FUN_005a8630,ParticleBufferClass::Diffuse
+0x003C4C07,341,Scripts.cpp,0,high,FUN_007c4c07,Player Targetable
+0x0005BA08,330,MilesAudioManager.cpp,0,high,FUN_0045ba08,Mono Delay Time
+0x0066B5D0,320,base64.cpp,0,high,FUN_00a6b5d0,ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/
+0x0026E699,302,AIUpdate.cpp,0,high,FUN_0066e699,Attempted to specify a locomotor for object %s without an AIUpdate block.
+0x0002F720,288,GlobalData.cpp,0,high,FUN_0042f720,UserDataLeafName
+0x0020038E,269,RankInfo.cpp,0,high,FUN_0060038e,Ranks must increase monotonically
+0x0029CEBB,269,InGameUI.cpp,0,high,FUN_0069cebb,GUI:SelectedAcrossScreen
+0x00120B90,266,dx8wrapper.cpp,0,high,FUN_00520b90,D3DTSS_TCI_CAMERASPACEREFLECTIONVECTOR|%d
+0x0054F99E,234,PingThread.cpp,0,high,FUN_0094f99e,IcmpCloseHandle
+0x0072C7E0,234,W3DTreeBuffer.cpp,0,high,FUN_00b2c7e0,Invalid status.
+0x0007FFED,233,Water.cpp,0,high,FUN_0047ffed,BlendUsingTerrainAlpha
+0x0015D360,231,meshmatdesc.cpp,0,high,FUN_0055d360,MeshMatDescClass::TextureArray
+0x002054FF,224,ScriptEngine.cpp,0,high,FUN_006054ff,AdjustVariableAndPause
+0x001EA2CF,223,AIUpdate.cpp,0,high,FUN_005ea2cf,Attempted to specify a locomotor for object %s without an AIUpdate block.
+0x0015D450,186,meshmatdesc.cpp,0,high,FUN_0055d450,MeshMatDescClass::ShaderArray
+0x001D5470,160,cpudetect.cpp,0,high,FUN_005d5470,AuthenticAMD
+0x0015B700,155,meshmatdesc.cpp,0,high,FUN_0055b700,MeshMatDescClass::MaterialArray
+0x0051569F,155,GameState.cpp,0,high,FUN_0091569f,00000000.sav
+0x002E4B2D,154,OptionsMenu.cpp,0,high,FUN_006e4b2d,SFXVolume
+0x001869B0,149,mapper.cpp,0,high,FUN_005869b0,BumpRotation
+0x006A10F0,143,generals.cpp,0,high,FUN_00aa10f0,Disconnected
+0x002E4AA1,140,OptionsMenu.cpp,0,high,FUN_006e4aa1,Resolution
+0x000395D0,137,debug_debug.cpp,0,high,FUN_004395d0, internal 
+0x00282021,127,Scripts.h,0,high,FUN_00682021,Water Grid
+0x002E45DA,121,OptionsMenu.cpp,0,high,FUN_006e45da,ScrollFactor
+0x00203B47,106,ScriptEngine.cpp,0,high,FUN_00603b47,RunAppFast
+0x002E4573,103,OptionsMenu.cpp,0,high,FUN_006e4573,CampaignDifficulty
+0x0029C291,101,InGameUI.cpp,0,high,FUN_0069c291,GUI:CantBuildTooCloseToSupplies
+0x002E47B0,101,OptionsMenu.cpp,0,high,FUN_006e47b0,SendDelay
+0x002E4BC7,100,OptionsMenu.cpp,0,high,FUN_006e4bc7,LanguageFilter
+0x002E46AF,92,OptionsMenu.cpp,0,high,FUN_006e46af,SaveCameraInReplays
+0x002E470B,92,OptionsMenu.cpp,0,high,FUN_006e470b,UseCameraInReplays
+0x0054F63A,92,UserPreferences.cpp,0,high,FUN_0094f63a,DisallowNonAsianText
+0x0003E360,89,debug_internal.cpp,0,high,FUN_0043e360,Internal assert failed
+0x0005178D,83,MilesAudioManager.cpp,0,high,FUN_0045178d,Mono Delay Filter
+0x00204094,83,ScriptEngine.cpp,0,high,FUN_00604094,SetFrameNumber
+0x0026F11A,83,Upgrade.cpp,0,high,FUN_0066f11a,GUI:NotEnoughMoneyToUpgrade
+0x00239539,82,GameClient.cpp,0,high,FUN_00639539,EALogoMovie
+0x001FF65D,81,Science.cpp,0,high,FUN_005ff65d,Science name %s not known! (Did you define it in Science.ini?)
+0x005DF4B9,81,UserPreferences.cpp,0,high,FUN_009df4b9,LastLadderAddr
+0x005DF50A,81,UserPreferences.cpp,0,high,FUN_009df50a,LastLadderPort
+0x000398A0,80,debug_debug.cpp,0,high,FUN_004398a0,Fatal heap error.
+0x002D7B6B,76,Radar.cpp,0,high,FUN_006d7b6b,ControlBar.wnd:LeftHUD
+0x0022D53F,67,GameEngine.cpp,0,high,FUN_0062d53f,Uncaught Exception in GameEngine::update
+0x00230412,62,GameEngine.cpp,0,high,Catch@00630412,Uncaught Exception during initialization.
+0x002AA2F9,54,KindOf.cpp,0,high,FUN_006aa2f9,SELECTABLE
+0x000B42CA,54,BitFlags.cpp,0,high,FUN_004b42ca,FRONTCRUSHED
+0x001DB3FE,52,MetaEvent.cpp,0,high,FUN_005db3fe,SAVE_VIEW2
+0x0031ED2C,2583,ControlBar.cpp,4,medium,FUN_0071ed2c,ControlBar.wnd:ButtonPlaceBeacon
+0x000AD112,1494,WHeightMapEdit.cpp,1,medium,FUN_004ad112,GlobalLighting
+0x006C9300,808,registry.cpp,1,medium,FUN_00ac9300,MapPackVersion
+0x001F3D2E,674,EMPUpdate.h,1,medium,parse,IsParticleUpTowardsEmitter
+0x0067F950,595,NetworkUtil.cpp,3,medium,FUN_00a7f950,localhost
+0x006C5570,569,internal_result.h,1,medium,FUN_00ac5570,"[ file [ frame_name [ percent_threshold, 10000=100%, def=1% ] ] ]"
+0x0039A7E2,556,GameLogic.cpp,2,medium,FUN_0079a7e2,CAMP: Frame %d: Castle %s(%d) Packed(aka:DIE) called by %s
+0x00154630,488,GenerateDlg.cpp,2,medium,FUN_00554630,Generals
+0x00686D20,450,NetworkUtil.cpp,3,medium,FUN_00a86d20,localhost
+0x006A01F0,422,GameSpy.cpp,2,medium,FUN_00aa01f0,peerchat.gamespy.com
+0x0043EB1D,420,ChallengeGenerals.cpp,6,medium,FUN_0083eb1d,PlayerTemplate
+0x0015B960,413,meshmatdesc.cpp,1,medium,FUN_0055b960,MeshMatDescClass::UV
+0x004C40BA,413,BitFlags.cpp,1,medium,FUN_008c40ba,FIRING_OR_PREATTACK_B
+0x004C167E,334,LifetimeUpdate.h,3,medium,FUN_008c167e,LifetimeUpdate
+0x00376D49,329,GameLogicDispatch.cpp,2,medium,FUN_00776d49,OptionsMenu.wnd:OptionsMenuParent
+0x003B5994,307,Scripts.cpp,1,medium,FUN_007b5994,ScriptActionFalse
+0x001666D0,267,animobj.cpp,2,medium,FUN_005666d0,RootTransform
+0x002C2533,263,GUIEdit.cpp,4,medium,FUN_006c2533,Times New Roman
+0x003174CB,262,GameWindowManagerScript.cpp,1,medium,FUN_007174cb,PROGRESSBAR
+0x00249445,233,LANAPICallbacks.cpp,1,medium,FUN_00649445,Menus/LanGameOptionsMenu.wnd
+0x0035E01E,217,GameWindowTransitionsStyles.cpp,1,medium,FUN_0075e01e,MainMenu.wnd:WinGrowMarker
+0x0030D526,196,MapUtil.cpp,3,medium,FUN_0070d526,ObjectsList
+0x00290EFE,189,MemoryInit.cpp,3,medium,FUN_00690efe,W3DDefaultDraw
+0x000902A6,186,GlobalLanguage.cpp,1,medium,FUN_004902a6,Arial Unicode MS
+0x003B428C,183,ModelState.h,2,medium,FUN_007b428c,Condition
+0x003B6975,166,Scripts.cpp,1,medium,FUN_007b6975,ScriptGroup
+0x002DD6D2,147,GameState.cpp,10,medium,Catch@006dd6d2,GUI:ErrorSavingGame
+0x006C4CD0,124,Except.cpp,1,medium,FUN_00ac4cd0,SymFunctionTableAccess
+0x003FFBB4,116,GUIUtil.cpp,6,medium,FUN_007ffbb4,GUI:Observer
+0x004E8DE7,112,KindOf.cpp,1,medium,FUN_008e8de7,invalid AI_KINDOF 
+0x001DEB8A,108,Eva.cpp,3,medium,FUN_005deb8a,EVA_INVALID
+0x00437B4D,105,Player.cpp,1,medium,FUN_00837b4d,Civilian
+0x002E4928,103,FirewallHelper.cpp,1,medium,FUN_006e4928,FirewallNeedToRefresh
+0x003BC3A8,101,GameLogic.cpp,1,medium,FUN_007bc3a8,ReplayObserver
+0x002E4815,95,FirewallHelper.cpp,3,medium,FUN_006e4815,FirewallBehavior
+0x002E4874,90,FirewallHelper.cpp,2,medium,FUN_006e4874,FirewallPortAllocationDelta
+0x002E48CE,90,GlobalData.cpp,1,medium,FUN_006e48ce,FirewallPortOverride
+0x003B73F6,82,GameLogic.cpp,3,medium,FUN_007b73f6,PlayerScriptsList
+0x0024822B,77,GameLogic.cpp,3,medium,FUN_0064822b,Player_%d_Start
+0x004B488F,68,MemoryInit.cpp,2,medium,FUN_008b488f,RadarUpdate
+0x003B4A3C,60,Scripts.cpp,1,medium,FUN_007b4a3c,OrCondition
+0x0028C819,54,GameWindowManagerScript.cpp,3,medium,FUN_0068c819,CAN_ATTACK
+0x0037BA62,53,PopupReplay.cpp,2,medium,FUN_0077ba62,GUI:LastReplay
+0x0060259A,52,File.cpp,1,medium,FUN_00a0259a,<no file>
