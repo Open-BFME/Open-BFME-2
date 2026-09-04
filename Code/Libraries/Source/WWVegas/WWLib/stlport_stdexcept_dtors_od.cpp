@@ -20,6 +20,11 @@ __Named_exception::~__Named_exception() _STLP_NOTHROW_INHERENTLY
 {
 }
 
+const char *__Named_exception::what() const _STLP_NOTHROW_INHERENTLY
+{
+	return _M_name;
+}
+
 logic_error::~logic_error() _STLP_NOTHROW_INHERENTLY
 {
 }
