@@ -5,7 +5,7 @@
 extern "C" __declspec(dllimport) int __stdcall AIL_get_preference(
 	unsigned int preference);
 
-int bfmeMilesPreferenceProduct_006962A0()
+int bfmeMilesPreferenceProduct()
 {
 	return AIL_get_preference(0x2A) * AIL_get_preference(0x22);
 }
