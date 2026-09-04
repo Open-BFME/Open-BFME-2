@@ -67,8 +67,8 @@ public:
 	ImageSurfaceState *surfaceState;
 };
 
-W3DRadarResetSurface getBackBufferSurface006e(Int index);
-void copySurfaceRects006e(W3DRadarResetSurface source, const BfmeRect *sourceRect,
+W3DRadarResetSurface getBackBufferSurface(Int index);
+void copySurfaceRects(W3DRadarResetSurface source, const BfmeRect *sourceRect,
 	W3DRadarResetSurface destination, const BfmeRect *destinationRect, Int mode);
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include/W3DDevice/GameClient/W3DDisplay.h
@@ -143,12 +143,12 @@ void W3DDisplay::drawImage(Image *image, Real x0, Real y0, Real x1, Real y1, Int
 	if (image->surfaceState && (image->surfaceState->status & 4))
 	{
 		W3DRadarResetSurface source = image->getSurface();
-		W3DRadarResetSurface destination = getBackBufferSurface006e(0);
+		W3DRadarResetSurface destination = getBackBufferSurface(0);
 		BfmeRect sourceRect = { 0, 0, image->width, image->height };
 		BfmeRect destinationRect = { (long)x0, (long)y0, (long)x1, (long)y1 };
 
 		if (!IsRectEmpty(&sourceRect) && !IsRectEmpty(&destinationRect))
-			copySurfaceRects006e(source, &sourceRect, destination, &destinationRect, 2);
+			copySurfaceRects(source, &sourceRect, destination, &destinationRect, 2);
 	}
 	else
 	{
