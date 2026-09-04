@@ -335,3 +335,10 @@ __SEH_prolog,0x00628FA4,CRT SEH frame setup, emitted by cl for every __try; Ghid
 ?_M_push_back_aux_v@?$deque@UBfmeE12@@V?$allocator@UBfmeE12@@@_STL@@@_STL@@IAEXABUBfmeE12@@@Z,0x00423558,address read from the REL32 displacement at a placed deque<12-byte element> body; stlport 4.5.3
 ?_M_push_back_aux_v@?$deque@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@IAEXABUBfmeE8@@@Z,0x0054B456,address read from the REL32 displacement at a placed body; stlport 4.5.3
 ?_M_reserve_map_at_back@?$deque@PAXV?$allocator@PAX@_STL@@@_STL@@IAEXI@Z,0x002F1F19,address read from the REL32 displacement at a placed body; stlport 4.5.3
+??$_M_allocate_and_copy@PAUBfmeE8@@@?$vector@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@IAEPAUBfmeE8@@IPAU2@0@Z,0x001D9AD9,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?_M_insert_overflow@?$vector@FV?$allocator@F@_STL@@@_STL@@IAEXPAFABFABU__true_type@2@I_N@Z,0x0007EAA7,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?_M_reserve_map_at_back@?$deque@UBfmeE12@@V?$allocator@UBfmeE12@@@_STL@@@_STL@@IAEXI@Z,0x0042305C,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?allocate@?$allocator@UBfmeE16@@@_STL@@QBEPAUBfmeE16@@IPBX@Z,0x002226BE,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?allocate@?$allocator@UBfmeE8@@@_STL@@QBEPAUBfmeE8@@IPBX@Z,0x00523D6C,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?equal_range@?$_Rb_tree@HU?$pair@$$CBHH@_STL@@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBHH@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHH@_STL@@@2@@_STL@@U12@@2@ABH@Z,0x0061F840,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?push_back@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEXABQAX@Z,0x00029140,address read from the REL32 displacement at a placed body; stlport 4.5.3
