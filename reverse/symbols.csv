@@ -458,3 +458,5 @@ __CIpow,0x006299A0,address read from the REL32 displacement at a placed body; st
 ?do_always_noconv@?$codecvt@GDH@_STL@@MBE_NXZ,0x001826C0,slot 5 of 0x007BBB2C; folded
 ?do_length@?$codecvt@GDH@_STL@@MBEHABHPBD1I@Z,0x00017460,slot 6 of 0x007BBB2C; folded
 ?do_max_length@?$codecvt@GDH@_STL@@MBEHXZ,0x00756B00,slot 7 of 0x007BBB2C; folded
+?do_open@?$messages@G@_STL@@MBEHABV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@2@ABVlocale@2@@Z,0x00019EA0,slot 1 of the wide messages vftable 0x007BC8EC; do_open takes a narrow filename whatever the facet's character type so the two instantiations folded
+?do_close@?$messages@G@_STL@@MBEXH@Z,0x00019F70,slot 3 of 0x007BC8EC; do_close forwards a catalog handle and never touches the character type so the two instantiations folded
