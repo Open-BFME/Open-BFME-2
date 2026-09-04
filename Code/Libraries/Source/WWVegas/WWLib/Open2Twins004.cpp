@@ -148,48 +148,48 @@ Value &hashtable<Value, Key, HashFcn, ExtractKey, EqualKey, Alloc>::_M_insert(co
 }
 
 
-struct Open2Mapped382010 { Int m_value; };
+struct Open2MappedA { Int m_value; };
 
-typedef pair<const Int, Open2Mapped382010> Open2Pair382010;
+typedef pair<const Int, Open2MappedA> Open2PairA;
 
-template Open2Pair382010 &hashtable<Open2Pair382010, Int, hash<Int>,
-	_Select1st<Open2Pair382010>, equal_to<Int>,
-	allocator<Open2Pair382010> >::_M_insert(const Open2Pair382010 &);
-
-
-struct Open2Mapped494DA0 { Int m_value; };
-
-typedef pair<const Int, Open2Mapped494DA0> Open2Pair494DA0;
-
-template Open2Pair494DA0 &hashtable<Open2Pair494DA0, Int, hash<Int>,
-	_Select1st<Open2Pair494DA0>, equal_to<Int>,
-	allocator<Open2Pair494DA0> >::_M_insert(const Open2Pair494DA0 &);
+template Open2PairA &hashtable<Open2PairA, Int, hash<Int>,
+	_Select1st<Open2PairA>, equal_to<Int>,
+	allocator<Open2PairA> >::_M_insert(const Open2PairA &);
 
 
-struct Open2Mapped498B30 { Int m_value; };
+struct Open2MappedB { Int m_value; };
 
-typedef pair<const Int, Open2Mapped498B30> Open2Pair498B30;
+typedef pair<const Int, Open2MappedB> Open2PairB;
 
-template Open2Pair498B30 &hashtable<Open2Pair498B30, Int, hash<Int>,
-	_Select1st<Open2Pair498B30>, equal_to<Int>,
-	allocator<Open2Pair498B30> >::_M_insert(const Open2Pair498B30 &);
-
-
-struct Open2Mapped5B7CE0 { Int m_value; };
-
-typedef pair<const Int, Open2Mapped5B7CE0> Open2Pair5B7CE0;
-
-template Open2Pair5B7CE0 &hashtable<Open2Pair5B7CE0, Int, hash<Int>,
-	_Select1st<Open2Pair5B7CE0>, equal_to<Int>,
-	allocator<Open2Pair5B7CE0> >::_M_insert(const Open2Pair5B7CE0 &);
+template Open2PairB &hashtable<Open2PairB, Int, hash<Int>,
+	_Select1st<Open2PairB>, equal_to<Int>,
+	allocator<Open2PairB> >::_M_insert(const Open2PairB &);
 
 
-struct Open2Mapped613250 { Int m_value; };
+struct Open2MappedC { Int m_value; };
 
-typedef pair<const Int, Open2Mapped613250> Open2Pair613250;
+typedef pair<const Int, Open2MappedC> Open2PairC;
 
-template Open2Pair613250 &hashtable<Open2Pair613250, Int, hash<Int>,
-	_Select1st<Open2Pair613250>, equal_to<Int>,
-	allocator<Open2Pair613250> >::_M_insert(const Open2Pair613250 &);
+template Open2PairC &hashtable<Open2PairC, Int, hash<Int>,
+	_Select1st<Open2PairC>, equal_to<Int>,
+	allocator<Open2PairC> >::_M_insert(const Open2PairC &);
+
+
+struct Open2MappedD { Int m_value; };
+
+typedef pair<const Int, Open2MappedD> Open2PairD;
+
+template Open2PairD &hashtable<Open2PairD, Int, hash<Int>,
+	_Select1st<Open2PairD>, equal_to<Int>,
+	allocator<Open2PairD> >::_M_insert(const Open2PairD &);
+
+
+struct Open2MappedE { Int m_value; };
+
+typedef pair<const Int, Open2MappedE> Open2PairE;
+
+template Open2PairE &hashtable<Open2PairE, Int, hash<Int>,
+	_Select1st<Open2PairE>, equal_to<Int>,
+	allocator<Open2PairE> >::_M_insert(const Open2PairE &);
 
 }

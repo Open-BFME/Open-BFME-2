@@ -60,37 +60,40 @@ struct BfmeStringNoCaseLess
 	}
 };
 
-struct Rva00466EA7Value
+// Nothing in these bytes says what the mapped type actually is, so each is
+// spelled as a plain N-byte payload; retail addresses are documented per tree
+// below rather than baked into the identifier.
+struct NoCaseTreeValue4
 {
 	char m_body[ 4 ];
 };
 
-typedef _STL::pair<const AsciiString, Rva00466EA7Value> Rva00093670Pair;
+typedef _STL::pair<const AsciiString, NoCaseTreeValue4> NoCaseTreePair4;
 
-typedef _STL::_Rb_tree<AsciiString, Rva00093670Pair, _STL::_Select1st<Rva00093670Pair>,
-	BfmeStringNoCaseLess, _STL::allocator<Rva00093670Pair> > Rva00093670Tree;
+typedef _STL::_Rb_tree<AsciiString, NoCaseTreePair4, _STL::_Select1st<NoCaseTreePair4>,
+	BfmeStringNoCaseLess, _STL::allocator<NoCaseTreePair4> > NoCaseTree4;
 
 // retail 0x00093760, inserting through the _M_insert at 0x00093670
-template _STL::pair<Rva00093670Tree::iterator, bool>
-Rva00093670Tree::insert_unique( const Rva00093670Pair & );
+template _STL::pair<NoCaseTree4::iterator, bool>
+NoCaseTree4::insert_unique( const NoCaseTreePair4 & );
 
 typedef _STL::_Rb_tree<AsciiString, AsciiString, _STL::_Identity<AsciiString>,
-	BfmeStringNoCaseLess, _STL::allocator<AsciiString> > Rva00195D30Tree;
+	BfmeStringNoCaseLess, _STL::allocator<AsciiString> > NoCaseStringSet;
 
 // retail 0x00197270, inserting through the _M_insert at 0x00195D30 -- a set of the key
-template _STL::pair<Rva00195D30Tree::iterator, bool>
-Rva00195D30Tree::insert_unique( const AsciiString & );
+template _STL::pair<NoCaseStringSet::iterator, bool>
+NoCaseStringSet::insert_unique( const AsciiString & );
 
-struct Rva003D3F90Value
+struct NoCaseTreeValue8
 {
 	char m_body[ 8 ];
 };
 
-typedef _STL::pair<const AsciiString, Rva003D3F90Value> Rva003D3F90Pair;
+typedef _STL::pair<const AsciiString, NoCaseTreeValue8> NoCaseTreePair8;
 
-typedef _STL::_Rb_tree<AsciiString, Rva003D3F90Pair, _STL::_Select1st<Rva003D3F90Pair>,
-	BfmeStringNoCaseLess, _STL::allocator<Rva003D3F90Pair> > Rva003D3F90Tree;
+typedef _STL::_Rb_tree<AsciiString, NoCaseTreePair8, _STL::_Select1st<NoCaseTreePair8>,
+	BfmeStringNoCaseLess, _STL::allocator<NoCaseTreePair8> > NoCaseTree8;
 
 // retail 0x003D4320, inserting through the _M_insert at 0x003D3F90
-template _STL::pair<Rva003D3F90Tree::iterator, bool>
-Rva003D3F90Tree::insert_unique( const Rva003D3F90Pair & );
+template _STL::pair<NoCaseTree8::iterator, bool>
+NoCaseTree8::insert_unique( const NoCaseTreePair8 & );
