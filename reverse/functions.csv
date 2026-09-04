@@ -2838,3 +2838,8 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?do_tolower@?$ctype@G@_STL@@MBEGG@Z,,0x00016DA0,24,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_ctype_virtuals.cpp,matched,stlport 4.5.3; identified by vftable slot at 0x007BBAD0
 ?do_widen@?$ctype@G@_STL@@MBEGD@Z,,0x00016E00,7,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_ctype_virtuals.cpp,matched,stlport 4.5.3; identified by vftable slot at 0x007BBAD0
 ?do_narrow@?$ctype@G@_STL@@MBEDGD@Z,,0x00016E40,23,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_ctype_virtuals.cpp,matched,stlport 4.5.3; identified by vftable slot at 0x007BBAD0
+?do_out@?$codecvt@DDH@_STL@@MBE?AW4result@codecvt_base@2@AAHPBD1AAPBDPAD3AAPAD@Z,,0x00017390,28,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_codecvt_virtuals.cpp,matched,stlport 4.5.3; identified by vftable slot at 0x007BBB08
+?do_unshift@?$codecvt@DDH@_STL@@MBE?AW4result@codecvt_base@2@AAHPAD1AAPAD@Z,,0x00017370,18,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_codecvt_virtuals.cpp,matched,stlport 4.5.3; identified by vftable slot at 0x007BBB08
+?do_encoding@?$codecvt@DDH@_STL@@MBEHXZ,,0x00756B00,6,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_codecvt_virtuals.cpp,matched,stlport 4.5.3; identified by vftable slot at 0x007BBB08
+?do_always_noconv@?$codecvt@DDH@_STL@@MBE_NXZ,,0x001826C0,3,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_codecvt_virtuals.cpp,matched,stlport 4.5.3; identified by vftable slot at 0x007BBB08
+?do_length@?$codecvt@DDH@_STL@@MBEHABHPBD1I@Z,,0x00017460,33,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_codecvt_virtuals.cpp,matched,stlport 4.5.3; identified by vftable slot at 0x007BBB08
