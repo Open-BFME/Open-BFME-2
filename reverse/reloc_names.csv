@@ -26,7 +26,6 @@ name,target_rva,target_size,source,notes
 ?_M_write@_Filebuf_base@_STL@@QAE_NPADH@Z,0x0001DB00,521,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_filebuf.cpp,reloc-derived;call-sites=4;identity=real
 ?_M_doit@?$_Underflow@DV?$char_traits@D@_STL@@@_STL@@SAHPAV?$basic_filebuf@DV?$char_traits@D@_STL@@@2@@Z,0x0001E560,395,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_filebuf_underflow.cpp,reloc-derived;call-sites=1;identity=real
 ?_Rebalance_for_erase@?$_Rb_global@_N@_STL@@SAPAU_Rb_tree_node_base@2@PAU32@AAPAU32@11@Z,0x00025620,1110,Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_int.cpp,reloc-derived;call-sites=3;identity=real
-??$_M_allocate_and_copy@PAPAX@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@IAEPAPAXIPAPAX0@Z,0x00027F60,117,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_voidptr_alloc.cpp,reloc-derived;call-sites=1;identity=real
 ?_M_fill_insert@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEXPAPAXIABQAX@Z,0x00029CA0,525,Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_int.cpp,reloc-derived;call-sites=2;identity=real
 ?SkipNext@Debug@@SA_N_N@Z,0x00038790,33,Code/Libraries/Source/profile/profile_alloc_memory.cpp,reloc-derived;call-sites=1;identity=real
 ?resize@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAEXID@Z,0x000824F9,61,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_string.cpp,reloc-derived;call-sites=1;identity=real
