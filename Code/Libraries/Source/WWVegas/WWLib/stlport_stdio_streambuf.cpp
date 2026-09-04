@@ -44,10 +44,41 @@ stdio_istreambuf::int_type stdio_istreambuf::underflow()
 	return _STLP_STD::char_traits<char>::eof();
 }
 
+stdio_istreambuf::int_type stdio_istreambuf::pbackfail(int_type __c)
+{
+	if (__c != _STLP_STD::char_traits<char>::eof()) {
+		int __r = ungetc(__c, _M_file);
+		return __r == EOF ? _STLP_STD::char_traits<char>::eof() : __r;
+	}
+	else if (eback() < gptr()) {
+		gbump(-1);
+		return _STLP_STD::char_traits<char>::not_eof(__c);
+	}
+	else
+		return _STLP_STD::char_traits<char>::eof();
+}
+
 stdio_istreambuf::int_type stdio_istreambuf::uflow()
 {
 	int __c = getc(_M_file);
 	return __c == EOF ? _STLP_STD::char_traits<char>::eof() : __c;
+}
+
+stdio_ostreambuf::int_type stdio_ostreambuf::overflow(int_type __c)
+{
+	if (__c == _STLP_STD::char_traits<char>::eof()) {
+		ptrdiff_t __n = pptr() - pbase();
+		if (__n != 0) {
+			fflush(_M_file);
+			return pptr() - pbase() < __n
+			       ? _STLP_STD::char_traits<char>::not_eof(__c)
+			       : _STLP_STD::char_traits<char>::eof();
+		}
+		return _STLP_STD::char_traits<char>::not_eof(__c);
+	}
+
+	int __r = putc(__c, _M_file);
+	return __r == EOF ? _STLP_STD::char_traits<char>::eof() : __r;
 }
 
 }
