@@ -121,7 +121,10 @@ def main():
                 continue
             try:
                 body, relocs = build.read_object_symbol_bytes(obj, name)
-            except ValueError:
+            except Exception:
+                # Several agents share this working tree, so a source can change
+                # under a long sweep and leave a half-written object behind. One
+                # unreadable symbol is not a reason to lose the whole pass.
                 continue
             body = body.rstrip(b"\xcc")
             if len(body) < args.minimum:

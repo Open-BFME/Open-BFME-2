@@ -16,6 +16,13 @@ An explicit request or assigned lane overrides the queue:
    the default work.**
 4. `python3 tools/next_work.py` for identity/structural work; it explains its
    own tiers.
+5. `python3 tools/place_bodies.py <sources>` mines the units the ledger already
+   compiles. A TU emits far more than the one function it was written to land,
+   and the rest was invisible only because the export table had no address for
+   it; the tool finds those addresses by masked byte search and reads each
+   placed body's call sites for its callees. Re-run it after every wave — each
+   pin unblocks the next body — and prune what `./build.sh` refuses to a
+   fixpoint, recording the refusal in `reverse/place_denylist.txt`.
 
 A tier reporting zero candidates is exhausted, not broken. Regenerate with
 `tools/drift_classify.py`, `tools/anchor_unclaimed.py`, `./build.sh`.
