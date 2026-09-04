@@ -196,13 +196,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_00006f80@@YAXXZ,,0x00006F80,241,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00406f80
 ?d_000071b0@@YAXXZ,,0x000071B0,6,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_004071b0
 ?d_000072f0@@YAXXZ,,0x000072F0,107,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_004072f0
-?d_000074d0@@YAXXZ,,0x000074D0,30,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_004074d0
-?d_00007510@@YAXXZ,,0x00007510,30,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00407510
-?d_00007550@@YAXXZ,,0x00007550,30,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00407550
-?d_00007590@@YAXXZ,,0x00007590,30,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00407590
-?d_000075d0@@YAXXZ,,0x000075D0,30,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_004075d0
-?d_00007610@@YAXXZ,,0x00007610,30,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00407610
-?d_00007650@@YAXXZ,,0x00007650,30,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00407650
 ?d_00009450@@YAXXZ,,0x00009450,385,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00409450
 ?d_000095e0@@YAXXZ,,0x000095E0,569,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_004095e0
 ?d_0000b730@@YAXXZ,,0x0000B730,908,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040b730
@@ -2460,3 +2453,17 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ??$__uninitialized_fill_n@PAPAXIPAX@_STL@@YAPAPAXPAPAXIABQAXABU__false_type@0@@Z,,0x0020E400,31,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_voidptr_opt.cpp,matched,stlport-4.5.3
 ??$__uninitialized_copy@PAPAXPAPAX@_STL@@YAPAPAXPAPAX00ABU__false_type@0@@Z,,0x001DD10D,31,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_voidptr_opt.cpp,matched,stlport-4.5.3
 ??$__copy_backward@U?$_Deque_iterator@UBfmeE8@@U?$_Nonconst_traits@UBfmeE8@@@_STL@@@_STL@@U12@H@_STL@@YA?AU?$_Deque_iterator@UBfmeE8@@U?$_Nonconst_traits@UBfmeE8@@@_STL@@@0@U10@00ABUrandom_access_iterator_tag@0@PAH@Z,,0x0054A152,74,Code/Libraries/Source/WWVegas/WWLib/stlport_deque_e8_o1.cpp,matched,stlport-4.5.3
+??1?$ctype@G@_STL@@MAE@XZ,,0x00016CC0,11,Code/Libraries/Source/WWVegas/WWLib/stlport_locale_facet_subclass_dtors.cpp,matched,stlport 4.5.3; body is the vftable store plus tail jmp into locale::facet::~facet; identity read from the RTTI type descriptor behind that vftable
+??1?$codecvt@DDH@_STL@@MAE@XZ,,0x00017360,11,Code/Libraries/Source/WWVegas/WWLib/stlport_locale_facet_subclass_dtors.cpp,matched,stlport 4.5.3; body is the vftable store plus tail jmp into locale::facet::~facet; identity read from the RTTI type descriptor behind that vftable
+??1?$codecvt@GDH@_STL@@MAE@XZ,,0x000173B0,11,Code/Libraries/Source/WWVegas/WWLib/stlport_locale_facet_subclass_dtors.cpp,matched,stlport 4.5.3; body is the vftable store plus tail jmp into locale::facet::~facet; identity read from the RTTI type descriptor behind that vftable
+??1?$collate@D@_STL@@MAE@XZ,,0x000175D0,11,Code/Libraries/Source/WWVegas/WWLib/stlport_locale_facet_subclass_dtors.cpp,matched,stlport 4.5.3; body is the vftable store plus tail jmp into locale::facet::~facet; identity read from the RTTI type descriptor behind that vftable
+??1?$collate@G@_STL@@MAE@XZ,,0x00017610,11,Code/Libraries/Source/WWVegas/WWLib/stlport_locale_facet_subclass_dtors.cpp,matched,stlport 4.5.3; body is the vftable store plus tail jmp into locale::facet::~facet; identity read from the RTTI type descriptor behind that vftable
+??1?$numpunct@D@_STL@@MAE@XZ,,0x00017970,11,Code/Libraries/Source/WWVegas/WWLib/stlport_locale_facet_subclass_dtors.cpp,matched,stlport 4.5.3; body is the vftable store plus tail jmp into locale::facet::~facet; identity read from the RTTI type descriptor behind that vftable
+??1?$numpunct@G@_STL@@MAE@XZ,,0x00017980,11,Code/Libraries/Source/WWVegas/WWLib/stlport_locale_facet_subclass_dtors.cpp,matched,stlport 4.5.3; body is the vftable store plus tail jmp into locale::facet::~facet; identity read from the RTTI type descriptor behind that vftable
+??_G?$ctype@G@_STL@@MAEPAXI@Z,,0x000074D0,30,Code/Libraries/Source/WWVegas/WWLib/stlport_locale_facet_subclass_dtors.cpp,matched,stlport 4.5.3; MSVC scalar deleting destructor emitted with the vftable; converts the gen_asm dump
+??_G?$codecvt@DDH@_STL@@MAEPAXI@Z,,0x00007510,30,Code/Libraries/Source/WWVegas/WWLib/stlport_locale_facet_subclass_dtors.cpp,matched,stlport 4.5.3; MSVC scalar deleting destructor emitted with the vftable; converts the gen_asm dump
+??_G?$codecvt@GDH@_STL@@MAEPAXI@Z,,0x00007550,30,Code/Libraries/Source/WWVegas/WWLib/stlport_locale_facet_subclass_dtors.cpp,matched,stlport 4.5.3; MSVC scalar deleting destructor emitted with the vftable; converts the gen_asm dump
+??_G?$collate@D@_STL@@MAEPAXI@Z,,0x00007590,30,Code/Libraries/Source/WWVegas/WWLib/stlport_locale_facet_subclass_dtors.cpp,matched,stlport 4.5.3; MSVC scalar deleting destructor emitted with the vftable; converts the gen_asm dump
+??_G?$collate@G@_STL@@MAEPAXI@Z,,0x000075D0,30,Code/Libraries/Source/WWVegas/WWLib/stlport_locale_facet_subclass_dtors.cpp,matched,stlport 4.5.3; MSVC scalar deleting destructor emitted with the vftable; converts the gen_asm dump
+??_G?$numpunct@D@_STL@@MAEPAXI@Z,,0x00007610,30,Code/Libraries/Source/WWVegas/WWLib/stlport_locale_facet_subclass_dtors.cpp,matched,stlport 4.5.3; MSVC scalar deleting destructor emitted with the vftable; converts the gen_asm dump
+??_G?$numpunct@G@_STL@@MAEPAXI@Z,,0x00007650,30,Code/Libraries/Source/WWVegas/WWLib/stlport_locale_facet_subclass_dtors.cpp,matched,stlport 4.5.3; MSVC scalar deleting destructor emitted with the vftable; converts the gen_asm dump
