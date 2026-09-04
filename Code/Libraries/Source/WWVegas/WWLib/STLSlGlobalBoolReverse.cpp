@@ -19,7 +19,7 @@ struct _Slist_node_base
 }
 
 extern "C" _STL::_Slist_node_base* __cdecl
-bfme_SlGlobalBoolReverse_82BB20(_STL::_Slist_node_base* __node)
+bfme_SlGlobalBoolReverse(_STL::_Slist_node_base* __node)
 {
   _STL::_Slist_node_base* __result = __node;
   __node = __node->_M_next;
