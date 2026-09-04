@@ -195,7 +195,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_00006cf0@@YAXXZ,,0x00006CF0,34,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00406cf0
 ?d_00006f80@@YAXXZ,,0x00006F80,241,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00406f80
 ?d_000071b0@@YAXXZ,,0x000071B0,6,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_004071b0
-?d_000072f0@@YAXXZ,,0x000072F0,107,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_004072f0
 ?d_00009450@@YAXXZ,,0x00009450,385,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00409450
 ?d_000095e0@@YAXXZ,,0x000095E0,569,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_004095e0
 ?d_0000b730@@YAXXZ,,0x0000B730,908,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040b730
@@ -2467,3 +2466,5 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ??_G?$collate@G@_STL@@MAEPAXI@Z,,0x000075D0,30,Code/Libraries/Source/WWVegas/WWLib/stlport_locale_facet_subclass_dtors.cpp,matched,stlport 4.5.3; MSVC scalar deleting destructor emitted with the vftable; converts the gen_asm dump
 ??_G?$numpunct@D@_STL@@MAEPAXI@Z,,0x00007610,30,Code/Libraries/Source/WWVegas/WWLib/stlport_locale_facet_subclass_dtors.cpp,matched,stlport 4.5.3; MSVC scalar deleting destructor emitted with the vftable; converts the gen_asm dump
 ??_G?$numpunct@G@_STL@@MAEPAXI@Z,,0x00007650,30,Code/Libraries/Source/WWVegas/WWLib/stlport_locale_facet_subclass_dtors.cpp,matched,stlport 4.5.3; MSVC scalar deleting destructor emitted with the vftable; converts the gen_asm dump
+?do_put@?$num_put@DV?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@@_STL@@MBE?AV?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@2@V32@AAVios_base@2@DPBX@Z,,0x000072F0,107,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_num_put_voidptr.cpp,matched,stlport 4.5.3; vtable slot 1 of num_put<char> - MSVC 7.1 reverses overload order; shipped source has a dead getloc this build lacks
+?do_put@?$num_put@GV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@@_STL@@MBE?AV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@2@V32@AAVios_base@2@GPBX@Z,,0x00007360,107,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_num_put_voidptr.cpp,matched,stlport 4.5.3; vtable slot 1 of num_put<wchar_t>; wide twin of 0x000072F0
