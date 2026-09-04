@@ -34,6 +34,7 @@ name,target_rva,target_size,source,notes
 ??0?$_STLP_alloc_proxy@PAIIV?$allocator@I@_STL@@@_STL@@QAE@ABV?$allocator@I@1@PAI@Z,0x0014F3C4,11,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_bool.cpp,reloc-derived;call-sites=1;identity=real
 ??0?$ShareBufferClass@VShaderClass@@@@QAE@HPBDH@Z,0x0015CF30,226,Code/Libraries/Source/WWVegas/WW3D2/meshmatdesc.cpp,reloc-derived;call-sites=1;identity=real
 ?Resize@?$SimpleVecClass@M@@UAE_NH@Z,0x001A7C80,211,Code/Libraries/Source/WWVegas/WWMath/lookuptable.cpp,reloc-derived;call-sites=1;identity=real
+?_M_reserve_map_at_back@?$deque@PAXV?$allocator@PAX@_STL@@@_STL@@IAEXI@Z,0x002F1F19,38,Code/Libraries/Source/WWVegas/WWLib/stlport_deque_ptr_o1.cpp,reloc-derived;call-sites=1;identity=real
 ?_M_subtract@?$_Deque_iterator_base@UBfmeE12@@@_STL@@QBEHABU12@@Z,0x004218A5,48,Code/Libraries/Source/WWVegas/WWLib/stlport_deque_e12_o1.cpp,reloc-derived;call-sites=1;identity=real
 ??G?$_Deque_iterator@UBfmeE12@@U?$_Nonconst_traits@UBfmeE12@@@_STL@@@_STL@@QBE?AU01@H@Z,0x004221E6,49,Code/Libraries/Source/WWVegas/WWLib/stlport_deque_e12_o1.cpp,reloc-derived;call-sites=1;identity=real
 ??H?$_Deque_iterator@UBfmeE12@@U?$_Nonconst_traits@UBfmeE12@@@_STL@@@_STL@@QBE?AU01@H@Z,0x00584E57,46,Code/Libraries/Source/WWVegas/WWLib/stlport_deque_e12_o1.cpp,reloc-derived;call-sites=1;identity=real
