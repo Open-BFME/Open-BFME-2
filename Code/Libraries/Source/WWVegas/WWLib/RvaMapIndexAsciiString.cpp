@@ -37,27 +37,27 @@ template <> struct less<AsciiString>
 };
 }
 
-enum Rva0033F960Mapped { Rva0033F960MappedZero = 0 };
+enum IndexMapValueA { IndexMapValueAZero = 0 };
 
-typedef _STL::map<AsciiString, Rva0033F960Mapped, _STL::less<AsciiString>,
-	_STL::allocator<_STL::pair<const AsciiString, Rva0033F960Mapped> > > Rva0033F960Map;
+typedef _STL::map<AsciiString, IndexMapValueA, _STL::less<AsciiString>,
+	_STL::allocator<_STL::pair<const AsciiString, IndexMapValueA> > > IndexMapA;
 
 // retail 0x00347820, over the tree whose _M_lower_bound is at 0x0033F2E0
-template Rva0033F960Mapped &Rva0033F960Map::operator[]( const AsciiString & );
-enum Rva003B9B40Mapped { Rva003B9B40MappedZero = 0 };
+template IndexMapValueA &IndexMapA::operator[]( const AsciiString & );
+enum IndexMapValueB { IndexMapValueBZero = 0 };
 
-typedef _STL::map<AsciiString, Rva003B9B40Mapped, _STL::less<AsciiString>,
-	_STL::allocator<_STL::pair<const AsciiString, Rva003B9B40Mapped> > > Rva003B9B40Map;
+typedef _STL::map<AsciiString, IndexMapValueB, _STL::less<AsciiString>,
+	_STL::allocator<_STL::pair<const AsciiString, IndexMapValueB> > > IndexMapB;
 
 // retail 0x003BAEF0, over the tree whose _M_lower_bound is at 0x003B9A10
-template Rva003B9B40Mapped &Rva003B9B40Map::operator[]( const AsciiString & );
-enum Rva00448C60Mapped { Rva00448C60MappedZero = 0 };
+template IndexMapValueB &IndexMapB::operator[]( const AsciiString & );
+enum IndexMapValueC { IndexMapValueCZero = 0 };
 
-typedef _STL::map<AsciiString, Rva00448C60Mapped, _STL::less<AsciiString>,
-	_STL::allocator<_STL::pair<const AsciiString, Rva00448C60Mapped> > > Rva00448C60Map;
+typedef _STL::map<AsciiString, IndexMapValueC, _STL::less<AsciiString>,
+	_STL::allocator<_STL::pair<const AsciiString, IndexMapValueC> > > IndexMapC;
 
 // retail 0x0044A860, over the tree whose _M_lower_bound is at 0x00448AD0
-template Rva00448C60Mapped &Rva00448C60Map::operator[]( const AsciiString & );
+template IndexMapValueC &IndexMapC::operator[]( const AsciiString & );
 // This one's mapped type is a single byte -- retail stores the
 // default-constructed value with `mov BYTE PTR [esp+0x10], al` where its five
 // siblings store a dword -- so it is one byte wide and not a four-byte
@@ -65,21 +65,21 @@ template Rva00448C60Mapped &Rva00448C60Map::operator[]( const AsciiString & );
 // instantiation of this same operator is already a matched row at 0x00063960
 // and one name may name one address; the bytes cannot tell the two apart.
 typedef _STL::map<AsciiString, char, _STL::less<AsciiString>,
-	_STL::allocator<_STL::pair<const AsciiString, char> > > Rva0033F870Map;
+	_STL::allocator<_STL::pair<const AsciiString, char> > > IndexMapD;
 
 // retail 0x004545A0, over the tree whose _M_lower_bound is at 0x00452E60
-template char &Rva0033F870Map::operator[]( const AsciiString & );
-enum Rva00461630Mapped { Rva00461630MappedZero = 0 };
+template char &IndexMapD::operator[]( const AsciiString & );
+enum IndexMapValueE { IndexMapValueEZero = 0 };
 
-typedef _STL::map<AsciiString, Rva00461630Mapped, _STL::less<AsciiString>,
-	_STL::allocator<_STL::pair<const AsciiString, Rva00461630Mapped> > > Rva00461630Map;
+typedef _STL::map<AsciiString, IndexMapValueE, _STL::less<AsciiString>,
+	_STL::allocator<_STL::pair<const AsciiString, IndexMapValueE> > > IndexMapE;
 
 // retail 0x00463D50, over the tree whose _M_lower_bound is at 0x00460F80
-template Rva00461630Mapped &Rva00461630Map::operator[]( const AsciiString & );
-enum Rva00475300Mapped { Rva00475300MappedZero = 0 };
+template IndexMapValueE &IndexMapE::operator[]( const AsciiString & );
+enum IndexMapValueF { IndexMapValueFZero = 0 };
 
-typedef _STL::map<AsciiString, Rva00475300Mapped, _STL::less<AsciiString>,
-	_STL::allocator<_STL::pair<const AsciiString, Rva00475300Mapped> > > Rva00475300Map;
+typedef _STL::map<AsciiString, IndexMapValueF, _STL::less<AsciiString>,
+	_STL::allocator<_STL::pair<const AsciiString, IndexMapValueF> > > IndexMapF;
 
 // retail 0x00476F70, over the tree whose _M_lower_bound is at 0x00474CD0
-template Rva00475300Mapped &Rva00475300Map::operator[]( const AsciiString & );
+template IndexMapValueF &IndexMapF::operator[]( const AsciiString & );
