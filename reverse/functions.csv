@@ -2792,3 +2792,4 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?Value@CRCEngine@@IBEJXZ,,0x006199C0,14,Code/Libraries/Source/WWVegas/WWLib/crc.cpp,matched,stlport 4.5.3; placed by masked whole-.text search of the compiled body - single hit
 ??1file_auto_ptr@@QAE@XZ,,0x00613230,14,Code/Libraries/Source/WWVegas/WWLib/ffactory.cpp,matched,stlport 4.5.3; placed by masked whole-.text search of the compiled body - single hit
 ?max_size@?$deque@PAXV?$allocator@PAX@_STL@@@_STL@@QBEIXZ,,0x00023A20,14,Code/Libraries/Source/WWVegas/WWLib/stlport_deque_ptr_od.cpp,matched,stlport 4.5.3; placed by masked whole-.text search of the compiled body - single hit
+??_EStringClass@@QAEPAXI@Z,,0x0011F6B0,84,Code/Libraries/Source/WWVegas/WWLib/registry.cpp,matched,placed by masked whole-.text search of the compiled body - single hit

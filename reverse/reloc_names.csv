@@ -97,6 +97,7 @@ name,target_rva,target_size,source,notes
 ??$insert@U?$_Deque_iterator@UBfmeE12@@U?$_Const_traits@UBfmeE12@@@_STL@@@_STL@@@?$deque@UBfmeE12@@V?$allocator@UBfmeE12@@@_STL@@@_STL@@IAEXU?$_Deque_iterator@UBfmeE12@@U?$_Nonconst_traits@UBfmeE12@@@_STL@@@1@U?$_Deque_iterator@UBfmeE12@@U?$_Const_traits@UBfmeE12@@@_STL@@@1@1ABUforward_iterator_tag@1@@Z,0x00586305,215,Code/Libraries/Source/WWVegas/WWLib/stlport_deque_e12_o1.cpp,reloc-derived;call-sites=1;identity=real
 ??$_Construct@UBfmeE8@@U1@@_STL@@YAXPAUBfmeE8@@ABU1@@Z,0x0060C9D9,23,Code/Libraries/Source/WWVegas/WWLib/stlport_deque_e8_o1.cpp,reloc-derived;call-sites=1;identity=real
 ?Allocate_Object_Memory@?$ObjectPoolClass@VMultiListNodeClass@@$0BAA@@@QAEPAVMultiListNodeClass@@XZ,0x00610680,198,Code/Libraries/Source/WWVegas/WWLib/multilist.cpp,reloc-derived;call-sites=3;identity=real
+?Free_String@StringClass@@AAEXXZ,0x00610A40,111,Code/Libraries/Source/WWVegas/WWLib/registry.cpp,reloc-derived;call-sites=1;identity=real
 ?Get_String@StringClass@@AAEXH_N@Z,0x00610B00,359,Code/Libraries/Source/WWVegas/WW3D2/vertmaterial.cpp,reloc-derived;call-sites=5;identity=real
 ?Resize@StringClass@@AAEXH@Z,0x00610C70,121,Code/Libraries/Source/WWVegas/WW3D2/dx8caps.cpp,reloc-derived;call-sites=2;identity=real
 ?Uninitialised_Grow@StringClass@@AAEXH@Z,0x00610CF0,119,Code/Libraries/Source/WWVegas/WW3D2/mesh.cpp,reloc-derived;call-sites=3;identity=real

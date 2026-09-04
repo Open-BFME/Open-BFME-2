@@ -1,0 +1,28 @@
+# Placements tools/place_bodies.py must not re-propose.
+#
+# The masked search generates candidates cheaply and judges them badly: a body
+# whose fixed bytes appear exactly once in .text is usually placed, but "usually"
+# is not a proof, and a re-run has no memory of what the gate already refused.
+# One line per refused symbol, with why.
+#
+# Remove a line only when the reason no longer holds - a callee that had no
+# address now has one, say - and let the gate decide again.
+
+# Refused 2026-09-04. Each is a whole-body byte match at the placement except
+# for one displacement, the call to StringClass::Free_String. Those calls read
+# three different addresses (0x00610A40, 0x006CE7F0, 0x006CEAD0) whose Ghidra
+# extents are 111, 97 and 57 bytes - so they are three different functions, not
+# three unfolded copies of one, and at least two of these placements are wrong.
+# Pinning all three to get green would have buried that.
+?Init_Processor_String@CPUDetectClass@@CAXXZ
+?Get_Value_List@RegistryClass@@QAEXAAV?$DynamicVectorClass@VStringClass@@@@@Z
+??1RawFileClass@@UAE@XZ
+??1SimpleFileFactoryClass@@UAE@XZ
+??1AddInfoStruct@MixFileFactoryClass@@QAE@XZ
+
+# Refused with the five above, and only because of them: each calls one of them,
+# so the gate could not reproduce a displacement. They come back the moment the
+# caller above is settled.
+?Load_Registry@RegistryClass@@SAXPBDPAD1@Z
+?Save_Registry@RegistryClass@@SAXPBDPAD@Z
+??0CPUDetectInitClass@@QAE@XZ

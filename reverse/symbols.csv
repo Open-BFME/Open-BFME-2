@@ -447,3 +447,4 @@ _XMP_Init,0x0061BD70,address read from the REL32 displacement at a placed body; 
 _XMP_Randomize_Bounded,0x0061C420,address read from the REL32 displacement at a placed body; stlport 4.5.3
 _XMP_Shift_Left_Bits,0x0061BBD0,address read from the REL32 displacement at a placed body; stlport 4.5.3
 __CIpow,0x006299A0,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Free_String@StringClass@@AAEXXZ,0x00610A40,address read from the REL32 displacement at a placed body
