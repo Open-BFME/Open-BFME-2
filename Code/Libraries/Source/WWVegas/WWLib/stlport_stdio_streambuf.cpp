@@ -1,0 +1,53 @@
+// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC
+// stlport
+//
+// STLport's stdio_streambuf extension. The image names all three classes in
+// its own RTTI, in the SGI namespace the vendored header opens:
+// _SgI::stdio_streambuf_base at vftable 0x007BCCAC, _SgI::stdio_istreambuf at
+// 0x007BBC6C and _SgI::stdio_ostreambuf at 0x007BBCA8. The FILE they wrap sits
+// at this+0x54.
+//
+// Every body here is a thin cover over one C stdio call, and the image names
+// which one by its import slot: 0x00BBA658 fflush, 0x00BBA654 setvbuf,
+// 0x00BBA638 getc, 0x00BBA63C ungetc.
+//
+// Two of them carry a comparison that does nothing at runtime - cmp eax,-1
+// then a branch over an or eax,eax. That is the eof round-trip written out:
+// the source really does say "if this is eof, return eof", and eof and the
+// value it came from are the same -1.
+
+#include <locale>
+#include <stdio_streambuf>
+
+namespace _SgI
+{
+
+_STLP_STD::basic_streambuf<char, _STLP_STD::char_traits<char> > *
+stdio_streambuf_base::setbuf(char *__s, streamsize __n)
+{
+	setvbuf(_M_file, __s, (__s == 0 && __n == 0) ? _IONBF : _IOFBF, __n);
+	return this;
+}
+
+int stdio_streambuf_base::sync()
+{
+	return fflush(_M_file) == 0 ? 0 : -1;
+}
+
+stdio_istreambuf::int_type stdio_istreambuf::underflow()
+{
+	int __c = getc(_M_file);
+	if (__c != EOF) {
+		ungetc(__c, _M_file);
+		return __c;
+	}
+	return _STLP_STD::char_traits<char>::eof();
+}
+
+stdio_istreambuf::int_type stdio_istreambuf::uflow()
+{
+	int __c = getc(_M_file);
+	return __c == EOF ? _STLP_STD::char_traits<char>::eof() : __c;
+}
+
+}
