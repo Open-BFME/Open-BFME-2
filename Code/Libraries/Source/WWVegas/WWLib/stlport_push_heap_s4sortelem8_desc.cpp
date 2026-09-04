@@ -1,7 +1,7 @@
 // cl: /DNDEBUG /MD /EHsc
 
 // _STL::__push_heap<S4SortElem8 *, int, S4SortElem8,
-// S4Cmp006258B0>, retail 0x00625AD0, 96 bytes. The body carried only a
+// S4SortElem8GreaterCmp>, retail 0x00625AD0, 96 bytes. The body carried only a
 // This is the Open-BFME-1 conversion of the same STLport instantiation,
 // ported across: locate.py places both bodies uniquely in this binary, with
 // every call site consistent, so the shape carries over even though the two
@@ -24,7 +24,7 @@ struct S4SortElem8
 	float m_bfmeKey;					// +0x04
 };
 
-struct S4Cmp006258B0
+struct S4SortElem8GreaterCmp
 {
 	bool operator()(const S4SortElem8 &a, const S4SortElem8 &b) const
 	{
@@ -49,7 +49,7 @@ void __push_heap(RandomAccessIterator first, Distance holeIndex,
 	*(first + holeIndex) = val;
 }
 
-template void __push_heap<S4SortElem8 *, int, S4SortElem8, S4Cmp006258B0>(
-	S4SortElem8 *, int, int, S4SortElem8, S4Cmp006258B0);
+template void __push_heap<S4SortElem8 *, int, S4SortElem8, S4SortElem8GreaterCmp>(
+	S4SortElem8 *, int, int, S4SortElem8, S4SortElem8GreaterCmp);
 
 }
