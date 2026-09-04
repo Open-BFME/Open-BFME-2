@@ -347,3 +347,103 @@ __SEH_prolog,0x00628FA4,CRT SEH frame setup, emitted by cl for every __try; Ghid
 ??0?$_STLP_alloc_proxy@PAUBfmeE16@@U1@V?$allocator@UBfmeE16@@@_STL@@@_STL@@QAE@ABV?$allocator@UBfmeE16@@@1@PAUBfmeE16@@@Z,0x0014F3C4,address read from the REL32 displacement at a placed body; folded onto the body held there under another instantiation's name; stlport 4.5.3
 ??0?$_STLP_alloc_proxy@PAUBfmeE8@@U1@V?$allocator@UBfmeE8@@@_STL@@@_STL@@QAE@ABV?$allocator@UBfmeE8@@@1@PAUBfmeE8@@@Z,0x0014F3C4,address read from the REL32 displacement at a placed body; folded onto the body held there under another instantiation's name; stlport 4.5.3
 ?erase@?$list@FV?$allocator@F@_STL@@@_STL@@QAE?AU?$_List_iterator@FU?$_Nonconst_traits@F@_STL@@@2@U32@@Z,0x00438539,address read from the REL32 displacement at a placed body; folded onto the body held there under another instantiation's name; stlport 4.5.3
+??0?$ConcreteModuleTemplate@V?$ModuleTag@$01$E?RENDEROBJECT_UPDATE_MODULE_KEY@FXParticleSystem@@3QBDB$E?RENDEROBJECT_UPDATE_MODULE_NAME@2@3QBDBVRenderObjectUpdateModule@2@VRenderObjectUpdateModuleTemplate@2@V?$DefaultParticleModule@$01@2@@FXParticleSystem@@@FXParticleSystem@@QAE@ABV01@@Z,0x003AEA15,address read from the REL32 displacement at a placed body; stlport 4.5.3
+??0?$VectorClass@VProxyRecordClass@@@@QAE@HPBVProxyRecordClass@@@Z,0x0019BAE0,address read from the REL32 displacement at a placed body; stlport 4.5.3
+??0Buffer@@QAE@J@Z,0x00615710,address read from the REL32 displacement at a placed body; stlport 4.5.3
+??0BufferPipe@@QAE@PAXH@Z,0x006159F0,address read from the REL32 displacement at a placed body; stlport 4.5.3
+??0BufferStraw@@QAE@PBXH@Z,0x0013C880,address read from the REL32 displacement at a placed body; stlport 4.5.3
+??0BufferedFileClass@@QAE@XZ,0x0061ADE0,address read from the REL32 displacement at a placed body; stlport 4.5.3
+??0CriticalSectionClass@@QAE@XZ,0x00613AE0,address read from the REL32 displacement at a placed body; stlport 4.5.3
+??0MatBufferClass@@QAE@HPBD@Z,0x0015B1A0,address read from the REL32 displacement at a placed body; stlport 4.5.3
+??0OutputStream@DebugIOFlat@@AAE@PBDI@Z,0x0003F840,address read from the REL32 displacement at a placed body; stlport 4.5.3
+??0RandomTextureMapperClass@@QAE@ABV0@@Z,0x00186880,address read from the REL32 displacement at a placed body; stlport 4.5.3
+??0RotateTextureMapperClass@@QAE@ABV0@@Z,0x00182780,address read from the REL32 displacement at a placed body; stlport 4.5.3
+??0TexBufferClass@@QAE@HPBD@Z,0x0015D080,address read from the REL32 displacement at a placed body; stlport 4.5.3
+??0ZigZagLinearOffsetTextureMapperClass@@QAE@ABV0@@Z,0x001831C0,address read from the REL32 displacement at a placed body; stlport 4.5.3
+??1?$basic_ostringstream@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@UAE@XZ,0x001F66C6,address read from the REL32 displacement at a placed body; stlport 4.5.3
+??1Buffer@@QAE@XZ,0x006157A0,address read from the REL32 displacement at a placed body; stlport 4.5.3
+??1BufferPipe@@UAE@XZ,0x00615A50,address read from the REL32 displacement at a placed body; stlport 4.5.3
+??1BufferStraw@@UAE@XZ,0x0013C8E0,address read from the REL32 displacement at a placed body; stlport 4.5.3
+??1CriticalSectionClass@@QAE@XZ,0x00613B10,address read from the REL32 displacement at a placed body; stlport 4.5.3
+??1INIClass@@UAE@XZ,0x00617AC0,address read from the REL32 displacement at a placed body; stlport 4.5.3
+??1LockClass@CriticalSectionClass@@QAE@XZ,0x00613B80,address read from the REL32 displacement at a placed body; stlport 4.5.3
+??1ModelArrayClass@HLodClass@@UAE@XZ,0x0019E580,address read from the REL32 displacement at a placed body; stlport 4.5.3
+??1RenderObjClass@@UAE@XZ,0x00196150,address read from the REL32 displacement at a placed body; stlport 4.5.3
+??1RoadType@@QAE@XZ,0x0018E750,address read from the REL32 displacement at a placed body; stlport 4.5.3
+??1SortingNodeStruct@@QAE@XZ,0x0012FCA0,address read from the REL32 displacement at a placed body; stlport 4.5.3
+??1TextureStatisticsStruct@@QAE@XZ,0x00118800,address read from the REL32 displacement at a placed body; stlport 4.5.3
+??4?$VectorClass@VModelNodeClass@HLodClass@@@@QAEAAV0@ABV0@@Z,0x0019E5B0,address read from the REL32 displacement at a placed body; stlport 4.5.3
+??4?$vector@UPrereqUnitRec@ProductionPrerequisite@@V?$allocator@UPrereqUnitRec@ProductionPrerequisite@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z,0x000120C0,address read from the REL32 displacement at a placed body; folded onto the body held there under another instantiation's name; stlport 4.5.3
+??4?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z,0x000120C0,address read from the REL32 displacement at a placed body; folded onto the body held there under another instantiation's name; stlport 4.5.3
+??4AudioEventRTS@@QAEAAV0@ABV0@@Z,0x000366F0,address read from the REL32 displacement at a placed body; stlport 4.5.3
+??4StringClass@@QAEABV0@PBD@Z,0x000F0E8D,address read from the REL32 displacement at a placed body; stlport 4.5.3
+??4TRoadSegInfo@@QAEAAU0@ABU0@@Z,0x000D69D3,address read from the REL32 displacement at a placed body; stlport 4.5.3
+??8@YA_NABVAsciiString@@0@Z,0x006EFBC0,address read from the REL32 displacement at a placed body; stlport 4.5.3
+??A?$IndexClass@HPAUINISection@@@@QBEABQAUINISection@@ABH@Z,0x00616A60,address read from the REL32 displacement at a placed body; stlport 4.5.3
+??_H@YGXPAXIHP6EPAX0@Z@Z,0x00001423,address read from the REL32 displacement at a placed body; folded onto the body held there under another instantiation's name; stlport 4.5.3
+?Add@?$DynamicVectorClass@PAVVertexMaterialClass@@@@QAE_NABQAVVertexMaterialClass@@@Z,0x001A3A60,address read from the REL32 displacement at a placed body; folded onto the body held there under another instantiation's name; stlport 4.5.3
+?Add@?$DynamicVectorClass@VShaderClass@@@@QAE_NABVShaderClass@@@Z,0x001A3A60,address read from the REL32 displacement at a placed body; folded onto the body held there under another instantiation's name; stlport 4.5.3
+?Add@?$SimpleDynVecClass@VVector3@@@@QAE_NABVVector3@@H@Z,0x001002C5,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Allocate_DX8_Dynamic_Buffer@DynamicIBAccessClass@@QAEXXZ,0x00138E00,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Allocate_Object_Memory@?$ObjectPoolClass@VGridLinkClass@@$0BAA@@@QAEPAVGridLinkClass@@XZ,0x0071AED0,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Allocate_Object_Memory@?$ObjectPoolClass@VMultiListNodeClass@@$0BAA@@@QAEPAVMultiListNodeClass@@XZ,0x00610680,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Allocate_Sorting_Dynamic_Buffer@DynamicIBAccessClass@@QAEXXZ,0x00138F50,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Build_Sentence_Not_Centered@Render2DSentenceClass@@AAE?AVVector2@@PBGPAH1_N@Z,0x00159700,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?CRC_Memory@@YAKPBEKK@Z,0x006157D0,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Clear@INIClass@@QAE_NPBD0@Z,0x00616C60,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Convert_Shader@W3dUtilityClass@@SAXABVShaderClass@@PAUW3dShaderStruct@@@Z,0x001A45E3,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Cur_Chunk_ID@ChunkLoadClass@@QAEKXZ,0x00615020,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Cur_Micro_Chunk_ID@ChunkLoadClass@@QAEKXZ,0x006150A0,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?DebugAllocMemory@@YAPAXI@Z,0x0003E450,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?DebugFreeMemory@@YAXPAX@Z,0x0003E3C0,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Enable_Fog@ShaderClass@@QAEXPBD@Z,0x00138200,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?ExpandMagic@DebugIOFlat@@CAXPBD0PAD@Z,0x0003FA20,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Flush@OutputStream@DebugIOFlat@@QAEXXZ,0x0003F960,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Free@HLodDefClass@@AAEXXZ,0x0019F5B0,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Free_Object_Memory@?$ObjectPoolClass@VMultiListNodeClass@@$0BAA@@@QAEXPAVMultiListNodeClass@@@Z,0x00196470,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Get@Base64Straw@@UAEHPAXH@Z,0x0061B350,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Get_Char_Data@FontCharsClass@@AAEPBVFontCharsClassCharDataStruct@@G@Z,0x00158520,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Get_Float@INIClass@@QBEMPBD0M@Z,0x00616E90,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Get_SS_Category@ShaderClass@@QBE?AW4StaticSortCategoryType@1@XZ,0x00138130,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Get_Shader@ParticleBufferClass@@QBE?AVShaderClass@@XZ,0x001A7B10,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Get_String@StringClass@@AAEXH_N@Z,0x00610B00,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Get_Texture@ParticleBufferClass@@QBE?AVTextureHandleClass@1@XZ,0x001A7A60,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Init_Compact_Log@CPUDetectClass@@CAXXZ,0x00612ED0,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Init_Memory@CPUDetectClass@@CAXXZ,0x00611810,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Init_Processor_Log@CPUDetectClass@@CAXXZ,0x00612770,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Init_Processor_Speed@CPUDetectClass@@CAXXZ,0x00611180,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Load@INIClass@@QAEHAAVFileClass@@@Z,0x00619120,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Load_W3D@TimeCodedBitChannelClass@@QAE_NAAVChunkLoadClass@@@Z,0x00195E20,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Notify_Added@RenderObjClass@@UAEXPAVSceneClass@@@Z,0x0013BCD0,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Notify_Removed@RenderObjClass@@UAEXPAVSceneClass@@@Z,0x0013BCE0,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Poly_Count@AABTreeBuilderClass@@QAEHXZ,0x00144010,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Put@Base64Pipe@@UAEHPBXH@Z,0x0061B170,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Put_String@INIClass@@QAE_NPBD00@Z,0x00616FB0,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Read_Nodes@AABTreeClass@@AAEXAAVChunkLoadClass@@@Z,0x00197D20,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Release_Ref@TextureBaseClass@@QAEXXZ,0x0061ED10,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Reset@SubObjectArrayClass@HLodDefClass@@QAEXXZ,0x0019B210,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Reset_Collection@CullSystemClass@@QAEXXZ,0x0065D1C0,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Resize@?$VectorClass@UTextureStatisticsStruct@@@@UAE_NHPBUTextureStatisticsStruct@@@Z,0x00129990,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Resize@StringClass@@AAEXH@Z,0x00610C70,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Save@INIClass@@QBEHAAVFileClass@@@Z,0x006165B0,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Save_W3D@SubObjectArrayClass@HLodDefClass@@QAE_NAAVChunkSaveClass@@@Z,0x0019B370,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Search_For_Node@?$IndexClass@HPAUINISection@@@@ABEPBUNodeElement@1@ABH@Z,0x00616730,address read from the REL32 displacement at a placed body; folded onto the body held there under another instantiation's name; stlport 4.5.3
+?Set_Animation@Animatable3DObjClass@@UAEXPAVHAnimClass@@M0MM@Z,0x001A4D10,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Set_Animation@Animatable3DObjClass@@UAEXPAVHAnimClass@@MH@Z,0x001A4BF0,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Set_Animation@Animatable3DObjClass@@UAEXXZ,0x001A4BD0,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Set_DX8_Render_State@DX8Wrapper@@SAXKI@Z,0x0006615F,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Set_DX8_Texture_Stage_State@DX8Wrapper@@SAXIKI@Z,0x000661DD,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?SimpleMatch@Debug@@SA_NPBD0@Z,0x00039480,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Uninitialised_Grow@StringClass@@AAEXH@Z,0x00610CF0,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Uninitialised_Grow@WideStringClass@@AAEXH@Z,0x00619E30,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Which_Side@AABTreeBuilderClass@@AAE?AW4OverlapType@1@ABVAAPlaneClass@@H@Z,0x00198C60,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?freeTerrainTracksResources@TerrainTracksRenderObjClass@@QAEHXZ,0x0018FE30,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?link_object@GridCullSystemClass@@IAEXPAVCullableClass@@@Z,0x0071C680,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?nstrdup@@YAPADPBD@Z,0x00619880,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?recalculate@LineSegClass@@IAEXXZ,0x0006A1E4,address read from the REL32 displacement at a placed body; stlport 4.5.3
+_XMP_Fetch_Prime_Size,0x0061B7C0,address read from the REL32 displacement at a placed body; stlport 4.5.3
+_XMP_Fetch_Prime_Table,0x0061B7B0,address read from the REL32 displacement at a placed body; stlport 4.5.3
+_XMP_Init,0x0061BD70,address read from the REL32 displacement at a placed body; stlport 4.5.3
+_XMP_Randomize_Bounded,0x0061C420,address read from the REL32 displacement at a placed body; stlport 4.5.3
+_XMP_Shift_Left_Bits,0x0061BBD0,address read from the REL32 displacement at a placed body; stlport 4.5.3
+__CIpow,0x006299A0,address read from the REL32 displacement at a placed body; stlport 4.5.3
