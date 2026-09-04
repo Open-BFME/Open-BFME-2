@@ -34,6 +34,42 @@ stdio_streambuf_base::setbuf(char *__s, streamsize __n)
 	return this;
 }
 
+stdio_streambuf_base::pos_type
+stdio_streambuf_base::seekoff(off_type __off, _STLP_STD::ios_base::seekdir __dir,
+                              _STLP_STD::ios_base::openmode)
+{
+	int __whence;
+	switch (__dir) {
+	case _STLP_STD::ios_base::beg:
+		__whence = SEEK_SET;
+		break;
+	case _STLP_STD::ios_base::cur:
+		__whence = SEEK_CUR;
+		break;
+	case _STLP_STD::ios_base::end:
+		__whence = SEEK_END;
+		break;
+	default:
+		return pos_type(-1);
+	}
+
+	if (fseek(_M_file, __off, __whence) == 0) {
+		fpos_t __pos;
+		fgetpos(_M_file, &__pos);
+		return pos_type(__pos);
+	}
+	return pos_type(-1);
+}
+
+stdio_streambuf_base::pos_type
+stdio_streambuf_base::seekpos(pos_type __pos, _STLP_STD::ios_base::openmode)
+{
+	fpos_t __fpos = __pos;
+	if (fsetpos(_M_file, &__fpos) == 0)
+		return __pos;
+	return pos_type(-1);
+}
+
 int stdio_streambuf_base::sync()
 {
 	return fflush(_M_file) == 0 ? 0 : -1;
