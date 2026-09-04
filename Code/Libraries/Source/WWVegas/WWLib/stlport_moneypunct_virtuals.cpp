@@ -12,6 +12,12 @@
 //
 // Those two offsets come from the constructor at 0x00019750, which writes the
 // bytes 2,3,0,4 to each: symbol, sign, none, value.
+//
+// The four string getters are not here. They share one body at 0x00019D30
+// which zeroes a basic_string in place and then range-initialises it from a
+// static - basic_string's copy constructor, inlined. cl 13.10 declines to
+// inline it and emits a call, and that same wall stops numpunct's truename
+// and falsename. Ten of these thirty-six slots wait behind it.
 
 #include <locale>
 
@@ -28,25 +34,9 @@ char moneypunct<char, true>::do_thousands_sep() const
 	return ' ';
 }
 
-string moneypunct<char, true>::do_grouping() const
-{
-	return string();
-}
 
-string moneypunct<char, true>::do_curr_symbol() const
-{
-	return string();
-}
 
-string moneypunct<char, true>::do_positive_sign() const
-{
-	return string();
-}
 
-string moneypunct<char, true>::do_negative_sign() const
-{
-	return string();
-}
 
 int moneypunct<char, true>::do_frac_digits() const
 {
