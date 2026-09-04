@@ -18,6 +18,8 @@
 
 #include <locale>
 #include <stdio_streambuf>
+#include <sys/types.h>
+#include <sys/stat.h>
 
 namespace _SgI
 {
@@ -73,6 +75,22 @@ stdio_streambuf_base::seekpos(pos_type __pos, _STLP_STD::ios_base::openmode)
 int stdio_streambuf_base::sync()
 {
 	return fflush(_M_file) == 0 ? 0 : -1;
+}
+
+streamsize stdio_istreambuf::showmanyc()
+{
+	if (feof(_M_file))
+		return -1;
+
+	streamsize __size;
+	struct _stat __buf;
+	if (_fstat(_STLP_STD::_FILE_fd(_M_file), &__buf) == 0 && (__buf.st_mode & _S_IFREG))
+		__size = __buf.st_size > 0 ? __buf.st_size : 0;
+	else
+		__size = 0;
+
+	streamsize __pos = ftell(_M_file);
+	return (__pos >= 0 && __size > __pos) ? __size - __pos : 0;
 }
 
 stdio_istreambuf::int_type stdio_istreambuf::underflow()
