@@ -1,3 +1,5 @@
+// ?_M_xsputnc@?$basic_streambuf@DV?$char_traits@D@_STL@@@_STL@@MAEHDH@Z
+// partial score=0.9 date=2026-09-04
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC
 // stlport
 //
