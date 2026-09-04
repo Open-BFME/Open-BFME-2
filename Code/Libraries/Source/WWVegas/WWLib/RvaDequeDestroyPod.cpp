@@ -7,17 +7,17 @@
 
 #include <deque>
 
-struct Gen_t_008fb350_p12pod { char m_body[20]; };
+struct PodPayload20 { char m_body[20]; };
 
 namespace _STL
 {
 template void __destroy<
-	_Deque_iterator<Gen_t_008fb350_p12pod,
-		_Nonconst_traits<Gen_t_008fb350_p12pod> >,
-	Gen_t_008fb350_p12pod>(
-	_Deque_iterator<Gen_t_008fb350_p12pod,
-		_Nonconst_traits<Gen_t_008fb350_p12pod> >,
-	_Deque_iterator<Gen_t_008fb350_p12pod,
-		_Nonconst_traits<Gen_t_008fb350_p12pod> >,
-	Gen_t_008fb350_p12pod *);
+	_Deque_iterator<PodPayload20,
+		_Nonconst_traits<PodPayload20> >,
+	PodPayload20>(
+	_Deque_iterator<PodPayload20,
+		_Nonconst_traits<PodPayload20> >,
+	_Deque_iterator<PodPayload20,
+		_Nonconst_traits<PodPayload20> >,
+	PodPayload20 *);
 }
