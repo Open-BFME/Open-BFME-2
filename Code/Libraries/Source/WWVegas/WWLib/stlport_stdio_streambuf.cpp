@@ -22,6 +22,11 @@
 namespace _SgI
 {
 
+stdio_streambuf_base::~stdio_streambuf_base()
+{
+	fflush(_M_file);
+}
+
 _STLP_STD::basic_streambuf<char, _STLP_STD::char_traits<char> > *
 stdio_streambuf_base::setbuf(char *__s, streamsize __n)
 {
