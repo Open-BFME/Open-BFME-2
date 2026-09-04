@@ -460,3 +460,19 @@ __CIpow,0x006299A0,address read from the REL32 displacement at a placed body; st
 ?do_max_length@?$codecvt@GDH@_STL@@MBEHXZ,0x00756B00,slot 7 of 0x007BBB2C; folded
 ?do_open@?$messages@G@_STL@@MBEHABV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@2@ABVlocale@2@@Z,0x00019EA0,slot 1 of the wide messages vftable 0x007BC8EC; do_open takes a narrow filename whatever the facet's character type so the two instantiations folded
 ?do_close@?$messages@G@_STL@@MBEXH@Z,0x00019F70,slot 3 of 0x007BC8EC; do_close forwards a catalog handle and never touches the character type so the two instantiations folded
+?do_thousands_sep@?$moneypunct@D$00@_STL@@MBEDXZ,0x00019730,moneypunct vftable slot; the default facet reports no locale data so this body serves every instantiation that names it
+?do_thousands_sep@?$moneypunct@G$00@_STL@@MBEGXZ,0x000197F0,moneypunct vftable slot; the default facet reports no locale data so this body serves every instantiation that names it
+?do_frac_digits@?$moneypunct@D$00@_STL@@MBEHXZ,0x0065CE90,moneypunct vftable slot; the default facet reports no locale data so this body serves every instantiation that names it; folded onto basic_streambuf<wchar_t>::sync - both are xor eax,eax
+?do_pos_format@?$moneypunct@G$00@_STL@@MBE?AUpattern@money_base@2@XZ,0x0066D820,moneypunct vftable slot; the default facet reports no locale data so this body serves every instantiation that names it
+?do_neg_format@?$moneypunct@G$00@_STL@@MBE?AUpattern@money_base@2@XZ,0x00019740,moneypunct vftable slot; the default facet reports no locale data so this body serves every instantiation that names it
+?do_frac_digits@?$moneypunct@G$00@_STL@@MBEHXZ,0x0065CE90,moneypunct vftable slot; the default facet reports no locale data so this body serves every instantiation that names it; folded onto basic_streambuf<wchar_t>::sync - both are xor eax,eax
+?do_decimal_point@?$moneypunct@D$0A@@_STL@@MBEDXZ,0x00019730,moneypunct vftable slot; the default facet reports no locale data so this body serves every instantiation that names it
+?do_thousands_sep@?$moneypunct@D$0A@@_STL@@MBEDXZ,0x00019730,moneypunct vftable slot; the default facet reports no locale data so this body serves every instantiation that names it
+?do_decimal_point@?$moneypunct@G$0A@@_STL@@MBEGXZ,0x000197F0,moneypunct vftable slot; the default facet reports no locale data so this body serves every instantiation that names it
+?do_thousands_sep@?$moneypunct@G$0A@@_STL@@MBEGXZ,0x000197F0,moneypunct vftable slot; the default facet reports no locale data so this body serves every instantiation that names it
+?do_pos_format@?$moneypunct@D$0A@@_STL@@MBE?AUpattern@money_base@2@XZ,0x0066D820,moneypunct vftable slot; the default facet reports no locale data so this body serves every instantiation that names it
+?do_neg_format@?$moneypunct@D$0A@@_STL@@MBE?AUpattern@money_base@2@XZ,0x00019740,moneypunct vftable slot; the default facet reports no locale data so this body serves every instantiation that names it
+?do_frac_digits@?$moneypunct@D$0A@@_STL@@MBEHXZ,0x0065CE90,moneypunct vftable slot; the default facet reports no locale data so this body serves every instantiation that names it; folded onto basic_streambuf<wchar_t>::sync - both are xor eax,eax
+?do_pos_format@?$moneypunct@G$0A@@_STL@@MBE?AUpattern@money_base@2@XZ,0x0066D820,moneypunct vftable slot; the default facet reports no locale data so this body serves every instantiation that names it
+?do_neg_format@?$moneypunct@G$0A@@_STL@@MBE?AUpattern@money_base@2@XZ,0x00019740,moneypunct vftable slot; the default facet reports no locale data so this body serves every instantiation that names it
+?do_frac_digits@?$moneypunct@G$0A@@_STL@@MBEHXZ,0x0065CE90,moneypunct vftable slot; the default facet reports no locale data so this body serves every instantiation that names it; folded onto basic_streambuf<wchar_t>::sync - both are xor eax,eax
