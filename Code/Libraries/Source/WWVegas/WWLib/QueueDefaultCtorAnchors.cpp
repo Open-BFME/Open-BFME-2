@@ -14,7 +14,8 @@
 // sizeof(T) never appears.  The deque's buffer arithmetic lives in
 // _M_initialize_map and in _M_allocate_node, not here, so these 44 bytes are
 // the same for every element type and say nothing whatever about T -- not even
-// its width.
+// its width.  Elements below are named by that width plus an ordinal, since
+// the width is all any of these fifteen retail sites actually prove about T.
 //
 // _M_initialize_map does say it, and nine of them are converted in
 // RvaDequeInitializeMap.cpp: the shift it divides the element count by is
@@ -28,198 +29,197 @@
 #include <queue>
 #include <new>
 
-struct Rva00089CA0Element
+struct QueueElem4A
 {
 	char m_body[ 4 ];
 };
 
-typedef _STL::queue<Rva00089CA0Element> Rva00089CA0Queue;
+typedef _STL::queue<QueueElem4A> Queue4A;
 
 // retail 0x00089CA0
-void BfmeQueueCtorAnchor00089CA0( void *place )
+void BfmeQueueCtorAnchor4A( void *place )
 {
-	new ( place ) Rva00089CA0Queue();
+	new ( place ) Queue4A();
 }
 
-struct Rva0035A900Element
+struct QueueElem4B
 {
 	char m_body[ 4 ];
 };
 
-typedef _STL::queue<Rva0035A900Element> Rva0035A900Queue;
+typedef _STL::queue<QueueElem4B> Queue4B;
 
 // retail 0x0035A900
-void BfmeQueueCtorAnchor0035A900( void *place )
+void BfmeQueueCtorAnchor4B( void *place )
 {
-	new ( place ) Rva0035A900Queue();
+	new ( place ) Queue4B();
 }
 
-struct Rva0035A940Element
+struct QueueElem4C
 {
 	char m_body[ 4 ];
 };
 
-typedef _STL::queue<Rva0035A940Element> Rva0035A940Queue;
+typedef _STL::queue<QueueElem4C> Queue4C;
 
 // retail 0x0035A940
-void BfmeQueueCtorAnchor0035A940( void *place )
+void BfmeQueueCtorAnchor4C( void *place )
 {
-	new ( place ) Rva0035A940Queue();
+	new ( place ) Queue4C();
 }
 
-struct Rva0035AF40Element
+struct QueueElem4D
 {
 	char m_body[ 4 ];
 };
 
-typedef _STL::queue<Rva0035AF40Element> Rva0035AF40Queue;
+typedef _STL::queue<QueueElem4D> Queue4D;
 
 // retail 0x0035AF40
-void BfmeQueueCtorAnchor0035AF40( void *place )
+void BfmeQueueCtorAnchor4D( void *place )
 {
-	new ( place ) Rva0035AF40Queue();
+	new ( place ) Queue4D();
 }
 
-struct Rva0035AF80Element
+struct QueueElem4E
 {
 	char m_body[ 4 ];
 };
 
-typedef _STL::queue<Rva0035AF80Element> Rva0035AF80Queue;
+typedef _STL::queue<QueueElem4E> Queue4E;
 
 // retail 0x0035AF80
-void BfmeQueueCtorAnchor0035AF80( void *place )
+void BfmeQueueCtorAnchor4E( void *place )
 {
-	new ( place ) Rva0035AF80Queue();
+	new ( place ) Queue4E();
 }
 
-struct Rva00369550Element
+struct QueueElem4F
 {
 	char m_body[ 4 ];
 };
 
-typedef _STL::queue<Rva00369550Element> Rva00369550Queue;
+typedef _STL::queue<QueueElem4F> Queue4F;
 
 // retail 0x00369550
-void BfmeQueueCtorAnchor00369550( void *place )
+void BfmeQueueCtorAnchor4F( void *place )
 {
-	new ( place ) Rva00369550Queue();
+	new ( place ) Queue4F();
 }
 
-struct Rva0063DF60Element
+struct QueueElem4G
 {
 	int m_body;
 };
 
-typedef _STL::queue<Rva0063DF60Element> Rva0063DF60Queue;
+typedef _STL::queue<QueueElem4G> Queue4G;
 
 // retail 0x0063DF60
-void BfmeQueueCtorAnchor0063DF60( void *place )
+void BfmeQueueCtorAnchor4G( void *place )
 {
-	new ( place ) Rva0063DF60Queue();
+	new ( place ) Queue4G();
 }
 
-struct Rva0063DFA0Element
+struct QueueElem4H
 {
 	int m_body;
 };
 
-typedef _STL::queue<Rva0063DFA0Element> Rva0063DFA0Queue;
+typedef _STL::queue<QueueElem4H> Queue4H;
 
 // retail 0x0063DFA0
-void BfmeQueueCtorAnchor0063DFA0( void *place )
+void BfmeQueueCtorAnchor4H( void *place )
 {
-	new ( place ) Rva0063DFA0Queue();
+	new ( place ) Queue4H();
 }
 
-struct Rva00642060Element
+struct QueueElem32
 {
 	char m_body[ 32 ];
 };
 
-typedef _STL::queue<Rva00642060Element> Rva00642060Queue;
+typedef _STL::queue<QueueElem32> Queue32;
 
 // retail 0x00642060
-void BfmeQueueCtorAnchor00642060( void *place )
+void BfmeQueueCtorAnchor32( void *place )
 {
-	new ( place ) Rva00642060Queue();
+	new ( place ) Queue32();
 }
 
-struct Rva006420A0Element
+struct QueueElem16
 {
 	char m_body[ 16 ];
 };
 
-typedef _STL::queue<Rva006420A0Element> Rva006420A0Queue;
+typedef _STL::queue<QueueElem16> Queue16;
 
 // retail 0x006420A0
-void BfmeQueueCtorAnchor006420A0( void *place )
+void BfmeQueueCtorAnchor16( void *place )
 {
-	new ( place ) Rva006420A0Queue();
+	new ( place ) Queue16();
 }
 
-struct Rva00647200Element
+struct QueueElem4I
 {
 	char m_body[ 4 ];
 };
 
-typedef _STL::queue<Rva00647200Element> Rva00647200Queue;
+typedef _STL::queue<QueueElem4I> Queue4I;
 
 // retail 0x00647200
-void BfmeQueueCtorAnchor00647200( void *place )
+void BfmeQueueCtorAnchor4I( void *place )
 {
-	new ( place ) Rva00647200Queue();
+	new ( place ) Queue4I();
 }
 
-struct Rva0064CA60Element
+struct QueueElem4J
 {
 	int m_body;
 };
 
-typedef _STL::queue<Rva0064CA60Element> Rva0064CA60Queue;
+typedef _STL::queue<QueueElem4J> Queue4J;
 
 // retail 0x0064CA60
-void BfmeQueueCtorAnchor0064CA60( void *place )
+void BfmeQueueCtorAnchor4J( void *place )
 {
-	new ( place ) Rva0064CA60Queue();
+	new ( place ) Queue4J();
 }
 
-struct Rva0064CAF0Element
+struct QueueElem4K
 {
 	int m_body;
 };
 
-typedef _STL::queue<Rva0064CAF0Element> Rva0064CAF0Queue;
+typedef _STL::queue<QueueElem4K> Queue4K;
 
 // retail 0x0064CAF0
-void BfmeQueueCtorAnchor0064CAF0( void *place )
+void BfmeQueueCtorAnchor4K( void *place )
 {
-	new ( place ) Rva0064CAF0Queue();
+	new ( place ) Queue4K();
 }
 
-struct Rva0065A950Element
+struct QueueElem4L
 {
 	int m_body;
 };
 
-typedef _STL::queue<Rva0065A950Element> Rva0065A950Queue;
+typedef _STL::queue<QueueElem4L> Queue4L;
 
 // retail 0x0065A950
-void BfmeQueueCtorAnchor0065A950( void *place )
+void BfmeQueueCtorAnchor4L( void *place )
 {
-	new ( place ) Rva0065A950Queue();
+	new ( place ) Queue4L();
 }
 
-struct Rva006AADB0Element
+struct QueueElem4M
 {
 	char m_body[ 4 ];
 };
 
-typedef _STL::queue<Rva006AADB0Element> Rva006AADB0Queue;
+typedef _STL::queue<QueueElem4M> Queue4M;
 
 // retail 0x006AADB0
-void BfmeQueueCtorAnchor006AADB0( void *place )
+void BfmeQueueCtorAnchor4M( void *place )
 {
-	new ( place ) Rva006AADB0Queue();
+	new ( place ) Queue4M();
 }
-
