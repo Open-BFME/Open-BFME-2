@@ -5,9 +5,9 @@
 // This is the Open-BFME-1 conversion of the same STLport instantiation,
 // ported across: locate.py places both bodies uniquely in this binary, with
 // every call site consistent, so the shape carries over even though the two
-// engines put them at different addresses. The comparator struct is a
-// placeholder named for the address it sits at HERE, not the one it had in
-// the other tree.
+// engines put them at different addresses (this one lands at 0x00625880).
+// The comparator struct has no name the bytes reach, so it is named for what
+// it does instead: a less-than on S4SortElem8::m_bfmeKey.
 //
 // STLport's sift-up, and the callee the sift-down in this binary tails into.
 // Same eight-byte element and same inlined comparator: fld of the parent's
