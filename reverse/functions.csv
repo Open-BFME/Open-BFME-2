@@ -2306,7 +2306,7 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?strtok_r@@YAPADPADPBDPAPAD@Z,,0x00619930,117,Code/Libraries/Source/WWVegas/WWLib/strtok_r.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
 ?strtrim@@YAPADPAD@Z,,0x0061B600,102,Code/Libraries/Source/WWVegas/WWLib/trim.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
 ?wcstrim@@YAPAGPAG@Z,,0x0061B670,102,Code/Libraries/Source/WWVegas/WWLib/trim.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
-?store@BoundedShortGrid@@QAEXHHF@Z,,0x00091A5A,38,Code/GameEngineDevice/Source/W3DDevice/GameClient/Gen_007304b0_Store16.cpp,matched,ported from the Open-BFME-1 conversion
+?store@BoundedShortGrid@@QAEXHHF@Z,,0x00091A5A,38,Code/GameEngineDevice/Source/W3DDevice/GameClient/BoundedShortGrid.cpp,matched,ported from the Open-BFME-1 conversion
 ?Find_X_At_Z@Vector3@@SAMMABV1@0@Z,,0x000852F7,32,Code/GameEngineDevice/Source/W3DDevice/GameClient/HeightMap.cpp,matched,ported from the Open-BFME-1 conversion
 ?Find_Y_At_Z@Vector3@@SAMMABV1@0@Z,,0x00085317,35,Code/GameEngineDevice/Source/W3DDevice/GameClient/HeightMap.cpp,matched,ported from the Open-BFME-1 conversion
 ??0W3DRadarResetSurface@@QAE@ABV0@@Z,,0x000425A9,27,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayDrawImage.cpp,matched,ported from the Open-BFME-1 conversion
