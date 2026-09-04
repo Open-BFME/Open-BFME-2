@@ -448,3 +448,4 @@ _XMP_Randomize_Bounded,0x0061C420,address read from the REL32 displacement at a 
 _XMP_Shift_Left_Bits,0x0061BBD0,address read from the REL32 displacement at a placed body; stlport 4.5.3
 __CIpow,0x006299A0,address read from the REL32 displacement at a placed body; stlport 4.5.3
 ?Free_String@StringClass@@AAEXXZ,0x00610A40,address read from the REL32 displacement at a placed body
+??1__Named_exception@_STL@@UAE@XZ,0x00023850,address read from the REL32 displacement in logic_error and runtime_error's destructors; the body there is held as bad_alloc's destructor and the two folded
