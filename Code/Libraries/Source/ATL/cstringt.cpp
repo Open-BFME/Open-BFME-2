@@ -13,6 +13,49 @@ extern "C" __declspec(dllimport) int __stdcall lstrcmpiW(
 extern "C" __declspec(dllimport) unsigned short *__stdcall CharLowerW(unsigned short *);
 extern "C" __declspec(dllimport) unsigned short *__stdcall CharUpperW(unsigned short *);
 
+typedef const char *LPCSTR;
+typedef char *LPSTR;
+typedef const unsigned short *LPCWSTR;
+typedef unsigned int UINT;
+typedef unsigned long LCID;
+typedef long HRESULT;
+
+#define NULL 0
+#define E_OUTOFMEMORY ((HRESULT)0x8007000EL)
+#define _ATL_SAFE_ALLOCA_DEF_THRESHOLD 1024
+
+extern "C" __declspec(dllimport) int __stdcall lstrlenW(LPCWSTR);
+extern "C" __declspec(dllimport) int __stdcall CompareStringA(
+    LCID, unsigned long, LPCSTR, int, LPCSTR, int);
+extern "C" void *__cdecl _alloca(unsigned int);
+
+extern LPSTR __stdcall AtlW2AHelper(LPSTR, LPCWSTR, int, UINT);
+
+#define USES_ATL_SAFE_ALLOCA_EX(x) \
+    ATL::_ATL_SAFE_ALLOCA_IMPL::CAtlSafeAllocBufferManager<x> _AtlSafeAllocaManager
+#define USES_ATL_SAFE_ALLOCA USES_ATL_SAFE_ALLOCA_EX(ATL::CCRTAllocator)
+#define _ATL_SAFE_ALLOCA(nRequestedSize, nThreshold) \
+    ((nRequestedSize <= nThreshold && \
+      ATL::_ATL_SAFE_ALLOCA_IMPL::_AtlVerifyStackAvailable(nRequestedSize)) ? \
+        _alloca(nRequestedSize) : \
+        _AtlSafeAllocaManager.Allocate(nRequestedSize))
+
+#define USES_CONVERSION_EX \
+    int _convert_ex; (_convert_ex); \
+    UINT _acp_ex = ATL::_AtlGetConversionACP(); (_acp_ex); \
+    LPCWSTR _lpw_ex; (_lpw_ex); \
+    LPCSTR _lpa_ex; (_lpa_ex); \
+    USES_ATL_SAFE_ALLOCA
+
+#define W2A_EX(lpw, nChars) ( \
+    ((_lpw_ex = lpw) == NULL) ? NULL : ( \
+        _convert_ex = (lstrlenW(_lpw_ex) + 1) * sizeof(unsigned short), \
+        AtlW2AHelper( \
+            (LPSTR)_ATL_SAFE_ALLOCA(_convert_ex, _ATL_SAFE_ALLOCA_DEF_THRESHOLD), \
+            _lpw_ex, \
+            _convert_ex, \
+            _acp_ex)))
+
 namespace ATL
 {
 void _AtlInstallStringThunk(void **ppThunk, void *pfnWin9x, void *pfnNT) throw()
@@ -42,8 +85,60 @@ struct _AtlStringThunks
     void *pfnGetEnvironmentVariableW;
 };
 extern _AtlStringThunks _strthunks;
-int __stdcall CompareStringWFake(unsigned long, unsigned long,
-    const unsigned short *, int, const unsigned short *, int);
+typedef UINT (__stdcall *ATLGETTHREADACP)();
+extern ATLGETTHREADACP g_pfnGetThreadACP;
+
+inline UINT __stdcall _AtlGetConversionACP() throw()
+{
+    return g_pfnGetThreadACP();
+}
+
+class CCRTAllocator;
+
+namespace _ATL_SAFE_ALLOCA_IMPL
+{
+bool __cdecl _AtlVerifyStackAvailable(unsigned int);
+
+template <class Allocator>
+class CAtlSafeAllocBufferManager
+{
+private:
+    void *m_pHead;
+
+public:
+    CAtlSafeAllocBufferManager() : m_pHead(0) {}
+    void *Allocate(unsigned int);
+    ~CAtlSafeAllocBufferManager() throw();
+};
+}
+
+__declspec(noreturn) void __stdcall AtlThrow(HRESULT);
+
+int __stdcall CompareStringWFake(LCID lcid, unsigned long dwFlags,
+    LPCWSTR pszString1, int nLength1, LPCWSTR pszString2, int nLength2)
+{
+    USES_CONVERSION_EX;
+
+    LPCSTR pszAString1 = NULL;
+    if (pszString1 != NULL)
+    {
+        pszAString1 = W2A_EX(pszString1, _ATL_SAFE_ALLOCA_DEF_THRESHOLD);
+        if (pszAString1 == NULL)
+            AtlThrow(E_OUTOFMEMORY);
+    }
+
+    LPCSTR pszAString2 = NULL;
+    if (pszString2 != NULL)
+    {
+        pszAString2 = W2A_EX(pszString2, _ATL_SAFE_ALLOCA_DEF_THRESHOLD);
+        if (pszAString2 == NULL)
+            AtlThrow(E_OUTOFMEMORY);
+    }
+
+    return ::CompareStringA(lcid, dwFlags, pszAString1, nLength1,
+        pszAString2, nLength2);
+}
+
 int __stdcall GetStringTypeExWFake(unsigned long, unsigned long,
     const unsigned short *, int, unsigned short *);
 int __stdcall lstrcmpiWFake(const unsigned short *, const unsigned short *);
