@@ -1034,8 +1034,11 @@ bool AABTreeClass::Intersect_OBBox_With_Polys
 		*/	  
 		TriClass tri;
 
-		const Vector3 * loc = Mesh->Get_Vertex_Array();
-		const TriIndex * polyverts = Mesh->Get_Polygon_Array();
+		// BFME2 retail uses the same mesh layout as Cast_Ray_To_Polys.
+		const Vector3 * loc =
+				(*(ShareBufferClass<Vector3> * const *)((const char *)Mesh + 0x30))->Get_Array();
+		const TriIndex * polyverts =
+				(*(ShareBufferClass<TriIndex> * const *)((const char *)Mesh + 0x2C))->Get_Array();
 #if (!OPTIMIZE_PLANEEQ_RAM)
 		const Vector4 * norms = Mesh->Get_Plane_Array();
 #endif
