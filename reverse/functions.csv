@@ -162,7 +162,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_0000275d@@YAXXZ,,0x0000275D,395,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_0040275d
 ?d_00002c39@@YAXXZ,,0x00002C39,10,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00402c39
 ?d_0000319f@@YAXXZ,,0x0000319F,6,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Catch@0040319f
-?d_00003318@@YAXXZ,,0x00003318,122,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00403318
 ?areApproxEqual@@YA_NMMM@Z,0x000034FA,0x000034FA,42,Code/Libraries/Source/WWVegas/WWMath/wwmath.cpp,matched,Open-BFME5 clean C++; float equality within a signed tolerance band
 ?scale@Coord3D@@QAEXM@Z,0x000036D1,0x000036D1,49,Code/Libraries/Source/WWVegas/WWMath/region.cpp,matched,Open-BFME5 clean C++; Coord3D component-wise scalar multiplication
 ?d_00003916@@YAXXZ,,0x00003916,101,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Rotate
@@ -2873,3 +2872,4 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?ID@?$VectorClass@H@@UAEHABH@Z,,0x000022E9,43,Code/Libraries/Source/WWVegas/WWLib/vector_class_resize.cpp,matched,
 ?ID@?$VectorClass@H@@UAEHPBH@Z,,0x00002314,23,Code/Libraries/Source/WWVegas/WWLib/vector_class_resize.cpp,matched,
 ??8?$VectorClass@H@@UBE_NABV0@@Z,,0x000022B3,54,Code/Libraries/Source/WWVegas/WWLib/vector_class_resize.cpp,matched,
+?lstrcmpiWFake@ATL@@YGHPBG0@Z,,0x00003318,122,Code/Libraries/Source/ATL/cstringt_compare.cpp,matched,
