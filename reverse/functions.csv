@@ -150,7 +150,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ??0ModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x000011C4,0x000011C4,11,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; FXParticleSystem ModuleTemplate copy constructor
 ??4?$CategoryModuleTemplate@$07@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x0000124F,0x0000124F,27,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; generated assignment adjusting the source by 8 to reach the EventModuleInfo base
 ?setUV@ParticleSystemTemplate@FXParticleSystem@@QAEXPBURegion2D@@@Z,0x00001278,0x00001278,25,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; ParticleSystemTemplate conditionally copies the 16-byte UV region at offset 0x88
-?d_00001423@@YAXXZ,,0x00001423,34,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=`vector_constructor_iterator'
 ?d_00001720@@YAXXZ,,0x00001720,19,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00401720
 ??0Snapshot@@QAE@ABV0@@Z,0x00001745,0x00001745,11,Code/GameEngine/Source/Common/System/Snapshot.cpp,matched,Open-BFME5 clean C++; Snapshot copy constructor ignoring its argument
 ?d_0000179f@@YAXXZ,,0x0000179F,1167,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_0040179f
@@ -2868,3 +2867,4 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?_Stl_loc_init_facets@_STL@@YAXXZ,,0x00006F80,241,Code/Libraries/Source/WWVegas/WWLib/stlport_locale_ids.cpp,matched,
 ?classic@locale@_STL@@SAABV12@XZ,,0x000071B0,6,Code/Libraries/Source/WWVegas/WWLib/stlport_locale.cpp,matched,
 ?_Rebalance_for_erase@?$_Rb_global@_N@_STL@@SAPAU_Rb_tree_node_base@2@PAU32@AAPAU32@11@Z,,0x00025620,1110,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_rebalance_erase.cpp,matched,Ported stack-local scope from Open-BFME-1 eb7af304; retail1110B exact; prior partial resolved
+??_H@YGXPAXIHP6EPAX0@Z@Z,,0x00001423,34,Code/Libraries/Source/ATL/atl_vector_constructor_iterator.cpp,matched,ATL 7.1 compiler vector_constructor_iterator; clean C++ anchor for plain non-EH array construction
