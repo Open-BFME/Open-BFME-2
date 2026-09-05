@@ -25,7 +25,7 @@
 // $Revision: #1 $
 // $DateTime: 2003/07/03 11:55:26 $
 //
-// �2003 Electronic Arts
+// ï¿½2003 Electronic Arts
 //
 // Debug I/O class flat (flat or split log file)
 //////////////////////////////////////////////////////////////////////////////
@@ -53,6 +53,7 @@ public:
   virtual DebugIOFlatDebugShim &operator<<(const char *);
 };
 
+// ??0OutputStream@DebugIOFlat@@ present-unmatched
 DebugIOFlat::OutputStream::OutputStream(const char *filename, unsigned maxSize):
   m_bufferUsed(0), m_nextChar(0)
 {
@@ -188,6 +189,7 @@ void DebugIOFlat::OutputStream::InternalWrite(const char *src, unsigned len)
   }
 }
 
+// ?Flush@OutputStream@DebugIOFlat@@ present-unmatched
 void DebugIOFlat::OutputStream::Flush(void)
 {
   if (!m_limitedFileSize)
@@ -217,8 +219,6 @@ void DebugIOFlat::OutputStream::Flush(void)
 
 //////////////////////////////////////////////////////////////////////////////
 
-// byte-exact reconstruction: Code/Libraries/Source/WWVegas/WWDebug/DebugIOFlat_ExpandMagic_Thunk.cpp
-// ?ExpandMagic@DebugIOFlat@@CAXPBD0PAD@Z present-unmatched
 void DebugIOFlat::ExpandMagic(const char *src, const char *splitName, char *buf)
 {
   // barf if too long
@@ -265,7 +265,8 @@ void DebugIOFlat::ExpandMagic(const char *src, const char *splitName, char *buf)
     {
       case 'e':
       case 'E':
-        GetModuleFileName(NULL,help,sizeof(help));
+        if (!GetEnvironmentVariable("_EA_RTS_FILENAME",help,sizeof(help)))
+          GetModuleFileName(NULL,help,sizeof(help));
         break;
       case 'm':
       case 'M':
@@ -570,6 +571,7 @@ DebugIOInterface *DebugIOFlat::Create(void)
   return new (DebugAllocMemory(sizeof(DebugIOFlat))) DebugIOFlat();
 }
 
+// ?Delete@DebugIOFlat@@ present-unmatched
 void DebugIOFlat::Delete(void)
 {
   this->~DebugIOFlat();
