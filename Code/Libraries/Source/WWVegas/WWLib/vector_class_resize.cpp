@@ -120,4 +120,14 @@ bool VectorClass<T>::Resize(int newsize, T const *array)
 	return(true);
 }
 
+template <class T>
+int VectorClass<T>::ID(T const &object)
+{
+	if (!IsValid) return 0;
+	for (int index = 0; index < VectorMax; ++index) {
+		if (Vector[index] == object) return index;
+	}
+	return -1;
+}
+
 template class VectorClass<int>;
