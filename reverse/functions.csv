@@ -190,7 +190,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ??9@YA_NABVGameClientRandomVariable@@0@Z,0x0000559B,0x0000559B,21,Code/GameEngine/Source/GameClient/ClientRandomValue.cpp,matched,Open-BFME5 clean C++; GameClientRandomVariable inequality forwarding to the equality body
 ?d_0000685e@@YAXXZ,,0x0000685E,10,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_0040685e
 ?d_00006b09@@YAXXZ,,0x00006B09,10,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00406b09
-?d_00006cf0@@YAXXZ,,0x00006CF0,34,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00406cf0
 ?d_00006f80@@YAXXZ,,0x00006F80,241,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00406f80
 ?d_000071b0@@YAXXZ,,0x000071B0,6,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_004071b0
 ?d_00009450@@YAXXZ,,0x00009450,385,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00409450
@@ -2867,3 +2866,4 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?showmanyc@stdio_istreambuf@_SgI@@MAEHXZ,,0x0001CE50,124,Code/Libraries/Source/WWVegas/WWLib/stlport_stdio_streambuf.cpp,matched,stlport 4.5.3; slot 5 of 0x007BBC6C; fstat the descriptor at FILE+0x10 for a regular file size then subtract ftell
 ?_AtlInstallStringThunk@ATL@@YAXPAPAXPAX1@Z,,0x000032DA,62,Code/Libraries/Source/ATL/cstringt.cpp,matched,
 ?CompareStringWThunk@ATL@@YGHKKPBGH0H@Z,,0x00006960,34,Code/Libraries/Source/ATL/cstringt.cpp,matched,
+?GetStringTypeExWThunk@ATL@@YGHKKPBGHPAG@Z,,0x00006CF0,34,Code/Libraries/Source/ATL/cstringt.cpp,matched,
