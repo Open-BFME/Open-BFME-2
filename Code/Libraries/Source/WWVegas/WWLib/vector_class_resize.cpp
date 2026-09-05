@@ -138,4 +138,16 @@ int VectorClass<T>::ID(T const *ptr)
 		reinterpret_cast<unsigned long>(Vector)) / sizeof(T);
 }
 
+template <class T>
+bool VectorClass<T>::operator==(VectorClass<T> const &that) const
+{
+	if (VectorMax == that.VectorMax) {
+		for (int index = 0; index < VectorMax; ++index) {
+			if (Vector[index] != that.Vector[index]) return false;
+		}
+		return true;
+	}
+	return false;
+}
+
 template class VectorClass<int>;
