@@ -2930,3 +2930,4 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVAABoxClass@@ABVVector3@@@Z,,0x0071AB30,124,Code/Libraries/Source/WWVegas/WWMath/colmathaabox.cpp,matched,
 ??0CastResultStruct@@QAE@XZ,,0x0006A1A9,59,Code/Libraries/Source/WWVegas/WWMath/colmathaabox.cpp,matched,
 ?Reset@CastResultStruct@@QAEXXZ,,0x00068E3D,57,Code/Libraries/Source/WWVegas/WWMath/colmathaabox.cpp,matched,
+?eval_overlap_collision@CollisionMath@@CA?AW4OverlapType@1@ABUCastResultStruct@@@Z,,0x007236C0,37,Code/Libraries/Source/WWVegas/WWMath/colmathaabox.cpp,matched,
