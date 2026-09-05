@@ -773,15 +773,10 @@ bool AABTreeClass::Cast_Ray_To_Polys(CullNodeStruct * node,RayCollisionTestClass
 		*/
 		TriClass tri;
 
-		// BFME's MeshGeometryClass is laid out differently from meshgeometry.h.
-		// Retail @0x0096ADDF reads Poly at this+0x2C and Vertex at this+0x30 -
-		// four lower than the header puts them - and @0x0096AEB0 reads
-		// PolySurfaceType at this+0x60, 0x1C higher. So BFME drops one dword
-		// ahead of Poly and carries seven more pointer members between Vertex
-		// and PolySurfaceType. Correcting the header is the real fix, but it is
-		// a header and the full gate is red (docs/lessons.md), so these three
-		// reads go straight to the retail offsets. ShareBufferClass::Get_Array
-		// is itself at +0xC in both, which is why only the bases move.
+		// BFME2 MeshGeometryClass layout: retail RVA 0x19820E reads Vertex
+		// at +0x30 and Poly at +0x2C; RVA 0x1983A5 reads PolySurfaceType
+		// at +0x58. ShareBufferClass array storage remains at +0xC.
+		// Keep these TU-local layout reads until the shared header is recovered.
 		const Vector3 * loc =
 				(*(ShareBufferClass<Vector3> * const *)((const char *)Mesh + 0x30))->Get_Array();
 		const TriIndex * polyverts =
@@ -818,7 +813,7 @@ bool AABTreeClass::Cast_Ray_To_Polys(CullNodeStruct * node,RayCollisionTestClass
 		}
 		if (polyhit != -1) {
 			raytest.Result->SurfaceType =
-					(*(ShareBufferClass<uint8> * const *)((const char *)Mesh + 0x60))->Get_Array()[polyhit];
+					(*(ShareBufferClass<uint8> * const *)((const char *)Mesh + 0x58))->Get_Array()[polyhit];
 			return true;
 		}
 	}
