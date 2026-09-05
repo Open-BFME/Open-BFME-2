@@ -130,4 +130,12 @@ int VectorClass<T>::ID(T const &object)
 	return -1;
 }
 
+template <class T>
+int VectorClass<T>::ID(T const *ptr)
+{
+	if (!IsValid) return 0;
+	return (reinterpret_cast<unsigned long>(ptr) -
+		reinterpret_cast<unsigned long>(Vector)) / sizeof(T);
+}
+
 template class VectorClass<int>;
