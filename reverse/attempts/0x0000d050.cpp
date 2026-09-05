@@ -2,14 +2,27 @@
 // partial score=0.97 date=2026-09-02
 // cl: /EHs /EHc- /MD /D_STLP_USE_STATIC_LIB
 //
-// Callees, all three read out of retail's own REL32 displacements in this body
-// (offsets relative to 0x0000D050): +0x68 -> 0x000179B0 __copy_trivial,
-// +0x90 -> 0x0001A600 __insert_grouping, +0xC4 -> 0x000095E0
-// __copy_integer_and_fill.  The last of these is now pinned in
-// reverse/symbols.csv; without it the tail call verifies as unresolved.  The
-// 40-byte cleanup after it (83 c4 28) corroborates the identification: ten
-// dwords, which is this call's eight arguments with the iterator passed by
-// value as two.
+// Callees, read out of retail's own REL32 displacements in this body (offsets
+// relative to 0x0000D050), each checked against the stack cleanup that follows
+// it:
+//
+//   +0x90 -> 0x0001A600, pops 28 bytes = 7 dwords. That is __insert_grouping's
+//            seven arguments exactly, and the three pushes before it are the
+//            thousands_sep result, '+' and '-'. Identified.
+//   +0xC4 -> 0x000095E0, pops 40 bytes = 10 dwords. That is
+//            __copy_integer_and_fill's eight arguments with the
+//            ostreambuf_iterator passed by value as two. Identified, and now
+//            pinned in reverse/symbols.csv -- without it this tail call
+//            verifies as unresolved.
+//   +0x68 -> 0x000179B0, pops 16 bytes = 4 dwords. NOT identified. This body
+//            declares __copy_trivial at that site, which takes three, so the
+//            declaration is wrong and this is a different function: the four
+//            arguments are buffer, buffer_end, &local_buffer and a pointer to
+//            the base_characters slot at [esp+0x5c]. Whatever it is, it takes
+//            the base-character count by address, which nothing in the
+//            upstream _num_put.c shape does. Worth resolving before chasing
+//            registers -- a wrong callee arity here may be what is displacing
+//            the allocation below.
 //
 // What is left is register allocation, not shape -- the branch displacements
 // already match exactly (74 6f, 74 20, 74 0e).  Retail keeps stream in ebp and
