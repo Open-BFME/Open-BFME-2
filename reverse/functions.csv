@@ -2867,3 +2867,4 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?GetStringTypeExWThunk@ATL@@YGHKKPBGHPAG@Z,,0x00006CF0,34,Code/Libraries/Source/ATL/cstringt.cpp,matched,
 ?_Stl_loc_init_facets@_STL@@YAXXZ,,0x00006F80,241,Code/Libraries/Source/WWVegas/WWLib/stlport_locale_ids.cpp,matched,
 ?classic@locale@_STL@@SAABV12@XZ,,0x000071B0,6,Code/Libraries/Source/WWVegas/WWLib/stlport_locale.cpp,matched,
+?_Rebalance_for_erase@?$_Rb_global@_N@_STL@@SAPAU_Rb_tree_node_base@2@PAU32@AAPAU32@11@Z,,0x00025620,1110,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_rebalance_erase.cpp,matched,Ported stack-local scope from Open-BFME-1 eb7af304; retail1110B exact; prior partial resolved

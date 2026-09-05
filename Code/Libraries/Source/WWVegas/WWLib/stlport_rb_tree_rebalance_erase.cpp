@@ -105,133 +105,148 @@ void __cdecl _Rb_global<_Dummy>::_Rotate_right(_Rb_tree_node_base *__x,
 	__x->_M_parent = __y;
 }
 
+// Open-BFME-1 STLRbGlobalBoolRebalanceForErase.cpp (eb7af304):
+// hoist both sibling pointers before the colour temporary in one scope.
+// MSVC /Od then puts the colour at ebp-0x15, exactly as BFME2 requires.
 template <class _Dummy>
-_Rb_tree_node_base *__cdecl _Rb_global<_Dummy>::_Rebalance_for_erase(
-		_Rb_tree_node_base *__z, _Rb_tree_node_base *&__root,
-		_Rb_tree_node_base *&__leftmost, _Rb_tree_node_base *&__rightmost)
+_Rb_tree_node_base *
+_Rb_global<_Dummy>::_Rebalance_for_erase(_Rb_tree_node_base* __z,
+                                         _Rb_tree_node_base*& __root,
+                                         _Rb_tree_node_base*& __leftmost,
+                                         _Rb_tree_node_base*& __rightmost)
 {
   _Rb_tree_node_base* __y = __z;
   _Rb_tree_node_base* __x = 0;
   _Rb_tree_node_base* __x_parent = 0;
-  if (__y->_M_left == 0)     // __z has at most one non-null child. y == z.
-    __x = __y->_M_right;     // __x might be null.
+  if (__y->_M_left == 0)
+    __x = __y->_M_right;
   else
-    if (__y->_M_right == 0)  // __z has exactly one non-null child. y == z.
-      __x = __y->_M_left;    // __x is not null.
-    else {                   // __z has two non-null children.  Set __y to
-      __y = __y->_M_right;   //   __z's successor.  __x might be null.
+    if (__y->_M_right == 0)
+      __x = __y->_M_left;
+    else {
+      __y = __y->_M_right;
       while (__y->_M_left != 0)
         __y = __y->_M_left;
       __x = __y->_M_right;
     }
-  if (__y != __z) {          // relink y in place of z.  y is z's successor
-    __z->_M_left->_M_parent = __y; 
+  {
+  _Rb_tree_node_base* __w_right;
+  _Rb_tree_node_base* __w_left;
+  if (__y != __z) {
+    __z->_M_left->_M_parent = __y;
     __y->_M_left = __z->_M_left;
     if (__y != __z->_M_right) {
       __x_parent = __y->_M_parent;
       if (__x) __x->_M_parent = __y->_M_parent;
-      __y->_M_parent->_M_left = __x;      // __y must be a child of _M_left
+      __y->_M_parent->_M_left = __x;
       __y->_M_right = __z->_M_right;
       __z->_M_right->_M_parent = __y;
     }
     else
-      __x_parent = __y;  
+      __x_parent = __y;
     if (__root == __z)
       __root = __y;
     else if (__z->_M_parent->_M_left == __z)
       __z->_M_parent->_M_left = __y;
-    else 
+    else
       __z->_M_parent->_M_right = __y;
     __y->_M_parent = __z->_M_parent;
-    _Rb_tree_Color_type __c = __y->_M_color;
+    _Rb_tree_Color_type __color = __y->_M_color;
     __y->_M_color = __z->_M_color;
-    __z->_M_color = __c;
+    __z->_M_color = __color;
     __y = __z;
-    // __y now points to node to be actually deleted
   }
-  else {                        // __y == __z
+  else {
     __x_parent = __y->_M_parent;
-    if (__x) __x->_M_parent = __y->_M_parent;   
+    if (__x) __x->_M_parent = __y->_M_parent;
     if (__root == __z)
       __root = __x;
-    else 
+    else
       if (__z->_M_parent->_M_left == __z)
         __z->_M_parent->_M_left = __x;
       else
         __z->_M_parent->_M_right = __x;
-    if (__leftmost == __z) 
-      if (__z->_M_right == 0)        // __z->_M_left must be null also
+    if (__leftmost == __z)
+      if (__z->_M_right == 0)
         __leftmost = __z->_M_parent;
-    // makes __leftmost == _M_header if __z == __root
       else
         __leftmost = _Rb_tree_node_base::_S_minimum(__x);
-    if (__rightmost == __z)  
-      if (__z->_M_left == 0)         // __z->_M_right must be null also
-        __rightmost = __z->_M_parent;  
-    // makes __rightmost == _M_header if __z == __root
-      else                      // __x == __z->_M_left
+    if (__rightmost == __z)
+      if (__z->_M_left == 0)
+        __rightmost = __z->_M_parent;
+      else
         __rightmost = _Rb_tree_node_base::_S_maximum(__x);
   }
-  if (__y->_M_color != _S_rb_tree_red) { 
+  if (__y->_M_color != _S_rb_tree_red) {
     while (__x != __root && (__x == 0 || __x->_M_color == _S_rb_tree_black))
       if (__x == __x_parent->_M_left) {
-        _Rb_tree_node_base* __w = __x_parent->_M_right;
-        if (__w->_M_color == _S_rb_tree_red) {
-          __w->_M_color = _S_rb_tree_black;
+        __w_right = __x_parent->_M_right;
+        if (__w_right->_M_color == _S_rb_tree_red) {
+          __w_right->_M_color = _S_rb_tree_black;
           __x_parent->_M_color = _S_rb_tree_red;
           _Rotate_left(__x_parent, __root);
-          __w = __x_parent->_M_right;
+          __w_right = __x_parent->_M_right;
         }
-        if ((__w->_M_left == 0 || 
-             __w->_M_left->_M_color == _S_rb_tree_black) && (__w->_M_right == 0 || 
-             __w->_M_right->_M_color == _S_rb_tree_black)) {
-          __w->_M_color = _S_rb_tree_red;
+        if ((__w_right->_M_left == 0 ||
+             __w_right->_M_left->_M_color == _S_rb_tree_black) &&
+            (__w_right->_M_right == 0 ||
+             __w_right->_M_right->_M_color == _S_rb_tree_black)) {
+          __w_right->_M_color = _S_rb_tree_red;
           __x = __x_parent;
           __x_parent = __x_parent->_M_parent;
-        } else {
-          if (__w->_M_right == 0 || 
-              __w->_M_right->_M_color == _S_rb_tree_black) {
-            if (__w->_M_left) __w->_M_left->_M_color = _S_rb_tree_black;
-            __w->_M_color = _S_rb_tree_red;
-            _Rotate_right(__w, __root);
-            __w = __x_parent->_M_right;
+        }
+        else {
+          if (__w_right->_M_right == 0 ||
+              __w_right->_M_right->_M_color == _S_rb_tree_black) {
+            if (__w_right->_M_left)
+              __w_right->_M_left->_M_color = _S_rb_tree_black;
+            __w_right->_M_color = _S_rb_tree_red;
+            _Rotate_right(__w_right, __root);
+            __w_right = __x_parent->_M_right;
           }
-          __w->_M_color = __x_parent->_M_color;
+          __w_right->_M_color = __x_parent->_M_color;
           __x_parent->_M_color = _S_rb_tree_black;
-          if (__w->_M_right) __w->_M_right->_M_color = _S_rb_tree_black;
+          if (__w_right->_M_right)
+            __w_right->_M_right->_M_color = _S_rb_tree_black;
           _Rotate_left(__x_parent, __root);
           break;
         }
-      } else {                  // same as above, with _M_right <-> _M_left.
-        _Rb_tree_node_base* __w = __x_parent->_M_left;
-        if (__w->_M_color == _S_rb_tree_red) {
-          __w->_M_color = _S_rb_tree_black;
+      }
+      else {
+        __w_left = __x_parent->_M_left;
+        if (__w_left->_M_color == _S_rb_tree_red) {
+          __w_left->_M_color = _S_rb_tree_black;
           __x_parent->_M_color = _S_rb_tree_red;
           _Rotate_right(__x_parent, __root);
-          __w = __x_parent->_M_left;
+          __w_left = __x_parent->_M_left;
         }
-        if ((__w->_M_right == 0 || 
-             __w->_M_right->_M_color == _S_rb_tree_black) && (__w->_M_left == 0 || 
-             __w->_M_left->_M_color == _S_rb_tree_black)) {
-          __w->_M_color = _S_rb_tree_red;
+        if ((__w_left->_M_right == 0 ||
+             __w_left->_M_right->_M_color == _S_rb_tree_black) &&
+            (__w_left->_M_left == 0 ||
+             __w_left->_M_left->_M_color == _S_rb_tree_black)) {
+          __w_left->_M_color = _S_rb_tree_red;
           __x = __x_parent;
           __x_parent = __x_parent->_M_parent;
-        } else {
-          if (__w->_M_left == 0 || 
-              __w->_M_left->_M_color == _S_rb_tree_black) {
-            if (__w->_M_right) __w->_M_right->_M_color = _S_rb_tree_black;
-            __w->_M_color = _S_rb_tree_red;
-            _Rotate_left(__w, __root);
-            __w = __x_parent->_M_left;
+        }
+        else {
+          if (__w_left->_M_left == 0 ||
+              __w_left->_M_left->_M_color == _S_rb_tree_black) {
+            if (__w_left->_M_right)
+              __w_left->_M_right->_M_color = _S_rb_tree_black;
+            __w_left->_M_color = _S_rb_tree_red;
+            _Rotate_left(__w_left, __root);
+            __w_left = __x_parent->_M_left;
           }
-          __w->_M_color = __x_parent->_M_color;
+          __w_left->_M_color = __x_parent->_M_color;
           __x_parent->_M_color = _S_rb_tree_black;
-          if (__w->_M_left) __w->_M_left->_M_color = _S_rb_tree_black;
+          if (__w_left->_M_left)
+            __w_left->_M_left->_M_color = _S_rb_tree_black;
           _Rotate_right(__x_parent, __root);
           break;
         }
       }
     if (__x) __x->_M_color = _S_rb_tree_black;
+  }
   }
   return __y;
 }
