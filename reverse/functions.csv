@@ -2927,3 +2927,4 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?Collide@CollisionMath@@SA_NABVAABoxClass@@ABVVector3@@ABVPlaneClass@@PAUCastResultStruct@@@Z,,0x00723F40,635,Code/Libraries/Source/WWVegas/WWMath/colmathaabox.cpp,matched,
 ?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVAABoxClass@@ABVSphereClass@@@Z,,0x007237D0,151,Code/Libraries/Source/WWVegas/WWMath/colmathaabox.cpp,matched,
 ?Intersection_Test@CollisionMath@@SA_NABVAABoxClass@@0@Z,,0x00723740,140,Code/Libraries/Source/WWVegas/WWMath/colmathaabox.cpp,matched,
+?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVAABoxClass@@ABVVector3@@@Z,,0x0071AB30,124,Code/Libraries/Source/WWVegas/WWMath/colmathaabox.cpp,matched,
