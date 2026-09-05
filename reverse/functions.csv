@@ -153,7 +153,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_00001720@@YAXXZ,,0x00001720,19,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00401720
 ??0Snapshot@@QAE@ABV0@@Z,0x00001745,0x00001745,11,Code/GameEngine/Source/Common/System/Snapshot.cpp,matched,Open-BFME5 clean C++; Snapshot copy constructor ignoring its argument
 ?d_0000179f@@YAXXZ,,0x0000179F,1167,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_0040179f
-?d_00001c72@@YAXXZ,,0x00001C72,126,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00401c72
 ?isEmpty@?$StringBase@D@@QBE_NXZ,0x00001E2F,0x00001E2F,20,Code/GameEngine/Source/Common/System/AsciiString.cpp,matched,Open-BFME5 clean C++; narrow StringBase emptiness test over the 16-bit length at offset 4
 ??0RandomAlphaKeyframe@FXParticleSystem@@QAE@XZ,0x00001E7F,0x00001E7F,47,Code/Libraries/Source/WWVegas/WWMath/color.cpp,matched,Open-BFME5 clean C++; RandomAlphaKeyframe initializes a zero uniform alpha range and frame
 ?d_0000200d@@YAXXZ,,0x0000200D,260,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=operator=
@@ -2870,3 +2869,4 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?CrossProduct@Coord3D@@QAEAAV1@ABUCoord3DBase@@0@Z,0x00003C70,0x00003C70,97,Code/Libraries/Source/WWVegas/WWMath/coord3d_crossproduct.cpp,matched,Open-BFME5 clean C++; Coord3D member cross product
 ??_G?$VectorClass@H@@UAEPAXI@Z,,0x0000232B,34,Code/Libraries/Source/WWVegas/WWLib/vector_class_resize.cpp,matched,
 ?Clear@?$VectorClass@H@@UAEXXZ,,0x000F0CD4,37,Code/Libraries/Source/WWVegas/WWLib/vector_class_resize.cpp,matched,
+?nextParam@@YAPADPAD0@Z,,0x00001C72,126,Code/GameEngine/Source/Main/WinMain.cpp,matched,
