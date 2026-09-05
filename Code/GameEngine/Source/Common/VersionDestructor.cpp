@@ -49,3 +49,6 @@ private:
     bool m_showFullVersion;
 };
 Version::~Version() {}
+
+// ?forceVersionDelete@@YAXPAVVersion@@@Z absent-from-retail
+void forceVersionDelete(Version *version) { delete version; }
