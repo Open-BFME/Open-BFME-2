@@ -2942,3 +2942,4 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?obbtri_check_intersection_cross_axis@@YA_NAAUBTIntersectStruct@@MM@Z,,0x00721E50,268,Code/Libraries/Source/WWVegas/WWMath/colmathobbtri.cpp,matched,
 ?obbtri_check_intersection_basis_axis@@YA_NAAUBTIntersectStruct@@MMM@Z,,0x00721F60,288,Code/Libraries/Source/WWVegas/WWMath/colmathobbtri.cpp,matched,
 ?obbtri_check_intersection_normal_axis@@YA_NAAUBTIntersectStruct@@@Z,,0x00722080,334,Code/Libraries/Source/WWVegas/WWMath/colmathobbtri.cpp,matched,
+?Intersection_Test@CollisionMath@@SA_NABVOBBoxClass@@ABVTriClass@@@Z,,0x007221D0,3813,Code/Libraries/Source/WWVegas/WWMath/colmathobbtri.cpp,matched,

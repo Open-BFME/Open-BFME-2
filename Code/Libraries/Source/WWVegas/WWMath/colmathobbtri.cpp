@@ -150,7 +150,6 @@ static inline bool obbtri_check_intersection_normal_axis
 	return obbtri_intersection_separation_test(context,lp,leb0);
 }
 
-// ?Intersection_Test@CollisionMath@@ present-unmatched
 bool CollisionMath::Intersection_Test(const OBBoxClass & box,const TriClass & tri)
 {
 	float dp,leb0;
