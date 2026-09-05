@@ -1,4 +1,8 @@
 // ??$__copy_integer_and_fill@DV?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@@_STL@@YA?AV?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@0@PBDHV10@HHDDD@Z
+// partial score=0.34 date=2026-09-04
+// ??$__copy_integer_and_fill@DV?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@@_STL@@YA?AV?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@0@PBDHV10@HHDDD@Z
+// partial score=0.34 date=2026-09-04
+// ??$__copy_integer_and_fill@DV?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@@_STL@@YA?AV?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@0@PBDHV10@HHDDD@Z
 // partial score=0.27 date=2026-09-04
 // ??$__copy_integer_and_fill@DV?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@@_STL@@YA?AV?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@0@PBDHV10@HHDDD@Z
 // partial score=0.8 date=2026-09-02
@@ -69,8 +73,12 @@ OutputIter __cdecl __copy(
 		RandomAccessIter first, RandomAccessIter last, OutputIter out,
 		const random_access_iterator_tag &, Distance *)
 {
- for (Distance n = last-first; n > 0; --n, ++out, ++first) *out = *first;
- return out;
+	for (Distance n = last - first; n > 0; --n) {
+		*out = *first;
+		++first;
+		++out;
+	}
+	return out;
 }
 
 template <class InputIter, class OutputIter>
@@ -106,14 +114,14 @@ OutputIter __cdecl __copy_integer_and_fill(
 		if (direction == ios_base::left)
 		{
 			out = copy(buffer, buffer + length, out);
- return fill_n(out, pad, fill);
+			return fill_n(out, pad, fill);
 		}
 		else if (direction == ios_base::internal && length != 0 &&
 				(buffer[0] == plus || buffer[0] == minus))
 		{
 			*out++ = buffer[0];
 			out = fill_n(out, pad, fill);
- return copy(buffer + 1, buffer + length, out);
+			return copy(buffer + 1, buffer + length, out);
 		}
 		else if (direction == ios_base::internal && length >= 2 &&
 				(flags & ios_base::showbase) &&
@@ -122,14 +130,15 @@ OutputIter __cdecl __copy_integer_and_fill(
 			*out++ = buffer[0];
 			*out++ = buffer[1];
 			out = fill_n(out, pad, fill);
- return copy(buffer + 2, buffer + length, out);
+			out = copy(buffer + 2, buffer + length, out);
 		}
 		else
 		{
 			out = fill_n(out, pad, fill);
- return copy(buffer, buffer + length, out);
+			out = copy(buffer, buffer + length, out);
 		}
 	}
+	return out;
 }
 
 typedef ostreambuf_iterator<char, char_traits<char> > narrow_output_iterator;
