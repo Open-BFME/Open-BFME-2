@@ -133,3 +133,15 @@ UnicodeString Version::getUnicodeBuildLocation()
 
     return build;
 }
+
+UnicodeString Version::getUnicodeBuildUser()
+{
+    UnicodeString build;
+    UnicodeString user;
+
+    user.translate(AsciiString(m_buildUser));
+    build.format(TheGameText->fetch("Version:BuildUser").str(),
+        user.str());
+
+    return build;
+}
