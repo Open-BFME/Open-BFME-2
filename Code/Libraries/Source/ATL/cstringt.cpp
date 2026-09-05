@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE2
+// cl: /O1 /EHsc /G7 /arch:SSE2
 // ATL 7.1 cstringt.h, supplied by the Open-BFME-1 MSVC 7.1 toolchain.
 // The retail helper selects Win9x conversion or the native Unicode API once,
 // then atomically installs the selected function in the string thunk table.
@@ -19,6 +19,8 @@ typedef const char *LPCSTR;
 typedef char *LPSTR;
 typedef const unsigned short *LPCWSTR;
 typedef unsigned short *LPWORD;
+typedef unsigned short *LPWSTR;
+typedef unsigned long ULONG;
 typedef unsigned int UINT;
 typedef unsigned long DWORD;
 typedef unsigned long LCID;
@@ -40,6 +42,8 @@ extern "C" __declspec(dllimport) int __stdcall GetStringTypeExA(
 extern "C" __declspec(dllimport) void *__cdecl malloc(unsigned int);
 extern "C" __declspec(dllimport) void __cdecl free(void *);
 extern "C" void *__cdecl _alloca(unsigned int);
+extern "C" __declspec(dllimport) DWORD __stdcall GetEnvironmentVariableA(LPCSTR, LPSTR, DWORD);
+extern "C" __declspec(dllimport) int __stdcall MultiByteToWideChar(UINT, DWORD, LPCSTR, int, LPWSTR, int);
 
 extern LPSTR __stdcall AtlW2AHelper(LPSTR, LPCWSTR, int, UINT);
 
@@ -229,8 +233,42 @@ BOOL __stdcall GetStringTypeExWFake(LCID lcid, DWORD dwInfoType,
 int __stdcall lstrcmpiWFake(const unsigned short *, const unsigned short *);
 unsigned short *__stdcall CharLowerWFake(unsigned short *);
 unsigned short *__stdcall CharUpperWFake(unsigned short *);
-unsigned long __stdcall GetEnvironmentVariableWFake(
-    const unsigned short *, unsigned short *, unsigned long);
+template <int t_nBufferLength = 128>
+class CW2AEX
+{
+public:
+    CW2AEX(LPCWSTR psz);
+    ~CW2AEX() throw() { if (m_psz != m_szBuffer) free(m_psz); }
+    operator LPSTR() const throw() { return m_psz; }
+    LPSTR m_psz;
+    char m_szBuffer[t_nBufferLength];
+};
+typedef CW2AEX<> CW2A;
+
+DWORD __stdcall GetEnvironmentVariableWFake(LPCWSTR pszName,
+	LPWSTR pszBuffer, DWORD nSize)
+{
+	ULONG nSizeA;
+	ULONG nSizeW;
+	CTempBuffer<char> pszBufferA;
+	CW2A pszNameA(pszName);
+
+	nSizeA = ::GetEnvironmentVariableA(pszNameA, NULL, 0);
+	if (nSizeA == 0)
+		return 0;
+
+	pszBufferA.Allocate(nSizeA*2);
+	::GetEnvironmentVariableA(pszNameA, pszBufferA, nSizeA);
+
+	nSizeW = ::MultiByteToWideChar(_AtlGetConversionACP(), 0, pszBufferA, -1, NULL, 0);
+	if (nSize == 0)
+		return nSizeW;
+
+	::MultiByteToWideChar(_AtlGetConversionACP(), 0, pszBufferA, -1, pszBuffer, nSizeW);
+
+	return nSizeW;
+}
+
 
 unsigned long __stdcall GetEnvironmentVariableWThunk(
     const unsigned short *name, unsigned short *buffer, unsigned long size)

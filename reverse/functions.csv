@@ -180,7 +180,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ??8Xfer@@UAEAAV0@AAM@Z,0x0000554C,0x0000554C,28,Code/GameEngine/Source/Common/System/Xfer.cpp,matched,Open-BFME5 clean C++; Xfer 'real' transfer operator at slot 28 of the retail vtable
 ??8@YA_NABVGameClientRandomVariable@@0@Z,0x00005568,0x00005568,51,Code/GameEngine/Source/GameClient/ClientRandomValue.cpp,matched,Open-BFME5 clean C++; GameClientRandomVariable equality over type and both Real bounds
 ??9@YA_NABVGameClientRandomVariable@@0@Z,0x0000559B,0x0000559B,21,Code/GameEngine/Source/GameClient/ClientRandomValue.cpp,matched,Open-BFME5 clean C++; GameClientRandomVariable inequality forwarding to the equality body
-?d_00006b09@@YAXXZ,,0x00006B09,10,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00406b09
 ?d_00009450@@YAXXZ,,0x00009450,385,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_00409450
 ?d_000095e0@@YAXXZ,,0x000095E0,569,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_004095e0
 ?d_0000b730@@YAXXZ,,0x0000B730,908,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040b730
@@ -2882,3 +2881,4 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?AllocateHeap@?$CTempBuffer@D$0IA@VCCRTAllocator@ATL@@@ATL@@AAEXI@Z,,0x00005738,34,Code/Libraries/Source/ATL/cstringt.cpp,matched,ATL 7.1 CTempBuffer<char>::AllocateHeap
 ?AllocateBytes@?$CTempBuffer@D$0IA@VCCRTAllocator@ATL@@@ATL@@AAEPADI@Z,,0x00006710,35,Code/Libraries/Source/ATL/cstringt.cpp,matched,ATL 7.1 CTempBuffer<char>::AllocateBytes
 ?GetStringTypeExWFake@ATL@@YGHKKPBGHPAG@Z,,0x00006C44,172,Code/Libraries/Source/ATL/cstringt.cpp,matched,ATL 7.1 GetStringTypeExWFake body at 0x6C44 through GetStringTypeExWThunk 0x6CF0; 0x6B09 is GetEnvironmentVariableWFake
+?GetEnvironmentVariableWFake@ATL@@YGKPBGPAGK@Z,,0x00006B09,285,Code/Libraries/Source/ATL/cstringt.cpp,matched,
