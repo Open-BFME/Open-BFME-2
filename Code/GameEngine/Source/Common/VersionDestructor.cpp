@@ -47,9 +47,9 @@ public:
     AsciiString getAsciiVersion();
     AsciiString getAsciiBuildLocation();
     ~Version();
-    // Address-qualified reconstruction name; original method spelling is unknown.
+    // Reconstruction name; the original method spelling is unknown.
     // Retail body reads the seven named build metadata keys.
-    void initializeBuildMetadata_23870E();
+    void initializeBuildMetadata();
 private:
     int m_major, m_minor, m_buildNum, m_localBuildNum;
     AsciiString m_buildTitle;
@@ -66,7 +66,7 @@ Version::~Version() {}
 // ?forceVersionDelete@@YAXPAVVersion@@@Z absent-from-retail
 void forceVersionDelete(Version *version) { delete version; }
 
-Version::Version() { initializeBuildMetadata_23870E(); }
+Version::Version() { initializeBuildMetadata(); }
 
 AsciiString Version::getAsciiBuildTime()
 {
