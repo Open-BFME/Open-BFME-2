@@ -2911,3 +2911,4 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?Update_Bounding_Boxes_Recursive@AABTreeClass@@AAEXPAUCullNodeStruct@1@@Z,,0x00198800,465,Code/Libraries/Source/WWVegas/WW3D2/aabtree.cpp,matched,
 ?Scale@AABTreeClass@@QAEXM@Z,,0x00197BB0,122,Code/Libraries/Source/WWVegas/WW3D2/aabtree.cpp,matched,
 ?Reset@AABTreeIterator@@QAEXXZ,,0x0065D1C0,8,Code/Libraries/Source/WWVegas/WWMath/aabtreecull.cpp,matched,BFME1 source identity; SSE2 locate unique at retail RVA 0x0065D1C0 size 8
+?Cull@OBBoxIntersectionTestClass@@QAE_NABVVector3@@0@Z,,0x001979F0,124,Code/Libraries/Source/WWVegas/WW3D2/aabtree.cpp,matched,
