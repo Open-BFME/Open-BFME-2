@@ -422,7 +422,6 @@ AABTreeBuilderClass::Select_Splitting_Plane(int polycount,int * polyindices)
  *   6/19/98    GTH : Created.                                                                 *
  *=============================================================================================*/
 AABTreeBuilderClass::SplitChoiceStruct 
-// ?Compute_Plane_Score@AABTreeBuilderClass@@ present-unmatched
 AABTreeBuilderClass::Compute_Plane_Score(int polycount,int * polyindices,const AAPlaneClass & plane)
 {
 	/*
