@@ -1,77 +1,54 @@
 // ?do_get@?$money_get@GV?$istreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@@_STL@@MBE?AV?$istreambuf_iterator@GV?$char_traits@G@_STL@@@2@V32@0_NAAVios_base@2@AAHAAO@Z
-// partial score=0.9 date=2026-09-05
+// partial score=0.92 date=2026-09-06
 ﻿// ?do_get@?$money_get@GV?$istreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@@_STL@@MBE?AV?$istreambuf_iterator@GV?$char_traits@G@_STL@@@2@V32@0_NAAVios_base@2@AAHAAO@Z
-// partial score=0.9 date=2026-09-05
+// partial score=0.92 date=2026-09-06
 //
-// UPDATE 2026-09-05: the two levers that landed money_put::do_put(long double)
-// at 0x0000BDA0 are applied in the source below -- _INC_STDLIB ahead of
-// <locale> so free carries C++ linkage, and the opaque _Locale_impl completed
-// after the include so ~locale inlines instead of being called. Keep them.
+// THE ~70-BYTE EXCESS IS SOLVED HERE TOO, by the same fix the narrow twin at
+// 0x0000C000 carries: istreambuf_iterator::_M_getc was being inlined twice
+// where retail calls it out of line. _istreambuf_iterator.h:85 defines it
+// in-class, so it is implicitly inline; an explicit specialization declared and
+// NOT defined ahead of the instantiation forces the external call back, and it
+// links because the address is already claimed in reverse/functions.csv. For
+// the wide instantiation that is 0x0000A0A0 (68 bytes):
 //
-// THE USEFUL RESULT IS THE PAIRING WITH THE NARROW TWIN. Both money_get
-// long-double do_get bodies were measured with tools/locate.py, which reports
-// the real emitted COMDAT size (build.py prints exactly target_size bytes and
-// will show a spurious match -- the narrow stash carries a correction about
-// exactly that mistake):
+//     namespace _STL {
+//     template <> void istreambuf_iterator<wchar_t, char_traits<wchar_t> >::_M_getc() const;
+//     }
 //
-//     narrow 0x0000C000   348 bytes emitted   277 retail   +71
-//     wide   0x0000DAA0   344 bytes emitted   277 retail   +67
+// Emitted sizes, from tools/locate.py -- NOT build.py, which prints exactly
+// target_size bytes and shows a spurious match:
 //
-// The two instantiations are over by the same amount. That matters, because the
-// narrow stash attributed its whole remaining difference to register allocation
-// -- retail loading [esp+0x50] into edi where MSVC picks ebp. A register
-// substitution is the same length whichever register wins, so it cannot
-// produce a 67-to-71 byte excess, and it certainly cannot produce the SAME
-// excess in two separate instantiations. There is one shared structural
-// difference in this body, present in both twins, and it is worth about 70
-// bytes.
+//     before any levers          373 (narrow) / 344 (wide)
+//     + _INC_STDLIB and ~locale  348 (narrow) / 344 (wide)
+//     + the _M_getc spec         277 (narrow) / 281 (wide)
+//     retail                     277           / 277
 //
-// So the next pass should stop chasing registers here and find the extra code.
-// The body is _monetary.c line 156: default-construct string_type __buf, call
-// the other do_get through the vtable, push_back(0), hand __b/__e to
-// __get_decimal_integer, set eofbit when __s == __end, and free __buf. The
-// obvious candidates for ~70 bytes are a helper that retail CALLS and this
-// build INLINES -- push_back and __get_decimal_integer are the two worth
-// checking first, by decoding the retail body's REL32 sites and seeing which
-// of them have no counterpart in the compiled output.
+// So the narrow twin is now exactly the right size and this one is FOUR BYTES
+// over. That is the whole remaining structural difference here, and four bytes
+// is one instruction: the likely candidate is a widening or a movzx that the
+// wide element needs and the narrow one does not. Find it by diffing this
+// body's instruction stream against the narrow twin's rather than against
+// retail -- the twins should differ only in element width.
 //
-// ---- earlier notes from the 2026-09-02 bank ----
-// ?do_get@?$money_get@... (long double & units), the wide twin
-// partial score=0.9 date=2026-09-02
-// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
+// The 0x0000BDA0 levers are in the source below and still needed: _INC_STDLIB
+// ahead of <locale> so free carries C++ linkage, and the opaque _Locale_impl
+// completed after the include so ~locale inlines.
 //
-// CORRECTION 2026-09-02: the length agreement claimed below is not real.
-// tools/build.py prints exactly target_size bytes of the compiled body, so a
-// compiled length equal to the target length says nothing - ask it for 900
-// bytes and it prints 900. The size locate.py reports for the emitted COMDAT
-// is the real one, and here it is 373 bytes against 277, not 277 against
-// 277. The identification still stands on the vtable slot and on the
-// callees; only the size corroboration is withdrawn.
+// BEYOND THE FOUR BYTES the remaining difference is register allocation, the
+// same as the narrow twin: retail pushes four callee-saved registers and keeps
+// two more values live in ebx and ebp, where this build pushes two and spills
+// them to stack slots, shifting every later displacement by eight. /O2 was
+// re-tested on the narrow twin AFTER the size was corrected and produces
+// byte-identical output, so it is already the default and the earlier
+// refutation of /O2, /O1, /Ox, /Og, /Ob2 and /Gy still stands under the new
+// shape. Do not re-run that sweep; the next idea is to give the two spilled
+// values named locals with a longer live range.
 //
-//
-// The vendored instantiation is enough - no hand-written body is needed.
-// Identified from the facet vtable rather than from any caller: nothing calls
-// this address directly because it is a virtual. The three-slot vtable holding
-// it is the money_get shape - deleting destructor plus the two do_get
-// overloads - and the slot next to it is the string_type overload, whose
-// derived boundary the ledger splits in two. The body confirms it against
-// _monetary.c line 156: default-construct string_type __buf, call the other
-// do_get through the vtable, push_back(0), hand __b/__e to
-// __get_decimal_integer, or eofbit in when __s == __end, and free __buf.
-// The two _M_getc calls with the [esp+0x3e]/[esp+0x46] byte compare after
-// them are istreambuf_iterator::equal inlined.
-//
-// 277 bytes against 277, and the instruction sequence is the same instruction
-// for instruction. The whole difference is which callee-saved register holds
-// which value: retail loads [esp+0x50] into edi and [esp+0x40] into ebp, cl
-// 13.10 loads them into ebp and ebx. Both push the same four registers in the
-// same order, so the prologue matches and the first difference is at 0x28.
-//
-// Refuted: /O2, /O1, /Ox, /Og, /Ob2, /Gy, -D_STLP_USE_MALLOC and -D_CRTIMP=
-// all give the identical 277 bytes with the identical renaming (/O1 is worse,
-// 202 bytes). The source is upstream STLport and cannot be reordered to move
-// the allocation without diverging from it.
-
+// A side effect worth following up: the same specialization drops the sibling
+// wide string_type do_get from 3692 bytes to 3376. Its retail size is 2528 per
+// reverse/re_attempts.log (the ledger's 122-byte gen row at 0x00011230 covers
+// only part of it -- the boundary is split), so that one is still well over
+// and needs its own investigation.
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC
 // stlport
 //
@@ -156,4 +133,13 @@ locale::~locale() _STLP_NOTHROW
 
 }
 
+// Retail CALLS istreambuf_iterator::_M_getc at 0x00007C40 (35 bytes, already
+// claimed in reverse/functions.csv); _istreambuf_iterator.h:85 defines it
+// in-class, so MSVC inlines it instead -- twice in this body, and that alone is
+// the ~70 bytes both money_get twins were over. Declaring an explicit
+// specialization ahead of the instantiation forces the external call back.
+namespace _STL
+{
+template <> void istreambuf_iterator<wchar_t, char_traits<wchar_t> >::_M_getc() const;
+}
 template class _STL::money_get<wchar_t, _STL::istreambuf_iterator<wchar_t, _STL::char_traits<wchar_t> > >;
