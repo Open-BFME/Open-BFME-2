@@ -2877,3 +2877,4 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?CharLowerWFake@ATL@@YGPAGPAG@Z,,0x000033B0,135,Code/Libraries/Source/ATL/cstringt_case.cpp,matched,
 ?CharLowerWThunk@ATL@@YGPAGPAG@Z,,0x00003437,30,Code/Libraries/Source/ATL/cstringt.cpp,matched,
 ?CharUpperWFake@ATL@@YGPAGPAG@Z,,0x00003455,135,Code/Libraries/Source/ATL/cstringt_case.cpp,matched,
+?CharUpperWThunk@ATL@@YGPAGPAG@Z,,0x000034DC,30,Code/Libraries/Source/ATL/cstringt.cpp,matched,

@@ -11,6 +11,7 @@ extern "C" __declspec(dllimport) int __stdcall GetStringTypeExW(
 extern "C" __declspec(dllimport) int __stdcall lstrcmpiW(
     const unsigned short *, const unsigned short *);
 extern "C" __declspec(dllimport) unsigned short *__stdcall CharLowerW(unsigned short *);
+extern "C" __declspec(dllimport) unsigned short *__stdcall CharUpperW(unsigned short *);
 
 namespace ATL
 {
@@ -37,7 +38,7 @@ struct _AtlStringThunks
     ATLGETSTRINGTYPEEXW pfnGetStringTypeExW;
     ATLLSTRCMPIW pfnlstrcmpiW;
     ATLCHARCASEW pfnCharLowerW;
-    void *pfnCharUpperW;
+    ATLCHARCASEW pfnCharUpperW;
     void *pfnGetEnvironmentVariableW;
 };
 extern _AtlStringThunks _strthunks;
@@ -47,6 +48,14 @@ int __stdcall GetStringTypeExWFake(unsigned long, unsigned long,
     const unsigned short *, int, unsigned short *);
 int __stdcall lstrcmpiWFake(const unsigned short *, const unsigned short *);
 unsigned short *__stdcall CharLowerWFake(unsigned short *);
+unsigned short *__stdcall CharUpperWFake(unsigned short *);
+
+unsigned short *__stdcall CharUpperWThunk(unsigned short *text)
+{
+    _AtlInstallStringThunk(reinterpret_cast<void **>(&_strthunks.pfnCharUpperW),
+        CharUpperWFake, ::CharUpperW);
+    return _strthunks.pfnCharUpperW(text);
+}
 
 unsigned short *__stdcall CharLowerWThunk(unsigned short *text)
 {
