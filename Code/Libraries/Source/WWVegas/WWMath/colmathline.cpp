@@ -1,0 +1,67 @@
+// cl: /G7 /arch:SSE2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/sweep
+// Line-triangle collision reused from Open-BFME-1; BFME2 caller at RVA 0x198366
+// reaches this body at RVA 0x714510. Verified against BFME2 retail.
+#include "colmath.h"
+#include "aaplane.h"
+#include "plane.h"
+#include "lineseg.h"
+#include "tri.h"
+#include "sphere.h"
+#include "aabox.h"
+#include "obbox.h"
+#include "wwdebug.h"
+
+bool CollisionMath::Collide(const LineSegClass & line,const TriClass & tri,CastResultStruct * res)
+{
+	TRACK_COLLISION_RAY_TRI;
+
+	/*
+	** Compute intersection of the line with the plane of the polygon
+	*/
+	PlaneClass plane(*tri.N,*tri.V[0]);
+	Vector3 ipoint;
+	float num,den,t;
+
+	den = Vector3::Dot_Product(plane.N,line.Get_DP());
+	
+	/*
+	** If the denominator is zero, the ray is parallel to the plane
+	*/
+	if (den == 0.0f) {
+		return false;
+	}
+	num = -(Vector3::Dot_Product(plane.N,line.Get_P0()) - plane.D);
+	t = num/den;
+
+	/*
+	** If t is not between 0 and 1, the line containing the segment intersects
+	** the plane but the segment does not
+	*/
+	if ((t < 0.0f) || (t > 1.0f)) {
+		return false;
+	}
+
+	ipoint = line.Get_P0() + t*line.Get_DP();
+
+	/*
+	** Check if this point is inside the triangle
+	*/
+	if (!tri.Contains_Point(ipoint)) {
+		return false;
+	}
+
+	/*
+	** Ok, we hit the triangle, set the collision results
+	*/
+	if (t < res->Fraction) {
+		res->Fraction = t;
+		res->Normal = plane.N;
+		if (res->ComputeContactPoint) {
+			res->ContactPoint = line.Get_P0() + res->Fraction * line.Get_DP();
+		}
+		TRACK_COLLISION_RAY_TRI_HIT;
+		return true;
+	}
+	return false;
+}
+
