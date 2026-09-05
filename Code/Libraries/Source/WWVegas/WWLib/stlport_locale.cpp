@@ -26,6 +26,7 @@ public:
     ~locale();
     locale &operator=(const locale &that);
     facet *_M_use_facet(const id &index) const;
+    static const locale &classic();
 
 private:
     _Locale_impl *_M_impl;
@@ -66,6 +67,7 @@ public:
 };
 
 extern _Locale_impl *_Stl_classic_locale_impl;
+extern locale _Stl_loc_classic_locale;
 
 __declspec(dllimport) __forceinline _Locale_impl *_M_add_ref(_Locale_impl *impl)
 {
@@ -112,6 +114,13 @@ locale::facet *locale::_M_use_facet(const id &index) const
         return _M_impl->_M_facets[index._M_index];
 
     return 0;
+}
+
+// STLport 4.5.3 src/locale_impl.cpp: return the classic locale handle,
+// distinct from the refcounted implementation pointer used by locale().
+const locale &locale::classic()
+{
+    return _Stl_loc_classic_locale;
 }
 
 
