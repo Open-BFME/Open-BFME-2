@@ -65,3 +65,35 @@ bool CollisionMath::Collide(const LineSegClass & line,const TriClass & tri,CastR
 	return false;
 }
 
+bool CollisionMath::Collide(const LineSegClass & line,const SphereClass & sphere,CastResultStruct * res)
+{
+	// this game from graphics gems 1, page 388
+	// intersection of a ray with a sphere
+	Vector3 dc = sphere.Center - line.Get_P0();
+	float clen = Vector3::Dot_Product((dc) , line.Get_Dir());
+	float disc = (sphere.Radius * sphere.Radius) - (dc.Length2() - clen*clen);
+	if (disc < 0.0f) {
+		return false;
+	} else {
+		float d = WWMath::Sqrt(disc);
+		float frac = (clen - d) / line.Get_Length();
+		if (frac<0.0f)
+			frac = (clen + d) / line.Get_Length();
+		if (frac<0.0f) return false;
+		if (frac < res->Fraction) {
+
+			res->Fraction = frac;
+
+			Vector3 p = line.Get_P0() + (clen - d)*line.Get_Dir();
+			Vector3 norm = p - sphere.Center;
+			norm /= sphere.Radius;
+			
+			res->Normal = norm;
+			if (res->ComputeContactPoint) {
+				res->ContactPoint = line.Get_P0() + res->Fraction * line.Get_DP();
+			}
+			return true;
+		}
+	}
+	return false;
+}
