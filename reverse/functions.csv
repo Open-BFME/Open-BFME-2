@@ -2946,3 +2946,4 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?Intersect_OBBox_With_Polys@AABTreeClass@@AAE_NPAUCullNodeStruct@1@AAVOBBoxIntersectionTestClass@@@Z,,0x001983D0,419,Code/Libraries/Source/WWVegas/WW3D2/aabtree.cpp,matched,
 ?Intersect_OBBox_Recursive@AABTreeClass@@AAE_NPAUCullNodeStruct@1@AAVOBBoxIntersectionTestClass@@@Z,,0x00198730,200,Code/Libraries/Source/WWVegas/WW3D2/aabtree.cpp,matched,
 ?Reset@BTCollisionStruct@@QAEXXZ,,0x0071F050,599,Code/Libraries/Source/WWVegas/WWMath/colmathobbtri.cpp,matched,
+??0BTCollisionStruct@@QAE@ABVOBBoxClass@@ABVVector3@@ABVTriClass@@1@Z,,0x0071FFF0,67,Code/Libraries/Source/WWVegas/WWMath/colmathobbtri.cpp,matched,
