@@ -2907,3 +2907,4 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ??0ParticleSystemInfo@FXParticleSystem@@QAE@ABV01@@Z,0x00002459,0x00002459,317,Code/GameEngine/Source/GameClient/System/FXParticleSystem/ParticleSystemInfoCopyCtor.cpp,matched,
 ??4ParticleSystemInfo@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x0000200D,0x0000200D,260,Code/GameEngine/Source/GameClient/System/FXParticleSystem/ParticleSystemInfoCopyCtor.cpp,matched,
 ?Read_Nodes@AABTreeClass@@AAEXAAVChunkLoadClass@@@Z,,0x00197D20,182,Code/Libraries/Source/WWVegas/WW3D2/aabtree.cpp,matched,
+?Update_Min_Max@AABTreeClass@@AAEXHAAVVector3@@0@Z,,0x00198580,167,Code/Libraries/Source/WWVegas/WW3D2/aabtree.cpp,matched,
