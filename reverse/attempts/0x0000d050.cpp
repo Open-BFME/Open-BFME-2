@@ -1,6 +1,21 @@
 // ??$__put_integer@V?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@@_STL@@YA?AV?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@0@PAD0V10@AAVios_base@0@HD@Z
 // partial score=0.97 date=2026-09-02
 // cl: /EHs /EHc- /MD /D_STLP_USE_STATIC_LIB
+//
+// Callees, all three read out of retail's own REL32 displacements in this body
+// (offsets relative to 0x0000D050): +0x68 -> 0x000179B0 __copy_trivial,
+// +0x90 -> 0x0001A600 __insert_grouping, +0xC4 -> 0x000095E0
+// __copy_integer_and_fill.  The last of these is now pinned in
+// reverse/symbols.csv; without it the tail call verifies as unresolved.  The
+// 40-byte cleanup after it (83 c4 28) corroborates the identification: ten
+// dwords, which is this call's eight arguments with the iterator passed by
+// value as two.
+//
+// What is left is register allocation, not shape -- the branch displacements
+// already match exactly (74 6f, 74 20, 74 0e).  Retail keeps stream in ebp and
+// spills the numpunct facet to [esp+0x58], reloading it at the thousands_sep
+// call; this body keeps stream in ebx and the facet live in ebp, so it never
+// spills.  Flipping that pair is the whole remaining gap.
 // stlport
 //
 // The narrow twin of 0x00010A70, and three structural differences from it,
