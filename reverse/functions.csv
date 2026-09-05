@@ -168,7 +168,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?areApproxEqual@@YA_NMMM@Z,0x000034FA,0x000034FA,42,Code/Libraries/Source/WWVegas/WWMath/wwmath.cpp,matched,Open-BFME5 clean C++; float equality within a signed tolerance band
 ?scale@Coord3D@@QAEXM@Z,0x000036D1,0x000036D1,49,Code/Libraries/Source/WWVegas/WWMath/region.cpp,matched,Open-BFME5 clean C++; Coord3D component-wise scalar multiplication
 ?d_00003916@@YAXXZ,,0x00003916,101,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Rotate
-?d_00003c70@@YAXXZ,,0x00003C70,97,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=CrossProduct
 ?d_00004079@@YAXXZ,,0x00004079,357,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Matrix4D
 ??0Snapshot@@QAE@XZ,0x000053A6,0x000053A6,9,Code/GameEngine/Source/Common/System/Snapshot.cpp,matched,Open-BFME5 clean C++; Snapshot default constructor installing the vtable at 0x00BBB554
 ??0Xfer@@QAE@XZ,0x000053DE,0x000053DE,9,Code/GameEngine/Source/Common/System/Xfer.cpp,matched,Open-BFME5 clean C++; Xfer constructor installing the vtable at 0x00BBB910
@@ -2869,3 +2868,4 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?__write_formatted_time@_STL@@YAPADPADDDABV_Time_Info@1@PBUtm@@@Z,,0x00018780,1273,Code/Libraries/Source/WWVegas/WWLib/stlport_write_formatted_time.cpp,matched,vendored=stlport-4.5.3;original src/time_facets.cpp body with TU-local ABI declarations
 ??1ParticleSystemInfo@FXParticleSystem@@UAE@XZ,0x0000240E,0x0000240E,75,Code/GameEngine/Source/GameClient/System/FXParticleSystem/ParticleSystemInfoDestructorThunk.cpp,matched,
 ??_GParticleSystemInfo@FXParticleSystem@@UAEPAXI@Z,,0x00002596,28,Code/GameEngine/Source/GameClient/System/FXParticleSystem/ParticleSystemInfoDeletingDestructorThunk.cpp,matched,
+?CrossProduct@Coord3D@@QAEAAV1@ABUCoord3DBase@@0@Z,0x00003C70,0x00003C70,97,Code/Libraries/Source/WWVegas/WWMath/coord3d_crossproduct.cpp,matched,Open-BFME5 clean C++; Coord3D member cross product
