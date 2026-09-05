@@ -2933,3 +2933,4 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?eval_overlap_collision@CollisionMath@@CA?AW4OverlapType@1@ABUCastResultStruct@@@Z,,0x007236C0,37,Code/Libraries/Source/WWVegas/WWMath/colmathaabox.cpp,matched,
 ??G@YA?AVVector3@@ABV0@0@Z,,0x000659E3,55,Code/Libraries/Source/WWVegas/WWMath/colmathaabox.cpp,matched,
 ??H@YA?AVVector3@@ABV0@0@Z,,0x000663B8,55,Code/Libraries/Source/WWVegas/WWMath/colmathaabox.cpp,matched,
+?Add@Vector3@@SAXABV1@0PAV1@@Z,,0x0006E090,55,Code/Libraries/Source/WWVegas/WW3D2/aabtree.cpp,matched,
