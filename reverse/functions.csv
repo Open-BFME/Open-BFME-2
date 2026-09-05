@@ -2936,3 +2936,4 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?Add@Vector3@@SAXABV1@0PAV1@@Z,,0x0006E090,55,Code/Libraries/Source/WWVegas/WW3D2/aabtree.cpp,matched,
 ?Subtract@Vector3@@SAXABV1@0PAV1@@Z,,0x0006E0C7,55,Code/Libraries/Source/WWVegas/WW3D2/aabtree.cpp,matched,
 ??G@YA?AVVector2@@ABV0@0@Z,,0x0007B305,40,Code/Libraries/Source/WWVegas/WW3D2/aabtree.cpp,matched,
+?Set@Vector2@@QAEXMM@Z,,0x0004CAE4,24,Code/Libraries/Source/WWVegas/WW3D2/aabtree.cpp,matched,
