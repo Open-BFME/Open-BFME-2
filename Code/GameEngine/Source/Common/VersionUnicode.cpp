@@ -121,3 +121,15 @@ UnicodeString Version::getUnicodeBuildTime()
 
     return build;
 }
+
+UnicodeString Version::getUnicodeBuildLocation()
+{
+    UnicodeString build;
+    UnicodeString machine;
+
+    machine.translate(AsciiString(m_buildLocation));
+    build.format(TheGameText->fetch("Version:BuildMachine").str(),
+        machine.str());
+
+    return build;
+}
