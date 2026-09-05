@@ -2920,3 +2920,4 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?Find_Dominant_Plane@TriClass@@QBEXPAH0@Z,,0x00724290,206,Code/Libraries/Source/WWVegas/WWMath/tri.cpp,matched,
 ?Collide@CollisionMath@@SA_NABVLineSegClass@@ABVTriClass@@PAUCastResultStruct@@@Z,,0x00714510,450,Code/Libraries/Source/WWVegas/WWMath/colmathline.cpp,matched,
 ?Cast_Ray_To_Polys@AABTreeClass@@AAE_NPAUCullNodeStruct@1@AAVRayCollisionTestClass@@@Z,,0x001981F0,480,Code/Libraries/Source/WWVegas/WW3D2/aabtree.cpp,matched,
+?Cast_Ray_Recursive@AABTreeClass@@AAE_NPAUCullNodeStruct@1@AAVRayCollisionTestClass@@@Z,,0x00198630,252,Code/Libraries/Source/WWVegas/WW3D2/aabtree.cpp,matched,
