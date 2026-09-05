@@ -1,5 +1,39 @@
 // ?SkipNext@Debug@@SA_N_N@Z
-// partial score=0.9 date=2026-09-03
+// partial score=0.95 date=2026-09-05
+﻿// ?SkipNext@Debug@@SA_N_N@Z
+// partial score=0.95 date=2026-09-05
+//
+// THE SCHEDULING MISS IS FIXED. The 2026-09-03 bank recorded it exactly:
+// "retail stores the captured return address to its slot immediately and then
+// loads the Debug pointer, where cl loads the pointer first". The cause is
+// that the singleton pointer is VOLATILE:
+//
+//     Debug *volatile theDebug;
+//
+// As a plain `Debug *` the global is an ordinary load and MSVC 7.1 hoists it
+// into the gap after `mov eax,[ebp+4]`, ahead of the volatile store. Declaring
+// it volatile makes the load a volatile access, which cannot be reordered past
+// the volatile store, and the whole instruction sequence falls into retail's
+// order. 13 differing bytes of 33 down to 6, exact prefix 11.
+//
+// The same one-word change fixes the identical miss in the __heap_abort bank
+// at reverse/attempts/0x000398a0.cpp -- that body IS this one inlined -- so
+// apply it to any other Debug-singleton body that shows the same symptom.
+//
+// WHAT IS LEFT is a register phase, and it is the only difference:
+//
+//   retail   8b 55 08  mov edx,[ebp+8]   ...  8b 01  mov eax,[ecx]   ... 52 push edx ... ff 50 5c
+//   this     8b 45 08  mov eax,[ebp+8]   ...  8b 11  mov edx,[ecx]   ... 50 push eax ... ff 52 5c
+//
+// Retail puts the pushed DATA in edx and the VTABLE in eax; MSVC 7.1 does the
+// reverse. In __heap_abort the same phase runs through all four virtual calls
+// and alternates, so the first vtable load sets it for the whole body -- flip
+// that one and the rest follow.
+//
+// Untried ideas for the phase, in order: give SetCrashAddress a return value
+// the caller uses, so eax is committed before the argument temp is created;
+// spell the singleton as a reference rather than a pointer; and try /Ob0 to
+// see whether the allocator's preference order changes at all.
 // cl: /Oy- /MD
 //
 // WWDebug Debug::SkipNext. It records the call site for the crash or assert
@@ -49,7 +83,7 @@ public:
 	static bool SkipNext(bool set);
 };
 
-Debug *theDebug;
+Debug *volatile theDebug;
 
 bool Debug::SkipNext(bool set)
 {
