@@ -180,7 +180,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_000095e0@@YAXXZ,,0x000095E0,569,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_004095e0
 ?d_0000b730@@YAXXZ,,0x0000B730,908,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040b730
 ?d_0000bc60@@YAXXZ,,0x0000BC60,314,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040bc60
-?d_0000bda0@@YAXXZ,,0x0000BDA0,174,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040bda0
 ?d_0000be50@@YAXXZ,,0x0000BE50,205,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040be50
 ?d_0000c000@@YAXXZ,,0x0000C000,277,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040c000
 ?d_0000d050@@YAXXZ,,0x0000D050,214,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040d050
@@ -2957,3 +2956,4 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?obbtri_compute_contact_point@@YAXAAUBTCollisionStruct@@PAUCastResultStruct@@@Z,,0x0071F9F0,1016,Code/Libraries/Source/WWVegas/WWMath/colmathobbtri.cpp,matched,
 ?reserve@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@QAEXI@Z,,0x0000DEA0,102,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_string_reserve.cpp,matched,stlport-4.5.3 wide basic_string reserve; clean C++ replacing the gen_asm dump
 ??8locale@_STL@@QBE_NABV01@@Z,,0x0000BB10,295,Code/Libraries/Source/WWVegas/WWLib/stlport_locale_equal.cpp,matched,stlport-4.5.3 locale::operator==; clean C++ replacing the gen_asm dump; string operator!= declared nothrow so no try-region transition brackets the _Nameless call
+?do_put@?$money_put@DV?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@@_STL@@MBE?AV?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@2@V32@_NAAVios_base@2@DO@Z,,0x0000BDA0,174,Code/Libraries/Source/WWVegas/WWLib/stlport_money_put_long_double.cpp,matched,stlport-4.5.3 money_put<char> long-double do_put; clean C++ replacing the gen_asm dump; _INC_STDLIB suppresses the vendor stdlib.h so free carries C++ linkage and _Locale_impl is completed after the include so ~locale inlines
