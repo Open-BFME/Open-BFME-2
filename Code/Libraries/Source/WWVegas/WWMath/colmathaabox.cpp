@@ -15,7 +15,6 @@
 #include "obbox.h"
 #include "wwdebug.h"
 
-// ?Intersection_Test@CollisionMath@@ present-unmatched
 bool CollisionMath::Intersection_Test(const AABoxClass & box,const AABoxClass & box2)
 {
 	Vector3 dc = box2.Center - box.Center;
