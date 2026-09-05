@@ -188,7 +188,6 @@ void DebugIOFlat::OutputStream::InternalWrite(const char *src, unsigned len)
   }
 }
 
-// ?Flush@OutputStream@DebugIOFlat@@ present-unmatched
 void DebugIOFlat::OutputStream::Flush(void)
 {
   if (!m_limitedFileSize)
@@ -201,7 +200,7 @@ void DebugIOFlat::OutputStream::Flush(void)
   else
   {
     // create file, write ring buffer
-    m_fileHandle=CreateFile(m_fileName,GENERIC_WRITE,0,NULL,CREATE_ALWAYS,
+    m_fileHandle=CreateFile(m_fileName,GENERIC_WRITE,FILE_SHARE_READ,NULL,CREATE_ALWAYS,
                             FILE_ATTRIBUTE_NORMAL|FILE_FLAG_WRITE_THROUGH,
                             NULL);
     DWORD written;
