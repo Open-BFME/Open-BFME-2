@@ -99,7 +99,6 @@ void TriClass::Find_Dominant_Plane(int * axis1,int * axis2) const
 }
 
 
-// ?Contains_Point@TriClass@@ present-unmatched
 bool TriClass::Contains_Point(const Vector3 & ipoint) const
 {
 	int vi;
