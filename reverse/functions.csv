@@ -2922,3 +2922,4 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?Cast_Ray_To_Polys@AABTreeClass@@AAE_NPAUCullNodeStruct@1@AAVRayCollisionTestClass@@@Z,,0x001981F0,480,Code/Libraries/Source/WWVegas/WW3D2/aabtree.cpp,matched,
 ?Cast_Ray_Recursive@AABTreeClass@@AAE_NPAUCullNodeStruct@1@AAVRayCollisionTestClass@@@Z,,0x00198630,252,Code/Libraries/Source/WWVegas/WW3D2/aabtree.cpp,matched,
 ?Collide@CollisionMath@@SA_NABVLineSegClass@@ABVSphereClass@@PAUCastResultStruct@@@Z,,0x00714160,414,Code/Libraries/Source/WWVegas/WWMath/colmathline.cpp,matched,
+?Collide@CollisionMath@@SA_NABVLineSegClass@@ABVPlaneClass@@PAUCastResultStruct@@@Z,,0x00714060,254,Code/Libraries/Source/WWVegas/WWMath/colmathline.cpp,matched,

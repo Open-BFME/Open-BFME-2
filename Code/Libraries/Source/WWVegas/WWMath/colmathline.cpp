@@ -97,3 +97,45 @@ bool CollisionMath::Collide(const LineSegClass & line,const SphereClass & sphere
 	}
 	return false;
 }
+
+bool CollisionMath::Collide(const LineSegClass & line,const PlaneClass & plane,CastResultStruct * result)
+{
+	float num,den,t;
+	den = Vector3::Dot_Product(plane.N,line.Get_DP());
+
+	/*
+	** If the denominator is zero, the ray is parallel to the plane
+	*/
+	if (den == 0.0f) {
+		return false;
+	}
+
+	num = -(Vector3::Dot_Product(plane.N,line.Get_P0()) - plane.D);
+	t = num/den;
+
+	/*
+	** If t is not between 0 and 1, the line containing the segment intersects
+	** the plane but the segment does not
+	*/
+	if ((t < 0.0f) || (t > 1.0f)) {
+		return false;
+	}
+
+	/*
+	** Ok, we hit the plane!
+	*/
+	if (t < result->Fraction) {
+		result->Fraction = t;
+		result->Normal = plane.N;
+
+		/*
+		** if user is asking for the point, compute it.
+		*/
+		if (result->ComputeContactPoint) {
+			result->ContactPoint = line.Get_P0() + result->Fraction * line.Get_DP();
+		}
+		return true;
+	}
+	return false;
+}
+
