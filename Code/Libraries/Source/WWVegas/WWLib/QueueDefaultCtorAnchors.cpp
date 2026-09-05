@@ -18,7 +18,8 @@
 // the width is all any of these fifteen retail sites actually prove about T.
 //
 // _M_initialize_map does say it, and nine of them are converted in
-// RvaDequeInitializeMap.cpp: the shift it divides the element count by is
+// reference/open-bfme-1's RvaDequeInitializeMap.cpp: the shift it divides the element
+// count by is
 // 128/sizeof(T),
 // STLport's buffer size -- 128 bytes of node divided by the element -- so a
 // `shr 5` is a four-byte element and a `shr 2` a 32-byte one.  Ten elements carry the width their callee proves -- the

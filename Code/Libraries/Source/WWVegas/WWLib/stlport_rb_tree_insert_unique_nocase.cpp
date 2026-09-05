@@ -3,7 +3,8 @@
 
 // STLport _Rb_tree<AsciiString, V>::insert_unique(const value_type
 // &) for the three trees whose comparator is case-insensitive -- 275 bytes each
-// where the case-sensitive siblings in RvaTreeInsertUniquePlain.cpp are 310.
+// where the case-sensitive siblings in reference/open-bfme-1's 
+// RvaTreeInsertUniquePlain.cpp are 310.
 //
 // The thirty-five byte difference is the comparison.  less<AsciiString> inlines
 // AsciiString::compare -- two lengths as halfwords, repe cmpsb, the length
@@ -13,8 +14,9 @@
 // is stringbaseascii rather than the case-sensitive file's.
 //
 // The comparator has no name the bytes reach, so it is spelled for the function
-// it calls, exactly as the _M_insert conversions in RvaTreeMInsertStringKey.cpp
-// already spell it; the tree types come from those _M_insert bodies unchanged,
+// it calls, exactly as the _M_insert conversions in reference/open-bfme-1's 
+// RvaTreeMInsertStringKey.cpp already spell it; the tree types come from those
+// _M_insert bodies unchanged,
 // which is why the mapped types are named for the _M_insert's address.
 
 #define _BFME_RETAIL_TREE_INSERT_LAYOUT
@@ -27,7 +29,7 @@
 extern "C" __declspec(dllimport) int __cdecl _memicmp( const void *buf1, const void *buf2, unsigned int count );
 
 // StringBase<char>::compareNoCase, spelled out where the sibling
-// RvaTreeInsertUniquePlain.cpp lets the shim spell compare.  It has to be a
+// reference/open-bfme-1's RvaTreeInsertUniquePlain.cpp lets the shim spell compare.  It has to be a
 // real function rather than a hand-inlined expression, because retail expands
 // it at one of the two comparison sites in each of these bodies and calls the
 // out-of-line copy at 0x00090570 at the other -- an inline budget spent inside
@@ -50,8 +52,8 @@ inline int StringBase<char>::compareNoCase( const StringBase<char> &str ) const
 }
 
 // The comparator has no name the bytes reach; it is spelled for the function it
-// calls, exactly as the _M_insert conversions in RvaTreeMInsertStringKey.cpp
-// already spell it.
+// calls, exactly as the _M_insert conversions in reference/open-bfme-1's 
+// RvaTreeMInsertStringKey.cpp already spell it.
 struct BfmeStringNoCaseLess
 {
 	bool operator()( const AsciiString &left, const AsciiString &right ) const
