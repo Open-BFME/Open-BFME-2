@@ -63,7 +63,7 @@ bool SortingRendererClass::_EnableTriangleDraw=true;
 static unsigned DEFAULT_SORTING_POLY_COUNT = 16384;	// (count * 3) must be less than 65536
 static unsigned DEFAULT_SORTING_VERTEX_COUNT = 32768;	// count must be less than 65536
 
-// ?SetMinVertexBufferSize@SortingRendererClass@@SAXI@Z present-unmatched
+// ?SetMinVertexBufferSize@SortingRendererClass@@SAXI@Z
 void SortingRendererClass::SetMinVertexBufferSize( unsigned val )
 {
 	DEFAULT_SORTING_VERTEX_COUNT = val;
@@ -633,6 +633,7 @@ void SortingRendererClass::Flush_Sorting_Pool()
 
 // ----------------------------------------------------------------------------
 
+// ?Deinit@SortingRendererClass@@SAXXZ
 void SortingRendererClass::Deinit()
 {
 	SortingNodeStruct *head = NULL;

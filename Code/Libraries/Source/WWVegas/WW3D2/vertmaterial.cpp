@@ -159,7 +159,7 @@ VertexMaterialClass::VertexMaterialClass(const VertexMaterialClass & src) :
 }
 
 // byte-exact reconstruction: Code/Libraries/Source/WWVegas/WW3D2/VertexMaterialClassFieldWrites.cpp
-// ?Make_Unique@VertexMaterialClass@@QAEXXZ present-unmatched
+// ?Make_Unique@VertexMaterialClass@@QAEXXZ
 void VertexMaterialClass::Make_Unique()
 {
 	CRCDirty=true;
@@ -190,7 +190,7 @@ VertexMaterialClass::~VertexMaterialClass(void)
 }
 
 // byte-exact reconstruction: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/vertmaterial.cpp
-// ??4VertexMaterialClass@@QAEAAV0@ABV0@@Z present-unmatched
+// ??4VertexMaterialClass@@QAEAAV0@ABV0@@Z
 VertexMaterialClass & VertexMaterialClass::operator = (const VertexMaterialClass &src)
 {	
 
@@ -272,7 +272,7 @@ void VertexMaterialClass::Set_Ambient(const Vector3 & color)
 }
 
 // byte-exact reconstruction: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/vertmaterial.cpp
-// ?Set_Ambient@VertexMaterialClass@@ present-unmatched
+// ?Set_Ambient@VertexMaterialClass@@QAEXMMM@Z present-unmatched
 void VertexMaterialClass::Set_Ambient(float r,float g,float b)
 {
 	CRCDirty=true;
@@ -283,6 +283,7 @@ void VertexMaterialClass::Set_Ambient(float r,float g,float b)
 
 // Diffuse Get and Sets
 
+// ?Get_Diffuse@VertexMaterialClass@@QBEXPAVVector3@@@Z present-unmatched
 void VertexMaterialClass::Get_Diffuse(Vector3 * set) const
 {
 	assert(set); 
@@ -309,7 +310,7 @@ void VertexMaterialClass::Set_Diffuse(const Vector3 & color)
 }
 
 // byte-exact reconstruction: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/vertmaterial.cpp
-// ?Set_Diffuse@VertexMaterialClass@@ present-unmatched
+// ?Set_Diffuse@VertexMaterialClass@@QAEXMMM@Z present-unmatched
 void VertexMaterialClass::Set_Diffuse(float r,float g,float b)
 {
 	CRCDirty=true;
@@ -338,7 +339,7 @@ void VertexMaterialClass::Set_Specular(const Vector3 & color)
 }
 
 // byte-exact reconstruction: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/vertmaterial.cpp
-// ?Set_Specular@VertexMaterialClass@@ present-unmatched
+// ?Set_Specular@VertexMaterialClass@@QAEXMMM@Z present-unmatched
 void VertexMaterialClass::Set_Specular(float r,float g,float b)
 {
 	CRCDirty=true;
@@ -367,7 +368,7 @@ void VertexMaterialClass::Set_Emissive(const Vector3 & color)
 }
 
 // byte-exact reconstruction: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/vertmaterial.cpp
-// ?Set_Emissive@VertexMaterialClass@@ present-unmatched
+// ?Set_Emissive@VertexMaterialClass@@QAEXMMM@Z present-unmatched
 void VertexMaterialClass::Set_Emissive(float r,float g,float b)
 {
 	CRCDirty=true;
@@ -391,6 +392,7 @@ void	VertexMaterialClass::Set_Shininess(float shin)
 	Material->Power=shin;
 }
 
+// ?Get_Opacity@VertexMaterialClass@@QBEMXZ present-unmatched
 float	VertexMaterialClass::Get_Opacity(void) const
 {
 	const D3DMATERIAL8 *material = *reinterpret_cast<const D3DMATERIAL8 *const *>(reinterpret_cast<const char *>(this) + 8);
@@ -475,7 +477,7 @@ VertexMaterialClass::Get_Diffuse_Color_Source(void)
 }
 
 // byte-exact reconstruction: Code/Libraries/Source/WWVegas/WW3D2/VertexMaterialClassFieldWrites.cpp
-// ?Set_UV_Source@VertexMaterialClass@@QAEXHH@Z present-unmatched
+// ?Set_UV_Source@VertexMaterialClass@@QAEXHH@Z
 void VertexMaterialClass::Set_UV_Source(int stage,int array_index)
 {
 	WWASSERT(stage >= 0);
@@ -524,6 +526,7 @@ void VertexMaterialClass::Init_From_Material3(const W3dMaterial3Struct & mat3)
 	Set_Opacity(mat3.Opacity);
 }
 
+// ?Load_W3D@VertexMaterialClass@@QAE?AW4WW3DErrorType@@AAVChunkLoadClass@@@Z present-unmatched
 WW3DErrorType VertexMaterialClass::Load_W3D(ChunkLoadClass & cload)
 {
 	char name[256];
@@ -612,6 +615,7 @@ void VertexMaterialClass::Parse_W3dVertexMaterialStruct(const W3dVertexMaterialS
 	}
 }
 
+// ?Parse_Mapping_Args@VertexMaterialClass@@QAEXABUW3dVertexMaterialStruct@@PAD1@Z present-unmatched
 void VertexMaterialClass::Parse_Mapping_Args(const W3dVertexMaterialStruct & vmat,char * mapping0_arg_buffer,char * mapping1_arg_buffer)
 {
 	

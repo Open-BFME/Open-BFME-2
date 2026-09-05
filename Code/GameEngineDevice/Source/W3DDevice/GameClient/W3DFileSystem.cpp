@@ -98,6 +98,7 @@ GameFileClass::GameFileClass( void )
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
+// ??1GameFileClass@@UAE@XZ present-unmatched
 GameFileClass::~GameFileClass()
 {
 
@@ -108,6 +109,7 @@ GameFileClass::~GameFileClass()
 //-------------------------------------------------------------------------------------------------
 /** Gets the file name */
 //-------------------------------------------------------------------------------------------------
+// ?File_Name@GameFileClass@@UBEPBDXZ present-unmatched
 char const * GameFileClass::File_Name( void ) const
 {
 
@@ -339,6 +341,7 @@ char const * GameFileClass::Set_Name( char const *filename )
 //-------------------------------------------------------------------------------------------------
 /** If we found a gdi asset, the file is available. */
 //-------------------------------------------------------------------------------------------------
+// ?Is_Available@GameFileClass@@UAE_NH@Z present-unmatched
 bool GameFileClass::Is_Available( int forced ) 
 {
 
@@ -350,6 +353,7 @@ bool GameFileClass::Is_Available( int forced )
 //-------------------------------------------------------------------------------------------------
 /** Is the file open. */
 //-------------------------------------------------------------------------------------------------
+// ?Is_Open@GameFileClass@@UBE_NXZ present-unmatched
 bool GameFileClass::Is_Open(void) const
 {
 	return m_theFile != NULL;
@@ -358,6 +362,7 @@ bool GameFileClass::Is_Open(void) const
 //-------------------------------------------------------------------------------------------------
 /** Open the named file. */
 //-------------------------------------------------------------------------------------------------
+// ?Open@GameFileClass@@UAEHPBDH@Z present-unmatched
 int  GameFileClass::Open(char const *filename, int rights) 
 {
 	Set_Name(filename);
@@ -370,6 +375,7 @@ int  GameFileClass::Open(char const *filename, int rights)
 //-------------------------------------------------------------------------------------------------
 /** Open the file using the current file name. */
 //-------------------------------------------------------------------------------------------------
+// ?Open@GameFileClass@@UAEHH@Z present-unmatched
 int  GameFileClass::Open(int rights) 
 {
 	if( rights != READ ) 
@@ -442,6 +448,7 @@ int GameFileClass::Write(void const *buffer, Int len)
 //-------------------------------------------------------------------------------------------------
 /** Close. */
 //-------------------------------------------------------------------------------------------------
+// ?Close@GameFileClass@@UAEXXZ present-unmatched
 void GameFileClass::Close(void) 
 {
 	if (m_theFile) {
@@ -471,7 +478,7 @@ extern W3DFileSystem *TheW3DFileSystem = NULL;
 /** Constructor.  Creating an instance of this class overrices the default 
 W3D file factory.  */
 //-------------------------------------------------------------------------------------------------
-// ??0W3DFileSystem@@QAE@XZ present-unmatched
+// ??0W3DFileSystem@@QAE@XZ
 W3DFileSystem::W3DFileSystem(void)
 {
 	_TheFileFactory = this; // override the w3d file factory.
@@ -481,6 +488,7 @@ W3DFileSystem::W3DFileSystem(void)
 /** Destructor.  This removes the W3D file factory, so shouldn't be done until
 after W3D is shutdown.  */
 //-------------------------------------------------------------------------------------------------
+// ??1W3DFileSystem@@UAE@XZ present-unmatched
 W3DFileSystem::~W3DFileSystem(void)
 {
 	_TheFileFactory = NULL; // remove the w3d file factory.
@@ -489,6 +497,7 @@ W3DFileSystem::~W3DFileSystem(void)
 //-------------------------------------------------------------------------------------------------
 /** Gets a file with the specified filename. */
 //-------------------------------------------------------------------------------------------------
+// ?Get_File@W3DFileSystem@@UAEPAVFileClass@@PBD@Z present-unmatched
 FileClass * W3DFileSystem::Get_File( char const *filename )
 {
 	return NEW GameFileClass( filename );	// poolify
@@ -497,8 +506,8 @@ FileClass * W3DFileSystem::Get_File( char const *filename )
 //-------------------------------------------------------------------------------------------------
 /** Releases a file returned by Get_File. */
 //-------------------------------------------------------------------------------------------------
+// ?Return_File@W3DFileSystem@@UAEXPAVFileClass@@@Z present-unmatched
 void W3DFileSystem::Return_File( FileClass *file )
 {
 	delete file;
 }
-
