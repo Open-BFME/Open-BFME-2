@@ -139,3 +139,40 @@ bool CollisionMath::Collide(const LineSegClass & line,const PlaneClass & plane,C
 	return false;
 }
 
+
+bool CollisionMath::Collide(const LineSegClass & line,const AAPlaneClass & plane,CastResultStruct * result)
+{
+	float num,den,t;
+
+	den = line.Get_DP()[plane.Normal];
+
+	/*
+	** Check if line is parallel to this plane
+	*/
+	if (den == 0.0f) {
+		return false;
+	}
+
+	num = -(line.Get_P0()[plane.Normal] - plane.Dist);
+	t = num/den;
+
+	/*
+	** If t is not between 0 and 1, the line containing the segment intersects
+	** the plane but the segment does not
+	*/
+	if ((t < 0.0f) || (t > 1.0f)) {
+		return false;
+	}
+
+	/*
+	** Ok, we hit the plane!
+	*/
+	if (t < result->Fraction) {
+		result->Fraction = t;
+		result->Normal.Set(0,0,0);
+		result->Normal[plane.Normal] = 1.0f;
+		return true;
+	}
+	return false;
+}
+
