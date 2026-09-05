@@ -789,7 +789,6 @@ int AABTreeBuilderClass::Node_Count_Recursive(CullNodeStruct * node,int curcount
  * HISTORY:                                                                                    *
  *   6/22/98    GTH : Created.                                                                 *
  *=============================================================================================*/
-// ?Update_Min@AABTreeBuilderClass@@ present-unmatched
 void AABTreeBuilderClass::Update_Min(int poly_index,Vector3 & min)
 {
 	for (int vert_index = 0; vert_index < 3; vert_index++) {
