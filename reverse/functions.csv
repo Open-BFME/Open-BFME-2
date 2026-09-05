@@ -167,7 +167,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_0000275d@@YAXXZ,,0x0000275D,395,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_0040275d
 ?d_00002c39@@YAXXZ,,0x00002C39,10,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00402c39
 ?d_0000319f@@YAXXZ,,0x0000319F,6,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Catch@0040319f
-?d_000032da@@YAXXZ,,0x000032DA,62,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_004032da
 ?d_00003318@@YAXXZ,,0x00003318,122,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00403318
 ?areApproxEqual@@YA_NMMM@Z,0x000034FA,0x000034FA,42,Code/Libraries/Source/WWVegas/WWMath/wwmath.cpp,matched,Open-BFME5 clean C++; float equality within a signed tolerance band
 ?scale@Coord3D@@QAEXM@Z,0x000036D1,0x000036D1,49,Code/Libraries/Source/WWVegas/WWMath/region.cpp,matched,Open-BFME5 clean C++; Coord3D component-wise scalar multiplication
@@ -2867,3 +2866,4 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?seekoff@stdio_streambuf_base@_SgI@@MAE?AV?$fpos@H@_STL@@JHH@Z,,0x0001CEF0,126,Code/Libraries/Source/WWVegas/WWLib/stlport_stdio_streambuf.cpp,matched,stlport 4.5.3; slot 2 of 0x007BCCAC; fseek then fgetpos - the dec/dec/sub-2 chain decoding the seekdir is what dates beg cur end at 1 2 4
 ?seekpos@stdio_streambuf_base@_SgI@@MAE?AV?$fpos@H@_STL@@V34@H@Z,,0x0001CF70,81,Code/Libraries/Source/WWVegas/WWLib/stlport_stdio_streambuf.cpp,matched,stlport 4.5.3; slot 3 of 0x007BCCAC; fsetpos on a sign-extended fpos_t
 ?showmanyc@stdio_istreambuf@_SgI@@MAEHXZ,,0x0001CE50,124,Code/Libraries/Source/WWVegas/WWLib/stlport_stdio_streambuf.cpp,matched,stlport 4.5.3; slot 5 of 0x007BBC6C; fstat the descriptor at FILE+0x10 for a regular file size then subtract ftell
+?_AtlInstallStringThunk@ATL@@YAXPAPAXPAX1@Z,,0x000032DA,62,Code/Libraries/Source/ATL/cstringt.cpp,matched,
