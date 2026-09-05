@@ -62,6 +62,23 @@ protected:
 };
 
 template <class T>
+VectorClass<T>::~VectorClass()
+{
+	Clear();
+}
+
+template <class T>
+void VectorClass<T>::Clear()
+{
+	if (Vector != 0 && IsAllocated) {
+		delete [] Vector;
+		Vector = 0;
+	}
+	IsAllocated = false;
+	VectorMax = 0;
+}
+
+template <class T>
 bool VectorClass<T>::Resize(int newsize, T const *array)
 {
 	if (newsize) {

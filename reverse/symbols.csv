@@ -477,3 +477,4 @@ __CIpow,0x006299A0,address read from the REL32 displacement at a placed body; st
 ?do_neg_format@?$moneypunct@G$0A@@_STL@@MBE?AUpattern@money_base@2@XZ,0x00019740,moneypunct vftable slot; the default facet reports no locale data so this body serves every instantiation that names it
 ?do_frac_digits@?$moneypunct@G$0A@@_STL@@MBEHXZ,0x0065CE90,moneypunct vftable slot; the default facet reports no locale data so this body serves every instantiation that names it; folded onto basic_streambuf<wchar_t>::sync - both are xor eax,eax
 ?releaseBuffer@?$StringBase@D@@AAEXXZ,0x00036410,BFME2 export and retail releaseBuffer target for ParticleSystemInfo StringBase<char> members at +0x10/+0x68/+0x78
+?Clear@?$VectorClass@H@@UAEXXZ,0x000F0CD4,VectorClass<int>::Clear; vftable 0x007BB5AC slot 3 and scalar dtor call at 0x0000232B identify the retail body
