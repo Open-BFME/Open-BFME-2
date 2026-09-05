@@ -2906,3 +2906,4 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?getUnicodeBuildUser@Version@@QAE?AVUnicodeString@@XZ,,0x002383F0,216,Code/GameEngine/Source/Common/VersionUnicode.cpp,matched,retail clean C++; Version m_buildUser +0x18; TheGameText VA 0xDFF0BC fetch slot +0x3C; format 0x6CB5D0 translate 0x6CB6A0 Ascii copy 0x365F0 release 0x36410/0x36E70 copy 0x37050; label at 0xBED28C
 ??0ParticleSystemInfo@FXParticleSystem@@QAE@ABV01@@Z,0x00002459,0x00002459,317,Code/GameEngine/Source/GameClient/System/FXParticleSystem/ParticleSystemInfoCopyCtor.cpp,matched,
 ??4ParticleSystemInfo@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x0000200D,0x0000200D,260,Code/GameEngine/Source/GameClient/System/FXParticleSystem/ParticleSystemInfoCopyCtor.cpp,matched,
+?Read_Nodes@AABTreeClass@@AAEXAAVChunkLoadClass@@@Z,,0x00197D20,182,Code/Libraries/Source/WWVegas/WW3D2/aabtree.cpp,matched,
