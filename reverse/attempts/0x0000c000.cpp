@@ -1,35 +1,62 @@
 // ?do_get@?$money_get@DV?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@@_STL@@MBE?AV?$istreambuf_iterator@DV?$char_traits@D@_STL@@@2@V32@0_NAAVios_base@2@AAHAAO@Z
-// partial score=0.9 date=2026-09-05
+// partial score=0.92 date=2026-09-06
 ﻿// ?do_get@?$money_get@DV?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@@_STL@@MBE?AV?$istreambuf_iterator@DV?$char_traits@D@_STL@@@2@V32@0_NAAVios_base@2@AAHAAO@Z
-// partial score=0.9 date=2026-09-05
+// partial score=0.92 date=2026-09-06
 //
-// UPDATE 2026-09-05: the two levers that landed money_put::do_put(long double)
-// at 0x0000BDA0 have been applied here and they help, but they do NOT close
-// this body. Both are in the source below; keep them.
+// THE 70-BYTE EXCESS IS SOLVED. It was istreambuf_iterator::_M_getc, inlined
+// twice where retail calls it out of line at 0x00007C40 (35 bytes, already
+// claimed in reverse/functions.csv). _istreambuf_iterator.h:85 defines
+// _M_getc in-class, so it is implicitly inline and MSVC expands it; two
+// expansions of a 35-byte body against two 5-byte calls is the whole excess.
 //
-//   * _INC_STDLIB ahead of <locale>, so free carries C++ linkage. See the
-//     0x0000BDA0 landing for why the extern "C" spelling is wrong: it is
-//     nothrow, so MSVC reaches it through the import and drops the unwind
-//     state store retail carries beside it.
-//   * the opaque _Locale_impl completed after the include and ~locale defined
-//     ahead of the instantiation, so the destructor inlines as
-//     _M_impl->_M_decr() rather than being called out of line.
+// THE FIX IS AN EXPLICIT SPECIALIZATION DECLARED AHEAD OF THE INSTANTIATION:
+//
+//     namespace _STL {
+//     template <> void istreambuf_iterator<char, char_traits<char> >::_M_getc() const;
+//     }
+//
+// Declared and not defined, so MSVC must emit the external call, and the
+// symbol is already in the ledger at 0x00007C40 so it resolves. This is a new
+// technique in this tree and it generalises: any STLport helper defined
+// in-class that retail calls out of line can be forced back to a call this
+// way, as long as the address is already claimed or pinned. It is the third
+// member of the family that includes completing an opaque type to recover an
+// inlined destructor (see 0x0000BDA0).
 //
 // Measured with tools/locate.py, which reports the real emitted COMDAT size --
-// NOT with build.py, which prints exactly target_size bytes and would show a
-// spurious 277 (the correction below made that mistake once already):
+// NOT build.py, which prints exactly target_size bytes and shows a spurious
+// match; this stash has been burned by that once already, see the 2026-09-02
+// correction below.
 //
-//     before the levers   373 bytes
-//     after  the levers   348 bytes
-//     retail              277 bytes
+//     before any levers          373 bytes
+//     + _INC_STDLIB and ~locale  348 bytes
+//     + the _M_getc spec         277 bytes   == retail, exactly
 //
-// So the recipe removed 25 bytes of the 96-byte excess and 71 remain. The
-// register-allocation difference the note below describes is still there --
-// the first divergence is at +0x28, `8b 7c 24 50` in retail against
-// `8b 6c 24 50` here, retail's edi where MSVC picks ebp -- but that is a
-// same-length substitution and cannot account for 71 bytes. Something in this
-// body is still structurally larger than retail's, and THAT is what the next
-// pass should find, before touching registers again.
+// The 0x0000BDA0 levers are also still in the source below and still needed:
+// _INC_STDLIB ahead of <locale> so free carries C++ linkage, and the opaque
+// _Locale_impl completed after the include so ~locale inlines.
+//
+// A SIDE EFFECT WORTH FOLLOWING UP: the same specialization drops the sibling
+// string_type do_get in this instantiation from 3560 bytes to 2784. Whatever
+// its retail size is, it was nowhere near before and is now plausible -- check
+// it next, and expect the wide twins to want
+// istreambuf_iterator<wchar_t, char_traits<wchar_t> >::_M_getc specialized the
+// same way (0x0000DAA0 is the wide partner of this body and was over by the
+// same amount, 344 against 277).
+//
+// WHAT IS LEFT is now genuinely the register allocation the 2026-09-02 note
+// described, and only that. Same length, same instruction sequence, same
+// calls -- including both restored _M_getc calls at `e8 86 bb ff ff` and
+// `e8 6d bb ff ff`. Retail pushes FOUR callee-saved registers, `53 55 56 ...
+// 57` (ebx, ebp, esi, edi), and keeps two more values live in ebx and ebp;
+// this build pushes only `56 ... 57` (esi, edi) and spills those two values to
+// stack slots instead. That is why the byte similarity reads low despite the
+// structural match: the two missing pushes shift every later stack
+// displacement by eight.
+//
+// So the next pass needs MSVC to enregister two more values. Untried: giving
+// the two spilled values named locals with a longer live range; and checking
+// whether the wide twin, which has the same shape, enregisters differently.
 //
 // CORRECTION 2026-09-02: the length agreement claimed below is not real.
 // tools/build.py prints exactly target_size bytes of the compiled body, so a
@@ -38,7 +65,6 @@
 // is the real one, and here it is 373 bytes against 277, not 277 against
 // 277. The identification still stands on the vtable slot and on the
 // callees; only the size corroboration is withdrawn.
-//
 //
 // The vendored instantiation is enough - no hand-written body is needed.
 // Identified from the facet vtable rather than from any caller: nothing calls
@@ -49,18 +75,20 @@
 // _monetary.c line 156: default-construct string_type __buf, call the other
 // do_get through the vtable, push_back(0), hand __b/__e to
 // __get_decimal_integer, or eofbit in when __s == __end, and free __buf.
-// The two _M_getc calls with the [esp+0x3e]/[esp+0x46] byte compare after
-// them are istreambuf_iterator::equal inlined.
 //
-// The whole difference is which callee-saved register holds which value: retail
-// loads [esp+0x50] into edi and [esp+0x40] into ebp, cl 13.10 loads them into
-// ebp and ebx. Both push the same four registers in the same order, so the
-// prologue matches and the first difference is at 0x28.
+// Retail's own call sites, decoded from the target's REL32 displacements, and
+// every one of them now has a counterpart in the compiled body:
+//   +0x022 0x00007850  basic_string<char>::basic_string()
+//   +0x081 0x0000C330  basic_string<char>::push_back(char)
+//   +0x0A5 0x0000C120  __get_decimal_integer<char*, long double>
+//   +0x0B5 0x00007C40  istreambuf_iterator::_M_getc
+//   +0x0CE 0x00007C40  ditto
+//   +0x0F6 0x00030830  free
 //
 // Refuted: /O2, /O1, /Ox, /Og, /Ob2, /Gy, -D_STLP_USE_MALLOC and -D_CRTIMP=
-// all give the identical 277 bytes with the identical renaming (/O1 is worse,
-// 202 bytes). The source is upstream STLport and cannot be reordered to move
-// the allocation without diverging from it.
+// all give the identical renaming (/O1 is worse, 202 bytes). The source is
+// upstream STLport and cannot be reordered to move the allocation without
+// diverging from it.
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC
 // stlport
 //
@@ -145,4 +173,13 @@ locale::~locale() _STLP_NOTHROW
 
 }
 
+// Retail CALLS istreambuf_iterator::_M_getc at 0x00007C40 (35 bytes, already
+// claimed in reverse/functions.csv); _istreambuf_iterator.h:85 defines it
+// in-class, so MSVC inlines it instead -- twice in this body, and that alone is
+// the ~70 bytes both money_get twins were over. Declaring an explicit
+// specialization ahead of the instantiation forces the external call back.
+namespace _STL
+{
+template <> void istreambuf_iterator<char, char_traits<char> >::_M_getc() const;
+}
 template class _STL::money_get<char, _STL::istreambuf_iterator<char, _STL::char_traits<char> > >;
