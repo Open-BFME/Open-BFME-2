@@ -569,7 +569,6 @@ DebugIOInterface *DebugIOFlat::Create(void)
   return new (DebugAllocMemory(sizeof(DebugIOFlat))) DebugIOFlat();
 }
 
-// ?Delete@DebugIOFlat@@ present-unmatched
 void DebugIOFlat::Delete(void)
 {
   this->~DebugIOFlat();
