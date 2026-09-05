@@ -21,9 +21,9 @@ struct _Slist_node_base
 }
 
 extern "C" void __cdecl
-bfme_SlGlobalBoolSpliceAfter3_82BB70(_STL::_Slist_node_base* __pos,
-                                     _STL::_Slist_node_base* __before_first,
-                                     _STL::_Slist_node_base* __before_last)
+bfme_SlGlobalBoolSpliceAfter3(_STL::_Slist_node_base* __pos,
+                              _STL::_Slist_node_base* __before_first,
+                              _STL::_Slist_node_base* __before_last)
 {
   if (__pos != __before_first && __pos != __before_last) {
     _STL::_Slist_node_base* __first = __before_first->_M_next;
