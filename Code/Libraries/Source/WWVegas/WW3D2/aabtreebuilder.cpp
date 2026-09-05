@@ -269,7 +269,6 @@ void AABTreeBuilderClass::Build_AABTree(int polycount,Vector3i * polys,int vertc
  * HISTORY:                                                                                    *
  *   6/19/98    GTH : Created.                                                                 *
  *=============================================================================================*/
-// ?Build_Tree@AABTreeBuilderClass@@ present-unmatched
 void AABTreeBuilderClass::Build_Tree(CullNodeStruct * node,int polycount,int * polyindices)
 {
 	/*
