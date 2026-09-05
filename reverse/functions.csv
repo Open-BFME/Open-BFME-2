@@ -2909,3 +2909,4 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?Read_Nodes@AABTreeClass@@AAEXAAVChunkLoadClass@@@Z,,0x00197D20,182,Code/Libraries/Source/WWVegas/WW3D2/aabtree.cpp,matched,
 ?Update_Min_Max@AABTreeClass@@AAEXHAAVVector3@@0@Z,,0x00198580,167,Code/Libraries/Source/WWVegas/WW3D2/aabtree.cpp,matched,
 ?Update_Bounding_Boxes_Recursive@AABTreeClass@@AAEXPAUCullNodeStruct@1@@Z,,0x00198800,465,Code/Libraries/Source/WWVegas/WW3D2/aabtree.cpp,matched,
+?Scale@AABTreeClass@@QAEXM@Z,,0x00197BB0,122,Code/Libraries/Source/WWVegas/WW3D2/aabtree.cpp,matched,
