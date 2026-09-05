@@ -156,7 +156,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?isEmpty@?$StringBase@D@@QBE_NXZ,0x00001E2F,0x00001E2F,20,Code/GameEngine/Source/Common/System/AsciiString.cpp,matched,Open-BFME5 clean C++; narrow StringBase emptiness test over the 16-bit length at offset 4
 ??0RandomAlphaKeyframe@FXParticleSystem@@QAE@XZ,0x00001E7F,0x00001E7F,47,Code/Libraries/Source/WWVegas/WWMath/color.cpp,matched,Open-BFME5 clean C++; RandomAlphaKeyframe initializes a zero uniform alpha range and frame
 ?d_0000200d@@YAXXZ,,0x0000200D,260,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=operator=
-?d_00002152@@YAXXZ,,0x00002152,10,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00402152
 ?d_000021c7@@YAXXZ,,0x000021C7,28,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_004021c7
 ?d_00002459@@YAXXZ,,0x00002459,10,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=ParticleSystemInfo
 ?d_0000275d@@YAXXZ,,0x0000275D,395,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_0040275d
@@ -2882,3 +2881,4 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?AllocateBytes@?$CTempBuffer@D$0IA@VCCRTAllocator@ATL@@@ATL@@AAEPADI@Z,,0x00006710,35,Code/Libraries/Source/ATL/cstringt.cpp,matched,ATL 7.1 CTempBuffer<char>::AllocateBytes
 ?GetStringTypeExWFake@ATL@@YGHKKPBGHPAG@Z,,0x00006C44,172,Code/Libraries/Source/ATL/cstringt.cpp,matched,ATL 7.1 GetStringTypeExWFake body at 0x6C44 through GetStringTypeExWThunk 0x6CF0; 0x6B09 is GetEnvironmentVariableWFake
 ?GetEnvironmentVariableWFake@ATL@@YGKPBGPAGK@Z,,0x00006B09,285,Code/Libraries/Source/ATL/cstringt.cpp,matched,
+??1Version@@QAE@XZ,,0x00002152,117,Code/GameEngine/Source/Common/VersionDestructor.cpp,matched,
