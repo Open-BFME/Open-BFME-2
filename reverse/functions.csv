@@ -2915,3 +2915,4 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVAABoxClass@@ABVLineSegClass@@@Z,,0x00723870,790,Code/Libraries/Source/WWVegas/WWMath/colmathaabox.cpp,matched,
 ?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVVector3@@0ABVLineSegClass@@@Z,,0x00197AA0,153,Code/Libraries/Source/WWVegas/WW3D2/aabtree.cpp,matched,
 ?Cull@RayCollisionTestClass@@QAE_NABVVector3@@0@Z,,0x00197DE0,164,Code/Libraries/Source/WWVegas/WW3D2/aabtree.cpp,matched,
+?find_dominant_plane@@YAXABVTriClass@@PAH11@Z,,0x007241C0,202,Code/Libraries/Source/WWVegas/WWMath/tri.cpp,matched,
