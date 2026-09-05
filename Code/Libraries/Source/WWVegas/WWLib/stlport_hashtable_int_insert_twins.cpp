@@ -2,8 +2,9 @@
 //
 // Five more instantiations of STLport's hashtable::_M_insert, landed as
 // relocation-blind twins of
+// reference/open-bfme-1's
 // Code/Libraries/Source/WWVegas/WWLib/stlport_hashtable_int_int_insert.cpp
-// (0x000D3430).  Each differs from the model in exactly two slots: its own
+// (0x000D3430), which has no counterpart in this repo.  Each differs from the model in exactly two slots: its own
 // `resize` and its own out-of-line `_Construct`.  The declarations below are
 // the model's, unchanged.
 //
