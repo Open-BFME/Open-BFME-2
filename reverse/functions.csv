@@ -2883,3 +2883,4 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ??1Version@@QAE@XZ,,0x00002152,117,Code/GameEngine/Source/Common/VersionDestructor.cpp,matched,
 ??_GVersion@@QAEPAXI@Z,,0x000021C7,28,Code/GameEngine/Source/Common/VersionDestructor.cpp,matched,
 ?ExpandMagic@DebugIOFlat@@CAXPBD0PAD@Z,,0x0003FA20,656,Code/Libraries/Source/WWVegas/WWDebug/debug_io_flat.cpp,matched,WWDebug environment filename override with module fallback; exact C++ reconstruction
+??0Version@@QAE@XZ,,0x00238852,67,Code/GameEngine/Source/Common/VersionDestructor.cpp,matched,

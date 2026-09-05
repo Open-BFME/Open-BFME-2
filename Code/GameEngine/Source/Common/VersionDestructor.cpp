@@ -9,6 +9,7 @@ class StringBase
 	friend class AsciiString;
 
 private:
+    StringBase() : m_data(0) {}
 	struct Header
 	{
 		int ref_count;
@@ -24,6 +25,7 @@ private:
 class AsciiString
 {
 public:
+    AsciiString() {}
 	~AsciiString()
 	{
 		m_data.releaseBuffer();
@@ -36,7 +38,11 @@ private:
 class Version
 {
 public:
+    Version();
     ~Version();
+    // Address-qualified reconstruction name; original method spelling is unknown.
+    // Retail body reads the seven named build metadata keys.
+    void initializeBuildMetadata_23870E();
 private:
     int m_major, m_minor, m_buildNum, m_localBuildNum;
     AsciiString m_buildTitle;
@@ -52,3 +58,5 @@ Version::~Version() {}
 
 // ?forceVersionDelete@@YAXPAVVersion@@@Z absent-from-retail
 void forceVersionDelete(Version *version) { delete version; }
+
+Version::Version() { initializeBuildMetadata_23870E(); }
