@@ -1,5 +1,3 @@
-// ??1ios_base@_STL@@UAE@XZ
-// partial score=0.9 date=2026-09-03
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
 // stlport
 //
@@ -11,8 +9,20 @@
 
 extern "C" __declspec(dllimport) void __cdecl free(void *block);
 
+// The SECOND spelling of free, and the reason the body needs two. Retail
+// frees the three raw arrays through the import above (`ff d7`, hoisted into
+// edi, no unwind state between them) but frees the cached grouping string
+// with a DIRECT call to 0x00030830, the C++-linkage free that STLport's own
+// headers declare, and that call carries the null check and the state store.
+// Declaring it inside _STL keeps it distinct from the extern "C" import; the
+// array frees below are qualified ::free so they still reach the import.
+
+
 namespace _STL
 {
+
+void __cdecl free(void *block);
+
 
 template <class T>
 class char_traits {};
@@ -32,7 +42,11 @@ class basic_string
 {
 public:
 	basic_string();
-	~basic_string();
+	~basic_string()
+	{
+		if (_M_start != 0)
+			free(_M_start);
+	}
 
 private:
 	CharT *_M_start;
@@ -112,9 +126,9 @@ ios_base::~ios_base()
 		f(0, *this, n);
 	}
 
-	free(_M_callbacks);
-	free(_M_iwords);
-	free(_M_pwords);
+	::free(_M_callbacks);
+	::free(_M_iwords);
+	::free(_M_pwords);
 }
 
 ios_base::ios_base()
