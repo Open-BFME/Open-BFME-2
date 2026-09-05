@@ -2873,3 +2873,4 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?ID@?$VectorClass@H@@UAEHPBH@Z,,0x00002314,23,Code/Libraries/Source/WWVegas/WWLib/vector_class_resize.cpp,matched,
 ??8?$VectorClass@H@@UBE_NABV0@@Z,,0x000022B3,54,Code/Libraries/Source/WWVegas/WWLib/vector_class_resize.cpp,matched,
 ?lstrcmpiWFake@ATL@@YGHPBG0@Z,,0x00003318,122,Code/Libraries/Source/ATL/cstringt_compare.cpp,matched,
+?lstrcmpiWThunk@ATL@@YGHPBG0@Z,,0x00003392,30,Code/Libraries/Source/ATL/cstringt.cpp,matched,
