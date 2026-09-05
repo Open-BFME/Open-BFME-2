@@ -2899,3 +2899,4 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ??0SplitChoiceStruct@AABTreeBuilderClass@@QAE@XZ,,0x00198AB0,110,Code/Libraries/Source/WWVegas/WW3D2/aabtreebuilder.cpp,matched,
 ?Set@AAPlaneClass@@QAEXW4AxisEnum@1@M@Z,,0x00198A00,20,Code/Libraries/Source/WWVegas/WW3D2/aabtreebuilder.cpp,matched,
 ?Compute_Plane_Score@AABTreeBuilderClass@@AAE?AUSplitChoiceStruct@1@HPAHABVAAPlaneClass@@@Z,,0x00199280,608,Code/Libraries/Source/WWVegas/WW3D2/aabtreebuilder.cpp,matched,
+?Select_Splitting_Plane@AABTreeBuilderClass@@AAE?AUSplitChoiceStruct@1@HPAH@Z,,0x00199810,712,Code/Libraries/Source/WWVegas/WW3D2/aabtreebuilder.cpp,matched,

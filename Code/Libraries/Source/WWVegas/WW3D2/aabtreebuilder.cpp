@@ -361,7 +361,6 @@ void AABTreeBuilderClass::Build_Tree(CullNodeStruct * node,int polycount,int * p
  *   6/19/98    GTH : Created.                                                                 *
  *=============================================================================================*/
 AABTreeBuilderClass::SplitChoiceStruct 
-// ?Select_Splitting_Plane@AABTreeBuilderClass@@ present-unmatched
 AABTreeBuilderClass::Select_Splitting_Plane(int polycount,int * polyindices)
 {
 	WWASSERT(polyindices != NULL);
