@@ -136,7 +136,6 @@ void AABTreeBuilderClass::Reset(void)
  * HISTORY:                                                                                    *
  *   6/19/98    GTH : Created.                                                                 *
  *=============================================================================================*/
-// ?Build_AABTree@AABTreeBuilderClass@@ present-unmatched
 void AABTreeBuilderClass::Build_AABTree(int polycount,TriIndex * polys,int vertcount,Vector3 * verts)
 {
 	WWASSERT(polycount > 0);
@@ -202,7 +201,7 @@ void AABTreeBuilderClass::Build_AABTree(int polycount,TriIndex * polys,int vertc
  *   6/19/98    GTH : Created.                                                                 *
  *	  6/28/02	 KJM : This version handles 32-bit indexes
  *=============================================================================================*/
-// ?Build_AABTree@AABTreeBuilderClass@@ present-unmatched
+// ?Build_AABTree@AABTreeBuilderClass@@QAEXHPAVVector3i@@HPAVVector3@@@Z present-unmatched
 void AABTreeBuilderClass::Build_AABTree(int polycount,Vector3i * polys,int vertcount,Vector3 * verts)
 {
 	WWASSERT(polycount > 0);
