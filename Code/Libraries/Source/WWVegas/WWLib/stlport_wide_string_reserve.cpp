@@ -23,6 +23,10 @@
 // The whole-class instantiation in stlport_wide_string.cpp cannot own this
 // address: it emits the checked form of reserve, with the
 // __stl_throw_length_error arm retail does not have.
+//
+// The element is spelled `unsigned short` rather than `wchar_t` because this
+// build has no native wide type (/Zc:wchar_t-), which is also why the decorated
+// name reads `G` and not `_W`.
 
 extern "C" void __cdecl free(void *block);
 
@@ -116,7 +120,7 @@ void basic_string<CharT, Traits, Alloc>::reserve(size_type count)
 }
 
 template void
-basic_string<unsigned short, char_traits<unsigned short>, allocator<unsigned short> >::reserve(
-		unsigned int);
+basic_string<unsigned short, char_traits<unsigned short>,
+		allocator<unsigned short> >::reserve(unsigned int);
 
 }
