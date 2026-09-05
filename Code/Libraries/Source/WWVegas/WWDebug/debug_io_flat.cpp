@@ -53,7 +53,6 @@ public:
   virtual DebugIOFlatDebugShim &operator<<(const char *);
 };
 
-// ??0OutputStream@DebugIOFlat@@ present-unmatched
 DebugIOFlat::OutputStream::OutputStream(const char *filename, unsigned maxSize):
   m_bufferUsed(0), m_nextChar(0)
 {
@@ -65,7 +64,7 @@ DebugIOFlat::OutputStream::OutputStream(const char *filename, unsigned maxSize):
   m_buffer=(char *)DebugAllocMemory(m_bufferSize);
 
   if (!m_limitedFileSize)
-    m_fileHandle=CreateFile(m_fileName,GENERIC_WRITE,0,NULL,CREATE_ALWAYS,
+    m_fileHandle=CreateFile(m_fileName,GENERIC_WRITE,FILE_SHARE_READ,NULL,CREATE_ALWAYS,
                             FILE_ATTRIBUTE_NORMAL|FILE_FLAG_WRITE_THROUGH,
                             NULL);
 }
