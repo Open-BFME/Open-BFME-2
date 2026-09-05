@@ -2897,3 +2897,4 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?Compute_Bounding_Box@AABTreeBuilderClass@@AAEXPAUCullNodeStruct@1@@Z,,0x001994E0,349,Code/Libraries/Source/WWVegas/WW3D2/aabtreebuilder.cpp,matched,
 ??0CullNodeStruct@AABTreeBuilderClass@@QAE@XZ,,0x00198A20,52,Code/Libraries/Source/WWVegas/WW3D2/aabtreebuilder.cpp,matched,
 ??0SplitChoiceStruct@AABTreeBuilderClass@@QAE@XZ,,0x00198AB0,110,Code/Libraries/Source/WWVegas/WW3D2/aabtreebuilder.cpp,matched,
+?Set@AAPlaneClass@@QAEXW4AxisEnum@1@M@Z,,0x00198A00,20,Code/Libraries/Source/WWVegas/WW3D2/aabtreebuilder.cpp,matched,
