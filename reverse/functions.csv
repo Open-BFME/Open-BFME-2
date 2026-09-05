@@ -187,7 +187,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_0000d050@@YAXXZ,,0x0000D050,214,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040d050
 ?d_0000d540@@YAXXZ,,0x0000D540,118,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040d540
 ?d_0000daa0@@YAXXZ,,0x0000DAA0,277,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040daa0
-?d_0000dea0@@YAXXZ,,0x0000DEA0,102,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040dea0
 ?d_0000df10@@YAXXZ,,0x0000DF10,5,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=thunk_FUN_004179b0
 ?d_0000eb60@@YAXXZ,,0x0000EB60,371,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040eb60
 ?d_00011230@@YAXXZ,,0x00011230,122,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_00411230
@@ -2957,3 +2956,4 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?eval_A1_point@@YAXABUBTCollisionStruct@@PAMH@Z,,0x0071F530,602,Code/Libraries/Source/WWVegas/WWMath/colmathobbtri.cpp,matched,
 ?eval_A2_point@@YAXABUBTCollisionStruct@@PAMH@Z,,0x0071F790,602,Code/Libraries/Source/WWVegas/WWMath/colmathobbtri.cpp,matched,
 ?obbtri_compute_contact_point@@YAXAAUBTCollisionStruct@@PAUCastResultStruct@@@Z,,0x0071F9F0,1016,Code/Libraries/Source/WWVegas/WWMath/colmathobbtri.cpp,matched,
+?reserve@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@QAEXI@Z,,0x0000DEA0,102,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_string_reserve.cpp,matched,stlport-4.5.3 wide basic_string reserve; clean C++ replacing the gen_asm dump
