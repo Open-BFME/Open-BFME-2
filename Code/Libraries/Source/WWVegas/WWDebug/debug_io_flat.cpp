@@ -69,7 +69,7 @@ DebugIOFlat::OutputStream::OutputStream(const char *filename, unsigned maxSize):
                             NULL);
 }
 
-// ??1OutputStream@@ present-unmatched
+// ??1OutputStream@DebugIOFlat@@AAE@XZ absent-from-retail
 DebugIOFlat::OutputStream::~OutputStream()
 {
 }
