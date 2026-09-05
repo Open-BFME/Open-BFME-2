@@ -10,6 +10,7 @@ extern "C" __declspec(dllimport) int __stdcall GetStringTypeExW(
     unsigned long, unsigned long, const unsigned short *, int, unsigned short *);
 extern "C" __declspec(dllimport) int __stdcall lstrcmpiW(
     const unsigned short *, const unsigned short *);
+extern "C" __declspec(dllimport) unsigned short *__stdcall CharLowerW(unsigned short *);
 
 namespace ATL
 {
@@ -29,12 +30,13 @@ typedef int (__stdcall *ATLCOMPARESTRINGW)(unsigned long, unsigned long,
 typedef int (__stdcall *ATLGETSTRINGTYPEEXW)(unsigned long, unsigned long,
     const unsigned short *, int, unsigned short *);
 typedef int (__stdcall *ATLLSTRCMPIW)(const unsigned short *, const unsigned short *);
+typedef unsigned short *(__stdcall *ATLCHARCASEW)(unsigned short *);
 struct _AtlStringThunks
 {
     ATLCOMPARESTRINGW pfnCompareStringW;
     ATLGETSTRINGTYPEEXW pfnGetStringTypeExW;
     ATLLSTRCMPIW pfnlstrcmpiW;
-    void *pfnCharLowerW;
+    ATLCHARCASEW pfnCharLowerW;
     void *pfnCharUpperW;
     void *pfnGetEnvironmentVariableW;
 };
@@ -44,6 +46,14 @@ int __stdcall CompareStringWFake(unsigned long, unsigned long,
 int __stdcall GetStringTypeExWFake(unsigned long, unsigned long,
     const unsigned short *, int, unsigned short *);
 int __stdcall lstrcmpiWFake(const unsigned short *, const unsigned short *);
+unsigned short *__stdcall CharLowerWFake(unsigned short *);
+
+unsigned short *__stdcall CharLowerWThunk(unsigned short *text)
+{
+    _AtlInstallStringThunk(reinterpret_cast<void **>(&_strthunks.pfnCharLowerW),
+        CharLowerWFake, ::CharLowerW);
+    return _strthunks.pfnCharLowerW(text);
+}
 
 int __stdcall lstrcmpiWThunk(const unsigned short *first, const unsigned short *second)
 {
