@@ -54,7 +54,6 @@ static inline void find_dominant_plane(const TriClass & tri, int * axis1,int * a
 }
 
 
-// ?Find_Dominant_Plane@TriClass@@ present-unmatched
 void TriClass::Find_Dominant_Plane(int * axis1,int * axis2) const
 {
 	/*
