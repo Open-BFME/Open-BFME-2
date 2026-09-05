@@ -2855,8 +2855,8 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?_Rebalance_for_erase@?$_Rb_global@_N@_STL@@SAPAU_Rb_tree_node_base@2@PAU32@AAPAU32@11@Z,,0x00025620,1110,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_rebalance_erase.cpp,matched,Ported stack-local scope from Open-BFME-1 eb7af304; retail1110B exact; prior partial resolved
 ??_H@YGXPAXIHP6EPAX0@Z@Z,,0x00001423,34,Code/Libraries/Source/ATL/atl_vector_constructor_iterator.cpp,matched,ATL 7.1 compiler vector_constructor_iterator; clean C++ anchor for plain non-EH array construction
 ?__write_formatted_time@_STL@@YAPADPADDDABV_Time_Info@1@PBUtm@@@Z,,0x00018780,1273,Code/Libraries/Source/WWVegas/WWLib/stlport_write_formatted_time.cpp,matched,vendored=stlport-4.5.3;original src/time_facets.cpp body with TU-local ABI declarations
-??1ParticleSystemInfo@FXParticleSystem@@UAE@XZ,0x0000240E,0x0000240E,75,Code/GameEngine/Source/GameClient/System/FXParticleSystem/ParticleSystemInfoDestructorThunk.cpp,matched,
-??_GParticleSystemInfo@FXParticleSystem@@UAEPAXI@Z,,0x00002596,28,Code/GameEngine/Source/GameClient/System/FXParticleSystem/ParticleSystemInfoDeletingDestructorThunk.cpp,matched,
+??1ParticleSystemInfo@FXParticleSystem@@UAE@XZ,0x0000240E,0x0000240E,75,Code/GameEngine/Source/GameClient/System/FXParticleSystem/ParticleSystemInfoDestructor.cpp,matched,
+??_GParticleSystemInfo@FXParticleSystem@@UAEPAXI@Z,,0x00002596,28,Code/GameEngine/Source/GameClient/System/FXParticleSystem/ParticleSystemInfoDeletingDestructor.cpp,matched,
 ?CrossProduct@Coord3D@@QAEAAV1@ABUCoord3DBase@@0@Z,0x00003C70,0x00003C70,97,Code/Libraries/Source/WWVegas/WWMath/coord3d_crossproduct.cpp,matched,Open-BFME5 clean C++; Coord3D member cross product
 ??_G?$VectorClass@H@@UAEPAXI@Z,,0x0000232B,34,Code/Libraries/Source/WWVegas/WWLib/vector_class_resize.cpp,matched,
 ?Clear@?$VectorClass@H@@UAEXXZ,,0x000F0CD4,37,Code/Libraries/Source/WWVegas/WWLib/vector_class_resize.cpp,matched,
