@@ -614,7 +614,6 @@ void AABTreeBuilderClass::Split_Polys
  * HISTORY:                                                                                    *
  *   6/19/98    GTH : Created.                                                                 *
  *=============================================================================================*/
-// ?Compute_Bounding_Box@AABTreeBuilderClass@@ present-unmatched
 void AABTreeBuilderClass::Compute_Bounding_Box(CullNodeStruct * node)
 {
 	/*
