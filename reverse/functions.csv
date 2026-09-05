@@ -2890,3 +2890,4 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?getAsciiVersion@Version@@QAE?AVAsciiString@@XZ,,0x00237EC1,100,Code/GameEngine/Source/Common/VersionDestructor.cpp,matched,
 ?getAsciiBuildLocation@Version@@QAE?AVAsciiString@@XZ,,0x002382FD,27,Code/GameEngine/Source/Common/VersionDestructor.cpp,matched,
 ?Delete@DebugIOFlat@@UAEXXZ,,0x000386C0,20,Code/Libraries/Source/WWVegas/WWDebug/debug_io_flat.cpp,matched,WWDebug vtable Delete slot; Ghidra boundary 20 bytes; exact C++ reconstruction
+?Which_Side@AABTreeBuilderClass@@AAE?AW4OverlapType@1@ABVAAPlaneClass@@H@Z,,0x00198C60,209,Code/Libraries/Source/WWVegas/WW3D2/aabtreebuilder.cpp,matched,

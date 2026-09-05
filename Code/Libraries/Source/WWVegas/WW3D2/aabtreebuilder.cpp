@@ -1,4 +1,4 @@
-// cl: /G7 /DNDEBUG /MD /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/sweep
+// cl: /G7 /arch:SSE2 /DNDEBUG /MD /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/sweep
 // AABTreeBuilderClass, verbatim from Generals Zero Hour reference.
 /***********************************************************************************************
  ***              C O N F I D E N T I A L  ---  W E S T W O O D  S T U D I O S               ***
@@ -136,6 +136,7 @@ void AABTreeBuilderClass::Reset(void)
  * HISTORY:                                                                                    *
  *   6/19/98    GTH : Created.                                                                 *
  *=============================================================================================*/
+// ?Build_AABTree@AABTreeBuilderClass@@ present-unmatched
 void AABTreeBuilderClass::Build_AABTree(int polycount,TriIndex * polys,int vertcount,Vector3 * verts)
 {
 	WWASSERT(polycount > 0);
@@ -201,6 +202,7 @@ void AABTreeBuilderClass::Build_AABTree(int polycount,TriIndex * polys,int vertc
  *   6/19/98    GTH : Created.                                                                 *
  *	  6/28/02	 KJM : This version handles 32-bit indexes
  *=============================================================================================*/
+// ?Build_AABTree@AABTreeBuilderClass@@ present-unmatched
 void AABTreeBuilderClass::Build_AABTree(int polycount,Vector3i * polys,int vertcount,Vector3 * verts)
 {
 	WWASSERT(polycount > 0);
@@ -267,6 +269,7 @@ void AABTreeBuilderClass::Build_AABTree(int polycount,Vector3i * polys,int vertc
  * HISTORY:                                                                                    *
  *   6/19/98    GTH : Created.                                                                 *
  *=============================================================================================*/
+// ?Build_Tree@AABTreeBuilderClass@@ present-unmatched
 void AABTreeBuilderClass::Build_Tree(CullNodeStruct * node,int polycount,int * polyindices)
 {
 	/*
@@ -358,6 +361,7 @@ void AABTreeBuilderClass::Build_Tree(CullNodeStruct * node,int polycount,int * p
  *   6/19/98    GTH : Created.                                                                 *
  *=============================================================================================*/
 AABTreeBuilderClass::SplitChoiceStruct 
+// ?Select_Splitting_Plane@AABTreeBuilderClass@@ present-unmatched
 AABTreeBuilderClass::Select_Splitting_Plane(int polycount,int * polyindices)
 {
 	WWASSERT(polyindices != NULL);
@@ -418,6 +422,7 @@ AABTreeBuilderClass::Select_Splitting_Plane(int polycount,int * polyindices)
  *   6/19/98    GTH : Created.                                                                 *
  *=============================================================================================*/
 AABTreeBuilderClass::SplitChoiceStruct 
+// ?Compute_Plane_Score@AABTreeBuilderClass@@ present-unmatched
 AABTreeBuilderClass::Compute_Plane_Score(int polycount,int * polyindices,const AAPlaneClass & plane)
 {
 	/*
@@ -609,6 +614,7 @@ void AABTreeBuilderClass::Split_Polys
  * HISTORY:                                                                                    *
  *   6/19/98    GTH : Created.                                                                 *
  *=============================================================================================*/
+// ?Compute_Bounding_Box@AABTreeBuilderClass@@ present-unmatched
 void AABTreeBuilderClass::Compute_Bounding_Box(CullNodeStruct * node)
 {
 	/*
@@ -783,6 +789,7 @@ int AABTreeBuilderClass::Node_Count_Recursive(CullNodeStruct * node,int curcount
  * HISTORY:                                                                                    *
  *   6/22/98    GTH : Created.                                                                 *
  *=============================================================================================*/
+// ?Update_Min@AABTreeBuilderClass@@ present-unmatched
 void AABTreeBuilderClass::Update_Min(int poly_index,Vector3 & min)
 {
 	for (int vert_index = 0; vert_index < 3; vert_index++) {
@@ -809,6 +816,7 @@ void AABTreeBuilderClass::Update_Min(int poly_index,Vector3 & min)
  * HISTORY:                                                                                    *
  *   6/22/98    GTH : Created.                                                                 *
  *=============================================================================================*/
+// ?Update_Max@AABTreeBuilderClass@@ present-unmatched
 void AABTreeBuilderClass::Update_Max(int poly_index,Vector3 & max)
 {
 	for (int vert_index = 0; vert_index < 3; vert_index++) {
@@ -835,6 +843,7 @@ void AABTreeBuilderClass::Update_Max(int poly_index,Vector3 & max)
  * HISTORY:                                                                                    *
  *   9/24/98    BMG : Created.                                                                 *
  *=============================================================================================*/
+// ?Update_Min_Max@AABTreeBuilderClass@@ present-unmatched
 void	AABTreeBuilderClass::Update_Min_Max(int poly_index, Vector3 & min, Vector3 & max)
 {
 	for (int vert_index = 0; vert_index < 3; vert_index++) {
