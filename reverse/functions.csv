@@ -2879,3 +2879,6 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?CharUpperWThunk@ATL@@YGPAGPAG@Z,,0x000034DC,30,Code/Libraries/Source/ATL/cstringt.cpp,matched,
 ?CompareStringWFake@ATL@@YGHKKPBGH0H@Z,,0x0000685E,258,Code/Libraries/Source/ATL/cstringt.cpp,matched,ATL 7.1 CompareStringWFake W2A_EX body through CompareStringWThunk boundary
 ?GetEnvironmentVariableWThunk@ATL@@YGKPBGPAGK@Z,,0x00006C26,30,Code/Libraries/Source/ATL/cstringt.cpp,matched,
+?AllocateHeap@?$CTempBuffer@D$0IA@VCCRTAllocator@ATL@@@ATL@@AAEXI@Z,,0x00005738,34,Code/Libraries/Source/ATL/cstringt.cpp,matched,ATL 7.1 CTempBuffer<char>::AllocateHeap
+?AllocateBytes@?$CTempBuffer@D$0IA@VCCRTAllocator@ATL@@@ATL@@AAEPADI@Z,,0x00006710,35,Code/Libraries/Source/ATL/cstringt.cpp,matched,ATL 7.1 CTempBuffer<char>::AllocateBytes
+?GetStringTypeExWFake@ATL@@YGHKKPBGHPAG@Z,,0x00006C44,172,Code/Libraries/Source/ATL/cstringt.cpp,matched,ATL 7.1 GetStringTypeExWFake body at 0x6C44 through GetStringTypeExWThunk 0x6CF0; 0x6B09 is GetEnvironmentVariableWFake

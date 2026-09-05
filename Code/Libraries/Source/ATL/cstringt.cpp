@@ -18,9 +18,13 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetEnvironmentVariableW
 typedef const char *LPCSTR;
 typedef char *LPSTR;
 typedef const unsigned short *LPCWSTR;
+typedef unsigned short *LPWORD;
 typedef unsigned int UINT;
+typedef unsigned long DWORD;
 typedef unsigned long LCID;
 typedef long HRESULT;
+typedef int BOOL;
+typedef unsigned int size_t;
 
 #define NULL 0
 #define E_OUTOFMEMORY ((HRESULT)0x8007000EL)
@@ -29,6 +33,12 @@ typedef long HRESULT;
 extern "C" __declspec(dllimport) int __stdcall lstrlenW(LPCWSTR);
 extern "C" __declspec(dllimport) int __stdcall CompareStringA(
     LCID, unsigned long, LPCSTR, int, LPCSTR, int);
+extern "C" __declspec(dllimport) int __stdcall WideCharToMultiByte(
+    UINT, DWORD, LPCWSTR, int, LPSTR, int, LPCSTR, int *);
+extern "C" __declspec(dllimport) int __stdcall GetStringTypeExA(
+    LCID, DWORD, LPCSTR, int, LPWORD);
+extern "C" __declspec(dllimport) void *__cdecl malloc(unsigned int);
+extern "C" __declspec(dllimport) void __cdecl free(void *);
 extern "C" void *__cdecl _alloca(unsigned int);
 
 extern LPSTR __stdcall AtlW2AHelper(LPSTR, LPCWSTR, int, UINT);
@@ -97,7 +107,64 @@ inline UINT __stdcall _AtlGetConversionACP() throw()
     return g_pfnGetThreadACP();
 }
 
-class CCRTAllocator;
+class CCRTAllocator
+{
+public:
+    static void *Allocate(size_t nBytes) { return ::malloc(nBytes); }
+    static void Free(void *p) { ::free(p); }
+};
+
+__declspec(noreturn) void __stdcall AtlThrow(HRESULT);
+
+template <class T, int t_nFixedBytes = 128, class Allocator = CCRTAllocator>
+class CTempBuffer
+{
+public:
+    CTempBuffer() throw() : m_p(NULL) {}
+
+    ~CTempBuffer() throw()
+    {
+        if (m_p != reinterpret_cast<T *>(m_abFixedBuffer))
+            FreeHeap();
+    }
+
+    operator T *() const throw()
+    {
+        return m_p;
+    }
+
+    T *Allocate(size_t nElements) throw(...)
+    {
+        return AllocateBytes(nElements * sizeof(T));
+    }
+
+private:
+    T *AllocateBytes(size_t nBytes)
+    {
+        if (nBytes > t_nFixedBytes)
+            AllocateHeap(nBytes);
+        else
+            m_p = reinterpret_cast<T *>(m_abFixedBuffer);
+        return m_p;
+    }
+
+    __declspec(noinline) void AllocateHeap(size_t nBytes)
+    {
+        T *p = static_cast<T *>(Allocator::Allocate(nBytes));
+        if (p == NULL)
+            AtlThrow(E_OUTOFMEMORY);
+        m_p = p;
+    }
+
+    __declspec(noinline) void FreeHeap() throw()
+    {
+        Allocator::Free(m_p);
+    }
+
+public:
+    T *m_p;
+    unsigned char m_abFixedBuffer[t_nFixedBytes];
+};
 
 namespace _ATL_SAFE_ALLOCA_IMPL
 {
@@ -115,8 +182,6 @@ public:
     ~CAtlSafeAllocBufferManager() throw();
 };
 }
-
-__declspec(noreturn) void __stdcall AtlThrow(HRESULT);
 
 int __stdcall CompareStringWFake(LCID lcid, unsigned long dwFlags,
     LPCWSTR pszString1, int nLength1, LPCWSTR pszString2, int nLength2)
@@ -143,8 +208,24 @@ int __stdcall CompareStringWFake(LCID lcid, unsigned long dwFlags,
         pszAString2, nLength2);
 }
 
-int __stdcall GetStringTypeExWFake(unsigned long, unsigned long,
-    const unsigned short *, int, unsigned short *);
+BOOL __stdcall GetStringTypeExWFake(LCID lcid, DWORD dwInfoType,
+    LPCWSTR pszSrc, int nLength, LPWORD pwCharType)
+{
+    int nLengthA;
+    CTempBuffer<char> pszA;
+
+    nLengthA = ::WideCharToMultiByte(_AtlGetConversionACP(), 0, pszSrc,
+        nLength, NULL, 0, NULL, NULL);
+    pszA.Allocate(nLengthA);
+    ::WideCharToMultiByte(_AtlGetConversionACP(), 0, pszSrc, nLength, pszA,
+        nLengthA, NULL, NULL);
+
+    if (nLength == -1)
+        nLengthA = -1;
+
+    return ::GetStringTypeExA(lcid, dwInfoType, pszA, nLengthA, pwCharType);
+}
+
 int __stdcall lstrcmpiWFake(const unsigned short *, const unsigned short *);
 unsigned short *__stdcall CharLowerWFake(unsigned short *);
 unsigned short *__stdcall CharUpperWFake(unsigned short *);
@@ -178,6 +259,7 @@ int __stdcall lstrcmpiWThunk(const unsigned short *first, const unsigned short *
     _AtlInstallStringThunk(reinterpret_cast<void **>(&_strthunks.pfnlstrcmpiW),
         lstrcmpiWFake, ::lstrcmpiW);
     return _strthunks.pfnlstrcmpiW(first, second);
+
 }
 
 int __stdcall CompareStringWThunk(unsigned long lcid, unsigned long flags,
