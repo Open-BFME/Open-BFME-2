@@ -44,6 +44,7 @@ class Version
 public:
     Version();
     AsciiString getAsciiBuildTime();
+    AsciiString getAsciiVersion();
     ~Version();
     // Address-qualified reconstruction name; original method spelling is unknown.
     // Retail body reads the seven named build metadata keys.
@@ -71,4 +72,11 @@ AsciiString Version::getAsciiBuildTime()
     AsciiString timeStr;
     timeStr.format("%s %s", m_buildDate.str(), m_buildTime.str());
     return timeStr;
+}
+
+AsciiString Version::getAsciiVersion()
+{
+    AsciiString version;
+    version.format("%d.%.2d.%d.%d", m_major, m_minor, m_buildNum, m_localBuildNum);
+    return version;
 }
