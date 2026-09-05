@@ -10,6 +10,7 @@ class StringBase
 
 private:
     StringBase() : m_data(0) {}
+    StringBase(const StringBase<T> &other);
 	struct Header
 	{
 		int ref_count;
@@ -26,6 +27,9 @@ class AsciiString
 {
 public:
     AsciiString() {}
+    AsciiString(const AsciiString &other) : m_data(other.m_data) {}
+    void __cdecl format(const char *fmt, ...);
+    const char *str() const { return m_data.m_data ? m_data.m_data->data : ""; }
 	~AsciiString()
 	{
 		m_data.releaseBuffer();
@@ -39,6 +43,7 @@ class Version
 {
 public:
     Version();
+    AsciiString getAsciiBuildTime();
     ~Version();
     // Address-qualified reconstruction name; original method spelling is unknown.
     // Retail body reads the seven named build metadata keys.
@@ -60,3 +65,10 @@ Version::~Version() {}
 void forceVersionDelete(Version *version) { delete version; }
 
 Version::Version() { initializeBuildMetadata_23870E(); }
+
+AsciiString Version::getAsciiBuildTime()
+{
+    AsciiString timeStr;
+    timeStr.format("%s %s", m_buildDate.str(), m_buildTime.str());
+    return timeStr;
+}
