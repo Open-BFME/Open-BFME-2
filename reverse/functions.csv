@@ -155,7 +155,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_0000179f@@YAXXZ,,0x0000179F,1167,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_0040179f
 ?isEmpty@?$StringBase@D@@QBE_NXZ,0x00001E2F,0x00001E2F,20,Code/GameEngine/Source/Common/System/AsciiString.cpp,matched,Open-BFME5 clean C++; narrow StringBase emptiness test over the 16-bit length at offset 4
 ??0RandomAlphaKeyframe@FXParticleSystem@@QAE@XZ,0x00001E7F,0x00001E7F,47,Code/Libraries/Source/WWVegas/WWMath/color.cpp,matched,Open-BFME5 clean C++; RandomAlphaKeyframe initializes a zero uniform alpha range and frame
-?d_0000200d@@YAXXZ,,0x0000200D,260,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=operator=
 ?d_0000275d@@YAXXZ,,0x0000275D,395,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_0040275d
 ?d_00002c39@@YAXXZ,,0x00002C39,10,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00402c39
 ?d_0000319f@@YAXXZ,,0x0000319F,6,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Catch@0040319f
@@ -2906,3 +2905,4 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?getUnicodeBuildLocation@Version@@QAE?AVUnicodeString@@XZ,,0x00238318,216,Code/GameEngine/Source/Common/VersionUnicode.cpp,matched,retail clean C++; Version m_buildLocation +0x14; TheGameText VA 0xDFF0BC fetch slot +0x3C; format 0x6CB5D0 translate 0x6CB6A0 Ascii copy 0x365F0 release 0x36410/0x36E70 copy 0x37050; label at 0xBED274
 ?getUnicodeBuildUser@Version@@QAE?AVUnicodeString@@XZ,,0x002383F0,216,Code/GameEngine/Source/Common/VersionUnicode.cpp,matched,retail clean C++; Version m_buildUser +0x18; TheGameText VA 0xDFF0BC fetch slot +0x3C; format 0x6CB5D0 translate 0x6CB6A0 Ascii copy 0x365F0 release 0x36410/0x36E70 copy 0x37050; label at 0xBED28C
 ??0ParticleSystemInfo@FXParticleSystem@@QAE@ABV01@@Z,0x00002459,0x00002459,317,Code/GameEngine/Source/GameClient/System/FXParticleSystem/ParticleSystemInfoCopyCtor.cpp,matched,
+??4ParticleSystemInfo@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x0000200D,0x0000200D,260,Code/GameEngine/Source/GameClient/System/FXParticleSystem/ParticleSystemInfoCopyCtor.cpp,matched,

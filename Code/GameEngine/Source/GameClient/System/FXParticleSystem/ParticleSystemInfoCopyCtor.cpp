@@ -145,6 +145,37 @@ private:
     unsigned int m_unknown98;
 };
 
+ParticleSystemInfo &ParticleSystemInfo::operator=(
+    const ParticleSystemInfo &that)
+{
+    m_isOneShot = that.m_isOneShot;
+    m_shaderType = that.m_shaderType;
+    m_particleType = that.m_particleType;
+    m_particleTypeName = that.m_particleTypeName;
+    m_angleZ = that.m_angleZ;
+    m_systemLifetime = that.m_systemLifetime;
+    m_volumeParticleDepth = that.m_volumeParticleDepth;
+    m_angularRateZ = that.m_angularRateZ;
+    m_angularDamping = that.m_angularDamping;
+    m_windMotion = that.m_windMotion;
+    m_velDamping = that.m_velDamping;
+    m_lifetime = that.m_lifetime;
+    m_startSize = that.m_startSize;
+    m_slaveSystemName = that.m_slaveSystemName;
+    m_slavePosOffset = that.m_slavePosOffset;
+    m_attachedSystemName = that.m_attachedSystemName;
+    m_emissionVelocityType = that.m_emissionVelocityType;
+    m_isEmissionVolumeHollow = that.m_isEmissionVolumeHollow;
+    m_isGroundAligned = that.m_isGroundAligned;
+    m_isEmitAboveGroundOnly = that.m_isEmitAboveGroundOnly;
+    m_isParticleUpTowardsEmitter = that.m_isParticleUpTowardsEmitter;
+    m_windMotionMovingToEndAngle = that.m_windMotionMovingToEndAngle;
+    m_unknown85 = that.m_unknown85;
+    m_uv = that.m_uv;
+    m_unknown98 = that.m_unknown98;
+    return *this;
+}
+
 // Force MSVC to emit the otherwise implicit copy constructor as a standalone
 // COMDAT.  This helper is never called by the game.
 // ?forceParticleSystemInfoCopy@FXParticleSystem@@YAPAVParticleSystemInfo@1@PAXABV21@@Z absent-from-retail
