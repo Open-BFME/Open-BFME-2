@@ -1,4 +1,6 @@
 // ??$__copy_integer_and_fill@DV?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@@_STL@@YA?AV?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@0@PBDHV10@HHDDD@Z
+// partial score=0.27 date=2026-09-04
+// ??$__copy_integer_and_fill@DV?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@@_STL@@YA?AV?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@0@PBDHV10@HHDDD@Z
 // partial score=0.8 date=2026-09-02
 // cl: /EHs /EHc- /MD /D_STLP_USE_STATIC_LIB
 // stlport
@@ -64,8 +66,12 @@ public:
 
 template <class RandomAccessIter, class OutputIter, class Distance>
 OutputIter __cdecl __copy(
-		RandomAccessIter, RandomAccessIter, OutputIter,
-		const random_access_iterator_tag &, Distance *);
+		RandomAccessIter first, RandomAccessIter last, OutputIter out,
+		const random_access_iterator_tag &, Distance *)
+{
+ for (Distance n = last-first; n > 0; --n, ++out, ++first) *out = *first;
+ return out;
+}
 
 template <class InputIter, class OutputIter>
 __declspec(dllimport) __forceinline OutputIter copy(
@@ -99,13 +105,15 @@ OutputIter __cdecl __copy_integer_and_fill(
 
 		if (direction == ios_base::left)
 		{
-			return fill_n(copy(buffer, buffer + length, out), pad, fill);
+			out = copy(buffer, buffer + length, out);
+ return fill_n(out, pad, fill);
 		}
 		else if (direction == ios_base::internal && length != 0 &&
 				(buffer[0] == plus || buffer[0] == minus))
 		{
 			*out++ = buffer[0];
-			return copy(buffer + 1, buffer + length, fill_n(out, pad, fill));
+			out = fill_n(out, pad, fill);
+ return copy(buffer + 1, buffer + length, out);
 		}
 		else if (direction == ios_base::internal && length >= 2 &&
 				(flags & ios_base::showbase) &&
@@ -113,11 +121,13 @@ OutputIter __cdecl __copy_integer_and_fill(
 		{
 			*out++ = buffer[0];
 			*out++ = buffer[1];
-			return copy(buffer + 2, buffer + length, fill_n(out, pad, fill));
+			out = fill_n(out, pad, fill);
+ return copy(buffer + 2, buffer + length, out);
 		}
 		else
 		{
-			return copy(buffer, buffer + length, fill_n(out, pad, fill));
+			out = fill_n(out, pad, fill);
+ return copy(buffer, buffer + length, out);
 		}
 	}
 }
