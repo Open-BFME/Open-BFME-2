@@ -2888,3 +2888,4 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?Flush@OutputStream@DebugIOFlat@@QAEXXZ,,0x0003F960,183,Code/Libraries/Source/WWVegas/WWDebug/debug_io_flat.cpp,matched,WWDebug OutputStream Flush; retail FILE_SHARE_READ; exact C++ reconstruction
 ?getAsciiBuildTime@Version@@QAE?AVAsciiString@@XZ,,0x0023819B,122,Code/GameEngine/Source/Common/VersionDestructor.cpp,matched,
 ?getAsciiVersion@Version@@QAE?AVAsciiString@@XZ,,0x00237EC1,100,Code/GameEngine/Source/Common/VersionDestructor.cpp,matched,
+?getAsciiBuildLocation@Version@@QAE?AVAsciiString@@XZ,,0x002382FD,27,Code/GameEngine/Source/Common/VersionDestructor.cpp,matched,
