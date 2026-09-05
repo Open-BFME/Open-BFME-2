@@ -12,6 +12,8 @@ extern "C" __declspec(dllimport) int __stdcall lstrcmpiW(
     const unsigned short *, const unsigned short *);
 extern "C" __declspec(dllimport) unsigned short *__stdcall CharLowerW(unsigned short *);
 extern "C" __declspec(dllimport) unsigned short *__stdcall CharUpperW(unsigned short *);
+extern "C" __declspec(dllimport) unsigned long __stdcall GetEnvironmentVariableW(
+    const unsigned short *, unsigned short *, unsigned long);
 
 typedef const char *LPCSTR;
 typedef char *LPSTR;
@@ -75,6 +77,8 @@ typedef int (__stdcall *ATLGETSTRINGTYPEEXW)(unsigned long, unsigned long,
     const unsigned short *, int, unsigned short *);
 typedef int (__stdcall *ATLLSTRCMPIW)(const unsigned short *, const unsigned short *);
 typedef unsigned short *(__stdcall *ATLCHARCASEW)(unsigned short *);
+typedef unsigned long (__stdcall *ATLGETENVIRONMENTVARIABLEW)(
+    const unsigned short *, unsigned short *, unsigned long);
 struct _AtlStringThunks
 {
     ATLCOMPARESTRINGW pfnCompareStringW;
@@ -82,7 +86,7 @@ struct _AtlStringThunks
     ATLLSTRCMPIW pfnlstrcmpiW;
     ATLCHARCASEW pfnCharLowerW;
     ATLCHARCASEW pfnCharUpperW;
-    void *pfnGetEnvironmentVariableW;
+    ATLGETENVIRONMENTVARIABLEW pfnGetEnvironmentVariableW;
 };
 extern _AtlStringThunks _strthunks;
 typedef UINT (__stdcall *ATLGETTHREADACP)();
@@ -144,6 +148,16 @@ int __stdcall GetStringTypeExWFake(unsigned long, unsigned long,
 int __stdcall lstrcmpiWFake(const unsigned short *, const unsigned short *);
 unsigned short *__stdcall CharLowerWFake(unsigned short *);
 unsigned short *__stdcall CharUpperWFake(unsigned short *);
+unsigned long __stdcall GetEnvironmentVariableWFake(
+    const unsigned short *, unsigned short *, unsigned long);
+
+unsigned long __stdcall GetEnvironmentVariableWThunk(
+    const unsigned short *name, unsigned short *buffer, unsigned long size)
+{
+    _AtlInstallStringThunk(reinterpret_cast<void **>(&_strthunks.pfnGetEnvironmentVariableW),
+        GetEnvironmentVariableWFake, ::GetEnvironmentVariableW);
+    return _strthunks.pfnGetEnvironmentVariableW(name, buffer, size);
+}
 
 unsigned short *__stdcall CharUpperWThunk(unsigned short *text)
 {
