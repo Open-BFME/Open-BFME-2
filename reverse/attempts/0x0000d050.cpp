@@ -1,34 +1,47 @@
 // ??$__put_integer@V?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@@_STL@@YA?AV?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@0@PAD0V10@AAVios_base@0@HD@Z
-// partial score=0.97 date=2026-09-02
+// partial score=0.97 date=2026-09-05
+//
+// 214 bytes against retail's 214, and 208 of them identical.  All six that
+// differ are stack displacement bytes in two spill slots, listed at the end.
+//
+// Three corrections to the previous version of this stash, each of which moved
+// the body closer:
+//
+//   * the callee at 0x000179B0 takes FOUR arguments, not three.  The stack
+//     cleanup after it is `83 c4 10`.  reverse/functions.csv already claims
+//     that address as ?__copy_trivial@_STL@@YAPAXPBX0PAX@Z and
+//     reverse/symbols.csv pins the same address as
+//     ??$__copy_aux@PADPAD@_STL@@YAPADPAD00ABU__true_type@0@@Z: the two are
+//     identical-code-folded, and it is the four-argument __copy_aux spelling
+//     that retail calls here, with __true_type passed by const reference.
+//     Declaring the three-argument __copy_trivial at this site was what kept
+//     the earlier version structurally apart.
+//   * the tag argument must be DEFAULT-initialised, not value-initialised.
+//     `_Ret()` makes MSVC emit `c6 44 24 6c 00` to zero the empty object;
+//     retail has no such store, and a named `_Ret both_are_pointers;` has
+//     none either.
+//   * the body must follow vendor/stlport/stl/_num_put.c exactly: reassign
+//     BOTH __buf and __iend to the scratch buffer before calling
+//     __insert_grouping, and pass '+' and '-' as literals.  The earlier
+//     version hoisted plus/minus into locals at the top and passed
+//     local_buffer/local_buffer+length directly, which changed the register
+//     allocation -- retail keeps `buf` live in ebx and `f` in ebp, and only
+//     this shape reproduces that.
+//
+// What is left, at offsets into the body:
+//
+//   +0x21          retail spills the numpunct facet to [esp+0x58]; this body
+//                  spills it to [esp+0x68].
+//   +0x47 +0x4D +0x57  retail keeps basechars at [esp+0x5c]; this body keeps
+//                  it at [esp+0x58].
+//   +0x70 +0x74    the two reloads of those same two slots.
+//
+// So retail packs the facet and basechars into the two halves of the
+// by-value ostreambuf_iterator parameter slot, and this body packs basechars
+// into the dead __iend slot and the facet higher up.  Nothing else differs:
+// same length, same instructions, same registers, same branch displacements.
+// It is purely which dead incoming-parameter slot MSVC picks for two spills.
 // cl: /EHs /EHc- /MD /D_STLP_USE_STATIC_LIB
-//
-// Callees, read out of retail's own REL32 displacements in this body (offsets
-// relative to 0x0000D050), each checked against the stack cleanup that follows
-// it:
-//
-//   +0x90 -> 0x0001A600, pops 28 bytes = 7 dwords. That is __insert_grouping's
-//            seven arguments exactly, and the three pushes before it are the
-//            thousands_sep result, '+' and '-'. Identified.
-//   +0xC4 -> 0x000095E0, pops 40 bytes = 10 dwords. That is
-//            __copy_integer_and_fill's eight arguments with the
-//            ostreambuf_iterator passed by value as two. Identified, and now
-//            pinned in reverse/symbols.csv -- without it this tail call
-//            verifies as unresolved.
-//   +0x68 -> 0x000179B0, pops 16 bytes = 4 dwords. NOT identified. This body
-//            declares __copy_trivial at that site, which takes three, so the
-//            declaration is wrong and this is a different function: the four
-//            arguments are buffer, buffer_end, &local_buffer and a pointer to
-//            the base_characters slot at [esp+0x5c]. Whatever it is, it takes
-//            the base-character count by address, which nothing in the
-//            upstream _num_put.c shape does. Worth resolving before chasing
-//            registers -- a wrong callee arity here may be what is displacing
-//            the allocation below.
-//
-// What is left is register allocation, not shape -- the branch displacements
-// already match exactly (74 6f, 74 20, 74 0e).  Retail keeps stream in ebp and
-// spills the numpunct facet to [esp+0x58], reloading it at the thousands_sep
-// call; this body keeps stream in ebx and the facet live in ebp, so it never
-// spills.  Flipping that pair is the whole remaining gap.
 // stlport
 //
 // The narrow twin of 0x00010A70, and three structural differences from it,
@@ -238,57 +251,67 @@ OutputIter __cdecl __copy_integer_and_fill(
 		const CharT *, ptrdiff_t, OutputIter,
 		ios_base::fmtflags, ios_base::streamsize, CharT, CharT, CharT);
 
-void *__cdecl __copy_trivial(const void *first, const void *last, void *result);
+struct __true_type {};
+
+template <class InputIter, class OutputIter>
+struct _BothPtrType
+{
+	typedef __true_type _Ret;
+};
+
+template <class InputIter, class OutputIter>
+OutputIter __cdecl __copy_aux(InputIter first, InputIter last, OutputIter result,
+		const __true_type &);
+
+template <class InputIter, class OutputIter>
+inline OutputIter __cdecl copy(InputIter first, InputIter last,
+		OutputIter result)
+{
+	typename _BothPtrType<InputIter, OutputIter>::_Ret both_are_pointers;
+	return __copy_aux(first, last, result, both_are_pointers);
+}
 
 template <class OutputIter>
 OutputIter __cdecl __put_integer(
-		char *buffer, char *buffer_end, OutputIter out,
-		ios_base &stream, ios_base::fmtflags flags, char fill)
+		char *buf, char *iend, OutputIter s,
+		ios_base &f, ios_base::fmtflags flags, char fill)
 {
-	char plus = '+';
-	char minus = '-';
+	ptrdiff_t len = iend - buf;
 
-	ptrdiff_t length = buffer_end - buffer;
-
-	const numpunct<char> &punctuation =
-			*static_cast<const numpunct<char> *>(
-					stream._M_numpunct_facet());
-	const narrow_string &grouping = stream._M_grouping();
+	const numpunct<char> &np =
+			*(const numpunct<char> *)f._M_numpunct_facet();
+	const narrow_string &grouping = f._M_grouping();
 
 	if (!grouping.empty())
 	{
-		char local_buffer[64];
-		int base_characters;
+		int basechars;
 		if (flags & ios_base::showbase)
-		{
 			switch (flags & ios_base::basefield)
 			{
 			case ios_base::hex:
-				base_characters = 2;
+				basechars = 2;
 				break;
 			case ios_base::oct:
-				base_characters = 1;
+				basechars = 1;
 				break;
 			default:
-				base_characters = 0;
+				basechars = 0;
 			}
-		}
 		else
-			base_characters = 0;
+			basechars = 0;
 
-		__copy_trivial(buffer, buffer_end, local_buffer);
-
-		length = __insert_grouping(
-				local_buffer, local_buffer + length, grouping,
-				punctuation.thousands_sep(), plus, minus,
-				base_characters);
-
-		buffer = local_buffer;
+		// make sure there is room at the end of the buffer
+		// we pass to __insert_grouping
+		char grpbuf[64];
+		copy(buf, iend, (char *)grpbuf);
+		buf = grpbuf;
+		iend = grpbuf + len;
+		len = __insert_grouping(buf, iend, grouping, np.thousands_sep(),
+				'+', '-', basechars);
 	}
 
-	return __copy_integer_and_fill(
-			buffer, length, out, flags, stream.width(0), fill,
-			plus, minus);
+	return __copy_integer_and_fill(buf, len, s, flags, f.width(0), fill,
+			'+', '-');
 }
 
 typedef ostreambuf_iterator<char, char_traits<char> > narrow_output_iterator;
