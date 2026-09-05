@@ -161,7 +161,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_000021c7@@YAXXZ,,0x000021C7,28,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_004021c7
 ?d_0000232b@@YAXXZ,,0x0000232B,34,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_0040232b
 ?d_00002459@@YAXXZ,,0x00002459,10,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=ParticleSystemInfo
-?d_00002596@@YAXXZ,,0x00002596,28,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00402596
 ?d_0000275d@@YAXXZ,,0x0000275D,395,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_0040275d
 ?d_00002c39@@YAXXZ,,0x00002C39,10,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00402c39
 ?d_0000319f@@YAXXZ,,0x0000319F,6,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Catch@0040319f
@@ -2869,3 +2868,4 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ??_H@YGXPAXIHP6EPAX0@Z@Z,,0x00001423,34,Code/Libraries/Source/ATL/atl_vector_constructor_iterator.cpp,matched,ATL 7.1 compiler vector_constructor_iterator; clean C++ anchor for plain non-EH array construction
 ?__write_formatted_time@_STL@@YAPADPADDDABV_Time_Info@1@PBUtm@@@Z,,0x00018780,1273,Code/Libraries/Source/WWVegas/WWLib/stlport_write_formatted_time.cpp,matched,vendored=stlport-4.5.3;original src/time_facets.cpp body with TU-local ABI declarations
 ??1ParticleSystemInfo@FXParticleSystem@@UAE@XZ,0x0000240E,0x0000240E,75,Code/GameEngine/Source/GameClient/System/FXParticleSystem/ParticleSystemInfoDestructorThunk.cpp,matched,
+??_GParticleSystemInfo@FXParticleSystem@@UAEPAXI@Z,,0x00002596,28,Code/GameEngine/Source/GameClient/System/FXParticleSystem/ParticleSystemInfoDeletingDestructorThunk.cpp,matched,
