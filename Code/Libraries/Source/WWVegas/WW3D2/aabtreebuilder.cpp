@@ -841,7 +841,6 @@ void AABTreeBuilderClass::Update_Max(int poly_index,Vector3 & max)
  * HISTORY:                                                                                    *
  *   9/24/98    BMG : Created.                                                                 *
  *=============================================================================================*/
-// ?Update_Min_Max@AABTreeBuilderClass@@ present-unmatched
 void	AABTreeBuilderClass::Update_Min_Max(int poly_index, Vector3 & min, Vector3 & max)
 {
 	for (int vert_index = 0; vert_index < 3; vert_index++) {

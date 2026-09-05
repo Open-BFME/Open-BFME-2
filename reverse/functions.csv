@@ -2893,3 +2893,4 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?Which_Side@AABTreeBuilderClass@@AAE?AW4OverlapType@1@ABVAAPlaneClass@@H@Z,,0x00198C60,209,Code/Libraries/Source/WWVegas/WW3D2/aabtreebuilder.cpp,matched,
 ?Update_Min@AABTreeBuilderClass@@AAEXHAAVVector3@@@Z,,0x00198E80,211,Code/Libraries/Source/WWVegas/WW3D2/aabtreebuilder.cpp,matched,
 ?Update_Max@AABTreeBuilderClass@@AAEXHAAVVector3@@@Z,,0x00198F60,212,Code/Libraries/Source/WWVegas/WW3D2/aabtreebuilder.cpp,matched,
+?Update_Min_Max@AABTreeBuilderClass@@AAEXHAAVVector3@@0@Z,,0x00199040,358,Code/Libraries/Source/WWVegas/WW3D2/aabtreebuilder.cpp,matched,
