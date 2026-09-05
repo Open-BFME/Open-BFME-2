@@ -815,7 +815,6 @@ void AABTreeBuilderClass::Update_Min(int poly_index,Vector3 & min)
  * HISTORY:                                                                                    *
  *   6/22/98    GTH : Created.                                                                 *
  *=============================================================================================*/
-// ?Update_Max@AABTreeBuilderClass@@ present-unmatched
 void AABTreeBuilderClass::Update_Max(int poly_index,Vector3 & max)
 {
 	for (int vert_index = 0; vert_index < 3; vert_index++) {
