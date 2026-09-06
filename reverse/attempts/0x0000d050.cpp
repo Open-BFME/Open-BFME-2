@@ -1,5 +1,7 @@
 // ??$__put_integer@V?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@@_STL@@YA?AV?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@0@PAD0V10@AAVios_base@0@HD@Z
 // partial score=0.97 date=2026-09-06
+// ??$__put_integer@V?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@@_STL@@YA?AV?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@0@PAD0V10@AAVios_base@0@HD@Z
+// partial score=0.97 date=2026-09-06
 // cl: /EHs /EHc- /MD /D_STLP_USE_STATIC_LIB
 // stlport
 //
@@ -67,6 +69,26 @@
 // as a pointer instead of a reference; writing the __copy_aux call out by hand
 // with the tag hoisted.  Moving the np declaration inside the if-block behaves
 // exactly like /Oa -- 206 bytes, a different shape, worse.
+//
+// SECOND ROUND, aimed specifically at the empty-tag storage decision above,
+// all measured with the directive inside the scan window.  Inert, producing a
+// byte-for-byte identical 214-byte stream with the same six offsets: const-
+// qualifying the tag; giving __true_type an empty base; giving it a char
+// member; basechars as long or unsigned int; hoisting the tag to function
+// scope and calling __copy_aux explicitly, bypassing copy() entirely; and
+// declaring basechars at the top with a longer live range.  Destructive:
+// passing the tag as a TEMPORARY re-emits the zeroing store c6 44 24 6c 00 and
+// desyncs everything past 0x67 (so the earlier session's finding was right,
+// and is now confirmed under flags that genuinely reached cl.exe); `short
+// basechars` inserts a byte at 0x6d; `char basechars` drops the body to 205.
+//
+// That is roughly forty distinct attempts across two rounds.  Every knob that
+// preserves the abstract semantics lands on exactly the same six bytes, and
+// every knob that moves a byte does so by making the body worse.  Treat the
+// slot choice as unreachable from C++ for this frame unless someone brings new
+// information -- the point release of the headers BFME shipped, or a second
+// body that pins the allocation order independently.  Do not re-run the
+// sweeps; extend the list instead.
 //
 // This is the same wall as 0x00019260 (_Init_timeinfo, sret temporary in a dead
 // param slot), 0x0000C000/0x0000DAA0 (money_get, two callee-saved registers
