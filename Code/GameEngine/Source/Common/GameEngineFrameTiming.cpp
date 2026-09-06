@@ -10,11 +10,9 @@
 
 class GameEngine
 {
-	private:
+private:
 	void _bfme_updateClientFramePeriod(void);
 	void _bfme_updateClientFrameRatio(void);
-
-private:
 	char m_gap04[0x34];
 	int m_clientFrameCounter;
 	int m_clientFramePeriod;
