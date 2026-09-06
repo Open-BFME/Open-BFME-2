@@ -3068,12 +3068,26 @@ ParticleBufferClass::TailDiffuseTypeEnum ParticleBufferClass::Determine_Tail_Dif
 	return SAME_AS_HEAD;
 }
 
+// BFME's ParticleBufferClass has one dword less ahead of these three pointers
+// than ours: retail reads PointGroup at [eax+204h], LineRenderer at [eax+208h]
+// and LineGroup at [eax+20Ch], where our class puts them at 208h, 20Ch and
+// 210h.  Reaching them at retail's offsets is the same overlay trick dx8caps
+// uses; reconciling the whole class is a separate job.
+struct BFME_ParticleBuffer_GroupFields
+{
+	char pad[0x204];
+	PointGroupClass *pointGroup;			// 0x204
+	SegLineRendererClass *lineRenderer;		// 0x208
+	LineGroupClass *lineGroup;				// 0x20c
+};
+
 // ?ParticleBufferClass::Get_Texture present-unmatched
 ParticleBufferClass::TextureHandleClass ParticleBufferClass::Get_Texture (void) const
 {
-	if (PointGroup) return TextureHandleClass(PointGroup->Get_Texture());
-	else if (LineGroup) return TextureHandleClass(LineGroup->Get_Texture());
-	else if (LineRenderer) return TextureHandleClass(LineRenderer->Get_Texture());
+	const BFME_ParticleBuffer_GroupFields *retail = (const BFME_ParticleBuffer_GroupFields *)this;
+	if (retail->pointGroup) return TextureHandleClass(retail->pointGroup->Get_Texture());
+	else if (retail->lineGroup) return TextureHandleClass(retail->lineGroup->Get_Texture());
+	else if (retail->lineRenderer) return TextureHandleClass(retail->lineRenderer->Get_Texture());
 	return TextureHandleClass(NULL);
 }
 
@@ -3086,9 +3100,10 @@ void ParticleBufferClass::Set_Texture (TextureClass *tex)
 
 ShaderClass ParticleBufferClass::Get_Shader (void) const
 {
-	if (PointGroup) return PointGroup->Get_Shader();
-	else if (LineGroup) return LineGroup->Get_Shader();
-	else if (LineRenderer) return LineRenderer->Get_Shader();
+	const BFME_ParticleBuffer_GroupFields *retail = (const BFME_ParticleBuffer_GroupFields *)this;
+	if (retail->pointGroup) return retail->pointGroup->Get_Shader();
+	else if (retail->lineGroup) return retail->lineGroup->Get_Shader();
+	else if (retail->lineRenderer) return retail->lineRenderer->Get_Shader();
 
 	WWASSERT(0);
 	return ShaderClass::_PresetOpaqueShader;
