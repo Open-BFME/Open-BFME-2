@@ -3022,3 +3022,6 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?Load@INIClass@@QAEHAAVFileClass@@@Z,,0x00619120,145,Code/Libraries/Source/WWVegas/WWLib/ini.cpp,matched,BFME frees Filename with the scalar delete not the array form
 ?Load@INIClass@@QAEHPBD@Z,,0x006191C0,131,Code/Libraries/Source/WWVegas/WWLib/ini.cpp,matched,placed by masked byte-scan once Filename was freed with the scalar delete
 ?Save@INIClass@@QBEHPBD@Z,,0x00616650,82,Code/Libraries/Source/WWVegas/WWLib/ini.cpp,matched,placed by masked byte-scan; Return_File pinned from its own displacement
+?_M_reserve_map_at_back@?$deque@PAXV?$allocator@PAX@_STL@@@_STL@@IAEXI@Z,,0x002F1F19,38,Code/Libraries/Source/WWVegas/WWLib/stlport_deque_ptr_o1.cpp,matched,reloc-named; callee pinned from its own displacement
+?_M_insert_overflow@?$vector@FV?$allocator@F@_STL@@@_STL@@IAEXPAFABFABU__true_type@2@I_N@Z,,0x0007EAA7,139,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_s_o1.cpp,matched,reloc-named; callee pinned from its own displacement
+?Free@HLodDefClass@@AAEXXZ,,0x0019F5B0,112,Code/Libraries/Source/WWVegas/WW3D2/hlod.cpp,matched,free direct and strncpy imported: string.h pulled in before _CRTIMP is defused

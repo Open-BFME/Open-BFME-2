@@ -1,5 +1,31 @@
 // cl: /G7 /DNDEBUG /MD /Ireference/shims/bfmevector /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/sweep
 #define Matrix4x4 Matrix4
+
+// Retail reaches operator delete[] with a direct call: HLodDefClass::Free at
+// 0x0019F5B0 has three `e8` sites where our build hoists a dllimport pointer
+// into edi and calls `ff d7`. Declaring the operator without dllimport is what
+// turns the indirection back into a direct call.
+void __cdecl operator delete[](void *block);
+
+// Same story for free: retail calls 0x00030830 directly where the vendor
+// <stdlib.h> declaration is __declspec(dllimport) and costs an `ff d7` through
+// a hoisted pointer. Redeclaring free here is C2375 (different linkage), so
+// defuse the import at the source instead -- _CRTIMP is what carries the
+// dllimport into every CRT declaration, and defining it empty first leaves
+// them plain.
+// _CRTIMP carries __declspec(dllimport) into every CRT declaration, and this
+// unit needs it BOTH ways: HLodDefClass::Free reaches free at 0x00030830 with
+// a direct call, while ProxyRecordClass::Init reaches its string function
+// through the import (`ff 15`, six bytes, where a direct call is five).  So
+// defuse it for <stdlib.h> only and put it back for everything after.
+// This unit needs the CRT BOTH ways. ProxyRecordClass::Init reaches strncpy
+// through the import -- `ff 15`, six bytes, where a direct call is five --
+// while HLodDefClass::Free calls free at 0x00030830 directly. _CRTIMP is what
+// carries __declspec(dllimport) into the declarations, so pull <string.h> in
+// FIRST while it still means dllimport, and defuse it for everything after.
+// Restoring it later instead is C2375 the moment math.h re-declares atof.
+#include <string.h>
+#define _CRTIMP
 #include "winbase_shim.h"
 /*
 **	Command & Conquer Generals Zero Hour(tm)
