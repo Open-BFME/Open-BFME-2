@@ -529,3 +529,4 @@ _strlen,0x00629170,BFME2 retail strlen thunk and call target for StringBase<char
 ?_M_advance@?$_Deque_iterator_base@UBfmeE12@@@_STL@@QAEXH@Z,0x00584CB2,address read from the retail REL32 in both _Deque_iterator<BfmeE12> offset operators at 0x00584E57 and 0x004221E6
 ?Get_Shader@PointGroupClass@@QAE?AVShaderClass@@XZ,0x0013EDB0,identical-code twins folded at this address; read from the retail REL32 in ParticleBufferClass::Get_Shader at 0x001A7B10
 ?Get_Shader@LineGroupClass@@QAE?AVShaderClass@@XZ,0x0013EDB0,identical-code twins folded at this address; read from the retail REL32 in ParticleBufferClass::Get_Shader at 0x001A7B10
+?Lock@BFMEPoolCriticalSection@@QAEXXZ,0x0006577F,BFMEs pool spin lock - lock bts dword [ebx] 0 with a thread yield on contention; the ADDRESS is read from the retail REL32 in ObjectPoolClass<MultiListNodeClass>::Free_Object_Memory at 0x00196470 and is self-verifying but the NAME is ours not a recovered symbol
