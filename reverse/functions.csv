@@ -3214,3 +3214,13 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?setRopeSpeed@W3DRopeDraw@@UAEXMMM@Z,,0x000CA72E,36,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DRopeDraw.cpp,matched,placed by masked byte-scan; single hit
 ??XVector2@@QAEAAV0@M@Z,,0x000CDF50,33,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DRoadBuffer.cpp,matched,placed by masked byte-scan; single hit
 ??GVector2@@QBE?AV0@XZ,,0x000D43EB,31,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DRoadBuffer.cpp,matched,placed by masked byte-scan; single hit
+?Fast_Cos@WWMath@@SAMM@Z,,0x00179950,194,Code/Libraries/Source/WWVegas/WW3D2/light.cpp,matched,placed by masked byte-scan; single hit
+??H@YA?AVStringClass@@PBDABV0@@Z,,0x00613440,175,Code/Libraries/Source/WWVegas/WWLib/ffactory.cpp,matched,placed by masked byte-scan; single hit
+?Enable_Fog@ShaderClass@@QAEXPBD@Z,,0x00138200,124,Code/Libraries/Source/WWVegas/WW3D2/shader.cpp,matched,placed by masked byte-scan; single hit
+??YStringClass@@QAEABV0@D@Z,,0x006133D0,111,Code/Libraries/Source/WWVegas/WWLib/ffactory.cpp,matched,placed by masked byte-scan; single hit
+?Add_To_List@DefaultStaticSortListClass@@UAEXPAVRenderObjClass@@I@Z,,0x00176970,57,Code/Libraries/Source/WWVegas/WW3D2/static_sort_list.cpp,matched,placed by masked byte-scan; single hit
+?Add_Tail@?$RefMultiListClass@VRenderObjClass@@@@QAE_NPAVRenderObjClass@@_N@Z,,0x00141140,39,Code/Libraries/Source/WWVegas/WW3D2/static_sort_list.cpp,matched,placed by masked byte-scan; single hit
+?Invert_Backface_Culling@ShaderClass@@SAX_N@Z,,0x00138110,26,Code/Libraries/Source/WWVegas/WW3D2/shader.cpp,matched,placed by masked byte-scan; single hit
+?Put@Pipe@@UAEHPBXH@Z,,0x0061B130,21,Code/Libraries/Source/WWVegas/WWLib/pipe.cpp,matched,placed by masked byte-scan; single hit
+?Append_Sub_Directory@SimpleFileFactoryClass@@QAEXPBD@Z,,0x00613650,251,Code/Libraries/Source/WWVegas/WWLib/ffactory.cpp,matched,placed by masked byte-scan; single hit
+?Prepend_Sub_Directory@SimpleFileFactoryClass@@QAEXPBD@Z,,0x00613550,248,Code/Libraries/Source/WWVegas/WWLib/ffactory.cpp,matched,placed by masked byte-scan; single hit
