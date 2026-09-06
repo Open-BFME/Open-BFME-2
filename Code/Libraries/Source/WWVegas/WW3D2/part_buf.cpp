@@ -3082,12 +3082,48 @@ struct BFME_ParticleBuffer_GroupFields
 };
 
 // ?ParticleBufferClass::Get_Texture present-unmatched
+// BFME's group classes return the texture handle BY VALUE, not a raw pointer.
+// Retail forwards our own sret straight into them -- `mov esi,[esp+0Ch] /
+// push esi / call` and then `mov eax,esi` -- where constructing a handle from
+// a returned pointer costs a store and three bytes.  The point and line group
+// overloads are folded together at 0x001790E0; the segmented-line renderer has
+// its own at 0x00191210.
+// Three DISTINCT types, not one: the point and line group overloads are folded
+// at 0x001790E0 by the linker, but they are separate functions to the compiler
+// and retail has two call sites.  Sharing one class here lets MSVC merge the
+// first two branches into a single test and call, which is nine bytes short.
+class BFMEPointGroupTexture
+{
+public:
+	ParticleBufferClass::TextureHandleClass Get_Texture() const;	// declared, not defined
+};
+
+class BFMELineGroupTexture
+{
+public:
+	ParticleBufferClass::TextureHandleClass Get_Texture() const;	// declared, not defined
+};
+
+class BFMELineRendererTexture
+{
+public:
+	ParticleBufferClass::TextureHandleClass Get_Texture() const;	// declared, not defined
+};
+
+struct BFME_ParticleBuffer_TextureFields
+{
+	char pad[0x204];
+	BFMEPointGroupTexture *pointGroup;			// 0x204
+	BFMELineRendererTexture *lineRenderer;		// 0x208
+	BFMELineGroupTexture *lineGroup;			// 0x20c
+};
+
 ParticleBufferClass::TextureHandleClass ParticleBufferClass::Get_Texture (void) const
 {
-	const BFME_ParticleBuffer_GroupFields *retail = (const BFME_ParticleBuffer_GroupFields *)this;
-	if (retail->pointGroup) return TextureHandleClass(retail->pointGroup->Get_Texture());
-	else if (retail->lineGroup) return TextureHandleClass(retail->lineGroup->Get_Texture());
-	else if (retail->lineRenderer) return TextureHandleClass(retail->lineRenderer->Get_Texture());
+	const BFME_ParticleBuffer_TextureFields *retail = (const BFME_ParticleBuffer_TextureFields *)this;
+	if (retail->pointGroup) return retail->pointGroup->Get_Texture();
+	else if (retail->lineGroup) return retail->lineGroup->Get_Texture();
+	else if (retail->lineRenderer) return retail->lineRenderer->Get_Texture();
 	return TextureHandleClass(NULL);
 }
 

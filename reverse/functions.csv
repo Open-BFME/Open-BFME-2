@@ -3260,3 +3260,4 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?allocate@?$allocator@F@_STL@@QBEPAFIPBX@Z,,0x000AD722,27,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_s_o1.cpp,matched,placed by masked byte-scan; single hit
 ??1TextureStatisticsStruct@@QAE@XZ,,0x00118800,12,Code/Libraries/Source/WWVegas/WW3D2/TextureStatisticsVector.cpp,matched,BFME does not null the referent in the destructor; retail tail-jumps to Release_Ref
 ?Free_Object_Memory@?$ObjectPoolClass@VMultiListNodeClass@@$0BAA@@@QAEXPAVMultiListNodeClass@@@Z,,0x00196470,39,Code/Libraries/Source/WWVegas/WWLib/multilist.cpp,matched,BFME spin-locks the pool; section at 0x10 acquire at 0x0006577F released by a guard destructor
+?Get_Texture@ParticleBufferClass@@QBE?AVTextureHandleClass@1@XZ,,0x001A7A60,110,Code/Libraries/Source/WWVegas/WW3D2/part_buf.cpp,matched,BFMEs group classes return the texture handle by value
