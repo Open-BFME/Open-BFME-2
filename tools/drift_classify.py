@@ -186,8 +186,11 @@ def find_candidates(exe, pe, text, body, relocs, symbol_map, call_sites, matched
     return ranked[:3]
 
 
-def disasm(data):
-    """objdump a raw i386 blob -> [(mnemonic, normalized-operands, raw-operands)]."""
+def _normalize(ops):
+    return re.sub(r"0x[0-9a-f]+|\b\d+\b", "#", ops)
+
+
+def _disasm_objdump(data):
     tmp = SCRATCH / "blob.bin"
     tmp.write_bytes(data)
     out = subprocess.run(["objdump", "-b", "binary", "-m", "i386", "-M", "intel", "-D",
@@ -197,8 +200,39 @@ def disasm(data):
         m = re.match(r"\s*[0-9a-f]+:\s+(?:[0-9a-f]{2} )+\s*(\S+)\s*(.*)", line)
         if m:
             mnem, ops = m.group(1), m.group(2).strip()
-            instrs.append((mnem, re.sub(r"0x[0-9a-f]+|\b\d+\b", "#", ops), ops))
+            instrs.append((mnem, _normalize(ops), ops))
     return instrs
+
+
+def _disasm_capstone(data):
+    import capstone
+
+    md = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
+    instrs = []
+    for insn in md.disasm(data, 0):
+        ops = insn.op_str.strip()
+        instrs.append((insn.mnemonic, _normalize(ops), ops))
+    return instrs
+
+
+def disasm(data):
+    """Disassemble a raw i386 blob -> [(mnemonic, normalized-operands, raw-operands)].
+
+    objdump is the reference backend; capstone is the fallback for a host with no
+    binutils, which a plain Windows checkout is -- without it every tier of
+    next_work.py that reads this report dies on FileNotFoundError. The two are
+    only ever used to compare two blobs disassembled in the SAME run, so the
+    backends never have to agree with each other on spelling, only with
+    themselves.
+    """
+    try:
+        return _disasm_objdump(data)
+    except (FileNotFoundError, OSError):
+        pass
+    try:
+        return _disasm_capstone(data)
+    except ImportError:
+        return []
 
 
 def mask(data, holes, size):
