@@ -2967,3 +2967,4 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?Get_Total_Allocated_Memory@IndexBufferClass@@SAIXZ,,0x00138760,6,Code/Libraries/Source/WWVegas/WW3D2/dx8indexbuffer.cpp,matched,reads the counter the constructor at 0x00138B20 updates
 ?Add_Engine_Ref@IndexBufferClass@@QBEXXZ,,0x00138770,5,Code/Libraries/Source/WWVegas/WW3D2/dx8indexbuffer.cpp,matched,adjusts engine_refs at +8; adjacent to the counter accessors
 ?Release_Engine_Ref@IndexBufferClass@@QBEXXZ,,0x00138780,5,Code/Libraries/Source/WWVegas/WW3D2/dx8indexbuffer.cpp,matched,adjusts engine_refs at +8; adjacent to the counter accessors
+??1WriteLockClass@IndexBufferClass@@QAE@XZ,,0x00138840,113,Code/Libraries/Source/WWVegas/WW3D2/dx8indexbuffer.cpp,matched,BFME holds a DX8 device mutex across the buffer lock; the guard destructor here is inline and calls the release at 0x00120F50
