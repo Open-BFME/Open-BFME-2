@@ -598,7 +598,6 @@ void DynamicIBAccessClass::Allocate_DX8_Dynamic_Buffer()
 }
 
 // byte-exact reconstruction: Code/GameEngine/Source/Common/DynamicIBAccessClass_Allocate_Sorting_Dynamic_BufferMethodThunk.cpp
-// ?Allocate_Sorting_Dynamic_Buffer@DynamicIBAccessClass@@QAEXXZ present-unmatched
 void DynamicIBAccessClass::Allocate_Sorting_Dynamic_Buffer()
 {
 	WWMEMLOG(MEM_RENDERER);
@@ -614,7 +613,24 @@ void DynamicIBAccessClass::Allocate_Sorting_Dynamic_Buffer()
 	}
 
 	if (!_DynamicSortingIndexArray) {
-		_DynamicSortingIndexArray=NEW_REF(SortingIndexBufferClass,(_DynamicSortingIndexArraySize));
+		// Retail allocates here with `push 24; call ??2@YAPAXI@Z` -- the GLOBAL
+		// operator new -- not the getClassMemoryPool() + allocateFromW3DMemPool
+		// pair that SortingIndexBufferClass's W3DMPO_GLUE generates.  Retail
+		// built the class in this unit with no glue at all, so `::new` is what
+		// reproduces its bytes.
+		//
+		// KNOWN ASYMMETRY, recorded rather than hidden: the glue also supplies a
+		// POOLED operator delete, and this class still carries it, so the
+		// deleting destructor reached from Release_Ref() would hand a
+		// globally-allocated pointer to freeFromW3DMemPool.  Retail had no such
+		// mismatch because its class had neither half.  The correct fix is to
+		// suppress W3DMPO_GLUE for the length of the dx8indexbuffer.h include,
+		// the way meshmatdesc.cpp does for VertexMaterialClass; that is blocked
+		// on an include-order problem (pulling always.h in first makes a
+		// different copy of the header win, one that declares this method
+		// private, so the unit stops exporting ?...@QAE and exports @AAE).
+		// See reverse/re_attempts.log for 0x00138F50.
+		_DynamicSortingIndexArray=::new SortingIndexBufferClass(_DynamicSortingIndexArraySize);
 		_DynamicSortingIndexArrayOffset=0;
 	}
 
