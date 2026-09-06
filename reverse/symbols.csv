@@ -542,3 +542,10 @@ _sqrt,0x0062921C,MSVCRT import thunk identified by retail call target and Ghidra
 _strlen,0x00629170,BFME2 retail strlen thunk and call target for StringBase<char>::compare(const char *)
 ??1?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@QAE@XZ,0x00142D70,wide basic_string destructor; direct REL32 at RVA 0x0000BEE9 in money_put<wchar_t>::do_put reaches the existing narrow destructor through ICF
 ??1GameEngine@@UAE@XZ,0x00225B9B,GameEngine vtable slot 0x00226333 calls this complete-destructor body; vtable 0x007E7188 and frame-loop method 0x00225DA9 establish ownership
+??0BFMEDesyncCheck@@QAE@XZ,0x002CEA22,BFME2 client frame desync record constructor called by GameEngine slot 39; enable flag and GameLogic CRC path match the BFME1 BFMEDesyncCheck analogue
+?writeReportIfMismatched@BFMEDesyncCheck@@QAEXXZ,0x002CEA55,BFME2 client frame desync record report call from the inline destructor in GameEngine slot 39; retail EH body closes the per-frame report scope
+?deleteLoadScreen@GameLogic@@QAEXXZ,0x002423E3,GameEngine slot 39 call target; BFME1 GameLogic deleteLoadScreen is the first client-subsystem operation and this BFME2 body owns the same GameLogic state
+?_bfme_updateTimedOps@@YAIXZ,0x003FE74B,GameEngine slot 39 call target; returns timed-operation flags consumed for input-lock and mouse visibility handling
+?propagateMessages@MessageStream@@QAEXXZ,0x00310FF5,GameEngine slot 39 call target; message-stream propagation immediately precedes timed-operation flag sampling
+?setEngineInputEnabled@InGameUI@@QAEX_N@Z,0x0029AB22,GameEngine slot 39 input-lock transition call target; wrapper forwards the enabled flag to the in-game UI state
+?_bfme_setEngineVisibility@Mouse@@QAEX_N@Z,0x001EE5BE,GameEngine slot 39 input-lock transition call target; BFME1 Mouse visibility analogue with the same bool argument
