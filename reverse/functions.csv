@@ -3202,3 +3202,15 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?Reset_Line@SegLineRendererClass@@QAEXXZ,,0x00191260,22,Code/Libraries/Source/WWVegas/WW3D2/seglinerenderer.cpp,matched,placed by masked byte-scan; single hit
 ?Set_Opacity@VertexMaterialClass@@QAEXM@Z,,0x0013CD60,21,Code/Libraries/Source/WWVegas/WW3D2/vertmaterial.cpp,matched,placed by masked byte-scan; single hit
 ?Set_Shininess@VertexMaterialClass@@QAEXM@Z,,0x0013CD30,21,Code/Libraries/Source/WWVegas/WW3D2/vertmaterial.cpp,matched,placed by masked byte-scan; single hit
+?Bias@RawFileClass@@UAEXHH@Z,,0x0061A750,303,Code/Libraries/Source/WWVegas/WWLib/rawfile.cpp,matched,placed by masked byte-scan; single hit
+?Seek@RawFileClass@@UAEHHH@Z,,0x0061A640,260,Code/Libraries/Source/WWVegas/WWLib/rawfile.cpp,matched,placed by masked byte-scan; single hit
+?Get_Point@INIClass@@QBE?BV?$TPoint3D@M@@PBD0ABV2@@Z,,0x006178C0,221,Code/Libraries/Source/WWVegas/WWLib/ini.cpp,matched,placed by masked byte-scan; single hit
+?Get_Point@INIClass@@QBE?BV?$TPoint2D@M@@PBD0ABV2@@Z,,0x006179A0,197,Code/Libraries/Source/WWVegas/WWLib/ini.cpp,matched,placed by masked byte-scan; single hit
+?Init_Processor_Speed@CPUDetectClass@@CAXXZ,,0x00611180,196,Code/Libraries/Source/WWVegas/WWLib/cpudetect.cpp,matched,placed by masked byte-scan; single hit
+?Get_Float@INIClass@@QBEMPBD0M@Z,,0x00616E90,136,Code/Libraries/Source/WWVegas/WWLib/ini.cpp,matched,placed by masked byte-scan; single hit
+?Spheres_Intersect@@YA_NABVSphereClass@@0@Z,,0x0006F05E,93,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DRoadBuffer.cpp,matched,placed by masked byte-scan; single hit
+?Get_Float@RegistryClass@@QAEMPBDM@Z,,0x0060F330,82,Code/Libraries/Source/WWVegas/WWLib/registry.cpp,matched,placed by masked byte-scan; single hit
+??H@YA?AVVector2@@ABV0@0@Z,,0x0007B2DD,40,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DRoadBuffer.cpp,matched,placed by masked byte-scan; single hit
+?setRopeSpeed@W3DRopeDraw@@UAEXMMM@Z,,0x000CA72E,36,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DRopeDraw.cpp,matched,placed by masked byte-scan; single hit
+??XVector2@@QAEAAV0@M@Z,,0x000CDF50,33,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DRoadBuffer.cpp,matched,placed by masked byte-scan; single hit
+??GVector2@@QBE?AV0@XZ,,0x000D43EB,31,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DRoadBuffer.cpp,matched,placed by masked byte-scan; single hit
