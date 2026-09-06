@@ -365,7 +365,10 @@ public:
   // (bytes, hint) __cdecl, and frees through the plain C free. See the header
   // banner for the evidence.
   _Tp* allocate(size_type __n, const void* __p = 0) const { 
-    return __n != 0 ? __REINTERPRET_CAST(value_type*,allocator<char>::allocate(__n * sizeof(value_type), __p)) : 0;
+    // Retail passes a literal 0 as the hint, not __p: allocator<BfmeE16>'s
+    // allocate at 0x002226BE is `push 0 / push <bytes> / call` where forwarding
+    // __p costs a `push [esp+8]` and two bytes.
+    return __n != 0 ? __REINTERPRET_CAST(value_type*,allocator<char>::allocate(__n * sizeof(value_type), 0)) : 0;
   }
   // __p is permitted to be a null pointer, only if n==0.
   void deallocate(pointer __p, size_type __n) const {

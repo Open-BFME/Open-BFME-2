@@ -3255,3 +3255,7 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ??G?$_Deque_iterator@UBfmeE12@@U?$_Nonconst_traits@UBfmeE12@@@_STL@@@_STL@@QBE?AU01@H@Z,,0x004221E6,49,Code/Libraries/Source/WWVegas/WWLib/stlport_deque_e12_o1.cpp,matched,_M_advance pinned from its own displacement
 ?Length@?$SimpleVecClass@K@@QBEHXZ,,0x00144010,4,Code/Libraries/Source/WWVegas/WW3D2/aabtree.cpp,matched,reloc-named; matched by emitted body length
 ?Get_Shader@ParticleBufferClass@@QBE?AVShaderClass@@XZ,,0x001A7B10,94,Code/Libraries/Source/WWVegas/WW3D2/part_buf.cpp,matched,the three group pointers are at 0x204 0x208 0x20C in BFME
+?allocate@?$allocator@UBfmeE16@@@_STL@@QBEPAUBfmeE16@@IPBX@Z,,0x002226BE,28,Code/Libraries/Source/WWVegas/WWLib/stlport_deque_e16_o1.cpp,matched,placed by masked byte-scan; single hit
+?allocate@?$allocator@UBfmeE8@@@_STL@@QBEPAUBfmeE8@@IPBX@Z,,0x00523D6C,28,Code/Libraries/Source/WWVegas/WWLib/stlport_deque_e8_o1.cpp,matched,placed by masked byte-scan; single hit
+?allocate@?$allocator@F@_STL@@QBEPAFIPBX@Z,,0x000AD722,27,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_s_o1.cpp,matched,placed by masked byte-scan; single hit
+??1TextureStatisticsStruct@@QAE@XZ,,0x00118800,12,Code/Libraries/Source/WWVegas/WW3D2/TextureStatisticsVector.cpp,matched,BFME does not null the referent in the destructor; retail tail-jumps to Release_Ref

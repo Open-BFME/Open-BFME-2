@@ -39,12 +39,15 @@ public:
 		if (Referent != 0)
 			Referent->Add_Ref();
 	}
+	// BFME's destructor does NOT null the pointer: ~TextureStatisticsStruct at
+	// 0x00118800 is twelve bytes -- `mov ecx,[ecx] / test ecx,ecx / jz / jmp
+	// Release_Ref` -- a tail jump with no store after it.  Nulling costs the
+	// tail call and ten bytes.
 	~RefCountPtr()
 	{
 		if (Referent != 0)
 		{
 			Referent->Release_Ref();
-			Referent = 0;
 		}
 	}
 	RefCountPtr const &operator=(RefCountPtr const &other)
