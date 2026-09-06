@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfmehashtable /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP=
+// cl: /Ireference/shims/bfmealloc /Ireference/shims/bfmehashtable /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP=
 // stlport
 
 #include <hash_map>
