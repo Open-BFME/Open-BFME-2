@@ -516,3 +516,6 @@ __CIpow,0x006299A0,address read from the REL32 displacement at a placed body; st
 ?Device_To_View_Space@CameraClass@@QAEXABVVector2@@PAVVector3@@@Z,0x00134650,address read from the retail REL32 in ?Device_To_World_Space at 0x00134730
 ?Seek@ChunkLoadClass@@QAEKK@Z,0x006150C0,address read from the retail REL32 in ?Load_W3D at 0x00195AE0
 ?Add@?$DynamicVectorClass@UWeightInfoStruct@NamedPivotMapClass@@@@QAE_NABUWeightInfoStruct@NamedPivotMapClass@@@Z,0x00196880,address read from the retail REL32 in ?Add at 0x00196AA0
+??0Vector3SolidSphereRandomizer@@QAE@M@Z,0x00723230,address read from the retail REL32 in ParticleEmitterDefClass::Create_Randomizer at 0x001AFF60
+??0Vector3HollowSphereRandomizer@@QAE@M@Z,0x00723350,address read from the retail REL32 in ParticleEmitterDefClass::Create_Randomizer at 0x001AFF60
+??0Random3Class@@QAE@II@Z,0x006200B0,identical-code fold with the STLport _Hashtable_iterator constructor already matched here - both store two dwords at +0 and +4; address read from the retail REL32 in StreakRendererClass::subdivision_util at 0x00743280
