@@ -406,9 +406,25 @@ inline int LZHLDecompressor::_get( const BYTE*& src, const BYTE* srcEnd, int n )
     return ret;
     }
 
-// ?decompress@LZHLDecompressor@@QAEHPAEPAIPBE1@Z present-unmatched -- see
-// ../PROVENANCE.txt: upstream compiles 852 bytes at both published revisions;
-// retail's unclaimed run at 0x00826914 is 844. EA's divergence.
+// EA's divergence from upstream, read out of the retail body at 0x00692440
+// (824 bytes, ending at the int3 pad before the next body at 0x00692780):
+//
+//   * upstream tests every `_get` for a negative return and bails; retail keeps
+//     only the three range tests that guard a memory access (`pos >=
+//     NHUFFSYMBOLS`, and `dst` / `dst + matchLen` against `endDst`) and drops
+//     the other five.  What replaces them is the loop condition itself: retail
+//     re-tests `src < endSrc` at the bottom of every iteration (the back edge
+//     at 0x0069271D reads the `src` parameter slot), with the usual rotated
+//     pre-test ahead of the loop head at 0x00692490.
+//   * `dstSz` and `srcSz` are dereferenced unconditionally in the success
+//     epilogue at 0x00692739 -- the upstream `if( dstSz )` / `if( srcSz )`
+//     guards are gone.
+//   * that epilogue is reached only by the NHUFFSYMBOLS-1 arm, which returns
+//     TRUE directly; falling out of the loop returns FALSE alongside every
+//     explicit failure, all sharing the epilogue at 0x0069272A.
+//
+// Everything else is upstream, and the frame corroborates the header: 0x460
+// bytes is six dword locals plus `HuffStatTmpStruct s[ 274 ]` at 4 bytes each.
 BOOL LZHLDecompressor::decompress( BYTE* dst, size_t* dstSz, const BYTE* src, size_t* srcSz )
     {
     BYTE* startDst = dst;
@@ -417,11 +433,9 @@ BOOL LZHLDecompressor::decompress( BYTE* dst, size_t* dstSz, const BYTE* src, si
     const BYTE* endDst = dst + *dstSz;
     nBits = 0;
     int i, n;
-    for(;;)
+    while( src < endSrc )
         {
         int grp = _get( src, endSrc, 4 );
-        if( grp < 0 )
-            return FALSE;
         Group& group = groupTable[ grp ];
 
         int symbol;
@@ -431,10 +445,7 @@ BOOL LZHLDecompressor::decompress( BYTE* dst, size_t* dstSz, const BYTE* src, si
         else
             {
             assert( nBits <= 8 );
-            int got = _get( src, endSrc, nBits );
-            if( got < 0 )
-                return FALSE;
-            int pos = group.pos + got;
+            int pos = group.pos + _get( src, endSrc, nBits );
             if( pos >= NHUFFSYMBOLS )
                 return FALSE;
             symbol = symbolTable[ pos ];
@@ -478,7 +489,11 @@ BOOL LZHLDecompressor::decompress( BYTE* dst, size_t* dstSz, const BYTE* src, si
             continue;//forever
             }
         else if( symbol == NHUFFSYMBOLS - 1 )
-            break;//forever
+            {
+            *dstSz -= dst - startDst;
+            *srcSz -= src - startSrc;
+            return TRUE;
+            }
 
         static struct MatchOverItem { int nExtraBits; int base; } _matchOverTable[] =
             {
@@ -497,14 +512,10 @@ BOOL LZHLDecompressor::decompress( BYTE* dst, size_t* dstSz, const BYTE* src, si
             {
             MatchOverItem* item = &_matchOverTable[ symbol - 256 - 8 ];
             int extra = _get( src, endSrc, item->nExtraBits );
-            if( extra < 0 )
-                return FALSE;
             matchOver = item->base + extra;
             }
 
         int dispPrefix = _get( src, endSrc, 3 );
-        if( dispPrefix < 0 )
-            return FALSE;
 
         static struct DispItem { int nBits; int disp; } _dispTable[] =
             {
@@ -528,10 +539,7 @@ BOOL LZHLDecompressor::decompress( BYTE* dst, size_t* dstSz, const BYTE* src, si
             disp |= _get( src, endSrc, 8 ) << nBits;
             }
         assert( nBits <= 8 );
-        int got = _get( src, endSrc, nBits );
-        if( got < 0 )
-            return FALSE;
-        disp |= got;
+        disp |= _get( src, endSrc, nBits );
 
         disp += item->disp << (LZBUFBITS - 7);
         assert( disp >=0 && disp < LZBUFSIZE );
@@ -552,10 +560,5 @@ BOOL LZHLDecompressor::decompress( BYTE* dst, size_t* dstSz, const BYTE* src, si
         dst += matchLen;
         }
 
-    if( dstSz )
-        *dstSz -= dst - startDst;
-    if( srcSz )
-        *srcSz -= src - startSrc;
-
-	return TRUE;
+    return FALSE;
     }
