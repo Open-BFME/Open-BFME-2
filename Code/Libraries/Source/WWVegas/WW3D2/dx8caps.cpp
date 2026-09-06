@@ -540,19 +540,15 @@ struct BFME_DX8Caps_InitCapsFields
 
 void DX8Caps::Init_Caps(IDirect3DDevice8* D3DDevice)
 {
+	// BFME does NOT do Zero Hour's two-pass probe here.  Retail is 51 bytes:
+	// one GetDeviceCaps through the device global, the call counter, and
+	// SupportTnL set from a `sete` on the DevCaps bit.  There is no
+	// Set_Software_Vertex_Processing on either side and no second query.
 	BFME_DX8Caps_InitCapsFields *retail = (BFME_DX8Caps_InitCapsFields *)this;
 
-	Set_Software_Vertex_Processing(D3DDevice,TRUE);
 	DX8CALL(GetDeviceCaps(&Caps));
 
-	if ((Caps.DevCaps&D3DDEVCAPS_HWTRANSFORMANDLIGHT)==D3DDEVCAPS_HWTRANSFORMANDLIGHT) {
-		retail->supportTnL=true;
-
-		Set_Software_Vertex_Processing(D3DDevice,FALSE);
-		DX8CALL(GetDeviceCaps(&Caps));	
-	} else {
-		retail->supportTnL=false;			
-	}
+	retail->supportTnL=((Caps.DevCaps&D3DDEVCAPS_HWTRANSFORMANDLIGHT)==D3DDEVCAPS_HWTRANSFORMANDLIGHT);
 }
 
 // ----------------------------------------------------------------------------
@@ -932,8 +928,12 @@ void DX8Caps::Check_Depth_Stencil_Support(WW3DFormat display_format, const D3DCA
 // places at 0x27c and 0x280, which is the corroboration that these are one layout.
 struct BFME_DX8Caps_MaxTextureField
 {
-	char pad[0x284];
-	int maxSimultaneousTextures;			// 0x284
+	// 0x2BC, not the 0x284 this used to guess: retail's body is nineteen bytes
+	// and the store is `mov [ecx+2BCh],edx`.  That also sits four past the
+	// pixel shader version at 0x2B8, which is where the declaration order in
+	// dx8caps.h puts MaxSimultaneousTextures.
+	char pad[0x2bc];
+	int maxSimultaneousTextures;			// 0x2bc
 };
 
 // ?Check_Maximum_Texture_Support@DX8Caps@@AAEXABU_D3DCAPS8@@@Z

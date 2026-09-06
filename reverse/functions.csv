@@ -3248,3 +3248,5 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?Check_Shader_Support@DX8Caps@@AAEXABU_D3DCAPS8@@@Z,,0x0012B550,95,Code/Libraries/Source/WWVegas/WW3D2/dx8caps.cpp,matched,shader versions at 0x2B4 and 0x2B8 and capsLog at 0x2DC read from retail
 ?Check_Render_To_Texture_Support@DX8Caps@@AAEXW4WW3DFormat@@ABU_D3DCAPS8@@@Z,,0x0012B2A0,100,Code/Libraries/Source/WWVegas/WW3D2/dx8caps.cpp,matched,BFME queries all 118 D3DFORMAT values with no logging
 ?Check_Texture_Format_Support@DX8Caps@@AAEXW4WW3DFormat@@ABU_D3DCAPS8@@@Z,,0x0012B210,129,Code/Libraries/Source/WWVegas/WW3D2/dx8caps.cpp,matched,BFME maps the five DXT slots to consecutive integers from DXT1
+?Check_Maximum_Texture_Support@DX8Caps@@AAEXABU_D3DCAPS8@@@Z,,0x0012B310,19,Code/Libraries/Source/WWVegas/WW3D2/dx8caps.cpp,matched,maxSimultaneousTextures is at 0x2BC
+?Init_Caps@DX8Caps@@AAEXPAUIDirect3DDevice8@@@Z,,0x0012B160,51,Code/Libraries/Source/WWVegas/WW3D2/dx8caps.cpp,matched,BFME queries the caps once and sets SupportTnL from a sete
