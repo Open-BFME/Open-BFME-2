@@ -287,13 +287,39 @@ private:
 	int MaxDisplayHeight;
 
 	D3DCAPS8 Caps;
-	// BFME's D3DCAPS8 is 304 bytes where reference/shims/d3d8_shim_validated.h
-	// stops at 212: retail's DX8IndexBufferClass constructor at 0x00138980
-	// reads Support_TnL as `cmp byte ptr [ecx+138h],0`, and MaxDisplayWidth,
-	// MaxDisplayHeight and Caps put that flag at 8 + sizeof(D3DCAPS8).  The
-	// 92 bytes are the tail of the structure we have not named; nothing in
-	// this tree reads them, so they are reserved rather than invented.
-	char _d3dcaps8_tail[92];
+	// BFME's caps structure is D3DCAPS9, not D3DCAPS8.  Retail's
+	// DX8IndexBufferClass constructor at 0x00138980 reads Support_TnL as
+	// `cmp byte ptr [ecx+138h],0`, and MaxDisplayWidth, MaxDisplayHeight and
+	// Caps put that flag at 8 + sizeof(D3DCAPS).  That makes the structure 304
+	// bytes where reference/shims/d3d8_shim_validated.h models 212 -- and the
+	// 92-byte difference is exactly D3DCAPS9's 23 added fields, all of which sit
+	// after PixelShader1xMaxValue at the end of the D3D8 layout.  They are named
+	// here rather than reserved because the arithmetic identifies them: 23 DWORDs
+	// is the only way to reach 304 from 212, and it is D3D9's own tail in D3D9's
+	// own order.  Nothing in this tree reads them yet.
+	DWORD DevCaps2;
+	float MaxNpatchTessellationLevel;
+	DWORD Reserved5;
+	UINT MasterAdapterOrdinal;
+	UINT AdapterOrdinalInGroup;
+	UINT NumberOfAdaptersInGroup;
+	DWORD DeclTypes;
+	DWORD NumSimultaneousRTs;
+	DWORD StretchRectFilterCaps;
+	DWORD VS20Caps_Caps;
+	int VS20Caps_DynamicFlowControlDepth;
+	int VS20Caps_NumTemps;
+	int VS20Caps_StaticFlowControlDepth;
+	DWORD PS20Caps_Caps;
+	int PS20Caps_DynamicFlowControlDepth;
+	int PS20Caps_NumTemps;
+	int PS20Caps_StaticFlowControlDepth;
+	int PS20Caps_NumInstructionSlots;
+	DWORD VertexTextureFilterCaps;
+	DWORD MaxVShaderInstructionsExecuted;
+	DWORD MaxPShaderInstructionsExecuted;
+	DWORD MaxVertexShader30InstructionSlots;
+	DWORD MaxPixelShader30InstructionSlots;
 	bool SupportTnL;	
 	bool SupportDXTC;
 	bool supportGamma;
