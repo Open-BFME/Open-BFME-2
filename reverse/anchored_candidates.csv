@@ -7,7 +7,6 @@ target_rva,target_size,zh_source,alternates,confidence,ghidra_name,anchor
 0x00612770,1871,cpudetect.cpp,0,high,FUN_00a12770,"L1 Instruction Cache: %d byte cache lines, %d way set associative, %dk  "
 0x00617B10,1810,ini.cpp,0,high,FUN_00a17b10,INIClass::Load
 0x00697EC0,1617,PeerThread.cpp,0,high,FUN_00a97ec0,statechanged
-0x00040160,1364,debug_io_flat.cpp,0,high,FUN_00440160,"splitadd <types> <filter> <name> [ <size in kb> ]  Splits off part of the log data. Multiple splits can be defined. They  are written out to the first matching split file.  'types' defines one or more string types which should be split off: - a: asserts - c: crash - l: logs - x: exceptions - r: replies from commands - o: other messages   Next a filter is specified that determines which items are to be  filtered (only for string types a, c and l). Items can be listed with then 'list' command. The filter is exactly specified as in that command.  The third parameter defines a name for this split. If there is  already a split with the same name then both will write to the same  destination file.  Note: If splits are used and the filename given for 'add' is static  or does not contain 'n' or 'N' then the split name is automatically  appended to the log file name (before the extension).  If a size is specified then all data is internally written to a  fixed size memory based ring buffer. This data is flushed out once  the program exits.  If no size is given then the size of the log file is not limited and  any log data is written out immediately. "
 0x0003DCD0,1254,debug_except.cpp,0,high,FUN_0043dcd0,EA/DEBUG: EXCEPTION_STACK_OVERFLOW 
 0x006C7600,1117,profile_result.cpp,0,high,FUN_00ac7600,"Function,File,Call count,PTT (all),GTT (all),PT/C (all),GT/C (all),Caller (all)"
 0x0003A250,959,debug_debug.cpp,0,high,PostStaticInit, You are using an older version of the DBGHELP.DLL library. Please update to the newest available version in order to get reliable stack and symbol information.  
@@ -25,7 +24,6 @@ target_rva,target_size,zh_source,alternates,confidence,ghidra_name,anchor
 0x0007846F,712,FileSystem.h,0,high,FUN_0047846f,Art/CompiledTextures/
 0x0012B5B0,709,dx8caps.cpp,0,high,FUN_0052b5b0,Driver version status: Bad (Driver update recommended)  
 0x00039B70,664,debug_debug.cpp,0,high,FUN_00439b70,[%02i:%02i.%02i.%03i] 
-0x0003FA20,656,debug_io_flat.cpp,0,high,FUN_0043fa20,%04i%02i%02i-%02i%02i-%02i
 0x00616FB0,554,ini.cpp,0,high,FUN_00a16fb0,INIClass::Put_String
 0x006C9760,449,Download.cpp,0,high,FUN_00ac9760,download
 0x006BB240,421,Connection.h,0,high,FUN_00abb240,GameSpyHTTP/1.0
@@ -46,20 +44,18 @@ target_rva,target_size,zh_source,alternates,confidence,ghidra_name,anchor
 0x0054F99E,234,PingThread.cpp,0,high,FUN_0094f99e,IcmpCloseHandle
 0x0072C7E0,234,W3DTreeBuffer.cpp,0,high,FUN_00b2c7e0,Invalid status.
 0x0007FFED,233,Water.cpp,0,high,FUN_0047ffed,BlendUsingTerrainAlpha
-0x0015D360,231,meshmatdesc.cpp,0,high,FUN_0055d360,MeshMatDescClass::TextureArray
 0x002054FF,224,ScriptEngine.cpp,0,high,FUN_006054ff,AdjustVariableAndPause
 0x001EA2CF,223,AIUpdate.cpp,0,high,FUN_005ea2cf,Attempted to specify a locomotor for object %s without an AIUpdate block.
-0x0015D450,186,meshmatdesc.cpp,0,high,FUN_0055d450,MeshMatDescClass::ShaderArray
 0x001D5470,160,cpudetect.cpp,0,high,FUN_005d5470,AuthenticAMD
-0x0015B700,155,meshmatdesc.cpp,0,high,FUN_0055b700,MeshMatDescClass::MaterialArray
 0x0051569F,155,GameState.cpp,0,high,FUN_0091569f,00000000.sav
 0x002E4B2D,154,OptionsMenu.cpp,0,high,FUN_006e4b2d,SFXVolume
-0x001869B0,149,mapper.cpp,0,high,FUN_005869b0,BumpRotation
+0x002DD6D2,147,GameState.cpp,0,high,Catch@006dd6d2,GUI:ErrorSavingGame
 0x006A10F0,143,generals.cpp,0,high,FUN_00aa10f0,Disconnected
 0x002E4AA1,140,OptionsMenu.cpp,0,high,FUN_006e4aa1,Resolution
 0x000395D0,137,debug_debug.cpp,0,high,FUN_004395d0, internal 
 0x00282021,127,Scripts.h,0,high,FUN_00682021,Water Grid
 0x002E45DA,121,OptionsMenu.cpp,0,high,FUN_006e45da,ScrollFactor
+0x001DEB8A,108,Eva.cpp,0,high,FUN_005deb8a,EVA_INVALID
 0x00203B47,106,ScriptEngine.cpp,0,high,FUN_00603b47,RunAppFast
 0x002E4573,103,OptionsMenu.cpp,0,high,FUN_006e4573,CampaignDifficulty
 0x0029C291,101,InGameUI.cpp,0,high,FUN_0069c291,GUI:CantBuildTooCloseToSupplies
@@ -109,11 +105,9 @@ target_rva,target_size,zh_source,alternates,confidence,ghidra_name,anchor
 0x000902A6,186,GlobalLanguage.cpp,1,medium,FUN_004902a6,Arial Unicode MS
 0x003B428C,183,ModelState.h,2,medium,FUN_007b428c,Condition
 0x003B6975,166,Scripts.cpp,1,medium,FUN_007b6975,ScriptGroup
-0x002DD6D2,147,GameState.cpp,10,medium,Catch@006dd6d2,GUI:ErrorSavingGame
 0x006C4CD0,124,Except.cpp,1,medium,FUN_00ac4cd0,SymFunctionTableAccess
 0x003FFBB4,116,GUIUtil.cpp,6,medium,FUN_007ffbb4,GUI:Observer
 0x004E8DE7,112,KindOf.cpp,1,medium,FUN_008e8de7,invalid AI_KINDOF 
-0x001DEB8A,108,Eva.cpp,3,medium,FUN_005deb8a,EVA_INVALID
 0x00437B4D,105,Player.cpp,1,medium,FUN_00837b4d,Civilian
 0x002E4928,103,FirewallHelper.cpp,1,medium,FUN_006e4928,FirewallNeedToRefresh
 0x003BC3A8,101,GameLogic.cpp,1,medium,FUN_007bc3a8,ReplayObserver
@@ -127,3 +121,4 @@ target_rva,target_size,zh_source,alternates,confidence,ghidra_name,anchor
 0x0028C819,54,GameWindowManagerScript.cpp,3,medium,FUN_0068c819,CAN_ATTACK
 0x0037BA62,53,PopupReplay.cpp,2,medium,FUN_0077ba62,GUI:LastReplay
 0x0060259A,52,File.cpp,1,medium,FUN_00a0259a,<no file>
+0x002ABEC9,40,Drawable.cpp,3,medium,FUN_006abec9,Available
