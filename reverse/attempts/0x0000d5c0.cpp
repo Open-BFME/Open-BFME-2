@@ -1,5 +1,7 @@
 // ?do_get_time@?$time_get@DV?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@@_STL@@MBE?AV?$istreambuf_iterator@DV?$char_traits@D@_STL@@@2@V32@0AAVios_base@2@AAHPAUtm@@@Z
 // partial score=0.93 date=2026-09-06
+// ?do_get_time@?$time_get@DV?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@@_STL@@MBE?AV?$istreambuf_iterator@DV?$char_traits@D@_STL@@@2@V32@0AAVios_base@2@AAHPAUtm@@@Z
+// partial score=0.93 date=2026-09-06
 ﻿// ?do_get_time@?$time_get@DV?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@@_STL@@MBE?AV?$istreambuf_iterator@DV?$char_traits@D@_STL@@@2@V32@0AAVios_base@2@AAHPAUtm@@@Z
 // partial score=0.93 date=2026-09-06
 //
@@ -50,11 +52,18 @@
 // register difference, and there it changes nothing. So the two facet families
 // reach the same symptom by different routes and need different fixes.
 //
-// WHAT IS LEFT here is the fourth register, ebp. Untried ideas, in order:
-// whether the wide twin at 0x0000EEB0 enregisters differently under /Oa and can
-// be diffed against this one; whether /Oa plus a /Gs or /Gy that is not an /O
-// switch survives without cancelling; and giving the second spilled dword a
-// named local with a longer live range.
+// WHAT IS LEFT here is the fourth register, ebp.
+//
+// The "/Oa plus a non-/O switch" idea is REFUTED (2026-09-06). /Oa really does
+// survive alongside a /G switch -- none of them cancels it the way another /O
+// does -- but not one of them buys the fourth register. Measured on this body
+// at 140 bytes against retail's 144: /Gs /Gy /GF /GS /G6 /GB /Op /Oi all leave
+// it at 140 exactly, /G7 makes it worse at 138, and /Gh (profiling hooks) adds
+// a call and overshoots to 145. Do not re-run that sweep.
+//
+// Remaining untried ideas: whether the wide twin at 0x0000EEB0 enregisters
+// differently under /Oa and can be diffed against this one; and giving the
+// second spilled dword a named local with a longer live range.
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /Oa
 // stlport
 //
