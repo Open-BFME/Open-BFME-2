@@ -1,4 +1,6 @@
 // ?do_put@?$money_put@GV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@@_STL@@MBE?AV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@2@V32@_NAAVios_base@2@GO@Z
+// partial score=0.859 date=2026-09-06
+// ?do_put@?$money_put@GV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@@_STL@@MBE?AV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@2@V32@_NAAVios_base@2@GO@Z
 // partial score=0.859 date=2026-09-05
 ﻿// ?do_put@?$money_put@GV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@@_STL@@MBE?AV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@2@V32@_NAAVios_base@2@GO@Z
 // partial score=0.859 date=2026-09-05
@@ -65,6 +67,21 @@
 //      retail too, and MSVC still called it. That is why (1) and (2) are likely
 //      the same cause: with an extra tracked object live, MSVC keeps the
 //      destructor out of line.
+//
+// THE ~_String_base LEVER DOES NOT TRANSFER HERE (tested 2026-09-06).  An
+// explicit specialization declared and not defined forces the out-of-line call
+// for _String_base in 0x0000EB60, but for ~basic_string it cannot be written:
+//
+//   * after `#include <locale>` it is C2908, "explicit specialization; ...
+//     has already been instantiated" -- the include instantiates the
+//     destructor before we get a chance;
+//   * before the include it is C2027, "use of undefined type" -- a destructor
+//     specialization needs the class complete, and forward-declaring the
+//     template is not enough;
+//   * VC7.1 has no `extern template` to suppress the earlier instantiation.
+//
+// So this body needs the extra tracked object after all, exactly as the note
+// below says.  Do not re-run the specialization experiment.
 //
 // NEXT PASS should chase the extra tracked object rather than the destructor.
 // Worth trying, in order: check whether the wide string constructor at
