@@ -1,5 +1,5 @@
 // ?do_put@?$num_put@GV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@@_STL@@MBE?AV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@2@V32@AAVios_base@2@G_N@Z
-// partial score=0.879 date=2026-09-05
+// partial score=0.95 date=2026-09-06
 ﻿// ?do_put@?$num_put@GV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@@_STL@@MBE?AV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@2@V32@AAVios_base@2@G_N@Z
 // partial score=0.879 date=2026-09-05
 //
@@ -45,7 +45,32 @@
 //
 // Similarity 0.735 -> 0.879, and the body is the right length at 371.
 //
-// THE ONE REMAINING GAP is the two EH-tracked temporaries' destructors.
+// THAT GAP IS NOW CLOSED (2026-09-06).  An explicit specialization of
+// ~_String_base, DECLARED and not defined ahead of the instantiation, forces
+// MSVC to emit the out-of-line call even though the vendored alloc proxy has
+// no destructor to make the body big enough on its own.  It is the same lever
+// that forced istreambuf_iterator::_M_getc out of line, and it links because
+// 0x0000B3C0 is already claimed.  The declaration is near the bottom of this
+// file; do not remove it.  363 of 371 bytes, and both call sites are exact:
+//
+//   +0xC2  74 10 83 e3 fd 8d 4c 24 18 89 5c 24 08 e8 <B3C0>   both match
+//   +0xE6  5b 74 09 8d 4c 24 20 e8 <B3C0>                     both match
+//
+// THE REMAINING EIGHT BYTES are a third destruction site, and the problem is
+// now the opposite one: retail INLINES that one where we call it.
+//
+//   retail  8b 44 24 30 / 85 c0 / c6 44 24 34 00 / 74 09 / 50 / e8 <free> /
+//           83 c4 04                                            22 bytes
+//   this    8d 4c 24 08 / c6 44 24 34 00 / e8 <B3C0>            14 bytes
+//
+// So retail calls ~_String_base at two sites and inlines it at a third, and a
+// specialization is all-or-nothing.  Whatever distinguishes the third site --
+// the named __str against the two branch temporaries from truename() and
+// falsename() -- has to be expressed some other way.  The old note below is
+// kept because its analysis of WHY the vendored header cannot produce the
+// call on its own is still correct.
+//
+// PREVIOUS NOTE: the one remaining gap is the two EH-tracked temporaries' destructors.
 // Retail CALLS _String_base::~_String_base out of line at 0x0000B3C0; this
 // build inlines the deallocation at both sites, costing eight bytes each:
 //
@@ -167,6 +192,18 @@ locale::~locale() _STLP_NOTHROW
 	_M_impl->_M_decr();
 }
 
+}
+
+// The one blocker this bank named: retail CALLS ~_String_base out of line at
+// 0x0000B3C0 where a whole-class instantiation inlines the deallocation at
+// both temporary sites, eight bytes each.  The vendored _STLP_alloc_proxy has
+// no destructor, so nothing about the header makes it big enough to stay out
+// of line -- but an explicit specialization DECLARED and not defined forces
+// MSVC to emit the call anyway, and it links because 0x0000B3C0 is claimed.
+// Same lever that forced istreambuf_iterator::_M_getc out of line.
+namespace _STL
+{
+template <> _String_base<unsigned short, allocator<unsigned short> >::~_String_base();
 }
 
 template class _STL::num_put<wchar_t, _STL::ostreambuf_iterator<wchar_t, _STL::char_traits<wchar_t> > >;
