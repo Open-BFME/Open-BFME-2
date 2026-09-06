@@ -565,3 +565,5 @@ _strlen,0x00629170,BFME2 retail strlen thunk and call target for StringBase<char
 ?GadgetListBoxReset@@YAXPAVGameWindow@@@Z,0x003247E5,retail 34B body sends GLM_DEL_ALL 0x4013; matches GadgetListBoxReset reference
 ?bfme_getDescriptionFirstLine@MapMetaData@@QAE?AVUnicodeString@@XZ,0x00301534,recovered metadata getter reads cached map.str text via 0x003009CD and returns its prefix before LF
 ?GadgetListBoxAddEntryText@@YAHPAVGameWindow@@VUnicodeString@@HHH_N@Z,0x00326BEC,retail cdecl body sends GLM_ADD_ENTRY 0x4011 with LISTBOX_TEXT and destroys its by-value UnicodeString
+?bfme_getDisplayName@MapMetaData@@QAE?AVUnicodeString@@_N@Z,0x00300C7E,recovered display-name accessor; bool enables player-count suffix using metadata+0x20 and wide format (%d); ret8
+?bfmeSetText@BfmeAptWindowManager@@QAEXABVAsciiString@@ABVUnicodeString@@_N@Z,0x00225301,recovered APT binding text setter; key lookup at manager+0x48 and UnicodeString update at binding+0xC; thiscall ret12
