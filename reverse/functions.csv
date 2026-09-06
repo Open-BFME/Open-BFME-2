@@ -3253,3 +3253,4 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?_M_reserve_map_at_back@?$deque@UBfmeE12@@V?$allocator@UBfmeE12@@@_STL@@@_STL@@IAEXI@Z,,0x0042305C,38,Code/Libraries/Source/WWVegas/WWLib/stlport_deque_e12_o1.cpp,matched,reloc-named; the naming unit emits it
 ??H?$_Deque_iterator@UBfmeE12@@U?$_Nonconst_traits@UBfmeE12@@@_STL@@@_STL@@QBE?AU01@H@Z,,0x00584E57,46,Code/Libraries/Source/WWVegas/WWLib/stlport_deque_e12_o1.cpp,matched,_M_advance pinned from its own displacement
 ??G?$_Deque_iterator@UBfmeE12@@U?$_Nonconst_traits@UBfmeE12@@@_STL@@@_STL@@QBE?AU01@H@Z,,0x004221E6,49,Code/Libraries/Source/WWVegas/WWLib/stlport_deque_e12_o1.cpp,matched,_M_advance pinned from its own displacement
+?Length@?$SimpleVecClass@K@@QBEHXZ,,0x00144010,4,Code/Libraries/Source/WWVegas/WW3D2/aabtree.cpp,matched,reloc-named; matched by emitted body length
