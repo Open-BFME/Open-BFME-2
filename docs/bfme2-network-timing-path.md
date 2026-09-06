@@ -12,8 +12,8 @@ byte-verified private `GameEngine` members:
 
 | RVA | VA | size | recovered operation |
 |---:|---:|---:|---|
-| `0x00225D68` | `0x00625D68` | 16 | divide the FPS global at `0x009BA4E8` by the logic-tick global at `0x009BA4E4` and store the period at `this+0x38` |
-| `0x00225D78` | `0x00625D78` | 49 | convert the period and client-frame counter at `this+0x34` to SSE floats, divide counter by period, and clamp the ratio to zero through one at `this+0x3C` |
+| `0x00225D68` | `0x00625D68` | 16 | divide the FPS global at `0x009BA4E8` by the logic-tick global at `0x009BA4E4` and store the derived client-frame counter at `this+0x38` |
+| `0x00225D78` | `0x00625D78` | 49 | convert the client-frame period at `this+0x34` and counter at `this+0x38` to SSE floats, divide period by counter, and clamp the ratio to zero through one at `this+0x3C` |
 
 The globals contain `30` FPS and `5` logic ticks per second in the shipped
 baseline. The private access decoration is consistent with the BFME1
@@ -65,8 +65,20 @@ at VAs `0x004627A7`, `0x0048E989`, `0x004B599E`, `0x004B7486`,
 `0x004EDCEA`, `0x0063C166`, `0x0063C23D`, `0x00675690`, `0x0082F7B4`, and
 `0x0089CBE3`. They all consume `AL` as a gate or condition. The semantic
 reading is a client-frame boundary test based on the FPS/logic ratio and the
-counter at `+0x34`, but its exact source shape and name remain unresolved;
+period at `+0x34`, but its exact source shape and name remain unresolved;
 no unverified body is committed for it.
+
+## Verified frame-admission helper
+
+RVA `0x00225BA6` (VA `0x00625BA6`) is now reconstructed as
+`GameEngine::_bfme_shouldSkipClientFrame`, with a 108-byte exact match. It
+checks the network pointer at `0x00DFEA28` and the logic time scale at
+`0x00DBA2F8`, queries the network vtable at slot `+0x58`, increments the
+client-frame counter at `this+0x38` when the period at `this+0x34` is ahead,
+and clamps the headroom limit at `this+0x44` when the network is behind. The
+BFME1 helper supplied the structural comparison; the field offsets, branch
+direction, and `/O1` code-generation requirement were verified against the
+BFME2 bytes.
 
 ## Delay-loop candidate
 
@@ -111,7 +123,7 @@ call 0x00625D78
 The direct edit analogue to Danetta's division site is RVA `0x0022643A`
 (VA `0x0062643A`). The original bytes are retained in the baseline; no
 replacement is proposed. The loop computes a per-call upper bound from the
-logic/FPS ratio, advances a counter at `this+0x34`, emits work through
+logic/FPS ratio, advances a period at `this+0x34`, emits work through
 `0x00625A0C`, advances a subsystem through vtable slot `+0x34`, and updates
 the interpolation ratio after the loop. This is the path to inspect before
 any future delay or buffering experiment.
