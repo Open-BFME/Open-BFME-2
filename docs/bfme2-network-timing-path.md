@@ -20,6 +20,14 @@ baseline. The private access decoration is consistent with the BFME1
 `GameEngine` frame-pacing helpers; the field offsets and exact bytes are
 independently established from BFME2.
 
+The class ownership is now anchored by its vtable as well. The constructor at
+VA `0x0062DA70` installs vtable `0x00BE7188`; slot 0 points to the verified
+28-byte scalar deleting destructor at RVA `0x00226333`, and slot 10 points to
+the larger frame-loop candidate at RVA `0x00225DA9`. The wrapper calls the
+complete destructor body at RVA `0x00225B9B`; that body remains a separately
+unrecovered dependency, so the pin documents the call target without claiming
+its bytes.
+
 ## The adjacent frame gate
 
 Ghidra gives a 48-byte boundary at RVA `0x00225D38` (`FUN_00625d38`). Its

@@ -541,3 +541,4 @@ _sin,0x00629216,CRT import thunk; retail target of the sin call in Coord2D::Rota
 _sqrt,0x0062921C,MSVCRT import thunk identified by retail call target and Ghidra
 _strlen,0x00629170,BFME2 retail strlen thunk and call target for StringBase<char>::compare(const char *)
 ??1?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@QAE@XZ,0x00142D70,wide basic_string destructor; direct REL32 at RVA 0x0000BEE9 in money_put<wchar_t>::do_put reaches the existing narrow destructor through ICF
+??1GameEngine@@UAE@XZ,0x00225B9B,GameEngine vtable slot 0x00226333 calls this complete-destructor body; vtable 0x007E7188 and frame-loop method 0x00225DA9 establish ownership
