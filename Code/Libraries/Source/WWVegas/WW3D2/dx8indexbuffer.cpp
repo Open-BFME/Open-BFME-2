@@ -1,4 +1,4 @@
-// cl: /G7 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/sweep
+// cl: /G7 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/shims/indexbuffercount /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/sweep
 // stlport
 #define Matrix4x4 Matrix4  // BFME renamed it
 /*
@@ -47,6 +47,15 @@
 #include "dx8caps.h"
 
 extern void W3DRadarResetLock(void);
+
+// Retail's ~SortingIndexBufferClass has no EH frame at all: it is 62 bytes that
+// start straight at `push esi`.  With a throwing operator delete[] the array
+// delete has to be guarded so the inlined ~IndexBufferClass still runs while
+// unwinding, and that guard costs 48 bytes of prologue, state stores and
+// funclet spills.  Declaring the deallocator nothrow removes the region
+// exactly.  The constructor keeps its frame either way -- operator new[] does
+// throw, and retail's constructor has the frame to prove it.
+void __cdecl operator delete[](void *block) throw();
 #include "sphere.h"
 #include "thread.h"
 #include "wwmemlog.h"
@@ -159,7 +168,6 @@ IndexBufferClass::IndexBufferClass(unsigned type_, unsigned short index_count_)
 #endif
 }
 
-// ??1IndexBufferClass@@MAE@XZ present-unmatched
 IndexBufferClass::~IndexBufferClass()
 {
 	_IndexBufferCount--;
@@ -174,19 +182,16 @@ IndexBufferClass::~IndexBufferClass()
 #endif
 }
 
-// ?Get_Total_Buffer_Count@IndexBufferClass@@SAIXZ present-unmatched
 unsigned IndexBufferClass::Get_Total_Buffer_Count()
 {
 	return _IndexBufferCount;
 }
 
-// ?Get_Total_Allocated_Indices@IndexBufferClass@@SAIXZ present-unmatched
 unsigned IndexBufferClass::Get_Total_Allocated_Indices()
 {
 	return _IndexBufferTotalIndices;
 }
 
-// ?Get_Total_Allocated_Memory@IndexBufferClass@@SAIXZ present-unmatched
 unsigned IndexBufferClass::Get_Total_Allocated_Memory()
 {
 	return _IndexBufferTotalSize;
@@ -431,7 +436,6 @@ DX8IndexBufferClass::~DX8IndexBufferClass()
 //
 // ----------------------------------------------------------------------------
 
-// ??0SortingIndexBufferClass@@QAE@G@Z present-unmatched
 SortingIndexBufferClass::SortingIndexBufferClass(unsigned short index_count_)
 	:
 	IndexBufferClass(BUFFER_TYPE_SORTING,index_count_)
@@ -444,7 +448,6 @@ SortingIndexBufferClass::SortingIndexBufferClass(unsigned short index_count_)
 
 // ----------------------------------------------------------------------------
 
-// ??1SortingIndexBufferClass@@UAE@XZ present-unmatched
 SortingIndexBufferClass::~SortingIndexBufferClass()
 {
 	delete[] index_buffer;
