@@ -562,3 +562,6 @@ _strlen,0x00629170,BFME2 retail strlen thunk and call target for StringBase<char
 ?isPlayerSlotActive@BFMEConnectionManager@@QAEHH@Z,0x004CF0CD,BFME2 active-player-state predicate used by the packet-router stall scan; BFME1 structural analogue
 ?getNextPacketRouterSlot@BFMEConnectionManager@@QAEII@Z,0x004CFAC0,BFME2 fallback packet-router traversal; follows the supplied slot in the +0x12030 router order
 ?_bfme_setEngineVisibility@Mouse@@QAEX_N@Z,0x001EE5BE,GameEngine slot 39 input-lock transition call target; BFME1 Mouse visibility analogue with the same bool argument
+?GadgetListBoxReset@@YAXPAVGameWindow@@@Z,0x003247E5,retail 34B body sends GLM_DEL_ALL 0x4013; matches GadgetListBoxReset reference
+?bfme_getDescriptionFirstLine@MapMetaData@@QAE?AVUnicodeString@@XZ,0x00301534,recovered metadata getter reads cached map.str text via 0x003009CD and returns its prefix before LF
+?GadgetListBoxAddEntryText@@YAHPAVGameWindow@@VUnicodeString@@HHH_N@Z,0x00326BEC,retail cdecl body sends GLM_ADD_ENTRY 0x4011 with LISTBOX_TEXT and destroys its by-value UnicodeString

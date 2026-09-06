@@ -3292,3 +3292,4 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?init@BFMEConnectionManager@@QAEXXZ,,0x004CF032,81,Code/GameEngine/Source/Common/ConnectionManagerInit.cpp,matched,BFME2 connection-manager init/reset path: reset frame rings and clear frame-ceiling and per-player frame arrays
 ?reset@FrameDataManager@@QAEXXZ,,0x0058B666,69,Code/GameEngine/Source/Common/FrameDataManagerReset.cpp,matched,
 ?getNextPacketRouterSlot@BFMEConnectionManager@@QAEII@Z,,0x004CFAC0,37,Code/GameEngine/Source/Common/ConnectionManagerNextRouter.cpp,matched,
+?bfmeSetMapDescription@AptMapPreview@@QAEXPAVMapMetaData@@@Z,,0x0057C892,63,Code/GameEngine/Source/GameClient/GUI/AptMapPreviewSetMapDescription.cpp,matched,clean C++; resets list at preview+0x2C then appends first map.str line; full boundary between ret4 at 0x57C88F and title setter at 0x57C8D1
