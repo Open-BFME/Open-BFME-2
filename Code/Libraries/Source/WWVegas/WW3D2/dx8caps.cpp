@@ -51,6 +51,9 @@
 static StringClass CapsWorkString;
 
 #define DXLOG(n) CapsWorkString.Format n ; CapsLog+=CapsWorkString;
+// Same as DXLOG but appends through the overlay, so the body reaches CapsLog
+// at retail's 0x2DC instead of our class's 0x14C.
+#define DXLOG_RETAIL(n) CapsWorkString.Format n ; retail->capsLogAll+=CapsWorkString;
 #define COMPACTLOG(n) CapsWorkString.Format n ; CompactLog+=CapsWorkString;
 
 static const char* VendorNames[]={
@@ -994,59 +997,112 @@ bool DX8Caps::Is_Valid_Display_Format(int width, int height, WW3DFormat format)
 // ----------------------------------------------------------------------------
 
 // ?Vendor_Specific_Hacks@DX8Caps@@AAEXABU_D3DADAPTER_IDENTIFIER8@@@Z present-unmatched
+// One overlay with everything this file has recovered about BFME's DX8Caps.
+// Every offset is read out of a retail instruction, not derived:
+//
+//   0x000 MaxDisplayWidth / 0x004 MaxDisplayHeight
+//   0x008 Caps (D3DCAPS9, 304 bytes)
+//   0x138 SupportTnL   0x139 SupportDXTC   0x13B SupportNPatches
+//   0x13C SupportBumpEnvmap / 0x13D ...Luminance
+//   0x13E SupportTextureFormat[123]        (DXT1 is index 118)
+//   0x1B9 SupportRenderToTextureFormat[118]
+//   0x22F SupportDepthStencilFormat[118]
+//   0x2A5 SupportZBias .. 0x2AB CanDoMultiPass, 0x2AC IsFogAllowed
+//   0x2B0 MaxTexturesPerPass  0x2B4/0x2B8 shader versions
+//   0x2BC MaxSimultaneousTextures          0x2C8 DeviceId
+//   0x2CC DriverVersionStatus  0x2D0 VendorId  0x2D4 DriverDLL
+//   0x2D8 Direct3D             0x2DC CapsLog   0x2E0 CompactLog
+struct BFME_DX8Caps_All
+{
+	int maxDisplayWidth;					// 0x000
+	int maxDisplayHeight;					// 0x004
+	char padToFlags[0x138 - 0x008];
+	bool supportTnL;						// 0x138
+	bool supportDXTC;						// 0x139
+	bool supportGamma;						// 0x13a
+	bool supportNPatches;					// 0x13b
+	bool supportBumpEnvmap;					// 0x13c
+	bool supportBumpEnvmapLuminance;		// 0x13d
+	bool supportTextureFormat[123];			// 0x13e
+	bool supportRenderToTextureFormat[118];	// 0x1b9
+	bool supportDepthStencilFormat[118];	// 0x22f
+	bool supportZBias;						// 0x2a5
+	bool supportAnisotropicFiltering;		// 0x2a6
+	bool supportModAlphaAddClr;				// 0x2a7
+	bool supportDot3;						// 0x2a8
+	bool supportPointSprites;				// 0x2a9
+	bool supportCubemaps;					// 0x2aa
+	bool canDoMultiPass;					// 0x2ab
+	bool isFogAllowed;						// 0x2ac
+	char padToInts[0x2b0 - 0x2ad];
+	int maxTexturesPerPass;					// 0x2b0
+	int vertexShaderVersionAll;				// 0x2b4
+	int pixelShaderVersionAll;				// 0x2b8
+	int maxSimultaneousTexturesAll;			// 0x2bc
+	int unknown2c0;							// 0x2c0
+	int driverBuildVersion;					// 0x2c4
+	unsigned deviceId;						// 0x2c8
+	int driverVersionStatus;				// 0x2cc
+	int vendorId;							// 0x2d0
+	StringClass driverDLL;					// 0x2d4
+	IDirect3D8 *direct3DAll;				// 0x2d8
+	StringClass capsLogAll;					// 0x2dc
+};
+
 void DX8Caps::Vendor_Specific_Hacks(const D3DADAPTER_IDENTIFIER8& adapter_id)
 {
-	if (VendorId==VENDOR_NVIDIA) 
+	BFME_DX8Caps_All *retail = (BFME_DX8Caps_All *)this;
+	if (retail->vendorId==VENDOR_NVIDIA) 
   {
-		if (SupportNPatches) {
-			DXLOG(("NVidia Driver reported N-Patch support, disabling.\r\n"));
+		if (retail->supportNPatches) {
+			DXLOG_RETAIL(("NVidia Driver reported N-Patch support, disabling.\r\n"));
 		}
-		if (SupportTextureFormat[WW3D_FORMAT_DXT1]) {
-			DXLOG(("Disabling DXT1 support on NVidia hardware.\r\n"));
+		if (retail->supportTextureFormat[118]) {
+			DXLOG_RETAIL(("Disabling DXT1 support on NVidia hardware.\r\n"));
 		}
 
-		SupportNPatches = false;	// Driver incorrectly report N-Patch support
-		SupportTextureFormat[WW3D_FORMAT_DXT1] = false;			// DXT1 is broken on NVidia hardware
-		SupportDXTC=
-			SupportTextureFormat[WW3D_FORMAT_DXT1]|
-			SupportTextureFormat[WW3D_FORMAT_DXT2]|
-			SupportTextureFormat[WW3D_FORMAT_DXT3]|
-			SupportTextureFormat[WW3D_FORMAT_DXT4]|
-			SupportTextureFormat[WW3D_FORMAT_DXT5];
+		retail->supportNPatches = false;	// Driver incorrectly report N-Patch support
+		retail->supportTextureFormat[118] = false;			// DXT1 is broken on NVidia hardware
+		retail->supportDXTC=
+			retail->supportTextureFormat[118]|
+			retail->supportTextureFormat[119]|
+			retail->supportTextureFormat[120]|
+			retail->supportTextureFormat[121]|
+			retail->supportTextureFormat[122];
 
 
-    if (DeviceId == DEVICE_NVIDIA_GEFORCE2_MX ||
-        DeviceId == DEVICE_NVIDIA_GEFORCE2_MX_400 )
+    if (retail->deviceId == DEVICE_NVIDIA_GEFORCE2_MX ||
+        retail->deviceId == DEVICE_NVIDIA_GEFORCE2_MX_400 )
     {
-		  DXLOG(("Maximum screen resolution limited to 1024 x 768 on NVidia GeForce2 mx/mx400 cards\r\n"));			
-		  MaxDisplayWidth=1024;
-		  MaxDisplayHeight=768;
+		  DXLOG_RETAIL(("Maximum screen resolution limited to 1024 x 768 on NVidia GeForce2 mx/mx400 cards\r\n"));			
+		  retail->maxDisplayWidth=1024;
+		  retail->maxDisplayHeight=768;
     }
 
 
 
 	}
 
-	if (VendorId==VENDOR_MATROX) {
+	if (retail->vendorId==VENDOR_MATROX) {
 		// G400 and G550 claim support for ModAlphaAddClr but argument limitations make it unusable.
-		if (DeviceId==DEVICE_MATROX_G400 ||
-			DeviceId==DEVICE_MATROX_G550) {
-			DXLOG(("ModAlphaAddClr disabled Matrox G400 and G550 cards (cannot put texture in 2nd arg)\r\n"));
-			SupportModAlphaAddClr = false;
+		if (retail->deviceId==DEVICE_MATROX_G400 ||
+			retail->deviceId==DEVICE_MATROX_G550) {
+			DXLOG_RETAIL(("ModAlphaAddClr disabled Matrox G400 and G550 cards (cannot put texture in 2nd arg)\r\n"));
+			retail->supportModAlphaAddClr = false;
 		}
 	}
 
-	if (VendorId==VENDOR_ATI) {
+	if (retail->vendorId==VENDOR_ATI) {
 		// Rage Pro doesn't handle multitexturing well enough...
 		// It also doesn't really handle render-to-texture...
-		if (DeviceId==DEVICE_ATI_RAGE_PRO || DeviceId==DEVICE_ATI_RAGE_PRO_MOBILITY) {
-			DXLOG(("Disabling multitexturing on ATI Rage Pro\r\n"));			
-			MaxTexturesPerPass=1;
-			CanDoMultiPass=false;
+		if (retail->deviceId==DEVICE_ATI_RAGE_PRO || retail->deviceId==DEVICE_ATI_RAGE_PRO_MOBILITY) {
+			DXLOG_RETAIL(("Disabling multitexturing on ATI Rage Pro\r\n"));			
+			retail->maxTexturesPerPass=1;
+			retail->canDoMultiPass=false;
 
-			DXLOG(("Disabling render-to-texture on Rage Pro\r\n"));
-			for (unsigned i=0;i<WW3D_FORMAT_COUNT;++i) {
-				SupportRenderToTextureFormat[i]=false;
+			DXLOG_RETAIL(("Disabling render-to-texture on Rage Pro\r\n"));
+			for (unsigned i=0;i<118;++i) {
+				retail->supportRenderToTextureFormat[i]=false;
 			}
 		}
 
@@ -1055,95 +1111,95 @@ void DX8Caps::Vendor_Specific_Hacks(const D3DADAPTER_IDENTIFIER8& adapter_id)
 		// lock-ups and rendering errors. These ease up when multitexturing and
 		// render-to-texture are disabled.
 		// However, E&B requires multitexturing, so renabling it.
-		if (DeviceId==DEVICE_ATI_RAGE_128_PRO_GL) {
-			CanDoMultiPass=false;
+		if (retail->deviceId==DEVICE_ATI_RAGE_128_PRO_GL) {
+			retail->canDoMultiPass=false;
 
-			DXLOG(("Disabling render-to-texture on ATI Rage 128 Pro GL\r\n"));
-			for (unsigned i=0;i<WW3D_FORMAT_COUNT;++i) {
-				SupportRenderToTextureFormat[i]=false;
+			DXLOG_RETAIL(("Disabling render-to-texture on ATI Rage 128 Pro GL\r\n"));
+			for (unsigned i=0;i<118;++i) {
+				retail->supportRenderToTextureFormat[i]=false;
 			}
 
 		}
 
-		if (DeviceId==DEVICE_ATI_RAGE_128_MOBILITY ||
-			DeviceId==DEVICE_ATI_RAGE_128_MOBILITY_M3 ||
-			DeviceId==DEVICE_ATI_RAGE_128_MOBILITY_M4 ||
-			DeviceId==DEVICE_ATI_RAGE_128_PRO_ULTRA ||
-			DeviceId==DEVICE_ATI_RAGE_128_4X ||
-			DeviceId==DEVICE_ATI_RAGE_128_PRO_GL ||
-			DeviceId==DEVICE_ATI_RAGE_128_PRO_VR ||
-			DeviceId==DEVICE_ATI_RAGE_128_GL ||
-			DeviceId==DEVICE_ATI_RAGE_128_VR) {
-			DXLOG(("Maximum screen resolution limited to 1280 x 1024 on ATI Rage 128 cards\r\n"));			
-			MaxDisplayWidth=1280;
-			MaxDisplayHeight=1024;
-			DXLOG(("ModAlphaAddClr disabled ATI Rage 128 cards (cannot put texture in 2nd arg)\r\n"));
-			SupportModAlphaAddClr = false;
+		if (retail->deviceId==DEVICE_ATI_RAGE_128_MOBILITY ||
+			retail->deviceId==DEVICE_ATI_RAGE_128_MOBILITY_M3 ||
+			retail->deviceId==DEVICE_ATI_RAGE_128_MOBILITY_M4 ||
+			retail->deviceId==DEVICE_ATI_RAGE_128_PRO_ULTRA ||
+			retail->deviceId==DEVICE_ATI_RAGE_128_4X ||
+			retail->deviceId==DEVICE_ATI_RAGE_128_PRO_GL ||
+			retail->deviceId==DEVICE_ATI_RAGE_128_PRO_VR ||
+			retail->deviceId==DEVICE_ATI_RAGE_128_GL ||
+			retail->deviceId==DEVICE_ATI_RAGE_128_VR) {
+			DXLOG_RETAIL(("Maximum screen resolution limited to 1280 x 1024 on ATI Rage 128 cards\r\n"));			
+			retail->maxDisplayWidth=1280;
+			retail->maxDisplayHeight=1024;
+			DXLOG_RETAIL(("ModAlphaAddClr disabled ATI Rage 128 cards (cannot put texture in 2nd arg)\r\n"));
+			retail->supportModAlphaAddClr = false;
 		}
 
-		if (DeviceId==DEVICE_ATI_MOBILITY_RADEON ||
-			DeviceId==DEVICE_ATI_MOBILITY_RADEON_VE_M6 ||
-			DeviceId==DEVICE_ATI_RADEON_VE ||
-			DeviceId==DEVICE_ATI_RADEON_DDR ||
-			DeviceId==DEVICE_ATI_RADEON ||
-			DeviceId==DEVICE_ATI_MOBILITY_R7500 ||
-			DeviceId==DEVICE_ATI_R7500) {
-			DXLOG(("Disabling render-to-texture on Radeon\r\n"));
-			for (unsigned i=0;i<WW3D_FORMAT_COUNT;++i) {
-				SupportRenderToTextureFormat[i]=false;
+		if (retail->deviceId==DEVICE_ATI_MOBILITY_RADEON ||
+			retail->deviceId==DEVICE_ATI_MOBILITY_RADEON_VE_M6 ||
+			retail->deviceId==DEVICE_ATI_RADEON_VE ||
+			retail->deviceId==DEVICE_ATI_RADEON_DDR ||
+			retail->deviceId==DEVICE_ATI_RADEON ||
+			retail->deviceId==DEVICE_ATI_MOBILITY_R7500 ||
+			retail->deviceId==DEVICE_ATI_R7500) {
+			DXLOG_RETAIL(("Disabling render-to-texture on Radeon\r\n"));
+			for (unsigned i=0;i<118;++i) {
+				retail->supportRenderToTextureFormat[i]=false;
 			}
 		}
 
 		// CAT-lab reported that selecting anisotorpic filtering on Radeon VE causes a lock up after a while
-		if (DeviceId==DEVICE_ATI_RADEON_VE) {
-			DXLOG(("Disabling anisotropic filtering on Radeon VE\r\n"));
-			SupportAnisotropicFiltering=false;
+		if (retail->deviceId==DEVICE_ATI_RADEON_VE) {
+			DXLOG_RETAIL(("Disabling anisotropic filtering on Radeon VE\r\n"));
+			retail->supportAnisotropicFiltering=false;
 		}
 
 
 	}
 
-	if (VendorId==VENDOR_3DFX) {
+	if (retail->vendorId==VENDOR_3DFX) {
 		// Voodoo2, Banshee and Voodoo3 don't handle multi-texturing with DX8 well enough.
-		if (DeviceId==DEVICE_3DFX_VOODOO_3 ||
-			DeviceId==DEVICE_3DFX_BANSHEE ||
-			DeviceId==DEVICE_3DFX_VOODOO_2) {
-			DXLOG(("Disabling multitexturing on Voodoo2/Voodoo3/Banshee\r\n"));			
-			MaxTexturesPerPass=1;	// Especially important on Banshee (multitexturing crashes)!!!
+		if (retail->deviceId==DEVICE_3DFX_VOODOO_3 ||
+			retail->deviceId==DEVICE_3DFX_BANSHEE ||
+			retail->deviceId==DEVICE_3DFX_VOODOO_2) {
+			DXLOG_RETAIL(("Disabling multitexturing on Voodoo2/Voodoo3/Banshee\r\n"));			
+			retail->maxTexturesPerPass=1;	// Especially important on Banshee (multitexturing crashes)!!!
 
-			DXLOG(("Maximum screen resolution limited to 1280 x 1024 on Voodoo2/Voodoo3/Banshee\r\n"));			
-			MaxDisplayWidth=1280;
-			MaxDisplayHeight=1024;
+			DXLOG_RETAIL(("Maximum screen resolution limited to 1280 x 1024 on Voodoo2/Voodoo3/Banshee\r\n"));			
+			retail->maxDisplayWidth=1280;
+			retail->maxDisplayHeight=1024;
 		}
 
-		if (DeviceId==DEVICE_3DFX_VOODOO_3) {
-			DXLOG(("Disabling render-to-texture on Voodoo3\r\n"));
-			for (unsigned i=0;i<WW3D_FORMAT_COUNT;++i) {
-				SupportRenderToTextureFormat[i]=false;
+		if (retail->deviceId==DEVICE_3DFX_VOODOO_3) {
+			DXLOG_RETAIL(("Disabling render-to-texture on Voodoo3\r\n"));
+			for (unsigned i=0;i<118;++i) {
+				retail->supportRenderToTextureFormat[i]=false;
 			}
 		}
 	}
 
-	if (VendorId==VENDOR_POWERVR) {
-		DXLOG(("Maximum screen resolution limited to 1280 x 1024 on PowerVR Kyro cards\r\n"));			
-		MaxDisplayWidth=1280;
-		MaxDisplayHeight=1024;
+	if (retail->vendorId==VENDOR_POWERVR) {
+		DXLOG_RETAIL(("Maximum screen resolution limited to 1280 x 1024 on PowerVR Kyro cards\r\n"));			
+		retail->maxDisplayWidth=1280;
+		retail->maxDisplayHeight=1024;
 
 		// No fog on scene capture cards! (They don't like fog color changes in mid-frame)
-		IsFogAllowed=false;
+		retail->isFogAllowed=false;
 	}
 
-	if (VendorId==VENDOR_S3) {
-		if (DeviceId==DEVICE_S3_SAVAGE_4) {
-			DXLOG(("Maximum screen resolution limited to 1024 x 768 on S3 Savage 4 cards\r\n"));			
-			MaxDisplayWidth=800;//1024;
-			MaxDisplayHeight=600;//768;
+	if (retail->vendorId==VENDOR_S3) {
+		if (retail->deviceId==DEVICE_S3_SAVAGE_4) {
+			DXLOG_RETAIL(("Maximum screen resolution limited to 1024 x 768 on S3 Savage 4 cards\r\n"));			
+			retail->maxDisplayWidth=800;//1024;
+			retail->maxDisplayHeight=600;//768;
 		}
 
-		if (DeviceId==DEVICE_S3_SAVAGE_200) {
-			DXLOG(("Disabling multitexturing on S3 Savage 2000\r\n"));			
-			MaxTexturesPerPass=1;
-			CanDoMultiPass=false;
+		if (retail->deviceId==DEVICE_S3_SAVAGE_200) {
+			DXLOG_RETAIL(("Disabling multitexturing on S3 Savage 2000\r\n"));			
+			retail->maxTexturesPerPass=1;
+			retail->canDoMultiPass=false;
 		}
 
 
