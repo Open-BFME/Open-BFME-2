@@ -3244,3 +3244,5 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?Get_Z_Vector@Matrix3D@@QBEXPAVVector3@@@Z,,0x00143260,32,Code/Libraries/Source/WWVegas/WW3D2/decalmsh.cpp,matched,identical code to the value-returning overload and folded onto it
 ??_GGridLinkClass@@UAEPAXI@Z,,0x0071B470,36,Code/Libraries/Source/WWVegas/WWMath/gridcull.cpp,matched,the pool free is an identical-code fold onto the MultiListNodeClass one
 ??1NodeCompressedMotionStruct@@QAE@XZ,,0x0018F6A0,269,Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp,matched,the three motion-channel destructors pinned from their own displacements
+?Check_Bumpmap_Support@DX8Caps@@AAEXABU_D3DCAPS8@@@Z,,0x0012B440,150,Code/Libraries/Source/WWVegas/WW3D2/dx8caps.cpp,matched,capsLog is at 0x2DC in BFME DX8Caps not 0x2A4
+?Check_Shader_Support@DX8Caps@@AAEXABU_D3DCAPS8@@@Z,,0x0012B550,95,Code/Libraries/Source/WWVegas/WW3D2/dx8caps.cpp,matched,shader versions at 0x2B4 and 0x2B8 and capsLog at 0x2DC read from retail

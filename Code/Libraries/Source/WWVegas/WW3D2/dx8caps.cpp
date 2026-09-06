@@ -706,16 +706,20 @@ void DX8Caps::Compute_Caps(WW3DFormat display_format, const D3DADAPTER_IDENTIFIE
 // laid out differently from Zero Hour's and reconciling the whole class is a
 // separate job, so the two members this function touches are reached at retail's
 // offsets. SupportBumpEnvmap sits at 0x13c where our class puts it at 0xe0, and
-// CapsLog at 0x2a4 where ours has 0x14c -- the same 0x2a4 the shader overlay
-// already uses, which is the corroboration that these two are one layout and not
-// two guesses.
+// CapsLog at 0x2dc where ours has 0x14c.  The earlier note here claimed the
+// shader overlay's matching 0x2a4 was corroboration; it was not -- both were
+// the same guess and both were wrong by 56 bytes.  0x2dc is read straight out
+// of retail's `lea edi,[esi+2DCh]`.
 struct BFME_DX8Caps_CheckBumpmapFields
 {
 	char pad[0x13c];
 	bool supportBumpEnvmap;					// 0x13c
 	bool supportBumpEnvmapLuminance;		// 0x13d
-	char padAfterFlags[0x2a4 - 0x13e];
-	StringClass capsLog;					// 0x2a4
+	// capsLog is at 0x2DC, not 0x2A4: retail's Check_Bumpmap_Support takes its
+	// address with `lea edi,[esi+2DCh]`, and that literal was the only thing
+	// separating this body from its 150 bytes.
+	char padAfterFlags[0x2dc - 0x13e];
+	StringClass capsLog;					// 0x2dc
 };
 
 // ?Check_Bumpmap_Support@DX8Caps@@AAEXABU_D3DCAPS8@@@Z
@@ -737,14 +741,31 @@ void DX8Caps::Check_Bumpmap_Support(const D3DCAPS8& caps)
 // ----------------------------------------------------------------------------
 
 // ?Check_Texture_Compression_Support@DX8Caps@@AAEXABU_D3DCAPS8@@@Z present-unmatched
+// Third overlay, and the one that pins where the format tables start.  Retail
+// reads the five DXT flags at [esi+1B4h] through [esi+1B8h], and DXT1 is index
+// 20 of SupportTextureFormat, so that array begins at 0x1A0 -- 98 bytes past
+// the 0x13E our own class puts it at.  SupportDXTC lands at 0x139, one byte
+// after the SupportTnL the Init_Caps overlay already places at 0x138.
+struct BFME_DX8Caps_CompressionFields
+{
+	char pad[0x139];
+	bool supportDXTC;						// 0x139
+	char padToFormats[0x1a0 - 0x13a];
+	bool supportTextureFormat[26];			// 0x1a0
+	char padToLog[0x2dc - (0x1a0 + 26)];
+	StringClass capsLog;					// 0x2dc
+};
+
 void DX8Caps::Check_Texture_Compression_Support(const D3DCAPS8& caps)
 {
-	SupportDXTC=SupportTextureFormat[WW3D_FORMAT_DXT1]|
-		SupportTextureFormat[WW3D_FORMAT_DXT2]|
-		SupportTextureFormat[WW3D_FORMAT_DXT3]|
-		SupportTextureFormat[WW3D_FORMAT_DXT4]|
-		SupportTextureFormat[WW3D_FORMAT_DXT5];
-	DXLOG(("Texture compression support: %s\r\n",SupportDXTC ? "Yes" : "No"));
+	BFME_DX8Caps_CompressionFields *retail = (BFME_DX8Caps_CompressionFields *)this;
+	retail->supportDXTC=retail->supportTextureFormat[WW3D_FORMAT_DXT1]|
+		retail->supportTextureFormat[WW3D_FORMAT_DXT2]|
+		retail->supportTextureFormat[WW3D_FORMAT_DXT3]|
+		retail->supportTextureFormat[WW3D_FORMAT_DXT4]|
+		retail->supportTextureFormat[WW3D_FORMAT_DXT5];
+	CapsWorkString.Format("Texture compression support: %s\r\n",retail->supportDXTC ? "Yes" : "No");
+	retail->capsLog+=CapsWorkString;
 }
 
 // ?Check_Texture_Format_Support@DX8Caps@@AAEXW4WW3DFormat@@ABU_D3DCAPS8@@@Z present-unmatched
@@ -880,11 +901,21 @@ void DX8Caps::Check_Maximum_Texture_Support(const D3DCAPS8& caps)
 
 struct BFME_DX8Caps_CheckShaderFields
 {
-	char pad[0x27c];
-	int vertexShaderVersion;
-	int pixelShaderVersion;
-	char padAfterVersions[0x20];
-	StringClass capsLog;
+	// Working backwards from capsLog at 0x2DC through the tail of DX8Caps as
+	// it is declared -- DriverDLL, Direct3D, CapsLog, CompactLog preceded by
+	// eight ints -- puts MaxTexturesPerPass at 0x2B4 and the two shader
+	// versions at 0x2B8 and 0x2BC.
+	char pad[0x2b4];
+	int vertexShaderVersion;				// 0x2b4
+	int pixelShaderVersion;					// 0x2b8
+	// All three offsets are read straight out of retail's Check_Shader_Support
+	// at 0x0012B550: `mov [esi+2B4h],ecx` for the vertex version,
+	// `mov [esi+2B8h],eax` for the pixel version, and `lea ecx,[esi+2DCh]` for
+	// capsLog.  This overlay used to say 0x27C/0x280/0x2A4, and the bumpmap
+	// overlay agreed on 0x2A4, and a comment called that agreement
+	// corroboration -- it was not, both were the same guess.
+	char padAfterVersions[0x2dc - 0x2bc];
+	StringClass capsLog;					// 0x2dc
 };
 
 // ?Check_Shader_Support@DX8Caps@@AAEXABU_D3DCAPS8@@@Z
