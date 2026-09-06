@@ -104,33 +104,6 @@ public:
 
 extern BFMEIndexBufferDebugClass *g_BFMEIndexBufferDebug;
 extern void _bfme_debugRecordCallsite(int kind);
-extern void BFME_DX8_Thread_Assert(void);
-extern void BFME_DX8_Thread_Lock(void);
-
-// BFME guards every DX8 buffer operation with a device mutex, and the retail
-// bodies show it as an RAII object rather than a pair of calls: the unwind
-// state goes to 1 once the guard is live and back to 0 immediately before its
-// destructor runs, and `this` is spilled for the funclet.  The constructor is
-// the 20-second WaitForSingleObject at 0x0011F520; the destructor is the
-// recursion-count release at 0x00120F50.  ~WriteLockClass and ~AppendLockClass
-// only ever RELEASE -- their lock was taken by the matching constructor -- so
-// they take the release-only guard, whose constructor is empty and inlines
-// away while its destructor still runs on the unwind path.
-class BFMEDX8DeviceLock
-{
-	const void *owner;
-public:
-	BFMEDX8DeviceLock(const void *owner_) : owner(owner_) { BFME_DX8_Thread_Lock(); }
-	~BFMEDX8DeviceLock() {}
-};
-
-class BFMEDX8DeviceRelease
-{
-	const void *owner;
-public:
-	BFMEDX8DeviceRelease(const void *owner_) : owner(owner_) {}
-	~BFMEDX8DeviceRelease() { BFME_DX8_Thread_Assert(); }
-};
 
 static __forceinline void BFME_DX8_ErrorCode(unsigned result)
 {
@@ -296,7 +269,6 @@ IndexBufferClass::WriteLockClass::WriteLockClass(IndexBufferClass* index_buffer_
 	index_buffer(index_buffer_),
 	indices(NULL)
 {
-	BFMEDX8DeviceLock _device_lock(this);
 	WWASSERT(index_buffer);
 	WWASSERT(!index_buffer->Engine_Refs());
 	index_buffer->Add_Ref();
@@ -326,7 +298,6 @@ IndexBufferClass::WriteLockClass::WriteLockClass(IndexBufferClass* index_buffer_
 // ??1WriteLockClass@@ present-unmatched
 IndexBufferClass::WriteLockClass::~WriteLockClass()
 {
-	BFMEDX8DeviceRelease _device_lock(this);
 	switch (index_buffer->Type()) {
 	case BUFFER_TYPE_DX8:
 		DX8_Assert();
@@ -344,11 +315,11 @@ IndexBufferClass::WriteLockClass::~WriteLockClass()
 // ----------------------------------------------------------------------------
 
 // ??0AppendLockClass@@ present-unmatched
-IndexBufferClass::AppendLockClass::AppendLockClass(IndexBufferClass* index_buffer_,unsigned start_index, unsigned index_range)
+IndexBufferClass::AppendLockClass::AppendLockClass(IndexBufferClass* index_buffer_,unsigned start_index, unsigned index_range, int flags)
 	:
-	index_buffer(index_buffer_)
+	index_buffer(index_buffer_),
+	indices(NULL)
 {
-	DX8_THREAD_ASSERT();
 	WWASSERT(start_index+index_range<=index_buffer->Get_Index_Count());
 	WWASSERT(index_buffer);
 	WWASSERT(!index_buffer->Engine_Refs());
@@ -360,7 +331,7 @@ IndexBufferClass::AppendLockClass::AppendLockClass(IndexBufferClass* index_buffe
 			start_index*sizeof(unsigned short),
 			index_range*sizeof(unsigned short),
 			(unsigned char**)&indices,
-			0));
+			flags));
 		break;
 	case BUFFER_TYPE_SORTING:
 		indices=static_cast<SortingIndexBufferClass*>(index_buffer)->index_buffer+start_index;
@@ -375,11 +346,10 @@ IndexBufferClass::AppendLockClass::AppendLockClass(IndexBufferClass* index_buffe
 
 IndexBufferClass::AppendLockClass::~AppendLockClass()
 {
-	DX8_THREAD_ASSERT();
 	switch (index_buffer->Type()) {
 	case BUFFER_TYPE_DX8:
 		DX8_Assert();
-		BFME_DX8_ErrorCode(static_cast<DX8IndexBufferClass*>(index_buffer)->index_buffer->Unlock());
+		DX8_ErrorCode(static_cast<DX8IndexBufferClass*>(index_buffer)->index_buffer->Unlock());
 		break;
 	case BUFFER_TYPE_SORTING:
 		break;
@@ -388,7 +358,6 @@ IndexBufferClass::AppendLockClass::~AppendLockClass()
 		break;
 	}
 	index_buffer->Release_Ref();
-	BFME_DX8_Thread_Assert();
 }
 
 // ----------------------------------------------------------------------------
@@ -452,9 +421,9 @@ DX8IndexBufferClass::DX8IndexBufferClass(unsigned short index_count_,UsageType u
 
 // ----------------------------------------------------------------------------
 
-// ??1DX8IndexBufferClass@@UAE@XZ present-unmatched
 DX8IndexBufferClass::~DX8IndexBufferClass()
 {
+	BFMEDX8DeviceLock device_lock;
 	index_buffer->Release();
 }
 

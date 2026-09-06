@@ -56,6 +56,23 @@ class SortingIndexBufferClass;
 
 // ----------------------------------------------------------------------------
 
+// BFME guards DX8 buffer access with a real device mutex where Zero Hour had a
+// thread assert that compiles to nothing.  0x0011F520 takes it -- a 20-second
+// WaitForSingleObject on the handle at 0x00DEC598 -- and 0x00120F50 releases
+// it.  The lock classes below hold it as a MEMBER: retail's constructor and
+// destructor both carry a C++ EH frame whose only cleanup is this object, and
+// both spill `this` for the unwind funclet, which is what a member with a
+// destructor asks for and a local guard does not.
+extern void BFME_DX8_Thread_Lock(void);
+extern void BFME_DX8_Thread_Assert(void);
+
+class BFMEDX8DeviceLock
+{
+public:
+	BFMEDX8DeviceLock() { BFME_DX8_Thread_Lock(); }
+	~BFMEDX8DeviceLock() { BFME_DX8_Thread_Assert(); }
+};
+
 class IndexBufferClass : public W3DMPO, public RefCountClass
 {
 	// nope, it's an ABC
@@ -83,6 +100,7 @@ public:
 	{
 		IndexBufferClass* index_buffer;
 		unsigned short* indices;
+		BFMEDX8DeviceLock device_lock;
 	public:
 		WriteLockClass(IndexBufferClass* index_buffer, int flags=0);
 		~WriteLockClass();
@@ -94,8 +112,12 @@ public:
 	{
 		IndexBufferClass* index_buffer;
 		unsigned short* indices;
+		BFMEDX8DeviceLock device_lock;
 	public:
-		AppendLockClass(IndexBufferClass* index_buffer,unsigned start_index, unsigned index_range);
+		// BFME's AppendLockClass takes the D3D lock flags too: retail's body
+		// returns with `ret 10h` and pushes a fourth argument straight through
+		// to IDirect3DIndexBuffer8::Lock.
+		AppendLockClass(IndexBufferClass* index_buffer,unsigned start_index, unsigned index_range, int flags=0);
 		~AppendLockClass();
 
 		unsigned short* Get_Index_Array() { return indices; }
