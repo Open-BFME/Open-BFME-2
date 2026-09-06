@@ -2,3 +2,18 @@
 # TUs, investigated vtable artifacts). Hand-written only; build.py's
 # verify_dir32_consistency FAILS on any symbol not listed here. Seeded EMPTY on
 # 2026-08-29 after a clean 0-candidate full-gate run over the first 146 rows.
+
+# __real@447a0000 -- the float constant 1000.0f, and retail has TWO .rdata
+# copies of it. Four matched bodies encode 0x00BBE358:
+#     mapper.cpp   ZigZagLinearOffsetTextureMapperClass, both constructors
+#     part_buf.cpp SegLineRendererClass::Get_UV_Offset_Rate
+#     scene.cpp    SceneClass::SceneClass
+# and one encodes 0x00BC6EA0:
+#     part_emt.cpp ParticleEmitterClass::Get_Start_Velocity
+#
+# All five byte-verify, which is what settles it: a body can only verify against
+# the address it actually encodes, so both copies are real and the linker simply
+# did not fold them. The red is new because Get_Start_Velocity landed today in
+# the /arch:SSE wave -- the inconsistency was always in the image, we just had
+# only one side of it claimed until now.
+__real@447a0000
