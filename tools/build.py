@@ -475,7 +475,14 @@ def zh_reference_source(source):
 def source_needs_stlport(source):
     """A source declares it needs STLport with a `// stlport` line near the top.
     STLport shadows standard headers (<cmath>, <cstring>, ...), so it must be
-    opt-in per file — never on the global include path for STL-free matched files."""
+    opt-in per file — never on the global include path for STL-free matched files.
+
+    This used to read only the first 2048 bytes looking for that line, the same
+    fixed-window trap `source_extra_flags` below guards against for `// cl:`: a
+    long leading comment block (e.g. a source with a long `// cl:` include-path
+    line above its `// stlport` line) can push the marker past the window, and
+    the file then silently builds without STLport with no error. Read the whole
+    file instead — these are small text sources, so the cost is negligible."""
     if source is None:
         return False
     relative = zh_reference_source(source)
@@ -486,7 +493,7 @@ def source_needs_stlport(source):
         return not relative.startswith("Libraries/Source/WWVegas/")
     try:
         with Path(source).open("r", encoding="utf-8", errors="replace") as handle:
-            head = handle.read(2048)
+            head = handle.read()
     except OSError:
         return False
     return "// stlport" in head
@@ -534,6 +541,13 @@ def source_extra_flags(source):
     # directive -- and it costs whole sessions to spot, so strip it here rather
     # than relying on every editor to write BOM-free files. Windows PowerShell's
     # `Set-Content -Encoding UTF8` writes one by default.
+    #
+    # The same silent-ignore trap exists by length, not just by BOM: this used
+    # to read only the first 2048 bytes looking for the `// cl:` line, so a
+    # source whose directive sits behind a long leading comment block (e.g. a
+    # long include-path line) never matches and quietly gets the base flags.
+    # Read the whole file instead -- these are small text sources, so the cost
+    # is negligible.
     if zh_reference_source(source) is not None:
         try:
             resolved(source).relative_to(GENERALS_REFERENCE_ROOT)
@@ -541,7 +555,7 @@ def source_extra_flags(source):
             return _ZH_FLAGS
         return _GENERALS_FLAGS
     with source.open("r", encoding="utf-8-sig", errors="replace") as handle:
-        for line in handle.read(2048).splitlines():
+        for line in handle.read().splitlines():
             if line.startswith("// cl:"):
                 # Use '-' style options so MSYS/Cygwin shells don't rewrite
                 # leading '/' arguments as Windows paths.
