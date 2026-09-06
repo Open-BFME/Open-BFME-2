@@ -503,3 +503,4 @@ __CIpow,0x006299A0,address read from the REL32 displacement at a placed body; st
 ?Return_File@RawFileFactoryClass@@QAEXPAVFileClass@@@Z,0x006132A0,address read from the retail REL32 in INIClass::Save(const char*) at 0x00616650
 ?_M_reallocate_map@?$deque@PAXV?$allocator@PAX@_STL@@@_STL@@IAEXI_N@Z,0x003B57E5,identical-code twin of the BfmeE8 body already matched at this address; read from the retail REL32 in deque<void*>::_M_reserve_map_at_back at 0x002F1F19
 ?allocate@?$allocator@F@_STL@@QBEPAFIPBX@Z,0x00017710,address read from the retail REL32 in vector<short>::_M_insert_overflow at 0x0007EAA7
+?Initialize@HLodDefClass@@QAEXAAVHLodClass@@@Z,0x0019F620,address read from the retail REL32 in HLodDefClass::HLodDefClass(HLodClass&) at 0x001A0350

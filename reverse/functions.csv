@@ -3025,3 +3025,13 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?_M_reserve_map_at_back@?$deque@PAXV?$allocator@PAX@_STL@@@_STL@@IAEXI@Z,,0x002F1F19,38,Code/Libraries/Source/WWVegas/WWLib/stlport_deque_ptr_o1.cpp,matched,reloc-named; callee pinned from its own displacement
 ?_M_insert_overflow@?$vector@FV?$allocator@F@_STL@@@_STL@@IAEXPAFABFABU__true_type@2@I_N@Z,,0x0007EAA7,139,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_s_o1.cpp,matched,reloc-named; callee pinned from its own displacement
 ?Free@HLodDefClass@@AAEXXZ,,0x0019F5B0,112,Code/Libraries/Source/WWVegas/WW3D2/hlod.cpp,matched,free direct and strncpy imported: string.h pulled in before _CRTIMP is defused
+?Reset@SubObjectArrayClass@HLodDefClass@@QAEXXZ,,0x0019B210,96,Code/Libraries/Source/WWVegas/WW3D2/hlod.cpp,matched,the unit was missing /arch:SSE - retail stores the float sentinel with movss
+?Make_Identity@Matrix3D@@QAEXXZ,,0x0004C3D8,71,Code/Libraries/Source/WWVegas/WW3D2/hlod.cpp,matched,placed by masked byte-scan once the unit had /arch:SSE
+??0ModelArrayClass@HLodClass@@QAE@XZ,,0x0019F500,67,Code/Libraries/Source/WWVegas/WW3D2/hlod.cpp,matched,placed by masked byte-scan once the unit had /arch:SSE
+??0HLodDefClass@@QAE@XZ,,0x0019EC00,41,Code/Libraries/Source/WWVegas/WW3D2/hlod.cpp,matched,placed by masked byte-scan once the unit had /arch:SSE
+?Init@SphereClass@@QAEXABVVector3@@M@Z,,0x00069146,34,Code/Libraries/Source/WWVegas/WW3D2/hlod.cpp,matched,placed by masked byte-scan once the unit had /arch:SSE
+??0SubObjectArrayClass@HLodDefClass@@QAE@XZ,,0x0019B1F0,26,Code/Libraries/Source/WWVegas/WW3D2/hlod.cpp,matched,placed by masked byte-scan once the unit had /arch:SSE
+?Save_W3D@SubObjectArrayClass@HLodDefClass@@QAE_NAAVChunkSaveClass@@@Z,,0x0019B370,294,Code/Libraries/Source/WWVegas/WW3D2/hlod.cpp,matched,placed by masked byte-scan once the unit had /arch:SSE
+?mulVector3@Matrix3D@@QBEXABVVector3@@AAV2@@Z,,0x00083BF4,150,Code/Libraries/Source/WWVegas/WW3D2/hlod.cpp,matched,placed by masked byte-scan once the unit had /arch:SSE
+?Transform@SphereClass@@QAEXABVMatrix3D@@@Z,,0x0019AF20,146,Code/Libraries/Source/WWVegas/WW3D2/hlod.cpp,matched,placed by masked byte-scan once the unit had /arch:SSE
+??0HLodDefClass@@QAE@AAVHLodClass@@@Z,,0x001A0350,101,Code/Libraries/Source/WWVegas/WW3D2/hlod.cpp,matched,Initialize pinned from its own displacement
