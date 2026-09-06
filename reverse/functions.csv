@@ -3269,3 +3269,5 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?splice@?$list@HV?$allocator@H@_STL@@@_STL@@QAEXU?$_List_iterator@HU?$_Nonconst_traits@H@_STL@@@2@AAV12@@Z,,0x001FD613,29,Code/Libraries/Source/WWVegas/WWLib/stlport_list_int_o1.cpp,matched,placed by masked byte-scan; single hit
 ?push_back@?$list@HV?$allocator@H@_STL@@@_STL@@QAEXXZ,,0x00079E8D,20,Code/Libraries/Source/WWVegas/WWLib/stlport_list_int_o1.cpp,matched,placed by masked byte-scan; callees pinned from their own displacements
 ??0?$_List_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z,,0x004EC36C,41,Code/Libraries/Source/WWVegas/WWLib/stlport_list_int_o1.cpp,matched,placed after _M_create_node was forced inline without its try region
+?allocate@?$allocator@I@_STL@@QBEPAIIPBX@Z,,0x00142CA0,31,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_bool_assignment.cpp,matched,placed by masked byte-scan; single hit
+?allocate@?$allocator@G@_STL@@QBEPAGIPBX@Z,,0x00017710,29,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_string.cpp,matched,placed by masked byte-scan; single hit
