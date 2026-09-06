@@ -741,29 +741,54 @@ void DX8Caps::Check_Bumpmap_Support(const D3DCAPS8& caps)
 // ----------------------------------------------------------------------------
 
 // ?Check_Texture_Compression_Support@DX8Caps@@AAEXABU_D3DCAPS8@@@Z present-unmatched
-// Third overlay, and the one that pins where the format tables start.  Retail
-// reads the five DXT flags at [esi+1B4h] through [esi+1B8h], and DXT1 is index
-// 20 of SupportTextureFormat, so that array begins at 0x1A0 -- 98 bytes past
-// the 0x13E our own class puts it at.  SupportDXTC lands at 0x139, one byte
-// after the SupportTnL the Init_Caps overlay already places at 0x138.
+// Third overlay.  The three "zero the table" bodies at 0x0012B210, 0x0012B2A0
+// and 0x0012B3A0 give the whole table region away without any guessing: they
+// `rep stos` 123 bytes at this+13Eh, 118 at this+1B9h and 118 at this+22Fh, and
+// 13E+123 = 1B9, 1B9+118 = 22F, 22F+118 = 2A5.  Three consecutive arrays, and
+// the five DXT flags Check_Texture_Compression_Support reads at 1B4h..1B8h are
+// the last five bytes of the first one.
+//
+// So BFME's format table starts where ours does, at 0x13E -- an earlier note
+// here deduced 0x1A0 by assuming DXT1 was still index 20, and that was wrong.
+// It is index 118, and Check_Texture_Format_Support at 0x0012B210 says why.
+// That body loops i from 0 to 123 and computes the D3DFORMAT to query as
+//
+//     mov ecx,31545690h / sub ecx,ebp        ... add ecx,edi
+//
+// where edi is this+13Eh+i, so the format is 31545690h + 13Eh + i.  At i=118
+// that is 31545844h, which is 'DXT1'.  For i below 118 it passes i unchanged.
+// BFME's WW3DFormat is therefore the D3DFORMAT enumeration itself for 0..117
+// with the five DXT FourCCs appended at 118..122 -- 123 values where Zero
+// Hour's WW3DFormat has 26.  Naming them is a separate job, so the five flags
+// this body actually touches are reached by offset instead.
+//
+// The other two tables follow from the same three bodies:
+//   0x13E  SupportTextureFormat[123]
+//   0x1B9  SupportRenderToTextureFormat[118]
+//   0x22F  SupportDepthStencilFormat[118]
+//   0x2D8  Direct3D          (read as [ebp+2D8h] by all three)
 struct BFME_DX8Caps_CompressionFields
 {
 	char pad[0x139];
 	bool supportDXTC;						// 0x139
-	char padToFormats[0x1a0 - 0x13a];
-	bool supportTextureFormat[26];			// 0x1a0
-	char padToLog[0x2dc - (0x1a0 + 26)];
+	char padToDXT[0x1b4 - 0x13a];
+	bool supportDXT1;						// 0x1b4
+	bool supportDXT2;						// 0x1b5
+	bool supportDXT3;						// 0x1b6
+	bool supportDXT4;						// 0x1b7
+	bool supportDXT5;						// 0x1b8
+	char padToLog[0x2dc - 0x1b9];
 	StringClass capsLog;					// 0x2dc
 };
 
 void DX8Caps::Check_Texture_Compression_Support(const D3DCAPS8& caps)
 {
 	BFME_DX8Caps_CompressionFields *retail = (BFME_DX8Caps_CompressionFields *)this;
-	retail->supportDXTC=retail->supportTextureFormat[WW3D_FORMAT_DXT1]|
-		retail->supportTextureFormat[WW3D_FORMAT_DXT2]|
-		retail->supportTextureFormat[WW3D_FORMAT_DXT3]|
-		retail->supportTextureFormat[WW3D_FORMAT_DXT4]|
-		retail->supportTextureFormat[WW3D_FORMAT_DXT5];
+	retail->supportDXTC=retail->supportDXT1|
+		retail->supportDXT2|
+		retail->supportDXT3|
+		retail->supportDXT4|
+		retail->supportDXT5;
 	CapsWorkString.Format("Texture compression support: %s\r\n",retail->supportDXTC ? "Yes" : "No");
 	retail->capsLog+=CapsWorkString;
 }
