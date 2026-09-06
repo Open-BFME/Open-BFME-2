@@ -80,7 +80,9 @@ class IndexBufferClass : public W3DMPO, public RefCountClass
 protected:
 	virtual ~IndexBufferClass();
 public:
-	IndexBufferClass(unsigned type, unsigned short index_count);
+	// The count is `unsigned` all the way down in BFME -- an unsigned short
+	// parameter here costs a movzx in every derived constructor.
+	IndexBufferClass(unsigned type, unsigned index_count);
 
 	void Copy(unsigned int* indices,unsigned start_index,unsigned index_count);
 	void Copy(unsigned short* indices,unsigned start_index,unsigned index_count);
@@ -205,7 +207,10 @@ public:
 		USAGE_NPATCHES=4
 	};
 
-	DX8IndexBufferClass(unsigned short index_count,UsageType usage=USAGE_DEFAULT);
+	// BFME's constructor takes the count as `unsigned`: retail reads the
+	// argument with a plain 32-bit load where an unsigned short parameter
+	// forces a movzx.
+	DX8IndexBufferClass(unsigned index_count,UsageType usage=USAGE_DEFAULT);
 	~DX8IndexBufferClass();
 
 	void Copy(unsigned int* indices,unsigned start_index,unsigned index_count);

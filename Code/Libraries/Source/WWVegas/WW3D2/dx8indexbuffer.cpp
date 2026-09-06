@@ -42,6 +42,12 @@
 //#define INDEX_BUFFER_LOG
 
 #define BFME_DYNAMIC_IB_UINT_CTOR_ABI
+#define BFME_D3D9_DEVICE_ABI
+// dx8caps.h first, and by -I rather than by neighbour: dx8wrapper.h includes
+// it from its own directory, and a quoted include searches the including
+// file's directory before the -I list, so the reference copy would win the
+// include guard before reference/shims/indexbuffercount/ ever got a look in.
+#include "dx8caps.h"
 #include "dx8indexbuffer.h"
 #include "dx8wrapper.h"
 #include "dx8caps.h"
@@ -146,7 +152,7 @@ static int _IndexBufferTotalSize;
 // ----------------------------------------------------------------------------
 
 // ??0IndexBufferClass@@QAE@IG@Z present-unmatched
-IndexBufferClass::IndexBufferClass(unsigned type_, unsigned short index_count_)
+IndexBufferClass::IndexBufferClass(unsigned type_, unsigned index_count_)
 	:
 	index_count(index_count_),
 	type(type_),
@@ -213,7 +219,6 @@ void IndexBufferClass::Release_Engine_Ref() const
 //
 // ----------------------------------------------------------------------------
 
-// ?Copy@IndexBufferClass@@ present-unmatched
 void IndexBufferClass::Copy(unsigned int* indices,unsigned first_index,unsigned count)
 {
 	WWASSERT(indices);
@@ -236,7 +241,6 @@ void IndexBufferClass::Copy(unsigned int* indices,unsigned first_index,unsigned 
 
 // ----------------------------------------------------------------------------
 
-// ?Copy@IndexBufferClass@@ present-unmatched
 void IndexBufferClass::Copy(unsigned short* indices,unsigned first_index,unsigned count)
 {
 	WWASSERT(indices);
@@ -367,11 +371,11 @@ IndexBufferClass::AppendLockClass::~AppendLockClass()
 // ----------------------------------------------------------------------------
 
 // ??0DX8IndexBufferClass@@QAE@GW4UsageType@0@@Z present-unmatched
-DX8IndexBufferClass::DX8IndexBufferClass(unsigned short index_count_,UsageType usage)
+DX8IndexBufferClass::DX8IndexBufferClass(unsigned index_count_,UsageType usage)
 	:
 	IndexBufferClass(BUFFER_TYPE_DX8,index_count_)
 {
-	DX8_THREAD_ASSERT();
+	BFMEDX8DeviceLock device_lock;
 	WWASSERT(index_count);
 	unsigned usage_flags=
 		D3DUSAGE_WRITEONLY|
@@ -387,7 +391,8 @@ DX8IndexBufferClass::DX8IndexBufferClass(unsigned short index_count_,UsageType u
 		usage_flags,
 		D3DFMT_INDEX16,
 		(usage&USAGE_DYNAMIC) ? D3DPOOL_DEFAULT : D3DPOOL_MANAGED,
-		&index_buffer);
+		&index_buffer,
+		NULL);
 
 	if (SUCCEEDED(ret)) {
 		return;
@@ -397,10 +402,8 @@ DX8IndexBufferClass::DX8IndexBufferClass(unsigned short index_count_,UsageType u
 
 	// Vertex buffer creation failed, so try releasing least used textures and flushing the mesh cache.
 
-	// Free all textures that haven't been used in the last 5 seconds
-	TextureClass::Invalidate_Old_Unused_Textures(5000);
-
-	// Invalidate the mesh cache
+	// BFME drops Zero Hour's texture sweep here and only flushes the mesh
+	// cache: retail's retry path is a single no-argument call.
 	WW3D::_Invalidate_Mesh_Cache();
 
 	// Try again...
@@ -409,7 +412,8 @@ DX8IndexBufferClass::DX8IndexBufferClass(unsigned short index_count_,UsageType u
 		usage_flags,
 		D3DFMT_INDEX16,
 		(usage&USAGE_DYNAMIC) ? D3DPOOL_DEFAULT : D3DPOOL_MANAGED,
-		&index_buffer);
+		&index_buffer,
+		NULL);
 
 	if (SUCCEEDED(ret)) {
 		WWDEBUG_SAY(("...Index buffer creation succesful\n"));

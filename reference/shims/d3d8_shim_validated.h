@@ -294,9 +294,21 @@ struct IDirect3DDevice8 {
 	virtual void __stdcall SetCursorPosition(int, int, DWORD) = 0;
 	virtual BOOL __stdcall ShowCursor(BOOL) = 0;
 	virtual HRESULT __stdcall CreateAdditionalSwapChain(struct _D3DPRESENT_PARAMETERS*, IDirect3DSwapChain8**) = 0;
+#ifdef BFME_D3D9_DEVICE_ABI
+	// BFME's renderer is Direct3D 9 behind the dx8* names.  Its device vtable
+	// carries three slots D3D8 does not -- GetSwapChain and
+	// GetNumberOfSwapChains here, SetDialogBoxMode after GetRasterStatus --
+	// which is what moves CreateIndexBuffer from +60h to +6Ch, the offset
+	// retail's DX8IndexBufferClass constructor at 0x00138980 encodes.
+	virtual HRESULT __stdcall GetSwapChain(UINT, IDirect3DSwapChain8**) = 0;
+	virtual UINT __stdcall GetNumberOfSwapChains() = 0;
+#endif
 	virtual HRESULT __stdcall Reset(void*) = 0;
 	virtual HRESULT __stdcall GetBackBuffer(UINT, DWORD, IDirect3DSurface8**) = 0;
 	virtual HRESULT __stdcall GetRasterStatus(void*) = 0;
+#ifdef BFME_D3D9_DEVICE_ABI
+	virtual HRESULT __stdcall SetDialogBoxMode(BOOL) = 0;
+#endif
 	virtual HRESULT __stdcall Present(const void*, const void*, HWND, const void*) = 0;
 	virtual void __stdcall SetGammaRamp(DWORD, const void*) = 0;
 	virtual void __stdcall GetGammaRamp(void*) = 0;
@@ -304,7 +316,13 @@ struct IDirect3DDevice8 {
 	virtual HRESULT __stdcall CreateVolumeTexture(UINT, UINT, UINT, UINT, DWORD, D3DFORMAT, D3DPOOL, void**) = 0;
 	virtual HRESULT __stdcall CreateCubeTexture(UINT, UINT, DWORD, D3DFORMAT, D3DPOOL, void**) = 0;
 	virtual HRESULT __stdcall CreateVertexBuffer(UINT, DWORD, DWORD, D3DPOOL, IDirect3DVertexBuffer8**) = 0;
+#ifdef BFME_D3D9_DEVICE_ABI
+	// D3D9 takes the shared-handle argument as well; retail pushes the extra
+	// NULL at the call site.
+	virtual HRESULT __stdcall CreateIndexBuffer(UINT, DWORD, D3DFORMAT, D3DPOOL, IDirect3DIndexBuffer8**, HANDLE*) = 0;
+#else
 	virtual HRESULT __stdcall CreateIndexBuffer(UINT, DWORD, D3DFORMAT, D3DPOOL, IDirect3DIndexBuffer8**) = 0;
+#endif
 	virtual HRESULT __stdcall CreateRenderTarget(UINT, UINT, D3DFORMAT, DWORD, BOOL, IDirect3DSurface8**) = 0;
 	virtual HRESULT __stdcall CreateDepthStencilSurface(UINT, UINT, D3DFORMAT, DWORD, IDirect3DSurface8**) = 0;
 	virtual HRESULT __stdcall CreateImageSurface(UINT, UINT, D3DFORMAT, IDirect3DSurface8**) = 0;
