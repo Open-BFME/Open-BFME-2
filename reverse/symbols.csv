@@ -1,19 +1,40 @@
 name,address,notes
+??$_Construct@UBfmeE8@@U1@@_STL@@YAXPAUBfmeE8@@ABU1@@Z,0x0060C9D9,address read from the REL32 displacement at a placed body; folded onto the body held there under another instantiation's name; stlport 4.5.3
+??$_M_allocate_and_copy@PAPAX@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@IAEPAPAXIPAPAX0@Z,0x00027F60,ICF alias of the const_pointer instantiation already landed at this address. reserve passes _M_start and _M_finish which are void** rather than void* const*, so it names the non-const member template; both instantiations compile to the identical body and the linker folds them, the same way the narrow and wide allocators share 0x000307F0
+??$_M_allocate_and_copy@PAUBfmeE8@@@?$vector@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@IAEPAUBfmeE8@@IPAU2@0@Z,0x001D9AD9,address read from the REL32 displacement at a placed body; stlport 4.5.3
+??$_M_allocate_and_copy@PBU?$pair@HH@_STL@@@?$vector@U?$pair@HH@_STL@@V?$allocator@U?$pair@HH@_STL@@@2@@_STL@@IAEPAU?$pair@HH@1@IPBU21@0@Z,0x00627960,STLport 4.5.3 vector<pair<int,int>> allocate-and-copy; address read by locate.py from the REL32 in the copy assignment at 0x00627CC0
 ??$_M_assign_dispatch@PAD@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@AAEAAV01@PAD0ABU__false_type@1@@Z,0x000130A0,STLport 4.5.3 narrow string assign dispatch; address read from retail basic_string::operator= REL32 displacement
+??$_M_do_get_integer@V?$istreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@GG@_STL@@YA?AV?$istreambuf_iterator@GV?$char_traits@G@_STL@@@0@AAV10@0AAVios_base@0@AAHAAGPAG@Z,0x0000ABE0,STLport 4.5.3 wide num_get integer worker; the wide-tagged ICF alias of the narrow-tagged name already on this address, read by decode_calls.py from the REL32 in the do_get forwarder that calls it
+??$_M_do_get_integer@V?$istreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@JG@_STL@@YA?AV?$istreambuf_iterator@GV?$char_traits@G@_STL@@@0@AAV10@0AAVios_base@0@AAHAAJPAG@Z,0x0000AEA0,STLport 4.5.3 wide num_get integer worker; the wide-tagged ICF alias of the narrow-tagged name already on this address, read by decode_calls.py from the REL32 in the do_get forwarder that calls it
+??$_M_do_get_integer@V?$istreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@KG@_STL@@YA?AV?$istreambuf_iterator@GV?$char_traits@G@_STL@@@0@AAV10@0AAVios_base@0@AAHAAKPAG@Z,0x0000AAB0,STLport 4.5.3 wide num_get integer worker; the wide-tagged ICF alias of the narrow-tagged name already on this address, read by decode_calls.py from the REL32 in the do_get forwarder that calls it
+??$_M_do_get_integer@V?$istreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@_JG@_STL@@YA?AV?$istreambuf_iterator@GV?$char_traits@G@_STL@@@0@AAV10@0AAVios_base@0@AAHAA_JPAG@Z,0x0000A560,STLport 4.5.3 wide num_get integer worker; the wide-tagged ICF alias of the narrow-tagged name already on this address, read by decode_calls.py from the REL32 in the do_get forwarder that calls it
 ??$_M_do_get_integer@V?$istreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@_KG@_STL@@YA?AV?$istreambuf_iterator@GV?$char_traits@G@_STL@@@0@AAV10@0AAVios_base@0@AAHAA_KPAG@Z,0x00009F90,harvested from retail REL32 displacement at 0x00009F60
 ??$_M_get_base_or_zero@V?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@D@_STL@@YAHAAV?$istreambuf_iterator@DV?$char_traits@D@_STL@@@0@0AAVios_base@0@PAD@Z,0x00007C90,STLport 4.5.3 narrow integer base scanner; address read from retail signed 64-bit integer scanner REL32 displacement
+??$_M_get_base_or_zero@V?$istreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@D@_STL@@YAHAAV?$istreambuf_iterator@GV?$char_traits@G@_STL@@@0@0AAVios_base@0@PAD@Z,0x0000A0F0,STLport 4.5.3 base reader over a wide iterator writing a NARROW buffer - the instantiation the five wide _M_do_get_integer bodies call. Address read from their REL32 at 0x0000AEC3. Shares the address with the PAG-buffer name already claimed there
 ??$_M_get_base_or_zero@V?$istreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@G@_STL@@YAHAAV?$istreambuf_iterator@GV?$char_traits@G@_STL@@@0@0AAVios_base@0@PAG@Z,0x0000A0F0,STLport 4.5.3 wide integer base scanner; address read from retail wide _M_do_get_integer REL32 displacement
+??$_M_range_initialize@PAD@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@AAEXPAD0ABUforward_iterator_tag@1@@Z,0x0000BF90,STLport 4.5.3 narrow string three-argument range initialiser; identical code to the wide instantiation matched at this address - both keep _M_allocate_block and __copy_trivial out of line so the element size never appears in the body - and the linker folded them. Address read from the REL32 in the char* range constructor at 0x00017830
+??$_M_range_initialize@PBD@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAEXPBD0@Z,0x00008D00,STLport 4.5.3 narrow string range initialiser over const char*; identical code to the char* instantiation already matched at this address so the linker folded the two - address read from the REL32 in the const char* constructor at 0x00009100
 ??$__copy@PAGV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@H@_STL@@YA?AV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@0@PAG0V10@ABUrandom_access_iterator_tag@0@PAH@Z,0x0000E9C0,harvested from retail REL32 displacement at 0x0000F6D0
+??$__copy@PBDV?$back_insert_iterator@Vstring@_STL@@@_STL@@H@_STL@@YA?AV?$back_insert_iterator@Vstring@_STL@@@0@PBD0V10@ABUrandom_access_iterator_tag@0@PAH@Z,0x00019180,STLport 4.5.3 copy of a name-table literal into a back_insert_iterator over string; address read by decode_calls.py from the seven REL32s in _Init_timeinfo at 0x00019260 which all reach the same body
 ??$__copy_aux@PADPAD@_STL@@YAPADPAD00ABU__true_type@0@@Z,0x000179B0,harvested from retail REL32 displacement at 0x00015F50
+??$__copy_integer_and_fill@DV?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@@_STL@@YA?AV?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@0@PBDHV10@HHDDD@Z,0x000095E0,STLport 4.5.3 narrow copy-integer-and-fill; address read from the __put_integer REL32 displacement at 0x0000D114
+??$__copy_ptrs@PBU?$pair@HH@_STL@@PAU12@@_STL@@YAPAU?$pair@HH@0@PBU10@0PAU10@ABU__false_type@0@@Z,0x0001C160,STLport 4.5.3 trivial pointer copy for pair<int,int>; address read by locate.py from the REL32 in the vector copy assignment at 0x00627CC0
 ??$__find@PBGG@_STL@@YAPBGPBG0ABGABUrandom_access_iterator_tag@0@@Z,0x00010F60,STLport 4.5.3 wide random-access find over a const range; identical code to the non-const instantiation already matched at this address and folded onto it by /OPT:ICF. Address read from retail __get_fdigit REL32 displacement
 ??$__find_if@PBDU?$_Eq_int_bound@V?$char_traits@D@_STL@@@_STL@@@_STL@@YAPBDPBD0U?$_Eq_int_bound@V?$char_traits@D@_STL@@@0@ABUrandom_access_iterator_tag@0@@Z,0x006BE8C0,harvested from retail REL32 displacement at 0x006BE980
+??$__get_decimal_integer@V?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@H@_STL@@YA_NAAV?$istreambuf_iterator@DV?$char_traits@D@_STL@@@0@0AAH@Z,0x00009CD0,STLport 4.5.3 narrow decimal reader for int - the instantiation __get_formatted_time reaches because tm's fields are int. Its REL32 lands on 0x00009CD0 which the ledger already carries as the long instantiation; int and long are the same four bytes on this target so the two are one address. Additive pin rather than a rename of that row
+??$__get_decimal_integer@V?$istreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@H@_STL@@YA_NAAV?$istreambuf_iterator@GV?$char_traits@G@_STL@@@0@0AAH@Z,0x0000B4C0,STLport 4.5.3 wide decimal reader for int - the wide twin of the pin at 0x00009CD0 and the same situation: tm's fields are int so this is the instantiation the wide __get_formatted_time calls, and its REL32 lands on the address the ledger already carries as the long one
+??$__lexicographical_compare_3way@PBDPBD@_STL@@YAHPBD000@Z,0x00017650,collate<char>::do_compare's call target; the body there is held for the char* instantiation and the const char* one folded onto it - the comparison never writes through either pointer so the two are the same code
 ??$__lower_bound@PBIIU?$less@I@_STL@@H@_STL@@YAPBIPBI0ABIU?$less@I@0@PAH@Z,0x00568D2F,harvested from retail REL32 displacement at 0x0016DB60
 ??$__match@V?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@PAV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@2@J@_STL@@YAPAV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@0@AAV?$istreambuf_iterator@DV?$char_traits@D@_STL@@@0@0PAV10@1PAJ@Z,0x000099D0,ICF alias of the const instantiation now claimed at this address; the narrow twin of the pin above
 ??$__match@V?$istreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@PAV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@2@J@_STL@@YAPAV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@0@AAV?$istreambuf_iterator@GV?$char_traits@G@_STL@@@0@0PAV10@1PAJ@Z,0x0000F2F0,ICF alias of the const instantiation now claimed at this address; the non-const one compiles to identical code and do_get_monthname reaches __match through it
 ??$__put_integer@V?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@@_STL@@YA?AV?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@0@PAD0V10@AAVios_base@0@HD@Z,0x0000D050,harvested from retail REL32 displacement at 0x0000D2D0
 ??$__write_decimal_backward@J@_STL@@YAPADPADJHABU__true_type@0@@Z,0x0000D540,STLport 4.5.3 signed decimal writer; the retail body is the upstream __write_decimal_backward __true_type overload instruction for instruction (see reverse/attempts/0x0000d540.cpp) and 0x0000D460 is its only caller
 ??$__write_integer_backward@K@_STL@@YAPADPADHK@Z,0x0000D320,harvested from retail REL32 displacement at 0x00010C10
+??$__write_integer_backward@_J@_STL@@YAPADPADH_J@Z,0x0000D180,STLport 4.5.3 signed 64-bit integer writer; address read by locate.py from the REL32 in the num_put __int64 do_put overloads at 0x0000D130 and 0x00010BC0
+??$append@PAD@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@AAEAAV01@PAD0ABUforward_iterator_tag@1@@Z,0x0001B3E0,STLport 4.5.3 basic_string<char> three-argument append over a char* range; address read from the retail _M_assign_dispatch REL32 displacement at 0x00012140
+??$append@PAG@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@AAEAAV01@PAG0ABUforward_iterator_tag@1@@Z,0x00013160,STLport 4.5.3 wide string forward-iterator append over wchar_t* rather than const wchar_t*; identical code to the const instantiation matched at this address so the linker folded the two - address read from the REL32 in _M_assign_dispatch at 0x000130A0
 ??$append@PBD@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@AAEAAV01@PBD0ABUforward_iterator_tag@1@@Z,0x0001B3E0,STLport 4.5.3 narrow string forward-iterator append; address read from retail basic_string::assign REL32 displacement
+??$insert@U?$_Deque_iterator@UBfmeE12@@U?$_Const_traits@UBfmeE12@@@_STL@@@_STL@@@?$deque@UBfmeE12@@V?$allocator@UBfmeE12@@@_STL@@@_STL@@IAEXU?$_Deque_iterator@UBfmeE12@@U?$_Nonconst_traits@UBfmeE12@@@_STL@@@1@U?$_Deque_iterator@UBfmeE12@@U?$_Const_traits@UBfmeE12@@@_STL@@@1@1ABUforward_iterator_tag@1@@Z,0x00586305,address read from the REL32 displacement at a placed deque<12-byte element> body; stlport 4.5.3
 ??$mismatch@V?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@PAD@_STL@@YA?AU?$pair@V?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@PAD@0@V?$istreambuf_iterator@DV?$char_traits@D@_STL@@@0@0PAD@Z,0x00012CA0,harvested from retail REL32 displacement at 0x00019C20
 ??0?$CategoryModuleTemplateBase@$00@FXParticleSystem@@QAE@ABV01@@Z,0x001F421B,BFME2 export; ICF-folded module base copy constructor - all nine categories share this address
 ??0?$CategoryModuleTemplateBase@$01@FXParticleSystem@@QAE@ABV01@@Z,0x001F421B,BFME2 export; ICF-folded module base copy constructor - all nine categories share this address
@@ -24,6 +45,7 @@ name,address,notes
 ??0?$CategoryModuleTemplateBase@$06@FXParticleSystem@@QAE@ABV01@@Z,0x001F421B,BFME2 export ordinal 82; same ICF-folded module base copy constructor as the $07 pin - category 7 is wind
 ??0?$CategoryModuleTemplateBase@$07@FXParticleSystem@@QAE@ABV01@@Z,0x001F421B,BFME2 export; the two-vtable module base copy constructor CategoryModuleTemplate calls - ICF folds all nine categories onto this address
 ??0?$CategoryModuleTemplateBase@$0A@@FXParticleSystem@@QAE@ABV01@@Z,0x001F421B,BFME2 export; ICF-folded module base copy constructor - all nine categories share this address
+??0?$ConcreteModuleTemplate@V?$ModuleTag@$01$E?RENDEROBJECT_UPDATE_MODULE_KEY@FXParticleSystem@@3QBDB$E?RENDEROBJECT_UPDATE_MODULE_NAME@2@3QBDBVRenderObjectUpdateModule@2@VRenderObjectUpdateModuleTemplate@2@V?$DefaultParticleModule@$01@2@@FXParticleSystem@@@FXParticleSystem@@QAE@ABV01@@Z,0x003AEA15,address read from the REL32 displacement at a placed body; stlport 4.5.3
 ??0?$DefaultModuleTemplate@$00@FXParticleSystem@@QAE@ABV01@@Z,0x003A622A,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
 ??0?$DefaultModuleTemplate@$00@FXParticleSystem@@QAE@XZ,0x003A9732,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
 ??0?$DefaultModuleTemplate@$01@FXParticleSystem@@QAE@ABV01@@Z,0x003A79A5,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
@@ -36,6 +58,7 @@ name,address,notes
 ??0?$DefaultModuleTemplate@$06@FXParticleSystem@@QAE@XZ,0x003AA1CA,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
 ??0?$DefaultModuleTemplate@$0A@@FXParticleSystem@@QAE@ABV01@@Z,0x003A638D,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
 ??0?$DefaultModuleTemplate@$0A@@FXParticleSystem@@QAE@XZ,0x003A9789,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
+??0?$ShareBufferClass@VShaderClass@@@@QAE@HPBDH@Z,0x0015CF30,ICF alias: ShareBufferClass<ShaderClass>'s counted constructor is the same code as the Vector2 one landed at this address - both hold four-byte elements - and decode_calls reads this address out of Get_Shader_Array's REL32
 ??0?$StringBase@D@@AAE@ABV0@@Z,0x000365F0,BFME2 export and retail call target for the StringBase<char> copy constructor
 ??0?$StringBase@D@@AAE@ABV0@HH@Z,0x000380C0,BFME2 export and retail call target for AsciiString substring constructor
 ??0?$StringBase@D@@AAE@D@Z,0x00037B60,BFME2 export and retail call target for AsciiString char constructor
@@ -47,13 +70,25 @@ name,address,notes
 ??0?$StringBase@G@@AAE@G@Z,0x00037DF0,BFME2 retail call target for StringBase<wchar_t>::StringBase(wchar_t); ghidra names the same symbol at this address
 ??0?$StringBase@G@@AAE@PBG@Z,0x00037E30,BFME2 retail call target for StringBase<wchar_t>::StringBase(const wchar_t *)
 ??0?$StringBase@G@@AAE@PBGH@Z,0x00037E10,BFME2 retail call target for StringBase<wchar_t>::StringBase(const wchar_t *, int)
+??0?$VectorClass@VProxyRecordClass@@@@QAE@HPBVProxyRecordClass@@@Z,0x0019BAE0,address read from the REL32 displacement at a placed body; stlport 4.5.3
 ??0?$_STLP_alloc_proxy@PADDV?$allocator@D@_STL@@@_STL@@QAE@ABV?$allocator@D@1@PAD@Z,0x00007410,STLport 4.5.3 narrow string allocator proxy constructor; address read from retail _String_base constructor REL32 displacement
 ??0?$_STLP_alloc_proxy@PAIIV?$allocator@I@_STL@@@_STL@@QAE@ABV?$allocator@I@1@PAI@Z,0x0014F3C4,harvested from retail REL32 displacement at 0x0006BE8F
+??0?$_STLP_alloc_proxy@PAU?$_Rb_tree_node@U?$pair@$$CBHH@_STL@@@_STL@@U12@V?$allocator@U?$_Rb_tree_node@U?$pair@$$CBHH@_STL@@@_STL@@@2@@_STL@@QAE@ABV01@@Z,0x0027EA56,address read from the retail REL32 at 0x00574B2D inside a body that byte-verifies against it
+??0?$_STLP_alloc_proxy@PAU?$_Rb_tree_node@U?$pair@$$CBHPAX@_STL@@@_STL@@U12@V?$allocator@U?$_Rb_tree_node@U?$pair@$$CBHPAX@_STL@@@_STL@@@2@@_STL@@QAE@ABV?$allocator@U?$_Rb_tree_node@U?$pair@$$CBHPAX@_STL@@@_STL@@@1@PAU?$_Rb_tree_node@U?$pair@$$CBHPAX@_STL@@@1@@Z,0x0014F3C4,address read from the REL32 displacement at a placed body; folded onto the body held there under another instantiation's name; stlport 4.5.3
+??0?$_STLP_alloc_proxy@PAUBfmeE16@@U1@V?$allocator@UBfmeE16@@@_STL@@@_STL@@QAE@ABV?$allocator@UBfmeE16@@@1@PAUBfmeE16@@@Z,0x0014F3C4,address read from the REL32 displacement at a placed body; folded onto the body held there under another instantiation's name; stlport 4.5.3
+??0?$_STLP_alloc_proxy@PAUBfmeE8@@U1@V?$allocator@UBfmeE8@@@_STL@@@_STL@@QAE@ABV?$allocator@UBfmeE8@@@1@PAUBfmeE8@@@Z,0x0014F3C4,address read from the REL32 displacement at a placed body; folded onto the body held there under another instantiation's name; stlport 4.5.3
 ??0?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE@ABV01@@Z,0x00009170,STLport 4.6 narrow string copy constructor; address read from retail __put_float REL32 displacement
 ??0?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE@XZ,0x00007850,STLport 4.5.3 narrow string default constructor; address read from retail num_get<double>::do_get REL32 displacement
 ??0BoxEmissionVolumeModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A6738,BFME2 export; the module template copy constructor the ConcreteModuleTemplate wrapper calls
+??0Buffer@@QAE@J@Z,0x00615710,address read from the REL32 displacement at a placed body; stlport 4.5.3
+??0Buffer@@QAE@PAXJ@Z,0x006156D0,address read from the retail REL32 in both BufferPipe and BufferStraw constructors at 0x006159F0 and 0x0013C880
+??0BufferPipe@@QAE@PAXH@Z,0x006159F0,address read from the REL32 displacement at a placed body; stlport 4.5.3
+??0BufferStraw@@QAE@PBXH@Z,0x0013C880,address read from the REL32 displacement at a placed body; stlport 4.5.3
+??0BufferedFileClass@@QAE@XZ,0x0061ADE0,address read from the REL32 displacement at a placed body; stlport 4.5.3
 ??0ButterflyDrawModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A7CEE,BFME2 export; the module template copy constructor the ConcreteModuleTemplate wrapper calls
 ??0ButterflyDrawModuleTemplate@FXParticleSystem@@QAE@XZ,0x003A7C97,BFME2 export; the module template default constructor the ConcreteModuleTemplate wrapper calls
+??0CriticalSectionClass@@QAE@XZ,0x00613AE0,address read from the REL32 displacement at a placed body; stlport 4.5.3
+??0CullSystemClass@@QAE@XZ,0x00724550,address read from the retail REL32 in ??0GridCullSystemClass at 0x0071CBE0
 ??0CylinderEmissionVolumeModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A6A49,BFME2 export; the module template copy constructor the ConcreteModuleTemplate wrapper calls
 ??0CylindricalEmissionVelocityModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A75D4,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
 ??0CylindricalEmissionVelocityModuleTemplate@FXParticleSystem@@QAE@XZ,0x003A757D,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
@@ -68,17 +103,23 @@ name,address,notes
 ??0LightningEmissionModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A6CB0,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
 ??0LightningEmissionModuleTemplate@FXParticleSystem@@QAE@XZ,0x003A6C59,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
 ??0LineEmissionVolumeModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A65E9,BFME2 export; the module template copy constructor the ConcreteModuleTemplate wrapper calls
+??0MatBufferClass@@QAE@HPBD@Z,0x0015B1A0,address read from the REL32 displacement at a placed body; stlport 4.5.3
 ??0OrthoEmissionVelocityModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A7173,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
 ??0OrthoEmissionVelocityModuleTemplate@FXParticleSystem@@QAE@XZ,0x003A711C,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
+??0OutputStream@DebugIOFlat@@AAE@PBDI@Z,0x0003F840,address read from the REL32 displacement at a placed body; stlport 4.5.3
 ??0OutwardEmissionVelocityModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A76D5,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
 ??0OutwardEmissionVelocityModuleTemplate@FXParticleSystem@@QAE@XZ,0x003A767E,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
 ??0PointEmissionVolumeModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A64B0,BFME2 export; the module template copy constructor the ConcreteModuleTemplate wrapper calls
 ??0QuadDrawModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A7C4C,BFME2 export; the module template copy constructor the ConcreteModuleTemplate wrapper calls
 ??0QuadDrawModuleTemplate@FXParticleSystem@@QAE@XZ,0x003A7BF5,BFME2 export; the module template default constructor the ConcreteModuleTemplate wrapper calls
+??0Random3Class@@QAE@II@Z,0x006200B0,identical-code fold with the STLport _Hashtable_iterator constructor already matched here - both store two dwords at +0 and +4; address read from the retail REL32 in StreakRendererClass::subdivision_util at 0x00743280
+??0RandomTextureMapperClass@@QAE@ABV0@@Z,0x00186880,address read from the REL32 displacement at a placed body; stlport 4.5.3
 ??0RenderObjectDrawModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A9C80,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
 ??0RenderObjectDrawModuleTemplate@FXParticleSystem@@QAE@XZ,0x003A9BE2,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
 ??0RenderObjectUpdateModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A80FF,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
 ??0RenderObjectUpdateModuleTemplate@FXParticleSystem@@QAE@XZ,0x003A80A8,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
+??0RotateTextureMapperClass@@QAE@ABV0@@Z,0x00182780,address read from the REL32 displacement at a placed body; stlport 4.5.3
+??0SortingIndexBufferClass@@QAE@G@Z,0x00138B20,self-verifying: retail DynamicIBAccessClass::Allocate_Sorting_Dynamic_Buffer at 0x00138F50 encodes 0x00138B20 in its constructor call REL32 displacement
 ??0SphereEmissionVolumeModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A68AF,BFME2 export; the module template copy constructor the ConcreteModuleTemplate wrapper calls
 ??0SphericalEmissionVelocityModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A734E,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
 ??0SphericalEmissionVelocityModuleTemplate@FXParticleSystem@@QAE@XZ,0x003A72F7,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
@@ -88,19 +129,39 @@ name,address,notes
 ??0TerrainCollisionModuleTemplate@FXParticleSystem@@QAE@XZ,0x003AA078,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
 ??0TerrainFireEmissionModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A6F24,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
 ??0TerrainFireEmissionModuleTemplate@FXParticleSystem@@QAE@XZ,0x003A6ECD,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
+??0TexBufferClass@@QAE@HPBD@Z,0x0015D080,address read from the REL32 displacement at a placed body; stlport 4.5.3
+??0Vector3HollowSphereRandomizer@@QAE@M@Z,0x00723350,address read from the retail REL32 in ParticleEmitterDefClass::Create_Randomizer at 0x001AFF60
+??0Vector3SolidSphereRandomizer@@QAE@M@Z,0x00723230,address read from the retail REL32 in ParticleEmitterDefClass::Create_Randomizer at 0x001AFF60
+??0ZigZagLinearOffsetTextureMapperClass@@QAE@ABV0@@Z,0x001831C0,address read from the REL32 displacement at a placed body; stlport 4.5.3
 ??0_Filebuf_base@_STL@@QAE@XZ,0x0001D300,harvested from retail REL32 displacement at 0x00014670
 ??0_Time_Info@_STL@@QAE@XZ,0x00007920,STLport 4.5.3 _Time_Info constructor; target body constructs the exact 14 day 24 month 2 AM-PM and 5 format strings declared by the vendored header
 ??0gslice@_STL@@QAE@ABV01@@Z,0x000B43E5,harvested from retail REL32 displacement at 0x000B68F0
 ??0ios_base@_STL@@IAE@XZ,0x0001C1A0,harvested from retail REL32 displacement at 0x0001C5C0
+??1?$allocator@PAX@_STL@@QAE@XZ,0x00023A40,ICF alias of the _STLP_alloc_proxy destructor landed at this address. The proxy derives from the allocator and both destructors are empty, so they compile to the same body and the linker folds them
+??1?$basic_ostringstream@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@UAE@XZ,0x001F66C6,address read from the REL32 displacement at a placed body; stlport 4.5.3
 ??1?$basic_streambuf@DV?$char_traits@D@_STL@@@_STL@@UAE@XZ,0x0001C6E0,harvested from retail REL32 displacement at 0x00015030
+??1?$num_put@DV?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@@_STL@@MAE@XZ,0x000072E0,STLport 4.5.3 narrow num_put destructor; trivial so the linker folded it onto ??1facet at this address - slot 0 of its vftable at 0x007BBA2C reaches the folded scalar deleting destructor at 0x000072C0
 ??1Bitmap@Gdiplus@@UAE@XZ,0x000012A3,ICF alias of Gdiplus::Image::~Image. MSVC 7.1 drops the dead derived vptr store from the implicit ~Bitmap and inlines the base body so the two COMDATs come out byte-identical; retail CImage::Load destroys its local Bitmap through this address
+??1Buffer@@QAE@XZ,0x006157A0,address read from the REL32 displacement at a placed body; stlport 4.5.3
+??1BufferPipe@@UAE@XZ,0x00615A50,address read from the REL32 displacement at a placed body; stlport 4.5.3
+??1BufferStraw@@UAE@XZ,0x0013C8E0,address read from the REL32 displacement at a placed body; stlport 4.5.3
+??1CriticalSectionClass@@QAE@XZ,0x00613B10,address read from the REL32 displacement at a placed body; stlport 4.5.3
 ??1CylindricalEmissionVelocityModuleTemplate@FXParticleSystem@@UAE@XZ,0x003A6201,BFME2 export; the module template destructor every category folds onto - three vtable stores walked back through the bases
+??1INIClass@@UAE@XZ,0x00617AC0,address read from the REL32 displacement at a placed body; stlport 4.5.3
+??1LZHLDecompressor@@QAE@XZ,0x00692300,LZH-Light decompressor destructor; address read from the LZHLDestroyDecompressor REL32 at 0x0068ED8B
 ??1LightningDrawModuleTemplate@FXParticleSystem@@UAE@XZ,0x003A6201,BFME2 export; the module template destructor every category folds onto - three vtable stores walked back through the bases
 ??1LightningEmissionModuleTemplate@FXParticleSystem@@UAE@XZ,0x003A6201,BFME2 export; the module template destructor every category folds onto - three vtable stores walked back through the bases
+??1LockClass@CriticalSectionClass@@QAE@XZ,0x00613B80,address read from the REL32 displacement at a placed body; stlport 4.5.3
+??1ModelArrayClass@HLodClass@@UAE@XZ,0x0019E580,address read from the REL32 displacement at a placed body; stlport 4.5.3
 ??1OrthoEmissionVelocityModuleTemplate@FXParticleSystem@@UAE@XZ,0x003A6201,BFME2 export; the module template destructor every category folds onto - three vtable stores walked back through the bases
 ??1OutwardEmissionVelocityModuleTemplate@FXParticleSystem@@UAE@XZ,0x003A6201,BFME2 export; the module template destructor every category folds onto - three vtable stores walked back through the bases
+??1RenderObjClass@@UAE@XZ,0x00196150,address read from the REL32 displacement at a placed body; stlport 4.5.3
 ??1RenderObjectUpdateModuleTemplate@FXParticleSystem@@UAE@XZ,0x003A6201,BFME2 export; the module template destructor every category folds onto - three vtable stores walked back through the bases
+??1RoadType@@QAE@XZ,0x0018E750,address read from the REL32 displacement at a placed body; stlport 4.5.3
+??1SortingNodeStruct@@QAE@XZ,0x0012FCA0,address read from the REL32 displacement at a placed body; stlport 4.5.3
 ??1TerrainFireEmissionModuleTemplate@FXParticleSystem@@UAE@XZ,0x003A6201,BFME2 export; the module template destructor every category folds onto - three vtable stores walked back through the bases
+??1TextureStatisticsStruct@@QAE@XZ,0x00118800,address read from the REL32 displacement at a placed body; stlport 4.5.3
+??1__Named_exception@_STL@@UAE@XZ,0x00023850,address read from the REL32 displacement in logic_error and runtime_error's destructors; the body there is held as bad_alloc's destructor and the two folded
 ??1ios_base@_STL@@UAE@XZ,0x0001C220,STLport 4.5.3 ios_base destructor; address read from the basic_ios<char> and basic_ios<wchar_t> destructor tail jumps
 ??2@YAPAXI@Z,0x0002FDA0
 ??3@YAXPAX@Z,0x0002FD60
@@ -108,54 +169,169 @@ name,address,notes
 ??4?$DefaultModuleTemplate@$01@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A79E5,BFME2 export; the module template assignment the ConcreteModuleTemplate wrapper forwards to
 ??4?$DefaultModuleTemplate@$02@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A7832,BFME2 export; the module template assignment the ConcreteModuleTemplate wrapper forwards to
 ??4?$DefaultModuleTemplate@$0A@@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A63CD,BFME2 export; the module template assignment the ConcreteModuleTemplate wrapper forwards to
+??4?$VectorClass@VModelNodeClass@HLodClass@@@@QAEAAV0@ABV0@@Z,0x0019E5B0,address read from the REL32 displacement at a placed body; stlport 4.5.3
+??4?$vector@UPrereqUnitRec@ProductionPrerequisite@@V?$allocator@UPrereqUnitRec@ProductionPrerequisite@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z,0x000120C0,address read from the REL32 displacement at a placed body; folded onto the body held there under another instantiation's name; stlport 4.5.3
+??4?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z,0x000120C0,address read from the REL32 displacement at a placed body; folded onto the body held there under another instantiation's name; stlport 4.5.3
+??4AudioEventRTS@@QAEAAV0@ABV0@@Z,0x000366F0,address read from the REL32 displacement at a placed body; stlport 4.5.3
 ??4GpuDrawModuleInfo@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A7EF0,BFME2 export; the module info assignment the module template forwards to
 ??4GpuDrawModuleTemplate@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A7F1D,BFME2 export; the module template assignment the ConcreteModuleTemplate wrapper forwards to
 ??4LifeEventModuleInfo@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A7A51,BFME2 export; the module info assignment the module template forwards to
 ??4LifeEventModuleTemplate@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A7A7F,BFME2 export; the module template assignment the ConcreteModuleTemplate wrapper forwards to
 ??4LightningDrawModuleTemplate@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A7ECF,BFME2 export; the module template assignment the ConcreteModuleTemplate wrapper forwards to
 ??4LightningEmissionModuleTemplate@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A6CF0,BFME2 export; the module template assignment the ConcreteModuleTemplate wrapper forwards to
+??4Matrix3@@QAEAAV0@ABVMatrix3D@@@Z,0x00716890,address read from the retail REL32 in ??0OBBoxIntersectionTestClass at 0x0014A3F0
 ??4OrthoEmissionVelocityModuleTemplate@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A71B3,BFME2 export; the module template assignment the ConcreteModuleTemplate wrapper forwards to
 ??4RenderObjectDrawModuleInfo@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A7D2E,BFME2 export; the module info assignment the module template forwards to
 ??4RenderObjectDrawModuleTemplate@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A7DA9,BFME2 export; the module template assignment the ConcreteModuleTemplate wrapper forwards to
 ??4RenderObjectUpdateModuleTemplate@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A813F,BFME2 export; the module template assignment the ConcreteModuleTemplate wrapper forwards to
+??4SplitChoiceStruct@AABTreeBuilderClass@@QAEAAU01@ABU01@@Z,0x00198BF0,Builder SplitChoice assignment109B exact; retail Build_Tree REL32 at199BAE; address already claimed by Node SplitChoice assignment so alias adds no coverage
+??4StringClass@@QAEABV0@PBD@Z,0x000F0E8D,address read from the REL32 displacement at a placed body; stlport 4.5.3
+??4TRoadSegInfo@@QAEAAU0@ABU0@@Z,0x000D69D3,address read from the REL32 displacement at a placed body; stlport 4.5.3
 ??4TerrainCollisionModuleInfo@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A81AE,BFME2 export; the module info assignment the module template forwards to
 ??4TerrainCollisionModuleTemplate@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A81E2,BFME2 export; the module template assignment the ConcreteModuleTemplate wrapper forwards to
 ??4TerrainFireEmissionModuleTemplate@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A6F64,BFME2 export; the module template assignment the ConcreteModuleTemplate wrapper forwards to
 ??4locale@_STL@@QAEABV01@ABV01@@Z,0x00007160,STLport 4.5.3 locale assignment; address read from the retail wide basic_streambuf pubimbue REL32 displacement
+??8@YA_NABVAsciiString@@0@Z,0x006EFBC0,address read from the REL32 displacement at a placed body; stlport 4.5.3
+??8locale@_STL@@QBE_NABV01@@Z,0x0000BB10,STLport 4.5.3 locale equality; the body compares the two impl pointers then falls back on three name() calls at 0x0000BAE0 and a not-equal against the nameless string object at 0x00DDEB2C. Address read from the REL32 in the operator!= wrapper at 0x0000BC40
+??A?$IndexClass@HPAUINISection@@@@QBEABQAUINISection@@ABH@Z,0x00616A60,address read from the REL32 displacement at a placed body; stlport 4.5.3
+??G?$_Deque_iterator@UBfmeE12@@U?$_Nonconst_traits@UBfmeE12@@@_STL@@@_STL@@QBE?AU01@H@Z,0x004221E6,address read from the REL32 displacement at a placed deque<12-byte element> body; stlport 4.5.3
+??H?$_Deque_iterator@UBfmeE12@@U?$_Nonconst_traits@UBfmeE12@@@_STL@@@_STL@@QBE?AU01@H@Z,0x00584E57,address read from the REL32 displacement at a placed deque<12-byte element> body; stlport 4.5.3
+??_H@YGXPAXIHP6EPAX0@Z@Z,0x00001423,address read from the REL32 displacement at a placed body; folded onto the body held there under another instantiation's name; stlport 4.5.3
+??_L@YGXPAXIHP6EX0@Z1@Z,0x00629512,MSVC 7.1 eh vector constructor iterator; Ghidra names this address and the _Time_Info constructor at 0x00007920 calls it three times for the 14, 24 and 2 element string arrays
+??_M@YGXPAXIHP6EX0@Z@Z,0x00629110,MSVC 7.1 eh vector destructor iterator; Ghidra names this address and the _Time_Info destructor at 0x00007A00 calls it three times for the 14, 24 and 2 element string arrays
 ??_U@YAPAXI@Z,0x0002FDE0,harvested from retail REL32 displacement at 0x0001D9F0
 ??_V@YAXPAX@Z,0x0002FD80,harvested from retail REL32 displacement at 0x00014010
+?Add@?$DynamicVectorClass@PAVVertexMaterialClass@@@@QAE_NABQAVVertexMaterialClass@@@Z,0x001A3A60,address read from the REL32 displacement at a placed body; folded onto the body held there under another instantiation's name; stlport 4.5.3
+?Add@?$DynamicVectorClass@UWeightInfoStruct@NamedPivotMapClass@@@@QAE_NABUWeightInfoStruct@NamedPivotMapClass@@@Z,0x00196880,address read from the retail REL32 in ?Add at 0x00196AA0
+?Add@?$DynamicVectorClass@VShaderClass@@@@QAE_NABVShaderClass@@@Z,0x001A3A60,address read from the REL32 displacement at a placed body; folded onto the body held there under another instantiation's name; stlport 4.5.3
+?Add@?$SimpleDynVecClass@VVector3@@@@QAE_NABVVector3@@H@Z,0x001002C5,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Allocate_DX8_Dynamic_Buffer@DynamicIBAccessClass@@QAEXXZ,0x00138E00,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Allocate_Object_Memory@?$ObjectPoolClass@VGridLinkClass@@$0BAA@@@QAEPAVGridLinkClass@@XZ,0x0071AED0,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Allocate_Object_Memory@?$ObjectPoolClass@VMultiListNodeClass@@$0BAA@@@QAEPAVMultiListNodeClass@@XZ,0x00610680,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Allocate_Sorting_Dynamic_Buffer@DynamicIBAccessClass@@QAEXXZ,0x00138F50,address read from the REL32 displacement at a placed body; stlport 4.5.3
 ?AtlThrow@ATL@@YGXJ@Z,0x00001125,ATL 7.1 ATL_NOINLINE thrower; target body raises a CAtlException through _CxxThrowException. Address read from retail CA2WEX<128>::Init REL32 displacement at 0x00001DEC
+?BFME_DX8_Thread_Assert@@YAXXZ,0x00120F50,releases BFMEs DX8 device mutex - decrements the recursion count at 0x00DEDA8C and signals the handle at 0x00DEC598; address read from retail REL32 at 0x00138840
+?BFME_DX8_Thread_Lock@@YAXXZ,0x0011F520,takes BFMEs DX8 device mutex with a 20-second WaitForSingleObject on 0x00DEC598; address read from retail REL32 at 0x00138790
+?Build_Sentence_Not_Centered@Render2DSentenceClass@@AAE?AVVector2@@PBGPAH1_N@Z,0x00159700,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?CPUID@CPUDetectClass@@SA_NAAI000I@Z,0x006118C0,CPUDetectClass::CPUID. Address is the REL32 in Init_Processor_Manufacturer at 0x00611B00; Ghidra sizes it 103 which is exactly what the ported cpudetect.cpp emits for this symbol. Not landed as a row yet - the body reproduces from its second instruction on and differs only in the entry test, where retail compares the HasCPUIDInstruction byte in place and every spelling here loads it into al first
+?CRC_Memory@@YAKPBEKK@Z,0x006157D0,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Clear@?$VectorClass@H@@UAEXXZ,0x000F0CD4,VectorClass<int>::Clear; vftable 0x007BB5AC slot 3 and scalar dtor call at 0x0000232B identify the retail body
+?Clear@INIClass@@QAE_NPBD0@Z,0x00616C60,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Collide@CollisionMath@@SA_NABVAABoxClass@@ABVVector3@@ABVTriClass@@PAUCastResultStruct@@@Z,0x00726790,address read from the retail REL32 in CollisionMath::Overlap_Test(AABoxClass,TriClass) at 0x00723EA0
+?Convert_Shader@W3dUtilityClass@@SAXABVShaderClass@@PAUW3dShaderStruct@@@Z,0x001A45E3,address read from the REL32 displacement at a placed body; stlport 4.5.3
 ?CreateEx@CImage@ATL@@QAEHHHHKPBKK@Z,0x00002690,ATL 7.1 CImage::CreateEx; retail call target of CImage::Create at 0x00002942 and identified in reverse/attempts/0x00002690.cpp
 ?CreateFromGdiplusBitmap@CImage@ATL@@QAEJAAVBitmap@Gdiplus@@@Z,0x0000295E,ATL 7.1 CImage::CreateFromGdiplusBitmap; retail call target of CImage::Load at 0x00002BB5
+?Cur_Chunk_ID@ChunkLoadClass@@QAEKXZ,0x00615020,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Cur_Micro_Chunk_ID@ChunkLoadClass@@QAEKXZ,0x006150A0,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?DX8_Assert@@YAXXZ,0x0069E440,called from the DX8 arm of every index-buffer lock body; address read from retail REL32 at 0x00138840
+?DebugAllocMemory@@YAPAXI@Z,0x0003E450,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?DebugFreeMemory@@YAXPAX@Z,0x0003E3C0,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Device_To_View_Space@CameraClass@@QAEXABVVector2@@PAVVector3@@@Z,0x00134650,address read from the retail REL32 in ?Device_To_World_Space at 0x00134730
+?Enable_Fog@ShaderClass@@QAEXPBD@Z,0x00138200,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?ExpandMagic@DebugIOFlat@@CAXPBD0PAD@Z,0x0003FA20,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Flush@OutputStream@DebugIOFlat@@QAEXXZ,0x0003F960,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Format@StringClass@@QAAHPBDZZ,0x00610DD0,address read from the retail REL32 in SimpleFileFactoryClass::Get_File at 0x00613750 - two call sites both encode it
+?Free@HLodDefClass@@AAEXXZ,0x0019F5B0,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?FreeHeap@?$CTempBuffer@D$0IA@VCCRTAllocator@ATL@@@ATL@@AAEXXZ,0x000056C7,CTempBuffer FreeHeap emitted bytes equal CW2AEX deallocate ICF body; retail GetStringTypeExWFake calls this address; alias pin avoids duplicate progress claim
+?Free_Object_Memory@?$ObjectPoolClass@VMultiListNodeClass@@$0BAA@@@QAEXPAVMultiListNodeClass@@@Z,0x00196470,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Free_String@StringClass@@AAEXXZ,0x00610A40,address read from the REL32 displacement at a placed body
 ?GdiplusShutdown@Gdiplus@@YGXK@Z,0x00628F6E,GDI+ import thunk identified by official ATL 7.1 call and retail target
 ?GdiplusStartup@Gdiplus@@YG?AW4Status@1@PAKPBUGdiplusStartupInput@1@PAUGdiplusStartupOutput@1@@Z,0x00628F68,GDI+ import thunk; retail target of ATL CImage::CInitGDIPlus::Init
+?Get@Base64Straw@@UAEHPAXH@Z,0x0061B350,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Get_Channel_Memory_Usage@AdaptiveDeltaMotionChannelClass@@QAEHXZ,0x001960B0,address read from the retail REL32 in ?Get_Channel_Memory_Usage at 0x0018F7B0
+?Get_Channel_Memory_Usage@TimeCodedBitChannelClass@@QAEHXZ,0x00195EE0,address read from the retail REL32 in ?Get_Channel_Memory_Usage at 0x0018F7B0
+?Get_Char_Data@FontCharsClass@@AAEPBVFontCharsClassCharDataStruct@@G@Z,0x00158520,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Get_First_Collected_Object_Internal@CullSystemClass@@IAEPAVCullableClass@@XZ,0x007244B0,address read from the retail REL32 in ?Re_Partition at 0x0071C7D0
+?Get_Float@INIClass@@QBEMPBD0M@Z,0x00616E90,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Get_Next_Collected_Object_Internal@CullSystemClass@@IAEPAVCullableClass@@PAV2@@Z,0x00724570,address read from the retail REL32 in ?Re_Partition at 0x0071C7D0
+?Get_SS_Category@ShaderClass@@QBE?AW4StaticSortCategoryType@1@XZ,0x00138130,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Get_Shader@ParticleBufferClass@@QBE?AVShaderClass@@XZ,0x001A7B10,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Get_String@StringClass@@AAEXH_N@Z,0x00610B00,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Get_Texture@ParticleBufferClass@@QBE?AVTextureHandleClass@1@XZ,0x001A7A60,address read from the REL32 displacement at a placed body; stlport 4.5.3
 ?Init@?$CW2AEX@$0IA@@ATL@@AAEXPBGI@Z,0x000056D1,ATL 7.1 CW2AEX<> conversion initializer; retail target is the exact adjacent ATL Init body
 ?Init@CComCriticalSection@ATL@@QAEJXZ,0x0000323B,ATL 7.1 CComCriticalSection::Init; retail call target of AtlWinModuleInit with ecx = the module critical section at +4
+?Init_Compact_Log@CPUDetectClass@@CAXXZ,0x00612ED0,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Init_Memory@CPUDetectClass@@CAXXZ,0x00611810,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Init_Processor_Log@CPUDetectClass@@CAXXZ,0x00612770,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Init_Processor_Speed@CPUDetectClass@@CAXXZ,0x00611180,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Initialize@HLodDefClass@@QAEXAAVHLodClass@@@Z,0x0019F620,address read from the retail REL32 in HLodDefClass::HLodDefClass(HLodClass&) at 0x001A0350
 ?LZHLDestroyDecompressor@@YAXPAX@Z,0x0068ED80
+?Load@INIClass@@QAEHAAVFileClass@@@Z,0x00619120,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Load@INIClass@@QAEHAAVStraw@@@Z,0x00617B10,address read from the retail REL32 in INIClass::Load(FileClass&) at 0x00619120
+?Load_W3D@TimeCodedBitChannelClass@@QAE_NAAVChunkLoadClass@@@Z,0x00195E20,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Log_DX8_ErrorCode@@YAXI@Z,0x0011F450,the out-of-line half of DX8_ErrorCode; pushes the DXER tag and reaches Debug::SkipNext; address read from retail REL32 at 0x00138840
+?Notify_Added@RenderObjClass@@UAEXPAVSceneClass@@@Z,0x0013BCD0,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Notify_Removed@RenderObjClass@@UAEXPAVSceneClass@@@Z,0x0013BCE0,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVFrustumClass@@ABVAABoxClass@@@Z,0x00719A70,address read from the retail REL32 in ?Collect_Objects at 0x0071BFB0
+?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVOBBoxClass@@ABVAABoxClass@@@Z,0x00724800,address read from the retail REL32 in ?Collect_Objects at 0x0071BBC0
+?Poly_Count@AABTreeBuilderClass@@QAEHXZ,0x00144010,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Put@Base64Pipe@@UAEHPBXH@Z,0x0061B170,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Put_String@INIClass@@QAE_NPBD00@Z,0x00616FB0,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Read_Nodes@AABTreeClass@@AAEXAAVChunkLoadClass@@@Z,0x00197D20,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Release_Ref@TextureBaseClass@@QAEXXZ,0x0061ED10,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Reset@SubObjectArrayClass@HLodDefClass@@QAEXXZ,0x0019B210,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Reset_Collection@CullSystemClass@@QAEXXZ,0x0065D1C0,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Resize@?$SimpleVecClass@M@@UAE_NH@Z,0x001A7C80,SimpleVecClass<float>::Resize; address read by decode_calls.py from the REL32 in the constructor at 0x001A8070, and Ghidra has a 211-byte function exactly there
+?Resize@?$VectorClass@UTextureStatisticsStruct@@@@UAE_NHPBUTextureStatisticsStruct@@@Z,0x00129990,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Resize@StringClass@@AAEXH@Z,0x00610C70,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Return_File@RawFileFactoryClass@@QAEXPAVFileClass@@@Z,0x006132A0,address read from the retail REL32 in INIClass::Save(const char*) at 0x00616650
+?Save@INIClass@@QBEHAAVFileClass@@@Z,0x006165B0,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Save_W3D@SubObjectArrayClass@HLodDefClass@@QAE_NAAVChunkSaveClass@@@Z,0x0019B370,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Search_For_Node@?$IndexClass@HPAUINISection@@@@ABEPBUNodeElement@1@ABH@Z,0x00616730,address read from the REL32 displacement at a placed body; folded onto the body held there under another instantiation's name; stlport 4.5.3
+?Seek@ChunkLoadClass@@QAEKK@Z,0x006150C0,address read from the retail REL32 in ?Load_W3D at 0x00195AE0
+?Set_Animation@Animatable3DObjClass@@UAEXPAVHAnimClass@@M0MM@Z,0x001A4D10,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Set_Animation@Animatable3DObjClass@@UAEXPAVHAnimClass@@MH@Z,0x001A4BF0,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Set_Animation@Animatable3DObjClass@@UAEXXZ,0x001A4BD0,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Set_DX8_Render_State@DX8Wrapper@@SAXKI@Z,0x0006615F,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Set_DX8_Texture_Stage_State@DX8Wrapper@@SAXIKI@Z,0x000661DD,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?SimpleMatch@Debug@@SA_NPBD0@Z,0x00039480,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?SkipNext@Debug@@SA_N_N@Z,0x00038790,Debug::SkipNext; address read by locate.py from the REL32 in ProfileAllocMemory. The body captures _ReturnAddress() and forwards it with its argument to Debug slot 0x5C - recording the call site, which is what the reference header says SkipNext does. This engine's takes a bool where the reference declares it void
+?Uninitialised_Grow@StringClass@@AAEXH@Z,0x00610CF0,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Uninitialised_Grow@WideStringClass@@AAEXH@Z,0x00619E30,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Which_Side@AABTreeBuilderClass@@AAE?AW4OverlapType@1@ABVAAPlaneClass@@H@Z,0x00198C60,address read from the REL32 displacement at a placed body; stlport 4.5.3
 ?_AtlVerifyStackAvailable@_ATL_SAFE_ALLOCA_IMPL@ATL@@YA_NI@Z,0x00001020,ATL 7.1 _ATL_SAFE_ALLOCA stack probe; retail call target of the palette allocation in CImage::CreateFromGdiplusBitmap at 0x0000295E
 ?_Init_timeinfo@_STL@@YAXAAV_Time_Info@1@@Z,0x00019260,STLport 4.5.3 default time-info initializer; target body fills the _Time_Info string table declared by the vendored header
 ?_Initialize_get_float@_STL@@YAXABV?$ctype@G@1@AAG111PAG@Z,0x0001A640,STLport 4.5.3 wide floating-point character-table initializer; address read from retail wide scanner REL32 displacement
+?_Invalidate_Mesh_Cache@WW3D@@SAXXZ,0x001170A0,address read from the retail REL32 in DX8IndexBufferClass::DX8IndexBufferClass at 0x00138980
 ?_M_allocate_buffers@?$basic_filebuf@DV?$char_traits@D@_STL@@@_STL@@AAE_NPADH@Z,0x00013F10,harvested from retail REL32 displacement at 0x00015C00
 ?_M_allocate_buffers@?$basic_filebuf@GV?$char_traits@G@_STL@@@_STL@@AAE_NPAGH@Z,0x000148F0,harvested from retail REL32 displacement at 0x00014890
 ?_M_close@_Filebuf_base@_STL@@QAE_NXZ,0x0001D570,harvested from retail REL32 displacement at 0x000150B0
+?_M_decrement@?$_Rb_global@_N@_STL@@SAPAU_Rb_tree_node_base@2@PAU32@@Z,0x000242C0,STLport 4.5.3 red-black tree decrement; address read by locate.py from the REL32 in the map erase bodies at 0x0061F7B0 and 0x00620280
+?_M_doit@?$_Underflow@DV?$char_traits@D@_STL@@@_STL@@SAHPAV?$basic_filebuf@DV?$char_traits@D@_STL@@@2@@Z,0x0001E560,STLport 4.5.3 narrow _Underflow::_M_doit; address read by decode_calls.py from the REL32 in the narrow filebuf underflow forwarder at 0x00013D90 - the wide equivalent is already claimed at 0x00015EA0
+?_M_erase@?$_Rb_tree@HU?$pair@$$CBHH@_STL@@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@AAEXPAU?$_Rb_tree_node@U?$pair@$$CBHH@_STL@@@2@@Z,0x000692F5,STLport 4.5.3 red-black subtree erase for map<int,int>; address read by locate.py from the REL32 in the range erase at 0x0061F7B0
 ?_M_file_size@_Filebuf_base@_STL@@QAEJXZ,0x0001D360,harvested from retail REL32 displacement at 0x00013D20
+?_M_fill_assign@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEXIABQAX@Z,0x00027D40,address read from the retail REL32 in vector<void*>::assign at 0x00029120 - self-verifying because that 29-byte body is the displacement
 ?_M_fill_insert@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEXPAPAXIABQAX@Z,0x00029CA0,harvested from retail REL32 displacement at 0x00622410
 ?_M_increment@?$_Rb_global@_N@_STL@@SAPAU_Rb_tree_node_base@2@PAU32@@Z,0x00024250,harvested from retail REL32 displacement at 0x0061F640
 ?_M_insert@?$hashtable@U?$pair@$$CBHH@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@QAEAAU?$pair@$$CBHH@2@ABU32@@Z,0x00620F60,harvested from retail REL32 displacement at 0x006215B0
 ?_M_insert_aux@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@AAEPADPADD@Z,0x00011D20,STLport 4.5.3 narrow string single-character insert helper; address read from retail basic_string<char>::insert REL32 displacement at 0x00011D08
 ?_M_insert_aux@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@AAEPAGPAGG@Z,0x00012D10,STLport 4.5.3 wide string single-character insert helper; address read from retail basic_string<wchar_t>::insert REL32 displacement
+?_M_insert_overflow@?$vector@FV?$allocator@F@_STL@@@_STL@@IAEXPAFABFABU__true_type@2@I_N@Z,0x0007EAA7,address read from the REL32 displacement at a placed body; stlport 4.5.3
 ?_M_insert_overflow@?$vector@HV?$allocator@H@_STL@@@_STL@@IAEXPAHABHABU__true_type@2@I_N@Z,0x006887F0,harvested from retail REL32 displacement at 0x00688940
+?_M_new_elements_at_back@?$deque@UBfmeE12@@V?$allocator@UBfmeE12@@@_STL@@@_STL@@IAEXI@Z,0x00585A9A,address read from the REL32 displacement at a placed deque<12-byte element> body; stlport 4.5.3
+?_M_new_elements_at_front@?$deque@UBfmeE12@@V?$allocator@UBfmeE12@@@_STL@@@_STL@@IAEXI@Z,0x00585A57,address read from the REL32 displacement at a placed deque<12-byte element> body; stlport 4.5.3
 ?_M_open@_Filebuf_base@_STL@@QAE_NPBDH@Z,0x0001D500,harvested from retail REL32 displacement at 0x0001DDD0
 ?_M_open@_Filebuf_base@_STL@@QAE_NPBDHJ@Z,0x0001D390,harvested from retail REL32 displacement at 0x0001D7E0
+?_M_push_back_aux_v@?$deque@UBfmeE12@@V?$allocator@UBfmeE12@@@_STL@@@_STL@@IAEXABUBfmeE12@@@Z,0x00423558,address read from the REL32 displacement at a placed deque<12-byte element> body; stlport 4.5.3
+?_M_push_back_aux_v@?$deque@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@IAEXABUBfmeE8@@@Z,0x0054B456,address read from the REL32 displacement at a placed body; stlport 4.5.3
 ?_M_push_front_aux_v@?$deque@HV?$allocator@H@_STL@@@_STL@@IAEXABH@Z,0x00621690,harvested from retail REL32 displacement at 0x006223F0
 ?_M_read@_Filebuf_base@_STL@@QAEHPADH@Z,0x0001D5D0,harvested from retail REL32 displacement at 0x00015F50
 ?_M_reallocate_map@?$deque@HV?$allocator@H@_STL@@@_STL@@IAEXI_N@Z,0x0073D5E0,harvested from retail REL32 displacement at 0x00620FD0
+?_M_reallocate_map@?$deque@PAXV?$allocator@PAX@_STL@@@_STL@@IAEXI_N@Z,0x003B57E5,identical-code twin of the BfmeE8 body already matched at this address; read from the retail REL32 in deque<void*>::_M_reserve_map_at_back at 0x002F1F19
+?_M_reserve_map_at_back@?$deque@PAXV?$allocator@PAX@_STL@@@_STL@@IAEXI@Z,0x002F1F19,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?_M_reserve_map_at_back@?$deque@UBfmeE12@@V?$allocator@UBfmeE12@@@_STL@@@_STL@@IAEXI@Z,0x0042305C,address read from the REL32 displacement at a placed body; stlport 4.5.3
 ?_M_seek@_Filebuf_base@_STL@@QAEJJH@Z,0x0001D6D0,harvested from retail REL32 displacement at 0x00013D20
 ?_M_seek_return@?$basic_filebuf@DV?$char_traits@D@_STL@@@_STL@@AAE?AV?$fpos@H@2@JH@Z,0x000143D0,harvested from retail REL32 displacement at 0x00014010
 ?_M_seek_return@?$basic_filebuf@GV?$char_traits@G@_STL@@@_STL@@AAE?AV?$fpos@H@2@JH@Z,0x00014DA0,harvested from retail REL32 displacement at 0x00014F30
+?_M_subtract@?$_Deque_iterator_base@UBfmeE12@@@_STL@@QBEHABU12@@Z,0x004218A5,address read from the REL32 displacement at a placed deque<12-byte element> body; stlport 4.5.3
 ?_M_throw_failure@ios_base@_STL@@IAEXXZ,0x0001BC50,harvested from retail REL32 displacement at 0x000137E0
 ?_M_unmap@_Filebuf_base@_STL@@QAEXPAXJ@Z,0x0001D780,harvested from retail REL32 displacement at 0x00014430
 ?_M_write@_Filebuf_base@_STL@@QAE_NPADH@Z,0x0001DB00,harvested from retail REL32 displacement at 0x00014500
+?_Rebalance_for_erase@?$_Rb_global@_N@_STL@@SAPAU_Rb_tree_node_base@2@PAU32@AAPAU32@11@Z,0x00025620,STLport 4.5.3 red-black rebalance after erase; address read by locate.py from the REL32 in the map erase bodies
+?_Stl_loc_init_facets@_STL@@YAXXZ,0x00006F80,STLport 4.5.3 classic-locale initialisation helper - called first by ios_base::_Loc_init at 0x0000F740 before the classic locale impl is built. ADDRESS is evidenced by the REL32; the NAME is inferred from the role because these live in STLport src/ which the vendored tree does not carry
+?_Stl_make_classic_locale@_STL@@YAPAV_Locale_impl@1@XZ,0x0000B730,STLport 4.5.3 classic-locale initialisation helper - called second by ios_base::_Loc_init and its result stored into _Stl_classic_locale_impl at 0x00DDEB18. ADDRESS is evidenced by the REL32; the NAME is inferred from the role because these live in STLport src/ which the vendored tree does not carry
+?_Stl_string_to_double@_STL@@YANPBD@Z,0x0001ACE0,STLport 4.5.3 string-to-double conversion; address read from the __string_to_float wrappers REL32 at 0x0001AFB7
+?_Stl_string_to_long_double@_STL@@YAOPBD@Z,0x0001AE40,STLport 4.5.3 string-to-long-double conversion; address read from the long double __string_to_float REL32 at 0x0001AFF7
 ?__adjust_float_buffer@_STL@@YAXPAD0D@Z,0x0001B3B0,STLport 4.6 narrow decimal-point buffer adjustment; address read from retail __put_float REL32 displacement
 ?__convert_float_buffer@_STL@@YAPAGPBD0PAGABV?$ctype@G@1@G@Z,0x0001B350,STLport wide floating-point character conversion helper; address read from retail wide floating-point output REL32 displacement
 ?__get_fdigit@_STL@@YA_NAAGPBG@Z,0x00018200,STLport 4.5.3 wide floating-point digit classifier; address read from retail wide digit scanner REL32 displacement
@@ -170,13 +346,23 @@ name,address,notes
 ?__write_float@_STL@@YAXAAV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@1@HHO@Z,0x0001BAF0,STLport 4.6 narrow long-double formatter wrapper; address read from retail _M_do_put_float<long double> REL32 displacement
 ?__write_formatted_time@_STL@@YAPADPADDDABV_Time_Info@1@PBUtm@@@Z,0x00018780,harvested from retail REL32 displacement at 0x0000F680
 ?allocate@?$allocator@D@_STL@@SAPADIPBX@Z,0x000307F0,STLport 4.5.3 narrow allocator byte allocation; address read from retail basic_string _M_range_initialize REL32 displacement. Body forwards (size, memory class 3, hint) to the game allocator pointer at 0x00DE0404 - the same table _free at 0x00030830 uses - so it is __cdecl here, not the upstream const member
+?allocate@?$allocator@F@_STL@@QBEPAFIPBX@Z,0x00017710,address read from the retail REL32 in vector<short>::_M_insert_overflow at 0x0007EAA7
 ?allocate@?$allocator@G@_STL@@SAPAGIPBX@Z,0x000307F0,ICF alias of the narrow allocator allocate at the same address. BFME replaced STLport allocator with a raw byte allocator so every instantiation compiles to the same forwarding body and the linker folds them
+?allocate@?$allocator@PAUBfmeE12@@@_STL@@QBEPAPAUBfmeE12@@IPBX@Z,0x00068E15,address read from the REL32 displacement at a placed deque<12-byte element> body; stlport 4.5.3
+?allocate@?$allocator@PAUBfmeE8@@@_STL@@QBEPAPAUBfmeE8@@IPBX@Z,0x00068E15,identical-code twin of the BfmeE12 allocator already pinned at this address; read from the retail REL32 in deque<BfmeE8>::_M_reallocate_map at 0x003B57E5
+?allocate@?$allocator@UBfmeE16@@@_STL@@QBEPAUBfmeE16@@IPBX@Z,0x002226BE,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?allocate@?$allocator@UBfmeE8@@@_STL@@QBEPAUBfmeE8@@IPBX@Z,0x00523D6C,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?begin@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QBEPBQAXXZ,0x00023B90,ICF alias of the non-const begin landed at this address. Const and non-const differ only in return type, which does not reach the code
+?collect_objects_in_leaf@GridCullSystemClass@@IAEXABVFrustumClass@@PAVCullableClass@@@Z,0x0071B400,address read from the retail REL32 in ?Collect_Objects at 0x0071BFB0
+?collect_objects_in_leaf@GridCullSystemClass@@IAEXABVOBBoxClass@@PAVCullableClass@@@Z,0x0071B3C0,address read from the retail REL32 in ?Collect_Objects at 0x0071BBC0
 ?compare@?$StringBase@D@@QBEHPBDH@Z,0x00006733,BFME2 export and retail call target for StringBase<char>::compare(const char *, int)
 ?compare@?$StringBase@G@@QBEHPBGH@Z,0x000067B1,BFME2 export and retail call target for StringBase<wchar_t>::compare(const wchar_t *, int)
+?compare@WideCharCompare@@QBEHPBG0H@Z,0x000052F8,WWLib wide string comparison trait member - the wide comparison the trait object performs. ADDRESS is evidenced by the REL32 in the wide compareRange pair at 0x0000586D and 0x00005898 where ecx holds the address of the trait at the call; the trait TYPE NAME is this project's and the member names are inferred from the role
 ?compareNoCase@?$StringBase@D@@QBEHPBD@Z,0x00037980,BFME2 export and retail call target for StringBase<char> compareNoCase against a C string; isNone and isNotNone both go through it
 ?compareNoCase@?$StringBase@D@@QBEHPBDH@Z,0x00006772,BFME2 export and retail call target for StringBase<char>::compareNoCase(const char *, int)
 ?compareNoCase@?$StringBase@G@@QBEHPBG@Z,0x00037A90,BFME2 export and retail call target for the StringBase<wchar_t> twin
 ?compareNoCase@?$StringBase@G@@QBEHPBGH@Z,0x000067F0,BFME2 export and retail call target for StringBase<wchar_t>::compareNoCase(const wchar_t *, int)
+?compareNoCase@WideCharCompare@@QBEHPBG0H@Z,0x00005344,WWLib wide string comparison trait member - the case-folded wide comparison the trait object performs. ADDRESS is evidenced by the REL32 in the wide compareRange pair at 0x0000586D and 0x00005898 where ecx holds the address of the trait at the call; the trait TYPE NAME is this project's and the member names are inferred from the role
 ?compareRange@@YAHPBDH0HUCharCompare@@@Z,0x00005816,BFME2 retail worker the StringBase<char> compare(const char *, int) overload calls; unmatched by one cmov, banked at reverse/attempts/0x00005816.cpp
 ?compareRange@@YAHPBGH0HUCharCompare@@@Z,0x0000586D,BFME2 retail worker the StringBase<wchar_t> compare(const wchar_t *, int) overload calls; it reads the trait object rather than ignoring it
 ?compareRangeNoCase@@YAHPBDH0HUCharCompare@@@Z,0x00005841,BFME2 retail worker the StringBase<char> compareNoCase(const char *, int) overload calls; same body as 0x00005816 against the _memicmp import
@@ -185,11 +371,54 @@ name,address,notes
 ?concat@?$StringBase@G@@QAEXPBGH@Z,0x00037410,BFME2 export and retail call target for StringBase<wchar_t>::concat(const wchar_t *, int)
 ?deallocate@?$CW2AEX@$0IA@@ATL@@QAEXXZ,0x000056C7,ATL 7.1 CW2AEX<> out-of-line deallocator; exact target of the destructor tail jump
 ?decompress@LZHLDecompressor@@QAEHPAEPAIPBE1@Z,0x00692440
+?do_always_noconv@?$codecvt@GDH@_STL@@MBE_NXZ,0x001826C0,slot 5 of 0x007BBB2C; folded
+?do_close@?$messages@G@_STL@@MBEXH@Z,0x00019F70,slot 3 of 0x007BC8EC; do_close forwards a catalog handle and never touches the character type so the two instantiations folded
+?do_decimal_point@?$moneypunct@D$0A@@_STL@@MBEDXZ,0x00019730,moneypunct vftable slot; the default facet reports no locale data so this body serves every instantiation that names it
+?do_decimal_point@?$moneypunct@G$0A@@_STL@@MBEGXZ,0x000197F0,moneypunct vftable slot; the default facet reports no locale data so this body serves every instantiation that names it
+?do_encoding@?$codecvt@GDH@_STL@@MBEHXZ,0x00756B00,slot 4 of 0x007BBB2C; folded
+?do_frac_digits@?$moneypunct@D$00@_STL@@MBEHXZ,0x0065CE90,moneypunct vftable slot; the default facet reports no locale data so this body serves every instantiation that names it; folded onto basic_streambuf<wchar_t>::sync - both are xor eax,eax
+?do_frac_digits@?$moneypunct@D$0A@@_STL@@MBEHXZ,0x0065CE90,moneypunct vftable slot; the default facet reports no locale data so this body serves every instantiation that names it; folded onto basic_streambuf<wchar_t>::sync - both are xor eax,eax
+?do_frac_digits@?$moneypunct@G$00@_STL@@MBEHXZ,0x0065CE90,moneypunct vftable slot; the default facet reports no locale data so this body serves every instantiation that names it; folded onto basic_streambuf<wchar_t>::sync - both are xor eax,eax
+?do_frac_digits@?$moneypunct@G$0A@@_STL@@MBEHXZ,0x0065CE90,moneypunct vftable slot; the default facet reports no locale data so this body serves every instantiation that names it; folded onto basic_streambuf<wchar_t>::sync - both are xor eax,eax
+?do_get@?$num_get@GV?$istreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@@_STL@@MBE?AV?$istreambuf_iterator@GV?$char_traits@G@_STL@@@2@V32@0AAVios_base@2@AAHAAI@Z,0x0000A8F0,STLport 4.5.3 wide num_get do_get for unsigned int; folded onto the unsigned long body by identical COMDAT folding - the num_get vtable holds 0x0000A8F0 in two consecutive slots, which is what identifies the pair
+?do_grouping@?$numpunct@G@_STL@@MBE?AV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@2@XZ,0x00017A00,slot 3 of both numpunct vftables; grouping() returns a narrow string whatever the character type so the wide instantiation folded onto the narrow body held there
+?do_in@?$codecvt@DDH@_STL@@MBE?AW4result@codecvt_base@2@AAHPBD1AAPBDPAD3AAPAD@Z,0x00017390,slot 2 of 0x007BBB08; do_in and do_out are the same two stores and the same noconv return so the linker kept one body
+?do_length@?$codecvt@GDH@_STL@@MBEHABHPBD1I@Z,0x00017460,slot 6 of 0x007BBB2C; folded
+?do_max_length@?$codecvt@DDH@_STL@@MBEHXZ,0x00756B00,slot 7 of 0x007BBB08; folded with do_encoding - both return 1
+?do_max_length@?$codecvt@GDH@_STL@@MBEHXZ,0x00756B00,slot 7 of 0x007BBB2C; folded
+?do_neg_format@?$moneypunct@D$0A@@_STL@@MBE?AUpattern@money_base@2@XZ,0x00019740,moneypunct vftable slot; the default facet reports no locale data so this body serves every instantiation that names it
+?do_neg_format@?$moneypunct@G$00@_STL@@MBE?AUpattern@money_base@2@XZ,0x00019740,moneypunct vftable slot; the default facet reports no locale data so this body serves every instantiation that names it
+?do_neg_format@?$moneypunct@G$0A@@_STL@@MBE?AUpattern@money_base@2@XZ,0x00019740,moneypunct vftable slot; the default facet reports no locale data so this body serves every instantiation that names it
+?do_open@?$messages@G@_STL@@MBEHABV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@2@ABVlocale@2@@Z,0x00019EA0,slot 1 of the wide messages vftable 0x007BC8EC; do_open takes a narrow filename whatever the facet's character type so the two instantiations folded
+?do_pos_format@?$moneypunct@D$0A@@_STL@@MBE?AUpattern@money_base@2@XZ,0x0066D820,moneypunct vftable slot; the default facet reports no locale data so this body serves every instantiation that names it
+?do_pos_format@?$moneypunct@G$00@_STL@@MBE?AUpattern@money_base@2@XZ,0x0066D820,moneypunct vftable slot; the default facet reports no locale data so this body serves every instantiation that names it
+?do_pos_format@?$moneypunct@G$0A@@_STL@@MBE?AUpattern@money_base@2@XZ,0x0066D820,moneypunct vftable slot; the default facet reports no locale data so this body serves every instantiation that names it
+?do_thousands_sep@?$moneypunct@D$00@_STL@@MBEDXZ,0x00019730,moneypunct vftable slot; the default facet reports no locale data so this body serves every instantiation that names it
+?do_thousands_sep@?$moneypunct@D$0A@@_STL@@MBEDXZ,0x00019730,moneypunct vftable slot; the default facet reports no locale data so this body serves every instantiation that names it
+?do_thousands_sep@?$moneypunct@G$00@_STL@@MBEGXZ,0x000197F0,moneypunct vftable slot; the default facet reports no locale data so this body serves every instantiation that names it
+?do_thousands_sep@?$moneypunct@G$0A@@_STL@@MBEGXZ,0x000197F0,moneypunct vftable slot; the default facet reports no locale data so this body serves every instantiation that names it
+?do_unshift@?$codecvt@GDH@_STL@@MBE?AW4result@codecvt_base@2@AAHPAD1AAPAD@Z,0x00017370,slot 3 of the wide codecvt vftable 0x007BBB2C; unshift never touches the internal type so it folded onto the narrow body
+?end@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QBEPBQAXXZ,0x00023BA0,ICF alias of the non-const end landed at this address, for the same reason as begin
+?equal_range@?$_Rb_tree@HU?$pair@$$CBHH@_STL@@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBHH@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHH@_STL@@@2@@_STL@@U12@@2@ABH@Z,0x0061F840,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?erase@?$list@FV?$allocator@F@_STL@@@_STL@@QAE?AU?$_List_iterator@FU?$_Nonconst_traits@F@_STL@@@2@U32@@Z,0x00438539,address read from the REL32 displacement at a placed body; folded onto the body held there under another instantiation's name; stlport 4.5.3
+?erase@?$vector@IV?$allocator@I@_STL@@@_STL@@QAEPAIPAI0@Z,0x00027400,address read from the retail REL32 in vector<unsigned>::clear at 0x00027450 - self-verifying because that call is the only unresolved byte in the body
+?falsename@?$numpunct@G@_STL@@QBE?AV?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@2@XZ,0x00396386,STLport 4.5.3 wide numpunct boolalpha name; address read by decode_calls.py from the REL32 in the wide num_get do_get(bool &) at 0x0000B140 - which is what identifies both
 ?format_va@?$StringBase@D@@QAEXPBDPAD@Z,0x00036D40,BFME2 export and retail call target for the StringBase<char> varargs formatter
 ?format_va@?$StringBase@G@@QAEXPBGPAD@Z,0x000377E0,BFME2 export and retail call target for the StringBase<wchar_t> varargs formatter
 ?free@@YAXPAX@Z,0x00030830,CRT free reached through the C++-linkage declaration STLport 4.5.3 compiles against; same body as _free at this address, and the C++ decoration is what makes the caller emit the unwind state store retail carries
+?free@_STL@@YAXPAX@Z,0x00030830,the _STL-namespace spelling of the same C++-linkage free already pinned at this address as ?free@@YAXPAX@Z; STLport headers declare free inside _STL so an inlined ~basic_string emits this decoration while a .cpp body calling the extern "C" import emits __imp__free - ios_base::~ios_base at 0x0001C220 carries both forms and the byte check discriminates because retail encodes 0x00030830 in that call displacement
+?freeTerrainTracksResources@TerrainTracksRenderObjClass@@QAEHXZ,0x0018FE30,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?get_allocator@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@QBE?AV?$allocator@G@2@XZ,0x001627F0,STLport 4.5.3 wide string get_allocator; address read from the REL32 in the wide copy constructor at 0x0000EA90 - the call takes ecx as the source string and a hidden return pointer for the allocator returned by value
+?get_far_extent@@YAXABVVector3@@0PAV1@@Z,0x0007B5C8,address read from the retail REL32 in CollisionMath::Overlap_Test(PlaneClass,AABoxClass) at 0x00719830
 ?imbue@?$basic_ios@GV?$char_traits@G@_STL@@@_STL@@QAE?AVlocale@2@ABV32@@Z,0x00016200,harvested from retail REL32 displacement at 0x00016440
+?imbue@?$basic_streambuf@DV?$char_traits@D@_STL@@@_STL@@MAEXABVlocale@2@@Z,0x00180FD0,STLport 4.5.3 narrow streambuf base default - slot 13 - folded onto the wide imbue; ret 4. Read from the narrow streambuf vtable where the slot holds an address already claimed for the wide facet
 ?init@?$basic_ios@DV?$char_traits@D@_STL@@@_STL@@IAEXPAV?$basic_streambuf@DV?$char_traits@D@_STL@@@2@@Z,0x000162F0,harvested from retail REL32 displacement at 0x0001C5C0
+?initializeBuildMetadata@Version@@QAEXXZ,0x0023870E,Reconstruction name not original spelling; Version constructor REL32 at 0x238881; body reads ID MACHINE USER GUID TIME DATE CONFIG into proven Version fields
+?insert@?$map@HHU?$less@H@_STL@@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHH@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHH@_STL@@@2@@2@U32@ABU?$pair@$$CBHH@2@@Z,0x00289147,address read from the retail REL32 at 0x0028932C inside a body that byte-verifies against it
+?link_object@GridCullSystemClass@@IAEXPAVCullableClass@@@Z,0x0071C680,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?nstrdup@@YAPADPBD@Z,0x00619880,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?overflow@?$basic_streambuf@DV?$char_traits@D@_STL@@@_STL@@MAEHH@Z,0x0001CA70,STLport 4.5.3 narrow streambuf base overflow - folded onto pbackfail; both return eof with or eax -1 / ret 4 and the narrow streambuf vtable holds this address in slots 9 and 12
+?overflow@?$basic_streambuf@GV?$char_traits@G@_STL@@@_STL@@MAEGG@Z,0x00013960,STLport 4.5.3 wide streambuf base default - folded onto pbackfail - both return eof with or ax 0xFFFF / ret 4 and the wide streambuf vtable holds this address in slots 9 and 12
 ?parse@?$DefaultModuleTemplate@$00@FXParticleSystem@@QAEXPAVINI@@@Z,0x0055B2FD,BFME2 export; the module template INI parser createTemplate calls after allocating
 ?parse@?$DefaultModuleTemplate@$01@FXParticleSystem@@QAEXPAVINI@@@Z,0x0055F4BC,BFME2 export; the module template INI parser createTemplate calls after allocating
 ?parse@?$DefaultModuleTemplate@$02@FXParticleSystem@@QAEXPAVINI@@@Z,0x0055EE4C,BFME2 export; the module template INI parser createTemplate calls after allocating
@@ -215,9 +444,17 @@ name,address,notes
 ?parse@StreakDrawModuleTemplate@FXParticleSystem@@QAEXPAVINI@@@Z,0x0055FD2F,BFME2 export; the module template INI parser createTemplate calls after allocating
 ?parse@TerrainCollisionModuleTemplate@FXParticleSystem@@QAEXPAVINI@@@Z,0x00564497,BFME2 export; the module template INI parser createTemplate calls after allocating
 ?parse@TerrainFireEmissionModuleTemplate@FXParticleSystem@@QAEXPAVINI@@@Z,0x0055E5E4,BFME2 export; the module template INI parser createTemplate calls after allocating
+?push_back@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEXABQAX@Z,0x00029140,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?recalculate@LineSegClass@@IAEXXZ,0x0006A1E4,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?releaseBuffer@?$StringBase@D@@AAEXXZ,0x00036410,BFME2 export and retail releaseBuffer target for ParticleSystemInfo StringBase<char> members at +0x10/+0x68/+0x78
+?releaseBuffer@?$StringBase@G@@AAEXXZ,0x00036E70,BFME2 export and retail releaseBuffer target for Version UnicodeString temporaries
 ?reserve@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAEXI@Z,0x0000C390,STLport 4.5.3 narrow string reserve; address read from the retail basic_string<char>::push_back REL32 displacement
 ?reserve@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@QAEXI@Z,0x0000DEA0,STLport 4.5.3 wide string reserve; address read from retail basic_string<wchar_t>::push_back REL32 displacement
 ?reserve@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEXI@Z,0x00029BE0,harvested from retail REL32 displacement at 0x00622410
+?resize@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAEXID@Z,0x000824F9,STLport 4.5.3 narrow string two-argument resize; address read by locate.py from the REL32 in the one-argument resize at 0x00157E50
+?seekoff@?$basic_streambuf@DV?$char_traits@D@_STL@@@_STL@@MAE?AV?$fpos@H@2@JHH@Z,0x0001C970,STLport 4.5.3 narrow streambuf base default - slot 2 - folded onto the wide seekoff; the fpos return does not depend on the character type. Read from the narrow streambuf vtable where the slot holds an address already claimed for the wide facet
+?seekpos@?$basic_streambuf@DV?$char_traits@D@_STL@@@_STL@@MAE?AV?$fpos@H@2@V32@H@Z,0x0001C970,STLport 4.5.3 narrow streambuf base default - slot 3 - folded onto the same body as slot 2. Read from the narrow streambuf vtable where the slot holds an address already claimed for the wide facet
+?seekpos@?$basic_streambuf@GV?$char_traits@G@_STL@@@_STL@@MAE?AV?$fpos@H@2@V32@H@Z,0x0001C970,STLport 4.5.3 wide streambuf base default - folded onto seekoff which is already claimed at this address - the wide streambuf vtable holds it in slots 2 and 3
 ?set@?$StringBase@D@@QAEXABV1@@Z,0x000366F0,BFME2 export and retail call target for AsciiString copy assignment
 ?set@?$StringBase@D@@QAEXABV1@HH@Z,0x00037C70,BFME2 export and retail call target for the StringBase substring setter
 ?set@?$StringBase@D@@QAEXABV?$CharSource@D@@@Z,0x000368C0,BFME2 export and retail call target for the StringBase<char> CharSource setter
@@ -230,9 +467,15 @@ name,address,notes
 ?set@?$StringBase@G@@QAEXPBGHH@Z,0x00037E90,BFME2 export and retail call target for the StringBase substring setter
 ?setRange@GameClientRandomVariable@@QAEXMMW4DistributionType@1@@Z,0x002341E7,BFME2 export and retail call target for RandomAlphaKeyframe construction
 ?setString@PooledString@@AAEXPBD@Z,0x006CB7C0,BFME2 export; the private setter both the const char * constructor and assignment forward to
+?setbuf@?$basic_streambuf@DV?$char_traits@D@_STL@@@_STL@@MAEPAV12@PADH@Z,0x00013570,STLport 4.5.3 narrow streambuf base default - slot 1 - folded onto the wide setbuf; both are mov eax ecx / ret 8. Read from the narrow streambuf vtable where the slot holds an address already claimed for the wide facet
+?showmanyc@?$basic_streambuf@DV?$char_traits@D@_STL@@@_STL@@MAEHXZ,0x0065CE90,STLport 4.5.3 narrow streambuf base default - slot 5 - folded onto the same body as slot 4. Read from the narrow streambuf vtable where the slot holds an address already claimed for the wide facet
+?showmanyc@?$basic_streambuf@GV?$char_traits@G@_STL@@@_STL@@MAEHXZ,0x0065CE90,STLport 4.5.3 wide streambuf base default - folded onto sync by identical COMDAT folding - both are the three-byte xor eax eax / ret and the wide streambuf vtable holds this address in slots 4 and 5
 ?startsWithNoCase@?$StringBase@D@@QBE_NPBDH@Z,0x000359B0,BFME2 export and retail call target; the body is banked as a near miss on one register choice
+?sync@?$basic_streambuf@DV?$char_traits@D@_STL@@@_STL@@MAEHXZ,0x0065CE90,STLport 4.5.3 narrow streambuf base default - slot 4 - folded onto the wide sync; xor eax eax / ret. Read from the narrow streambuf vtable where the slot holds an address already claimed for the wide facet
 ?translate@AsciiString@@QAEXPBG@Z,0x00038170,BFME2 export; the wide-string translate the UnicodeString overload tail-jumps into
 ?translate@UnicodeString@@QAEXPBD@Z,0x006CB5F0,BFME2 export; the narrow-string translate the AsciiString overload tail-jumps into
+?truename@?$numpunct@G@_STL@@QBE?AV?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@2@XZ,0x00395475,STLport 4.5.3 wide numpunct boolalpha name; address read by decode_calls.py from the REL32 in the wide num_get do_get(bool &) at 0x0000B140 - which is what identifies both
+?uninitialized_copy@_STL@@YAPAGPAG00@Z,0x0000DF10,STLport 4.5.3 wide copy helper; address read from the basic_string<wchar_t>::reserve REL32 displacement at 0x0000DEF6 -- retail reaches it through the five-byte jump Ghidra reads as thunk_FUN_004179b0
 _GdipAlloc@4,0x00628F86,GDI+ flat-API import thunk; retail target of the operator new in Gdiplus::GdiplusBase
 _GdipBitmapLockBits@20,0x00628F5C,GDI+ flat-API import thunk; retail target of Gdiplus::Bitmap::LockBits
 _GdipBitmapUnlockBits@8,0x00628F62,GDI+ flat-API import thunk; retail target of Gdiplus::Bitmap::UnlockBits
@@ -250,14 +493,22 @@ _GdipGetImagePalette@12,0x00628F44,GDI+ flat-API import thunk; retail target of 
 _GdipGetImagePaletteSize@8,0x00628F3E,GDI+ flat-API import thunk; retail target of Gdiplus::Image::GetPaletteSize
 _GdipGetImagePixelFormat@8,0x00628F38,GDI+ flat-API import thunk; retail target of Gdiplus::Image::GetPixelFormat
 _GdipGetImageWidth@8,0x00628F2C,GDI+ flat-API import thunk; retail target of Gdiplus::Image::GetWidth
+_XMP_Fetch_Prime_Size,0x0061B7C0,address read from the REL32 displacement at a placed body; stlport 4.5.3
+_XMP_Fetch_Prime_Table,0x0061B7B0,address read from the REL32 displacement at a placed body; stlport 4.5.3
+_XMP_Init,0x0061BD70,address read from the REL32 displacement at a placed body; stlport 4.5.3
+_XMP_Randomize_Bounded,0x0061C420,address read from the REL32 displacement at a placed body; stlport 4.5.3
+_XMP_Shift_Left_Bits,0x0061BBD0,address read from the REL32 displacement at a placed body; stlport 4.5.3
 __CIacos,0x006298B0,MSVCR71 import thunk (jmp [0x00BBA5D0]); the ACos wrapper at 0x0002FB90 loads its float argument with fld and calls straight into it
 __CIasin,0x006298B6,MSVCR71 import thunk (jmp [0x00BBA5CC]); same shape from the ASin wrapper at 0x00711AC0
+__CIpow,0x006299A0,address read from the REL32 displacement at a placed body; stlport 4.5.3
 __CxxThrowException@8,0x00629094,MSVC 7.1 C++ throw helper; retail target of the ATL AtlThrow body at 0x00001125
 __EH_prolog,0x00629188,MSVC 7.1 EH frame prologue helper - push -1 / push eax / link fs:[0] / set up the unwind frame; every /EHsc body with a local static calls it first
+__SEH_prolog,0x00628FA4,CRT SEH frame setup, emitted by cl for every __try; Ghidra names it and sizes it 59. Address is the REL32 in CComCriticalSection::Init
 __alldiv,0x00629630,MSVCR71 signed 64-bit division helper; address confirmed by retail helper call and Ghidra symbol
 __allmul,0x00629580,MSVCR71 64-bit multiplication helper; address confirmed by retail helper call and Ghidra symbol
 __alloca_probe,0x00629000,MSVC 7.1 stack probe behind _alloca; retail target of the _ATL_SAFE_ALLOCA stack arm in CImage::CreateFromGdiplusBitmap
 __aulldiv,0x006295C0,MSVCR71 unsigned 64-bit division helper; address confirmed by retail accumulator call and Ghidra symbol
+__aulldvrm,0x006296E0,MSVC 7.1 unsigned 64-bit divide-and-remainder helper; Ghidra names this address and the decimal writers call it for the tens loop
 __chkstk,0x00629000
 __ftol2,0x00629228,MSVC float-to-int helper byte-identical to pinned BFME1 CRT body
 _abs,0x0062909A,MSVCR71 import thunk identified by official ATL 7.1 call and retail target
@@ -270,252 +521,3 @@ _memset,0x006291AE,CRT memset import thunk; Ghidra labels the retail call target
 _sin,0x00629216,CRT import thunk; retail target of the sin call in Coord2D::Rotate(float)
 _sqrt,0x0062921C,MSVCRT import thunk identified by retail call target and Ghidra
 _strlen,0x00629170,BFME2 retail strlen thunk and call target for StringBase<char>::compare(const char *)
-??_M@YGXPAXIHP6EX0@Z@Z,0x00629110,MSVC 7.1 eh vector destructor iterator; Ghidra names this address and the _Time_Info destructor at 0x00007A00 calls it three times for the 14, 24 and 2 element string arrays
-??$append@PAD@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@AAEAAV01@PAD0ABUforward_iterator_tag@1@@Z,0x0001B3E0,STLport 4.5.3 basic_string<char> three-argument append over a char* range; address read from the retail _M_assign_dispatch REL32 displacement at 0x00012140
-??$_M_get_base_or_zero@V?$istreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@D@_STL@@YAHAAV?$istreambuf_iterator@GV?$char_traits@G@_STL@@@0@0AAVios_base@0@PAD@Z,0x0000A0F0,STLport 4.5.3 base reader over a wide iterator writing a NARROW buffer - the instantiation the five wide _M_do_get_integer bodies call. Address read from their REL32 at 0x0000AEC3. Shares the address with the PAG-buffer name already claimed there
-??_L@YGXPAXIHP6EX0@Z1@Z,0x00629512,MSVC 7.1 eh vector constructor iterator; Ghidra names this address and the _Time_Info constructor at 0x00007920 calls it three times for the 14, 24 and 2 element string arrays
-__aulldvrm,0x006296E0,MSVC 7.1 unsigned 64-bit divide-and-remainder helper; Ghidra names this address and the decimal writers call it for the tens loop
-?_Stl_string_to_double@_STL@@YANPBD@Z,0x0001ACE0,STLport 4.5.3 string-to-double conversion; address read from the __string_to_float wrappers REL32 at 0x0001AFB7
-?_Stl_string_to_long_double@_STL@@YAOPBD@Z,0x0001AE40,STLport 4.5.3 string-to-long-double conversion; address read from the long double __string_to_float REL32 at 0x0001AFF7
-??1LZHLDecompressor@@QAE@XZ,0x00692300,LZH-Light decompressor destructor; address read from the LZHLDestroyDecompressor REL32 at 0x0068ED8B
-??1?$num_put@DV?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@@_STL@@MAE@XZ,0x000072E0,STLport 4.5.3 narrow num_put destructor; trivial so the linker folded it onto ??1facet at this address - slot 0 of its vftable at 0x007BBA2C reaches the folded scalar deleting destructor at 0x000072C0
-??8locale@_STL@@QBE_NABV01@@Z,0x0000BB10,STLport 4.5.3 locale equality; the body compares the two impl pointers then falls back on three name() calls at 0x0000BAE0 and a not-equal against the nameless string object at 0x00DDEB2C. Address read from the REL32 in the operator!= wrapper at 0x0000BC40
-??$_M_range_initialize@PBD@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAEXPBD0@Z,0x00008D00,STLport 4.5.3 narrow string range initialiser over const char*; identical code to the char* instantiation already matched at this address so the linker folded the two - address read from the REL32 in the const char* constructor at 0x00009100
-??$append@PAG@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@AAEAAV01@PAG0ABUforward_iterator_tag@1@@Z,0x00013160,STLport 4.5.3 wide string forward-iterator append over wchar_t* rather than const wchar_t*; identical code to the const instantiation matched at this address so the linker folded the two - address read from the REL32 in _M_assign_dispatch at 0x000130A0
-??$_M_range_initialize@PAD@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@AAEXPAD0ABUforward_iterator_tag@1@@Z,0x0000BF90,STLport 4.5.3 narrow string three-argument range initialiser; identical code to the wide instantiation matched at this address - both keep _M_allocate_block and __copy_trivial out of line so the element size never appears in the body - and the linker folded them. Address read from the REL32 in the char* range constructor at 0x00017830
-??$__write_integer_backward@_J@_STL@@YAPADPADH_J@Z,0x0000D180,STLport 4.5.3 signed 64-bit integer writer; address read by locate.py from the REL32 in the num_put __int64 do_put overloads at 0x0000D130 and 0x00010BC0
-?_M_decrement@?$_Rb_global@_N@_STL@@SAPAU_Rb_tree_node_base@2@PAU32@@Z,0x000242C0,STLport 4.5.3 red-black tree decrement; address read by locate.py from the REL32 in the map erase bodies at 0x0061F7B0 and 0x00620280
-?_M_erase@?$_Rb_tree@HU?$pair@$$CBHH@_STL@@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@AAEXPAU?$_Rb_tree_node@U?$pair@$$CBHH@_STL@@@2@@Z,0x000692F5,STLport 4.5.3 red-black subtree erase for map<int,int>; address read by locate.py from the REL32 in the range erase at 0x0061F7B0
-?_Rebalance_for_erase@?$_Rb_global@_N@_STL@@SAPAU_Rb_tree_node_base@2@PAU32@AAPAU32@11@Z,0x00025620,STLport 4.5.3 red-black rebalance after erase; address read by locate.py from the REL32 in the map erase bodies
-?resize@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAEXID@Z,0x000824F9,STLport 4.5.3 narrow string two-argument resize; address read by locate.py from the REL32 in the one-argument resize at 0x00157E50
-??$_M_allocate_and_copy@PBU?$pair@HH@_STL@@@?$vector@U?$pair@HH@_STL@@V?$allocator@U?$pair@HH@_STL@@@2@@_STL@@IAEPAU?$pair@HH@1@IPBU21@0@Z,0x00627960,STLport 4.5.3 vector<pair<int,int>> allocate-and-copy; address read by locate.py from the REL32 in the copy assignment at 0x00627CC0
-??$__copy_ptrs@PBU?$pair@HH@_STL@@PAU12@@_STL@@YAPAU?$pair@HH@0@PBU10@0PAU10@ABU__false_type@0@@Z,0x0001C160,STLport 4.5.3 trivial pointer copy for pair<int,int>; address read by locate.py from the REL32 in the vector copy assignment at 0x00627CC0
-?get_allocator@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@QBE?AV?$allocator@G@2@XZ,0x001627F0,STLport 4.5.3 wide string get_allocator; address read from the REL32 in the wide copy constructor at 0x0000EA90 - the call takes ecx as the source string and a hidden return pointer for the allocator returned by value
-??$_M_do_get_integer@V?$istreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@GG@_STL@@YA?AV?$istreambuf_iterator@GV?$char_traits@G@_STL@@@0@AAV10@0AAVios_base@0@AAHAAGPAG@Z,0x0000ABE0,STLport 4.5.3 wide num_get integer worker; the wide-tagged ICF alias of the narrow-tagged name already on this address, read by decode_calls.py from the REL32 in the do_get forwarder that calls it
-??$_M_do_get_integer@V?$istreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@JG@_STL@@YA?AV?$istreambuf_iterator@GV?$char_traits@G@_STL@@@0@AAV10@0AAVios_base@0@AAHAAJPAG@Z,0x0000AEA0,STLport 4.5.3 wide num_get integer worker; the wide-tagged ICF alias of the narrow-tagged name already on this address, read by decode_calls.py from the REL32 in the do_get forwarder that calls it
-??$_M_do_get_integer@V?$istreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@KG@_STL@@YA?AV?$istreambuf_iterator@GV?$char_traits@G@_STL@@@0@AAV10@0AAVios_base@0@AAHAAKPAG@Z,0x0000AAB0,STLport 4.5.3 wide num_get integer worker; the wide-tagged ICF alias of the narrow-tagged name already on this address, read by decode_calls.py from the REL32 in the do_get forwarder that calls it
-??$_M_do_get_integer@V?$istreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@_JG@_STL@@YA?AV?$istreambuf_iterator@GV?$char_traits@G@_STL@@@0@AAV10@0AAVios_base@0@AAHAA_JPAG@Z,0x0000A560,STLport 4.5.3 wide num_get integer worker; the wide-tagged ICF alias of the narrow-tagged name already on this address, read by decode_calls.py from the REL32 in the do_get forwarder that calls it
-?do_get@?$num_get@GV?$istreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@@_STL@@MBE?AV?$istreambuf_iterator@GV?$char_traits@G@_STL@@@2@V32@0AAVios_base@2@AAHAAI@Z,0x0000A8F0,STLport 4.5.3 wide num_get do_get for unsigned int; folded onto the unsigned long body by identical COMDAT folding - the num_get vtable holds 0x0000A8F0 in two consecutive slots, which is what identifies the pair
-?falsename@?$numpunct@G@_STL@@QBE?AV?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@2@XZ,0x00396386,STLport 4.5.3 wide numpunct boolalpha name; address read by decode_calls.py from the REL32 in the wide num_get do_get(bool &) at 0x0000B140 - which is what identifies both
-?truename@?$numpunct@G@_STL@@QBE?AV?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@2@XZ,0x00395475,STLport 4.5.3 wide numpunct boolalpha name; address read by decode_calls.py from the REL32 in the wide num_get do_get(bool &) at 0x0000B140 - which is what identifies both
-?_M_doit@?$_Underflow@DV?$char_traits@D@_STL@@@_STL@@SAHPAV?$basic_filebuf@DV?$char_traits@D@_STL@@@2@@Z,0x0001E560,STLport 4.5.3 narrow _Underflow::_M_doit; address read by decode_calls.py from the REL32 in the narrow filebuf underflow forwarder at 0x00013D90 - the wide equivalent is already claimed at 0x00015EA0
-?showmanyc@?$basic_streambuf@GV?$char_traits@G@_STL@@@_STL@@MAEHXZ,0x0065CE90,STLport 4.5.3 wide streambuf base default - folded onto sync by identical COMDAT folding - both are the three-byte xor eax eax / ret and the wide streambuf vtable holds this address in slots 4 and 5
-?overflow@?$basic_streambuf@GV?$char_traits@G@_STL@@@_STL@@MAEGG@Z,0x00013960,STLport 4.5.3 wide streambuf base default - folded onto pbackfail - both return eof with or ax 0xFFFF / ret 4 and the wide streambuf vtable holds this address in slots 9 and 12
-?seekpos@?$basic_streambuf@GV?$char_traits@G@_STL@@@_STL@@MAE?AV?$fpos@H@2@V32@H@Z,0x0001C970,STLport 4.5.3 wide streambuf base default - folded onto seekoff which is already claimed at this address - the wide streambuf vtable holds it in slots 2 and 3
-?setbuf@?$basic_streambuf@DV?$char_traits@D@_STL@@@_STL@@MAEPAV12@PADH@Z,0x00013570,STLport 4.5.3 narrow streambuf base default - slot 1 - folded onto the wide setbuf; both are mov eax ecx / ret 8. Read from the narrow streambuf vtable where the slot holds an address already claimed for the wide facet
-?seekoff@?$basic_streambuf@DV?$char_traits@D@_STL@@@_STL@@MAE?AV?$fpos@H@2@JHH@Z,0x0001C970,STLport 4.5.3 narrow streambuf base default - slot 2 - folded onto the wide seekoff; the fpos return does not depend on the character type. Read from the narrow streambuf vtable where the slot holds an address already claimed for the wide facet
-?seekpos@?$basic_streambuf@DV?$char_traits@D@_STL@@@_STL@@MAE?AV?$fpos@H@2@V32@H@Z,0x0001C970,STLport 4.5.3 narrow streambuf base default - slot 3 - folded onto the same body as slot 2. Read from the narrow streambuf vtable where the slot holds an address already claimed for the wide facet
-?sync@?$basic_streambuf@DV?$char_traits@D@_STL@@@_STL@@MAEHXZ,0x0065CE90,STLport 4.5.3 narrow streambuf base default - slot 4 - folded onto the wide sync; xor eax eax / ret. Read from the narrow streambuf vtable where the slot holds an address already claimed for the wide facet
-?showmanyc@?$basic_streambuf@DV?$char_traits@D@_STL@@@_STL@@MAEHXZ,0x0065CE90,STLport 4.5.3 narrow streambuf base default - slot 5 - folded onto the same body as slot 4. Read from the narrow streambuf vtable where the slot holds an address already claimed for the wide facet
-?imbue@?$basic_streambuf@DV?$char_traits@D@_STL@@@_STL@@MAEXABVlocale@2@@Z,0x00180FD0,STLport 4.5.3 narrow streambuf base default - slot 13 - folded onto the wide imbue; ret 4. Read from the narrow streambuf vtable where the slot holds an address already claimed for the wide facet
-?overflow@?$basic_streambuf@DV?$char_traits@D@_STL@@@_STL@@MAEHH@Z,0x0001CA70,STLport 4.5.3 narrow streambuf base overflow - folded onto pbackfail; both return eof with or eax -1 / ret 4 and the narrow streambuf vtable holds this address in slots 9 and 12
-?_Stl_loc_init_facets@_STL@@YAXXZ,0x00006F80,STLport 4.5.3 classic-locale initialisation helper - called first by ios_base::_Loc_init at 0x0000F740 before the classic locale impl is built. ADDRESS is evidenced by the REL32; the NAME is inferred from the role because these live in STLport src/ which the vendored tree does not carry
-?_Stl_make_classic_locale@_STL@@YAPAV_Locale_impl@1@XZ,0x0000B730,STLport 4.5.3 classic-locale initialisation helper - called second by ios_base::_Loc_init and its result stored into _Stl_classic_locale_impl at 0x00DDEB18. ADDRESS is evidenced by the REL32; the NAME is inferred from the role because these live in STLport src/ which the vendored tree does not carry
-??$__copy@PBDV?$back_insert_iterator@Vstring@_STL@@@_STL@@H@_STL@@YA?AV?$back_insert_iterator@Vstring@_STL@@@0@PBD0V10@ABUrandom_access_iterator_tag@0@PAH@Z,0x00019180,STLport 4.5.3 copy of a name-table literal into a back_insert_iterator over string; address read by decode_calls.py from the seven REL32s in _Init_timeinfo at 0x00019260 which all reach the same body
-?compare@WideCharCompare@@QBEHPBG0H@Z,0x000052F8,WWLib wide string comparison trait member - the wide comparison the trait object performs. ADDRESS is evidenced by the REL32 in the wide compareRange pair at 0x0000586D and 0x00005898 where ecx holds the address of the trait at the call; the trait TYPE NAME is this project's and the member names are inferred from the role
-?compareNoCase@WideCharCompare@@QBEHPBG0H@Z,0x00005344,WWLib wide string comparison trait member - the case-folded wide comparison the trait object performs. ADDRESS is evidenced by the REL32 in the wide compareRange pair at 0x0000586D and 0x00005898 where ecx holds the address of the trait at the call; the trait TYPE NAME is this project's and the member names are inferred from the role
-??$__get_decimal_integer@V?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@H@_STL@@YA_NAAV?$istreambuf_iterator@DV?$char_traits@D@_STL@@@0@0AAH@Z,0x00009CD0,STLport 4.5.3 narrow decimal reader for int - the instantiation __get_formatted_time reaches because tm's fields are int. Its REL32 lands on 0x00009CD0 which the ledger already carries as the long instantiation; int and long are the same four bytes on this target so the two are one address. Additive pin rather than a rename of that row
-??$__get_decimal_integer@V?$istreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@H@_STL@@YA_NAAV?$istreambuf_iterator@GV?$char_traits@G@_STL@@@0@0AAH@Z,0x0000B4C0,STLport 4.5.3 wide decimal reader for int - the wide twin of the pin at 0x00009CD0 and the same situation: tm's fields are int so this is the instantiation the wide __get_formatted_time calls, and its REL32 lands on the address the ledger already carries as the long one
-?CPUID@CPUDetectClass@@SA_NAAI000I@Z,0x006118C0,CPUDetectClass::CPUID. Address is the REL32 in Init_Processor_Manufacturer at 0x00611B00; Ghidra sizes it 103 which is exactly what the ported cpudetect.cpp emits for this symbol. Not landed as a row yet - the body reproduces from its second instruction on and differs only in the entry test, where retail compares the HasCPUIDInstruction byte in place and every spelling here loads it into al first
-?Resize@?$SimpleVecClass@M@@UAE_NH@Z,0x001A7C80,SimpleVecClass<float>::Resize; address read by decode_calls.py from the REL32 in the constructor at 0x001A8070, and Ghidra has a 211-byte function exactly there
-??0?$ShareBufferClass@VShaderClass@@@@QAE@HPBDH@Z,0x0015CF30,ICF alias: ShareBufferClass<ShaderClass>'s counted constructor is the same code as the Vector2 one landed at this address - both hold four-byte elements - and decode_calls reads this address out of Get_Shader_Array's REL32
-?SkipNext@Debug@@SA_N_N@Z,0x00038790,Debug::SkipNext; address read by locate.py from the REL32 in ProfileAllocMemory. The body captures _ReturnAddress() and forwards it with its argument to Debug slot 0x5C - recording the call site, which is what the reference header says SkipNext does. This engine's takes a bool where the reference declares it void
-__SEH_prolog,0x00628FA4,CRT SEH frame setup, emitted by cl for every __try; Ghidra names it and sizes it 59. Address is the REL32 in CComCriticalSection::Init
-??$_M_allocate_and_copy@PAPAX@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@IAEPAPAXIPAPAX0@Z,0x00027F60,ICF alias of the const_pointer instantiation already landed at this address. reserve passes _M_start and _M_finish which are void** rather than void* const*, so it names the non-const member template; both instantiations compile to the identical body and the linker folds them, the same way the narrow and wide allocators share 0x000307F0
-??1?$allocator@PAX@_STL@@QAE@XZ,0x00023A40,ICF alias of the _STLP_alloc_proxy destructor landed at this address. The proxy derives from the allocator and both destructors are empty, so they compile to the same body and the linker folds them
-?begin@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QBEPBQAXXZ,0x00023B90,ICF alias of the non-const begin landed at this address. Const and non-const differ only in return type, which does not reach the code
-?end@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QBEPBQAXXZ,0x00023BA0,ICF alias of the non-const end landed at this address, for the same reason as begin
-?allocate@?$allocator@PAUBfmeE12@@@_STL@@QBEPAPAUBfmeE12@@IPBX@Z,0x00068E15,address read from the REL32 displacement at a placed deque<12-byte element> body; stlport 4.5.3
-?_M_subtract@?$_Deque_iterator_base@UBfmeE12@@@_STL@@QBEHABU12@@Z,0x004218A5,address read from the REL32 displacement at a placed deque<12-byte element> body; stlport 4.5.3
-?_M_new_elements_at_back@?$deque@UBfmeE12@@V?$allocator@UBfmeE12@@@_STL@@@_STL@@IAEXI@Z,0x00585A9A,address read from the REL32 displacement at a placed deque<12-byte element> body; stlport 4.5.3
-?_M_new_elements_at_front@?$deque@UBfmeE12@@V?$allocator@UBfmeE12@@@_STL@@@_STL@@IAEXI@Z,0x00585A57,address read from the REL32 displacement at a placed deque<12-byte element> body; stlport 4.5.3
-??H?$_Deque_iterator@UBfmeE12@@U?$_Nonconst_traits@UBfmeE12@@@_STL@@@_STL@@QBE?AU01@H@Z,0x00584E57,address read from the REL32 displacement at a placed deque<12-byte element> body; stlport 4.5.3
-??G?$_Deque_iterator@UBfmeE12@@U?$_Nonconst_traits@UBfmeE12@@@_STL@@@_STL@@QBE?AU01@H@Z,0x004221E6,address read from the REL32 displacement at a placed deque<12-byte element> body; stlport 4.5.3
-??$insert@U?$_Deque_iterator@UBfmeE12@@U?$_Const_traits@UBfmeE12@@@_STL@@@_STL@@@?$deque@UBfmeE12@@V?$allocator@UBfmeE12@@@_STL@@@_STL@@IAEXU?$_Deque_iterator@UBfmeE12@@U?$_Nonconst_traits@UBfmeE12@@@_STL@@@1@U?$_Deque_iterator@UBfmeE12@@U?$_Const_traits@UBfmeE12@@@_STL@@@1@1ABUforward_iterator_tag@1@@Z,0x00586305,address read from the REL32 displacement at a placed deque<12-byte element> body; stlport 4.5.3
-?_M_push_back_aux_v@?$deque@UBfmeE12@@V?$allocator@UBfmeE12@@@_STL@@@_STL@@IAEXABUBfmeE12@@@Z,0x00423558,address read from the REL32 displacement at a placed deque<12-byte element> body; stlport 4.5.3
-?_M_push_back_aux_v@?$deque@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@IAEXABUBfmeE8@@@Z,0x0054B456,address read from the REL32 displacement at a placed body; stlport 4.5.3
-?_M_reserve_map_at_back@?$deque@PAXV?$allocator@PAX@_STL@@@_STL@@IAEXI@Z,0x002F1F19,address read from the REL32 displacement at a placed body; stlport 4.5.3
-??$_M_allocate_and_copy@PAUBfmeE8@@@?$vector@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@IAEPAUBfmeE8@@IPAU2@0@Z,0x001D9AD9,address read from the REL32 displacement at a placed body; stlport 4.5.3
-?_M_insert_overflow@?$vector@FV?$allocator@F@_STL@@@_STL@@IAEXPAFABFABU__true_type@2@I_N@Z,0x0007EAA7,address read from the REL32 displacement at a placed body; stlport 4.5.3
-?_M_reserve_map_at_back@?$deque@UBfmeE12@@V?$allocator@UBfmeE12@@@_STL@@@_STL@@IAEXI@Z,0x0042305C,address read from the REL32 displacement at a placed body; stlport 4.5.3
-?allocate@?$allocator@UBfmeE16@@@_STL@@QBEPAUBfmeE16@@IPBX@Z,0x002226BE,address read from the REL32 displacement at a placed body; stlport 4.5.3
-?allocate@?$allocator@UBfmeE8@@@_STL@@QBEPAUBfmeE8@@IPBX@Z,0x00523D6C,address read from the REL32 displacement at a placed body; stlport 4.5.3
-?equal_range@?$_Rb_tree@HU?$pair@$$CBHH@_STL@@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBHH@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHH@_STL@@@2@@_STL@@U12@@2@ABH@Z,0x0061F840,address read from the REL32 displacement at a placed body; stlport 4.5.3
-?push_back@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEXABQAX@Z,0x00029140,address read from the REL32 displacement at a placed body; stlport 4.5.3
-??$_Construct@UBfmeE8@@U1@@_STL@@YAXPAUBfmeE8@@ABU1@@Z,0x0060C9D9,address read from the REL32 displacement at a placed body; folded onto the body held there under another instantiation's name; stlport 4.5.3
-??0?$_STLP_alloc_proxy@PAU?$_Rb_tree_node@U?$pair@$$CBHPAX@_STL@@@_STL@@U12@V?$allocator@U?$_Rb_tree_node@U?$pair@$$CBHPAX@_STL@@@_STL@@@2@@_STL@@QAE@ABV?$allocator@U?$_Rb_tree_node@U?$pair@$$CBHPAX@_STL@@@_STL@@@1@PAU?$_Rb_tree_node@U?$pair@$$CBHPAX@_STL@@@1@@Z,0x0014F3C4,address read from the REL32 displacement at a placed body; folded onto the body held there under another instantiation's name; stlport 4.5.3
-??0?$_STLP_alloc_proxy@PAUBfmeE16@@U1@V?$allocator@UBfmeE16@@@_STL@@@_STL@@QAE@ABV?$allocator@UBfmeE16@@@1@PAUBfmeE16@@@Z,0x0014F3C4,address read from the REL32 displacement at a placed body; folded onto the body held there under another instantiation's name; stlport 4.5.3
-??0?$_STLP_alloc_proxy@PAUBfmeE8@@U1@V?$allocator@UBfmeE8@@@_STL@@@_STL@@QAE@ABV?$allocator@UBfmeE8@@@1@PAUBfmeE8@@@Z,0x0014F3C4,address read from the REL32 displacement at a placed body; folded onto the body held there under another instantiation's name; stlport 4.5.3
-?erase@?$list@FV?$allocator@F@_STL@@@_STL@@QAE?AU?$_List_iterator@FU?$_Nonconst_traits@F@_STL@@@2@U32@@Z,0x00438539,address read from the REL32 displacement at a placed body; folded onto the body held there under another instantiation's name; stlport 4.5.3
-??0?$ConcreteModuleTemplate@V?$ModuleTag@$01$E?RENDEROBJECT_UPDATE_MODULE_KEY@FXParticleSystem@@3QBDB$E?RENDEROBJECT_UPDATE_MODULE_NAME@2@3QBDBVRenderObjectUpdateModule@2@VRenderObjectUpdateModuleTemplate@2@V?$DefaultParticleModule@$01@2@@FXParticleSystem@@@FXParticleSystem@@QAE@ABV01@@Z,0x003AEA15,address read from the REL32 displacement at a placed body; stlport 4.5.3
-??0?$VectorClass@VProxyRecordClass@@@@QAE@HPBVProxyRecordClass@@@Z,0x0019BAE0,address read from the REL32 displacement at a placed body; stlport 4.5.3
-??0Buffer@@QAE@J@Z,0x00615710,address read from the REL32 displacement at a placed body; stlport 4.5.3
-??0BufferPipe@@QAE@PAXH@Z,0x006159F0,address read from the REL32 displacement at a placed body; stlport 4.5.3
-??0BufferStraw@@QAE@PBXH@Z,0x0013C880,address read from the REL32 displacement at a placed body; stlport 4.5.3
-??0BufferedFileClass@@QAE@XZ,0x0061ADE0,address read from the REL32 displacement at a placed body; stlport 4.5.3
-??0CriticalSectionClass@@QAE@XZ,0x00613AE0,address read from the REL32 displacement at a placed body; stlport 4.5.3
-??0MatBufferClass@@QAE@HPBD@Z,0x0015B1A0,address read from the REL32 displacement at a placed body; stlport 4.5.3
-??0OutputStream@DebugIOFlat@@AAE@PBDI@Z,0x0003F840,address read from the REL32 displacement at a placed body; stlport 4.5.3
-??0RandomTextureMapperClass@@QAE@ABV0@@Z,0x00186880,address read from the REL32 displacement at a placed body; stlport 4.5.3
-??0RotateTextureMapperClass@@QAE@ABV0@@Z,0x00182780,address read from the REL32 displacement at a placed body; stlport 4.5.3
-??0TexBufferClass@@QAE@HPBD@Z,0x0015D080,address read from the REL32 displacement at a placed body; stlport 4.5.3
-??0ZigZagLinearOffsetTextureMapperClass@@QAE@ABV0@@Z,0x001831C0,address read from the REL32 displacement at a placed body; stlport 4.5.3
-??1?$basic_ostringstream@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@UAE@XZ,0x001F66C6,address read from the REL32 displacement at a placed body; stlport 4.5.3
-??1Buffer@@QAE@XZ,0x006157A0,address read from the REL32 displacement at a placed body; stlport 4.5.3
-??1BufferPipe@@UAE@XZ,0x00615A50,address read from the REL32 displacement at a placed body; stlport 4.5.3
-??1BufferStraw@@UAE@XZ,0x0013C8E0,address read from the REL32 displacement at a placed body; stlport 4.5.3
-??1CriticalSectionClass@@QAE@XZ,0x00613B10,address read from the REL32 displacement at a placed body; stlport 4.5.3
-??1INIClass@@UAE@XZ,0x00617AC0,address read from the REL32 displacement at a placed body; stlport 4.5.3
-??1LockClass@CriticalSectionClass@@QAE@XZ,0x00613B80,address read from the REL32 displacement at a placed body; stlport 4.5.3
-??1ModelArrayClass@HLodClass@@UAE@XZ,0x0019E580,address read from the REL32 displacement at a placed body; stlport 4.5.3
-??1RenderObjClass@@UAE@XZ,0x00196150,address read from the REL32 displacement at a placed body; stlport 4.5.3
-??1RoadType@@QAE@XZ,0x0018E750,address read from the REL32 displacement at a placed body; stlport 4.5.3
-??1SortingNodeStruct@@QAE@XZ,0x0012FCA0,address read from the REL32 displacement at a placed body; stlport 4.5.3
-??1TextureStatisticsStruct@@QAE@XZ,0x00118800,address read from the REL32 displacement at a placed body; stlport 4.5.3
-??4?$VectorClass@VModelNodeClass@HLodClass@@@@QAEAAV0@ABV0@@Z,0x0019E5B0,address read from the REL32 displacement at a placed body; stlport 4.5.3
-??4?$vector@UPrereqUnitRec@ProductionPrerequisite@@V?$allocator@UPrereqUnitRec@ProductionPrerequisite@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z,0x000120C0,address read from the REL32 displacement at a placed body; folded onto the body held there under another instantiation's name; stlport 4.5.3
-??4?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z,0x000120C0,address read from the REL32 displacement at a placed body; folded onto the body held there under another instantiation's name; stlport 4.5.3
-??4AudioEventRTS@@QAEAAV0@ABV0@@Z,0x000366F0,address read from the REL32 displacement at a placed body; stlport 4.5.3
-??4StringClass@@QAEABV0@PBD@Z,0x000F0E8D,address read from the REL32 displacement at a placed body; stlport 4.5.3
-??4TRoadSegInfo@@QAEAAU0@ABU0@@Z,0x000D69D3,address read from the REL32 displacement at a placed body; stlport 4.5.3
-??8@YA_NABVAsciiString@@0@Z,0x006EFBC0,address read from the REL32 displacement at a placed body; stlport 4.5.3
-??A?$IndexClass@HPAUINISection@@@@QBEABQAUINISection@@ABH@Z,0x00616A60,address read from the REL32 displacement at a placed body; stlport 4.5.3
-??_H@YGXPAXIHP6EPAX0@Z@Z,0x00001423,address read from the REL32 displacement at a placed body; folded onto the body held there under another instantiation's name; stlport 4.5.3
-?Add@?$DynamicVectorClass@PAVVertexMaterialClass@@@@QAE_NABQAVVertexMaterialClass@@@Z,0x001A3A60,address read from the REL32 displacement at a placed body; folded onto the body held there under another instantiation's name; stlport 4.5.3
-?Add@?$DynamicVectorClass@VShaderClass@@@@QAE_NABVShaderClass@@@Z,0x001A3A60,address read from the REL32 displacement at a placed body; folded onto the body held there under another instantiation's name; stlport 4.5.3
-?Add@?$SimpleDynVecClass@VVector3@@@@QAE_NABVVector3@@H@Z,0x001002C5,address read from the REL32 displacement at a placed body; stlport 4.5.3
-?Allocate_DX8_Dynamic_Buffer@DynamicIBAccessClass@@QAEXXZ,0x00138E00,address read from the REL32 displacement at a placed body; stlport 4.5.3
-?Allocate_Object_Memory@?$ObjectPoolClass@VGridLinkClass@@$0BAA@@@QAEPAVGridLinkClass@@XZ,0x0071AED0,address read from the REL32 displacement at a placed body; stlport 4.5.3
-?Allocate_Object_Memory@?$ObjectPoolClass@VMultiListNodeClass@@$0BAA@@@QAEPAVMultiListNodeClass@@XZ,0x00610680,address read from the REL32 displacement at a placed body; stlport 4.5.3
-?Allocate_Sorting_Dynamic_Buffer@DynamicIBAccessClass@@QAEXXZ,0x00138F50,address read from the REL32 displacement at a placed body; stlport 4.5.3
-?Build_Sentence_Not_Centered@Render2DSentenceClass@@AAE?AVVector2@@PBGPAH1_N@Z,0x00159700,address read from the REL32 displacement at a placed body; stlport 4.5.3
-?CRC_Memory@@YAKPBEKK@Z,0x006157D0,address read from the REL32 displacement at a placed body; stlport 4.5.3
-?Clear@INIClass@@QAE_NPBD0@Z,0x00616C60,address read from the REL32 displacement at a placed body; stlport 4.5.3
-?Convert_Shader@W3dUtilityClass@@SAXABVShaderClass@@PAUW3dShaderStruct@@@Z,0x001A45E3,address read from the REL32 displacement at a placed body; stlport 4.5.3
-?Cur_Chunk_ID@ChunkLoadClass@@QAEKXZ,0x00615020,address read from the REL32 displacement at a placed body; stlport 4.5.3
-?Cur_Micro_Chunk_ID@ChunkLoadClass@@QAEKXZ,0x006150A0,address read from the REL32 displacement at a placed body; stlport 4.5.3
-?DebugAllocMemory@@YAPAXI@Z,0x0003E450,address read from the REL32 displacement at a placed body; stlport 4.5.3
-?DebugFreeMemory@@YAXPAX@Z,0x0003E3C0,address read from the REL32 displacement at a placed body; stlport 4.5.3
-?Enable_Fog@ShaderClass@@QAEXPBD@Z,0x00138200,address read from the REL32 displacement at a placed body; stlport 4.5.3
-?ExpandMagic@DebugIOFlat@@CAXPBD0PAD@Z,0x0003FA20,address read from the REL32 displacement at a placed body; stlport 4.5.3
-?Flush@OutputStream@DebugIOFlat@@QAEXXZ,0x0003F960,address read from the REL32 displacement at a placed body; stlport 4.5.3
-?Free@HLodDefClass@@AAEXXZ,0x0019F5B0,address read from the REL32 displacement at a placed body; stlport 4.5.3
-?Free_Object_Memory@?$ObjectPoolClass@VMultiListNodeClass@@$0BAA@@@QAEXPAVMultiListNodeClass@@@Z,0x00196470,address read from the REL32 displacement at a placed body; stlport 4.5.3
-?Get@Base64Straw@@UAEHPAXH@Z,0x0061B350,address read from the REL32 displacement at a placed body; stlport 4.5.3
-?Get_Char_Data@FontCharsClass@@AAEPBVFontCharsClassCharDataStruct@@G@Z,0x00158520,address read from the REL32 displacement at a placed body; stlport 4.5.3
-?Get_Float@INIClass@@QBEMPBD0M@Z,0x00616E90,address read from the REL32 displacement at a placed body; stlport 4.5.3
-?Get_SS_Category@ShaderClass@@QBE?AW4StaticSortCategoryType@1@XZ,0x00138130,address read from the REL32 displacement at a placed body; stlport 4.5.3
-?Get_Shader@ParticleBufferClass@@QBE?AVShaderClass@@XZ,0x001A7B10,address read from the REL32 displacement at a placed body; stlport 4.5.3
-?Get_String@StringClass@@AAEXH_N@Z,0x00610B00,address read from the REL32 displacement at a placed body; stlport 4.5.3
-?Get_Texture@ParticleBufferClass@@QBE?AVTextureHandleClass@1@XZ,0x001A7A60,address read from the REL32 displacement at a placed body; stlport 4.5.3
-?Init_Compact_Log@CPUDetectClass@@CAXXZ,0x00612ED0,address read from the REL32 displacement at a placed body; stlport 4.5.3
-?Init_Memory@CPUDetectClass@@CAXXZ,0x00611810,address read from the REL32 displacement at a placed body; stlport 4.5.3
-?Init_Processor_Log@CPUDetectClass@@CAXXZ,0x00612770,address read from the REL32 displacement at a placed body; stlport 4.5.3
-?Init_Processor_Speed@CPUDetectClass@@CAXXZ,0x00611180,address read from the REL32 displacement at a placed body; stlport 4.5.3
-?Load@INIClass@@QAEHAAVFileClass@@@Z,0x00619120,address read from the REL32 displacement at a placed body; stlport 4.5.3
-?Load_W3D@TimeCodedBitChannelClass@@QAE_NAAVChunkLoadClass@@@Z,0x00195E20,address read from the REL32 displacement at a placed body; stlport 4.5.3
-?Notify_Added@RenderObjClass@@UAEXPAVSceneClass@@@Z,0x0013BCD0,address read from the REL32 displacement at a placed body; stlport 4.5.3
-?Notify_Removed@RenderObjClass@@UAEXPAVSceneClass@@@Z,0x0013BCE0,address read from the REL32 displacement at a placed body; stlport 4.5.3
-?Poly_Count@AABTreeBuilderClass@@QAEHXZ,0x00144010,address read from the REL32 displacement at a placed body; stlport 4.5.3
-?Put@Base64Pipe@@UAEHPBXH@Z,0x0061B170,address read from the REL32 displacement at a placed body; stlport 4.5.3
-?Put_String@INIClass@@QAE_NPBD00@Z,0x00616FB0,address read from the REL32 displacement at a placed body; stlport 4.5.3
-?Read_Nodes@AABTreeClass@@AAEXAAVChunkLoadClass@@@Z,0x00197D20,address read from the REL32 displacement at a placed body; stlport 4.5.3
-?Release_Ref@TextureBaseClass@@QAEXXZ,0x0061ED10,address read from the REL32 displacement at a placed body; stlport 4.5.3
-?Reset@SubObjectArrayClass@HLodDefClass@@QAEXXZ,0x0019B210,address read from the REL32 displacement at a placed body; stlport 4.5.3
-?Reset_Collection@CullSystemClass@@QAEXXZ,0x0065D1C0,address read from the REL32 displacement at a placed body; stlport 4.5.3
-?Resize@?$VectorClass@UTextureStatisticsStruct@@@@UAE_NHPBUTextureStatisticsStruct@@@Z,0x00129990,address read from the REL32 displacement at a placed body; stlport 4.5.3
-?Resize@StringClass@@AAEXH@Z,0x00610C70,address read from the REL32 displacement at a placed body; stlport 4.5.3
-?Save@INIClass@@QBEHAAVFileClass@@@Z,0x006165B0,address read from the REL32 displacement at a placed body; stlport 4.5.3
-?Save_W3D@SubObjectArrayClass@HLodDefClass@@QAE_NAAVChunkSaveClass@@@Z,0x0019B370,address read from the REL32 displacement at a placed body; stlport 4.5.3
-?Search_For_Node@?$IndexClass@HPAUINISection@@@@ABEPBUNodeElement@1@ABH@Z,0x00616730,address read from the REL32 displacement at a placed body; folded onto the body held there under another instantiation's name; stlport 4.5.3
-?Set_Animation@Animatable3DObjClass@@UAEXPAVHAnimClass@@M0MM@Z,0x001A4D10,address read from the REL32 displacement at a placed body; stlport 4.5.3
-?Set_Animation@Animatable3DObjClass@@UAEXPAVHAnimClass@@MH@Z,0x001A4BF0,address read from the REL32 displacement at a placed body; stlport 4.5.3
-?Set_Animation@Animatable3DObjClass@@UAEXXZ,0x001A4BD0,address read from the REL32 displacement at a placed body; stlport 4.5.3
-?Set_DX8_Render_State@DX8Wrapper@@SAXKI@Z,0x0006615F,address read from the REL32 displacement at a placed body; stlport 4.5.3
-?Set_DX8_Texture_Stage_State@DX8Wrapper@@SAXIKI@Z,0x000661DD,address read from the REL32 displacement at a placed body; stlport 4.5.3
-?SimpleMatch@Debug@@SA_NPBD0@Z,0x00039480,address read from the REL32 displacement at a placed body; stlport 4.5.3
-?Uninitialised_Grow@StringClass@@AAEXH@Z,0x00610CF0,address read from the REL32 displacement at a placed body; stlport 4.5.3
-?Uninitialised_Grow@WideStringClass@@AAEXH@Z,0x00619E30,address read from the REL32 displacement at a placed body; stlport 4.5.3
-?Which_Side@AABTreeBuilderClass@@AAE?AW4OverlapType@1@ABVAAPlaneClass@@H@Z,0x00198C60,address read from the REL32 displacement at a placed body; stlport 4.5.3
-?freeTerrainTracksResources@TerrainTracksRenderObjClass@@QAEHXZ,0x0018FE30,address read from the REL32 displacement at a placed body; stlport 4.5.3
-?link_object@GridCullSystemClass@@IAEXPAVCullableClass@@@Z,0x0071C680,address read from the REL32 displacement at a placed body; stlport 4.5.3
-?nstrdup@@YAPADPBD@Z,0x00619880,address read from the REL32 displacement at a placed body; stlport 4.5.3
-?recalculate@LineSegClass@@IAEXXZ,0x0006A1E4,address read from the REL32 displacement at a placed body; stlport 4.5.3
-_XMP_Fetch_Prime_Size,0x0061B7C0,address read from the REL32 displacement at a placed body; stlport 4.5.3
-_XMP_Fetch_Prime_Table,0x0061B7B0,address read from the REL32 displacement at a placed body; stlport 4.5.3
-_XMP_Init,0x0061BD70,address read from the REL32 displacement at a placed body; stlport 4.5.3
-_XMP_Randomize_Bounded,0x0061C420,address read from the REL32 displacement at a placed body; stlport 4.5.3
-_XMP_Shift_Left_Bits,0x0061BBD0,address read from the REL32 displacement at a placed body; stlport 4.5.3
-__CIpow,0x006299A0,address read from the REL32 displacement at a placed body; stlport 4.5.3
-?Free_String@StringClass@@AAEXXZ,0x00610A40,address read from the REL32 displacement at a placed body
-??1__Named_exception@_STL@@UAE@XZ,0x00023850,address read from the REL32 displacement in logic_error and runtime_error's destructors; the body there is held as bad_alloc's destructor and the two folded
-?do_grouping@?$numpunct@G@_STL@@MBE?AV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@2@XZ,0x00017A00,slot 3 of both numpunct vftables; grouping() returns a narrow string whatever the character type so the wide instantiation folded onto the narrow body held there
-??$__lexicographical_compare_3way@PBDPBD@_STL@@YAHPBD000@Z,0x00017650,collate<char>::do_compare's call target; the body there is held for the char* instantiation and the const char* one folded onto it - the comparison never writes through either pointer so the two are the same code
-?do_in@?$codecvt@DDH@_STL@@MBE?AW4result@codecvt_base@2@AAHPBD1AAPBDPAD3AAPAD@Z,0x00017390,slot 2 of 0x007BBB08; do_in and do_out are the same two stores and the same noconv return so the linker kept one body
-?do_max_length@?$codecvt@DDH@_STL@@MBEHXZ,0x00756B00,slot 7 of 0x007BBB08; folded with do_encoding - both return 1
-?do_unshift@?$codecvt@GDH@_STL@@MBE?AW4result@codecvt_base@2@AAHPAD1AAPAD@Z,0x00017370,slot 3 of the wide codecvt vftable 0x007BBB2C; unshift never touches the internal type so it folded onto the narrow body
-?do_encoding@?$codecvt@GDH@_STL@@MBEHXZ,0x00756B00,slot 4 of 0x007BBB2C; folded
-?do_always_noconv@?$codecvt@GDH@_STL@@MBE_NXZ,0x001826C0,slot 5 of 0x007BBB2C; folded
-?do_length@?$codecvt@GDH@_STL@@MBEHABHPBD1I@Z,0x00017460,slot 6 of 0x007BBB2C; folded
-?do_max_length@?$codecvt@GDH@_STL@@MBEHXZ,0x00756B00,slot 7 of 0x007BBB2C; folded
-?do_open@?$messages@G@_STL@@MBEHABV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@2@ABVlocale@2@@Z,0x00019EA0,slot 1 of the wide messages vftable 0x007BC8EC; do_open takes a narrow filename whatever the facet's character type so the two instantiations folded
-?do_close@?$messages@G@_STL@@MBEXH@Z,0x00019F70,slot 3 of 0x007BC8EC; do_close forwards a catalog handle and never touches the character type so the two instantiations folded
-?do_thousands_sep@?$moneypunct@D$00@_STL@@MBEDXZ,0x00019730,moneypunct vftable slot; the default facet reports no locale data so this body serves every instantiation that names it
-?do_thousands_sep@?$moneypunct@G$00@_STL@@MBEGXZ,0x000197F0,moneypunct vftable slot; the default facet reports no locale data so this body serves every instantiation that names it
-?do_frac_digits@?$moneypunct@D$00@_STL@@MBEHXZ,0x0065CE90,moneypunct vftable slot; the default facet reports no locale data so this body serves every instantiation that names it; folded onto basic_streambuf<wchar_t>::sync - both are xor eax,eax
-?do_pos_format@?$moneypunct@G$00@_STL@@MBE?AUpattern@money_base@2@XZ,0x0066D820,moneypunct vftable slot; the default facet reports no locale data so this body serves every instantiation that names it
-?do_neg_format@?$moneypunct@G$00@_STL@@MBE?AUpattern@money_base@2@XZ,0x00019740,moneypunct vftable slot; the default facet reports no locale data so this body serves every instantiation that names it
-?do_frac_digits@?$moneypunct@G$00@_STL@@MBEHXZ,0x0065CE90,moneypunct vftable slot; the default facet reports no locale data so this body serves every instantiation that names it; folded onto basic_streambuf<wchar_t>::sync - both are xor eax,eax
-?do_decimal_point@?$moneypunct@D$0A@@_STL@@MBEDXZ,0x00019730,moneypunct vftable slot; the default facet reports no locale data so this body serves every instantiation that names it
-?do_thousands_sep@?$moneypunct@D$0A@@_STL@@MBEDXZ,0x00019730,moneypunct vftable slot; the default facet reports no locale data so this body serves every instantiation that names it
-?do_decimal_point@?$moneypunct@G$0A@@_STL@@MBEGXZ,0x000197F0,moneypunct vftable slot; the default facet reports no locale data so this body serves every instantiation that names it
-?do_thousands_sep@?$moneypunct@G$0A@@_STL@@MBEGXZ,0x000197F0,moneypunct vftable slot; the default facet reports no locale data so this body serves every instantiation that names it
-?do_pos_format@?$moneypunct@D$0A@@_STL@@MBE?AUpattern@money_base@2@XZ,0x0066D820,moneypunct vftable slot; the default facet reports no locale data so this body serves every instantiation that names it
-?do_neg_format@?$moneypunct@D$0A@@_STL@@MBE?AUpattern@money_base@2@XZ,0x00019740,moneypunct vftable slot; the default facet reports no locale data so this body serves every instantiation that names it
-?do_frac_digits@?$moneypunct@D$0A@@_STL@@MBEHXZ,0x0065CE90,moneypunct vftable slot; the default facet reports no locale data so this body serves every instantiation that names it; folded onto basic_streambuf<wchar_t>::sync - both are xor eax,eax
-?do_pos_format@?$moneypunct@G$0A@@_STL@@MBE?AUpattern@money_base@2@XZ,0x0066D820,moneypunct vftable slot; the default facet reports no locale data so this body serves every instantiation that names it
-?do_neg_format@?$moneypunct@G$0A@@_STL@@MBE?AUpattern@money_base@2@XZ,0x00019740,moneypunct vftable slot; the default facet reports no locale data so this body serves every instantiation that names it
-?do_frac_digits@?$moneypunct@G$0A@@_STL@@MBEHXZ,0x0065CE90,moneypunct vftable slot; the default facet reports no locale data so this body serves every instantiation that names it; folded onto basic_streambuf<wchar_t>::sync - both are xor eax,eax
-?releaseBuffer@?$StringBase@D@@AAEXXZ,0x00036410,BFME2 export and retail releaseBuffer target for ParticleSystemInfo StringBase<char> members at +0x10/+0x68/+0x78
-?releaseBuffer@?$StringBase@G@@AAEXXZ,0x00036E70,BFME2 export and retail releaseBuffer target for Version UnicodeString temporaries
-?Clear@?$VectorClass@H@@UAEXXZ,0x000F0CD4,VectorClass<int>::Clear; vftable 0x007BB5AC slot 3 and scalar dtor call at 0x0000232B identify the retail body
-?FreeHeap@?$CTempBuffer@D$0IA@VCCRTAllocator@ATL@@@ATL@@AAEXXZ,0x000056C7,CTempBuffer FreeHeap emitted bytes equal CW2AEX deallocate ICF body; retail GetStringTypeExWFake calls this address; alias pin avoids duplicate progress claim
-?initializeBuildMetadata@Version@@QAEXXZ,0x0023870E,Reconstruction name not original spelling; Version constructor REL32 at 0x238881; body reads ID MACHINE USER GUID TIME DATE CONFIG into proven Version fields
-??4SplitChoiceStruct@AABTreeBuilderClass@@QAEAAU01@ABU01@@Z,0x00198BF0,Builder SplitChoice assignment109B exact; retail Build_Tree REL32 at199BAE; address already claimed by Node SplitChoice assignment so alias adds no coverage
-?uninitialized_copy@_STL@@YAPAGPAG00@Z,0x0000DF10,STLport 4.5.3 wide copy helper; address read from the basic_string<wchar_t>::reserve REL32 displacement at 0x0000DEF6 -- retail reaches it through the five-byte jump Ghidra reads as thunk_FUN_004179b0
-??$__copy_integer_and_fill@DV?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@@_STL@@YA?AV?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@0@PBDHV10@HHDDD@Z,0x000095E0,STLport 4.5.3 narrow copy-integer-and-fill; address read from the __put_integer REL32 displacement at 0x0000D114
-?free@_STL@@YAXPAX@Z,0x00030830,the _STL-namespace spelling of the same C++-linkage free already pinned at this address as ?free@@YAXPAX@Z; STLport headers declare free inside _STL so an inlined ~basic_string emits this decoration while a .cpp body calling the extern "C" import emits __imp__free - ios_base::~ios_base at 0x0001C220 carries both forms and the byte check discriminates because retail encodes 0x00030830 in that call displacement
-??0SortingIndexBufferClass@@QAE@G@Z,0x00138B20,self-verifying: retail DynamicIBAccessClass::Allocate_Sorting_Dynamic_Buffer at 0x00138F50 encodes 0x00138B20 in its constructor call REL32 displacement
-?DX8_Assert@@YAXXZ,0x0069E440,called from the DX8 arm of every index-buffer lock body; address read from retail REL32 at 0x00138840
-?Log_DX8_ErrorCode@@YAXI@Z,0x0011F450,the out-of-line half of DX8_ErrorCode; pushes the DXER tag and reaches Debug::SkipNext; address read from retail REL32 at 0x00138840
-?BFME_DX8_Thread_Assert@@YAXXZ,0x00120F50,releases BFMEs DX8 device mutex - decrements the recursion count at 0x00DEDA8C and signals the handle at 0x00DEC598; address read from retail REL32 at 0x00138840
-?BFME_DX8_Thread_Lock@@YAXXZ,0x0011F520,takes BFMEs DX8 device mutex with a 20-second WaitForSingleObject on 0x00DEC598; address read from retail REL32 at 0x00138790
-?_Invalidate_Mesh_Cache@WW3D@@SAXXZ,0x001170A0,address read from the retail REL32 in DX8IndexBufferClass::DX8IndexBufferClass at 0x00138980
-?_M_fill_assign@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEXIABQAX@Z,0x00027D40,address read from the retail REL32 in vector<void*>::assign at 0x00029120 - self-verifying because that 29-byte body is the displacement
-?erase@?$vector@IV?$allocator@I@_STL@@@_STL@@QAEPAIPAI0@Z,0x00027400,address read from the retail REL32 in vector<unsigned>::clear at 0x00027450 - self-verifying because that call is the only unresolved byte in the body
-?allocate@?$allocator@PAUBfmeE8@@@_STL@@QBEPAPAUBfmeE8@@IPBX@Z,0x00068E15,identical-code twin of the BfmeE12 allocator already pinned at this address; read from the retail REL32 in deque<BfmeE8>::_M_reallocate_map at 0x003B57E5
-?insert@?$map@HHU?$less@H@_STL@@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHH@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHH@_STL@@@2@@2@U32@ABU?$pair@$$CBHH@2@@Z,0x00289147,address read from the retail REL32 at 0x0028932C inside a body that byte-verifies against it
-??0?$_STLP_alloc_proxy@PAU?$_Rb_tree_node@U?$pair@$$CBHH@_STL@@@_STL@@U12@V?$allocator@U?$_Rb_tree_node@U?$pair@$$CBHH@_STL@@@_STL@@@2@@_STL@@QAE@ABV01@@Z,0x0027EA56,address read from the retail REL32 at 0x00574B2D inside a body that byte-verifies against it
-?get_far_extent@@YAXABVVector3@@0PAV1@@Z,0x0007B5C8,address read from the retail REL32 in CollisionMath::Overlap_Test(PlaneClass,AABoxClass) at 0x00719830
-?Collide@CollisionMath@@SA_NABVAABoxClass@@ABVVector3@@ABVTriClass@@PAUCastResultStruct@@@Z,0x00726790,address read from the retail REL32 in CollisionMath::Overlap_Test(AABoxClass,TriClass) at 0x00723EA0
-??0Buffer@@QAE@PAXJ@Z,0x006156D0,address read from the retail REL32 in both BufferPipe and BufferStraw constructors at 0x006159F0 and 0x0013C880
-?Load@INIClass@@QAEHAAVStraw@@@Z,0x00617B10,address read from the retail REL32 in INIClass::Load(FileClass&) at 0x00619120
-?Return_File@RawFileFactoryClass@@QAEXPAVFileClass@@@Z,0x006132A0,address read from the retail REL32 in INIClass::Save(const char*) at 0x00616650
-?_M_reallocate_map@?$deque@PAXV?$allocator@PAX@_STL@@@_STL@@IAEXI_N@Z,0x003B57E5,identical-code twin of the BfmeE8 body already matched at this address; read from the retail REL32 in deque<void*>::_M_reserve_map_at_back at 0x002F1F19
-?allocate@?$allocator@F@_STL@@QBEPAFIPBX@Z,0x00017710,address read from the retail REL32 in vector<short>::_M_insert_overflow at 0x0007EAA7
-?Initialize@HLodDefClass@@QAEXAAVHLodClass@@@Z,0x0019F620,address read from the retail REL32 in HLodDefClass::HLodDefClass(HLodClass&) at 0x001A0350
-?Format@StringClass@@QAAHPBDZZ,0x00610DD0,address read from the retail REL32 in SimpleFileFactoryClass::Get_File at 0x00613750 - two call sites both encode it
-?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVOBBoxClass@@ABVAABoxClass@@@Z,0x00724800,address read from the retail REL32 in ?Collect_Objects at 0x0071BBC0
-?collect_objects_in_leaf@GridCullSystemClass@@IAEXABVOBBoxClass@@PAVCullableClass@@@Z,0x0071B3C0,address read from the retail REL32 in ?Collect_Objects at 0x0071BBC0
-?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVFrustumClass@@ABVAABoxClass@@@Z,0x00719A70,address read from the retail REL32 in ?Collect_Objects at 0x0071BFB0
-?collect_objects_in_leaf@GridCullSystemClass@@IAEXABVFrustumClass@@PAVCullableClass@@@Z,0x0071B400,address read from the retail REL32 in ?Collect_Objects at 0x0071BFB0
-?Get_First_Collected_Object_Internal@CullSystemClass@@IAEPAVCullableClass@@XZ,0x007244B0,address read from the retail REL32 in ?Re_Partition at 0x0071C7D0
-?Get_Next_Collected_Object_Internal@CullSystemClass@@IAEPAVCullableClass@@PAV2@@Z,0x00724570,address read from the retail REL32 in ?Re_Partition at 0x0071C7D0
-??0CullSystemClass@@QAE@XZ,0x00724550,address read from the retail REL32 in ??0GridCullSystemClass at 0x0071CBE0
-??4Matrix3@@QAEAAV0@ABVMatrix3D@@@Z,0x00716890,address read from the retail REL32 in ??0OBBoxIntersectionTestClass at 0x0014A3F0
-?Device_To_View_Space@CameraClass@@QAEXABVVector2@@PAVVector3@@@Z,0x00134650,address read from the retail REL32 in ?Device_To_World_Space at 0x00134730
-?Seek@ChunkLoadClass@@QAEKK@Z,0x006150C0,address read from the retail REL32 in ?Load_W3D at 0x00195AE0
-?Add@?$DynamicVectorClass@UWeightInfoStruct@NamedPivotMapClass@@@@QAE_NABUWeightInfoStruct@NamedPivotMapClass@@@Z,0x00196880,address read from the retail REL32 in ?Add at 0x00196AA0
-??0Vector3SolidSphereRandomizer@@QAE@M@Z,0x00723230,address read from the retail REL32 in ParticleEmitterDefClass::Create_Randomizer at 0x001AFF60
-??0Vector3HollowSphereRandomizer@@QAE@M@Z,0x00723350,address read from the retail REL32 in ParticleEmitterDefClass::Create_Randomizer at 0x001AFF60
-??0Random3Class@@QAE@II@Z,0x006200B0,identical-code fold with the STLport _Hashtable_iterator constructor already matched here - both store two dwords at +0 and +4; address read from the retail REL32 in StreakRendererClass::subdivision_util at 0x00743280

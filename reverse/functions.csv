@@ -3237,3 +3237,5 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?Create_Randomizer@ParticleEmitterDefClass@@MAEPAVVector3Randomizer@@AAUW3dVolumeRandomizerStruct@@@Z,,0x001AFF60,352,Code/Libraries/Source/WWVegas/WW3D2/part_ldr.cpp,matched,callees pinned from their own displacements
 ?subdivision_util@StreakRendererClass@@AAEXIPBVVector3@@PBMPAIPAV2@PAM@Z,,0x00743280,1147,Code/Libraries/Source/WWVegas/WW3D2/streakRender.cpp,matched,callees pinned from their own displacements
 ?subdivision_util@SegLineRendererClass@@AAEXIPBVVector3@@PBMPAIPAV2@PAMPAVVector4@@5@Z,,0x00191480,1736,Code/Libraries/Source/WWVegas/WW3D2/seglinerenderer.cpp,matched,callees pinned from their own displacements
+?Is_Orthogonal@Matrix3@@QBEHXZ,,0x00716F30,480,Code/Libraries/Source/WWVegas/WWMath/matrix3.cpp,matched,placed by masked byte-scan; single hit
+?Get_Channel_Memory_Usage@NodeCompressedMotionStruct@@QAEHXZ,,0x0018F7B0,158,Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp,matched,placed by masked byte-scan; callees pinned from their own displacements
