@@ -504,3 +504,15 @@ __CIpow,0x006299A0,address read from the REL32 displacement at a placed body; st
 ?_M_reallocate_map@?$deque@PAXV?$allocator@PAX@_STL@@@_STL@@IAEXI_N@Z,0x003B57E5,identical-code twin of the BfmeE8 body already matched at this address; read from the retail REL32 in deque<void*>::_M_reserve_map_at_back at 0x002F1F19
 ?allocate@?$allocator@F@_STL@@QBEPAFIPBX@Z,0x00017710,address read from the retail REL32 in vector<short>::_M_insert_overflow at 0x0007EAA7
 ?Initialize@HLodDefClass@@QAEXAAVHLodClass@@@Z,0x0019F620,address read from the retail REL32 in HLodDefClass::HLodDefClass(HLodClass&) at 0x001A0350
+?Format@StringClass@@QAAHPBDZZ,0x00610DD0,address read from the retail REL32 in SimpleFileFactoryClass::Get_File at 0x00613750 - two call sites both encode it
+?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVOBBoxClass@@ABVAABoxClass@@@Z,0x00724800,address read from the retail REL32 in ?Collect_Objects at 0x0071BBC0
+?collect_objects_in_leaf@GridCullSystemClass@@IAEXABVOBBoxClass@@PAVCullableClass@@@Z,0x0071B3C0,address read from the retail REL32 in ?Collect_Objects at 0x0071BBC0
+?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVFrustumClass@@ABVAABoxClass@@@Z,0x00719A70,address read from the retail REL32 in ?Collect_Objects at 0x0071BFB0
+?collect_objects_in_leaf@GridCullSystemClass@@IAEXABVFrustumClass@@PAVCullableClass@@@Z,0x0071B400,address read from the retail REL32 in ?Collect_Objects at 0x0071BFB0
+?Get_First_Collected_Object_Internal@CullSystemClass@@IAEPAVCullableClass@@XZ,0x007244B0,address read from the retail REL32 in ?Re_Partition at 0x0071C7D0
+?Get_Next_Collected_Object_Internal@CullSystemClass@@IAEPAVCullableClass@@PAV2@@Z,0x00724570,address read from the retail REL32 in ?Re_Partition at 0x0071C7D0
+??0CullSystemClass@@QAE@XZ,0x00724550,address read from the retail REL32 in ??0GridCullSystemClass at 0x0071CBE0
+??4Matrix3@@QAEAAV0@ABVMatrix3D@@@Z,0x00716890,address read from the retail REL32 in ??0OBBoxIntersectionTestClass at 0x0014A3F0
+?Device_To_View_Space@CameraClass@@QAEXABVVector2@@PAVVector3@@@Z,0x00134650,address read from the retail REL32 in ?Device_To_World_Space at 0x00134730
+?Seek@ChunkLoadClass@@QAEKK@Z,0x006150C0,address read from the retail REL32 in ?Load_W3D at 0x00195AE0
+?Add@?$DynamicVectorClass@UWeightInfoStruct@NamedPivotMapClass@@@@QAE_NABUWeightInfoStruct@NamedPivotMapClass@@@Z,0x00196880,address read from the retail REL32 in ?Add at 0x00196AA0

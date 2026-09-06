@@ -3224,3 +3224,13 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?Put@Pipe@@UAEHPBXH@Z,,0x0061B130,21,Code/Libraries/Source/WWVegas/WWLib/pipe.cpp,matched,placed by masked byte-scan; single hit
 ?Append_Sub_Directory@SimpleFileFactoryClass@@QAEXPBD@Z,,0x00613650,251,Code/Libraries/Source/WWVegas/WWLib/ffactory.cpp,matched,placed by masked byte-scan; single hit
 ?Prepend_Sub_Directory@SimpleFileFactoryClass@@QAEXPBD@Z,,0x00613550,248,Code/Libraries/Source/WWVegas/WWLib/ffactory.cpp,matched,placed by masked byte-scan; single hit
+?Get_File@SimpleFileFactoryClass@@UAEPAVFileClass@@PBD@Z,,0x00613750,657,Code/Libraries/Source/WWVegas/WWLib/ffactory.cpp,matched,StringClass::Format pinned from its own displacement
+?Collect_Objects@GridCullSystemClass@@UAEXABVOBBoxClass@@@Z,,0x0071BBC0,995,Code/Libraries/Source/WWVegas/WWMath/gridcull.cpp,matched,placed by masked byte-scan; callees pinned from their own displacements
+?Collect_Objects@GridCullSystemClass@@UAEXABVFrustumClass@@@Z,,0x0071BFB0,961,Code/Libraries/Source/WWVegas/WWMath/gridcull.cpp,matched,placed by masked byte-scan; callees pinned from their own displacements
+?Re_Partition@GridCullSystemClass@@UAEXABVVector3@@0M@Z,,0x0071C7D0,555,Code/Libraries/Source/WWVegas/WWMath/gridcull.cpp,matched,placed by masked byte-scan; callees pinned from their own displacements
+?Load@GridCullSystemClass@@UAEXAAVChunkLoadClass@@@Z,,0x0071CA00,387,Code/Libraries/Source/WWVegas/WWMath/gridcull.cpp,matched,placed by masked byte-scan; single hit
+??0GridCullSystemClass@@QAE@XZ,,0x0071CBE0,260,Code/Libraries/Source/WWVegas/WWMath/gridcull.cpp,matched,placed by masked byte-scan; callees pinned from their own displacements
+??0OBBoxIntersectionTestClass@@QAE@ABVAABoxIntersectionTestClass@@ABVMatrix3D@@@Z,,0x0014A3F0,248,Code/Libraries/Source/WWVegas/WW3D2/mesh.cpp,matched,placed by masked byte-scan; callees pinned from their own displacements
+?Device_To_World_Space@CameraClass@@QAEXABVVector2@@PAVVector3@@@Z,,0x00134730,228,Code/Libraries/Source/WWVegas/WW3D2/camera.cpp,matched,placed by masked byte-scan; callees pinned from their own displacements
+?Load_W3D@MotionChannelClass@@QAE_NAAVChunkLoadClass@@@Z,,0x00195AE0,212,Code/Libraries/Source/WWVegas/WW3D2/motchan.cpp,matched,placed by masked byte-scan; callees pinned from their own displacements
+?Add@NamedPivotMapClass@@QAEXPBDM@Z,,0x00196AA0,81,Code/Libraries/Source/WWVegas/WW3D2/hanim.cpp,matched,placed by masked byte-scan; callees pinned from their own displacements
