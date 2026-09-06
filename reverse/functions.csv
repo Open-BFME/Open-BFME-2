@@ -180,7 +180,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_000095e0@@YAXXZ,,0x000095E0,569,Code/gen_asm/d_00005cd4.asm,matched,gen-dump;ghidra=FUN_004095e0
 ?d_0000b730@@YAXXZ,,0x0000B730,908,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040b730
 ?d_0000bc60@@YAXXZ,,0x0000BC60,314,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040bc60
-?d_0000c000@@YAXXZ,,0x0000C000,277,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040c000
 ?d_0000d050@@YAXXZ,,0x0000D050,214,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040d050
 ?d_0000d540@@YAXXZ,,0x0000D540,118,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040d540
 ?d_0000daa0@@YAXXZ,,0x0000DAA0,277,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040daa0
@@ -3273,3 +3272,4 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?Allocate_Object_Memory@?$ObjectPoolClass@VMultiListNodeClass@@$0BAA@@@QAEPAVMultiListNodeClass@@XZ,,0x00610680,198,Code/Libraries/Source/WWVegas/WWLib/ObjectPoolAllocateObjectMemory.cpp,matched,template instantiation from DEFINE_AUTO_POOL(MultiListNodeClass 256) in multilist.cpp; routes through the BFME byte allocator at 0x000307F0 not stock operator new; TU-scoped shim; needs G7
 ?Allocate_Object_Memory@?$ObjectPoolClass@VGridLinkClass@@$0BAA@@@QAEPAVGridLinkClass@@XZ,,0x0071AED0,198,Code/Libraries/Source/WWVegas/WWMath/GridLinkPoolAllocateObjectMemory.cpp,matched,template instantiation from DEFINE_AUTO_POOL(GridLinkClass 256) in gridcull.cpp; twin recipe of the MultiListNodeClass pool at 0x00610680
 ?do_put@?$money_put@GV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@@_STL@@MBE?AV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@2@V32@_NAAVios_base@2@GO@Z,,0x0000BE50,205,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_money_put_long_double.cpp,matched,stlport-4.5.3 wide money_put long-double overload; clean C++; allocator lifetime confirmed by retail unwind map
+?do_get@?$money_get@DV?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@@_STL@@MBE?AV?$istreambuf_iterator@DV?$char_traits@D@_STL@@@2@V32@0_NAAVios_base@2@AAHAAO@Z,,0x0000C000,277,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_money_get_long_double.cpp,matched,stlport-4.5.3 narrow money_get long-double overload; clean C++; visible noinline _M_getc preserves retail iterator caching
