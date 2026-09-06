@@ -170,3 +170,30 @@ all before spending time). The distribution contains no permission grant of any 
 file carries a BYTE/McGraw-Hill *disclaimer* of warranty, and the README ships the BSD
 warranty paragraph with the permission clause absent. A BSD licence minus its grant is not a
 licence. If game.dat contains it, hold it as `gen_asm` dump only.
+
+## Compiler flags: what a whole-tree sweep actually found (2026-09-06)
+
+Every flag below was swept across every unit that lacked it, keeping it only
+where all existing rows still verified AND `place_bodies` then placed something
+new. The counts are units, out of the whole tree.
+
+| flag | pays in | regresses | verdict |
+|---|---|---|---|
+| `/arch:SSE` | 39 | 6 | the big one -- 179 bodies, ~32 KB |
+| `/arch:SSE2` | 5 | 14 | separate question from SSE; both are per-unit |
+| `/Ob2` | 6 | 0 | safe everywhere, pays rarely |
+| `/G7` | 4 | 14 | mostly the wrong answer |
+| `/Oi` | 0 | 10 | destructive |
+| `/Op` | 0 | 14 | destructive |
+| `/GS` | 0 | 10 | destructive |
+| `/GF` `/Gy` `/GB` | 0 | 0 | inert |
+
+Two units reject BOTH `/arch` levels -- `matrix3d.cpp` and `vehiclecurve.cpp` --
+which is positive evidence that they really were built with x87.
+
+The STLport block is not where the flags are wrong: `/Ob2` and `/arch:SSE` over
+all 219 of those units gained nothing (and SSE broke four).
+
+So: retail was built a unit at a time and neighbours in the same directory
+disagree. Sweep per unit, keep per unit, and do not look for a tree-wide
+setting.
