@@ -793,69 +793,73 @@ void DX8Caps::Check_Texture_Compression_Support(const D3DCAPS8& caps)
 	retail->capsLog+=CapsWorkString;
 }
 
-// ?Check_Texture_Format_Support@DX8Caps@@AAEXW4WW3DFormat@@ABU_D3DCAPS8@@@Z present-unmatched
+// The mapping BFME uses for the five DXT slots is odd and it is reproduced
+// here rather than tidied: retail computes the format as 31545690h + 13Eh + i,
+// i.e. CONSECUTIVE integers from 31545844h ('DXT1') for i = 118..122, not the
+// four separate FourCCs 'DXT1'..'DXT5'.  Whether that is a bug in BFME does not
+// matter to the bytes; it is what the loop does.  Below 118 the index is passed
+// straight through, which is the same identity the render-to-texture body uses.
+struct BFME_DX8Caps_TextureFormatFields
+{
+	char pad[0x13e];
+	bool supportTextureFormat[123];			// 0x13e
+	char padToD3D[0x2d8 - (0x13e + 123)];
+	IDirect3D8 *direct3D;					// 0x2d8
+};
+
 void DX8Caps::Check_Texture_Format_Support(WW3DFormat display_format,const D3DCAPS8& caps)
 {
+	BFME_DX8Caps_TextureFormatFields *retail = (BFME_DX8Caps_TextureFormatFields *)this;
 	if (display_format==WW3D_FORMAT_UNKNOWN) {
-		for (unsigned i=0;i<WW3D_FORMAT_COUNT;++i) {
-			SupportTextureFormat[i]=false;
+		for (unsigned i=0;i<123;++i) {
+			retail->supportTextureFormat[i]=false;
 		}
 		return;
 	}
-	D3DFORMAT d3d_display_format=WW3DFormat_To_D3DFormat(display_format);
-	for (unsigned i=0;i<WW3D_FORMAT_COUNT;++i) {
-		if (i==WW3D_FORMAT_UNKNOWN) {
-			SupportTextureFormat[i]=false;
-		}
-		else {
-			WW3DFormat format=(WW3DFormat)i;
-			SupportTextureFormat[i]=SUCCEEDED(
-				Direct3D->CheckDeviceFormat(
-					caps.AdapterOrdinal,
-					caps.DeviceType,
-					d3d_display_format,
-					0,
-					D3DRTYPE_TEXTURE,
-					WW3DFormat_To_D3DFormat(format)));
-			if (SupportTextureFormat[i]) {
-				StringClass name(0,true);
-				Get_WW3D_Format_Name(format,name);
-				DXLOG(("Supports texture format: %s\r\n",name));
-			}
-		}
+	for (unsigned i=0;i<123;++i) {
+		D3DFORMAT format=(i<118) ? (D3DFORMAT)i : (D3DFORMAT)(0x31545844u+(i-118));
+		retail->supportTextureFormat[i]=SUCCEEDED(
+			retail->direct3D->CheckDeviceFormat(
+				caps.AdapterOrdinal,
+				caps.DeviceType,
+				(D3DFORMAT)display_format,
+				0,
+				D3DRTYPE_TEXTURE,
+				format));
 	}
 }
 
-// ?Check_Render_To_Texture_Support@DX8Caps@@AAEXW4WW3DFormat@@ABU_D3DCAPS8@@@Z present-unmatched
+// BFME's version is much smaller than Zero Hour's: it queries all 118
+// D3DFORMAT values with no name lookup and no logging, and passes the index
+// straight through as the format -- which is only meaningful because
+// WW3DFormat IS D3DFORMAT here (see the note above the compression overlay).
+// The empty arm is a rep-stos of the 118-byte table, and Direct3D is at 0x2D8.
+struct BFME_DX8Caps_RenderToTextureFields
+{
+	char pad[0x1b9];
+	bool supportRenderToTextureFormat[118];	// 0x1b9
+	char padToD3D[0x2d8 - (0x1b9 + 118)];
+	IDirect3D8 *direct3D;					// 0x2d8
+};
+
 void DX8Caps::Check_Render_To_Texture_Support(WW3DFormat display_format,const D3DCAPS8& caps)
 {
+	BFME_DX8Caps_RenderToTextureFields *retail = (BFME_DX8Caps_RenderToTextureFields *)this;
 	if (display_format==WW3D_FORMAT_UNKNOWN) {
-		for (unsigned i=0;i<WW3D_FORMAT_COUNT;++i) {
-			SupportRenderToTextureFormat[i]=false;
+		for (unsigned i=0;i<118;++i) {
+			retail->supportRenderToTextureFormat[i]=false;
 		}
 		return;
 	}
-	D3DFORMAT d3d_display_format=WW3DFormat_To_D3DFormat(display_format);
-	for (unsigned i=0;i<WW3D_FORMAT_COUNT;++i) {
-		if (i==WW3D_FORMAT_UNKNOWN) {
-			SupportRenderToTextureFormat[i]=false;
-		}
-		else {
-			WW3DFormat format=(WW3DFormat)i;
-			SupportRenderToTextureFormat[i]=SUCCEEDED(
-				Direct3D->CheckDeviceFormat(
-					caps.AdapterOrdinal,
-					caps.DeviceType,
-					d3d_display_format,
-					D3DUSAGE_RENDERTARGET,
-					D3DRTYPE_TEXTURE,
-					WW3DFormat_To_D3DFormat(format)));
-			if (SupportRenderToTextureFormat[i]) {
-				StringClass name(0,true);
-				Get_WW3D_Format_Name(format,name);
-				DXLOG(("Supports render-to-texture format: %s\r\n",name));
-			}
-		}
+	for (unsigned i=0;i<118;++i) {
+		retail->supportRenderToTextureFormat[i]=SUCCEEDED(
+			retail->direct3D->CheckDeviceFormat(
+				caps.AdapterOrdinal,
+				caps.DeviceType,
+				(D3DFORMAT)display_format,
+				D3DUSAGE_RENDERTARGET,
+				D3DRTYPE_TEXTURE,
+				(D3DFORMAT)i));
 	}
 }
 
@@ -864,47 +868,62 @@ void DX8Caps::Check_Render_To_Texture_Support(WW3DFormat display_format,const D3
 /*! KJM
 */
 // ?Check_Depth_Stencil_Support@DX8Caps@@AAEXW4WW3DFormat@@ABU_D3DCAPS8@@@Z present-unmatched
+// STILL SHORT OF EXACT, and only by register naming.  The structure, the
+// switch range, both jump tables and all 146 bytes are right; retail keeps the
+// loop counter in esi and indexes the byte table with it directly
+// (`movzx ecx,[esi+52B3DEh]`) while our build recomputes i-70 into eax and
+// indexes with that, and the whole call sequence is shifted one register
+// across -- ecx/edx where we use edx/ecx.  That is the same allocator phase
+// 0x00038790 and 0x0000D050 are stuck behind.  `int` instead of `unsigned` for
+// the loop variable does not move it.
+//
+// BFME's depth-stencil table is indexed by the D3DFORMAT value itself, like
+// the other two, so the loop runs 70..80 -- D3DFMT_D16_LOCKABLE through
+// D3DFMT_D16 -- and skips the four values in that span that are not depth
+// formats.  Retail does the skipping with a byte-index table and a jump table
+// laid down after the epilogue, which is what a switch over a dense range
+// compiles to; written as an if-chain it would be a compare cascade instead.
+struct BFME_DX8Caps_DepthStencilFields
+{
+	char pad[0x22f];
+	bool supportDepthStencilFormat[118];	// 0x22f
+	char padToD3D[0x2d8 - (0x22f + 118)];
+	IDirect3D8 *direct3D;					// 0x2d8
+};
+
 void DX8Caps::Check_Depth_Stencil_Support(WW3DFormat display_format, const D3DCAPS8& caps)
 {
-	if (display_format==WW3D_FORMAT_UNKNOWN) 
+	BFME_DX8Caps_DepthStencilFields *retail = (BFME_DX8Caps_DepthStencilFields *)this;
+	if (display_format==WW3D_FORMAT_UNKNOWN)
 	{
-		for (unsigned i=0;i<WW3D_ZFORMAT_COUNT;++i) 
+		for (unsigned i=0;i<118;++i)
 		{
-			SupportDepthStencilFormat[i]=false;
+			retail->supportDepthStencilFormat[i]=false;
 		}
 		return;
 	}
 
-	D3DFORMAT d3d_display_format=WW3DFormat_To_D3DFormat(display_format);
-	
-	for (unsigned i=0;i<WW3D_ZFORMAT_COUNT;++i) 
+	for (unsigned i=70;i<81;++i)
 	{
-		if (i==WW3D_ZFORMAT_UNKNOWN) 
+		switch (i)
 		{
-			SupportDepthStencilFormat[i]=false;
-		}
-		else 
-		{
-			WW3DZFormat format=(WW3DZFormat)i;
-			SupportDepthStencilFormat[i]=SUCCEEDED
-			(
-				Direct3D->CheckDeviceFormat
-				(
+		// 82 and 83 are D3DFMT_D32F_LOCKABLE and D3DFMT_D24FS8 -- D3D9-only
+		// depth formats, and more corroboration that this renderer is D3D9.
+		// They are past the loop bound so they never execute, but they are in
+		// the switch: retail's range guard is `cmp eax,0Dh`, which is 70..83.
+		case 70: case 71: case 73: case 75: case 77: case 79: case 80:
+		case 82: case 83:
+			retail->supportDepthStencilFormat[i]=SUCCEEDED(
+				retail->direct3D->CheckDeviceFormat(
 					caps.AdapterOrdinal,
 					caps.DeviceType,
-					d3d_display_format,
+					(D3DFORMAT)display_format,
 					D3DUSAGE_DEPTHSTENCIL,
-					D3DRTYPE_TEXTURE,
-					WW3DZFormat_To_D3DFormat(format)
-				)
-			);
-
-			if (SupportDepthStencilFormat[i]) 
-			{
-				StringClass name(0,true);
-				Get_WW3D_ZFormat_Name(format,name);
-				DXLOG(("Supports depth stencil format: %s\r\n",name));
-			}
+					D3DRTYPE_SURFACE,
+					(D3DFORMAT)i));
+			break;
+		default:
+			break;
 		}
 	}
 }
