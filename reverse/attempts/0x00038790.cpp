@@ -1,4 +1,6 @@
 // ?SkipNext@Debug@@SA_N_N@Z
+// partial score=0.95 date=2026-09-06
+// ?SkipNext@Debug@@SA_N_N@Z
 // partial score=0.95 date=2026-09-05
 ﻿// ?SkipNext@Debug@@SA_N_N@Z
 // partial score=0.95 date=2026-09-05
@@ -30,10 +32,36 @@
 // and alternates, so the first vtable load sets it for the whole body -- flip
 // that one and the rest follow.
 //
-// Untried ideas for the phase, in order: give SetCrashAddress a return value
-// the caller uses, so eax is committed before the argument temp is created;
-// spell the singleton as a reference rather than a pointer; and try /Ob0 to
-// see whether the allocator's preference order changes at all.
+// THOSE IDEAS ARE NOW REFUTED, along with 36 others (2026-09-06). The six
+// bytes are the allocator wall in its purest form: the instruction sequence,
+// the frame, the schedule and the length are all exact, and the ONLY
+// difference is that retail assigns edx to the argument temp and eax to the
+// vtable load where MSVC 7.1 does the reverse. Nothing reachable from source
+// or the command line moves it.
+//
+// Inert (byte-identical 6-byte miss): /Ob0 /Ob1 /Ob2 /Oa /Ow /Og /Ot /Ox /Gy
+// /GX /G5 /G6 /G7 /GB /Oi /Op /Gm /Zp1 /GS /Gf /GF, /MT, /ML,
+// #pragma optimize("a",off), #pragma optimize("w",off); and as source shapes,
+// hoisting the singleton into a local before the call, copying the bool into a
+// local first, and const-qualifying the volatile capture.
+//
+// Destructive (changes the length, so strictly worse): /Os, /O1,
+// #pragma optimize("t",off) -> 29 bytes; #pragma optimize("g",off) and
+// #pragma optimize("",off) -> 44; a volatile PARAMETER or a non-volatile copy
+// of the capture -> 35; `set ? true : false` -> 38; a volatile local for the
+// singleton -> 41. Dropping the volatile from the singleton, spelling it as a
+// reference, dereferencing it as (*theDebug), or laundering the capture
+// through a volatile-pointer cast all lose the prologue as well: 13 of 33.
+//
+// The phase is a front-end temp-numbering artifact, not a knob. Retail's
+// register assignment is what you get when the OBJECT expression is numbered
+// before the arguments; MSVC 7.1 here numbers the arguments first, and no
+// spelling of a virtual call through a global singleton reverses that. This
+// body needs new information -- a different compiler point release, or a
+// second body that pins the numbering order -- not more variants. It is the
+// same wall as 0x0000D050, 0x00019260 and 0x0000C000; treat all of them as one
+// problem. Only one toolchain is available to build.py (VC71_ROOT), so the
+// point-release theory cannot be tested from this host.
 // cl: /Oy- /MD
 //
 // WWDebug Debug::SkipNext. It records the call site for the crash or assert
