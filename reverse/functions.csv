@@ -2993,3 +2993,19 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ??4?$VectorClass@PAVRender2DClass@@@@QAEAAV0@ABV0@@Z,,0x00154C50,125,Code/Libraries/Source/WWVegas/WW3D2/render2dsentence.cpp,matched,placed by masked byte-scan once VectorClass kept IsValid current; single hit
 ??YRectClass@@QAEAAV0@ABV0@@Z,,0x00154120,112,Code/Libraries/Source/WWVegas/WW3D2/render2dsentence.cpp,matched,placed by masked byte-scan once VectorClass kept IsValid current; single hit
 ??YRectClass@@QAEAAV0@ABVVector2@@@Z,,0x001540D0,65,Code/Libraries/Source/WWVegas/WW3D2/render2dsentence.cpp,matched,placed by masked byte-scan once VectorClass kept IsValid current; single hit
+?Add@?$SimpleDynVecClass@K@@QAE_NABKH@Z,,0x00144940,85,Code/Libraries/Source/WWVegas/WW3D2/aabtree.cpp,matched,placed by masked byte-scan; single hit
+?Grow@?$SimpleDynVecClass@K@@IAE_NH@Z,,0x00144050,67,Code/Libraries/Source/WWVegas/WW3D2/aabtree.cpp,matched,placed by masked byte-scan; single hit
+?Floor@WWMath@@SAMM@Z,,0x001540B0,20,Code/Libraries/Source/WWVegas/WW3D2/lightenvironment.cpp,matched,placed by masked byte-scan; single hit
+?obbtri_compute_contact_normal@@YAXABUBTCollisionStruct@@PAVVector3@@@Z,,0x00720650,880,Code/Libraries/Source/WWVegas/WWMath/colmathobbtri.cpp,matched,placed by masked byte-scan; single hit
+?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVAABoxClass@@0@Z,,0x0071ABB0,262,Code/Libraries/Source/WWVegas/WWMath/aabtreecull.cpp,matched,placed by masked byte-scan; single hit
+?Add_Box@MinMaxAABoxClass@@QAEXABVAABoxClass@@@Z,,0x000E13D2,190,Code/Libraries/Source/WWVegas/WWMath/aabtreecull.cpp,matched,placed by masked byte-scan; single hit
+?Contains@AABoxClass@@QBE_NABVVector3@@@Z,,0x0071AFA0,144,Code/Libraries/Source/WWVegas/WWMath/aabtreecull.cpp,matched,placed by masked byte-scan; single hit
+??0AABoxClass@@QAE@ABVMinMaxAABoxClass@@@Z,,0x0019BF20,128,Code/Libraries/Source/WWVegas/WWMath/aabtreecull.cpp,matched,placed by masked byte-scan; single hit
+?Init@MinMaxAABoxClass@@QAEXABVAABoxClass@@@Z,,0x0019AFC0,94,Code/Libraries/Source/WWVegas/WWMath/aabtreecull.cpp,matched,placed by masked byte-scan; single hit
+?Set@PlaneClass@@QAEXABVVector3@@0@Z,,0x0007B7DB,68,Code/Libraries/Source/WWVegas/WWMath/colmathline.cpp,matched,placed by masked byte-scan; single hit
+?Update_Max@Vector3@@QAEXABV1@@Z,,0x000E0EA7,54,Code/Libraries/Source/WWVegas/WWMath/aabtreecull.cpp,matched,placed by masked byte-scan; single hit
+?Update_Min@Vector3@@QAEXABV1@@Z,,0x000E0E71,54,Code/Libraries/Source/WWVegas/WWMath/aabtreecull.cpp,matched,placed by masked byte-scan; single hit
+??GVector3@@QBE?AV0@XZ,,0x0007DF87,44,Code/Libraries/Source/WWVegas/WWMath/aabtreecull.cpp,matched,placed by masked byte-scan; single hit
+?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVPlaneClass@@ABVAABoxClass@@@Z,,0x00719830,263,Code/Libraries/Source/WWVegas/WWMath/aabtreecull.cpp,matched,placed by masked byte-scan; get_far_extent pinned from its displacement
+?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVAABoxClass@@ABVTriClass@@@Z,,0x00723EA0,160,Code/Libraries/Source/WWVegas/WWMath/colmathaabox.cpp,matched,placed by masked byte-scan; the AABox-Tri Collide pinned from its displacement
+?Collide@CollisionMath@@SA_NABVOBBoxClass@@ABVVector3@@ABVTriClass@@1PAUCastResultStruct@@@Z,,0x007209C0,5127,Code/Libraries/Source/WWVegas/WWMath/colmathobbtri.cpp,matched,placed by masked byte-scan; landed once obbtri_compute_contact_normal was claimed at 0x00720650

@@ -601,7 +601,6 @@ static inline void obbtri_compute_contact_point
 	Vector3::Add(result->ContactPoint,result->Fraction * context.BoxMove,&(result->ContactPoint));
 }
 
-// ?Collide@CollisionMath@@ present-unmatched
 bool CollisionMath::Collide
 (
 	const OBBoxClass &		box,
