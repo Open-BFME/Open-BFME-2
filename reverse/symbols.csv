@@ -491,3 +491,4 @@ __CIpow,0x006299A0,address read from the REL32 displacement at a placed body; st
 ?BFME_DX8_Thread_Assert@@YAXXZ,0x00120F50,releases BFMEs DX8 device mutex - decrements the recursion count at 0x00DEDA8C and signals the handle at 0x00DEC598; address read from retail REL32 at 0x00138840
 ?BFME_DX8_Thread_Lock@@YAXXZ,0x0011F520,takes BFMEs DX8 device mutex with a 20-second WaitForSingleObject on 0x00DEC598; address read from retail REL32 at 0x00138790
 ?_Invalidate_Mesh_Cache@WW3D@@SAXXZ,0x001170A0,address read from the retail REL32 in DX8IndexBufferClass::DX8IndexBufferClass at 0x00138980
+?_M_fill_assign@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEXIABQAX@Z,0x00027D40,address read from the retail REL32 in vector<void*>::assign at 0x00029120 - self-verifying because that 29-byte body is the displacement

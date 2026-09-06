@@ -20,6 +20,15 @@
 // with exactly that substitution, and it is opt-in: only a unit that puts the
 // shim on its include path sees it.
 
+// Retail does not inline STLport's placement new. push_back at 0x00029140
+// reaches _Construct as `push <ptr> / push 4 / call ??2@YAPAXIPAX@Z`, and that
+// operator is already in the ledger at 0x00006EE0 as a two-instruction body.
+// MSVC's <new> guards its inline definition with __PLACEMENT_NEW_INLINE, so
+// defining that macro first suppresses the definition and leaves our
+// declaration, which MSVC then has to call.
+#define __PLACEMENT_NEW_INLINE
+void *__cdecl operator new(unsigned int size, void *place);
+
 #include <vector>
 
 template class _STL::vector<void *, _STL::allocator<void *> >;
