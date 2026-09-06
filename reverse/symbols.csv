@@ -526,3 +526,4 @@ _memset,0x006291AE,CRT memset import thunk; Ghidra labels the retail call target
 _sin,0x00629216,CRT import thunk; retail target of the sin call in Coord2D::Rotate(float)
 _sqrt,0x0062921C,MSVCRT import thunk identified by retail call target and Ghidra
 _strlen,0x00629170,BFME2 retail strlen thunk and call target for StringBase<char>::compare(const char *)
+?_M_advance@?$_Deque_iterator_base@UBfmeE12@@@_STL@@QAEXH@Z,0x00584CB2,address read from the retail REL32 in both _Deque_iterator<BfmeE12> offset operators at 0x00584E57 and 0x004221E6
