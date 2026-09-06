@@ -1,48 +1,81 @@
 // ??$__put_integer@V?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@@_STL@@YA?AV?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@0@PAD0V10@AAVios_base@0@HD@Z
-// partial score=0.97 date=2026-09-05
-//
-// 214 bytes against retail's 214, and 208 of them identical.  All six that
-// differ are stack displacement bytes in two spill slots, listed at the end.
-//
-// Three corrections to the previous version of this stash, each of which moved
-// the body closer:
-//
-//   * the callee at 0x000179B0 takes FOUR arguments, not three.  The stack
-//     cleanup after it is `83 c4 10`.  reverse/functions.csv already claims
-//     that address as ?__copy_trivial@_STL@@YAPAXPBX0PAX@Z and
-//     reverse/symbols.csv pins the same address as
-//     ??$__copy_aux@PADPAD@_STL@@YAPADPAD00ABU__true_type@0@@Z: the two are
-//     identical-code-folded, and it is the four-argument __copy_aux spelling
-//     that retail calls here, with __true_type passed by const reference.
-//     Declaring the three-argument __copy_trivial at this site was what kept
-//     the earlier version structurally apart.
-//   * the tag argument must be DEFAULT-initialised, not value-initialised.
-//     `_Ret()` makes MSVC emit `c6 44 24 6c 00` to zero the empty object;
-//     retail has no such store, and a named `_Ret both_are_pointers;` has
-//     none either.
-//   * the body must follow vendor/stlport/stl/_num_put.c exactly: reassign
-//     BOTH __buf and __iend to the scratch buffer before calling
-//     __insert_grouping, and pass '+' and '-' as literals.  The earlier
-//     version hoisted plus/minus into locals at the top and passed
-//     local_buffer/local_buffer+length directly, which changed the register
-//     allocation -- retail keeps `buf` live in ebx and `f` in ebp, and only
-//     this shape reproduces that.
-//
-// What is left, at offsets into the body:
-//
-//   +0x21          retail spills the numpunct facet to [esp+0x58]; this body
-//                  spills it to [esp+0x68].
-//   +0x47 +0x4D +0x57  retail keeps basechars at [esp+0x5c]; this body keeps
-//                  it at [esp+0x58].
-//   +0x70 +0x74    the two reloads of those same two slots.
-//
-// So retail packs the facet and basechars into the two halves of the
-// by-value ostreambuf_iterator parameter slot, and this body packs basechars
-// into the dead __iend slot and the facet higher up.  Nothing else differs:
-// same length, same instructions, same registers, same branch displacements.
-// It is purely which dead incoming-parameter slot MSVC picks for two spills.
+// partial score=0.97 date=2026-09-06
 // cl: /EHs /EHc- /MD /D_STLP_USE_STATIC_LIB
 // stlport
+//
+// KEEP THE TWO LINES ABOVE AT THE TOP.  tools/build.py scans only a prefix of
+// the file for them, and this header had grown long enough that `// cl:` sat at
+// byte ~2538 and was silently ignored -- the body was compiling on the base
+// flags alone.  Any flag conclusion recorded against this body BEFORE that was
+// found is worthless and must be re-tested with the directive inside the
+// window.
+//
+// 214 bytes against retail's 214, and 208 of them identical.  All six that
+// differ are stack displacement bytes, listed at the end.
+//
+// THE FRAME, decoded from the target (this corrects the earlier note here,
+// which said retail packs the spills into the by-value ostreambuf_iterator
+// parameter slot -- it does not, and that claim sent two sessions the wrong
+// way).  The prologue is `sub esp,0x40` then push ebx/ebp/esi/edi, so with
+// E = entry esp the baseline is E-0x50 and the map is:
+//
+//   [esp+0x00..0x10)  the four saved registers
+//   [esp+0x10..0x50)  grpbuf[64] -- exactly 0x40 bytes, the WHOLE local block
+//   [esp+0x50]        return address
+//   [esp+0x54]        hidden sret pointer
+//   [esp+0x58]        buf          [esp+0x5c]  iend
+//   [esp+0x60]        s._M_buf     [esp+0x64]  s._M_ok
+//   [esp+0x68]        f            [esp+0x6c]  flags      [esp+0x70]  fill
+//
+// `lea edx,[esp+0x14]` one push deep confirms grpbuf at baseline+0x10, and the
+// tail confirms the sret: __copy_integer_and_fill cleans 0x28 = ten dwords =
+// sret + buf + len + s(2) + flags + width + fill + '+' + '-', and the epilogue
+// returns the hidden pointer in eax via `mov eax,esi`.
+//
+// So the local block is entirely consumed by grpbuf.  There is no free local
+// space at all, which is WHY this body is contended: both compilers are forced
+// to spill into dead incoming-parameter homes, and the frame size is identical
+// (0x40 on both sides), so the only remaining freedom is which home each spill
+// takes.
+//
+//   retail:    facet -> 0x58 (buf's home)    basechars -> 0x5c (iend's home)
+//   this body: facet -> 0x68 (f's home)      basechars -> 0x58 (buf's home)
+//
+// The iterator's own home at 0x60/0x64 is untouched by BOTH.  Retail takes the
+// two lowest dead homes in spill order; this build does not.
+//
+// The six differing bytes, at offsets into the body:
+//
+//   +0x21              facet spill        target 58, here 68
+//   +0x47 +0x4D +0x57  basechars stores   target 5c, here 58
+//   +0x70 +0x74        the reloads of those SAME two slots, seen through an esp
+//                      lowered 0x10 by the four argument pushes for
+//                      __insert_grouping: target 6c/68, here 68/78.  They are
+//                      not a third and fourth slot.
+//
+// REFUTED, all measured with the `// cl:` line inside the scan window so the
+// flags genuinely reached cl.exe.  None reduced the diff below 6 and none moved
+// either slot toward retail:
+//
+//   inert:      /Ow /Oy /Ot /Og /Ob1 /Ob2 /Oi /Ox /Gy /GF /Zi /G5 /G6 /GA /GT
+//               /Zp4 /Zp16 /Oa /Ow
+//   wreck it:   /Oa (206 bytes), /Os and /O1 (183), /GS (199 diff), /G7 (212),
+//               /Zp1 (keeps the 6, adds ~52 more)
+//
+// Source shapes refuted too, all inert at 6 bytes except where noted: hoisting
+// basechars to function scope; swapping the grouping/np declaration order; np
+// as a pointer instead of a reference; writing the __copy_aux call out by hand
+// with the tag hoisted.  Moving the np declaration inside the if-block behaves
+// exactly like /Oa -- 206 bytes, a different shape, worse.
+//
+// This is the same wall as 0x00019260 (_Init_timeinfo, sret temporary in a dead
+// param slot), 0x0000C000/0x0000DAA0 (money_get, two callee-saved registers
+// against retail's four) and _M_fill_insert (commit 8e15a12, one dead dword).
+// Four bodies, correct instruction streams, all blocked on MSVC 7.1's allocator
+// preference and all refuted against flag sweeps.  Untried here: perturbing the
+// slot-allocation ORDER rather than the shapes -- changing basechars' type or
+// width, or introducing a dummy local, so the two spilled values stop having
+// identical live-range shapes.
 //
 // The narrow twin of 0x00010A70, and three structural differences from it,
 // each worth a chunk of the body:
@@ -56,6 +89,9 @@
 //   * the buffer copy moves INSIDE the grouping branch. The wide unit has to
 //     copy unconditionally because it is widening; the narrow one only needs a
 //     scratch copy when __insert_grouping is about to rewrite it in place.
+//   * the wide twin never reuses a parameter home at all: three stores in its
+//     whole 332 bytes, all either /EHs scaffolding or a low local.  It offers
+//     no template for the narrow body's packing.
 
 typedef int ptrdiff_t;
 
