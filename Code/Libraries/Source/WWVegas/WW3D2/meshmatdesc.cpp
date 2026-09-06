@@ -73,7 +73,6 @@
 **
 **
 **************************************************************************************************/
-// ??0MatBufferClass@@ present-unmatched
 MatBufferClass::MatBufferClass(const MatBufferClass & that) :
 	ShareBufferClass<VertexMaterialClass *>(that)
 {

@@ -498,3 +498,6 @@ __CIpow,0x006299A0,address read from the REL32 displacement at a placed body; st
 ??0?$_STLP_alloc_proxy@PAU?$_Rb_tree_node@U?$pair@$$CBHH@_STL@@@_STL@@U12@V?$allocator@U?$_Rb_tree_node@U?$pair@$$CBHH@_STL@@@_STL@@@2@@_STL@@QAE@ABV01@@Z,0x0027EA56,address read from the retail REL32 at 0x00574B2D inside a body that byte-verifies against it
 ?get_far_extent@@YAXABVVector3@@0PAV1@@Z,0x0007B5C8,address read from the retail REL32 in CollisionMath::Overlap_Test(PlaneClass,AABoxClass) at 0x00719830
 ?Collide@CollisionMath@@SA_NABVAABoxClass@@ABVVector3@@ABVTriClass@@PAUCastResultStruct@@@Z,0x00726790,address read from the retail REL32 in CollisionMath::Overlap_Test(AABoxClass,TriClass) at 0x00723EA0
+??0Buffer@@QAE@PAXJ@Z,0x006156D0,address read from the retail REL32 in both BufferPipe and BufferStraw constructors at 0x006159F0 and 0x0013C880
+?Load@INIClass@@QAEHAAVStraw@@@Z,0x00617B10,address read from the retail REL32 in INIClass::Load(FileClass&) at 0x00619120
+?Return_File@RawFileFactoryClass@@QAEXPAVFileClass@@@Z,0x006132A0,address read from the retail REL32 in INIClass::Save(const char*) at 0x00616650

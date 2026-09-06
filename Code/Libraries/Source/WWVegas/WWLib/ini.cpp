@@ -163,7 +163,7 @@ void INIClass::Shutdown(void)
 {
 	delete SectionList;
 	delete SectionIndex;
-	delete[] Filename;
+	delete Filename;
 }
 
 /***********************************************************************************************
@@ -282,7 +282,7 @@ bool INIClass::Clear(char const * section, char const * entry)
 		SectionList->Delete();
 		SectionIndex->Clear();
 
-		delete[] Filename;
+		delete Filename;
 		Filename = nstrdup("<unknown>");
 	} else {
 		INISection * secptr = Find_Section(section);
@@ -348,7 +348,11 @@ const char * INIClass::Get_Filename (void) const
 int INIClass::Load(FileClass & file)
 {
 	FileStraw fs(file);
-	delete[] Filename;
+	// BFME frees this with the SCALAR delete: retail's body at 0x00619120
+	// calls ??3@YAXPAX@Z at 0x0002FD60, memory class 1, where the array form
+	// at 0x0002FD80 uses class 2.  The two are distinct byte-verified bodies
+	// in mem_ops.cpp, so this is not a fold.
+	delete Filename;
 	Filename = nstrdup(file.File_Name());
 	return(Load(fs));
 }
@@ -373,7 +377,7 @@ int INIClass::Load(const char *filename)
 {
 	file_auto_ptr file(_TheFileFactory, filename);
 	int retval=Load(*file);
-	delete[] Filename;
+	delete Filename;
 	Filename = nstrdup(filename);
 
 	return(retval);
@@ -606,7 +610,7 @@ int INIClass::Load(Straw & ffile)
 int INIClass::Save(FileClass & file) const
 {
 	FilePipe fp(file);
-	delete[] Filename;
+	delete Filename;
 	Filename = nstrdup(file.File_Name());
 	return(Save(fp));
 }
@@ -637,7 +641,7 @@ int INIClass::Save(const char *filename) const
 	}
 	file=NULL;
 
-	delete[] Filename;
+	delete Filename;
 	Filename = nstrdup(filename);
 
 	return(retval);
