@@ -716,3 +716,5 @@ _WSAStartup@8,0x006556B2,PE-verified FF25 import thunk to wsock32.dll!WSAStartup
 _ioctlsocket@12,0x006556CA,PE-verified FF25 import thunk to wsock32.dll!ioctlsocket via IAT 0x00BBA95C; independently read from retail import directory
 _setsockopt@20,0x006556D0,PE-verified FF25 import thunk to wsock32.dll!setsockopt via IAT 0x00BBA958; independently read from retail import directory
 _getsockopt@20,0x006556D6,PE-verified FF25 import thunk to wsock32.dll!getsockopt via IAT 0x00BBA954; independently read from retail import directory
+_gethostname@8,0x006556BE,PE-verified FF25 import thunk to wsock32.dll!gethostname via IAT 0x00BBA964; independently read from retail import directory
+_gethostbyname@4,0x006556A0,PE-verified FF25 import thunk to wsock32.dll!gethostbyname via IAT 0x00BBA978; independently read from retail import directory
