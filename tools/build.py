@@ -1754,6 +1754,19 @@ def verify_dir32_consistency(rows):
             addend = struct.unpack_from("<I", body, off)[0]
             sym2base[identity].add((final - addend) & 0xFFFFFFFF)
     inconsistent = sorted(s for s, b in sym2base.items() if len(b) > 1)
+    # Duplicate IAT entries can independently declare the exact same import.
+    # This is PE metadata evidence, not an address whitelist: both the DLL and
+    # export must agree, and the export must match the source's COFF spelling.
+    import_duplicates = set()
+    if any(s.startswith("__imp_") for s in inconsistent):
+        from pe_imports import read_imports, same_named_import_slots
+        try:
+            imports = read_imports(EXE.read_bytes())
+        except ValueError as exc:
+            raise SystemExit(f"DIR32 consistency: unreadable PE imports: {exc}")
+        import_duplicates = {s for s in inconsistent
+                             if same_named_import_slots(s, sym2base[s], imports)}
+        inconsistent = [s for s in inconsistent if s not in import_duplicates]
     if not whitelist_path.exists():
         # NOT self-seeding. Auto-writing this file is how 18 entries got in
         # without a human ever reading them, 8 of them hiding placements this
@@ -1772,7 +1785,8 @@ def verify_dir32_consistency(rows):
         for s in new[:12]:
             print(f"    {s}: bases {[hex(b) for b in sorted(sym2base[s])]}")
         raise SystemExit(1)
-    print(f"DIR32 consistency: OK ({len(sym2base)} symbols; {len(inconsistent)} whitelisted, 0 new)")
+    print(f"DIR32 consistency: OK ({len(sym2base)} symbols; {len(inconsistent)} whitelisted, "
+          f"{len(import_duplicates)} PE-verified duplicate import(s), 0 new)")
 
 
 UNMATCHED_MARKER_RE = re.compile(

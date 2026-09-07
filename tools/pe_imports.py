@@ -146,3 +146,17 @@ def same_named_import_thunk(left, right, imports):
     """Allow different IAT slots only when both declare the exact DLL/export."""
     identity = named_thunk_import(left, imports)
     return identity is not None and identity == named_thunk_import(right, imports)
+
+
+def same_named_import_slots(symbol, slots, imports):
+    """Prove duplicate IAT slots declare one DLL/export and the COFF name.
+
+    Retail can import fgetc twice from msvcr71.dll. Equal function names in
+    different DLLs, ordinal imports, or undeclared slots are not this case.
+    """
+    names = coff_import_names(symbol)
+    entries = [imports.get(slot) for slot in slots]
+    if not names or not entries or entries[0] is None:
+        return False
+    first = entries[0]
+    return first.name in names and all(entry == first for entry in entries)
