@@ -3535,3 +3535,4 @@ _XMP_Shift_Left_Bits,,0x0061BBD0,308,Code/Libraries/Source/WWVegas/WWLib/mpmath.
 ?_bfme_ro_v28@HLodClass@@UBEHXZ,,0x0019CBA0,32,Code/Libraries/Source/WWVegas/WW3D2/hlod.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 ?Get_Sub_Object_Bone_Index@HLodClass@@UBEHHH@Z,,0x0019CE80,31,Code/Libraries/Source/WWVegas/WW3D2/hlod.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 ?Get_Frustum@CameraClass@@QBEABVFrustumClass@@XZ,,0x0004CB06,16,Code/Libraries/Source/WWVegas/WW3D2/camera.cpp,matched,BFME2 exact BFME1-derived camera getter; unique masked placement
+?Get_Near_Clip_Bounding_Box@CameraClass@@QBEABVOBBoxClass@@XZ,,0x00135950,16,Code/Libraries/Source/WWVegas/WW3D2/camera.cpp,matched,BFME2 exact BFME1-derived camera getter; unique masked placement
