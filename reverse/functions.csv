@@ -4394,3 +4394,4 @@ _ciSocketThinkRecv,,0x0069C060,249,Code/GameEngine/Source/GameNetwork/GameSpy/ch
 _ciSocketThink,,0x0069C160,23,Code/GameEngine/Source/GameNetwork/GameSpy/chat/chatSocket.c,matched,reconstructed GameSpy Chat socket;848-byte layout and full code boundary verified; named imports and real callees checked
 _ciSocketSend,,0x0069C180,215,Code/GameEngine/Source/GameNetwork/GameSpy/chat/chatSocket.c,matched,reconstructed GameSpy Chat socket;848-byte layout and full code boundary verified; named imports and real callees checked
 _ciSocketSendf,,0x0069C260,93,Code/GameEngine/Source/GameNetwork/GameSpy/chat/chatSocket.c,matched,reconstructed GameSpy Chat socket;848-byte layout and full code boundary verified; named imports and real callees checked
+_ciParseUser,,0x0069C2C0,361,Code/GameEngine/Source/GameNetwork/GameSpy/chat/chatSocket.c,matched,reconstructed GameSpy Chat socket;848-byte layout and full code boundary verified; named imports and real callees checked
