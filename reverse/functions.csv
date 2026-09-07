@@ -3334,3 +3334,4 @@ _XMP_Init,,0x0061BD70,23,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,
 ?getPacketRouterSlot@ConnectionManager@@QAEIXZ,,0x004CF3B2,7,Code/GameEngine/Source/Common/ConnectionManagerLocalSlot.cpp,matched,BFME2 ConnectionManager packet-router-slot getter transferred from exact BFME1 source; identical bytes
 ?isSaveable@ParticleSystem@@QBE_NXZ,,0x002AA223,7,Code/GameEngine/Source/GameClient/System/ParticleSys.cpp,matched,BFME2 ParticleSystem saveable-flag getter transferred from exact BFME1 source; identical bytes
 ??1W3DRadarResetSurface@@QAE@XZ,,0x00176CB0,13,Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarResetSurface_destructor.cpp,matched,BFME2 W3DRadarResetSurface destructor transferred from exact BFME1 source; identical bytes
+??0BfmeChainRecord@@QAE@PAX0PAPAV0@@Z,,0x006257C0,57,Code/GameEngine/Source/Common/Bfme/BfmeChainRecord.cpp,matched,BFME2 BfmeChainRecord constructor transferred from exact BFME1 source; identical bytes
