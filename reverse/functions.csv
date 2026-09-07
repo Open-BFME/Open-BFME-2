@@ -3407,3 +3407,4 @@ _XMP_Shift_Left_Bits,,0x0061BBD0,308,Code/Libraries/Source/WWVegas/WWLib/mpmath.
 ?Get_Color_Mask@ShaderClass@@QBE?AW4ColorMaskType@1@XZ,,0x00137490,9,Code/Libraries/Source/WWVegas/WW3D2/shader.cpp,matched,BFME2 exact BFME1-derived shader getter; unique masked placement
 ?Get_Depth_Mask@ShaderClass@@QBE?AW4DepthMaskType@1@XZ,,0x00137480,9,Code/Libraries/Source/WWVegas/WW3D2/shader.cpp,matched,BFME2 exact BFME1-derived shader getter; unique masked placement
 ?Get_Fog_Func@ShaderClass@@QBE?AW4FogFuncType@1@XZ,,0x001374C0,9,Code/Libraries/Source/WWVegas/WW3D2/shader.cpp,matched,BFME2 exact BFME1-derived shader getter; unique masked placement
+?Get_NPatch_Enable@ShaderClass@@QBE?AW4NPatchEnableType@1@XZ,,0x00129430,9,Code/Libraries/Source/WWVegas/WW3D2/shader.cpp,matched,BFME2 exact BFME1-derived shader getter; unique masked placement
