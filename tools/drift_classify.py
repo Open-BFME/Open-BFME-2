@@ -194,7 +194,7 @@ def _disasm_objdump(data):
     tmp = SCRATCH / "blob.bin"
     tmp.write_bytes(data)
     out = subprocess.run(["objdump", "-b", "binary", "-m", "i386", "-M", "intel", "-D",
-                          str(tmp)], capture_output=True, text=True).stdout
+                          str(tmp)], capture_output=True, text=True, check=True).stdout
     instrs = []
     for line in out.splitlines():
         m = re.match(r"\s*[0-9a-f]+:\s+(?:[0-9a-f]{2} )+\s*(\S+)\s*(.*)", line)
@@ -219,7 +219,8 @@ def disasm(data):
     """Disassemble a raw i386 blob -> [(mnemonic, normalized-operands, raw-operands)].
 
     objdump is the reference backend; capstone is the fallback for a host with no
-    binutils, which a plain Windows checkout is -- without it every tier of
+    compatible binutils (Apple's objdump rejects GNU's raw-binary flags), or a
+    plain Windows checkout -- without it every tier of
     next_work.py that reads this report dies on FileNotFoundError. The two are
     only ever used to compare two blobs disassembled in the SAME run, so the
     backends never have to agree with each other on spelling, only with
@@ -227,7 +228,7 @@ def disasm(data):
     """
     try:
         return _disasm_objdump(data)
-    except (FileNotFoundError, OSError):
+    except (OSError, subprocess.CalledProcessError):
         pass
     try:
         return _disasm_capstone(data)
