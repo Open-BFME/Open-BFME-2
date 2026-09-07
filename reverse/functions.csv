@@ -4944,3 +4944,4 @@ _gpGetNumTransfers,,0x0072E240,71,Code/GameEngine/Source/GameNetwork/GameSpy/gp/
 _gpGetTransferSide,,0x0072DD10,67,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gp.c,matched,vendored=gamespy-2004; pinned BFME1 reference including inherited EA edits; unique whole-body match; gpGetTransferSide
 _gpGetTransferThrottle,,0x0072DC90,57,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gp.c,matched,vendored=gamespy-2004; pinned BFME1 reference including inherited EA edits; unique whole-body match; gpGetTransferThrottle
 _gpGetTransferProfile,,0x0072DCD0,57,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gp.c,matched,vendored=gamespy-2004; pinned BFME1 reference including inherited EA edits; unique whole-body match; gpGetTransferProfile
+_gpGetTransferSize,,0x0072DD60,57,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gp.c,matched,vendored=gamespy-2004; pinned BFME1 reference including inherited EA edits; unique whole-body match; gpGetTransferSize
