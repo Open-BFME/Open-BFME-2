@@ -3928,3 +3928,9 @@ _XMP_Shift_Left_Bits,,0x0061BBD0,308,Code/Libraries/Source/WWVegas/WWLib/mpmath.
 ??1Buffer@@QAE@XZ,,0x006157A0,39,Code/Libraries/Source/WWVegas/WWLib/buff.cpp,matched,Buffer; array new and delete fold to the scalar operators in this unit
 ??4Buffer@@QAEAAV0@ABV0@@Z,,0x00615760,50,Code/Libraries/Source/WWVegas/WWLib/buff.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 ?_M_read@_Filebuf_base@_STL@@QAEHPADH@Z,,0x0001D5D0,245,Code/Libraries/Source/WWVegas/WWLib/stlport_filebuf_base.cpp,matched,STLport filebuf text-mode read ported from BFME1 X4Filebuf implementation
+??6Debug@@UAEAAV0@PBX@Z,,0x00038950,101,Code/Libraries/Source/debug/debug_debug.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+??6Debug@@UAEAAV0@M@Z,,0x000388B0,68,Code/Libraries/Source/debug/debug_debug.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+??6Debug@@UAEAAV0@N@Z,,0x00038900,68,Code/Libraries/Source/debug/debug_debug.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+??0Format@Debug@@QAA@PBDZZ,,0x000386E0,35,Code/Libraries/Source/debug/debug_debug.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?DebugInternalAssert@@YAXPBDH0@Z,,0x0003E360,89,Code/Libraries/Source/debug/debug_internal.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?Random_Float@WWMath@@SAMXZ,,0x00711B90,26,Code/Libraries/Source/WWVegas/WWLib/wwmath.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
