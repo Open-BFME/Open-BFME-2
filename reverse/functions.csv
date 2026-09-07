@@ -3689,3 +3689,9 @@ _XMP_Shift_Left_Bits,,0x0061BBD0,308,Code/Libraries/Source/WWVegas/WWLib/mpmath.
 ?Get_Aspect_Ratio@CameraClass@@QBEMXZ,,0x00133D90,7,Code/Libraries/Source/WWVegas/WW3D2/camera.cpp,matched,BFME2 exact BFME1-derived camera getter
 ?Get_Spot_Angle_Cos@LightClass@@QBEMXZ,,0x0013F240,7,Code/Libraries/Source/WWVegas/WW3D2/lightenvironment.cpp,matched,BFME2 exact BFME1-derived light getter
 ?Get_Filter@TextureClass@@QAEAAVTextureFilterClass@@XZ,,0x0035FF72,4,Code/Libraries/Source/WWVegas/WW3D2/render2dsentence.cpp,matched,BFME2 exact BFME1-derived texture getter
+?Reset@EdgeMapperClass@@UAEXXZ,,0x00183520,17,Code/Libraries/Source/WWVegas/WW3D2/mapper.cpp,matched,BFME2 exact BFME1-derived texture mapper body
+?Reset@RandomTextureMapperClass@@UAEXXZ,,0x00183890,17,Code/Libraries/Source/WWVegas/WW3D2/mapper.cpp,matched,BFME2 exact BFME1-derived texture mapper body
+?Reset@RotateTextureMapperClass@@UAEXXZ,,0x001827E0,17,Code/Libraries/Source/WWVegas/WW3D2/mapper.cpp,matched,BFME2 exact BFME1-derived texture mapper body
+?Reset@SineLinearOffsetTextureMapperClass@@UAEXXZ,,0x00182B80,17,Code/Libraries/Source/WWVegas/WW3D2/mapper.cpp,matched,BFME2 exact BFME1-derived texture mapper body
+?Reset@ZigZagLinearOffsetTextureMapperClass@@UAEXXZ,,0x00183220,17,Code/Libraries/Source/WWVegas/WW3D2/mapper.cpp,matched,BFME2 exact BFME1-derived texture mapper body
+?Set_Frame_Per_Second@GridTextureMapperClass@@QAEXM@Z,,0x00184AB0,17,Code/Libraries/Source/WWVegas/WW3D2/mapper.cpp,matched,BFME2 exact BFME1-derived texture mapper body
