@@ -3901,3 +3901,15 @@ _XMP_Shift_Left_Bits,,0x0061BBD0,308,Code/Libraries/Source/WWVegas/WWLib/mpmath.
 ?Delete@?$DynamicVectorClass@PAX@@QAE_NABQAX@Z,,0x001969F0,38,Code/Libraries/Source/WWVegas/WWLib/msgloop.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 ??0?$TPoint2D@H@@QAE@HH@Z,,0x00024800,33,Code/Libraries/Source/WWVegas/WWLib/wwfont.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 ??0Buffer@@QAE@ABV0@@Z,,0x00615740,23,Code/Libraries/Source/WWVegas/WWLib/buff.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?Set@LineSegClass@@QAEXABV1@ABVMatrix3D@@@Z,,0x00718F70,608,Code/Libraries/Source/WWVegas/WWMath/lineseg.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?Set_Random@LineSegClass@@QAEXABVVector3@@0@Z,,0x007195C0,363,Code/Libraries/Source/WWVegas/WWMath/lineseg.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?Find_Point_Closest_To@LineSegClass@@QBE?AVVector3@@ABV2@@Z,,0x007191D0,204,Code/Libraries/Source/WWVegas/WWMath/lineseg.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?Collide@CollisionMath@@SA_NABVOBBoxClass@@ABVVector3@@ABVPlaneClass@@PAUCastResultStruct@@@Z,,0x00724A30,772,Code/Libraries/Source/WWVegas/WWMath/colmathobbox.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVOBBoxClass@@ABVVector3@@@Z,,0x007246F0,229,Code/Libraries/Source/WWVegas/WWMath/colmathobbox.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVOBBoxClass@@ABVLineSegClass@@@Z,,0x00724820,135,Code/Libraries/Source/WWVegas/WWMath/colmathobbox.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVFrustumClass@@ABVAABoxClass@@@Z,,0x00719A70,352,Code/Libraries/Source/WWVegas/WWMath/colmathfrustum.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVFrustumClass@@ABVVector3@@@Z,,0x00719940,137,Code/Libraries/Source/WWVegas/WWMath/colmathfrustum.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVFrustumClass@@ABVOBBoxClass@@AAH@Z,,0x00719C20,119,Code/Libraries/Source/WWVegas/WWMath/colmathfrustum.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?Init_Random@AABoxClass@@QAEXMMMM@Z,,0x00719730,126,Code/Libraries/Source/WWVegas/WWMath/aabox.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?Init_Empty@MinMaxAABoxClass@@QAEXXZ,,0x007197D0,46,Code/Libraries/Source/WWVegas/WWMath/aabox.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?Transform@AABoxClass@@SAXABVMatrix3D@@ABV1@PAV1@@Z,,0x007197B0,28,Code/Libraries/Source/WWVegas/WWMath/aabox.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
