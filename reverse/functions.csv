@@ -3449,3 +3449,4 @@ _XMP_Shift_Left_Bits,,0x0061BBD0,308,Code/Libraries/Source/WWVegas/WWLib/mpmath.
 ?Get_Opacity@SegmentedLineClass@@QAEMXZ,,0x0015E280,7,Code/Libraries/Source/WWVegas/WW3D2/segline.cpp,matched,BFME2 exact BFME1-derived getter; unique masked placement
 ?Get_Texture_Tile_Factor@SegmentedLineClass@@QAEMXZ,,0x0013F240,7,Code/Libraries/Source/WWVegas/WW3D2/segline.cpp,matched,BFME2 exact BFME1-derived getter; unique masked placement
 ?W3d_Shader_Set_Alpha_Test@@YAXPAUW3dShaderStruct@@H@Z,,0x001A44AC,12,Code/Libraries/Source/WWVegas/WW3D2/w3d_util.cpp,matched,BFME2 exact BFME1-derived shader helper; unique masked placement
+?W3d_Shader_Set_Depth_Mask@@YAXPAUW3dShaderStruct@@H@Z,,0x001A4464,12,Code/Libraries/Source/WWVegas/WW3D2/w3d_util.cpp,matched,BFME2 exact BFME1-derived shader helper; unique masked placement
