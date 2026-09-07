@@ -640,3 +640,13 @@ _strdup,0x006C4C70,address read from the retail REL32 in INIClass::Put_String at
 ?aabtri_check_cross_axis@@YA_NMHM@Z,0x00725FE0,address read from the retail REL32 in CollisionMath Collide AABox-Tri at 0x00726790
 ?aabtri_check_normal_axis@@YA_NXZ,0x00726240,address read from the retail REL32 in CollisionMath Collide AABox-Tri at 0x00726790
 ?aabtri_compute_contact_normal@@YAXAAVVector3@@@Z,0x007263A0,address read from the retail REL32 in CollisionMath Collide AABox-Tri at 0x00726790
+??0ObbCollisionStruct@@QAE@ABVOBBoxClass@@ABVVector3@@01@Z,0x00728810,address read from the REL32 displacement at a placed body
+?collide_obb_obb@@YA_NAAUObbCollisionStruct@@PAUCastResultStruct@@@Z,0x0072A5C0,address read from the REL32 displacement at a placed body
+?intersect_obb_obb@@YA_NAAUObbIntersectionStruct@@@Z,0x007277C0,address read from the REL32 displacement at a placed body
+??0BoxRenderObjClass@@QAE@ABUW3dBoxStruct@@@Z,0x00175A40,address read from the REL32 displacement at a placed body
+??0BoxRenderObjClass@@QAE@XZ,0x00174C80,address read from the REL32 displacement at a placed body
+??4OBBoxClass@@QAEAAV0@ABV0@@Z,0x00133990,address read from the REL32 displacement at a placed body
+?update_cached_box@OBBoxRenderObjClass@@MAEXXZ,0x001758C0,address read from the REL32 displacement at a placed body
+??0Null3DObjClass@@QAE@ABV0@@Z,0x00180EF0,address read from the REL32 displacement at a placed body
+?Remove_Polygon_Renderer@DX8TextureCategoryClass@@QAEXPAVDX8PolygonRendererClass@@@Z,0x001460E0,address read from the REL32 displacement at a placed body
+??1LogicalDecalClass@MultiFixedPoolDecalSystemClass@@QAE@XZ,0x0018F870,address read from the REL32 displacement at a placed body
