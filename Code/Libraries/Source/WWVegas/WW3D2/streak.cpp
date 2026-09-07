@@ -65,7 +65,6 @@ static SegLineRendererClass _LineRenderer;
 ** StreakLineClass implementation:
 */
 
-// ??0StreakLineClass@@ present-unmatched
 StreakLineClass::StreakLineClass(void) :
 		MaxSubdivisionLevels(0),
 		NormalizedScreenArea(0.0f)
@@ -74,7 +73,7 @@ StreakLineClass::StreakLineClass(void) :
 
 }
 
-// ??0StreakLineClass@@ present-unmatched
+// ??0StreakLineClass@@QAE@ABV0@@Z present-unmatched
 StreakLineClass::StreakLineClass(const StreakLineClass & src) :
 		MaxSubdivisionLevels(src.MaxSubdivisionLevels),
 		NormalizedScreenArea(src.NormalizedScreenArea),
