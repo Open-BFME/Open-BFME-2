@@ -68,9 +68,9 @@ enum ShaderShiftConstants
 	SHIFT_TEXTURING				= 16,	// bit shift for texturing setting (1 bit)
 	SHIFT_NPATCHENABLE			= 17,	// bit shift for npatch enabling
 	SHIFT_ALPHATEST				= 18,	// bit shift for alpha test setting
-	SHIFT_CULLMODE					= 19,	// bit shift for cullmode setting
-	SHIFT_POSTDETAILCOLORFUNC	= 20,	// bit shift for post-detail color function setting
-	SHIFT_POSTDETAILALPHAFUNC	= 24	// bit shift for post-detail alpha function setting
+	SHIFT_CULLMODE					= 20,	// follows BFME2's two-bit alpha-test field
+	SHIFT_POSTDETAILCOLORFUNC	= 21,	// bit shift for post-detail color function setting
+	SHIFT_POSTDETAILALPHAFUNC	= 25	// bit shift for post-detail alpha function setting
 };
 
 #define SHADE_CNST(depth_compare, depth_mask, color_mask, src_blend, dst_blend, fog, pri_grad, sec_grad, texture, alpha_test, cullmode, post_det_color, post_det_alpha) \
@@ -247,14 +247,14 @@ public:
 		// `shr eax,12h` followed by `and eax,3`, and that one byte is the
 		// only difference in the whole 126-byte body.  A two-value
 		// enumeration that already runs DISABLE/ENABLE/MAX needs the second
-		// bit, so this is consistent with the enum as written.  What this
-		// body does NOT tell us is whether MASK_CULLMODE moved out of bit 19
-		// to make room -- nothing here reads cullmode -- so that mask is left
-		// alone until a body that does read it says otherwise.
+		// bit, so this is consistent with the enum as written. Apply's full
+		// retail body at RVA0x137590 independently proves the following fields:
+		// cull tests byte[ShaderBits+2]&0x10 at RVA0x138034; detail color shifts
+		// by21 at RVA0x1379A8; detail alpha shifts by25 at RVA0x137BCF.
 		MASK_ALPHATEST				= (3<<18),			// mask for alpha test enable
-		MASK_CULLMODE				= (1<<19),			// mask for cullmode setting
-		MASK_POSTDETAILCOLORFUNC= (15<<20),			// mask for post detail color function setting
-		MASK_POSTDETAILALPHAFUNC= (7<<24)			// mask for post detail alpha function setting
+		MASK_CULLMODE				= (1<<20),			// mask for cullmode setting
+		MASK_POSTDETAILCOLORFUNC= (15<<21),			// mask for post detail color function setting
+		MASK_POSTDETAILALPHAFUNC= (7<<25)			// mask for post detail alpha function setting
 	};
 
 	ShaderClass(void)
