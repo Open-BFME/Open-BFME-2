@@ -4632,3 +4632,4 @@ _gpiProcessSearches,,0x00731CB0,239,Code/GameEngine/Source/GameNetwork/GameSpy/g
 _gpiStartSearch,,0x00730350,96,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gpiSearch.c,matched,vendored=gamespy-2004; pinned BFME1 reference including inherited EA edits; unique whole-body match; gpiStartSearch
 _gpiStartProfileSearch,,0x00730180,279,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gpiSearch.c,matched,vendored=gamespy-2004; pinned BFME1 reference including inherited EA edits; unique whole-body match; gpiStartProfileSearch
 _gpiCheckSocketConnect,,0x0072EF10,181,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gpiUtility.c,matched,vendored=gamespy-2004; pinned BFME1 reference including inherited EA edits; unique whole-body match; gpiCheckSocketConnect
+_gpiProcessSearch,,0x007308A0,5136,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gpiSearch.c,matched,vendored=gamespy-2004; pinned BFME1 reference including inherited EA edits; unique whole-body match; gpiProcessSearch
