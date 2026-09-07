@@ -910,17 +910,180 @@ void DX8Wrapper::Release_Device(void)
 	}
 }
 
-// ?Enumerate_Devices@DX8Wrapper@@ present-unmatched
+// Array deallocation has a non-throwing contract. The older GameMemory
+// declaration omits this compiler annotation; restoring it also preserves
+// retail's EH transition when the temporary format vector is destroyed.
+// See docs/reconstruction/dx8wrapper-enumeration.md for the complete audit.
+__declspec(nothrow) void __cdecl operator delete[](void *);
+
+// BFME2 keeps the reference's nine strings and resolution vector, with actual
+// 304-byte D3D9 caps and the 1100-byte adapter identifier between them.
+// Recovered view names do not assert original source spellings.
+class BfmeEnumerationDesc
+{
+
+public:
+
+	BfmeEnumerationDesc(void) : DeviceName(NULL), DeviceVendor(NULL), DevicePlatform(NULL), 
+											DriverName(NULL), DriverVendor(NULL), DriverVersion(NULL),
+											HardwareName(NULL), HardwareVendor(NULL), HardwareChipset(NULL)
+	{
+	}
+
+	~BfmeEnumerationDesc(void)
+	{
+	}
+
+	BfmeEnumerationDesc & operator = (const BfmeEnumerationDesc & src) 
+	{
+		set_device_name(src.Get_Device_Name());
+		set_device_vendor(src.Get_Device_Vendor());
+		set_device_platform(src.Get_Device_Platform());
+		set_driver_name(src.Get_Driver_Name());
+		set_driver_vendor(src.Get_Driver_Vendor());
+		set_driver_version(src.Get_Driver_Version());
+		set_hardware_name(src.Get_Hardware_Name());
+		set_hardware_vendor(src.Get_Hardware_Vendor());
+		set_hardware_chipset(src.Get_Hardware_Chipset());
+		Caps=src.Caps;
+		AdapterIdentifier=src.AdapterIdentifier;
+		ResArray = src.ResArray;
+		return *this;
+	}	
+
+	bool operator == (const BfmeEnumerationDesc & /*src*/) { return false; }
+	bool operator != (const BfmeEnumerationDesc & /*src*/) { return true; }
+
+	const char *		Get_Device_Name() const			{ return DeviceName; }
+	const char *		Get_Device_Vendor() const		{ return DeviceVendor; }
+	const char *		Get_Device_Platform() const	{ return DevicePlatform; }
+
+	const char *		Get_Driver_Name() const			{ return DriverName; }
+	const char *		Get_Driver_Vendor() const		{ return DriverVendor; }
+	const char *		Get_Driver_Version() const		{ return DriverVersion; }
+
+	const char *		Get_Hardware_Name() const		{ return HardwareName; }
+	const char *		Get_Hardware_Vendor() const	{ return HardwareVendor; }
+	const char *		Get_Hardware_Chipset() const	{ return HardwareChipset; }
+
+	const DynamicVectorClass<ResolutionDescClass> & Enumerate_Resolutions(void) const	{ return ResArray; }
+	const BFME_DeviceCaps9& 	Get_Caps() const { return Caps; }
+	const BFME_AdapterIdentifier9& Get_Adapter_Identifier() const { return AdapterIdentifier; }
+
+public:
+
+	void set_device_name(const char * name)		{ DeviceName=name; }
+	void set_device_vendor(const char * name)		{ DeviceVendor=name; }
+	void set_device_platform(const char * name)	{ DevicePlatform=name; }
+	void set_driver_name(const char * name)		{ DriverName=name; }
+	void set_driver_vendor(const char * name)		{ DriverVendor=name; }
+	void set_driver_version(const char * name)	{ DriverVersion=name; }
+	void set_hardware_name(const char * name)		{ HardwareName=name; }
+	void set_hardware_vendor(const char * name)	{ HardwareVendor=name; }
+	void set_hardware_chipset(const char * name)	{ HardwareChipset=name; }
+
+	void reset_resolution_list(void)					{ ResArray.Delete_All(); }
+	void add_resolution(int w,int h,int bits);
+
+	StringClass			DeviceName;
+	StringClass			DeviceVendor;
+	StringClass			DevicePlatform;
+
+	StringClass			DriverName;
+	StringClass			DriverVendor;
+	StringClass			DriverVersion;
+
+	StringClass			HardwareName;
+	StringClass			HardwareVendor;
+	StringClass			HardwareChipset;
+
+	BFME_DeviceCaps9				Caps;
+	BFME_AdapterIdentifier9 AdapterIdentifier;
+
+	
+	DynamicVectorClass<ResolutionDescClass>	ResArray;
+
+	friend class WW3D;
+	friend class DX8Wrapper;
+};
+
+
+// ?add_resolution@BfmeEnumerationDesc@@ present-unmatched
+inline void BfmeEnumerationDesc::add_resolution(int w,int h,int bits)		
+{ 
+	bool found = false;
+	for (int i=0; i<ResArray.Count(); i++) {
+		if (	(ResArray[i].Width == w) &&
+				(ResArray[i].Height == h) &&
+				(ResArray[i].BitDepth == bits))
+		{
+			found = true;
+		}
+	}
+	
+	if (!found) {
+		ResArray.Add(ResolutionDescClass(w,h,bits)); 
+	}
+}
+
+
+// This view has the fully proven 0x2E4 DX8Caps layout, including its three
+// StringClass members. Construction calls the verified caps-copy constructor.
+struct BfmeEnumerationCaps {
+ BfmeEnumerationCaps(IDirect3D8 *,const BFME_DeviceCaps9 &,WW3DFormat,const BFME_AdapterIdentifier9 &);
+ bool Is_Valid_Display_Format(int,int,D3DFORMAT);
+	int MaxDisplayWidth;
+	int MaxDisplayHeight;
+
+	BFME_DeviceCaps9 Caps;
+	bool SupportTnL;	
+	bool SupportDXTC;
+	bool supportGamma;
+	bool SupportNPatches;
+	bool SupportBumpEnvmap;
+	bool SupportBumpEnvmapLuminance;
+	bool SupportTextureFormat[123];
+	bool SupportRenderToTextureFormat[118];
+	bool SupportDepthStencilFormat[118];
+	bool SupportZBias;
+	bool SupportAnisotropicFiltering;
+	bool SupportModAlphaAddClr;
+	bool SupportDot3;
+	bool SupportPointSprites;
+	bool SupportCubemaps;
+	bool CanDoMultiPass;
+	bool IsFogAllowed;
+	bool SupportDynamicTextures;
+	int MaxTexturesPerPass;
+	int VertexShaderVersion;
+	int PixelShaderVersion;
+	int MaxSimultaneousTextures;
+	unsigned DeviceId;          // mapped classification at0x2C0
+	unsigned RawDeviceId;       // adapter PCI device ID at0x2C4
+	unsigned DriverBuildVersion;
+	int DriverVersionStatus;
+	int VendorId;      // mapped vendor at0x2D0
+	StringClass DriverDLL;
+	IDirect3D8* Direct3D; // warning XDK name conflict KJM
+	StringClass CapsLog;
+	StringClass CompactLog;
+
+};
+typedef char BFME_EnumerationDescriptorSize[(sizeof(BfmeEnumerationDesc)==1464)?1:-1];
+typedef char BFME_EnumerationCapsSize[(sizeof(BfmeEnumerationCaps)==740)?1:-1];
+// D3D9 enumerates modes for each explicit format. BFME2 additionally rejects
+// devices whose pixel shader version is below 1.1 before probing their modes.
+// ?Enumerate_Devices@DX8Wrapper@@KAXXZ
 void DX8Wrapper::Enumerate_Devices()
 {
-	DX8_Assert();
+	
 
-	int adapter_count = D3DInterface->GetAdapterCount();
+	int adapter_count = reinterpret_cast<BFME_Direct3D9 *>(D3DInterface)->GetAdapterCount();
 	for (int adapter_index=0; adapter_index<adapter_count; adapter_index++) {
 
-		D3DADAPTER_IDENTIFIER8 id;
-		::ZeroMemory(&id, sizeof(D3DADAPTER_IDENTIFIER8));
-		HRESULT res = D3DInterface->GetAdapterIdentifier(adapter_index,D3DENUM_NO_WHQL_LEVEL,&id);
+		BFME_AdapterIdentifier9 id;
+		::ZeroMemory(&id, sizeof(BFME_AdapterIdentifier9));
+		HRESULT res = reinterpret_cast<BFME_Direct3D9 *>(D3DInterface)->GetAdapterIdentifier(adapter_index,0,&id);
 
 		if (res == D3D_OK) {
 
@@ -928,7 +1091,7 @@ void DX8Wrapper::Enumerate_Devices()
 			** Set up the render device description
 			** TODO: Fill in more fields of the render device description?  (need some lookup tables)
 			*/
-			RenderDeviceDescClass desc;
+			BfmeEnumerationDesc desc;
 			desc.set_device_name(id.Description);
 			desc.set_driver_name(id.Driver);
 
@@ -941,44 +1104,50 @@ void DX8Wrapper::Enumerate_Devices()
 
 			desc.set_driver_version(buf);
 
-			D3DInterface->GetDeviceCaps(adapter_index,WW3D_DEVTYPE,&desc.Caps);
-			D3DInterface->GetAdapterIdentifier(adapter_index,D3DENUM_NO_WHQL_LEVEL,&desc.AdapterIdentifier);
+			reinterpret_cast<BFME_Direct3D9 *>(D3DInterface)->GetDeviceCaps(adapter_index,WW3D_DEVTYPE,&desc.Caps);
+			reinterpret_cast<BFME_Direct3D9 *>(D3DInterface)->GetAdapterIdentifier(adapter_index,0,&desc.AdapterIdentifier);
 
-			DX8Caps dx8caps(D3DInterface,desc.Caps,WW3D_FORMAT_UNKNOWN,desc.AdapterIdentifier);
+			if (desc.Caps.prefix.PixelShaderVersion < 0xffff0101) continue;
+
+			BfmeEnumerationCaps dx8caps(DX8Wrapper::D3DInterface,desc.Caps,WW3D_FORMAT_UNKNOWN,desc.AdapterIdentifier);
 
 			/*
 			** Enumerate the resolutions
 			*/
 			desc.reset_resolution_list();
-			int mode_count = D3DInterface->GetAdapterModeCount(adapter_index);
-			for (int mode_index=0; mode_index<mode_count; mode_index++) {
-				D3DDISPLAYMODE d3dmode;
-				::ZeroMemory(&d3dmode, sizeof(D3DDISPLAYMODE));
-				HRESULT res = D3DInterface->EnumAdapterModes(adapter_index,mode_index,&d3dmode);
+			DynamicVectorClass<D3DFORMAT> formats;
+			formats.Add(D3DFMT_R5G6B5);
+			formats.Add(D3DFMT_X1R5G5B5);
+			formats.Add(D3DFMT_R8G8B8);
+			formats.Add(D3DFMT_A8R8G8B8);
+			formats.Add(D3DFMT_X8R8G8B8);
+			int format_count = formats.Count();
+			for (int format_index=0; format_index<format_count; ++format_index) {
+				int mode_count = reinterpret_cast<BFME_Direct3D9 *>(D3DInterface)->GetAdapterModeCount(adapter_index,formats[format_index]);
+				for (int mode_index=0; mode_index<mode_count; mode_index++) {
+					D3DDISPLAYMODE d3dmode;
+					::ZeroMemory(&d3dmode, sizeof(D3DDISPLAYMODE));
+					HRESULT res = reinterpret_cast<BFME_Direct3D9 *>(D3DInterface)->EnumAdapterModes(adapter_index,formats[format_index],mode_index,&d3dmode);
 
-				if (res == D3D_OK) {
-					int bits = 0;
-					switch (d3dmode.Format)
-					{
-						case D3DFMT_R8G8B8:
-						case D3DFMT_A8R8G8B8:
-						case D3DFMT_X8R8G8B8:		bits = 32; break;
+					if (res == D3D_OK) {
+						int bits = 0;
+						switch (d3dmode.Format)
+						{
+							case D3DFMT_R8G8B8:
+							case D3DFMT_A8R8G8B8:
+							case D3DFMT_X8R8G8B8:		bits = 32; break;
 
-						case D3DFMT_R5G6B5:
-						case D3DFMT_X1R5G5B5:		bits = 16; break;
-					}
+							case D3DFMT_R5G6B5:
+							case D3DFMT_X1R5G5B5:		bits = 16; break;
+						}
 
-					// Some cards fail in certain modes, DX8Caps keeps list of those.
-					if (!dx8caps.Is_Valid_Display_Format(d3dmode.Width,d3dmode.Height,D3DFormat_To_WW3DFormat(d3dmode.Format))) {
-						bits=0;
-					}
-
-					/*
-					** If we recognize the format, add it to the list
-					** TODO: should we handle more formats?  will any cards report more than 24 or 16 bit?
-					*/
-					if (bits != 0) {
-						desc.add_resolution(d3dmode.Width,d3dmode.Height,bits);
+						/*
+						** If we recognize the format, add it to the list
+						** TODO: should we handle more formats?  will any cards report more than 24 or 16 bit?
+						*/
+						if (dx8caps.Is_Valid_Display_Format(d3dmode.Width,d3dmode.Height,d3dmode.Format) && bits != 0) {
+							desc.add_resolution(d3dmode.Width,d3dmode.Height,bits);
+						}
 					}
 				}
 			}
@@ -997,7 +1166,7 @@ void DX8Wrapper::Enumerate_Devices()
 				/*
 				** Add the render device to our table
 				*/
-				_RenderDeviceDescriptionTable.Add(desc);
+				reinterpret_cast<DynamicVectorClass<BfmeEnumerationDesc> &>(_RenderDeviceDescriptionTable).Add(desc);
 			}
 		}
 	}

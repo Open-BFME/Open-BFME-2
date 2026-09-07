@@ -796,3 +796,9 @@ _gpiProcessConnect,0x0072F7C0,GameSpy GP callee; independent unique 1311-byte so
 _gpiProcessGetInfo,0x007345F0,GameSpy GP callee; independent unique 1834-byte source candidate in gpiInfo.c; direct call from _gpiProcessOperation corroborates identity
 _gpiProcessRegisterUniqueNick,0x00731EB0,GameSpy GP callee; independent unique 186-byte source candidate in gpiUnique.c; direct call from _gpiProcessOperation corroborates identity
 _D3DXMatrixInverse@12,0x0062AF38,PE FF25 thunk at62AF38 references IAT BBA9C0 independently named d3dx9_27.dll!D3DXMatrixInverse; three pointer arguments and stdcall12 agree with SDK declaration
+??0BfmeEnumerationDesc@@QAE@XZ,0x001221B0,Recovered BFME2 descriptor view; complete 417-byte constructor and EH graph verified with nine strings and the 0x5A0 resolution vector
+??1BfmeEnumerationDesc@@QAE@XZ,0x00122360,Recovered BFME2 descriptor view; complete 225-byte destructor and EH graph verified with actual D3D9 field layout
+??0BfmeEnumerationCaps@@QAE@PAUIDirect3D8@@ABUBFME_DeviceCaps9@@W4WW3DFormat@@ABUBFME_AdapterIdentifier9@@@Z,0x0012C780,Recovered view of verified 265-byte DX8Caps caps-copy constructor; identical argument ABI and proven 0x2E4 object layout
+?Is_Valid_Display_Format@BfmeEnumerationCaps@@QAE_NHHW4_D3DFORMAT@@@Z,0x0012B330,Recovered view of verified 36-byte DX8Caps dimension filter; format argument is unused and retail enumeration passes the D3D format directly
+?add_resolution@BfmeEnumerationDesc@@QAEXHHH@Z,0x00121550,Recovered BFME2 descriptor view; complete 158-byte insertion compares width height and depth before adding a new resolution
+??4BfmeEnumerationDesc@@QAEAAV0@ABV0@@Z,0x00122450,Recovered BFME2 descriptor view; complete 188-byte assignment copies nine strings 304-byte caps 1100-byte adapter and resolution vector
