@@ -1,0 +1,294 @@
+// ?_M_open@_Filebuf_base@_STL@@QAE_NPBDHJ@Z
+// partial score=0.98 date=2026-09-07
+// cl: /GX- /MD /D_STLP_USE_STATIC_LIB
+// stlport
+//
+// STLport 4.5.3 _Filebuf_base, the Win32 half of basic_filebuf. The handle,
+// the mapping handle, the open mode and the two open flags sit at 0, 4, 8,
+// 0x0C and 0x0D, which is what every one of these bodies indexes.
+
+#include <stddef.h>
+
+extern "C" __declspec(dllimport) int __stdcall ReadFile(
+	void *handle, void *buffer, unsigned long bytes,
+	unsigned long *read, void *overlapped);
+extern "C" __declspec(dllimport) unsigned long __stdcall SetFilePointer(
+	void *handle, long low, long *high, unsigned long method);
+extern "C" __declspec(dllimport) int __stdcall SetEndOfFile(void *handle);
+extern "C" __declspec(dllimport) void *__cdecl _get_osfhandle(int file_no);
+extern bool bfmeGoDXF(void *file);
+extern "C" __declspec(dllimport) void *__stdcall CreateFileA(
+	const char *name, unsigned long access, unsigned long share,
+	void *security, unsigned long disposition, unsigned long flags,
+	void *template_file);
+
+extern "C" __declspec(dllimport) int __stdcall UnmapViewOfFile(const void *base);
+extern "C" __declspec(dllimport) int __stdcall CloseHandle(void *handle);
+extern "C" __declspec(dllimport) unsigned long __stdcall GetFileSize(
+		void *handle, unsigned long *high);
+extern "C" __declspec(dllimport) unsigned long __stdcall GetLastError(void);
+extern "C" __declspec(dllimport) unsigned long __stdcall SetFilePointer(
+		void *handle, long low, long *high, unsigned long method);
+
+struct _System_info
+{
+	unsigned long _M_oem_id;
+	unsigned long _M_page_size;
+	void *_M_minimum_application_address;
+	void *_M_maximum_application_address;
+	unsigned long *_M_active_processor_mask;
+	unsigned long _M_number_of_processors;
+	unsigned long _M_processor_type;
+	unsigned long _M_allocation_granularity;
+	unsigned short _M_processor_level;
+	unsigned short _M_processor_revision;
+};
+
+extern "C" __declspec(dllimport) void __stdcall GetSystemInfo(
+		_System_info *info);
+
+namespace _STL
+{
+
+union _Large_integer
+{
+	struct
+	{
+		unsigned long _M_low;
+		long _M_high;
+	} _M_parts;
+
+	__int64 _M_quad;
+};
+
+class _Filebuf_base
+{
+public:
+	_Filebuf_base();
+
+	bool _M_open(const char *name, int openmode, long permission);
+	long _M_file_size();
+	long _M_seek(long offset, int direction);
+	void _M_unmap(void *base, long length);
+	bool _M_close();
+	ptrdiff_t _M_read(char *buf, ptrdiff_t n);
+
+protected:
+	void *_M_file_id;
+	void *_M_view_id;
+	int _M_openmode;
+	bool _M_is_open;
+	bool _M_should_close;
+	unsigned char _M_regular_file;
+	unsigned char _M_pad;
+
+	static unsigned long _M_page_size;
+};
+
+unsigned long _Filebuf_base::_M_page_size;
+
+_Filebuf_base::_Filebuf_base()
+	: _M_file_id(reinterpret_cast<void *>(-1)), _M_openmode(0),
+	  _M_is_open(false), _M_should_close(false)
+{
+	if (_M_page_size == 0)
+	{
+		_System_info info;
+
+		GetSystemInfo(&info);
+		_M_page_size = info._M_page_size;
+	}
+
+	_M_view_id = 0;
+
+	if (!(_M_page_size > 0))
+		_M_page_size = 0x1000;
+}
+
+bool _Filebuf_base::_M_open(const char *name, int openmode, long permission)
+{
+	void *file_no;
+
+	if (_M_is_open)
+		return false;
+
+	unsigned long desired_access, creation_disposition;
+	bool do_truncate = false;
+
+	switch (openmode & ~(2 | 4)) {
+	case 16:
+	case 16 | 32:
+		desired_access = 0x40000000;
+		creation_disposition = 4;
+		do_truncate = true;
+		break;
+	case 16 | 1:
+		desired_access = 0x40000000;
+		creation_disposition = 4;
+		break;
+	case 8:
+		desired_access = 0x80000000;
+		creation_disposition = 3;
+		permission = 0;
+		break;
+	case 8 | 16:
+		desired_access = 0xC0000000;
+		creation_disposition = 3;
+		break;
+	case 8 | 16 | 32:
+		desired_access = 0xC0000000;
+		creation_disposition = 4;
+		do_truncate = true;
+		break;
+	default:
+		return false;
+	}
+
+	file_no = CreateFileA(name, desired_access, 3, 0,
+			creation_disposition, permission, 0);
+	if (file_no == reinterpret_cast<void *>(-1))
+		return false;
+
+	if ((do_truncate && SetEndOfFile(file_no) == 0) ||
+		(((openmode & 2) != 0) &&
+		 (SetFilePointer(file_no, 0, 0, 2) == 0xFFFFFFFF))) {
+		CloseHandle(file_no);
+		return false;
+	}
+
+	_M_is_open = true;
+	_M_file_id = file_no;
+	_M_should_close = _M_is_open;
+	_M_openmode = openmode;
+	_M_regular_file = bfmeGoDXF(_M_file_id);
+	return _M_is_open;
+}
+
+__declspec(dllimport) __forceinline long __cdecl _File_size(void *handle)
+{
+	_Large_integer size;
+
+	size._M_parts._M_low = GetFileSize(handle,
+			reinterpret_cast<unsigned long *>(&size._M_parts._M_high));
+
+	if (size._M_parts._M_low == 0xFFFFFFFF && GetLastError() != 0)
+		return 0;
+
+	return size._M_parts._M_low;
+}
+
+long _Filebuf_base::_M_file_size()
+{
+	return _File_size(_M_file_id);
+}
+
+long _Filebuf_base::_M_seek(long offset, int direction)
+{
+	unsigned long method;
+
+	switch (direction)
+	{
+	case 0x01:
+		if (offset < 0)
+			return -1;
+
+		method = 0;
+		break;
+
+	case 0x02:
+		method = 1;
+		break;
+
+	case 0x04:
+		if (-offset > _File_size(_M_file_id))
+			return -1;
+
+		method = 2;
+		break;
+
+	default:
+		return -1;
+	}
+
+	_Large_integer position;
+
+	position._M_quad = offset;
+	position._M_parts._M_low = SetFilePointer(_M_file_id,
+			position._M_parts._M_low, &position._M_parts._M_high, method);
+
+	if (position._M_parts._M_low == 0xFFFFFFFF && GetLastError() != 0)
+		return -1;
+
+	return position._M_parts._M_low;
+}
+
+void _Filebuf_base::_M_unmap(void *base, long)
+{
+	if (base != 0)
+		UnmapViewOfFile(base);
+
+	if (_M_view_id != 0)
+		CloseHandle(_M_view_id);
+
+	_M_view_id = 0;
+}
+
+bool _Filebuf_base::_M_close()
+{
+	if (!_M_is_open)
+		return false;
+
+	bool ok;
+
+	if (!_M_should_close)
+		ok = true;
+	else if (_M_file_id != reinterpret_cast<void *>(-1))
+		ok = CloseHandle(_M_file_id) != 0;
+	else
+		ok = false;
+
+	_M_should_close = false;
+	_M_is_open = false;
+	_M_openmode = 0;
+
+	return ok;
+}
+
+ptrdiff_t _Filebuf_base::_M_read(char *buf, ptrdiff_t n)
+{
+	unsigned long number_of_bytes_read;
+	ReadFile(_M_file_id, (void *)buf, (unsigned long)n,
+			&number_of_bytes_read, 0);
+
+	if (!(_M_openmode & 4) && number_of_bytes_read) {
+		char *to = buf;
+		char *last = buf + number_of_bytes_read - 1;
+		char *from;
+		for (from = buf; from <= last && *from != 26; ++from) {
+			if (*from != 13) {
+				*to++ = *from;
+			} else if (from < last) {
+				if (*(from + 1) != 10)
+					*to++ = 13;
+			} else {
+				char peek = ' ';
+				unsigned long bytes_peeked;
+				ReadFile(_M_file_id, (void *)&peek, 1, &bytes_peeked, 0);
+				if (bytes_peeked) {
+					if (peek != 10) {
+						*to++ = 13;
+						SetFilePointer(_M_file_id, -1, 0, 1);
+					} else {
+						SetFilePointer(_M_file_id, -2, 0, 1);
+					}
+				}
+			}
+		}
+		if (from <= last)
+			SetFilePointer(_M_file_id, (long)((last + 1) - from), 0, 1);
+		number_of_bytes_read = (unsigned long)(to - buf);
+	}
+	return (ptrdiff_t)number_of_bytes_read;
+}
+
+}
