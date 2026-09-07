@@ -3302,3 +3302,11 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?setFrameCommandCount@FrameData@@QAEXI@Z,,0x0009070B,9,Code/GameEngine/Source/Common/FrameDataManagerCounts.cpp,matched,BFME2 frame-ring expected-command setter used by reset and frame-info admission
 ?destroyGameMessages@FrameData@@QAEXXZ,,0x005DA5EB,21,Code/GameEngine/Source/Common/FrameDataManagerCounts.cpp,matched,BFME2 frame-ring command-list cleanup; null-checks the list then resets it and clears command count
 ?destroyGameMessages@FrameDataManager@@QAEXXZ,,0x0058B7ED,43,Code/GameEngine/Source/Common/FrameDataManagerCounts.cpp,matched,BFME2 frame-ring manager cleanup loop calls each entry cleanup across the fixed ring
+?Get_First_Collected_Object_Internal@CullSystemClass@@IAEPAVCullableClass@@XZ,,0x007244B0,4,Code/Libraries/Source/WWVegas/WWMath/cullsys.cpp,matched,BFME2 collection head accessor transferred from BFME1 source; retail body is mov eax ecx and ret
+?Get_Next_Collected_Object_Internal@CullSystemClass@@IAEPAVCullableClass@@PAV2@@Z,,0x00724570,19,Code/Libraries/Source/WWVegas/WWMath/cullsys.cpp,matched,BFME2 collection successor accessor transferred from BFME1 source; null guard and NextCollected field verified in retail
+?Reset_Collection@CullSystemClass@@QAEXXZ,,0x0065D1C0,8,Code/Libraries/Source/WWVegas/WWMath/cullsys.cpp,matched,BFME2 collection reset folded with AABTreeIterator reset; BFME1 source clears CollectionHead
+?Cur_Micro_Chunk_ID@ChunkLoadClass@@QAEKXZ,,0x006150A0,8,Code/Libraries/Source/WWVegas/WWLib/chunkio.cpp,matched,BFME2 micro chunk ID accessor transferred from BFME1 chunkio source; returns current micro chunk identifier
+?Cur_Chunk_ID@ChunkLoadClass@@QAEKXZ,,0x00615020,11,Code/Libraries/Source/WWVegas/WWLib/chunkio.cpp,matched,BFME2 chunk ID accessor transferred from BFME1 chunkio source; returns current chunk identifier
+_XMP_Fetch_Prime_Table,,0x0061B7B0,6,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,BFME2 prime table accessor transferred from BFME1 mpmath source
+_XMP_Fetch_Prime_Size,,0x0061B7C0,6,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,BFME2 prime table size accessor transferred from BFME1 mpmath source
+_XMP_Init,,0x0061BD70,23,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,BFME2 multiprecision zero and seed initializer transferred from BFME1 mpmath source
