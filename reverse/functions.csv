@@ -3456,3 +3456,4 @@ _XMP_Shift_Left_Bits,,0x0061BBD0,308,Code/Libraries/Source/WWVegas/WWLib/mpmath.
 ?W3d_Shader_Set_Pri_Gradient@@YAXPAUW3dShaderStruct@@H@Z,,0x001A447C,12,Code/Libraries/Source/WWVegas/WW3D2/w3d_util.cpp,matched,BFME2 exact BFME1-derived shader helper; unique masked placement
 ?W3d_Shader_Set_Sec_Gradient@@YAXPAUW3dShaderStruct@@H@Z,,0x001A4488,12,Code/Libraries/Source/WWVegas/WW3D2/w3d_util.cpp,matched,BFME2 exact BFME1-derived shader helper; unique masked placement
 ?W3d_Shader_Set_Src_Blend_Func@@YAXPAUW3dShaderStruct@@H@Z,,0x001A4494,12,Code/Libraries/Source/WWVegas/WW3D2/w3d_util.cpp,matched,BFME2 exact BFME1-derived shader helper; unique masked placement
+?W3d_Shader_Set_Texturing@@YAXPAUW3dShaderStruct@@H@Z,,0x001A44A0,12,Code/Libraries/Source/WWVegas/WW3D2/w3d_util.cpp,matched,BFME2 exact BFME1-derived shader helper; unique masked placement
