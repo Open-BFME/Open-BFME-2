@@ -3385,3 +3385,4 @@ _XMP_Shift_Left_Bits,,0x0061BBD0,308,Code/Libraries/Source/WWVegas/WWLib/mpmath.
 ?Is_Translucent@RenderObjClass@@UBEHXZ,,0x0006CF49,9,Code/Libraries/Source/WWVegas/WW3D2/hlod.cpp,matched,BFME2 exact BFME1-derived predicate; unique masked placement
 ?Get_Alpha_Test@ShaderClass@@QBE?AW4AlphaTestType@1@XZ,,0x00125FBE,9,Code/Libraries/Source/WWVegas/WW3D2/part_buf.cpp,matched,BFME2 exact BFME1-derived getter; unique masked placement
 ?Get_Dst_Blend_Func@ShaderClass@@QBE?AW4DstBlendFuncType@1@XZ,,0x00125FC7,9,Code/Libraries/Source/WWVegas/WW3D2/part_buf.cpp,matched,BFME2 exact BFME1-derived getter; unique masked placement
+?Get_Src_Blend_Func@ShaderClass@@QBE?AW4SrcBlendFuncType@1@XZ,,0x00125FD0,9,Code/Libraries/Source/WWVegas/WW3D2/part_buf.cpp,matched,BFME2 exact BFME1-derived getter; unique masked placement
