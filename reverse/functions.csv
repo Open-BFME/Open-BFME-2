@@ -3628,3 +3628,4 @@ _XMP_Shift_Left_Bits,,0x0061BBD0,308,Code/Libraries/Source/WWVegas/WWLib/mpmath.
 ?Set_Current_Subdivision_Level@StreakRendererClass@@QAEXI@Z,,0x00742EF0,10,Code/Libraries/Source/WWVegas/WW3D2/streakRender.cpp,matched,BFME2 exact BFME1-derived streak setter; unique masked placement
 ?First@SimpleSceneIterator@@UAEXXZ,,0x00140E70,10,Code/Libraries/Source/WWVegas/WW3D2/scene.cpp,matched,BFME2 exact BFME1-derived scene iterator helper; unique masked placement
 ?Next@SimpleSceneIterator@@UAEXXZ,,0x00140E80,10,Code/Libraries/Source/WWVegas/WW3D2/scene.cpp,matched,BFME2 exact BFME1-derived scene iterator helper; unique masked placement
+?Enable_Two_Sided_Rendering@IDBufferClass@@QAEX_N@Z,,0x005BE1D8,10,Code/Libraries/Source/WWVegas/WW3D2/mesh.cpp,matched,BFME2 exact BFME1-derived rendering setter; unique masked placement
