@@ -3345,3 +3345,4 @@ _XMP_Init,,0x0061BD70,23,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,
 ?rva00753947@@YAHXZ,,0x00753947,11,Code/GameEngine/Source/Common/Rva00753947Set.cpp,matched,ported from the exact BFME1 helper; unique BFME2 placement calls SetFlag and returns 1
 ?Put_String@INIClass@@QAE_NPBD00@Z,,0x00616FB0,554,Code/Libraries/Source/WWVegas/WWLib/ini.cpp,matched,INIClass::Put_String restored from the Zero Hour reference; scalar delete plus a direct strdup
 ?Set_Spot_Exponent@LightClass@@QAEXM@Z,,0x00270678,17,Code/Libraries/Source/WWVegas/WW3D2/light.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?Set_Native_Screen_Size@RenderObjClass@@UAEXM@Z,,0x000EFB4C,14,Code/Libraries/Source/WWVegas/WW3D2/light.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
