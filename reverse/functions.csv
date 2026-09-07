@@ -3431,3 +3431,4 @@ _XMP_Shift_Left_Bits,,0x0061BBD0,308,Code/Libraries/Source/WWVegas/WWLib/mpmath.
 ?Get_Burst_Size@ParticleEmitterClass@@QBEHXZ,,0x004ACD6C,7,Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp,matched,BFME2 exact BFME1-derived getter; unique masked placement
 ?Get_Emission_Rate@ParticleEmitterDefClass@@QBEMXZ,,0x007417E0,7,Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp,matched,BFME2 exact BFME1-derived getter; unique masked placement
 ?Get_Lifetime@ParticleEmitterDefClass@@QBEMXZ,,0x007417D0,7,Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp,matched,BFME2 exact BFME1-derived getter; unique masked placement
+?Get_Max_Emissions@ParticleEmitterDefClass@@QBEMXZ,,0x00741800,7,Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp,matched,BFME2 exact BFME1-derived getter; unique masked placement
