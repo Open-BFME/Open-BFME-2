@@ -3680,3 +3680,7 @@ _XMP_Shift_Left_Bits,,0x0061BBD0,308,Code/Libraries/Source/WWVegas/WWLib/mpmath.
 ?size@?$vector@USegInfo@W3DRopeDraw@@V?$allocator@USegInfo@W3DRopeDraw@@@_STL@@@_STL@@QBEIXZ,,0x00329D16,9,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DRopeDraw.cpp,matched,BFME2 exact BFME1-derived W3DRopeDraw body
 ?Is_Open@RawFileClass@@UBE_NXZ,,0x00619FD0,10,Code/Libraries/Source/WWVegas/WWLib/rawfile.cpp,matched,BFME2 exact BFME1-derived file accessor
 ?Tell@FileClass@@UAEHXZ,,0x0007824D,10,Code/Libraries/Source/WWVegas/WWLib/rawfile.cpp,matched,BFME2 exact BFME1-derived file accessor
+?getFlag@MapObject@@QBE_NH@Z,,0x000D43C3,13,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DRoadBuffer.cpp,matched,BFME2 exact BFME1-derived road buffer body
+?getBounds@RoadSegment@@QAEABVSphereClass@@XZ,,0x001F499E,7,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DRoadBuffer.cpp,matched,BFME2 exact BFME1-derived road buffer body
+?updateCenter@W3DRoadBuffer@@QAEXXZ,,0x00050CF7,5,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DRoadBuffer.cpp,matched,BFME2 exact BFME1-derived road buffer body
+?getRoadWidth@TerrainRoadType@@QAEMXZ,,0x0049CB57,4,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DRoadBuffer.cpp,matched,BFME2 exact BFME1-derived road buffer body
