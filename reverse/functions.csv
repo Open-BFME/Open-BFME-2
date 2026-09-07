@@ -2350,7 +2350,6 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?Clear@?$VectorClass@UAddInfoStruct@MixFileFactoryClass@@@@UAEXXZ,,0x00155810,61,Code/Libraries/Source/WWVegas/WWLib/mixfile.cpp,matched,placed
 ??1?$VectorClass@UAddInfoStruct@MixFileFactoryClass@@@@UAE@XZ,,0x00156750,67,Code/Libraries/Source/WWVegas/WWLib/mixfile.cpp,matched,placed
 ??_G?$VectorClass@UAddInfoStruct@MixFileFactoryClass@@@@UAEPAXI@Z,,0x00156930,93,Code/Libraries/Source/WWVegas/WWLib/mixfile.cpp,matched,placed
-?Keep_Blank_Entries@INIClass@@SAX_N@Z,,0x00446A67,10,Code/Libraries/Source/WWVegas/WWLib/ini.cpp,matched,placed
 ??A?$IndexClass@HPAUINIEntry@@@@QBEABQAUINIEntry@@ABH@Z,,0x006169E0,60,Code/Libraries/Source/WWVegas/WWLib/ini.cpp,matched,placed
 ?Get_Z_Rotation@Matrix3D@@QBEMXZ,,0x00712020,8,Code/Libraries/Source/WWVegas/WWMath/matrix3d.cpp,matched,placed
 ?Export@AABTreeBuilderClass@@QAEXAAVChunkSaveClass@@@Z,,0x00199680,398,Code/Libraries/Source/WWVegas/WW3D2/aabtreebuilder.cpp,matched,placed
@@ -4118,3 +4117,4 @@ _ghiPostAddFileFromDisk,,0x006BC460,189,Code/GameEngine/Source/GameNetwork/GameS
 ??0TexBufferClass@@QAE@HPBD@Z,,0x0015B230,130,Code/Libraries/Source/WWVegas/WW3D2/meshmatdesc.cpp,matched,
 ?Get_Value_List@RegistryClass@@QAEXAAV?$DynamicVectorClass@VStringClass@@@@@Z,,0x00610110,482,Code/Libraries/Source/WWVegas/WWLib/registry.cpp,matched,
 _ghiPostAddFileFromMemory,,0x006BC520,178,Code/GameEngine/Source/GameNetwork/GameSpy/ghttp/ghttpPost.c,matched,GameSpy BFME2 HTTP POST addition; retail IAT proves _mbsdup substitution for reference goastrdup; unique whole-text placement and verified sibling callees
+?Keep_Blank_Entries@INIClass@@SAX_N@Z,,0x00615C60,10,Code/Libraries/Source/WWVegas/WWLib/ini.cpp,matched,KeepBlankEntries is global VA 0x00E08D5C from two independently verified Load(Straw) references; unique exact setter using this global at aligned padded RVA 0x00615C60 beside proven DuplicateCRCError. Previous masked placement 0x00446A67 writes unrelated VA 0x00E0335C.
