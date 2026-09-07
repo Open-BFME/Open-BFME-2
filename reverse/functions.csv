@@ -3330,3 +3330,4 @@ _XMP_Init,,0x0061BD70,23,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,
 ?getChunkVersion@DataChunkInput@@QAEGXZ,,0x00306E06,16,Code/GameEngine/Source/Common/System/DataChunk.cpp,matched,BFME2 DataChunkInput version getter transferred from exact BFME1 source; identical bytes
 ?getActiveBattlePlan@BattlePlanUpdate@@QBE?AW4BattlePlanStatus@@XZ,,0x004977F8,13,Code/GameEngine/Source/GameLogic/Object/Update/BattlePlanUpdate.cpp,matched,BFME2 BattlePlanUpdate active-plan getter transferred from exact BFME1 source; identical bytes
 ?getLocalAddr@UDP@@QAEHAAIAAG@Z,,0x0059495D,25,Code/GameEngine/Source/GameNetwork/udp.cpp,matched,BFME2 UDP local-address getter transferred from exact BFME1 source; identical bytes
+?findEmptyMessage@FirewallHelperClass@@AAEPAUManglerMessage@@XZ,,0x00594D9C,36,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,matched,BFME2 FirewallHelperClass empty-message scan transferred from exact BFME1 source; identical bytes
