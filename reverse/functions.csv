@@ -3712,3 +3712,6 @@ _XMP_Shift_Left_Bits,,0x0061BBD0,308,Code/Libraries/Source/WWVegas/WWLib/mpmath.
 ?Get_Processor_Manufacturer_Name@CPUDetectClass@@SAPBDXZ,,0x00611040,13,Code/Libraries/Source/WWVegas/WWLib/cpudetect.cpp,matched,BFME2 exact BFME1-derived CPUDetect getter
 ?Flush@Pipe@@UAEHXZ,,0x0061B150,17,Code/Libraries/Source/WWVegas/WWLib/pipe.cpp,matched,BFME2 exact BFME1-derived pipe helper
 ?hasData@AsciiString@@QBE_NXZ,,0x006CD4A0,10,Code/Libraries/Source/WWVegas/WWLib/quoted_printable.cpp,matched,BFME2 exact BFME1-derived string predicate
+?getLayer@Object@@QBE?AW4PathfindLayerEnum@@XZ,,0x004F031C,7,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainTracks.cpp,matched,BFME2 exact BFME1-derived TerrainTracks getter
+?Get_Index_Count@DynamicIBAccessClass@@QBEGXZ,,0x001386A0,5,Code/Libraries/Source/WWVegas/WW3D2/dx8indexbuffer.cpp,matched,BFME2 exact BFME1-derived index-buffer getter
+?Peek_Vertex_Material@MaterialCollectorClass@@QAEPAVVertexMaterialClass@@H@Z,,0x0016F510,13,Code/Libraries/Source/WWVegas/WW3D2/matinfo.cpp,matched,BFME2 exact BFME1-derived material collector getter
