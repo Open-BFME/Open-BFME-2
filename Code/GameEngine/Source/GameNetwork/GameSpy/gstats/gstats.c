@@ -980,6 +980,8 @@ static int SendChallengeResponse(char *indata, int gameport)
 	char *challenge;
 	char resp[128];
 	char md5val[33];
+	char statsGameName[10];
+	char statsSecretKey[7];
 
 	/* make this harder to find in the string table */
 	char respformat[] = "\xC\x13\x1A\x1E\xD\x3F\x28\x26\x11\x5\x0\x16\x31\x1F\xA\x36\x40\x10\x28\x33\x15\x1B\x15\x17\x3E\x1\xA\x36\x40\x10\x28\x31\x1F\x1A\x11\x24\x75\x16\x33\x3\x1\x3F\x45";
@@ -991,20 +993,38 @@ static int SendChallengeResponse(char *indata, int gameport)
 	if (challenge == NULL)
 	{
 		closesocket(sock);
-        sock=INVALID_SOCKET;
+        
 		return GE_DATAERROR;
 	}
 	
-	len = sprintf(resp, "%d%s",g_crc32(challenge,(int)strlen(challenge)), gcd_secret_key);
+	/* BFME2 uses these local GameSpy SDK identifiers. */
+	statsGameName[0] = 'l';
+	statsGameName[1] = 'o';
+	statsGameName[2] = 't';
+	statsGameName[3] = 'r';
+	statsGameName[4] = 'b';
+	statsGameName[5] = 'm';
+	statsGameName[6] = 'e';
+	statsGameName[7] = '2';
+	statsGameName[8] = 'r';
+	statsGameName[9] = 0;
+	statsSecretKey[0] = 'g';
+	statsSecretKey[1] = '3';
+	statsSecretKey[2] = 'F';
+	statsSecretKey[3] = 'd';
+	statsSecretKey[4] = '9';
+	statsSecretKey[5] = 'z';
+	statsSecretKey[6] = 0;
+	len = sprintf(resp, "%d%s",g_crc32(challenge,(int)strlen(challenge)), statsSecretKey);
 	
 	MD5Digest((unsigned char *)resp, (unsigned int)len, md5val);
 	DOXCODE(respformat, sizeof(respformat)-1, enc3);
-	len = sprintf(resp,respformat,gcd_gamename, md5val, gameport);
+	len = sprintf(resp,respformat,statsGameName, md5val, gameport);
 	
 	if ( DoSend(resp, len) <= 0 )
 	{
 		closesocket(sock);
-        sock=INVALID_SOCKET;
+        
 		return GE_NOCONNECT;
 	}
 
