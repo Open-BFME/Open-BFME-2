@@ -878,11 +878,15 @@ typedef struct _D3DMATERIAL8 {
     float Power;
 } D3DMATERIAL8;
 typedef struct _D3DDISPLAYMODE { UINT Width, Height, RefreshRate; D3DFORMAT Format; } D3DDISPLAYMODE;
-typedef struct _D3DPRESENT_PARAMETERS {  // verbatim DX8.1 d3d8types.h
+// BFME2 uses the DX9 layout; retain the legacy field spelling used by the
+// reference sources. Retail DX8Wrapper accesses establish base VA 0x00DED5B8:
+// width +0x00, height +0x04, depth format +0x28 and presentation interval +0x34.
+typedef struct _D3DPRESENT_PARAMETERS {
     UINT BackBufferWidth, BackBufferHeight;
     D3DFORMAT BackBufferFormat;
     UINT BackBufferCount;
     DWORD MultiSampleType;
+    DWORD MultiSampleQuality;
     DWORD SwapEffect;
     HWND hDeviceWindow;
     BOOL Windowed;
