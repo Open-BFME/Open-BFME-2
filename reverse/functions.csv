@@ -4148,3 +4148,4 @@ _gpiRecvToBuffer,,0x007351D0,338,Code/GameEngine/Source/GameNetwork/GameSpy/gp/g
 _gpiSendFromBuffer,,0x00735330,222,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gpiBuffer.c,matched,vendored=gamespy-2004; pinned BFME1 reference including inherited EA edits; unique whole-body match; buffered socket send
 _gpiReadMessageFromBuffer,,0x00735410,251,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gpiBuffer.c,matched,vendored=gamespy-2004; pinned BFME1 reference including inherited EA edits; unique whole-body match; buffer message extraction
 __UTF8ToUCS2ConversionLengthOnly,,0x0069DB70,89,Code/GameEngine/Source/GameNetwork/GameSpy/stringutil.c,matched,vendored=gamespy-2004; unique masked whole-.text body; complete source boundary
+__UCS2ToUTF8ConversionLengthOnly,,0x0069DBD0,53,Code/GameEngine/Source/GameNetwork/GameSpy/stringutil.c,matched,vendored=gamespy-2004; unique masked whole-.text body; complete source boundary
