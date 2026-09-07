@@ -866,3 +866,4 @@ _MD5Init,0x00606220,GameSpy C-linkage alias; all 40 compiled MD5Init bytes exact
 ?Record_DX8_Polys_And_Vertices@Debug_Statistics@@YAXHHABVShaderClass@@@Z,0x00129540,Debug Statistics polygon and vertex accounting; complete 68-byte body checks shader NPatch bit and proven caps support then updates the three counters
 _gpiHandleEnd,0x00736EA0,GameSpy GP callee; independent unique 615-byte source candidate in gpiTransfer.c; direct call from _gpiHandleTransferMessage corroborates identity
 _MD5Print,0x00606320,GameSpy callee already byte-verified in Code/GameEngine/Source/GameNetwork/GameSpy/md5c.c at commit 5ba3d5ea032c; direct call from _gpiHandleEnd
+_SBServerGetPublicInetAddress,0x006989D0,GameSpy public IPv4 getter; exact seven-byte source body folded with ArrayLength; server layout and independently matched SDK callers corroborate alias
