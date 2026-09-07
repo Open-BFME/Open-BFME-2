@@ -752,3 +752,4 @@ _closesocket@4,0x00655676,PE-verified FF25 import thunk to wsock32.dll!closesock
 ?insert_unique@?$_Rb_tree@GU?$pair@$$CBGH@_STL@@U?$_Select1st@U?$pair@$$CBGH@_STL@@@2@U?$less@G@2@V?$allocator@U?$pair@$$CBGH@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBGH@_STL@@U?$_Nonconst_traits@U?$pair@$$CBGH@_STL@@@2@@2@U32@ABU?$pair@$$CBGH@2@@Z,0x00157520,address read from the REL32 displacement at a placed body
 ?processProgress@GameLogic@@QAEXHH@Z,0x0023D740,address read from the REL32 displacement at a placed body
 ??0Cftp@@QAE@XZ,0x006CA5E0,address read from the REL32 displacement at a placed body
+__ReadUCS2CharFromUTF8String,0x0069D8F0,GameSpy UTF8 decoder; independently compiled 174-byte stringutil.c body at this address; direct call in GP UTF8ToUCS2StringLen corroborates identity
