@@ -5075,3 +5075,4 @@ _gpSendBuddyRequestA,,0x0072C580,274,Code/GameEngine/Source/GameNetwork/GameSpy/
 _gpSetInvitableGames,,0x0072CEA0,260,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gp.c,matched,vendored=gamespy-2004; pinned BFME1 reference including inherited EA edits; unique whole-body match; gpSetInvitableGames
 _gpiAddSendingFileA,,0x0072D2F0,603,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gp.c,matched,vendored=gamespy-2004; pinned BFME1 reference including inherited EA edits; unique whole-body match; gpiAddSendingFileA
 _gpInvitePlayerA,,0x0072D070,218,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gp.c,matched,vendored=gamespy-2004; pinned BFME1 reference including inherited EA edits; unique whole-body match; gpInvitePlayerA
+_gpSendFilesA,,0x0072D550,501,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gp.c,matched,vendored=gamespy-2004; pinned BFME1 reference including inherited EA edits; unique whole-body match; gpSendFilesA
