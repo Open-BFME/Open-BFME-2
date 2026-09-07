@@ -856,3 +856,4 @@ _GetSendBufferSize,0x0060A9B0,GameSpy callee already byte-verified in Code/GameE
 _SetReceiveBufferSize,0x0060A910,GameSpy callee already byte-verified in Code/GameEngine/Source/GameNetwork/GameSpy/nonport.c at commit edcf90f6c5e1; direct call from _gpiSetPeerSocketSizes
 _SetSendBufferSize,0x0060A940,GameSpy callee already byte-verified in Code/GameEngine/Source/GameNetwork/GameSpy/nonport.c at commit edcf90f6c5e1; direct call from _gpiSetPeerSocketSizes
 _ArraySearch,0x0060A690,GameSpy callee already byte-verified in Code/GameEngine/Source/GameNetwork/GameSpy/darray.c at commit 13cfa3373708; direct call from _gpiFreeTransfer
+_gpiProcessTransfer,0x00737EA0,GameSpy GP callee; independent unique 388-byte source candidate in gpiTransfer.c; direct call from _gpiProcessTransfers corroborates identity
