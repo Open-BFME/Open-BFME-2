@@ -792,3 +792,6 @@ _gpiProcess,0x0072E810,GameSpy GP callee; independent unique 289-byte source can
 ??0RenderObjClass@@QAE@ABV0@@Z,0x0013B430,RenderObj copy ctor427 independently identified by primary BD2F68 and secondary BD2F60 tables shared with default ctor13BF00; fresh refcount1 and copied transform/factors90/94; scene ownership cleared; base implementation remains unclaimed
 ??0OBBoxClass@@QAE@ABV0@@Z,0x00133990,OBBox copy ctor97 independently matches all emitted ordinary C++ bytes with zero relocations; Matrix3 basis and center/extent copied; exact Camera copy calls this body
 ??4PlaneClass@@QAEAAV0@ABV0@@Z,0x0004254E,Independently byte-exact31-byte Plane memberwise assignment emitted by size-optimized Frustum copy; identical folded aggregate copy already held as Region2D ctor; no second row or byte credit
+_gpiProcessConnect,0x0072F7C0,GameSpy GP callee; independent unique 1311-byte source candidate in gpiConnect.c; direct call from _gpiProcessOperation corroborates identity
+_gpiProcessGetInfo,0x007345F0,GameSpy GP callee; independent unique 1834-byte source candidate in gpiInfo.c; direct call from _gpiProcessOperation corroborates identity
+_gpiProcessRegisterUniqueNick,0x00731EB0,GameSpy GP callee; independent unique 186-byte source candidate in gpiUnique.c; direct call from _gpiProcessOperation corroborates identity
