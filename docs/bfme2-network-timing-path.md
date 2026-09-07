@@ -153,6 +153,35 @@ network frame headroom for a client is the signed
 against the desired one-logic-frame quantum. Neither is the same field as the
 GameEngine adaptive limit described below.
 
+## Concrete frame admission and command readiness
+
+The `+0x54` vtable target at RVA `0x0025E014` is now a 335-byte exact C++
+reconstruction in
+`Code/GameEngine/Source/Common/NetworkInterfaceFrameAdvance.cpp`. In the
+client branch it returns the signed difference between the connection-manager
+frame ceiling at `+0x1205C` and the current logic frame, then asks the local
+frame-ring set whether the next frame's commands are complete. If the counts
+are not complete it invokes the network update slot and returns zero. The
+router branch uses the QPC accumulator and one-logic-frame quantum; it returns
+zero or one and records an overrun when the accumulator exceeds two seconds of
+frequency. This exposes the actual admission path without changing its policy.
+
+The command-count gate at RVA `0x004CF799` is a separate 92-byte exact C++
+reconstruction in
+`Code/GameEngine/Source/Common/ConnectionManagerFrameCommands.cpp`. It walks
+the eight frame-data managers at `+0x12104`, skips null or quitting managers,
+and sums each manager's command count for the requested frame. It compares that
+sum with the local manager's expected frame-command count. The three small
+frame-ring accessors used by this body are pinned to their independently
+decoded retail bodies at RVAs `0x0058B826`, `0x0058B74B`, and `0x0058B78F`.
+
+The companion router-stall target at RVA `0x004CFBF9` is also identified by the
+direct call from `+0x54`: it first requires local slot == packet-router slot,
+then scans eight open peers and tests each latest-frame value against the
+current logic frame minus startup/configured run-ahead slack. Its target body
+and the active-player predicate are recorded as call-graph dependencies for a
+follow-up conversion; no delay or buffering behavior has been changed here.
+
 ## GameEngine `+0x44` initialization and writers
 
 The GameEngine constructor at VA `0x0062DA70` installs vtable
@@ -179,6 +208,29 @@ For the confirmed GameEngine paths, `+0x44` is therefore an adaptive client
 admission limit. Its reset target is the render-to-logic FPS ratio; the live
 network headroom quantity comes from `NetworkInterface::getFramePacingStatus`
 and is read separately through the network vtable.
+
+## `frameCeiling` writer inventory
+
+The requested field is `connectionManager + 0x1205C`. A full `.text` scan found
+six retail stores to that displacement. The table records the surrounding
+control-flow evidence; it does not claim an identity where the containing
+exception region has not yet been reconstructed.
+
+| store VA | store form | verified context and likely role |
+|---:|---|---|
+| `0x008CF056` | `mov [esi+0x1205C], ebx` | Exact 81-byte body at RVA `0x004CF032`; clears the ceiling while releasing the eight frame-data managers, then resets per-player arrays and flags. |
+| `0x008D07C8` | `mov [esi+0x1205C], ebx` | Initialization/exception region; also initializes local and router slots, latest-frame/state arrays, and frame-data-related flags. The complete outer boundary is still unclaimed. |
+| `0x008D0BB8` | `mov [esi+0x1205C], eax` | Frame-info publisher region beginning at VA `0x008D0AA9`; builds a frame-info record, totals frame-manager commands, broadcasts it, and when local slot == router slot publishes the record's frame as the shared ceiling. |
+| `0x008D254E` | `mov [esi+0x1205C], ebx` | Reset/cleanup region; resets slots, ceiling, per-player latest/state arrays, and releases frame-data objects. The outer EH body remains unclaimed. |
+| `0x008D27A8` | `mov [esi+0x1205C], ebx` | Constructor/reset-shaped region beginning near VA `0x008D274B`; clears the connection-manager timing block and initializes its frame-data state. |
+| `0x008D34B4` | `mov [edi+0x1205C], eax` | Large incoming command/event-processing body beginning at RVA `0x004D316A`; after a network update and local/router-slot check, advances `TheGameLogic+0x40` and publishes `currentFrame + 1` as the ceiling. This is the strongest delayed-command/router writer lead. |
+
+The first and third rows are the clearest reset and frame-info publication
+paths. The final row is a concrete received-command path and should be traced
+through its message type and eventual frame-ring consumption before any future
+multiplayer delay experiment. The remaining three stores are initialization
+or cleanup writers, not evidence that the ceiling is advanced during normal
+simulation.
 
 ## Delay-loop candidate
 
