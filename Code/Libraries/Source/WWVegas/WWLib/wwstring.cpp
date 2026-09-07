@@ -37,11 +37,31 @@
  * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
+// BFME tags its allocations.  StringClass::Resize at 0x00610C70 reaches the
+// buffer allocator as `push 0x737472 / push eax / call 0x000B3FC0` -- two
+// arguments, the size and a four-byte tag that reads "rts" -- where the Zero
+// Hour W3DNEWARRAY passes the size alone.  So the array operator this unit
+// wants takes a tag, and Allocate_Buffer (inline in wwstring.h) has to be
+// compiled against it.
+#include "always.h"
+#undef W3DNEWARRAY
+void * __cdecl operator new[](unsigned int size, unsigned int tag);
+#define W3DNEWARRAY new(0x737472u)
+
 #include "wwstring.h"
 #include "win.h"
 #include "wwmemlog.h"
 #include "mutex.h"
 #include <stdio.h>
+
+// BFME's ARRAY operators forward to the scalar ones: always.h declares
+// operator new[]/delete[] and defines neither, so an inline forwarder is folded
+// away at the call site and array new/delete reach ??2@YAPAXI@Z (0x0002FDA0)
+// and ??3@YAXPAX@Z (0x0002FD60) rather than ??_U (0x0002FDE0) / ??_V
+// (0x0002FD80).  Kept here only because every row this unit already holds still
+// byte-verifies with it.
+inline void * __cdecl operator new[](size_t s) { return ::operator new(s); }
+inline void __cdecl operator delete[](void * p) { ::operator delete(p); }
 
 
 ///////////////////////////////////////////////////////////////////

@@ -3937,3 +3937,6 @@ _XMP_Shift_Left_Bits,,0x0061BBD0,308,Code/Libraries/Source/WWVegas/WWLib/mpmath.
 ?DebugFreeMemory@@YAXPAX@Z,,0x0003E3C0,19,Code/Libraries/Source/debug/debug_internal.cpp,matched,Debug allocator free; screened exact against the reloc-named address
 ?Set_Animation@Animatable3DObjClass@@UAEXXZ,,0x001A4BD0,27,Code/Libraries/Source/WWVegas/WW3D2/animobj.cpp,matched,Animatable3DObjClass Set_Animation; the reference animobj.h layout not the sweep one
 ?Simple_Evaluate_Bone@Animatable3DObjClass@@UBE_NHMPAVMatrix3D@@@Z,,0x001A4F50,197,Code/Libraries/Source/WWVegas/WW3D2/animobj.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?Resize@StringClass@@AAEXH@Z,,0x00610C70,121,Code/Libraries/Source/WWVegas/WWLib/wwstring.cpp,matched,StringClass Resize; BFME array new takes a four-byte tag
+?Uninitialised_Grow@StringClass@@AAEXH@Z,,0x00610CF0,119,Code/Libraries/Source/WWVegas/WWLib/wwstring.cpp,matched,StringClass Uninitialised_Grow; BFME array new takes a four-byte tag
+?Allocate_Buffer@StringClass@@AAEPADH@Z,,0x006109F0,38,Code/Libraries/Source/WWVegas/WWLib/wwstring.cpp,matched,placed by masked whole-.text search of the compiled body - single hit

@@ -685,3 +685,4 @@ _strdup,0x006C4C70,address read from the retail REL32 in INIClass::Put_String at
 ?Release@Animatable3DObjClass@@IAEXXZ,0x001A4AA0,address read from the retail REL32 in Animatable3DObjClass Set_Animation at 0x001A4BD0
 ?Simple_Evaluate_Pivot@HTreeClass@@QBE_NHABVMatrix3D@@PAV2@@Z,0x001606E0,address read from the REL32 displacement at a placed body
 ?Simple_Evaluate_Pivot@HTreeClass@@QBE_NPAVHAnimClass@@HMABVMatrix3D@@PAV3@@Z,0x00161700,address read from the REL32 displacement at a placed body
+??_U@YAPAXII@Z,0x006C4C30,address read from the retail REL32 in StringClass Resize at 0x00610C70
