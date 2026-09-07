@@ -4121,3 +4121,4 @@ _ghiPostSetAutoFree,,0x006BC320,12,Code/GameEngine/Source/GameNetwork/GameSpy/gh
 _ghiIsPostAutoFree,,0x006BC330,8,Code/GameEngine/Source/GameNetwork/GameSpy/ghttp/ghttpPost.c,matched,vendored=gamespy-2004; unique exact whole-text body; corroborated by post auto-free callers and SDK field layout
 _ghiFreePost,,0x006BC340,25,Code/GameEngine/Source/GameNetwork/GameSpy/ghttp/ghttpPost.c,matched,vendored=gamespy-2004; two masked candidates reduce to one with the verified ArrayFree callee and PE-named CRT free IAT
 _ghiPostSetCallback,,0x006BC5E0,19,Code/GameEngine/Source/GameNetwork/GameSpy/ghttp/ghttpPost.c,matched,vendored=gamespy-2004; unique exact whole-text body; SDK post callback and parameter field offsets agree
+_gpiSetErrorString,,0x0072EE20,36,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gpiUtility.c,matched,vendored=gamespy-2004; pinned BFME1 reference with inherited EA edits; unique full-body placement; source string error setter
