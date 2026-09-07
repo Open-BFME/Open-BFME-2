@@ -3558,3 +3558,4 @@ _XMP_Shift_Left_Bits,,0x0061BBD0,308,Code/Libraries/Source/WWVegas/WWLib/mpmath.
 ?Set_Point_Mode@PointGroupClass@@QAEXW4PointModeEnum@1@@Z,,0x0066D7A0,10,Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp,matched,PointGroupClass setter; screened exact by tools/unclaimed_scan.py
 ?Set_Shader@PointGroupClass@@QAEXVShaderClass@@@Z,,0x00665650,10,Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp,matched,PointGroupClass setter; screened exact by tools/unclaimed_scan.py
 ?dlink_next_TeamMemberList@Object@@QBEPAV1@XZ,,0x0046F7F8,7,Code/GameEngine/Source/Common/RTS/Player.cpp,matched,BFME2 exact BFME1-derived Object link accessor; unique masked placement
+?getAcademyStats@Player@@QAEPAVAcademyStats@@XZ,,0x000B6464,7,Code/GameEngine/Source/Common/RTS/Player.cpp,matched,BFME2 exact BFME1-derived Player accessor; unique masked placement
