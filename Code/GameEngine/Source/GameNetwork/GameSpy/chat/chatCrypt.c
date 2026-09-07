@@ -40,3 +40,27 @@ void gs_prepare_key(const unsigned char *key_data_ptr, int key_data_len, gs_cryp
 		index1 = (unsigned char)((index1 + 1) % key_data_len);
 	}
 }
+
+void gs_crypt(unsigned char *buffer_ptr, int buffer_len, gs_crypt_key *key)
+{
+	unsigned char t;
+	unsigned char x;
+	unsigned char y;
+	unsigned char* state;
+	unsigned char xorIndex;
+	int counter;
+	
+	x = key->x;
+	y = key->y;
+	state = &key->state[0];
+	for(counter = 0; counter < buffer_len; counter++)
+	{
+		x = (unsigned char)((x + 1) % 256);
+		y = (unsigned char)((state[x] + y) % 256);
+		swap_byte(&state[x], &state[y]);
+		xorIndex = (unsigned char)((state[x] + state[y]) % 256);
+		buffer_ptr[counter] ^= state[xorIndex];
+	}
+	key->x = x;
+	key->y = y;
+}

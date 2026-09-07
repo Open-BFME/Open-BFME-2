@@ -3941,3 +3941,4 @@ _XMP_Shift_Left_Bits,,0x0061BBD0,308,Code/Libraries/Source/WWVegas/WWLib/mpmath.
 ?Allocate_Buffer@StringClass@@AAEPADH@Z,,0x006109F0,38,Code/Libraries/Source/WWVegas/WWLib/wwstring.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 ?Rotate@Coord2D@@QAEAAV1@M@Z,0x00003916,0x00003916,101,Code/Libraries/Source/WWVegas/WWMath/coord2d_rotate.cpp,matched,Clean C++; aggregate trig storage and post-asm references reproduce retail stack homes and arithmetic; fsincos is the established MSVC 7.1 codegen blocker
 _gs_prepare_key,,0x006A9ED0,341,Code/GameEngine/Source/GameNetwork/GameSpy/chat/chatCrypt.c,matched,Clean GameSpy Chat reconstruction; unique whole-.text exact match with zero relocations and complete padded boundary
+_gs_crypt,,0x006AA030,203,Code/GameEngine/Source/GameNetwork/GameSpy/chat/chatCrypt.c,matched,Clean GameSpy Chat reconstruction; unique whole-.text exact match with zero relocations and complete padded boundary
