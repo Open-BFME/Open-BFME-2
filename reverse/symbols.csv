@@ -842,3 +842,4 @@ _SocketStartUp,0x0060A840,GameSpy callee already byte-verified in Code/GameEngin
 _gpiInitTransfers,0x00736150,GameSpy GP callee; independent unique 62-byte source candidate in gpiTransfer.c; direct call from _gpiInitialize corroborates identity
 _ArrayNew,0x0060A190,GameSpy callee already byte-verified in Code/GameEngine/Source/GameNetwork/GameSpy/darray.c at commit edcf90f6c5e1; direct call from _gpiAddPeer
 _gpiProcessPeerConnected,0x00738640,GameSpy GP callee; independent unique 720-byte source candidate in gpiPeer.c; direct call from _gpiProcessPeer corroborates identity
+_ArrayAppend,0x0060A790,GameSpy callee already byte-verified in Code/GameEngine/Source/GameNetwork/GameSpy/darray.c at commit edcf90f6c5e1; direct call from _gpiPeerAddMessage
