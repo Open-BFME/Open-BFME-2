@@ -1,4 +1,4 @@
-// cl: /arch:SSE /G7 /DNDEBUG /D_WINDOWS /MD /Ireference/shims/bfmeindex /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/sweep
+// cl: /arch:SSE /G7 /DNDEBUG /D_WINDOWS /MD /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/sweep
 // WWLib INIClass, from the Generals Zero Hour reference
 // (Libraries/Source/WWVegas/WWLib/ini.cpp). BFME links this WWLib INI handler
 // (distinct from its GameEngine INI system): the retail exe references
@@ -107,11 +107,18 @@
 
 #include	"always.h"
 
-// index.h ahead of everything that reaches it indirectly: inisup.h includes it
-// out of its own directory in reference/open-bfme-1, which would win the
-// include guard before -Ireference/shims/bfmeindex is ever consulted.  It has
-// to follow always.h, which is where W3DNEWARRAY comes from.
-#include	"index.h"
+// BFME's ARRAY operators forward to the scalar ones.  IndexClass's node table is
+// allocated with W3DNEWARRAY and freed with delete[], and retail's own
+// displacements at both sites name ??2@YAPAXI@Z (0x0002FDA0) and ??3@YAXPAX@Z
+// (0x0002FD60) rather than ??_U (0x0002FDE0) / ??_V (0x0002FD80) -- while the
+// vector constructor iterator ??_H is still called, so it really is array new,
+// just reaching the scalar allocator.  always.h DECLARES the array operators
+// and defines neither; defining them inline here is what lets MSVC fold them
+// away at the call site.  Proven by
+// IndexClass<int,INISection*>::Increase_Table_Size at 0x00616190 and by
+// INIClass::Clear at 0x00616C60.
+inline void * __cdecl operator new[](size_t s) { return ::operator new(s); }
+inline void __cdecl operator delete[](void * p) { ::operator delete(p); }
 
 #include	"b64pipe.h"
 #include	"b64straw.h"
