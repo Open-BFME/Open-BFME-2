@@ -848,3 +848,4 @@ _ArrayFree,0x0060A460,GameSpy callee already byte-verified in Code/GameEngine/So
 _gpiTransferPeerDestroyed,0x007376F0,GameSpy GP callee; independent unique 144-byte source candidate in gpiTransfer.c; direct call from _gpiDestroyPeer corroborates identity
 _ArrayDeleteAt,0x0060A5E0,GameSpy callee already byte-verified in Code/GameEngine/Source/GameNetwork/GameSpy/darray.c at commit edcf90f6c5e1; direct call from _gpiPeerSendMessages
 _ArrayNth,0x0060A200,GameSpy callee already byte-verified in Code/GameEngine/Source/GameNetwork/GameSpy/darray.c at commit edcf90f6c5e1; direct call from _gpiPeerSendMessages
+_gpiHandleTransferMessage,0x007378D0,GameSpy GP callee; independent unique 376-byte source candidate in gpiTransfer.c; direct call from _gpiProcessPeerConnected corroborates identity
