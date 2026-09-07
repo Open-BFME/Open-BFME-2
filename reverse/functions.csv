@@ -3395,3 +3395,4 @@ _XMP_Shift_Left_Bits,,0x0061BBD0,308,Code/Libraries/Source/WWVegas/WWLib/mpmath.
 ?Init_Processor_Log@CPUDetectClass@@CAXXZ,,0x00612770,1888,Code/Libraries/Source/WWVegas/WWLib/cpudetect.cpp,matched,CPUDetectClass::Init_Processor_Log; 64-bit memory statics; extent includes the trailing jump table
 ?Init_Compact_Log@CPUDetectClass@@CAXXZ,,0x00612ED0,488,Code/Libraries/Source/WWVegas/WWLib/cpudetect.cpp,matched,CPUDetectClass::Init_Compact_Log; the memory figure is narrowed to 32 bits before the varargs push
 ?Get_Additional_Model_Count@HLodClass@@QBEHXZ,,0x002B224B,7,Code/Libraries/Source/WWVegas/WW3D2/hlod.cpp,matched,BFME2 exact BFME1-derived getter; unique masked placement
+?Get_LOD_Level@HLodClass@@UBEHXZ,,0x00509D29,7,Code/Libraries/Source/WWVegas/WW3D2/hlod.cpp,matched,BFME2 exact BFME1-derived getter; unique masked placement
