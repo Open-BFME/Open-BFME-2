@@ -32,4 +32,5 @@ public:
  bool _M_delete;
 };
 messages<char>::messages(_Messages* implementation) : locale::facet(1), _M_impl(implementation) { _M_impl->_M_delete = false; }
+messages<wchar_t>::messages(_Messages* implementation) : locale::facet(1), _M_impl(implementation) { _M_impl->_M_delete = false; }
 }
