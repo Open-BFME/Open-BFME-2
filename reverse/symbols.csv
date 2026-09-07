@@ -591,3 +591,32 @@ _strdup,0x006C4C70,address read from the retail REL32 in INIClass::Put_String at
 ?Get_Render_Target_Resolution@WW3D@@SAXAAH00AA_N@Z,0x00116FF0,address read from the retail REL32 in CameraClass::Device_To_View_Space at 0x00134650
 ?Update_Frustum@CameraClass@@IBEXXZ,0x001340B0,address read from the REL32 displacement at a placed body
 ?insert_unique@?$_Rb_tree@HU?$pair@$$CBHH@_STL@@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHH@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHH@_STL@@@2@@2@U32@ABU?$pair@$$CBHH@2@@Z,0x00422EC0,address read from the retail REL32 in map<int int>::insert at 0x00289147
+??0?$ShareBufferClass@E@@QAE@HPBDH@Z,0x001698A0,address read from the REL32 displacement at a placed body
+??0LineGroupClass@@QAE@XZ,0x001B3490,address read from the REL32 displacement at a placed body
+??0ParticleBufferClass@@QAE@ABV0@@Z,0x001AD1B0,address read from the REL32 displacement at a placed body
+??0RenderObjClass@@QAE@XZ,0x0013BF00,address read from the REL32 displacement at a placed body
+?Add_To_Static_Sort_List@WW3D@@SAXPAVRenderObjClass@@I@Z,0x00117C40,address read from the REL32 displacement at a placed body
+?Render@LineGroupClass@@QAEXAAVRenderInfoClass@@@Z,0x001B38A0,address read from the REL32 displacement at a placed body
+?Render@PointGroupClass@@QAEXAAVRenderInfoClass@@H@Z,0x0017F400,address read from the REL32 displacement at a placed body
+?Render_Line@ParticleBufferClass@@IAEXAAVRenderInfoClass@@@Z,0x001AE4D0,address read from the REL32 displacement at a placed body
+?Set_Arrays@LineGroupClass@@QAEXPAV?$ShareBufferClass@VVector3@@@@0PAV?$ShareBufferClass@VVector4@@@@1PAV?$ShareBufferClass@I@@PAV?$ShareBufferClass@M@@3H@Z,0x001B3790,address read from the REL32 displacement at a placed body
+?Set_Flag@LineGroupClass@@QAEXW4FlagsType@1@_N@Z,0x001B36C0,address read from the REL32 displacement at a placed body
+?Set_Force_Visible@RenderObjClass@@UAEXH@Z,0x0013B720,address read from the REL32 displacement at a placed body
+?Set_Line_Alpha@LineGroupClass@@QAEXM@Z,0x001B3690,address read from the REL32 displacement at a placed body
+?Set_Line_Color@LineGroupClass@@QAEXABVVector3@@@Z,0x001B3610,address read from the REL32 displacement at a placed body
+?Set_Line_Mode@LineGroupClass@@QAEXW4LineModeType@1@@Z,0x001B3710,address read from the REL32 displacement at a placed body
+?Set_Line_Size@LineGroupClass@@QAEXM@Z,0x001B35F0,address read from the REL32 displacement at a placed body
+?Set_Line_UCoord@LineGroupClass@@QAEXM@Z,0x00179010,address read from the REL32 displacement at a placed body
+?Set_Point_Alpha@PointGroupClass@@QAEXM@Z,0x00179010,address read from the REL32 displacement at a placed body
+?Set_Point_Frame@PointGroupClass@@QAEXE@Z,0x00179040,address read from the REL32 displacement at a placed body
+?Set_Point_Mode@PointGroupClass@@QAEXW4PointModeEnum@1@@Z,0x0066D7A0,address read from the REL32 displacement at a placed body
+?Set_Point_Orientation@PointGroupClass@@QAEXE@Z,0x00179020,address read from the REL32 displacement at a placed body
+?Set_Point_Size@PointGroupClass@@QAEXM@Z,0x00178FA0,address read from the REL32 displacement at a placed body
+?Set_Shader@LineGroupClass@@QAEXABVShaderClass@@@Z,0x001B3700,address read from the REL32 displacement at a placed body
+?Set_Shader@PointGroupClass@@QAEXVShaderClass@@@Z,0x00665650,address read from the REL32 displacement at a placed body
+?Set_Tail_Diffuse@LineGroupClass@@QAEXABVVector4@@@Z,0x001B3650,address read from the REL32 displacement at a placed body
+?Set_Texture@LineGroupClass@@QAEXPAVTextureClass@@@Z,0x001790A0,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
+?Set_Texture@SegLineRendererClass@@QAEXPAVTextureClass@@@Z,0x001911E0,address read from the REL32 displacement at a placed body
+??0Animatable3DObjClass@@QAE@ABV0@@Z,0x001A5C50,address read from the REL32 displacement at a placed body
+??0Animatable3DObjClass@@QAE@PBD@Z,0x001A4900,address read from the REL32 displacement at a placed body
+??4HLodClass@@QAEAAV0@ABV0@@Z,0x0019FF50,address read from the REL32 displacement at a placed body
