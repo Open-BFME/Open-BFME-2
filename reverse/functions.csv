@@ -4088,3 +4088,4 @@ _UCS2ToUTF8String,,0x0069DA90,143,Code/GameEngine/Source/GameNetwork/GameSpy/str
 _UTF8ToUCS2String,,0x0069DB20,68,Code/GameEngine/Source/GameNetwork/GameSpy/stringutil.c,matched,vendored=gamespy-2004; unique masked whole-.text body; complete source boundary
 _ghiCreateLock,,0x006BBEF0,40,Code/GameEngine/Source/GameNetwork/GameSpy/ghttp/ghttpCommon.c,matched,vendored=gamespy-2004; unique whole-text match and padding boundaries; upstream HTTP lock creation
 _ghiFreeLock,,0x006BBF20,41,Code/GameEngine/Source/GameNetwork/GameSpy/ghttp/ghttpCommon.c,matched,vendored=gamespy-2004; unique whole-text match and padding boundaries; upstream HTTP lock release
+_ghiDoSend,,0x006BC050,100,Code/GameEngine/Source/GameNetwork/GameSpy/ghttp/ghttpCommon.c,matched,GameSpy 2004 HTTP send with BFME1-reconciled EA retry edits; unique whole-text placement; Winsock callee names verified against PE IAT
