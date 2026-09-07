@@ -4299,7 +4299,6 @@ _PreAuthenticatePlayerPM,,0x00608D50,158,Code/GameEngine/Source/GameNetwork/Game
 ?Memory@CRC@@SAKPAEKK@Z,,0x00619AC0,51,Code/Libraries/Source/WWVegas/WWLib/crc.cpp,matched,gen-alias;object-symbol=?Memory@CRC@@SAKPAEKK@Z;C++ alias
 ?Get_Merge_Abort_Factor@ParticleBufferClass@@QBEMXZ,,0x001A79B0,21,Code/Libraries/Source/WWVegas/WW3D2/part_buf.cpp,matched,gen-alias;object-symbol=?Get_Merge_Abort_Factor@ParticleBufferClass@@QBEMXZ;C++ alias
 _XMP_Rabin_Miller_Test,,0x0061D810,568,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,gen-alias;object-symbol=_XMP_Rabin_Miller_Test;C++ alias
-_gpiSendOrBufferString,,0x00735100,47,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gpiBuffer.c,matched,gen-alias;object-symbol=_gpiSendOrBufferString;C++ alias
 _gpiSendOrBufferInt,,0x00735130,68,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gpiBuffer.c,matched,gen-alias;object-symbol=_gpiSendOrBufferInt;C++ alias
 _gpiSendOrBufferUInt,,0x00735180,68,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gpiBuffer.c,matched,gen-alias;object-symbol=_gpiSendOrBufferUInt;C++ alias
 ?Transform@AABoxClass@@QAEXABVMatrix3D@@@Z,,0x0013B0F0,96,Code/Libraries/Source/WWVegas/WW3D2/hlod.cpp,matched,gen-alias;object-symbol=?Transform@AABoxClass@@QAEXABVMatrix3D@@@Z;C++ alias
@@ -4449,3 +4448,4 @@ _gpiAppendIntToBuffer,,0x00734E70,68,Code/GameEngine/Source/GameNetwork/GameSpy/
 ??0StreakLineClass@@QAE@XZ,,0x00742470,212,Code/Libraries/Source/WWVegas/WW3D2/streak.cpp,matched,Coherent StreakLine and StreakRenderer layouts; complete code interval and independently reconstructed renderer callees; no new pins
 ??0StreakLineClass@@QAE@ABV0@@Z,,0x007426E0,331,Code/Libraries/Source/WWVegas/WW3D2/streak.cpp,matched,Coherent StreakLine and StreakRenderer layouts; complete code interval and independently reconstructed renderer callees; no new pins
 ??4StreakLineClass@@QAEAAV0@ABV0@@Z,,0x00742830,209,Code/Libraries/Source/WWVegas/WW3D2/streak.cpp,matched,Coherent StreakLine and StreakRenderer layouts; complete code interval and independently reconstructed renderer callees; no new pins
+_gpiSendOrBufferString,,0x00735100,47,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gpiBuffer.c,matched,vendored=gamespy-2004; pinned BFME1 reference including inherited EA edits; unique whole-body match; send or buffer string wrapper
