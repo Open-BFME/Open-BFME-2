@@ -3624,3 +3624,4 @@ _XMP_Shift_Left_Bits,,0x0061BBD0,308,Code/Libraries/Source/WWVegas/WWLib/mpmath.
 ?Get_X_Rotation@Matrix3D@@QBEMXZ,,0x00712000,9,Code/Libraries/Source/WWVegas/WWMath/matrix3d.cpp,matched,BFME2 exact BFME1-derived matrix getter; unique masked placement
 ?Get_Y_Rotation@Matrix3D@@QBEMXZ,,0x00712010,9,Code/Libraries/Source/WWVegas/WWMath/matrix3d.cpp,matched,BFME2 exact BFME1-derived matrix getter; unique masked placement
 ?Get_Texture@StreakRendererClass@@QBEPAVTextureClass@@XZ,,0x00196120,13,Code/Libraries/Source/WWVegas/WW3D2/streakRender.cpp,matched,BFME2 exact BFME1-derived streak accessor; unique masked placement
+?Get_Tex_Offset@FVFInfoClass@@QBEII@Z,,0x002C74C0,11,Code/Libraries/Source/WWVegas/WW3D2/streakRender.cpp,matched,BFME2 exact BFME1-derived streak helper; unique masked placement
