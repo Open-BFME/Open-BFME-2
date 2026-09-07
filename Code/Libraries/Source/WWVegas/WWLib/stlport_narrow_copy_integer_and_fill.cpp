@@ -1,18 +1,38 @@
-// ??$__copy_integer_and_fill@DV?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@@_STL@@YA?AV?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@0@PBDHV10@HHDDD@Z
-// partial score=0.34 date=2026-09-04
-// ??$__copy_integer_and_fill@DV?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@@_STL@@YA?AV?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@0@PBDHV10@HHDDD@Z
-// partial score=0.34 date=2026-09-04
-// ??$__copy_integer_and_fill@DV?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@@_STL@@YA?AV?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@0@PBDHV10@HHDDD@Z
-// partial score=0.27 date=2026-09-04
-// ??$__copy_integer_and_fill@DV?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@@_STL@@YA?AV?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@0@PBDHV10@HHDDD@Z
-// partial score=0.8 date=2026-09-02
 // cl: /EHs /EHc- /MD /D_STLP_USE_STATIC_LIB
 // stlport
 //
-// STLport 4.6 NARROW integer padding helper, the twin of 0x0000ECE0. The iterator's copying
-// primitive and character assignment remain in the retail STLport library;
-// the public copy dispatch and fill loop are instantiated inline here.
-
+// Modified STLport 4.5.3 _num_put.c integer padding algorithm and _algobase.h
+// copy/fill loops, reconstructed for BFME2. Retail RVA 0x95E0 is 569 bytes.
+// The first three copy operations remain calls to the held 114-byte __copy
+// instantiation at 0x98A0. Hexadecimal and ordinary leading-padding paths
+// inline that same loop; the local inline dispatch preserves this distinction.
+// Every character write calls the held ostreambuf_iterator assignment at
+// 0x9820. The iterator layout is its buffer pointer and success flag.
+//
+/*
+ *
+ * Copyright (c) 1994
+ * Hewlett-Packard Company
+ *
+ * Copyright (c) 1996,1997,1999
+ * Silicon Graphics Computer Systems, Inc.
+ *
+ * Copyright (c) 1997
+ * Moscow Center for SPARC Technology
+ *
+ * Copyright (c) 1999 
+ * Boris Fomitchev
+ *
+ * This material is provided "as is", with absolutely no warranty expressed
+ * or implied. Any use is at your own risk.
+ *
+ * Permission to use or copy this software for any purpose is hereby granted 
+ * without fee, provided the above notices are retained on all copies.
+ * Permission to modify the code and to distribute modified code is granted,
+ * provided the above notices are retained, and a notice that the code was
+ * modified is included with the above copyright notice.
+ *
+ */
 
 namespace _STL
 {
@@ -31,15 +51,15 @@ class ostreambuf_iterator
 {
 public:
 	ostreambuf_iterator &operator=(CharT);
-	__declspec(dllimport) __forceinline ostreambuf_iterator &operator*()
+	__forceinline ostreambuf_iterator &operator*()
 	{
 		return *this;
 	}
-	__declspec(dllimport) __forceinline ostreambuf_iterator &operator++()
+	__forceinline ostreambuf_iterator &operator++()
 	{
 		return *this;
 	}
-	__declspec(dllimport) __forceinline ostreambuf_iterator &operator++(int)
+	__forceinline ostreambuf_iterator &operator++(int)
 	{
 		return *this;
 	}
@@ -69,7 +89,12 @@ public:
 };
 
 template <class RandomAccessIter, class OutputIter, class Distance>
-OutputIter __cdecl __copy(
+__declspec(noinline) OutputIter __cdecl __copy(
+		RandomAccessIter first, RandomAccessIter last, OutputIter out,
+		const random_access_iterator_tag &, Distance *);
+
+template <class RandomAccessIter, class OutputIter, class Distance>
+__forceinline OutputIter __cdecl __copy_inline(
 		RandomAccessIter first, RandomAccessIter last, OutputIter out,
 		const random_access_iterator_tag &, Distance *)
 {
@@ -82,15 +107,23 @@ OutputIter __cdecl __copy(
 }
 
 template <class InputIter, class OutputIter>
-__declspec(dllimport) __forceinline OutputIter copy(
+__forceinline OutputIter copy(
 		InputIter first, InputIter last, OutputIter result)
 {
 	return __copy(
 			first, last, result, random_access_iterator_tag(), (int *)0);
 }
 
+template <class InputIter, class OutputIter>
+__forceinline OutputIter copy_inline(
+		InputIter first, InputIter last, OutputIter result)
+{
+	return __copy_inline(
+			first, last, result, random_access_iterator_tag(), (int *)0);
+}
+
 template <class OutputIter, class Size, class Value>
-__declspec(dllimport) __forceinline OutputIter fill_n(
+__forceinline OutputIter fill_n(
 		OutputIter first, Size count, const Value &value)
 {
 	for (; count > 0; --count, ++first)
@@ -130,18 +163,19 @@ OutputIter __cdecl __copy_integer_and_fill(
 			*out++ = buffer[0];
 			*out++ = buffer[1];
 			out = fill_n(out, pad, fill);
-			out = copy(buffer + 2, buffer + length, out);
+			return copy_inline(buffer + 2, buffer + length, out);
 		}
 		else
 		{
 			out = fill_n(out, pad, fill);
-			out = copy(buffer, buffer + length, out);
+			return copy_inline(buffer, buffer + length, out);
 		}
 	}
-	return out;
 }
 
 typedef ostreambuf_iterator<char, char_traits<char> > narrow_output_iterator;
+
+typedef char _NarrowOutputLayout[(sizeof(narrow_output_iterator) == 8) ? 1 : -1];
 
 template narrow_output_iterator __copy_integer_and_fill<
 		char, narrow_output_iterator>(
