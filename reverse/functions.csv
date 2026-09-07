@@ -4177,3 +4177,4 @@ _BucketConcat,,0x00609F10,236,Code/GameEngine/Source/GameNetwork/GameSpy/gstats/
 _BucketAvg,,0x0060A000,187,Code/GameEngine/Source/GameNetwork/GameSpy/gstats/gbucket.c,matched,vendored=gamespy-2004; unique masked whole-.text body; complete source boundary
 _BucketAdd,,0x0060A0C0,155,Code/GameEngine/Source/GameNetwork/GameSpy/gstats/gbucket.c,matched,vendored=gamespy-2004; unique masked whole-.text body; complete source boundary
 _FreeBucketSet,,0x006098A0,25,Code/GameEngine/Source/GameNetwork/GameSpy/gstats/gbucket.c,matched,complete SDK helper; unique placement after independently verified direct-call and literal identities
+_bint,,0x006098C0,15,Code/GameEngine/Source/GameNetwork/GameSpy/gstats/gbucket.c,matched,complete SDK helper; unique placement after independently verified direct-call and literal identities
