@@ -682,3 +682,6 @@ _strdup,0x006C4C70,address read from the retail REL32 in INIClass::Put_String at
 ?_M_create_node@?$_Rb_tree@HU?$pair@$$CBHH@_STL@@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBHH@_STL@@@2@ABU?$pair@$$CBHH@2@@Z,0x00382B7F,address read from the retail REL32 in the body at 0x0038341E
 ?_Rebalance@?$_Rb_global@_N@_STL@@SAXPAU_Rb_tree_node_base@2@AAPAU32@@Z,0x00025490,address read from the retail REL32 in the body at 0x0038341E
 ?Get_Render_Target_Resolution@DX8Wrapper@@KAXAAH00AA_N@Z,0x00121860,address read from the retail REL32 in the body at 0x00116FF0
+?Release@Animatable3DObjClass@@IAEXXZ,0x001A4AA0,address read from the retail REL32 in Animatable3DObjClass Set_Animation at 0x001A4BD0
+?Simple_Evaluate_Pivot@HTreeClass@@QBE_NHABVMatrix3D@@PAV2@@Z,0x001606E0,address read from the REL32 displacement at a placed body
+?Simple_Evaluate_Pivot@HTreeClass@@QBE_NPAVHAnimClass@@HMABVMatrix3D@@PAV3@@Z,0x00161700,address read from the REL32 displacement at a placed body

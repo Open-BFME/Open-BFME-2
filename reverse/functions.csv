@@ -3934,3 +3934,6 @@ _XMP_Shift_Left_Bits,,0x0061BBD0,308,Code/Libraries/Source/WWVegas/WWLib/mpmath.
 ??0Format@Debug@@QAA@PBDZZ,,0x000386E0,35,Code/Libraries/Source/debug/debug_debug.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 ?DebugInternalAssert@@YAXPBDH0@Z,,0x0003E360,89,Code/Libraries/Source/debug/debug_internal.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 ?Random_Float@WWMath@@SAMXZ,,0x00711B90,26,Code/Libraries/Source/WWVegas/WWLib/wwmath.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?DebugFreeMemory@@YAXPAX@Z,,0x0003E3C0,19,Code/Libraries/Source/debug/debug_internal.cpp,matched,Debug allocator free; screened exact against the reloc-named address
+?Set_Animation@Animatable3DObjClass@@UAEXXZ,,0x001A4BD0,27,Code/Libraries/Source/WWVegas/WW3D2/animobj.cpp,matched,Animatable3DObjClass Set_Animation; the reference animobj.h layout not the sweep one
+?Simple_Evaluate_Bone@Animatable3DObjClass@@UBE_NHMPAVMatrix3D@@@Z,,0x001A4F50,197,Code/Libraries/Source/WWVegas/WW3D2/animobj.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
