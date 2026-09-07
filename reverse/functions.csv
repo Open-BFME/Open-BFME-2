@@ -4000,3 +4000,4 @@ _ArraySearch,,0x0060A690,140,Code/GameEngine/Source/GameNetwork/GameSpy/darray.c
 _ArrayClear,,0x0060A720,103,Code/GameEngine/Source/GameNetwork/GameSpy/darray.c,matched,vendored=gamespy-2004; unique masked whole-.text body; complete source boundary
 _ArrayNth,,0x0060A200,16,Code/GameEngine/Source/GameNetwork/GameSpy/darray.c,matched,vendored=gamespy-2004; unique masked whole-.text body; complete source boundary
 _ArraySort,,0x0060A250,30,Code/GameEngine/Source/GameNetwork/GameSpy/darray.c,matched,vendored=gamespy-2004; unique masked whole-.text body; complete source boundary
+_FreeElement,,0x0060A410,25,Code/GameEngine/Source/GameNetwork/GameSpy/darray.c,matched,vendored=gamespy-2004; unique masked whole-.text body; complete source boundary
