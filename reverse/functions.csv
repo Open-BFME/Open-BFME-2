@@ -4751,3 +4751,4 @@ _gpiPeerAddMessage,,0x00738D00,278,Code/GameEngine/Source/GameNetwork/GameSpy/gp
 _gpiPeerStartConnect,,0x00738BD0,290,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gpiPeer.c,matched,vendored=gamespy-2004; pinned BFME1 reference including inherited EA edits; unique whole-body match; gpiPeerStartConnect
 _gpiDestroyPeer,,0x00738910,107,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gpiPeer.c,matched,vendored=gamespy-2004; pinned BFME1 reference including inherited EA edits; unique whole-body match; gpiDestroyPeer
 _gpiPeerSendMessages,,0x007385B0,136,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gpiPeer.c,matched,vendored=gamespy-2004; pinned BFME1 reference including inherited EA edits; unique whole-body match; gpiPeerSendMessages
+_gpiRemovePeer,,0x00738980,182,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gpiPeer.c,matched,vendored=gamespy-2004; pinned BFME1 reference including inherited EA edits; unique whole-body match; gpiRemovePeer
