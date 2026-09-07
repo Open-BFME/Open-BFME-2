@@ -746,3 +746,9 @@ _closesocket@4,0x00655676,PE-verified FF25 import thunk to wsock32.dll!closesock
 ?Check_Driver_Version_Status@DX8Caps@@AAEXXZ,0x0012B5B0,Retail 709-byte driver-status routine compares nv4.dll/nv4_disp.dll and known build numbers then logs driver status; exact Compute_Caps call corroborates identity
 ?Check_Texture_Compression_Support@DX8Caps@@AAEXABU_D3DCAPS8@@@Z,0x0012B4E0,Retail 98-byte compression probe ORs five DXT flags at +0x1B4..0x1B8 and logs Texture compression support; exact Compute_Caps call corroborates identity
 ?Vendor_Specific_Hacks@DX8Caps@@AAEXABU_D3DADAPTER_IDENTIFIER8@@@Z,0x0012B9B0,Retail 1065-byte vendor workaround routine with independent NVIDIA/ATI/Matrox driver-warning strings and mapped-device branches; exact Compute_Caps call corroborates identity
+??0CollectionClass@@QAE@ABV0@@Z,0x00130C00,address read from the REL32 displacement at a placed body
+??0MaterialPassClass@@QAE@XZ,0x0013EDD0,address read from the REL32 displacement at a placed body
+?getPercentage@NetProgressCommandMsg@@QAEEXZ,0x004C54EC,address read from the REL32 displacement at a placed body
+?insert_unique@?$_Rb_tree@GU?$pair@$$CBGH@_STL@@U?$_Select1st@U?$pair@$$CBGH@_STL@@@2@U?$less@G@2@V?$allocator@U?$pair@$$CBGH@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBGH@_STL@@U?$_Nonconst_traits@U?$pair@$$CBGH@_STL@@@2@@2@U32@ABU?$pair@$$CBGH@2@@Z,0x00157520,address read from the REL32 displacement at a placed body
+?processProgress@GameLogic@@QAEXHH@Z,0x0023D740,address read from the REL32 displacement at a placed body
+??0Cftp@@QAE@XZ,0x006CA5E0,address read from the REL32 displacement at a placed body

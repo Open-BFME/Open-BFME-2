@@ -1,11 +1,9 @@
 target_rva,target_size,zh_source,alternates,confidence,ghidra_name,anchor
 0x003D46DB,62675,ScriptEngine.cpp,0,high,FUN_007d46db,"Multimedia_/Music Scripting Internal (music.scb only!)/Push music track to play as part of the music scripting system a certain number of times, then set a flag."
+0x001AD1B0,4693,part_buf.cpp,0,high,FUN_005ad1b0,ParticleBufferClass::Color
 0x0003E570,3471,debug_cmd.cpp,0,high,FUN_0043e570,"list (g|l|d|a|c) [ <pattern> ]  Shows some or all items of a specific type.  The following items are supported: - g: command groups - l: log groups (only those encountered yet) - d: log groups with descriptions (only those that have descriptions) - a: asserts (only those hit yet) - c: crashes (only those failed yet)  If a pattern is specified only items matching that pattern are shown. A pattern can contain any character, letter, or a wildcard '*'.  Please note that assert and crash items have their line number appended to the current file name, e.g. debug.cpp(13). "
 0x0019DB50,2501,hlod.cpp,0,high,FUN_0059db50,BOUNDINGBOX
-0x001AC860,2323,part_buf.cpp,0,high,FUN_005ac860,ParticleBufferClass::TailPosition
 0x002DE641,2137,GameState.cpp,0,high,FUN_006de641,CHUNK_MineshaftPortalNetworkManager
-0x00612770,1871,cpudetect.cpp,0,high,FUN_00a12770,"L1 Instruction Cache: %d byte cache lines, %d way set associative, %dk  "
-0x00617B10,1810,ini.cpp,0,high,FUN_00a17b10,INIClass::Load
 0x00697EC0,1617,PeerThread.cpp,0,high,FUN_00a97ec0,statechanged
 0x0003DCD0,1254,debug_except.cpp,0,high,FUN_0043dcd0,EA/DEBUG: EXCEPTION_STACK_OVERFLOW 
 0x006C7600,1117,profile_result.cpp,0,high,FUN_00ac7600,"Function,File,Call count,PTT (all),GTT (all),PT/C (all),GT/C (all),Caller (all)"
@@ -13,7 +11,6 @@ target_rva,target_size,zh_source,alternates,confidence,ghidra_name,anchor
 0x00129E50,948,statistics.cpp,0,high,FUN_00529e50,Set_DX8_Texture count: %d actual changes: %d  id      refs changes  size      name -------------------------------------- 
 0x0003A8A0,915,debug_debug.cpp,0,high,FUN_0043a8a0,Assert hit too often - turning check off. 
 0x0016A320,911,meshgeometry.cpp,0,high,FUN_0056a320,MeshGeometryClass::VertexBinormals
-0x001AF060,907,part_buf.cpp,0,high,FUN_005af060,ParticleBufferClass::TailDiffuse
 0x00039E20,901,debug_debug.cpp,0,high,FUN_00439e20,"Unknown command, help not available"
 0x00189CD0,897,meshmdlio.cpp,0,high,FUN_00589cd0,MeshModelClass::DefMatDesc::TextureArray
 0x001A1070,881,part_emt.cpp,0,high,FUN_005a1070,ParticleEmitter
@@ -24,7 +21,6 @@ target_rva,target_size,zh_source,alternates,confidence,ghidra_name,anchor
 0x0007846F,712,FileSystem.h,0,high,FUN_0047846f,Art/CompiledTextures/
 0x0012B5B0,709,dx8caps.cpp,0,high,FUN_0052b5b0,Driver version status: Bad (Driver update recommended)  
 0x00039B70,664,debug_debug.cpp,0,high,FUN_00439b70,[%02i:%02i.%02i.%03i] 
-0x00616FB0,554,ini.cpp,0,high,FUN_00a16fb0,INIClass::Put_String
 0x006C9760,449,Download.cpp,0,high,FUN_00ac9760,download
 0x006BB240,421,Connection.h,0,high,FUN_00abb240,GameSpyHTTP/1.0
 0x000999E3,396,W3DMouse.cpp,0,high,FUN_004999e3,%s%04d.tga
@@ -32,7 +28,6 @@ target_rva,target_size,zh_source,alternates,confidence,ghidra_name,anchor
 0x00230215,390,GameEngine.cpp,0,high,Catch@00630215,ERROR:D3DFailureMessage
 0x000AF917,379,FileSystem.h,0,high,FUN_004af917,Art/Terrain/
 0x004CB189,369,Module.cpp,0,high,FUN_008cb189,"An upgrade module references %s, which is not an Upgrade"
-0x001A8630,357,part_buf.cpp,0,high,FUN_005a8630,ParticleBufferClass::Diffuse
 0x003C4C07,341,Scripts.cpp,0,high,FUN_007c4c07,Player Targetable
 0x0005BA08,330,MilesAudioManager.cpp,0,high,FUN_0045ba08,Mono Delay Time
 0x0066B5D0,320,base64.cpp,0,high,FUN_00a6b5d0,ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/
@@ -64,7 +59,6 @@ target_rva,target_size,zh_source,alternates,confidence,ghidra_name,anchor
 0x002E46AF,92,OptionsMenu.cpp,0,high,FUN_006e46af,SaveCameraInReplays
 0x002E470B,92,OptionsMenu.cpp,0,high,FUN_006e470b,UseCameraInReplays
 0x0054F63A,92,UserPreferences.cpp,0,high,FUN_0094f63a,DisallowNonAsianText
-0x0003E360,89,debug_internal.cpp,0,high,FUN_0043e360,Internal assert failed
 0x0005178D,83,MilesAudioManager.cpp,0,high,FUN_0045178d,Mono Delay Filter
 0x00204094,83,ScriptEngine.cpp,0,high,FUN_00604094,SetFrameNumber
 0x0026F11A,83,Upgrade.cpp,0,high,FUN_0066f11a,GUI:NotEnoughMoneyToUpgrade
