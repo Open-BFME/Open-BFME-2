@@ -3355,3 +3355,4 @@ _XMP_Init,,0x0061BD70,23,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,
 ?Increase_Table_Size@?$IndexClass@HPAUINISection@@@@AAE_NH@Z,,0x00616190,208,Code/Libraries/Source/WWVegas/WWLib/ini.cpp,matched,IndexClass<int INISection*>::Increase_Table_Size; array new/delete fold to the scalar operators
 ?Chunk_ID@LightPersistFactoryClass@@UBEKXZ,,0x00615B60,6,Code/Libraries/Source/WWVegas/WW3D2/light.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 ?Get_Transform@RenderObjClass@@QBEABVMatrix3D@@XZ,,0x00063361,13,Code/Libraries/Source/WWVegas/WW3D2/camera.cpp,matched,ported from exact BFME1 body; unique masked placement
+?Is_In_Scene@RenderObjClass@@UAE_NXZ,,0x0041B7F5,12,Code/Libraries/Source/WWVegas/WW3D2/camera.cpp,matched,ported from exact BFME1 body; unique masked placement
