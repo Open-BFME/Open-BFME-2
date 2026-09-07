@@ -8,18 +8,23 @@
 
 class BehaviorModule;
 class BodyModuleInterface;
+class StealthUpdate;
+class AIUpdateInterface;
 
 class Object
 {
 public:
 	BehaviorModule **getBehaviorModules() const;
 	BodyModuleInterface *getBodyModule() const;
+	AIUpdateInterface *getAI();
 
 private:
 	unsigned char m_pre[0x18C];
 	BehaviorModule **m_behaviors;	// +0x18C
 	void *m_contain;			// +0x190
 	BodyModuleInterface *m_body;	// +0x194
+	StealthUpdate *m_stealth;	// +0x198
+	AIUpdateInterface *m_ai;	// +0x19C
 };
 
 // ?getBehaviorModules@Object@@QBEPAPAVBehaviorModule@@XZ
@@ -32,4 +37,10 @@ BehaviorModule **Object::getBehaviorModules() const
 BodyModuleInterface *Object::getBodyModule() const
 {
 	return m_body;
+}
+
+// ?getAI@Object@@QAEPAVAIUpdateInterface@@XZ
+AIUpdateInterface *Object::getAI()
+{
+	return m_ai;
 }
