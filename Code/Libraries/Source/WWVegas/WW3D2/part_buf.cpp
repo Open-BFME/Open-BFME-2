@@ -36,7 +36,7 @@
  *-------------------------------------------------------------------------* 
  * Functions:                                                              * 
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-#include "rendobj.h"	// the bfmerendobj shim has to win the include guard
+#include "../../../../../reference/shims/bfmesegline/rendobj.h" // independently verified indexed-factor prefix and 0xC4 base size
 #include "part_buf.h"
 #include "part_emt.h"
 #include "ww3d.h"
@@ -828,7 +828,6 @@ void ParticleBufferClass::Get_Obj_Space_Bounding_Box(AABoxClass & box) const
 
 // ?Prepare_LOD@ParticleBufferClass@@UAEXAAVCameraClass@@@Z
 // BFME omits Zero Hour's final PredictiveLODOptimizerClass::Add_Object call.
-// ?Prepare_LOD@ParticleBufferClass@@ present-unmatched
 void ParticleBufferClass::Prepare_LOD(CameraClass &camera)
 {
 	if (Is_Not_Hidden_At_All() == false) {
@@ -3013,7 +3012,6 @@ float ParticleBufferClass::Get_Noise_Amplitude(void) const
 	return 0.0f;
 }
 
-// ?Get_Merge_Abort_Factor@ParticleBufferClass@@ present-unmatched
 float ParticleBufferClass::Get_Merge_Abort_Factor(void) const
 {
 	if (LineRenderer != NULL) {

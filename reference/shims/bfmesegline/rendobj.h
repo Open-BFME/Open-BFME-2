@@ -1,4 +1,4 @@
-// Scoped SegmentedLine collision interface. Only factor slots 23..25 and
+// Scoped SegmentedLine and ParticleBuffer interface. Only factor slots 23..25 and
 // the retail collision getter are reconciled; remaining base layout and
 // vtable contents are not claimed. Inherits the established 0xC4 base size.
 // Header shim: reference/open-bfme-1's WW3D2 rendobj.h with ONE change --
@@ -370,7 +370,7 @@ public:
 	bool								Is_Transform_Identity_No_Validity_Check() const;
 	Vector3							Get_Position(void) const;
 
-	// BFME2 SegmentedLine-only interface reconciliation. Retail slots23/24 are
+	// BFME2 scoped engine interface reconciliation. Retail slots23/24 are
 	// indexed accessors over two floats at0x90/0x94 (RET8 / RET4). The base
 	// ctor RVA13BF00 initializes both to1.0f and assignment RVA13B5F0 loops
 	// over both indices. Their application-level meaning is still unknown.
