@@ -1,5 +1,5 @@
 // cl: /MD -Ireference/shims/gamespy /DNDEBUG -Ireference/open-bfme-1/Code/GameEngine/Source/GameNetwork/GameSpy/serverbrowsing
-/* GameSpy SDK, 2004 vintage -- upstream C source with the BFME2 CRT comparison-name adaptation below.
+/* GameSpy SDK, 2004 vintage -- upstream C source with the BFME2 CRT and Winsock import-name adaptations below.
    Sourced from the Area 51 (Inevitable Entertainment / Midway) source release,
    github.com/bisc67/Area51, Support/NetworkMgr/GameSpy -- the only public
    carrier found with the pre-2005 SDK layout (top-level nonport.c, no common/).
@@ -23,6 +23,13 @@
 // IAT 0x00BBA518; keep the reference SDK alias local to this unit.
 #undef strcasecmp
 #define strcasecmp _strcmpi
+
+// This x86 BFME2 image imports htonl/htons for both directions of the
+// same 32/16-bit byte reversal. Keep the actual PE import names in this TU.
+#undef ntohl
+#define ntohl htonl
+#undef ntohs
+#define ntohs htons
 
 #define SERVER_GROWBY 100
 
