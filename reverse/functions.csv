@@ -4591,3 +4591,4 @@ _qr2_buffer_addW,,0x00696990,52,Code/GameEngine/Source/GameNetwork/GameSpy/qr2/q
 _enum_local_ips,,0x006969D0,49,Code/GameEngine/Source/GameNetwork/GameSpy/qr2/qr2.c,matched,complete GameSpy source body; direct call and named PE-import identities verified; compiler and retail executable boundaries agree
 _qr2_get_sockaddrin,,0x00696A10,112,Code/GameEngine/Source/GameNetwork/GameSpy/qr2/qr2.c,matched,complete GameSpy source body; direct call and named PE-import identities verified; compiler and retail executable boundaries agree
 _encode_ct,,0x00696A90,40,Code/GameEngine/Source/GameNetwork/GameSpy/qr2/qr2.c,matched,complete GameSpy source body; direct call and named PE-import identities verified; compiler and retail executable boundaries agree
+_gs_encode,,0x00696AC0,189,Code/GameEngine/Source/GameNetwork/GameSpy/qr2/qr2.c,matched,complete GameSpy source body; direct call and named PE-import identities verified; compiler and retail executable boundaries agree
