@@ -3709,3 +3709,6 @@ _XMP_Shift_Left_Bits,,0x0061BBD0,308,Code/Libraries/Source/WWVegas/WWLib/mpmath.
 ?Is_Valid@RegistryClass@@QAE_NXZ,,0x00098CBC,4,Code/Libraries/Source/WWVegas/WWLib/registry.cpp,matched,BFME2 exact BFME1-derived registry predicate
 ?Get_Num_Polys@DynamicMeshClass@@UBEHXZ,,0x005BE1BC,7,Code/Libraries/Source/WWVegas/WW3D2/dynamesh.cpp,matched,BFME2 exact BFME1-derived DynamicMesh getter
 ?Get_Num_Vertices@DynamicMeshClass@@UBEHXZ,,0x005BE1C3,7,Code/Libraries/Source/WWVegas/WW3D2/dynamesh.cpp,matched,BFME2 exact BFME1-derived DynamicMesh getter
+?Get_Processor_Manufacturer_Name@CPUDetectClass@@SAPBDXZ,,0x00611040,13,Code/Libraries/Source/WWVegas/WWLib/cpudetect.cpp,matched,BFME2 exact BFME1-derived CPUDetect getter
+?Flush@Pipe@@UAEHXZ,,0x0061B150,17,Code/Libraries/Source/WWVegas/WWLib/pipe.cpp,matched,BFME2 exact BFME1-derived pipe helper
+?hasData@AsciiString@@QBE_NXZ,,0x006CD4A0,10,Code/Libraries/Source/WWVegas/WWLib/quoted_printable.cpp,matched,BFME2 exact BFME1-derived string predicate
