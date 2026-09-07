@@ -85,7 +85,6 @@ StreakLineClass::StreakLineClass(const StreakLineClass & src) :
 {
 }
 
-// ??4StreakLineClass@@ present-unmatched
 StreakLineClass & StreakLineClass::operator = (const StreakLineClass &that)
 {
 	RenderObjClass::operator = (that);

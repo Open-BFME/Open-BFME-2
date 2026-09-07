@@ -308,3 +308,4 @@ __heap_abort	0x000398A0	80	partial	same one-word fix as SkipNext since this body
 ??0StreakRendererClass@@QAE@ABV0@@Z	0x746DE0	178	converted	t=16 model=gpt-6-astra; coherent StreakRenderer ownership reconstruction; full body and real callee contracts exact; copy EH action independently establishes RefCountPtr destructor
 ??0StreakLineClass@@QAE@XZ	0x742470	212	converted	t=20 model=gpt-6-astra; independently reconstructed renderer ctor/copy/assignment close all real callees; exact full body with coherent BFME layouts
 ??0StreakLineClass@@QAE@ABV0@@Z	0x7426E0	331	converted	t=20 model=gpt-6-astra; independently reconstructed renderer ctor/copy/assignment close all real callees; exact full body with coherent BFME layouts
+??4StreakLineClass@@QAEAAV0@ABV0@@Z	0x742830	209	converted	t=20 model=gpt-6-astra; independently reconstructed renderer ctor/copy/assignment close all real callees; exact full body with coherent BFME layouts
