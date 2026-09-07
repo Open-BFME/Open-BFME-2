@@ -4683,3 +4683,4 @@ _qr2_initW,,0x00697D40,205,Code/GameEngine/Source/GameNetwork/GameSpy/qr2/qr2.c,
 _qr2_register_keyA,,0x0069D590,28,Code/GameEngine/Source/GameNetwork/GameSpy/qr2/qr2regkeys.c,matched,complete SDK helper; unique whole-image placement and independently verified call/import identities
 _swap_byte,,0x00696A80,11,Code/GameEngine/Source/GameNetwork/GameSpy/qr2/qr2.c,matched,complete SDK helper; unique whole-image placement and independently verified call/import identities
 _qr_add_packet_header,,0x00696CB0,18,Code/GameEngine/Source/GameNetwork/GameSpy/qr2/qr2.c,matched,complete SDK helper; unique whole-image placement and independently verified call/import identities
+_piConnectCopy,,0x0069E420,18,Code/GameEngine/Source/GameNetwork/GameSpy/peer/peerCallbacks.c,matched,Peer callback table RVA0x008E5DD0 type=0 member=copy; one complete executable claim per folded target; all102 source callbacks independently byte-verified
