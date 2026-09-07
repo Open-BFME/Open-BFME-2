@@ -3405,3 +3405,4 @@ _XMP_Shift_Left_Bits,,0x0061BBD0,308,Code/Libraries/Source/WWVegas/WWLib/mpmath.
 ?Is_Merge_Intersections@SegLineRendererClass@@QBEHXZ,,0x0015DF60,7,Code/Libraries/Source/WWVegas/WW3D2/part_buf.cpp,matched,BFME2 exact BFME1-derived predicate; unique masked placement
 ?Is_Sorting_Disabled@SegLineRendererClass@@QBEHXZ,,0x0015DF80,7,Code/Libraries/Source/WWVegas/WW3D2/part_buf.cpp,matched,BFME2 exact BFME1-derived predicate; unique masked placement
 ?Get_Color_Mask@ShaderClass@@QBE?AW4ColorMaskType@1@XZ,,0x00137490,9,Code/Libraries/Source/WWVegas/WW3D2/shader.cpp,matched,BFME2 exact BFME1-derived shader getter; unique masked placement
+?Get_Depth_Mask@ShaderClass@@QBE?AW4DepthMaskType@1@XZ,,0x00137480,9,Code/Libraries/Source/WWVegas/WW3D2/shader.cpp,matched,BFME2 exact BFME1-derived shader getter; unique masked placement
