@@ -64,3 +64,18 @@ void gs_crypt(unsigned char *buffer_ptr, int buffer_len, gs_crypt_key *key)
 	key->x = x;
 	key->y = y;
 }
+
+
+void gs_xcode_buf(char *buf, int len, char *enckey)
+{
+	int i;
+	char *pos = enckey;
+
+	for (i = 0 ; i < len ; i++)
+	{
+		buf[i] ^= *pos++;
+		if (*pos == 0)
+			pos = enckey;
+	}
+
+}
