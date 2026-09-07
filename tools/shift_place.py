@@ -32,6 +32,17 @@ correction to invalidate rows that were placed by single-hit search under the
 old layout; a seven-byte getter at an unaligned address with nothing claimed
 near it was never that function.
 
+THE FALSE POSITIVE TO EXPECT, because it looks exactly like the real thing: an
+accessor whose SIBLING reads the next member along.  `LightClass::Get_Diffuse`
+reports a clean unique hit at +12 -- and +12 is precisely the distance from
+Diffuse to Specular, so what the search found was Get_Specular, a different
+function with the same twelve-byte shape.  Shimming twelve bytes in front of
+Diffuse broke three rows that had been green.  The tell is that a real layout
+difference moves MANY bodies of one class by the same delta; a sibling
+collision moves exactly one, and the delta equals the gap between two adjacent
+members of the same type.  Ambient/Diffuse/Specular, X/Y/Z and Min/Max
+accessors are where this bites.
+
   python3 tools/shift_place.py <source.cpp> [...]
   python3 tools/shift_place.py --deltas -4,4 <source.cpp>
 
