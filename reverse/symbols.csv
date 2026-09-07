@@ -708,3 +708,5 @@ _ArrayLength,0x006989D0,GameSpy dynamic-array length; exact seven-byte source bo
 ??0?$_STLP_alloc_proxy@PAU?$pair@W4ObjectID@@I@_STL@@U12@V?$allocator@U?$pair@W4ObjectID@@I@_STL@@@2@@_STL@@QAE@ABV?$allocator@U?$pair@W4ObjectID@@I@_STL@@@1@PAU?$pair@W4ObjectID@@I@1@@Z,0x00007410,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
 ?getMaxHeightAbovePosition@GeometryInfo@@QBEMXZ,0x006BD7C0,address read from the REL32 displacement at a placed body
 ?initFromINI@INI@@QAEXPAXPBUFieldParse@@@Z,0x0002DE78,address read from the REL32 displacement at a placed body
+?_M_insert_overflow@?$vector@UFlightDeckInfo@FlightDeckBehavior@@V?$allocator@UFlightDeckInfo@FlightDeckBehavior@@@_STL@@@_STL@@IAEXPAUFlightDeckInfo@FlightDeckBehavior@@ABU34@ABU__false_type@2@I_N@Z,0x00627BC0,address read from the REL32 displacement at a placed body
+??1ObjectModule@@MAE@XZ,0x0049B47C,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
