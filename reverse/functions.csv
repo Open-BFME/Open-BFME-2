@@ -3995,3 +3995,4 @@ _ArraySetDataPtr,,0x0060A4B0,88,Code/GameEngine/Source/GameNetwork/GameSpy/darra
 _ArrayInsertAt,,0x0060A510,139,Code/GameEngine/Source/GameNetwork/GameSpy/darray.c,matched,vendored=gamespy-2004; unique masked whole-.text body; complete source boundary
 _ArrayInsertSorted,,0x0060A5A0,57,Code/GameEngine/Source/GameNetwork/GameSpy/darray.c,matched,vendored=gamespy-2004; unique masked whole-.text body; complete source boundary
 _ArrayDeleteAt,,0x0060A5E0,88,Code/GameEngine/Source/GameNetwork/GameSpy/darray.c,matched,vendored=gamespy-2004; unique masked whole-.text body; complete source boundary
+_ArrayReplaceAt,,0x0060A640,72,Code/GameEngine/Source/GameNetwork/GameSpy/darray.c,matched,vendored=gamespy-2004; unique masked whole-.text body; complete source boundary
