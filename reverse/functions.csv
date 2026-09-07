@@ -4288,7 +4288,6 @@ _PreAuthenticatePlayerPM,,0x00608D50,158,Code/GameEngine/Source/GameNetwork/Game
 ?Set@Matrix3@@QAEXABVMatrix3D@@@Z,,0x007168F0,83,Code/Libraries/Source/WWVegas/WWMath/matrix3.cpp,matched,gen-alias;object-symbol=?Set@Matrix3@@QAEXABVMatrix3D@@@Z;C++ alias
 ?dup_0012d720@@YAXXZ,,0x0012D720,44,Code/Libraries/Source/WWVegas/WW3D2/sortingrenderer.cpp,matched,gen-alias;object-symbol=?Insert_Before@?$DLNodeClass@VSortingNodeStruct@@@@QAEXPAV1@@Z;C++ alias
 ?dup_002d2580@@YAXXZ,,0x002D2580,44,Code/Libraries/Source/WWVegas/WW3D2/sortingrenderer.cpp,matched,gen-alias;object-symbol=?Insert_Before@?$DLNodeClass@VSortingNodeStruct@@@@QAEXPAV1@@Z;C++ alias
-_FindFinal,,0x00607440,70,Code/GameEngine/Source/GameNetwork/GameSpy/gstats/gstats.c,matched,gen-alias;object-symbol=_FindFinal;C++ alias
 ?setAngle@View@@UAEXM@Z,,0x0025EAFB,14,Code/GameEngine/Source/GameClient/View.cpp,matched,gen-alias;object-symbol=?setAngle@View@@UAEXM@Z;C++ alias
 ?setHeightAboveGround@View@@UAEXM@Z,,0x002628F9,14,Code/GameEngine/Source/GameClient/View.cpp,matched,gen-alias;object-symbol=?setHeightAboveGround@View@@UAEXM@Z;C++ alias
 ?Set_Burst_Size@ParticleEmitterDefClass@@UAEXI@Z,,0x00262FEB,13,Code/Libraries/Source/WWVegas/WW3D2/part_ldr.cpp,matched,gen-alias;object-symbol=?Set_Burst_Size@ParticleEmitterDefClass@@UAEXI@Z;C++ alias
@@ -4307,15 +4306,6 @@ _FindFinal,,0x00607440,70,Code/GameEngine/Source/GameNetwork/GameSpy/gstats/gsta
 ?Set_Line_UCoord@LineGroupClass@@QAEXM@Z,,0x0041FDEE,10,Code/Libraries/Source/WWVegas/WW3D2/linegrp.cpp,matched,gen-alias;object-symbol=?Set_Line_UCoord@LineGroupClass@@QAEXM@Z;C++ alias
 ?Memory@CRC@@SAKPAEKK@Z,,0x00619AC0,51,Code/Libraries/Source/WWVegas/WWLib/crc.cpp,matched,gen-alias;object-symbol=?Memory@CRC@@SAKPAEKK@Z;C++ alias
 ?Get_Merge_Abort_Factor@ParticleBufferClass@@QBEMXZ,,0x001A79B0,21,Code/Libraries/Source/WWVegas/WW3D2/part_buf.cpp,matched,gen-alias;object-symbol=?Get_Merge_Abort_Factor@ParticleBufferClass@@QBEMXZ;C++ alias
-_ServerOpInt,,0x006077B0,77,Code/GameEngine/Source/GameNetwork/GameSpy/gstats/gstats.c,matched,gen-alias;object-symbol=_ServerOpInt;C++ alias
-_ServerOpFloat,,0x00607800,78,Code/GameEngine/Source/GameNetwork/GameSpy/gstats/gstats.c,matched,gen-alias;object-symbol=_ServerOpFloat;C++ alias
-_ServerOpString,,0x00607850,72,Code/GameEngine/Source/GameNetwork/GameSpy/gstats/gstats.c,matched,gen-alias;object-symbol=_ServerOpString;C++ alias
-_TeamOpInt,,0x006078A0,162,Code/GameEngine/Source/GameNetwork/GameSpy/gstats/gstats.c,matched,gen-alias;object-symbol=_TeamOpInt;C++ alias
-_TeamOpFloat,,0x00607950,162,Code/GameEngine/Source/GameNetwork/GameSpy/gstats/gstats.c,matched,gen-alias;object-symbol=_TeamOpFloat;C++ alias
-_TeamOpString,,0x00607A00,148,Code/GameEngine/Source/GameNetwork/GameSpy/gstats/gstats.c,matched,gen-alias;object-symbol=_TeamOpString;C++ alias
-_PlayerOpInt,,0x00607AA0,162,Code/GameEngine/Source/GameNetwork/GameSpy/gstats/gstats.c,matched,gen-alias;object-symbol=_PlayerOpInt;C++ alias
-_PlayerOpFloat,,0x00607B50,162,Code/GameEngine/Source/GameNetwork/GameSpy/gstats/gstats.c,matched,gen-alias;object-symbol=_PlayerOpFloat;C++ alias
-_PlayerOpString,,0x00607C00,148,Code/GameEngine/Source/GameNetwork/GameSpy/gstats/gstats.c,matched,gen-alias;object-symbol=_PlayerOpString;C++ alias
 _XMP_Rabin_Miller_Test,,0x0061D810,568,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,gen-alias;object-symbol=_XMP_Rabin_Miller_Test;C++ alias
 _gpiAppendStringToBuffer,,0x00734E40,47,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gpiBuffer.c,matched,gen-alias;object-symbol=_gpiAppendStringToBuffer;C++ alias
 _gpiAppendIntToBuffer,,0x00734E70,68,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gpiBuffer.c,matched,gen-alias;object-symbol=_gpiAppendIntToBuffer;C++ alias
@@ -4349,3 +4339,4 @@ _gpiSendOrBufferUInt,,0x00735180,68,Code/GameEngine/Source/GameNetwork/GameSpy/g
 ??1Vertex_Split_Table@@QAE@XZ,,0x00143A70,17,Code/Libraries/Source/WWVegas/WW3D2/dx8renderer.cpp,matched,gen-alias;object-symbol=??1Vertex_Split_Table@@QAE@XZ;C++ alias
 ??1?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@_STL@@QAE@XZ,,0x000796BC,15,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate.cpp,matched,gen-alias;object-symbol=??1?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@_STL@@QAE@XZ;C++ alias
 ??$_Destroy@U?$_Deque_iterator@UBfmeE12@@U?$_Nonconst_traits@UBfmeE12@@@_STL@@@_STL@@@_STL@@YAXU?$_Deque_iterator@UBfmeE12@@U?$_Nonconst_traits@UBfmeE12@@@_STL@@@0@0@Z,,0x004227D3,41,Code/Libraries/Source/WWVegas/WWLib/stlport_deque_e12_o1.cpp,matched,gen-alias;object-symbol=??$_Destroy@U?$_Deque_iterator@UBfmeE12@@U?$_Nonconst_traits@UBfmeE12@@@_STL@@@_STL@@@_STL@@YAXU?$_Deque_iterator@UBfmeE12@@U?$_Nonconst_traits@UBfmeE12@@@_STL@@@0@0@Z;C++ alias
+_PreAuthenticatePlayerCDA,,0x00608DF0,166,Code/GameEngine/Source/GameNetwork/GameSpy/gstats/gstats.c,matched,vendored=gamespy-2004; unique complete source body; direct callees independently byte-verified; named PE import references audited
