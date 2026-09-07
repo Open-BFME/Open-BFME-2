@@ -1230,7 +1230,9 @@ int TimeCodedMotionChannelClass::Get_Channel_Memory_Usage(void)
 
 int AdaptiveDeltaMotionChannelClass::Get_Channel_Memory_Usage(void)
 {
-	return *(int *)&_bfme_adm_scale2 + VectorLen * 8 + sizeof(AdaptiveDeltaMotionChannelClass);
+	// BFME2's retail object is 0x1c bytes; the BFME1-derived header has
+	// padding that makes sizeof(AdaptiveDeltaMotionChannelClass) 0x24.
+	return *(int *)&_bfme_adm_scale2 + VectorLen * 8 + 0x1c;
 }
 
 

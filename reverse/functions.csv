@@ -3310,3 +3310,10 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 _XMP_Fetch_Prime_Table,,0x0061B7B0,6,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,BFME2 prime table accessor transferred from BFME1 mpmath source
 _XMP_Fetch_Prime_Size,,0x0061B7C0,6,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,BFME2 prime table size accessor transferred from BFME1 mpmath source
 _XMP_Init,,0x0061BD70,23,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,BFME2 multiprecision zero and seed initializer transferred from BFME1 mpmath source
+?Get_Channel_Memory_Usage@TimeCodedBitChannelClass@@QAEHXZ,,0x00195EE0,11,Code/Libraries/Source/WWVegas/WW3D2/motchan.cpp,matched,BFME2 bit-channel memory usage helper transferred from BFME1 motion-channel source
+?Get_Channel_Memory_Usage@AdaptiveDeltaMotionChannelClass@@QAEHXZ,,0x001960B0,11,Code/Libraries/Source/WWVegas/WW3D2/motchan.cpp,matched,BFME2 adaptive delta channel memory usage helper transferred from BFME1 source with retail 0x1c object size
+??0CullSystemClass@@QAE@XZ,,0x00724550,16,Code/Libraries/Source/WWVegas/WWMath/cullsys.cpp,matched,BFME2 collection system constructor transferred from BFME1 source; initializes CollectionHead
+?collect_objects_in_leaf@GridCullSystemClass@@IAEXABVOBBoxClass@@PAVCullableClass@@@Z,,0x0071B3C0,63,Code/Libraries/Source/WWVegas/WWMath/gridcull.cpp,matched,BFME2 grid collection leaf traversal transferred from BFME1 source for OBBox queries
+?collect_objects_in_leaf@GridCullSystemClass@@IAEXABVFrustumClass@@PAVCullableClass@@@Z,,0x0071B400,63,Code/Libraries/Source/WWVegas/WWMath/gridcull.cpp,matched,BFME2 grid collection leaf traversal transferred from BFME1 source for frustum queries
+??0Vector3SolidSphereRandomizer@@QAE@M@Z,,0x00723230,33,Code/Libraries/Source/WWVegas/WWMath/v3_rnd.cpp,matched,BFME2 solid sphere randomizer constructor transferred from BFME1 source
+??0Vector3HollowSphereRandomizer@@QAE@M@Z,,0x00723350,33,Code/Libraries/Source/WWVegas/WWMath/v3_rnd.cpp,matched,BFME2 hollow sphere randomizer constructor transferred from BFME1 source
