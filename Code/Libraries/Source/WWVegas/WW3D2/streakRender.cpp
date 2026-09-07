@@ -127,7 +127,6 @@ StreakRendererClass & StreakRendererClass::operator = (const StreakRendererClass
 	return *this;
 }
 
-// ??1StreakRendererClass@@QAE@XZ present-unmatched
 StreakRendererClass::~StreakRendererClass(void)
 {
 	delete [] m_vertexBuffer;
