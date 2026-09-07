@@ -4055,3 +4055,4 @@ _TableMapSafe2,,0x0060B720,67,Code/GameEngine/Source/GameNetwork/GameSpy/hashtab
 ??$?9U?$_List_iterator@PAVObject@@U?$_Const_traits@PAVObject@@@_STL@@@_STL@@@_STL@@YA_NABV?$reverse_iterator@U?$_List_iterator@PAVObject@@U?$_Const_traits@PAVObject@@@_STL@@@_STL@@@0@0@Z,,0x004D9AAF,22,Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 _GSISocketSelect,,0x0060A9F0,330,Code/GameEngine/Source/GameNetwork/GameSpy/nonport.c,matched,vendored=gamespy-2004; complete source body at unique placement; release assertions disabled
 _SocketStartUp,,0x0060A840,27,Code/GameEngine/Source/GameNetwork/GameSpy/nonport.c,matched,vendored=gamespy-2004; complete source body at unique placement; release assertions disabled
+_msleep,,0x0060A830,12,Code/GameEngine/Source/GameNetwork/GameSpy/nonport.c,matched,vendored=gamespy-2004; complete source body at unique placement; release assertions disabled
