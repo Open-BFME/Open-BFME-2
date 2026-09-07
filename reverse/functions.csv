@@ -3632,3 +3632,4 @@ _XMP_Shift_Left_Bits,,0x0061BBD0,308,Code/Libraries/Source/WWVegas/WWLib/mpmath.
 ?Enable_Two_Sided_Rendering@VisRasterizerClass@@QAEX_N@Z,,0x00355C2F,10,Code/Libraries/Source/WWVegas/WW3D2/mesh.cpp,matched,BFME2 exact BFME1-derived rendering setter; unique masked placement
 ?Get_Flag@MeshGeometryClass@@QAEHW4FlagsType@1@@Z,,0x000D1AA1,10,Code/Libraries/Source/WWVegas/WW3D2/mesh.cpp,matched,BFME2 exact BFME1-derived mesh getter; unique masked placement
 ?Get_Poly0@CullNodeStruct@AABTreeClass@@QAEHXZ,,0x00197A80,9,Code/Libraries/Source/WWVegas/WW3D2/aabtree.cpp,matched,BFME2 exact BFME1-derived AABTree helper; unique masked placement
+?Is_Leaf@CullNodeStruct@AABTreeClass@@QAE_NXZ,,0x00197A70,7,Code/Libraries/Source/WWVegas/WW3D2/aabtree.cpp,matched,BFME2 exact BFME1-derived AABTree predicate; unique masked placement
