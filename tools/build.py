@@ -309,13 +309,22 @@ def _object_layout(path_str, mtime_ns, size):
                 "raw_pointer": u32(data, offset + 20),
                 "reloc_count": u16(data, offset + 32),
                 "reloc_pointer": u32(data, offset + 24),
+                "characteristics": u32(data, offset + 36),
             }
         )
 
     return data, sections, read_object_symbols(data)
 
 
-def read_object_symbol_bytes(path, symbol_name, expected_size=None):
+def defined_code_symbols(path):
+    """Names defined in COFF sections containing executable code, not data."""
+    stat = path.stat()
+    _, sections, symbols = _object_layout(str(path), stat.st_mtime_ns, stat.st_size)
+    return {s["name"] for s in symbols if s["section"] > 0 and
+            sections[s["section"] - 1]["characteristics"] & 0x20}
+
+
+def read_object_symbol_bytes(path, symbol_name, expected_size=None, *, code_only=False):
     stat = path.stat()
     data, sections, symbols = _object_layout(str(path), stat.st_mtime_ns, stat.st_size)
     resolved_name = symbol_name
@@ -350,6 +359,11 @@ def read_object_symbol_bytes(path, symbol_name, expected_size=None):
         # before its real definition; keep scanning for the defined one
         if symbol["name"] == resolved_name and symbol["section"] > 0:
             section = sections[symbol["section"] - 1]
+            if code_only and not section["characteristics"] & 0x20:
+                raise SystemExit(
+                    f"{symbol_name}: function claim names non-code COFF section "
+                    f"{section['name']} in {path.name}. Static data is not a function "
+                    "even when relocation masking makes its bytes match .text.")
             value = symbol["value"]
             start = section["raw_pointer"] + value
             end = section["raw_pointer"] + section["raw_size"]
@@ -1012,7 +1026,7 @@ def read_funclet(row, object_symbol, output, target):
     what it actually compiled. Nothing is ever picked from a field of two.
     """
     try:
-        compiled, relocs = read_object_symbol_bytes(output, object_symbol, len(target))
+        compiled, relocs = read_object_symbol_bytes(output, object_symbol, len(target), code_only=True)
     except ValueError as missing:
         compiled, relocs, gone = None, None, missing
     else:
@@ -1028,7 +1042,7 @@ def read_funclet(row, object_symbol, output, target):
             f"({', '.join(hits)}). Byte evidence cannot tell them apart, so the gate will "
             "not pick one — the row needs a body it can name on its own.")
     if hits:
-        compiled, relocs = read_object_symbol_bytes(output, hits[0], len(target))
+        compiled, relocs = read_object_symbol_bytes(output, hits[0], len(target), code_only=True)
         return compiled, relocs, (
             f"{object_symbol} was renumbered by an edit to this TU; the body is {hits[0]} "
             "in the object built now (stale ledger pin, not a byte mismatch)")
@@ -1048,7 +1062,7 @@ def compile_function(row, symbol_map, output):
     if is_funclet_row(row, object_symbol):
         compiled, relocs, note = read_funclet(row, object_symbol, output, target)
     else:
-        compiled, relocs = read_object_symbol_bytes(output, object_symbol, target_size)
+        compiled, relocs = read_object_symbol_bytes(output, object_symbol, target_size, code_only=True)
 
     # A lib member is pre-link code: every relocation site still holds an addend
     # rather than the address the linker wrote, and its callees are

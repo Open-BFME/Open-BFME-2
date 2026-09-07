@@ -113,9 +113,10 @@ def main():
         except SystemExit:
             print("## COMPILE FAILED", source, file=sys.stderr)
             continue
-        data = obj.read_bytes()
-        emitted = sorted({s["name"] for s in build.read_object_symbols(data)
-                          if s["section"] > 0 and s["name"].startswith("?")})
+        # A static FieldParse table once matched an unrelated zero-filled
+        # region after its pointers were masked. Defined data is not code.
+        emitted = sorted(name for name in build.defined_code_symbols(obj)
+                         if name.startswith("?"))
         for name in emitted:
             if name in ledger or name in placed or name in denied:
                 continue
