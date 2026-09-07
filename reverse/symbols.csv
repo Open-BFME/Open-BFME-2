@@ -814,3 +814,5 @@ _gpiStartProfileSearch,0x00730180,GameSpy GP callee; independent unique 279-byte
 _SetSockBlocking,0x0060A8B0,GameSpy callee already byte-verified in Code/GameEngine/Source/GameNetwork/GameSpy/nonport.c at commit 982a47813b69; direct call from _gpiStartProfileSearch
 _GSISocketSelect,0x0060A9F0,GameSpy callee already byte-verified in Code/GameEngine/Source/GameNetwork/GameSpy/nonport.c at commit 982a47813b69; direct call from _gpiCheckSocketConnect
 _msleep,0x0060A830,GameSpy callee already byte-verified in Code/GameEngine/Source/GameNetwork/GameSpy/nonport.c at commit 982a47813b69; direct call from _gpiProcessSearch
+_getsockname@12,0x006556DC,PE-verified FF25 import thunk to wsock32.dll!getsockname via IAT 0x00BBA950; independently read from retail import directory
+_htons@4,0x006556B8,PE-verified FF25 import thunk to wsock32.dll!htons via IAT 0x00BBA968; independently read from retail import directory
