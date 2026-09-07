@@ -760,3 +760,20 @@ _socket@12,0x00655688,PE-verified FF25 import thunk to wsock32.dll!socket via IA
 ?Get_Format_Name@DX8Wrapper@@SAXIPAVStringClass@@@Z,0x0011FE20,D3D format-name switch; initial Unknown string and FourCC cases independently inspected; two calls in verified Set_Render_Device
 ?Do_Onetime_Device_Dependent_Inits@DX8Wrapper@@SAXXZ,0x001245A0,Device subsystem initialization reached after successful verified Create_Device; caps and renderer initialization sequence independently inspected
 ?Resize@?$SimpleVecClass@VVector4@@@@UAE_NH@Z,0x001A7C80,SimpleVec<Vector4> table VA BD71C8 slot1; slot2 is independently matched Vector4 Grow RVA1A7D60; both allocate16-byte elements through the same array constructor; direct callee of exact39-byte Vector4 ctor RVA1A8070
+?_Deinit@DynamicVBAccessClass@@SAXXZ,0x0013A840,BFME2 dynamic vertex-buffer shutdown; 150-byte body releases fifteen format buffers and the sorting buffer then resets allocation counters
+?bfmeBeginResourceEnumeration@@YAXI@Z,0x0061F110,Recovered resource registry role; nullable manager wrapper forwards tag to mutex-protected iterator initialization at RVA 0x621480
+?bfmeNextResource@@YA?AUBfmeResetAnyRef@@XZ,0x0061F310,Recovered resource registry role; iterator at RVA 0x6214D0 filters virtual type tags and returns an owning four-byte reference with WORD refcount
+??4BfmeResetTextureRef@@QAEAAU0@ABUBfmeResetAnyRef@@@Z,0x00131D99,Recovered typed owning-reference assignment; 50-byte body checks TEX tag then calls established RefCountPtr assignment or clears the holder
+?Release_Ref@BfmeResetResource@@QAEXXZ,0x0061ED10,Recovered resource view of established TextureBaseClass Release_Ref; same 36-byte WORD-at-plus-4 decrement and conditional virtual disposal
+?Release_Device_Resources@BfmeResetTextureRef@@QAEXXZ,0x00132CAD,Recovered texture-holder role; 44-byte body releases and clears backend COM texture only in D3DPOOL_DEFAULT
+??4BfmeResetShaderRef@@QAEAAU0@ABUBfmeResetAnyRef@@@Z,0x0015142A,Recovered typed owning-reference assignment; 50-byte body checks FXSH tag then calls established RefCountPtr assignment or clears the holder
+?Release_Device_Resources@BfmeResetShaderRef@@QAEXXZ,0x00151553,Recovered effect-holder role; 34-byte body null-checks resource and backend then invokes ID3DXEffect OnLostDevice slot 0x114
+?Device_Reset_Hook@BfmeResetMeshRenderer@@QAEXXZ,0x0069E440,Recovered renderer reset-phase call contract; both phases reach this empty ICF body; no exclusive original identity or separate body claim
+?Begin_Statistics@Debug_Statistics@@YAXXZ,0x0012A400,BFME2 statistics reset; 67-byte body clears eleven counters then calls established Record_Texture_Begin and DX8Wrapper Begin_Statistics
+?bfmeReleaseQueuedDeviceInterfaces@@YAXXZ,0x00133283,Recovered queued-device-interface release role; 151-byte body locks device and queue then releases every COM pointer and erases the vector range
+_bfmeDirectXErrorName@4,0x0062B16A,Recovered HRESULT-to-symbolic-name role; stdcall switch includes XACT_E_NOISORETAIN and RPC_S_OUT_OF_RESOURCES; original SDK symbol spelling unasserted
+?SkipNext@BfmeResetDebug@@SA_N_N@Z,0x00038790,Recovered Debug view of established Debug SkipNext bool overload; 33-byte body captures return address and forwards it to virtual slot 0x5C
+?Recreate_Device_Resources@BfmeResetTextureRef@@QAEXXZ,0x00132CD9,Recovered texture-holder role; 54-byte body recreates a missing default-pool texture using seven saved backend creation arguments
+?Recreate_Device_Resources@BfmeResetShaderRef@@QAEXXZ,0x00151575,Recovered effect-holder role; 34-byte body null-checks resource and backend then invokes ID3DXEffect OnResetDevice slot 0x118
+?Invalidate_Cached_Render_States@DX8Wrapper@@SAXXZ,0x0011FD10,BFME2 cache invalidation; 226-byte body fills render states with 0x12345678 and releases cached buffers material and sixteen resource handles
+?Set_Default_Global_Render_States@DX8Wrapper@@KAXXZ,0x00122510,BFME2 default-state setup; 232-byte body uses caps FOGRANGE then installs fog material color and bump-matrix states as in the reference

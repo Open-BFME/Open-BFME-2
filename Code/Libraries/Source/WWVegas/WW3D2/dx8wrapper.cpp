@@ -689,60 +689,188 @@ bool DX8Wrapper::Create_Device(void)
 #undef D3DInterface
 #undef CurrentAdapterIdentifier
 
-// ?Reset_Device@DX8Wrapper@@ present-unmatched
+/*
+ * Copyright (C) 2002-2003 Jason Edmeades
+ *                         Raphael Junqueira
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
+ */
+
+// D3D9 method order through Reset follows Wine/SDK d3d9.h.
+// https://github.com/wine-mirror/wine/blob/master/include/d3d9.h
+struct IDirect3D9;
+struct D3DCAPS9;
+struct IDirect3DSurface9;
+struct IDirect3DSwapChain9;
+struct BfmeResetDevice9 {
+	virtual HRESULT __stdcall QueryInterface(REFIID riid, void** ppvObject) = 0;
+	virtual ULONG __stdcall AddRef() = 0;
+	virtual ULONG __stdcall Release() = 0;
+	virtual HRESULT __stdcall TestCooperativeLevel() = 0;
+	virtual UINT __stdcall GetAvailableTextureMem() = 0;
+	virtual HRESULT __stdcall EvictManagedResources() = 0;
+	virtual HRESULT __stdcall GetDirect3D(IDirect3D9** ppD3D9) = 0;
+	virtual HRESULT __stdcall GetDeviceCaps(D3DCAPS9* pCaps) = 0;
+	virtual HRESULT __stdcall GetDisplayMode(UINT iSwapChain, D3DDISPLAYMODE* pMode) = 0;
+	virtual HRESULT __stdcall GetCreationParameters(D3DDEVICE_CREATION_PARAMETERS *pParameters) = 0;
+	virtual HRESULT __stdcall SetCursorProperties(UINT XHotSpot, UINT YHotSpot, IDirect3DSurface9* pCursorBitmap) = 0;
+	virtual void __stdcall SetCursorPosition(int X,int Y, DWORD Flags) = 0;
+	virtual BOOL __stdcall ShowCursor(BOOL bShow) = 0;
+	virtual HRESULT __stdcall CreateAdditionalSwapChain(D3DPRESENT_PARAMETERS* pPresentationParameters, IDirect3DSwapChain9** pSwapChain) = 0;
+	virtual HRESULT __stdcall GetSwapChain(UINT iSwapChain, IDirect3DSwapChain9** pSwapChain) = 0;
+	virtual UINT __stdcall GetNumberOfSwapChains() = 0;
+	virtual HRESULT __stdcall Reset(D3DPRESENT_PARAMETERS* pPresentationParameters) = 0;
+};
+// The retail Debug prefix is also reconstructed in profile_alloc_memory.cpp.
+// Keep the static SkipNext overload after its virtual namesake: VC7.1 groups
+// overloads at the first declaration, which would otherwise move slot 0x60.
+class BfmeResetDebug {
+public:
+	virtual void reserved0()=0;
+	virtual void reserved1()=0;
+	virtual void reserved2()=0;
+	virtual void reserved3()=0;
+	virtual void reserved4()=0;
+	virtual void reserved5()=0;
+	virtual void reserved6()=0;
+	virtual void reserved7()=0;
+	virtual void reserved8()=0;
+	virtual void reserved9()=0;
+	virtual void reserved10()=0;
+	virtual void reserved11()=0;
+	virtual void reserved12()=0;
+	virtual void reserved13()=0;
+	virtual BfmeResetDebug &operator<<(const char *)=0;
+	virtual void reserved15()=0;
+	virtual void reserved16()=0;
+	virtual void reserved17()=0;
+	virtual void reserved18()=0;
+	virtual void CrashDone(bool)=0;
+	virtual void reserved20()=0;
+	virtual void reserved21()=0;
+	virtual void reserved22()=0;
+	virtual void SetCrashAddress(void *,bool)=0;
+	virtual void SkipNext()=0;
+	virtual void reserved25()=0;
+	virtual void reserved26()=0;
+	virtual BfmeResetDebug &CrashBegin(const char *,int,const char *)=0;
+	static bool SkipNext(bool);
+};
+extern BfmeResetDebug *BfmeResetDebugInstance;
+
+// BFME2 resource-manager views recovered from Reset_Device and its callees.
+// Bfme-prefixed names describe observed roles, not original source spellings.
+// Holders contain only one owning pointer. Their typed assignment checks the
+// TEX/FXSH virtual tag before calling the existing RefCountPtr assignment;
+// the pointee's reference count is WORD +4 (Release_Ref at RVA 0x61ED10).
+// No layout of the old TextureClass payload is asserted here. The emitted
+// nullable destructors agree with all nine retail unwind actions.
+// Callee and complete EH evidence: docs/reconstruction/dx8wrapper-reset.md.
+struct BfmeResetResource { void Release_Ref(); };
+struct BfmeResetAnyRef {
+	BfmeResetResource *pointer;
+	BfmeResetAnyRef();
+	BfmeResetAnyRef(const BfmeResetAnyRef &);
+	~BfmeResetAnyRef() { if (pointer) pointer->Release_Ref(); }
+};
+struct BfmeResetTextureRef {
+	BfmeResetResource *pointer;
+	BfmeResetTextureRef():pointer(0) {}
+	~BfmeResetTextureRef() { if (pointer) pointer->Release_Ref(); }
+	BfmeResetTextureRef &operator=(const BfmeResetAnyRef &);
+	operator bool() const { return pointer!=0; }
+	void Release_Device_Resources();
+	void Recreate_Device_Resources();
+};
+struct BfmeResetShaderRef {
+	BfmeResetResource *pointer;
+	BfmeResetShaderRef():pointer(0) {}
+	~BfmeResetShaderRef() { if (pointer) pointer->Release_Ref(); }
+	BfmeResetShaderRef &operator=(const BfmeResetAnyRef &);
+	operator bool() const { return pointer!=0; }
+	void Release_Device_Resources();
+	void Recreate_Device_Resources();
+};
+void bfmeBeginResourceEnumeration(unsigned);
+BfmeResetAnyRef bfmeNextResource();
+// Both reset phases invoke the same empty body, folded with other no-ops.
+// The renderer instance is established by Do_Onetime_Device_Dependent_Inits;
+// its empty hook has no independent body/identity claim.
+struct BfmeResetMeshRenderer { void Device_Reset_Hook(); };
+extern BfmeResetMeshRenderer *BfmeResetMeshRendererInstance;
+namespace Debug_Statistics { void Begin_Statistics(); }
+void bfmeReleaseQueuedDeviceInterfaces();
+extern "C" const char *__stdcall bfmeDirectXErrorName(long);
+static int bfmeResetAttempts;
+
+// ?Reset_Device@DX8Wrapper@@SA_N_N@Z
 bool DX8Wrapper::Reset_Device(bool reload_assets)
 {
-	WWDEBUG_SAY(("Resetting device.\n"));
-	DX8_THREAD_ASSERT();
-	if ((IsInitted) && (D3DDevice != NULL)) {
-		// Release all non-MANAGED stuff
-		WW3D::_Invalidate_Textures();
-
-		for (unsigned i=0;i<MAX_VERTEX_STREAMS;++i) 
-		{
-			Set_Vertex_Buffer (NULL,i);
-		}
-		Set_Index_Buffer (NULL, 0);
-		if (m_pCleanupHook) {
-			m_pCleanupHook->ReleaseResources();
-		}
+	if (IsInitted && D3DDevice != NULL) {
+		for (unsigned i=0;i<MAX_VERTEX_STREAMS;++i) Set_Vertex_Buffer(NULL,i);
+		Set_Index_Buffer(NULL,0);
+		if (m_pCleanupHook) m_pCleanupHook->ReleaseResources();
 		DynamicVBAccessClass::_Deinit();
 		DynamicIBAccessClass::_Deinit();
-		DX8TextureManagerClass::Release_Textures();
-		SHD_SHUTDOWN_SHADERS;
-
-		// Reset frame count to reflect the flipping chain being reset by Reset()
-		FrameCount = 0;
-
+		bfmeBeginResourceEnumeration(0x544558);
+		BfmeResetTextureRef texture;
+		while (texture=bfmeNextResource()) texture.Release_Device_Resources();
+		bfmeBeginResourceEnumeration(0x46585348);
+		BfmeResetShaderRef shader;
+		while (shader=bfmeNextResource()) shader.Release_Device_Resources();
+		BfmeResetMeshRendererInstance->Device_Reset_Hook();
+		Debug_Statistics::Begin_Statistics();
+		bfmeReleaseQueuedDeviceInterfaces();
+		FrameCount=0;
 		memset(Vertex_Shader_Constants,0,sizeof(Vector4)*MAX_VERTEX_SHADER_CONSTANTS);
 		memset(Pixel_Shader_Constants,0,sizeof(Vector4)*MAX_PIXEL_SHADER_CONSTANTS);
-
 		HRESULT hr=_Get_D3D_Device8()->TestCooperativeLevel();
-		if (hr != D3DERR_DEVICELOST )
-		{	DX8CALL_HRES(Reset(&_PresentParameters),hr)
-			if (hr != D3D_OK)
-				return false;	//reset failed.
-		}
-		else
-			return false;	//device is lost and can't be reset.
-
-		if (reload_assets)
-		{
-			DX8TextureManagerClass::Recreate_Textures();
-			if (m_pCleanupHook) {
-				m_pCleanupHook->ReAcquireResources();
+		if (hr!=D3DERR_DEVICELOST) {
+			hr=reinterpret_cast<BfmeResetDevice9 *>(_Get_D3D_Device8())->Reset(&_PresentParameters);
+			number_of_DX8_calls++;
+			bfmeResetAttempts++;
+			if (hr!=D3D_OK) {
+				StringClass message("Device reset failed: ");
+				message+=bfmeDirectXErrorName(hr);
+				message+="\n";
+				if (bfmeResetAttempts>=50) {
+					bfmeResetAttempts=0;
+					BfmeResetDebug::SkipNext(true);
+					BfmeResetDebugInstance->SkipNext();
+					(BfmeResetDebugInstance->CrashBegin(0,0,0)<<"Direct3D device reset failed after multiple attempts").CrashDone(true);
+				}
+				return false;
 			}
+		} else return false;
+		bfmeResetAttempts=0;
+		if (reload_assets) {
+			bfmeBeginResourceEnumeration(0x544558);
+			BfmeResetTextureRef texture;
+			while (texture=bfmeNextResource()) texture.Recreate_Device_Resources();
+			bfmeBeginResourceEnumeration(0x46585348);
+			BfmeResetShaderRef shader;
+			while (shader=bfmeNextResource()) shader.Recreate_Device_Resources();
+			if (m_pCleanupHook) m_pCleanupHook->ReAcquireResources();
+			BfmeResetMeshRendererInstance->Device_Reset_Hook();
 		}
 		Invalidate_Cached_Render_States();
 		Set_Default_Global_Render_States();
-		SHD_INIT_SHADERS;
-		WWDEBUG_SAY(("Device reset completed\n"));
 		return true;
 	}
-	WWDEBUG_SAY(("Device reset failed\n"));
 	return false;
 }
-
 // ?Release_Device@DX8Wrapper@@ present-unmatched
 void DX8Wrapper::Release_Device(void)
 {
