@@ -1,7 +1,12 @@
 // cl: /arch:SSE /G7 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/sweep
-// Ported verbatim from the Generals Zero Hour reference
+// Ported from the Generals Zero Hour reference
 // (Libraries/Source/WWVegas/WW3D2/streak.cpp); this unit had no counterpart under Code/.
 #include "rendobj.h"	// the bfmerendobj shim has to win the include guard
+// Use the proven BFME renderer layout before the ZH streak header includes its
+// older neighbor: retail inserts a float before SubdivisionLevel. The matched
+// SegLineRenderer ctor/Init at RVAs 0x191140/0x191390 independently establish
+// NoiseAmplitude at renderer+0x24, hence StreakLineClass+0x124.
+#include "../../../../../reference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2/seglinerenderer.h"
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
@@ -59,6 +64,7 @@ static SegLineRendererClass _LineRenderer;
 ** StreakLineClass implementation:
 */
 
+// ??0StreakLineClass@@ present-unmatched
 StreakLineClass::StreakLineClass(void) :
 		MaxSubdivisionLevels(0),
 		NormalizedScreenArea(0.0f)
@@ -67,6 +73,7 @@ StreakLineClass::StreakLineClass(void) :
 
 }
 
+// ??0StreakLineClass@@ present-unmatched
 StreakLineClass::StreakLineClass(const StreakLineClass & src) :
 		MaxSubdivisionLevels(src.MaxSubdivisionLevels),
 		NormalizedScreenArea(src.NormalizedScreenArea),
@@ -79,6 +86,7 @@ StreakLineClass::StreakLineClass(const StreakLineClass & src) :
 {
 }
 
+// ??4StreakLineClass@@ present-unmatched
 StreakLineClass & StreakLineClass::operator = (const StreakLineClass &that)
 {
 	RenderObjClass::operator = (that);
@@ -106,6 +114,7 @@ StreakLineClass & StreakLineClass::operator = (const StreakLineClass &that)
 
 
 
+// ?Reset_Line@StreakLineClass@@ present-unmatched
 void StreakLineClass::Reset_Line(void)
 {
 	LineRenderer.Reset_Line();
@@ -121,6 +130,7 @@ void StreakLineClass::Reset_Line(void)
 ////////////////////////////////////////////////////////////////////////////
 // These are segment points, and include the start and end point of the
 // entire line. Therefore there must be at least two.
+// ?Set_Locs@StreakLineClass@@ present-unmatched
 void StreakLineClass::Set_Locs( unsigned int num_points, Vector3 *locs )
 {
 	if (num_points < 2 || !locs) {
@@ -164,6 +174,7 @@ void StreakLineClass::Set_Colors( unsigned int num_points, Vector4 *colors )
 
 }
 
+// ?Set_LocsWidthsColors@StreakLineClass@@ present-unmatched
 void StreakLineClass::Set_LocsWidthsColors( unsigned int num_points, 
 																					 Vector3 *locs, 
 																					 float *widths, 
@@ -215,6 +226,7 @@ void StreakLineClass::Set_LocsWidthsColors( unsigned int num_points,
 
 // These are segment points, and include the start and end point of the
 // entire line. Therefore there must be at least two.
+// ?Get_Num_Points@StreakLineClass@@ present-unmatched
 int StreakLineClass::Get_Num_Points(void)
 {
 	int locCount = PointLocations.Count();
@@ -223,6 +235,7 @@ int StreakLineClass::Get_Num_Points(void)
 
 // Set object-space location for a given point.
 // NOTE: If given position beyond end of point list, do nothing.
+// ?Set_Point_Location@StreakLineClass@@ present-unmatched
 void StreakLineClass::Set_Point_Location(unsigned int point_idx, const Vector3 &location)
 {
 	if (point_idx < (unsigned int)PointLocations.Count()) {
@@ -255,11 +268,13 @@ void StreakLineClass::Delete_Point(unsigned int point_idx)
 }
 
 
+// ?Get_Texture@StreakLineClass@@ present-unmatched
 TextureClass * StreakLineClass::Get_Texture(void)
 {
 	return LineRenderer.Get_Texture();
 }
 
+// ?Get_Shader@StreakLineClass@@ present-unmatched
 ShaderClass StreakLineClass::Get_Shader(void)
 {
 	return LineRenderer.Get_Shader();
@@ -270,78 +285,93 @@ void StreakLineClass::Get_Color(Vector3 &color)
 	color.Set(LineRenderer.Get_Color());
 }
 
+// ?Get_Opacity@StreakLineClass@@ present-unmatched
 float StreakLineClass::Get_Opacity(void)
 {
 	return LineRenderer.Get_Opacity();
 }
 
+// ?Get_Noise_Amplitude@StreakLineClass@@ present-unmatched
 float StreakLineClass::Get_Noise_Amplitude(void)
 {
 	return LineRenderer.Get_Noise_Amplitude();
 }
 
+// ?Get_Merge_Abort_Factor@StreakLineClass@@ present-unmatched
 float StreakLineClass::Get_Merge_Abort_Factor(void)
 {
 	return LineRenderer.Get_Merge_Abort_Factor();
 }
 
+// ?Get_Subdivision_Levels@StreakLineClass@@ present-unmatched
 unsigned int StreakLineClass::Get_Subdivision_Levels(void)
 {
 	return MaxSubdivisionLevels;
 }
 
+// ?Get_Texture_Mapping_Mode@StreakLineClass@@ present-unmatched
 SegLineRendererClass::TextureMapMode StreakLineClass::Get_Texture_Mapping_Mode(void)
 {
 	return LineRenderer.Get_Texture_Mapping_Mode(); 
 }
 
+// ?Get_Texture_Tile_Factor@StreakLineClass@@ present-unmatched
 float StreakLineClass::Get_Texture_Tile_Factor(void)
 {
 	return LineRenderer.Get_Texture_Tile_Factor();
 }
 
+// ?Get_UV_Offset_Rate@StreakLineClass@@ present-unmatched
 Vector2 StreakLineClass::Get_UV_Offset_Rate(void)
 {
 	return LineRenderer.Get_UV_Offset_Rate();
 }
 
+// ?Is_Merge_Intersections@StreakLineClass@@ present-unmatched
 int StreakLineClass::Is_Merge_Intersections(void)
 {
 	return LineRenderer.Is_Merge_Intersections();
 }
 
+// ?Is_Freeze_Random@StreakLineClass@@ present-unmatched
 int StreakLineClass::Is_Freeze_Random(void)
 {
 	return LineRenderer.Is_Freeze_Random();
 }
 
+// ?Is_Sorting_Disabled@StreakLineClass@@ present-unmatched
 int StreakLineClass::Is_Sorting_Disabled(void)
 {
 	return LineRenderer.Is_Sorting_Disabled();
 }
 
+// ?Are_End_Caps_Enabled@StreakLineClass@@ present-unmatched
 int StreakLineClass::Are_End_Caps_Enabled(void)
 {
 	return LineRenderer.Are_End_Caps_Enabled();
 }
 
+// ?Set_Texture@StreakLineClass@@ present-unmatched
 void StreakLineClass::Set_Texture(TextureClass *texture)
 {
 	LineRenderer.Set_Texture(texture);
 	StreakRenderer.Set_Texture(texture);
 }
 
+// ?Set_Shader@StreakLineClass@@ present-unmatched
 void StreakLineClass::Set_Shader(ShaderClass shader)
 {
 	LineRenderer.Set_Shader(shader);
 	StreakRenderer.Set_Shader(shader);
 }
 
+// ?Get_Width@StreakLineClass@@ present-unmatched
 float StreakLineClass::Get_Width(void)
 {
 	return LineRenderer.Get_Width();
 }
 
+// ?Set_Width@StreakLineClass@@ present-unmatched
 void StreakLineClass::Set_Width(float width)
 {
 	// Widths need to be clamped because they are not automatically clamped later (like colors and
@@ -352,18 +382,21 @@ void StreakLineClass::Set_Width(float width)
 	Invalidate_Cached_Bounding_Volumes();
 }
 
+// ?Set_Color@StreakLineClass@@ present-unmatched
 void StreakLineClass::Set_Color(const Vector3 &color)
 {
 	LineRenderer.Set_Color(color);
 	StreakRenderer.Set_Color(color);
 }
 
+// ?Set_Opacity@StreakLineClass@@ present-unmatched
 void StreakLineClass::Set_Opacity(float opacity)
 {
 	LineRenderer.Set_Opacity(opacity);
 	StreakRenderer.Set_Opacity(opacity);
 }
 
+// ?Set_Noise_Amplitude@StreakLineClass@@ present-unmatched
 void StreakLineClass::Set_Noise_Amplitude(float amplitude)
 {
 	LineRenderer.Set_Noise_Amplitude(WWMath::Fabs(amplitude));
@@ -371,11 +404,13 @@ void StreakLineClass::Set_Noise_Amplitude(float amplitude)
 	Invalidate_Cached_Bounding_Volumes();
 }
 
+// ?Set_Merge_Abort_Factor@StreakLineClass@@ present-unmatched
 void StreakLineClass::Set_Merge_Abort_Factor(float factor)
 {
 	LineRenderer.Set_Merge_Abort_Factor(factor);
 }
 
+// ?Set_Subdivision_Levels@StreakLineClass@@ present-unmatched
 void StreakLineClass::Set_Subdivision_Levels(unsigned int levels)
 {
 	MaxSubdivisionLevels = MIN(levels, MAX_SEGLINE_SUBDIV_LEVELS);
@@ -383,37 +418,44 @@ void StreakLineClass::Set_Subdivision_Levels(unsigned int levels)
 	Invalidate_Cached_Bounding_Volumes();
 }
 
+// ?Set_Texture_Mapping_Mode@StreakLineClass@@ present-unmatched
 void StreakLineClass::Set_Texture_Mapping_Mode(SegLineRendererClass::TextureMapMode mode)
 {
 	LineRenderer.Set_Texture_Mapping_Mode(mode);
 }
 
+// ?Set_Texture_Tile_Factor@StreakLineClass@@ present-unmatched
 void StreakLineClass::Set_Texture_Tile_Factor(float factor)
 {
 	LineRenderer.Set_Texture_Tile_Factor(factor);
 }
 
+// ?Set_UV_Offset_Rate@StreakLineClass@@ present-unmatched
 void StreakLineClass::Set_UV_Offset_Rate(const Vector2 &rate)
 {
 	LineRenderer.Set_UV_Offset_Rate(rate);
 }
 
+// ?Set_Merge_Intersections@StreakLineClass@@ present-unmatched
 void StreakLineClass::Set_Merge_Intersections(int onoff)
 {
 	LineRenderer.Set_Merge_Intersections(onoff);
 }
 
+// ?Set_Freeze_Random@StreakLineClass@@ present-unmatched
 void StreakLineClass::Set_Freeze_Random(int onoff)
 {
 	LineRenderer.Set_Freeze_Random(onoff);
 }
 
 
+// ?Set_Disable_Sorting@StreakLineClass@@ present-unmatched
 void StreakLineClass::Set_Disable_Sorting(int onoff)
 {
 	LineRenderer.Set_Disable_Sorting(onoff);
 }
 
+// ?Set_End_Caps@StreakLineClass@@ present-unmatched
 void StreakLineClass::Set_End_Caps(int onoff)
 {
 	LineRenderer.Set_End_Caps(onoff);
@@ -423,17 +465,20 @@ void StreakLineClass::Set_End_Caps(int onoff)
 ** RenderObjClass interface:
 */
 
+// ?Clone@StreakLineClass@@ present-unmatched
 RenderObjClass * StreakLineClass::Clone(void) const
 {
 	return NEW_REF( StreakLineClass, (*this)); 
 }
 
+// ?Get_Num_Polys@StreakLineClass@@ present-unmatched
 int StreakLineClass::Get_Num_Polys(void) const
 {
 	int subdivision_factor = 1 << LineRenderer.Get_Current_Subdivision_Level();
 	return 2 * (PointLocations.Count() - 1) * subdivision_factor;
 }
 
+// ?Render@StreakLineClass@@ present-unmatched
 void StreakLineClass::Render(RenderInfoClass & rinfo)
 {
 	if (Is_Not_Hidden_At_All() == false) {
@@ -466,6 +511,7 @@ void StreakLineClass::Render(RenderInfoClass & rinfo)
 	}
 }
 
+// ?Get_Obj_Space_Bounding_Sphere@StreakLineClass@@ present-unmatched
 void StreakLineClass::Get_Obj_Space_Bounding_Sphere(SphereClass & sphere) const
 {
 	// Get object-space bounding box and create bounding sphere from it
@@ -542,6 +588,7 @@ void StreakLineClass::Get_Obj_Space_Bounding_Box(AABoxClass & box) const
 	}
 }
 
+// ?Prepare_LOD@StreakLineClass@@ present-unmatched
 void StreakLineClass::Prepare_LOD(CameraClass &camera)
 {
 	// Find the maximum screen dimension of the object in pixels
@@ -565,6 +612,7 @@ void StreakLineClass::Prepare_LOD(CameraClass &camera)
 	}
 }
 
+// ?Increment_LOD@StreakLineClass@@ present-unmatched
 void StreakLineClass::Increment_LOD(void)
 {
 	unsigned int lvl = LineRenderer.Get_Current_Subdivision_Level();
@@ -574,6 +622,7 @@ void StreakLineClass::Increment_LOD(void)
 	LineRenderer.Set_Current_Subdivision_Level(lvl);
 }
 
+// ?Decrement_LOD@StreakLineClass@@ present-unmatched
 void StreakLineClass::Decrement_LOD(void)
 {
 	int lvl = LineRenderer.Get_Current_Subdivision_Level();
@@ -581,11 +630,13 @@ void StreakLineClass::Decrement_LOD(void)
 	LineRenderer.Set_Current_Subdivision_Level(lvl-1);
 }
 
+// ?Get_Cost@StreakLineClass@@ present-unmatched
 float StreakLineClass::Get_Cost(void) const
 {
 	return Get_Num_Polys();
 }
 
+// ?Get_Value@StreakLineClass@@ present-unmatched
 float StreakLineClass::Get_Value(void) const
 {
 	// If we are at the minimum LOD, we must return AT_MIN_LOD.
@@ -598,6 +649,7 @@ float StreakLineClass::Get_Value(void) const
 	}
 }
 
+// ?Get_Post_Increment_Value@StreakLineClass@@ present-unmatched
 float StreakLineClass::Get_Post_Increment_Value(void) const
 {
 	// If we are at the maximum LOD, we must return AT_MIN_LOD.
@@ -612,6 +664,7 @@ float StreakLineClass::Get_Post_Increment_Value(void) const
 	}
 }
 
+// ?Set_LOD_Level@StreakLineClass@@ present-unmatched
 void StreakLineClass::Set_LOD_Level(int lod)
 {
 	lod = MAX(0, lod);
@@ -620,16 +673,19 @@ void StreakLineClass::Set_LOD_Level(int lod)
 	LineRenderer.Set_Current_Subdivision_Level((unsigned int)lod);
 }
 
+// ?Get_LOD_Level@StreakLineClass@@ present-unmatched
 int StreakLineClass::Get_LOD_Level(void) const
 {
 	return (int) LineRenderer.Get_Current_Subdivision_Level();
 }
 
+// ?Get_LOD_Count@StreakLineClass@@ present-unmatched
 int StreakLineClass::Get_LOD_Count(void) const
 {
 	return (int)MaxSubdivisionLevels;
 }
 /*
+// ?Set_Texture_Reduction_Factor@StreakLineClass@@ present-unmatched
 void StreakLineClass::Set_Texture_Reduction_Factor(float trf)
 {
 	if (LineRenderer.Peek_Texture()) LineRenderer.Peek_Texture()->Set_Reduction_Factor(trf);
@@ -637,6 +693,7 @@ void StreakLineClass::Set_Texture_Reduction_Factor(float trf)
 
  
 
+// ?Render_Seg_Line@StreakLineClass@@ present-unmatched
 void StreakLineClass::Render_Seg_Line(RenderInfoClass & rinfo)
 {
 	// Line must have at least two points to be valid
@@ -657,6 +714,7 @@ void StreakLineClass::Render_Seg_Line(RenderInfoClass & rinfo)
 }
 
 
+// ?Render_Streak_Line@StreakLineClass@@ present-unmatched
 void StreakLineClass::Render_Streak_Line(RenderInfoClass & rinfo)
 {
 
@@ -695,6 +753,7 @@ void StreakLineClass::Render_Streak_Line(RenderInfoClass & rinfo)
 }
 
 
+// ?Cast_Ray@StreakLineClass@@ present-unmatched
 bool StreakLineClass::Cast_Ray(RayCollisionTestClass & raytest)
 {
 	if ((Get_Collision_Type() & raytest.CollisionType) == 0) return false;
