@@ -4299,7 +4299,6 @@ _PreAuthenticatePlayerPM,,0x00608D50,158,Code/GameEngine/Source/GameNetwork/Game
 ?Memory@CRC@@SAKPAEKK@Z,,0x00619AC0,51,Code/Libraries/Source/WWVegas/WWLib/crc.cpp,matched,gen-alias;object-symbol=?Memory@CRC@@SAKPAEKK@Z;C++ alias
 ?Get_Merge_Abort_Factor@ParticleBufferClass@@QBEMXZ,,0x001A79B0,21,Code/Libraries/Source/WWVegas/WW3D2/part_buf.cpp,matched,gen-alias;object-symbol=?Get_Merge_Abort_Factor@ParticleBufferClass@@QBEMXZ;C++ alias
 _XMP_Rabin_Miller_Test,,0x0061D810,568,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,gen-alias;object-symbol=_XMP_Rabin_Miller_Test;C++ alias
-_gpiAppendStringToBuffer,,0x00734E40,47,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gpiBuffer.c,matched,gen-alias;object-symbol=_gpiAppendStringToBuffer;C++ alias
 _gpiAppendIntToBuffer,,0x00734E70,68,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gpiBuffer.c,matched,gen-alias;object-symbol=_gpiAppendIntToBuffer;C++ alias
 _gpiSendOrBufferString,,0x00735100,47,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gpiBuffer.c,matched,gen-alias;object-symbol=_gpiSendOrBufferString;C++ alias
 _gpiSendOrBufferInt,,0x00735130,68,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gpiBuffer.c,matched,gen-alias;object-symbol=_gpiSendOrBufferInt;C++ alias
@@ -4446,3 +4445,4 @@ _chatSetQuietMode,,0x006A1630,109,Code/GameEngine/Source/GameNetwork/GameSpy/cha
 ??1StreakRendererClass@@QAE@XZ,,0x00743010,28,Code/Libraries/Source/WWVegas/WW3D2/streakRender.cpp,matched,BFME2 owning texture and restored UV state; full executable interval independently verified; real texture release contract and copy-constructor unwind graph proved
 ??1?$RefCountPtr@VTextureClass@@@@QAE@XZ,,0x0017098D,12,Code/Libraries/Source/WWVegas/WW3D2/streakRender.cpp,matched,BFME2 owning texture and restored UV state; full executable interval independently verified; real texture release contract and copy-constructor unwind graph proved
 ??0StreakRendererClass@@QAE@ABV0@@Z,,0x00746DE0,178,Code/Libraries/Source/WWVegas/WW3D2/streakRender.cpp,matched,BFME2 owning texture and restored UV state; full executable interval independently verified; real texture release contract and copy-constructor unwind graph proved
+_gpiAppendStringToBuffer,,0x00734E40,47,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gpiBuffer.c,matched,vendored=gamespy-2004; pinned BFME1 reference including inherited EA edits; unique whole-body match; buffer string append wrapper
