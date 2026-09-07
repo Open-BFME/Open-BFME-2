@@ -633,3 +633,10 @@ _strdup,0x006C4C70,address read from the retail REL32 in INIClass::Put_String at
 ?Build_Quaternion@@YA?AVQuaternion@@ABVMatrix3D@@@Z,0x00717B40,address read from the REL32 displacement at a placed body
 ?Get_Bounding_Box@MeshGeometryClass@@QAEXPAVAABoxClass@@@Z,0x001692F0,address read from the REL32 displacement at a placed body
 ?Get_Bounding_Sphere@MeshGeometryClass@@QAEXPAVSphereClass@@@Z,0x00169370,address read from the REL32 displacement at a placed body
+?Allocate_Object_Memory@MatPassTaskPoolClass@@QAEPAUMatPassTaskClass@@XZ,0x001440C0,address read from the retail REL32 in DX8RigidFVFCategoryContainer Add_Delayed_Visible_Material_Pass at 0x00144CB0
+?Init@BTCollisionStruct@@QAEXABVAABoxClass@@ABVVector3@@ABVTriClass@@1@Z,0x00724D40,address read from the retail REL32 in CollisionMath Collide AABox-Tri at 0x00726790
+?aabtri_check_axis@@YA_NXZ,0x00725E10,address read from the retail REL32 in CollisionMath Collide AABox-Tri at 0x00726790
+?aabtri_check_basis_axis@@YA_NMMM@Z,0x00726100,address read from the retail REL32 in CollisionMath Collide AABox-Tri at 0x00726790
+?aabtri_check_cross_axis@@YA_NMHM@Z,0x00725FE0,address read from the retail REL32 in CollisionMath Collide AABox-Tri at 0x00726790
+?aabtri_check_normal_axis@@YA_NXZ,0x00726240,address read from the retail REL32 in CollisionMath Collide AABox-Tri at 0x00726790
+?aabtri_compute_contact_normal@@YAXAAVVector3@@@Z,0x007263A0,address read from the retail REL32 in CollisionMath Collide AABox-Tri at 0x00726790

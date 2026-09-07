@@ -3715,3 +3715,17 @@ _XMP_Shift_Left_Bits,,0x0061BBD0,308,Code/Libraries/Source/WWVegas/WWLib/mpmath.
 ?getLayer@Object@@QBE?AW4PathfindLayerEnum@@XZ,,0x004F031C,7,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainTracks.cpp,matched,BFME2 exact BFME1-derived TerrainTracks getter
 ?Get_Index_Count@DynamicIBAccessClass@@QBEGXZ,,0x001386A0,5,Code/Libraries/Source/WWVegas/WW3D2/dx8indexbuffer.cpp,matched,BFME2 exact BFME1-derived index-buffer getter
 ?Peek_Vertex_Material@MaterialCollectorClass@@QAEPAVVertexMaterialClass@@H@Z,,0x0016F510,13,Code/Libraries/Source/WWVegas/WW3D2/matinfo.cpp,matched,BFME2 exact BFME1-derived material collector getter
+?Add_Delayed_Visible_Material_Pass@DX8RigidFVFCategoryContainer@@UAEXPAVMaterialPassClass@@PAVMeshClass@@@Z,,0x00144CB0,113,Code/Libraries/Source/WWVegas/WW3D2/DX8RigidDelayedMaterialPass.cpp,matched,DX8RigidFVFCategoryContainer delayed matpass append; the overlay prefix is 0xC4 not 0xCC
+?Collide@CollisionMath@@SA_NABVAABoxClass@@ABVVector3@@ABVTriClass@@PAUCastResultStruct@@@Z,,0x00726790,3176,Code/Libraries/Source/WWVegas/WWMath/colmathaabtri.cpp,matched,CollisionMath AABox-vs-Tri collide; ported verbatim from the Zero Hour reference
+?aabtri_compute_contact_normal@@YAXAAVVector3@@@Z,,0x007263A0,996,Code/Libraries/Source/WWVegas/WWMath/colmathaabtri.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?aabtri_check_axis@@YA_NXZ,,0x00725E10,453,Code/Libraries/Source/WWVegas/WWMath/colmathaabtri.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?aabtri_check_normal_axis@@YA_NXZ,,0x00726240,338,Code/Libraries/Source/WWVegas/WWMath/colmathaabtri.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?aabtri_check_basis_axis@@YA_NMMM@Z,,0x00726100,315,Code/Libraries/Source/WWVegas/WWMath/colmathaabtri.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?aabtri_check_cross_axis@@YA_NMHM@Z,,0x00725FE0,276,Code/Libraries/Source/WWVegas/WWMath/colmathaabtri.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?aabtri_separation_test@@YA_NMMM@Z,,0x00725D00,265,Code/Libraries/Source/WWVegas/WWMath/colmathaabtri.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?aabtri_intersect_normal_axis@@YA_NAAVVector3@@@Z,,0x00725240,231,Code/Libraries/Source/WWVegas/WWMath/colmathaabtri.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?aabtri_intersect_basis_axis@@YA_NAAVVector3@@MMM@Z,,0x00725180,177,Code/Libraries/Source/WWVegas/WWMath/colmathaabtri.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?aabtri_intersect_cross_axis@@YA_NAAVVector3@@MM@Z,,0x007250E0,154,Code/Libraries/Source/WWVegas/WWMath/colmathaabtri.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?Init@BTCollisionStruct@@QAEXABVAABoxClass@@ABVVector3@@ABVTriClass@@1@Z,,0x00724D40,485,Code/Libraries/Source/WWVegas/WWMath/colmathaabtri.cpp,matched,BTCollisionStruct Init; 485 bytes to the cc padding not the 617 the debug build emits
+?Intersection_Test@CollisionMath@@SA_NABVAABoxClass@@ABVTriClass@@@Z,,0x00725330,2499,Code/Libraries/Source/WWVegas/WWMath/colmathaabtri.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?Init@AABTIntersectStruct@@QAEXABVAABoxClass@@ABVTriClass@@@Z,,0x00724F50,390,Code/Libraries/Source/WWVegas/WWMath/colmathaabtri.cpp,matched,placed by masked whole-.text search of the compiled body - single hit

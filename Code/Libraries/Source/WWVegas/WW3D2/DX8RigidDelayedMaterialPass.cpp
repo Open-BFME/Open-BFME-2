@@ -50,7 +50,13 @@ struct MatPassTaskClass
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/dx8renderer.h
 class DX8RigidFVFCategoryContainer
 {
-    unsigned char prefix[0xcc];
+    // Eight bytes shorter than the Zero Hour layout puts it.  Retail stores
+    // the list head and tail at [esi+0xC8] and [esi+0xCC] and sets the flag
+    // byte at [esi+0xE5], where this overlay had them at 0xD0, 0xD4 and 0xED
+    // -- three members, two dwords and a byte fifteen bytes further on, all
+    // eight low, so it is the prefix that is wrong and not the spacing after
+    // it.
+    unsigned char prefix[0xc4];
     MatPassTaskClass *delayed_matpass_head;
     MatPassTaskClass *delayed_matpass_tail;
     unsigned char middle[0x15];
