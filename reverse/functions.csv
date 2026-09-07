@@ -4604,3 +4604,4 @@ _gpiFindPlayers,,0x00730690,68,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gpi
 _gpiOthersBuddy,,0x00730810,58,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gpiSearch.c,matched,vendored=gamespy-2004; pinned BFME1 reference including inherited EA edits; unique whole-body match; gpiOthersBuddy
 _gpiSuggestUniqueNick,,0x00730850,76,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gpiSearch.c,matched,vendored=gamespy-2004; pinned BFME1 reference including inherited EA edits; unique whole-body match; gpiSuggestUniqueNick
 _ghttpHeadA,,0x006BA8F0,35,Code/GameEngine/Source/GameNetwork/GameSpy/ghttp/ghttpMain.c,matched,GameSpy HTTP API; unique complete function match; BFME2 CRT duplication adaptation; verified sibling callees and retail literals
+_ghttpPostA,,0x006BA920,40,Code/GameEngine/Source/GameNetwork/GameSpy/ghttp/ghttpMain.c,matched,GameSpy HTTP API; unique complete function match; BFME2 CRT duplication adaptation; verified sibling callees and retail literals
