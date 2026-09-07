@@ -224,6 +224,9 @@ qr2_error_t qr2_init_socketA(/*[out]*/qr2_t *qrec, SOCKET s, int boundport, cons
 		if(!override)
 			sprintf(hostname, "%s.master.gamespy.com", gamename);
 		ret = qr2_get_sockaddrin(override?qr2_hostname:hostname, MASTER_PORT, &(cr->hbaddr), NULL);
+		/* Retail converts the resolved public heartbeat address here. */
+		if (ret)
+			inet_ntoa(cr->hbaddr.sin_addr);
 	}
 	else //don't need to look up
 		ret = 1;
