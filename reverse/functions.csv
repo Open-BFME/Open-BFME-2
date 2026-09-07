@@ -3402,3 +3402,4 @@ _XMP_Shift_Left_Bits,,0x0061BBD0,308,Code/Libraries/Source/WWVegas/WWLib/mpmath.
 ?Are_End_Caps_Enabled@SegLineRendererClass@@QBEHXZ,,0x0015DF90,7,Code/Libraries/Source/WWVegas/WW3D2/part_buf.cpp,matched,BFME2 exact BFME1-derived predicate; unique masked placement
 ?Get_LOD_Count@ParticleBufferClass@@UBEHXZ,,0x001E33E9,7,Code/Libraries/Source/WWVegas/WW3D2/part_buf.cpp,matched,BFME2 exact BFME1-derived getter; unique masked placement
 ?Is_Freeze_Random@SegLineRendererClass@@QBEHXZ,,0x0015DF70,7,Code/Libraries/Source/WWVegas/WW3D2/part_buf.cpp,matched,BFME2 exact BFME1-derived predicate; unique masked placement
+?Is_Merge_Intersections@SegLineRendererClass@@QBEHXZ,,0x0015DF60,7,Code/Libraries/Source/WWVegas/WW3D2/part_buf.cpp,matched,BFME2 exact BFME1-derived predicate; unique masked placement
