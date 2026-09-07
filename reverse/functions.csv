@@ -4495,3 +4495,4 @@ _ghiDoSendingRequest,,0x006BB240,421,Code/GameEngine/Source/GameNetwork/GameSpy/
 _ghiDoPosting,,0x006BB3F0,95,Code/GameEngine/Source/GameNetwork/GameSpy/ghttp/ghttpProcess.c,matched,GameSpy BFME2 HTTP state processing; unique complete function match; CRT duplication and sibling callees verified
 _ghiDoWaiting,,0x006BB450,90,Code/GameEngine/Source/GameNetwork/GameSpy/ghttp/ghttpProcess.c,matched,GameSpy BFME2 HTTP state processing; unique complete function match; CRT duplication and sibling callees verified
 _ghiDoReceivingStatus,,0x006BB570,211,Code/GameEngine/Source/GameNetwork/GameSpy/ghttp/ghttpProcess.c,matched,GameSpy BFME2 HTTP state processing; unique complete function match; CRT duplication and sibling callees verified
+_ghiDeliverIncomingFileData,,0x006BB650,204,Code/GameEngine/Source/GameNetwork/GameSpy/ghttp/ghttpProcess.c,matched,GameSpy BFME2 HTTP state processing; unique complete function match; CRT duplication and sibling callees verified
