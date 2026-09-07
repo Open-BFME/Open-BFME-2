@@ -1,5 +1,6 @@
 """Read PE32 import identities without inferring aliases from copied addresses."""
 import struct
+import re
 from typing import NamedTuple
 
 
@@ -7,6 +8,26 @@ class ImportEntry(NamedTuple):
     dll: str
     name: str | None
     ordinal: int | None
+
+
+def coff_import_names(symbol):
+    """Export spellings supported by a 32-bit MSVC imported COFF name.
+
+    Import libraries may publish the decorated name (Miles does) or the
+    undecorated C name (Win32 does). C++ names retain their full identity;
+    namespaces and CRT synonyms are never erased as linker decoration.
+    """
+    if not symbol.startswith("__imp_"):
+        return set()
+    name = symbol[len("__imp_"):]
+    if not name:
+        return set()
+    names = {name}
+    if name.startswith("_"):
+        names.add(re.sub(r"@\d+$", "", name[1:]))
+    elif re.fullmatch(r"@[^@]+@\d+", name):
+        names.add(name[1:name.rfind("@")])
+    return names
 
 
 def read_imports(data):

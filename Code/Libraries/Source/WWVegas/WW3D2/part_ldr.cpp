@@ -1,4 +1,7 @@
-// cl: /Ireference/shims/bfmerendobj /arch:SSE /G7 /DNDEBUG /MD /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/sweep
+// cl: /Ireference/shims /Ireference/shims/bfmerendobj /arch:SSE /G7 /DNDEBUG /MD /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/sweep
+// Select the BFME2 legacy kernel32 import declarations before reference headers.
+#include <sweep/winbase_shim.h>
+
 #include "rendobj.h"	// the bfmerendobj shim has to win the include guard
 #include "winbase_shim.h"
 #define MAX_PATH 260
@@ -126,6 +129,7 @@ ParticleEmitterDefClass::ParticleEmitterDefClass (const ParticleEmitterDefClass 
 //
 //	~ParticleEmitterDefClass
 //
+// ??1ParticleEmitterDefClass@@ present-unmatched
 ParticleEmitterDefClass::~ParticleEmitterDefClass (void)
 {
 	// Free the name buffer if necessary
@@ -157,6 +161,7 @@ ParticleEmitterDefClass::~ParticleEmitterDefClass (void)
 //	ParticleEmitterDefClass
 //
 const ParticleEmitterDefClass &
+// ??4ParticleEmitterDefClass@@ present-unmatched
 ParticleEmitterDefClass::operator= (const ParticleEmitterDefClass &src)
 {
 	//
@@ -233,6 +238,7 @@ ParticleEmitterDefClass::Free_Props (void)
 //	Set_Velocity_Random
 //
 void							
+// ?Set_Velocity_Random@ParticleEmitterDefClass@@ present-unmatched
 ParticleEmitterDefClass::Set_Velocity_Random (Vector3Randomizer *randomizer)
 {
 	SAFE_DELETE (m_pVelocityRandomizer);
@@ -254,6 +260,7 @@ ParticleEmitterDefClass::Set_Velocity_Random (Vector3Randomizer *randomizer)
 //	Set_Creation_Volume
 //
 void							
+// ?Set_Creation_Volume@ParticleEmitterDefClass@@ present-unmatched
 ParticleEmitterDefClass::Set_Creation_Volume (Vector3Randomizer *randomizer)
 {
 	SAFE_DELETE (m_pCreationVolume);
@@ -275,6 +282,7 @@ ParticleEmitterDefClass::Set_Creation_Volume (Vector3Randomizer *randomizer)
 //	Set_User_String
 //
 void							
+// ?Set_User_String@ParticleEmitterDefClass@@ present-unmatched
 ParticleEmitterDefClass::Set_User_String (const char *pstring)		
 { 
 	SAFE_FREE (m_pUserString); 
@@ -288,6 +296,7 @@ ParticleEmitterDefClass::Set_User_String (const char *pstring)
 //	Set_Name
 //
 void							
+// ?Set_Name@ParticleEmitterDefClass@@ present-unmatched
 ParticleEmitterDefClass::Set_Name (const char *pname)			
 { 
 	SAFE_FREE (m_pName); 

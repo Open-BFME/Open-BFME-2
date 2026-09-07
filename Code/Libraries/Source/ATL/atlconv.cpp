@@ -1,4 +1,5 @@
 // cl: /O1 /EHsc /G7
+// Retail uses the legacy unsuffixed ANSI kernel32 string exports.
 // Microsoft Visual C++ .NET 2003 ATL 7.1 atlconv.h members.
 //
 // CA2WEX keeps a t_nBufferLength-wide-character buffer inside the object and
@@ -39,7 +40,7 @@ typedef OSVERSIONINFOA OSVERSIONINFO;
 #define E_OUTOFMEMORY ((HRESULT)0x8007000EL)
 #define HRESULT_FROM_WIN32(x) 	((HRESULT)(x) <= 0 ? ((HRESULT)(x)) 			   : ((HRESULT)(((x) & 0x0000FFFF) | 0x80070000)))
 
-extern "C" __declspec(dllimport) int __stdcall lstrlenA(LPCSTR string);
+extern "C" __declspec(dllimport) int __stdcall lstrlen(LPCSTR string);
 extern "C" __declspec(dllimport) int __stdcall lstrlenW(LPCWSTR string);
 extern "C" __declspec(dllimport) int __stdcall MultiByteToWideChar(
 		UINT code_page, DWORD flags, LPCSTR multi_byte, int multi_byte_chars,
@@ -292,7 +293,7 @@ void CA2WEX<t_nBufferLength>::Init(LPCSTR psz, UINT nCodePage)
 		m_psz = NULL;
 		return;
 	}
-	int nLengthA = lstrlenA(psz) + 1;
+	int nLengthA = lstrlen(psz) + 1;
 	int nLengthW = nLengthA;
 
 	if (nLengthW > t_nBufferLength)

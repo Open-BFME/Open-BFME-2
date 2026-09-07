@@ -579,22 +579,23 @@ __declspec(dllimport) HANDLE WINAPI GetStdHandle(DWORD);
 __declspec(dllimport) int WINAPIV wsprintfA(LPSTR, LPCSTR, ...);
 __declspec(dllimport) int WINAPI lstrcmpA(LPCSTR, LPCSTR);
 __declspec(dllimport) int WINAPI lstrcmpW(LPCWSTR, LPCWSTR);
-__declspec(dllimport) int WINAPI lstrcmpiA(LPCSTR, LPCSTR);
+// The retail PE imports these legacy unsuffixed ANSI lstr* exports.
+__declspec(dllimport) int WINAPI lstrcmpi(LPCSTR, LPCSTR);
 __declspec(dllimport) int WINAPI lstrcmpiW(LPCWSTR, LPCWSTR);
 #define lstrcmp lstrcmpA
-#define lstrcmpi lstrcmpiA
-__declspec(dllimport) int WINAPI lstrlenA(LPCSTR);
+#define lstrcmpiA lstrcmpi
+__declspec(dllimport) int WINAPI lstrlen(LPCSTR);
 __declspec(dllimport) int WINAPI lstrlenW(LPCWSTR);
-#define lstrlen lstrlenA
+#define lstrlenA lstrlen
 __declspec(dllimport) LPSTR WINAPI lstrcatA(LPSTR, LPCSTR);
 __declspec(dllimport) LPWSTR WINAPI lstrcatW(LPWSTR, LPCWSTR);
 #define lstrcat lstrcatA
-__declspec(dllimport) LPSTR WINAPI lstrcpyA(LPSTR, LPCSTR);
+__declspec(dllimport) LPSTR WINAPI lstrcpy(LPSTR, LPCSTR);
 __declspec(dllimport) LPWSTR WINAPI lstrcpyW(LPWSTR, LPCWSTR);
-#define lstrcpy lstrcpyA
-__declspec(dllimport) LPSTR WINAPI lstrcpynA(LPSTR, LPCSTR, int);
+#define lstrcpyA lstrcpy
+__declspec(dllimport) LPSTR WINAPI lstrcpyn(LPSTR, LPCSTR, int);
 __declspec(dllimport) LPWSTR WINAPI lstrcpynW(LPWSTR, LPCWSTR, int);
-#define lstrcpyn lstrcpynA
+#define lstrcpynA lstrcpyn
 __declspec(dllimport) int WINAPI MessageBoxA(HWND, LPCSTR, LPCSTR, UINT);
 __declspec(dllimport) int WINAPI MessageBoxW(HWND, LPCWSTR, LPCWSTR, UINT);
 __declspec(dllimport) HWND WINAPI GetDlgItem(HWND, int);

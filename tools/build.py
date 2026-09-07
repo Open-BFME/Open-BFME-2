@@ -1607,6 +1607,58 @@ def verify_float_refs(rows):
     print(f"Float-ref verify: OK ({checked} compiler literals verified)")
 
 
+def verify_import_refs(rows):
+    """Check imported call/data identities independently of copied DIR32s.
+
+    A unique byte match can still call GlobalFree where the source names
+    InterlockedIncrement. Read the PE's own import directory, then require
+    the source's COFF import name at each referenced IAT slot. No address
+    pin, function-name alias, or ordinal-only guess can satisfy this check.
+    """
+    from pe_imports import coff_import_names, read_imports
+
+    try:
+        imports = read_imports(EXE.read_bytes())
+    except ValueError as exc:
+        raise SystemExit(f"Import-ref verify: FAIL unreadable PE imports: {exc}")
+    checked, mismatches = 0, []
+    for row in rows:
+        obj = require_row_object(row)
+        size = int(row["target_size"])
+        target = read_target_bytes(int(row["target_rva"], 16), size)
+        symbol = ledger_object_symbol(row)
+        try:
+            if is_funclet_row(row, symbol):
+                body, relocs, _ = read_funclet(row, symbol, obj, target)
+            else:
+                body, relocs = read_object_symbol_bytes(obj, symbol, size)
+        except ValueError as exc:
+            mismatches.append((row["name"], "<body>", f"unverifiable: {exc}"))
+            continue
+        for offset, kind, symbol in relocs:
+            if kind != 0x0006 or not symbol.startswith("__imp_") or offset + 4 > size:
+                continue
+            try:
+                address = struct.unpack_from("<I", target, offset)[0]
+                addend = struct.unpack_from("<I", body, offset)[0]
+                slot = (address - addend) & 0xFFFFFFFF
+                entry = imports.get(slot)
+                if entry is not None and entry.name in coff_import_names(symbol):
+                    checked += 1
+                    continue
+                actual = (f"{entry.dll}!{entry.name or ('ordinal ' + str(entry.ordinal))}"
+                          if entry is not None else "not a declared IAT slot")
+                mismatches.append((row["name"], symbol, f"0x{slot:08X}: {actual}"))
+            except struct.error as exc:
+                mismatches.append((row["name"], symbol, f"unverifiable: {exc}"))
+    if mismatches:
+        print(f"Import-ref verify: FAIL {len(mismatches)} mismatch(es)")
+        for name, symbol, detail in mismatches[:20]:
+            print(f"    {name}: {symbol} {detail}")
+        raise SystemExit(1)
+    print(f"Import-ref verify: OK ({checked} named imports verified)")
+
+
 def verify_dir32_consistency(rows):
     """Regression gate for the non-string DIR32s (globals/vtables/func-addrs) build.py masks. A symbol
     has one address, so every reference must resolve to the same base once the addend is subtracted
@@ -1761,6 +1813,7 @@ def main(only=None):
                 if any(sel in row["source"] or sel in row["name"] for sel in only)]
         verify_string_refs(rows)
         verify_float_refs(rows)
+        verify_import_refs(rows)
         return
     print("Full verification")
     # Identity, not bytes: verify_functions proves each row's bytes, and a
@@ -1799,6 +1852,7 @@ def main(only=None):
     rows = load_function_rows()
     run("string-refs", lambda: verify_string_refs(rows))
     run("float-refs", lambda: verify_float_refs(rows))
+    run("import-refs", lambda: verify_import_refs(rows))
     run("dir32 consistency", lambda: verify_dir32_consistency(rows))
     run("pin consistency", pin_consistency.verify)
     run("source claims", verify_source_claims)
