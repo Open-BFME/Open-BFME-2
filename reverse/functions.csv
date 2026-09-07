@@ -3324,3 +3324,4 @@ _XMP_Init,,0x0061BD70,23,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,
 ?getBodyModule@Object@@QBEPAVBodyModuleInterface@@XZ,,0x00313E9A,7,Code/GameEngine/Source/GameLogic/Object/Object.cpp,matched,BFME2 Object body-module getter transferred from exact BFME1 source; identical bytes
 ?getAI@Object@@QAEPAVAIUpdateInterface@@XZ,,0x00313EB6,7,Code/GameEngine/Source/GameLogic/Object/Object.cpp,matched,BFME2 Object AI getter transferred from exact BFME1 source; identical bytes
 ?getStealth@Object@@QBEPAVStealthUpdate@@XZ,,0x00313EA1,7,Code/GameEngine/Source/GameLogic/Object/Object.cpp,matched,BFME2 Object stealth getter transferred from exact BFME1 source; identical bytes
+?friend_getRadarData@Object@@QAEPAVRadarObject@@XZ,,0x00313EAF,7,Code/GameEngine/Source/GameLogic/Object/Object.cpp,matched,BFME2 Object radar-data getter transferred from exact BFME1 source; identical bytes

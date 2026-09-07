@@ -10,6 +10,7 @@ class BehaviorModule;
 class BodyModuleInterface;
 class StealthUpdate;
 class AIUpdateInterface;
+class RadarObject;
 
 class Object
 {
@@ -18,6 +19,7 @@ public:
 	BodyModuleInterface *getBodyModule() const;
 	StealthUpdate *getStealth() const;
 	AIUpdateInterface *getAI();
+	RadarObject *friend_getRadarData();
 
 private:
 	unsigned char m_pre[0x18C];
@@ -26,6 +28,9 @@ private:
 	BodyModuleInterface *m_body;	// +0x194
 	StealthUpdate *m_stealth;	// +0x198
 	AIUpdateInterface *m_ai;	// +0x19C
+	void *m_1A0;			// +0x1A0
+	void *m_1A4;			// +0x1A4
+	RadarObject *m_radarData;	// +0x1A8
 };
 
 // ?getBehaviorModules@Object@@QBEPAPAVBehaviorModule@@XZ
@@ -50,4 +55,10 @@ StealthUpdate *Object::getStealth() const
 AIUpdateInterface *Object::getAI()
 {
 	return m_ai;
+}
+
+// ?friend_getRadarData@Object@@QAEPAVRadarObject@@XZ
+RadarObject *Object::friend_getRadarData()
+{
+	return m_radarData;
 }
