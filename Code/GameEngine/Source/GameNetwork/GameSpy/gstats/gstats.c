@@ -1013,7 +1013,7 @@ static int RecvSessionKey()
 		if ((anError != WSAEWOULDBLOCK) && (anError != WSAETIMEDOUT) && (anError != WSAEINPROGRESS))
 		{
 			closesocket(sock);
-            sock=INVALID_SOCKET;
+            
 			return GE_NOCONNECT;
 		}
 	}
@@ -1025,7 +1025,7 @@ static int RecvSessionKey()
 	if (stext == NULL)
 	{
 		closesocket(sock);
-        sock=INVALID_SOCKET;
+        
 		return GE_DATAERROR;
 	} else
 		connid = atoi(stext);
