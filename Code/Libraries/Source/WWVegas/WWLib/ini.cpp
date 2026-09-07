@@ -96,6 +96,15 @@
  *   INIClass::Enumerate_Entries -- Count how many entries begin with a certain prefix followed by a range *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
+// Retail reaches strchr, sscanf, strncpy and the rest of this unit's CRT through
+// the import table (`ff 15 __imp__...`), but it calls strdup DIRECTLY -- a five
+// byte `e8` to the CRT body at 0x006C4C70, which Put_String's own byte check
+// proves because retail encoded that displacement. <string.h> declares both
+// names, so _CRTIMP cannot be defused for one and left for the other; rename
+// the header's declaration out of the way instead and declare the direct
+// spelling ourselves.
+#define strdup __bfme_strdup_dllimport
+
 #include	"always.h"
 #include	"b64pipe.h"
 #include	"b64straw.h"
@@ -119,6 +128,11 @@
 #include	"pipe.h"
 #include	"wwstring.h"
 #include "nstrdup.h"
+
+// Every header that declares strdup has now had its declaration renamed aside;
+// this is the spelling the unit actually calls.
+#undef strdup
+extern "C" char * __cdecl strdup(const char *);
 
 #if defined(__WATCOMC__)
 // Disable the "temporary object used to initialize a non-constant reference" warning.
@@ -1548,8 +1562,55 @@ bool INIClass::Put_Double(char const * section, char const * entry, double numbe
  *   12/08/1997 EHC : Debug message for duplicate entries                                      *
  *   03/13/1998 NH  : On duplicate CRC, check if strings identical.                            *
  *=============================================================================================*/
-// ?Put_String@INIClass@@QAE_NPBD00@Z
-// Body in INIClass_Put_String.asm (exact 459B retail; new-expr EH frame wall).
+bool INIClass::Put_String(char const * section, char const * entry, char const * string)
+{
+	if (section == NULL || entry == NULL) return(false);
+
+	INISection * secptr = Find_Section(section);
+
+	if (secptr == NULL) {
+		secptr = W3DNEW INISection(strdup(section));
+		if (secptr == NULL) return(false);
+		SectionList->Add_Tail(secptr);
+		SectionIndex->Add_Index(secptr->Index_ID(), secptr);
+	}
+
+	/*
+	**	Remove the old entry if found and print debug message
+	*/
+	INIEntry * entryptr = secptr->Find_Entry(entry);
+	if (entryptr != NULL) {
+      if (strcmp(entryptr->Entry, entry)) {
+         DuplicateCRCError("INIClass::Put_String", section, entry);
+      } else {
+#if 0
+			OutputDebugString("INIClass::Put_String - Duplicate Entry \"");
+	   	OutputDebugString(entry);
+		   OutputDebugString("\"\n");
+#endif
+      }
+   	secptr->EntryIndex.Remove_Index(entryptr->Index_ID());
+	   ::delete entryptr;
+	}
+
+	/*
+	**	Create and add the new entry.
+	*/
+	if (string != NULL && strlen(string) > 0) {
+		entryptr = W3DNEW INIEntry(strdup(entry), strdup(string));
+
+		// The reference source asserts strlen(string) < MAX_LINE_LENGTH here; the
+		// retail build is NDEBUG, so WWASSERT expands to nothing and the omission
+		// costs no code.
+
+		if (entryptr == NULL) {
+			return(false);
+		}
+		secptr->EntryList.Add_Tail(entryptr);
+		secptr->EntryIndex.Add_Index(entryptr->Index_ID(), entryptr);
+	}
+	return(true);
+}
 
 
 /***********************************************************************************************
