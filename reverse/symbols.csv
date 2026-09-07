@@ -582,3 +582,5 @@ _strlen,0x00629170,BFME2 retail strlen thunk and call target for StringBase<char
 _strdup,0x006C4C70,address read from the retail REL32 in INIClass::Put_String at 0x00616FB0; the CRT body this unit calls directly where it imports the rest of the CRT
 ?Add_Index@?$IndexClass@HPAUINISection@@@@QAE_NABHABQAUINISection@@@Z,0x006166D0,address read from the retail REL32 in INIClass::Put_String at 0x00616FB0; both IndexClass pointer instantiations fold onto this one body
 ?Add_Index@?$IndexClass@HPAUINIEntry@@@@QAE_NABHABQAUINIEntry@@@Z,0x006166D0,address read from the retail REL32 in INIClass::Put_String at 0x00616FB0; both IndexClass pointer instantiations fold onto this one body
+?Delete@?$List@PAUINISection@@@@QAEXXZ,0x00615CB0,address read from the retail REL32 in INIClass::Clear at 0x00616C60
+?Remove_Index@?$IndexClass@HPAUINISection@@@@QAE_NABH@Z,0x00616100,address read from the retail REL32 in INIClass::Clear at 0x00616C60

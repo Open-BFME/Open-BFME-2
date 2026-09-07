@@ -1,4 +1,4 @@
-// cl: /arch:SSE /G7 /DNDEBUG /D_WINDOWS /MD /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/sweep
+// cl: /arch:SSE /G7 /DNDEBUG /D_WINDOWS /MD /Ireference/shims/bfmeindex /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/sweep
 // WWLib INIClass, from the Generals Zero Hour reference
 // (Libraries/Source/WWVegas/WWLib/ini.cpp). BFME links this WWLib INI handler
 // (distinct from its GameEngine INI system): the retail exe references
@@ -106,6 +106,13 @@
 #define strdup __bfme_strdup_dllimport
 
 #include	"always.h"
+
+// index.h ahead of everything that reaches it indirectly: inisup.h includes it
+// out of its own directory in reference/open-bfme-1, which would win the
+// include guard before -Ireference/shims/bfmeindex is ever consulted.  It has
+// to follow always.h, which is where W3DNEWARRAY comes from.
+#include	"index.h"
+
 #include	"b64pipe.h"
 #include	"b64straw.h"
 #include	"cstraw.h"
@@ -309,7 +316,7 @@ bool INIClass::Clear(char const * section, char const * entry)
 					*/
 					secptr->EntryIndex.Remove_Index(entptr->Index_ID());
 
-					delete entptr;
+					::delete entptr;
 				}
 			} else {
 				/*
@@ -317,7 +324,7 @@ bool INIClass::Clear(char const * section, char const * entry)
 				*/
 				SectionIndex->Remove_Index(secptr->Index_ID());
 
-				delete secptr;
+				::delete secptr;
 			}
 		}
 	}
