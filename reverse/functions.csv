@@ -3698,3 +3698,5 @@ _XMP_Shift_Left_Bits,,0x0061BBD0,308,Code/Libraries/Source/WWVegas/WWLib/mpmath.
 ??A?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QBEABVAsciiString@@I@Z,,0x0042096B,12,Code/GameEngine/Source/Common/Thing/ThingFactory.cpp,matched,BFME2 exact BFME1-derived ThingFactory helper
 ?friend_getNextTemplate@ThingTemplate@@QBEPAV1@XZ,,0x00406D4A,7,Code/GameEngine/Source/Common/Thing/ThingFactory.cpp,matched,BFME2 exact BFME1-derived ThingFactory helper
 ?markAsOverride@Overridable@@QAEXXZ,,0x00248D08,5,Code/GameEngine/Source/Common/Thing/ThingFactory.cpp,matched,BFME2 exact BFME1-derived ThingFactory helper
+?File_Name@GameFileClass@@UBEPBDXZ,,0x000782BF,7,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFileSystem.cpp,matched,BFME2 exact BFME1-derived game file accessor
+?Is_Available@GameFileClass@@UAE_NH@Z,,0x000782E1,6,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFileSystem.cpp,matched,BFME2 exact BFME1-derived game file accessor

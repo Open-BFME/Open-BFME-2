@@ -109,7 +109,6 @@ GameFileClass::~GameFileClass()
 //-------------------------------------------------------------------------------------------------
 /** Gets the file name */
 //-------------------------------------------------------------------------------------------------
-// ?File_Name@GameFileClass@@UBEPBDXZ present-unmatched
 char const * GameFileClass::File_Name( void ) const
 {
 
@@ -341,7 +340,6 @@ char const * GameFileClass::Set_Name( char const *filename )
 //-------------------------------------------------------------------------------------------------
 /** If we found a gdi asset, the file is available. */
 //-------------------------------------------------------------------------------------------------
-// ?Is_Available@GameFileClass@@UAE_NH@Z present-unmatched
 bool GameFileClass::Is_Available( int forced ) 
 {
 
