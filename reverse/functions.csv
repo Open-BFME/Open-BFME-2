@@ -3332,3 +3332,4 @@ _XMP_Init,,0x0061BD70,23,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,
 ?getLocalAddr@UDP@@QAEHAAIAAG@Z,,0x0059495D,25,Code/GameEngine/Source/GameNetwork/udp.cpp,matched,BFME2 UDP local-address getter transferred from exact BFME1 source; identical bytes
 ?findEmptyMessage@FirewallHelperClass@@AAEPAUManglerMessage@@XZ,,0x00594D9C,36,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,matched,BFME2 FirewallHelperClass empty-message scan transferred from exact BFME1 source; identical bytes
 ?getPacketRouterSlot@ConnectionManager@@QAEIXZ,,0x004CF3B2,7,Code/GameEngine/Source/Common/ConnectionManagerLocalSlot.cpp,matched,BFME2 ConnectionManager packet-router-slot getter transferred from exact BFME1 source; identical bytes
+?isSaveable@ParticleSystem@@QBE_NXZ,,0x002AA223,7,Code/GameEngine/Source/GameClient/System/ParticleSys.cpp,matched,BFME2 ParticleSystem saveable-flag getter transferred from exact BFME1 source; identical bytes
