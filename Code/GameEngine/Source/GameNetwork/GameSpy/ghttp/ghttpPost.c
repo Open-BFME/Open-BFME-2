@@ -1,5 +1,6 @@
 // cl: /DNDEBUG /MD -Ireference/shims/gamespy -Ireference/open-bfme-1/Code/GameEngine/Source/GameNetwork/GameSpy/ghttp
-/* GameSpy SDK, 2004 vintage -- pristine upstream C source.
+/* GameSpy SDK, 2004 vintage -- upstream C source with the BFME2 CRT
+   duplication adaptation documented after the includes below.
    Sourced from the Area 51 (Inevitable Entertainment / Midway) source release,
    github.com/bisc67/Area51, Support/NetworkMgr/GameSpy -- the only public
    carrier found with the pre-2005 SDK layout (top-level nonport.c, no common/).
@@ -30,6 +31,13 @@ devsupport@gamespy.com
 #include "ghttpMain.h"
 #include "ghttpConnection.h"
 #include "ghttpCommon.h"
+
+// BFME2 redirects SDK duplication to the CRT multibyte allocator. Retail's
+// import at 0x00BBA5C8 names msvcr71.dll!_mbsdup; the reference nonport.h
+// instead redirects strdup to the older goastrdup helper. Keep this local.
+#include <mbstring.h>
+#undef strdup
+#define strdup(value) ((char *)_mbsdup((const unsigned char *)(value)))
 
 // The border between parts in a file send.
 ///////////////////////////////////////////
