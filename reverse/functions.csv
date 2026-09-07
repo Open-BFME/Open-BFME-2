@@ -3284,3 +3284,4 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?Rva00225A0C@@YAXH@Z,,0x00225A0C,19,Code/GameEngine/Source/Common/GameEngineNetworkHelpers.cpp,matched,address derived Debug wrapper; identity unresolved; forwards one frame value to Debug vtable plus 0x90
 ?getFramePacingStatus@NetworkInterface@@QAEHXZ,,0x0025E163,172,Code/GameEngine/Source/Common/NetworkInterfaceFramePacing.cpp,matched,BFME2 native network vtable +0x58; QPC/router and frame-ceiling pacing status
 ?construct@BFME2NativeNetwork@@QAEPAXXZ,,0x0025DB6D,65,Code/GameEngine/Source/Common/NetworkInterfaceConstructor.cpp,matched,BFME2 native network constructor; base state and QPC timestamps before init slot +0x04
+?isPacketRouter@NetworkInterface@@QAEHXZ,,0x0025DCCB,23,Code/GameEngine/Source/Common/NetworkInterfaceRouter.cpp,matched,BFME2 native network vtable +0xAC; delegates to connection-manager counter equality
