@@ -4078,3 +4078,4 @@ _QuartToTrip,,0x0060AF40,62,Code/GameEngine/Source/GameNetwork/GameSpy/nonport.c
 _TripToQuart,,0x0060AF80,130,Code/GameEngine/Source/GameNetwork/GameSpy/nonport.c,matched,vendored=gamespy-2004; complete source body at unique placement; release assertions disabled
 _B64Decode,,0x0060B010,342,Code/GameEngine/Source/GameNetwork/GameSpy/nonport.c,matched,vendored=gamespy-2004; complete source body at unique placement; release assertions disabled
 _B64Encode,,0x0060B170,230,Code/GameEngine/Source/GameNetwork/GameSpy/nonport.c,matched,vendored=gamespy-2004; complete source body at unique placement; release assertions disabled
+_GenerateID,,0x0060B260,169,Code/GameEngine/Source/GameNetwork/GameSpy/nonport.c,matched,vendored=gamespy-2004; complete source body at unique placement; release assertions disabled
