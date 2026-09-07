@@ -4341,3 +4341,4 @@ _PreAuthenticatePlayerCDA,,0x00608DF0,166,Code/GameEngine/Source/GameNetwork/Gam
 _SetPersistData,,0x00608FE0,51,Code/GameEngine/Source/GameNetwork/GameSpy/gstats/gstats.c,matched,gen-alias;object-symbol=_SetPersistData;C++ alias
 _GetPersistDataValuesModifiedA,,0x00609020,567,Code/GameEngine/Source/GameNetwork/GameSpy/gstats/gstats.c,matched,gen-alias;object-symbol=_GetPersistDataValuesModifiedA;C++ alias
 _SetPersistDataValuesA,,0x00609290,70,Code/GameEngine/Source/GameNetwork/GameSpy/gstats/gstats.c,matched,gen-alias;object-symbol=_SetPersistDataValuesA;C++ alias
+?Compute_Caps@DX8Caps@@QAEXW4WW3DFormat@@ABU_D3DADAPTER_IDENTIFIER8@@@Z,,0x0012BDE0,2160,Code/Libraries/Source/WWVegas/WW3D2/dx8caps.cpp,matched,BFME2 D3D9 capability initialization; distinct mapped/raw/build fields; dynamic-texture driver exclusion; full code plus eight switch destinations and indirect vendor/device literal tables independently verified

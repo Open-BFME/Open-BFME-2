@@ -1,4 +1,4 @@
-// cl: /G7 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/sweep
+// cl: /G7 /arch:SSE /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/sweep
 // stlport
 #define Matrix4x4 Matrix4  // BFME renamed it
 /*
@@ -441,6 +441,7 @@ DX8Caps::DeviceTypeMatrox DX8Caps::Get_Matrox_Device(unsigned device_id)
 	}
 }
  
+// ?Get_PowerVR_Device@DX8Caps@@CA?AW4DeviceTypePowerVR@1@I@Z present-unmatched
 DX8Caps::DeviceTypePowerVR DX8Caps::Get_PowerVR_Device(unsigned device_id)
 {
 	switch (device_id) {
@@ -559,94 +560,154 @@ void DX8Caps::Init_Caps(IDirect3DDevice8* D3DDevice)
 // Compute the caps bits
 //
 // ----------------------------------------------------------------------------
-// ?Compute_Caps@DX8Caps@@QAEXW4WW3DFormat@@ABU_D3DADAPTER_IDENTIFIER8@@@Z present-unmatched
-void DX8Caps::Compute_Caps(WW3DFormat display_format, const D3DADAPTER_IDENTIFIER8& adapter_id)
+// BFME2 retains the DX8 names but this routine consumes D3D9 capabilities.
+// The retail body is 2160 bytes at 0x12BDE0; its eight-entry switch table follows.
+// Device classification, raw PCI device ID and driver build are distinct fields
+// at 0x2C0, 0x2C4 and 0x2C8. The adapter adds D3D9's 32-byte DeviceName.
+// D3D9 constants: learn.microsoft.com/windows/win32/direct3d9/d3dcaps2
+// The capability prefix used here is common to D3DCAPS8/9; padding preserves
+// the full 304-byte retail member without changing the shared DX8 headers.
+enum {
+ BFME_D3DPRASTERCAPS_DEPTHBIAS=0x04000000L,
+ BFME_D3DPTEXTURECAPS_CUBEMAP=0x00000800L,
+ BFME_D3DCAPS2_DYNAMICTEXTURES=0x20000000L
+};
+struct BFME_DX8Caps_ComputeFields
 {
+	int maxDisplayWidth;					// 0x000
+	int maxDisplayHeight;					// 0x004
+	D3DCAPS8 caps;
+	char padToFlags[0x138 - 0x008 - sizeof(D3DCAPS8)];
+	bool supportTnL;						// 0x138
+	bool supportDXTC;						// 0x139
+	bool supportGamma;						// 0x13a
+	bool supportNPatches;					// 0x13b
+	bool supportBumpEnvmap;					// 0x13c
+	bool supportBumpEnvmapLuminance;		// 0x13d
+	bool supportTextureFormat[123];			// 0x13e
+	bool supportRenderToTextureFormat[118];	// 0x1b9
+	bool supportDepthStencilFormat[118];	// 0x22f
+	bool supportZBias;						// 0x2a5
+	bool supportAnisotropicFiltering;		// 0x2a6
+	bool supportModAlphaAddClr;				// 0x2a7
+	bool supportDot3;						// 0x2a8
+	bool supportPointSprites;				// 0x2a9
+	bool supportCubemaps;					// 0x2aa
+	bool canDoMultiPass;					// 0x2ab
+	bool isFogAllowed;						// 0x2ac
+	bool supportDynamicTextures;
+	char padToInts[0x2b0 - 0x2ae];
+	int maxTexturesPerPass;					// 0x2b0
+	int vertexShaderVersionAll;				// 0x2b4
+	int pixelShaderVersionAll;				// 0x2b8
+	int maxSimultaneousTexturesAll;			// 0x2bc
+	unsigned mappedDevice;						// 0x2c0
+	unsigned rawDevice;					// 0x2c4
+	unsigned driverBuildVersion;						// 0x2c8
+	int driverVersionStatus;				// 0x2cc
+	int vendorId;							// 0x2d0
+	StringClass driverDLL;					// 0x2d4
+	IDirect3D8 *direct3DAll;				// 0x2d8
+	StringClass capsLogAll;					// 0x2dc
+	StringClass compactLogAll;
+};
+typedef char BFME_ComputeCapsSize[(sizeof(BFME_DX8Caps_ComputeFields)==0x2e4)?1:-1];
+struct BFME_D3DADAPTER_IDENTIFIER9 {
+ char Driver[512]; char Description[512]; char DeviceName[32];
+ LARGE_INTEGER DriverVersion; DWORD VendorId, DeviceId, SubSysId, Revision;
+ GUID DeviceIdentifier; DWORD WHQLLevel;
+};
+#define COMPACTLOG_RETAIL(n) CapsWorkString.Format n; retail->compactLogAll+=CapsWorkString;
+void DX8Caps::Compute_Caps(WW3DFormat display_format, const D3DADAPTER_IDENTIFIER8& original_adapter_id)
+{
+ BFME_DX8Caps_ComputeFields *retail=(BFME_DX8Caps_ComputeFields *)this;
+ const BFME_D3DADAPTER_IDENTIFIER9 &adapter_id=(const BFME_D3DADAPTER_IDENTIFIER9 &)original_adapter_id;
 //	Init_Caps(D3DDevice);
 
-	CanDoMultiPass=true;
-	IsFogAllowed=true;
+	retail->canDoMultiPass=true;
+	retail->isFogAllowed=true;
 
-	CapsLog="";
-	CompactLog="";
-	DXLOG(("Video Card: %s\r\n",adapter_id.Description));
-	DXLOG(("Driver: %s\r\n",adapter_id.Driver));
+	retail->capsLogAll="";
+	retail->compactLogAll="";
+	DXLOG_RETAIL(("Video Card: %s\r\n",adapter_id.Description));
+	DXLOG_RETAIL(("Driver: %s\r\n",adapter_id.Driver));
 
-	DriverDLL=adapter_id.Driver;
+	retail->driverDLL=adapter_id.Driver;
 	int Product = HIWORD(adapter_id.DriverVersion.HighPart);
 	int Version = LOWORD(adapter_id.DriverVersion.HighPart);
 	int SubVersion = HIWORD(adapter_id.DriverVersion.LowPart);
-	DriverBuildVersion = LOWORD(adapter_id.DriverVersion.LowPart);
+	retail->driverBuildVersion = LOWORD(adapter_id.DriverVersion.LowPart);
 
-	DXLOG(("Product=%d, Version=%d, SubVersion=%d, Build=%d\r\n",Product, Version, SubVersion, DriverBuildVersion));
+	DXLOG_RETAIL(("Product=%d, Version=%d, SubVersion=%d, Build=%d\r\n",Product, Version, SubVersion, retail->driverBuildVersion));
 
-	VendorId=Define_Vendor(adapter_id.VendorId);
+	retail->vendorId=Define_Vendor(adapter_id.VendorId);
 	// Make a guess - if driver doesn't intruduce itself and the name starts with 3, what could it possibly be?
-	if (VendorId==VENDOR_UNKNOWN) {
-		if (DriverDLL[0]=='3') VendorId=VENDOR_3DFX;
+	if (retail->vendorId==VENDOR_UNKNOWN) {
+		if (retail->driverDLL[0]=='3') retail->vendorId=VENDOR_3DFX;
 	}
-	COMPACTLOG(("%s\t",VendorNames[VendorId]));
-	DXLOG(("Video Card Chip Vendor: %s\r\n",VendorNames[VendorId]));
-	DXLOG(("Type of chip: "));
-	switch (VendorId) {
+	COMPACTLOG_RETAIL(("%s\t",VendorNames[retail->vendorId]));
+	DXLOG_RETAIL(("Video Card Chip Vendor: %s\r\n",VendorNames[retail->vendorId]));
+	retail->rawDevice=adapter_id.DeviceId;
+	DXLOG_RETAIL(("Type of chip: "));
+	switch (retail->vendorId) {
 	default:
 	case VENDOR_UNKNOWN:
-		DeviceId=0;
-		DXLOG(("Unknown"));
-		COMPACTLOG(("Unknown"));
+		retail->mappedDevice=0;
+		DXLOG_RETAIL(("Unknown"));
+		COMPACTLOG_RETAIL(("Unknown"));
 		break;
 	case VENDOR_NVIDIA:
-		DeviceId=(unsigned)Get_NVidia_Device(adapter_id.DeviceId);
-		DXLOG((DeviceNamesNVidia[DeviceId]));
-		COMPACTLOG((DeviceNamesNVidia[DeviceId]));
+		retail->mappedDevice=(unsigned)Get_NVidia_Device(adapter_id.DeviceId);
+		DXLOG_RETAIL((DeviceNamesNVidia[retail->mappedDevice]));
+		COMPACTLOG_RETAIL((DeviceNamesNVidia[retail->mappedDevice]));
 		break;
 	case VENDOR_ATI:
-		DeviceId=(unsigned)Get_ATI_Device(adapter_id.DeviceId);
-		DXLOG((DeviceNamesATI[DeviceId]));
-		COMPACTLOG((DeviceNamesATI[DeviceId]));
+		retail->mappedDevice=(unsigned)Get_ATI_Device(adapter_id.DeviceId);
+		DXLOG_RETAIL((DeviceNamesATI[retail->mappedDevice]));
+		COMPACTLOG_RETAIL((DeviceNamesATI[retail->mappedDevice]));
 		break;
 	case VENDOR_INTEL:
-		DeviceId=(unsigned)Get_Intel_Device(adapter_id.DeviceId);
-		DXLOG((DeviceNamesIntel[DeviceId]));
-		COMPACTLOG((DeviceNamesIntel[DeviceId]));
+		retail->mappedDevice=(unsigned)Get_Intel_Device(adapter_id.DeviceId);
+		DXLOG_RETAIL((DeviceNamesIntel[retail->mappedDevice]));
+		COMPACTLOG_RETAIL((DeviceNamesIntel[retail->mappedDevice]));
 		break;
 	case VENDOR_S3:
-		DeviceId=(unsigned)Get_S3_Device(adapter_id.DeviceId);
-		DXLOG((DeviceNamesS3[DeviceId]));
-		COMPACTLOG((DeviceNamesS3[DeviceId]));
+		retail->mappedDevice=(unsigned)Get_S3_Device(adapter_id.DeviceId);
+		DXLOG_RETAIL((DeviceNamesS3[retail->mappedDevice]));
+		COMPACTLOG_RETAIL((DeviceNamesS3[retail->mappedDevice]));
 		break;
 	case VENDOR_POWERVR:
-		DeviceId=(unsigned)Get_PowerVR_Device(adapter_id.DeviceId);
-		DXLOG((DeviceNamesPowerVR[DeviceId]));
-		COMPACTLOG((DeviceNamesPowerVR[DeviceId]));
+		retail->mappedDevice=(unsigned)Get_PowerVR_Device(adapter_id.DeviceId);
+		DXLOG_RETAIL((DeviceNamesPowerVR[retail->mappedDevice]));
+		COMPACTLOG_RETAIL((DeviceNamesPowerVR[retail->mappedDevice]));
 		break;
 	case VENDOR_MATROX:
-		DeviceId=(unsigned)Get_Matrox_Device(adapter_id.DeviceId);
-		DXLOG((DeviceNamesMatrox[DeviceId]));
-		COMPACTLOG((DeviceNamesMatrox[DeviceId]));
+		retail->mappedDevice=(unsigned)Get_Matrox_Device(adapter_id.DeviceId);
+		DXLOG_RETAIL((DeviceNamesMatrox[retail->mappedDevice]));
+		COMPACTLOG_RETAIL((DeviceNamesMatrox[retail->mappedDevice]));
 		break;
 	case VENDOR_3DFX:
-		DeviceId=(unsigned)Get_3Dfx_Device(adapter_id.DeviceId);
-		DXLOG((DeviceNames3Dfx[DeviceId]));
-		COMPACTLOG((DeviceNames3Dfx[DeviceId]));
+		retail->mappedDevice=(unsigned)Get_3Dfx_Device(adapter_id.DeviceId);
+		DXLOG_RETAIL((DeviceNames3Dfx[retail->mappedDevice]));
+		COMPACTLOG_RETAIL((DeviceNames3Dfx[retail->mappedDevice]));
 		break;
 	case VENDOR_3DLABS:
-		DeviceId=(unsigned)Get_3DLabs_Device(adapter_id.DeviceId);
-		DXLOG((DeviceNames3DLabs[DeviceId]));
-		COMPACTLOG((DeviceNames3DLabs[DeviceId]));
+		retail->mappedDevice=(unsigned)Get_3DLabs_Device(adapter_id.DeviceId);
+		DXLOG_RETAIL((DeviceNames3DLabs[retail->mappedDevice]));
+		COMPACTLOG_RETAIL((DeviceNames3DLabs[retail->mappedDevice]));
 		break;
 	}
 
-	COMPACTLOG(("\t%d\t",DriverBuildVersion));
+	COMPACTLOG_RETAIL(("\t%d\t",retail->driverBuildVersion));
 
-	DXLOG(("\r\n"));
+	DXLOG_RETAIL(("\r\n"));
 
-	DXLOG(("Vendor id: 0x%x\r\n",adapter_id.VendorId));
-	DXLOG(("Device id: 0x%x\r\n",adapter_id.DeviceId));
-	DXLOG(("SubSys id: 0x%x\r\n",adapter_id.SubSysId));
-	DXLOG(("Revision: %d\r\n",adapter_id.Revision));
+	DXLOG_RETAIL(("Vendor id: 0x%x\r\n",adapter_id.VendorId));
+	DXLOG_RETAIL(("Device id: 0x%x\r\n",adapter_id.DeviceId));
+	DXLOG_RETAIL(("SubSys id: 0x%x\r\n",adapter_id.SubSysId));
+	DXLOG_RETAIL(("Revision: %d\r\n",adapter_id.Revision));
 
-	DXLOG(("GUID = {0x%x, 0x%x, 0x%x}, {0x%2.2x, 0x%2.2x, 0x%2.2x, 0x%2.2x, 0x%2.2x, 0x%2.2x, 0x%2.2x, 0x%2.2x}\r\n",
+	DXLOG_RETAIL(("GUID = {0x%x, 0x%x, 0x%x}, {0x%2.2x, 0x%2.2x, 0x%2.2x, 0x%2.2x, 0x%2.2x, 0x%2.2x, 0x%2.2x, 0x%2.2x}\r\n",
 		adapter_id.DeviceIdentifier.Data1,
 		adapter_id.DeviceIdentifier.Data2,
 		adapter_id.DeviceIdentifier.Data3,
@@ -660,38 +721,43 @@ void DX8Caps::Compute_Caps(WW3DFormat display_format, const D3DADAPTER_IDENTIFIE
 		adapter_id.DeviceIdentifier.Data4[7]));
 
 
-	SupportPointSprites = (Caps.MaxPointSize > 1.0f);
-	SupportNPatches = ((Caps.DevCaps&D3DDEVCAPS_NPATCHES)==D3DDEVCAPS_NPATCHES);
-	SupportZBias = ((Caps.RasterCaps&D3DPRASTERCAPS_ZBIAS)==D3DPRASTERCAPS_ZBIAS);
-	supportGamma=((Caps.Caps2&D3DCAPS2_FULLSCREENGAMMA)==D3DCAPS2_FULLSCREENGAMMA);
-	SupportModAlphaAddClr = (Caps.TextureOpCaps & D3DTEXOPCAPS_MODULATEALPHA_ADDCOLOR) == D3DTEXOPCAPS_MODULATEALPHA_ADDCOLOR;
-	SupportDot3=(Caps.TextureOpCaps & D3DTEXOPCAPS_DOTPRODUCT3) == D3DTEXOPCAPS_DOTPRODUCT3;
-	SupportCubemaps=(Caps.TextureCaps & D3DPTEXTURECAPS_CUBEMAP) == D3DPTEXTURECAPS_CUBEMAP;
-	SupportAnisotropicFiltering=
-		(Caps.TextureFilterCaps&D3DPTFILTERCAPS_MAGFANISOTROPIC) && (Caps.TextureFilterCaps&D3DPTFILTERCAPS_MINFANISOTROPIC);
+	retail->supportPointSprites = (retail->caps.MaxPointSize > 1.0f);
+	retail->supportNPatches = ((retail->caps.DevCaps&D3DDEVCAPS_NPATCHES)==D3DDEVCAPS_NPATCHES);
+	retail->supportZBias = ((retail->caps.RasterCaps&BFME_D3DPRASTERCAPS_DEPTHBIAS)==BFME_D3DPRASTERCAPS_DEPTHBIAS);
+	retail->supportGamma=((retail->caps.Caps2&D3DCAPS2_FULLSCREENGAMMA)==D3DCAPS2_FULLSCREENGAMMA);
+	retail->supportModAlphaAddClr = (retail->caps.TextureOpCaps & D3DTEXOPCAPS_MODULATEALPHA_ADDCOLOR) == D3DTEXOPCAPS_MODULATEALPHA_ADDCOLOR;
+	retail->supportDot3=(retail->caps.TextureOpCaps & D3DTEXOPCAPS_DOTPRODUCT3) == D3DTEXOPCAPS_DOTPRODUCT3;
+	retail->supportCubemaps=(retail->caps.TextureCaps & BFME_D3DPTEXTURECAPS_CUBEMAP) == BFME_D3DPTEXTURECAPS_CUBEMAP;
+	retail->supportAnisotropicFiltering=
+		(retail->caps.TextureFilterCaps&D3DPTFILTERCAPS_MAGFANISOTROPIC) && (retail->caps.TextureFilterCaps&D3DPTFILTERCAPS_MINFANISOTROPIC);
 
-	DXLOG(("Hardware T&L support: %s\r\n",SupportTnL ? "Yes" : "No"));
-	DXLOG(("NPatch support: %s\r\n",SupportNPatches ? "Yes" : "No"));
-	DXLOG(("ZBias support: %s\r\n",SupportZBias ? "Yes" : "No"));
-	DXLOG(("Gamma support: %s\r\n",supportGamma ? "Yes" : "No"));
-	DXLOG(("ModAlphaAddClr support: %s\r\n",SupportModAlphaAddClr ? "Yes" : "No"));
-	DXLOG(("Dot3 support: %s\r\n",SupportDot3 ? "Yes" : "No"));
-	DXLOG(("Anisotropic filtering support: %s\r\n",SupportAnisotropicFiltering ? "Yes" : "No"));
+ // Older NVIDIA drivers falsely advertise support for dynamic textures.
+ retail->supportDynamicTextures=(retail->caps.Caps2 & BFME_D3DCAPS2_DYNAMICTEXTURES)==BFME_D3DCAPS2_DYNAMICTEXTURES;
+ if(retail->vendorId==VENDOR_NVIDIA && retail->driverBuildVersion<6176) // Older NVIDIA drivers falsely advertise support for dynamic textures.
+ retail->supportDynamicTextures=false;
 
-	Check_Texture_Format_Support(display_format,Caps);
-	Check_Render_To_Texture_Support(display_format,Caps);
-	Check_Depth_Stencil_Support(display_format,Caps);
-	Check_Texture_Compression_Support(Caps);
-	Check_Bumpmap_Support(Caps);
-	Check_Shader_Support(Caps);
+	DXLOG_RETAIL(("Hardware T&L support: %s\r\n",retail->supportTnL ? "Yes" : "No"));
+	DXLOG_RETAIL(("NPatch support: %s\r\n",retail->supportNPatches ? "Yes" : "No"));
+	DXLOG_RETAIL(("ZBias support: %s\r\n",retail->supportZBias ? "Yes" : "No"));
+	DXLOG_RETAIL(("Gamma support: %s\r\n",retail->supportGamma ? "Yes" : "No"));
+	DXLOG_RETAIL(("ModAlphaAddClr support: %s\r\n",retail->supportModAlphaAddClr ? "Yes" : "No"));
+	DXLOG_RETAIL(("Dot3 support: %s\r\n",retail->supportDot3 ? "Yes" : "No"));
+	DXLOG_RETAIL(("Anisotropic filtering support: %s\r\n",retail->supportAnisotropicFiltering ? "Yes" : "No"));
+
+	Check_Texture_Format_Support(display_format,retail->caps);
+	Check_Render_To_Texture_Support(display_format,retail->caps);
+	Check_Depth_Stencil_Support(display_format,retail->caps);
+	Check_Texture_Compression_Support(retail->caps);
+	Check_Bumpmap_Support(retail->caps);
+	Check_Shader_Support(retail->caps);
 	Check_Driver_Version_Status();
-	Check_Maximum_Texture_Support(Caps);
+	Check_Maximum_Texture_Support(retail->caps);
 
-	MaxTexturesPerPass=Caps.MaxSimultaneousTextures;
+	retail->maxTexturesPerPass=retail->caps.MaxSimultaneousTextures;
 
-	DXLOG(("Max textures per pass: %d\r\n",MaxTexturesPerPass));
+	DXLOG_RETAIL(("Max textures per pass: %d\r\n",retail->maxTexturesPerPass));
 
-	Vendor_Specific_Hacks(adapter_id);
+	Vendor_Specific_Hacks(original_adapter_id);
 	CapsWorkString="";
 }
 
@@ -980,6 +1046,7 @@ void DX8Caps::Check_Shader_Support(const D3DCAPS8& caps)
 // ?Check_Driver_Version_Status@DX8Caps@@AAEXXZ
 // Body in DX8Caps_Check_Driver_Version_Status.asm (exact 713B retail).
 
+// ?Is_Valid_Display_Format@DX8Caps@@QAE_NHHW4WW3DFormat@@@Z
 bool DX8Caps::Is_Valid_Display_Format(int width, int height, WW3DFormat format)
 {
 	// If nothing limits the maximum resolution, accept any resolution
