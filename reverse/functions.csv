@@ -4116,3 +4116,4 @@ _ghiPostDoPosting,,0x006BCE90,236,Code/GameEngine/Source/GameNetwork/GameSpy/ght
 _ghiPostAddString,,0x006BC360,252,Code/GameEngine/Source/GameNetwork/GameSpy/ghttp/ghttpPost.c,matched,GameSpy BFME2 HTTP POST addition; retail IAT proves _mbsdup substitution for reference goastrdup; unique whole-text placement and verified sibling callees
 _ghiPostAddFileFromDisk,,0x006BC460,189,Code/GameEngine/Source/GameNetwork/GameSpy/ghttp/ghttpPost.c,matched,GameSpy BFME2 HTTP POST addition; retail IAT proves _mbsdup substitution for reference goastrdup; unique whole-text placement and verified sibling callees
 ??0TexBufferClass@@QAE@HPBD@Z,,0x0015B230,130,Code/Libraries/Source/WWVegas/WW3D2/meshmatdesc.cpp,matched,
+?Get_Value_List@RegistryClass@@QAEXAAV?$DynamicVectorClass@VStringClass@@@@@Z,,0x00610110,482,Code/Libraries/Source/WWVegas/WWLib/registry.cpp,matched,
