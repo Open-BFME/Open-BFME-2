@@ -710,3 +710,5 @@ _ArrayLength,0x006989D0,GameSpy dynamic-array length; exact seven-byte source bo
 ?initFromINI@INI@@QAEXPAXPBUFieldParse@@@Z,0x0002DE78,address read from the REL32 displacement at a placed body
 ?_M_insert_overflow@?$vector@UFlightDeckInfo@FlightDeckBehavior@@V?$allocator@UFlightDeckInfo@FlightDeckBehavior@@@_STL@@@_STL@@IAEXPAUFlightDeckInfo@FlightDeckBehavior@@ABU34@ABU__false_type@2@I_N@Z,0x00627BC0,address read from the REL32 displacement at a placed body
 ??1ObjectModule@@MAE@XZ,0x0049B47C,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
+___WSAFDIsSet@8,0x006556EE,PE-verified FF25 import thunk to wsock32.dll!__WSAFDIsSet via IAT 0x00BBA944; independently read from retail import directory
+_select@20,0x0065566A,PE-verified FF25 import thunk to wsock32.dll!select via IAT 0x00BBA99C; independently read from retail import directory
