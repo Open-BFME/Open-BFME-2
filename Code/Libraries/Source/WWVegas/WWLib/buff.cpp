@@ -45,6 +45,15 @@
 
 #include	"always.h"
 #include	"buff.h"
+
+// BFME's ARRAY operators forward to the scalar ones: always.h declares
+// operator new[]/delete[] and defines neither, so an inline forwarder is folded
+// away at the call site and array new/delete reach ??2@YAPAXI@Z (0x0002FDA0)
+// and ??3@YAXPAX@Z (0x0002FD60) rather than ??_U (0x0002FDE0) / ??_V
+// (0x0002FD80).  Kept here only because every row this unit already holds still
+// byte-verifies with it.
+inline void * __cdecl operator new[](size_t s) { return ::operator new(s); }
+inline void __cdecl operator delete[](void * p) { ::operator delete(p); }
 //#include	<stddef.h>
 
 

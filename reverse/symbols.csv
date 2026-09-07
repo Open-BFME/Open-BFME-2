@@ -679,3 +679,6 @@ _strdup,0x006C4C70,address read from the retail REL32 in INIClass::Put_String at
 ?Random_Float@WWMath@@SAMXZ,0x00711B90,address read from the REL32 displacement at a placed body
 ?Collide@CollisionMath@@SA_NABVLineSegClass@@ABVOBBoxClass@@PAUCastResultStruct@@@Z,0x00714860,address read from the REL32 displacement at a placed body
 ?Transform_Center_Extent_AABox@Matrix3D@@QBEXABVVector3@@0PAV2@1@Z,0x00712CA0,address read from the REL32 displacement at a placed body
+?_M_create_node@?$_Rb_tree@HU?$pair@$$CBHH@_STL@@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBHH@_STL@@@2@ABU?$pair@$$CBHH@2@@Z,0x00382B7F,address read from the retail REL32 in the body at 0x0038341E
+?_Rebalance@?$_Rb_global@_N@_STL@@SAXPAU_Rb_tree_node_base@2@AAPAU32@@Z,0x00025490,address read from the retail REL32 in the body at 0x0038341E
+?Get_Render_Target_Resolution@DX8Wrapper@@KAXAAH00AA_N@Z,0x00121860,address read from the retail REL32 in the body at 0x00116FF0
