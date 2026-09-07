@@ -3571,3 +3571,4 @@ _XMP_Shift_Left_Bits,,0x0061BBD0,308,Code/Libraries/Source/WWVegas/WWLib/mpmath.
 ?Emitter_Is_Dead@ParticleBufferClass@@QAEXXZ,,0x001A6E60,18,Code/Libraries/Source/WWVegas/WW3D2/part_buf.cpp,matched,BFME2 exact BFME1-derived ParticleBuffer helper; unique masked placement
 ?Get_Line_Texture_Mapping_Mode@ParticleBufferClass@@QBEHXZ,,0x001A78F0,18,Code/Libraries/Source/WWVegas/WW3D2/part_buf.cpp,matched,BFME2 exact BFME1-derived ParticleBuffer getter; unique masked placement
 ?Get_Subdivision_Level@ParticleBufferClass@@QBEHXZ,,0x001A7990,17,Code/Libraries/Source/WWVegas/WW3D2/part_buf.cpp,matched,BFME2 exact BFME1-derived ParticleBuffer getter; unique masked placement
+??A?$SimpleDynVecClass@VVector3@@@@QAEAAVVector3@@H@Z,,0x00129700,16,Code/Libraries/Source/WWVegas/WW3D2/part_buf.cpp,matched,BFME2 exact BFME1-derived vector accessor; unique masked placement
