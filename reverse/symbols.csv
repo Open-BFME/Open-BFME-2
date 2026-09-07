@@ -558,6 +558,10 @@ _strlen,0x00629170,BFME2 retail strlen thunk and call target for StringBase<char
 ?reset@FrameDataManager@@QAEXXZ,0x0058B666,BFME2 frame-ring reset called while reinitializing the connection manager
 ?init@FrameData@@QAEXXZ,0x005DA4F9,BFME2 frame-ring entry initialization called by FrameDataManager::reset
 ?setFrameCommandCount@FrameData@@QAEXI@Z,0x0009070B,BFME2 local frame-ring expected-count initializer
+?zeroFrame@FrameData@@QAEXXZ,0x005DA5E3,BFME2 frame-ring entry zeroing helper used by bulk frame clearing
+?getFrameCommandCount@FrameData@@QAEIXZ,0x00421795,BFME2 frame-ring expected-command accessor used by readiness checks
+?reset@NetCommandList@@QAEXXZ,0x0058B283,BFME2 frame-command-list reset called by FrameData cleanup
+?setQuitFrame@FrameDataManager@@QAEXI@Z,0x0058B818,BFME2 frame-ring quit-frame setter paired with the quitting-state accessor
 ?isPlayerConnected@BFMEConnectionManager@@QAE_NH@Z,0x004CF083,BFME2 local-or-open-connection predicate used by active-player state checks
 ?isPlayerSlotActive@BFMEConnectionManager@@QAEHH@Z,0x004CF0CD,BFME2 active-player-state predicate used by the packet-router stall scan; BFME1 structural analogue
 ?getNextPacketRouterSlot@BFMEConnectionManager@@QAEII@Z,0x004CFAC0,BFME2 fallback packet-router traversal; follows the supplied slot in the +0x12030 router order

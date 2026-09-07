@@ -183,6 +183,21 @@ local manager, then clears the quit frame and quitting flag. The ring length is
 read from the retail global at `0x00DD2DB8`; the entry helpers are pinned to
 their independently decoded bodies at `0x005DA4F9` and `0x0009070B`.
 
+The BFME1 frame-ring cleanup family also provides verified BFME2 helpers in
+`Code/GameEngine/Source/Common/FrameDataManagerCounts.cpp`. The 21-byte
+`FrameData::destroyGameMessages` body at RVA `0x005DA5EB` null-checks its
+command list, calls the retail list reset at `0x0058B283`, and clears the
+received command count. The 43-byte `FrameDataManager::destroyGameMessages`
+loop at RVA `0x0058B7ED` applies that cleanup across the fixed `0x14`-byte ring.
+The same source recovers the 8-byte `FrameData::zeroFrame` helper at
+`0x005DA5E3`, the 9-byte expected-count setter at `0x0009070B`, and the
+3-byte expected-count getter at `0x00421795`. These operations expose the
+command-buffer lifecycle used by the network readiness gate without changing
+frame admission behavior. The manager's larger indexed count accessors remain
+unmatched because retail preserves a different register and pointer-arithmetic
+shape; their BFME1 correspondence is recorded for a later code-generation
+pass.
+
 The connection-manager body at RVA `0x004CF032` is also a verified 81-byte
 `BFMEConnectionManager::init` in
 `Code/GameEngine/Source/Common/ConnectionManagerInit.cpp`. It calls that reset
