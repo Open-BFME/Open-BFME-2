@@ -4659,3 +4659,4 @@ _gpiSendServerBuddyMessage,,0x007355E0,178,Code/GameEngine/Source/GameNetwork/Ga
 _gpiDeleteBuddy,,0x00735830,325,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gpiBuddy.c,matched,vendored=gamespy-2004; pinned BFME1 reference including inherited EA edits; unique whole-body match; gpiDeleteBuddy
 _gpiProcessRecvBuddyMessage,,0x00735980,1819,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gpiBuddy.c,matched,vendored=gamespy-2004; pinned BFME1 reference including inherited EA edits; unique whole-body match; gpiProcessRecvBuddyMessage
 _gpiSendBuddyMessage,,0x007356A0,185,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gpiBuddy.c,matched,vendored=gamespy-2004; pinned BFME1 reference including inherited EA edits; unique whole-body match; gpiSendBuddyMessage
+_randomString,,0x0072F090,49,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gpiConnect.c,matched,vendored=gamespy-2004; pinned BFME1 reference including inherited EA edits; unique whole-body match; randomString
