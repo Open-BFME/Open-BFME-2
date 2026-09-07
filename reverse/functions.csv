@@ -4159,3 +4159,4 @@ _CanReceiveOnSocket,,0x0060AB40,115,Code/GameEngine/Source/GameNetwork/GameSpy/n
 _CanSendOnSocket,,0x0060ABC0,115,Code/GameEngine/Source/GameNetwork/GameSpy/nonport.c,matched,BFME2 readiness wrapper reconstructed as GSISocketSelect call; complete exact 115-byte inlined body
 _MD5_memset,,0x006062F0,37,Code/GameEngine/Source/GameNetwork/GameSpy/md5c.c,matched,vendored=gamespy-2004; RSA Data Security Inc. MD5 Message-Digest Algorithm; unique complete byte-verified body
 _MD5Print,,0x00606320,50,Code/GameEngine/Source/GameNetwork/GameSpy/md5c.c,matched,vendored=gamespy-2004; RSA Data Security Inc. MD5 Message-Digest Algorithm; unique complete byte-verified body
+_MD5Digest,,0x00606DB0,105,Code/GameEngine/Source/GameNetwork/GameSpy/md5c.c,matched,vendored=gamespy-2004; RSA Data Security Inc. MD5 Message-Digest Algorithm; unique complete byte-verified body

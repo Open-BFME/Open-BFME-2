@@ -726,3 +726,5 @@ _recv@16,0x006556E8,PE thunk ff2548a9bb00 jumps through IAT 0x00BBA948 to wsock3
 _ghiSocketSelect,0x0060A9F0,nonport.c explicitly identifies GSISocketSelect as formerly ghiSocketSelect; its release body matches 330 bytes here; corroborated by ghttp send/process calls
 ?winGetUserData@GameWindow@@QAEPAXXZ,0x005C4ACD,address read from the REL32 displacement at a placed body
 _gpiDebug,0x0069E440,GameSpy release gpiDebug compiles to one ret; ICF-folded with held DX8_Assert; direct target corroborated by full gpiSendData and gpiRecvToBuffer bodies
+_MD5Update,0x00606C40,RSA MD5 C-linkage alias of existing byte-verified WWLib C++ body; independently compiled entire GameSpy source body and all direct calls agree
+_MD5Final,0x00606D00,RSA MD5 C-linkage alias of existing byte-verified WWLib C++ body; independently compiled entire GameSpy source body and all direct calls agree
