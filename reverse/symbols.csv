@@ -780,3 +780,4 @@ _bfmeDirectXErrorName@4,0x0062B16A,Recovered HRESULT-to-symbolic-name role; stdc
 _TableMapSafe2,0x0060B720,GameSpy callee already byte-verified in Code/GameEngine/Source/GameNetwork/GameSpy/hashtable.c at commit 841946636dd5; direct call from _gpiFindProfileByUser
 _gpiFreeInfoCache,0x00734490,GameSpy GP callee; independent unique 144-byte source candidate in gpiInfo.c; direct call from _gpiProfilesTableFree corroborates identity
 _TableNew,0x0060B7A0,GameSpy callee already byte-verified in Code/GameEngine/Source/GameNetwork/GameSpy/hashtable.c at commit 841946636dd5; direct call from _gpiInitProfiles
+_TableLookup,0x0060B5F0,GameSpy callee already byte-verified in Code/GameEngine/Source/GameNetwork/GameSpy/hashtable.c at commit 841946636dd5; direct call from _gpiGetProfile
