@@ -3671,3 +3671,8 @@ _XMP_Shift_Left_Bits,,0x0061BBD0,308,Code/Libraries/Source/WWVegas/WWLib/mpmath.
 ?getPreferredColor@PlayerTemplate@@QBEPBURGBColor@@XZ,,0x002A9808,4,Code/GameEngine/Source/Common/RTS/Player.cpp,matched,BFME2 exact BFME1-derived Player accessor
 ?getProductionCostChanges@PlayerTemplate@@QBEABV?$map@W4NameKeyType@@MU?$less@W4NameKeyType@@@_STL@@V?$allocator@U?$pair@$$CBW4NameKeyType@@M@_STL@@@3@@_STL@@XZ,,0x0023C41C,4,Code/GameEngine/Source/Common/RTS/Player.cpp,matched,BFME2 exact BFME1-derived Player accessor
 ?getProductionVeterancyLevels@PlayerTemplate@@QBEABV?$map@W4NameKeyType@@W4VeterancyLevel@@U?$less@W4NameKeyType@@@_STL@@V?$allocator@U?$pair@$$CBW4NameKeyType@@W4VeterancyLevel@@@_STL@@@4@@_STL@@XZ,,0x001085EF,4,Code/GameEngine/Source/Common/RTS/Player.cpp,matched,BFME2 exact BFME1-derived Player accessor
+??8ShaderClass@@QAE_NABV0@@Z,,0x00143240,18,Code/Libraries/Source/WWVegas/WW3D2/decalmsh.cpp,matched,BFME2 exact BFME1-derived decal mesh body
+??AVector3i16@@QBEABGH@Z,,0x00143330,10,Code/Libraries/Source/WWVegas/WW3D2/decalmsh.cpp,matched,BFME2 exact BFME1-derived decal mesh body
+?Decal_Count@RigidDecalMeshClass@@UAEHXZ,,0x005508E9,7,Code/Libraries/Source/WWVegas/WW3D2/decalmsh.cpp,matched,BFME2 exact BFME1-derived decal mesh body
+?Get_Vertex_Array@MeshGeometryClass@@QAEPAVVector3@@XZ,,0x00709BE0,7,Code/Libraries/Source/WWVegas/WW3D2/decalmsh.cpp,matched,BFME2 exact BFME1-derived decal mesh body
+?Peek_Model@MeshClass@@QAEPAVMeshModelClass@@XZ,,0x005BE199,7,Code/Libraries/Source/WWVegas/WW3D2/decalmsh.cpp,matched,BFME2 exact BFME1-derived decal mesh body
