@@ -45,6 +45,8 @@
  *   ShaderClass::Guess_Sort_Level -- Guess the static sort level                              *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
+#include <dx8caps.h> // BFME2 layout must win the reference include guard.
+
 #include "shader.h"
 #include "w3d_file.h"
 #include "wwdebug.h"
@@ -1169,6 +1171,7 @@ bool ShaderClass::Is_Backface_Culling_Inverted(void)
 	return (_PolygonCullMode == D3DCULL_CCW);
 }
 
+// ?Get_Description@ShaderClass@@ present-unmatched
 const StringClass& ShaderClass::Get_Description(StringClass& str) const
 {
 	str="";

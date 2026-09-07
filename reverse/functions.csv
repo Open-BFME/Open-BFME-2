@@ -3406,8 +3406,6 @@ _XMP_Shift_Left_Bits,,0x0061BBD0,308,Code/Libraries/Source/WWVegas/WWLib/mpmath.
 ?Get_Clip_Planes@CameraClass@@QBEXAAM0@Z,,0x00133D30,27,Code/Libraries/Source/WWVegas/WW3D2/camera.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 ?Get_Secondary_Gradient@ShaderClass@@QBE?AW4SecGradientType@1@XZ,,0x001374D0,9,Code/Libraries/Source/WWVegas/WW3D2/shader.cpp,matched,BFME2 exact BFME1-derived shader getter; unique masked placement
 ?Get_Texturing@ShaderClass@@QBE?AW4TexturingType@1@XZ,,0x001374E0,7,Code/Libraries/Source/WWVegas/WW3D2/shader.cpp,matched,BFME2 exact BFME1-derived shader getter; unique masked placement
-?Get_Device@DX8Caps@@QBEIXZ,,0x002190A8,7,Code/Libraries/Source/WWVegas/WW3D2/shader.cpp,matched,BFME2 exact BFME1-derived capability getter; unique masked placement
-?Get_Vendor@DX8Caps@@QBEIXZ,,0x003EE6FD,7,Code/Libraries/Source/WWVegas/WW3D2/shader.cpp,matched,BFME2 exact BFME1-derived capability getter; unique masked placement
 ?Is_Backface_Culling_Inverted@ShaderClass@@SA_NXZ,,0x001381F0,13,Code/Libraries/Source/WWVegas/WW3D2/shader.cpp,matched,BFME2 exact BFME1-derived shader predicate; unique masked placement
 ?Get_Emission_Rate@ParticleEmitterDefClass@@QBEMXZ,,0x007417E0,7,Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp,matched,BFME2 exact BFME1-derived getter; unique masked placement
 ?Get_Lifetime@ParticleEmitterDefClass@@QBEMXZ,,0x007417D0,7,Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp,matched,BFME2 exact BFME1-derived getter; unique masked placement
