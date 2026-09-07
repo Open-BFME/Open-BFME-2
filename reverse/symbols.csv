@@ -828,3 +828,6 @@ _gpiDestroyPeer,0x00738910,GameSpy GP callee; independent unique 107-byte source
 _gpiReset,0x0072E3A0,GameSpy GP callee; independent unique 354-byte source candidate in gpi.c; direct call from _gpiConnect corroborates identity
 _gpiStartConnect,0x0072F0D0,GameSpy GP callee; independent unique 474-byte source candidate in gpiConnect.c; direct call from _gpiConnect corroborates identity
 _listen@8,0x00687CDE,PE-verified FF25 import thunk to ws2_32.dll!listen via IAT 0x00BBA92C; independently read from retail import directory
+_MD5Digest,0x00606DB0,GameSpy callee already byte-verified in Code/GameEngine/Source/GameNetwork/GameSpy/md5c.c at commit 119aa253f075; direct call from _gpiProcessConnect
+_gpiSendLogin,0x0072F2B0,GameSpy GP callee; independent unique 788-byte source candidate in gpiConnect.c; direct call from _gpiProcessConnect corroborates identity
+_gpiSendNewuser,0x0072F5D0,GameSpy GP callee; independent unique 496-byte source candidate in gpiConnect.c; direct call from _gpiProcessConnect corroborates identity
