@@ -1,5 +1,5 @@
 // cl: /MD -Ireference/shims/gamespy -Ireference/open-bfme-1/Code/GameEngine/Source/GameNetwork/GameSpy/gstats /DNDEBUG
-/* GameSpy SDK, 2004 vintage -- pristine upstream C source.
+/* GameSpy SDK, 2004 vintage -- upstream C source adapted to the BFME2 retail configuration.
    Sourced from the Area 51 (Inevitable Entertainment / Midway) source release,
    github.com/bisc67/Area51, Support/NetworkMgr/GameSpy -- the only public
    carrier found with the pre-2005 SDK layout (top-level nonport.c, no common/).
@@ -41,6 +41,8 @@ INCLUDES
 #include "../darray.h"
 #include "../md5.h"
 #include "../available.h"
+/* Retail statistics do not persist snapshots on disk. */
+#undef ALLOW_DISK
 
 #ifdef __cplusplus
 extern "C" {
