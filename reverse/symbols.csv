@@ -789,3 +789,5 @@ _gpiDisconnect,0x0072FDF0,GameSpy GP callee; independent unique 424-byte source 
 _gpiSetInfoCache,0x00734520,GameSpy GP callee; independent unique 204-byte source candidate in gpiInfo.c; direct call from _gpiReadDiskProfile corroborates identity
 _gpiAddOperation,0x00739440,GameSpy GP callee; independent unique 163-byte source candidate in gpiOperation.c; direct call from _gpiNewProfile corroborates identity
 _gpiProcess,0x0072E810,GameSpy GP callee; independent unique 289-byte source candidate in gpi.c; direct call from _gpiNewProfile corroborates identity
+??0RenderObjClass@@QAE@ABV0@@Z,0x0013B430,RenderObj copy ctor427 independently identified by primary BD2F68 and secondary BD2F60 tables shared with default ctor13BF00; fresh refcount1 and copied transform/factors90/94; scene ownership cleared; base implementation remains unclaimed
+??0OBBoxClass@@QAE@ABV0@@Z,0x00133990,OBBox copy ctor97 independently matches all emitted ordinary C++ bytes with zero relocations; Matrix3 basis and center/extent copied; exact Camera copy calls this body
