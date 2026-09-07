@@ -3566,3 +3566,4 @@ _XMP_Shift_Left_Bits,,0x0061BBD0,308,Code/Libraries/Source/WWVegas/WWLib/mpmath.
 ?Get_Key@HAnimClass@@UAEPBDXZ,,0x0018D1A0,8,Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp,matched,BFME2 exact BFME1-derived HAnim getter; unique masked placement
 ?Get_Lighting_LOD_Cutoff@LightEnvironmentClass@@SAMXZ,,0x0013F7D0,7,Code/Libraries/Source/WWVegas/WW3D2/lightenvironment.cpp,matched,BFME2 exact BFME1-derived lighting getter; unique masked placement
 ?isPlayerDead@Player@@QBE_NXZ,,0x0028A7D8,7,Code/GameEngine/Source/Common/RTS/Player.cpp,matched,BFME2 exact BFME1-derived predicate; unique masked placement
+?capacity@?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QBEIXZ,,0x004FA63B,9,Code/GameEngine/Source/Common/RTS/Player.cpp,matched,BFME2 exact BFME1-derived STL accessor; unique masked placement
