@@ -4128,3 +4128,4 @@ _gpiSetErrorString,,0x0072EE20,36,Code/GameEngine/Source/GameNetwork/GameSpy/gp/
 ??0BuddyInfo@@QAE@XZ,,0x00415F97,20,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/WOLBuddyOverlay.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 ?GadgetComboBoxGetEditBox@@YAPAVGameWindow@@PAV1@@Z,,0x002C02FE,23,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/LanGameOptionsMenu.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 ??0SaveDate@@QAE@XZ,,0x0002BAF8,36,Code/GameEngine/Source/Common/System/SaveGame/GameState.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+_strzcpy,,0x0072EC60,34,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gpiUtility.c,matched,vendored=gamespy-2004; pinned BFME1 reference including inherited EA edits; unique whole-body match; bounded string copy
