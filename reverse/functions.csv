@@ -4134,3 +4134,4 @@ _gpiValueForKeyAlloc,,0x0072ED70,126,Code/GameEngine/Source/GameNetwork/GameSpy/
 _gpiSetError,,0x0072EDF0,46,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gpiUtility.c,matched,vendored=gamespy-2004; pinned BFME1 reference including inherited EA edits; unique whole-body match; error setter
 _gpiAddCallback,,0x00738080,134,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gpiCallback.c,matched,vendored=gamespy-2004; pinned BFME1 reference including inherited EA edits; unique whole-body match; callback queue append
 _gpiCallCallback,,0x00738110,312,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gpiCallback.c,matched,vendored=gamespy-2004; pinned BFME1 reference including inherited EA edits; unique whole-body match; callback dispatch
+_gpiProcessCallbacks,,0x00738250,252,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gpiCallback.c,matched,vendored=gamespy-2004; pinned BFME1 reference including inherited EA edits; unique whole-body match; callback queue processing
