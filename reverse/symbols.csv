@@ -723,3 +723,4 @@ _send@16,0x0065568E,PE thunk ff2584a9bb00 jumps through IAT 0x00BBA984 to wsock3
 _WSAGetLastError@0,0x00655694,PE thunk ff2580a9bb00 jumps through IAT 0x00BBA980 to wsock32.dll!WSAGetLastError; Ghidra independently names same thunk
 _current_time,0x00656BB0,GameSpy nonport.c Win32 current_time returns GetTickCount; folded six-byte FF25 IAT 0x00BBA294 to kernel32.dll!GetTickCount confirmed from PE
 _recv@16,0x006556E8,PE thunk ff2548a9bb00 jumps through IAT 0x00BBA948 to wsock32.dll!recv; Ghidra independently names same thunk
+_ghiSocketSelect,0x0060A9F0,nonport.c explicitly identifies GSISocketSelect as formerly ghiSocketSelect; its release body matches 330 bytes here; corroborated by ghttp send/process calls
