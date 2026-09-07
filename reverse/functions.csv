@@ -5003,3 +5003,4 @@ _gpNewProfileA,,0x0072C120,216,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gp.
 _gpDenyBuddyRequest,,0x0072C6F0,169,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gp.c,matched,vendored=gamespy-2004; pinned BFME1 reference including inherited EA edits; unique whole-body match; gpDenyBuddyRequest
 _gpFreeTransfer,,0x0072D980,86,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gp.c,matched,vendored=gamespy-2004; pinned BFME1 reference including inherited EA edits; unique whole-body match; gpFreeTransfer
 _gpCheckUserA,,0x0072BC40,293,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gp.c,matched,vendored=gamespy-2004; pinned BFME1 reference including inherited EA edits; unique whole-body match; gpCheckUserA
+_gpGetUserNicksA,,0x0072CD90,269,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gp.c,matched,vendored=gamespy-2004; pinned BFME1 reference including inherited EA edits; unique whole-body match; gpGetUserNicksA
