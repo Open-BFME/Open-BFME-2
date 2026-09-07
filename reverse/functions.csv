@@ -3952,3 +3952,4 @@ _ghiAppendHeaderToBuffer,,0x006BD1A0,93,Code/GameEngine/Source/GameNetwork/GameS
 _ghiAppendCharToBuffer,,0x006BD200,120,Code/GameEngine/Source/GameNetwork/GameSpy/ghttp/ghttpBuffer.c,matched,vendored=gamespy-2004; unique whole-text placement bounded by padding; upstream HTTP buffer character append
 _ghiAppendIntToBuffer,,0x006BD280,45,Code/GameEngine/Source/GameNetwork/GameSpy/ghttp/ghttpBuffer.c,matched,vendored=gamespy-2004; unique whole-text placement bounded by padding; upstream HTTP buffer integer append
 _ghiResetBuffer,,0x006BD2B0,18,Code/GameEngine/Source/GameNetwork/GameSpy/ghttp/ghttpBuffer.c,matched,vendored=gamespy-2004; unique whole-text placement bounded by padding; upstream HTTP buffer reset
+_ArrayGrow,,0x0060A160,37,Code/GameEngine/Source/GameNetwork/GameSpy/darray.c,matched,vendored=gamespy-2004; unique masked whole-.text body; complete padded boundary
