@@ -3700,3 +3700,5 @@ _XMP_Shift_Left_Bits,,0x0061BBD0,308,Code/Libraries/Source/WWVegas/WWLib/mpmath.
 ?markAsOverride@Overridable@@QAEXXZ,,0x00248D08,5,Code/GameEngine/Source/Common/Thing/ThingFactory.cpp,matched,BFME2 exact BFME1-derived ThingFactory helper
 ?File_Name@GameFileClass@@UBEPBDXZ,,0x000782BF,7,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFileSystem.cpp,matched,BFME2 exact BFME1-derived game file accessor
 ?Is_Available@GameFileClass@@UAE_NH@Z,,0x000782E1,6,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFileSystem.cpp,matched,BFME2 exact BFME1-derived game file accessor
+?Get_Total_Time@HCompressedAnimClass@@UAEMXZ,,0x0018F190,7,Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp,matched,BFME2 exact BFME1-derived compressed animation accessor
+?Get_HName@HCompressedAnimClass@@UBEPBDXZ,,0x002B236A,4,Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp,matched,BFME2 exact BFME1-derived compressed animation accessor
