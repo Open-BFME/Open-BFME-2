@@ -4624,3 +4624,4 @@ _qr_process_client_message,,0x00697450,146,Code/GameEngine/Source/GameNetwork/Ga
 _qr_got_recent_message,,0x006974F0,58,Code/GameEngine/Source/GameNetwork/GameSpy/qr2/qr2.c,matched,complete GameSpy source body; direct call and named PE-import identities verified; compiler and retail executable boundaries agree
 _qr2_parse_queryA,,0x00697530,601,Code/GameEngine/Source/GameNetwork/GameSpy/qr2/qr2.c,matched,complete GameSpy source body; direct call and named PE-import identities verified; compiler and retail executable boundaries agree
 _gpiIsValidEmail,,0x00730510,139,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gpiSearch.c,matched,vendored=gamespy-2004; pinned BFME1 reference including inherited EA edits; unique whole-body match; gpiIsValidEmail
+_gpiCheckUser,,0x007306E0,130,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gpiSearch.c,matched,vendored=gamespy-2004; pinned BFME1 reference including inherited EA edits; unique whole-body match; gpiCheckUser
