@@ -598,8 +598,8 @@ gpiSaveDiskProfile(
 		fprintf(fp, "marriedid=%d\n", profile->cache->marriedid);
 		fprintf(fp, "childcount=%d\n", profile->cache->childcount);
 		fprintf(fp, "interests1=%d\n", profile->cache->interests1);
-		fprintf(fp, "ownership1=%d\n", profile->cache->childcount);
-		fprintf(fp, "conntypeid=%d\n", profile->cache->interests1);
+		fprintf(fp, "ownership1=%d\n", profile->cache->ownership1);
+		fprintf(fp, "conntypeid=%d\n", profile->cache->conntypeid);
 	}
 
 	// End this profile.
