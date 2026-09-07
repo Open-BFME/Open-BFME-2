@@ -3336,3 +3336,4 @@ _XMP_Init,,0x0061BD70,23,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,
 ??1W3DRadarResetSurface@@QAE@XZ,,0x00176CB0,13,Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarResetSurface_destructor.cpp,matched,BFME2 W3DRadarResetSurface destructor transferred from exact BFME1 source; identical bytes
 ??0BfmeChainRecord@@QAE@PAX0PAPAV0@@Z,,0x006257C0,57,Code/GameEngine/Source/Common/Bfme/BfmeChainRecord.cpp,matched,BFME2 BfmeChainRecord constructor transferred from exact BFME1 source; identical bytes
 ??0PathNode@@QAE@PBUCoord3D@@W4PathfindLayerEnum@@@Z,,0x0026212A,55,Code/GameEngine/Source/GameLogic/AI/PathAppendNodeCopy.cpp,matched,BFME2 PathNode constructor transferred from exact BFME1 source; identical bytes
+?hashLower@@YAGPBD@Z,,0x006D3800,57,Code/GameEngine/Source/Common/SmallGaps/Rva006D3800HashLower.cpp,matched,BFME2 lowercase FNV-1a hash transferred from exact BFME1 source; identical bytes
