@@ -1,5 +1,5 @@
 // cl: /MD -Ireference/shims/gamespy /DNDEBUG -Ireference/open-bfme-1/Code/GameEngine/Source/GameNetwork/GameSpy/serverbrowsing
-/* GameSpy SDK, 2004 vintage -- pristine upstream C source.
+/* GameSpy SDK, 2004 vintage -- upstream C source with the BFME2 pending-query guard below.
    Sourced from the Area 51 (Inevitable Entertainment / Midway) source release,
    github.com/bisc67/Area51, Support/NetworkMgr/GameSpy -- the only public
    carrier found with the pre-2005 SDK layout (top-level nonport.c, no common/).
@@ -30,7 +30,8 @@ static void ListCallback(SBServerList *serverlist, SBListCallbackReason reason, 
 	{
 	case slc_serveradded:
 		sb->BrowserCallback(sb, sbc_serveradded, server, sb->instance);
-		if ((server->state & (STATE_BASICKEYS|STATE_FULLKEYS)) == 0) //we need to do an update
+		// BFME2 also treats a pending query as an update already in progress.
+		if ((server->state & (STATE_BASICKEYS|STATE_FULLKEYS|STATE_PENDINGBASICQUERY|STATE_PENDINGFULLQUERY)) == 0)
 		{
 			if (!sb->dontUpdate) //if this flag is set, we don't want to trigger updates
 			{
