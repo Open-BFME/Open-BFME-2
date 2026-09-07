@@ -7,6 +7,7 @@
 // SegLineRenderer ctor/Init at RVAs 0x191140/0x191390 independently establish
 // NoiseAmplitude at renderer+0x24, hence StreakLineClass+0x124.
 #include "../../../../../reference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2/seglinerenderer.h"
+#include "../../../../../reference/shims/bfmestreak/streakrender.h"
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.

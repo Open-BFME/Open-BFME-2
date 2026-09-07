@@ -2251,7 +2251,6 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?Find_POT@@YAHH@Z,,0x0071CCF0,51,Code/Libraries/Source/WWVegas/WW3D2/pot.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
 ?Find_POT_Log2@@YAII@Z,,0x0071CD30,45,Code/Libraries/Source/WWVegas/WW3D2/pot.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
 ?getVertexBuffer@SegLineRendererClass@@AAEPAUVertexFormatXYZDUV1@@I@Z,,0x001912B0,60,Code/Libraries/Source/WWVegas/WW3D2/seglinerenderer.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
-?Set_Texture@StreakRendererClass@@QAEXPAVTextureClass@@@Z,,0x0014A0F0,39,Code/Libraries/Source/WWVegas/WW3D2/streakRender.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
 ?_M_bkt_num_key@?$hashtable@U?$pair@$$CBHUOpen2MappedA@_STL@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHUOpen2MappedA@_STL@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHUOpen2MappedA@_STL@@@_STL@@@2@@_STL@@ABEIABH@Z,,0x00148AE3,26,Code/Libraries/Source/WWVegas/WWLib/stlport_hashtable_int_insert_twins.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
 ?_M_increment@?$_Deque_iterator_base@UPodPayload20@@@_STL@@QAEXXZ,,0x0054FA88,36,Code/Libraries/Source/WWVegas/WWLib/stlport_deque_destroy_pod.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
 ??$?8$$CBHH@_STL@@YA_NABU?$pair@$$CBHH@0@0@Z,,0x00169FD0,31,Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_int_next_size.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
@@ -3614,7 +3613,6 @@ _XMP_Shift_Left_Bits,,0x0061BBD0,308,Code/Libraries/Source/WWVegas/WWLib/mpmath.
 ?Get_Viewport@CameraClass@@QBEABVViewportClass@@XZ,,0x004DE9CA,7,Code/Libraries/Source/WWVegas/WW3D2/part_buf.cpp,matched,BFME2 exact BFME1-derived camera getter; unique masked placement
 ?Get_X_Rotation@Matrix3D@@QBEMXZ,,0x00712000,9,Code/Libraries/Source/WWVegas/WWMath/matrix3d.cpp,matched,BFME2 exact BFME1-derived matrix getter; unique masked placement
 ?Get_Y_Rotation@Matrix3D@@QBEMXZ,,0x00712010,9,Code/Libraries/Source/WWVegas/WWMath/matrix3d.cpp,matched,BFME2 exact BFME1-derived matrix getter; unique masked placement
-?Get_Texture@StreakRendererClass@@QBEPAVTextureClass@@XZ,,0x00196120,13,Code/Libraries/Source/WWVegas/WW3D2/streakRender.cpp,matched,BFME2 exact BFME1-derived streak accessor; unique masked placement
 ?Get_Tex_Offset@FVFInfoClass@@QBEII@Z,,0x002C74C0,11,Code/Libraries/Source/WWVegas/WW3D2/streakRender.cpp,matched,BFME2 exact BFME1-derived streak helper; unique masked placement
 ?Set_Current_Subdivision_Level@StreakRendererClass@@QAEXI@Z,,0x00742EF0,10,Code/Libraries/Source/WWVegas/WW3D2/streakRender.cpp,matched,BFME2 exact BFME1-derived streak setter; unique masked placement
 ?First@SimpleSceneIterator@@UAEXXZ,,0x00140E70,10,Code/Libraries/Source/WWVegas/WW3D2/scene.cpp,matched,BFME2 exact BFME1-derived scene iterator helper; unique masked placement
@@ -4443,3 +4441,4 @@ _ciErrErroneusNicknameHandler,,0x006AF480,34,Code/GameEngine/Source/GameNetwork/
 _ciErrNoUniqueNickHandler,,0x006AF4E0,32,Code/GameEngine/Source/GameNetwork/GameSpy/chat/chatHandlers.c,matched,reconstructed coherent retail Chat connection/channel/filter lifecycle; full code extent; string/import/callback/data identities checked; switch data excluded
 _ciErrRegisterNickFailedHandler,,0x006AF520,203,Code/GameEngine/Source/GameNetwork/GameSpy/chat/chatHandlers.c,matched,reconstructed coherent retail Chat connection/channel/filter lifecycle; full code extent; string/import/callback/data identities checked; switch data excluded
 _chatSetQuietMode,,0x006A1630,109,Code/GameEngine/Source/GameNetwork/GameSpy/chat/chatMain.c,matched,reconstructed coherent retail Chat connection/channel/filter lifecycle; full code extent; string/import/callback/data identities checked; switch data excluded
+??0StreakRendererClass@@QAE@XZ,,0x00742F90,120,Code/Libraries/Source/WWVegas/WW3D2/streakRender.cpp,matched,BFME2 restores UV timing fields and reference-counted texture ownership; full 120-byte ctor and numerical globals independently verified; eight following alignment bytes excluded

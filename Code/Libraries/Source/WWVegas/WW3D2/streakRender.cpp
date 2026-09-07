@@ -1,6 +1,8 @@
 // cl: /arch:SSE /G7 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/sweep
 // stlport
 #define Matrix4x4 Matrix4  // BFME renamed it
+// Retail deallocation cannot throw; keep member cleanup outside an EH frame.
+void operator delete[](void*) throw();
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
@@ -28,7 +30,8 @@
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 
-#include "streakrender.h"
+#include "../../../../../reference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2/texture.h"
+#include "../../../../../reference/shims/bfmestreak/streakrender.h"
 #include "ww3d.h"
 #include "rinfo.h"
 #include "dx8wrapper.h"
@@ -62,7 +65,6 @@
 
 
 
-// ??0StreakRendererClass@@ present-unmatched
 StreakRendererClass::StreakRendererClass(void) :
 		Texture(NULL),
 		Shader(ShaderClass::_PresetAdditiveSpriteShader),
@@ -72,10 +74,10 @@ StreakRendererClass::StreakRendererClass(void) :
 		SubdivisionLevel(0),
 		NoiseAmplitude(0.0f),
 		MergeAbortFactor(1.5f),
-		// TextureTileFactor(1.0f),
-		// LastUsedSyncTime(WW3D::Get_Sync_Time()),
-		// CurrentUVOffset(0.0f,0.0f),
-		// UVOffsetDeltaPerMS(0.0f, 0.0f),
+		TextureTileFactor(1.0f),
+		LastUsedSyncTime(WW3D::Get_Sync_Time()),
+		CurrentUVOffset(0.0f,0.0f),
+		UVOffsetDeltaPerMS(0.0f, 0.0f),
 		Bits(DEFAULT_BITS),
 		m_vertexBufferSize(0),
 		m_vertexBuffer(NULL)
@@ -83,7 +85,7 @@ StreakRendererClass::StreakRendererClass(void) :
   // EMPTY
 }
 
-// ??0StreakRendererClass@@ present-unmatched
+// ??0StreakRendererClass@@QAE@ABV0@@Z present-unmatched
 StreakRendererClass::StreakRendererClass(const StreakRendererClass & that) :
 		Texture(NULL),
 		Shader(ShaderClass::_PresetAdditiveSpriteShader),
@@ -93,10 +95,10 @@ StreakRendererClass::StreakRendererClass(const StreakRendererClass & that) :
 		SubdivisionLevel(0),
 		NoiseAmplitude(0.0f),
 		MergeAbortFactor(1.5f),
-		// TextureTileFactor(1.0f),
-		// LastUsedSyncTime(that.LastUsedSyncTime),
-		// CurrentUVOffset(0.0f,0.0f),
-		// UVOffsetDeltaPerMS(0.0f, 0.0f),
+		TextureTileFactor(1.0f),
+		LastUsedSyncTime(that.LastUsedSyncTime),
+		CurrentUVOffset(0.0f,0.0f),
+		UVOffsetDeltaPerMS(0.0f, 0.0f),
 		Bits(DEFAULT_BITS),
 		m_vertexBufferSize(0),
 		m_vertexBuffer(NULL)
@@ -108,7 +110,7 @@ StreakRendererClass::StreakRendererClass(const StreakRendererClass & that) :
 StreakRendererClass & StreakRendererClass::operator = (const StreakRendererClass & that)
 {
 	if (this != &that) {
-		REF_PTR_SET(Texture,that.Texture);
+		Texture = that.Texture;
 		Shader = that.Shader;
 		Width = that.Width;
 		Color = that.Color;
@@ -116,10 +118,10 @@ StreakRendererClass & StreakRendererClass::operator = (const StreakRendererClass
 		SubdivisionLevel = that.SubdivisionLevel;
 		NoiseAmplitude = that.NoiseAmplitude;
 		MergeAbortFactor = that.MergeAbortFactor;
-		// TextureTileFactor = that.TextureTileFactor;
-		// LastUsedSyncTime = that.LastUsedSyncTime;
-		// CurrentUVOffset = that.CurrentUVOffset;
-		// UVOffsetDeltaPerMS = that.UVOffsetDeltaPerMS;
+		TextureTileFactor = that.TextureTileFactor;
+		LastUsedSyncTime = that.LastUsedSyncTime;
+		CurrentUVOffset = that.CurrentUVOffset;
+		UVOffsetDeltaPerMS = that.UVOffsetDeltaPerMS;
 		Bits = that.Bits;
 		// Don't modify m_vertexBufferSize and m_vertexBuffer.
 	}
@@ -129,7 +131,6 @@ StreakRendererClass & StreakRendererClass::operator = (const StreakRendererClass
 // ??1StreakRendererClass@@QAE@XZ present-unmatched
 StreakRendererClass::~StreakRendererClass(void)
 {
-	REF_PTR_RELEASE(Texture);
 	delete [] m_vertexBuffer;
 }
 
@@ -165,17 +166,19 @@ void StreakRendererClass::Init(const W3dEmitterLinePropertiesStruct & props)
 }
 
 
+// ?Set_Texture@StreakRendererClass@@QAEXPAVTextureClass@@@Z present-unmatched
 void StreakRendererClass::Set_Texture(TextureClass *texture)
 { 
-	REF_PTR_SET(Texture,texture); 
+	Texture = Create_Peek(texture); 
 }
 
+// ?Get_Texture@StreakRendererClass@@QBEPAVTextureClass@@XZ present-unmatched
 TextureClass * StreakRendererClass::Get_Texture(void) const
 {
 	if (Texture != NULL) {
 		Texture->Add_Ref();
 	}
-	return Texture;
+	return Texture.Peek();
 }
 
 // void StreakRendererClass::Set_Current_UV_Offset(const Vector2 & offset)
@@ -1416,7 +1419,7 @@ void StreakRendererClass::RenderStreak
 	
 		DX8Wrapper::Set_Index_Buffer(ib_access,0);
 		DX8Wrapper::Set_Vertex_Buffer(Verts);				
-		DX8Wrapper::Set_Texture(0,Texture);
+		DX8Wrapper::Set_Texture(0,Texture.Peek());
 		DX8Wrapper::Set_Shader(shader);
 
 		if (sorting) 
