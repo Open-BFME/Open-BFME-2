@@ -555,4 +555,6 @@ _strlen,0x00629170,BFME2 retail strlen thunk and call target for StringBase<char
 ?getIsQuitting@FrameDataManager@@QAE_NXZ,0x0058B826,BFME2 frame-ring quitting flag accessor used by connection-manager readiness
 ?getCommandCount@FrameDataManager@@QAEII@Z,0x0058B74B,BFME2 frame-ring command-count accessor for the requested logic frame
 ?getFrameCommandCount@FrameDataManager@@QAEII@Z,0x0058B78F,BFME2 local frame-ring expected-command accessor for the requested logic frame
+?isPlayerConnected@BFMEConnectionManager@@QAE_NH@Z,0x004CF083,BFME2 local-or-open-connection predicate used by active-player state checks
+?isPlayerSlotActive@BFMEConnectionManager@@QAEHH@Z,0x004CF0CD,BFME2 active-player-state predicate used by the packet-router stall scan; BFME1 structural analogue
 ?_bfme_setEngineVisibility@Mouse@@QAEX_N@Z,0x001EE5BE,GameEngine slot 39 input-lock transition call target; BFME1 Mouse visibility analogue with the same bool argument
