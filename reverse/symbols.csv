@@ -562,3 +562,14 @@ _strlen,0x00629170,BFME2 retail strlen thunk and call target for StringBase<char
 ?isPlayerSlotActive@BFMEConnectionManager@@QAEHH@Z,0x004CF0CD,BFME2 active-player-state predicate used by the packet-router stall scan; BFME1 structural analogue
 ?getNextPacketRouterSlot@BFMEConnectionManager@@QAEII@Z,0x004CFAC0,BFME2 fallback packet-router traversal; follows the supplied slot in the +0x12030 router order
 ?_bfme_setEngineVisibility@Mouse@@QAEX_N@Z,0x001EE5BE,GameEngine slot 39 input-lock transition call target; BFME1 Mouse visibility analogue with the same bool argument
+?GadgetListBoxReset@@YAXPAVGameWindow@@@Z,0x003247E5,retail 34B body sends GLM_DEL_ALL 0x4013; matches GadgetListBoxReset reference
+?bfme_getDescriptionFirstLine@MapMetaData@@QAE?AVUnicodeString@@XZ,0x00301534,recovered metadata getter reads cached map.str text via 0x003009CD and returns its prefix before LF
+?GadgetListBoxAddEntryText@@YAHPAVGameWindow@@VUnicodeString@@HHH_N@Z,0x00326BEC,retail cdecl body sends GLM_ADD_ENTRY 0x4011 with LISTBOX_TEXT and destroys its by-value UnicodeString
+?bfme_getDisplayName@MapMetaData@@QAE?AVUnicodeString@@_N@Z,0x00300C7E,recovered display-name accessor; bool enables player-count suffix using metadata+0x20 and wide format (%d); ret8
+?bfmeSetText@BfmeAptWindowManager@@QAEXABVAsciiString@@ABVUnicodeString@@_N@Z,0x00225301,recovered APT binding text setter; key lookup at manager+0x48 and UnicodeString update at binding+0xC; thiscall ret12
+?removeLastChar@?$StringBase@D@@QAEXXZ,0x00036C50,explicit BFME2 PE export; copy-on-write character removal
+?doesFileExist@FileSystem@@QBE_NPBD@Z,0x00600D7D,retail const nonvirtual file-existence query; checks local and archive paths; singleton identified through GameFileClass::Open
+??0Image@@QAE@XZ,0x002D8FE4,retail Image constructor initializes vptr and 0x34-byte layout; strings+4/+8 UV+0x14 holder+0x2C status+0x30
+??0BfmeMapPictureTexture@@QAE@PBD@Z,0x002DB93E,recovered one-pointer picture texture owner; allocates 0x3C-byte texture from filename then adopts it via 0x000EF87B
+?bfmeSetTexture@Image@@QAEXABVBfmeMapPictureTexture@@@Z,0x002D905E,recovered texture setter allocates a separate 4-byte holder at Image+0x2C and retains/replaces its pointer via 0x000424D0
+?setStatus@Image@@QAEII@Z,0x002D8E63,Image status setter ORs bits into +0x30 and returns previous unsigned status; matches reference Image::setStatus
