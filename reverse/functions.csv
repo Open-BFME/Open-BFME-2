@@ -4062,3 +4062,4 @@ _goastrdup,,0x0060A870,62,Code/GameEngine/Source/GameNetwork/GameSpy/nonport.c,m
 _SetSockBlocking,,0x0060A8B0,41,Code/GameEngine/Source/GameNetwork/GameSpy/nonport.c,matched,vendored=gamespy-2004; complete source body at unique placement; release assertions disabled
 _DisableNagle,,0x0060A8E0,42,Code/GameEngine/Source/GameNetwork/GameSpy/nonport.c,matched,vendored=gamespy-2004; complete source body at unique placement; release assertions disabled
 _SetReceiveBufferSize,,0x0060A910,38,Code/GameEngine/Source/GameNetwork/GameSpy/nonport.c,matched,vendored=gamespy-2004; complete source body at unique placement; release assertions disabled
+_SetSendBufferSize,,0x0060A940,38,Code/GameEngine/Source/GameNetwork/GameSpy/nonport.c,matched,vendored=gamespy-2004; complete source body at unique placement; release assertions disabled
