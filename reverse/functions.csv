@@ -3371,3 +3371,4 @@ _XMP_Shift_Left_Bits,,0x0061BBD0,308,Code/Libraries/Source/WWVegas/WWLib/mpmath.
 ?Set_Future_Start_Time@ParticleEmitterDefClass@@UAEXM@Z,,0x001B15F0,17,Code/Libraries/Source/WWVegas/WW3D2/part_ldr.cpp,matched,BFME2 exact BFME1-derived setter; unique masked placement
 ?Set_Max_Emissions@ParticleEmitterDefClass@@UAEXM@Z,,0x001B14C0,17,Code/Libraries/Source/WWVegas/WW3D2/part_ldr.cpp,matched,BFME2 exact BFME1-derived setter; unique masked placement
 ??0HashTableClass@@QAE@H@Z,,0x00613C20,55,Code/Libraries/Source/WWVegas/WWLib/hash.cpp,matched,HashTableClass constructor; masked-search placement
+?Set_Merge_Abort_Factor@ParticleEmitterDefClass@@UAEXM@Z,,0x001B16F0,17,Code/Libraries/Source/WWVegas/WW3D2/part_ldr.cpp,matched,BFME2 exact BFME1-derived setter; unique masked placement
