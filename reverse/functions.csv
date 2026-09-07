@@ -4252,3 +4252,4 @@ _g_crc32,,0x006071F0,37,Code/GameEngine/Source/GameNetwork/GameSpy/gstats/gstats
 ??1WeightInfoStruct@NamedPivotMapClass@@QAE@XZ,,0x00042FF8,14,Code/Libraries/Source/WWVegas/WW3D2/animobj.cpp,matched,gen-alias;object-symbol=??1WeightInfoStruct@NamedPivotMapClass@@QAE@XZ;C++ alias
 ?Set_Transform@Animatable3DObjClass@@UAEXABVMatrix3D@@@Z,,0x001A4B30,24,Code/Libraries/Source/WWVegas/WW3D2/animobj.cpp,matched,gen-alias;object-symbol=?Set_Transform@Animatable3DObjClass@@UAEXABVMatrix3D@@@Z;C++ alias
 ??0BFMEPoolLock@@QAE@AAVBFMEPoolCriticalSection@@@Z,,0x000657BC,20,Code/Libraries/Source/WWVegas/WWLib/multilist.cpp,matched,gen-alias;object-symbol=??0BFMEPoolLock@@QAE@AAVBFMEPoolCriticalSection@@@Z;C++ alias
+_create_challenge,,0x00607220,55,Code/GameEngine/Source/GameNetwork/GameSpy/gstats/gstats.c,matched,vendored=gamespy-2004; unique complete source body; direct callees independently byte-verified; named PE import references audited
