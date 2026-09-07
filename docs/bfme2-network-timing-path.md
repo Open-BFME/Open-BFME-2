@@ -199,6 +199,15 @@ returns the following entry (including the wrap-through slot after the final
 search position). This is the concrete BFME2 counterpart to BFME1's fallback
 router traversal and gives later router-failover work a verified handoff point.
 
+The 50-byte `BFMEConnectionManager::attachTransport` body at RVA `0x004CF113`
+is now reconstructed in
+`Code/GameEngine/Source/Common/ConnectionManagerAttachTransport.cpp`. When a
+transport is already installed it invokes the retail `Transport` destructor at
+`0x008494BA`, releases the object through the guarded game allocator at
+`0x0042FD60`, clears `+0x12024`, and stores the replacement pointer. This is a
+concrete lifecycle boundary for the network update path and confirms that the
+connection manager owns the transport object while frame admission is active.
+
 The companion router-stall target at RVA `0x004CFBF9` is also identified by the
 direct call from `+0x54`: it first requires local slot == packet-router slot,
 then scans eight open peers and tests each latest-frame value against the
@@ -320,3 +329,27 @@ the loop's call order, but do not establish that BFME2 has the same class
 layout, vtable slots, or admission policy. Future work should identify the
 BFME2 objects and trace received commands to their eventual logic-frame
 consumption before changing delay behavior.
+
+## Next work
+
+The next tractable dependency is `hasPacketRouterFrameStall` at RVA
+`0x004CFBF9`. Its BFME2 control flow is established, including the startup
+slack of three frames, the configured run-ahead value after logic frame five,
+the open-peer scan, and the last-stalled-frame diagnostic. A clean C++ body
+still needs to reproduce retail's ECX/EBX/EDI register allocation around the
+`isPlayerSlotActive` call; the failed source shapes are recorded in
+`reverse/re_attempts.log`.
+
+The received-command path should then be recovered from the unclaimed body at
+VA `0x008D2F04`. Its frame-info case updates the per-player latest-frame and
+auxiliary arrays at `+0x12060`/`+0x120A0`, raises `frameCeiling` at `+0x1205C`
+for non-router clients, and writes the local frame-ring expected count before
+the command-readiness gate. The adjacent publisher at VA `0x008D0AA9` and the
+large update body containing the `0x008D34B4` ceiling store are the concrete
+callers to connect to that case.
+
+Finally, revisit the approximately 354-byte GameEngine loop at RVA
+`0x0022634F` after those network dependencies are named. Its verified helper
+calls and `+0x44` limit stores make it the right place to test any future
+buffering hypothesis, but no delay behavior should be changed until the
+received-command-to-frame-ring path is byte-verified.

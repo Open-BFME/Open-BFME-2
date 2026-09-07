@@ -171,7 +171,7 @@ name,address,notes
 ??1__Named_exception@_STL@@UAE@XZ,0x00023850,address read from the REL32 displacement in logic_error and runtime_error's destructors; the body there is held as bad_alloc's destructor and the two folded
 ??1ios_base@_STL@@UAE@XZ,0x0001C220,STLport 4.5.3 ios_base destructor; address read from the basic_ios<char> and basic_ios<wchar_t> destructor tail jumps
 ??2@YAPAXI@Z,0x0002FDA0
-??3@YAXPAX@Z,0x0002FD60
+??3@YAXPAX@Z,0x0002FD60,BFME2 scalar operator delete; guarded game-allocator release used by transport replacement
 ??4?$DefaultModuleTemplate@$00@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A626A,BFME2 export; the module template assignment the ConcreteModuleTemplate wrapper forwards to
 ??4?$DefaultModuleTemplate@$01@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A79E5,BFME2 export; the module template assignment the ConcreteModuleTemplate wrapper forwards to
 ??4?$DefaultModuleTemplate@$02@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A7832,BFME2 export; the module template assignment the ConcreteModuleTemplate wrapper forwards to
@@ -561,6 +561,7 @@ _strlen,0x00629170,BFME2 retail strlen thunk and call target for StringBase<char
 ?isPlayerConnected@BFMEConnectionManager@@QAE_NH@Z,0x004CF083,BFME2 local-or-open-connection predicate used by active-player state checks
 ?isPlayerSlotActive@BFMEConnectionManager@@QAEHH@Z,0x004CF0CD,BFME2 active-player-state predicate used by the packet-router stall scan; BFME1 structural analogue
 ?getNextPacketRouterSlot@BFMEConnectionManager@@QAEII@Z,0x004CFAC0,BFME2 fallback packet-router traversal; follows the supplied slot in the +0x12030 router order
+??1Transport@@QAE@XZ,0x004494BA,BFME2 transport destructor used before replacing the connection-manager transport pointer
 ?_bfme_setEngineVisibility@Mouse@@QAEX_N@Z,0x001EE5BE,GameEngine slot 39 input-lock transition call target; BFME1 Mouse visibility analogue with the same bool argument
 ?GadgetListBoxReset@@YAXPAVGameWindow@@@Z,0x003247E5,retail 34B body sends GLM_DEL_ALL 0x4013; matches GadgetListBoxReset reference
 ?bfme_getDescriptionFirstLine@MapMetaData@@QAE?AVUnicodeString@@XZ,0x00301534,recovered metadata getter reads cached map.str text via 0x003009CD and returns its prefix before LF
