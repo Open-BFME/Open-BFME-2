@@ -5,6 +5,14 @@
 // the mapping handle, the open mode and the two open flags sit at 0, 4, 8,
 // 0x0C and 0x0D, which is what every one of these bodies indexes.
 
+#include <stddef.h>
+
+extern "C" __declspec(dllimport) int __stdcall ReadFile(
+	void *handle, void *buffer, unsigned long bytes,
+	unsigned long *read, void *overlapped);
+extern "C" __declspec(dllimport) unsigned long __stdcall SetFilePointer(
+	void *handle, long low, long *high, unsigned long method);
+
 extern "C" __declspec(dllimport) int __stdcall UnmapViewOfFile(const void *base);
 extern "C" __declspec(dllimport) int __stdcall CloseHandle(void *handle);
 extern "C" __declspec(dllimport) unsigned long __stdcall GetFileSize(
@@ -53,6 +61,7 @@ public:
 	long _M_seek(long offset, int direction);
 	void _M_unmap(void *base, long length);
 	bool _M_close();
+	ptrdiff_t _M_read(char *buf, ptrdiff_t n);
 
 protected:
 	void *_M_file_id;
@@ -172,6 +181,43 @@ bool _Filebuf_base::_M_close()
 	_M_openmode = 0;
 
 	return ok;
+}
+
+ptrdiff_t _Filebuf_base::_M_read(char *buf, ptrdiff_t n)
+{
+	unsigned long number_of_bytes_read;
+	ReadFile(_M_file_id, (void *)buf, (unsigned long)n,
+			&number_of_bytes_read, 0);
+
+	if (!(_M_openmode & 4) && number_of_bytes_read) {
+		char *to = buf;
+		char *last = buf + number_of_bytes_read - 1;
+		char *from;
+		for (from = buf; from <= last && *from != 26; ++from) {
+			if (*from != 13) {
+				*to++ = *from;
+			} else if (from < last) {
+				if (*(from + 1) != 10)
+					*to++ = 13;
+			} else {
+				char peek = ' ';
+				unsigned long bytes_peeked;
+				ReadFile(_M_file_id, (void *)&peek, 1, &bytes_peeked, 0);
+				if (bytes_peeked) {
+					if (peek != 10) {
+						*to++ = 13;
+						SetFilePointer(_M_file_id, -1, 0, 1);
+					} else {
+						SetFilePointer(_M_file_id, -2, 0, 1);
+					}
+				}
+			}
+		}
+		if (from <= last)
+			SetFilePointer(_M_file_id, (long)((last + 1) - from), 0, 1);
+		number_of_bytes_read = (unsigned long)(to - buf);
+	}
+	return (ptrdiff_t)number_of_bytes_read;
 }
 
 }

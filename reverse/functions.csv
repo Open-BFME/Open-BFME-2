@@ -3927,3 +3927,4 @@ _XMP_Shift_Left_Bits,,0x0061BBD0,308,Code/Libraries/Source/WWVegas/WWLib/mpmath.
 ??0Buffer@@QAE@J@Z,,0x00615710,45,Code/Libraries/Source/WWVegas/WWLib/buff.cpp,matched,Buffer; array new and delete fold to the scalar operators in this unit
 ??1Buffer@@QAE@XZ,,0x006157A0,39,Code/Libraries/Source/WWVegas/WWLib/buff.cpp,matched,Buffer; array new and delete fold to the scalar operators in this unit
 ??4Buffer@@QAEAAV0@ABV0@@Z,,0x00615760,50,Code/Libraries/Source/WWVegas/WWLib/buff.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?_M_read@_Filebuf_base@_STL@@QAEHPADH@Z,,0x0001D5D0,245,Code/Libraries/Source/WWVegas/WWLib/stlport_filebuf_base.cpp,matched,STLport filebuf text-mode read ported from BFME1 X4Filebuf implementation
