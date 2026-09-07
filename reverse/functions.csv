@@ -3319,3 +3319,4 @@ _XMP_Init,,0x0061BD70,23,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,
 ??0Vector3HollowSphereRandomizer@@QAE@M@Z,,0x00723350,33,Code/Libraries/Source/WWVegas/WWMath/v3_rnd.cpp,matched,BFME2 hollow sphere randomizer constructor transferred from BFME1 source
 ??1LockClass@CriticalSectionClass@@QAE@XZ,,0x00613B80,16,Code/Libraries/Source/WWVegas/WWLib/mutex.cpp,matched,BFME2 critical section lock guard destructor transferred from BFME1 mutex source
 ??1GridLinkClass@@UAE@XZ,,0x00719CC0,7,Code/Libraries/Source/WWVegas/WWMath/gridcull.cpp,matched,BFME2 GridLinkClass destructor reconstructed as an empty virtual destructor
+??0BufferedFileClass@@QAE@XZ,,0x0061ADE0,32,Code/Libraries/Source/WWVegas/WWLib/BufferedFileClassConstructor.cpp,matched,BFME2 BufferedFileClass default constructor transferred from BFME1 source
