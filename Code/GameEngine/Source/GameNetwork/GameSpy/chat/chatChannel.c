@@ -243,21 +243,7 @@ static int GS_STATIC_CALLBACK ciUserTableCompareFn(const void * elem1, const voi
 	assert(elem1 != NULL);
 	assert(elem2 != NULL);
 
-	// Sept 20, 2004 - Bill Dewey
-	// A NULL parameter has been causing Arcade to crash.  (FogBugz 2825)
-	// This doesn't solve the real problem (elem is invalid), 
-	// it just tries to keep Arcade going
-	if (elem1 == NULL || elem2 == NULL)
-	{
-		// A NULL user is automatically "less than"
-		if (elem1 == NULL && elem2 == NULL)
-			return 0;
-		else if (elem1 == NULL)
-			return -1;
-		else // if (elem2 == NULL)
-			return 1;
-	}
-
+	/* Retail compares the known non-null channel users directly. */
 	str1 = ((ciChatUser *)elem1)->name;
 	str2 = ((ciChatUser *)elem2)->name;
 	ASSERT_STR(str1);
