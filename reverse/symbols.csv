@@ -831,3 +831,6 @@ _listen@8,0x00687CDE,PE-verified FF25 import thunk to ws2_32.dll!listen via IAT 
 _MD5Digest,0x00606DB0,GameSpy callee already byte-verified in Code/GameEngine/Source/GameNetwork/GameSpy/md5c.c at commit 119aa253f075; direct call from _gpiProcessConnect
 _gpiSendLogin,0x0072F2B0,GameSpy GP callee; independent unique 788-byte source candidate in gpiConnect.c; direct call from _gpiProcessConnect corroborates identity
 _gpiSendNewuser,0x0072F5D0,GameSpy GP callee; independent unique 496-byte source candidate in gpiConnect.c; direct call from _gpiProcessConnect corroborates identity
+_B64Encode,0x0060B170,GameSpy callee already byte-verified in Code/GameEngine/Source/GameNetwork/GameSpy/nonport.c at commit 982a47813b69; direct call from _gpiSendNewuser
+_Util_RandInt,0x0060AF10,GameSpy callee already byte-verified in Code/GameEngine/Source/GameNetwork/GameSpy/nonport.c at commit 982a47813b69; direct call from _gpiSendNewuser
+_Util_RandSeed,0x0060AEF0,GameSpy callee already byte-verified in Code/GameEngine/Source/GameNetwork/GameSpy/nonport.c at commit 982a47813b69; direct call from _gpiSendNewuser
