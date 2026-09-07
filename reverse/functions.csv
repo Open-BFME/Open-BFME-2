@@ -3377,3 +3377,4 @@ _XMP_Shift_Left_Bits,,0x0061BBD0,308,Code/Libraries/Source/WWVegas/WWLib/mpmath.
 ?Set_Texture_Tile_Factor@ParticleEmitterDefClass@@UAEXM@Z,,0x001B1710,17,Code/Libraries/Source/WWVegas/WW3D2/part_ldr.cpp,matched,BFME2 exact BFME1-derived setter; unique masked placement
 ?Set_Vel_Inherit@ParticleEmitterDefClass@@UAEXM@Z,,0x001B15D0,17,Code/Libraries/Source/WWVegas/WW3D2/part_ldr.cpp,matched,BFME2 exact BFME1-derived setter; unique masked placement
 ?Set_Depth_Compare@ShaderClass@@QAEXW4DepthCompareType@1@@Z,,0x00065F66,13,Code/Libraries/Source/WWVegas/WW3D2/part_ldr.cpp,matched,BFME2 exact BFME1-derived shader setter; unique masked placement
+?Get_Initial_Orientation_Random@ParticleEmitterDefClass@@UBEMXZ,,0x001B1630,7,Code/Libraries/Source/WWVegas/WW3D2/part_ldr.cpp,matched,BFME2 exact BFME1-derived body; unique masked placement
