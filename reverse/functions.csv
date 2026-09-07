@@ -3547,3 +3547,4 @@ _XMP_Shift_Left_Bits,,0x0061BBD0,308,Code/Libraries/Source/WWVegas/WWLib/mpmath.
 ?Get_Spot_Direction@LightClass@@QBEXAAVVector3@@@Z,,0x0011C730,33,Code/Libraries/Source/WWVegas/WW3D2/lightenvironment.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 ??AMatrix3D@@QAEAAVVector4@@H@Z,,0x0007DE8E,12,Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp,matched,BFME2 exact BFME1-derived matrix accessor; unique masked placement
 ?Add_Size@MicroChunkHeader@@QAEXE@Z,,0x00615270,10,Code/Libraries/Source/WWVegas/WWLib/chunkio.cpp,matched,BFME2 exact BFME1-derived chunk helper; unique masked placement
+?Get_Size@ChunkHeader@@QAEKXZ,,0x00614D30,9,Code/Libraries/Source/WWVegas/WWLib/chunkio.cpp,matched,BFME2 exact BFME1-derived chunk getter; unique masked placement
