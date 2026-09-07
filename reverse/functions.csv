@@ -3651,3 +3651,4 @@ _XMP_Shift_Left_Bits,,0x0061BBD0,308,Code/Libraries/Source/WWVegas/WWLib/mpmath.
 ?Is_Merge_Intersections@SegmentedLineClass@@QAEHXZ,,0x0015E210,10,Code/Libraries/Source/WWVegas/WW3D2/segline.cpp,matched,BFME2 exact BFME1-derived SegmentedLine body
 ?Is_Sorting_Disabled@SegmentedLineClass@@QAEHXZ,,0x0015E230,10,Code/Libraries/Source/WWVegas/WW3D2/segline.cpp,matched,BFME2 exact BFME1-derived SegmentedLine body
 ?Get_Texture_Mapping_Mode@SegmentedLineClass@@QAE?AW4TextureMapMode@SegLineRendererClass@@XZ,,0x0015E1C0,8,Code/Libraries/Source/WWVegas/WW3D2/segline.cpp,matched,BFME2 exact BFME1-derived SegmentedLine body
+?Get_Texture_Mapping_Mode@SegLineRendererClass@@QBE?AW4TextureMapMode@1@XZ,,0x0015E070,5,Code/Libraries/Source/WWVegas/WW3D2/segline.cpp,matched,BFME2 exact BFME1-derived SegLineRenderer getter
