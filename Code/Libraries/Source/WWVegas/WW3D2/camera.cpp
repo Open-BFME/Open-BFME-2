@@ -154,7 +154,6 @@ CameraClass::CameraClass(const CameraClass & src) :
  * HISTORY:                                                                                    *
  *   3/21/98    GTH : Created.                                                                 *
  *=============================================================================================*/
-// ??4CameraClass@@QAEAAV0@ABV0@@Z present-unmatched
 CameraClass & CameraClass::operator = (const CameraClass & that)
 {
 	if (this != &that) {
