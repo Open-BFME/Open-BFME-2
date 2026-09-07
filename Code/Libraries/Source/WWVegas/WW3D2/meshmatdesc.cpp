@@ -134,7 +134,6 @@ VertexMaterialClass * MatBufferClass::Peek_Element(int index)
 **
 **************************************************************************************************/
 // byte-exact reconstruction: Code/Libraries/Source/WWVegas/WW3D2/TexBufferClassCtorThunk.cpp
-// ??0TexBufferClass@@ present-unmatched
 TexBufferClass::TexBufferClass(const TexBufferClass & that) :
 	ShareBufferClass<TextureClass *>(that)
 {
