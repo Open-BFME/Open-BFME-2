@@ -4815,3 +4815,4 @@ _gpiHandleSendReply,,0x00736B60,265,Code/GameEngine/Source/GameNetwork/GameSpy/g
 _gpiSkipFile,,0x00736760,111,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gpiTransfer.c,matched,vendored=gamespy-2004; pinned BFME1 reference including inherited EA edits; unique whole-body match; gpiSkipFile
 _gpiSkipCurrentFile,,0x007367D0,37,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gpiTransfer.c,matched,vendored=gamespy-2004; pinned BFME1 reference including inherited EA edits; unique whole-body match; gpiSkipCurrentFile
 _gpiHandleSkip,,0x007372C0,399,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gpiTransfer.c,matched,vendored=gamespy-2004; pinned BFME1 reference including inherited EA edits; unique whole-body match; gpiHandleSkip
+_gpiAddFileToTransfer,,0x00736420,214,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gpiTransfer.c,matched,vendored=gamespy-2004; pinned BFME1 reference including inherited EA edits; unique whole-body match; gpiAddFileToTransfer
