@@ -4171,3 +4171,4 @@ _BucketNew,,0x00609C50,135,Code/GameEngine/Source/GameNetwork/GameSpy/gstats/gbu
 ?isFreeToAssist@AssistedTargetingUpdate@@QBE_NXZ,,0x00486EFD,56,Code/GameEngine/Source/GameLogic/Object/Update/AssistedTargetingUpdate.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 _BucketSet,,0x00609CE0,72,Code/GameEngine/Source/GameNetwork/GameSpy/gstats/gbucket.c,matched,vendored=gamespy-2004; unique masked whole-.text body; complete source boundary
 _BucketSub,,0x00609D30,150,Code/GameEngine/Source/GameNetwork/GameSpy/gstats/gbucket.c,matched,vendored=gamespy-2004; unique masked whole-.text body; complete source boundary
+_BucketMult,,0x00609DD0,151,Code/GameEngine/Source/GameNetwork/GameSpy/gstats/gbucket.c,matched,vendored=gamespy-2004; unique masked whole-.text body; complete source boundary
