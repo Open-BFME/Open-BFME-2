@@ -846,3 +846,5 @@ _ArrayAppend,0x0060A790,GameSpy callee already byte-verified in Code/GameEngine/
 _gpiSetPeerSocketSizes,0x00738A40,GameSpy GP callee; independent unique 107-byte source candidate in gpiPeer.c; direct call from _gpiPeerStartConnect corroborates identity
 _ArrayFree,0x0060A460,GameSpy callee already byte-verified in Code/GameEngine/Source/GameNetwork/GameSpy/darray.c at commit edcf90f6c5e1; direct call from _gpiDestroyPeer
 _gpiTransferPeerDestroyed,0x007376F0,GameSpy GP callee; independent unique 144-byte source candidate in gpiTransfer.c; direct call from _gpiDestroyPeer corroborates identity
+_ArrayDeleteAt,0x0060A5E0,GameSpy callee already byte-verified in Code/GameEngine/Source/GameNetwork/GameSpy/darray.c at commit edcf90f6c5e1; direct call from _gpiPeerSendMessages
+_ArrayNth,0x0060A200,GameSpy callee already byte-verified in Code/GameEngine/Source/GameNetwork/GameSpy/darray.c at commit edcf90f6c5e1; direct call from _gpiPeerSendMessages
