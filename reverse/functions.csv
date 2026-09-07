@@ -3397,3 +3397,4 @@ _XMP_Shift_Left_Bits,,0x0061BBD0,308,Code/Libraries/Source/WWVegas/WWLib/mpmath.
 ?Get_Additional_Model_Count@HLodClass@@QBEHXZ,,0x002B224B,7,Code/Libraries/Source/WWVegas/WW3D2/hlod.cpp,matched,BFME2 exact BFME1-derived getter; unique masked placement
 ?Get_LOD_Level@HLodClass@@UBEHXZ,,0x00509D29,7,Code/Libraries/Source/WWVegas/WW3D2/hlod.cpp,matched,BFME2 exact BFME1-derived getter; unique masked placement
 ?Get_Local_Center@BoxRenderObjClass@@QAEABVVector3@@XZ,,0x002A980C,7,Code/Libraries/Source/WWVegas/WW3D2/hlod.cpp,matched,BFME2 exact BFME1-derived getter; unique masked placement
+?Get_Local_Extent@BoxRenderObjClass@@QAEABVVector3@@XZ,,0x002A9813,7,Code/Libraries/Source/WWVegas/WW3D2/hlod.cpp,matched,BFME2 exact BFME1-derived getter; unique masked placement
