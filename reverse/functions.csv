@@ -4155,3 +4155,4 @@ _UTF8ToUCS2StringArrayAlloc,,0x0069DC70,126,Code/GameEngine/Source/GameNetwork/G
 _UCS2ToUTF8StringArrayAlloc,,0x0069DCF0,123,Code/GameEngine/Source/GameNetwork/GameSpy/stringutil.c,matched,vendored=gamespy-2004; unique masked whole-.text body; complete source boundary
 _UCS2ToAsciiString,,0x0069DD70,55,Code/GameEngine/Source/GameNetwork/GameSpy/stringutil.c,matched,vendored=gamespy-2004; unique masked whole-.text body; complete source boundary
 _AsciiToUCS2String,,0x0069DDB0,68,Code/GameEngine/Source/GameNetwork/GameSpy/stringutil.c,matched,vendored=gamespy-2004; unique masked whole-.text body; complete source boundary
+_CanReceiveOnSocket,,0x0060AB40,115,Code/GameEngine/Source/GameNetwork/GameSpy/nonport.c,matched,BFME2 readiness wrapper reconstructed as GSISocketSelect call; complete exact 115-byte inlined body
