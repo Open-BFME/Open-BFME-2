@@ -18,7 +18,9 @@ reached master through exactly that hole:
 
 THE INVARIANT: every address pinned to one name must, after following the
 incremental-link thunk chain, land on a body byte-equal to every other body the
-same name pins. One name, one function.
+same name pins. Complete six-byte PE import thunks may instead reference
+different IAT slots declaring the exact same DLL and export name. Ordinal-only
+or unresolved imports establish no such equivalence. One name, one function.
 
 WHAT THIS DOES NOT CATCH -- read this before trusting a green line
 -----------------------------------------------------------------
@@ -86,6 +88,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import build  # noqa: E402  (after the path insert that makes it importable)
+import pe_imports  # noqa: E402
 import progress  # noqa: E402
 
 ROOT = build.ROOT
@@ -107,6 +110,7 @@ class Image:
     def __init__(self, ledger_sizes):
         self.data = build.EXE.read_bytes()
         self.sections = build.pe_sections(self.data)
+        self.imports = pe_imports.read_imports(self.data)
         text = next(s for s in self.sections if s["name"] == ".text")
         self.low = text["rva"]
         self.high = text["rva"] + text["size"]
@@ -352,6 +356,9 @@ class Scanner:
             for members in classes:
                 verdict, _sites, _div = rebased_equal(
                     image[members[0]], image[body], members[0], body)
+                if not verdict:
+                    verdict = pe_imports.same_named_import_thunk(
+                        image[members[0]], image[body], self.image.imports)
                 if verdict:
                     members.append(body)
                     break
