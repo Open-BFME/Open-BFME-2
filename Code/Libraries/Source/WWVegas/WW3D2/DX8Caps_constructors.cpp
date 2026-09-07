@@ -69,7 +69,6 @@ DX8Caps::DX8Caps(IDirect3D8 *direct3d,IDirect3DDevice8 *device,WW3DFormat format
  Compute_Caps(format,adapter);
 }
 
-// ??0DX8Caps@@QAE@PAUIDirect3D8@@ABU_D3DCAPS8@@W4WW3DFormat@@ABU_D3DADAPTER_IDENTIFIER8@@@Z present-unmatched
 DX8Caps::DX8Caps(IDirect3D8 *direct3d,const D3DCAPS8 &sourceCaps,WW3DFormat format,const D3DADAPTER_IDENTIFIER8 &adapter)
  : maxDisplayWidth(0),maxDisplayHeight(0),caps((const BFME_D3DCAPS9Storage &)sourceCaps),rawDevice(0),direct3DAll(direct3d)
 {
