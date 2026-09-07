@@ -2188,7 +2188,6 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?clamp_indices_to_grid@GridCullSystemClass@@IAEXPAH00@Z,,0x00719E60,84,Code/Libraries/Source/WWVegas/WWMath/gridcull.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
 ?unlink_object_from_list@GridCullSystemClass@@IAEXPAPAVCullableClass@@PAV2@@Z,,0x0071AE80,65,Code/Libraries/Source/WWVegas/WWMath/gridcull.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
 ?unlink_object@GridCullSystemClass@@IAEXPAVCullableClass@@@Z,,0x0071B200,89,Code/Libraries/Source/WWVegas/WWMath/gridcull.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
-??0?$SimpleVecClass@M@@QAE@H@Z,,0x001A8070,39,Code/Libraries/Source/WWVegas/WWMath/lookuptable.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
 ?Resize@?$DynamicVectorClass@M@@UAE_NHPBM@Z,,0x001967D0,47,Code/Libraries/Source/WWVegas/WWMath/ode.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
 ?Get_Random_Float_Minus1_To_1@Vector3Randomizer@@IAEMXZ,,0x007230C0,25,Code/Libraries/Source/WWVegas/WWMath/v3_rnd.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
 ?Copy@VectorProcessorClass@@SAXPAVVector3@@PBV2@H@Z,,0x0071D420,42,Code/Libraries/Source/WWVegas/WWMath/vp.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
@@ -4453,3 +4452,4 @@ _gpiReadDiskKeyValue,,0x007320B0,170,Code/GameEngine/Source/GameNetwork/GameSpy/
 _gpiCheckProfileForUser,,0x00732720,157,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gpiProfile.c,matched,vendored=gamespy-2004; pinned BFME1 reference including inherited EA edits; unique whole-body match; gpiCheckProfileForUser
 _gpiOpenDiskProfiles,,0x00732040,65,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gpiProfile.c,matched,vendored=gamespy-2004; pinned BFME1 reference including inherited EA edits; unique whole-body match; gpiOpenDiskProfiles
 _gpiCanFreeProfile,,0x007328A0,45,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gpiProfile.c,matched,vendored=gamespy-2004; pinned BFME1 reference including inherited EA edits; unique whole-body match; gpiCanFreeProfile
+??0?$SimpleVecClass@VVector4@@@@QAE@H@Z,,0x001A8070,39,Code/Libraries/Source/WWVegas/WW3D2/meshgeometry.cpp,matched,Corrected float misidentification: retail vtable VA BD71C8 slot2 is independently matched Vector4 Grow at RVA1A7D60; slot1 Resize allocates and copies16-byte elements; ctor complete39 bytes verified

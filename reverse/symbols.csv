@@ -285,7 +285,6 @@ name,address,notes
 ?Release_Ref@TextureBaseClass@@QAEXXZ,0x0061ED10,address read from the REL32 displacement at a placed body; stlport 4.5.3
 ?Reset@SubObjectArrayClass@HLodDefClass@@QAEXXZ,0x0019B210,address read from the REL32 displacement at a placed body; stlport 4.5.3
 ?Reset_Collection@CullSystemClass@@QAEXXZ,0x0065D1C0,address read from the REL32 displacement at a placed body; stlport 4.5.3
-?Resize@?$SimpleVecClass@M@@UAE_NH@Z,0x001A7C80,SimpleVecClass<float>::Resize; address read by decode_calls.py from the REL32 in the constructor at 0x001A8070, and Ghidra has a 211-byte function exactly there
 ?Resize@?$VectorClass@UTextureStatisticsStruct@@@@UAE_NHPBUTextureStatisticsStruct@@@Z,0x00129990,address read from the REL32 displacement at a placed body; stlport 4.5.3
 ?Resize@StringClass@@AAEXH@Z,0x00610C70,address read from the REL32 displacement at a placed body; stlport 4.5.3
 ?Return_File@RawFileFactoryClass@@QAEXPAVFileClass@@@Z,0x006132A0,address read from the retail REL32 in INIClass::Save(const char*) at 0x00616650
@@ -760,3 +759,4 @@ _socket@12,0x00655688,PE-verified FF25 import thunk to wsock32.dll!socket via IA
 ?Create_Device@DX8Wrapper@@KA_NXZ,0x001246C0,BFME2 D3D9 device creation; complete 460-byte reconstruction and unique NVPerfHUD literal; called by verified Set_Render_Device
 ?Get_Format_Name@DX8Wrapper@@SAXIPAVStringClass@@@Z,0x0011FE20,D3D format-name switch; initial Unknown string and FourCC cases independently inspected; two calls in verified Set_Render_Device
 ?Do_Onetime_Device_Dependent_Inits@DX8Wrapper@@SAXXZ,0x001245A0,Device subsystem initialization reached after successful verified Create_Device; caps and renderer initialization sequence independently inspected
+?Resize@?$SimpleVecClass@VVector4@@@@UAE_NH@Z,0x001A7C80,SimpleVec<Vector4> table VA BD71C8 slot1; slot2 is independently matched Vector4 Grow RVA1A7D60; both allocate16-byte elements through the same array constructor; direct callee of exact39-byte Vector4 ctor RVA1A8070
