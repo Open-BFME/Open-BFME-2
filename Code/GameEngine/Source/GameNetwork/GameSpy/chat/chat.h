@@ -59,12 +59,14 @@ extern "C" {
 
 // Possible nick errors while connecting.
 /////////////////////////////////////////
+/* Retail callback errors are0..4, independently verified at all five
+ * command-table handler pointers. LaterSDK introduced a separate success code. */
 #define CHAT_NICK_OK                0
-#define CHAT_IN_USE                 1
-#define CHAT_INVALID                2
-#define CHAT_UNIQUENICK_EXPIRED     3
-#define CHAT_NO_UNIQUENICK          4
-#define CHAT_INVALID_UNIQUENICK     5
+#define CHAT_IN_USE                 0
+#define CHAT_INVALID                1
+#define CHAT_UNIQUENICK_EXPIRED     2
+#define CHAT_NO_UNIQUENICK          3
+#define CHAT_INVALID_UNIQUENICK     4
 #define CHAT_NICK_TOO_LONG          6
 
 // Reasons why a connect attempt could fail.
