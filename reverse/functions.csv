@@ -181,8 +181,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_0000d050@@YAXXZ,,0x0000D050,214,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040d050
 ?d_0000d540@@YAXXZ,,0x0000D540,118,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040d540
 ?d_0000df10@@YAXXZ,,0x0000DF10,5,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=thunk_FUN_004179b0
-?d_00011230@@YAXXZ,,0x00011230,122,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_00411230
-?d_000112aa@@YAXXZ,,0x000112AA,2406,Code/gen_asm/d_000112aa.asm,matched,gen-dump;ghidra=FUN_004112aa
 ?d_00012190@@YAXXZ,,0x00012190,122,Code/gen_asm/d_000112aa.asm,matched,gen-dump;ghidra=FUN_00412190
 ?d_0001220a@@YAXXZ,,0x0001220A,2680,Code/gen_asm/d_000112aa.asm,matched,gen-dump;ghidra=FUN_0041220a
 ?zero@ICoord3D@@QAEXXZ,0x00004DCF,0x00004DCF,11,Code/Libraries/Source/WWVegas/WWMath/icoord.cpp,matched,Open-BFME5 clean C++; ICoord3D zero from EA reference
@@ -4340,3 +4338,4 @@ _gpiSendOrBufferUInt,,0x00735180,68,Code/GameEngine/Source/GameNetwork/GameSpy/g
 ??$_Destroy@U?$_Deque_iterator@UBfmeE12@@U?$_Nonconst_traits@UBfmeE12@@@_STL@@@_STL@@@_STL@@YAXU?$_Deque_iterator@UBfmeE12@@U?$_Nonconst_traits@UBfmeE12@@@_STL@@@0@0@Z,,0x004227D3,41,Code/Libraries/Source/WWVegas/WWLib/stlport_deque_e12_o1.cpp,matched,gen-alias;object-symbol=??$_Destroy@U?$_Deque_iterator@UBfmeE12@@U?$_Nonconst_traits@UBfmeE12@@@_STL@@@_STL@@@_STL@@YAXU?$_Deque_iterator@UBfmeE12@@U?$_Nonconst_traits@UBfmeE12@@@_STL@@@0@0@Z;C++ alias
 _PreAuthenticatePlayerCDA,,0x00608DF0,166,Code/GameEngine/Source/GameNetwork/GameSpy/gstats/gstats.c,matched,vendored=gamespy-2004; unique complete source body; direct callees independently byte-verified; named PE import references audited
 ?do_put@?$num_put@DV?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@@_STL@@MBE?AV?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@2@V32@AAVios_base@2@D_N@Z,,0x00009450,385,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_num_put_bool.cpp,matched,Reconstructed STLport bool formatter; ordinary string lifetimes with retail C++ free declaration and inline locale cleanup; full body exact
+?do_get@?$money_get@DV?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@@_STL@@MBE?AV?$istreambuf_iterator@DV?$char_traits@D@_STL@@@2@V32@0_NAAVios_base@2@AAHAAV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@2@@Z,,0x00011230,2528,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_money_get_string.cpp,matched,Reconstructed STLport money parser; complete function replaces both head and tail dumps; full bytes and five switch-table labels verified; const character views and selective helper inlining
