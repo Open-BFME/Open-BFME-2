@@ -3436,3 +3436,4 @@ _XMP_Shift_Left_Bits,,0x0061BBD0,308,Code/Libraries/Source/WWVegas/WWLib/mpmath.
 ?Get_Frame_Time@WW3D@@SAIXZ,,0x0008513B,12,Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp,matched,BFME2 exact BFME1-derived getter; unique masked placement
 ?Get_Creation_Volume@ParticleEmitterDefClass@@QBEPAVVector3Randomizer@@XZ,,0x001A1040,11,Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp,matched,BFME2 exact BFME1-derived getter; unique masked placement
 ?Get_Velocity_Random@ParticleEmitterDefClass@@QBEPAVVector3Randomizer@@XZ,,0x001A1050,11,Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp,matched,BFME2 exact BFME1-derived getter; unique masked placement
+?Get_Max_Particles@ParticleEmitterClass@@QBEHXZ,,0x00188750,7,Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp,matched,BFME2 exact BFME1-derived getter; unique masked placement
