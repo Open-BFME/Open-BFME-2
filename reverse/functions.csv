@@ -3619,3 +3619,4 @@ _XMP_Shift_Left_Bits,,0x0061BBD0,308,Code/Libraries/Source/WWVegas/WWLib/mpmath.
 ?Set_Base_Model_Name@CompositeRenderObjClass@@UAEXPBD@Z,,0x001A6180,31,Code/Libraries/Source/WWVegas/WW3D2/composite.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 ?Get_Model@MeshClass@@QAEPAVMeshModelClass@@XZ,,0x001499B0,21,Code/Libraries/Source/WWVegas/WW3D2/mesh.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 ?Get_Particle_Count@ParticleBufferClass@@QBEHXZ,,0x001A65D0,13,Code/Libraries/Source/WWVegas/WW3D2/part_buf.cpp,matched,BFME2 exact BFME1-derived ParticleBuffer getter; unique masked placement
+?Get_Particle_Size@ParticleBufferClass@@QBEMXZ,,0x001A6560,9,Code/Libraries/Source/WWVegas/WW3D2/part_buf.cpp,matched,BFME2 exact BFME1-derived ParticleBuffer getter; unique masked placement
