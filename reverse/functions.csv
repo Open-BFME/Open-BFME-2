@@ -4369,3 +4369,4 @@ _SetPersistDataValuesA,,0x00609290,70,Code/GameEngine/Source/GameNetwork/GameSpy
 ??0?$pair@$$CBGE@_STL@@QAE@ABU01@@Z,,0x004CFB43,21,Code/GameEngine/Source/GameNetwork/ConnectionManager.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 ??R?$less@G@_STL@@QBE_NABG0@Z,,0x001549C0,21,Code/GameEngine/Source/GameNetwork/ConnectionManager.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 ??0CDownload@@QAE@PAVIDownload@@@Z,,0x006C9640,229,Code/GameEngine/Source/GameNetwork/DownloadManager.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+??0DX8Caps@@QAE@PAUIDirect3D8@@PAUIDirect3DDevice8@@W4WW3DFormat@@ABU_D3DADAPTER_IDENTIFIER8@@@Z,,0x0012C670,269,Code/Libraries/Source/WWVegas/WW3D2/DX8Caps_constructors.cpp,matched,BFME2 D3D9 device constructor; proven0x2E4 class layout; byte-exact code and independently verified complete EH metadata/cleanup graph
