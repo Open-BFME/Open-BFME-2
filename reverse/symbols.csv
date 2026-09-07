@@ -811,3 +811,4 @@ _htonl@4,0x0065565E,PE-verified FF25 import thunk to wsock32.dll!htonl via IAT 0
 _sendto@24,0x006556E2,PE-verified FF25 import thunk to wsock32.dll!sendto via IAT 0x00BBA94C; independently read from retail import directory
 _gpiProcessSearch,0x007308A0,GameSpy GP callee; independent unique 5136-byte source candidate in gpiSearch.c; direct call from _gpiProcessSearches corroborates identity
 _gpiStartProfileSearch,0x00730180,GameSpy GP callee; independent unique 279-byte source candidate in gpiSearch.c; direct call from _gpiStartSearch corroborates identity
+_SetSockBlocking,0x0060A8B0,GameSpy callee already byte-verified in Code/GameEngine/Source/GameNetwork/GameSpy/nonport.c at commit 982a47813b69; direct call from _gpiStartProfileSearch
