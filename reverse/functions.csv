@@ -862,7 +862,6 @@ BasicStringCharDtor_dup,,0x0007FAB3,14,Code/Libraries/Source/WWVegas/WWLib/stlpo
 ?neg_format@?$moneypunct@D$00@_STL@@QBE?AUpattern@money_base@2@XZ,,0x00019690,17,Code/Libraries/Source/WWVegas/WWLib/stlport_money_get.cpp,matched,vendored=stlport-4.5.3
 ?pos_format@?$moneypunct@D$00@_STL@@QBE?AUpattern@money_base@2@XZ,,0x00019670,17,Code/Libraries/Source/WWVegas/WWLib/stlport_money_put.cpp,matched,vendored=stlport-4.5.3
 ?_Atomic_swap@_STL@@YAJPCJJ@Z,,0x00006EF0,17,Code/Libraries/Source/WWVegas/WWLib/stlport_rope_char.cpp,matched,vendored=stlport-4.5.3
-?_S_ref@?$_Rope_RopeRep@DV?$allocator@D@_STL@@@_STL@@SAXPAU12@@Z,,0x006C5300,16,Code/Libraries/Source/WWVegas/WWLib/stlport_rope_char.cpp,matched,vendored=stlport-4.5.3
 ?empty@?$rope@DV?$allocator@D@_STL@@@_STL@@QBE_NXZ,,0x006CFE00,10,Code/Libraries/Source/WWVegas/WWLib/stlport_rope_char.cpp,matched,vendored=stlport-4.5.3
 ??$?GDV?$allocator@D@_STL@@@_STL@@YAHABV?$_Rope_const_iterator@DV?$allocator@D@_STL@@@0@0@Z,,0x00731F80,13,Code/Libraries/Source/WWVegas/WWLib/stlport_rope_char.cpp,matched,vendored=stlport-4.5.3
 ??0?$pair@PBDPAD@_STL@@QAE@ABQBDABQAD@Z,,0x00758C70,22,Code/Libraries/Source/WWVegas/WWLib/stlport_rope_char.cpp,matched,vendored=stlport-4.5.3
