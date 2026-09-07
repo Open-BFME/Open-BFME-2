@@ -1,5 +1,5 @@
 // cl: /MD -Ireference/shims/gamespy -Ireference/open-bfme-1/Code/GameEngine/Source/GameNetwork/GameSpy/gstats /DNDEBUG
-/* GameSpy SDK, 2004 vintage -- pristine upstream C source.
+/* GameSpy SDK, 2004 vintage -- upstream C source with the retail CRT comparison spelling.
    Sourced from the Area 51 (Inevitable Entertainment / Midway) source release,
    github.com/bisc67/Area51, Support/NetworkMgr/GameSpy -- the only public
    carrier found with the pre-2005 SDK layout (top-level nonport.c, no common/).
@@ -386,7 +386,7 @@ static int BucketHash(const void *elem, int numbuckets)
  */
 static int CaseInsensitiveCompare(const void *entry1, const void *entry2)
 {
-    return strcasecmp(*(char **)entry1,*(char **)entry2);
+    return _strcmpi(*(char **)entry1,*(char **)entry2);
 }
 
 /* keyval
