@@ -3642,3 +3642,12 @@ _XMP_Shift_Left_Bits,,0x0061BBD0,308,Code/Libraries/Source/WWVegas/WWLib/mpmath.
 ??A?$VectorClass@URendererDataStruct@Render2DSentenceClass@@@@QAEAAURendererDataStruct@Render2DSentenceClass@@H@Z,,0x001883B0,13,Code/Libraries/Source/WWVegas/WW3D2/render2dsentence.cpp,matched,BFME2 exact BFME1-derived renderer-data accessor; unique masked placement
 ?_S_whichword@?$_Base_bitset@$03@_STL@@SAII@Z,,0x004CFB33,8,Code/GameEngine/Source/Common/Thing/Thing.cpp,matched,BFME2 exact BFME1-derived STL helper; unique masked placement
 ?_S_whichbit@?$_Base_bitset@$03@_STL@@SAII@Z,,0x004CFB3B,8,Code/GameEngine/Source/Common/Thing/Thing.cpp,matched,BFME2 exact BFME1-derived STL helper; unique masked placement
+?Set_Merge_Abort_Factor@SegmentedLineClass@@QAEXM@Z,,0x0015E370,17,Code/Libraries/Source/WWVegas/WW3D2/segline.cpp,matched,BFME2 exact BFME1-derived SegmentedLine body
+?Set_Opacity@SegmentedLineClass@@QAEXM@Z,,0x0015E320,17,Code/Libraries/Source/WWVegas/WW3D2/segline.cpp,matched,BFME2 exact BFME1-derived SegmentedLine body
+?Get_Shader@SegmentedLineClass@@QAE?AVShaderClass@@XZ,,0x0015E150,15,Code/Libraries/Source/WWVegas/WW3D2/segline.cpp,matched,BFME2 exact BFME1-derived SegmentedLine body
+?Set_Shader@SegmentedLineClass@@QAEXVShaderClass@@@Z,,0x0015E260,13,Code/Libraries/Source/WWVegas/WW3D2/segline.cpp,matched,BFME2 exact BFME1-derived SegmentedLine body
+?Are_End_Caps_Enabled@SegmentedLineClass@@QAEHXZ,,0x0015E240,10,Code/Libraries/Source/WWVegas/WW3D2/segline.cpp,matched,BFME2 exact BFME1-derived SegmentedLine body
+?Is_Freeze_Random@SegmentedLineClass@@QAEHXZ,,0x0015E220,10,Code/Libraries/Source/WWVegas/WW3D2/segline.cpp,matched,BFME2 exact BFME1-derived SegmentedLine body
+?Is_Merge_Intersections@SegmentedLineClass@@QAEHXZ,,0x0015E210,10,Code/Libraries/Source/WWVegas/WW3D2/segline.cpp,matched,BFME2 exact BFME1-derived SegmentedLine body
+?Is_Sorting_Disabled@SegmentedLineClass@@QAEHXZ,,0x0015E230,10,Code/Libraries/Source/WWVegas/WW3D2/segline.cpp,matched,BFME2 exact BFME1-derived SegmentedLine body
+?Get_Texture_Mapping_Mode@SegmentedLineClass@@QAE?AW4TextureMapMode@SegLineRendererClass@@XZ,,0x0015E1C0,8,Code/Libraries/Source/WWVegas/WW3D2/segline.cpp,matched,BFME2 exact BFME1-derived SegmentedLine body
