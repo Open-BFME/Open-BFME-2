@@ -3347,3 +3347,4 @@ _XMP_Init,,0x0061BD70,23,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,
 ?Set_Spot_Exponent@LightClass@@QAEXM@Z,,0x00270678,17,Code/Libraries/Source/WWVegas/WW3D2/light.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 ?Set_Native_Screen_Size@RenderObjClass@@UAEXM@Z,,0x000EFB4C,14,Code/Libraries/Source/WWVegas/WW3D2/light.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 ?Set_ObjectScale@RenderObjClass@@UAEXM@Z,,0x005AD93A,14,Code/Libraries/Source/WWVegas/WW3D2/light.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?Get_Intensity@LightClass@@QBEMXZ,,0x00050F6F,7,Code/Libraries/Source/WWVegas/WW3D2/light.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
