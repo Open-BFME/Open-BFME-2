@@ -94,6 +94,15 @@ entries are concrete, rather than inferred from the BFME1 layout:
 | `+0x58` | `0x0065E163` | frame-pacing status |
 | `+0xAC` | `0x0065DCCB` | packet-router predicate |
 
+The `+0xAC` bridge is now reconstructed as a 23-byte C++ member. It loads the
+connection-manager pointer at native-network `+0x0C`, returns zero for a null
+manager, and otherwise delegates to the exact 17-byte connection-manager
+predicate at VA `0x008CF9CD`. That predicate compares connection-manager
+offsets `+0x12028` (local slot) and `+0x1202C` (packet-router slot), returning
+one only when they are equal. This is the concrete reason the router branch is
+selected: the local connection is the packet router, rather than a generic
+“host” guess.
+
 The 172-byte body at `0x0065E163` gives the exact status calculation. In
 pseudocode (with the signed return value preserved):
 
