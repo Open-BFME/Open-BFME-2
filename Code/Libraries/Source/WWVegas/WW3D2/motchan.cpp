@@ -667,10 +667,9 @@ TimeCodedBitChannelClass::~TimeCodedBitChannelClass(void)
 // ?TimeCodedBitChannelClass::Free present-unmatched
 void TimeCodedBitChannelClass::Free(void)
 {
-	if (Bits != NULL) {
-		delete[] Bits;
-		Bits = NULL;
-	}
+	// Retail unconditionally deletes and clears the allocation slot.
+	delete[] Bits;
+	Bits = NULL;
 }
 
 
@@ -691,8 +690,6 @@ bool TimeCodedBitChannelClass::Load_W3D(ChunkLoadClass & cload)
 {
 	Free();
 	
-	int chunk_size = cload.Cur_Chunk_Length();
-
 	W3dTimeCodedBitChannelStruct chan;
 	if (cload.Read(&chan,sizeof(W3dTimeCodedBitChannelStruct)) != sizeof(W3dTimeCodedBitChannelStruct)) {
 		return false;
@@ -706,10 +703,7 @@ bool TimeCodedBitChannelClass::Load_W3D(ChunkLoadClass & cload)
 
 	uint32 bytesleft = (NumTimeCodes - 1) * sizeof(uint32);
 
-	assert((sizeof(W3dTimeCodedBitChannelStruct) + bytesleft) == (unsigned)chunk_size);
-
 	Bits = MSGW3DNEWARRAY("TimeCodedBitChannelClass::Bits") uint32[NumTimeCodes];
-	assert(Bits);
 
 	Bits[0] = chan.Data[0];
 	
