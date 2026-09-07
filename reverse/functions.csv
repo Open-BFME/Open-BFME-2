@@ -5080,3 +5080,4 @@ _gpSetStatusA,,0x0072C9E0,604,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gp.c
 _gpSetTransferDirectoryW,,0x0072DB60,47,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gp.c,matched,vendored=gamespy-2004; pinned BFME1 reference including inherited EA edits; unique whole-body match; gpSetTransferDirectoryW
 _gpSendFilesW,,0x0072D750,75,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gp.c,matched,vendored=gamespy-2004; pinned BFME1 reference including inherited EA edits; unique whole-body match; gpSendFilesW
 _gpAcceptTransferW,,0x0072D850,60,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gp.c,matched,vendored=gamespy-2004; pinned BFME1 reference including inherited EA edits; unique whole-body match; gpAcceptTransferW
+_gpRejectTransferW,,0x0072D8E0,153,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gp.c,matched,vendored=gamespy-2004; pinned BFME1 reference including inherited EA edits; unique whole-body match; gpRejectTransferW
