@@ -45,6 +45,12 @@ GridLinkClass::GridLinkClass(GridCullSystemClass * system) :
 }
 
 
+// The retail GridLinkClass destructor has no class-specific work.
+GridLinkClass::~GridLinkClass(void)
+{
+}
+
+
 GridCullSystemClass::GridCullSystemClass(void) :
 	MinCellSize(10,10,10),
 	MaxObjExtent(15),
