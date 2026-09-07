@@ -4597,3 +4597,4 @@ _gpiInfoCacheToArg,,0x007334C0,589,Code/GameEngine/Source/GameNetwork/GameSpy/gp
 _gpiGetInfo,,0x00734330,346,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gpiInfo.c,matched,vendored=gamespy-2004; pinned BFME1 reference including inherited EA edits; unique whole-body match; gpiGetInfo
 _gpiSetInfoi,,0x00733820,984,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gpiInfo.c,matched,vendored=gamespy-2004; pinned BFME1 reference including inherited EA edits; unique whole-body match; gpiSetInfoi
 _gpiSetInfos,,0x00733C00,1428,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gpiInfo.c,matched,vendored=gamespy-2004; pinned BFME1 reference including inherited EA edits; unique whole-body match; gpiSetInfos
+_gpiProcessGetInfo,,0x007345F0,1834,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gpiInfo.c,matched,vendored=gamespy-2004; pinned BFME1 reference including inherited EA edits; unique whole-body match; gpiProcessGetInfo
