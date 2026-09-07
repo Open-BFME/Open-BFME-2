@@ -16,6 +16,7 @@ class Object
 public:
 	BehaviorModule **getBehaviorModules() const;
 	BodyModuleInterface *getBodyModule() const;
+	StealthUpdate *getStealth() const;
 	AIUpdateInterface *getAI();
 
 private:
@@ -37,6 +38,12 @@ BehaviorModule **Object::getBehaviorModules() const
 BodyModuleInterface *Object::getBodyModule() const
 {
 	return m_body;
+}
+
+// ?getStealth@Object@@QBEPAVStealthUpdate@@XZ
+StealthUpdate *Object::getStealth() const
+{
+	return m_stealth;
 }
 
 // ?getAI@Object@@QAEPAVAIUpdateInterface@@XZ
