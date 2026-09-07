@@ -85,7 +85,6 @@ StreakRendererClass::StreakRendererClass(void) :
   // EMPTY
 }
 
-// ??0StreakRendererClass@@QAE@ABV0@@Z present-unmatched
 StreakRendererClass::StreakRendererClass(const StreakRendererClass & that) :
 		Texture(NULL),
 		Shader(ShaderClass::_PresetAdditiveSpriteShader),
