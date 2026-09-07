@@ -733,3 +733,5 @@ _MD5Final,0x00606D00,RSA MD5 C-linkage alias of existing byte-verified WWLib C++
 ?isAbleToAttack@Object@@QBE_NXZ,0x00290B73,address read from the REL32 displacement at a placed body
 _htons@4,0x00655682,PE-verified FF25 import thunk to wsock32.dll!htons via IAT 0x00BBA98C; independently read from retail import directory
 _inet_addr@4,0x006556A6,PE-verified FF25 import thunk to wsock32.dll!inet_addr via IAT 0x00BBA974; independently read from retail import directory
+_shutdown@8,0x006556C4,PE-verified FF25 import thunk to wsock32.dll!shutdown via IAT 0x00BBA960; independently read from retail import directory
+_closesocket@4,0x00655676,PE-verified FF25 import thunk to wsock32.dll!closesocket via IAT 0x00BBA994; independently read from retail import directory
