@@ -728,3 +728,6 @@ _ghiSocketSelect,0x0060A9F0,nonport.c explicitly identifies GSISocketSelect as f
 _gpiDebug,0x0069E440,GameSpy release gpiDebug compiles to one ret; ICF-folded with held DX8_Assert; direct target corroborated by full gpiSendData and gpiRecvToBuffer bodies
 _MD5Update,0x00606C40,RSA MD5 C-linkage alias of existing byte-verified WWLib C++ body; independently compiled entire GameSpy source body and all direct calls agree
 _MD5Final,0x00606D00,RSA MD5 C-linkage alias of existing byte-verified WWLib C++ body; independently compiled entire GameSpy source body and all direct calls agree
+?getCurrentWeapon@Object@@QBEPBVWeapon@@PAW4WeaponSlotType@@@Z,0x0028AEBD,address read from the REL32 displacement at a placed body
+?getStatus@Weapon@@QBE?AW4WeaponStatus@@XZ,0x002CCFC7,address read from the REL32 displacement at a placed body
+?isAbleToAttack@Object@@QBE_NXZ,0x00290B73,address read from the REL32 displacement at a placed body
