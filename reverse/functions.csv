@@ -3461,3 +3461,4 @@ _XMP_Shift_Left_Bits,,0x0061BBD0,308,Code/Libraries/Source/WWVegas/WWLib/mpmath.
 ?W3d_Shader_Get_Alpha_Test@@YAHPBUW3dShaderStruct@@@Z,,0x001A4520,9,Code/Libraries/Source/WWVegas/WW3D2/w3d_util.cpp,matched,BFME2 exact BFME1-derived shader helper; unique masked placement
 ?W3d_Shader_Get_Depth_Mask@@YAHPBUW3dShaderStruct@@@Z,,0x001A44D8,9,Code/Libraries/Source/WWVegas/WW3D2/w3d_util.cpp,matched,BFME2 exact BFME1-derived shader helper; unique masked placement
 ?W3d_Shader_Get_Dest_Blend_Func@@YAHPBUW3dShaderStruct@@@Z,,0x001A44E1,9,Code/Libraries/Source/WWVegas/WW3D2/w3d_util.cpp,matched,BFME2 exact BFME1-derived shader helper; unique masked placement
+?W3d_Shader_Get_Detail_Alpha_Func@@YAHPBUW3dShaderStruct@@@Z,,0x001A4517,9,Code/Libraries/Source/WWVegas/WW3D2/w3d_util.cpp,matched,BFME2 exact BFME1-derived shader helper; unique masked placement
