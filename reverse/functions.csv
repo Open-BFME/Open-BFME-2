@@ -3321,3 +3321,4 @@ _XMP_Init,,0x0061BD70,23,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,
 ??1GridLinkClass@@UAE@XZ,,0x00719CC0,7,Code/Libraries/Source/WWVegas/WWMath/gridcull.cpp,matched,BFME2 GridLinkClass destructor reconstructed as an empty virtual destructor
 ??0BufferedFileClass@@QAE@XZ,,0x0061ADE0,32,Code/Libraries/Source/WWVegas/WWLib/BufferedFileClassConstructor.cpp,matched,BFME2 BufferedFileClass default constructor transferred from BFME1 source
 ?getBehaviorModules@Object@@QBEPAPAVBehaviorModule@@XZ,,0x00313E8C,7,Code/GameEngine/Source/GameLogic/Object/Object.cpp,matched,BFME2 Object behaviors-array getter transferred from exact BFME1 source; identical bytes
+?getBodyModule@Object@@QBEPAVBodyModuleInterface@@XZ,,0x00313E9A,7,Code/GameEngine/Source/GameLogic/Object/Object.cpp,matched,BFME2 Object body-module getter transferred from exact BFME1 source; identical bytes

@@ -7,19 +7,29 @@
 // radar data at +0x1A8.
 
 class BehaviorModule;
+class BodyModuleInterface;
 
 class Object
 {
 public:
 	BehaviorModule **getBehaviorModules() const;
+	BodyModuleInterface *getBodyModule() const;
 
 private:
 	unsigned char m_pre[0x18C];
 	BehaviorModule **m_behaviors;	// +0x18C
+	void *m_contain;			// +0x190
+	BodyModuleInterface *m_body;	// +0x194
 };
 
 // ?getBehaviorModules@Object@@QBEPAPAVBehaviorModule@@XZ
 BehaviorModule **Object::getBehaviorModules() const
 {
 	return m_behaviors;
+}
+
+// ?getBodyModule@Object@@QBEPAVBodyModuleInterface@@XZ
+BodyModuleInterface *Object::getBodyModule() const
+{
+	return m_body;
 }
