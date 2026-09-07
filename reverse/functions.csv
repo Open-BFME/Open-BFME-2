@@ -3366,3 +3366,4 @@ _XMP_Shift_Left_Bits,,0x0061BBD0,308,Code/Libraries/Source/WWVegas/WWLib/mpmath.
 ??0CriticalSectionClass@@QAE@XZ,,0x00613AE0,39,Code/Libraries/Source/WWVegas/WWLib/mutex.cpp,matched,CriticalSectionClass constructor; array new folds to the scalar operator
 ??1CriticalSectionClass@@QAE@XZ,,0x00613B10,25,Code/Libraries/Source/WWVegas/WWLib/mutex.cpp,matched,CriticalSectionClass destructor; array delete folds to the scalar operator
 ?Set_Elasticity@ParticleEmitterDefClass@@UAEXM@Z,,0x001B1520,17,Code/Libraries/Source/WWVegas/WW3D2/part_ldr.cpp,matched,BFME2 exact BFME1-derived setter; unique masked placement
+?Set_Emission_Rate@ParticleEmitterDefClass@@UAEXM@Z,,0x001B14A0,17,Code/Libraries/Source/WWVegas/WW3D2/part_ldr.cpp,matched,BFME2 exact BFME1-derived setter; unique masked placement
