@@ -713,3 +713,4 @@ _ArrayLength,0x006989D0,GameSpy dynamic-array length; exact seven-byte source bo
 ___WSAFDIsSet@8,0x006556EE,PE-verified FF25 import thunk to wsock32.dll!__WSAFDIsSet via IAT 0x00BBA944; independently read from retail import directory
 _select@20,0x0065566A,PE-verified FF25 import thunk to wsock32.dll!select via IAT 0x00BBA99C; independently read from retail import directory
 _WSAStartup@8,0x006556B2,PE-verified FF25 import thunk to wsock32.dll!WSAStartup via IAT 0x00BBA96C; independently read from retail import directory
+_ioctlsocket@12,0x006556CA,PE-verified FF25 import thunk to wsock32.dll!ioctlsocket via IAT 0x00BBA95C; independently read from retail import directory
