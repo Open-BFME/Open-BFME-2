@@ -786,3 +786,4 @@ _gpiReadDiskProfile,0x00732B50,GameSpy GP callee; independent unique 1844-byte s
 _TableEnter,0x0060B530,GameSpy callee already byte-verified in Code/GameEngine/Source/GameNetwork/GameSpy/hashtable.c at commit 841946636dd5; direct call from _gpiProfileListAdd
 _gpiRemoveOperation,0x00739560,GameSpy GP callee; independent unique 85-byte source candidate in gpiOperation.c; direct call from _gpiProcessNewProfile corroborates identity
 _gpiDisconnect,0x0072FDF0,GameSpy GP callee; independent unique 424-byte source candidate in gpiConnect.c; direct call from _gpiDeleteProfile corroborates identity
+_gpiSetInfoCache,0x00734520,GameSpy GP callee; independent unique 204-byte source candidate in gpiInfo.c; direct call from _gpiReadDiskProfile corroborates identity
