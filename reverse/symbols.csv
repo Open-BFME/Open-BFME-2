@@ -590,3 +590,4 @@ _strdup,0x006C4C70,address read from the retail REL32 in INIClass::Put_String at
 ?Free_String@WideStringClass@@AAEXXZ,0x00619B80,address read from the retail REL32 in WideStringClass::Uninitialised_Grow at 0x00619E30
 ?Get_Render_Target_Resolution@WW3D@@SAXAAH00AA_N@Z,0x00116FF0,address read from the retail REL32 in CameraClass::Device_To_View_Space at 0x00134650
 ?Update_Frustum@CameraClass@@IBEXXZ,0x001340B0,address read from the REL32 displacement at a placed body
+?insert_unique@?$_Rb_tree@HU?$pair@$$CBHH@_STL@@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHH@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHH@_STL@@@2@@2@U32@ABU?$pair@$$CBHH@2@@Z,0x00422EC0,address read from the retail REL32 in map<int int>::insert at 0x00289147
