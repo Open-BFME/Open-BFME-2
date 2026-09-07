@@ -2651,7 +2651,6 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?Read_Poly_Indices@AABTreeClass@@AAEXAAVChunkLoadClass@@@Z,,0x00197D00,24,Code/Libraries/Source/WWVegas/WW3D2/aabtree.cpp,matched,stlport 4.5.3; placed by masked whole-.text search of the compiled body - single hit
 ?EmergencyFlush@DebugIOFlat@@UAEXXZ,,0x0003FD60,24,Code/Libraries/Source/WWVegas/WWDebug/debug_io_flat.cpp,matched,stlport 4.5.3; placed by masked whole-.text search of the compiled body - single hit
 ??$_Construct@U?$pair@$$CBI_N@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBI_N@0@ABU10@@Z,,0x001FF5AC,23,Code/GameEngine/Source/Common/System/FileSystem.cpp,matched,stlport 4.5.3; placed by masked whole-.text search of the compiled body - single hit
-?Get_Horizontal_FOV@CameraClass@@QBEMXZ,,0x00133D70,23,Code/Libraries/Source/WWVegas/WW3D2/camera.cpp,matched,stlport 4.5.3; placed by masked whole-.text search of the compiled body - single hit
 ??0NodeCompressedMotionStruct@@QAE@XZ,,0x0018F680,23,Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp,matched,stlport 4.5.3; placed by masked whole-.text search of the compiled body - single hit
 ??$Bound@H@@YAHHHH@Z,,0x00117F30,23,Code/Libraries/Source/WWVegas/WW3D2/part_buf.cpp,matched,stlport 4.5.3; placed by masked whole-.text search of the compiled body - single hit
 ?Get_Shader@ParticleEmitterDefClass@@QBEXAAVShaderClass@@@Z,,0x001A1020,23,Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp,matched,stlport 4.5.3; placed by masked whole-.text search of the compiled body - single hit
@@ -3409,3 +3408,18 @@ _XMP_Shift_Left_Bits,,0x0061BBD0,308,Code/Libraries/Source/WWVegas/WWLib/mpmath.
 ?Get_Fog_Func@ShaderClass@@QBE?AW4FogFuncType@1@XZ,,0x001374C0,9,Code/Libraries/Source/WWVegas/WW3D2/shader.cpp,matched,BFME2 exact BFME1-derived shader getter; unique masked placement
 ?Get_NPatch_Enable@ShaderClass@@QBE?AW4NPatchEnableType@1@XZ,,0x00129430,9,Code/Libraries/Source/WWVegas/WW3D2/shader.cpp,matched,BFME2 exact BFME1-derived shader getter; unique masked placement
 ?Get_Primary_Gradient@ShaderClass@@QBE?AW4PriGradientType@1@XZ,,0x000D1A91,9,Code/Libraries/Source/WWVegas/WW3D2/shader.cpp,matched,BFME2 exact BFME1-derived shader getter; unique masked placement
+?Get_Horizontal_FOV@CameraClass@@QBEMXZ,,0x00133D50,23,Code/Libraries/Source/WWVegas/WW3D2/camera.cpp,matched,CameraClass::Get_Horizontal_FOV; repointed after the CameraClass layout correction
+?Get_Vertical_FOV@CameraClass@@QBEMXZ,,0x00133D70,23,Code/Libraries/Source/WWVegas/WW3D2/camera.cpp,matched,CameraClass::Get_Vertical_FOV; the address the horizontal row had been misreading
+?Device_To_View_Space@CameraClass@@QAEXABVVector2@@PAVVector3@@@Z,,0x00134650,215,Code/Libraries/Source/WWVegas/WW3D2/camera.cpp,matched,CameraClass::Device_To_View_Space; the body that showed the layout shift
+?Project_Camera_Space_Point@CameraClass@@QBE?AW4ProjectionResType@1@AAVVector3@@ABV3@@Z,,0x001355E0,386,Code/Libraries/Source/WWVegas/WW3D2/camera.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?Un_Project@CameraClass@@QBEXAAVVector3@@ABVVector2@@@Z,,0x00133BC0,313,Code/Libraries/Source/WWVegas/WW3D2/camera.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?Get_Projection_Matrix@CameraClass@@QAEXPAVMatrix4@@@Z,,0x00134820,159,Code/Libraries/Source/WWVegas/WW3D2/camera.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?Set_View_Plane@CameraClass@@QAEXMM@Z,,0x00133AD0,159,Code/Libraries/Source/WWVegas/WW3D2/camera.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?Compute_Projected_Sphere_Radius@CameraClass@@QAEMMM@Z,,0x00133E80,89,Code/Libraries/Source/WWVegas/WW3D2/camera.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?Set_View_Plane@CameraClass@@QAEXABVVector2@@0@Z,,0x00134020,84,Code/Libraries/Source/WWVegas/WW3D2/camera.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?Set_Aspect_Ratio@CameraClass@@QAEXM@Z,,0x00133B70,76,Code/Libraries/Source/WWVegas/WW3D2/camera.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?Get_Obj_Space_Bounding_Box@CameraClass@@UBEXAAVAABoxClass@@@Z,,0x00133A50,54,Code/Libraries/Source/WWVegas/WW3D2/camera.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?Get_View_Plane@CameraClass@@QBEXAAVVector2@@0@Z,,0x00134080,45,Code/Libraries/Source/WWVegas/WW3D2/camera.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?Set_Clip_Planes@CameraClass@@QAEXMM@Z,,0x00133D00,38,Code/Libraries/Source/WWVegas/WW3D2/camera.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?Get_Obj_Space_Bounding_Sphere@CameraClass@@UBEXAAVSphereClass@@@Z,,0x00133A20,33,Code/Libraries/Source/WWVegas/WW3D2/camera.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?Get_Clip_Planes@CameraClass@@QBEXAAM0@Z,,0x00133D30,27,Code/Libraries/Source/WWVegas/WW3D2/camera.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
