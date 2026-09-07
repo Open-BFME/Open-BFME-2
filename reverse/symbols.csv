@@ -802,3 +802,4 @@ _D3DXMatrixInverse@12,0x0062AF38,PE FF25 thunk at62AF38 references IAT BBA9C0 in
 ?Is_Valid_Display_Format@BfmeEnumerationCaps@@QAE_NHHW4_D3DFORMAT@@@Z,0x0012B330,Recovered view of verified 36-byte DX8Caps dimension filter; format argument is unused and retail enumeration passes the D3D format directly
 ?add_resolution@BfmeEnumerationDesc@@QAEXHHH@Z,0x00121550,Recovered BFME2 descriptor view; complete 158-byte insertion compares width height and depth before adding a new resolution
 ??4BfmeEnumerationDesc@@QAEAAV0@ABV0@@Z,0x00122450,Recovered BFME2 descriptor view; complete 188-byte assignment copies nine strings 304-byte caps 1100-byte adapter and resolution vector
+??0?$VectorClass@VResolutionDescClass@@@@QAE@HPBVResolutionDescClass@@@Z,0x0011F730,Resolution vector constructor; complete 173-byte source body and EH/vtable graph independently verified while reconstructing BFME2 adapter enumeration

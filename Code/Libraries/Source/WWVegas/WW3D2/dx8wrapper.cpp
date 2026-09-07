@@ -924,7 +924,7 @@ class BfmeEnumerationDesc
 
 public:
 
-	BfmeEnumerationDesc(void) : DeviceName(NULL), DeviceVendor(NULL), DevicePlatform(NULL), 
+	BfmeEnumerationDesc(void) : DeviceName(NULL), DeviceVendor(NULL), DevicePlatform(NULL),
 											DriverName(NULL), DriverVendor(NULL), DriverVersion(NULL),
 											HardwareName(NULL), HardwareVendor(NULL), HardwareChipset(NULL)
 	{
@@ -934,7 +934,7 @@ public:
 	{
 	}
 
-	BfmeEnumerationDesc & operator = (const BfmeEnumerationDesc & src) 
+	BfmeEnumerationDesc & operator = (const BfmeEnumerationDesc & src)
 	{
 		set_device_name(src.Get_Device_Name());
 		set_device_vendor(src.Get_Device_Vendor());
@@ -949,7 +949,7 @@ public:
 		AdapterIdentifier=src.AdapterIdentifier;
 		ResArray = src.ResArray;
 		return *this;
-	}	
+	}
 
 	bool operator == (const BfmeEnumerationDesc & /*src*/) { return false; }
 	bool operator != (const BfmeEnumerationDesc & /*src*/) { return true; }
@@ -1000,7 +1000,7 @@ public:
 	BFME_DeviceCaps9				Caps;
 	BFME_AdapterIdentifier9 AdapterIdentifier;
 
-	
+
 	DynamicVectorClass<ResolutionDescClass>	ResArray;
 
 	friend class WW3D;
@@ -1009,8 +1009,8 @@ public:
 
 
 // ?add_resolution@BfmeEnumerationDesc@@ present-unmatched
-inline void BfmeEnumerationDesc::add_resolution(int w,int h,int bits)		
-{ 
+inline void BfmeEnumerationDesc::add_resolution(int w,int h,int bits)
+{
 	bool found = false;
 	for (int i=0; i<ResArray.Count(); i++) {
 		if (	(ResArray[i].Width == w) &&
@@ -1020,9 +1020,9 @@ inline void BfmeEnumerationDesc::add_resolution(int w,int h,int bits)
 			found = true;
 		}
 	}
-	
+
 	if (!found) {
-		ResArray.Add(ResolutionDescClass(w,h,bits)); 
+		ResArray.Add(ResolutionDescClass(w,h,bits));
 	}
 }
 
@@ -1036,7 +1036,7 @@ struct BfmeEnumerationCaps {
 	int MaxDisplayHeight;
 
 	BFME_DeviceCaps9 Caps;
-	bool SupportTnL;	
+	bool SupportTnL;
 	bool SupportDXTC;
 	bool supportGamma;
 	bool SupportNPatches;
@@ -1076,7 +1076,7 @@ typedef char BFME_EnumerationCapsSize[(sizeof(BfmeEnumerationCaps)==740)?1:-1];
 // ?Enumerate_Devices@DX8Wrapper@@KAXXZ
 void DX8Wrapper::Enumerate_Devices()
 {
-	
+
 
 	int adapter_count = reinterpret_cast<BFME_Direct3D9 *>(D3DInterface)->GetAdapterCount();
 	for (int adapter_index=0; adapter_index<adapter_count; adapter_index++) {
