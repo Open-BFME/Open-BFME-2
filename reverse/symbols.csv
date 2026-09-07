@@ -724,3 +724,4 @@ _WSAGetLastError@0,0x00655694,PE thunk ff2580a9bb00 jumps through IAT 0x00BBA980
 _current_time,0x00656BB0,GameSpy nonport.c Win32 current_time returns GetTickCount; folded six-byte FF25 IAT 0x00BBA294 to kernel32.dll!GetTickCount confirmed from PE
 _recv@16,0x006556E8,PE thunk ff2548a9bb00 jumps through IAT 0x00BBA948 to wsock32.dll!recv; Ghidra independently names same thunk
 _ghiSocketSelect,0x0060A9F0,nonport.c explicitly identifies GSISocketSelect as formerly ghiSocketSelect; its release body matches 330 bytes here; corroborated by ghttp send/process calls
+?winGetUserData@GameWindow@@QAEPAXXZ,0x005C4ACD,address read from the REL32 displacement at a placed body
