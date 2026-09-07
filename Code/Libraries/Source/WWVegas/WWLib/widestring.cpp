@@ -43,6 +43,15 @@
 #include "win.h"
 #include <stdio.h>
 
+// BFME's ARRAY operators forward to the scalar ones -- always.h declares
+// operator new[]/delete[] and defines neither, so an inline forwarder is folded
+// away at the call site and `new WCHAR[n]` reaches ??2@YAPAXI@Z (0x0002FDA0)
+// instead of ??_U (0x0002FDE0).  Proven here by the displacement retail wrote
+// inside WideStringClass::Uninitialised_Grow at 0x00619E30, and independently
+// in ini.cpp.
+inline void * __cdecl operator new[](size_t s) { return ::operator new(s); }
+inline void __cdecl operator delete[](void * p) { ::operator delete(p); }
+
 
 ///////////////////////////////////////////////////////////////////
 //	Static member initialzation

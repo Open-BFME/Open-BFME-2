@@ -23,6 +23,13 @@
 #include "wwdebug.h"
 #include <windows.h>
 
+// BFME's ARRAY operators forward to the scalar ones; always.h declares them and
+// defines neither, so an inline forwarder folds away at the call site.  Retail's
+// displacement inside ??0CriticalSectionClass at 0x00613AE0 names
+// ??2@YAPAXI@Z (0x0002FDA0), not ??_U (0x0002FDE0).
+inline void * __cdecl operator new[](size_t s) { return ::operator new(s); }
+inline void __cdecl operator delete[](void * p) { ::operator delete(p); }
+
 
 // ----------------------------------------------------------------------------
 

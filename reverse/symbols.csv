@@ -587,3 +587,4 @@ _strdup,0x006C4C70,address read from the retail REL32 in INIClass::Put_String at
 ?Read_Line@@YAHAAVStraw@@PADHAA_N@Z,0x0061DAA0,address read from the retail REL32 in INIClass::Load(Straw&) at 0x00617B10
 ??1CacheStraw@@UAE@XZ,0x006159A0,address read from the retail REL32 in INIClass::Load(Straw&) at 0x00617B10
 ?Increase_Table_Size@?$IndexClass@HPAUINISection@@@@AAE_NH@Z,0x00616190,address read from the retail REL32 in INIClass::Load(Straw&) at 0x00617B10
+?Free_String@WideStringClass@@AAEXXZ,0x00619B80,address read from the retail REL32 in WideStringClass::Uninitialised_Grow at 0x00619E30

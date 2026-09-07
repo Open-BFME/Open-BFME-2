@@ -3359,3 +3359,9 @@ _XMP_Init,,0x0061BD70,23,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,
 ?Is_Additive@RenderObjClass@@UBEHXZ,,0x0019B080,9,Code/Libraries/Source/WWVegas/WW3D2/camera.cpp,matched,ported from exact BFME1 body; unique masked placement
 ?Is_Alpha@RenderObjClass@@UBEHXZ,,0x0006CF66,9,Code/Libraries/Source/WWVegas/WW3D2/camera.cpp,matched,ported from exact BFME1 body; unique masked placement
 ?Get_User_Data@RenderObjClass@@UAEPAXXZ,,0x0021914D,7,Code/Libraries/Source/WWVegas/WW3D2/camera.cpp,matched,ported from exact BFME1 body; unique masked placement
+_XMP_Shift_Left_Bits,,0x0061BBD0,308,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,XMP_Shift_Left_Bits; pinned address plus an emitted body nothing claimed
+?Uninitialised_Grow@WideStringClass@@AAEXH@Z,,0x00619E30,115,Code/Libraries/Source/WWVegas/WWLib/widestring.cpp,matched,WideStringClass::Uninitialised_Grow; array new folds to the scalar operator
+?CRC_Memory@@YAKPBEKK@Z,,0x006157D0,51,Code/Libraries/Source/WWVegas/WWLib/realcrc.cpp,matched,CRC_Memory; pinned address plus an emitted body nothing claimed
+?Get_Shader@PointGroupClass@@QAE?AVShaderClass@@XZ,,0x0013EDB0,12,Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp,matched,PointGroupClass::Get_Shader; pinned address plus an emitted body nothing claimed
+??0CriticalSectionClass@@QAE@XZ,,0x00613AE0,39,Code/Libraries/Source/WWVegas/WWLib/mutex.cpp,matched,CriticalSectionClass constructor; array new folds to the scalar operator
+??1CriticalSectionClass@@QAE@XZ,,0x00613B10,25,Code/Libraries/Source/WWVegas/WWLib/mutex.cpp,matched,CriticalSectionClass destructor; array delete folds to the scalar operator
