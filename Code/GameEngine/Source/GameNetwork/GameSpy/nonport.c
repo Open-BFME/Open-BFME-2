@@ -1,7 +1,8 @@
 // cl: /MD -Ireference/shims/gamespy -Ireference/open-bfme-1/Code/GameEngine/Source/GameNetwork/GameSpy /DNDEBUG
 /* GameSpy SDK, 2004 vintage -- upstream C source with reconstructed
-   BFME 2 socket-readiness wrappers. CanReceiveOnSocket uses the shared
-   GSISocketSelect result and flag, preserving the retail FD_ISSET checks.
+   BFME 2 socket-readiness wrappers. CanReceiveOnSocket and CanSendOnSocket
+   use the shared GSISocketSelect result and flag, preserving retail FD_ISSET
+   checks.
    Sourced from the Area 51 (Inevitable Entertainment / Midway) source release,
    github.com/bisc67/Area51, Support/NetworkMgr/GameSpy -- the only public
    carrier found with the pre-2005 SDK layout (top-level nonport.c, no common/).
@@ -653,43 +654,11 @@ int CanReceiveOnSocket(SOCKET sock)
 
 int CanSendOnSocket(SOCKET sock)
 {
-#if defined(ENTROPY_NETWORK)
-    return abstract_CanSend( sock );
-#else
-	fd_set fd;
-	struct timeval timeout;
-	int rcode;
-#ifdef SN_SYSTEMS
-	int count = 0;
-
-repeat:
-#endif
-
-	// setup the fd set
-	FD_ZERO(&fd);
-	FD_SET(sock, &fd);
-
-	// setup the timeout
-	timeout.tv_sec = 0;
-	timeout.tv_usec = 0;
-
-	// do the actual select
-	rcode = select(FD_SETSIZE, NULL, &fd, NULL, &timeout);
-	if((rcode == SOCKET_ERROR) || (rcode == 0))
-		return 0;
-
-#ifdef SN_SYSTEMS
-	// check for an error, but don't get stuck forever
-	if(GOAGetLastError(sock))
-	{
-		if(++count == 10)
-			return 0;
-		goto repeat;
-	}
-#endif
-#endif
-	// it was set
-	return 1;
+    int writeFlag;
+    int result = GSISocketSelect(sock, NULL, &writeFlag, NULL);
+    if (result != 1)
+        return 0;
+    return writeFlag;
 }
 
 HOSTENT * getlocalhost(void)
