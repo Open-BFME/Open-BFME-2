@@ -3387,3 +3387,4 @@ _XMP_Shift_Left_Bits,,0x0061BBD0,308,Code/Libraries/Source/WWVegas/WWLib/mpmath.
 ?Get_Dst_Blend_Func@ShaderClass@@QBE?AW4DstBlendFuncType@1@XZ,,0x00125FC7,9,Code/Libraries/Source/WWVegas/WW3D2/part_buf.cpp,matched,BFME2 exact BFME1-derived getter; unique masked placement
 ?Get_Src_Blend_Func@ShaderClass@@QBE?AW4SrcBlendFuncType@1@XZ,,0x00125FD0,9,Code/Libraries/Source/WWVegas/WW3D2/part_buf.cpp,matched,BFME2 exact BFME1-derived getter; unique masked placement
 ?Peek_Texture@MaterialPassClass@@QBEPAVTextureClass@@H@Z,,0x002C7469,11,Code/Libraries/Source/WWVegas/WW3D2/matpass.cpp,matched,BFME2 exact BFME1-derived texture accessor; unique masked placement
+?Are_Sub_Object_Transforms_Dirty@RenderObjClass@@QAE_NXZ,,0x0013B160,10,Code/Libraries/Source/WWVegas/WW3D2/hlod.cpp,matched,BFME2 exact BFME1-derived predicate; unique masked placement
