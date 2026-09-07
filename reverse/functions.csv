@@ -3676,3 +3676,5 @@ _XMP_Shift_Left_Bits,,0x0061BBD0,308,Code/Libraries/Source/WWVegas/WWLib/mpmath.
 ?Decal_Count@RigidDecalMeshClass@@UAEHXZ,,0x005508E9,7,Code/Libraries/Source/WWVegas/WW3D2/decalmsh.cpp,matched,BFME2 exact BFME1-derived decal mesh body
 ?Get_Vertex_Array@MeshGeometryClass@@QAEPAVVector3@@XZ,,0x00709BE0,7,Code/Libraries/Source/WWVegas/WW3D2/decalmsh.cpp,matched,BFME2 exact BFME1-derived decal mesh body
 ?Peek_Model@MeshClass@@QAEPAVMeshModelClass@@XZ,,0x005BE199,7,Code/Libraries/Source/WWVegas/WW3D2/decalmsh.cpp,matched,BFME2 exact BFME1-derived decal mesh body
+?setRopeCurLen@W3DRopeDraw@@UAEXM@Z,,0x00101CDA,14,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DRopeDraw.cpp,matched,BFME2 exact BFME1-derived W3DRopeDraw body
+?size@?$vector@USegInfo@W3DRopeDraw@@V?$allocator@USegInfo@W3DRopeDraw@@@_STL@@@_STL@@QBEIXZ,,0x00329D16,9,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DRopeDraw.cpp,matched,BFME2 exact BFME1-derived W3DRopeDraw body
