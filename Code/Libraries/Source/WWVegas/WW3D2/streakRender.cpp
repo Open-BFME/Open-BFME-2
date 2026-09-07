@@ -106,7 +106,6 @@ StreakRendererClass::StreakRendererClass(const StreakRendererClass & that) :
 	*this = that;
 }
 
-// ??4StreakRendererClass@@QAEAAV0@ABV0@@Z present-unmatched
 StreakRendererClass & StreakRendererClass::operator = (const StreakRendererClass & that)
 {
 	if (this != &that) {
