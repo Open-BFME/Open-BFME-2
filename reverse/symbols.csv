@@ -807,3 +807,4 @@ _D3DXMatrixInverse@12,0x0062AF38,PE FF25 thunk at62AF38 references IAT BBA9C0 in
 ?Init@FrustumClass@@QAEXABVMatrix3D@@ABVVector2@@1MM_N@Z,0x0071E050,"Six-argument Frustum initialization identified by retail RET18 and byte sixth-argument test; true mode writes all8 corner Z coordinates, false mode scales XYZ; independently exact Camera Update passes the orthographic flag"
 _goastrdup,0x0060A870,GameSpy callee already byte-verified in Code/GameEngine/Source/GameNetwork/GameSpy/nonport.c at commit b6d107f81459; direct call from _gpiProcessGetInfo
 _gpiStartSearch,0x00730350,GameSpy GP callee; independent unique 96-byte source candidate in gpiSearch.c; direct call from _gpiFindPlayers corroborates identity
+_htonl@4,0x0065565E,PE-verified FF25 import thunk to wsock32.dll!htonl via IAT 0x00BBA9A4; independently read from retail import directory
