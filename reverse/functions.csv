@@ -4073,3 +4073,4 @@ _GSICancelResolvingHostname,,0x0060ADF0,38,Code/GameEngine/Source/GameNetwork/Ga
 _GSIGetResolvedIP,,0x0060AE20,44,Code/GameEngine/Source/GameNetwork/GameSpy/nonport.c,matched,vendored=gamespy-2004; complete source body at unique placement; release assertions disabled
 _nextlongrand,,0x0060AE50,67,Code/GameEngine/Source/GameNetwork/GameSpy/nonport.c,matched,vendored=gamespy-2004; complete source body at unique placement; release assertions disabled
 _longrand,,0x0060AEA0,79,Code/GameEngine/Source/GameNetwork/GameSpy/nonport.c,matched,vendored=gamespy-2004; complete source body at unique placement; release assertions disabled
+_Util_RandInt,,0x0060AF10,34,Code/GameEngine/Source/GameNetwork/GameSpy/nonport.c,matched,vendored=gamespy-2004; complete source body at unique placement; release assertions disabled
