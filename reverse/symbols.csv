@@ -759,3 +759,4 @@ _htonl@4,0x00655670,PE-verified FF25 import thunk to wsock32.dll!htonl via IAT 0
 _socket@12,0x00655688,PE-verified FF25 import thunk to wsock32.dll!socket via IAT 0x00BBA988; independently read from retail import directory
 ?Create_Device@DX8Wrapper@@KA_NXZ,0x001246C0,BFME2 D3D9 device creation; complete 460-byte reconstruction and unique NVPerfHUD literal; called by verified Set_Render_Device
 ?Get_Format_Name@DX8Wrapper@@SAXIPAVStringClass@@@Z,0x0011FE20,D3D format-name switch; initial Unknown string and FourCC cases independently inspected; two calls in verified Set_Render_Device
+?Do_Onetime_Device_Dependent_Inits@DX8Wrapper@@SAXXZ,0x001245A0,Device subsystem initialization reached after successful verified Create_Device; caps and renderer initialization sequence independently inspected

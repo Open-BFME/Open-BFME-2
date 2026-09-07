@@ -510,12 +510,54 @@ void DX8Wrapper::Do_Onetime_Device_Dependent_Shutdowns(void)
 }
 
 
-// ?Create_Device@DX8Wrapper@@ present-unmatched
+// BFME2 Create_Device consumes D3D9 capabilities and adapter identifiers.
+// Its stack and zero-fill prove a 304-byte caps block and a 1100-byte adapter
+// block with four-byte packing. View the existing retail adapter storage
+// through that layout while the rest of this legacy TU is reconciled.
+#pragma pack(push,4)
+struct BFME_AdapterIdentifier9 {
+ char Driver[512], Description[512], DeviceName[32];
+ LARGE_INTEGER DriverVersion;
+ DWORD VendorId, DeviceId, SubSysId, Revision;
+ GUID DeviceIdentifier;
+ DWORD WHQLLevel;
+};
+#pragma pack(pop)
+struct BFME_DeviceCaps9 { D3DCAPS8 prefix; char extension[304-sizeof(D3DCAPS8)]; };
+typedef char BFME_AdapterIdentifierSize[(sizeof(BFME_AdapterIdentifier9)==1100)?1:-1];
+typedef char BFME_DeviceCapsSize[(sizeof(BFME_DeviceCaps9)==304)?1:-1];
+// Factory method order follows Wine/SDK d3d9.h. The legacy engine pointer
+// names retain their existing symbols; every invoked slot is the D3D9 slot.
+// https://github.com/wine-mirror/wine/blob/master/include/d3d9.h
+// Unused monitor handles use the compatible opaque HANDLE representation.
+struct BFME_Direct3D9 {
+ virtual HRESULT __stdcall QueryInterface(REFIID,void**)=0;
+ virtual ULONG __stdcall AddRef()=0;
+ virtual ULONG __stdcall Release()=0;
+ virtual HRESULT __stdcall RegisterSoftwareDevice(void*)=0;
+ virtual UINT __stdcall GetAdapterCount()=0;
+ virtual HRESULT __stdcall GetAdapterIdentifier(UINT,DWORD,BFME_AdapterIdentifier9*)=0;
+ virtual UINT __stdcall GetAdapterModeCount(UINT,D3DFORMAT)=0;
+ virtual HRESULT __stdcall EnumAdapterModes(UINT,D3DFORMAT,UINT,D3DDISPLAYMODE*)=0;
+ virtual HRESULT __stdcall GetAdapterDisplayMode(UINT,D3DDISPLAYMODE*)=0;
+ virtual HRESULT __stdcall CheckDeviceType(UINT,DWORD,D3DFORMAT,D3DFORMAT,BOOL)=0;
+ virtual HRESULT __stdcall CheckDeviceFormat(UINT,DWORD,D3DFORMAT,DWORD,DWORD,D3DFORMAT)=0;
+ virtual HRESULT __stdcall CheckDeviceMultiSampleType(UINT,DWORD,D3DFORMAT,BOOL,DWORD,DWORD*)=0;
+ virtual HRESULT __stdcall CheckDepthStencilMatch(UINT,DWORD,D3DFORMAT,D3DFORMAT,D3DFORMAT)=0;
+ virtual HRESULT __stdcall CheckDeviceFormatConversion(UINT,DWORD,D3DFORMAT,D3DFORMAT)=0;
+ virtual HRESULT __stdcall GetDeviceCaps(UINT,DWORD,BFME_DeviceCaps9*)=0;
+ virtual HANDLE __stdcall GetAdapterMonitor(UINT)=0;
+ virtual HRESULT __stdcall CreateDevice(UINT,DWORD,HWND,DWORD,D3DPRESENT_PARAMETERS*,IDirect3DDevice8**)=0;
+};
+enum { BFME_D3DCREATE_HARDWARE_VERTEXPROCESSING=0x40, BFME_D3DCREATE_PUREDEVICE=0x10, BFME_D3DDEVCAPS_PUREDEVICE=0x00100000 };
+#define D3DInterface (reinterpret_cast<BFME_Direct3D9 *>(D3DInterface))
+#define CurrentAdapterIdentifier (*reinterpret_cast<BFME_AdapterIdentifier9 *>(&CurrentAdapterIdentifier))
+// ?Create_Device@DX8Wrapper@@KA_NXZ
 bool DX8Wrapper::Create_Device(void)
 {
 	WWASSERT(D3DDevice==NULL);	// for now, once you've created a device, you're stuck with it!
 
-	D3DCAPS8 caps;
+	BFME_DeviceCaps9 caps;
 	if 
 	(
 		FAILED
@@ -532,7 +574,7 @@ bool DX8Wrapper::Create_Device(void)
 		return false;
 	}
 
-	::ZeroMemory(&CurrentAdapterIdentifier, sizeof(D3DADAPTER_IDENTIFIER8));
+	::ZeroMemory(&CurrentAdapterIdentifier, sizeof(BFME_AdapterIdentifier9));
 	
 	if
 	(
@@ -541,7 +583,7 @@ bool DX8Wrapper::Create_Device(void)
 			D3DInterface->GetAdapterIdentifier
 			(
 				CurRenderDevice,
-				D3DENUM_NO_WHQL_LEVEL,
+				0,
 				&CurrentAdapterIdentifier
 			)
 			)	
@@ -552,8 +594,11 @@ bool DX8Wrapper::Create_Device(void)
 
 #ifndef _XBOX
 	
-	Vertex_Processing_Behavior=(caps.DevCaps&D3DDEVCAPS_HWTRANSFORMANDLIGHT) ?
-		D3DCREATE_MIXED_VERTEXPROCESSING : D3DCREATE_SOFTWARE_VERTEXPROCESSING;
+	Vertex_Processing_Behavior=(caps.prefix.VertexShaderVersion >= 0xfffe0101) ?
+		BFME_D3DCREATE_HARDWARE_VERTEXPROCESSING : D3DCREATE_SOFTWARE_VERTEXPROCESSING;
+ if ((Vertex_Processing_Behavior & BFME_D3DCREATE_HARDWARE_VERTEXPROCESSING) &&
+     (caps.prefix.DevCaps & BFME_D3DDEVCAPS_PUREDEVICE))
+  Vertex_Processing_Behavior |= BFME_D3DCREATE_PUREDEVICE;
 
 	// enable this when all 'get' dx calls are removed KJM
 	/*if (caps.DevCaps&D3DDEVCAPS_PUREDEVICE)
@@ -579,10 +624,21 @@ bool DX8Wrapper::Create_Device(void)
 	Vertex_Processing_Behavior|=D3DCREATE_FPU_PRESERVE;
 #endif
 
-	HRESULT hr=D3DInterface->CreateDevice
+	DWORD deviceType = D3DDEVTYPE_HAL;
+ UINT adapter = CurRenderDevice;
+ for (UINT i=0; i<D3DInterface->GetAdapterCount(); ++i) {
+  BFME_AdapterIdentifier9 identifier;
+  if (SUCCEEDED(D3DInterface->GetAdapterIdentifier(i,0,&identifier)) &&
+      strcmp(identifier.Description,"NVIDIA NVPerfHUD")==0) {
+   adapter=i;
+   deviceType=D3DDEVTYPE_REF;
+   break;
+  }
+ }
+ HRESULT hr=D3DInterface->CreateDevice
 	(
-		CurRenderDevice,
-		WW3D_DEVTYPE,
+		adapter,
+		deviceType,
 		_Hwnd,
 		Vertex_Processing_Behavior,
 		&_PresentParameters,
@@ -629,6 +685,9 @@ bool DX8Wrapper::Create_Device(void)
 	Do_Onetime_Device_Dependent_Inits();
 	return true;
 }
+
+#undef D3DInterface
+#undef CurrentAdapterIdentifier
 
 // ?Reset_Device@DX8Wrapper@@ present-unmatched
 bool DX8Wrapper::Reset_Device(bool reload_assets)
