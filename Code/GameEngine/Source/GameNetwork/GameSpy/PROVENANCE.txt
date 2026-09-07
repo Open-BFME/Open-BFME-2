@@ -199,3 +199,14 @@ global and per-request setters. The helper/request-setter names are descriptive
 reconstruction names; their original names are absent from the stripped image.
 These are source reconciliations, not pristine upstream functions. Every ledger
 claim still requires its own complete byte match, literal check and callee proof.
+
+BFME2 server-browsing reconciliation, 2026-09-07
+------------------------------------------------
+sb_server.c and sb_serverlist.c use TU-local names matching the retail imports:
+_strcmpi for case-insensitive CRT comparisons, and htonl/htons for both directions
+of the x86 byte reversal. Separate import slots are accepted only when the PE
+explicitly names the same DLL and export. sb_server.c also validates the first
+digit after an optional minus sign when reading integer keys. In
+sb_serverbrowsing.c, the added-server callback treats pending basic/full queries
+as updates already in progress. These ordinary-C changes are inferred from
+complete retail bodies, including the actual callback pointers in their callers.

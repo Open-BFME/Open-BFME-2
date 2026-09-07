@@ -1,5 +1,6 @@
 // cl: /MD -Ireference/shims/gamespy /DNDEBUG -Ireference/open-bfme-1/Code/GameEngine/Source/GameNetwork/GameSpy/serverbrowsing
-/* GameSpy SDK, 2004 vintage -- upstream C source with the BFME2 CRT comparison-name adaptation below.
+/* GameSpy SDK, 2004 vintage -- upstream C source with BFME2
+   import-name and integer-validation adaptations documented below.
    Sourced from the Area 51 (Inevitable Entertainment / Midway) source release,
    github.com/bisc67/Area51, Support/NetworkMgr/GameSpy -- the only public
    carrier found with the pre-2005 SDK layout (top-level nonport.c, no common/).
@@ -27,6 +28,13 @@
 // Both folded reference-string/key-value comparison callbacks use that slot.
 #undef strcasecmp
 #define strcasecmp _strcmpi
+
+// This x86 BFME2 image imports htonl/htons for both directions of the
+// same 32/16-bit byte reversal. Keep the actual PE import names in this TU.
+#undef ntohl
+#define ntohl htonl
+#undef ntohs
+#define ntohs htons
 #endif
 
 //for the unique value list
@@ -201,10 +209,15 @@ int SBServerGetIntValueA(SBServer server, const char *key, int idefault)
 	if (strcmp(key,"ping") == 0) //ooh! they want the ping!
 		return SBServerGetPing(server);
 	s = SBServerGetStringValueA(server, key, NULL);
-	if (s == NULL || !isdigit((unsigned char)*s)) // empty-string/non-numeric should return idefault
+	if (s == NULL)
 		return idefault;
-	else
-		return atoi(s);
+	{
+		// BFME2 validates the first digit after an optional minus sign.
+		const char *digits = (*s != '-') ? s : s + 1;
+		if (digits == NULL || !isdigit((unsigned char)*digits))
+			return idefault;
+	}
+	return atoi(s);
 }
 #ifdef GSI_UNICODE
 int SBServerGetIntValueW(SBServer server, const unsigned short *key, int idefault)
