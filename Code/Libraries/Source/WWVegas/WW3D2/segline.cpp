@@ -35,7 +35,7 @@
  * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-#include "rendobj.h"	// the bfmerendobj shim has to win the include guard
+#include "../../../../../reference/shims/bfmesegline/rendobj.h" // scoped retail collision slots
 #include "segline.h"
 #include "ww3d.h"
 #include "rinfo.h"
@@ -322,6 +322,7 @@ void SegmentedLineClass::Set_Texture_Mapping_Mode(SegLineRendererClass::TextureM
 	LineRenderer.Set_Texture_Mapping_Mode(mode);
 }
 
+// ?Set_Texture_Tile_Factor@SegmentedLineClass@@QAEXM@Z present-unmatched
 void SegmentedLineClass::Set_Texture_Tile_Factor(float factor)
 {
 	// BFME field-order drift: retail's SegLineRendererClass::Set_Texture_Tile_Factor
@@ -373,6 +374,7 @@ int SegmentedLineClass::Get_Num_Polys(void) const
 	return 2 * (PointLocations.Count() - 1) * subdivision_factor;
 }
 
+// ?Render@SegmentedLineClass@@UAEXAAVRenderInfoClass@@@Z present-unmatched
 void SegmentedLineClass::Render(RenderInfoClass & rinfo)
 {
 	if (Is_Not_Hidden_At_All() == false) {
