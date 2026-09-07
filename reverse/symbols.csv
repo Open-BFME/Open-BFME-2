@@ -817,3 +817,4 @@ _msleep,0x0060A830,GameSpy callee already byte-verified in Code/GameEngine/Sourc
 _getsockname@12,0x006556DC,PE-verified FF25 import thunk to wsock32.dll!getsockname via IAT 0x00BBA950; independently read from retail import directory
 _htons@4,0x006556B8,PE-verified FF25 import thunk to wsock32.dll!htons via IAT 0x00BBA968; independently read from retail import directory
 _recvfrom@24,0x00655664,PE-verified FF25 import thunk to wsock32.dll!recvfrom via IAT 0x00BBA940; independently read from retail import directory
+_inet_ntoa@4,0x0075B4CC,PE-verified FF25 import thunk to wsock32.dll!inet_ntoa via IAT 0x00BBA9A0; independently read from retail import directory
