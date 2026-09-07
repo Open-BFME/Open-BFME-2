@@ -36,4 +36,5 @@ inline void _Classic_monetary_formats(money_base::pattern& positive,money_base::
 moneypunct<char,true>::moneypunct(size_t refs) : locale::facet(refs) { _Classic_monetary_formats(_M_pos_format,_M_neg_format); }
 moneypunct<char,false>::moneypunct(size_t refs) : locale::facet(refs) { _Classic_monetary_formats(_M_pos_format,_M_neg_format); }
 moneypunct<wchar_t,true>::moneypunct(size_t refs) : locale::facet(refs) { _Classic_monetary_formats(_M_pos_format,_M_neg_format); }
+moneypunct<wchar_t,false>::moneypunct(size_t refs) : locale::facet(refs) { _Classic_monetary_formats(_M_pos_format,_M_neg_format); }
 }
