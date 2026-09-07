@@ -57,6 +57,7 @@ def _stub_gate(monkeypatch, red=()):
     monkeypatch.setattr(build, "verify_functions", check("functions", ["patch"]))
     monkeypatch.setattr(build, "load_function_rows", lambda: [])
     monkeypatch.setattr(build, "verify_string_refs", check("string-refs"))
+    monkeypatch.setattr(build, "verify_float_refs", check("float-refs"))
     monkeypatch.setattr(build, "verify_dir32_consistency", check("dir32"))
     monkeypatch.setattr(build, "verify_source_claims", check("source-claims"))
     monkeypatch.setattr(build, "verify_noop_patch", check("noop"))

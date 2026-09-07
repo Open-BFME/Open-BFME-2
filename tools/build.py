@@ -277,7 +277,8 @@ def read_object_symbols(data):
         value = u32(data, offset + 8)
         section_number = struct.unpack_from("<h", data, offset + 12)[0]
         aux_count = data[offset + 17]
-        symbols.append({"name": name, "value": value, "section": section_number, "aux": aux_count})
+        symbols.append({"name": name, "value": value, "section": section_number,
+                        "storage": data[offset + 16], "aux": aux_count})
         for _ in range(aux_count):
             index += 1
             offset = symbol_table + index * 18
@@ -1543,6 +1544,55 @@ def verify_string_refs(rows):
     print(f"String-ref verify: OK ({checked} literals + {empty_ok} empty-string refs verified, 0 unverified/skipped)")
 
 
+REAL_LITERAL_RE = re.compile(r"__real@(?:[0-9a-fA-F]{8}|[0-9a-fA-F]{16})$")
+
+
+def verify_float_refs(rows):
+    """Verify compiler float/double literals independently of DIR32 patching.
+
+    A copied pointer can make a source return 1.0f while retail loads 0.0f.
+    Compare the object's literal bits at the referenced retail address, even
+    if only one function uses that symbol. Equal literals may legitimately
+    reside at several addresses because the linker need not pool them.
+    """
+    checked, mismatches = 0, []
+    for row in rows:
+        obj = require_row_object(row)
+        size = int(row["target_size"])
+        target = read_target_bytes(int(row["target_rva"], 16), size)
+        try:
+            body, relocs = read_object_symbol_bytes(obj, ledger_object_symbol(row), size)
+        except ValueError as exc:
+            mismatches.append((row["name"], "<body>", f"unverifiable: {exc}"))
+            continue
+        for offset, kind, symbol in relocs:
+            if kind != 0x0006 or not REAL_LITERAL_RE.fullmatch(symbol) or offset + 4 > size:
+                continue
+            width = len(symbol.split("@", 1)[1]) // 2
+            try:
+                literal, _ = read_object_symbol_bytes(obj, symbol)
+                if len(literal) < width:
+                    raise ValueError("truncated compiler literal")
+                address = struct.unpack_from("<I", target, offset)[0]
+                addend = struct.unpack_from("<I", body, offset)[0]
+                rva = ((address - addend) & 0xFFFFFFFF) - 0x400000
+                actual = read_target_bytes(rva, width)
+                expected = literal[:width]
+                if actual != expected:
+                    mismatches.append((row["name"], symbol,
+                                       f"source={expected.hex()} retail={actual.hex()} at RVA 0x{rva:08X}"))
+                else:
+                    checked += 1
+            except (ValueError, struct.error) as exc:
+                mismatches.append((row["name"], symbol, f"unverifiable: {exc}"))
+    if mismatches:
+        print(f"Float-ref verify: FAIL {len(mismatches)} mismatch(es)")
+        for name, symbol, detail in mismatches[:12]:
+            print(f"    {name}: {symbol} {detail}")
+        raise SystemExit(1)
+    print(f"Float-ref verify: OK ({checked} compiler literals verified)")
+
+
 def verify_dir32_consistency(rows):
     """Regression gate for the non-string DIR32s (globals/vtables/func-addrs) build.py masks. A symbol
     has one address, so every reference must resolve to the same base once the addend is subtracted
@@ -1554,6 +1604,7 @@ def verify_dir32_consistency(rows):
     from collections import defaultdict
     whitelist_path = ROOT / "reverse" / "dir32_consistency_whitelist.txt"
     sym2base = defaultdict(set)
+    static_symbols = {}
     for row in rows:
         obj = require_row_object(row)
         trva, tsz = int(row["target_rva"], 16), int(row["target_size"])
@@ -1579,9 +1630,22 @@ def verify_dir32_consistency(rows):
             # addresses legitimately resolves its handler to N stub addresses.
             if sym.startswith("__ehhandler$"):
                 continue
+            # The literal verifier checks their actual bits independently.
+            # Distinct copies of the same constant need not share an address.
+            if REAL_LITERAL_RE.fullmatch(sym):
+                continue
+            if obj not in static_symbols:
+                stat = obj.stat()
+                _, _, symbols = _object_layout(str(obj), stat.st_mtime_ns, stat.st_size)
+                static_symbols[obj] = {s["name"] for s in symbols
+                                       if s.get("storage") == 3 and s["section"] > 0}
+            # IMAGE_SYM_CLASS_STATIC data belongs to its translation unit.
+            # Header-local constants can share a spelling in different objects;
+            # their addresses must agree only within the same source file.
+            identity = f"{row['source']}::{sym}" if sym in static_symbols[obj] else sym
             final = struct.unpack_from("<I", target, off)[0]
             addend = struct.unpack_from("<I", body, off)[0]
-            sym2base[sym].add((final - addend) & 0xFFFFFFFF)
+            sym2base[identity].add((final - addend) & 0xFFFFFFFF)
     inconsistent = sorted(s for s, b in sym2base.items() if len(b) > 1)
     if not whitelist_path.exists():
         # NOT self-seeding. Auto-writing this file is how 18 entries got in
@@ -1682,6 +1746,7 @@ def main(only=None):
         rows = [row for row in load_function_rows()
                 if any(sel in row["source"] or sel in row["name"] for sel in only)]
         verify_string_refs(rows)
+        verify_float_refs(rows)
         return
     print("Full verification")
     # Identity, not bytes: verify_functions proves each row's bytes, and a
@@ -1719,6 +1784,7 @@ def main(only=None):
     patches = run("functions", verify_functions)
     rows = load_function_rows()
     run("string-refs", lambda: verify_string_refs(rows))
+    run("float-refs", lambda: verify_float_refs(rows))
     run("dir32 consistency", lambda: verify_dir32_consistency(rows))
     run("pin consistency", pin_consistency.verify)
     run("source claims", verify_source_claims)
