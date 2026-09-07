@@ -3539,3 +3539,9 @@ _XMP_Shift_Left_Bits,,0x0061BBD0,308,Code/Libraries/Source/WWVegas/WWLib/mpmath.
 ?Get_Projection_Matrix@CameraClass@@QAEABVMatrix4@@XZ,,0x00134A60,16,Code/Libraries/Source/WWVegas/WW3D2/camera.cpp,matched,BFME2 exact BFME1-derived camera getter; unique masked placement
 ?Is_Coloring_Enabled@WW3D@@SA_NXZ,,0x0013C5C0,11,Code/Libraries/Source/WWVegas/WW3D2/vertmaterial.cpp,matched,BFME2 exact BFME1-derived predicate; unique masked placement
 ?Get_Vel_Inherit@ParticleEmitterDefClass@@QBEMXZ,,0x001A1000,7,Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp,matched,BFME2 exact BFME1-derived getter; unique masked placement
+?Init_From_Point_Or_Spot_Light@InputLightStruct@LightEnvironmentClass@@QAEXABVLightClass@@ABVVector3@@@Z,,0x0013FB60,1192,Code/Libraries/Source/WWVegas/WW3D2/lightenvironment.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+??0CameraClass@@QAE@XZ,,0x00134AB0,409,Code/Libraries/Source/WWVegas/WW3D2/camera.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?Get_D3D_Projection_Matrix@CameraClass@@QAEXPAVMatrix4@@@Z,,0x001348C0,285,Code/Libraries/Source/WWVegas/WW3D2/camera.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?Init_From_Directional_Light@InputLightStruct@LightEnvironmentClass@@QAEXABVLightClass@@ABVVector3@@@Z,,0x0013F250,140,Code/Libraries/Source/WWVegas/WW3D2/lightenvironment.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?Init@InputLightStruct@LightEnvironmentClass@@QAEXABVLightClass@@ABVVector3@@@Z,,0x00140730,50,Code/Libraries/Source/WWVegas/WW3D2/lightenvironment.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?Get_Spot_Direction@LightClass@@QBEXAAVVector3@@@Z,,0x0011C730,33,Code/Libraries/Source/WWVegas/WW3D2/lightenvironment.cpp,matched,placed by masked whole-.text search of the compiled body - single hit

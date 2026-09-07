@@ -652,7 +652,7 @@ protected:
 
 	// End pad keeps sizeof(RenderObjClass) stable at 0xC8 (validated for Camera
 	// FrustumValid@0x100 on the sweep-shim path).
-	char								_bfme_base_pad[0x28];
+	char								_bfme_base_pad[0x24];
 
 	friend class SceneClass;
 	friend class RenderObjProxyClass;

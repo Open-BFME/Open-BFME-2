@@ -620,3 +620,5 @@ _strdup,0x006C4C70,address read from the retail REL32 in INIClass::Put_String at
 ??0Animatable3DObjClass@@QAE@ABV0@@Z,0x001A5C50,address read from the REL32 displacement at a placed body
 ??0Animatable3DObjClass@@QAE@PBD@Z,0x001A4900,address read from the REL32 displacement at a placed body
 ??4HLodClass@@QAEAAV0@ABV0@@Z,0x0019FF50,address read from the REL32 displacement at a placed body
+?Get_Position@RenderObjClass@@QBE?AVVector3@@XZ,0x0013B8A0,address read from the REL32 displacement at a placed body
+?Set_Transform@RenderObjClass@@UAEXABVMatrix3D@@@Z,0x0013B790,address read from the REL32 displacement at a placed body
