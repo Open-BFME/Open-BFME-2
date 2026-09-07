@@ -3562,3 +3562,4 @@ _XMP_Shift_Left_Bits,,0x0061BBD0,308,Code/Libraries/Source/WWVegas/WWLib/mpmath.
 ?getNumSkirmishSides@SidesList@@QAEHXZ,,0x0016809F,7,Code/GameEngine/Source/Common/RTS/Player.cpp,matched,BFME2 exact BFME1-derived SidesList getter; unique masked placement
 ?getNumSkirmishTeams@SidesList@@QAEHXZ,,0x00313840,7,Code/GameEngine/Source/Common/RTS/Player.cpp,matched,BFME2 exact BFME1-derived SidesList getter; unique masked placement
 ?getPlayerNightColor@Player@@QBEHXZ,,0x00509D29,7,Code/GameEngine/Source/Common/RTS/Player.cpp,matched,BFME2 exact BFME1-derived Player getter; unique masked placement
+?Get_Flag@LightClass@@QBEHW4FlagsType@1@@Z,,0x0013F220,19,Code/Libraries/Source/WWVegas/WW3D2/lightenvironment.cpp,matched,BFME2 exact BFME1-derived light getter; unique masked placement
