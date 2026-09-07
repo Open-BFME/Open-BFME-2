@@ -858,3 +858,4 @@ _SetSendBufferSize,0x0060A940,GameSpy callee already byte-verified in Code/GameE
 _ArraySearch,0x0060A690,GameSpy callee already byte-verified in Code/GameEngine/Source/GameNetwork/GameSpy/darray.c at commit 13cfa3373708; direct call from _gpiFreeTransfer
 _gpiProcessTransfer,0x00737EA0,GameSpy GP callee; independent unique 388-byte source candidate in gpiTransfer.c; direct call from _gpiProcessTransfers corroborates identity
 _gpiProcessCurrentFile,0x00737B00,GameSpy GP callee; independent unique 914-byte source candidate in gpiTransfer.c; direct call from _gpiProcessTransfer corroborates identity
+_MD5Init,0x00606220,GameSpy C-linkage alias; all 40 compiled MD5Init bytes exactly equal the held WWLib C++ body at this address including every RFC1321 initialization word; no relocations

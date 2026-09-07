@@ -4869,3 +4869,4 @@ _piAddReadyChangedCallback,,0x0069F7D0,71,Code/GameEngine/Source/GameNetwork/Gam
 _gpiProcessTransfers,,0x00738030,69,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gpiTransfer.c,matched,vendored=gamespy-2004; pinned BFME1 reference including inherited EA edits; unique whole-body match; gpiProcessTransfers
 _gpiHandleData,,0x00737110,420,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gpiTransfer.c,matched,vendored=gamespy-2004; pinned BFME1 reference including inherited EA edits; unique whole-body match; gpiHandleData
 _gpiProcessTransfer,,0x00737EA0,388,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gpiTransfer.c,matched,vendored=gamespy-2004; pinned BFME1 reference including inherited EA edits; unique whole-body match; gpiProcessTransfer
+_gpiHandleBegin,,0x00736C70,560,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gpiTransfer.c,matched,vendored=gamespy-2004; pinned BFME1 reference including inherited EA edits; unique whole-body match; gpiHandleBegin
