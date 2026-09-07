@@ -4,7 +4,9 @@ import importlib.util
 import re
 import subprocess
 import sys
+import tempfile
 from pathlib import Path
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[2]
 TOOL = ROOT / "tools" / "progress.py"
@@ -18,6 +20,27 @@ spec.loader.exec_module(progress)
 
 def row(name, rva, size, source):
     return {(name, f"0x{rva:X}"): (size, source)}
+
+
+def test_marker_delta_handles_legacy_source_encoding():
+    with tempfile.TemporaryDirectory() as directory:
+        repo = Path(directory)
+        subprocess.run(["git", "init", "-q", str(repo)], check=True)
+        source = repo / "Code" / "legacy.cpp"
+        source.parent.mkdir()
+        source.write_bytes(b"// Copyright \xa9 EA\n// present-unmatched: old\n")
+        subprocess.run(["git", "add", "Code/legacy.cpp"], cwd=repo, check=True)
+        subprocess.run([
+            "git", "-c", "user.name=Progress Test", "-c",
+            "user.email=progress@example.invalid",
+            "commit", "-qm", "baseline",
+        ], cwd=repo, check=True)
+        source.write_bytes(
+            b"// Copyright \xa9 EA\n// absent-from-retail: new\n"
+            b"// present-unmatched: another\n")
+        with patch.object(progress, "ROOT", repo):
+            assert progress.marker_delta("HEAD", None) == 1
+    print("PASS legacy source encoding preserves marker delta")
 
 
 def test_union_and_cpp_precedence():
@@ -409,6 +432,7 @@ def test_readme_never_overstates_coverage():
 
 
 def main():
+    test_marker_delta_handles_legacy_source_encoding()
     test_union_and_cpp_precedence()
     test_text_clipping()
     test_unknown_source_suffix_fails()

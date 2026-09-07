@@ -532,7 +532,10 @@ def print_real_code(padding, denominator, old_stats, new_stats, old_split, new_s
 def marker_delta(ref1, ref2):
     """Net present-unmatched/absent-from-retail markers added between states."""
     cmd = ["git", "diff", ref1] + ([ref2] if ref2 else []) + ["--", "Code"]
-    diff = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True).stdout
+    # Original engine sources include legacy-encoded copyright comments. The
+    # markers are ASCII, so undecodable comment bytes must not stop the audit.
+    diff = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True,
+                          encoding="utf-8", errors="replace", check=True).stdout
     added = removed = 0
     for line in diff.splitlines():
         if line.startswith("+++") or line.startswith("---"):
