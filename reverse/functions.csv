@@ -3707,3 +3707,5 @@ _XMP_Shift_Left_Bits,,0x0061BBD0,308,Code/Libraries/Source/WWVegas/WWLib/mpmath.
 ?Get_Render_Hook@RenderObjClass@@QAEPAVRenderHookClass@@XZ,,0x003EFCA4,7,Code/Libraries/Source/WWVegas/WW3D2/scene.cpp,matched,BFME2 exact BFME1-derived RenderObj getter
 ?Get_Lighting@VertexMaterialClass@@QBE_NXZ,,0x0012D2B0,4,Code/Libraries/Source/WWVegas/WW3D2/sortingrenderer.cpp,matched,BFME2 exact BFME1-derived material getter
 ?Is_Valid@RegistryClass@@QAE_NXZ,,0x00098CBC,4,Code/Libraries/Source/WWVegas/WWLib/registry.cpp,matched,BFME2 exact BFME1-derived registry predicate
+?Get_Num_Polys@DynamicMeshClass@@UBEHXZ,,0x005BE1BC,7,Code/Libraries/Source/WWVegas/WW3D2/dynamesh.cpp,matched,BFME2 exact BFME1-derived DynamicMesh getter
+?Get_Num_Vertices@DynamicMeshClass@@UBEHXZ,,0x005BE1C3,7,Code/Libraries/Source/WWVegas/WW3D2/dynamesh.cpp,matched,BFME2 exact BFME1-derived DynamicMesh getter
