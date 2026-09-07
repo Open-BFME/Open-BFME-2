@@ -3695,3 +3695,6 @@ _XMP_Shift_Left_Bits,,0x0061BBD0,308,Code/Libraries/Source/WWVegas/WWLib/mpmath.
 ?Reset@SineLinearOffsetTextureMapperClass@@UAEXXZ,,0x00182B80,17,Code/Libraries/Source/WWVegas/WW3D2/mapper.cpp,matched,BFME2 exact BFME1-derived texture mapper body
 ?Reset@ZigZagLinearOffsetTextureMapperClass@@UAEXXZ,,0x00183220,17,Code/Libraries/Source/WWVegas/WW3D2/mapper.cpp,matched,BFME2 exact BFME1-derived texture mapper body
 ?Set_Frame_Per_Second@GridTextureMapperClass@@QAEXM@Z,,0x00184AB0,17,Code/Libraries/Source/WWVegas/WW3D2/mapper.cpp,matched,BFME2 exact BFME1-derived texture mapper body
+??A?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QBEABVAsciiString@@I@Z,,0x0042096B,12,Code/GameEngine/Source/Common/Thing/ThingFactory.cpp,matched,BFME2 exact BFME1-derived ThingFactory helper
+?friend_getNextTemplate@ThingTemplate@@QBEPAV1@XZ,,0x00406D4A,7,Code/GameEngine/Source/Common/Thing/ThingFactory.cpp,matched,BFME2 exact BFME1-derived ThingFactory helper
+?markAsOverride@Overridable@@QAEXXZ,,0x00248D08,5,Code/GameEngine/Source/Common/Thing/ThingFactory.cpp,matched,BFME2 exact BFME1-derived ThingFactory helper
