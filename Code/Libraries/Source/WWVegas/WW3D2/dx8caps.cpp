@@ -1043,8 +1043,173 @@ void DX8Caps::Check_Shader_Support(const D3DCAPS8& caps)
 	retail->capsLog += CapsWorkString;
 }
 
-// ?Check_Driver_Version_Status@DX8Caps@@AAEXXZ
-// Body in DX8Caps_Check_Driver_Version_Status.asm (exact 713B retail).
+// Retail uses msvcr71.dll!_strcmpi for the driver DLL names (IAT 0xBBA518).
+// Its vendor/status/build switch tables were checked independently of code relocations.
+void DX8Caps::Check_Driver_Version_Status()
+{
+ BFME_DX8Caps_ComputeFields *retail=(BFME_DX8Caps_ComputeFields *)this;
+	retail->driverVersionStatus=DRIVER_STATUS_UNKNOWN;
+
+	switch (retail->vendorId) {
+	// All 3Dfx drivers are bad
+	case VENDOR_3DFX:
+		retail->driverVersionStatus=DRIVER_STATUS_BAD;
+		break;
+	case VENDOR_NVIDIA:
+		if (!_strcmpi(retail->driverDLL,"nv4.dll")) {
+			switch (retail->driverBuildVersion) {
+			case 327:	// 5.00.2165.327
+				retail->driverVersionStatus=DRIVER_STATUS_BAD;
+			}
+		}
+
+		if (!_strcmpi(retail->driverDLL,"nv4_disp.dll") || !_strcmpi(retail->driverDLL,"nvdd32.dll")) {
+			switch (retail->driverBuildVersion) {
+			// 23.11 Is known to be very unstable
+			case 2311:
+				retail->driverVersionStatus=DRIVER_STATUS_BAD;
+				break;
+			// 21.83 Has occasional lock-up at start or exit
+			// Darren Korman (DKORMAN2389-2K GeForce3)
+			case 2183:
+			case 2240:
+				retail->driverVersionStatus=DRIVER_STATUS_OK;
+				break;
+			// 21.81 Has occasional lock-up at start or exit
+			case 2181:
+				retail->driverVersionStatus=DRIVER_STATUS_OK;
+				break;
+			case 1440:		// Denzil had problems in opening 16 bit modes, fixed by updating driver
+				retail->driverVersionStatus=DRIVER_STATUS_BAD;
+				break;
+			case 1410:
+				retail->driverVersionStatus=DRIVER_STATUS_BAD;
+				break;
+			case 1260:	// Byon - BYONG
+				retail->driverVersionStatus=DRIVER_STATUS_BAD;
+				break;
+			case 1241:	// Steve Tall gets occasional blue screening with this driver version (blue screen happens in the driver dll)
+				retail->driverVersionStatus=DRIVER_STATUS_BAD;
+				break;
+			case 1240:	// Robert Powers
+				retail->driverVersionStatus=DRIVER_STATUS_BAD;
+				break;
+			case 1101:
+				retail->driverVersionStatus=DRIVER_STATUS_BAD;//retail->driverVersionStatus=DRIVER_STATUS_UNKNOWN;
+				break;
+			case 650:	// Rich Donelly - RENEGADE-JENNA2
+				retail->driverVersionStatus=DRIVER_STATUS_BAD;//retail->driverVersionStatus=DRIVER_STATUS_UNKNOWN;
+				break;
+			case 649:
+				retail->driverVersionStatus=DRIVER_STATUS_BAD;//retail->driverVersionStatus=DRIVER_STATUS_UNKNOWN;
+				break;
+			case 635:
+				retail->driverVersionStatus=DRIVER_STATUS_BAD;
+				break;
+			case 634:	// Sean Decker - SDECKER2339-2K
+				retail->driverVersionStatus=DRIVER_STATUS_BAD;//retail->driverVersionStatus=DRIVER_STATUS_UNKNOWN;
+				break;
+			case 625:	// TESTIBM240
+				retail->driverVersionStatus=DRIVER_STATUS_BAD;//retail->driverVersionStatus=DRIVER_STATUS_UNKNOWN;
+				break;
+			case 618:
+				retail->driverVersionStatus=DRIVER_STATUS_BAD;
+				break;
+			default:
+				if (retail->driverBuildVersion<2000) {	// All under 20.xx versions are too old!
+					retail->driverVersionStatus=DRIVER_STATUS_BAD;
+				}
+				else {
+					retail->driverVersionStatus=DRIVER_STATUS_UNKNOWN;
+				}
+			}
+		}
+		// Elsa OEM drivers?
+		if (!_strcmpi(retail->driverDLL,"egdad.dll")) {
+			// We know of version 5.9.0.312 (asked MShelling if he the drivers seem ok)
+			switch (retail->driverBuildVersion) {
+			default:
+				retail->driverVersionStatus=DRIVER_STATUS_UNKNOWN;
+			case 312:
+				retail->driverVersionStatus=DRIVER_STATUS_OK;
+			}
+		}
+
+		// Elsa GLoria
+		if (!_strcmpi(retail->driverDLL,"egliid.dll")) {
+			switch (retail->driverBuildVersion) {
+			default:
+				retail->driverVersionStatus=DRIVER_STATUS_UNKNOWN;
+			case 172:
+				retail->driverVersionStatus=DRIVER_STATUS_OK;
+			}
+
+		}
+
+		// ASUS OEM drivers?
+		if (!_strcmpi(retail->driverDLL,"v66_disp.dll")) {
+		// TOMSS1: 5.0.2195.379
+		}
+		break;
+	case VENDOR_ATI:
+		if (!_strcmpi(retail->driverDLL,"ati2dvag.dll")) {
+			switch (retail->driverBuildVersion) {
+			case 3287:
+				retail->driverVersionStatus=DRIVER_STATUS_UNKNOWN;
+				break;
+			case 3281:
+				retail->driverVersionStatus=DRIVER_STATUS_OK;	// Not really ok, but we have to accept something...
+				break;
+			case 3063:
+				retail->driverVersionStatus=DRIVER_STATUS_BAD;
+				break;
+			case 3273:
+				retail->driverVersionStatus=DRIVER_STATUS_BAD;
+				break;
+			case 3276:
+				retail->driverVersionStatus=DRIVER_STATUS_BAD;
+				break;
+			}
+		}
+		if (!_strcmpi(retail->driverDLL,"atid32ae.dll")) {
+			switch (retail->driverBuildVersion) {
+			case 1010:
+				retail->driverVersionStatus=DRIVER_STATUS_OK;
+			}
+		}
+		if (!_strcmpi(retail->driverDLL,"ati3drai.dll")) {
+			switch (retail->driverBuildVersion) {
+			case 1119:
+				retail->driverVersionStatus=DRIVER_STATUS_UNKNOWN;
+			}
+		}
+		break;
+	case VENDOR_POWERVR:
+		if (!_strcmpi(retail->driverDLL,"pmx2hal.dll")) {
+			switch (retail->driverBuildVersion) {
+			case 3111:	// Michael Ruppert - TESTIBM104
+			default: retail->driverVersionStatus=DRIVER_STATUS_UNKNOWN;
+			}
+		}
+		break;
+	}
+
+	switch (retail->driverVersionStatus) {
+	default:
+	case DRIVER_STATUS_UNKNOWN:
+		DXLOG_RETAIL(("Driver version status: Unknown\r\n"));
+		break;
+	case DRIVER_STATUS_OK:
+		DXLOG_RETAIL(("Driver version status: OK (No known problems)\r\n"));
+		break;
+	case DRIVER_STATUS_GOOD:
+		DXLOG_RETAIL(("Driver version status: Good\r\n"));
+		break;
+	case DRIVER_STATUS_BAD:
+		DXLOG_RETAIL(("Driver version status: Bad (Driver update recommended)\r\n"));
+		break;
+	}
+}
 
 // ?Is_Valid_Display_Format@DX8Caps@@QAE_NHHW4WW3DFormat@@@Z
 bool DX8Caps::Is_Valid_Display_Format(int width, int height, WW3DFormat format)
