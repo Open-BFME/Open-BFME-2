@@ -171,6 +171,7 @@ float Matrix3D::Get_Z_Rotation(void) const
 }
 
 
+// ?Rotate_Vector@Matrix3D@@ present-unmatched
 Vector3 Matrix3D::Rotate_Vector(const Vector3 &vect) const
 {
 	return Vector3(
@@ -190,6 +191,7 @@ Vector3 Matrix3D::Inverse_Rotate_Vector(const Vector3 &vect) const
 	);
 }
 
+// ?Look_At@Matrix3D@@ present-unmatched
 void Matrix3D::Look_At(const Vector3 &p,const Vector3 &t,float roll)
 {
 	float	dx,dy,dz;	//vector from p to t
@@ -242,6 +244,7 @@ void Matrix3D::Look_At(const Vector3 &p,const Vector3 &t,float roll)
 
 // Create a matrix given a position and a direction (x axis will point in direction)
 // Make sure you pass in UNITIZED direction!!!
+// ?buildTransformMatrix@Matrix3D@@ present-unmatched
 void Matrix3D::buildTransformMatrix( const Vector3 &pos, const Vector3 &dir )
 {
 	float sinp, cosp;	// sine and cosine of the pitch ("up-down" tilt about y)
@@ -273,6 +276,7 @@ void Matrix3D::buildTransformMatrix( const Vector3 &pos, const Vector3 &dir )
 	Rotate_Y( -sinp, cosp );
 }
 
+// ?Obj_Look_At@Matrix3D@@ present-unmatched
 void Matrix3D::Obj_Look_At(const Vector3 &p,const Vector3 &t,float roll)
 {
 	float	dx,dy,dz;	//vector from p to t
@@ -317,33 +321,7 @@ void Matrix3D::Obj_Look_At(const Vector3 &p,const Vector3 &t,float roll)
 }
 
 
-void Matrix3D::Get_Inverse(Matrix3D & inv) const
-{
-	// TODO: Implement the general purpose inverse function here (once we need it :-)
-	//Get_Orthogonal_Inverse(inv);
-
-	Matrix4	mat4(*this);
-	Matrix4	mat4Inv;
-
-	float det;
-	D3DXMatrixInverse((D3DXMATRIX *)&mat4Inv, &det, (D3DXMATRIX*)&mat4);
-
-	inv.Row[0][0]=mat4Inv[0][0];
-	inv.Row[0][1]=mat4Inv[0][1];
-	inv.Row[0][2]=mat4Inv[0][2];
-	inv.Row[0][3]=mat4Inv[0][3];
-
-	inv.Row[1][0]=mat4Inv[1][0];
-	inv.Row[1][1]=mat4Inv[1][1];
-	inv.Row[1][2]=mat4Inv[1][2];
-	inv.Row[1][3]=mat4Inv[1][3];
-
-	inv.Row[2][0]=mat4Inv[2][0];
-	inv.Row[2][1]=mat4Inv[2][1];
-	inv.Row[2][2]=mat4Inv[2][2];
-	inv.Row[2][3]=mat4Inv[2][3];
-}
-
+// ?Get_Orthogonal_Inverse@Matrix3D@@ present-unmatched
 void Matrix3D::Get_Orthogonal_Inverse(Matrix3D & inv) const
 {
 	// Transposing the rotation submatrix
@@ -370,6 +348,7 @@ void Matrix3D::Get_Orthogonal_Inverse(Matrix3D & inv) const
 	inv.Row[2][3] = trans[2];
 }
 
+// ?Copy_3x3_Matrix@Matrix3D@@ present-unmatched
 void Matrix3D::Copy_3x3_Matrix(float matrix[3][3])
 {
 	Row[0][0] = matrix[0][0];
@@ -458,6 +437,7 @@ void Matrix3D::Transform_Center_Extent_AABox
 }
 
 
+// ?Is_Orthogonal@Matrix3D@@ present-unmatched
 int Matrix3D::Is_Orthogonal(void) const
 {
 	Vector3 x(Row[0].X,Row[0].Y,Row[0].Z);
@@ -475,6 +455,7 @@ int Matrix3D::Is_Orthogonal(void) const
 	return 1;
 }
 
+// ?Re_Orthogonalize@Matrix3D@@ present-unmatched
 void Matrix3D::Re_Orthogonalize(void)
 {
 	Vector3 x(Row[0][0],Row[0][1],Row[0][2]);
@@ -522,6 +503,7 @@ void Matrix3D::Re_Orthogonalize(void)
 }
 
 
+// ?Solve_Linear_System@Matrix3D@@ present-unmatched
 bool Matrix3D::Solve_Linear_System(Matrix3D & system)
 {
 	/*
@@ -556,6 +538,7 @@ bool Matrix3D::Solve_Linear_System(Matrix3D & system)
  * Written out with the explicit temporaries rather than deferring to mul(): retail's body has *
  * the aliasing check and then twelve inline dot products, which is what this shape produces.  *
  *=============================================================================================*/
+// ?Multiply@Matrix3D@@ present-unmatched
 void Matrix3D::Multiply(const Matrix3D & A,const Matrix3D & B,Matrix3D * set_res)
 {
 	Matrix3D tmp;

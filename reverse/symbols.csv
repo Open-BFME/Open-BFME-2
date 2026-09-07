@@ -795,3 +795,4 @@ _gpiProcess,0x0072E810,GameSpy GP callee; independent unique 289-byte source can
 _gpiProcessConnect,0x0072F7C0,GameSpy GP callee; independent unique 1311-byte source candidate in gpiConnect.c; direct call from _gpiProcessOperation corroborates identity
 _gpiProcessGetInfo,0x007345F0,GameSpy GP callee; independent unique 1834-byte source candidate in gpiInfo.c; direct call from _gpiProcessOperation corroborates identity
 _gpiProcessRegisterUniqueNick,0x00731EB0,GameSpy GP callee; independent unique 186-byte source candidate in gpiUnique.c; direct call from _gpiProcessOperation corroborates identity
+_D3DXMatrixInverse@12,0x0062AF38,PE FF25 thunk at62AF38 references IAT BBA9C0 independently named d3dx9_27.dll!D3DXMatrixInverse; three pointer arguments and stdcall12 agree with SDK declaration
