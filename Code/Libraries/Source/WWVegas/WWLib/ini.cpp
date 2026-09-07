@@ -581,7 +581,7 @@ int INIClass::Load(Straw & ffile)
 
 				INIEntry * entryptr = W3DNEW INIEntry(strdup(buffer), strdup(divider));
 				if (entryptr == NULL) {
-					delete secptr;
+					::delete secptr;
 					Clear();
 					return(false);
 				}
@@ -589,7 +589,7 @@ int INIClass::Load(Straw & ffile)
 				// 12/09/97 EHC - check to see if an entry with this ID already exists
 				if (secptr->EntryIndex.Is_Present(entryptr->Index_ID())) {
 					DuplicateCRCError("INIClass::Load", secptr->Section, buffer);
-					delete entryptr;
+					::delete entryptr;
 					continue;
 				}
 
@@ -602,7 +602,7 @@ int INIClass::Load(Straw & ffile)
 			**	don't bother storing it.
 			*/
 			if (secptr->EntryList.Is_Empty()) {
-				delete secptr;
+				::delete secptr;
 			} else {
 				SectionIndex->Add_Index(secptr->Index_ID(), secptr);
 				SectionList->Add_Tail(secptr);

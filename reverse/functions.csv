@@ -3350,3 +3350,4 @@ _XMP_Init,,0x0061BD70,23,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,
 ?Get_Intensity@LightClass@@QBEMXZ,,0x00050F6F,7,Code/Libraries/Source/WWVegas/WW3D2/light.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 ?Save@INIClass@@QBEHAAVFileClass@@@Z,,0x006165B0,145,Code/Libraries/Source/WWVegas/WWLib/ini.cpp,matched,INIClass::Save(FileClass&) -- already exact once the unit was rebuilt
 ?Clear@INIClass@@QAE_NPBD0@Z,,0x00616C60,225,Code/Libraries/Source/WWVegas/WWLib/ini.cpp,matched,INIClass::Clear -- global-deallocator node deletes and a scalar free of the index table
+?Load@INIClass@@QAEHAAVStraw@@@Z,,0x00617B10,1827,Code/Libraries/Source/WWVegas/WWLib/ini.cpp,matched,INIClass::Load(Straw&) -- three global-deallocator node deletes; real extent 1827 not 1810
