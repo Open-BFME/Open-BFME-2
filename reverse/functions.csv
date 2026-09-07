@@ -3429,3 +3429,4 @@ _XMP_Shift_Left_Bits,,0x0061BBD0,308,Code/Libraries/Source/WWVegas/WWLib/mpmath.
 ?Get_Vendor@DX8Caps@@QBEIXZ,,0x003EE6FD,7,Code/Libraries/Source/WWVegas/WW3D2/shader.cpp,matched,BFME2 exact BFME1-derived capability getter; unique masked placement
 ?Is_Backface_Culling_Inverted@ShaderClass@@SA_NXZ,,0x001381F0,13,Code/Libraries/Source/WWVegas/WW3D2/shader.cpp,matched,BFME2 exact BFME1-derived shader predicate; unique masked placement
 ?Get_Burst_Size@ParticleEmitterClass@@QBEHXZ,,0x004ACD6C,7,Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp,matched,BFME2 exact BFME1-derived getter; unique masked placement
+?Get_Emission_Rate@ParticleEmitterDefClass@@QBEMXZ,,0x007417E0,7,Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp,matched,BFME2 exact BFME1-derived getter; unique masked placement
