@@ -359,6 +359,7 @@ ParticleBufferClass & ParticleBufferClass::operator = (const ParticleBufferClass
 }
 
 
+// ??1ParticleBufferClass@@ present-unmatched
 ParticleBufferClass::~ParticleBufferClass(void)
 {
 	if (NewParticleQueue)				delete [] NewParticleQueue;
@@ -640,6 +641,7 @@ void ParticleBufferClass_force_Render_Line_SimpleDynVec(void)
 }
 
 
+// ?Render_Line_Group@ParticleBufferClass@@IAEXAAVRenderInfoClass@@@Z
 void ParticleBufferClass::Render_Line_Group(RenderInfoClass & rinfo)
 {
 	// If the number of active points is less than the maximum or we need to decimate particles
@@ -826,6 +828,7 @@ void ParticleBufferClass::Get_Obj_Space_Bounding_Box(AABoxClass & box) const
 
 // ?Prepare_LOD@ParticleBufferClass@@UAEXAAVCameraClass@@@Z
 // BFME omits Zero Hour's final PredictiveLODOptimizerClass::Add_Object call.
+// ?Prepare_LOD@ParticleBufferClass@@ present-unmatched
 void ParticleBufferClass::Prepare_LOD(CameraClass &camera)
 {
 	if (Is_Not_Hidden_At_All() == false) {
@@ -3010,6 +3013,7 @@ float ParticleBufferClass::Get_Noise_Amplitude(void) const
 	return 0.0f;
 }
 
+// ?Get_Merge_Abort_Factor@ParticleBufferClass@@ present-unmatched
 float ParticleBufferClass::Get_Merge_Abort_Factor(void) const
 {
 	if (LineRenderer != NULL) {
@@ -3023,7 +3027,7 @@ float ParticleBufferClass::Get_Texture_Tile_Factor(void) const
 	if (LineRenderer != NULL) {
 		return LineRenderer->Get_Texture_Tile_Factor();
 	} 
-	return 1.0f;
+	return 0.0f;
 }
 
 Vector2 ParticleBufferClass::Get_UV_Offset_Rate(void) const
