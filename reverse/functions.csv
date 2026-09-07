@@ -3989,3 +3989,4 @@ _ArrayMap2,,0x0060A2E0,65,Code/GameEngine/Source/GameNetwork/GameSpy/darray.c,ma
 _ArrayMapBackwards2,,0x0060A330,58,Code/GameEngine/Source/GameNetwork/GameSpy/darray.c,matched,vendored=gamespy-2004; unique masked whole-.text body; complete source boundary
 _mylsearch,,0x0060A370,62,Code/GameEngine/Source/GameNetwork/GameSpy/darray.c,matched,vendored=gamespy-2004; unique masked whole-.text body; complete source boundary
 _mybsearch,,0x0060A3B0,92,Code/GameEngine/Source/GameNetwork/GameSpy/darray.c,matched,vendored=gamespy-2004; unique masked whole-.text body; complete source boundary
+_SetElement,,0x0060A430,36,Code/GameEngine/Source/GameNetwork/GameSpy/darray.c,matched,vendored=gamespy-2004; unique masked whole-.text body; complete source boundary
