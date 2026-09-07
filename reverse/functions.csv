@@ -5049,3 +5049,4 @@ _gpGetFileModificationTime,,0x0072E1C0,124,Code/GameEngine/Source/GameNetwork/Ga
 _gpGetFilePathA,,0x0072E040,123,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gp.c,matched,vendored=gamespy-2004; pinned BFME1 reference including inherited EA edits; unique whole-body match; gpGetFilePathA
 _gpSetTransferThrottle,,0x0072DB90,251,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gp.c,matched,vendored=gamespy-2004; pinned BFME1 reference including inherited EA edits; unique whole-body match; gpSetTransferThrottle
 _gpRevokeBuddyAuthorization,,0x0072D1F0,152,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gp.c,matched,vendored=gamespy-2004; pinned BFME1 reference including inherited EA edits; unique whole-body match; gpRevokeBuddyAuthorization
+_gpSkipFile,,0x0072DE70,326,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gp.c,matched,vendored=gamespy-2004; pinned BFME1 reference including inherited EA edits; unique whole-body match; gpSkipFile
