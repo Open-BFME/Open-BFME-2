@@ -1,4 +1,4 @@
-// cl: /arch:SSE /G7 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/sweep
+// cl: /arch:SSE /G7 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/shims/bfmecpudetect /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/sweep
 // stlport
 #define Matrix4x4 Matrix4  // BFME renamed it
 /*
@@ -78,12 +78,12 @@ unsigned CPUDetectClass::L1InstructionCacheSetAssociative;
 unsigned CPUDetectClass::L1InstructionTraceCacheSize;
 unsigned CPUDetectClass::L1InstructionTraceCacheSetAssociative;
 
-unsigned CPUDetectClass::TotalPhysicalMemory;
-unsigned CPUDetectClass::AvailablePhysicalMemory;
-unsigned CPUDetectClass::TotalPageMemory;
-unsigned CPUDetectClass::AvailablePageMemory;
-unsigned CPUDetectClass::TotalVirtualMemory;
-unsigned CPUDetectClass::AvailableVirtualMemory;
+unsigned __int64 CPUDetectClass::TotalPhysicalMemory;
+unsigned __int64 CPUDetectClass::AvailablePhysicalMemory;
+unsigned __int64 CPUDetectClass::TotalPageMemory;
+unsigned __int64 CPUDetectClass::AvailablePageMemory;
+unsigned __int64 CPUDetectClass::TotalVirtualMemory;
+unsigned __int64 CPUDetectClass::AvailableVirtualMemory;
 
 unsigned CPUDetectClass::OSVersionNumberMajor;
 unsigned CPUDetectClass::OSVersionNumberMinor;
@@ -900,19 +900,45 @@ void CPUDetectClass::Init_Processor_Features()
 	}
 }
 
+// The Platform SDK this project builds against predates MEMORYSTATUSEX, so the
+// structure and the kernel32 entry point are declared here rather than reached
+// through <windows.h>.  The layout is fixed by the ABI: two DWORDs and seven
+// DWORDLONGs, 64 bytes, which is the 0x40 retail reserves and stores into
+// dwLength before the call.
+typedef struct _BFME_MEMORYSTATUSEX {
+	DWORD		dwLength;
+	DWORD		dwMemoryLoad;
+	unsigned __int64	ullTotalPhys;
+	unsigned __int64	ullAvailPhys;
+	unsigned __int64	ullTotalPageFile;
+	unsigned __int64	ullAvailPageFile;
+	unsigned __int64	ullTotalVirtual;
+	unsigned __int64	ullAvailVirtual;
+	unsigned __int64	ullAvailExtendedVirtual;
+} MEMORYSTATUSEX;
+
+extern "C" __declspec(dllimport) BOOL __stdcall GlobalMemoryStatusEx(MEMORYSTATUSEX *);
+
 void CPUDetectClass::Init_Memory()
 {
 #ifdef WIN32
 
-	MEMORYSTATUS mem;
-   GlobalMemoryStatus(&mem);
-
-   TotalPhysicalMemory     = mem.dwTotalPhys;
-   AvailablePhysicalMemory = mem.dwAvailPhys;
-   TotalPageMemory         = mem.dwTotalPageFile;
-   AvailablePageMemory     = mem.dwAvailPageFile;
-   TotalVirtualMemory      = mem.dwTotalVirtual;
-   AvailableVirtualMemory  = mem.dwAvailVirtual;
+	// BFME calls the 64-bit query.  Retail reserves 0x40 bytes, zeroes them
+	// with `mov ecx,10h / rep stosd`, stores 0x40 into the first dword and
+	// calls __imp__GlobalMemoryStatusEx -- MEMORYSTATUSEX is exactly 64 bytes
+	// and its first member is dwLength.  Each result is then copied out as a
+	// dword pair, which is what makes the six statics 64-bit.
+	MEMORYSTATUSEX mem;
+	memset(&mem, 0, sizeof(mem));
+	mem.dwLength = sizeof(mem);
+	if (GlobalMemoryStatusEx(&mem)) {
+		TotalPhysicalMemory     = mem.ullTotalPhys;
+		AvailablePhysicalMemory = mem.ullAvailPhys;
+		TotalPageMemory         = mem.ullTotalPageFile;
+		AvailablePageMemory     = mem.ullAvailPageFile;
+		TotalVirtualMemory      = mem.ullTotalVirtual;
+		AvailableVirtualMemory  = mem.ullAvailVirtual;
+	}
 #elif defined(_UNIX)
 #warning FIX Init_Memory()
 #endif
@@ -1028,12 +1054,12 @@ void CPUDetectClass::Init_Processor_Log()
 
 	SYSLOG(("\r\n"));
 
-	SYSLOG(("Total physical memory: %dMb\r\n",Get_Total_Physical_Memory()/(1024*1024)));
-	SYSLOG(("Available physical memory: %dMb\r\n",Get_Available_Physical_Memory()/(1024*1024)));
-	SYSLOG(("Total page file size: %dMb\r\n",Get_Total_Page_File_Size()/(1024*1024)));
-	SYSLOG(("Total available page file size: %dMb\r\n",Get_Available_Page_File_Size()/(1024*1024)));
-	SYSLOG(("Total virtual memory: %dMb\r\n",Get_Total_Virtual_Memory()/(1024*1024)));
-	SYSLOG(("Available virtual memory: %dMb\r\n",Get_Available_Virtual_Memory()/(1024*1024)));
+	SYSLOG(("Total physical memory: %dMb\r\n",(unsigned)(Get_Total_Physical_Memory()/(1024*1024))));
+	SYSLOG(("Available physical memory: %dMb\r\n",(unsigned)(Get_Available_Physical_Memory()/(1024*1024))));
+	SYSLOG(("Total page file size: %dMb\r\n",(unsigned)(Get_Total_Page_File_Size()/(1024*1024))));
+	SYSLOG(("Total available page file size: %dMb\r\n",(unsigned)(Get_Available_Page_File_Size()/(1024*1024))));
+	SYSLOG(("Total virtual memory: %dMb\r\n",(unsigned)(Get_Total_Virtual_Memory()/(1024*1024))));
+	SYSLOG(("Available virtual memory: %dMb\r\n",(unsigned)(Get_Available_Virtual_Memory()/(1024*1024))));
 
 	SYSLOG(("\r\n"));
 
@@ -1131,7 +1157,7 @@ void CPUDetectClass::Init_Compact_Log()
 
 	COMPACTLOG(("%s\t%d\t",Get_Processor_Manufacturer_Name(),Get_Processor_Speed()));
 
-	COMPACTLOG(("%d\t",Get_Total_Physical_Memory()/(1024*1024)+1));
+	COMPACTLOG(("%d\t",(unsigned)(Get_Total_Physical_Memory()/(1024*1024))+1));
 
 	COMPACTLOG(("%x\t%x\t",Get_Feature_Bits(),Get_Extended_Feature_Bits()));
 }
