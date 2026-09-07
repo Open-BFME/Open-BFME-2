@@ -3390,3 +3390,4 @@ _XMP_Shift_Left_Bits,,0x0061BBD0,308,Code/Libraries/Source/WWVegas/WWLib/mpmath.
 ?Are_Sub_Object_Transforms_Dirty@RenderObjClass@@QAE_NXZ,,0x0013B160,10,Code/Libraries/Source/WWVegas/WW3D2/hlod.cpp,matched,BFME2 exact BFME1-derived predicate; unique masked placement
 ??A?$VectorClass@VProxyRecordClass@@@@QAEAAVProxyRecordClass@@H@Z,,0x00154990,16,Code/Libraries/Source/WWVegas/WW3D2/hlod.cpp,matched,BFME2 exact BFME1-derived vector accessor; unique masked placement
 ?ID@?$VectorClass@VProxyRecordClass@@@@UAEHABVProxyRecordClass@@@Z,,0x00124540,10,Code/Libraries/Source/WWVegas/WW3D2/hlod.cpp,matched,BFME2 exact BFME1-derived vector identity helper; unique masked placement
+??A?$SimpleDynVecClass@E@@QAEAAEH@Z,,0x00179940,10,Code/Libraries/Source/WWVegas/WW3D2/part_buf.cpp,matched,BFME2 exact BFME1-derived vector accessor; unique masked placement
