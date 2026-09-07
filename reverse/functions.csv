@@ -4557,3 +4557,4 @@ _qr2_register_natneg_callback,,0x00696860,35,Code/GameEngine/Source/GameNetwork/
 _gpiIsValidDate,,0x00733350,205,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gpiInfo.c,matched,vendored=gamespy-2004; pinned BFME1 reference including inherited EA edits; unique whole-body match; gpiIsValidDate
 _gpiFreeInfoCache,,0x00734490,144,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gpiInfo.c,matched,vendored=gamespy-2004; pinned BFME1 reference including inherited EA edits; unique whole-body match; gpiFreeInfoCache
 _gpiSetInfoMask,,0x00734250,82,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gpiInfo.c,matched,vendored=gamespy-2004; pinned BFME1 reference including inherited EA edits; unique whole-body match; gpiSetInfoMask
+_gpiIntToDate,,0x00733460,81,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gpiInfo.c,matched,vendored=gamespy-2004; pinned BFME1 reference including inherited EA edits; unique whole-body match; gpiIntToDate
