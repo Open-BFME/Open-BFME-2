@@ -4679,3 +4679,4 @@ _SBServerFree,,0x0069B020,35,Code/GameEngine/Source/GameNetwork/GameSpy/serverbr
 _qr2_init_socketA,,0x00697850,629,Code/GameEngine/Source/GameNetwork/GameSpy/qr2/qr2.c,matched,complete BFME2 QR2 socket initializer; retail converts successfully resolved public heartbeat address with named inet_ntoa import
 _qr2_init_socketW,,0x00697AD0,166,Code/GameEngine/Source/GameNetwork/GameSpy/qr2/qr2.c,matched,complete GameSpy source body; direct call and named PE-import identities verified; compiler and retail executable boundaries agree
 _qr2_initA,,0x00697CB0,143,Code/GameEngine/Source/GameNetwork/GameSpy/qr2/qr2.c,matched,complete GameSpy source body; direct call and named PE-import identities verified; compiler and retail executable boundaries agree
+_qr2_initW,,0x00697D40,205,Code/GameEngine/Source/GameNetwork/GameSpy/qr2/qr2.c,matched,complete GameSpy source body; direct call and named PE-import identities verified; compiler and retail executable boundaries agree
