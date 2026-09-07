@@ -73,7 +73,6 @@ StreakLineClass::StreakLineClass(void) :
 
 }
 
-// ??0StreakLineClass@@QAE@ABV0@@Z present-unmatched
 StreakLineClass::StreakLineClass(const StreakLineClass & src) :
 		MaxSubdivisionLevels(src.MaxSubdivisionLevels),
 		NormalizedScreenArea(src.NormalizedScreenArea),
