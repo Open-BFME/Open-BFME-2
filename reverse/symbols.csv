@@ -864,3 +864,4 @@ _MD5Init,0x00606220,GameSpy C-linkage alias; all 40 compiled MD5Init bytes exact
 ?Apply@VertexMaterialClass@@ABEXXZ,0x0013D570,VertexMaterialClass Apply; complete 1084-byte material and eight mapper body plus ATI texture-transform fixup independently decoded
 ?bfmeDrawSortingPrimitive@@YAXIIIII@Z,0x0011D710,Recovered five-unsigned sorting-draw role; complete 539-byte dynamic-buffer conversion and draw body independently decoded with two 65535 count guards and RAII cleanup
 ?Record_DX8_Polys_And_Vertices@Debug_Statistics@@YAXHHABVShaderClass@@@Z,0x00129540,Debug Statistics polygon and vertex accounting; complete 68-byte body checks shader NPatch bit and proven caps support then updates the three counters
+_gpiHandleEnd,0x00736EA0,GameSpy GP callee; independent unique 615-byte source candidate in gpiTransfer.c; direct call from _gpiHandleTransferMessage corroborates identity
