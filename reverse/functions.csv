@@ -4181,3 +4181,4 @@ _bint,,0x006098C0,15,Code/GameEngine/Source/GameNetwork/GameSpy/gstats/gbucket.c
 _bfloat,,0x006098D0,16,Code/GameEngine/Source/GameNetwork/GameSpy/gstats/gbucket.c,matched,complete SDK helper; unique placement after independently verified direct-call and literal identities
 _stripchars,,0x006099E0,24,Code/GameEngine/Source/GameNetwork/GameSpy/gstats/gbucket.c,matched,complete SDK helper; unique placement after independently verified direct-call and literal identities
 _DoGet,,0x00609A00,19,Code/GameEngine/Source/GameNetwork/GameSpy/gstats/gbucket.c,matched,complete SDK helper; unique placement after independently verified direct-call and literal identities
+_DoFind,,0x00609A20,31,Code/GameEngine/Source/GameNetwork/GameSpy/gstats/gbucket.c,matched,complete SDK helper; unique placement after independently verified direct-call and literal identities
