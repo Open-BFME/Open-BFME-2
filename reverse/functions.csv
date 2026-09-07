@@ -3342,3 +3342,4 @@ _XMP_Init,,0x0061BD70,23,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,
 ?setDragSelecting@BfmeSelectionTranslator@@QAEXXZ,,0x0042FA01,12,Code/GameEngine/Source/GameClient/GUI/BfmeSelectionTranslator_setDragSelecting.cpp,matched,BFME2 selection-translator drag-select reset transferred from exact BFME1 source; identical bytes
 ?decompress@LZHLDecompressor@@QAEHPAEPAIPBE1@Z,,0x00692440,824,Code/Libraries/Source/Compression/LZHCompress/CompLibSource/Huff.cpp,matched,vendored=lzhl-1.0 with EA's divergence; reloc-named
 ??0CLockVolume@D3DXTex@@QAE@XZ,,0x00326BE6,6,Code/GameEngine/Source/Common/D3DXTexCLockVolume.cpp,matched,ported from the exact BFME1 reconstruction; placed by masked whole-.text search of the compiled body - single hit
+?rva00753947@@YAHXZ,,0x00753947,11,Code/GameEngine/Source/Common/Rva00753947Set.cpp,matched,ported from the exact BFME1 helper; unique BFME2 placement calls SetFlag and returns 1

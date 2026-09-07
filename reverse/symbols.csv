@@ -578,3 +578,4 @@ _strlen,0x00629170,BFME2 retail strlen thunk and call target for StringBase<char
 ??0BfmeMapPictureTexture@@QAE@PBD@Z,0x002DB93E,recovered one-pointer picture texture owner; allocates 0x3C-byte texture from filename then adopts it via 0x000EF87B
 ?bfmeSetTexture@Image@@QAEXABVBfmeMapPictureTexture@@@Z,0x002D905E,recovered texture setter allocates a separate 4-byte holder at Image+0x2C and retains/replaces its pointer via 0x000424D0
 ?setStatus@Image@@QAEII@Z,0x002D8E63,Image status setter ORs bits into +0x30 and returns previous unsigned status; matches reference Image::setStatus
+?rva007537e0@@YAXXZ,0x007537E0,address read from the REL32 displacement at the uniquely placed BFME2 helper
