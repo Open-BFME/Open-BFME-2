@@ -186,3 +186,16 @@ compile, which is the opposite of the 51-vs-440 result the 2007 SDK scored on
 the qr2/GP/ghttp core. Do not generalise it -- peerMain.c and chatMain.c were
 not attempted, and both reach deep into connection structs whose 2004 layout
 is not known.
+
+BFME2 GHTTP reconciliation, 2026-09-07
+------------------------------------
+The historical measurements above describe the pinned BFME1 reference tree.
+The BFME2 ghttpMain.c, ghttpPost.c and ghttpProcess.c additionally map SDK
+strdup calls to msvcr71.dll!_mbsdup, identified by the retail PE import at
+0x00BBA5C8; explicit goastrdup calls remain unchanged. ghttpProcess.c also
+rejects an incomplete sscanf result before reading statusStringIndex.
+ghttpCommon.c factors proxy parsing into a static C helper shared by the
+global and per-request setters. The helper/request-setter names are descriptive
+reconstruction names; their original names are absent from the stripped image.
+These are source reconciliations, not pristine upstream functions. Every ledger
+claim still requires its own complete byte match, literal check and callee proof.

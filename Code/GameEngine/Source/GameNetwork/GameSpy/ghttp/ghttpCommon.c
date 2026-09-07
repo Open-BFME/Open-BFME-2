@@ -454,53 +454,59 @@ GHITrySendResult ghiTrySendThenBuffer
 	return GHITrySendBuffered;
 }
 
-GHTTPBool ghiSetProxy
-(
-	const char * server
-)
+// BFME2 shares proxy parsing between the global and per-request setters.
+// The internal helper and request-setter names below describe reconstructed
+// behavior; the stripped retail image does not preserve their original names.
+// Plain static C makes MSVC use the observed EAX/ESI/EDI argument registers.
+static GHTTPBool ghiParseProxy(const char * server, char ** address, unsigned short * port)
 {
-	// Free any existing proxy address.
-	///////////////////////////////////
-	if(ghiProxyAddress)
-	{
-		gsifree(ghiProxyAddress);
-		ghiProxyAddress = NULL;
-	}
-	ghiProxyPort = 0;
+    char * strPort;
+    *address = goastrdup(server);
+    if(!*address)
+        return GHTTPFalse;
+    if((strPort = strchr(*address, ':')) != NULL)
+    {
+        *strPort++ = '\0';
+        *port = (unsigned short)atoi(strPort);
+        if(!*port)
+        {
+            gsifree(*address);
+            *address = NULL;
+            return GHTTPFalse;
+        }
+    }
+    else
+        *port = GHI_DEFAULT_PORT;
+    return GHTTPTrue;
+}
 
-	if(server && *server)
-	{
-		char * strPort;
+GHTTPBool ghiSetProxy(const char * server)
+{
+    if(ghiProxyAddress)
+    {
+        gsifree(ghiProxyAddress);
+        ghiProxyAddress = NULL;
+    }
+    ghiProxyPort = 0;
+    if(server && *server)
+        return ghiParseProxy(server, &ghiProxyAddress, &ghiProxyPort);
+    return GHTTPTrue;
+}
 
-		// Copy off the server address.
-		///////////////////////////////
-		ghiProxyAddress = goastrdup(server);
-		if(!ghiProxyAddress)
-			return GHTTPFalse;
-
-		// Check for a port.
-		////////////////////
-		if((strPort = strchr(ghiProxyAddress, ':')) != NULL)
-		{
-			*strPort++ = '\0';
-
-			// Try getting the port.
-			////////////////////////
-			ghiProxyPort = (unsigned short)atoi(strPort);
-			if(!ghiProxyPort)
-			{
-				gsifree(ghiProxyAddress);
-				ghiProxyAddress = NULL;
-				return GHTTPFalse;
-			}
-		}
-		else
-		{
-			ghiProxyPort = GHI_DEFAULT_PORT;
-		}
-	}
-
-	return GHTTPTrue;
+GHTTPBool ghiSetRequestProxy(GHTTPRequest request, const char * server)
+{
+    GHIConnection * connection = ghiRequestToConnection(request);
+    if(!connection)
+        return GHTTPFalse;
+    if(connection->proxyAddress)
+    {
+        gsifree(connection->proxyAddress);
+        connection->proxyAddress = NULL;
+        connection->proxyPort = GHI_DEFAULT_PORT;
+    }
+    if(server && *server)
+        return ghiParseProxy(server, &connection->proxyAddress, &connection->proxyPort);
+    return GHTTPTrue;
 }
 
 void ghiThrottleSettings
