@@ -3638,3 +3638,4 @@ _XMP_Shift_Left_Bits,,0x0061BBD0,308,Code/Libraries/Source/WWVegas/WWLib/mpmath.
 ?get_next_object@@YAPAVCullableClass@@PAV1@@Z,,0x0071ACC0,7,Code/Libraries/Source/WWVegas/WWMath/gridcull.cpp,matched,BFME2 exact BFME1-derived grid helper; unique masked placement
 ?_S_maskbit@?$_Base_bitset@$03@_STL@@SAKI@Z,,0x00030C40,15,Code/GameEngine/Source/Common/Thing/Thing.cpp,matched,BFME2 exact BFME1-derived STL helper; unique masked placement
 ?_M_getword@?$_Base_bitset@$03@_STL@@QBEKI@Z,,0x004D0538,13,Code/GameEngine/Source/Common/Thing/Thing.cpp,matched,BFME2 exact BFME1-derived STL helper; unique masked placement
+?Set@Vector2i@@QAEXHH@Z,,0x001541D0,16,Code/Libraries/Source/WWVegas/WW3D2/render2dsentence.cpp,matched,BFME2 exact BFME1-derived vector setter; unique masked placement
