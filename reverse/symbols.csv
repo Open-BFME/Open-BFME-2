@@ -827,3 +827,4 @@ _gpiPeerStartConnect,0x00738BD0,GameSpy GP callee; independent unique 290-byte s
 _gpiDestroyPeer,0x00738910,GameSpy GP callee; independent unique 107-byte source candidate in gpiPeer.c; direct call from _gpiDisconnect corroborates identity
 _gpiReset,0x0072E3A0,GameSpy GP callee; independent unique 354-byte source candidate in gpi.c; direct call from _gpiConnect corroborates identity
 _gpiStartConnect,0x0072F0D0,GameSpy GP callee; independent unique 474-byte source candidate in gpiConnect.c; direct call from _gpiConnect corroborates identity
+_listen@8,0x00687CDE,PE-verified FF25 import thunk to ws2_32.dll!listen via IAT 0x00BBA92C; independently read from retail import directory
