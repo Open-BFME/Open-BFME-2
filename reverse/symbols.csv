@@ -778,3 +778,4 @@ _bfmeDirectXErrorName@4,0x0062B16A,Recovered HRESULT-to-symbolic-name role; stdc
 ?Invalidate_Cached_Render_States@DX8Wrapper@@SAXXZ,0x0011FD10,BFME2 cache invalidation; 226-byte body fills render states with 0x12345678 and releases cached buffers material and sixteen resource handles
 ?Set_Default_Global_Render_States@DX8Wrapper@@KAXXZ,0x00122510,BFME2 default-state setup; 232-byte body uses caps FOGRANGE then installs fog material color and bump-matrix states as in the reference
 _TableMapSafe2,0x0060B720,GameSpy callee already byte-verified in Code/GameEngine/Source/GameNetwork/GameSpy/hashtable.c at commit 841946636dd5; direct call from _gpiFindProfileByUser
+_gpiFreeInfoCache,0x00734490,GameSpy GP callee; independent unique 144-byte source candidate in gpiInfo.c; direct call from _gpiProfilesTableFree corroborates identity
