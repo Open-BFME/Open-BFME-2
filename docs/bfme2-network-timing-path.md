@@ -191,6 +191,14 @@ resets the eight per-player latest/state/flag/count fields, and clears the
 initialized byte. Its address is vtable `0x00C601C0` slot `+0x08`, anchoring
 the identity and confirming the `0x008CF056` writer as initialization code.
 
+The 37-byte helper at RVA `0x004CFAC0` is recovered as
+`BFMEConnectionManager::getNextPacketRouterSlot` in
+`Code/GameEngine/Source/Common/ConnectionManagerNextRouter.cpp`. It searches
+the eight-entry fallback router order at `+0x12030` for the current router and
+returns the following entry (including the wrap-through slot after the final
+search position). This is the concrete BFME2 counterpart to BFME1's fallback
+router traversal and gives later router-failover work a verified handoff point.
+
 The companion router-stall target at RVA `0x004CFBF9` is also identified by the
 direct call from `+0x54`: it first requires local slot == packet-router slot,
 then scans eight open peers and tests each latest-frame value against the
