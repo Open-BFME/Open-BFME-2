@@ -3561,3 +3561,4 @@ _XMP_Shift_Left_Bits,,0x0061BBD0,308,Code/Libraries/Source/WWVegas/WWLib/mpmath.
 ?getAcademyStats@Player@@QAEPAVAcademyStats@@XZ,,0x000B6464,7,Code/GameEngine/Source/Common/RTS/Player.cpp,matched,BFME2 exact BFME1-derived Player accessor; unique masked placement
 ?getNumSkirmishSides@SidesList@@QAEHXZ,,0x0016809F,7,Code/GameEngine/Source/Common/RTS/Player.cpp,matched,BFME2 exact BFME1-derived SidesList getter; unique masked placement
 ?getNumSkirmishTeams@SidesList@@QAEHXZ,,0x00313840,7,Code/GameEngine/Source/Common/RTS/Player.cpp,matched,BFME2 exact BFME1-derived SidesList getter; unique masked placement
+?getPlayerNightColor@Player@@QBEHXZ,,0x00509D29,7,Code/GameEngine/Source/Common/RTS/Player.cpp,matched,BFME2 exact BFME1-derived Player getter; unique masked placement
