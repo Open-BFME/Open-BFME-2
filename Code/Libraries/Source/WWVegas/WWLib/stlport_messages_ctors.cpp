@@ -25,10 +25,12 @@
 namespace _STL {
 class _Messages {
 public:
+ _Messages();
  virtual int do_open(const string&,const locale&) const;
  virtual string do_get(int,int,int,const string&) const;
  virtual wstring do_get(int,int,int,const wstring&) const;
  virtual void do_close(int) const;
+ virtual ~_Messages();
  bool _M_delete;
 };
 messages<char>::messages(_Messages* implementation) : locale::facet(1), _M_impl(implementation) { _M_impl->_M_delete = false; }

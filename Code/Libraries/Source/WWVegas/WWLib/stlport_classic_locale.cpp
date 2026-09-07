@@ -1,285 +1,180 @@
-// ?make_classic_locale@_Locale_impl@_STL@@SAPAV12@XZ
-// partial score=0.0 date=2026-09-05
-// ?make_classic_locale@_Locale_impl@_STL@@SAPAV12@XZ
-// partial score=0.0 date=2026-09-05
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
 // stlport
 //
-// STLport 4.5.3 src/locale_impl.cpp, _Locale_impl::make_classic_locale.
-// The retail body at 0x0000B730 ends at 0x0000BABB (908 bytes).  Its
-// construction order and facet table are the upstream classic-locale builder;
-// only the function is kept in this focused TU so the already recovered
-// neighboring STLport bodies remain independent.
+// Modified reconstruction of STLport 4.5.3 src/locale_impl.cpp and the time
+// facets in stl/_time_facets.h. Retail make_classic_locale is 908 bytes at
+// RVA 0xB730; its original 40-entry facet table occupies 160 bytes.
+//
+// The ordinary placement-new/delete pair supplied by the vendor headers is
+// essential: without matching placement delete MSVC refuses to inline every
+// facet constructor and emits a 363-byte call-only body. Keeping that contract
+// restores the original constructor expansion and exception-lifetime states.
+//
+// The time-facet declarations retain all 45 string members and virtual slots.
+// Only _Time_Info construction/destruction and the narrow name-string
+// constructor are kept opaque to select their already verified library bodies.
+// _Locale_impl uses this repository's recovered _M_incr/_M_decr spellings for
+// the virtual methods called incr/decr in the original private library header.
+//
+// Source archive: STLport-4.5.3.tar.gz, the project's SourceForge archive.
+// SHA256: 74917eee7d57577518063b4caf7fb13577f21472fb92ecc239fc1ecf2fc9b1ec
 /*
  * Copyright (c) 1999
  * Silicon Graphics Computer Systems, Inc.
  *
- * Copyright (c) 1999
+ * Copyright (c) 1999 
  * Boris Fomitchev
  *
  * This material is provided "as is", with absolutely no warranty expressed
  * or implied. Any use is at your own risk.
  *
- * Permission to use or copy this software for any purpose is hereby granted
+ * Permission to use or copy this software for any purpose is hereby granted 
  * without fee, provided the above notices are retained on all copies.
  * Permission to modify the code and to distribute modified code is granted,
  * provided the above notices are retained, and a notice that the code was
  * modified is included with the above copyright notice.
+ *
  */
-
-#pragma inline_depth(255)
-#pragma inline_recursion(on)
-
-typedef unsigned int size_t;
-typedef unsigned short wchar_t;
-
-inline void *operator new(size_t, void *place)
-{
-	return place;
-}
-
-namespace _STL
-{
-
-template <class T>
-class char_traits {};
-
-template <class T>
-class allocator
-{
+#define _STLP_INTERNAL_TIME_FACETS_H
+#include <string>
+namespace _STL { template<> basic_string<char>::basic_string(const char*, const allocator<char>&); }
+#include <locale>
+#include <ctime>
+namespace _STL {
+class _Messages {
 public:
-	allocator() {}
+ _Messages();
+ virtual int do_open(const string&,const locale&) const;
+ virtual string do_get(int,int,int,const string&) const;
+ virtual wstring do_get(int,int,int,const wstring&) const;
+ virtual void do_close(int) const;
+ virtual ~_Messages();
+ bool _M_delete;
+};
+class _STLP_CLASS_DECLSPEC _Time_Info {
+public:
+ _Time_Info();
+ ~_Time_Info();
+  string _M_dayname[14];
+  string _M_monthname[24];
+  string _M_am_pm[2];
+  string _M_time_format;
+  string _M_date_format;
+  string _M_date_time_format;
+  string _M_long_date_format;
+  string _M_long_date_time_format;
 };
 
-template <class Pointer, class Value, class Alloc>
-class _STLP_alloc_proxy : public Alloc
-{
+void _STLP_CALL _Init_timeinfo(_Time_Info&);
+void _STLP_CALL _Init_timeinfo(_Time_Info&, _Locale_time*);
+
+class _STLP_CLASS_DECLSPEC time_base {
 public:
-	Pointer _M_data;
+  enum dateorder {no_order, dmy, mdy, ymd, ydm};
 };
 
-template <class CharT, class Traits, class Alloc>
-class basic_string
+
+template <class _Ch, __DFL_TMPL_PARAM( _InIt , istreambuf_iterator<_Ch>) >
+class time_get : public locale::facet, public time_base 
 {
+  friend class _Locale;
+
 public:
-	typedef Alloc allocator_type;
+  typedef _Ch   char_type;
+  typedef _InIt iter_type;
 
-	basic_string(const CharT *s, const allocator_type &a = allocator_type());
-	~basic_string();
+  explicit time_get(size_t __refs = 0)   : _BaseFacet(__refs) {
+      _Init_timeinfo(_M_timeinfo);
+  }
+  dateorder date_order() const { return do_date_order(); }
+  iter_type get_time(iter_type __s, iter_type  __end, ios_base&  __str,
+                     ios_base::iostate&  __err, tm* __t) const
+    { return do_get_time(__s,  __end,  __str,  __err, __t); }
+  iter_type get_date(iter_type __s, iter_type  __end, ios_base&  __str,
+                     ios_base::iostate&  __err, tm* __t) const
+    { return do_get_date(__s,  __end,  __str,  __err, __t); }
+  iter_type get_weekday(iter_type __s, iter_type  __end, ios_base&  __str,
+                        ios_base::iostate&  __err, tm* __t) const
+    { return do_get_weekday(__s,  __end,  __str,  __err, __t); }
+  iter_type get_monthname(iter_type __s, iter_type  __end, ios_base&  __str,
+                          ios_base::iostate&  __err, tm* __t) const
+    { return do_get_monthname(__s,  __end,  __str,  __err, __t); }
+  iter_type get_year(iter_type __s, iter_type  __end, ios_base&  __str,
+                     ios_base::iostate&  __err, tm* __t) const
+    { return do_get_year(__s,  __end,  __str,  __err, __t); }
 
-private:
-	CharT *_M_start;
-	CharT *_M_finish;
-	_STLP_alloc_proxy<CharT *, CharT, Alloc> _M_end_of_storage;
-};
-
-typedef basic_string<char, char_traits<char>, allocator<char> > string;
-typedef basic_string<wchar_t, char_traits<wchar_t>, allocator<wchar_t> > wstring;
-
-template <class CharT, class Traits>
-class istreambuf_iterator {};
-
-template <class CharT, class Traits>
-class ostreambuf_iterator {};
-
-class _Refcount_Base
-{
-protected:
-	explicit _Refcount_Base(unsigned int count) : _M_ref_count(count) {}
-
-private:
-	volatile int _M_ref_count;
-};
-
-class locale
-{
-public:
-	class facet : private _Refcount_Base
-	{
-	protected:
-		__forceinline explicit facet(unsigned int refs = 0)
-			: _Refcount_Base(1), _M_delete(refs == 0) {}
-		virtual ~facet();
-
-	private:
-		const bool _M_delete;
-	};
-
-	class id
-	{
-	public:
-		size_t _M_index;
-		static size_t _S_max;
-	};
-};
-
-class money_base {};
-class messages_base {};
-class _Messages {};
-
-template <class CharT>
-class messages : public locale::facet, public messages_base
-{
-public:
-	messages(_Messages *);
+  _STLP_STATIC_MEMBER_DECLSPEC static locale::id id;
 
 protected:
-	virtual ~messages();
+  _Time_Info _M_timeinfo;
+
+  time_get(_Locale_time *, size_t __refs) : _BaseFacet(__refs) {}
+
+  ~time_get() {}
+
+  virtual dateorder do_date_order() const {return no_order;}
+    
+  virtual iter_type do_get_time(iter_type __s, iter_type  __end,
+                                ios_base&, ios_base::iostate&  __err,
+                                tm* __t) const;
+    
+  virtual iter_type do_get_date(iter_type __s, iter_type  __end,
+                                ios_base&, ios_base::iostate& __err,
+                                tm* __t) const;
+
+  virtual iter_type do_get_weekday(iter_type __s, iter_type  __end,
+                                   ios_base&,
+                                   ios_base::iostate& __err,
+                                   tm* __t) const;
+  virtual iter_type do_get_monthname(iter_type __s, iter_type  __end,
+                                     ios_base&,
+                                     ios_base::iostate& __err,
+                                     tm* __t) const;
+  
+  virtual iter_type do_get_year(iter_type __s, iter_type  __end,
+                                ios_base&, ios_base::iostate& __err,
+                                tm* __t) const;
 };
 
-class mbstate_t {};
+time_base::dateorder _STLP_CALL
+__get_date_order(_Locale_time*);
+_Locale_time* _STLP_CALL __acquire_time(const char* __name);
+void          _STLP_CALL __release_time(_Locale_time* __time);
 
-class ctype_base
-{
-public:
-	enum mask { mask_value = 0 };
-};
-
-template <class CharT>
-class ctype;
-
-template <>
-class ctype<char> : public locale::facet, public ctype_base
-{
-public:
-	typedef ctype_base::mask mask;
-	ctype(const mask *, bool, size_t);
-
-protected:
-	virtual ~ctype();
-};
-
-template <>
-class ctype<wchar_t> : public locale::facet, public ctype_base
-{
-public:
-	__forceinline explicit ctype(size_t refs = 0) : locale::facet(refs) {}
-
-protected:
-	virtual ~ctype();
-};
-
-template <class CharT>
-class collate : public locale::facet
-{
-public:
-	__forceinline explicit collate(size_t refs = 0) : locale::facet(refs) {}
-
-protected:
-	virtual ~collate() {}
-};
-
-template <class InternT, class ExternT, class StateT>
-class codecvt : public locale::facet
-{
-public:
-	__forceinline explicit codecvt(size_t refs = 0) : locale::facet(refs) {}
-
-protected:
-	virtual ~codecvt() {}
-};
-
-template <class CharT, bool International>
-class moneypunct : public locale::facet, public money_base
-{
-public:
-	explicit moneypunct(size_t refs = 0);
-
-protected:
-	virtual ~moneypunct();
-};
-
-template <class CharT>
-class numpunct : public locale::facet
-{
-public:
-	__forceinline explicit numpunct(size_t refs = 0) : locale::facet(refs) {}
-
-protected:
-	virtual ~numpunct() {}
-};
-
-template <class CharT, class InputIt>
-class money_get : public locale::facet
-{
-public:
-	__forceinline explicit money_get(size_t refs = 0) : locale::facet(refs) {}
-
-protected:
-	virtual ~money_get() {}
-};
-
-template <class CharT, class OutputIt>
-class money_put : public locale::facet
-{
-public:
-	__forceinline explicit money_put(size_t refs = 0) : locale::facet(refs) {}
-
-protected:
-	virtual ~money_put() {}
-};
-
-template <class CharT, class InputIt>
-class num_get : public locale::facet
-{
-public:
-	__forceinline explicit num_get(size_t refs = 0) : locale::facet(refs) {}
-
-protected:
-	virtual ~num_get() {}
-};
-
-template <class CharT, class OutputIt>
-class num_put : public locale::facet
-{
-public:
-	__forceinline explicit num_put(size_t refs = 0) : locale::facet(refs) {}
-
-protected:
-	virtual ~num_put() {}
-};
-
-class _Time_Info
-{
-public:
-	_Time_Info();
-	~_Time_Info();
-};
-
-void __cdecl _Init_timeinfo(_Time_Info &);
-
-class time_base
-{
-public:
-	enum dateorder { no_order, dmy, mdy, ymd, ydm };
-};
-
-template <class CharT, class InputIt>
-class time_get : public locale::facet, public time_base
-{
-public:
-	__forceinline explicit time_get(size_t refs = 0) : locale::facet(refs)
-	{
-		_Init_timeinfo(_M_timeinfo);
-	}
-
-protected:
-	_Time_Info _M_timeinfo;
-	virtual ~time_get();
-};
-
-template <class CharT, class OutputIt>
+template<class _Ch, __DFL_TMPL_PARAM( _OutputIter , ostreambuf_iterator<_Ch> ) >
 class time_put : public locale::facet, public time_base
 {
+  friend class _Locale;
 public:
-	__forceinline explicit time_put(size_t refs = 0) : locale::facet(refs)
-	{
-		_Init_timeinfo(_M_timeinfo);
-	}
+  typedef _Ch      char_type;
+  typedef _OutputIter iter_type;
 
+  explicit time_put(size_t __refs = 0) : _BaseFacet(__refs) {
+    _Init_timeinfo(_M_timeinfo);
+  }
+
+  _OutputIter put(iter_type __s, ios_base& __f, _Ch __fill,
+		  const tm* __tmb,
+		  const _Ch* __pat, const _Ch* __pat_end) const;
+  
+  _OutputIter put(iter_type __s, ios_base& __f, _Ch  __fill,
+		  const tm* __tmb, char __format, char __modifier = 0) const { 
+    return do_put(__s, __f,  __fill, __tmb, __format, __modifier); 
+  }
+  
+  _STLP_STATIC_MEMBER_DECLSPEC static locale::id id;
+  
 protected:
-	_Time_Info _M_timeinfo;
-	virtual ~time_put();
+  _Time_Info _M_timeinfo;
+
+  time_put(_Locale_time* /*__time*/, size_t __refs) : _BaseFacet(__refs) {
+    //    _Init_timeinfo(_M_timeinfo, __time);
+  }
+
+  ~time_put() {}
+  virtual iter_type do_put(iter_type __s, ios_base& __f,
+                           char_type  /* __fill */, const tm* __tmb,
+                           char __format, char /* __modifier */) const;
 };
 
 template <class T>
@@ -294,8 +189,8 @@ class _Locale_impl
 public:
 	__forceinline _Locale_impl(const char *s) : name(s) {}
 	virtual ~_Locale_impl();
-	virtual void incr();
-	virtual void decr();
+	virtual void _M_incr();
+	virtual void _M_decr();
 
 	static _Locale_impl *make_classic_locale();
 
@@ -335,6 +230,13 @@ static _Stl_aligned_buffer<time_get<wchar_t, istreambuf_iterator<wchar_t, char_t
 static _Stl_aligned_buffer<time_put<wchar_t, ostreambuf_iterator<wchar_t, char_traits<wchar_t> > > > _S_time_put_wchar;
 
 static _Messages _Null_messages;
+
+// Full storage matters even though relocation resolution moves the globals.
+typedef char _ClassicTimeInfoSize[(sizeof(_Time_Info) == 540) ? 1 : -1];
+typedef char _ClassicTimeFacetSize[(sizeof(_S_time_get_char) == 552) ? 1 : -1];
+typedef char _ClassicLocaleSize[(sizeof(_S_classic_locale) == 24) ? 1 : -1];
+typedef char _ClassicMessageSize[(sizeof(_Null_messages) == 8) ? 1 : -1];
+
 
 static locale::facet* _S_classic_facets[] = {
 	(locale::facet*)0,
