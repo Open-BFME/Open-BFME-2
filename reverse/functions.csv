@@ -4682,3 +4682,4 @@ _qr2_initA,,0x00697CB0,143,Code/GameEngine/Source/GameNetwork/GameSpy/qr2/qr2.c,
 _qr2_initW,,0x00697D40,205,Code/GameEngine/Source/GameNetwork/GameSpy/qr2/qr2.c,matched,complete GameSpy source body; direct call and named PE-import identities verified; compiler and retail executable boundaries agree
 _qr2_register_keyA,,0x0069D590,28,Code/GameEngine/Source/GameNetwork/GameSpy/qr2/qr2regkeys.c,matched,complete SDK helper; unique whole-image placement and independently verified call/import identities
 _swap_byte,,0x00696A80,11,Code/GameEngine/Source/GameNetwork/GameSpy/qr2/qr2.c,matched,complete SDK helper; unique whole-image placement and independently verified call/import identities
+_qr_add_packet_header,,0x00696CB0,18,Code/GameEngine/Source/GameNetwork/GameSpy/qr2/qr2.c,matched,complete SDK helper; unique whole-image placement and independently verified call/import identities
