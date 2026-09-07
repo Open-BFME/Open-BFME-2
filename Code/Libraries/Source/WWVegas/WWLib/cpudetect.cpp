@@ -745,7 +745,6 @@ void CPUDetectClass::Init_Processor_Family()
 	}
 }
 
-// ?Init_Processor_String@CPUDetectClass@@ present-unmatched
 void CPUDetectClass::Init_Processor_String()
 {
 	if (!Has_CPUID_Instruction()) {
