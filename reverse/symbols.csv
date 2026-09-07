@@ -787,3 +787,5 @@ _TableEnter,0x0060B530,GameSpy callee already byte-verified in Code/GameEngine/S
 _gpiRemoveOperation,0x00739560,GameSpy GP callee; independent unique 85-byte source candidate in gpiOperation.c; direct call from _gpiProcessNewProfile corroborates identity
 _gpiDisconnect,0x0072FDF0,GameSpy GP callee; independent unique 424-byte source candidate in gpiConnect.c; direct call from _gpiDeleteProfile corroborates identity
 _gpiSetInfoCache,0x00734520,GameSpy GP callee; independent unique 204-byte source candidate in gpiInfo.c; direct call from _gpiReadDiskProfile corroborates identity
+_gpiAddOperation,0x00739440,GameSpy GP callee; independent unique 163-byte source candidate in gpiOperation.c; direct call from _gpiNewProfile corroborates identity
+_gpiProcess,0x0072E810,GameSpy GP callee; independent unique 289-byte source candidate in gpi.c; direct call from _gpiNewProfile corroborates identity
