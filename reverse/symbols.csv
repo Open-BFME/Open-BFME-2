@@ -820,3 +820,8 @@ _recvfrom@24,0x00655664,PE-verified FF25 import thunk to wsock32.dll!recvfrom vi
 _inet_ntoa@4,0x0075B4CC,PE-verified FF25 import thunk to wsock32.dll!inet_ntoa via IAT 0x00BBA9A0; independently read from retail import directory
 _gpiSendBuddyMessage,0x007356A0,GameSpy GP callee; independent unique 185-byte source candidate in gpiBuddy.c; direct call from _gpiProcessRecvBuddyMessage corroborates identity
 _gpiTransfersHandlePong,0x00737780,GameSpy GP callee; independent unique 195-byte source candidate in gpiTransfer.c; direct call from _gpiProcessRecvBuddyMessage corroborates identity
+_gpiAddPeer,0x00738B00,GameSpy GP callee; independent unique 120-byte source candidate in gpiPeer.c; direct call from _gpiSendBuddyMessage corroborates identity
+_gpiGetConnectedPeer,0x00738AB0,GameSpy GP callee; independent unique 40-byte source candidate in gpiPeer.c; direct call from _gpiSendBuddyMessage corroborates identity
+_gpiPeerAddMessage,0x00738D00,GameSpy GP callee; independent unique 278-byte source candidate in gpiPeer.c; direct call from _gpiSendBuddyMessage corroborates identity
+_gpiPeerGetSig,0x00738B80,GameSpy GP callee; independent unique 74-byte source candidate in gpiPeer.c; direct call from _gpiSendBuddyMessage corroborates identity
+_gpiPeerStartConnect,0x00738BD0,GameSpy GP callee; independent unique 290-byte source candidate in gpiPeer.c; direct call from _gpiSendBuddyMessage corroborates identity
