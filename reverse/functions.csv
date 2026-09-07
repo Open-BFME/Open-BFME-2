@@ -3634,3 +3634,4 @@ _XMP_Shift_Left_Bits,,0x0061BBD0,308,Code/Libraries/Source/WWVegas/WWLib/mpmath.
 ?Get_Poly0@CullNodeStruct@AABTreeClass@@QAEHXZ,,0x00197A80,9,Code/Libraries/Source/WWVegas/WW3D2/aabtree.cpp,matched,BFME2 exact BFME1-derived AABTree helper; unique masked placement
 ?Is_Leaf@CullNodeStruct@AABTreeClass@@QAE_NXZ,,0x00197A70,7,Code/Libraries/Source/WWVegas/WW3D2/aabtree.cpp,matched,BFME2 exact BFME1-derived AABTree predicate; unique masked placement
 ?First@GridListIterator@@QAEXPAVCullableClass@@@Z,,0x00719E20,12,Code/Libraries/Source/WWVegas/WWMath/gridcull.cpp,matched,BFME2 exact BFME1-derived grid helper; unique masked placement
+?total_cell_count@GridCullSystemClass@@IAEHXZ,,0x00719FF0,12,Code/Libraries/Source/WWVegas/WWMath/gridcull.cpp,matched,BFME2 exact BFME1-derived grid helper; unique masked placement
