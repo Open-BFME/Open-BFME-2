@@ -235,6 +235,7 @@ int InitStatsAsync(int theGamePort, gsi_time theInitTimeout)
 {
 	struct sockaddr_in saddr;
 	char tempHostname[128];
+	char statsGameName[10];
 	int  ret;
 		
 	gameport = theGamePort;
@@ -258,10 +259,22 @@ int InitStatsAsync(int theGamePort, gsi_time theInitTimeout)
 		CloseStatsConnection();
 
 	rcvlen = 0; //make sure ther receive buffer is cleared
+	/* BFME2 uses a local stats backend identifier. */
+	statsGameName[0] = 'l';
+	statsGameName[1] = 'o';
+	statsGameName[2] = 't';
+	statsGameName[3] = 'r';
+	statsGameName[4] = 'b';
+	statsGameName[5] = 'm';
+	statsGameName[6] = 'e';
+	statsGameName[7] = '2';
+	statsGameName[8] = 'r';
+	statsGameName[9] = 0;
+
 
 	if (inet_addr(StatsServerHostname) == INADDR_NONE)
 	{
-		strcpy(tempHostname, gcd_gamename);
+		strcpy(tempHostname, statsGameName);
 		strcat(tempHostname,".");
 		strcat(tempHostname,StatsServerHostname);
 	} else
@@ -284,7 +297,7 @@ int InitStatsAsync(int theGamePort, gsi_time theInitTimeout)
 		{
 			stats_initstate = init_failed;
 			closesocket(sock);
-            sock=INVALID_SOCKET;
+            
 			return GE_NOCONNECT;
 		}
 	}
