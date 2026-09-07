@@ -160,7 +160,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?d_0000319f@@YAXXZ,,0x0000319F,6,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Catch@0040319f
 ?areApproxEqual@@YA_NMMM@Z,0x000034FA,0x000034FA,42,Code/Libraries/Source/WWVegas/WWMath/wwmath.cpp,matched,Open-BFME5 clean C++; float equality within a signed tolerance band
 ?scale@Coord3D@@QAEXM@Z,0x000036D1,0x000036D1,49,Code/Libraries/Source/WWVegas/WWMath/region.cpp,matched,Open-BFME5 clean C++; Coord3D component-wise scalar multiplication
-?d_00003916@@YAXXZ,,0x00003916,101,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=Rotate
 ??0Snapshot@@QAE@XZ,0x000053A6,0x000053A6,9,Code/GameEngine/Source/Common/System/Snapshot.cpp,matched,Open-BFME5 clean C++; Snapshot default constructor installing the vtable at 0x00BBB554
 ??0Xfer@@QAE@XZ,0x000053DE,0x000053DE,9,Code/GameEngine/Source/Common/System/Xfer.cpp,matched,Open-BFME5 clean C++; Xfer constructor installing the vtable at 0x00BBB910
 ??1Xfer@@UAE@XZ,0x000053E7,0x000053E7,7,Code/GameEngine/Source/Common/System/Xfer.cpp,matched,Open-BFME5 clean C++; Xfer destructor restoring the vtable at 0x00BBB910
@@ -3940,3 +3939,4 @@ _XMP_Shift_Left_Bits,,0x0061BBD0,308,Code/Libraries/Source/WWVegas/WWLib/mpmath.
 ?Resize@StringClass@@AAEXH@Z,,0x00610C70,121,Code/Libraries/Source/WWVegas/WWLib/wwstring.cpp,matched,StringClass Resize; BFME array new takes a four-byte tag
 ?Uninitialised_Grow@StringClass@@AAEXH@Z,,0x00610CF0,119,Code/Libraries/Source/WWVegas/WWLib/wwstring.cpp,matched,StringClass Uninitialised_Grow; BFME array new takes a four-byte tag
 ?Allocate_Buffer@StringClass@@AAEPADH@Z,,0x006109F0,38,Code/Libraries/Source/WWVegas/WWLib/wwstring.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?Rotate@Coord2D@@QAEAAV1@M@Z,0x00003916,0x00003916,101,Code/Libraries/Source/WWVegas/WWMath/coord2d_rotate.cpp,matched,Clean C++; aggregate trig storage and post-asm references reproduce retail stack homes and arithmetic; fsincos is the established MSVC 7.1 codegen blocker

@@ -12,6 +12,9 @@
 // the ebp frame retail carries is the one MSVC forces on any function that
 // contains an __asm block.
 
+extern "C" double __cdecl sin(double angle);
+extern "C" double __cdecl cos(double angle);
+
 struct Coord2DBase
 {
     float x;
@@ -22,6 +25,7 @@ class Coord2D : public Coord2DBase
 {
 public:
     Coord2D &Rotate(const Coord2D &that, float angle);
+    Coord2D &Rotate(float angle);
 };
 
 Coord2D &Coord2D::Rotate(const Coord2D &that, float angle)
@@ -39,6 +43,37 @@ Coord2D &Coord2D::Rotate(const Coord2D &that, float angle)
 
     x = that.x * cosine - that.y * sine;
     y = that.y * cosine + that.x * sine;
+
+    return *this;
+}
+
+// Retail preserves the preliminary CRT calls even though fsincos overwrites
+// both results. Keeping the pair in one aggregate fixes its stack order;
+// references bound after the asm block preserve the scalar arithmetic shape.
+Coord2D &Coord2D::Rotate(float angle)
+{
+    struct Trig
+    {
+        float cosine;
+        float sine;
+    } trig;
+
+    trig.sine = (float)sin(angle);
+    trig.cosine = (float)cos(angle);
+
+    __asm
+    {
+        fld angle
+        fsincos
+        fstp trig.cosine
+        fstp trig.sine
+    }
+
+    float &sine = trig.sine;
+    float &cosine = trig.cosine;
+    float rotated = x * cosine - y * sine;
+    y = y * cosine + x * sine;
+    x = rotated;
 
     return *this;
 }
