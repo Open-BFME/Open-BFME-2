@@ -3568,3 +3568,4 @@ _XMP_Shift_Left_Bits,,0x0061BBD0,308,Code/Libraries/Source/WWVegas/WWLib/mpmath.
 ?isPlayerDead@Player@@QBE_NXZ,,0x0028A7D8,7,Code/GameEngine/Source/Common/RTS/Player.cpp,matched,BFME2 exact BFME1-derived predicate; unique masked placement
 ?capacity@?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QBEIXZ,,0x004FA63B,9,Code/GameEngine/Source/Common/RTS/Player.cpp,matched,BFME2 exact BFME1-derived STL accessor; unique masked placement
 ?_M_getword@?$_Base_bitset@$03@_STL@@QAEAAKI@Z,,0x004D052B,13,Code/GameEngine/Source/Common/RTS/Player.cpp,matched,BFME2 exact BFME1-derived STL helper; unique masked placement
+?Emitter_Is_Dead@ParticleBufferClass@@QAEXXZ,,0x001A6E60,18,Code/Libraries/Source/WWVegas/WW3D2/part_buf.cpp,matched,BFME2 exact BFME1-derived ParticleBuffer helper; unique masked placement
