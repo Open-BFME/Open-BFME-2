@@ -9,7 +9,7 @@
 //
 // Every body here is a thin cover over one C stdio call, and the image names
 // which one by its import slot: 0x00BBA658 fflush, 0x00BBA654 setvbuf,
-// 0x00BBA638 getc, 0x00BBA63C ungetc.
+// 0x00BBA638 fgetc, 0x00BBA63C ungetc.
 //
 // Two of them carry a comparison that does nothing at runtime - cmp eax,-1
 // then a branch over an or eax,eax. That is the eof round-trip written out:
@@ -95,7 +95,7 @@ streamsize stdio_istreambuf::showmanyc()
 
 stdio_istreambuf::int_type stdio_istreambuf::underflow()
 {
-	int __c = getc(_M_file);
+	int __c = fgetc(_M_file);
 	if (__c != EOF) {
 		ungetc(__c, _M_file);
 		return __c;
@@ -119,7 +119,7 @@ stdio_istreambuf::int_type stdio_istreambuf::pbackfail(int_type __c)
 
 stdio_istreambuf::int_type stdio_istreambuf::uflow()
 {
-	int __c = getc(_M_file);
+	int __c = fgetc(_M_file);
 	return __c == EOF ? _STLP_STD::char_traits<char>::eof() : __c;
 }
 
@@ -136,7 +136,7 @@ stdio_ostreambuf::int_type stdio_ostreambuf::overflow(int_type __c)
 		return _STLP_STD::char_traits<char>::not_eof(__c);
 	}
 
-	int __r = putc(__c, _M_file);
+	int __r = fputc(__c, _M_file);
 	return __r == EOF ? _STLP_STD::char_traits<char>::eof() : __r;
 }
 

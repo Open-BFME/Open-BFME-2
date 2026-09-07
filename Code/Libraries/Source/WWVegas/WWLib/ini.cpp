@@ -169,6 +169,7 @@ INIEntry::~INIEntry(void)
 	Value = NULL;
 }
 
+// ??1INISection@@ present-unmatched
 INISection::~INISection(void)
 {
 	free(Section);
@@ -188,6 +189,7 @@ void INIClass::Initialize(void)
 	Filename = nstrdup("<unknown>");
 }
 
+// ?Shutdown@INIClass@@ present-unmatched
 void INIClass::Shutdown(void)
 {
 	delete SectionList;
@@ -276,6 +278,7 @@ INIClass::INIClass(const char *filename)
  * HISTORY:                                                                                    *
  *   07/02/1996 JLB : Created.                                                                 *
  *=============================================================================================*/
+// ??1INIClass@@ present-unmatched
 INIClass::~INIClass(void)
 {
 	Clear();
@@ -354,6 +357,7 @@ bool INIClass::Clear(char const * section, char const * entry)
  * HISTORY:                                                                                    *
  *   9/7/2001   AJA:  Created.                                                                 *
  *=============================================================================================*/
+// ?Get_Filename@INIClass@@ present-unmatched
 const char * INIClass::Get_Filename (void) const
 {
 	return Filename;
@@ -789,6 +793,7 @@ INISection * INIClass::Find_Section(char const * section) const
  *   07/02/1996 JLB : Created.                                                                 *
  *   11/02/1996 JLB : Uses index manager.                                                      *
  *=============================================================================================*/
+// ?Section_Count@INIClass@@ present-unmatched
 int INIClass::Section_Count(void) const
 {
 	return(SectionIndex->Count());
@@ -1770,13 +1775,14 @@ int INIClass::Get_List_Index(char const * section, char const * entry, int const
 	}
 
 	for (int lp = 0; list[lp]; lp++) {
-		if (stricmp(entryptr->Value, list[lp]) == 0) {
+		if (_strcmpi(entryptr->Value, list[lp]) == 0) {
 			return lp;
 		}
 		assert(lp < 1000);
 	}
 	return defvalue;
 }
+// ?Get_Int_Bitfield@INIClass@@ present-unmatched
 int INIClass::Get_Int_Bitfield(char const * section, char const * entry, int defvalue, char *list[])
 {
 	// if we can't find the entry or the entry is null just return the default value
@@ -1796,7 +1802,7 @@ int INIClass::Get_Int_Bitfield(char const * section, char const * entry, int def
 		for (lp = 0; list[lp]; lp++) {
 			// if this list entry matches our string token then we need
 			// to set this bit.
-			if (stricmp(token, list[lp]) == 0) {
+			if (_strcmpi(token, list[lp]) == 0) {
 				retval |= (1 << lp);
 				break;
 			}
@@ -1809,6 +1815,7 @@ int INIClass::Get_Int_Bitfield(char const * section, char const * entry, int def
 	return retval;
 }
 
+// ?Get_Alloc_Int_Array@INIClass@@ present-unmatched
 int *	INIClass::Get_Alloc_Int_Array(char const * section, char const * entry, int listend)
 {
 	int *retval = NULL;

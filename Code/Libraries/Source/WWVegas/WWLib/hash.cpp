@@ -1,7 +1,7 @@
 // cl: /Ireference/shims/bfmerendobj /G7 /DNDEBUG /MD /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/sweep
 // WWLib HashTableClass, verbatim from the Generals Zero Hour reference
 // (GeneralsMD/.../WWVegas/WWLib/hash.cpp). /DNDEBUG makes WWASSERT a no-op; /MD
-// matches the retail CRT (stricmp). Hash() calls the already-matched CRC_Stringi.
+// matches the retail CRT (_strcmpi). Hash() calls the already-matched CRC_Stringi.
 #include "rendobj.h"	// the bfmerendobj shim has to win the include guard
 #include "hash.h"
 #include "wwdebug.h"
@@ -32,6 +32,7 @@ HashTableClass::HashTableClass( int size ) :
 	Reset();
 }
 
+// ??1HashTableClass@@ present-unmatched
 HashTableClass::~HashTableClass( void )
 {
 	// If we need to, free the hash table
@@ -93,7 +94,7 @@ HashableClass * HashTableClass::Find( const char * key )
 	// Find in the hash table.
 	int index = Hash( key );
 	for ( HashableClass * node = HashTable[ index ]; node != NULL; node = node->NextHash ) {
-		if ( ::stricmp( node->Get_Key(), key ) == 0 ) {
+		if ( ::_strcmpi( node->Get_Key(), key ) == 0 ) {
 			return node;
 		}
 	}

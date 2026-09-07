@@ -22,6 +22,10 @@
 #ifndef __BTRWRITE
 #define __BTRWRITE 1
 
+// BFME2 imports the CRT allocators directly (PE malloc/free entries).
+extern "C" __declspec(dllimport) void * __cdecl malloc(unsigned int);
+extern "C" __declspec(dllimport) void __cdecl free(void *);
+
 #include <string.h>
 #include "codex.h"
 #include "btreecodex.h"
@@ -362,15 +366,15 @@ static void BTREE_treepack(struct BTreeEncodeContext *EC,
 	buf1size = EC->ulen*3/2+(int)BTREESLOPAGE;
 	buf2size = EC->ulen*3/2+(int)BTREESLOPAGE;
 
-	treebuf =	(unsigned char *) galloc(treebufsize);
+	treebuf =	(unsigned char *) malloc(treebufsize);
 	if (!treebuf)
         return; /* failure Insufficient memory for work buffer */
 
-	EC->buf1 =	(unsigned char *) galloc(buf1size);
+	EC->buf1 =	(unsigned char *) malloc(buf1size);
 	if (!EC->buf1)
         return; /* failure Insufficient memory for work buffer */
 
-	EC->buf2 =	(unsigned char *) galloc(buf2size);
+	EC->buf2 =	(unsigned char *) malloc(buf2size);
 	if (!EC->buf2)
         return; /* failure Insufficient memory for work buffer */
 
@@ -612,9 +616,9 @@ static void BTREE_treepack(struct BTreeEncodeContext *EC,
 
 	BTREE_writebits(EC,dest,0L,7);	/* flush bits */
 
-	gfree(EC->buf2);
-	gfree(EC->buf1);
-	gfree(treebuf);
+	free(EC->buf2);
+	free(EC->buf1);
+	free(treebuf);
 }
 
 static int BTREE_compressfile(struct BTreeEncodeContext *EC,

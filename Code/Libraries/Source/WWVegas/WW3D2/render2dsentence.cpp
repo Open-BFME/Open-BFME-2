@@ -37,6 +37,9 @@
  * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
+// This TU's retail Compare_No_Case calls msvcr71!_strcmpi.
+#include <string.h>
+#define _stricmp _strcmpi
 #include "render2dsentence.h"
 #include "surfaceclass.h"
 #include "texture.h"
@@ -221,6 +224,7 @@ Render2DSentenceClass::Set_Shader (ShaderClass shader)
 //
 ////////////////////////////////////////////////////////////////////////////////////
 void
+// ?Render@Render2DSentenceClass@@ present-unmatched
 Render2DSentenceClass::Render (void)
 {
 	//
@@ -1738,6 +1742,7 @@ FontCharsClass::Is_Font (const char *font_name, int point_size, bool is_bold)
 //
 ////////////////////////////////////////////////////////////////////////////////////
 void
+// ?Grow_Unicode_Array@FontCharsClass@@ present-unmatched
 FontCharsClass::Grow_Unicode_Array (WCHAR ch)
 {
 	//
@@ -1792,6 +1797,7 @@ FontCharsClass::Grow_Unicode_Array (WCHAR ch)
 //
 ////////////////////////////////////////////////////////////////////////////////////
 void
+// ?Free_Character_Arrays@FontCharsClass@@ present-unmatched
 FontCharsClass::Free_Character_Arrays (void)
 {
 	if ( UnicodeCharArray != NULL ) {

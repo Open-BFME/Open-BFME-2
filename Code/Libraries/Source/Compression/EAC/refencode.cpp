@@ -22,6 +22,10 @@
 #ifndef __REFWRITE
 #define __REFWRITE 1
 
+// BFME2 imports the CRT allocators directly (PE malloc/free entries).
+extern "C" __declspec(dllimport) void * __cdecl malloc(unsigned int);
+extern "C" __declspec(dllimport) void __cdecl free(void *);
+
 #include <string.h>
 #include "codex.h"
 #include "refcodex.h"
@@ -75,10 +79,10 @@ static int refcompress(unsigned char *from, int len, unsigned char *dest, int ma
     if ((unsigned int)maxback > (unsigned int)131071)
         maxback = 131071;
 
-	hashtbl = (int *) galloc(65536L*sizeof(int));
+	hashtbl = (int *) malloc(65536L*sizeof(int));
 	if (!hashtbl)
         return(0);
-	link = (int *) galloc(131072L*sizeof(int));
+	link = (int *) malloc(131072L*sizeof(int));
 	if (!link)
         return(0);
 
@@ -225,8 +229,8 @@ static int refcompress(unsigned char *from, int len, unsigned char *dest, int ma
         to += run;
     }
 
-	gfree(link);
-	gfree(hashtbl);
+	free(link);
+	free(hashtbl);
     return(to-dest);
 }
 

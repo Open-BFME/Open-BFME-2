@@ -22,6 +22,10 @@
 #ifndef __HUFWRITE
 #define __HUFWRITE 1
 
+// BFME2 imports the CRT allocators directly (PE malloc/free entries).
+extern "C" __declspec(dllimport) void * __cdecl malloc(unsigned int);
+extern "C" __declspec(dllimport) void __cdecl free(void *);
+
 #include <string.h>
 #include "codex.h"
 #include "huffcodex.h"
@@ -1188,7 +1192,7 @@ int GCALL HUFF_encode(void *compresseddata, const void *source, int sourcesize, 
     if (opts)
         opt = opts[0];
 
-    EC = (struct HuffEncodeContext *)galloc(sizeof(struct HuffEncodeContext));
+    EC = (struct HuffEncodeContext *)malloc(sizeof(struct HuffEncodeContext));
     if (EC)
     {
         switch (opt)
@@ -1199,13 +1203,13 @@ int GCALL HUFF_encode(void *compresseddata, const void *source, int sourcesize, 
                 break;
 
             case 1:
-                deltabuf = galloc(sourcesize);
+                deltabuf = malloc(sourcesize);
     			HUFF_deltabytes(source,deltabuf,sourcesize);
                 infile.ptr = (char *) deltabuf;
                 break;
 
             case 2:
-                deltabuf = galloc(sourcesize);
+                deltabuf = malloc(sourcesize);
     			HUFF_deltabytes(source,deltabuf,sourcesize);
     			HUFF_deltabytes(deltabuf,deltabuf,sourcesize);
                 infile.ptr = (char *) deltabuf;
@@ -1218,8 +1222,8 @@ int GCALL HUFF_encode(void *compresseddata, const void *source, int sourcesize, 
 
         plen = HUFF_packfile(EC,&infile, &outfile, sourcesize, opt);
 
-        if (deltabuf) gfree(deltabuf);
-        gfree(EC);
+        if (deltabuf) free(deltabuf);
+        free(EC);
     }
     return(plen);
 }

@@ -43,6 +43,10 @@
 #include "win.h"
 #include <stdio.h>
 
+// Retail imports this four-argument C++ overload, not the C _vsnwprintf export.
+__declspec(dllimport) int __cdecl vswprintf(
+    unsigned short *, unsigned int, const unsigned short *, char *);
+
 // BFME's ARRAY operators forward to the scalar ones -- always.h declares
 // operator new[]/delete[] and defines neither, so an inline forwarder is folded
 // away at the call site and `new WCHAR[n]` reaches ??2@YAPAXI@Z (0x0002FDA0)
@@ -93,6 +97,7 @@ WCHAR *	WideStringClass::m_ResTempPtr[MAX_TEMP_STRING] = {
 //
 ///////////////////////////////////////////////////////////////////
 void
+// ?Get_String@WideStringClass@@ present-unmatched
 WideStringClass::Get_String (int length, bool is_temp)
 {
 	if (!is_temp && length <= 1) {
@@ -204,6 +209,7 @@ WideStringClass::Uninitialised_Grow (int new_len)
 //
 ///////////////////////////////////////////////////////////////////
 void
+// ?Free_String@WideStringClass@@ present-unmatched
 WideStringClass::Free_String (void)
 {
 	if (m_Buffer != m_EmptyString) {
@@ -270,7 +276,7 @@ WideStringClass::Format_Args (const WCHAR *format, const va_list & arg_list )
 	//
 	//	Format the string
 	//
-	int retval = _vsnwprintf (temp_buffer, 512, format, arg_list);
+	int retval = vswprintf (temp_buffer, 512, format, arg_list);
 	
 	//
 	//	Copy the string into our buffer
@@ -304,7 +310,7 @@ WideStringClass::Format (const WCHAR *format, ...)
 	//
 	//	Format the string
 	//
-	int retval = _vsnwprintf (temp_buffer, 512, format, arg_list);
+	int retval = vswprintf (temp_buffer, 512, format, arg_list);
 	
 	//
 	//	Copy the string into our buffer
@@ -322,6 +328,7 @@ WideStringClass::Format (const WCHAR *format, ...)
 //
 ///////////////////////////////////////////////////////////////////
 void
+// ?Release_Resources@WideStringClass@@ present-unmatched
 WideStringClass::Release_Resources (void)
 {
 	return ;

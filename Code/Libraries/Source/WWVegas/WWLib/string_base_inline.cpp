@@ -16,6 +16,10 @@ typedef unsigned short wchar_t;
 
 #define _DLL
 #include <stdio.h>
+
+// Retail imports this four-argument C++ overload, not the C _vsnwprintf export.
+__declspec(dllimport) int __cdecl vswprintf(
+    unsigned short *, unsigned int, const unsigned short *, char *);
 #include <string.h>
 
 #include "string_base.h"
@@ -197,7 +201,7 @@ void StringBase<wchar_t>::format_va(const wchar_t *format, char *args)
 {
     wchar_t buffer[8192];
 
-    const int length = _vsnwprintf(buffer, sizeof(buffer) / sizeof(buffer[0]), format, args);
+    const int length = vswprintf(buffer, sizeof(buffer) / sizeof(buffer[0]), format, args);
 
     set(buffer, length);
 }
@@ -207,7 +211,7 @@ void StringBase<wchar_t>::format_va(const StringBase<wchar_t> &format, char *arg
 {
     wchar_t buffer[8192];
 
-    const int length = _vsnwprintf(buffer, sizeof(buffer) / sizeof(buffer[0]),
+    const int length = vswprintf(buffer, sizeof(buffer) / sizeof(buffer[0]),
         format.m_data ? &format.m_data->data[0] : L"", args);
 
     set(buffer, length);
