@@ -3684,3 +3684,8 @@ _XMP_Shift_Left_Bits,,0x0061BBD0,308,Code/Libraries/Source/WWVegas/WWLib/mpmath.
 ?getBounds@RoadSegment@@QAEABVSphereClass@@XZ,,0x001F499E,7,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DRoadBuffer.cpp,matched,BFME2 exact BFME1-derived road buffer body
 ?updateCenter@W3DRoadBuffer@@QAEXXZ,,0x00050CF7,5,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DRoadBuffer.cpp,matched,BFME2 exact BFME1-derived road buffer body
 ?getRoadWidth@TerrainRoadType@@QAEMXZ,,0x0049CB57,4,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DRoadBuffer.cpp,matched,BFME2 exact BFME1-derived road buffer body
+?Cur_Micro_Chunk_Length@ChunkLoadClass@@QAEKXZ,,0x006150B0,8,Code/Libraries/Source/WWVegas/WWLib/chunkio.cpp,matched,BFME2 exact BFME1-derived chunk accessor
+?Get_Element@?$ShareBufferClass@VShaderClass@@@@QAEAAVShaderClass@@H@Z,,0x001B3760,13,Code/Libraries/Source/WWVegas/WW3D2/meshmatdesc.cpp,matched,BFME2 exact BFME1-derived mesh material accessor
+?Get_Aspect_Ratio@CameraClass@@QBEMXZ,,0x00133D90,7,Code/Libraries/Source/WWVegas/WW3D2/camera.cpp,matched,BFME2 exact BFME1-derived camera getter
+?Get_Spot_Angle_Cos@LightClass@@QBEMXZ,,0x0013F240,7,Code/Libraries/Source/WWVegas/WW3D2/lightenvironment.cpp,matched,BFME2 exact BFME1-derived light getter
+?Get_Filter@TextureClass@@QAEAAVTextureFilterClass@@XZ,,0x0035FF72,4,Code/Libraries/Source/WWVegas/WW3D2/render2dsentence.cpp,matched,BFME2 exact BFME1-derived texture getter
