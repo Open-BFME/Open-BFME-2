@@ -851,3 +851,7 @@ _ArrayNth,0x0060A200,GameSpy callee already byte-verified in Code/GameEngine/Sou
 _gpiHandleTransferMessage,0x007378D0,GameSpy GP callee; independent unique 376-byte source candidate in gpiTransfer.c; direct call from _gpiProcessPeerConnected corroborates identity
 _CanReceiveOnSocket,0x0060AB40,GameSpy callee already byte-verified in Code/GameEngine/Source/GameNetwork/GameSpy/nonport.c at commit 5f718df7f853; direct call from _gpiProcessPeers
 _accept@12,0x00687CE4,PE-verified FF25 import thunk to ws2_32.dll!accept via IAT 0x00BBA938; independently read from retail import directory
+_GetReceiveBufferSize,0x0060A970,GameSpy callee already byte-verified in Code/GameEngine/Source/GameNetwork/GameSpy/nonport.c at commit edcf90f6c5e1; direct call from _gpiSetPeerSocketSizes
+_GetSendBufferSize,0x0060A9B0,GameSpy callee already byte-verified in Code/GameEngine/Source/GameNetwork/GameSpy/nonport.c at commit edcf90f6c5e1; direct call from _gpiSetPeerSocketSizes
+_SetReceiveBufferSize,0x0060A910,GameSpy callee already byte-verified in Code/GameEngine/Source/GameNetwork/GameSpy/nonport.c at commit edcf90f6c5e1; direct call from _gpiSetPeerSocketSizes
+_SetSendBufferSize,0x0060A940,GameSpy callee already byte-verified in Code/GameEngine/Source/GameNetwork/GameSpy/nonport.c at commit edcf90f6c5e1; direct call from _gpiSetPeerSocketSizes
