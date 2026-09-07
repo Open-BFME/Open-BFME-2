@@ -624,3 +624,12 @@ _strdup,0x006C4C70,address read from the retail REL32 in INIClass::Put_String at
 ?Set_Transform@RenderObjClass@@UAEXABVMatrix3D@@@Z,0x0013B790,address read from the REL32 displacement at a placed body
 ?_M_insert@?$_Rb_tree@HU?$pair@$$CBHH@_STL@@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@AAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHH@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHH@_STL@@@2@@2@PAU_Rb_tree_node_base@2@0ABU?$pair@$$CBHH@2@0@Z,0x0038341E,address read from the retail REL32 in Rb_tree insert_unique at 0x00422EC0
 ?insert_unique@?$_Rb_tree@HU?$pair@$$CBHH@_STL@@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBHH@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHH@_STL@@@2@@_STL@@_N@2@ABU?$pair@$$CBHH@2@@Z,0x001E6F5F,address read from the retail REL32 in Rb_tree insert_unique at 0x00422EC0
+??0GridTextureMapperClass@@QAE@ABV0@@Z,0x00184420,address read from the REL32 displacement at a placed body
+?initialize@GridTextureMapperClass@@IAEXMI@Z,0x00182480,address read from the REL32 displacement at a placed body
+??0SegLineRendererClass@@QAE@ABV0@@Z,0x00191B50,address read from the REL32 displacement at a placed body
+??4RenderObjClass@@QAEAAV0@ABV0@@Z,0x0013B5F0,address read from the REL32 displacement at a placed body
+??4SegLineRendererClass@@QAEAAV0@ABV0@@Z,0x001912F0,address read from the REL32 displacement at a placed body
+??0ParticleEmitterClass@@QAE@ABV0@@Z,0x001A1530,address read from the REL32 displacement at a placed body
+?Build_Quaternion@@YA?AVQuaternion@@ABVMatrix3D@@@Z,0x00717B40,address read from the REL32 displacement at a placed body
+?Get_Bounding_Box@MeshGeometryClass@@QAEXPAVAABoxClass@@@Z,0x001692F0,address read from the REL32 displacement at a placed body
+?Get_Bounding_Sphere@MeshGeometryClass@@QAEXPAVSphereClass@@@Z,0x00169370,address read from the REL32 displacement at a placed body

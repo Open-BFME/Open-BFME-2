@@ -1974,7 +1974,6 @@ _XMP_Test_Bit,,0x0061B780,33,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?Free@MotionChannelClass@@AAEXXZ,,0x001960C0,24,Code/Libraries/Source/WWVegas/WW3D2/motchan.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
 ?Free@TimeCodedMotionChannelClass@@AAEXXZ,,0x001960E0,24,Code/Libraries/Source/WWVegas/WW3D2/motchan.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
 ?Get_LOD_Max_Screen_Size@ParticleBufferClass@@SAMH@Z,,0x001A78D0,28,Code/Libraries/Source/WWVegas/WW3D2/part_buf.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
-?Get_Lifetime@ParticleBufferClass@@QBEMXZ,,0x001A0A60,31,Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
 ?Free_Props@ParticleEmitterDefClass@@MAEXXZ,,0x001AF650,345,Code/Libraries/Source/WWVegas/WW3D2/part_ldr.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
 ?Set_Texture_Filename@ParticleEmitterDefClass@@UAEXPBD@Z,,0x001AF8B0,32,Code/Libraries/Source/WWVegas/WW3D2/part_ldr.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
 ?Set_Velocity@ParticleEmitterDefClass@@UAEXABVVector3@@@Z,,0x001B1540,33,Code/Libraries/Source/WWVegas/WW3D2/part_ldr.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
@@ -2257,8 +2256,6 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?Insert@?$HashTemplateClass@UTriangleSide@@USideIndexInfo@@@@QAEXABUTriangleSide@@ABUSideIndexInfo@@@Z,,0x00172EF0,154,Code/Libraries/Source/WWVegas/WW3D2/meshmdl_sidehash.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
 ?Find_POT@@YAHH@Z,,0x0071CCF0,51,Code/Libraries/Source/WWVegas/WW3D2/pot.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
 ?Find_POT_Log2@@YAII@Z,,0x0071CD30,45,Code/Libraries/Source/WWVegas/WW3D2/pot.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
-?Set_Point_Location@SegmentedLineClass@@QAEXIABVVector3@@@Z,,0x00741C30,53,Code/Libraries/Source/WWVegas/WW3D2/segline.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
-?Delete_Point@SegmentedLineClass@@QAEXI@Z,,0x00742B00,105,Code/Libraries/Source/WWVegas/WW3D2/segline.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
 ?getVertexBuffer@SegLineRendererClass@@AAEPAUVertexFormatXYZDUV1@@I@Z,,0x001912B0,60,Code/Libraries/Source/WWVegas/WW3D2/seglinerenderer.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
 ?Set_Texture@StreakRendererClass@@QAEXPAVTextureClass@@@Z,,0x0014A0F0,39,Code/Libraries/Source/WWVegas/WW3D2/streakRender.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
 ?_M_bkt_num_key@?$hashtable@U?$pair@$$CBHUOpen2MappedA@_STL@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHUOpen2MappedA@_STL@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHUOpen2MappedA@_STL@@@_STL@@@2@@_STL@@ABEIABH@Z,,0x00148AE3,26,Code/Libraries/Source/WWVegas/WWLib/stlport_hashtable_int_insert_twins.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
@@ -2542,7 +2539,6 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?Internal_Add_Tail@GenericMultiListClass@@IAE_NPAVMultiListObjectClass@@_N@Z,,0x00610820,117,Code/Libraries/Source/WWVegas/WWLib/multilist.cpp,matched,stlport 4.5.3; placed by masked whole-.text search of the compiled body - single hit
 ??$Pick_Random_Number@VRandomClass@@@@YAHAAVRandomClass@@HH@Z,,0x006195B0,117,Code/Libraries/Source/WWVegas/WWLib/random.cpp,matched,stlport 4.5.3; placed by masked whole-.text search of the compiled body - single hit
 ?Get_String@INIClass@@QBEHPBD00PADH@Z,,0x006171E0,114,Code/Libraries/Source/WWVegas/WWLib/ini.cpp,matched,stlport 4.5.3; placed by masked whole-.text search of the compiled body - single hit
-?Set_Points@SegmentedLineClass@@QAEXIPAVVector3@@@Z,,0x00742910,113,Code/Libraries/Source/WWVegas/WW3D2/segline.cpp,matched,stlport 4.5.3; placed by masked whole-.text search of the compiled body - single hit
 ??0file_auto_ptr@@QAE@PAVFileFactoryClass@@PBD@Z,,0x006131C0,112,Code/Libraries/Source/WWVegas/WWLib/ffactory.cpp,matched,stlport 4.5.3; placed by masked whole-.text search of the compiled body - single hit
 ??0SimpleFileFactoryClass@@QAE@XZ,,0x00613300,111,Code/Libraries/Source/WWVegas/WWLib/ffactory.cpp,matched,stlport 4.5.3; placed by masked whole-.text search of the compiled body - single hit
 ?Record_Texture_Begin@@YAXXZ,,0x00129DE0,108,Code/Libraries/Source/WWVegas/WW3D2/TextureStatisticsVector.cpp,matched,stlport 4.5.3; placed by masked whole-.text search of the compiled body - single hit
@@ -2682,7 +2678,6 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?Set_Post_Detail_Alpha_Func@ShaderClass@@QAEXW4DetailAlphaFuncType@1@@Z,,0x00065F97,21,Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp,matched,stlport 4.5.3; placed by masked whole-.text search of the compiled body - single hit
 ?Set_Post_Detail_Color_Func@ShaderClass@@QAEXW4DetailColorFuncType@1@@Z,,0x00065FAC,21,Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp,matched,stlport 4.5.3; placed by masked whole-.text search of the compiled body - single hit
 ?ID@?$VectorClass@E@@UAEHPBE@Z,,0x0017EB40,21,Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp,matched,stlport 4.5.3; placed by masked whole-.text search of the compiled body - single hit
-?Add_Point@SegmentedLineClass@@QAEXABVVector3@@@Z,,0x00742AE0,21,Code/Libraries/Source/WWVegas/WW3D2/segline.cpp,matched,stlport 4.5.3; placed by masked whole-.text search of the compiled body - single hit
 ?Set_Disable_Sorting@SegLineRendererClass@@QAEXH@Z,,0x0015E030,21,Code/Libraries/Source/WWVegas/WW3D2/segline.cpp,matched,stlport 4.5.3; placed by masked whole-.text search of the compiled body - single hit
 ?Set_End_Caps@SegLineRendererClass@@QAEXH@Z,,0x0015E050,21,Code/Libraries/Source/WWVegas/WW3D2/segline.cpp,matched,stlport 4.5.3; placed by masked whole-.text search of the compiled body - single hit
 ?Set_Freeze_Random@SegLineRendererClass@@QAEXH@Z,,0x0015E010,21,Code/Libraries/Source/WWVegas/WW3D2/segline.cpp,matched,stlport 4.5.3; placed by masked whole-.text search of the compiled body - single hit
@@ -3146,12 +3141,10 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ??0BumpEnvTextureMapperClass@@QAE@MMABVVector2@@0_N0I@Z,,0x00186940,86,Code/Libraries/Source/WWVegas/WW3D2/mapper.cpp,matched,placed by masked byte-scan; single hit
 ?Add@?$SimpleDynVecClass@E@@QAE_NABEH@Z,,0x001AC7D0,85,Code/Libraries/Source/WWVegas/WW3D2/part_buf.cpp,matched,placed by masked byte-scan; single hit
 ?Clone@BumpEnvTextureMapperClass@@UBEPAVTextureMapperClass@@XZ,,0x001875E0,72,Code/Libraries/Source/WWVegas/WW3D2/mapper.cpp,matched,placed by masked byte-scan; single hit
-?Get_Point_Location@SegmentedLineClass@@QAEXIAAVVector3@@@Z,,0x00741C70,72,Code/Libraries/Source/WWVegas/WW3D2/segline.cpp,matched,placed by masked byte-scan; single hit
 ??H@YA?AVVector4@@ABV0@0@Z,,0x001910C0,70,Code/Libraries/Source/WWVegas/WW3D2/seglinerenderer.cpp,matched,placed by masked byte-scan; single hit
 ??D@YA?AVVector4@@ABV0@M@Z,,0x00191070,69,Code/Libraries/Source/WWVegas/WW3D2/seglinerenderer.cpp,matched,placed by masked byte-scan; single hit
 ??0EdgeMapperClass@@QAE@I@Z,,0x001833B0,66,Code/Libraries/Source/WWVegas/WW3D2/mapper.cpp,matched,placed by masked byte-scan; single hit
 ?Convert_Color@W3dUtilityClass@@SAXABUW3dRGBStruct@@PAVVector3@@@Z,,0x0013C7F0,66,Code/Libraries/Source/WWVegas/WW3D2/w3d_util.cpp,matched,placed by masked byte-scan; single hit
-?Get_Start_Velocity@ParticleEmitterClass@@QBE?AVVector3@@XZ,,0x001A09F0,65,Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp,matched,placed by masked byte-scan; single hit
 ??K@YA?AVVector3@@ABV0@M@Z,,0x0006E051,63,Code/Libraries/Source/WWVegas/WW3D2/meshgeometry.cpp,matched,placed by masked byte-scan; single hit
 ?Get_Temp_Index_Array@@YAPAUTempIndexStruct@@I@Z,,0x0012D390,61,Code/Libraries/Source/WWVegas/WW3D2/sortingrenderer.cpp,matched,placed by masked byte-scan; single hit
 ?Convert_Old@CameraClass@@SAXAAVVector3@@@Z,,0x00133E40,55,Code/Libraries/Source/WWVegas/WW3D2/camera.cpp,matched,placed by masked byte-scan; single hit
@@ -3423,7 +3416,6 @@ _XMP_Shift_Left_Bits,,0x0061BBD0,308,Code/Libraries/Source/WWVegas/WWLib/mpmath.
 ?Get_Device@DX8Caps@@QBEIXZ,,0x002190A8,7,Code/Libraries/Source/WWVegas/WW3D2/shader.cpp,matched,BFME2 exact BFME1-derived capability getter; unique masked placement
 ?Get_Vendor@DX8Caps@@QBEIXZ,,0x003EE6FD,7,Code/Libraries/Source/WWVegas/WW3D2/shader.cpp,matched,BFME2 exact BFME1-derived capability getter; unique masked placement
 ?Is_Backface_Culling_Inverted@ShaderClass@@SA_NXZ,,0x001381F0,13,Code/Libraries/Source/WWVegas/WW3D2/shader.cpp,matched,BFME2 exact BFME1-derived shader predicate; unique masked placement
-?Get_Burst_Size@ParticleEmitterClass@@QBEHXZ,,0x004ACD6C,7,Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp,matched,BFME2 exact BFME1-derived getter; unique masked placement
 ?Get_Emission_Rate@ParticleEmitterDefClass@@QBEMXZ,,0x007417E0,7,Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp,matched,BFME2 exact BFME1-derived getter; unique masked placement
 ?Get_Lifetime@ParticleEmitterDefClass@@QBEMXZ,,0x007417D0,7,Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp,matched,BFME2 exact BFME1-derived getter; unique masked placement
 ?Get_Max_Emissions@ParticleEmitterDefClass@@QBEMXZ,,0x00741800,7,Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp,matched,BFME2 exact BFME1-derived getter; unique masked placement
@@ -3431,8 +3423,6 @@ _XMP_Shift_Left_Bits,,0x0061BBD0,308,Code/Libraries/Source/WWVegas/WWLib/mpmath.
 ?Get_Frame_Time@WW3D@@SAIXZ,,0x0008513B,12,Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp,matched,BFME2 exact BFME1-derived getter; unique masked placement
 ?Get_Creation_Volume@ParticleEmitterDefClass@@QBEPAVVector3Randomizer@@XZ,,0x001A1040,11,Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp,matched,BFME2 exact BFME1-derived getter; unique masked placement
 ?Get_Velocity_Random@ParticleEmitterDefClass@@QBEPAVVector3Randomizer@@XZ,,0x001A1050,11,Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp,matched,BFME2 exact BFME1-derived getter; unique masked placement
-?Get_Max_Particles@ParticleEmitterClass@@QBEHXZ,,0x00188750,7,Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp,matched,BFME2 exact BFME1-derived getter; unique masked placement
-?Get_Velocity_Inherit@ParticleEmitterClass@@QBEMXZ,,0x00085516,7,Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp,matched,BFME2 exact BFME1-derived getter; unique masked placement
 ?Resize@WideStringClass@@AAEXH@Z,,0x00619DC0,106,Code/Libraries/Source/WWVegas/WWLib/widestring.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 ?Get_Alloc_String@INIClass@@QBEPADPBD00@Z,,0x006172C0,71,Code/Libraries/Source/WWVegas/WWLib/ini.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 ??_G?$IndexClass@HPAUINISection@@@@QAEPAXI@Z,,0x00616960,52,Code/Libraries/Source/WWVegas/WWLib/ini.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
@@ -3440,9 +3430,6 @@ _XMP_Shift_Left_Bits,,0x0061BBD0,308,Code/Libraries/Source/WWVegas/WWLib/mpmath.
 ?setUV@Image@@QAEXPAURegion2D@@@Z,,0x0004D701,22,Code/GameEngine/Source/GameClient/GUI/AptMapPreviewPictureImage.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 ?insert@?$map@HHU?$less@H@_STL@@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHH@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHH@_STL@@@2@@2@U32@ABU?$pair@$$CBHH@2@@Z,,0x00289147,29,Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_int_os.cpp,matched,map<int int>::insert with hint; reloc-named address screened exact
 ??0?$_STLP_alloc_proxy@PAU?$_Rb_tree_node@U?$pair@$$CBHH@_STL@@@_STL@@U12@V?$allocator@U?$_Rb_tree_node@U?$pair@$$CBHH@_STL@@@_STL@@@2@@_STL@@QAE@ABV01@@Z,,0x0027EA56,13,Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_int_os.cpp,matched,alloc proxy copy ctor; reloc-named address screened exact
-?Get_Merge_Abort_Factor@SegmentedLineClass@@QAEMXZ,,0x00167EA3,7,Code/Libraries/Source/WWVegas/WW3D2/segline.cpp,matched,BFME2 exact BFME1-derived getter; unique masked placement
-?Get_Opacity@SegmentedLineClass@@QAEMXZ,,0x0015E280,7,Code/Libraries/Source/WWVegas/WW3D2/segline.cpp,matched,BFME2 exact BFME1-derived getter; unique masked placement
-?Get_Texture_Tile_Factor@SegmentedLineClass@@QAEMXZ,,0x0013F240,7,Code/Libraries/Source/WWVegas/WW3D2/segline.cpp,matched,BFME2 exact BFME1-derived getter; unique masked placement
 ?W3d_Shader_Set_Alpha_Test@@YAXPAUW3dShaderStruct@@H@Z,,0x001A44AC,12,Code/Libraries/Source/WWVegas/WW3D2/w3d_util.cpp,matched,BFME2 exact BFME1-derived shader helper; unique masked placement
 ?W3d_Shader_Set_Depth_Mask@@YAXPAUW3dShaderStruct@@H@Z,,0x001A4464,12,Code/Libraries/Source/WWVegas/WW3D2/w3d_util.cpp,matched,BFME2 exact BFME1-derived shader helper; unique masked placement
 ?W3d_Shader_Set_Dest_Blend_Func@@YAXPAUW3dShaderStruct@@H@Z,,0x001A4470,12,Code/Libraries/Source/WWVegas/WW3D2/w3d_util.cpp,matched,BFME2 exact BFME1-derived shader helper; unique masked placement
@@ -3465,8 +3452,6 @@ _XMP_Shift_Left_Bits,,0x0061BBD0,308,Code/Libraries/Source/WWVegas/WWLib/mpmath.
 ?Get_Post_Detail_Alpha_Func@ShaderClass@@QBE?AW4DetailAlphaFuncType@1@XZ,,0x001374A0,9,Code/Libraries/Source/WWVegas/WW3D2/w3d_util.cpp,matched,BFME2 exact BFME1-derived shader getter; unique masked placement
 ?Get_Post_Detail_Color_Func@ShaderClass@@QBE?AW4DetailColorFuncType@1@XZ,,0x000D1A88,9,Code/Libraries/Source/WWVegas/WW3D2/w3d_util.cpp,matched,BFME2 exact BFME1-derived shader getter; unique masked placement
 ?Get_Line_Properties@ParticleEmitterDefClass@@QBEPBUW3dEmitterLinePropertiesStruct@@XZ,,0x001A1060,7,Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp,matched,BFME2 exact BFME1-derived getter; unique masked placement
-?Is_Remove_On_Complete_Enabled@ParticleEmitterClass@@QAE_NXZ,,0x0045A203,7,Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp,matched,BFME2 exact BFME1-derived predicate; unique masked placement
-?Get_Width@SegmentedLineClass@@QAEMXZ,,0x00133D90,7,Code/Libraries/Source/WWVegas/WW3D2/segline.cpp,matched,BFME2 exact BFME1-derived getter; unique masked placement
 ?Get_Future_Start_Time@ParticleEmitterDefClass@@QBEMXZ,,0x001A1010,7,Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp,matched,BFME2 exact BFME1-derived getter; unique masked placement
 ?Get_LOD_Count@ParticleBufferClass@@UBEHXZ,,0x001A6840,7,Code/Libraries/Source/WWVegas/WW3D2/part_buf.cpp,matched,repointed after the RenderObjClass size correction; sits with its siblings ahead of Calculate_Cost_Value_Arrays
 ?Update_Non_New_Particles@ParticleBufferClass@@IAEXI@Z,,0x001AB670,3923,Code/Libraries/Source/WWVegas/WW3D2/part_buf.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
@@ -3573,3 +3558,63 @@ _XMP_Shift_Left_Bits,,0x0061BBD0,308,Code/Libraries/Source/WWVegas/WWLib/mpmath.
 ?Get_Subdivision_Level@ParticleBufferClass@@QBEHXZ,,0x001A7990,17,Code/Libraries/Source/WWVegas/WW3D2/part_buf.cpp,matched,BFME2 exact BFME1-derived ParticleBuffer getter; unique masked placement
 ??A?$SimpleDynVecClass@VVector3@@@@QAEAAVVector3@@H@Z,,0x00129700,16,Code/Libraries/Source/WWVegas/WW3D2/part_buf.cpp,matched,BFME2 exact BFME1-derived vector accessor; unique masked placement
 ?Get_LOD_Level@ParticleBufferClass@@UBEHXZ,,0x001A6830,16,Code/Libraries/Source/WWVegas/WW3D2/part_buf.cpp,matched,BFME2 exact BFME1-derived ParticleBuffer getter; unique masked placement
+??0GridWSEnvMapperClass@@QAE@ABVINIClass@@PBDI@Z,,0x00186E30,223,Code/Libraries/Source/WWVegas/WW3D2/mapper.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+??0GridTextureMapperClass@@QAE@ABVINIClass@@PBDI@Z,,0x00184350,193,Code/Libraries/Source/WWVegas/WW3D2/mapper.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+??0GridWSEnvMapperClass@@QAE@MIIIW4AxisType@0@I@Z,,0x00186DA0,88,Code/Libraries/Source/WWVegas/WW3D2/mapper.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?calculate_uv_offset@GridTextureMapperClass@@IAEXPAM0@Z,,0x001825E0,88,Code/Libraries/Source/WWVegas/WW3D2/mapper.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+??0GridTextureMapperClass@@QAE@MIIII@Z,,0x00184300,75,Code/Libraries/Source/WWVegas/WW3D2/mapper.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+??0GridWSEnvMapperClass@@QAE@ABV0@@Z,,0x00186E00,33,Code/Libraries/Source/WWVegas/WW3D2/mapper.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?add_bit_channel@HCompressedAnimClass@@AAEXPAVTimeCodedBitChannelClass@@@Z,,0x0018F3C0,33,Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?add_channel@HCompressedAnimClass@@AAEXPAVTimeCodedMotionChannelClass@@@Z,,0x0018F2A0,172,Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp,matched,HCompressedAnimClass add_channel; the body that showed the extra head dword
+?Get_Opacity@SegmentedLineClass@@QAEMXZ,,0x0015E190,7,Code/Libraries/Source/WWVegas/WW3D2/segline.cpp,matched,repointed after the RenderObjClass size correction; aligned and cc-padded in the SegmentedLineClass cluster where its siblings are
+?Get_Texture_Tile_Factor@SegmentedLineClass@@QAEMXZ,,0x0015E1D0,7,Code/Libraries/Source/WWVegas/WW3D2/segline.cpp,matched,repointed after the RenderObjClass size correction; aligned and cc-padded in the SegmentedLineClass cluster where its siblings are
+?Get_Width@SegmentedLineClass@@QAEMXZ,,0x0015E270,7,Code/Libraries/Source/WWVegas/WW3D2/segline.cpp,matched,repointed after the RenderObjClass size correction; aligned and cc-padded in the SegmentedLineClass cluster where its siblings are
+?Get_Merge_Abort_Factor@SegmentedLineClass@@QAEMXZ,,0x0015E280,7,Code/Libraries/Source/WWVegas/WW3D2/segline.cpp,matched,repointed after the RenderObjClass size correction; aligned and cc-padded in the SegmentedLineClass cluster where its siblings are
+?Add_Point@SegmentedLineClass@@QAEXABVVector3@@@Z,,0x0015F170,21,Code/Libraries/Source/WWVegas/WW3D2/segline.cpp,matched,repointed after the RenderObjClass size correction; aligned and cc-padded in the SegmentedLineClass cluster where its siblings are
+?Set_Point_Location@SegmentedLineClass@@QAEXIABVVector3@@@Z,,0x0015E770,53,Code/Libraries/Source/WWVegas/WW3D2/segline.cpp,matched,repointed after the RenderObjClass size correction; aligned and cc-padded in the SegmentedLineClass cluster where its siblings are
+?Delete_Point@SegmentedLineClass@@QAEXI@Z,,0x0015F190,105,Code/Libraries/Source/WWVegas/WW3D2/segline.cpp,matched,repointed after the RenderObjClass size correction; aligned and cc-padded in the SegmentedLineClass cluster where its siblings are
+?Get_Point_Location@SegmentedLineClass@@QAEXIAAVVector3@@@Z,,0x0015E7B0,72,Code/Libraries/Source/WWVegas/WW3D2/segline.cpp,matched,repointed after the RenderObjClass size correction; aligned and cc-padded in the SegmentedLineClass cluster where its siblings are
+?Get_Obj_Space_Bounding_Box@SegmentedLineClass@@UBEXAAVAABoxClass@@@Z,,0x0015E850,1653,Code/Libraries/Source/WWVegas/WW3D2/segline.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+??0SegmentedLineClass@@QAE@ABV0@@Z,,0x0015EFD0,181,Code/Libraries/Source/WWVegas/WW3D2/segline.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+??0SegmentedLineClass@@QAE@XZ,,0x0015EF20,132,Code/Libraries/Source/WWVegas/WW3D2/segline.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+??4SegmentedLineClass@@QAEAAV0@ABV0@@Z,,0x0015F090,103,Code/Libraries/Source/WWVegas/WW3D2/segline.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?Clone@SegmentedLineClass@@UBEPAVRenderObjClass@@XZ,,0x0015F200,96,Code/Libraries/Source/WWVegas/WW3D2/segline.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?Get_Post_Increment_Value@SegmentedLineClass@@UBEMXZ,,0x0015E570,71,Code/Libraries/Source/WWVegas/WW3D2/segline.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?Get_UV_Offset_Rate@SegmentedLineClass@@QAE?AVVector2@@XZ,,0x0015E1E0,48,Code/Libraries/Source/WWVegas/WW3D2/segline.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?Set_UV_Offset_Rate@SegmentedLineClass@@QAEXABVVector2@@@Z,,0x0015E800,48,Code/Libraries/Source/WWVegas/WW3D2/segline.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?Set_LOD_Level@SegmentedLineClass@@UAEXH@Z,,0x0015E5C0,44,Code/Libraries/Source/WWVegas/WW3D2/segline.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?Set_Noise_Amplitude@SegmentedLineClass@@QAEXM@Z,,0x0015E340,38,Code/Libraries/Source/WWVegas/WW3D2/segline.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?Get_Color@SegmentedLineClass@@QAEXAAVVector3@@@Z,,0x0015E160,33,Code/Libraries/Source/WWVegas/WW3D2/segline.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?Increment_LOD@SegmentedLineClass@@UAEXXZ,,0x0015E4B0,33,Code/Libraries/Source/WWVegas/WW3D2/segline.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?Set_Color@SegmentedLineClass@@QAEXABVVector3@@@Z,,0x0015E2F0,33,Code/Libraries/Source/WWVegas/WW3D2/segline.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?Set_Width@SegmentedLineClass@@QAEXM@Z,,0x0015E290,32,Code/Libraries/Source/WWVegas/WW3D2/segline.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?Get_Num_Polys@SegmentedLineClass@@UBEHXZ,,0x0015E830,30,Code/Libraries/Source/WWVegas/WW3D2/segline.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?Set_Disable_Sorting@SegmentedLineClass@@QAEXH@Z,,0x0015E430,27,Code/Libraries/Source/WWVegas/WW3D2/segline.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?Set_End_Caps@SegmentedLineClass@@QAEXH@Z,,0x0015E450,27,Code/Libraries/Source/WWVegas/WW3D2/segline.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?Set_Freeze_Random@SegmentedLineClass@@QAEXH@Z,,0x0015E410,27,Code/Libraries/Source/WWVegas/WW3D2/segline.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?Set_Merge_Intersections@SegmentedLineClass@@QAEXH@Z,,0x0015E3F0,27,Code/Libraries/Source/WWVegas/WW3D2/segline.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?Set_Subdivision_Levels@SegmentedLineClass@@QAEXI@Z,,0x0015E390,27,Code/Libraries/Source/WWVegas/WW3D2/segline.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?Set_Texture_Mapping_Mode@SegmentedLineClass@@QAEXW4TextureMapMode@SegLineRendererClass@@@Z,,0x0015E3B0,23,Code/Libraries/Source/WWVegas/WW3D2/segline.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?Decrement_LOD@SegmentedLineClass@@UAEXXZ,,0x0015E4E0,20,Code/Libraries/Source/WWVegas/WW3D2/segline.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?Get_Lifetime@ParticleBufferClass@@QBEMXZ,,0x001A0A40,31,Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp,matched,repointed after the RenderObjClass size correction; the only cc-padded hit under the corrected layout and inside the ParticleEmitterClass cluster
+?Get_Start_Velocity@ParticleEmitterClass@@QBE?AVVector3@@XZ,,0x001A0DB0,65,Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp,matched,repointed after the RenderObjClass size correction; the only cc-padded hit under the corrected layout and inside the ParticleEmitterClass cluster
+?Get_Max_Particles@ParticleEmitterClass@@QBEHXZ,,0x001A0DA0,7,Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp,matched,repointed after the RenderObjClass size correction; the only cc-padded hit under the corrected layout and inside the ParticleEmitterClass cluster
+?Get_Velocity_Inherit@ParticleEmitterClass@@QBEMXZ,,0x001A0E10,7,Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp,matched,repointed after the RenderObjClass size correction; the only cc-padded hit under the corrected layout and inside the ParticleEmitterClass cluster
+?Is_Remove_On_Complete_Enabled@ParticleEmitterClass@@QAE_NXZ,,0x001A0C30,7,Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp,matched,repointed after the RenderObjClass size correction; the only cc-padded hit under the corrected layout and inside the ParticleEmitterClass cluster
+?Reset@ParticleEmitterClass@@QAEXXZ,,0x001A1A80,149,Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?Clone@ParticleEmitterClass@@UBEPAVRenderObjClass@@XZ,,0x001A1800,96,Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?Get_Acceleration@ParticleEmitterClass@@QBE?AVVector3@@XZ,,0x001A0C60,76,Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?Get_Acceleration@ParticleBufferClass@@QBE?AVVector3@@XZ,,0x001A09F0,65,Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?Set_Base_Velocity@ParticleEmitterClass@@QAEXABVVector3@@@Z,,0x001A1CE0,65,Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?Get_Fade_Time@ParticleEmitterClass@@QBEMXZ,,0x001A0D40,59,Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?Get_Fade_Time@ParticleBufferClass@@QBEMXZ,,0x001A0A80,53,Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?Notify_Removed@ParticleEmitterClass@@UAEXPAVSceneClass@@@Z,,0x001A18A0,45,Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?Get_Future_Start_Time@ParticleEmitterClass@@QBEMXZ,,0x001A0CE0,37,Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?Get_Lifetime@ParticleEmitterClass@@QBEMXZ,,0x001A0CB0,37,Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?Get_Emission_Rate@ParticleEmitterClass@@QBEMXZ,,0x001A0D80,31,Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?Get_Future_Start_Time@ParticleBufferClass@@QBEMXZ,,0x001A0A60,31,Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?Set_Outwards_Velocity@ParticleEmitterClass@@QAEXM@Z,,0x001A1D30,25,Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?Get_Obj_Space_Bounding_Box@MeshClass@@UBEXAAVAABoxClass@@@Z,,0x00149F80,62,Code/Libraries/Source/WWVegas/WW3D2/mesh.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?Get_Obj_Space_Bounding_Sphere@MeshClass@@UBEXAAVSphereClass@@@Z,,0x00149F40,52,Code/Libraries/Source/WWVegas/WW3D2/mesh.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?Set_Base_Model_Name@CompositeRenderObjClass@@UAEXPBD@Z,,0x001A6180,31,Code/Libraries/Source/WWVegas/WW3D2/composite.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?Get_Model@MeshClass@@QAEPAVMeshModelClass@@XZ,,0x001499B0,21,Code/Libraries/Source/WWVegas/WW3D2/mesh.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
