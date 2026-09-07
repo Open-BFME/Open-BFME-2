@@ -3471,3 +3471,4 @@ _XMP_Shift_Left_Bits,,0x0061BBD0,308,Code/Libraries/Source/WWVegas/WWLib/mpmath.
 ?Get_Post_Detail_Color_Func@ShaderClass@@QBE?AW4DetailColorFuncType@1@XZ,,0x000D1A88,9,Code/Libraries/Source/WWVegas/WW3D2/w3d_util.cpp,matched,BFME2 exact BFME1-derived shader getter; unique masked placement
 ?Get_Line_Properties@ParticleEmitterDefClass@@QBEPBUW3dEmitterLinePropertiesStruct@@XZ,,0x001A1060,7,Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp,matched,BFME2 exact BFME1-derived getter; unique masked placement
 ?Is_Remove_On_Complete_Enabled@ParticleEmitterClass@@QAE_NXZ,,0x0045A203,7,Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp,matched,BFME2 exact BFME1-derived predicate; unique masked placement
+?Get_Width@SegmentedLineClass@@QAEMXZ,,0x00133D90,7,Code/Libraries/Source/WWVegas/WW3D2/segline.cpp,matched,BFME2 exact BFME1-derived getter; unique masked placement
