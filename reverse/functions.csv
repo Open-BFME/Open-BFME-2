@@ -4593,3 +4593,4 @@ _qr2_get_sockaddrin,,0x00696A10,112,Code/GameEngine/Source/GameNetwork/GameSpy/q
 _encode_ct,,0x00696A90,40,Code/GameEngine/Source/GameNetwork/GameSpy/qr2/qr2.c,matched,complete GameSpy source body; direct call and named PE-import identities verified; compiler and retail executable boundaries agree
 _gs_encode,,0x00696AC0,189,Code/GameEngine/Source/GameNetwork/GameSpy/qr2/qr2.c,matched,complete GameSpy source body; direct call and named PE-import identities verified; compiler and retail executable boundaries agree
 _gs_encrypt,,0x00696B80,299,Code/GameEngine/Source/GameNetwork/GameSpy/qr2/qr2.c,matched,complete GameSpy source body; direct call and named PE-import identities verified; compiler and retail executable boundaries agree
+_gpiInfoCacheToArg,,0x007334C0,589,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gpiInfo.c,matched,vendored=gamespy-2004; pinned BFME1 reference including inherited EA edits; unique whole-body match; gpiInfoCacheToArg
