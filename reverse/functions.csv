@@ -3289,3 +3289,5 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?areFrameCommandsComplete@BFMEConnectionManager@@QAE_NI_N@Z,,0x004CF799,92,Code/GameEngine/Source/Common/ConnectionManagerFrameCommands.cpp,matched,BFME2 frame-ring readiness: sum non-quitting per-player command counts and compare the local expected total
 ?isPlayerConnected@BFMEConnectionManager@@QAE_NH@Z,,0x004CF083,33,Code/GameEngine/Source/Common/ConnectionManagerPlayerPredicates.cpp,matched,BFME2 local-or-open-connection predicate used by frame-stall state checks
 ?isPlayerSlotActive@BFMEConnectionManager@@QAEHH@Z,,0x004CF0CD,46,Code/GameEngine/Source/Common/ConnectionManagerPlayerPredicates.cpp,matched,BFME2 active-player predicate: accept states 1 through 3 and require a local or open connection
+?init@BFMEConnectionManager@@QAEXXZ,,0x004CF032,81,Code/GameEngine/Source/Common/ConnectionManagerInit.cpp,matched,BFME2 connection-manager init/reset path: reset frame rings and clear frame-ceiling and per-player frame arrays
+?reset@FrameDataManager@@QAEXXZ,,0x0058B666,69,Code/GameEngine/Source/Common/FrameDataManagerReset.cpp,matched,

@@ -175,6 +175,22 @@ sum with the local manager's expected frame-command count. The three small
 frame-ring accessors used by this body are pinned to their independently
 decoded retail bodies at RVAs `0x0058B826`, `0x0058B74B`, and `0x0058B78F`.
 
+The frame-ring reset at RVA `0x0058B666` is now recovered as a 69-byte exact
+`FrameDataManager::reset` in
+`Code/GameEngine/Source/Common/FrameDataManagerReset.cpp`. It initializes each
+`0x14`-byte ring entry, writes an unknown expected-command count (`-1`) for a
+local manager, then clears the quit frame and quitting flag. The ring length is
+read from the retail global at `0x00DD2DB8`; the entry helpers are pinned to
+their independently decoded bodies at `0x005DA4F9` and `0x0009070B`.
+
+The connection-manager body at RVA `0x004CF032` is also a verified 81-byte
+`BFMEConnectionManager::init` in
+`Code/GameEngine/Source/Common/ConnectionManagerInit.cpp`. It calls that reset
+for each non-null frame-data manager, clears `frameCeiling` at `+0x1205C`,
+resets the eight per-player latest/state/flag/count fields, and clears the
+initialized byte. Its address is vtable `0x00C601C0` slot `+0x08`, anchoring
+the identity and confirming the `0x008CF056` writer as initialization code.
+
 The companion router-stall target at RVA `0x004CFBF9` is also identified by the
 direct call from `+0x54`: it first requires local slot == packet-router slot,
 then scans eight open peers and tests each latest-frame value against the
@@ -218,7 +234,7 @@ exception region has not yet been reconstructed.
 
 | store VA | store form | verified context and likely role |
 |---:|---|---|
-| `0x008CF056` | `mov [esi+0x1205C], ebx` | Exact 81-byte body at RVA `0x004CF032`; clears the ceiling while releasing the eight frame-data managers, then resets per-player arrays and flags. |
+| `0x008CF056` | `mov [esi+0x1205C], ebx` | Exact 81-byte `BFMEConnectionManager::init` at RVA `0x004CF032`; vtable `0x00C601C0` slot `+0x08`. It clears the ceiling while resetting the eight frame-data managers and per-player arrays/flags. |
 | `0x008D07C8` | `mov [esi+0x1205C], ebx` | Initialization/exception region; also initializes local and router slots, latest-frame/state arrays, and frame-data-related flags. The complete outer boundary is still unclaimed. |
 | `0x008D0BB8` | `mov [esi+0x1205C], eax` | Frame-info publisher region beginning at VA `0x008D0AA9`; builds a frame-info record, totals frame-manager commands, broadcasts it, and when local slot == router slot publishes the record's frame as the shared ceiling. |
 | `0x008D254E` | `mov [esi+0x1205C], ebx` | Reset/cleanup region; resets slots, ceiling, per-player latest/state arrays, and releases frame-data objects. The outer EH body remains unclaimed. |
