@@ -3425,3 +3425,4 @@ _XMP_Shift_Left_Bits,,0x0061BBD0,308,Code/Libraries/Source/WWVegas/WWLib/mpmath.
 ?Get_Clip_Planes@CameraClass@@QBEXAAM0@Z,,0x00133D30,27,Code/Libraries/Source/WWVegas/WW3D2/camera.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 ?Get_Secondary_Gradient@ShaderClass@@QBE?AW4SecGradientType@1@XZ,,0x001374D0,9,Code/Libraries/Source/WWVegas/WW3D2/shader.cpp,matched,BFME2 exact BFME1-derived shader getter; unique masked placement
 ?Get_Texturing@ShaderClass@@QBE?AW4TexturingType@1@XZ,,0x001374E0,7,Code/Libraries/Source/WWVegas/WW3D2/shader.cpp,matched,BFME2 exact BFME1-derived shader getter; unique masked placement
+?Get_Device@DX8Caps@@QBEIXZ,,0x002190A8,7,Code/Libraries/Source/WWVegas/WW3D2/shader.cpp,matched,BFME2 exact BFME1-derived capability getter; unique masked placement
