@@ -3985,3 +3985,4 @@ _ArrayMapBackwards,,0x0060A2B0,47,Code/GameEngine/Source/GameNetwork/GameSpy/dar
 ?setPitch@View@@UAEXM@Z,,0x0025EB09,45,Code/GameEngine/Source/GameClient/View.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 ?getOrigin@View@@UAEXPAH0@Z,,0x0008BB0E,21,Code/GameEngine/Source/GameClient/View.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 ?allocate@?$allocator@U?$_Rb_tree_node@U?$pair@$$CBVUnicodeString@@_N@_STL@@@_STL@@@_STL@@QBEPAU?$_Rb_tree_node@U?$pair@$$CBVUnicodeString@@_N@_STL@@@2@IPBX@Z,,0x00154A00,36,Code/GameEngine/Source/GameClient/LanguageFilter.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+_ArrayMap2,,0x0060A2E0,65,Code/GameEngine/Source/GameNetwork/GameSpy/darray.c,matched,vendored=gamespy-2004; unique masked whole-.text body; complete source boundary
