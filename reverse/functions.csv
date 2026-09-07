@@ -4120,3 +4120,4 @@ _ghiPostAddFileFromMemory,,0x006BC520,178,Code/GameEngine/Source/GameNetwork/Gam
 _ghiPostSetAutoFree,,0x006BC320,12,Code/GameEngine/Source/GameNetwork/GameSpy/ghttp/ghttpPost.c,matched,vendored=gamespy-2004; unique exact whole-text body; preceding/following padding and SDK post field layout corroborate identity
 _ghiIsPostAutoFree,,0x006BC330,8,Code/GameEngine/Source/GameNetwork/GameSpy/ghttp/ghttpPost.c,matched,vendored=gamespy-2004; unique exact whole-text body; corroborated by post auto-free callers and SDK field layout
 _ghiFreePost,,0x006BC340,25,Code/GameEngine/Source/GameNetwork/GameSpy/ghttp/ghttpPost.c,matched,vendored=gamespy-2004; two masked candidates reduce to one with the verified ArrayFree callee and PE-named CRT free IAT
+_ghiPostSetCallback,,0x006BC5E0,19,Code/GameEngine/Source/GameNetwork/GameSpy/ghttp/ghttpPost.c,matched,vendored=gamespy-2004; unique exact whole-text body; SDK post callback and parameter field offsets agree
