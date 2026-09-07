@@ -3326,3 +3326,4 @@ _XMP_Init,,0x0061BD70,23,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,
 ?getStealth@Object@@QBEPAVStealthUpdate@@XZ,,0x00313EA1,7,Code/GameEngine/Source/GameLogic/Object/Object.cpp,matched,BFME2 Object stealth getter transferred from exact BFME1 source; identical bytes
 ?friend_getRadarData@Object@@QAEPAVRadarObject@@XZ,,0x00313EAF,7,Code/GameEngine/Source/GameLogic/Object/Object.cpp,matched,BFME2 Object radar-data getter transferred from exact BFME1 source; identical bytes
 ?getDesiredGatherers@BuildListInfo@@QAEHXZ,,0x005508E2,7,Code/GameEngine/Source/GameLogic/AI/AIPlayer.cpp,matched,BFME2 BuildListInfo desired-gatherers getter transferred from exact BFME1 source; identical bytes
+?getLocalPlayerID@ConnectionManager@@QAEIXZ,,0x004CF906,7,Code/GameEngine/Source/Common/ConnectionManagerLocalSlot.cpp,matched,BFME2 ConnectionManager local-slot getter transferred from exact BFME1 source; identical bytes
