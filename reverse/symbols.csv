@@ -650,3 +650,26 @@ _strdup,0x006C4C70,address read from the retail REL32 in INIClass::Put_String at
 ??0Null3DObjClass@@QAE@ABV0@@Z,0x00180EF0,address read from the REL32 displacement at a placed body
 ?Remove_Polygon_Renderer@DX8TextureCategoryClass@@QAEXPAVDX8PolygonRendererClass@@@Z,0x001460E0,address read from the REL32 displacement at a placed body
 ??1LogicalDecalClass@MultiFixedPoolDecalSystemClass@@QAE@XZ,0x0018F870,address read from the REL32 displacement at a placed body
+?Add_Engine_Ref@VertexBufferClass@@QBEXXZ,0x00139480,address read from the REL32 displacement at a placed body
+?Find_Color_Mode@DX8Wrapper@@KA_NW4_D3DFORMAT@@HHPAI@Z,0x0011CF80,address read from the REL32 displacement at a placed body
+?Release_Engine_Ref@VertexBufferClass@@QBEXXZ,0x00139490,address read from the REL32 displacement at a placed body
+?Reset_Device@DX8Wrapper@@SA_N_N@Z,0x00122600,address read from the REL32 displacement at a placed body
+?Set_Render_Device@DX8Wrapper@@KA_NHHHHH_N00@Z,0x00124FF0,address read from the REL32 displacement at a placed body
+?Allocate_Object_Memory@?$ObjectPoolClass@VPolyRenderTaskClass@@$0BAA@@@QAEPAVPolyRenderTaskClass@@XZ,0x001440C0,address read from the REL32 displacement at a placed body
+?Free_Object_Memory@?$ObjectPoolClass@VMatPassTaskClass@@$0BAA@@@QAEXPAVMatPassTaskClass@@@Z,0x00196470,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
+?Free_Object_Memory@?$ObjectPoolClass@VPolyRenderTaskClass@@$0BAA@@@QAEXPAVPolyRenderTaskClass@@@Z,0x00196470,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
+?Render@DX8TextureCategoryClass@@QAEXXZ,0x00146F50,address read from the REL32 displacement at a placed body
+?Render_Material_Pass@MeshClass@@QAEXPAVMaterialPassClass@@PAVIndexBufferClass@@@Z,0x0014C000,address read from the REL32 displacement at a placed body
+?Render_Procedural_Material_Passes@DX8FVFCategoryContainer@@IAEXXZ,0x00146130,address read from the REL32 displacement at a placed body
+??0MaterialCollectorClass@@QAE@XZ,0x00170240,address read from the REL32 displacement at a placed body
+?get_sort_flags@MeshModelClass@@IBEIH@Z,0x00189270,address read from the REL32 displacement at a placed body
+?get_sort_flags@MeshModelClass@@IBEIXZ,0x001892F0,address read from the REL32 displacement at a placed body
+?Set_Gamma@DX8Wrapper@@SAXMMM_N0@Z,0x00120980,address read from the REL32 displacement at a placed body
+?_Init_Filters@TextureFilterClass@@SAXW4TextureFilterMode@1@@Z,0x0013EB60,address read from the REL32 displacement at a placed body
+?Base_Update@HTreeClass@@QAEXABVMatrix3D@@@Z,0x001628A0,address read from the REL32 displacement at a placed body
+?Blend_Update@HTreeClass@@QAEXABVMatrix3D@@PAVHAnimClass@@M1MM@Z,0x001645B0,address read from the REL32 displacement at a placed body
+?Combo_Update@HTreeClass@@QAEXABVMatrix3D@@PAVHAnimComboClass@@@Z,0x00165820,address read from the REL32 displacement at a placed body
+?Control_Bone@HTreeClass@@QAEXHABVMatrix3D@@_N@Z,0x00162060,address read from the REL32 displacement at a placed body
+?Get_Bone_Index@HTreeClass@@QBEHPBD@Z,0x00160B60,address read from the REL32 displacement at a placed body
+?Get_Bone_Name@HTreeClass@@QBEPBDH@Z,0x00160BB0,address read from the REL32 displacement at a placed body
+?Is_Bone_Captured@HTreeClass@@QBE_NH@Z,0x00162030,address read from the REL32 displacement at a placed body
