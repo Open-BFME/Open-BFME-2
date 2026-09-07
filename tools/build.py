@@ -210,6 +210,8 @@ def pe_sections(data):
                 "name": name,
                 "rva": virtual_address,
                 "size": max(virtual_size, raw_size),
+                "virtual_size": virtual_size,
+                "raw_size": raw_size,
                 "raw_pointer": raw_pointer,
             }
         )
@@ -221,6 +223,8 @@ def rva_to_file_offset(sections, rva):
         start = section["rva"]
         end = start + section["size"]
         if start <= rva < end:
+            if rva - start >= section["raw_size"]:
+                raise ValueError(f"RVA 0x{rva:08X} is zero-filled PE data, not a file offset")
             return section["raw_pointer"] + (rva - start)
     raise ValueError(f"RVA 0x{rva:08X} is outside all PE sections")
 
@@ -243,10 +247,38 @@ def exe_image():
 # for 900 bytes of a 631-byte target and it prints 900. Three banked partials were
 # recorded citing an "exact length match" that was this artefact. When you want the
 # real size of what cl emitted, read the COMDAT size locate.py reports.
+def read_pe_bytes(data, sections, rva, size):
+    """Read loaded section bytes, including the loader's zero-filled tail.
+
+    PE VirtualSize can exceed SizeOfRawData. Those bytes have no file offset;
+    reading beyond the raw section instead picks unrelated following file data.
+    See https://learn.microsoft.com/en-us/windows/win32/debug/pe-format#section-table-section-headers
+    """
+    if rva < 0 or size < 0 or rva + size > 0x100000000:
+        raise ValueError("Invalid PE32 byte range")
+    result = bytearray()
+    while size:
+        section = next((s for s in sections if s["rva"] <= rva < s["rva"] + s["size"]), None)
+        if section is None:
+            raise ValueError(f"RVA 0x{rva:08X} is outside all PE sections")
+        relative = rva - section["rva"]
+        count = min(size, section["size"] - relative)
+        backed = min(count, max(0, section["raw_size"] - relative))
+        if backed:
+            offset = section["raw_pointer"] + relative
+            contents = data[offset : offset + backed]
+            if len(contents) != backed:
+                raise ValueError(f"PE section {section['name']} has truncated raw data")
+            result.extend(contents)
+        result.extend(b"\0" * (count - backed))
+        rva += count
+        size -= count
+    return bytes(result)
+
+
 def read_target_bytes(rva, size):
     data, sections = exe_image()
-    offset = rva_to_file_offset(sections, rva)
-    return data[offset : offset + size]
+    return read_pe_bytes(data, sections, rva, size)
 
 
 def coff_name(data, symbol_offset, string_table):
@@ -1527,7 +1559,6 @@ def verify_string_refs(rows):
             try:
                 cs, _ = read_object_symbol_bytes(obj, sym)
                 str_rva = struct.unpack_from("<I", target, offset)[0] - 0x400000
-                file_off = rva_to_file_offset(pe, str_rva)
             except (ValueError, struct.error) as exc:
                 mismatches.append((row["name"], f"<unverifiable {sym[:24]}: {exc}>".encode(), b""))
                 continue
@@ -1541,13 +1572,23 @@ def verify_string_refs(rows):
             if not content:
                 # empty string literal "": no content to match, but confirm the referenced location
                 # really is an empty string (a null byte) and not a stale/wrong pointer.
-                if exe[file_off] != 0:
-                    mismatches.append((row["name"], b'"" (empty)', exe[file_off : file_off + 4]))
+                try:
+                    actual = read_pe_bytes(exe, pe, str_rva, 1)
+                except ValueError as exc:
+                    mismatches.append((row["name"], f"<unverifiable {sym[:24]}: {exc}>".encode(), b""))
+                    continue
+                if actual != b"\0":
+                    mismatches.append((row["name"], b'"" (empty)', actual))
                 else:
                     empty_ok += 1
                 continue
-            if exe[file_off : file_off + len(content)] != content:
-                mismatches.append((row["name"], content, exe[file_off : file_off + len(content)]))
+            try:
+                actual = read_pe_bytes(exe, pe, str_rva, len(content))
+            except ValueError as exc:
+                mismatches.append((row["name"], f"<unverifiable {sym[:24]}: {exc}>".encode(), b""))
+                continue
+            if actual != content:
+                mismatches.append((row["name"], content, actual))
             else:
                 checked += 1
     if mismatches:
