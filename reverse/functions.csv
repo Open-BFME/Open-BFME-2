@@ -4083,3 +4083,4 @@ _GOAGetUniqueID_Internal,,0x0060B310,293,Code/GameEngine/Source/GameNetwork/Game
 __ReadUCS2CharFromUTF8String,,0x0069D8F0,174,Code/GameEngine/Source/GameNetwork/GameSpy/stringutil.c,matched,vendored=gamespy-2004; unique masked whole-.text body; complete source boundary
 __UCS2CharToUTF8String,,0x0069D9A0,90,Code/GameEngine/Source/GameNetwork/GameSpy/stringutil.c,matched,vendored=gamespy-2004; unique masked whole-.text body; complete source boundary
 _AsciiToUTF8String,,0x0069DA00,53,Code/GameEngine/Source/GameNetwork/GameSpy/stringutil.c,matched,vendored=gamespy-2004; unique masked whole-.text body; complete source boundary
+_UTF8ToAsciiString,,0x0069DA40,66,Code/GameEngine/Source/GameNetwork/GameSpy/stringutil.c,matched,vendored=gamespy-2004; unique masked whole-.text body; complete source boundary
