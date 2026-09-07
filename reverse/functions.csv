@@ -3538,3 +3538,4 @@ _XMP_Shift_Left_Bits,,0x0061BBD0,308,Code/Libraries/Source/WWVegas/WWLib/mpmath.
 ?Get_Near_Clip_Bounding_Box@CameraClass@@QBEABVOBBoxClass@@XZ,,0x00135950,16,Code/Libraries/Source/WWVegas/WW3D2/camera.cpp,matched,BFME2 exact BFME1-derived camera getter; unique masked placement
 ?Get_Projection_Matrix@CameraClass@@QAEABVMatrix4@@XZ,,0x00134A60,16,Code/Libraries/Source/WWVegas/WW3D2/camera.cpp,matched,BFME2 exact BFME1-derived camera getter; unique masked placement
 ?Is_Coloring_Enabled@WW3D@@SA_NXZ,,0x0013C5C0,11,Code/Libraries/Source/WWVegas/WW3D2/vertmaterial.cpp,matched,BFME2 exact BFME1-derived predicate; unique masked placement
+?Get_Vel_Inherit@ParticleEmitterDefClass@@QBEMXZ,,0x001A1000,7,Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp,matched,BFME2 exact BFME1-derived getter; unique masked placement
