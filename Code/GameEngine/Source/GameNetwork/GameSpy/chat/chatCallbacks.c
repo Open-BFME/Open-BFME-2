@@ -161,9 +161,9 @@ typedef struct ciCallbackData
 static void ciCallbacksArrayElementFreeFn(void * elem)
 {
 	ciCallbackData * data = (ciCallbackData *)elem;
-	GS_ASSERT(data != NULL);
-	if (data->channel)
-		gsifree(data->channel);
+	/* Retail release callbacks unconditionally free the optional channel. */
+	assert(data != NULL);
+	gsifree(data->channel);
 }
 
 static void ciFreeCallbackData(ciCallbackData * data)
