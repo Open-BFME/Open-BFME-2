@@ -825,3 +825,5 @@ _gpiPeerAddMessage,0x00738D00,GameSpy GP callee; independent unique 278-byte sou
 _gpiPeerGetSig,0x00738B80,GameSpy GP callee; independent unique 74-byte source candidate in gpiPeer.c; direct call from _gpiSendBuddyMessage corroborates identity
 _gpiPeerStartConnect,0x00738BD0,GameSpy GP callee; independent unique 290-byte source candidate in gpiPeer.c; direct call from _gpiSendBuddyMessage corroborates identity
 _gpiDestroyPeer,0x00738910,GameSpy GP callee; independent unique 107-byte source candidate in gpiPeer.c; direct call from _gpiDisconnect corroborates identity
+_gpiReset,0x0072E3A0,GameSpy GP callee; independent unique 354-byte source candidate in gpi.c; direct call from _gpiConnect corroborates identity
+_gpiStartConnect,0x0072F0D0,GameSpy GP callee; independent unique 474-byte source candidate in gpiConnect.c; direct call from _gpiConnect corroborates identity
