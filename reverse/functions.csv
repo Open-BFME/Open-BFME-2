@@ -3779,3 +3779,4 @@ _XMP_Shift_Left_Bits,,0x0061BBD0,308,Code/Libraries/Source/WWVegas/WWLib/mpmath.
 ??0HAnimManagerIterator@@QAE@AAVHAnimManagerClass@@@Z,,0x0010863C,20,Code/Libraries/Source/WWVegas/WW3D2/hanimmgr.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 ?Set_Projection_Type@CameraClass@@QAEXW4ProjectionType@1@@Z,,0x0007B261,20,Code/Libraries/Source/WWVegas/WW3D2/texproject.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 ?Recalculate_Static_LOD_Factors@HLodClass@@UAEXXZ,,0x0019D150,251,Code/Libraries/Source/WWVegas/WW3D2/hlod.cpp,matched,BFME1 structural analogue; BFME2 retail Is_Not_Hidden_At_All slot adapter
+??1RawFileClass@@UAE@XZ,,0x0061A8C0,100,Code/Libraries/Source/WWVegas/WWLib/rawfile.cpp,matched,
