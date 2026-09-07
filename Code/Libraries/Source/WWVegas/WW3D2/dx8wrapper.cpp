@@ -1008,7 +1008,6 @@ public:
 };
 
 
-// ?add_resolution@BfmeEnumerationDesc@@ present-unmatched
 inline void BfmeEnumerationDesc::add_resolution(int w,int h,int bits)
 {
 	bool found = false;
