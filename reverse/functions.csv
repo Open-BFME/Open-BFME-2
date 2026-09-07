@@ -3550,3 +3550,4 @@ _XMP_Shift_Left_Bits,,0x0061BBD0,308,Code/Libraries/Source/WWVegas/WWLib/mpmath.
 ?Get_Size@ChunkHeader@@QAEKXZ,,0x00614D30,9,Code/Libraries/Source/WWVegas/WWLib/chunkio.cpp,matched,BFME2 exact BFME1-derived chunk getter; unique masked placement
 ?getContain@Object@@QBEPAVContainModuleInterface@@XZ,,0x00313E93,7,Code/GameEngine/Source/Common/RTS/Player.cpp,matched,BFME2 exact BFME1-derived Object accessor; unique masked placement
 ?getDefaultTeam@Player@@QAEPAVTeam@@XZ,,0x0046F7E4,7,Code/GameEngine/Source/Common/RTS/Player.cpp,matched,BFME2 exact BFME1-derived Player accessor; unique masked placement
+?getTeam@Object@@QAEPAVTeam@@XZ,,0x0043A09D,7,Code/GameEngine/Source/Common/RTS/Player.cpp,matched,BFME2 exact BFME1-derived Object accessor; unique masked placement
