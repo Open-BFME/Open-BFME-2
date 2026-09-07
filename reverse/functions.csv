@@ -3381,3 +3381,4 @@ _XMP_Shift_Left_Bits,,0x0061BBD0,308,Code/Libraries/Source/WWVegas/WWLib/mpmath.
 ?Is_Animation_Hidden@RenderObjClass@@UBEHXZ,,0x0006CF20,12,Code/Libraries/Source/WWVegas/WW3D2/hlod.cpp,matched,BFME2 exact BFME1-derived predicate; unique masked placement
 ?Is_Hidden@RenderObjClass@@UBEHXZ,,0x0006CF00,12,Code/Libraries/Source/WWVegas/WW3D2/hlod.cpp,matched,BFME2 exact BFME1-derived predicate; unique masked placement
 ?Get_Collision_Type@RenderObjClass@@UBEHXZ,,0x0006D014,11,Code/Libraries/Source/WWVegas/WW3D2/hlod.cpp,matched,BFME2 exact BFME1-derived getter; unique masked placement
+?Is_Force_Visible@RenderObjClass@@UBEHXZ,,0x0006CF40,9,Code/Libraries/Source/WWVegas/WW3D2/hlod.cpp,matched,BFME2 exact BFME1-derived predicate; unique masked placement
