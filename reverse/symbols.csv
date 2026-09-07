@@ -700,3 +700,4 @@ _strdup,0x006C4C70,address read from the retail REL32 in INIClass::Put_String at
 ??$_Construct@U?$pair@$$CBW4NameKeyType@@VFXList@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBW4NameKeyType@@VFXList@@@0@ABU10@@Z,0x0016CC30,address read from the REL32 displacement at a placed body
 ??0?$list@PAVFXNugget@@V?$allocator@PAVFXNugget@@@_STL@@@_STL@@QAE@ABV01@@Z,0x000365F0,address read from the REL32 displacement at a placed body
 ?doFxAtBones@FXListAtBonePosFXNugget@@IBEXPBVObject@@H@Z,0x001E2DD6,address read from the REL32 displacement at a placed body
+_ArrayLength,0x006989D0,GameSpy dynamic-array length; exact seven-byte source body folded with SBServerGetPublicInetAddress; target corroborated by TableCount and 49 other SDK call sites
