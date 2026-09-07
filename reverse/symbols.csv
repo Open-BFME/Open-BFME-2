@@ -836,3 +836,5 @@ _Util_RandInt,0x0060AF10,GameSpy callee already byte-verified in Code/GameEngine
 _Util_RandSeed,0x0060AEF0,GameSpy callee already byte-verified in Code/GameEngine/Source/GameNetwork/GameSpy/nonport.c at commit 982a47813b69; direct call from _gpiSendNewuser
 _TableFree,0x0060B4B0,GameSpy callee already byte-verified in Code/GameEngine/Source/GameNetwork/GameSpy/hashtable.c at commit edcf90f6c5e1; direct call from _gpiDestroy
 _gpiCleanupTransfers,0x00736190,GameSpy GP callee; independent unique 38-byte source candidate in gpiTransfer.c; direct call from _gpiDestroy corroborates identity
+_gpiProcessPeers,0x007391D0,GameSpy GP callee; independent unique 224-byte source candidate in gpiPeer.c; direct call from _gpiProcess corroborates identity
+_gpiProcessTransfers,0x00738030,GameSpy GP callee; independent unique 69-byte source candidate in gpiTransfer.c; direct call from _gpiProcess corroborates identity
