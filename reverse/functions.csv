@@ -5721,3 +5721,5 @@ _piCallbacksCleanup,,0x0069EEF0,24,Code/GameEngine/Source/GameNetwork/GameSpy/pe
 ?Min@WWMath@@SAMMM@Z,,0x00154A80,23,Code/Libraries/Source/WWVegas/WW3D2/lightenvironment.cpp,matched,
 ?Store_Length@StringClass@@AAEXH@Z,,0x0060F130,20,Code/Libraries/Source/WWVegas/WW3D2/dx8rendererdebugger.cpp,matched,
 ??0?$Node@PAVLayerClass@@@@QAE@XZ,,0x00616460,17,Code/Libraries/Source/WWVegas/WW3D2/layer.cpp,matched,
+?Set_Noise_Amplitude@SegLineRendererClass@@QAEXM@Z,,0x0015DFD0,14,Code/Libraries/Source/WWVegas/WW3D2/seglinerenderer.cpp,matched,
+?Set_Merge_Abort_Factor@SegLineRendererClass@@QAEXM@Z,,0x0015DFE0,14,Code/Libraries/Source/WWVegas/WW3D2/seglinerenderer.cpp,matched,
