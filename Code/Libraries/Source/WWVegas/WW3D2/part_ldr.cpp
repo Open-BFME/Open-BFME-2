@@ -6,7 +6,9 @@
 #include "winbase_shim.h"
 #define MAX_PATH 260
 #define LPCTSTR const char *
-// Particle system loader, verbatim from Generals Zero Hour reference.
+// Particle system loader adapted from Generals Zero Hour for BFME2.
+// Keyframe writers explicitly canonicalize their final bool result to match
+// the retail compiler's test/setne sequence; the donor write order is preserved.
 /***********************************************************************************************
  ***              C O N F I D E N T I A L  ---  W E S T W O O D  S T U D I O S               ***
  ***********************************************************************************************
