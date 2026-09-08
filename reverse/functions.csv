@@ -3675,7 +3675,6 @@ _XMP_Shift_Left_Bits,,0x0061BBD0,308,Code/Libraries/Source/WWVegas/WWLib/mpmath.
 ?Get_HName@HCompressedAnimClass@@UBEPBDXZ,,0x002B236A,4,Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp,matched,BFME2 exact BFME1-derived compressed animation accessor
 ?getCustomPassMode@RTS3DScene@@QAE?AW4CustomScenePassModes@@XZ,,0x0026FF4F,7,Code/GameEngineDevice/Source/W3DDevice/GameClient/HeightMap.cpp,matched,BFME2 exact BFME1-derived HeightMap accessor
 ?isEnabled@W3DDynamicLight@@QAE_NXZ,,0x0006E298,7,Code/GameEngineDevice/Source/W3DDevice/GameClient/HeightMap.cpp,matched,BFME2 exact BFME1-derived HeightMap accessor
-?Get_Render_Hook@RenderObjClass@@QAEPAVRenderHookClass@@XZ,,0x003EFCA4,7,Code/Libraries/Source/WWVegas/WW3D2/scene.cpp,matched,BFME2 exact BFME1-derived RenderObj getter
 ?Get_Lighting@VertexMaterialClass@@QBE_NXZ,,0x0012D2B0,4,Code/Libraries/Source/WWVegas/WW3D2/sortingrenderer.cpp,matched,BFME2 exact BFME1-derived material getter
 ?Is_Valid@RegistryClass@@QAE_NXZ,,0x00098CBC,4,Code/Libraries/Source/WWVegas/WWLib/registry.cpp,matched,BFME2 exact BFME1-derived registry predicate
 ?Get_Num_Polys@DynamicMeshClass@@UBEHXZ,,0x005BE1BC,7,Code/Libraries/Source/WWVegas/WW3D2/dynamesh.cpp,matched,BFME2 exact BFME1-derived DynamicMesh getter
