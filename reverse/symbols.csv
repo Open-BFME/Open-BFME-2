@@ -987,3 +987,17 @@ _strcmp,0x006291C6,PE CRT thunk; independent FF25 import thunk at RVA 0x006291C6
 ??0UpdateModule@@QAE@PAVThing@@PBVModuleData@@@Z,0x00253390,address read from the REL32 call site in FloatUpdate ctor; body sets two adjacent -1 dwords at this+0x18/this+0x1c after the BehaviorModule base call -- corroborates the dockupdate shim reserved-dword theory
 ?calcSleepDelay@DeletionUpdate@@IAEIII@Z,0x00488357,address read from the REL32 call site in the DeletionUpdate ctor; body matches source exactly (GameLogicRandomValue clamp then m_dieFrame = TheGameLogic->getFrame() + delay)
 ?setWakeFrame@UpdateModule@@IAEXPAVObject@@W4UpdateSleepTime@@@Z,0x0044DF71,address read from the REL32 call site in the DeletionUpdate ctor
+??0DockUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x0058A290,address read from the REL32 displacement at a placed body
+??0DockUpdateModuleData@@QAE@XZ,0x005896B0,address read from the REL32 displacement at a placed body
+?clear@RadiusDecal@@QAEXXZ,0x00330DBA,address read from the REL32 displacement at a placed body
+?createRadiusDecal@RadiusDecalTemplate@@QBEXABUCoord3D@@MPBVPlayer@@AAVRadiusDecal@@@Z,0x00331459,address read from the REL32 displacement at a placed body
+?destroyParticleSystemByID@ParticleSystemManager@@QAEXW4ParticleSystemID@@@Z,0x001F5B79,address read from the REL32 displacement at a placed body
+?erase@?$vector@W4ParticleSystemID@@V?$allocator@W4ParticleSystemID@@@_STL@@@_STL@@QAEPAW4ParticleSystemID@@PAW43@0@Z,0x00532803,address read from the REL32 displacement at a placed body
+?getControllingPlayer@Object@@QBEPAVPlayer@@XZ,0x0028AFA9,address read from the REL32 displacement at a placed body
+?initTimes@BoneFXUpdate@@IAEXXZ,0x0048750B,address read from the REL32 displacement at a placed body
+?initializeBonePositions@SpawnPointProductionExitUpdate@@AAEXXZ,0x004A3CEA,address read from the REL32 displacement at a placed body
+?isFreeToExit@QueueProductionExitUpdate@@IBE_NXZ,0x004A002A,address read from the REL32 displacement at a placed body
+?loadPostProcess@UpdateModule@@MAEXXZ,0x0058B03E,address read from the REL32 displacement at a placed body
+?revalidateOccupiers@SpawnPointProductionExitUpdate@@AAEXXZ,0x004A3F04,address read from the REL32 displacement at a placed body
+?setWakeFrame@UpdateModule@@IAEXPAVObject@@I@Z,0x0044DF71,address read from the REL32 displacement at a placed body
+?getGoalObject@StateMachine@@QAEPAVObject@@XZ,0x005E68C0,address read from the REL32 displacement at a placed body

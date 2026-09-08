@@ -211,17 +211,25 @@ protected:
 
 	// default textures, shader, vmat
 	TextureClass *										Texture[MAX_PASSES][MAX_TEX_STAGES];
+	// Set_Single_Shader at 0x0015A7E0 stores through [ecx+eax*4+0x98] where this
+	// header puts Shader at +0x94, so FOUR of the twenty unexplained bytes below
+	// sit ahead of Shader rather than after it. That body constrains nothing
+	// earlier than Shader, so this stays a named gap in the same spirit as the
+	// sixteen that remain.
+	char											_BfmeUnknownGapBeforeShader[4];
 	ShaderClass											Shader[MAX_PASSES];
 	VertexMaterialClass *							Material[MAX_PASSES];
 
 	// BFME2 layout: retail puts TextureArray at +0xC8, MaterialArray at +0xE8
 	// and ShaderArray at +0xF8, read off the three anchored accessors. The
 	// reference layout puts them at +0xB4, +0xD4 and +0xE4, so this engine
-	// carries twenty bytes the reference does not somewhere ahead of them.
+	// carries twenty bytes the reference does not somewhere ahead of them. Four of
+	// those twenty are now placed ahead of Shader (see the note there); these are
+	// the remaining sixteen.
 	// Where exactly is not determined - none of the three bodies touches the
 	// members before TextureArray - so it is a named gap rather than a guess
 	// at which member grew.
-	char												_BfmeUnknownGap[20];
+	char												_BfmeUnknownGap[16];
 
 	// array textures, shaders, vmats
 	TexBufferClass *									TextureArray[MAX_PASSES][MAX_TEX_STAGES];

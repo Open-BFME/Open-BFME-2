@@ -78,6 +78,29 @@ def masked_offsets(relocs):
     return out
 
 
+def retail_length(rva, cap=0x1000):
+    """Where retail's `cc` padding starts -- the only authority on a boundary.
+
+    An emitted length proves nothing. build.py prints exactly `target_size`
+    bytes, so a body that equals the target in length has demonstrated nothing
+    about where retail ended it, and a source change that grows or shrinks the
+    body still emits *something*. Reading past the claimed end and finding where
+    the int3 run begins is the check that settles it.
+    """
+    try:
+        data = build.read_target_bytes(rva, cap)
+    except Exception:
+        return None
+    run = 0
+    for i, byte in enumerate(data):
+        if byte == 0xCC:
+            run += 1
+            if run >= 4:
+                return i - run + 1
+        else:
+            run = 0
+    return None
+
 def disp_list(md, buf):
     """(mnemonic, size, displacements) per instruction."""
     out = []
@@ -113,7 +136,7 @@ def constant_shift(md, target, ours):
 def main():
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--mode", choices=("both", "exact", "layout"), default="both")
+    ap.add_argument("--mode", choices=("both", "exact", "layout", "near"), default="both")
     ap.add_argument("--compile", action="store_true",
                     help="build any missing object instead of skipping it")
     ap.add_argument("--min-size", type=int, default=1,
@@ -139,7 +162,7 @@ def main():
                       and "gen_asm" not in r["source"]
                       and "gen_small" not in r["source"]})
 
-    exact, layout = [], []
+    exact, layout, near = [], [], []
     for src_rel in sources:
         src = ROOT / src_rel
         obj = build.obj_path(src)
@@ -178,6 +201,13 @@ def main():
                 shift = constant_shift(md, body, ours)
                 if shift:
                     layout.append((shift[1], shift[0], size, rva, name, src_rel))
+                    continue
+            if args.mode in ("both", "near"):
+                diffs = sum(1 for k in range(size)
+                            if k not in masked and ours[k] != body[k])
+                true_len = retail_length(rva)
+                near.append((diffs, abs(size - true_len) if true_len else 1 << 20,
+                             true_len or 0, size, rva, name, src_rel))
 
     if args.mode in ("both", "exact"):
         exact.sort(reverse=True)
@@ -195,6 +225,22 @@ def main():
             print(f"{hits:5d} site(s) {delta:+d}  {size}B  0x{rva:08X}  {src_rel}")
             print(f"           {name}")
         print(f"{len(layout)} candidate(s)")
+
+    if args.mode in ("both", "near") and near:
+        # Neither exact nor a clean constant shift, so this is ordinary
+        # divergence -- but how MUCH of it, and whether the length is right,
+        # says which body a source lever can still reach. A body differing in
+        # one byte at the same length is a member offset or a literal; one
+        # differing everywhere is a different function.
+        near.sort()
+        print("== near misses: the tree emits it but the bytes differ ==")
+        print(" diff  dlen  retail   ours  address     source / symbol")
+        for diffs, dlen, true_len, size, rva, name, src_rel in near[:60]:
+            shown = "?" if dlen >= (1 << 20) else str(dlen)
+            print(f"{diffs:5d} {shown:>5} {true_len:7d} {size:6d}  0x{rva:08X}  {src_rel}")
+            print(f"           {name}")
+        print(f"{len(near)} candidate(s); fewest differing bytes first, which is")
+        print("the order in which a source lever is likely to reach one.")
 
 
 if __name__ == "__main__":

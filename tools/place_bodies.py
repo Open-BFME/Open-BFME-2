@@ -108,6 +108,11 @@ def main():
     placed = {}
     by_address = collections.defaultdict(set)
     for source in args.sources:
+        # as_posix(), not the argv spelling: on Windows a caller types
+        # Code\GameEngine\... and that lands in the ledger source column, where
+        # git never speaks backslashes, so check_csv reads the source as
+        # untracked. Two agents produced 47 such rows before this was found.
+        source = build.Path(source).as_posix()
         try:
             obj = harvest.compile_obj(build.Path(source), [])
         except SystemExit:
