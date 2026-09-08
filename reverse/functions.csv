@@ -5719,3 +5719,4 @@ _piCallbacksCleanup,,0x0069EEF0,24,Code/GameEngine/Source/GameNetwork/GameSpy/pe
 ?Get_View_Matrix@CameraClass@@QAEABVMatrix3D@@XZ,,0x00134A70,16,Code/Libraries/Source/WWVegas/WW3D2/camera.cpp,matched,
 ?Max@WWMath@@SAMMM@Z,,0x00154A60,23,Code/Libraries/Source/WWVegas/WW3D2/lightenvironment.cpp,matched,
 ?Min@WWMath@@SAMMM@Z,,0x00154A80,23,Code/Libraries/Source/WWVegas/WW3D2/lightenvironment.cpp,matched,
+?Store_Length@StringClass@@AAEXH@Z,,0x0060F130,20,Code/Libraries/Source/WWVegas/WW3D2/dx8rendererdebugger.cpp,matched,
