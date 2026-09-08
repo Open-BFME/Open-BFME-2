@@ -46,3 +46,9 @@ exception tables, string literals, or floating-point constants in this body.
 The reproducible development audit is `build/astra_fvf/audit_initialize.py` in the
 worker scratch; ordinary add-match and pre-commit byte gates validate the tracked
 source.
+
+The separately claimed four-argument constructor is the complete 36-byte body at
+RVA `0x181550`, ending with `ret 16` and twelve alignment bytes. Its sole call
+resolves to the verified initializer. Keeping that initializer explicitly out of
+line reproduces the ordinary wrapper and its `this` return without altering the
+initializer or the retained FVF name formatter.

@@ -138,7 +138,8 @@ struct BfmeFVFDescriptor {
  unsigned basisEnd;                 // 0x54
  unsigned extensionDataOffset;      // 0x58
  unsigned formatIndex;              // 0x5C
- void Initialize(unsigned,unsigned,bool,unsigned);
+ BfmeFVFDescriptor(unsigned,unsigned,bool,unsigned);
+ __declspec(noinline) void Initialize(unsigned,unsigned,bool,unsigned);
 };
 typedef char BfmeFVFDescriptorSize[(sizeof(BfmeFVFDescriptor)==96)?1:-1];
 void BfmeFVFDescriptor::Initialize(unsigned format,unsigned vertex_size,bool basis,unsigned count)
@@ -188,4 +189,9 @@ void BfmeFVFDescriptor::Initialize(unsigned format,unsigned vertex_size,bool bas
  if(!additionalBasis && extensionCount==0) {
   for(int i=0;i<15;++i) if(fvf==bfmeKnownFVFFormats[i]) formatIndex=i;
  }
+}
+
+BfmeFVFDescriptor::BfmeFVFDescriptor(unsigned format,unsigned vertex_size,bool basis,unsigned count)
+{
+ Initialize(format,vertex_size,basis,count);
 }
