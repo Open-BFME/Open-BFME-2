@@ -54,3 +54,23 @@ The terminal runtime thunk independently imports `msvcr71.dll!__CxxFrameHandler`
 The `fs:[0]` chain base is separately verified as zero. There are no string or
 floating-point literals. Ordinary add-match and pre-commit gates validate the
 tracked body; the independent scratch audit is `build/astra_fvf/audit_native.py`.
+
+The sorting allocator is the complete 275-byte body at `0x13A8E0`, including both
+return paths and followed by thirteen alignment bytes. It grows one CPU sorting
+pool, preserves 16-bit offset/capacity behavior, and uses the same ownership
+sequence. Its four globals are the in-use flag at `0xDF2A88`, buffer pointer at
+`0xDF2A8C`, capacity at `0xDF2A90`, and offset at `0xDF2A94`.
+
+Restoring the reference's translation-unit-local `static` linkage is necessary:
+external declarations produced 287 bytes with extra reloads across reference
+updates. The original internal linkage gives the compiler the same information
+about aliases, reproducing the full 275-byte body without artificial temporaries
+or register controls. The native allocator remains unchanged.
+
+The sorting constructor pin is independently supported by the complete 112-byte
+body at `0x139660`. It calls the same base with type 1 and FVF `0x252`, installs
+its distinct vtable at `0xBD2F48`, allocates `44 * vertexCount` bytes through the
+already verified array allocator, and stores the result at `+0x1C`. The destructor
+begins immediately after its `ret 4`. The sorting allocator's four exception
+nodes resolve to the same independently audited allocation-cleanup graph as the
+native allocator. No constructor or destructor receives duplicate body credit.

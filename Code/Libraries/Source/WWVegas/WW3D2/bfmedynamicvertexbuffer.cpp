@@ -45,9 +45,9 @@ extern bool bfmeDynamicVBInUse[15];
 extern BfmeDynamicNativeVB *bfmeDynamicVBs[15];
 extern unsigned short bfmeDynamicVBSizes[15],bfmeDynamicVBOffsets[15];
 extern unsigned bfmeDynamicFVFs[15];
-extern bool bfmeSortingVBInUse;
-extern BfmeDynamicSortingVB *bfmeSortingVB;
-extern unsigned short bfmeSortingVBSize,bfmeSortingVBOffset;
+static bool bfmeSortingVBInUse;
+static BfmeDynamicSortingVB *bfmeSortingVB;
+static unsigned short bfmeSortingVBSize,bfmeSortingVBOffset;
 struct BfmeDynamicVBAccess {
  const BfmeFVFDescriptor *format;
  unsigned type,formatIndex,declaration;
@@ -79,4 +79,22 @@ void BfmeDynamicVBAccess::AllocateNative()
  if(buffer) buffer->ReleaseRef();
  buffer=bfmeDynamicVBs[formatIndex];
  vertexOffset=bfmeDynamicVBOffsets[formatIndex];
+}
+void BfmeDynamicVBAccess::AllocateSorting()
+{
+ bfmeSortingVBInUse=true;
+ unsigned newCount=bfmeSortingVBOffset+vertexCount;
+ if(newCount>bfmeSortingVBSize) {
+  if(bfmeSortingVB) { bfmeSortingVB->ReleaseRef();bfmeSortingVB=0; }
+  bfmeSortingVBSize=newCount;
+  if(bfmeSortingVBSize<5000) bfmeSortingVBSize=5000;
+ }
+ if(!bfmeSortingVB) {
+  bfmeSortingVB=new BfmeDynamicSortingVB(bfmeSortingVBSize);
+  bfmeSortingVBOffset=0;
+ }
+ if(bfmeSortingVB) bfmeSortingVB->AddRef();
+ if(buffer) buffer->ReleaseRef();
+ buffer=bfmeSortingVB;
+ vertexOffset=bfmeSortingVBOffset;
 }
