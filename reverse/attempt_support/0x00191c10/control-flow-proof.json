@@ -1,0 +1,366 @@
+{
+  "status": "native_control_flow_verified; C++ full body still unmatched",
+  "switch_rva": "0x192372",
+  "entry": [
+    {
+      "va": "0x592372",
+      "bytes": "8b853cfdffff",
+      "mnemonic": "mov",
+      "operands": "eax, dword ptr [ebp - 0x2c4]"
+    },
+    {
+      "va": "0x592378",
+      "bytes": "83c410",
+      "mnemonic": "add",
+      "operands": "esp, 0x10"
+    },
+    {
+      "va": "0x59237b",
+      "bytes": "83e800",
+      "mnemonic": "sub",
+      "operands": "eax, 0"
+    },
+    {
+      "va": "0x59237e",
+      "bytes": "0f849d000000",
+      "mnemonic": "je",
+      "operands": "0x592421"
+    },
+    {
+      "va": "0x592384",
+      "bytes": "2bc7",
+      "mnemonic": "sub",
+      "operands": "eax, edi"
+    },
+    {
+      "va": "0x592386",
+      "bytes": "744a",
+      "mnemonic": "je",
+      "operands": "0x5923d2"
+    },
+    {
+      "va": "0x592388",
+      "bytes": "2bc7",
+      "mnemonic": "sub",
+      "operands": "eax, edi"
+    },
+    {
+      "va": "0x59238a",
+      "bytes": "33c0",
+      "mnemonic": "xor",
+      "operands": "eax, eax"
+    },
+    {
+      "va": "0x59238c",
+      "bytes": "85db",
+      "mnemonic": "test",
+      "operands": "ebx, ebx"
+    },
+    {
+      "va": "0x59238e",
+      "bytes": "0f86a2000000",
+      "mnemonic": "jbe",
+      "operands": "0x592436"
+    },
+    {
+      "va": "0x592394",
+      "bytes": "8b55d8",
+      "mnemonic": "mov",
+      "operands": "edx, dword ptr [ebp - 0x28]"
+    }
+  ],
+  "path_0": "592421 clears base_tex_v and joins592436, which loads1.0f for U1",
+  "path_1": "5923D2 fills increasing V and joins59241C, which clears U1",
+  "other_values": "after testing0 and1, retail executes dead sub eax,edi at592388 and enters increasing-V loop at59238A without a conditional exit; joins592436(U1=1)",
+  "semantic_reconciliation": "Adding a tiled default path is consistent with all observed runtime values; original source spelling is not proven. Shared labels remove the dead subtract, so this is not a byte-exact source reconstruction.",
+  "tail": [
+    {
+      "va": "0x59241c",
+      "bytes": "0f57c0",
+      "mnemonic": "xorps",
+      "operands": "xmm0, xmm0"
+    },
+    {
+      "va": "0x59241f",
+      "bytes": "eb1d",
+      "mnemonic": "jmp",
+      "operands": "0x59243e"
+    },
+    {
+      "va": "0x592421",
+      "bytes": "85db",
+      "mnemonic": "test",
+      "operands": "ebx, ebx"
+    },
+    {
+      "va": "0x592423",
+      "bytes": "7611",
+      "mnemonic": "jbe",
+      "operands": "0x592436"
+    },
+    {
+      "va": "0x592425",
+      "bytes": "8bcb",
+      "mnemonic": "mov",
+      "operands": "ecx, ebx"
+    },
+    {
+      "va": "0x592427",
+      "bytes": "33c0",
+      "mnemonic": "xor",
+      "operands": "eax, eax"
+    },
+    {
+      "va": "0x592429",
+      "bytes": "8dbd78a0ffff",
+      "mnemonic": "lea",
+      "operands": "edi, [ebp - 0x5f88]"
+    },
+    {
+      "va": "0x59242f",
+      "bytes": "f3ab",
+      "mnemonic": "rep stosd",
+      "operands": "dword ptr es:[edi], eax"
+    },
+    {
+      "va": "0x592431",
+      "bytes": "bf01000000",
+      "mnemonic": "mov",
+      "operands": "edi, 1"
+    },
+    {
+      "va": "0x592436",
+      "bytes": "f30f1005d8b8bb00",
+      "mnemonic": "movss",
+      "operands": "xmm0, dword ptr [0xbbb8d8]"
+    },
+    {
+      "va": "0x59243e",
+      "bytes": "8b451c",
+      "mnemonic": "mov",
+      "operands": "eax, dword ptr [ebp + 0x1c]"
+    },
+    {
+      "va": "0x592441",
+      "bytes": "85c0",
+      "mnemonic": "test",
+      "operands": "eax, eax"
+    },
+    {
+      "va": "0x592443",
+      "bytes": "f30f1185f0fdffff",
+      "mnemonic": "movss",
+      "operands": "dword ptr [ebp - 0x210], xmm0"
+    },
+    {
+      "va": "0x59244b",
+      "bytes": "7407",
+      "mnemonic": "je",
+      "operands": "0x592454"
+    }
+  ],
+  "constructor": {
+    "iterator_call": [
+      {
+        "va": "0x591e78",
+        "bytes": "f30f110d00e8de00",
+        "mnemonic": "movss",
+        "operands": "dword ptr [0xdee800], xmm1"
+      },
+      {
+        "va": "0x591e80",
+        "bytes": "e89ef5e6ff",
+        "mnemonic": "call",
+        "operands": "0x401423"
+      },
+      {
+        "va": "0x591e85",
+        "bytes": "0f57c0",
+        "mnemonic": "xorps",
+        "operands": "xmm0, xmm0"
+      },
+      {
+        "va": "0x591e88",
+        "bytes": "8b0df4c4de00",
+        "mnemonic": "mov",
+        "operands": "ecx, dword ptr [0xdec4f4]"
+      },
+      {
+        "va": "0x591e8e",
+        "bytes": "f30f100dd8b8bb00",
+        "mnemonic": "movss",
+        "operands": "xmm1, dword ptr [0xbbb8d8]"
+      }
+    ],
+    "iterator": [
+      {
+        "va": "0x401423",
+        "bytes": "8b44240c",
+        "mnemonic": "mov",
+        "operands": "eax, dword ptr [esp + 0xc]"
+      },
+      {
+        "va": "0x401427",
+        "bytes": "48",
+        "mnemonic": "dec",
+        "operands": "eax"
+      },
+      {
+        "va": "0x401428",
+        "bytes": "7818",
+        "mnemonic": "js",
+        "operands": "0x401442"
+      },
+      {
+        "va": "0x40142a",
+        "bytes": "56",
+        "mnemonic": "push",
+        "operands": "esi"
+      },
+      {
+        "va": "0x40142b",
+        "bytes": "8b742408",
+        "mnemonic": "mov",
+        "operands": "esi, dword ptr [esp + 8]"
+      },
+      {
+        "va": "0x40142f",
+        "bytes": "57",
+        "mnemonic": "push",
+        "operands": "edi"
+      },
+      {
+        "va": "0x401430",
+        "bytes": "8d7801",
+        "mnemonic": "lea",
+        "operands": "edi, [eax + 1]"
+      },
+      {
+        "va": "0x401433",
+        "bytes": "8bce",
+        "mnemonic": "mov",
+        "operands": "ecx, esi"
+      },
+      {
+        "va": "0x401435",
+        "bytes": "ff542418",
+        "mnemonic": "call",
+        "operands": "dword ptr [esp + 0x18]"
+      },
+      {
+        "va": "0x401439",
+        "bytes": "03742410",
+        "mnemonic": "add",
+        "operands": "esi, dword ptr [esp + 0x10]"
+      },
+      {
+        "va": "0x40143d",
+        "bytes": "4f",
+        "mnemonic": "dec",
+        "operands": "edi"
+      },
+      {
+        "va": "0x40143e",
+        "bytes": "75f3",
+        "mnemonic": "jne",
+        "operands": "0x401433"
+      },
+      {
+        "va": "0x401440",
+        "bytes": "5f",
+        "mnemonic": "pop",
+        "operands": "edi"
+      },
+      {
+        "va": "0x401441",
+        "bytes": "5e",
+        "mnemonic": "pop",
+        "operands": "esi"
+      },
+      {
+        "va": "0x401442",
+        "bytes": "c21000",
+        "mnemonic": "ret",
+        "operands": "0x10"
+      }
+    ],
+    "callback": [
+      {
+        "va": "0x87a6a9",
+        "bytes": "8bc1",
+        "mnemonic": "mov",
+        "operands": "eax, ecx"
+      },
+      {
+        "va": "0x87a6ab",
+        "bytes": "c3",
+        "mnemonic": "ret",
+        "operands": ""
+      }
+    ],
+    "argument_setup": [
+      {
+        "va": "0x591deb",
+        "bytes": "68a9a68700",
+        "mnemonic": "push",
+        "operands": "0x87a6a9"
+      },
+      {
+        "va": "0x591df0",
+        "bytes": "6a04",
+        "mnemonic": "push",
+        "operands": "4"
+      },
+      {
+        "va": "0x591df2",
+        "bytes": "6a10",
+        "mnemonic": "push",
+        "operands": "0x10"
+      },
+      {
+        "va": "0x591df4",
+        "bytes": "f30f110dc4e7de00",
+        "mnemonic": "movss",
+        "operands": "dword ptr [0xdee7c4], xmm1"
+      },
+      {
+        "va": "0x591dfc",
+        "bytes": "f30f1105c8e7de00",
+        "mnemonic": "movss",
+        "operands": "dword ptr [0xdee7c8], xmm0"
+      },
+      {
+        "va": "0x591e04",
+        "bytes": "f30f1105cce7de00",
+        "mnemonic": "movss",
+        "operands": "dword ptr [0xdee7cc], xmm0"
+      },
+      {
+        "va": "0x591e0c",
+        "bytes": "a3f4c4de00",
+        "mnemonic": "mov",
+        "operands": "dword ptr [0xdec4f4], eax"
+      },
+      {
+        "va": "0x591e11",
+        "bytes": "8d85c4fcffff",
+        "mnemonic": "lea",
+        "operands": "eax, [ebp - 0x33c]"
+      },
+      {
+        "va": "0x591e17",
+        "bytes": "50",
+        "mnemonic": "push",
+        "operands": "eax"
+      }
+    ],
+    "interpretation": "four16-byte elements; callback is no-op this-return and shared by multiple types. Matrix4 has4Vector4 rows and legitimate matrix-copy/transpose expressions reproduce this call at exactrelative270. No new exclusive callback identity or pin is claimed."
+  },
+  "retail_boundary": {
+    "rva": "0x191C10",
+    "size": 16018,
+    "suffix": [],
+    "end_exclusive_va": "0x595AA2",
+    "sha256": "53564736c6abef0f3e72dfc9224f892f624c31409edb50340aa99ee015fb924e"
+  }
+}

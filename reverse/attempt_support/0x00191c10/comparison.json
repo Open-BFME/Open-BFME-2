@@ -1,0 +1,16 @@
+{
+  "status": "nonmatching research bank; zero coverage credit",
+  "target_rva": "0x00191C10",
+  "target_size": 16018,
+  "ret": "0x00595A9F C21800; end0x00595AA2",
+  "candidate_size": 15730,
+  "relocations": 153,
+  "candidate_concrete": 15118,
+  "same_offset_concrete_equal": 955,
+  "same_offset_concrete_different": 14163,
+  "missing_tail": 288,
+  "ranking_score_definition": "same-offset concrete equal / full target byte count; not normalized instruction similarity",
+  "score": 0.05962042701960295,
+  "model": "gpt-6-astra; root independently recompiled",
+  "EH": "B68996 toD0D7F0; maxstate2 and zero tryblocks"
+}
