@@ -30,3 +30,8 @@ void SceneClass::Add_Render_Object(RenderObjClass *obj)
 {
     obj->Notify_Added(this);
 }
+
+void SceneClass::Remove_Render_Object(RenderObjClass *obj)
+{
+    obj->Notify_Removed(this);
+}
