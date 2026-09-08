@@ -869,3 +869,11 @@ _MD5Print,0x00606320,GameSpy callee already byte-verified in Code/GameEngine/Sou
 _SBServerGetPublicInetAddress,0x006989D0,GameSpy public IPv4 getter; exact seven-byte source body folded with ArrayLength; server layout and independently matched SDK callers corroborate alias
 _SBServerSetICMPIP,0x006BC320,GameSpy ICMP-address setter; exact twelve-byte source body folded with ghiPostSetAutoFree; server field layout and independently matched SDK callers corroborate alias
 _UCS2ToUTF8StringAlloc,0x0069DC40,GameSpy callee already byte-verified in Code/GameEngine/Source/GameNetwork/GameSpy/stringutil.c at commit 5ba3d5ea032c; direct call from _gpSetTransferDirectoryW
+??0BfmeSortingVBAccess@@QAE@IIGI@Z,0x0013B040,Recovered 24-byte dynamic vertex-access view; complete 83-byte constructor selects a 96-byte format record and stores the four arguments at proven offsets
+??0WriteLock@BfmeSortingVBAccess@@QAE@PAU1@@Z,0x0013AA00,Recovered dynamic vertex write-lock view; 247-byte constructor and EH member cleanup prove owner+0 data+4 device guard+8
+??1WriteLock@BfmeSortingVBAccess@@QAE@XZ,0x0013AB00,Recovered dynamic vertex write-lock view; 108-byte destructor unlocks native buffer and releases the device guard independently proven by EH cleanup
+??0BfmeSortingIBAccess@@QAE@GG@Z,0x00139240,Recovered 12-byte dynamic index-access view; identical argument ABI and field layout of the already verified 55-byte DynamicIBAccessClass constructor
+??0WriteLock@BfmeSortingIBAccess@@QAE@PAU1@@Z,0x00138CA0,Recovered dynamic index write-lock view; 218-byte constructor and EH member cleanup prove owner+0 data+4 device guard+8
+??1WriteLock@BfmeSortingIBAccess@@QAE@XZ,0x00138D80,Recovered dynamic index write-lock view; 120-byte destructor unlocks and releases the reference-counted index buffer then its device guard
+??1BfmeSortingIBAccess@@QAE@XZ,0x00138BE0,Recovered dynamic index-access view; same 12-byte layout and already verified 72-byte DynamicIBAccessClass destructor
+??1BfmeSortingVBAccess@@QAE@XZ,0x0013A780,Recovered dynamic vertex-access view; same 24-byte layout and already verified 80-byte BoxDynamicVBAccessClass destructor

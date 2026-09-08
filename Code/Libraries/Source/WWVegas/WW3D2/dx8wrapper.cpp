@@ -5140,3 +5140,79 @@ void BfmeDrawOps::Draw(unsigned primitive_type,unsigned start_index,unsigned pol
   }break;
  }
 }
+
+// Buffer ownership and complete EH proof: docs/reconstruction/dx8wrapper-sorting-draw.md.
+// Existing reconstructed guard contract from reference/shims/indexbuffercount/dx8indexbuffer.h.
+extern void BFME_DX8_Thread_Lock();
+extern void BFME_DX8_Thread_Assert();
+class BFMEDX8DeviceLock {
+public:
+ BFMEDX8DeviceLock() { BFME_DX8_Thread_Lock(); }
+ ~BFMEDX8DeviceLock() { BFME_DX8_Thread_Assert(); }
+};
+struct BfmeSortingVBAccess {
+ const BfmeApplyFVFPrefix *format; unsigned type,formatIndex,extra;
+ unsigned short vertexCount,vertexOffset; BfmeApplyVertexBuffer *buffer;
+ BfmeSortingVBAccess(unsigned,unsigned,unsigned short,unsigned);
+ ~BfmeSortingVBAccess();
+ struct WriteLock {
+  BfmeSortingVBAccess *owner; VertexFormatXYZNDUV2 *data; BFMEDX8DeviceLock guard;
+  WriteLock(BfmeSortingVBAccess *); ~WriteLock();
+ };
+};
+struct BfmeSortingIBAccess {
+ unsigned type; unsigned short indexCount,indexOffset; BfmeApplyIndexBuffer *buffer;
+ BfmeSortingIBAccess(unsigned short,unsigned short); ~BfmeSortingIBAccess();
+ struct WriteLock {
+  BfmeSortingIBAccess *owner; unsigned short *data; BFMEDX8DeviceLock guard;
+  WriteLock(BfmeSortingIBAccess *); ~WriteLock();
+ };
+};
+struct BfmeSortingStats:DX8Wrapper {
+ static __forceinline void Vertex() { DX8_RECORD_VERTEX_BUFFER_CHANGE(); }
+ static __forceinline void Index() { DX8_RECORD_INDEX_BUFFER_CHANGE(); }
+ static __forceinline void Draw() { DX8_RECORD_DRAW_CALLS(); }
+};
+void bfmeDrawSortingPrimitive(unsigned primitive_type,unsigned start_index,unsigned polygon_count,unsigned min_vertex_index,unsigned vertex_count)
+{
+ if (polygon_count>65535) return;
+ if (vertex_count>65535) return;
+ BfmeSortingVBAccess vb(BUFFER_TYPE_DYNAMIC_DX8,5,vertex_count,0);
+ {
+  BfmeSortingVBAccess::WriteLock lock(&vb);
+  VertexFormatXYZNDUV2 *src=reinterpret_cast<VertexFormatXYZNDUV2 *>(bfmeApplyRenderState.vertexBuffers[0]->buffer);
+  VertexFormatXYZNDUV2 *dest=lock.data;
+  src+=bfmeApplyRenderState.vertexOffset+bfmeApplyRenderState.indexBase+min_vertex_index;
+  unsigned size=vb.format->Get_FVF_Size()*vertex_count/sizeof(unsigned);
+  unsigned *dest_u=reinterpret_cast<unsigned *>(dest);
+  unsigned *src_u=reinterpret_cast<unsigned *>(src);
+  for (unsigned i=0;i<size;++i) *dest_u++=*src_u++;
+ }
+ unsigned stride=vb.format->Get_FVF_Size();
+ IDirect3DVertexBuffer9 *nativeBuffer=vb.buffer->buffer;
+ BfmeApplyOps::Device()->SetStreamSource(0,nativeBuffer,0,stride);number_of_DX8_calls++;
+ unsigned fvf=vb.format->Get_FVF();
+ if (fvf) { BfmeApplyOps::Device()->SetFVF(fvf);number_of_DX8_calls++; }
+ BfmeSortingStats::Vertex();
+ unsigned index_count=0;
+ switch (primitive_type) {
+ case D3DPT_TRIANGLELIST:index_count=polygon_count*3;break;
+ case D3DPT_TRIANGLESTRIP:index_count=polygon_count+2;break;
+ case D3DPT_TRIANGLEFAN:index_count=polygon_count+2;break;
+ }
+ BfmeSortingIBAccess ib(BUFFER_TYPE_DYNAMIC_DX8,index_count);
+ {
+  BfmeSortingIBAccess::WriteLock lock(&ib);
+  unsigned short *dest=lock.data;
+  unsigned short *src=reinterpret_cast<unsigned short *>(bfmeApplyRenderState.indexBuffer->buffer);
+  src+=bfmeApplyRenderState.indexOffset+start_index;
+  for (unsigned short i=0;i<index_count;++i) {
+   unsigned short index=*src++;index-=min_vertex_index;*dest++=index;
+  }
+ }
+ IDirect3DIndexBuffer9 *nativeIndexBuffer=ib.buffer->buffer;
+ BfmeApplyOps::Device()->SetIndices(nativeIndexBuffer);number_of_DX8_calls++;
+ BfmeSortingStats::Index();BfmeSortingStats::Draw();
+ BfmeApplyOps::Device()->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,vb.vertexOffset,0,vertex_count,ib.indexOffset,polygon_count);number_of_DX8_calls++;
+ DX8_RECORD_RENDER(polygon_count,vertex_count,bfmeApplyRenderState.shader);
+}
