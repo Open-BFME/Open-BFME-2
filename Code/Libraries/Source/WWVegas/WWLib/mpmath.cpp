@@ -1408,6 +1408,16 @@ void MPEXPORT XMP_Randomize(digit * result, Straw & rng, int total_bits, int pre
 }
 
 
+// 0x0061C420, 299 bytes, cc-padded both ends -- one instruction from exact.
+// Retail's clamp of total_bits is `cmovge ebp,ecx` (0f 4d e9) where this build
+// emits `jl +2 / mov ebp,ecx`; everything after that point is the same code
+// shifted by the one byte, with the compiler's alignment filler absorbing it
+// (retail `eb 03` + a 3-byte nop where we take a 4-byte nop, both landing on
+// +0xE0). Refuted: min(), the >= ternary and a plain `if` all emit the branch,
+// and /G6 -- which is where MSVC 7.1 prefers cmov, since /G7 targets a P4 whose
+// cmov is slow -- regresses _Byte_Precision, XMP_DER_Length_Encode,
+// XMP_Encode_Bounded, XMP_Encode and XMP_Signed_Decode in this same unit.
+// Whatever produces the cmov here is local to this body, not a unit flag.
 void MPEXPORT XMP_Randomize_Bounded(digit * result, Straw & rng, digit const * minval, digit const * maxval, int precision)
 {
 	digit range[MAX_UNIT_PRECISION];

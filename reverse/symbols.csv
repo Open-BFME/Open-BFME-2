@@ -981,3 +981,9 @@ _strcmp,0x006291C6,PE CRT thunk; independent FF25 import thunk at RVA 0x006291C6
 ?wouldIgnite@FlammableUpdate@@QAE_NXZ,0x0048C57A,address read from the REL32 displacement at a placed body
 ?Set_Single_Shader@MeshMatDescClass@@QAEXVShaderClass@@H@Z,0x0015A7E0,address read from the REL32 displacement at a placed body
 ?findObjectByID@GameLogic@@QAEPAVObject@@W4ObjectID@@@Z,0x00049DC5,address read from the REL32 call site in cullFrontOfList after the dockupdate UpdateModule layout fix
+??0ObjectModule@@QAE@PAVThing@@PBVModuleData@@@Z,0x00306AA7,address read from the retail REL32 displacement at the sole call site inside the BehaviorModule constructor at 0x00253330 - that body byte-verifies against this address so retail itself encodes it
+??$_Construct@UAnimSet@GenericObjectCreationNugget@@U12@@_STL@@YAXPAUAnimSet@GenericObjectCreationNugget@@ABU12@@Z,0x001F06B9,address read from the REL32 call site in push_back<AnimSet>
+?_M_insert_overflow@?$vector@UAnimSet@GenericObjectCreationNugget@@V?$allocator@UAnimSet@GenericObjectCreationNugget@@@_STL@@@_STL@@IAEXPAUAnimSet@GenericObjectCreationNugget@@ABU34@ABU__false_type@2@I_N@Z,0x001F326F,address read from the REL32 call site in push_back<AnimSet>
+??0UpdateModule@@QAE@PAVThing@@PBVModuleData@@@Z,0x00253390,address read from the REL32 call site in FloatUpdate ctor; body sets two adjacent -1 dwords at this+0x18/this+0x1c after the BehaviorModule base call -- corroborates the dockupdate shim reserved-dword theory
+?calcSleepDelay@DeletionUpdate@@IAEIII@Z,0x00488357,address read from the REL32 call site in the DeletionUpdate ctor; body matches source exactly (GameLogicRandomValue clamp then m_dieFrame = TheGameLogic->getFrame() + delay)
+?setWakeFrame@UpdateModule@@IAEXPAVObject@@W4UpdateSleepTime@@@Z,0x0044DF71,address read from the REL32 call site in the DeletionUpdate ctor

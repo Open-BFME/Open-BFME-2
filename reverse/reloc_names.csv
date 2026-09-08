@@ -21,6 +21,7 @@ name,target_rva,target_size,source,notes
 ?getNextAsciiString@INI@@QAE?AVAsciiString@@XZ,0x0002EA4F,10,Code/GameEngine/Source/GameLogic/Object/ObjectCreationList.cpp,reloc-derived;call-sites=3;identity=real
 ?SimpleMatch@Debug@@SA_NPBD0@Z,0x00039480,132,Code/Libraries/Source/WWVegas/WWDebug/debug_io_flat.cpp,reloc-derived;call-sites=2;identity=real
 ?DebugAllocMemory@@YAPAXI@Z,0x0003E450,83,Code/Libraries/Source/WWVegas/WWDebug/debug_io_flat.cpp,reloc-derived;call-sites=7;identity=real
+?findObjectByID@GameLogic@@QAEPAVObject@@W4ObjectID@@@Z,0x00049DC5,37,Code/GameEngine/Source/GameLogic/Object/Update/ProjectileStreamUpdate.cpp,reloc-derived;call-sites=2;identity=real
 ?Set_DX8_Render_State@DX8Wrapper@@SAXKI@Z,0x0006615F,10,Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper_set_light_environment.cpp,reloc-derived;call-sites=5;identity=real
 ?Set_DX8_Texture_Stage_State@DX8Wrapper@@SAXIKI@Z,0x000661DD,10,Code/Libraries/Source/WWVegas/WW3D2/vertmaterial.cpp,reloc-derived;call-sites=2;identity=real
 ?recalculate@LineSegClass@@IAEXXZ,0x0006A1E4,233,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DRoadBuffer.cpp,reloc-derived;call-sites=4;identity=real
@@ -137,10 +138,9 @@ name,target_rva,target_size,source,notes
 ?doFxAtBones@FXListAtBonePosFXNugget@@IBEXPBVObject@@H@Z,0x001E2DD6,10,Code/GameEngine/Source/GameClient/FXList.cpp,reloc-derived;call-sites=2;identity=real
 ?insert_unique@?$_Rb_tree@HU?$pair@$$CBHH@_STL@@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBHH@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHH@_STL@@@2@@_STL@@_N@2@ABU?$pair@$$CBHH@2@@Z,0x001E6F5F,134,Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_int_os.cpp,reloc-derived;call-sites=1;identity=real
 ?_bfme_setEngineVisibility@Mouse@@QAEX_N@Z,0x001EE5BE,24,Code/GameEngine/Source/Common/GameEngineClientSubsystems.cpp,reloc-derived;call-sites=1;identity=real
-??1AnimSet@GenericObjectCreationNugget@@QAE@XZ,0x001F0495,10,Code/GameEngine/Source/GameLogic/Object/ObjectCreationList.cpp,reloc-derived;call-sites=1;identity=real
-?push_back@?$vector@UAnimSet@GenericObjectCreationNugget@@V?$allocator@UAnimSet@GenericObjectCreationNugget@@@_STL@@@_STL@@QAEXABUAnimSet@GenericObjectCreationNugget@@@Z,0x001F3326,55,Code/GameEngine/Source/GameLogic/Object/ObjectCreationList.cpp,reloc-derived;call-sites=1;identity=real
+??$_Construct@UAnimSet@GenericObjectCreationNugget@@U12@@_STL@@YAXPAUAnimSet@GenericObjectCreationNugget@@ABU12@@Z,0x001F06B9,10,Code/GameEngine/Source/GameLogic/Object/ObjectCreationList.cpp,reloc-derived;call-sites=1;identity=real
+?_M_insert_overflow@?$vector@UAnimSet@GenericObjectCreationNugget@@V?$allocator@UAnimSet@GenericObjectCreationNugget@@@_STL@@@_STL@@IAEXPAUAnimSet@GenericObjectCreationNugget@@ABU34@ABU__false_type@2@I_N@Z,0x001F326F,183,Code/GameEngine/Source/GameLogic/Object/ObjectCreationList.cpp,reloc-derived;call-sites=1;identity=real
 ??1?$basic_ostringstream@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@UAE@XZ,0x001F66C6,10,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_ostringstream.cpp,reloc-derived;call-sites=1;identity=real
-?get_allocator@?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QBE?AV?$allocator@VAsciiString@@@2@XZ,0x0021983A,7,Code/GameEngine/Source/GameLogic/Object/Contain/HelixContain.cpp,reloc-derived;call-sites=1;identity=real
 ?bfmeSetText@BfmeAptWindowManager@@QAEXABVAsciiString@@ABVUnicodeString@@_N@Z,0x00225301,116,Code/GameEngine/Source/GameClient/GUI/AptMapPreviewSetMapTitle.cpp,reloc-derived;call-sites=2;identity=real
 ??1GameEngine@@UAE@XZ,0x00225B9B,11,Code/GameEngine/Source/Common/GameEngineDestructor.cpp,reloc-derived;call-sites=1;identity=real
 ?initializeBuildMetadata@Version@@QAEXXZ,0x0023870E,10,Code/GameEngine/Source/Common/VersionDestructor.cpp,reloc-derived;call-sites=1;identity=real
@@ -148,7 +148,7 @@ name,target_rva,target_size,source,notes
 ?processProgress@GameLogic@@QAEXHH@Z,0x0023D740,46,Code/GameEngine/Source/GameNetwork/ConnectionManager.cpp,reloc-derived;call-sites=1;identity=real
 ?deleteLoadScreen@GameLogic@@QAEXXZ,0x002423E3,10,Code/GameEngine/Source/Common/GameEngineClientSubsystems.cpp,reloc-derived;call-sites=1;identity=real
 ?destroyObject@GameLogic@@QAEXPAVObject@@@Z,0x00242C09,125,Code/GameEngine/Source/GameLogic/Object/Update/DeletionUpdate.cpp,reloc-derived;call-sites=2;identity=real
-??0BehaviorModule@@QAE@PAVThing@@PBVModuleData@@@Z,0x00253330,42,Code/GameEngine/Source/GameLogic/Object/Create/CreateModule.cpp,reloc-derived;call-sites=1;identity=real
+??0UpdateModule@@QAE@PAVThing@@PBVModuleData@@@Z,0x00253390,61,Code/GameEngine/Source/GameLogic/Object/Update/FloatUpdate.cpp,reloc-derived;call-sites=1;identity=real
 ?findModuleTemplate@ModuleFactory@@IAEPBVModuleTemplate@1@ABVAsciiString@@W4ModuleType@@@Z,0x0025674F,52,Code/GameEngine/Source/Common/Thing/ModuleFactory.cpp,reloc-derived;call-sites=1;identity=real
 ??0StructureCollapseUpdateModuleData@@QAE@XZ,0x00257A5E,10,Code/GameEngine/Source/Common/Thing/ModuleFactory.cpp,reloc-derived;call-sites=1;identity=real
 ?getCurrentWeapon@Object@@QBEPBVWeapon@@PAW4WeaponSlotType@@@Z,0x0028AEBD,45,Code/GameEngine/Source/GameLogic/Object/Update/AssistedTargetingUpdate.cpp,reloc-derived;call-sites=2;identity=real
@@ -169,14 +169,13 @@ name,target_rva,target_size,source,notes
 ??0BfmeMapPictureTexture@@QAE@PBD@Z,0x002DB93E,10,Code/GameEngine/Source/GameClient/GUI/AptMapPreviewPictureImage.cpp,reloc-derived;call-sites=1;identity=real
 ?bfme_getDisplayName@MapMetaData@@QAE?AVUnicodeString@@_N@Z,0x00300C7E,10,Code/GameEngine/Source/GameClient/GUI/AptMapPreviewSetMapTitle.cpp,reloc-derived;call-sites=1;identity=real
 ?bfme_getDescriptionFirstLine@MapMetaData@@QAE?AVUnicodeString@@XZ,0x00301534,10,Code/GameEngine/Source/GameClient/GUI/AptMapPreviewSetMapDescription.cpp,reloc-derived;call-sites=1;identity=real
+??0ObjectModule@@QAE@PAVThing@@PBVModuleData@@@Z,0x00306AA7,10,Code/GameEngine/Source/GameLogic/Object/Create/CreateModule.cpp,reloc-derived;call-sites=1;identity=real
 ?allocArg@GameMessage@@AAEPAVGameMessageArgument@@XZ,0x0030F8FF,55,Code/GameEngine/Source/Common/MessageStream.cpp,reloc-derived;call-sites=7;identity=real
 ?propagateMessages@MessageStream@@QAEXXZ,0x00310FF5,101,Code/GameEngine/Source/Common/GameEngineClientSubsystems.cpp,reloc-derived;call-sites=1;identity=real
 ?GadgetListBoxReset@@YAXPAVGameWindow@@@Z,0x003247E5,34,Code/GameEngine/Source/GameClient/GUI/AptMapPreviewSetMapDescription.cpp,reloc-derived;call-sites=1;identity=real
 ?GadgetListBoxAddEntryText@@YAHPAVGameWindow@@VUnicodeString@@HHH_N@Z,0x00326BEC,10,Code/GameEngine/Source/GameClient/GUI/AptMapPreviewSetMapDescription.cpp,reloc-derived;call-sites=1;identity=real
 ?countIntersection@?$BitFlags@$0L@@@QBEHABV1@@Z,0x0033ADC0,60,Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp,reloc-derived;call-sites=1;identity=real
 ?erase@?$vector@UNugget@ModuleInfo@@V?$allocator@UNugget@ModuleInfo@@@_STL@@@_STL@@QAEPAUNugget@ModuleInfo@@PAU34@@Z,0x0033C3BC,55,Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp,reloc-derived;call-sites=1;identity=real
-?cullFrontOfList@ProjectileStreamUpdate@@IAEXXZ,0x0033F033,56,Code/GameEngine/Source/GameLogic/Object/Update/ProjectileStreamUpdate.cpp,reloc-derived;call-sites=1;identity=real
-?considerDying@ProjectileStreamUpdate@@IAE_NXZ,0x0033F06B,37,Code/GameEngine/Source/GameLogic/Object/Update/ProjectileStreamUpdate.cpp,reloc-derived;call-sites=1;identity=real
 ?_M_create_node@?$_Rb_tree@HU?$pair@$$CBHH@_STL@@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBHH@_STL@@@2@ABU?$pair@$$CBHH@2@@Z,0x00382B7F,34,Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_int_os.cpp,reloc-derived;call-sites=3;identity=real
 ?clear@TeamFactory@@QAEXXZ,0x003A2F4C,10,Code/GameEngine/Source/Common/RTS/PlayerList.cpp,reloc-derived;call-sites=1;identity=real
 ??0?$ConcreteModuleTemplate@V?$ModuleTag@$01$E?RENDEROBJECT_UPDATE_MODULE_KEY@FXParticleSystem@@3QBDB$E?RENDEROBJECT_UPDATE_MODULE_NAME@2@3QBDBVRenderObjectUpdateModule@2@VRenderObjectUpdateModuleTemplate@2@V?$DefaultParticleModule@$01@2@@FXParticleSystem@@@FXParticleSystem@@QAE@ABV01@@Z,0x003AEA15,142,Code/GameEngine/Source/GameClient/FXParticleSystemFactories.cpp,reloc-derived;call-sites=1;identity=real
@@ -216,7 +215,7 @@ _XMP_Randomize_Bounded,0x0061C420,296,Code/Libraries/Source/WWVegas/WWLib/mpmath
 ?resize@?$hashtable@U?$pair@$$CBHH@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@QAEXI@Z,0x00620B70,244,Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_int.cpp,reloc-derived;call-sites=1;identity=real
 ??$_M_allocate_and_copy@PBU?$pair@HH@_STL@@@?$vector@U?$pair@HH@_STL@@V?$allocator@U?$pair@HH@_STL@@@2@@_STL@@IAEPAU?$pair@HH@1@IPBU21@0@Z,0x00627960,78,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_pair.cpp,reloc-derived;call-sites=1;identity=real
 ?_M_insert_overflow@?$vector@UFlightDeckInfo@FlightDeckBehavior@@V?$allocator@UFlightDeckInfo@FlightDeckBehavior@@@_STL@@@_STL@@IAEXPAUFlightDeckInfo@FlightDeckBehavior@@ABU34@ABU__false_type@2@I_N@Z,0x00627BC0,255,Code/GameEngine/Source/GameLogic/Object/Behavior/FlightDeckBehavior.cpp,reloc-derived;call-sites=1;identity=real
-__EH_prolog,0x00629188,31,Code/GameEngine/Source/Common/GameEngineClientSubsystems.cpp,reloc-derived;call-sites=90;identity=real
+__EH_prolog,0x00629188,31,Code/GameEngine/Source/Common/GameEngineClientSubsystems.cpp,reloc-derived;call-sites=91;identity=real
 __ftol2,0x00629228,117,Code/Libraries/Source/WWVegas/WW3D2/part_buf.cpp,reloc-derived;call-sites=20;identity=real
 _bfmeDirectXErrorName@4,0x0062B16A,20572,Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp,reloc-derived;call-sites=1;identity=real
 ?Set_Mesh@AABTreeClass@@QAEXPAVMeshGeometryClass@@@Z,0x00665640,10,Code/Libraries/Source/WWVegas/WW3D2/mesh_generate_culling_tree.cpp,reloc-derived;call-sites=1;identity=real
