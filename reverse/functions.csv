@@ -5577,3 +5577,4 @@ _piCallbacksCleanup,,0x0069EEF0,24,Code/GameEngine/Source/GameNetwork/GameSpy/pe
 ?set@Rva007F63D0@@QAEXPAHPBURva007F63D0Src@@H@Z,,0x00662B60,25,Code/GameEngine/Source/Common/Rva007F63D0Set.cpp,matched,
 ?set@Rva0073DAB0@@QAEAAV1@PBURva0073DAB0Blk@@@Z,,0x00087A74,31,Code/GameEngine/Source/Common/Rva0073DAB0Set.cpp,matched,
 ?set@Rva00468520@@QAEPAV1@PBV1@@Z,,0x004F62FE,26,Code/GameEngine/Source/Common/Rva00468520Set.cpp,matched,
+?isLeapYear@@YG_NH@Z,,0x006F4080,65,Code/GameEngine/Source/Common/LeapYearPredicateThunk.cpp,matched,
