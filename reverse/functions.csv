@@ -5717,3 +5717,5 @@ _piCallbacksCleanup,,0x0069EEF0,24,Code/GameEngine/Source/GameNetwork/GameSpy/pe
 ??AVector3@@QAEAAMH@Z,,0x007173D0,10,Code/Libraries/Source/WWVegas/WW3D2/aabtree.cpp,matched,
 ?_bfme_ro_flag109@RenderObjClass@@UBEHXZ,,0x0006CFA0,9,Code/Libraries/Source/WWVegas/WW3D2/camera.cpp,matched,
 ?Get_View_Matrix@CameraClass@@QAEABVMatrix3D@@XZ,,0x00134A70,16,Code/Libraries/Source/WWVegas/WW3D2/camera.cpp,matched,
+?Max@WWMath@@SAMMM@Z,,0x00154A60,23,Code/Libraries/Source/WWVegas/WW3D2/lightenvironment.cpp,matched,
+?Min@WWMath@@SAMMM@Z,,0x00154A80,23,Code/Libraries/Source/WWVegas/WW3D2/lightenvironment.cpp,matched,
