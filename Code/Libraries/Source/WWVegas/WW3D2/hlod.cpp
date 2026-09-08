@@ -1603,7 +1603,6 @@ const SphereClass &HLodClass::Get_Bounding_Sphere(void) const
  * HISTORY:                                                                                    *
  *   4/13/00    pds : Created.                                                                 *
  *=============================================================================================*/
-// ?HLodClass::Get_Bounding_Box present-unmatched
 const AABoxClass &HLodClass::Get_Bounding_Box(void) const
 {
 	if (BoundingBoxIndex >= 0) {
