@@ -1045,3 +1045,4 @@ __RTC_CheckEsp,0x0075A5A2
 ?Set_Animation@Animatable3DObjClass@@UAEXPAVHAnimComboClass@@@Z,0x001A4D90
 ?Resize@?$VectorClass@VTCBClass@TCBSpline3DClass@@@@UAE_NHPBVTCBClass@TCBSpline3DClass@@@Z,0x000F0BF1
 ??0?$VectorClass@VKeyClass@Curve3DClass@@@@QAE@HPBVKeyClass@Curve3DClass@@@Z,0x000F0D2F
+??$insert@U?$_List_iterator@HU?$_Const_traits@H@_STL@@@_STL@@@?$list@HV?$allocator@H@_STL@@@_STL@@QAEXU?$_List_iterator@HU?$_Nonconst_traits@H@_STL@@@1@U?$_List_iterator@HU?$_Const_traits@H@_STL@@@1@1@Z,0x000BB975
