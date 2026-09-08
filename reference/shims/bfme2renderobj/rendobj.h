@@ -564,7 +564,8 @@ public:
 	virtual int						Is_Alpha(void) const														{ return Bits & IS_ALPHA; }
 	virtual void					Set_Alpha(int onoff)														{ if (onoff) { Bits |= IS_ALPHA; } else { Bits &= ~IS_ALPHA; } }
 	virtual int						Is_Additive(void) const													{ return Bits & IS_ADDITIVE; }
-	virtual void					Set_Additive(int onoff)														{ if (onoff) { Bits |= IS_ADDITIVE; } else { Bits &= ~IS_ADDITIVE; } }
+	// BFME2 uses the out-of-line shared-return implementation.
+	virtual void Set_Additive(int onoff);
 	// BFME: four unidentified retail flag get/set pairs between Set_Additive
 	// and Get_Collision_Type (Bits masks 0x02000000, 0x04000000, 0x08000000,
 	// 0x01000000 in retail).

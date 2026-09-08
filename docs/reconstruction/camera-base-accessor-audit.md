@@ -9,7 +9,7 @@ primary vtable at VA BD2F68 establish the replacements:
 | Accessor | Old RVA / bytes | Actual RVA / bytes | Vtable slot | Contract |
 | --- | --- | --- | --- | --- |
 | Is_Additive | 19B080 / 9 | 6CF83 / 9 | 110 | Bits at +10 masked with 00400000 |
-| Set_Additive | 1A30F0 / 21 | 6CF8C / 21 | 111 | Set/clear byte +12 bit40 |
+| Set_Additive | 1A30F0 / 21 | 6CF8C / 20 | 111 | Set/clear byte +12 bit40 |
 | Is_In_Scene | 41B7F5 / 12 | 6D01F / 9 | 123 | Scene pointer at +78 |
 | Get_User_Data | 21914D / 7 | 30C8A7 / 7 | 87 | UserData pointer at +80 |
 
@@ -20,3 +20,9 @@ match, not a new coverage claim. The independently reconstructed hierarchy
 aggregation routine also invokes the additive pair at vtable offsets 1B8/1BC.
 No ordinary global or vtable exception was added. The correction has a net
 coverage change of -24 bytes (-21 retired setter and -3 scene getter extent).
+
+Follow-up: the size-optimized out-of-line setter matches all 20 executable
+bytes through 46CF9F. The initial 21-byte inspection also read one byte of
+the following method; no 21-byte claim was made at this location. The scoped
+base header now declares this real implementation. Reinstating its exact
+20-byte body makes the combined correction -4 bytes.
