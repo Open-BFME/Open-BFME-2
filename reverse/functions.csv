@@ -5649,3 +5649,4 @@ _piCallbacksCleanup,,0x0069EEF0,24,Code/GameEngine/Source/GameNetwork/GameSpy/pe
 ?Get_Line_Alpha@LineGroupClass@@QAEMXZ,,0x001B36A0,4,Code/Libraries/Source/WWVegas/WW3D2/linegrp.cpp,matched,fld from DefaultLineAlpha at +0x40; next slot after the landed Set_Line_Alpha in the same COMDAT run
 ?Get_Line_UCoord@LineGroupClass@@QAEMXZ,,0x001B36B0,4,Code/Libraries/Source/WWVegas/WW3D2/linegrp.cpp,matched,fld from DefaultLineUCoord at +0x44; the setter beside it is the one COMDAT in this run the linker folded away
 ??_ENodeCompressedMotionStruct@@QAEPAXI@Z,,0x0018FAB0,84,Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp,matched,ported from BFME1; exact structural analogue
+??0WSClassicEnvironmentMapperClass@@QAE@ABVINIClass@@PBDI@Z,,0x0013C710,37,Code/Libraries/Source/WWVegas/WW3D2/vertmaterial.cpp,matched,implicit BFME1 analogue constructor; exact BFME2 target match
