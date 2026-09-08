@@ -5626,3 +5626,4 @@ _piCallbacksCleanup,,0x0069EEF0,24,Code/GameEngine/Source/GameNetwork/GameSpy/pe
 ??_GBufferStraw@@UAEPAXI@Z,,0x0013D400,30,Code/Libraries/Source/WWVegas/WW3D2/vertmaterial.cpp,matched,ported from BFME1; exact target-side structural alias
 ??_G?$DynamicVectorClass@VShaderClass@@@@UAEPAXI@Z,,0x0016FFB0,30,Code/Libraries/Source/WWVegas/WW3D2/matinfo.cpp,matched,ported from BFME1; exact target-side structural alias
 ??0?$DynamicVectorClass@PAVVertexMaterialClass@@@@QAE@IPBQAVVertexMaterialClass@@@Z,,0x001A3AE0,94,Code/Libraries/Source/WWVegas/WW3D2/matinfo.cpp,matched,ported from BFME1; exact folded-body identity
+??0?$DynamicVectorClass@PAVTextureClass@@@@QAE@IPBQAVTextureClass@@@Z,,0x001A3AE0,94,Code/Libraries/Source/WWVegas/WW3D2/matinfo.cpp,matched,ported from BFME1; exact folded-body identity
