@@ -213,7 +213,6 @@ CameraClass::~CameraClass(void)
  * HISTORY:                                                                                    *
  *   3/21/98    GTH : Created.                                                                 *
  *=============================================================================================*/
-// ?Clone@CameraClass@@UBEPAVRenderObjClass@@XZ present-unmatched
 RenderObjClass * CameraClass::Clone(void) const
 {
 	return NEW_REF( CameraClass, (*this) );
