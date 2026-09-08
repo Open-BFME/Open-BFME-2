@@ -533,7 +533,6 @@ void CameraClass::Un_Project(Vector3 & dest,const Vector2 & view_point) const
  * HISTORY:                                                                                    *
  *   2/22/2001  gth : Created.                                                                 *
  *=============================================================================================*/
-// ?Transform_To_View_Space@CameraClass@@ present-unmatched
 void CameraClass::Transform_To_View_Space(Vector3 & dest,const Vector3 & ws_point) const
 {
 	Update_Frustum();
