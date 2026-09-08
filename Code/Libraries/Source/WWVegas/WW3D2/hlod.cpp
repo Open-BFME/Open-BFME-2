@@ -3443,7 +3443,6 @@ int HLodClass::Calculate_Cost_Value_Arrays(float screen_area, float *values, flo
  * HISTORY:                                                                                    *
  *   1/26/00    gth : Created.                                                                 *
  *=============================================================================================*/
-// ?HLodClass::Get_Current_LOD present-unmatched
 RenderObjClass * HLodClass::Get_Current_LOD(void)
 {
 	int count = Get_Lod_Model_Count(CurLod);
