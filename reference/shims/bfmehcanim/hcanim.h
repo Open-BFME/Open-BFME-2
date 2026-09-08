@@ -1,5 +1,6 @@
-// Header shim: hcanim.h with 4 unknown bytes inserted
-// before `Name[2*W3D_NAME_LEN]`.  See the comment there for the evidence.
+// Header shim: BFME's compressed-animation object has a key dword after
+// HierarchyName and a second per-node array pointer after NodeMotion.  See the
+// comments on those members for the evidence.
 // Scoped by -Ireference/shims/bfmehcanim on the unit's `// cl:` line.
 /*
 **	Command & Conquer Generals Zero Hour(tm)
@@ -55,6 +56,11 @@
 #include "hanim.h"
 
 struct NodeCompressedMotionStruct;
+// BFME's newer animation format keeps a second, 24-byte per-node channel
+// array beside the original 28-byte NodeCompressedMotionStruct array.  The
+// retail name of this type is not recovered; the descriptive spelling keeps
+// that uncertainty explicit while preserving the proven object layout.
+struct BFME2CompressedMotionChannels;
 class TimeCodedMotionChannelClass;
 class TimeCodedBitChannelClass;
 class AdaptiveDeltaMotionChannelClass;
@@ -115,17 +121,13 @@ public:
 	bool							Has_Visibility (int pividx);
 
 private:
-
-	// BFME has one more dword ahead of these members than Zero Hour does.
-	// HCompressedAnimClass::add_channel at 0x0018F2A0 reads the channel array
-	// pointer from [ecx+0x54] where this build read it from [ecx+0x50], and
-	// HAnimClass above carries no data of its own, so the four bytes belong to
-	// this class. Nothing in these bodies says what they hold, so they are
-	// not named.
-	char			_bfme_unk_hcanim_head[4];
-
 	char							Name[2*W3D_NAME_LEN];
 	char							HierarchyName[W3D_NAME_LEN];
+
+	// Retail fills this dword with the key returned by NameKeyGenerator for
+	// Name.  The surrounding animation evidence does not recover its original
+	// member spelling, so keep the field descriptive rather than inventing one.
+	unsigned int				_bfme_unk_hcanim_key;
 	
 	int							NumFrames;
 	int							NumNodes;
@@ -133,6 +135,7 @@ private:
 	float							FrameRate;
 
 	NodeCompressedMotionStruct *		NodeMotion;
+	BFME2CompressedMotionChannels *	VectorMotion;
 
 	void Free(void);	
 	bool read_channel(ChunkLoadClass & cload,TimeCodedMotionChannelClass * * newchan);

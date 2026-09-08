@@ -3672,7 +3672,6 @@ _XMP_Shift_Left_Bits,,0x0061BBD0,308,Code/Libraries/Source/WWVegas/WWLib/mpmath.
 ?File_Name@GameFileClass@@UBEPBDXZ,,0x000782BF,7,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFileSystem.cpp,matched,BFME2 exact BFME1-derived game file accessor
 ?Is_Available@GameFileClass@@UAE_NH@Z,,0x000782E1,6,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFileSystem.cpp,matched,BFME2 exact BFME1-derived game file accessor
 ?Get_Total_Time@HCompressedAnimClass@@UAEMXZ,,0x0018F190,7,Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp,matched,BFME2 exact BFME1-derived compressed animation accessor
-?Get_HName@HCompressedAnimClass@@UBEPBDXZ,,0x002B236A,4,Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp,matched,BFME2 exact BFME1-derived compressed animation accessor
 ?getCustomPassMode@RTS3DScene@@QAE?AW4CustomScenePassModes@@XZ,,0x0026FF4F,7,Code/GameEngineDevice/Source/W3DDevice/GameClient/HeightMap.cpp,matched,BFME2 exact BFME1-derived HeightMap accessor
 ?isEnabled@W3DDynamicLight@@QAE_NXZ,,0x0006E298,7,Code/GameEngineDevice/Source/W3DDevice/GameClient/HeightMap.cpp,matched,BFME2 exact BFME1-derived HeightMap accessor
 ?Get_Lighting@VertexMaterialClass@@QBE_NXZ,,0x0012D2B0,4,Code/Libraries/Source/WWVegas/WW3D2/sortingrenderer.cpp,matched,BFME2 exact BFME1-derived material getter
@@ -5270,3 +5269,4 @@ _chatGetChannelKeysA,,0x006A2B60,224,Code/GameEngine/Source/GameNetwork/GameSpy/
 ?Get_Bounding_Sphere@RenderObjClass@@UBEABVSphereClass@@XZ,,0x0006D028,22,Code/Libraries/Source/WWVegas/WW3D2/hlod.cpp,matched,RenderObj primary table BD2F68 slot65; checks cache-valid bit20000 and calls update slot127; returns sphere at4C; complete22 bytes
 ?_bfme_set_indexed_factor@RenderObjClass@@UAEXHM@Z,,0x0006CE71,22,Code/Libraries/Source/WWVegas/WW3D2/hlod.cpp,matched,RenderObj primary table BD2F68 slot23; complete SSE store to indexed factor array90; descriptive existing shim name; no unstated semantic identity
 ?Compute_Normal@TriClass@@QAEXXZ,,0x0006A0CA,223,Code/Libraries/Source/WWVegas/WWMath/tri_compute_normal.cpp,matched,retail collision helper emitted from inline TriClass::Compute_Normal; dedicated /O1 /Oy- TU preserves aabtree siblings; 223-byte boundary and Inv_Sqrt call verified
+??0HCompressedAnimClass@@QAE@XZ,,0x0018F0E0,159,Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp,matched,BFME2 constructor exact with NameKeyGenerator key initialization and corrected fields at40 44 48 4c 50 54 58; full 159-byte body and SEH boundary independently decoded

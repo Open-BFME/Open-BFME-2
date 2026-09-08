@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfmerendobj /Ireference/shims/bfmehcanim /Ob2 /G7 /arch:SSE /DNDEBUG /MD /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/sweep
+// cl: /Ireference/shims/bfmerendobj /Ireference/shims/bfmehcanim /Ob2 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/sweep
 #define Matrix4x4 Matrix4
 #include "rendobj.h"	// the bfmerendobj shim has to win the include guard
 #include "winbase_shim.h"
@@ -60,6 +60,24 @@
 // does -- cdecl, one argument, caller cleans -- rather than through the asset
 // manager singleton. The body lives in another translation unit.
 HTreeClass *Get_HTree(const char *name);
+
+// The compressed-animation constructor and loader both ask the retail name
+// key singleton to assign a key to the fully-qualified animation name.  The
+// complete NameKeyGenerator header is intentionally not pulled into this
+// WW3D2 unit: this small declaration preserves the proven ABI and keeps the
+// animation include boundary local.
+enum NameKeyType
+{
+	NAMEKEY_INVALID = 0,
+	FORCE_NAMEKEYTYPE_LONG = 0x7fffffff
+};
+class NameKeyGenerator
+{
+public:
+	NameKeyType nameToKey(const char *name);
+};
+extern NameKeyGenerator *TheNameKeyGenerator;
+
 #include "htree.h"
 #include "motchan.h"
 #include "chunkio.h"
@@ -222,11 +240,13 @@ int NodeCompressedMotionStruct::Get_Channel_Memory_Usage(void)
 HCompressedAnimClass::HCompressedAnimClass(void) :
 	NumFrames(0),
 	NumNodes(0),
-	Flavor(0),
+	Flavor(ANIM_FLAVOR_VALID),
 	FrameRate(0),
-	NodeMotion(NULL)
+	NodeMotion(NULL),
+	VectorMotion(NULL)
 {
 	memset(Name,0,W3D_NAME_LEN);
+	_bfme_unk_hcanim_key = TheNameKeyGenerator->nameToKey(Name);
 	memset(HierarchyName,0,W3D_NAME_LEN);
 }
 
@@ -262,19 +282,6 @@ HCompressedAnimClass::~HCompressedAnimClass(void)
  * HISTORY:                                                                                    * 
  *   08/11/1997 GH  : Created.                                                                 * 
  *=============================================================================================*/
-// ?HCompressedAnimClass::Free present-unmatched
-void HCompressedAnimClass::Free(void)
-{
-	if (NodeMotion != NULL) {
-		delete[] NodeMotion;
-	}
-	// Outside the test, unlike HRawAnimClass::Free: retail's je at 0x0095C457
-	// lands at 0x0095C478, ahead of the store at 0x0095C47A, so it runs on both
-	// paths. Zero Hour never nulled it here at all.
-	NodeMotion = NULL;
-}
-
-
 /*********************************************************************************************** 
  * HCompressedAnimClass::Load -- Loads hierarchy animation from a file                         * 
  *                                                                                             * 
