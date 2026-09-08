@@ -646,7 +646,6 @@ _strdup,0x006C4C70,address read from the retail REL32 in INIClass::Put_String at
 ?update_cached_box@OBBoxRenderObjClass@@MAEXXZ,0x001758C0,address read from the REL32 displacement at a placed body
 ??0Null3DObjClass@@QAE@ABV0@@Z,0x00180EF0,address read from the REL32 displacement at a placed body
 ?Remove_Polygon_Renderer@DX8TextureCategoryClass@@QAEXPAVDX8PolygonRendererClass@@@Z,0x001460E0,address read from the REL32 displacement at a placed body
-??1LogicalDecalClass@MultiFixedPoolDecalSystemClass@@QAE@XZ,0x0018F870,address read from the REL32 displacement at a placed body
 ?Add_Engine_Ref@VertexBufferClass@@QBEXXZ,0x00139480,address read from the REL32 displacement at a placed body
 ?Find_Color_Mode@DX8Wrapper@@KA_NW4_D3DFORMAT@@HHPAI@Z,0x0011CF80,address read from the REL32 displacement at a placed body
 ?Release_Engine_Ref@VertexBufferClass@@QBEXXZ,0x00139490,address read from the REL32 displacement at a placed body
