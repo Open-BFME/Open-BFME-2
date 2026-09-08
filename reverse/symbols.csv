@@ -1054,3 +1054,10 @@ __RTC_CheckEsp,0x0075A5A2
 ?_M_lower_bound@?$_Rb_tree@HU?$pair@$$CBHPAX@_STL@@U?$_Select1st@U?$pair@$$CBHPAX@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHPAX@_STL@@@2@@_STL@@ABEPAU?$_Rb_tree_node@U?$pair@$$CBHPAX@_STL@@@2@ABH@Z,0x004FF3B6
 ?_M_upper_bound@?$_Rb_tree@HU?$pair@$$CBHPAX@_STL@@U?$_Select1st@U?$pair@$$CBHPAX@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHPAX@_STL@@@2@@_STL@@ABEPAU?$_Rb_tree_node@U?$pair@$$CBHPAX@_STL@@@2@ABH@Z,0x004FF539
 ?_M_destroy_nodes@?$_Deque_base@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@IAEXPAPAUBfmeE8@@0@Z,0x00620200
+??$copy@U?$_Deque_iterator@UBfmeE12@@U?$_Const_traits@UBfmeE12@@@_STL@@@_STL@@U?$_Deque_iterator@UBfmeE12@@U?$_Nonconst_traits@UBfmeE12@@@_STL@@@2@@_STL@@YA?AU?$_Deque_iterator@UBfmeE12@@U?$_Nonconst_traits@UBfmeE12@@@_STL@@@0@U?$_Deque_iterator@UBfmeE12@@U?$_Const_traits@UBfmeE12@@@_STL@@@0@0U10@@Z,0x00585283
+??$copy@U?$_Deque_iterator@UBfmeE12@@U?$_Nonconst_traits@UBfmeE12@@@_STL@@@_STL@@U12@@_STL@@YA?AU?$_Deque_iterator@UBfmeE12@@U?$_Nonconst_traits@UBfmeE12@@@_STL@@@0@U10@00@Z,0x00585283
+??$copy_backward@U?$_Deque_iterator@UBfmeE12@@U?$_Nonconst_traits@UBfmeE12@@@_STL@@@_STL@@U12@@_STL@@YA?AU?$_Deque_iterator@UBfmeE12@@U?$_Nonconst_traits@UBfmeE12@@@_STL@@@0@U10@00@Z,0x00585A18
+??1?$_Deque_base@UBfmeE12@@V?$allocator@UBfmeE12@@@_STL@@@_STL@@QAE@XZ,0x0054FAAC
+??H?$_Deque_iterator@UBfmeE12@@U?$_Const_traits@UBfmeE12@@@_STL@@@_STL@@QBE?AU01@H@Z,0x00584E57
+?_M_destroy_nodes@?$_Deque_base@UBfmeE12@@V?$allocator@UBfmeE12@@@_STL@@@_STL@@IAEXPAPAUBfmeE12@@0@Z,0x004218F7
+?clear@?$deque@UBfmeE12@@V?$allocator@UBfmeE12@@@_STL@@@_STL@@QAEXXZ,0x0058592D
