@@ -9,7 +9,8 @@
 // Constructors and table identities are independently established by their
 // initialization, load methods, and factory call sites; no table bytes count
 // as executable progress.
-class ChunkLoadClass { public: unsigned long Read(void *, unsigned long); };
+void * __cdecl operator new[](unsigned int);
+class ChunkLoadClass { public: unsigned long Read(void *, unsigned long); unsigned long Cur_Chunk_Length(); };
 class BFME2MotionChannel {
 public:
     virtual bool Load(ChunkLoadClass &);
@@ -79,4 +80,14 @@ BFME2MotionChannel *Load_BFME2MotionChannel(ChunkLoadClass &chunk)
         }
     }
     return channel;
+}
+
+bool BFME2StreamMotionChannel::Load(ChunkLoadClass &chunk)
+{
+    if (chunk.Read(EncodedHeader, 4) != 4) return false;
+    if (chunk.Read(EncodedHeader + 4, Components * 4) != Components * 4) return false;
+    unsigned long size = chunk.Cur_Chunk_Length() - 12 - Components * 4;
+    Data = new unsigned char[size];
+    if (chunk.Read(Data, size) != size) return false;
+    return true;
 }
