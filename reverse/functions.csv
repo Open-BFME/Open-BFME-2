@@ -5648,3 +5648,4 @@ _piCallbacksCleanup,,0x0069EEF0,24,Code/GameEngine/Source/GameNetwork/GameSpy/pe
 ?Get_Line_Size@LineGroupClass@@QAEMXZ,,0x001B3600,4,Code/Libraries/Source/WWVegas/WW3D2/linegrp.cpp,matched,x87 float return so the flag split does not apply; sits in the LineGroupClass COMDAT run between the landed Set_Line_Size and Set_Line_Color
 ?Get_Line_Alpha@LineGroupClass@@QAEMXZ,,0x001B36A0,4,Code/Libraries/Source/WWVegas/WW3D2/linegrp.cpp,matched,fld from DefaultLineAlpha at +0x40; next slot after the landed Set_Line_Alpha in the same COMDAT run
 ?Get_Line_UCoord@LineGroupClass@@QAEMXZ,,0x001B36B0,4,Code/Libraries/Source/WWVegas/WW3D2/linegrp.cpp,matched,fld from DefaultLineUCoord at +0x44; the setter beside it is the one COMDAT in this run the linker folded away
+??_ENodeCompressedMotionStruct@@QAEPAXI@Z,,0x0018FAB0,84,Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp,matched,ported from BFME1; exact structural analogue
