@@ -5748,3 +5748,6 @@ _piCallbacksCleanup,,0x0069EEF0,24,Code/GameEngine/Source/GameNetwork/GameSpy/pe
 ?getVertexBuffer@StreakRendererClass@@AAEPAUVertexFormatXYZUV1@@I@Z,,0x00743090,58,Code/Libraries/Source/WWVegas/WW3D2/streakRender.cpp,matched,
 ??0GenericMultiListIterator@@QAE@PAVGenericMultiListClass@@@Z,,0x00144830,17,Code/Libraries/Source/WWVegas/WW3D2/scene.cpp,matched,
 ?Set_Fog_Enable@SceneClass@@UAEX_N@Z,,0x0065D7A0,10,Code/Libraries/Source/WWVegas/WW3D2/scene.cpp,matched,
+?Cast_Ray@AABTreeClass@@QAE_NAAVRayCollisionTestClass@@@Z,,0x00168C00,17,Code/Libraries/Source/WWVegas/WW3D2/meshgeometry.cpp,matched,
+?Cast_AABox@AABTreeClass@@QAE_NAAVAABoxCollisionTestClass@@@Z,,0x00168C20,17,Code/Libraries/Source/WWVegas/WW3D2/meshgeometry.cpp,matched,
+?Get_Poly_Surface_Type@MeshGeometryClass@@QBEEH@Z,,0x0016A220,16,Code/Libraries/Source/WWVegas/WW3D2/meshgeometry.cpp,matched,
