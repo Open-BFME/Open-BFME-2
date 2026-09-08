@@ -1727,7 +1727,6 @@ int HLodClass::Get_Lod_Count(void) const
  * HISTORY:                                                                                    *
  *   2/08/00    nh : Created.                                                                  *
  *=============================================================================================*/
-// ?HLodClass::Set_LOD_Bias present-unmatched
 void HLodClass::Set_LOD_Bias(float bias)
 {
 	assert(bias > 0.0f);
