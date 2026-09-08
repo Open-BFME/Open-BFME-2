@@ -148,3 +148,22 @@ bool _Filebuf_base::_M_open(const char *name, int openmode, long permission)
 	return _M_is_open;
 }
 }
+
+extern "C" __declspec(dllimport) long __cdecl _get_osfhandle(int);
+
+namespace _STL {
+bool _Filebuf_base::_M_open(int file_no,int init_mode) {
+ if(_M_is_open || file_no<0)return false;
+ if(_M_is_open || file_no==-1)return false;
+ void* oshandle=(void*)_get_osfhandle(file_no);
+ if((long)oshandle!=-1)file_no=(int)oshandle;
+ else return false;
+ if(init_mode!=0)_M_openmode=init_mode;
+ else _M_openmode=_SgI::_get_osfflags(file_no,oshandle);
+ _M_is_open=true;
+ _M_file_id=(void*)file_no;
+ _M_should_close=false;
+ _M_regular_file=_SgI::__is_regular_file(_M_file_id);
+ return true;
+}
+}
