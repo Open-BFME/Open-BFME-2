@@ -963,93 +963,6 @@ bool Animatable3DObjClass::Simple_Evaluate_Bone(int boneindex, float frame, Matr
  *   04/13/2000    PDS : Created.                                                              *
  *=============================================================================================*/
 // ?Animatable3DObjClass::Compute_Current_Frame present-unmatched
-float Animatable3DObjClass::Compute_Current_Frame(float *newDirection) const
-{
-	float frame = 0;
-	float direction = ModeAnim.animDirection;
-
-	switch (CurMotionMode)
-	{
-		case SINGLE_ANIM:
-		{
-			frame = ModeAnim.Frame;
-
-			//
-			//	Compute the current frame based on elapsed time.
-			//
-			if (ModeAnim.AnimMode != ANIM_MODE_MANUAL) {
-				float sync_time_diff = WW3D::Get_Sync_Time() - ModeAnim.LastSyncTime;
-				float delta = ModeAnim.Motion->Get_Frame_Rate() * ModeAnim.frameRateMultiplier * ModeAnim.animDirection * sync_time_diff * 0.001f;
-				frame += delta;
-
-				//
-				//	Wrap the frame
-				//
-				switch (ModeAnim.AnimMode)
-				{
-					case ANIM_MODE_ONCE:
-						if (frame >= ModeAnim.Motion->Get_Num_Frames() - 1) {
-							frame = ModeAnim.Motion->Get_Num_Frames() - 1;
-						}
-						break;
-					case ANIM_MODE_LOOP:
-						if ( frame >= ModeAnim.Motion->Get_Num_Frames() - 1 ) {
-							frame -= ModeAnim.Motion->Get_Num_Frames() - 1;
-						}
-						// If it is still too far out, reset
-						if ( frame >= ModeAnim.Motion->Get_Num_Frames() - 1 ) {
-							frame = 0;
-						}
-						break;
-					case ANIM_MODE_ONCE_BACKWARDS:	//play animation one time but backwards
-						if (frame < 0) {
-							frame = 0;
-						}
-						break;
-					case ANIM_MODE_LOOP_BACKWARDS:	//play animation backwards in a loop
-						if ( frame < 0 ) {
-							frame += ModeAnim.Motion->Get_Num_Frames() - 1;
-						}
-						// If it is still too far out, reset
-						if ( frame < 0 ) {
-							frame = ModeAnim.Motion->Get_Num_Frames() - 1;
-						}
-						break;
-					case ANIM_MODE_LOOP_PINGPONG:
-						if (ModeAnim.animDirection >= 1.0f)
-						{	//playing forwards, reverse direction
-							if (frame >= (ModeAnim.Motion->Get_Num_Frames() - 1))
-							{	//step backwards in animation by excess time
-								frame = (ModeAnim.Motion->Get_Num_Frames() - 1)*2 - frame;
-								// If it is still too far out, reset
-								if ( frame >= ModeAnim.Motion->Get_Num_Frames() - 1 )
-									frame = (ModeAnim.Motion->Get_Num_Frames() - 1);
-								direction = ModeAnim.animDirection * -1.0f;
-							}
-						}
-						else
-						{	//playing backwards, reverse direction
-							if (frame < 0)
-							{	//step forwards in animation by excess time
-								frame = -frame;
-								// If it is still too far out, reset
-								if ( frame >= ModeAnim.Motion->Get_Num_Frames() - 1 )
-										frame = 0;
-								direction = ModeAnim.animDirection * -1.0f;
-							}
-						}
-						break;
-				}
-			}
-		}
-		break;
-	}
-  
-	if (newDirection)
-		*newDirection = direction;
-	return frame;	  
-}
-
 /***********************************************************************************************
  * Animatable3DObjClass::Single_Anim_Progress -- progess anims for loop and once               *
  *                                                                                             *
@@ -1063,34 +976,14 @@ float Animatable3DObjClass::Compute_Current_Frame(float *newDirection) const
  *   10/26/99    BMG : Created.                                                                 *
  *=============================================================================================*/
 // ?Animatable3DObjClass::Single_Anim_Progress present-unmatched
-void Animatable3DObjClass::Single_Anim_Progress (void)
+void Animatable3DObjClass::Single_Anim_Progress(void)
 {
-	//
-	//	Update the current frame (only works in "SINGLE_ANIM" mode!)
-	//
-	if (CurMotionMode == SINGLE_ANIM) {
-		
-		// 
-		// Update the frame number and sync time
-		//
-		float oldprev = ModeAnim.PrevFrame;
-		ModeAnim.PrevFrame		= ModeAnim.Frame;
-		ModeAnim.Frame				= Compute_Current_Frame(&ModeAnim.animDirection);
-		ModeAnim.LastSyncTime	= WW3D::Get_Sync_Time();
-	
-		if (ModeAnim.Frame == ModeAnim.PrevFrame) {
-			// This function was somehow called twice per frame.
-			// Since ModeAnim.Frame hasn't changed, reset the ModeAnim.PrevFrame.
-			// If you don't do this sounds won't be triggered properly because Frame and PrevFrame will be the same.
-			ModeAnim.PrevFrame = oldprev;
-		}
-		//
-		// Force the heirarchy to be recalculated
-		//
-		Set_Hierarchy_Valid (false);
-	}
+    if (CurMotionMode == SINGLE_ANIM) {
+        ModeAnim.Frame = Compute_Current_Frame(&ModeAnim.animDirection);
+        ModeAnim.LastSyncTime = WW3D::Get_Sync_Time();
+        Set_Hierarchy_Valid(false);
+    }
 }
-
 
 /***********************************************************************************************
  * Animatable3DObjClass::Is_Animation_Complete -- is the current animation on the last frame?  *

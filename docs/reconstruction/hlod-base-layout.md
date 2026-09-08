@@ -13,11 +13,12 @@ scene addition126, scene removal134, LOD increment203, decrement203, selection23
 and subobject removal332. The complete final returns were checked; several
 catalog entries stop9-16 bytes early and are not used as proof of size.
 
-Assignment is947 bytes through1A0302, not the catalog's940. Its code shape now
-matches but requires independently reconstructed Free and Animatable assignment
-callees before it can be claimed. The object-space box also needs the orthogonal
-inverse and matrix-multiply dependency closure. These are not included in the
-initial2066-byte recovery.
+Assignment now matches all947 bytes through1A0302 after the independently
+reconstructed445-byte Free and261-byte Animatable assignment dependencies.
+The catalog's940-byte extent stops inside the epilogue. The orthogonal inverse
+also matches211 bytes in its scoped SSE unit; object-space box still requires
+the separately unresolved matrix multiply. The final rendering chain is detailed
+in animation-frame-modes.md.
 
 ## Global array destruction
 
