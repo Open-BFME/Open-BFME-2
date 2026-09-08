@@ -5618,6 +5618,7 @@ _piCallbacksCleanup,,0x0069EEF0,24,Code/GameEngine/Source/GameNetwork/GameSpy/pe
 ??_GSortingNodeStruct@@QAEPAXI@Z,,0x001303F0,30,Code/Libraries/Source/WWVegas/WW3D2/sortingrenderer.cpp,matched,ported from BFME1; exact target-side structural candidate
 ??_GIndexBufferClass@@MAEPAXI@Z,,0x001390A0,30,Code/Libraries/Source/WWVegas/WW3D2/dx8indexbuffer.cpp,matched,ported from BFME1; exact target-side structural candidate
 ??_GHAnimClass@@UAEPAXI@Z,,0x0018D1C0,30,Code/Libraries/Source/WWVegas/WW3D2/hanim.cpp,matched,ported from BFME1; exact target-side structural candidate
+??_GAdaptiveDeltaMotionChannelClass@@QAEPAXI@Z,,0x0018F1A0,30,Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp,matched,ported from BFME1; exact target-side structural candidate
 ?Scale@MeshClass@@UAEXMMM@Z,,0x0014A6A0,75,Code/Libraries/Source/WWVegas/WW3D2/mesh.cpp,matched,ported from BFME1 with BFME2 target-side callee pins; drift quick win
 ??0AABoxRenderObjClass@@QAE@ABV0@@Z,,0x001762A0,87,Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp,matched,ported from BFME1; exact target-side structural candidate
 ??0BoxRenderObjClass@@QAE@ABV0@@Z,,0x00175B50,87,Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp,matched,ported from BFME1; exact target-side structural candidate
