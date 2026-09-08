@@ -1093,3 +1093,8 @@ __RTC_CheckEsp,0x0075A5A2
 ??0RailedTransportDockUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x004909D7
 ??0SalvageCrateCollideModuleData@@QAE@XZ,0x0048D541
 ??1UpgradeModuleData@@UAE@XZ,0x00255A42
+??$_M_find@V?$BitFlags@$0BB@@@@?$_Rb_tree@$$CBV?$BitFlags@$0BB@@@U?$pair@$$CBV?$BitFlags@$0BB@@@PBVWeaponTemplateSet@@@_STL@@U?$_Select1st@U?$pair@$$CBV?$BitFlags@$0BB@@@PBVWeaponTemplateSet@@@_STL@@@3@UMapHelper@?$SparseMatchFinder@VWeaponTemplateSet@@V?$BitFlags@$0BB@@@@@V?$allocator@U?$pair@$$CBV?$BitFlags@$0BB@@@PBVWeaponTemplateSet@@@_STL@@@3@@_STL@@ABEPAU?$_Rb_tree_node@U?$pair@$$CBV?$BitFlags@$0BB@@@PBVWeaponTemplateSet@@@_STL@@@1@ABV?$BitFlags@$0BB@@@@Z,0x0033AF5F
+??A?$map@$$CBV?$BitFlags@$0BB@@@PBVWeaponTemplateSet@@UMapHelper@?$SparseMatchFinder@VWeaponTemplateSet@@V?$BitFlags@$0BB@@@@@V?$allocator@U?$pair@$$CBV?$BitFlags@$0BB@@@PBVWeaponTemplateSet@@@_STL@@@_STL@@@_STL@@QAEAAPBVWeaponTemplateSet@@ABV?$BitFlags@$0BB@@@@Z,0x0033D19B
+??M@YA_NABVAsciiString@@0@Z,0x00206BCF
+?allocate@?$allocator@VAsciiString@@@_STL@@QBEPAVAsciiString@@IPBX@Z,0x00068E15
+?findBestInfoSlow@?$SparseMatchFinder@VWeaponTemplateSet@@V?$BitFlags@$0BB@@@@@ABEPBVWeaponTemplateSet@@ABV?$vector@VWeaponTemplateSet@@V?$allocator@VWeaponTemplateSet@@@_STL@@@_STL@@ABV?$BitFlags@$0BB@@@@Z,0x0033BE70
