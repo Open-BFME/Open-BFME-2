@@ -118,7 +118,7 @@ class ParticleEmitterDefClass
 		//
 		//	Public methods
 		//		
-		virtual WW3DErrorType	Load_W3D (ChunkLoadClass &chunk_load);
+		virtual bool	Load_W3D (ChunkLoadClass &chunk_load);
 		virtual WW3DErrorType	Save_W3D (ChunkSaveClass &chunk_save);
 		const char *				Get_Name (void) const					{ return m_pName; }
 		virtual void				Set_Name (const char *pname);
@@ -238,16 +238,16 @@ class ParticleEmitterDefClass
 		//
 		//	Loading methods
 		//
-		virtual WW3DErrorType	Read_Header (ChunkLoadClass &chunk_load);
-		virtual WW3DErrorType	Read_User_Data (ChunkLoadClass &chunk_load);
-		virtual WW3DErrorType	Read_Info (ChunkLoadClass &chunk_load);
-		virtual WW3DErrorType	Read_InfoV2 (ChunkLoadClass &chunk_load);
+		virtual bool	Read_Header (ChunkLoadClass &chunk_load);
+		virtual bool	Read_User_Data (ChunkLoadClass &chunk_load);
+		virtual bool	Read_Info (ChunkLoadClass &chunk_load);
+		virtual bool	Read_InfoV2 (ChunkLoadClass &chunk_load);
 		virtual bool	Read_Props (ChunkLoadClass &chunk_load);
-		virtual WW3DErrorType	Read_Line_Properties (ChunkLoadClass &chunk_load);
-		virtual WW3DErrorType	Read_Rotation_Keyframes (ChunkLoadClass &chunk_load);
-		virtual WW3DErrorType	Read_Frame_Keyframes (ChunkLoadClass &chunk_load);
-		virtual WW3DErrorType	Read_Blur_Time_Keyframes (ChunkLoadClass &chunk_load);
-		virtual WW3DErrorType	Read_Extra_Info (ChunkLoadClass &chunk_load);
+		virtual bool	Read_Line_Properties (ChunkLoadClass &chunk_load);
+		virtual bool	Read_Rotation_Keyframes (ChunkLoadClass &chunk_load);
+		virtual bool	Read_Frame_Keyframes (ChunkLoadClass &chunk_load);
+		virtual bool	Read_Blur_Time_Keyframes (ChunkLoadClass &chunk_load);
+		virtual bool	Read_Extra_Info (ChunkLoadClass &chunk_load);
 
 		virtual bool				Read_Color_Keyframe (ChunkLoadClass &chunk_load, float *key_time, Vector3 *value);
 		virtual bool				Read_Opacity_Keyframe (ChunkLoadClass &chunk_load, float *key_time, float *value);
