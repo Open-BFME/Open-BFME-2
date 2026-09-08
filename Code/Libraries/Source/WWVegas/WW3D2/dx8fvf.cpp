@@ -51,6 +51,7 @@ static unsigned Get_FVF_Vertex_Size(unsigned FVF)
 	return D3DXGetFVFVertexSize(FVF);
 }
 
+// ??0FVFInfoClass@@ present-unmatched
 FVFInfoClass::FVFInfoClass(unsigned FVF_, unsigned vertex_size) 
 	:
 	FVF(FVF_),
@@ -103,4 +104,88 @@ void FVFInfoClass::Get_FVF_Name(StringClass& fvfname) const
 	case DX8_FVF_XYZNDCUBEMAP : fvfname="(D3DFVF_XYZ|D3DFVF_NORMAL|D3DFVF_DIFFUSE|D3DFVF_TEX1|D3DFVFTEXCOORDSIZE3(0)"; break;
 	default: fvfname="Unknown!";
 	}
+}
+
+// BFME2's extended descriptor is a distinct 96-byte layout. The retained
+// Generals FVFInfoClass above has the older layout and two-argument constructor.
+// Recovered roles and complete caller/table evidence are documented in
+// docs/reconstruction/dx8fvf-descriptor.md.
+// The bundled original DX8.1 SDK d3d8types.h defines XYZB4 as 0x00C.
+// Keep that SDK value explicit here while the shared shim is repaired.
+enum { BFME_FVF_XYZB4 = 0x00C };
+unsigned bfmeKnownFVFFormats[15]={
+ DX8_FVF_XYZ,DX8_FVF_XYZN,DX8_FVF_XYZNUV1,DX8_FVF_XYZNUV2,
+ DX8_FVF_XYZNDUV1,DX8_FVF_XYZNDUV2,DX8_FVF_XYZDUV1,DX8_FVF_XYZDUV2,
+ DX8_FVF_XYZUV1,DX8_FVF_XYZUV2,DX8_FVF_XYZNDUV1TG3,DX8_FVF_XYZNUV2DMAP,
+ DX8_FVF_XYZNDCUBEMAP,D3DFVF_XYZRHW|D3DFVF_DIFFUSE|D3DFVF_TEX3,
+ D3DFVF_XYZRHW|D3DFVF_DIFFUSE|D3DFVF_TEX4
+};
+struct BfmeFVFDescriptor {
+ unsigned fvf;                       // 0x00
+ bool additionalBasis;              // 0x04
+ unsigned extensionCount;           // 0x08
+ unsigned stride;                   // 0x0C
+ unsigned locationOffset;           // 0x10
+ unsigned extensionOffset;          // 0x14
+ unsigned normalOffset;             // 0x18
+ unsigned extensionEnd;             // 0x1C
+ unsigned blendOffset;              // 0x20
+ unsigned textureOffsets[8];        // 0x24
+ unsigned diffuseOffset;            // 0x44
+ unsigned specularOffset;           // 0x48
+ unsigned basisOffset;              // 0x4C
+ unsigned basisSecondOffset;        // 0x50
+ unsigned basisEnd;                 // 0x54
+ unsigned extensionDataOffset;      // 0x58
+ unsigned formatIndex;              // 0x5C
+ void Initialize(unsigned,unsigned,bool,unsigned);
+};
+typedef char BfmeFVFDescriptorSize[(sizeof(BfmeFVFDescriptor)==96)?1:-1];
+void BfmeFVFDescriptor::Initialize(unsigned format,unsigned vertex_size,bool basis,unsigned count)
+{
+ fvf=format;
+ additionalBasis=basis;
+ extensionCount=count;
+ if(fvf) {
+  stride=D3DXGetFVFVertexSize(fvf);
+  if(basis) stride+=6*sizeof(float);
+  if(count>0) {
+   stride+=((count+3)/4)*sizeof(unsigned);
+   if(count>1) stride+=(count+(count-1)*6)*sizeof(float);
+  }
+ } else stride=vertex_size;
+ locationOffset=0;
+ blendOffset=locationOffset;
+ if((fvf&D3DFVF_XYZ)==D3DFVF_XYZ) blendOffset+=3*sizeof(float);
+ normalOffset=blendOffset;
+ if(((fvf&BFME_FVF_XYZB4)==BFME_FVF_XYZB4) && ((fvf&D3DFVF_LASTBETA_UBYTE4)==D3DFVF_LASTBETA_UBYTE4)) normalOffset+=3*sizeof(float)+sizeof(unsigned);
+ diffuseOffset=normalOffset;
+ if((fvf&D3DFVF_NORMAL)==D3DFVF_NORMAL) diffuseOffset+=3*sizeof(float);
+ specularOffset=diffuseOffset;
+ if((fvf&D3DFVF_DIFFUSE)==D3DFVF_DIFFUSE) specularOffset+=sizeof(unsigned);
+ textureOffsets[0]=specularOffset;
+ if((fvf&D3DFVF_SPECULAR)==D3DFVF_SPECULAR) textureOffsets[0]+=sizeof(unsigned);
+ unsigned textureCount=(fvf>>8)&15;
+ for(unsigned i=0;i<8;++i) {
+  unsigned size=0;
+  unsigned code=(fvf>>(16+i*2))&3;
+  if(i<textureCount) {
+   if(code==3) size=1;
+   else if(code==0) size=2;
+   else if(code==1) size=3;
+   else if(code==2) size=4;
+  }
+  unsigned next=textureOffsets[i]+size*sizeof(float);
+  if(i+1<8) textureOffsets[i+1]=next;else basisOffset=next;
+ }
+ basisSecondOffset=basisOffset;
+ basisEnd=basisOffset;
+ if(basis) {basisSecondOffset+=3*sizeof(float);basisEnd=basisSecondOffset+3*sizeof(float);}
+ extensionDataOffset=basisEnd+((count+3)/4)*sizeof(unsigned);
+ extensionOffset=extensionDataOffset+(count>1?count:0)*sizeof(float);
+ extensionEnd=extensionOffset+(count>1?3:0)*sizeof(float);
+ formatIndex=15;
+ if(!additionalBasis && extensionCount==0) {
+  for(int i=0;i<15;++i) if(fvf==bfmeKnownFVFFormats[i]) formatIndex=i;
+ }
 }

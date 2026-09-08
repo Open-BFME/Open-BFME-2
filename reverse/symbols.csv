@@ -877,3 +877,4 @@ _UCS2ToUTF8StringAlloc,0x0069DC40,GameSpy callee already byte-verified in Code/G
 ??1WriteLock@BfmeSortingIBAccess@@QAE@XZ,0x00138D80,Recovered dynamic index write-lock view; 120-byte destructor unlocks and releases the reference-counted index buffer then its device guard
 ??1BfmeSortingIBAccess@@QAE@XZ,0x00138BE0,Recovered dynamic index-access view; same 12-byte layout and already verified 72-byte DynamicIBAccessClass destructor
 ??1BfmeSortingVBAccess@@QAE@XZ,0x0013A780,Recovered dynamic vertex-access view; same 24-byte layout and already verified 80-byte BoxDynamicVBAccessClass destructor
+_D3DXGetFVFVertexSize@4,0x0062AFBC,Named PE import thunk: d3dx9_27.dll!D3DXGetFVFVertexSize; complete FF25 thunk resolves IAT VA 0x00BBA9E4
