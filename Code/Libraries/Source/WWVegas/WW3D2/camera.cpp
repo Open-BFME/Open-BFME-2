@@ -552,7 +552,6 @@ void CameraClass::Transform_To_View_Space(Vector3 & dest,const Vector3 & ws_poin
  * HISTORY:                                                                                    *
  *   2/22/2001  gth : Created.                                                                 *
  *=============================================================================================*/
-// ?Rotate_To_View_Space@CameraClass@@ present-unmatched
 void CameraClass::Rotate_To_View_Space(Vector3 & dest,const Vector3 & ws_vector) const
 {
 	Update_Frustum();
