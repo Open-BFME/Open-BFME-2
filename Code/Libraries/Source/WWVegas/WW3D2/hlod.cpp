@@ -1488,7 +1488,6 @@ RenderObjClass * HLodClass::Clone(void) const
  * HISTORY:                                                                                    *
  *   4/13/00    pds : Created.                                                                 *
  *=============================================================================================*/
-// ?HLodClass::Get_Obj_Space_Bounding_Box present-unmatched
 void HLodClass::Get_Obj_Space_Bounding_Box(AABoxClass & box) const
 {
 	//
