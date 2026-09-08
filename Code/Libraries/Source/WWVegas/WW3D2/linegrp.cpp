@@ -131,6 +131,7 @@ void LineGroupClass::Set_Arrays(
 
 }
 
+// ?Set_Line_Size@LineGroupClass@@QAEXM@Z present-unmatched
 void LineGroupClass::Set_Line_Size(float size)
 {
 	DefaultLineSize = size;
