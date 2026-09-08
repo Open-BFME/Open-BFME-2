@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /DNDEBUG /MD
+// cl: /O1 /G7 /EHsc /DNDEBUG /MD
 // Descriptive BFME2 channel types: original retail class names are unrecovered.
 // Factory RVA 0x001A46B4 reads the eight-byte on-disk header and dispatches
 // encoding 0/1/2. The trailing data member represents the payload convention
@@ -10,7 +10,7 @@
 // initialization, load methods, and factory call sites; no table bytes count
 // as executable progress.
 void * __cdecl operator new[](unsigned int);
-class ChunkLoadClass { public: unsigned long Read(void *, unsigned long); unsigned long Cur_Chunk_Length(); };
+class ChunkLoadClass { public: unsigned long Read(void *, unsigned long); unsigned long Cur_Chunk_Length(); unsigned long Seek(unsigned long); };
 class BFME2MotionChannel {
 public:
     virtual bool Load(ChunkLoadClass &);
@@ -21,7 +21,7 @@ public:
     virtual void UnknownSlot5();
     virtual void UnknownSlot6();
     BFME2MotionChannel();
-    int Type, Pivot, Frames, Components;
+    int Type, Pivot, Count, Components;
 };
 class BFME2StreamMotionChannel : public BFME2MotionChannel {
 public:
@@ -50,12 +50,12 @@ public:
     BFME2Encoding0MotionChannel();
     virtual bool Load(ChunkLoadClass &);
     virtual ~BFME2Encoding0MotionChannel();
-    unsigned int Unknown14;
-    unsigned char *Data;
+    unsigned short *TimeCodes;
+    float *Samples;
 };
 struct BFME2MotionChannelHeader {
     unsigned char Version, Encoding, Components, Type;
-    unsigned short Frames, Pivot;
+    unsigned short Count, Pivot;
     unsigned long Data[1];
 };
 BFME2MotionChannel *Load_BFME2MotionChannel(ChunkLoadClass &chunk)
@@ -72,7 +72,7 @@ BFME2MotionChannel *Load_BFME2MotionChannel(ChunkLoadClass &chunk)
     if (channel) {
         channel->Type = header.Type;
         channel->Pivot = header.Pivot;
-        channel->Frames = header.Frames;
+        channel->Count = header.Count;
         channel->Components = header.Components;
         if (!channel->Load(chunk)) {
             ::delete channel;
@@ -89,5 +89,15 @@ bool BFME2StreamMotionChannel::Load(ChunkLoadClass &chunk)
     unsigned long size = chunk.Cur_Chunk_Length() - 12 - Components * 4;
     Data = new unsigned char[size];
     if (chunk.Read(Data, size) != size) return false;
+    return true;
+}
+
+bool BFME2Encoding0MotionChannel::Load(ChunkLoadClass &chunk)
+{
+    TimeCodes = new unsigned short[Count];
+    Samples = new float[Components * Count];
+    if (chunk.Read(TimeCodes, Count * 2) != Count * 2) return false;
+    if (Count & 1) chunk.Seek(2);
+    if (chunk.Read(Samples, Components * Count * 4) != Components * Count * 4) return false;
     return true;
 }
