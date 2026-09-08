@@ -903,3 +903,8 @@ _strcmp,0x006291C6,PE CRT thunk; independent FF25 import thunk at RVA 0x006291C6
 ??1BFME2ScopedRenderEvent@@QAE@XZ,0x00117DA0,Descriptive scope dtor:5-byte tail to EndEvent11F3C0 optional callbackDEDBE0; same EH action at766200
 ?Draw_Strip@DX8Wrapper@@SAXIIII@Z,0x001206D0,"33-byte32-bit draw wrapper: type5 triangle-strip, four uint32 ranges, indexed1, calls1203C0"
 ?Draw_Triangles@DX8Wrapper@@SAXIIII@Z,0x00120620,"33-byte32-bit draw wrapper: type4 triangle-list, four uint32 ranges, indexed1, calls1203C0"
+?Get_Texture@BFMEPointGroupViewHonestCopy@@QBE?AVBFMETextureHandleHonestCopy@@XZ,0x001790E0,"TU-local descriptive ABI view only; independent target callee proof: folded point/line getter reads hidden sret, writes holder Ptr and addrefs at 0x001790E0"
+?Get_Texture@BFMELineGroupViewHonestCopy@@QBE?AVBFMETextureHandleHonestCopy@@XZ,0x001790E0,"TU-local descriptive ABI view only; independent target callee proof: folded point/line getter reads hidden sret, writes holder Ptr and addrefs at 0x001790E0"
+?Set_Texture@BFMEPointGroupViewHonestCopy@@QAEXABVBFMETextureHandleHonestCopy@@@Z,0x001790A0,"TU-local descriptive ABI view only; independent target callee proof: point setter takes holder reference, addrefs incoming and releases old at 0x001790A0"
+?Set_Texture@BFMELineGroupViewHonestCopy@@QAEXABVBFMETextureHandleHonestCopy@@@Z,0x001790A0,"TU-local descriptive ABI view only; independent target callee proof: line setter takes holder reference, addrefs incoming and releases old at 0x001790A0"
+?Get_Frame_Row_Column_Count_Log2@PointGroupClass@@QAEEXZ,0x00179130,"Independent target callee proof: mov al,[ecx+0x20]; ret at 0x00179130, matching PointGroupClass::Get_Frame_Row_Column_Count_Log2 source and this copy-constructor callsite"
