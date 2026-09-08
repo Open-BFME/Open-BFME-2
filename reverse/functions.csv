@@ -5568,3 +5568,4 @@ _piCallbacksCleanup,,0x0069EEF0,24,Code/GameEngine/Source/GameNetwork/GameSpy/pe
 ?wouldIgnite@FlammableUpdate@@QAE_NXZ,,0x0048C57A,8,Code/GameEngine/Source/GameLogic/Object/Update/FlammableUpdate.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 ??$sqr@H@@YAHH@Z,,0x000E13CA,8,Code/GameEngine/Source/GameLogic/Object/Update/MobMemberSlavedUpdate.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 ?d_00889760@@YAHPAX00@Z,,0x00038830,26,Code/GameEngine/Source/Common/Bfme/Rva00889760.cpp,matched,
+?Rva008143A0Set@@YAXPAVRva008143A0Obj@@H@Z,,0x006802A0,38,Code/GameEngine/Source/Common/Rva008143A0Set.cpp,matched,
