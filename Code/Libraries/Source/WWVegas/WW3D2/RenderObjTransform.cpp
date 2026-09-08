@@ -41,7 +41,6 @@ static inline bool Check_Is_Transform_Identity(const Matrix3D& m)
 	return !d;
 }
 
-// ?Set_Transform@RenderObjClass@@UAEXABVMatrix3D@@@Z present-unmatched
 void RenderObjClass::Set_Transform(const Matrix3D &m)
 {
 	Transform = m;
