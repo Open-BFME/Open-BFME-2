@@ -1,7 +1,7 @@
 // cl: /MD /O1 /GX /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /DBFME_MODULE_NO_MPO /DZH_EMIT_POOL_GLUE /Ireference/shims/bfmerendobj /Ireference/shims/debugvtable /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/bfmeanimobj /Ireference/shims/indexbuffercount /Ireference/shims/bfmecaps /Ireference/shims/bfmehcanim /Ireference/shims/bfmevector /Ireference/shims/bfmemapper /Ireference/shims/meshmatdesclayout /Ireference/shims/bfmeshader /Ireference/shims/bfmecpudetect /Ireference/shims/bfmepool /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWAudio /Ireference/shims/bfmealloc /Ireference/shims/bfmehashtable /Ireference/shims/bfmelist /Ireference/shims/asciistring_downloadmanager /Ireference/shims/stlp_nodealloc /Ireference/shims/asciistring_thin /ICode/GameEngine/Source/Common /Ireference/shims/w3droadbuffer /Ireference/shims/bfmeterraintracks /ICode/Libraries/Include/Lib /Ireference/shims/bfme_namekey /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/shims -ICode/Libraries/Source/Compression/LZHCompress/CompLibHeader /Ireference/shims/bfme2htree /Ireference/shims/bfme2renderobj /Ireference/shims/bfmecamera /Ireference/shims/bfmelight /Ireference/shims/bfmeparticlehandle /Ireference/shims/bfmeparticleload /Ireference/shims/bfmeparticlequat /Ireference/shims/bfmeparticlesave /Ireference/shims/bfmeparticleline /Ireference/shims/bfme2ray /Ireference/shims/bfme2scene -D_STLP_USE_STATIC_LIB -DNDEBUG -DWIN32 -D_WINDOWS /Ireference/shims/bfmefrustum
 // stlport
 // Ported verbatim from the Generals Zero Hour reference
-// (GameEngine/Source/GameLogic/Object/ExperienceTracker.cpp); this unit had no counterpart under Code/.
+// (GameEngine/Source/GameLogic/Object/Update/FireSpreadUpdate.cpp); this unit had no counterpart under Code/.
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
@@ -26,228 +26,180 @@
 //																																						//
 ////////////////////////////////////////////////////////////////////////////////
 
-// FILE: ExperienceTracker.cpp //////////////////////////////////////////////////////////////////////
-// Author: Graham Smallwood, February 2002
-// Desc:   Keeps track of experience points so Veterance levels can be gained
+// FILE: FireSpreadUpdate.cpp /////////////////////////////////////////////////////////////////////////
+// Author: Graham Smallwood, April 2002
+// Desc:   Update looks for ::Aflame and explicitly ignites someone nearby if set
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
+// INCLUDES ///////////////////////////////////////////////////////////////////////////////////////
 #include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
 
+#include "Common/RandomValue.h"
 #include "Common/Xfer.h"
-#include "Common/ThingTemplate.h"
-#include "GameLogic/ExperienceTracker.h"
 #include "GameLogic/GameLogic.h"
 #include "GameLogic/Object.h"
+#include "GameLogic/ObjectCreationList.h"
+#include "GameLogic/PartitionManager.h"
+#include "GameLogic/Module/FireSpreadUpdate.h"
+#include "GameLogic/Module/FlammableUpdate.h"
 
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
 
-#ifdef _INTERNAL
-// for occasional debugging...
-//#pragma optimize("", off)
-//#pragma MESSAGE("************************************** WARNING, optimization disabled for debugging purposes")
+//-------------------------------------------------------------------------------------------------
+// This is a one sided query, as in I am not checking for "Flammable By Me", I'm simply testing for a property
+class PartitionFilterFlammable : public PartitionFilter
+{
+public:
+
+	PartitionFilterFlammable(){ }
+	
+	virtual Bool allow(Object *objOther);
+#if defined(_DEBUG) || defined(_INTERNAL)
+	virtual const char* debugGetName() { return "PartitionFilterFlammable"; }
 #endif
+};
 
 //-------------------------------------------------------------------------------------------------
-ExperienceTracker::ExperienceTracker(Object *parent) :
-	m_parent(parent),
-	m_currentLevel(LEVEL_REGULAR),
-	m_experienceSink(INVALID_ID),
-	m_experienceScalar( 1.0f ),
-	m_currentExperience(0) // Added By Sadullah Nader
+Bool PartitionFilterFlammable::allow(Object *objOther)
 {
+	// It must be burnable in general, and burnable now
+	static NameKeyType key_FlammableUpdate = NAMEKEY("FlammableUpdate");
+	FlammableUpdate* fu = (FlammableUpdate*)objOther->findUpdateModule(key_FlammableUpdate);
+	if (fu == NULL)
+		return FALSE;
+
+	if( ! fu->wouldIgnite() )
+		return FALSE;
+
+	return TRUE;
 }
 
 //-------------------------------------------------------------------------------------------------
-ExperienceTracker::~ExperienceTracker()
+//-------------------------------------------------------------------------------------------------
+
+//-------------------------------------------------------------------------------------------------
+FireSpreadUpdateModuleData::FireSpreadUpdateModuleData()
 {
+	m_minSpreadTryDelayData = 0;
+	m_maxSpreadTryDelayData = 0;
+	m_oclEmbers = NULL;
+	m_spreadTryRange = 0;
 }
 
 //-------------------------------------------------------------------------------------------------
-Int ExperienceTracker::getExperienceValue( const Object* killer ) const
+/*static*/ void FireSpreadUpdateModuleData::buildFieldParse(MultiIniFieldParse& p) 
 {
-	// No experience for killing an ally, cheater.
-	if( killer->getRelationship( m_parent ) == ALLIES )
-		return 0;
+  UpdateModuleData::buildFieldParse(p);
 
-	return m_parent->getTemplate()->getExperienceValue(m_currentLevel);
-}
-
-//-------------------------------------------------------------------------------------------------
-Bool ExperienceTracker::isTrainable() const
-{
-	return m_parent->getTemplate()->isTrainable();
-}
-
-//-------------------------------------------------------------------------------------------------
-Bool ExperienceTracker::isAcceptingExperiencePoints() const
-{
-	return isTrainable() || (m_experienceSink != INVALID_ID);
-}
-
-//-------------------------------------------------------------------------------------------------
-void ExperienceTracker::setExperienceSink( ObjectID sink )
-{
-	m_experienceSink = sink;
-}
-
-//-------------------------------------------------------------------------------------------------
-// Set Level to AT LEAST this... if we are already >= this level, do nothing.
-void ExperienceTracker::setMinVeterancyLevel( VeterancyLevel newLevel )
-{
-	// This does not check for IsTrainable, because this function is for explicit setting,
-	// so the setter is assumed to know what they are doing.  The game function
-	// of addExperiencePoints cares about Trainability.
-	if (m_currentLevel < newLevel)
+	static const FieldParse dataFieldParse[] = 
 	{
-		VeterancyLevel oldLevel = m_currentLevel;
-		m_currentLevel = newLevel;
-		m_currentExperience = m_parent->getTemplate()->getExperienceRequired(m_currentLevel); //Minimum for this level
-		if (m_parent)
-			m_parent->onVeterancyLevelChanged( oldLevel, newLevel );
-	}
+		{ "OCLEmbers",				INI::parseObjectCreationList,		NULL, offsetof( FireSpreadUpdateModuleData, m_oclEmbers ) },
+		{ "MinSpreadDelay",		INI::parseDurationUnsignedInt,	NULL, offsetof( FireSpreadUpdateModuleData, m_minSpreadTryDelayData ) },
+		{ "MaxSpreadDelay",		INI::parseDurationUnsignedInt,	NULL, offsetof( FireSpreadUpdateModuleData, m_maxSpreadTryDelayData ) },
+		{ "SpreadTryRange",		INI::parseReal,									NULL, offsetof( FireSpreadUpdateModuleData, m_spreadTryRange ) },
+		{ 0, 0, 0, 0 }
+	};
+  p.add(dataFieldParse);
 }
 
 //-------------------------------------------------------------------------------------------------
-void ExperienceTracker::setVeterancyLevel( VeterancyLevel newLevel, Bool provideFeedback )
+//-------------------------------------------------------------------------------------------------
+FireSpreadUpdate::FireSpreadUpdate( Thing *thing, const ModuleData* moduleData ) : UpdateModule( thing, moduleData )
 {
-	// This does not check for IsTrainable, because this function is for explicit setting,
-	// so the setter is assumed to know what they are doing.  The game function
-	// of addExperiencePoints cares about Trainability, if flagged thus.
-	if (m_currentLevel != newLevel)
+	setWakeFrame(getObject(), UPDATE_SLEEP_FOREVER);
+}
+
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
+FireSpreadUpdate::~FireSpreadUpdate( void )
+{
+}
+
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
+UpdateSleepTime FireSpreadUpdate::update( void )
+{
+	const FireSpreadUpdateModuleData* d = getFireSpreadUpdateModuleData();
+	Object* me = getObject();
+
+	if( !me->getStatusBits().test( OBJECT_STATUS_AFLAME ) )
+		return UPDATE_SLEEP_FOREVER;		// not on fire -- sleep forever
 	{
-		VeterancyLevel oldLevel = m_currentLevel;
-		m_currentLevel = newLevel;
-		m_currentExperience = m_parent->getTemplate()->getExperienceRequired(m_currentLevel); //Minimum for this level
-		if (m_parent)
-			m_parent->onVeterancyLevelChanged( oldLevel, newLevel, provideFeedback );
-	}
-}
+		ObjectCreationList::create( d->m_oclEmbers, getObject(), NULL );
 
-//-------------------------------------------------------------------------------------------------
-Bool ExperienceTracker::gainExpForLevel(Int levelsToGain, Bool canScaleForBonus)
-{
-	Int newLevel = (Int)m_currentLevel + levelsToGain;
-	if (newLevel > LEVEL_LAST)
-		newLevel = LEVEL_LAST;
-	// gain what levels we can, even if we can't use 'em all
-	if (newLevel > m_currentLevel)
-	{
-		Int experienceNeeded = m_parent->getTemplate()->getExperienceRequired(newLevel) - m_currentExperience;
-		addExperiencePoints( experienceNeeded, canScaleForBonus );
-		return true;
-	}
-	return false;
-}
-
-//-------------------------------------------------------------------------------------------------
-Bool ExperienceTracker::canGainExpForLevel(Int levelsToGain) const
-{
-	Int newLevel = (Int)m_currentLevel + levelsToGain;
-	// return true if we can gain levels, even if we can't gain ALL the levels requested
-	if (newLevel > LEVEL_LAST)
-		newLevel = LEVEL_LAST;
-	return (newLevel > m_currentLevel);
-}
-
-//-------------------------------------------------------------------------------------------------
-void ExperienceTracker::addExperiencePoints( Int experienceGain, Bool canScaleForBonus)
-{
-	if( m_experienceSink != INVALID_ID )
-	{
-		// I have been set up to give my experience to someone else
-		Object *sinkPointer = TheGameLogic->findObjectByID( m_experienceSink );
-		if( sinkPointer )
+		if( d->m_spreadTryRange != 0 )
 		{
-			// Not a fatal failure if not valid, he died when I was in the air.
-			sinkPointer->getExperienceTracker()->addExperiencePoints( experienceGain * m_experienceScalar, canScaleForBonus );
-			return;
+			// This will spread fire explicitly
+			PartitionFilterFlammable fFilter;
+			PartitionFilter *filters[] = { &fFilter, NULL };
+
+//			SimpleObjectIterator *iter = NULL;
+//			iter = ThePartitionManager->iterateObjectsInRange(getObject(), 
+//																									d->m_spreadTryRange, 
+//																									FROM_CENTER_3D, 
+//																									filters, 
+//																									ITER_SORTED_NEAR_TO_FAR
+//																									);
+//			MemoryPoolObjectHolder hold(iter);
+//			Object *objectToLight = iter->first();
+//
+// srj sez: the above code is stupid and slow. since we only want the closest object,
+// just ask for that; the above has to find ALL objects in range, but we ignore all 
+// but the first (closest).
+//
+			Object* objectToLight = ThePartitionManager->getClosestObject(getObject(), d->m_spreadTryRange, FROM_CENTER_3D, filters);
+			if( objectToLight )
+			{
+				static NameKeyType key_FlammableUpdate = NAMEKEY("FlammableUpdate");
+				FlammableUpdate* fu = (FlammableUpdate*)objectToLight->findUpdateModule(key_FlammableUpdate);
+				if( fu )
+					fu->tryToIgnite();
+			}
 		}
+
+		return UPDATE_SLEEP(calcNextSpreadDelay());
 	}
-
-	if( !isTrainable() )
-		return; //safety
-
-	VeterancyLevel oldLevel = m_currentLevel;
-
-	Int amountToGain = experienceGain;
-	if ( canScaleForBonus )
-		amountToGain *= m_experienceScalar;
-
-
-	m_currentExperience += amountToGain;
-
-	Int levelIndex = 0;
-	while( ( (levelIndex + 1) < LEVEL_COUNT) 
-		&&  m_currentExperience >= m_parent->getTemplate()->getExperienceRequired(levelIndex + 1) 
-		)
-	{
-		// If there is a higher level to qualify for, and I qualify for it, advance the index
-		levelIndex++;
-	}
-
-	m_currentLevel = (VeterancyLevel)levelIndex;
-
-	if( oldLevel != m_currentLevel )
-	{
-		// Edge trigger special level gain effects.
-		m_parent->onVeterancyLevelChanged( oldLevel, m_currentLevel );
-	}
-
 }
+
 //-------------------------------------------------------------------------------------------------
-void ExperienceTracker::setExperienceAndLevel( Int experienceIn, Bool provideFeedback )
+//-------------------------------------------------------------------------------------------------
+void FireSpreadUpdate::startFireSpreading()
 {
-	if( m_experienceSink != INVALID_ID )
-	{
-		// I have been set up to give my experience to someone else
-		Object *sinkPointer = TheGameLogic->findObjectByID( m_experienceSink );
-		if( sinkPointer )
-		{
-			// Not a fatal failure if not valid, he died when I was in the air.
-			sinkPointer->getExperienceTracker()->setExperienceAndLevel( experienceIn, provideFeedback );
-			return;
-		}
-	}
+	if( !getObject()->getStatusBits().test( OBJECT_STATUS_AFLAME ) )
+		return;	// sorry, must be on fire
 
-	if( !isTrainable() )
-		return; //safety
-
-	VeterancyLevel oldLevel = m_currentLevel;
-
-	m_currentExperience = experienceIn;
-
-	Int levelIndex = 0;
-	while( ( (levelIndex + 1) < LEVEL_COUNT) 
-		&&  m_currentExperience >= m_parent->getTemplate()->getExperienceRequired(levelIndex + 1)
-		)
-	{
-		// If there is a level to qualify for, and I qualify for it, advance the index
-		levelIndex++;
-	}
-
-	m_currentLevel = (VeterancyLevel)levelIndex;
-
-	if( oldLevel != m_currentLevel )
-	{
-		// Edge trigger special level gain effects.
-		m_parent->onVeterancyLevelChanged( oldLevel, m_currentLevel, provideFeedback ); //<<== paradox! this may be a level lost!
-	}
-
+	setWakeFrame(getObject(), UPDATE_SLEEP(calcNextSpreadDelay()));
 }
 
-//-----------------------------------------------------------------------------
-void ExperienceTracker::crc( Xfer *xfer )
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
+UnsignedInt FireSpreadUpdate::calcNextSpreadDelay()
 {
-	xfer->xferInt( &m_currentExperience );
-	xfer->xferUser( &m_currentLevel, sizeof( VeterancyLevel ) );
+	const FireSpreadUpdateModuleData* d = getFireSpreadUpdateModuleData();
+	UnsignedInt delay = GameLogicRandomValue( d->m_minSpreadTryDelayData, d->m_maxSpreadTryDelayData );
+	if (delay < 1)
+		delay = 1;
+	return delay;
+}
+
+// ------------------------------------------------------------------------------------------------
+/** CRC */
+// ------------------------------------------------------------------------------------------------
+void FireSpreadUpdate::crc( Xfer *xfer )
+{
+
+	// extend base class
+	UpdateModule::crc( xfer );
+
 }  // end crc
 
-//-----------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
 /** Xfer method
 	* Version Info:
-	* 1: Initial version 
-	*/
-// ----------------------------------------------------------------------------
-void ExperienceTracker::xfer( Xfer *xfer )
+	* 1: Initial version */
+// ------------------------------------------------------------------------------------------------
+void FireSpreadUpdate::xfer( Xfer *xfer )
 {
 
 	// version
@@ -255,26 +207,18 @@ void ExperienceTracker::xfer( Xfer *xfer )
 	XferVersion version = currentVersion;
 	xfer->xferVersion( &version, currentVersion );
 
-	// no need to save the m_parent pointer, it is connected on allocation time
-	// m_parent
-
-	// current level
-	xfer->xferUser( &m_currentLevel, sizeof( VeterancyLevel ) );
-
-	// current experience
-	xfer->xferInt( &m_currentExperience );
-
-	// experience sink
-	xfer->xferObjectID( &m_experienceSink );
-
-	// experience scalar
-	xfer->xferReal( &m_experienceScalar );
+	// extend base class
+	UpdateModule::xfer( xfer );
 
 }  // end xfer
 
-//-----------------------------------------------------------------------------
-void ExperienceTracker::loadPostProcess( void )
+// ------------------------------------------------------------------------------------------------
+/** Load post process */
+// ------------------------------------------------------------------------------------------------
+void FireSpreadUpdate::loadPostProcess( void )
 {
 
-}  // end loadPostProcess
+	// extend base class
+	UpdateModule::loadPostProcess();
 
+}  // end loadPostProcess

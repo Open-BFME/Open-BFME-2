@@ -1,7 +1,7 @@
 // cl: /MD /O1 /GX /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /DBFME_MODULE_NO_MPO /DZH_EMIT_POOL_GLUE /Ireference/shims/bfmerendobj /Ireference/shims/debugvtable /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/bfmeanimobj /Ireference/shims/indexbuffercount /Ireference/shims/bfmecaps /Ireference/shims/bfmehcanim /Ireference/shims/bfmevector /Ireference/shims/bfmemapper /Ireference/shims/meshmatdesclayout /Ireference/shims/bfmeshader /Ireference/shims/bfmecpudetect /Ireference/shims/bfmepool /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWAudio /Ireference/shims/bfmealloc /Ireference/shims/bfmehashtable /Ireference/shims/bfmelist /Ireference/shims/asciistring_downloadmanager /Ireference/shims/stlp_nodealloc /Ireference/shims/asciistring_thin /ICode/GameEngine/Source/Common /Ireference/shims/w3droadbuffer /Ireference/shims/bfmeterraintracks /ICode/Libraries/Include/Lib /Ireference/shims/bfme_namekey /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/shims -ICode/Libraries/Source/Compression/LZHCompress/CompLibHeader /Ireference/shims/bfme2htree /Ireference/shims/bfme2renderobj /Ireference/shims/bfmecamera /Ireference/shims/bfmelight /Ireference/shims/bfmeparticlehandle /Ireference/shims/bfmeparticleload /Ireference/shims/bfmeparticlequat /Ireference/shims/bfmeparticlesave /Ireference/shims/bfmeparticleline /Ireference/shims/bfme2ray /Ireference/shims/bfme2scene -D_STLP_USE_STATIC_LIB -DNDEBUG -DWIN32 -D_WINDOWS /Ireference/shims/bfmefrustum
 // stlport
 // Ported verbatim from the Generals Zero Hour reference
-// (GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyWarehouseDockUpdate.cpp); this unit had no counterpart under Code/.
+// (GameEngine/Source/GameLogic/Object/Update/FloatUpdate.cpp); this unit had no counterpart under Code/.
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
@@ -26,175 +26,133 @@
 //																																						//
 ////////////////////////////////////////////////////////////////////////////////
 
-// FILE: SupplyWarehouseDockUpdate.h /////////////////////////////////////////////////////////////////////////////
-// Author: Graham Smallwood Feb 2002
-// Desc:   The action of this dock update is identifying who is docking and either taking Boxes away or giving them
+// FILE: FloatUpdate.cpp //////////////////////////////////////////////////////////////////////////
+// Author: Colin Day, May 2002
+// Desc:   Float on top of da water!!!
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
+// INCLUDES ///////////////////////////////////////////////////////////////////////////////////////
 #include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
 
-#include "Common/GlobalData.h"
 #include "Common/Xfer.h"
-#include "GameClient/Drawable.h"
-#include "GameLogic/Module/SupplyWarehouseDockUpdate.h"
-#include "GameLogic/Module/SupplyTruckAIUpdate.h"
 #include "GameLogic/Object.h"
-#include "GameLogic/PartitionManager.h"
-#include "GameLogic/AIPathfind.h"
+#include "GameLogic/TerrainLogic.h"
+#include "GameLogic/Module/FloatUpdate.h"
+#include "GameLogic/GameLogic.h"
+
+#include "GameClient/Drawable.h"
+
+
 
 #ifdef _INTERNAL
 // for occasional debugging...
 //#pragma optimize("", off)
 //#pragma MESSAGE("************************************** WARNING, optimization disabled for debugging purposes")
 #endif
-// ------------------------------------------------------------------------------------------------
-// ------------------------------------------------------------------------------------------------
-SupplyWarehouseDockUpdateModuleData::SupplyWarehouseDockUpdateModuleData( void )
-{
-	m_startingBoxesData = 1;
-	m_deleteWhenEmpty = FALSE;
-}
+
 
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
-/*static*/ void SupplyWarehouseDockUpdateModuleData::buildFieldParse(MultiIniFieldParse& p)
+FloatUpdateModuleData::FloatUpdateModuleData( void )
 {
 
-	DockUpdateModuleData::buildFieldParse( p );
+	m_enabled = FALSE;
+
+}  // end FloatUpdateModuleData
+
+// ------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
+/*static*/ void FloatUpdateModuleData::buildFieldParse(MultiIniFieldParse& p)
+{
+
+	UpdateModuleData::buildFieldParse( p );
 
 	static const FieldParse dataFieldParse[] = 
 	{
-		{ "StartingBoxes",	INI::parseInt,	NULL, offsetof( SupplyWarehouseDockUpdateModuleData, m_startingBoxesData ) },
-		{ "DeleteWhenEmpty",	INI::parseBool,	NULL, offsetof( SupplyWarehouseDockUpdateModuleData, m_deleteWhenEmpty ) },
+		{ "Enabled",	INI::parseBool,	NULL, offsetof( FloatUpdateModuleData, m_enabled ) },
 		{ 0, 0, 0, 0 }
 	};
-
-  p.add(dataFieldParse);
+	p.add(dataFieldParse);
 
 }  // end buildFieldParse
 
+///////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
 
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
-SupplyWarehouseDockUpdate::SupplyWarehouseDockUpdate( Thing *thing, const ModuleData* moduleData ) : DockUpdate( thing, moduleData )
+FloatUpdate::FloatUpdate( Thing *thing, const ModuleData *moduleData )
+						:UpdateModule( thing, moduleData )
 {
-	m_boxesStored = getSupplyWarehouseDockUpdateModuleData()->m_startingBoxesData;
-}
 
-SupplyWarehouseDockUpdate::~SupplyWarehouseDockUpdate()
-{
-}
+	// save our initial enabled status based on INI settings
+	m_enabled = ((FloatUpdateModuleData *)moduleData)->m_enabled;
 
-void SupplyWarehouseDockUpdate::onObjectCreated()
+}  // end FloatUpdate
+
+// ------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
+FloatUpdate::~FloatUpdate( void )
 {
+
+}  // end ~FloatUpdate
+
+// ------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
+UpdateSleepTime FloatUpdate::update( void )
+{
+/// @todo srj use SLEEPY_UPDATE here
+
+	// if we're not enabled, do nothing
+	if( m_enabled == TRUE )
+	{
+		// get object position
+		const Coord3D *pos = getObject()->getPosition();
+		
+		// get the height of the water here
+		Real waterZ;
+		TheTerrainLogic->isUnderwater( pos->x, pos->y, &waterZ );
+
+		// snap to the water surface
+		Coord3D newPos;
+		newPos.x = pos->x;
+		newPos.y = pos->y;
+		newPos.z = waterZ;
+		getObject()->setPosition( &newPos );
+
+	}
+
 	Drawable *draw = getObject()->getDrawable();
-	if( draw )
+	if (draw)
 	{
-		draw->updateDrawableSupplyStatus( getSupplyWarehouseDockUpdateModuleData()->m_startingBoxesData, m_boxesStored );
-	}
-}
 
-Bool SupplyWarehouseDockUpdate::action( Object* docker, Object *drone )
-{
-	if( m_boxesStored == 0 )
-		return FALSE;
+		Real angle = INT_TO_REAL(TheGameLogic->getFrame());
+		Real yaw = sin(angle * 0.0291f) * 0.05f;
+		Real pitch = sin(angle * 0.0515f) * 0.05f;
 
-	// Make sure that the docker is at least reasonably close to the dock.
-	// Basically, one bounding diameter of space or less between us.
-	Real closeEnoughSqr = sqr(docker->getGeometryInfo().getBoundingCircleRadius()*2);
-	Real curDistSqr = ThePartitionManager->getDistanceSquared(docker, getObject(), FROM_BOUNDINGSPHERE_2D);
-	if (curDistSqr > closeEnoughSqr) {
-		DEBUG_LOG(("Failing dock, dist %f, not close enough(%f).\n", sqrt(curDistSqr), sqrt(closeEnoughSqr)));
-		// Make it twitch a little.
-		Coord3D newPos = *docker->getPosition();
-		Real range = 0.4*PATHFIND_CELL_SIZE_F;
-		newPos.x += GameLogicRandomValue(-range, range);
-		newPos.y += GameLogicRandomValue(-range, range);
-		docker->setPosition(&newPos);
-		return FALSE;  //not close enough.
-	}
-	
-	--m_boxesStored;// so the docker sees that I am shy by one box (or empty) from within his gainOneBox()
+		Matrix3D mx = *draw->getInstanceMatrix();
 
-	SupplyTruckAIInterface *ai = docker->getAIUpdateInterface()->getSupplyTruckAIInterface();
-	if( ai && ai->gainOneBox( m_boxesStored ) )
-	{
-		if( m_boxesStored == 0 && getSupplyWarehouseDockUpdateModuleData()->m_deleteWhenEmpty )
-		{
-			TheGameLogic->destroyObject( getObject() );
-			return FALSE; //Yer done.  And so am I.
-		}
-		else
-		{
-			Drawable *draw = getObject()->getDrawable();
-			if( draw )
-			{
-				draw->updateDrawableSupplyStatus( getSupplyWarehouseDockUpdateModuleData()->m_startingBoxesData, m_boxesStored );
-			}
-		}
-
-		return TRUE;
-	}
-	else 
-		++m_boxesStored; //take it back, since there was noone to gain the box
-  									 //this is important so that I have one less boxes as perceived by the docker when he gains one
-
-
-	return FALSE;
-}
-
-void SupplyWarehouseDockUpdate::setDockCrippled( Bool setting )
-{
-	// At this level, Crippling means I kill any activeDocker between enter and exit.
-	if( setting )
-	{
-		if( m_activeDocker != INVALID_ID )
-		{
-			Object *victim = TheGameLogic->findObjectByID( m_activeDocker );
-			if( victim )
-			{
-				if( m_dockerInside )
-				{
-					if( !victim->isUsingAirborneLocomotor() )
-						victim->kill();
-				}
-				else
-				{
-					// Else, he was between Approach and Enter.  Lucky guy.  Tell him to stop, but then
-					// remind him that he wants to try again later
-					SupplyTruckAIInterface* supplyTruckAI = victim->getAI()->getSupplyTruckAIInterface();
-					if( supplyTruckAI )
-					{
-						victim->getAI()->aiIdle( CMD_FROM_AI );
-						supplyTruckAI->setForceWantingState( TRUE );
-					}
-				}
-			}
-		}
+		Real zRot = mx.Get_Z_Rotation();
+		mx.Make_Identity();
+		mx.Rotate_Z(zRot);
+		mx.Rotate_Y(yaw);
+		mx.Rotate_X(pitch);
+		
+		draw->setInstanceMatrix(&mx);
 	}
 
-	DockUpdate::setDockCrippled( setting );
-}
-
-void SupplyWarehouseDockUpdate::setCashValue( Int cashValue )
-{
-	// A script can tell us our set value, and we need to figure out the boxes needed to provide that.
-	m_boxesStored = ceil(cashValue / (float)TheGlobalData->m_baseValuePerSupplyBox);
-	Drawable *draw = getObject()->getDrawable();
-	if( draw )
-	{
-		draw->updateDrawableSupplyStatus( getSupplyWarehouseDockUpdateModuleData()->m_startingBoxesData, m_boxesStored );
-	}
-}
+	return UPDATE_SLEEP_NONE;
+}  // end update
 
 // ------------------------------------------------------------------------------------------------
 /** CRC */
 // ------------------------------------------------------------------------------------------------
-void SupplyWarehouseDockUpdate::crc( Xfer *xfer )
+void FloatUpdate::crc( Xfer *xfer )
 {
 
 	// extend base class
-	DockUpdate::crc( xfer );
+	UpdateModule::crc( xfer );
 
 }  // end crc
 
@@ -203,7 +161,7 @@ void SupplyWarehouseDockUpdate::crc( Xfer *xfer )
 	* Version Info:
 	* 1: Initial version */
 // ------------------------------------------------------------------------------------------------
-void SupplyWarehouseDockUpdate::xfer( Xfer *xfer )
+void FloatUpdate::xfer( Xfer *xfer )
 {
 
 	// version
@@ -212,27 +170,20 @@ void SupplyWarehouseDockUpdate::xfer( Xfer *xfer )
 	xfer->xferVersion( &version, currentVersion );
 
 	// extend base class
-	DockUpdate::xfer( xfer );
+	UpdateModule::xfer( xfer );
 
-	// boxes stored
-	xfer->xferInt( &m_boxesStored );
+	// enabled
+	xfer->xferBool( &m_enabled );
 
 }  // end xfer
 
 // ------------------------------------------------------------------------------------------------
 /** Load post process */
 // ------------------------------------------------------------------------------------------------
-void SupplyWarehouseDockUpdate::loadPostProcess( void )
+void FloatUpdate::loadPostProcess( void )
 {
 
 	// extend base class
-	DockUpdate::loadPostProcess();
-
-	// update the drawable supply status
-	const SupplyWarehouseDockUpdateModuleData *modData = getSupplyWarehouseDockUpdateModuleData();
-	Object *us = getObject();
-	Drawable *draw = us->getDrawable();
-	if( draw )
-		draw->updateDrawableSupplyStatus( modData->m_startingBoxesData, m_boxesStored );
+	UpdateModule::loadPostProcess();
 
 }  // end loadPostProcess

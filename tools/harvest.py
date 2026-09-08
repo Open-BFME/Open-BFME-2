@@ -136,7 +136,10 @@ def main():
                     missing.append(sym)
         if bytes(resolved) == target and not missing:
             if name not in matched:
-                rel = source.resolve().relative_to(build.ROOT)
+                # as_posix(): a bare PurePath renders with backslashes on
+                # Windows, and git never speaks that spelling, so a row written
+                # that way reads as an untracked source to check_csv.
+                rel = source.resolve().relative_to(build.ROOT).as_posix()
                 new_rows.append(f"{name},0x{export_rva[name]:08X},0x{rva:08X},{len(target)},{rel},matched,")
         elif missing:
             unresolved.update(missing)

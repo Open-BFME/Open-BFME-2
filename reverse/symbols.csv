@@ -925,7 +925,6 @@ _strcmp,0x006291C6,PE CRT thunk; independent FF25 import thunk at RVA 0x006291C6
 ?insert_unique@?$_Rb_tree@PBVThingTemplate@@U?$pair@QBVThingTemplate@@H@_STL@@U?$_Select1st@U?$pair@QBVThingTemplate@@H@_STL@@@3@U?$less@PBVThingTemplate@@@3@V?$allocator@U?$pair@QBVThingTemplate@@H@_STL@@@3@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@QBVThingTemplate@@H@_STL@@U?$_Nonconst_traits@U?$pair@QBVThingTemplate@@H@_STL@@@2@@2@U32@ABU?$pair@QBVThingTemplate@@H@2@@Z,0x00759DB0,address read from the REL32 displacement at a placed body
 ?clear@TeamFactory@@QAEXXZ,0x003A2F4C,address read from the REL32 displacement at a placed body
 ?isClearLineOfSight@BaseHeightMapRenderObjClass@@QBE_NABUCoord3D@@0@Z,0x00066AD1,address read from the REL32 displacement at a placed body
-??1Snapshot@@QAE@XZ,0x001B4E74,address read from the REL32 displacement at a placed body
 ??$fill_n@PAPBVModuleData@@IPBV1@@_STL@@YAPAPBVModuleData@@PAPBV1@IABQBV1@@Z,0x0007E48F,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
 ??0?$_STLP_alloc_proxy@PAU?$_List_node@UupgradePair@@@_STL@@U12@V?$allocator@U?$_List_node@UupgradePair@@@_STL@@@2@@_STL@@QAE@ABV?$allocator@U?$_List_node@UupgradePair@@@_STL@@@1@PAU?$_List_node@UupgradePair@@@1@@Z,0x0014F3C4,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
 ??0?$_STLP_alloc_proxy@PAU?$_Rb_tree_node@U?$pair@$$CBW4NameKeyType@@VModuleTemplate@ModuleFactory@@@_STL@@@_STL@@U12@V?$allocator@U?$_Rb_tree_node@U?$pair@$$CBW4NameKeyType@@VModuleTemplate@ModuleFactory@@@_STL@@@_STL@@@2@@_STL@@QAE@ABV?$allocator@U?$_Rb_tree_node@U?$pair@$$CBW4NameKeyType@@VModuleTemplate@ModuleFactory@@@_STL@@@_STL@@@1@PAU?$_Rb_tree_node@U?$pair@$$CBW4NameKeyType@@VModuleTemplate@ModuleFactory@@@_STL@@@1@@Z,0x0014F3C4,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
@@ -972,3 +971,12 @@ _strcmp,0x006291C6,PE CRT thunk; independent FF25 import thunk at RVA 0x006291C6
 ?Cast_AABox_Recursive@AABTreeClass@@AAE_NPAUCullNodeStruct@1@AAVAABoxCollisionTestClass@@@Z,0x00198730
 ?cast_aabox_brute_force@MeshGeometryClass@@IAE_NAAVAABoxCollisionTestClass@@@Z,0x0016CD30
 ?cast_ray_brute_force@MeshGeometryClass@@IAE_NAAVRayCollisionTestClass@@@Z,0x0016CE00
+?considerDying@ProjectileStreamUpdate@@IAE_NXZ,0x0033F06B,address read from the REL32 displacement at a placed body
+?cullFrontOfList@ProjectileStreamUpdate@@IAEXXZ,0x0033F033,address read from the REL32 displacement at a placed body
+?destroyObject@GameLogic@@QAEXPAVObject@@@Z,0x00242C09,address read from the REL32 displacement at a placed body
+?findModule@Object@@IBEPAVModule@@W4NameKeyType@@@Z,0x0028B6D6,address read from the REL32 displacement at a placed body
+?nextWithNumeric@SimpleObjectIterator@@QAEPAVObject@@PAM@Z,0x0028D412,address read from the REL32 displacement at a placed body
+?reset@SimpleObjectIterator@@AAEXXZ,0x00291C20,address read from the REL32 displacement at a placed body
+?stopAllBoneFX@BoneFXUpdate@@QAEXXZ,0x00487A95,address read from the REL32 displacement at a placed body
+?wouldIgnite@FlammableUpdate@@QAE_NXZ,0x0048C57A,address read from the REL32 displacement at a placed body
+?Set_Single_Shader@MeshMatDescClass@@QAEXVShaderClass@@H@Z,0x0015A7E0,address read from the REL32 displacement at a placed body

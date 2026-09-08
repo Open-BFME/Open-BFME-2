@@ -170,7 +170,10 @@ of the ladder (python3 tools/next_work.py).""")
 
     source = build.Path(args.source)
     obj = harvest.compile_obj(source, args.includes)
-    source_rel = source.resolve().relative_to(build.ROOT)
+    # as_posix(), not str(): on Windows a bare PurePath renders with backslashes,
+    # and a row written that way is a path git never speaks, so check_csv reports
+    # the source as untracked. add_match.py has always done this; --emit did not.
+    source_rel = source.resolve().relative_to(build.ROOT).as_posix()
     source_text = source.read_text(errors="replace")
 
     accepted, ambiguous, unlocated, conflicts, weak = [], [], [], [], []

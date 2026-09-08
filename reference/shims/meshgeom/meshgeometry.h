@@ -1,9 +1,11 @@
 // Header shim: reference/open-bfme-1's WW3D2 meshgeometry.h with a corrected
-// MeshGeometryClass layout. sizeof(MeshGeometryClass) stays 0x94 (unchanged),
-// but the member order/positions below this line are NOT what the vendored
-// header declares -- they are read directly out of retail bodies that are
-// already `matched` (byte-verified) or pinned from a REL32 call-site address,
-// never derived from a header or from Ghidra decompilation.
+// MeshGeometryClass layout. sizeof(MeshGeometryClass) is 0x8C, not the
+// vendored copy's 0x94 (padded to 0x1c) or this shim's own first cut (padded
+// to 0x8, see the correction note near the tail pad below) -- the member
+// order/positions below this line are NOT what the vendored header declares.
+// They are read directly out of retail bodies that are already `matched`
+// (byte-verified) or pinned from a REL32 call-site address, never derived
+// from a header or from Ghidra decompilation.
 //
 // Evidence, one retail body per anchored offset:
 //
@@ -60,18 +62,29 @@
 // natural alignment + one `uint32`, in the same order the upstream ZH header
 // uses, so upstream's order is kept rather than invented.
 //
-// The trailing pad size (0x8, not the vendored copy's 0x1c) rests on weaker
-// evidence than the anchors above: MeshModelClass::get_sort_flags(void) and
-// its get_sort_flags(int) overload -- both only *pinned* from REL32 call-site
-// addresses (0x001892F0 / 0x00189270), not yet `matched` -- read CurMatDesc
-// at [this+0x94] in MeshModelClass. If DefMatDesc/AlternateMatDesc/CurMatDesc
-// are the first three members MeshModelClass adds with no gap (the natural
-// reading of their declaration order, all pointers), CurMatDesc sits at
-// sizeof(MeshGeometryClass)+8, which forces sizeof(MeshGeometryClass) = 0x8C
-// and an 8-byte pad here to keep the header's own historical sizeof (0x94).
-// This contradicts the vendored header's own comment citing a Ghidra-only
-// "CurMatDesc sits at this+0x9c" -- two independently pinned call sites both
-// reading +0x94 outrank one uncited decompiler figure.
+// There is NO trailing pad. First cut of this shim added one anyway (0x8
+// bytes, to preserve the vendored header's historical sizeof of 0x94) -- that
+// was a bug, caught while starting the MeshModelClass follow-on: preserving a
+// number the vendored header only had because of ITS OWN wrong "CurMatDesc
+// sits at this+0x9c" guess is not a reason to pad anything. DefMatDesc,
+// AlternateMatDesc and CurMatDesc are declared (meshmdl.h) as the first three
+// members MeshModelClass adds, all pointers, no gap between them or before
+// them (no data member precedes DefMatDesc there -- everything above it is
+// member functions), so CurMatDesc sits at sizeof(MeshGeometryClass)+8. This
+// is no longer resting on the pin alone: wiring this shim into meshmdlio.cpp
+// (-Ireference/shims/meshgeom first, plus #include "meshgeometry.h" before
+// "meshmdl.h" so this copy wins the include guard ahead of the reference
+// tree's own) put CurMatDesc at [this+0x94] and made THREE bodies byte-exact
+// against retail: MeshModelClass::get_sort_flags(void) 0x001892F0,
+// ::Set_Shader 0x00188040 and ::Set_Single_Shader 0x00149520 (the latter two
+// found by place_bodies.py's masked search only after this fix -- the second
+// and third bodies the corrected layout was supposed to unlock). That forces
+// sizeof(MeshGeometryClass) == 0x8C exactly -- which is exactly where CullTree
+// ends (+0x88, 4 bytes) with zero slack. No pad reproduces the anchor; padding
+// here was simply arithmetic sloppiness in the first pass. (get_sort_flags(int
+// pass), the fourth candidate, does NOT byte-match yet -- its mismatch is
+// entirely inside MeshMatDescClass's own ShaderArray/Shader layout, a
+// different class this fix does not touch.)
 //
 // Opt-in per unit: -Ireference/shims/meshgeom FIRST on the `// cl:` line and
 // #include "meshgeometry.h" before any header that would reach the reference
@@ -347,10 +360,9 @@ protected:
 	Vector3													BoundSphereCenter;// +0x78 (proven)
 	float														BoundSphereRadius;// +0x84 (proven)
 	AABTreeClass *											CullTree;			// +0x88 (proven)
-
-	// Tail pad to keep sizeof(MeshGeometryClass) == 0x94, per the pinned
-	// MeshModelClass::get_sort_flags evidence in the comment block above.
-	char														_bfme_meshgeom_pad[0x8];
+	// sizeof(MeshGeometryClass) == 0x8C. No tail pad: see the evidence block
+	// at the top of this file -- CullTree ends exactly where MeshModelClass's
+	// DefMatDesc must begin for CurMatDesc to land at the retail-proven +0x94.
 
 };
 
