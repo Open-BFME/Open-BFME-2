@@ -5705,3 +5705,5 @@ _piCallbacksCleanup,,0x0069EEF0,24,Code/GameEngine/Source/GameNetwork/GameSpy/pe
 ?Render_Streak_Line@StreakLineClass@@IAEXAAVRenderInfoClass@@@Z,,0x007423E0,129,Code/Libraries/Source/WWVegas/WW3D2/streak.cpp,matched,
 ?Clone@StreakLineClass@@UBEPAVRenderObjClass@@XZ,,0x00742B70,96,Code/Libraries/Source/WWVegas/WW3D2/streak.cpp,matched,
 ?Render@StreakLineClass@@UAEXAAVRenderInfoClass@@@Z,,0x00742BD0,125,Code/Libraries/Source/WWVegas/WW3D2/streak.cpp,matched,
+??0WSEnvironmentMapperClass@@QAE@ABVINIClass@@PBDI@Z,,0x0013C690,37,Code/Libraries/Source/WWVegas/WW3D2/vertmaterial.cpp,matched,
+??0ScreenMapperClass@@QAE@ABVINIClass@@PBDI@Z,,0x0013DA40,37,Code/Libraries/Source/WWVegas/WW3D2/vertmaterial.cpp,matched,
