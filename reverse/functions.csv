@@ -5651,3 +5651,4 @@ _piCallbacksCleanup,,0x0069EEF0,24,Code/GameEngine/Source/GameNetwork/GameSpy/pe
 ??_ENodeCompressedMotionStruct@@QAEPAXI@Z,,0x0018FAB0,84,Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp,matched,ported from BFME1; exact structural analogue
 ??0WSClassicEnvironmentMapperClass@@QAE@ABVINIClass@@PBDI@Z,,0x0013C710,37,Code/Libraries/Source/WWVegas/WW3D2/vertmaterial.cpp,matched,implicit BFME1 analogue constructor; exact BFME2 target match
 ?Get_Draw_Call_Count@MeshClass@@QBEHXZ,,0x0014B7C0,62,Code/Libraries/Source/WWVegas/WW3D2/mesh.cpp,matched,BFME1 analogue with BFME2 MeshModel member offsets 0x98/0x9c
+?Resize@?$SimpleDynVecClass@PAVTextureClass@@@@UAE_NH@Z,,0x00144910,40,Code/Libraries/Source/WWVegas/WW3D2/decalmsh.cpp,matched,BFME1 analogue; exact BFME2 target match
