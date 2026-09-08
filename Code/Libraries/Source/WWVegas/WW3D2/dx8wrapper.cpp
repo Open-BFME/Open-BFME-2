@@ -4883,3 +4883,96 @@ WW3DFormat	DX8Wrapper::getBackBufferFormat( void )
 {
 	return D3DFormat_To_WW3DFormat( _PresentParameters.BackBufferFormat );
 }
+
+/*
+ * Copyright (C) 2002-2003 Jason Edmeades
+ *                         Raphael Junqueira
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
+ */
+
+// Device9 method order through SetTransform, in Wine/SDK order.
+// https://github.com/wine-mirror/wine/blob/master/include/d3d9.h
+struct IDirect3D9;
+struct D3DCAPS9;
+struct IDirect3DSurface9;
+struct IDirect3DSwapChain9;
+struct IDirect3DTexture9;
+struct IDirect3DVolumeTexture9;
+struct IDirect3DCubeTexture9;
+struct IDirect3DVertexBuffer9;
+struct IDirect3DIndexBuffer9;
+struct IDirect3DBaseTexture9;
+struct D3DVIEWPORT9;
+struct D3DMATERIAL9;
+struct D3DLIGHT9;
+struct IDirect3DStateBlock9;
+struct D3DCLIPSTATUS9;
+typedef DWORD D3DTEXTUREFILTERTYPE;
+typedef DWORD D3DBACKBUFFER_TYPE;
+typedef DWORD D3DMULTISAMPLE_TYPE;
+typedef DWORD D3DSTATEBLOCKTYPE;
+typedef DWORD D3DSAMPLERSTATETYPE;
+struct RGNDATA;
+struct IDirect3DVertexDeclaration9;
+struct IDirect3DVertexShader9;
+struct IDirect3DPixelShader9;
+struct D3DVERTEXELEMENT9;
+struct BfmeProjectionDevice9 : BfmeResetDevice9 {
+    virtual HRESULT __stdcall Present(const RECT *src_rect, const RECT *dst_rect, HWND dst_window_override, const RGNDATA *dirty_region)=0;
+    virtual HRESULT __stdcall GetBackBuffer(UINT iSwapChain, UINT iBackBuffer, D3DBACKBUFFER_TYPE Type, IDirect3DSurface9** ppBackBuffer)=0;
+    virtual HRESULT __stdcall GetRasterStatus(UINT iSwapChain, D3DRASTER_STATUS* pRasterStatus)=0;
+    virtual HRESULT __stdcall SetDialogBoxMode(BOOL bEnableDialogs)=0;
+    virtual void __stdcall SetGammaRamp(UINT swapchain_idx, DWORD flags, const D3DGAMMARAMP *ramp)=0;
+    virtual void __stdcall GetGammaRamp(UINT iSwapChain, D3DGAMMARAMP* pRamp)=0;
+    virtual HRESULT __stdcall CreateTexture(UINT Width, UINT Height, UINT Levels, DWORD Usage, D3DFORMAT Format, D3DPOOL Pool, IDirect3DTexture9** ppTexture, HANDLE* pSharedHandle)=0;
+    virtual HRESULT __stdcall CreateVolumeTexture(UINT Width, UINT Height, UINT Depth, UINT Levels, DWORD Usage, D3DFORMAT Format, D3DPOOL Pool, IDirect3DVolumeTexture9** ppVolumeTexture, HANDLE* pSharedHandle)=0;
+    virtual HRESULT __stdcall CreateCubeTexture(UINT EdgeLength, UINT Levels, DWORD Usage, D3DFORMAT Format, D3DPOOL Pool, IDirect3DCubeTexture9** ppCubeTexture, HANDLE* pSharedHandle)=0;
+    virtual HRESULT __stdcall CreateVertexBuffer(UINT Length, DWORD Usage, DWORD FVF, D3DPOOL Pool, IDirect3DVertexBuffer9** ppVertexBuffer, HANDLE* pSharedHandle)=0;
+    virtual HRESULT __stdcall CreateIndexBuffer(UINT Length, DWORD Usage, D3DFORMAT Format, D3DPOOL Pool, IDirect3DIndexBuffer9** ppIndexBuffer, HANDLE* pSharedHandle)=0;
+    virtual HRESULT __stdcall CreateRenderTarget(UINT Width, UINT Height, D3DFORMAT Format, D3DMULTISAMPLE_TYPE MultiSample, DWORD MultisampleQuality, BOOL Lockable, IDirect3DSurface9** ppSurface, HANDLE* pSharedHandle)=0;
+    virtual HRESULT __stdcall CreateDepthStencilSurface(UINT Width, UINT Height, D3DFORMAT Format, D3DMULTISAMPLE_TYPE MultiSample, DWORD MultisampleQuality, BOOL Discard, IDirect3DSurface9** ppSurface, HANDLE* pSharedHandle)=0;
+    virtual HRESULT __stdcall UpdateSurface(IDirect3DSurface9 *src_surface, const RECT *src_rect, IDirect3DSurface9 *dst_surface, const POINT *dst_point)=0;
+    virtual HRESULT __stdcall UpdateTexture(IDirect3DBaseTexture9* pSourceTexture, IDirect3DBaseTexture9* pDestinationTexture)=0;
+    virtual HRESULT __stdcall GetRenderTargetData(IDirect3DSurface9* pRenderTarget, IDirect3DSurface9* pDestSurface)=0;
+    virtual HRESULT __stdcall GetFrontBufferData(UINT iSwapChain, IDirect3DSurface9* pDestSurface)=0;
+    virtual HRESULT __stdcall StretchRect(IDirect3DSurface9 *src_surface, const RECT *src_rect, IDirect3DSurface9 *dst_surface, const RECT *dst_rect, D3DTEXTUREFILTERTYPE filter)=0;
+    virtual HRESULT __stdcall ColorFill(IDirect3DSurface9 *surface, const RECT *rect, D3DCOLOR color)=0;
+    virtual HRESULT __stdcall CreateOffscreenPlainSurface(UINT Width, UINT Height, D3DFORMAT Format, D3DPOOL Pool, IDirect3DSurface9** ppSurface, HANDLE* pSharedHandle)=0;
+    virtual HRESULT __stdcall SetRenderTarget(DWORD RenderTargetIndex, IDirect3DSurface9* pRenderTarget)=0;
+    virtual HRESULT __stdcall GetRenderTarget(DWORD RenderTargetIndex, IDirect3DSurface9** ppRenderTarget)=0;
+    virtual HRESULT __stdcall SetDepthStencilSurface(IDirect3DSurface9* pNewZStencil)=0;
+    virtual HRESULT __stdcall GetDepthStencilSurface(IDirect3DSurface9** ppZStencilSurface)=0;
+    virtual HRESULT __stdcall BeginScene()=0;
+    virtual HRESULT __stdcall EndScene()=0;
+    virtual HRESULT __stdcall Clear(DWORD rect_count, const D3DRECT *rects, DWORD flags, D3DCOLOR color, float z, DWORD stencil)=0;
+    virtual HRESULT __stdcall SetTransform(D3DTRANSFORMSTATETYPE state, const D3DMATRIX *matrix)=0;
+};
+extern float bfmeProjectionBias, bfmeProjectionNear, bfmeProjectionFar;
+extern Matrix4x4 bfmeProjectionSource, bfmeProjectionApplied;
+// Recovered BFME2 float depth-bias role; see docs/reconstruction/dx8wrapper-depth-bias.md.
+void bfmeSetProjectionDepthBias(float bias)
+{
+	if (bias == bfmeProjectionBias) return;
+	bfmeProjectionBias = bias;
+	bfmeProjectionApplied = bfmeProjectionSource;
+	if (bfmeProjectionNear != bfmeProjectionFar) {
+		float scaled = bias * 0.000625f;
+		bfmeProjectionApplied[3][2] -= (bfmeProjectionFar * bfmeProjectionNear /
+			(bfmeProjectionFar - bfmeProjectionNear)) * scaled;
+	}
+	reinterpret_cast<BfmeProjectionDevice9 *>(DX8Wrapper::_Get_D3D_Device8())->SetTransform(D3DTS_PROJECTION,reinterpret_cast<const D3DMATRIX *>(&bfmeProjectionApplied));
+	number_of_DX8_calls++;
+}
