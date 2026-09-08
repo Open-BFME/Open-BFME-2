@@ -52,7 +52,6 @@ void RenderObjClass::Set_Transform(const Matrix3D &m)
 	}
 }
 
-// ?Set_Position@RenderObjClass@@UAEXABVVector3@@@Z present-unmatched
 void RenderObjClass::Set_Position(const Vector3 &v)
 {
 	Transform.Set_Translation(v);
