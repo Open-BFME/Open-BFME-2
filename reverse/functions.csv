@@ -5746,3 +5746,5 @@ _piCallbacksCleanup,,0x0069EEF0,24,Code/GameEngine/Source/GameNetwork/GameSpy/pe
 ?Set_Disable_Sorting@StreakRendererClass@@QAEXH@Z,,0x00742F40,21,Code/Libraries/Source/WWVegas/WW3D2/streakRender.cpp,matched,
 ?Set_End_Caps@StreakRendererClass@@QAEXH@Z,,0x00742F60,21,Code/Libraries/Source/WWVegas/WW3D2/streakRender.cpp,matched,
 ?getVertexBuffer@StreakRendererClass@@AAEPAUVertexFormatXYZUV1@@I@Z,,0x00743090,58,Code/Libraries/Source/WWVegas/WW3D2/streakRender.cpp,matched,
+??0GenericMultiListIterator@@QAE@PAVGenericMultiListClass@@@Z,,0x00144830,17,Code/Libraries/Source/WWVegas/WW3D2/scene.cpp,matched,
+?Set_Fog_Enable@SceneClass@@UAEX_N@Z,,0x0065D7A0,10,Code/Libraries/Source/WWVegas/WW3D2/scene.cpp,matched,
