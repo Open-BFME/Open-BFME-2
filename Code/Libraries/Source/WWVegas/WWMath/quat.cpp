@@ -674,7 +674,7 @@ Quaternion Build_Quaternion(const Matrix3D & mat)
 	
 	if (tr > 0.0f) {
 
-		s = sqrt(tr + 1.0);
+		s = sqrt(tr + 1.0f);
 		q[3] = s * 0.5;
 		s = 0.5 / s;
 
@@ -885,6 +885,7 @@ float project_to_sphere(float r, float x, float y)
 }
 
 
+// ?Randomize@Quaternion@@ present-unmatched
 void Quaternion::Randomize(void)
 {
 	X = ((float) (rand() & 0xFFFF)) / 65536.0f;
