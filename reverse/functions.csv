@@ -5631,3 +5631,4 @@ _piCallbacksCleanup,,0x0069EEF0,24,Code/GameEngine/Source/GameNetwork/GameSpy/pe
 ??0?$DynamicVectorClass@PAVRender2DClass@@@@QAE@IPBQAVRender2DClass@@@Z,,0x001A3AE0,94,Code/Libraries/Source/WWVegas/WW3D2/render2dsentence.cpp,matched,ported from BFME1; exact folded-body identity
 ??_G?$VectorClass@PAVVertexMaterialClass@@@@UAEPAXI@Z,,0x001A3B90,71,Code/Libraries/Source/WWVegas/WW3D2/matinfo.cpp,matched,ported from BFME1; exact folded-body identity
 ?Set_Line_Size@LineGroupClass@@QAEXM@Z,,0x001B35F0,14,Code/Libraries/Source/WWVegas/WW3D2/linegrp_float_setters.cpp,matched,reloc-named unclaimed; retail stores the float with movss so this split TU carries /arch:SSE
+?Set_Line_Alpha@LineGroupClass@@QAEXM@Z,,0x001B3690,14,Code/Libraries/Source/WWVegas/WW3D2/linegrp_float_setters.cpp,matched,reloc-named unclaimed; movss into DefaultLineAlpha at +0x40 under /arch:SSE

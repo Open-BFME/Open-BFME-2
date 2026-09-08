@@ -162,6 +162,7 @@ Vector4 LineGroupClass::Get_Tail_Diffuse(void)
 	return DefaultTailDiffuse;
 }
 
+// ?Set_Line_Alpha@LineGroupClass@@QAEXM@Z present-unmatched
 void LineGroupClass::Set_Line_Alpha(float alpha)
 {
 	DefaultLineAlpha = alpha;
