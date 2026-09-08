@@ -102,3 +102,29 @@ independently checked. The guard destructor reaches the already established
 mutex release at `0x120F50`; the runtime thunk names msvcr71's C++ handler.
 The SDK-ordered Device9 prefix is included with its Wine source attribution,
 through the exact CreateVertexBuffer slot 26. No placeholder slots are used.
+
+The dynamic write-lock constructor and destructor now match their full 247- and
+108-byte bodies at `0x13AA00` and `0x13AB00`. The lock holds its owner pointer at
+zero, initialized data pointer at four, and actual nontrivial mutex guard member
+at eight. Its 12-byte size is asserted. Native access selects DISCARD for offset
+zero and NOOVERWRITE otherwise, includes NOSYSLOCK, and multiplies the 16-bit
+count/offset by the independently proven FVF stride at `+0xC`. Sorting access
+advances a typed 44-byte vertex pointer. Unlock precedes guard destruction.
+
+The original inline native-buffer accessor is necessary to preserve the caller's
+separate buffer evaluations; a direct field expression compiled the constructor
+three bytes short. Restoring the ordinary accessor matches all 247 bytes, while
+the destructor and the four previously claimed allocation/create bodies remain
+exact. The SDK-ordered VertexBuffer9 interface uses the actual Lock/Unlock slots
+`0x2C/0x30`, including the Device9 `void **` data parameter, and is based on
+[Wine's primary d3d9.h declaration](https://github.com/wine-mirror/wine/blob/master/include/d3d9.h).
+
+Both lock bodies independently reproduce the entire same exception graph:
+handler `0xB65D1B` (10 bytes), function information `0xD0A25C` (28), unwind map
+`0xD0A254` (8), member cleanup `0xB65D10` (11), and guard destructor `0x442F8C` (5).
+The member cleanup explicitly adds eight to the saved object before destruction.
+This confirms the guard's member offset independently of stack allocation.
+All actual mutex/assert/log callees are checked, with no new pins or duplicate
+claims for the folded no-op assertion target. Constructor alignment is nine
+bytes and destructor alignment is four. No literals or external data globals
+are used beyond the separately checked FS exception chain.

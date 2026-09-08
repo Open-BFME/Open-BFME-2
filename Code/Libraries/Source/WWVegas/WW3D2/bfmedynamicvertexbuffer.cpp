@@ -38,11 +38,13 @@ public:
  bool usesDeclaration;
  const BfmeDynamicFVFPrefix &FVF_Info() const { return *reinterpret_cast<BfmeDynamicFVFPrefix *>(format); }
 };
+struct BfmeDynamicVertexBuffer9;
 class BfmeDynamicNativeVB:public BfmeDynamicVBBase {
 public:
  void *buffer;
  BfmeDynamicNativeVB(unsigned,unsigned short,unsigned,unsigned);
  void Create(unsigned);
+ BfmeDynamicVertexBuffer9 *Get_DX8_Vertex_Buffer() const { return reinterpret_cast<BfmeDynamicVertexBuffer9 *>(buffer); }
 };
 class BfmeDynamicSortingVB:public BfmeDynamicVBBase {
 public:
@@ -58,6 +60,14 @@ extern unsigned bfmeDynamicFVFs[15];
 static bool bfmeSortingVBInUse;
 static BfmeDynamicSortingVB *bfmeSortingVB;
 static unsigned short bfmeSortingVBSize,bfmeSortingVBOffset;
+extern void BFME_DX8_Thread_Lock();
+extern void BFME_DX8_Thread_Assert();
+class BFMEDX8DeviceLock {
+public:
+ BFMEDX8DeviceLock() { BFME_DX8_Thread_Lock(); }
+ ~BFMEDX8DeviceLock() { BFME_DX8_Thread_Assert(); }
+};
+struct BfmeSortingVertex { float x,y,z,nx,ny,nz;unsigned diffuse;float u1,v1,u2,v2; };
 struct BfmeDynamicVBAccess {
  const BfmeFVFDescriptor *format;
  unsigned type,formatIndex,declaration;
@@ -65,6 +75,15 @@ struct BfmeDynamicVBAccess {
  BfmeDynamicVBBase *buffer;
  void AllocateNative();
  void AllocateSorting();
+ unsigned Get_Type() const { return type; }
+ unsigned short Get_Vertex_Count() const { return vertexCount; }
+ struct WriteLock {
+  BfmeDynamicVBAccess *owner;
+  BfmeSortingVertex *data;
+  BFMEDX8DeviceLock guard;
+  WriteLock(BfmeDynamicVBAccess *);
+  ~WriteLock();
+ };
 };
 void BfmeDynamicVBAccess::AllocateNative()
 {
@@ -184,13 +203,6 @@ struct BfmeDynamicDevice9 {
 extern BfmeDynamicDevice9 *bfmeDynamicDevice;
 inline BfmeDynamicDevice9 *bfmeGetDynamicDevice() { return bfmeDynamicDevice; }
 
-extern void BFME_DX8_Thread_Lock();
-extern void BFME_DX8_Thread_Assert();
-class BFMEDX8DeviceLock {
-public:
- BFMEDX8DeviceLock() { BFME_DX8_Thread_Lock(); }
- ~BFMEDX8DeviceLock() { BFME_DX8_Thread_Assert(); }
-};
 class WW3D { public:static void _Invalidate_Mesh_Cache(); };
 __declspec(noinline) void bfmeEvictManagedResources();
 extern void Log_DX8_ErrorCode(unsigned);
@@ -225,3 +237,61 @@ void bfmeEvictManagedResources()
  bfmeGetDynamicDevice()->EvictManagedResources();
  number_of_DX8_calls++;
 }
+
+// VertexBuffer9 method order from the same Wine d3d9.h source credited above.
+struct IDirect3DDevice9;
+struct D3DVERTEXBUFFER_DESC;
+struct BfmeDynamicVertexBuffer9 {
+ virtual HRESULT __stdcall QueryInterface(REFIID,void**)=0;
+ virtual ULONG __stdcall AddRef()=0;
+ virtual ULONG __stdcall Release()=0;
+ virtual HRESULT __stdcall GetDevice(IDirect3DDevice9**)=0;
+ virtual HRESULT __stdcall SetPrivateData(REFIID,const void*,DWORD,DWORD)=0;
+ virtual HRESULT __stdcall GetPrivateData(REFIID,void*,DWORD*)=0;
+ virtual HRESULT __stdcall FreePrivateData(REFIID)=0;
+ virtual DWORD __stdcall SetPriority(DWORD)=0;
+ virtual DWORD __stdcall GetPriority()=0;
+ virtual void __stdcall PreLoad()=0;
+ virtual D3DRESOURCETYPE __stdcall GetType()=0;
+ virtual HRESULT __stdcall Lock(UINT,UINT,void**,DWORD)=0;
+ virtual HRESULT __stdcall Unlock()=0;
+ virtual HRESULT __stdcall GetDesc(D3DVERTEXBUFFER_DESC*)=0;
+};
+extern void DX8_Assert();
+BfmeDynamicVBAccess::WriteLock::WriteLock(BfmeDynamicVBAccess *access):owner(access),data(0)
+{
+ switch(owner->Get_Type()) {
+ case 2: {
+  DX8_Assert();
+  HRESULT result=static_cast<BfmeDynamicNativeVB *>(owner->buffer)->Get_DX8_Vertex_Buffer()->Lock(
+   owner->vertexOffset*owner->buffer->FVF_Info().Get_FVF_Size(),
+   owner->Get_Vertex_Count()*owner->buffer->FVF_Info().Get_FVF_Size(),
+   reinterpret_cast<void **>(&data),
+   D3DLOCK_NOSYSLOCK|(!owner->vertexOffset?D3DLOCK_DISCARD:D3DLOCK_NOOVERWRITE));
+  if(result!=0) Log_DX8_ErrorCode(result);
+  break;
+ }
+ case 3:
+  data=reinterpret_cast<BfmeSortingVertex *>(static_cast<BfmeDynamicSortingVB *>(owner->buffer)->buffer);
+  data+=owner->vertexOffset;
+  break;
+ default:break;
+ }
+}
+// ??1WriteLock@BfmeDynamicVBAccess@@QAE@XZ present-unmatched
+BfmeDynamicVBAccess::WriteLock::~WriteLock()
+{
+ switch(owner->Get_Type()) {
+ case 2: {
+  DX8_Assert();
+  HRESULT result=static_cast<BfmeDynamicNativeVB *>(owner->buffer)->Get_DX8_Vertex_Buffer()->Unlock();
+  if(result!=0) Log_DX8_ErrorCode(result);
+  break;
+ }
+ case 3:break;
+ default:break;
+ }
+}
+
+typedef char BfmeDynamicWriteLockSize[(sizeof(BfmeDynamicVBAccess::WriteLock)==12)?1:-1];
+typedef char BfmeSortingVertexSize[(sizeof(BfmeSortingVertex)==44)?1:-1];
