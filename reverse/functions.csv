@@ -5654,3 +5654,6 @@ _piCallbacksCleanup,,0x0069EEF0,24,Code/GameEngine/Source/GameNetwork/GameSpy/pe
 ?Get_Draw_Call_Count@MeshClass@@QBEHXZ,,0x0014B7C0,62,Code/Libraries/Source/WWVegas/WW3D2/mesh.cpp,matched,BFME1 analogue with BFME2 MeshModel member offsets 0x98/0x9c
 ?Resize@?$SimpleDynVecClass@PAVTextureClass@@@@UAE_NH@Z,,0x00144910,40,Code/Libraries/Source/WWVegas/WW3D2/decalmsh.cpp,matched,BFME1 analogue; exact BFME2 target match
 ?Configure_Material@MeshMatDescClass@@IAEXPAVVertexMaterialClass@@H_N@Z,,0x0015A990,91,Code/Libraries/Source/WWVegas/WW3D2/meshmatdesc.cpp,matched,BFME1 analogue with BFME2 material-array offsets 0x30/0x58/0x68
+??0LineSegClass@@QAE@ABV0@ABVMatrix3D@@@Z,,0x00149250,26,Code/Libraries/Source/WWVegas/WW3D2/mesh.cpp,matched,
+??0?$SimpleDynVecClass@K@@QAE@H@Z,,0x001AC680,56,Code/Libraries/Source/WWVegas/WW3D2/mesh.cpp,matched,
+??0UVBufferClass@@QAE@ABV0@@Z,,0x0015D0F0,33,Code/Libraries/Source/WWVegas/WW3D2/meshmatdesc.cpp,matched,

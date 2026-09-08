@@ -1002,7 +1002,6 @@ void MeshMatDescClass::Post_Load_Process(bool lighting_enabled,MeshModelClass * 
 }
 
 // byte-exact reconstruction: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/meshmatdesc.cpp
-// ?Configure_Material@MeshMatDescClass@@IAEXPAVVertexMaterialClass@@H_N@Z present-unmatched
 struct Bfme2MeshMatDescConfigureView {
 	char PaddingToUV[0x30];
 	int UVSource[2][2];

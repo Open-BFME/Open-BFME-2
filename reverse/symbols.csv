@@ -1035,3 +1035,5 @@ __RTC_CheckEsp,0x0075A5A2
 ?Make_Unique@MeshClass@@QAEX_N@Z,0x00149C10,BFME2 target-side callee pin for MeshClass::Scale drift quick win
 ?Make_Geometry_Unique@MeshModelClass@@QAEXXZ,0x00172070,BFME2 target-side callee pin for MeshClass::Scale drift quick win
 ?Scale@MeshGeometryClass@@QAEXABVVector3@@@Z,0x0016B3F0,BFME2 target-side callee pin for MeshClass::Scale drift quick win
+?Resize@?$SimpleVecClass@K@@UAE_NH@Z,0x001A7C80
+??0?$ShareBufferClass@VVector2@@@@QAE@ABV0@@Z,0x0015CD00
