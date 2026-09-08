@@ -1,7 +1,13 @@
 // ?Get_String@StringClass@@AAEXH_N@Z
-// partial score=0.87 date=2026-09-07
 // cl: /G7 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath
 
+// Completes the banked donor reconstruction using the existing lean lock wrapper
+// and the retail tagged array allocator. All359 bytes are verified, including
+// normal and exceptional release of the temporary-string pool lock.
+#include "always.h"
+#undef W3DNEWARRAY
+void* __cdecl operator new[](unsigned int,unsigned int);
+#define W3DNEWARRAY new(0x737472u)
 #include "wwstring.h"
 #include "win.h"
 #include "wwmemlog.h"
