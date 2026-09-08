@@ -5584,3 +5584,4 @@ _piCallbacksCleanup,,0x0069EEF0,24,Code/GameEngine/Source/GameNetwork/GameSpy/pe
 ?setByte@Rva0082BDA0@@QAEPAXE@Z,,0x000247E0,24,Code/GameEngine/Source/Common/Bfme/Rva0082BDA0_setByte.cpp,matched,
 ?init@Rva009A2350@@QAEXXZ,,0x007584C0,35,Code/GameEngine/Source/Common/Rva009A2350Init.cpp,matched,
 ?d_00886ac0@@YAPADPBD0PADP6AHH@Z@Z,,0x006C92C0,55,Code/GameEngine/Source/Common/Bfme/Rva00886AC0.cpp,matched,
+?d_00884e10@Rva00884E10Class@@QAEHPADI@Z,,0x006C9930,53,Code/GameEngine/Source/Common/Bfme/Rva00884E10.cpp,matched,
