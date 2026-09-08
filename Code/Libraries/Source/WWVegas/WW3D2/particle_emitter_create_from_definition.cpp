@@ -55,21 +55,8 @@
 #include "part_ldr.h"
 
 
-// BFME2 uses an owning pointer holder with a WORD texture reference count.
-// The loader returns this holder by value; constructors receive it by reference.
-class BFME2ParticleTextureHandle {
- TextureClass *Ptr;
- public:
- BFME2ParticleTextureHandle(TextureClass* ptr=0):Ptr(ptr) { if(Ptr) Ptr->Add_Ref(); }
- BFME2ParticleTextureHandle(const BFME2ParticleTextureHandle& other):Ptr(other.Ptr) { if(Ptr) Ptr->Add_Ref(); }
- ~BFME2ParticleTextureHandle() { if(Ptr) Ptr->Release_Ref(); }
- BFME2ParticleTextureHandle& operator=(const BFME2ParticleTextureHandle& other) {
-  if(other.Ptr) other.Ptr->Add_Ref();
-  if(Ptr) Ptr->Release_Ref();
-  Ptr=other.Ptr;
-  return *this;
- }
-};
+#include "texture_handle.h"
+
 // Descriptive identity: cached texture lookup or creation at retail RVA 0x132D89.
 BFME2ParticleTextureHandle BFME2LoadParticleTexture(const char*,int,int);
 ParticleEmitterClass *

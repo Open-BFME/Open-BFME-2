@@ -241,7 +241,7 @@ class ParticleEmitterClass : public RenderObjClass
 		float						Get_Future_Start_Time (void) const { return Buffer->Get_Future_Start_Time(); }
 		Vector3					Get_End_Color (void) const			{ return Buffer->Get_End_Color (); }
 		float						Get_End_Opacity (void) const		{ return Buffer->Get_End_Opacity (); }
-		TextureClass *			Get_Texture (void) const			{ return Buffer->Get_Texture().Ptr; }
+		BFME2ParticleTextureHandle Get_Texture(void) const;
 		void						Set_Texture (TextureClass *tex)  { Buffer->Set_Texture(tex); }
 		float						Get_Fade_Time (void) const			{ return Buffer->Get_Fade_Time (); }
 		Vector3					Get_Start_Color (void) const		{ return Buffer->Get_Start_Color(); }
@@ -252,8 +252,19 @@ class ParticleEmitterClass : public RenderObjClass
 		int						Get_Burst_Size (void) const		{ return BurstSize; }
 		int						Get_Max_Particles (void) const	{ return MaxParticles; }
 		Vector3					Get_Start_Velocity (void) const	{ return BaseVel * 1000.0F; }
-		Vector3Randomizer *	Get_Creation_Volume (void) const;
-		Vector3Randomizer *	Get_Velocity_Random (void) const;
+		Vector3Randomizer *Get_Creation_Volume(void) const {
+            Vector3Randomizer *randomizer = NULL;
+            if (PosRand != NULL) randomizer = PosRand->Clone();
+            return randomizer;
+        }
+		Vector3Randomizer *Get_Velocity_Random(void) const {
+            Vector3Randomizer *randomizer = NULL;
+            if (VelRand != NULL) {
+                randomizer = VelRand->Clone();
+                randomizer->Scale(1000.0F);
+            }
+            return randomizer;
+        }
 		float						Get_Outwards_Vel (void) const		{ return OutwardVel * 1000.0F; }
 		float						Get_Velocity_Inherit (void) const{ return VelInheritFactor; }
 		ShaderClass				Get_Shader (void) const				{ return Buffer->Get_Shader (); }
