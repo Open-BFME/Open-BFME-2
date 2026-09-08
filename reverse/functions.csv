@@ -5715,3 +5715,5 @@ _piCallbacksCleanup,,0x0069EEF0,24,Code/GameEngine/Source/GameNetwork/GameSpy/pe
 ??0?$ObjectPoolClass@VAABTreeNodeClass@@$0BAA@@@QAE@XZ,,0x00196350,19,Code/Libraries/Source/WWVegas/WWMath/aabtreecull.cpp,matched,
 ??0AAPlaneClass@@QAE@W4AxisEnum@0@M@Z,,0x001989E0,22,Code/Libraries/Source/WWVegas/WWMath/aabtreecull.cpp,matched,
 ??AVector3@@QAEAAMH@Z,,0x007173D0,10,Code/Libraries/Source/WWVegas/WW3D2/aabtree.cpp,matched,
+?_bfme_ro_flag109@RenderObjClass@@UBEHXZ,,0x0006CFA0,9,Code/Libraries/Source/WWVegas/WW3D2/camera.cpp,matched,
+?Get_View_Matrix@CameraClass@@QAEABVMatrix3D@@XZ,,0x00134A70,16,Code/Libraries/Source/WWVegas/WW3D2/camera.cpp,matched,

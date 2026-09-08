@@ -834,7 +834,7 @@ const Matrix4x4 & CameraClass::Get_Projection_Matrix(void)
 	return ProjectionTransform;
 }
 
-// ?Get_View_Matrix@CameraClass@@QAEABVMatrix3D@@XZ present-unmatched
+// ?Get_View_Matrix@CameraClass@@QAEABVMatrix3D@@XZ
 const Matrix3D & CameraClass::Get_View_Matrix(void)
 {
 	Update_Frustum();
