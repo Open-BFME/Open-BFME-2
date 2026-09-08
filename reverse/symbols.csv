@@ -922,3 +922,6 @@ _strcmp,0x006291C6,PE CRT thunk; independent FF25 import thunk at RVA 0x006291C6
 ?_PresetAdditiveSpriteShader@ShaderClass@@2V1@A,0x009B624C,Independent SC_ADD_SPRITE initializer with BFME2 shader layout exactly114033; conversion use corroborates
 ?_PresetAlphaSpriteShader@ShaderClass@@2V1@A,0x009B6254,Independent SC_ALPHA_SPRITE initializer with BFME2 shader layout exactly1180B3; conversion use corroborates
 ?Use_Alpha_Shader@BFME2ParticleTextureHandle@@QBE_NXZ,0x0047A699,Descriptive conversion predicate selecting alpha preset; body independentlyverified32C0C3 alwaysfalse; original method name unasserted
+?insert_unique@?$_Rb_tree@PBVThingTemplate@@U?$pair@QBVThingTemplate@@H@_STL@@U?$_Select1st@U?$pair@QBVThingTemplate@@H@_STL@@@3@U?$less@PBVThingTemplate@@@3@V?$allocator@U?$pair@QBVThingTemplate@@H@_STL@@@3@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@QBVThingTemplate@@H@_STL@@U?$_Nonconst_traits@U?$pair@QBVThingTemplate@@H@_STL@@@2@@2@U32@ABU?$pair@QBVThingTemplate@@H@2@@Z,0x00759DB0,address read from the REL32 displacement at a placed body
+?clear@TeamFactory@@QAEXXZ,0x003A2F4C,address read from the REL32 displacement at a placed body
+?isClearLineOfSight@BaseHeightMapRenderObjClass@@QBE_NABUCoord3D@@0@Z,0x00066AD1,address read from the REL32 displacement at a placed body
