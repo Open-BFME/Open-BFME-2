@@ -88,3 +88,63 @@ int _get_osfflags(int fd,void* oshandle) {
  return flag_to_openmode(mode);
 }
 }
+namespace _STL {
+bool _Filebuf_base::_M_open(const char *name, int openmode, long permission)
+{
+	void *file_no;
+
+	if (_M_is_open)
+		return false;
+
+	unsigned long desired_access, creation_disposition;
+	bool do_truncate = false;
+
+	switch (openmode & ~(2 | 4)) {
+	case 16:
+	case 16 | 32:
+		desired_access = 0x40000000;
+		creation_disposition = 4;
+		do_truncate = true;
+		break;
+	case 16 | 1:
+		desired_access = 0x40000000;
+		creation_disposition = 4;
+		break;
+	case 8:
+		desired_access = 0x80000000;
+		creation_disposition = 3;
+		permission = 0;
+		break;
+	case 8 | 16:
+		desired_access = 0xC0000000;
+		creation_disposition = 3;
+		break;
+	case 8 | 16 | 32:
+		desired_access = 0xC0000000;
+		creation_disposition = 4;
+		do_truncate = true;
+		break;
+	default:
+		return false;
+	}
+
+	file_no = CreateFileA(name, desired_access, 3, 0,
+			creation_disposition, permission, 0);
+	if (file_no == reinterpret_cast<void *>(-1))
+		return false;
+
+	if ((do_truncate && SetEndOfFile(file_no) == 0) ||
+		(((openmode & 2) != 0) &&
+		 (SetFilePointer(file_no, 0, 0, 2) == 0xFFFFFFFF))) {
+		CloseHandle(file_no);
+		return false;
+	}
+
+	_M_is_open = true;
+	_M_file_id = file_no;
+	_M_should_close = _M_is_open;
+	_M_openmode = openmode;
+	_M_regular_file = _SgI::__is_regular_file(_M_file_id);
+	return _M_is_open;
+}
+}
