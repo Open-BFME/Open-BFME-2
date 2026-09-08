@@ -1067,3 +1067,4 @@ __RTC_CheckEsp,0x0075A5A2
 ?getFinalOverride@Overridable@@QBEPBV1@XZ,0x001E35DF
 ??1Snapshot@@QAE@XZ,0x001B4E74
 ?erase@?$vector@V?$vector@UICoord2D@@V?$allocator@UICoord2D@@@_STL@@@_STL@@V?$allocator@V?$vector@UICoord2D@@V?$allocator@UICoord2D@@@_STL@@@_STL@@@2@@_STL@@QAEPAV?$vector@UICoord2D@@V?$allocator@UICoord2D@@@_STL@@@2@PAV32@0@Z,0x00119C70
+??0?$_Vector_base@PAVObjectCreationNugget@@V?$allocator@PAVObjectCreationNugget@@@_STL@@@_STL@@QAE@ABV?$allocator@PAVObjectCreationNugget@@@1@@Z,0x00211E58
