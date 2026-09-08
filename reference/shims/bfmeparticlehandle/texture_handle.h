@@ -21,5 +21,7 @@ public:
     }
     operator bool() const { return Ptr != 0; }
     StringClass Get_Texture_Name() const;
+    // Descriptive conversion predicate; this retail build returns false.
+    bool Use_Alpha_Shader() const;
 };
 #endif
