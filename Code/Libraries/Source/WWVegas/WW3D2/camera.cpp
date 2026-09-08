@@ -292,7 +292,6 @@ void CameraClass::Set_Transform(const Matrix3D &m)
  * HISTORY:                                                                                    *
  *   5/29/98    GTH : Created.                                                                 *
  *=============================================================================================*/
-// ?Set_Position@CameraClass@@ present-unmatched
 void CameraClass::Set_Position(const Vector3 &v)
 { 
 	RenderObjClass::Set_Position(v); 
