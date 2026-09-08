@@ -5756,3 +5756,6 @@ _piCallbacksCleanup,,0x0069EEF0,24,Code/GameEngine/Source/GameNetwork/GameSpy/pe
 ?Set_Hierarchy_Valid@Animatable3DObjClass@@IBEX_N@Z,,0x0019B0D0,13,Code/Libraries/Source/WWVegas/WW3D2/animobj.cpp,matched,
 ?Peek_Animation@Animatable3DObjClass@@UAEPAVHAnimClass@@XZ,,0x001A4DC0,19,Code/Libraries/Source/WWVegas/WW3D2/animobj.cpp,matched,
 ?Set_Animation_Frame_Rate_Multiplier@Animatable3DObjClass@@UAEXM@Z,,0x001A5440,17,Code/Libraries/Source/WWVegas/WW3D2/animobj.cpp,matched,
+?Invalidate_Archive@?$IndexClass@HPAUINIEntry@@@@ABEXXZ,,0x00196340,8,Code/Libraries/Source/WWVegas/WWLib/ini.cpp,matched,
+??MNodeElement@?$IndexClass@HPAUINIEntry@@@@QBE_NABU01@@Z,,0x00615D50,18,Code/Libraries/Source/WWVegas/WWLib/ini.cpp,matched,
+??0?$IndexClass@HPAUINIEntry@@@@QAE@XZ,,0x006160E0,19,Code/Libraries/Source/WWVegas/WWLib/ini.cpp,matched,
