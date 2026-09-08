@@ -5686,3 +5686,5 @@ _piCallbacksCleanup,,0x0069EEF0,24,Code/GameEngine/Source/GameNetwork/GameSpy/pe
 ??4?$DynamicVectorClass@VModelNodeClass@HLodClass@@@@QAEAAV0@ABV0@@Z,,0x0019F4B0,33,Code/Libraries/Source/WWVegas/WW3D2/hlod.cpp,matched,
 ??_GParticleEmitterClass@@UAEPAXI@Z,,0x001A22D0,30,Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp,matched,
 ??_GParticleEmitterDefClass@@UAEPAXI@Z,,0x001B1FB0,30,Code/Libraries/Source/WWVegas/WW3D2/part_ldr.cpp,matched,
+?Get_Value@SegmentedLineClass@@UBEMXZ,,0x0015E510,82,Code/Libraries/Source/WWVegas/WW3D2/segline.cpp,matched,
+?Render@SegmentedLineClass@@UAEXAAVRenderInfoClass@@@Z,,0x0015F260,90,Code/Libraries/Source/WWVegas/WW3D2/segline.cpp,matched,

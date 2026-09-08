@@ -374,7 +374,7 @@ int SegmentedLineClass::Get_Num_Polys(void) const
 	return 2 * (PointLocations.Count() - 1) * subdivision_factor;
 }
 
-// ?Render@SegmentedLineClass@@UAEXAAVRenderInfoClass@@@Z present-unmatched
+// ?Render@SegmentedLineClass@@UAEXAAVRenderInfoClass@@@Z
 void SegmentedLineClass::Render(RenderInfoClass & rinfo)
 {
 	if (Is_Not_Hidden_At_All() == false) {
@@ -632,5 +632,3 @@ bool SegmentedLineClass::Cast_Ray(RayCollisionTestClass & raytest)
 
 	return retval;
 }
-
-
