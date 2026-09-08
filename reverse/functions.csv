@@ -5725,3 +5725,6 @@ _piCallbacksCleanup,,0x0069EEF0,24,Code/GameEngine/Source/GameNetwork/GameSpy/pe
 ?Set_Merge_Abort_Factor@SegLineRendererClass@@QAEXM@Z,,0x0015DFE0,14,Code/Libraries/Source/WWVegas/WW3D2/seglinerenderer.cpp,matched,
 ?Get_Cull_Mode@ShaderClass@@QBE?AW4CullModeType@1@XZ,,0x001374B0,9,Code/Libraries/Source/WWVegas/WW3D2/shader.cpp,matched,
 ??8UVBufferClass@@QAE_NABV0@@Z,,0x0015A160,20,Code/Libraries/Source/WWVegas/WW3D2/meshmatdesc.cpp,matched,
+?Set_Width@SegLineRendererClass@@QAEXM@Z,,0x00196110,14,Code/Libraries/Source/WWVegas/WW3D2/part_buf.cpp,matched,
+??A?$SimpleDynVecClass@VVector4@@@@QAEAAVVector4@@H@Z,,0x001A7B70,13,Code/Libraries/Source/WWVegas/WW3D2/part_buf.cpp,matched,
+?Get_Element@?$ShareBufferClass@VVector4@@@@QAEAAVVector4@@H@Z,,0x001A7C40,13,Code/Libraries/Source/WWVegas/WW3D2/part_buf.cpp,matched,
