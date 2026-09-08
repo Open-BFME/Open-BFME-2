@@ -1040,3 +1040,5 @@ __RTC_CheckEsp,0x0075A5A2
 ?Set@Matrix3D@@QAEXABVMatrix3@@ABVVector3@@@Z,0x00711E70
 ?Transform_Min_Max_AABox@Matrix3D@@QBEXABVVector3@@0PAV2@1@Z,0x00712B60
 ?Render_Seg_Line@SegmentedLineClass@@IAEXAAVRenderInfoClass@@@Z,0x0015EED0
+?RenderStreak@StreakRendererClass@@QAEXAAVRenderInfoClass@@ABVMatrix3D@@IPAVVector3@@PAVVector4@@PAMABVSphereClass@@PAI@Z,0x00743700
+?Set_Texture@StreakRendererClass@@QAEXPAVTextureClass@@@Z,0x001911E0
