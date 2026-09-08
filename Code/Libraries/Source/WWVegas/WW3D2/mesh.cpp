@@ -1230,18 +1230,25 @@ void MeshClass::Set_Sort_Level(int level)
 }
 
 // ?MeshClass::Get_Draw_Call_Count present-unmatched
+struct Bfme2MeshModelDrawCountView {
+	char Padding[0x98];
+	MaterialInfoClass *MatInfo;
+	DX8PolygonRendererList PolygonRendererList;
+};
+
 int MeshClass::Get_Draw_Call_Count(void) const
 {
 	if (Model != NULL) {
 		// Prefer to return the number of polygon renderers
-		int prcount = Model->PolygonRendererList.Count();
+		int prcount = reinterpret_cast<Bfme2MeshModelDrawCountView *>(Model)->PolygonRendererList.Count();
 		if (prcount > 0) {
 			return prcount;
 		}
 		
 		// Otherwise if we have textures, return the number of textures (e.g. dont have prs when sorting)
-		if ((Model->MatInfo != NULL) && (Model->MatInfo->Texture_Count() > 0)) {
-			return Model->MatInfo->Texture_Count();
+		if ((reinterpret_cast<Bfme2MeshModelDrawCountView *>(Model)->MatInfo != NULL) &&
+			(reinterpret_cast<Bfme2MeshModelDrawCountView *>(Model)->MatInfo->Texture_Count() > 0)) {
+			return reinterpret_cast<Bfme2MeshModelDrawCountView *>(Model)->MatInfo->Texture_Count();
 		}
 
 		// Otherwise, return 1
@@ -1251,7 +1258,4 @@ int MeshClass::Get_Draw_Call_Count(void) const
 		return 0;
 	}
 }
-
-
-
 
