@@ -5633,3 +5633,4 @@ _piCallbacksCleanup,,0x0069EEF0,24,Code/GameEngine/Source/GameNetwork/GameSpy/pe
 ?Set_Line_Size@LineGroupClass@@QAEXM@Z,,0x001B35F0,14,Code/Libraries/Source/WWVegas/WW3D2/linegrp_float_setters.cpp,matched,reloc-named unclaimed; retail stores the float with movss so this split TU carries /arch:SSE
 ?Set_Line_Alpha@LineGroupClass@@QAEXM@Z,,0x001B3690,14,Code/Libraries/Source/WWVegas/WW3D2/linegrp_float_setters.cpp,matched,reloc-named unclaimed; movss into DefaultLineAlpha at +0x40 under /arch:SSE
 ?Get_Line_Size@LineGroupClass@@QAEMXZ,,0x001B3600,4,Code/Libraries/Source/WWVegas/WW3D2/linegrp.cpp,matched,x87 float return so the flag split does not apply; sits in the LineGroupClass COMDAT run between the landed Set_Line_Size and Set_Line_Color
+?Get_Line_Alpha@LineGroupClass@@QAEMXZ,,0x001B36A0,4,Code/Libraries/Source/WWVegas/WW3D2/linegrp.cpp,matched,fld from DefaultLineAlpha at +0x40; next slot after the landed Set_Line_Alpha in the same COMDAT run
