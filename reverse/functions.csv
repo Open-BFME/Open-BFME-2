@@ -5615,3 +5615,4 @@ _piCallbacksCleanup,,0x0069EEF0,24,Code/GameEngine/Source/GameNetwork/GameSpy/pe
 ?bfmeGoDGG@@YAPAVBfmeThingDGG@@PAX@Z,,0x00667280,33,Code/GameEngine/Source/Common/BfmeConv693.cpp,matched,
 ?bfmeGoDGD@@YAPAVBfmeThingDGD@@PAX@Z,,0x00664D20,33,Code/GameEngine/Source/Common/BfmeConv695.cpp,matched,
 ?Rva00813E30Wrap@@YAHPAVRva00813E30Obj@@@Z,,0x0067FD30,27,Code/GameEngine/Source/Common/Rva00813E30Wrap.cpp,matched,
+?rva0082BE60FillN@@YAPADPADHABD@Z,,0x00024970,37,Code/GameEngine/Source/Common/Rva0082BE60FillN.cpp,matched,
