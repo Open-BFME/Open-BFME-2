@@ -1,7 +1,7 @@
-// cl: /Ireference/shims/bfmeanimobj /arch:SSE /G7 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/sweep
-// Ported verbatim from the Generals Zero Hour reference
+// cl: /Ireference/shims/bfme2htree /Ireference/shims/bfme2renderobj /Ireference/shims/bfmeanimobj /arch:SSE /G7 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/sweep
+// Derived from the Generals Zero Hour reference with verified BFME2 ownership.
 // (Libraries/Source/WWVegas/WW3D2/animobj.cpp); this unit had no counterpart under Code/.
-#include "rendobj.h"	// the bfmerendobj shim has to win the include guard
+#include "rendobj.h"	// the verified BFME2 base object must win the include guard
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
@@ -85,6 +85,7 @@
  * HISTORY:                                                                                    *
  *   12/8/98    GTH : Created.                                                                 *
  *=============================================================================================*/
+// ?Animatable3DObjClass::Animatable3DObjClass present-unmatched
 Animatable3DObjClass::Animatable3DObjClass(const char * htree_name) :
 	IsTreeValid(0),
 	CurMotionMode(BASE_POSE)
@@ -139,6 +140,7 @@ Animatable3DObjClass::Animatable3DObjClass(const char * htree_name) :
  * HISTORY:                                                                                    *
  *   12/8/98    GTH : Created.                                                                 *
  *=============================================================================================*/
+// ?Animatable3DObjClass::Animatable3DObjClass present-unmatched
 Animatable3DObjClass::Animatable3DObjClass(const Animatable3DObjClass & src) :
 	CompositeRenderObjClass(src),
 	IsTreeValid(0),
@@ -177,6 +179,7 @@ Animatable3DObjClass::Animatable3DObjClass(const Animatable3DObjClass & src) :
  * HISTORY:                                                                                    *
  *   12/8/98    GTH : Created.                                                                 *
  *=============================================================================================*/
+// ?Animatable3DObjClass::~Animatable3DObjClass present-unmatched
 Animatable3DObjClass::~Animatable3DObjClass(void)
 {
 	Release();
@@ -220,8 +223,6 @@ Animatable3DObjClass & Animatable3DObjClass::operator = (const Animatable3DObjCl
 		ModeInterp.Motion0 = NULL;
 		ModeInterp.Motion1 = NULL;
 		ModeInterp.Frame0 = 0.0f;
-		ModeInterp.PrevFrame0 = 0.0f;
-		ModeInterp.PrevFrame1 = 0.0f;
 		ModeInterp.Frame1 = 0.0f;
 		ModeInterp.Percentage = 0.0f;
 		ModeCombo.AnimCombo = NULL;
@@ -243,6 +244,7 @@ Animatable3DObjClass & Animatable3DObjClass::operator = (const Animatable3DObjCl
  * HISTORY:                                                                                    *
  *   12/8/98    GTH : Created.                                                                 *
  *=============================================================================================*/
+// ?Animatable3DObjClass::Release present-unmatched
 void Animatable3DObjClass::Release( void ) 
 {
 	switch (CurMotionMode) {
@@ -289,6 +291,7 @@ void Animatable3DObjClass::Release( void )
  * HISTORY:                                                                                    *
  *   12/8/98    GTH : Created.                                                                 *
  *=============================================================================================*/
+// ?Animatable3DObjClass::Render present-unmatched
 void Animatable3DObjClass::Render(RenderInfoClass & rinfo)
 {
 	if (HTree == NULL) return;
@@ -320,6 +323,7 @@ void Animatable3DObjClass::Render(RenderInfoClass & rinfo)
  * HISTORY:                                                                                    *
  *   12/10/98   GTH : Created.                                                                 *
  *=============================================================================================*/
+// ?Animatable3DObjClass::Special_Render present-unmatched
 void Animatable3DObjClass::Special_Render(SpecialRenderInfoClass & rinfo)
 {
 	if (HTree == NULL) return;
@@ -348,6 +352,7 @@ void Animatable3DObjClass::Special_Render(SpecialRenderInfoClass & rinfo)
  * HISTORY:                                                                                    *
  *   3/2/99     GTH : Created.                                                                 *
  *=============================================================================================*/
+// ?Animatable3DObjClass::Set_Transform present-unmatched
 void Animatable3DObjClass::Set_Transform(const Matrix3D &m)
 { 
 	CompositeRenderObjClass::Set_Transform(m); 
@@ -367,6 +372,7 @@ void Animatable3DObjClass::Set_Transform(const Matrix3D &m)
  * HISTORY:                                                                                    *
  *   3/2/99     GTH : Created.                                                                 *
  *=============================================================================================*/
+// ?Animatable3DObjClass::Set_Position present-unmatched
 void Animatable3DObjClass::Set_Position(const Vector3 &v)
 { 
 	CompositeRenderObjClass::Set_Position(v); 
@@ -611,6 +617,7 @@ void Animatable3DObjClass::Set_Animation
  * HISTORY:                                                                                    *
  *   12/8/98    GTH : Created.                                                                 *
  *=============================================================================================*/
+// ?Animatable3DObjClass::Peek_Animation present-unmatched
 HAnimClass *	Animatable3DObjClass::Peek_Animation( void )
 {
 	if ( CurMotionMode == SINGLE_ANIM ) {
@@ -633,6 +640,7 @@ HAnimClass *	Animatable3DObjClass::Peek_Animation( void )
  * HISTORY:                                                                                    *
  *   12/8/98    GTH : Created.                                                                 *
  *=============================================================================================*/
+// ?Animatable3DObjClass::Get_Bone_Transform present-unmatched
 const Matrix3D &	Animatable3DObjClass::Get_Bone_Transform(const char * bonename)
 {
 	if (HTree) {
@@ -659,6 +667,7 @@ const Matrix3D &	Animatable3DObjClass::Get_Bone_Transform(const char * bonename)
  * HISTORY:                                                                                    *
  *   12/8/98    GTH : Created.                                                                 *
  *=============================================================================================*/
+// ?Animatable3DObjClass::Get_Bone_Transform present-unmatched
 const Matrix3D &	Animatable3DObjClass::Get_Bone_Transform(int boneindex)
 {
 	Validate_Transform();
@@ -691,6 +700,7 @@ const Matrix3D &	Animatable3DObjClass::Get_Bone_Transform(int boneindex)
  * HISTORY:                                                                                    *
  *   3/2/99     GTH : Created.                                                                 *
  *=============================================================================================*/
+// ?Animatable3DObjClass::Capture_Bone present-unmatched
 void Animatable3DObjClass::Capture_Bone(int boneindex)
 { 
 	if (HTree) {
@@ -711,6 +721,7 @@ void Animatable3DObjClass::Capture_Bone(int boneindex)
  * HISTORY:                                                                                    *
  *   3/2/99     GTH : Created.                                                                 *
  *=============================================================================================*/
+// ?Animatable3DObjClass::Release_Bone present-unmatched
 void Animatable3DObjClass::Release_Bone(int boneindex)
 { 
 	if (HTree) {
@@ -781,6 +792,7 @@ void Animatable3DObjClass::Control_Bone(int bindex,const Matrix3D & objtm,bool w
  * HISTORY:                                                                                    *
  *   12/8/98    GTH : Created.                                                                 *
  *=============================================================================================*/
+// ?Animatable3DObjClass::Update_Sub_Object_Transforms present-unmatched
 void Animatable3DObjClass::Update_Sub_Object_Transforms(void)
 {
 	/*
@@ -950,6 +962,7 @@ bool Animatable3DObjClass::Simple_Evaluate_Bone(int boneindex, float frame, Matr
  * HISTORY:                                                                                    *
  *   04/13/2000    PDS : Created.                                                              *
  *=============================================================================================*/
+// ?Animatable3DObjClass::Compute_Current_Frame present-unmatched
 float Animatable3DObjClass::Compute_Current_Frame(float *newDirection) const
 {
 	float frame = 0;
@@ -1049,6 +1062,7 @@ float Animatable3DObjClass::Compute_Current_Frame(float *newDirection) const
  * HISTORY:                                                                                    *
  *   10/26/99    BMG : Created.                                                                 *
  *=============================================================================================*/
+// ?Animatable3DObjClass::Single_Anim_Progress present-unmatched
 void Animatable3DObjClass::Single_Anim_Progress (void)
 {
 	//
@@ -1090,6 +1104,7 @@ void Animatable3DObjClass::Single_Anim_Progress (void)
  * HISTORY:                                                                                    *
  *   4/13/99    BMG : Created.                                                                 *
  *=============================================================================================*/
+// ?Animatable3DObjClass::Is_Animation_Complete present-unmatched
 bool	Animatable3DObjClass::Is_Animation_Complete( void ) const
 {
 	if (CurMotionMode == SINGLE_ANIM) {
@@ -1108,6 +1123,7 @@ bool	Animatable3DObjClass::Is_Animation_Complete( void ) const
 /***********************************************************************************************
  * Animatable3DObjClass::Peek_Animation_And_Info *
  *=============================================================================================*/
+// ?Animatable3DObjClass::Peek_Animation_And_Info present-unmatched
 HAnimClass * Animatable3DObjClass::Peek_Animation_And_Info(float& frame, int& numFrames, int& mode, float& mult)
 {
 	if ( CurMotionMode == SINGLE_ANIM ) {
@@ -1124,6 +1140,7 @@ HAnimClass * Animatable3DObjClass::Peek_Animation_And_Info(float& frame, int& nu
 /***********************************************************************************************
  * Animatable3DObjClass::Set_Animation_Frame_Rate_Multiplier *
  *=============================================================================================*/
+// ?Animatable3DObjClass::Set_Animation_Frame_Rate_Multiplier present-unmatched
 void Animatable3DObjClass::Set_Animation_Frame_Rate_Multiplier(float multiplier)
 {
 	// 020607 srj -- added
@@ -1132,6 +1149,7 @@ void Animatable3DObjClass::Set_Animation_Frame_Rate_Multiplier(float multiplier)
 
 // (gth) TESTING DYNAMICALLY SWAPPING SKELETONS!
 
+// ?Animatable3DObjClass::Set_HTree present-unmatched
 void Animatable3DObjClass::Set_HTree(HTreeClass * new_htree) 
 { 
 	WWMEMLOG(MEM_ANIMATION);
