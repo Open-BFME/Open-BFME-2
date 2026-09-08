@@ -3973,7 +3973,6 @@ void HLodClass::Set_HTree(HTreeClass * htree)
  * HISTORY:                                                                                    *
  *   3/19/01    pds : Created.                                                                 *
  *=============================================================================================*/
-// ?HLodClass::Set_Hidden present-unmatched
 void HLodClass::Set_Hidden(int onoff)
 {
 	//
