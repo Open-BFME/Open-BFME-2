@@ -1,7 +1,9 @@
 // cl: /MD /O1 /GX /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /DBFME_MODULE_NO_MPO /DZH_EMIT_POOL_GLUE /Ireference/shims/bfmerendobj /Ireference/shims/debugvtable /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/bfmeanimobj /Ireference/shims/indexbuffercount /Ireference/shims/bfmecaps /Ireference/shims/bfmehcanim /Ireference/shims/bfmevector /Ireference/shims/bfmemapper /Ireference/shims/meshmatdesclayout /Ireference/shims/bfmeshader /Ireference/shims/bfmecpudetect /Ireference/shims/bfmepool /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWAudio /Ireference/shims/bfmealloc /Ireference/shims/bfmehashtable /Ireference/shims/bfmelist /Ireference/shims/asciistring_downloadmanager /Ireference/shims/stlp_nodealloc /Ireference/shims/asciistring_thin /ICode/GameEngine/Source/Common /Ireference/shims/w3droadbuffer /Ireference/shims/bfmeterraintracks /ICode/Libraries/Include/Lib /Ireference/shims/bfme_namekey /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/shims -ICode/Libraries/Source/Compression/LZHCompress/CompLibHeader /Ireference/shims/bfme2htree /Ireference/shims/bfme2renderobj /Ireference/shims/bfmecamera /Ireference/shims/bfmelight /Ireference/shims/bfmeparticlehandle /Ireference/shims/bfmeparticleload /Ireference/shims/bfmeparticlequat /Ireference/shims/bfmeparticlesave /Ireference/shims/bfmeparticleline /Ireference/shims/bfme2ray /Ireference/shims/bfme2scene -D_STLP_USE_STATIC_LIB -DNDEBUG -DWIN32 -D_WINDOWS /Ireference/shims/bfmefrustum
 // stlport
-// Ported verbatim from the Generals Zero Hour reference
-// (GameEngine/Source/GameLogic/Object/Update/FireSpreadUpdate.cpp); this unit had no counterpart under Code/.
+// Ported verbatim from the Generals Zero Hour reference (GameEngine/Source/GameLogic/Object/Die/CreateObjectDie.cpp); this unit had no counterpart under Code/.
+#define Matrix4x4 Matrix4  // BFME renamed it
+#define __PLACEMENT_VEC_NEW_INLINE  // always.h/GameMemory.h define array placement-new themselves
+// stlport
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
@@ -26,171 +28,147 @@
 //																																						//
 ////////////////////////////////////////////////////////////////////////////////
 
-// FILE: FireSpreadUpdate.cpp /////////////////////////////////////////////////////////////////////////
-// Author: Graham Smallwood, April 2002
-// Desc:   Update looks for ::Aflame and explicitly ignites someone nearby if set
+// FILE: CreateObjectDie.cpp ///////////////////////////////////////////////////////////////////////////
+// Author: Michael S. Booth, January 2002
+// Desc:   Create an object upon this object's death
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-// INCLUDES ///////////////////////////////////////////////////////////////////////////////////////
 #include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
 
-#include "Common/RandomValue.h"
+#define DEFINE_OBJECT_STATUS_NAMES
+#include "GameLogic/Module/AIUpdate.h"
+#include "Common/ThingFactory.h"
 #include "Common/Xfer.h"
 #include "GameLogic/GameLogic.h"
+#include "GameLogic/Module/CreateObjectDie.h"
 #include "GameLogic/Object.h"
 #include "GameLogic/ObjectCreationList.h"
-#include "GameLogic/PartitionManager.h"
-#include "GameLogic/Module/FireSpreadUpdate.h"
-#include "GameLogic/Module/FlammableUpdate.h"
+#include "GameLogic/Module/BodyModule.h"
 
-//-------------------------------------------------------------------------------------------------
-//-------------------------------------------------------------------------------------------------
-
-//-------------------------------------------------------------------------------------------------
-// This is a one sided query, as in I am not checking for "Flammable By Me", I'm simply testing for a property
-class PartitionFilterFlammable : public PartitionFilter
-{
-public:
-
-	PartitionFilterFlammable(){ }
-	
-	virtual Bool allow(Object *objOther);
-#if defined(_DEBUG) || defined(_INTERNAL)
-	virtual const char* debugGetName() { return "PartitionFilterFlammable"; }
+#ifdef _INTERNAL
+// for occasional debugging...
+//#pragma optimize("", off)
+//#pragma MESSAGE("************************************** WARNING, optimization disabled for debugging purposes")
 #endif
-};
 
-//-------------------------------------------------------------------------------------------------
-Bool PartitionFilterFlammable::allow(Object *objOther)
+// ------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
+// byte-exact reconstruction: Code/GameEngine/Source/GameLogic/AI/CreateObjectDieModuleDataCtorThunk.cpp
+// ??0CreateObjectDieModuleData@@ present-unmatched
+CreateObjectDieModuleData::CreateObjectDieModuleData()
 {
-	// It must be burnable in general, and burnable now
-	static NameKeyType key_FlammableUpdate = NAMEKEY("FlammableUpdate");
-	FlammableUpdate* fu = (FlammableUpdate*)objOther->findUpdateModule(key_FlammableUpdate);
-	if (fu == NULL)
-		return FALSE;
 
-	if( ! fu->wouldIgnite() )
-		return FALSE;
+	m_ocl = NULL;
+	m_transferPreviousHealth = FALSE;
 
-	return TRUE;
 }
 
-//-------------------------------------------------------------------------------------------------
-//-------------------------------------------------------------------------------------------------
-
-//-------------------------------------------------------------------------------------------------
-FireSpreadUpdateModuleData::FireSpreadUpdateModuleData()
+// ------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
+/*static*/ void CreateObjectDieModuleData::buildFieldParse(MultiIniFieldParse& p)
 {
-	m_minSpreadTryDelayData = 0;
-	m_maxSpreadTryDelayData = 0;
-	m_oclEmbers = NULL;
-	m_spreadTryRange = 0;
-}
-
-//-------------------------------------------------------------------------------------------------
-/*static*/ void FireSpreadUpdateModuleData::buildFieldParse(MultiIniFieldParse& p) 
-{
-  UpdateModuleData::buildFieldParse(p);
+	DieModuleData::buildFieldParse(p);
 
 	static const FieldParse dataFieldParse[] = 
 	{
-		{ "OCLEmbers",				INI::parseObjectCreationList,		NULL, offsetof( FireSpreadUpdateModuleData, m_oclEmbers ) },
-		{ "MinSpreadDelay",		INI::parseDurationUnsignedInt,	NULL, offsetof( FireSpreadUpdateModuleData, m_minSpreadTryDelayData ) },
-		{ "MaxSpreadDelay",		INI::parseDurationUnsignedInt,	NULL, offsetof( FireSpreadUpdateModuleData, m_maxSpreadTryDelayData ) },
-		{ "SpreadTryRange",		INI::parseReal,									NULL, offsetof( FireSpreadUpdateModuleData, m_spreadTryRange ) },
+		{ "CreationList",	INI::parseObjectCreationList,		NULL,											offsetof( CreateObjectDieModuleData, m_ocl ) },
+		{ "TransferPreviousHealth", INI::parseBool, NULL	,offsetof( CreateObjectDieModuleData, m_transferPreviousHealth ) },
 		{ 0, 0, 0, 0 }
 	};
-  p.add(dataFieldParse);
+	p.add(dataFieldParse);
+
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
+// byte-exact reconstruction: Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDieConstructor.cpp
+// ??0CreateObjectDie@@ present-unmatched
+CreateObjectDie::CreateObjectDie( Thing *thing, const ModuleData* moduleData ) : DieModule( thing, moduleData )
+{
 }
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
-FireSpreadUpdate::FireSpreadUpdate( Thing *thing, const ModuleData* moduleData ) : UpdateModule( thing, moduleData )
+// ??1CreateObjectDie@@ present-unmatched
+CreateObjectDie::~CreateObjectDie( void )
 {
-	setWakeFrame(getObject(), UPDATE_SLEEP_FOREVER);
+
 }
 
 //-------------------------------------------------------------------------------------------------
+/** The die callback. */
 //-------------------------------------------------------------------------------------------------
-FireSpreadUpdate::~FireSpreadUpdate( void )
+// ?onDie@CreateObjectDie@@ present-unmatched
+void CreateObjectDie::onDie( const DamageInfo * damageInfo )
 {
-}
+	const CreateObjectDieModuleData *data = getCreateObjectDieModuleData();
+	if (!isDieApplicable(damageInfo))
+		return;
 
-//-------------------------------------------------------------------------------------------------
-//-------------------------------------------------------------------------------------------------
-UpdateSleepTime FireSpreadUpdate::update( void )
-{
-	const FireSpreadUpdateModuleData* d = getFireSpreadUpdateModuleData();
-	Object* me = getObject();
+	Object *damageDealer = TheGameLogic->findObjectByID( damageInfo->in.m_sourceID );
 
-	if( !me->getStatusBits().test( OBJECT_STATUS_AFLAME ) )
-		return UPDATE_SLEEP_FOREVER;		// not on fire -- sleep forever
+	Object *newObject = ObjectCreationList::create( data->m_ocl, getObject(), damageDealer );
+
+	//If we're transferring previous health, we're transfering the last known
+	//health before we died. In the case of the sneak attack tunnel network, it
+	//is killed after the lifetime update expires.
+	if( newObject && data->m_transferPreviousHealth )
 	{
-		ObjectCreationList::create( d->m_oclEmbers, getObject(), NULL );
-
-		if( d->m_spreadTryRange != 0 )
+		//Convert old health to new health.
+		Object *oldObject = getObject();
+		BodyModuleInterface *oldBody = oldObject->getBodyModule();
+		BodyModuleInterface *newBody = newObject->getBodyModule();
+		if( oldBody && newBody )
 		{
-			// This will spread fire explicitly
-			PartitionFilterFlammable fFilter;
-			PartitionFilter *filters[] = { &fFilter, NULL };
-
-//			SimpleObjectIterator *iter = NULL;
-//			iter = ThePartitionManager->iterateObjectsInRange(getObject(), 
-//																									d->m_spreadTryRange, 
-//																									FROM_CENTER_3D, 
-//																									filters, 
-//																									ITER_SORTED_NEAR_TO_FAR
-//																									);
-//			MemoryPoolObjectHolder hold(iter);
-//			Object *objectToLight = iter->first();
-//
-// srj sez: the above code is stupid and slow. since we only want the closest object,
-// just ask for that; the above has to find ALL objects in range, but we ignore all 
-// but the first (closest).
-//
-			Object* objectToLight = ThePartitionManager->getClosestObject(getObject(), d->m_spreadTryRange, FROM_CENTER_3D, filters);
-			if( objectToLight )
+			//First transfer subdual damage
+			DamageInfo damInfo;
+			Real subdualDamageAmount = oldBody->getCurrentSubdualDamageAmount();
+			if( subdualDamageAmount > 0.0f )
 			{
-				static NameKeyType key_FlammableUpdate = NAMEKEY("FlammableUpdate");
-				FlammableUpdate* fu = (FlammableUpdate*)objectToLight->findUpdateModule(key_FlammableUpdate);
-				if( fu )
-					fu->tryToIgnite();
+				damInfo.in.m_amount = subdualDamageAmount;
+				damInfo.in.m_damageType = DAMAGE_SUBDUAL_UNRESISTABLE;
+				damInfo.in.m_sourceID = INVALID_ID;
+				newBody->attemptDamage( &damInfo );				
 			}
+
+			//Now transfer the previous health from the old object to the new.
+			damInfo.in.m_amount = oldBody->getMaxHealth() - oldBody->getPreviousHealth();
+			damInfo.in.m_damageType = DAMAGE_UNRESISTABLE;
+			damInfo.in.m_sourceID = oldBody->getLastDamageInfo()->in.m_sourceID;
+			if( damInfo.in.m_amount > 0.0f )
+			{
+				newBody->attemptDamage( &damInfo );
+			}
+
 		}
 
-		return UPDATE_SLEEP(calcNextSpreadDelay());
+		//Transfer attackers.
+		for( Object *obj = TheGameLogic->getFirstObject(); obj; obj = obj->getNextObject() )
+		{
+			AIUpdateInterface* ai = obj->getAI();
+			if (!ai)
+				continue;
+
+			ai->transferAttack( oldObject->getID(), newObject->getID() );
+		}
 	}
-}
 
-//-------------------------------------------------------------------------------------------------
-//-------------------------------------------------------------------------------------------------
-void FireSpreadUpdate::startFireSpreading()
-{
-	if( !getObject()->getStatusBits().test( OBJECT_STATUS_AFLAME ) )
-		return;	// sorry, must be on fire
-
-	setWakeFrame(getObject(), UPDATE_SLEEP(calcNextSpreadDelay()));
-}
-
-//-------------------------------------------------------------------------------------------------
-//-------------------------------------------------------------------------------------------------
-UnsignedInt FireSpreadUpdate::calcNextSpreadDelay()
-{
-	const FireSpreadUpdateModuleData* d = getFireSpreadUpdateModuleData();
-	UnsignedInt delay = GameLogicRandomValue( d->m_minSpreadTryDelayData, d->m_maxSpreadTryDelayData );
-	if (delay < 1)
-		delay = 1;
-	return delay;
-}
+	
+}  // end onDie
 
 // ------------------------------------------------------------------------------------------------
 /** CRC */
 // ------------------------------------------------------------------------------------------------
-void FireSpreadUpdate::crc( Xfer *xfer )
+// ?crc@CreateObjectDie@@ present-unmatched
+void CreateObjectDie::crc( Xfer *xfer )
 {
 
 	// extend base class
-	UpdateModule::crc( xfer );
+	DieModule::crc( xfer );
 
 }  // end crc
 
@@ -199,7 +177,8 @@ void FireSpreadUpdate::crc( Xfer *xfer )
 	* Version Info:
 	* 1: Initial version */
 // ------------------------------------------------------------------------------------------------
-void FireSpreadUpdate::xfer( Xfer *xfer )
+// ?xfer@CreateObjectDie@@ present-unmatched
+void CreateObjectDie::xfer( Xfer *xfer )
 {
 
 	// version
@@ -208,17 +187,18 @@ void FireSpreadUpdate::xfer( Xfer *xfer )
 	xfer->xferVersion( &version, currentVersion );
 
 	// extend base class
-	UpdateModule::xfer( xfer );
+	DieModule::xfer( xfer );
 
 }  // end xfer
 
 // ------------------------------------------------------------------------------------------------
 /** Load post process */
 // ------------------------------------------------------------------------------------------------
-void FireSpreadUpdate::loadPostProcess( void )
+// ?loadPostProcess@CreateObjectDie@@ present-unmatched
+void CreateObjectDie::loadPostProcess( void )
 {
 
 	// extend base class
-	UpdateModule::loadPostProcess();
+	DieModule::loadPostProcess();
 
 }  // end loadPostProcess

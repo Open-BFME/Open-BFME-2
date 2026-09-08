@@ -675,7 +675,12 @@ def wave_name(uni, record, rva, folds, taken, skipped):
     matches forty is the representative of an ICF class forty members wide, and
     picking one of them to name an address after is invented identity — those
     land under `?dup_<rva>` with the note still aiming the byte comparison at
-    the real COFF symbol. A symbol the ledger already places goes the same way,
+    the real COFF symbol. The MIRROR case counts too and used to be missed:
+    when several DISTINCT symbols in the objects produce the same span, the
+    linker folded them onto one address and naming it after whichever owner
+    happened to sort first is the same coin flip. Owners that repeat one symbol
+    are only several TUs compiling one template, and stay nameable.
+    A symbol the ledger already places goes the same way,
     and "places" has to mean BOTH spellings: its own `name` column (check_csv
     refuses one name at two addresses) and any other row's `object-symbol=`
     note, which is where a row that carries a synthetic name records the real
@@ -684,7 +689,13 @@ def wave_name(uni, record, rva, folds, taken, skipped):
     names (the hash is this clone's source path, so the name would churn).
     """
     symbol = record["owners"][0].symbol
-    if folds[symbol] > 1:
+    # The mirror of the check below, and the one that was missing: MANY symbols
+    # matching ONE address is a fold too, and picking one of them to name the
+    # address after is the same invented identity. Owners repeating the SAME
+    # symbol are just several TUs compiling one template and are not a fold.
+    if len(set(owner.symbol for owner in record["owners"])) > 1:
+        skipped["several symbols fold onto this address - landed as ?dup_<rva>"] += 1
+    elif folds[symbol] > 1:
         skipped["ICF class wider than one address — landed as ?dup_<rva>"] += 1
     elif uni.placements[symbol] or symbol in taken:
         skipped["symbol already placed in the ledger — landed as ?dup_<rva>"] += 1
