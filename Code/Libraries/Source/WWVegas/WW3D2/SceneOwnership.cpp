@@ -135,3 +135,14 @@ void BFME2SceneSpatialIndex::Insert(RenderObjClass *obj, int y, int x, int level
     node->Objects.Add(obj, false);
     SceneClass::_bfme_spatial_token(obj) = (((y << 10) | x) << 10) | level;
 }
+
+void SimpleSceneClass::Register(RenderObjClass *obj, RegType reason)
+{
+    switch (reason) {
+    case ON_FRAME_UPDATE: UpdateList.Add(obj); break;
+    case LIGHT: LightList.Add_Tail(obj); break;
+    case RELEASE: ReleaseList.Add(obj); break;
+    case BFME_CHANGED_OBJECT: _bfme_changed_objects.Add(obj); break;
+    case BFME_FORCED_OBJECT: _bfme_forced_objects.Add(obj); break;
+    }
+}

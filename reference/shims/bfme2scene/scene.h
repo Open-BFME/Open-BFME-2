@@ -168,6 +168,8 @@ public:
 		ON_FRAME_UPDATE = 0,
 		LIGHT,
 		RELEASE,
+        BFME_CHANGED_OBJECT = 3,
+        BFME_FORCED_OBJECT = 4,
 	};
 
     // This existing friend access keeps the independently proven token field scoped.

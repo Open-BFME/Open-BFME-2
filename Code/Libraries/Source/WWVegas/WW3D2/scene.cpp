@@ -418,7 +418,6 @@ void SimpleSceneClass::Remove_Render_Object(RenderObjClass * obj)
 }
 
 // byte-exact reconstruction: Code/GameEngine/Source/Common/SimpleSceneClass_Register_Thunk.cpp
-// ?Register@SimpleSceneClass@@UAEXPAVRenderObjClass@@W4RegType@SceneClass@@@Z present-unmatched
 void SimpleSceneClass::Register(RenderObjClass * obj,RegType for_what)
 {
 	switch (for_what) {
