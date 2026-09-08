@@ -271,7 +271,6 @@ void CameraClass::Get_Obj_Space_Bounding_Box(AABoxClass & box) const
  * HISTORY:                                                                                    *
  *   5/29/98    GTH : Created.                                                                 *
  *=============================================================================================*/
-// ?Set_Transform@CameraClass@@ present-unmatched
 void CameraClass::Set_Transform(const Matrix3D &m)	
 { 
 	RenderObjClass::Set_Transform(m);
