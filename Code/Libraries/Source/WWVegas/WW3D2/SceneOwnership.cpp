@@ -118,3 +118,20 @@ void SimpleSceneClass::Remove_Render_Object(RenderObjClass *obj)
     RenderList.Remove(obj);
 }
 
+
+void BFME2SceneSpatialIndex::Insert(RenderObjClass *obj, int y, int x, int level)
+{
+    BFME2SceneSpatialNode *node = Nodes;
+    unsigned mask = Dimension >> 1;
+    unsigned stride = NodeCount >> 2;
+    while (stride) {
+        if (level & mask) break;
+        ++node->DescendantCount;
+        unsigned quadrant = ((y & mask) ? 1 : 0) + ((x & mask) ? 2 : 0);
+        node += quadrant * stride + 1;
+        stride >>= 2;
+        mask >>= 1;
+    }
+    node->Objects.Add(obj, false);
+    SceneClass::_bfme_spatial_token(obj) = (((y << 10) | x) << 10) | level;
+}

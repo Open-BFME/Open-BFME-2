@@ -238,6 +238,7 @@ class BFME2SceneSpatialIndex
 {
 public:
     void Remove(RenderObjClass *obj);
+    void Insert(RenderObjClass *obj, int y, int x, int level);
     float Bounds[6];
     BFME2SceneSpatialNode *Nodes;
     unsigned NodeCount;
