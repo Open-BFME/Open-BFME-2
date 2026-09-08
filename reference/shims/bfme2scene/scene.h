@@ -170,6 +170,9 @@ public:
 		RELEASE,
 	};
 
+    // This existing friend access keeps the independently proven token field scoped.
+    static int &_bfme_spatial_token(RenderObjClass *obj) { return obj->_bfme_unk_8c; }
+
 	virtual void				Register(RenderObjClass * obj,RegType for_what)		= 0;
 	virtual void				Unregister(RenderObjClass * obj,RegType for_what)	= 0;
 
@@ -224,6 +227,24 @@ private:
 ** internal (surrender) representation of the scene.
 */
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/scene.h
+// Flattened four-way spatial hierarchy: constructor and remove/insert pair
+// independently establish node28, pointer18, node-count1C and dimension24.
+struct BFME2SceneSpatialNode
+{
+    int DescendantCount;
+    MultiListClass<RenderObjClass> Objects;
+};
+class BFME2SceneSpatialIndex
+{
+public:
+    void Remove(RenderObjClass *obj);
+    float Bounds[6];
+    BFME2SceneSpatialNode *Nodes;
+    unsigned NodeCount;
+    float InverseExtent;
+    unsigned Dimension;
+};
+
 class SimpleSceneClass : public SceneClass
 {
 public:
@@ -260,7 +281,7 @@ protected:
     // is reconciled; three retail slots before Save/Load are still unmodeled.
     // No complete scene vtable is asserted by this header.
     // Constructor142960 and the add/remove pair prove the field boundaries.
-    unsigned char _bfme_spatial_index[0x28];  // 0x34; internal type unreconstructed
+    BFME2SceneSpatialIndex _bfme_spatial_index; // 0x34; flattened four-way hierarchy
     RefRenderObjListClass RenderList;        // 0x5C
     RefRenderObjListClass UpdateList;        // 0x74
     RefRenderObjListClass LightList;         // 0x8C

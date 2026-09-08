@@ -83,3 +83,27 @@ float SimpleSceneClass::Compute_Point_Visibility
 		return 0.0f;
 	}
 }
+
+void BFME2SceneSpatialIndex::Remove(RenderObjClass *obj)
+{
+    int token = SceneClass::_bfme_spatial_token(obj);
+    int y = token >> 20;
+    int x = (token >> 10) % 1024;
+    int level = token % 1024;
+    unsigned mask = Dimension >> 1;
+    BFME2SceneSpatialNode *node = Nodes;
+    unsigned stride = NodeCount >> 2;
+    while (stride) {
+        if (level & mask) break;
+        --node->DescendantCount;
+        unsigned quadrant = ((x & mask) ? 2 : 0) + ((y & mask) ? 1 : 0);
+        node += quadrant * stride + 1;
+        stride >>= 2;
+        mask >>= 1;
+    }
+    node->Objects.Remove(obj);
+    SceneClass::_bfme_spatial_token(obj) = -1;
+}
+
+typedef char SpatialNodeSizeMatchesRetail[(sizeof(BFME2SceneSpatialNode) == 0x1C) ? 1 : -1];
+typedef char SpatialIndexSizeMatchesRetail[(sizeof(BFME2SceneSpatialIndex) == 0x28) ? 1 : -1];
