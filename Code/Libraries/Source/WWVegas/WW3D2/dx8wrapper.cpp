@@ -2806,7 +2806,7 @@ struct BfmeApplyFVFPrefix {
  unsigned Get_FVF_Size() const { return stride; }
 };
 struct BfmeApplyVertexBuffer {
- unsigned unexaminedPrefix[5]; const BfmeApplyFVFPrefix *format;
+ unsigned unexaminedPrefix[3]; unsigned short vertexCount; unsigned short alignment0; unsigned unexamined10; const BfmeApplyFVFPrefix *format;
  bool usesDeclaration; unsigned char alignment[3];
  IDirect3DVertexBuffer9 *buffer;
 };
@@ -2814,8 +2814,8 @@ struct BfmeApplyIndexBuffer { unsigned unexaminedPrefix[5]; IDirect3DIndexBuffer
 struct BfmeApplyRenderState {
  ShaderClass shader; const VertexMaterialClass *material;
  BfmeApplyTextureRef textures[16]; D3DLIGHT8 lights[4]; bool enables[4];
- Matrix4x4 world,view; unsigned vertexTypes[2],indexType,unexaminedOffsets[2];
- BfmeApplyVertexBuffer *vertexBuffers[2]; BfmeApplyIndexBuffer *indexBuffer;
+ Matrix4x4 world,view; unsigned vertexTypes[2],indexType; unsigned short vertexOffset,vertexCount,indexOffset;
+ BfmeApplyVertexBuffer *vertexBuffers[2]; BfmeApplyIndexBuffer *indexBuffer; unsigned short indexBase;
 };
 extern BfmeApplyRenderState bfmeApplyRenderState;
 extern bool bfmeSkipFixedFunctionState;
@@ -5086,4 +5086,57 @@ void bfmeSetProjectionDepthBias(float bias)
 	}
 	reinterpret_cast<BfmeProjectionDevice9 *>(DX8Wrapper::_Get_D3D_Device8())->SetTransform(D3DTS_PROJECTION,reinterpret_cast<const D3DMATRIX *>(&bfmeProjectionApplied));
 	number_of_DX8_calls++;
+}
+
+// Recovered primitive-drawing ABI and state offsets; see
+// docs/reconstruction/dx8wrapper-draw.md.
+extern bool bfmeOnlyEmissiveDraws;
+void bfmeDrawSortingPrimitive(unsigned,unsigned,unsigned,unsigned,unsigned);
+struct BfmeDrawOps:DX8Wrapper {
+ static void Draw(unsigned primitive_type,unsigned start_index,unsigned polygon_count,unsigned min_vertex_index,unsigned vertex_count,bool indexed);
+};
+void BfmeDrawOps::Draw(unsigned primitive_type,unsigned start_index,unsigned polygon_count,unsigned min_vertex_index,unsigned vertex_count,bool indexed)
+{
+ if (DrawPolygonLowBoundLimit && DrawPolygonLowBoundLimit>=polygon_count) return;
+ if (bfmeOnlyEmissiveDraws) {
+  if (!bfmeApplyRenderState.material) return;
+  Vector3 emissive;
+  bfmeApplyRenderState.material->Get_Emissive(&emissive);
+  if (emissive.X<0.1f && emissive.Y<0.1f && emissive.Z<0.1f) return;
+ }
+ Apply_Render_State_Changes();
+ if (!_Is_Triangle_Draw_Enabled()) return;
+ if (WW3D::Is_Snapshot_Activated()) {
+  unsigned long passes=0;
+  BfmeApplyOps::Device()->ValidateDevice(&passes);
+ }
+ if (vertex_count<3) {
+  min_vertex_index=0;
+  switch (bfmeApplyRenderState.vertexTypes[0]) {
+  case BUFFER_TYPE_DX8:case BUFFER_TYPE_SORTING:
+   vertex_count=bfmeApplyRenderState.vertexBuffers[0]->vertexCount-bfmeApplyRenderState.indexBase-bfmeApplyRenderState.vertexOffset-min_vertex_index;break;
+  case BUFFER_TYPE_DYNAMIC_DX8:case BUFFER_TYPE_DYNAMIC_SORTING:
+   vertex_count=bfmeApplyRenderState.vertexCount;break;
+  }
+ }
+ if (!indexed) {
+  DX8_RECORD_RENDER(polygon_count,vertex_count,bfmeApplyRenderState.shader);DX8_RECORD_DRAW_CALLS();
+  BfmeApplyOps::Device()->DrawPrimitive((D3DPRIMITIVETYPE)primitive_type,min_vertex_index+bfmeApplyRenderState.vertexOffset,polygon_count);number_of_DX8_calls++;
+  return;
+ }
+ switch (bfmeApplyRenderState.vertexTypes[0]) {
+ case BUFFER_TYPE_DX8:case BUFFER_TYPE_DYNAMIC_DX8:
+  switch (bfmeApplyRenderState.indexType) {
+  case BUFFER_TYPE_DX8:case BUFFER_TYPE_DYNAMIC_DX8:
+   DX8_RECORD_RENDER(polygon_count,vertex_count,bfmeApplyRenderState.shader);DX8_RECORD_DRAW_CALLS();
+   BfmeApplyOps::Device()->DrawIndexedPrimitive((D3DPRIMITIVETYPE)primitive_type,bfmeApplyRenderState.indexBase+bfmeApplyRenderState.vertexOffset,min_vertex_index,vertex_count,start_index+bfmeApplyRenderState.indexOffset,polygon_count);number_of_DX8_calls++;break;
+  case BUFFER_TYPE_SORTING:case BUFFER_TYPE_DYNAMIC_SORTING:break;
+  }break;
+ case BUFFER_TYPE_SORTING:case BUFFER_TYPE_DYNAMIC_SORTING:
+  switch (bfmeApplyRenderState.indexType) {
+  case BUFFER_TYPE_SORTING:case BUFFER_TYPE_DYNAMIC_SORTING:
+   bfmeDrawSortingPrimitive(primitive_type,start_index,polygon_count,min_vertex_index,vertex_count);break;
+  case BUFFER_TYPE_DX8:case BUFFER_TYPE_DYNAMIC_DX8:break;
+  }break;
+ }
 }
