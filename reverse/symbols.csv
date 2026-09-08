@@ -1043,3 +1043,4 @@ __RTC_CheckEsp,0x0075A5A2
 ?RenderStreak@StreakRendererClass@@QAEXAAVRenderInfoClass@@ABVMatrix3D@@IPAVVector3@@PAVVector4@@PAMABVSphereClass@@PAI@Z,0x00743700
 ?Set_Texture@StreakRendererClass@@QAEXPAVTextureClass@@@Z,0x001911E0
 ?Set_Animation@Animatable3DObjClass@@UAEXPAVHAnimComboClass@@@Z,0x001A4D90
+?Resize@?$VectorClass@VTCBClass@TCBSpline3DClass@@@@UAE_NHPBVTCBClass@TCBSpline3DClass@@@Z,0x000F0BF1
