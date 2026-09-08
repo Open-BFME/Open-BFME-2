@@ -2657,7 +2657,6 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?Cross_Product_Z@Vector3@@SAMABV1@0@Z,,0x000D46CE,21,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DRoadBuffer.cpp,matched,stlport 4.5.3; placed by masked whole-.text search of the compiled body - single hit
 ?Set_NPatch_Enable@ShaderClass@@QAEXW4NPatchEnableType@1@@Z,,0x0006605E,21,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainTracks.cpp,matched,stlport 4.5.3; placed by masked whole-.text search of the compiled body - single hit
 ?Perp_Dot_Product@Vector2@@SAMABV1@0@Z,,0x0007B32D,21,Code/Libraries/Source/WWVegas/WW3D2/aabtree.cpp,matched,stlport 4.5.3; placed by masked whole-.text search of the compiled body - single hit
-?Set_Additive@RenderObjClass@@UAEXH@Z,,0x001A30F0,21,Code/Libraries/Source/WWVegas/WW3D2/camera.cpp,matched,stlport 4.5.3; placed by masked whole-.text search of the compiled body - single hit
 ?_Reset@DynamicIBAccessClass@@SAX_N@Z,,0x00139070,21,Code/Libraries/Source/WWVegas/WW3D2/dx8indexbuffer.cpp,matched,stlport 4.5.3; placed by masked whole-.text search of the compiled body - single hit
 ??1HAnimClass@@UAE@XZ,,0x00196150,21,Code/Libraries/Source/WWVegas/WW3D2/hanim.cpp,matched,stlport 4.5.3; placed by masked whole-.text search of the compiled body - single hit
 ?Set_Alpha_Test@ShaderClass@@QAEXW4AlphaTestType@1@@Z,,0x00065FC1,21,Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp,matched,stlport 4.5.3; placed by masked whole-.text search of the compiled body - single hit
@@ -3333,10 +3332,7 @@ _XMP_Init,,0x0061BD70,23,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,
 ?Increase_Table_Size@?$IndexClass@HPAUINISection@@@@AAE_NH@Z,,0x00616190,208,Code/Libraries/Source/WWVegas/WWLib/ini.cpp,matched,IndexClass<int INISection*>::Increase_Table_Size; array new/delete fold to the scalar operators
 ?Chunk_ID@LightPersistFactoryClass@@UBEKXZ,,0x00615B60,6,Code/Libraries/Source/WWVegas/WW3D2/light.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 ?Get_Transform@RenderObjClass@@QBEABVMatrix3D@@XZ,,0x00063361,13,Code/Libraries/Source/WWVegas/WW3D2/camera.cpp,matched,ported from exact BFME1 body; unique masked placement
-?Is_In_Scene@RenderObjClass@@UAE_NXZ,,0x0041B7F5,12,Code/Libraries/Source/WWVegas/WW3D2/camera.cpp,matched,ported from exact BFME1 body; unique masked placement
-?Is_Additive@RenderObjClass@@UBEHXZ,,0x0019B080,9,Code/Libraries/Source/WWVegas/WW3D2/camera.cpp,matched,ported from exact BFME1 body; unique masked placement
 ?Is_Alpha@RenderObjClass@@UBEHXZ,,0x0006CF66,9,Code/Libraries/Source/WWVegas/WW3D2/camera.cpp,matched,ported from exact BFME1 body; unique masked placement
-?Get_User_Data@RenderObjClass@@UAEPAXXZ,,0x0021914D,7,Code/Libraries/Source/WWVegas/WW3D2/camera.cpp,matched,ported from exact BFME1 body; unique masked placement
 _XMP_Shift_Left_Bits,,0x0061BBD0,308,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,XMP_Shift_Left_Bits; pinned address plus an emitted body nothing claimed
 ?Uninitialised_Grow@WideStringClass@@AAEXH@Z,,0x00619E30,115,Code/Libraries/Source/WWVegas/WWLib/widestring.cpp,matched,WideStringClass::Uninitialised_Grow; array new folds to the scalar operator
 ?CRC_Memory@@YAKPBEKK@Z,,0x006157D0,51,Code/Libraries/Source/WWVegas/WWLib/realcrc.cpp,matched,CRC_Memory; pinned address plus an emitted body nothing claimed
@@ -4870,3 +4866,6 @@ _gpiProcessTransfers,,0x00738030,69,Code/GameEngine/Source/GameNetwork/GameSpy/g
 _gpiHandleData,,0x00737110,420,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gpiTransfer.c,matched,vendored=gamespy-2004; pinned BFME1 reference including inherited EA edits; unique whole-body match; gpiHandleData
 _gpiProcessTransfer,,0x00737EA0,388,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gpiTransfer.c,matched,vendored=gamespy-2004; pinned BFME1 reference including inherited EA edits; unique whole-body match; gpiProcessTransfer
 _gpiHandleBegin,,0x00736C70,560,Code/GameEngine/Source/GameNetwork/GameSpy/gp/gpiTransfer.c,matched,vendored=gamespy-2004; pinned BFME1 reference including inherited EA edits; unique whole-body match; gpiHandleBegin
+?Is_Additive@RenderObjClass@@UBEHXZ,,0x0006CF83,9,Code/Libraries/Source/WWVegas/WW3D2/camera.cpp,matched,Correct BFME2 additive mask0x00400000; primary RenderObj vtable BD2F68 slot110 and hierarchy aggregation confirm identity
+?Is_In_Scene@RenderObjClass@@UAE_NXZ,,0x0006D01F,9,Code/Libraries/Source/WWVegas/WW3D2/camera.cpp,matched,Correct BFME2 Scene pointer at0x78; primary RenderObj vtable BD2F68 slot123 and copy constructor confirm identity
+?Get_User_Data@RenderObjClass@@UAEPAXXZ,,0x0030C8A7,7,Code/Libraries/Source/WWVegas/WW3D2/camera.cpp,matched,Correct BFME2 UserData pointer at0x80; primary RenderObj vtable BD2F68 slot87 and copy constructor confirm identity
