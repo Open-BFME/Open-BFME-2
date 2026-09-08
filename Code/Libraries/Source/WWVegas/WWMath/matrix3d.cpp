@@ -321,33 +321,6 @@ void Matrix3D::Obj_Look_At(const Vector3 &p,const Vector3 &t,float roll)
 }
 
 
-// ?Get_Orthogonal_Inverse@Matrix3D@@ present-unmatched
-void Matrix3D::Get_Orthogonal_Inverse(Matrix3D & inv) const
-{
-	// Transposing the rotation submatrix
-	inv.Row[0][0] = Row[0][0];
-	inv.Row[0][1] = Row[1][0];
-	inv.Row[0][2] = Row[2][0];
-
-	inv.Row[1][0] = Row[0][1];
-	inv.Row[1][1] = Row[1][1];
-	inv.Row[1][2] = Row[2][1];
-
-	inv.Row[2][0] = Row[0][2];
-	inv.Row[2][1] = Row[1][2];
-	inv.Row[2][2] = Row[2][2];
-
-	// Now, calculate translation portion of matrix:
-	// T' = -R'T
-	Vector3 trans = Get_Translation();
-	trans = inv.Rotate_Vector(trans);
-	trans = -trans;
-
-	inv.Row[0][3] = trans[0];
-	inv.Row[1][3] = trans[1];
-	inv.Row[2][3] = trans[2];
-}
-
 // ?Copy_3x3_Matrix@Matrix3D@@ present-unmatched
 void Matrix3D::Copy_3x3_Matrix(float matrix[3][3])
 {

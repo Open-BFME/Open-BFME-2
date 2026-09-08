@@ -1827,7 +1827,6 @@ _AtlWinModuleTerm@8,,0x000058C3,96,Code/Libraries/Source/ATL/atlbase.cpp,matched
 ?Dot_Product@Vector3@@SAMABV1@0@Z,,0x000663EF,29,Code/Libraries/Source/WWVegas/WWMath/matrix3d.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
 ?Set_Translation@Matrix3D@@QAEXABVVector3@@@Z,,0x0008E15A,24,Code/Libraries/Source/WWVegas/WWMath/matrix3d.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
 ??4Vector4@@QAEAAV0@ABV0@@Z,,0x00133880,31,Code/Libraries/Source/WWVegas/WWMath/matrix3d.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
-??4Vector3@@QAEAAV0@ABV0@@Z,,0x00169FB0,25,Code/Libraries/Source/WWVegas/WWMath/matrix3d.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
 ??0Vector3@@QAE@MMM@Z,,0x006CD510,25,Code/Libraries/Source/WWVegas/WWMath/matrix3d.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
 ??0Vector4@@QAE@MMMM@Z,,0x006D8A30,32,Code/Libraries/Source/WWVegas/WWMath/matrix3d.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
 ?Length2@Vector3@@QBEMXZ,,0x00711C40,31,Code/Libraries/Source/WWVegas/WWMath/matrix3d.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
@@ -5229,3 +5228,5 @@ _chatGetChannelKeysA,,0x006A2B60,224,Code/GameEngine/Source/GameNetwork/GameSpy/
 ?Initialize@BfmeFVFDescriptor@@QAEXII_NI@Z,,0x00181260,488,Code/Libraries/Source/WWVegas/WW3D2/dx8fvf.cpp,matched,Recovered extended FVF initializer: complete 96-byte descriptor with count/basis fields and fifteen-format scan; full 60-byte table and named D3DX9 import independently verified; void ABI
 ??0BfmeFVFDescriptor@@QAE@II_NI@Z,,0x00181550,36,Code/Libraries/Source/WWVegas/WW3D2/dx8fvf.cpp,matched,Complete four-argument descriptor constructor; sole call is independently verified extended FVF initializer; correct this return and ret 16 boundary
 ?Free@HLodClass@@IAEXXZ,,0x0019C230,445,Code/Libraries/Source/WWVegas/WW3D2/hlod.cpp,matched,Explicit global array delete follows retail vector destruction flag2 and caller deallocation; complete445 bytes through RET plus3 excluded CC; all81 prior HLOD bodies preserved
+??4Vector3@@QAEAAV0@ABV0@@Z,,0x00169FB0,25,Code/Libraries/Source/WWVegas/WWMath/matrix3d_inverse.cpp,matched,Unchanged compiler Vector3 assignment moves with its orthogonal-inverse use; same25 verified bytes
+?Get_Orthogonal_Inverse@Matrix3D@@QBEXAAV1@@Z,,0x00712A30,211,Code/Libraries/Source/WWVegas/WWMath/matrix3d_inverse.cpp,matched,Reference rotation transpose and inverse translation in scoped SSE unit; complete211 bytes through RET4 plus13 excluded CC; independently identified from HLOD object bounds call

@@ -60,3 +60,33 @@ void Matrix3D::Get_Inverse(Matrix3D & inv) const
 	inv.Row[2][2]=mat4Inv[2][2];
 	inv.Row[2][3]=mat4Inv[2][3];
 }
+
+// Transpose rotation and apply its inverse to translation using retail SSE.
+void Matrix3D::Get_Orthogonal_Inverse(Matrix3D & inv) const
+{
+	// Transposing the rotation submatrix
+	inv.Row[0][0] = Row[0][0];
+	inv.Row[0][1] = Row[1][0];
+	inv.Row[0][2] = Row[2][0];
+
+	inv.Row[1][0] = Row[0][1];
+	inv.Row[1][1] = Row[1][1];
+	inv.Row[1][2] = Row[2][1];
+
+	inv.Row[2][0] = Row[0][2];
+	inv.Row[2][1] = Row[1][2];
+	inv.Row[2][2] = Row[2][2];
+
+	// Now, calculate translation portion of matrix:
+	// T' = -R'T
+	Vector3 trans = Get_Translation();
+	trans = Vector3(inv.Row[0][0]*trans[0] + inv.Row[0][1]*trans[1] + inv.Row[0][2]*trans[2],
+	                inv.Row[1][0]*trans[0] + inv.Row[1][1]*trans[1] + inv.Row[1][2]*trans[2],
+	                inv.Row[2][0]*trans[0] + inv.Row[2][1]*trans[1] + inv.Row[2][2]*trans[2]);
+	trans = -trans;
+
+	inv.Row[0][3] = trans[0];
+	inv.Row[1][3] = trans[1];
+	inv.Row[2][3] = trans[2];
+}
+
