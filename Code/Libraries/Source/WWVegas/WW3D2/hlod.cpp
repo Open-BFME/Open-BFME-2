@@ -1428,7 +1428,7 @@ void HLodClass::Free(void)
 		Lod[lod].Delete_All();
 	}
 	if (Lod != NULL) {
-		delete[] Lod;
+		::delete[] Lod;
 		Lod = NULL;
 	}
 	LodCount = 0;

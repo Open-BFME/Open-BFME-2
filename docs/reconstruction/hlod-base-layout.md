@@ -18,3 +18,13 @@ matches but requires independently reconstructed Free and Animatable assignment
 callees before it can be claimed. The object-space box also needs the orthogonal
 inverse and matrix-multiply dependency closure. These are not included in the
 initial2066-byte recovery.
+
+## Global array destruction
+
+`HLodClass::Free` is 445 executable bytes at 19C230 followed by 3 alignment bytes.
+The retail vector destructor receives flag 2, returns the allocation pointer, and
+the caller invokes global operator delete[]. The source therefore uses explicit
+`::delete[] Lod` rather than an unqualified delete expression (flag 3 and an
+internal deallocation). This ordinary C++ ownership distinction recovers the
+complete body and preserves all 81 previously matched routines. All four direct
+relocations target the independently held global array deallocator 42FD80.
