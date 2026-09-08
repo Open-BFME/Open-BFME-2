@@ -5759,3 +5759,4 @@ _piCallbacksCleanup,,0x0069EEF0,24,Code/GameEngine/Source/GameNetwork/GameSpy/pe
 ?Invalidate_Archive@?$IndexClass@HPAUINIEntry@@@@ABEXXZ,,0x00196340,8,Code/Libraries/Source/WWVegas/WWLib/ini.cpp,matched,
 ??MNodeElement@?$IndexClass@HPAUINIEntry@@@@QBE_NABU01@@Z,,0x00615D50,18,Code/Libraries/Source/WWVegas/WWLib/ini.cpp,matched,
 ??0?$IndexClass@HPAUINIEntry@@@@QAE@XZ,,0x006160E0,19,Code/Libraries/Source/WWVegas/WWLib/ini.cpp,matched,
+?Internal_Get_List_Head@GenericMultiListClass@@IAEPAVMultiListObjectClass@@XZ,,0x00143DD0,17,Code/Libraries/Source/WWVegas/WWMath/lookuptable.cpp,matched,
