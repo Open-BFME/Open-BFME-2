@@ -1003,15 +1003,23 @@ void MeshMatDescClass::Post_Load_Process(bool lighting_enabled,MeshModelClass * 
 
 // byte-exact reconstruction: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/meshmatdesc.cpp
 // ?Configure_Material@MeshMatDescClass@@IAEXPAVVertexMaterialClass@@H_N@Z present-unmatched
+struct Bfme2MeshMatDescConfigureView {
+	char PaddingToUV[0x30];
+	int UVSource[2][2];
+	char PaddingToColorSources[0x18];
+	VertexMaterialClass::ColorSourceType DCGSource[4];
+	VertexMaterialClass::ColorSourceType DIGSource[4];
+};
+
 void MeshMatDescClass::Configure_Material(VertexMaterialClass * mtl,int pass,bool lighting_enabled)
 {
-	mtl->Set_Diffuse_Color_Source(DCGSource[pass]);
-	mtl->Set_Emissive_Color_Source(DIGSource[pass]);
+	mtl->Set_Diffuse_Color_Source(reinterpret_cast<Bfme2MeshMatDescConfigureView *>(this)->DCGSource[pass]);
+	mtl->Set_Emissive_Color_Source(reinterpret_cast<Bfme2MeshMatDescConfigureView *>(this)->DIGSource[pass]);
 
 	mtl->Set_Lighting(lighting_enabled);
 
 	for (int stage=0; stage<MAX_TEX_STAGES; stage++) {
-		int src = UVSource[pass][stage];
+		int src = reinterpret_cast<Bfme2MeshMatDescConfigureView *>(this)->UVSource[pass][stage];
 		if (src == -1) {
 			src = 0;
 		}
