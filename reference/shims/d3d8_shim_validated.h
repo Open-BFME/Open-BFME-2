@@ -63,10 +63,11 @@ typedef struct _D3DPOINT { long x,y; } D3DPOINT;
 #define D3DFVF_XYZ            0x002
 #define D3DFVF_XYZRHW        0x004
 #define D3DFVF_XYZB1         0x006
-#define D3DFVF_XYZB2         0x007
-#define D3DFVF_XYZB3         0x008
-#define D3DFVF_XYZB4         0x009
-#define D3DFVF_XYZB5         0x00a
+// DirectX 8.1 SDK d3d8types.h: these values encode blend-count position types.
+#define D3DFVF_XYZB2         0x008
+#define D3DFVF_XYZB3         0x00a
+#define D3DFVF_XYZB4         0x00c
+#define D3DFVF_XYZB5         0x00e
 #define D3DFVF_NORMAL        0x010
 #define D3DFVF_DIFFUSE       0x040
 #define D3DFVF_SPECULAR      0x080
