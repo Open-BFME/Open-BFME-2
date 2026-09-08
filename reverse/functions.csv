@@ -5616,6 +5616,7 @@ _piCallbacksCleanup,,0x0069EEF0,24,Code/GameEngine/Source/GameNetwork/GameSpy/pe
 ?Rva00813E30Wrap@@YAHPAVRva00813E30Obj@@@Z,,0x0067FD30,27,Code/GameEngine/Source/Common/Rva00813E30Wrap.cpp,matched,
 ?rva0082BE60FillN@@YAPADPADHABD@Z,,0x00024970,37,Code/GameEngine/Source/Common/Rva0082BE60FillN.cpp,matched,
 ??_GTimeCodedBitChannelClass@@QAEPAXI@Z,,0x0018D200,30,Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp,matched,ported from BFME1; exact target-side structural candidate
+??_G?$VectorClass@VVector3@@@@UAEPAXI@Z,,0x001A3B90,71,Code/Libraries/Source/WWVegas/WW3D2/mesh.cpp,matched,ported from BFME1; exact folded-body identity
 ??_GTimeCodedMotionChannelClass@@QAEPAXI@Z,,0x0018F1A0,30,Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp,matched,ported from BFME1; exact target-side structural candidate
 ??_G?$VectorClass@URendererDataStruct@Render2DSentenceClass@@@@UAEPAXI@Z,,0x001A3B90,71,Code/Libraries/Source/WWVegas/WW3D2/render2dsentence.cpp,matched,ported from BFME1; exact folded-body identity
 ??_G?$VectorClass@USentenceDataStruct@Render2DSentenceClass@@@@UAEPAXI@Z,,0x001A3B90,71,Code/Libraries/Source/WWVegas/WW3D2/render2dsentence.cpp,matched,ported from BFME1; exact folded-body identity
