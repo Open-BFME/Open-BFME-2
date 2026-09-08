@@ -879,3 +879,4 @@ _UCS2ToUTF8StringAlloc,0x0069DC40,GameSpy callee already byte-verified in Code/G
 ??1BfmeSortingVBAccess@@QAE@XZ,0x0013A780,Recovered dynamic vertex-access view; same 24-byte layout and already verified 80-byte BoxDynamicVBAccessClass destructor
 _D3DXGetFVFVertexSize@4,0x0062AFBC,Named PE import thunk: d3dx9_27.dll!D3DXGetFVFVertexSize; complete FF25 thunk resolves IAT VA 0x00BBA9E4
 ??0LineSegClass@@QAE@ABV0@@Z,0x000B2CE5,Exact85-byte implicit LineSeg copy from RayCollisionConstructor object; real Ray ctor55 at6F1A6 calls this copy into Ray member0C; pure13-DWORD ICF body already credited to VehicleCurve ArcInfo assignment and not claimed twice
+??0BfmeDynamicNativeVB@@QAE@IGII@Z,0x0013AC00,Recovered native vertex-buffer constructor; complete 106-byte body calls verified-layout base then Device9 buffer creation; four arguments and 32-byte allocation independently decoded
