@@ -5610,3 +5610,8 @@ _piCallbacksCleanup,,0x0069EEF0,24,Code/GameEngine/Source/GameNetwork/GameSpy/pe
 ?bfmeMoveQK@BfmeThingQK@@QAEXPAD00@Z,,0x00024E30,66,Code/GameEngine/Source/Common/BfmeTwoHundredNinetyFive.cpp,matched,
 ?bfmeLogQO@@YAXPAUBfmeThingQO@@HPBDZZ,,0x00039B30,58,Code/GameEngine/Source/Common/BfmeTwoHundredNinetyEight.cpp,matched,
 ?bfmeGoPA@@YAXPAX000E@Z,,0x00027F30,44,Code/GameEngine/Source/Common/BfmeTwoHundredSixtyFour.cpp,matched,
+?bfmeFillQL@@YAPAPAHPAPAH00@Z,,0x00024650,97,Code/GameEngine/Source/Common/BfmeTwoHundredNinetySix.cpp,matched,
+?bfmeGoDGF@@YAPAVBfmeThingDGF@@PAX@Z,,0x00665050,30,Code/GameEngine/Source/Common/BfmeConv692.cpp,matched,
+?bfmeGoDGG@@YAPAVBfmeThingDGG@@PAX@Z,,0x00667280,33,Code/GameEngine/Source/Common/BfmeConv693.cpp,matched,
+?bfmeGoDGD@@YAPAVBfmeThingDGD@@PAX@Z,,0x00664D20,33,Code/GameEngine/Source/Common/BfmeConv695.cpp,matched,
+?Rva00813E30Wrap@@YAHPAVRva00813E30Obj@@@Z,,0x0067FD30,27,Code/GameEngine/Source/Common/Rva00813E30Wrap.cpp,matched,
