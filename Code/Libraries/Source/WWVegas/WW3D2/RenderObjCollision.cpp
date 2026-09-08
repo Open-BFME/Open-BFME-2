@@ -21,7 +21,6 @@
 
 typedef char RenderObjSizeMatchesRetail[(sizeof(RenderObjClass) == 0xC4) ? 1 : -1];
 
-// ?Set_Collision_Type@RenderObjClass@@UAEXH_N@Z present-unmatched
 void RenderObjClass::Set_Collision_Type(int type, bool recurse)
 {
 	_bfme_unk_14 = type & 0xFFF;
