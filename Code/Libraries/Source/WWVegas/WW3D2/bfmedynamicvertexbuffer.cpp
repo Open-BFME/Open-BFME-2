@@ -194,7 +194,6 @@ public:
 class WW3D { public:static void _Invalidate_Mesh_Cache(); };
 __declspec(noinline) void bfmeEvictManagedResources();
 extern void Log_DX8_ErrorCode(unsigned);
-// ?Create@BfmeDynamicNativeVB@@QAEXI@Z present-unmatched
 void BfmeDynamicNativeVB::Create(unsigned usage)
 {
  BFMEDX8DeviceLock lock;
