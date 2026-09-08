@@ -5571,3 +5571,4 @@ _piCallbacksCleanup,,0x0069EEF0,24,Code/GameEngine/Source/GameNetwork/GameSpy/pe
 ?Rva008143A0Set@@YAXPAVRva008143A0Obj@@H@Z,,0x006802A0,38,Code/GameEngine/Source/Common/Rva008143A0Set.cpp,matched,
 ?Rva00815730Set@@YAXPAVRva00815730Obj@@H@Z,,0x00681630,38,Code/GameEngine/Source/Common/Rva00815730Set.cpp,matched,
 ?get@Rva007F7160@@QAEPAXH@Z,,0x00663850,25,Code/GameEngine/Source/Common/Rva007F7160Get.cpp,matched,
+?get@Rva004781A0@@QAEHPAH0@Z,,0x00313B1D,31,Code/GameEngine/Source/Common/Rva004781A0Get.cpp,matched,
