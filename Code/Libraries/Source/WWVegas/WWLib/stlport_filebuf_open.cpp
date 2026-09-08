@@ -167,3 +167,7 @@ bool _Filebuf_base::_M_open(int file_no,int init_mode) {
  return true;
 }
 }
+
+namespace _STL {
+bool _Filebuf_base::_M_open(const char* name,int mode) { return _M_open(name,mode,0x80); }
+}
