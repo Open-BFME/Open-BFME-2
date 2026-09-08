@@ -5751,3 +5751,5 @@ _piCallbacksCleanup,,0x0069EEF0,24,Code/GameEngine/Source/GameNetwork/GameSpy/pe
 ?Cast_Ray@AABTreeClass@@QAE_NAAVRayCollisionTestClass@@@Z,,0x00168C00,17,Code/Libraries/Source/WWVegas/WW3D2/meshgeometry.cpp,matched,
 ?Cast_AABox@AABTreeClass@@QAE_NAAVAABoxCollisionTestClass@@@Z,,0x00168C20,17,Code/Libraries/Source/WWVegas/WW3D2/meshgeometry.cpp,matched,
 ?Get_Poly_Surface_Type@MeshGeometryClass@@QBEEH@Z,,0x0016A220,16,Code/Libraries/Source/WWVegas/WW3D2/meshgeometry.cpp,matched,
+?Get_Flag@LineGroupClass@@QAEHW4FlagsType@1@@Z,,0x001B36F0,15,Code/Libraries/Source/WWVegas/WW3D2/linegrp.cpp,matched,
+?Get_Element@?$ShareBufferClass@VVector3@@@@QAEAAVVector3@@H@Z,,0x001B3750,16,Code/Libraries/Source/WWVegas/WW3D2/linegrp.cpp,matched,
