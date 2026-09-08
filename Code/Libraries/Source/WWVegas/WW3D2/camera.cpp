@@ -736,7 +736,9 @@ void CameraClass::Device_To_World_Space(const Vector2 & device_coord,Vector3 * w
  * HISTORY:                                                                                    *
  *   1/29/2001  gth : Created.                                                                 *
  *=============================================================================================*/
-// ?Apply@CameraClass@@QAEXXZ present-unmatched
+// Retail byte flag at RVA0x9EDA05 selects the stored projection override.
+// Its broader activation policy is not inferred here.
+extern bool bfmeCameraProjectionOverride;
 void CameraClass::Apply(void)
 {
 	Update_Frustum();
@@ -755,7 +757,11 @@ void CameraClass::Apply(void)
 	DX8Wrapper::Set_Viewport(&vp);
 
 	Matrix4x4 d3dprojection;
-	Get_D3D_Projection_Matrix(&d3dprojection);
+	if (bfmeCameraProjectionOverride) {
+		d3dprojection = AdditionalTransform.Transpose();
+	} else {
+		Get_D3D_Projection_Matrix(&d3dprojection);
+	}
 	DX8Wrapper::Set_Projection_Transform_With_Z_Bias(d3dprojection,ZNear,ZFar);
 	DX8Wrapper::Set_Transform(D3DTS_VIEW,CameraInvTransform);
 }
