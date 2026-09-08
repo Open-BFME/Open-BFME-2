@@ -1061,3 +1061,5 @@ __RTC_CheckEsp,0x0075A5A2
 ??H?$_Deque_iterator@UBfmeE12@@U?$_Const_traits@UBfmeE12@@@_STL@@@_STL@@QBE?AU01@H@Z,0x00584E57
 ?_M_destroy_nodes@?$_Deque_base@UBfmeE12@@V?$allocator@UBfmeE12@@@_STL@@@_STL@@IAEXPAPAUBfmeE12@@0@Z,0x004218F7
 ?clear@?$deque@UBfmeE12@@V?$allocator@UBfmeE12@@@_STL@@@_STL@@QAEXXZ,0x0058592D
+?_M_advance@?$_Deque_iterator_base@UBfmeE16@@@_STL@@QAEXH@Z,0x004217DD
+?_M_subtract@?$_Deque_iterator_base@UBfmeE16@@@_STL@@QBEHABU12@@Z,0x002615C0
