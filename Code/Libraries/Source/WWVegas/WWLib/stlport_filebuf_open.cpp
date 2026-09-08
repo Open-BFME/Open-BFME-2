@@ -46,4 +46,45 @@ namespace _SgI {
 __declspec(noinline) bool __is_regular_file(void* file) {
  return (GetFileType(file)&~0x8000UL)==1;
 }
+struct _StlCriticalSection {
+ void* debug_info;
+ long lock_count;
+ long recursion_count;
+ void* owning_thread;
+ void* lock_semaphore;
+ unsigned long spin_count;
+};
+extern "C" {
+struct ioinfo {
+ long osfhnd;
+ char osfile;
+ char pipech;
+ int lockinitflag;
+ _StlCriticalSection lock;
+};
+extern __declspec(dllimport) ioinfo* __pioinfo[];
+}
+typedef char _AssertIoinfoSize[sizeof(ioinfo)==36?1:-1];
+typedef char _AssertIoinfoFlag[offsetof(ioinfo,osfile)==4?1:-1];
+inline int flag_to_openmode(int mode) {
+ int ret;
+ switch(mode&3) {
+ case 0:ret=8;break;
+ case 1:ret=16;break;
+ case 2:ret=24;break;
+ }
+ if(mode&8) ret|=1;
+ if(mode&0x8000) ret|=4;
+ return ret;
+}
+int _get_osfflags(int fd,void* oshandle) {
+ char dosflags=0;
+ dosflags=__pioinfo[fd>>5][fd&31].osfile;
+ int mode=0;
+ if(dosflags&0x20)mode|=8;
+ if(dosflags&0x80)mode|=0x4000;
+ else mode|=0x8000;
+ if(dosflags&4)mode|=2;
+ return flag_to_openmode(mode);
+}
 }
