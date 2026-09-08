@@ -859,3 +859,6 @@ _ArraySearch,0x0060A690,GameSpy callee already byte-verified in Code/GameEngine/
 _gpiProcessTransfer,0x00737EA0,GameSpy GP callee; independent unique 388-byte source candidate in gpiTransfer.c; direct call from _gpiProcessTransfers corroborates identity
 _gpiProcessCurrentFile,0x00737B00,GameSpy GP callee; independent unique 914-byte source candidate in gpiTransfer.c; direct call from _gpiProcessTransfer corroborates identity
 _MD5Init,0x00606220,GameSpy C-linkage alias; all 40 compiled MD5Init bytes exactly equal the held WWLib C++ body at this address including every RFC1321 initialization word; no relocations
+?Apply@ShaderClass@@AAEXXZ,0x00137590,ShaderClass Apply; independently decoded 2838-byte state-bitfield body corroborated by its unique direct Apply_Render_State_Changes caller
+?Apply@BfmeApplyTextureRef@@QAEXI@Z,0x00132AF8,Recovered nullable texture-holder apply role; complete 139-byte body binds null via Device9 SetTexture or prepares and dispatches the held texture backend
+?Apply@VertexMaterialClass@@ABEXXZ,0x0013D570,VertexMaterialClass Apply; complete 1084-byte material and eight mapper body plus ATI texture-transform fixup independently decoded

@@ -2638,151 +2638,262 @@ void DX8Wrapper::Draw_Strip(
 //
 // ----------------------------------------------------------------------------
 
-// ?Apply_Render_State_Changes@DX8Wrapper@@ present-unmatched
+/*
+ * Copyright (C) 2002-2003 Jason Edmeades
+ *                         Raphael Junqueira
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
+ */
+
+// Device9 method prefix through SetPixelShaderConstantF, in Wine/SDK order.
+// https://github.com/wine-mirror/wine/blob/master/include/d3d9.h
+struct IDirect3D9;
+struct D3DCAPS9;
+struct IDirect3DSurface9;
+struct IDirect3DSwapChain9;
+struct IDirect3DTexture9;
+struct IDirect3DVolumeTexture9;
+struct IDirect3DCubeTexture9;
+struct IDirect3DVertexBuffer9;
+struct IDirect3DIndexBuffer9;
+struct IDirect3DBaseTexture9;
+struct D3DVIEWPORT9;
+struct D3DMATERIAL9;
+struct D3DLIGHT9;
+struct IDirect3DStateBlock9;
+struct D3DCLIPSTATUS9;
+typedef DWORD D3DTEXTUREFILTERTYPE;
+typedef DWORD D3DBACKBUFFER_TYPE;
+typedef DWORD D3DMULTISAMPLE_TYPE;
+typedef DWORD D3DSTATEBLOCKTYPE;
+typedef DWORD D3DSAMPLERSTATETYPE;
+struct RGNDATA;
+struct IDirect3DVertexDeclaration9;
+struct IDirect3DVertexShader9;
+struct IDirect3DPixelShader9;
+struct D3DVERTEXELEMENT9;
+struct BfmeApplyDevice9 {
+    virtual HRESULT __stdcall QueryInterface(REFIID riid, void** ppvObject)=0;
+    virtual ULONG __stdcall AddRef()=0;
+    virtual ULONG __stdcall Release()=0;
+    virtual HRESULT __stdcall TestCooperativeLevel()=0;
+    virtual UINT __stdcall GetAvailableTextureMem()=0;
+    virtual HRESULT __stdcall EvictManagedResources()=0;
+    virtual HRESULT __stdcall GetDirect3D(IDirect3D9** ppD3D9)=0;
+    virtual HRESULT __stdcall GetDeviceCaps(D3DCAPS9* pCaps)=0;
+    virtual HRESULT __stdcall GetDisplayMode(UINT iSwapChain, D3DDISPLAYMODE* pMode)=0;
+    virtual HRESULT __stdcall GetCreationParameters(D3DDEVICE_CREATION_PARAMETERS *pParameters)=0;
+    virtual HRESULT __stdcall SetCursorProperties(UINT XHotSpot, UINT YHotSpot, IDirect3DSurface9* pCursorBitmap)=0;
+    virtual void __stdcall SetCursorPosition(int X,int Y, DWORD Flags)=0;
+    virtual BOOL __stdcall ShowCursor(BOOL bShow)=0;
+    virtual HRESULT __stdcall CreateAdditionalSwapChain(D3DPRESENT_PARAMETERS* pPresentationParameters, IDirect3DSwapChain9** pSwapChain)=0;
+    virtual HRESULT __stdcall GetSwapChain(UINT iSwapChain, IDirect3DSwapChain9** pSwapChain)=0;
+    virtual UINT __stdcall GetNumberOfSwapChains()=0;
+    virtual HRESULT __stdcall Reset(D3DPRESENT_PARAMETERS* pPresentationParameters)=0;
+    virtual HRESULT __stdcall Present(const RECT *src_rect, const RECT *dst_rect, HWND dst_window_override, const RGNDATA *dirty_region)=0;
+    virtual HRESULT __stdcall GetBackBuffer(UINT iSwapChain, UINT iBackBuffer, D3DBACKBUFFER_TYPE Type, IDirect3DSurface9** ppBackBuffer)=0;
+    virtual HRESULT __stdcall GetRasterStatus(UINT iSwapChain, D3DRASTER_STATUS* pRasterStatus)=0;
+    virtual HRESULT __stdcall SetDialogBoxMode(BOOL bEnableDialogs)=0;
+    virtual void __stdcall SetGammaRamp(UINT swapchain_idx, DWORD flags, const D3DGAMMARAMP *ramp)=0;
+    virtual void __stdcall GetGammaRamp(UINT iSwapChain, D3DGAMMARAMP* pRamp)=0;
+    virtual HRESULT __stdcall CreateTexture(UINT Width, UINT Height, UINT Levels, DWORD Usage, D3DFORMAT Format, D3DPOOL Pool, IDirect3DTexture9** ppTexture, HANDLE* pSharedHandle)=0;
+    virtual HRESULT __stdcall CreateVolumeTexture(UINT Width, UINT Height, UINT Depth, UINT Levels, DWORD Usage, D3DFORMAT Format, D3DPOOL Pool, IDirect3DVolumeTexture9** ppVolumeTexture, HANDLE* pSharedHandle)=0;
+    virtual HRESULT __stdcall CreateCubeTexture(UINT EdgeLength, UINT Levels, DWORD Usage, D3DFORMAT Format, D3DPOOL Pool, IDirect3DCubeTexture9** ppCubeTexture, HANDLE* pSharedHandle)=0;
+    virtual HRESULT __stdcall CreateVertexBuffer(UINT Length, DWORD Usage, DWORD FVF, D3DPOOL Pool, IDirect3DVertexBuffer9** ppVertexBuffer, HANDLE* pSharedHandle)=0;
+    virtual HRESULT __stdcall CreateIndexBuffer(UINT Length, DWORD Usage, D3DFORMAT Format, D3DPOOL Pool, IDirect3DIndexBuffer9** ppIndexBuffer, HANDLE* pSharedHandle)=0;
+    virtual HRESULT __stdcall CreateRenderTarget(UINT Width, UINT Height, D3DFORMAT Format, D3DMULTISAMPLE_TYPE MultiSample, DWORD MultisampleQuality, BOOL Lockable, IDirect3DSurface9** ppSurface, HANDLE* pSharedHandle)=0;
+    virtual HRESULT __stdcall CreateDepthStencilSurface(UINT Width, UINT Height, D3DFORMAT Format, D3DMULTISAMPLE_TYPE MultiSample, DWORD MultisampleQuality, BOOL Discard, IDirect3DSurface9** ppSurface, HANDLE* pSharedHandle)=0;
+    virtual HRESULT __stdcall UpdateSurface(IDirect3DSurface9 *src_surface, const RECT *src_rect, IDirect3DSurface9 *dst_surface, const POINT *dst_point)=0;
+    virtual HRESULT __stdcall UpdateTexture(IDirect3DBaseTexture9* pSourceTexture, IDirect3DBaseTexture9* pDestinationTexture)=0;
+    virtual HRESULT __stdcall GetRenderTargetData(IDirect3DSurface9* pRenderTarget, IDirect3DSurface9* pDestSurface)=0;
+    virtual HRESULT __stdcall GetFrontBufferData(UINT iSwapChain, IDirect3DSurface9* pDestSurface)=0;
+    virtual HRESULT __stdcall StretchRect(IDirect3DSurface9 *src_surface, const RECT *src_rect, IDirect3DSurface9 *dst_surface, const RECT *dst_rect, D3DTEXTUREFILTERTYPE filter)=0;
+    virtual HRESULT __stdcall ColorFill(IDirect3DSurface9 *surface, const RECT *rect, D3DCOLOR color)=0;
+    virtual HRESULT __stdcall CreateOffscreenPlainSurface(UINT Width, UINT Height, D3DFORMAT Format, D3DPOOL Pool, IDirect3DSurface9** ppSurface, HANDLE* pSharedHandle)=0;
+    virtual HRESULT __stdcall SetRenderTarget(DWORD RenderTargetIndex, IDirect3DSurface9* pRenderTarget)=0;
+    virtual HRESULT __stdcall GetRenderTarget(DWORD RenderTargetIndex, IDirect3DSurface9** ppRenderTarget)=0;
+    virtual HRESULT __stdcall SetDepthStencilSurface(IDirect3DSurface9* pNewZStencil)=0;
+    virtual HRESULT __stdcall GetDepthStencilSurface(IDirect3DSurface9** ppZStencilSurface)=0;
+    virtual HRESULT __stdcall BeginScene()=0;
+    virtual HRESULT __stdcall EndScene()=0;
+    virtual HRESULT __stdcall Clear(DWORD rect_count, const D3DRECT *rects, DWORD flags, D3DCOLOR color, float z, DWORD stencil)=0;
+    virtual HRESULT __stdcall SetTransform(D3DTRANSFORMSTATETYPE state, const D3DMATRIX *matrix)=0;
+    virtual HRESULT __stdcall GetTransform(D3DTRANSFORMSTATETYPE State, D3DMATRIX* pMatrix)=0;
+    virtual HRESULT __stdcall MultiplyTransform(D3DTRANSFORMSTATETYPE state, const D3DMATRIX *matrix)=0;
+    virtual HRESULT __stdcall SetViewport(const D3DVIEWPORT9 *viewport)=0;
+    virtual HRESULT __stdcall GetViewport(D3DVIEWPORT9* pViewport)=0;
+    virtual HRESULT __stdcall SetMaterial(const D3DMATERIAL9 *material)=0;
+    virtual HRESULT __stdcall GetMaterial(D3DMATERIAL9* pMaterial)=0;
+    virtual HRESULT __stdcall SetLight(DWORD index, const D3DLIGHT9 *light)=0;
+    virtual HRESULT __stdcall GetLight(DWORD Index, D3DLIGHT9*)=0;
+    virtual HRESULT __stdcall LightEnable(DWORD Index, BOOL Enable)=0;
+    virtual HRESULT __stdcall GetLightEnable(DWORD Index, BOOL* pEnable)=0;
+    virtual HRESULT __stdcall SetClipPlane(DWORD index, const float *plane)=0;
+    virtual HRESULT __stdcall GetClipPlane(DWORD Index, float* pPlane)=0;
+    virtual HRESULT __stdcall SetRenderState(D3DRENDERSTATETYPE State, DWORD Value)=0;
+    virtual HRESULT __stdcall GetRenderState(D3DRENDERSTATETYPE State, DWORD* pValue)=0;
+    virtual HRESULT __stdcall CreateStateBlock(D3DSTATEBLOCKTYPE Type, IDirect3DStateBlock9** ppSB)=0;
+    virtual HRESULT __stdcall BeginStateBlock()=0;
+    virtual HRESULT __stdcall EndStateBlock(IDirect3DStateBlock9** ppSB)=0;
+    virtual HRESULT __stdcall SetClipStatus(const D3DCLIPSTATUS9 *clip_status)=0;
+    virtual HRESULT __stdcall GetClipStatus(D3DCLIPSTATUS9* pClipStatus)=0;
+    virtual HRESULT __stdcall GetTexture(DWORD Stage, IDirect3DBaseTexture9** ppTexture)=0;
+    virtual HRESULT __stdcall SetTexture(DWORD Stage, IDirect3DBaseTexture9* pTexture)=0;
+    virtual HRESULT __stdcall GetTextureStageState(DWORD Stage, D3DTEXTURESTAGESTATETYPE Type, DWORD* pValue)=0;
+    virtual HRESULT __stdcall SetTextureStageState(DWORD Stage, D3DTEXTURESTAGESTATETYPE Type, DWORD Value)=0;
+    virtual HRESULT __stdcall GetSamplerState(DWORD Sampler, D3DSAMPLERSTATETYPE Type, DWORD* pValue)=0;
+    virtual HRESULT __stdcall SetSamplerState(DWORD Sampler, D3DSAMPLERSTATETYPE Type, DWORD Value)=0;
+    virtual HRESULT __stdcall ValidateDevice(DWORD* pNumPasses)=0;
+    virtual HRESULT __stdcall SetPaletteEntries(UINT palette_idx, const PALETTEENTRY *entries)=0;
+    virtual HRESULT __stdcall GetPaletteEntries(UINT PaletteNumber,PALETTEENTRY* pEntries)=0;
+    virtual HRESULT __stdcall SetCurrentTexturePalette(UINT PaletteNumber)=0;
+    virtual HRESULT __stdcall GetCurrentTexturePalette(UINT *PaletteNumber)=0;
+    virtual HRESULT __stdcall SetScissorRect(const RECT *rect)=0;
+    virtual HRESULT __stdcall GetScissorRect(RECT* pRect)=0;
+    virtual HRESULT __stdcall SetSoftwareVertexProcessing(BOOL bSoftware)=0;
+    virtual BOOL __stdcall GetSoftwareVertexProcessing()=0;
+    virtual HRESULT __stdcall SetNPatchMode(float nSegments)=0;
+    virtual float __stdcall GetNPatchMode()=0;
+    virtual HRESULT __stdcall DrawPrimitive(D3DPRIMITIVETYPE PrimitiveType, UINT StartVertex, UINT PrimitiveCount)=0;
+    virtual HRESULT __stdcall DrawIndexedPrimitive(D3DPRIMITIVETYPE, INT BaseVertexIndex, UINT MinVertexIndex, UINT NumVertices, UINT startIndex, UINT primCount)=0;
+    virtual HRESULT __stdcall DrawPrimitiveUP(D3DPRIMITIVETYPE primitive_type, UINT primitive_count, const void *data, UINT stride)=0;
+    virtual HRESULT __stdcall DrawIndexedPrimitiveUP(D3DPRIMITIVETYPE primitive_type, UINT min_vertex_idx, UINT vertex_count, UINT primitive_count, const void *index_data, D3DFORMAT index_format, const void *data, UINT stride)=0;
+    virtual HRESULT __stdcall ProcessVertices(UINT SrcStartIndex, UINT DestIndex, UINT VertexCount, IDirect3DVertexBuffer9* pDestBuffer, IDirect3DVertexDeclaration9* pVertexDecl, DWORD Flags)=0;
+    virtual HRESULT __stdcall CreateVertexDeclaration(const D3DVERTEXELEMENT9 *elements, IDirect3DVertexDeclaration9 **declaration)=0;
+    virtual HRESULT __stdcall SetVertexDeclaration(IDirect3DVertexDeclaration9* pDecl)=0;
+    virtual HRESULT __stdcall GetVertexDeclaration(IDirect3DVertexDeclaration9** ppDecl)=0;
+    virtual HRESULT __stdcall SetFVF(DWORD FVF)=0;
+    virtual HRESULT __stdcall GetFVF(DWORD* pFVF)=0;
+    virtual HRESULT __stdcall CreateVertexShader(const DWORD *byte_code, IDirect3DVertexShader9 **shader)=0;
+    virtual HRESULT __stdcall SetVertexShader(IDirect3DVertexShader9* pShader)=0;
+    virtual HRESULT __stdcall GetVertexShader(IDirect3DVertexShader9** ppShader)=0;
+    virtual HRESULT __stdcall SetVertexShaderConstantF(UINT reg_idx, const float *data, UINT count)=0;
+    virtual HRESULT __stdcall GetVertexShaderConstantF(UINT StartRegister, float* pConstantData, UINT Vector4fCount)=0;
+    virtual HRESULT __stdcall SetVertexShaderConstantI(UINT reg_idx, const int *data, UINT count)=0;
+    virtual HRESULT __stdcall GetVertexShaderConstantI(UINT StartRegister, int* pConstantData, UINT Vector4iCount)=0;
+    virtual HRESULT __stdcall SetVertexShaderConstantB(UINT reg_idx, const BOOL *data, UINT count)=0;
+    virtual HRESULT __stdcall GetVertexShaderConstantB(UINT StartRegister, BOOL* pConstantData, UINT BoolCount)=0;
+    virtual HRESULT __stdcall SetStreamSource(UINT StreamNumber, IDirect3DVertexBuffer9* pStreamData, UINT OffsetInBytes, UINT Stride)=0;
+    virtual HRESULT __stdcall GetStreamSource(UINT StreamNumber, IDirect3DVertexBuffer9** ppStreamData, UINT* OffsetInBytes, UINT* pStride)=0;
+    virtual HRESULT __stdcall SetStreamSourceFreq(UINT StreamNumber, UINT Divider)=0;
+    virtual HRESULT __stdcall GetStreamSourceFreq(UINT StreamNumber, UINT* Divider)=0;
+    virtual HRESULT __stdcall SetIndices(IDirect3DIndexBuffer9* pIndexData)=0;
+    virtual HRESULT __stdcall GetIndices(IDirect3DIndexBuffer9** ppIndexData)=0;
+    virtual HRESULT __stdcall CreatePixelShader(const DWORD *byte_code, IDirect3DPixelShader9 **shader)=0;
+    virtual HRESULT __stdcall SetPixelShader(IDirect3DPixelShader9* pShader)=0;
+    virtual HRESULT __stdcall GetPixelShader(IDirect3DPixelShader9** ppShader)=0;
+    virtual HRESULT __stdcall SetPixelShaderConstantF(UINT reg_idx, const float *data, UINT count)=0;
+};
+
+// Recovered field views: only the fields used below are assigned roles.
+// See docs/reconstruction/dx8wrapper-state-changes.md.
+struct BfmeApplyTextureRef { BfmeResetResource *pointer; void Apply(unsigned); };
+struct BfmeApplyFVFPrefix {
+ unsigned fvf,unknown[2],stride;
+ unsigned Get_FVF() const { return fvf; }
+ unsigned Get_FVF_Size() const { return stride; }
+};
+struct BfmeApplyVertexBuffer {
+ unsigned unexaminedPrefix[5]; const BfmeApplyFVFPrefix *format;
+ bool usesDeclaration; unsigned char alignment[3];
+ IDirect3DVertexBuffer9 *buffer;
+};
+struct BfmeApplyIndexBuffer { unsigned unexaminedPrefix[5]; IDirect3DIndexBuffer9 *buffer; };
+struct BfmeApplyRenderState {
+ ShaderClass shader; const VertexMaterialClass *material;
+ BfmeApplyTextureRef textures[16]; D3DLIGHT8 lights[4]; bool enables[4];
+ Matrix4x4 world,view; unsigned vertexTypes[2],indexType,unexaminedOffsets[2];
+ BfmeApplyVertexBuffer *vertexBuffers[2]; BfmeApplyIndexBuffer *indexBuffer;
+};
+extern BfmeApplyRenderState bfmeApplyRenderState;
+extern bool bfmeSkipFixedFunctionState;
+struct BfmeApplyOps:DX8Wrapper {
+ static __forceinline BfmeApplyDevice9 *Device() { return reinterpret_cast<BfmeApplyDevice9 *>(_Get_D3D_Device8()); }
+ static __forceinline void Light(unsigned index,D3DLIGHT8 *light) {
+  if (light) {
+   DX8_RECORD_LIGHT_CHANGE();
+   Device()->SetLight(index,reinterpret_cast<D3DLIGHT9 *>(light));number_of_DX8_calls++;
+   Device()->LightEnable(index,TRUE);number_of_DX8_calls++;
+   CurrentDX8LightEnables[index]=true;
+  } else if (CurrentDX8LightEnables[index]) {
+   DX8_RECORD_LIGHT_CHANGE();CurrentDX8LightEnables[index]=false;
+   Device()->LightEnable(index,FALSE);number_of_DX8_calls++;
+  }
+ }
+ static __forceinline void Transform(D3DTRANSFORMSTATETYPE type,const Matrix4x4&matrix) {
+  DX8_RECORD_MATRIX_CHANGE();
+  Device()->SetTransform(type,reinterpret_cast<const D3DMATRIX *>(&matrix));number_of_DX8_calls++;
+ }
+};
 void DX8Wrapper::Apply_Render_State_Changes()
 {
-	SNAPSHOT_SAY(("DX8Wrapper::Apply_Render_State_Changes()\n"));
-	
-	if (!render_state_changed) return;
-	if (render_state_changed&SHADER_CHANGED) {
-		SNAPSHOT_SAY(("DX8 - apply shader\n"));
-		render_state.shader.Apply();
-	}
-
-	unsigned mask=TEXTURE0_CHANGED;
-	for (int i=0;i<CurrentCaps->Get_Max_Textures_Per_Pass();++i,mask<<=1) 
-	{
-		if (render_state_changed&mask) 
-		{
-			SNAPSHOT_SAY(("DX8 - apply texture %d (%s)\n",i,render_state.Textures[i] ? render_state.Textures[i]->Get_Full_Path() : "NULL"));
-
-			if (render_state.Textures[i]) 
-			{
-				render_state.Textures[i]->Apply(i);
-			}
-			else 
-			{
-				TextureBaseClass::Apply_Null(i);
-			}
-		}
-	}
-
-	if (render_state_changed&MATERIAL_CHANGED) 
-	{
-		SNAPSHOT_SAY(("DX8 - apply material\n"));
-		VertexMaterialClass* material=const_cast<VertexMaterialClass*>(render_state.material);
-		if (material) 
-		{
-			material->Apply();
-		}
-		else VertexMaterialClass::Apply_Null();
-	}
-
-	if (render_state_changed&LIGHTS_CHANGED)
-	{
-		unsigned mask=LIGHT0_CHANGED;
-		for (unsigned index=0;index<4;++index,mask<<=1) {
-			if (render_state_changed&mask) {
-				SNAPSHOT_SAY(("DX8 - apply light %d\n",index));
-				if (render_state.LightEnable[index]) {
-#ifdef MESH_RENDER_SNAPSHOT_ENABLED		
-					if ( WW3D::Is_Snapshot_Activated() ) {
-						D3DLIGHT8 * light = &(render_state.Lights[index]);
-						static char * _light_types[] = { "Unknown", "Point","Spot", "Directional" };
-						WWASSERT((light->Type >= 0) && (light->Type <= 3));					
-
-						SNAPSHOT_SAY((" type = %s amb = %4.2f,%4.2f,%4.2f  diff = %4.2f,%4.2f,%4.2f spec = %4.2f, %4.2f, %4.2f\n",
-							_light_types[light->Type],
-							light->Ambient.r,light->Ambient.g,light->Ambient.b,
-							light->Diffuse.r,light->Diffuse.g,light->Diffuse.b,
-							light->Specular.r,light->Specular.g,light->Specular.b ));
-						SNAPSHOT_SAY((" pos = %f, %f, %f  dir = %f, %f, %f\n",
-							light->Position.x, light->Position.y, light->Position.z,
-							light->Direction.x, light->Direction.y, light->Direction.z ));
-					}
-#endif
-
-					Set_DX8_Light(index,&render_state.Lights[index]);
-				}
-				else {
-					Set_DX8_Light(index,NULL);
-					SNAPSHOT_SAY((" clearing light to NULL\n"));
-				}
-			}
-		}
-	}
-
-	if (render_state_changed&WORLD_CHANGED) {
-		SNAPSHOT_SAY(("DX8 - apply world matrix\n"));
-		_Set_DX8_Transform(D3DTS_WORLD,render_state.world);
-	}
-	if (render_state_changed&VIEW_CHANGED) {
-		SNAPSHOT_SAY(("DX8 - apply view matrix\n"));
-		_Set_DX8_Transform(D3DTS_VIEW,render_state.view);
-	}
-	if (render_state_changed&VERTEX_BUFFER_CHANGED) {
-		SNAPSHOT_SAY(("DX8 - apply vb change\n"));
-		for (i=0;i<MAX_VERTEX_STREAMS;++i) {
-			if (render_state.vertex_buffers[i]) {
-				switch (render_state.vertex_buffer_types[i]) {//->Type()) {
-				case BUFFER_TYPE_DX8:
-				case BUFFER_TYPE_DYNAMIC_DX8:
-					DX8CALL(SetStreamSource(
-						i,
-						static_cast<DX8VertexBufferClass*>(render_state.vertex_buffers[i])->Get_DX8_Vertex_Buffer(),
-						render_state.vertex_buffers[i]->FVF_Info().Get_FVF_Size()));
-					DX8_RECORD_VERTEX_BUFFER_CHANGE();
-					{
-						// If the VB format is FVF, set the FVF as a vertex shader
-						unsigned fvf=render_state.vertex_buffers[i]->FVF_Info().Get_FVF();
-						if (fvf!=0) {
-							Set_Vertex_Shader(fvf);
-						}
-					}
-					break;
-				case BUFFER_TYPE_SORTING:
-				case BUFFER_TYPE_DYNAMIC_SORTING:
-					break;
-				default:
-					WWASSERT(0);
-				}
-			} else {
-				DX8CALL(SetStreamSource(i,NULL,0));
-				DX8_RECORD_VERTEX_BUFFER_CHANGE();
-			}
-		}
-	}
-	if (render_state_changed&INDEX_BUFFER_CHANGED) {
-		SNAPSHOT_SAY(("DX8 - apply ib change\n"));
-		if (render_state.index_buffer) {
-			switch (render_state.index_buffer_type) {//->Type()) {
-			case BUFFER_TYPE_DX8:
-			case BUFFER_TYPE_DYNAMIC_DX8:
-				DX8CALL(SetIndices(
-					static_cast<DX8IndexBufferClass*>(render_state.index_buffer)->Get_DX8_Index_Buffer(),
-					render_state.index_base_offset+render_state.vba_offset));
-				DX8_RECORD_INDEX_BUFFER_CHANGE();
-				break;
-			case BUFFER_TYPE_SORTING:
-			case BUFFER_TYPE_DYNAMIC_SORTING:
-				break;
-			default:
-				WWASSERT(0);
-			}
-		}
-		else {
-			DX8CALL(SetIndices(
-				NULL,
-				0));
-			DX8_RECORD_INDEX_BUFFER_CHANGE();
-		}
-	}
-
-	render_state_changed&=((unsigned)WORLD_IDENTITY|(unsigned)VIEW_IDENTITY);
-
-	SNAPSHOT_SAY(("DX8Wrapper::Apply_Render_State_Changes() - finished\n"));
+ if (!render_state_changed) return;
+ if (!bfmeSkipFixedFunctionState) {
+  if (render_state_changed&SHADER_CHANGED) bfmeApplyRenderState.shader.Apply();
+  unsigned mask=TEXTURE0_CHANGED;
+  for (int i=0;i<reinterpret_cast<BfmeEnumerationCaps *>(CurrentCaps)->MaxTexturesPerPass;++i,mask<<=1) {
+   if (render_state_changed&mask) bfmeApplyRenderState.textures[i].Apply(i);
+  }
+  if (render_state_changed&MATERIAL_CHANGED) {
+   VertexMaterialClass *material=const_cast<VertexMaterialClass *>(bfmeApplyRenderState.material);
+   if (material) material->Apply();else VertexMaterialClass::Apply_Null();
+  }
+  if (render_state_changed&LIGHTS_CHANGED) {
+   unsigned mask=LIGHT0_CHANGED;
+   for (unsigned index=0;index<4;++index,mask<<=1) {
+    if (render_state_changed&mask) {
+     if (bfmeApplyRenderState.enables[index]) BfmeApplyOps::Light(index,&bfmeApplyRenderState.lights[index]);
+     else BfmeApplyOps::Light(index,NULL);
+    }
+   }
+  }
+  if (render_state_changed&WORLD_CHANGED) BfmeApplyOps::Transform(D3DTS_WORLD,bfmeApplyRenderState.world);
+  if (render_state_changed&VIEW_CHANGED) BfmeApplyOps::Transform(D3DTS_VIEW,bfmeApplyRenderState.view);
+ }
+ if (render_state_changed&VERTEX_BUFFER_CHANGED) {
+  for (unsigned i=0;i<2;++i) {
+   if (bfmeApplyRenderState.vertexBuffers[i]) {
+    switch (bfmeApplyRenderState.vertexTypes[i]) {
+    case BUFFER_TYPE_DX8: case BUFFER_TYPE_DYNAMIC_DX8:
+     BfmeApplyOps::Device()->SetStreamSource(i,bfmeApplyRenderState.vertexBuffers[i]->buffer,0,bfmeApplyRenderState.vertexBuffers[i]->format->Get_FVF_Size());number_of_DX8_calls++;
+     DX8_RECORD_VERTEX_BUFFER_CHANGE();
+     if (!bfmeApplyRenderState.vertexBuffers[i]->usesDeclaration) {
+      BfmeApplyOps::Device()->SetFVF(bfmeApplyRenderState.vertexBuffers[i]->format->Get_FVF());number_of_DX8_calls++;
+     }
+     break;
+    case BUFFER_TYPE_SORTING: case BUFFER_TYPE_DYNAMIC_SORTING:break;
+    }
+   } else {
+    BfmeApplyOps::Device()->SetStreamSource(i,NULL,0,0);number_of_DX8_calls++;DX8_RECORD_VERTEX_BUFFER_CHANGE();
+   }
+  }
+ }
+ if (render_state_changed&INDEX_BUFFER_CHANGED) {
+  if (bfmeApplyRenderState.indexBuffer) {
+   switch (bfmeApplyRenderState.indexType) {
+   case BUFFER_TYPE_DX8:case BUFFER_TYPE_DYNAMIC_DX8:
+    BfmeApplyOps::Device()->SetIndices(bfmeApplyRenderState.indexBuffer->buffer);number_of_DX8_calls++;DX8_RECORD_INDEX_BUFFER_CHANGE();break;
+   case BUFFER_TYPE_SORTING:case BUFFER_TYPE_DYNAMIC_SORTING:break;
+   }
+  } else {
+   BfmeApplyOps::Device()->SetIndices(NULL);number_of_DX8_calls++;DX8_RECORD_INDEX_BUFFER_CHANGE();
+  }
+ }
+ if (bfmeSkipFixedFunctionState) render_state_changed&=0xCC3FF;
+ else render_state_changed&=((unsigned)WORLD_IDENTITY|(unsigned)VIEW_IDENTITY);
 }
-
 IDirect3DTexture8 * DX8Wrapper::_Create_DX8_Texture
 (
 	unsigned int width,
