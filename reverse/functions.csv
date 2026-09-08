@@ -5606,3 +5606,4 @@ _piCallbacksCleanup,,0x0069EEF0,24,Code/GameEngine/Source/GameNetwork/GameSpy/pe
 ?bfmeSwapQH@@YAXPAH0@Z,,0x00025A80,70,Code/GameEngine/Source/Common/BfmeTwoHundredNinetyTwo.cpp,matched,
 ?bfmeMakeQG@BfmeThingQG@@QAEXIPBH@Z,,0x000250C0,63,Code/GameEngine/Source/Common/BfmeTwoHundredNinetyOne.cpp,matched,
 ?bfmeMakePV@@YAXI@Z,,0x000245D0,54,Code/GameEngine/Source/Common/BfmeTwoHundredEightyTwo.cpp,matched,
+?bfmeGoPW@BfmeThingPW@@QAEXPAD@Z,,0x00026880,56,Code/GameEngine/Source/Common/BfmeTwoHundredEightyThree.cpp,matched,
