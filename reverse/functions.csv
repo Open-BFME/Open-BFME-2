@@ -5753,3 +5753,6 @@ _piCallbacksCleanup,,0x0069EEF0,24,Code/GameEngine/Source/GameNetwork/GameSpy/pe
 ?Get_Poly_Surface_Type@MeshGeometryClass@@QBEEH@Z,,0x0016A220,16,Code/Libraries/Source/WWVegas/WW3D2/meshgeometry.cpp,matched,
 ?Get_Flag@LineGroupClass@@QAEHW4FlagsType@1@@Z,,0x001B36F0,15,Code/Libraries/Source/WWVegas/WW3D2/linegrp.cpp,matched,
 ?Get_Element@?$ShareBufferClass@VVector3@@@@QAEAAVVector3@@H@Z,,0x001B3750,16,Code/Libraries/Source/WWVegas/WW3D2/linegrp.cpp,matched,
+?Set_Hierarchy_Valid@Animatable3DObjClass@@IBEX_N@Z,,0x0019B0D0,13,Code/Libraries/Source/WWVegas/WW3D2/animobj.cpp,matched,
+?Peek_Animation@Animatable3DObjClass@@UAEPAVHAnimClass@@XZ,,0x001A4DC0,19,Code/Libraries/Source/WWVegas/WW3D2/animobj.cpp,matched,
+?Set_Animation_Frame_Rate_Multiplier@Animatable3DObjClass@@UAEXM@Z,,0x001A5440,17,Code/Libraries/Source/WWVegas/WW3D2/animobj.cpp,matched,
