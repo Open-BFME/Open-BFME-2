@@ -4,6 +4,8 @@
 // STLport 4.5.3 _Filebuf_base, the Win32 half of basic_filebuf. The handle,
 // the mapping handle, the open mode and the two open flags sit at 0, 4, 8,
 // 0x0C and 0x0D, which is what every one of these bodies indexes.
+// All three flags retain the original _fstream.h unsigned-char storage;
+// their values are normalized only at Boolean interfaces.
 
 #include <stddef.h>
 
@@ -67,8 +69,9 @@ protected:
 	void *_M_file_id;
 	void *_M_view_id;
 	int _M_openmode;
-	bool _M_is_open;
-	bool _M_should_close;
+	unsigned char _M_is_open;
+	unsigned char _M_should_close;
+	unsigned char _M_regular_file;
 
 	static unsigned long _M_page_size;
 };
