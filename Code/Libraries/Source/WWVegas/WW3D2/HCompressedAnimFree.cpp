@@ -30,3 +30,8 @@ class HCompressedAnimClass {
     BFME2CompressedMotionChannels *VectorMotion;
     void Free();
 };
+BFME2CompressedMotionChannels::~BFME2CompressedMotionChannels()
+{
+    if (Visibility) delete Visibility;
+    for (int i = 0; i < 5; ++i) ::delete Channels[i];
+}
