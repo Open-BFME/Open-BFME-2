@@ -47,3 +47,12 @@ void SimpleSceneClass::Add_Render_Object(RenderObjClass *obj)
         _bfme_forced_objects.Add(obj);
     }
 }
+
+// Peek retains ownership until the virtual removal path has unlinked the object.
+void SimpleSceneClass::Remove_All_Render_Objects(void)
+{
+    RenderObjClass *obj;
+    while ((obj = RenderList.Peek_Head()) != NULL) {
+        Remove_Render_Object(obj);
+    }
+}

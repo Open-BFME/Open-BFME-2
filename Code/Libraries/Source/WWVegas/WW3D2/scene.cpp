@@ -366,7 +366,6 @@ SimpleSceneClass::~SimpleSceneClass(void)
  * HISTORY:                                                                                    *
  *   8/27/2001  hy : Created.                                                                  *
  *=============================================================================================*/
-// ?Remove_All_Render_Objects@SimpleSceneClass@@UAEXXZ present-unmatched
 void SimpleSceneClass::Remove_All_Render_Objects(void)
 {
 	RenderObjClass * obj;
