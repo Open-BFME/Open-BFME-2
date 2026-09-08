@@ -1050,3 +1050,6 @@ __RTC_CheckEsp,0x0075A5A2
 ??$swap@V?$_STLP_alloc_proxy@PAUBfmeE12@@U1@V?$allocator@UBfmeE12@@@_STL@@@_STL@@@_STL@@YAXAAV?$_STLP_alloc_proxy@PAUBfmeE12@@U1@V?$allocator@UBfmeE12@@@_STL@@@0@0@Z,0x00574B2D
 ??0?$_STLP_alloc_proxy@PAUBfmeE12@@U1@V?$allocator@UBfmeE12@@@_STL@@@_STL@@QAE@ABV?$allocator@UBfmeE12@@@1@PAUBfmeE12@@@Z,0x00007410
 ?_M_insert_overflow@?$vector@UBfmeE16@@V?$allocator@UBfmeE16@@@_STL@@@_STL@@IAEXPAUBfmeE16@@ABU3@ABU__false_type@2@I_N@Z,0x005B3970
+??$_M_find@H@?$_Rb_tree@HU?$pair@$$CBHPAX@_STL@@U?$_Select1st@U?$pair@$$CBHPAX@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHPAX@_STL@@@2@@_STL@@ABEPAU?$_Rb_tree_node@U?$pair@$$CBHPAX@_STL@@@1@ABH@Z,0x00357180
+?_M_lower_bound@?$_Rb_tree@HU?$pair@$$CBHPAX@_STL@@U?$_Select1st@U?$pair@$$CBHPAX@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHPAX@_STL@@@2@@_STL@@ABEPAU?$_Rb_tree_node@U?$pair@$$CBHPAX@_STL@@@2@ABH@Z,0x004FF3B6
+?_M_upper_bound@?$_Rb_tree@HU?$pair@$$CBHPAX@_STL@@U?$_Select1st@U?$pair@$$CBHPAX@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHPAX@_STL@@@2@@_STL@@ABEPAU?$_Rb_tree_node@U?$pair@$$CBHPAX@_STL@@@2@ABH@Z,0x004FF539
