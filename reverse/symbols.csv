@@ -1072,3 +1072,5 @@ __RTC_CheckEsp,0x0075A5A2
 ?_M_insert_overflow@?$vector@UAngleFXInfo@@V?$allocator@UAngleFXInfo@@@_STL@@@_STL@@IAEXPAUAngleFXInfo@@ABU3@ABU__false_type@2@I_N@Z,0x00626150
 ??$_M_range_initialize@PAG@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@AAEXPAG0ABUforward_iterator_tag@1@@Z,0x000120F0
 ??4?$VectorClass@VProxyClass@@@@QAEAAV0@ABV0@@Z,0x0016F610
+??$_M_find@VAsciiString@@@?$hashtable@U?$pair@$$CBVAsciiString@@PAVThingTemplate@@@_STL@@VAsciiString@@U?$hash@VAsciiString@@@rts@@U?$_Select1st@U?$pair@$$CBVAsciiString@@PAVThingTemplate@@@_STL@@@2@U?$equal_to@VAsciiString@@@5@V?$allocator@U?$pair@$$CBVAsciiString@@PAVThingTemplate@@@_STL@@@2@@_STL@@ABEPAU?$_Hashtable_node@U?$pair@$$CBVAsciiString@@PAVThingTemplate@@@_STL@@@1@ABVAsciiString@@@Z,0x0016D710
+??0Nugget@ModuleInfo@@QAE@ABU01@@Z,0x00119A80
