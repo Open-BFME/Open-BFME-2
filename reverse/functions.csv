@@ -5738,3 +5738,4 @@ _piCallbacksCleanup,,0x0069EEF0,24,Code/GameEngine/Source/GameNetwork/GameSpy/pe
 ?Set_User_Type@ParticleEmitterDefClass@@UAEXH@Z,,0x0065D790,10,Code/Libraries/Source/WWVegas/WW3D2/part_ldr.cpp,matched,
 ?SetFlavor@NodeCompressedMotionStruct@@QAEXH@Z,,0x0066C940,9,Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp,matched,
 ??9ShaderClass@@QAE_NABV0@@Z,,0x001541B0,18,Code/Libraries/Source/WWVegas/WW3D2/dynamesh.cpp,matched,
+?Set_V_Addr_Mode@TextureFilterClass@@QAEXW4TxtAddrMode@1@@Z,,0x00665620,10,Code/Libraries/Source/WWVegas/WW3D2/render2dsentence.cpp,matched,
