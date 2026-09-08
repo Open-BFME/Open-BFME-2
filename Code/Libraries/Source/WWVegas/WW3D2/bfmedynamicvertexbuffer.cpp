@@ -278,7 +278,6 @@ BfmeDynamicVBAccess::WriteLock::WriteLock(BfmeDynamicVBAccess *access):owner(acc
  default:break;
  }
 }
-// ??1WriteLock@BfmeDynamicVBAccess@@QAE@XZ present-unmatched
 BfmeDynamicVBAccess::WriteLock::~WriteLock()
 {
  switch(owner->Get_Type()) {
