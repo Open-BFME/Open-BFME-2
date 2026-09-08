@@ -4574,3 +4574,4 @@ _ghttpPostAddFileFromMemoryA,,0x006BA730,84,Code/GameEngine/Source/GameNetwork/G
 _ghttpGetA,,0x006BA7B0,215,Code/GameEngine/Source/GameNetwork/GameSpy/ghttp/ghttpMain.c,matched,GameSpy HTTP API; unique complete function match; BFME2 CRT duplication adaptation; verified sibling callees and retail literals
 ?Load_W3D@TimeCodedBitChannelClass@@QAE_NAAVChunkLoadClass@@@Z,,0x00195E20,190,Code/Libraries/Source/WWVegas/WW3D2/motchan.cpp,matched,
 ?read_channel@HCompressedAnimClass@@AAE_NAAVChunkLoadClass@@PAPAVTimeCodedMotionChannelClass@@@Z,,0x0018F1C0,101,Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp,matched,
+?Update_Cached_Bounding_Volumes@RenderObjClass@@MBEXXZ,,0x0013C190,305,Code/Libraries/Source/WWVegas/WW3D2/RenderObjBounds.cpp,matched,Complete 305-byte cache update; scoped0xC4 base layout independently establishes Sphere4C and Box5C; actual virtual targets and Matrix3D helper identified; no whole-vtable or unknown-field semantic claim
