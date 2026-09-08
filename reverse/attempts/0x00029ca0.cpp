@@ -14,6 +14,13 @@
 // under /Od. Exact primary 4.5.3 _vector.c equals vendor after CRLF conversion.
 // Source remains reconstructible through the existing opt-in allocator shim;
 // no padding local, assembly, invented pin or altered shared header is used.
+// Follow-up: naming the backward-copy return value creates the missing
+// dword but also emits an unwanted three-byte store (528-byte body).
+// By-value tag dispatch adds real instructions; discarded distance/value
+// tags, pointer versus scalar instantiations, no-exceptions mode, and pre-
+// versus postincrement leave the 522-byte shape unchanged. Local copy
+// propagation does not remove just the return store. These negative tests
+// do not justify inserting an unused local to occupy retail's stack slot.
 #include <vector>
 
 template class _STL::vector<void*,_STL::allocator<void*> >;
