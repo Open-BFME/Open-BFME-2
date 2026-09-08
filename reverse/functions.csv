@@ -2557,7 +2557,6 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ??0CacheStraw@@QAE@H@Z,,0x00615940,88,Code/Libraries/Source/WWVegas/WWLib/ini.cpp,matched,stlport 4.5.3; placed by masked whole-.text search of the compiled body - single hit
 ?Format@WideStringClass@@QAAHPBGZZ,,0x00619F70,88,Code/Libraries/Source/WWVegas/WWLib/widestring.cpp,matched,stlport 4.5.3; placed by masked whole-.text search of the compiled body - single hit
 ??H?$Int@$0EA@@@QBE?AV0@G@Z,,0x0061DD80,87,Code/Libraries/Source/WWVegas/WWLib/pk.cpp,matched,stlport 4.5.3; placed by masked whole-.text search of the compiled body - single hit
-??1TerrainTracksRenderObjClass@@UAE@XZ,,0x00190F10,86,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainTracks.cpp,matched,stlport 4.5.3; placed by masked whole-.text search of the compiled body - single hit
 ??G?$Int@$0EA@@@QBE?AV0@G@Z,,0x0061E030,86,Code/Libraries/Source/WWVegas/WWLib/pk.cpp,matched,stlport 4.5.3; placed by masked whole-.text search of the compiled body - single hit
 ?Set_Color_Keyframes@ParticleEmitterDefClass@@UAEXAAU?$ParticlePropertyStruct@VVector3@@@@@Z,,0x001B1CA0,85,Code/Libraries/Source/WWVegas/WW3D2/part_ldr.cpp,matched,stlport 4.5.3; placed by masked whole-.text search of the compiled body - single hit
 ??_ERoadType@@QAEPAXI@Z,,0x0018E830,84,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DRoadBuffer.cpp,matched,stlport 4.5.3; placed by masked whole-.text search of the compiled body - single hit

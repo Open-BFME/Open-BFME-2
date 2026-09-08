@@ -160,7 +160,6 @@ name,address,notes
 ??1ModelArrayClass@HLodClass@@UAE@XZ,0x0019E580,address read from the REL32 displacement at a placed body; stlport 4.5.3
 ??1OrthoEmissionVelocityModuleTemplate@FXParticleSystem@@UAE@XZ,0x003A6201,BFME2 export; the module template destructor every category folds onto - three vtable stores walked back through the bases
 ??1OutwardEmissionVelocityModuleTemplate@FXParticleSystem@@UAE@XZ,0x003A6201,BFME2 export; the module template destructor every category folds onto - three vtable stores walked back through the bases
-??1RenderObjClass@@UAE@XZ,0x00196150,address read from the REL32 displacement at a placed body; stlport 4.5.3
 ??1RenderObjectUpdateModuleTemplate@FXParticleSystem@@UAE@XZ,0x003A6201,BFME2 export; the module template destructor every category folds onto - three vtable stores walked back through the bases
 ??1RoadType@@QAE@XZ,0x0018E750,address read from the REL32 displacement at a placed body; stlport 4.5.3
 ??1SortingNodeStruct@@QAE@XZ,0x0012FCA0,address read from the REL32 displacement at a placed body; stlport 4.5.3
@@ -423,7 +422,6 @@ name,address,notes
 ?format_va@?$StringBase@G@@QAEXPBGPAD@Z,0x000377E0,BFME2 export and retail call target for the StringBase<wchar_t> varargs formatter
 ?free@@YAXPAX@Z,0x00030830,CRT free reached through the C++-linkage declaration STLport 4.5.3 compiles against; same body as _free at this address, and the C++ decoration is what makes the caller emit the unwind state store retail carries
 ?free@_STL@@YAXPAX@Z,0x00030830,the _STL-namespace spelling of the same C++-linkage free already pinned at this address as ?free@@YAXPAX@Z; STLport headers declare free inside _STL so an inlined ~basic_string emits this decoration while a .cpp body calling the extern "C" import emits __imp__free - ios_base::~ios_base at 0x0001C220 carries both forms and the byte check discriminates because retail encodes 0x00030830 in that call displacement
-?freeTerrainTracksResources@TerrainTracksRenderObjClass@@QAEHXZ,0x0018FE30,address read from the REL32 displacement at a placed body; stlport 4.5.3
 ?get_allocator@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@QBE?AV?$allocator@G@2@XZ,0x001627F0,STLport 4.5.3 wide string get_allocator; address read from the REL32 in the wide copy constructor at 0x0000EA90 - the call takes ecx as the source string and a hidden return pointer for the allocator returned by value
 ?get_far_extent@@YAXABVVector3@@0PAV1@@Z,0x0007B5C8,address read from the retail REL32 in CollisionMath::Overlap_Test(PlaneClass,AABoxClass) at 0x00719830
 ?imbue@?$basic_ios@GV?$char_traits@G@_STL@@@_STL@@QAE?AVlocale@2@ABV32@@Z,0x00016200,harvested from retail REL32 displacement at 0x00016440

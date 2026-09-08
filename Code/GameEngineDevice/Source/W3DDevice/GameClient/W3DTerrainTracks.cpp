@@ -75,6 +75,9 @@
 //=============================================================================
 /** Destructor. Releases w3d assets. */
 //=============================================================================
+// ??1TerrainTracksRenderObjClass@@UAE@XZ present-unmatched
+// The former 0x190F10 placement destroys compressed animation channels and calls
+// HAnimClass::~HAnimClass at 0x196150. It is not this TerrainTracks destructor.
 TerrainTracksRenderObjClass::~TerrainTracksRenderObjClass(void)
 {
 	freeTerrainTracksResources();
@@ -136,6 +139,7 @@ Int TerrainTracksRenderObjClass::Class_ID(void) const
 //=============================================================================
 /** Not used, but required virtual method. */
 //=============================================================================
+// ?Clone@TerrainTracksRenderObjClass@@UBEPAVRenderObjClass@@XZ present-unmatched
 RenderObjClass *	 TerrainTracksRenderObjClass::Clone(void) const
 {
 	assert(false);
@@ -587,6 +591,7 @@ TerrainTracksRenderObjClassSystem::TerrainTracksRenderObjClassSystem()
 //=============================================================================
 /** Destructor.  Free all pre-allocated track laying render objects*/
 //=============================================================================
+// ??1TerrainTracksRenderObjClassSystem@@UAE@XZ present-unmatched
 TerrainTracksRenderObjClassSystem::~TerrainTracksRenderObjClassSystem( void )
 {
 
