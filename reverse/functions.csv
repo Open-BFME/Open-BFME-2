@@ -5766,3 +5766,6 @@ _piCallbacksCleanup,,0x0069EEF0,24,Code/GameEngine/Source/GameNetwork/GameSpy/pe
 ?Set_Animation@HLodClass@@UAEXPAVHAnimComboClass@@@Z,,0x0019B7F0,21,Code/Libraries/Source/WWVegas/WW3D2/hlod.cpp,matched,
 ??A?$VectorClass@VModelNodeClass@HLodClass@@@@QAEAAVModelNodeClass@HLodClass@@H@Z,,0x0019BAD0,16,Code/Libraries/Source/WWVegas/WW3D2/hlod.cpp,matched,
 ?Get_Num_Sub_Objects@HLodClass@@UBEHXZ,,0x0019CB90,16,Code/Libraries/Source/WWVegas/WW3D2/hlod.cpp,matched,
+_powf,,0x00116DC0,14,Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp,matched,
+?Get_Free_Texture_RAM@DX8Wrapper@@SAIXZ,,0x0011E630,19,Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp,matched,
+??BBfmeResetTextureRef@@QBE_NXZ,,0x00615580,8,Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp,matched,
