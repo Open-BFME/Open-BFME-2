@@ -196,7 +196,6 @@ CameraClass & CameraClass::operator = (const CameraClass & that)
  * HISTORY:                                                                                    *
  *   3/21/98    GTH : Created.                                                                 *
  *=============================================================================================*/
-// ??1CameraClass@@UAE@XZ present-unmatched
 CameraClass::~CameraClass(void)
 {
 }
