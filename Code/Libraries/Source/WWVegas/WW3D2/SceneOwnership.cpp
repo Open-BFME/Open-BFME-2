@@ -146,3 +146,14 @@ void SimpleSceneClass::Register(RenderObjClass *obj, RegType reason)
     case BFME_FORCED_OBJECT: _bfme_forced_objects.Add(obj); break;
     }
 }
+
+void SimpleSceneClass::Unregister(RenderObjClass *obj, RegType reason)
+{
+    switch (reason) {
+    case ON_FRAME_UPDATE: UpdateList.Remove(obj); break;
+    case LIGHT: LightList.Remove(obj); break;
+    case RELEASE: ReleaseList.Remove(obj); break;
+    case BFME_CHANGED_OBJECT: _bfme_changed_objects.Remove(obj); break;
+    case BFME_FORCED_OBJECT: _bfme_forced_objects.Remove(obj); break;
+    }
+}

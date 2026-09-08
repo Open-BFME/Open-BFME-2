@@ -434,7 +434,6 @@ void SimpleSceneClass::Register(RenderObjClass * obj,RegType for_what)
 }
 
 // byte-exact reconstruction: Code/GameEngine/Source/Common/SimpleSceneClass_Unregister_Thunk.cpp
-// ?Unregister@SimpleSceneClass@@UAEXPAVRenderObjClass@@W4RegType@SceneClass@@@Z present-unmatched
 void SimpleSceneClass::Unregister(RenderObjClass * obj,RegType for_what)
 {
 	switch (for_what) {
