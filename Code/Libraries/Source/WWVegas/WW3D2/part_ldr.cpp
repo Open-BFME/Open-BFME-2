@@ -1471,7 +1471,7 @@ ParticleEmitterDefClass::Save_Opacity_Keyframes (ChunkSaveClass &chunk_save)
 			success = (chunk_save.Write (&info, sizeof (info)) == sizeof (info));
 		}
 
-		ret_val = success;
+		ret_val = (success != false);
 	}
 
 	// Return the success status
