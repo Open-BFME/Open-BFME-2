@@ -1,0 +1,42 @@
+name: Twice-daily BFME2 progress
+
+on:
+  schedule:
+    - cron: '0 8,18 * * *'
+      timezone: America/New_York
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: discord-progress
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: master
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Post BFME2 progress
+        env:
+          DISCORD_PROGRESS_WEBHOOK: ${{ secrets.DISCORD_PROGRESS_WEBHOOK }}
+        run: python tools/discord_progress.py --discord
+      - name: Record delivered announcement
+        run: |
+          git add docs/discord-progress.json
+          if git diff --cached --quiet; then
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m "docs: record BFME2 progress announcement"
+          git pull --rebase origin master
+          git push origin HEAD:master
