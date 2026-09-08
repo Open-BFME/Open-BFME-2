@@ -5623,3 +5623,4 @@ _piCallbacksCleanup,,0x0069EEF0,24,Code/GameEngine/Source/GameNetwork/GameSpy/pe
 ??0EnvironmentMapperClass@@QAE@I@Z,,0x0013C630,25,Code/Libraries/Source/WWVegas/WW3D2/vertmaterial.cpp,matched,ported from BFME1; exact target-side structural alias
 ??_GSegLineRendererClass@@QAEPAXI@Z,,0x001A6580,30,Code/Libraries/Source/WWVegas/WW3D2/part_buf.cpp,matched,ported from BFME1; exact target-side structural candidate
 ??_GStraw@@UAEPAXI@Z,,0x00615D90,30,Code/Libraries/Source/WWVegas/WW3D2/vertmaterial.cpp,matched,ported from BFME1; exact target-side structural alias
+??_GBufferStraw@@UAEPAXI@Z,,0x0013D400,30,Code/Libraries/Source/WWVegas/WW3D2/vertmaterial.cpp,matched,ported from BFME1; exact target-side structural alias
