@@ -213,6 +213,7 @@ name,address,notes
 ?Add@?$DynamicVectorClass@VShaderClass@@@@QAE_NABVShaderClass@@@Z,0x001A3A60,address read from the REL32 displacement at a placed body; folded onto the body held there under another instantiation's name; stlport 4.5.3
 ?Add@?$SimpleDynVecClass@VVector3@@@@QAE_NABVVector3@@H@Z,0x001002C5,address read from the REL32 displacement at a placed body; stlport 4.5.3
 ?Allocate_DX8_Dynamic_Buffer@DynamicIBAccessClass@@QAEXXZ,0x00138E00,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?Allocate_Object_Memory@?$ObjectPoolClass@VHAnimComboDataClass@@$0BAA@@@QAEPAVHAnimComboDataClass@@XZ,0x001963A0,address read from the verified REL32 in HAnimComboClass(int) at 0x00196B80
 ?Allocate_Object_Memory@?$ObjectPoolClass@VGridLinkClass@@$0BAA@@@QAEPAVGridLinkClass@@XZ,0x0071AED0,address read from the REL32 displacement at a placed body; stlport 4.5.3
 ?Allocate_Object_Memory@?$ObjectPoolClass@VMultiListNodeClass@@$0BAA@@@QAEPAVMultiListNodeClass@@XZ,0x00610680,address read from the REL32 displacement at a placed body; stlport 4.5.3
 ?Allocate_Sorting_Dynamic_Buffer@DynamicIBAccessClass@@QAEXXZ,0x00138F50,address read from the REL32 displacement at a placed body; stlport 4.5.3
