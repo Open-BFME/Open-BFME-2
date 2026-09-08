@@ -34,6 +34,11 @@
 #include "quat.h"
 #include "D3dx8math.h"
 
+// Keep the compiler-generated assignment member in this scalar TU after
+// Multiply moved to its dedicated SSE TU.
+typedef Matrix3D & (Matrix3D::*Matrix3DAssign)(const Matrix3D &);
+Matrix3DAssign g_matrix3dAssign = &Matrix3D::operator=;
+
 // some static matrices which are sometimes useful
 const Matrix3D Matrix3D::Identity
 (
@@ -503,60 +508,4 @@ bool Matrix3D::Solve_Linear_System(Matrix3D & system)
 	system[0] -= system[0][1] * system[1];			// (0,1) now equals 0.0, and we are done!
 
 	return true;
-}
-
-/***********************************************************************************************
- * Matrix3D::Multiply -- multiply two matrices into a third                                    *
- *                                                                                             *
- * Written out with the explicit temporaries rather than deferring to mul(): retail's body has *
- * the aliasing check and then twelve inline dot products, which is what this shape produces.  *
- *=============================================================================================*/
-// ?Multiply@Matrix3D@@ present-unmatched
-void Matrix3D::Multiply(const Matrix3D & A,const Matrix3D & B,Matrix3D * set_res)
-{
-	Matrix3D tmp;
-	Matrix3D * Aptr;
-
-	// Check for aliased parameters, copy the 'A' matrix into a temporary if the
-	// result is going into 'A'.
-	if (set_res == &A) {
-		tmp = A;
-		Aptr = &tmp;
-	} else {
-		Aptr = (Matrix3D *)&A;
-	}
-
-	float tmp1,tmp2,tmp3;
-
-	tmp1 = B[0][0];
-	tmp2 = B[1][0];
-	tmp3 = B[2][0];
-
-	(*set_res)[0][0] = (*Aptr)[0][0]*tmp1 + (*Aptr)[0][1]*tmp2 + (*Aptr)[0][2]*tmp3;
-	(*set_res)[1][0] = (*Aptr)[1][0]*tmp1 + (*Aptr)[1][1]*tmp2 + (*Aptr)[1][2]*tmp3;
-	(*set_res)[2][0] = (*Aptr)[2][0]*tmp1 + (*Aptr)[2][1]*tmp2 + (*Aptr)[2][2]*tmp3;
-
-	tmp1 = B[0][1];
-	tmp2 = B[1][1];
-	tmp3 = B[2][1];
-
-	(*set_res)[0][1] = (*Aptr)[0][0]*tmp1 + (*Aptr)[0][1]*tmp2 + (*Aptr)[0][2]*tmp3;
-	(*set_res)[1][1] = (*Aptr)[1][0]*tmp1 + (*Aptr)[1][1]*tmp2 + (*Aptr)[1][2]*tmp3;
-	(*set_res)[2][1] = (*Aptr)[2][0]*tmp1 + (*Aptr)[2][1]*tmp2 + (*Aptr)[2][2]*tmp3;
-
-	tmp1 = B[0][2];
-	tmp2 = B[1][2];
-	tmp3 = B[2][2];
-
-	(*set_res)[0][2] = (*Aptr)[0][0]*tmp1 + (*Aptr)[0][1]*tmp2 + (*Aptr)[0][2]*tmp3;
-	(*set_res)[1][2] = (*Aptr)[1][0]*tmp1 + (*Aptr)[1][1]*tmp2 + (*Aptr)[1][2]*tmp3;
-	(*set_res)[2][2] = (*Aptr)[2][0]*tmp1 + (*Aptr)[2][1]*tmp2 + (*Aptr)[2][2]*tmp3;
-
-	tmp1 = B[0][3];
-	tmp2 = B[1][3];
-	tmp3 = B[2][3];
-
-	(*set_res)[0][3] = (*Aptr)[0][0]*tmp1 + (*Aptr)[0][1]*tmp2 + (*Aptr)[0][2]*tmp3 + (*Aptr)[0][3];
-	(*set_res)[1][3] = (*Aptr)[1][0]*tmp1 + (*Aptr)[1][1]*tmp2 + (*Aptr)[1][2]*tmp3 + (*Aptr)[1][3];
-	(*set_res)[2][3] = (*Aptr)[2][0]*tmp1 + (*Aptr)[2][1]*tmp2 + (*Aptr)[2][2]*tmp3 + (*Aptr)[2][3];
 }
