@@ -27,6 +27,13 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 
+// Retail's _Rb_tree::insert_unique(const value_type&) writes the leftmost fast
+// path as `if (__comp && __j == begin())` with `_M_insert(__y, __y, __v)`, not
+// as the nested if/else the vendored STLport carries.  The two shapes differ by
+// seven bytes here (an inlined arm plus an inverted branch), and the vendored
+// header already carries the retail spelling behind this switch.
+#define _BFME_RETAIL_TREE_INSERT_LAYOUT
+
 #include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
 
 #include "Compression.h"

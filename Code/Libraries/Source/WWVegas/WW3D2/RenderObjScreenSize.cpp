@@ -25,7 +25,6 @@ typedef char RenderObjSizeMatchesRetail[(sizeof(RenderObjClass) == 0xC4) ? 1 : -
 
 // Keep the ordinary position helper visible so retail can inline the three
 // translation components after virtual transform validation.
-// ?Get_Position@RenderObjClass@@QBE?AVVector3@@XZ present-unmatched
 inline Vector3 RenderObjClass::Get_Position(void) const
 {
     Validate_Transform();

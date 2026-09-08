@@ -31,6 +31,11 @@
 // Author: Michael S. Booth, March 2001
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
+// Retail spells _Rb_tree::insert_unique(const value_type&)'s leftmost fast path
+// as `if (__comp && __j == begin())` with `_M_insert(__y, __y, __v)`; the
+// vendored STLport carries that spelling behind this switch.
+#define _BFME_RETAIL_TREE_INSERT_LAYOUT
+
 #include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
 
 #define DEFINE_SHADOW_NAMES

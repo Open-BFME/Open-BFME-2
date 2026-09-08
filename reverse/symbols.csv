@@ -925,3 +925,19 @@ _strcmp,0x006291C6,PE CRT thunk; independent FF25 import thunk at RVA 0x006291C6
 ?insert_unique@?$_Rb_tree@PBVThingTemplate@@U?$pair@QBVThingTemplate@@H@_STL@@U?$_Select1st@U?$pair@QBVThingTemplate@@H@_STL@@@3@U?$less@PBVThingTemplate@@@3@V?$allocator@U?$pair@QBVThingTemplate@@H@_STL@@@3@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@QBVThingTemplate@@H@_STL@@U?$_Nonconst_traits@U?$pair@QBVThingTemplate@@H@_STL@@@2@@2@U32@ABU?$pair@QBVThingTemplate@@H@2@@Z,0x00759DB0,address read from the REL32 displacement at a placed body
 ?clear@TeamFactory@@QAEXXZ,0x003A2F4C,address read from the REL32 displacement at a placed body
 ?isClearLineOfSight@BaseHeightMapRenderObjClass@@QBE_NABUCoord3D@@0@Z,0x00066AD1,address read from the REL32 displacement at a placed body
+??1Snapshot@@QAE@XZ,0x001B4E74,address read from the REL32 displacement at a placed body
+??$fill_n@PAPBVModuleData@@IPBV1@@_STL@@YAPAPBVModuleData@@PAPBV1@IABQBV1@@Z,0x0007E48F,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
+??0?$_STLP_alloc_proxy@PAU?$_List_node@UupgradePair@@@_STL@@U12@V?$allocator@U?$_List_node@UupgradePair@@@_STL@@@2@@_STL@@QAE@ABV?$allocator@U?$_List_node@UupgradePair@@@_STL@@@1@PAU?$_List_node@UupgradePair@@@1@@Z,0x0014F3C4,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
+??0?$_STLP_alloc_proxy@PAU?$_Rb_tree_node@U?$pair@$$CBW4NameKeyType@@VModuleTemplate@ModuleFactory@@@_STL@@@_STL@@U12@V?$allocator@U?$_Rb_tree_node@U?$pair@$$CBW4NameKeyType@@VModuleTemplate@ModuleFactory@@@_STL@@@_STL@@@2@@_STL@@QAE@ABV?$allocator@U?$_Rb_tree_node@U?$pair@$$CBW4NameKeyType@@VModuleTemplate@ModuleFactory@@@_STL@@@_STL@@@1@PAU?$_Rb_tree_node@U?$pair@$$CBW4NameKeyType@@VModuleTemplate@ModuleFactory@@@_STL@@@1@@Z,0x0014F3C4,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
+??0ChinookAIUpdateModuleData@@QAE@XZ,0x0049C4D2,address read from the REL32 displacement at a placed body
+??0JetSlowDeathBehavior@@QAE@PAVThing@@PBVModuleData@@@Z,0x00403BEF,address read from the REL32 displacement at a placed body
+??0MinefieldBehavior@@QAE@PAVThing@@PBVModuleData@@@Z,0x004A8E7B,address read from the REL32 displacement at a placed body
+??0MobNexusContainModuleData@@QAE@XZ,0x004C244D,address read from the REL32 displacement at a placed body
+??0RailroadBehavior@@QAE@PAVThing@@PBVModuleData@@@Z,0x0048B067,address read from the REL32 displacement at a placed body
+??0StructureCollapseUpdateModuleData@@QAE@XZ,0x00257A5E,address read from the REL32 displacement at a placed body
+??1AIUpdateModuleData@@UAE@XZ,0x00036410,address read from the REL32 displacement at a placed body
+??1AudioEventRTS@@UAE@XZ,0x004EC395,address read from the REL32 displacement at a placed body
+?allocate@?$allocator@PBVModuleData@@@_STL@@QBEPAPBVModuleData@@IPBX@Z,0x00068E15,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
+?findModuleTemplate@ModuleFactory@@IAEPBVModuleTemplate@1@ABVAsciiString@@W4ModuleType@@@Z,0x0025674F,address read from the REL32 displacement at a placed body
+?initFromINIMultiProc@INI@@QAEXPAXP6AXAAVMultiIniFieldParse@@@Z@Z,0x0002DEB5,address read from the REL32 displacement at a placed body
+?isEmpty@AsciiString@@QBE_NXZ,0x00001E2F,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
