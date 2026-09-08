@@ -35,3 +35,12 @@ BFME2CompressedMotionChannels::~BFME2CompressedMotionChannels()
     if (Visibility) delete Visibility;
     for (int i = 0; i < 5; ++i) ::delete Channels[i];
 }
+void HCompressedAnimClass::Free()
+{
+    delete[] NodeMotion;
+    NodeMotion = 0;
+    delete[] VectorMotion;
+    VectorMotion = 0;
+}
+typedef char FirstNodeStrideIs28[(sizeof(NodeCompressedMotionStruct) == 28) ? 1 : -1];
+typedef char SecondNodeStrideIs24[(sizeof(BFME2CompressedMotionChannels) == 24) ? 1 : -1];
