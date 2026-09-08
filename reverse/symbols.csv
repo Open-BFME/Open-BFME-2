@@ -1064,3 +1064,5 @@ __RTC_CheckEsp,0x0075A5A2
 ?_M_advance@?$_Deque_iterator_base@UBfmeE16@@@_STL@@QAEXH@Z,0x004217DD
 ?_M_subtract@?$_Deque_iterator_base@UBfmeE16@@@_STL@@QBEHABU12@@Z,0x002615C0
 ?_M_push_back_aux_v@?$deque@HV?$allocator@H@_STL@@@_STL@@IAEXABH@Z,0x00621620
+?getFinalOverride@Overridable@@QBEPBV1@XZ,0x001E35DF
+??1Snapshot@@QAE@XZ,0x001B4E74
