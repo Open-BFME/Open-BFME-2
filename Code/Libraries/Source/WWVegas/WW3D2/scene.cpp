@@ -389,7 +389,6 @@ void SimpleSceneClass::Remove_All_Render_Objects(void)
  *   3/24/98    GTH : Created.                                                                 *
  *=============================================================================================*/
 // byte-exact reconstruction: Code/GameEngine/Source/Common/SimpleSceneClass_Add_Render_Object_Thunk.cpp
-// ?Add_Render_Object@SimpleSceneClass@@UAEXPAVRenderObjClass@@@Z present-unmatched
 void SimpleSceneClass::Add_Render_Object(RenderObjClass * obj)
 {
 	SceneClass::Add_Render_Object(obj);
@@ -689,6 +688,7 @@ SceneIterator * SimpleSceneClass::Create_Iterator(bool onlyvisible)
  * HISTORY:                                                                                    *
  *   3/27/98    GTH : Created.                                                                 *
  *=============================================================================================*/
+// ?Destroy_Iterator@SimpleSceneClass@@ present-unmatched
 void SimpleSceneClass::Destroy_Iterator(SceneIterator * it)
 {
 	delete it;
@@ -713,6 +713,7 @@ void SimpleSceneIterator::Next(void)
 	RobjIterator.Next();
 }
 
+// ?Is_Done@SimpleSceneIterator@@ present-unmatched
 bool SimpleSceneIterator::Is_Done(void)
 {
 	return RobjIterator.Is_Done();

@@ -35,3 +35,15 @@ void SceneClass::Remove_Render_Object(RenderObjClass *obj)
 {
     obj->Notify_Removed(this);
 }
+
+// BFME2 keeps an owning render list and separate non-owning update queues.
+// Register reason3 uses the same changed-object list; forced visibility uses4.
+void SimpleSceneClass::Add_Render_Object(RenderObjClass *obj)
+{
+    SceneClass::Add_Render_Object(obj);
+    RenderList.Add(obj);
+    _bfme_changed_objects.Add(obj);
+    if (obj->Is_Force_Visible()) {
+        _bfme_forced_objects.Add(obj);
+    }
+}
