@@ -61,3 +61,34 @@ void RenderObjClass::Set_Position(const Vector3 &v)
 	}
 }
 
+
+// Preserve retail ancestor traversal order and the shared identity-helper call.
+void RenderObjClass::Validate_Transform(void) const
+{
+	/*
+	** Recurse up the tree to see if any of my parents are saying that their sub-object 
+	** transforms are dirty
+	*/
+	RenderObjClass * con = Get_Container();
+	bool dirty = false;
+	if (con != NULL) 
+	{
+		dirty = con->Are_Sub_Object_Transforms_Dirty();
+
+		while (con->Get_Container() != NULL) 
+		{
+			dirty |= con->Are_Sub_Object_Transforms_Dirty();
+			con = con->Get_Container();
+		}
+
+		/*
+		** If the transforms are dirty, update them
+		*/
+		if (dirty) 
+		{
+			con->Update_Sub_Object_Transforms();
+		}
+	}
+	if (dirty) 
+		IsTransformIdentity = Check_Is_Transform_Identity(Transform);
+}
