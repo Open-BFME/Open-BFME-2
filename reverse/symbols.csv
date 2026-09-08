@@ -895,4 +895,3 @@ _D3DXGetFVFVertexSize@4,0x0062AFBC,Named PE import thunk: d3dx9_27.dll!D3DXGetFV
 ?insert@KeyToBucketMap@NameKeyGenerator@@QAE?AUinsert_result@12@ABUvalue_type@12@@Z,0x004DA240,BFME2 retail map insertion helper; independent ret8 body requests resize for size at this+0x10 plus one, then dispatches insert_unique_noresize for the key/value pair
 _strcmp,0x006291C6,PE CRT thunk; independent FF25 import thunk at RVA 0x006291C6 resolves the retail strcmp IAT slot
 ??1Bucket@@UAE@XZ,0x00148B19,BFME2 scalar Bucket destructor entry; retail deleting-destructor call independently resolves to this body, which restores the Bucket vtable and tail-jumps to AsciiString storage release
-?Unlock@ScopedCriticalSection@@AAEXXZ,0x00035640,Independently exact28-byte unlock helper with named LeaveCriticalSection import; body follows in next commit
