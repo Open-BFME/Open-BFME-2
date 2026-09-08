@@ -1047,3 +1047,5 @@ __RTC_CheckEsp,0x0075A5A2
 ??0?$VectorClass@VKeyClass@Curve3DClass@@@@QAE@HPBVKeyClass@Curve3DClass@@@Z,0x000F0D2F
 ??$insert@U?$_List_iterator@HU?$_Const_traits@H@_STL@@@_STL@@@?$list@HV?$allocator@H@_STL@@@_STL@@QAEXU?$_List_iterator@HU?$_Nonconst_traits@H@_STL@@@1@U?$_List_iterator@HU?$_Const_traits@H@_STL@@@1@1@Z,0x000BB975
 ?_M_copy@?$_Rb_tree@HU?$pair@$$CBHH@_STL@@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@AAEPAU?$_Rb_tree_node@U?$pair@$$CBHH@_STL@@@2@PAU32@0@Z,0x002CF6CF
+??$swap@V?$_STLP_alloc_proxy@PAUBfmeE12@@U1@V?$allocator@UBfmeE12@@@_STL@@@_STL@@@_STL@@YAXAAV?$_STLP_alloc_proxy@PAUBfmeE12@@U1@V?$allocator@UBfmeE12@@@_STL@@@0@0@Z,0x00574B2D
+??0?$_STLP_alloc_proxy@PAUBfmeE12@@U1@V?$allocator@UBfmeE12@@@_STL@@@_STL@@QAE@ABV?$allocator@UBfmeE12@@@1@PAUBfmeE12@@@Z,0x00007410
