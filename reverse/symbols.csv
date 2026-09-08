@@ -1001,3 +1001,4 @@ _strcmp,0x006291C6,PE CRT thunk; independent FF25 import thunk at RVA 0x006291C6
 ?revalidateOccupiers@SpawnPointProductionExitUpdate@@AAEXXZ,0x004A3F04,address read from the REL32 displacement at a placed body
 ?setWakeFrame@UpdateModule@@IAEXPAVObject@@I@Z,0x0044DF71,address read from the REL32 displacement at a placed body
 ?getGoalObject@StateMachine@@QAEPAVObject@@XZ,0x005E68C0,address read from the REL32 displacement at a placed body
+_d_0088d240,0x0003C550
