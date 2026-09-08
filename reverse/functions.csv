@@ -4573,3 +4573,4 @@ _ghttpPostAddFileFromDiskA,,0x006BA6D0,89,Code/GameEngine/Source/GameNetwork/Gam
 _ghttpPostAddFileFromMemoryA,,0x006BA730,84,Code/GameEngine/Source/GameNetwork/GameSpy/ghttp/ghttpMain.c,matched,GameSpy HTTP API; unique complete function match; BFME2 CRT duplication adaptation; verified sibling callees and retail literals
 _ghttpGetA,,0x006BA7B0,215,Code/GameEngine/Source/GameNetwork/GameSpy/ghttp/ghttpMain.c,matched,GameSpy HTTP API; unique complete function match; BFME2 CRT duplication adaptation; verified sibling callees and retail literals
 ?Load_W3D@TimeCodedBitChannelClass@@QAE_NAAVChunkLoadClass@@@Z,,0x00195E20,190,Code/Libraries/Source/WWVegas/WW3D2/motchan.cpp,matched,
+?read_channel@HCompressedAnimClass@@AAE_NAAVChunkLoadClass@@PAPAVTimeCodedMotionChannelClass@@@Z,,0x0018F1C0,101,Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp,matched,
