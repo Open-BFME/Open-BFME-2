@@ -5761,3 +5761,4 @@ _piCallbacksCleanup,,0x0069EEF0,24,Code/GameEngine/Source/GameNetwork/GameSpy/pe
 ??0?$IndexClass@HPAUINIEntry@@@@QAE@XZ,,0x006160E0,19,Code/Libraries/Source/WWVegas/WWLib/ini.cpp,matched,
 ?Internal_Get_List_Head@GenericMultiListClass@@IAEPAVMultiListObjectClass@@XZ,,0x00143DD0,17,Code/Libraries/Source/WWVegas/WWMath/lookuptable.cpp,matched,
 ?Get_Buffer@StringClass@@QAEPADH@Z,,0x0013B190,19,Code/Libraries/Source/WWVegas/WWLib/mixfile.cpp,matched,
+?Get_PowerVR_Device@DX8Caps@@CA?AW4DeviceTypePowerVR@1@I@Z,,0x0012B0E0,11,Code/Libraries/Source/WWVegas/WW3D2/dx8caps.cpp,matched,

@@ -441,7 +441,7 @@ DX8Caps::DeviceTypeMatrox DX8Caps::Get_Matrox_Device(unsigned device_id)
 	}
 }
  
-// ?Get_PowerVR_Device@DX8Caps@@CA?AW4DeviceTypePowerVR@1@I@Z present-unmatched
+// ?Get_PowerVR_Device@DX8Caps@@CA?AW4DeviceTypePowerVR@1@I@Z
 DX8Caps::DeviceTypePowerVR DX8Caps::Get_PowerVR_Device(unsigned device_id)
 {
 	switch (device_id) {
