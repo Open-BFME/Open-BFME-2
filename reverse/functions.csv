@@ -5657,3 +5657,6 @@ _piCallbacksCleanup,,0x0069EEF0,24,Code/GameEngine/Source/GameNetwork/GameSpy/pe
 ??0LineSegClass@@QAE@ABV0@ABVMatrix3D@@@Z,,0x00149250,26,Code/Libraries/Source/WWVegas/WW3D2/mesh.cpp,matched,
 ??0?$SimpleDynVecClass@K@@QAE@H@Z,,0x001AC680,56,Code/Libraries/Source/WWVegas/WW3D2/mesh.cpp,matched,
 ??0UVBufferClass@@QAE@ABV0@@Z,,0x0015D0F0,33,Code/Libraries/Source/WWVegas/WW3D2/meshmatdesc.cpp,matched,
+??4Matrix3@@QAEAAV0@ABV0@@Z,,0x00133460,61,Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp,matched,
+??0Matrix3D@@QAE@ABVMatrix3@@ABVVector3@@@Z,,0x00174C20,26,Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp,matched,
+?Get_Obj_Space_Bounding_Box@AABoxRenderObjClass@@UBEXAAVAABoxClass@@@Z,,0x00175870,60,Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp,matched,
