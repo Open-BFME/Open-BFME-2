@@ -1,20 +1,18 @@
-// ??$__put_integer@V?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@@_STL@@YA?AV?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@0@PAD0V10@AAVios_base@0@HD@Z
-// partial score=0.9719626168224299 date=2026-09-07
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
 // stlport
-// STLport 4.5.3 _num_put.c narrow grouping helper, RVA 0xD050 / 214.
-// 208/214 strict bytes match. Remaining offsets: 0x21,0x47,0x4D,0x57,0x70,0x74.
-// Actual vendor types reproduce the old hand-written interface exactly;
-// the declaration-only __copy_aux retains the established out-of-line body.
-// A named empty dispatch tag suppresses the six-byte temporary zeroing store.
-// Retail overlays the empty tag and prefix count in the dead iend parameter
-// home. An empty-base count policy fixes all six storage offsets, but swaps
-// EBX/EBP roles and differs at 20 bytes. A 32-bit bitfield, inherited count,
-// nested count, and inline getter all reproduce that same register swap.
-// Primary full monetary.cpp context also fails to reproduce the wide cleanup
-// mix; these observations are not evidence that conversion is impossible.
-// Prior bank notes about exhaustive compiler-flag sweeps remain in git history.
-// No ASM or inline assembly; no altered shared headers or new symbol pins.
+//
+// Modified STLport 4.5.3 stl/_num_put.c and stl/_algobase.h.
+// The narrow integer grouping helper reads the stream's cached numpunct and
+// grouping directly, copies only when grouping is enabled, then resets width.
+//
+// Keep the original pointer-copy body visible but out of line. This lets MSVC
+// know that the empty dispatch tag is unused, so its storage can overlap the
+// prefix-count slot. An opaque declaration caused the six stack-displacement
+// differences in the old bank; no artificial storage policy is needed.
+//
+// __copy_aux is 41 bytes at RVA 0x179B0; __put_integer is 214 bytes at 0xD050.
+// Both complete returns and all existing callees are verified. The copy IAT
+// is independently named msvcr71.dll!memmove at VA 0xBBA688.
 /*
  * Copyright (c) 1999
  * Silicon Graphics Computer Systems, Inc.
@@ -31,12 +29,13 @@
  * provided the above notices are retained, and a notice that the code was
  * modified is included with the above copyright notice.
  *
- */ 
-
+ */
 #include <locale>
 namespace _STL {
 typedef ostreambuf_iterator<char,char_traits<char> > narrow_output_iterator;
-template <> char* __copy_aux<char*,char*>(char*,char*,char*,const __true_type&);
+template <> __declspec(noinline) char* __copy_aux<char*,char*>(char* first,char* last,char* result,const __true_type&) {
+ return (char*)__copy_trivial(first,last,result);
+}
 template <> narrow_output_iterator __copy_integer_and_fill<char,narrow_output_iterator>(const char*,ptrdiff_t,narrow_output_iterator,ios_base::fmtflags,streamsize,char,char,char);
 template <>
 narrow_output_iterator __put_integer<narrow_output_iterator>(
@@ -70,8 +69,7 @@ narrow_output_iterator __put_integer<narrow_output_iterator>(
 		// make sure there is room at the end of the buffer
 		// we pass to __insert_grouping
 		char grpbuf[64];
-		__true_type tag;
-__copy_aux(buf, iend, (char *)grpbuf, tag);
+		copy(buf, iend, (char *)grpbuf);
 		buf = grpbuf;
 		iend = grpbuf + len;
 		len = __insert_grouping(buf, iend, grouping, np.thousands_sep(),
