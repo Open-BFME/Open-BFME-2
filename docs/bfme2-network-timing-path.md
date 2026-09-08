@@ -223,12 +223,15 @@ transport is already installed it invokes the retail `Transport` destructor at
 concrete lifecycle boundary for the network update path and confirms that the
 connection manager owns the transport object while frame admission is active.
 
-The companion router-stall target at RVA `0x004CFBF9` is also identified by the
-direct call from `+0x54`: it first requires local slot == packet-router slot,
-then scans eight open peers and tests each latest-frame value against the
-current logic frame minus startup/configured run-ahead slack. Its target body
-and the active-player predicate are recorded as call-graph dependencies for a
-follow-up conversion; no delay or buffering behavior has been changed here.
+The companion router-stall target at RVA `0x004CFBF9` is now a 136-byte exact
+`BFMEConnectionManager::hasPacketRouterFrameStall` reconstruction in
+`Code/GameEngine/Source/Common/ConnectionManagerPlayerPredicates.cpp`. It first
+requires local slot == packet-router slot, then scans eight open peers outside
+the active player states. During startup it uses three frames of slack; after
+logic frame five it uses the configured run-ahead value. A peer stalls the
+router when `latestFrame + slack <= currentFrame`. The body also updates the
+last-stalled-frame diagnostic when that value changes. No delay or buffering
+behavior has been changed.
 
 ## GameEngine `+0x44` initialization and writers
 
@@ -347,15 +350,13 @@ consumption before changing delay behavior.
 
 ## Next work
 
-The next tractable dependency is `hasPacketRouterFrameStall` at RVA
-`0x004CFBF9`. Its BFME2 control flow is established, including the startup
-slack of three frames, the configured run-ahead value after logic frame five,
-the open-peer scan, and the last-stalled-frame diagnostic. A clean C++ body
-still needs to reproduce retail's ECX/EBX/EDI register allocation around the
-`isPlayerSlotActive` call; the failed source shapes are recorded in
-`reverse/re_attempts.log`.
+`hasPacketRouterFrameStall` at RVA `0x004CFBF9` is now exact. Keeping the
+already-exact `isPlayerSlotActive` definition in the same translation unit was
+the missing compiler-shape constraint: MSVC retains `this` in ECX and assigns
+the slack, connection cursor, and slot to EBX, ESI, and EDI as retail does.
+The low-byte predicate test and inclusive frame threshold complete the match.
 
-The received-command path should then be recovered from the unclaimed body at
+The next dependency is the received-command path in the unclaimed body at
 VA `0x008D2F04`. Its frame-info case updates the per-player latest-frame and
 auxiliary arrays at `+0x12060`/`+0x120A0`, raises `frameCeiling` at `+0x1205C`
 for non-router clients, and writes the local frame-ring expected count before
