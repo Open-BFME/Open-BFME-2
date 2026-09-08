@@ -821,7 +821,6 @@ void CameraClass::Get_D3D_Projection_Matrix(Matrix4x4 * set_tm)
 
 }
 
-// ?Get_View_Matrix@CameraClass@@QAEXPAVMatrix3D@@@Z present-unmatched
 void CameraClass::Get_View_Matrix(Matrix3D * set_tm)
 {
 	WWASSERT(set_tm != NULL);
@@ -835,7 +834,7 @@ const Matrix4x4 & CameraClass::Get_Projection_Matrix(void)
 	return ProjectionTransform;
 }
 
-// ?Get_View_Matrix@CameraClass@@ present-unmatched
+// ?Get_View_Matrix@CameraClass@@QAEABVMatrix3D@@XZ present-unmatched
 const Matrix3D & CameraClass::Get_View_Matrix(void)
 {
 	Update_Frustum();
