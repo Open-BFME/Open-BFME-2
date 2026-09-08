@@ -5589,3 +5589,4 @@ _piCallbacksCleanup,,0x0069EEF0,24,Code/GameEngine/Source/GameNetwork/GameSpy/pe
 ?bfmeMoveON@BfmeThingON@@QAEXPAD00@Z,,0x00024E80,58,Code/GameEngine/Source/Common/BfmeTwoHundredFiftyOne.cpp,matched,
 ?markState@Rva009A2960@@QAEXXZ,,0x00758900,29,Code/GameEngine/Source/Common/Bfme/Rva009A2960MarkState.cpp,matched,
 ?clearFlags@Rva005B5440@@QAEXXZ,,0x0042E8FF,39,Code/GameEngine/Source/Common/Bfme/Rva005B5440ClearFlags.cpp,matched,
+?set@Rva006DB2F0@@QAEXPBURva006DB2F0Vec@@@Z,,0x000D1EAA,78,Code/GameEngine/Source/Common/Rva006DB2F0Set.cpp,matched,
