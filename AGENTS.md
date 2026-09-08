@@ -46,11 +46,23 @@ shared header edit costs a full gate: edit every dependent body, pay once.
    Check every new ledger source is tracked.
 4. Commit normally. **Never bypass hooks.**
 5. `git pull --rebase origin master`, `git push`, then pull --rebase again. On
-   rejection: rebase, recheck the ledger, retry, final pull.
+   rejection: rebase, recheck the ledger, retry, final pull (Subject to the batching and retry limits in #6).
 
-Header, vendored-reference and shared-shim edits — and a resolved merge —
-trigger the full gate in the hook; poll it, don't relaunch, and never filter a
-gate through a pipeline that hides its exit code.
+6. This step governs when to run #5 and limits its retries. Normally, publish after 1 verified commit. Keep substantive changes in separate atomic, verified commits; batching changes push frequency only.
+
+On a non-fast-forward push rejection caused by `origin/master` advancing, rebase, recheck the ledger, complete any required verification, and retry once.
+
+If that retry is also rejected because `origin/master` advanced again, accumulate 2 verified commits since the last publication attempt before trying again. If contention continues, accumulate 3–5 verified commits between publication attempts. 
+
+Once there are 5 verified unpublished commits, do not increase the batch size further solely as a result of `origin/master` advancing. Keep the existing batch, rebase, recheck, verify as required, and attempt publication again until published.
+
+Attempt publication sooner if 10 minutes have elapsed since the last publication attempt, the assigned work is exhausted, or the session is ending. Finish any in-progress verification first.
+
+Before each publication attempt, rebase onto current `origin/master`, recheck the ledger, and complete any required verification. 
+
+After 3 consecutive publication attempts succeed without rejection, reduce the batch size one level: 3–5 → 2 → 1.
+
+Header, vendored-reference and shared-shim edits — and a resolved merge — trigger the full gate in the hook; poll it, don't relaunch, and never filter a gate through a pipeline that hides its exit code.
 
 Before pushing, `python3 tools/progress.py origin/master` prints what your
 session added. `+0.00 pp` is the common outcome — do not stop there; take
