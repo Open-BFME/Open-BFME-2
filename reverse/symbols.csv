@@ -1004,3 +1004,4 @@ _strcmp,0x006291C6,PE CRT thunk; independent FF25 import thunk at RVA 0x006291C6
 _d_0088d240,0x0003C550
 ?bfmeOneBZB@@YAXPAX@Z,0x001B65F0
 ?bfmeTwoBZB@@YAXPAX@Z,0x001B6410
+?bfmeMakeBZA@@YAPAVBfmeCacheBZA@@PAVBfmeThingBZA@@@Z,0x006612C0
