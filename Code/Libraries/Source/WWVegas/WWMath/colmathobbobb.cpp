@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfmerendobj /G7 /arch:SSE2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/sweep
+// cl: /DNDEBUG /Ireference/shims/bfmerendobj /G7 /arch:SSE2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/sweep
 // Ported verbatim from the Generals Zero Hour reference
 // (Libraries/Source/WWVegas/WWMath/colmathobbobb.cpp); this unit had no counterpart under Code/.
 /*
@@ -60,6 +60,7 @@
 #include "obbox.h"
 #include "aabox.h"
 #include "wwdebug.h"
+
 
 
 /*
@@ -180,9 +181,7 @@ static bool obb_intersect_box0_basis
 	// ra = box0 projection onto the axis
 	// rb = box1 projection onto the axis
 	float ra =	context.Box0.Extent[axis_index];
-	float rb =	WWMath::Fabs(context.Box1.Extent[0]*context.AB[axis_index][0]) + 
-					WWMath::Fabs(context.Box1.Extent[1]*context.AB[axis_index][1]) + 
-					WWMath::Fabs(context.Box1.Extent[2]*context.AB[axis_index][2]);
+	float rb =	WWMath::Fabs(context.Box1.Extent[0]*context.AB[axis_index][0]) + WWMath::Fabs(context.Box1.Extent[1]*context.AB[axis_index][1]) + WWMath::Fabs(context.Box1.Extent[2]*context.AB[axis_index][2]);
 	float rsum = ra+rb;
 
 	// u = projected distance between the box centers
@@ -217,9 +216,7 @@ static bool obb_intersect_box1_basis
 {
 	// ra = box0 projection onto the axis
 	// rb = box1 projection onto the axis
-	float ra =	WWMath::Fabs(context.Box0.Extent[0]*context.AB[0][axis_index]) + 
-					WWMath::Fabs(context.Box0.Extent[1]*context.AB[1][axis_index]) + 
-					WWMath::Fabs(context.Box0.Extent[2]*context.AB[2][axis_index]);
+	float ra =	WWMath::Fabs(context.Box0.Extent[0]*context.AB[0][axis_index]) + WWMath::Fabs(context.Box0.Extent[1]*context.AB[1][axis_index]) + WWMath::Fabs(context.Box0.Extent[2]*context.AB[2][axis_index]);
 	float rb =	context.Box1.Extent[axis_index];
 	float rsum = ra+rb;
 
@@ -643,9 +640,7 @@ static bool obb_check_box0_basis
 	// ra = box0 projection onto the axis
 	// rb = box1 projection onto the axis
 	float ra =	context.Box0.Extent[axis_index];
-	float rb =	WWMath::Fabs(context.Box1.Extent[0]*context.AB[axis_index][0]) + 
-					WWMath::Fabs(context.Box1.Extent[1]*context.AB[axis_index][1]) + 
-					WWMath::Fabs(context.Box1.Extent[2]*context.AB[axis_index][2]);
+	float rb =	WWMath::Fabs(context.Box1.Extent[0]*context.AB[axis_index][0]) + WWMath::Fabs(context.Box1.Extent[1]*context.AB[axis_index][1]) + WWMath::Fabs(context.Box1.Extent[2]*context.AB[axis_index][2]);
 
 	// u0 = projected distance between the box centers at t0
 	// u1 = projected distance between the box centers at t1
@@ -676,9 +671,7 @@ static bool obb_check_box1_basis
 {
 	// ra = box0 projection onto the axis
 	// rb = box1 projection onto the axis
-	float ra =	WWMath::Fabs(context.Box0.Extent[0]*context.AB[0][axis_index]) + 
-					WWMath::Fabs(context.Box0.Extent[1]*context.AB[1][axis_index]) + 
-					WWMath::Fabs(context.Box0.Extent[2]*context.AB[2][axis_index]);
+	float ra =	WWMath::Fabs(context.Box0.Extent[0]*context.AB[0][axis_index]) + WWMath::Fabs(context.Box0.Extent[1]*context.AB[1][axis_index]) + WWMath::Fabs(context.Box0.Extent[2]*context.AB[2][axis_index]);
 	float rb =	context.Box1.Extent[axis_index];
 
 	// u0 = projected distance between the box centers at t0
