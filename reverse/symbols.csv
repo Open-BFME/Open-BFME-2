@@ -1038,3 +1038,4 @@ __RTC_CheckEsp,0x0075A5A2
 ?Resize@?$SimpleVecClass@K@@UAE_NH@Z,0x001A7C80
 ??0?$ShareBufferClass@VVector2@@@@QAE@ABV0@@Z,0x0015CD00
 ?Set@Matrix3D@@QAEXABVMatrix3@@ABVVector3@@@Z,0x00711E70
+?Transform_Min_Max_AABox@Matrix3D@@QBEXABVVector3@@0PAV2@1@Z,0x00712B60

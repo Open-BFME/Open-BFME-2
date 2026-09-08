@@ -5681,3 +5681,6 @@ _piCallbacksCleanup,,0x0069EEF0,24,Code/GameEngine/Source/GameNetwork/GameSpy/pe
 ?Resize@?$DynamicVectorClass@VResolutionDescClass@@@@UAE_NHPBVResolutionDescClass@@@Z,,0x00121190,47,Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp,matched,
 ??4?$DynamicVectorClass@VResolutionDescClass@@@@QAEAAV0@ABV0@@Z,,0x00121DB0,33,Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp,matched,
 ??_EBfmeEnumerationDesc@@QAEPAXI@Z,,0x00124400,87,Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp,matched,
+?Transform@MinMaxAABoxClass@@QAEXABVMatrix3D@@@Z,,0x0019B020,96,Code/Libraries/Source/WWVegas/WW3D2/hlod.cpp,matched,
+??0?$DynamicVectorClass@VModelNodeClass@HLodClass@@@@QAE@IPBVModelNodeClass@HLodClass@@@Z,,0x0019E950,46,Code/Libraries/Source/WWVegas/WW3D2/hlod.cpp,matched,
+??4?$DynamicVectorClass@VModelNodeClass@HLodClass@@@@QAEAAV0@ABV0@@Z,,0x0019F4B0,33,Code/Libraries/Source/WWVegas/WW3D2/hlod.cpp,matched,
