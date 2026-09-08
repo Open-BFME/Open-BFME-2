@@ -74,3 +74,31 @@ already verified array allocator, and stores the result at `+0x1C`. The destruct
 begins immediately after its `ret 4`. The sorting allocator's four exception
 nodes resolve to the same independently audited allocation-cleanup graph as the
 native allocator. No constructor or destructor receives duplicate body credit.
+
+Native creation at `0x1397B0` is the complete 271-byte body, ending in `ret 4`
+followed by one alignment byte. It acquires the real device mutex through the
+ordinary `BFMEDX8DeviceLock` lifetime, translates dynamic/NPatch/software usage
+bits, and calls Device9 CreateVertexBuffer twice at most. The second attempt
+follows mesh-cache invalidation and managed-resource eviction. The reference's
+old texture-age invalidation is absent in this image, while Device9 adds the
+null shared-handle argument. Both explicit TnL fallback checks remain present.
+
+Restoring the original inline FVF_Info/Get_FVF/Get_FVF_Size and device-accessor
+source structure is necessary to reproduce the retail evaluation order and stack
+spills. Replacing those ordinary accessors with raw field/global expressions
+produced 251 bytes; explicit locals alone produced 260. The reference accessor
+structure emits all 271 bytes exactly, including both native calls and cleanup.
+
+The separate 19-byte eviction helper at `0x11E610` calls the exact Device9
+EvictManagedResources slot 5 and increments the independently established API
+counter at `0xDEDA98`. Its thirteen following alignment bytes and full device
+reference at `0xDEDA34` are checked. The helper closes the creation retry's actual
+callee dependency and is explicitly out of line.
+
+The complete creation exception graph comprises its handler `0xB65CF8` (10),
+function information `0xD0A2D0` (28), unwind map `0xD0A2C8` (8), unwind action
+`0xB65CF0` (8), and guard destructor `0x442F8C` (5). All bytes and targets are
+independently checked. The guard destructor reaches the already established
+mutex release at `0x120F50`; the runtime thunk names msvcr71's C++ handler.
+The SDK-ordered Device9 prefix is included with its Wine source attribution,
+through the exact CreateVertexBuffer slot 26. No placeholder slots are used.
