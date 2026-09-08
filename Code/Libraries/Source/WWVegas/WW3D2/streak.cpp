@@ -356,7 +356,6 @@ void StreakLineClass::Set_Texture(TextureClass *texture)
 	StreakRenderer.Set_Texture(texture);
 }
 
-// ?Set_Shader@StreakLineClass@@ present-unmatched
 void StreakLineClass::Set_Shader(ShaderClass shader)
 {
 	LineRenderer.Set_Shader(shader);
@@ -691,7 +690,6 @@ void StreakLineClass::Set_Texture_Reduction_Factor(float trf)
 
  
 
-// ?Render_Seg_Line@StreakLineClass@@ present-unmatched
 void StreakLineClass::Render_Seg_Line(RenderInfoClass & rinfo)
 {
 	// Line must have at least two points to be valid

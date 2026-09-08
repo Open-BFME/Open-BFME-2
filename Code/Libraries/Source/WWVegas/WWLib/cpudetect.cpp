@@ -1165,7 +1165,6 @@ void CPUDetectClass::Init_Compact_Log()
 static class CPUDetectInitClass
 {
 public:
-// ??0CPUDetectInitClass@@ present-unmatched
 	CPUDetectInitClass::CPUDetectInitClass()
 	{
 		CPUDetectClass::Init_CPUID_Instruction();

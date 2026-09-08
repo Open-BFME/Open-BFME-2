@@ -980,3 +980,4 @@ _strcmp,0x006291C6,PE CRT thunk; independent FF25 import thunk at RVA 0x006291C6
 ?stopAllBoneFX@BoneFXUpdate@@QAEXXZ,0x00487A95,address read from the REL32 displacement at a placed body
 ?wouldIgnite@FlammableUpdate@@QAE_NXZ,0x0048C57A,address read from the REL32 displacement at a placed body
 ?Set_Single_Shader@MeshMatDescClass@@QAEXVShaderClass@@H@Z,0x0015A7E0,address read from the REL32 displacement at a placed body
+?findObjectByID@GameLogic@@QAEPAVObject@@W4ObjectID@@@Z,0x00049DC5,address read from the REL32 call site in cullFrontOfList after the dockupdate UpdateModule layout fix
