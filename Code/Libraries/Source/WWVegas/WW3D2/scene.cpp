@@ -408,7 +408,6 @@ void SimpleSceneClass::Add_Render_Object(RenderObjClass * obj)
  *   3/24/98    GTH : Created.                                                                 *
  *=============================================================================================*/
 // byte-exact reconstruction: Code/GameEngine/Source/Common/SimpleSceneClass_Remove_Render_Object_Thunk.cpp
-// ?Remove_Render_Object@SimpleSceneClass@@UAEXPAVRenderObjClass@@@Z present-unmatched
 void SimpleSceneClass::Remove_Render_Object(RenderObjClass * obj)
 {
 	SceneClass::Remove_Render_Object(obj);

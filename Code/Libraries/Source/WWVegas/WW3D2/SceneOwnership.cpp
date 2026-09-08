@@ -107,3 +107,14 @@ void BFME2SceneSpatialIndex::Remove(RenderObjClass *obj)
 
 typedef char SpatialNodeSizeMatchesRetail[(sizeof(BFME2SceneSpatialNode) == 0x1C) ? 1 : -1];
 typedef char SpatialIndexSizeMatchesRetail[(sizeof(BFME2SceneSpatialIndex) == 0x28) ? 1 : -1];
+
+void SimpleSceneClass::Remove_Render_Object(RenderObjClass *obj)
+{
+    SceneClass::Remove_Render_Object(obj);
+    _bfme_changed_objects.Remove(obj);
+    if (obj->Is_Force_Visible()) _bfme_forced_objects.Remove(obj);
+    _bfme_visible_objects.Remove(obj);
+    if (SceneClass::_bfme_spatial_token(obj) >= 0) _bfme_spatial_index.Remove(obj);
+    RenderList.Remove(obj);
+}
+
