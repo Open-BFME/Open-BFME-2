@@ -941,3 +941,34 @@ _strcmp,0x006291C6,PE CRT thunk; independent FF25 import thunk at RVA 0x006291C6
 ?findModuleTemplate@ModuleFactory@@IAEPBVModuleTemplate@1@ABVAsciiString@@W4ModuleType@@@Z,0x0025674F,address read from the REL32 displacement at a placed body
 ?initFromINIMultiProc@INI@@QAEXPAXP6AXAAVMultiIniFieldParse@@@Z@Z,0x0002DEB5,address read from the REL32 displacement at a placed body
 ?isEmpty@AsciiString@@QBE_NXZ,0x00001E2F,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
+??$_Construct@VWeaponTemplateSet@@V1@@_STL@@YAXPAVWeaponTemplateSet@@ABV1@@Z,0x004AE915,address read from the REL32 displacement at a placed body
+??$__uninitialized_copy@PAVWeaponTemplateSet@@PAV1@@_STL@@YAPAVWeaponTemplateSet@@PAV1@00ABU__false_type@0@@Z,0x004AE927,address read from the REL32 displacement at a placed body
+??$__uninitialized_copy@PAW4ScienceType@@PAW41@@_STL@@YAPAW4ScienceType@@PAW41@00ABU__false_type@0@@Z,0x001DD10D,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
+??$__uninitialized_fill_n@PAVWeaponTemplateSet@@IV1@@_STL@@YAPAVWeaponTemplateSet@@PAV1@IABV1@ABU__false_type@0@@Z,0x004AE94D,address read from the REL32 displacement at a placed body
+??$__uninitialized_fill_n@PAW4ScienceType@@IW41@@_STL@@YAPAW4ScienceType@@PAW41@IABW41@ABU__false_type@0@@Z,0x0020E400,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
+??0?$_STLP_alloc_proxy@PAW4ScienceType@@W41@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QAE@ABV?$allocator@W4ScienceType@@@1@PAW4ScienceType@@@Z,0x0014F3C4,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
+?allocate@?$allocator@W4ScienceType@@@_STL@@QBEPAW4ScienceType@@IPBX@Z,0x00068E15,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
+?countIntersection@?$BitFlags@$0L@@@QBEHABV1@@Z,0x0033ADC0,address read from the REL32 displacement at a placed body
+?countInverseIntersection@?$BitFlags@$0L@@@QBEHABV1@@Z,0x0028F55C,address read from the REL32 displacement at a placed body
+?deleteInstance@MemoryPoolObject@@QAEXXZ,0x0061ED10,address read from the REL32 displacement at a placed body
+?erase@?$vector@UNugget@ModuleInfo@@V?$allocator@UNugget@ModuleInfo@@@_STL@@@_STL@@QAEPAUNugget@ModuleInfo@@PAU34@@Z,0x0033C3BC,address read from the REL32 displacement at a placed body
+??1AnimSet@GenericObjectCreationNugget@@QAE@XZ,0x001F0495,address read from the REL32 displacement at a placed body
+?addObjectCreationNugget@ObjectCreationListStore@@QAEXPAVObjectCreationNugget@@@Z,0x001F0AC4,address read from the REL32 displacement at a placed body
+?getNextAsciiString@INI@@QAE?AVAsciiString@@XZ,0x0002EA4F,address read from the REL32 displacement at a placed body
+?push_back@?$vector@PAVObjectCreationNugget@@V?$allocator@PAVObjectCreationNugget@@@_STL@@@_STL@@QAEXABQAVObjectCreationNugget@@@Z,0x004DFCB0,address read from the REL32 displacement at a placed body
+?push_back@?$vector@UAnimSet@GenericObjectCreationNugget@@V?$allocator@UAnimSet@GenericObjectCreationNugget@@@_STL@@@_STL@@QAEXABUAnimSet@GenericObjectCreationNugget@@@Z,0x001F3326,address read from the REL32 displacement at a placed body
+?releaseBuffer@AsciiString@@IAEXXZ,0x00036410,address read from the REL32 displacement at a placed body
+?set@AsciiString@@QAEXABV1@@Z,0x000366F0,address read from the REL32 displacement at a placed body
+??$__uninitialized_copy@PBVAsciiString@@PAV1@@_STL@@YAPAVAsciiString@@PBV1@0PAV1@ABU__false_type@0@@Z,0x0002C4B2,address read from the REL32 displacement at a placed body
+??0?$_Vector_base@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAE@IABV?$allocator@VAsciiString@@@1@@Z,0x004F62A4,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
+??1?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAE@XZ,0x00036410,address read from the REL32 displacement at a placed body
+??1TransportContainModuleData@@UAE@XZ,0x001DFA48,address read from the REL32 displacement at a placed body
+?get_allocator@?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QBE?AV?$allocator@VAsciiString@@@2@XZ,0x0021983A,address read from the REL32 displacement at a placed body
+??0DieModuleData@@QAE@XZ,0x006054E7,address read from the REL32 displacement at a placed body
+??1DieModule@@MAE@XZ,0x0045CE54,address read from the REL32 displacement at a placed body
+?isDieApplicable@DieMuxData@@QBE_NPBVObject@@PBVDamageInfo@@@Z,0x004CE588,address read from the REL32 displacement at a placed body
+?friend_getFinalOverride@Overridable@@QAEPAV1@XZ,0x001E35DF,address read from the REL32 displacement at a placed body
+??0BehaviorModule@@QAE@PAVThing@@PBVModuleData@@@Z,0x00253330,address read from the REL32 displacement at a placed body
+?Cast_AABox_Recursive@AABTreeClass@@AAE_NPAUCullNodeStruct@1@AAVAABoxCollisionTestClass@@@Z,0x00198730
+?cast_aabox_brute_force@MeshGeometryClass@@IAE_NAAVAABoxCollisionTestClass@@@Z,0x0016CD30
+?cast_ray_brute_force@MeshGeometryClass@@IAE_NAAVRayCollisionTestClass@@@Z,0x0016CE00
