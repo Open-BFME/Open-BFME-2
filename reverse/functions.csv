@@ -1917,6 +1917,7 @@ _XMP_Test_Bit,,0x0061B780,33,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?Clear@?$VectorClass@UTextureStatisticsStruct@@@@UAEXXZ,,0x00129B00,61,Code/Libraries/Source/WWVegas/WW3D2/TextureStatisticsVector.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
 ??1?$VectorClass@UTextureStatisticsStruct@@@@UAE@XZ,,0x0012A4D0,67,Code/Libraries/Source/WWVegas/WW3D2/TextureStatisticsVector.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
 ??0?$DynamicVectorClass@UTextureStatisticsStruct@@@@QAE@IPBUTextureStatisticsStruct@@@Z,,0x0012A520,46,Code/Libraries/Source/WWVegas/WW3D2/TextureStatisticsVector.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
+?Resize@?$DynamicVectorClass@UTextureStatisticsStruct@@@@UAE_NHPBUTextureStatisticsStruct@@@Z,,0x00129B40,47,Code/Libraries/Source/WWVegas/WW3D2/TextureStatisticsVector.cpp,matched,BFME1 analogue; exact BFME2 target match
 ?Clear@?$DynamicVectorClass@UTextureStatisticsStruct@@@@UAEXXZ,,0x0012A580,64,Code/Libraries/Source/WWVegas/WW3D2/TextureStatisticsVector.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
 ??0AABTreeClass@@QAE@XZ,,0x00197B40,33,Code/Libraries/Source/WWVegas/WW3D2/aabtree.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
 ?Reset@AABTreeClass@@AAEXXZ,,0x00197B70,61,Code/Libraries/Source/WWVegas/WW3D2/aabtree.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
