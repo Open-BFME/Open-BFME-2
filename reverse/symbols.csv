@@ -1032,3 +1032,6 @@ _d_0088d240,0x0003C550
 _Rva0081B830,0x00687730
 __RTC_CheckEsp,0x0075A5A2
 ?rva0082ADB0Fill@@YAXPAD0ABD@Z,0x000237C0
+?Make_Unique@MeshClass@@QAEX_N@Z,0x00149C10,BFME2 target-side callee pin for MeshClass::Scale drift quick win
+?Make_Geometry_Unique@MeshModelClass@@QAEXXZ,0x00172070,BFME2 target-side callee pin for MeshClass::Scale drift quick win
+?Scale@MeshGeometryClass@@QAEXABVVector3@@@Z,0x0016B3F0,BFME2 target-side callee pin for MeshClass::Scale drift quick win

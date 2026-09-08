@@ -453,7 +453,7 @@ MeshModelClass * MeshClass::Get_Model(void)
  *                                                                                             *
  * HISTORY:                                                                                    *
  *=============================================================================================*/
-// ?MeshClass::Scale present-unmatched
+// ?MeshClass::Scale
 void MeshClass::Scale(float scale)
 {
 	if (scale==1.0f) return;
@@ -1251,7 +1251,6 @@ int MeshClass::Get_Draw_Call_Count(void) const
 		return 0;
 	}
 }
-
 
 
 
