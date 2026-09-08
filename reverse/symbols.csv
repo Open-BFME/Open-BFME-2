@@ -898,3 +898,8 @@ _strcmp,0x006291C6,PE CRT thunk; independent FF25 import thunk at RVA 0x006291C6
 ?Release_Ref@BFME2TextureResource@@QAEXXZ,0x0061ED10,Descriptive resource view; Set_Texture call51F4D9 reaches established WORD-at4 decrement and conditional virtual disposal
 ?Set_Light_Environment@DX8Wrapper@@SAXPAVLightEnvironmentClass@@@Z,0x00122EA0,Material-pass caller54C036; full719-byte light environment setup has cached state and up to4 ambient/directional/point lights; held Set_Light11DD20 corroborates role
 ?Render@DX8PolygonRendererClass@@QAEXH@Z,0x00143630,Material-pass caller54C411; renderer model/index/strip/pass layout and Rendering mesh profiling literal corroborate native strip and triangle dispatch
+?Get_Name@MeshGeometryClass@@QBEPBDXZ,0x0016A6B0,"MeshName shared-buffer lookup: ECX+10 nullable, buffer data+C; donor MeshGeometry Get_Name role; full14-byte body"
+??0BFME2ScopedRenderEvent@@QAE@PBD0I@Z,0x00117CF0,"Descriptive scope ctor: label256 group64; bounded copy and BeginEvent wrapper11F340(label,color); RET12 full167"
+??1BFME2ScopedRenderEvent@@QAE@XZ,0x00117DA0,Descriptive scope dtor:5-byte tail to EndEvent11F3C0 optional callbackDEDBE0; same EH action at766200
+?Draw_Strip@DX8Wrapper@@SAXIIII@Z,0x001206D0,"33-byte32-bit draw wrapper: type5 triangle-strip, four uint32 ranges, indexed1, calls1203C0"
+?Draw_Triangles@DX8Wrapper@@SAXIIII@Z,0x00120620,"33-byte32-bit draw wrapper: type4 triangle-list, four uint32 ranges, indexed1, calls1203C0"
