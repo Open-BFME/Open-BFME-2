@@ -5618,3 +5618,4 @@ _piCallbacksCleanup,,0x0069EEF0,24,Code/GameEngine/Source/GameNetwork/GameSpy/pe
 ?Scale@MeshClass@@UAEXMMM@Z,,0x0014A6A0,75,Code/Libraries/Source/WWVegas/WW3D2/mesh.cpp,matched,ported from BFME1 with BFME2 target-side callee pins; drift quick win
 ??0AABoxRenderObjClass@@QAE@ABV0@@Z,,0x001762A0,87,Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp,matched,ported from BFME1; exact target-side structural candidate
 ??0BoxRenderObjClass@@QAE@ABV0@@Z,,0x00175B50,87,Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp,matched,ported from BFME1; exact target-side structural candidate
+??0ClassicEnvironmentMapperClass@@QAE@I@Z,,0x0013C630,25,Code/Libraries/Source/WWVegas/WW3D2/vertmaterial.cpp,matched,ported from BFME1; exact target-side structural candidate
