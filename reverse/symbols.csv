@@ -1112,3 +1112,11 @@ __RTC_CheckEsp,0x0075A5A2
 ?insert@?$list@HV?$allocator@H@_STL@@@_STL@@QAE?AU?$_List_iterator@HU?$_Nonconst_traits@H@_STL@@@2@U32@ABH@Z,0x005925E2,address read from the retail REL32 at offset 0x1e of _M_insert_dispatch<list_iterator> 0x002C526D - self-verifying because that body byte-matches only with this displacement; ecx=this plus three stack dwords (hidden return ptr, pos, &val) matches the (iterator pos, const int&) thiscall signature
 ??0BfmeDynamicVBBase@@QAE@IIGI@Z,0x00139350,shared vertex-buffer base ctor; address read from the REL32 in both derived ctors (0x00139660 and 0x0013AC00) - argument order taken from those two call sites (1/0x252/count/0 and 0/fvf/count/fvf_size) rather than assumed
 ?_Create_DX8_Surface@DX8Wrapper@@SAPAVIDirect3DSurface9@@IIW4WW3DFormat@@W4_D3DPOOL@@@Z,0x0011DC60,address read from the REL32 displacement at a placed body
+?checkForMessage@CopyProtect@@SAXIJ@Z,0x00232CE7,address read from the REL32 in WndProc at 0x000017E8; body is the reference's checkForMessage - compares message against 0xBEEF then MapViewOfFileEx(lParam, FILE_MAP_ALL_ACCESS)
+?resetKeys@Keyboard@@QAEXXZ,0x00232BDD,address read from the REL32 in WndProc's WM_SETFOCUS/WM_KILLFOCUS arms at 0x00001862
+?regainFocus@AudioManager@@QAEXXZ,0x001DBC0B,address read from the REL32 in WndProc's WM_ACTIVATE arm at 0x000018D7; the call site encodes this jump thunk, not the body
+?Reset_D3D_Device@@YAX_N@Z,0x0004312A,address read from the REL32 in WndProc's WM_ACTIVATEAPP arm at 0x000019DA; same position and single bool argument as the reference's Reset_D3D_Device
+?_M_rva00625699@BfmeDfe6e4@@QAEXXZ,0x00225699,address read from the REL32 in WndProc's WM_ACTIVATEAPP activate arm at 0x00001A1B; identity not recovered, so the placeholder is named for the address
+?_M_rva00625476@BfmeDfe6e4@@QAEXXZ,0x00225476,address read from the REL32 in WndProc's WM_ACTIVATEAPP deactivate arm at 0x00001A42; identity not recovered, so the placeholder is named for the address
+_bfmeRva0042CF86,0x0002CF86,address read from the REL32 in WndProc's message 0x2707 arm at 0x00001B99; identity not recovered, so the placeholder is named for the address
+?addWin32Event@Win32Mouse@@QAEXIIJK@Z,0x00041A10,address read from the REL32 shared by WndProc's three mouse arms at 0x00001C20
