@@ -62,9 +62,14 @@ def classify(a_ops, b_ops):
     """Why do these two operand strings differ?"""
     if "ptr [" in b_ops and "ptr [" in a_ops:
         return "memory"
-    for tok in b_ops.replace(",", " ").split():
-        if tok.startswith("0x") and int(tok, 16) >= RELOC_IMM:
-            return "reloc"
+    for tok in b_ops.replace(",", " ").replace("[", " ").replace("]", " ").split():
+        if tok.startswith("0x"):
+            try:
+                value = int(tok, 16)
+            except ValueError:
+                continue
+            if value >= RELOC_IMM:
+                return "reloc"
     if b_ops.startswith("0x") and a_ops.startswith("0x"):
         return "branch"
     return "register"
