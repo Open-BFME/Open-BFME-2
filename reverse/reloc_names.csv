@@ -47,6 +47,7 @@ _d_0088d240,0x0003C550,465,Code/GameEngine/Source/Common/Bfme/Rva00889760.cpp,re
 ??0Nugget@ModuleInfo@@QAE@ABU01@@Z,0x00119A80,78,Code/GameEngine/Source/Common/Thing/ThingFactory.cpp,reloc-derived;call-sites=1;identity=real
 ?erase@?$vector@V?$vector@UICoord2D@@V?$allocator@UICoord2D@@@_STL@@@_STL@@V?$allocator@V?$vector@UICoord2D@@V?$allocator@UICoord2D@@@_STL@@@_STL@@@2@@_STL@@QAEPAV?$vector@UICoord2D@@V?$allocator@UICoord2D@@@_STL@@@2@PAV32@0@Z,0x00119C70,76,Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp,reloc-derived;call-sites=1;identity=real
 ?Find_Color_Mode@DX8Wrapper@@KA_NW4_D3DFORMAT@@HHPAI@Z,0x0011CF80,248,Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp,reloc-derived;call-sites=1;identity=real
+?_Create_DX8_Surface@DX8Wrapper@@SAPAVIDirect3DSurface9@@IIW4WW3DFormat@@W4_D3DPOOL@@@Z,0x0011DC60,62,Code/Libraries/Source/WWVegas/WW3D2/surfaceclass_constructor.cpp,reloc-derived;call-sites=1;identity=real
 ??1BFME2ScopedRenderEvent@@QAE@XZ,0x0011F3C0,12,Code/Libraries/Source/WWVegas/WW3D2/bfme2_polygon_render.cpp,reloc-derived;call-sites=2;identity=real
 ?Log_DX8_ErrorCode@@YAXI@Z,0x0011F450,88,Code/Libraries/Source/WWVegas/WW3D2/bfmedynamicvertexbuffer.cpp,reloc-derived;call-sites=8;identity=real
 ?BFME_DX8_Thread_Lock@@YAXXZ,0x0011F520,138,Code/Libraries/Source/WWVegas/WW3D2/bfmedynamicvertexbuffer.cpp,reloc-derived;call-sites=6;identity=real
@@ -237,7 +238,7 @@ _d_0088d240,0x0003C550,465,Code/GameEngine/Source/Common/Bfme/Rva00889760.cpp,re
 ?reset@NetCommandList@@QAEXXZ,0x0058B283,67,Code/GameEngine/Source/Common/FrameDataManagerCounts.cpp,reloc-derived;call-sites=1;identity=real
 ?getCommandCount@FrameDataManager@@QAEII@Z,0x0058B74B,32,Code/GameEngine/Source/Common/ConnectionManagerFrameCommands.cpp,reloc-derived;call-sites=1;identity=real
 ?getFrameCommandCount@FrameDataManager@@QAEII@Z,0x0058B78F,32,Code/GameEngine/Source/Common/ConnectionManagerFrameCommands.cpp,reloc-derived;call-sites=1;identity=real
-?insert@?$list@HV?$allocator@H@_STL@@@_STL@@QAE?AU?$_List_iterator@HU?$_Nonconst_traits@H@_STL@@@2@U32@ABH@Z,0x005925E2,37,Code/Libraries/Source/WWVegas/WWLib/stlport_list_int_o1.cpp,reloc-derived;call-sites=1;identity=real
+?insert@?$list@HV?$allocator@H@_STL@@@_STL@@QAE?AU?$_List_iterator@HU?$_Nonconst_traits@H@_STL@@@2@U32@ABH@Z,0x005925E2,37,Code/Libraries/Source/WWVegas/WWLib/stlport_list_int_o1.cpp,reloc-derived;call-sites=3;identity=real
 ?_M_insert_overflow@?$vector@UBfmeE16@@V?$allocator@UBfmeE16@@@_STL@@@_STL@@IAEXPAUBfmeE16@@ABU3@ABU__false_type@2@I_N@Z,0x005B3970,186,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_e16_o1.cpp,reloc-derived;call-sites=1;identity=real
 ?winGetUserData@GameWindow@@QAEPAXXZ,0x005C4ACD,4,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/LanGameOptionsMenu.cpp,reloc-derived;call-sites=5;identity=real
 ?init@FrameData@@QAEXXZ,0x005DA4F9,10,Code/GameEngine/Source/Common/FrameDataManagerReset.cpp,reloc-derived;call-sites=1;identity=real

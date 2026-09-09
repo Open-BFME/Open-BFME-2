@@ -5965,3 +5965,9 @@ _XMP_Move,,0x0061BE10,19,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,
 ?Get_Hash_Value@FaceHasherClass@@UAEHH@Z,,0x006C0BC9,6,Code/Libraries/Source/WWVegas/WW3D2/meshbuild.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 ?dup_00481faf@@YAXXZ,,0x00481FAF,14,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/JetAIUpdate.cpp,matched,gen-alias;object-symbol=?Set_Z_Translation@Matrix3D@@QAEXM@Z;C++ alias
 ?dup_004583af@@YAXXZ,,0x004583AF,14,Code/Libraries/Source/WWVegas/WW3D2/linegrp_float_setters.cpp,matched,gen-alias;object-symbol=?Set_Line_Size@LineGroupClass@@QAEXM@Z;C++ alias
+??1?$VectorClass@VVector4@@@@UAE@XZ,,0x0017EB60,45,Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp,matched,gen-alias;object-symbol=??1?$VectorClass@VVector4@@@@UAE@XZ;C++ alias
+??_G?$VectorClass@VVector4@@@@UAEPAXI@Z,,0x0017F060,71,Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp,matched,gen-alias;object-symbol=??_G?$VectorClass@VVector4@@@@UAEPAXI@Z;C++ alias
+?push_back@?$list@HV?$allocator@H@_STL@@@_STL@@QAEXABH@Z,,0x0005548F,26,Code/Libraries/Source/WWVegas/WWLib/stlport_list_int_o1.cpp,matched,gen-alias;object-symbol=?push_back@?$list@HV?$allocator@H@_STL@@@_STL@@QAEXABH@Z;C++ alias
+?push_front@?$list@HV?$allocator@H@_STL@@@_STL@@QAEXABH@Z,,0x00392076,28,Code/Libraries/Source/WWVegas/WWLib/stlport_list_int_o1.cpp,matched,gen-alias;object-symbol=?push_front@?$list@HV?$allocator@H@_STL@@@_STL@@QAEXABH@Z;C++ alias
+?dup_001a3ab0@@YAXXZ,,0x001A3AB0,45,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTankTruckDraw.cpp,matched,gen-alias;object-symbol=??1?$DynamicVectorClass@PAVRender2DClass@@@@UAE@XZ;C++ alias
+??0SurfaceClass@@QAE@IIW4WW3DFormat@@W4_D3DPOOL@@@Z,,0x001165D0,39,Code/Libraries/Source/WWVegas/WW3D2/surfaceclass_constructor.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
