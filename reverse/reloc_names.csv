@@ -28,8 +28,8 @@ name,target_rva,target_size,source,notes
 _d_0088d240,0x0003C550,465,Code/GameEngine/Source/Common/Bfme/Rva00889760.cpp,reloc-derived;call-sites=1;identity=real
 ?DebugAllocMemory@@YAPAXI@Z,0x0003E450,83,Code/Libraries/Source/WWVegas/WWDebug/debug_io_flat.cpp,reloc-derived;call-sites=7;identity=real
 ?findObjectByID@GameLogic@@QAEPAVObject@@W4ObjectID@@@Z,0x00049DC5,37,Code/GameEngine/Source/GameLogic/Object/Update/HijackerUpdate.cpp,reloc-derived;call-sites=4;identity=real
-?Set_DX8_Render_State@DX8Wrapper@@SAXKI@Z,0x0006615F,10,Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper_set_light_environment.cpp,reloc-derived;call-sites=5;identity=real
-?Set_DX8_Texture_Stage_State@DX8Wrapper@@SAXIKI@Z,0x000661DD,10,Code/Libraries/Source/WWVegas/WW3D2/vertmaterial.cpp,reloc-derived;call-sites=2;identity=real
+?Set_DX8_Render_State@DX8Wrapper@@SAXKI@Z,0x0006615F,10,Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp,reloc-derived;call-sites=10;identity=real
+?Set_DX8_Texture_Stage_State@DX8Wrapper@@SAXIKI@Z,0x000661DD,10,Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp,reloc-derived;call-sites=8;identity=real
 ?recalculate@LineSegClass@@IAEXXZ,0x0006A1E4,233,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DRoadBuffer.cpp,reloc-derived;call-sites=4;identity=real
 ?Remove@?$RefMultiListClass@VRenderObjClass@@@@QAE_NPAVRenderObjClass@@@Z,0x0006EF4E,47,Code/Libraries/Source/WWVegas/WW3D2/SceneOwnership.cpp,reloc-derived;call-sites=3;identity=real
 ?insert@?$list@HV?$allocator@H@_STL@@@_STL@@QAE?AU?$_List_iterator@HU?$_Nonconst_traits@H@_STL@@@2@U32@@Z,0x00079CB6,10,Code/Libraries/Source/WWVegas/WWLib/stlport_list_int_o1.cpp,reloc-derived;call-sites=1;identity=real
@@ -58,7 +58,6 @@ _d_0088d240,0x0003C550,465,Code/GameEngine/Source/Common/Bfme/Rva00889760.cpp,re
 ?BFME_DX8_Thread_Assert@@YAXXZ,0x00120F50,90,Code/Libraries/Source/WWVegas/WW3D2/bfmedynamicvertexbuffer.cpp,reloc-derived;call-sites=6;identity=real
 ??4?$VectorClass@VResolutionDescClass@@@@QAEAAV0@ABV0@@Z,0x00120FE0,215,Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp,reloc-derived;call-sites=2;identity=real
 ?Get_Render_Target_Resolution@WW3D@@SAXAAH00AA_N@Z,0x00121860,195,Code/Libraries/Source/WWVegas/WW3D2/camera.cpp,reloc-derived;call-sites=2;identity=real
-?Set_Default_Global_Render_States@DX8Wrapper@@KAXXZ,0x00122510,232,Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp,reloc-derived;call-sites=1;identity=real
 ?Do_Onetime_Device_Dependent_Inits@DX8Wrapper@@SAXXZ,0x001245A0,283,Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp,reloc-derived;call-sites=1;identity=real
 ?Record_DX8_Polys_And_Vertices@Debug_Statistics@@YAXHHABVShaderClass@@@Z,0x00129540,68,Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp,reloc-derived;call-sites=3;identity=real
 ?Resize@?$VectorClass@UTextureStatisticsStruct@@@@UAE_NHPBUTextureStatisticsStruct@@@Z,0x00129990,363,Code/Libraries/Source/WWVegas/WW3D2/TextureStatisticsVector.cpp,reloc-derived;call-sites=2;identity=real
