@@ -9,6 +9,10 @@ typedef unsigned long ULONG;
 typedef void *HANDLE;
 void *__cdecl operator new(unsigned);
 void __cdecl operator delete(void *);
+// Without this declaration MSVC routes `new T[n]` to the SCALAR ??2@YAPAXI@Z
+// (0x0002FDA0); retail's sorting constructor calls the array form ??_U@YAPAXI@Z
+// at 0x0002FDE0, and those are two byte-verified distinct bodies here.
+void *__cdecl operator new[](unsigned);
 struct BfmeFVFDescriptor;
 struct BfmeDynamicFVFPrefix {
  unsigned fvf;bool additionalBasis;unsigned extensionCount,stride;
@@ -31,6 +35,17 @@ public:
 };
 class BfmeDynamicVBBase:public BfmeDynamicVBRefCount {
 public:
+ // Declared, not defined: retail's shared base constructor lives at 0x00139350
+ // and both derived constructors below reach it through a REL32 this unit
+ // reproduces byte for byte. Argument order is read out of the two call sites,
+ // not assumed -- the sorting buffer passes (1,0x252,count,0) and the native
+ // one (0,fvf,count,fvf_size).
+ BfmeDynamicVBBase(unsigned,unsigned,unsigned short,unsigned);
+ // Declared after DeleteThis so it takes vtable slot 1 and leaves slot 0 where
+ // the already-matched bodies in this unit call it. Its presence is what gives
+ // both constructors below retail's unwind frame: with no destructible base
+ // there is nothing to unwind and MSVC emits no frame at all.
+ virtual ~BfmeDynamicVBBase();
  unsigned type;
  unsigned short vertexCount;
  int engineReferences;
@@ -126,6 +141,22 @@ void BfmeDynamicVBAccess::AllocateSorting()
  if(buffer) buffer->ReleaseRef();
  buffer=bfmeSortingVB;
  vertexOffset=bfmeSortingVBOffset;
+}
+
+// Retail multiplies the vertex count by 44 with a lea/add/sub chain rather than
+// an imul, which is what sizeof(BfmeSortingVertex) already forces here, and
+// reaches the ARRAY operator new at 0x0002FDE0 (??_U), not the scalar one.
+BfmeDynamicSortingVB::BfmeDynamicSortingVB(unsigned short count)
+ :BfmeDynamicVBBase(1,0x252,count,0)
+{
+ buffer=new BfmeSortingVertex[count];
+}
+
+BfmeDynamicNativeVB::BfmeDynamicNativeVB(unsigned fvf,unsigned short count,unsigned usage,unsigned fvfSize)
+ :BfmeDynamicVBBase(0,fvf,count,fvfSize)
+{
+ buffer=0;
+ Create(usage);
 }
 
 /*
