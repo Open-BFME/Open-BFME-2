@@ -29,6 +29,17 @@ A tier reporting zero candidates is exhausted, not broken. Regenerate with
 
 Finish or revert each body before the next.
 
+## BFME 1 reference freshness
+
+When initializing `reference/open-bfme-1`, and before BFME 2 work if the last
+successful check is missing or over 24 hours old, fetch official
+`Open-BFME/Open-BFME-1` `master` and update the clean submodule to that HEAD.
+Compare commits, not commit dates: upstream need not have a commit today.
+Preserve dirty or unpublished submodule work and report any blocked update.
+Record the successful check time locally in ignored `build/bfme1-last-check.txt`;
+do not repeat the check per transfer. After a pointer change, run BFME 2's full
+build verification and include the verified pointer in the next commit batch.
+
 ## Work the file, not the row
 
 `next_work.py` lists every other queued candidate in the same source file.
