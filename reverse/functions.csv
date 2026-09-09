@@ -5641,7 +5641,6 @@ _piCallbacksCleanup,,0x0069EEF0,24,Code/GameEngine/Source/GameNetwork/GameSpy/pe
 ??_GBufferStraw@@UAEPAXI@Z,,0x0013D400,30,Code/Libraries/Source/WWVegas/WW3D2/vertmaterial.cpp,matched,ported from BFME1; exact target-side structural alias
 ??0?$DynamicVectorClass@PAVVertexMaterialClass@@@@QAE@IPBQAVVertexMaterialClass@@@Z,,0x001A3AE0,94,Code/Libraries/Source/WWVegas/WW3D2/matinfo.cpp,matched,ported from BFME1; exact folded-body identity
 ??0?$DynamicVectorClass@PAVTextureClass@@@@QAE@IPBQAVTextureClass@@@Z,,0x001A3AE0,94,Code/Libraries/Source/WWVegas/WW3D2/matinfo.cpp,matched,ported from BFME1; exact folded-body identity
-??0?$DynamicVectorClass@PAVFontCharsBuffer@@@@QAE@IPBQAVFontCharsBuffer@@@Z,,0x001A3AE0,94,Code/Libraries/Source/WWVegas/WW3D2/render2dsentence.cpp,matched,ported from BFME1; exact folded-body identity
 ??0?$DynamicVectorClass@PAVRender2DClass@@@@QAE@IPBQAVRender2DClass@@@Z,,0x001A3AE0,94,Code/Libraries/Source/WWVegas/WW3D2/render2dsentence.cpp,matched,ported from BFME1; exact folded-body identity
 ??_G?$VectorClass@PAVVertexMaterialClass@@@@UAEPAXI@Z,,0x001A3B90,71,Code/Libraries/Source/WWVegas/WW3D2/matinfo.cpp,matched,ported from BFME1; exact folded-body identity
 ?Set_Line_Size@LineGroupClass@@QAEXM@Z,,0x001B35F0,14,Code/Libraries/Source/WWVegas/WW3D2/linegrp_float_setters.cpp,matched,reloc-named unclaimed; retail stores the float with movss so this split TU carries /arch:SSE
@@ -5719,7 +5718,6 @@ _piCallbacksCleanup,,0x0069EEF0,24,Code/GameEngine/Source/GameNetwork/GameSpy/pe
 ?Get_View_Matrix@CameraClass@@QAEABVMatrix3D@@XZ,,0x00134A70,16,Code/Libraries/Source/WWVegas/WW3D2/camera.cpp,matched,
 ?Max@WWMath@@SAMMM@Z,,0x00154A60,23,Code/Libraries/Source/WWVegas/WW3D2/lightenvironment.cpp,matched,
 ?Min@WWMath@@SAMMM@Z,,0x00154A80,23,Code/Libraries/Source/WWVegas/WW3D2/lightenvironment.cpp,matched,
-?Store_Length@StringClass@@AAEXH@Z,,0x0060F130,20,Code/Libraries/Source/WWVegas/WW3D2/dx8rendererdebugger.cpp,matched,
 ??0?$Node@PAVLayerClass@@@@QAE@XZ,,0x00616460,17,Code/Libraries/Source/WWVegas/WW3D2/layer.cpp,matched,
 ?Set_Noise_Amplitude@SegLineRendererClass@@QAEXM@Z,,0x0015DFD0,14,Code/Libraries/Source/WWVegas/WW3D2/seglinerenderer.cpp,matched,
 ?Set_Merge_Abort_Factor@SegLineRendererClass@@QAEXM@Z,,0x0015DFE0,14,Code/Libraries/Source/WWVegas/WW3D2/seglinerenderer.cpp,matched,
@@ -5972,3 +5970,6 @@ _XMP_Move,,0x0061BE10,19,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,
 ?dup_001a3ab0@@YAXXZ,,0x001A3AB0,45,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTankTruckDraw.cpp,matched,gen-alias;object-symbol=??1?$DynamicVectorClass@PAVRender2DClass@@@@UAE@XZ;C++ alias
 ??0SurfaceClass@@QAE@IIW4WW3DFormat@@W4_D3DPOOL@@@Z,,0x001165D0,39,Code/Libraries/Source/WWVegas/WW3D2/surfaceclass_constructor.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 ?stopHealing@AutoHealBehavior@@QAEXXZ,,0x004523B6,22,Code/GameEngine/Source/GameLogic/Object/Behavior/AutoHealBehavior.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+??$__find@U?$_List_iterator@W4ObjectID@@U?$_Nonconst_traits@W4ObjectID@@@_STL@@@_STL@@W4ObjectID@@@_STL@@YA?AU?$_List_iterator@W4ObjectID@@U?$_Nonconst_traits@W4ObjectID@@@_STL@@@0@U10@0ABW4ObjectID@@ABUinput_iterator_tag@0@@Z,,0x0029B2C4,35,Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?Get_Format_Name@DX8Wrapper@@SAXIPAVStringClass@@@Z,,0x0011FE20,777,Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp,matched,retail has NO case for D3DFMT_W11V11U10 (65) - a D3D8-only format D3D9 removed; its jump-table index array sends 65 to default. Real size is 777 not the 598 reloc_names recorded
+?Set_Default_Global_Render_States@DX8Wrapper@@KAXXZ,,0x00122510,232,Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp,matched,BFME2 calls bfmeSetProjectionDepthBias(0.0f) where Zero Hour sets the integer D3DRS_ZBIAS to 0; D3D9 removed ZBIAS in favour of the float DEPTHBIAS. Callee proven by the REL32 at offset 0x43 resolving to 0x0011F1C0 which the ledger already claims
