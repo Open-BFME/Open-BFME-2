@@ -127,6 +127,17 @@ def main():
         print(f"note: no cc run within 0x400 of the hint -- using {size}. The body "
               f"may abut its neighbour (common) or the address may not be a "
               f"boundary (not fine).")
+    # A stub emits a handful of bytes, and then the cc search around that hint
+    # finds a padding run belonging to something else entirely -- which comes
+    # out as "1 structural region, small delta" and reads like a near miss when
+    # the two bodies have nothing to do with each other. Say so loudly; this
+    # produced two false positives at the top of a ranked worklist.
+    if len(sys.argv) <= 4 and (len(ours) < 16 or size > 4 * max(len(ours), 1)):
+        print(f"WARNING: our body is {len(ours)} B against a boundary at {size} B. "
+              f"That ratio means this is a STUB, not a near miss, and the "
+              f"region counts below are an artifact of comparing unrelated "
+              f"code. Pass an explicit size, or treat the result as unusable.")
+
     target = build.read_target_bytes(rva, size)
 
     md = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
