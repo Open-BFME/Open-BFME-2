@@ -5971,3 +5971,4 @@ _XMP_Move,,0x0061BE10,19,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,
 ?push_front@?$list@HV?$allocator@H@_STL@@@_STL@@QAEXABH@Z,,0x00392076,28,Code/Libraries/Source/WWVegas/WWLib/stlport_list_int_o1.cpp,matched,gen-alias;object-symbol=?push_front@?$list@HV?$allocator@H@_STL@@@_STL@@QAEXABH@Z;C++ alias
 ?dup_001a3ab0@@YAXXZ,,0x001A3AB0,45,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTankTruckDraw.cpp,matched,gen-alias;object-symbol=??1?$DynamicVectorClass@PAVRender2DClass@@@@UAE@XZ;C++ alias
 ??0SurfaceClass@@QAE@IIW4WW3DFormat@@W4_D3DPOOL@@@Z,,0x001165D0,39,Code/Libraries/Source/WWVegas/WW3D2/surfaceclass_constructor.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?stopHealing@AutoHealBehavior@@QAEXXZ,,0x004523B6,22,Code/GameEngine/Source/GameLogic/Object/Behavior/AutoHealBehavior.cpp,matched,placed by masked whole-.text search of the compiled body - single hit

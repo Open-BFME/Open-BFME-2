@@ -1271,9 +1271,17 @@ struct BFME_DX8Caps_All
 	int vertexShaderVersionAll;				// 0x2b4
 	int pixelShaderVersionAll;				// 0x2b8
 	int maxSimultaneousTexturesAll;			// 0x2bc
-	int unknown2c0;							// 0x2c0
-	int driverBuildVersion;					// 0x2c4
-	unsigned deviceId;						// 0x2c8
+	// These three were one dword out, and the correction is read from retail:
+	// every deviceId comparison in Vendor_Specific_Hacks below is
+	// `mov eax,[esi+0x2c0]` in the shipped body, at ten independent sites.
+	// It also reconciles this overlay with BFME_DX8Caps_ComputeFields above,
+	// which Compute_Caps uses to WRITE the same field -- `mappedDevice` at
+	// 0x2c0 is the index Get_NVidia_Device/Get_ATI_Device return, and it is
+	// that mapped index, not the raw PCI id, that the DEVICE_* constants name.
+	// Two overlays of one class disagreeing is a defect, not a difference.
+	unsigned deviceId;						// 0x2c0  (== mappedDevice)
+	unsigned rawDevice;						// 0x2c4
+	unsigned driverBuildVersion;			// 0x2c8
 	int driverVersionStatus;				// 0x2cc
 	int vendorId;							// 0x2d0
 	StringClass driverDLL;					// 0x2d4
@@ -1295,6 +1303,17 @@ void DX8Caps::Vendor_Specific_Hacks(const D3DADAPTER_IDENTIFIER8& adapter_id)
 
 		retail->supportNPatches = false;	// Driver incorrectly report N-Patch support
 		retail->supportTextureFormat[118] = false;			// DXT1 is broken on NVidia hardware
+		// The 12 bytes still separating this body from retail are all here.
+		// Retail reads fmt[122], then fmt[120] and fmt[119], into registers
+		// BEFORE the two stores above, reloads fmt[121] after them, and folds
+		// with three register ORs plus a re-zeroing `xor bl,bl`; we fold from
+		// memory with `or al,[mem]`. Both compute fmt[119]|[120]|[121]|[122]
+		// and both elide fmt[118], which was just stored false.
+		// REFUTED, do not retry: naming the three loads as const bool
+		// temporaries in retail's order changes NOTHING -- MSVC folds a
+		// single-use temporary straight back into the memory operand. /Oa is
+		// also refuted here and is worse than useless: it breaks 11 of this
+		// unit's 19 matched rows.
 		retail->supportDXTC=
 			retail->supportTextureFormat[118]|
 			retail->supportTextureFormat[119]|
@@ -1303,16 +1322,15 @@ void DX8Caps::Vendor_Specific_Hacks(const D3DADAPTER_IDENTIFIER8& adapter_id)
 			retail->supportTextureFormat[122];
 
 
-    if (retail->deviceId == DEVICE_NVIDIA_GEFORCE2_MX ||
-        retail->deviceId == DEVICE_NVIDIA_GEFORCE2_MX_400 )
-    {
-		  DXLOG_RETAIL(("Maximum screen resolution limited to 1024 x 768 on NVidia GeForce2 mx/mx400 cards\r\n"));			
-		  retail->maxDisplayWidth=1024;
-		  retail->maxDisplayHeight=768;
-    }
-
-
-
+		// BFME2 has NO GeForce2 MX / MX400 resolution clamp here. The reference
+		// tree limits those cards to 1024x768; retail's NVidia arm ends
+		// immediately after the DXTC fold above, with `xor bl,bl` and then the
+		// Matrox vendor test. Read out of the shipped body rather than assumed:
+		// there is no load of the device id between the store to
+		// supportDXTC (0x139) and the next `cmp [esi+0x2d0]`, and the body
+		// contains no 1024x768 store at all -- its only resolution clamps are
+		// three 1280x1024 (0x500 x 0x400) and one 800x600 (0x320 x 0x258),
+		// all further down in the ATI and Intel arms.
 	}
 
 	if (retail->vendorId==VENDOR_MATROX) {
