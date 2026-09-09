@@ -1104,3 +1104,6 @@ __RTC_CheckEsp,0x0075A5A2
 ?init@SmudgeManager@@UAEXXZ,0x000B3FD0
 ?removeAllTerrainBibs@BaseHeightMapRenderObjClass@@QAEXXZ,0x001EC3B5
 ?setGridTransform@WaterRenderObjClass@@QAEXPBVMatrix3D@@@Z,0x003F7E74
+?makeDecoratedNameKey@ModuleFactory@@KA?AW4NameKeyType@@ABVAsciiString@@W4ModuleType@@@Z,0x00255C5E,address read from the REL32 displacement at offset 12 of findModuleTemplate 0x0025674F; self-verifying - that body byte-matches only with this displacement
+??$_M_find@W4NameKeyType@@@?$_Rb_tree@W4NameKeyType@@U?$pair@$$CBW4NameKeyType@@VModuleTemplate@ModuleFactory@@@_STL@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@VModuleTemplate@ModuleFactory@@@_STL@@@3@U?$less@W4NameKeyType@@@3@V?$allocator@U?$pair@$$CBW4NameKeyType@@VModuleTemplate@ModuleFactory@@@_STL@@@3@@_STL@@ABEPAU?$_Rb_tree_node@U?$pair@$$CBW4NameKeyType@@VModuleTemplate@ModuleFactory@@@_STL@@@1@ABW4NameKeyType@@@Z,0x00388F63,ICF fold - our 56-byte reloc-free COMDAT is byte-identical to retail there; functions.csv already claims the int instantiation at this address so this stays a pin
+?nameToKey@NameKeyGenerator@@QAE?AW4NameKeyType@@ABVAsciiString@@@Z,0x0009FA65,29-byte __thiscall wrapper: inlines AsciiString::str() (m_data ? m_data+8 : the "" literal at 0x00BBAC1C) then tail-calls the proven const char* overload at 0x00148E1A - that inner REL32 is the identity evidence

@@ -5933,3 +5933,5 @@ _XMP_Move,,0x0061BE10,19,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,
 ?Succ@?$DLNodeClass@USmudgeSet@@@@QAEPAUSmudgeSet@@XZ,,0x000A6380,13,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DSmudge.cpp,matched,
 ?removeAllBibs@W3DTerrainVisual@@UAEXXZ,,0x001EC981,13,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisual.cpp,matched,
 ?setWaterTransform@W3DTerrainVisual@@UAEXPBVMatrix3D@@@Z,,0x003F8067,15,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisual.cpp,matched,
+?findModuleTemplate@ModuleFactory@@IAEPBVModuleTemplate@1@ABVAsciiString@@W4ModuleType@@@Z,,0x0025674F,52,Code/GameEngine/Source/Common/Thing/ModuleFactory.cpp,matched,BFME2 carries 4 unaccounted bytes ahead of m_moduleTemplateMap (retail add esi 0x10 vs reference 0x0c); named gap in reference/shims/modulefactory
+?newModuleDataFromINI@ModuleFactory@@QAEPAVModuleData@@PAVINI@@ABVAsciiString@@W4ModuleType@@1@Z,,0x002571F9,89,Code/GameEngine/Source/Common/Thing/ModuleFactory.cpp,matched,placed once the modulefactory shim corrected the 4-byte gap ahead of m_moduleTemplateMap; needed the nameToKey(AsciiString const&) pin at 0x0009FA65
