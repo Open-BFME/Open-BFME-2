@@ -1,7 +1,7 @@
 // cl: /O2 /DNDEBUG /MD
 //
 // Debug_Statistics::Record_Texture_Mode / Get_Record_Texture_Mode,
-// retail 0x00129474 (10B) and 0x00129480 (6B).
+// retail 0x00129470 (10B) and 0x00129480 (6B).
 
 namespace Debug_Statistics
 {

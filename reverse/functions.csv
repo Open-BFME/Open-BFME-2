@@ -6110,3 +6110,4 @@ _XMP_Move,,0x0061BE10,19,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,
 ?Get_Record_Procedural_Texture_Count@Debug_Statistics@@YAHXZ,,0x001294F0,6,Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsTextureGetters.cpp,matched,return last-frame procedural texture count
 ?Get_Record_Texture_String@Debug_Statistics@@YAABVStringClass@@XZ,,0x00129500,6,Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsTextureString.cpp,matched,return address of texture statistics string
 ?Record_Texture_Mode@Debug_Statistics@@YAXW4RecordTextureMode@1@@Z,,0x00129470,10,Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsTextureMode.cpp,matched,store record texture mode
+?Get_Record_Texture_Mode@Debug_Statistics@@YA?AW4RecordTextureMode@1@XZ,,0x00129480,6,Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsTextureMode.cpp,matched,return current record texture mode
