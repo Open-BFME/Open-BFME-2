@@ -172,7 +172,7 @@ void _Stl_tenscale(uint64 &p, int exp, int &bexp)
 		return;
 	}
 	while (exp_hi) {
-		hi = (min)(exp_hi, num_hi);
+		hi = (min)(num_hi, exp_hi);
 		exp_hi -= hi;
 		hi += thi - 1;
 		_Stl_mult64(p, _Stl_tenpow[hi], prodhi, prodlo);

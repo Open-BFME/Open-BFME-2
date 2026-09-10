@@ -6170,3 +6170,4 @@ _strdup,,0x006C4C70,60,Code/Libraries/Source/WWVegas/WWLib/strdup.cpp,matched,in
 ?init@?$basic_ios@DV?$char_traits@D@_STL@@@_STL@@IAEXPAV?$basic_streambuf@DV?$char_traits@D@_STL@@@2@@Z,,0x000162F0,178,Code/Libraries/Source/WWVegas/WWLib/stlport_basic_ios_init.cpp,matched,Dedicated TU STLport basic_ios char init
 ?Free_String@WideStringClass@@AAEXXZ,,0x00619B80,121,Code/Libraries/Source/WWVegas/WWLib/widestring_free_string.cpp,matched,Dedicated TU WideStringClass Free_String
 ?_Stl_atod@_STL@@YANPADHH@Z,,0x0001AA40,658,Code/Libraries/Source/WWVegas/WWLib/stlport_stl_atod.cpp,matched,Dedicated TU STLport Stl_atod
+?_Stl_tenscale@_STL@@YAXAA_KHAAH@Z,,0x0001A8A0,405,Code/Libraries/Source/WWVegas/WWLib/stlport_stl_atod.cpp,matched,Dedicated TU STLport Stl_tenscale
