@@ -117,6 +117,7 @@ typedef void *HWND;
 typedef void *HDC;
 typedef void *HGDIOBJ;
 typedef void *HBITMAP;
+typedef void *HANDLE;
 
 typedef struct tagRECT { LONG left, top, right, bottom; } RECT;
 typedef struct tagPAINTSTRUCT
@@ -190,6 +191,7 @@ __declspec(dllimport) HDC WINAPI CreateCompatibleDC(HDC);
 __declspec(dllimport) BOOL WINAPI DeleteDC(HDC);
 __declspec(dllimport) HGDIOBJ WINAPI SelectObject(HDC, HGDIOBJ);
 __declspec(dllimport) BOOL WINAPI BitBlt(HDC, int, int, int, int, HDC, int, int, DWORD);
+__declspec(dllimport) void *WINAPI MapViewOfFileEx(HANDLE, DWORD, DWORD, DWORD, DWORD, void *);
 }
 
 // The Debug singleton at 0x00DE0880, reached here through vtable slot 0x74 --
@@ -275,6 +277,9 @@ class Keyboard
 {
 public:
 	void resetKeys();
+private:
+	void _M_rva00632b7b();
+	void _M_rva00632ae8();
 };
 
 Keyboard *TheKeyboard;
@@ -310,7 +315,17 @@ public:
 private:
 	BYTE m_pad0[0x4FA4 - 4];
 	int m_currentCursor;
-	BYTE m_pad1[0x6020 - 0x4FA8];
+	BYTE m_pad1[0x5010 - 0x4FA8];
+	struct Win32MouseEvent
+	{
+		UINT msg;
+		WPARAM wParam;
+		LPARAM lParam;
+		DWORD time;
+	};
+	Win32MouseEvent m_eventBuffer[256];
+	unsigned int m_nextFreeIndex;
+	BYTE m_pad2[0x6020 - 0x6014];
 	bool m_lostFocus;
 };
 
@@ -429,6 +444,7 @@ class CopyProtect
 {
 public:
 	static void checkForMessage(UINT message, LPARAM lParam);
+	static void *s_protectedData;
 };
 
 extern "C" void bfmeRva0042CF86(WPARAM wParam);
@@ -442,6 +458,33 @@ bool gInitializing;
 bool gDoPaint;
 HBITMAP gLoadScreenBitmap;
 DWORD TheMessageTime;
+
+void Win32Mouse::addWin32Event(UINT msg, WPARAM wParam, LPARAM lParam, DWORD time)
+{
+	if (m_eventBuffer[m_nextFreeIndex].msg != 0)
+		return;
+
+	m_eventBuffer[m_nextFreeIndex].msg = msg;
+	m_eventBuffer[m_nextFreeIndex].wParam = wParam;
+	m_eventBuffer[m_nextFreeIndex].lParam = lParam;
+	m_eventBuffer[m_nextFreeIndex].time = time;
+
+	++m_nextFreeIndex;
+	if (m_nextFreeIndex >= 256)
+		m_nextFreeIndex = 0;
+}
+
+void CopyProtect::checkForMessage(UINT message, LPARAM lParam)
+{
+	if (message == 0xBEEF)
+		s_protectedData = MapViewOfFileEx((HANDLE)lParam, 0x000F001F, 0, 0, 0, NULL);
+}
+
+void Keyboard::resetKeys()
+{
+	_M_rva00632b7b();
+	_M_rva00632ae8();
+}
 
 LRESULT CALLBACK WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
 {

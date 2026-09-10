@@ -5981,3 +5981,6 @@ _XMP_Move,,0x0061BE10,19,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,
 ?forward@Rva00802910Owner@@QAEXHHHHHHHHPB_JIPAPBDIHH@Z,,0x0066EA70,94,Code/GameEngine/Source/Common/Rva00802910Forwarder.cpp,matched,
 ?getStatus@Weapon@@QBE?AW4WeaponStatus@@XZ,,0x002CCFC7,41,Code/GameEngine/Source/Common/WeaponGetStatus.cpp,matched,BFME1 cached status query adapted to BFME2 out-of-line setter; unique placement and exact rebuild
 ?cacheStatus@Weapon@@QBEXW4WeaponStatus@@@Z,,0x002C94F5,15,Code/GameEngine/Source/Common/WeaponGetStatus.cpp,matched,Reconstructed helper name; independent getStatus caller proves ownership; compare and conditional write at Weapon+0x10 then ret4
+?addWin32Event@Win32Mouse@@QAEXIIJK@Z,,0x00041A10,115,Code/GameEngine/Source/Main/WinMain.cpp,matched,
+?checkForMessage@CopyProtect@@SAXIJ@Z,,0x00232CE7,37,Code/GameEngine/Source/Main/WinMain.cpp,matched,
+?resetKeys@Keyboard@@QAEXXZ,,0x00232BDD,16,Code/GameEngine/Source/Main/WinMain.cpp,matched,

@@ -1115,6 +1115,8 @@ __RTC_CheckEsp,0x0075A5A2
 ??1AsciiString@@QAE@XZ,0x006CEAD0
 ??1ModuleTagString@@QAE@XZ,0x006CE7F0
 ?checkForMessage@CopyProtect@@SAXIJ@Z,0x00232CE7,address read from the REL32 in WndProc at 0x000017E8; body is the reference's checkForMessage - compares message against 0xBEEF then MapViewOfFileEx(lParam, FILE_MAP_ALL_ACCESS)
+?_M_rva00632b7b@Keyboard@@AAEXXZ,0x00232B7B,address-derived private Keyboard reset helper target decoded from resetKeys REL32
+?_M_rva00632ae8@Keyboard@@AAEXXZ,0x00232AE8,address-derived private Keyboard reset helper target decoded from resetKeys tail JMP
 ?resetKeys@Keyboard@@QAEXXZ,0x00232BDD,address read from the REL32 in WndProc's WM_SETFOCUS/WM_KILLFOCUS arms at 0x00001862
 ?regainFocus@AudioManager@@QAEXXZ,0x001DBC0B,address read from the REL32 in WndProc's WM_ACTIVATE arm at 0x000018D7; the call site encodes this jump thunk, not the body
 ?Reset_D3D_Device@@YAX_N@Z,0x0004312A,address read from the REL32 in WndProc's WM_ACTIVATEAPP arm at 0x000019DA; same position and single bool argument as the reference's Reset_D3D_Device
