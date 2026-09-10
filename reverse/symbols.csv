@@ -1143,3 +1143,5 @@ _bfmeRva0042CF86,0x0002CF86,address read from the REL32 in WndProc's message 0x2
 ??$_Construct@U?$pair@$$CBHH@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBHH@0@ABU10@@Z,0x0060C9D9,ICF twin of 0x6204B0; map int-int _M_create_node REL32
 ?Free@HTreeClass@@QAEXXZ,0x00166510,HTreeClass::Free; hierarchy dtor first call then owned pointer at +0x1C
 ?clear@BfmeResetTextureRef@@QAEXXZ,0x0004D75B,holder clear Release_Ref then and-zero; BfmeResetTextureRef assign non-TEX arm
+?resize@KeyToBucketMap@NameKeyGenerator@@AAEXI@Z,0x0053F1EC,ICF with hashtable NameKey ArmorTemplate resize; KeyToBucketMap insert first call
+?do_insert@KeyToBucketMap@NameKeyGenerator@@AAE?AUinsert_result@12@ABUvalue_type@12@@Z,0x0005574B,hashtable insert after resize; KeyToBucketMap insert second call
