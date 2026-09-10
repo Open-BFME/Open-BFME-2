@@ -6025,3 +6025,4 @@ _XMP_Move,,0x0061BE10,19,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,
 ??4BfmeResetShaderRef@@QAEAAU0@ABUBfmeResetAnyRef@@@Z,,0x0015142A,50,Code/Libraries/Source/WWVegas/WW3D2/BfmeResetShaderRefAssign.cpp,matched,FXSH tag 0x46585348 then RefCountPtr assign else clear holder
 ?clear@BfmeResetTextureRef@@QAEXXZ,,0x0004D75B,19,Code/Libraries/Source/WWVegas/WW3D2/BfmeResetTextureRefClear.cpp,matched,Release_Ref then and-zero holder
 ?insert@KeyToBucketMap@NameKeyGenerator@@QAE?AUinsert_result@12@ABUvalue_type@12@@Z,,0x004DA240,36,Code/GameEngine/Source/Common/NameKeyGeneratorMapInsert.cpp,matched,inc count at +0x10 resize then hashtable insert NRV
+??$_Construct@VAsciiString@@V1@@_STL@@YAXPAVAsciiString@@ABV1@@Z,,0x00142CC0,25,Code/GameEngine/Source/Common/System/AsciiStringConstruct.cpp,matched,null-check dest copy pointer add-1 refcount at +4
