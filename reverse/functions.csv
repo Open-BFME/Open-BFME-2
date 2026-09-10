@@ -6003,3 +6003,4 @@ _XMP_Move,,0x0061BE10,19,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,
 ?GadgetListBoxReset@@YAXPAVGameWindow@@@Z,,0x003247E5,34,Code/GameEngine/Source/GameClient/GUI/Gadget/GadgetListBox.cpp,matched,null-check then GLM_DEL_ALL 0x4013 through WindowManager vtable 0xE8
 ?findObjectByID@GameLogic@@QAEPAVObject@@W4ObjectID@@@Z,,0x00049DC5,37,Code/GameEngine/Source/GameLogic/GameLogicFindObjectByID.cpp,matched,null ObjectID returns null else map find at plus 0xB4 node plus 8
 ??1GameEngine@@UAE@XZ,,0x00225B9B,11,Code/GameEngine/Source/Common/GameEngineCompleteDestructor.cpp,matched,complete destructor; scalar deleting wrapper already matched at 0x226333
+??$_Construct@VWeaponTemplateSet@@V1@@_STL@@YAXPAVWeaponTemplateSet@@ABV1@@Z,,0x004AE915,18,Code/GameEngine/Source/Common/Thing/WeaponTemplateSetConstruct.cpp,matched,stlport _Construct; null-check dest then thiscall copy ctor

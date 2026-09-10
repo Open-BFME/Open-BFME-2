@@ -1131,3 +1131,4 @@ _bfmeRva0042CF86,0x0002CF86,address read from the REL32 in WndProc's message 0x2
 ?getCommandCount@FrameData@@QAEIXZ,0x005801F2,ICF 4-byte mov eax [ecx+4] ret; FrameData commandCount at plus 4 called by FrameDataManager::getCommandCount
 ?find@ObjectIdMap@@QAEPAUObjectIdNode@@ABW4ObjectID@@@Z,0x002888D4,ICF with hashtable _M_find; GameLogic::findObjectByID passes ObjectID address into map at this+0xB4
 ??1GameEngineDeletingBase@@UAE@XZ,0x001B4E74,GameEngine complete dtor tail target; sets vtable 0x00BD77A0 then add ecx 8
+??0WeaponTemplateSet@@QAE@ABV0@@Z,0x004AE811,WeaponTemplateSet copy ctor; _Construct at 0x4AE915 thiscall target
