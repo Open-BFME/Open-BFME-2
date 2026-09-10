@@ -6006,3 +6006,4 @@ _XMP_Move,,0x0061BE10,19,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,
 ??$__uninitialized_copy@PAVWeaponTemplateSet@@PAV1@@_STL@@YAPAVWeaponTemplateSet@@PAV1@00ABU__false_type@0@@Z,,0x004AE927,38,Code/GameEngine/Source/Common/Thing/WeaponTemplateSetUninitializedCopy.cpp,matched,stlport uninitialized_copy; stride 0x54; calls landed _Construct
 ??0Cftp@@QAE@XZ,,0x006CA5E0,18,Code/Libraries/Source/WWVegas/WWDownload/ftp_constructor.cpp,matched,vtable then ZeroStuff; virtual dtor
 ?processProgress@GameLogic@@QAEXHH@Z,,0x0023D740,46,Code/GameEngine/Source/GameLogic/System/GameLogicProcessProgress.cpp,matched,LoadScreen at plus 0x120 slot 0x10 then lastHeardFrom
+?lastHeardFrom@GameLogic@@QAEXH@Z,,0x0023CF1C,35,Code/GameEngine/Source/GameLogic/System/GameLogicLastHeardFrom.cpp,matched,progress timeout array at plus 0x130; MAX_SLOTS 8; timeGetTime
