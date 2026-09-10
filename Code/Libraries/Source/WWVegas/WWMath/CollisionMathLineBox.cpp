@@ -80,7 +80,6 @@ bool CollisionMath::Collide(const LineSegClass & line,const AABoxClass & box,Cas
 	return false;
 }
 
-// ?Collide@CollisionMath@@SA_NABVLineSegClass@@ABVOBBoxClass@@PAUCastResultStruct@@@Z present-unmatched
 bool CollisionMath::Collide(const LineSegClass & line,const OBBoxClass & box,CastResultStruct * result)
 {
 	BoxTestStruct test;
