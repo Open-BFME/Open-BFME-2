@@ -6112,3 +6112,15 @@ _XMP_Move,,0x0061BE10,19,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,
 ?Record_Texture_Mode@Debug_Statistics@@YAXW4RecordTextureMode@1@@Z,,0x00129470,10,Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsTextureMode.cpp,matched,store record texture mode
 ?Get_Record_Texture_Mode@Debug_Statistics@@YA?AW4RecordTextureMode@1@XZ,,0x00129480,6,Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsTextureMode.cpp,matched,return current record texture mode
 ??4StringClass@@QAEABV0@PBD@Z,,0x000F0E8D,68,Code/Libraries/Source/WWVegas/WWLib/wwstring_assign_cstr.cpp,matched,strlen then Uninitialised_Grow memcpy and store length
+_strdup,,0x006C4C70,60,Code/Libraries/Source/WWVegas/WWLib/strdup.cpp,matched,inlined strlen; STLport allocate(size 0); memcpy as rep movs. Reloc size 57 omitted the 3-byte epilogue.
+?YFlip@Targa@@QAEXXZ,,0x00613EF0,159,Code/Libraries/Source/WWVegas/WWLib/TARGA.CPP,matched,BFME2 keeps the original byte-swap YFlip; XFlip in this TU already matched that shape
+?normalizeAngle@@YAMM@Z,,0x00238954,75,Code/GameEngine/Source/Common/normalizeAngle.cpp,matched,SSE comiss wrap to minus PI..PI then fld the spill
+?Get_Char_Data@FontCharsClass@@AAEPBVFontCharsClassCharDataStruct@@G@Z,,0x00158520,81,Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassGetCharData.cpp,matched,dedicated TU map lookup at +0x450
+?_Create_DX8_Surface@DX8Wrapper@@SAPAVIDirect3DSurface9@@IIW4WW3DFormat@@W4_D3DPOOL@@@Z,,0x0011DC60,62,Code/Libraries/Source/WWVegas/WW3D2/DX8Wrapper_Create_DX8_Surface.cpp,matched,CreateOffscreenPlainSurface then D3DCallCount
+?Render_Seg_Line@SegmentedLineClass@@IAEXAAVRenderInfoClass@@@Z,,0x0015EED0,78,Code/Libraries/Source/WWVegas/WW3D2/SegmentedLineRenderSegLineThunk.cpp,matched,count at +0xD8 then sphere virtual +0x10C
+?makeDecoratedNameKey@ModuleFactory@@KA?AW4NameKeyType@@ABVAsciiString@@W4ModuleType@@@Z,,0x00255C5E,74,Code/GameEngine/Source/Common/Thing/ModuleFactory_makeDecoratedNameKey.cpp,matched,prefix 0+type then nameToKey
+??0Nugget@ModuleInfo@@QAE@ABU01@@Z,,0x00119A80,78,Code/GameEngine/Source/Common/Thing/ModuleInfoNuggetCopyCtor.cpp,matched,refcount first string then four 28-byte POD copies
+?Remove_Polygon_Renderer@DX8TextureCategoryClass@@QAEXPAVDX8PolygonRendererClass@@@Z,,0x001460E0,78,Code/Libraries/Source/WWVegas/WW3D2/DX8TextureCategoryRemovePolygonRenderer.cpp,matched,Dedicated TU; BFME2 null-checks delete-list pointer before Internal_Add_Tail
+?DebugAllocMemory@@YAPAXI@Z,,0x0003E450,83,Code/Libraries/Source/debug/DebugAllocMemory.cpp,matched,Dedicated TU; GlobalAlloc plus SkipNext crash arm; ebp frame
+?Log_DX8_ErrorCode@@YAXI@Z,,0x0011F450,88,Code/Libraries/Source/WWVegas/WW3D2/Log_DX8_ErrorCode.cpp,matched,Dedicated TU; DXER typed dump then SkipNext crash arm
+??0MaterialPassClass@@QAE@XZ,,0x0013EDD0,104,Code/Libraries/Source/WWVegas/WW3D2/MaterialPassClassCtorThunk.cpp,matched,Dedicated TU; inlined refcount one plus eh vector ctor of eight stages
