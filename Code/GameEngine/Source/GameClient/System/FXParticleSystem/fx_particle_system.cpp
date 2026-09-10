@@ -20,6 +20,10 @@ EventModuleInfo::EventModuleInfo()
     m_unk1 = true;
 }
 
+EventModuleInfo::~EventModuleInfo()
+{
+}
+
 class ParticleSystemInfo
 {
 public:
