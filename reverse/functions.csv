@@ -6175,3 +6175,4 @@ _strdup,,0x006C4C70,60,Code/Libraries/Source/WWVegas/WWLib/strdup.cpp,matched,in
 ?_Stl_norm_and_round@_STL@@YAXAA_KAAH_K2@Z,,0x0001A7B0,233,Code/Libraries/Source/WWVegas/WWLib/stlport_stl_atod.cpp,matched,Dedicated TU STLport Stl_norm_and_round
 ?_Stl_set_exponent@_STL@@YAXAA_K_K@Z,,0x0001A780,34,Code/Libraries/Source/WWVegas/WWLib/stlport_stl_atod.cpp,matched,Dedicated TU STLport Stl_set_exponent
 ??4TRoadSegInfo@@QAEAAU0@ABU0@@Z,,0x000D69D3,108,Code/GameEngineDevice/Source/W3DDevice/GameClient/TRoadSegInfoAssign.cpp,matched,compiler-shaped Vector2 assign plus corners loop
+?resize@?$hashtable@U?$pair@$$CBHH@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@QAEXI@Z,,0x00620B70,244,Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_int_resize.cpp,matched,no-exceptions resize dedicated TU
