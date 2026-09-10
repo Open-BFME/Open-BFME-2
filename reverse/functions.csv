@@ -6111,3 +6111,4 @@ _XMP_Move,,0x0061BE10,19,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,
 ?Get_Record_Texture_String@Debug_Statistics@@YAABVStringClass@@XZ,,0x00129500,6,Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsTextureString.cpp,matched,return address of texture statistics string
 ?Record_Texture_Mode@Debug_Statistics@@YAXW4RecordTextureMode@1@@Z,,0x00129470,10,Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsTextureMode.cpp,matched,store record texture mode
 ?Get_Record_Texture_Mode@Debug_Statistics@@YA?AW4RecordTextureMode@1@XZ,,0x00129480,6,Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsTextureMode.cpp,matched,return current record texture mode
+??4StringClass@@QAEABV0@PBD@Z,,0x000F0E8D,68,Code/Libraries/Source/WWVegas/WWLib/wwstring_assign_cstr.cpp,matched,strlen then Uninitialised_Grow memcpy and store length
