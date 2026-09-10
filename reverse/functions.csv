@@ -6000,3 +6000,4 @@ _XMP_Move,,0x0061BE10,19,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,
 ?getCurrentWeapon@Object@@QBEPBVWeapon@@PAW4WeaponSlotType@@@Z,,0x0028AEBD,45,Code/GameEngine/Source/GameLogic/Object/ObjectGetCurrentWeapon.cpp,matched,null if weapon-set flag at plus 0x358 is clear else index array at plus 0x338
 ?findModule@Object@@IBEPAVModule@@W4NameKeyType@@@Z,,0x0028B6D6,43,Code/GameEngine/Source/GameLogic/Object/ObjectFindModule.cpp,matched,walk null-terminated module list at plus 0x244 comparing name-key slot 0x10
 ?setEngineInputEnabled@InGameUI@@QAEX_N@Z,,0x0029AB22,19,Code/GameEngine/Source/GameClient/InGameUISetEngineInputEnabled.cpp,matched,forward enabled flag to vtable slot 0x148 with this plus 0x15
+?GadgetListBoxReset@@YAXPAVGameWindow@@@Z,,0x003247E5,34,Code/GameEngine/Source/GameClient/GUI/Gadget/GadgetListBox.cpp,matched,null-check then GLM_DEL_ALL 0x4013 through WindowManager vtable 0xE8

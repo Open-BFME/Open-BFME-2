@@ -1,11 +1,8 @@
-// ?GadgetListBoxReset@@YAXPAVGameWindow@@@Z
-// partial score=0.9 date=2026-09-09
-// cl: /O2 /DNDEBUG /MD
+// cl: /O1 /DNDEBUG /MD
 //
 // GadgetListBoxReset, retail 0x003247E5, 34 bytes.
 // Dedicated TU so GameWindowManager.cpp bodies cannot see this wrapper.
-// Null-checks the listbox then stdcall-thiscall GLM_DEL_ALL (0x4013) through
-// vtable +0xE8 on the global manager at VA 0x00DFEF1C.
+// Null-checks the listbox then GLM_DEL_ALL (0x4013) through vtable +0xE8.
 
 class GameWindow;
 
@@ -29,8 +26,7 @@ GameWindowManager *TheWindowManager;
 
 void GadgetListBoxReset(GameWindow *listbox)
 {
-	int z = 0;
-	if (listbox == (GameWindow *)z)
+	if (listbox == 0)
 		return;
-	TheWindowManager->winSendSystemMsg(listbox, 0x4013, z, z);
+	TheWindowManager->winSendSystemMsg(listbox, 0x4013, 0, 0);
 }
