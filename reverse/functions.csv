@@ -6172,3 +6172,4 @@ _strdup,,0x006C4C70,60,Code/Libraries/Source/WWVegas/WWLib/strdup.cpp,matched,in
 ?_Stl_atod@_STL@@YANPADHH@Z,,0x0001AA40,658,Code/Libraries/Source/WWVegas/WWLib/stlport_stl_atod.cpp,matched,Dedicated TU STLport Stl_atod
 ?_Stl_tenscale@_STL@@YAXAA_KHAAH@Z,,0x0001A8A0,405,Code/Libraries/Source/WWVegas/WWLib/stlport_stl_atod.cpp,matched,Dedicated TU STLport Stl_tenscale
 ?_Stl_mult64@_STL@@YAX_K0AA_K1@Z,,0x0001A6D0,165,Code/Libraries/Source/WWVegas/WWLib/stlport_stl_atod.cpp,matched,Dedicated TU STLport Stl_mult64
+?_Stl_norm_and_round@_STL@@YAXAA_KAAH_K2@Z,,0x0001A7B0,233,Code/Libraries/Source/WWVegas/WWLib/stlport_stl_atod.cpp,matched,Dedicated TU STLport Stl_norm_and_round
