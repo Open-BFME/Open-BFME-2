@@ -6151,3 +6151,4 @@ _strdup,,0x006C4C70,60,Code/Libraries/Source/WWVegas/WWLib/strdup.cpp,matched,in
 ?Rotate_Z@Matrix3D@@QAEXMM@Z,,0x00711DC0,163,Code/Libraries/Source/WWVegas/WWMath/Matrix3DUnmatchedSSE.cpp,matched,placed by masked byte-scan of dedicated SSE TU
 ?Is_Orthogonal@Matrix3D@@QBEHXZ,,0x00712D90,416,Code/Libraries/Source/WWVegas/WWMath/Matrix3DUnmatchedSSE.cpp,matched,placed by masked byte-scan of dedicated SSE TU
 ?buildTransformMatrix@Matrix3D@@QAEXABVVector3@@0@Z,,0x00712440,609,Code/Libraries/Source/WWVegas/WWMath/Matrix3DUnmatchedSSE.cpp,matched,placed by masked byte-scan of dedicated SSE TU
+?Re_Orthogonalize@Matrix3D@@QAEXXZ,,0x00713810,663,Code/Libraries/Source/WWVegas/WWMath/Matrix3DUnmatchedSSE.cpp,matched,placed by masked byte-scan of dedicated SSE TU
