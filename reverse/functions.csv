@@ -6132,3 +6132,4 @@ _strdup,,0x006C4C70,60,Code/Libraries/Source/WWVegas/WWLib/strdup.cpp,matched,in
 ?Set_Arrays@LineGroupClass@@QAEXPAV?$ShareBufferClass@VVector3@@@@0PAV?$ShareBufferClass@VVector4@@@@1PAV?$ShareBufferClass@I@@PAV?$ShareBufferClass@M@@3H@Z,,0x001B3790,268,Code/Libraries/Source/WWVegas/WW3D2/LineGroupClassSetArrays.cpp,matched,REF_PTR_SET via local p and add-flags Destroy
 ?_Deinit@DynamicVBAccessClass@@SAXXZ,,0x0013A840,150,Code/Libraries/Source/WWVegas/WW3D2/DynamicVBAccessClassDeinit.cpp,matched,Dedicated TU fifteen-pool dynamic VB shutdown plus sorting buffer
 ??0GridTextureMapperClass@@QAE@ABV0@@Z,,0x00184420,127,Code/Libraries/Source/WWVegas/WW3D2/GridTextureMapperClassCopyCtor.cpp,matched,Dedicated TU GridTextureMapper copy ctor inlines Reset
+?Reset@GridTextureMapperClass@@UAEXXZ,,0x00182440,51,Code/Libraries/Source/WWVegas/WW3D2/GridTextureMapperClassCopyCtor.cpp,matched,Out-of-line virtual Reset from the Grid copy-ctor TU
