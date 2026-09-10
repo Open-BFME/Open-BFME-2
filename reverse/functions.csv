@@ -6102,3 +6102,4 @@ _XMP_Move,,0x0061BE10,19,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,
 ?parse@?$DefaultModuleTemplate@$05@FXParticleSystem@@QAEXPAVINI@@@Z,,0x0055C434,18,Code/GameEngine/Source/GameClient/FXParticleSystemDefaultParsers.cpp,matched,BFME1 default parser transferred; BFME2 parse table at 0x00C6BB18
 ?parse@?$DefaultModuleTemplate@$0A@@FXParticleSystem@@QAEXPAVINI@@@Z,,0x0055B93F,18,Code/GameEngine/Source/GameClient/FXParticleSystemDefaultParsers.cpp,matched,BFME1 default parser transferred; BFME2 parse table at 0x00C6BA58
 ?Get_Record_Texture_Size@Debug_Statistics@@YAHXZ,,0x00129490,6,Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsTextureGetters.cpp,matched,return last-frame texture memory
+?Get_Record_Texture_Count@Debug_Statistics@@YAHXZ,,0x001294A0,6,Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsTextureGetters.cpp,matched,return last-frame texture count
