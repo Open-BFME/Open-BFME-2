@@ -6124,3 +6124,4 @@ _strdup,,0x006C4C70,60,Code/Libraries/Source/WWVegas/WWLib/strdup.cpp,matched,in
 ?DebugAllocMemory@@YAPAXI@Z,,0x0003E450,83,Code/Libraries/Source/debug/DebugAllocMemory.cpp,matched,Dedicated TU; GlobalAlloc plus SkipNext crash arm; ebp frame
 ?Log_DX8_ErrorCode@@YAXI@Z,,0x0011F450,88,Code/Libraries/Source/WWVegas/WW3D2/Log_DX8_ErrorCode.cpp,matched,Dedicated TU; DXER typed dump then SkipNext crash arm
 ??0MaterialPassClass@@QAE@XZ,,0x0013EDD0,104,Code/Libraries/Source/WWVegas/WW3D2/MaterialPassClassCtorThunk.cpp,matched,Dedicated TU; inlined refcount one plus eh vector ctor of eight stages
+?Set@Matrix3D@@QAEXABVMatrix3@@ABVVector3@@@Z,,0x00711E70,118,Code/Libraries/Source/WWVegas/WWMath/Matrix3D_Set_Matrix3_Vector3.cpp,matched,Dedicated TU; SSE2 row copies from Matrix3 plus Vector3
