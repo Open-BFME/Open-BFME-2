@@ -1127,3 +1127,4 @@ _bfmeRva0042CF86,0x0002CF86,address read from the REL32 in WndProc's message 0x2
 ?computeStatus@Weapon@@QBE?AW4WeaponStatus@@PA_N@Z,0x002CC422,Reconstructed helper name; unique getStatus body calls this with a bool output and returns its status result
 ?bfmeGetMainWindowTitle@@YA?AVUnicodeString@@XZ,0x0023484D,window title UnicodeString helper called by initializeAppWindows
 ?Begin@BfmeResourceEnumerator@@QAEXI@Z,0x00621480,thiscall registry iterator start called by bfmeBeginResourceEnumeration; ghidra FUN_00a21480 69 bytes; mutex at this+0x34 stores type tag at this+0x1F0
+?getControllingPlayer@Team@@QBEPAVPlayer@@XZ,0x0039D7CF,ghidra FUN_0079d7cf 12 bytes; Object::getControllingPlayer tail target reads Team+0x30 then +8
