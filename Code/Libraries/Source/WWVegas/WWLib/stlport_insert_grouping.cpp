@@ -46,7 +46,6 @@ int __cdecl __insert_grouping(
 	return (last - first) + sign + basechars;
 }
 
-// ?__insert_grouping@_STL@@YAHPAG0ABV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@1@GGGH@Z present-unmatched
 int __cdecl __insert_grouping(
 	wchar_t *first, wchar_t *last, const string &grouping,
 	wchar_t separator, wchar_t Plus, wchar_t Minus, int basechars)
