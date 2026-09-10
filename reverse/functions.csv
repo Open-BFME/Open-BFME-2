@@ -5979,3 +5979,5 @@ _XMP_Move,,0x0061BE10,19,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,
 ?WndProc@@YGJPAXIIJ@Z,,0x0000179F,1167,Code/GameEngine/Source/Main/WinMain.cpp,matched,BFME 2 main window procedure; Zero Hour WinMain.cpp body reconciled against retail - Debug gate first / IsWindowUnicode-selected default handler / two extra WM_ACTIVATEAPP sinks / message 0x2707
 ?bfmeSphereOverlap@@YA_NPBUBfmeCollisionShape@@0@Z,,0x006C0790,61,Code/GameEngine/Source/Common/Rva00880D90SphereOverlap.cpp,matched,
 ?forward@Rva00802910Owner@@QAEXHHHHHHHHPB_JIPAPBDIHH@Z,,0x0066EA70,94,Code/GameEngine/Source/Common/Rva00802910Forwarder.cpp,matched,
+?getStatus@Weapon@@QBE?AW4WeaponStatus@@XZ,,0x002CCFC7,41,Code/GameEngine/Source/Common/WeaponGetStatus.cpp,matched,BFME1 cached status query adapted to BFME2 out-of-line setter; unique placement and exact rebuild
+?cacheStatus@Weapon@@QBEXW4WeaponStatus@@@Z,,0x002C94F5,15,Code/GameEngine/Source/Common/WeaponGetStatus.cpp,matched,Reconstructed helper name; independent getStatus caller proves ownership; compare and conditional write at Weapon+0x10 then ret4
