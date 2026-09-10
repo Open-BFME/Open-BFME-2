@@ -6179,3 +6179,4 @@ _strdup,,0x006C4C70,60,Code/Libraries/Source/WWVegas/WWLib/strdup.cpp,matched,in
 ??0DieModuleData@@QAE@XZ,,0x006054E7,29,Code/GameEngine/Source/GameLogic/Object/Die/DieModuleDataCtor.cpp,matched,base ctor then three zeroed pointers at plus 0x14
 ?getPercentage@NetProgressCommandMsg@@QAEEXZ,,0x004C54EC,4,Code/GameEngine/Source/GameNetwork/NetProgressCommandMsgGetPercentage.cpp,matched,byte getter at plus 0x1C
 ??1Bucket@@UAE@XZ,,0x00148B19,14,Code/GameEngine/Source/Common/BucketDtor.cpp,matched,sets vtable then tail-calls member dtor at plus 0x0C
+?_M_lower_bound@?$_Rb_tree@IU?$pair@$$CBIPAX@_STL@@U?$_Select1st@U?$pair@$$CBIPAX@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@$$CBIPAX@_STL@@@2@@_STL@@ABEPAU?$_Rb_tree_node@U?$pair@$$CBIPAX@_STL@@@2@ABI@Z,,0x004FF3B6,37,Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_ptr_lower.cpp,matched,unsigned key lower_bound; reloc named the signed-int twin
