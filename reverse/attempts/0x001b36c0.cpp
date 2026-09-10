@@ -1,29 +1,31 @@
 // ?Set_Flag@LineGroupClass@@QAEXW4FlagsType@1@_N@Z
-// partial score=0.75 date=2026-09-09
-// cl: /G7 /O1 /DNDEBUG /MD
+// partial score=0.85 date=2026-09-10
+// cl: /O1 /MD
 //
 // LineGroupClass::Set_Flag, retail 0x001B36C0, 34 bytes.
-// Kept out of linegrp.cpp: that TU tests the bool first and emits
-// a different shl/or/and layout. Retail computes 1<<flag in edx,
-// then cmp-byte [esp+8],0. Flags lives at +0x2C (same as Get_Flag).
+// Dedicated TU so linegrp.cpp keeps its other matched bodies.
+// Flags dword lives at +0x2C.
 
 class LineGroupClass
 {
-	unsigned char _M_layout[0x2C];
-	volatile int Flags;
-
 public:
-	enum FlagsType
-	{
-		TRANSFORM = 0
+	enum FlagsType {
+		SORT,
+		DISABLE_BOUNDING_BOX,
+		DISABLE_BOUNDING_SPHERE,
+		DISABLE_POINT_RENDERING
 	};
 
 	void Set_Flag(FlagsType flag, bool on);
+
+private:
+	unsigned char Pad[0x2C];
+	unsigned Flags;
 };
 
 void LineGroupClass::Set_Flag(FlagsType flag, bool on)
 {
-	int mask = 1 << flag;
+	unsigned mask = 1u << flag;
 	if (on)
 		Flags |= mask;
 	else
