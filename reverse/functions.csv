@@ -6008,3 +6008,4 @@ _XMP_Move,,0x0061BE10,19,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,
 ?processProgress@GameLogic@@QAEXHH@Z,,0x0023D740,46,Code/GameEngine/Source/GameLogic/System/GameLogicProcessProgress.cpp,matched,LoadScreen at plus 0x120 slot 0x10 then lastHeardFrom
 ?lastHeardFrom@GameLogic@@QAEXH@Z,,0x0023CF1C,35,Code/GameEngine/Source/GameLogic/System/GameLogicLastHeardFrom.cpp,matched,progress timeout array at plus 0x130; MAX_SLOTS 8; timeGetTime
 ?ZeroStuff@Cftp@@QAEXXZ,,0x006C9ED0,109,Code/Libraries/Source/WWVegas/WWDownload/ftp_zero_stuff.cpp,matched,ZH ZeroStuff; /O2 /Oi memset
+??0WeaponTemplateSet@@QAE@ABV0@@Z,,0x004AE811,33,Code/GameEngine/Source/Common/Thing/WeaponTemplateSetCopyCtor.cpp,matched,0x4C head copy ctor then two dwords at plus 0x4C and 0x50
