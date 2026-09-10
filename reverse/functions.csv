@@ -6041,3 +6041,4 @@ _XMP_Move,,0x0061BE10,19,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,
 ?Begin_Statistics@Debug_Statistics@@YAXXZ,,0x0012A400,67,Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsBegin.cpp,matched,zero eleven counters then Record_Texture_Begin and DX8Wrapper Begin_Statistics
 ?Record_DX8_Polys_And_Vertices@Debug_Statistics@@YAXHHABVShaderClass@@@Z,,0x00129540,68,Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsRecordPolys.cpp,matched,npatch scale polys then add vertices and draw count
 ?Record_DX8_Skin_Polys_And_Vertices@Debug_Statistics@@YAXHH@Z,,0x00129520,28,Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsSkin.cpp,matched,add skin polys verts and increment skin renders
+?Record_Sorting_Polys_And_Vertices@Debug_Statistics@@YAXHH@Z,,0x001295F0,28,Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsSorting.cpp,matched,add sorting polys verts and increment draw calls
