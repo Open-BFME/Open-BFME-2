@@ -1166,3 +1166,4 @@ _strcpy,0x00629176,IAT jmp after _strlen; REL32 from makeDecoratedNameKey
 ?DebugLogTyped@@YAXIPAXI@Z,0x00039660,Retail REL32 from Log_DX8_ErrorCode; fourcc table lookup of DXER plus HRESULT
 ?Test_Aligned_Box@@YA_NPAUBoxTestStruct@@@Z,0x00714300,retail REL32 from CollisionMath LineSeg-AABox Collide at 0x007146E0
 ?_Stl_atod@_STL@@YANPADHH@Z,0x0001AA40,STLport 4.5.3 decimal buffer to double; address read from retail _Stl_string_to_double REL32 at 0x0001AE21
+?imbue@?$basic_ios@DV?$char_traits@D@_STL@@@_STL@@QAE?AVlocale@2@ABV32@@Z,0x00016110,STLport 4.5.3 basic_ios char imbue; address read from retail basic_ios char init REL32 at 0x00016341

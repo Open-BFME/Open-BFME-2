@@ -6167,3 +6167,4 @@ _strdup,,0x006C4C70,60,Code/Libraries/Source/WWVegas/WWLib/strdup.cpp,matched,in
 ?_Rebalance@?$_Rb_global@_N@_STL@@SAXPAU_Rb_tree_node_base@2@AAPAU32@@Z,,0x00025490,397,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_rebalance.cpp,matched,Dedicated TU STLport Rb_global bool Rebalance
 ?_Stl_string_to_double@_STL@@YANPBD@Z,,0x0001ACE0,343,Code/Libraries/Source/WWVegas/WWLib/stlport_string_to_double.cpp,matched,Dedicated TU STLport string_to_double
 ?_Stl_string_to_long_double@_STL@@YAOPBD@Z,,0x0001AE40,360,Code/Libraries/Source/WWVegas/WWLib/stlport_string_to_double.cpp,matched,Dedicated TU STLport string_to_long_double
+?init@?$basic_ios@DV?$char_traits@D@_STL@@@_STL@@IAEXPAV?$basic_streambuf@DV?$char_traits@D@_STL@@@2@@Z,,0x000162F0,178,Code/Libraries/Source/WWVegas/WWLib/stlport_basic_ios_init.cpp,matched,Dedicated TU STLport basic_ios char init
