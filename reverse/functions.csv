@@ -6149,3 +6149,4 @@ _strdup,,0x006C4C70,60,Code/Libraries/Source/WWVegas/WWLib/strdup.cpp,matched,in
 ?Rotate_X@Matrix3D@@QAEXMM@Z,,0x00711C60,165,Code/Libraries/Source/WWVegas/WWMath/Matrix3DUnmatchedSSE.cpp,matched,placed by masked byte-scan of dedicated SSE TU
 ?Rotate_Y@Matrix3D@@QAEXMM@Z,,0x00711D10,163,Code/Libraries/Source/WWVegas/WWMath/Matrix3DUnmatchedSSE.cpp,matched,placed by masked byte-scan of dedicated SSE TU
 ?Rotate_Z@Matrix3D@@QAEXMM@Z,,0x00711DC0,163,Code/Libraries/Source/WWVegas/WWMath/Matrix3DUnmatchedSSE.cpp,matched,placed by masked byte-scan of dedicated SSE TU
+?Is_Orthogonal@Matrix3D@@QBEHXZ,,0x00712D90,416,Code/Libraries/Source/WWVegas/WWMath/Matrix3DUnmatchedSSE.cpp,matched,placed by masked byte-scan of dedicated SSE TU
