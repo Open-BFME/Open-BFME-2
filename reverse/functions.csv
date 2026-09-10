@@ -5989,3 +5989,4 @@ _XMP_Move,,0x0061BE10,19,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,
 ?Notify_Added@RenderObjClass@@UAEXPAVSceneClass@@@Z,,0x0013BCD0,10,Code/Libraries/Source/WWVegas/WW3D2/rendobj_notify_removed.cpp,matched,Scene=scene at +0x78; ret 4; sibling of Notify_Removed
 ?Get@Straw@@UAEHPAXH@Z,,0x00615560,19,Code/Libraries/Source/WWVegas/WWLib/straw_get.cpp,matched,forward Get to ChainTo or return 0; cmp-mem /O1 shape
 ?Draw_Triangles@DX8Wrapper@@SAXIIII@Z,,0x00120620,33,Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper_draw_prim.cpp,matched,TRIANGLELIST wrapper into landed BfmeDrawOps::Draw
+?Draw_Strip@DX8Wrapper@@SAXIIII@Z,,0x001206D0,33,Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper_draw_prim.cpp,matched,TRIANGLESTRIP wrapper into landed BfmeDrawOps::Draw
