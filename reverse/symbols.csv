@@ -1112,3 +1112,5 @@ __RTC_CheckEsp,0x0075A5A2
 ?insert@?$list@HV?$allocator@H@_STL@@@_STL@@QAE?AU?$_List_iterator@HU?$_Nonconst_traits@H@_STL@@@2@U32@ABH@Z,0x005925E2,address read from the retail REL32 at offset 0x1e of _M_insert_dispatch<list_iterator> 0x002C526D - self-verifying because that body byte-matches only with this displacement; ecx=this plus three stack dwords (hidden return ptr, pos, &val) matches the (iterator pos, const int&) thiscall signature
 ??0BfmeDynamicVBBase@@QAE@IIGI@Z,0x00139350,shared vertex-buffer base ctor; address read from the REL32 in both derived ctors (0x00139660 and 0x0013AC00) - argument order taken from those two call sites (1/0x252/count/0 and 0/fvf/count/fvf_size) rather than assumed
 ?_Create_DX8_Surface@DX8Wrapper@@SAPAVIDirect3DSurface9@@IIW4WW3DFormat@@W4_D3DPOOL@@@Z,0x0011DC60,address read from the REL32 displacement at a placed body
+??1AsciiString@@QAE@XZ,0x006CEAD0
+??1ModuleTagString@@QAE@XZ,0x006CE7F0
