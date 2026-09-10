@@ -6031,3 +6031,4 @@ _XMP_Move,,0x0061BE10,19,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,
 ??0Null3DObjClass@@QAE@ABV0@@Z,,0x00180EF0,56,Code/Libraries/Source/WWVegas/WW3D2/Null3DObjClassCopyCtor.cpp,matched,default RenderObjClass then strcpy Name at plus 0xC4
 ??4Null3DObjClass@@QAEAAV0@ABV0@@Z,,0x00180F30,49,Code/Libraries/Source/WWVegas/WW3D2/Null3DObjClassCopyCtor.cpp,matched,strcpy Name then RenderObjClass assign
 ??0Null3DObjClass@@QAE@PBD@Z,,0x00180EB0,51,Code/Libraries/Source/WWVegas/WW3D2/Null3DObjClassCopyCtor.cpp,matched,default RenderObjClass then strcpy Name from char ptr
+??0MultiIniFieldParse@@QAE@XZ,,0x0002BAA0,26,Code/GameEngine/Source/Common/System/MultiIniFieldParseCtor.cpp,matched,zero count then 16 extraOffset and fieldParse slots
