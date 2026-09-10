@@ -6085,3 +6085,4 @@ _XMP_Move,,0x0061BE10,19,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,
 ?IsLightCRC@Xfer@@UBE_NXZ,,0x0047A699,3,Code/GameEngine/Source/Common/System/Xfer.cpp,matched,BFME1 mode predicate transferred; BFME2 retail folds to xor eax eax / ret
 ?IsLoading@Xfer@@UBE_NXZ,,0x0047A699,3,Code/GameEngine/Source/Common/System/Xfer.cpp,matched,BFME1 mode predicate transferred; BFME2 retail folds to xor eax eax / ret
 ?IsStoring@Xfer@@UBE_NXZ,,0x0047A699,3,Code/GameEngine/Source/Common/System/Xfer.cpp,matched,BFME1 mode predicate transferred; BFME2 retail folds to xor eax eax / ret
+?getDistributionType@GameClientRandomVariable@@QBE?AW4DistributionType@1@XZ,,0x00421795,3,Code/GameEngine/Source/GameClient/ClientRandomValue.cpp,matched,BFME1 accessor transferred; BFME2 loads the distribution enum from the first member

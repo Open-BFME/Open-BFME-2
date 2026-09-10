@@ -17,7 +17,7 @@ public:
     float getValue() const;
     float getMinimumValue() const;
     float getMaximumValue() const;
-    DistributionType getDistributionType() const { return m_type; }
+    DistributionType getDistributionType() const;
 
 protected:
     DistributionType m_type;
@@ -34,6 +34,11 @@ float GameClientRandomVariable::getMinimumValue() const
 float GameClientRandomVariable::getMaximumValue() const
 {
     return m_high;
+}
+
+GameClientRandomVariable::DistributionType GameClientRandomVariable::getDistributionType() const
+{
+    return m_type;
 }
 
 GameClientRandomVariable::GameClientRandomVariable()
