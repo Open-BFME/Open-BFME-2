@@ -320,6 +320,7 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?concat@?$StringBase@G@@QAEXPBG@Z,0x00005692,0x00005692,38,Code/Libraries/Source/WWVegas/WWLib/string_base.cpp,matched,
 ??0EventModuleInfo@FXParticleSystem@@QAE@XZ,0x00001236,0x00001236,10,Code/GameEngine/Source/GameClient/System/FXParticleSystem/fx_particle_system.cpp,matched,
 ?GetSnapshotName@ParticleSystemInfo@FXParticleSystem@@UAEPBDXZ,0x00001272,0x00001272,6,Code/GameEngine/Source/GameClient/System/FXParticleSystem/fx_particle_system.cpp,matched,
+?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z,,0x0050B238,3,Code/GameEngine/Source/Common/System/XferSkipBadBlock.cpp,matched,BFME1 no-op hook transferred; BFME2 body is ret 8
 ?Determinant@Matrix4D@@QBEMXZ,0x0000424D,0x0000424D,188,Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp,matched,
 ?Transpose@Matrix4D@@QAEAAV1@XZ,0x000041DE,0x000041DE,111,Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp,matched,
 ?RotateCoord@Matrix4D@@QAEAAVCoord3D@@ABV2@AAV2@@Z,0x00004753,0x00004753,135,Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp,matched,
