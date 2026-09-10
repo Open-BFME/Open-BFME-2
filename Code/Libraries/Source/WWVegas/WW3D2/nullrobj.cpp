@@ -50,15 +50,25 @@ NullLoaderClass _NullLoader;
 
 
 
+// Byte-exact /G7 copies live in Null3DObjClassCopyCtor.cpp; these stay so
+// this TU still emits Clone and the Set_ObjectScale gen-alias.
+
 Null3DObjClass::Null3DObjClass(const char * name)																	
 {
 	strcpy(Name, name);
 }
 
-// byte-exact reconstruction: Code/Libraries/Source/WWVegas/WW3D2/Null3DObjClassCopyCtor.cpp
-// Null3DObjClass::Null3DObjClass(const Null3DObjClass &) needs /G7 for add eax,1.
+Null3DObjClass::Null3DObjClass(const Null3DObjClass & src)									
+{
+	strcpy(Name, src.Name);
+}
 
-// byte-exact reconstruction: Code/Libraries/Source/WWVegas/WW3D2/Null3DObjClassCopyCtor.cpp
+Null3DObjClass & Null3DObjClass::operator = (const Null3DObjClass & that)				
+{
+	strcpy(Name, that.Name);
+
+	RenderObjClass::operator = (that); return *this; 
+}
 
 int Null3DObjClass::Class_ID(void) const													
 { 
