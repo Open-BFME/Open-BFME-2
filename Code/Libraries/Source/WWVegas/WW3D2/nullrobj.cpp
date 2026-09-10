@@ -58,12 +58,7 @@ Null3DObjClass::Null3DObjClass(const char * name)
 // byte-exact reconstruction: Code/Libraries/Source/WWVegas/WW3D2/Null3DObjClassCopyCtor.cpp
 // Null3DObjClass::Null3DObjClass(const Null3DObjClass &) needs /G7 for add eax,1.
 
-Null3DObjClass & Null3DObjClass::operator = (const Null3DObjClass & that)				
-{
-	strcpy(Name, that.Name);
-
-	RenderObjClass::operator = (that); return *this; 
-}
+// byte-exact reconstruction: Code/Libraries/Source/WWVegas/WW3D2/Null3DObjClassCopyCtor.cpp
 
 int Null3DObjClass::Class_ID(void) const													
 { 
