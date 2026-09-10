@@ -1,4 +1,12 @@
 name,address,notes
+?getInstance@?$ConcreteModuleClass@V?$DefaultModuleTag@$05@FXParticleSystem@@@FXParticleSystem@@SAABV12@XZ,0x003AA350,exported BFME2 helper called by ConcreteModuleTemplate<DefaultModuleTag<5> >::getClass
+?getInstance@?$ConcreteModuleClass@UOrthoEmissionVelocityModuleTag@FXParticleSystem@@@FXParticleSystem@@SAABV12@XZ,0x003AB053,exported BFME2 helper called by ConcreteModuleTemplate<OrthoEmissionVelocityModuleTag>::getClass
+?getInstance@?$ConcreteModuleClass@UPointEmissionVolumeModuleTag@FXParticleSystem@@@FXParticleSystem@@SAABV12@XZ,0x003AB3AA,exported BFME2 helper called by ConcreteModuleTemplate<PointEmissionVolumeModuleTag>::getClass
+?getInstance@?$ConcreteModuleClass@V?$DefaultModuleTag@$00@FXParticleSystem@@@FXParticleSystem@@SAABV12@XZ,0x003AAA7D,exported BFME2 helper called by ConcreteModuleTemplate<DefaultModuleTag<1> >::getClass
+?getInstance@?$ConcreteModuleClass@V?$DefaultModuleTag@$01@FXParticleSystem@@@FXParticleSystem@@SAABV12@XZ,0x003AADF8,exported BFME2 helper called by ConcreteModuleTemplate<DefaultModuleTag<2> >::getClass
+?getInstance@?$ConcreteModuleClass@V?$DefaultModuleTag@$02@FXParticleSystem@@@FXParticleSystem@@SAABV12@XZ,0x003AACCF,exported BFME2 helper called by ConcreteModuleTemplate<DefaultModuleTag<3> >::getClass
+?getInstance@?$ConcreteModuleClass@V?$DefaultModuleTag@$06@FXParticleSystem@@@FXParticleSystem@@SAABV12@XZ,0x003AAF21,exported BFME2 helper called by ConcreteModuleTemplate<DefaultModuleTag<7> >::getClass
+?getInstance@?$ConcreteModuleClass@V?$DefaultModuleTag@$0A@@FXParticleSystem@@@FXParticleSystem@@SAABV12@XZ,0x003AABA6,exported BFME2 helper called by ConcreteModuleTemplate<DefaultModuleTag<0> >::getClass
 ??$_Construct@U?$pair@$$CBHH@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBHH@0@ABU10@@Z,0x006204B0,address read from the retail REL32 in hashtable::_M_insert at 0x00620F60
 ??$_Construct@UBfmeE8@@U1@@_STL@@YAXPAUBfmeE8@@ABU1@@Z,0x0060C9D9,address read from the REL32 displacement at a placed body; folded onto the body held there under another instantiation's name; stlport 4.5.3
 ??$_M_allocate_and_copy@PAPAX@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@IAEPAPAXIPAPAX0@Z,0x00027F60,ICF alias of the const_pointer instantiation already landed at this address. reserve passes _M_start and _M_finish which are void** rather than void* const*, so it names the non-const member template; both instantiations compile to the identical body and the linker folds them, the same way the narrow and wide allocators share 0x000307F0
