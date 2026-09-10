@@ -1172,3 +1172,4 @@ __allshl,0x00629780,MSVCR71 64-bit shift-left helper; address read from retail _
 __aullshr,0x006297A0,MSVCR71 unsigned 64-bit shift-right helper; address read from retail _Stl_atod REL32
 ?_Stl_mult64@_STL@@YAX_K0AA_K1@Z,0x0001A6D0,STLport 4.5.3 64-bit multiply helper; address read from retail _Stl_tenscale REL32
 ?_Stl_norm_and_round@_STL@@YAXAA_KAAH_K2@Z,0x0001A7B0,STLport 4.5.3 normalize-and-round helper; address read from retail _Stl_tenscale REL32
+??0ModuleData@@QAE@XZ,0x006024FD,address read from the REL32 displacement at DieModuleData ctor 0x6054E7
