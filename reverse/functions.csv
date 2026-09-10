@@ -6034,3 +6034,4 @@ _XMP_Move,,0x0061BE10,19,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,
 ??0MultiIniFieldParse@@QAE@XZ,,0x0002BAA0,26,Code/GameEngine/Source/Common/System/MultiIniFieldParseCtor.cpp,matched,zero count then 16 extraOffset and fieldParse slots
 ?initFromINIMultiProc@INI@@QAEXPAXP6AXAAVMultiIniFieldParse@@@Z@Z,,0x0002DEB5,56,Code/GameEngine/Source/Common/System/INI_initFromINIMultiProc.cpp,matched,stack MultiIniFieldParse then proc then initFromINIMulti
 ?initFromINI@INI@@QAEXPAXPBUFieldParse@@@Z,,0x0002DE78,61,Code/GameEngine/Source/Common/System/INI_initFromINI.cpp,matched,stack MultiIniFieldParse add FieldParse then initFromINIMulti
+?countIntersection@?$BitFlags@$0L@@@QBEHABV1@@Z,,0x0033ADC0,60,Code/GameEngine/Source/Common/System/BitFlagsCountIntersection.cpp,matched,SWAR popcount of this AND that dword
