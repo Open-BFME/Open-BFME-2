@@ -6004,3 +6004,4 @@ _XMP_Move,,0x0061BE10,19,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,
 ??1GameEngine@@UAE@XZ,,0x00225B9B,11,Code/GameEngine/Source/Common/GameEngineCompleteDestructor.cpp,matched,complete destructor; scalar deleting wrapper already matched at 0x226333
 ??$_Construct@VWeaponTemplateSet@@V1@@_STL@@YAXPAVWeaponTemplateSet@@ABV1@@Z,,0x004AE915,18,Code/GameEngine/Source/Common/Thing/WeaponTemplateSetConstruct.cpp,matched,stlport _Construct; null-check dest then thiscall copy ctor
 ??$__uninitialized_copy@PAVWeaponTemplateSet@@PAV1@@_STL@@YAPAVWeaponTemplateSet@@PAV1@00ABU__false_type@0@@Z,,0x004AE927,38,Code/GameEngine/Source/Common/Thing/WeaponTemplateSetUninitializedCopy.cpp,matched,stlport uninitialized_copy; stride 0x54; calls landed _Construct
+??0Cftp@@QAE@XZ,,0x006CA5E0,18,Code/Libraries/Source/WWVegas/WWDownload/ftp_constructor.cpp,matched,vtable then ZeroStuff; virtual dtor
