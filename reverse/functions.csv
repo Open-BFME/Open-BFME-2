@@ -6120,3 +6120,4 @@ _strdup,,0x006C4C70,60,Code/Libraries/Source/WWVegas/WWLib/strdup.cpp,matched,in
 ?Render_Seg_Line@SegmentedLineClass@@IAEXAAVRenderInfoClass@@@Z,,0x0015EED0,78,Code/Libraries/Source/WWVegas/WW3D2/SegmentedLineRenderSegLineThunk.cpp,matched,count at +0xD8 then sphere virtual +0x10C
 ?makeDecoratedNameKey@ModuleFactory@@KA?AW4NameKeyType@@ABVAsciiString@@W4ModuleType@@@Z,,0x00255C5E,74,Code/GameEngine/Source/Common/Thing/ModuleFactory_makeDecoratedNameKey.cpp,matched,prefix 0+type then nameToKey
 ??0Nugget@ModuleInfo@@QAE@ABU01@@Z,,0x00119A80,78,Code/GameEngine/Source/Common/Thing/ModuleInfoNuggetCopyCtor.cpp,matched,refcount first string then four 28-byte POD copies
+?Remove_Polygon_Renderer@DX8TextureCategoryClass@@QAEXPAVDX8PolygonRendererClass@@@Z,,0x001460E0,78,Code/Libraries/Source/WWVegas/WW3D2/DX8TextureCategoryRemovePolygonRenderer.cpp,matched,Dedicated TU; BFME2 null-checks delete-list pointer before Internal_Add_Tail
