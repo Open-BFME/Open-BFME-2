@@ -1147,3 +1147,4 @@ _bfmeRva0042CF86,0x0002CF86,address read from the REL32 in WndProc's message 0x2
 ?do_insert@KeyToBucketMap@NameKeyGenerator@@AAE?AUinsert_result@12@ABUvalue_type@12@@Z,0x0005574B,hashtable insert after resize; KeyToBucketMap insert second call
 ?initFromINIMulti@INI@@QAEXPAXABVMultiIniFieldParse@@@Z,0x0002D7A8,callee of initFromINIMultiProc at 0x2DEB5
 ?add@MultiIniFieldParse@@QAEXPBUFieldParse@@I@Z,0x0002BC6E,callee of INI initFromINI at 0x2DE78
+?Record_Texture_End@@YAXXZ,0x00129E50,callee of Debug_Statistics End_Statistics at 0x12A450
