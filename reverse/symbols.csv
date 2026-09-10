@@ -1135,3 +1135,4 @@ _bfmeRva0042CF86,0x0002CF86,address read from the REL32 in WndProc's message 0x2
 ?getNextToken@INI@@QAEPBDPBD@Z,0x0002DF97,INI thiscall next-token helper; parseDurationReal first REL32; ghidra 75 bytes
 ?scanReal@INI@@QAEMPBD@Z,0x0002EDA5,INI thiscall Real scanner; parseDurationReal second REL32; ghidra 107 bytes
 ?ZeroStuff@Cftp@@QAEXXZ,0x006C9ED0,Cftp member called from Cftp ctor after vtable install; ghidra 109 bytes
+?lastHeardFrom@GameLogic@@QAEXH@Z,0x0023CF1C,GameLogic::processProgress tail call; ghidra FUN_0063cf1c 35 bytes
