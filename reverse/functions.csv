@@ -6122,3 +6122,4 @@ _strdup,,0x006C4C70,60,Code/Libraries/Source/WWVegas/WWLib/strdup.cpp,matched,in
 ??0Nugget@ModuleInfo@@QAE@ABU01@@Z,,0x00119A80,78,Code/GameEngine/Source/Common/Thing/ModuleInfoNuggetCopyCtor.cpp,matched,refcount first string then four 28-byte POD copies
 ?Remove_Polygon_Renderer@DX8TextureCategoryClass@@QAEXPAVDX8PolygonRendererClass@@@Z,,0x001460E0,78,Code/Libraries/Source/WWVegas/WW3D2/DX8TextureCategoryRemovePolygonRenderer.cpp,matched,Dedicated TU; BFME2 null-checks delete-list pointer before Internal_Add_Tail
 ?DebugAllocMemory@@YAPAXI@Z,,0x0003E450,83,Code/Libraries/Source/debug/DebugAllocMemory.cpp,matched,Dedicated TU; GlobalAlloc plus SkipNext crash arm; ebp frame
+?Log_DX8_ErrorCode@@YAXI@Z,,0x0011F450,88,Code/Libraries/Source/WWVegas/WW3D2/Log_DX8_ErrorCode.cpp,matched,Dedicated TU; DXER typed dump then SkipNext crash arm

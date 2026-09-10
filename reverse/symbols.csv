@@ -1163,3 +1163,4 @@ _bfmeRva0042CF86,0x0002CF86,address read from the REL32 in WndProc's message 0x2
 _strcpy,0x00629176,IAT jmp after _strlen; REL32 from makeDecoratedNameKey
 ?detach@NetCommandNode@@QAEXXZ,0x0058B8AE,12-byte node cleanup; REL32 from NetCommandList::reset
 ?Remove_Texture_Category@DX8FVFCategoryContainer@@QAEXPAVDX8TextureCategoryClass@@@Z,0x00144C30,Retail REL32 from Remove_Polygon_Renderer empty path
+?DebugLogTyped@@YAXIPAXI@Z,0x00039660,Retail REL32 from Log_DX8_ErrorCode; fourcc table lookup of DXER plus HRESULT
