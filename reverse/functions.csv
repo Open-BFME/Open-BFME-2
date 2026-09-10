@@ -6137,3 +6137,4 @@ _strdup,,0x006C4C70,60,Code/Libraries/Source/WWVegas/WWLib/strdup.cpp,matched,in
 ?update_temporal_state@GridTextureMapperClass@@IAEXXZ,,0x00182590,69,Code/Libraries/Source/WWVegas/WW3D2/GridTextureMapperClassUpdateTemporalState.cpp,matched,Dedicated TU Remainder and CurrentFrame advance from SyncTime
 ?get_sort_flags@MeshModelClass@@IBEIH@Z,,0x00189270,125,Code/Libraries/Source/WWVegas/WW3D2/MeshModelClassGetSortFlagsPass.cpp,matched,MeshMatDesc Shader at +0x98 ShaderArray at +0xF8 dedicated TU
 ?Has_Shader_Array@MeshModelClass@@QBE_NH@Z,,0x00143510,27,Code/Libraries/Source/WWVegas/WW3D2/MeshModelClassGetSortFlagsPass.cpp,matched,Out-of-line Has_Shader_Array from get_sort_flags TU
+?Get_Single_Shader@MeshModelClass@@QBE?AVShaderClass@@H@Z,,0x001434D0,26,Code/Libraries/Source/WWVegas/WW3D2/MeshModelClassGetSortFlagsPass.cpp,matched,Out-of-line Get_Single_Shader from get_sort_flags TU
