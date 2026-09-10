@@ -6014,3 +6014,4 @@ _XMP_Move,,0x0061BE10,19,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,
 ??0BFME2Encoding0MotionChannel@@QAE@XZ,,0x001B2E2C,26,Code/Libraries/Source/WWVegas/WW3D2/BFME2Encoding0MotionChannelCtor.cpp,matched,base ctor then TimeCodes and Samples zeroed
 ??0BFME2MotionChannel@@QAE@XZ,,0x001A465B,17,Code/Libraries/Source/WWVegas/WW3D2/BFME2MotionChannelCtor.cpp,matched,Type and Pivot or-minus-1 then vtable
 ?bfmeSetTexture@Image@@QAEXABVBfmeMapPictureTexture@@@Z,,0x002D905E,47,Code/GameEngine/Source/GameClient/GUI/ImageBfmeSetTexture.cpp,matched,alloc 4-byte holder at plus 0x2C then RefCountPtr assign
+?Set_Animation@Animatable3DObjClass@@UAEXPAVHAnimComboClass@@@Z,,0x001A4D90,39,Code/Libraries/Source/WWVegas/WW3D2/Animatable3DObjSetAnimationCombo.cpp,matched,Release then MULTIPLE_ANIM 4 combo ptr hierarchy-valid byte
