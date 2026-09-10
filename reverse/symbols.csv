@@ -1137,3 +1137,4 @@ _bfmeRva0042CF86,0x0002CF86,address read from the REL32 in WndProc's message 0x2
 ?ZeroStuff@Cftp@@QAEXXZ,0x006C9ED0,Cftp member called from Cftp ctor after vtable install; ghidra 109 bytes
 ?lastHeardFrom@GameLogic@@QAEXH@Z,0x0023CF1C,GameLogic::processProgress tail call; ghidra FUN_0063cf1c 35 bytes
 ??0WeaponTemplateSetHead@@QAE@ABV0@@Z,0x00045455,0x4C-byte memcpy wrapper; WeaponTemplateSet copy ctor first call; ghidra 24 bytes
+??0BFME2MotionChannel@@QAE@XZ,0x001A465B,base motion-channel ctor; Type and Pivot or-minus-1 then vtable; ghidra 17 bytes
