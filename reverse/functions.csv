@@ -6081,3 +6081,7 @@ _XMP_Move,,0x0061BE10,19,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,
 ?Get_Sorting_Vertices@Debug_Statistics@@YAHXZ,,0x00129620,6,Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsGetters.cpp,matched,return last-frame sorting vertex count
 ?Get_Draw_Calls@Debug_Statistics@@YAHXZ,,0x00129630,6,Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsGetters.cpp,matched,return last-frame draw call count
 ?getValue@GameClientRandomVariable@@QBEMXZ,,0x002341A1,70,Code/GameEngine/Source/GameClient/ClientRandomValue_getValue.cpp,matched,BFME1 GameClientRandomVariable::getValue transferred; BFME2 CONSTANT/UNIFORM body preserves RandomValue.cpp line 394
+?IsCRC@Xfer@@UBE_NXZ,,0x0047A699,3,Code/GameEngine/Source/Common/System/Xfer.cpp,matched,BFME1 mode predicate transferred; BFME2 retail folds to xor eax eax / ret
+?IsLightCRC@Xfer@@UBE_NXZ,,0x0047A699,3,Code/GameEngine/Source/Common/System/Xfer.cpp,matched,BFME1 mode predicate transferred; BFME2 retail folds to xor eax eax / ret
+?IsLoading@Xfer@@UBE_NXZ,,0x0047A699,3,Code/GameEngine/Source/Common/System/Xfer.cpp,matched,BFME1 mode predicate transferred; BFME2 retail folds to xor eax eax / ret
+?IsStoring@Xfer@@UBE_NXZ,,0x0047A699,3,Code/GameEngine/Source/Common/System/Xfer.cpp,matched,BFME1 mode predicate transferred; BFME2 retail folds to xor eax eax / ret

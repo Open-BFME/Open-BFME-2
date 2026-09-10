@@ -124,7 +124,7 @@ public:
     virtual bool IsStoring() const;
     virtual bool IsLoading() const;
     virtual bool IsCRC() const;
-    virtual bool IsDeepCRC() const;
+    virtual bool IsLightCRC() const;
 
     virtual void v5() = 0;
     virtual void v6() = 0;
@@ -185,6 +185,26 @@ Xfer::Xfer()
 
 Xfer::~Xfer()
 {
+}
+
+bool Xfer::IsStoring() const
+{
+    return false;
+}
+
+bool Xfer::IsLoading() const
+{
+    return false;
+}
+
+bool Xfer::IsCRC() const
+{
+    return false;
+}
+
+bool Xfer::IsLightCRC() const
+{
+    return false;
 }
 
 void Xfer::Version1()
@@ -370,4 +390,3 @@ Xfer &Xfer::XferRawBytes(void *data, unsigned int size)
 
     return *this;
 }
-
