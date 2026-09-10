@@ -16,7 +16,12 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 // Modified for BFME2: local CRT declaration and original-binary compiler flags.
-// cl: /O1 /arch:SSE2
+// cl: /O1 /arch:SSE2 /EHsc
+//
+// /EHsc (VC's /GX) lets the extern "C" Win32 imports count as non-throwing.
+// Retail initializeAppWindows keeps its title UnicodeString temporary alive
+// across CreateWindowExW with no EH frame, which only that setting (or EH off)
+// reproduces; the default -EHsc- builds a frame around it.
 //
 // nextParam is the command-line tokenizer used by the BFME entry point.
 // Open-BFME-1's GeneralsMD Code/Main/WinMain.cpp defines the same helper:
@@ -718,4 +723,212 @@ LRESULT CALLBACK WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam 
 
 	return IsWindowUnicode( hWnd ) ? DefWindowProcW( hWnd, message, wParam, lParam )
 	                               : DefWindowProcA( hWnd, message, wParam, lParam );
+}
+
+//----------------------------------------------------------------------------
+// initializeAppWindows at 0x0000275D.
+//
+// Zero Hour's body with BFME 2's edges:
+//   - the Debug singleton hears whether the game runs windowed before anything
+//     else happens;
+//   - the icon is lotrbfme.ico through LoadImageA, and the class is registered
+//     and the window created through the W entry points, with the class name
+//     read from the global at 0x00DA5F10;
+//   - the window is centred only while the X/Y globals still hold the -1000000
+//     sentinel, and the title is a UnicodeString from the helper at 0x0023484D.
+// The style if/else is Zero Hour's own; MSVC folds it into the branchless
+// neg/sbb/and/add that retail shows.  WinMain's call at 0x00002FAA is the only
+// caller, and it passes hInstance in EDI -- MSVC does that only for a static
+// function whose every call it can see.
+//----------------------------------------------------------------------------
+
+typedef void *HANDLE;
+typedef void *HINSTANCE;
+typedef void *HICON;
+typedef void *HCURSOR;
+typedef void *HBRUSH;
+typedef void *HMENU;
+
+typedef LRESULT (CALLBACK *WNDPROC)(HWND, UINT, WPARAM, LPARAM);
+
+typedef struct tagWNDCLASSW
+{
+	UINT style;
+	WNDPROC lpfnWndProc;
+	int cbClsExtra;
+	int cbWndExtra;
+	HINSTANCE hInstance;
+	HICON hIcon;
+	HCURSOR hCursor;
+	HBRUSH hbrBackground;
+	const unsigned short *lpszMenuName;
+	const unsigned short *lpszClassName;
+} WNDCLASSW;
+
+#define CS_VREDRAW       0x0001
+#define CS_HREDRAW       0x0002
+#define CS_DBLCLKS       0x0008
+#define IMAGE_ICON       1
+#define LR_LOADFROMFILE  0x0010
+#define LR_DEFAULTSIZE   0x0040
+#define BLACK_BRUSH      4
+#define SM_CXSCREEN      0
+#define SM_CYSCREEN      1
+#define SWP_NOSIZE       0x0001
+#define SWP_NOMOVE       0x0002
+#define HWND_TOP         ((HWND)0)
+#define HWND_TOPMOST     ((HWND)-1)
+#define WS_POPUP         0x80000000L
+#define WS_VISIBLE       0x10000000L
+#define WS_CAPTION       0x00C00000L
+#define WS_DLGFRAME      0x00400000L
+#define WS_SYSMENU       0x00080000L
+#define WS_EX_TOPMOST    0x00000008L
+
+#define DEFAULT_XRESOLUTION 800
+#define DEFAULT_YRESOLUTION 600
+#define WINDOW_POS_SENTINEL (-1000000)
+
+extern "C" {
+__declspec(dllimport) HANDLE WINAPI LoadImageA(HINSTANCE, const char *, UINT, int, int, UINT);
+__declspec(dllimport) HGDIOBJ WINAPI GetStockObject(int);
+__declspec(dllimport) UINT WINAPI RegisterClassW(const WNDCLASSW *);
+__declspec(dllimport) BOOL WINAPI AdjustWindowRect(RECT *, DWORD, BOOL);
+__declspec(dllimport) int WINAPI GetSystemMetrics(int);
+__declspec(dllimport) HWND WINAPI CreateWindowExW(DWORD, const unsigned short *, const unsigned short *, DWORD, int, int, int, int, HWND, HMENU, HINSTANCE, void *);
+__declspec(dllimport) BOOL WINAPI SetWindowPos(HWND, HWND, int, int, int, int, UINT);
+__declspec(dllimport) HWND WINAPI SetFocus(HWND);
+__declspec(dllimport) BOOL WINAPI SetForegroundWindow(HWND);
+__declspec(dllimport) BOOL WINAPI ShowWindow(HWND, int);
+__declspec(dllimport) BOOL WINAPI UpdateWindow(HWND);
+}
+
+void bfmeNotifyDebugWindowed(unsigned runWindowed);
+
+// Only what this body reaches of the engine's reference-counted string:
+// str() with its shared empty buffer, and the out-of-line releaseBuffer the
+// destructor forwards to.
+template <typename T>
+class StringBase
+{
+	friend class UnicodeString;
+
+	struct Header
+	{
+		int ref_count;
+		unsigned short length;
+		unsigned short capacity;
+		T data[1];
+	};
+
+	void releaseBuffer();
+	Header *m_data;
+};
+
+class UnicodeString
+{
+public:
+	const unsigned short *str() const
+	{
+		static const unsigned short empty[1] = {0};
+		return m_data.m_data ? m_data.m_data->data : empty;
+	}
+
+	~UnicodeString()
+	{
+		m_data.releaseBuffer();
+	}
+
+private:
+	StringBase<unsigned short> m_data;
+};
+
+UnicodeString bfmeGetMainWindowTitle();
+
+HINSTANCE ApplicationHInstance;
+const unsigned short *g_windowClassName;
+int g_windowPosX;
+int g_windowPosY;
+
+static bool initializeAppWindows( HINSTANCE hInstance, int nCmdShow, bool runWindowed )
+{
+	WNDCLASSW wndClass;
+	RECT rect;
+	DWORD windowStyle;
+
+	bfmeNotifyDebugWindowed( *(unsigned *)&runWindowed );
+
+	// register the window class
+	wndClass.style = CS_HREDRAW | CS_VREDRAW | CS_DBLCLKS;
+	wndClass.lpfnWndProc = WndProc;
+	wndClass.cbClsExtra = 0;
+	wndClass.cbWndExtra = 0;
+	wndClass.hInstance = hInstance;
+	wndClass.hIcon = (HICON)LoadImageA( hInstance, "lotrbfme.ico", IMAGE_ICON, 0, 0,
+	                                    LR_LOADFROMFILE | LR_DEFAULTSIZE );
+	wndClass.hCursor = NULL;
+	wndClass.hbrBackground = (HBRUSH)GetStockObject( BLACK_BRUSH );
+	wndClass.lpszMenuName = NULL;
+	wndClass.lpszClassName = g_windowClassName;
+	RegisterClassW( &wndClass );
+
+	// Create our main window
+	windowStyle = WS_POPUP | WS_VISIBLE;
+	if( runWindowed )
+		windowStyle |= WS_DLGFRAME | WS_CAPTION | WS_SYSMENU;
+	else
+		windowStyle |= WS_EX_TOPMOST | WS_SYSMENU;
+
+	rect.left = 0;
+	rect.top = 0;
+	rect.right = DEFAULT_XRESOLUTION;
+	rect.bottom = DEFAULT_YRESOLUTION;
+	AdjustWindowRect( &rect, windowStyle, FALSE );
+
+	gInitializing = true;
+
+	if( g_windowPosX == WINDOW_POS_SENTINEL )
+		g_windowPosX = (GetSystemMetrics( SM_CXSCREEN ) / 2) - 400;
+	if( g_windowPosY == WINDOW_POS_SENTINEL )
+		g_windowPosY = (GetSystemMetrics( SM_CYSCREEN ) / 2) - 332;
+
+	HWND hWnd = CreateWindowExW( 0,
+	                             g_windowClassName,
+	                             bfmeGetMainWindowTitle().str(),
+	                             windowStyle,
+	                             g_windowPosX,
+	                             g_windowPosY,
+	                             rect.right - rect.left,
+	                             rect.bottom - rect.top,
+	                             NULL,
+	                             NULL,
+	                             hInstance,
+	                             NULL );
+
+	if( !runWindowed )
+		SetWindowPos( hWnd, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOSIZE | SWP_NOMOVE );
+	else
+		SetWindowPos( hWnd, HWND_TOP, 0, 0, 0, 0, SWP_NOSIZE | SWP_NOMOVE );
+
+	SetFocus( hWnd );
+	SetForegroundWindow( hWnd );
+	ShowWindow( hWnd, nCmdShow );
+	UpdateWindow( hWnd );
+
+	// save our application instance and window handle for future use
+	ApplicationHInstance = hInstance;
+	ApplicationHWnd = hWnd;
+	gInitializing = false;
+	if( !runWindowed )
+		gDoPaint = false;
+
+	return true;  // success
+}
+
+// WinMain is not converted yet.  This stands in for its one call at
+// 0x00002FAA so that the static body above is emitted, and emitted with the
+// register-passed hInstance retail uses.  It claims no retail address.
+bool bfmeCallInitializeAppWindows( HINSTANCE hInstance, int nCmdShow, bool runWindowed )
+{
+	return initializeAppWindows( hInstance, nCmdShow, runWindowed );
 }
