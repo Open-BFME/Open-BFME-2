@@ -8,7 +8,11 @@
 // their values are normalized only at Boolean interfaces.
 
 #include <stddef.h>
+#include <string.h>
 
+extern "C" __declspec(dllimport) int __stdcall WriteFile(
+	void *handle, const void *buffer, unsigned long bytes,
+	unsigned long *written, void *overlapped);
 extern "C" __declspec(dllimport) int __stdcall ReadFile(
 	void *handle, void *buffer, unsigned long bytes,
 	unsigned long *read, void *overlapped);
@@ -43,6 +47,12 @@ extern "C" __declspec(dllimport) void __stdcall GetSystemInfo(
 namespace _STL
 {
 
+// _algobase.h's min and max: both return a reference to the chosen operand.
+template <class _Tp>
+inline const _Tp &(min)(const _Tp &__a, const _Tp &__b) { return __b < __a ? __b : __a; }
+template <class _Tp>
+inline const _Tp &(max)(const _Tp &__a, const _Tp &__b) { return  __a < __b ? __b : __a; }
+
 union _Large_integer
 {
 	struct
@@ -64,6 +74,7 @@ public:
 	void _M_unmap(void *base, long length);
 	bool _M_close();
 	ptrdiff_t _M_read(char *buf, ptrdiff_t n);
+	bool _M_write(char *buf, ptrdiff_t n);
 
 protected:
 	void *_M_file_id;
@@ -221,6 +232,78 @@ ptrdiff_t _Filebuf_base::_M_read(char *buf, ptrdiff_t n)
 		number_of_bytes_read = (unsigned long)(to - buf);
 	}
 	return (ptrdiff_t)number_of_bytes_read;
+}
+
+// Open mode bits as this file reads them: 1 is ios_base::app and 4 is
+// ios_base::binary; _M_seek's 4 is ios_base::end.  Text mode expands each LF
+// to CR LF through a 4097-byte staging buffer and loops on short writes.
+bool _Filebuf_base::_M_write(char *buf, ptrdiff_t n)
+{
+	for (;;) {
+		ptrdiff_t written;
+
+		if (_M_openmode & 1)
+			_M_seek(0, 4);
+
+		if (_M_openmode & 4) {
+			unsigned long NumberOfBytesWritten;
+			WriteFile(_M_file_id, buf, (unsigned long)n, &NumberOfBytesWritten, 0);
+			written = (ptrdiff_t)NumberOfBytesWritten;
+		}
+		else {
+			char textbuf[4097];
+			char *nextblock = buf;
+			char *ptrtextbuf = textbuf;
+			char *endtextbuf = textbuf + 4096;
+			char *endblock = buf + n;
+			ptrdiff_t nextblocksize = (min)(n, (ptrdiff_t)4096);
+			char *nextlf;
+
+			while (nextblocksize > 0 &&
+			       (nextlf = (char *)::memchr(nextblock, '\n', nextblocksize)) != 0) {
+				ptrdiff_t linelength = nextlf - nextblock;
+				memcpy(ptrtextbuf, nextblock, linelength);
+				ptrtextbuf += linelength;
+				nextblock += linelength + 1;
+				*ptrtextbuf++ = '\r';
+				*ptrtextbuf++ = '\n';
+				nextblocksize = (min)((ptrdiff_t)(endblock - nextblock),
+				                      (max)((ptrdiff_t)0,
+				                            (ptrdiff_t)(endtextbuf - ptrtextbuf)));
+			}
+
+			if (nextblocksize > 0) {
+				memcpy(ptrtextbuf, nextblock, nextblocksize);
+				ptrtextbuf += nextblocksize;
+				nextblock += nextblocksize;
+			}
+
+			char *writetextbuf = textbuf;
+			for (unsigned long NumberOfBytesToWrite = (unsigned long)(ptrtextbuf - textbuf);
+			     NumberOfBytesToWrite != 0;) {
+				unsigned long NumberOfBytesWritten;
+				WriteFile(_M_file_id, writetextbuf, NumberOfBytesToWrite,
+				          &NumberOfBytesWritten, 0);
+				if (NumberOfBytesWritten == NumberOfBytesToWrite)
+					break;
+				if (NumberOfBytesWritten == 0)
+					return false;
+				writetextbuf += NumberOfBytesWritten;
+				NumberOfBytesToWrite -= NumberOfBytesWritten;
+			}
+
+			written = nextblock - buf;
+		}
+
+		if (n == written)
+			return true;
+		else if (written > 0 && written < n) {
+			n -= written;
+			buf += written;
+		}
+		else
+			return false;
+	}
 }
 
 }
