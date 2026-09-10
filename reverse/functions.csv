@@ -6051,3 +6051,4 @@ _XMP_Move,,0x0061BE10,19,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,
 ?Get_Sorting_Polygons@Debug_Statistics@@YAHXZ,,0x00129610,6,Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsGetters.cpp,matched,return last-frame sorting polygon count
 ?Get_Sorting_Vertices@Debug_Statistics@@YAHXZ,,0x00129620,6,Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsGetters.cpp,matched,return last-frame sorting vertex count
 ?Get_Draw_Calls@Debug_Statistics@@YAHXZ,,0x00129630,6,Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsGetters.cpp,matched,return last-frame draw call count
+?getValue@GameClientRandomVariable@@QBEMXZ,,0x002341A1,70,Code/GameEngine/Source/GameClient/ClientRandomValue_getValue.cpp,matched,BFME1 GameClientRandomVariable::getValue transferred; BFME2 CONSTANT/UNIFORM body preserves RandomValue.cpp line 394
