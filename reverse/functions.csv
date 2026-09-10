@@ -5981,3 +5981,4 @@ _XMP_Move,,0x0061BE10,19,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,
 ?getStatus@Weapon@@QBE?AW4WeaponStatus@@XZ,,0x002CCFC7,41,Code/GameEngine/Source/Common/WeaponGetStatus.cpp,matched,BFME1 cached status query adapted to BFME2 out-of-line setter; unique placement and exact rebuild
 ?cacheStatus@Weapon@@QBEXW4WeaponStatus@@@Z,,0x002C94F5,15,Code/GameEngine/Source/Common/WeaponGetStatus.cpp,matched,Reconstructed helper name; independent getStatus caller proves ownership; compare and conditional write at Weapon+0x10 then ret4
 ?bfmeNotifyDebugWindowed@@YAXI@Z,,0x00001720,19,Code/GameEngine/Source/Main/debug_notify_windowed.cpp,matched,Open-BFME clean C++; Debug singleton slot 0xB0 forwarder used by initializeAppWindows
+?Add_Engine_Ref@VertexBufferClass@@QBEXXZ,,0x00139480,5,Code/Libraries/Source/WWVegas/WW3D2/dx8vertexbuffer_engine_ref.cpp,matched,VertexBufferClass engine_refs++ at +0x10
