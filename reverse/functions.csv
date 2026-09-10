@@ -6144,3 +6144,4 @@ _strdup,,0x006C4C70,60,Code/Libraries/Source/WWVegas/WWLib/strdup.cpp,matched,in
 ?Transform_Center_Extent_AABox@Matrix3D@@QBEXABVVector3@@0PAV2@1@Z,,0x00712CA0,236,Code/Libraries/Source/WWVegas/WWMath/Matrix3DTransformAABox.cpp,matched,Dedicated TU SSE Transform_Center_Extent_AABox with WWMath Fabs sign-bit clear
 ?Copy_3x3_Matrix@Matrix3D@@QAEXQAY02M@Z,,0x00712B10,77,Code/Libraries/Source/WWVegas/WWMath/Matrix3DUnmatchedSSE.cpp,matched,placed by masked byte-scan of dedicated SSE TU
 ?Rotate_Vector@Matrix3D@@QBE?AVVector3@@ABV2@@Z,,0x00712030,135,Code/Libraries/Source/WWVegas/WWMath/Matrix3DUnmatchedSSE.cpp,matched,placed by masked byte-scan of dedicated SSE TU
+?Inverse_Rotate_Vector@Matrix3D@@QBE?AVVector3@@ABV2@@Z,,0x007120C0,135,Code/Libraries/Source/WWVegas/WWMath/Matrix3DUnmatchedSSE.cpp,matched,placed by masked byte-scan of dedicated SSE TU
