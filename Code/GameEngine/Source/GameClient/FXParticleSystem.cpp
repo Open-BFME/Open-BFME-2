@@ -416,6 +416,12 @@ public:
     virtual const char *GetSnapshotName();
 };
 
+class CylindricalEmissionVelocityInfo : public EmissionVelocityInfo
+{
+public:
+    virtual ~CylindricalEmissionVelocityInfo();
+};
+
 const char *EmissionVelocityInfo::GetSnapshotName()
 {
     return "EmissionVelocityInfo";
@@ -427,6 +433,10 @@ EmissionVelocityInfo::EmissionVelocityInfo()
 }
 
 EmissionVelocityInfo::EmissionVelocityInfo(const EmissionVelocityInfo &that)
+{
+}
+
+CylindricalEmissionVelocityInfo::~CylindricalEmissionVelocityInfo()
 {
 }
 
