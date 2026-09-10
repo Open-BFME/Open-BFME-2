@@ -6106,3 +6106,4 @@ _XMP_Move,,0x0061BE10,19,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,
 ?Get_Record_Texture_Change_Count@Debug_Statistics@@YAHXZ,,0x001294B0,6,Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsTextureGetters.cpp,matched,return last-frame texture change count
 ?Get_Record_Lightmap_Texture_Size@Debug_Statistics@@YAHXZ,,0x001294C0,6,Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsTextureGetters.cpp,matched,return last-frame lightmap texture memory
 ?Get_Record_Lightmap_Texture_Count@Debug_Statistics@@YAHXZ,,0x001294D0,6,Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsTextureGetters.cpp,matched,return last-frame lightmap texture count
+?Get_Record_Procedural_Texture_Size@Debug_Statistics@@YAHXZ,,0x001294E0,6,Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsTextureGetters.cpp,matched,return last-frame procedural texture memory
