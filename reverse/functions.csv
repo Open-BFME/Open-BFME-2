@@ -6178,3 +6178,4 @@ _strdup,,0x006C4C70,60,Code/Libraries/Source/WWVegas/WWLib/strdup.cpp,matched,in
 ?resize@?$hashtable@U?$pair@$$CBHH@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@QAEXI@Z,,0x00620B70,244,Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_int_resize.cpp,matched,no-exceptions resize dedicated TU
 ??0DieModuleData@@QAE@XZ,,0x006054E7,29,Code/GameEngine/Source/GameLogic/Object/Die/DieModuleDataCtor.cpp,matched,base ctor then three zeroed pointers at plus 0x14
 ?getPercentage@NetProgressCommandMsg@@QAEEXZ,,0x004C54EC,4,Code/GameEngine/Source/GameNetwork/NetProgressCommandMsgGetPercentage.cpp,matched,byte getter at plus 0x1C
+??1Bucket@@UAE@XZ,,0x00148B19,14,Code/GameEngine/Source/Common/BucketDtor.cpp,matched,sets vtable then tail-calls member dtor at plus 0x0C
