@@ -4165,7 +4165,6 @@ _g_crc32,,0x006071F0,37,Code/GameEngine/Source/GameNetwork/GameSpy/gstats/gstats
 ?_M_is_any@?$_Base_bitset@$03@_STL@@QBE_NXZ,,0x000454BA,20,Code/GameEngine/Source/Common/Thing/Thing.cpp,matched,gen-alias;object-symbol=?_M_is_any@?$_Base_bitset@$03@_STL@@QBE_NXZ;C++ alias
 ?Set_Z_Translation@Matrix3D@@QAEXM@Z,,0x002B2210,10,Code/GameEngine/Source/Common/Thing/Thing.cpp,matched,gen-alias;object-symbol=?Set_Z_Translation@Matrix3D@@QAEXM@Z;C++ alias
 ?Set_Y_Translation@Matrix3D@@QAEXM@Z,,0x00665600,10,Code/GameEngine/Source/Common/Thing/Thing.cpp,matched,gen-alias;object-symbol=?Set_Y_Translation@Matrix3D@@QAEXM@Z;C++ alias
-?dup_0013bcd0@@YAXXZ,,0x0013BCD0,10,Code/Libraries/Source/WWVegas/WW3D2/nullrobj.cpp,matched,gen-alias;object-symbol=?Set_Native_Screen_Size@RenderObjClass@@UAEXM@Z;C++ alias
 ?dup_003e3bfb@@YAXXZ,,0x003E3BFB,10,Code/Libraries/Source/WWVegas/WW3D2/nullrobj.cpp,matched,gen-alias;object-symbol=?Set_ObjectScale@RenderObjClass@@UAEXM@Z;C++ alias
 ?dup_000657d0@@YAXXZ,,0x000657D0,9,Code/Libraries/Source/WWVegas/WWLib/multilist.cpp,matched,gen-alias;object-symbol=??1BFMEPoolLock@@QAE@XZ;C++ alias
 ?dup_006c5f60@@YAXXZ,,0x006C5F60,9,Code/Libraries/Source/WWVegas/WWLib/multilist.cpp,matched,gen-alias;object-symbol=??1BFMEPoolLock@@QAE@XZ;C++ alias
