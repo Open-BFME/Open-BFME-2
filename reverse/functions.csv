@@ -6165,3 +6165,4 @@ _strdup,,0x006C4C70,60,Code/Libraries/Source/WWVegas/WWLib/strdup.cpp,matched,in
 ?_Initialize_get_float@_STL@@YAXABV?$ctype@G@1@AAG111PAG@Z,,0x0001A640,139,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_initialize_get_float.cpp,matched,Dedicated TU STLport wide Initialize_get_float
 ?_Transfer@?$_List_global@_N@_STL@@SAXPAU_List_node_base@2@00@Z,,0x00024470,91,Code/Libraries/Source/WWVegas/WWLib/stlport_list_global_transfer.cpp,matched,Dedicated TU STLport List_global bool Transfer
 ?_Rebalance@?$_Rb_global@_N@_STL@@SAXPAU_Rb_tree_node_base@2@AAPAU32@@Z,,0x00025490,397,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_rebalance.cpp,matched,Dedicated TU STLport Rb_global bool Rebalance
+?_Stl_string_to_double@_STL@@YANPBD@Z,,0x0001ACE0,343,Code/Libraries/Source/WWVegas/WWLib/stlport_string_to_double.cpp,matched,Dedicated TU STLport string_to_double
