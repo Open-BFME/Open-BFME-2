@@ -6092,3 +6092,7 @@ _XMP_Move,,0x0061BE10,19,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,
 ??1CylindricalEmissionVelocityInfo@FXParticleSystem@@UAE@XZ,,0x0049B47C,7,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,BFME1 empty virtual destructor transferred; BFME2 folds it with the EmissionVelocityInfo destructor family
 ?peek@?$StringBase@D@@ABEPADXZ,,0x0048DC01,6,Code/Libraries/Source/WWVegas/WWLib/string_base_peek.cpp,matched,BFME1 StringBase private data accessor transferred; narrow and wide instantiations share the header data offset
 ?peek@?$StringBase@G@@ABEPAGXZ,,0x0048DC01,6,Code/Libraries/Source/WWVegas/WWLib/string_base_peek.cpp,matched,BFME1 StringBase private data accessor transferred; narrow and wide instantiations share the header data offset
+??1?$StringBase@D@@AAE@XZ,,0x0048BA39,5,Code/Libraries/Source/WWVegas/WWLib/string_base_clear.cpp,matched,BFME1 StringBase narrow destructor transferred; tail-jumps to BFME2 releaseBuffer
+?clear@?$StringBase@D@@QAEXXZ,,0x0048BA39,5,Code/Libraries/Source/WWVegas/WWLib/string_base_clear.cpp,matched,BFME1 StringBase narrow cleanup transferred; tail-jumps to BFME2 releaseBuffer
+??1?$StringBase@G@@AAE@XZ,,0x005B804E,5,Code/Libraries/Source/WWVegas/WWLib/string_base_clear.cpp,matched,BFME1 StringBase wide destructor transferred; tail-jumps to BFME2 releaseBuffer
+?clear@?$StringBase@G@@QAEXXZ,,0x005B804E,5,Code/Libraries/Source/WWVegas/WWLib/string_base_clear.cpp,matched,BFME1 StringBase wide cleanup transferred; tail-jumps to BFME2 releaseBuffer
