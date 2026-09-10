@@ -6114,3 +6114,4 @@ _XMP_Move,,0x0061BE10,19,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,
 ??4StringClass@@QAEABV0@PBD@Z,,0x000F0E8D,68,Code/Libraries/Source/WWVegas/WWLib/wwstring_assign_cstr.cpp,matched,strlen then Uninitialised_Grow memcpy and store length
 _strdup,,0x006C4C70,60,Code/Libraries/Source/WWVegas/WWLib/strdup.cpp,matched,inlined strlen; STLport allocate(size 0); memcpy as rep movs. Reloc size 57 omitted the 3-byte epilogue.
 ?YFlip@Targa@@QAEXXZ,,0x00613EF0,159,Code/Libraries/Source/WWVegas/WWLib/TARGA.CPP,matched,BFME2 keeps the original byte-swap YFlip; XFlip in this TU already matched that shape
+?normalizeAngle@@YAMM@Z,,0x00238954,75,Code/GameEngine/Source/Common/normalizeAngle.cpp,matched,SSE comiss wrap to minus PI..PI then fld the spill
