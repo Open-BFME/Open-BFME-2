@@ -152,7 +152,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?setUV@ParticleSystemTemplate@FXParticleSystem@@QAEXPBURegion2D@@@Z,0x00001278,0x00001278,25,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; ParticleSystemTemplate conditionally copies the 16-byte UV region at offset 0x88
 ?d_00001720@@YAXXZ,,0x00001720,19,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00401720
 ??0Snapshot@@QAE@ABV0@@Z,0x00001745,0x00001745,11,Code/GameEngine/Source/Common/System/Snapshot.cpp,matched,Open-BFME5 clean C++; Snapshot copy constructor ignoring its argument
-?d_0000179f@@YAXXZ,,0x0000179F,1167,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_0040179f
 ?isEmpty@?$StringBase@D@@QBE_NXZ,0x00001E2F,0x00001E2F,20,Code/GameEngine/Source/Common/System/AsciiString.cpp,matched,Open-BFME5 clean C++; narrow StringBase emptiness test over the 16-bit length at offset 4
 ??0RandomAlphaKeyframe@FXParticleSystem@@QAE@XZ,0x00001E7F,0x00001E7F,47,Code/Libraries/Source/WWVegas/WWMath/color.cpp,matched,Open-BFME5 clean C++; RandomAlphaKeyframe initializes a zero uniform alpha range and frame
 ?d_0000275d@@YAXXZ,,0x0000275D,395,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_0040275d
@@ -5639,10 +5638,6 @@ _piCallbacksCleanup,,0x0069EEF0,24,Code/GameEngine/Source/GameNetwork/GameSpy/pe
 ??_GSegLineRendererClass@@QAEPAXI@Z,,0x001A6580,30,Code/Libraries/Source/WWVegas/WW3D2/part_buf.cpp,matched,ported from BFME1; exact target-side structural candidate
 ??_GStraw@@UAEPAXI@Z,,0x00615D90,30,Code/Libraries/Source/WWVegas/WW3D2/vertmaterial.cpp,matched,ported from BFME1; exact target-side structural alias
 ??_GBufferStraw@@UAEPAXI@Z,,0x0013D400,30,Code/Libraries/Source/WWVegas/WW3D2/vertmaterial.cpp,matched,ported from BFME1; exact target-side structural alias
-??0?$DynamicVectorClass@PAVVertexMaterialClass@@@@QAE@IPBQAVVertexMaterialClass@@@Z,,0x001A3AE0,94,Code/Libraries/Source/WWVegas/WW3D2/matinfo.cpp,matched,ported from BFME1; exact folded-body identity
-??0?$DynamicVectorClass@PAVTextureClass@@@@QAE@IPBQAVTextureClass@@@Z,,0x001A3AE0,94,Code/Libraries/Source/WWVegas/WW3D2/matinfo.cpp,matched,ported from BFME1; exact folded-body identity
-??0?$DynamicVectorClass@PAVFontCharsBuffer@@@@QAE@IPBQAVFontCharsBuffer@@@Z,,0x001A3AE0,94,Code/Libraries/Source/WWVegas/WW3D2/render2dsentence.cpp,matched,ported from BFME1; exact folded-body identity
-??0?$DynamicVectorClass@PAVRender2DClass@@@@QAE@IPBQAVRender2DClass@@@Z,,0x001A3AE0,94,Code/Libraries/Source/WWVegas/WW3D2/render2dsentence.cpp,matched,ported from BFME1; exact folded-body identity
 ??_G?$VectorClass@PAVVertexMaterialClass@@@@UAEPAXI@Z,,0x001A3B90,71,Code/Libraries/Source/WWVegas/WW3D2/matinfo.cpp,matched,ported from BFME1; exact folded-body identity
 ?Set_Line_Size@LineGroupClass@@QAEXM@Z,,0x001B35F0,14,Code/Libraries/Source/WWVegas/WW3D2/linegrp_float_setters.cpp,matched,reloc-named unclaimed; retail stores the float with movss so this split TU carries /arch:SSE
 ?Set_Line_Alpha@LineGroupClass@@QAEXM@Z,,0x001B3690,14,Code/Libraries/Source/WWVegas/WW3D2/linegrp_float_setters.cpp,matched,reloc-named unclaimed; movss into DefaultLineAlpha at +0x40 under /arch:SSE
@@ -5719,7 +5714,6 @@ _piCallbacksCleanup,,0x0069EEF0,24,Code/GameEngine/Source/GameNetwork/GameSpy/pe
 ?Get_View_Matrix@CameraClass@@QAEABVMatrix3D@@XZ,,0x00134A70,16,Code/Libraries/Source/WWVegas/WW3D2/camera.cpp,matched,
 ?Max@WWMath@@SAMMM@Z,,0x00154A60,23,Code/Libraries/Source/WWVegas/WW3D2/lightenvironment.cpp,matched,
 ?Min@WWMath@@SAMMM@Z,,0x00154A80,23,Code/Libraries/Source/WWVegas/WW3D2/lightenvironment.cpp,matched,
-?Store_Length@StringClass@@AAEXH@Z,,0x0060F130,20,Code/Libraries/Source/WWVegas/WW3D2/dx8rendererdebugger.cpp,matched,
 ??0?$Node@PAVLayerClass@@@@QAE@XZ,,0x00616460,17,Code/Libraries/Source/WWVegas/WW3D2/layer.cpp,matched,
 ?Set_Noise_Amplitude@SegLineRendererClass@@QAEXM@Z,,0x0015DFD0,14,Code/Libraries/Source/WWVegas/WW3D2/seglinerenderer.cpp,matched,
 ?Set_Merge_Abort_Factor@SegLineRendererClass@@QAEXM@Z,,0x0015DFE0,14,Code/Libraries/Source/WWVegas/WW3D2/seglinerenderer.cpp,matched,
@@ -5978,3 +5972,8 @@ _XMP_Move,,0x0061BE10,19,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,
 ?insert@Rva009A3770HashTable@@QAEPAURva009A3770Node@@PAU2@@Z,,0x00759360,106,Code/GameEngine/Source/Common/System/Rva009A3770HashChainInsert.cpp,matched,ported helper from Open-BFME-1; unique masked byte-scan placement
 ?getMaxHeightAbovePosition@GeometryInfo@@QBEMXZ,,0x006BD7C0,101,Code/GameEngine/Source/Common/GeometryInfo_getMaxHeightAbovePosition.cpp,matched,ported from Open-BFME-1; unique masked byte-scan placement
 ?calcPitches@GeometryInfo@@QBEXABUCoord3D@@ABV1@0AAM2@Z,,0x006BE4C0,159,Code/GameEngine/Source/Common/GeometryInfoCalcPitches.cpp,matched,ported from Open-BFME-1; unique placement using verified geometry extent callees
+?stopHealing@AutoHealBehavior@@QAEXXZ,,0x004523B6,22,Code/GameEngine/Source/GameLogic/Object/Behavior/AutoHealBehavior.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+??$__find@U?$_List_iterator@W4ObjectID@@U?$_Nonconst_traits@W4ObjectID@@@_STL@@@_STL@@W4ObjectID@@@_STL@@YA?AU?$_List_iterator@W4ObjectID@@U?$_Nonconst_traits@W4ObjectID@@@_STL@@@0@U10@0ABW4ObjectID@@ABUinput_iterator_tag@0@@Z,,0x0029B2C4,35,Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?Get_Format_Name@DX8Wrapper@@SAXIPAVStringClass@@@Z,,0x0011FE20,777,Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp,matched,retail has NO case for D3DFMT_W11V11U10 (65) - a D3D8-only format D3D9 removed; its jump-table index array sends 65 to default. Real size is 777 not the 598 reloc_names recorded
+?Set_Default_Global_Render_States@DX8Wrapper@@KAXXZ,,0x00122510,232,Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp,matched,BFME2 calls bfmeSetProjectionDepthBias(0.0f) where Zero Hour sets the integer D3DRS_ZBIAS to 0; D3D9 removed ZBIAS in favour of the float DEPTHBIAS. Callee proven by the REL32 at offset 0x43 resolving to 0x0011F1C0 which the ledger already claims
+?WndProc@@YGJPAXIIJ@Z,,0x0000179F,1167,Code/GameEngine/Source/Main/WinMain.cpp,matched,BFME 2 main window procedure; Zero Hour WinMain.cpp body reconciled against retail - Debug gate first / IsWindowUnicode-selected default handler / two extra WM_ACTIVATEAPP sinks / message 0x2707
