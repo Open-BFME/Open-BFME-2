@@ -6038,3 +6038,4 @@ _XMP_Move,,0x0061BE10,19,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,
 ?countInverseIntersection@?$BitFlags@$0L@@@QBEHABV1@@Z,,0x0028F55C,62,Code/GameEngine/Source/Common/System/BitFlagsCountIntersection.cpp,matched,SWAR popcount of not-this AND that dword
 ??0UpdateModule@@QAE@PAVThing@@PBVModuleData@@@Z,,0x00253390,61,Code/GameEngine/Source/GameLogic/Object/Update/UpdateModuleCtor.cpp,matched,BehaviorModule then zero wake frame and minus-one indexes
 ?nstrdup@@YAPADPBD@Z,,0x00619880,68,Code/Libraries/Source/WWVegas/WWLib/nstrdup.cpp,matched,null then tagged new str strlen plus one then strcpy
+?Begin_Statistics@Debug_Statistics@@YAXXZ,,0x0012A400,67,Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsBegin.cpp,matched,zero eleven counters then Record_Texture_Begin and DX8Wrapper Begin_Statistics
