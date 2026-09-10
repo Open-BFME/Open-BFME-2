@@ -1139,3 +1139,4 @@ _bfmeRva0042CF86,0x0002CF86,address read from the REL32 in WndProc's message 0x2
 ??0WeaponTemplateSetHead@@QAE@ABV0@@Z,0x00045455,0x4C-byte memcpy wrapper; WeaponTemplateSet copy ctor first call; ghidra 24 bytes
 ??0BFME2MotionChannel@@QAE@XZ,0x001A465B,base motion-channel ctor; Type and Pivot or-minus-1 then vtable; ghidra 17 bytes
 ??4BfmeMapPictureTexture@@QAEAAV0@ABV0@@Z,0x000424D0,ICF with RefCountPtr TextureClass assign; Image::bfmeSetTexture holder copy
+?Get_Texture@ParticleBufferClass@@QBE?AVBFME2ParticleTextureHandle@@XZ,0x001A7A60,ICF with landed TextureHandleClass Get_Texture; ParticleEmitter dest-forward
