@@ -117,6 +117,7 @@ typedef void *HWND;
 typedef void *HDC;
 typedef void *HGDIOBJ;
 typedef void *HBITMAP;
+typedef void *HANDLE;
 
 typedef struct tagRECT { LONG left, top, right, bottom; } RECT;
 typedef struct tagPAINTSTRUCT
@@ -190,6 +191,7 @@ __declspec(dllimport) HDC WINAPI CreateCompatibleDC(HDC);
 __declspec(dllimport) BOOL WINAPI DeleteDC(HDC);
 __declspec(dllimport) HGDIOBJ WINAPI SelectObject(HDC, HGDIOBJ);
 __declspec(dllimport) BOOL WINAPI BitBlt(HDC, int, int, int, int, HDC, int, int, DWORD);
+__declspec(dllimport) void *WINAPI MapViewOfFileEx(HANDLE, DWORD, DWORD, DWORD, DWORD, void *);
 }
 
 // The Debug singleton at 0x00DE0880, reached here through vtable slot 0x74 --
@@ -439,6 +441,7 @@ class CopyProtect
 {
 public:
 	static void checkForMessage(UINT message, LPARAM lParam);
+	static void *s_protectedData;
 };
 
 extern "C" void bfmeRva0042CF86(WPARAM wParam);
@@ -466,6 +469,12 @@ void Win32Mouse::addWin32Event(UINT msg, WPARAM wParam, LPARAM lParam, DWORD tim
 	++m_nextFreeIndex;
 	if (m_nextFreeIndex >= 256)
 		m_nextFreeIndex = 0;
+}
+
+void CopyProtect::checkForMessage(UINT message, LPARAM lParam)
+{
+	if (message == 0xBEEF)
+		s_protectedData = MapViewOfFileEx((HANDLE)lParam, 0x000F001F, 0, 0, 0, NULL);
 }
 
 LRESULT CALLBACK WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
