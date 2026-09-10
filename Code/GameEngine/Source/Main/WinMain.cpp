@@ -277,6 +277,9 @@ class Keyboard
 {
 public:
 	void resetKeys();
+private:
+	void _M_rva00632b7b();
+	void _M_rva00632ae8();
 };
 
 Keyboard *TheKeyboard;
@@ -475,6 +478,12 @@ void CopyProtect::checkForMessage(UINT message, LPARAM lParam)
 {
 	if (message == 0xBEEF)
 		s_protectedData = MapViewOfFileEx((HANDLE)lParam, 0x000F001F, 0, 0, 0, NULL);
+}
+
+void Keyboard::resetKeys()
+{
+	_M_rva00632b7b();
+	_M_rva00632ae8();
 }
 
 LRESULT CALLBACK WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
