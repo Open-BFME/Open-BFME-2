@@ -6036,3 +6036,4 @@ _XMP_Move,,0x0061BE10,19,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,
 ?initFromINI@INI@@QAEXPAXPBUFieldParse@@@Z,,0x0002DE78,61,Code/GameEngine/Source/Common/System/INI_initFromINI.cpp,matched,stack MultiIniFieldParse add FieldParse then initFromINIMulti
 ?countIntersection@?$BitFlags@$0L@@@QBEHABV1@@Z,,0x0033ADC0,60,Code/GameEngine/Source/Common/System/BitFlagsCountIntersection.cpp,matched,SWAR popcount of this AND that dword
 ?countInverseIntersection@?$BitFlags@$0L@@@QBEHABV1@@Z,,0x0028F55C,62,Code/GameEngine/Source/Common/System/BitFlagsCountIntersection.cpp,matched,SWAR popcount of not-this AND that dword
+??0UpdateModule@@QAE@PAVThing@@PBVModuleData@@@Z,,0x00253390,61,Code/GameEngine/Source/GameLogic/Object/Update/UpdateModuleCtor.cpp,matched,BehaviorModule then zero wake frame and minus-one indexes
