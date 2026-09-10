@@ -6128,3 +6128,4 @@ _strdup,,0x006C4C70,60,Code/Libraries/Source/WWVegas/WWLib/strdup.cpp,matched,in
 ??0BoxRenderObjClass@@QAE@XZ,,0x00174C80,155,Code/Libraries/Source/WWVegas/WW3D2/BoxRenderObjClassDefaultCtor.cpp,matched,Dedicated TU; SSE2 Color Opacity Center Extent after RenderObj base
 ??4SegLineRendererClass@@QAEAAV0@ABV0@@Z,,0x001912F0,151,Code/Libraries/Source/WWVegas/WW3D2/SegLineRendererClassAssign.cpp,matched,Dedicated TU; flattened POD copies after Add_Ref
 ?W3d_Shader_Reset@@YAXPAUW3dShaderStruct@@@Z,,0x001A441F,58,Code/Libraries/Source/WWVegas/WW3D2/W3d_Shader_Reset.cpp,matched,Out-of-line W3d shader default fill
+??0LineGroupClass@@QAE@XZ,,0x001B3490,114,Code/Libraries/Source/WWVegas/WW3D2/LineGroupClassDefaultCtor.cpp,matched,SSE default ctor; Shader preset; Flags at plus 0x2C
