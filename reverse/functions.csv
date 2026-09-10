@@ -5987,3 +5987,4 @@ _XMP_Move,,0x0061BE10,19,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,
 ?setStatus@Image@@QAEII@Z,,0x002D8E63,15,Code/GameEngine/Source/GameClient/GUI/Image_setStatus.cpp,matched,OR bits into m_status at +0x30; return previous
 ?Is_Stopped@ParticleEmitterClass@@QAE_NXZ,,0x001A1BE0,12,Code/Libraries/Source/WWVegas/WW3D2/part_emt_is_stopped.cpp,matched,return Active==false at +0x110; xor/cmp/sete shape
 ?Notify_Added@RenderObjClass@@UAEXPAVSceneClass@@@Z,,0x0013BCD0,10,Code/Libraries/Source/WWVegas/WW3D2/rendobj_notify_removed.cpp,matched,Scene=scene at +0x78; ret 4; sibling of Notify_Removed
+?Get@Straw@@UAEHPAXH@Z,,0x00615560,19,Code/Libraries/Source/WWVegas/WWLib/straw_get.cpp,matched,forward Get to ChainTo or return 0; cmp-mem /O1 shape
