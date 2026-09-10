@@ -128,7 +128,6 @@ bool CollisionMath::Collide(const LineSegClass & line,const OBBoxClass & box,Cas
 	return false;
 }
 
-// ?Test_Aligned_Box@@YA_NPAUBoxTestStruct@@@Z present-unmatched
 bool Test_Aligned_Box(BoxTestStruct * test)
 {
 	int i;

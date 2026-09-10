@@ -6156,3 +6156,4 @@ _strdup,,0x006C4C70,60,Code/Libraries/Source/WWVegas/WWLib/strdup.cpp,matched,in
 ?Solve_Linear_System@Matrix3D@@SA_NAAV1@@Z,,0x00712F30,809,Code/Libraries/Source/WWVegas/WWMath/Matrix3DUnmatchedSSE.cpp,matched,placed by masked byte-scan of dedicated SSE TU
 ?Obj_Look_At@Matrix3D@@QAEXABVVector3@@0M@Z,,0x007126B0,892,Code/Libraries/Source/WWVegas/WWMath/Matrix3DUnmatchedSSE.cpp,matched,placed by masked byte-scan of dedicated SSE TU
 ?Collide@CollisionMath@@SA_NABVLineSegClass@@ABVAABoxClass@@PAUCastResultStruct@@@Z,,0x007146E0,372,Code/Libraries/Source/WWVegas/WWMath/CollisionMathLineBox.cpp,matched,Dedicated TU SSE2 LineSeg vs AABox collide from ZH colmathline
+?Test_Aligned_Box@@YA_NPAUBoxTestStruct@@@Z,,0x00714300,515,Code/Libraries/Source/WWVegas/WWMath/CollisionMathLineBox.cpp,matched,Dedicated TU SSE2 Test_Aligned_Box helper for LineSeg box collide
