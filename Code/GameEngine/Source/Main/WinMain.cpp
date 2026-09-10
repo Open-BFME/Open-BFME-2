@@ -310,7 +310,17 @@ public:
 private:
 	BYTE m_pad0[0x4FA4 - 4];
 	int m_currentCursor;
-	BYTE m_pad1[0x6020 - 0x4FA8];
+	BYTE m_pad1[0x5010 - 0x4FA8];
+	struct Win32MouseEvent
+	{
+		UINT msg;
+		WPARAM wParam;
+		LPARAM lParam;
+		DWORD time;
+	};
+	Win32MouseEvent m_eventBuffer[256];
+	unsigned int m_nextFreeIndex;
+	BYTE m_pad2[0x6020 - 0x6014];
 	bool m_lostFocus;
 };
 
@@ -442,6 +452,21 @@ bool gInitializing;
 bool gDoPaint;
 HBITMAP gLoadScreenBitmap;
 DWORD TheMessageTime;
+
+void Win32Mouse::addWin32Event(UINT msg, WPARAM wParam, LPARAM lParam, DWORD time)
+{
+	if (m_eventBuffer[m_nextFreeIndex].msg != 0)
+		return;
+
+	m_eventBuffer[m_nextFreeIndex].msg = msg;
+	m_eventBuffer[m_nextFreeIndex].wParam = wParam;
+	m_eventBuffer[m_nextFreeIndex].lParam = lParam;
+	m_eventBuffer[m_nextFreeIndex].time = time;
+
+	++m_nextFreeIndex;
+	if (m_nextFreeIndex >= 256)
+		m_nextFreeIndex = 0;
+}
 
 LRESULT CALLBACK WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
 {
