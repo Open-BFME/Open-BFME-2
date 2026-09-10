@@ -6101,3 +6101,14 @@ _XMP_Move,,0x0061BE10,19,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,
 ?parse@?$DefaultModuleTemplate@$02@FXParticleSystem@@QAEXPAVINI@@@Z,,0x0055EE4C,18,Code/GameEngine/Source/GameClient/FXParticleSystemDefaultParsers.cpp,matched,BFME1 default parser transferred; BFME2 parse table at 0x00C6C3E0
 ?parse@?$DefaultModuleTemplate@$05@FXParticleSystem@@QAEXPAVINI@@@Z,,0x0055C434,18,Code/GameEngine/Source/GameClient/FXParticleSystemDefaultParsers.cpp,matched,BFME1 default parser transferred; BFME2 parse table at 0x00C6BB18
 ?parse@?$DefaultModuleTemplate@$0A@@FXParticleSystem@@QAEXPAVINI@@@Z,,0x0055B93F,18,Code/GameEngine/Source/GameClient/FXParticleSystemDefaultParsers.cpp,matched,BFME1 default parser transferred; BFME2 parse table at 0x00C6BA58
+?Get_Record_Texture_Size@Debug_Statistics@@YAHXZ,,0x00129490,6,Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsTextureGetters.cpp,matched,return last-frame texture memory
+?Get_Record_Texture_Count@Debug_Statistics@@YAHXZ,,0x001294A0,6,Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsTextureGetters.cpp,matched,return last-frame texture count
+?Get_Record_Texture_Change_Count@Debug_Statistics@@YAHXZ,,0x001294B0,6,Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsTextureGetters.cpp,matched,return last-frame texture change count
+?Get_Record_Lightmap_Texture_Size@Debug_Statistics@@YAHXZ,,0x001294C0,6,Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsTextureGetters.cpp,matched,return last-frame lightmap texture memory
+?Get_Record_Lightmap_Texture_Count@Debug_Statistics@@YAHXZ,,0x001294D0,6,Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsTextureGetters.cpp,matched,return last-frame lightmap texture count
+?Get_Record_Procedural_Texture_Size@Debug_Statistics@@YAHXZ,,0x001294E0,6,Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsTextureGetters.cpp,matched,return last-frame procedural texture memory
+?Get_Record_Procedural_Texture_Count@Debug_Statistics@@YAHXZ,,0x001294F0,6,Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsTextureGetters.cpp,matched,return last-frame procedural texture count
+?Get_Record_Texture_String@Debug_Statistics@@YAABVStringClass@@XZ,,0x00129500,6,Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsTextureString.cpp,matched,return address of texture statistics string
+?Record_Texture_Mode@Debug_Statistics@@YAXW4RecordTextureMode@1@@Z,,0x00129470,10,Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsTextureMode.cpp,matched,store record texture mode
+?Get_Record_Texture_Mode@Debug_Statistics@@YA?AW4RecordTextureMode@1@XZ,,0x00129480,6,Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsTextureMode.cpp,matched,return current record texture mode
+??4StringClass@@QAEABV0@PBD@Z,,0x000F0E8D,68,Code/Libraries/Source/WWVegas/WWLib/wwstring_assign_cstr.cpp,matched,strlen then Uninitialised_Grow memcpy and store length

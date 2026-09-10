@@ -465,3 +465,4 @@ _bfmeDirectXErrorName@4	0x0062B16A	48672	blocked	t=15min model=gpt-6-astra; inve
 ?erase@?$vector@W4ParticleSystemID@@V?$allocator@W4ParticleSystemID@@@_STL@@@_STL@@QAEPAW4ParticleSystemID@@PAW43@0@Z	0x00532803	38	partial	compiled uses 5-arg __copy add esp 14h; retail 4-arg __copy_ptrs ICF ScienceType at 0x25BF40 with lea tag ebp+B add esp 10h score=0.7 stash=reverse/attempts/0x00532803.cpp
 ??0DrawableModule@@QAE@PAVThing@@PBVModuleData@@@Z	0x006DCD20	40	partial	prolog mov-eax vs push-mem; flags in ecx vs eax; compiled 38B vs 40B t=15min model=grok-4.6 score=0.9 stash=reverse/attempts/0x006dcd20.cpp
 ?Add@?$SimpleDynVecClass@VVector3@@@@QAE_NABVVector3@@H@Z	0x001002C5	65	partial	esi this matches; imul 0xC vs lea n*3; jz 24 vs 25 t=12min model=grok-4.6 score=0.88 stash=reverse/attempts/0x001002c5.cpp
+??1BFME2ScopedRenderEvent@@QAE@XZ	0x0011F3C0	12	partial	jnz-over-ret vs jz-then-jmp-eax t=8min model=grok-4.6 score=0.9 stash=reverse/attempts/0x0011f3c0.cpp
