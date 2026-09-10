@@ -5993,3 +5993,4 @@ _XMP_Move,,0x0061BE10,19,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,
 ?nameToKey@NameKeyGenerator@@QAE?AW4NameKeyType@@ABVAsciiString@@@Z,,0x0009FA65,29,Code/GameEngine/Source/Common/NameKeyGenerator_nameToKey_ascii.cpp,matched,AsciiString wrapper over landed char-pointer nameToKey
 ?clear@RadiusDecal@@QAEXXZ,,0x00330DBA,28,Code/GameEngine/Source/GameLogic/Object/Update/RadiusDecal_clear.cpp,matched,zero +0 Release +4 then empty-flag +8
 ?bfmeFindQH@@YAPAHPAHH@Z,,0x000245A0,34,Code/GameEngine/Source/Common/BfmeFindQH.cpp,matched,walk pointer chain until *at equals how; callee of landed bfmeSwapQH
+?bfmeBeginResourceEnumeration@@YAXI@Z,,0x0061F110,21,Code/Libraries/Source/WWVegas/WW3D2/bfme_begin_resource_enumeration.cpp,matched,nullable registry at VA E09C0C forwards type tag to Begin
