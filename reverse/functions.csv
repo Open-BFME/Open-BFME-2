@@ -6134,3 +6134,4 @@ _strdup,,0x006C4C70,60,Code/Libraries/Source/WWVegas/WWLib/strdup.cpp,matched,in
 ??0GridTextureMapperClass@@QAE@ABV0@@Z,,0x00184420,127,Code/Libraries/Source/WWVegas/WW3D2/GridTextureMapperClassCopyCtor.cpp,matched,Dedicated TU GridTextureMapper copy ctor inlines Reset
 ?Reset@GridTextureMapperClass@@UAEXXZ,,0x00182440,51,Code/Libraries/Source/WWVegas/WW3D2/GridTextureMapperClassCopyCtor.cpp,matched,Out-of-line virtual Reset from the Grid copy-ctor TU
 ?initialize@GridTextureMapperClass@@IAEXMI@Z,,0x00182480,261,Code/Libraries/Source/WWVegas/WW3D2/GridTextureMapperClassInitialize.cpp,matched,Dedicated TU initialize stores fps at plus 0xC
+?update_temporal_state@GridTextureMapperClass@@IAEXXZ,,0x00182590,69,Code/Libraries/Source/WWVegas/WW3D2/GridTextureMapperClassUpdateTemporalState.cpp,matched,Dedicated TU Remainder and CurrentFrame advance from SyncTime
