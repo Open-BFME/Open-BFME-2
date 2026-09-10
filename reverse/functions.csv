@@ -6049,3 +6049,4 @@ _XMP_Move,,0x0061BE10,19,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,
 ?Get_DX8_Skin_Polygons@Debug_Statistics@@YAHXZ,,0x001295B0,6,Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsGetters.cpp,matched,return last-frame DX8 skin polygon count
 ?Get_DX8_Skin_Vertices@Debug_Statistics@@YAHXZ,,0x001295C0,6,Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsGetters.cpp,matched,return last-frame DX8 skin vertex count
 ?Get_Sorting_Polygons@Debug_Statistics@@YAHXZ,,0x00129610,6,Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsGetters.cpp,matched,return last-frame sorting polygon count
+?Get_Sorting_Vertices@Debug_Statistics@@YAHXZ,,0x00129620,6,Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsGetters.cpp,matched,return last-frame sorting vertex count
