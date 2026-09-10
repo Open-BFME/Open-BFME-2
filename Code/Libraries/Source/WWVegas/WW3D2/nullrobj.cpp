@@ -50,6 +50,9 @@ NullLoaderClass _NullLoader;
 
 
 
+// Byte-exact /G7 copies live in Null3DObjClassCopyCtor.cpp; these stay so
+// this TU still emits Clone and the Set_ObjectScale gen-alias.
+
 Null3DObjClass::Null3DObjClass(const char * name)																	
 {
 	strcpy(Name, name);

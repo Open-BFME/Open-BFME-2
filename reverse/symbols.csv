@@ -1125,3 +1125,26 @@ _bfmeRva0042CF86,0x0002CF86,address read from the REL32 in WndProc's message 0x2
 ?call@Rva007F6740Receiver@@QAEXPAXHHHHHHHHPB_JIPAPBDIHH@Z,0x00662ED0
 ?cacheStatus@Weapon@@QBEXW4WeaponStatus@@@Z,0x002C94F5,Reconstructed helper name; getStatus REL32 target compares and writes Weapon+0x10; complete 15-byte body independently decoded
 ?computeStatus@Weapon@@QBE?AW4WeaponStatus@@PA_N@Z,0x002CC422,Reconstructed helper name; unique getStatus body calls this with a bool output and returns its status result
+?bfmeGetMainWindowTitle@@YA?AVUnicodeString@@XZ,0x0023484D,window title UnicodeString helper called by initializeAppWindows
+?Begin@BfmeResourceEnumerator@@QAEXI@Z,0x00621480,thiscall registry iterator start called by bfmeBeginResourceEnumeration; ghidra FUN_00a21480 69 bytes; mutex at this+0x34 stores type tag at this+0x1F0
+?getControllingPlayer@Team@@QBEPAVPlayer@@XZ,0x0039D7CF,ghidra FUN_0079d7cf 12 bytes; Object::getControllingPlayer tail target reads Team+0x30 then +8
+?getCommandCount@FrameData@@QAEIXZ,0x005801F2,ICF 4-byte mov eax [ecx+4] ret; FrameData commandCount at plus 4 called by FrameDataManager::getCommandCount
+?find@ObjectIdMap@@QAEPAUObjectIdNode@@ABW4ObjectID@@@Z,0x002888D4,ICF with hashtable _M_find; GameLogic::findObjectByID passes ObjectID address into map at this+0xB4
+??1GameEngineDeletingBase@@UAE@XZ,0x001B4E74,GameEngine complete dtor tail target; sets vtable 0x00BD77A0 then add ecx 8
+??0WeaponTemplateSet@@QAE@ABV0@@Z,0x004AE811,WeaponTemplateSet copy ctor; _Construct at 0x4AE915 thiscall target
+?getNextToken@INI@@QAEPBDPBD@Z,0x0002DF97,INI thiscall next-token helper; parseDurationReal first REL32; ghidra 75 bytes
+?scanReal@INI@@QAEMPBD@Z,0x0002EDA5,INI thiscall Real scanner; parseDurationReal second REL32; ghidra 107 bytes
+?ZeroStuff@Cftp@@QAEXXZ,0x006C9ED0,Cftp member called from Cftp ctor after vtable install; ghidra 109 bytes
+?lastHeardFrom@GameLogic@@QAEXH@Z,0x0023CF1C,GameLogic::processProgress tail call; ghidra FUN_0063cf1c 35 bytes
+??0WeaponTemplateSetHead@@QAE@ABV0@@Z,0x00045455,0x4C-byte memcpy wrapper; WeaponTemplateSet copy ctor first call; ghidra 24 bytes
+??0BFME2MotionChannel@@QAE@XZ,0x001A465B,base motion-channel ctor; Type and Pivot or-minus-1 then vtable; ghidra 17 bytes
+??4BfmeMapPictureTexture@@QAEAAV0@ABV0@@Z,0x000424D0,ICF with RefCountPtr TextureClass assign; Image::bfmeSetTexture holder copy
+?Get_Texture@ParticleBufferClass@@QBE?AVBFME2ParticleTextureHandle@@XZ,0x001A7A60,ICF with landed TextureHandleClass Get_Texture; ParticleEmitter dest-forward
+??$_Construct@U?$pair@$$CBHH@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBHH@0@ABU10@@Z,0x0060C9D9,ICF twin of 0x6204B0; map int-int _M_create_node REL32
+?Free@HTreeClass@@QAEXXZ,0x00166510,HTreeClass::Free; hierarchy dtor first call then owned pointer at +0x1C
+?clear@BfmeResetTextureRef@@QAEXXZ,0x0004D75B,holder clear Release_Ref then and-zero; BfmeResetTextureRef assign non-TEX arm
+?resize@KeyToBucketMap@NameKeyGenerator@@AAEXI@Z,0x0053F1EC,ICF with hashtable NameKey ArmorTemplate resize; KeyToBucketMap insert first call
+?do_insert@KeyToBucketMap@NameKeyGenerator@@AAE?AUinsert_result@12@ABUvalue_type@12@@Z,0x0005574B,hashtable insert after resize; KeyToBucketMap insert second call
+?initFromINIMulti@INI@@QAEXPAXABVMultiIniFieldParse@@@Z,0x0002D7A8,callee of initFromINIMultiProc at 0x2DEB5
+?add@MultiIniFieldParse@@QAEXPBUFieldParse@@I@Z,0x0002BC6E,callee of INI initFromINI at 0x2DE78
+?Record_Texture_End@@YAXXZ,0x00129E50,callee of Debug_Statistics End_Statistics at 0x12A450

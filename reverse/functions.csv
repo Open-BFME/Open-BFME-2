@@ -150,7 +150,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ??0ModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x000011C4,0x000011C4,11,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; FXParticleSystem ModuleTemplate copy constructor
 ??4?$CategoryModuleTemplate@$07@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x0000124F,0x0000124F,27,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; generated assignment adjusting the source by 8 to reach the EventModuleInfo base
 ?setUV@ParticleSystemTemplate@FXParticleSystem@@QAEXPBURegion2D@@@Z,0x00001278,0x00001278,25,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; ParticleSystemTemplate conditionally copies the 16-byte UV region at offset 0x88
-?d_00001720@@YAXXZ,,0x00001720,19,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00401720
 ??0Snapshot@@QAE@ABV0@@Z,0x00001745,0x00001745,11,Code/GameEngine/Source/Common/System/Snapshot.cpp,matched,Open-BFME5 clean C++; Snapshot copy constructor ignoring its argument
 ?isEmpty@?$StringBase@D@@QBE_NXZ,0x00001E2F,0x00001E2F,20,Code/GameEngine/Source/Common/System/AsciiString.cpp,matched,Open-BFME5 clean C++; narrow StringBase emptiness test over the 16-bit length at offset 4
 ??0RandomAlphaKeyframe@FXParticleSystem@@QAE@XZ,0x00001E7F,0x00001E7F,47,Code/Libraries/Source/WWVegas/WWMath/color.cpp,matched,Open-BFME5 clean C++; RandomAlphaKeyframe initializes a zero uniform alpha range and frame
@@ -4166,7 +4165,6 @@ _g_crc32,,0x006071F0,37,Code/GameEngine/Source/GameNetwork/GameSpy/gstats/gstats
 ?_M_is_any@?$_Base_bitset@$03@_STL@@QBE_NXZ,,0x000454BA,20,Code/GameEngine/Source/Common/Thing/Thing.cpp,matched,gen-alias;object-symbol=?_M_is_any@?$_Base_bitset@$03@_STL@@QBE_NXZ;C++ alias
 ?Set_Z_Translation@Matrix3D@@QAEXM@Z,,0x002B2210,10,Code/GameEngine/Source/Common/Thing/Thing.cpp,matched,gen-alias;object-symbol=?Set_Z_Translation@Matrix3D@@QAEXM@Z;C++ alias
 ?Set_Y_Translation@Matrix3D@@QAEXM@Z,,0x00665600,10,Code/GameEngine/Source/Common/Thing/Thing.cpp,matched,gen-alias;object-symbol=?Set_Y_Translation@Matrix3D@@QAEXM@Z;C++ alias
-?dup_0013bcd0@@YAXXZ,,0x0013BCD0,10,Code/Libraries/Source/WWVegas/WW3D2/nullrobj.cpp,matched,gen-alias;object-symbol=?Set_Native_Screen_Size@RenderObjClass@@UAEXM@Z;C++ alias
 ?dup_003e3bfb@@YAXXZ,,0x003E3BFB,10,Code/Libraries/Source/WWVegas/WW3D2/nullrobj.cpp,matched,gen-alias;object-symbol=?Set_ObjectScale@RenderObjClass@@UAEXM@Z;C++ alias
 ?dup_000657d0@@YAXXZ,,0x000657D0,9,Code/Libraries/Source/WWVegas/WWLib/multilist.cpp,matched,gen-alias;object-symbol=??1BFMEPoolLock@@QAE@XZ;C++ alias
 ?dup_006c5f60@@YAXXZ,,0x006C5F60,9,Code/Libraries/Source/WWVegas/WWLib/multilist.cpp,matched,gen-alias;object-symbol=??1BFMEPoolLock@@QAE@XZ;C++ alias
@@ -5480,7 +5478,6 @@ _ServerBrowserClear,,0x0069CF70,33,Code/GameEngine/Source/GameNetwork/GameSpy/se
 _piCallbacksCleanup,,0x0069EEF0,24,Code/GameEngine/Source/GameNetwork/GameSpy/peer/peerCallbacks.c,matched,gen-alias;object-symbol=_piCallbacksCleanup;C++ alias
 ?Set_Position@Animatable3DObjClass@@UAEXABVVector3@@@Z,,0x001A4B50,24,Code/Libraries/Source/WWVegas/WW3D2/animobj.cpp,matched,gen-alias;object-symbol=?Set_Position@Animatable3DObjClass@@UAEXABVVector3@@@Z;C++ alias
 ?dup_0042830d@@YAXXZ,,0x0042830D,50,Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp,matched,gen-alias;object-symbol=??$__copy@PAVProductionPrerequisite@@PAV1@H@_STL@@YAPAVProductionPrerequisite@@PAV1@00ABUrandom_access_iterator_tag@0@PAH@Z;C++ alias - 2 distinct symbols this tree compiles produce this identical span so the linker folded them; the dup label claims the bytes and asserts no identity - obj_sweep rel32 class
-?dup_004ae927@@YAXXZ,,0x004AE927,38,Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp,matched,gen-alias;object-symbol=??$__uninitialized_copy@PAVWeaponTemplateSet@@PAV1@@_STL@@YAPAVWeaponTemplateSet@@PAV1@00ABU__false_type@0@@Z;C++ alias - 2 distinct symbols this tree compiles produce this identical span so the linker folded them; the dup label claims the bytes and asserts no identity - obj_sweep rel32 class
 ?dup_001212f0@@YAXXZ,,0x001212F0,45,Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp,matched,gen-alias;object-symbol=??1?$DynamicVectorClass@W4_D3DFORMAT@@@@UAE@XZ;C++ alias - 2 distinct symbols this tree compiles produce this identical span so the linker folded them; the dup label claims the bytes and asserts no identity - obj_sweep rel32 class
 ?dup_001d9990@@YAXXZ,,0x001D9990,27,Code/GameEngine/Source/Common/Thing/ModuleFactory.cpp,matched,gen-alias;object-symbol=??4FXBoneInfo@@QAEAAU0@ABU0@@Z;C++ alias - 2 distinct symbols this tree compiles produce this identical span so the linker folded them; the dup label claims the bytes and asserts no identity - obj_sweep rel32 class
 ?dup_0002cb64@@YAXXZ,,0x0002CB64,25,Code/GameEngine/Source/Common/Thing/Module.cpp,matched,gen-alias;object-symbol=??$_Destroy@PAVAsciiString@@@_STL@@YAXPAVAsciiString@@0@Z;C++ alias - 3 distinct symbols this tree compiles produce this identical span so the linker folded them; the dup label claims the bytes and asserts no identity - obj_sweep rel32 class
@@ -5981,3 +5978,76 @@ _XMP_Move,,0x0061BE10,19,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,
 ?forward@Rva00802910Owner@@QAEXHHHHHHHHPB_JIPAPBDIHH@Z,,0x0066EA70,94,Code/GameEngine/Source/Common/Rva00802910Forwarder.cpp,matched,
 ?getStatus@Weapon@@QBE?AW4WeaponStatus@@XZ,,0x002CCFC7,41,Code/GameEngine/Source/Common/WeaponGetStatus.cpp,matched,BFME1 cached status query adapted to BFME2 out-of-line setter; unique placement and exact rebuild
 ?cacheStatus@Weapon@@QBEXW4WeaponStatus@@@Z,,0x002C94F5,15,Code/GameEngine/Source/Common/WeaponGetStatus.cpp,matched,Reconstructed helper name; independent getStatus caller proves ownership; compare and conditional write at Weapon+0x10 then ret4
+?bfmeNotifyDebugWindowed@@YAXI@Z,,0x00001720,19,Code/GameEngine/Source/Main/debug_notify_windowed.cpp,matched,Open-BFME clean C++; Debug singleton slot 0xB0 forwarder used by initializeAppWindows
+?Add_Engine_Ref@VertexBufferClass@@QBEXXZ,,0x00139480,5,Code/Libraries/Source/WWVegas/WW3D2/dx8vertexbuffer_engine_ref.cpp,matched,VertexBufferClass engine_refs++ at +0x10
+?Release_Engine_Ref@VertexBufferClass@@QBEXXZ,,0x00139490,5,Code/Libraries/Source/WWVegas/WW3D2/dx8vertexbuffer_engine_ref.cpp,matched,VertexBufferClass engine_refs-- at +0x10
+?winGetUserData@GameWindow@@QAEPAXXZ,,0x005C4ACD,4,Code/GameEngine/Source/GameClient/GUI/GameWindow_winGetUserData.cpp,matched,GameWindow m_userData getter at +0x2C
+?Notify_Removed@RenderObjClass@@UAEXPAVSceneClass@@@Z,,0x0013BCE0,10,Code/Libraries/Source/WWVegas/WW3D2/rendobj_notify_removed.cpp,matched,Scene=0 at +0x78; ret 4; reloc-named virtual
+?setStatus@Image@@QAEII@Z,,0x002D8E63,15,Code/GameEngine/Source/GameClient/GUI/Image_setStatus.cpp,matched,OR bits into m_status at +0x30; return previous
+?Is_Stopped@ParticleEmitterClass@@QAE_NXZ,,0x001A1BE0,12,Code/Libraries/Source/WWVegas/WW3D2/part_emt_is_stopped.cpp,matched,return Active==false at +0x110; xor/cmp/sete shape
+?Notify_Added@RenderObjClass@@UAEXPAVSceneClass@@@Z,,0x0013BCD0,10,Code/Libraries/Source/WWVegas/WW3D2/rendobj_notify_removed.cpp,matched,Scene=scene at +0x78; ret 4; sibling of Notify_Removed
+?Get@Straw@@UAEHPAXH@Z,,0x00615560,19,Code/Libraries/Source/WWVegas/WWLib/straw_get.cpp,matched,forward Get to ChainTo or return 0; cmp-mem /O1 shape
+?Draw_Triangles@DX8Wrapper@@SAXIIII@Z,,0x00120620,33,Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper_draw_prim.cpp,matched,TRIANGLELIST wrapper into landed BfmeDrawOps::Draw
+?Draw_Strip@DX8Wrapper@@SAXIIII@Z,,0x001206D0,33,Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper_draw_prim.cpp,matched,TRIANGLESTRIP wrapper into landed BfmeDrawOps::Draw
+?nameToKey@NameKeyGenerator@@QAE?AW4NameKeyType@@ABVAsciiString@@@Z,,0x0009FA65,29,Code/GameEngine/Source/Common/NameKeyGenerator_nameToKey_ascii.cpp,matched,AsciiString wrapper over landed char-pointer nameToKey
+?clear@RadiusDecal@@QAEXXZ,,0x00330DBA,28,Code/GameEngine/Source/GameLogic/Object/Update/RadiusDecal_clear.cpp,matched,zero +0 Release +4 then empty-flag +8
+?bfmeFindQH@@YAPAHPAHH@Z,,0x000245A0,34,Code/GameEngine/Source/Common/BfmeFindQH.cpp,matched,walk pointer chain until *at equals how; callee of landed bfmeSwapQH
+?bfmeBeginResourceEnumeration@@YAXI@Z,,0x0061F110,21,Code/Libraries/Source/WWVegas/WW3D2/bfme_begin_resource_enumeration.cpp,matched,nullable registry at VA E09C0C forwards type tag to Begin
+??_U@YAPAXII@Z,,0x006C4C30,22,Code/Libraries/Source/WWVegas/WWLib/mem_ops_new_array_tagged.cpp,matched,tagged array new through game allocator class 2
+?Release_Device_Resources@BfmeResetTextureRef@@QAEXXZ,,0x00132CAD,44,Code/Libraries/Source/WWVegas/WW3D2/bfme_reset_texture_ref_device.cpp,matched,default-pool COM Release then clear backend plus 8
+?getControllingPlayer@Object@@QBEPAVPlayer@@XZ,,0x0028AFA9,18,Code/GameEngine/Source/GameLogic/Object/ObjectGetControllingPlayer.cpp,matched,null-check team at plus 0x304 then tail-call Team::getControllingPlayer
+?getCurrentWeapon@Object@@QBEPBVWeapon@@PAW4WeaponSlotType@@@Z,,0x0028AEBD,45,Code/GameEngine/Source/GameLogic/Object/ObjectGetCurrentWeapon.cpp,matched,null if weapon-set flag at plus 0x358 is clear else index array at plus 0x338
+?findModule@Object@@IBEPAVModule@@W4NameKeyType@@@Z,,0x0028B6D6,43,Code/GameEngine/Source/GameLogic/Object/ObjectFindModule.cpp,matched,walk null-terminated module list at plus 0x244 comparing name-key slot 0x10
+?setEngineInputEnabled@InGameUI@@QAEX_N@Z,,0x0029AB22,19,Code/GameEngine/Source/GameClient/InGameUISetEngineInputEnabled.cpp,matched,forward enabled flag to vtable slot 0x148 with this plus 0x15
+?GadgetListBoxReset@@YAXPAVGameWindow@@@Z,,0x003247E5,34,Code/GameEngine/Source/GameClient/GUI/Gadget/GadgetListBox.cpp,matched,null-check then GLM_DEL_ALL 0x4013 through WindowManager vtable 0xE8
+?findObjectByID@GameLogic@@QAEPAVObject@@W4ObjectID@@@Z,,0x00049DC5,37,Code/GameEngine/Source/GameLogic/GameLogicFindObjectByID.cpp,matched,null ObjectID returns null else map find at plus 0xB4 node plus 8
+??1GameEngine@@UAE@XZ,,0x00225B9B,11,Code/GameEngine/Source/Common/GameEngineCompleteDestructor.cpp,matched,complete destructor; scalar deleting wrapper already matched at 0x226333
+??$_Construct@VWeaponTemplateSet@@V1@@_STL@@YAXPAVWeaponTemplateSet@@ABV1@@Z,,0x004AE915,18,Code/GameEngine/Source/Common/Thing/WeaponTemplateSetConstruct.cpp,matched,stlport _Construct; null-check dest then thiscall copy ctor
+??$__uninitialized_copy@PAVWeaponTemplateSet@@PAV1@@_STL@@YAPAVWeaponTemplateSet@@PAV1@00ABU__false_type@0@@Z,,0x004AE927,38,Code/GameEngine/Source/Common/Thing/WeaponTemplateSetUninitializedCopy.cpp,matched,stlport uninitialized_copy; stride 0x54; calls landed _Construct
+??0Cftp@@QAE@XZ,,0x006CA5E0,18,Code/Libraries/Source/WWVegas/WWDownload/ftp_constructor.cpp,matched,vtable then ZeroStuff; virtual dtor
+?processProgress@GameLogic@@QAEXHH@Z,,0x0023D740,46,Code/GameEngine/Source/GameLogic/System/GameLogicProcessProgress.cpp,matched,LoadScreen at plus 0x120 slot 0x10 then lastHeardFrom
+?lastHeardFrom@GameLogic@@QAEXH@Z,,0x0023CF1C,35,Code/GameEngine/Source/GameLogic/System/GameLogicLastHeardFrom.cpp,matched,progress timeout array at plus 0x130; MAX_SLOTS 8; timeGetTime
+?ZeroStuff@Cftp@@QAEXXZ,,0x006C9ED0,109,Code/Libraries/Source/WWVegas/WWDownload/ftp_zero_stuff.cpp,matched,ZH ZeroStuff; /O2 /Oi memset
+??0WeaponTemplateSet@@QAE@ABV0@@Z,,0x004AE811,33,Code/GameEngine/Source/Common/Thing/WeaponTemplateSetCopyCtor.cpp,matched,0x4C head copy ctor then two dwords at plus 0x4C and 0x50
+??0WeaponTemplateSetHead@@QAE@ABV0@@Z,,0x00045455,24,Code/GameEngine/Source/Common/Thing/WeaponTemplateSetHeadCopyCtor.cpp,matched,memcpy 0x4C; callee of WeaponTemplateSet copy ctor
+??0BFME2StreamMotionChannel@@QAE@XZ,,0x001B2138,22,Code/Libraries/Source/WWVegas/WW3D2/BFME2StreamMotionChannelCtor.cpp,matched,base ctor then Data at plus 0x28 zeroed
+??0BFME2Encoding0MotionChannel@@QAE@XZ,,0x001B2E2C,26,Code/Libraries/Source/WWVegas/WW3D2/BFME2Encoding0MotionChannelCtor.cpp,matched,base ctor then TimeCodes and Samples zeroed
+??0BFME2MotionChannel@@QAE@XZ,,0x001A465B,17,Code/Libraries/Source/WWVegas/WW3D2/BFME2MotionChannelCtor.cpp,matched,Type and Pivot or-minus-1 then vtable
+?bfmeSetTexture@Image@@QAEXABVBfmeMapPictureTexture@@@Z,,0x002D905E,47,Code/GameEngine/Source/GameClient/GUI/ImageBfmeSetTexture.cpp,matched,alloc 4-byte holder at plus 0x2C then RefCountPtr assign
+?Set_Animation@Animatable3DObjClass@@UAEXPAVHAnimComboClass@@@Z,,0x001A4D90,39,Code/Libraries/Source/WWVegas/WW3D2/Animatable3DObjSetAnimationCombo.cpp,matched,Release then MULTIPLE_ANIM 4 combo ptr hierarchy-valid byte
+?allocArg@GameMessage@@AAEPAVGameMessageArgument@@XZ,,0x0030F8FF,55,Code/GameEngine/Source/Common/GameMessageAllocArg.cpp,matched,new 0x1C arg byte count at +0x18 list +0x1C tail +0x20
+?Get_Texture@ParticleEmitterClass@@QBE?AVBFME2ParticleTextureHandle@@XZ,,0x001A0D10,33,Code/Libraries/Source/WWVegas/WW3D2/ParticleEmitterGetTexture.cpp,matched,Buffer at +0x12C forwards dest into ParticleBuffer Get_Texture
+?_M_create_node@?$_Rb_tree@HU?$pair@$$CBHH@_STL@@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBHH@_STL@@@2@ABU?$pair@$$CBHH@2@@Z,,0x00382B7F,34,Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_int_create_node.cpp,matched,stlport-4.5.3 bfmealloc /O1 node 0x18
+?insert@?$list@HV?$allocator@H@_STL@@@_STL@@QAE?AU?$_List_iterator@HU?$_Nonconst_traits@H@_STL@@@2@U32@ABH@Z,,0x005925E2,37,Code/Libraries/Source/WWVegas/WWLib/stlport_list_int_insert.cpp,matched,stlport-4.5.3 /O1 insert calls _M_create_node
+??1HTreeClass@@QAE@XZ,,0x001667E0,26,Code/Libraries/Source/WWVegas/WW3D2/HTreeClassDestructor.cpp,matched,Free then C free of owned pointer at +0x1C
+?Remove@?$RefMultiListClass@VRenderObjClass@@@@QAE_NPAVRenderObjClass@@@Z,,0x0006EF4E,47,Code/Libraries/Source/WWVegas/WWLib/RefMultiListRenderObjRemove.cpp,matched,Internal_Remove then inlined Release_Ref dec and vtable0
+??4BfmeResetTextureRef@@QAEAAU0@ABUBfmeResetAnyRef@@@Z,,0x00131D99,50,Code/Libraries/Source/WWVegas/WW3D2/BfmeResetTextureRefAssign.cpp,matched,TEX tag 0x544558 then RefCountPtr assign else clear holder
+??4BfmeResetShaderRef@@QAEAAU0@ABUBfmeResetAnyRef@@@Z,,0x0015142A,50,Code/Libraries/Source/WWVegas/WW3D2/BfmeResetShaderRefAssign.cpp,matched,FXSH tag 0x46585348 then RefCountPtr assign else clear holder
+?clear@BfmeResetTextureRef@@QAEXXZ,,0x0004D75B,19,Code/Libraries/Source/WWVegas/WW3D2/BfmeResetTextureRefClear.cpp,matched,Release_Ref then and-zero holder
+?insert@KeyToBucketMap@NameKeyGenerator@@QAE?AUinsert_result@12@ABUvalue_type@12@@Z,,0x004DA240,36,Code/GameEngine/Source/Common/NameKeyGeneratorMapInsert.cpp,matched,inc count at +0x10 resize then hashtable insert NRV
+??$_Construct@VAsciiString@@V1@@_STL@@YAXPAVAsciiString@@ABV1@@Z,,0x00142CC0,25,Code/GameEngine/Source/Common/System/AsciiStringConstruct.cpp,matched,null-check dest copy pointer add-1 refcount at +4
+?revalidateOccupiers@SpawnPointProductionExitUpdate@@AAEXXZ,,0x004A3F04,55,Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/SpawnPointRevalidateOccupiers.cpp,matched,count at +0xCC occupiers; findObjectByID then and-zero gone ids
+??$_M_allocate_and_copy@PAUBfmeE8@@@?$vector@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@IAEPAUBfmeE8@@IPAU2@0@Z,,0x001D9AD9,45,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_e8_allocate_copy.cpp,matched,no-EH ebp-tag allocate then uninitialized_copy stride 8
+??0Null3DObjClass@@QAE@ABV0@@Z,,0x00180EF0,56,Code/Libraries/Source/WWVegas/WW3D2/Null3DObjClassCopyCtor.cpp,matched,default RenderObjClass then strcpy Name at plus 0xC4
+??4Null3DObjClass@@QAEAAV0@ABV0@@Z,,0x00180F30,49,Code/Libraries/Source/WWVegas/WW3D2/Null3DObjClassCopyCtor.cpp,matched,strcpy Name then RenderObjClass assign
+??0Null3DObjClass@@QAE@PBD@Z,,0x00180EB0,51,Code/Libraries/Source/WWVegas/WW3D2/Null3DObjClassCopyCtor.cpp,matched,default RenderObjClass then strcpy Name from char ptr
+??0MultiIniFieldParse@@QAE@XZ,,0x0002BAA0,26,Code/GameEngine/Source/Common/System/MultiIniFieldParseCtor.cpp,matched,zero count then 16 extraOffset and fieldParse slots
+?initFromINIMultiProc@INI@@QAEXPAXP6AXAAVMultiIniFieldParse@@@Z@Z,,0x0002DEB5,56,Code/GameEngine/Source/Common/System/INI_initFromINIMultiProc.cpp,matched,stack MultiIniFieldParse then proc then initFromINIMulti
+?initFromINI@INI@@QAEXPAXPBUFieldParse@@@Z,,0x0002DE78,61,Code/GameEngine/Source/Common/System/INI_initFromINI.cpp,matched,stack MultiIniFieldParse add FieldParse then initFromINIMulti
+?countIntersection@?$BitFlags@$0L@@@QBEHABV1@@Z,,0x0033ADC0,60,Code/GameEngine/Source/Common/System/BitFlagsCountIntersection.cpp,matched,SWAR popcount of this AND that dword
+?countInverseIntersection@?$BitFlags@$0L@@@QBEHABV1@@Z,,0x0028F55C,62,Code/GameEngine/Source/Common/System/BitFlagsCountIntersection.cpp,matched,SWAR popcount of not-this AND that dword
+??0UpdateModule@@QAE@PAVThing@@PBVModuleData@@@Z,,0x00253390,61,Code/GameEngine/Source/GameLogic/Object/Update/UpdateModuleCtor.cpp,matched,BehaviorModule then zero wake frame and minus-one indexes
+?nstrdup@@YAPADPBD@Z,,0x00619880,68,Code/Libraries/Source/WWVegas/WWLib/nstrdup.cpp,matched,null then tagged new str strlen plus one then strcpy
+?Begin_Statistics@Debug_Statistics@@YAXXZ,,0x0012A400,67,Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsBegin.cpp,matched,zero eleven counters then Record_Texture_Begin and DX8Wrapper Begin_Statistics
+?Record_DX8_Polys_And_Vertices@Debug_Statistics@@YAXHHABVShaderClass@@@Z,,0x00129540,68,Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsRecordPolys.cpp,matched,npatch scale polys then add vertices and draw count
+?Record_DX8_Skin_Polys_And_Vertices@Debug_Statistics@@YAXHH@Z,,0x00129520,28,Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsSkin.cpp,matched,add skin polys verts and increment skin renders
+?Record_Sorting_Polys_And_Vertices@Debug_Statistics@@YAXHH@Z,,0x001295F0,28,Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsSorting.cpp,matched,add sorting polys verts and increment draw calls
+?End_Statistics@Debug_Statistics@@YAXXZ,,0x0012A450,122,Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsEnd.cpp,matched,snapshot last-frame counters then DX8Wrapper End_Statistics
+?Get_DX8_Polygons@Debug_Statistics@@YAHXZ,,0x001295D0,6,Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsGetters.cpp,matched,return last-frame DX8 polygon count
+?Get_DX8_Vertices@Debug_Statistics@@YAHXZ,,0x001295E0,6,Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsGetters.cpp,matched,return last-frame DX8 vertex count
+?Get_DX8_Skin_Renders@Debug_Statistics@@YAHXZ,,0x001295A0,6,Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsGetters.cpp,matched,return last-frame DX8 skin render count
+?Get_DX8_Skin_Polygons@Debug_Statistics@@YAHXZ,,0x001295B0,6,Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsGetters.cpp,matched,return last-frame DX8 skin polygon count
+?Get_DX8_Skin_Vertices@Debug_Statistics@@YAHXZ,,0x001295C0,6,Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsGetters.cpp,matched,return last-frame DX8 skin vertex count
+?Get_Sorting_Polygons@Debug_Statistics@@YAHXZ,,0x00129610,6,Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsGetters.cpp,matched,return last-frame sorting polygon count
+?Get_Sorting_Vertices@Debug_Statistics@@YAHXZ,,0x00129620,6,Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsGetters.cpp,matched,return last-frame sorting vertex count
+?Get_Draw_Calls@Debug_Statistics@@YAHXZ,,0x00129630,6,Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsGetters.cpp,matched,return last-frame draw call count
