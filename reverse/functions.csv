@@ -6141,3 +6141,4 @@ _strdup,,0x006C4C70,60,Code/Libraries/Source/WWVegas/WWLib/strdup.cpp,matched,in
 ?Get_Single_Shader@MeshMatDescClass@@QBE?AVShaderClass@@H@Z,,0x00143370,20,Code/Libraries/Source/WWVegas/WW3D2/MeshModelClassGetSortFlagsPass.cpp,matched,Out-of-line MeshMatDesc Get_Single_Shader from get_sort_flags TU
 ??0CollectionClass@@QAE@ABV0@@Z,,0x00130C00,307,Code/Libraries/Source/WWVegas/WW3D2/CollectionClassCopyCtor.cpp,matched,Dedicated TU compiler-style copy after RenderObjClass default ctor members from plus 0xC4
 ?Transform_Min_Max_AABox@Matrix3D@@QBEXABVVector3@@0PAV2@1@Z,,0x00712B60,319,Code/Libraries/Source/WWVegas/WWMath/Matrix3DTransformAABox.cpp,matched,Dedicated TU SSE Transform_Min_Max_AABox nested interval projections
+?Transform_Center_Extent_AABox@Matrix3D@@QBEXABVVector3@@0PAV2@1@Z,,0x00712CA0,236,Code/Libraries/Source/WWVegas/WWMath/Matrix3DTransformAABox.cpp,matched,Dedicated TU SSE Transform_Center_Extent_AABox with WWMath Fabs sign-bit clear

@@ -52,7 +52,12 @@ void Matrix3D::Transform_Min_Max_AABox(
 	}
 }
 
-#include <math.h>
+inline float WWMath_Fabs(float val)
+{
+	int value = *(int *)&val;
+	value &= 0x7fffffff;
+	return *(float *)&value;
+}
 
 void Matrix3D::Transform_Center_Extent_AABox(
 	const Vector3 &center,
@@ -66,7 +71,7 @@ void Matrix3D::Transform_Center_Extent_AABox(
 		(*set_extent)[i] = 0.0f;
 		for (int j = 0; j < 3; j++) {
 			(*set_center)[i] += Row[i][j] * center[j];
-			(*set_extent)[i] += (float)fabs(Row[i][j] * extent[j]);
+			(*set_extent)[i] += WWMath_Fabs(Row[i][j] * extent[j]);
 		}
 	}
 }
