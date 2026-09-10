@@ -1164,3 +1164,4 @@ _strcpy,0x00629176,IAT jmp after _strlen; REL32 from makeDecoratedNameKey
 ?detach@NetCommandNode@@QAEXXZ,0x0058B8AE,12-byte node cleanup; REL32 from NetCommandList::reset
 ?Remove_Texture_Category@DX8FVFCategoryContainer@@QAEXPAVDX8TextureCategoryClass@@@Z,0x00144C30,Retail REL32 from Remove_Polygon_Renderer empty path
 ?DebugLogTyped@@YAXIPAXI@Z,0x00039660,Retail REL32 from Log_DX8_ErrorCode; fourcc table lookup of DXER plus HRESULT
+?Test_Aligned_Box@@YA_NPAUBoxTestStruct@@@Z,0x00714300,retail REL32 from CollisionMath LineSeg-AABox Collide at 0x007146E0
