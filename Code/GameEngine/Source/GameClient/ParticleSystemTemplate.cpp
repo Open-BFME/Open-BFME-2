@@ -55,6 +55,11 @@ struct Region2D
 namespace FXParticleSystem
 {
 
+enum ParticleType
+{
+    PARTICLE_TYPE_DEFAULT
+};
+
 // Offsets recovered from the accessors themselves: the texture filename is the
 // second word of the object and the name sits past the UV rectangle.
 class ParticleSystemTemplate
@@ -62,9 +67,11 @@ class ParticleSystemTemplate
 public:
     AsciiString getName() const;
     AsciiString getTextureFilename() const;
+    ParticleType getParticleType() const;
 
 private:
-    char m_unknown00[0x10];
+    char m_unknown00[0x0c];
+    ParticleType m_particleType;
     AsciiString m_textureFilename;
     char m_unknown14[0x74];
     Region2D m_uv;
@@ -80,6 +87,11 @@ AsciiString ParticleSystemTemplate::getName() const
 AsciiString ParticleSystemTemplate::getTextureFilename() const
 {
     return m_textureFilename;
+}
+
+ParticleType ParticleSystemTemplate::getParticleType() const
+{
+    return m_particleType;
 }
 
 }
