@@ -6012,3 +6012,4 @@ _XMP_Move,,0x0061BE10,19,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,
 ??0WeaponTemplateSetHead@@QAE@ABV0@@Z,,0x00045455,24,Code/GameEngine/Source/Common/Thing/WeaponTemplateSetHeadCopyCtor.cpp,matched,memcpy 0x4C; callee of WeaponTemplateSet copy ctor
 ??0BFME2StreamMotionChannel@@QAE@XZ,,0x001B2138,22,Code/Libraries/Source/WWVegas/WW3D2/BFME2StreamMotionChannelCtor.cpp,matched,base ctor then Data at plus 0x28 zeroed
 ??0BFME2Encoding0MotionChannel@@QAE@XZ,,0x001B2E2C,26,Code/Libraries/Source/WWVegas/WW3D2/BFME2Encoding0MotionChannelCtor.cpp,matched,base ctor then TimeCodes and Samples zeroed
+??0BFME2MotionChannel@@QAE@XZ,,0x001A465B,17,Code/Libraries/Source/WWVegas/WW3D2/BFME2MotionChannelCtor.cpp,matched,Type and Pivot or-minus-1 then vtable
