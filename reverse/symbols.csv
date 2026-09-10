@@ -1122,3 +1122,4 @@ __RTC_CheckEsp,0x0075A5A2
 ?_M_rva00625476@BfmeDfe6e4@@QAEXXZ,0x00225476,address read from the REL32 in WndProc's WM_ACTIVATEAPP deactivate arm at 0x00001A42; identity not recovered, so the placeholder is named for the address
 _bfmeRva0042CF86,0x0002CF86,address read from the REL32 in WndProc's message 0x2707 arm at 0x00001B99; identity not recovered, so the placeholder is named for the address
 ?addWin32Event@Win32Mouse@@QAEXIIJK@Z,0x00041A10,address read from the REL32 shared by WndProc's three mouse arms at 0x00001C20
+?call@Rva007F6740Receiver@@QAEXPAXHHHHHHHHPB_JIPAPBDIHH@Z,0x00662ED0
