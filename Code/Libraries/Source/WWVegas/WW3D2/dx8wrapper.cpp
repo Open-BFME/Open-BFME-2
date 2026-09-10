@@ -1885,7 +1885,6 @@ bool DX8Wrapper::Find_Color_And_Z_Mode(int resx,int resy,int bitdepth,D3DFORMAT 
 
 // find the resolution mode with at least resx,resy with the highest supported
 // refresh rate
-// ?Find_Color_Mode@DX8Wrapper@@ present-unmatched
 bool DX8Wrapper::Find_Color_Mode(D3DFORMAT colorbuffer, int resx, int resy, UINT *mode)
 {
 	UINT i,j,modemax;
@@ -1898,13 +1897,14 @@ bool DX8Wrapper::Find_Color_Mode(D3DFORMAT colorbuffer, int resx, int resy, UINT
 
 	bool found=false;
 
-	modemax=D3DInterface->GetAdapterModeCount(D3DADAPTER_DEFAULT);
+	// D3D9 counts and enumerates the modes of one format at a time.
+	modemax=reinterpret_cast<BFME_Direct3D9 *>(D3DInterface)->GetAdapterModeCount(D3DADAPTER_DEFAULT,colorbuffer);
 
 	i=0;
 
 	while (i<modemax && !found)
 	{
-		D3DInterface->EnumAdapterModes(D3DADAPTER_DEFAULT, i, &dmode);
+		reinterpret_cast<BFME_Direct3D9 *>(D3DInterface)->EnumAdapterModes(D3DADAPTER_DEFAULT, colorbuffer, i, &dmode);
 		if (dmode.Width==rx && dmode.Height==ry && dmode.Format==colorbuffer) {
 			WWDEBUG_SAY(("Found valid color mode.  Width = %d Height = %d Format = %d\r\n",dmode.Width,dmode.Height,dmode.Format));
 			found=true;
@@ -1926,7 +1926,7 @@ bool DX8Wrapper::Find_Color_Mode(D3DFORMAT colorbuffer, int resx, int resy, UINT
 	j=i;
 	while (j<modemax && stillok)
 	{
-		D3DInterface->EnumAdapterModes(D3DADAPTER_DEFAULT, j, &dmode);
+		reinterpret_cast<BFME_Direct3D9 *>(D3DInterface)->EnumAdapterModes(D3DADAPTER_DEFAULT, colorbuffer, j, &dmode);
 		if (dmode.Width==rx && dmode.Height==ry && dmode.Format==colorbuffer)
 			stillok=true; else stillok=false;
 		j++;
@@ -4202,7 +4202,6 @@ void DX8Wrapper::Flush_DX8_Resource_Manager(unsigned int bytes)
 	DX8CALL(ResourceManagerDiscardBytes(bytes));
 }
 
-// ?Get_Free_Texture_RAM@DX8Wrapper@@ present-unmatched
 unsigned int DX8Wrapper::Get_Free_Texture_RAM()
 {
 	DX8_Assert();
