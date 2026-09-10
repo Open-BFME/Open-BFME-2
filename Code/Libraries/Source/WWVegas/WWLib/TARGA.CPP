@@ -828,68 +828,24 @@ void Targa::XFlip(void)
 *
 ****************************************************************************/
 
-static __forceinline void _swapBytes(char *p1, char *p2, unsigned count)
-{
-  _asm
-  {
-    mov esi,[p1]
-    mov edi,[p2]
-    mov ebx,[count]
-    mov ecx,ebx
-    shr ecx,4
-    jz  lessThan16
-  lp:
-    mov eax,dword ptr [esi]
-    mov edx,dword ptr [esi+4]
-    xchg eax,dword ptr [edi]
-    xchg edx,dword ptr [edi+4]
-    mov dword ptr [esi],eax
-    mov dword ptr [esi+4],edx
-    mov eax,dword ptr [esi+8]
-    mov edx,dword ptr [esi+12]
-    xchg eax,dword ptr [edi+8]
-    xchg edx,dword ptr [edi+12]
-    mov dword ptr [esi+8],eax
-    mov dword ptr [esi+12],edx
-    add esi,16
-    add edi,16
-    dec ecx
-    jnz lp
-  lessThan16:
-    and ebx,15
-  lpLessThan16:
-    jz done
-    mov al,byte ptr [esi]
-    xchg al,byte ptr [edi]
-    mov byte ptr [edi],al
-    inc esi
-    inc edi
-    dec ebx
-    jmp lpLessThan16
-  done:
-  }
-}
-
 void Targa::YFlip(void)
 {
-  /* old code left in for reference...
 	char *ptr,*ptr1;
 	long  x,y;
 	char  v,v1;
 	char  depth;
 
-	/ * Pixel depth in bytes. * /
+	/* Pixel depth in bytes. */
 	depth = TGA_BytesPerPixel(Header.PixelDepth);
 
 	for (y = 0; y < (Header.Height >> 1); y++)
 	{
-		/ * Compute address of lines to exchange. * /
+		/* Compute address of lines to exchange. */
 		ptr = (mImage + ((Header.Width * y) * depth));
 		ptr1 = (mImage + ((Header.Width * (Header.Height - 1)) * depth));
 		ptr1 -= ((Header.Width * y) * depth);
 
-		/ * Exchange all the pixels on this scan line. * /
-    
+		/* Exchange all the pixels on this scan line. */
 		for (x = 0; x < (Header.Width * depth); x++)
 		{
 			v = *ptr;
@@ -899,14 +855,7 @@ void Targa::YFlip(void)
 			ptr++;
 			ptr1++;
 		}
-	} 
-  */
-
-  unsigned stride=Header.Width*TGA_BytesPerPixel(Header.PixelDepth);
-  char *ptrTop=mImage,
-       *ptrBottom=mImage+stride*(Header.Height-1);
-  for (unsigned y=Header.Height/2;y;--y,ptrTop+=stride,ptrBottom-=stride)
-    _swapBytes(ptrTop,ptrBottom,stride);
+	}
 } 
 
 /****************************************************************************
