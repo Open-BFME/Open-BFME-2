@@ -6026,3 +6026,4 @@ _XMP_Move,,0x0061BE10,19,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,
 ?clear@BfmeResetTextureRef@@QAEXXZ,,0x0004D75B,19,Code/Libraries/Source/WWVegas/WW3D2/BfmeResetTextureRefClear.cpp,matched,Release_Ref then and-zero holder
 ?insert@KeyToBucketMap@NameKeyGenerator@@QAE?AUinsert_result@12@ABUvalue_type@12@@Z,,0x004DA240,36,Code/GameEngine/Source/Common/NameKeyGeneratorMapInsert.cpp,matched,inc count at +0x10 resize then hashtable insert NRV
 ??$_Construct@VAsciiString@@V1@@_STL@@YAXPAVAsciiString@@ABV1@@Z,,0x00142CC0,25,Code/GameEngine/Source/Common/System/AsciiStringConstruct.cpp,matched,null-check dest copy pointer add-1 refcount at +4
+?revalidateOccupiers@SpawnPointProductionExitUpdate@@AAEXXZ,,0x004A3F04,55,Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/SpawnPointRevalidateOccupiers.cpp,matched,count at +0xCC occupiers; findObjectByID then and-zero gone ids
