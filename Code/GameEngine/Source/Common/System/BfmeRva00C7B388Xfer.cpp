@@ -443,7 +443,6 @@ Xfer &BfmeRva00C7B388::operator==(ICoord2D &value)
     return *this;
 }
 
-// ??8BfmeRva00C7B388@@UAEAAVXfer@@AAURegion2D@@@Z present-unmatched
 Xfer &BfmeRva00C7B388::operator==(Region2D &value)
 {
     if (!m_bfme04)
