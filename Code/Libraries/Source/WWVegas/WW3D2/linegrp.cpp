@@ -495,7 +495,6 @@ void	LineGroupClass::Render(RenderInfoClass &rinfo)
 	DX8Wrapper::Set_Transform(D3DTS_VIEW, view);
 }
 
-// ?Get_Polygon_Count@LineGroupClass@@ present-unmatched
 int LineGroupClass::Get_Polygon_Count(void)
 {
 	switch (LineMode) {
