@@ -1704,6 +1704,11 @@ typedef ConcreteModuleTemplate<ModuleTag<6, BUTTERFLY_DRAW_MODULE_KEY, BUTTERFLY
 
 ButterflyDrawModuleConcrete g_butterflyDrawModuleConcrete;
 
+typedef ButterflyDrawModuleConcrete &(ButterflyDrawModuleConcrete::*ButterflyDrawModuleConcreteAssign)(
+    const ButterflyDrawModuleConcrete &);
+
+ButterflyDrawModuleConcreteAssign g_butterflyDrawModuleConcreteAssign = &ButterflyDrawModuleConcrete::operator=;
+
 // The module templates' own generated assignments. Each adjusts the source by 8
 // with the null-checked neg/sbb/and idiom and hands it to the info base's
 // assignment, which is what a base at offset 8 looks like from the outside.
