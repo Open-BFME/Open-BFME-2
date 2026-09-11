@@ -67,3 +67,11 @@ RenderObjClass * RenderObjClass::Get_Sub_Object_By_Name(const char * name, int *
 
 	return NULL;
 }
+
+// Zero Hour's by-name overload at 0x0013B9E0, with BFME's trailing offset
+// forwarded to the index overload.
+int RenderObjClass::Add_Sub_Object_To_Bone(RenderObjClass * subobj,const char * bname, const Vector3 * offset)
+{
+	int bindex = Get_Bone_Index(bname);
+	return Add_Sub_Object_To_Bone(subobj,bindex,offset);
+}
