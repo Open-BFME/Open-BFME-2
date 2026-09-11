@@ -6249,3 +6249,4 @@ _XMP_Randomize_Bounded,,0x0061C420,296,Code/Libraries/Source/WWVegas/WWLib/mpmat
 ??0BfmeDynamicNativeVB@@QAE@PBVVector3@@PBVVector4@@PBVVector2@@GI@Z,,0x0013ADB0,131,Code/Libraries/Source/WWVegas/WW3D2/bfmedynamicvertexbuffer.cpp,matched,ZH array ctor with diffuse; FVF 0x142
 ??0BfmeDynamicNativeVB@@QAE@PBVVector3@@PBVVector2@@GI@Z,,0x0013AE40,126,Code/Libraries/Source/WWVegas/WW3D2/bfmedynamicvertexbuffer.cpp,matched,ZH array ctor position/uv; FVF 0x102
 ?bfmeRva0013A7D0@DynamicVBAccessClass@@SAXXZ,,0x0013A7D0,104,Code/Libraries/Source/WWVegas/WW3D2/DynamicVBAccessClassDeinit.cpp,matched,address-derived; _Deinit per-format loop without the sorting half
+?Get_Sub_Object_By_Name@RenderObjClass@@UBEPAV1@PBDPAH@Z,,0x0013B8D0,254,Code/Libraries/Source/WWVegas/WW3D2/RenderObjSubObjectByName.cpp,matched,bfme2renderobj model; second pass fetches the name once and skips a null name before strchr; compares through _strcmpi
