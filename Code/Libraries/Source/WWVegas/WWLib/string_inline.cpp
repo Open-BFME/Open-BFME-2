@@ -52,6 +52,7 @@ public:
     void __cdecl format(const AsciiString *format, ...);
     void translate(const wchar_t *text);
     void translate(const UnicodeString &that);
+    AsciiString &operator=(const UnicodeString &that);
 
 private:
     StringHeader *m_data;
@@ -90,6 +91,17 @@ void AsciiString::translate(const UnicodeString &that)
     const WideStringHeader *header = *(const WideStringHeader *const *)&that;
 
     translate(header ? &header->data[0] : L"");
+}
+
+// Cross-charset assignment goes through the translating setter: the wide text
+// (or an empty literal) is handed to translate, which BFME1's formatter-based
+// shape also reduces to once the temporary is optimized away.
+AsciiString &AsciiString::operator=(const UnicodeString &that)
+{
+    const WideStringHeader *header = *(const WideStringHeader *const *)&that;
+
+    translate(header ? &header->data[0] : L"");
+    return *this;
 }
 
 void __cdecl UnicodeString::format(const wchar_t *format, ...)
