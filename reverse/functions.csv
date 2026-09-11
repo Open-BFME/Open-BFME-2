@@ -6211,3 +6211,4 @@ _XMP_Randomize_Bounded,,0x0061C420,296,Code/Libraries/Source/WWVegas/WWLib/mpmat
 ?Set_Animation@Animatable3DObjClass@@UAEXPAVHAnimClass@@M0MM@Z,,0x001A4D10,116,Code/Libraries/Source/WWVegas/WW3D2/Animatable3DObjSetAnimationBlend.cpp,matched,BFME blend Set_Animation; reduced model at BFME 2 offsets in its own /G7 /arch:SSE unit
 ?Set_Animation@Animatable3DObjClass@@UAEXPAVHAnimClass@@MH@Z,,0x001A4BF0,283,Code/Libraries/Source/WWVegas/WW3D2/Animatable3DObjSetAnimationMH.cpp,matched,BFME single-animation Set_Animation rewrite; reduced model at BFME 2 offsets in its own /G7 /arch:SSE unit
 ??0CompositeRenderObjClass@@QAE@ABV0@@Z,,0x001A6490,208,Code/Libraries/Source/WWVegas/WW3D2/composite.cpp,matched,Zero Hour CompositeRenderObjClass copy constructor; composite.cpp is /G7
+??0CompositeRenderObjClass@@QAE@XZ,,0x001A5D30,150,Code/Libraries/Source/WWVegas/WW3D2/composite.cpp,matched,Zero Hour CompositeRenderObjClass default constructor; composite.cpp is /G7
