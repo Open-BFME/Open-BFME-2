@@ -6254,3 +6254,4 @@ _XMP_Randomize_Bounded,,0x0061C420,296,Code/Libraries/Source/WWVegas/WWLib/mpmat
 ?Intersect_Sphere@RenderObjClass@@UAE_NPAVIntersectionClass@@PAVIntersectionResultClass@@@Z,,0x0013BD20,78,Code/Libraries/Source/WWVegas/WW3D2/RenderObjIntersectSphere.cpp,matched,bfme2renderobj model; bounding sphere copied from the virtual accessor
 ?Add_Sub_Object_To_Bone@RenderObjClass@@UAEHPAV1@PBDPBVVector3@@@Z,,0x0013B9E0,43,Code/Libraries/Source/WWVegas/WW3D2/RenderObjSubObjectByName.cpp,matched,ZH by-name overload with BFME trailing offset; needs the shim to declare the int overload first so it lands at +0x98
 ?Get_Scene@RenderObjClass@@UAEPAVSceneClass@@XZ,,0x0013B770,15,Code/Libraries/Source/WWVegas/WW3D2/RenderObjSceneAndCost.cpp,matched,ZH body on the bfme2renderobj model; found through the retail vtable at 0xBD2F68
+?Set_Container@RenderObjClass@@UAEXPAV1@@Z,,0x0013B780,10,Code/Libraries/Source/WWVegas/WW3D2/RenderObjSceneAndCost.cpp,matched,ZH body

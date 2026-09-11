@@ -44,7 +44,6 @@ SceneClass * RenderObjClass::Get_Scene(void)
 	return Scene;
 }
 
-// ?Set_Container@RenderObjClass@@UAEXPAV1@@Z present-unmatched
 void RenderObjClass::Set_Container(RenderObjClass * con)
 {
 	Container = con;
