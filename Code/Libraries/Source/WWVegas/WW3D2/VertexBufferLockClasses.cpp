@@ -164,7 +164,6 @@ VertexBufferClass::WriteLockClass::WriteLockClass(VertexBufferClass *VertexBuffe
 	}
 }
 
-// ??1WriteLockClass@VertexBufferClass@@QAE@XZ present-unmatched
 VertexBufferClass::WriteLockClass::~WriteLockClass()
 {
 	switch (VertexBuffer->Type()) {
