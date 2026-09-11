@@ -38,6 +38,8 @@ struct RGBColor
 
 struct RGBAColorReal
 {
+    RGBAColorReal &operator=(const RGBAColorReal &that);
+
     float red;
     float green;
     float blue;
@@ -89,6 +91,21 @@ bool operator==(const RGBColor &left, const RGBColor &right)
 bool operator!=(const RGBColor &left, const RGBColor &right)
 {
     return !(left == right);
+}
+
+// The 16-byte block copy folded with the integer-region assignment at 0x002E7FDA.
+RGBAColorReal &RGBAColorReal::operator=(const RGBAColorReal &that)
+{
+    struct Raw
+    {
+        unsigned int red;
+        unsigned int green;
+        unsigned int blue;
+        unsigned int alpha;
+    };
+
+    *(Raw *)this = *(const Raw *)&that;
+    return *this;
 }
 
 Debug &operator<<(Debug &debug, const RGBAColorReal &color)
