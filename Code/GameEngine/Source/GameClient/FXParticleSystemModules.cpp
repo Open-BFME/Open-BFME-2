@@ -643,6 +643,10 @@ typedef DefaultConcrete3 &(DefaultConcrete3::*DefaultConcrete3Assign)(const Defa
 
 DefaultConcrete3Assign g_defaultConcrete3Assign = &DefaultConcrete3::operator=;
 
+typedef DefaultConcrete6 &(DefaultConcrete6::*DefaultConcrete6Assign)(const DefaultConcrete6 &);
+
+DefaultConcrete6Assign g_defaultConcrete6Assign = &DefaultConcrete6::operator=;
+
 typedef RenderObjectUpdateModuleNamedConcrete &(RenderObjectUpdateModuleNamedConcrete::*RenderObjectUpdateModuleNamedConcreteAssign)(const RenderObjectUpdateModuleNamedConcrete &);
 
 RenderObjectUpdateModuleNamedConcreteAssign g_renderObjectUpdateModuleNamedConcreteAssign = &RenderObjectUpdateModuleNamedConcrete::operator=;
