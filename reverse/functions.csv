@@ -6206,3 +6206,4 @@ _XMP_Randomize_Bounded,,0x0061C420,296,Code/Libraries/Source/WWVegas/WWLib/mpmat
 ??1INIClass@@UAE@XZ,,0x00617AC0,79,Code/Libraries/Source/WWVegas/WWLib/ini.cpp,matched,Zero Hour INIClass destructor: Clear() inlined then a tail jump to the out-of-line Shutdown at 0x00616AC0
 ?Add@?$DynamicVectorClass@UWeightInfoStruct@NamedPivotMapClass@@@@QAE_NABUWeightInfoStruct@NamedPivotMapClass@@@Z,,0x00196880,111,Code/Libraries/Source/WWVegas/WW3D2/hanim_weight_vector_add.cpp,matched,WWLib DynamicVectorClass::Add for named-pivot weights; own /G7 unit split from hanim.cpp
 ?Set_Flag@LineGroupClass@@QAEXW4FlagsType@1@_N@Z,,0x001B36C0,34,Code/Libraries/Source/WWVegas/WW3D2/linegrp.cpp,matched,Zero Hour LineGroupClass::Set_Flag; linegrp.cpp is /G7
+?Make_Geometry_Unique@MeshModelClass@@QAEXXZ,,0x00172070,505,Code/Libraries/Source/WWVegas/WW3D2/MeshModelClassMakeGeometryUnique.cpp,matched,BFME geometry-buffer uniqueness with BFME 2 member offsets; own /G7 unit
