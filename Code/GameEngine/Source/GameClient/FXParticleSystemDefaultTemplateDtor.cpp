@@ -107,16 +107,28 @@ class CategoryModuleTemplate
 {
 public:
     virtual ~CategoryModuleTemplate();
+    CategoryModuleTemplate &operator=(const CategoryModuleTemplate &that);
 };
 
 template <>
 class DefaultModuleTemplate<7> : public CategoryModuleTemplate<7>
 {
+public:
+    DefaultModuleTemplate<7> &operator=(const DefaultModuleTemplate<7> &that);
 };
 
 // A file-scope instance forces the implicit destructor out; it is what the
 // ledger compares.
 DefaultModuleTemplate<7> g_defaultModuleTemplate7;
+
+// The assignment hands straight through to the category base, the eighteen
+// bytes retail keeps next to the destructor fold.
+DefaultModuleTemplate<7> &DefaultModuleTemplate<7>::operator=(
+    const DefaultModuleTemplate<7> &that)
+{
+    CategoryModuleTemplate<7>::operator=(that);
+    return *this;
+}
 
 // The named templates below repeat the same standalone triple-store shape,
 // one class each, for the destructors retail folds onto the same address.
