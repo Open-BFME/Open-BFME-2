@@ -1183,3 +1183,4 @@ __aullshr,0x006297A0,MSVCR71 unsigned 64-bit shift-right helper; address read fr
 ?curr_symbol@?$moneypunct@G$0A@@_STL@@QBE?AV?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@2@XZ,0x0000EA30,STLport wide moneypunct getter; retail money_get<wchar_t>::do_get(string_type) calls this address; ICF-folded with the narrow getter
 ?grouping@?$moneypunct@G$0A@@_STL@@QBE?AV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@2@XZ,0x00015E50,STLport wide moneypunct getter; retail money_get<wchar_t>::do_get(string_type) calls this address; ICF-folded with the narrow getter
 ??$_M_assign_dispatch@PAG@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@AAEAAV01@PAG0ABU__false_type@1@@Z,0x000130A0,private-access spelling of the matched wide _M_assign_dispatch<PAG> at this address; retail money_get<wchar_t>::do_get calls it from its inlined assign
+_GetCurrentThreadId@0,0x006105D0,kernel32 GetCurrentThreadId IAT thunk; REL32 from BFME_DX8_Thread_Assert
