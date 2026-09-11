@@ -286,7 +286,6 @@ Xfer &BfmeRva00C7B388::operator==(int &value)
     return *this;
 }
 
-// ??8BfmeRva00C7B388@@UAEAAVXfer@@AAI@Z present-unmatched
 Xfer &BfmeRva00C7B388::operator==(unsigned int &value)
 {
     if (!m_bfme04)
