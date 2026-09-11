@@ -6267,3 +6267,4 @@ _XMP_Randomize_Bounded,,0x0061C420,296,Code/Libraries/Source/WWVegas/WWLib/mpmat
 ?bfmeRva00120650@DX8Wrapper@@SAXII@Z,,0x00120650,29,Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper_draw_prim.cpp,matched,address-derived; non-indexed triangle-list sibling of Draw_Triangles
 ?bfmeRva00120700@DX8Wrapper@@SAXII@Z,,0x00120700,29,Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper_draw_prim.cpp,matched,address-derived; non-indexed triangle-strip sibling of Draw_Strip
 ??0?$VectorClass@VStringClass@@@@QAE@HPBVStringClass@@@Z,,0x0011F980,191,Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp,matched,WWLib VectorClass<StringClass> ctor instantiated by dx8wrapper.cpp for the render device name table
+??0?$DynamicVectorClass@VStringClass@@@@QAE@IPBVStringClass@@@Z,,0x00121FE0,46,Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp,matched,WWLib DynamicVectorClass<StringClass> ctor; calls the VectorClass ctor at 0x11F980
