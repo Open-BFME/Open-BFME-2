@@ -372,12 +372,19 @@ public:
 	virtual int						Get_Sub_Object_Bone_Index(int LodIndex, int ModelIndex)	const 		{ return 0; }
 	// BFME: retail Add_Sub_Object_To_Bone takes a third parameter (a Vector3
 	// copied into the model node, defaulted here for ZH call sites) and the
-	// (const char *) overload precedes the (int) overload.
-	virtual int						Add_Sub_Object_To_Bone(RenderObjClass * subobj,const char * bname, const Vector3 * offset = NULL);
+	// (const char *) overload precedes the (int) overload in the vtable: the
+	// RenderObjClass vtable at 0x00BD2F68 holds the by-name body 0x0013B9E0 at
+	// +0x94 and the index overload at +0x98, which the by-name body calls.
+	// cl 13.10 lays a group of overloaded virtuals out in reverse declaration
+	// order, so the (int) overload is declared first to land there.
 	virtual int						Add_Sub_Object_To_Bone(RenderObjClass * subobj,int bone_index, const Vector3 * offset = NULL)	{ return 0; }
-	// BFME: retail Remove_Sub_Objects_From_Bone overloads are swapped vs ZH.
-	virtual int						Remove_Sub_Objects_From_Bone(const char * bname);
+	virtual int						Add_Sub_Object_To_Bone(RenderObjClass * subobj,const char * bname, const Vector3 * offset = NULL);
+	// BFME: retail Remove_Sub_Objects_From_Bone overloads are swapped vs ZH:
+	// the vtable at 0x00BD2F68 holds the by-name body 0x0013BA80 at +0x9C and
+	// the index body 0x0013BA10 at +0xA0.  As with Add_Sub_Object_To_Bone, cl
+	// lays the group out in reverse, so the (int) overload is declared first.
 	virtual int						Remove_Sub_Objects_From_Bone(int boneindex);
+	virtual int						Remove_Sub_Objects_From_Bone(const char * bname);
 
 	// BFME: unidentified retail slot 40, immediately ahead of
 	// Update_Sub_Object_Transforms. Its body at 0x006CF420 is a bare ret, so it
