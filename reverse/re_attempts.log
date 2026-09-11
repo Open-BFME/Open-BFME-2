@@ -510,3 +510,4 @@ _bfmeDirectXErrorName@4	0x0062B16A	48672	blocked	t=15min model=gpt-6-astra; inve
 ??_GProxyArrayClass@@UAEPAXI@Z	0x19F550	30	attempted	hlod.cpp frees through the W3D memory pool glue (freeFromW3DMemPool) where retail calls plain operator delete
 ??_GPipe@@UAEPAXI@Z	0x6158C0	30	attempted	pipe.cpp inlines ~Pipe into the scalar deleting dtor (74 bytes); retail's 30-byte body calls 0x0061B0A0 out of line
 ??_G?$VectorClass@VRenderDeviceDescClass@@@@UAEPAXI@Z	0x125FA0	30	attempted	dx8wrapper.cpp inlines the VectorClass<RenderDeviceDescClass> dtor into its scalar deleting dtor (96 bytes); retail's 30-byte body calls the out-of-line dtor at 0x00125D70
+?startsWithNoCase@?$StringBase@D@@QBE_NPBD@Z	0x00036000	90	partial	89/90 bytes; final inversion retail neg-sbb-inc-AL vs body neg-sbb-inc-EAX; t=20min model=muse-spark score=0.989 stash=reverse/attempts/0x00036000.cpp
