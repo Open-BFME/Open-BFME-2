@@ -69,7 +69,6 @@ void RenderObjClass::Get_Obj_Space_Bounding_Sphere(SphereClass & sphere) const
 	sphere.Radius = 1.0f;
 }
 
-// ?Get_Cost@RenderObjClass@@UBEMXZ present-unmatched
 float RenderObjClass::Get_Cost(void) const
 {
 	int polycount = Get_Num_Polys();
