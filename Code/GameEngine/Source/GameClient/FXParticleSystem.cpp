@@ -1660,6 +1660,11 @@ typedef ConcreteModuleTemplate<ModuleTag<6, STREAK_DRAW_MODULE_KEY, STREAK_DRAW_
 
 StreakDrawModuleConcrete g_streakDrawModuleConcrete;
 
+typedef StreakDrawModuleConcrete &(StreakDrawModuleConcrete::*StreakDrawModuleConcreteAssign)(
+    const StreakDrawModuleConcrete &);
+
+StreakDrawModuleConcreteAssign g_streakDrawModuleConcreteAssign = &StreakDrawModuleConcrete::operator=;
+
 extern const char *const QUAD_DRAW_MODULE_KEY;
 extern const char *const QUAD_DRAW_MODULE_NAME;
 
