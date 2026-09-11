@@ -304,7 +304,6 @@ Xfer &BfmeRva00C7B388::operator==(__int64 &value)
     return *this;
 }
 
-// ??8BfmeRva00C7B388@@UAEAAVXfer@@AAM@Z present-unmatched
 Xfer &BfmeRva00C7B388::operator==(float &value)
 {
     if (!m_bfme04)
