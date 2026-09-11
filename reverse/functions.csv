@@ -6239,3 +6239,4 @@ _XMP_Randomize_Bounded,,0x0061C420,296,Code/Libraries/Source/WWVegas/WWLib/mpmat
 ??1BfmeDynamicNativeVB@@UAE@XZ,,0x00139720,143,Code/Libraries/Source/WWVegas/WW3D2/bfmedynamicvertexbuffer.cpp,matched,releases the D3D buffer under the device-mutex guard then inlines the base dtor
 ??_GBfmeDynamicVBBase@@UAEPAXI@Z,,0x0013ABC0,30,Code/Libraries/Source/WWVegas/WW3D2/bfmedynamicvertexbuffer.cpp,matched,scalar deleting dtor
 ??_GBfmeDynamicSortingVB@@UAEPAXI@Z,,0x0013ABE0,30,Code/Libraries/Source/WWVegas/WW3D2/bfmedynamicvertexbuffer.cpp,matched,scalar deleting dtor
+??_GBfmeDynamicNativeVB@@UAEPAXI@Z,,0x0013AC70,30,Code/Libraries/Source/WWVegas/WW3D2/bfmedynamicvertexbuffer.cpp,matched,scalar deleting dtor
