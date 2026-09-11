@@ -367,7 +367,6 @@ Xfer &BfmeRva00C7B388::operator==(AsciiString &value)
     return *this;
 }
 
-// ??8BfmeRva00C7B388@@UAEAAVXfer@@AAVUnicodeString@@@Z present-unmatched
 Xfer &BfmeRva00C7B388::operator==(UnicodeString &value)
 {
     if (!m_bfme04)
