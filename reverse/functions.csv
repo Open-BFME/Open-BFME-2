@@ -6247,3 +6247,4 @@ _XMP_Randomize_Bounded,,0x0061C420,296,Code/Libraries/Source/WWVegas/WWLib/mpmat
 ??0BfmeDynamicNativeVB@@QAE@PBVVector3@@0PBVVector2@@GI@Z,,0x0013AC90,131,Code/Libraries/Source/WWVegas/WW3D2/bfmedynamicvertexbuffer.cpp,matched,ZH DX8VertexBufferClass position/normal/uv array ctor; FVF 0x112
 ??0BfmeDynamicNativeVB@@QAE@PBVVector3@@0PBVVector4@@PBVVector2@@GI@Z,,0x0013AD20,136,Code/Libraries/Source/WWVegas/WW3D2/bfmedynamicvertexbuffer.cpp,matched,ZH array ctor with normals and diffuse; FVF 0x152
 ??0BfmeDynamicNativeVB@@QAE@PBVVector3@@PBVVector4@@PBVVector2@@GI@Z,,0x0013ADB0,131,Code/Libraries/Source/WWVegas/WW3D2/bfmedynamicvertexbuffer.cpp,matched,ZH array ctor with diffuse; FVF 0x142
+??0BfmeDynamicNativeVB@@QAE@PBVVector3@@PBVVector2@@GI@Z,,0x0013AE40,126,Code/Libraries/Source/WWVegas/WW3D2/bfmedynamicvertexbuffer.cpp,matched,ZH array ctor position/uv; FVF 0x102

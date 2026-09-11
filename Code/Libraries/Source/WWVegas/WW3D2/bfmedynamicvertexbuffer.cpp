@@ -230,7 +230,6 @@ BfmeDynamicNativeVB::BfmeDynamicNativeVB(const Vector3 *vertices,const Vector4 *
  Copy(vertices,tex_coords,diffuse,0,count);
 }
 
-// ??0BfmeDynamicNativeVB@@QAE@PBVVector3@@PBVVector2@@GI@Z present-unmatched
 BfmeDynamicNativeVB::BfmeDynamicNativeVB(const Vector3 *vertices,const Vector2 *tex_coords,unsigned short count,unsigned usage)
  :BfmeDynamicVBBase(0,D3DFVF_XYZ|D3DFVF_TEX1,count,0)
 {
