@@ -112,9 +112,39 @@ public:
     virtual void xfer(Xfer *xfer) = 0;
 };
 
-class AsciiString;
-class UnicodeString;
-class PooledString;
+// The string types are reduced to what their transfers read: a pointer to a
+// data block whose text starts eight bytes in.  ASCII and Unicode fall back to
+// the shared empty literals when the pointer is null; the pooled string reads
+// through it unchecked.
+// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/AsciiString.h
+class AsciiString
+{
+    struct Data { int unexamined0; int unexamined4; };
+    Data *m_data;
+
+public:
+    const char *str() const { return m_data ? reinterpret_cast<const char *>(m_data + 1) : ""; }
+};
+
+// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/UnicodeString.h
+class UnicodeString
+{
+    struct Data { int unexamined0; int unexamined4; };
+    Data *m_data;
+
+public:
+    // 16-bit characters: wchar_t is not a built-in type under this unit's flags.
+    const unsigned short *str() const { return m_data ? reinterpret_cast<const unsigned short *>(m_data + 1) : reinterpret_cast<const unsigned short *>(L""); }
+};
+
+class PooledString
+{
+    struct Data { int unexamined0; int unexamined4; };
+    Data *m_data;
+
+public:
+    const char *peek() const { return reinterpret_cast<const char *>(m_data + 1); }
+};
 struct XferUnknown11;
 
 // upstream layout: Code/GameEngine/Source/Common/System/Xfer.cpp (retail vtable 0x00BBB910)
@@ -207,6 +237,21 @@ public:
     virtual Xfer &operator==(unsigned int &value);
     virtual Xfer &operator==(__int64 &value);
     virtual Xfer &operator==(float &value);
+    virtual Xfer &operator==(AsciiString &value);
+    virtual Xfer &operator==(UnicodeString &value);
+    virtual Xfer &operator==(PooledString &value);
+    virtual Xfer &operator==(Coord3DBase &value);
+    virtual Xfer &operator==(ICoord3D &value);
+    virtual Xfer &operator==(Region3D &value);
+    virtual Xfer &operator==(IRegion3D &value);
+    virtual Xfer &operator==(Coord2D &value);
+    virtual Xfer &operator==(ICoord2D &value);
+    virtual Xfer &operator==(Region2D &value);
+    virtual Xfer &operator==(IRegion2D &value);
+    virtual Xfer &operator==(RealRange &value);
+    virtual Xfer &operator==(RGBColor &value);
+    virtual Xfer &operator==(RGBAColorReal &value);
+    virtual Xfer &operator==(RGBAColorInt &value);
 
 private:
     bool m_bfme04;				// +0x04: skip the indent once, after a label
@@ -309,6 +354,160 @@ Xfer &BfmeRva00C7B388::operator==(float &value)
     if (!m_bfme04)
         Print(this, 0);
     Print(this, "%1.6f=%f\n", value, value);
+    m_bfme04 = false;
+    return *this;
+}
+
+// ??8BfmeRva00C7B388@@UAEAAVXfer@@AAVAsciiString@@@Z present-unmatched
+Xfer &BfmeRva00C7B388::operator==(AsciiString &value)
+{
+    if (!m_bfme04)
+        Print(this, 0);
+    Print(this, "'%s' [ascii]\n", value.str());
+    m_bfme04 = false;
+    return *this;
+}
+
+// ??8BfmeRva00C7B388@@UAEAAVXfer@@AAVUnicodeString@@@Z present-unmatched
+Xfer &BfmeRva00C7B388::operator==(UnicodeString &value)
+{
+    if (!m_bfme04)
+        Print(this, 0);
+    Print(this, "%'%S' [unicode]\n", value.str());
+    m_bfme04 = false;
+    return *this;
+}
+
+Xfer &BfmeRva00C7B388::operator==(PooledString &value)
+{
+    if (!m_bfme04)
+        Print(this, 0);
+    Print(this, "'%s' [pool]\n", value.peek());
+    m_bfme04 = false;
+    return *this;
+}
+
+// ??8BfmeRva00C7B388@@UAEAAVXfer@@AAUCoord3DBase@@@Z present-unmatched
+Xfer &BfmeRva00C7B388::operator==(Coord3DBase &value)
+{
+    if (!m_bfme04)
+        Print(this, 0);
+    Print(this, "x:%1.6f,y:%1.6f,z:%1.6f [coord3d]\n", value.x, value.y, value.z);
+    m_bfme04 = false;
+    return *this;
+}
+
+// ??8BfmeRva00C7B388@@UAEAAVXfer@@AAUICoord3D@@@Z present-unmatched
+Xfer &BfmeRva00C7B388::operator==(ICoord3D &value)
+{
+    if (!m_bfme04)
+        Print(this, 0);
+    Print(this, "x:%i,y:%i,z:%i [icoord3d]\n", value.x, value.y, value.z);
+    m_bfme04 = false;
+    return *this;
+}
+
+// ??8BfmeRva00C7B388@@UAEAAVXfer@@AAURegion3D@@@Z present-unmatched
+Xfer &BfmeRva00C7B388::operator==(Region3D &value)
+{
+    if (!m_bfme04)
+        Print(this, 0);
+    Print(this, "x:%1.6f,y:%1.6f,z:%1.6f to x:%1.6f,y:%1.6f,z:%1.6f [region3d]\n",
+        value.lo.x, value.lo.y, value.lo.z, value.hi.x, value.hi.y, value.hi.z);
+    m_bfme04 = false;
+    return *this;
+}
+
+// ??8BfmeRva00C7B388@@UAEAAVXfer@@AAUIRegion3D@@@Z present-unmatched
+Xfer &BfmeRva00C7B388::operator==(IRegion3D &value)
+{
+    if (!m_bfme04)
+        Print(this, 0);
+    Print(this, "x:%i,y:%i,z:%i to x:%i,y:%i,z:%i [iregion3d]\n",
+        value.lo.x, value.lo.y, value.lo.z, value.hi.x, value.hi.y, value.hi.z);
+    m_bfme04 = false;
+    return *this;
+}
+
+// ??8BfmeRva00C7B388@@UAEAAVXfer@@AAVCoord2D@@@Z present-unmatched
+Xfer &BfmeRva00C7B388::operator==(Coord2D &value)
+{
+    if (!m_bfme04)
+        Print(this, 0);
+    Print(this, "x:%1.6f,y:%1.6f [coord2d]\n", value.x, value.y);
+    m_bfme04 = false;
+    return *this;
+}
+
+// ??8BfmeRva00C7B388@@UAEAAVXfer@@AAUICoord2D@@@Z present-unmatched
+Xfer &BfmeRva00C7B388::operator==(ICoord2D &value)
+{
+    if (!m_bfme04)
+        Print(this, 0);
+    Print(this, "x:%i,y:%i [icoord2d]\n", value.x, value.y);
+    m_bfme04 = false;
+    return *this;
+}
+
+// ??8BfmeRva00C7B388@@UAEAAVXfer@@AAURegion2D@@@Z present-unmatched
+Xfer &BfmeRva00C7B388::operator==(Region2D &value)
+{
+    if (!m_bfme04)
+        Print(this, 0);
+    Print(this, "x:%1.6f,y:%1.6f to x:%1.6f,y:%1.6f [region2d]\n",
+        value.lo.x, value.lo.y, value.hi.x, value.hi.y);
+    m_bfme04 = false;
+    return *this;
+}
+
+// ??8BfmeRva00C7B388@@UAEAAVXfer@@AAUIRegion2D@@@Z present-unmatched
+Xfer &BfmeRva00C7B388::operator==(IRegion2D &value)
+{
+    if (!m_bfme04)
+        Print(this, 0);
+    Print(this, "x:%i,y:%i to x:%i,y:%i [iregion2d]\n",
+        value.lo.x, value.lo.y, value.hi.x, value.hi.y);
+    m_bfme04 = false;
+    return *this;
+}
+
+// ??8BfmeRva00C7B388@@UAEAAVXfer@@AAURealRange@@@Z present-unmatched
+Xfer &BfmeRva00C7B388::operator==(RealRange &value)
+{
+    if (!m_bfme04)
+        Print(this, 0);
+    Print(this, "%1.6f to %1.6f [range]\n", value.lo, value.hi);
+    m_bfme04 = false;
+    return *this;
+}
+
+// ??8BfmeRva00C7B388@@UAEAAVXfer@@AAURGBColor@@@Z present-unmatched
+Xfer &BfmeRva00C7B388::operator==(RGBColor &value)
+{
+    if (!m_bfme04)
+        Print(this, 0);
+    Print(this, "r:%1.3f,g:%1.3f,b:%1.3f [rgb]\n", value.red, value.green, value.blue);
+    m_bfme04 = false;
+    return *this;
+}
+
+// ??8BfmeRva00C7B388@@UAEAAVXfer@@AAURGBAColorReal@@@Z present-unmatched
+Xfer &BfmeRva00C7B388::operator==(RGBAColorReal &value)
+{
+    if (!m_bfme04)
+        Print(this, 0);
+    Print(this, "r:%1.3f,g:%1.3f,b:%1.3f,a:%1.3f [rgba]\n",
+        value.red, value.green, value.blue, value.alpha);
+    m_bfme04 = false;
+    return *this;
+}
+
+// ??8BfmeRva00C7B388@@UAEAAVXfer@@AAURGBAColorInt@@@Z present-unmatched
+Xfer &BfmeRva00C7B388::operator==(RGBAColorInt &value)
+{
+    if (!m_bfme04)
+        Print(this, 0);
+    Print(this, "r:%i,g:%i,b:%i,a:%i [irgba]\n", value.red, value.green, value.blue, value.alpha);
     m_bfme04 = false;
     return *this;
 }
