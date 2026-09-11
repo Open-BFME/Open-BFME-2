@@ -84,8 +84,17 @@ HTreeClass::HTreeClass(void) :
 	Pivot(NULL),
 	ScaleFactor(1.0f)
 {
+	// BFME's six extra members and an empty name.
+	OwnedSequence1C[0] = 0;
+	OwnedSequence1C[1] = 0;
+	OwnedSequence1C[2] = 0;
+	Unknown28 = 0;
+	Unknown2C = 0;
+	Unknown30 = 0;
+	Name[0] = 0;
 }
 
+// ?Init_Default@HTreeClass@@ present-unmatched
 void HTreeClass::Init_Default(void)
 {
 	Free ();
@@ -177,6 +186,7 @@ HTreeClass::HTreeClass(const HTreeClass & src) :
  * HISTORY:                                                                                    * 
  *   08/11/1997 GH  : Created.                                                                 * 
  *=============================================================================================*/
+// ?Load_W3D@HTreeClass@@ present-unmatched
 int HTreeClass::Load_W3D(ChunkLoadClass & cload)
 {
 	Free();
@@ -260,6 +270,7 @@ Error:
  * HISTORY:                                                                                    * 
  *   08/11/1997 GH  : Created.                                                                 * 
  *=============================================================================================*/
+// ?read_pivots@HTreeClass@@ present-unmatched
 bool HTreeClass::read_pivots(ChunkLoadClass & cload,bool pre30)
 {
 	W3dPivotStruct piv;
@@ -359,6 +370,7 @@ bool HTreeClass::read_pivots(ChunkLoadClass & cload,bool pre30)
  * HISTORY:                                                                                    * 
  *   08/11/1997 GH  : Created.                                                                 * 
  *=============================================================================================*/
+// ?Free@HTreeClass@@ present-unmatched
 void HTreeClass::Free(void)
 {
 	if (Pivot != NULL) {
@@ -532,6 +544,7 @@ bool HTreeClass::Simple_Evaluate_Pivot
  * HISTORY:                                                                                    * 
  *   08/11/1997 GH  : Created.                                                                 * 
  *=============================================================================================*/
+// ?Base_Update@HTreeClass@@ present-unmatched
 void HTreeClass::Base_Update(const Matrix3D & root)
 {
 	PivotClass *pivot;
@@ -563,6 +576,7 @@ void HTreeClass::Base_Update(const Matrix3D & root)
  * HISTORY:                                                                                    * 
  *   08/11/1997 GH  : Created.                                                                 * 
  *=============================================================================================*/
+// ?Anim_Update@HTreeClass@@ present-unmatched
 void HTreeClass::Anim_Update(const Matrix3D & root,HAnimClass * motion,float frame)
 {
 	PivotClass *pivot;
@@ -612,6 +626,7 @@ void HTreeClass::Anim_Update(const Matrix3D & root,HAnimClass * motion,float fra
 								
 /*Customized version of the above which excludes interpolation and assumes HRawAnimClass
 For use by 'Generals' -MW*/
+// ?Anim_Update@HTreeClass@@ present-unmatched
 void HTreeClass::Anim_Update(const Matrix3D & root,HRawAnimClass * motion,float frame)
 {
 	PivotClass *pivot,*endpivot,*lastAnimPivot;
@@ -923,6 +938,7 @@ void HTreeClass::Combo_Update
  * HISTORY:                                                                                    *
  *   11/4/97    GTH : Created.                                                                 *
  *=============================================================================================*/
+// ?Get_Bone_Index@HTreeClass@@ present-unmatched
 int HTreeClass::Get_Bone_Index(const char * name) const
 {
 	for (int i=0; i < NumPivots; i++) {
@@ -946,6 +962,7 @@ int HTreeClass::Get_Bone_Index(const char * name) const
  * HISTORY:                                                                                    *
  *   11/4/97    GTH : Created.                                                                 *
  *=============================================================================================*/
+// ?Get_Bone_Name@HTreeClass@@ present-unmatched
 const char * HTreeClass::Get_Bone_Name(int boneidx) const
 {
 	assert(boneidx >= 0);
@@ -969,6 +986,7 @@ const char * HTreeClass::Get_Bone_Name(int boneidx) const
  * HISTORY:                                                                                    *
  *   4/12/2000  gth : Created.                                                                 *
  *=============================================================================================*/
+// ?Get_Parent_Index@HTreeClass@@ present-unmatched
 int HTreeClass::Get_Parent_Index(int boneidx) const
 {
 	assert(boneidx >= 0);
@@ -983,6 +1001,7 @@ int HTreeClass::Get_Parent_Index(int boneidx) const
 
 
 // Scale this HTree by a constant factor:
+// ?Scale@HTreeClass@@ present-unmatched
 void HTreeClass::Scale(float factor)
 {
 	if (factor == 1.0f) return;
@@ -1002,6 +1021,7 @@ void HTreeClass::Scale(float factor)
 
 
 
+// ?Capture_Bone@HTreeClass@@ present-unmatched
 void HTreeClass::Capture_Bone(int boneindex)
 {
 	assert(boneindex >= 0);
@@ -1017,6 +1037,7 @@ void HTreeClass::Capture_Bone(int boneindex)
 #endif
 }
 
+// ?Release_Bone@HTreeClass@@ present-unmatched
 void HTreeClass::Release_Bone(int boneindex)
 {
 	assert(boneindex >= 0);
@@ -1032,6 +1053,7 @@ void HTreeClass::Release_Bone(int boneindex)
 #endif
 }
 
+// ?Is_Bone_Captured@HTreeClass@@ present-unmatched
 bool HTreeClass::Is_Bone_Captured(int boneindex) const
 {
 	assert(boneindex >= 0);
@@ -1056,6 +1078,7 @@ void HTreeClass::Control_Bone(int boneindex,const Matrix3D & relative_tm,bool wo
 #endif
 }
 
+// ?Get_Bone_Control@HTreeClass@@ present-unmatched
 void HTreeClass::Get_Bone_Control(int boneindex, Matrix3D & relative_tm) const
 {
 	assert(boneindex >= 0);
@@ -1073,6 +1096,7 @@ void HTreeClass::Get_Bone_Control(int boneindex, Matrix3D & relative_tm) const
 	return ;
 }
 
+// ?Alter_Avatar_HTree@HTreeClass@@ present-unmatched
 HTreeClass * HTreeClass::Alter_Avatar_HTree( const HTreeClass *tree, Vector3 &scale)
 {
 	// This is a specific list of pivot names used in the avatar meshes that we need to special case for scaling
@@ -1130,6 +1154,7 @@ HTreeClass * HTreeClass::Alter_Avatar_HTree( const HTreeClass *tree, Vector3 &sc
 }
 
 // Morph the bones on the HTree using weights from a number of other HTrees
+// ?Create_Morphed@HTreeClass@@ present-unmatched
 HTreeClass * HTreeClass::Create_Morphed(	int num_morph_sources,
 														const float morph_weights[],
 														const HTreeClass *tree_array[] )
@@ -1164,6 +1189,7 @@ HTreeClass * HTreeClass::Create_Morphed(	int num_morph_sources,
 }
 
 // Create an HTree by Interpolating between others
+// ?Create_Interpolated@HTreeClass@@ present-unmatched
 HTreeClass * HTreeClass::Create_Interpolated(	const HTreeClass * tree_a0_b0, 
 																const HTreeClass * tree_a0_b1, 
 																const HTreeClass * tree_a1_b0, 
@@ -1181,9 +1207,11 @@ HTreeClass * HTreeClass::Create_Interpolated(	const HTreeClass * tree_a0_b0,
 	Vector3 pos_a0, pos_a1, pos;
 	for (int pi = 0; pi < new_tree->NumPivots; pi++) {
 
+// ?Lerp@Vector3@@ present-unmatched
 		Vector3::Lerp( tree_a0_b0->Pivot[pi].BaseTransform.Get_Translation(),
 							  		  tree_a0_b1->Pivot[pi].BaseTransform.Get_Translation(),
 									  lerp_b, &pos_a0 );
+// ?Lerp@Vector3@@ present-unmatched
 		Vector3::Lerp( tree_a1_b0->Pivot[pi].BaseTransform.Get_Translation(),
 									  tree_a1_b1->Pivot[pi].BaseTransform.Get_Translation(),
 									  lerp_b, &pos_a1 );
@@ -1196,6 +1224,7 @@ HTreeClass * HTreeClass::Create_Interpolated(	const HTreeClass * tree_a0_b0,
 }
 
 // Create an HTree by Interpolating between others
+// ?Create_Interpolated@HTreeClass@@ present-unmatched
 HTreeClass * HTreeClass::Create_Interpolated(const HTreeClass * tree_base, 
 														   const HTreeClass * tree_a, 
 														   const HTreeClass * tree_b, 
@@ -1217,9 +1246,11 @@ HTreeClass * HTreeClass::Create_Interpolated(const HTreeClass * tree_base,
 		Vector3 pos_a, pos_b, pos;
 		for (int pi = 0; pi < new_tree->NumPivots; pi++) {
 
+// ?Lerp@Vector3@@ present-unmatched
 			Vector3::Lerp( tree_base->Pivot[pi].BaseTransform.Get_Translation(),
 							  			 tree_a->Pivot[pi].BaseTransform.Get_Translation(),
 										 a_scale, &pos_a );
+// ?Lerp@Vector3@@ present-unmatched
 			Vector3::Lerp( tree_base->Pivot[pi].BaseTransform.Get_Translation(),
 										 tree_b->Pivot[pi].BaseTransform.Get_Translation(),
 										 b_scale, &pos_b );

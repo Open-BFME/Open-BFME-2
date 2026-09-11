@@ -6213,3 +6213,4 @@ _XMP_Randomize_Bounded,,0x0061C420,296,Code/Libraries/Source/WWVegas/WWLib/mpmat
 ??0CompositeRenderObjClass@@QAE@ABV0@@Z,,0x001A6490,208,Code/Libraries/Source/WWVegas/WW3D2/composite.cpp,matched,Zero Hour CompositeRenderObjClass copy constructor; composite.cpp is /G7
 ??0CompositeRenderObjClass@@QAE@XZ,,0x001A5D30,150,Code/Libraries/Source/WWVegas/WW3D2/composite.cpp,matched,Zero Hour CompositeRenderObjClass default constructor; composite.cpp is /G7
 ??0Animatable3DObjClass@@QAE@ABV0@@Z,,0x001A5C50,213,Code/Libraries/Source/WWVegas/WW3D2/animobj.cpp,matched,Zero Hour copy constructor with BFME's _bfme_a3o_v0 clear and without the dropped PrevFrame stores
+??0HTreeClass@@QAE@XZ,,0x00166270,44,Code/Libraries/Source/WWVegas/WW3D2/htree.cpp,matched,Zero Hour HTreeClass default constructor plus BFME's six extra members and empty name
