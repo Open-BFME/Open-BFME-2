@@ -27,6 +27,7 @@ public:
 
 struct RGBColor
 {
+    RGBColor &operator=(const RGBColor &that);
     int getAsInt() const;
     void setFromInt(int color);
 
@@ -54,6 +55,20 @@ struct RGBAColorInt
 int RGBColor::getAsInt() const
 {
     return ((int)(red * 255.0) << 16) | ((int)(green * 255.0) << 8) | ((int)(blue * 255.0) << 0);
+}
+
+// The 12-byte block copy folded with the coordinate assignments at 0x0000353A.
+RGBColor &RGBColor::operator=(const RGBColor &that)
+{
+    struct Raw
+    {
+        unsigned int red;
+        unsigned int green;
+        unsigned int blue;
+    };
+
+    *(Raw *)this = *(const Raw *)&that;
+    return *this;
 }
 
 void RGBColor::setFromInt(int color)
