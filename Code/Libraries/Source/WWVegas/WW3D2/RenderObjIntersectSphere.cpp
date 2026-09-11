@@ -26,7 +26,6 @@
 #include "rendobj.h"
 #include "intersec.h"
 
-// ?Intersect_Sphere@RenderObjClass@@UAE_NPAVIntersectionClass@@PAVIntersectionResultClass@@@Z present-unmatched
 bool RenderObjClass::Intersect_Sphere(IntersectionClass *Intersection, IntersectionResultClass *Final_Result)
 {
 	SphereClass sphere = Get_Bounding_Sphere();
