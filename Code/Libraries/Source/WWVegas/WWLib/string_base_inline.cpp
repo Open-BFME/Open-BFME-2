@@ -351,6 +351,22 @@ bool StringBase<wchar_t>::startsWithNoCase(const wchar_t *str) const
     return startsWithNoCase(str, str ? (int)wcslen(str) : 0);
 }
 
+// The single-string fold test measures with the same inlined scan loop as the
+// setters, then runs the length-bounded worker inline: memcmp selected by the
+// shorter length with a length-difference tiebreak.
+template <>
+int StringBase<char>::compareNoCase(const char *str) const
+{
+    const int strLen = str ? (int)strlen(str) : 0;
+    const int len = m_data ? m_data->length : 0;
+    const char *data = m_data ? &m_data->data[0] : "";
+    int result = _memicmp(data, str, len < strLen ? len : strLen);
+    if (result == 0) {
+        result = len - strLen;
+    }
+    return result;
+}
+
 template <typename T>
 bool StringBase<T>::endsWithNoCase(const StringBase<T> &str) const
 {
