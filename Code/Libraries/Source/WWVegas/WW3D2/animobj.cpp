@@ -145,7 +145,8 @@ Animatable3DObjClass::Animatable3DObjClass(const Animatable3DObjClass & src) :
 	CompositeRenderObjClass(src),
 	IsTreeValid(0),
 	CurMotionMode(BASE_POSE),
-	HTree(NULL)
+	HTree(NULL),
+	_bfme_a3o_v0(NULL)
 {
    // Inline struct members can't be initialized in init list for some reason...
 	ModeAnim.Motion=NULL;
@@ -157,8 +158,6 @@ Animatable3DObjClass::Animatable3DObjClass(const Animatable3DObjClass & src) :
 	ModeInterp.Motion0=NULL;
 	ModeInterp.Motion1=NULL;
 	ModeInterp.Frame0=0.0f;
-	ModeInterp.PrevFrame0=0.0f;
-	ModeInterp.PrevFrame1=0.0f;
 	ModeInterp.Frame1=0.0f;
 	ModeInterp.Percentage=0.0f;
 	ModeCombo.AnimCombo=NULL;
