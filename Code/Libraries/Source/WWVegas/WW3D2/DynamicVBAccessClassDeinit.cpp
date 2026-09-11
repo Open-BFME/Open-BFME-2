@@ -20,6 +20,7 @@ class DynamicVBAccessClass
 {
 public:
 	static void _Deinit();
+	static void bfmeRva0013A7D0();
 };
 
 extern bool bfmeDynamicVBInUse[15];
@@ -59,4 +60,26 @@ void DynamicVBAccessClass::_Deinit()
 	bfmeSortingVBInUse = (char)n;
 	bfmeSortingVBSize = (unsigned short)n;
 	bfmeSortingVBOffset = (unsigned short)n;
+}
+
+// 0x0013A7D0, 104 bytes, immediately before _Deinit: the same per-format loop
+// without the sorting half -- every native pool is released, marked free,
+// resized to 5000 and rewound, and its FVF record rebuilt from the format
+// table.  Zero Hour has no counterpart, so the name is address-derived.
+void DynamicVBAccessClass::bfmeRva0013A7D0()
+{
+	int n = 0;
+	for (int i = 0; i < 15; i++) {
+		BfmeDynamicVB *p = bfmeDynamicVBs[i];
+		if (p != (BfmeDynamicVB *)n) {
+			if (!(p->Refs += -1))
+				p->Destroy();
+			bfmeDynamicVBs[i] = (BfmeDynamicVB *)n;
+		}
+		unsigned fvf = bfmeDynamicFVFs[i];
+		bfmeDynamicVBInUse[i] = (char)n;
+		bfmeDynamicVBSizes[i] = 5000;
+		bfmeDynamicVBOffsets[i] = (unsigned short)n;
+		bfmeDynamicFVFDescs[i].Initialize(fvf, n, (bool)n, n);
+	}
 }
