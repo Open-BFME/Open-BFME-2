@@ -6393,3 +6393,4 @@ __EH_prolog,,0x00629188,31,Code/masm_dumps/EH_prolog.asm,matched,compiler SEH pr
 ?getSingleBitFromName@?$BitFlags@$0BDA@@@SAHPBD@Z,,0x000B42CA,54,Code/GameEngine/Source/Common/BitFlags304GetSingleBitFromName.cpp,matched,FRONTCRUSHED anchor; BitFlags<304>=ModelConditionFlags per BitFlags304BuildDescription.cpp
 ?_com_invoke_helper@@YAJPAUIDispatch@@JGGPAXPBGPADPAPAUIErrorInfo@@@Z,,0x00654DC0,1571,vendor/comsupp/comsupp.lib,matched,vendored=msvc71-comsupp;member=Release\invkprxy.obj
 ?_com_handle_excepinfo@@YGJAAUtagEXCEPINFO@@PAPAUIErrorInfo@@@Z,,0x00655500,248,vendor/comsupp/comsupp.lib,matched,vendored=msvc71-comsupp;member=Release\invkerr.obj
+?Release_Device_Resources@BfmeResetShaderRef@@QAEXXZ,,0x00151553,34,Code/Libraries/Source/WWVegas/WW3D2/bfme_reset_shader_ref_device.cpp,matched,FXSH resource release via vtable slot69; STDMETHODCALLTYPE explicit-this push; sibling of bfme_reset_texture_ref_device.cpp
