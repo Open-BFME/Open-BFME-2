@@ -452,10 +452,10 @@ OutwardEmissionVelocityInfo::~OutwardEmissionVelocityInfo()
 
 // A time and a value, in that order: the constructor zeroes the float with an
 // xorps store and the frame with an `and dword ptr, 0`.
-class Keyframe
+struct Keyframe
 {
-public:
     Keyframe();
+    Keyframe &operator=(const Keyframe &that);
 
     float m_value;
     unsigned int m_frame;
@@ -465,6 +465,15 @@ Keyframe::Keyframe()
 {
     m_value = 0.0f;
     m_frame = 0;
+}
+
+// Same two-field copy as the 2D-coordinate bodies, folded onto them.
+Keyframe &Keyframe::operator=(const Keyframe &that)
+{
+    m_value = that.m_value;
+    m_frame = that.m_frame;
+
+    return *this;
 }
 
 typedef EmissionVolumeInfo &(EmissionVolumeInfo::*EmissionVolumeAssign)(const EmissionVolumeInfo &);

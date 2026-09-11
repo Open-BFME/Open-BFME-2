@@ -6320,3 +6320,4 @@ _XMP_Randomize_Bounded,,0x0061C420,296,Code/Libraries/Source/WWVegas/WWLib/mpmat
 ?swap@?$StringBase@G@@QAEXAAV1@@Z,0x00035910,0x00035910,17,Code/Libraries/Source/WWVegas/WWLib/string_base.cpp,matched,BFME1 StringBase wide buffer swap transferred; BFME2 shares narrow pointer-exchange body
 ?Set@Matrix4D@@QAEAAV1@MMMMMMMMMMMMMMMM@Z,0x00005C2C,0x00005C2C,168,Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp,matched,BFME1 Matrix4D 16-float setter transferred; BFME2 sixteen stores folded with ctor
 ??1OutwardEmissionVelocityInfo@FXParticleSystem@@UAE@XZ,0x0049B47C,0x0049B47C,7,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,BFME1 outward velocity empty dtor transferred; BFME2 resets to EmissionVelocityInfo vtable
+??4Keyframe@FXParticleSystem@@QAEAAU01@ABU01@@Z,0x005CFBC2,0x005CFBC2,19,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,BFME1 Keyframe frame-and-value copy transferred; BFME2 two-field copy folded with Coord2D
