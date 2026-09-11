@@ -183,7 +183,6 @@ VertexBufferClass::WriteLockClass::~WriteLockClass()
 	VertexBuffer->Release_Ref();
 }
 
-// ??0AppendLockClass@VertexBufferClass@@QAE@PAV1@IIH@Z present-unmatched
 VertexBufferClass::AppendLockClass::AppendLockClass(VertexBufferClass *VertexBuffer_, unsigned start_index, unsigned index_range, int flags)
 	: VertexBuffer(VertexBuffer_), Vertices(0)
 {
