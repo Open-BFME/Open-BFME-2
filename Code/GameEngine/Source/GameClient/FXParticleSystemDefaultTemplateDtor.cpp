@@ -200,4 +200,20 @@ RenderObjectUpdateModuleTemplate::~RenderObjectUpdateModuleTemplate()
     *(volatile unsigned int *)this = 0x00BBB52C;
 }
 
+class __declspec(novtable) TerrainFireEmissionModuleTemplate
+{
+public:
+    virtual ~TerrainFireEmissionModuleTemplate();
+};
+
+TerrainFireEmissionModuleTemplate::~TerrainFireEmissionModuleTemplate()
+{
+    unsigned char *info = this ? (unsigned char *)this + 8 : 0;
+    *(volatile unsigned int *)info = 0x00BBB554;
+
+    unsigned char *base = this ? (unsigned char *)this + 4 : 0;
+    *(volatile unsigned int *)base = 0x00C1C780;
+    *(volatile unsigned int *)this = 0x00BBB52C;
+}
+
 }
