@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfmerendobj /DNDEBUG /MD /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/sweep
+// cl: /G7 /Ireference/shims/bfmerendobj /DNDEBUG /MD /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/sweep
 // Ported verbatim from the Generals Zero Hour reference
 // (Libraries/Source/WWVegas/WW3D2/linegrp.cpp); this unit had no counterpart under Code/.
 /*
@@ -80,6 +80,7 @@ LineGroupClass::LineGroupClass(void) :
 {
 }
 
+// ??1LineGroupClass@@ present-unmatched
 LineGroupClass::~LineGroupClass(void)
 {
 	REF_PTR_RELEASE(StartLineLoc);
@@ -195,17 +196,20 @@ int LineGroupClass::Get_Flag(FlagsType flag)
 	return (Flags >> flag) & 0x1;
 }
 
+// ?Set_Texture@LineGroupClass@@ present-unmatched
 void LineGroupClass::Set_Texture(TextureClass* texture)
 {
 	REF_PTR_SET(Texture,texture);
 }
 
+// ?Get_Texture@LineGroupClass@@ present-unmatched
 TextureClass * LineGroupClass::Get_Texture(void)
 {
 	if (Texture) Texture->Add_Ref();
 	return Texture;
 }
 
+// ?Peek_Texture@LineGroupClass@@ present-unmatched
 TextureClass * LineGroupClass::Peek_Texture(void)
 {
 	return Texture;
@@ -216,6 +220,7 @@ void LineGroupClass::Set_Shader(const ShaderClass &shader)
 	Shader = shader;
 }
 
+// ?Get_Shader@LineGroupClass@@ present-unmatched
 ShaderClass LineGroupClass::Get_Shader(void)
 {
 	return Shader;
@@ -226,11 +231,13 @@ void LineGroupClass::Set_Line_Mode(LineModeType linemode)
 	LineMode = linemode;
 }
 
+// ?Get_Line_Mode@LineGroupClass@@ present-unmatched
 LineGroupClass::LineModeType LineGroupClass::Get_Line_Mode(void)
 {
 	return LineMode;
 }
 
+// ?Render@LineGroupClass@@ present-unmatched
 void	LineGroupClass::Render(RenderInfoClass &rinfo)
 {
 	int i;
@@ -488,6 +495,7 @@ void	LineGroupClass::Render(RenderInfoClass &rinfo)
 	DX8Wrapper::Set_Transform(D3DTS_VIEW, view);
 }
 
+// ?Get_Polygon_Count@LineGroupClass@@ present-unmatched
 int LineGroupClass::Get_Polygon_Count(void)
 {
 	switch (LineMode) {
