@@ -463,7 +463,6 @@ Xfer &BfmeRva00C7B388::operator==(IRegion2D &value)
     return *this;
 }
 
-// ??8BfmeRva00C7B388@@UAEAAVXfer@@AAURealRange@@@Z present-unmatched
 Xfer &BfmeRva00C7B388::operator==(RealRange &value)
 {
     if (!m_bfme04)
