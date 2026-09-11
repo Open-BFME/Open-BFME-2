@@ -102,7 +102,6 @@ int RenderObjClass::Remove_Sub_Objects_From_Bone(const char * bname)
 	return Remove_Sub_Objects_From_Bone(Get_Bone_Index(bname));
 }
 
-// ?Remove_Sub_Objects_From_Bone@RenderObjClass@@UAEHH@Z present-unmatched
 int RenderObjClass::Remove_Sub_Objects_From_Bone(int boneindex)
 {
 	int count = Get_Num_Sub_Objects_On_Bone(boneindex);
