@@ -47,4 +47,21 @@ DefaultModuleTemplate<2>::~DefaultModuleTemplate()
     *(volatile unsigned int *)this = 0x00BBB52C;
 }
 
+template <>
+class __declspec(novtable) DefaultModuleTemplate<3>
+{
+public:
+    virtual ~DefaultModuleTemplate();
+};
+
+DefaultModuleTemplate<3>::~DefaultModuleTemplate()
+{
+    unsigned char *info = this ? (unsigned char *)this + 8 : 0;
+    *(volatile unsigned int *)info = 0x00BBB554;
+
+    unsigned char *base = this ? (unsigned char *)this + 4 : 0;
+    *(volatile unsigned int *)base = 0x00C1C780;
+    *(volatile unsigned int *)this = 0x00BBB52C;
+}
+
 }
