@@ -107,6 +107,8 @@ public:
 class OutwardEmissionVelocityInfo : public EmissionVelocityInfo
 {
 public:
+    OutwardEmissionVelocityInfo &operator=(const OutwardEmissionVelocityInfo &that);
+
     FXCoord3D m_unknown04;
     FXCoord3D m_unknown10;
 };
@@ -307,6 +309,16 @@ CylindricalEmissionVelocityModuleTemplate &CylindricalEmissionVelocityModuleTemp
     const void *sub_src = src ? (const char *)src + 8 : 0;
     ((CylindricalEmissionVelocityInfo *)((char *)this + 8))->operator=(
         *(const CylindricalEmissionVelocityInfo *)sub_src);
+    return *this;
+}
+
+OutwardEmissionVelocityModuleTemplate &OutwardEmissionVelocityModuleTemplate::operator=(
+    const OutwardEmissionVelocityModuleTemplate &that)
+{
+    const void *src = &that;
+    const void *sub_src = src ? (const char *)src + 8 : 0;
+    ((OutwardEmissionVelocityInfo *)((char *)this + 8))->operator=(
+        *(const OutwardEmissionVelocityInfo *)sub_src);
     return *this;
 }
 
