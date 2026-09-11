@@ -6313,3 +6313,4 @@ _XMP_Randomize_Bounded,,0x0061C420,296,Code/Libraries/Source/WWVegas/WWLib/mpmat
 ??4RandomAlphaKeyframe@FXParticleSystem@@QAEAAU01@ABU01@@Z,0x002E7FDA,0x002E7FDA,19,Code/Libraries/Source/WWVegas/WWMath/color.cpp,matched,BFME1 RandomAlphaKeyframe copy assignment transferred; BFME2 16-byte block copy folded at 0x002E7FDA
 ??6@YAAAVDebug@@AAV0@ABURGBColor@@@Z,0x000050BA,0x000050BA,103,Code/Libraries/Source/WWVegas/WWMath/color.cpp,matched,BFME1 RGBColor Debug streamer transferred; BFME2 folds with Coord3D streamer
 ?debugIgnoreLeaks@?$StringBase@D@@QAEXXZ,0x0069E440,0x0069E440,1,Code/Libraries/Source/WWVegas/WWLib/string_base_clear.cpp,matched,BFME1 StringBase narrow leak hook transferred; BFME2 no-op folded with DX8 assert
+?debugIgnoreLeaks@?$StringBase@G@@QAEXXZ,0x0069E440,0x0069E440,1,Code/Libraries/Source/WWVegas/WWLib/string_base_clear.cpp,matched,BFME1 StringBase wide leak hook transferred; BFME2 no-op folded with narrow hook
