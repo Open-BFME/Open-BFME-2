@@ -349,7 +349,6 @@ BfmeDynamicSortingVB::~BfmeDynamicSortingVB()
 
 // BFME releases the D3D buffer under its device mutex; the guard's unwind
 // state sits inside the one the base subobject opens.
-// ??1BfmeDynamicNativeVB@@UAE@XZ present-unmatched
 BfmeDynamicNativeVB::~BfmeDynamicNativeVB()
 {
  BFMEDX8DeviceLock guard;

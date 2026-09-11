@@ -6236,3 +6236,4 @@ _XMP_Randomize_Bounded,,0x0061C420,296,Code/Libraries/Source/WWVegas/WWLib/mpmat
 ?_M_clear@?$vector@UAnimSet@GenericObjectCreationNugget@@V?$allocator@UAnimSet@GenericObjectCreationNugget@@@_STL@@@_STL@@IAEXXZ,,0x001F0D43,30,Code/GameEngine/Source/GameLogic/Object/ObjectCreationList.cpp,matched,range _Destroy call resolves through the new pin on the folded span at 0x1F0801
 ??1BfmeDynamicVBBase@@UAE@XZ,,0x00139410,58,Code/Libraries/Source/WWVegas/WW3D2/bfmedynamicvertexbuffer.cpp,matched,ZH VertexBufferClass dtor; operator delete declared throw() so no unwind frame
 ??1BfmeDynamicSortingVB@@UAE@XZ,,0x001396D0,73,Code/Libraries/Source/WWVegas/WW3D2/bfmedynamicvertexbuffer.cpp,matched,frees the 44-byte vertex array then inlines the base dtor
+??1BfmeDynamicNativeVB@@UAE@XZ,,0x00139720,143,Code/Libraries/Source/WWVegas/WW3D2/bfmedynamicvertexbuffer.cpp,matched,releases the D3D buffer under the device-mutex guard then inlines the base dtor
