@@ -523,20 +523,9 @@ void DX8Wrapper::Do_Onetime_Device_Dependent_Shutdowns(void)
 
 // BFME2 Create_Device consumes D3D9 capabilities and adapter identifiers.
 // Its stack and zero-fill prove a 304-byte caps block and a 1100-byte adapter
-// block with four-byte packing. View the existing retail adapter storage
-// through that layout while the rest of this legacy TU is reconciled.
-#pragma pack(push,4)
-struct BFME_AdapterIdentifier9 {
- char Driver[512], Description[512], DeviceName[32];
- LARGE_INTEGER DriverVersion;
- DWORD VendorId, DeviceId, SubSysId, Revision;
- GUID DeviceIdentifier;
- DWORD WHQLLevel;
-};
-#pragma pack(pop)
-struct BFME_DeviceCaps9 { D3DCAPS8 prefix; char extension[304-sizeof(D3DCAPS8)]; };
-typedef char BFME_AdapterIdentifierSize[(sizeof(BFME_AdapterIdentifier9)==1100)?1:-1];
-typedef char BFME_DeviceCapsSize[(sizeof(BFME_DeviceCaps9)==304)?1:-1];
+// block with four-byte packing. BFME_AdapterIdentifier9 and BFME_DeviceCaps9
+// are defined in reference/shims/bfmestages/rddesc.h, because the render
+// device description (included above) holds both at those sizes too.
 // Factory method order follows Wine/SDK d3d9.h. The legacy engine pointer
 // names retain their existing symbols; every invoked slot is the D3D9 slot.
 // https://github.com/wine-mirror/wine/blob/master/include/d3d9.h
