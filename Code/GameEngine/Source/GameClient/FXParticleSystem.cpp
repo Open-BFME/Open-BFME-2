@@ -866,6 +866,13 @@ struct CategoryInfo<7>
 // any earlier instantiates CategoryInfo<7> from the primary template.
 CategoryModuleTemplate<7> g_categoryModuleTemplate7;
 
+// Its generated assignment rides here for the same reason: it assigns the
+// base, then the wind info at offset 8.
+typedef CategoryModuleTemplate<7> &(CategoryModuleTemplate<7>::*CategoryModuleTemplateAssign7)(
+    const CategoryModuleTemplate<7> &);
+
+CategoryModuleTemplateAssign7 g_categoryModuleTemplateAssign7 = &CategoryModuleTemplate<7>::operator=;
+
 CategoryModuleTemplate<7> *fxCopyWindCategoryModuleTemplate(void *storage,
     const CategoryModuleTemplate<7> &that)
 {
