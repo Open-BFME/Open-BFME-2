@@ -188,6 +188,7 @@ RGBColorKeyframe &RGBColorKeyframe::operator=(const RGBColorKeyframe &that)
 struct RandomAlphaKeyframe
 {
     RandomAlphaKeyframe();
+    RandomAlphaKeyframe &operator=(const RandomAlphaKeyframe &that);
 
     GameClientRandomVariable alpha;
     unsigned int frame;
@@ -200,6 +201,21 @@ RandomAlphaKeyframe::RandomAlphaKeyframe()
     alpha.m_high = 0.0f;
     alpha.setRange(0.0f, 0.0f, GameClientRandomVariable::UNIFORM);
     frame = 0;
+}
+
+// The 16-byte block copy folded with the integer-region assignment at 0x002E7FDA.
+RandomAlphaKeyframe &RandomAlphaKeyframe::operator=(const RandomAlphaKeyframe &that)
+{
+    struct KeyBlock
+    {
+        unsigned int value0;
+        unsigned int value1;
+        unsigned int value2;
+        unsigned int value3;
+    };
+
+    *(KeyBlock *)this = *(const KeyBlock *)&that;
+    return *this;
 }
 
 }
