@@ -428,12 +428,18 @@ class CylindricalEmissionVelocityInfo : public EmissionVelocityInfo
 {
 public:
     virtual ~CylindricalEmissionVelocityInfo();
+
+    FXCoord3D m_unknown04;
+    FXCoord3D m_unknown10;
 };
 
 class OutwardEmissionVelocityInfo : public EmissionVelocityInfo
 {
 public:
     virtual ~OutwardEmissionVelocityInfo();
+
+    FXCoord3D m_unknown04;
+    FXCoord3D m_unknown10;
 };
 
 const char *EmissionVelocityInfo::GetSnapshotName()
@@ -970,9 +976,16 @@ typedef LightningDrawModuleInfo &(LightningDrawModuleInfo::*LightningDrawAssign)
 typedef OrthoEmissionVelocityInfo &(OrthoEmissionVelocityInfo::*OrthoEmissionVelocityAssign)(
     const OrthoEmissionVelocityInfo &);
 
+typedef CylindricalEmissionVelocityInfo &(CylindricalEmissionVelocityInfo::*CylindricalEmissionVelocityAssign)(
+    const CylindricalEmissionVelocityInfo &);
+typedef OutwardEmissionVelocityInfo &(OutwardEmissionVelocityInfo::*OutwardEmissionVelocityAssign)(
+    const OutwardEmissionVelocityInfo &);
+
 DefaultPhysicsAssign g_defaultPhysicsAssign = &DefaultPhysicsModuleInfo::operator=;
 LightningDrawAssign g_lightningDrawAssign = &LightningDrawModuleInfo::operator=;
 OrthoEmissionVelocityAssign g_orthoEmissionVelocityAssign = &OrthoEmissionVelocityInfo::operator=;
+CylindricalEmissionVelocityAssign g_cylindricalEmissionVelocityAssign = &CylindricalEmissionVelocityInfo::operator=;
+OutwardEmissionVelocityAssign g_outwardEmissionVelocityAssign = &OutwardEmissionVelocityInfo::operator=;
 
 class TerrainFireEmissionInfo : public EmissionVolumeInfo
 {
