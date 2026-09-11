@@ -862,7 +862,6 @@ void HLodDefClass::SubObjectArrayClass::Reset(void)
  * HISTORY:                                                                                    *
  *   1/26/00    gth : Created.                                                                 *
  *=============================================================================================*/
-// ?Load_W3D@SubObjectArrayClass@HLodDefClass@@ present-unmatched
 bool HLodDefClass::SubObjectArrayClass::Load_W3D(ChunkLoadClass & cload)
 {
 	/*
