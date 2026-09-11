@@ -41,6 +41,7 @@ private:
 class UnicodeString
 {
 public:
+    UnicodeString();
     UnicodeString(const UnicodeString &that);
     UnicodeString(wchar_t character);
     UnicodeString(const wchar_t *text);
@@ -63,6 +64,11 @@ UnicodeString::UnicodeString(const UnicodeString &that)
 {
     ((StringBase<wchar_t> *)this)->StringBase<wchar_t>::StringBase(
         *(const StringBase<wchar_t> *)&that);
+}
+
+UnicodeString::UnicodeString()
+{
+    m_text = 0;
 }
 
 UnicodeString::UnicodeString(wchar_t character)
