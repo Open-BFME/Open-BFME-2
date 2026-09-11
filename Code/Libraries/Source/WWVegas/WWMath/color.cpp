@@ -125,6 +125,12 @@ RGBAColorReal &RGBAColorReal::operator=(const RGBAColorReal &that)
     return *this;
 }
 
+Debug &operator<<(Debug &debug, const RGBColor &color)
+{
+    debug << "(" << color.red << ", " << color.green << ", " << color.blue << ")";
+    return debug;
+}
+
 Debug &operator<<(Debug &debug, const RGBAColorReal &color)
 {
     debug << "(" << color.red << ", " << color.green << ", " << color.blue << ", " << color.alpha << ")";
