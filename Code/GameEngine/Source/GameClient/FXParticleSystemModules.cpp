@@ -450,6 +450,10 @@ typedef ConcreteModuleClass<PointEmissionVolumeModuleTag> PointEmissionVolumeMod
 PointEmissionVolumeModuleConcrete g_pointEmissionVolumeModuleConcrete;
 template class ConcreteModuleClass<PointEmissionVolumeModuleTag>;
 
+// Same empty-tag fold as the ortho tag above.
+PointEmissionVolumeModuleTag &(PointEmissionVolumeModuleTag::*g_pointEmissionVolumeModuleTagAssign)(
+    const PointEmissionVolumeModuleTag &) = &PointEmissionVolumeModuleTag::operator=;
+
 FX_WRAPPER(5, SPHERE_EMISSION_VOLUME, SphereEmissionVolumeModule,
     SphereEmissionVolumeModuleTemplate)
 FX_WRAPPER(5, BOX_EMISSION_VOLUME, BoxEmissionVolumeModule, BoxEmissionVolumeModuleTemplate)
