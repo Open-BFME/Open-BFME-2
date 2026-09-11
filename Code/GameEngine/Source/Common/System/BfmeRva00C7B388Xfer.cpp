@@ -232,7 +232,6 @@ void __cdecl BfmeRva00C7B388::Print(BfmeRva00C7B388 *self, const char *format, .
     self->m_bfme08->Write(buffer, strlen(buffer));
 }
 
-// ??8BfmeRva00C7B388@@UAEAAVXfer@@AA_N@Z present-unmatched
 Xfer &BfmeRva00C7B388::operator==(bool &value)
 {
     if (!m_bfme04)
