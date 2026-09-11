@@ -358,7 +358,6 @@ Xfer &BfmeRva00C7B388::operator==(float &value)
     return *this;
 }
 
-// ??8BfmeRva00C7B388@@UAEAAVXfer@@AAVAsciiString@@@Z present-unmatched
 Xfer &BfmeRva00C7B388::operator==(AsciiString &value)
 {
     if (!m_bfme04)
