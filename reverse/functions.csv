@@ -6246,3 +6246,4 @@ _XMP_Randomize_Bounded,,0x0061C420,296,Code/Libraries/Source/WWVegas/WWLib/mpmat
 ??0AppendLockClass@VertexBufferClass@@QAE@PAV1@IIH@Z,,0x001395B0,174,Code/Libraries/Source/WWVegas/WW3D2/VertexBufferLockClasses.cpp,matched,same unit; lock range scales by the FVF stride and sorting vertices step by 44 bytes
 ??0BfmeDynamicNativeVB@@QAE@PBVVector3@@0PBVVector2@@GI@Z,,0x0013AC90,131,Code/Libraries/Source/WWVegas/WW3D2/bfmedynamicvertexbuffer.cpp,matched,ZH DX8VertexBufferClass position/normal/uv array ctor; FVF 0x112
 ??0BfmeDynamicNativeVB@@QAE@PBVVector3@@0PBVVector4@@PBVVector2@@GI@Z,,0x0013AD20,136,Code/Libraries/Source/WWVegas/WW3D2/bfmedynamicvertexbuffer.cpp,matched,ZH array ctor with normals and diffuse; FVF 0x152
+??0BfmeDynamicNativeVB@@QAE@PBVVector3@@PBVVector4@@PBVVector2@@GI@Z,,0x0013ADB0,131,Code/Libraries/Source/WWVegas/WW3D2/bfmedynamicvertexbuffer.cpp,matched,ZH array ctor with diffuse; FVF 0x142
