@@ -21,7 +21,7 @@ are wide open.
 
 ## Roadmap
 
-* [ ] BFME 2 Source Code (8.64%)
+* [ ] BFME 2 Source Code (8.78%)
 * [ ] 60/120 FPS
 * [ ] Memory fix
 * [ ] Better crash logs
