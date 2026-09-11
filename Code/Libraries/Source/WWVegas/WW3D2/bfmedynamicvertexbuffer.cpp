@@ -13,7 +13,10 @@ void __cdecl operator delete(void *);
 // (0x0002FDA0); retail's sorting constructor calls the array form ??_U@YAPAXI@Z
 // at 0x0002FDE0, and those are two byte-verified distinct bodies here.
 void *__cdecl operator new[](unsigned);
-struct BfmeFVFDescriptor;
+// The 96-byte vertex-format records of the fifteen dynamic pools, a table at
+// 0x00DF2AA0.  Only their FVF prefix (BfmeDynamicFVFPrefix) is examined here.
+struct BfmeFVFDescriptor { unsigned char record[0x60]; };
+extern BfmeFVFDescriptor bfmeDynamicFVFDescriptors[15];
 struct BfmeDynamicFVFPrefix {
  unsigned fvf;bool additionalBasis;unsigned extensionCount,stride;
  unsigned Get_FVF() const { return fvf; }
@@ -88,6 +91,7 @@ struct BfmeDynamicVBAccess {
  unsigned type,formatIndex,declaration;
  unsigned short vertexCount,vertexOffset;
  BfmeDynamicVBBase *buffer;
+ BfmeDynamicVBAccess(unsigned type,unsigned format_index,unsigned short vertex_count,unsigned declaration);
  void AllocateNative();
  void AllocateSorting();
  unsigned Get_Type() const { return type; }
@@ -100,6 +104,14 @@ struct BfmeDynamicVBAccess {
   ~WriteLock();
  };
 };
+// Type 2 draws from the per-format native pools; anything else shares the
+// single sorting buffer.  The vertex offset is left for the allocator to set.
+BfmeDynamicVBAccess::BfmeDynamicVBAccess(unsigned type,unsigned format_index,unsigned short vertex_count,unsigned declaration)
+ : format(&bfmeDynamicFVFDescriptors[format_index]),type(type),formatIndex(format_index),declaration(declaration),vertexCount(vertex_count),buffer(0)
+{
+ if(type==2) AllocateNative();
+ else AllocateSorting();
+}
 void BfmeDynamicVBAccess::AllocateNative()
 {
  bfmeDynamicVBInUse[formatIndex]=true;
