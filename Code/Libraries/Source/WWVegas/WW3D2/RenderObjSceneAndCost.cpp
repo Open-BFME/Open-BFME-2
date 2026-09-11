@@ -89,7 +89,6 @@ int RenderObjClass::Calculate_Cost_Value_Arrays(float screen_area, float *values
 // BFME's Set_Visible at 0x0013B710 (vtable +0x18C) keeps only its second
 // argument, the scene token at +0x88 that Is_Visible (+0x188, 0x0013B6D0)
 // compares against the scene's; the on/off argument is ignored.
-// ?Set_Visible@RenderObjClass@@UAEXHH@Z present-unmatched
 void RenderObjClass::Set_Visible(int onoff, int unk)
 {
 	_bfme_unk_88 = unk;

@@ -6259,3 +6259,4 @@ _XMP_Randomize_Bounded,,0x0061C420,296,Code/Libraries/Source/WWVegas/WWLib/mpmat
 ?Remove@RenderObjClass@@UAEXXZ,,0x0013BCA0,34,Code/Libraries/Source/WWVegas/WW3D2/RenderObjSceneAndCost.cpp,matched,ZH body
 ?Get_Obj_Space_Bounding_Sphere@RenderObjClass@@UBEXAAVSphereClass@@@Z,,0x0013BCF0,37,Code/Libraries/Source/WWVegas/WW3D2/RenderObjSceneAndCost.cpp,matched,ZH body
 ?Get_Cost@RenderObjClass@@UBEMXZ,,0x0013BAA0,32,Code/Libraries/Source/WWVegas/WW3D2/RenderObjSceneAndCost.cpp,matched,ZH body; the int-to-float conversion runs in SSE
+?Set_Visible@RenderObjClass@@UAEXHH@Z,,0x0013B710,13,Code/Libraries/Source/WWVegas/WW3D2/RenderObjSceneAndCost.cpp,matched,BFME Set_Visible keeps only the scene token at +0x88
