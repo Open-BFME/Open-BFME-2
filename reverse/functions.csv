@@ -6237,3 +6237,4 @@ _XMP_Randomize_Bounded,,0x0061C420,296,Code/Libraries/Source/WWVegas/WWLib/mpmat
 ??1BfmeDynamicVBBase@@UAE@XZ,,0x00139410,58,Code/Libraries/Source/WWVegas/WW3D2/bfmedynamicvertexbuffer.cpp,matched,ZH VertexBufferClass dtor; operator delete declared throw() so no unwind frame
 ??1BfmeDynamicSortingVB@@UAE@XZ,,0x001396D0,73,Code/Libraries/Source/WWVegas/WW3D2/bfmedynamicvertexbuffer.cpp,matched,frees the 44-byte vertex array then inlines the base dtor
 ??1BfmeDynamicNativeVB@@UAE@XZ,,0x00139720,143,Code/Libraries/Source/WWVegas/WW3D2/bfmedynamicvertexbuffer.cpp,matched,releases the D3D buffer under the device-mutex guard then inlines the base dtor
+??_GBfmeDynamicVBBase@@UAEPAXI@Z,,0x0013ABC0,30,Code/Libraries/Source/WWVegas/WW3D2/bfmedynamicvertexbuffer.cpp,matched,scalar deleting dtor
