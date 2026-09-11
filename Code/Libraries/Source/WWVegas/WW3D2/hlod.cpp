@@ -25,6 +25,12 @@ void __cdecl operator delete[](void *block);
 // FIRST while it still means dllimport, and defuse it for everything after.
 // Restoring it later instead is C2375 the moment math.h re-declares atof.
 // Select the BFME2 legacy kernel32 import declarations before reference headers.
+// Retail calls strdup directly (a five-byte e8 to 0x006C4C70), not through
+// the import table, so <string.h>'s dllimport declaration is renamed out of the
+// way here and the direct spelling is declared after the includes (ini.cpp does
+// the same).
+#define strdup __bfme_strdup_dllimport
+
 #include <sweep/winbase_shim.h>
 
 #include <string.h>
@@ -171,6 +177,12 @@ class CameraClass;
 #include "winbase_shim.h"
 #include "sphere.h"
 #include "boxrobj.h"
+
+// Every header that declares strdup has now had its declaration renamed aside;
+// this is the spelling the unit calls: HLodDefClass::Initialize reaches the CRT
+// body at 0x006C4C70 with a direct call, as INIClass::Put_String does.
+#undef strdup
+extern "C" char * __cdecl strdup(const char *);
 
 
 /*
