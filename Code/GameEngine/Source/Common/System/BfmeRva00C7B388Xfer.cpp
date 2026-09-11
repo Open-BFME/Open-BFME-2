@@ -396,7 +396,6 @@ Xfer &BfmeRva00C7B388::operator==(Coord3DBase &value)
     return *this;
 }
 
-// ??8BfmeRva00C7B388@@UAEAAVXfer@@AAUICoord3D@@@Z present-unmatched
 Xfer &BfmeRva00C7B388::operator==(ICoord3D &value)
 {
     if (!m_bfme04)
