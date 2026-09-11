@@ -6345,3 +6345,4 @@ _XMP_Randomize_Bounded,,0x0061C420,296,Code/Libraries/Source/WWVegas/WWLib/mpmat
 ?startsWith@?$StringBase@G@@QBE_NABV1@@Z,0x000361F0,0x000361F0,88,Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp,matched,BFME1 wide prefix test over string transferred; BFME2 forwards to length worker
 ?startsWithNoCase@?$StringBase@G@@QBE_NPBGH@Z,0x00035B80,0x00035B80,69,Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp,matched,BFME1 wide prefix fold test transferred; BFME2 trait comparison over forward offset
 ?startsWithNoCase@?$StringBase@G@@QBE_NABV1@@Z,0x000362B0,0x000362B0,88,Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp,matched,BFME1 wide prefix fold test over string transferred; BFME2 forwards to length worker
+?endsWithNoCase@?$StringBase@G@@QBE_NPBGH@Z,0x00035C30,0x00035C30,84,Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp,matched,BFME1 wide suffix fold worker transferred; BFME2 trait comparison over backward offset
