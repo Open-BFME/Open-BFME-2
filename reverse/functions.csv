@@ -6219,3 +6219,4 @@ _XMP_Randomize_Bounded,,0x0061C420,296,Code/Libraries/Source/WWVegas/WWLib/mpmat
 ?Get_Base_Model_Name@CompositeRenderObjClass@@UBEPBDXZ,,0x001A6120,21,Code/Libraries/Source/WWVegas/WW3D2/composite.cpp,matched,Zero Hour CompositeRenderObjClass::Get_Base_Model_Name; placed by masked search after composite.cpp took /G7
 ??0HTreeClass@@QAE@ABV0@@Z,,0x001662A0,285,Code/Libraries/Source/WWVegas/WW3D2/HTreeClassCopyConstructor.cpp,matched,BFME 2 HTreeClass copy constructor with 0x58-byte pivots and a destructible +0x1C member; own /G7 unit
 ??0PivotClass@@QAE@XZ,,0x00197830,103,Code/Libraries/Source/WWVegas/WW3D2/HTreePivotClass.cpp,matched,BFME 2 PivotClass constructor; 0x58-byte layout read from it and from operator= at 0x00197950
+??4PivotClass@@QAEAAU0@ABU0@@Z,,0x00197950,155,Code/Libraries/Source/WWVegas/WW3D2/HTreePivotClass.cpp,matched,BFME 2 PivotClass member-wise assignment with a self-check
