@@ -29,6 +29,8 @@ public:
 
 struct ICoord2DBase
 {
+    ICoord2DBase &operator=(const ICoord2DBase &that);
+
     int x;
     int y;
 };
@@ -38,7 +40,6 @@ struct ICoord2D : public ICoord2DBase
     ICoord2D();
     ICoord2D(int x, int y);
     ICoord2D(const ICoord2DBase &that);
-
     ICoord2D &operator=(const ICoord2D &that);
     ICoord2D &operator=(const ICoord2DBase &that);
 
@@ -64,6 +65,15 @@ struct ICoord3D
     int y;
     int z;
 };
+
+// Same two loads and two stores as the ICoord2D bodies below, folded onto them.
+ICoord2DBase &ICoord2DBase::operator=(const ICoord2DBase &that)
+{
+    x = that.x;
+    y = that.y;
+
+    return *this;
+}
 
 // The worker both integer IRegion expandBy members call, one axis at a time, as
 // (&low, value, &high). It cannot share a translation unit with them: with the
