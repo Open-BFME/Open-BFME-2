@@ -70,7 +70,9 @@ bool bfmeRva000387C0();
 // The device mutex and its recursion bookkeeping.
 extern void *bfmeDX8DeviceMutex;				// 0x00DEC598
 extern unsigned char bfmeDX8DeviceSection[24];		// 0x00DEC540
-extern unsigned long bfmeDX8DeviceOwner;			// 0x00DEDA88
+// Volatile like the count: the try-lock stores the owner before it reads the
+// count, where a plain store is scheduled after the volatile read.
+extern volatile unsigned long bfmeDX8DeviceOwner;		// 0x00DEDA88
 // Volatile: retail loads, adds and stores the count as three instructions
 // with the next push scheduled between them, where a plain int is a single
 // add to memory.
@@ -89,4 +91,28 @@ void BFME_DX8_Thread_Lock(void)
 	bfmeDX8DeviceOwner = GetCurrentThreadId();
 	++bfmeDX8DeviceRecursion;
 	LeaveCriticalSection(bfmeDX8DeviceSection);
+}
+
+// 0x0011F5B0: the non-blocking twin -- wait up to the caller's timeout and
+// report whether the mutex was taken, with the same owner and recursion
+// bookkeeping as the lock.  No Zero Hour counterpart; address-derived name.
+bool bfmeRva0011F5B0(unsigned long milliseconds)
+{
+	if (WaitForSingleObject(bfmeDX8DeviceMutex, milliseconds) == BFME_WAIT_TIMEOUT)
+		return false;
+	EnterCriticalSection(bfmeDX8DeviceSection);
+	bfmeDX8DeviceOwner = GetCurrentThreadId();
+	++bfmeDX8DeviceRecursion;
+	LeaveCriticalSection(bfmeDX8DeviceSection);
+	return true;
+}
+
+// 0x0011F600: whether the calling thread holds the device mutex.  The count
+// compares unsigned (jbe).  Address-derived name.
+// ?bfmeRva0011F600@@YAHXZ present-unmatched
+int bfmeRva0011F600()
+{
+	if (GetCurrentThreadId() == bfmeDX8DeviceOwner && (unsigned)bfmeDX8DeviceRecursion > 0)
+		return 1;
+	return 0;
 }
