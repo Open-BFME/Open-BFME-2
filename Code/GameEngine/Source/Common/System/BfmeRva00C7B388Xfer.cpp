@@ -415,7 +415,6 @@ Xfer &BfmeRva00C7B388::operator==(Region3D &value)
     return *this;
 }
 
-// ??8BfmeRva00C7B388@@UAEAAVXfer@@AAUIRegion3D@@@Z present-unmatched
 Xfer &BfmeRva00C7B388::operator==(IRegion3D &value)
 {
     if (!m_bfme04)
