@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /GX
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /G7 /GX
 // Adapted from Open-BFME-1 FrameDataManager.cpp (EA GPL-3.0-or-later).
 // BFME2 callers and retail bodies verify the ring global, 20-byte stride,
 // count accessors and quit-state offsets independently of BFME1.
@@ -9,6 +9,7 @@ public:
 class FrameData {
 public:
  __declspec(noinline) unsigned int getFrameCommandCount();
+ unsigned int getCommandCount();
  void setFrameCommandCount(unsigned int count);
  __declspec(noinline) void zeroFrame();
  __declspec(noinline) void destroyGameMessages();
@@ -40,6 +41,8 @@ void FrameData::setFrameCommandCount(unsigned int count) {
 class FrameDataManager {
 public:
  void destroyGameMessages();
+ unsigned int getCommandCount(unsigned int frame);
+ unsigned int getFrameCommandCount(unsigned int frame);
  void setQuitFrame(unsigned int frame);
  bool getIsQuitting();
 private:
@@ -57,6 +60,17 @@ void FrameDataManager::destroyGameMessages() {
   ++frame;
   offset += 0x14;
  }
+}
+// Both accessors fold the logic frame onto the ring, whose length BFME
+// keeps in the global at 0x00DD2DB8 rather than a constant, and ask that slot.
+unsigned int FrameDataManager::getCommandCount(unsigned int frame) {
+ unsigned int frameindex = frame % FRAME_DATA_LENGTH;
+ return m_frameData[frameindex].getCommandCount();
+}
+// ?getFrameCommandCount@FrameDataManager@@ present-unmatched
+unsigned int FrameDataManager::getFrameCommandCount(unsigned int frame) {
+ unsigned int frameindex = frame % FRAME_DATA_LENGTH;
+ return m_frameData[frameindex].getFrameCommandCount();
 }
 void FrameDataManager::setQuitFrame(unsigned int frame) {
  m_isQuitting = true;
