@@ -13,6 +13,8 @@ public:
 
     GameClientRandomVariable();
 
+    GameClientRandomVariable &operator=(const GameClientRandomVariable &that);
+
     void setRange(float low, float high, DistributionType type = UNIFORM);
     float getValue() const;
     float getMinimumValue() const;
@@ -46,6 +48,21 @@ GameClientRandomVariable::GameClientRandomVariable()
     m_type = CONSTANT;
     m_low = 0.0f;
     m_high = 0.0f;
+}
+
+// 12-byte block copy; retail emits three movsd, which is what a struct
+// assignment produces here rather than three member stores.
+GameClientRandomVariable &GameClientRandomVariable::operator=(const GameClientRandomVariable &that)
+{
+    struct Raw
+    {
+        DistributionType type;
+        float low;
+        float high;
+    };
+
+    *(Raw *)this = *(const Raw *)&that;
+    return *this;
 }
 
 // The distribution type is stored last: retail loads it into eax before either
