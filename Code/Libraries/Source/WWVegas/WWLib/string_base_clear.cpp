@@ -17,6 +17,7 @@ public:
 private:
     StringBase();
     void releaseBuffer();
+    void validate() const;
     ~StringBase();
 
     struct Header
@@ -48,6 +49,11 @@ void StringBase<T>::debugIgnoreLeaks()
 }
 
 template <typename T>
+void StringBase<T>::validate() const
+{
+}
+
+template <typename T>
 StringBase<T>::~StringBase()
 {
     releaseBuffer();
@@ -57,6 +63,8 @@ template void StringBase<char>::clear();
 template void StringBase<wchar_t>::clear();
 template void StringBase<char>::debugIgnoreLeaks();
 template void StringBase<wchar_t>::debugIgnoreLeaks();
+template void StringBase<char>::validate() const;
+template void StringBase<wchar_t>::validate() const;
 template StringBase<char>::StringBase();
 template StringBase<wchar_t>::StringBase();
 template StringBase<char>::~StringBase();
