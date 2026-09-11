@@ -6384,3 +6384,4 @@ _XMP_Randomize_Bounded,,0x0061C420,296,Code/Libraries/Source/WWVegas/WWLib/mpmat
 ??8BfmeRva00C7B388@@UAEAAVXfer@@AAVAsciiString@@@Z,,0x0060DD97,64,Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp,matched,text dump Xfer overload for AsciiString
 ??8BfmeRva00C7B388@@UAEAAVXfer@@AAVUnicodeString@@@Z,,0x0060DDD7,64,Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp,matched,text dump Xfer overload for UnicodeString
 ?dup_00626ef0@@YAXXZ,,0x00626EF0,96,Code/GameEngine/Source/GameLogic/Object/Behavior/FlightDeckInfoVectorInsertOverflow.cpp,matched,gen-alias;object-symbol=??$__copy@PAUFlightDeckInfo@FlightDeckBehavior@@PAU12@H@_STL@@YAPAUFlightDeckInfo@FlightDeckBehavior@@PAU12@00ABUrandom_access_iterator_tag@0@PAH@Z;C++ alias
+?bfmeTwoBZB@@YAXPAX@Z,,0x001B63A0,28,Code/GameEngine/Source/Common/BfmeTwoBZB.cpp,matched,reclaims 0.93-partial candidate; default -O2 flags match; named by BfmeConv557.cpp and BfmeReleaseSetBZB.cpp call sites
