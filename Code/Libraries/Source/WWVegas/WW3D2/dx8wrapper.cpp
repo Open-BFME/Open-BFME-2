@@ -4213,7 +4213,6 @@ unsigned int DX8Wrapper::Get_Free_Texture_RAM()
 // Gamma - controls the curvature of the middle of the curve
 // Bright - controls the minimum value of the curve
 // Contrast - controls the difference between the maximum and the minimum of the curve
-// ?Set_Gamma@DX8Wrapper@@ present-unmatched
 void DX8Wrapper::Set_Gamma(float gamma,float bright,float contrast,bool calibrate,bool uselimit)
 {
 	gamma=Bound(gamma,0.6f,6.0f);
@@ -4250,8 +4249,10 @@ void DX8Wrapper::Set_Gamma(float gamma,float bright,float contrast,bool calibrat
 		ramp.blue[i]=(WORD) (out*65535);
 	}
 
-	if (Get_Current_Caps()->Support_Gamma())	{
-		DX8Wrapper::_Get_D3D_Device8()->SetGammaRamp(flag,&ramp);
+	// BFME reads the flag from the D3D9-sized caps (+0x13A) and sets the ramp
+	// through D3D9's three-argument SetGammaRamp (swap chain 0, vtable +0x54).
+	if (reinterpret_cast<const BfmeEnumerationCaps *>(Get_Current_Caps())->supportGamma)	{
+		reinterpret_cast<BfmeApplyDevice9 *>(DX8Wrapper::_Get_D3D_Device8())->SetGammaRamp(0,flag,&ramp);
 	} else {
 		HWND hwnd = GetDesktopWindow();
 		HDC hdc = GetDC(hwnd);
