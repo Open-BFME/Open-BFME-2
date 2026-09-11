@@ -12,6 +12,7 @@ public:
     void clear();
 
 private:
+    StringBase();
     void releaseBuffer();
     ~StringBase();
 
@@ -27,6 +28,12 @@ private:
 };
 
 template <typename T>
+StringBase<T>::StringBase()
+{
+    m_data = 0;
+}
+
+template <typename T>
 void StringBase<T>::clear()
 {
     releaseBuffer();
@@ -40,5 +47,7 @@ StringBase<T>::~StringBase()
 
 template void StringBase<char>::clear();
 template void StringBase<wchar_t>::clear();
+template StringBase<char>::StringBase();
+template StringBase<wchar_t>::StringBase();
 template StringBase<char>::~StringBase();
 template StringBase<wchar_t>::~StringBase();
