@@ -6373,3 +6373,4 @@ _XMP_Randomize_Bounded,,0x0061C420,296,Code/Libraries/Source/WWVegas/WWLib/mpmat
 ??8BfmeRva00C7B388@@UAEAAVXfer@@AAUICoord3D@@@Z,,0x0060DA49,55,Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp,matched,text dump Xfer overload for ICoord3D
 ??8BfmeRva00C7B388@@UAEAAVXfer@@AAURegion3D@@@Z,,0x0060DA80,90,Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp,matched,text dump Xfer overload for Region3D
 ??8BfmeRva00C7B388@@UAEAAVXfer@@AAUIRegion3D@@@Z,,0x0060DADA,64,Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp,matched,text dump Xfer overload for IRegion3D
+??8BfmeRva00C7B388@@UAEAAVXfer@@AAVCoord2D@@@Z,,0x0060DB1A,62,Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp,matched,text dump Xfer overload for Coord2D
