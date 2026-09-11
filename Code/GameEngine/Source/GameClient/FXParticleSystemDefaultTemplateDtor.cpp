@@ -216,4 +216,20 @@ TerrainFireEmissionModuleTemplate::~TerrainFireEmissionModuleTemplate()
     *(volatile unsigned int *)this = 0x00BBB52C;
 }
 
+class __declspec(novtable) OutwardEmissionVelocityModuleTemplate
+{
+public:
+    virtual ~OutwardEmissionVelocityModuleTemplate();
+};
+
+OutwardEmissionVelocityModuleTemplate::~OutwardEmissionVelocityModuleTemplate()
+{
+    unsigned char *info = this ? (unsigned char *)this + 8 : 0;
+    *(volatile unsigned int *)info = 0x00BBB554;
+
+    unsigned char *base = this ? (unsigned char *)this + 4 : 0;
+    *(volatile unsigned int *)base = 0x00C1C780;
+    *(volatile unsigned int *)this = 0x00BBB52C;
+}
+
 }
