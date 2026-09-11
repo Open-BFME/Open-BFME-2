@@ -6304,3 +6304,4 @@ _XMP_Randomize_Bounded,,0x0061C420,296,Code/Libraries/Source/WWVegas/WWLib/mpmat
 ??0?$StringBase@G@@AAE@XZ,0x00326BE6,0x00326BE6,6,Code/Libraries/Source/WWVegas/WWLib/string_base_clear.cpp,matched,BFME1 StringBase wide default ctor transferred; BFME2 nulls m_data folded with narrow ctor
 ??4Coord3DBase@@QAEAAU0@ABU0@@Z,0x0000353A,0x0000353A,18,Code/Libraries/Source/WWVegas/WWMath/coord3d.cpp,matched,BFME1 Coord3DBase copy assignment transferred; BFME2 12-byte block copy folded at 0x0000353A
 ??4RGBColor@@QAEAAU0@ABU0@@Z,0x0000353A,0x0000353A,18,Code/Libraries/Source/WWVegas/WWMath/color.cpp,matched,BFME1 RGBColor copy assignment transferred; BFME2 12-byte block copy folded at 0x0000353A
+??4Coord2DBase@@QAEAAU0@ABU0@@Z,0x005CFBC2,0x005CFBC2,19,Code/Libraries/Source/WWVegas/WWMath/coord2d.cpp,matched,BFME1 Coord2DBase copy assignment transferred; BFME2 two-field copy folded with Coord2D bodies

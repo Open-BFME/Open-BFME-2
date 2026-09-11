@@ -32,6 +32,8 @@ public:
 // Coord3DBase and Coord2D itself, because all three start with the same pair.
 struct Coord2DBase
 {
+    Coord2DBase &operator=(const Coord2DBase &that);
+
     float x;
     float y;
 };
@@ -43,9 +45,17 @@ struct Coord3DBase
     float z;
 };
 
-class Coord2D : public Coord2DBase
+// Same two loads and two stores as the Coord2D bodies below, folded onto them.
+Coord2DBase &Coord2DBase::operator=(const Coord2DBase &that)
 {
-public:
+    x = that.x;
+    y = that.y;
+
+    return *this;
+}
+
+class Coord2D : public Coord2DBase
+{public:
     Coord2D();
     ~Coord2D();
 
