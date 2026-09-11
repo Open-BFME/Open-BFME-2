@@ -13,6 +13,7 @@ public:
 class Matrix4D
 {
 public:
+    Matrix4D();
     Matrix4D(bool identity);
     Matrix4D(const Coord3D &translation);
     Matrix4D(const Matrix4D &that);
@@ -102,6 +103,10 @@ bool Matrix4D::IsExactlyEqualTo(const Matrix4D &that)
     }
 
     return true;
+}
+
+Matrix4D::Matrix4D()
+{
 }
 
 Matrix4D::Matrix4D(bool identity)
