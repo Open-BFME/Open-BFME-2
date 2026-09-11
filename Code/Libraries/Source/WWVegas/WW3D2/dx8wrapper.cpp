@@ -1553,7 +1553,6 @@ int DX8Wrapper::Get_Render_Device(void)
 	return CurRenderDevice;
 }
 
-// ?Get_Render_Device_Desc@DX8Wrapper@@ present-unmatched
 const RenderDeviceDescClass & DX8Wrapper::Get_Render_Device_Desc(int deviceidx)
 {
 	WWASSERT(IsInitted);
