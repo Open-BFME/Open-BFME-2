@@ -197,6 +197,25 @@ bool StringBase<wchar_t>::endsWith(const StringBase<wchar_t> &str) const
     return endsWith(str.m_data ? &str.m_data->data[0] : L"", str.m_data ? str.m_data->length : 0);
 }
 
+// The wide prefix twin of the suffix worker above: same empty check, same
+// length guard, same uninitialized trait - but the offset runs forward from
+// the data start, so the length is only read once.
+template <>
+bool StringBase<wchar_t>::startsWith(const wchar_t *str, int len) const
+{
+    if (*str == 0) {
+        return true;
+    }
+
+    if ((m_data ? m_data->length : 0) < len) {
+        return false;
+    }
+
+    WideCharCompare tag;
+
+    return tag.compare(&m_data->data[0], str, len) == 0;
+}
+
 // Both of these take the argument's length with an INLINED strlen - a scan loop
 // rather than a call - which is /Oi again and puts them in this unit rather than
 // beside the (const T *) prefix tests, where the strlen stays a call.
