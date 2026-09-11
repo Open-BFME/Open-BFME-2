@@ -6226,3 +6226,4 @@ _XMP_Randomize_Bounded,,0x0061C420,296,Code/Libraries/Source/WWVegas/WWLib/mpmat
 ??1WriteLockClass@DynamicIBAccessClass@@QAE@XZ,,0x00138D80,120,Code/Libraries/Source/WWVegas/WW3D2/DynamicIBAccessWriteLock.cpp,matched,standalone unit; unlock arm is a switch like the ctor
 ??0BfmeDynamicVBBase@@QAE@IIGI@Z,,0x00139350,187,Code/Libraries/Source/WWVegas/WW3D2/bfmedynamicvertexbuffer.cpp,matched,ZH VertexBufferClass ctor; statistics globals static so one vertex-count load feeds both totals
 ?BFME_DX8_Thread_Lock@@YAXXZ,,0x0011F520,138,Code/Libraries/Source/WWVegas/WW3D2/BfmeDX8ThreadLock.cpp,matched,standalone unit; hand-declared imports so GetCurrentThreadId reaches its thunk; volatile recursion count
+?bfmeRva000387C0@@YA_NXZ,,0x000387C0,12,Code/Libraries/Source/debug/BfmeDebugFlag9F57.cpp,matched,address-derived placeholder; returns the Debug singleton flag at +0x9F57; own unit so the lock keeps its call
