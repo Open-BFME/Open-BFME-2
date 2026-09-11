@@ -647,6 +647,12 @@ typedef DefaultConcrete6 &(DefaultConcrete6::*DefaultConcrete6Assign)(const Defa
 
 DefaultConcrete6Assign g_defaultConcrete6Assign = &DefaultConcrete6::operator=;
 
+// The underlying template's own generated copy, the same empty five bytes.
+typedef DefaultModuleTemplate<6> &(DefaultModuleTemplate<6>::*DefaultModuleTemplate6Assign)(
+    const DefaultModuleTemplate<6> &);
+
+DefaultModuleTemplate6Assign g_defaultModuleTemplate6Assign = &DefaultModuleTemplate<6>::operator=;
+
 typedef RenderObjectUpdateModuleNamedConcrete &(RenderObjectUpdateModuleNamedConcrete::*RenderObjectUpdateModuleNamedConcreteAssign)(const RenderObjectUpdateModuleNamedConcrete &);
 
 RenderObjectUpdateModuleNamedConcreteAssign g_renderObjectUpdateModuleNamedConcreteAssign = &RenderObjectUpdateModuleNamedConcrete::operator=;
