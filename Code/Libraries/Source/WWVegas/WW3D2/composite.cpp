@@ -569,7 +569,6 @@ void CompositeRenderObjClass::Set_User_Data(void *value, bool recursive)
 	}
 }
 
-// ?Get_Base_Model_Name@CompositeRenderObjClass@@ present-unmatched
 const char * CompositeRenderObjClass::Get_Base_Model_Name (void) const
 {
 	if (BaseModelName.Is_Empty()) {

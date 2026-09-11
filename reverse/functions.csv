@@ -6216,3 +6216,4 @@ _XMP_Randomize_Bounded,,0x0061C420,296,Code/Libraries/Source/WWVegas/WWLib/mpmat
 ??0HTreeClass@@QAE@XZ,,0x00166270,44,Code/Libraries/Source/WWVegas/WW3D2/htree.cpp,matched,Zero Hour HTreeClass default constructor plus BFME's six extra members and empty name
 ??0Animatable3DObjClass@@QAE@PBD@Z,,0x001A4900,413,Code/Libraries/Source/WWVegas/WW3D2/animobj.cpp,matched,Zero Hour name constructor with BFME's tree and _bfme_a3o_v0 clears and the free Get_HTree helper
 ?Get_Polygon_Count@LineGroupClass@@QAEHXZ,,0x001B3720,34,Code/Libraries/Source/WWVegas/WW3D2/linegrp.cpp,matched,Zero Hour LineGroupClass::Get_Polygon_Count; placed by masked search after linegrp.cpp took /G7
+?Get_Base_Model_Name@CompositeRenderObjClass@@UBEPBDXZ,,0x001A6120,21,Code/Libraries/Source/WWVegas/WW3D2/composite.cpp,matched,Zero Hour CompositeRenderObjClass::Get_Base_Model_Name; placed by masked search after composite.cpp took /G7
