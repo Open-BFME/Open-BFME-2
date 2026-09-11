@@ -6389,3 +6389,4 @@ _XMP_Randomize_Bounded,,0x0061C420,296,Code/Libraries/Source/WWVegas/WWLib/mpmat
 ?findGameMessageMetaType@MetaMap@@IAE?AW4Type@GameMessage@@PBD@Z,,0x001DB3FE,52,Code/GameEngine/Source/GameClient/MessageStream/MetaMapFindGameMessageMetaType.cpp,matched,SAVE_VIEW2 anchor; ZH MetaEvent.cpp; BFME1 transfer
 __EH_prolog,,0x00629188,31,Code/masm_dumps/EH_prolog.asm,matched,compiler SEH prologue helper;pure MASM codegen blocker per anti-lift policy
 ?GetLastReplayDisplayName@@YA?AVUnicodeString@@XZ,,0x0037BA62,53,Code/GameEngine/Source/Common/System/RecorderGetLastReplayDisplayName.cpp,matched,GUI:LastReplay anchor; TheGameText fetch slot 0x3C per VersionUnicode.cpp
+?checkForMessage@CopyProtect@@SAXIJ@Z,,0x00232CE7,37,Code/GameEngine/Source/Common/System/CopyProtectCheckForMessage.cpp,matched,Zero Hour CopyProtection.cpp release build;DEBUG_LOG and dead NULL check compiled away;extern C needed for stdcall import decoration
