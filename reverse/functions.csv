@@ -6291,3 +6291,4 @@ _XMP_Randomize_Bounded,,0x0061C420,296,Code/Libraries/Source/WWVegas/WWLib/mpmat
 ??8BfmeRva00C7B388@@UAEAAVXfer@@AA_J@Z,,0x0060D8BF,56,Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp,matched,text-dump Xfer __int64 overload
 ??8BfmeRva00C7B388@@UAEAAVXfer@@AAM@Z,,0x0060D992,61,Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp,matched,text-dump Xfer float overload
 ?_M_insert_overflow@?$vector@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@IAEXPAUBfmeE8@@ABU3@ABU__false_type@2@I_N@Z,,0x00057C80,184,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_e8_allocate_copy.cpp,matched,gen-alias;object-symbol=?_M_insert_overflow@?$vector@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@IAEXPAUBfmeE8@@ABU3@ABU__false_type@2@I_N@Z;C++ alias
+??_G?$VectorClass@VRenderDeviceDescClass@@@@UAEPAXI@Z,,0x00125D10,96,Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp,matched,gen-alias;object-symbol=??_G?$VectorClass@VRenderDeviceDescClass@@@@UAEPAXI@Z;C++ alias
