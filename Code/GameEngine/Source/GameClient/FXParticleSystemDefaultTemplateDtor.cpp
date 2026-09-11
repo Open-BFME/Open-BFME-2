@@ -98,4 +98,23 @@ DefaultModuleTemplate<6>::~DefaultModuleTemplate()
     *(volatile unsigned int *)this = 0x00BBB52C;
 }
 
+// Category 7 delegates: its template destructor is a bare tail call into the
+// category template destructor, the five bytes retail folds with the concrete
+// wrappers rather than the forty-one of its siblings.
+template <int CATEGORY>
+class CategoryModuleTemplate
+{
+public:
+    virtual ~CategoryModuleTemplate();
+};
+
+template <>
+class DefaultModuleTemplate<7> : public CategoryModuleTemplate<7>
+{
+};
+
+// A file-scope instance forces the implicit destructor out; it is what the
+// ledger compares.
+DefaultModuleTemplate<7> g_defaultModuleTemplate7;
+
 }
