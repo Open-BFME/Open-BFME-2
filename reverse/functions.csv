@@ -6317,3 +6317,4 @@ _XMP_Randomize_Bounded,,0x0061C420,296,Code/Libraries/Source/WWVegas/WWLib/mpmat
 ?validate@?$StringBase@D@@ABEXXZ,0x000B3FD0,0x000B3FD0,1,Code/Libraries/Source/WWVegas/WWLib/string_base_clear.cpp,matched,BFME1 StringBase narrow validate transferred; BFME2 empty hook folded at 0x000B3FD0
 ?validate@?$StringBase@G@@ABEXXZ,0x000B3FD0,0x000B3FD0,1,Code/Libraries/Source/WWVegas/WWLib/string_base_clear.cpp,matched,BFME1 StringBase wide validate transferred; BFME2 empty hook folded with narrow
 ?getLength@?$StringBase@G@@QBEHXZ,0x00005808,0x00005808,14,Code/Libraries/Source/WWVegas/WWLib/string_base.cpp,matched,BFME1 StringBase wide length accessor transferred; BFME2 shares narrow header-length body
+?swap@?$StringBase@G@@QAEXAAV1@@Z,0x00035910,0x00035910,17,Code/Libraries/Source/WWVegas/WWLib/string_base.cpp,matched,BFME1 StringBase wide buffer swap transferred; BFME2 shares narrow pointer-exchange body
