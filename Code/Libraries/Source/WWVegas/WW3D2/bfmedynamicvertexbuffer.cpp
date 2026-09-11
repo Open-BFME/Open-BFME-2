@@ -8,7 +8,10 @@
 typedef unsigned long ULONG;
 typedef void *HANDLE;
 void *__cdecl operator new(unsigned);
-void __cdecl operator delete(void *);
+// throw() as <new> declares them: otherwise every buffer destructor that
+// frees something grows an unwind frame for its base, which retail's have not.
+void __cdecl operator delete(void *) throw();
+void __cdecl operator delete[](void *) throw();
 // Without this declaration MSVC routes `new T[n]` to the SCALAR ??2@YAPAXI@Z
 // (0x0002FDA0); retail's sorting constructor calls the array form ??_U@YAPAXI@Z
 // at 0x0002FDE0, and those are two byte-verified distinct bodies here.
@@ -37,8 +40,9 @@ public:
  BfmeDynamicVBRefCount():references(1) {}
  virtual void DeleteThis();
  // RefCountClass's destructor: the base constructor's unwind state 0 is this
- // subobject, finished before the vtable store.
- virtual ~BfmeDynamicVBRefCount();
+ // subobject, finished before the vtable store, and every buffer destructor
+ // ends by restoring this class's vtable (0x00BC650C).
+ virtual ~BfmeDynamicVBRefCount() {}
  int references;
  void AddRef() { ++references; }
  void ReleaseRef() { --references; if(references==0) DeleteThis(); }
@@ -68,6 +72,7 @@ class BfmeDynamicNativeVB:public BfmeDynamicVBBase {
 public:
  void *buffer;
  BfmeDynamicNativeVB(unsigned,unsigned short,unsigned,unsigned);
+ virtual ~BfmeDynamicNativeVB();
  void Create(unsigned);
  BfmeDynamicVertexBuffer9 *Get_DX8_Vertex_Buffer() const { return reinterpret_cast<BfmeDynamicVertexBuffer9 *>(buffer); }
 };
@@ -75,6 +80,7 @@ class BfmeDynamicSortingVB:public BfmeDynamicVBBase {
 public:
  void *buffer;
  BfmeDynamicSortingVB(unsigned short);
+ virtual ~BfmeDynamicSortingVB();
 };
 typedef char BfmeDynamicVBBaseSize[(sizeof(BfmeDynamicVBBase)==28)?1:-1];
 typedef char BfmeDynamicNativeVBSize[(sizeof(BfmeDynamicNativeVB)==32)?1:-1];
@@ -325,6 +331,31 @@ struct BfmeDynamicVertexBuffer9 {
  virtual HRESULT __stdcall Unlock()=0;
  virtual HRESULT __stdcall GetDesc(D3DVERTEXBUFFER_DESC*)=0;
 };
+
+// Zero Hour's VertexBufferClass destructor: the statistics come back out and
+// the FVF record is freed.  Both derived destructors below inline it.
+BfmeDynamicVBBase::~BfmeDynamicVBBase()
+{
+ _VertexBufferCount--;
+ _VertexBufferTotalVertices-=vertexCount;
+ _VertexBufferTotalSize-=vertexCount*FVF_Info().Get_FVF_Size();
+ delete format;
+}
+
+// ??1BfmeDynamicSortingVB@@UAE@XZ present-unmatched
+BfmeDynamicSortingVB::~BfmeDynamicSortingVB()
+{
+ delete[] static_cast<BfmeSortingVertex *>(buffer);
+}
+
+// BFME releases the D3D buffer under its device mutex; the guard's unwind
+// state sits inside the one the base subobject opens.
+// ??1BfmeDynamicNativeVB@@UAE@XZ present-unmatched
+BfmeDynamicNativeVB::~BfmeDynamicNativeVB()
+{
+ BFMEDX8DeviceLock guard;
+ Get_DX8_Vertex_Buffer()->Release();
+}
 extern void DX8_Assert();
 BfmeDynamicVBAccess::WriteLock::WriteLock(BfmeDynamicVBAccess *access):owner(access),data(0)
 {
