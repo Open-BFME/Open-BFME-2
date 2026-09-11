@@ -98,6 +98,8 @@ public:
 class CylindricalEmissionVelocityInfo : public EmissionVelocityInfo
 {
 public:
+    CylindricalEmissionVelocityInfo &operator=(const CylindricalEmissionVelocityInfo &that);
+
     FXCoord3D m_unknown04;
     FXCoord3D m_unknown10;
 };
@@ -294,6 +296,19 @@ FX_MODULE_TEMPLATE(TerrainCollisionModuleTemplate, TerrainCollisionModuleInfo)
 
 template <int CATEGORY>
 class DefaultParticleModule;
+
+// The template assignment hands the info subobject over with a null-preserving
+// source: a null `that` reaches the info assignment as a null sub pointer,
+// which is the neg/sbb/and idiom retail keeps.
+CylindricalEmissionVelocityModuleTemplate &CylindricalEmissionVelocityModuleTemplate::operator=(
+    const CylindricalEmissionVelocityModuleTemplate &that)
+{
+    const void *src = &that;
+    const void *sub_src = src ? (const char *)src + 8 : 0;
+    ((CylindricalEmissionVelocityInfo *)((char *)this + 8))->operator=(
+        *(const CylindricalEmissionVelocityInfo *)sub_src);
+    return *this;
+}
 
 // The module class the wrappers register into. Its constructor hands the key and
 // name the tag carries to the per-category base, along with a flag that is set
