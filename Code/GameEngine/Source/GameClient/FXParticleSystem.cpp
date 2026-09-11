@@ -200,6 +200,14 @@ FX_FORCE_CATEGORY_ASSIGN(4)
 FX_FORCE_CATEGORY_ASSIGN(5)
 FX_FORCE_CATEGORY_ASSIGN(6)
 
+// Category 7 rides apart (its template lives with the wind section below), so
+// its base assignment needs its own force line. Retail files it under $06.
+typedef CategoryModuleTemplateBase<7> &(CategoryModuleTemplateBase<7>::*CategoryModuleTemplateBase7Assign)(
+    const CategoryModuleTemplateBase<7> &);
+
+CategoryModuleTemplateBase7Assign g_categoryModuleTemplateBase7Assign =
+    &CategoryModuleTemplateBase<7>::operator=;
+
 typedef EventModuleInfo &(EventModuleInfo::*EventModuleInfoAssign)(const EventModuleInfo &);
 
 EventModuleInfoAssign g_eventModuleInfoAssign = &EventModuleInfo::operator=;
