@@ -160,6 +160,37 @@ bool StringBase<T>::endsWith(const T *str, int len) const
     return memcmp(&m_data->data[0] + ((m_data ? m_data->length : 0) - len), str, len) == 0;
 }
 
+// The wide pair goes through the shared comparison trait rather than memcmp:
+// the trait object is a one-byte struct built on the stack, so the call takes
+// its address, and the equality comes out inverted with neg/sbb/inc rather
+// than a sete. The trait itself lives in string_base_compare_range.cpp; only
+// the declaration is needed here.
+struct WideCharCompare
+{
+    char m_unused;
+
+    int compare(const wchar_t *a, const wchar_t *b, int len) const;
+};
+
+template <>
+bool StringBase<wchar_t>::endsWith(const wchar_t *str, int len) const
+{
+    if (*str == 0) {
+        return true;
+    }
+
+    if ((m_data ? m_data->length : 0) < len) {
+        return false;
+    }
+
+    // Deliberately uninitialized: the comparison never reads the trait, so
+    // retail leaves the stack slot alone instead of zeroing it first.
+    WideCharCompare tag;
+
+    return tag.compare(
+        &m_data->data[0] + ((m_data ? m_data->length : 0) - len), str, len) == 0;
+}
+
 // Both of these take the argument's length with an INLINED strlen - a scan loop
 // rather than a call - which is /Oi again and puts them in this unit rather than
 // beside the (const T *) prefix tests, where the strlen stays a call.
