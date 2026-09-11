@@ -170,6 +170,7 @@ struct WideCharCompare
     char m_unused;
 
     int compare(const wchar_t *a, const wchar_t *b, int len) const;
+    int compareNoCase(const wchar_t *a, const wchar_t *b, int len) const;
 };
 
 template <>
@@ -220,6 +221,24 @@ template <>
 bool StringBase<wchar_t>::startsWith(const StringBase<wchar_t> &str) const
 {
     return startsWith(str.m_data ? &str.m_data->data[0] : L"", str.m_data ? str.m_data->length : 0);
+}
+
+// The case-insensitive twin: same skeleton, but the comparison goes through
+// the trait's folding member rather than the exact one.
+template <>
+bool StringBase<wchar_t>::startsWithNoCase(const wchar_t *str, int len) const
+{
+    if (*str == 0) {
+        return true;
+    }
+
+    if ((m_data ? m_data->length : 0) < len) {
+        return false;
+    }
+
+    WideCharCompare tag;
+
+    return tag.compareNoCase(&m_data->data[0], str, len) == 0;
 }
 
 // Both of these take the argument's length with an INLINED strlen - a scan loop
