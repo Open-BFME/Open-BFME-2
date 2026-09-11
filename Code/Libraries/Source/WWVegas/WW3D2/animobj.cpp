@@ -85,9 +85,15 @@
  * HISTORY:                                                                                    *
  *   12/8/98    GTH : Created.                                                                 *
  *=============================================================================================*/
+// BFME fetches a named hierarchy through a free helper at 0x0017FC7C rather
+// than through the asset manager's virtual Get_HTree.
+HTreeClass * Get_HTree(const char * name);
+
 // ?Animatable3DObjClass::Animatable3DObjClass present-unmatched
 Animatable3DObjClass::Animatable3DObjClass(const char * htree_name) :
 	IsTreeValid(0),
+	HTree(NULL),
+	_bfme_a3o_v0(NULL),
 	CurMotionMode(BASE_POSE)
 {
 	// Inline struct members can't be initialized in init list for some reason...
@@ -100,8 +106,6 @@ Animatable3DObjClass::Animatable3DObjClass(const char * htree_name) :
 	ModeInterp.Motion0=NULL;
 	ModeInterp.Motion1=NULL;
 	ModeInterp.Frame0=0.0f;
-	ModeInterp.PrevFrame0=0.0f;
-	ModeInterp.PrevFrame1=0.0f;
 	ModeInterp.Frame1=0.0f;
 	ModeInterp.Percentage=0.0f;
 	ModeCombo.AnimCombo=NULL;
@@ -115,7 +119,7 @@ Animatable3DObjClass::Animatable3DObjClass(const char * htree_name) :
 		HTree = W3DNEW HTreeClass;
 		HTree->Init_Default ();
 	} else {
-		HTreeClass * source = WW3DAssetManager::Get_Instance()->Get_HTree(htree_name);
+		HTreeClass * source = ::Get_HTree(htree_name);
 		if (source != NULL) {
 			HTree = W3DNEW HTreeClass(*source);
 		} else {
