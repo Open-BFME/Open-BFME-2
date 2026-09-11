@@ -6342,3 +6342,4 @@ _XMP_Randomize_Bounded,,0x0061C420,296,Code/Libraries/Source/WWVegas/WWLib/mpmat
 ?endsWith@?$StringBase@G@@QBE_NPBGH@Z,0x00035BD0,0x00035BD0,84,Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp,matched,BFME1 wide suffix test transferred; BFME2 routes comparison through WideCharCompare trait
 ?endsWith@?$StringBase@G@@QBE_NABV1@@Z,0x00036350,0x00036350,50,Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp,matched,BFME1 wide suffix test over string transferred; BFME2 forwards to length worker
 ?startsWith@?$StringBase@G@@QBE_NPBGH@Z,0x00035B30,0x00035B30,69,Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp,matched,BFME1 wide prefix worker transferred; BFME2 trait comparison over forward offset
+?startsWith@?$StringBase@G@@QBE_NABV1@@Z,0x000361F0,0x000361F0,88,Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp,matched,BFME1 wide prefix test over string transferred; BFME2 forwards to length worker

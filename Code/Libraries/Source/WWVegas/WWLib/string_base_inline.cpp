@@ -216,6 +216,12 @@ bool StringBase<wchar_t>::startsWith(const wchar_t *str, int len) const
     return tag.compare(&m_data->data[0], str, len) == 0;
 }
 
+template <>
+bool StringBase<wchar_t>::startsWith(const StringBase<wchar_t> &str) const
+{
+    return startsWith(str.m_data ? &str.m_data->data[0] : L"", str.m_data ? str.m_data->length : 0);
+}
+
 // Both of these take the argument's length with an INLINED strlen - a scan loop
 // rather than a call - which is /Oi again and puts them in this unit rather than
 // beside the (const T *) prefix tests, where the strlen stays a call.
