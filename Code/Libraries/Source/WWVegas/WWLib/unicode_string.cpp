@@ -19,6 +19,7 @@ public:
 private:
     friend class UnicodeString;
 
+    void releaseBuffer();
     StringBase(const StringBase<T> &that);
     StringBase(T character);
     StringBase(const T *text);
@@ -46,6 +47,7 @@ public:
     UnicodeString(const wchar_t *text, int length);
     UnicodeString(const wchar_t *text, int start, int length);
     UnicodeString(const UnicodeString &that, int start, int length);
+    ~UnicodeString();
     UnicodeString &operator=(const UnicodeString &that);
     UnicodeString &operator=(wchar_t character);
     UnicodeString &operator=(const wchar_t *text);
@@ -87,6 +89,11 @@ UnicodeString::UnicodeString(const UnicodeString &that, int start, int length)
 {
     ((StringBase<wchar_t> *)this)->StringBase<wchar_t>::StringBase(
         *(const StringBase<wchar_t> *)&that, start, length);
+}
+
+UnicodeString::~UnicodeString()
+{
+    ((StringBase<wchar_t> *)this)->releaseBuffer();
 }
 
 UnicodeString &UnicodeString::operator=(const UnicodeString &that)

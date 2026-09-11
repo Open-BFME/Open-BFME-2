@@ -6297,3 +6297,4 @@ _XMP_Randomize_Bounded,,0x0061C420,296,Code/Libraries/Source/WWVegas/WWLib/mpmat
 ??4GameClientRandomVariable@@QAEAAV0@ABV0@@Z,0x0000353A,0x0000353A,18,Code/GameEngine/Source/GameClient/ClientRandomValue.cpp,matched,BFME1 copy assignment transferred; BFME2 folds with ICoord3D and Coord3D 12-byte copies
 ??0Matrix4D@@QAE@XZ,0x0047A6A9,0x0047A6A9,3,Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp,matched,BFME1 empty default ctor transferred; BFME2 folds with Coord math empty ctors
 ??1AsciiString@@QAE@XZ,0x0048BA39,0x0048BA39,5,Code/Libraries/Source/WWVegas/WWLib/ascii_string.cpp,matched,BFME1 AsciiString scalar dtor transferred; BFME2 tail-jumps to releaseBuffer with StringBase cleanup
+??1UnicodeString@@QAE@XZ,0x005B804E,0x005B804E,5,Code/Libraries/Source/WWVegas/WWLib/unicode_string.cpp,matched,BFME1 UnicodeString scalar dtor transferred; BFME2 tail-jumps to releaseBuffer with StringBase cleanup
