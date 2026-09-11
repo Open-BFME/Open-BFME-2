@@ -6189,3 +6189,4 @@ _strdup,,0x006C4C70,60,Code/Libraries/Source/WWVegas/WWLib/strdup.cpp,matched,in
 ??0?$ShareBufferClass@VVector3@@@@QAE@ABV0@@Z,,0x00171AE0,253,Code/Libraries/Source/WWVegas/WWLib/sharebuf_vector3_copy_ctor.cpp,matched,BFME aligned ShareBufferClass copy constructor; Vector3 twin of the landed Vector2 body
 ??0?$ShareBufferClass@VVector4@@@@QAE@ABV0@@Z,,0x00171BE0,250,Code/Libraries/Source/WWVegas/WWLib/sharebuf_vector4_copy_ctor.cpp,matched,BFME aligned ShareBufferClass copy constructor; Vector4 twin of the landed Vector2 body
 ??0?$ShareBufferClass@VShaderClass@@@@QAE@ABV0@@Z,,0x0015CE00,233,Code/Libraries/Source/WWVegas/WWLib/sharebuf_shader_copy_ctor.cpp,matched,BFME aligned ShareBufferClass copy constructor; ShaderClass twin of the landed Vector2 body
+?baseConstruct@BFME2NativeNetwork@@QAEPAV1@XZ,,0x001B4E63,17,Code/GameEngine/Source/Common/BFME2NativeNetworkBaseConstruct.cpp,matched,plants vtable then and-zeros plus 8 and plus 4; reloc spelled the void name
