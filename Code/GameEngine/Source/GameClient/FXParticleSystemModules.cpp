@@ -491,6 +491,11 @@ typedef ConcreteModuleClass<OrthoEmissionVelocityModuleTag>
 OrthoEmissionVelocityModuleConcrete g_orthoEmissionVelocityModuleConcrete;
 template class ConcreteModuleClass<OrthoEmissionVelocityModuleTag>;
 
+// Nothing assigns a tag - they carry only statics - so the generated copy is
+// `mov eax, ecx; ret 4`, folded with every other empty assignment in the game.
+OrthoEmissionVelocityModuleTag &(OrthoEmissionVelocityModuleTag::*g_orthoEmissionVelocityModuleTagAssign)(
+    const OrthoEmissionVelocityModuleTag &) = &OrthoEmissionVelocityModuleTag::operator=;
+
 // The per-category default templates, each over the info its own category uses.
 #define FX_DEFAULT_TEMPLATE(CATEGORY, INFO)                                                            template <>                                                                                        class DefaultModuleTemplate<CATEGORY> : public ModuleTemplate, public SecondaryModuleBase,                                                 public INFO                                                {                                                                                                  public:                                                                                                DefaultModuleTemplate();                                                                           DefaultModuleTemplate(const DefaultModuleTemplate<CATEGORY> &that);                            };
 
