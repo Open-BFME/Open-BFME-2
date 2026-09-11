@@ -6288,3 +6288,4 @@ _XMP_Randomize_Bounded,,0x0061C420,296,Code/Libraries/Source/WWVegas/WWLib/mpmat
 ??8BfmeRva00C7B388@@UAEAAVXfer@@AAG@Z,,0x0060D95E,52,Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp,matched,text-dump Xfer unsigned short overload
 ??8BfmeRva00C7B388@@UAEAAVXfer@@AAH@Z,,0x0060D88C,51,Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp,matched,text-dump Xfer int overload
 ??8BfmeRva00C7B388@@UAEAAVXfer@@AAI@Z,,0x0060D8F7,51,Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp,matched,text-dump Xfer unsigned int overload
+??8BfmeRva00C7B388@@UAEAAVXfer@@AA_J@Z,,0x0060D8BF,56,Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp,matched,text-dump Xfer __int64 overload
