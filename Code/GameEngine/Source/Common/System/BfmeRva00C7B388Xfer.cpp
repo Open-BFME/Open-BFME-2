@@ -491,7 +491,6 @@ Xfer &BfmeRva00C7B388::operator==(RGBAColorReal &value)
     return *this;
 }
 
-// ??8BfmeRva00C7B388@@UAEAAVXfer@@AAURGBAColorInt@@@Z present-unmatched
 Xfer &BfmeRva00C7B388::operator==(RGBAColorInt &value)
 {
     if (!m_bfme04)
