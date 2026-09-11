@@ -20,7 +20,25 @@ public:
 		unsigned min_vertex_index, unsigned vertex_count);
 	static void Draw_Strip(unsigned start_index, unsigned polygon_count,
 		unsigned min_vertex_index, unsigned vertex_count);
+	// Two-argument, non-indexed siblings with no Zero Hour counterpart, so
+	// their names are address-derived.
+	static void bfmeRva00120650(unsigned start_vertex, unsigned polygon_count);
+	static void bfmeRva00120700(unsigned start_vertex, unsigned polygon_count);
 };
+
+// 0x00120650, 29 bytes: a non-indexed triangle list -- three vertices per
+// polygon from start_vertex, Draw's trailing flag false.
+void DX8Wrapper::bfmeRva00120650(unsigned start_vertex, unsigned polygon_count)
+{
+	BfmeDrawOps::Draw(4, 0, polygon_count, start_vertex, polygon_count * 3, false);
+}
+
+// 0x00120700, 29 bytes: the strip form -- polygon_count + 2 vertices.
+// ?bfmeRva00120700@DX8Wrapper@@SAXII@Z present-unmatched
+void DX8Wrapper::bfmeRva00120700(unsigned start_vertex, unsigned polygon_count)
+{
+	BfmeDrawOps::Draw(5, 0, polygon_count, start_vertex, polygon_count + 2, false);
+}
 
 void DX8Wrapper::Draw_Triangles(unsigned start_index, unsigned polygon_count,
 	unsigned min_vertex_index, unsigned vertex_count)
