@@ -603,6 +603,10 @@ typedef OrthoEmissionVelocityModuleConcrete &(OrthoEmissionVelocityModuleConcret
 
 OrthoEmissionVelocityModuleConcreteAssign g_orthoEmissionVelocityModuleConcreteAssign = &OrthoEmissionVelocityModuleConcrete::operator=;
 
+typedef SphericalEmissionVelocityModuleConcrete &(SphericalEmissionVelocityModuleConcrete::*SphericalEmissionVelocityModuleConcreteAssign)(const SphericalEmissionVelocityModuleConcrete &);
+
+SphericalEmissionVelocityModuleConcreteAssign g_sphericalEmissionVelocityModuleConcreteAssign = &SphericalEmissionVelocityModuleConcrete::operator=;
+
 typedef LightningDrawModuleConcrete &(LightningDrawModuleConcrete::*LightningDrawModuleConcreteAssign)(const LightningDrawModuleConcrete &);
 
 LightningDrawModuleConcreteAssign g_lightningDrawModuleConcreteAssign = &LightningDrawModuleConcrete::operator=;
