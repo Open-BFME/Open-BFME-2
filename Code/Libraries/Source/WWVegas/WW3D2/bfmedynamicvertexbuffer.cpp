@@ -69,12 +69,24 @@ public:
  const BfmeDynamicFVFPrefix &FVF_Info() const { return *reinterpret_cast<BfmeDynamicFVFPrefix *>(format); }
 };
 struct BfmeDynamicVertexBuffer9;
+class Vector2;
+class Vector3;
+class Vector4;
 class BfmeDynamicNativeVB:public BfmeDynamicVBBase {
 public:
  void *buffer;
  BfmeDynamicNativeVB(unsigned,unsigned short,unsigned,unsigned);
+ // Zero Hour's array-taking DX8VertexBufferClass constructors, one per FVF.
+ BfmeDynamicNativeVB(const Vector3 *,const Vector3 *,const Vector2 *,unsigned short,unsigned);
+ BfmeDynamicNativeVB(const Vector3 *,const Vector3 *,const Vector4 *,const Vector2 *,unsigned short,unsigned);
+ BfmeDynamicNativeVB(const Vector3 *,const Vector4 *,const Vector2 *,unsigned short,unsigned);
+ BfmeDynamicNativeVB(const Vector3 *,const Vector2 *,unsigned short,unsigned);
  virtual ~BfmeDynamicNativeVB();
  void Create(unsigned);
+ void Copy(const Vector3 *,const Vector3 *,const Vector2 *,unsigned,unsigned);
+ void Copy(const Vector3 *,const Vector3 *,const Vector2 *,const Vector4 *,unsigned,unsigned);
+ void Copy(const Vector3 *,const Vector2 *,const Vector4 *,unsigned,unsigned);
+ void Copy(const Vector3 *,const Vector2 *,unsigned,unsigned);
  BfmeDynamicVertexBuffer9 *Get_DX8_Vertex_Buffer() const { return reinterpret_cast<BfmeDynamicVertexBuffer9 *>(buffer); }
 };
 class BfmeDynamicSortingVB:public BfmeDynamicVBBase {
@@ -192,6 +204,41 @@ BfmeDynamicNativeVB::BfmeDynamicNativeVB(unsigned fvf,unsigned short count,unsig
 {
  buffer=0;
  Create(usage);
+}
+
+BfmeDynamicNativeVB::BfmeDynamicNativeVB(const Vector3 *vertices,const Vector3 *normals,const Vector2 *tex_coords,unsigned short count,unsigned usage)
+ :BfmeDynamicVBBase(0,D3DFVF_XYZ|D3DFVF_TEX1|D3DFVF_NORMAL,count,0)
+{
+ buffer=0;
+ Create(usage);
+ Copy(vertices,normals,tex_coords,0,count);
+}
+
+// ??0BfmeDynamicNativeVB@@QAE@PBVVector3@@0PBVVector4@@PBVVector2@@GI@Z present-unmatched
+BfmeDynamicNativeVB::BfmeDynamicNativeVB(const Vector3 *vertices,const Vector3 *normals,const Vector4 *diffuse,const Vector2 *tex_coords,unsigned short count,unsigned usage)
+ :BfmeDynamicVBBase(0,D3DFVF_XYZ|D3DFVF_TEX1|D3DFVF_NORMAL|D3DFVF_DIFFUSE,count,0)
+{
+ buffer=0;
+ Create(usage);
+ Copy(vertices,normals,tex_coords,diffuse,0,count);
+}
+
+// ??0BfmeDynamicNativeVB@@QAE@PBVVector3@@PBVVector4@@PBVVector2@@GI@Z present-unmatched
+BfmeDynamicNativeVB::BfmeDynamicNativeVB(const Vector3 *vertices,const Vector4 *diffuse,const Vector2 *tex_coords,unsigned short count,unsigned usage)
+ :BfmeDynamicVBBase(0,D3DFVF_XYZ|D3DFVF_TEX1|D3DFVF_DIFFUSE,count,0)
+{
+ buffer=0;
+ Create(usage);
+ Copy(vertices,tex_coords,diffuse,0,count);
+}
+
+// ??0BfmeDynamicNativeVB@@QAE@PBVVector3@@PBVVector2@@GI@Z present-unmatched
+BfmeDynamicNativeVB::BfmeDynamicNativeVB(const Vector3 *vertices,const Vector2 *tex_coords,unsigned short count,unsigned usage)
+ :BfmeDynamicVBBase(0,D3DFVF_XYZ|D3DFVF_TEX1,count,0)
+{
+ buffer=0;
+ Create(usage);
+ Copy(vertices,tex_coords,0,count);
 }
 
 // dx8vertexbuffer.cpp's statistics: buffer count at 0x00DF2A40, total vertices
