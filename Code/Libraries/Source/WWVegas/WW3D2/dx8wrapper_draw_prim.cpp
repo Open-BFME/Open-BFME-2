@@ -34,7 +34,6 @@ void DX8Wrapper::bfmeRva00120650(unsigned start_vertex, unsigned polygon_count)
 }
 
 // 0x00120700, 29 bytes: the strip form -- polygon_count + 2 vertices.
-// ?bfmeRva00120700@DX8Wrapper@@SAXII@Z present-unmatched
 void DX8Wrapper::bfmeRva00120700(unsigned start_vertex, unsigned polygon_count)
 {
 	BfmeDrawOps::Draw(5, 0, polygon_count, start_vertex, polygon_count + 2, false);
