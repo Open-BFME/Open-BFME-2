@@ -1682,6 +1682,11 @@ typedef ConcreteModuleTemplate<ModuleTag<6, QUAD_DRAW_MODULE_KEY, QUAD_DRAW_MODU
 
 QuadDrawModuleConcrete g_quadDrawModuleConcrete;
 
+typedef QuadDrawModuleConcrete &(QuadDrawModuleConcrete::*QuadDrawModuleConcreteAssign)(
+    const QuadDrawModuleConcrete &);
+
+QuadDrawModuleConcreteAssign g_quadDrawModuleConcreteAssign = &QuadDrawModuleConcrete::operator=;
+
 extern const char *const BUTTERFLY_DRAW_MODULE_KEY;
 extern const char *const BUTTERFLY_DRAW_MODULE_NAME;
 
