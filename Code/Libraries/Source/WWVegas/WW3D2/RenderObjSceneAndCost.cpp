@@ -94,7 +94,6 @@ void RenderObjClass::Set_Visible(int onoff, int unk)
 	_bfme_unk_88 = unk;
 }
 
-// ?Remove_Sub_Objects_From_Bone@RenderObjClass@@UAEHPBD@Z present-unmatched
 int RenderObjClass::Remove_Sub_Objects_From_Bone(const char * bname)
 {
 	// One expression: retail loads the vtable once for both calls, where
