@@ -342,7 +342,6 @@ BfmeDynamicVBBase::~BfmeDynamicVBBase()
  delete format;
 }
 
-// ??1BfmeDynamicSortingVB@@UAE@XZ present-unmatched
 BfmeDynamicSortingVB::~BfmeDynamicSortingVB()
 {
  delete[] static_cast<BfmeSortingVertex *>(buffer);
