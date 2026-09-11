@@ -6301,3 +6301,4 @@ _XMP_Randomize_Bounded,,0x0061C420,296,Code/Libraries/Source/WWVegas/WWLib/mpmat
 ??0AsciiString@@QAE@XZ,0x00326BE6,0x00326BE6,6,Code/Libraries/Source/WWVegas/WWLib/ascii_string.cpp,matched,BFME1 AsciiString default ctor transferred; BFME2 nulls the text pointer folded with CLockVolume
 ??0UnicodeString@@QAE@XZ,0x00326BE6,0x00326BE6,6,Code/Libraries/Source/WWVegas/WWLib/unicode_string.cpp,matched,BFME1 UnicodeString default ctor transferred; BFME2 nulls the text pointer folded with AsciiString
 ??0?$StringBase@D@@AAE@XZ,0x00326BE6,0x00326BE6,6,Code/Libraries/Source/WWVegas/WWLib/string_base_clear.cpp,matched,BFME1 StringBase narrow default ctor transferred; BFME2 nulls m_data folded with string default ctors
+??0?$StringBase@G@@AAE@XZ,0x00326BE6,0x00326BE6,6,Code/Libraries/Source/WWVegas/WWLib/string_base_clear.cpp,matched,BFME1 StringBase wide default ctor transferred; BFME2 nulls m_data folded with narrow ctor
