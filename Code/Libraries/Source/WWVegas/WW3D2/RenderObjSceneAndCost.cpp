@@ -48,7 +48,6 @@ void RenderObjClass::Set_Container(RenderObjClass * con)
 	Container = con;
 }
 
-// ?Remove@RenderObjClass@@UAEXXZ present-unmatched
 void RenderObjClass::Remove(void)
 {
 	// All render objects have their scene pointers set.  To check if this is a "top level"
