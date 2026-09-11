@@ -15,7 +15,10 @@ void __cdecl operator delete(void *);
 void *__cdecl operator new[](unsigned);
 // The 96-byte vertex-format records of the fifteen dynamic pools, a table at
 // 0x00DF2AA0.  Only their FVF prefix (BfmeDynamicFVFPrefix) is examined here.
-struct BfmeFVFDescriptor { unsigned char record[0x60]; };
+struct BfmeFVFDescriptor {
+ BfmeFVFDescriptor(unsigned fvf,unsigned fvf_size,bool additional_basis,unsigned extension_count);
+ unsigned char record[0x60];
+};
 extern BfmeFVFDescriptor bfmeDynamicFVFDescriptors[15];
 struct BfmeDynamicFVFPrefix {
  unsigned fvf;bool additionalBasis;unsigned extensionCount,stride;
@@ -31,16 +34,20 @@ struct BfmeDynamicCapsPrefix {
 extern BfmeDynamicCapsPrefix *bfmeDynamicCaps;
 class BfmeDynamicVBRefCount {
 public:
+ BfmeDynamicVBRefCount():references(1) {}
  virtual void DeleteThis();
+ // RefCountClass's destructor: the base constructor's unwind state 0 is this
+ // subobject, finished before the vtable store.
+ virtual ~BfmeDynamicVBRefCount();
  int references;
  void AddRef() { ++references; }
  void ReleaseRef() { --references; if(references==0) DeleteThis(); }
 };
 class BfmeDynamicVBBase:public BfmeDynamicVBRefCount {
 public:
- // Declared, not defined: retail's shared base constructor lives at 0x00139350
- // and both derived constructors below reach it through a REL32 this unit
- // reproduces byte for byte. Argument order is read out of the two call sites,
+ // Retail's shared base constructor lives at 0x00139350 and both derived
+ // constructors below reach it through a REL32; it is defined after them so
+ // they cannot inline it. Argument order is read out of the two call sites,
  // not assumed -- the sorting buffer passes (1,0x252,count,0) and the native
  // one (0,fvf,count,fvf_size).
  BfmeDynamicVBBase(unsigned,unsigned,unsigned short,unsigned);
@@ -169,6 +176,24 @@ BfmeDynamicNativeVB::BfmeDynamicNativeVB(unsigned fvf,unsigned short count,unsig
 {
  buffer=0;
  Create(usage);
+}
+
+// dx8vertexbuffer.cpp's statistics: buffer count at 0x00DF2A40, total vertices
+// at 0x00DF2A84 and total bytes at 0x00DF2A00.  Static as upstream: with their
+// addresses never taken the compiler knows the adds cannot alias the object,
+// which is why retail loads the vertex count once for both totals.
+static int _VertexBufferCount,_VertexBufferTotalVertices,_VertexBufferTotalSize;
+// Zero Hour's VertexBufferClass constructor, with the FVF record grown to BFME's
+// four-argument form and the declaration flag set from the explicit size.
+BfmeDynamicVBBase::BfmeDynamicVBBase(unsigned type_,unsigned fvf,unsigned short vertex_count,unsigned vertex_size)
+ :type(type_),vertexCount(vertex_count),engineReferences(0),usesDeclaration(false)
+{
+ BfmeFVFDescriptor *descriptor=new BfmeFVFDescriptor(fvf,vertex_size,false,0);
+ usesDeclaration=vertex_size!=0;
+ _VertexBufferCount++;
+ _VertexBufferTotalVertices+=vertexCount;
+ format=descriptor;
+ _VertexBufferTotalSize+=vertexCount*FVF_Info().Get_FVF_Size();
 }
 
 /*
