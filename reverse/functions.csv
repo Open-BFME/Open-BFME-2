@@ -6263,3 +6263,4 @@ _XMP_Randomize_Bounded,,0x0061C420,296,Code/Libraries/Source/WWVegas/WWLib/mpmat
 ?Remove_Sub_Objects_From_Bone@RenderObjClass@@UAEHH@Z,,0x0013BA10,102,Code/Libraries/Source/WWVegas/WW3D2/RenderObjSceneAndCost.cpp,matched,ZH body
 ?Remove_Sub_Objects_From_Bone@RenderObjClass@@UAEHPBD@Z,,0x0013BA80,29,Code/Libraries/Source/WWVegas/WW3D2/RenderObjSceneAndCost.cpp,matched,one nested expression so the vtable is loaded once for both calls
 ?bfmeRva0011F5B0@@YA_NK@Z,,0x0011F5B0,78,Code/Libraries/Source/WWVegas/WW3D2/BfmeDX8ThreadLock.cpp,matched,address-derived; timed try-lock twin of BFME_DX8_Thread_Lock; owner and count volatile
+?bfmeRva0011F600@@YAHXZ,,0x0011F600,31,Code/Libraries/Source/WWVegas/WW3D2/BfmeDX8ThreadLock.cpp,matched,address-derived; whether the calling thread holds the DX8 device mutex

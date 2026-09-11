@@ -109,7 +109,6 @@ bool bfmeRva0011F5B0(unsigned long milliseconds)
 
 // 0x0011F600: whether the calling thread holds the device mutex.  The count
 // compares unsigned (jbe).  Address-derived name.
-// ?bfmeRva0011F600@@YAHXZ present-unmatched
 int bfmeRva0011F600()
 {
 	if (GetCurrentThreadId() == bfmeDX8DeviceOwner && (unsigned)bfmeDX8DeviceRecursion > 0)
