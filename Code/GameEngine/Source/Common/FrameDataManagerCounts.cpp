@@ -67,7 +67,6 @@ unsigned int FrameDataManager::getCommandCount(unsigned int frame) {
  unsigned int frameindex = frame % FRAME_DATA_LENGTH;
  return m_frameData[frameindex].getCommandCount();
 }
-// ?getFrameCommandCount@FrameDataManager@@ present-unmatched
 unsigned int FrameDataManager::getFrameCommandCount(unsigned int frame) {
  unsigned int frameindex = frame % FRAME_DATA_LENGTH;
  return m_frameData[frameindex].getFrameCommandCount();
