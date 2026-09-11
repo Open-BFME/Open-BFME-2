@@ -1187,3 +1187,6 @@ _GetCurrentThreadId@0,0x006105D0,kernel32 GetCurrentThreadId IAT thunk; REL32 fr
 ?Grow@?$SimpleDynVecClass@VVector3@@@@QAE_NH@Z,0x001001D5,REL32 from SimpleDynVecClass Vector3 Add at 0x1002C5
 ?Grow@?$SimpleDynVecClass@I@@QAE_NH@Z,0x001001D5,REL32 from SimpleDynVecClass unsigned Add at 0x9014A; same address as the Vector3 Grow pin
 ??0MeshModelClass@@QAE@ABV0@@Z,0x00172940,MeshModelClass copy constructor: retail MeshClass::Make_Unique at 0x00149C10 calls it with the fresh allocation as this and the shared model as the argument right after operator new (Zero Hour NEW_REF(MeshModelClass;(*Model)))
+?bfmeRva0066EB40@BfmeSubBZC@@QAEXXZ,0x0066EB40,placeholder name: the reset BfmeSubBZC::bfmeSetBZC (0x0066ED50) calls on this before reallocating; identity not recovered
+?bfmeRva0065CEA0@@YAPAVBfmeRva0065CEA0Allocator@@XZ,0x0065CEA0,placeholder name: argument-less getter whose result BfmeSubBZC::bfmeSetBZC (0x0066ED50) allocates through at vtable slot 2; identity not recovered
+??0BfmeRva0066E270@@QAE@XZ,0x0066E270,placeholder name: constructor BfmeSubBZC::bfmeSetBZC (0x0066ED50) runs on each 128-byte element it places; identity not recovered
