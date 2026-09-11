@@ -13,8 +13,8 @@ Goal: Source code that rebuilds BFME 2's engine binary (`game.dat`) byte-for-byt
 
 ## Status
 
-**8.70% of the game's retail `.text` has exact byte coverage** — 701,241 C++ bytes
-plus 2,955 ASM-only bytes. Source-backed reconstruction accounts for 8.79% of
+**8.70% of the game's retail `.text` has exact byte coverage** — 701,784 C++ bytes
+plus 2,955 ASM-only bytes. Source-backed reconstruction accounts for 8.80% of
 real code. Flag calibration is proven:
 756 Open-BFME-1 bodies transfer to `game.dat` verbatim, so the reference sweeps
 are wide open.
