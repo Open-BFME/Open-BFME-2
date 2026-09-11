@@ -44,6 +44,7 @@ class AsciiString
 {
 public:
     AsciiString &operator+=(const PooledString &that);
+    AsciiString();
     AsciiString(const AsciiString &that);
     AsciiString(char character);
     AsciiString(const char *text);
@@ -83,6 +84,11 @@ AsciiString &AsciiString::operator+=(const PooledString &that)
 AsciiString::AsciiString(const AsciiString &that)
 {
     ((StringBase<char> *)this)->StringBase<char>::StringBase(*(const StringBase<char> *)&that);
+}
+
+AsciiString::AsciiString()
+{
+    m_text = 0;
 }
 
 AsciiString::AsciiString(char character)
