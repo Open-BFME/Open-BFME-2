@@ -139,7 +139,6 @@ DynamicIBAccessClass::WriteLockClass::WriteLockClass(DynamicIBAccessClass *ib_ac
 	}
 }
 
-// ??1WriteLockClass@DynamicIBAccessClass@@QAE@XZ present-unmatched
 DynamicIBAccessClass::WriteLockClass::~WriteLockClass()
 {
 	switch (DynamicIBAccess->Get_Type()) {

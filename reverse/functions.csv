@@ -6223,3 +6223,4 @@ _XMP_Randomize_Bounded,,0x0061C420,296,Code/Libraries/Source/WWVegas/WWLib/mpmat
 ?Init_Default@HTreeClass@@QAEXXZ,,0x001666D0,267,Code/Libraries/Source/WWVegas/WW3D2/HTreeClassInitDefault.cpp,matched,BFME 2 HTreeClass::Init_Default with the 0x58-byte pivot; own /G7 /arch:SSE unit
 ?Free@HTreeClass@@QAEXXZ,,0x00166510,90,Code/Libraries/Source/WWVegas/WW3D2/HTreeClassFree.cpp,matched,BFME 2 HTreeClass::Free; +0x1C member erased STLport-style; own /G7 /arch:SSE unit
 ??0WriteLockClass@DynamicIBAccessClass@@QAE@PAV1@@Z,,0x00138CA0,218,Code/Libraries/Source/WWVegas/WW3D2/DynamicIBAccessWriteLock.cpp,matched,standalone unit; BFME holds the DX8 device mutex as a member and logs through Log_DX8_ErrorCode
+??1WriteLockClass@DynamicIBAccessClass@@QAE@XZ,,0x00138D80,120,Code/Libraries/Source/WWVegas/WW3D2/DynamicIBAccessWriteLock.cpp,matched,standalone unit; unlock arm is a switch like the ctor
