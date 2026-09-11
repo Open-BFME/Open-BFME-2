@@ -29,7 +29,6 @@
 #include "rendobj.h"
 #include "scene.h"
 
-// ?Add@RenderObjClass@@UAEXPAVSceneClass@@@Z present-unmatched
 void RenderObjClass::Add(SceneClass * scene)
 {
 	Scene = scene;
