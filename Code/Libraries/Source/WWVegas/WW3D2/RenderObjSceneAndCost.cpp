@@ -63,7 +63,6 @@ void RenderObjClass::Remove(void)
 	}
 }
 
-// ?Get_Obj_Space_Bounding_Sphere@RenderObjClass@@UBEXAAVSphereClass@@@Z present-unmatched
 void RenderObjClass::Get_Obj_Space_Bounding_Sphere(SphereClass & sphere) const
 {
 	sphere.Center.Set(0,0,0);
