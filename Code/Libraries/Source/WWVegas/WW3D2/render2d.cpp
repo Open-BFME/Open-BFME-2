@@ -1,4 +1,4 @@
-// cl: /arch:SSE /G7 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/sweep
+// cl: /Ireference/shims/bfmestages /arch:SSE /G7 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/sweep
 // Ported verbatim from the Generals Zero Hour reference
 // (Libraries/Source/WWVegas/WW3D2/render2d.cpp); this unit had no counterpart under Code/.
 /*
@@ -70,6 +70,7 @@ RectClass							Render2DClass::ScreenResolution( 0,0,0,0 );
 /*
 ** Render2DClass
 */
+// ??0Render2DClass@@ present-unmatched
 Render2DClass::Render2DClass( TextureClass* tex ) :
 	CoordinateScale( 1, 1 ),
 	CoordinateOffset( 0, 0 ),
@@ -87,11 +88,13 @@ Render2DClass::Render2DClass( TextureClass* tex ) :
 	return ;
 }
 
+// ??1Render2DClass@@ present-unmatched
 Render2DClass::~Render2DClass()
 {
 	REF_PTR_RELEASE(Texture);	
 }
 
+// ?Set_Screen_Resolution@Render2DClass@@ present-unmatched
 void	Render2DClass::Set_Screen_Resolution( const RectClass & screen )	
 { 
 	ScreenResolution = screen; 
@@ -105,6 +108,7 @@ void	Render2DClass::Set_Screen_Resolution( const RectClass & screen )
 }
 
 ShaderClass
+// ?Get_Default_Shader@Render2DClass@@ present-unmatched
 Render2DClass::Get_Default_Shader( void )
 {
 	ShaderClass shader;
@@ -120,6 +124,7 @@ Render2DClass::Get_Default_Shader( void )
 	return shader;
 }
 
+// ?Reset@Render2DClass@@ present-unmatched
 void	Render2DClass::Reset(void)
 {
 	Vertices.Reset_Active();
@@ -130,11 +135,13 @@ void	Render2DClass::Reset(void)
 	Update_Bias(); // Keep the bias updated
 }
 
+// ?Set_Texture@Render2DClass@@ present-unmatched
 void Render2DClass::Set_Texture(TextureClass* tex)
 {
 	REF_PTR_SET(Texture,tex);	
 }
 
+// ?Set_Texture@Render2DClass@@ present-unmatched
 void Render2DClass::Set_Texture( const char * filename)
 {
 	TextureClass * tex = WW3DAssetManager::Get_Instance()->Get_Texture( filename, MIP_LEVELS_1 );
@@ -146,11 +153,13 @@ void Render2DClass::Set_Texture( const char * filename)
 }
 
 /**added for generals to draw disabled button states - MW*/
+// ?Enable_Grayscale@Render2DClass@@ present-unmatched
 void Render2DClass::Enable_Grayscale(bool b)
 {
 	IsGrayScale = b;
 }	
 
+// ?Enable_Alpha@Render2DClass@@ present-unmatched
 void Render2DClass::Enable_Alpha(bool b)
 {
 	IsGrayScale = false;
@@ -164,6 +173,7 @@ void Render2DClass::Enable_Alpha(bool b)
 	}
 }
 
+// ?Enable_Additive@Render2DClass@@ present-unmatched
 void Render2DClass::Enable_Additive(bool b)
 {
 	IsGrayScale = false;
@@ -178,6 +188,7 @@ void Render2DClass::Enable_Additive(bool b)
 	}
 }
 
+// ?Enable_Texturing@Render2DClass@@ present-unmatched
 void Render2DClass::Enable_Texturing(bool b)
 {
 	if (b) {
@@ -188,6 +199,7 @@ void Render2DClass::Enable_Texturing(bool b)
 	}
 }
 
+// ?Set_Coordinate_Range@Render2DClass@@ present-unmatched
 void	Render2DClass::Set_Coordinate_Range( const RectClass & range )
 {
 	// default range is (-1,1)-(1,-1)
@@ -199,6 +211,7 @@ void	Render2DClass::Set_Coordinate_Range( const RectClass & range )
 	Update_Bias();
 }
 
+// ?Update_Bias@Render2DClass@@ present-unmatched
 void	  Render2DClass::Update_Bias( void )
 {
 
@@ -216,6 +229,7 @@ void	  Render2DClass::Update_Bias( void )
 }
 
 #if 0
+// ?Convert_Vert@Render2DClass@@ present-unmatched
 Vector2 Render2DClass::Convert_Vert( const Vector2 & v ) 
 {
 	Vector2 out;
@@ -252,6 +266,7 @@ Vector2 Render2DClass::Convert_Vert( const Vector2 & v )
 // NOPE ** In addition, it rounds all coordinates off to the nearest pixel
 ** Also, it offsets the coordinates as need for Screen_UV_Bias
 */
+// ?Convert_Vert@Render2DClass@@ present-unmatched
 void Render2DClass::Convert_Vert( Vector2 & vert_out, const Vector2 & vert_in )
 {
 	// Convert to (-1,1)-(1,-1)
@@ -259,6 +274,7 @@ void Render2DClass::Convert_Vert( Vector2 & vert_out, const Vector2 & vert_in )
 	vert_out.Y = vert_in.Y * CoordinateScale.Y + BiasedCoordinateOffset.Y;
 }
 
+// ?Convert_Vert@Render2DClass@@ present-unmatched
 void Render2DClass::Convert_Vert( Vector2 & vert_out, float x_in, float y_in )
 {
 	// Convert to (-1,1)-(1,-1)
@@ -268,6 +284,7 @@ void Render2DClass::Convert_Vert( Vector2 & vert_out, float x_in, float y_in )
 
 #endif
 
+// ?Move@Render2DClass@@ present-unmatched
 void	Render2DClass::Move( const Vector2 & move )	// Move all verts 
 {
 	Vector2 scaled_move;
@@ -278,6 +295,7 @@ void	Render2DClass::Move( const Vector2 & move )	// Move all verts
 	}
 }
 
+// ?Force_Alpha@Render2DClass@@ present-unmatched
 void	Render2DClass::Force_Alpha( float alpha )		// Force all alphas 
 {
 	unsigned long a = (unsigned)(WWMath::Clamp( alpha, 0, 1 ) * 255.0f);
@@ -288,6 +306,7 @@ void	Render2DClass::Force_Alpha( float alpha )		// Force all alphas
 }
 
 
+// ?Force_Color@Render2DClass@@ present-unmatched
 void	Render2DClass::Force_Color( int color )		// Force all alphas 
 {
 	for ( int i = 0; i < Colors.Count(); i++ ) {
@@ -300,6 +319,7 @@ void	Render2DClass::Force_Color( int color )		// Force all alphas
 ** Internal Add Quad Elements
 ** Caller must mutex lock
 */
+// ?Internal_Add_Quad_Vertices@Render2DClass@@ present-unmatched
 void	Render2DClass::Internal_Add_Quad_Vertices( const Vector2 & v0, const Vector2 & v1, const Vector2 & v2, const Vector2 & v3 )
 {
 	Convert_Vert( *Vertices.Uninitialized_Add(), v0 );
@@ -308,6 +328,7 @@ void	Render2DClass::Internal_Add_Quad_Vertices( const Vector2 & v0, const Vector
 	Convert_Vert( *Vertices.Uninitialized_Add(), v3 );
 }
 
+// ?Internal_Add_Quad_Vertices@Render2DClass@@ present-unmatched
 void	Render2DClass::Internal_Add_Quad_Vertices( const RectClass & screen )
 {
 	Convert_Vert( *Vertices.Uninitialized_Add(), screen.Left,  screen.Top );
@@ -317,6 +338,7 @@ void	Render2DClass::Internal_Add_Quad_Vertices( const RectClass & screen )
 
 }
 
+// ?Internal_Add_Quad_UVs@Render2DClass@@ present-unmatched
 void	Render2DClass::Internal_Add_Quad_UVs( const RectClass & uv )
 {
 	Vector2* uvs;
@@ -332,6 +354,7 @@ void	Render2DClass::Internal_Add_Quad_UVs( const RectClass & uv )
 
 }
 
+// ?Internal_Add_Quad_Colors@Render2DClass@@ present-unmatched
 void	Render2DClass::Internal_Add_Quad_Colors( unsigned long color )
 {
 	unsigned long* colors;
@@ -346,6 +369,7 @@ void	Render2DClass::Internal_Add_Quad_Colors( unsigned long color )
 	*colors=color;
 }
 
+// ?Internal_Add_Quad_VColors@Render2DClass@@ present-unmatched
 void	Render2DClass::Internal_Add_Quad_VColors( unsigned long color1, unsigned long color2 )
 {
 	unsigned long* colors;
@@ -361,6 +385,7 @@ void	Render2DClass::Internal_Add_Quad_VColors( unsigned long color1, unsigned lo
 
 }
 
+// ?Internal_Add_Quad_HColors@Render2DClass@@ present-unmatched
 void	Render2DClass::Internal_Add_Quad_HColors( unsigned long color1, unsigned long color2 )
 {
 	unsigned long* colors;
@@ -376,6 +401,7 @@ void	Render2DClass::Internal_Add_Quad_HColors( unsigned long color1, unsigned lo
 }
 
 
+// ?Internal_Add_Quad_Indicies@Render2DClass@@ present-unmatched
 void	Render2DClass::Internal_Add_Quad_Indicies( int start_vert_index, bool backfaced )
 {
 	unsigned short * indices;
@@ -413,6 +439,7 @@ void	Render2DClass::Internal_Add_Quad_Indicies( int start_vert_index, bool backf
 }
 
 
+// ?Add_Quad@Render2DClass@@ present-unmatched
 void	Render2DClass::Add_Quad( const Vector2 & v0, const Vector2 & v1, const Vector2 & v2, const Vector2 & v3, const RectClass & uv, unsigned long color )
 {
 	Internal_Add_Quad_Indicies( Vertices.Count() );
@@ -421,6 +448,7 @@ void	Render2DClass::Add_Quad( const Vector2 & v0, const Vector2 & v1, const Vect
 	Internal_Add_Quad_Colors( color );
 }
 
+// ?Add_Quad_Backfaced@Render2DClass@@ present-unmatched
 void	Render2DClass::Add_Quad_Backfaced( const Vector2 & v0, const Vector2 & v1, const Vector2 & v2, const Vector2 & v3, const RectClass & uv, unsigned long color )
 {
 	Internal_Add_Quad_Indicies( Vertices.Count(), true );
@@ -429,6 +457,7 @@ void	Render2DClass::Add_Quad_Backfaced( const Vector2 & v0, const Vector2 & v1, 
 	Internal_Add_Quad_Colors( color );
 }
 
+// ?Add_Quad_VGradient@Render2DClass@@ present-unmatched
 void	Render2DClass::Add_Quad_VGradient( const Vector2 & v0, const Vector2 & v1, const Vector2 & v2, const Vector2 & v3, const RectClass & uv, unsigned long top_color, unsigned long bottom_color )
 {
 	Internal_Add_Quad_Indicies( Vertices.Count() );
@@ -437,6 +466,7 @@ void	Render2DClass::Add_Quad_VGradient( const Vector2 & v0, const Vector2 & v1, 
 	Internal_Add_Quad_VColors( top_color, bottom_color );
 }
 
+// ?Add_Quad_HGradient@Render2DClass@@ present-unmatched
 void	Render2DClass::Add_Quad_HGradient( const Vector2 & v0, const Vector2 & v1, const Vector2 & v2, const Vector2 & v3, const RectClass & uv, unsigned long left_color, unsigned long right_color )
 {
 	Internal_Add_Quad_Indicies( Vertices.Count() );
@@ -446,6 +476,7 @@ void	Render2DClass::Add_Quad_HGradient( const Vector2 & v0, const Vector2 & v1, 
 }
 
 
+// ?Add_Quad_VGradient@Render2DClass@@ present-unmatched
 void	Render2DClass::Add_Quad_VGradient( const RectClass & screen, unsigned long top_color, unsigned long bottom_color )
 {
 	Internal_Add_Quad_Indicies( Vertices.Count() );
@@ -454,6 +485,7 @@ void	Render2DClass::Add_Quad_VGradient( const RectClass & screen, unsigned long 
 	Internal_Add_Quad_VColors( top_color, bottom_color );
 }
 
+// ?Add_Quad_HGradient@Render2DClass@@ present-unmatched
 void	Render2DClass::Add_Quad_HGradient( const RectClass & screen, unsigned long left_color, unsigned long right_color )
 {
 	Internal_Add_Quad_Indicies( Vertices.Count() );
@@ -463,6 +495,7 @@ void	Render2DClass::Add_Quad_HGradient( const RectClass & screen, unsigned long 
 }
 
 
+// ?Add_Quad@Render2DClass@@ present-unmatched
 void	Render2DClass::Add_Quad( const RectClass & screen, const RectClass & uv, unsigned long color )
 {
 	Internal_Add_Quad_Indicies( Vertices.Count() );
@@ -471,6 +504,7 @@ void	Render2DClass::Add_Quad( const RectClass & screen, const RectClass & uv, un
 	Internal_Add_Quad_Colors( color );
 }
 
+// ?Add_Quad@Render2DClass@@ present-unmatched
 void	Render2DClass::Add_Quad( const Vector2 & v0, const Vector2 & v1, const Vector2 & v2, const Vector2 & v3, unsigned long color )
 {
 	Internal_Add_Quad_Indicies( Vertices.Count() );
@@ -479,6 +513,7 @@ void	Render2DClass::Add_Quad( const Vector2 & v0, const Vector2 & v1, const Vect
 	Internal_Add_Quad_Colors( color );
 }
 
+// ?Add_Quad@Render2DClass@@ present-unmatched
 void	Render2DClass::Add_Quad( const RectClass & screen, unsigned long color )
 {
 	Internal_Add_Quad_Indicies( Vertices.Count() );
@@ -490,6 +525,7 @@ void	Render2DClass::Add_Quad( const RectClass & screen, unsigned long color )
 /*
 ** Add Tri
 */
+// ?Add_Tri@Render2DClass@@ present-unmatched
 void	Render2DClass::Add_Tri( const Vector2 & v0, const Vector2 & v1, const Vector2 & v2, const Vector2 & uv0, const Vector2 & uv1, const Vector2 & uv2, unsigned long color )
 {
 	int old_vert_count = Vertices.Count();
@@ -524,11 +560,13 @@ void	Render2DClass::Add_Tri( const Vector2 & v0, const Vector2 & v1, const Vecto
 
 }
 
+// ?Add_Line@Render2DClass@@ present-unmatched
 void	Render2DClass::Add_Line( const Vector2 & a, const Vector2 & b, float width, unsigned long color )
 {
 	Add_Line( a, b, width, RectClass( 0,0,1,1 ), color );
 }
 
+// ?Add_Line@Render2DClass@@ present-unmatched
 void	Render2DClass::Add_Line( const Vector2 & a, const Vector2 & b, float width, const RectClass & uv, unsigned long color )
 {
 	Vector2	corner_offset = a - b;				// get line relative to b
@@ -544,11 +582,13 @@ void	Render2DClass::Add_Line( const Vector2 & a, const Vector2 & b, float width,
 }
 
 
+// ?Add_Line@Render2DClass@@ present-unmatched
 void	Render2DClass::Add_Line( const Vector2 & a, const Vector2 & b, float width, unsigned long color, unsigned long color2 )
 {
 	Add_Line( a, b, width, RectClass( 0,0,1,1 ), color, color2 );
 }
 
+// ?Add_Line@Render2DClass@@ present-unmatched
 void Render2DClass::Add_Line( const Vector2 & a, const Vector2 & b, float width, const RectClass & uv, unsigned long color , unsigned long color2)
 {
 	Vector2	corner_offset = a - b;				// get line relative to b
@@ -563,6 +603,7 @@ void Render2DClass::Add_Line( const Vector2 & a, const Vector2 & b, float width,
 }
 
 
+// ?Add_Rect@Render2DClass@@ present-unmatched
 void	Render2DClass::Add_Rect( const RectClass & rect, float border_width, uint32 border_color, uint32 fill_color )
 {
 	//
@@ -586,11 +627,13 @@ void	Render2DClass::Add_Rect( const RectClass & rect, float border_width, uint32
 	return ;
 }
 
+// ?Add_Outline@Render2DClass@@ present-unmatched
 void	Render2DClass::Add_Outline( const RectClass & rect, float width, unsigned long color )
 {
 	Add_Outline( rect, width, RectClass( 0,0,1,1 ), color );
 }
 
+// ?Add_Outline@Render2DClass@@ present-unmatched
 void	Render2DClass::Add_Outline( const RectClass & rect, float width, const RectClass & uv, unsigned long color )
 {
 	//
@@ -604,6 +647,7 @@ void	Render2DClass::Add_Outline( const RectClass & rect, float width, const Rect
 	Add_Line (Vector2 (rect.Right, rect.Bottom),	Vector2 (rect.Left + 1, rect.Bottom),	width, color);	
 }
 
+// ?Render@Render2DClass@@ present-unmatched
 void Render2DClass::Render(void)
 {
 	if ( !Indices.Count() || IsHidden) {
@@ -704,6 +748,7 @@ void Render2DClass::Render(void)
 	DX8Wrapper::Set_Transform(D3DTS_VIEW,view);
 	DX8Wrapper::Set_Transform(D3DTS_PROJECTION,proj);
 	if (IsGrayScale)
+// ?Invalidate@ShaderClass@@ present-unmatched
 		ShaderClass::Invalidate();	//force both stages to be reset.
 
 }
@@ -712,6 +757,7 @@ void Render2DClass::Render(void)
 /*
 ** Render2DTextClass
 */
+// ??0Render2DTextClass@@ present-unmatched
 Render2DTextClass::Render2DTextClass(Font3DInstanceClass *font) :
 	Location(0.0f,0.0f),
 	Cursor(0.0f,0.0f),
@@ -726,11 +772,13 @@ Render2DTextClass::Render2DTextClass(Font3DInstanceClass *font) :
 	Reset();
 }
 
+// ??1Render2DTextClass@@ present-unmatched
 Render2DTextClass::~Render2DTextClass()
 {
 	REF_PTR_RELEASE(Font);
 }
 
+// ?Reset@Render2DTextClass@@ present-unmatched
 void	Render2DTextClass::Reset(void)
 {
 	Render2DClass::Reset();
@@ -742,6 +790,7 @@ void	Render2DTextClass::Reset(void)
 	IsClippedEnabled = false;
 }
 
+// ?Set_Font@Render2DTextClass@@ present-unmatched
 void	Render2DTextClass::Set_Font( Font3DInstanceClass *font )
 {
 	REF_PTR_SET(Font,font);
@@ -760,6 +809,7 @@ void	Render2DTextClass::Set_Font( Font3DInstanceClass *font )
 /*
 **
 */
+// ?Draw_Char@Render2DTextClass@@ present-unmatched
 void	Render2DTextClass::Draw_Char( WCHAR ch, unsigned long color )
 {
 	float char_spacing	= Font->Char_Spacing( ch );
@@ -792,6 +842,7 @@ void	Render2DTextClass::Draw_Char( WCHAR ch, unsigned long color )
 	Cursor.X += char_spacing;
 }
 
+// ?Draw_Text@Render2DTextClass@@ present-unmatched
 void	Render2DTextClass::Draw_Text( const char * text, unsigned long color )
 {
 	WWMEMLOG(MEM_GEOMETRY);
@@ -800,6 +851,7 @@ void	Render2DTextClass::Draw_Text( const char * text, unsigned long color )
 	Draw_Text( wide, color );
 }
 
+// ?Draw_Text@Render2DTextClass@@ present-unmatched
 void	Render2DTextClass::Draw_Text( const WCHAR * text, unsigned long color )
 {
 	WWMEMLOG(MEM_GEOMETRY);
@@ -837,6 +889,7 @@ void	Render2DTextClass::Draw_Text( const WCHAR * text, unsigned long color )
 	}
 }
 
+// ?Draw_Block@Render2DTextClass@@ present-unmatched
 void	Render2DTextClass::Draw_Block( const RectClass & screen, unsigned long color )
 {
 	Internal_Add_Quad_Indicies( Vertices.Count() );
@@ -847,6 +900,7 @@ void	Render2DTextClass::Draw_Block( const RectClass & screen, unsigned long colo
 	TotalExtents += screen;
 }
 
+// ?Get_Text_Extents@Render2DTextClass@@ present-unmatched
 Vector2	Render2DTextClass::Get_Text_Extents( const WCHAR * text )
 {
 	Vector2 extent (0, Font->Char_Height());

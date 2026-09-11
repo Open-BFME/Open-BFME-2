@@ -76,7 +76,11 @@
 #define	VALUE_NAME_RENDER_DEVICE_WINDOWED			"RenderDeviceWindowed"
 #define	VALUE_NAME_RENDER_DEVICE_TEXTURE_DEPTH		"RenderDeviceTextureDepth"
 
-const unsigned MAX_TEXTURE_STAGES=8;
+// BFME2 has sixteen texture stages: Set_DX8_Texture_Stage_State (0x000661DD)
+// guards with `cmp ebx,0x10`, and RenderStateStruct's Textures[] grows with it.
+// At eight, every render_state field after Textures sat 0x20 low here while
+// dx8wrapper.cpp (bfmestages) placed them right -- the DIR32 gate's two bases.
+const unsigned MAX_TEXTURE_STAGES=16;
 const unsigned MAX_VERTEX_STREAMS=2;
 const unsigned MAX_VERTEX_SHADER_CONSTANTS=96;
 const unsigned MAX_PIXEL_SHADER_CONSTANTS=8;
