@@ -5,6 +5,7 @@
 // Code/Libraries/Source/WWVegas/WW3D2/dx8vertexbuffer.cpp.
 // Recovered role names and independent identities: docs/reconstruction/dynamic-vertex-buffer.md.
 #include <d3d8.h>
+#include <string.h>
 typedef unsigned long ULONG;
 typedef void *HANDLE;
 void *__cdecl operator new(unsigned);
@@ -107,6 +108,7 @@ struct BfmeDynamicVBAccess {
  BfmeDynamicVBAccess(unsigned type,unsigned format_index,unsigned short vertex_count,unsigned declaration);
  void AllocateNative();
  void AllocateSorting();
+ static void _Reset(bool frame_changed);
  unsigned Get_Type() const { return type; }
  unsigned short Get_Vertex_Count() const { return vertexCount; }
  struct WriteLock {
@@ -166,6 +168,14 @@ void BfmeDynamicVBAccess::AllocateSorting()
  if(buffer) buffer->ReleaseRef();
  buffer=bfmeSortingVB;
  vertexOffset=bfmeSortingVBOffset;
+}
+// Zero Hour's DynamicVBAccessClass::_Reset with BFME's fifteen native pools:
+// the sorting offset always rewinds, the per-format offsets only on a new
+// frame -- one 30-byte clear, seven dword stores and a word.
+void BfmeDynamicVBAccess::_Reset(bool frame_changed)
+{
+ bfmeSortingVBOffset=0;
+ if(frame_changed) memset(bfmeDynamicVBOffsets,0,sizeof(bfmeDynamicVBOffsets));
 }
 
 // Retail multiplies the vertex count by 44 with a lea/add/sub chain rather than

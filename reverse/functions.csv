@@ -6240,3 +6240,4 @@ _XMP_Randomize_Bounded,,0x0061C420,296,Code/Libraries/Source/WWVegas/WWLib/mpmat
 ??_GBfmeDynamicVBBase@@UAEPAXI@Z,,0x0013ABC0,30,Code/Libraries/Source/WWVegas/WW3D2/bfmedynamicvertexbuffer.cpp,matched,scalar deleting dtor
 ??_GBfmeDynamicSortingVB@@UAEPAXI@Z,,0x0013ABE0,30,Code/Libraries/Source/WWVegas/WW3D2/bfmedynamicvertexbuffer.cpp,matched,scalar deleting dtor
 ??_GBfmeDynamicNativeVB@@UAEPAXI@Z,,0x0013AC70,30,Code/Libraries/Source/WWVegas/WW3D2/bfmedynamicvertexbuffer.cpp,matched,scalar deleting dtor
+?_Reset@BfmeDynamicVBAccess@@SAX_N@Z,,0x0013AB70,60,Code/Libraries/Source/WWVegas/WW3D2/bfmedynamicvertexbuffer.cpp,matched,ZH DynamicVBAccessClass::_Reset over the fifteen native pools; the per-format clear is a 30-byte memset
