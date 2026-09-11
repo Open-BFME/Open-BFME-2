@@ -6272,3 +6272,4 @@ _XMP_Randomize_Bounded,,0x0061C420,296,Code/Libraries/Source/WWVegas/WWLib/mpmat
 ??_G?$VectorClass@VStringClass@@@@UAEPAXI@Z,,0x00122130,93,Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp,matched,scalar deleting dtor of VectorClass<StringClass>; the dtor inlined
 ??_G?$DynamicVectorClass@VStringClass@@@@UAEPAXI@Z,,0x001243E0,30,Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp,matched,scalar deleting dtor of DynamicVectorClass<StringClass>; its dtor call resolves through the pin on the folded body at 0x121E20
 ?bfmeRva0011F340@@YAXPBDPAX@Z,,0x0011F340,128,Code/Libraries/Source/WWVegas/WW3D2/BfmeDX8Callbacks.cpp,matched,address-derived; widens a narrow string for the stdcall hook at 0xDEDBDC; index zeroed before the hook test
+??_GRenderObjClass@@UAEPAXI@Z,,0x0013C010,30,Code/Libraries/Source/WWVegas/WW3D2/RenderObjCopy.cpp,matched,scalar deleting dtor emitted with the matched ~RenderObjClass (0x13BE20); vtable slot 0 of 0xBD2F68
