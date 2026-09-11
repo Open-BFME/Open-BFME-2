@@ -21,6 +21,7 @@ public:
 private:
     friend class AsciiString;
 
+    void releaseBuffer();
     StringBase(const StringBase<T> &that);
     StringBase(T character);
     StringBase(const T *text);
@@ -49,6 +50,7 @@ public:
     AsciiString(const char *text, int length);
     AsciiString(const char *text, int start, int length);
     AsciiString(const AsciiString &that, int start, int length);
+    ~AsciiString();
     AsciiString &operator=(const AsciiString &that);
     AsciiString &operator=(char character);
     AsciiString &operator=(const char *text);
@@ -107,6 +109,11 @@ AsciiString::AsciiString(const AsciiString &that, int start, int length)
 {
     ((StringBase<char> *)this)->StringBase<char>::StringBase(
         *(const StringBase<char> *)&that, start, length);
+}
+
+AsciiString::~AsciiString()
+{
+    ((StringBase<char> *)this)->releaseBuffer();
 }
 
 AsciiString &AsciiString::operator=(const AsciiString &that)
