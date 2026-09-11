@@ -343,6 +343,14 @@ bool StringBase<T>::endsWithNoCase(const T *str) const
     return endsWithNoCase(str, str ? (int)strlen(str) : 0);
 }
 
+// The wide twin measures with a wcslen call rather than the inlined scan loop
+// the length-taking members use - same split as the (const T *) prefix tests.
+template <>
+bool StringBase<wchar_t>::startsWithNoCase(const wchar_t *str) const
+{
+    return startsWithNoCase(str, str ? (int)wcslen(str) : 0);
+}
+
 template <typename T>
 bool StringBase<T>::endsWithNoCase(const StringBase<T> &str) const
 {

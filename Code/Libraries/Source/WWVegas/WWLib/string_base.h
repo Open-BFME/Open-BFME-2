@@ -26,6 +26,7 @@ public:
     bool isNotEmpty() const;
     bool isNone() const;
     bool startsWithNoCase(const StringBase<T> &str) const;
+    bool startsWithNoCase(const T *str) const;
     bool startsWithNoCase(const T *str, int len) const;
     bool endsWithNoCase(const T *str, int len) const;
     bool endsWithNoCase(const T *str) const;
