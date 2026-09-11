@@ -1190,3 +1190,4 @@ _GetCurrentThreadId@0,0x006105D0,kernel32 GetCurrentThreadId IAT thunk; REL32 fr
 ?bfmeRva0066EB40@BfmeSubBZC@@QAEXXZ,0x0066EB40,placeholder name: the reset BfmeSubBZC::bfmeSetBZC (0x0066ED50) calls on this before reallocating; identity not recovered
 ?bfmeRva0065CEA0@@YAPAVBfmeRva0065CEA0Allocator@@XZ,0x0065CEA0,placeholder name: argument-less getter whose result BfmeSubBZC::bfmeSetBZC (0x0066ED50) allocates through at vtable slot 2; identity not recovered
 ??0BfmeRva0066E270@@QAE@XZ,0x0066E270,placeholder name: constructor BfmeSubBZC::bfmeSetBZC (0x0066ED50) runs on each 128-byte element it places; identity not recovered
+?Shutdown@INIClass@@AAEXXZ,0x00616AC0,INIClass::Shutdown: retail ~INIClass (0x00617AC0) inlines Clear() and then tail-jumps here with this in ecx; BFME body differs from the Zero Hour three-delete shape so the row is not claimed

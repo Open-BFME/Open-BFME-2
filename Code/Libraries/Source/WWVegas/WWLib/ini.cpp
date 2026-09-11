@@ -190,7 +190,8 @@ void INIClass::Initialize(void)
 }
 
 // ?Shutdown@INIClass@@ present-unmatched
-void INIClass::Shutdown(void)
+// Never inlined: retail's destructor inlines Clear() and then tail-jumps here.
+__declspec(noinline) void INIClass::Shutdown(void)
 {
 	delete SectionList;
 	delete SectionIndex;
@@ -278,7 +279,6 @@ INIClass::INIClass(const char *filename)
  * HISTORY:                                                                                    *
  *   07/02/1996 JLB : Created.                                                                 *
  *=============================================================================================*/
-// ??1INIClass@@ present-unmatched
 INIClass::~INIClass(void)
 {
 	Clear();
