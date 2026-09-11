@@ -387,7 +387,6 @@ Xfer &BfmeRva00C7B388::operator==(PooledString &value)
     return *this;
 }
 
-// ??8BfmeRva00C7B388@@UAEAAVXfer@@AAUCoord3DBase@@@Z present-unmatched
 Xfer &BfmeRva00C7B388::operator==(Coord3DBase &value)
 {
     if (!m_bfme04)
