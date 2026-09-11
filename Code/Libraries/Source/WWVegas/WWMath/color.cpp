@@ -158,6 +158,7 @@ namespace FXParticleSystem {
 struct RGBColorKeyframe
 {
     RGBColorKeyframe();
+    RGBColorKeyframe &operator=(const RGBColorKeyframe &that);
 
     RGBColor color;
     unsigned int frame;
@@ -167,6 +168,21 @@ RGBColorKeyframe::RGBColorKeyframe()
 {
     color.red = color.green = color.blue = 0.0f;
     frame = 0;
+}
+
+// The 16-byte block copy folded with the integer-region assignment at 0x002E7FDA.
+RGBColorKeyframe &RGBColorKeyframe::operator=(const RGBColorKeyframe &that)
+{
+    struct Raw
+    {
+        unsigned int red;
+        unsigned int green;
+        unsigned int blue;
+        unsigned int frame;
+    };
+
+    *(Raw *)this = *(const Raw *)&that;
+    return *this;
 }
 
 struct RandomAlphaKeyframe

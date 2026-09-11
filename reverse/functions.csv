@@ -6309,3 +6309,4 @@ _XMP_Randomize_Bounded,,0x0061C420,296,Code/Libraries/Source/WWVegas/WWLib/mpmat
 ??4Region2D@@QAEAAU0@ABU0@@Z,0x002E7FDA,0x002E7FDA,19,Code/Libraries/Source/WWVegas/WWMath/region.cpp,matched,BFME1 Region2D copy assignment transferred; BFME2 implicit movsd copy folded with IRegion2D
 ??4RGBAColorReal@@QAEAAU0@ABU0@@Z,0x002E7FDA,0x002E7FDA,19,Code/Libraries/Source/WWVegas/WWMath/color.cpp,matched,BFME1 RGBAColorReal copy assignment transferred; BFME2 16-byte block copy folded at 0x002E7FDA
 ??4RGBAColorInt@@QAEAAU0@ABU0@@Z,0x002E7FDA,0x002E7FDA,19,Code/Libraries/Source/WWVegas/WWMath/color.cpp,matched,BFME1 RGBAColorInt copy assignment transferred; BFME2 16-byte block copy folded at 0x002E7FDA
+??4RGBColorKeyframe@FXParticleSystem@@QAEAAU01@ABU01@@Z,0x002E7FDA,0x002E7FDA,19,Code/Libraries/Source/WWVegas/WWMath/color.cpp,matched,BFME1 RGBColorKeyframe copy assignment transferred; BFME2 16-byte block copy folded at 0x002E7FDA
