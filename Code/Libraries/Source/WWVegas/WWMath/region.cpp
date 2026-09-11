@@ -166,7 +166,6 @@ struct Region2D
     Region2D(const Region2D &that);
     Region2D(const Coord2D &lower_left, const Coord2D &upper_right);
 
-    Region2D &operator=(const Region2D &that);
     float width() const;
     float height() const;
     bool isInside(const Coord2D &point) const;
