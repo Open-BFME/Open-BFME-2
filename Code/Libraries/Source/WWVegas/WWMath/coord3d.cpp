@@ -29,6 +29,8 @@ public:
 
 struct Coord3DBase
 {
+    Coord3DBase &operator=(const Coord3DBase &that);
+
     float x;
     float y;
     float z;
@@ -129,6 +131,21 @@ public:
 
 static const float length_estimate_factor = 0.25f;
 static const float one = 1.0f;
+
+// The 12-byte block copy folded with the integer-coordinate and random-variable
+// assignments: three movsd rather than three field stores.
+Coord3DBase &Coord3DBase::operator=(const Coord3DBase &that)
+{
+    struct Raw
+    {
+        unsigned int x;
+        unsigned int y;
+        unsigned int z;
+    };
+
+    *(Raw *)this = *(const Raw *)&that;
+    return *this;
+}
 
 Coord3D::Coord3D()
 {
