@@ -268,7 +268,6 @@ Xfer &BfmeRva00C7B388::operator==(short &value)
     return *this;
 }
 
-// ??8BfmeRva00C7B388@@UAEAAVXfer@@AAG@Z present-unmatched
 Xfer &BfmeRva00C7B388::operator==(unsigned short &value)
 {
     if (!m_bfme04)
