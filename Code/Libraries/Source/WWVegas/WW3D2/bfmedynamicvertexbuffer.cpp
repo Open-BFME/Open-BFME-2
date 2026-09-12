@@ -445,3 +445,194 @@ BfmeDynamicVBAccess::WriteLock::~WriteLock()
 
 typedef char BfmeDynamicWriteLockSize[(sizeof(BfmeDynamicVBAccess::WriteLock)==12)?1:-1];
 typedef char BfmeSortingVertexSize[(sizeof(BfmeSortingVertex)==44)?1:-1];
+
+// Zero Hour's VertexBufferClass lock helpers, layout-identical to the matched
+// VertexBufferLockClasses.cpp unit (buffer/kind/FVF record placement proven
+// there); the vertex-array accessor rides along because Copy needs it.
+class VertexBufferClass
+{
+public:
+	class WriteLockClass
+	{
+		VertexBufferClass *VertexBuffer;
+		void *Vertices;
+		BFMEDX8DeviceLock device_lock;
+
+	public:
+		WriteLockClass(VertexBufferClass *vertex_buffer, int flags = 0);
+		~WriteLockClass();
+		void *Get_Vertex_Array() { return Vertices; }
+	};
+
+	class AppendLockClass
+	{
+		VertexBufferClass *VertexBuffer;
+		void *Vertices;
+		BFMEDX8DeviceLock device_lock;
+
+	public:
+		AppendLockClass(VertexBufferClass *vertex_buffer, unsigned start_index, unsigned index_range, int flags = 0);
+		~AppendLockClass();
+		void *Get_Vertex_Array() { return Vertices; }
+	};
+};
+
+class Vector2
+{
+public:
+	float X;
+	float Y;
+
+	float &operator[](int i) { return (&X)[i]; }
+	const float &operator[](int i) const { return (&X)[i]; }
+};
+
+class Vector3
+{
+public:
+	float X;
+	float Y;
+	float Z;
+
+	float &operator[](int i) { return (&X)[i]; }
+	const float &operator[](int i) const { return (&X)[i]; }
+};
+
+class Vector4
+{
+public:
+	float X;
+	float Y;
+	float Z;
+	float W;
+
+	float &operator[](int i) { return (&X)[i]; }
+	const float &operator[](int i) const { return (&X)[i]; }
+};
+
+// upstream layout: dx8fvf.h VertexFormatXYZNDUV1 (36 bytes).
+struct VertexFormatXYZNDUV1
+{
+	float x;
+	float y;
+	float z;
+	float nx;
+	float ny;
+	float nz;
+	unsigned diffuse;
+	float u1;
+	float v1;
+};
+
+// Zero Hour's float-to-ARGB pack, dx8wrapper.h: the Vector4 form forwards to
+// the Vector3-plus-alpha form whose __asm body sets truncate rounding,
+// scales by 255 and shifts the four bytes together. Force-inline here so no
+// call survives: retail's Copy bodies inline it per vertex.
+struct DX8Wrapper
+{
+	static __forceinline unsigned int Convert_Color(const Vector3 &color, float alpha)
+	{
+		const float scale = 255.0;
+		// Retail zeroes this slot before the asm block writes it back, so the
+		// upstream uninitialized declaration does not reproduce: keep the init.
+		unsigned int col = 0;
+
+		__asm
+		{
+			sub	esp,20
+
+			fwait
+			fstcw		[esp+16]
+			mov		eax,[esp+16]
+			mov		edi,eax
+			and		eax,~(1024|2048)
+			or			eax,(1024|2048)
+			sub		edi,eax
+			jz			skip
+			mov		[esp],eax
+			fldcw		[esp]
+	skip:
+
+			mov	esi,dword ptr color
+			fld	dword ptr[scale]
+
+			fld	dword ptr[esi]
+			fld	dword ptr[esi+4]
+			fld	dword ptr[esi+8]
+			fld	dword ptr[alpha]
+			fld	st(4)
+			fmul	st(4),st
+			fmul	st(3),st
+			fmul	st(2),st
+			fmulp	st(1),st
+			fistp	dword ptr[esp+0]
+			fistp	dword ptr[esp+4]
+			fistp	dword ptr[esp+8]
+			fistp	dword ptr[esp+12]
+			mov	ecx,[esp]
+			mov	eax,[esp+4]
+			mov	edx,[esp+8]
+			mov	ebx,[esp+12]
+			shl	ecx,24
+			shl	ebx,16
+			shl	edx,8
+			or		eax,ecx
+			or		eax,ebx
+			or		eax,edx
+
+			fstp	st(0)
+
+			cmp	edi,0
+			je		not_changed
+			fwait
+			fldcw	[esp+16];
+		not_changed:
+			add	esp,20
+
+			mov	col,eax
+		}
+		return col;
+	}
+
+	static __forceinline unsigned int Convert_Color(const Vector4 &color)
+	{
+		return Convert_Color(reinterpret_cast<const Vector3 &>(color), color[3]);
+	}
+};
+
+// Zero Hour's DX8VertexBufferClass::Copy for XYZNDUV1, dx8vertexbuffer.cpp:
+// lock the range (append when first_vertex is nonzero, full write otherwise)
+// and fan the four arrays out, packing diffuse through Convert_Color.
+void BfmeDynamicNativeVB::Copy(const Vector3 *loc, const Vector3 *norm, const Vector2 *uv, const Vector4 *diffuse, unsigned first_vertex, unsigned count)
+{
+	if (first_vertex) {
+		VertexBufferClass::AppendLockClass l(reinterpret_cast<VertexBufferClass *>(this), first_vertex, count);
+		VertexFormatXYZNDUV1 *verts = (VertexFormatXYZNDUV1 *)l.Get_Vertex_Array();
+		for (unsigned v = 0; v < count; ++v) {
+			verts[v].x = (*loc)[0];
+			verts[v].y = (*loc)[1];
+			verts[v].z = (*loc++)[2];
+			verts[v].nx = (*norm)[0];
+			verts[v].ny = (*norm)[1];
+			verts[v].nz = (*norm++)[2];
+			verts[v].u1 = (*uv)[0];
+			verts[v].v1 = (*uv++)[1];
+			verts[v].diffuse = DX8Wrapper::Convert_Color(diffuse[v]);
+		}
+	}
+	else {
+		VertexBufferClass::WriteLockClass l(reinterpret_cast<VertexBufferClass *>(this));
+		VertexFormatXYZNDUV1 *verts = (VertexFormatXYZNDUV1 *)l.Get_Vertex_Array();
+		for (unsigned v = 0; v < count; ++v) {
+			verts[v].x = (*loc)[0];
+			verts[v].y = (*loc)[1];
+			verts[v].z = (*loc++)[2];
+			verts[v].nx = (*norm)[0];
+			verts[v].ny = (*norm)[1];
+			verts[v].nz = (*norm++)[2];
+			verts[v].u1 = (*uv)[0];
+			verts[v].v1 = (*uv++)[1];
+			verts[v].diffuse = DX8Wrapper::Convert_Color(diffuse[v]);
+		}
+	}
+}
