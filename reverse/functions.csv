@@ -1993,7 +1993,6 @@ _XMP_Test_Bit,,0x0061B780,33,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?Delete@?$DynamicVectorClass@VModelNodeClass@HLodClass@@@@QAE_NH@Z,,0x0019EA90,91,Code/Libraries/Source/WWVegas/WW3D2/hlod.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
 ?Is_Valid@GenericNode@@QBE_NXZ,,0x00116DF0,25,Code/Libraries/Source/WWVegas/WW3D2/layer.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
 ??4InputLightStruct@LightEnvironmentClass@@QAEAAU01@ABU01@@Z,,0x0013F660,141,Code/Libraries/Source/WWVegas/WW3D2/lightenvironment.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
-?Get_Bit@TimeCodedBitChannelClass@@QAEHH@Z,,0x00195EF0,100,Code/Libraries/Source/WWVegas/WW3D2/motchan.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
 ?Set_Element@?$ShareBufferClass@VVector4@@@@QAEXHABVVector4@@@Z,,0x001A7C10,39,Code/Libraries/Source/WWVegas/WW3D2/part_buf.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
 ?Resize@?$SimpleVecClass@E@@UAE_NH@Z,,0x001A7E60,134,Code/Libraries/Source/WWVegas/WW3D2/part_buf.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
 ?Uninitialised_Grow@?$SimpleVecClass@E@@UAE_NH@Z,,0x001A7EF0,48,Code/Libraries/Source/WWVegas/WW3D2/part_buf.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
@@ -6419,3 +6418,4 @@ _qr2_parse_queryA,,0x00697530,632,Code/GameEngine/Source/GameNetwork/GameSpy/qr2
 ?_S_minimum@_Rb_tree_node_base@_STL@@SAPAU12@PAU12@@Z,,0x000237F0,26,Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_int.cpp,matched,stlport-4.5.3
 ?_S_maximum@_Rb_tree_node_base@_STL@@SAPAU12@PAU12@@Z,,0x00023810,26,Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_int.cpp,matched,stlport-4.5.3
 ?erase@?$_Rb_tree@HU?$pair@$$CBHH@_STL@@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@QAEXU?$_Rb_tree_iterator@U?$pair@$$CBHH@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHH@_STL@@@2@@2@0@Z,,0x0061F7B0,144,Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_int.cpp,matched,Open-BFME5 clean C++; found by locate with the node allocator and CRT import decorations neutralised
+?Get_Bit@TimeCodedBitChannelClass@@QAEHH@Z,,0x00195EF0,107,Code/Libraries/Source/WWVegas/WW3D2/motchan.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
