@@ -5844,7 +5844,6 @@ _XMP_Move,,0x0061BE10,19,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,
 ??_GUpgradeModuleData@@UAEPAXI@Z,,0x004BC7E2,28,Code/GameEngine/Source/Common/Thing/ModuleFactory.cpp,matched,
 ??$_M_allocate_and_copy@PBVAsciiString@@@?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@IAEPAVAsciiString@@IPBV2@0@Z,,0x000BBCA7,45,Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp,matched,
 ??R?$less@VAsciiString@@@_STL@@QBE_NABVAsciiString@@0@Z,,0x00207150,18,Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp,matched,
-??1?$pair@VAsciiString@@VAudioEventRTS@@@_STL@@QAE@XZ,,0x002A12E1,10,Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp,matched,
 ??$_M_find@VAsciiString@@@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@@3@@_STL@@ABEPAU?$_Rb_tree_node@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@@1@ABVAsciiString@@@Z,,0x0032C07C,78,Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp,matched,
 ?findBestInfo@?$SparseMatchFinder@VWeaponTemplateSet@@V?$BitFlags@$0BB@@@@@QBEPBVWeaponTemplateSet@@ABV?$vector@VWeaponTemplateSet@@V?$allocator@VWeaponTemplateSet@@@_STL@@@_STL@@ABV?$BitFlags@$0BB@@@@Z,,0x0033D4EA,65,Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp,matched,
 ?clear@ArmorTemplateSet@@QAEXXZ,,0x006E00A0,11,Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp,matched,
@@ -6419,3 +6418,4 @@ _ciApplyChangesToMode,,0x006AC670,180,Code/GameEngine/Source/GameNetwork/GameSpy
 ?_M_open@_Filebuf_base@_STL@@QAE_NPBDHJ@Z,,0x0001D390,321,Code/Libraries/Source/WWVegas/WWLib/stlport_filebuf_open.cpp,matched,Authored STLport 4.5.3 Win32 file opening; native field types and independently verified PE imports; full code and switch data
 ??1Locomotor@@MAE@XZ,,0x003067D2,60,Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp,matched,
 ??1AttackNugget@@MAE@XZ,,0x004E1B72,54,Code/GameEngine/Source/GameLogic/Object/ObjectCreationList.cpp,matched,
+??1?$pair@VAsciiString@@VAudioEventRTS@@@_STL@@QAE@XZ,,0x002A12E1,53,Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp,matched,
