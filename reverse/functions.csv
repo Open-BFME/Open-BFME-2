@@ -6439,3 +6439,13 @@ __ftol2,,0x00629228,117,Code/masm_dumps/ftol2.asm,matched,CRT float-to-int helpe
 ?aab_separation_test@@YA_NAAUAABCollisionStruct@@H@Z,,0x00723C20,179,Code/Libraries/Source/WWVegas/WWMath/CollisionMathMovingAABox.cpp,matched,WWMath moving-AABox axis separation helper; placed by masked whole-text search single hit
 ?Collide@CollisionMath@@SA_NABVAABoxClass@@ABVVector3@@0PAUCastResultStruct@@@Z,,0x00723CE0,438,Code/Libraries/Source/WWVegas/WWMath/CollisionMathMovingAABox.cpp,matched,WWMath moving-AABox Collide; placed by masked whole-text search single hit
 ??0AABCollisionStruct@@QAE@ABVAABoxClass@@ABVVector3@@01@Z,,0x00723B90,138,Code/Libraries/Source/WWVegas/WWMath/CollisionMathMovingAABox.cpp,matched,WWMath moving-AABox collision context ctor; placed by masked whole-text search single hit
+?Normalized_Cross_Product@Vector3@@SAXABV1@0PAV1@@Z,,0x0006A965,183,Code/Libraries/Source/WWVegas/WWMath/vector3.cpp,matched,WWMath Vector3 normalized cross product; placed by masked whole-text search single hit
+?Quick_Distance@Vector3@@SAMABV1@0@Z,,0x0026FE70,174,Code/Libraries/Source/WWVegas/WWMath/vector3.cpp,matched,WWMath Vector3 quick distance; placed by masked whole-text search single hit
+?Quick_Length@Vector3@@QBEMXZ,,0x0026FDD4,156,Code/Libraries/Source/WWVegas/WWMath/vector3.cpp,matched,WWMath Vector3 quick length; placed by masked whole-text search single hit
+?Equal_Within_Epsilon@@YA_NABVVector3@@0M@Z,,0x0010022F,98,Code/Libraries/Source/WWVegas/WWMath/vector3.cpp,matched,WWMath Vector3 epsilon equality; placed by masked whole-text search single hit
+?Rotate_Z@Vector3@@QAEXM@Z,,0x0008E48C,96,Code/Libraries/Source/WWVegas/WWMath/vector3.cpp,matched,WWMath Vector3 Z rotation; placed by masked whole-text search single hit
+?Lerp@Vector3@@SAXABV1@0MPAV1@@Z,,0x0009AA48,85,Code/Libraries/Source/WWVegas/WWMath/vector3.cpp,matched,WWMath Vector3 lerp; placed by masked whole-text search single hit
+?Distance@Vector3@@SAMABV1@0@Z,,0x000CFF7F,84,Code/Libraries/Source/WWVegas/WWMath/vector3.cpp,matched,WWMath Vector3 distance; placed by masked whole-text search single hit
+?Length@Vector3@@QBEMXZ,,0x000692B3,66,Code/Libraries/Source/WWVegas/WWMath/vector3.cpp,matched,WWMath Vector3 length; placed by masked whole-text search single hit
+?Rotate_Z@Vector3@@QAEXMM@Z,,0x0008E11F,59,Code/Libraries/Source/WWVegas/WWMath/vector3.cpp,matched,WWMath Vector3 Z rotation two-arg; placed by masked whole-text search single hit
+??D@YA?AVVector3@@ABV0@M@Z,,0x00066382,54,Code/Libraries/Source/WWVegas/WWMath/vector3.cpp,matched,WWMath Vector3 scalar divide; placed by masked whole-text search single hit
