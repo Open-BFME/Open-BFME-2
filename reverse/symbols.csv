@@ -1226,3 +1226,4 @@ _GetCurrentThreadId@0,0x006105D0,kernel32 GetCurrentThreadId IAT thunk; REL32 fr
 ??4RenderDeviceDescClass@@QAEAAV0@ABV0@@Z,0x00122450,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
 ?appendMessageList@CommandList@@QAEXPAVGameMessage@@@Z,0x0030F880,call site in MessageStream::propagateMessages (0x310FF5) dispatches a direct non-virtual thiscall pushing m_firstMessage matching ZH CommandList::appendMessageList(GameMessage*)
 ?update@TimedOp@@QAEIXZ,0x003FE6E8,call site in _bfme_updateTimedOps (0x3FE74B) dispatches a bare non-virtual thiscall on the linked-list head returning flags in eax tested against bit 0x2; identity beyond this call shape is unknown
+?bfmeRva0011F3C0@@YAXXZ,0x0011F3C0,address-derived optional-callback helper; the BFME2ScopedRenderEvent destructor thunk at 0x00117DA0 tail-jumps here and the 12-byte body is independently bounded
