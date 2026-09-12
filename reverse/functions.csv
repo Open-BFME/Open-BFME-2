@@ -6427,3 +6427,5 @@ __ftol2,,0x00629228,117,Code/masm_dumps/ftol2.asm,matched,CRT float-to-int helpe
 ??0BFME2ScopedRenderEvent@@QAE@PBD0I@Z,,0x00117CF0,167,Code/Libraries/Source/WWVegas/WW3D2/BFME2ScopedRenderEvent.cpp,matched,
 ??1BFME2ScopedRenderEvent@@QAE@XZ,,0x00117DA0,5,Code/Libraries/Source/WWVegas/WW3D2/BFME2ScopedRenderEventDtor.cpp,matched,
 ?initializeBonePositions@SpawnPointProductionExitUpdate@@AAEXXZ,,0x004A3CEA,340,Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/SpawnPointInitializeBonePositions.cpp,matched,
+?DebugLogTyped@@YAXIPAXI@Z,,0x00039660,186,Code/Libraries/Source/WWVegas/WW3D2/Log_DX8_ErrorCode.cpp,matched,recovered typed crash-dump buffer growth and payload copy
+??4?$VectorClass@VResolutionDescClass@@@@QAEAAV0@ABV0@@Z,,0x00120FE0,215,Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp,matched,BFME2 VectorClass assignment restores IsValid transitions

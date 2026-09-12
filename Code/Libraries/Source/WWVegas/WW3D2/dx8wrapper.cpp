@@ -87,6 +87,31 @@
 
 #include "shdlib.h"
 
+template<>
+VectorClass<ResolutionDescClass> &VectorClass<ResolutionDescClass>::operator =(
+	const VectorClass<ResolutionDescClass> &vec)
+{
+	if (this != &vec) {
+		Clear();
+		IsValid = false;
+		VectorMax = vec.VectorMax;
+		if (VectorMax) {
+			Vector = W3DNEWARRAY ResolutionDescClass[VectorMax];
+			if (Vector) {
+				IsAllocated = true;
+				IsValid = true;
+				for (int index = 0; index < VectorMax; ++index)
+					Vector[index] = vec.Vector[index];
+			}
+		} else {
+			Vector = 0;
+			IsAllocated = false;
+			IsValid = true;
+		}
+	}
+	return *this;
+}
+
 const int DEFAULT_RESOLUTION_WIDTH = 640;
 const int DEFAULT_RESOLUTION_HEIGHT = 480;
 const int DEFAULT_BIT_DEPTH = 32;

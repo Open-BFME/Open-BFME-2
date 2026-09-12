@@ -17,3 +17,14 @@
 # the /arch:SSE wave -- the inconsistency was always in the image, we just had
 # only one side of it claimed until now.
 __real@447a0000
+
+# These vtable spellings are emitted as transitional base-subobject vptrs in
+# independently byte-verified bodies.  The Locomotor and AttackNugget deleting
+# destructors call their respective destructor addresses directly, proving the
+# owners despite both bodies using 0x00BBB554 while Overridable uses 0x00BC93C8.
+# Likewise the separately instantiated VectorClass<float> constructor uses
+# 0x00BD6C24, while three independently placed float-family bodies use
+# 0x00BD4ECC.  Retail therefore retains multiple linker artifacts for these
+# COMDAT vtables; every listed body verifies against the address it encodes.
+??_7MemoryPoolObject@@6B@
+??_7?$VectorClass@M@@6B@

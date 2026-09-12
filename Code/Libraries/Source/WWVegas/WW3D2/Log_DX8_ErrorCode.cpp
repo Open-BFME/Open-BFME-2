@@ -4,7 +4,42 @@
 // Dedicated TU. Retail is a typed crash dump (fourcc DXER plus the HRESULT)
 // followed by the same SkipNext / CrashBegin / CrashDone arm as DebugAllocMemory.
 
-void DebugLogTyped(unsigned tag, void *data, unsigned size);
+extern "C" void *__cdecl realloc(void *block, unsigned size);
+extern "C" void *__cdecl memcpy(void *dest, const void *source, unsigned size);
+#pragma intrinsic(memcpy)
+
+struct DebugTypedLog
+{
+	unsigned tag;
+	void *data;
+	unsigned size;
+};
+
+DebugTypedLog *g_debugTypedLogs;
+unsigned g_debugTypedLogCount;
+
+#pragma optimize("y", off)
+void DebugLogTyped(unsigned tag, void *data, unsigned size)
+{
+	unsigned index = 0;
+	while (index < g_debugTypedLogCount && g_debugTypedLogs[index].tag != tag)
+		++index;
+
+	if (index == g_debugTypedLogCount)
+	{
+		++g_debugTypedLogCount;
+		g_debugTypedLogs = static_cast<DebugTypedLog *>(realloc(
+			g_debugTypedLogs, g_debugTypedLogCount * sizeof(DebugTypedLog)));
+		g_debugTypedLogs[index].tag = tag;
+		g_debugTypedLogs[index].data = 0;
+		g_debugTypedLogs[index].size = 0;
+	}
+
+	g_debugTypedLogs[index].data = realloc(g_debugTypedLogs[index].data, size);
+	memcpy(g_debugTypedLogs[index].data, data, size);
+	g_debugTypedLogs[index].size = size;
+}
+#pragma optimize("y", on)
 
 class Debug
 {
