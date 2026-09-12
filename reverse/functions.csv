@@ -6450,3 +6450,4 @@ __ftol2,,0x00629228,117,Code/masm_dumps/ftol2.asm,matched,CRT float-to-int helpe
 ?Rotate_Z@Vector3@@QAEXMM@Z,,0x0008E11F,59,Code/Libraries/Source/WWVegas/WWMath/vector3.cpp,matched,WWMath Vector3 Z rotation two-arg; placed by masked whole-text search single hit
 ??D@YA?AVVector3@@ABV0@M@Z,,0x00066382,54,Code/Libraries/Source/WWVegas/WWMath/vector3.cpp,matched,WWMath Vector3 scalar divide; placed by masked whole-text search single hit
 ?Rotate_Y@Matrix3@@QAEXM@Z,,0x003F9565,202,Code/Libraries/Source/WWVegas/WWMath/U4RotateYMatrix3.cpp,matched,WWMath Matrix3 Y rotation; placed by masked whole-text search single hit
+?Rotate_Y@Matrix3@@QAEXMM@Z,,0x003F93CA,163,Code/Libraries/Source/WWVegas/WWMath/U4RotateYMatrix3.cpp,matched,WWMath Matrix3 Y rotation two-arg; placed by masked whole-text search single hit
