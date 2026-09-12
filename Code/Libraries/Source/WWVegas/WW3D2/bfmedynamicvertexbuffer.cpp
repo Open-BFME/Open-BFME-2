@@ -600,6 +600,131 @@ struct DX8Wrapper
 	}
 };
 
+// upstream layout: dx8fvf.h VertexFormatXYZDUV1 (24 bytes).
+struct VertexFormatXYZDUV1
+{
+	float x;
+	float y;
+	float z;
+	unsigned diffuse;
+	float u1;
+	float v1;
+};
+
+// Zero Hour's DX8VertexBufferClass::Copy for XYZDUV1, dx8vertexbuffer.cpp:
+// same lock dance as the XYZNDUV1 form, fanning loc/uv/diffuse out.
+void BfmeDynamicNativeVB::Copy(const Vector3 *loc, const Vector2 *uv, const Vector4 *diffuse, unsigned first_vertex, unsigned count)
+{
+	if (first_vertex) {
+		VertexBufferClass::AppendLockClass l(reinterpret_cast<VertexBufferClass *>(this), first_vertex, count);
+		VertexFormatXYZDUV1 *verts = (VertexFormatXYZDUV1 *)l.Get_Vertex_Array();
+		for (unsigned v = 0; v < count; ++v) {
+			verts[v].x = (*loc)[0];
+			verts[v].y = (*loc)[1];
+			verts[v].z = (*loc++)[2];
+			verts[v].u1 = (*uv)[0];
+			verts[v].v1 = (*uv++)[1];
+			verts[v].diffuse = DX8Wrapper::Convert_Color(diffuse[v]);
+		}
+	}
+	else {
+		VertexBufferClass::WriteLockClass l(reinterpret_cast<VertexBufferClass *>(this));
+		VertexFormatXYZDUV1 *verts = (VertexFormatXYZDUV1 *)l.Get_Vertex_Array();
+		for (unsigned v = 0; v < count; ++v) {
+			verts[v].x = (*loc)[0];
+			verts[v].y = (*loc)[1];
+			verts[v].z = (*loc++)[2];
+			verts[v].u1 = (*uv)[0];
+			verts[v].v1 = (*uv++)[1];
+			verts[v].diffuse = DX8Wrapper::Convert_Color(diffuse[v]);
+		}
+	}
+}
+// upstream layout: dx8fvf.h VertexFormatXYZNUV1 (32 bytes).
+struct VertexFormatXYZNUV1
+{
+	float x;
+	float y;
+	float z;
+	float nx;
+	float ny;
+	float nz;
+	float u1;
+	float v1;
+};
+
+// upstream layout: dx8fvf.h VertexFormatXYZUV1 (20 bytes).
+struct VertexFormatXYZUV1
+{
+	float x;
+	float y;
+	float z;
+	float u1;
+	float v1;
+};
+
+// Zero Hour's DX8VertexBufferClass::Copy for XYZNUV1, dx8vertexbuffer.cpp:
+// same lock dance, no diffuse pack.
+void BfmeDynamicNativeVB::Copy(const Vector3 *loc, const Vector3 *norm, const Vector2 *uv, unsigned first_vertex, unsigned count)
+{
+	if (first_vertex) {
+		VertexBufferClass::AppendLockClass l(reinterpret_cast<VertexBufferClass *>(this), first_vertex, count);
+		VertexFormatXYZNUV1 *verts = (VertexFormatXYZNUV1 *)l.Get_Vertex_Array();
+		for (unsigned v = 0; v < count; ++v) {
+			verts[v].x = (*loc)[0];
+			verts[v].y = (*loc)[1];
+			verts[v].z = (*loc++)[2];
+			verts[v].nx = (*norm)[0];
+			verts[v].ny = (*norm)[1];
+			verts[v].nz = (*norm++)[2];
+			verts[v].u1 = (*uv)[0];
+			verts[v].v1 = (*uv++)[1];
+		}
+	}
+	else {
+		VertexBufferClass::WriteLockClass l(reinterpret_cast<VertexBufferClass *>(this));
+		VertexFormatXYZNUV1 *verts = (VertexFormatXYZNUV1 *)l.Get_Vertex_Array();
+		for (unsigned v = 0; v < count; ++v) {
+			verts[v].x = (*loc)[0];
+			verts[v].y = (*loc)[1];
+			verts[v].z = (*loc++)[2];
+			verts[v].nx = (*norm)[0];
+			verts[v].ny = (*norm)[1];
+			verts[v].nz = (*norm++)[2];
+			verts[v].u1 = (*uv)[0];
+			verts[v].v1 = (*uv++)[1];
+		}
+	}
+}
+
+// Zero Hour's DX8VertexBufferClass::Copy for XYZUV1, dx8vertexbuffer.cpp:
+// same lock dance, positions and uvs only.
+void BfmeDynamicNativeVB::Copy(const Vector3 *loc, const Vector2 *uv, unsigned first_vertex, unsigned count)
+{
+	if (first_vertex) {
+		VertexBufferClass::AppendLockClass l(reinterpret_cast<VertexBufferClass *>(this), first_vertex, count);
+		VertexFormatXYZUV1 *verts = (VertexFormatXYZUV1 *)l.Get_Vertex_Array();
+		for (unsigned v = 0; v < count; ++v) {
+			verts[v].x = (*loc)[0];
+			verts[v].y = (*loc)[1];
+			verts[v].z = (*loc++)[2];
+			verts[v].u1 = (*uv)[0];
+			verts[v].v1 = (*uv++)[1];
+		}
+	}
+	else {
+		VertexBufferClass::WriteLockClass l(reinterpret_cast<VertexBufferClass *>(this));
+		VertexFormatXYZUV1 *verts = (VertexFormatXYZUV1 *)l.Get_Vertex_Array();
+		for (unsigned v = 0; v < count; ++v) {
+			verts[v].x = (*loc)[0];
+			verts[v].y = (*loc)[1];
+			verts[v].z = (*loc++)[2];
+			verts[v].u1 = (*uv)[0];
+			verts[v].v1 = (*uv++)[1];
+		}
+	}
+}
+
 // Zero Hour's DX8VertexBufferClass::Copy for XYZNDUV1, dx8vertexbuffer.cpp:
 // lock the range (append when first_vertex is nonzero, full write otherwise)
 // and fan the four arrays out, packing diffuse through Convert_Color.
