@@ -1,126 +1,16 @@
 // ?Apply@ShaderClass@@AAEXXZ
-// partial score=0.9971811134601832 date=2026-09-07
 // cl: /arch:SSE2 /Ireference/shims/bfmeshader /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/sweep
 // stlport
-/* Partial reconstruction evidence; no progress credit.
-{
-  "symbol": "?Apply@ShaderClass@@AAEXXZ",
-  "target_rva": "0x137590",
-  "executable_bytes": 2838,
-  "differing_offsets": [
-    "0x11e",
-    "0x11f",
-    "0x123",
-    "0x124",
-    "0x128",
-    "0x129",
-    "0x12d",
-    "0x12e"
-  ],
-  "score": 0.9971811134601832,
-  "unresolved_callees": [],
-  "compiler_float_literals_verified": 1,
-  "switch_data_bytes": 92,
-  "alignment_bytes": 2,
-  "switch_targets": [
-    {
-      "offset": "0xb18",
-      "destination": "0x537745"
-    },
-    {
-      "offset": "0xb1c",
-      "destination": "0x53773e"
-    },
-    {
-      "offset": "0xb20",
-      "destination": "0x537730"
-    },
-    {
-      "offset": "0xb24",
-      "destination": "0x537739"
-    },
-    {
-      "offset": "0xb28",
-      "destination": "0x537827"
-    },
-    {
-      "offset": "0xb2c",
-      "destination": "0x53784c"
-    },
-    {
-      "offset": "0xb30",
-      "destination": "0x537889"
-    },
-    {
-      "offset": "0xb34",
-      "destination": "0x53789f"
-    },
-    {
-      "offset": "0xb38",
-      "destination": "0x5378d1"
-    },
-    {
-      "offset": "0xb3c",
-      "destination": "0x537904"
-    },
-    {
-      "offset": "0xb40",
-      "destination": "0x5379c1"
-    },
-    {
-      "offset": "0xb44",
-      "destination": "0x537b1c"
-    },
-    {
-      "offset": "0xb48",
-      "destination": "0x5379e2"
-    },
-    {
-      "offset": "0xb4c",
-      "destination": "0x537a99"
-    },
-    {
-      "offset": "0xb50",
-      "destination": "0x537a06"
-    },
-    {
-      "offset": "0xb54",
-      "destination": "0x537a2a"
-    },
-    {
-      "offset": "0xb58",
-      "destination": "0x537a4e"
-    },
-    {
-      "offset": "0xb5c",
-      "destination": "0x537a72"
-    },
-    {
-      "offset": "0xb60",
-      "destination": "0x537a95"
-    },
-    {
-      "offset": "0xb64",
-      "destination": "0x537abd"
-    },
-    {
-      "offset": "0xb68",
-      "destination": "0x537afc"
-    },
-    {
-      "offset": "0xb6c",
-      "destination": "0x537b40"
-    },
-    {
-      "offset": "0xb70",
-      "destination": "0x537b6f"
-    }
-  ],
-  "source_blend_table_va": "0x00DB6284",
-  "destination_blend_table_va": "0x00DB62A4",
-  "note": "Partial reconstruction only; byte differences are eight operand bytes in two commutative alpha-blend comparisons. No function ledger entry or progress credit."
-}
-*/
+//
+// ShaderClass::Apply, the BFME2 shader state pipeline (RVA 0x137590, 2838
+// executable bytes followed by two alignment bytes and a 92-byte switch table).
+// Zero Hour shader.cpp body on the BFME2 shader layout: two-bit alpha-test
+// field at bit 18, cull mode at bit 20, source/destination blend LUTs at
+// VA 0x00DB6284/0x00DB62A4 and the cached alpha-reference override.
+//
+// Retail tests the ALPHATEST_MAX case on its own before the commutative
+// SRCALPHA/INVSRCALPHA pair, each pair testing sf before df; folding the three
+// into one condition makes MSVC 7.1 swap the sf/df register assignment.
 #define Matrix4x4 Matrix4  // BFME renamed it
 #define __PLACEMENT_VEC_NEW_INLINE  // always.h/GameMemory.h define array placement-new themselves
 /*
@@ -1100,9 +990,10 @@ void ShaderClass::Apply()
 		if (Get_Alpha_Test() == ShaderClass::ALPHATEST_ENABLE) {
 			alphareference = overrideAlpha ? ShaderAlphaReference : 0x60;
 			alphaTest = TRUE;
-		} else if (Get_Alpha_Test() == ShaderClass::ALPHATEST_MAX ||
-		           (df == D3DBLEND_INVSRCALPHA && sf == D3DBLEND_SRCALPHA) ||
-		           (df == D3DBLEND_SRCALPHA && sf == D3DBLEND_INVSRCALPHA)) {
+		} else if (Get_Alpha_Test() == ShaderClass::ALPHATEST_MAX) {
+			alphaTest = TRUE;
+		} else if ((sf == D3DBLEND_SRCALPHA && df == D3DBLEND_INVSRCALPHA) ||
+		           (sf == D3DBLEND_INVSRCALPHA && df == D3DBLEND_SRCALPHA)) {
 			alphaTest = TRUE;
 		} else {
 			alphaTest = FALSE;
@@ -1194,8 +1085,7 @@ void ShaderClass::Apply()
 	DWORD TercArg2 = D3DTA_CURRENT;
 	D3DTEXTUREOP TeraOp = D3DTOP_DISABLE;
 
-	bool voodoo3=(DX8Wrapper::Get_Current_Caps()->Get_Vendor()==DX8Caps::VENDOR_3DFX) &&
-					 (DX8Wrapper::Get_Current_Caps()->Get_Device()==DX8Caps::DEVICE_3DFX_VOODOO_3);
+	bool voodoo3=(DX8Wrapper::Get_Current_Caps()->Get_Vendor()==DX8Caps::VENDOR_3DFX) && (DX8Wrapper::Get_Current_Caps()->Get_Device()==DX8Caps::DEVICE_3DFX_VOODOO_3);
 	int pri_mask=ShaderClass::MASK_PRIGRADIENT|ShaderClass::MASK_TEXTURING;
 	int sec_mask=ShaderClass::MASK_POSTDETAILALPHAFUNC|ShaderClass::MASK_POSTDETAILCOLORFUNC|ShaderClass::MASK_TEXTURING;	
 
@@ -1514,8 +1404,7 @@ void ShaderClass::Apply()
 				SeccArg2 = D3DTA_CURRENT;
 				SecaOp = D3DTOP_SELECTARG2;
 				SecaArg2 = D3DTA_CURRENT;
-				if (DX8Wrapper::Get_Current_Caps()->Get_Max_Textures_Per_Pass() > 2 &&
-					DX8Wrapper::Get_Current_Caps()->Support_ModAlphaAddClr()) {
+				if (DX8Wrapper::Get_Current_Caps()->Get_Max_Textures_Per_Pass() > 2 && DX8Wrapper::Get_Current_Caps()->Support_ModAlphaAddClr()) {
 					TercOp = D3DTOP_MODULATEALPHA_ADDCOLOR;
 					TercArg1 = D3DTA_CURRENT;
 					TercArg2 = D3DTA_SPECULAR;
