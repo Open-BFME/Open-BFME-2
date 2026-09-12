@@ -2081,21 +2081,16 @@ _XMP_Encode_Bounded,,0x0061B890,139,Code/Libraries/Source/WWVegas/WWLib/mpmath.c
 _XMP_Encode,,0x0061B920,119,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
 _XMP_Signed_Decode,,0x0061B9A0,83,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
 _XMP_Unsigned_Decode,,0x0061BA00,68,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
-_XMP_Significance,,0x0061BA50,27,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
 _XMP_Dec,,0x0061BA90,25,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
-_XMP_Shift_Right_Bits,,0x0061BAB0,284,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
 _XMP_Rotate_Left,,0x0061BD10,61,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
 _XMP_Not,,0x0061BD50,31,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
-_XMP_Count_Bits,,0x0061BD90,72,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
 _XMP_Count_Bytes,,0x0061BDE0,37,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
 _XMP_Compare,,0x0061BE30,62,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
 _XMP_Add,,0x0061BE70,90,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
 _XMP_Add_Int,,0x0061BED0,84,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
 _XMP_Sub,,0x0061BF30,71,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
-_XMP_Sub_Int,,0x0061BF80,70,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
 _XMP_Unsigned_Mult_Int,,0x0061BFD0,63,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
 _XMP_Unsigned_Div_Int,,0x0061C010,167,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
-?XMP_Hybrid_Mul@@YAXPAG0GH@Z,,0x0061C0C0,78,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
 _XMP_Double_Mul,,0x0061C120,73,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
 _XMP_Mod_Mult_Clear,,0x0061C170,163,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
 ?mp_quo_digit@@YAGPAG@Z,,0x0061C220,131,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
@@ -2108,18 +2103,14 @@ _XMP_DER_Encode,,0x0061C580,91,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,ma
 _XMP_DER_Decode,,0x0061C5E0,92,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
 _XMP_Neg,,0x0061C640,50,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
 _XMP_Abs,,0x0061C680,29,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
-_XMP_Unsigned_Mult,,0x0061C6A0,292,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
 _XMP_Signed_Mult_Int,,0x0061C7D0,207,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
 _XMP_Signed_Mult,,0x0061C8A0,327,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
 _XMP_Unsigned_Div,,0x0061C9F0,369,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
-_XMP_Signed_Div,,0x0061CB70,339,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
 _XMP_Inverse_A_Mod_B,,0x0061CCD0,507,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
 _XMP_Reciprocal,,0x0061CED0,418,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
 _XMP_Decode_ASCII,,0x0061D080,350,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
 _XMP_Prepare_Modulus,,0x0061D1E0,359,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
-_XMP_Mod_Mult,,0x0061D350,358,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
 _XMP_Exponent_Mod,,0x0061D4C0,600,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
-_XMP_Fermat_Test,,0x0061D720,233,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
 _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
 ?Count@GenericMultiListClass@@QAEHXZ,,0x00610750,27,Code/Libraries/Source/WWVegas/WWLib/multilist.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
 ?Lock@MutexClass@@AAE_NH@Z,,0x00613A30,46,Code/Libraries/Source/WWVegas/WWLib/mutex.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
@@ -6105,7 +6096,6 @@ _strdup,,0x006C4C70,60,Code/Libraries/Source/WWVegas/WWLib/strdup.cpp,matched,in
 ?Add@?$SimpleDynVecClass@I@@QAE_NABIH@Z,,0x0009014A,51,Code/Libraries/Source/WWVegas/WWLib/simpledynvec_uint_add.cpp,matched,SimpleDynVecClass unsigned Add; placed as Vector3 twin
 ?Resize@?$VectorClass@UTextureStatisticsStruct@@@@UAE_NHPBUTextureStatisticsStruct@@@Z,,0x00129990,363,Code/Libraries/Source/WWVegas/WW3D2/TextureStatisticsVectorResize.cpp,matched,WWLib VectorClass::Resize for the texture-statistics vector; own /G7 unit split from TextureStatisticsVector.cpp
 ?Make_Unique@MeshClass@@QAEX_N@Z,,0x00149C10,172,Code/Libraries/Source/WWVegas/WW3D2/MeshClassMakeUnique.cpp,matched,Zero Hour MeshClass::Make_Unique; own /G7 unit because retail clones through plain operator new rather than the W3D memory pool mesh.cpp models
-_XMP_Randomize_Bounded,,0x0061C420,296,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,WWLib XMP_Randomize_Bounded; the unit needs /arch:SSE for its cmovge and /G7 for add reg 1
 ?Set_Force_Visible@RenderObjClass@@UAEXH@Z,,0x0013B720,73,Code/Libraries/Source/WWVegas/WW3D2/RenderObjSetForceVisible.cpp,matched,BFME RenderObjClass::Set_Force_Visible: flips the force-visible bit on a state change and re-registers the object with its scene under BFME's registration kind 4
 ?Initialize@HLodDefClass@@QAEXAAVHLodClass@@@Z,,0x0019F620,479,Code/Libraries/Source/WWVegas/WW3D2/hlod.cpp,matched,Zero Hour HLodDefClass::Initialize; hlod.cpp now calls strdup directly (CRT body at 0x006C4C70) as retail does
 ?Load_W3D@SubObjectArrayClass@HLodDefClass@@QAE_NAAVChunkLoadClass@@@Z,,0x0019B270,250,Code/Libraries/Source/WWVegas/WW3D2/hlod.cpp,matched,Zero Hour sub-object array loader; placed by masked search once hlod.cpp called strdup directly
@@ -6419,3 +6409,13 @@ _InitStatsThink,,0x006095B0,588,Code/GameEngine/Source/GameNetwork/GameSpy/gstat
 _CallReqCallback,,0x00607500,268,Code/GameEngine/Source/GameNetwork/GameSpy/gstats/gstats.c,matched,vendored=gamespy-2004; complete executable body ends at RET; adjacent four-entry switch table independently verified and excluded from claim
 ?Register@SimpleSceneClass@@UAEXPAVRenderObjClass@@W4RegType@SceneClass@@@Z,,0x00141400,196,Code/Libraries/Source/WWVegas/WW3D2/SceneOwnership.cpp,matched,Concrete scene slot14; five owning/non-owning registration reasons; complete executable174 ends RET8 at1414AB; separate20-byte jump table1414B0 independently verifies all5 local-label identities and is not counted; RefList Add37 exact dependency proof
 ?Unregister@SimpleSceneClass@@UAEXPAVRenderObjClass@@W4RegType@SceneClass@@@Z,,0x001414D0,180,Code/Libraries/Source/WWVegas/WW3D2/SceneOwnership.cpp,matched,Concrete scene slot15; paired five registration reasons and reference-release semantics; executable160 ends RET8 at14156D; separate20-byte table141570 verifies5 local-label identities without byte credit; RefList Remove47 exact dependency proof
+_XMP_Mod_Mult,,0x0061D350,364,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+_XMP_Significance,,0x0061BA50,30,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+_XMP_Shift_Right_Bits,,0x0061BAB0,287,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+_XMP_Count_Bits,,0x0061BD90,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+_XMP_Sub_Int,,0x0061BF80,73,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+?XMP_Hybrid_Mul@@YAXPAG0GH@Z,,0x0061C0C0,81,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+_XMP_Unsigned_Mult,,0x0061C6A0,295,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+_XMP_Signed_Div,,0x0061CB70,342,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+_XMP_Fermat_Test,,0x0061D720,236,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+_XMP_Randomize_Bounded,,0x0061C420,299,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,WWLib XMP_Randomize_Bounded; the unit needs /arch:SSE for its cmovge and /G7 for add reg 1
