@@ -6420,3 +6420,4 @@ _qr2_parse_queryA,,0x00697530,632,Code/GameEngine/Source/GameNetwork/GameSpy/qr2
 ?Get_Bit@TimeCodedBitChannelClass@@QAEHH@Z,,0x00195EF0,107,Code/Libraries/Source/WWVegas/WW3D2/motchan.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
 ?YFlip@Targa@@QAEXXZ,,0x00613EF0,166,Code/Libraries/Source/WWVegas/WWLib/TARGA.CPP,matched,BFME2 keeps the original byte-swap YFlip; XFlip in this TU already matched that shape
 __ftol2,,0x00629228,117,Code/masm_dumps/ftol2.asm,matched,CRT float-to-int helper; x87 control-word codegen blocker per anti-lift policy; pinned already
+?_bfme_setEngineVisibility@Mouse@@QAEX_N@Z,,0x001EE5BE,24,Code/GameEngine/Source/GameClient/MouseSetEngineVisibility.cpp,matched,reloc-named; BFME1 twin promoted__bfme_setEngineVisibility; pin commitPendingCursor at 0x1EDDFF
