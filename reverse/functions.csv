@@ -5805,7 +5805,6 @@ _XMP_Move,,0x0061BE10,19,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,
 ?push_back@?$vector@UICoord2D@@V?$allocator@UICoord2D@@@_STL@@@_STL@@QAEXABUICoord2D@@@Z,,0x00181880,58,Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp,matched,
 ??_GAnimSet@GenericObjectCreationNugget@@QAEPAXI@Z,,0x001F05A5,28,Code/GameEngine/Source/GameLogic/Object/ObjectCreationList.cpp,matched,
 ??0ObjectCreationList@@QAE@XZ,,0x001F81BF,19,Code/GameEngine/Source/GameLogic/Object/ObjectCreationList.cpp,matched,
-??1AttackNugget@@MAE@XZ,,0x004E1B72,10,Code/GameEngine/Source/GameLogic/Object/ObjectCreationList.cpp,matched,
 ??_GAttackNugget@@MAEPAXI@Z,,0x004E1BA8,28,Code/GameEngine/Source/GameLogic/Object/ObjectCreationList.cpp,matched,
 ?parseGameClientRandomDelay@@YAXPAVINI@@PAXPAVGameClientRandomVariable@@@Z,,0x004870F6,69,Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdate.cpp,matched,
 ?setUpdate@HijackerUpdate@@QAEX_N@Z,,0x0066CA90,10,Code/GameEngine/Source/GameLogic/Object/Update/HijackerUpdate.cpp,matched,
@@ -6419,3 +6418,4 @@ _ciApplyChangesToMode,,0x006AC670,180,Code/GameEngine/Source/GameNetwork/GameSpy
 ?ExpandMagic@DebugIOFlat@@CAXPBD0PAD@Z,,0x0003FA20,733,Code/Libraries/Source/WWVegas/WWDebug/debug_io_flat.cpp,matched,WWDebug environment filename override with module fallback; exact C++ reconstruction
 ?_M_open@_Filebuf_base@_STL@@QAE_NPBDHJ@Z,,0x0001D390,321,Code/Libraries/Source/WWVegas/WWLib/stlport_filebuf_open.cpp,matched,Authored STLport 4.5.3 Win32 file opening; native field types and independently verified PE imports; full code and switch data
 ??1Locomotor@@MAE@XZ,,0x003067D2,60,Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp,matched,
+??1AttackNugget@@MAE@XZ,,0x004E1B72,54,Code/GameEngine/Source/GameLogic/Object/ObjectCreationList.cpp,matched,
