@@ -1027,10 +1027,17 @@ void MeshMatDescClass::Configure_Material(VertexMaterialClass * mtl,int pass,boo
 }
 
 // byte-exact reconstruction: Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescClass_Do_Mappers_Need_Normals_Thunk.cpp
-// ?Do_Mappers_Need_Normals@MeshMatDescClass@@QAE_NXZ present-unmatched
+// Retail DX8Caps carries 0x5c more bytes ahead of the NPatches support flag
+// than this TU's headers (retail tests caps+0x13b, headers place
+// SupportNPatches at +0xdf). TU-local view in this TU's Bfme2*View idiom.
+struct Bfme2DX8CapsNPatchesView {
+	char PaddingToNPatches[0x13b];
+	bool SupportNPatches;
+};
+
 bool MeshMatDescClass::Do_Mappers_Need_Normals(void)
 {
-	if (DX8Wrapper::Is_Initted() && DX8Wrapper::Get_Current_Caps()->Support_NPatches() && WW3D::Get_NPatches_Level()>1) return true;
+	if (DX8Wrapper::Is_Initted() && reinterpret_cast<const Bfme2DX8CapsNPatchesView *>(DX8Wrapper::Get_Current_Caps())->SupportNPatches && WW3D::Get_NPatches_Level()>1) return true;
 
 	for (int pass=0; pass<PassCount; pass++) {
 		/*
