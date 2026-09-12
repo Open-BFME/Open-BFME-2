@@ -2052,11 +2052,21 @@ void DX8MeshRendererClass::Clear_Pending_Delete_Lists()
 
 // ----------------------------------------------------------------------------
 
+// Retail MeshModel ABI in this TU: the flag word lives at +0x18 with SortLevel
+// at +0x1c (retail tests SORT as `test byte [mmc+0x18],0x10`). The ZH headers
+// this TU builds against place MeshGeometryClass::Flags at +0x14, so a direct
+// Get_Flag call compiles to the wrong offset. BFME1 pinned the same layout in
+// its TU-local dx8renderer_Add_Rigid_Mesh_To_Container.cpp (prefix[0x18],
+// Flags, SortLevel). TU-local view, so nothing else in this TU moves.
+struct RetailMeshModelFlagView { char _pad[0x18]; int Flags; char SortLevel; };
+static int RetailMeshModel_Get_Flag(const MeshModelClass * mmc,int flag)
+{ return ((const RetailMeshModelFlagView *)mmc)->Flags & flag; }
+
 static void Add_Rigid_Mesh_To_Container(FVFCategoryList* container_list,unsigned fvf,MeshModelClass* mmc)
 {
 	WWASSERT(container_list);
 	DX8FVFCategoryContainer * container = NULL;
-	bool sorting=((!!mmc->Get_Flag(MeshModelClass::SORT)) && WW3D::Is_Sorting_Enabled() && (mmc->Get_Sort_Level() == SORT_LEVEL_NONE));
+	bool sorting=((!!RetailMeshModel_Get_Flag(mmc,MeshModelClass::SORT)) && WW3D::Is_Sorting_Enabled() && (mmc->Get_Sort_Level() == SORT_LEVEL_NONE));
 
 	FVFCategoryListIterator it(container_list);
 	while (!it.Is_Done()) {
