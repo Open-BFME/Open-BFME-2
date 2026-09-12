@@ -1230,3 +1230,4 @@ _GetCurrentThreadId@0,0x006105D0,kernel32 GetCurrentThreadId IAT thunk; REL32 fr
 ?getDrawable@Thing@@QBEPAVDrawable@@XZ,0x005508E2,SpawnPointProductionExitUpdate::initializeBonePositions calls this 7-byte this+0x84 getter; body is ICF-folded with the already matched BuildListInfo getter at the same address
 ?getPristineBonePositions@Drawable@@QBEHPBDHPAUCoord3D@@PAVMatrix3D@@HH@Z,0x0027274D,call destination decoded from initializeBonePositions; bounded 123-byte Drawable method reads this+0x14C and consumes the six observed stack arguments
 ?convertBonePosToWorldPos@Thing@@QBEXPBUCoord3D@@PBVMatrix3D@@PAU2@PAV3@@Z,0x0030A528,call destination decoded from initializeBonePositions; bounded 746-byte Thing method consumes the four observed coordinate and matrix pointers
+_realloc,0x0003E4B0,retail REL32 at both allocation sites in DebugLogTyped
