@@ -6437,3 +6437,5 @@ __ftol2,,0x00629228,117,Code/masm_dumps/ftol2.asm,matched,CRT float-to-int helpe
 ??8@YA_NABVMatrix3D@@0@Z,,0x000E442E,61,Code/Libraries/Source/WWVegas/WWMath/matrix3d_equal.cpp,matched,WWMath Matrix3D equality; placed by masked whole-text search single hit
 ??9@YA_NABVMatrix3D@@0@Z,,0x000E446B,70,Code/Libraries/Source/WWVegas/WWMath/matrix3d_equal.cpp,matched,WWMath Matrix3D inequality; placed by masked whole-text search single hit
 ?aab_separation_test@@YA_NAAUAABCollisionStruct@@H@Z,,0x00723C20,179,Code/Libraries/Source/WWVegas/WWMath/CollisionMathMovingAABox.cpp,matched,WWMath moving-AABox axis separation helper; placed by masked whole-text search single hit
+?Collide@CollisionMath@@SA_NABVAABoxClass@@ABVVector3@@0PAUCastResultStruct@@@Z,,0x00723CE0,438,Code/Libraries/Source/WWVegas/WWMath/CollisionMathMovingAABox.cpp,matched,WWMath moving-AABox Collide; placed by masked whole-text search single hit
+??0AABCollisionStruct@@QAE@ABVAABoxClass@@ABVVector3@@01@Z,,0x00723B90,138,Code/Libraries/Source/WWVegas/WWMath/CollisionMathMovingAABox.cpp,matched,WWMath moving-AABox collision context ctor; placed by masked whole-text search single hit
