@@ -25,7 +25,7 @@
 // $Revision: #2 $
 // $DateTime: 2003/07/09 10:57:23 $
 //
-// ©2003 Electronic Arts
+// ï¿½2003 Electronic Arts
 //
 // Debug class implementation
 //////////////////////////////////////////////////////////////////////////////
@@ -1430,13 +1430,25 @@ void Debug::SetBuildInfo(const char *version,
     strncpy(Instance.m_buildDate,buildDate,sizeof(Instance.m_buildDate)-1);
 }
 
+// Retail Debug ABI in this TU: m_version/m_intVersion/m_buildDate sit 4 bytes
+// later than this TU's headers place them (retail reads m_version at
+// this+0x9e90, m_intVersion at +0x9ed0, m_buildDate at +0x9f10). TU-local view
+// so the placed stream bodies in this TU keep their layout.
+struct RetailDebugVersionView {
+  char _pad[0x9e90];
+  char m_version[64];
+  char m_intVersion[64];
+  char m_buildDate[64];
+};
+
 void Debug::WriteBuildInfo(void)
 {
+  const RetailDebugVersionView * retail = (const RetailDebugVersionView *)this;
   operator<<("Version:");
-  if (*m_version)
-    (*this) << " " << m_version;
-  if (*m_intVersion)
-    (*this) << " internal " << m_intVersion;
+  if (*retail->m_version)
+    (*this) << " " << retail->m_version;
+  if (*retail->m_intVersion)
+    (*this) << " internal " << retail->m_intVersion;
   #if defined(_INTERNAL)
     operator<<(" internal");
   #elif defined(_DEBUG)
@@ -1446,8 +1458,8 @@ void Debug::WriteBuildInfo(void)
   #else
     operator<<(" release");
   #endif
-  if (*m_buildDate)
-    (*this) << " build " << m_buildDate;
+  if (*retail->m_buildDate)
+    (*this) << " build " << retail->m_buildDate;
 }
 
 void Debug::ExecCommand(const char *cmdstart, const char *cmdend)
