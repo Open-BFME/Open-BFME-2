@@ -4154,7 +4154,12 @@ void DX8Wrapper::Set_Render_Target
 
 
 IDirect3DSwapChain8 *
-// ?Create_Additional_Swap_Chain@DX8Wrapper@@ present-unmatched
+// D3DSWAPEFFECT_COPY (3) has no shim define yet (the shim spells only
+// DISCARD and COPY_VSYNC); guard so a later verbatim SDK completion does
+// not redefine it.
+#ifndef D3DSWAPEFFECT_COPY
+#define D3DSWAPEFFECT_COPY 3
+#endif
 DX8Wrapper::Create_Additional_Swap_Chain (HWND render_window)
 {
 	DX8_Assert();
@@ -4166,10 +4171,10 @@ DX8Wrapper::Create_Additional_Swap_Chain (HWND render_window)
 	params.BackBufferFormat						= _PresentParameters.BackBufferFormat;
 	params.BackBufferCount						= 1;
 	params.MultiSampleType						= D3DMULTISAMPLE_NONE;
-	params.SwapEffect								= D3DSWAPEFFECT_COPY_VSYNC;
 	params.hDeviceWindow							= render_window;
 	params.Windowed								= TRUE;
 	params.EnableAutoDepthStencil				= TRUE;
+	params.SwapEffect								= D3DSWAPEFFECT_COPY;
 	params.AutoDepthStencilFormat				= _PresentParameters.AutoDepthStencilFormat;
 	params.Flags									= 0;
 	params.FullScreen_RefreshRateInHz		= D3DPRESENT_RATE_DEFAULT;
