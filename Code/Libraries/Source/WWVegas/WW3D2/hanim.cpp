@@ -119,10 +119,8 @@ HAnimClass::~HAnimClass(void)
 }
 
 
-// ?HAnimComboDataClass::HAnimComboDataClass present-unmatched
-HAnimComboDataClass::HAnimComboDataClass(bool shared) 
-: Shared(shared), HAnim(0), PivotMap(0), Frame(0), Weight(1) 
-{}
+// Definition moved to hanim_HAnimComboClass_ctor.cpp: the /G7 split TU needs
+// the body visible to inline it into HAnimComboClass::HAnimComboClass(int).
 
 
 // ?HAnimComboDataClass::HAnimComboDataClass present-unmatched
@@ -244,14 +242,9 @@ void HAnimComboDataClass::Build_Active_Pivot_Map(void)
 HAnimComboClass::HAnimComboClass(void)
 {}
 
-HAnimComboClass::HAnimComboClass( int num_animations )
-{
-	HAnimComboData.Resize(num_animations);
-
-	while(num_animations--) {
-		HAnimComboData.Add(new HAnimComboDataClass());
-	}
-}
+// Body split to hanim_HAnimComboClass_ctor.cpp: retail built this ctor with
+// /G7 (sub edi,1 loop decrement) while the rest of this TU only matches
+// without it (Set_HAnim needs inc). See hanim_weight_vector_add.cpp.
 
 
 HAnimComboClass::~HAnimComboClass(void)
