@@ -6000,7 +6000,6 @@ _XMP_Move,,0x0061BE10,19,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,
 ?Get_Record_Texture_Mode@Debug_Statistics@@YA?AW4RecordTextureMode@1@XZ,,0x00129480,6,Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsTextureMode.cpp,matched,return current record texture mode
 ??4StringClass@@QAEABV0@PBD@Z,,0x000F0E8D,68,Code/Libraries/Source/WWVegas/WWLib/wwstring_assign_cstr.cpp,matched,strlen then Uninitialised_Grow memcpy and store length
 _strdup,,0x006C4C70,60,Code/Libraries/Source/WWVegas/WWLib/strdup.cpp,matched,inlined strlen; STLport allocate(size 0); memcpy as rep movs. Reloc size 57 omitted the 3-byte epilogue.
-?YFlip@Targa@@QAEXXZ,,0x00613EF0,159,Code/Libraries/Source/WWVegas/WWLib/TARGA.CPP,matched,BFME2 keeps the original byte-swap YFlip; XFlip in this TU already matched that shape
 ?normalizeAngle@@YAMM@Z,,0x00238954,75,Code/GameEngine/Source/Common/normalizeAngle.cpp,matched,SSE comiss wrap to minus PI..PI then fld the spill
 ?Get_Char_Data@FontCharsClass@@AAEPBVFontCharsClassCharDataStruct@@G@Z,,0x00158520,81,Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassGetCharData.cpp,matched,dedicated TU map lookup at +0x450
 ?_Create_DX8_Surface@DX8Wrapper@@SAPAVIDirect3DSurface9@@IIW4WW3DFormat@@W4_D3DPOOL@@@Z,,0x0011DC60,62,Code/Libraries/Source/WWVegas/WW3D2/DX8Wrapper_Create_DX8_Surface.cpp,matched,CreateOffscreenPlainSurface then D3DCallCount
@@ -6419,3 +6418,4 @@ _qr2_parse_queryA,,0x00697530,632,Code/GameEngine/Source/GameNetwork/GameSpy/qr2
 ?_S_maximum@_Rb_tree_node_base@_STL@@SAPAU12@PAU12@@Z,,0x00023810,26,Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_int.cpp,matched,stlport-4.5.3
 ?erase@?$_Rb_tree@HU?$pair@$$CBHH@_STL@@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@QAEXU?$_Rb_tree_iterator@U?$pair@$$CBHH@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHH@_STL@@@2@@2@0@Z,,0x0061F7B0,144,Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_int.cpp,matched,Open-BFME5 clean C++; found by locate with the node allocator and CRT import decorations neutralised
 ?Get_Bit@TimeCodedBitChannelClass@@QAEHH@Z,,0x00195EF0,107,Code/Libraries/Source/WWVegas/WW3D2/motchan.cpp,matched,ported from the Open-BFME-1 conversion; the unit needs /G7
+?YFlip@Targa@@QAEXXZ,,0x00613EF0,166,Code/Libraries/Source/WWVegas/WWLib/TARGA.CPP,matched,BFME2 keeps the original byte-swap YFlip; XFlip in this TU already matched that shape
