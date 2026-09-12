@@ -714,21 +714,54 @@ void DX8FVFCategoryContainer::Change_Polygon_Renderer_Material(
 
 // ----------------------------------------------------------------------------
 
-// ?Define_FVF@DX8FVFCategoryContainer@@ present-unmatched
+// Retail MeshModel/MeshMatDesc ABI views: the SORT flag word sits at mmc+0x18
+// with SortLevel at +0x1c, CurMatDesc at mmc+0x94, and the UV pointer array at
+// matdesc+0x10. This TU builds against ZH headers that place
+// MeshGeometryClass::Flags at +0x14, CurMatDesc at +0x98, and drop
+// MeshMatDesc's W3DMPO base so UV lands at +0x0c (retail keeps the base).
+// BFME1 pinned the same model-side layout in its TU-local
+// dx8renderer_Add_Rigid_Mesh_To_Container.cpp. TU-local views, so the placed
+// bodies in this TU keep their layout.
+struct RetailMeshModelFlagView { char _pad[0x18]; int Flags; char SortLevel; };
+struct RetailMeshMatDescView { char _pad[0x10]; void * UV[8]; };
+struct RetailMeshModelLayoutView { char _pad[0x94]; RetailMeshMatDescView * CurMatDesc; };
+static int RetailMeshModel_Get_Flag(const MeshModelClass * mmc,int flag)
+{ return ((const RetailMeshModelFlagView *)mmc)->Flags & flag; }
+static int RetailMeshModel_Get_UV_Array_Count(const MeshModelClass * mmc)
+{
+	// Same count as the header inline, but with the bound evaluated first:
+	// that is the condition order retail compiles (bound check at loop top,
+	// null check as the loop-back test).
+	const RetailMeshMatDescView * matdesc = ((const RetailMeshModelLayoutView *)mmc)->CurMatDesc;
+	int count = 0;
+	if (matdesc->UV[0] != NULL) {
+		while (count < MeshMatDescClass::MAX_UV_ARRAYS) {
+			count++;
+			if (matdesc->UV[count] != NULL) {
+				continue;
+			}
+			break;
+		}
+	}
+	return count;
+}
+static unsigned * RetailMeshModel_Get_Color_Array(MeshModelClass * mmc,int array_index,bool create)
+{ return ((MeshMatDescClass *)((const RetailMeshModelLayoutView *)mmc)->CurMatDesc)->Get_Color_Array(array_index,create); }
+
 unsigned DX8FVFCategoryContainer::Define_FVF(MeshModelClass* mmc,bool enable_lighting)
 {
-	if ((!!mmc->Get_Flag(MeshGeometryClass::SORT)) && WW3D::Is_Sorting_Enabled()) {
+	if ((!!RetailMeshModel_Get_Flag(mmc,MeshGeometryClass::SORT)) && WW3D::Is_Sorting_Enabled()) {
 		return dynamic_fvf_type;
 	}
 
 	unsigned fvf=D3DFVF_XYZ;
 
-	int tex_coord_count=mmc->Get_UV_Array_Count();
+	int tex_coord_count=RetailMeshModel_Get_UV_Array_Count(mmc);
 
-	if (mmc->Get_Color_Array(0,false)) {
+	if (RetailMeshModel_Get_Color_Array(mmc,0,false)) {
 		fvf|=D3DFVF_DIFFUSE;
 	}
-	if (mmc->Get_Color_Array(1,false)) {
+	if (RetailMeshModel_Get_Color_Array(mmc,1,false)) {
 		fvf|=D3DFVF_SPECULAR;
 	}
 	
@@ -746,11 +779,9 @@ unsigned DX8FVFCategoryContainer::Define_FVF(MeshModelClass* mmc,bool enable_lig
 	case 8: fvf|=D3DFVF_TEX8; break;
 	}
 
-	if (!mmc->Needs_Vertex_Normals()) {  //enable_lighting || mmc->Get_Flag(MeshModelClass::PRELIT_MASK)) {
-		return fvf;
+	if (mmc->Needs_Vertex_Normals()) {
+		fvf|=D3DFVF_NORMAL;	// Realtime-lit
 	}
-
-	fvf|=D3DFVF_NORMAL;	// Realtime-lit
 	return fvf;
 }
 
@@ -2051,16 +2082,6 @@ void DX8MeshRendererClass::Clear_Pending_Delete_Lists()
 }
 
 // ----------------------------------------------------------------------------
-
-// Retail MeshModel ABI in this TU: the flag word lives at +0x18 with SortLevel
-// at +0x1c (retail tests SORT as `test byte [mmc+0x18],0x10`). The ZH headers
-// this TU builds against place MeshGeometryClass::Flags at +0x14, so a direct
-// Get_Flag call compiles to the wrong offset. BFME1 pinned the same layout in
-// its TU-local dx8renderer_Add_Rigid_Mesh_To_Container.cpp (prefix[0x18],
-// Flags, SortLevel). TU-local view, so nothing else in this TU moves.
-struct RetailMeshModelFlagView { char _pad[0x18]; int Flags; char SortLevel; };
-static int RetailMeshModel_Get_Flag(const MeshModelClass * mmc,int flag)
-{ return ((const RetailMeshModelFlagView *)mmc)->Flags & flag; }
 
 static void Add_Rigid_Mesh_To_Container(FVFCategoryList* container_list,unsigned fvf,MeshModelClass* mmc)
 {
