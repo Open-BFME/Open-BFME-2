@@ -1,119 +1,79 @@
-// __heap_abort
-// partial score=0.9 date=2026-09-05
-﻿// __heap_abort
-// partial score=0.9 date=2026-09-05
+// ?_heap_abort@@YAXXZ
+// partial score=0.8 date=2026-09-12
+// cl: /MD /Oy-
 //
-// THE SCHEDULING MISS IS FIXED, by one word: the singleton pointer is
-// VOLATILE.
+// _heap_abort, the CRT new-handler / heap-corruption abort routine.
 //
-//     Debug *volatile theDebug;
+// Evidence: retail 0x000398A0 (80 bytes) references the string literal
+// "Fatal heap error." -- ZH's debug_debug.cpp (already ported verbatim to
+// Code/Libraries/Source/debug/debug_debug.cpp, line ~1637) has:
+//   void __cdecl _heap_abort(void) { DCRASH_RELEASE("Fatal heap error."); }
+// but ZH's DCRASH_RELEASE macro expands to 4 calls while retail makes 5: it
+// first captures its own caller address (read at [ebp+4], i.e.
+// _ReturnAddress()) and threads it through an extra CaptureCallSite call.
+// This is a documented, already-analyzed BFME macro difference -- see
+// reference/open-bfme-1/reverse/re_attempts.log's entry for
+// ?_heap_abort@@YAXXZ (BFME1 RVA 0x0088A5F0), which independently derived
+// the same five-call chain and the same two vtable shapes (DebugInterface's
+// CaptureCallSite/FlushCapture/BeginCrash and CrashStream's Write/Done) by
+// the same evidence (this exact string, plus the DCRASH_RELEASE expansion).
+// This BFME2 retail body's BeginCrash call pushes three zero args (not
+// BFME1's guessed two), so that slot is modeled with three here.
 //
-// As a plain `Debug *` the global is an ordinary load and MSVC 7.1 hoists it
-// ahead of the volatile store of the captured return address; as a volatile
-// access it cannot be reordered past that store, and the sequence falls into
-// retail's order. This is the same fix that took the SkipNext bank at
-// reverse/attempts/0x00038790.cpp from 13 differing bytes to 6 -- that body IS
-// the first half of this one, inlined -- and it is worth trying on any other
-// Debug-singleton body showing the same symptom.
-//
-// 80 bytes against 80, exact prefix 17, and 8 bytes differ.
-//
-// WHAT IS LEFT is a register phase and nothing else. Retail puts the pushed
-// DATA in edx and the VTABLE in eax at the first virtual call; MSVC 7.1 does
-// the reverse:
-//
-//   retail   8b 55 fc  8b 01  6a 01  52  ff 50 5c
-//   this     8b 45 fc  8b 11  6a 01  50  ff 52 5c
-//
-// The phase then ALTERNATES through the four virtual calls, so all eight
-// differing bytes come from that single initial choice -- the second call is
-// `8b 01 ff 50 60` against `8b 11 ff 52 60`, and the third inverts again to
-// `8b 11 ... ff 52 6c` against `8b 01 ... ff 50 6c`. Flip the first vtable load
-// into eax and the whole body follows. The last two calls
-// (`8b c8 ff 52 38` and `8b c8 ff 52 4c`) already match.
-//
-// Untried ideas for the phase, in order: give SetCrashAddress a return value
-// the caller uses, so eax is committed before the argument temp is created;
-// spell the singleton as a reference rather than a pointer; and try /Ob0.
-//
-// Everything else here was already settled by the 2026-09-03 bank and still
-// holds: every call is a virtual on the Debug * at 0x00DE0880, there is not
-// one REL32 in the body, and the slots are 0x38 const char * stream operator,
-// 0x4C CrashDone, 0x5C the address hand-off, 0x60 SkipNext, 0x6C CrashBegin.
-// cl: /Oy- /MD
-//
-// WWDebug's replacement for the CRT's _heap_abort, the hook the DLL runtime
-// calls when the heap is corrupt. The Generals reference spells the body
-//
-//   DCRASH_RELEASE("Fatal heap error.");
-//
-// and this engine's expansion of that macro is what the bytes show: capture
-// the caller's address, hand it to the Debug singleton, skip the next filter,
-// then open a crash, stream the message into it and finish it as fatal.
-//
-// Every call is a virtual on the Debug * held at 0x00DE0880 - there is not one
-// REL32 in the body - so the slots are what had to be right: 0x38 is the
-// const char * stream operator, 0x4C CrashDone, 0x5C the address hand-off,
-// 0x60 SkipNext and 0x6C CrashBegin. CrashBegin is called with three zeros,
-// which is the release form the reference's own comment describes: no file and
-// no line, so the crash carries only the message.
-//
-// The `mov eax, [ebp+4]` at the top is _ReturnAddress(), and it is stored to a
-// local before use rather than passed straight through.
+// Editing the shared DCRASH_RELEASE macro (debug_macro.h) to capture the
+// caller everywhere would touch every DCRASH/DLOG call site in the tree, so
+// this body is written out by hand instead, matching retail's five calls
+// directly rather than through the macro.
 
-extern "C" void *_ReturnAddress(void);
+extern "C" void *_ReturnAddress( void );
+extern "C" void _ReadWriteBarrier( void );
 #pragma intrinsic(_ReturnAddress)
+#pragma intrinsic(_ReadWriteBarrier)
 
+// Slot offsets 0x38 (Write) and 0x4C (Done) are proven by this call site
+// (this project's Debug singleton, VA 0xDE0880, already returns objects of
+// this same shape at those exact offsets from a different call site -- see
+// Code/Libraries/Source/profile/profile_cmd_run_result_functions.cpp).
+class CrashStream
+{
+public:
+	virtual void _M_slot_00(); virtual void _M_slot_04(); virtual void _M_slot_08();
+	virtual void _M_slot_0c(); virtual void _M_slot_10(); virtual void _M_slot_14();
+	virtual void _M_slot_18(); virtual void _M_slot_1c(); virtual void _M_slot_20();
+	virtual void _M_slot_24(); virtual void _M_slot_28(); virtual void _M_slot_2c();
+	virtual void _M_slot_30(); virtual void _M_slot_34();
+	virtual CrashStream &Write( const char *text );
+	virtual void _M_slot_3c(); virtual void _M_slot_40(); virtual void _M_slot_44();
+	virtual void _M_slot_48();
+	virtual void Done( bool die );
+};
+
+// Same singleton class as profile_cmd_run_result_functions.cpp's "Debug"
+// (VA 0xDE0880), extended here with the three slots this call site proves:
+// CaptureCallSite at 0x5C, FlushCapture at 0x60, BeginCrash at 0x6C.
 class Debug
 {
 public:
-	virtual void _M_slot_00();
-	virtual void _M_slot_04();
-	virtual void _M_slot_08();
-	virtual void _M_slot_0c();
-	virtual void _M_slot_10();
-	virtual void _M_slot_14();
-	virtual void _M_slot_18();
-	virtual void _M_slot_1c();
-	virtual void _M_slot_20();
-	virtual void _M_slot_24();
-	virtual void _M_slot_28();
-	virtual void _M_slot_2c();
-	virtual void _M_slot_30();
-	virtual void _M_slot_34();
-	virtual Debug &operator<<(const char *text);
-	virtual void _M_slot_3c();
-	virtual void _M_slot_40();
-	virtual void _M_slot_44();
-	virtual void _M_slot_48();
-	virtual void CrashDone(bool fatal);
-	virtual void _M_slot_50();
-	virtual void _M_slot_54();
-	virtual void _M_slot_58();
-	virtual bool SetCrashAddress(void *address, bool set);
-	virtual void SkipNext();
-	virtual void _M_slot_64();
-	virtual void _M_slot_68();
-	virtual Debug &CrashBegin(const char *file, int line, const char *group);
-
-	__forceinline static bool SkipNext(bool set);
+	virtual void _M_slot_00(); virtual void _M_slot_04(); virtual void _M_slot_08();
+	virtual void _M_slot_0c(); virtual void _M_slot_10(); virtual void _M_slot_14();
+	virtual void _M_slot_18(); virtual void _M_slot_1c(); virtual void _M_slot_20();
+	virtual void _M_slot_24(); virtual void _M_slot_28(); virtual void _M_slot_2c();
+	virtual void _M_slot_30(); virtual void _M_slot_34(); virtual void _M_slot_38();
+	virtual void _M_slot_3c(); virtual void _M_slot_40(); virtual void _M_slot_44();
+	virtual void _M_slot_48(); virtual void _M_slot_4c(); virtual void _M_slot_50();
+	virtual void _M_slot_54(); virtual void _M_slot_58();
+	virtual void CaptureCallSite( unsigned address, int enabled );
+	virtual void FlushCapture( void );
+	virtual void _M_slot_64(); virtual void _M_slot_68();
+	virtual CrashStream *BeginCrash( int channel, int level, int extra );
 };
 
-Debug *volatile theDebug;
+extern Debug *theDebug;
 
-// Defined here rather than declared: this unit is debug_debug.cpp, where the
-// definition lives, so cl inlines it. profile.cpp calls the same function out
-// of line at 0x00038790 and that call site is what named it.
-bool Debug::SkipNext(bool set)
+void __cdecl _heap_abort( void )
 {
-	void *volatile address = _ReturnAddress();
-
-	return theDebug->SetCrashAddress(address, set);
-}
-
-extern "C" void __cdecl _heap_abort(void)
-{
-	Debug::SkipNext(true);
-	theDebug->SkipNext();
-	(theDebug->CrashBegin(0, 0, 0) << "Fatal heap error.").CrashDone(true);
+	unsigned volatile caller = (unsigned)_ReturnAddress();
+	theDebug->CaptureCallSite( caller, 1 );
+	theDebug->FlushCapture();
+	theDebug->BeginCrash( 0, 0, 0 )->Write( "Fatal heap error." ).Done( true );
 }
