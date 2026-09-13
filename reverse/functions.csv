@@ -6524,3 +6524,11 @@ __ftol2,,0x00629228,117,Code/masm_dumps/ftol2.asm,matched,CRT float-to-int helpe
 ?Create@DebugIOOds@@SAPAVDebugIOInterface@@XZ,,0x0003F3D0,96,Code/Libraries/Source/WWVegas/WWDebug/DebugIOOds_Create.cpp,matched,bfme1 WWLib sweep exact-unique placement; verbatim source import
 ??1Rva0088FB30NetIO@@UAE@XZ,,0x0003F4F0,87,Code/Libraries/Source/WWVegas/WWDebug/DebugIONetPipeDestructorThunk.cpp,matched,bfme1 WWLib sweep exact-unique placement; verbatim source import
 ??_GShdDefFactoryClass@@UAEPAXI@Z,,0x0061EE90,44,Code/Libraries/Source/WWVegas/wwshade/ShdDefFactoryClassDelete.cpp,matched,bfme1 WWLib sweep exact-unique placement; verbatim source import
+___ParseLocaleString,,0x00021320,259,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleFacets.cpp,matched,bfme1 WWLib sweep exact-unique placement; verbatim source import
+___ConvertFromACP,,0x00021740,101,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleFacets.cpp,matched,bfme1 WWLib sweep exact-unique placement; verbatim source import
+_my_ltoa,,0x000204F0,87,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleFacets.cpp,matched,bfme1 WWLib sweep exact-unique placement; verbatim source import
+_LocaleFromHex,,0x00021430,64,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleFacets.cpp,matched,bfme1 WWLib sweep exact-unique placement; verbatim source import
+___GetLCID,,0x00021570,62,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleFacets.cpp,matched,bfme1 WWLib sweep exact-unique placement; verbatim source import
+??4Rva0093E4D0Element@@QAEAAV0@ABV0@@Z,,0x00154B50,51,Code/Libraries/Source/WWVegas/WWSaveLoad/Rva0093E4D0VectorResize.cpp,matched,bfme1 WWLib sweep exact-unique placement; verbatim source import
+___intGetACP,,0x000217B0,36,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleFacets.cpp,matched,bfme1 WWLib sweep exact-unique placement; verbatim source import
+___intGetOCP,,0x000217E0,33,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleFacets.cpp,matched,bfme1 WWLib sweep exact-unique placement; verbatim source import
