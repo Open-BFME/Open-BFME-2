@@ -6625,3 +6625,4 @@ __Locale_time_destroy,,0x000205A0,122,Code/stlport/LocaleTimeDestroy.c,matched,b
 ?_M_push_back_aux_v@?$deque@UGen_t_008fb570_p8pod@@V?$allocator@UGen_t_008fb570_p8pod@@@_STL@@@_STL@@IAEXABUGen_t_008fb570_p8pod@@@Z,,0x0073E290,121,Code/Libraries/Source/WWVegas/WWLib/Rva008FB570DequePushBackAux.cpp,matched,bfme1 WWLib Rva00 sweep exact deque helper
 ?LogBegin@Debug@@QAEAAV1@PBD@Z,,0x0003AC60,276,Code/Libraries/Source/WWVegas/WWDebug/Debug_LogBegin_0088B8F0.cpp,matched,bfme1 WWDebug Debug sweep exact alternate placement
 ?Initialize_GDI_Font@FontCharsClass@@QAEXPBDM_NH@Z,,0x001551C0,82,Code/Libraries/Source/WWVegas/WW3D2/FontCharsClass_Initialize_GDI_Font_BFME.cpp,matched,BFME1 reference source; /arch:SSE /G7 exact compiler sweep configuration
+?bfmeCall71BA0@BfmeHelper71BA0@@QAEHXZ,,0x001A3140,80,Code/Libraries/Source/WWVegas/WW3D2/BfmeHelper71BA0.cpp,matched,BFME1 reference sweep; Ghidra 80-byte boundary and evidence-backed +0x12 bitfield layout repair
