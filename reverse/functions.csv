@@ -6542,3 +6542,4 @@ ___intGetOCP,,0x000217E0,33,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleFa
 ?GetExceptionType@DebugExceptionhandler@@SAPBDPAU_EXCEPTION_POINTERS@@PAD@Z,,0x0003C7A0,1044,Code/Libraries/Source/WWVegas/WWDebug/DebugExceptionGetType.cpp,matched,bfme1 WWLib sweep exact-unique placement; verbatim source import
 _skipWhitespace,,0x00035800,46,Code/Libraries/Source/WWVegas/WWLib/StringBaseWideTrim.cpp,matched,bfme1 WWLib sweep exact-unique placement; verbatim source import
 ??0?$basic_ifstream_lib0084C300@DV?$char_traits@D@_STL@@@_STL@@QAE@PBDH@Z,,0x0001F650,263,Code/Libraries/Source/WWVegas/WWLib/stlport_ifstream_name_ctor_0084C300.cpp,matched,bfme1 WWLib sweep exact-unique placement; verbatim source import
+?Get_RDTSC_CPU_Speed@@YAHXZ,,0x001B8E90,284,Code/Libraries/Source/WWVegas/WWLib/Get_RDTSC_CPU_Speed.cpp,matched,bfme1 WWLib sweep exact-unique placement; verbatim source import
