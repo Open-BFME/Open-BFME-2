@@ -256,6 +256,7 @@ name,address,notes
 ??0VertexMaterialClass@@QAE@XZ,0x0013D420,retail REL32 from VertexMaterialClass::Clone at 0x0016EB24; BFME2 vertex-material constructor
 ?Invalidate@DX8MeshRendererClass@@QAEX_N@Z,0x00145FA0,retail REL32 from WW3D::Set_NPatches_Level at 0x00116EA1 and 0x00116EBC; BFME2 mesh-renderer invalidation
 ?get_planes@MeshGeometryClass@@IAEPAVVector4@@_N@Z,0x0016AC00,retail REL32 from Rva00925030Geometry::getPlanesChecked at 0x0016AC99; BFME2 mesh-geometry plane accessor
+?GetFrameEntry@Debug@@AAEPAUFrameHashEntry@1@IIPBDH@Z,0x0003A1B0,retail REL32 from Debug::LogBegin at 0x0003ACAA; BFME2 frame-hash lookup
 ??$_Construct@UGen_t_008fb570_p8pod@@U1@@_STL@@YAXPAUGen_t_008fb570_p8pod@@ABU1@@Z,0x0060C9D9,retail REL32 from deque<Gen_t_008fb570_p8pod>::_M_push_back_aux_v at 0x0073E2E0; BFME1 deque construct helper
 ?_M_reallocate_map@?$deque@UGen_t_008fb570_p8pod@@V?$allocator@UGen_t_008fb570_p8pod@@@_STL@@@_STL@@IAEXI_N@Z,0x0073D5E0,retail REL32 from deque<Gen_t_008fb570_p8pod>::_M_push_back_aux_v at 0x0073E2C0; BFME1 deque map reallocator
 ?vectorSmallAllocate@_STL@@YAPAXII@Z,0x000307F0,retail REL32 from deque<Gen_t_008fb570_p8pod>::_M_push_back_aux_v at 0x0073E2CC; BFME1 small vector allocator
