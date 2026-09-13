@@ -6514,3 +6514,6 @@ __ftol2,,0x00629228,117,Code/masm_dumps/ftol2.asm,matched,CRT float-to-int helpe
 ?Execute@ThreadClass@@UAEXXZ,,0x006104B0,54,Code/Libraries/Source/WWVegas/WWLib/ThreadClassLifecycle.cpp,matched,bfme1 WWLib sweep exact-unique placement; verbatim source import
 ?Stop@ThreadClass@@QAEXXZ,,0x006105F0,35,Code/Libraries/Source/WWVegas/WWLib/ThreadClassLifecycle.cpp,matched,bfme1 WWLib sweep exact-unique placement; verbatim source import
 ?Set_Priority@ThreadClass@@QAEXH@Z,,0x006104F0,25,Code/Libraries/Source/WWVegas/WWLib/ThreadClassLifecycle.cpp,matched,bfme1 WWLib sweep exact-unique placement; verbatim source import
+??$push_heap@PAUS4SortElem24@@US4Cmp009F4BF0@@@_STL@@YAXPAUS4SortElem24@@0US4Cmp009F4BF0@@@Z,,0x006279B0,93,Code/Libraries/Source/WWVegas/WWLib/stlport_push_heap_s4sortelem24.cpp,matched,bfme1 WWLib sweep exact-unique placement; verbatim source import
+??R?$less@UGen_p12pod@@@_STL@@QBE_NABUGen_p12pod@@0@Z,,0x0016D540,54,Code/Libraries/Source/WWVegas/WWLib/RvaTreeInsertUniqueGenP12pod00927CF0.cpp,matched,bfme1 WWLib sweep exact-unique placement; verbatim source import
+??M@YA_NABUGen_p12pod@@0@Z,,0x0016CBB0,50,Code/Libraries/Source/WWVegas/WWLib/RvaTreeInsertUniqueGenP12pod00927CF0.cpp,matched,bfme1 WWLib sweep exact-unique placement; verbatim source import
