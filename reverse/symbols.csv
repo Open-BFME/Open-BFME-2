@@ -256,6 +256,8 @@ name,address,notes
 ??0VertexMaterialClass@@QAE@XZ,0x0013D420,retail REL32 from VertexMaterialClass::Clone at 0x0016EB24; BFME2 vertex-material constructor
 ?Invalidate@DX8MeshRendererClass@@QAEX_N@Z,0x00145FA0,retail REL32 from WW3D::Set_NPatches_Level at 0x00116EA1 and 0x00116EBC; BFME2 mesh-renderer invalidation
 ?get_planes@MeshGeometryClass@@IAEPAVVector4@@_N@Z,0x0016AC00,retail REL32 from Rva00925030Geometry::getPlanesChecked at 0x0016AC99; BFME2 mesh-geometry plane accessor
+??$_Construct@URva001D28F0Element@@U1@@_STL@@YAXPAURva001D28F0Element@@ABU1@@Z,0x006896F0,retail REL32 from Rva001D28F0 vector fill/push helpers at 0x00689795 and 0x00689FA3; BFME1 STL construct helper
+?_M_insert_overflow@?$vector@URva001D28F0Element@@V?$allocator@URva001D28F0Element@@@_STL@@@_STL@@IAEXPAURva001D28F0Element@@ABU3@ABU__false_type@2@I_N@Z,0x00689E60,retail REL32 from Rva001D28F0Element vector push_back at 0x00689FC5; BFME1 vector overflow helper
 ?_M_insert_overflow@?$vector@UUpgrades@OCLSpecialPowerModuleData@@V?$allocator@UUpgrades@OCLSpecialPowerModuleData@@@_STL@@@_STL@@IAEXPAUUpgrades@OCLSpecialPowerModuleData@@ABU34@ABU__false_type@2@I_N@Z,0x00626150,retail REL32 from Rva009F39F0Result::append at 0x0062666B; BFME1 result vector overflow helper
 ?Enable_Fog@ShaderClass@@QAEXPBD@Z,0x00138200,address read from the REL32 displacement at a placed body; stlport 4.5.3
 ?ExpandMagic@DebugIOFlat@@CAXPBD0PAD@Z,0x0003FA20,address read from the REL32 displacement at a placed body; stlport 4.5.3
