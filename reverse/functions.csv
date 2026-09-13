@@ -6553,3 +6553,6 @@ _Rva0080D890,,0x00679790,154,Code/Libraries/Source/DirtySock/Y4LookupTables.c,ma
 ?reduceMatrix@@YAXPAY0GF@H@Z,,0x006B4110,149,Code/GameEngine/Source/Common/SmallGaps/reduceMatrix.cpp,matched,bfme1 reference sweep exact placement
 ?Rva009AF490SetupBounding@@YAPAHPAURva009AF490Context@@H@Z,,0x001BFE80,145,Code/GameEngine/Source/Common/Rva009AF490SetupBounding.cpp,matched,bfme1 reference sweep exact placement
 ?Rva009ACBA0SetupBounding@@YAPAHPAURva009ACBA0Context@@H@Z,,0x001BD590,145,Code/GameEngine/Source/Common/Rva009ACBA0SetupBounding.cpp,matched,bfme1 reference sweep exact placement
+??$__find_if@PBDU_Ctype_c_is_mask@_STL@@@_STL@@YAPBDPBD0U_Ctype_c_is_mask@0@ABUrandom_access_iterator_tag@0@@Z,,0x00016EA0,128,Code/stlport/CtypeCharFindIf.cpp,matched,bfme1 reference sweep exact placement
+??$__find_if@PBDV?$unary_negate@U_Ctype_c_is_mask@_STL@@@_STL@@@_STL@@YAPBDPBD0V?$unary_negate@U_Ctype_c_is_mask@_STL@@@0@ABUrandom_access_iterator_tag@0@@Z,,0x00016F20,128,Code/stlport/CtypeCharFindIfNot.cpp,matched,bfme1 reference sweep exact placement
+__Locale_time_destroy,,0x000205A0,122,Code/stlport/LocaleTimeDestroy.c,matched,bfme1 reference sweep exact placement
