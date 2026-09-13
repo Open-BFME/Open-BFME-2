@@ -6517,3 +6517,10 @@ __ftol2,,0x00629228,117,Code/masm_dumps/ftol2.asm,matched,CRT float-to-int helpe
 ??$push_heap@PAUS4SortElem24@@US4Cmp009F4BF0@@@_STL@@YAXPAUS4SortElem24@@0US4Cmp009F4BF0@@@Z,,0x006279B0,93,Code/Libraries/Source/WWVegas/WWLib/stlport_push_heap_s4sortelem24.cpp,matched,bfme1 WWLib sweep exact-unique placement; verbatim source import
 ??R?$less@UGen_p12pod@@@_STL@@QBE_NABUGen_p12pod@@0@Z,,0x0016D540,54,Code/Libraries/Source/WWVegas/WWLib/RvaTreeInsertUniqueGenP12pod00927CF0.cpp,matched,bfme1 WWLib sweep exact-unique placement; verbatim source import
 ??M@YA_NABUGen_p12pod@@0@Z,,0x0016CBB0,50,Code/Libraries/Source/WWVegas/WWLib/RvaTreeInsertUniqueGenP12pod00927CF0.cpp,matched,bfme1 WWLib sweep exact-unique placement; verbatim source import
+?AddLogGroup@Debug@@AAEPBDPBD0@Z,,0x000390D0,451,Code/Libraries/Source/WWVegas/WWDebug/Debug_AddLogGroup_0088A020.cpp,matched,bfme1 WWLib sweep exact-unique placement; verbatim source import
+?MyIPAddress@@YAKH@Z,,0x006CA190,178,Code/Libraries/Source/WWVegas/WWDownload/MyIPAddress.cpp,matched,bfme1 WWLib sweep exact-unique placement; verbatim source import
+?Prepare_Directories@@YA_NPBD0@Z,,0x006CA540,154,Code/Libraries/Source/WWVegas/WWDownload/FTPPrepareDirectories.cpp,matched,bfme1 WWLib sweep exact-unique placement; verbatim source import
+?Create@DebugIONet@@SAPAVDebugIOInterface@@XZ,,0x0003F7B0,96,Code/Libraries/Source/WWVegas/WWDebug/DebugIONet_Create.cpp,matched,bfme1 WWLib sweep exact-unique placement; verbatim source import
+?Create@DebugIOOds@@SAPAVDebugIOInterface@@XZ,,0x0003F3D0,96,Code/Libraries/Source/WWVegas/WWDebug/DebugIOOds_Create.cpp,matched,bfme1 WWLib sweep exact-unique placement; verbatim source import
+??1Rva0088FB30NetIO@@UAE@XZ,,0x0003F4F0,87,Code/Libraries/Source/WWVegas/WWDebug/DebugIONetPipeDestructorThunk.cpp,matched,bfme1 WWLib sweep exact-unique placement; verbatim source import
+??_GShdDefFactoryClass@@UAEPAXI@Z,,0x0061EE90,44,Code/Libraries/Source/WWVegas/wwshade/ShdDefFactoryClassDelete.cpp,matched,bfme1 WWLib sweep exact-unique placement; verbatim source import
