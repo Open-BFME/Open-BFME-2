@@ -6546,3 +6546,7 @@ _skipWhitespace,,0x00035800,46,Code/Libraries/Source/WWVegas/WWLib/StringBaseWid
 ?Resize@?$SimpleVecClass@VVector4@@@@UAE_NH@Z,,0x001A7C80,211,Code/Libraries/Source/WWVegas/WW3D2/StreakLineCtor.cpp,matched,bfme1 WWLib sweep exact-unique placement; verbatim source import
 ?UpdateFrameStatus@Rva0088A7E0Debug@@QAEXAAURva0088A7E0FrameHashEntry@@@Z,,0x00039A60,194,Code/Libraries/Source/WWVegas/WWDebug/Rva0088A7E0UpdateFrameStatus.cpp,matched,bfme1 WWLib sweep exact-unique placement; verbatim source import
 ?Filename_From_Asset_Name@@YA?AVStringClass@@PBD@Z,,0x0013C2D0,210,Code/Libraries/Source/WWVegas/WW3D2/Filename_From_Asset_Name.cpp,matched,bfme1 WW3D2 reference helper extraction; exact body candidate
+?Rva009AF6A0FilterHoriz@@YAXPAXPAEHPBH@Z,,0x001C0090,341,Code/GameEngine/Source/Common/Rva009AF6A0FilterHoriz.cpp,matched,bfme1 small-unit exact placement
+?bfmeUnpackTwoColors1280@@YAXPAMPBI@Z,,0x006F7160,204,Code/GameEngine/Source/Common/BfmePackedColors1280.cpp,matched,bfme1 small-unit exact placement
+_Rva0080D890,,0x00679790,154,Code/Libraries/Source/DirtySock/Y4LookupTables.c,matched,bfme1 small-unit exact placement
+?bfmeMul1208@@YAXPBUBfmeM1208@@0PAU1@@Z,,0x0070E5D0,230,Code/GameEngine/Source/Common/BfmeConv1208.cpp,matched,bfme1 small-unit exact placement
