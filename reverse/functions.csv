@@ -6613,3 +6613,4 @@ __Locale_time_destroy,,0x000205A0,122,Code/stlport/LocaleTimeDestroy.c,matched,b
 ??4LightEnvironmentClass@@QAEAAV0@ABV0@@Z,,0x0014A230,437,Code/Libraries/Source/WWVegas/WW3D2/LightEnvironmentClass_CopyAssign.cpp,matched,bfme1 WW3D2 L sweep exact placement; BFME leading-byte layout; excludes four-byte retail alignment padding
 ?Clone@VertexMaterialClass@@QAEPAV1@XZ,,0x0016EAF0,94,Code/Libraries/Source/WWVegas/WW3D2/VertexMaterialClone0092EF30.cpp,matched,bfme1 WW3D2 V sweep exact placement
 ?Init@VertexMaterialClass@@SAXXZ,,0x0013D9B0,141,Code/Libraries/Source/WWVegas/WW3D2/VertexMaterialClass_Init_Thunk.cpp,matched,bfme1 WW3D2 V sweep exact placement
+?Set_NPatches_Level@WW3D@@SAXI@Z,,0x00116E70,89,Code/Libraries/Source/WWVegas/WW3D2/WW3D_SetNPatchesLevelThunk.cpp,matched,bfme1 WW3D2 W sweep exact placement

@@ -254,6 +254,7 @@ name,address,notes
 ??_VBfmeSceneVectorElement@@SAXPAX@Z,0x0002FD80,identical-code alias of the matched global array delete; retail call from SimpleSceneClass::~SimpleSceneClass at 0x00141ECA
 ?Device_To_View_Space@CameraClass@@QAEXABVVector2@@PAVVector3@@@Z,0x00134650,address read from the retail REL32 in ?Device_To_World_Space at 0x00134730
 ??0VertexMaterialClass@@QAE@XZ,0x0013D420,retail REL32 from VertexMaterialClass::Clone at 0x0016EB24; BFME2 vertex-material constructor
+?Invalidate@DX8MeshRendererClass@@QAEX_N@Z,0x00145FA0,retail REL32 from WW3D::Set_NPatches_Level at 0x00116EA1 and 0x00116EBC; BFME2 mesh-renderer invalidation
 ?Enable_Fog@ShaderClass@@QAEXPBD@Z,0x00138200,address read from the REL32 displacement at a placed body; stlport 4.5.3
 ?ExpandMagic@DebugIOFlat@@CAXPBD0PAD@Z,0x0003FA20,address read from the REL32 displacement at a placed body; stlport 4.5.3
 ?Flush@OutputStream@DebugIOFlat@@QAEXXZ,0x0003F960,address read from the REL32 displacement at a placed body; stlport 4.5.3
