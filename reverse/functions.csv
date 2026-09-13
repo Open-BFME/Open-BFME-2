@@ -6600,3 +6600,6 @@ __Locale_time_destroy,,0x000205A0,122,Code/stlport/LocaleTimeDestroy.c,matched,b
 ?Rva009AC4B0AddValue@@YAXPAURva009AC4B0State@@HH@Z,,0x001BCEB0,47,Code/GameEngine/Source/Common/Rva009AC4B0AddValue.cpp,matched,bfme1 uncapped Common-family sweep exact placement
 ?Update@Debug@@QAEXXZ,,0x0003B700,228,Code/Libraries/Source/WWVegas/WWDebug/Debug_Update_0088C3F0.cpp,matched,bfme1 WWDebug sweep exact placement; allocator call pinned to existing _realloc address
 ?GetInput@Debug@@QAEHPADHPA_N@Z,,0x00038EE0,266,Code/Libraries/Source/WWVegas/WWDebug/Debug_GetInput_00889E10.cpp,matched,bfme1 WWDebug sweep exact placement; allocator call pinned to existing _realloc address
+?ConnectToServer@Rva00884Ftp@@QAEJPBD@Z,,0x006CA660,562,Code/Libraries/Source/WWVegas/WWDownload/CftpConnectToServer.cpp,matched,bfme1 WWDownload sweep exact placement; relocation-pinned FTP helper imports
+?SendCommand@Rva00884Ftp@@AAEJPBDH@Z,,0x006CA040,59,Code/Libraries/Source/WWVegas/WWDownload/CftpLoginToServer.cpp,matched,bfme1 WWDownload sweep exact placement; folded SendCommand helper
+?LoginToServer@Rva00884Ftp@@QAEJPBD0@Z,,0x006CA8A0,464,Code/Libraries/Source/WWVegas/WWDownload/CftpLoginToServer.cpp,matched,bfme1 WWDownload sweep exact placement; relocation-pinned FTP helper imports

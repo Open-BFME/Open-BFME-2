@@ -12,7 +12,7 @@ An explicit request or assigned lane overrides the queue:
 1. `git pull --rebase origin master`
 2. `python3 tools/check_csv.py` — repair ledger errors before other work
 3. `python3 tools/list_naked_candidates.py Code` serves a byte-true dump from
-   `Code/gen_asm/`, boundary already proven. **Prefer the coverage-first reference sweep below when compatible reference units are available; otherwise converting dumps to real C++ is the default work.**
+   `Code/gen_asm/`, boundary already proven. **Prefer the coverage-first reference sweep below when compatible reference units are available allowing for small evidence-backed repairs when they preserve the verified body; otherwise converting dumps to real C++ is the default work.**
       
 4. `python3 tools/next_work.py` for identity/structural work; it explains its
    own tiers.
