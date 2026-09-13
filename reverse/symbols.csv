@@ -245,6 +245,9 @@ name,address,notes
 ?DebugAllocMemory@@YAPAXI@Z,0x0003E450,address read from the REL32 displacement at a placed body; stlport 4.5.3
 ?DebugFreeMemory@@YAXPAX@Z,0x0003E3C0,address read from the REL32 displacement at a placed body; stlport 4.5.3
 ?ExecCommand@Debug@@AAEXPBD0@Z,0x00039E20,retail REL32 from Debug::Update at 0x0003B79B; existing Debug::ExecCommand implementation
+??0GenBase009EB7D0@@QAE@XZ,0x0061ED40,retail REL32 from Create_Rva00972880_Prototype at 0x00181165; BFME1 prototype base constructor
+?Add_Prototype@@YAXPAX@Z,0x0061EF90,retail REL32 from Create_Rva00972880_Prototype at 0x0018117D; BFME1 prototype registry helper
+?Check@Rva0093C4A0Target@@QAE_NPBGPAGH@Z,0x00154580,retail REL32 from Rva0093C870Owner::Check at 0x00154958 and 0x0015496E; BFME1 WW3D2 child-check identity
 ?Device_To_View_Space@CameraClass@@QAEXABVVector2@@PAVVector3@@@Z,0x00134650,address read from the retail REL32 in ?Device_To_World_Space at 0x00134730
 ?Enable_Fog@ShaderClass@@QAEXPBD@Z,0x00138200,address read from the REL32 displacement at a placed body; stlport 4.5.3
 ?ExpandMagic@DebugIOFlat@@CAXPBD0PAD@Z,0x0003FA20,address read from the REL32 displacement at a placed body; stlport 4.5.3
