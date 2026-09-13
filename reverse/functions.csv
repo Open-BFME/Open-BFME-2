@@ -6603,3 +6603,4 @@ __Locale_time_destroy,,0x000205A0,122,Code/stlport/LocaleTimeDestroy.c,matched,b
 ?ConnectToServer@Rva00884Ftp@@QAEJPBD@Z,,0x006CA660,562,Code/Libraries/Source/WWVegas/WWDownload/CftpConnectToServer.cpp,matched,bfme1 WWDownload sweep exact placement; relocation-pinned FTP helper imports
 ?SendCommand@Rva00884Ftp@@AAEJPBDH@Z,,0x006CA040,59,Code/Libraries/Source/WWVegas/WWDownload/CftpLoginToServer.cpp,matched,bfme1 WWDownload sweep exact placement; folded SendCommand helper
 ?LoginToServer@Rva00884Ftp@@QAEJPBD0@Z,,0x006CA8A0,464,Code/Libraries/Source/WWVegas/WWDownload/CftpLoginToServer.cpp,matched,bfme1 WWDownload sweep exact placement; relocation-pinned FTP helper imports
+?Set_Render_Target@DX8Wrapper@@SAXPAUIDirect3DSwapChain8@@@Z,,0x00120940,64,Code/Libraries/Source/WWVegas/WW3D2/DX8Wrapper_Set_Render_Target_SwapChain_Thunk.cpp,matched,bfme1 WW3D2 D sweep exact placement
