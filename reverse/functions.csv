@@ -6590,3 +6590,8 @@ __Locale_time_destroy,,0x000205A0,122,Code/stlport/LocaleTimeDestroy.c,matched,b
 ?assign@Rva00958960Holder@@QAEPAU1@PAURva00958960Ref@@@Z,,0x00176E40,43,Code/GameEngine/Source/Common/SmallGaps/Rva00958960AssignRef.cpp,matched,bfme1 uncapped SmallGaps sweep exact placement
 ?resetFields@Rva008011D0Owner@@QAEXXZ,,0x0066D540,64,Code/GameEngine/Source/Common/SmallGaps/Rva008011D0ResetFields.cpp,matched,bfme1 uncapped SmallGaps sweep exact placement
 ?find@Rva009A3250Table@@QAEPAURva009A3250Node@@PAURva009A3250Key@@@Z,,0x00758F80,61,Code/GameEngine/Source/Common/SmallGaps/Rva009A3250HashFind.cpp,matched,bfme1 uncapped SmallGaps sweep exact placement
+?bfmeNeVMQ@BfmeStrVMQ@@QBE_NPBD@Z,,0x000249D0,40,Code/GameEngine/Source/Common/BfmeConv1432.cpp,matched,bfme1 uncapped Common sweep exact placement
+?rva009af800@@YAHHH@Z,,0x001C01F0,60,Code/GameEngine/Source/Common/Rva009AF800Fold.cpp,matched,bfme1 uncapped Common sweep exact placement
+??0Rva007F0910Record@@QAE@XZ,,0x0065D710,40,Code/GameEngine/Source/Common/SmallGaps/Rva007F0910RecordCtor.cpp,matched,bfme1 uncapped Common sweep exact placement
+?bfmeTermV57@@YGXPAD@Z,,0x000239A0,35,Code/GameEngine/Source/Common/BfmeConv1502.cpp,matched,bfme1 uncapped Common sweep exact placement
+?bfmeCopyColAA90@@YAXPAEHHH0HHH@Z,,0x001BA4D0,53,Code/GameEngine/Source/Common/BfmeCopyColAA90.cpp,matched,bfme1 uncapped Common sweep exact placement
