@@ -6544,3 +6544,4 @@ _skipWhitespace,,0x00035800,46,Code/Libraries/Source/WWVegas/WWLib/StringBaseWid
 ??0?$basic_ifstream_lib0084C300@DV?$char_traits@D@_STL@@@_STL@@QAE@PBDH@Z,,0x0001F650,263,Code/Libraries/Source/WWVegas/WWLib/stlport_ifstream_name_ctor_0084C300.cpp,matched,bfme1 WWLib sweep exact-unique placement; verbatim source import
 ?Get_RDTSC_CPU_Speed@@YAHXZ,,0x001B8E90,284,Code/Libraries/Source/WWVegas/WWLib/Get_RDTSC_CPU_Speed.cpp,matched,bfme1 WWLib sweep exact-unique placement; verbatim source import
 ?Resize@?$SimpleVecClass@VVector4@@@@UAE_NH@Z,,0x001A7C80,211,Code/Libraries/Source/WWVegas/WW3D2/StreakLineCtor.cpp,matched,bfme1 WWLib sweep exact-unique placement; verbatim source import
+?UpdateFrameStatus@Rva0088A7E0Debug@@QAEXAAURva0088A7E0FrameHashEntry@@@Z,,0x00039A60,194,Code/Libraries/Source/WWVegas/WWDebug/Rva0088A7E0UpdateFrameStatus.cpp,matched,bfme1 WWLib sweep exact-unique placement; verbatim source import
