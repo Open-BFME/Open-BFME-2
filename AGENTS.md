@@ -12,8 +12,8 @@ An explicit request or assigned lane overrides the queue:
 1. `git pull --rebase origin master`
 2. `python3 tools/check_csv.py` — repair ledger errors before other work
 3. `python3 tools/list_naked_candidates.py Code` serves a byte-true dump from
-   `Code/gen_asm/`, boundary already proven. **Converting dumps to real C++ is
-   the default work.**
+   `Code/gen_asm/`, boundary already proven. **Prefer the coverage-first reference sweep below when compatible reference units are available; otherwise converting dumps to real C++ is the default work.**
+      
 4. `python3 tools/next_work.py` for identity/structural work; it explains its
    own tiers.
 5. `python3 tools/place_bodies.py <sources>` mines the units the ledger already
@@ -28,6 +28,12 @@ A tier reporting zero candidates is exhausted, not broken. Regenerate with
 `tools/drift_classify.py`, `tools/anchor_unclaimed.py`, `./build.sh`.
 
 Finish or revert each body before the next.
+
+## Prefer coverage-first reference sweeps
+
+Prefer reference-source sweeps as the first approach. Optimize for verified unique-byte gain per unit of effort by batching compatible units, especially within related library families whose dependencies already exist.
+
+Use compiler and configuration variants from successfully matched siblings, with caching and isolated trials to improve throughput. Apply units that pass the existing matching pipeline, preserve provenance and compiler settings, continue through viable independent candidates, and group successful imports with their ledger updates into coherent commits. Move to deeper reconstruction when the sweep no longer offers worthwhile candidates.
 
 ## BFME 1 reference freshness
 
