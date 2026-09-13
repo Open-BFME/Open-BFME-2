@@ -6595,3 +6595,6 @@ __Locale_time_destroy,,0x000205A0,122,Code/stlport/LocaleTimeDestroy.c,matched,b
 ??0Rva007F0910Record@@QAE@XZ,,0x0065D710,40,Code/GameEngine/Source/Common/SmallGaps/Rva007F0910RecordCtor.cpp,matched,bfme1 uncapped Common sweep exact placement
 ?bfmeTermV57@@YGXPAD@Z,,0x000239A0,35,Code/GameEngine/Source/Common/BfmeConv1502.cpp,matched,bfme1 uncapped Common sweep exact placement
 ?bfmeCopyColAA90@@YAXPAEHHH0HHH@Z,,0x001BA4D0,53,Code/GameEngine/Source/Common/BfmeCopyColAA90.cpp,matched,bfme1 uncapped Common sweep exact placement
+?Rva0080EE80Query@@YAHPAURva0080EE80View@@I@Z,,0x0067AD80,106,Code/GameEngine/Source/Common/Bfme/Rva0080EE80Query.cpp,matched,bfme1 uncapped Common-family sweep exact placement
+?bfmeLinkEQB@@YGPAUBfmeNodeEQB@@PAU1@@Z,,0x00689230,38,Code/GameEngine/Source/Common/BfmeConv1668.cpp,matched,bfme1 uncapped Common-family sweep exact placement
+?Rva009AC4B0AddValue@@YAXPAURva009AC4B0State@@HH@Z,,0x001BCEB0,47,Code/GameEngine/Source/Common/Rva009AC4B0AddValue.cpp,matched,bfme1 uncapped Common-family sweep exact placement
