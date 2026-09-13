@@ -6508,3 +6508,9 @@ __ftol2,,0x00629228,117,Code/masm_dumps/ftol2.asm,matched,CRT float-to-int helpe
 ?_M_snextc_aux@?$basic_streambuf@DV?$char_traits@D@_STL@@@_STL@@AAEHXZ,,0x0001CBF0,94,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_streambuf_snextc_aux.cpp,matched,bfme1 WWLib sweep exact-unique placement; verbatim source import
 ??R?$unary_negate@U_Ctype_w_is_mask@_STL@@@_STL@@QBE_NABG@Z,,0x00017080,57,Code/Libraries/Source/WWVegas/WWLib/stlport_ctype_wchar_scan_not.cpp,matched,bfme1 WWLib sweep exact-unique placement; verbatim source import
 ??R_Ctype_w_is_mask@_STL@@QBE_NG@Z,,0x00016C90,37,Code/Libraries/Source/WWVegas/WWLib/stlport_ctype_wchar_scan_not.cpp,matched,bfme1 WWLib sweep exact-unique placement; verbatim source import
+??0?$basic_ifstream@DV?$char_traits@D@_STL@@@_STL@@QAE@XZ,,0x0001F590,191,Code/Libraries/Source/WWVegas/WWLib/stlport_basic_ifstream_char_default_ctor.cpp,matched,bfme1 WWLib sweep exact-unique placement; verbatim source import
+??0?$basic_ofstream@DV?$char_traits@D@_STL@@@_STL@@QAE@XZ,,0x0001EC10,188,Code/Libraries/Source/WWVegas/WWLib/stlport_basic_ofstream_char_default_ctor.cpp,matched,bfme1 WWLib sweep exact-unique placement; verbatim source import
+?_S_oom_malloc@?$__malloc_alloc@$0A@@_STL@@CAPAXI@Z,,0x00024200,78,Code/Libraries/Source/WWVegas/WWLib/STLMallocAlloc0OutOfMemory.cpp,matched,bfme1 WWLib sweep exact-unique placement; verbatim source import
+?Execute@ThreadClass@@UAEXXZ,,0x006104B0,54,Code/Libraries/Source/WWVegas/WWLib/ThreadClassLifecycle.cpp,matched,bfme1 WWLib sweep exact-unique placement; verbatim source import
+?Stop@ThreadClass@@QAEXXZ,,0x006105F0,35,Code/Libraries/Source/WWVegas/WWLib/ThreadClassLifecycle.cpp,matched,bfme1 WWLib sweep exact-unique placement; verbatim source import
+?Set_Priority@ThreadClass@@QAEXH@Z,,0x006104F0,25,Code/Libraries/Source/WWVegas/WWLib/ThreadClassLifecycle.cpp,matched,bfme1 WWLib sweep exact-unique placement; verbatim source import
