@@ -249,6 +249,9 @@ name,address,notes
 ?Add_Prototype@@YAXPAX@Z,0x0061EF90,retail REL32 from Create_Rva00972880_Prototype at 0x0018117D; BFME1 prototype registry helper
 ?Check@Rva0093C4A0Target@@QAE_NPBGPAGH@Z,0x00154580,retail REL32 from Rva0093C870Owner::Check at 0x00154958 and 0x0015496E; BFME1 WW3D2 child-check identity
 ??4BfmeRendererVectorBase@@QAEAAV0@ABV0@@Z,0x00154C50,identical-code alias of the matched VectorClass<Render2DClass> assignment; retail REL32 from PendingSurfaceStruct::operator= at 0x0015690E
+??1BfmeRefSceneList@@UAE@XZ,0x0006F29B,retail destructor call fan-out from SimpleSceneClass::~SimpleSceneClass at 0x00141DF0 (five ref-list instances)
+??1BfmeNonRefSceneList@@UAE@XZ,0x00141780,retail destructor call fan-out from SimpleSceneClass::~SimpleSceneClass at 0x00141DF0 (two non-ref-list instances)
+??_VBfmeSceneVectorElement@@SAXPAX@Z,0x0002FD80,identical-code alias of the matched global array delete; retail call from SimpleSceneClass::~SimpleSceneClass at 0x00141ECA
 ?Device_To_View_Space@CameraClass@@QAEXABVVector2@@PAVVector3@@@Z,0x00134650,address read from the retail REL32 in ?Device_To_World_Space at 0x00134730
 ?Enable_Fog@ShaderClass@@QAEXPBD@Z,0x00138200,address read from the REL32 displacement at a placed body; stlport 4.5.3
 ?ExpandMagic@DebugIOFlat@@CAXPBD0PAD@Z,0x0003FA20,address read from the REL32 displacement at a placed body; stlport 4.5.3
