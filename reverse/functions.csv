@@ -6573,3 +6573,12 @@ __Locale_time_destroy,,0x000205A0,122,Code/stlport/LocaleTimeDestroy.c,matched,b
 ?nameEquals@Rva008A4570Owner@@QAE_NPBD@Z,,0x006D3230,87,Code/GameEngine/Source/Common/SmallGaps/Rva008A4570NameCompare.cpp,matched,bfme1 reference sweep exact placement
 ?nameDiffers@Rva008AC080Owner@@QAE_NPBD@Z,,0x006D3290,87,Code/GameEngine/Source/Common/SmallGaps/Rva008AC080NameCompare.cpp,matched,bfme1 reference sweep exact placement
 ?buildMatrix2D@@YAXPAURva008BCF90Matrix4@@PBURva008BCF90Affine2D@@@Z,,0x006F6900,84,Code/GameEngine/Source/Common/SmallGaps/Rva008BCF90BuildMatrix.cpp,matched,bfme1 reference sweep exact placement
+?daysInYear@@YGHH@Z,,0x006F40D0,66,Code/GameEngine/Source/Common/SmallGaps/daysInYear.cpp,matched,bfme1 uncapped SmallGaps sweep exact placement
+?rangeDistSq@@YAHHHH@Z,,0x00626DB0,45,Code/GameEngine/Source/Common/SmallGaps/rangeDistSq.cpp,matched,bfme1 uncapped SmallGaps sweep exact placement
+?getValue@Rva0087DBA0Owner@@QBEMXZ,,0x006BD420,45,Code/GameEngine/Source/Common/SmallGaps/Rva0087DBA0BaseValue.cpp,matched,bfme1 uncapped SmallGaps sweep exact placement
+??0Rva009A2B50Table@@QAE@XZ,,0x00758AF0,44,Code/GameEngine/Source/Common/SmallGaps/Rva009A2B50TableCtor.cpp,matched,bfme1 uncapped SmallGaps sweep exact placement
+??0Rva009A2A20Table@@QAE@XZ,,0x007589C0,44,Code/GameEngine/Source/Common/SmallGaps/Rva009A2A20TableCtor.cpp,matched,bfme1 uncapped SmallGaps sweep exact placement
+?spreadTable@@YAXXZ,,0x001D1610,57,Code/GameEngine/Source/Common/SmallGaps/spreadTable.cpp,matched,bfme1 uncapped SmallGaps sweep exact placement
+?copyTwelveVec3@@YAXPBURva009C6DA0Vec3@@PAU1@HH@Z,,0x001D76A0,51,Code/GameEngine/Source/Common/SmallGaps/copyTwelveVec3.cpp,matched,bfme1 uncapped SmallGaps sweep exact placement
+??0Rva007F0F20Struct@@QAE@HHHHHHHHHHH@Z,,0x0065DAB0,81,Code/GameEngine/Source/Common/SmallGaps/Rva007F0F20Ctor.cpp,matched,bfme1 uncapped SmallGaps sweep exact placement
+??0Rva007F0F80Owner@@QAE@HHHHHHHDDHHHH@Z,,0x0065DB10,95,Code/GameEngine/Source/Common/SmallGaps/Rva007F0F80Ctor.cpp,matched,bfme1 uncapped SmallGaps sweep exact placement
