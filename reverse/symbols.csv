@@ -244,6 +244,7 @@ name,address,notes
 ?DX8_Assert@@YAXXZ,0x0069E440,called from the DX8 arm of every index-buffer lock body; address read from retail REL32 at 0x00138840
 ?DebugAllocMemory@@YAPAXI@Z,0x0003E450,address read from the REL32 displacement at a placed body; stlport 4.5.3
 ?DebugFreeMemory@@YAXPAX@Z,0x0003E3C0,address read from the REL32 displacement at a placed body; stlport 4.5.3
+?ExecCommand@Debug@@AAEXPBD0@Z,0x00039E20,retail REL32 from Debug::Update at 0x0003B79B; existing Debug::ExecCommand implementation
 ?Device_To_View_Space@CameraClass@@QAEXABVVector2@@PAVVector3@@@Z,0x00134650,address read from the retail REL32 in ?Device_To_World_Space at 0x00134730
 ?Enable_Fog@ShaderClass@@QAEXPBD@Z,0x00138200,address read from the REL32 displacement at a placed body; stlport 4.5.3
 ?ExpandMagic@DebugIOFlat@@CAXPBD0PAD@Z,0x0003FA20,address read from the REL32 displacement at a placed body; stlport 4.5.3
