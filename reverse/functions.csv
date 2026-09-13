@@ -6610,3 +6610,4 @@ __Locale_time_destroy,,0x000205A0,122,Code/stlport/LocaleTimeDestroy.c,matched,b
 ??1SimpleSceneClass@@UAE@XZ,,0x00141DF0,250,Code/Libraries/Source/WWVegas/WW3D2/SimpleSceneClass_dtor.cpp,matched,bfme1 WW3D2 S sweep exact placement
 ??_GSimpleSceneClass@@UAEPAXI@Z,,0x001426B0,30,Code/Libraries/Source/WWVegas/WW3D2/SimpleSceneDeletingDestructor.cpp,matched,bfme1 WW3D2 S sweep exact placement; verbatim source import
 ?Post_Render_Processing@SimpleSceneClass@@MAEXAAVRenderInfoClass@@@Z,,0x00141BB0,61,Code/Libraries/Source/WWVegas/WW3D2/SimpleSceneClass_Post_Render_Processing.cpp,matched,bfme1 WW3D2 S sweep exact placement; verbatim source import
+??4LightEnvironmentClass@@QAEAAV0@ABV0@@Z,,0x0014A230,437,Code/Libraries/Source/WWVegas/WW3D2/LightEnvironmentClass_CopyAssign.cpp,matched,bfme1 WW3D2 L sweep exact placement; BFME leading-byte layout; excludes four-byte retail alignment padding
