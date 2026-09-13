@@ -253,6 +253,7 @@ name,address,notes
 ??1BfmeNonRefSceneList@@UAE@XZ,0x00141780,retail destructor call fan-out from SimpleSceneClass::~SimpleSceneClass at 0x00141DF0 (two non-ref-list instances)
 ??_VBfmeSceneVectorElement@@SAXPAX@Z,0x0002FD80,identical-code alias of the matched global array delete; retail call from SimpleSceneClass::~SimpleSceneClass at 0x00141ECA
 ?Device_To_View_Space@CameraClass@@QAEXABVVector2@@PAVVector3@@@Z,0x00134650,address read from the retail REL32 in ?Device_To_World_Space at 0x00134730
+??0VertexMaterialClass@@QAE@XZ,0x0013D420,retail REL32 from VertexMaterialClass::Clone at 0x0016EB24; BFME2 vertex-material constructor
 ?Enable_Fog@ShaderClass@@QAEXPBD@Z,0x00138200,address read from the REL32 displacement at a placed body; stlport 4.5.3
 ?ExpandMagic@DebugIOFlat@@CAXPBD0PAD@Z,0x0003FA20,address read from the REL32 displacement at a placed body; stlport 4.5.3
 ?Flush@OutputStream@DebugIOFlat@@QAEXXZ,0x0003F960,address read from the REL32 displacement at a placed body; stlport 4.5.3
