@@ -6550,3 +6550,6 @@ _skipWhitespace,,0x00035800,46,Code/Libraries/Source/WWVegas/WWLib/StringBaseWid
 ?bfmeUnpackTwoColors1280@@YAXPAMPBI@Z,,0x006F7160,204,Code/GameEngine/Source/Common/BfmePackedColors1280.cpp,matched,bfme1 small-unit exact placement
 _Rva0080D890,,0x00679790,154,Code/Libraries/Source/DirtySock/Y4LookupTables.c,matched,bfme1 small-unit exact placement
 ?bfmeMul1208@@YAXPBUBfmeM1208@@0PAU1@@Z,,0x0070E5D0,230,Code/GameEngine/Source/Common/BfmeConv1208.cpp,matched,bfme1 small-unit exact placement
+?reduceMatrix@@YAXPAY0GF@H@Z,,0x006B4110,149,Code/GameEngine/Source/Common/SmallGaps/reduceMatrix.cpp,matched,bfme1 reference sweep exact placement
+?Rva009AF490SetupBounding@@YAPAHPAURva009AF490Context@@H@Z,,0x001BFE80,145,Code/GameEngine/Source/Common/Rva009AF490SetupBounding.cpp,matched,bfme1 reference sweep exact placement
+?Rva009ACBA0SetupBounding@@YAPAHPAURva009ACBA0Context@@H@Z,,0x001BD590,145,Code/GameEngine/Source/Common/Rva009ACBA0SetupBounding.cpp,matched,bfme1 reference sweep exact placement
