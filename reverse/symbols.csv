@@ -3761,3 +3761,4 @@ dup_7e86b0,0x00655770
 ??0?$_List_base@UFloodMember@@V?$allocator@UFloodMember@@@_STL@@@_STL@@QAE@ABV?$allocator@UFloodMember@@@1@@Z,0x004EC36C
 ??0StanceTemplateUpdateModuleData@@QAE@XZ,0x00254C8E,12B alias of ICF-folded trivial ctor installing vtable 0x00C4ED70 plus zero at +8; same body as pinned ??0SlotToLockUpdateModuleData@@QAE@XZ; used by StanceTemplate factory 0x24B3B4
 ??0RandomSoundSelectorClientBehaviorModuleData@@QAE@XZ,0x0025785C,sole raw E8 caller is factory 0x25792A which pushes rowed proc 0x4CBC09 and news 0x1E0 fitting ctor stores to +0x1DD
+??0RampageBehaviorModuleData@@QAE@XZ,0x00458C0F,sole raw E8 caller is factory 0x24AD38 (0x24AD59 inside); vtable 0xC40EF8; table 0xC40E78 Rampage 7-field; news 0x2C fits
