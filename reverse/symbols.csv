@@ -3895,3 +3895,7 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ??$__push_heap@PAHHHU?$less@H@_STL@@@_STL@@YAXPAHHHHU?$less@H@0@@Z,0x0040A79A,address read from the REL32 displacement at a placed body
 ??$make_heap@PAHU?$less@H@_STL@@@_STL@@YAXPAH0U?$less@H@0@@Z,0x0040ADAD,address read from the REL32 displacement at a placed body
 ??$sort_heap@PAHU?$less@H@_STL@@@_STL@@YAXPAH0U?$less@H@0@@Z,0x0040AE92,address read from the REL32 displacement at a placed body
+??$__insertion_sort@PAHU?$less@H@_STL@@@_STL@@YAXPAH0U?$less@H@0@@Z,0x0040B247,REL32 displacement at a byte-true int algorithm call site
+??$__make_heap@PAHU?$less@H@_STL@@HH@_STL@@YAXPAH0U?$less@H@0@00@Z,0x0040AD00,REL32 displacement at a byte-true int algorithm call site
+??$__unguarded_insertion_sort@PAHU?$less@H@_STL@@@_STL@@YAXPAH0U?$less@H@0@@Z,0x0040ACC0,REL32 displacement at a byte-true int algorithm call site
+??$pop_heap@PAHU?$less@H@_STL@@@_STL@@YAXPAH0U?$less@H@0@@Z,0x0040ADC6,REL32 displacement at a byte-true int algorithm call site
