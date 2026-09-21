@@ -19,7 +19,13 @@ struct BfmePod476 { int a[119]; };
 struct BfmePod480 { int a[120]; };
 struct BfmePod492 { int a[123]; };
 struct BfmePod544 { int a[136]; };
-struct BfmePod696 { int a[174]; };
+// 696 = 0x2B8 is BuddyRequest (see BuddyRequestDequePushBackAux.cpp): the
+// placed deque's _Construct callee is the matched _Construct<BuddyRequest>
+// at 0x00550798, so these rows carry the real element type.
+class BuddyRequest
+{
+	char m_bfmeBody[0x2B8];
+};
 struct BfmePod840 { int a[210]; };
 struct BfmePod872 { int a[218]; };
 struct BfmePod900 { int a[225]; };
@@ -33,7 +39,10 @@ template class _STL::vector<BfmePod476, _STL::allocator<BfmePod476 > >;
 template class _STL::vector<BfmePod480, _STL::allocator<BfmePod480 > >;
 template class _STL::vector<BfmePod492, _STL::allocator<BfmePod492 > >;
 template class _STL::vector<BfmePod544, _STL::allocator<BfmePod544 > >;
-template class _STL::vector<BfmePod696, _STL::allocator<BfmePod696 > >;
+template class _STL::vector<BuddyRequest, _STL::allocator<BuddyRequest > >;
 template class _STL::vector<BfmePod840, _STL::allocator<BfmePod840 > >;
 template class _STL::vector<BfmePod872, _STL::allocator<BfmePod872 > >;
 template class _STL::vector<BfmePod900, _STL::allocator<BfmePod900 > >;
+template class _STL::deque<BfmePod492, _STL::allocator<BfmePod492 > >;
+template class _STL::deque<BuddyRequest, _STL::allocator<BuddyRequest > >;
+template class _STL::deque<BfmePod840, _STL::allocator<BfmePod840 > >;
