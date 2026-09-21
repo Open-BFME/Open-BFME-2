@@ -188,3 +188,15 @@ void UnpauseSpecialPowerUpgradeModuleData::buildFieldParse(MultiIniFieldParse &p
 	parse.add(reinterpret_cast<const FieldParse *>(Rva004CE29DGet()), 8);
 	parse.add(reinterpret_cast<const FieldParse *>(0x00C57EF0), 0);
 }
+
+class AttributeModifierAuraUpdateModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+void AttributeModifierAuraUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	parse.add(reinterpret_cast<const FieldParse *>(Rva004CE29DGet()), 0x28);
+	parse.add(reinterpret_cast<const FieldParse *>(0x00C50DC8), 0);
+}
