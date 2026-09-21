@@ -95,6 +95,7 @@ FIELD_PROC(HeightDieUpdateModuleData, 0x00C4CFC8, HeightTable)
 FIELD_PROC(FloatUpdateModuleData, 0x00C4C7A4, EnabledTable)
 FIELD_PROC(AutoAbilityBehaviorModuleData, 0x00C41690, ScanTable)
 FIELD_PROC(AimWeaponBehaviorModuleData, 0x00C41948, AimTable)
+FIELD_PROC(AutoFindHealingUpdateModuleData, 0x00C4EC68, HealScanTable)
 
 // Chained proc: ?buildFieldParse@GiantBirdSlowDeathBehaviorModuleData@@,
 // retail 0x00461E3D, 27 bytes. Calls the rowed SlowDeath base proc above,
