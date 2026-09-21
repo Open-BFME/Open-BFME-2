@@ -150,3 +150,15 @@ void GloriousChargeUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
 	Rva0044EB54::buildFieldParse(parse);
 	parse.add(reinterpret_cast<const FieldParse *>(0x00C550C8), 0);
 }
+
+class GiveOrRestoreUpgradeSpecialPowerModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+void GiveOrRestoreUpgradeSpecialPowerModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	Rva0044EB54::buildFieldParse(parse);
+	parse.add(reinterpret_cast<const FieldParse *>(0x00C5F8C0), 0);
+}
