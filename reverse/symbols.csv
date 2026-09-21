@@ -3737,4 +3737,3 @@ dup_7e86b0,0x00655770
 ??0CastleUpgradeModuleData@@QAE@XZ,0x00255836,sole raw E8 caller is ModuleData factory 0x25585A (0x25586C); frameless 35B ctor over OpenContain base 0x253487 with vtable 0xBF3940 and Upgrade zero at +0x118 plus WallUpgradeRadius float-zero at +0x11C; banked partial 0.97, row pending schedule lever
 ??0RadarUpdateModuleData@@QAE@XZ,0x003ECC80,shared fold with DefaultRadius factory 0x24FC08 (proc 0x3ECC91 DefaultRadius table); rowed RadarUpdate proc 0x254280 plus factory 0x254291 news 0xC prove this name
 ??0CrushDieModuleData@@QAE@XZ,0x002539B3,sole raw caller is factory 0x253A27; BFME1 CrushDie donor with AudioEventRTS members; ctor body unrowed big-EH
-??0SpecialPowerCompletionDieModuleData@@QAE@XZ,0x004C230E,sole raw caller is factory 0x253B05; BFME1 donor has int m_34 zero-init matching news 0x3C
