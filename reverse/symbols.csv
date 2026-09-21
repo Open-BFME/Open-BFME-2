@@ -3731,7 +3731,6 @@ dup_7e86b0,0x00655770
 ?buildFieldParse@Rva0048C0B4Base@@SAXAAVMultiIniFieldParse@@@Z,0x0048C0B4,opaque base link of OilSpill chained proc 0x48C151; FireWeaponNugget table; do not name without poolkey or donor
 ??0Rva0048BC03Base@@QAE@XZ,0x0048BC03,opaque base ctor called once by OilSpill ctor 0x48C16C; installs vtable 0xC4C110; do not name without poolkey or donor
 ??_7OilSpillUpdateModuleData@@6B@,0x00C4C2F8,OilSpillUpdateModuleData vtable installed by ctor 0x48C16C; slot0 is scalar-deleting dtor 0x48C1DB
-??0ShareExperienceBehaviorModuleData@@QAE@XZ,0x0047FE90,Factory 0x24BFE5 sole raw caller; EH ctor over Radius table 0xC48740; poolkey 0x47FE4B ends where body begins
 ??0ReplenishUnitsBehaviorModuleData@@QAE@XZ,0x004841CC,Factory 0x24C5D1 sole raw caller; EH-frameless ctor over Replenish table 0xC4A150; poolkey 0x4841AD ends where body begins
 ??0PickupStuffUpdateModuleData@@QAE@XZ,0x00491E37,Sole raw caller is factory 0x24D95B; poolkey 0x491E1C cluster plus rowed proc 0x491E87; 0.97 ctor partial banked
 ??0AttachUpdateModuleData@@QAE@XZ,0x00491968,Sole raw caller is factory 0x24D8D2; poolkey 0x491912 cluster plus rowed proc 0x491957; 150B EH ctor open
