@@ -3731,3 +3731,4 @@ _var_or_func,0x007555C0,address read from the REL32 call at 0x00755E9E in the _n
 _var_or_func_tail,0x007552F0,address read from the REL32 calls at 0x00755EE 0x0075624 and 0x0075640 in the _var_or_func body; Lua 4.0.1 lparser.c static
 _vsprintf,0x00629A7E,CRT vsprintf import thunk; retail REL32 target of Rva007FE780 at 0x66AC50
 dup_7e86b0,0x00655770
+??0AttributeModifierAuraUpdateModuleData@@QAE@XZ,0x0049BBD5,EH 206B ctor over vector at +0xC via 0x211E58 plus filter at +0x24 via 0x3623E5 plus member at +0x28 via 0x25342C plus vtable 0xC50EE8 plus string at +0x8 via 0x55F5 plus float zero at +0x1C plus StartsActive zero at +0x138 and sole raw caller is ModuleData factory 0x24E65C which news 0x154
