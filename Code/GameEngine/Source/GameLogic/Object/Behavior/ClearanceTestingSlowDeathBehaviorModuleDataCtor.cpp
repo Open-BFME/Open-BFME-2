@@ -1,19 +1,14 @@
-// ??0ClearanceTestingSlowDeathBehaviorModuleData@@QAE@XZ
-// partial score=0.98 date=2026-09-21
 // cl: /O1 /arch:SSE /GX /MD /DNDEBUG
 //
-// ??0ClearanceTestingSlowDeathBehaviorModuleData@@QAE@XZ retail 0x00483E25
-// 160 bytes. 157/160 banked 0.98: all calls and stores exact with sizes
-// equal. Sole wall is xorps-vs-C-load order (retail xorps then movss xmm1
-// from 0xC49E90; this body loads then xors). Needs pinned base 0x45E386 and
-// pinned GeometryInfo 5-arg 0x50B74 plus rowed factory 0x24C545 and rowed
-// proc 0x483C1A and poolkey 0x483CF4. Refuted: source order x6 and const and
-// take position and split zero-init and b-local placement. The b-local
-// (late float b from 0xBCE3B8 reused for +0x1FC and +0x204) and the
-// sourced-before pointer take (lea-run zeros at +0x1EC) and EBO base with
-// declared-only dtor (single EH state) and explicit m_vtable first (lands
-// between base call and member call) are all load-bearing. Retry only with
-// a new xorps-scheduling lever.
+// ??0ClearanceTestingSlowDeathBehaviorModuleData@@QAE@XZ, retail 0x00483E25,
+// 160 bytes. SlowDeath ModuleData ctor over the ClearanceTesting table.
+// Identity is the rowed poolkey 0x483CF4 in cluster plus rowed proc 0x483C1A
+// plus factory 0x24C545 (news 0x208, sole caller). Shape: EBO SlowDeath base
+// (declared-only ctor resolving to the pin at 0x45E386, declared-only dtor
+// for a single EH state) plus explicit void*m_vtable first (lands between
+// the base call and the member call) plus 5-arg GeometryInfo member through
+// the pin at 0x50B74 plus sourced-before pointer take for the lea-run zeros
+// at +0x1EC plus late b-local reused for +0x1FC and +0x204.
 
 class SlowDeathBehaviorModuleData
 {
@@ -36,7 +31,6 @@ public:
 
 extern const float g_bfmeClearA;
 extern const float g_bfmeClearB;
-extern const float g_bfmeClearC;
 
 class ClearanceTestingSlowDeathBehaviorModuleData : public SlowDeathBehaviorModuleData
 {
@@ -60,7 +54,7 @@ ClearanceTestingSlowDeathBehaviorModuleData::ClearanceTestingSlowDeathBehaviorMo
 	, m_geometry(GEOMETRY_TYPE_NONE, false, 1.0f, 1.0f, 1.0f)
 {
 	float *offset = m_offset;
-	float c = g_bfmeClearC;
+	float c = -20.0f;
 	offset[0] = 0.0f;
 	offset[1] = 0.0f;
 	offset[2] = 0.0f;

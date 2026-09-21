@@ -3751,7 +3751,6 @@ dup_7e86b0,0x00655770
 ??0?$_Vector_base@UCoord3D@@V?$allocator@UCoord3D@@@_STL@@@_STL@@QAE@ABV?$allocator@UCoord3D@@@1@@Z,0x00211E58,ICF-folded empty vector base ctor (same 29B as rowed BfmeE16); my TU emission byte-identical
 ??0?$_Vector_base@W4ObjectID@@V?$allocator@W4ObjectID@@@_STL@@@_STL@@QAE@ABV?$allocator@W4ObjectID@@@1@@Z,0x00211E58,ICF-folded empty vector base ctor (same 29B as rowed BfmeE16); my TU emission byte-identical
 ?resize@?$vector@UCoord3D@@V?$allocator@UCoord3D@@@_STL@@@_STL@@QAEXIUCoord3D@@@Z,0x00CA2F3,73B Coord3D 2-arg resize; called from the 1-arg forwarder and directly from the DockUpdate ctor else-branch
-??0ClearanceTestingSlowDeathBehaviorModuleData@@QAE@XZ,0x00483E25
 ??0RubbleRiseUpdateModuleData@@QAE@XZ,0x00256653
 ??0Rva003B31ADMember@@QAE@XZ,0x003B31AD,alias of the rowed Rva003B31ADMember construct; PassiveAreaEffectBehaviorModuleDataCtor TU default-init spelling
 ??0RadiusDecalTemplate@@QAE@XZ,0x00330E5D,BFME1 RadiusDecal.h donor class with AsciiString members; DynamicShroudClearingRangeUpdateModuleDataCtor TU member spelling; 9 member-position callers
