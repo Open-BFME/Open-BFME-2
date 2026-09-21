@@ -389,3 +389,21 @@ void HordeGarrisonContainModuleData::buildFieldParse(MultiIniFieldParse &parse)
 	GarrisonContainModuleData::buildFieldParse(parse);
 	parse.add(reinterpret_cast<const FieldParse *>(0x00C46388), 0);
 }
+
+class Rva0048C0B4Base
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class OilSpillUpdateModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+void OilSpillUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	Rva0048C0B4Base::buildFieldParse(parse);
+	parse.add(reinterpret_cast<const FieldParse *>(0x00C4C2A8), 0);
+}
