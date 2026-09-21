@@ -5337,7 +5337,6 @@ _current_time,,0x00656BB0,6,Code/GameEngine/Source/GameNetwork/GameSpy/nonport.c
 ?findBestInfoSlow@?$SparseMatchFinder@VArmorTemplateSet@@V?$BitFlags@$0L@@@@@ABEPBVArmorTemplateSet@@ABV?$vector@VArmorTemplateSet@@V?$allocator@VArmorTemplateSet@@@_STL@@@_STL@@ABV?$BitFlags@$0L@@@@Z,,0x0033BE70,92,Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 ?setCopiedFromDefault@ModuleInfo@@QAEX_N@Z,,0x0033B18A,67,Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 ??0?$_Vector_base@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QAE@IABV?$allocator@W4ScienceType@@@1@@Z,,0x004F62A4,58,Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
-??1Overridable@@MAE@XZ,,0x000A9EE9,58,Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 ?push_back@?$vector@VWeaponTemplateSet@@V?$allocator@VWeaponTemplateSet@@@_STL@@@_STL@@QAEXABVWeaponTemplateSet@@@Z,,0x004AEAEC,55,Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 ?clearAiModuleInfo@ModuleInfo@@QAE_NXZ,,0x0033C882,51,Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 ??$__copy@PBW4ScienceType@@PAW41@H@_STL@@YAPAW4ScienceType@@PBW41@0PAW41@ABUrandom_access_iterator_tag@0@PAH@Z,,0x0031B031,42,Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
@@ -5761,7 +5760,6 @@ _XMP_Move,,0x0061BE10,19,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,
 ??C?$OVERRIDE@VLocomotorTemplate@@@@QBEPBVLocomotorTemplate@@XZ,,0x0035C95F,19,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate.cpp,matched,
 ?setMaxShotCount@Weapon@@QAEXH@Z,,0x00661D50,10,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate.cpp,matched,
 ?setField@WeaponBonus@@QAEXW4Field@1@M@Z,,0x002C8E40,18,Code/GameEngine/Source/GameLogic/Object/Weapon.cpp,matched,
-??_GOverridable@@MAEPAXI@Z,,0x000A9ECD,28,Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp,matched,
 ??_GLocomotor@@MAEPAXI@Z,,0x0030680E,28,Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp,matched,
 ?clear@?$vector@V?$vector@UICoord2D@@V?$allocator@UICoord2D@@@_STL@@@_STL@@V?$allocator@V?$vector@UICoord2D@@V?$allocator@UICoord2D@@@_STL@@@_STL@@@2@@_STL@@QAEXXZ,,0x00119D70,13,Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp,matched,
 ?push_back@?$vector@UICoord2D@@V?$allocator@UICoord2D@@@_STL@@@_STL@@QAEXABUICoord2D@@@Z,,0x00181880,58,Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp,matched,
