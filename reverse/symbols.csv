@@ -3884,3 +3884,5 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ??$_M_allocate_and_copy@PBUBfmePod260@@@?$vector@UBfmePod260@@V?$allocator@UBfmePod260@@@_STL@@@_STL@@IAEPAUBfmePod260@@IPBU2@0@Z,0x002CFC21,address read from the REL32 displacement at a placed body
 ??$__copy_ptrs@PBUBfmePod260@@PAU1@@_STL@@YAPAUBfmePod260@@PBU1@0PAU1@ABU__false_type@0@@Z,0x002CF29B,address read from the REL32 displacement at a placed body
 ??$__uninitialized_copy@PBUBfmePod260@@PAU1@@_STL@@YAPAUBfmePod260@@PBU1@0PAU1@ABU__false_type@0@@Z,0x002CFA01,address read from the REL32 displacement at a placed body
+??$_Construct@U?$pair@$$CBHUBfmePod20@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBHUBfmePod20@@@0@ABU10@@Z,0x004192A4,address read from the REL32 displacement at a placed body
+??$_Construct@U?$pair@$$CBHUBfmePod32@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBHUBfmePod32@@@0@ABU10@@Z,0x00418985,address read from the REL32 displacement at a placed body
