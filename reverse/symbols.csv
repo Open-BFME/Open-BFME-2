@@ -3889,3 +3889,9 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ??$_Construct@U?$pair@$$CBHUBfmePod44@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBHUBfmePod44@@@0@ABU10@@Z,0x0041072F,address read from the REL32 displacement at a placed body
 ??$_Construct@U?$pair@$$CBHUBfmePod60@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBHUBfmePod60@@@0@ABU10@@Z,0x0041985E,address read from the REL32 displacement at a placed body
 ??$_Construct@U?$pair@$$CBHUBfmePod72@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBHUBfmePod72@@@0@ABU10@@Z,0x002E00CC,address read from the REL32 displacement at a placed body
+??$__final_insertion_sort@PAHU?$less@H@_STL@@@_STL@@YAXPAH0U?$less@H@0@@Z,0x0040B36D,address read from the REL32 displacement at a placed body
+??$__introsort_loop@PAHHHU?$less@H@_STL@@@_STL@@YAXPAH00HU?$less@H@0@@Z,0x0040B43B,address read from the REL32 displacement at a placed body
+??$__pop_heap@PAHHU?$less@H@_STL@@H@_STL@@YAXPAH00HU?$less@H@0@0@Z,0x0040ACD7,address read from the REL32 displacement at a placed body
+??$__push_heap@PAHHHU?$less@H@_STL@@@_STL@@YAXPAHHHHU?$less@H@0@@Z,0x0040A79A,address read from the REL32 displacement at a placed body
+??$make_heap@PAHU?$less@H@_STL@@@_STL@@YAXPAH0U?$less@H@0@@Z,0x0040ADAD,address read from the REL32 displacement at a placed body
+??$sort_heap@PAHU?$less@H@_STL@@@_STL@@YAXPAH0U?$less@H@0@@Z,0x0040AE92,address read from the REL32 displacement at a placed body
