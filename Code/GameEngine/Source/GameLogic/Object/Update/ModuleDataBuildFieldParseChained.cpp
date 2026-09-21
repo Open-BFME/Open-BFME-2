@@ -540,3 +540,15 @@ void RubbleRiseUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
 	parse.add(reinterpret_cast<const FieldParse *>(0x00C52960), 0);
 	parse.add(reinterpret_cast<const FieldParse *>(Rva004CE52EGet()), 8);
 }
+
+class SubObjectsUpgradeModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+void SubObjectsUpgradeModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	parse.add(reinterpret_cast<const FieldParse *>(Rva004CE29DGet()), 8);
+	parse.add(reinterpret_cast<const FieldParse *>(0x00C57D38), 0);
+}
