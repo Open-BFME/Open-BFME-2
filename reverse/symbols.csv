@@ -3982,3 +3982,4 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ??0LargeGroupBonusUpdateModuleData@@QAE@XZ,0x004901BD
 ??0CollideModule@@QAE@PAVThing@@PBVModuleData@@@Z,0x004BB702,five raw callers are Collide-family behavior ctors (Squish 0x4BB9CF plus HordeMember 0x4BC389 plus CivilianSpawn 0x4BD694 plus CrateCollide 0x4BC523 plus 1 EH sibling); donors init CollideModule directly; chains to rowed BehaviorModule 0x253330; installs CollideModule vtable 0xC5A130
 ??0StealthDetectorUpdateModuleData@@QAE@XZ,0x00255371,sole-caller factory 0x2553C5 news 0x70; row pending (partial 0.8 banked)
+??0FireWeaponCollideModuleData@@QAE@XZ,0x00254A36,sole-caller factory 0x254A7A news 0x30; row pending (vtable puzzle parked)
