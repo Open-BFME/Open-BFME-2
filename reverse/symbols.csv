@@ -2376,7 +2376,6 @@ name,address,notes
 ?buildFieldParse@AudioLoopUpgradeModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x004B7C86,double-chained link: base procs 0x4CE29D and 0x4CE52E then table 0xC58D98 (SoundToPlay KillAfterMS KillOnDeath); AudioLoopUpgrade pool key at 0x4B7BE0 same cluster
 ?buildFieldParse@BaseUpgradeModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x004B36FA,chained link: calls base proc 0x4CE29D then adds table 0xC57208 (BuildingTemplateName@118 PlacementPrefix@11C PlacementIndex@120); BaseUpgrade pool key ends where MD ctor begins
 ?buildFieldParse@CloudBreakSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x004C44BD
-?buildFieldParse@CommandPointsUpgradeModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x004B863F,chained link: calls base proc 0x4CE29D then adds table 0xC590E8 (CommandPoints@118 RequiredObject@11C); CommandPointsUpgrade pool key ends where proc begins
 ?buildFieldParse@DarknessSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x004C4D9E
 ?buildFieldParse@FreezingRainSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x004C4B86
 ?buildFieldParse@GarrisonContainModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x00254F75,chained proc: base 0x46523D plus own table 0x007F3360 with 5 of 5 BFME1 GarrisonContain fields in order; factory 0x254F90 pushes its VA exclusively; HordeGarrison chains above at 0x47A029

@@ -334,3 +334,15 @@ void SupplyCenterDockUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse
 	DockUpdateModuleData::buildFieldParse(parse);
 	parse.add(reinterpret_cast<const FieldParse *>(0x00C51A80), 0);
 }
+
+class CommandPointsUpgradeModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+void CommandPointsUpgradeModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	parse.add(reinterpret_cast<const FieldParse *>(Rva004CE29DGet()), 8);
+	parse.add(reinterpret_cast<const FieldParse *>(0x00C590E8), 0);
+}
