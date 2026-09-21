@@ -169,7 +169,6 @@ static TString *str_checkname (LexState *ls) {  TString *ts;
 }
 
 
-// _luaI_registerlocalvar present-unmatched
 static int luaI_registerlocalvar (LexState *ls, TString *varname) {
   Proto *f = ls->fs->f;
   luaM_growvector(ls->L, f->locvars, f->nlocvars, 1, LocVar, "", MAX_INT);
@@ -654,7 +653,6 @@ static int search_local (LexState *ls, TString *n, expdesc *var) {
 }
 
 
-// _singlevar present-unmatched
 static void singlevar (LexState *ls, TString *n, expdesc *var) {
   int level = search_local(ls, n, var);
   if (level >= 1)  /* neither local (0) nor global (-1)? */
