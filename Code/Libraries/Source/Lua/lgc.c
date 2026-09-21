@@ -60,7 +60,6 @@ static void protomark (Proto *f) {
 }
 
 
-// _markstack present-unmatched (fully inlined into _markall in retail; no standalone body)
 static void markstack (lua_State *L, GCState *st) {  StkId o;
   for (o=L->stack; o<L->top; o++)
     markobject(st, o);
@@ -76,7 +75,6 @@ static void marklock (lua_State *L, GCState *st) {
 }
 
 
-// _markclosure present-unmatched (fully inlined into _markobject/_marktagmethods in retail; no standalone body)
 static void markclosure (GCState *st, Closure *cl) {
   if (!ismarked(cl)) {
     if (!cl->isC)
