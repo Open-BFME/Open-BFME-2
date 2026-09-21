@@ -9,6 +9,9 @@
 // Where retail's copy construct for that element is non-trivial (it calls a
 // copy constructor), _Construct<BfmePodN> is pinned in symbols.csv at the
 // address the byte-true call site proves; that body is not compiled from here.
+// _M_create_node fixes only the node allocation size (rounded by the node
+// allocator), so its N is exact only up to that rounding: BfmeShortPod22/26
+// place equally as 24/28-byte int elements under /GX.
 #include <list>
 struct BfmePod12 { int a[3]; };
 
