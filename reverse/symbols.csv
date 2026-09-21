@@ -2372,7 +2372,6 @@ name,address,notes
 ?bfmeZDeltaToCenter@BfmeBoundaryGeometry3D@@QBEMXZ,0x0073A1C0
 ?bfme_getDescriptionFirstLine@MapMetaData@@QAE?AVUnicodeString@@XZ,0x00301534,recovered metadata getter reads cached map.str text via 0x003009CD and returns its prefix before LF
 ?bfme_getDisplayName@MapMetaData@@QAE?AVUnicodeString@@_N@Z,0x00300C7E,recovered display-name accessor; bool enables player-count suffix using metadata+0x20 and wide format (%d); ret8
-?buildFieldParse@AudioLoopUpgradeModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x004B7C86,double-chained link: base procs 0x4CE29D and 0x4CE52E then table 0xC58D98 (SoundToPlay KillAfterMS KillOnDeath); AudioLoopUpgrade pool key at 0x4B7BE0 same cluster
 ?buildFieldParse@DarknessSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x004C4D9E
 ?buildFieldParse@FreezingRainSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x004C4B86
 ?buildFieldParse@GarrisonContainModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x00254F75,chained proc: base 0x46523D plus own table 0x007F3360 with 5 of 5 BFME1 GarrisonContain fields in order; factory 0x254F90 pushes its VA exclusively; HordeGarrison chains above at 0x47A029
