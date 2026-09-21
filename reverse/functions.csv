@@ -15074,3 +15074,5 @@ _isLmark,,0x0074C9B0,30,Code/Libraries/Source/Lua/ldebug.c,matched,placed by mas
 _getunopr,,0x007542A0,22,Code/Libraries/Source/Lua/lparser.c,matched,placed by masked whole-.text search of the compiled body - single hit
 _previous_instruction,,0x00751D40,21,Code/Libraries/Source/Lua/lcode.c,matched,placed by masked whole-.text search of the compiled body - single hit
 _optional,,0x00753940,21,Code/Libraries/Source/Lua/lparser.c,matched,placed by masked whole-.text search of the compiled body - single hit
+___mbtowc,,0x00020BE0,106,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleMbtowc.c,matched,placed by masked whole-.text search of the compiled body - single hit
+_XMP_Randomize,,0x0061C3C0,92,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,placed by masked whole-.text search of the compiled body - single hit

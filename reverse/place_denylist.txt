@@ -36,3 +36,7 @@ _io_appendto
 # Their one call is to _io_fromto, refused above, so it cannot resolve.
 _io_readfrom
 _io_writeto
+# Generic 30B allocator<T>::allocate: identical bytes for every T of the same
+# size, and 0x00689290 has no call, jmp or absolute reference in retail, so no
+# call site ties it to Rva001D28F0Element. A unique masked hit is not identity.
+?allocate@?$allocator@URva001D28F0Element@@@_STL@@QBEPAURva001D28F0Element@@IPBX@Z
