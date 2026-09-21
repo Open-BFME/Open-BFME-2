@@ -650,3 +650,15 @@ int Rva00655114Get(void)
 {
 	return 1;
 }
+
+// ?Rva0033A495Get@@YAHXZ @ 0x0033A495 (6B): returns 0x00C100C0.
+// A leave/ret-8 pair ends at 0x33A490 with a 4-byte jmp fragment between it
+// and this getter; no branch targets this address (phase-scanned
+// 0x339000-0x33B000, only 4 direct E8 callers at 0x415231/0x4CB0A1/0x4CB642
+// 0x4CBC1B, all pushing an extraOffset then feeding eax to a FieldParse
+// add). The value is the VoiceSelect-led response table at 0xC100C0.
+// Opaque address-derived name.
+int Rva0033A495Get(void)
+{
+	return 0x00C100C0;
+}
