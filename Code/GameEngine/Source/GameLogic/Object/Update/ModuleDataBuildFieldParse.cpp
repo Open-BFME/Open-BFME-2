@@ -88,3 +88,4 @@ FIELD_PROC(SupplyWarehouseCripplingBehaviorModuleData, 0x00C49B40, SelfHealTable
 FIELD_PROC(FireSpreadUpdateModuleData, 0x00C4C000, FireSpreadTable)
 FIELD_PROC(SlowDeathBehaviorModuleData, 0x00C42290, SinkTable)
 FIELD_PROC(TerrainResourceBehaviorModuleData, 0x00C494F0, IncomeTable)
+FIELD_PROC(ModelConditionSpecialAbilityUpdateModuleData, 0x00C4DA00, ModelConditionTable)
