@@ -14910,3 +14910,4 @@ _chatRetryWithNickA,,0x006A33C0,119,Code/GameEngine/Source/GameNetwork/GameSpy/c
 ?rva004ADA70@ToggleMountedSpecialAbilityUpdate@@SA?AW4NameKeyType@@XZ,,0x004ADA70,69,Code/GameEngine/Source/GameLogic/Object/Update/ToggleMountedSpecialAbilityUpdatePoolKey.cpp,matched,
 ?rva004AE1CC@ToggleHiddenSpecialAbilityUpdate@@SA?AW4NameKeyType@@XZ,,0x004AE1CC,69,Code/GameEngine/Source/GameLogic/Object/Update/ToggleHiddenSpecialAbilityUpdatePoolKey.cpp,matched,
 ?rva004AE502@ToggleDeploySpecialAbilityUpdate@@SA?AW4NameKeyType@@XZ,,0x004AE502,69,Code/GameEngine/Source/GameLogic/Object/Update/ToggleDeploySpecialAbilityUpdatePoolKey.cpp,matched,
+??0CastleUpgradeModuleData@@QAE@XZ,,0x00255836,36,Code/GameEngine/Source/GameLogic/Object/Upgrade/CastleUpgradeModuleDataCtor.cpp,matched,Address-take upgrade pointer cracks 0.97 bank first try; true size 36 corrects 35B pin
