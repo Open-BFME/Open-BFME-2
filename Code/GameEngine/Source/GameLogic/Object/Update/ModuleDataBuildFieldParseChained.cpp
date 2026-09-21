@@ -407,3 +407,15 @@ void OilSpillUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
 	Rva0048C0B4Base::buildFieldParse(parse);
 	parse.add(reinterpret_cast<const FieldParse *>(0x00C4C2A8), 0);
 }
+
+class WeaponFireSpecialAbilityUpdateModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+void WeaponFireSpecialAbilityUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	Rva0044EB54::buildFieldParse(parse);
+	parse.add(reinterpret_cast<const FieldParse *>(0x00BEF0A8), 0);
+}
