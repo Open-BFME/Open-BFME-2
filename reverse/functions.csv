@@ -14882,3 +14882,4 @@ _chatRetryWithNickA,,0x006A33C0,119,Code/GameEngine/Source/GameNetwork/GameSpy/c
 ?buildFieldParse@ReplenishUnitsBehaviorModuleData@@SAXAAVMultiIniFieldParse@@@Z,,0x00484598,34,Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp,matched,Double-add graft; own table 0xC4A150 with 7 Replenish fields at MD offsets plus rowed getter 0x4CE29D at extraOffset 8; table-first order matches retail; poolkey 0x484187 same cluster; factory 0x24C5D1 pushes VA
 ?buildFieldParse@LaserUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z,,0x00363166,17,Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp,matched,
 ??0LaserUpdateModuleData@@QAE@XZ,,0x00363147,31,Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdateModuleDataCtor.cpp,matched,
+?friend_newModuleData@LaserUpdateModuleData@@SAPAVModuleData@@PAVINI@@@Z,,0x0024D55A,81,Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdateModuleDataFriendNew.cpp,matched,
