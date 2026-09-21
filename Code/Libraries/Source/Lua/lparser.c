@@ -212,7 +212,6 @@ static void pushclosure (LexState *ls, FuncState *func) {
 }
 
 
-// _optional present-unmatched
 static int optional (LexState *ls, int c) {
   if (ls->t.token == c) {
     next(ls);
@@ -1100,7 +1099,6 @@ static BinOpr getbinopr (int op) {
 }
 
 
-// _getunopr present-unmatched
 static UnOpr getunopr (int op) {
   switch (op) {
     case TK_NOT: return OPR_NOT;
