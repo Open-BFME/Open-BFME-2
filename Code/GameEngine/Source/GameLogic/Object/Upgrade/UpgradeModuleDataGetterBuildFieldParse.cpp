@@ -17,6 +17,10 @@
 // retail 0x004B493E, 34 bytes (own table 0x00C57984 holding StatusToSet at
 // +0x118 plus StatusToClear at +0x128; factory at 0x25479D pushes this proc;
 // the StatusBitsUpgrade pool key at 0x4B48F9 ends where this proc begins).
+// ?buildFieldParse@AttributeModifierUpgradeModuleData@@SAXAAVMultiIniFieldParse@@@Z,
+// retail 0x004B671E, 34 bytes (own table 0x00C58818 holding AttributeModifier
+// at +0x118; factory at 0x255802 pushes this proc; the AttributeModifierUpgrade
+// pool key at 0x4B6703 ends where this proc begins).
 // Provenance: the getter-head shape (push 8, call getter, add, add table)
 // reproduces retail exactly; the pushed table address is a masked DIR32 so
 // the TU keeps an opaque table. Recipe:
@@ -54,11 +58,19 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
+class AttributeModifierUpgradeModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
 static const FieldParse s_commandSetTable;
 
 static const FieldParse s_radarTable;
 
 static const FieldParse s_statusBitsTable;
+
+static const FieldParse s_attributeModifierTable;
 
 // ?buildFieldParse@CommandSetUpgradeModuleData@@SAXAAVMultiIniFieldParse@@@Z
 void CommandSetUpgradeModuleData::buildFieldParse(MultiIniFieldParse &parse)
@@ -79,4 +91,11 @@ void StatusBitsUpgradeModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
 	parse.add(reinterpret_cast<const FieldParse *>(Rva004CE29DGet()), 8);
 	parse.add(&s_statusBitsTable, 0);
+}
+
+// ?buildFieldParse@AttributeModifierUpgradeModuleData@@SAXAAVMultiIniFieldParse@@@Z
+void AttributeModifierUpgradeModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	parse.add(reinterpret_cast<const FieldParse *>(Rva004CE29DGet()), 8);
+	parse.add(&s_attributeModifierTable, 0);
 }
