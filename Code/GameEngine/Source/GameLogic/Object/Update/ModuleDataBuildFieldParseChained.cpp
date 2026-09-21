@@ -260,3 +260,17 @@ void ExperienceScalarUpgradeModuleData::buildFieldParse(MultiIniFieldParse &pars
 	parse.add(reinterpret_cast<const FieldParse *>(Rva004CE29DGet()), 8);
 	parse.add(reinterpret_cast<const FieldParse *>(0x00C58524), 0);
 }
+
+int Rva004CE52EGet(void);
+
+class UpgradeDieModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+void UpgradeDieModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	parse.add(reinterpret_cast<const FieldParse *>(Rva004CE52EGet()), 8);
+	parse.add(reinterpret_cast<const FieldParse *>(0x00BF0958), 0);
+}
