@@ -3762,7 +3762,6 @@ dup_7e86b0,0x00655770
 ??0Rva0045B4F1Base@@QAE@XZ,0x0045B4F1,EBO-empty base of MissileUpdateModuleData ctor 0x4A77B8 (2 raw callers 0x24B1A7 plus 0x4A77CA shared-fold like SlotToLock); sole-caller factory 0x24EFA0 news 0x120
 ??0WallHubBehaviorModuleData@@QAE@XZ,0x00453020,sole raw E8 caller is factory 0x24A94C (0x24A96D inside); vtable 0xC3FF98; table 0xC3FED8 WallHub 11-field; news 0x3C fits
 ??0BridgeScaffoldBehaviorModuleData@@QAE@XZ,0x00457FF1,sole raw E8 caller is factory 0x24AC3B (0x24AC5C inside); vtable 0xC40A10; table 0xC40B20 BridgeScaffold 4-field; news 0x18 fits; member 0x280A8D rowed List_base
-??0ClickReactionBehaviorModuleData@@QAE@XZ,0x004595F0,sole raw E8 caller is factory 0x24AED3 (0x24AEF4 inside); table 0xC412F8 ClickReaction 7-field; news 0x20 fits
 __setjmp3,0x0075AC7A,address read from the REL32 displacement at a placed body
 _luaC_collect,0x00751220,address read from the REL32 displacement at a placed body
 _luaC_collectgarbage,0x007513F0,address read from the REL32 displacement at a placed body
