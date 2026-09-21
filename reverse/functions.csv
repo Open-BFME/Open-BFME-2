@@ -14983,3 +14983,4 @@ _chatRetryWithNickA,,0x006A33C0,119,Code/GameEngine/Source/GameNetwork/GameSpy/c
 ?friend_newModuleData@CastleMemberBehaviorModuleData@@SAPAVModuleData@@PAVINI@@@Z,,0x0024AB26,81,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleMemberBehaviorModuleDataFriendNew.cpp,matched,
 ??0CastleMemberBehaviorModuleData@@QAE@XZ,,0x00395B03,41,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleMemberBehaviorModuleDataCtor.cpp,matched,
 ??0ClearanceTestingSlowDeathBehaviorModuleData@@QAE@XZ,,0x00483E25,160,Code/GameEngine/Source/GameLogic/Object/Behavior/ClearanceTestingSlowDeathBehaviorModuleDataCtor.cpp,matched,SlowDeath ModuleData ctor; EBO base pin 0x45E386 plus GeometryInfo pin 0x50B74 plus b-local plus pointer-take zeros; factory 0x24C545 sole caller
+??0HitReactionBehaviorModuleData@@QAE@XZ,,0x004591EA,45,Code/GameEngine/Source/GameLogic/Object/Behavior/HitReactionBehaviorModuleDataCtor.cpp,matched,
