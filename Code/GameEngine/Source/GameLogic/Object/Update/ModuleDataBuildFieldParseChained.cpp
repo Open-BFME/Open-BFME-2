@@ -450,6 +450,18 @@ void DominateEnemySpecialPowerModuleData::buildFieldParse(MultiIniFieldParse &pa
 	parse.add(reinterpret_cast<const FieldParse *>(0x00C5F638), 0);
 }
 
+class RousingSpeechUpdateModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+void RousingSpeechUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	Rva0044EB54::buildFieldParse(parse);
+	parse.add(reinterpret_cast<const FieldParse *>(0x00C54F28), 0);
+}
+
 class SpawnBehaviorModuleData
 {
 public:
