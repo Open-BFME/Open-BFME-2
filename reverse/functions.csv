@@ -14984,3 +14984,18 @@ _chatRetryWithNickA,,0x006A33C0,119,Code/GameEngine/Source/GameNetwork/GameSpy/c
 ??0CastleMemberBehaviorModuleData@@QAE@XZ,,0x00395B03,41,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleMemberBehaviorModuleDataCtor.cpp,matched,
 ??0ClearanceTestingSlowDeathBehaviorModuleData@@QAE@XZ,,0x00483E25,160,Code/GameEngine/Source/GameLogic/Object/Behavior/ClearanceTestingSlowDeathBehaviorModuleDataCtor.cpp,matched,SlowDeath ModuleData ctor; EBO base pin 0x45E386 plus GeometryInfo pin 0x50B74 plus b-local plus pointer-take zeros; factory 0x24C545 sole caller
 ??0HitReactionBehaviorModuleData@@QAE@XZ,,0x004591EA,45,Code/GameEngine/Source/GameLogic/Object/Behavior/HitReactionBehaviorModuleDataCtor.cpp,matched,
+_auxsort,,0x0074C480,1038,Code/Libraries/Source/Lua/lbaselib.c,matched,placed by masked whole-.text search of the compiled body - single hit
+_errorfb,,0x0074B190,767,Code/Libraries/Source/Lua/liolib_bfme1.c,matched,placed by masked whole-.text search of the compiled body - single hit
+_str_format,,0x00749DD0,736,Code/Libraries/Source/Lua/lstrlib.c,matched,placed by masked whole-.text search of the compiled body - single hit
+_luaB_tonumber,,0x0074B7A0,289,Code/Libraries/Source/Lua/lbaselib.c,matched,placed by masked whole-.text search of the compiled body - single hit
+_luaB__ERRORMESSAGE,,0x0074B620,215,Code/Libraries/Source/Lua/lbaselib.c,matched,placed by masked whole-.text search of the compiled body - single hit
+_luaB_tremove,,0x0074C330,186,Code/Libraries/Source/Lua/lbaselib.c,matched,placed by masked whole-.text search of the compiled body - single hit
+_luaD_runprotected,,0x0074D5A0,171,Code/Libraries/Source/Lua/ldo.c,matched,placed by masked whole-.text search of the compiled body - single hit
+_luaB_tinsert,,0x0074C280,170,Code/Libraries/Source/Lua/lbaselib.c,matched,placed by masked whole-.text search of the compiled body - single hit
+_read_line,,0x0074A7C0,170,Code/Libraries/Source/Lua/liolib_bfme1.c,matched,placed by masked whole-.text search of the compiled body - single hit
+_luaB_settagmethod,,0x0074BAF0,160,Code/Libraries/Source/Lua/lbaselib.c,matched,placed by masked whole-.text search of the compiled body - single hit
+_lua_close,,0x0074DF60,160,Code/Libraries/Source/Lua/lstate.c,matched,placed by masked whole-.text search of the compiled body - single hit
+_lua_open,,0x0074E000,156,Code/Libraries/Source/Lua/lstate.c,matched,placed by masked whole-.text search of the compiled body - single hit
+_sethook,,0x00748280,152,Code/Libraries/Source/Lua/ldblib.c,matched,placed by masked whole-.text search of the compiled body - single hit
+_getlocal,,0x007480B0,138,Code/Libraries/Source/Lua/ldblib.c,matched,placed by masked whole-.text search of the compiled body - single hit
+_io_date,,0x0074B060,135,Code/Libraries/Source/Lua/liolib_bfme1.c,matched,placed by masked whole-.text search of the compiled body - single hit
