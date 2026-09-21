@@ -14775,3 +14775,4 @@ _chatRetryWithNickA,,0x006A33C0,119,Code/GameEngine/Source/GameNetwork/GameSpy/c
 ?friend_newModuleData@StatusBitsUpgradeModuleData@@SAPAVModuleData@@PAVINI@@@Z,,0x0025479D,52,Code/GameEngine/Source/GameLogic/Object/Upgrade/StatusBitsUpgradeModuleDataFriendNew.cpp,matched,
 ??0CommandSetUpgradeModuleData@@QAE@XZ,,0x00255652,70,Code/GameEngine/Source/GameLogic/Object/Upgrade/CommandSetUpgradeModuleDataCtor.cpp,matched,
 ?friend_newModuleData@CommandSetUpgradeModuleData@@SAPAVModuleData@@PAVINI@@@Z,,0x00255698,84,Code/GameEngine/Source/GameLogic/Object/Upgrade/CommandSetUpgradeModuleDataFriendNew.cpp,matched,
+??0OathbreakersFadeAwayBehavior@@QAE@PAVThing@@PBVModuleData@@@Z,,0x004B8A8A,59,Code/GameEngine/Source/GameLogic/Object/Behavior/OathbreakersFadeAwayBehaviorCtor.cpp,matched,
