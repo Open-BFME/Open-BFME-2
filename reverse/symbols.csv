@@ -3983,3 +3983,4 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ??0FireWeaponCollideModuleData@@QAE@XZ,0x00254A36,sole-caller factory 0x254A7A news 0x30; row pending (vtable puzzle parked)
 ?allocateNewWeapon@WeaponStore@@QBEPAVWeapon@@PBVWeaponTemplate@@W4WeaponSlotType@@@Z,0x0028AA81,weapon allocator over TheWeaponStore global; 21 raw callers are weapon-creation sites; FireWeaponCollide ctor passes module-template plus PRIMARY_WEAPON per BFME1 donor
 ?push_back@?$vector@UPrereqUnitRec@ProductionPrerequisite@@V?$allocator@UPrereqUnitRec@ProductionPrerequisite@@@_STL@@@_STL@@QAEXABUPrereqUnitRec@ProductionPrerequisite@@@Z,0x004F5243,Rec vector pushback called once from addUnitPrereq 0x004F52CB; 0xC stride with element copy 0x002CF99D plus insert_aux 0x004F5165
+?unlinkChain@Rva009A36F0Owner@@QAEXPAVRva009A36F0Thing@@@Z,0x00759220,BFME1 Rva009A36F0Owner donor unlinker; sole E8 caller is apply at 0x007592E0
