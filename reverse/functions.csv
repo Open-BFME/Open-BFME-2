@@ -15420,3 +15420,5 @@ _XMP_Randomize,,0x0061C3C0,92,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,mat
 ?friend_newModuleData@LargeGroupBonusUpdateModuleData@@SAPAVModuleData@@PAVINI@@@Z,,0x0024D43F,81,Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupBonusUpdateModuleDataFriendNew.cpp,matched,Dedicated TU news 0x30 plus pinned sole-caller ctor 0x4901BD plus rowed proc 0x4900A0; HordeMemberFilter-led table 0xC4D1A8; poolkey LargeGroupBonusUpdate 0x48FFD4
 ??0SquishCollide@@QAE@PAVThing@@PBVModuleData@@@Z,,0x004BB9CF,42,Code/GameEngine/Source/GameLogic/Object/Collide/SquishCollideCtor.cpp,matched,
 ?friend_newModuleInstance@SquishCollide@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z,,0x00250FE6,56,Code/GameEngine/Source/GameLogic/Object/Collide/SquishCollideFriendNew.cpp,matched,
+??0HordeMemberCollide@@QAE@PAVThing@@PBVModuleData@@@Z,,0x004BC389,42,Code/GameEngine/Source/GameLogic/Object/Collide/HordeMemberCollideCtor.cpp,matched,
+?friend_newModuleInstance@HordeMemberCollide@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z,,0x002510A7,56,Code/GameEngine/Source/GameLogic/Object/Collide/HordeMemberCollideFriendNew.cpp,matched,
