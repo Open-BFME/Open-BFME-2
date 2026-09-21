@@ -3953,3 +3953,8 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ??4BfmeAssignRecord36@@QAEAAU0@ABU0@@Z,0x00151336,address read from the REL32 displacement at a placed body
 ?_M_clear@?$vector@UBfmeAssignRecord44@@V?$allocator@UBfmeAssignRecord44@@@_STL@@@_STL@@IAEXXZ,0x00414793,address read from the REL32 displacement at a placed body
 ?allocate@?$allocator@UBfmeAssignRecord44@@@_STL@@QBEPAUBfmeAssignRecord44@@IPBX@Z,0x0007E364,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
+??1BfmeStringHeadRecord148@@QAE@XZ,0x00360FDB,address read from the REL32 displacement at a placed body
+??1BfmeStringHeadRecord160@@QAE@XZ,0x0048BA39,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
+??1BfmeStringHeadRecord184@@QAE@XZ,0x00089851,address read from the REL32 displacement at a placed body
+??4BfmeAssignRecord84@@QAEAAU0@ABU0@@Z,0x00586BC9,address read from the REL32 displacement at a placed body
+??4BfmeStringHeadRecord184@@QAEAAU0@ABU0@@Z,0x00311537,address read from the REL32 displacement at a placed body

@@ -62,3 +62,10 @@ _io_writeto
 # _Rb_tree_base ctor only allocates the header node: its bytes fix the node
 # size, not the AsciiString key its name asserts.
 ??0?$_Rb_tree_base@U?$pair@$$CBVAsciiString@@UBfmePod8@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@UBfmePod8@@@_STL@@@2@@_STL@@QAE@ABV?$allocator@U?$pair@$$CBVAsciiString@@UBfmePod8@@@_STL@@@1@@Z
+# deque<20-byte AsciiString-first record> family: its callees resolve to the
+# int deque's _M_decrement and a basic_string destructor, so the element size
+# and type in these names are contradicted. Not claimed.
+??0?$deque@UBfmeStringHeadRecord20@@V?$allocator@UBfmeStringHeadRecord20@@@_STL@@@_STL@@QAE@ABV01@@Z
+?_M_pop_front_aux@?$deque@UBfmeStringHeadRecord20@@V?$allocator@UBfmeStringHeadRecord20@@@_STL@@@_STL@@IAEXXZ
+?push_back@?$deque@UBfmeStringHeadRecord20@@V?$allocator@UBfmeStringHeadRecord20@@@_STL@@@_STL@@QAEXABUBfmeStringHeadRecord20@@@Z
+?pop_front@?$deque@UBfmeStringHeadRecord20@@V?$allocator@UBfmeStringHeadRecord20@@@_STL@@@_STL@@QAEXXZ
