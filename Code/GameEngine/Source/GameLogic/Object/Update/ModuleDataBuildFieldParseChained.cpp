@@ -19,6 +19,12 @@
 // ?buildFieldParse@SupplyWarehouseDockUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z,
 // retail 0x004A7D3A, 27 bytes (field StartingBoxes; follows a jump-table
 // pad, address-taken by its factory at 0x24F02F).
+// ?buildFieldParse@DelayedDeathBodyModuleData@@SAXAAVMultiIniFieldParse@@@Z,
+// retail 0x004C159E, 27 bytes (chained on the pinned RespawnUpdate base proc
+// at 0x4C12D0, then table 0x00C5BAE8 holding DelayedDeathTime at +0x6C plus
+// ImmortalUntilDeathTime at +0x70 plus InvulnerableFX at +0x74 plus
+// DoHealthCheck at +0x78 plus DelayedDeathPrerequisiteUpgrade at +0x7C,
+// matching the ctor stores; factory at 0x251622 pushes this proc).
 // Provenance: the ZH MAKE_STANDARD_MODULE_DATA_MACRO_ABC macro passes
 // clsmd::buildFieldParse to INI::initFromINIMultiProc, and each landed
 // friend_newModuleData factory pushes its class proc immediate.
@@ -69,6 +75,18 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
+class RespawnUpdateModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class DelayedDeathBodyModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
 void Rva0044EB54::buildFieldParse(MultiIniFieldParse &parse)
 {
 	parse.add(reinterpret_cast<const FieldParse *>(0x00C3F7F8), 0);
@@ -101,4 +119,10 @@ void SupplyWarehouseDockUpdateModuleData::buildFieldParse(MultiIniFieldParse &pa
 {
 	DockUpdateModuleData::buildFieldParse(parse);
 	parse.add(reinterpret_cast<const FieldParse *>(0x00C5370C), 0);
+}
+
+void DelayedDeathBodyModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	RespawnUpdateModuleData::buildFieldParse(parse);
+	parse.add(reinterpret_cast<const FieldParse *>(0x00C5BAE8), 0);
 }
