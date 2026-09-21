@@ -51,3 +51,21 @@ void DevastateSpecialPowerModuleData::buildFieldParse(MultiIniFieldParse &parse)
 	SpecialPowerModuleData::buildFieldParse(parse);
 	parse.add(reinterpret_cast<const FieldParse *>(0x00C5E3D0), 0);
 }
+
+class CashHackSpecialPowerModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+// ?buildFieldParse@CashHackSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z,
+// retail 0x004C2955 (27 bytes): base-table call above plus the CashHack
+// table at 0x00C5C724 (UpgradeMoneyAmount at +0x7C, MoneyAmount at +0x88).
+// Both fields match BFME1's CashHackSpecialPower table verbatim
+// (UpgradeMoneyAmount, MoneyAmount). The owning factory at 0x00251957
+// pushes this proc's VA.
+void CashHackSpecialPowerModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	SpecialPowerModuleData::buildFieldParse(parse);
+	parse.add(reinterpret_cast<const FieldParse *>(0x00C5C724), 0);
+}
