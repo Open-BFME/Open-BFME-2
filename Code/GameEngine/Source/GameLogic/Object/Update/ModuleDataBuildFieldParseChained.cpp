@@ -200,3 +200,15 @@ void AttributeModifierAuraUpdateModuleData::buildFieldParse(MultiIniFieldParse &
 	parse.add(reinterpret_cast<const FieldParse *>(Rva004CE29DGet()), 0x28);
 	parse.add(reinterpret_cast<const FieldParse *>(0x00C50DC8), 0);
 }
+
+class LevelGrantSpecialPowerModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+void LevelGrantSpecialPowerModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	Rva0044EB54::buildFieldParse(parse);
+	parse.add(reinterpret_cast<const FieldParse *>(0x00C5C8D0), 0);
+}
