@@ -13,6 +13,10 @@
 // retail 0x004B476C, 34 bytes (own table 0x00C578D0 holding DisableProof at
 // +0x118; factory at 0x254741 pushes this proc; the RadarUpgrade pool key at
 // 0x4B4727 ends where this proc begins).
+// ?buildFieldParse@StatusBitsUpgradeModuleData@@SAXAAVMultiIniFieldParse@@@Z,
+// retail 0x004B493E, 34 bytes (own table 0x00C57984 holding StatusToSet at
+// +0x118 plus StatusToClear at +0x128; factory at 0x25479D pushes this proc;
+// the StatusBitsUpgrade pool key at 0x4B48F9 ends where this proc begins).
 // Provenance: the getter-head shape (push 8, call getter, add, add table)
 // reproduces retail exactly; the pushed table address is a masked DIR32 so
 // the TU keeps an opaque table. Recipe:
@@ -44,9 +48,17 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
+class StatusBitsUpgradeModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
 static const FieldParse s_commandSetTable;
 
 static const FieldParse s_radarTable;
+
+static const FieldParse s_statusBitsTable;
 
 // ?buildFieldParse@CommandSetUpgradeModuleData@@SAXAAVMultiIniFieldParse@@@Z
 void CommandSetUpgradeModuleData::buildFieldParse(MultiIniFieldParse &parse)
@@ -60,4 +72,11 @@ void RadarUpgradeModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
 	parse.add(reinterpret_cast<const FieldParse *>(Rva004CE29DGet()), 8);
 	parse.add(&s_radarTable, 0);
+}
+
+// ?buildFieldParse@StatusBitsUpgradeModuleData@@SAXAAVMultiIniFieldParse@@@Z
+void StatusBitsUpgradeModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	parse.add(reinterpret_cast<const FieldParse *>(Rva004CE29DGet()), 8);
+	parse.add(&s_statusBitsTable, 0);
 }
