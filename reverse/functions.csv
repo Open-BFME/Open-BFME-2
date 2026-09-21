@@ -14902,3 +14902,11 @@ _chatRetryWithNickA,,0x006A33C0,119,Code/GameEngine/Source/GameNetwork/GameSpy/c
 ??0DominateEnemySpecialPowerModuleData@@QAE@XZ,,0x004CCA24,122,Code/GameEngine/Source/GameLogic/Object/SpecialPower/DominateEnemySpecialPowerModuleDataCtor.cpp,matched,
 ?friend_newModuleData@DominateEnemySpecialPowerModuleData@@SAPAVModuleData@@PAVINI@@@Z,,0x00252EE5,81,Code/GameEngine/Source/GameLogic/Object/SpecialPower/DominateEnemySpecialPowerModuleDataFriendNew.cpp,matched,
 ??0ScavengerSpecialPowerModuleData@@QAE@XZ,,0x004C4257,123,Code/GameEngine/Source/GameLogic/Object/SpecialPower/ScavengerSpecialPowerModuleDataCtor.cpp,matched,ToggleFlags wrapper plus all-init recipe cracks 0.6 bank; row supersedes ctor pin
+?rva004CCDEB@CurseSpecialPower@@SA?AW4NameKeyType@@XZ,,0x004CCDEB,69,Code/GameEngine/Source/GameLogic/Object/SpecialPower/CurseSpecialPowerPoolKey.cpp,matched,
+?rva004C6999@WoundArrowUpdate@@SA?AW4NameKeyType@@XZ,,0x004C6999,69,Code/GameEngine/Source/GameLogic/Object/Update/WoundArrowUpdatePoolKey.cpp,matched,
+?rva004C6C7C@FellBeastSwoopPower@@SA?AW4NameKeyType@@XZ,,0x004C6C7C,69,Code/GameEngine/Source/GameLogic/Object/SpecialPower/FellBeastSwoopPowerPoolKey.cpp,matched,
+?rva004C1F10@OathbreakerBody@@SA?AW4NameKeyType@@XZ,,0x004C1F10,69,Code/GameEngine/Source/GameLogic/Object/Body/OathbreakerBodyPoolKey.cpp,matched,
+?rva004B29FF@ReplaceObjectUpdate@@SA?AW4NameKeyType@@XZ,,0x004B29FF,69,Code/GameEngine/Source/GameLogic/Object/Update/ReplaceObjectUpdatePoolKey.cpp,matched,
+?rva004ADA70@ToggleMountedSpecialAbilityUpdate@@SA?AW4NameKeyType@@XZ,,0x004ADA70,69,Code/GameEngine/Source/GameLogic/Object/Update/ToggleMountedSpecialAbilityUpdatePoolKey.cpp,matched,
+?rva004AE1CC@ToggleHiddenSpecialAbilityUpdate@@SA?AW4NameKeyType@@XZ,,0x004AE1CC,69,Code/GameEngine/Source/GameLogic/Object/Update/ToggleHiddenSpecialAbilityUpdatePoolKey.cpp,matched,
+?rva004AE502@ToggleDeploySpecialAbilityUpdate@@SA?AW4NameKeyType@@XZ,,0x004AE502,69,Code/GameEngine/Source/GameLogic/Object/Update/ToggleDeploySpecialAbilityUpdatePoolKey.cpp,matched,
