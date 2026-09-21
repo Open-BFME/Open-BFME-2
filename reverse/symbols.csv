@@ -3708,3 +3708,5 @@ _Rva0084DE40Tail,0x000210C0,STLport locale tail helper called via tail-jmp from 
 ??0EmotionTrackerUpdateModuleData@@QAE@XZ,0x004B115A,EH ctor installing vtable 0x00C56530 size 0x40; sole raw caller is own ModuleData factory 0x24FAF0 (news 0x40); proc 0x4B235D rowed as EmotionTrackerUpdateModuleData buildFieldParse
 ??0CloudBreakSpecialPowerModuleData@@QAE@XZ,0x004C479A
 ?buildFieldParse@CloudBreakSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x004C44BD
+??0TaintSpecialPowerModuleData@@QAE@XZ,0x004C4AB8
+?buildFieldParse@TaintSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x004C487B
