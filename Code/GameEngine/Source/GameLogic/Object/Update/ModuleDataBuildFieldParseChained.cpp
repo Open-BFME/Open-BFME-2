@@ -138,3 +138,15 @@ void FreeLifeBodyModuleData::buildFieldParse(MultiIniFieldParse &parse)
 	RespawnUpdateModuleData::buildFieldParse(parse);
 	parse.add(reinterpret_cast<const FieldParse *>(0x00C5BD38), 0);
 }
+
+class GloriousChargeUpdateModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+void GloriousChargeUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	Rva0044EB54::buildFieldParse(parse);
+	parse.add(reinterpret_cast<const FieldParse *>(0x00C550C8), 0);
+}
