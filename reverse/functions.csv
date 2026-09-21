@@ -15371,3 +15371,4 @@ _XMP_Randomize,,0x0061C3C0,92,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,mat
 ?rva0000CB578@W3DTruckDraw@@SA?AW4NameKeyType@@XZ,,0x000CB578,69,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DTruckDrawPoolKey.cpp,matched,Cached pool-name key; pool string W3DTruckDraw; static-guard EH; nameToKey row
 ?rva004C9607@BeaconClientUpdate@@SA?AW4NameKeyType@@XZ,,0x004C9607,69,Code/GameEngine/Source/GameLogic/Object/Update/BeaconClientUpdatePoolKey.cpp,matched,
 ?rva0000CFAF9@W3DLightDraw@@SA?AW4NameKeyType@@XZ,,0x000CFAF9,69,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DLightDrawPoolKey.cpp,matched,Cached pool-name key; pool string W3DLightDraw; static-guard EH; nameToKey row
+?rva004B8C57@LockWeaponCreate@@SA?AW4NameKeyType@@XZ,,0x004B8C57,69,Code/GameEngine/Source/GameLogic/Object/Upgrade/LockWeaponCreatePoolKey.cpp,matched,
