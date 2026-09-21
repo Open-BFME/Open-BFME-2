@@ -59,3 +59,6 @@ _io_writeto
 ?allocate@?$allocator@U?$_List_node@UBfmePod264@@@_STL@@@_STL@@QBEPAU?$_List_node@UBfmePod264@@@2@IPBX@Z
 ?allocate@?$allocator@U?$_Hashtable_node@U?$pair@$$CBHUBfmePod48@@@_STL@@@_STL@@@_STL@@QBEPAU?$_Hashtable_node@U?$pair@$$CBHUBfmePod48@@@_STL@@@2@IPBX@Z
 ?allocate@?$allocator@U?$_Hashtable_node@U?$pair@$$CBHUBfmePod60@@@_STL@@@_STL@@@_STL@@QBEPAU?$_Hashtable_node@U?$pair@$$CBHUBfmePod60@@@_STL@@@2@IPBX@Z
+# _Rb_tree_base ctor only allocates the header node: its bytes fix the node
+# size, not the AsciiString key its name asserts.
+??0?$_Rb_tree_base@U?$pair@$$CBVAsciiString@@UBfmePod8@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@UBfmePod8@@@_STL@@@2@@_STL@@QAE@ABV?$allocator@U?$pair@$$CBVAsciiString@@UBfmePod8@@@_STL@@@1@@Z
