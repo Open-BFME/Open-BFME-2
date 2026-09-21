@@ -76,3 +76,23 @@ void DeployStyleAIUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
 	TransportAIUpdateModuleData::buildFieldParse(parse);
 	parse.add(reinterpret_cast<const FieldParse *>(0x00BEECB0), 0);
 }
+
+class AssaultTransportAIUpdateModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+// ?buildFieldParse@AssaultTransportAIUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z,
+// retail 0x0024D248 (27 bytes): base-table call above plus the
+// AssaultTransport table at 0x00BEED74 (MembersGetHealedAtLifeRatio at +0x64
+// plus ClearRangeRequiredToContinueAttackMove at +0x68). Both fields match
+// BFME1's AssaultTransportAIUpdateModuleData table verbatim at identical
+// offsets (votes 2/2). The owning factory at 0x0024D29E pushes this proc's
+// VA (unique image-wide); the behavior side (AssaultTransportAIUpdate pool
+// key plus name getter) is rowed in its own file-unit.
+void AssaultTransportAIUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	TransportAIUpdateModuleData::buildFieldParse(parse);
+	parse.add(reinterpret_cast<const FieldParse *>(0x00BEED74), 0);
+}
