@@ -15414,3 +15414,5 @@ _XMP_Randomize,,0x0061C3C0,92,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,mat
 ?friend_newModuleInstance@ShroudCrateCollide@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z,,0x002511BB,56,Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/ShroudCrateCollideFriendNew.cpp,matched,
 ??0UnitCrateCollide@@QAE@PAVThing@@PBVModuleData@@@Z,,0x004BCC13,42,Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/UnitCrateCollideCtor.cpp,matched,
 ?friend_newModuleInstance@UnitCrateCollide@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z,,0x0025120E,56,Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/UnitCrateCollideFriendNew.cpp,matched,
+??0VeterancyCrateCollide@@QAE@PAVThing@@PBVModuleData@@@Z,,0x004BCE32,42,Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/VeterancyCrateCollideCtor.cpp,matched,
+?friend_newModuleInstance@VeterancyCrateCollide@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z,,0x00251261,56,Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/VeterancyCrateCollideFriendNew.cpp,matched,
