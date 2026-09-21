@@ -21,7 +21,13 @@ extern "C" void _ReadWriteBarrier( void );
 // The address of a sacrificial anchor stands in (mov-imm-DIR32, patched from
 // retail per site); a plain extern would load through a register and
 // reschedule the stores.
+// One anchor per distinct retail vtable, so each anchor resolves to a single
+// address: head 0xCE3018, child entry 0xCE2DE0, child exit 0xCE2DB4, base
+// 0xCE2E10 (the head's +4/+8 stores use the H4/H8 anchors below).
 static int BfmeThingDGDVTableAnchor;
+static int BfmeThingDGDChildVTableAnchorIn;
+static int BfmeThingDGDChildVTableAnchorOut;
+static int BfmeThingDGDBaseVTableAnchor;
 // The head installs three vtables with no calls between the stores, so one
 // shared anchor is CSE'd into a register (mov-reg instead of mov-imm). One
 // anchor per head store keeps each use single (mov-imm-DIR32, as retail).
@@ -121,12 +127,12 @@ struct Rva007F6D60Child
 {
 	~Rva007F6D60Child()
 	{
-		m_vftable = (unsigned)&BfmeThingDGDVTableAnchor;
+		m_vftable = (unsigned)&BfmeThingDGDChildVTableAnchorIn;
 		m_08 = 0;
 		m_chain3C.m();
 		m_chain2C.m();
 		m_buffer1C.reset();
-		m_vftable = (unsigned)&BfmeThingDGDVTableAnchor;
+		m_vftable = (unsigned)&BfmeThingDGDChildVTableAnchorOut;
 	}
 
 	unsigned m_vftable;									///< child+0x00
@@ -144,7 +150,7 @@ struct Rva007F6D60Child
 class Rva007F8090Base
 {
 public:
-	~Rva007F8090Base() { m_v0 = (unsigned)&BfmeThingDGDVTableAnchor; }
+	~Rva007F8090Base() { m_v0 = (unsigned)&BfmeThingDGDBaseVTableAnchor; }
 
 	unsigned m_v0;
 	unsigned m_v4;
