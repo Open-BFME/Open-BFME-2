@@ -2374,7 +2374,6 @@ name,address,notes
 ?buildFieldParse@DarknessSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x004C4D9E
 ?buildFieldParse@FreezingRainSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x004C4B86
 ?buildFieldParse@GarrisonContainModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x00254F75,chained proc: base 0x46523D plus own table 0x007F3360 with 5 of 5 BFME1 GarrisonContain fields in order; factory 0x254F90 pushes its VA exclusively; HordeGarrison chains above at 0x47A029
-?buildFieldParse@GeometryUpgradeModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x004B6A3C,chained link: calls Upgrade base proc 0x4CE29D then adds table 0xC58918 (ShowGeometry@118 HideGeometry@124 WallBoundsMesh@130 RampMesh1@134 RampMesh2@138); GeometryUpgrade pool key at 0x4B6ABF same cluster; factory 0x250642 pushes this proc VA
 ?buildFieldParse@GrabPassengerSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x004C4F89
 ?buildFieldParse@MissileUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x004A74EF,chained link: calls base proc 0x45B5E3 then adds table 0xC53470 (FuelLifetime through DetonateOnNoFuel); MissileUpdate pool key at 0x4A76C3 same cluster
 ?buildFieldParse@ModelConditionUpgradeModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x004B6691,chained link: base proc plus table 0xC58730 (AddConditionFlags RemoveConditionFlags RemoveConditionFlagsInRange AddTempConditionFlag TempConditionTime); ModelConditionUpgrade pool key ends where MD ctor begins
