@@ -222,7 +222,6 @@ static int optional (LexState *ls, int c) {
 }
 
 
-// _enterbreak present-unmatched
 static void enterbreak (FuncState *fs, Breaklabel *bl) {
   bl->stacklevel = fs->stacklevel;
   bl->breaklist = NO_JUMP;
@@ -353,7 +352,6 @@ static void block (LexState *ls) {
 }
 
 
-// _cond present-unmatched
 static void cond (LexState *ls, expdesc *v) {
   /* cond -> exp */
   expr(ls, v);  /* read condition */
