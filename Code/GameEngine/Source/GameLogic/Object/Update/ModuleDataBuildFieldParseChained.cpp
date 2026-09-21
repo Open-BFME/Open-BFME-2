@@ -274,3 +274,15 @@ void UpgradeDieModuleData::buildFieldParse(MultiIniFieldParse &parse)
 	parse.add(reinterpret_cast<const FieldParse *>(Rva004CE52EGet()), 8);
 	parse.add(reinterpret_cast<const FieldParse *>(0x00BF0958), 0);
 }
+
+class CrushDieModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+void CrushDieModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	parse.add(reinterpret_cast<const FieldParse *>(Rva004CE52EGet()), 8);
+	parse.add(reinterpret_cast<const FieldParse *>(0x00BF0868), 0);
+}
