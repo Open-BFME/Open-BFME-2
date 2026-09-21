@@ -15434,3 +15434,4 @@ _XMP_Randomize,,0x0061C3C0,92,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,mat
 ?addUnitPrereq@ProductionPrerequisite@@QAEXVAsciiString@@_N@Z,,0x004F52CB,105,Code/GameEngine/Source/Common/Thing/ProductionPrerequisiteAddUnitPrereq.cpp,matched,BFME1 ProductionPrerequisiteAddUnitPrereq donor shape; 1-arg Rec pushback pin 0x004F5243; opassign pin 0x000366F0; dtor fold 0x00036410
 ??1AODCrushCollide@@UAE@XZ,,0x004BBEDD,32,Code/GameEngine/Source/GameLogic/Object/Collide/AODCrushCollideDtor.cpp,matched,
 ??_GAODCrushCollide@@UAEPAXI@Z,,0x004BC050,28,Code/GameEngine/Source/GameLogic/Object/Collide/AODCrushCollideDtor.cpp,matched,
+_bfmeHash1228,,0x0070F880,1504,Code/GameEngine/Source/Common/BfmeConv1228.cpp,matched,BFME1 gperf hash port; table MAX15 zeros at L c d e g i l o plus 5 at t; switch str7/str3/str1 like BfmeConv1229 donor; b1 table differs

@@ -3431,7 +3431,6 @@ _bfmeDirectXErrorName@4,0x0062B16A,Recovered HRESULT-to-symbolic-name role; stdc
 _bfmeFreeAYX@4,0x0065477E
 _bfmeFreeBYX@4,0x0065478A
 _bfmeGoUPC,0x007478E0
-_bfmeHash1228,0x0070F880
 _bfmeHash1229,0x006E7050
 _bfmeLen1153,0x00006F30
 _bfmeMake1239,0x006D8520
