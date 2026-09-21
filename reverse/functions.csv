@@ -15424,3 +15424,4 @@ _XMP_Randomize,,0x0061C3C0,92,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,mat
 ?friend_newModuleInstance@HordeMemberCollide@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z,,0x002510A7,56,Code/GameEngine/Source/GameLogic/Object/Collide/HordeMemberCollideFriendNew.cpp,matched,
 ??0CivilianSpawnCollide@@QAE@PAVThing@@PBVModuleData@@@Z,,0x004BD694,42,Code/GameEngine/Source/GameLogic/Object/Collide/CivilianSpawnCollideCtor.cpp,matched,
 ?friend_newModuleInstance@CivilianSpawnCollide@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z,,0x002512EC,56,Code/GameEngine/Source/GameLogic/Object/Collide/CivilianSpawnCollideFriendNew.cpp,matched,
+??0SpawnUnitBehaviorModuleData@@QAE@XZ,,0x0025598C,101,Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnUnitBehaviorModuleDataCtor.cpp,matched,BFME1 SpawnUnitBehavior donor plus table 0xC59238 UnitName UnitCommand SpawnOnce at plus1C; factory 0x2559F1 sole caller
