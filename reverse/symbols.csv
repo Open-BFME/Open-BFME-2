@@ -281,7 +281,6 @@ name,address,notes
 ??0BFME2ScopedRenderEvent@@QAE@PBD0I@Z,0x00117CF0,"Descriptive scope ctor: label256 group64; bounded copy and BeginEvent wrapper11F340(label,color); RET12 full167"
 ??0BFME2StreamMotionChannel@@QAE@XZ,0x001B2138,Descriptive stream-channel constructor; calls base1A465B to initialize type and pivot then zeros payload pointer28 and installs BD7624; factory encoding1 and2 allocate44 bytes and invoke it before installing derived tables
 ??0BaikonurLaunchPowerModuleData@@QAE@XZ,0x0039A027
-??0BaseUpgradeModuleData@@QAE@XZ,0x004B3698,EH ctor over base 0x253487; vtable 0x00C57150; string members at +0x118/+0x11C via 0x55F5; zero at +0x120; sole raw caller is ModuleData factory 0x24FE37 which news 0x124
 ??0BattlePlanUpdateModuleData@@QAE@XZ,0x0049780A,pinned by BattlePlanUpdateModuleData factory call-site decode; sole E8 caller is factory 0x24E237 which news 0xA8 and pushes proc 0x49861A; donor BFME1 BattlePlanUpdate.cpp ctor plus 30-field table 0x84FF58; ctor body banked as 0.88 partial
 ??0BehaviorModule@@QAE@PAVThing@@PBVModuleData@@@Z,0x00253330,address read from the REL32 displacement at a placed body
 ??0BfmeAsciiScalarValue8@@QAE@ABU0@@Z,0x00466EA7,Complete27-byte AsciiString plus scalar copy independently byte-verified; alias of established NoCaseTree pair copy; direct ConstructBBA1A callee
