@@ -14778,3 +14778,4 @@ _chatRetryWithNickA,,0x006A33C0,119,Code/GameEngine/Source/GameNetwork/GameSpy/c
 ??0OathbreakersFadeAwayBehavior@@QAE@PAVThing@@PBVModuleData@@@Z,,0x004B8A8A,59,Code/GameEngine/Source/GameLogic/Object/Behavior/OathbreakersFadeAwayBehaviorCtor.cpp,matched,
 ?friend_newModuleInstance@OathbreakersFadeAwayBehavior@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z,,0x0025095E,56,Code/GameEngine/Source/GameLogic/Object/Behavior/OathbreakersFadeAwayBehaviorFriendNew.cpp,matched,
 ??0MaxHealthUpgradeModuleData@@QAE@XZ,,0x004B62C4,36,Code/GameEngine/Source/GameLogic/Object/Upgrade/MaxHealthUpgradeModuleDataCtor.cpp,matched,
+?buildFieldParse@MaxHealthUpgradeModuleData@@SAXAAVMultiIniFieldParse@@@Z,,0x004B62E8,34,Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp,matched,
