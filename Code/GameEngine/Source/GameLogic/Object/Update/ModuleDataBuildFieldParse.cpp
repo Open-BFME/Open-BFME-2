@@ -140,3 +140,4 @@ void ClearanceTestingSlowDeathBehaviorModuleData::buildFieldParse(MultiIniFieldP
 	SlowDeathBehaviorModuleData::buildFieldParse(parse);
 	parse.add(reinterpret_cast<const FieldParse *>(0x00C49CB0), 0);
 }
+FIELD_PROC(RebuildHoleBehaviorModuleData, 0x00C49A10, WorkerTable)
