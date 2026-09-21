@@ -54,3 +54,25 @@ void WorkerAIUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
 	TransportAIUpdateModuleData::buildFieldParse(parse);
 	parse.add(reinterpret_cast<const FieldParse *>(0x00BEF4B0), 0);
 }
+
+class DeployStyleAIUpdateModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+// ?buildFieldParse@DeployStyleAIUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z,
+// retail 0x0024D1CB (27 bytes): base-table call above plus the DeployStyle
+// table at 0x00BEECB0 (UnpackTime at +0x64 plus PackTime at +0x68 plus
+// ResetTurretBeforePacking at +0x6C plus TurretsFunctionOnlyWhenDeployed at
+// +0x6D plus TurretsMustCenterBeforePacking at +0x6E plus MustDeployToAttack
+// at +0x6F plus DeployedAttributeModifier at +0x70). Five of seven fields
+// match BFME1's DeployStyleAIUpdateModuleData table verbatim at identical
+// offsets (votes 5/3); BFME2 appends MustDeployToAttack plus
+// DeployedAttributeModifier. The owning factory at 0x0025517E pushes this
+// proc's VA (unique image-wide).
+void DeployStyleAIUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	TransportAIUpdateModuleData::buildFieldParse(parse);
+	parse.add(reinterpret_cast<const FieldParse *>(0x00BEECB0), 0);
+}
