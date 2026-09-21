@@ -15380,3 +15380,4 @@ _XMP_Randomize,,0x0061C3C0,92,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,mat
 ?rva004B8FAB@GrantUpgradeCreate@@SA?AW4NameKeyType@@XZ,,0x004B8FAB,69,Code/GameEngine/Source/GameLogic/Object/Upgrade/GrantUpgradeCreatePoolKey.cpp,matched,
 ?rva004B92A0@PreorderCreate@@SA?AW4NameKeyType@@XZ,,0x004B92A0,69,Code/GameEngine/Source/GameLogic/Object/Upgrade/PreorderCreatePoolKey.cpp,matched,
 ?rva004B938E@SpecialPowerCreate@@SA?AW4NameKeyType@@XZ,,0x004B938E,69,Code/GameEngine/Source/GameLogic/Object/Upgrade/SpecialPowerCreatePoolKey.cpp,matched,
+?rva004B9471@InheritUpgradeCreate@@SA?AW4NameKeyType@@XZ,,0x004B9471,69,Code/GameEngine/Source/GameLogic/Object/Upgrade/InheritUpgradeCreatePoolKey.cpp,matched,
