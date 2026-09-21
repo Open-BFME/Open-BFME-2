@@ -14976,3 +14976,4 @@ _chatRetryWithNickA,,0x006A33C0,119,Code/GameEngine/Source/GameNetwork/GameSpy/c
 ?friend_newModuleData@BridgeScaffoldBehaviorModuleData@@SAPAVModuleData@@PAVINI@@@Z,,0x0024AC3B,81,Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeScaffoldBehaviorModuleDataFriendNew.cpp,matched,
 ?buildFieldParse@HitReactionBehaviorModuleData@@SAXAAVMultiIniFieldParse@@@Z,,0x00459217,11,Code/GameEngine/Source/GameLogic/Object/Behavior/BehaviorModuleDataBuildFieldParse.cpp,matched,
 ?friend_newModuleData@HitReactionBehaviorModuleData@@SAPAVModuleData@@PAVINI@@@Z,,0x0024AE4A,81,Code/GameEngine/Source/GameLogic/Object/Behavior/HitReactionBehaviorModuleDataFriendNew.cpp,matched,
+?buildFieldParse@ClickReactionBehaviorModuleData@@SAXAAVMultiIniFieldParse@@@Z,,0x0045960C,11,Code/GameEngine/Source/GameLogic/Object/Behavior/BehaviorModuleDataBuildFieldParse.cpp,matched,
