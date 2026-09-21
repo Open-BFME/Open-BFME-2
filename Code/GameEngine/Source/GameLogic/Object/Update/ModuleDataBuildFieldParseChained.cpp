@@ -346,3 +346,15 @@ void CommandPointsUpgradeModuleData::buildFieldParse(MultiIniFieldParse &parse)
 	parse.add(reinterpret_cast<const FieldParse *>(Rva004CE29DGet()), 8);
 	parse.add(reinterpret_cast<const FieldParse *>(0x00C590E8), 0);
 }
+
+class BaseUpgradeModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+void BaseUpgradeModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	parse.add(reinterpret_cast<const FieldParse *>(Rva004CE29DGet()), 8);
+	parse.add(reinterpret_cast<const FieldParse *>(0x00C57208), 0);
+}

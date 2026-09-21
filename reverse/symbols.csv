@@ -2374,7 +2374,6 @@ name,address,notes
 ?bfme_getDescriptionFirstLine@MapMetaData@@QAE?AVUnicodeString@@XZ,0x00301534,recovered metadata getter reads cached map.str text via 0x003009CD and returns its prefix before LF
 ?bfme_getDisplayName@MapMetaData@@QAE?AVUnicodeString@@_N@Z,0x00300C7E,recovered display-name accessor; bool enables player-count suffix using metadata+0x20 and wide format (%d); ret8
 ?buildFieldParse@AudioLoopUpgradeModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x004B7C86,double-chained link: base procs 0x4CE29D and 0x4CE52E then table 0xC58D98 (SoundToPlay KillAfterMS KillOnDeath); AudioLoopUpgrade pool key at 0x4B7BE0 same cluster
-?buildFieldParse@BaseUpgradeModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x004B36FA,chained link: calls base proc 0x4CE29D then adds table 0xC57208 (BuildingTemplateName@118 PlacementPrefix@11C PlacementIndex@120); BaseUpgrade pool key ends where MD ctor begins
 ?buildFieldParse@CloudBreakSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x004C44BD
 ?buildFieldParse@DarknessSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x004C4D9E
 ?buildFieldParse@FreezingRainSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x004C4B86
@@ -3739,3 +3738,4 @@ dup_7e86b0,0x00655770
 ??0SpecialPowerCompletionDieModuleData@@QAE@XZ,0x004C230E,sole raw caller is factory 0x253B05; BFME1 donor has int m_34 zero-init matching news 0x3C
 ?set@AsciiString@@QAEXPBD@Z,0x000055F5,AsciiString set folds to rowed StringBase set 0x55F5; SupplyTruck GrabObject
 ??_7TerrainResourceBehaviorModuleData@@6B@,0x00C49440,TerrainResourceBehaviorModuleData vtable installed by ctor 0x48202F; slot0 is scalar-deleting dtor 0x482259 calling dtor 0x482275
+??_7BaseUpgradeModuleData@@6B@,0x00C57150,BaseUpgradeModuleData vtable installed by ctor 0x4B3698 (mov [esi] imm); slot0 is scalar-deleting dtor shape 0x4B3769; slot1 is shared ret stub 0x4B3FD0
