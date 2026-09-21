@@ -510,13 +510,6 @@ int Rva006C6490Get(void)
 	return 0;
 }
 
-// ?Rva007542B3Get@@YAHXZ @ 0x007542b3 (3B): returns 0.
-// Follows a ret (prev C3), no .rdata vtable slot, no direct callers,
-// no branch sources. Opaque address-derived name.
-int Rva007542B3Get(void)
-{
-	return 0;
-}
 // ?Rva00050D50Get@@YAHXZ @ 0x00050d50 (3B): returns 0.
 // Follows a ret (prev C3), no .rdata vtable slot, no direct callers,
 // no branch sources. Opaque address-derived name.
@@ -899,13 +892,6 @@ int Rva006694AAGet(void)
 	return 0;
 }
 
-// ?Rva007472A9Get@@YAHXZ @ 0x007472a9 (3B): returns 0.
-// Follows a ret (prev C3), no .rdata vtable slot, no direct callers,
-// no branch sources. Opaque address-derived name.
-int Rva007472A9Get(void)
-{
-	return 0;
-}
 // ?Rva0006CEEBGet@@YAHXZ @ 0x0006ceeb (3B): returns 0.
 // Follows a ret (prev C3), no .rdata vtable slot, no direct callers,
 // no branch sources. Opaque address-derived name.
@@ -1026,13 +1012,6 @@ int Rva0066CA0CGet(void)
 	return 0;
 }
 
-// ?Rva0074C9CBGet@@YAHXZ @ 0x0074c9cb (3B): returns 0.
-// Follows a ret (prev C3), no .rdata vtable slot, no direct callers,
-// no branch sources. Opaque address-derived name.
-int Rva0074C9CBGet(void)
-{
-	return 0;
-}
 // ?Rva0007B716Get@@YAHXZ @ 0x0007b716 (3B): returns 0.
 // Follows a ret (prev C3), no .rdata vtable slot, no direct callers,
 // no branch sources. Opaque address-derived name.
@@ -1280,13 +1259,6 @@ int Rva006C5FD3Get(void)
 	return 0;
 }
 
-// ?Rva00751D52Get@@YAHXZ @ 0x00751d52 (3B): returns 0.
-// Follows a ret (prev C3), no .rdata vtable slot, no direct callers,
-// no branch sources. Opaque address-derived name.
-int Rva00751D52Get(void)
-{
-	return 0;
-}
 // ?Rva0008BBDDGet@@YAHXZ @ 0x0008bbdd (3B): returns 0.
 // Follows a ret (prev C3), no .rdata vtable slot, no direct callers,
 // no branch sources. Opaque address-derived name.
@@ -1407,10 +1379,3 @@ int Rva006C5FF3Get(void)
 	return 0;
 }
 
-// ?Rva00753952Get@@YAHXZ @ 0x00753952 (3B): returns 0.
-// Follows a ret (prev C3), no .rdata vtable slot, no direct callers,
-// no branch sources. Opaque address-derived name.
-int Rva00753952Get(void)
-{
-	return 0;
-}

@@ -3266,7 +3266,6 @@ _XMP_Init,,0x0061BD70,23,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,
 ?setDragSelecting@BfmeSelectionTranslator@@QAEXXZ,,0x0042FA01,12,Code/GameEngine/Source/GameClient/GUI/BfmeSelectionTranslator_setDragSelecting.cpp,matched,BFME2 selection-translator drag-select reset transferred from exact BFME1 source; identical bytes
 ?decompress@LZHLDecompressor@@QAEHPAEPAIPBE1@Z,,0x00692440,824,Code/Libraries/Source/Compression/LZHCompress/CompLibSource/Huff.cpp,matched,vendored=lzhl-1.0 with EA's divergence; reloc-named
 ??0CLockVolume@D3DXTex@@QAE@XZ,,0x00326BE6,6,Code/GameEngine/Source/Common/D3DXTexCLockVolume.cpp,matched,ported from the exact BFME1 reconstruction; placed by masked whole-.text search of the compiled body - single hit
-?rva00753947@@YAHXZ,,0x00753947,11,Code/GameEngine/Source/Common/Rva00753947Set.cpp,matched,ported from the exact BFME1 helper; unique BFME2 placement calls SetFlag and returns 1
 ?Put_String@INIClass@@QAE_NPBD00@Z,,0x00616FB0,554,Code/Libraries/Source/WWVegas/WWLib/ini.cpp,matched,INIClass::Put_String restored from the Zero Hour reference; scalar delete plus a direct strdup
 ?Set_Spot_Exponent@LightClass@@QAEXM@Z,,0x00270678,17,Code/Libraries/Source/WWVegas/WW3D2/light.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 ?Set_Native_Screen_Size@RenderObjClass@@UAEXM@Z,,0x000EFB4C,14,Code/Libraries/Source/WWVegas/WW3D2/light.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
@@ -13867,7 +13866,6 @@ _luaB_tostring,,0x0074BFA0,253,Code/Libraries/Source/Lua/luaB_tostring.c,matched
 ?Rva0059F379Get@@YAHXZ,,0x0059F379,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
 ?Rva0065EC9AGet@@YAHXZ,,0x0065EC9A,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
 ?Rva006C6490Get@@YAHXZ,,0x006C6490,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva007542B3Get@@YAHXZ,,0x007542B3,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
 ?Rva00050D50Get@@YAHXZ,,0x00050D50,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
 ?Rva000B19F8Get@@YAHXZ,,0x000B19F8,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
 ?Rva00149A8CGet@@YAHXZ,,0x00149A8C,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
@@ -13916,7 +13914,6 @@ _luaB_tostring,,0x0074BFA0,253,Code/Libraries/Source/Lua/luaB_tostring.c,matched
 ?Rva0056777FGet@@YAHXZ,,0x0056777F,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
 ?Rva006026D0Get@@YAHXZ,,0x006026D0,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
 ?Rva006694AAGet@@YAHXZ,,0x006694AA,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva007472A9Get@@YAHXZ,,0x007472A9,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
 ?Rva0006CEEBGet@@YAHXZ,,0x0006CEEB,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
 ?Rva000FBA47Get@@YAHXZ,,0x000FBA47,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
 ?Rva001542C3Get@@YAHXZ,,0x001542C3,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
@@ -13932,7 +13929,6 @@ _luaB_tostring,,0x0074BFA0,253,Code/Libraries/Source/Lua/luaB_tostring.c,matched
 ?Rva0056DA35Get@@YAHXZ,,0x0056DA35,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
 ?Rva00602820Get@@YAHXZ,,0x00602820,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
 ?Rva0066CA0CGet@@YAHXZ,,0x0066CA0C,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva0074C9CBGet@@YAHXZ,,0x0074C9CB,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
 ?Rva0007B716Get@@YAHXZ,,0x0007B716,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
 ?Rva000FC943Get@@YAHXZ,,0x000FC943,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
 ?Rva0016ABD1Get@@YAHXZ,,0x0016ABD1,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
@@ -13964,7 +13960,6 @@ _luaB_tostring,,0x0074BFA0,253,Code/Libraries/Source/Lua/luaB_tostring.c,matched
 ?Rva0057B990Get@@YAHXZ,,0x0057B990,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
 ?Rva00658147Get@@YAHXZ,,0x00658147,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
 ?Rva006C5FD3Get@@YAHXZ,,0x006C5FD3,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva00751D52Get@@YAHXZ,,0x00751D52,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
 ?Rva0008BBDDGet@@YAHXZ,,0x0008BBDD,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
 ?Rva0010615FGet@@YAHXZ,,0x0010615F,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
 ?Rva00176D69Get@@YAHXZ,,0x00176D69,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
@@ -13980,7 +13975,6 @@ _luaB_tostring,,0x0074BFA0,253,Code/Libraries/Source/Lua/luaB_tostring.c,matched
 ?Rva0059E10CGet@@YAHXZ,,0x0059E10C,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
 ?Rva0065E7CAGet@@YAHXZ,,0x0065E7CA,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
 ?Rva006C5FF3Get@@YAHXZ,,0x006C5FF3,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva00753952Get@@YAHXZ,,0x00753952,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
 ??$_Construct@VProductionPrerequisite@@V1@@_STL@@YAXPAVProductionPrerequisite@@ABV1@@Z,,0x002D0C17,45,Code/GameEngine/Source/Common/Thing/ProductionPrerequisiteVectorPushBack.cpp,matched,prereq _Construct 45B exact via explicit-instantiation TU; retail REL32 in push_back at 0x0033EA10; copy ctor pin 0x002D08DA resolves
 ??0ProductionPrerequisite@@QAE@ABV0@@Z,,0x002D08DA,77,Code/GameEngine/Source/Common/Thing/ProductionPrerequisiteCopyCtor.cpp,matched,prereq copy ctor 77B exact via explicit member-init TU; member vectors at +0x00/+0x0C/+0x18 per retail callees; called from vector _Construct at 0x002D0C33
 ??0?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QAE@ABV01@@Z,,0x0054878E,68,Code/GameEngine/Source/Common/Thing/ProductionPrerequisiteCopyCtor.cpp,matched,vector<ScienceType> copy 68B exact; +0x0C member of ProductionPrerequisite per copy ctor at 0x002D08DA; sar-2 count of 4-byte elements
@@ -15075,3 +15069,8 @@ _parse_buffer,,0x0074DCB0,74,Code/Libraries/Source/Lua/ldo.c,matched,placed by m
 _lua_dostring,,0x0074DD90,43,Code/Libraries/Source/Lua/ldo.c,matched,placed by masked whole-.text search of the compiled body - single hit
 _luaB_dostring,,0x0074BD40,155,Code/Libraries/Source/Lua/lbaselib.c,matched,placed by masked whole-.text search of the compiled body - single hit
 _luaB_dofile,,0x0074BDE0,109,Code/Libraries/Source/Lua/lbaselib.c,matched,placed by masked whole-.text search of the compiled body - single hit
+_lua_equal,,0x00747250,92,Code/Libraries/Source/Lua/lapi.c,matched,placed by masked whole-.text search of the compiled body - single hit
+_isLmark,,0x0074C9B0,30,Code/Libraries/Source/Lua/ldebug.c,matched,placed by masked whole-.text search of the compiled body - single hit
+_getunopr,,0x007542A0,22,Code/Libraries/Source/Lua/lparser.c,matched,placed by masked whole-.text search of the compiled body - single hit
+_previous_instruction,,0x00751D40,21,Code/Libraries/Source/Lua/lcode.c,matched,placed by masked whole-.text search of the compiled body - single hit
+_optional,,0x00753940,21,Code/Libraries/Source/Lua/lparser.c,matched,placed by masked whole-.text search of the compiled body - single hit
