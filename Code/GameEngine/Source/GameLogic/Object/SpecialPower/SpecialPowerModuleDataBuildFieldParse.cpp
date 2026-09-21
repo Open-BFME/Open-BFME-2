@@ -107,3 +107,22 @@ void ScavengerSpecialPowerModuleData::buildFieldParse(MultiIniFieldParse &parse)
 	SpecialPowerModuleData::buildFieldParse(parse);
 	parse.add(reinterpret_cast<const FieldParse *>(0x00C5D0F0), 0);
 }
+
+class DefectorSpecialPowerModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+// ?buildFieldParse@DefectorSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z,
+// retail 0x004C2970 (27 bytes): base-table call above plus the Defector
+// table at 0x00C5C764 (FatCursorRadius at +0x7C, the sole field; BFME1's
+// DefectorSpecialPowerModuleData table holds exactly this field). The
+// DefectorSpecialPower pool key at 0x4C29D3 sits in the same cluster
+// (ElvenWood precedent). The owning factory at 0x002519E3 pushes this
+// proc's VA (unique image-wide).
+void DefectorSpecialPowerModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	SpecialPowerModuleData::buildFieldParse(parse);
+	parse.add(reinterpret_cast<const FieldParse *>(0x00C5C764), 0);
+}
