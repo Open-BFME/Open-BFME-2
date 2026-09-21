@@ -1,6 +1,8 @@
 // cl: /O1 /arch:SSE /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
+// Identity: ModuleFactory registers this data class under "EntEnragedUpdate" (addModule
+// pairs the name with this factory); formerly misnamed EnragedUpdateModuleData.
 //
-// ??0EnragedUpdateModuleData@@QAE@XZ, retail 0x004B249D, 104 bytes. The
+// ??0EntEnragedUpdateModuleData@@QAE@XZ, retail 0x004B249D, 104 bytes. The
 // table behind the rowed buildFieldParse proc carries five Enraged fields
 // plus ScanDelayTime/ScanDistance plus two ObjectFilter fields, so this is
 // the Enraged behavior's module data (see EnragedBehaviorPoolKey.cpp). The
@@ -40,10 +42,10 @@ public:
 private:
 };
 
-class EnragedUpdateModuleData : public UpdateModuleData
+class EntEnragedUpdateModuleData : public UpdateModuleData
 {
 public:
-	EnragedUpdateModuleData();
+	EntEnragedUpdateModuleData();
 
 private:
 	const void *m_vtable; // +0
@@ -60,8 +62,8 @@ private:
 	int m_offBuffFX; // +0x2C
 };
 
-// ??0EnragedUpdateModuleData@@QAE@XZ @0x4B249D
-EnragedUpdateModuleData::EnragedUpdateModuleData()
+// ??0EntEnragedUpdateModuleData@@QAE@XZ @0x4B249D
+EntEnragedUpdateModuleData::EntEnragedUpdateModuleData()
 	: m_vtable(reinterpret_cast<const void *>(0x00C56980))
 {
 	m_scanDelayTime = LogicFramesPerSecond;

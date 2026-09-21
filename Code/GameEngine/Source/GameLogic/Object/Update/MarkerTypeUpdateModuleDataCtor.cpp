@@ -1,13 +1,15 @@
 // cl: /O1 /DNDEBUG /MD
+// Identity: ModuleFactory registers this data class under "RadarMarkerClientUpdate" (addModule
+// pairs the name with this factory); formerly misnamed MarkerTypeUpdateModuleData.
 //
-// ??0MarkerTypeUpdateModuleData@@QAE@XZ, retail 0x004C9C98, 13 bytes.
+// ??0RadarMarkerClientUpdateModuleData@@QAE@XZ, retail 0x004C9C98, 13 bytes.
 //
 // The module-data half of MarkerType: the ModuleData base carries the vtable
 // immediate 0x00C5EDF8 (inline base ctor, so no vtable is emitted and no dtor
 // row is owed) plus the tag key at +0x04 retail never stores, and the derived
 // dword at +0x08 is the MarkerType INI field (table 0x00C5ED98, single entry
 // "MarkerType" at offset +0x08) zeroed in the body. Class identity is the
-// rowed MarkerTypeUpdateModuleData::buildFieldParse proc pushed by the rowed
+// rowed RadarMarkerClientUpdateModuleData::buildFieldParse proc pushed by the rowed
 // 0x252B11 factory, whose sole call to this address is the pin this row
 // supersedes. Frameless leaf; the factory's 0x0C news size fits vptr plus tag
 // plus the +0x08 word.
@@ -32,17 +34,17 @@ protected:
 	unsigned int m_moduleTagNameKey;	// +0x04
 };
 
-class MarkerTypeUpdateModuleData : public ModuleData
+class RadarMarkerClientUpdateModuleData : public ModuleData
 {
 public:
-	MarkerTypeUpdateModuleData();
+	RadarMarkerClientUpdateModuleData();
 
 private:
 	int m_markerType;			// +0x08, INI field "MarkerType"
 };
 
-// ??0MarkerTypeUpdateModuleData@@QAE@XZ
-MarkerTypeUpdateModuleData::MarkerTypeUpdateModuleData()
+// ??0RadarMarkerClientUpdateModuleData@@QAE@XZ
+RadarMarkerClientUpdateModuleData::RadarMarkerClientUpdateModuleData()
 {
 	m_vtable = reinterpret_cast<const void *>(0x00C5EDF8);
 	_ReadWriteBarrier();

@@ -1,7 +1,7 @@
 // cl: /O1 /DNDEBUG /MD
 //
 // Five single-field ModuleData::buildFieldParse procs (11 bytes each):
-// ?buildFieldParse@CleanupHazardUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z,
+// ?buildFieldParse@BeaconClientUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z
 // retail 0x004C9663 (field RadarPulseFrequency), plus PilotFindVehicle (announcement),
 // DynamicGeometryInfo (FX), BattlePlan (SoundUpgrade) and RepairDock (ModelCondition)
 // sibs, plus LifetimeUpdate (table 0x00C1B0F0, factory 0x24E3A3 pushes its VA).
@@ -35,11 +35,11 @@ void cls::buildFieldParse(MultiIniFieldParse &parse) \
 	parse.add(reinterpret_cast<const FieldParse *>(addr), 0); \
 }
 
-FIELD_PROC(CleanupHazardUpdateModuleData, 0x00C5EB94, RadarPulseFrequency)
-FIELD_PROC(PilotFindVehicleUpdateModuleData, 0x00C5ECB8, AnnouncementEventEnemy)
-FIELD_PROC(DynamicGeometryInfoUpdateModuleData, 0x00C5EA10, FX)
-FIELD_PROC(BattlePlanUpdateModuleData, 0x00C5F2DC, SoundUpgrade)
-FIELD_PROC(RepairDockUpdateModuleData, 0x00C5F574, ModelCondition)
+FIELD_PROC(BeaconClientUpdateModuleData, 0x00C5EB94, RadarPulseFrequency)
+FIELD_PROC(EvaAnnounceClientCreateModuleData, 0x00C5ECB8, AnnouncementEventEnemy)
+FIELD_PROC(CritterEmitterUpdateModuleData, 0x00C5EA10, FX)
+FIELD_PROC(UpgradeSoundSelectorClientBehaviorModuleData, 0x00C5F2DC, SoundUpgrade)
+FIELD_PROC(ModelConditionAudioLoopClientBehaviorModuleData, 0x00C5F574, ModelCondition)
 FIELD_PROC(LifetimeUpdateModuleData, 0x00C1B0F0, LifetimeUpdateTable)
 FIELD_PROC(SalvageCrateCollideModuleData, 0x00C4C600, SalvageCrateTable)
 FIELD_PROC(PropagandaTowerBehaviorModuleData, 0x00C55638, PropagandaTowerTable)
@@ -61,15 +61,15 @@ FIELD_PROC(HijackerUpdateModuleData, 0x00BF2318, HijackerTable)
 FIELD_PROC(SlavedUpdateModuleData, 0x00BF2110, SlavedTable)
 FIELD_PROC(BoredUpdateModuleData, 0x00C4F618, BoredFilterTable)
 FIELD_PROC(BaikonurLaunchPowerModuleData, 0x00C5F150, SoundStateTable)
-FIELD_PROC(HordeUpdateModuleData, 0x00C4F9E8, HordeTable)
-FIELD_PROC(SupplyTruckAIUpdateModuleData, 0x00C5B228, SupplyTruckTable)
+FIELD_PROC(BannerCarrierUpdateModuleData, 0x00C4F9E8, HordeTable)
+FIELD_PROC(ActiveBodyModuleData, 0x00C5B228, SupplyTruckTable)
 FIELD_PROC(ReflectDamageModuleData, 0x00C59C70, ReflectDamageTable)
 FIELD_PROC(AISpecialPowerUpdateModuleData, 0x00C56ED8, SpecialPowerAITable)
-FIELD_PROC(EnragedUpdateModuleData, 0x00C56A98, EnragedTable)
-FIELD_PROC(PanicUpdateModuleData, 0x00C59DD0, PanicTable)
-FIELD_PROC(MarkerTypeUpdateModuleData, 0x00C5ED98, MarkerType)
-FIELD_PROC(SlotToLockUpdateModuleData, 0x00C59338, SlotToLock)
-FIELD_PROC(StanceTemplateUpdateModuleData, 0x00C424B0, StanceTemplate)
+FIELD_PROC(EntEnragedUpdateModuleData, 0x00C56A98, EnragedTable)
+FIELD_PROC(EvacuateDamageModuleData, 0x00C59DD0, PanicTable)
+FIELD_PROC(RadarMarkerClientUpdateModuleData, 0x00C5ED98, MarkerType)
+FIELD_PROC(LockWeaponCreateModuleData, 0x00C59338, SlotToLock)
+FIELD_PROC(StancesBehaviorModuleData, 0x00C424B0, StanceTemplate)
 FIELD_PROC(DestroyEnvironmentUpdateModuleData, 0x00C54D28, StartTime)
 FIELD_PROC(ExperienceLevelCreateModuleData, 0x00C595B4, LevelToGrant)
 FIELD_PROC(InheritUpgradeCreateModuleData, 0x00C59728, Radius)
@@ -89,7 +89,7 @@ FIELD_PROC(SupplyWarehouseCripplingBehaviorModuleData, 0x00C49B40, SelfHealTable
 FIELD_PROC(FireSpreadUpdateModuleData, 0x00C4C000, FireSpreadTable)
 FIELD_PROC(SlowDeathBehaviorModuleData, 0x00C42290, SinkTable)
 FIELD_PROC(TerrainResourceBehaviorModuleData, 0x00C494F0, IncomeTable)
-FIELD_PROC(ModelConditionSpecialAbilityUpdateModuleData, 0x00C4DA00, ModelConditionTable)
+FIELD_PROC(MonitorConditionUpdateModuleData, 0x00C4DA00, ModelConditionTable)
 FIELD_PROC(AttachUpdateModuleData, 0x00C4DC48, AttachTable)
 FIELD_PROC(PickupStuffUpdateModuleData, 0x00C4DE90, PickupStuffTable)
 FIELD_PROC(HeightDieUpdateModuleData, 0x00C4CFC8, HeightTable)

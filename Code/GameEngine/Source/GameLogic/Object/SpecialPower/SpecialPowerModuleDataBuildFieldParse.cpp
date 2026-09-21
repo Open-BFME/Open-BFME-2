@@ -2,7 +2,7 @@
 //
 // SpecialPower-side ModuleData::buildFieldParse procs.
 //
-// ?buildFieldParse@SpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z,
+// ?buildFieldParse@SpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z
 // retail 0x00493207 (17 bytes): the shared SpecialPower base table at
 // 0x00C4E628 (SpecialPowerTemplate, UpdateModuleStartsAttack, StartsPaused,
 // InitiateSound, ReEnableAntiCategory, AntiCategory, AntiFX,
@@ -39,7 +39,7 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
-// ?buildFieldParse@DevastateSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z,
+// ?buildFieldParse@DevastateSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z
 // retail 0x004C81C8 (27 bytes): base-table call above plus the Devastate
 // table at 0x00C5E3D0 (Radius, FX, TreeValueMultiplier, TreeValueTotalCap,
 // FireWeapon at +0x7C through +0x8C). Four of five fields match BFME1's
@@ -58,7 +58,7 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
-// ?buildFieldParse@CashHackSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z,
+// ?buildFieldParse@CashHackSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z
 // retail 0x004C2955 (27 bytes): base-table call above plus the CashHack
 // table at 0x00C5C724 (UpgradeMoneyAmount at +0x7C, MoneyAmount at +0x88).
 // Both fields match BFME1's CashHackSpecialPower table verbatim
@@ -76,7 +76,7 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
-// ?buildFieldParse@ElvenWoodSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z,
+// ?buildFieldParse@ElvenWoodSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z
 // retail 0x004C3FC2 (27 bytes): base-table call above plus the ElvenWood
 // table at 0x00C5D018 (ElvenGroveObject at +0x88, ElvenNumObjects at +0x8C,
 // ElvenWoodRadius at +0x90, ElvenWoodFX at +0x94, ElvenWoodOCL at +0x98).
@@ -88,13 +88,13 @@ void ElvenWoodSpecialPowerModuleData::buildFieldParse(MultiIniFieldParse &parse)
 	parse.add(reinterpret_cast<const FieldParse *>(0x00C5D018), 0);
 }
 
-class ScavengerSpecialPowerModuleData
+class WeaponChangeSpecialPowerModuleData
 {
 public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
-// ?buildFieldParse@ScavengerSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z,
+// ?buildFieldParse@WeaponChangeSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z
 // retail 0x004C3FDD (27 bytes): base-table call above plus the Scavenger
 // table at 0x00C5D0F0 (FlagsUsedForToggle at +0x7C, ToggleOnSleepFrames at
 // +0x8C, ToggleOffSleepFrames at +0x90, ToggleOnAttributeModifier at +0x94,
@@ -102,7 +102,7 @@ public:
 // at 0x4C4387 plus the name getter at 0x4C4381 sit in the same cluster
 // (ElvenWood precedent). The owning factory at 0x00251D40 pushes this
 // proc's VA.
-void ScavengerSpecialPowerModuleData::buildFieldParse(MultiIniFieldParse &parse)
+void WeaponChangeSpecialPowerModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
 	SpecialPowerModuleData::buildFieldParse(parse);
 	parse.add(reinterpret_cast<const FieldParse *>(0x00C5D0F0), 0);
@@ -114,7 +114,7 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
-// ?buildFieldParse@DefectorSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z,
+// ?buildFieldParse@DefectorSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z
 // retail 0x004C2970 (27 bytes): base-table call above plus the Defector
 // table at 0x00C5C764 (FatCursorRadius at +0x7C, the sole field; BFME1's
 // DefectorSpecialPowerModuleData table holds exactly this field). The
@@ -157,7 +157,7 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
-// ?buildFieldParse@PlayerHealSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z,
+// ?buildFieldParse@PlayerHealSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z
 // retail 0x004C7E63 (27 bytes): base-table call above plus the PlayerHeal
 // table at 0x00C5E298 (HealAmount at +0x7C, HealAsPercent at +0x80,
 // HealRadius at +0x84, HealAffects at +0x88, HealFX at +0xA4, HealOCL at

@@ -12,10 +12,10 @@
 // which defeats the CSE that eats a repeated pointer-spelled |=. No barrier
 // needed (a barrier traps the lea below the movs).
 
-class RespawnUpdateModuleData
+class RespawnBodyModuleData
 {
 public:
-	RespawnUpdateModuleData();
+	RespawnBodyModuleData();
 
 protected:
 	void *m_vtable; // +0
@@ -24,7 +24,7 @@ private:
 	unsigned char m_pad[0x6C - 4];
 };
 
-class FreeLifeBodyModuleData : public RespawnUpdateModuleData
+class FreeLifeBodyModuleData : public RespawnBodyModuleData
 {
 public:
 	FreeLifeBodyModuleData();

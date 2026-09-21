@@ -1,5 +1,7 @@
 // cl: /O1 /arch:SSE /MD /DNDEBUG
-// ??0SpecialAbilityUpdate@@QAE@XZ at 0x004CD34E.
+// Identity: ModuleFactory registers this data class under "TeleportToCasterSpecialPower" (addModule
+// pairs the name with this factory); formerly misnamed SpecialAbilityUpdate/SpecialAbilityUpdateModuleData.
+// ??0TeleportToCasterSpecialPower@@QAE@XZ at 0x004CD34E.
 // Default ctor over the second intermediate base 0x0044EB54 (pinned opaque
 // as Rva0044EB54, 0xC8 bytes). Trailing floats zeroed plus two trailing ints
 // (factory size 0xDC).
@@ -13,15 +15,16 @@ protected:
 	unsigned char m_pad[0xC8 - 4];
 };
 
+// ??1Rva0044EB54@@ present-unmatched
 Rva0044EB54::~Rva0044EB54()
 {
 }
 
-class SpecialAbilityUpdate : public Rva0044EB54
+class TeleportToCasterSpecialPower : public Rva0044EB54
 {
 public:
-	SpecialAbilityUpdate();
-	virtual ~SpecialAbilityUpdate();
+	TeleportToCasterSpecialPower();
+	virtual ~TeleportToCasterSpecialPower();
 
 private:
 	float m_fC8;
@@ -31,7 +34,7 @@ private:
 	int m_iD8;
 };
 
-SpecialAbilityUpdate::SpecialAbilityUpdate()
+TeleportToCasterSpecialPower::TeleportToCasterSpecialPower()
 	: Rva0044EB54()
 {
 	m_iD4 = 0;
@@ -41,6 +44,7 @@ SpecialAbilityUpdate::SpecialAbilityUpdate()
 	m_fD0 = 0.0f;
 }
 
-SpecialAbilityUpdate::~SpecialAbilityUpdate()
+// ??1TeleportToCasterSpecialPower@@ present-unmatched
+TeleportToCasterSpecialPower::~TeleportToCasterSpecialPower()
 {
 }

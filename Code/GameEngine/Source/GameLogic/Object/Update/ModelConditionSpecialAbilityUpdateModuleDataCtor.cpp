@@ -1,13 +1,15 @@
 // cl: /O1 /MD /DNDEBUG
+// Identity: ModuleFactory registers this data class under "MonitorConditionUpdate" (addModule
+// pairs the name with this factory); formerly misnamed ModelConditionSpecialAbilityUpdateModuleData.
 // stlport
 
-// ??0ModelConditionSpecialAbilityUpdateModuleData@@QAE@XZ,
+// ??0MonitorConditionUpdateModuleData@@QAE@XZ,
 // retail 0x004915FD, 54 bytes. Frameless ctor over table 0xC4DA00
 // (ModelConditionFlags@8, ModelConditionCommandSet@54, WeaponSetFlags@58,
 // WeaponToggleCommandSet@68). Identity is the table plus the
 // ModelConditionSpecialAbilityUpdate poolkey 0x490DC0 in the same cluster
 // plus factory 0x24D849 news 0x6C sole caller plus proc 0x4915B5 rowed
-// plus the BFME1 ModelConditionSpecialAbilityUpdateModuleData donor.
+// plus the BFME1 MonitorConditionUpdateModuleData donor.
 // Shape follows Dozer precedent: pointer-cast vtable body store plus
 // init-list member construction (setup hoists above the store) plus
 // bitset<128> reset through the rowed 0x24CA24 plus CRT memset.
@@ -31,10 +33,10 @@ private:
 	unsigned char m_pad[0x4C];
 };
 
-class ModelConditionSpecialAbilityUpdateModuleData
+class MonitorConditionUpdateModuleData
 {
 public:
-	ModelConditionSpecialAbilityUpdateModuleData();
+	MonitorConditionUpdateModuleData();
 
 private:
 	const void *m_vtable; // +0
@@ -45,8 +47,8 @@ private:
 	const char *m_weaponToggleCommandSet; // +0x68
 };
 
-// ??0ModelConditionSpecialAbilityUpdateModuleData@@QAE@XZ @0x4915FD
-ModelConditionSpecialAbilityUpdateModuleData::ModelConditionSpecialAbilityUpdateModuleData()
+// ??0MonitorConditionUpdateModuleData@@QAE@XZ @0x4915FD
+MonitorConditionUpdateModuleData::MonitorConditionUpdateModuleData()
 	: m_vtable(reinterpret_cast<const void *>(0x00C4DA50))
 	, m_modelConditionFlags()
 {

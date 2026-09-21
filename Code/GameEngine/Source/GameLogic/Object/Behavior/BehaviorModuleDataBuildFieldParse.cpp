@@ -1,7 +1,7 @@
 // cl: /O1 /DNDEBUG /MD
 //
 // Single-field ModuleData::buildFieldParse procs (11 bytes each):
-// ?buildFieldParse@DumbProjectileBehaviorModuleData@@SAXAAVMultiIniFieldParse@@@Z,
+// ?buildFieldParse@PhysicsBehaviorModuleData@@SAXAAVMultiIniFieldParse@@@Z
 // retail 0x003901C9 (table 0x00C19DE8: TumbleRandomly/AllowBouncing/
 // KillWhenRestingOnGround/GravityMult/OrientToFlightPath/ShockStunned*/...).
 // Each registers exactly one FieldParse table with
@@ -31,7 +31,7 @@ void cls::buildFieldParse(MultiIniFieldParse &parse) \
 	parse.add(reinterpret_cast<const FieldParse *>(addr), 0); \
 }
 
-FIELD_PROC(DumbProjectileBehaviorModuleData, 0x00C19DE8, TumbleTable)
+FIELD_PROC(PhysicsBehaviorModuleData, 0x00C19DE8, TumbleTable)
 FIELD_PROC(GateOpenAndCloseBehaviorModuleData, 0x00BF19F8, GateTable)
 FIELD_PROC(RunOffMapBehaviorModuleData, 0x00C42F70, RunOffMapTable)
 FIELD_PROC(OathbreakersFadeAwayBehaviorModuleData, 0x00C592CC, FadeOutTime)
@@ -41,7 +41,7 @@ FIELD_PROC(AimWeaponBehaviorModuleData, 0x00C41948, AimTable)
 FIELD_PROC(ShareExperienceBehaviorModuleData, 0x00C48740, ShareTable)
 FIELD_PROC(RampageBehaviorModuleData, 0x00C40E78, RampageTable)
 FIELD_PROC(WallHubBehaviorModuleData, 0x00C3FED8, WallHubTable)
-FIELD_PROC(BridgeScaffoldBehaviorModuleData, 0x00C40B20, BridgeScaffoldTable)
+FIELD_PROC(BridgeBehaviorModuleData, 0x00C40B20, BridgeScaffoldTable)
 FIELD_PROC(HitReactionBehaviorModuleData, 0x00C410F0, HitReactionTable)
 FIELD_PROC(ClickReactionBehaviorModuleData, 0x00C412F8, ClickReactionTable)
 FIELD_PROC(CastleMemberBehaviorModuleData, 0x00C1A310, CastleMemberTable)

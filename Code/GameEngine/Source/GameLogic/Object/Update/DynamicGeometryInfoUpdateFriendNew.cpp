@@ -1,6 +1,8 @@
 // cl: /O1 /GX /DNDEBUG /MD
+// Identity: ModuleFactory registers this data class under "CritterEmitterUpdate" (addModule
+// pairs the name with this factory); formerly misnamed DynamicGeometryInfoUpdate/DynamicGeometryInfoUpdateModuleData.
 //
-// ?friend_newModuleData@DynamicGeometryInfoUpdate@@SAPAVModuleData@@PAVINI@@@Z,
+// ?friend_newModuleData@CritterEmitterUpdate@@SAPAVModuleData@@PAVINI@@@Z
 // retail 0x00252906, 81 bytes. Dedicated TU: the rowed no-arg ctor TU
 // DynamicGeometryInfoUpdateCtor.cpp proves a 0x24-byte root class (vtable,
 // int, two 12-byte vectors, trailing int); the factory news 0x24, runs the
@@ -22,11 +24,11 @@ public:
 	void initFromINIMultiProc(void *what, void (__cdecl *proc)(MultiIniFieldParse &));
 };
 
-class DynamicGeometryInfoUpdate
+class CritterEmitterUpdate
 {
 public:
-	DynamicGeometryInfoUpdate();
-	virtual ~DynamicGeometryInfoUpdate();
+	CritterEmitterUpdate();
+	virtual ~CritterEmitterUpdate();
 	static ModuleData *friend_newModuleData(INI *ini);
 
 private:
@@ -36,10 +38,10 @@ private:
 	int m_i20;
 };
 
-// ?friend_newModuleData@DynamicGeometryInfoUpdate@@SAPAVModuleData@@PAVINI@@@Z
-ModuleData *DynamicGeometryInfoUpdate::friend_newModuleData(INI *ini)
+// ?friend_newModuleData@CritterEmitterUpdate@@SAPAVModuleData@@PAVINI@@@Z
+ModuleData *CritterEmitterUpdate::friend_newModuleData(INI *ini)
 {
-	DynamicGeometryInfoUpdate *data = new DynamicGeometryInfoUpdate;
+	CritterEmitterUpdate *data = new CritterEmitterUpdate;
 	if (ini)
 		ini->initFromINIMultiProc(data, DynamicGeometryInfoUpdateParse);
 	return reinterpret_cast<ModuleData *>(data);

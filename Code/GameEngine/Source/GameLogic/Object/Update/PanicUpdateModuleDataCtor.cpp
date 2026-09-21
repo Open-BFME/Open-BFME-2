@@ -1,6 +1,8 @@
 // cl: /O1 /arch:SSE /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
+// Identity: ModuleFactory registers this data class under "EvacuateDamage" (addModule
+// pairs the name with this factory); formerly misnamed PanicUpdateModuleData.
 //
-// ??0PanicUpdateModuleData@@QAE@XZ, retail 0x004BAD10, 84 bytes. The table
+// ??0EvacuateDamageModuleData@@QAE@XZ, retail 0x004BAD10, 84 bytes. The table
 // behind the rowed buildFieldParse proc tracks an evacuation weapon plus a
 // damage type plus a panic threshold plus a tracking span, so this is the
 // panic-on-damage behavior's module data. The empty UpdateModuleData base
@@ -35,10 +37,10 @@ public:
 private:
 };
 
-class PanicUpdateModuleData : public UpdateModuleData
+class EvacuateDamageModuleData : public UpdateModuleData
 {
 public:
-	PanicUpdateModuleData();
+	EvacuateDamageModuleData();
 
 private:
 	const void *m_vtable; // +0
@@ -49,8 +51,8 @@ private:
 	int m_trackingTimeSpan; // +0x14
 };
 
-// ??0PanicUpdateModuleData@@QAE@XZ @0x4BAD10
-PanicUpdateModuleData::PanicUpdateModuleData()
+// ??0EvacuateDamageModuleData@@QAE@XZ @0x4BAD10
+EvacuateDamageModuleData::EvacuateDamageModuleData()
 	: m_vtable(reinterpret_cast<const void *>(0x00C59CF8))
 	, m_evacuationWeapon()
 {

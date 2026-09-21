@@ -1,6 +1,8 @@
 // cl: /O1 /GX /DNDEBUG /MD
+// Identity: ModuleFactory registers this data class under "PhysicsBehavior" (addModule
+// pairs the name with this factory); formerly misnamed DumbProjectileBehaviorModuleData.
 //
-// ?friend_newModuleData@DumbProjectileBehaviorModuleData@@SAPAVModuleData@@PAVINI@@@Z,
+// ?friend_newModuleData@PhysicsBehaviorModuleData@@SAPAVModuleData@@PAVINI@@@Z
 // retail 0x0024E774, 81 bytes. Dedicated TU: the factory news 0x5C, runs the
 // declared-only ctor (pinned at 0x390119, frameless SSE body with retail
 // float literals still unrowed), then feeds the new data plus the class parse
@@ -22,11 +24,11 @@ public:
 	void initFromINIMultiProc(void *what, void (__cdecl *proc)(MultiIniFieldParse &));
 };
 
-class DumbProjectileBehaviorModuleData
+class PhysicsBehaviorModuleData
 {
 public:
-	DumbProjectileBehaviorModuleData();
-	virtual ~DumbProjectileBehaviorModuleData();
+	PhysicsBehaviorModuleData();
+	virtual ~PhysicsBehaviorModuleData();
 	static void buildFieldParse(MultiIniFieldParse &parse);
 	static ModuleData *friend_newModuleData(INI *ini);
 
@@ -34,11 +36,11 @@ private:
 	unsigned char m_pad[0x5C - 4];
 };
 
-// ?friend_newModuleData@DumbProjectileBehaviorModuleData@@SAPAVModuleData@@PAVINI@@@Z
-ModuleData *DumbProjectileBehaviorModuleData::friend_newModuleData(INI *ini)
+// ?friend_newModuleData@PhysicsBehaviorModuleData@@SAPAVModuleData@@PAVINI@@@Z
+ModuleData *PhysicsBehaviorModuleData::friend_newModuleData(INI *ini)
 {
-	DumbProjectileBehaviorModuleData *data = new DumbProjectileBehaviorModuleData;
+	PhysicsBehaviorModuleData *data = new PhysicsBehaviorModuleData;
 	if (ini)
-		ini->initFromINIMultiProc(data, DumbProjectileBehaviorModuleData::buildFieldParse);
+		ini->initFromINIMultiProc(data, PhysicsBehaviorModuleData::buildFieldParse);
 	return reinterpret_cast<ModuleData *>(data);
 }

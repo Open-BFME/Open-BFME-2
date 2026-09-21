@@ -1,6 +1,8 @@
 // cl: /O1 /GX /DNDEBUG /MD
+// Identity: ModuleFactory registers this data class under "ModelConditionAudioLoopClientBehavior" (addModule
+// pairs the name with this factory); formerly misnamed RepairDockUpdate/RepairDockUpdateModuleData.
 //
-// ?friend_newModuleData@RepairDockUpdate@@SAPAVModuleData@@PAVINI@@@Z,
+// ?friend_newModuleData@ModelConditionAudioLoopClientBehavior@@SAPAVModuleData@@PAVINI@@@Z
 // retail 0x00252D9A, 81 bytes. Dedicated TU: the rowed no-arg ctor TU
 // RepairDockUpdateCtor.cpp proves a 0x14-byte root class (vtable plus a
 // trailing E16 vector); the factory news 0x14, runs the declared-only ctor
@@ -21,11 +23,11 @@ public:
 	void initFromINIMultiProc(void *what, void (__cdecl *proc)(MultiIniFieldParse &));
 };
 
-class RepairDockUpdate
+class ModelConditionAudioLoopClientBehavior
 {
 public:
-	RepairDockUpdate();
-	virtual ~RepairDockUpdate();
+	ModelConditionAudioLoopClientBehavior();
+	virtual ~ModelConditionAudioLoopClientBehavior();
 	static ModuleData *friend_newModuleData(INI *ini);
 
 private:
@@ -33,10 +35,10 @@ private:
 	unsigned char m_vec08[12];
 };
 
-// ?friend_newModuleData@RepairDockUpdate@@SAPAVModuleData@@PAVINI@@@Z
-ModuleData *RepairDockUpdate::friend_newModuleData(INI *ini)
+// ?friend_newModuleData@ModelConditionAudioLoopClientBehavior@@SAPAVModuleData@@PAVINI@@@Z
+ModuleData *ModelConditionAudioLoopClientBehavior::friend_newModuleData(INI *ini)
 {
-	RepairDockUpdate *data = new RepairDockUpdate;
+	ModelConditionAudioLoopClientBehavior *data = new ModelConditionAudioLoopClientBehavior;
 	if (ini)
 		ini->initFromINIMultiProc(data, RepairDockUpdateParse);
 	return reinterpret_cast<ModuleData *>(data);

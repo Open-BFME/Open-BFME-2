@@ -7,25 +7,25 @@
 // 0x0044ED95, 11 bytes (field SpecialPowerTemplate; base shared by the
 // SpecialAbility family below; attached to the already-pinned Rva0044EB54
 // entity, no new class invented);
-// ?buildFieldParse@DockUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z,
+// ?buildFieldParse@DockUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z
 // retail 0x005896C1, 11 bytes (field NumberApproachPositions; adjacent to
 // the ledger-named DockUpdateModuleData ctor pin at 0x5896B0);
-// ?buildFieldParse@SpecialAbilityUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z,
+// ?buildFieldParse@TeleportToCasterSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z
 // retail 0x004CD389, 27 bytes (field Radius);
-// ?buildFieldParse@SupplyCenterProductionExitUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z,
+// ?buildFieldParse@StoreObjectsSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z
 // retail 0x004CD918, 27 bytes (field Radius);
-// ?buildFieldParse@SpyVisionUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z,
+// ?buildFieldParse@CurseSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z
 // retail 0x004CCD64, 27 bytes (field TriggerFX);
-// ?buildFieldParse@SupplyWarehouseDockUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z,
+// ?buildFieldParse@SupplyWarehouseDockUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z
 // retail 0x004A7D3A, 27 bytes (field StartingBoxes; follows a jump-table
 // pad, address-taken by its factory at 0x24F02F).
-// ?buildFieldParse@DelayedDeathBodyModuleData@@SAXAAVMultiIniFieldParse@@@Z,
+// ?buildFieldParse@DelayedDeathBodyModuleData@@SAXAAVMultiIniFieldParse@@@Z
 // retail 0x004C159E, 27 bytes (chained on the pinned RespawnUpdate base proc
 // at 0x4C12D0, then table 0x00C5BAE8 holding DelayedDeathTime at +0x6C plus
 // ImmortalUntilDeathTime at +0x70 plus InvulnerableFX at +0x74 plus
 // DoHealthCheck at +0x78 plus DelayedDeathPrerequisiteUpgrade at +0x7C,
 // matching the ctor stores; factory at 0x251622 pushes this proc).
-// ?buildFieldParse@DominateEnemySpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z,
+// ?buildFieldParse@DominateEnemySpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z
 // retail 0x004CC96D, 27 bytes (chained on the rowed Rva0044EB54 base proc at
 // 0x44ED95, then table 0x00C5F638 holding DominateRadius at +0xC8 plus
 // TriggerFX at +0xCC plus DominatedFX at +0xD0 plus PermanentlyConvert at
@@ -62,19 +62,19 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
-class SpecialAbilityUpdateModuleData
+class TeleportToCasterSpecialPowerModuleData
 {
 public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
-class SupplyCenterProductionExitUpdateModuleData
+class StoreObjectsSpecialPowerModuleData
 {
 public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
-class SpyVisionUpdateModuleData
+class CurseSpecialPowerModuleData
 {
 public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
@@ -86,7 +86,7 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
-class RespawnUpdateModuleData
+class RespawnBodyModuleData
 {
 public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
@@ -114,19 +114,19 @@ void DockUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
 	parse.add(reinterpret_cast<const FieldParse *>(0x00C702CC), 0);
 }
 
-void SpecialAbilityUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
+void TeleportToCasterSpecialPowerModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
 	Rva0044EB54::buildFieldParse(parse);
 	parse.add(reinterpret_cast<const FieldParse *>(0x00C5FAE0), 0);
 }
 
-void SupplyCenterProductionExitUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
+void StoreObjectsSpecialPowerModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
 	Rva0044EB54::buildFieldParse(parse);
 	parse.add(reinterpret_cast<const FieldParse *>(0x00C5FB9C), 0);
 }
 
-void SpyVisionUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
+void CurseSpecialPowerModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
 	Rva0044EB54::buildFieldParse(parse);
 	parse.add(reinterpret_cast<const FieldParse *>(0x00C5F810), 0);
@@ -140,13 +140,13 @@ void SupplyWarehouseDockUpdateModuleData::buildFieldParse(MultiIniFieldParse &pa
 
 void DelayedDeathBodyModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
-	RespawnUpdateModuleData::buildFieldParse(parse);
+	RespawnBodyModuleData::buildFieldParse(parse);
 	parse.add(reinterpret_cast<const FieldParse *>(0x00C5BAE8), 0);
 }
 
 void FreeLifeBodyModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
-	RespawnUpdateModuleData::buildFieldParse(parse);
+	RespawnBodyModuleData::buildFieldParse(parse);
 	parse.add(reinterpret_cast<const FieldParse *>(0x00C5BD38), 0);
 }
 

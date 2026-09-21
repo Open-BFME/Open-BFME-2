@@ -1,14 +1,16 @@
 // cl: /O1 /MD /DNDEBUG
-// Trial: ??0PilotFindVehicleUpdate@@QAE@XZ.
+// Identity: ModuleFactory registers this data class under "EvaAnnounceClientCreate" (addModule
+// pairs the name with this factory); formerly misnamed PilotFindVehicleUpdate/PilotFindVehicleUpdateModuleData.
+// Trial: ??0EvaAnnounceClientCreate@@QAE@XZ.
 // Root-class default ctor: three INVALID_ID ors, vtable hand-placed late
 // (novtable), then zeroed tail. Factory stub order names it.
 extern "C" char PilotFindVehicleUpdate_vftable;
 
-class __declspec(novtable) PilotFindVehicleUpdate
+class __declspec(novtable) EvaAnnounceClientCreate
 {
 public:
-	PilotFindVehicleUpdate();
-	virtual ~PilotFindVehicleUpdate();
+	EvaAnnounceClientCreate();
+	virtual ~EvaAnnounceClientCreate();
 
 private:
 	int m_pad04;
@@ -19,7 +21,7 @@ private:
 	unsigned char m_f18[4];
 };
 
-PilotFindVehicleUpdate::PilotFindVehicleUpdate()
+EvaAnnounceClientCreate::EvaAnnounceClientCreate()
 {
 	int zero = 0;
 	m_b08 = -1;
@@ -33,6 +35,7 @@ PilotFindVehicleUpdate::PilotFindVehicleUpdate()
 	m_f18[3] = (unsigned char)zero;
 }
 
-PilotFindVehicleUpdate::~PilotFindVehicleUpdate()
+// ??1EvaAnnounceClientCreate@@ present-unmatched
+EvaAnnounceClientCreate::~EvaAnnounceClientCreate()
 {
 }

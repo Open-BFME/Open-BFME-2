@@ -1,6 +1,8 @@
 // cl: /O1 /GX /DNDEBUG /MD
+// Identity: ModuleFactory registers this data class under "TeleportToCasterSpecialPower" (addModule
+// pairs the name with this factory); formerly misnamed SpecialAbilityUpdate/SpecialAbilityUpdateModuleData.
 //
-// ?friend_newModuleData@SpecialAbilityUpdate@@SAPAVModuleData@@PAVINI@@@Z,
+// ?friend_newModuleData@TeleportToCasterSpecialPower@@SAPAVModuleData@@PAVINI@@@Z
 // retail 0x00253092, 84 bytes. Dedicated TU: the rowed no-arg ctor TU
 // SpecialAbilityUpdateCtor.cpp proves a 0xDC-byte class (0xC8-byte opaque
 // base plus trailing floats and ints); the factory news 0xDC, runs the
@@ -23,21 +25,21 @@ public:
 	void initFromINIMultiProc(void *what, void (__cdecl *proc)(MultiIniFieldParse &));
 };
 
-class SpecialAbilityUpdate
+class TeleportToCasterSpecialPower
 {
 public:
-	SpecialAbilityUpdate();
-	virtual ~SpecialAbilityUpdate();
+	TeleportToCasterSpecialPower();
+	virtual ~TeleportToCasterSpecialPower();
 	static ModuleData *friend_newModuleData(INI *ini);
 
 private:
 	unsigned char m_pad[0xDC - 4];
 };
 
-// ?friend_newModuleData@SpecialAbilityUpdate@@SAPAVModuleData@@PAVINI@@@Z
-ModuleData *SpecialAbilityUpdate::friend_newModuleData(INI *ini)
+// ?friend_newModuleData@TeleportToCasterSpecialPower@@SAPAVModuleData@@PAVINI@@@Z
+ModuleData *TeleportToCasterSpecialPower::friend_newModuleData(INI *ini)
 {
-	SpecialAbilityUpdate *data = new SpecialAbilityUpdate;
+	TeleportToCasterSpecialPower *data = new TeleportToCasterSpecialPower;
 	if (ini)
 		ini->initFromINIMultiProc(data, SpecialAbilityUpdateParse);
 	return reinterpret_cast<ModuleData *>(data);

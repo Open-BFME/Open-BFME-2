@@ -1,6 +1,8 @@
 // cl: /O1 /GX /DNDEBUG /MD
+// Identity: ModuleFactory registers this data class under "MonitorConditionUpdate" (addModule
+// pairs the name with this factory); formerly misnamed ModelConditionSpecialAbilityUpdateModuleData.
 //
-// ?friend_newModuleData@ModelConditionSpecialAbilityUpdateModuleData@@SAPAVModuleData@@PAVINI@@@Z,
+// ?friend_newModuleData@MonitorConditionUpdateModuleData@@SAPAVModuleData@@PAVINI@@@Z
 // retail 0x0024D849, 81 bytes. Dedicated TU: the factory news 0x6C, runs the
 // rowed nullary ctor (0x4915FD, sole caller is this factory), then feeds the
 // new data plus the rowed parse proc (0x4915B5, pushed immediate) to
@@ -8,7 +10,7 @@
 // Operator new and __EH_prolog resolve via their rows. The TU-local class
 // keeps only size and virtuality (vptr plus 0x68 pad). Recipe:
 // ToppleUpdateModuleDataFriendNew.cpp. Class identity is the rowed
-// ModelConditionSpecialAbilityUpdateModuleData::buildFieldParse proc
+// MonitorConditionUpdateModuleData::buildFieldParse proc
 // (ModelConditionFlags@8/ModelConditionCommandSet@54/WeaponSetFlags@58/
 // WeaponToggleCommandSet@68 table 0xC4DA00) pushed as the factory's proc
 // immediate; the ctor installs vtable 0x00C4DA50 and fits the 0x6C news size.
@@ -23,11 +25,11 @@ public:
 	void initFromINIMultiProc(void *what, void (__cdecl *proc)(MultiIniFieldParse &));
 };
 
-class ModelConditionSpecialAbilityUpdateModuleData
+class MonitorConditionUpdateModuleData
 {
 public:
-	ModelConditionSpecialAbilityUpdateModuleData();
-	virtual ~ModelConditionSpecialAbilityUpdateModuleData();
+	MonitorConditionUpdateModuleData();
+	virtual ~MonitorConditionUpdateModuleData();
 	static void buildFieldParse(MultiIniFieldParse &parse);
 	static ModuleData *friend_newModuleData(INI *ini);
 
@@ -35,11 +37,11 @@ private:
 	unsigned char m_pad[0x6C - 4];
 };
 
-// ?friend_newModuleData@ModelConditionSpecialAbilityUpdateModuleData@@SAPAVModuleData@@PAVINI@@@Z
-ModuleData *ModelConditionSpecialAbilityUpdateModuleData::friend_newModuleData(INI *ini)
+// ?friend_newModuleData@MonitorConditionUpdateModuleData@@SAPAVModuleData@@PAVINI@@@Z
+ModuleData *MonitorConditionUpdateModuleData::friend_newModuleData(INI *ini)
 {
-	ModelConditionSpecialAbilityUpdateModuleData *data = new ModelConditionSpecialAbilityUpdateModuleData;
+	MonitorConditionUpdateModuleData *data = new MonitorConditionUpdateModuleData;
 	if (ini)
-		ini->initFromINIMultiProc(data, ModelConditionSpecialAbilityUpdateModuleData::buildFieldParse);
+		ini->initFromINIMultiProc(data, MonitorConditionUpdateModuleData::buildFieldParse);
 	return reinterpret_cast<ModuleData *>(data);
 }

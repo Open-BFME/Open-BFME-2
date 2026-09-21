@@ -1,6 +1,8 @@
 // cl: /O1 /GX /DNDEBUG /MD
+// Identity: ModuleFactory registers this data class under "DetachableRiderBody" (addModule
+// pairs the name with this factory); formerly misnamed ChinookAIUpdateModuleData.
 //
-// ?friend_newModuleData@ChinookAIUpdateModuleData@@SAPAVModuleData@@PAVINI@@@Z,
+// ?friend_newModuleData@DetachableRiderBodyModuleData@@SAPAVModuleData@@PAVINI@@@Z
 // retail 0x00251740, 84 bytes. Dedicated TU: the factory news 0x180, runs the
 // declared-only nullary ctor (pinned at 0x4C1E8B, sole caller is this
 // factory), then feeds the new data plus the class parse proc (rowed at
@@ -8,7 +10,7 @@
 // 0x2DEB5) when ini is non-null. Operator new and __EH_prolog resolve via
 // their rows. The TU-local class keeps only size and virtuality (vptr plus
 // 0x17C pad). Recipe: StealthUpdateModuleDataFriendNew.cpp. Class identity is
-// the rowed ChinookAIUpdateModuleData::buildFieldParse proc (ZH Rope table
+// the rowed DetachableRiderBodyModuleData::buildFieldParse proc (ZH Rope table
 // plus SupplyTruck parent) pushed as the factory's proc immediate; the ctor
 // installs vtable 0x00BF4028 and fits the 0x180 news size (floats at
 // +0x174/+0x17C). The prior ??0ChinookAIUpdateModuleData pin at 0x49C4D2
@@ -25,11 +27,11 @@ public:
 	void initFromINIMultiProc(void *what, void (__cdecl *proc)(MultiIniFieldParse &));
 };
 
-class ChinookAIUpdateModuleData
+class DetachableRiderBodyModuleData
 {
 public:
-	ChinookAIUpdateModuleData();
-	virtual ~ChinookAIUpdateModuleData();
+	DetachableRiderBodyModuleData();
+	virtual ~DetachableRiderBodyModuleData();
 	static void buildFieldParse(MultiIniFieldParse &parse);
 	static ModuleData *friend_newModuleData(INI *ini);
 
@@ -37,11 +39,11 @@ private:
 	unsigned char m_pad[0x180 - 4];
 };
 
-// ?friend_newModuleData@ChinookAIUpdateModuleData@@SAPAVModuleData@@PAVINI@@@Z
-ModuleData *ChinookAIUpdateModuleData::friend_newModuleData(INI *ini)
+// ?friend_newModuleData@DetachableRiderBodyModuleData@@SAPAVModuleData@@PAVINI@@@Z
+ModuleData *DetachableRiderBodyModuleData::friend_newModuleData(INI *ini)
 {
-	ChinookAIUpdateModuleData *data = new ChinookAIUpdateModuleData;
+	DetachableRiderBodyModuleData *data = new DetachableRiderBodyModuleData;
 	if (ini)
-		ini->initFromINIMultiProc(data, ChinookAIUpdateModuleData::buildFieldParse);
+		ini->initFromINIMultiProc(data, DetachableRiderBodyModuleData::buildFieldParse);
 	return reinterpret_cast<ModuleData *>(data);
 }

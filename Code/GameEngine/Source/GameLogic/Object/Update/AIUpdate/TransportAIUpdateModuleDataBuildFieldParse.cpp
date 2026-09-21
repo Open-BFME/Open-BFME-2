@@ -1,6 +1,6 @@
 // cl: /O1 /DNDEBUG /MD
 //
-// ?buildFieldParse@TransportAIUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z,
+// ?buildFieldParse@TransportAIUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z
 // retail 0x002638FF (17 bytes). Single-table leaf: registers the Turret-led
 // AIUpdate combat table 0x00BF9378 (Turret at +0x14 plus MoodAttackCheckRate
 // at +0x18 plus AutoAcquireEnemiesWhenIdle at +0x1C plus StopChaseDistance at
@@ -35,21 +35,21 @@ void TransportAIUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
 	parse.add(reinterpret_cast<const FieldParse *>(0x00BF9378), 0);
 }
 
-class WorkerAIUpdateModuleData
+class SupplyTruckAIUpdateModuleData
 {
 public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
-// ?buildFieldParse@WorkerAIUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z,
+// ?buildFieldParse@SupplyTruckAIUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z
 // retail 0x0024EEBB (27 bytes): base-table call above plus the Worker table
 // at 0x00BEF4B0 (MaxBoxes at +0x64 plus SupplyCenterActionDelay at +0x68 plus
 // SupplyWarehouseActionDelay at +0x6C plus SupplyWarehouseScanDistance at
 // +0x70 plus HarvestTrees at +0x74 plus HarvestActivationRange at +0x78 plus
 // HarvestPreparationTime at +0x7C plus HarvestActionTime at +0x80). All eight
-// fields match BFME1's WorkerAIUpdateModuleData table verbatim at identical
+// fields match BFME1's SupplyTruckAIUpdateModuleData table verbatim at identical
 // offsets. The owning factory at 0x0024EF11 pushes this proc's VA.
-void WorkerAIUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
+void SupplyTruckAIUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
 	TransportAIUpdateModuleData::buildFieldParse(parse);
 	parse.add(reinterpret_cast<const FieldParse *>(0x00BEF4B0), 0);
@@ -61,7 +61,7 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
-// ?buildFieldParse@DeployStyleAIUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z,
+// ?buildFieldParse@DeployStyleAIUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z
 // retail 0x0024D1CB (27 bytes): base-table call above plus the DeployStyle
 // table at 0x00BEECB0 (UnpackTime at +0x64 plus PackTime at +0x68 plus
 // ResetTurretBeforePacking at +0x6C plus TurretsFunctionOnlyWhenDeployed at

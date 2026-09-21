@@ -13,16 +13,16 @@
 // 0x251622 (news 0x80) is the only raw caller. Supersedes nothing (no pin);
 // the FreeLifeBody sibling shares the base and vtable.
 
-class RespawnUpdateModuleData
+class RespawnBodyModuleData
 {
 public:
-	RespawnUpdateModuleData();
+	RespawnBodyModuleData();
 
 private:
 	unsigned char m_pad[0x6C];
 };
 
-class DelayedDeathBodyModuleData : public RespawnUpdateModuleData
+class DelayedDeathBodyModuleData : public RespawnBodyModuleData
 {
 public:
 	DelayedDeathBodyModuleData();
@@ -39,7 +39,7 @@ private:
 
 // ??0DelayedDeathBodyModuleData@@QAE@XZ @0x4C180A
 DelayedDeathBodyModuleData::DelayedDeathBodyModuleData()
-	: RespawnUpdateModuleData()
+	: RespawnBodyModuleData()
 {
 	m_delayedDeathTime = 0;
 	m_invulnerableFX = 0;

@@ -1,6 +1,8 @@
 // cl: /O1 /MD /GX /DNDEBUG /arch:SSE
+// Identity: ModuleFactory registers this data class under "SupplyTruckAIUpdate" (addModule
+// pairs the name with this factory); formerly misnamed WorkerAIUpdateModuleData.
 //
-// ??0WorkerAIUpdateModuleData@@QAE@XZ, retail 0x0024EE77 (65 bytes).
+// ??0SupplyTruckAIUpdateModuleData@@QAE@XZ, retail 0x0024EE77 (65 bytes).
 // Frameless ctor over the pinned Transport base (0x26E5D7): zeroes
 // m_maxBoxesData at +0x64 plus m_centerDelay at +0x68 plus m_warehouseDelay
 // at +0x6C, clears m_harvestTrees at +0x74, stores m_warehouseScanDistance
@@ -10,7 +12,7 @@
 // classes with declared-only virtual dtors and no source store), then
 // stores m_harvestActivationRange 50.0 at +0x78. Field identity is the
 // base-call buildFieldParse table 0x00BEF4B0 (all eight fields match BFME1's
-// WorkerAIUpdateModuleData table verbatim at identical offsets). Sole raw
+// SupplyTruckAIUpdateModuleData table verbatim at identical offsets). Sole raw
 // caller is the ModuleData factory 0x24EF11 which news 0x84.
 
 class TransportAIUpdateModuleData
@@ -23,11 +25,11 @@ private:
 	unsigned char m_pad[0x64 - 4];
 };
 
-class WorkerAIUpdateModuleData : public TransportAIUpdateModuleData
+class SupplyTruckAIUpdateModuleData : public TransportAIUpdateModuleData
 {
 public:
-	WorkerAIUpdateModuleData();
-	virtual ~WorkerAIUpdateModuleData();
+	SupplyTruckAIUpdateModuleData();
+	virtual ~SupplyTruckAIUpdateModuleData();
 
 private:
 	int m_maxBoxesData;			// +0x64
@@ -40,7 +42,7 @@ private:
 	int m_harvestActionTime;	// +0x80
 };
 
-WorkerAIUpdateModuleData::WorkerAIUpdateModuleData()
+SupplyTruckAIUpdateModuleData::SupplyTruckAIUpdateModuleData()
 {
 	m_maxBoxesData = 0;
 	m_centerDelay = 0;

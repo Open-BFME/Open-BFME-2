@@ -1,6 +1,8 @@
 // cl: /O1 /GX /DNDEBUG /MD
+// Identity: ModuleFactory registers this data class under "BeaconClientUpdate" (addModule
+// pairs the name with this factory); formerly misnamed CleanupHazardUpdate/CleanupHazardUpdateModuleData.
 //
-// ?friend_newModuleData@CleanupHazardUpdate@@SAPAVModuleData@@PAVINI@@@Z,
+// ?friend_newModuleData@BeaconClientUpdate@@SAPAVModuleData@@PAVINI@@@Z
 // retail 0x002529FF, 81 bytes. Dedicated TU: the rowed no-arg ctor TU
 // CleanupHazardUpdateCtor.cpp proves a 0x10-byte root class (vtable plus
 // three ints); the factory news 0x10, runs the declared-only ctor (rowed at
@@ -22,11 +24,11 @@ public:
 	void initFromINIMultiProc(void *what, void (__cdecl *proc)(MultiIniFieldParse &));
 };
 
-class CleanupHazardUpdate
+class BeaconClientUpdate
 {
 public:
-	CleanupHazardUpdate();
-	virtual ~CleanupHazardUpdate();
+	BeaconClientUpdate();
+	virtual ~BeaconClientUpdate();
 	static ModuleData *friend_newModuleData(INI *ini);
 
 private:
@@ -35,10 +37,10 @@ private:
 	int m_i0C;
 };
 
-// ?friend_newModuleData@CleanupHazardUpdate@@SAPAVModuleData@@PAVINI@@@Z
-ModuleData *CleanupHazardUpdate::friend_newModuleData(INI *ini)
+// ?friend_newModuleData@BeaconClientUpdate@@SAPAVModuleData@@PAVINI@@@Z
+ModuleData *BeaconClientUpdate::friend_newModuleData(INI *ini)
 {
-	CleanupHazardUpdate *data = new CleanupHazardUpdate;
+	BeaconClientUpdate *data = new BeaconClientUpdate;
 	if (ini)
 		ini->initFromINIMultiProc(data, CleanupHazardUpdateParse);
 	return reinterpret_cast<ModuleData *>(data);

@@ -1,18 +1,20 @@
 // cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// Identity: ModuleFactory registers this data class under "CritterEmitterUpdate" (addModule
+// pairs the name with this factory); formerly misnamed DynamicGeometryInfoUpdate/DynamicGeometryInfoUpdateModuleData.
 // stlport
 //
-// Trial: ??0DynamicGeometryInfoUpdate@@QAE@XZ.
+// Trial: ??0CritterEmitterUpdate@@QAE@XZ.
 // Root class with two trailing E16 vectors plus a trailing int zeroed in
 // the body (calls anchor it after the vector constructions). Factory stub.
 #include <vector>
 
 struct BfmeE16 { float x, y, z, w; };
 
-class DynamicGeometryInfoUpdate
+class CritterEmitterUpdate
 {
 public:
-	DynamicGeometryInfoUpdate();
-	virtual ~DynamicGeometryInfoUpdate();
+	CritterEmitterUpdate();
+	virtual ~CritterEmitterUpdate();
 
 private:
 	int m_unused04;
@@ -21,12 +23,13 @@ private:
 	int m_i20;
 };
 
-DynamicGeometryInfoUpdate::DynamicGeometryInfoUpdate()
+CritterEmitterUpdate::CritterEmitterUpdate()
 	: m_a08(), m_b14()
 {
 	m_i20 = 0;
 }
 
-DynamicGeometryInfoUpdate::~DynamicGeometryInfoUpdate()
+// ??1CritterEmitterUpdate@@ present-unmatched
+CritterEmitterUpdate::~CritterEmitterUpdate()
 {
 }

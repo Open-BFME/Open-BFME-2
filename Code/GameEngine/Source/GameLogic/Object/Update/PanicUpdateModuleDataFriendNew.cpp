@@ -1,6 +1,8 @@
 // cl: /O1 /GX /DNDEBUG /MD
+// Identity: ModuleFactory registers this data class under "EvacuateDamage" (addModule
+// pairs the name with this factory); formerly misnamed PanicUpdateModuleData.
 //
-// ?friend_newModuleData@PanicUpdateModuleData@@SAPAVModuleData@@PAVINI@@@Z,
+// ?friend_newModuleData@EvacuateDamageModuleData@@SAPAVModuleData@@PAVINI@@@Z
 // retail 0x00250E4B, 81 bytes. Dedicated TU: the factory news 0x18, runs the
 // rowed nullary ctor (0x4BAD10, vtable plus cleared weapon string plus
 // tracked type and threshold and span defaults), then feeds the new data
@@ -9,7 +11,7 @@
 // new and __EH_prolog resolve via their rows. The TU-local class keeps only
 // size and virtuality (vptr plus 0x14 pad). Recipe:
 // ToppleUpdateModuleDataFriendNew.cpp. Class identity is the rowed
-// PanicUpdateModuleData::buildFieldParse proc (evacuation weapon plus damage
+// EvacuateDamageModuleData::buildFieldParse proc (evacuation weapon plus damage
 // type plus panic threshold plus tracking span) pushed as the factory's proc
 // immediate; the ctor installs vtable 0x00C59CF8 and fits the 0x18 news
 // size.
@@ -24,11 +26,11 @@ public:
 	void initFromINIMultiProc(void *what, void (__cdecl *proc)(MultiIniFieldParse &));
 };
 
-class PanicUpdateModuleData
+class EvacuateDamageModuleData
 {
 public:
-	PanicUpdateModuleData();
-	virtual ~PanicUpdateModuleData();
+	EvacuateDamageModuleData();
+	virtual ~EvacuateDamageModuleData();
 	static void buildFieldParse(MultiIniFieldParse &parse);
 	static ModuleData *friend_newModuleData(INI *ini);
 
@@ -36,11 +38,11 @@ private:
 	unsigned char m_pad[0x18 - 4];
 };
 
-// ?friend_newModuleData@PanicUpdateModuleData@@SAPAVModuleData@@PAVINI@@@Z
-ModuleData *PanicUpdateModuleData::friend_newModuleData(INI *ini)
+// ?friend_newModuleData@EvacuateDamageModuleData@@SAPAVModuleData@@PAVINI@@@Z
+ModuleData *EvacuateDamageModuleData::friend_newModuleData(INI *ini)
 {
-	PanicUpdateModuleData *data = new PanicUpdateModuleData;
+	EvacuateDamageModuleData *data = new EvacuateDamageModuleData;
 	if (ini)
-		ini->initFromINIMultiProc(data, PanicUpdateModuleData::buildFieldParse);
+		ini->initFromINIMultiProc(data, EvacuateDamageModuleData::buildFieldParse);
 	return reinterpret_cast<ModuleData *>(data);
 }

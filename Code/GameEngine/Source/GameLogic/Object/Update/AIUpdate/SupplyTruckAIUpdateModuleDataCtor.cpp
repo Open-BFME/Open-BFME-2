@@ -1,8 +1,10 @@
 // cl: /O1 /arch:SSE /GX /Oy- /MD /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// Identity: ModuleFactory registers this data class under "ActiveBody" (addModule
+// pairs the name with this factory); formerly misnamed SupplyTruckAIUpdateModuleData.
 // stlport
 //
-// ??0SupplyTruckAIUpdateModuleData@@QAE@XZ, retail 0x004BF59F, 258 bytes.
-// SupplyTruckAIUpdateModuleData ctor over the MaxHealth-led damage table
+// ??0ActiveBodyModuleData@@QAE@XZ, retail 0x004BF59F, 258 bytes.
+// ActiveBodyModuleData ctor over the MaxHealth-led damage table
 // 0xC5B228 (21 fields). All callees rowed: Vector_base 0x211E58,
 // StringBase::set 0x55F5, clear/dtor fold 0x36410, isEmpty 0x1E2F,
 // findFXList 0x1E281A. Factory 0x2513E8 news 0x64, sole caller.
@@ -58,10 +60,10 @@ public:
 
 extern FXListStore *TheFXListStore;
 
-class SupplyTruckAIUpdateModuleData : public UpdateModuleData
+class ActiveBodyModuleData : public UpdateModuleData
 {
 public:
-	SupplyTruckAIUpdateModuleData();
+	ActiveBodyModuleData();
 
 private:
 	const void *m_vtable; // +0
@@ -92,8 +94,8 @@ private:
 	_STL::vector<BfmeE16> m_damageCreation; // +0x58
 };
 
-// ??0SupplyTruckAIUpdateModuleData@@QAE@XZ @0x4BF59F
-SupplyTruckAIUpdateModuleData::SupplyTruckAIUpdateModuleData()
+// ??0ActiveBodyModuleData@@QAE@XZ @0x4BF59F
+ActiveBodyModuleData::ActiveBodyModuleData()
 	: m_vtable(reinterpret_cast<const void *>(0x00C5AFB8))
 	, m_grabObject()
 	, m_damagedAttr()

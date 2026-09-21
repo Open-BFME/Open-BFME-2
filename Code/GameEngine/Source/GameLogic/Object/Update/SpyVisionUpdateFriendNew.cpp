@@ -1,6 +1,8 @@
 // cl: /O1 /GX /DNDEBUG /MD
+// Identity: ModuleFactory registers this data class under "CurseSpecialPower" (addModule
+// pairs the name with this factory); formerly misnamed SpyVisionUpdate/SpyVisionUpdateModuleData.
 //
-// ?friend_newModuleData@SpyVisionUpdate@@SAPAVModuleData@@PAVINI@@@Z,
+// ?friend_newModuleData@CurseSpecialPower@@SAPAVModuleData@@PAVINI@@@Z
 // retail 0x00252F74, 84 bytes. Dedicated TU: the rowed no-arg ctor TU
 // SpyVisionUpdateCtor.cpp proves a 0xD4-byte class (0xC8-byte opaque base
 // plus two ints plus a float); the factory news 0xD4, runs the
@@ -23,21 +25,21 @@ public:
 	void initFromINIMultiProc(void *what, void (__cdecl *proc)(MultiIniFieldParse &));
 };
 
-class SpyVisionUpdate
+class CurseSpecialPower
 {
 public:
-	SpyVisionUpdate();
-	virtual ~SpyVisionUpdate();
+	CurseSpecialPower();
+	virtual ~CurseSpecialPower();
 	static ModuleData *friend_newModuleData(INI *ini);
 
 private:
 	unsigned char m_pad[0xD4 - 4];
 };
 
-// ?friend_newModuleData@SpyVisionUpdate@@SAPAVModuleData@@PAVINI@@@Z
-ModuleData *SpyVisionUpdate::friend_newModuleData(INI *ini)
+// ?friend_newModuleData@CurseSpecialPower@@SAPAVModuleData@@PAVINI@@@Z
+ModuleData *CurseSpecialPower::friend_newModuleData(INI *ini)
 {
-	SpyVisionUpdate *data = new SpyVisionUpdate;
+	CurseSpecialPower *data = new CurseSpecialPower;
 	if (ini)
 		ini->initFromINIMultiProc(data, SpyVisionUpdateParse);
 	return reinterpret_cast<ModuleData *>(data);

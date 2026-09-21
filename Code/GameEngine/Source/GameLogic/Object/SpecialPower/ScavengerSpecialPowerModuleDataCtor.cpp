@@ -1,7 +1,9 @@
 // cl: /O1 /MD /GX /Oy- /DNDEBUG /DWIN32 /D_WINDOWS
+// Identity: ModuleFactory registers this data class under "WeaponChangeSpecialPowerModule" (addModule
+// pairs the name with this factory); formerly misnamed ScavengerSpecialPowerModuleData.
 // stlport
 //
-// ??0ScavengerSpecialPowerModuleData@@QAE@XZ, retail 0x004C4257 (123 bytes).
+// ??0WeaponChangeSpecialPowerModuleData@@QAE@XZ, retail 0x004C4257 (123 bytes).
 // SpecialPower-side ModuleData for the Scavenger (toggle) power. The table
 // at 0x00C5D0F0 (FlagsUsedForToggle at +0x7C plus ToggleOnSleepFrames at
 // +0x8C plus ToggleOffSleepFrames at +0x90 plus ToggleOnAttributeModifier at
@@ -55,11 +57,11 @@ struct ToggleFlags
 	ToggleFlags() { ((_STL::bitset<128> *)m_words)->reset(); }
 };
 
-class ScavengerSpecialPowerModuleData : public Rva004930A0
+class WeaponChangeSpecialPowerModuleData : public Rva004930A0
 {
 public:
-	ScavengerSpecialPowerModuleData();
-	virtual ~ScavengerSpecialPowerModuleData();
+	WeaponChangeSpecialPowerModuleData();
+	virtual ~WeaponChangeSpecialPowerModuleData();
 
 private:
 	ToggleFlags m_toggle; // +0x7C
@@ -69,8 +71,8 @@ private:
 	AsciiString m_nameB; // +0x98
 };
 
-// ??0ScavengerSpecialPowerModuleData@@QAE@XZ @0x4C4257
-ScavengerSpecialPowerModuleData::ScavengerSpecialPowerModuleData()
+// ??0WeaponChangeSpecialPowerModuleData@@QAE@XZ @0x4C4257
+WeaponChangeSpecialPowerModuleData::WeaponChangeSpecialPowerModuleData()
 	: m_toggle(), m_sleepFrameA(0), m_sleepFrameB(0), m_nameA(), m_nameB()
 {
 	memset(m_toggle.m_words, 0, 0x10);
