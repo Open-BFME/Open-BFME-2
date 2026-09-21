@@ -15346,3 +15346,4 @@ _XMP_Randomize,,0x0061C3C0,92,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,mat
 ?rva0004BCBB2@ShroudCrateCollide@@SA?AW4NameKeyType@@XZ,,0x004BCBB2,69,Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/ShroudCrateCollidePoolKey.cpp,matched,Cached pool-name key; pool string ShroudCrateCollide; static-guard EH; nameToKey row
 ?rva004BD85D@InactiveBody@@SA?AW4NameKeyType@@XZ,,0x004BD85D,69,Code/GameEngine/Source/GameLogic/Object/Body/InactiveBodyPoolKey.cpp,matched,
 ?rva0004C9EF3@AnimationSoundClientBehavior@@SA?AW4NameKeyType@@XZ,,0x004C9EF3,69,Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehaviorPoolKey.cpp,matched,Cached pool-name key; pool string AnimationSoundClientBehavior; static-guard EH; nameToKey row
+?rva004AC148@RainOfFireUpdate@@SA?AW4NameKeyType@@XZ,,0x004AC148,69,Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdatePoolKey.cpp,matched,
