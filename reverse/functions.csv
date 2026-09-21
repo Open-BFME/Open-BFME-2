@@ -15357,3 +15357,4 @@ _XMP_Randomize,,0x0061C3C0,92,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,mat
 ?rva000078B38@W3DHordeModelDraw@@SA?AW4NameKeyType@@XZ,,0x00078B38,69,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DHordeModelDrawPoolKey.cpp,matched,Cached pool-name key; pool string W3DHordeModelDraw; static-guard EH; nameToKey row
 ?rva004B018E@SpecialDisguiseUpdate@@SA?AW4NameKeyType@@XZ,,0x004B018E,69,Code/GameEngine/Source/GameLogic/Object/Update/SpecialDisguiseUpdatePoolKey.cpp,matched,
 ?rva0000B1C97@W3DDebrisDraw@@SA?AW4NameKeyType@@XZ,,0x000B1C97,69,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DDebrisDrawPoolKey.cpp,matched,Cached pool-name key; pool string W3DDebrisDraw; static-guard EH; nameToKey row
+?rva004B2458@EntEnragedUpdate@@SA?AW4NameKeyType@@XZ,,0x004B2458,69,Code/GameEngine/Source/GameLogic/Object/Update/EntEnragedUpdatePoolKey.cpp,matched,
