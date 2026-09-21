@@ -3746,3 +3746,4 @@ dup_7e86b0,0x00655770
 ??0PickupStuffUpdateModuleData@@QAE@XZ,0x00491E37,Sole raw caller is factory 0x24D95B; poolkey 0x491E1C cluster plus rowed proc 0x491E87; 0.97 ctor partial banked
 ??0AttachUpdateModuleData@@QAE@XZ,0x00491968,Sole raw caller is factory 0x24D8D2; poolkey 0x491912 cluster plus rowed proc 0x491957; 150B EH ctor open
 ??0FloodUpdateModuleData@@QAE@XZ,0x0048DF7A,Sole raw caller is factory 0x24D17A; poolkey 0x48E0FA cluster plus rowed proc 0x48E15B; Flood table 0xC4C9A8
+??0OilSpillUpdateModuleData@@QAE@XZ,0x0048C16C,Sole raw caller is factory 0x24CFDF; rowed chained proc 0x48C151 plus OilSpillUpdate poolkey cluster; 0.6 ctor partial banked
