@@ -1,4 +1,4 @@
-// cl: /O1 /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /DBFME_MODULE_NO_MPO /arch:SSE /Ireference/shims/sweep
+// cl: /O1 /EHsc /MD /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /DBFME_MODULE_NO_MPO /arch:SSE /Ireference/shims/sweep
 // stlport
 //
 // DockUpdate base constructor (retail 0x0058A290, 384 bytes) plus the STL
@@ -151,6 +151,7 @@ class UpdateModule : public BehaviorModule, public UpdateModuleInterface
 
 public:
 	UpdateModule(Thing *thing, const ModuleData *moduleData);
+	virtual ~UpdateModule();
 	virtual void update();
 };
 
@@ -173,6 +174,7 @@ class DockUpdate : public UpdateModule, public DockUpdateInterface
 {
 public:
 	DockUpdate(Thing *thing, const ModuleData *moduleData);
+	virtual ~DockUpdate();
 
 	virtual void objectModuleAnchor();
 	virtual void behaviorAnchor();
@@ -255,13 +257,13 @@ DockUpdate::DockUpdate(
 	}
 	else
 	{
-		m_approachPositions.resize(DEFAULT_APPROACH_VECTOR_SIZE);
+		m_approachPositions.resize(DEFAULT_APPROACH_VECTOR_SIZE, Coord3D());
 		m_approachPositionOwners.resize(DEFAULT_APPROACH_VECTOR_SIZE, INVALID_ID);
 		m_approachPositionReached.resize(DEFAULT_APPROACH_VECTOR_SIZE, FALSE);
 	}
 
-	for (Int vectorIndex = 0;
-		vectorIndex < (Int)m_approachPositions.size(); ++vectorIndex)
+	for (UnsignedInt vectorIndex = 0;
+		vectorIndex < m_approachPositions.size(); ++vectorIndex)
 	{
 		m_approachPositions[vectorIndex].zero();
 		m_approachPositionOwners[vectorIndex] = INVALID_ID;

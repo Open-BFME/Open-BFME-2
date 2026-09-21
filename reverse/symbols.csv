@@ -338,7 +338,6 @@ name,address,notes
 ??0DX8MeshRendererClass@@QAE@XZ,0x00145AA0,BFME2 DX8MeshRendererClass ctor; 0x4C operator-new site in Do_Onetime with Init following (BFME1 m_body 0x4C parallel); frameless body installs vtables 0xBD34FC/0xBD34E4/0xBD34E8 with list self-links
 ??0DevastateSpecialPowerModuleData@@QAE@XZ,0x004C84BD,Devastate ModuleData ctor for 0x90 factory; table offsets fit; vtable 0xC5E518; partial banked 0x004c84bd
 ??0DieModuleData@@QAE@XZ,0x006054E7,address read from the REL32 displacement at a placed body
-??0DockUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x0058A290,address read from the REL32 displacement at a placed body
 ??0DockUpdateModuleData@@QAE@XZ,0x005896B0,address read from the REL32 displacement at a placed body
 ??0DumbProjectileBehavior@@QAE@PAVThing@@PBVModuleData@@@Z,0x003907A6
 ??0DumbProjectileBehaviorModuleData@@QAE@XZ,0x00390119,pinned by DumbProjectileBehaviorModuleData factory call-site decode
@@ -3754,3 +3753,4 @@ dup_7e86b0,0x00655770
 ?buildFieldParse@Rva0045B5E3Base@@SAXAAVMultiIniFieldParse@@@Z,0x0045B5E3,opaque base link of Missile chained proc 0x4A74EF; DumbProjectile-flavored table 0xC41B58 but DumbProjectile name taken at 0x3901C9; do not name without poolkey or donor
 ??0?$_Vector_base@UCoord3D@@V?$allocator@UCoord3D@@@_STL@@@_STL@@QAE@ABV?$allocator@UCoord3D@@@1@@Z,0x00211E58,ICF-folded empty vector base ctor (same 29B as rowed BfmeE16); my TU emission byte-identical
 ??0?$_Vector_base@W4ObjectID@@V?$allocator@W4ObjectID@@@_STL@@@_STL@@QAE@ABV?$allocator@W4ObjectID@@@1@@Z,0x00211E58,ICF-folded empty vector base ctor (same 29B as rowed BfmeE16); my TU emission byte-identical
+?resize@?$vector@UCoord3D@@V?$allocator@UCoord3D@@@_STL@@@_STL@@QAEXIUCoord3D@@@Z,0x00CA2F3,73B Coord3D 2-arg resize; called from the 1-arg forwarder and directly from the DockUpdate ctor else-branch
