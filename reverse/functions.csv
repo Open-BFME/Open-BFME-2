@@ -15429,3 +15429,5 @@ _XMP_Randomize,,0x0061C3C0,92,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,mat
 ?friend_newModuleData@FireWeaponCollideModuleData@@SAPAVModuleData@@PAVINI@@@Z,,0x00254A7A,49,Code/GameEngine/Source/GameLogic/Object/Collide/FireWeaponCollideModuleDataFriendNew.cpp,matched,Frameless TU news 0x30 plus pinned throw-ctor 0x254A36 plus rowed proc 0x4BB918
 ??0FireWeaponCollide@@QAE@PAVThing@@PBVModuleData@@@Z,,0x004BB79A,106,Code/GameEngine/Source/GameLogic/Object/Collide/FireWeaponCollideCtor.cpp,matched,
 ?friend_newModuleInstance@FireWeaponCollide@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z,,0x00250FAE,56,Code/GameEngine/Source/GameLogic/Object/Collide/FireWeaponCollideFriendNew.cpp,matched,
+??0AODCrushCollide@@QAE@PAVThing@@PBVModuleData@@@Z,,0x004BC00D,67,Code/GameEngine/Source/GameLogic/Object/Collide/AODCrushCollideCtor.cpp,matched,
+?friend_newModuleInstance@AODCrushCollide@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z,,0x0025101E,56,Code/GameEngine/Source/GameLogic/Object/Collide/AODCrushCollideFriendNew.cpp,matched,
