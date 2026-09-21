@@ -150,3 +150,23 @@ void CloudBreakSpecialPowerModuleData::buildFieldParse(MultiIniFieldParse &parse
 	SpecialPowerModuleData::buildFieldParse(parse);
 	parse.add(reinterpret_cast<const FieldParse *>(0x00C5D378), 0);
 }
+
+class PlayerHealSpecialPowerModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+// ?buildFieldParse@PlayerHealSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z,
+// retail 0x004C7E63 (27 bytes): base-table call above plus the PlayerHeal
+// table at 0x00C5E298 (HealAmount at +0x7C, HealAsPercent at +0x80,
+// HealRadius at +0x84, HealAffects at +0x88, HealFX at +0xA4, HealOCL at
+// +0xA8). The PlayerHealSpecialPower pool key at 0x4C7EFB sits in the same
+// cluster (ElvenWood precedent) beside the BFME1 PlayerHealSpecialPower
+// files. The owning factory at 0x002525C7 pushes this proc's VA (unique
+// image-wide).
+void PlayerHealSpecialPowerModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	SpecialPowerModuleData::buildFieldParse(parse);
+	parse.add(reinterpret_cast<const FieldParse *>(0x00C5E298), 0);
+}
