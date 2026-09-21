@@ -25,6 +25,12 @@
 // ImmortalUntilDeathTime at +0x70 plus InvulnerableFX at +0x74 plus
 // DoHealthCheck at +0x78 plus DelayedDeathPrerequisiteUpgrade at +0x7C,
 // matching the ctor stores; factory at 0x251622 pushes this proc).
+// ?buildFieldParse@DominateEnemySpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z,
+// retail 0x004CC96D, 27 bytes (chained on the rowed Rva0044EB54 base proc at
+// 0x44ED95, then table 0x00C5F638 holding DominateRadius at +0xC8 plus
+// TriggerFX at +0xCC plus DominatedFX at +0xD0 plus PermanentlyConvert at
+// +0xD4 plus AttributeModifierAffects at +0xD8, matching the ctor stores;
+// factory at 0x252EE5 pushes this proc; pool key at 0x4CC9DF names the class).
 // Provenance: the ZH MAKE_STANDARD_MODULE_DATA_MACRO_ABC macro passes
 // clsmd::buildFieldParse to INI::initFromINIMultiProc, and each landed
 // friend_newModuleData factory pushes its class proc immediate.
@@ -430,4 +436,16 @@ void ReplenishUnitsBehaviorModuleData::buildFieldParse(MultiIniFieldParse &parse
 {
 	parse.add(reinterpret_cast<const FieldParse *>(0x00C4A150), 0);
 	parse.add(reinterpret_cast<const FieldParse *>(Rva004CE29DGet()), 8);
+}
+
+class DominateEnemySpecialPowerModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+void DominateEnemySpecialPowerModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	Rva0044EB54::buildFieldParse(parse);
+	parse.add(reinterpret_cast<const FieldParse *>(0x00C5F638), 0);
 }
