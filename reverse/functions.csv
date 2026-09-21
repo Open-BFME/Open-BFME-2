@@ -15422,3 +15422,5 @@ _XMP_Randomize,,0x0061C3C0,92,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,mat
 ?friend_newModuleInstance@SquishCollide@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z,,0x00250FE6,56,Code/GameEngine/Source/GameLogic/Object/Collide/SquishCollideFriendNew.cpp,matched,
 ??0HordeMemberCollide@@QAE@PAVThing@@PBVModuleData@@@Z,,0x004BC389,42,Code/GameEngine/Source/GameLogic/Object/Collide/HordeMemberCollideCtor.cpp,matched,
 ?friend_newModuleInstance@HordeMemberCollide@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z,,0x002510A7,56,Code/GameEngine/Source/GameLogic/Object/Collide/HordeMemberCollideFriendNew.cpp,matched,
+??0CivilianSpawnCollide@@QAE@PAVThing@@PBVModuleData@@@Z,,0x004BD694,42,Code/GameEngine/Source/GameLogic/Object/Collide/CivilianSpawnCollideCtor.cpp,matched,
+?friend_newModuleInstance@CivilianSpawnCollide@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z,,0x002512EC,56,Code/GameEngine/Source/GameLogic/Object/Collide/CivilianSpawnCollideFriendNew.cpp,matched,
