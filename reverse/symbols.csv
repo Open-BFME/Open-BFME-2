@@ -3738,3 +3738,4 @@ dup_7e86b0,0x00655770
 ??_7TerrainResourceBehaviorModuleData@@6B@,0x00C49440,TerrainResourceBehaviorModuleData vtable installed by ctor 0x48202F; slot0 is scalar-deleting dtor 0x482259 calling dtor 0x482275
 ??_7BaseUpgradeModuleData@@6B@,0x00C57150,BaseUpgradeModuleData vtable installed by ctor 0x4B3698 (mov [esi] imm); slot0 is scalar-deleting dtor shape 0x4B3769; slot1 is shared ret stub 0x4B3FD0
 ??0SlowDeathBehaviorModuleData@@QAE@XZ,0x0045E386,pinned by SlowDeathBehaviorModuleData factory call-site decode
+??_7HordeGarrisonContainModuleData@@6B@,0x00BF4328,HordeGarrisonContainModuleData vtable installed by ctor 0x47A251; slot0 is scalar-deleting dtor 0x2579E9 calling dtor 0x257A05
