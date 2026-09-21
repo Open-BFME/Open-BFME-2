@@ -14783,3 +14783,4 @@ _chatRetryWithNickA,,0x006A33C0,119,Code/GameEngine/Source/GameNetwork/GameSpy/c
 ??0TooltipUpgradeModuleData@@QAE@XZ,,0x0025588E,91,Code/GameEngine/Source/GameLogic/Object/Upgrade/TooltipUpgradeModuleDataCtor.cpp,matched,
 ?buildFieldParse@TooltipUpgradeModuleData@@SAXAAVMultiIniFieldParse@@@Z,,0x004B7A2E,34,Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp,matched,
 ?friend_newModuleData@TooltipUpgradeModuleData@@SAPAVModuleData@@PAVINI@@@Z,,0x002558E9,84,Code/GameEngine/Source/GameLogic/Object/Upgrade/TooltipUpgradeModuleDataFriendNew.cpp,matched,
+??0ExperienceScalarUpgradeModuleData@@QAE@XZ,,0x004B6187,29,Code/GameEngine/Source/GameLogic/Object/Upgrade/ExperienceScalarUpgradeModuleDataCtor.cpp,matched,
