@@ -141,3 +141,4 @@ void ClearanceTestingSlowDeathBehaviorModuleData::buildFieldParse(MultiIniFieldP
 	parse.add(reinterpret_cast<const FieldParse *>(0x00C49CB0), 0);
 }
 FIELD_PROC(RebuildHoleBehaviorModuleData, 0x00C49A10, WorkerTable)
+FIELD_PROC(LargeGroupBonusUpdateModuleData, 0x00C4D1A8, HordeBonusTable)
