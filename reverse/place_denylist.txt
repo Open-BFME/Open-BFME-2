@@ -58,3 +58,4 @@ _io_writeto
 ?allocate@?$allocator@U?$_List_node@UBfmePod196@@@_STL@@@_STL@@QBEPAU?$_List_node@UBfmePod196@@@2@IPBX@Z
 ?allocate@?$allocator@U?$_List_node@UBfmePod264@@@_STL@@@_STL@@QBEPAU?$_List_node@UBfmePod264@@@2@IPBX@Z
 ?allocate@?$allocator@U?$_Hashtable_node@U?$pair@$$CBHUBfmePod48@@@_STL@@@_STL@@@_STL@@QBEPAU?$_Hashtable_node@U?$pair@$$CBHUBfmePod48@@@_STL@@@2@IPBX@Z
+?allocate@?$allocator@U?$_Hashtable_node@U?$pair@$$CBHUBfmePod60@@@_STL@@@_STL@@@_STL@@QBEPAU?$_Hashtable_node@U?$pair@$$CBHUBfmePod60@@@_STL@@@2@IPBX@Z
