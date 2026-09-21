@@ -138,3 +138,15 @@ void StopSpecialPowerModuleData::buildFieldParse(MultiIniFieldParse &parse)
 	SpecialPowerModuleData::buildFieldParse(parse);
 	parse.add(reinterpret_cast<const FieldParse *>(0x00C5DDE4), 0);
 }
+
+class CloudBreakSpecialPowerModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+void CloudBreakSpecialPowerModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	SpecialPowerModuleData::buildFieldParse(parse);
+	parse.add(reinterpret_cast<const FieldParse *>(0x00C5D378), 0);
+}
