@@ -15431,3 +15431,4 @@ _XMP_Randomize,,0x0061C3C0,92,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,mat
 ?friend_newModuleInstance@FireWeaponCollide@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z,,0x00250FAE,56,Code/GameEngine/Source/GameLogic/Object/Collide/FireWeaponCollideFriendNew.cpp,matched,
 ??0AODCrushCollide@@QAE@PAVThing@@PBVModuleData@@@Z,,0x004BC00D,67,Code/GameEngine/Source/GameLogic/Object/Collide/AODCrushCollideCtor.cpp,matched,
 ?friend_newModuleInstance@AODCrushCollide@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z,,0x0025101E,56,Code/GameEngine/Source/GameLogic/Object/Collide/AODCrushCollideFriendNew.cpp,matched,
+?addUnitPrereq@ProductionPrerequisite@@QAEXVAsciiString@@_N@Z,,0x004F52CB,105,Code/GameEngine/Source/Common/Thing/ProductionPrerequisiteAddUnitPrereq.cpp,matched,BFME1 ProductionPrerequisiteAddUnitPrereq donor shape; 1-arg Rec pushback pin 0x004F5243; opassign pin 0x000366F0; dtor fold 0x00036410

@@ -1697,7 +1697,6 @@ name,address,notes
 ?addString@Rva007E8810Message@@QAEXPBD0@Z,0x00655AA0
 ?addString@Rva00800290Buffer@@QAEXPBD@Z,0x0066C800
 ?addTeamToList@Player@@QAEXPAVTeamPrototype@@@Z,0x002AE228
-?addUnitPrereq@ProductionPrerequisite@@QAEXVAsciiString@@_N@Z,0x004F52CB,BFME1 (AsciiString bool) mangling; by-value unit at +8 plus bool at +0xC; prereq-cluster caller
 ?addWaypointLink@TerrainLogic@@IAEXHH@Z,0x0027F009
 ?addWin32Event@Win32Mouse@@QAEXIIJK@Z,0x00041A10,address read from the REL32 shared by WndProc's three mouse arms at 0x00001C20
 ?add_resolution@BfmeEnumerationDesc@@QAEXHHH@Z,0x00121550,Recovered BFME2 descriptor view; complete 158-byte insertion compares width height and depth before adding a new resolution
@@ -3984,3 +3983,4 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ??0StealthDetectorUpdateModuleData@@QAE@XZ,0x00255371,sole-caller factory 0x2553C5 news 0x70; row pending (partial 0.8 banked)
 ??0FireWeaponCollideModuleData@@QAE@XZ,0x00254A36,sole-caller factory 0x254A7A news 0x30; row pending (vtable puzzle parked)
 ?allocateNewWeapon@WeaponStore@@QBEPAVWeapon@@PBVWeaponTemplate@@W4WeaponSlotType@@@Z,0x0028AA81,weapon allocator over TheWeaponStore global; 21 raw callers are weapon-creation sites; FireWeaponCollide ctor passes module-template plus PRIMARY_WEAPON per BFME1 donor
+?push_back@?$vector@UPrereqUnitRec@ProductionPrerequisite@@V?$allocator@UPrereqUnitRec@ProductionPrerequisite@@@_STL@@@_STL@@QAEXABUPrereqUnitRec@ProductionPrerequisite@@@Z,0x004F5243,Rec vector pushback called once from addUnitPrereq 0x004F52CB; 0xC stride with element copy 0x002CF99D plus insert_aux 0x004F5165
