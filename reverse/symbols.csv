@@ -3759,3 +3759,4 @@ dup_7e86b0,0x00655770
 ??0RadiusDecalTemplate@@QAE@XZ,0x00330E5D,BFME1 RadiusDecal.h donor class with AsciiString members; DynamicShroudClearingRangeUpdateModuleDataCtor TU member spelling; 9 member-position callers
 ??0SubObjectsUpgradeModuleData@@QAE@XZ,0x00257768
 ?init@Rva000B3F84Pair@@QAEXPBD@Z,0x000B3F84,ptr-plus-strlen pair init on caller storage returning itself; 11 member-position callers image-wide; WinMain helper 0x2343F7 is one
+??0?$_List_base@UFloodMember@@V?$allocator@UFloodMember@@@_STL@@@_STL@@QAE@ABV?$allocator@UFloodMember@@@1@@Z,0x004EC36C
