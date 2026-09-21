@@ -4,7 +4,8 @@
 // Pristine STLport 4.5.3 list members for fixed-size POD elements; same
 // evidence and naming rule as stlport_pod_vector_bodies.cpp.
 //
-// BfmePodN is a placeholder for the real N-byte element type at each site.
+// BfmePodN (BfmeShortPodN: 2-byte aligned) is a placeholder for the real
+// N-byte element type at each site.
 // Where retail's copy construct for that element is non-trivial (it calls a
 // copy constructor), _Construct<BfmePodN> is pinned in symbols.csv at the
 // address the byte-true call site proves; that body is not compiled from here.
@@ -43,6 +44,15 @@ inline bool operator<(const BfmePod124 &x, const BfmePod124 &y) { return x.a[0] 
 struct BfmePod196 { int a[49]; };
 inline bool operator==(const BfmePod196 &x, const BfmePod196 &y) { return x.a[0] == y.a[0]; }
 inline bool operator<(const BfmePod196 &x, const BfmePod196 &y) { return x.a[0] < y.a[0]; }
+struct BfmePod264 { int a[66]; };
+inline bool operator==(const BfmePod264 &x, const BfmePod264 &y) { return x.a[0] == y.a[0]; }
+inline bool operator<(const BfmePod264 &x, const BfmePod264 &y) { return x.a[0] < y.a[0]; }
+struct BfmeShortPod22 { short a[11]; };
+inline bool operator==(const BfmeShortPod22 &x, const BfmeShortPod22 &y) { return x.a[0] == y.a[0]; }
+inline bool operator<(const BfmeShortPod22 &x, const BfmeShortPod22 &y) { return x.a[0] < y.a[0]; }
+struct BfmeShortPod26 { short a[13]; };
+inline bool operator==(const BfmeShortPod26 &x, const BfmeShortPod26 &y) { return x.a[0] == y.a[0]; }
+inline bool operator<(const BfmeShortPod26 &x, const BfmeShortPod26 &y) { return x.a[0] < y.a[0]; }
 template class _STL::list<BfmePod12, _STL::allocator<BfmePod12 > >;
 template class _STL::list<BfmePod20, _STL::allocator<BfmePod20 > >;
 template class _STL::list<BfmePod24, _STL::allocator<BfmePod24 > >;
@@ -54,3 +64,6 @@ template class _STL::list<BfmePod72, _STL::allocator<BfmePod72 > >;
 template class _STL::list<BfmePod80, _STL::allocator<BfmePod80 > >;
 template class _STL::list<BfmePod124, _STL::allocator<BfmePod124 > >;
 template class _STL::list<BfmePod196, _STL::allocator<BfmePod196 > >;
+template class _STL::list<BfmePod264, _STL::allocator<BfmePod264 > >;
+template class _STL::list<BfmeShortPod22, _STL::allocator<BfmeShortPod22 > >;
+template class _STL::list<BfmeShortPod26, _STL::allocator<BfmeShortPod26 > >;

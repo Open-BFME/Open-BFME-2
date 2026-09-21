@@ -7,7 +7,8 @@
 // BfmePodN is a placeholder naming only the element size (the BfmeE16 /
 // Rva..Element convention), and char likewise stands for any 1-byte element.
 //
-// BfmePodN is a placeholder for the real N-byte element type at each site.
+// BfmePodN (BfmeShortPodN: 2-byte aligned) is a placeholder for the real
+// N-byte element type at each site.
 // Where retail's copy construct for that element is non-trivial (it calls a
 // copy constructor), _Construct<BfmePodN> is pinned in symbols.csv at the
 // address the byte-true call site proves; that body is not compiled from here.
@@ -78,6 +79,21 @@ inline bool operator<(const BfmePod172 &x, const BfmePod172 &y) { return x.a[0] 
 struct BfmePod180 { int a[45]; };
 inline bool operator==(const BfmePod180 &x, const BfmePod180 &y) { return x.a[0] == y.a[0]; }
 inline bool operator<(const BfmePod180 &x, const BfmePod180 &y) { return x.a[0] < y.a[0]; }
+struct BfmePod216 { int a[54]; };
+inline bool operator==(const BfmePod216 &x, const BfmePod216 &y) { return x.a[0] == y.a[0]; }
+inline bool operator<(const BfmePod216 &x, const BfmePod216 &y) { return x.a[0] < y.a[0]; }
+struct BfmePod248 { int a[62]; };
+inline bool operator==(const BfmePod248 &x, const BfmePod248 &y) { return x.a[0] == y.a[0]; }
+inline bool operator<(const BfmePod248 &x, const BfmePod248 &y) { return x.a[0] < y.a[0]; }
+struct BfmePod252 { int a[63]; };
+inline bool operator==(const BfmePod252 &x, const BfmePod252 &y) { return x.a[0] == y.a[0]; }
+inline bool operator<(const BfmePod252 &x, const BfmePod252 &y) { return x.a[0] < y.a[0]; }
+struct BfmePod260 { int a[65]; };
+inline bool operator==(const BfmePod260 &x, const BfmePod260 &y) { return x.a[0] == y.a[0]; }
+inline bool operator<(const BfmePod260 &x, const BfmePod260 &y) { return x.a[0] < y.a[0]; }
+struct BfmePod340 { int a[85]; };
+inline bool operator==(const BfmePod340 &x, const BfmePod340 &y) { return x.a[0] == y.a[0]; }
+inline bool operator<(const BfmePod340 &x, const BfmePod340 &y) { return x.a[0] < y.a[0]; }
 template class _STL::vector<char, _STL::allocator<char > >;
 template class _STL::vector<BfmePod20, _STL::allocator<BfmePod20 > >;
 template class _STL::vector<BfmePod24, _STL::allocator<BfmePod24 > >;
@@ -101,3 +117,8 @@ template class _STL::vector<BfmePod148, _STL::allocator<BfmePod148 > >;
 template class _STL::vector<BfmePod160, _STL::allocator<BfmePod160 > >;
 template class _STL::vector<BfmePod172, _STL::allocator<BfmePod172 > >;
 template class _STL::vector<BfmePod180, _STL::allocator<BfmePod180 > >;
+template class _STL::vector<BfmePod216, _STL::allocator<BfmePod216 > >;
+template class _STL::vector<BfmePod248, _STL::allocator<BfmePod248 > >;
+template class _STL::vector<BfmePod252, _STL::allocator<BfmePod252 > >;
+template class _STL::vector<BfmePod260, _STL::allocator<BfmePod260 > >;
+template class _STL::vector<BfmePod340, _STL::allocator<BfmePod340 > >;
