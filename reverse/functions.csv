@@ -15395,3 +15395,4 @@ _XMP_Randomize,,0x0061C3C0,92,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,mat
 ?rva00004BC858@HealCrateCollide@@SA?AW4NameKeyType@@XZ,,0x004BC858,69,Code/GameEngine/Source/GameLogic/Object/Collide/HealCrateCollidePoolKey.cpp,matched,Cached pool-name key; pool string HealCrateCollide; static-guard EH; nameToKey row
 ?rva004CE05D@UnleashSpecialPower@@SA?AW4NameKeyType@@XZ,,0x004CE05D,69,Code/GameEngine/Source/GameLogic/Object/SpecialPower/UnleashSpecialPowerPoolKey.cpp,matched,
 ?rva00004BC988@MoneyCrateCollide@@SA?AW4NameKeyType@@XZ,,0x004BC988,69,Code/GameEngine/Source/GameLogic/Object/Collide/MoneyCrateCollidePoolKey.cpp,matched,Cached pool-name key; pool string MoneyCrateCollide; static-guard EH; nameToKey row
+?rva00004BCC5C@UnitCrateCollide@@SA?AW4NameKeyType@@XZ,,0x004BCC5C,69,Code/GameEngine/Source/GameLogic/Object/Collide/UnitCrateCollidePoolKey.cpp,matched,Cached pool-name key; pool string UnitCrateCollide; static-guard EH; nameToKey row
