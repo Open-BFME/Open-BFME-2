@@ -15366,3 +15366,4 @@ _XMP_Randomize,,0x0061C3C0,92,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,mat
 ?rva004B8520@AllowBannerSpawnUpgrade@@SA?AW4NameKeyType@@XZ,,0x004B8520,69,Code/GameEngine/Source/GameLogic/Object/Upgrade/AllowBannerSpawnUpgradePoolKey.cpp,matched,
 ?rva004B8752@SpawnUnitBehavior@@SA?AW4NameKeyType@@XZ,,0x004B8752,69,Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnUnitBehaviorPoolKey.cpp,matched,
 ?rva0000CA0CE@W3DQuadrupedDraw@@SA?AW4NameKeyType@@XZ,,0x000CA0CE,69,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DQuadrupedDrawPoolKey.cpp,matched,Cached pool-name key; pool string W3DQuadrupedDraw; static-guard EH; nameToKey row
+?rva004B9757@BoneFXDamage@@SA?AW4NameKeyType@@XZ,,0x004B9757,69,Code/GameEngine/Source/GameLogic/Object/Update/BoneFXDamagePoolKey.cpp,matched,
