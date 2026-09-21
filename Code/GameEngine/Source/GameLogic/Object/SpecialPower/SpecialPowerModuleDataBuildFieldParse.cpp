@@ -87,3 +87,23 @@ void ElvenWoodSpecialPowerModuleData::buildFieldParse(MultiIniFieldParse &parse)
 	SpecialPowerModuleData::buildFieldParse(parse);
 	parse.add(reinterpret_cast<const FieldParse *>(0x00C5D018), 0);
 }
+
+class ScavengerSpecialPowerModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+// ?buildFieldParse@ScavengerSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z,
+// retail 0x004C3FDD (27 bytes): base-table call above plus the Scavenger
+// table at 0x00C5D0F0 (FlagsUsedForToggle at +0x7C, ToggleOnSleepFrames at
+// +0x8C, ToggleOffSleepFrames at +0x90, ToggleOnAttributeModifier at +0x94,
+// ToggleOffAttributeModifier at +0x98). The ScavengerSpecialPower pool key
+// at 0x4C4387 plus the name getter at 0x4C4381 sit in the same cluster
+// (ElvenWood precedent). The owning factory at 0x00251D40 pushes this
+// proc's VA.
+void ScavengerSpecialPowerModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	SpecialPowerModuleData::buildFieldParse(parse);
+	parse.add(reinterpret_cast<const FieldParse *>(0x00C5D0F0), 0);
+}
