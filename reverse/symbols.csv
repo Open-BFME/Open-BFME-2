@@ -2375,7 +2375,6 @@ name,address,notes
 ?buildFieldParse@FreezingRainSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x004C4B86
 ?buildFieldParse@GarrisonContainModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x00254F75,chained proc: base 0x46523D plus own table 0x007F3360 with 5 of 5 BFME1 GarrisonContain fields in order; factory 0x254F90 pushes its VA exclusively; HordeGarrison chains above at 0x47A029
 ?buildFieldParse@GrabPassengerSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x004C4F89
-?buildFieldParse@MissileUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x004A74EF,chained link: calls base proc 0x45B5E3 then adds table 0xC53470 (FuelLifetime through DetonateOnNoFuel); MissileUpdate pool key at 0x4A76C3 same cluster
 ?buildFieldParse@MoneyCrateCollideModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x00251168,chained link: base CrateCollide proc 0x4BC7FE plus table 0xBEFABC (MoneyProvided at +0x5C single field); pushed as proc VA by ModuleData factory 0x256310
 ?buildFieldParse@MonsterDockUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x004A137F,chained link: calls rowed DockUpdateModuleData base proc 0x5896C1 then adds table 0xC51CE4 (DockableObjectFilter DockedAnimationTime); MonsterDockUpdate pool key plus Update ctor plus dtor in same 0x4A139A cluster
 ?buildFieldParse@RemoveUpgradeUpgradeModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x004B7F82,chained link: calls base proc 0x4CE29D then adds table 0xC58EA0 (UpgradeToRemove@118 UpgradeGroupsToRemove@124 SuppressEvaEvent@130 RemoveFromAll@131); RemoveUpgradeUpgrade pool key at 0x4B7F67 same cluster
@@ -3752,3 +3751,4 @@ dup_7e86b0,0x00655770
 ?resize@?$vector@UCoord3D@@V?$allocator@UCoord3D@@@_STL@@@_STL@@QAEXI@Z,0x00CA33C,1-arg Coord3D resize; 5 retail callers pass a count; forwards to the 73B 2-arg resize at 0x00CA2F3
 ?_M_fill_insert@?$vector@W4ObjectID@@V?$allocator@W4ObjectID@@@_STL@@@_STL@@QAEXPAW4ObjectID@@IABW43@@Z,0x0058A00B,225B ObjectID fill; called from the 63B ObjectID resize grow branch at 0x005839DC
 ?_M_fill_insert@?$vector@_NV?$allocator@_N@_STL@@@_STL@@QAEXU?$_Bit_iter@U_Bit_reference@_STL@@PAU12@@2@I_N@Z,0x006C790,440B bit-vector fill; called from the 33B bit-vector insert at 0x006D556
+?buildFieldParse@Rva0045B5E3Base@@SAXAAVMultiIniFieldParse@@@Z,0x0045B5E3,opaque base link of Missile chained proc 0x4A74EF; DumbProjectile-flavored table 0xC41B58 but DumbProjectile name taken at 0x3901C9; do not name without poolkey or donor

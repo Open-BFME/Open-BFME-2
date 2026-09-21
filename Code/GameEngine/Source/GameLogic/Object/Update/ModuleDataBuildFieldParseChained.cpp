@@ -498,6 +498,24 @@ void ModelConditionUpgradeModuleData::buildFieldParse(MultiIniFieldParse &parse)
 	parse.add(reinterpret_cast<const FieldParse *>(0x00C58730), 0);
 }
 
+class Rva0045B5E3Base
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class MissileUpdateModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+void MissileUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	Rva0045B5E3Base::buildFieldParse(parse);
+	parse.add(reinterpret_cast<const FieldParse *>(0x00C53470), 0);
+}
+
 class SpawnBehaviorModuleData
 {
 public:
