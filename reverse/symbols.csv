@@ -330,7 +330,6 @@ name,address,notes
 ??0Cftp@@QAE@XZ,0x006CA5E0,address read from the REL32 displacement at a placed body
 ??0CloudBreakSpecialPowerModuleData@@QAE@XZ,0x004C479A
 ??0CollectionClass@@QAE@ABV0@@Z,0x00130C00,address read from the REL32 displacement at a placed body
-??0CommandPointsUpgradeModuleData@@QAE@XZ,0x00254891,EH ctor; sole raw caller is ModuleData factory 0x2548D2 which news 0x120; table 0xC590E8 holds CommandPoints@118 RequiredObject@11C
 ??0CreateAHeroData@@QAE@ABV0@@Z,0x00409D4D,Complete339-byte copy;vtableC38D88 getter409353 names CreateAHeroData;Snapshot base and140-byte owning layout independently decoded
 ??0CriticalSectionClass@@QAE@XZ,0x00613AE0,address read from the REL32 displacement at a placed body; stlport 4.5.3
 ??0CullSystemClass@@QAE@XZ,0x00724550,address read from the retail REL32 in ??0GridCullSystemClass at 0x0071CBE0
