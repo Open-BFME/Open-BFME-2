@@ -117,3 +117,22 @@ void GiantBirdSlowDeathBehaviorModuleData::buildFieldParse(MultiIniFieldParse &p
 	SlowDeathBehaviorModuleData::buildFieldParse(parse);
 	parse.add(reinterpret_cast<const FieldParse *>(0x00C42D08), 0);
 }
+
+// Chained proc: ?buildFieldParse@ClearanceTestingSlowDeathBehaviorModuleData@@,
+// retail 0x00483C1A, 27 bytes. Calls the rowed SlowDeath base proc above,
+// then registers the Clearance table 0x00C49CB0 (ClearanceGeometry at +0x190
+// plus ClearanceGeometryOffset at +0x1EC plus ClearanceMaxHeight at +0x1F8).
+// The base call resolves to the rowed SlowDeath proc in this same TU; factory
+// 0x24C545 pushes this proc VA; the rowed ClearanceTestingSlowDeathBehavior
+// pool key at 0x483CF4 names the class.
+class ClearanceTestingSlowDeathBehaviorModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+void ClearanceTestingSlowDeathBehaviorModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	SlowDeathBehaviorModuleData::buildFieldParse(parse);
+	parse.add(reinterpret_cast<const FieldParse *>(0x00C49CB0), 0);
+}
