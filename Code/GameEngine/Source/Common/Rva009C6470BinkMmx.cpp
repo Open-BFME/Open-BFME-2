@@ -5,7 +5,7 @@
 // only holds four pixels, so the eight-pixel-wide strip is done as two
 // four-pixel passes with their own qword store, and the rounding table is
 // the MMX-sized entry at 0x012D88D0 rather than the SSE2 family's
-// g_bfmeBinkRound.  Retail 0x009C6470, 196 bytes.
+// g_bfmeBinkRoundMmx.  Retail 0x009C6470, 196 bytes.
 
 extern const unsigned short Rva012D88D0Round[4];	// retail 0x012D88D0
 

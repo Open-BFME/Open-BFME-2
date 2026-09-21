@@ -4,7 +4,7 @@
 // weight table as Rva009C6780BinkMmx, but filters the low and high four-pixel
 // groups from each source row separately.
 
-extern const unsigned short g_bfmeBinkRound[8];
+extern const unsigned short g_bfmeBinkRoundMmx[8];
 
 // ?rva009C66F0BinkMmx@@YAXPBXPAXHHHH0@Z
 void __cdecl rva009C66F0BinkMmx(const void *source, void *destination,
@@ -31,7 +31,7 @@ void __cdecl rva009C66F0BinkMmx(const void *source, void *destination,
 		punpcklbw mm5, mm0
 		pmullw mm5, mm2
 		paddw mm3, mm5
-		paddw mm3, g_bfmeBinkRound
+		paddw mm3, g_bfmeBinkRoundMmx
 		psraw mm3, 7
 		packuswb mm3, mm0
 		movd dword ptr [edi], mm3
@@ -44,7 +44,7 @@ void __cdecl rva009C66F0BinkMmx(const void *source, void *destination,
 		punpcklbw mm5, mm0
 		pmullw mm5, mm2
 		paddw mm3, mm5
-		paddw mm3, g_bfmeBinkRound
+		paddw mm3, g_bfmeBinkRoundMmx
 		psraw mm3, 7
 		packuswb mm3, mm0
 		movd dword ptr [edi + 4], mm3

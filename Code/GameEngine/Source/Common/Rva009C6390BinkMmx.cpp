@@ -4,7 +4,9 @@
 // MSVC 7.1 does not form this packed-word loop from scalar C++, so the
 // register-level implementation stays in inline assembly.
 
-extern const unsigned short g_bfmeBinkRound[8];
+// The MMX paths read their own copy of the 8 x 0x0040 rounding table at
+// 0x00DB81A0; the SSE paths read a separate identical copy at 0x00DB84D0.
+extern const unsigned short g_bfmeBinkRoundMmx[8];
 
 // ?rva009C6390BinkMmx@@YAXPBXPAXHHHH0@Z
 void __cdecl rva009C6390BinkMmx(const void *source, void *destination,
@@ -44,7 +46,7 @@ void __cdecl rva009C6390BinkMmx(const void *source, void *destination,
 		punpcklbw mm5, mm0
 		pmullw mm5, mm6
 		paddsw mm3, mm5
-		paddsw mm3, g_bfmeBinkRound
+		paddsw mm3, g_bfmeBinkRoundMmx
 		psraw mm3, 7
 		packuswb mm3, mm0
 		movd dword ptr [edi], mm3
@@ -68,7 +70,7 @@ void __cdecl rva009C6390BinkMmx(const void *source, void *destination,
 		punpcklbw mm5, mm0
 		pmullw mm5, mm6
 		paddsw mm3, mm5
-		paddsw mm3, g_bfmeBinkRound
+		paddsw mm3, g_bfmeBinkRoundMmx
 		psraw mm3, 7
 		packuswb mm3, mm0
 		movd dword ptr [edi + 4], mm3

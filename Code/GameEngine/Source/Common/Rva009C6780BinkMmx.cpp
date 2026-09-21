@@ -4,7 +4,7 @@
 // MSVC 7.1 does not form this packed-word loop from scalar C++, so the
 // register-level implementation stays in inline assembly.
 
-extern const unsigned short g_bfmeBinkRound[8];
+extern const unsigned short g_bfmeBinkRoundMmx[8];
 
 // ?rva009C6780BinkMmx@@YAXPBXPAXHHHH0@Z
 void __cdecl rva009C6780BinkMmx(const void *source, void *destination,
@@ -30,7 +30,7 @@ void __cdecl rva009C6780BinkMmx(const void *source, void *destination,
 		punpcklbw mm4, mm0
 		pmullw mm4, mm2
 		paddw mm3, mm4
-		paddw mm3, g_bfmeBinkRound
+		paddw mm3, g_bfmeBinkRoundMmx
 		psraw mm3, 7
 		packuswb mm3, mm0
 		movd dword ptr [edi], mm3
@@ -41,7 +41,7 @@ void __cdecl rva009C6780BinkMmx(const void *source, void *destination,
 		punpcklbw mm4, mm0
 		pmullw mm4, mm2
 		paddw mm3, mm4
-		paddw mm3, g_bfmeBinkRound
+		paddw mm3, g_bfmeBinkRoundMmx
 		psraw mm3, 7
 		packuswb mm3, mm0
 		movd dword ptr [edi + 4], mm3
