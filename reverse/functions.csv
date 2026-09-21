@@ -14774,3 +14774,4 @@ _chatRetryWithNickA,,0x006A33C0,119,Code/GameEngine/Source/GameNetwork/GameSpy/c
 ??0StatusBitsUpgradeModuleData@@QAE@XZ,,0x00254775,40,Code/GameEngine/Source/GameLogic/Object/Upgrade/StatusBitsUpgradeModuleDataCtor.cpp,matched,
 ?friend_newModuleData@StatusBitsUpgradeModuleData@@SAPAVModuleData@@PAVINI@@@Z,,0x0025479D,52,Code/GameEngine/Source/GameLogic/Object/Upgrade/StatusBitsUpgradeModuleDataFriendNew.cpp,matched,
 ??0CommandSetUpgradeModuleData@@QAE@XZ,,0x00255652,70,Code/GameEngine/Source/GameLogic/Object/Upgrade/CommandSetUpgradeModuleDataCtor.cpp,matched,
+?friend_newModuleData@CommandSetUpgradeModuleData@@SAPAVModuleData@@PAVINI@@@Z,,0x00255698,84,Code/GameEngine/Source/GameLogic/Object/Upgrade/CommandSetUpgradeModuleDataFriendNew.cpp,matched,
