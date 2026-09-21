@@ -15323,3 +15323,4 @@ _XMP_Randomize,,0x0061C3C0,92,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,mat
 ??0BloodthirstyUpdateModuleData@@QAE@XZ,,0x0044E2AC,75,Code/GameEngine/Source/GameLogic/Object/Update/BloodthirstyUpdateModuleDataCtor.cpp,matched,
 ?friend_newModuleData@BloodthirstyUpdateModuleData@@SAPAVModuleData@@PAVINI@@@Z,,0x0024A7E8,81,Code/GameEngine/Source/GameLogic/Object/Update/BloodthirstyUpdateModuleDataFriendNew.cpp,matched,
 ?rva0004BCE7B@VeterancyCrateCollide@@SA?AW4NameKeyType@@XZ,,0x004BCE7B,69,Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/VeterancyCrateCollidePoolKey.cpp,matched,
+?buildFieldParse@BuildingBehaviorModuleData@@SAXAAVMultiIniFieldParse@@@Z,,0x00456206,17,Code/GameEngine/Source/GameLogic/Object/Behavior/BehaviorModuleDataBuildFieldParse.cpp,matched,Single-table leaf graft; table 0xC40748 NightWindowName FireWindowName GlowWindowName FireName; poolkey BuildingBehavior 0x4561C1 ends where proc begins; factory 0x24ABAF pushes VA
