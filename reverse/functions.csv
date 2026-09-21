@@ -14837,3 +14837,4 @@ _chatRetryWithNickA,,0x006A33C0,119,Code/GameEngine/Source/GameNetwork/GameSpy/c
 ?friend_newModuleData@SlowDeathBehaviorModuleData@@SAPAVModuleData@@PAVINI@@@Z,,0x0024B29C,84,Code/GameEngine/Source/GameLogic/Object/Behavior/SlowDeathBehaviorModuleDataFriendNew.cpp,matched,Dedicated TU over pinned ctor plus rowed Sink proc
 ??0SlaveWatcherBehaviorModuleData@@QAE@XZ,,0x004846C7,22,Code/GameEngine/Source/GameLogic/Object/Behavior/SlaveWatcherBehaviorModuleDataCtor.cpp,matched,
 ?buildFieldParse@SlaveWatcherBehaviorModuleData@@SAXAAVMultiIniFieldParse@@@Z,,0x004845BA,11,Code/GameEngine/Source/GameLogic/Object/Behavior/BehaviorModuleDataBuildFieldParse.cpp,matched,
+?friend_newModuleData@SlaveWatcherBehaviorModuleData@@SAPAVModuleData@@PAVINI@@@Z,,0x0024C660,81,Code/GameEngine/Source/GameLogic/Object/Behavior/SlaveWatcherBehaviorModuleDataFriendNew.cpp,matched,
