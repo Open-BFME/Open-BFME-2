@@ -3973,3 +3973,5 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ?allocate@?$allocator@UBfmeAssignRecord172@@@_STL@@QBEPAUBfmeAssignRecord172@@IPBX@Z,0x001EAEBD,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
 ?skipGroup@Rva003B485AHolder@@QAE_NPAX@Z,0x003B485A,bool spelling of the matched ?skipGroup@Rva003B485AHolder@@QAEHPAX@Z body: the byte-true WriteGroupDataChunk call site at 0x003B6975+0x18 tests al; the body's xor/inc eax tail fits either return type
 ??1Rva006CEAD0@@QAE@XZ,0x006CEAD0,destructor spelling of the matched Rva006CEAD0::drainChain body: the byte-true ModuleInfo::Nugget::~Nugget call at 0x006CFA30 destroys its +0 member through it
+??0GiveUpgradeUpdateModuleData@@QAE@XZ,0x0049C4D2,REL32 displacement at the byte-true GiveUpgradeUpdate data factory 0x0024E800 (registered with "GiveUpgradeUpdate" at 0x00259B45); installs vtable 0x00C51280
+?buildFieldParse@GiveUpgradeUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x0049C391,parse-proc immediate pushed by the GiveUpgradeUpdate data factory 0x0024E800
