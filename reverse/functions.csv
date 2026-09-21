@@ -15408,3 +15408,5 @@ _XMP_Randomize,,0x0061C3C0,92,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,mat
 ?buildFieldParse@StealthDetectorUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z,,0x004A2D82,17,Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp,matched,Single-table leaf; donor StealthDetectorUpdate.cpp family; factory 0x2553C5 pushes VA; poolkey StealthDetectorUpdate 0x4A2C74
 ??0HealCrateCollide@@QAE@PAVThing@@PBVModuleData@@@Z,,0x004BC80F,42,Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/HealCrateCollideCtor.cpp,matched,
 ?friend_newModuleInstance@HealCrateCollide@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z,,0x00251130,56,Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/HealCrateCollideFriendNew.cpp,matched,
+??0MoneyCrateCollide@@QAE@PAVThing@@PBVModuleData@@@Z,,0x004BC93F,42,Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/MoneyCrateCollideCtor.cpp,matched,
+?friend_newModuleInstance@MoneyCrateCollide@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z,,0x00251183,56,Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/MoneyCrateCollideFriendNew.cpp,matched,
