@@ -15361,3 +15361,4 @@ _XMP_Randomize,,0x0061C3C0,92,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,mat
 ?rva004B3FF5@ObjectCreationUpgrade@@SA?AW4NameKeyType@@XZ,,0x004B3FF5,69,Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradePoolKey.cpp,matched,
 ?rva004B59B7@CostModifierUpgrade@@SA?AW4NameKeyType@@XZ,,0x004B59B7,69,Code/GameEngine/Source/GameLogic/Object/Upgrade/CostModifierUpgradePoolKey.cpp,matched,
 ?rva004B79E9@TooltipUpgrade@@SA?AW4NameKeyType@@XZ,,0x004B79E9,69,Code/GameEngine/Source/GameLogic/Object/Upgrade/TooltipUpgradePoolKey.cpp,matched,
+?rva0000B21CF@W3DDefaultDraw@@SA?AW4NameKeyType@@XZ,,0x000B21CF,69,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DDefaultDrawPoolKey.cpp,matched,Cached pool-name key; pool string W3DDefaultDraw; static-guard EH; nameToKey row
