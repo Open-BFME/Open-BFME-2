@@ -474,6 +474,18 @@ void GeometryUpgradeModuleData::buildFieldParse(MultiIniFieldParse &parse)
 	parse.add(reinterpret_cast<const FieldParse *>(0x00C58918), 0);
 }
 
+class RadiateFearUpdateModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+void RadiateFearUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	parse.add(reinterpret_cast<const FieldParse *>(Rva004CE29DGet()), 0x20);
+	parse.add(reinterpret_cast<const FieldParse *>(0x00C510B8), 0);
+}
+
 class SpawnBehaviorModuleData
 {
 public:
