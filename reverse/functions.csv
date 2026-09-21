@@ -15337,3 +15337,4 @@ _XMP_Randomize,,0x0061C3C0,92,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,mat
 ?rva004C266F@CashHackSpecialPower@@SA?AW4NameKeyType@@XZ,,0x004C266F,69,Code/GameEngine/Source/GameLogic/Object/SpecialPower/CashHackSpecialPowerPoolKey.cpp,matched,
 ?rva0004C67DB@StopSpecialPower@@SA?AW4NameKeyType@@XZ,,0x004C67DB,69,Code/GameEngine/Source/GameLogic/Object/SpecialPower/StopSpecialPowerPoolKey.cpp,matched,Cached pool-name key; pool string StopSpecialPower; static-guard EH; nameToKey row
 ?rva004C391E@ElvenWoodSpecialPower@@SA?AW4NameKeyType@@XZ,,0x004C391E,69,Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPowerPoolKey.cpp,matched,
+?rva004C43BC@ScavengerSpecialPower@@SA?AW4NameKeyType@@XZ,,0x004C43BC,69,Code/GameEngine/Source/GameLogic/Object/SpecialPower/ScavengerSpecialPowerPoolKey.cpp,matched,
