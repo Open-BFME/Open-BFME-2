@@ -14735,3 +14735,4 @@ _chatRetryWithNickA,,0x006A33C0,119,Code/GameEngine/Source/GameNetwork/GameSpy/c
 ?friend_newModuleData@DelayedDeathBodyModuleData@@SAPAVModuleData@@PAVINI@@@Z,,0x00251622,84,Code/GameEngine/Source/GameLogic/Object/Update/DelayedDeathBodyModuleDataFriendNew.cpp,matched,Dedicated TU with news 0x80 plus rowed ctor 0x4C180A plus rowed chained proc 0x4C159E pushed immediate plus rowed 0x2DEB5
 ?buildFieldParse@WorkerAIUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z,,0x0024EEBB,27,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/TransportAIUpdateModuleDataBuildFieldParse.cpp,matched,
 ?friend_newModuleData@WorkerAIUpdateModuleData@@SAPAVModuleData@@PAVINI@@@Z,,0x0024EF11,81,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdateModuleDataFriendNew.cpp,matched,
+??0WorkerAIUpdateModuleData@@QAE@XZ,,0x0024EE77,65,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdateModuleDataCtor.cpp,matched,
