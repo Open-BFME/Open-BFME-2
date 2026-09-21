@@ -84,7 +84,7 @@ public:
 	// Battle for Middle-earth reference routes the same call through its
 	// partition facade, so the class is PartitionManager while the method
 	// itself keeps its address token.
-	void rva00625300(Region3D *region);
+	void rva00625300(const Region3D *region);
 	void setRegion(const Region3D *region, Real value);
 };
 

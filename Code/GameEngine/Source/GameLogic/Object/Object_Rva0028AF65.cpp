@@ -6,8 +6,9 @@
 // whose true owner is still open.
 typedef bool Bool;
 
-// Host of the +0x24 fetch at retail 0x00091A56 (pinned, unclaimed).
-class Rva00091A56
+// Host of the +0x24 fetch at retail 0x00091A56 (matched as
+// Rva00091A56DwordField::get in Disp8DwordFieldGetters.cpp).
+class Rva00091A56DwordField
 {
 public:
     int get() const;
@@ -22,7 +23,7 @@ public:
 // ?rva0028AF65@Object@@QBE_NXZ @0x0028AF65 (17B)
 Bool Object::rva0028AF65() const
 {
-    const Rva00091A56 *slot =
-        (const Rva00091A56 *)((const char *)this + 0x330);
+    const Rva00091A56DwordField *slot =
+        (const Rva00091A56DwordField *)((const char *)this + 0x330);
     return (Bool)slot->get();
 }
