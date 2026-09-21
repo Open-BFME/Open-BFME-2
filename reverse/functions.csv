@@ -15076,3 +15076,7 @@ _previous_instruction,,0x00751D40,21,Code/Libraries/Source/Lua/lcode.c,matched,p
 _optional,,0x00753940,21,Code/Libraries/Source/Lua/lparser.c,matched,placed by masked whole-.text search of the compiled body - single hit
 ___mbtowc,,0x00020BE0,106,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleMbtowc.c,matched,placed by masked whole-.text search of the compiled body - single hit
 _XMP_Randomize,,0x0061C3C0,92,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+??_I@YGXPAXIHP6EX0@Z@Z,,0x00663240,49,Code/GameEngine/Source/GameNetwork/BfmeThingDGDDestructor.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+??0Rva00808CB0LanGameEntry@@QAE@H@Z,,0x00674800,41,Code/GameEngine/Source/GameNetwork/Rva00809050LanGameEntry.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+??0Data@_bstr_t@@QAE@PBD@Z,,0x00176B20,35,Code/GameEngine/Source/GameNetwork/WOLBrowser/Bstr_t_ctor.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?_M_set_node@?$_Deque_iterator@VBuddyResponse@@@_STL@@QAEXPAPAVBuddyResponse@@@Z,,0x0055081D,23,Code/GameEngine/Source/GameNetwork/GameSpy/BuddyResponseDequePushBackAux.cpp,matched,placed by masked whole-.text search of the compiled body - single hit

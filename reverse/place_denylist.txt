@@ -40,3 +40,9 @@ _io_writeto
 # size, and 0x00689290 has no call, jmp or absolute reference in retail, so no
 # call site ties it to Rva001D28F0Element. A unique masked hit is not identity.
 ?allocate@?$allocator@URva001D28F0Element@@@_STL@@QBEPAURva001D28F0Element@@IPBX@Z
+# Call-free inlined refcount release (dec [p+4]; jnz; jmp [vtbl]) with no call,
+# jmp or absolute reference in retail: any element type with the same inline
+# destructor emits these bytes, so nothing ties 0x00142DD0/0x00142D80 to
+# AsciiString. A unique masked hit is not identity.
+?pop_back@?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAEXXZ
+??$_Destroy@VAsciiString@@@_STL@@YAXPAVAsciiString@@@Z
