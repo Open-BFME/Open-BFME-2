@@ -99,6 +99,7 @@ FIELD_PROC(AutoFindHealingUpdateModuleData, 0x00C4EC68, HealScanTable)
 FIELD_PROC(FloodUpdateModuleData, 0x00C4C9A8, FloodTable)
 FIELD_PROC(StrafeAreaUpdateModuleData, 0x00C1B1F8, StrafeTable)
 FIELD_PROC(LaserUpdateModuleData, 0x00C17208, LaserTable)
+FIELD_PROC(PassiveAreaEffectBehaviorModuleData, 0x00C4A388, PassiveAreaEffectTable)
 
 // Chained proc: ?buildFieldParse@GiantBirdSlowDeathBehaviorModuleData@@,
 // retail 0x00461E3D, 27 bytes. Calls the rowed SlowDeath base proc above,
