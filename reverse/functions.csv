@@ -14911,3 +14911,4 @@ _chatRetryWithNickA,,0x006A33C0,119,Code/GameEngine/Source/GameNetwork/GameSpy/c
 ?rva004AE1CC@ToggleHiddenSpecialAbilityUpdate@@SA?AW4NameKeyType@@XZ,,0x004AE1CC,69,Code/GameEngine/Source/GameLogic/Object/Update/ToggleHiddenSpecialAbilityUpdatePoolKey.cpp,matched,
 ?rva004AE502@ToggleDeploySpecialAbilityUpdate@@SA?AW4NameKeyType@@XZ,,0x004AE502,69,Code/GameEngine/Source/GameLogic/Object/Update/ToggleDeploySpecialAbilityUpdatePoolKey.cpp,matched,
 ??0CastleUpgradeModuleData@@QAE@XZ,,0x00255836,36,Code/GameEngine/Source/GameLogic/Object/Upgrade/CastleUpgradeModuleDataCtor.cpp,matched,Address-take upgrade pointer cracks 0.97 bank first try; true size 36 corrects 35B pin
+??0RebuildHoleExposeDieUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,,0x00486768,42,Code/GameEngine/Source/GameLogic/Object/Die/RebuildHoleExposeDieUpdateCtor.cpp,matched,Oathbreakers-pattern behavior TU over pinned Die base; sole-called by Update factory 0x24CAE0; true size 42
