@@ -15342,3 +15342,4 @@ _XMP_Randomize,,0x0061C3C0,92,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,mat
 ?rva0004BBF44@AODCrushCollide@@SA?AW4NameKeyType@@XZ,,0x004BBF44,69,Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/AODCrushCollidePoolKey.cpp,matched,Cached pool-name key; pool string AODCrushCollide; static-guard EH; nameToKey row
 ?rva004C161D@DelayedDeathBody@@SA?AW4NameKeyType@@XZ,,0x004C161D,69,Code/GameEngine/Source/GameLogic/Object/Body/DelayedDeathBodyPoolKey.cpp,matched,
 ?rva004C08B7@ImmortalBody@@SA?AW4NameKeyType@@XZ,,0x004C08B7,69,Code/GameEngine/Source/GameLogic/Object/Body/ImmortalBodyPoolKey.cpp,matched,
+?rva004C07CA@HighlanderBody@@SA?AW4NameKeyType@@XZ,,0x004C07CA,69,Code/GameEngine/Source/GameLogic/Object/Body/HighlanderBodyPoolKey.cpp,matched,
