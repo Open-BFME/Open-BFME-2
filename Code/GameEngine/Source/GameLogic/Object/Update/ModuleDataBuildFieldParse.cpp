@@ -92,3 +92,4 @@ FIELD_PROC(ModelConditionSpecialAbilityUpdateModuleData, 0x00C4DA00, ModelCondit
 FIELD_PROC(AttachUpdateModuleData, 0x00C4DC48, AttachTable)
 FIELD_PROC(PickupStuffUpdateModuleData, 0x00C4DE90, PickupStuffTable)
 FIELD_PROC(HeightDieUpdateModuleData, 0x00C4CFC8, HeightTable)
+FIELD_PROC(FloatUpdateModuleData, 0x00C4C7A4, EnabledTable)
