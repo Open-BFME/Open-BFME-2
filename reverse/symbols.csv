@@ -3768,3 +3768,8 @@ _luaC_collect,0x00751220,address read from the REL32 displacement at a placed bo
 _luaC_collectgarbage,0x007513F0,address read from the REL32 displacement at a placed body
 _lua_getlocal,0x0074CBC0,address read from the REL32 displacement at a placed body
 _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed body
+??0?$_List_base@FV?$allocator@F@_STL@@@_STL@@QAE@ABV?$allocator@F@1@@Z,0x004EC36C,REL32 displacement at the byte-true list<short>::sort call site 0x0052611D; ICF-folded with the int instantiation
+?splice@?$list@FV?$allocator@F@_STL@@@_STL@@QAEXU?$_List_iterator@FU?$_Nonconst_traits@F@_STL@@@2@AAV12@0@Z,0x004CEA94,REL32 displacement at the byte-true list<short>::sort call site 0x0052611D; ICF-folded with the int instantiation
+??$_S_merge@FV?$allocator@F@_STL@@U?$less@F@2@@_STL@@YAXAAV?$list@FV?$allocator@F@_STL@@@0@0U?$less@F@0@@Z,0x00525951,REL32 displacement at the byte-true list<short>::sort call site 0x0052611D
+??$swap@V?$_STLP_alloc_proxy@PAU?$_List_node@F@_STL@@U12@V?$allocator@U?$_List_node@F@_STL@@@2@@_STL@@@_STL@@YAXAAV?$_STLP_alloc_proxy@PAU?$_List_node@F@_STL@@U12@V?$allocator@U?$_List_node@F@_STL@@@2@@0@0@Z,0x00574B2D,REL32 displacement at the byte-true list<short>::sort call site 0x0052611D; ICF-folded with the int instantiation
+??1?$_List_base@FV?$allocator@F@_STL@@@_STL@@QAE@XZ,0x004EC395,REL32 displacement at the byte-true list<short>::sort call site 0x0052611D; ICF-folded with the int instantiation
