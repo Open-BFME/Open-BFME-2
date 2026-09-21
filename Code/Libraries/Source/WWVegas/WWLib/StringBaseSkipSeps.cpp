@@ -4,13 +4,39 @@
 // Retail calls them with the string in EAX and the separator set in EDI:
 // MSVC 7.1's private convention for a static whose every call site it can
 // see. The real nextToken below is the second such caller (it used to be a
-// shape-only host method); both keep the convention. Declarations for the
-// StringBase members come from string_base.h (getBufferForRead rides the
-// 0x00036640 pin; set and releaseBuffer are ledger-matched).
+// shape-only host method); both keep the convention. The StringBase members
+// are mirrored below rather than added to string_base.h (getBufferForRead
+// rides the 0x00036640 pin; set and releaseBuffer are ledger-matched).
 
 #include <string.h>
 
-#include "string_base.h"
+// Mirror of the StringBase members this body touches, TU-local for the same
+// reason string_base_clear.cpp keeps one: the shared string_base.h models the
+// class without nextToken, getBufferForRead or releaseBuffer, and a mirror
+// leaves it -- and every other unit that includes it -- untouched. Access
+// matters here, not just the signature: getBufferForRead is public (QAE) and
+// releaseBuffer private (AAE) in the retail decorations both pins carry.
+template <typename T>
+class StringBase
+{
+public:
+	bool nextToken(StringBase<T> *out, const T *seps);
+	T *getBufferForRead(int len);
+	void set(const T *str, int len);
+
+private:
+	void releaseBuffer();
+
+	struct Header
+	{
+		int ref_count;
+		unsigned short length;
+		unsigned short capacity;
+		T data[1];
+	};
+
+	Header *m_data;
+};
 
 static char *skipSeps(char *p, const char *seps);
 static char *skipNonSeps(char *p, const char *seps);

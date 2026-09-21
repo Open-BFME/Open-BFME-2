@@ -5,7 +5,32 @@
 
 #include <string.h>
 
-#include "string_base.h"
+// Mirror of the StringBase members this body touches, TU-local for the same
+// reason string_base_clear.cpp keeps one: the shared string_base.h models the
+// class without nextToken, getBufferForRead or releaseBuffer. Access is part
+// of the decoration both pins carry -- getBufferForRead public (QAE),
+// releaseBuffer private (AAE).
+template <typename T>
+class StringBase
+{
+public:
+	bool nextToken(StringBase<T> *out, const T *seps);
+	T *getBufferForRead(int len);
+	void set(const T *str, int len);
+
+private:
+	void releaseBuffer();
+
+	struct Header
+	{
+		int ref_count;
+		unsigned short length;
+		unsigned short capacity;
+		T data[1];
+	};
+
+	Header *m_data;
+};
 
 static unsigned short *skipSepsW(unsigned short *p, const unsigned short *seps);
 static unsigned short *skipNonSepsW(unsigned short *p, const unsigned short *seps);

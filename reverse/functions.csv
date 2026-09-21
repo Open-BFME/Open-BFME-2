@@ -14527,7 +14527,6 @@ _chatRetryWithNickA,,0x006A33C0,119,Code/GameEngine/Source/GameNetwork/GameSpy/c
 ?buildFieldParse@W3DModelDrawModuleData@@SAXAAVMultiIniFieldParse@@@Z,,0x000C9240,17,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDrawModuleDataBuildFieldParse.cpp,matched,
 ??0OCLUpdateModuleData@@QAE@XZ,,0x0049B355,26,Code/GameEngine/Source/GameLogic/Object/Update/OCLUpdateModuleDataCtor.cpp,matched,
 ?buildFieldParse@OCLUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z,,0x0049B370,11,Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp,matched,
-?friend_newModuleData@W3DModelDrawModuleData@@SAPAVModuleData@@PAVINI@@@Z,,0x000648D6,83,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDrawModuleDataFriendNew.cpp,matched,
 ?friend_newModuleData@OCLUpdateModuleData@@SAPAVModuleData@@PAVINI@@@Z,,0x0024E5D3,81,Code/GameEngine/Source/GameLogic/Object/Update/OCLUpdateModuleDataFriendNew.cpp,matched,
 ?friend_newModuleData@W3DModelDraw@@SAPAVModuleData@@PAVINI@@@Z,,0x000648D6,83,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDrawModuleDataFriendNew.cpp,matched,
 ?buildFieldParse@W3DSupplyDrawModuleData@@SAXAAVMultiIniFieldParse@@@Z,,0x000CAE28,27,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDrawModuleDataBuildFieldParseChained.cpp,matched,
