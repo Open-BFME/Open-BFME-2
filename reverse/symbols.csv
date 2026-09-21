@@ -3718,3 +3718,5 @@ _Rva0084DE40Tail,0x000210C0,STLport locale tail helper called via tail-jmp from 
 ?buildFieldParse@GrabPassengerSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x004C4F89
 ??0InvisibilityUpdateModuleData@@QAE@XZ,0x00255474,sole raw E8 caller is ModuleData factory 0x0025553A; ModuleData table 0x00C52468 extent 0x1DC
 ??0CashHackSpecialPowerModuleData@@QAE@XZ,0x004C2889
+?buildFieldParse@RousingSpeechUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x004ACD73,chained proc: base 0x44ED95 plus own table 0x00C54F28 with 10 of 10 BFME1 RousingSpeech fields in order; factory 0x24F58C pushes its VA exclusively
+??0RousingSpeechUpdateModuleData@@QAE@XZ,0x004AD0EE,sole raw E8 caller is ModuleData factory 0x24F58C; installs vtable 0x00C55048; stores match table offsets 0xC8 to 0xF4; RousingSpeechUpdate pool key rowed at 0x4ACED8
