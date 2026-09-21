@@ -36,3 +36,4 @@ void cls::buildFieldParse(MultiIniFieldParse &parse) \
 }
 
 FIELD_PROC(CrateCollideModuleData, 0x00C5A7A8, CrateCollideTable)
+FIELD_PROC(AODCrushCollideModuleData, 0x00C5A4A8, AODCrushCollideTable)
