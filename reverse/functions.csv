@@ -15327,3 +15327,4 @@ _XMP_Randomize,,0x0061C3C0,92,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,mat
 ?rva0004C2034@PorcupineFormationBodyModule@@SA?AW4NameKeyType@@XZ,,0x004C2034,69,Code/GameEngine/Source/GameLogic/Object/Body/PorcupineFormationBodyModulePoolKey.cpp,matched,
 ?friend_newModuleData@BuildingBehaviorModuleData@@SAPAVModuleData@@PAVINI@@@Z,,0x0024ABAF,81,Code/GameEngine/Source/GameLogic/Object/Behavior/BuildingBehaviorModuleDataFriendNew.cpp,matched,Dedicated TU; news 0x38 plus pinned sole-caller ctor 0x456489 plus rowed proc 0x456206; poolkey BuildingBehavior 0x4561C1 ends where proc begins
 ?rva0004C8270@DevastateSpecialPower@@SA?AW4NameKeyType@@XZ,,0x004C8270,69,Code/GameEngine/Source/GameLogic/Object/SpecialPower/DevastateSpecialPowerPoolKey.cpp,matched,
+?rva0004A7699@MissileUpdate@@SA?AW4NameKeyType@@XZ,,0x004A7699,69,Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdatePoolKey.cpp,matched,
