@@ -1,7 +1,9 @@
 // cl: /O1 /MD /EHs-c-
+// Identity: ModuleFactory registers this data class under "WeaponModeSpecialPowerUpdate" (addModule
+// pairs the name with its factory); formerly misnamed DozerAIUpdate/DozerAIUpdateModuleData.
 // stlport
 
-// ??0DozerAIUpdateModuleData@@QAE@XZ, retail 0x00494D26 (58 bytes).
+// ??0WeaponModeSpecialPowerUpdateModuleData@@QAE@XZ, retail 0x00494D26 (58 bytes).
 // Frameless ctor over the pinned AIUpdateModuleData base (0x58925D): the
 // derived vtable 0x00C4EA88 is a pointer-cast body store first (Defector
 // precedent for frameless plus non-empty base, so the store is a body store
@@ -31,10 +33,10 @@ private:
 	unsigned char m_pad[0x18 - 4];
 };
 
-class DozerAIUpdateModuleData : public AIUpdateModuleData
+class WeaponModeSpecialPowerUpdateModuleData : public AIUpdateModuleData
 {
 public:
-	DozerAIUpdateModuleData();
+	WeaponModeSpecialPowerUpdateModuleData();
 
 private:
 	int m_18;					// +0x18
@@ -43,7 +45,7 @@ private:
 	unsigned long m_bits[4];	// +0x24
 };
 
-DozerAIUpdateModuleData::DozerAIUpdateModuleData()
+WeaponModeSpecialPowerUpdateModuleData::WeaponModeSpecialPowerUpdateModuleData()
 {
 	*(unsigned int *)this = 0x00C4EA88;
 	_ReadWriteBarrier();

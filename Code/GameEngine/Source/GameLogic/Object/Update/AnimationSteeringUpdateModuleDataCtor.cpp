@@ -1,8 +1,10 @@
 // cl: /DNDEBUG /MD /EHsc /O1
+// Identity: ModuleFactory registers this data class under "CivilianSpawnCollide" (addModule
+// pairs the name with its factory); formerly misnamed AnimationSteeringUpdate/AnimationSteeringUpdateModuleData.
 //
-// ??0AnimationSteeringUpdateModuleData@@QAE@XZ, retail 0x004BD651 (50 bytes).
+// ??0CivilianSpawnCollideModuleData@@QAE@XZ, retail 0x004BD651 (50 bytes).
 // BFME1 donor: Code/GameEngine/Source/GameLogic/Object/Update/
-// AnimationSteeringUpdate.cpp (`m_transitionFrames = 0`, 25 bytes).
+// CivilianSpawnCollide.cpp (`m_transitionFrames = 0`, 25 bytes).
 // BFME2 installs its vtable then constructs the +0x08 member through the
 // opaque 0x3623E5 pin (a 0x94-frame SEH body whose identity is unproven;
 // the pin claims only the address) and returns this with no other stores.
@@ -26,14 +28,14 @@ public:
 	unsigned int m_moduleTagNameKey;
 };
 
-class AnimationSteeringUpdateModuleData : public ModuleDataBase
+class CivilianSpawnCollideModuleData : public ModuleDataBase
 {
 public:
-	AnimationSteeringUpdateModuleData();
+	CivilianSpawnCollideModuleData();
 	Rva003623E5Member m_updateMember;
 };
 
-// ??0AnimationSteeringUpdateModuleData@@QAE@XZ
-AnimationSteeringUpdateModuleData::AnimationSteeringUpdateModuleData()
+// ??0CivilianSpawnCollideModuleData@@QAE@XZ
+CivilianSpawnCollideModuleData::CivilianSpawnCollideModuleData()
 {
 }
