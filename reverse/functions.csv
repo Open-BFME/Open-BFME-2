@@ -15384,3 +15384,4 @@ _XMP_Randomize,,0x0061C3C0,92,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,mat
 ?rva004C4FCE@GrabPassengerSpecialPower@@SA?AW4NameKeyType@@XZ,,0x004C4FCE,69,Code/GameEngine/Source/GameLogic/Object/SpecialPower/GrabPassengerSpecialPowerPoolKey.cpp,matched,
 ?rva004C7B4F@UntamedAllegianceSpecialPower@@SA?AW4NameKeyType@@XZ,,0x004C7B4F,69,Code/GameEngine/Source/GameLogic/Object/SpecialPower/UntamedAllegianceSpecialPowerPoolKey.cpp,matched,
 ?rva004C7C4C@PlayerUpgradeSpecialPower@@SA?AW4NameKeyType@@XZ,,0x004C7C4C,69,Code/GameEngine/Source/GameLogic/Object/SpecialPower/PlayerUpgradeSpecialPowerPoolKey.cpp,matched,
+?rva004C85BD@SplitHordeSpecialPower@@SA?AW4NameKeyType@@XZ,,0x004C85BD,69,Code/GameEngine/Source/GameLogic/Object/SpecialPower/SplitHordeSpecialPowerPoolKey.cpp,matched,
