@@ -3716,3 +3716,4 @@ _Rva0084DE40Tail,0x000210C0,STLport locale tail helper called via tail-jmp from 
 ?buildFieldParse@DarknessSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x004C4D9E
 ??0GrabPassengerSpecialPowerModuleData@@QAE@XZ,0x004C5421
 ?buildFieldParse@GrabPassengerSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x004C4F89
+??0InvisibilityUpdateModuleData@@QAE@XZ,0x00255474,sole raw E8 caller is ModuleData factory 0x0025553A; ModuleData table 0x00C52468 extent 0x1DC
