@@ -1,3 +1,5 @@
+// ??0OilSpillUpdateModuleData@@QAE@XZ
+// partial score=0.6 date=2026-09-21
 // cl: /O1 /arch:SSE /MD /DNDEBUG
 //
 // ??0OilSpillUpdateModuleData@@QAE@XZ, retail 0x0048C16C, 37 bytes.
