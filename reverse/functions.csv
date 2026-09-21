@@ -14780,3 +14780,4 @@ _chatRetryWithNickA,,0x006A33C0,119,Code/GameEngine/Source/GameNetwork/GameSpy/c
 ??0MaxHealthUpgradeModuleData@@QAE@XZ,,0x004B62C4,36,Code/GameEngine/Source/GameLogic/Object/Upgrade/MaxHealthUpgradeModuleDataCtor.cpp,matched,
 ?buildFieldParse@MaxHealthUpgradeModuleData@@SAXAAVMultiIniFieldParse@@@Z,,0x004B62E8,34,Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp,matched,
 ?friend_newModuleData@MaxHealthUpgradeModuleData@@SAPAVModuleData@@PAVINI@@@Z,,0x002504BA,84,Code/GameEngine/Source/GameLogic/Object/Upgrade/MaxHealthUpgradeModuleDataFriendNew.cpp,matched,
+??0TooltipUpgradeModuleData@@QAE@XZ,,0x0025588E,91,Code/GameEngine/Source/GameLogic/Object/Upgrade/TooltipUpgradeModuleDataCtor.cpp,matched,
