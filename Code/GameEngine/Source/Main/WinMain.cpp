@@ -932,3 +932,27 @@ bool bfmeCallInitializeAppWindows( HINSTANCE hInstance, int nCmdShow, bool runWi
 {
 	return initializeAppWindows( hInstance, nCmdShow, runWindowed );
 }
+
+//----------------------------------------------------------------------------
+// copyStringRef, at 0x002343F7 (32B). Snapshots a C string into an 8-byte
+// caller slot: it inits a stack temp through the pinned 0xB3F84 pair init
+// (pointer plus strlen, null-safe) then copies both words to the
+// destination. The init call leaves the temp address in eax, which the two
+// known title-assembly callers (0x23486D/0x2348C2 in bfmeGetMainWindowTitle)
+// reuse incidentally. Called 5x from WinMain-local helpers; the pair init
+// has 11 member-position callers image-wide.
+
+struct Rva000B3F84Pair
+{
+	void init(const char *src);
+	const char *m_ptr;
+	int m_len;
+};
+
+// ?copyStringRef@@YAXPAXPAD@Z @0x2343F7
+void copyStringRef(void *dst, const char *src)
+{
+	Rva000B3F84Pair tmp;
+	tmp.init(src);
+	*(Rva000B3F84Pair *)dst = tmp;
+}
