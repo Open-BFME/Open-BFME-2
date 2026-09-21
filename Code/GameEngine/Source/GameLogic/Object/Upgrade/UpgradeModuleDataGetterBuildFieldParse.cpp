@@ -26,6 +26,10 @@
 // GetUpgradeCommandButtonName at +0x118 plus RemoveUpgradeCommandButtonName at
 // +0x11C; factory at 0x2557B5 pushes this proc; the DoCommandUpgrade pool key
 // at 0x4B4BF1 ends where this proc begins).
+// ?buildFieldParse@CastleUpgradeModuleData@@SAXAAVMultiIniFieldParse@@@Z,
+// retail 0x004B6847, 34 bytes (own table 0x00C588C4 holding Upgrade at +0x118
+// plus WallUpgradeRadius at +0x11C; factory at 0x25585A pushes this proc; the
+// CastleUpgrade pool key at 0x4B682C ends where this proc begins).
 // Provenance: the getter-head shape (push 8, call getter, add, add table)
 // reproduces retail exactly; the pushed table address is a masked DIR32 so
 // the TU keeps an opaque table. Recipe:
@@ -75,6 +79,12 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
+class CastleUpgradeModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
 static const FieldParse s_commandSetTable;
 
 static const FieldParse s_radarTable;
@@ -84,6 +94,8 @@ static const FieldParse s_statusBitsTable;
 static const FieldParse s_attributeModifierTable;
 
 static const FieldParse s_doCommandTable;
+
+static const FieldParse s_castleTable;
 
 // ?buildFieldParse@CommandSetUpgradeModuleData@@SAXAAVMultiIniFieldParse@@@Z
 void CommandSetUpgradeModuleData::buildFieldParse(MultiIniFieldParse &parse)
@@ -118,4 +130,11 @@ void DoCommandUpgradeModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
 	parse.add(reinterpret_cast<const FieldParse *>(Rva004CE29DGet()), 8);
 	parse.add(&s_doCommandTable, 0);
+}
+
+// ?buildFieldParse@CastleUpgradeModuleData@@SAXAAVMultiIniFieldParse@@@Z
+void CastleUpgradeModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	parse.add(reinterpret_cast<const FieldParse *>(Rva004CE29DGet()), 8);
+	parse.add(&s_castleTable, 0);
 }
