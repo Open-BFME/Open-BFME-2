@@ -29,7 +29,7 @@ TEXT_RVA = 0x1000
 TEXT_SIZE = 0x400
 RDATA_RVA = 0x2000
 HEADERS = 0x400
-BINARY = "baselines/bfme1/workshop-vanilla-1.03/files/lotrbfme.exe"
+BINARY = "baselines/bfme2/workshop-vanilla-1.06/files/game.dat"
 OUT = "reverse/field_names.csv"
 
 fieldnames = importlib.util.module_from_spec(
@@ -94,7 +94,7 @@ def plant(root, tables, upstream):
     binary = root / BINARY
     binary.parent.mkdir(parents=True)
     binary.write_bytes(image)
-    reference = root / "reference" / "CnC_Generals_Zero_Hour"
+    reference = root / fieldnames.UPSTREAM
     reference.mkdir(parents=True)
     (reference / "Fixture.cpp").write_text(upstream)
     (root / "reverse").mkdir()
@@ -169,7 +169,7 @@ def test_undecodable_offset_aborts_the_table_and_writes_nothing(tmp_path):
 
 def test_upstream_index_carries_no_offsets(tmp_path):
     """There is nothing to fall back TO: the join's upstream side is names only."""
-    reference = tmp_path / "reference" / "CnC_Generals_Zero_Hour"
+    reference = tmp_path / fieldnames.UPSTREAM
     reference.mkdir(parents=True)
     (reference / "Fixture.cpp").write_text(
         "const FieldParse f[] = {\n" + entries("Fine", "Carrier", "m_fine") + "};\n")
@@ -211,7 +211,7 @@ def test_weapon_template_attack_range(tmp_path):
 
 def test_weapon_cpp_still_says_what_the_fixture_says():
     """The fixture is only evidence while the reference tree still reads this way."""
-    weapon = (REPO / "reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine"
+    weapon = (REPO / fieldnames.UPSTREAM / "GeneralsMD/Code/GameEngine"
               "/Source/GameLogic/Object/Weapon.cpp")
     line = weapon.read_text("utf-8", "replace").splitlines()[176]      # :177
     assert '"AttackRange"' in line
@@ -236,6 +236,44 @@ def test_a_pointer_in_the_offset_slot_is_not_a_table(tmp_path):
     assert done.returncode == 0, done.stderr
     keys = [row["ini_key"] for row in read_rows(tmp_path)]
     assert keys == ["Real", "AlsoReal", "Last"]
+
+
+class _WideText:
+    """game.dat at 0x8cd27c: `ormance ` in UTF-16, from a DirectMusic string."""
+    base = BASE
+
+    def read(self, rva, count):
+        return "ormance ".encode("utf-16-le")[:count]
+
+    def cstring(self, rva):
+        return b"0"
+
+    def executable(self, rva):
+        return True
+
+
+def test_utf16_text_is_not_an_entry():
+    """If accepted, its offset (0x200065) would abort the whole scan."""
+    assert fieldnames.entry(_WideText(), 0x8cd27c) is None
+
+
+def test_one_letter_keys_are_real_keys(tmp_path):
+    """game.dat's table at 0x86c1b0 is keyed X, Y, Z."""
+    table = [("X", 0x0C), ("Y", 0x18), ("Z", 0x24)]
+    plant(tmp_path, [table],
+          "const FieldParse f[] = {\n" + entries("X", "Carrier", "m_x") + "};\n")
+
+    done = run(tmp_path)
+    assert done.returncode == 0, done.stderr
+    assert [row["ini_key"] for row in read_rows(tmp_path)] == ["X", "Y", "Z"]
+
+
+def test_the_retail_scan_completes():
+    image = fieldnames.Image(REPO / BINARY)
+    found, _rejected = fieldnames.tables(image)
+    for rva, table in found:
+        fieldnames.check_offsets(rva, table)          # exits on a bad table
+    assert [e.key for rva, table in found if rva == 0x86c1b0 for e in table] == ["X", "Y", "Z"]
 
 
 def test_adjacent_tables_stay_apart(tmp_path):

@@ -151,6 +151,10 @@ def entry(image, rva):
     key = image.cstring(token - image.base)
     if not key or not all(0x21 <= char <= 0x7E for char in key):
         return None
+    # UTF-16 text (e.g. the DirectMusic string at 0x8cd27c) reads as 0x00XX00YY
+    # dwords that pass for pointers; no real entry has both in that shape.
+    if token & 0xFF00FF00 == 0 and parse & 0xFF00FF00 == 0:
+        return None
     if not image.executable(parse - image.base):
         return None
     if offset >= image.base:
