@@ -3700,3 +3700,7 @@ _Rva0084DE40Tail,0x000210C0,STLport locale tail helper called via tail-jmp from 
 ??_7GateProxyBehaviorModuleData@@6B@,0x00BEF380
 ?buildFieldParse@WanderAIUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x0024F1F2,chained link: base proc 0x2638FF plus table 0xBEF580 (WildBeast at +0x64 plus ConditionForEntry at +0x68 plus Selectable at +0x6C plus WanderDistance at +0x70); pushed as proc VA by ModuleData factory 0x24F248
 ??0WanderAIUpdateModuleData@@QAE@XZ,0x0024F1CD,frameless ctor over base 0x26E5D7 (OR-minus-one at +0x68 plus vtable 0x00C4B6C8 plus WildBeast-false at +0x64 plus Selectable-true at +0x6C plus WanderDistance-30 at +0x70); sole raw caller is ModuleData factory 0x24F248 which news 0x74
+??_7GateProxyBehavior@@6BProxyBaseA@@@,0x00BEF338
+??_7GateProxyBehavior@@6BProxyBaseB@@@,0x00BEF304
+??_7GateProxyBehavior@@6BProxyBaseC@@@,0x00BEF248
+??_7GateProxyBehavior@@6BProxyBaseD@@@,0x00BEF23C
