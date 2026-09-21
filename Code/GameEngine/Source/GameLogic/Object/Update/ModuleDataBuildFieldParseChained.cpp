@@ -298,3 +298,15 @@ void SpecialPowerCompletionDieModuleData::buildFieldParse(MultiIniFieldParse &pa
 	parse.add(reinterpret_cast<const FieldParse *>(Rva004CE52EGet()), 8);
 	parse.add(reinterpret_cast<const FieldParse *>(0x00BF0928), 0);
 }
+
+class RebuildHoleExposeDieModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+void RebuildHoleExposeDieModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	parse.add(reinterpret_cast<const FieldParse *>(Rva004CE52EGet()), 8);
+	parse.add(reinterpret_cast<const FieldParse *>(0x00C4AE00), 0);
+}
