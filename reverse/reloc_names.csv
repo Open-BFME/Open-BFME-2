@@ -297,10 +297,10 @@ _d_0088d240,0x0003C550,465,Code/GameEngine/Source/Common/Bfme/Rva00889760.cpp,re
 ?bfmePopulateGameReport@GameLogic@@QAEXPAVGameInfo@@PAH@Z,0x00247378,1463,Code/GameEngine/Source/GameLogic/System/GameLogicStartingCamera.cpp,reloc-derived;call-sites=1;identity=real
 ??0Rva0024C7B3Member@@QAE@XZ,0x0024C7B3,20,Code/GameEngine/Source/GameLogic/Object/Behavior/GiantBirdSlowDeathBehaviorModuleDataCtor.cpp,reloc-derived;call-sites=7;identity=generated
 ??0Rva00253510@@QAE@XZ,0x00253510,50,Code/GameEngine/Source/GameLogic/Object/Die/DamageFilteredCreateObjectDieModuleDataCtor.cpp,reloc-derived;call-sites=5;identity=generated
+??0FireWeaponCollideModuleData@@QAE@XZ,0x00254A36,68,Code/GameEngine/Source/GameLogic/Object/Collide/FireWeaponCollideModuleDataFriendNew.cpp,reloc-derived;call-sites=1;identity=real
 ??0RunOffMapBehaviorModuleData@@QAE@XZ,0x00254ECE,86,Code/GameEngine/Source/GameLogic/Object/Behavior/RunOffMapBehaviorModuleDataFriendNew.cpp,reloc-derived;call-sites=1;identity=real
 ?buildFieldParse@GarrisonContainModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x00254F75,27,Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp,reloc-derived;call-sites=1;identity=real
-??0SpawnUnitBehaviorModuleData@@QAE@XZ,0x0025598C,101,Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnUnitBehaviorModuleDataFriendNew.cpp,reloc-derived;call-sites=1;identity=real
-??0StructureCollapseUpdateModuleData@@QAE@XZ,0x00257A5E,256,Code/GameEngine/Source/Common/Thing/ModuleFactory.cpp,reloc-derived;call-sites=1;identity=real
+??0StructureToppleUpdateModuleData@@QAE@XZ,0x00257A5E,256,Code/GameEngine/Source/GameLogic/Object/Update/StructureToppleUpdateModuleDataFriendNew.cpp,reloc-derived;call-sites=1;identity=real
 ??1StructureCollapseUpdateModuleData@@UAE@XZ,0x00257B7A,109,Code/GameEngine/Source/Common/Thing/ModuleFactory.cpp,reloc-derived;call-sites=1;identity=real
 ?bfmeGoVM0@BfmeStrVM0@@QAEXH@Z,0x0025D904,199,Code/GameEngine/Source/Common/BfmeConv1435.cpp,reloc-derived;call-sites=1;identity=real
 ??1Rva00260A3C@@UAE@XZ,0x00260A3C,154,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtors.cpp,reloc-derived;call-sites=1;identity=generated
@@ -312,6 +312,7 @@ _d_0088d240,0x0003C550,465,Code/GameEngine/Source/Common/Bfme/Rva00889760.cpp,re
 ?bfmeCopyTwoCDF@BfmePartCDF@@QAEXPAU1@@Z,0x0026F4F4,163,Code/GameEngine/Source/Common/BfmeConv584.cpp,reloc-derived;call-sites=1;identity=real
 ?addWaypointLink@TerrainLogic@@IAEXHH@Z,0x0027F009,150,Code/GameEngine/Source/GameLogic/Map/TerrainLogic_parseWaypointData.cpp,reloc-derived;call-sites=1;identity=real
 ??$_Construct@UBfmePod264@@U1@@_STL@@YAXPAUBfmePod264@@ABU1@@Z,0x00289E69,45,Code/Libraries/Source/WWVegas/WWLib/stlport_pod_list_bodies.cpp,reloc-derived;call-sites=1;identity=real
+?allocateNewWeapon@WeaponStore@@QBEPAVWeapon@@PBVWeaponTemplate@@W4WeaponSlotType@@@Z,0x0028AA81,58,Code/GameEngine/Source/GameLogic/Object/Collide/FireWeaponCollideCtor.cpp,reloc-derived;call-sites=1;identity=real
 ?getAbleToUseWeaponAgainstTarget@Object@@QBE?AW4CanAttackResult@@W4AbleToAttackType@@PBV1@PBUCoord3D@@W4CommandSourceType@@@Z,0x0028AF2B,31,Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior_getCanAnySlavesUseWeaponAgainstTarget.cpp,reloc-derived;call-sites=1;identity=real
 ?bfmeFindBEC@BfmeSubBEC@@QAEPAVBfmeGotBEC@@XZ,0x0028BCB4,32,Code/GameEngine/Source/Common/BfmeConv448.cpp,reloc-derived;call-sites=1;identity=real
 ?getAbleToAttackSpecificObject@Object@@QBE?AW4CanAttackResult@@W4AbleToAttackType@@PBV1@W4CommandSourceType@@@Z,0x0028D051,261,Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior_getCanAnySlavesAttackSpecificTarget.cpp,reloc-derived;call-sites=1;identity=real
@@ -411,7 +412,7 @@ _fprintf,0x002CEC42,108,Code/GameEngine/Source/Common/GameLogicRandomValue_getVa
 ?_M_push_back_aux_v@?$deque@UBfmePod840@@V?$allocator@UBfmePod840@@@_STL@@@_STL@@IAEXABUBfmePod840@@@Z,0x0038AA13,140,Code/Libraries/Source/WWVegas/WWLib/stlport_pod_large_bodies.cpp,reloc-derived;call-sites=1;identity=real
 ??0DumbProjectileBehavior@@QAE@PAVThing@@PBVModuleData@@@Z,0x003907A6,182,Code/GameEngine/Source/Common/Thing/ModuleFactory.cpp,reloc-derived;call-sites=1;identity=real
 ?allocate@?$allocator@UBfmeStringRecord000B9534@@@_STL@@QBEPAUBfmeStringRecord000B9534@@IPBX@Z,0x00395944,28,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_stringrecord_b9534_allocate_copy.cpp,reloc-derived;call-sites=1;identity=real
-??0BaikonurLaunchPowerModuleData@@QAE@XZ,0x0039A027,391,Code/GameEngine/Source/Common/Thing/ModuleFactory.cpp,reloc-derived;call-sites=1;identity=real
+??0CastleBehaviorModuleData@@QAE@XZ,0x0039A027,391,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleBehaviorModuleDataFriendNew.cpp,reloc-derived;call-sites=1;identity=real
 ?bfmeCalcEFC@@YGMH@Z,0x0039B145,42,Code/GameEngine/Source/Common/BfmeConv813.cpp,reloc-derived;call-sites=1;identity=real
 ?getTotalBuildingsDestroyed@ScoreKeeper@@QAEHXZ,0x0039B73F,10,Code/GameEngine/Source/Common/StatsCollector.cpp,reloc-derived;call-sites=1;identity=real
 ?getTotalUnitsDestroyed@ScoreKeeper@@QAEHXZ,0x0039B769,10,Code/GameEngine/Source/Common/StatsCollector.cpp,reloc-derived;call-sites=1;identity=real
@@ -463,7 +464,8 @@ _fprintf,0x002CEC42,108,Code/GameEngine/Source/Common/GameLogicRandomValue_getVa
 ??0Rva0044EB54@@QAE@XZ,0x0044EB54,378,Code/GameEngine/Source/GameLogic/Object/SpecialPower/DominateEnemySpecialPowerModuleDataCtor.cpp,reloc-derived;call-sites=10;identity=generated
 ??0Rva0044EF5E@@QAE@PAVThing@@PBVModuleData@@@Z,0x0044EF5E,246,Code/GameEngine/Source/GameLogic/Object/Update/DozerAIUpdateCtor.cpp,reloc-derived;call-sites=12;identity=generated
 ??0WallHubBehaviorModuleData@@QAE@XZ,0x00453020,148,Code/GameEngine/Source/GameLogic/Object/Behavior/WallHubBehaviorModuleDataFriendNew.cpp,reloc-derived;call-sites=1;identity=real
-??0BridgeScaffoldBehaviorModuleData@@QAE@XZ,0x00457FF1,89,Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeScaffoldBehaviorModuleDataFriendNew.cpp,reloc-derived;call-sites=1;identity=real
+??0BuildingBehaviorModuleData@@QAE@XZ,0x00456489,65,Code/GameEngine/Source/GameLogic/Object/Behavior/BuildingBehaviorModuleDataFriendNew.cpp,reloc-derived;call-sites=1;identity=real
+??0BridgeBehaviorModuleData@@QAE@XZ,0x00457FF1,89,Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeScaffoldBehaviorModuleDataFriendNew.cpp,reloc-derived;call-sites=1;identity=real
 ??0AutoAbilityBehaviorModuleData@@QAE@XZ,0x0045A2E7,135,Code/GameEngine/Source/GameLogic/Object/Behavior/AutoAbilityBehaviorModuleDataFriendNew.cpp,reloc-derived;call-sites=1;identity=real
 ??0SlowDeathBehaviorModuleData@@QAE@XZ,0x0045E386,287,Code/GameEngine/Source/GameLogic/Object/Behavior/ClearanceTestingSlowDeathBehaviorModuleDataCtor.cpp,reloc-derived;call-sites=3;identity=real
 ?bfmeCallEBC@BfmeOwnerEBC@@QAEXXZ,0x0046094C,112,Code/GameEngine/Source/Common/BfmeConv802.cpp,reloc-derived;call-sites=1;identity=real
@@ -471,14 +473,14 @@ _fprintf,0x002CEC42,108,Code/GameEngine/Source/Common/GameLogicRandomValue_getVa
 ??0ReplenishUnitsBehaviorModuleData@@QAE@XZ,0x004841CC,91,Code/GameEngine/Source/GameLogic/Object/Behavior/ReplenishUnitsBehaviorModuleDataFriendNew.cpp,reloc-derived;call-sites=1;identity=real
 ??0BoneFXUpdateModuleData@@QAE@XZ,0x00487797,196,Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateModuleDataFriendNew.cpp,reloc-derived;call-sites=1;identity=real
 ??0Rva0048BC03Base@@QAE@XZ,0x0048BC03,67,Code/GameEngine/Source/GameLogic/Object/Update/OilSpillUpdateModuleDataCtor.cpp,reloc-derived;call-sites=1;identity=real
-??0SalvageCrateCollideModuleData@@QAE@XZ,0x0048D541,203,Code/GameEngine/Source/Common/Thing/ModuleFactory.cpp,reloc-derived;call-sites=1;identity=real
+??0FlammableUpdateModuleData@@QAE@XZ,0x0048D541,203,Code/GameEngine/Source/GameLogic/Object/Update/FlammableUpdateModuleDataFriendNew.cpp,reloc-derived;call-sites=1;identity=real
 ??0RailedTransportDockUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x004909D7,129,Code/GameEngine/Source/Common/Thing/ModuleFactory.cpp,reloc-derived;call-sites=1;identity=real
 ??0PoisonedBehavior@@QAE@PAVThing@@PBVModuleData@@@Z,0x004912A9,81,Code/GameEngine/Source/Common/Thing/ModuleFactory.cpp,reloc-derived;call-sites=1;identity=real
 ??0Rva004930A0@@QAE@XZ,0x004930A0,359,Code/GameEngine/Source/GameLogic/Object/SpecialPower/CloudBreakSpecialPowerModuleDataCtor.cpp,reloc-derived;call-sites=11;identity=generated
 ??0Rva00493C5A@@QAE@PAVThing@@PBVModuleData@@@Z,0x00493C5A,330,Code/GameEngine/Source/GameLogic/Object/SpecialPower/PlayerHealSpecialPowerCtor.cpp,reloc-derived;call-sites=2;identity=generated
 ??0AutoPickUpUpdateModuleData@@QAE@XZ,0x00496308,151,Code/GameEngine/Source/GameLogic/Object/Update/AutoPickUpUpdateModuleDataFriendNew.cpp,reloc-derived;call-sites=1;identity=real
 ??0BoredUpdateModuleData@@QAE@XZ,0x004966FE,130,Code/GameEngine/Source/GameLogic/Object/Update/BoredUpdateModuleDataFriendNew.cpp,reloc-derived;call-sites=1;identity=real
-??0HordeUpdateModuleData@@QAE@XZ,0x00496FA5,149,Code/GameEngine/Source/GameLogic/Object/Update/HordeUpdateModuleDataFriendNew.cpp,reloc-derived;call-sites=1;identity=real
+??0BannerCarrierUpdateModuleData@@QAE@XZ,0x00496FA5,149,Code/GameEngine/Source/GameLogic/Object/Update/HordeUpdateModuleDataFriendNew.cpp,reloc-derived;call-sites=1;identity=real
 ??0BattlePlanUpdateModuleData@@QAE@XZ,0x0049780A,153,Code/GameEngine/Source/GameLogic/Object/Update/BattlePlanUpdateModuleDataFriendNew.cpp,reloc-derived;call-sites=1;identity=real
 ??0NeutronMissileUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x00497ED0,263,Code/GameEngine/Source/Common/Thing/ModuleFactory.cpp,reloc-derived;call-sites=1;identity=real
 ??0GateOpenAndCloseBehavior@@QAE@PAVThing@@PBVModuleData@@@Z,0x0049889C,200,Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorFriendNew.cpp,reloc-derived;call-sites=2;identity=real
@@ -487,6 +489,7 @@ _fprintf,0x002CEC42,108,Code/GameEngine/Source/Common/GameLogicRandomValue_getVa
 ??0MonsterDockUpdateModuleData@@QAE@XZ,0x004A1517,59,Code/GameEngine/Source/GameLogic/Object/Update/MonsterDockUpdateModuleDataFriendNew.cpp,reloc-derived;call-sites=1;identity=real
 ??0FireWeaponWhenDamagedBehavior@@QAE@PAVThing@@PBVModuleData@@@Z,0x004A4CC7,141,Code/GameEngine/Source/Common/Thing/ModuleFactory.cpp,reloc-derived;call-sites=1;identity=real
 ??0MinefieldBehavior@@QAE@PAVThing@@PBVModuleData@@@Z,0x004A8E7B,116,Code/GameEngine/Source/Common/Thing/ModuleFactory.cpp,reloc-derived;call-sites=1;identity=real
+??0LargeGroupAudioUpdateModuleData@@QAE@XZ,0x004ABED8,111,Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdateModuleDataFriendNew.cpp,reloc-derived;call-sites=1;identity=real
 ?insert@BFME2RespawnRuleTree@@QAE?AURespawnInsertResult@@ABURespawnRule@@@Z,0x004AFB2B,35,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateParseRules.cpp,reloc-derived;call-sites=2;identity=real
 ??0EmotionTrackerUpdateModuleData@@QAE@XZ,0x004B115A,299,Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdateModuleDataFriendNew.cpp,reloc-derived;call-sites=1;identity=real
 ??0ObjectCreationUpgradeModuleData@@QAE@XZ,0x004B425B,128,Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeModuleDataFriendNew.cpp,reloc-derived;call-sites=1;identity=real
@@ -496,9 +499,9 @@ _fprintf,0x002CEC42,108,Code/GameEngine/Source/Common/GameLogicRandomValue_getVa
 ??0RemoveUpgradeUpgradeModuleData@@QAE@XZ,0x004B7FF1,67,Code/GameEngine/Source/GameLogic/Object/Update/RemoveUpgradeUpgradeModuleDataFriendNew.cpp,reloc-derived;call-sites=1;identity=real
 ?bfmeUseFDE@BfmeThingFDE@@QAEXPAX@Z,0x004B9B99,173,Code/GameEngine/Source/Common/BfmeConv893.cpp,reloc-derived;call-sites=1;identity=real
 ??0ActiveShroudUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z,0x004BAE1D,96,Code/GameEngine/Source/Common/Thing/ModuleFactory.cpp,reloc-derived;call-sites=1;identity=real
-??0RespawnUpdateModuleData@@QAE@XZ,0x004C14DF,110,Code/GameEngine/Source/GameLogic/Object/Update/DelayedDeathBodyModuleDataCtor.cpp,reloc-derived;call-sites=3;identity=real
-??0MobNexusContainModuleData@@QAE@XZ,0x004C244D,118,Code/GameEngine/Source/Common/Thing/ModuleFactory.cpp,reloc-derived;call-sites=1;identity=real
-??0AutoHealBehaviorModuleData@@QAE@XZ,0x004C32BC,169,Code/GameEngine/Source/Common/Thing/ModuleFactory.cpp,reloc-derived;call-sites=1;identity=real
+??0RespawnBodyModuleData@@QAE@XZ,0x004C14DF,110,Code/GameEngine/Source/GameLogic/Object/Update/DelayedDeathBodyModuleDataCtor.cpp,reloc-derived;call-sites=3;identity=real
+??0InvisibilitySpecialPowerModuleData@@QAE@XZ,0x004C244D,118,Code/GameEngine/Source/GameLogic/Object/SpecialPower/InvisibilitySpecialPowerModuleDataFriendNew.cpp,reloc-derived;call-sites=1;identity=real
+??0OCLSpecialPowerModuleData@@QAE@XZ,0x004C32BC,169,Code/GameEngine/Source/GameLogic/Object/SpecialPower/OCLSpecialPowerModuleDataFriendNew.cpp,reloc-derived;call-sites=1;identity=real
 ??0TaintSpecialPowerModuleData@@QAE@XZ,0x004C4AB8,51,Code/GameEngine/Source/GameLogic/Object/SpecialPower/TaintSpecialPowerModuleDataFriendNew.cpp,reloc-derived;call-sites=1;identity=real
 ??0AnimationSoundClientBehaviorModuleData@@QAE@XZ,0x004CA70D,63,Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehaviorModuleDataFriendNew.cpp,reloc-derived;call-sites=1;identity=real
 ??$_Construct@UBfmePod544@@U1@@_STL@@YAXPAUBfmePod544@@ABU1@@Z,0x004CADD1,45,Code/Libraries/Source/WWVegas/WWLib/stlport_pod_large_bodies.cpp,reloc-derived;call-sites=2;identity=real
@@ -519,8 +522,8 @@ _fprintf,0x002CEC42,108,Code/GameEngine/Source/Common/GameLogicRandomValue_getVa
 ??$__uninitialized_copy@PBUBfmePod88@@PAU1@@_STL@@YAPAUBfmePod88@@PBU1@0PAU1@ABU__false_type@0@@Z,0x004E3733,38,Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp,reloc-derived;call-sites=1;identity=real
 ?_M_insert_overflow@?$vector@UBfmePod88@@V?$allocator@UBfmePod88@@@_STL@@@_STL@@IAEXPAUBfmePod88@@ABU3@ABU__false_type@2@I_N@Z,0x004E38DA,183,Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp,reloc-derived;call-sites=1;identity=real
 ??1ProductionPrerequisite@@QAE@XZ,0x004F5115,80,Code/GameEngine/Source/Common/Thing/ThingTemplateParsePrerequisiteScience.cpp,reloc-derived;call-sites=3;identity=real
+?push_back@?$vector@UPrereqUnitRec@ProductionPrerequisite@@V?$allocator@UPrereqUnitRec@ProductionPrerequisite@@@_STL@@@_STL@@QAEXABUPrereqUnitRec@ProductionPrerequisite@@@Z,0x004F5243,55,Code/GameEngine/Source/Common/Thing/ProductionPrerequisiteAddUnitPrereq.cpp,reloc-derived;call-sites=1;identity=real
 ??0ProductionPrerequisite@@QAE@XZ,0x004F527A,81,Code/GameEngine/Source/Common/Thing/ThingTemplateParsePrerequisiteScience.cpp,reloc-derived;call-sites=3;identity=real
-?addUnitPrereq@ProductionPrerequisite@@QAEXVAsciiString@@_N@Z,0x004F52CB,105,Code/GameEngine/Source/Common/Thing/ThingTemplateParsePrerequisiteUnit.cpp,reloc-derived;call-sites=1;identity=real
 ??0?$_Vector_base@VSaveMapPreview@@V?$allocator@VSaveMapPreview@@@_STL@@@_STL@@QAE@IABV?$allocator@VSaveMapPreview@@@1@@Z,0x004FF36C,60,Code/GameEngine/Source/Common/System/SaveGame/SaveMapPreviewCopy.cpp,reloc-derived;call-sites=1;identity=real
 ??$__uninitialized_copy@PBUBfmePod252@@PAU1@@_STL@@YAPAUBfmePod252@@PBU1@0PAU1@ABU__false_type@0@@Z,0x0050C5FE,47,Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp,reloc-derived;call-sites=1;identity=real
 ??$_Construct@UBfmePod80@@U1@@_STL@@YAXPAUBfmePod80@@ABU1@@Z,0x0051F920,45,Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp,reloc-derived;call-sites=1;identity=real
@@ -615,7 +618,6 @@ _Rva00817B30,0x00683A30,2207,Code/Libraries/Source/DirtySock/Y4CommTransportLife
 ??1Rva0070A840@@QAE@XZ,0x0070A840,111,Code/GameEngine/Source/Common/LadderPreferencesDtor.cpp,reloc-derived;call-sites=1;identity=generated
 ?handle@Gen0089C880@@QAEXXZ,0x0070A8B0,91,Code/GameEngine/Source/Common/R1GuardedReleaseHelpers.cpp,reloc-derived;call-sites=1;identity=generated
 ?bfmeFind1034F@BfmeTab1034@@QAEPAVBfmeN1034@@H@Z,0x0070B380,133,Code/GameEngine/Source/Common/BfmeConv1034.cpp,reloc-derived;call-sites=1;identity=real
-_bfmeHash1228,0x0070F880,1504,Code/GameEngine/Source/Common/BfmeConv1228.cpp,reloc-derived;call-sites=1;identity=real
 ?Gen008D42C0@@YAHPBDI@Z,0x00710C70,1547,Code/GameEngine/Source/Common/R4PerfectHashWordSets.cpp,reloc-derived;call-sites=1;identity=generated
 ??0BfmeThingCDE@@QAE@PAX00@Z,0x00739E60,227,Code/GameEngine/Source/Common/BfmeOwnerCDECreate.cpp,reloc-derived;call-sites=1;identity=real
 ?d_008f7990@BfmeThingCDE@@QAEXXZ,0x00739F50,133,Code/GameEngine/Source/Common/BfmeThingCDEDestructor.cpp,reloc-derived;call-sites=1;identity=real
