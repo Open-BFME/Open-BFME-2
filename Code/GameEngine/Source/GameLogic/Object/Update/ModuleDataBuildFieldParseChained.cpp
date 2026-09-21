@@ -552,3 +552,17 @@ void SubObjectsUpgradeModuleData::buildFieldParse(MultiIniFieldParse &parse)
 	parse.add(reinterpret_cast<const FieldParse *>(Rva004CE29DGet()), 8);
 	parse.add(reinterpret_cast<const FieldParse *>(0x00C57D38), 0);
 }
+
+int Rva0033A495Get(void);
+
+class RandomSoundSelectorClientBehaviorModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+void RandomSoundSelectorClientBehaviorModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	parse.add(reinterpret_cast<const FieldParse *>(0x00C5F318), 0);
+	parse.add(reinterpret_cast<const FieldParse *>(Rva0033A495Get()), 8);
+}
