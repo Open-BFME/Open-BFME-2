@@ -34,3 +34,23 @@ void TransportAIUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
 	parse.add(reinterpret_cast<const FieldParse *>(0x00BF9378), 0);
 }
+
+class WorkerAIUpdateModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+// ?buildFieldParse@WorkerAIUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z,
+// retail 0x0024EEBB (27 bytes): base-table call above plus the Worker table
+// at 0x00BEF4B0 (MaxBoxes at +0x64 plus SupplyCenterActionDelay at +0x68 plus
+// SupplyWarehouseActionDelay at +0x6C plus SupplyWarehouseScanDistance at
+// +0x70 plus HarvestTrees at +0x74 plus HarvestActivationRange at +0x78 plus
+// HarvestPreparationTime at +0x7C plus HarvestActionTime at +0x80). All eight
+// fields match BFME1's WorkerAIUpdateModuleData table verbatim at identical
+// offsets. The owning factory at 0x0024EF11 pushes this proc's VA.
+void WorkerAIUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	TransportAIUpdateModuleData::buildFieldParse(parse);
+	parse.add(reinterpret_cast<const FieldParse *>(0x00BEF4B0), 0);
+}
