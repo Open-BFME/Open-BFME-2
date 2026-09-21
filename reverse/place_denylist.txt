@@ -50,3 +50,11 @@ _io_writeto
 # element size; its erase callee is the verified list<int>::erase at 0x00548267.
 # A 196-byte name would be invented.
 ??4?$list@UBfmePod196@@V?$allocator@UBfmePod196@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z
+# allocator<_List_node/_Hashtable_node<...BfmePodN...>>::allocate: identical for
+# every type of the node's size, and no claimed caller ties these addresses to
+# a list or hashtable node, so the container kind in the name is unproven.
+?allocate@?$allocator@U?$_List_node@UBfmePod60@@@_STL@@@_STL@@QBEPAU?$_List_node@UBfmePod60@@@2@IPBX@Z
+?allocate@?$allocator@U?$_List_node@UBfmePod124@@@_STL@@@_STL@@QBEPAU?$_List_node@UBfmePod124@@@2@IPBX@Z
+?allocate@?$allocator@U?$_List_node@UBfmePod196@@@_STL@@@_STL@@QBEPAU?$_List_node@UBfmePod196@@@2@IPBX@Z
+?allocate@?$allocator@U?$_List_node@UBfmePod264@@@_STL@@@_STL@@QBEPAU?$_List_node@UBfmePod264@@@2@IPBX@Z
+?allocate@?$allocator@U?$_Hashtable_node@U?$pair@$$CBHUBfmePod48@@@_STL@@@_STL@@@_STL@@QBEPAU?$_Hashtable_node@U?$pair@$$CBHUBfmePod48@@@_STL@@@2@IPBX@Z
