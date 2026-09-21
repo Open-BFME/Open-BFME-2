@@ -310,3 +310,15 @@ void RebuildHoleExposeDieModuleData::buildFieldParse(MultiIniFieldParse &parse)
 	parse.add(reinterpret_cast<const FieldParse *>(Rva004CE52EGet()), 8);
 	parse.add(reinterpret_cast<const FieldParse *>(0x00C4AE00), 0);
 }
+
+class SupplyCenterDockUpdateModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+void SupplyCenterDockUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	DockUpdateModuleData::buildFieldParse(parse);
+	parse.add(reinterpret_cast<const FieldParse *>(0x00C51A80), 0);
+}
