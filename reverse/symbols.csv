@@ -3734,3 +3734,4 @@ dup_7e86b0,0x00655770
 ??0AttributeModifierAuraUpdateModuleData@@QAE@XZ,0x0049BBD5,EH 206B ctor over vector at +0xC via 0x211E58 plus filter at +0x24 via 0x3623E5 plus member at +0x28 via 0x25342C plus vtable 0xC50EE8 plus string at +0x8 via 0x55F5 plus float zero at +0x1C plus StartsActive zero at +0x138 and sole raw caller is ModuleData factory 0x24E65C which news 0x154
 ?construct@Rva003B31ADMember@@QAEPAV1@XZ,0x003B31AD,4B zeroing member via memset plus return this and site lea ecx [esi+0x140] in AttributeModifierAuraUpdateModuleData ctor 0x49BBD5
 ??_7LevelGrantSpecialPowerModuleData@@6B@,0x00C5C828,LevelGrantSpecialPowerModuleData vtable installed by ctor 0x4C2AA0; slot0 is scalar-deleting dtor 0x4C2C06
+??0DeployStyleAIUpdateModuleData@@QAE@XZ,0x00255154,sole raw E8 caller is ModuleData factory 0x25517E (0x25519F); frameless 42B EH-base ctor over Transport base 0x26E5D7 with vtable 0xBF3440; banked partial 0.95, row pending schedule lever
