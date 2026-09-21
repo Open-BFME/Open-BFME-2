@@ -267,7 +267,6 @@ name,address,notes
 ??0Animatable3DObjClass@@QAE@PBD@Z,0x001A4900,address read from the REL32 displacement at a placed body
 ??0AnimatedParticleSysBoneClientUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x000D181D
 ??0AnimationSoundClientBehaviorModuleData@@QAE@XZ,0x004CA70D,sole raw caller 0x252BE3 inside 0x18 factory 0x252BC2; rowed proc 0x4CAB2C of same class per BFME1 AnimationSoundClientBehaviorModuleData donor
-??0AnimationSteeringUpdateModuleData@@QAE@XZ,0x004BD651
 ??0AsciiString@@QAE@ABV0@@Z,0x00365F0,address read from the retail REL32 at 0x002E4968 in OptionPreferences::getFirewallNeedToRefresh; AsciiString copy ctor for the it->second copy
 ??0AudioLoopUpgradeModuleData@@QAE@XZ,0x004B7C00,EH ctor with vtable 0x00C58CF8 plus members at +0x14/+0x124; sole raw caller is ModuleData factory 0x250798 which news 0x154
 ??0AutoHealBehaviorModuleData@@QAE@XZ,0x004C32BC
@@ -357,7 +356,6 @@ name,address,notes
 ??0HAnimPrototypeOwner@@QAE@ABVHierarchyPrototypeRef@@@Z,0x0014CED0,4-byte SEH owner copy ctor (by-ref HierarchyPrototypeRef, zeroes m_ptr then delegates to 0x14CDE4); called from a*-lookup 0x14CFBD and factory 0x14CF37
 ??0HTreeClass@@QAE@ABV0@@Z,0x001662A0,Independently decoded285-byte hierarchy copy:16-byte name; count10; pivot14; scale18; owned sequence1C; fields28/2C/30;88-byte pivot copies and parent rebasing through index4C
 ??0HTreePrototypeOwner@@QAE@ABVHierarchyPrototypeRef@@@Z,0x0017FBED,4-byte SEH owner copy ctor (by-ref HierarchyPrototypeRef, zeroes m_ptr then delegates to 0x17FB0F); called only from Get_HTree 0x17FCDA and sibling 0x17FC54
-??0HealContainModuleData@@QAE@XZ,0x004B57AA
 ??0HemisphericalEmissionVelocityModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A7418,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
 ??0HemisphericalEmissionVelocityModuleTemplate@FXParticleSystem@@QAE@XZ,0x003A73F8,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
 ??0BannerCarrierUpdateModuleData@@QAE@XZ,0x00496FA5,sole caller is the 0x24E1AB factory pushing size 0x44 plus rowed proc 0x4976CA plus initFromINIMultiProc; Horde table class with vtable read from ctor body
@@ -421,7 +419,6 @@ name,address,notes
 ??0ProductionPrerequisite@@QAE@ABV0@@Z,0x002D08DA,prereq copy ctor called from the retail REL32 in _Construct at 0x002D0C33; 77B EH body ending c9 c2-04-00 with next prologue 55-8b-ec; ghidra 10B extent understated
 ??0ProductionPrerequisite@@QAE@XZ,0x004F527A,BFME1 ctor mangling; 3x 0x611E58 vector inits at +0 +0xC +0x18; 3 prereq-cluster callers
 ??0ProductionUpdateModuleData@@QAE@XZ,0x0049F7DB,pinned by ProductionUpdateModuleData factory call-site decode
-??0PropagandaTowerBehaviorModuleData@@QAE@XZ,0x004AEAB7
 ??0QuadDrawModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A7C4C,BFME2 export; the module template copy constructor the ConcreteModuleTemplate wrapper calls
 ??0QuadDrawModuleTemplate@FXParticleSystem@@QAE@XZ,0x003A7BF5,BFME2 export; the module template default constructor the ConcreteModuleTemplate wrapper calls
 ??0RadiateFearUpdateModuleData@@QAE@XZ,0x0049C06C,EH ctor with vtable plus flag bytes plus emotion floats; sole raw caller is ModuleData factory 0x24E6E8 which news 0x130
