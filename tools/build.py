@@ -1878,6 +1878,9 @@ def main(only=None):
     # it needs no cached artifact and no compile output -- imported here rather
     # than at module scope because pin_consistency imports this module.
     import pin_consistency
+    # Same reason, for module identity: ModuleFactory's addModule registrations
+    # name every factory, and a misnamed factory/ctor/proc still byte-matches.
+    import check_module_registry
 
     # EVERY check reports, then the gate exits ONCE. Exiting at the first
     # failure makes each late check hostage to every earlier one: a live DIR32
@@ -1910,6 +1913,7 @@ def main(only=None):
     run("import-refs", lambda: verify_import_refs(rows))
     run("dir32 consistency", lambda: verify_dir32_consistency(rows))
     run("pin consistency", pin_consistency.verify)
+    run("module registry", check_module_registry.verify)
     run("source claims", verify_source_claims)
     if patches is None:
         # The no-op patch needs the compiled patch set, so a failed

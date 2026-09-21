@@ -1,0 +1,294 @@
+#!/usr/bin/env python3
+"""Check module-factory rows against ModuleFactory's own registrations.
+
+ModuleFactory::init registers every module with
+    addModuleInternal(X::friend_newModuleInstance, X::friend_newModuleData,
+                      type, AsciiString("X"), interfaces)
+so each call site pushes the module's name string and then its two factories.
+That pairing is retail evidence of identity. The byte gate cannot provide it:
+a factory, its data ctor and its buildFieldParse proc compile to the same bytes
+under any class name, which is how 32 data classes and 24 instance factories
+came to carry a neighbouring module's name.
+
+For every registration this checks:
+  * the data-factory row names the registered module's data class,
+  * the instance-factory row names the registered module,
+  * the data factory's ctor call and parse-proc push, where a row or pin names
+    them, use the same class as the factory row.
+
+reverse/module_registry_allowlist.txt holds legitimate exceptions (a module
+reusing another module's data class), one per line with a reason.
+reverse/module_registry_baseline.txt holds known violations still to be fixed;
+it may only shrink.
+
+    python3 tools/check_module_registry.py            # report
+    python3 tools/check_module_registry.py --check    # gate: fail on new/stale
+    python3 tools/check_module_registry.py --write-baseline   # shrink-only
+"""
+import argparse
+import csv
+import re
+import struct
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import build  # noqa: E402
+
+ROOT = build.ROOT
+ALLOWLIST = ROOT / "reverse" / "module_registry_allowlist.txt"
+BASELINE = ROOT / "reverse" / "module_registry_baseline.txt"
+IMAGE_BASE = 0x400000
+# ModuleFactory::addModuleInternal. Every one of its call sites is a
+# registration; decode() refuses to run if that stops being true.
+ADD_MODULE_RVA = 0x002573EE
+MIN_REGISTRATIONS = 300
+
+DATA_RE = re.compile(r"\?friend_newModuleData@([A-Za-z0-9_]+)@@")
+INST_RE = re.compile(r"\?friend_newModuleInstance@([A-Za-z0-9_]+)@@")
+CTOR_RE = re.compile(r"\?\?0([A-Za-z0-9_]+)@@QAE@XZ$")
+PROC_RE = re.compile(r"\?buildFieldParse@([A-Za-z0-9_]+)@@")
+
+
+def data_class(module):
+    """The conventional data-class name for a module."""
+    return module + ("Data" if module.endswith("Module") else "ModuleData")
+
+
+def module_of(token):
+    """Strip a data-class suffix back to the module name it stands for."""
+    if token.endswith("ModuleData"):
+        return token[: -len("ModuleData")]
+    return token
+
+
+def names_module(token, modules):
+    """True when a class token spells one of the registered modules."""
+    return token in modules or module_of(token) in modules or any(
+        token == data_class(m) for m in modules)
+
+
+class Image:
+    def __init__(self):
+        self.data, self.sections = build.exe_image()
+        text = next(s for s in self.sections if s["name"] == ".text")
+        self.text_rva = text["rva"]
+        self.text = self.data[text["raw_pointer"]: text["raw_pointer"] + text["raw_size"]]
+
+    def text_at(self, rva, size):
+        off = rva - self.text_rva
+        return self.text[off: off + size]
+
+    def string(self, va):
+        rva = va - IMAGE_BASE
+        try:
+            off = build.rva_to_file_offset(self.sections, rva)
+        except ValueError:
+            return None
+        raw = self.data[off: off + 64].split(b"\0")[0]
+        if len(raw) < 3 or not all(32 < c < 127 for c in raw):
+            return None
+        return raw.decode()
+
+    def is_code(self, va):
+        return self.text_rva <= va - IMAGE_BASE < self.text_rva + len(self.text)
+
+    def callers(self, target):
+        out = []
+        t = self.text
+        for i in range(len(t) - 5):
+            if t[i] == 0xE8 and self.text_rva + i + 5 + struct.unpack_from("<i", t, i + 1)[0] == target:
+                out.append(self.text_rva + i)
+        return out
+
+
+def decode_registrations(img):
+    """[(module, data_factory_rva, instance_factory_rva)] from every addModule call."""
+    regs = []
+    for site in img.callers(ADD_MODULE_RVA):
+        window = img.text_at(site - 70, 70)
+        pushes = []
+        i = 0
+        while i < len(window) - 4:
+            if window[i] == 0x68:
+                pushes.append(struct.unpack_from("<I", window, i + 1)[0])
+                i += 5
+            else:
+                i += 1
+        names = [s for s in (img.string(v) for v in pushes) if s]
+        code = [v - IMAGE_BASE for v in pushes if img.is_code(v)]
+        if not names or len(code) < 2:
+            continue
+        regs.append((names[-1], code[-2], code[-1]))
+    if len(regs) < MIN_REGISTRATIONS:
+        raise SystemExit(f"Module registry: decoded only {len(regs)} registrations at "
+                         f"0x{ADD_MODULE_RVA:08X}; the decoder no longer fits retail")
+    return regs
+
+
+def factory_callees(img, factory, skip):
+    """(first call target not in skip, first code-pointer push) of a data factory."""
+    body = img.text_at(factory, 110)
+    call = proc = None
+    i = 0
+    while i < len(body) - 5:
+        op = body[i]
+        if op == 0x68:
+            v = struct.unpack_from("<I", body, i + 1)[0]
+            if proc is None and img.is_code(v):
+                proc = v - IMAGE_BASE
+            i += 5
+            continue
+        if op == 0xE8:
+            t = factory + i + 5 + struct.unpack_from("<i", body, i + 1)[0]
+            if call is None and t not in skip:
+                call = t
+            i += 5
+            continue
+        if op == 0xC3:
+            break
+        i += 1
+    return call, proc
+
+
+def load_names():
+    """rva -> [names] from matched rows and pins."""
+    names = {}
+    with open(ROOT / "reverse" / "functions.csv", newline="") as f:
+        for row in csv.DictReader(f):
+            if row["status"] == "matched":
+                names.setdefault(int(row["target_rva"], 16), []).append(row["name"])
+    with open(ROOT / "reverse" / "symbols.csv", newline="") as f:
+        for row in csv.DictReader(f):
+            try:
+                names.setdefault(int(row["address"], 16), []).append(row["name"])
+            except ValueError:
+                pass
+    return names
+
+
+def read_keys(path):
+    """Set of 'kind rva name' keys; '#' comments and anything after ' #' ignored."""
+    if not path.exists():
+        return set()
+    keys = set()
+    for line in path.read_text().splitlines():
+        line = line.split(" #", 1)[0].strip()
+        if line and not line.startswith("#"):
+            keys.add(line)
+    return keys
+
+
+def scan():
+    img = Image()
+    regs = decode_registrations(img)
+    names = load_names()
+    skip = {rva for rva, ns in names.items()
+            if any(n in ("__EH_prolog", "??2@YAPAXI@Z") for n in ns)}
+    by_data, by_inst = {}, {}
+    for module, dfac, ifac in regs:
+        by_data.setdefault(dfac, set()).add(module)
+        by_inst.setdefault(ifac, set()).add(module)
+
+    # A trivial data ctor can be folded across classes, so a ctor/proc address
+    # may legitimately carry the class of every factory that calls it.
+    callee_classes = {}
+    factory_class = {}
+    for dfac, modules in by_data.items():
+        rows = [n for n in names.get(dfac, []) if DATA_RE.match(n)]
+        if not rows:
+            continue
+        token = DATA_RE.match(rows[0]).group(1)
+        factory_class[dfac] = token
+        call, proc = factory_callees(img, dfac, skip)
+        for addr in (call, proc):
+            if addr is not None:
+                callee_classes.setdefault(addr, set()).add(token)
+
+    violations = []
+    for dfac, modules in sorted(by_data.items()):
+        rows = [n for n in names.get(dfac, []) if DATA_RE.match(n)]
+        for name in rows:
+            token = DATA_RE.match(name).group(1)
+            if not names_module(token, modules):
+                violations.append(("data", dfac, name, sorted(modules)))
+                continue
+            call, proc = factory_callees(img, dfac, skip)
+            for addr, regex, kind in ((call, CTOR_RE, "ctor"), (proc, PROC_RE, "proc")):
+                for other in names.get(addr, []) if addr is not None else []:
+                    m = regex.match(other)
+                    allowed = {module_of(t) for t in callee_classes.get(addr, {token})}
+                    if m and module_of(m.group(1)) not in allowed:
+                        violations.append((kind, addr, other, [token]))
+    for ifac, modules in sorted(by_inst.items()):
+        for name in names.get(ifac, []):
+            m = INST_RE.match(name)
+            if m and m.group(1) not in modules:
+                violations.append(("instance", ifac, name, sorted(modules)))
+    return violations, len(regs)
+
+
+def key(v):
+    return f"{v[0]} 0x{v[1]:08X} {v[2]}"
+
+
+def verify(allowlist=ALLOWLIST, baseline=BASELINE):
+    """Gate entry point: prints a verdict, raises SystemExit on failure."""
+    violations, count = scan()
+    allowed = read_keys(allowlist)
+    known = read_keys(baseline)
+    live = [v for v in violations if key(v) not in allowed]
+    new = [v for v in live if key(v) not in known]
+    current = {key(v) for v in live}
+    stale = sorted(k for k in known if k not in current)
+    if new:
+        print(f"Module registry: FAIL {len(new)} factory/ctor/proc row(s) disagree with "
+              "ModuleFactory's registration")
+        for v in new[:12]:
+            print(f"    {key(v)}  (registered: {', '.join(v[3])})")
+        print("    Rename the row to the registered module. Do NOT add it to "
+              f"{BASELINE.relative_to(ROOT)} to get green.")
+        raise SystemExit(1)
+    if stale:
+        print(f"Module registry: FAIL {len(stale)} baseline line(s) no longer describe a "
+              "violation -- delete them in the commit that fixed the row")
+        for k in stale[:12]:
+            print(f"    {k}")
+        raise SystemExit(1)
+    print(f"Module registry: OK ({count} registrations; {len(allowed)} allowlisted, "
+          f"{len(live)} baselined, 0 new, 0 stale)")
+
+
+def main(argv=None):
+    parser = argparse.ArgumentParser(description=__doc__,
+                                     formatter_class=argparse.RawDescriptionHelpFormatter)
+    parser.add_argument("--check", action="store_true", help="gate mode")
+    parser.add_argument("--write-baseline", action="store_true",
+                        help="rewrite the baseline; refused if it would grow")
+    args = parser.parse_args(argv)
+    if args.check:
+        verify()
+        return
+    violations, count = scan()
+    allowed = read_keys(ALLOWLIST)
+    live = [v for v in violations if key(v) not in allowed]
+    if args.write_baseline:
+        known = read_keys(BASELINE)
+        grown = [key(v) for v in live if key(v) not in known]
+        if BASELINE.exists() and grown:
+            raise SystemExit(f"refusing to grow {BASELINE.name}: {len(grown)} new line(s)")
+        lines = ["# Known module-registry violations still to fix. May only shrink.",
+                 "# Generated by tools/check_module_registry.py --write-baseline."]
+        lines += sorted(key(v) for v in live)
+        BASELINE.write_text("\n".join(lines) + "\n")
+        print(f"wrote {len(live)} line(s) to {BASELINE.relative_to(ROOT)}")
+        return
+    for v in violations:
+        tag = "allowlisted" if key(v) in allowed else "violation"
+        print(f"{tag:<12} {key(v)}  (registered: {', '.join(v[3])})")
+    print(f"{count} registrations, {len(live)} violation(s), "
+          f"{len(violations) - len(live)} allowlisted")
+
+
+if __name__ == "__main__":
+    main()

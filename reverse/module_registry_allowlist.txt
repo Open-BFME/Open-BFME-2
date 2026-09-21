@@ -1,0 +1,5 @@
+# Legitimate module-registry exceptions: a module registered with another
+# module's data factory because it reuses that data class. Keys are the
+# check_module_registry.py report lines; say why after " #".
+data 0x000648D6 ?friend_newModuleData@W3DModelDraw@@SAPAVModuleData@@PAVINI@@@Z # W3DScriptedModelDraw reuses W3DModelDrawModuleData; its proc parses W3DModelDraw's keys (InitialRecoilSpeed, ...)
+data 0x002510DF ?friend_newModuleData@CrateCollideModuleData@@SAPAVModuleData@@PAVINI@@@Z # HealCrateCollide and ShroudCrateCollide share CrateCollideModuleData; its proc parses CrateCollide's keys (RequiredKindOf, ...)
