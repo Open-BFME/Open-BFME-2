@@ -494,7 +494,6 @@ name,address,notes
 ??0Rva7F4CC0Child@@QAE@XZ,0x00655770
 ??0RvaSmartPtr12@@QAE@ABV0@@Z,0x0004CC19,RvaSmartPtr12 copy ctor: copies dword at that plus helper 0x4CB9A or zeroes; call target of the RVO smart-ptr getter at 0x3FDA90 (hidden retptr copy into out)
 ??0SalvageCrateCollideModuleData@@QAE@XZ,0x0048D541
-??0ScavengerSpecialPowerModuleData@@QAE@XZ,0x004C4257,sole raw E8 caller is the ModuleData factory 0x251D40 (0x251D64); 117B EH ctor over pinned SpecialPower base 0x4930A0 with toggle bitset plus sleep-frame stores plus string members at +0x94/+0x98; installs vtable 0xC5D1F0
 ??0SegLineRendererClass@@QAE@ABV0@@Z,0x00191B50,address read from the REL32 displacement at a placed body
 ??0SlotToLockUpdateModuleData@@QAE@XZ,0x00254C8E,12B trivial ctor installing folded vtable 0x00C4ED70 plus zero at +8; ICF-folded across three same-size factories 0x24AF5C 0x24B3B4 0x2509CE each pushing its own proc; sole SlotToLock factory user is 0x2509CE
 ??0SnapshotDupReplica@@QAE@XZ,0x00655770
