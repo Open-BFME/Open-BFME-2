@@ -87,6 +87,12 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
+class FreeLifeBodyModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
 void Rva0044EB54::buildFieldParse(MultiIniFieldParse &parse)
 {
 	parse.add(reinterpret_cast<const FieldParse *>(0x00C3F7F8), 0);
@@ -125,4 +131,10 @@ void DelayedDeathBodyModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
 	RespawnUpdateModuleData::buildFieldParse(parse);
 	parse.add(reinterpret_cast<const FieldParse *>(0x00C5BAE8), 0);
+}
+
+void FreeLifeBodyModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	RespawnUpdateModuleData::buildFieldParse(parse);
+	parse.add(reinterpret_cast<const FieldParse *>(0x00C5BD38), 0);
 }
