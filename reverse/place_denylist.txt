@@ -46,3 +46,8 @@ _io_writeto
 # AsciiString. A unique masked hit is not identity.
 ?pop_back@?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAEXXZ
 ??$_Destroy@VAsciiString@@@_STL@@YAXPAVAsciiString@@@Z
+# Both call 0x000B64F1, a 45-byte copy construct: the real 60-byte element has a
+# non-trivial copy constructor, so _Construct<BfmePod60> cannot be pinned there
+# and these two cannot resolve. Their own bytes are not the problem.
+?push_back@?$vector@UBfmePod60@@V?$allocator@UBfmePod60@@@_STL@@@_STL@@QAEXABUBfmePod60@@@Z
+?_M_create_node@?$list@UBfmePod60@@V?$allocator@UBfmePod60@@@_STL@@@_STL@@IAEPAU?$_List_node@UBfmePod60@@@2@ABUBfmePod60@@@Z
