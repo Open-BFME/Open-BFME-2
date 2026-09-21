@@ -3759,3 +3759,4 @@ dup_7e86b0,0x00655770
 ??0SubObjectsUpgradeModuleData@@QAE@XZ,0x00257768
 ?init@Rva000B3F84Pair@@QAEXPBD@Z,0x000B3F84,ptr-plus-strlen pair init on caller storage returning itself; 11 member-position callers image-wide; WinMain helper 0x2343F7 is one
 ??0?$_List_base@UFloodMember@@V?$allocator@UFloodMember@@@_STL@@@_STL@@QAE@ABV?$allocator@UFloodMember@@@1@@Z,0x004EC36C
+??0StanceTemplateUpdateModuleData@@QAE@XZ,0x00254C8E,12B alias of ICF-folded trivial ctor installing vtable 0x00C4ED70 plus zero at +8; same body as pinned ??0SlotToLockUpdateModuleData@@QAE@XZ; used by StanceTemplate factory 0x24B3B4
