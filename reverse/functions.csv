@@ -15344,3 +15344,4 @@ _XMP_Randomize,,0x0061C3C0,92,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,mat
 ?rva004C08B7@ImmortalBody@@SA?AW4NameKeyType@@XZ,,0x004C08B7,69,Code/GameEngine/Source/GameLogic/Object/Body/ImmortalBodyPoolKey.cpp,matched,
 ?rva004C07CA@HighlanderBody@@SA?AW4NameKeyType@@XZ,,0x004C07CA,69,Code/GameEngine/Source/GameLogic/Object/Body/HighlanderBodyPoolKey.cpp,matched,
 ?rva0004BCBB2@ShroudCrateCollide@@SA?AW4NameKeyType@@XZ,,0x004BCBB2,69,Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/ShroudCrateCollidePoolKey.cpp,matched,Cached pool-name key; pool string ShroudCrateCollide; static-guard EH; nameToKey row
+?rva004BD85D@InactiveBody@@SA?AW4NameKeyType@@XZ,,0x004BD85D,69,Code/GameEngine/Source/GameLogic/Object/Body/InactiveBodyPoolKey.cpp,matched,
