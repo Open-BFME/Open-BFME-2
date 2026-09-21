@@ -212,3 +212,15 @@ void LevelGrantSpecialPowerModuleData::buildFieldParse(MultiIniFieldParse &parse
 	Rva0044EB54::buildFieldParse(parse);
 	parse.add(reinterpret_cast<const FieldParse *>(0x00C5C8D0), 0);
 }
+
+class LevelUpUpgradeModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+void LevelUpUpgradeModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	parse.add(reinterpret_cast<const FieldParse *>(Rva004CE29DGet()), 8);
+	parse.add(reinterpret_cast<const FieldParse *>(0x00C574AC), 0);
+}
