@@ -15437,3 +15437,4 @@ _XMP_Randomize,,0x0061C3C0,92,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,mat
 _bfmeHash1228,,0x0070F880,1504,Code/GameEngine/Source/Common/BfmeConv1228.cpp,matched,BFME1 gperf hash port; table MAX15 zeros at L c d e g i l o plus 5 at t; switch str7/str3/str1 like BfmeConv1229 donor; b1 table differs
 ??0BloodthirstyUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,,0x0044E0AA,105,Code/GameEngine/Source/GameLogic/Object/Update/BloodthirstyUpdateCtor.cpp,matched,
 ?friend_newModuleInstance@BloodthirstyUpdate@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z,,0x0024A7B0,56,Code/GameEngine/Source/GameLogic/Object/Update/BloodthirstyUpdateFriendNew.cpp,matched,
+?buildFieldParse@GiveUpgradeUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z,,0x0049C391,27,Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp,matched,

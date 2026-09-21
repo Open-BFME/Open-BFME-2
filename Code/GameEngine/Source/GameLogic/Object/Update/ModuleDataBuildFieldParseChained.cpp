@@ -31,6 +31,11 @@
 // TriggerFX at +0xCC plus DominatedFX at +0xD0 plus PermanentlyConvert at
 // +0xD4 plus AttributeModifierAffects at +0xD8, matching the ctor stores;
 // factory at 0x252EE5 pushes this proc; pool key at 0x4CC9DF names the class).
+// ?buildFieldParse@GiveUpgradeUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z,
+// retail 0x0049C391, 27 bytes (chained on the rowed Rva0044EB54 base proc at
+// 0x44ED95, then table 0x00C511A0 holding GiveUpgradeEffect at +0xD4 plus
+// SpawnOutFX at +0xD8 plus FadeOutSpeed at +0xDC plus DeliverUpgrade at +0xE0;
+// factory at 0x24E800 pushes this proc; pool key at 0x49C471 names the class).
 // Provenance: the ZH MAKE_STANDARD_MODULE_DATA_MACRO_ABC macro passes
 // clsmd::buildFieldParse to INI::initFromINIMultiProc, and each landed
 // friend_newModuleData factory pushes its class proc immediate.
@@ -565,4 +570,16 @@ void RandomSoundSelectorClientBehaviorModuleData::buildFieldParse(MultiIniFieldP
 {
 	parse.add(reinterpret_cast<const FieldParse *>(0x00C5F318), 0);
 	parse.add(reinterpret_cast<const FieldParse *>(Rva0033A495Get()), 8);
+}
+
+class GiveUpgradeUpdateModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+void GiveUpgradeUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	Rva0044EB54::buildFieldParse(parse);
+	parse.add(reinterpret_cast<const FieldParse *>(0x00C511A0), 0);
 }
