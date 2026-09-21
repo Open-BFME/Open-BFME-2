@@ -15353,3 +15353,4 @@ _XMP_Randomize,,0x0061C3C0,92,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,mat
 ?rva004A90A7@TransportAIUpdate@@SA?AW4NameKeyType@@XZ,,0x004A90A7,69,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/TransportAIUpdatePoolKey.cpp,matched,
 ?rva004A9384@WanderAIUpdate@@SA?AW4NameKeyType@@XZ,,0x004A9384,69,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WanderAIUpdatePoolKey.cpp,matched,
 ?rva004AB2D2@WallUpgradeUpdate@@SA?AW4NameKeyType@@XZ,,0x004AB2D2,69,Code/GameEngine/Source/GameLogic/Object/Update/WallUpgradeUpdatePoolKey.cpp,matched,
+?rva004AB897@LargeGroupAudioUpdate@@SA?AW4NameKeyType@@XZ,,0x004AB897,69,Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdatePoolKey.cpp,matched,
