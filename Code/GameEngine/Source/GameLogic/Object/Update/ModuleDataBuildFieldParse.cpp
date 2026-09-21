@@ -94,3 +94,22 @@ FIELD_PROC(PickupStuffUpdateModuleData, 0x00C4DE90, PickupStuffTable)
 FIELD_PROC(HeightDieUpdateModuleData, 0x00C4CFC8, HeightTable)
 FIELD_PROC(FloatUpdateModuleData, 0x00C4C7A4, EnabledTable)
 FIELD_PROC(AutoAbilityBehaviorModuleData, 0x00C41690, ScanTable)
+FIELD_PROC(AimWeaponBehaviorModuleData, 0x00C41948, AimTable)
+
+// Chained proc: ?buildFieldParse@GiantBirdSlowDeathBehaviorModuleData@@,
+// retail 0x00461E3D, 27 bytes. Calls the rowed SlowDeath base proc above,
+// then registers the GiantBird table 0x00C42D08 (FXHitGround,
+// OCLHitGround, DelayFromGroundToFinalDeath, CrashAvoidKindOfs). The base
+// call resolves to the rowed SlowDeath proc in this same TU; factory
+// 0x24B5D1 pushes this proc VA.
+class GiantBirdSlowDeathBehaviorModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+void GiantBirdSlowDeathBehaviorModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	SlowDeathBehaviorModuleData::buildFieldParse(parse);
+	parse.add(reinterpret_cast<const FieldParse *>(0x00C42D08), 0);
+}
