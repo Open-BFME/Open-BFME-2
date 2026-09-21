@@ -5538,7 +5538,6 @@ _piCallbacksCleanup,,0x0069EEF0,24,Code/GameEngine/Source/GameNetwork/GameSpy/pe
 ?Rva00813E30Wrap@@YAHPAVRva00813E30Obj@@@Z,,0x0067FD30,27,Code/GameEngine/Source/Common/Rva00813E30Wrap.cpp,matched,
 ?rva0082BE60FillN@@YAPADPADHABD@Z,,0x00024970,37,Code/GameEngine/Source/Common/Rva0082BE60FillN.cpp,matched,
 ??_GTimeCodedBitChannelClass@@QAEPAXI@Z,,0x0018D200,30,Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp,matched,ported from BFME1; exact target-side structural candidate
-??_G?$VectorClass@VVector3@@@@UAEPAXI@Z,,0x001A3B90,71,Code/Libraries/Source/WWVegas/WW3D2/mesh.cpp,matched,ported from BFME1; exact folded-body identity
 ?Clone@GridTextureMapperClass@@UBEPAVTextureMapperClass@@XZ,,0x00187560,31,Code/Libraries/Source/WWVegas/WW3D2/mapper.cpp,matched,ported from BFME1; exact target-side structural candidate
 ?Clone@StepLinearOffsetTextureMapperClass@@UBEPAVTextureMapperClass@@XZ,,0x00183FB0,31,Code/Libraries/Source/WWVegas/WW3D2/mapper.cpp,matched,ported from BFME1; exact target-side structural candidate
 ?Clone@SineLinearOffsetTextureMapperClass@@UBEPAVTextureMapperClass@@XZ,,0x00183F90,31,Code/Libraries/Source/WWVegas/WW3D2/mapper.cpp,matched,ported from BFME1; exact target-side structural candidate
@@ -5560,7 +5559,6 @@ _piCallbacksCleanup,,0x0069EEF0,24,Code/GameEngine/Source/GameNetwork/GameSpy/pe
 ??_GSegLineRendererClass@@QAEPAXI@Z,,0x001A6580,30,Code/Libraries/Source/WWVegas/WW3D2/part_buf.cpp,matched,ported from BFME1; exact target-side structural candidate
 ??_GStraw@@UAEPAXI@Z,,0x00615D90,30,Code/Libraries/Source/WWVegas/WW3D2/vertmaterial.cpp,matched,ported from BFME1; exact target-side structural alias
 ??_GBufferStraw@@UAEPAXI@Z,,0x0013D400,30,Code/Libraries/Source/WWVegas/WW3D2/vertmaterial.cpp,matched,ported from BFME1; exact target-side structural alias
-??_G?$VectorClass@PAVVertexMaterialClass@@@@UAEPAXI@Z,,0x001A3B90,71,Code/Libraries/Source/WWVegas/WW3D2/matinfo.cpp,matched,ported from BFME1; exact folded-body identity
 ?Set_Line_Size@LineGroupClass@@QAEXM@Z,,0x001B35F0,14,Code/Libraries/Source/WWVegas/WW3D2/linegrp_float_setters.cpp,matched,reloc-named unclaimed; retail stores the float with movss so this split TU carries /arch:SSE
 ?Set_Line_Alpha@LineGroupClass@@QAEXM@Z,,0x001B3690,14,Code/Libraries/Source/WWVegas/WW3D2/linegrp_float_setters.cpp,matched,reloc-named unclaimed; movss into DefaultLineAlpha at +0x40 under /arch:SSE
 ?Get_Line_Size@LineGroupClass@@QAEMXZ,,0x001B3600,4,Code/Libraries/Source/WWVegas/WW3D2/linegrp.cpp,matched,x87 float return so the flag split does not apply; sits in the LineGroupClass COMDAT run between the landed Set_Line_Size and Set_Line_Color
