@@ -15375,3 +15375,4 @@ _XMP_Randomize,,0x0061C3C0,92,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,mat
 ?rva0000D07CB@W3DSailModelDraw@@SA?AW4NameKeyType@@XZ,,0x000D07CB,69,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DSailModelDrawPoolKey.cpp,matched,Cached pool-name key; pool string W3DSailModelDraw; static-guard EH; nameToKey row
 ?rva004B8DCA@SupplyCenterCreate@@SA?AW4NameKeyType@@XZ,,0x004B8DCA,69,Code/GameEngine/Source/GameLogic/Object/Upgrade/SupplyCenterCreatePoolKey.cpp,matched,
 ?rva0000D0C93@W3DBoatWakeModelDraw@@SA?AW4NameKeyType@@XZ,,0x000D0C93,69,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DBoatWakeModelDrawPoolKey.cpp,matched,Cached pool-name key; pool string W3DBoatWakeModelDraw; static-guard EH; nameToKey row
+?rva004B8EC1@SupplyWarehouseCreate@@SA?AW4NameKeyType@@XZ,,0x004B8EC1,69,Code/GameEngine/Source/GameLogic/Object/Upgrade/SupplyWarehouseCreatePoolKey.cpp,matched,
