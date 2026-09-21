@@ -142,3 +142,4 @@ void ClearanceTestingSlowDeathBehaviorModuleData::buildFieldParse(MultiIniFieldP
 }
 FIELD_PROC(RebuildHoleBehaviorModuleData, 0x00C49A10, WorkerTable)
 FIELD_PROC(LargeGroupBonusUpdateModuleData, 0x00C4D1A8, HordeBonusTable)
+FIELD_PROC(LargeGroupAudioUpdateModuleData, 0x00C54868, GroupAudioTable)
