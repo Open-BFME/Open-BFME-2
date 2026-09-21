@@ -14771,3 +14771,4 @@ _chatRetryWithNickA,,0x006A33C0,119,Code/GameEngine/Source/GameNetwork/GameSpy/c
 ?friend_newModuleData@StopSpecialPowerModuleData@@SAPAVModuleData@@PAVINI@@@Z,,0x002522B5,84,Code/GameEngine/Source/GameLogic/Object/SpecialPower/StopSpecialPowerModuleDataFriendNew.cpp,matched,Dedicated TU news 0x80 plus rowed ctor 0x4C68AB plus rowed base-call proc 0x4C6751 with StopPowerTemplate table; procVA push unique image-wide
 ??0RadarUpgradeModuleData@@QAE@XZ,,0x002546D2,25,Code/GameEngine/Source/GameLogic/Object/Upgrade/RadarUpgradeModuleDataCtor.cpp,matched,
 ?friend_newModuleData@RadarUpgradeModuleData@@SAPAVModuleData@@PAVINI@@@Z,,0x00254741,52,Code/GameEngine/Source/GameLogic/Object/Upgrade/RadarUpgradeModuleDataFriendNew.cpp,matched,
+??0StatusBitsUpgradeModuleData@@QAE@XZ,,0x00254775,40,Code/GameEngine/Source/GameLogic/Object/Upgrade/StatusBitsUpgradeModuleDataCtor.cpp,matched,
