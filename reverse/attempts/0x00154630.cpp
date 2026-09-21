@@ -1,5 +1,6 @@
 // ?Create_GDI_Font@FontCharsClass@@AAEXPBD@Z
-// partial score=0.7 date=2026-09-15
+// partial score=0.9 date=2026-09-21
+// ?Create_GDI_Font@FontCharsClass@@AAEXPBD@Z
 // cl: /arch:SSE /G7 /DNDEBUG /MD /EHsc /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/shims/sweep
 // stlport
 #include <string.h>
@@ -38,14 +39,13 @@ private:
 void FontCharsClass::Create_GDI_Font(const char *font_name)
 {
 	bool doingGenerals = false;
-	if (memcmp(font_name, "Generals", 9) == 0) {
+	if (strcmp(font_name, "Generals") == 0) {
 		font_name = "Arial";
 		doingGenerals = true;
 	}
 
 	float height_base = point_size;
-	float width_scale;
-	width_scale = 0.0f;
+	float width_scale = 0.0f;
 	if (doingGenerals) {
 		width_scale = height_base * 0.4f;
 	}
@@ -60,18 +60,19 @@ void FontCharsClass::Create_GDI_Font(const char *font_name)
 
 	int weight = is_bold ? FW_BOLD : FW_NORMAL;
 
-	float width_product = (float)extra_setting * height_base + 0.5f;
-	float height_product = (float)extra_setting * width_scale + 0.5f;
+	float width_product = (float)extra_setting * width_scale + 0.5f;
+	float height_product = (float)extra_setting * height_base + 0.5f;
+	float font_height = (float)floor(height_product);
 
-	GDIFont = ::CreateFontA((int)-floor(height_product),
-		(int)floor(width_product),
-		0, 0, weight, 0, 0, 0, DEFAULT_CHARSET, 4, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, 0, font_name);
+	GDIFont = ::CreateFontA((int)-font_height, (int)floor(width_product),
+		0, 0, weight, 0, 0, 0, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS,
+		CLIP_DEFAULT_PRECIS, ANTIALIASED_QUALITY, 0, font_name);
 
 	HDC screen_dc = FontScreenDCGlobalsPtr->screen_dc;
 	HFONT old_font = (HFONT)::SelectObject(screen_dc, GDIFont);
 
 	TEXTMETRIC text_metric = { 0 };
-	::GetTextMetricsA(screen_dc, &text_metric);
+	::GetTextMetricsA(FontScreenDCGlobalsPtr->screen_dc, &text_metric);
 
 	charHeightDiv = (extra_setting + text_metric.tmExternalLeading + text_metric.tmHeight - 1) / extra_setting;
 	charExtLeadDiv = text_metric.tmExternalLeading / extra_setting;
