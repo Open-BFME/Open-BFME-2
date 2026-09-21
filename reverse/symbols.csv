@@ -3749,3 +3749,4 @@ dup_7e86b0,0x00655770
 ??0OilSpillUpdateModuleData@@QAE@XZ,0x0048C16C,Sole raw caller is factory 0x24CFDF; rowed chained proc 0x48C151 plus OilSpillUpdate poolkey cluster; 0.6 ctor partial banked
 ??0AutoAbilityBehaviorModuleData@@QAE@XZ,0x0045A2E7,Sole raw caller is factory 0x24AFE5; rowed proc 0x45A36E plus AutoAbilityBehavior poolkey cluster
 ??1AutoAbilityQueryEntry@@QAE@XZ,0x0045A226,Query array element dtor thunk; add-ecx-4 plus jmp to rowed 0x360D26; ehvec dtor arg for array built by init 0x45A1D9 in AutoAbility ctor 0x45A2E7
+??0PlayerHealSpecialPowerModuleData@@QAE@XZ,0x004C803A,sole raw E8 caller is factory 0x2525C7; vtable 0xC5E7A8 plus Heal stores; row supersedes on landing
