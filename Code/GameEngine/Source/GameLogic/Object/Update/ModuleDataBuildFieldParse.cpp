@@ -81,3 +81,4 @@ FIELD_PROC(AssistedTargetingUpdateModuleData, 0x00C4AFE8, AssistedTargetingTable
 FIELD_PROC(SpawnUnitBehaviorModuleData, 0x00C59238, SpawnUnitTable)
 FIELD_PROC(EmotionTrackerUpdateModuleData, 0x00C56858, TauntAndPointDistance)
 FIELD_PROC(PartTheHeavensUpdateModuleData, 0x00C54DD8, Texture)
+FIELD_PROC(InvisibilityUpdateModuleData, 0x00C52468, InvisibilityNugget)
