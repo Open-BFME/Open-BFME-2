@@ -26,3 +26,13 @@
 ?Load_Registry@RegistryClass@@SAXPBDPAD1@Z
 ?Save_Registry@RegistryClass@@SAXPBDPAD@Z
 ??0CPUDetectInitClass@@QAE@XZ
+
+# Refused 2026-09-21. Whole-body byte matches, but liolib_bfme1.c reaches
+# fprintf/fopen through renamed imports (__imp__bfmeLogSF, __imp__bfmeFopenVIF),
+# and the import-ref gate wants retail's msvcr71.dll names at those slots.
+_io_write
+_io_fromto
+_io_appendto
+# Their one call is to _io_fromto, refused above, so it cannot resolve.
+_io_readfrom
+_io_writeto
