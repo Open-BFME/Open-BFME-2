@@ -14948,3 +14948,4 @@ _chatRetryWithNickA,,0x006A33C0,119,Code/GameEngine/Source/GameNetwork/GameSpy/c
 ??0PassiveAreaEffectBehaviorModuleData@@QAE@XZ,,0x00484DF4,153,Code/GameEngine/Source/GameLogic/Object/Behavior/PassiveAreaEffectBehaviorModuleDataCtor.cpp,matched,
 ?friend_newModuleData@PassiveAreaEffectBehaviorModuleData@@SAPAVModuleData@@PAVINI@@@Z,,0x0024C724,81,Code/GameEngine/Source/GameLogic/Object/Behavior/PassiveAreaEffectBehaviorModuleDataFriendNew.cpp,matched,
 ?friend_newModuleInstance@PassiveAreaEffectBehavior@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z,,0x0024C6EC,56,Code/GameEngine/Source/GameLogic/Object/Behavior/PassiveAreaEffectBehaviorFriendNew.cpp,matched,
+??1BfmeRefSceneList@@UAE@XZ,,0x0006F29B,68,Code/Libraries/Source/WWVegas/WW3D2/BfmeRefSceneListDtor.cpp,matched,drains list via rowed Release_Head then rowed generic base dtor
