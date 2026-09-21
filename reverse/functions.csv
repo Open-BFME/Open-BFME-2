@@ -14958,3 +14958,4 @@ _chatRetryWithNickA,,0x006A33C0,119,Code/GameEngine/Source/GameNetwork/GameSpy/c
 ??0BaseUpgradeModuleData@@QAE@XZ,,0x004B3698,98,Code/GameEngine/Source/GameLogic/Object/Upgrade/BaseUpgradeModuleDataCtor.cpp,matched,
 ?Rva0033A495Get@@YAHXZ,,0x0033A495,6,Code/GameEngine/Source/Common/ConstIntGetters.cpp,matched,
 ?buildFieldParse@RandomSoundSelectorClientBehaviorModuleData@@SAXAAVMultiIniFieldParse@@@Z,,0x004CBC09,34,Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp,matched,
+??0SubObjectsUpgradeModuleData@@QAE@XZ,,0x00257768,136,Code/GameEngine/Source/GameLogic/Object/Upgrade/SubObjectsUpgradeModuleDataCtor.cpp,matched,Framed Upgrade ctor: EBO OpenContain base plus volatile vtable plus 4 AsciiString vectors via rowed Vector_base plus K1253 float plus zero bytes; table 0x857D38; poolkey 0x4B4D1E; factory 0x25780C sole caller
