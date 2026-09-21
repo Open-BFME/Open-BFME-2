@@ -328,7 +328,6 @@ name,address,notes
 ??0ButterflyDrawModuleTemplate@FXParticleSystem@@QAE@XZ,0x003A7C97,BFME2 export; the module template default constructor the ConcreteModuleTemplate wrapper calls
 ??0CashHackSpecialPowerModuleData@@QAE@XZ,0x004C2889
 ??0Cftp@@QAE@XZ,0x006CA5E0,address read from the REL32 displacement at a placed body
-??0CloudBreakSpecialPowerModuleData@@QAE@XZ,0x004C479A
 ??0CollectionClass@@QAE@ABV0@@Z,0x00130C00,address read from the REL32 displacement at a placed body
 ??0CreateAHeroData@@QAE@ABV0@@Z,0x00409D4D,Complete339-byte copy;vtableC38D88 getter409353 names CreateAHeroData;Snapshot base and140-byte owning layout independently decoded
 ??0CriticalSectionClass@@QAE@XZ,0x00613AE0,address read from the REL32 displacement at a placed body; stlport 4.5.3
