@@ -14876,3 +14876,4 @@ _chatRetryWithNickA,,0x006A33C0,119,Code/GameEngine/Source/GameNetwork/GameSpy/c
 ?buildFieldParse@FloodUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z,,0x0048E15B,17,Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp,matched,
 ?buildFieldParse@StrafeAreaUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z,,0x003A4D12,17,Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp,matched,
 ??0StrafeAreaUpdateModuleData@@QAE@XZ,,0x003A4E5A,117,Code/GameEngine/Source/GameLogic/Object/Update/StrafeAreaUpdateModuleDataCtor.cpp,matched,
+?friend_newModuleData@StrafeAreaUpdateModuleData@@SAPAVModuleData@@PAVINI@@@Z,,0x0024D737,81,Code/GameEngine/Source/GameLogic/Object/Update/StrafeAreaUpdateModuleDataFriendNew.cpp,matched,
