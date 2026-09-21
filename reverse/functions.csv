@@ -14979,3 +14979,4 @@ _chatRetryWithNickA,,0x006A33C0,119,Code/GameEngine/Source/GameNetwork/GameSpy/c
 ?buildFieldParse@ClickReactionBehaviorModuleData@@SAXAAVMultiIniFieldParse@@@Z,,0x0045960C,11,Code/GameEngine/Source/GameLogic/Object/Behavior/BehaviorModuleDataBuildFieldParse.cpp,matched,
 ?friend_newModuleData@ClickReactionBehaviorModuleData@@SAPAVModuleData@@PAVINI@@@Z,,0x0024AED3,81,Code/GameEngine/Source/GameLogic/Object/Behavior/ClickReactionBehaviorModuleDataFriendNew.cpp,matched,
 ??0PickupStuffUpdateModuleData@@QAE@XZ,,0x00491E37,80,Code/GameEngine/Source/GameLogic/Object/Update/PickupStuffUpdateModuleDataCtor.cpp,matched,ModuleData ctor over table 0xC4EC68; named-local scan-range split plus body-phase filter construct via 0x3623E5; factory 0x24D95B sole caller
+?buildFieldParse@CastleMemberBehaviorModuleData@@SAXAAVMultiIniFieldParse@@@Z,,0x00395AF2,11,Code/GameEngine/Source/GameLogic/Object/Behavior/BehaviorModuleDataBuildFieldParse.cpp,matched,
