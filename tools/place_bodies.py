@@ -54,11 +54,19 @@ import build
 import harvest
 
 IMAGE_REL_I386_REL32 = 20
+# A plain C function -- vendored Lua, zlib, GameSpy -- is `_name` or `_name@N`.
+# Compiler-generated symbols (`__ehhandler$...`, `_$E36`) carry a `$` and do not match.
+C_NAME = re.compile(r"_[A-Za-z_]\w*(@\d+)?")
 DENYLIST = "reverse/place_denylist.txt"
 BODY_NOTE = "placed by masked whole-.text search of the compiled body - single hit"
 PIN_NOTE = "address read from the REL32 displacement at a placed body"
 PIN_NOTE_FOLD = (PIN_NOTE + "; the body there is held under another "
                  "instantiation name and the two folded")
+
+
+def placeable(name):
+    """A C++ (mangled) or plain C function name; not a compiler-generated symbol."""
+    return name.startswith("?") or C_NAME.fullmatch(name) is not None
 
 
 def main():
@@ -121,7 +129,7 @@ def main():
         # A static FieldParse table once matched an unrelated zero-filled
         # region after its pointers were masked. Defined data is not code.
         emitted = sorted(name for name in build.defined_code_symbols(obj)
-                         if name.startswith("?"))
+                         if placeable(name))
         for name in emitted:
             if name in ledger or name in placed or name in denied:
                 continue
@@ -195,7 +203,8 @@ def main():
                  "0x%08X" % rva, str(size), source, "--notes", BODY_NOTE, "--no-verify"],
                 cwd=build.ROOT, capture_output=True, text=True)
             if result.returncode:
-                print("   REFUSED:", result.stdout.strip().splitlines()[-1][:200])
+                reason = (result.stdout.strip() or result.stderr.strip() or "no output")
+                print("   REFUSED:", reason.splitlines()[-1][:200])
     if args.apply:
         print("## rows are UNVERIFIED - run ./build.sh and prune what it refuses, "
               "to a fixpoint")
