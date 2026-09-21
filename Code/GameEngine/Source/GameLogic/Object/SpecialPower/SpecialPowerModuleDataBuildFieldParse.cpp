@@ -69,3 +69,21 @@ void CashHackSpecialPowerModuleData::buildFieldParse(MultiIniFieldParse &parse)
 	SpecialPowerModuleData::buildFieldParse(parse);
 	parse.add(reinterpret_cast<const FieldParse *>(0x00C5C724), 0);
 }
+
+class ElvenWoodSpecialPowerModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+// ?buildFieldParse@ElvenWoodSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z,
+// retail 0x004C3FC2 (27 bytes): base-table call above plus the ElvenWood
+// table at 0x00C5D018 (ElvenGroveObject at +0x88, ElvenNumObjects at +0x8C,
+// ElvenWoodRadius at +0x90, ElvenWoodFX at +0x94, ElvenWoodOCL at +0x98).
+// The ElvenWoodSpecialPower pool key at 0x4C3943 sits in the same cluster.
+// The owning factory at 0x00251CB4 pushes this proc's VA.
+void ElvenWoodSpecialPowerModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	SpecialPowerModuleData::buildFieldParse(parse);
+	parse.add(reinterpret_cast<const FieldParse *>(0x00C5D018), 0);
+}
