@@ -449,3 +449,16 @@ void DominateEnemySpecialPowerModuleData::buildFieldParse(MultiIniFieldParse &pa
 	Rva0044EB54::buildFieldParse(parse);
 	parse.add(reinterpret_cast<const FieldParse *>(0x00C5F638), 0);
 }
+
+class SpawnBehaviorModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+void SpawnBehaviorModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	parse.add(reinterpret_cast<const FieldParse *>(Rva004CE29DGet()), 0x5C);
+	parse.add(reinterpret_cast<const FieldParse *>(Rva004CE52EGet()), 0x2C);
+	parse.add(reinterpret_cast<const FieldParse *>(0x00BF0200), 0);
+}
