@@ -3750,3 +3750,5 @@ dup_7e86b0,0x00655770
 ??0AutoAbilityBehaviorModuleData@@QAE@XZ,0x0045A2E7,Sole raw caller is factory 0x24AFE5; rowed proc 0x45A36E plus AutoAbilityBehavior poolkey cluster
 ??1AutoAbilityQueryEntry@@QAE@XZ,0x0045A226,Query array element dtor thunk; add-ecx-4 plus jmp to rowed 0x360D26; ehvec dtor arg for array built by init 0x45A1D9 in AutoAbility ctor 0x45A2E7
 ??0PlayerHealSpecialPowerModuleData@@QAE@XZ,0x004C803A,sole raw E8 caller is factory 0x2525C7; vtable 0xC5E7A8 plus Heal stores; row supersedes on landing
+??0DominateEnemySpecialPowerModuleData@@QAE@XZ,0x004CCA24,sole raw E8 caller image-wide is factory 0x252F09 plus poolkey 0x4CC9DF ends where body begins plus table extent equals factory news
+?applyFilter@Rva003623E5Filter@@QAEXVBfmeFixedStorage0004543D@@@Z,0x00362120,this-only 114B EH filter method taking 28B by-value temp per ret 0x1C plus 5 ModuleData-ctor callers incl MobNexus-convergent 0x4C24AE

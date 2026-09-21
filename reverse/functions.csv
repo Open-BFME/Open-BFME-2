@@ -14899,3 +14899,4 @@ _chatRetryWithNickA,,0x006A33C0,119,Code/GameEngine/Source/GameNetwork/GameSpy/c
 ?friend_newModuleInstance@PlayerHealSpecialPower@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z,,0x0025258F,56,Code/GameEngine/Source/GameLogic/Object/SpecialPower/PlayerHealSpecialPowerFriendNew.cpp,matched,news 0x34 plus rowed behavior ctor 0x4C7E7E; PlayerHeal cluster
 ?rva004CC9DF@DominateEnemySpecialPower@@SA?AW4NameKeyType@@XZ,,0x004CC9DF,69,Code/GameEngine/Source/GameLogic/Object/SpecialPower/DominateEnemySpecialPowerPoolKey.cpp,matched,
 ?buildFieldParse@DominateEnemySpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z,,0x004CC96D,27,Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp,matched,
+??0DominateEnemySpecialPowerModuleData@@QAE@XZ,,0x004CCA24,122,Code/GameEngine/Source/GameLogic/Object/SpecialPower/DominateEnemySpecialPowerModuleDataCtor.cpp,matched,
