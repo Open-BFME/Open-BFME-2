@@ -496,11 +496,16 @@ static unsigned char g_rva00DB621CFlag;
 // Retail Invalidate_Cached_Render_States is at 0x0011FD10 (226B): Zero Hour's
 // body (see the converted BFME1 dx8wrapper.cpp) with the texture-stage half
 // extracted into the helper above, which retail calls.
+// Retail zeroes render_state_changed and then the cold dword at 0x00DEDA14
+// (named g_Va00DEDA14 in ColdGlobalDwordGetters.cpp), not
+// texture_stage_state_changes, which lives at 0x00DEDA68.
+extern int g_Va00DEDA14;
+
 void DX8Wrapper::Invalidate_Cached_Render_States(void)
 {
 	unsigned zero=0;
 	render_state_changed=zero;
-	texture_stage_state_changes=zero;
+	g_Va00DEDA14=zero;
 
 	unsigned a;
 	for (a=0;a<sizeof(RenderStates)/sizeof(unsigned);++a) {
