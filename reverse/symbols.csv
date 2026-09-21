@@ -3736,3 +3736,4 @@ dup_7e86b0,0x00655770
 ??0DeployStyleAIUpdateModuleData@@QAE@XZ,0x00255154,sole raw E8 caller is ModuleData factory 0x25517E (0x25519F); frameless 42B EH-base ctor over Transport base 0x26E5D7 with vtable 0xBF3440; banked partial 0.95, row pending schedule lever
 ??0CastleUpgradeModuleData@@QAE@XZ,0x00255836,sole raw E8 caller is ModuleData factory 0x25585A (0x25586C); frameless 35B ctor over OpenContain base 0x253487 with vtable 0xBF3940 and Upgrade zero at +0x118 plus WallUpgradeRadius float-zero at +0x11C; banked partial 0.97, row pending schedule lever
 ??0CrushDieModuleData@@QAE@XZ,0x002539B3,sole raw caller is factory 0x253A27; BFME1 CrushDie donor with AudioEventRTS members; ctor body unrowed big-EH
+??0RebuildHoleExposeDieModuleData@@QAE@XZ,0x0048671F,sole raw caller is factory 0x24CB18; 0.97 partial banked with RMW-and shape
