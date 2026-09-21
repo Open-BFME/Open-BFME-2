@@ -365,9 +365,27 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
+class GarrisonContainModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class HordeGarrisonContainModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
 void AudioLoopUpgradeModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
 	parse.add(reinterpret_cast<const FieldParse *>(Rva004CE29DGet()), 0x14);
 	parse.add(reinterpret_cast<const FieldParse *>(Rva004CE52EGet()), 0x124);
 	parse.add(reinterpret_cast<const FieldParse *>(0x00C58D98), 0);
+}
+
+void HordeGarrisonContainModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	GarrisonContainModuleData::buildFieldParse(parse);
+	parse.add(reinterpret_cast<const FieldParse *>(0x00C46388), 0);
 }
