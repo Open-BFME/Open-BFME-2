@@ -3706,3 +3706,5 @@ _Rva0084DE40Tail,0x000210C0,STLport locale tail helper called via tail-jmp from 
 ??0TransportAIUpdateModuleData@@QAE@XZ,0x0026E5D7,EH ctor installing vtable 0x00BFA288 size 0x64; called by own ModuleData factory 0x24BDF2 (news 0x64) and as base by WanderAIUpdateModuleData ctor 0x24F1CD (the expected factory-plus-derived pair); proc 0x2638FF single table 0xBF9378 Turret-led
 ??_7WanderAIUpdateModuleData@@6B@,0x00C4B6C8,WanderAIUpdateModuleData vtable installed by ctor 0x24F1CD (mov [esi] imm at 0x24F1D9); derived from TransportAIUpdateModuleData; address read from the mov immediate
 ??0EmotionTrackerUpdateModuleData@@QAE@XZ,0x004B115A,EH ctor installing vtable 0x00C56530 size 0x40; sole raw caller is own ModuleData factory 0x24FAF0 (news 0x40); proc 0x4B235D rowed as EmotionTrackerUpdateModuleData buildFieldParse
+??0CloudBreakSpecialPowerModuleData@@QAE@XZ,0x004C479A
+?buildFieldParse@CloudBreakSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x004C44BD
