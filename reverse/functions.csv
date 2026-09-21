@@ -15339,3 +15339,4 @@ _XMP_Randomize,,0x0061C3C0,92,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,mat
 ?rva004C391E@ElvenWoodSpecialPower@@SA?AW4NameKeyType@@XZ,,0x004C391E,69,Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPowerPoolKey.cpp,matched,
 ?rva004C43BC@ScavengerSpecialPower@@SA?AW4NameKeyType@@XZ,,0x004C43BC,69,Code/GameEngine/Source/GameLogic/Object/SpecialPower/ScavengerSpecialPowerPoolKey.cpp,matched,
 ?rva004C1334@RespawnBody@@SA?AW4NameKeyType@@XZ,,0x004C1334,69,Code/GameEngine/Source/GameLogic/Object/Body/RespawnBodyPoolKey.cpp,matched,
+?rva0004BBF44@AODCrushCollide@@SA?AW4NameKeyType@@XZ,,0x004BBF44,69,Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/AODCrushCollidePoolKey.cpp,matched,Cached pool-name key; pool string AODCrushCollide; static-guard EH; nameToKey row
