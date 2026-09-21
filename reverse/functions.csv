@@ -15389,3 +15389,4 @@ _XMP_Randomize,,0x0061C3C0,92,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,mat
 ?rva004C880D@CombineHordeSpecialPower@@SA?AW4NameKeyType@@XZ,,0x004C880D,69,Code/GameEngine/Source/GameLogic/Object/SpecialPower/CombineHordeSpecialPowerPoolKey.cpp,matched,
 ?rva004C8A34@HordeDispatchSpecialPower@@SA?AW4NameKeyType@@XZ,,0x004C8A34,69,Code/GameEngine/Source/GameLogic/Object/SpecialPower/HordeDispatchSpecialPowerPoolKey.cpp,matched,
 ?rva004CD3FB@TeleportToCasterSpecialPower@@SA?AW4NameKeyType@@XZ,,0x004CD3FB,69,Code/GameEngine/Source/GameLogic/Object/SpecialPower/TeleportToCasterSpecialPowerPoolKey.cpp,matched,
+?rva004CDC53@EvacuateGarrisonSpecialPower@@SA?AW4NameKeyType@@XZ,,0x004CDC53,69,Code/GameEngine/Source/GameLogic/Object/SpecialPower/EvacuateGarrisonSpecialPowerPoolKey.cpp,matched,
