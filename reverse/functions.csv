@@ -14870,3 +14870,4 @@ _chatRetryWithNickA,,0x006A33C0,119,Code/GameEngine/Source/GameNetwork/GameSpy/c
 ?friend_newModuleData@ShareExperienceBehaviorModuleData@@SAPAVModuleData@@PAVINI@@@Z,,0x0024BFE5,81,Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehaviorModuleDataFriendNew.cpp,matched,Dedicated TU; news 0x18 plus pinned ctor 0x47FE90 plus rowed proc 0x47FEDC plus rowed 0x2DEB5; zero new pins
 ??0GiantBirdSlowDeathBehaviorModuleData@@QAE@XZ,,0x00461F7F,110,Code/GameEngine/Source/GameLogic/Object/Behavior/GiantBirdSlowDeathBehaviorModuleDataCtor.cpp,matched,
 ?buildFieldParse@GiantBirdSlowDeathBehaviorModuleData@@SAXAAVMultiIniFieldParse@@@Z,,0x00461E3D,27,Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp,matched,
+?friend_newModuleData@GiantBirdSlowDeathBehaviorModuleData@@SAPAVModuleData@@PAVINI@@@Z,,0x0024B5D1,84,Code/GameEngine/Source/GameLogic/Object/Behavior/GiantBirdSlowDeathBehaviorModuleDataFriendNew.cpp,matched,
