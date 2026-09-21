@@ -528,3 +528,15 @@ void SpawnBehaviorModuleData::buildFieldParse(MultiIniFieldParse &parse)
 	parse.add(reinterpret_cast<const FieldParse *>(Rva004CE52EGet()), 0x2C);
 	parse.add(reinterpret_cast<const FieldParse *>(0x00BF0200), 0);
 }
+
+class RubbleRiseUpdateModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+void RubbleRiseUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	parse.add(reinterpret_cast<const FieldParse *>(0x00C52960), 0);
+	parse.add(reinterpret_cast<const FieldParse *>(Rva004CE52EGet()), 8);
+}
