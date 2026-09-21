@@ -419,3 +419,15 @@ void WeaponFireSpecialAbilityUpdateModuleData::buildFieldParse(MultiIniFieldPars
 	Rva0044EB54::buildFieldParse(parse);
 	parse.add(reinterpret_cast<const FieldParse *>(0x00BEF0A8), 0);
 }
+
+class ReplenishUnitsBehaviorModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+void ReplenishUnitsBehaviorModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	parse.add(reinterpret_cast<const FieldParse *>(0x00C4A150), 0);
+	parse.add(reinterpret_cast<const FieldParse *>(Rva004CE29DGet()), 8);
+}
