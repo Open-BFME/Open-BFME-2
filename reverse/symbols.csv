@@ -3765,3 +3765,4 @@ dup_7e86b0,0x00655770
 ??0BridgeScaffoldBehaviorModuleData@@QAE@XZ,0x00457FF1,sole raw E8 caller is factory 0x24AC3B (0x24AC5C inside); vtable 0xC40A10; table 0xC40B20 BridgeScaffold 4-field; news 0x18 fits; member 0x280A8D rowed List_base
 ??0HitReactionBehaviorModuleData@@QAE@XZ,0x004591EA,sole raw E8 caller is factory 0x24AE4A (0x24AE6B inside); vtable TBD; table 0xC410F0 HitReaction 9-field; news 0x24 fits
 ??0ClickReactionBehaviorModuleData@@QAE@XZ,0x004595F0,sole raw E8 caller is factory 0x24AED3 (0x24AEF4 inside); table 0xC412F8 ClickReaction 7-field; news 0x20 fits
+??0CastleMemberBehaviorModuleData@@QAE@XZ,0x00395B03,sole raw E8 caller is factory 0x24AB26 (0x24AB47 inside); vtable 0xC1A380; table 0xC1A310 CastleMember 6-field; news 0x1C fits
