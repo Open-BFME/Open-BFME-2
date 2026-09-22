@@ -24,3 +24,4 @@ public:
 };
 typedef char SaveMapPreviewSizeCheck[sizeof(SaveMapPreview)==20 ? 1 : -1];
 template _STL::vector<SaveMapPreview>::vector(const _STL::vector<SaveMapPreview>&);
+template SaveMapPreview *_STL::vector<SaveMapPreview>::_M_allocate_and_copy<SaveMapPreview const *>(unsigned int, SaveMapPreview const *, SaveMapPreview const *);
