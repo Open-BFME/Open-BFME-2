@@ -3763,7 +3763,6 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ??$__copy@PAUBfmePod36@@PAU1@H@_STL@@YAPAUBfmePod36@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z,0x00161350,address read from the REL32 displacement at a placed body
 ??$_M_allocate_and_copy@PBUBfmePod60@@@?$vector@UBfmePod60@@V?$allocator@UBfmePod60@@@_STL@@@_STL@@IAEPAUBfmePod60@@IPBU2@0@Z,0x000B975D,address read from the REL32 displacement at a placed body
 ??$_M_allocate_and_copy@PBUBfmePod8@@@?$vector@UBfmePod8@@V?$allocator@UBfmePod8@@@_STL@@@_STL@@IAEPAUBfmePod8@@IPBU2@0@Z,0x001D9AD9,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
-??$__copy_backward_ptrs@PAUBfmePod44@@PAU1@@_STL@@YAPAUBfmePod44@@PAU1@00ABU__false_type@0@@Z,0x0007EB94,address read from the REL32 displacement at a placed body
 ??$__copy_backward_ptrs@PAUBfmePod8@@PAU1@@_STL@@YAPAUBfmePod8@@PAU1@00ABU__false_type@0@@Z,0x0030B378,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
 ??$__copy_ptrs@PAUBfmePod12@@PAU1@@_STL@@YAPAUBfmePod12@@PAU1@00ABU__false_type@0@@Z,0x000B6569,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
 ??$__copy_ptrs@PAUBfmePod16@@PAU1@@_STL@@YAPAUBfmePod16@@PAU1@00ABU__false_type@0@@Z,0x00469C85,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded

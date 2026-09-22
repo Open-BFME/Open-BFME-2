@@ -15729,3 +15729,4 @@ _rva002bcab_scanIndex,,0x0002BCAB,132,Code/GameEngine/Source/Common/System/INI_s
 ?erase@?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAEPAVAsciiString@@PAV3@0@Z,,0x0002CCFC,51,Code/GameEngine/Source/Common/Thing/VectorAsciiStringErase.cpp,matched,
 ?clear@Rva003B31DF@@QAEXXZ,,0x003B31DF,23,Code/GameEngine/Source/Common/Rva003BClearLeaves.cpp,matched,
 ?clear@Rva003B3204@@QAEXXZ,,0x003B3204,23,Code/GameEngine/Source/Common/Rva003BClearLeaves.cpp,matched,Self-recursive guarded-delete leaf; sibling of rowed 0x3B31DF clear; TU already emits it
+??$__copy_backward_ptrs@PAUBfmePod44@@PAU1@@_STL@@YAPAUBfmePod44@@PAU1@00ABU__false_type@0@@Z,,0x0007EB94,29,Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp,matched,Pod vector TU wave; callee copy_backward rowed
