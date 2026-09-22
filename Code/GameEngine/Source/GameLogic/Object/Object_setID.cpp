@@ -12,11 +12,21 @@ enum ObjectID
 
 class Object;
 
+class ObjectLookupMap
+{
+public:
+	class Object **findSlot( int *id );
+};
+
 class GameLogic
 {
 public:
 	void removeObjectFromLookupTable( Object *obj );
 	void addObjectToLookupTable( Object *obj );
+
+private:
+	unsigned char m_pad[0xB4];	// +0x00..0xB4
+	ObjectLookupMap m_lookup;	// +0xB4
 };
 
 extern GameLogic *TheGameLogic;
@@ -50,4 +60,13 @@ void Object::setID( ObjectID id )
 	// add new id to lookup table
 	if( id != INVALID_ID )
 		TheGameLogic->addObjectToLookupTable( this );
+}
+
+void GameLogic::addObjectToLookupTable( Object *obj )
+{
+	if( obj == 0 )
+		return;
+	int id = *(int *)((char *)obj + 0x74);
+	Object **slot = m_lookup.findSlot( &id );
+	*slot = obj;
 }

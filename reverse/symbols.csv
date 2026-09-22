@@ -1684,7 +1684,6 @@ name,address,notes
 ?addInt@FeslEchoMessage@@QAEXPBDH@Z,0x00655960
 ?addInt@Rva007E8810Message@@QAEXPBDH@Z,0x00655960
 ?addObjectCreationNugget@ObjectCreationListStore@@QAEXPAVObjectCreationNugget@@@Z,0x001F0AC4,address read from the REL32 displacement at a placed body
-?addObjectToLookupTable@GameLogic@@QAEXPAVObject@@@Z,0x00242AC2
 ?addObjectToPathfindMap@BFMEPathfinderMapShim@@QAEXPAVObject@@@Z,0x002E7178,second call in Object::friend_notifyOfNewMapBoundary 0x28B5EE via TheAI->pathfinder()+0x10 with Object* arg; 11B wrapper pushing 0/0/1; B1 shim pattern
 ?addPadded@Rva00800290Buffer@@QAEXH@Z,0x0066C7E0
 ?addString@BfmeC994@@QAEXPBD0@Z,0x00655AA0
@@ -3990,3 +3989,4 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ??0?$_Vector_base@UPrereqUnitRec@ProductionPrerequisite@@V?$allocator@UPrereqUnitRec@ProductionPrerequisite@@@_STL@@@_STL@@QAE@ABV?$allocator@UPrereqUnitRec@ProductionPrerequisite@@@1@@Z,0x00211E58,ICF-folded empty vector base ctor same 29B as rowed BfmeE16 row; PrereqUnitRec member of ProductionPrerequisiteCtor TU
 ??0?$_Vector_base@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QAE@ABV?$allocator@W4ScienceType@@@1@@Z,0x00211E58,ICF-folded empty vector base ctor same 29B as rowed BfmeE16 row; ScienceType member of ProductionPrerequisiteCtor TU
 ?clear@ProductionPrerequisite@@QAEXXZ,0x004F5227,frameless helper clearing +0x00 via erase 0x4F50E2 and +0x0C via erase 0x532803; sole caller is default ctor 0x4F527A
+?findSlot@ObjectLookupMap@@QAEPAPAVObject@@PAH@Z,0x0041F4E5,GameLogic lookup map slot finder; sole caller addObjectToLookupTable 0x242AC2
