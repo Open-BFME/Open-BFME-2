@@ -3990,3 +3990,4 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ?getAbleToUseWeaponAgainstTarget@WeaponSet@@QBE?AW4CanAttackResult@@W4AbleToAttackType@@PBVObject@@1PBUCoord3D@@W4CommandSourceType@@@Z,0x002C7907,WeaponSet arity-5 const forwarder target of Object 0x28AF2B (attackType source victim pos commandSource); BFME1 WeaponSet.cpp donor (arity-6 sibling with specificSlot)
 ??0W3DTreeDrawModuleData@@QAE@XZ,0x000CEBBF,EH ctor with vtable 0xBCCDF0 and floats; sole caller is factory 0x64C0B which news 0x64 and pushes proc 0xCED03
 ?getLine@INIFileTable@@QBEHH@Z,0x006018DC,INI file-table indexed line getter; sole callers are INI getters at 0x2BBDE and 0x2BBED with table-index args
+?getName@INIFileTable@@QBE?AVAsciiString@@H@Z,0x00601903,INI file-table indexed name getter with empty default; callers are INI AsciiString getters near 0x2BFE5 and 0x2C005 with table-index args
