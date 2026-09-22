@@ -1,3 +1,5 @@
+// ?copyWchars@Rva000B3F84Pair@@QAEHPAG@Z
+// partial score=0.97 date=2026-09-22
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
@@ -61,6 +63,7 @@ public:
 	void copyBytes(void *dst, int off, int len);
 	void convertToWide(unsigned short *dst, int off, int len);
 	int convertToWideBuffer(unsigned short *dst);
+	int copyWchars(unsigned short *dst);
 	UnicodeString toUnicode();
 
 	const char *m_ptr;
@@ -109,6 +112,15 @@ UnicodeString Rva000B3F84Pair::toUnicode()
 int Rva000B3F84Pair::convertToWideBuffer(unsigned short *dst)
 {
 	convertToWide(dst, 0, m_len);
+	return m_len;
+}
+
+// ?copyWchars@Rva000B3F84Pair@@QAEHPAG@Z @0x2342A7
+int Rva000B3F84Pair::copyWchars(unsigned short *dst)
+{
+	int lo = m_len;
+	int hi = m_len;
+	memcpy(dst, m_ptr, lo + hi);
 	return m_len;
 }
 
