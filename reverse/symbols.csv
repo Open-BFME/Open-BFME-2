@@ -2985,7 +2985,6 @@ name,address,notes
 ?releaseCodecCallback@@YAXPAPAX@Z,0x001B68D0
 ?releaseCodecMembers@@YAXPAUCodecState@@@Z,0x001B5530
 ?releaseCodecState@@YAXPAPAUCodecState@@@Z,0x001B56A0
-?releaseData@Dict@@AAEXXZ,0x0031339C
 ?releaseRef@W3DRadarResetTextureRef@@QAEXXZ,0x0061ED10
 ?removeAllTerrainBibs@BaseHeightMapRenderObjClass@@QAEXXZ,0x001EC3B5
 ?removeGoal@Pathfinder@@QAEXPAVObject@@@Z,0x006D5B50
