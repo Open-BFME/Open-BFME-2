@@ -35,10 +35,12 @@
 #include "texture.h"
 
 #ifndef SAFE_DELETE
+// Retail frees these polymorphic objects through the virtual destructor with
+// flag 0 plus the global operator delete -- what ::delete emits.
 #define SAFE_DELETE(pointer) \
 { \
 	if (pointer) {	\
-		delete pointer; \
+		::delete pointer; \
 		pointer = 0; \
 	} \
 }
@@ -240,7 +242,6 @@ ParticleEmitterDefClass::Free_Props (void)
 //	Set_Velocity_Random
 //
 void							
-// ?Set_Velocity_Random@ParticleEmitterDefClass@@ present-unmatched
 ParticleEmitterDefClass::Set_Velocity_Random (Vector3Randomizer *randomizer)
 {
 	SAFE_DELETE (m_pVelocityRandomizer);
@@ -262,7 +263,6 @@ ParticleEmitterDefClass::Set_Velocity_Random (Vector3Randomizer *randomizer)
 //	Set_Creation_Volume
 //
 void							
-// ?Set_Creation_Volume@ParticleEmitterDefClass@@ present-unmatched
 ParticleEmitterDefClass::Set_Creation_Volume (Vector3Randomizer *randomizer)
 {
 	SAFE_DELETE (m_pCreationVolume);

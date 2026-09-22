@@ -772,7 +772,6 @@ ParticleBufferClass & ParticleBufferClass::operator = (const ParticleBufferClass
 }
 
 
-// ??1ParticleBufferClass@@ present-unmatched
 ParticleBufferClass::~ParticleBufferClass(void)
 {
 	if (NewParticleQueue)				delete [] NewParticleQueue;
@@ -803,9 +802,12 @@ ParticleBufferClass::~ParticleBufferClass(void)
 	if (RandomFrameEntries)				delete [] RandomFrameEntries;
 	if (RandomBlurTimeEntries)			delete [] RandomBlurTimeEntries;
 	
-	if (PointGroup)						delete PointGroup;
-	if (LineRenderer)						delete LineRenderer;
-	if (LineGroup)							delete LineGroup;
+	// Retail destroys these three through the virtual destructor with flag 0
+	// and then frees them with the global operator delete itself: the
+	// code ::delete emits, not the flag-1 deleting destructor of delete.
+	if (PointGroup)						::delete PointGroup;
+	if (LineRenderer)						::delete LineRenderer;
+	if (LineGroup)							::delete LineGroup;
 
 	REF_PTR_RELEASE(Position[0]);
 	REF_PTR_RELEASE(Position[1]);

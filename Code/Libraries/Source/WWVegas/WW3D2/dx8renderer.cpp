@@ -1551,18 +1551,20 @@ void DX8SkinFVFCategoryContainer::Add_Visible_Skin(MeshClass * mesh)
 
 // ----------------------------------------------------------------------------
 
-// ?Reset@DX8SkinFVFCategoryContainer@@ present-unmatched
 void DX8SkinFVFCategoryContainer::Reset()
 {
 	clearVisibleSkinList();
 	
 	for (unsigned pass=0;pass<passes;++pass) {
 		while (DX8TextureCategoryClass* texture_category=texture_category_list[pass].Peek_Head()) {
-			delete texture_category;
+			::delete texture_category;
 		}
 	}
 
-	REF_PTR_RELEASE(index_buffer);
+	if (index_buffer) {
+		index_buffer->Release_Ref();
+		index_buffer = NULL;
+	}
 	used_indices=0;
 }
 
