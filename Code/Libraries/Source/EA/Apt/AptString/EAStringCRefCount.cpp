@@ -10,6 +10,9 @@ extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *, const char *, int);
 extern int g_bfmeAptBreakOnAssertAtDDC01C;
 void __debugbreak();
 #pragma intrinsic(__debugbreak)
+#pragma intrinsic(memcmp)
+
+extern "C" int __cdecl memcmp(const void *left, const void *right, unsigned int count);
 
 class Rva006DB270
 {
@@ -55,6 +58,7 @@ public:
 	void Assign(const char *text);
 	int GetAt(int index) const;
 	bool IsEmpty() const;
+	bool IsEqualTo(const EAStringC *other) const;
 };
 
 // Retail empty singleton at 0x00DDC020. The linker never sees this TU's
@@ -184,4 +188,22 @@ int EAStringC::GetAt(int index) const
 bool EAStringC::IsEmpty() const
 {
 	return m_pData == &g_eaEmptyStringData;
+}
+
+// ?IsEqualTo@EAStringC@@QBE_NPBV1@@Z, retail 0x006D3090 (54B). Compares
+// two refcounted strings by handle: size mismatch is false, shared data
+// is true, otherwise an intrinsic memcmp over the text. Name is a
+// semantic pick: the body takes a string pointer and returns a bool with
+// no side effects; the 23 Apt callers all pass string objects.
+bool EAStringC::IsEqualTo(const EAStringC *other) const
+{
+	unsigned int otherSize = other->m_pData->m_uSize;
+	unsigned int ownSize = m_pData->m_uSize;
+	if (ownSize != otherSize)
+		return false;
+	StringDataC *ownData = m_pData;
+	StringDataC *otherData = other->m_pData;
+	if (ownData == otherData)
+		return true;
+	return memcmp(ownData + 1, otherData + 1, ownSize) == 0;
 }
