@@ -16488,3 +16488,5 @@ __heap_abort,,0x000398A0,80,Code/Libraries/Source/WWVegas/WWDebug/DebugHeapAbort
 ?parseEmotionWeaponNugget@@YAXPAVINI@@PAVWeaponTemplate@@@Z,,0x002CCB04,99,Code/GameEngine/Source/GameLogic/Object/WeaponNuggetParse.cpp,matched,Weapon FieldParse row EmotionWeaponNugget at 0x00800B48 points here
 ?parseStealMoneyNugget@@YAXPAVINI@@PAVWeaponTemplate@@@Z,,0x002CCB67,99,Code/GameEngine/Source/GameLogic/Object/WeaponNuggetParse.cpp,matched,Weapon FieldParse row StealMoneyNugget at 0x00800B48 points here
 ?parseFXList@INI@@SAXPAV1@PAX1PBX@Z,,0x00338A09,102,Code/GameEngine/Source/Common/System/INI_parseFXList.cpp,matched,ToppleFX and FireFlankFX FieldParse rows point here; ZH parseFXList with BFME2 INIException throw
+?parseParticleSystemTemplate@INI@@SAXPAV1@PAX1PBX@Z,,0x003395BB,116,Code/GameEngine/Source/Common/System/INI_parseParticleSystemTemplate.cpp,matched,DisableFXParticleSystem FieldParse row points here
+?parseMappedImage@INI@@SAXPAV1@PAX1PBX@Z,,0x003390B2,87,Code/GameEngine/Source/Common/System/INI_parseMappedImage.cpp,matched,ImageName FieldParse row points here

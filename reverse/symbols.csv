@@ -4582,3 +4582,5 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ??0Made002CCB67@@QAE@XZ,0x0050B6B4,ctor of the StealMoneyNugget object newed by parseStealMoneyNugget (0x002CCB67); address-derived name; identity not recovered
 ?q4Notify002CCB67@@YAXPAXPAVMade002CCB67@@HH@Z,0x0050B5F6,four-argument __cdecl field parser called by parseStealMoneyNugget (0x002CCB67); address-derived name; identity not recovered
 ?findDamageFX@DamageFXStore@@QBEPBVDamageFX@@VAsciiString@@@Z,0x00360966,TheDamageFXStore lookup called by INI::parseDamageFX (0x0033962F); ICF-shares the ArmorStore::findArmorTemplate body
+?findTemplate@ParticleSystemManager@@QBEPAVParticleSystemTemplate@@ABVAsciiString@@@Z,0x001F90DA,TheParticleSystemManager lookup called by INI::parseParticleSystemTemplate (0x003395BB)
+?findImageByName@ImageCollection@@QAEPBVImage@@ABVAsciiString@@@Z,0x002D92F6,TheMappedImageCollection lookup called by INI::parseMappedImage (0x003390B2)
