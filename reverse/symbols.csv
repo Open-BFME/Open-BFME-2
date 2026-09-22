@@ -3903,7 +3903,6 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ?unlinkChain@Rva009A36F0Owner@@QAEXPAVRva009A36F0Thing@@@Z,0x00759220,BFME1 Rva009A36F0Owner donor unlinker; sole E8 caller is apply at 0x007592E0
 ??_7AssaultTransportAIUpdateModuleData@@6B@,0x00C4B6C8,AssaultTransportAIUpdateModuleData vtable installed by ctor 0x24D221; ICF-folded with the Worker and Wander vtables at the same address (identical trivial-hierarchy layout); TU spelling alias of their ??_7 pins
 ??0Rva00465124Base@@QAE@XZ,0x00465124,Big-EH ModuleData base ctor with DieMuxData init plus filters called at base position by 4 derived ctors (CaveContain 0x466D37 plus GarrisonContain 0x4797A2 plus 2); semantic identity unproven so Rva-addressed
-??0CreateObjectDieIfEldestKindofModuleData@@QAE@XZ,0x00485D88
 ??_7GeometryInfo@@6B@,0x00BC4E94,GeometryInfo vtable installed by ctor 0x50B74; slot0 is the deleting wrapper at 0x450C31 per the dtor pin note
 ?set@GeometryInfo@@QAEXW4GeometryType@@_NMMM@Z,0x006BFF50,Five-argument GeometryInfo extent setter called once with x87 float args by the 0x50B74 ctor; ret 0x14 callee-clean
 ??0?$_Vector_base@UGeometryShape@@V?$allocator@UGeometryShape@@@_STL@@@_STL@@QAE@ABV?$allocator@UGeometryShape@@@1@@Z,0x00211E58,ICF-folded empty vector base ctor (same 29B as matched BfmeE16 row); GeometryInfoCtor TU vector<GeometryShape> member

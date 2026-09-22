@@ -104,6 +104,7 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
+// ?buildFieldParse@Rva0044EB54@@SAXAAVMultiIniFieldParse@@@Z
 void Rva0044EB54::buildFieldParse(MultiIniFieldParse &parse)
 {
 	parse.add(reinterpret_cast<const FieldParse *>(0x00C3F7F8), 0);
@@ -629,13 +630,13 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
-class CreateObjectDieIfEldestKindofModuleData
+class CreateObjectDieModuleData
 {
 public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
-void CreateObjectDieIfEldestKindofModuleData::buildFieldParse(MultiIniFieldParse &parse)
+void CreateObjectDieModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
 	parse.add(reinterpret_cast<const FieldParse *>(Rva004CE52EGet()), 8);
 	parse.add(reinterpret_cast<const FieldParse *>(0x00C4A928), 0);
@@ -647,7 +648,7 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
-// ?buildFieldParse@CaveContainModuleData@@SAXAAVMultiIniFieldParse@@@Z,
+// ?buildFieldParse@CaveContainModuleData@@SAXAAVMultiIniFieldParse@@@Z
 // retail 0x0024B77C (27 bytes): base-table call above plus the CaveContain
 // table at 0x00BEEAC8 (CaveIndex at +0x98). The field matches BFME1's
 // CaveContainModuleData table verbatim at the identical offset (vote 1/1).
@@ -661,7 +662,7 @@ void CaveContainModuleData::buildFieldParse(MultiIniFieldParse &parse)
 	parse.add(reinterpret_cast<const FieldParse *>(0x00BEEAC8), 0);
 }
 
-// ?buildFieldParse@OpenContainModuleData@@SAXAAVMultiIniFieldParse@@@Z,
+// ?buildFieldParse@OpenContainModuleData@@SAXAAVMultiIniFieldParse@@@Z
 // retail 0x0046523D (34 bytes): table-first double-add registering the
 // Contain table at 0x00C438B0 (ContainMax at +0x70 plus EnterSound at +0x38
 // plus ExitSound at +0x3C plus DamagePercentToUnits at +0x6C plus

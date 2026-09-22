@@ -1,8 +1,10 @@
 // cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
 // stlport
 //
-// ??0BridgeScaffoldBehaviorModuleData@@QAE@XZ, retail 0x00457FF1 (89 bytes).
-// The module-data half of BridgeScaffoldBehavior: vtable 0x00C40A10,
+// ??0BridgeBehaviorModuleData@@QAE@XZ, retail 0x00457FF1 (89 bytes).
+// Identity: ModuleFactory registers the calling factory 0x24AC3B under
+// "BridgeBehavior"; formerly misnamed BridgeScaffoldBehaviorModuleData.
+// The module-data half of BridgeBehavior: vtable 0x00C40A10,
 // LateralScaffoldSpeed@8 plus VerticalScaffoldSpeed@C (both 1.0f, via the
 // retail literal at 0xBBB8D8) plus BridgeDieFX@10 plus BridgeDieOCL@14 (both
 // coordinate lists through the rowed _List_base<Coord3D> at 0x280A8D).
@@ -31,10 +33,10 @@ public:
 	~UpdateModuleData();
 };
 
-class BridgeScaffoldBehaviorModuleData : public UpdateModuleData
+class BridgeBehaviorModuleData : public UpdateModuleData
 {
 public:
-	BridgeScaffoldBehaviorModuleData();
+	BridgeBehaviorModuleData();
 
 private:
 	const void *m_vtable;
@@ -45,8 +47,8 @@ private:
 	std::list<Coord3D> m_bridgeDieOCL;
 };
 
-// ??0BridgeScaffoldBehaviorModuleData@@QAE@XZ @0x457FF1
-BridgeScaffoldBehaviorModuleData::BridgeScaffoldBehaviorModuleData()
+// ??0BridgeBehaviorModuleData@@QAE@XZ @0x457FF1
+BridgeBehaviorModuleData::BridgeBehaviorModuleData()
 	: m_vtable(reinterpret_cast<const void *>(0x00C40A10))
 {
 	m_lateralScaffoldSpeed = 1.0f;

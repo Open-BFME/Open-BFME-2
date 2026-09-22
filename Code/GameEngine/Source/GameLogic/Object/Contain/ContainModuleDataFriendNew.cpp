@@ -16,27 +16,6 @@ public:
 	void initFromINIMultiProc(void *what, void (__cdecl *proc)(MultiIniFieldParse &));
 };
 
-class CaveContainModuleData
-{
-public:
-	CaveContainModuleData();
-	virtual ~CaveContainModuleData();
-	static void buildFieldParse(MultiIniFieldParse &parse);
-	static ModuleData *friend_newModuleData(INI *ini);
-
-private:
-	unsigned char m_pad[0x9C - 4];
-};
-
-// ?friend_newModuleData@CaveContainModuleData@@SAPAVModuleData@@PAVINI@@@Z
-ModuleData *CaveContainModuleData::friend_newModuleData(INI *ini)
-{
-	CaveContainModuleData *data = new CaveContainModuleData;
-	if (ini)
-		ini->initFromINIMultiProc(data, CaveContainModuleData::buildFieldParse);
-	return reinterpret_cast<ModuleData *>(data);
-}
-
 class HealContainModuleData
 {
 public:
