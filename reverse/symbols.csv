@@ -333,7 +333,6 @@ name,address,notes
 ??0DieModuleData@@QAE@XZ,0x006054E7,address read from the REL32 displacement at a placed body
 ??0DumbProjectileBehavior@@QAE@PAVThing@@PBVModuleData@@@Z,0x003907A6
 ??0DumbProjectileBehaviorModuleData@@QAE@XZ,0x00390119,pinned by DumbProjectileBehaviorModuleData factory call-site decode
-??0ElvenWoodSpecialPowerModuleData@@QAE@XZ,0x004C3DA9,frameless 75B ctor over pinned SpecialPower base 0x4930A0 with vtable 0xC5CF38 and vector member at +0x7C via 0x211E58 and float at +0x90 and zeros matching own table 0x85D018; sole raw caller is ModuleData factory 0x251CB4 which news 0x9C
 ??0EmissionVolumeInfo@FXParticleSystem@@QAE@ABV01@@Z,0x001F3550,exported BFME2 base copy constructor called by SphereEmissionVolumeInfo
 ??0EmotionTrackerUpdateModuleData@@QAE@XZ,0x004B115A,EH ctor installing vtable 0x00C56530 size 0x40; sole raw caller is own ModuleData factory 0x24FAF0 (news 0x40); proc 0x4B235D rowed as EmotionTrackerUpdateModuleData buildFieldParse
 ??0FeslEchoMessage@@QAE@PADH@Z,0x00655900
