@@ -15441,3 +15441,4 @@ _bfmeHash1228,,0x0070F880,1504,Code/GameEngine/Source/Common/BfmeConv1228.cpp,ma
 ?apply@Rva009A36F0Owner@@QAEXPAVRva009A36F0Param@@@Z,,0x007592E0,117,Code/GameEngine/Source/Common/Rva009A36F0Owner.cpp,matched,BFME1 byte-identical donor b1 0x009A36F0 with b2 repairs: dtor call targets rowed CollisionData dtor at 0x00758500 and unlinkChain pinned at 0x00759220
 ?buildFieldParse@AssaultTransportAIUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z,,0x0024D248,27,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/TransportAIUpdateModuleDataBuildFieldParse.cpp,matched,
 ??0AssaultTransportAIUpdateModuleData@@QAE@XZ,,0x0024D221,39,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AssaultTransportAIUpdateModuleDataCtor.cpp,matched,
+?friend_newModuleData@AssaultTransportAIUpdateModuleData@@SAPAVModuleData@@PAVINI@@@Z,,0x0024D29E,81,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AssaultTransportAIUpdateModuleDataFriendNew.cpp,matched,
