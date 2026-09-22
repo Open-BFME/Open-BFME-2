@@ -188,3 +188,23 @@ void TaintSpecialPowerModuleData::buildFieldParse(MultiIniFieldParse &parse)
 	SpecialPowerModuleData::buildFieldParse(parse);
 	parse.add(reinterpret_cast<const FieldParse *>(0x00C5D518), 0);
 }
+
+class MobNexusContainModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+// ?buildFieldParse@MobNexusContainModuleData@@SAXAAVMultiIniFieldParse@@@Z,
+// retail 0x004C2389 (27 bytes): base-table call above plus the MobNexus
+// table at 0x00C5C468 (InvisibilityNugget at +0x7C plus BroadcastRadius at
+// +0x134 plus ObjectFilter at +0x138 plus Duration at +0x13C). The rowed
+// factory at 0x002518CB calls the pinned ctor at 0x4C244D and pushes this
+// proc's VA (unique image-wide), which proves the class (HealContain
+// precedent); no pool key exists (the class string has zero pushers
+// image-wide).
+void MobNexusContainModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	SpecialPowerModuleData::buildFieldParse(parse);
+	parse.add(reinterpret_cast<const FieldParse *>(0x00C5C468), 0);
+}
