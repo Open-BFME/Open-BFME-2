@@ -3995,7 +3995,7 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ?Rva0023DA79@ObjectStatusMask@@QAEPAU1@HW4ObjectStatusTypes@@_N@Z,0x0023DA79,Object status single-bit mask builder; thiscall on 16B out with reserved bit and flag args; memsets 16B then sets bit; callers are setStatus family
 ?Rva0026C347Command@Rva0026C347Commands@@QAEXPAXH@Z,0x0026C347,2-param AICommand method on commands at AIUpdateInterface plus 0x20 (ptr then int at all 14 raw call sites); semantic identity unproven so Rva-addressed; passenger-AI loop at 0x48F690 passes member plus 2
 ?Rva002673F6Dispatch@Rva002673F6Base@@QAEXPAUBfmeBehaviorRequest@@@Z,0x002673F6,tail delegate of behavior request dispatch (this plus request); 8 raw callers all thiscall with 1 stacked arg; semantic identity unproven so Rva-addressed
-??0SlavedUpdateModuleData@@QAE@XZ,0x002552D7,sole raw E8 caller is ModuleData factory 0x255340 which news 0x70 and pushes rowed proc 0x2542E2
 ?Rva0026C2D9Command@Rva0026C2D9Commands@@QAEXPAXHH@Z,0x0026C2D9,3-param AICommand method on commands at AIUpdateInterface plus 0x20 (target then 0x7FFFFFFF then source at all 27 raw call sites); semantic identity unproven so Rva-addressed
 ?Rva00295A0FCommand@Rva00295A0FCommands@@QAEXPAXHH@Z,0x00295A0F,3-param AICommand method on commands at AIUpdateInterface plus 0x20 (target then 0x7FFFFFFF then source at all 14 raw call sites); semantic identity unproven so Rva-addressed
 ??_7RemoveUpgradeUpgradeModuleData@@6B@,0x00C58EF0,slot0 is 0x4B8034 sitting right after ctor 0x4B7FF1 plus slot1 is 0x4B3FD0 ret-pair
+??_7SlavedUpdateModuleData@@6B@,0x00BF34C0,slot0 is scalar-deleting ??_G at 0x255FA5 plus slot1 is 0x4B3FD0 ret-pair
