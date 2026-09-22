@@ -4019,3 +4019,6 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ?__stl_hash_string@_STL@@YAIPBD@Z,0x0002BA61,STLport vendored _hash_fun donor verbatim imul5 loop; sole hash leaf for Eva plus 4 string users
 ??0AICommandParms@@QAE@W4AICommandType@@W4CommandSourceType@@@Z,0x00351BD0,AICommandParms block ctor (cmd plus source); builds plus-0x20 coordinate vector; called by aiForceAttackObject 0x36F05A and aiAttackPosition 0x29599A; callees 0x211E58 plus 0x263895 plus 0x2A133B unclaimed
 ??_7W3DTankDrawModuleData@@6B@,0x00BCCB58,W3DTankDrawModuleData vtable installed by ctor 0xCE6E6 (mov esi imm at 0xCE70B); factory 0x64B7F news 0x19C; slot0 scalar-deleting dtor unclaimed
+?Set_Shader@DX8Wrapper@@SAXABVShaderClass@@@Z,0x000662E5,Shader dword compare plus 0x80 dirty flag plus apply calls; sole shader arg matches W3DShaderManager startRenderToTexture donor slot
+?drawViewport@W3DShaderManager@@SAXH_NPBUVector2@@@Z,0x00075746,BFME2 3-arg form color plus scale flag plus vector; called from startRenderToTexture alpha path where donor calls drawViewport
+?Clear@DX8Wrapper@@SAX_N00ABUVector3@@MMI@Z,0x0011D330,7-arg Clear with split depth plus stencil bools; called from startRenderToTexture filter paths where donor calls Clear
