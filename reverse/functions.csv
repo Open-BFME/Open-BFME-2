@@ -15764,3 +15764,4 @@ _piProcessUTM,,0x006AA950,508,Code/GameEngine/Source/GameNetwork/GameSpy/peer/pe
 ?serialize@Rva007F1800Search@@QAEXPAVRva007E8810Message@@HPAX@Z,,0x0065E380,652,Code/GameEngine/Source/GameNetwork/Rva007F1800FeslSearch.cpp,matched,
 ?rva007F7DA0@BfmeThingZI@@QAEXPAVRva007E8810Message@@@Z,,0x00664420,404,Code/GameEngine/Source/GameNetwork/BfmeOneHundredFiftyEight.cpp,matched,
 ?rva00085124@GameLogic@@QAE_NXZ,,0x00085124,23,Code/GameEngine/Source/GameLogic/System/GameLogicModeFourOrSeven.cpp,matched,reloc-named GameLogic mode predicate via isMultiplayer caller; returns mode 4 or 7
+?rva007FBE70@Rva007FBC60Game@@QAEPADXZ,,0x00668370,15,Code/GameEngine/Source/GameNetwork/Rva007FBC60GamePlatform.cpp,matched,reloc-named platform accessor via FeslMeasure caller; branchless select on lead byte
