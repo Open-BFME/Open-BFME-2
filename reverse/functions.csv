@@ -15459,3 +15459,4 @@ _bfmeHash1228,,0x0070F880,1504,Code/GameEngine/Source/Common/BfmeConv1228.cpp,ma
 ?buildFieldParse@GarrisonContainModuleData@@SAXAAVMultiIniFieldParse@@@Z,,0x00254F75,27,Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp,matched,
 ?Find_Asset@AssetRegistry@@QAE?AVAssetReference@@PBD@Z,,0x00621220,188,Code/GameEngineDevice/Source/W3DDevice/GameClient/Find_Asset.cpp,matched,BFME1 near-miss donor; b1 0x009EEC60; immediate-only drift; lock +0x34 hash +0x4C context +0x1F8
 ?bfmeUnlinkNestedBE@@YAPAVBfmeNestedBE@@PAV1@@Z,,0x006F7090,75,Code/Libraries/Source/Apt/AptDisplayList.cpp,matched,
+?friend_newModuleInstance@AssaultTransportAIUpdate@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z,,0x0024D263,59,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AssaultTransportAIUpdateFriendNew.cpp,matched,
