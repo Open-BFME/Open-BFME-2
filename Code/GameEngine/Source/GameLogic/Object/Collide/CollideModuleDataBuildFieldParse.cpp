@@ -37,3 +37,21 @@ void cls::buildFieldParse(MultiIniFieldParse &parse) \
 
 FIELD_PROC(CrateCollideModuleData, 0x00C5A7A8, CrateCollideTable)
 FIELD_PROC(AODCrushCollideModuleData, 0x00C5A4A8, AODCrushCollideTable)
+
+// Chained proc: ?buildFieldParse@MoneyCrateCollideModuleData@@,
+// retail 0x00251168, 27 bytes. Calls the rowed CrateCollide base proc above,
+// then registers the Money table 0x00BEFABC (MoneyProvided at +0x5C single
+// field). The base call resolves to the rowed CrateCollide proc in this same
+// TU; factory 0x256310 pushes this proc VA; the rowed MoneyCrateCollide
+// pool key names the class. Row supersedes the pin.
+class MoneyCrateCollideModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+void MoneyCrateCollideModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	CrateCollideModuleData::buildFieldParse(parse);
+	parse.add(reinterpret_cast<const FieldParse *>(0x00BEFABC), 0);
+}
