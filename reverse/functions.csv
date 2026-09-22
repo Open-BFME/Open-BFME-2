@@ -15749,3 +15749,4 @@ _rva002bcab_scanIndex,,0x0002BCAB,132,Code/GameEngine/Source/Common/System/INI_s
 ??0ObjectCreationUpgradeModuleData@@QAE@XZ,,0x004B425B,128,Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeModuleDataCtor.cpp,matched,
 ??0ReplenishUnitsBehaviorModuleData@@QAE@XZ,,0x004841CC,91,Code/GameEngine/Source/GameLogic/Object/Behavior/ReplenishUnitsBehaviorModuleDataCtor.cpp,matched,
 ??0?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@QAE@ABHABVMultiplayerColorDefinition@@@Z,,0x00380DEA,29,Code/GameEngine/Source/Common/MultiplayerColorPairConstructor.cpp,matched,
+?lookup@RetailColorList@@QAEPAVMultiplayerColorDefinition@@PAH@Z,,0x003812E6,141,Code/GameEngine/Source/Common/MultiplayerColorMapOperator.cpp,matched,
