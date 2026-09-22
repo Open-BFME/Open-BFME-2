@@ -15669,3 +15669,4 @@ _bfmeHash1228,,0x0070F880,1504,Code/GameEngine/Source/Common/BfmeConv1228.cpp,ma
 ?getDisplayName@PlayerTemplate@@QBE?AVUnicodeString@@XZ,,0x00449B8F,27,Code/GameEngine/Source/Common/PlayerTemplateGetDisplayName.cpp,matched,
 ??0RvaSmartPtr12@@QAE@ABV0@@Z,,0x0004CC19,36,Code/GameEngine/Source/Common/System/SmartPtrCopyCtor.cpp,matched,Frameless copy over the 12-byte smart pointer; raw copy plus intrusive attach at 0x0004CB9A or dual pad zero; RVO target of the getter at 0x003FDA90; row supersedes pin
 ?bfmeCall939D@BfmeGlob939D@@QAEDXZ,,0x0023C6FD,75,Code/GameEngine/Source/Common/BfmeConv939Call939D.cpp,matched,multiplayer-gate predicate over inherited GameLogic mode plus helper gate; De Morgan tail forces je-skip shape; row supersedes pin
+?convertToWideBuffer@Rva000B3F84Pair@@QAEHPAG@Z,,0x002343AB,24,Code/GameEngine/Source/Main/WinMainPairUnicode.cpp,matched,pair converter with default offset plus length result; single rowed callee

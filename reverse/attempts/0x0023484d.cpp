@@ -1,3 +1,5 @@
+// ?bfmeGetMainWindowTitle@@YA?AVUnicodeString@@XZ
+// partial score=0.93 date=2026-09-22
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
@@ -60,7 +62,6 @@ public:
 	void init(const char *src);
 	void copyBytes(void *dst, int off, int len);
 	void convertToWide(unsigned short *dst, int off, int len);
-	int convertToWideBuffer(unsigned short *dst);
 	UnicodeString toUnicode();
 
 	const char *m_ptr;
@@ -96,9 +97,26 @@ UnicodeString Rva000B3F84Pair::toUnicode()
 	return tmp;
 }
 
-// ?convertToWideBuffer@Rva000B3F84Pair@@QAEHPA_G@Z @0x2343AB
-int Rva000B3F84Pair::convertToWideBuffer(unsigned short *dst)
+// ?bfmeGetMainWindowTitle@@YA?AVUnicodeString@@XZ @0x23484D
+struct HKEY__ { int unused; };
+typedef struct HKEY__ *HKEY;
+typedef unsigned short wchar_t;
+#define HKEY_LOCAL_MACHINE ((HKEY)0x80000002)
+
+void copyStringRef(void *dst, const char *src);
+const char *GetRegistryGameName();
+const char *GetRegistryInstallerRegPath();
+bool getStringFromRegistry(HKEY root, UnicodeString path, UnicodeString key, UnicodeString &val);
+
+UnicodeString bfmeGetMainWindowTitle()
 {
-	convertToWide(dst, 0, m_len);
-	return m_len;
+	Rva000B3F84Pair gamePair;
+	copyStringRef(&gamePair, GetRegistryGameName());
+	UnicodeString title(gamePair.toUnicode());
+
+	Rva000B3F84Pair pathPair;
+	copyStringRef(&pathPair, GetRegistryInstallerRegPath());
+	getStringFromRegistry(HKEY_LOCAL_MACHINE, pathPair.toUnicode(),
+		(UnicodeString &)StringBase<wchar_t>(L"DisplayName"), title);
+	return title;
 }
