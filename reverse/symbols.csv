@@ -505,7 +505,6 @@ name,address,notes
 ??0StructureCollapseUpdateModuleData@@QAE@XZ,0x00257A5E,address read from the REL32 displacement at a placed body
 ??0SubsystemInterface@@QAE@XZ,0x001B4E63,SubsystemInterface base ctor: installs vtable 0xBD77A0 and zeroes plus 4 and plus 8; called from 151 subsystem ctors incl ArmorStore 0x360BB8; rowed as baseConstruct at same address
 ??0SupplyTruckAIUpdateModuleData@@QAE@XZ,0x004BF59F,factory 0x2513E8 pushes the SupplyTruck proc and calls it as its ctor; called as base by Chinook 0x4C1E8B and sibling AIUpdateModuleData ctors
-??0TaintSpecialPowerModuleData@@QAE@XZ,0x004C4AB8
 ??0TerrainCollisionModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003AA107,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
 ??0TerrainCollisionModuleTemplate@FXParticleSystem@@QAE@XZ,0x003AA078,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
 ??0TerrainFireEmissionModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A6F24,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
