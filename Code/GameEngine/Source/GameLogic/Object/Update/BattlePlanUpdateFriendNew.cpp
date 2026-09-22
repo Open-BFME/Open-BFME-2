@@ -1,8 +1,8 @@
 // cl: /O1 /GX /DNDEBUG /MD
-// Identity: ModuleFactory registers this data class under "UpgradeSoundSelectorClientBehavior" (addModule
+// Identity: ModuleFactory registers this data class under "UpgradeSoundSelectorClientBehaviorModuleData" (addModule
 // pairs the name with this factory); formerly misnamed BattlePlanUpdate/BattlePlanUpdateModuleData.
 //
-// ?friend_newModuleData@UpgradeSoundSelectorClientBehavior@@SAPAVModuleData@@PAVINI@@@Z
+// ?friend_newModuleData@UpgradeSoundSelectorClientBehaviorModuleData@@SAPAVModuleData@@PAVINI@@@Z
 // retail 0x00252C64, 81 bytes. Dedicated TU: the rowed no-arg ctor TU
 // BattlePlanUpdateCtor.cpp proves a 0x14-byte root class (vtable plus a
 // trailing E16 vector); the factory news 0x14, runs the declared-only ctor
@@ -23,11 +23,11 @@ public:
 	void initFromINIMultiProc(void *what, void (__cdecl *proc)(MultiIniFieldParse &));
 };
 
-class UpgradeSoundSelectorClientBehavior
+class UpgradeSoundSelectorClientBehaviorModuleData
 {
 public:
-	UpgradeSoundSelectorClientBehavior();
-	virtual ~UpgradeSoundSelectorClientBehavior();
+	UpgradeSoundSelectorClientBehaviorModuleData();
+	virtual ~UpgradeSoundSelectorClientBehaviorModuleData();
 	static ModuleData *friend_newModuleData(INI *ini);
 
 private:
@@ -35,10 +35,10 @@ private:
 	unsigned char m_vec08[12];
 };
 
-// ?friend_newModuleData@UpgradeSoundSelectorClientBehavior@@SAPAVModuleData@@PAVINI@@@Z
-ModuleData *UpgradeSoundSelectorClientBehavior::friend_newModuleData(INI *ini)
+// ?friend_newModuleData@UpgradeSoundSelectorClientBehaviorModuleData@@SAPAVModuleData@@PAVINI@@@Z
+ModuleData *UpgradeSoundSelectorClientBehaviorModuleData::friend_newModuleData(INI *ini)
 {
-	UpgradeSoundSelectorClientBehavior *data = new UpgradeSoundSelectorClientBehavior;
+	UpgradeSoundSelectorClientBehaviorModuleData *data = new UpgradeSoundSelectorClientBehaviorModuleData;
 	if (ini)
 		ini->initFromINIMultiProc(data, BattlePlanUpdateParse);
 	return reinterpret_cast<ModuleData *>(data);

@@ -1,5 +1,7 @@
 // cl: /O1 /MD /DNDEBUG
-// Trial: ??0PointDefenseLaserUpdate@@QAE@PAVThing@@PBVModuleData@@@Z.
+// Identity: ModuleFactory registers this module as "BeaconClientUpdate" (addModule pairs
+// the name with its factories); formerly misnamed PointDefenseLaserUpdate.
+// Trial: ??0BeaconClientUpdate@@QAE@PAVThing@@PBVModuleData@@@Z.
 // Base 0x00362EC7 (pinned opaque); and-zeroed slot, hand-placed vtable
 // (novtable), then a global-pointer member load. Factory stub order.
 class Thing;
@@ -29,19 +31,20 @@ protected:
 	unsigned char m_pad1[0x20 - 0x14];
 };
 
+// ??1Rva00362EC7@@ present-unmatched
 Rva00362EC7::~Rva00362EC7()
 {
 }
 
-class __declspec(novtable) PointDefenseLaserUpdate : public Rva00362EC7
+class __declspec(novtable) BeaconClientUpdate : public Rva00362EC7
 {
 public:
-	PointDefenseLaserUpdate(Thing *thing, const ModuleData *moduleData);
-	virtual ~PointDefenseLaserUpdate();
+	BeaconClientUpdate(Thing *thing, const ModuleData *moduleData);
+	virtual ~BeaconClientUpdate();
 
 };
 
-PointDefenseLaserUpdate::PointDefenseLaserUpdate(Thing *thing, const ModuleData *moduleData)
+BeaconClientUpdate::BeaconClientUpdate(Thing *thing, const ModuleData *moduleData)
 	: Rva00362EC7(thing, moduleData)
 {
 	m_i0C = 0;
@@ -49,6 +52,7 @@ PointDefenseLaserUpdate::PointDefenseLaserUpdate(Thing *thing, const ModuleData 
 	m_p10 = g_updateGlobal->m_p40;
 }
 
-PointDefenseLaserUpdate::~PointDefenseLaserUpdate()
+// ??1BeaconClientUpdate@@ present-unmatched
+BeaconClientUpdate::~BeaconClientUpdate()
 {
 }

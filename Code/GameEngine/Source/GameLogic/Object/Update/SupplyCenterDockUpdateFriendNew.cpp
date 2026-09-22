@@ -1,6 +1,8 @@
 // cl: /O1 /GX /DNDEBUG /MD
+// Identity: ModuleFactory registers this module as "EvacuateGarrisonSpecialPower" (addModule pairs
+// the name with its factories); formerly misnamed SupplyCenterDockUpdate.
 //
-// ?friend_newModuleInstance@SupplyCenterDockUpdate@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z,
+// ?friend_newModuleInstance@EvacuateGarrisonSpecialPower@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z
 // retail 0x00253175, 59 bytes. Dedicated TU: the ZH header sizes the class at
 // 0x84 but retail news 0x88 (proven by the rowed ctor TU
 // SupplyCenterDockUpdateCtor.cpp: opaque 0x88-byte base, factory stub order).
@@ -12,18 +14,18 @@ class Thing;
 class ModuleData;
 class Module;
 
-class SupplyCenterDockUpdate
+class EvacuateGarrisonSpecialPower
 {
 public:
-	SupplyCenterDockUpdate(Thing *thing, const ModuleData *moduleData);
+	EvacuateGarrisonSpecialPower(Thing *thing, const ModuleData *moduleData);
 	static Module *friend_newModuleInstance(Thing *thing, const ModuleData *moduleData);
 
 private:
 	char m_pad[0x88];
 };
 
-// ?friend_newModuleInstance@SupplyCenterDockUpdate@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z
-Module *SupplyCenterDockUpdate::friend_newModuleInstance(Thing *thing, const ModuleData *moduleData)
+// ?friend_newModuleInstance@EvacuateGarrisonSpecialPower@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z
+Module *EvacuateGarrisonSpecialPower::friend_newModuleInstance(Thing *thing, const ModuleData *moduleData)
 {
-	return reinterpret_cast<Module *>(new SupplyCenterDockUpdate(thing, moduleData));
+	return reinterpret_cast<Module *>(new EvacuateGarrisonSpecialPower(thing, moduleData));
 }

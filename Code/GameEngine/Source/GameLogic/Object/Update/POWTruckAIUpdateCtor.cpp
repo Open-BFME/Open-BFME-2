@@ -1,7 +1,9 @@
 // cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// Identity: ModuleFactory registers this module as "UnleashSpecialPower" (addModule pairs
+// the name with its factories); formerly misnamed POWTruckAIUpdate.
 // stlport
 //
-// ??0POWTruckAIUpdate@@QAE@PAVThing@@PBVModuleData@@@Z at
+// ??0UnleashSpecialPower@@QAE@PAVThing@@PBVModuleData@@@Z at
 // retail 0x004CE006 (47B). Same opaque-base pattern as MissileLauncherBuildingUpdate:
 // unidentified 0x88-byte UpdateModule-derived intermediate base 0x0044EF5E
 // (pinned opaque as Rva0044EF5E); the derived body re-stores the inherited
@@ -33,18 +35,19 @@ protected:
 	unsigned char m_pad2[0x88 - 0x24];
 };
 
+// ??1Rva0044EF5E@@ present-unmatched
 Rva0044EF5E::~Rva0044EF5E()
 {
 }
 
-class POWTruckAIUpdate : public Rva0044EF5E
+class UnleashSpecialPower : public Rva0044EF5E
 {
 public:
-	POWTruckAIUpdate(Thing *thing, const ModuleData *moduleData);
-	virtual ~POWTruckAIUpdate();
+	UnleashSpecialPower(Thing *thing, const ModuleData *moduleData);
+	virtual ~UnleashSpecialPower();
 };
 
-POWTruckAIUpdate::POWTruckAIUpdate(Thing *thing, const ModuleData *moduleData)
+UnleashSpecialPower::UnleashSpecialPower(Thing *thing, const ModuleData *moduleData)
 	: Rva0044EF5E(thing, moduleData)
 {
 	m_p0C = &s_dummy0C;
@@ -52,6 +55,7 @@ POWTruckAIUpdate::POWTruckAIUpdate(Thing *thing, const ModuleData *moduleData)
 	m_p20 = &s_dummyFD98;
 }
 
-POWTruckAIUpdate::~POWTruckAIUpdate()
+// ??1UnleashSpecialPower@@ present-unmatched
+UnleashSpecialPower::~UnleashSpecialPower()
 {
 }

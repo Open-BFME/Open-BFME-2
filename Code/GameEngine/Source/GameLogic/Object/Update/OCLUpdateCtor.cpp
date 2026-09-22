@@ -1,7 +1,9 @@
 // cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// Identity: ModuleFactory registers this module as "TeleportToCasterSpecialPower" (addModule pairs
+// the name with its factories); formerly misnamed OCLUpdate.
 // stlport
 //
-// ??0OCLUpdate@@QAE@PAVThing@@PBVModuleData@@@Z at
+// ??0TeleportToCasterSpecialPower@@QAE@PAVThing@@PBVModuleData@@@Z at
 // retail 0x004CD3A4 (47B). Same opaque-base pattern as MissileLauncherBuildingUpdate:
 // unidentified 0x88-byte UpdateModule-derived intermediate base 0x0044EF5E
 // (pinned opaque as Rva0044EF5E); the derived body re-stores the inherited
@@ -33,18 +35,19 @@ protected:
 	unsigned char m_pad2[0x88 - 0x24];
 };
 
+// ??1Rva0044EF5E@@ present-unmatched
 Rva0044EF5E::~Rva0044EF5E()
 {
 }
 
-class OCLUpdate : public Rva0044EF5E
+class TeleportToCasterSpecialPower : public Rva0044EF5E
 {
 public:
-	OCLUpdate(Thing *thing, const ModuleData *moduleData);
-	virtual ~OCLUpdate();
+	TeleportToCasterSpecialPower(Thing *thing, const ModuleData *moduleData);
+	virtual ~TeleportToCasterSpecialPower();
 };
 
-OCLUpdate::OCLUpdate(Thing *thing, const ModuleData *moduleData)
+TeleportToCasterSpecialPower::TeleportToCasterSpecialPower(Thing *thing, const ModuleData *moduleData)
 	: Rva0044EF5E(thing, moduleData)
 {
 	m_p0C = &s_dummy0C;
@@ -52,6 +55,7 @@ OCLUpdate::OCLUpdate(Thing *thing, const ModuleData *moduleData)
 	m_p20 = &s_dummy20;
 }
 
-OCLUpdate::~OCLUpdate()
+// ??1TeleportToCasterSpecialPower@@ present-unmatched
+TeleportToCasterSpecialPower::~TeleportToCasterSpecialPower()
 {
 }

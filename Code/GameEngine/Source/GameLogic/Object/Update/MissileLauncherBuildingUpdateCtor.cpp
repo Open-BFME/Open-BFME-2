@@ -1,7 +1,9 @@
 // cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// Identity: ModuleFactory registers this module as "StoreObjectsSpecialPower" (addModule pairs
+// the name with its factories); formerly misnamed MissileLauncherBuildingUpdate.
 // stlport
 //
-// ??0MissileLauncherBuildingUpdate@@QAE@PAVThing@@PBVModuleData@@@Z at
+// ??0StoreObjectsSpecialPower@@QAE@PAVThing@@PBVModuleData@@@Z at
 // retail 0x004CD933 (66B). The 0x88-byte UpdateModule-derived intermediate
 // base at 0x0044EF5E is unidentified (28 module-ctor callers call it), so it
 // is modeled opaque as Rva0044EF5E and pinned; its ctor resolves through
@@ -44,21 +46,22 @@ protected:
 	unsigned char m_pad2[0x88 - 0x24];
 };
 
+// ??1Rva0044EF5E@@ present-unmatched
 Rva0044EF5E::~Rva0044EF5E()
 {
 }
 
-class MissileLauncherBuildingUpdate : public Rva0044EF5E
+class StoreObjectsSpecialPower : public Rva0044EF5E
 {
 public:
-	MissileLauncherBuildingUpdate(Thing *thing, const ModuleData *moduleData);
-	virtual ~MissileLauncherBuildingUpdate();
+	StoreObjectsSpecialPower(Thing *thing, const ModuleData *moduleData);
+	virtual ~StoreObjectsSpecialPower();
 
 private:
 	unsigned char m_tailBuf[12];
 };
 
-MissileLauncherBuildingUpdate::MissileLauncherBuildingUpdate(Thing *thing, const ModuleData *moduleData)
+StoreObjectsSpecialPower::StoreObjectsSpecialPower(Thing *thing, const ModuleData *moduleData)
 	: Rva0044EF5E(thing, moduleData)
 {
 	m_p0C = &s_dummy0C;
@@ -67,6 +70,7 @@ MissileLauncherBuildingUpdate::MissileLauncherBuildingUpdate(Thing *thing, const
 	((_STL::vector<BfmeE16> *)m_tailBuf)->_STL::vector<BfmeE16>::vector();
 }
 
-MissileLauncherBuildingUpdate::~MissileLauncherBuildingUpdate()
+// ??1StoreObjectsSpecialPower@@ present-unmatched
+StoreObjectsSpecialPower::~StoreObjectsSpecialPower()
 {
 }

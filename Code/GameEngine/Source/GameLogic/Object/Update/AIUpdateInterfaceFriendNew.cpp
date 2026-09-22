@@ -1,8 +1,8 @@
 // cl: /O1 /GX /DNDEBUG /MD
-// Identity: ModuleFactory registers this data class under "CombineHordeSpecialPower" (addModule
+// Identity: ModuleFactory registers this data class under "CombineHordeSpecialPowerModuleData" (addModule
 // pairs the name with this factory); formerly misnamed AIUpdateInterface.
 //
-// ?friend_newModuleData@CombineHordeSpecialPower@@SAPAVModuleData@@PAVINI@@@Z
+// ?friend_newModuleData@CombineHordeSpecialPowerModuleData@@SAPAVModuleData@@PAVINI@@@Z
 // retail 0x002527F1, 84 bytes. Dedicated TU: the rowed no-arg ctor TU
 // AIUpdateInterfaceCtor.cpp proves the layout; the factory news 0x80, runs
 // the declared-only ctor (rowed at 0x4C886E), then feeds the new data plus
@@ -24,21 +24,21 @@ public:
 	void initFromINIMultiProc(void *what, void (__cdecl *proc)(MultiIniFieldParse &));
 };
 
-class CombineHordeSpecialPower
+class CombineHordeSpecialPowerModuleData
 {
 public:
-	CombineHordeSpecialPower();
-	virtual ~CombineHordeSpecialPower();
+	CombineHordeSpecialPowerModuleData();
+	virtual ~CombineHordeSpecialPowerModuleData();
 	static ModuleData *friend_newModuleData(INI *ini);
 
 private:
 	unsigned char m_pad[0x80 - 4];
 };
 
-// ?friend_newModuleData@CombineHordeSpecialPower@@SAPAVModuleData@@PAVINI@@@Z
-ModuleData *CombineHordeSpecialPower::friend_newModuleData(INI *ini)
+// ?friend_newModuleData@CombineHordeSpecialPowerModuleData@@SAPAVModuleData@@PAVINI@@@Z
+ModuleData *CombineHordeSpecialPowerModuleData::friend_newModuleData(INI *ini)
 {
-	CombineHordeSpecialPower *data = new CombineHordeSpecialPower;
+	CombineHordeSpecialPowerModuleData *data = new CombineHordeSpecialPowerModuleData;
 	if (ini)
 		ini->initFromINIMultiProc(data, AIUpdateInterfaceParse);
 	return reinterpret_cast<ModuleData *>(data);

@@ -1,8 +1,8 @@
 // cl: /O1 /GX /DNDEBUG /MD
-// Identity: ModuleFactory registers this data class under "StoreObjectsSpecialPower" (addModule
+// Identity: ModuleFactory registers this data class under "StoreObjectsSpecialPowerModuleData" (addModule
 // pairs the name with this factory); formerly misnamed SupplyCenterProductionExitUpdate/SupplyCenterProductionExitUpdateModuleData.
 //
-// ?friend_newModuleData@StoreObjectsSpecialPower@@SAPAVModuleData@@PAVINI@@@Z
+// ?friend_newModuleData@StoreObjectsSpecialPowerModuleData@@SAPAVModuleData@@PAVINI@@@Z
 // retail 0x00253121, 84 bytes. Dedicated TU: the rowed no-arg ctor TU
 // SupplyCenterProductionExitUpdateCtor.cpp proves a 0xCC-byte class (0xC8-byte
 // opaque base plus a trailing float); the factory news 0xCC, runs the
@@ -25,21 +25,21 @@ public:
 	void initFromINIMultiProc(void *what, void (__cdecl *proc)(MultiIniFieldParse &));
 };
 
-class StoreObjectsSpecialPower
+class StoreObjectsSpecialPowerModuleData
 {
 public:
-	StoreObjectsSpecialPower();
-	virtual ~StoreObjectsSpecialPower();
+	StoreObjectsSpecialPowerModuleData();
+	virtual ~StoreObjectsSpecialPowerModuleData();
 	static ModuleData *friend_newModuleData(INI *ini);
 
 private:
 	unsigned char m_pad[0xCC - 4];
 };
 
-// ?friend_newModuleData@StoreObjectsSpecialPower@@SAPAVModuleData@@PAVINI@@@Z
-ModuleData *StoreObjectsSpecialPower::friend_newModuleData(INI *ini)
+// ?friend_newModuleData@StoreObjectsSpecialPowerModuleData@@SAPAVModuleData@@PAVINI@@@Z
+ModuleData *StoreObjectsSpecialPowerModuleData::friend_newModuleData(INI *ini)
 {
-	StoreObjectsSpecialPower *data = new StoreObjectsSpecialPower;
+	StoreObjectsSpecialPowerModuleData *data = new StoreObjectsSpecialPowerModuleData;
 	if (ini)
 		ini->initFromINIMultiProc(data, SupplyCenterProductionExitUpdateParse);
 	return reinterpret_cast<ModuleData *>(data);

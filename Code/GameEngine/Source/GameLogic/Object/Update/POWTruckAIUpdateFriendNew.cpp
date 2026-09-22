@@ -1,6 +1,8 @@
 // cl: /O1 /GX /DNDEBUG /MD
+// Identity: ModuleFactory registers this module as "UnleashSpecialPower" (addModule pairs
+// the name with its factories); formerly misnamed POWTruckAIUpdate.
 //
-// ?friend_newModuleInstance@POWTruckAIUpdate@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z,
+// ?friend_newModuleInstance@UnleashSpecialPower@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z
 // retail 0x0025323F, 59 bytes. Dedicated TU: the rowed ctor TU
 // POWTruckAIUpdateCtor.cpp proves the class news 0x88 (opaque 0x88-byte base,
 // distinct +0x20 dummy, factory stub order). TU-local 0x88-byte class plus the
@@ -12,18 +14,18 @@ class Thing;
 class ModuleData;
 class Module;
 
-class POWTruckAIUpdate
+class UnleashSpecialPower
 {
 public:
-	POWTruckAIUpdate(Thing *thing, const ModuleData *moduleData);
+	UnleashSpecialPower(Thing *thing, const ModuleData *moduleData);
 	static Module *friend_newModuleInstance(Thing *thing, const ModuleData *moduleData);
 
 private:
 	char m_pad[0x88];
 };
 
-// ?friend_newModuleInstance@POWTruckAIUpdate@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z
-Module *POWTruckAIUpdate::friend_newModuleInstance(Thing *thing, const ModuleData *moduleData)
+// ?friend_newModuleInstance@UnleashSpecialPower@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z
+Module *UnleashSpecialPower::friend_newModuleInstance(Thing *thing, const ModuleData *moduleData)
 {
-	return reinterpret_cast<Module *>(new POWTruckAIUpdate(thing, moduleData));
+	return reinterpret_cast<Module *>(new UnleashSpecialPower(thing, moduleData));
 }

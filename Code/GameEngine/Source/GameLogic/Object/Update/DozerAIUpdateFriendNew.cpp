@@ -1,7 +1,9 @@
 // cl: /O1 /GX /DNDEBUG /MD
+// Identity: ModuleFactory registers this module as "ActivateModuleSpecialPower" (addModule pairs
+// the name with its factories); formerly misnamed DozerAIUpdate.
 //
-// ?friend_newModuleInstance@DozerAIUpdate@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z,
-// retail 0x00253204, 59 bytes. Dedicated TU: the ZH DozerAIUpdate header sizes
+// ?friend_newModuleInstance@ActivateModuleSpecialPower@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z
+// retail 0x00253204, 59 bytes. Dedicated TU: the ZH ActivateModuleSpecialPower header sizes
 // the class at 0x31C but retail news 0x88 (proven by the rowed ctor TU
 // DozerAIUpdateCtor.cpp: opaque 0x88-byte base, no trailing members, factory
 // stub order). TU-local 0x88-byte class plus the declared-only ctor (rowed at
@@ -12,18 +14,18 @@ class Thing;
 class ModuleData;
 class Module;
 
-class DozerAIUpdate
+class ActivateModuleSpecialPower
 {
 public:
-	DozerAIUpdate(Thing *thing, const ModuleData *moduleData);
+	ActivateModuleSpecialPower(Thing *thing, const ModuleData *moduleData);
 	static Module *friend_newModuleInstance(Thing *thing, const ModuleData *moduleData);
 
 private:
 	char m_pad[0x88];
 };
 
-// ?friend_newModuleInstance@DozerAIUpdate@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z
-Module *DozerAIUpdate::friend_newModuleInstance(Thing *thing, const ModuleData *moduleData)
+// ?friend_newModuleInstance@ActivateModuleSpecialPower@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z
+Module *ActivateModuleSpecialPower::friend_newModuleInstance(Thing *thing, const ModuleData *moduleData)
 {
-	return reinterpret_cast<Module *>(new DozerAIUpdate(thing, moduleData));
+	return reinterpret_cast<Module *>(new ActivateModuleSpecialPower(thing, moduleData));
 }

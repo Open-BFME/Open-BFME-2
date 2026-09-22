@@ -1,7 +1,7 @@
 // cl: /O1 /arch:SSE /MD /DNDEBUG
-// Identity: ModuleFactory registers this data class under "CombineHordeSpecialPower" (addModule
+// Identity: ModuleFactory registers this data class under "CombineHordeSpecialPowerModuleData" (addModule
 // pairs the name with this factory); formerly misnamed AIUpdateInterface.
-// Trial: ??0CombineHordeSpecialPower@@QAE@XZ.
+// Trial: ??0CombineHordeSpecialPowerModuleData@@QAE@XZ.
 // Default ctor over opaque intermediate base 0x004930A0 (pinned); vtable
 // plus one trailing float. Factory stub order names it.
 class Rva004930A0
@@ -20,23 +20,23 @@ Rva004930A0::~Rva004930A0()
 {
 }
 
-class CombineHordeSpecialPower : public Rva004930A0
+class CombineHordeSpecialPowerModuleData : public Rva004930A0
 {
 public:
-	CombineHordeSpecialPower();
-	virtual ~CombineHordeSpecialPower();
+	CombineHordeSpecialPowerModuleData();
+	virtual ~CombineHordeSpecialPowerModuleData();
 
 };
 
 static float kF7C = 0.0f;
 
-CombineHordeSpecialPower::CombineHordeSpecialPower()
+CombineHordeSpecialPowerModuleData::CombineHordeSpecialPowerModuleData()
 	: Rva004930A0()
 {
 	m_f7C = kF7C;
 }
 
-// ??1CombineHordeSpecialPower@@ present-unmatched
-CombineHordeSpecialPower::~CombineHordeSpecialPower()
+// ??1CombineHordeSpecialPowerModuleData@@ present-unmatched
+CombineHordeSpecialPowerModuleData::~CombineHordeSpecialPowerModuleData()
 {
 }

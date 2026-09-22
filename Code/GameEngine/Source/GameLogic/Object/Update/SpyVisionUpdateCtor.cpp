@@ -1,7 +1,7 @@
 // cl: /O1 /arch:SSE /MD /DNDEBUG
-// Identity: ModuleFactory registers this data class under "CurseSpecialPower" (addModule
+// Identity: ModuleFactory registers this data class under "CurseSpecialPowerModuleData" (addModule
 // pairs the name with this factory); formerly misnamed SpyVisionUpdate/SpyVisionUpdateModuleData.
-// ??0CurseSpecialPower@@QAE@XZ (0x44EB54-base family).
+// ??0CurseSpecialPowerModuleData@@QAE@XZ (0x44EB54-base family).
 // Default ctor; two trailing ints plus one trailing float. Vtable hand-placed
 // late (novtable) after the ints.
 class Rva0044EB54
@@ -21,11 +21,11 @@ Rva0044EB54::~Rva0044EB54()
 
 extern "C" char SpyVisionUpdate_vftable;
 
-class __declspec(novtable) CurseSpecialPower : public Rva0044EB54
+class __declspec(novtable) CurseSpecialPowerModuleData : public Rva0044EB54
 {
 public:
-	CurseSpecialPower();
-	virtual ~CurseSpecialPower();
+	CurseSpecialPowerModuleData();
+	virtual ~CurseSpecialPowerModuleData();
 
 private:
 	int m_iC8;
@@ -35,7 +35,7 @@ private:
 
 static float kZero = 0.0f;
 
-CurseSpecialPower::CurseSpecialPower()
+CurseSpecialPowerModuleData::CurseSpecialPowerModuleData()
 	: Rva0044EB54()
 {
 	m_iC8 = 0;
@@ -44,7 +44,7 @@ CurseSpecialPower::CurseSpecialPower()
 	m_fD0 = kZero;
 }
 
-// ??1CurseSpecialPower@@ present-unmatched
-CurseSpecialPower::~CurseSpecialPower()
+// ??1CurseSpecialPowerModuleData@@ present-unmatched
+CurseSpecialPowerModuleData::~CurseSpecialPowerModuleData()
 {
 }

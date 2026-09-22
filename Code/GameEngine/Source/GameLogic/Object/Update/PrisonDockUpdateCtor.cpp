@@ -1,5 +1,7 @@
 // cl: /O1 /GX /MD /DNDEBUG
-// ??0PrisonDockUpdate@@QAE@PAVThing@@PBVModuleData@@@Z at retail 0x004CC6AF.
+// Identity: ModuleFactory registers this module as "TemporarilyDefectUpdate" (addModule pairs
+// the name with its factories); formerly misnamed PrisonDockUpdate.
+// ??0TemporarilyDefectUpdate@@QAE@PAVThing@@PBVModuleData@@@Z at retail 0x004CC6AF.
 // UpdateModule-direct base (matched row 0x00253390) plus setWakeFrame pin;
 // derived re-stores +0x0C/+0x10, zeroes trailing ints/byte via a shared zero
 // register, then setWakeFrame. Factory stub order names it. UpdateModule is
@@ -27,11 +29,11 @@ protected:
 	unsigned char m_pad1[0x20 - 0x14];
 };
 
-class PrisonDockUpdate : public UpdateModule
+class TemporarilyDefectUpdate : public UpdateModule
 {
 public:
-	PrisonDockUpdate(Thing *thing, const ModuleData *moduleData);
-	virtual ~PrisonDockUpdate();
+	TemporarilyDefectUpdate(Thing *thing, const ModuleData *moduleData);
+	virtual ~TemporarilyDefectUpdate();
 
 private:
 	int m_i20;
@@ -40,7 +42,7 @@ private:
 	unsigned char m_b2C;
 };
 
-PrisonDockUpdate::PrisonDockUpdate(Thing *thing, const ModuleData *moduleData)
+TemporarilyDefectUpdate::TemporarilyDefectUpdate(Thing *thing, const ModuleData *moduleData)
 	: UpdateModule(thing, moduleData)
 {
 	int zero = 0;
@@ -53,10 +55,12 @@ PrisonDockUpdate::PrisonDockUpdate(Thing *thing, const ModuleData *moduleData)
 	setWakeFrame(*(Object **)((char *)this + 8), 0x3FFFFFFF);
 }
 
-PrisonDockUpdate::~PrisonDockUpdate()
+// ??1TemporarilyDefectUpdate@@ present-unmatched
+TemporarilyDefectUpdate::~TemporarilyDefectUpdate()
 {
 }
 
+// ??1UpdateModule@@ present-unmatched
 UpdateModule::~UpdateModule()
 {
 }

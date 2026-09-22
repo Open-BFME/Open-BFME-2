@@ -1,8 +1,8 @@
 // cl: /O1 /GX /DNDEBUG /MD
-// Identity: ModuleFactory registers this data class under "ModelConditionAudioLoopClientBehavior" (addModule
+// Identity: ModuleFactory registers this data class under "ModelConditionAudioLoopClientBehaviorModuleData" (addModule
 // pairs the name with this factory); formerly misnamed RepairDockUpdate/RepairDockUpdateModuleData.
 //
-// ?friend_newModuleData@ModelConditionAudioLoopClientBehavior@@SAPAVModuleData@@PAVINI@@@Z
+// ?friend_newModuleData@ModelConditionAudioLoopClientBehaviorModuleData@@SAPAVModuleData@@PAVINI@@@Z
 // retail 0x00252D9A, 81 bytes. Dedicated TU: the rowed no-arg ctor TU
 // RepairDockUpdateCtor.cpp proves a 0x14-byte root class (vtable plus a
 // trailing E16 vector); the factory news 0x14, runs the declared-only ctor
@@ -23,11 +23,11 @@ public:
 	void initFromINIMultiProc(void *what, void (__cdecl *proc)(MultiIniFieldParse &));
 };
 
-class ModelConditionAudioLoopClientBehavior
+class ModelConditionAudioLoopClientBehaviorModuleData
 {
 public:
-	ModelConditionAudioLoopClientBehavior();
-	virtual ~ModelConditionAudioLoopClientBehavior();
+	ModelConditionAudioLoopClientBehaviorModuleData();
+	virtual ~ModelConditionAudioLoopClientBehaviorModuleData();
 	static ModuleData *friend_newModuleData(INI *ini);
 
 private:
@@ -35,10 +35,10 @@ private:
 	unsigned char m_vec08[12];
 };
 
-// ?friend_newModuleData@ModelConditionAudioLoopClientBehavior@@SAPAVModuleData@@PAVINI@@@Z
-ModuleData *ModelConditionAudioLoopClientBehavior::friend_newModuleData(INI *ini)
+// ?friend_newModuleData@ModelConditionAudioLoopClientBehaviorModuleData@@SAPAVModuleData@@PAVINI@@@Z
+ModuleData *ModelConditionAudioLoopClientBehaviorModuleData::friend_newModuleData(INI *ini)
 {
-	ModelConditionAudioLoopClientBehavior *data = new ModelConditionAudioLoopClientBehavior;
+	ModelConditionAudioLoopClientBehaviorModuleData *data = new ModelConditionAudioLoopClientBehaviorModuleData;
 	if (ini)
 		ini->initFromINIMultiProc(data, RepairDockUpdateParse);
 	return reinterpret_cast<ModuleData *>(data);

@@ -1,7 +1,9 @@
 // cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// Identity: ModuleFactory registers this module as "HordeDispatchSpecialPower" (addModule pairs
+// the name with its factories); formerly misnamed SupplyTruckAIUpdate.
 // stlport
 //
-// ??0SupplyTruckAIUpdate@@QAE@PAVThing@@PBVModuleData@@@Z at
+// ??0HordeDispatchSpecialPower@@QAE@PAVThing@@PBVModuleData@@@Z at
 // retail 0x004C89E6 (47B). Same opaque-base pattern as MissileLauncherBuildingUpdate:
 // unidentified 0x88-byte UpdateModule-derived intermediate base 0x00493C5A
 // (pinned opaque as Rva00493C5A); the derived body re-stores the inherited
@@ -30,24 +32,26 @@ protected:
 	unsigned char m_pad1[0x88 - 0x14];
 };
 
+// ??1Rva00493C5A@@ present-unmatched
 Rva00493C5A::~Rva00493C5A()
 {
 }
 
-class SupplyTruckAIUpdate : public Rva00493C5A
+class HordeDispatchSpecialPower : public Rva00493C5A
 {
 public:
-	SupplyTruckAIUpdate(Thing *thing, const ModuleData *moduleData);
-	virtual ~SupplyTruckAIUpdate();
+	HordeDispatchSpecialPower(Thing *thing, const ModuleData *moduleData);
+	virtual ~HordeDispatchSpecialPower();
 };
 
-SupplyTruckAIUpdate::SupplyTruckAIUpdate(Thing *thing, const ModuleData *moduleData)
+HordeDispatchSpecialPower::HordeDispatchSpecialPower(Thing *thing, const ModuleData *moduleData)
 	: Rva00493C5A(thing, moduleData)
 {
 	m_p0C = &s_dummy0C;
 	m_p10 = &s_dummy10;
 }
 
-SupplyTruckAIUpdate::~SupplyTruckAIUpdate()
+// ??1HordeDispatchSpecialPower@@ present-unmatched
+HordeDispatchSpecialPower::~HordeDispatchSpecialPower()
 {
 }

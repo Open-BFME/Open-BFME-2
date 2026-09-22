@@ -1,6 +1,8 @@
 // cl: /O1 /GX /DNDEBUG /MD
+// Identity: ModuleFactory registers this module as "RebuildHoleExposeDie" (addModule pairs
+// the name with its factories); formerly misnamed RebuildHoleExposeDieUpdate.
 //
-// ??0RebuildHoleExposeDieUpdate@@QAE@PAVThing@@PBVModuleData@@@Z, retail
+// ??0RebuildHoleExposeDie@@QAE@PAVThing@@PBVModuleData@@@Z, retail
 // 0x00486768 (42 bytes). Dedicated TU: the behavior ctor runs the pinned
 // Die-family intermediate base ctor (thing plus data, this in ecx per the
 // single-inheritance vptr-at-zero layout), then installs the behavior
@@ -36,15 +38,15 @@ protected:
 	const void *m_secondary10;
 };
 
-class RebuildHoleExposeDieUpdate : public Rva0045CEBDUpdate
+class RebuildHoleExposeDie : public Rva0045CEBDUpdate
 {
 public:
-	RebuildHoleExposeDieUpdate(Thing *thing, const ModuleData *moduleData);
-	virtual ~RebuildHoleExposeDieUpdate();
+	RebuildHoleExposeDie(Thing *thing, const ModuleData *moduleData);
+	virtual ~RebuildHoleExposeDie();
 };
 
-// ??0RebuildHoleExposeDieUpdate@@QAE@PAVThing@@PBVModuleData@@@Z @0x486768
-RebuildHoleExposeDieUpdate::RebuildHoleExposeDieUpdate(Thing *thing, const ModuleData *moduleData)
+// ??0RebuildHoleExposeDie@@QAE@PAVThing@@PBVModuleData@@@Z @0x486768
+RebuildHoleExposeDie::RebuildHoleExposeDie(Thing *thing, const ModuleData *moduleData)
 	: Rva0045CEBDUpdate(thing, moduleData)
 {
 	m_secondary0C = reinterpret_cast<const void *>(0x00C4A650);

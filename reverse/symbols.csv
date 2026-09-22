@@ -260,12 +260,11 @@ name,address,notes
 ??0AABTreeBuilderClass@@QAE@XZ,0x00195E00,AABTreeBuilderClass constructor identity; reference source compiles exact 22-byte body at this RVA; target body is ICF-shared with matched TimeCodedBitChannelClass constructor
 ??0AIGateUpdateModuleData@@QAE@XZ,0x004B08C1,21B trivial ctor installing vtable 0x00C4ED70 plus float zeros at +8/+0xC; sole raw caller is ModuleData factory 0x24FA64; table 0xC564D4 holds TriggerWidthX@8 TriggerWidthY@C
 ??0AODCrushCollideModuleData@@QAE@XZ,0x004BBF89,EH 115B ctor with vtable 0xC5A350 and null FXList and OCL slots at +0x08/+0x0C/+0x10/+0x14/+0x18/+0x1C and filter member at +0x2C via 0x3623E5 and Damage fields matching own table 0x85A4A8; sole raw caller is ModuleData factory 0x251056 which news 0x48
-??0ActiveShroudUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z,0x004BAE1D
+??0EvacuateDamage@@QAE@PAVThing@@PBVModuleData@@@Z,0x004BAE1D
 ??0AdaptiveDeltaMotionChannelClass@@QAE@XZ,0x00195F60,address read from retail REL32 at 0x0018F261 in read_channel-AdaptiveDelta 0x0018F230; ctor zeroes 0x1C members then fsin filter-table init per BFME1 motchan donor
 ??0AnimSet@GenericObjectCreationNugget@@QAE@ABU01@@Z,0x001F0558,address read from the retail REL32 at offset 0x1c of _Construct<AnimSet> 0x001F06B9 - self-verifying because that body byte-matches only with this displacement; one thiscall-arity stack push before the call matches the copy-ctor signature
 ??0Animatable3DObjClass@@QAE@ABV0@@Z,0x001A5C50,address read from the REL32 displacement at a placed body
 ??0Animatable3DObjClass@@QAE@PBD@Z,0x001A4900,address read from the REL32 displacement at a placed body
-??0AnimatedParticleSysBoneClientUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x000D181D
 ??0AnimationSoundClientBehaviorModuleData@@QAE@XZ,0x004CA70D,sole raw caller 0x252BE3 inside 0x18 factory 0x252BC2; rowed proc 0x4CAB2C of same class per BFME1 AnimationSoundClientBehaviorModuleData donor
 ??0AsciiString@@QAE@ABV0@@Z,0x00365F0,address read from the retail REL32 at 0x002E4968 in OptionPreferences::getFirewallNeedToRefresh; AsciiString copy ctor for the it->second copy
 ??0AudioLoopUpgradeModuleData@@QAE@XZ,0x004B7C00,EH ctor with vtable 0x00C58CF8 plus members at +0x14/+0x124; sole raw caller is ModuleData factory 0x250798 which news 0x154
@@ -311,7 +310,7 @@ name,address,notes
 ??0BoxEmissionVolumeModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A6738,BFME2 export; the module template copy constructor the ConcreteModuleTemplate wrapper calls
 ??0BoxRenderObjClass@@QAE@ABUW3dBoxStruct@@@Z,0x00175A40,address read from the REL32 displacement at a placed body
 ??0BoxRenderObjClass@@QAE@XZ,0x00174C80,address read from the REL32 displacement at a placed body
-??0BridgeScaffoldBehavior@@QAE@PAVThing@@PBVModuleData@@@Z,0x000C9D38
+??0W3DLaserDraw@@QAE@PAVThing@@PBVModuleData@@@Z,0x000C9D38
 ??0Buffer@@QAE@J@Z,0x00615710,address read from the REL32 displacement at a placed body; stlport 4.5.3
 ??0Buffer@@QAE@PAXJ@Z,0x006156D0,address read from the retail REL32 in both BufferPipe and BufferStraw constructors at 0x006159F0 and 0x0013C880
 ??0BufferPipe@@QAE@PAXH@Z,0x006159F0,address read from the REL32 displacement at a placed body; stlport 4.5.3
@@ -333,12 +332,14 @@ name,address,notes
 ??0DieModuleData@@QAE@XZ,0x006054E7,address read from the REL32 displacement at a placed body
 ??0DumbProjectileBehavior@@QAE@PAVThing@@PBVModuleData@@@Z,0x003907A6
 ??0DumbProjectileBehaviorModuleData@@QAE@XZ,0x00390119,pinned by DumbProjectileBehaviorModuleData factory call-site decode
+??0DockUpdateModuleData@@QAE@XZ,0x005896B0,address read from the REL32 displacement at a placed body
+??0PhysicsBehavior@@QAE@PAVThing@@PBVModuleData@@@Z,0x003907A6
 ??0PhysicsBehaviorModuleData@@QAE@XZ,0x00390119,pinned by DumbProjectileBehaviorModuleData factory call-site decode
 ??0ElvenWoodSpecialPowerModuleData@@QAE@XZ,0x004C3DA9,frameless 75B ctor over pinned SpecialPower base 0x4930A0 with vtable 0xC5CF38 and vector member at +0x7C via 0x211E58 and float at +0x90 and zeros matching own table 0x85D018; sole raw caller is ModuleData factory 0x251CB4 which news 0x9C
 ??0EmissionVolumeInfo@FXParticleSystem@@QAE@ABV01@@Z,0x001F3550,exported BFME2 base copy constructor called by SphereEmissionVolumeInfo
 ??0EmotionTrackerUpdateModuleData@@QAE@XZ,0x004B115A,EH ctor installing vtable 0x00C56530 size 0x40; sole raw caller is own ModuleData factory 0x24FAF0 (news 0x40); proc 0x4B235D rowed as EmotionTrackerUpdateModuleData buildFieldParse
 ??0FeslEchoMessage@@QAE@PADH@Z,0x00655900
-??0FireWeaponWhenDamagedBehavior@@QAE@PAVThing@@PBVModuleData@@@Z,0x004A4CC7
+??0RubbleRiseUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x004A4CC7
 ??0FreeLifeBodyModuleData@@QAE@XZ,0x004C1B3B,frameless 64B ctor over pinned RespawnUpdate base 0x4C14DF with vtable 0xC5BC48 and stores at +0x6C/+0x70/+0x74/+0x78/+0x84 matching own table 0x85BD38; sole raw caller is ModuleData factory 0x2516B1 which news 0x88
 ??0GarrisonContainModuleData@@QAE@XZ,0x0047978F,callers are own ModuleData factory 0x254FB4 plus derived base-call from 0x47A251; installs vtable 0x00C462D8; stores match table offsets 0x98 to 0xA8; GarrisonContain pool key rowed at 0x47801C
 ??0GateOpenAndCloseBehavior@@QAE@PAVThing@@PBVModuleData@@@Z,0x0049889C
@@ -350,7 +351,6 @@ name,address,notes
 ??0GeometryInfo@@QAE@ABV0@@Z,0x000929E8,PC copy ctor stores same BC4E94 geometry vtable; copies isSmall and extents plus vectors at2C/38 and tail through58; not assignment
 ??0GpuDrawModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A9EC7,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
 ??0GpuDrawModuleTemplate@FXParticleSystem@@QAE@XZ,0x003A9E29,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
-??0GrantStealthBehavior@@QAE@PAVThing@@PBVModuleData@@@Z,0x004883D0
 ??0GrantUpgradeCreateModuleData@@QAE@XZ,0x004B90E1
 ??0GridTextureMapperClass@@QAE@ABV0@@Z,0x00184420,address read from the REL32 displacement at a placed body
 ??0HAnimPrototypeOwner@@QAE@ABVHierarchyPrototypeRef@@@Z,0x0014CED0,4-byte SEH owner copy ctor (by-ref HierarchyPrototypeRef, zeroes m_ptr then delegates to 0x14CDE4); called from a*-lookup 0x14CFBD and factory 0x14CF37
@@ -362,8 +362,8 @@ name,address,notes
 ??0INIException@@QAA@HPBDZZ,0x0002F681,variadic INIException ctor spelling of the matched _rva002f681_fill body; coexists with that opaque pin per 0x120F0 triple-name precedent
 ??0Image@@QAE@XZ,0x002D8FE4,retail Image constructor initializes vptr and 0x34-byte layout; strings+4/+8 UV+0x14 holder+0x2C status+0x30
 ??0InvisibilityUpdateModuleData@@QAE@XZ,0x00255474,sole raw E8 caller is ModuleData factory 0x0025553A; ModuleData table 0x00C52468 extent 0x1DC
-??0JetSlowDeathBehavior@@QAE@PAVThing@@PBVModuleData@@@Z,0x00403BEF,address read from the REL32 displacement at a placed body
-??0LaserUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x000CA752
+??0AttributeModifierPoolUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x00403BEF,address read from the REL32 displacement at a placed body
+??0W3DRopeDraw@@QAE@PAVThing@@PBVModuleData@@@Z,0x000CA752
 ??0LifeEventModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A99E4,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
 ??0LifeEventModuleTemplate@FXParticleSystem@@QAE@XZ,0x003A999C,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
 ??0LightningDrawModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A7E8F,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
@@ -389,13 +389,14 @@ name,address,notes
 ??0MinefieldBehavior@@QAE@PAVThing@@PBVModuleData@@@Z,0x004A8E7B,address read from the REL32 displacement at a placed body
 ??0MissileLauncherBuildingUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x004CD933
 ??0MobNexusContainModuleData@@QAE@XZ,0x004C244D,address read from the REL32 displacement at a placed body
+??0DelayedLuaEventUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x004A8E7B,address read from the REL32 displacement at a placed body
 ??0InvisibilitySpecialPowerModuleData@@QAE@XZ,0x004C244D,address read from the REL32 displacement at a placed body
 ??0ModelConditionUpgradeModuleData@@QAE@XZ,0x004B6428,EH ctor over base 0x253487; vtable 0x00BF2558; condition members at +0x118/+0x164; sole raw caller is ModuleData factory 0x250546 which news 0x1B8
 ??0ModuleData@@QAE@XZ,0x006024FD,address read from the REL32 displacement at DieModuleData ctor 0x6054E7
 ??0Money@@QAE@ABV0@@Z,0x00063BE4
 ??0MultiIniFieldParse@@QAE@XZ,0x0002BAA0,frameless 27B zeroing ctor over stack buffer at parseObject 0x1F311B; layout +0/+0x40/+0x80 matches BFME1 class
 ??0NetCommandList@@QAE@XZ,0x0058B06A,BFME1-attested NetCommandList ctor (0x10-byte list); called post-new-null-check at 9 sites incl FrameData::init 0x5DA522; BFME1 mangling QAE
-??0NeutronMissileUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x00497ED0
+??0BattlePlanUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x00497ED0
 ??0Nugget@ModuleInfo@@QAE@ABU01@@Z,0x00119A80
 ??0Null3DObjClass@@QAE@ABV0@@Z,0x00180EF0,address read from the REL32 displacement at a placed body
 ??0OBBoxClass@@QAE@ABV0@@Z,0x00133990,OBBox copy ctor97 independently matches all emitted ordinary C++ bytes with zero relocations; Matrix3 basis and center/extent copied; exact Camera copy calls this body
@@ -415,15 +416,15 @@ name,address,notes
 ??0ParticleEmitterClass@@QAE@ABV0@@Z,0x001A1530,address read from the REL32 displacement at a placed body
 ??0ParticleEmitterDefClass@@QAE@XZ,0x001B1350,Independent constructor inspection; vtable BD74E8 and exact definition fields with 10441B shader default and zero keyframes
 ??0PointEmissionVolumeModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A64B0,BFME2 export; the module template copy constructor the ConcreteModuleTemplate wrapper calls
-??0PoisonedBehavior@@QAE@PAVThing@@PBVModuleData@@@Z,0x004912A9
+??0DamageFieldUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x004912A9
 ??0ProductionPrerequisite@@QAE@ABV0@@Z,0x002D08DA,prereq copy ctor called from the retail REL32 in _Construct at 0x002D0C33; 77B EH body ending c9 c2-04-00 with next prologue 55-8b-ec; ghidra 10B extent understated
 ??0ProductionPrerequisite@@QAE@XZ,0x004F527A,BFME1 ctor mangling; 3x 0x611E58 vector inits at +0 +0xC +0x18; 3 prereq-cluster callers
 ??0ProductionUpdateModuleData@@QAE@XZ,0x0049F7DB,pinned by ProductionUpdateModuleData factory call-site decode
 ??0QuadDrawModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A7C4C,BFME2 export; the module template copy constructor the ConcreteModuleTemplate wrapper calls
 ??0QuadDrawModuleTemplate@FXParticleSystem@@QAE@XZ,0x003A7BF5,BFME2 export; the module template default constructor the ConcreteModuleTemplate wrapper calls
 ??0RadiateFearUpdateModuleData@@QAE@XZ,0x0049C06C,EH ctor with vtable plus flag bytes plus emotion floats; sole raw caller is ModuleData factory 0x24E6E8 which news 0x130
-??0RailedTransportDockUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x004909D7
-??0RailroadBehavior@@QAE@PAVThing@@PBVModuleData@@@Z,0x0048B067,address read from the REL32 displacement at a placed body
+??0ArrowStormUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x004909D7
+??0DynamicShroudClearingRangeUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x0048B067,address read from the REL32 displacement at a placed body
 ??0RainOfFireUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x004AC0A8,133B Update ctor over UpdateModule base with table slot + frame + float state + DPS-ramp check; sole raw caller is Update factory 0x24F3B3; 0.9 partial stash banked, needs hoist lever
 ??0RainOfFireUpdateModuleData@@QAE@XZ,0x004AC03D,89B frameless SSE ctor with float/int stores at +8/+0xC/+0x10 through +0x28; sole raw caller is ModuleData factory 0x24F3EB; table 0xC54B00 holds StartRainTime@8 through RainOffset@28
 ??0Random3Class@@QAE@II@Z,0x006200B0,identical-code fold with the STLport _Hashtable_iterator constructor already matched here - both store two dwords at +0 and +4; address read from the retail REL32 in StreakRendererClass::subdivision_util at 0x00743280

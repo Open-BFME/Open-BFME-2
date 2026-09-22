@@ -1,6 +1,8 @@
 // cl: /O1 /GX /DNDEBUG /MD
+// Identity: ModuleFactory registers this module as "TeleportToCasterSpecialPower" (addModule pairs
+// the name with its factories); formerly misnamed OCLUpdate.
 //
-// ?friend_newModuleInstance@OCLUpdate@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z,
+// ?friend_newModuleInstance@TeleportToCasterSpecialPower@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z
 // retail 0x00253057, 59 bytes. Dedicated TU: the rowed ctor TU
 // OCLUpdateCtor.cpp proves the class news 0x88 (opaque 0x88-byte base, no
 // trailing members, factory stub order). TU-local 0x88-byte class plus the
@@ -12,18 +14,18 @@ class Thing;
 class ModuleData;
 class Module;
 
-class OCLUpdate
+class TeleportToCasterSpecialPower
 {
 public:
-	OCLUpdate(Thing *thing, const ModuleData *moduleData);
+	TeleportToCasterSpecialPower(Thing *thing, const ModuleData *moduleData);
 	static Module *friend_newModuleInstance(Thing *thing, const ModuleData *moduleData);
 
 private:
 	char m_pad[0x88];
 };
 
-// ?friend_newModuleInstance@OCLUpdate@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z
-Module *OCLUpdate::friend_newModuleInstance(Thing *thing, const ModuleData *moduleData)
+// ?friend_newModuleInstance@TeleportToCasterSpecialPower@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z
+Module *TeleportToCasterSpecialPower::friend_newModuleInstance(Thing *thing, const ModuleData *moduleData)
 {
-	return reinterpret_cast<Module *>(new OCLUpdate(thing, moduleData));
+	return reinterpret_cast<Module *>(new TeleportToCasterSpecialPower(thing, moduleData));
 }

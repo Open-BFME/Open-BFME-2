@@ -1,7 +1,7 @@
 // cl: /O1 /arch:SSE /MD /DNDEBUG
-// Identity: ModuleFactory registers this data class under "StoreObjectsSpecialPower" (addModule
+// Identity: ModuleFactory registers this data class under "StoreObjectsSpecialPowerModuleData" (addModule
 // pairs the name with this factory); formerly misnamed SupplyCenterProductionExitUpdate/SupplyCenterProductionExitUpdateModuleData.
-// ??0StoreObjectsSpecialPower@@QAE@XZ at 0x004CD8FB.
+// ??0StoreObjectsSpecialPowerModuleData@@QAE@XZ at 0x004CD8FB.
 // Default ctor over the second intermediate base 0x0044EB54 (pinned opaque
 // as Rva0044EB54, 0xC8 bytes, default ctor). Single trailing float at +0xC8
 // zeroed in the body (factory size 0xCC). Do NOT declare an explicit vptr
@@ -21,23 +21,23 @@ Rva0044EB54::~Rva0044EB54()
 {
 }
 
-class StoreObjectsSpecialPower : public Rva0044EB54
+class StoreObjectsSpecialPowerModuleData : public Rva0044EB54
 {
 public:
-	StoreObjectsSpecialPower();
-	virtual ~StoreObjectsSpecialPower();
+	StoreObjectsSpecialPowerModuleData();
+	virtual ~StoreObjectsSpecialPowerModuleData();
 
 private:
 	float m_fC8;
 };
 
-StoreObjectsSpecialPower::StoreObjectsSpecialPower()
+StoreObjectsSpecialPowerModuleData::StoreObjectsSpecialPowerModuleData()
 	: Rva0044EB54()
 {
 	m_fC8 = 0.0f;
 }
 
-// ??1StoreObjectsSpecialPower@@ present-unmatched
-StoreObjectsSpecialPower::~StoreObjectsSpecialPower()
+// ??1StoreObjectsSpecialPowerModuleData@@ present-unmatched
+StoreObjectsSpecialPowerModuleData::~StoreObjectsSpecialPowerModuleData()
 {
 }

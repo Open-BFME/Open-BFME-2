@@ -1,7 +1,9 @@
 // cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// Identity: ModuleFactory registers this module as "CurseSpecialPower" (addModule pairs
+// the name with its factories); formerly misnamed SpawnPointProductionExitUpdate.
 // stlport
 //
-// ??0SpawnPointProductionExitUpdate@@QAE@PAVThing@@PBVModuleData@@@Z at
+// ??0CurseSpecialPower@@QAE@PAVThing@@PBVModuleData@@@Z at
 // retail 0x004CCD7F (47B). Same opaque-base pattern as MissileLauncherBuildingUpdate:
 // unidentified 0x88-byte UpdateModule-derived intermediate base 0x0044EF5E
 // (pinned opaque as Rva0044EF5E); the derived body re-stores the inherited
@@ -33,18 +35,19 @@ protected:
 	unsigned char m_pad2[0x88 - 0x24];
 };
 
+// ??1Rva0044EF5E@@ present-unmatched
 Rva0044EF5E::~Rva0044EF5E()
 {
 }
 
-class SpawnPointProductionExitUpdate : public Rva0044EF5E
+class CurseSpecialPower : public Rva0044EF5E
 {
 public:
-	SpawnPointProductionExitUpdate(Thing *thing, const ModuleData *moduleData);
-	virtual ~SpawnPointProductionExitUpdate();
+	CurseSpecialPower(Thing *thing, const ModuleData *moduleData);
+	virtual ~CurseSpecialPower();
 };
 
-SpawnPointProductionExitUpdate::SpawnPointProductionExitUpdate(Thing *thing, const ModuleData *moduleData)
+CurseSpecialPower::CurseSpecialPower(Thing *thing, const ModuleData *moduleData)
 	: Rva0044EF5E(thing, moduleData)
 {
 	m_p0C = &s_dummy0C;
@@ -52,6 +55,7 @@ SpawnPointProductionExitUpdate::SpawnPointProductionExitUpdate(Thing *thing, con
 	m_p20 = &s_dummy20;
 }
 
-SpawnPointProductionExitUpdate::~SpawnPointProductionExitUpdate()
+// ??1CurseSpecialPower@@ present-unmatched
+CurseSpecialPower::~CurseSpecialPower()
 {
 }

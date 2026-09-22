@@ -1,7 +1,7 @@
 // cl: /O1 /arch:SSE /MD /DNDEBUG
-// Identity: ModuleFactory registers this data class under "TeleportToCasterSpecialPower" (addModule
+// Identity: ModuleFactory registers this data class under "TeleportToCasterSpecialPowerModuleData" (addModule
 // pairs the name with this factory); formerly misnamed SpecialAbilityUpdate/SpecialAbilityUpdateModuleData.
-// ??0TeleportToCasterSpecialPower@@QAE@XZ at 0x004CD34E.
+// ??0TeleportToCasterSpecialPowerModuleData@@QAE@XZ at 0x004CD34E.
 // Default ctor over the second intermediate base 0x0044EB54 (pinned opaque
 // as Rva0044EB54, 0xC8 bytes). Trailing floats zeroed plus two trailing ints
 // (factory size 0xDC).
@@ -20,11 +20,11 @@ Rva0044EB54::~Rva0044EB54()
 {
 }
 
-class TeleportToCasterSpecialPower : public Rva0044EB54
+class TeleportToCasterSpecialPowerModuleData : public Rva0044EB54
 {
 public:
-	TeleportToCasterSpecialPower();
-	virtual ~TeleportToCasterSpecialPower();
+	TeleportToCasterSpecialPowerModuleData();
+	virtual ~TeleportToCasterSpecialPowerModuleData();
 
 private:
 	float m_fC8;
@@ -34,7 +34,7 @@ private:
 	int m_iD8;
 };
 
-TeleportToCasterSpecialPower::TeleportToCasterSpecialPower()
+TeleportToCasterSpecialPowerModuleData::TeleportToCasterSpecialPowerModuleData()
 	: Rva0044EB54()
 {
 	m_iD4 = 0;
@@ -44,7 +44,7 @@ TeleportToCasterSpecialPower::TeleportToCasterSpecialPower()
 	m_fD0 = 0.0f;
 }
 
-// ??1TeleportToCasterSpecialPower@@ present-unmatched
-TeleportToCasterSpecialPower::~TeleportToCasterSpecialPower()
+// ??1TeleportToCasterSpecialPowerModuleData@@ present-unmatched
+TeleportToCasterSpecialPowerModuleData::~TeleportToCasterSpecialPowerModuleData()
 {
 }
