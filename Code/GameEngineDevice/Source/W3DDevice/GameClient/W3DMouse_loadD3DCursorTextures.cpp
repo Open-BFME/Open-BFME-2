@@ -17,9 +17,20 @@ public:
 	void Release_Ref();
 };
 
+// The surface behind a cursor slot is a COM object: slot 0 QueryInterface,
+// slot 1 AddRef, slot 2 Release. Declared TU-locally (not via the shared DX8
+// shim) because this TU reaches the ref-count slots through ecx. The virtuals
+// are __stdcall like real COM, so the surface pointer rides the stack.
+struct IDirect3DSurface8
+{
+	virtual long __stdcall QueryInterface() = 0;
+	virtual unsigned __stdcall AddRef() = 0;
+	virtual unsigned __stdcall Release() = 0;
+};
+
 class W3DRadarResetSurface
 {
-	void *m_surface;
+	IDirect3DSurface8 *m_surface;
 
 public:
 	~W3DRadarResetSurface();
@@ -88,6 +99,19 @@ class W3DMouse
 
 	bool loadD3DCursorTextures(MouseCursor cursor);
 };
+
+// ??4W3DRadarResetSurface@@QAEAAV0@ABV0@@Z, retail 0x00072381, 43 bytes.
+// COM ref-counted surface assignment: AddRef the incoming surface, release
+// the held one, then store.
+W3DRadarResetSurface &W3DRadarResetSurface::operator=(const W3DRadarResetSurface &rhs)
+{
+	if (rhs.m_surface != NULL)
+		rhs.m_surface->AddRef();
+	if (m_surface != NULL)
+		m_surface->Release();
+	m_surface = rhs.m_surface;
+	return *this;
+}
 
 // ??1BFME2ParticleTextureHandle@@QAE@XZ present-unmatched
 bool W3DMouse::loadD3DCursorTextures(MouseCursor cursor)
