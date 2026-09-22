@@ -26,3 +26,8 @@ void bfmeEmitIntRotate(int *first, int *middle, int *last)
 {
 	_STL::rotate(first, middle, last);
 }
+
+void bfmeEmitIntPartialSort(int *first, int *last)
+{
+	_STL::partial_sort(first, last, last, _STL::less<int>());
+}
