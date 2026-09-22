@@ -235,7 +235,12 @@ def test_the_queue_drops_published_rows_the_ledger_has_claimed():
 
 
 def a_synthetic_labeled_function():
-    """Return an unclaimed SEH label from the Ghidra inventory."""
+    """An unclaimed body Ghidra names with its own SEH-funclet convention
+    (Unwind@<va>/Catch@<va>) rather than FUN_<va>. A narrower `startswith
+    ("FUN_")` check treated this the same as a real Ghidra-recognized
+    identity and silently dropped it from the harvest -- 23,634 such rows
+    (Unwind@/Catch@/thunk_FUN_) sit in the committed inventory, none of
+    which name anything more than FUN_ does."""
     inventory = {int(row["rva"], 16): row["name"] for row in csv.DictReader(
         (ROOT / "reverse" / "ghidra_functions.csv").open(
             newline="", encoding="utf-8"))}
@@ -264,7 +269,12 @@ def test_synthetic_names_require_a_known_prefix_and_address():
 
 
 def a_pinned_unclaimed_address():
-    """Return an address pinned in symbols.csv but absent from functions.csv."""
+    """An address reverse/symbols.csv pins but no functions.csv row claims,
+    and Ghidra still calls FUN_ -- so the OLD `claimed` set (built only from
+    functions.csv) missed it, and the FUN_ check allowed it through as
+    anonymous. This fixture checks that symbols.csv pins also count as
+    claims: a pin is a human identity assertion the harvester must respect
+    even when the inventory itself does not."""
     inventory = {int(row["rva"], 16): row["name"] for row in csv.DictReader(
         (ROOT / "reverse" / "ghidra_functions.csv").open(
             newline="", encoding="utf-8"))}

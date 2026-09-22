@@ -1,8 +1,31 @@
 #!/usr/bin/env python3
-"""Check recovered module-factory names against retail registrations.
+"""Check module-factory rows against ModuleFactory's own registrations.
+
+ModuleFactory::init registers every module with
+    addModuleInternal(X::friend_newModuleInstance, X::friend_newModuleData,
+                      type, AsciiString("X"), interfaces)
+so each call site pushes the module's name string and then its two factories.
+That pairing is retail evidence of identity. The byte gate cannot provide it:
+a factory, its data ctor and its buildFieldParse proc can compile to the same
+bytes under different class names, which is how 32 data classes and 24 instance
+factories came to carry a neighbouring module's name.
+
+For every registration this checks:
+  * the data-factory row names the registered module's data class,
+  * the instance-factory row names the registered module,
+  * the data factory's ctor call and parse-proc push, where a row or pin names
+    them, use the same class as the factory row.
+
+reverse/module_registry_allowlist.txt holds legitimate exceptions (a module
+reusing another module's data class), one per line with a reason.
+reverse/module_registry_baseline.txt holds known violations still to be fixed;
+it may only shrink.
+
+    python3 tools/check_module_registry.py            # report
+    python3 tools/check_module_registry.py --check    # gate: fail on new/stale
+    python3 tools/check_module_registry.py --write-baseline   # shrink-only
 
 Requires GNU objdump or Capstone for x86 instruction boundaries.
-Use --check for the gate; --write-baseline may only shrink existing debt.
 """
 import argparse
 import bisect
@@ -24,7 +47,8 @@ ROOT = build.ROOT
 ALLOWLIST = ROOT / "reverse" / "module_registry_allowlist.txt"
 BASELINE = ROOT / "reverse" / "module_registry_baseline.txt"
 IMAGE_BASE = 0x400000
-# ModuleFactory::addModuleInternal in the target image.
+# ModuleFactory::addModuleInternal. Every one of its call sites is a
+# registration; decode_registrations() refuses to run if that stops being true.
 ADD_MODULE_RVA = 0x002573EE
 EXPECTED_REGISTRATIONS = 329
 
