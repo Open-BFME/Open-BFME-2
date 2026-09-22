@@ -260,7 +260,6 @@ name,address,notes
 ??0?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QAE@ABV01@@Z,0x0054878E,vector<ScienceType> copy called from the ProductionPrerequisite copy ctor at 0x002D08DA; retail shifts the byte count right by 2
 ??0AABTreeBuilderClass@@QAE@XZ,0x00195E00,AABTreeBuilderClass constructor identity; reference source compiles exact 22-byte body at this RVA; target body is ICF-shared with matched TimeCodedBitChannelClass constructor
 ??0AIGateUpdateModuleData@@QAE@XZ,0x004B08C1,21B trivial ctor installing vtable 0x00C4ED70 plus float zeros at +8/+0xC; sole raw caller is ModuleData factory 0x24FA64; table 0xC564D4 holds TriggerWidthX@8 TriggerWidthY@C
-??0AIUpdateModuleData@@QAE@XZ,0x0058925D,call site in DozerAIUpdateModuleData ctor (0x494D26) bare thiscall with this=esi matching AIUpdateModuleData base ctor; retail 0x58925D..0x589297 (58B) ends ret, EH cookie; ghidra truncates to 10B
 ??0AODCrushCollideModuleData@@QAE@XZ,0x004BBF89,EH 115B ctor with vtable 0xC5A350 and null FXList and OCL slots at +0x08/+0x0C/+0x10/+0x14/+0x18/+0x1C and filter member at +0x2C via 0x3623E5 and Damage fields matching own table 0x85A4A8; sole raw caller is ModuleData factory 0x251056 which news 0x48
 ??0ActiveShroudUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z,0x004BAE1D
 ??0AdaptiveDeltaMotionChannelClass@@QAE@XZ,0x00195F60,address read from retail REL32 at 0x0018F261 in read_channel-AdaptiveDelta 0x0018F230; ctor zeroes 0x1C members then fsin filter-table init per BFME1 motchan donor
