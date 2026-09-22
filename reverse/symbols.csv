@@ -491,7 +491,6 @@ name,address,notes
 ??0SphereEmissionVolumeModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A68AF,BFME2 export; the module template copy constructor the ConcreteModuleTemplate wrapper calls
 ??0SphericalEmissionVelocityModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A734E,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
 ??0SphericalEmissionVelocityModuleTemplate@FXParticleSystem@@QAE@XZ,0x003A72F7,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
-??0StealthUpdateModuleData@@QAE@XZ,0x0037588B
 ??0StreakDrawModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A7B5F,BFME2 export; the module template copy constructor the ConcreteModuleTemplate wrapper calls
 ??0StreakDrawModuleTemplate@FXParticleSystem@@QAE@XZ,0x003A7B08,BFME2 export; the module template default constructor the ConcreteModuleTemplate wrapper calls
 ??0StringClass@@QAE@PBD_N@Z,0x000F0ED1,StringClass 2-arg ctor (name,flag): empty-init from global 0xDD528C + _mbslen + Get_String pre-size via 0x610B00 row + assign-PBD via 0xF0E8D row; 14 E8 callers incl proto ctor 0x14CE92/factory+owner family; second param bool (byte-tested, forwarded to Get_String _N slot)
@@ -4018,3 +4017,5 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ??$__copy_ptrs@PAUNugget@ModuleInfo@@PAU12@@_STL@@YAPAUNugget@ModuleInfo@@PAU12@00PBU__false_type@0@H@Z,0x002CF0BE,STLport 5-arg __copy_ptrs worker called from the 4-arg Nugget forwarder at 0x002CF2B8; read from the retail REL32 there
 ?attach@RvaSmartPtr12@@QAEXXZ,0x0004CB9A,Intrusive-list attach for the 12-byte smart pointer; links the fresh copy into the owner list at ptr plus 0xA0; sole unknown callee of the copy ctor at 0x0004CC19 read from the retail REL32 there
 ?get@Bfme939Helper@@QBEHXZ,0x0030F2C7,TU-local alias of rowed disp8 dword getter at same body
+??0Rva004CEE6EMember@@QAE@XZ,0x004CEE6E
+??0Rva004CEE6EMemberTracked@@QAE@XZ,0x004CEE6E
