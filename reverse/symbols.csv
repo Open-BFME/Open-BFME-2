@@ -4584,3 +4584,5 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ?findDamageFX@DamageFXStore@@QBEPBVDamageFX@@VAsciiString@@@Z,0x00360966,TheDamageFXStore lookup called by INI::parseDamageFX (0x0033962F); ICF-shares the ArmorStore::findArmorTemplate body
 ?findTemplate@ParticleSystemManager@@QBEPAVParticleSystemTemplate@@ABVAsciiString@@@Z,0x001F90DA,TheParticleSystemManager lookup called by INI::parseParticleSystemTemplate (0x003395BB)
 ?findImageByName@ImageCollection@@QAEPBVImage@@ABVAsciiString@@@Z,0x002D92F6,TheMappedImageCollection lookup called by INI::parseMappedImage (0x003390B2)
+?findObjectCreationList@ObjectCreationListStore@@QAEPBVObjectCreationList@@PBD@Z,0x001F07B8,TheObjectCreationListStore lookup called by INI::parseObjectCreationList (0x00338A6F)
+?findWeaponTemplate@WeaponStore@@QBEPBVWeaponTemplate@@ABVAsciiString@@@Z,0x002CB8BF,TheWeaponStore lookup called by INI::parseWeaponTemplate (0x00339569)

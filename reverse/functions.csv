@@ -16492,3 +16492,6 @@ __heap_abort,,0x000398A0,80,Code/Libraries/Source/WWVegas/WWDebug/DebugHeapAbort
 ?parseMappedImage@INI@@SAXPAV1@PAX1PBX@Z,,0x003390B2,87,Code/GameEngine/Source/Common/System/INI_parseMappedImage.cpp,matched,ImageName FieldParse row points here
 ?parseGameClientRandomVariable@INI@@SAXPAV1@PAX1PBX@Z,,0x00338A9D,109,Code/GameEngine/Source/Common/System/INI_parseGameClientRandomVariable.cpp,matched,Radius FieldParse row points here; ZH body with member scanReal/scanIndexList
 ?parseAndTranslateLabel@INI@@SAXPAV1@PAX1PBX@Z,,0x0033987B,133,Code/GameEngine/Source/Common/System/INI_parseAndTranslateLabel.cpp,matched,Description FieldParse row points here; ZH body with BFME2 INIException throw
+?parseObjectCreationList@INI@@SAXPAV1@PAX1PBX@Z,,0x00338A6F,30,Code/GameEngine/Source/Common/System/INI_parseObjectCreationList.cpp,matched,CreationList and sibling FieldParse rows point here; Zero Hour INI parser
+?parseWeaponTemplate@INI@@SAXPAV1@PAX1PBX@Z,,0x00339569,82,Code/GameEngine/Source/Common/System/INI_parseWeaponTemplate.cpp,matched,CollideWeapon and sibling FieldParse rows point here; Zero Hour INI parser
+?parseUpgradeTemplate@INI@@SAXPAV1@PAX1PBX@Z,,0x00339679,90,Code/GameEngine/Source/Common/System/INI_parseUpgradeTemplate.cpp,matched,Upgrade and sibling FieldParse rows point here; Zero Hour INI parser
