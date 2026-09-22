@@ -15453,3 +15453,4 @@ _bfmeHash1228,,0x0070F880,1504,Code/GameEngine/Source/Common/BfmeConv1228.cpp,ma
 ??0BridgeScaffoldBehaviorModuleData@@QAE@XZ,,0x00457FF1,89,Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeScaffoldBehaviorModuleDataCtor.cpp,matched,BridgeScaffold ModuleData ctor via UpdateModuleData base plus coordinate lists
 ?Compute_Ram_Size@MeshGeometryClass@@QAEHXZ,,0x0016ADC0,173,Code/Libraries/Source/WWVegas/WW3D2/meshgeometry.cpp,matched,
 ?buildFieldParse@OpenContainModuleData@@SAXAAVMultiIniFieldParse@@@Z,,0x0046523D,34,Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp,matched,
+??0RunOffMapBehaviorModuleData@@QAE@XZ,,0x00254ECE,86,Code/GameEngine/Source/GameLogic/Object/Behavior/RunOffMapBehaviorModuleDataCtor.cpp,matched,RunOffMap ModuleData ctor via UpdateModuleData base plus waypoint string
