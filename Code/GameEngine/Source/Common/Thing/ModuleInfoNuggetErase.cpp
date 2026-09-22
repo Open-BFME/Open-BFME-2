@@ -51,9 +51,6 @@ namespace _STL
 
 struct __false_type
 {
-	__false_type()
-	{
-	}
 };
 
 template <class Type>
@@ -79,6 +76,18 @@ private:
 template <class InputIter, class OutputIter>
 OutputIter __copy_ptrs(InputIter first, InputIter last, OutputIter result,
 	const __false_type &tag);
+
+template <class InputIter, class OutputIter>
+OutputIter __copy_ptrs(InputIter first, InputIter last, OutputIter result,
+	const __false_type *tag, int extra);
+
+template <class InputIter, class OutputIter>
+OutputIter __copy_ptrs(InputIter first, InputIter last, OutputIter result,
+	const __false_type &tag)
+{
+	__false_type local;
+	return __copy_ptrs(first, last, result, &local, 0);
+}
 
 }
 
