@@ -853,7 +853,6 @@ name,address,notes
 ??1TransportContainModuleData@@UAE@XZ,0x001DFA48,address read from the REL32 displacement at a placed body
 ??1UpdateModule@@UAE@XZ,0x0024A797,tail target of rowed BoredUpdate dtor 0x49669A which reinstalls BoredUpdate vptrs before the tail jump so it is the direct UpdateModule base dtor
 ??1UpgradeModuleData@@UAE@XZ,0x00255A42
-??1VersionBlockParserInner@@QAE@XZ,0x002385FF,Version-block inner list dtor stepping 0x18 elements via 0x2385E6 then free via 0x30830; called with parser+4 at end of 0x23870E and 0x238646
 ??1WriteLock@BfmeSortingIBAccess@@QAE@XZ,0x00138D80,Recovered dynamic index write-lock view; 120-byte destructor unlocks and releases the reference-counted index buffer then its device guard
 ??1WriteLock@BfmeSortingVBAccess@@QAE@XZ,0x0013AB00,Recovered dynamic vertex write-lock view; 108-byte destructor unlocks native buffer and releases the device guard independently proven by EH cleanup
 ??1__Named_exception@_STL@@UAE@XZ,0x00023850,address read from the REL32 displacement in logic_error and runtime_error's destructors; the body there is held as bad_alloc's destructor and the two folded
@@ -3995,3 +3994,4 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ??$__copy_ptrs@PAW4ScienceType@@PAW41@@_STL@@YAPAW4ScienceType@@PAW41@00ABU__false_type@0@@Z,0x0025BF40,ICF alias of the rowed PBW4ScienceType copy_ptrs at this address; same 29B 4B-pointer memmove; my TU emission byte-identical
 ?lookupScience@ScienceStore@@QBE?AW4ScienceType@@PBD@Z,0x001FF65D,const-member spelling of the rowed friend_lookupScience worker; called from the INI scanScience forwarder
 ?setLightPosition@W3DGameClientShadowShim@@QAEXHMMM@Z,0x0009A587,donor W3DShadowManager setLightPosition with Int light first storing LightPosWorld slot0; 6 raw E8 callers incl shadow-global sites 0x9A706 and 0x9B506 with (0 x y z) shape
+?destroyVersionRecords@@YAXPAX0@Z,0x002385E6,range destroy over 0x18 version records via element dtor 0x238580; called from inner dtor 0x2385FF plus parser sites 0x4282F7 plus 0x4286CE

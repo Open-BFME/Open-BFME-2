@@ -50,15 +50,32 @@ private:
 // Opaque version-block parser behind initializeBuildMetadata. Retail
 // constructs one from the 512-byte block at 0xA25000, reads the seven
 // metadata keys through it, then tears down its inner list.
+void __cdecl destroyVersionRecords(void *first, void *last);
+namespace _STL
+{
+void __cdecl free(void *memory);
+}
 class VersionBlockParserInner
 {
 public:
-	~VersionBlockParserInner();
+	~VersionBlockParserInner()
+	{
+		destroyVersionRecords(m_start.m_data, m_finish);
+	}
 private:
-	// Retail dtor reads [this] and [this+4] as a start/end pair for
-	// 0x18-byte elements (via 0x2385E6) then frees [this] (via 0x30830):
-	// a 12-byte vector-like list (start/finish/alloc).
-	void *m_start;
+	// Start of the 0x18-byte record list; the inline destructor frees the
+	// buffer, which is why retail carries one unwind state across the
+	// range-destroy call and frees [this] after it.
+	struct RecordBuffer
+	{
+		~RecordBuffer()
+		{
+			if (m_data)
+				_STL::free(m_data);
+		}
+		void *m_data;
+	};
+	RecordBuffer m_start;
 	void *m_finish;
 	void *m_alloc;
 };
