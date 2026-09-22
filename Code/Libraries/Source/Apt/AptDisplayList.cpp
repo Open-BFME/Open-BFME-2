@@ -44,6 +44,22 @@ struct BfmeQueryNode1279
 	int m_key;
 };
 
+// BfmeNestedBE link pair, retail-proven by the unlink asserts below
+// (pItem/pPrev/pNext). BFME1's BfmeNestedBE carries the same links as
+// m_bfme50/m_bfme54 plus a virtual; this TU-local model keeps the plain
+// data layout the free unlink function needs.
+class BfmeNestedBE
+{
+public:
+	char m_pad00[0x50];
+	BfmeNestedBE *pPrev;
+	BfmeNestedBE *pNext;
+	int m_bfme58;
+	char m_pad5C[0x64 - 0x5C];
+};
+
+BfmeNestedBE *bfmeUnlinkNestedBE(BfmeNestedBE *pItem);
+
 class BfmeQuery1279
 {
 public:
@@ -97,4 +113,33 @@ void BfmeQuery1279::bfmeQuery1279(int nDepth, int name, void **ppPrev, void **pp
 	else
 		*ppItem = 0;
 	*ppPrev = keyPrevious;
+}
+
+// ?bfmeUnlinkNestedBE@@YAPAVBfmeNestedBE@@PAV1@@Z, retail 0x006F7090
+// (75 bytes). Unlinks a nested bounding-entry node from its pPrev/pNext
+// list and returns it; the three asserts name this TU's path and prove
+// the pItem/pPrev/pNext identifiers.
+BfmeNestedBE *bfmeUnlinkNestedBE(BfmeNestedBE *pItem)
+{
+	if (pItem == 0) {
+		g_bfmeAptAssertAtE17734("pItem != NULL", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptDisplayList.cpp", 0x221);
+		if (g_bfmeAptBreakOnAssertAtDDC01C) __debugbreak();
+	}
+	if (pItem->pPrev != 0) {
+		if (pItem->pPrev->pNext != pItem) {
+			g_bfmeAptAssertAtE17734("pItem->pPrev->pNext == pItem", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptDisplayList.cpp", 0x225);
+			if (g_bfmeAptBreakOnAssertAtDDC01C) __debugbreak();
+		}
+		pItem->pPrev->pNext = pItem->pNext;
+	}
+	if (pItem->pNext != 0) {
+		if (pItem->pNext->pPrev != pItem) {
+			g_bfmeAptAssertAtE17734("pItem->pNext->pPrev == pItem", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptDisplayList.cpp", 0x22A);
+			if (g_bfmeAptBreakOnAssertAtDDC01C) __debugbreak();
+		}
+		pItem->pNext->pPrev = pItem->pPrev;
+	}
+	pItem->pPrev = 0;
+	pItem->pNext = 0;
+	return pItem;
 }
