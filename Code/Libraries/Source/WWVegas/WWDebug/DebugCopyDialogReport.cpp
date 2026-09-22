@@ -1,6 +1,6 @@
 // cl: /DNDEBUG /MD /EHs-c-
 //
-// Copy button of the assert/crash dialog, retail 0x0003D3A0 (752 bytes);
+// Copy button of the assert/crash dialog, retail 0x0003D3A0 (767 bytes);
 // the dialog procedure at 0x0003D6A0 calls it for control 9. It joins the
 // dialog title, the report text and the three build-info strings of the
 // Debug singleton (virtuals at slots 0xA0/0xA4/0xA8), each non-empty one

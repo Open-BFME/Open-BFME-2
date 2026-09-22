@@ -35,8 +35,8 @@ struct BfmeCsDWA
 
 extern BfmeCsDWA g_bfmeCsDWC;
 
-// The dialog procedure at 0x0088E000, matched in its own translation unit.
-int __stdcall Rva0088E000DialogProc(void *hWnd, unsigned int uMsg, unsigned int wParam, long lParam);
+// The dialog procedure (retail 0x0003D6A0), matched in AssertCrashDialogProc.cpp.
+int __stdcall AssertCrashDialogProc(void *hWnd, unsigned int uMsg, unsigned int wParam, long lParam);
 
 extern "C"
 {
@@ -122,7 +122,7 @@ extern "C" int Rva0088E1A0ShowAssertCrashDialog(const char *windowText, const ch
 	g_rva0088E000MessageText = messageText;
 
 	int result = DialogBoxIndirectParamA(0, g_Rva012D4FD0AssertCrashTemplate, 0,
-		Rva0088E000DialogProc, 0);
+		AssertCrashDialogProc, 0);
 
 	unsigned char watchdogRanFirst = 0;
 	RvaDword exitCode;

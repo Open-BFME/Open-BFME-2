@@ -16848,3 +16848,4 @@ _bfmeFormatText,,0x0060C36E,85,Code/GameEngine/Source/Common/Gen009D6220.cpp,mat
 ?allocate@?$allocator@UBfmePod144@@@_STL@@QBEPAUBfmePod144@@IPBX@Z,,0x00051A79,28,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_pod144_allocator.cpp,matched,Pod144 imul-0x90 allocator via /G7 shard; home TU stays /O1 per flag-split law; byte allocator 0x307F0 rowed under TU spelling
 ?DebugCopyToClipboard@@YAXPBD@Z,,0x0003C730,112,Code/Libraries/Source/WWVegas/WWDebug/DebugCopyToClipboard.cpp,matched,CF_TEXT clipboard copy helper; descriptive name
 ?DebugCopyDialogReport@@YAXXZ,,0x0003D3A0,767,Code/Libraries/Source/WWVegas/WWDebug/DebugCopyDialogReport.cpp,matched,assert/crash dialog copy button (control 9); descriptive name
+?AssertCrashDialogProc@@YGHPAXIIJ@Z,,0x0003D6A0,203,Code/Libraries/Source/WWVegas/WWDebug/AssertCrashDialogProc.cpp,matched,BFME1 donor b1 0x0088E000 with BFME2 control remap and copy button
