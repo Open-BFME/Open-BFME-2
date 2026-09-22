@@ -3117,7 +3117,6 @@ name,address,notes
 ?winGetSize@GameWindow@@QAEHPAH0@Z,0x00313BC6,BFME1 GameWindow winGetSize non-virtual; localPixelToRadar +0x30 direct call target; GameWindow cluster near winGetScreenPosition 0x313B3C; ghidra 38B
 ?winGetUserData@GameWindow@@QAEPAXXZ,0x005C4ACD,address read from the REL32 displacement at a placed body
 ?winSetEnabledImage@GameWindow@@QAEHHPBVImage@@@Z,0x003143B9,int-returning enabled-image setter (xor-eax-0 or -3); called by MainMenuScaleUpTransition::init 0x35E01E with (growWin 0 image)
-?winSetStatus@GameWindow@@QAEII@Z,0x00313CE3
 ?winSetStatus@GameWindow@@QAEXI@Z,0x00313CE3
 ?winSetUserData@GameWindow@@QAEXPAX@Z,0x002B2210
 ?wouldIgnite@FlammableUpdate@@QAE_NXZ,0x0048C57A,address read from the REL32 displacement at a placed body

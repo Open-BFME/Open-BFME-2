@@ -48,6 +48,7 @@ class GameWindow
 {
 public:
 	Int winHide(bool hide);
+	UnsignedInt winSetStatus(UnsignedInt status);
 
 private:
 	unsigned char m_pad0[0x08];
@@ -77,4 +78,12 @@ Int GameWindow::winHide(bool hide)
 	TheWindowManager->winSendSystemMsg(this, 0x1C, 0x10, (m_status >> 4) & 1);
 
 	return WIN_ERR_OK;
+}
+
+// ?winSetStatus@GameWindow@@QAEII@Z, retail 0x00313CE3 (15B).
+UnsignedInt GameWindow::winSetStatus(UnsignedInt status)
+{
+	UnsignedInt oldStatus = m_status;
+	m_status |= status;
+	return oldStatus;
 }

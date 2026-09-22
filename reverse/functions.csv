@@ -15684,3 +15684,4 @@ _rva002bcab_scanIndex,,0x0002BCAB,132,Code/GameEngine/Source/Common/System/INI_s
 ??4W3DRadarResetSurface@@QAEAAV0@ABV0@@Z,,0x00072381,43,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouse_loadD3DCursorTextures.cpp,matched,COM ref-counted surface assignment via AddRef slot1 Release slot2; TU-local IDirect3DSurface8
 ?bfmeFindUpgradeByName@@YAPBVUpgradeTemplate@@PBD@Z,,0x0033970D,84,Code/GameEngine/Source/Common/Thing/ThingTemplateParsePrerequisiteUpgrade.cpp,matched,BFME1 UpgradeCenter donor verbatim; global-guard plus AsciiString temp plus rowed findUpgrade; sole caller parsePrerequisiteUpgrade
 ?winHide@GameWindow@@QAEH_N@Z,,0x00313C64,117,Code/GameEngine/Source/GameClient/GUI/GameWindowHide.cpp,matched,
+?winSetStatus@GameWindow@@QAEII@Z,,0x00313CE3,15,Code/GameEngine/Source/GameClient/GUI/GameWindowHide.cpp,matched,
