@@ -3107,7 +3107,6 @@ name,address,notes
 ?setQuitFrame@FrameDataManager@@QAEXI@Z,0x0058B818,BFME2 frame-ring quit-frame setter paired with the quitting-state accessor
 ?setRange@GameClientRandomVariable@@QAEXMMW4DistributionType@1@@Z,0x002341E7,BFME2 export and retail call target for RandomAlphaKeyframe construction
 ?setStatus@Image@@QAEII@Z,0x002D8E63,Image status setter ORs bits into +0x30 and returns previous unsigned status; matches reference Image::setStatus
-?setStatus@Object@@QAEXW4ObjectStatusTypes@@_N@Z,0x0023DB0E,address read from the retail REL32 at 0x00242C47 in GameLogic::destroyObject; 38B (bit,flag) mask-builder calling the inner setter; all 12 direct callers pass (bitnumber,0/1)
 ?setString@PooledString@@AAEXPBD@Z,0x006CB7C0,BFME2 export; the private setter both the const char * constructor and assignment forward to
 ?setTimeOfDay@W3DGameClientShadowShim@@QAEXW4TimeOfDay@@@Z,0x0009A64D
 ?setTimeOfDay@W3DGameClientWaterShim@@QAEXW4TimeOfDay@@@Z,0x0007E18D
@@ -3995,3 +3994,6 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ?advance@Rva000411084@@QAEPAXXZ,0x003F7925,Eva event-name iterator bucket advance; thiscall on the iterator home returns the next non-null head or null; sole caller is next at 0x41108F
 ??0CDEArraySlot@@QAE@XZ,0x00181450,CDE array-slot nullary ctor; 3B empty body pushed as ehvec element-ctor by initializeArray 0x73A40D
 ??1CDEArraySlot@@QAE@XZ,0x0069E440,CDE array-slot dtor folds with the DX8_Assert empty body; pushed as ehvec element-dtor by initializeArray 0x73A402
+?bucketIndex@Rva000427195@@QAEHPBVAsciiString@@@Z,0x00223149,Eva event-name bucket index from name; thiscall on the table with node name returns hash percent bucket count; sole caller is advance at 0x3F7931
+?Rva0028CDEB@Object@@QAEXPAUObjectStatusMask@@@Z,0x0028CDEB,Object status inner setter; thiscall on Object with mask pointer; framed; called from setStatus
+?Rva0023DA79@ObjectStatusMask@@QAEPAU1@HW4ObjectStatusTypes@@_N@Z,0x0023DA79,Object status single-bit mask builder; thiscall on 16B out with reserved bit and flag args; memsets 16B then sets bit; callers are setStatus family
