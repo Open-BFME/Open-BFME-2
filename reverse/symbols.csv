@@ -2763,7 +2763,6 @@ name,address,notes
 ?isFreeToExit@QueueProductionExitUpdate@@IBE_NXZ,0x004A002A,address read from the REL32 displacement at a placed body
 ?isKindOfMulti@Thing@@QBE_NABV?$BitFlags@$0HE@@@0@Z,0x0030AD7D,allow@PartitionFilterRejectByKindOf 0x26115D +0xC E8 decodes here; KindOf multi-bit test; Thing.cpp
 ?isMultiplayer@RecorderClass@@QAE_NXZ,0x0037B18C,B1 Recorder_isMultiplayer 103B shape guides this 110B body (playback 8-slot plus getSlot plus isOccupied plus 0x85124); needed to rebuild banked ScienceStore purchaseCost-prereqs stashes
-?isOwnersCurWeaponOnTurret@TurretAI@@QBE_NXZ,0x004D8762,address read from the retail REL32 at 0x0026276E in AIUpdateInterface::getWhichTurretForCurWeapon; 47B body matching TurretAI::isOwnersCurWeaponOnTurret
 ?isPacketRouter@BFMEConnectionManager@@QAE_NXZ,0x004CF9CD,BFME2 connection-manager router predicate called by NetworkInterface vtable slot +0xAC
 ?isPlayerConnected@BFMEConnectionManager@@QAE_NH@Z,0x004CF083,BFME2 local-or-open-connection predicate used by active-player state checks
 ?isPlayerSlotActive@BFMEConnectionManager@@QAEHH@Z,0x004CF0CD,BFME2 active-player-state predicate used by the packet-router stall scan; BFME1 structural analogue
