@@ -145,3 +145,23 @@ FIELD_PROC(LargeGroupBonusUpdateModuleData, 0x00C4D1A8, HordeBonusTable)
 FIELD_PROC(LargeGroupAudioUpdateModuleData, 0x00C54868, GroupAudioTable)
 FIELD_PROC(FireWeaponCollideModuleData, 0x00C5A190, CollideWeaponTable)
 FIELD_PROC(StealthDetectorUpdateModuleData, 0x00C52188, DetectionTable)
+
+// Chained proc: ?buildFieldParse@RespawnUpdateModuleData@@,
+// retail 0x004C12D0, 27 bytes. Calls the rowed SupplyTruck base proc above,
+// then registers the Respawn table 0x00C5B8BC (PermanentlyKilledByFilter at
+// +0x64 plus CanRespawn at +0x68). The base call resolves to the rowed
+// SupplyTruck proc in this same TU; factory 0x251596 pushes this proc VA;
+// the pool key at 0x4C1455 names the class; two further chained procs
+// (0x4C15A2 plus 0x4C184F) call this one as their base. Row supersedes the
+// pin.
+class RespawnUpdateModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+void RespawnUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	SupplyTruckAIUpdateModuleData::buildFieldParse(parse);
+	parse.add(reinterpret_cast<const FieldParse *>(0x00C5B8BC), 0);
+}
