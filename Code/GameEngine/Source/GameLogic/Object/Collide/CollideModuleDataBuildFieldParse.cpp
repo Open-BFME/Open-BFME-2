@@ -55,3 +55,22 @@ void MoneyCrateCollideModuleData::buildFieldParse(MultiIniFieldParse &parse)
 	CrateCollideModuleData::buildFieldParse(parse);
 	parse.add(reinterpret_cast<const FieldParse *>(0x00BEFABC), 0);
 }
+
+// Chained proc: ?buildFieldParse@VeterancyCrateCollideModuleData@@,
+// retail 0x00251246, 27 bytes. Calls the rowed CrateCollide base proc above,
+// then registers the Veterancy table 0x00BEFB60 (EffectRange at +0x5C plus
+// AddsOwnerVeterancy at +0x60 plus IsPilot at +0x61 plus AffectsUpToLevel at
+// +0x64). The base call resolves to the rowed CrateCollide proc in this same
+// TU; factory 0x255B2D pushes this proc VA; the rowed VeterancyCrateCollide
+// pool key names the class. Row supersedes the pin.
+class VeterancyCrateCollideModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+void VeterancyCrateCollideModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	CrateCollideModuleData::buildFieldParse(parse);
+	parse.add(reinterpret_cast<const FieldParse *>(0x00BEFB60), 0);
+}
