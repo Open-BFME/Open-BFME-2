@@ -1,6 +1,6 @@
 // cl: /O1 /arch:SSE /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
 //
-// ??0MobNexusContainModuleData@@QAE@XZ, retail 0x004C244D, 118 bytes.
+// ??0InvisibilitySpecialPowerModuleData@@QAE@XZ, retail 0x004C244D, 118 bytes.
 // Mob-nexus contain data: the own table at 0x00C5C468 carries
 // InvisibilityNugget at +0x7C, BroadcastRadius at +0x134, ObjectFilter at
 // +0x138 and Duration at +0x13C, matching every store below; the ModuleData
@@ -57,15 +57,16 @@ protected:
 	unsigned char m_pad[0x7C - 4];
 };
 
+// ??1Rva004930A0@@UAE@XZ present-unmatched
 Rva004930A0::~Rva004930A0()
 {
 }
 
-class MobNexusContainModuleData : public Rva004930A0
+class InvisibilitySpecialPowerModuleData : public Rva004930A0
 {
 public:
-	MobNexusContainModuleData();
-	virtual ~MobNexusContainModuleData();
+	InvisibilitySpecialPowerModuleData();
+	virtual ~InvisibilitySpecialPowerModuleData();
 
 private:
 	Rva002542F3Member m_invisibilityNugget; // +0x7C
@@ -75,12 +76,13 @@ private:
 	int m_duration; // +0x13C
 };
 
-MobNexusContainModuleData::~MobNexusContainModuleData()
+// ??1InvisibilitySpecialPowerModuleData@@UAE@XZ present-unmatched
+InvisibilitySpecialPowerModuleData::~InvisibilitySpecialPowerModuleData()
 {
 }
 
-// ??0MobNexusContainModuleData@@QAE@XZ @0x4C244D
-MobNexusContainModuleData::MobNexusContainModuleData()
+// ??0InvisibilitySpecialPowerModuleData@@QAE@XZ @0x4C244D
+InvisibilitySpecialPowerModuleData::InvisibilitySpecialPowerModuleData()
 	: Rva004930A0()
 	, m_broadcastRadius(0.0f)
 	, m_duration(0)

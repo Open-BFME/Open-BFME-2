@@ -1,6 +1,6 @@
 // cl: /O1 /MD /GX /arch:SSE /DNDEBUG /Oy-
 //
-// ??0RespawnUpdateModuleData@@QAE@XZ, retail 0x004C14DF (110 bytes).
+// ??0RespawnBodyModuleData@@QAE@XZ, retail 0x004C14DF (110 bytes).
 // SupplyTruck-based respawn data: the pinned SupplyTruck base ctor runs
 // first against this (the base is an empty EH shim, so no displacement),
 // the compiler installs this TU's vtable through the ??_7 pin at
@@ -42,21 +42,21 @@ private:
 // displacement, and the derived vtable store lands mid-init through the
 // ??_7 pin (DominateEnemySpecialPowerModuleDataCtor precedent, which arms
 // the same two EH states over the same 0xDFEFA4 temps).
-class SupplyTruckAIUpdateModuleData
+class ActiveBodyModuleData
 {
 public:
-	SupplyTruckAIUpdateModuleData();
-	virtual ~SupplyTruckAIUpdateModuleData();
+	ActiveBodyModuleData();
+	virtual ~ActiveBodyModuleData();
 
 private:
 	unsigned char m_pad[0x64 - 4]; // +0x04..+0x63, real SupplyTruck base
 };
 
-class RespawnUpdateModuleData : public SupplyTruckAIUpdateModuleData
+class RespawnBodyModuleData : public ActiveBodyModuleData
 {
 public:
-	RespawnUpdateModuleData();
-	virtual ~RespawnUpdateModuleData();
+	RespawnBodyModuleData();
+	virtual ~RespawnBodyModuleData();
 
 private:
 	Rva003623E5Member m_permanentlyKilledByFilter; // +0x64
@@ -64,8 +64,8 @@ private:
 	unsigned char m_tail[3]; // +0x69..+0x6B, factory news 0x6C
 };
 
-// ??0RespawnUpdateModuleData@@QAE@XZ @0x4C14DF
-RespawnUpdateModuleData::RespawnUpdateModuleData()
+// ??0RespawnBodyModuleData@@QAE@XZ @0x4C14DF
+RespawnBodyModuleData::RespawnBodyModuleData()
 {
 	m_permanentlyKilledByFilter.initFromStorages(
 		BfmeFixedStorage0004543D(*reinterpret_cast<const BfmeFixedStorage0004543D *>(0x00DFEFA4)),

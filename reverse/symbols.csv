@@ -268,7 +268,6 @@ name,address,notes
 ??0AnimationSoundClientBehaviorModuleData@@QAE@XZ,0x004CA70D,sole raw caller 0x252BE3 inside 0x18 factory 0x252BC2; rowed proc 0x4CAB2C of same class per BFME1 AnimationSoundClientBehaviorModuleData donor
 ??0AsciiString@@QAE@ABV0@@Z,0x00365F0,address read from the retail REL32 at 0x002E4968 in OptionPreferences::getFirewallNeedToRefresh; AsciiString copy ctor for the it->second copy
 ??0AudioLoopUpgradeModuleData@@QAE@XZ,0x004B7C00,EH ctor with vtable 0x00C58CF8 plus members at +0x14/+0x124; sole raw caller is ModuleData factory 0x250798 which news 0x154
-??0AutoHealBehaviorModuleData@@QAE@XZ,0x004C32BC
 ??0OCLSpecialPowerModuleData@@QAE@XZ,0x004C32BC
 ??0AutoPickUpUpdateModuleData@@QAE@XZ,0x00496308,pinned by AutoPickUpUpdateModuleData factory call-site decode
 ??0BFME2Encoding0MotionChannel@@QAE@XZ,0x001B2E2C,Descriptive encoding0 channel constructor; calls base1A465B then zeros14 and18 and installs BD7648; factory encoding0 allocates28 bytes and invokes this complete26-byte constructor
@@ -3986,7 +3985,7 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ?setGoalPosition@TurretStateMachine@@QAEXPBUCoord3D@@@Z,0x00262224,TurretStateMachine setGoalPosition; sole retail E8 at 0x4D8858 in setTurretTargetPosition with machine plus pos; donor setGoalPosition; calls 0x4D745C worker
 ?set@?$StringBase@G@@QAEXPBG@Z,0x0000565D,BFME2 retail call target for StringBase wide set from const wide chars; read from REL32 at placed getStringFromRegistry 0x00234417
 ?releaseBuffer@?$StringBase@G@@QAEXXZ,0x00036E70,public-spelling wide StringBase releaseBuffer for TU-local UnicodeString teardown; same body as pinned private spelling; read from REL32 at placed getStringFromRegistry 0x00234417
-??_7RespawnUpdateModuleData@@6B@,0x00C5BA00,RespawnUpdateModuleData vtable installed by ctor 0x4C14DF (mov esi imm at 0x4C1501); factory 0x251596 news 0x6C; slot0 scalar-deleting dtor unclaimed
+??_7RespawnBodyModuleData@@6B@,0x00C5BA00,RespawnBodyModuleData vtable installed by ctor 0x4C14DF; the RespawnBody data factory 0x251596 news this class
 ?initFromStorages@Rva003623E5Member@@QAEXVBfmeFixedStorage0004543D@@0@Z,0x00362087,Filter two-storage init taking two FixedStorage by value (ret 0x38); called by RespawnUpdate ctor 0x4C14DF with in-place temps; callees 0x360CB0 plus 0x360F55 plus 0x361790 plus 0x360FDB unclaimed
 ?__stl_hash_string@_STL@@YAIPBD@Z,0x0002BA61,STLport vendored _hash_fun donor verbatim imul5 loop; sole hash leaf for Eva plus 4 string users
 ??0AICommandParms@@QAE@W4AICommandType@@W4CommandSourceType@@@Z,0x00351BD0,AICommandParms block ctor (cmd plus source); builds plus-0x20 coordinate vector; called by aiForceAttackObject 0x36F05A and aiAttackPosition 0x29599A; callees 0x211E58 plus 0x263895 plus 0x2A133B unclaimed
@@ -4009,7 +4008,7 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ?allocate@?$allocator@UBfmePod24@@@_STL@@QBEPAUBfmePod24@@IPBX@Z,0x00395944
 ?allocate@?$allocator@UBfmePod28@@@_STL@@QBEPAUBfmePod28@@IPBX@Z,0x000B40EA
 ??0Rva002542F3Member@@QAE@XZ,0x002542F3,opaque nullary member ctor (119B frameless: bitset at +4 via rowed 0x24CA24 plus float at +14 plus 2 at +18 plus clear80 at +1C via rowed 0x1EAE6F); called this-only by MobNexus ctor 0x4C244D at +0x7C plus 2 unclaimed sites; identity unproven
-??_7MobNexusContainModuleData@@6B@,0x00C5C558,derived vtable installed by EH ctor 0x4C244D mid-init; RousingSpeech precedent
+??_7InvisibilitySpecialPowerModuleData@@6B@,0x00C5C558,derived vtable installed by EH ctor 0x4C244D mid-init; RousingSpeech precedent
 ??0?$_List_base@MV?$allocator@M@_STL@@@_STL@@QAE@ABV?$allocator@M@1@@Z,0x004EC36C,ICF-folded float list base ctor (same 41B as short/int spellings); Rva0048BC03BaseCtor TU list<float> member
 ??0?$_STLP_alloc_proxy@PAUPrereqUnitRec@@U1@V?$allocator@UPrereqUnitRec@@@_STL@@@_STL@@QAE@ABV?$allocator@UPrereqUnitRec@@@1@PAUPrereqUnitRec@@@Z,0x0014F3C4,PrereqUnitRec alloc proxy fold; TU spelling for the count-taking Vector_base at 0x005C8C37
 ?allocate@?$allocator@UPrereqUnitRec@@@_STL@@QBEPAUPrereqUnitRec@@IPBX@Z,0x00395928,PrereqUnitRec allocator allocate fold; TU spelling for the count-taking Vector_base at 0x005C8C37
@@ -4500,15 +4499,6 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ??0SupplyCenterProductionExitUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x004A65AE,(Thing*;ModuleData*) ctor called by SupplyCenterProductionExitUpdate::friend_newModuleInstance (0x0024EE3F); class from the ModuleFactory registration literal
 ??0SupplyCenterDockUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x004A0DC7,(Thing*;ModuleData*) ctor called by SupplyCenterDockUpdate::friend_newModuleInstance (0x0024E9D9); class from the ModuleFactory registration literal
 ??0DozerAIUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x004894F5,(Thing*;ModuleData*) ctor called by DozerAIUpdate::friend_newModuleInstance (0x0024CD7D); class from the ModuleFactory registration literal
-??0SiegeDockingBehaviorModuleData@@QAE@XZ,0x00254C8E,no-arg data ctor called by SiegeDockingBehavior::friend_newModuleData (0x0024AF5C); class name is ZH's <Module>ModuleData convention
-??0BezierProjectileBehaviorModuleData@@QAE@XZ,0x0045B4F1,no-arg data ctor called by BezierProjectileBehavior::friend_newModuleData (0x0024B183); class name is ZH's <Module>ModuleData convention
-??0DestroyDieModuleData@@QAE@XZ,0x00253510,no-arg data ctor called by DestroyDie::friend_newModuleData (0x00254E7D); class name is ZH's <Module>ModuleData convention
-??0FXListDieModuleData@@QAE@XZ,0x00253A78,no-arg data ctor called by FXListDie::friend_newModuleData (0x00253AB4); class name is ZH's <Module>ModuleData convention
-??0FireWeaponUpdateModuleData@@QAE@XZ,0x0048BC03,no-arg data ctor called by FireWeaponUpdate::friend_newModuleData (0x0024CF56); class name is ZH's <Module>ModuleData convention
-??0SpecialAbilityUpdateModuleData@@QAE@XZ,0x0044EB54,no-arg data ctor called by SpecialAbilityUpdate::friend_newModuleData (0x0024A882); class name is ZH's <Module>ModuleData convention
-??0ThreatFinderUpdateModuleData@@QAE@XZ,0x003ECC80,no-arg data ctor called by ThreatFinderUpdate::friend_newModuleData (0x0024FC08); class name is ZH's <Module>ModuleData convention
-??0ScavengerSpecialPowerModuleData@@QAE@XZ,0x004C2A6A,no-arg data ctor called by ScavengerSpecialPower::friend_newModuleData (0x00251DCC); class name is ZH's <Module>ModuleData convention
-??0ModelConditionSoundSelectorClientBehaviorModuleData@@QAE@XZ,0x004CAEE6,no-arg data ctor called by ModelConditionSoundSelectorClientBehavior::friend_newModuleData (0x00252C13); class name is ZH's <Module>ModuleData convention
 ?push_back@?$list@PAVFXNugget@@V?$allocator@PAVFXNugget@@@_STL@@@_STL@@QAEXABQAVFXNugget@@@Z,0x0005548F,FXList::addFXNugget append called by all 15 FX nugget parse callbacks; ICF-shares the list<int> push_back body
 ??0SoundFXNugget@@QAE@XZ,0x001E00A3,no-arg ctor called by SoundFXNugget::parse (0x001E1329) for the Sound FXList keyword; class name from BFME1
 ?buildFieldParse@SoundFXNugget@@SAXAAVMultiIniFieldParse@@@Z,0x001DFAE0,cdecl field-parse builder called by SoundFXNugget::parse (0x001E1329); name is BFME's ModuleData convention
