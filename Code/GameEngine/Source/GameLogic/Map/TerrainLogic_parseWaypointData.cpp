@@ -10,10 +10,20 @@ typedef int Int;
 
 struct DataChunkInfo;
 
+class DataChunkReader
+{
+public:
+	virtual void read(void *buffer, Int size);
+};
+
 class DataChunkInput
 {
 public:
 	Int readInt();
+	void consume(Int bytes);
+
+private:
+	DataChunkReader *m_reader;
 };
 
 class __declspec(novtable) TerrainLogic
@@ -37,4 +47,13 @@ bool TerrainLogic::parseWaypointData(DataChunkInput &file, DataChunkInfo *info, 
 		addWaypointLink(waypoint1, waypoint2);
 	}
 	return true;
+}
+
+// ?readInt@DataChunkInput@@QAEHXZ @0x00306E78
+Int DataChunkInput::readInt()
+{
+	Int value;
+	m_reader->read(&value, 4);
+	consume(4);
+	return value;
 }

@@ -15550,3 +15550,4 @@ _bfmeHash1228,,0x0070F880,1504,Code/GameEngine/Source/Common/BfmeConv1228.cpp,ma
 ??1GeometryRecord@@QAE@XZ,,0x0004F82B,8,Code/GameEngine/Source/Common/System/GeometryInfoDtor.cpp,matched,Record dtor tail-forwards string at 0C to rowed AsciiString dtor; live callers prove against dead folds
 ??$_Destroy@PAUGeometryRecord@@@_STL@@YAXPAUGeometryRecord@@0@Z,,0x00217B1E,25,Code/GameEngine/Source/Common/System/GeometryInfoDtor.cpp,matched,Record destroy range over 16-byte elements through rowed Record dtor
 ??1?$vector@UGeometryRecord@@V?$allocator@UGeometryRecord@@@_STL@@@_STL@@QAE@XZ,,0x00050AB8,63,Code/GameEngine/Source/Common/System/GeometryInfoDtor.cpp,matched,Record vector dtor through rowed destroy range plus rowed free
+?readInt@DataChunkInput@@QAEHXZ,,0x00306E78,34,Code/GameEngine/Source/GameLogic/Map/TerrainLogic_parseWaypointData.cpp,matched,DataChunk 4-byte read via reader plus consume; row supersedes pin
