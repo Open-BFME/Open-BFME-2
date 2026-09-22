@@ -1,13 +1,15 @@
 // cl: /DNDEBUG /MD /EHsc
 // Open-BFME: address-derived reconstruction of retail RVA 0x00880D10.
 // Builds a rotated BfmeBoxF0 from a center/extent/angle source struct and
-// forwards to the already-matched BfmeBoxF0::contains (retail 0x00880A30).
+// forwards to BfmeBoxF0::contains (retail 0x006C0440).
 // No caller names this cdecl helper, so identity is not recovered; the two
 // argument structs are laid out only as far as the bytes this body touches.
 // FSINCOS has no portable VC7.1 intrinsic, so the sin/cos pair is inline asm
 // per the anti-lift policy's proven-codegen-blocker exception.
 
 typedef float Real;
+
+extern const float BfmeZeroRange;
 
 struct BfmePointF0
 {
@@ -49,6 +51,39 @@ struct Rva00880D10Info
 	unsigned char m_pad2[4];
 	Real m_angle;
 };
+
+bool BfmeBoxF0::contains(const BfmePointF0 *point, Real radius) const
+{
+	Real deltaX = point->x - m_centerX;
+	Real deltaY = point->y - m_centerY;
+	Real proj[2];
+	proj[0] = deltaY * m_axisY + deltaX * m_axisX;
+	proj[1] = deltaY * m_perpY + deltaX * m_perpX;
+	Real distSq = BfmeZeroRange;
+	if (proj[0] < -m_extentX)
+	{
+		Real distAxis = proj[0] + m_extentX;
+		distSq = distAxis * distAxis;
+	}
+	else if (proj[0] > m_extentX)
+	{
+		Real distAxis = proj[0] - m_extentX;
+		distSq = distAxis * distAxis;
+	}
+	if (proj[1] < -m_extentY)
+	{
+		Real distPerp = proj[1] + m_extentY;
+		distSq += distPerp * distPerp;
+	}
+	else if (proj[1] > m_extentY)
+	{
+		Real distPerp = proj[1] - m_extentY;
+		distSq += distPerp * distPerp;
+	}
+	if (distSq > radius * radius)
+		return false;
+	return true;
+}
 
 bool rva00880D10(Rva00880D10Subject *subject, Rva00880D10Info *info)
 {

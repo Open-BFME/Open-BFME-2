@@ -2438,7 +2438,6 @@ name,address,notes
 ?considerDying@ProjectileStreamUpdate@@IAE_NXZ,0x0033F06B,address read from the REL32 displacement at a placed body
 ?construct@Rva0025342CMember@@QAEPAV1@XZ,0x0025342C,retail returns this (mov eax esi before ret); REL32 from OpenContainModuleData ctor at 0x00253487+0x0C; address-derived member-setup routine (semantic identity unproven; ZH first member is DieMuxData, see TU note)
 ?construct@Rva003623E5Member@@QAEXXZ,0x003623E5
-?contains@BfmeBoxF0@@QBE_NPBUBfmePointF0@@M@Z,0x006C0440
 ?convertBonePosToWorldPos@Thing@@QBEXPBUCoord3D@@PBVMatrix3D@@PAU2@PAV3@@Z,0x0030A528,call destination decoded from initializeBonePositions; bounded 746-byte Thing method consumes the four observed coordinate and matrix pointers
 ?copyFrom@BfmeElem2E@@QAEXPBU1@@Z,0x000929E8
 ?copyFrom@BfmeElem440@@QAEXPBU1@@Z,0x000929E8
