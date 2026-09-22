@@ -1265,7 +1265,6 @@ name,address,notes
 ?RenderStreak@StreakRendererClass@@QAEXAAVRenderInfoClass@@ABVMatrix3D@@IPAVVector3@@PAVVector4@@PAMABVSphereClass@@PAI@Z,0x00743700
 ?Render_Line@ParticleBufferClass@@IAEXAAVRenderInfoClass@@@Z,0x001AE4D0,address read from the REL32 displacement at a placed body
 ?Render_Material_Pass@MeshClass@@QAEXPAVMaterialPassClass@@PAVIndexBufferClass@@@Z,0x0014C000,address read from the REL32 displacement at a placed body
-?Render_Obj_Exists_Impl@AssetRegistry@@QAE_NPBD@Z,0x00621170
 ?Render_Procedural_Material_Passes@DX8FVFCategoryContainer@@IAEXXZ,0x00146130,address read from the REL32 displacement at a placed body
 ?Render_Seg_Line@SegmentedLineClass@@IAEXAAVRenderInfoClass@@@Z,0x0015EED0
 ?Reset@MaterialCollectorClass@@QAEXXZ,0x0016F460
