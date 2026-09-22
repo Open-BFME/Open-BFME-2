@@ -15477,3 +15477,4 @@ _bfmeHash1228,,0x0070F880,1504,Code/GameEngine/Source/Common/BfmeConv1228.cpp,ma
 ?LZHLCompressorCalcMaxBuf@@YAII@Z,,0x0068ED50,13,Code/Libraries/Source/Compression/LZHCompress/NoxCompress.cpp,matched,
 ?getAbleToUseWeaponAgainstTarget@Object@@QBE?AW4CanAttackResult@@W4AbleToAttackType@@PBV1@PBUCoord3D@@W4CommandSourceType@@@Z,,0x0028AF2B,31,Code/GameEngine/Source/GameLogic/Object/ObjectGetAbleToUseWeaponAgainstTarget.cpp,matched,
 ??0ReplaceSelfUpgradeModuleData@@QAE@XZ,,0x004B790B,83,Code/GameEngine/Source/GameLogic/Object/SpecialPower/ReplaceSelfUpgradeModuleDataCtor.cpp,matched,
+?friend_newModuleData@W3DTreeDraw@@SAPAVModuleData@@PAVINI@@@Z,,0x00064C0B,81,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTreeDrawModuleDataFriendNew.cpp,matched,Dedicated TU news 0x64 over pinned ctor 0xCEBBF plus rowed proc 0xCED03; sole-caller and unique-push proven
