@@ -2066,7 +2066,6 @@ name,address,notes
 ?bfmeInit1029@BfmeSub1029@@QAEXXZ,0x0065D050
 ?bfmeInit1039@BfmeC1039@@QAEXPAVBfmeD1039@@@Z,0x00186E00
 ?bfmeInit936G@BfmeThing936G@@QAEXXZ,0x000166C0
-?bfmeInit@Gen001811E0@@AAEPAV1@PAX@Z,0x001810D0
 ?bfmeInitD70@@YAXPAX0@Z,0x001B67E0
 ?bfmeInitDGD@BfmeThingDGD@@QAEPAV1@PAX@Z,0x00664620
 ?bfmeInitDGF@BfmeThingDGF@@QAEPAV1@PAX@Z,0x00664DB0
@@ -4012,3 +4011,4 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ??0Rva004CEE6EMember@@QAE@XZ,0x004CEE6E
 ??0Rva004CEE6EMemberTracked@@QAE@XZ,0x004CEE6E
 ?erase@Glo012F1028EntryList@@QAEPAPAVGlo012F1028Entry@@PAPAV2@0@Z,0x0031BD55
+?Release_Ref@TaggedRefObject@@QAEXXZ,0x0061ED10,shared 36B dec-word-at-4 fold rowed as TextureBaseClass Release_Ref; TU spelling alias for the P8ZeroingCtors init member release
