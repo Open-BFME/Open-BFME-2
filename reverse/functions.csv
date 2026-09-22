@@ -16846,3 +16846,5 @@ _bfmeFormatText,,0x0060C36E,85,Code/GameEngine/Source/Common/Gen009D6220.cpp,mat
 ?RaiseExceptionHook@@YGXKKKPBK@Z,,0x0003E1C0,160,Code/Libraries/Source/WWVegas/WWDebug/DebugRaiseExceptionHook.cpp,matched,BFME1 dump twin b1 0x0088E8D0; reports throws to ExceptionFilter when windowed
 ?InstallRaiseExceptionHook@@YA_NXZ,,0x0003E260,252,Code/Libraries/Source/WWVegas/WWDebug/DebugRaiseExceptionHook.cpp,matched,BFME1 dump twin b1 0x0088E970; msvcrt IAT patch of RaiseException
 ?allocate@?$allocator@UBfmePod144@@@_STL@@QBEPAUBfmePod144@@IPBX@Z,,0x00051A79,28,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_pod144_allocator.cpp,matched,Pod144 imul-0x90 allocator via /G7 shard; home TU stays /O1 per flag-split law; byte allocator 0x307F0 rowed under TU spelling
+?DebugCopyToClipboard@@YAXPBD@Z,,0x0003C730,112,Code/Libraries/Source/WWVegas/WWDebug/DebugCopyToClipboard.cpp,matched,CF_TEXT clipboard copy helper; descriptive name
+?DebugCopyDialogReport@@YAXXZ,,0x0003D3A0,767,Code/Libraries/Source/WWVegas/WWDebug/DebugCopyDialogReport.cpp,matched,assert/crash dialog copy button (control 9); descriptive name
