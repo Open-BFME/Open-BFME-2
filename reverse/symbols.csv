@@ -4766,3 +4766,4 @@ _bfmeAppend,0x0060D5F2,callee of bfmeEmit (0x0060D7C0) at the site its BFME1 don
 ??$_Destroy@PAUBfmeAssignRecord104@@@_STL@@YAXPAUBfmeAssignRecord104@@0@Z,0x003B8E13,address read from the REL32 displacement at a placed body
 ??$_Destroy@PAUBfmeAssignRecord172@@@_STL@@YAXPAUBfmeAssignRecord172@@0@Z,0x001EB1B3,address read from the REL32 displacement at a placed body
 ??$__destroy_aux@PAUBfmeAssignRecord172@@@_STL@@YAXPAUBfmeAssignRecord172@@0ABU__false_type@0@@Z,0x001EAF5E,address read from the REL32 displacement at a placed body
+?push_back@?$BfmeVector@VAsciiString@@@@QAEXABVAsciiString@@@Z,0x002DBE6,TU-local spelling for vector<AsciiString>::push_back; body 0x2DBE6 is the 53B AsciiString push_back (4B stride plus copy via 0x2C485 plus rowed 0x365F0); needed by INI_getNextTokenOrNull
