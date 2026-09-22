@@ -1173,7 +1173,6 @@ name,address,notes
 ?LZHLDestroyDecompressor@@YAXPAX@Z,0x0068ED80
 ?Load@INIClass@@QAEHAAVFileClass@@@Z,0x00619120,address read from the REL32 displacement at a placed body; stlport 4.5.3
 ?Load@INIClass@@QAEHAAVStraw@@@Z,0x00617B10,address read from the retail REL32 in INIClass::Load(FileClass&) at 0x00619120
-?LoadRegistryValues@@YAXXZ,0x0002F840,registry block loader; called by the ten lazy getters at 0x0002F9C0+
 ?Load_Texture@@YA?AVBfmeHandleCX@@AAVChunkLoadClass@@@Z,0x00132FFB,class-returning texture loader with EH prologue head and 0x31 chunk dispatch; hidden-pointer call sites in read_textures at 0x0018AE72 and 0x0018AEF8
 ?Load_W3D@AdaptiveDeltaMotionChannelClass@@QAE_NAAVChunkLoadClass@@@Z,0x00195FF0,address read from retail REL32 at 0x0018F27F in read_channel-AdaptiveDelta 0x0018F230; second call slot parallel to TimeCoded Load_W3D at 0x00195D00
 ?Load_W3D@TimeCodedBitChannelClass@@QAE_NAAVChunkLoadClass@@@Z,0x00195E20,address read from the REL32 displacement at a placed body; stlport 4.5.3

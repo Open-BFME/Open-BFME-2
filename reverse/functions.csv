@@ -15686,3 +15686,4 @@ _rva002bcab_scanIndex,,0x0002BCAB,132,Code/GameEngine/Source/Common/System/INI_s
 ?winHide@GameWindow@@QAEH_N@Z,,0x00313C64,117,Code/GameEngine/Source/GameClient/GUI/GameWindowHide.cpp,matched,
 ?winSetStatus@GameWindow@@QAEII@Z,,0x00313CE3,15,Code/GameEngine/Source/GameClient/GUI/GameWindowHide.cpp,matched,
 ??0SpecialPowerModuleData@@QAE@ABV0@@Z,,0x005488E9,95,Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDataCopyCtor.cpp,matched,SpecialPowerModuleData copy 95B over default shard: vtable 0xC6A520 plus ScienceType vector copy via rowed 0x54878E plus nonzero id from absolute 0xE05F74; single EH state via empty base; row supersedes pin
+?LoadRegistryValues@@YAXXZ,,0x0002F840,300,Code/GameEngine/Source/Common/System/RegistryBlockLoader.cpp,matched,gi.dat block loader for the ten lazy getters; block stays allocated; dispatcher 0x2F720
