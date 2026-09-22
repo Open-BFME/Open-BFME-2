@@ -4510,3 +4510,34 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ??0ThreatFinderUpdateModuleData@@QAE@XZ,0x003ECC80,no-arg data ctor called by ThreatFinderUpdate::friend_newModuleData (0x0024FC08); class name is ZH's <Module>ModuleData convention
 ??0ScavengerSpecialPowerModuleData@@QAE@XZ,0x004C2A6A,no-arg data ctor called by ScavengerSpecialPower::friend_newModuleData (0x00251DCC); class name is ZH's <Module>ModuleData convention
 ??0ModelConditionSoundSelectorClientBehaviorModuleData@@QAE@XZ,0x004CAEE6,no-arg data ctor called by ModelConditionSoundSelectorClientBehavior::friend_newModuleData (0x00252C13); class name is ZH's <Module>ModuleData convention
+?push_back@?$list@PAVFXNugget@@V?$allocator@PAVFXNugget@@@_STL@@@_STL@@QAEXABQAVFXNugget@@@Z,0x0005548F,FXList::addFXNugget append called by all 15 FX nugget parse callbacks; ICF-shares the list<int> push_back body
+??0SoundFXNugget@@QAE@XZ,0x001E00A3,no-arg ctor called by SoundFXNugget::parse (0x001E1329) for the Sound FXList keyword; class name from BFME1
+?buildFieldParse@SoundFXNugget@@SAXAAVMultiIniFieldParse@@@Z,0x001DFAE0,cdecl field-parse builder called by SoundFXNugget::parse (0x001E1329); name is BFME's ModuleData convention
+??0EvaEventFXNugget@@QAE@XZ,0x001DFFFA,no-arg ctor called by EvaEventFXNugget::parse (0x001E12AD) for the EvaEvent FXList keyword; class name from BFME1
+?buildFieldParse@EvaEventFXNugget@@SAXAAVMultiIniFieldParse@@@Z,0x001DFABF,cdecl field-parse builder called by EvaEventFXNugget::parse (0x001E12AD); name is BFME's ModuleData convention
+??0RayEffectFXNugget@@QAE@XZ,0x001E01B2,no-arg ctor called by RayEffectFXNugget::parse (0x001E13A5) for the RayEffect FXList keyword; class name from BFME1
+?buildFieldParse@RayEffectFXNugget@@SAXAAVMultiIniFieldParse@@@Z,0x001DFB01,cdecl field-parse builder called by RayEffectFXNugget::parse (0x001E13A5); name is BFME's ModuleData convention
+??0LightPulseFXNugget@@QAE@XZ,0x001E0321,no-arg ctor called by LightPulseFXNugget::parse (0x001E1421) for the LightPulse FXList keyword; class name from BFME1
+?buildFieldParse@LightPulseFXNugget@@SAXAAVMultiIniFieldParse@@@Z,0x001DFB22,cdecl field-parse builder called by LightPulseFXNugget::parse (0x001E1421); name is BFME's ModuleData convention
+??0CameraShakerVolumeFXNugget@@QAE@XZ,0x001E0714,no-arg ctor called by CameraShakerVolumeFXNugget::parse (0x001E1595) for the CameraShakerVolume FXList keyword; class name from BFME1
+?buildFieldParse@CameraShakerVolumeFXNugget@@SAXAAVMultiIniFieldParse@@@Z,0x001DFBA6,cdecl field-parse builder called by CameraShakerVolumeFXNugget::parse (0x001E1595); name is BFME's ModuleData convention
+??0ViewShakeFXNugget@@QAE@XZ,0x001E07DF,no-arg ctor called by ViewShakeFXNugget::parse (0x001E1611) for the ViewShake FXList keyword; class name from BFME1
+?buildFieldParse@ViewShakeFXNugget@@SAXAAVMultiIniFieldParse@@@Z,0x001E0829,cdecl field-parse builder called by ViewShakeFXNugget::parse (0x001E1611); name is BFME's ModuleData convention
+??0AttachedModelFXNugget@@QAE@XZ,0x001E084A,no-arg ctor called by AttachedModelFXNugget::parse (0x001E168D) for the AttachedModel FXList keyword; class name from BFME1
+?buildFieldParse@AttachedModelFXNugget@@SAXAAVMultiIniFieldParse@@@Z,0x001DFBE8,cdecl field-parse builder called by AttachedModelFXNugget::parse (0x001E168D); name is BFME's ModuleData convention
+??0TerrainScorchFXNugget@@QAE@XZ,0x001E08D9,no-arg ctor called by TerrainScorchFXNugget::parse (0x001E171C) for the TerrainScorch FXList keyword; class name from BFME1
+?buildFieldParse@TerrainScorchFXNugget@@SAXAAVMultiIniFieldParse@@@Z,0x001E0965,cdecl field-parse builder called by TerrainScorchFXNugget::parse (0x001E171C); name is BFME's ModuleData convention
+??0ParticleSystemFXNugget@@QAE@XZ,0x001E0AEF,no-arg ctor called by ParticleSystemFXNugget::parse (0x001E264F) for the ParticleSystem FXList keyword; class name from BFME1
+?buildFieldParse@ParticleSystemFXNugget@@SAXAAVMultiIniFieldParse@@@Z,0x001DFD15,cdecl field-parse builder called by ParticleSystemFXNugget::parse (0x001E264F); name is BFME's ModuleData convention
+??0FXListAtBonePosFXNugget@@QAE@XZ,0x001E0A57,no-arg ctor called by FXListAtBonePosFXNugget::parse (0x001E1814) for the FXListAtBonePos FXList keyword; class name from BFME1
+?buildFieldParse@FXListAtBonePosFXNugget@@SAXAAVMultiIniFieldParse@@@Z,0x001DFCF4,cdecl field-parse builder called by FXListAtBonePosFXNugget::parse (0x001E1814); name is BFME's ModuleData convention
+??0CursorParticleSystemFXNugget@@QAE@XZ,0x001E0C90,no-arg ctor called by CursorParticleSystemFXNugget::parse (0x001E26CB) for the CursorParticleSystem FXList keyword; class name from BFME1
+?buildFieldParse@CursorParticleSystemFXNugget@@SAXAAVMultiIniFieldParse@@@Z,0x001DFD36,cdecl field-parse builder called by CursorParticleSystemFXNugget::parse (0x001E26CB); name is BFME's ModuleData convention
+??0DynamicDecalFXNugget@@QAE@XZ,0x001E0429,no-arg ctor called by DynamicDecalFXNugget::parse (0x001E149D) for the DynamicDecal FXList keyword; class name from BFME1
+?buildFieldParse@DynamicDecalFXNugget@@SAXAAVMultiIniFieldParse@@@Z,0x001DFB43,cdecl field-parse builder called by DynamicDecalFXNugget::parse (0x001E149D); name is BFME's ModuleData convention
+??0LaserFXNugget@@QAE@XZ,0x001E04DE,no-arg ctor called by LaserFXNugget::parse (0x001E1519) for the Laser FXList keyword; class name from BFME1
+?buildFieldParse@LaserFXNugget@@SAXAAVMultiIniFieldParse@@@Z,0x001DFB85,cdecl field-parse builder called by LaserFXNugget::parse (0x001E1519); name is BFME's ModuleData convention
+??0TintDrawableFXNugget@@QAE@XZ,0x001E0986,no-arg ctor called by TintDrawableFXNugget::parse (0x001E1798) for the TintDrawable FXList keyword; class name from BFME1
+?buildFieldParse@TintDrawableFXNugget@@SAXAAVMultiIniFieldParse@@@Z,0x001DFCD3,cdecl field-parse builder called by TintDrawableFXNugget::parse (0x001E1798); name is BFME's ModuleData convention
+??0BuffNuggetFXNugget@@QAE@XZ,0x001E2FCE,no-arg ctor called by BuffNuggetFXNugget::parse (0x001E323B) for the BuffNugget FXList keyword; class name from BFME1
+?buildFieldParse@BuffNuggetFXNugget@@SAXAAVMultiIniFieldParse@@@Z,0x001DFB64,cdecl field-parse builder called by BuffNuggetFXNugget::parse (0x001E323B); name is BFME's ModuleData convention
