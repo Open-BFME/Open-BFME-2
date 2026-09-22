@@ -2351,7 +2351,6 @@ name,address,notes
 ?bfme_getDescriptionFirstLine@MapMetaData@@QAE?AVUnicodeString@@XZ,0x00301534,recovered metadata getter reads cached map.str text via 0x003009CD and returns its prefix before LF
 ?bfme_getDisplayName@MapMetaData@@QAE?AVUnicodeString@@_N@Z,0x00300C7E,recovered display-name accessor; bool enables player-count suffix using metadata+0x20 and wide format (%d); ret8
 ?buildFieldParse@MonsterDockUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x004A137F,chained link: calls rowed DockUpdateModuleData base proc 0x5896C1 then adds table 0xC51CE4 (DockableObjectFilter DockedAnimationTime); MonsterDockUpdate pool key plus Update ctor plus dtor in same 0x4A139A cluster
-?buildFieldParse@WanderAIUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x0024F1F2,chained link: base proc 0x2638FF plus table 0xBEF580 (WildBeast at +0x64 plus ConditionForEntry at +0x68 plus Selectable at +0x6C plus WanderDistance at +0x70); pushed as proc VA by ModuleData factory 0x24F248
 ?bump@Rva009EB940Receiver@@QAEXXZ,0x0061EEC0
 ?cacheStatus@Weapon@@QBEXW4WeaponStatus@@@Z,0x002C94F5,Reconstructed helper name; getStatus REL32 target compares and writes Weapon+0x10; complete 15-byte body independently decoded
 ?calcBoundingStuff@BfmeSubCNG@@QAEXXZ,0x006BE700

@@ -114,3 +114,21 @@ void AnimalAIUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
 	TransportAIUpdateModuleData::buildFieldParse(parse);
 	parse.add(reinterpret_cast<const FieldParse *>(0x00BEEB88), 0);
 }
+
+class WanderAIUpdateModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+// ?buildFieldParse@WanderAIUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z,
+// retail 0x0024F1F2 (27 bytes): base-table call above plus the Wander table
+// at 0x00BEF580 (WildBeast at +0x64 plus ConditionForEntry at +0x68 plus
+// Selectable at +0x6C plus WanderDistance at +0x70). The owning factory at
+// 0x0024F248 calls the rowed ctor at 0x24F1CD and pushes this proc VA
+// (unique image-wide). Row supersedes the pin.
+void WanderAIUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	TransportAIUpdateModuleData::buildFieldParse(parse);
+	parse.add(reinterpret_cast<const FieldParse *>(0x00BEF580), 0);
+}
