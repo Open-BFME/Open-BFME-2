@@ -15468,3 +15468,4 @@ _bfmeHash1228,,0x0070F880,1504,Code/GameEngine/Source/Common/BfmeConv1228.cpp,ma
 ??1PrereqUnitRec@ProductionPrerequisite@@QAE@XZ,,0x00577998,8,Code/GameEngine/Source/Common/Thing/ProductionPrerequisiteCtor.cpp,matched,AsciiString member at +0x08 teardown via tail-jump to rowed 0x36410; called from destroy range 0x2D02A8
 ??$__destroy_aux@PAUPrereqUnitRec@ProductionPrerequisite@@@_STL@@YAXPAUPrereqUnitRec@ProductionPrerequisite@@0ABU__false_type@0@@Z,,0x002D02A8,25,Code/GameEngine/Source/Common/Thing/ProductionPrerequisiteCtor.cpp,matched,STLport destroy-range over 12-byte PrereqUnitRec via element dtor 0x577998; called from vector dtor erase and copy paths
 ?Render_Obj_Exists_Impl@AssetRegistry@@QAE_NPBD@Z,,0x00621170,170,Code/GameEngineDevice/Source/W3DDevice/GameClient/Render_Obj_Exists_Impl.cpp,matched,
+??0WallHubBehaviorModuleData@@QAE@XZ,,0x00453020,148,Code/GameEngine/Source/GameLogic/Object/Behavior/WallHubBehaviorModuleDataCtor.cpp,matched,
