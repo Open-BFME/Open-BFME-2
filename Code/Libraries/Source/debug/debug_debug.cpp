@@ -277,7 +277,6 @@ static void LocalSETranslator(unsigned, struct _EXCEPTION_POINTERS *pExPtrs)
   DebugExceptionhandler::ExceptionFilter(pExPtrs);
 }
 
-// ?InstallExceptionHandler@Debug@@SAXXZ present-unmatched
 void Debug::InstallExceptionHandler(void)
 {
   _set_se_translator(LocalSETranslator);

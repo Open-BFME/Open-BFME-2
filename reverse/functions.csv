@@ -15780,3 +15780,5 @@ _Rva00819F50,,0x00685E50,1036,Code/Libraries/Source/DirtySock/Rva00819F50Comm.cp
 ??0DebugStackwalk@@AAE@XZ,,0x0003C0E0,12,Code/Libraries/Source/WWVegas/WWDebug/debug_stack.cpp,matched,ZH DebugStackwalk ctor (InitDbghelp); already in the ported TU; member ctor of Debug at +0x9E7B
 ??0Debug@@AAE@XZ,,0x00038440,408,Code/Libraries/Source/WWVegas/WWDebug/DebugConstructor.cpp,matched,BFME1 C++ ctor b1 0x00889370 on the BFME2 0x9F68 layout
 ?PreStaticInit@Debug@@CAPAV1@XZ,0x000385F0,0x000385F0,114,Code/Libraries/Source/WWVegas/WWDebug/DebugPreStaticInit.cpp,matched,BFME1 lifted twin b1 0x00889500; placement new over DebugAllocMemory then refcount
+?LocalSETranslator@@YAXIPAU_EXCEPTION_POINTERS@@@Z,,0x00038760,14,Code/Libraries/Source/debug/debug_debug.cpp,matched,ZH SE translator forwarding to ExceptionFilter
+?InstallExceptionHandler@Debug@@SAXXZ,,0x00038770,13,Code/Libraries/Source/debug/debug_debug.cpp,matched,ZH _set_se_translator(LocalSETranslator)
