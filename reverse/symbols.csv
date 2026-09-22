@@ -2334,7 +2334,6 @@ name,address,notes
 ?clear@RadiusDecal@@QAEXXZ,0x00330DBA,address read from the REL32 displacement at a placed body
 ?clear@Rva000AD6F4@@QAEXXZ,0x000AD6F4,opaque guarded-delete helper (nulls member at +0 then ::delete via slot-0 plus operator delete); called with +4 adjust from 14B vptr bodies; exact method unproven
 ?clear@Rva0036CA00Str@@QAEXXZ,0x00036410,folds with StringBase/AsciiString teardown at this address; read 10x from REL32 at placed reset 0x50C45A
-?clear@Rva003B3204@@QAEXXZ,0x003B3204,opaque guarded-delete helper (self-recursive chain shape); first clear target of double helper 0x3B4071; exact method unproven
 ?clear@Rva0057C39C@@QAEXXZ,0x0057C39C,opaque guarded-delete helper (nulls ptr at +0 then slot-0 call plus operator delete); tail-call target of this-adjust dtor 0x57C3B6; exact method unproven
 ?clear@Rva00591560Context@@QAEXPAVRva00591560Resource@@@Z,0x002B2210
 ?clear@Rva005C3EE8@@QAEXXZ,0x005C3EE8,opaque guarded-delete helper (nulls ptr at +0 then slot-0 call plus operator delete); tail-call target of this-adjust dtor 0x5C3F02; exact method unproven

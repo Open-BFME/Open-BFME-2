@@ -15728,3 +15728,4 @@ _rva002bcab_scanIndex,,0x0002BCAB,132,Code/GameEngine/Source/Common/System/INI_s
 ??$__copy_ptrs@PAVAsciiString@@PAV1@@_STL@@YAPAVAsciiString@@PAV1@00ABU__false_type@0@@Z,,0x000B6614,29,Code/GameEngine/Source/Common/Thing/VectorAsciiStringErase.cpp,matched,
 ?erase@?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAEPAVAsciiString@@PAV3@0@Z,,0x0002CCFC,51,Code/GameEngine/Source/Common/Thing/VectorAsciiStringErase.cpp,matched,
 ?clear@Rva003B31DF@@QAEXXZ,,0x003B31DF,23,Code/GameEngine/Source/Common/Rva003BClearLeaves.cpp,matched,
+?clear@Rva003B3204@@QAEXXZ,,0x003B3204,23,Code/GameEngine/Source/Common/Rva003BClearLeaves.cpp,matched,Self-recursive guarded-delete leaf; sibling of rowed 0x3B31DF clear; TU already emits it
