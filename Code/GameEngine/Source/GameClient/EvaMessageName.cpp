@@ -66,6 +66,7 @@ class Rva000411084
 {
 public:
     void *next();
+    void *advance();
 
     void *m_current;
     void *m_owner;
@@ -144,4 +145,15 @@ AsciiString Eva::messageToName(int message)
     }
 
     return AsciiString("<Unknown>");
+}
+
+
+// ?next@Rva000411084@@QAEPAXXZ
+void *Rva000411084::next()
+{
+    EvaMessageNameNode *node = ((EvaMessageNameNode *)m_current)->m_next;
+    if (node == 0)
+        node = (EvaMessageNameNode *)advance();
+    m_current = node;
+    return this;
 }

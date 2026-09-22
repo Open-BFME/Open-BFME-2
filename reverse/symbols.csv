@@ -2898,7 +2898,6 @@ name,address,notes
 ?negative_sign@?$moneypunct@D$0A@@_STL@@QBE?AV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@2@XZ,0x0000EA70,STLport moneypunct getter; emitted full 27-byte body has no relocations and equals retail byte for byte; linker-folded with the same virtual-slot string getter
 ?negative_sign@?$moneypunct@G$00@_STL@@QBE?AV?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@2@XZ,0x0000EA70,STLport wide moneypunct getter; retail money_get<wchar_t>::do_get(string_type) calls this address; ICF-folded with the narrow getter
 ?negative_sign@?$moneypunct@G$0A@@_STL@@QBE?AV?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@2@XZ,0x0000EA70,STLport wide moneypunct getter; retail money_get<wchar_t>::do_get(string_type) calls this address; ICF-folded with the narrow getter
-?next@Rva000411084@@QAEPAXXZ,0x00411084,Eva event-name iterator advance; thiscall on the node home with no stack args, returns the next node or null
 ?nextWithNumeric@SimpleObjectIterator@@QAEPAVObject@@PAM@Z,0x0028D412,address read from the REL32 displacement at a placed body
 ?normalizeAngle@@YAMM@Z,0x00238954,address read from the REL32 displacement at a placed body
 ?notify@Rva00802A90Elem@@QAEXPAURva00802A90Query@@PAXHH@Z,0x0066DF80,address read from the REL32 displacement at placed go 0x66EBC0 twice; same FeslBrowser family; ghidra 523B boundary
@@ -3995,3 +3994,4 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ?setLightPosition@W3DGameClientShadowShim@@QAEXHMMM@Z,0x0009A587,donor W3DShadowManager setLightPosition with Int light first storing LightPosWorld slot0; 6 raw E8 callers incl shadow-global sites 0x9A706 and 0x9B506 with (0 x y z) shape
 ??0?$_Vector_base@PAXV?$allocator@PAX@_STL@@@_STL@@QAE@ABV?$allocator@PAX@1@@Z,0x00025100,ArmorStore TU spelling of rowed vector uint base; bodies identical
 ?_M_initialize_buckets@?$hashtable@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@W4NameKeyType@@U?$hash@W4NameKeyType@@@rts@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@2@U?$equal_to@W4NameKeyType@@@2@V?$allocator@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@2@@_STL@@AAEXI@Z,0x00148DDF,ArmorStore TU backref spelling of Armor row; bodies identical
+?advance@Rva000411084@@QAEPAXXZ,0x003F7925,Eva event-name iterator bucket advance; thiscall on the iterator home returns the next non-null head or null; sole caller is next at 0x41108F
