@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD
+// cl: /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /arch:SSE /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib
 //
 // ?setTimeOfDay@W3DGameClient@@UAEXW4TimeOfDay@@@Z @ 0x0004C884 (56B).
 // Dedicated TU: BFME1 donor shape verbatim, adapted to BFME2 retail (measured):
@@ -19,6 +19,8 @@ extern void *W3DGCData00DE2000;
 extern void *W3DGCData00DE5DFC;
 extern void *W3DGCData00DFE9D8;
 
+#include "vector3.h"
+
 class W3DGameClientWaterShim
 {
 public:
@@ -29,6 +31,7 @@ class W3DGameClientShadowShim
 {
 public:
 	void setTimeOfDay(TimeOfDay tod);
+	void setLightPosition(int lightIndex, float x, float y, float z);
 };
 
 class W3DGameClientDisplayShim
@@ -99,4 +102,35 @@ void W3DGameClient::setTimeOfDay(TimeOfDay tod)
 		((W3DGameClientShadowShim *)shadow)->setTimeOfDay(tod);
 	void *display = W3DGCData00DFE9D8;
 	((W3DGameClientDisplayShim *)display)->setTimeOfDay(tod);
+}
+
+// One 0x6C-stride time-of-day lighting entry. The direction lives at +0x18
+// (ambient + diffuse RGBColor pairs ahead of it, BFME1 TerrainLighting:
+// ambient@0 diffuse@0xC lightPos@0x18). Retail indexes base+0x3C8+0x6C*tod.
+struct ShadowTerrainLightEntry
+{
+	char m_pad00[0x18];
+	float m_lightX;
+	float m_lightY;
+	float m_lightZ;
+	char m_pad24[0x6C - 0x24];
+};
+
+extern void *W3DGCData00DFE758;
+
+// Sun distance (BFME1 SUN_DISTANCE_FROM_GROUND was 10000.0f; retail pools
+// 10000000.0f in .rdata, so BFME2 keeps it a literal with a new value).
+#define SHADOW_SUN_DISTANCE_FROM_GROUND 10000000.0f
+
+// ?setTimeOfDay@W3DGameClientShadowShim@@QAEXW4TimeOfDay@@@Z @ 0x0009A64D (195B).
+// BFME1 W3DShadowManager::setTimeOfDay donor verbatim (ray to light source,
+// negate, normalize, scale by the sun distance, install at slot 0).
+void W3DGameClientShadowShim::setTimeOfDay(TimeOfDay tod)
+{
+	const ShadowTerrainLightEntry *entry =
+		(const ShadowTerrainLightEntry *)((const char *)W3DGCData00DFE758 + 0x3C8 + tod * 0x6C);
+	Vector3 lightRay(-entry->m_lightX, -entry->m_lightY, -entry->m_lightZ);
+	lightRay.Normalize();
+	lightRay *= SHADOW_SUN_DISTANCE_FROM_GROUND;
+	setLightPosition(0, lightRay.X, lightRay.Y, lightRay.Z);
 }
