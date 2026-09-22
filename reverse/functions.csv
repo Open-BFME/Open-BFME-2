@@ -15725,3 +15725,5 @@ _rva002bcab_scanIndex,,0x0002BCAB,132,Code/GameEngine/Source/Common/System/INI_s
 ?bfmeStepTDB@@YAXXZ,,0x0011DC20,58,Code/GameEngine/Source/Common/BfmeStepTDB.cpp,matched,ICF twin of BFME1 ApplyBQ per GoTDB sweep record; G7 P4 tuning for cmp plus add forms
 ?init@Rva000B3F84Pair@@QAEPAV1@PBD@Z,,0x000B3F84,33,Code/GameEngine/Source/Main/WinMainPairUnicode.cpp,matched,Narrow pair init: m_ptr equals src and m_len equals strlen or 0 with null guard; returns this; row supersedes void-return pin
 ?erase@BfmeVec60@@QAEPAUBfmeElem60@@PAU2@0@Z,,0x006BF590,77,Code/GameEngine/Source/Common/Rva0087FB90Erase.cpp,matched,
+??$__copy_ptrs@PAVAsciiString@@PAV1@@_STL@@YAPAVAsciiString@@PAV1@00ABU__false_type@0@@Z,,0x000B6614,29,Code/GameEngine/Source/Common/Thing/VectorAsciiStringErase.cpp,matched,
+?erase@?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAEPAVAsciiString@@PAV3@0@Z,,0x0002CCFC,51,Code/GameEngine/Source/Common/Thing/VectorAsciiStringErase.cpp,matched,
