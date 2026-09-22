@@ -2736,7 +2736,6 @@ name,address,notes
 ?initTimes@BoneFXUpdate@@IAEXXZ,0x0048750B,address read from the REL32 displacement at a placed body
 ?initVersionGlobals@@YAHXZ,0x00238646,Version global init filling ints at 0xDFE760-0xDFE76C and returning bool to 0xDFE774; called once via guard 0xDFE778 in 0x23870E
 ?initialize@GridTextureMapperClass@@IAEXMI@Z,0x00182480,address read from the REL32 displacement at a placed body
-?initializeArray@BfmeThingCDE@@QAEXH@Z,0x0073A3C0
 ?initializeBonePositions@SpawnPointProductionExitUpdate@@AAEXXZ,0x004A3CEA,address read from the REL32 displacement at a placed body
 ?initializeBuildMetadata@Version@@QAEXXZ,0x0023870E,Reconstruction name not original spelling; Version constructor REL32 at 0x238881; body reads ID MACHINE USER GUID TIME DATE CONFIG into proven Version fields
 ?insert@?$list@HV?$allocator@H@_STL@@@_STL@@QAE?AU?$_List_iterator@HU?$_Nonconst_traits@H@_STL@@@2@U32@@Z,0x00079CB6,address read from the retail REL32 in ?push_back at 0x00079E8D
@@ -3994,3 +3993,5 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ??0?$_Vector_base@PAXV?$allocator@PAX@_STL@@@_STL@@QAE@ABV?$allocator@PAX@1@@Z,0x00025100,ArmorStore TU spelling of rowed vector uint base; bodies identical
 ?_M_initialize_buckets@?$hashtable@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@W4NameKeyType@@U?$hash@W4NameKeyType@@@rts@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@2@U?$equal_to@W4NameKeyType@@@2@V?$allocator@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@2@@_STL@@AAEXI@Z,0x00148DDF,ArmorStore TU backref spelling of Armor row; bodies identical
 ?advance@Rva000411084@@QAEPAXXZ,0x003F7925,Eva event-name iterator bucket advance; thiscall on the iterator home returns the next non-null head or null; sole caller is next at 0x41108F
+??0CDEArraySlot@@QAE@XZ,0x00181450,CDE array-slot nullary ctor; 3B empty body pushed as ehvec element-ctor by initializeArray 0x73A40D
+??1CDEArraySlot@@QAE@XZ,0x0069E440,CDE array-slot dtor folds with the DX8_Assert empty body; pushed as ehvec element-dtor by initializeArray 0x73A402
