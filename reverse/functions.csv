@@ -15666,3 +15666,4 @@ _bfmeHash1228,,0x0070F880,1504,Code/GameEngine/Source/Common/BfmeConv1228.cpp,ma
 ?toUnicode@Rva000B3F84Pair@@QAE?AV?$StringBase@G@@XZ,,0x00234788,99,Code/GameEngine/Source/Main/WinMainPairUnicode.cpp,matched,narrow pair to owning wide string for title assembly; StringBase-level temporary plus inline default reproduce retail frame
 ??0VersionBlockParser@@QAE@PBD@Z,,0x00428C04,63,Code/GameEngine/Source/Common/VersionBlockParserCtor.cpp,matched,
 ??$__copy_ptrs@PAUNugget@ModuleInfo@@PAU12@@_STL@@YAPAUNugget@ModuleInfo@@PAU12@00ABU__false_type@0@@Z,,0x002CF2B8,29,Code/GameEngine/Source/Common/Thing/ModuleInfoNuggetErase.cpp,matched,STLport 4-arg __copy_ptrs forwarder over 20-byte ModuleInfo Nuggets; tag local plus zero into the 5-arg worker at 0x002CF0BE; called from vector erase at 0x0033C3BC; row supersedes pin
+?getDisplayName@PlayerTemplate@@QBE?AVUnicodeString@@XZ,,0x00449B8F,27,Code/GameEngine/Source/Common/PlayerTemplateGetDisplayName.cpp,matched,

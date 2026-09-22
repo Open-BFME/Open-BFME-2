@@ -2589,7 +2589,6 @@ name,address,notes
 ?getCurrentVictim@AIUpdateInterface@@QBEPAVObject@@XZ,0x00268D71,address read from the retail REL32 at 0x00290BFE in Object::isAbleToAttack; 23B INVALID_ID-guarded TheGameLogic->findObjectByID lookup matching AIUpdateInterface::getCurrentVictim
 ?getCurrentWeapon@Object@@QBEPBVWeapon@@PAW4WeaponSlotType@@@Z,0x0028AEBD,address read from the REL32 displacement at a placed body
 ?getDescription@MapMetaData@@QAE?AVUnicodeString@@XZ,0x003009CD,BFME1 MapMetaData::getDescription name; hidden-retptr UnicodeString loader called first by first-line at 0x301546 exactly as BFME1 first-line calls getDescription
-?getDisplayName@PlayerTemplate@@QBE?AVUnicodeString@@XZ,0x00449B8F,BFME1 PlayerTemplate::getDisplayName() const verbatim (BFME2 out-of-line 25B via StringBase copy pin 108); direct callee of DisplayName at 0x3FFBB4
 ?getDrawable@Thing@@QBEPAVDrawable@@XZ,0x005508E2,SpawnPointProductionExitUpdate::initializeBonePositions calls this 7-byte this+0x84 getter; body is ICF-folded with the already matched BuildListInfo getter at the same address
 ?getEnergy@Player@@QAEPAVEnergy@@XZ,0x00657650,lea-getter alias read from REL32 at placed run 0x660EF0; target rowed under Rva006576xx name
 ?getError@Rva007E8810Message@@QAEHXZ,0x0066DD00
