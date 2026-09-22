@@ -2154,7 +2154,6 @@ name,address,notes
 ?bfmeParseAsciiYW@@YAXPAX00PBX@Z,0x0002F11E
 ?bfmePopulateGameReport@GameLogic@@QAEXPAVGameInfo@@PAH@Z,0x00247378
 ?bfmePredV30@@YAHHHD@Z,0x00026C60
-?bfmeProcess1279@BfmeWrapper1279@@QAEXPAX@Z,0x006F7230
 ?bfmePushNilVHR@@YAXPAUBfmeLuaVHR@@@Z,0x00747510
 ?bfmePushNumVHR@@YAXPAUBfmeLuaVHR@@N@Z,0x00747570
 ?bfmePushStrVHR@@YAXPAUBfmeLuaVHR@@PBD@Z,0x007475E0
@@ -4021,3 +4020,6 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ?pop_back@?$deque@UBfmePod132@@V?$allocator@UBfmePod132@@@_STL@@@_STL@@QAEXXZ,0x0005555F
 ?pop_front@?$deque@UBfmePod132@@V?$allocator@UBfmePod132@@@_STL@@@_STL@@QAEXXZ,0x0005557C
 ?Rva00530212Helper@@YGXPAVObject@@HHH@Z,0x00530212
+?bfmeLookup1279@BfmeLookup1279@@QAEPAVBfmeNode1279@@AAUBfmeKey1279@@@Z,0x0070B380,TU spelling for BfmeQueryProcess1279 callee; retail E8 at 0x6F7269; find-by-key returning node or null
+?bfmeErase1279@BfmeLookup1279@@QAEXAAUBfmeKey1279@@@Z,0x0070B2C0,TU spelling for BfmeQueryProcess1279 callee; retail E8 at 0x6F7275; erase-by-key
+?bfmeFinish1279@BfmeNode1279@@QAEXXZ,0x006E2B40,TU spelling for BfmeQueryProcess1279 callee; retail E8 at 0x6E2B40; node teardown after unlink
