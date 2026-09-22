@@ -446,7 +446,6 @@ name,address,notes
 ??0Rva0033CopyBase@@QAE@ABV0@@Z,0x0020492B
 ??0Rva003623E5Member@@QAE@XZ,0x003623E5,opaque member-base ctor; sole site lea ecx [esi+8] in AnimationSteeringUpdateModuleData ctor 0x4BD651; 0x94-frame SEH body; identity unproven
 ??0Rva0036CA00Str@@QAE@ABV0@@Z,0x000A8C7C
-??0Rva0042526Member@@QAE@XZ,0x00042526,opaque 76B bulk-zero member ctor (memset 0x4C via 0x291AE) at nugget +0xB4; called by GenericObjectCreationNugget ctor; identity unproven
 ??0Rva0044EB54@@QAE@XZ,0x0044EB54,opaque intermediate base DEFAULT ctor (889B SEH body, vtable 0xC3F2A8, no args: callers pass this-only and it reads no stack args); 26 module default-ctor callers; identity unproven
 ??0Rva0044EF5E@@QAE@PAVThing@@PBVModuleData@@@Z,0x0044EF5E,opaque UpdateModule-derived intermediate base ctor (243B body: UpdateModule base call plus vtable 0xC3FBA8 plus members to +0x84); 28 module-ctor callers; identity unproven
 ??0Rva004930A0@@QAE@XZ,0x004930A0,opaque intermediate base DEFAULT ctor (SEH body); called this-only by DeliverPayloadAIUpdate and AIUpdateInterface ctors; identity unproven
