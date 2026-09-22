@@ -244,3 +244,21 @@ void DarknessSpecialPowerModuleData::buildFieldParse(MultiIniFieldParse &parse)
 	SpecialPowerModuleData::buildFieldParse(parse);
 	parse.add(reinterpret_cast<const FieldParse *>(0x00C5D7BC), 0);
 }
+
+class GrabPassengerSpecialPowerModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+// ?buildFieldParse@GrabPassengerSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z,
+// retail 0x004C4F89 (27 bytes): base-table call above plus the Grab table
+// at 0x00C5D8A8 (GrabRadius at +0x7C plus AllowTree at +0x80). The rowed
+// factory at 0x00252088 calls the rowed ctor at 0x4C5421 and pushes this
+// proc's VA (unique image-wide); the pool key at 0x4C4FCE names the class.
+// Row supersedes the pin.
+void GrabPassengerSpecialPowerModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	SpecialPowerModuleData::buildFieldParse(parse);
+	parse.add(reinterpret_cast<const FieldParse *>(0x00C5D8A8), 0);
+}
