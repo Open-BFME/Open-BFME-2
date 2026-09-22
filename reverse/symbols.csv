@@ -4201,3 +4201,20 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ?bfmeAskRV@BfmeMemberRV@@QAE_NXZ,0x002AA231,retail callee at +0xE of the BFME1-donor BfmeThingRV::bfmePickRV (0x002A7E14); unclaimed 20B body
 ?Free@MaterialInfoClass@@AAEXXZ,0x0016EE70,retail callee at +0x2D of the BFME1-donor MaterialInfoClass dtor (0x00170130)
 ?Reset_Geometry@MeshGeometryClass@@QAEXHH_N@Z,0x0016A320,retail callee of the BFME1-donor MeshGeometryClass dtor (0x0016CCC0); body ends ret 0xC so it takes three args
+?AddSubInternalFPF@@YAXEPAUInternalFPF@@00@Z,0x006B9190,address read from the REL32 displacement at a placed body
+?DivideInternalFPF@@YAXPAUInternalFPF@@00@Z,0x006B97F0,address read from the REL32 displacement at a placed body
+?ErrorExit@@YAXXZ,0x006B8C20,address read from the REL32 displacement at a placed body
+?FreeMemory@@YAXPAXPAH@Z,0x006B8D50,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
+?MultiplyInternalFPF@@YAXPAUInternalFPF@@00@Z,0x006B9510,address read from the REL32 displacement at a placed body
+?ReportError@@YAXPADH@Z,0x0069E440,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
+?Rva008793B0@@YAHH@Z,0x006B8C40,address read from the REL32 displacement at a placed body
+?StartStopwatch@@YAKXZ,0x006B8C30,address read from the REL32 displacement at a placed body
+?StopStopwatch@@YAKK@Z,0x006B8C40,address read from the REL32 displacement at a placed body
+?bfmeRandomPositive@@YAKK@Z,0x006B89E0,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
+?calc_minimum_costs@@YAXQAY0GF@J@Z,0x006B4110,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
+?d_008790b0@@YAJJ@Z,0x006B8950,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
+?ji_00879190@@YAXXZ,0x006B8A30,address read from the REL32 displacement at a placed body
+?ji_008793a0@@YAXXZ,0x006B8C30,address read from the REL32 displacement at a placed body
+?randnum@@YAJJ@Z,0x006B8950,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
+?randwc@@YAJJ@Z,0x006B89A0,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
+?read_data_file@@YAHXZ,0x006B5940,address read from the REL32 displacement at a placed body
