@@ -396,7 +396,6 @@ name,address,notes
 ??0MinefieldBehavior@@QAE@PAVThing@@PBVModuleData@@@Z,0x004A8E7B,address read from the REL32 displacement at a placed body
 ??0MissileLauncherBuildingUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x004CD933
 ??0MobNexusContainModuleData@@QAE@XZ,0x004C244D,address read from the REL32 displacement at a placed body
-??0ModelConditionUpgradeModuleData@@QAE@XZ,0x004B6428,EH ctor over base 0x253487; vtable 0x00BF2558; condition members at +0x118/+0x164; sole raw caller is ModuleData factory 0x250546 which news 0x1B8
 ??0ModuleData@@QAE@XZ,0x006024FD,address read from the REL32 displacement at DieModuleData ctor 0x6054E7
 ??0Money@@QAE@ABV0@@Z,0x00063BE4
 ??0MultiIniFieldParse@@QAE@XZ,0x0002BAA0,frameless 27B zeroing ctor over stack buffer at parseObject 0x1F311B; layout +0/+0x40/+0x80 matches BFME1 class
@@ -3991,3 +3990,5 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ??_7MonsterDockUpdateModuleData@@6B@,0x00C51DA8,slot0 is scalar-deleting ??_G at 0x4A1552 sitting right after ctor 0x4A1517 plus slot1 is 0x4B3FD0 ret-pair
 ?Rva006BE2E0Copy@@YAPAUBfmeElem60@@PAU1@00PAXH@Z,0x006BE2E0
 ??0_PushButtonData@@QAE@XZ,0x00327E22
+??_7ModelConditionUpgradeModuleData@@6B@,0x00BF2558,folded base vtable shared with OpenContainModuleData which installs the same address
+?init@CondStore@@QAEXXZ,0x00042526,TU-spelling alias for the opaque 0x4C condition member init called twice by ModelConditionUpgradeModuleData ctor plus GenericObjectCreationNugget ctor
