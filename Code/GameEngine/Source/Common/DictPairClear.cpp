@@ -1,0 +1,97 @@
+// cl: /O1 /DNDEBUG /MD
+// Dict pair clear plus releaseData.
+// Reference basis is BFME1 Dict_releaseData.cpp (retail 0x000681C0), which
+// carries the Dict layout, the pair switch and releaseData. BFME2 outlines
+// the pair switch as its own 43B body and frees through the game _free.
+
+class AsciiString
+{
+public:
+	~AsciiString();
+
+private:
+	char *m_data;
+};
+
+extern "C" void free(void *);
+
+class UnicodeString
+{
+public:
+	void releaseBuffer();
+
+private:
+	unsigned short *m_data;
+};
+
+class Dict
+{
+public:
+	enum DataType
+	{
+		DICT_NONE = -1,
+		DICT_BOOL,
+		DICT_INT,
+		DICT_REAL,
+		DICT_ASCIISTRING,
+		DICT_UNICODESTRING
+	};
+
+	struct DictPair
+	{
+		int m_key;
+		void *m_value;
+
+		void clear();
+	};
+
+	struct DictPairData
+	{
+		unsigned short m_refCount;
+		unsigned short m_numPairsAllocated;
+		unsigned short m_numPairsUsed;
+	};
+
+private:
+	void releaseData();
+
+	DictPairData *m_data;
+};
+
+// ?clear@DictPair@Dict@@QAEXXZ @0x0031334A
+void Dict::DictPair::clear()
+{
+	switch (m_key & 0xFF)
+	{
+		case DICT_NONE:
+			break;
+		case DICT_BOOL:
+		case DICT_INT:
+		case DICT_REAL:
+			m_value = 0;
+			break;
+		case DICT_ASCIISTRING:
+			((AsciiString *)&m_value)->~AsciiString();
+			break;
+		case DICT_UNICODESTRING:
+			((UnicodeString *)&m_value)->releaseBuffer();
+			break;
+	}
+}
+
+// ?releaseData@Dict@@AAEXXZ @0x0031339C
+void Dict::releaseData()
+{
+	if (m_data == 0)
+		return;
+	if (--m_data->m_refCount != 0)
+	{
+		m_data = 0;
+		return;
+	}
+	DictPair *src = (DictPair *)(m_data + 1);
+	for (int i = 0; i < m_data->m_numPairsUsed; ++i, ++src)
+		src->clear();
+	free(m_data);
+	m_data = 0;
+}
