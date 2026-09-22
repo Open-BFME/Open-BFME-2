@@ -1,4 +1,6 @@
-// cl: /O1 /Ob0
+// ?winSetStatus@GameWindow@@QAEXI@Z
+// partial score=0.93 date=2026-09-22
+// cl: /O2 /Ob0
 
 // ?Rva004BCB20@@YAXPAVGameWindow@@H@Z, retail 0x00328543 (60B).
 // Ported from Open-BFME-1 Code/GameEngine/Source/GameClient/GUI/Gadget/GadgetUserDataHelpers.cpp
@@ -13,14 +15,15 @@ public:
 	void *winGetUserData(void);
 	void winSetUserData(void *data);
 	void winSetStatus(unsigned int status);
+
+private:
+	char m_pad[8];
+	unsigned int m_status;
 };
 
 // Push-button data: the same accessor, a different record.
 struct _PushButtonData
 {
-	_PushButtonData() throw();
-
-	char m_data[0x38];
 };
 
 extern _PushButtonData *getNewPushButtonData(void);
@@ -48,8 +51,8 @@ void Rva004BCB20(GameWindow *window, int value)
 	}
 }
 
-// ?getNewPushButtonData@@YAPAU_PushButtonData@@XZ @0x0032843E
-_PushButtonData *getNewPushButtonData(void)
+// ?winSetStatus@GameWindow@@QAEXI@Z @0x00313CE3
+void GameWindow::winSetStatus(unsigned int status)
 {
-	return new _PushButtonData;
+	m_status = status | m_status;
 }

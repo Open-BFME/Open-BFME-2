@@ -2633,7 +2633,6 @@ name,address,notes
 ?getIsQuitting@FrameDataManager@@QAE_NXZ,0x0058B826,BFME2 frame-ring quitting flag accessor used by connection-manager readiness
 ?getLineNum@INI@@QBEHXZ,0x0002BBED,BFME1-donor-attested INI line getter; retail forwards via helper; single call site in parseSubtitle throw block
 ?getMaxHeightAbovePosition@GeometryInfo@@QBEMXZ,0x006BD7C0,address read from the REL32 displacement at a placed body
-?getNewPushButtonData@@YAPAU_PushButtonData@@XZ,0x0032843E
 ?getNextAsciiString@INI@@QAE?AVAsciiString@@XZ,0x0002EA4F,address read from the REL32 displacement at a placed body
 ?getNextPacketRouterSlot@BFMEConnectionManager@@QAEII@Z,0x004CFAC0,BFME2 fallback packet-router traversal; follows the supplied slot in the +0x12030 router order
 ?getNextToken@INI@@QAEPBDPBD@Z,0x0002DF97,INI thiscall next-token helper; parseDurationReal first REL32; ghidra 75 bytes
@@ -3990,3 +3989,5 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ??_7RemoveUpgradeUpgradeModuleData@@6B@,0x00C58EF0,slot0 is 0x4B8034 sitting right after ctor 0x4B7FF1 plus slot1 is 0x4B3FD0 ret-pair
 ??_7SlavedUpdateModuleData@@6B@,0x00BF34C0,slot0 is scalar-deleting ??_G at 0x255FA5 plus slot1 is 0x4B3FD0 ret-pair
 ??_7MonsterDockUpdateModuleData@@6B@,0x00C51DA8,slot0 is scalar-deleting ??_G at 0x4A1552 sitting right after ctor 0x4A1517 plus slot1 is 0x4B3FD0 ret-pair
+?Rva006BE2E0Copy@@YAPAUBfmeElem60@@PAU1@00PAXH@Z,0x006BE2E0
+??0_PushButtonData@@QAE@XZ,0x00327E22
