@@ -2608,7 +2608,6 @@ name,address,notes
 ?getNextAsciiString@INI@@QAE?AVAsciiString@@XZ,0x0002EA4F,address read from the REL32 displacement at a placed body
 ?getNextPacketRouterSlot@BFMEConnectionManager@@QAEII@Z,0x004CFAC0,BFME2 fallback packet-router traversal; follows the supplied slot in the +0x12030 router order
 ?getNextToken@INI@@QAEPBDPBD@Z,0x0002DF97,INI thiscall next-token helper; parseDurationReal first REL32; ghidra 75 bytes
-?getNextTokenOrNull@INI@@QAEPBDPBD@Z,0x0002DEED,ZH INI.h:329 OrNull worker; true extent 168B via ret-scan (getNextToken tail-calls it); returns token or NULL instead of throwing
 ?getNthPlayerTemplate@PlayerTemplateStore@@QBEPBVPlayerTemplate@@H@Z,0x001FD3C6,BFME1 PlayerTemplateStore::getNthPlayerTemplate(Int) const verbatim; thiscall idx with stride-0x1DC bounds check on ThePlayerTemplateStore; direct callee of DisplayName at 0x3FFBB4
 ?getOverrideWindow@RadarWindowOverrideSource@@QBEPAVGameWindow@@XZ,0x002D35CF,call site in Radar::newMap (0x2D7B6B) dispatches a bare thiscall on VA 0xDFF028 whose eax result is stored straight into m_radarWindow; identity beyond this call shape is unknown
 ?getPercentage@NetProgressCommandMsg@@QAEEXZ,0x004C54EC,address read from the REL32 displacement at a placed body
@@ -4762,3 +4761,4 @@ _bfmeAppend,0x0060D5F2,callee of bfmeEmit (0x0060D7C0) at the site its BFME1 don
 ?Get_HAnim@@YAPAVHAnimClass@@PBD@Z,0x0014CF5F,callee of setAnimNames (0x000B207F) at the site its BFME1 donor calls it; may be an ICF alias
 ?releaseBuffer@AsciiString@@AAEXXZ,0x00036410,callee of RAsciiComparator (0x0038233A) at the site its BFME1 donor calls it; may be an ICF alias
 ?GetUnsignedIntFromRegistry@@YA_NVAsciiString@@0AAI@Z,0x00234F1A,callee of GetRegistryMapPackVersion (0x002351D1) at the site its BFME1 donor calls it
+?push_back@?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAEXABVAsciiString@@@Z,0x002DBE6,STLport vector<AsciiString>::push_back at INI token vector; fast copy via 0x2C485 AsciiString element copy plus overflow via 0x2D1CF; element type proven by non-generic callees per fold law; fold-shares spelling with rowed 0x143170
