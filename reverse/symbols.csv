@@ -1186,7 +1186,6 @@ name,address,notes
 ?Is_Empty@MeshMatDescClass@@QAE_NXZ,0x0015A6C0,install_alternate_material_desc 0x188290 +0x25 E8 decodes here; empty check on context AlternateMatDesc; meshmatdesc.cpp
 ?Is_Stopped@ParticleEmitterClass@@QAE_NXZ,0x001A1BE0,Donor Active == false independently compiles to all12 bytes; byte flag at emitter+110; RET at5A1BEB
 ?Is_Valid_Display_Format@BfmeEnumerationCaps@@QAE_NHHW4_D3DFORMAT@@@Z,0x0012B330,Recovered view of verified 36-byte DX8Caps dimension filter; format argument is unused and retail enumeration passes the D3D format directly
-?LZHLCompressorCalcMaxBuf@@YAII@Z,0x0068ED50
 ?LZHLCreateCompressor@@YAPAXXZ,0x0068EC80
 ?LZHLDestroyCompressor@@YAXPAX@Z,0x0068ED60
 ?LZHLDestroyDecompressor@@YAXPAX@Z,0x0068ED80

@@ -48,7 +48,14 @@ typedef void *LZHL_CHANDLE;
 LZHL_CHANDLE LZHLCreateCompressor();
 unsigned int LZHLCompress(LZHL_CHANDLE, void *, void *, unsigned int);
 void LZHLDestroyCompressor(LZHL_CHANDLE);
-unsigned int LZHLCompressorCalcMaxBuf(unsigned);
+
+// ?LZHLCompressorCalcMaxBuf@@YAII@Z
+// Retail 13B frameless bound: rawSize + rawSize / 2 + 0x20. noinline keeps
+// the CompressFile/CompressMemory call sites calling instead of inlining.
+__declspec(noinline) unsigned int LZHLCompressorCalcMaxBuf(unsigned int rawSize)
+{
+	return rawSize + rawSize / 2 + 0x20;
+}
 
 #define BLOCKSIZE 500000
 
