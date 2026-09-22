@@ -688,3 +688,23 @@ void GarrisonContainModuleData::buildFieldParse(MultiIniFieldParse &parse)
 	OpenContainModuleData::buildFieldParse(parse);
 	parse.add(reinterpret_cast<const FieldParse *>(0x00BF3360), 0);
 }
+
+// ?buildFieldParse@HealContainModuleData@@SAXAAVMultiIniFieldParse@@@Z,
+// retail 0x004B56F6 (34 bytes): double-add on the rowed ModuleData getter
+// table 0x4CE29D with extraOffset 8 then own table 0x00C58020 holding
+// WeaponCondition at +0x118 (ReplaceSelf/Unpause precedent). The rowed
+// HealContain factory at 0x00250252 calls the rowed HealContain ctor at
+// 0x4B57AA and pushes this proc's VA (unique image-wide), which proves the
+// class; the WeaponSetUpgrade pool key ending at this address is packing
+// coincidence (that key's class proc is elsewhere).
+class HealContainModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+void HealContainModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	parse.add(reinterpret_cast<const FieldParse *>(Rva004CE29DGet()), 8);
+	parse.add(reinterpret_cast<const FieldParse *>(0x00C58020), 0);
+}
