@@ -57,7 +57,7 @@ class UnicodeString : public StringBase<unsigned short>
 class Rva000B3F84Pair
 {
 public:
-	void init(const char *src);
+	Rva000B3F84Pair *init(const char *src);
 	void copyBytes(void *dst, int off, int len);
 	void convertToWide(unsigned short *dst, int off, int len);
 	int convertToWideBuffer(unsigned short *dst);
@@ -77,9 +77,18 @@ struct Rva002343C3TitleSegment : Rva000B3F84Pair
 };
 
 extern "C" void *memcpy(void *dst, const void *src, unsigned int n);
+extern "C" unsigned int strlen(const char *s);
 void *operator new[](unsigned int n);
 void operator delete[](void *p);
 int multiByteToWideChar(const char *src, int srcLen, unsigned short *dst, int dstLen);
+
+// ?init@Rva000B3F84Pair@@QAEPAV1@PBD@Z @0xB3F84
+Rva000B3F84Pair *Rva000B3F84Pair::init(const char *src)
+{
+	m_ptr = src;
+	m_len = src != 0 ? strlen(src) : 0;
+	return this;
+}
 
 // ?copyBytes@Rva000B3F84Pair@@QAEXPAXHH@Z @0x23428D
 void Rva000B3F84Pair::copyBytes(void *dst, int off, int len)
