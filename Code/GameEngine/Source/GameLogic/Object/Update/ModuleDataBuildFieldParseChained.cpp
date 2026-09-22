@@ -728,3 +728,22 @@ void RemoveUpgradeUpgradeModuleData::buildFieldParse(MultiIniFieldParse &parse)
 	parse.add(reinterpret_cast<const FieldParse *>(Rva004CE29DGet()), 8);
 	parse.add(reinterpret_cast<const FieldParse *>(0x00C58EA0), 0);
 }
+
+class ReplaceObjectUpdateModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+// ?buildFieldParse@ReplaceObjectUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z,
+// retail 0x0024FC94 (27 bytes): chained on the rowed Rva0044EB54 base proc
+// at 0x44ED95, then table 0x00BEF960 holding ReplaceObject at +0x18 plus
+// ReplaceRadius at +0x1C plus ReplaceFX at +0x20 plus Scatter at +0x24.
+// The rowed factory at 0x0024FCEA calls the rowed ctor at 0x4B2AC4 and
+// pushes this proc's VA (unique image-wide); the pool key at 0x4B2A29 names
+// the class. Row supersedes the pin.
+void ReplaceObjectUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	Rva0044EB54::buildFieldParse(parse);
+	parse.add(reinterpret_cast<const FieldParse *>(0x00BEF960), 0);
+}
