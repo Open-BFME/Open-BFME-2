@@ -3996,5 +3996,4 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ?addLink@Waypoint@@QAEXPAVWaypoint@@@Z,0x00272306
 ?getLink@Waypoint@@QBEPAV1@H@Z,0x00085404
 ?addLink@Waypoint@@QAEXPAV1@@Z,0x00272306
-??0_PushButtonData@@QAE@XZ,0x00327E22
 ?consume@DataChunkInput@@QAEXH@Z,0x00306E40
