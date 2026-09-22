@@ -1673,7 +1673,6 @@ name,address,notes
 ?addInt@FeslEchoMessage@@QAEXPBDH@Z,0x00655960
 ?addInt@Rva007E8810Message@@QAEXPBDH@Z,0x00655960
 ?addObjectCreationNugget@ObjectCreationListStore@@QAEXPAVObjectCreationNugget@@@Z,0x001F0AC4,address read from the REL32 displacement at a placed body
-?addObjectToPathfindMap@BFMEPathfinderMapShim@@QAEXPAVObject@@@Z,0x002E7178,second call in Object::friend_notifyOfNewMapBoundary 0x28B5EE via TheAI->pathfinder()+0x10 with Object* arg; 11B wrapper pushing 0/0/1; B1 shim pattern
 ?addPadded@Rva00800290Buffer@@QAEXH@Z,0x0066C7E0
 ?addString@BfmeC994@@QAEXPBD0@Z,0x00655AA0
 ?addString@FeslEchoMessage@@QAEXPBD0@Z,0x00655AA0
@@ -4022,3 +4021,4 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ?get_allocator@?$deque@UBfmePod156@@V?$allocator@UBfmePod156@@@_STL@@@_STL@@QBE?AV?$allocator@UBfmePod156@@@2@XZ,0x0021983A
 ?pop_back@?$deque@UBfmePod132@@V?$allocator@UBfmePod132@@@_STL@@@_STL@@QAEXXZ,0x0005555F
 ?pop_front@?$deque@UBfmePod132@@V?$allocator@UBfmePod132@@@_STL@@@_STL@@QAEXXZ,0x0005557C
+?Rva00530212Helper@@YGXPAVObject@@HHH@Z,0x00530212
