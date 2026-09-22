@@ -24,7 +24,7 @@ class RadarEventRef
 public:
 	virtual void m_spare0();
 	virtual void m_deleter();
-	void release();
+	__declspec(noinline) void release();
 private:
 	int m_refCount;  // +0x4 past the vptr
 };
@@ -130,4 +130,13 @@ void RadarEventRef::release()
 	if (--m_refCount != 0)
 		return;
 	m_deleter();
+}
+
+// ?clearRef@RadarEventRefSlot@@QAEXXZ
+void RadarEventRefSlot::clearRef()
+{
+	if (m_ref == 0)
+		return;
+	m_ref->release();
+	m_ref = 0;
 }
