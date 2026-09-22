@@ -4542,3 +4542,42 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ??0BuffNuggetFXNugget@@QAE@XZ,0x001E2FCE,no-arg ctor called by BuffNuggetFXNugget::parse (0x001E323B) for the BuffNugget FXList keyword; class name from BFME1
 ?buildFieldParse@BuffNuggetFXNugget@@SAXAAVMultiIniFieldParse@@@Z,0x001DFB64,cdecl field-parse builder called by BuffNuggetFXNugget::parse (0x001E323B); name is BFME's ModuleData convention
 ??0AttackNugget@@QAE@XZ,0x001F05C1,out-of-line ctor called by AttackNugget::parse (0x001F0D96) for the Attack OCL keyword
+?rva002CBA59@WeaponTemplate@@QAEXPAX@Z,0x002CBA59,nugget-append member every Weapon-block nugget callback calls last; address-derived name; identity not recovered
+??0Made002CC5E1@@QAE@XZ,0x00507C2D,ctor of the DamageNugget object newed by parseDamageNugget (0x002CC5E1); address-derived name; identity not recovered
+?q4Notify002CC5E1@@YAXPAXPAVMade002CC5E1@@HH@Z,0x005088F0,four-argument __cdecl field parser called by parseDamageNugget (0x002CC5E1); address-derived name; identity not recovered
+??0Made002CC774@@QAE@XZ,0x00509522,ctor of the DamageFieldNugget object newed by parseDamageFieldNugget (0x002CC774); address-derived name; identity not recovered
+?q4Notify002CC774@@YAXPAXPAVMade002CC774@@HH@Z,0x00509379,four-argument __cdecl field parser called by parseDamageFieldNugget (0x002CC774); address-derived name; identity not recovered
+??0Made002CC7DE@@QAE@XZ,0x0050968B,ctor of the WeaponOCLNugget object newed by parseWeaponOCLNugget (0x002CC7DE); address-derived name; identity not recovered
+?q4Notify002CC7DE@@YAXPAXPAVMade002CC7DE@@HH@Z,0x005095AE,four-argument __cdecl field parser called by parseWeaponOCLNugget (0x002CC7DE); address-derived name; identity not recovered
+??0Made002CC841@@QAE@XZ,0x00509CC3,ctor of the ProjectileNugget object newed by parseProjectileNugget (0x002CC841); address-derived name; identity not recovered
+?q4Notify002CC841@@YAXPAXPAVMade002CC841@@HH@Z,0x00509780,four-argument __cdecl field parser called by parseProjectileNugget (0x002CC841); address-derived name; identity not recovered
+??0Made002CC8A4@@QAE@XZ,0x0050A39B,ctor of the MetaImpactNugget object newed by parseMetaImpactNugget (0x002CC8A4); address-derived name; identity not recovered
+?q4Notify002CC8A4@@YAXPAXPAVMade002CC8A4@@HH@Z,0x00509DAB,four-argument __cdecl field parser called by parseMetaImpactNugget (0x002CC8A4); address-derived name; identity not recovered
+??0Made002CCBCA@@QAE@XZ,0x0050B8B3,ctor of the HordeAttackNugget object newed by parseHordeAttackNugget (0x002CCBCA); address-derived name; identity not recovered
+?q4Notify002CCBCA@@YAXPAXPAVMade002CCBCA@@HH@Z,0x0050B6F8,four-argument __cdecl field parser called by parseHordeAttackNugget (0x002CCBCA); address-derived name; identity not recovered
+??0Made002CCC2D@@QAE@XZ,0x0050BB0E,ctor of the SpawnAndFadeNugget object newed by parseSpawnAndFadeNugget (0x002CCC2D); address-derived name; identity not recovered
+?q4Notify002CCC2D@@YAXPAXPAVMade002CCC2D@@HH@Z,0x0050B8DB,four-argument __cdecl field parser called by parseSpawnAndFadeNugget (0x002CCC2D); address-derived name; identity not recovered
+??0Made002CC907@@QAE@XZ,0x0050AA97,ctor of the GrabNugget object newed by parseGrabNugget (0x002CC907); address-derived name; identity not recovered
+?q4Notify002CC907@@YAXPAXPAVMade002CC907@@HH@Z,0x0050A7E5,four-argument __cdecl field parser called by parseGrabNugget (0x002CC907); address-derived name; identity not recovered
+??0Made002CC64B@@QAE@XZ,0x00508BE5,ctor of the AttributeModifierNugget object newed by parseAttributeModifierNugget (0x002CC64B); address-derived name; identity not recovered
+?q4Notify002CC64B@@YAXPAXPAVMade002CC64B@@HH@Z,0x0050893A,four-argument __cdecl field parser called by parseAttributeModifierNugget (0x002CC64B); address-derived name; identity not recovered
+??0Made002CC6AE@@QAE@XZ,0x00508E11,ctor of the SpecialModelConditionNugget object newed by parseSpecialModelConditionNugget (0x002CC6AE); address-derived name; identity not recovered
+?q4Notify002CC6AE@@YAXPAXPAVMade002CC6AE@@HH@Z,0x00508D2F,four-argument __cdecl field parser called by parseSpecialModelConditionNugget (0x002CC6AE); address-derived name; identity not recovered
+??0Made002CC711@@QAE@XZ,0x00508F51,ctor of the ParalyzeNugget object newed by parseParalyzeNugget (0x002CC711); address-derived name; identity not recovered
+?q4Notify002CC711@@YAXPAXPAVMade002CC711@@HH@Z,0x00508EBF,four-argument __cdecl field parser called by parseParalyzeNugget (0x002CC711); address-derived name; identity not recovered
+??0Made002CCC90@@QAE@XZ,0x0050BD45,ctor of the LuaEventNugget object newed by parseLuaEventNugget (0x002CCC90); address-derived name; identity not recovered
+?q4Notify002CCC90@@YAXPAXPAVMade002CCC90@@HH@Z,0x0050BBEB,four-argument __cdecl field parser called by parseLuaEventNugget (0x002CCC90); address-derived name; identity not recovered
+??0Made002CCCF3@@QAE@XZ,0x0050BF8F,ctor of the FireLogicNugget object newed by parseFireLogicNugget (0x002CCCF3); address-derived name; identity not recovered
+?q4Notify002CCCF3@@YAXPAXPAVMade002CCCF3@@HH@Z,0x0050BDED,four-argument __cdecl field parser called by parseFireLogicNugget (0x002CCCF3); address-derived name; identity not recovered
+??0Made002CC971@@QAE@XZ,0x0050ABF7,ctor of the SlaveAttackNugget object newed by parseSlaveAttackNugget (0x002CC971); address-derived name; identity not recovered
+?q4Notify002CC971@@YAXPAXPAVMade002CC971@@HH@Z,0x0050AAEA,four-argument __cdecl field parser called by parseSlaveAttackNugget (0x002CC971); address-derived name; identity not recovered
+??0Made002CC9D4@@QAE@XZ,0x0050AEAB,ctor of the DamageContainedNugget object newed by parseDamageContainedNugget (0x002CC9D4); address-derived name; identity not recovered
+?q4Notify002CC9D4@@YAXPAXPAVMade002CC9D4@@HH@Z,0x0050ADB9,four-argument __cdecl field parser called by parseDamageContainedNugget (0x002CC9D4); address-derived name; identity not recovered
+??0Made002CCA37@@QAE@XZ,0x0050B1FC,ctor of the DOTNugget object newed by parseDOTNugget (0x002CCA37); address-derived name; identity not recovered
+?q4Notify002CCA37@@YAXPAXPAVMade002CCA37@@HH@Z,0x0050B13A,four-argument __cdecl field parser called by parseDOTNugget (0x002CCA37); address-derived name; identity not recovered
+??0Made002CCAA1@@QAE@XZ,0x0050B374,ctor of the OpenGateNugget object newed by parseOpenGateNugget (0x002CCAA1); address-derived name; identity not recovered
+?q4Notify002CCAA1@@YAXPAXPAVMade002CCAA1@@HH@Z,0x0050B23B,four-argument __cdecl field parser called by parseOpenGateNugget (0x002CCAA1); address-derived name; identity not recovered
+??0Made002CCB04@@QAE@XZ,0x0050B59B,ctor of the EmotionWeaponNugget object newed by parseEmotionWeaponNugget (0x002CCB04); address-derived name; identity not recovered
+?q4Notify002CCB04@@YAXPAXPAVMade002CCB04@@HH@Z,0x0050B42C,four-argument __cdecl field parser called by parseEmotionWeaponNugget (0x002CCB04); address-derived name; identity not recovered
+??0Made002CCB67@@QAE@XZ,0x0050B6B4,ctor of the StealMoneyNugget object newed by parseStealMoneyNugget (0x002CCB67); address-derived name; identity not recovered
+?q4Notify002CCB67@@YAXPAXPAVMade002CCB67@@HH@Z,0x0050B5F6,four-argument __cdecl field parser called by parseStealMoneyNugget (0x002CCB67); address-derived name; identity not recovered
