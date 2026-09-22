@@ -15484,3 +15484,4 @@ _bfmeHash1228,,0x0070F880,1504,Code/GameEngine/Source/Common/BfmeConv1228.cpp,ma
 ??1?$vector@UPrereqUnitRec@ProductionPrerequisite@@V?$allocator@UPrereqUnitRec@ProductionPrerequisite@@@_STL@@@_STL@@QAE@XZ,,0x002D040C,63,Code/GameEngine/Source/Common/Thing/ProductionPrerequisiteCtor.cpp,matched,EH teardown of the +0x00 prereq member via destroy range 0x2D02A8 plus _free 0x30830; called from ProductionPrerequisite dtor
 ??1ProductionPrerequisite@@QAE@XZ,,0x004F5115,80,Code/GameEngine/Source/Common/Thing/ProductionPrerequisiteCtor.cpp,matched,EH teardown of +0x18 plus +0x0C members via null-checked _free plus +0x00 via vector dtor 0x2D040C; ends where insert_aux begins
 ?bfmeLinkInto@MixFileInfoBuffer@@AAEXPAPAV1@@Z,,0x0052DBA4,39,Code/GameEngine/Source/Common/MixFileInfoBuffer_releaseInto.cpp,matched,
+?releaseInto@MixFileInfoBuffer@@QAEXPAX@Z,,0x0052DD41,35,Code/GameEngine/Source/Common/MixFileInfoBuffer_releaseInto.cpp,matched,
