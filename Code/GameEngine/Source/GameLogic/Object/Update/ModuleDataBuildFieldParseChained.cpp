@@ -638,3 +638,14 @@ void OpenContainModuleData::buildFieldParse(MultiIniFieldParse &parse)
 	parse.add(reinterpret_cast<const FieldParse *>(0x00C438B0), 0);
 	parse.add(reinterpret_cast<const FieldParse *>(Rva004CE52EGet()), 8);
 }
+
+// ?buildFieldParse@GarrisonContainModuleData@@SAXAAVMultiIniFieldParse@@@Z,
+// retail 0x00254F75 (27 bytes): base-table call above plus the Garrison
+// table at 0x00BF3360 (five of five BFME1 GarrisonContain fields in order).
+// The owning factory at 0x00254F90 pushes this proc's VA (unique
+// image-wide). Row supersedes the chained pin; HordeGarrison chains above.
+void GarrisonContainModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	OpenContainModuleData::buildFieldParse(parse);
+	parse.add(reinterpret_cast<const FieldParse *>(0x00BF3360), 0);
+}

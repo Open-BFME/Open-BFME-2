@@ -2366,7 +2366,6 @@ name,address,notes
 ?bfme_getDisplayName@MapMetaData@@QAE?AVUnicodeString@@_N@Z,0x00300C7E,recovered display-name accessor; bool enables player-count suffix using metadata+0x20 and wide format (%d); ret8
 ?buildFieldParse@DarknessSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x004C4D9E
 ?buildFieldParse@FreezingRainSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x004C4B86
-?buildFieldParse@GarrisonContainModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x00254F75,chained proc: base 0x46523D plus own table 0x007F3360 with 5 of 5 BFME1 GarrisonContain fields in order; factory 0x254F90 pushes its VA exclusively; HordeGarrison chains above at 0x47A029
 ?buildFieldParse@GrabPassengerSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x004C4F89
 ?buildFieldParse@MoneyCrateCollideModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x00251168,chained link: base CrateCollide proc 0x4BC7FE plus table 0xBEFABC (MoneyProvided at +0x5C single field); pushed as proc VA by ModuleData factory 0x256310
 ?buildFieldParse@MonsterDockUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x004A137F,chained link: calls rowed DockUpdateModuleData base proc 0x5896C1 then adds table 0xC51CE4 (DockableObjectFilter DockedAnimationTime); MonsterDockUpdate pool key plus Update ctor plus dtor in same 0x4A139A cluster
