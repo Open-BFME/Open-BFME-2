@@ -590,6 +590,18 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
+class CreateObjectDieIfEldestKindofModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+void CreateObjectDieIfEldestKindofModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	parse.add(reinterpret_cast<const FieldParse *>(Rva004CE52EGet()), 8);
+	parse.add(reinterpret_cast<const FieldParse *>(0x00C4A928), 0);
+}
+
 class CaveContainModuleData
 {
 public:
