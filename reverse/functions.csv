@@ -15750,3 +15750,4 @@ _rva002bcab_scanIndex,,0x0002BCAB,132,Code/GameEngine/Source/Common/System/INI_s
 ??0ReplenishUnitsBehaviorModuleData@@QAE@XZ,,0x004841CC,91,Code/GameEngine/Source/GameLogic/Object/Behavior/ReplenishUnitsBehaviorModuleDataCtor.cpp,matched,
 ??0?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@QAE@ABHABVMultiplayerColorDefinition@@@Z,,0x00380DEA,29,Code/GameEngine/Source/Common/MultiplayerColorPairConstructor.cpp,matched,
 ?lookup@RetailColorList@@QAEPAVMultiplayerColorDefinition@@PAH@Z,,0x003812E6,141,Code/GameEngine/Source/Common/MultiplayerColorMapOperator.cpp,matched,
+?erase@?$vector@UBfmePod8@@V?$allocator@UBfmePod8@@@_STL@@@_STL@@QAEPAUBfmePod8@@PAU3@0@Z,,0x003FA4DB,36,Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_malloc_bodies.cpp,matched,Placed by TU emission plus caller resize at 0x5FF96A; copy-ptrs wrapper pin settles callee
