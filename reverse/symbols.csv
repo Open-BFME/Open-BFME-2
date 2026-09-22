@@ -4009,3 +4009,4 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ?bfmeSumBuildingsDestroyed20@ScoreKeeper@@AAEHPBH@Z,0x0039B72B
 ??1BfmeMappedValueEBD@@QAE@XZ,0x0038240F
 ?bfmeGo1029E@BfmeE1029@@QAEXPADH@Z,0x006557F0,BFME1 alias of rowed set at Rva006557F0Holder (same 33B body) for Rva007F7DA0GameBrowserTicket donor call
+?ExecCommand@Debug@@AAE_NPBD0@Z,0x00039E20,bool-returning ExecCommand (retail exits load al: xor al/al and a saved byte); REL32 from Debug::Command 0x0003B664
