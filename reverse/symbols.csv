@@ -853,7 +853,6 @@ name,address,notes
 ??1__Named_exception@_STL@@UAE@XZ,0x00023850,address read from the REL32 displacement in logic_error and runtime_error's destructors; the body there is held as bad_alloc's destructor and the two folded
 ??1ios_base@_STL@@UAE@XZ,0x0001C220,STLport 4.5.3 ios_base destructor; address read from the basic_ios<char> and basic_ios<wchar_t> destructor tail jumps
 ??2@YAPAXI@Z,0x0002FDA0
-??2Bucket@@SAPAXIW4BucketMagicEnum@0@@Z,0x001B6400
 ??2Gen007F0130@@SAPAXI@Z,0x0065D010
 ??2Gen007F0150@@SAPAXI@Z,0x0065D010
 ??3@YAXPAX@Z,0x0002FD60,BFME2 scalar operator delete; guarded game-allocator release used by transport replacement
