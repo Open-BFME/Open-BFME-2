@@ -4759,3 +4759,4 @@ _bfmeAppend,0x0060D5F2,callee of bfmeEmit (0x0060D7C0) at the site its BFME1 don
 ??0Rva0013A820@@QAE@XZ,0x0050C4C6,callee of 0BfmeD1191 (0x0050C62D) at the site its BFME1 donor calls it; may be an ICF alias
 ?supportTextureFormat@W3DRadarFormatCaps@@QAE_NW4WW3DFormat@@@Z,0x0012B1A0,callee of findFormat (0x0004D803) at the site its BFME1 donor calls it; may be an ICF alias
 ?_M_initialize_map@?$_Deque_base@PAVSightingInfo@@V?$allocator@PAVSightingInfo@@@_STL@@@_STL@@IAEXI@Z,0x006203D0,callee of 0?$deque (0x006209D0) at the site its unit calls it; may be an ICF alias
+??0GenBase009A1A30@@QAE@XZ,0x001B4E63,BFME1 donor name for the base ctor called by Rva001129B0 (0x0005107D); retail calls SubsystemInterface ctor 0x001B4E63 there (alias)

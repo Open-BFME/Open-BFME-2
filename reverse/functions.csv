@@ -16836,3 +16836,4 @@ _rva0060E7F0,,0x00211245,100,Code/GameEngine/Source/GameLogic/Rva0060E7F0BattleM
 ??0LogicalDecalClass@MultiFixedPoolDecalSystemClass@@QAE@XZ,,0x00143D40,39,Code/Libraries/Source/WWVegas/WW3D2/decalsys.cpp,matched,BSim pair of the BFME1 function this unit defines; byte-verified with callees pinned
 ??0?$deque@PAVSightingInfo@@V?$allocator@PAVSightingInfo@@@_STL@@@_STL@@QAE@ABV?$allocator@PAVSightingInfo@@@1@@Z,,0x006209D0,46,Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp,matched,BSim pair of the BFME1 function this unit defines; byte-verified with callees pinned
 _bfmeFormatText,,0x0060C36E,85,Code/GameEngine/Source/Common/Gen009D6220.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
+??0Rva001129B0@@QAE@XZ,,0x0005107D,32,Code/GameEngine/Source/Common/S2DualVptrDerivedCtors.cpp,matched,BSim pair of the BFME1 dual-vptr ctor; BFME2 first base is 0xC bytes
