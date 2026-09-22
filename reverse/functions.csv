@@ -15462,3 +15462,4 @@ _bfmeHash1228,,0x0070F880,1504,Code/GameEngine/Source/Common/BfmeConv1228.cpp,ma
 ?friend_newModuleInstance@AssaultTransportAIUpdate@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z,,0x0024D263,59,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AssaultTransportAIUpdateFriendNew.cpp,matched,
 ??0AssaultTransportAIUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,,0x0048F5A3,89,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AssaultTransportAIUpdateCtor.cpp,matched,
 ?Rva0048F365Helper@AssaultTransportAIUpdate@@QAEXXZ,,0x0048F365,93,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AssaultTransportAIUpdateHelper.cpp,matched,
+?OnStatusUpdate@DownloadManager@@UAEJH@Z,,0x005E06E5,219,Code/GameEngine/Source/GameNetwork/DownloadManagerOnStatusUpdate.cpp,matched,structural serve; ZH donor divergences proven: downloaddefs enum order; raw FTP literals; fetch AsciiString slot 0x38 via overload reversal; m_statusString +0x14
