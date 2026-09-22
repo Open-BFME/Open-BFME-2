@@ -16845,3 +16845,4 @@ _bfmeFormatText,,0x0060C36E,85,Code/GameEngine/Source/Common/Gen009D6220.cpp,mat
 ?DebugIsWindowed@@YA_NXZ,,0x000385E0,14,Code/Libraries/Source/WWVegas/WWDebug/DebugIsWindowedWrapper.cpp,matched,tail call to theDebug IsWindowed virtual slot 0xAC; descriptive name
 ?RaiseExceptionHook@@YGXKKKPBK@Z,,0x0003E1C0,160,Code/Libraries/Source/WWVegas/WWDebug/DebugRaiseExceptionHook.cpp,matched,BFME1 dump twin b1 0x0088E8D0; reports throws to ExceptionFilter when windowed
 ?InstallRaiseExceptionHook@@YA_NXZ,,0x0003E260,252,Code/Libraries/Source/WWVegas/WWDebug/DebugRaiseExceptionHook.cpp,matched,BFME1 dump twin b1 0x0088E970; msvcrt IAT patch of RaiseException
+?allocate@?$allocator@UBfmePod144@@@_STL@@QBEPAUBfmePod144@@IPBX@Z,,0x00051A79,28,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_pod144_allocator.cpp,matched,Pod144 imul-0x90 allocator via /G7 shard; home TU stays /O1 per flag-split law; byte allocator 0x307F0 rowed under TU spelling
