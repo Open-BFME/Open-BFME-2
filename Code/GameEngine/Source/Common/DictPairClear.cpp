@@ -43,6 +43,7 @@ public:
 		void *m_value;
 
 		void clear();
+		void setNameAndType(int key, DataType type);
 	};
 
 	struct DictPairData
@@ -94,4 +95,12 @@ void Dict::releaseData()
 		src->clear();
 	free(m_data);
 	m_data = 0;
+}
+
+// ?setNameAndType@DictPair@Dict@@QAEXHW4DataType@Dict@@@Z @0x00313376
+void Dict::DictPair::setNameAndType(int key, DataType type)
+{
+	if ((m_key & 0xFF) != type)
+		clear();
+	m_key = (key << 8) | type;
 }

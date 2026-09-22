@@ -15561,3 +15561,4 @@ _bfmeHash1228,,0x0070F880,1504,Code/GameEngine/Source/Common/BfmeConv1228.cpp,ma
 ?releaseData@Dict@@AAEXXZ,,0x0031339C,69,Code/GameEngine/Source/Common/DictPairClear.cpp,matched,Dict releaseData over pairs through rowed clear plus rowed free
 ?getLink@Waypoint@@QBEPAV1@H@Z,,0x00085404,24,Code/GameEngine/Source/GameLogic/Map/WaypointLinks.cpp,matched,Waypoint link getter via bounds plus array; row supersedes pin
 ?addLink@Waypoint@@QAEXPAV1@@Z,,0x00272306,25,Code/GameEngine/Source/GameLogic/Map/WaypointLinks.cpp,matched,Waypoint link setter via count plus source; row supersedes pin
+?setNameAndType@DictPair@Dict@@QAEXHW4DataType@2@@Z,,0x00313376,35,Code/GameEngine/Source/Common/DictPairClear.cpp,matched,Dict pair key plus type store with clear on change
