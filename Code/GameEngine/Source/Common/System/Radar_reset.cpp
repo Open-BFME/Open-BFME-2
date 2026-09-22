@@ -123,3 +123,11 @@ void Radar::clearAllEvents()
 		body = (RadarEventBody *)((char *)body + 0x50);
 	} while (--left != 0);
 }
+
+// ?release@RadarEventRef@@QAEXXZ
+void RadarEventRef::release()
+{
+	if (--m_refCount != 0)
+		return;
+	m_deleter();
+}
