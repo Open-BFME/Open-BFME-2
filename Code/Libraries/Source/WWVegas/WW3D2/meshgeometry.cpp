@@ -123,11 +123,24 @@ static SimpleVecClass<Vector4> _PlaneEQArray(1024);
 static SimpleVecClass<Vector3> _VNormArray(1024);
 #endif
 
-// ?Compute_Ram_Size@MeshGeometryClass@@QAEHXZ present-unmatched
+// ?Compute_Ram_Size@MeshGeometryClass@@QAEHXZ, retail 0x0016ADC0 (173B).
+// BFME2 divergence from the BFME1 donor (base 0x194): the base is 0x18C
+// and it is folded into the first entry's bias (0x42 * 6 == 0x18C, so the
+// first entry assigns instead of accumulating); buffers at 0x40/0x44/
+// 0x5c/0x60 are gone; per-buffer element sizes changed (0x38/0x34/0x3c
+// are 12 wide, 0x48 is 16 wide, 0x50/0x54 are 2 wide, 0x58 is 1 wide);
+// entry order is 0x2c/0x30/0x38/0x34/0x3c/0x48/0x4c/0x50/0x54/0x58; the
+// cull tree moved from +0x90 to +0x88 (same 8-byte shrink as the
+// MeshModel repair). The rowed MeshModel override calls this base body.
 int MeshGeometryClass::Compute_Ram_Size(void)
 {
-	int size = 0x194;
+	int size = 0x18C;
 	const char * object = reinterpret_cast<const char *>(this);
+
+	const char * firstBuffer = *reinterpret_cast<const char * const *>(object + 0x2c);
+	if (firstBuffer != NULL) {
+		size = (*reinterpret_cast<const int *>(firstBuffer + 0x10) + 0x42) * 6;
+	}
 
 #define ADD_SHARED_BUFFER_SIZE(offset, element_size) \
 	do { \
@@ -137,24 +150,19 @@ int MeshGeometryClass::Compute_Ram_Size(void)
 		} \
 	} while (0)
 
-	ADD_SHARED_BUFFER_SIZE(0x2c, 6);
 	ADD_SHARED_BUFFER_SIZE(0x30, 12);
-	ADD_SHARED_BUFFER_SIZE(0x38, 4);
-	ADD_SHARED_BUFFER_SIZE(0x40, 12);
-	ADD_SHARED_BUFFER_SIZE(0x48, 4);
+	ADD_SHARED_BUFFER_SIZE(0x38, 12);
 	ADD_SHARED_BUFFER_SIZE(0x34, 12);
-	ADD_SHARED_BUFFER_SIZE(0x3c, 4);
-	ADD_SHARED_BUFFER_SIZE(0x44, 12);
+	ADD_SHARED_BUFFER_SIZE(0x3c, 12);
+	ADD_SHARED_BUFFER_SIZE(0x48, 16);
 	ADD_SHARED_BUFFER_SIZE(0x4c, 4);
-	ADD_SHARED_BUFFER_SIZE(0x50, 16);
-	ADD_SHARED_BUFFER_SIZE(0x54, 4);
-	ADD_SHARED_BUFFER_SIZE(0x58, 2);
-	ADD_SHARED_BUFFER_SIZE(0x5c, 2);
-	ADD_SHARED_BUFFER_SIZE(0x60, 1);
+	ADD_SHARED_BUFFER_SIZE(0x50, 2);
+	ADD_SHARED_BUFFER_SIZE(0x54, 2);
+	ADD_SHARED_BUFFER_SIZE(0x58, 1);
 
 #undef ADD_SHARED_BUFFER_SIZE
 
-	AABTreeClass * tree = *reinterpret_cast<AABTreeClass * const *>(object + 0x90);
+	AABTreeClass * tree = *reinterpret_cast<AABTreeClass * const *>(object + 0x88);
 	if (tree != NULL) {
 		size += tree->Compute_Ram_Size();
 	}

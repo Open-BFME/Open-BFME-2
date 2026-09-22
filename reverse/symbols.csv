@@ -1042,7 +1042,6 @@ name,address,notes
 ?Collide@CollisionMath@@SA_NABVLineSegClass@@ABVAABoxClass@@PAUCastResultStruct@@@Z,0x007146E0
 ?Collide@CollisionMath@@SA_NABVLineSegClass@@ABVOBBoxClass@@PAUCastResultStruct@@@Z,0x00714860,address read from the REL32 displacement at a placed body
 ?Combo_Update@HTreeClass@@QAEXABVMatrix3D@@PAVHAnimComboClass@@@Z,0x00165820,address read from the REL32 displacement at a placed body
-?Compute_Ram_Size@MeshGeometryClass@@QAEHXZ,0x0016ADC0
 ?Compute_Ram_Size@MeshMatDescClass@@QAEHXZ,0x0015CAE0
 ?Control_Bone@HTreeClass@@QAEXHABVMatrix3D@@_N@Z,0x00162060,address read from the REL32 displacement at a placed body
 ?ConvertShortMapPathToLongMapPath@@YAXAAV?$StringBase@D@@0@Z,0x003BA06E,BFME2 extension of BFME1 CommandLine map normalizer; independently audited complete 453B body through RET3BA232; first string ref receives slash/token/.map reconstructed path; second string ref receives token plus timestamp label via format38150; cdecl two-reference ABI

@@ -15451,3 +15451,4 @@ _bfmeHash1228,,0x0070F880,1504,Code/GameEngine/Source/Common/BfmeConv1228.cpp,ma
 ?friend_newModuleData@CreateObjectDieIfEldestKindofModuleData@@SAPAVModuleData@@PAVINI@@@Z,,0x0024C8C1,81,Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDieIfEldestKindofModuleDataFriendNew.cpp,matched,Dedicated TU news 0x4C over pinned ctor 0x485D88 plus rowed proc 0x485A74; poolkey 0x485A2F ends where proc begins; shared ctor with derived 0x485E19
 ?bfmeQuery1279@BfmeQuery1279@@QAEXHHPAPAX0@Z,,0x006F6BB0,297,Code/Libraries/Source/Apt/AptDisplayList.cpp,matched,
 ??0BridgeScaffoldBehaviorModuleData@@QAE@XZ,,0x00457FF1,89,Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeScaffoldBehaviorModuleDataCtor.cpp,matched,BridgeScaffold ModuleData ctor via UpdateModuleData base plus coordinate lists
+?Compute_Ram_Size@MeshGeometryClass@@QAEHXZ,,0x0016ADC0,173,Code/Libraries/Source/WWVegas/WW3D2/meshgeometry.cpp,matched,
