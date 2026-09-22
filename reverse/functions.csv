@@ -15470,3 +15470,4 @@ _bfmeHash1228,,0x0070F880,1504,Code/GameEngine/Source/Common/BfmeConv1228.cpp,ma
 ?Render_Obj_Exists_Impl@AssetRegistry@@QAE_NPBD@Z,,0x00621170,170,Code/GameEngineDevice/Source/W3DDevice/GameClient/Render_Obj_Exists_Impl.cpp,matched,
 ??0WallHubBehaviorModuleData@@QAE@XZ,,0x00453020,148,Code/GameEngine/Source/GameLogic/Object/Behavior/WallHubBehaviorModuleDataCtor.cpp,matched,
 ?bfmeGetEME@BfmeObjEME@@QAEPAXPAX@Z,,0x006212E0,200,Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeObjEME_bfmeGetEME.cpp,matched,
+?calcHashForLowercaseString@@YAIPBD@Z,,0x0061FCA0,49,Code/GameEngine/Source/Common/namekey_hash_lowercase.cpp,matched,

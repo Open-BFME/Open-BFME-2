@@ -40,9 +40,10 @@
 #include "PreRTS.h"
 
 // The lowercase hash this body calls lives at 0x0061FCA0 in BFME2 retail
-// (case-insensitive DJB2; the ledger pin carries the address-derived name).
-// Declared under that pinned name so the out-of-line call resolves.
-unsigned int Rva0061FCA0Hash(const char *p);
+// (case-insensitive DJB2, landed as calcHashForLowercaseString in
+// namekey_hash_lowercase.cpp). Declared under that rowed name so the
+// out-of-line call resolves.
+unsigned int calcHashForLowercaseString(const char *p);
 
 //------------------------------------------------------------------------------------------------- 
 NameKeyType NameKeyGenerator::nameToLowercaseKey(const char* nameString)
@@ -60,7 +61,7 @@ NameKeyType NameKeyGenerator::nameToLowercaseKey(const char* nameString)
 	if (nameString == NULL)
 		return NAMEKEY_INVALID;
 
-	UnsignedInt hash = Rva0061FCA0Hash(nameString) % SOCKET_COUNT;
+	UnsignedInt hash = calcHashForLowercaseString(nameString) % SOCKET_COUNT;
 
 	// hmm, do we have it already?
 	for (LegacyBucket *b = sockets[hash]; b; b = b->m_nextInSocket)

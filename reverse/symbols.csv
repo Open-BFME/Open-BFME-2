@@ -1297,7 +1297,6 @@ name,address,notes
 ?Rva0050ED3@PoolMember@@QAEXXZ,0x0050ED3,opaque pool-member method (refcounted-deleter shape: InterlockedDecrement at +4 then dtor+free); called on +8 member-pointer with null check from vptr-body 0x4E18A2; member type opaque; identity unproven
 ?Rva0061F0D0_Contains@@YA_NPBD@Z,0x0061F0D0,28B registry contains-check (null name/registry answers false else tail-calls lookup 0xA21170); called with lowercased a*-key from AnimExists 0x14CE5D
 ?Rva0061F230_GetPrototype@@YA?AVHierarchyPrototypeRef@@PBD@Z,0x0061F230,asset-registry prototype lookup returning counted HierarchyPrototypeRef via hidden slot (null name writes null ref); called with lowercased h* key from Get_HTree 0x17FCCA and sibling 0x17FB1E plus 14 render-asset sites; BFME1 GetHTree analog
-?Rva0061FCA0Hash@@YAIPBD@Z,0x0061FCA0,Case-insensitive DJB2 (tolower fold via import, times 0x21) over name bytes; free cdecl fn; FindOrCreatePrototypeId +0x17 direct call target; ghidra 49B
 ?Rva006276E0@ShroudManager@@QAEXPBURegion3D@@@Z,0x006276E0,opaque ShroudManager method behind PartitionManager thunk 0x625300 (region address arg); identity unproven
 ?Rva00627810@ShroudManager@@QAEXPAX@Z,0x00627810,opaque ShroudManager method behind PartitionManager thunk 0x625320 (address arg); identity unproven
 ?Rva00627E40@ShroudManager@@QAEXH@Z,0x00627E40,opaque ShroudManager method behind PartitionManager thunk 0x625310 (int arg); identity unproven
