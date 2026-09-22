@@ -15675,3 +15675,4 @@ _bfmeHash1228,,0x0070F880,1504,Code/GameEngine/Source/Common/BfmeConv1228.cpp,ma
 ?bfmeComputeBVID@BfmePartBVID@@QAEHXZ,,0x00195CC0,22,Code/GameEngine/Source/Common/BfmeConv1372Compute.cpp,matched,BfmePartBVID rounded span plus base; G7 keeps retail load order
 _rva002bcab_scanIndex,,0x0002BCAB,132,Code/GameEngine/Source/Common/System/INI_scanIndexList.cpp,matched,Index-list worker behind member scanIndexList; cursor plus index homes plus entry-first stricmp plus positive doThrow tail; true name unproven
 ?aiIdle@AICommandInterface@@QAEXW4CommandSourceType@@@Z,,0x001E8A38,92,Code/GameEngine/Source/GameLogic/AI/AICommandInterfaceAttackCommands.cpp,matched,AI idle via parms plus slot-0 doCommand plus inline free
+?bfmeEraseVMU@BfmeListVMU@@QAEXPAPAVBfmeNodeVMU@@@Z,,0x006D1C90,116,Code/GameEngine/Source/Common/BfmeConv1474.cpp,matched,BFME1 BfmeConv1474 donor with sized-pool-free repair; b1 0x00896A80
