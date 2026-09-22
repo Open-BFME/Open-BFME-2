@@ -583,3 +583,29 @@ void GiveUpgradeUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
 	Rva0044EB54::buildFieldParse(parse);
 	parse.add(reinterpret_cast<const FieldParse *>(0x00C511A0), 0);
 }
+
+class OpenContainModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class CaveContainModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+// ?buildFieldParse@CaveContainModuleData@@SAXAAVMultiIniFieldParse@@@Z,
+// retail 0x0024B77C (27 bytes): base-table call above plus the CaveContain
+// table at 0x00BEEAC8 (CaveIndex at +0x98). The field matches BFME1's
+// CaveContainModuleData table verbatim at the identical offset (vote 1/1).
+// The owning factory at 0x00257714 pushes this proc's VA (unique
+// image-wide); the CaveContain pool key plus name getter are rowed in their
+// own file-unit. The TimeForFullHeal factory shares the class ctor (fold);
+// that name stays unclaimed.
+void CaveContainModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	OpenContainModuleData::buildFieldParse(parse);
+	parse.add(reinterpret_cast<const FieldParse *>(0x00BEEAC8), 0);
+}
