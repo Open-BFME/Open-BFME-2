@@ -298,6 +298,25 @@ void CrushDieModuleData::buildFieldParse(MultiIniFieldParse &parse)
 	parse.add(reinterpret_cast<const FieldParse *>(0x00BF0868), 0);
 }
 
+class KeepObjectDieModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+// ?buildFieldParse@KeepObjectDieModuleData@@SAXAAVMultiIniFieldParse@@@Z
+// retail 0x00253B95 (34 bytes): double-add on the rowed Die getter 0x4CE52E
+// with extraOffset 8 then the KeepObjectDie table at 0x00BF0994
+// (CollapsingTime at +0x38 plus StayOnRadar at +0x3C matching the ctor
+// stores 0x19/0 at 0x253B78). The owning ModuleData factory at 0x00253BB7
+// pushes this proc VA (unique image-wide) and the ModuleFactory registrar
+// at 0x00258D9B maps the KeepObjectDie INI name to that factory.
+void KeepObjectDieModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	parse.add(reinterpret_cast<const FieldParse *>(Rva004CE52EGet()), 8);
+	parse.add(reinterpret_cast<const FieldParse *>(0x00BF0994), 0);
+}
+
 class SpecialPowerCompletionDieModuleData
 {
 public:
