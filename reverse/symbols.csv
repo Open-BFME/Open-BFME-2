@@ -4769,3 +4769,5 @@ _bfmeAppend,0x0060D5F2,callee of bfmeEmit (0x0060D7C0) at the site its BFME1 don
 ?DebugGetDefaultCommands@@YAPBDXZ,0x000D43D0,release build returns NULL and ICF-folds into the shared xor eax/eax ret body; REL32 from Debug::PostStaticInit 0x0003A4FB
 ?IsOldDbghelp@DebugStackwalk@@SA_NXZ,0x0003C100,returns g_oldDbghelp (0x00DE08A8) as in debug_stack.cpp; REL32 from Debug::PostStaticInit 0x0003A54B
 ?GetDbghelpHandle@DebugStackwalk@@SAPAXXZ,0x0003C0F0,returns g_dbghelp (0x00DE08AC) as in debug_stack.cpp; its result feeds GetModuleFileNameA in Debug::PostStaticInit
+?FrameEnd@ProfileId@@SAXHH@Z,0x006C6220,Profile::StopRange 0x006C5907 passes the high-level index (FrameName+0x10) and the mix index as in profile.cpp
+?FrameEnd@ProfileFuncLevelTracer@@SAXHH@Z,0x006C83A0,Profile::StopRange 0x006C591E passes the function-level index (FrameName+0x14) and the mix index as in profile.cpp
