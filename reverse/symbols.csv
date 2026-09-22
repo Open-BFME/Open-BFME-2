@@ -1800,7 +1800,6 @@ name,address,notes
 ?bfmeAttachCFF@BfmeOwnerCFF@@QAEXPAVBfmeThingCFF@@@Z,0x002AE228
 ?bfmeBase969D@BfmeD969@@QAEXXZ,0x00666BA0
 ?bfmeBase994C@BfmeC994@@QAEXXZ,0x00655770
-?bfmeBaseTC@BfmeThingTC@@QAEXXZ,0x0031454D
 ?bfmeBaseTL@BfmeThingTL@@QAEPAV1@PAXH@Z,0x0001C6F0
 ?bfmeBaseUNC@BfmeThingUNC@@QAEXXZ,0x00674AD0
 ?bfmeBaseVHC@BfmeThingVHC@@QAEXPAVBfmeMsgVHC@@@Z,0x00668130
