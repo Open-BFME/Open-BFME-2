@@ -2939,7 +2939,6 @@ name,address,notes
 ?recalculate@LineSegClass@@IAEXXZ,0x0006A1E4,address read from the REL32 displacement at a placed body; stlport 4.5.3
 ?recenterTurret@AIUpdateInterface@@QAEXW4WhichTurretType@@@Z,0x0026266C,retail E8 from BattlePlanUpdate::recenterTurret at 0x00497786; one-int-arg thiscall delegating via turret array +0x20C; ZH AIUpdate.h non-virtual role
 ?recenterTurret@TurretAI@@QAEXXZ,0x004D8298,address read from the retail REL32 at 0x0026267B in AIUpdateInterface::recenterTurret; 11B delegate matching TurretAI::recenterTurret
-?refreshPair@Rva00699180Owner@@QAEXHH@Z,0x00051ED6
 ?regainFocus@AudioManager@@QAEXXZ,0x001DBC0B,address read from the REL32 in WndProc's WM_ACTIVATE arm at 0x000018D7; the call site encodes this jump thunk, not the body
 ?registerObject@PartitionManager@@QAEXPAVObject@@@Z,0x002D7FEC,first call in Object::friend_notifyOfNewMapBoundary 0x28B5EE with ecx=TheRadar global and Object* arg; B1 casts TheRadar to PartitionManager for this call
 ?release@BfmeTail60@@QAEXXZ,0x00036410,folds with StringBase/AsciiString teardown at this address; read from REL32 at placed resize 0x6BFCB0

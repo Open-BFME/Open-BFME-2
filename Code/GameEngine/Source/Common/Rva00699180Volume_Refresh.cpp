@@ -10,9 +10,9 @@
 // #pragma optimize("y", off) keeps its ebp frame while frameless
 // refreshAll keeps the sibling-loop shape (no this reload); the clamp
 // section is a rolled 0..3 loop here, and setVolumes is not claimed.
-// Only refreshAll is rowed: refreshPair below is marked present-unmatched
-// (293 of 296 bytes; one 3-byte merge-scheduling region differs) but its
-// definition must stay in-TU for refreshAll's shape.
+// Both bodies rowed: the m_scale reference local (float &scale) forces the
+// scale-first mulss operand order retail shows (plain member reorder is
+// commutative-inert); the pointer homes to eax via lea like retail.
 
 class Rva00699180Owner
 {
@@ -36,7 +36,7 @@ extern "C" void *memcpy(void *dst, const void *src, unsigned int n);
 extern "C" void *memset(void *dst, int v, unsigned int n);
 
 #pragma optimize("y", off)
-// ?refreshPair@Rva00699180Owner@@QAEXHH@Z present-unmatched
+// ?refreshPair@Rva00699180Owner@@QAEXHH@Z
 void Rva00699180Owner::refreshPair(int a, int b)
 {
 	int idx = b + a * 2;
@@ -56,9 +56,10 @@ void Rva00699180Owner::refreshPair(int a, int b)
 		slot[0] = *((float *)((char *)this + 4 + idx * 4)) * ((float *)0x00DB3F64)[a] * m_vol;
 		if (b == 1)
 			slot[0] = slot[0] * m_atten;
-		slot[1] = slot[0] * m_scale;
+		float &scale = m_scale;
+		slot[1] = scale * slot[0];
 		slot[2] = m_product[a] * slot[0];
-		slot[3] = slot[2] * m_scale;
+		slot[3] = scale * slot[2];
 
 		for (int i = 0; i < 4; ++i)
 		{
