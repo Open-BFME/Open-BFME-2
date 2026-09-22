@@ -17,6 +17,7 @@
 
 class Object;
 class Team;
+struct Coord3D;
 
 class Object
 {
@@ -54,6 +55,7 @@ public:
 	virtual void slot30();
 	virtual void slot34();
 	virtual void setGoalObject(Object* obj);
+	void setGoalPosition(const Coord3D* pos);
 	int getCurrentStateID() const;
 	TurretState* m_state;
 };
@@ -123,6 +125,34 @@ void TurretAI::setTurretTargetObject(Object* victim, bool forceAttacking)
 		if (sid != TURRETAI_AIM && sid != TURRETAI_FIRE)
 			m_machine->setState(TURRETAI_AIM);
 		m_victimInitialTeam = victim->getTeam();
+	}
+	else
+	{
+		if (sid == TURRETAI_AIM || sid == TURRETAI_FIRE)
+			m_machine->setState(TURRETAI_HOLD);
+		m_victimInitialTeam = 0;
+	}
+}
+
+void TurretAI::setTurretTargetPosition(const Coord3D* pos)
+{
+	if (!pos || !isOwnersCurWeaponOnTurret())
+		pos = 0;
+
+	removeSelfAsTargeter();
+
+	m_machine->setGoalObject(0);
+	if (pos)
+		m_machine->setGoalPosition(pos);
+	m_target = pos ? TARGET_POSITION : TARGET_NONE;
+	m_targetWasSetByIdleMood = false;
+
+	int sid = m_machine->getCurrentStateID();
+	if (pos)
+	{
+		if (sid != TURRETAI_AIM && sid != TURRETAI_FIRE)
+			m_machine->setState(TURRETAI_AIM);
+		m_victimInitialTeam = 0;
 	}
 	else
 	{
