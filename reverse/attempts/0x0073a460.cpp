@@ -1,3 +1,5 @@
+// ?d_008f7ec0@BfmeThingCDE@@QAEXXZ
+// partial score=0.8 date=2026-09-22
 // cl: /DNDEBUG /MD /EHs-c- /O2 /Ob2
 // ?bfmeDtorCDE@BfmeThingCDE@@QAEXXZ
 //
@@ -40,6 +42,21 @@ public:
 	void *m_14;
 };
 
+struct CDEArraySlot
+{
+	void *activeNode;
+	int unused04;
+	void *prevNode;
+	void *nextNode;
+};
+
+struct CDEListNode
+{
+	void *nextNode;
+	int unused04;
+	void *prevNode;
+};
+
 class BfmeThingCDE
 {
 public:
@@ -57,9 +74,9 @@ public:
 	CDELinkNode *m_next;
 	void *m_array;
 	int m_count;
-	int m_values[20];
-	int m_slots[20];
-	unsigned char m_status[20];
+	int m_values[16];
+	int m_slots[16];
+	unsigned char m_status[16];
 	int m_bfmeB4;
 	int m_bfmeB8;
 	int m_bfmeBC;
@@ -77,49 +94,25 @@ public:
 void __stdcall ArrayDeleteHelperBodyThunk(void *, unsigned, unsigned, void *);
 extern void __cdecl operator delete[](void *);
 
-bool BfmeThingCDE::bfmeCheckABI()
+void BfmeThingCDE::d_008f7ec0()
 {
-	d_008f7990();
-
-	if (m_ptr8 == 0)
-		return false;
-
-	unsigned int i = 0;
-	int *value = &m_values[1];
-
-	for (; i < 20; i += 5, value += 5)
+	CDEArraySlot *curSlot = (CDEArraySlot *)m_array;
+	CDEArraySlot *endSlot = (CDEArraySlot *)((char *)curSlot + (m_count << 4));
+	if (curSlot == endSlot)
+		return;
+	while (curSlot != endSlot)
 	{
-		if (m_status[i] && value[-1] == 3)
-			break;
-		if (m_status[i + 1] && value[0] == 3)
-		{
-			++i;
-			break;
-		}
-		if (m_status[i + 2] && value[1] == 3)
-		{
-			i += 2;
-			break;
-		}
-		if (m_status[i + 3] && value[2] == 3)
-		{
-			i += 3;
-			break;
-		}
-		if (m_status[i + 4] && value[3] == 3)
-		{
-			i += 4;
-			break;
-		}
+		if (curSlot->activeNode == 0)
+			return;
+		void *nextNode = curSlot->nextNode;
+		curSlot->activeNode = 0;
+		if (nextNode != 0)
+			((CDEListNode *)nextNode)->prevNode = curSlot->prevNode;
+		void *prevNode = curSlot->prevNode;
+		void *linkNode = curSlot->nextNode;
+		curSlot = (CDEArraySlot *)((char *)curSlot + 0x10);
+		((CDEListNode *)prevNode)->nextNode = linkNode;
 	}
-
-	if (i == 20)
-		return false;
-
-	m_ptr4->f3(0);
-	m_ptr4 = 0;
-	((CDELeading *)m_ptr8)->f1();
-	return true;
 }
 
 void BfmeThingCDE::bfmeDtorCDE()
