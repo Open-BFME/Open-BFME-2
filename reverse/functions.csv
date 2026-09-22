@@ -15783,3 +15783,4 @@ _Rva00819F50,,0x00685E50,1036,Code/Libraries/Source/DirtySock/Rva00819F50Comm.cp
 ?LocalSETranslator@@YAXIPAU_EXCEPTION_POINTERS@@@Z,,0x00038760,14,Code/Libraries/Source/debug/debug_debug.cpp,matched,ZH SE translator forwarding to ExceptionFilter
 ?InstallExceptionHandler@Debug@@SAXXZ,,0x00038770,13,Code/Libraries/Source/debug/debug_debug.cpp,matched,ZH _set_se_translator(LocalSETranslator)
 ?SetBuildInfo@Debug@@UAEXPBD00@Z,,0x00039510,129,Code/Libraries/Source/WWVegas/WWDebug/DebugSetBuildInfo.cpp,matched,BFME1 donor b1 0x0088A430 plus memset per field; vtable slot 0x9C
+?StaticExit@Debug@@CAXXZ,,0x000399C0,147,Code/Libraries/Source/WWVegas/WWDebug/DebugStaticExit.cpp,matched,ZH StaticExit plus BFME2 refcount / critical section / errors.txt shell open
