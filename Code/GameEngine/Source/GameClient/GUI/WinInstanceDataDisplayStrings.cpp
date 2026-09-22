@@ -100,9 +100,11 @@ class WinInstanceData
 {
 public:
 	void setTooltipText(UnicodeString tip);
+	void setText(UnicodeString text);
 
 private:
-	char m_pad[0x1A0];
+	char m_pad[0x19C];
+	DisplayString *m_text;
 	DisplayString *m_tooltip;
 };
 
@@ -115,4 +117,15 @@ void WinInstanceData::setTooltipText(UnicodeString tip)
 
 	// set text
 	m_tooltip->setText(tip);
+}
+
+// ?setText@WinInstanceData@@QAEXVUnicodeString@@@Z
+void WinInstanceData::setText(UnicodeString text)
+{
+	// allocate a text display string if needed
+	if (m_text == NULL)
+		m_text = TheDisplayStringManager->newDisplayString();
+
+	// set text
+	m_text->setText(text);
 }
