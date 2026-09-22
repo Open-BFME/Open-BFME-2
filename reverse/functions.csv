@@ -16490,3 +16490,5 @@ __heap_abort,,0x000398A0,80,Code/Libraries/Source/WWVegas/WWDebug/DebugHeapAbort
 ?parseFXList@INI@@SAXPAV1@PAX1PBX@Z,,0x00338A09,102,Code/GameEngine/Source/Common/System/INI_parseFXList.cpp,matched,ToppleFX and FireFlankFX FieldParse rows point here; ZH parseFXList with BFME2 INIException throw
 ?parseParticleSystemTemplate@INI@@SAXPAV1@PAX1PBX@Z,,0x003395BB,116,Code/GameEngine/Source/Common/System/INI_parseParticleSystemTemplate.cpp,matched,DisableFXParticleSystem FieldParse row points here
 ?parseMappedImage@INI@@SAXPAV1@PAX1PBX@Z,,0x003390B2,87,Code/GameEngine/Source/Common/System/INI_parseMappedImage.cpp,matched,ImageName FieldParse row points here
+?parseGameClientRandomVariable@INI@@SAXPAV1@PAX1PBX@Z,,0x00338A9D,109,Code/GameEngine/Source/Common/System/INI_parseGameClientRandomVariable.cpp,matched,Radius FieldParse row points here; ZH body with member scanReal/scanIndexList
+?parseAndTranslateLabel@INI@@SAXPAV1@PAX1PBX@Z,,0x0033987B,133,Code/GameEngine/Source/Common/System/INI_parseAndTranslateLabel.cpp,matched,Description FieldParse row points here; ZH body with BFME2 INIException throw
