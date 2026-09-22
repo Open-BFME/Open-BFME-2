@@ -4762,3 +4762,6 @@ _bfmeAppend,0x0060D5F2,callee of bfmeEmit (0x0060D7C0) at the site its BFME1 don
 ?releaseBuffer@AsciiString@@AAEXXZ,0x00036410,callee of RAsciiComparator (0x0038233A) at the site its BFME1 donor calls it; may be an ICF alias
 ?GetUnsignedIntFromRegistry@@YA_NVAsciiString@@0AAI@Z,0x00234F1A,callee of GetRegistryMapPackVersion (0x002351D1) at the site its BFME1 donor calls it
 ?push_back@?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAEXABVAsciiString@@@Z,0x002DBE6,STLport vector<AsciiString>::push_back at INI token vector; fast copy via 0x2C485 AsciiString element copy plus overflow via 0x2D1CF; element type proven by non-generic callees per fold law; fold-shares spelling with rowed 0x143170
+??$_Destroy@PAUBfmeAssignRecord44@@@_STL@@YAXPAUBfmeAssignRecord44@@0@Z,0x004144F0,address read from the REL32 displacement at a placed body
+??$_Destroy@PAUBfmeAssignRecord104@@@_STL@@YAXPAUBfmeAssignRecord104@@0@Z,0x003B8E13,address read from the REL32 displacement at a placed body
+??$_Destroy@PAUBfmeAssignRecord172@@@_STL@@YAXPAUBfmeAssignRecord172@@0@Z,0x001EB1B3,address read from the REL32 displacement at a placed body
