@@ -487,7 +487,6 @@ name,address,notes
 ??0SortingIndexBufferClass@@QAE@G@Z,0x00138B20,self-verifying: retail DynamicIBAccessClass::Allocate_Sorting_Dynamic_Buffer at 0x00138F50 encodes 0x00138B20 in its constructor call REL32 displacement
 ??0SpawnUnitBehaviorModuleData@@QAE@XZ,0x0025598C,SpawnUnitBehavior ModuleData ctor for 0x20 factory; sole raw E8 caller is ModuleData factory 0x2559F1; installs vtable 0x00BF36C0 plus AsciiString members at 8 and C
 ??0SpecialPowerModuleData@@QAE@ABV0@@Z,0x005488E9,base copy ctor for the 0x18 SpecialPowerModuleData intermediate; address read from retail REL32 at 0x00546B11 in FireWeaponPowerModuleData copy 0x00546B08; same vftable 0xC6A520 as base ctor 0x005488C5 placed immediately before
-??0SpecialPowerModuleData@@QAE@XZ,0x005488C5,retail REL32 from FireWeaponPowerModuleData at 0x00546AF2; ZH SpecialPowerModuleData base; defined present-unmatched in SpecialPowerModule.cpp
 ??0SphereEmissionVolumeModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A68AF,BFME2 export; the module template copy constructor the ConcreteModuleTemplate wrapper calls
 ??0SphericalEmissionVelocityModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A734E,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
 ??0SphericalEmissionVelocityModuleTemplate@FXParticleSystem@@QAE@XZ,0x003A72F7,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
