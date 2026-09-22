@@ -15752,3 +15752,4 @@ _rva002bcab_scanIndex,,0x0002BCAB,132,Code/GameEngine/Source/Common/System/INI_s
 ?lookup@RetailColorList@@QAEPAVMultiplayerColorDefinition@@PAH@Z,,0x003812E6,141,Code/GameEngine/Source/Common/MultiplayerColorMapOperator.cpp,matched,
 ?erase@?$vector@UBfmePod8@@V?$allocator@UBfmePod8@@@_STL@@@_STL@@QAEPAUBfmePod8@@PAU3@0@Z,,0x003FA4DB,36,Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_malloc_bodies.cpp,matched,Placed by TU emission plus caller resize at 0x5FF96A; copy-ptrs wrapper pin settles callee
 ?resize@BfmePod8Vector@@QAEXIUBfmePod8@@@Z,,0x005FF96A,63,Code/Libraries/Source/WWVegas/WWLib/stlport_pod8_resize_byvalue.cpp,matched,Pod8 vector resize by value (ret C); derived from real STLport vector instantiation; rowed erase plus fill-insert settle callees
+_piProcessUTM,,0x006AA950,508,Code/GameEngine/Source/GameNetwork/GameSpy/peer/peerProcessUTM.cpp,matched,bfme1 GameSpy sweep exact placement; verbatim source import
