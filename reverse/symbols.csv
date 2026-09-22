@@ -2649,7 +2649,6 @@ name,address,notes
 ?getStatus@Weapon@@QBE?AW4WeaponStatus@@XZ,0x002CCFC7,address read from the REL32 displacement at a placed body
 ?getStr@Rva00803620Getter@@QAEDPAXPADH@Z,0x00655B10
 ?getString@Rva007E8810Message@@QAE_NPBDPADH@Z,0x00655B10
-?getTooltipName@MultiplayerColorDefinition@@QBE?AVAsciiString@@XZ,0x002E4336,out-of-line AsciiString copy of m_tooltipName via StringBase copy 0x365F0 into hidden ptr; called from color operator= 0x380CCE (this=other) + new-color path; matches shim inline semantics
 ?getTotalBuildingsDestroyed@ScoreKeeper@@QAEHXZ,0x0039B73F,ScoreKeeper total buildings destroyed summed over faction slots; address read from the REL32 call sites in collectScoreKeeperStats 0x437672 and writeStatInfo 0x437AE8; out-of-line sum loop at this+0x78 matching the ZH donor out-of-line shape
 ?getTotalUnitsDestroyed@ScoreKeeper@@QAEHXZ,0x0039B769,ScoreKeeper total units destroyed summed over faction slots; address read from the REL32 call sites in collectScoreKeeperStats 0x43765C and writeStatInfo 0x437AB6; out-of-line sum loop over 0x14 ints at this+0x20 matching the ZH donor out-of-line shape
 ?getValue@GameLogicRandomVariable@@QBEMXZ,0x00234206,address read from REL32 in BoneFXUpdate::initTimes at 0x0048750B+0x48 (2 sites); ghidra FUN_00634206 70B; source type GameLogicRandomVariable::getValue for gameLogicDelay; sibling of matched client getValue at 0x002341A1
