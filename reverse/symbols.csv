@@ -3939,7 +3939,6 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ?_M_insert_overflow@?$vector@DV?$allocator@D@_STL@@@_STL@@IAEXPADABDABU__true_type@2@I_N@Z,0x0007EA1F
 ?_M_insert_overflow@?$vector@UBfmePod20@@V?$allocator@UBfmePod20@@@_STL@@@_STL@@IAEXPAUBfmePod20@@ABU3@ABU__false_type@2@I_N@Z,0x0059B809
 ?_M_insert_overflow@?$vector@UBfmePod24@@V?$allocator@UBfmePod24@@@_STL@@@_STL@@IAEXPAUBfmePod24@@ABU3@ABU__false_type@2@I_N@Z,0x000BCFF9
-?_M_insert_overflow@?$vector@UBfmePod28@@V?$allocator@UBfmePod28@@@_STL@@@_STL@@IAEXPAUBfmePod28@@ABU3@ABU__false_type@2@I_N@Z,0x00216A39
 ?_M_insert_overflow@?$vector@UBfmePod40@@V?$allocator@UBfmePod40@@@_STL@@@_STL@@IAEXPAUBfmePod40@@ABU3@ABU__false_type@2@I_N@Z,0x00565B7D
 ?releaseBuffer@UnicodeString@@QAEXXZ,0x00036E70,Dict TU spelling of rowed StringBase wide releaseBuffer; same body
 ?_M_increment@?$_Deque_iterator_base@UBfmePod132@@@_STL@@QAEXXZ,0x0042187F
@@ -4007,3 +4006,4 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ??$__copy@PAUBfmeElem60@@PAU1@H@_STL@@YAPAUBfmeElem60@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z,0x006BE2E0,TU spelling of the BfmeElem60 bulk-copy worker for Rva0087FB90Erase.cpp; body already pinned as Rva006BE2E0Copy
 ??$__copy@PAVAsciiString@@PAV1@H@_STL@@YAPAVAsciiString@@PAV1@00ABUrandom_access_iterator_tag@0@PAH@Z,0x000B4431,TU spelling of the AsciiString bulk copy worker for VectorAsciiStringErase.cpp; body rowed as dup_000b4431
 ??$_Destroy@PAVAsciiString@@@_STL@@YAXPAVAsciiString@@0@Z,0x0002CB64,TU spelling of the AsciiString range destroy worker for VectorAsciiStringErase.cpp; body rowed as dup_0002cb64
+??$__uninitialized_copy@PAUBfmePod28@@PAU1@@_STL@@YAPAUBfmePod28@@PAU1@00ABU__false_type@0@@Z,0x00215F38,Pod28 no-EH TU spelling of the rowed const-pointer uninit-copy worker; same trivial-copy body folded at this address

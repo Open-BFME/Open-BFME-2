@@ -15733,3 +15733,4 @@ _rva002bcab_scanIndex,,0x0002BCAB,132,Code/GameEngine/Source/Common/System/INI_s
 ??0ElvenWoodSpecialPowerModuleData@@QAE@XZ,,0x004C3DA9,75,Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPowerModuleDataCtor.cpp,matched,ElvenWood data; base 0x4930A0 plus BfmeE16 vector plus 10.0f radius; first shape
 ??$partial_sort@PAHU?$less@H@_STL@@@_STL@@YAXPAH00U?$less@H@0@@Z,,0x0040B3B1,27,Code/Libraries/Source/WWVegas/WWLib/stlport_int_algorithm_bodies.cpp,matched,
 ??$__introsort_loop@PAHHHU?$less@H@_STL@@@_STL@@YAXPAH00HU?$less@H@0@@Z,,0x0040B43B,123,Code/Libraries/Source/WWVegas/WWLib/stlport_int_introsort_loop.cpp,matched,
+?_M_insert_overflow@?$vector@UBfmePod28@@V?$allocator@UBfmePod28@@@_STL@@@_STL@@IAEXPAUBfmePod28@@ABU3@ABU__false_type@2@I_N@Z,,0x00216A39,189,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_pod28_allocate_copy.cpp,matched,Pod28 vector insert-overflow via no-EH shard; all 5 callees rowed or pinned; row supersedes pin
