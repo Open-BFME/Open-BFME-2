@@ -272,7 +272,6 @@ name,address,notes
 ??0AsciiString@@QAE@ABV0@@Z,0x00365F0,address read from the retail REL32 at 0x002E4968 in OptionPreferences::getFirewallNeedToRefresh; AsciiString copy ctor for the it->second copy
 ??0AudioLoopUpgradeModuleData@@QAE@XZ,0x004B7C00,EH ctor with vtable 0x00C58CF8 plus members at +0x14/+0x124; sole raw caller is ModuleData factory 0x250798 which news 0x154
 ??0AutoHealBehaviorModuleData@@QAE@XZ,0x004C32BC
-??0AutoPickUpUpdateModuleData@@QAE@XZ,0x00496308,pinned by AutoPickUpUpdateModuleData factory call-site decode
 ??0BFME2Encoding0MotionChannel@@QAE@XZ,0x001B2E2C,Descriptive encoding0 channel constructor; calls base1A465B then zeros14 and18 and installs BD7648; factory encoding0 allocates28 bytes and invokes this complete26-byte constructor
 ??0BFME2MotionChannel@@QAE@XZ,0x001A465B,base motion-channel ctor; Type and Pivot or-minus-1 then vtable; ghidra 17 bytes
 ??0BFME2ScopedRenderEvent@@QAE@PBD0I@Z,0x00117CF0,"Descriptive scope ctor: label256 group64; bounded copy and BeginEvent wrapper11F340(label,color); RET12 full167"
