@@ -226,3 +226,21 @@ void FreezingRainSpecialPowerModuleData::buildFieldParse(MultiIniFieldParse &par
 	SpecialPowerModuleData::buildFieldParse(parse);
 	parse.add(reinterpret_cast<const FieldParse *>(0x00C5D6C0), 0);
 }
+
+class DarknessSpecialPowerModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+// ?buildFieldParse@DarknessSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z,
+// retail 0x004C4D9E (27 bytes): base-table call above plus the Darkness
+// table at 0x00C5D7BC (DarknessRadius at +0x7C plus DarknessFX at +0x80).
+// The rowed factory at 0x00251FFC calls the rowed ctor at 0x4C4F63 and
+// pushes this proc's VA (unique image-wide); the pool key at 0x4C4E02 names
+// the class. Row supersedes the pin.
+void DarknessSpecialPowerModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	SpecialPowerModuleData::buildFieldParse(parse);
+	parse.add(reinterpret_cast<const FieldParse *>(0x00C5D7BC), 0);
+}
