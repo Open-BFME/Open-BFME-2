@@ -708,3 +708,23 @@ void HealContainModuleData::buildFieldParse(MultiIniFieldParse &parse)
 	parse.add(reinterpret_cast<const FieldParse *>(Rva004CE29DGet()), 8);
 	parse.add(reinterpret_cast<const FieldParse *>(0x00C58020), 0);
 }
+
+// ?buildFieldParse@RemoveUpgradeUpgradeModuleData@@SAXAAVMultiIniFieldParse@@@Z,
+// retail 0x004B7F82 (34 bytes): double-add on the rowed ModuleData getter
+// table 0x4CE29D with extraOffset 8 then own table 0x00C58EA0 holding
+// UpgradeToRemove at +0x118 plus UpgradeGroupsToRemove at +0x124 plus
+// SuppressEvaEventForRemoval at +0x130 plus RemoveFromAllPlayerObjects at
+// +0x131 (ReplaceSelf/Unpause precedent). The rowed factory at 0x0025082A
+// calls the pinned ctor at 0x4B7FF1 and pushes this proc's VA (unique
+// image-wide); pool key at 0x4B7F67 names the class. Row supersedes the pin.
+class RemoveUpgradeUpgradeModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+void RemoveUpgradeUpgradeModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	parse.add(reinterpret_cast<const FieldParse *>(Rva004CE29DGet()), 8);
+	parse.add(reinterpret_cast<const FieldParse *>(0x00C58EA0), 0);
+}
