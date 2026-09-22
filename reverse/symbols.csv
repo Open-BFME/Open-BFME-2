@@ -4583,3 +4583,20 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ?winGetHiliteTextBorderColor@GameWindow@@QAEHXZ,0x00313840,GameWindow getter called by W3DGadgetComboBoxDraw (0x000A21A3); ICF-folded one-field getter shared with other classes
 ?winGetHiliteTextColor@GameWindow@@QAEHXZ,0x00313EB6,GameWindow getter called by W3DGadgetComboBoxDraw (0x000A21A3); ICF-folded one-field getter shared with other classes
 ?winGetStatus@GameWindow@@QAEIXZ,0x0030F45F,GameWindow getter called by W3DGadgetComboBoxDraw (0x000A21A3); ICF-folded one-field getter shared with other classes
+?drawListBoxText@@YAXPAVGameWindow@@PAVWinInstanceData@@HHHH_N@Z,0x000A283D,callee of the lexicon-named W3DGadgetListBoxDraw (0x000A2D6F) at the site the BFME1 donor calls it; may be an ICF alias
+?winGetOwner@GameWindow@@QAEPAV1@XZ,0x005C4AF9,callee of the lexicon-named GadgetCheckBoxSystem (0x00327B46) at the site the BFME1 donor calls it; may be an ICF alias
+?winGetWindowId@GameWindow@@QAEHXZ,0x005C4AE9,callee of the lexicon-named GadgetCheckBoxSystem (0x00327B46) at the site the BFME1 donor calls it; may be an ICF alias
+?winSetText@GameWindow@@UAEHVUnicodeString@@@Z,0x0031484A,callee of the lexicon-named GadgetCheckBoxSystem (0x00327B46) at the site the BFME1 donor calls it; may be an ICF alias
+?winNextTab@GameWindow@@QAEHXZ,0x000D43D0,callee of the lexicon-named GadgetStaticTextInput (0x003213F0) at the site the BFME1 donor calls it; may be an ICF alias
+?winPrevTab@GameWindow@@QAEHXZ,0x000D43D0,callee of the lexicon-named GadgetStaticTextInput (0x003213F0) at the site the BFME1 donor calls it; may be an ICF alias
+?GadgetTabControlComputeTabRegion@@YAXPAVGameWindow@@@Z,0x00327099,callee of the lexicon-named GadgetTabControlSystem (0x00327330) at the site the BFME1 donor calls it; may be an ICF alias
+?GadgetTabControlResizeSubPanes@@YAXPAVGameWindow@@@Z,0x00327287,callee of the lexicon-named GadgetTabControlSystem (0x00327330) at the site the BFME1 donor calls it; may be an ICF alias
+?winGetParent@GameWindow@@QAEPAV1@XZ,0x003140A4,callee of the lexicon-named GadgetTabControlSystem (0x00327330) at the site the BFME1 donor calls it; may be an ICF alias
+?GadgetTabControlShowSubPane@@YAXPAVGameWindow@@H@Z,0x0032739B,callee of the lexicon-named GadgetTabControlInput (0x003273FB) at the site the BFME1 donor calls it; may be an ICF alias
+?W3DGadgetPushButtonImageDrawOne@@YAXPAVGameWindow@@PAVWinInstanceData@@@Z,0x000A56ED,callee of the lexicon-named W3DGadgetPushButtonImageDraw (0x000A6019) at the site the BFME1 donor calls it; may be an ICF alias
+?W3DGadgetPushButtonImageDrawThree@@YAXPAVGameWindow@@PAVWinInstanceData@@@Z,0x000A4B7C,callee of the lexicon-named W3DGadgetPushButtonImageDraw (0x000A6019) at the site the BFME1 donor calls it; may be an ICF alias
+?d_00794790@@YAXPAVGameWindow@@PAVWinInstanceData@@@Z,0x000A501C,callee of the lexicon-named W3DGadgetPushButtonImageDraw (0x000A6019) at the site the BFME1 donor calls it; may be an ICF alias
+?GadgetTabControlComputeSubPaneSize@@YAXPAVGameWindow@@PAH111@Z,0x003271D9,callee of GadgetTabControlResizeSubPanes (0x00327287) at the site its BFME1 donor calls it; may be an ICF alias
+?winSetPosition@GameWindow@@QAEHHH@Z,0x00313A9E,callee of GadgetTabControlResizeSubPanes (0x00327287) at the site its BFME1 donor calls it; may be an ICF alias
+?winGetNext@GameWindow@@QAEPAV1@XZ,0x003140F1,callee of GadgetTabControlFixupSubPaneList (0x003272E2) at the site its BFME1 donor calls it; may be an ICF alias
+?winGetPrev@GameWindow@@QAEPAV1@XZ,0x00314105,callee of GadgetTabControlFixupSubPaneList (0x003272E2) at the site its BFME1 donor calls it; may be an ICF alias
