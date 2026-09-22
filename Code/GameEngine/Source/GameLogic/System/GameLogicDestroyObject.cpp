@@ -185,6 +185,20 @@ public:
 	virtual void slot21C(void);
 	virtual void setLocomotorGoalNone(void);
 	void destroyPath(void);
+
+	char m_pad004[0x13C];
+	class Path *m_path;
+	char m_pad144[0x26D];
+	unsigned char m_flag3B1;
+	unsigned char m_flag3B2;
+	char m_pad3B3[5];
+	unsigned char m_flag3B8;
+};
+
+class Path
+{
+public:
+	~Path();
 };
 
 class Object
@@ -227,4 +241,16 @@ void GameLogic::destroyObject(Object *obj)
 	}
 	m_objectsToDestroy.push_back(obj);
 	obj->onDestroy();
+}
+
+// ?destroyPath@AIUpdateInterface@@QAEXXZ @0x00262A8A
+void AIUpdateInterface::destroyPath(void)
+{
+	if (m_path)
+		delete m_path;
+	m_path = 0;
+	m_flag3B1 = 0;
+	m_flag3B8 = 0;
+	m_flag3B2 = 0;
+	setLocomotorGoalNone();
 }

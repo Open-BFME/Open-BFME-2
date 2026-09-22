@@ -2481,7 +2481,6 @@ name,address,notes
 ?destroy@ParticleSystem@@QAEXXZ,0x001F462C,call site in destroyParticleSystemByID (0x1F5B79) mov ecx [ebp-0x18] (m_system) test je then bare thiscall matching ParticleSystem::destroy void; BFME1 ILT 0xE525
 ?destroyObject@GameLogic@@QAEXPAVObject@@@Z,0x00242C09,address read from the REL32 displacement at a placed body
 ?destroyParticleSystemByID@ParticleSystemManager@@QAEXW4ParticleSystemID@@@Z,0x001F5B79,address read from the REL32 displacement at a placed body
-?destroyPath@AIUpdateInterface@@QAEXXZ,0x00262A8A,mangling confirmed by BFME1 matched row (AIUpdate.cpp, path +0x140); address read from the retail REL32 at 0x00242C63 in GameLogic::destroyObject after the slot136 call, matching BFME1 setLocomotorGoalNone+destroyPath order
 ?detach@NetCommandMsg@@QAEXXZ,0x004D55BC,NetCommandMsg refcount release at +0x18 with virtual-dtor flag-0 plus global opdelete; tail-call target of NetCommandNode::detach 12B at 0x58B8AE (jmp rel32); ZH NetCommandMsg::detach in NetCommandMsg.cpp
 ?detach@NetCommandNode@@QAEXXZ,0x0058B8AE,12-byte node cleanup; REL32 from NetCommandList::reset
 ?detach@Rva006CD530@@QAEXXZ,0x006CD530,opaque thiscall member (no args); called as mov ecx,esi + E8 from chain drain at 0x006CEAD0:0x6CEAEB; identity unproven
@@ -3992,3 +3991,4 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ??0_PushButtonData@@QAE@XZ,0x00327E22
 ??_7ModelConditionUpgradeModuleData@@6B@,0x00BF2558,folded base vtable shared with OpenContainModuleData which installs the same address
 ?init@CondStore@@QAEXXZ,0x00042526,TU-spelling alias for the opaque 0x4C condition member init called twice by ModelConditionUpgradeModuleData ctor plus GenericObjectCreationNugget ctor
+??1Path@@QAE@XZ,0x00364A89
