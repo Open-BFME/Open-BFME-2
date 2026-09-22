@@ -15782,3 +15782,4 @@ _Rva00819F50,,0x00685E50,1036,Code/Libraries/Source/DirtySock/Rva00819F50Comm.cp
 ?PreStaticInit@Debug@@CAPAV1@XZ,0x000385F0,0x000385F0,114,Code/Libraries/Source/WWVegas/WWDebug/DebugPreStaticInit.cpp,matched,BFME1 lifted twin b1 0x00889500; placement new over DebugAllocMemory then refcount
 ?LocalSETranslator@@YAXIPAU_EXCEPTION_POINTERS@@@Z,,0x00038760,14,Code/Libraries/Source/debug/debug_debug.cpp,matched,ZH SE translator forwarding to ExceptionFilter
 ?InstallExceptionHandler@Debug@@SAXXZ,,0x00038770,13,Code/Libraries/Source/debug/debug_debug.cpp,matched,ZH _set_se_translator(LocalSETranslator)
+?SetBuildInfo@Debug@@UAEXPBD00@Z,,0x00039510,129,Code/Libraries/Source/WWVegas/WWDebug/DebugSetBuildInfo.cpp,matched,BFME1 donor b1 0x0088A430 plus memset per field; vtable slot 0x9C
