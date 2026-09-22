@@ -109,6 +109,14 @@ void AnimateWindow::setAnimData( 	ICoord2D startPos, ICoord2D endPos,
 
 }
 
+// ?getRestPos@AnimateWindow@@QAE?AUICoord2D@@XZ, retail 0x0053B25C (18B).
+// BFME1 byte-identical donor (lotrbfme 0x003D4D50); the donor header declares
+// this inline, so odr-use it here to force the out-of-line body. Offset
+// +0x20 is m_restPos per the landed setAnimData layout below; the
+// PathfindLayer::getEndCellIndex twin reads m_endCell at +0x24 instead.
+typedef ICoord2D (AnimateWindow::*AnimateWindowGetRestPos)( void );
+AnimateWindowGetRestPos g_animateWindowGetRestPos = &AnimateWindow::getRestPos;
+
 //-----------------------------------------------------------------------------
 // PUBLIC FUNCTIONS ///////////////////////////////////////////////////////////
 //-----------------------------------------------------------------------------
