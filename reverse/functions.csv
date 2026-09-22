@@ -15724,3 +15724,4 @@ _rva002bcab_scanIndex,,0x0002BCAB,132,Code/GameEngine/Source/Common/System/INI_s
 ?allocate@?$allocator@D@_STL@@SAPADIPBX@Z,,0x000307F0,19,Code/Libraries/Source/WWVegas/WWLib/stlport_byte_allocator.cpp,matched,raw byte allocator fold via game table 0xDE0404 class 3; /O2 emits retail mov-reg form where /O1 push-mem folds; sib pins stand as fold candidates
 ?bfmeStepTDB@@YAXXZ,,0x0011DC20,58,Code/GameEngine/Source/Common/BfmeStepTDB.cpp,matched,ICF twin of BFME1 ApplyBQ per GoTDB sweep record; G7 P4 tuning for cmp plus add forms
 ?init@Rva000B3F84Pair@@QAEPAV1@PBD@Z,,0x000B3F84,33,Code/GameEngine/Source/Main/WinMainPairUnicode.cpp,matched,Narrow pair init: m_ptr equals src and m_len equals strlen or 0 with null guard; returns this; row supersedes void-return pin
+?erase@BfmeVec60@@QAEPAUBfmeElem60@@PAU2@0@Z,,0x006BF590,77,Code/GameEngine/Source/Common/Rva0087FB90Erase.cpp,matched,
