@@ -4020,3 +4020,5 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ?bfmeErase1279@BfmeLookup1279@@QAEXAAUBfmeKey1279@@@Z,0x0070B2C0,TU spelling for BfmeQueryProcess1279 callee; retail E8 at 0x6F7275; erase-by-key
 ?bfmeFinish1279@BfmeNode1279@@QAEXXZ,0x006E2B40,TU spelling for BfmeQueryProcess1279 callee; retail E8 at 0x6E2B40; node teardown after unlink
 ?setGoalPosition@TurretStateMachine@@QAEXPBUCoord3D@@@Z,0x00262224,TurretStateMachine setGoalPosition; sole retail E8 at 0x4D8858 in setTurretTargetPosition with machine plus pos; donor setGoalPosition; calls 0x4D745C worker
+?set@?$StringBase@G@@QAEXPBG@Z,0x0000565D,BFME2 retail call target for StringBase wide set from const wide chars; read from REL32 at placed getStringFromRegistry 0x00234417
+?releaseBuffer@?$StringBase@G@@QAEXXZ,0x00036E70,public-spelling wide StringBase releaseBuffer for TU-local UnicodeString teardown; same body as pinned private spelling; read from REL32 at placed getStringFromRegistry 0x00234417
