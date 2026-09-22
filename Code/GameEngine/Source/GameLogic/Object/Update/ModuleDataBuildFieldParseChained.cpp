@@ -769,3 +769,24 @@ void MonsterDockUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
 	DockUpdateModuleData::buildFieldParse(parse);
 	parse.add(reinterpret_cast<const FieldParse *>(0x00C51CE4), 0);
 }
+
+class FireWeaponWhenDeadBehaviorModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+// ?buildFieldParse@FireWeaponWhenDeadBehaviorModuleData@@SAXAAVMultiIniFieldParse@@@Z
+// retail 0x002537A6 (54 bytes): triple-add with own table 0x00BF0508 holding
+// StartsActive plus ActiveDuringConstruction plus DelayTime plus DeathWeapon
+// plus WeaponOffset then the rowed getter 0x4CE29D with extraOffset 8 then
+// the rowed getter 0x4CE52E with extraOffset 0x12C. The rowed factory at
+// 0x002537DC pushes this proc VA and calls the pinned ctor at 0x253737;
+// ModuleFactory registers the FireWeaponWhenDeadBehavior literal with that
+// factory and the proc ends where the factory begins. Row supersedes pin.
+void FireWeaponWhenDeadBehaviorModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	parse.add(reinterpret_cast<const FieldParse *>(0x00BF0508), 0);
+	parse.add(reinterpret_cast<const FieldParse *>(Rva004CE29DGet()), 8);
+	parse.add(reinterpret_cast<const FieldParse *>(Rva004CE52EGet()), 0x12C);
+}
