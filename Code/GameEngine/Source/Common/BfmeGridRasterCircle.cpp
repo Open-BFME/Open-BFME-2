@@ -81,6 +81,7 @@ public:
 	unsigned char m_bfmeKind;				// +0x00
 	unsigned char m_bfmeGap[3];				// +0x01
 	int m_bfmeValue;					// +0x04
+	int m_bfmeExtra;					// +0x08
 };
 
 typedef void (__cdecl *BfmeCellVisitorFC)(int x, int y,
@@ -91,6 +92,8 @@ class Gen_008812D0
 public:
 	Gen_008812D0();
 	void bfmeConfigure(Region3D region, Real cellSize);
+	void bfmeGetCellRange(BfmeCellFC **first, BfmeCellFC **last,
+		int x1, int x2, int y);
 
 private:
 	Region3D m_bfmeRegion;					// +0x00
@@ -165,4 +168,24 @@ void __cdecl bfmeRasterCircleFC(int centerX, int centerY, const int radius,
 			d += ((x << 1) + 1);
 		}
 	}
+}
+
+// ?bfmeGetCellRange@Gen_008812D0@@QAEXPAPAVBfmeCellFC@@0HHH@Z
+void Gen_008812D0::bfmeGetCellRange(BfmeCellFC **first,
+	BfmeCellFC **last, int x1, int x2, int y)
+{
+	if (x2 < 0 || x1 >= m_bfmeWidth || y < 0 || y >= m_bfmeHeight)
+	{
+		*last = 0;
+		*first = 0;
+		return;
+	}
+
+	BfmeCellFC *row = m_bfmeCells + y * m_bfmeWidth;
+	*last = row;
+	*first = row;
+	if (x1 > 0)
+		*first = row + x1;
+
+	*last += x2 < m_bfmeWidth ? x2 + 1 : m_bfmeWidth;
 }
