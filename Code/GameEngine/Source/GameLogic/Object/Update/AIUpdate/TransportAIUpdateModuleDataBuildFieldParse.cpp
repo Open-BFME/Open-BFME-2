@@ -96,3 +96,21 @@ void AssaultTransportAIUpdateModuleData::buildFieldParse(MultiIniFieldParse &par
 	TransportAIUpdateModuleData::buildFieldParse(parse);
 	parse.add(reinterpret_cast<const FieldParse *>(0x00BEED74), 0);
 }
+
+class AnimalAIUpdateModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+// ?buildFieldParse@AnimalAIUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z,
+// retail 0x0024BE7A (27 bytes): base-table call above plus the AnimalAI table
+// at 0x00BEEB88 (FleeRange at +0x64 plus FleeDistance at +0x68 plus
+// WanderPercentage at +0x6C matching the ctor stores 0x14/0x64/0x32 at
+// 0x24BE43). The owning factory at 0x0024BED0 pushes this proc VA (unique
+// image-wide); the rowed AnimalAIUpdate pool key (0x47EC1A) names the family.
+void AnimalAIUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	TransportAIUpdateModuleData::buildFieldParse(parse);
+	parse.add(reinterpret_cast<const FieldParse *>(0x00BEEB88), 0);
+}
