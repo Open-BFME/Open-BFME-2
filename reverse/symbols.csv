@@ -3993,3 +3993,4 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ??1W3DModelDrawModuleData@@UAE@XZ,0x000C8BE0
 ?erase@?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QAEPAW4ScienceType@@PAW43@0@Z,0x00532803,ICF alias of the rowed ParticleSystemID erase at this address; same 38B trivial-element shape; my TU emission byte-identical
 ??$__copy_ptrs@PAW4ScienceType@@PAW41@@_STL@@YAPAW4ScienceType@@PAW41@00ABU__false_type@0@@Z,0x0025BF40,ICF alias of the rowed PBW4ScienceType copy_ptrs at this address; same 29B 4B-pointer memmove; my TU emission byte-identical
+?lookupScience@ScienceStore@@QBE?AW4ScienceType@@PBD@Z,0x001FF65D,const-member spelling of the rowed friend_lookupScience worker; called from the INI scanScience forwarder
