@@ -55,6 +55,18 @@ namespace _STL
 {
 void __cdecl free(void *memory);
 }
+// Start of the 0x18-byte record list; the inline destructor frees the
+// buffer, which is why retail carries one unwind state across the
+// range-destroy call and frees [this] after it.
+struct VersionRecordBuffer
+{
+	~VersionRecordBuffer()
+	{
+		if (m_data)
+			_STL::free(m_data);
+	}
+	void *m_data;
+};
 class VersionBlockParserInner
 {
 public:
@@ -63,22 +75,29 @@ public:
 		destroyVersionRecords(m_start.m_data, m_finish);
 	}
 private:
-	// Start of the 0x18-byte record list; the inline destructor frees the
-	// buffer, which is why retail carries one unwind state across the
-	// range-destroy call and frees [this] after it.
-	struct RecordBuffer
-	{
-		~RecordBuffer()
-		{
-			if (m_data)
-				_STL::free(m_data);
-		}
-		void *m_data;
-	};
-	RecordBuffer m_start;
+	VersionRecordBuffer m_start;
 	void *m_finish;
 	void *m_alloc;
 };
+
+// 0x18-byte version record: key/value buffers at +0/+0xC (fleet
+// VersionBlockSearch layout); retail frees value first then key, which is
+// the implicit member-destruction order below.
+struct VersionBlockEntry
+{
+	VersionRecordBuffer m_key;
+	char m_padAfterKey[8];
+	VersionRecordBuffer m_value;
+	char m_padTail[8];
+};
+
+// Range destroy over the 0x18-byte record list; the explicit element
+// destruction below is what emits the element destructor above.
+void __cdecl destroyVersionRecords(void *first, void *last)
+{
+	for (VersionBlockEntry *entry = (VersionBlockEntry *)first; entry != (VersionBlockEntry *)last; entry = (VersionBlockEntry *)((char *)entry + 0x18))
+		entry->~VersionBlockEntry();
+}
 
 class VersionBlockParser
 {
