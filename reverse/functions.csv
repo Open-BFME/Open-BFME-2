@@ -16849,3 +16849,4 @@ _bfmeFormatText,,0x0060C36E,85,Code/GameEngine/Source/Common/Gen009D6220.cpp,mat
 ?DebugCopyToClipboard@@YAXPBD@Z,,0x0003C730,112,Code/Libraries/Source/WWVegas/WWDebug/DebugCopyToClipboard.cpp,matched,CF_TEXT clipboard copy helper; descriptive name
 ?DebugCopyDialogReport@@YAXXZ,,0x0003D3A0,767,Code/Libraries/Source/WWVegas/WWDebug/DebugCopyDialogReport.cpp,matched,assert/crash dialog copy button (control 9); descriptive name
 ?AssertCrashDialogProc@@YGHPAXIIJ@Z,,0x0003D6A0,203,Code/Libraries/Source/WWVegas/WWDebug/AssertCrashDialogProc.cpp,matched,BFME1 donor b1 0x0088E000 with BFME2 control remap and copy button
+?bfmeFindBEC@BfmeSubBEC@@QAEPAVBfmeGotBEC@@XZ,,0x0028BCB4,32,Code/GameEngine/Source/Common/BfmeConv448FindBEC.cpp,matched,reloc-named by GoBEC call; array at +0x244 with +0xC query at vtable slot 0x58; file-unit with GoBEC
