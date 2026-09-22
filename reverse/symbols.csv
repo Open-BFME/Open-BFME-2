@@ -3068,7 +3068,6 @@ name,address,notes
 ?setString@PooledString@@AAEXPBD@Z,0x006CB7C0,BFME2 export; the private setter both the const char * constructor and assignment forward to
 ?setTimeOfDay@W3DGameClientShadowShim@@QAEXW4TimeOfDay@@@Z,0x0009A64D
 ?setTimeOfDay@W3DGameClientWaterShim@@QAEXW4TimeOfDay@@@Z,0x0007E18D
-?setTooltipText@WinInstanceData@@QAEXVUnicodeString@@@Z,0x00322352,parseTooltipText 0x315CFD sole caller passes instData with fetched tooltip by value; EH-prolog head; WinInstanceData method by call shape
 ?setTurretEnabled@AIUpdateInterface@@QAEXW4WhichTurretType@@_N@Z,0x00262651,retail E8 from BattlePlanUpdate::enableTurret at 0x00497760; two-arg thiscall delegating via turret array +0x20C; ZH AIUpdate.h non-virtual role
 ?setTurretEnabled@TurretAI@@QAEX_N@Z,0x004D82D6,address read from the retail REL32 at 0x00262664 in AIUpdateInterface::setTurretEnabled; 32B body matching TurretAI::setTurretEnabled
 ?setTurretTargetObject@TurretAI@@QAEXPAVObject@@_N@Z,0x004D8791,address read from the retail REL32 at 0x002625FD in AIUpdateInterface::setTurretTargetObject; object plus force delegate matching TurretAI::setTurretTargetObject
