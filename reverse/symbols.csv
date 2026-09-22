@@ -348,7 +348,6 @@ name,address,notes
 ??0Gen_dtor_007f6d20@@QAE@XZ,0x00672310
 ??0GenericObjectCreationNugget@@QAE@XZ,0x001F0E32,SEH ctor installing vtable 0xBE1160 called by parseObject new at 0x1F311B; BFME1-attested QAE mangling
 ??0GeometryInfo@@QAE@ABV0@@Z,0x000929E8,PC copy ctor stores same BC4E94 geometry vtable; copies isSmall and extents plus vectors at2C/38 and tail through58; not assignment
-??0GeometryInfo@@QAE@W4GeometryType@@_NMMM@Z,0x00050B74,PC ctor stores BC4E94 geometry vtable; constructs shape/record vectors at2C/38 and calls five-argument set6BFF50; mirrors BFME1 GeometryInfoConstructor
 ??0GpuDrawModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A9EC7,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
 ??0GpuDrawModuleTemplate@FXParticleSystem@@QAE@XZ,0x003A9E29,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
 ??0GrantStealthBehavior@@QAE@PAVThing@@PBVModuleData@@@Z,0x004883D0
