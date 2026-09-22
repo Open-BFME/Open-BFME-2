@@ -15445,3 +15445,4 @@ _bfmeHash1228,,0x0070F880,1504,Code/GameEngine/Source/Common/BfmeConv1228.cpp,ma
 ?buildFieldParse@CaveContainModuleData@@SAXAAVMultiIniFieldParse@@@Z,,0x0024B77C,27,Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp,matched,
 ??0CaveContainModuleData@@QAE@XZ,,0x00466D37,25,Code/GameEngine/Source/GameLogic/Object/Contain/CaveContainModuleDataCtor.cpp,matched,
 ?friend_newModuleData@CaveContainModuleData@@SAPAVModuleData@@PAVINI@@@Z,,0x00257714,84,Code/GameEngine/Source/GameLogic/Object/Contain/CaveContainModuleDataFriendNew.cpp,matched,
+?addUnitPrereq@ProductionPrerequisite@@QAEXABV?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@@Z,,0x004F5334,81,Code/GameEngine/Source/Common/Thing/ProductionPrerequisiteAddUnitPrereq.cpp,matched,BFME1 ProductionPrerequisite.cpp vector overload donor-verbatim; index loop with orWithPrevious false-then-true; copy via AsciiString pin 0x365F0; callee rowed same TU

@@ -34,6 +34,8 @@ class vector
 {
 public:
 	void push_back(const T &x);
+	unsigned int size() const { return m_finish - m_start; }
+	const T &operator[](unsigned int i) const { return m_start[i]; }
 
 private:
 	T *m_start;
@@ -89,6 +91,7 @@ public:
 	~ProductionPrerequisite();
 
 	void addUnitPrereq(AsciiString unit, bool orUnitWithPrevious);
+	void addUnitPrereq(const _STL::vector<AsciiString> &units);
 
 public:
 	_STL::vector<PrereqUnitRec> m_prereqUnits;
@@ -103,4 +106,14 @@ void ProductionPrerequisite::addUnitPrereq(AsciiString unit, bool orUnitWithPrev
 	info.m_unit = 0;
 	info.m_flags = orUnitWithPrevious ? 1 : 0;
 	m_prereqUnits.push_back(info);
+}
+
+void ProductionPrerequisite::addUnitPrereq(const _STL::vector<AsciiString> &units)
+{
+	bool orWithPrevious = false;
+	for (int i = 0; i < units.size(); ++i)
+	{
+		addUnitPrereq(units[i], orWithPrevious);
+		orWithPrevious = true;
+	}
 }
