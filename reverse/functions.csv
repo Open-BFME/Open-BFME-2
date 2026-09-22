@@ -15955,3 +15955,7 @@ __heap_abort,,0x000398A0,80,Code/Libraries/Source/WWVegas/WWDebug/DebugHeapAbort
 ?SetInternalFPFInfinity@@YAXPAUInternalFPF@@E@Z,,0x006B8DB0,23,Code/Libraries/Source/Benchmark/emfloat.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 ?SetInternalFPFZero@@YAXPAUInternalFPF@@E@Z,,0x006B8D90,23,Code/Libraries/Source/Benchmark/emfloat.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 ?DoBitops@@YAXXZ,,0x006B75A0,483,Code/Libraries/Source/Benchmark/nbench1.cpp,matched,BYTEmark 2.2.3 DoBitops; BSim-paired with BFME1 DoBitops; error context now references the empty-string symbol like its siblings
+?m009EC9A0@Q1Receiver0134FAAC@@QAEXH@Z,,0x0061FF10,81,Code/Libraries/Source/assetmanager/assetmanager_impl.cpp,matched,BFME1 donor assetmanager_impl.cpp paired by BSim; BFME2 layout is 8 bytes deeper past +0x28
+?bfmeMarkXS@BfmeThingXS@@QBEEH@Z,,0x0061FF70,47,Code/Libraries/Source/assetmanager/assetmanager_impl.cpp,matched,BFME1 donor assetmanager_impl.cpp paired by BSim; BFME2 layout is 8 bytes deeper past +0x28
+?m009EC970@Q1Receiver0134FAAC@@QAEXH@Z,,0x0061FEE0,45,Code/Libraries/Source/assetmanager/assetmanager_impl.cpp,matched,BFME1 donor assetmanager_impl.cpp paired by BSim; BFME2 layout is 8 bytes deeper past +0x28
+?m009F0D40@Q1Receiver0134FAAC@@QAEXH@Z,,0x00621A00,265,Code/Libraries/Source/assetmanager/assetmanager_impl.cpp,matched,placed by masked whole-.text search of the compiled body - single hit

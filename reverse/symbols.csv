@@ -4218,3 +4218,6 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ?randnum@@YAJJ@Z,0x006B8950,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
 ?randwc@@YAJJ@Z,0x006B89A0,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
 ?read_data_file@@YAHXZ,0x006B5940,address read from the REL32 displacement at a placed body
+??0Q1ReceiverTreeStorage@@QAE@ABV?$set@UGen_t_009ee8e0_k4@@U?$less@UGen_t_009ee8e0_k4@@@_STL@@V?$allocator@UGen_t_009ee8e0_k4@@@3@@_STL@@@Z,0x00620CA0,address read from the REL32 displacement at a placed body
+?j_00015d7a@@YAXXZ,0x0006BF2A,address read from the REL32 displacement at a placed body
+?m009EFD40@Q1Receiver0134FAAC@@QAEXPAUQ1ReceiverLocalSet@@@Z,0x006217F0,address read from the REL32 displacement at a placed body
