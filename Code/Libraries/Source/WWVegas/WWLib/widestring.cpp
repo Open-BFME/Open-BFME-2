@@ -39,6 +39,10 @@
 
 #pragma warning(disable : 4514)
 
+// BFME lock model (LockClass spins through a fastcall helper and inlines):
+// the BFME wwstring.h must set the shared __WWSTRING_H guard before the Zero
+// Hour widestring.h pulls its own wwstring.h/mutex.h pair in.
+#include "wwstring.h"
 #include "widestring.h"
 #include "win.h"
 #include <stdio.h>
@@ -97,7 +101,6 @@ WCHAR *	WideStringClass::m_ResTempPtr[MAX_TEMP_STRING] = {
 //
 ///////////////////////////////////////////////////////////////////
 void
-// ?Get_String@WideStringClass@@ present-unmatched
 WideStringClass::Get_String (int length, bool is_temp)
 {
 	if (!is_temp && length <= 1) {
