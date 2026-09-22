@@ -1807,7 +1807,6 @@ name,address,notes
 ?bfmeBytes@Gen_00977870@@QBEHXZ,0x00195BC0
 ?bfmeCalcEFC@@YGMH@Z,0x0039B145
 ?bfmeCall937B@BfmeSub937B@@QAEXPAX@Z,0x00131E6E
-?bfmeCall939D@BfmeGlob939D@@QAEDXZ,0x0023C6FD
 ?bfmeCallCIB@@YAHPAX000@Z,0x006594F0
 ?bfmeCallCIC@@YAHPAX000@Z,0x00659D90
 ?bfmeCallDQD@BfmeOtherDQD@@QAEXPAX@Z,0x00009170
@@ -4023,3 +4022,4 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ??0?$_Vector_base@UVersionBlockEntry@@V?$allocator@UVersionBlockEntry@@@_STL@@@_STL@@QAE@ABV?$allocator@UVersionBlockEntry@@@1@@Z,0x00211E58,ICF-folded empty vector base ctor same 29B as matched BfmeE16 row; VersionBlockParserCtor TU vector VersionBlockEntry member
 ??$__copy_ptrs@PAUNugget@ModuleInfo@@PAU12@@_STL@@YAPAUNugget@ModuleInfo@@PAU12@00PBU__false_type@0@H@Z,0x002CF0BE,STLport 5-arg __copy_ptrs worker called from the 4-arg Nugget forwarder at 0x002CF2B8; read from the retail REL32 there
 ?attach@RvaSmartPtr12@@QAEXXZ,0x0004CB9A,Intrusive-list attach for the 12-byte smart pointer; links the fresh copy into the owner list at ptr plus 0xA0; sole unknown callee of the copy ctor at 0x0004CC19 read from the retail REL32 there
+?get@Bfme939Helper@@QBEHXZ,0x0030F2C7,TU-local alias of rowed disp8 dword getter at same body
