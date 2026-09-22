@@ -747,3 +747,22 @@ void ReplaceObjectUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
 	Rva0044EB54::buildFieldParse(parse);
 	parse.add(reinterpret_cast<const FieldParse *>(0x00BEF960), 0);
 }
+
+class MonsterDockUpdateModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+// ?buildFieldParse@MonsterDockUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z,
+// retail 0x004A137F (27 bytes): chained on the rowed DockUpdate base proc at
+// 0x5896C1, then table 0x00C51CE4 holding DockableObjectFilter at +0x10 plus
+// DockedAnimationTime at +0x14. The rowed factory at 0x0024EB2C pushes this
+// proc's VA (unique image-wide); the MonsterDockUpdate pool key plus Update
+// ctor plus dtor sit in the cluster at 0x4A139A right where this proc ends.
+// Row supersedes the pin.
+void MonsterDockUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	DockUpdateModuleData::buildFieldParse(parse);
+	parse.add(reinterpret_cast<const FieldParse *>(0x00C51CE4), 0);
+}
