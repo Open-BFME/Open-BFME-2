@@ -15772,3 +15772,5 @@ _Rva00819F50,,0x00685E50,1036,Code/Libraries/Source/DirtySock/Rva00819F50Comm.cp
 ??0BoneFXUpdateModuleData@@QAE@XZ,,0x00487797,196,Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateModuleDataCtor.cpp,matched,
 ?CrashDone@Debug@@UAE_NH@Z,,0x0003AED0,1132,Code/Libraries/Source/WWVegas/WWDebug/Debug_CrashDone.cpp,matched,Twin of AssertDone 0x3A8A0; BFME1 has it only as a lift; rebuilt as C++ from ZH CrashDone plus retail-read BFME2 modes (0 report / 1 fatal / 2 errors.txt); vtable slot 0x4C; size includes switch table
 ??6Debug@@UAEAAV0@ABVRepeatChar@0@@Z,,0x0003A620,127,Code/Libraries/Source/WWVegas/WWDebug/Debug_OperatorRepeatChar.cpp,matched,BFME1 donor b1 0x0088B2B0 with const-ref local-count repair; vtable slot 0x3C
+??6Debug@@UAEAAV0@H@Z,,0x0003B3D0,79,Code/Libraries/Source/WWVegas/WWDebug/Debug_OperatorInteger.cpp,matched,ZH/BFME1 body; _itoa; vtable slots 0x2C and 0x34 (long overload folds here)
+??6Debug@@UAEAAV0@I@Z,,0x0003B420,79,Code/Libraries/Source/WWVegas/WWDebug/Debug_OperatorInteger.cpp,matched,ZH/BFME1 body; _ultoa; vtable slots 0x28 and 0x30 (unsigned long overload folds here)
