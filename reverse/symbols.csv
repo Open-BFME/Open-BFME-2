@@ -525,7 +525,6 @@ name,address,notes
 ??0W3DLightDrawModuleData@@QAE@XZ,0x000CFB3E,frameless light ctor with vtable 0xBCD820 plus color and flicker inits; Light factory at 0x64E2F news 0x48 and calls it
 ??0W3DModelDrawModuleData@@QAE@XZ,0x000C8EEF,two-phase ModuleData factory at 0x648D6 news 0x188 and calls it before initFromINIMultiProc with the W3DModelDraw table proc
 ??0W3DQuadrupedDrawModuleData@@QAE@XZ,0x000651C2,subclass ctor calling base W3DModelDrawModuleData ctor at 0xC8EEF then member construct at 0x629512; Quadruped factory at 0x65218 news 0x198 and calls it
-??0W3DTankDrawModuleData@@QAE@XZ,0x000CE6E6,subclass ctor calling base W3DModelDrawModuleData ctor at 0xC8EEF; Tank factory at 0x64B7F news 0x19C and calls it
 ??0WaypointMap@@QAE@ABV0@@Z,0x00303359,Complete27B WaypointMap copy; typed tree-copy3025A5 then count atC; MapMetaData member38 and BFME1 reference layout independently establish identity
 ??0WeaponTemplateSet@@QAE@ABV0@@Z,0x004AE811,WeaponTemplateSet copy ctor; _Construct at 0x4AE915 thiscall target
 ??0WeaponTemplateSetHead@@QAE@ABV0@@Z,0x00045455,0x4C-byte memcpy wrapper; WeaponTemplateSet copy ctor first call; ghidra 24 bytes
@@ -4019,3 +4018,4 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ?initFromStorages@Rva003623E5Member@@QAEXVBfmeFixedStorage0004543D@@0@Z,0x00362087,Filter two-storage init taking two FixedStorage by value (ret 0x38); called by RespawnUpdate ctor 0x4C14DF with in-place temps; callees 0x360CB0 plus 0x360F55 plus 0x361790 plus 0x360FDB unclaimed
 ?__stl_hash_string@_STL@@YAIPBD@Z,0x0002BA61,STLport vendored _hash_fun donor verbatim imul5 loop; sole hash leaf for Eva plus 4 string users
 ??0AICommandParms@@QAE@W4AICommandType@@W4CommandSourceType@@@Z,0x00351BD0,AICommandParms block ctor (cmd plus source); builds plus-0x20 coordinate vector; called by aiForceAttackObject 0x36F05A and aiAttackPosition 0x29599A; callees 0x211E58 plus 0x263895 plus 0x2A133B unclaimed
+??_7W3DTankDrawModuleData@@6B@,0x00BCCB58,W3DTankDrawModuleData vtable installed by ctor 0xCE6E6 (mov esi imm at 0xCE70B); factory 0x64B7F news 0x19C; slot0 scalar-deleting dtor unclaimed
