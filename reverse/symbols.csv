@@ -4009,3 +4009,4 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ?allocate@?$allocator@UPrereqUnitRec@@@_STL@@QBEPAUPrereqUnitRec@@IPBX@Z,0x00395928,PrereqUnitRec allocator allocate fold; TU spelling for the count-taking Vector_base at 0x005C8C37
 ??$__uninitialized_copy@PAUPrereqUnitRec@@PAU1@@_STL@@YAPAUPrereqUnitRec@@PAU1@00ABU__false_type@0@@Z,0x000766F5
 ??$__uninitialized_fill_n@PAUPrereqUnitRec@@IU1@@_STL@@YAPAUPrereqUnitRec@@PAU1@IABU1@ABU__false_type@0@@Z,0x002A73C0
+?init@Rva000B3F84Pair@@QAEXPBD@Z,0x000B3F84,void-spelling alias for WinMain.cpp copyStringRef callers; true body rowed as ?init@Rva000B3F84Pair@@QAEPAV1@PBD@Z
