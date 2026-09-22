@@ -3996,3 +3996,4 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ?Rva0028CDEB@Object@@QAEXPAUObjectStatusMask@@@Z,0x0028CDEB,Object status inner setter; thiscall on Object with mask pointer; framed; called from setStatus
 ?Rva0023DA79@ObjectStatusMask@@QAEPAU1@HW4ObjectStatusTypes@@_N@Z,0x0023DA79,Object status single-bit mask builder; thiscall on 16B out with reserved bit and flag args; memsets 16B then sets bit; callers are setStatus family
 ?Rva0026C347Command@Rva0026C347Commands@@QAEXPAXH@Z,0x0026C347,2-param AICommand method on commands at AIUpdateInterface plus 0x20 (ptr then int at all 14 raw call sites); semantic identity unproven so Rva-addressed; passenger-AI loop at 0x48F690 passes member plus 2
+?Rva002673F6Dispatch@Rva002673F6Base@@QAEXPAUBfmeBehaviorRequest@@@Z,0x002673F6,tail delegate of behavior request dispatch (this plus request); 8 raw callers all thiscall with 1 stacked arg; semantic identity unproven so Rva-addressed
