@@ -388,7 +388,6 @@ name,address,notes
 ??0MeshModelClass@@QAE@ABV0@@Z,0x00172940,MeshModelClass copy constructor: retail MeshClass::Make_Unique at 0x00149C10 calls it with the fresh allocation as this and the shared model as the argument right after operator new (Zero Hour NEW_REF(MeshModelClass;(*Model)))
 ??0MinefieldBehavior@@QAE@PAVThing@@PBVModuleData@@@Z,0x004A8E7B,address read from the REL32 displacement at a placed body
 ??0MissileLauncherBuildingUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x004CD933
-??0MobNexusContainModuleData@@QAE@XZ,0x004C244D,address read from the REL32 displacement at a placed body
 ??0DelayedLuaEventUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x004A8E7B,address read from the REL32 displacement at a placed body
 ??0InvisibilitySpecialPowerModuleData@@QAE@XZ,0x004C244D,address read from the REL32 displacement at a placed body
 ??0ModelConditionUpgradeModuleData@@QAE@XZ,0x004B6428,EH ctor over base 0x253487; vtable 0x00BF2558; condition members at +0x118/+0x164; sole raw caller is ModuleData factory 0x250546 which news 0x1B8
@@ -436,7 +435,6 @@ name,address,notes
 ??0RenderObjectDrawModuleTemplate@FXParticleSystem@@QAE@XZ,0x003A9BE2,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
 ??0RenderObjectUpdateModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A80FF,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
 ??0RenderObjectUpdateModuleTemplate@FXParticleSystem@@QAE@XZ,0x003A80A8,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
-??0RespawnUpdateModuleData@@QAE@XZ,0x004C14DF,110B EH ctor over pinned SupplyTruck base 0x4BF59F; vtable 0x00C5BA00; filter at +0x64 via 0x3623E5; CanRespawn byte at +0x68 set 1; Respawn factory 0x251596 news 0x6C calls it most-derived; 2 derived ctors share it as base (0x4C180D 0x4C1B3E)
 ??0ReplaceSelfUpgradeModuleData@@QAE@XZ,0x004B790B,frameless-looking EH body over rowed OpenContain base 0x253487 with vtable 0xC58B40 and vector member at +0x118 via 0x211E58 plus erase 0x2CCFC; sole raw caller is ModuleData factory 0x2506CE which news 0x124
 ??0RespawnBodyModuleData@@QAE@XZ,0x004C14DF,110B EH ctor over pinned SupplyTruck base 0x4BF59F; vtable 0x00C5BA00; filter at +0x64 via 0x3623E5; CanRespawn byte at +0x68 set 1; Respawn factory 0x251596 news 0x6C calls it most-derived; 2 derived ctors share it as base (0x4C180D 0x4C1B3E)
 ??0RotateTextureMapperClass@@QAE@ABV0@@Z,0x00182780,address read from the REL32 displacement at a placed body; stlport 4.5.3
@@ -493,7 +491,6 @@ name,address,notes
 ??0StringClass@@QAE@PBD_N@Z,0x000F0ED1,StringClass 2-arg ctor (name,flag): empty-init from global 0xDD528C + _mbslen + Get_String pre-size via 0x610B00 row + assign-PBD via 0xF0E8D row; 14 E8 callers incl proto ctor 0x14CE92/factory+owner family; second param bool (byte-tested, forwarded to Get_String _N slot)
 ??0StructureToppleUpdateModuleData@@QAE@XZ,0x00257A5E,address read from the REL32 displacement at a placed body
 ??0SubsystemInterface@@QAE@XZ,0x001B4E63,SubsystemInterface base ctor: installs vtable 0xBD77A0 and zeroes plus 4 and plus 8; called from 151 subsystem ctors incl ArmorStore 0x360BB8; rowed as baseConstruct at same address
-??0SupplyTruckAIUpdateModuleData@@QAE@XZ,0x004BF59F,factory 0x2513E8 pushes the SupplyTruck proc and calls it as its ctor; called as base by Chinook 0x4C1E8B and sibling AIUpdateModuleData ctors
 ??0ActiveBodyModuleData@@QAE@XZ,0x004BF59F,factory 0x2513E8 pushes the SupplyTruck proc and calls it as its ctor; called as base by Chinook 0x4C1E8B and sibling AIUpdateModuleData ctors
 ??0TaintSpecialPowerModuleData@@QAE@XZ,0x004C4AB8
 ??0TerrainCollisionModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003AA107,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
@@ -4141,7 +4138,6 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ?buildFieldParse@ProductionQueueHordeContainModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x0048175B,parse-proc push in the byte-true ProductionQueueHordeContain data factory (ModuleFactory registers it under "ProductionQueueHordeContain")
 ??0W3DHordeModelDrawModuleData@@QAE@XZ,0x000789E3,ctor call in the byte-true W3DHordeModelDraw data factory (ModuleFactory registers it under "W3DHordeModelDraw")
 ?buildFieldParse@W3DHordeModelDrawModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x000793E5,parse-proc push in the byte-true W3DHordeModelDraw data factory (ModuleFactory registers it under "W3DHordeModelDraw")
-??0W3DTreeDrawModuleData@@QAE@XZ,0x000CEBBF,ctor call in the byte-true W3DTreeDraw data factory (ModuleFactory registers it under "W3DTreeDraw")
 ??0W3DFloorDrawModuleData@@QAE@XZ,0x000CF681,ctor call in the byte-true W3DFloorDraw data factory (ModuleFactory registers it under "W3DFloorDraw")
 ?buildFieldParse@W3DFloorDrawModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x000CF8D3,parse-proc push in the byte-true W3DFloorDraw data factory (ModuleFactory registers it under "W3DFloorDraw")
 ??0W3DPropDrawModuleData@@QAE@XZ,0x000CEF2B,ctor call in the byte-true W3DPropDraw data factory (ModuleFactory registers it under "W3DPropDraw")

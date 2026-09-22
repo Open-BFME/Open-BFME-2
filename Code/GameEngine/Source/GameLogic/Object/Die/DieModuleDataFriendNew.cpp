@@ -37,27 +37,6 @@ ModuleData *CreateCrateDieModuleData::friend_newModuleData(INI *ini)
 	return reinterpret_cast<ModuleData *>(data);
 }
 
-class RefundDieModuleData
-{
-public:
-	RefundDieModuleData();
-	virtual ~RefundDieModuleData();
-	static void buildFieldParse(MultiIniFieldParse &parse);
-	static ModuleData *friend_newModuleData(INI *ini);
-
-private:
-	unsigned char m_pad[0x44 - 4];
-};
-
-// ?friend_newModuleData@RefundDieModuleData@@SAPAVModuleData@@PAVINI@@@Z
-ModuleData *RefundDieModuleData::friend_newModuleData(INI *ini)
-{
-	RefundDieModuleData *data = new RefundDieModuleData;
-	if (ini)
-		ini->initFromINIMultiProc(data, RefundDieModuleData::buildFieldParse);
-	return reinterpret_cast<ModuleData *>(data);
-}
-
 class CreateObjectDieModuleData
 {
 public:

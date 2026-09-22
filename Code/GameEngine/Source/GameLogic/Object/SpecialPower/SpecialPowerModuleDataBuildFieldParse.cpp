@@ -177,7 +177,7 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
-// ?buildFieldParse@TaintSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z,
+// ?buildFieldParse@TaintSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z
 // retail 0x004C487B (27 bytes): base-table call above plus the Taint table
 // at 0x00C5D518 (TaintObject at +0x7C, TaintRadius at +0x80, TaintFX at
 // +0x84, TaintOCL at +0x88). The TaintSpecialPower pool key at 0x4C48DF
@@ -189,21 +189,21 @@ void TaintSpecialPowerModuleData::buildFieldParse(MultiIniFieldParse &parse)
 	parse.add(reinterpret_cast<const FieldParse *>(0x00C5D518), 0);
 }
 
-class MobNexusContainModuleData
+class InvisibilitySpecialPowerModuleData
 {
 public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
-// ?buildFieldParse@MobNexusContainModuleData@@SAXAAVMultiIniFieldParse@@@Z,
-// retail 0x004C2389 (27 bytes): base-table call above plus the MobNexus
-// table at 0x00C5C468 (InvisibilityNugget at +0x7C plus BroadcastRadius at
-// +0x134 plus ObjectFilter at +0x138 plus Duration at +0x13C). The rowed
-// factory at 0x002518CB calls the pinned ctor at 0x4C244D and pushes this
-// proc's VA (unique image-wide), which proves the class (HealContain
-// precedent); no pool key exists (the class string has zero pushers
-// image-wide).
-void MobNexusContainModuleData::buildFieldParse(MultiIniFieldParse &parse)
+// ?buildFieldParse@InvisibilitySpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z
+// retail 0x004C2389 (27 bytes): base-table call above plus the table at
+// 0x00C5C468 (InvisibilityNugget at +0x7C plus BroadcastRadius at +0x134
+// plus ObjectFilter at +0x138 plus Duration at +0x13C). Identity:
+// ModuleFactory registers factory 0x002518CB -- which calls ctor 0x4C244D
+// and pushes this proc's VA -- under "InvisibilitySpecialPower"; formerly
+// misnamed MobNexusContainModuleData by analogy with the HealContain
+// precedent rather than direct registration evidence.
+void InvisibilitySpecialPowerModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
 	SpecialPowerModuleData::buildFieldParse(parse);
 	parse.add(reinterpret_cast<const FieldParse *>(0x00C5C468), 0);
@@ -215,7 +215,7 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
-// ?buildFieldParse@FreezingRainSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z,
+// ?buildFieldParse@FreezingRainSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z
 // retail 0x004C4B86 (27 bytes): base-table call above plus the FreezingRain
 // table at 0x00C5D6C0 (FreezingRainRadius at +0x7C plus FreezingRainFX at
 // +0x80 plus BurnRateModifier at +0x84). The rowed factory at 0x00251F70
@@ -233,7 +233,7 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
-// ?buildFieldParse@DarknessSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z,
+// ?buildFieldParse@DarknessSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z
 // retail 0x004C4D9E (27 bytes): base-table call above plus the Darkness
 // table at 0x00C5D7BC (DarknessRadius at +0x7C plus DarknessFX at +0x80).
 // The rowed factory at 0x00251FFC calls the rowed ctor at 0x4C4F63 and
@@ -251,7 +251,7 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
-// ?buildFieldParse@GrabPassengerSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z,
+// ?buildFieldParse@GrabPassengerSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z
 // retail 0x004C4F89 (27 bytes): base-table call above plus the Grab table
 // at 0x00C5D8A8 (GrabRadius at +0x7C plus AllowTree at +0x80). The rowed
 // factory at 0x00252088 calls the rowed ctor at 0x4C5421 and pushes this

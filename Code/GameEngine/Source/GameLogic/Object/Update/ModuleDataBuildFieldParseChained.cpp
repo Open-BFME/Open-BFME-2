@@ -324,7 +324,7 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
-// ?buildFieldParse@RefundDieModuleData@@SAXAAVMultiIniFieldParse@@@Z,
+// ?buildFieldParse@RefundDieModuleData@@SAXAAVMultiIniFieldParse@@@Z
 // retail 0x0025391E (34 bytes): double-add on the rowed Die getter 0x4CE52E
 // with extraOffset 8 then the RefundDie table at 0x00BF0700
 // (UpgradeRequired at +0x38 plus RefundPercent at +0x3C plus
@@ -679,7 +679,7 @@ void OpenContainModuleData::buildFieldParse(MultiIniFieldParse &parse)
 	parse.add(reinterpret_cast<const FieldParse *>(Rva004CE52EGet()), 8);
 }
 
-// ?buildFieldParse@GarrisonContainModuleData@@SAXAAVMultiIniFieldParse@@@Z,
+// ?buildFieldParse@GarrisonContainModuleData@@SAXAAVMultiIniFieldParse@@@Z
 // retail 0x00254F75 (27 bytes): base-table call above plus the Garrison
 // table at 0x00BF3360 (five of five BFME1 GarrisonContain fields in order).
 // The owning factory at 0x00254F90 pushes this proc's VA (unique
@@ -690,27 +690,29 @@ void GarrisonContainModuleData::buildFieldParse(MultiIniFieldParse &parse)
 	parse.add(reinterpret_cast<const FieldParse *>(0x00BF3360), 0);
 }
 
-// ?buildFieldParse@HealContainModuleData@@SAXAAVMultiIniFieldParse@@@Z,
+// ?buildFieldParse@WeaponSetUpgradeModuleData@@SAXAAVMultiIniFieldParse@@@Z
 // retail 0x004B56F6 (34 bytes): double-add on the rowed ModuleData getter
 // table 0x4CE29D with extraOffset 8 then own table 0x00C58020 holding
-// WeaponCondition at +0x118 (ReplaceSelf/Unpause precedent). The rowed
-// HealContain factory at 0x00250252 calls the rowed HealContain ctor at
-// 0x4B57AA and pushes this proc's VA (unique image-wide), which proves the
-// class; the WeaponSetUpgrade pool key ending at this address is packing
-// coincidence (that key's class proc is elsewhere).
-class HealContainModuleData
+// WeaponCondition at +0x118 (ReplaceSelf/Unpause precedent). Identity:
+// ModuleFactory registers factory 0x00250252 -- which calls ctor 0x4B57AA
+// (already rowed WeaponSetUpgradeModuleData) and pushes this proc's VA --
+// under "WeaponSetUpgrade"; formerly misnamed HealContainModuleData on the
+// theory that the WeaponSetUpgrade pool key ending at this address was
+// packing coincidence. HealContain is a real, separate module (data factory
+// 0x24B80D, ctor 0x466D37).
+class WeaponSetUpgradeModuleData
 {
 public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
-void HealContainModuleData::buildFieldParse(MultiIniFieldParse &parse)
+void WeaponSetUpgradeModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
 	parse.add(reinterpret_cast<const FieldParse *>(Rva004CE29DGet()), 8);
 	parse.add(reinterpret_cast<const FieldParse *>(0x00C58020), 0);
 }
 
-// ?buildFieldParse@RemoveUpgradeUpgradeModuleData@@SAXAAVMultiIniFieldParse@@@Z,
+// ?buildFieldParse@RemoveUpgradeUpgradeModuleData@@SAXAAVMultiIniFieldParse@@@Z
 // retail 0x004B7F82 (34 bytes): double-add on the rowed ModuleData getter
 // table 0x4CE29D with extraOffset 8 then own table 0x00C58EA0 holding
 // UpgradeToRemove at +0x118 plus UpgradeGroupsToRemove at +0x124 plus
@@ -736,7 +738,7 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
-// ?buildFieldParse@ReplaceObjectUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z,
+// ?buildFieldParse@ReplaceObjectUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z
 // retail 0x0024FC94 (27 bytes): chained on the rowed Rva0044EB54 base proc
 // at 0x44ED95, then table 0x00BEF960 holding ReplaceObject at +0x18 plus
 // ReplaceRadius at +0x1C plus ReplaceFX at +0x20 plus Scatter at +0x24.
@@ -755,7 +757,7 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
-// ?buildFieldParse@MonsterDockUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z,
+// ?buildFieldParse@MonsterDockUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z
 // retail 0x004A137F (27 bytes): chained on the rowed DockUpdate base proc at
 // 0x5896C1, then table 0x00C51CE4 holding DockableObjectFilter at +0x10 plus
 // DockedAnimationTime at +0x14. The rowed factory at 0x0024EB2C pushes this

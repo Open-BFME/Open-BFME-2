@@ -541,27 +541,6 @@ ModuleData *StructureCollapseUpdateModuleData::friend_newModuleData(INI *ini)
 	return reinterpret_cast<ModuleData *>(data);
 }
 
-class AnimalAIUpdateModuleData
-{
-public:
-	AnimalAIUpdateModuleData();
-	virtual ~AnimalAIUpdateModuleData();
-	static void buildFieldParse(MultiIniFieldParse &parse);
-	static ModuleData *friend_newModuleData(INI *ini);
-
-private:
-	unsigned char m_pad[0x80 - 4];
-};
-
-// ?friend_newModuleData@AnimalAIUpdateModuleData@@SAPAVModuleData@@PAVINI@@@Z
-ModuleData *AnimalAIUpdateModuleData::friend_newModuleData(INI *ini)
-{
-	AnimalAIUpdateModuleData *data = new AnimalAIUpdateModuleData;
-	if (ini)
-		ini->initFromINIMultiProc(data, AnimalAIUpdateModuleData::buildFieldParse);
-	return reinterpret_cast<ModuleData *>(data);
-}
-
 class WorkerAIUpdateModuleData
 {
 public:
