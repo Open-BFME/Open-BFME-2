@@ -15672,3 +15672,4 @@ _bfmeHash1228,,0x0070F880,1504,Code/GameEngine/Source/Common/BfmeConv1228.cpp,ma
 ?convertToWideBuffer@Rva000B3F84Pair@@QAEHPAG@Z,,0x002343AB,24,Code/GameEngine/Source/Main/WinMainPairUnicode.cpp,matched,pair converter with default offset plus length result; single rowed callee
 ?findDrawPositions@Radar@@QAEXHHHHPAUICoord2D@@0@Z,,0x002D799C,266,Code/GameEngine/Source/Common/System/Radar_findDrawPositions.cpp,matched,BFME1 Radar donor with reciprocal axis fit plus direct int division plus enregistered Coord2D; reserved mid-extent slot per retail offsets; row supersedes pin
 ?bfmeComputeVID@BfmePartVID@@QAEHXZ,,0x00195BC0,21,Code/GameEngine/Source/Common/BfmeConv1372Compute.cpp,matched,BfmePartVID span times stride plus header; G7 emits retail add over inc
+?bfmeComputeBVID@BfmePartBVID@@QAEHXZ,,0x00195CC0,22,Code/GameEngine/Source/Common/BfmeConv1372Compute.cpp,matched,BfmePartBVID rounded span plus base; G7 keeps retail load order

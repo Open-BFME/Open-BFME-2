@@ -28,3 +28,8 @@ int BfmePartVID::bfmeComputeVID()
 {
 	return ((m_bfme1C + 1 - m_bfme18) * m_bfme08) * 4 + 0x20;
 }
+
+int BfmePartBVID::bfmeComputeBVID()
+{
+	return (m_bfme10 - m_bfme0C + 8) / 8 + 0x18;
+}
