@@ -1078,7 +1078,6 @@ name,address,notes
 ?ExecCommand@Debug@@AAEXPBD0@Z,0x00039E20,retail REL32 from Debug::Update at 0x0003B79B; existing Debug::ExecCommand implementation
 ?ExpandMagic@DebugIOFlat@@CAXPBD0PAD@Z,0x0003FA20,address read from the REL32 displacement at a placed body; stlport 4.5.3
 ?FindOrCreatePrototypeId@BfmePrototypeNameTable@@QAEHPBD@Z,0x00620500,address read from REL32 in Add_Prototype_Impl at 0x0062175C (e8 9f ed ff ff -> 0x00620500); string-interning name table returning prototype ID or 0 for null
-?Find_Asset@AssetRegistry@@QAE?AVAssetReference@@PBD@Z,0x00621220
 ?Find_Color_Mode@DX8Wrapper@@KA_NW4_D3DFORMAT@@HHPAI@Z,0x0011CF80,address read from the REL32 displacement at a placed body
 ?Flush@OutputStream@DebugIOFlat@@QAEXXZ,0x0003F960,address read from the REL32 displacement at a placed body; stlport 4.5.3
 ?Format@StringClass@@QAAHPBDZZ,0x00610DD0,address read from the retail REL32 in SimpleFileFactoryClass::Get_File at 0x00613750 - two call sites both encode it
