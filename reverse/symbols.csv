@@ -2037,7 +2037,6 @@ name,address,notes
 ?bfmeGoVGP@BfmeThingVGP@@QAEHXZ,0x00176E90
 ?bfmeGoVJH@BfmeOwner803BF0@@QAEXH@Z,0x0066F9B0
 ?bfmeGoVJJ@BfmeThingVJJ@@QAEXPAVBfmeMsgVJJ@@@Z,0x006766E0
-?bfmeGoVM0@BfmeStrVM0@@QAEXH@Z,0x0025D904
 ?bfmeGoVMQ@BfmeThingVMQ@@QAE_NPBDD@Z,0x00655A50
 ?bfmeGrow1039@@YAXPAUBfmeQ1039@@H@Z,0x0074D650
 ?bfmeGrowUPC@@YAXPAUBfmeStateUPC@@H@Z,0x0074D650
@@ -4023,3 +4022,4 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ?drawViewport@W3DShaderManager@@SAXH_NPBUVector2@@@Z,0x00075746,BFME2 3-arg form color plus scale flag plus vector; called from startRenderToTexture alpha path where donor calls drawViewport
 ?Clear@DX8Wrapper@@SAX_N00ABUVector3@@MMI@Z,0x0011D330,7-arg Clear with split depth plus stencil bools; called from startRenderToTexture filter paths where donor calls Clear
 ?multiByteToWideChar@@YAHPBDHPAGH@Z,0x006CB730,CP_ACP MultiByteToWideChar forwarder read from REL32 at placed convertToWide 0x0023436C; single caller
+?bfmeVM0WorkerThread@@YGKPAX@Z,0x0065D128,watcher thread armed by BfmeStrVM0 bfmeGoVM0; pushed as CreateThread start inside 0x0025D904; entry sits inside Ghidra FUN_00a5d0b0 range so the name records its use not a proven boundary
