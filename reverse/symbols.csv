@@ -3989,3 +3989,4 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ?eraseSlot@ObjectLookupMap@@QAEXPAH@Z,0x0054883B,GameLogic lookup map erase; sole caller removeObjectFromLookupTable 0x240144
 ?getAbleToUseWeaponAgainstTarget@WeaponSet@@QBE?AW4CanAttackResult@@W4AbleToAttackType@@PBVObject@@1PBUCoord3D@@W4CommandSourceType@@@Z,0x002C7907,WeaponSet arity-5 const forwarder target of Object 0x28AF2B (attackType source victim pos commandSource); BFME1 WeaponSet.cpp donor (arity-6 sibling with specificSlot)
 ??0W3DTreeDrawModuleData@@QAE@XZ,0x000CEBBF,EH ctor with vtable 0xBCCDF0 and floats; sole caller is factory 0x64C0B which news 0x64 and pushes proc 0xCED03
+?getLine@INIFileTable@@QBEHH@Z,0x006018DC,INI file-table indexed line getter; sole callers are INI getters at 0x2BBDE and 0x2BBED with table-index args
