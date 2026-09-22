@@ -16930,3 +16930,7 @@ _fprintf,,0x002CEC42,108,Code/GameEngine/Source/Common/FprintfAppendLine.cpp,mat
 ?Execute@DebugCmdInterfaceDebug@@UAE_NAAVDebug@@PBDW4CommandMode@DebugCmdInterface@@IPBQBD@Z,,0x0003E570,3504,Code/Libraries/Source/WWVegas/WWDebug/DebugCmdInterfaceDebug_Execute.cpp,matched,ZH debug_cmd.cpp Execute plus BFME2 commands (skipstackwalk beep crash tests windowed fulldump errors)
 ?StopRange@Profile@@SAXPBD@Z,,0x006C57B0,379,Code/Libraries/Source/profile/ProfileStopRange.cpp,matched,ZH profile.cpp StopRange (_PROFILE) on BFME2 FrameName layout
 ?StartRange@Profile@@SAXPBD@Z,,0x006C5940,515,Code/Libraries/Source/profile/ProfileStartRange.cpp,matched,ZH profile.cpp StartRange (_PROFILE) plus BFME2 pattern frame budget; ProfileAllocMemory inlined as in retail
+?ProfileFreeMemory@@YAXPAX@Z,,0x006C5300,16,Code/Libraries/Source/profile/ProfileSmallFunctions.cpp,matched,ZH profile.cpp small function; BFME2 build
+?GetFrameName@Profile@@SAPBDI@Z,,0x006C53C0,25,Code/Libraries/Source/profile/ProfileSmallFunctions.cpp,matched,ZH profile.cpp small function; BFME2 build
+?GetClockCyclesPerSecond@Profile@@SA_JXZ,,0x006C53E0,12,Code/Libraries/Source/profile/ProfileSmallFunctions.cpp,matched,ZH profile.cpp small function; BFME2 build
+?ProfileShutdown@@YAXXZ,,0x006C5400,16,Code/Libraries/Source/profile/ProfileSmallFunctions.cpp,matched,ZH profile.cpp small function; BFME2 build

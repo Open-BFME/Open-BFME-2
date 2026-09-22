@@ -4775,3 +4775,4 @@ _bfmeAppend,0x0060D5F2,callee of bfmeEmit (0x0060D7C0) at the site its BFME1 don
 ?FrameStart@ProfileFuncLevelTracer@@SAHXZ,0x006C8380,Profile::StartRange stores its result as the function-level index (FrameName+0x14) as in profile.cpp
 ?SimpleMatch@Profile@@SA_NPBD0@Z,0x00039480,identical to Debug::SimpleMatch and ICF-folded onto it; Profile::StartRange calls it for the frame-name patterns
 ?RemovePatternEntry@Profile@@CAXPAUPatternListEntry@1@@Z,0x006C5310,unlinks one pattern entry from Profile::firstPatternEntry and frees it; Profile::StartRange calls it when the entry frame budget runs out
+?Shutdown@ProfileId@@SAXXZ,0x006C6360,ProfileShutdown (the profile atexit hook at 0x006C5400) calls it before RunResultFunctions as in profile.cpp
