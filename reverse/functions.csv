@@ -15443,3 +15443,4 @@ _bfmeHash1228,,0x0070F880,1504,Code/GameEngine/Source/Common/BfmeConv1228.cpp,ma
 ??0AssaultTransportAIUpdateModuleData@@QAE@XZ,,0x0024D221,39,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AssaultTransportAIUpdateModuleDataCtor.cpp,matched,
 ?friend_newModuleData@AssaultTransportAIUpdateModuleData@@SAPAVModuleData@@PAVINI@@@Z,,0x0024D29E,81,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AssaultTransportAIUpdateModuleDataFriendNew.cpp,matched,
 ?buildFieldParse@CaveContainModuleData@@SAXAAVMultiIniFieldParse@@@Z,,0x0024B77C,27,Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp,matched,
+??0CaveContainModuleData@@QAE@XZ,,0x00466D37,25,Code/GameEngine/Source/GameLogic/Object/Contain/CaveContainModuleDataCtor.cpp,matched,
