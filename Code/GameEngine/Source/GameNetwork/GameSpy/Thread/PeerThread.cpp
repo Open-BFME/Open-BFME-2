@@ -184,7 +184,6 @@ private:
 	Int _bfme_hole_tailWord;
 };
 
-// ?createNewMessageQueue@GameSpyPeerMessageQueueInterface@@SAPAV1@XZ present-unmatched
 GameSpyPeerMessageQueueInterface* GameSpyPeerMessageQueueInterface::createNewMessageQueue( void )
 {
 	return NEW GameSpyPeerMessageQueue;
@@ -407,7 +406,6 @@ int PeerThreadClass::lookupStatForPlayer(RoomType roomType, const char *nick, co
 }
 
 // byte-exact reconstruction: Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadClearPlayerStats.cpp
-// ?clearPlayerStats@PeerThreadClass@@ present-unmatched
 void PeerThreadClass::clearPlayerStats(RoomType roomType)
 {
 	switch (roomType)
@@ -643,7 +641,6 @@ void GameSpyPeerMessageQueue::addRequest( const PeerRequest& req )
 	m_requests.push(req);
 }
 
-// ?getRequest@GameSpyPeerMessageQueue@@UAE_NAAVPeerRequest@@@Z present-unmatched
 //PeerRequest GameSpyPeerMessageQueue::getRequest( void )
 Bool GameSpyPeerMessageQueue::getRequest( PeerRequest& req )
 {
@@ -658,7 +655,6 @@ Bool GameSpyPeerMessageQueue::getRequest( PeerRequest& req )
 	return true;
 }
 
-// ?addResponse@GameSpyPeerMessageQueue@@UAEXABVPeerResponse@@@Z present-unmatched
 void GameSpyPeerMessageQueue::addResponse( const PeerResponse& resp )
 {
 	if (resp.nick == "(END)")

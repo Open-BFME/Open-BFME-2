@@ -90,7 +90,6 @@ void CameraMarkerList::clear()
 	}
 }
 
-// ?find@CameraMarkerList@@QBEPAUCameraMarker@@ABVAsciiString@@@Z present-unmatched
 CameraMarker *CameraMarkerList::find(
 	const AsciiString &name) const
 {

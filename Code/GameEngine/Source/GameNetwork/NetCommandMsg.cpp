@@ -22,7 +22,6 @@ NetCommandMsg::~NetCommandMsg()
 {
 }
 
-// ?addArgument@NetGameCommandMsg@@QAEXW4GameMessageArgumentDataType@@TGameMessageArgumentType@@@Z present-unmatched
 void NetGameCommandMsg::addArgument(
 	const GameMessageArgumentDataType type, GameMessageArgumentType arg)
 {
@@ -55,7 +54,6 @@ NetWrapperCommandMsg::~NetWrapperCommandMsg()
 	}
 }
 
-// ?setData@NetWrapperCommandMsg@@QAEXPAEI@Z present-unmatched
 void NetWrapperCommandMsg::setData(UnsignedByte *data, UnsignedInt dataLength)
 {
 	if (m_data != NULL) {
@@ -140,7 +138,6 @@ void NetWrapperCommandMsg::setWrappedCommandID(UnsignedShort wrappedCommandID)
 	m_wrappedCommandID = wrappedCommandID;
 }
 
-// ?setFileData@NetFileCommandMsg@@QAEXPAEI@Z present-unmatched
 void NetFileCommandMsg::setFileData(UnsignedByte *data, UnsignedInt dataLength)
 {
 	m_dataLength = dataLength;

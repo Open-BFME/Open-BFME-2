@@ -162,7 +162,6 @@ public:
 	virtual ~Rva0025A390FlatDtor();
 };
 
-// ??1Rva0025A390FlatDtor@@UAE@XZ present-unmatched
 Rva0025A390FlatDtor::~Rva0025A390FlatDtor()
 {
 }

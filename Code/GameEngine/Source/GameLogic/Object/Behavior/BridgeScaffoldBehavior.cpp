@@ -80,7 +80,6 @@ void BridgeScaffoldBehavior::setPositions( const Coord3D *createPos,
 // ------------------------------------------------------------------------------------------------
 /** Set us moving to the right target position for the requested motion type */
 // ------------------------------------------------------------------------------------------------
-// ?setMotion@BridgeScaffoldBehavior@@UAEXW4ScaffoldTargetMotion@@@Z present-unmatched
 void BridgeScaffoldBehavior::setMotion( ScaffoldTargetMotion targetMotion ) 
 {
 
@@ -114,7 +113,6 @@ void BridgeScaffoldBehavior::setMotion( ScaffoldTargetMotion targetMotion )
 // ------------------------------------------------------------------------------------------------
 /** Whatever our current state of motion is, reverse it */
 // ------------------------------------------------------------------------------------------------
-// ?reverseMotion@BridgeScaffoldBehavior@@UAEXXZ present-unmatched
 void BridgeScaffoldBehavior::reverseMotion( void )
 {
 

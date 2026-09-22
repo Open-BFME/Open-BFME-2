@@ -316,7 +316,6 @@ void W3DBibBuffer::clearAllBibs(void)
 //=============================================================================
 /** Clears highlighting flag.   */
 //=============================================================================
-// ?removeHighlighting@W3DBibBuffer@@QAEXXZ present-unmatched
 void W3DBibBuffer::removeHighlighting(void)
 {
 	Int bibIndex;
@@ -406,7 +405,6 @@ void W3DBibBuffer::addBibDrawable(Vector3 corners[4], DrawableID id, Bool highli
 //=============================================================================
 /** Removes a bib.  */
 //=============================================================================
-// ?removeBib@W3DBibBuffer@@QAEXW4ObjectID@@@Z present-unmatched
 void W3DBibBuffer::removeBib(ObjectID id)
 {
 	Int bibIndex;
@@ -425,7 +423,6 @@ void W3DBibBuffer::removeBib(ObjectID id)
 //=============================================================================
 /** Removes a bib.  */
 //=============================================================================
-// ?removeBibDrawable@W3DBibBuffer@@QAEXW4DrawableID@@@Z present-unmatched
 void W3DBibBuffer::removeBibDrawable(DrawableID id)
 {
 	Int bibIndex;

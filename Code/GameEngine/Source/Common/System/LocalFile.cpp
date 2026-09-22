@@ -225,7 +225,6 @@ protected:
 static int s_totalOpen = 0;
 
 // ??1LocalFile@@UAE@XZ
-// ??1LocalFile@@UAE@XZ present-unmatched
 LocalFile::~LocalFile()
 {
 	if( m_handle != -1 )
@@ -283,7 +282,6 @@ File *LocalFile::convertToRAMFile( void )
 }
 
 // ?read@LocalFile@@UAEHPAXH@Z
-// ?read@LocalFile@@UAEHPAXH@Z present-unmatched
 int LocalFile::read( void *buffer, int bytes )
 {
 	if( !m_open )
@@ -378,7 +376,6 @@ error:
 }
 
 // ?write@LocalFile@@UAEHPBXH@Z
-// ?write@LocalFile@@UAEHPBXH@Z present-unmatched
 int LocalFile::write( const void *buffer, int bytes )
 {
 
@@ -393,7 +390,6 @@ int LocalFile::write( const void *buffer, int bytes )
 }
 
 // ?seek@LocalFile@@UAEHHW4seekMode@File@@@Z
-// ?seek@LocalFile@@UAEHHW4seekMode@File@@@Z present-unmatched
 int LocalFile::seek( int pos, seekMode mode )
 {
 	int lmode;
@@ -440,7 +436,6 @@ char *LocalFile::readEntireAndClose( void )
 
 // ?nextLine@LocalFile@@UAEXPADH@Z
 // scans to the first character after a new-line or at EOF
-// ?nextLine@LocalFile@@UAEXPADH@Z present-unmatched
 void LocalFile::nextLine( char *buf, int bufSize )
 {
 	char c = 0;
@@ -468,7 +463,6 @@ void LocalFile::nextLine( char *buf, int bufSize )
 }
 
 // ?scanInt@LocalFile@@UAE_NAAH@Z
-// ?scanInt@LocalFile@@UAE_NAAH@Z present-unmatched
 bool LocalFile::scanInt( int &newInt )
 {
 	newInt = 0;

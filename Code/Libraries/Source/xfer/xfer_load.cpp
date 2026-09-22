@@ -59,7 +59,6 @@ private:
 	int m_currentBlock;
 };
 
-// ?beginBlock@Xfer@@UAEHPBD@Z present-unmatched
 int Xfer::beginBlock(const char *name)
 {
 	if (m_stream == 0)
@@ -108,7 +107,6 @@ int Xfer::beginBlock(const char *name)
 	return marker;
 }
 
-// ?endBlock@Xfer@@UAEXXZ present-unmatched
 void Xfer::endBlock()
 {
 	if (m_stream == 0 || m_blockCount == 0)
@@ -138,7 +136,6 @@ void Xfer::endBlock()
 	--m_blockCount;
 }
 
-// ?skipBlock@Xfer@@UAEXPBD@Z present-unmatched
 void Xfer::skipBlock(const char *name)
 {
 	if (m_stream == 0)

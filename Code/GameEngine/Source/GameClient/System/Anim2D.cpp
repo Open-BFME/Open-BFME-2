@@ -119,7 +119,6 @@ void Anim2DTemplate::allocateImages( UnsignedShort numFrames )
 // ------------------------------------------------------------------------------------------------
 /** Parsing a single image definition for an animation */
 // ------------------------------------------------------------------------------------------------
-// ?parseImage@Anim2DTemplate@@KAXPAVINI@@PAX1PBX@Z present-unmatched
 void Anim2DTemplate::parseImage( INI *ini, void *instance, void *store, const void *userData )
 {
 
@@ -169,7 +168,7 @@ void Anim2DTemplate::parseImage( INI *ini, void *instance, void *store, const vo
 // ------------------------------------------------------------------------------------------------
 /** Return the Image* for the frame number requested */
 // ------------------------------------------------------------------------------------------------
-// ?getFrame@Anim2DTemplate@@QBEPBVImage@@G@Z present-unmatched
+// ?getFrame@Anim2DTemplate@@QBEPBVImage@@G@Z
 const Image* Anim2DTemplate::getFrame( UnsignedShort frameNumber ) const
 { 
 

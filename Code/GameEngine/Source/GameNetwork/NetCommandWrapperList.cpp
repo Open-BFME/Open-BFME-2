@@ -65,7 +65,6 @@ public:
 ////// NetCommandWrapperListNode ///////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-// ??0NetCommandWrapperListNode@@QAE@PAVNetWrapperCommandMsg@@@Z present-unmatched
 NetCommandWrapperListNode::NetCommandWrapperListNode(NetWrapperCommandMsg *msg) 
 {
 	//Added By Sadullah Nader
@@ -114,7 +113,6 @@ inline const int &wrapperPercentMin(const int &a, const int &b)
     return a < b ? a : b;
 }
 }
-// ?getPercentComplete@NetCommandWrapperListNode@@QAEHXZ present-unmatched
 Int NetCommandWrapperListNode::getPercentComplete()
 {
     if (m_numChunksPresent == m_numChunks)
@@ -134,7 +132,6 @@ UnsignedInt NetCommandWrapperListNode::getRawDataLength() {
 	return m_dataLength;
 }
 
-// ?copyChunkData@NetCommandWrapperListNode@@QAEXPAVNetWrapperCommandMsg@@@Z present-unmatched
 void NetCommandWrapperListNode::copyChunkData(NetWrapperCommandMsg *msg) {
 	if (msg == NULL) {
 		DEBUG_CRASH(("Trying to copy data from a non-existent wrapper command message"));
@@ -199,7 +196,6 @@ void NetCommandWrapperList::reset() {
 	}
 }
 
-// ?getPercentComplete@NetCommandWrapperList@@QAEHG@Z present-unmatched
 Int NetCommandWrapperList::getPercentComplete(UnsignedShort wrappedCommandID)
 {
 	NetCommandWrapperListNode *temp = m_list;
@@ -214,7 +210,6 @@ Int NetCommandWrapperList::getPercentComplete(UnsignedShort wrappedCommandID)
 	return temp->getPercentComplete();
 }
 
-// ?processWrapper@NetCommandWrapperList@@QAEXPAVNetCommandRef@@@Z present-unmatched
 void NetCommandWrapperList::processWrapper(NetCommandRef *ref) {
 	NetCommandWrapperListNode *temp = m_list;
 	// BFME de-pooled NetCommandRef: the command pointer is at +0, without

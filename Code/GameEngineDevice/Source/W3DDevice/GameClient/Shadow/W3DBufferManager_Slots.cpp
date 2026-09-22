@@ -196,7 +196,6 @@ protected:
 };
 
 // ?freeAllSlots@W3DBufferManager@@QAEXXZ
-// ?freeAllSlots@W3DBufferManager@@QAEXXZ present-unmatched
 void W3DBufferManager::freeAllSlots(void)
 {
 	Int i,j;
@@ -245,7 +244,6 @@ void W3DBufferManager::freeAllSlots(void)
    creates a new slot and adds it to the pool.
 */
 // ?getSlot@W3DBufferManager@@QAEPAUW3DVertexBufferSlot@1@W4VBM_FVF_TYPES@1@H@Z
-// ?getSlot@W3DBufferManager@@QAEPAUW3DVertexBufferSlot@1@W4VBM_FVF_TYPES@1@H@Z present-unmatched
 W3DBufferManager::W3DVertexBufferSlot *W3DBufferManager::getSlot(VBM_FVF_TYPES fvfType, Int size)
 {
 	W3DVertexBufferSlot *vbSlot=NULL;
@@ -289,7 +287,6 @@ void W3DBufferManager::releaseSlot(W3DVertexBufferSlot *vbSlot)
    creates a new slot and adds it to the pool.
 */
 // ?getSlot@W3DBufferManager@@QAEPAUW3DIndexBufferSlot@1@H@Z
-// ?getSlot@W3DBufferManager@@QAEPAUW3DIndexBufferSlot@1@H@Z present-unmatched
 W3DBufferManager::W3DIndexBufferSlot *W3DBufferManager::getSlot(Int size)
 {
 	W3DIndexBufferSlot *ibSlot=NULL;
@@ -318,7 +315,6 @@ W3DBufferManager::W3DIndexBufferSlot *W3DBufferManager::getSlot(Int size)
 
 /**Returns index buffer space back to pool so it can be reused later*/
 // ?releaseSlot@W3DBufferManager@@QAEXPAUW3DIndexBufferSlot@1@@Z
-// ?releaseSlot@W3DBufferManager@@QAEXPAUW3DIndexBufferSlot@1@@Z present-unmatched
 void W3DBufferManager::releaseSlot(W3DIndexBufferSlot *ibSlot)
 {
 	Int sizeIndex = (ibSlot->m_size >> MIN_SLOT_SIZE_SHIFT)-1;
@@ -337,7 +333,6 @@ static int SlotFVFTypeIndexList[ W3DBufferManager::MAX_FVF ] =
 	0x004, 0x044, 0x104, 0x144, 0x204, 0x244
 };
 
-// ?allocateSlotStorage@W3DBufferManager@@IAEPAUW3DVertexBufferSlot@1@W4VBM_FVF_TYPES@1@H@Z present-unmatched
 W3DBufferManager::W3DVertexBufferSlot *W3DBufferManager::allocateSlotStorage(
 	VBM_FVF_TYPES fvfType, Int size )
 {

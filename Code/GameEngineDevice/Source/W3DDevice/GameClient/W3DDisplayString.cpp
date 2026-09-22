@@ -473,7 +473,6 @@ void W3DDisplayString::setUseHotkey( Bool useHotkey, Color hotKeyColor )
 // W3DDisplayString::setWordWrapCentered ======================================
 /** Set the whether or not we want to center each new line in a text string */
 //=============================================================================
-// ?setWordWrapCentered@W3DDisplayString@@UAEX_N@Z present-unmatched
 void W3DDisplayString::setWordWrapCentered( Bool isCentered )
 {
 	// set the Word Wrap

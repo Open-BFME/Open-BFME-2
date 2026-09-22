@@ -93,7 +93,6 @@ void BfmeQuickMatchScreenBase::bfmeAttach(void *screen)
 }
 
 // ??0BfmeQuickMatchScreenBase@@QAE@PAX@Z
-// ??0BfmeQuickMatchScreenBase@@QAE@PAX@Z present-unmatched
 BfmeQuickMatchScreenBase::BfmeQuickMatchScreenBase(void *screen)
 {
 	m_bfme08 = 0;
