@@ -1677,7 +1677,6 @@ name,address,notes
 ?addWin32Event@Win32Mouse@@QAEXIIJK@Z,0x00041A10,address read from the REL32 shared by WndProc's three mouse arms at 0x00001C20
 ?add_resolution@BfmeEnumerationDesc@@QAEXHHH@Z,0x00121550,Recovered BFME2 descriptor view; complete 158-byte insertion compares width height and depth before adding a new resolution
 ?afterWalk@BfmeObjF9@@QAEXXZ,0x006BE700
-?aiIdle@AICommandInterface@@QAEXW4CommandSourceType@@@Z,0x001E8A38,SpawnBehavior slave loop at 0x4607D0 arity-1 thiscall on AIUpdateInterface commands at +0x20 forwarding cmdSource; BFME1 carved name AICommandInterface::aiIdle
 ?allocArg@GameMessage@@AAEPAVGameMessageArgument@@XZ,0x0030F8FF,address read from the REL32 displacement at a placed body
 ?allocBlock@Rva006DB160@@QAEPAXH@Z,0x006DB160,pool allocator thiscall (size); global at 0xE176E8; companion to freeBlock pin 0x6DB270; called from Reserve 0x6D37BE and static getter 0x6CC026
 ?allocate@?$allocator@D@_STL@@SAPADIPBX@Z,0x000307F0,STLport 4.5.3 narrow allocator byte allocation; address read from retail basic_string _M_range_initialize REL32 displacement. Body forwards (size, memory class 3, hint) to the game allocator pointer at 0x00DE0404 - the same table _free at 0x00030830 uses - so it is __cdecl here, not the upstream const member

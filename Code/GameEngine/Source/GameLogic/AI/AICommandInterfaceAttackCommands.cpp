@@ -29,6 +29,7 @@ class Object;
 
 enum AICommandType
 {
+	AICMD_IDLE = 5,
 	AICMD_FORCE_ATTACK_OBJECT = 0x0C,
 	AICMD_ATTACK_POSITION = 0x0E
 };
@@ -64,9 +65,17 @@ class AICommandInterface
 public:
 	virtual void aiDoCommand(const AICommandParms *parms) = 0;
 
+	void aiIdle(CommandSourceType cmdSource);
 	void aiForceAttackObject(Object *victim, Int maxShotsToFire, CommandSourceType cmdSource);
 	void aiAttackPosition(const Coord3D *pos, Int maxShotsToFire, CommandSourceType cmdSource);
 };
+
+// ?aiIdle@AICommandInterface@@QAEXW4CommandSourceType@@@Z @0x1E8A38
+void AICommandInterface::aiIdle(CommandSourceType cmdSource)
+{
+	AICommandParms parms(AICMD_IDLE, cmdSource);
+	aiDoCommand(&parms);
+}
 
 // ?aiForceAttackObject@AICommandInterface@@QAEXPAVObject@@HW4CommandSourceType@@@Z @0x36F05A
 void AICommandInterface::aiForceAttackObject(Object *victim, Int maxShotsToFire, CommandSourceType cmdSource)
