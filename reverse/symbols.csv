@@ -4022,3 +4022,5 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ?Clear@DX8Wrapper@@SAX_N00ABUVector3@@MMI@Z,0x0011D330,7-arg Clear with split depth plus stencil bools; called from startRenderToTexture filter paths where donor calls Clear
 ?multiByteToWideChar@@YAHPBDHPAGH@Z,0x006CB730,CP_ACP MultiByteToWideChar forwarder read from REL32 at placed convertToWide 0x0023436C; single caller
 ?bfmeVM0WorkerThread@@YGKPAX@Z,0x0065D128,watcher thread armed by BfmeStrVM0 bfmeGoVM0; pushed as CreateThread start inside 0x0025D904; entry sits inside Ghidra FUN_00a5d0b0 range so the name records its use not a proven boundary
+?parse@VersionBlockParser@@AAEXPBD@Z,0x004289B8,Version-block header parse feeding the record vector; sole caller is the parser ctor 0x428C04 passing the 512B block; memcmp plus sscanf body returns bool
+??0?$_Vector_base@UVersionBlockEntry@@V?$allocator@UVersionBlockEntry@@@_STL@@@_STL@@QAE@ABV?$allocator@UVersionBlockEntry@@@1@@Z,0x00211E58,ICF-folded empty vector base ctor same 29B as matched BfmeE16 row; VersionBlockParserCtor TU vector VersionBlockEntry member
