@@ -1,5 +1,5 @@
 // cl: /O1
-extern "C" unsigned char bfmeVftTC[];
+extern "C" unsigned char bfmeVftTCBase[];
 
 class BfmeThingTC
 {
@@ -15,6 +15,6 @@ BfmeThingTC *BfmeThingTC::bfmeBaseTC()
 {
 	m_bfmeStateFlags04 &= 0;
 	m_bfmeStateFlags08 &= 0;
-	m_bfmeVft = bfmeVftTC;
+	m_bfmeVft = bfmeVftTCBase;
 	return this;
 }
