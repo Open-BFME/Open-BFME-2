@@ -3615,7 +3615,6 @@ _realloc,0x0003E4B0,retail REL32 at both allocation sites in DebugLogTyped
 _recfields,0x00754DD0
 _recv@16,0x006556E8,PE thunk ff2548a9bb00 jumps through IAT 0x00BBA948 to wsock32.dll!recv; Ghidra independently names same thunk
 _recvfrom@24,0x00655664,PE-verified FF25 import thunk to wsock32.dll!recvfrom via IAT 0x00BBA940; independently read from retail import directory
-_rva002bcab_scanIndex,0x0002BCAB,index-list worker (token,table,found-out,throw-flag) behind member scanIndexList; null-table and miss throws via filler; true name unproven (NOT B1 static scanIndexList: 4 args vs 2)
 _rva002f681_fill,0x0002F681,variadic INIException {msg;code} filler (vsnprintf into TLS buf + new[] + memcpy); throw-site helper for AI-kind and INI parsers; true name unknown
 _select@20,0x0065566A,PE-verified FF25 import thunk to wsock32.dll!select via IAT 0x00BBA99C; independently read from retail import directory
 _send@16,0x0065568E,PE thunk ff2584a9bb00 jumps through IAT 0x00BBA984 to wsock32.dll!send; Ghidra independently names same thunk
