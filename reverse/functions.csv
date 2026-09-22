@@ -15766,3 +15766,4 @@ _piProcessUTM,,0x006AA950,508,Code/GameEngine/Source/GameNetwork/GameSpy/peer/pe
 ?rva00085124@GameLogic@@QAE_NXZ,,0x00085124,23,Code/GameEngine/Source/GameLogic/System/GameLogicModeFourOrSeven.cpp,matched,reloc-named GameLogic mode predicate via isMultiplayer caller; returns mode 4 or 7
 ?rva007FBE70@Rva007FBC60Game@@QAEPADXZ,,0x00668370,15,Code/GameEngine/Source/GameNetwork/Rva007FBC60GamePlatform.cpp,matched,reloc-named platform accessor via FeslMeasure caller; branchless select on lead byte
 ?bfmeGetCellRange@Gen_008812D0@@QAEXPAPAVBfmeCellFC@@0HHH@Z,,0x006C0CA0,123,Code/GameEngine/Source/Common/BfmeGridRasterCircle.cpp,matched,BFME1 taintmanager_impl donor verbatim; 12B cell layout; leaf
+?Rva009AA260Scale@@YAHPAURva009AA260Context@@PBEHIIPAEIII@Z,,0x001BACA0,596,Code/GameEngine/Source/Common/Rva009AA260Scale.cpp,matched,BFME1 donor with BFME2 callback-slot externs; b1 0x009AA260; sweep-miss with 3 intra Jcc
