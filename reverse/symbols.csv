@@ -4020,3 +4020,4 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ?releaseBuffer@?$StringBase@G@@QAEXXZ,0x00036E70,public-spelling wide StringBase releaseBuffer for TU-local UnicodeString teardown; same body as pinned private spelling; read from REL32 at placed getStringFromRegistry 0x00234417
 ??_7RespawnUpdateModuleData@@6B@,0x00C5BA00,RespawnUpdateModuleData vtable installed by ctor 0x4C14DF (mov esi imm at 0x4C1501); factory 0x251596 news 0x6C; slot0 scalar-deleting dtor unclaimed
 ?initFromStorages@Rva003623E5Member@@QAEXVBfmeFixedStorage0004543D@@0@Z,0x00362087,Filter two-storage init taking two FixedStorage by value (ret 0x38); called by RespawnUpdate ctor 0x4C14DF with in-place temps; callees 0x360CB0 plus 0x360F55 plus 0x361790 plus 0x360FDB unclaimed
+?__stl_hash_string@_STL@@YAIPBD@Z,0x0002BA61,STLport vendored _hash_fun donor verbatim imul5 loop; sole hash leaf for Eva plus 4 string users
