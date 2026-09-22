@@ -200,30 +200,18 @@ void parseAudioLowMHz(INI* ini)
 	}
 }
 
-// ?parseBenchProfile@INI@@SAXPAV1@@Z present-unmatched
+// ABI shim for target helper 0x0020200D; this type name is inferred.
+// Retail bounds/increments count at +0x17C0 and returns a 20-byte profile.
+struct RetailBenchProfileAllocator
+{
+	BenchProfile *newBenchProfile();
+};
+
 void INI::parseBenchProfile( INI* ini)
 {
-	struct RetailGameLODManager
-	{
-		char m_pad0[0x1580];
-		BenchProfile m_benchProfiles[MAX_BENCH_PROFILES];
-		char m_pad1[0x44];
-		Int m_numBenchProfiles;
-
-		BenchProfile *newBenchProfile()
-		{
-			if (m_numBenchProfiles < MAX_BENCH_PROFILES)
-			{
-				m_numBenchProfiles++;
-				return &m_benchProfiles[m_numBenchProfiles - 1];
-			}
-			return NULL;
-		}
-	};
-
 	if( TheGameLODManager )
 	{
-		BenchProfile *preset = reinterpret_cast<RetailGameLODManager *>(TheGameLODManager)->newBenchProfile();
+		BenchProfile *preset = reinterpret_cast<RetailBenchProfileAllocator *>(TheGameLODManager)->newBenchProfile();
 
 			if (preset)
 			{
@@ -774,7 +762,7 @@ const char *GameLODManager::getDynamicGameLODLevelName(DynamicGameLODLevel level
 }
 
 /**Given an average fps, return the optimal dynamic LOD level that matches this fps.*/
-// ?findDynamicLODLevel@GameLODManager@@QAE?AW4DynamicGameLODLevel@@M@Z present-unmatched here — matched copy lives in Common/GameLODManager_findDynamicLODLevel_Thunk.cpp with BFME's enum base and entry size
+// ?findDynamicLODLevel@GameLODManager@@QAE?AW4DynamicGameLODLevel@@M@Z present-unmatched here â€” matched copy lives in Common/GameLODManager_findDynamicLODLevel_Thunk.cpp with BFME's enum base and entry size
 DynamicGameLODLevel GameLODManager::findDynamicLODLevel(Real averageFPS)
 {
 	Int ifps=(Int)(averageFPS);	//convert to integer.
