@@ -399,7 +399,6 @@ name,address,notes
 ??0ModelConditionUpgradeModuleData@@QAE@XZ,0x004B6428,EH ctor over base 0x253487; vtable 0x00BF2558; condition members at +0x118/+0x164; sole raw caller is ModuleData factory 0x250546 which news 0x1B8
 ??0ModuleData@@QAE@XZ,0x006024FD,address read from the REL32 displacement at DieModuleData ctor 0x6054E7
 ??0Money@@QAE@ABV0@@Z,0x00063BE4
-??0MonsterDockUpdateModuleData@@QAE@XZ,0x004A1517,EH ctor over pinned DockUpdateModuleData base 0x5896B0; vtable plus filter at +0x10 plus zero at +0x14; sole raw caller is ModuleData factory 0x24EB2C which news 0x18
 ??0MultiIniFieldParse@@QAE@XZ,0x0002BAA0,frameless 27B zeroing ctor over stack buffer at parseObject 0x1F311B; layout +0/+0x40/+0x80 matches BFME1 class
 ??0NetCommandList@@QAE@XZ,0x0058B06A,BFME1-attested NetCommandList ctor (0x10-byte list); called post-new-null-check at 9 sites incl FrameData::init 0x5DA522; BFME1 mangling QAE
 ??0NeutronMissileUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x00497ED0
@@ -3990,3 +3989,4 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ?Rva00295A0FCommand@Rva00295A0FCommands@@QAEXPAXHH@Z,0x00295A0F,3-param AICommand method on commands at AIUpdateInterface plus 0x20 (target then 0x7FFFFFFF then source at all 14 raw call sites); semantic identity unproven so Rva-addressed
 ??_7RemoveUpgradeUpgradeModuleData@@6B@,0x00C58EF0,slot0 is 0x4B8034 sitting right after ctor 0x4B7FF1 plus slot1 is 0x4B3FD0 ret-pair
 ??_7SlavedUpdateModuleData@@6B@,0x00BF34C0,slot0 is scalar-deleting ??_G at 0x255FA5 plus slot1 is 0x4B3FD0 ret-pair
+??_7MonsterDockUpdateModuleData@@6B@,0x00C51DA8,slot0 is scalar-deleting ??_G at 0x4A1552 sitting right after ctor 0x4A1517 plus slot1 is 0x4B3FD0 ret-pair
