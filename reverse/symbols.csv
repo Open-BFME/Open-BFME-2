@@ -4762,3 +4762,4 @@ _bfmeAppend,0x0060D5F2,callee of bfmeEmit (0x0060D7C0) at the site its BFME1 don
 ??0GenBase009A1A30@@QAE@XZ,0x001B4E63,BFME1 donor name for the base ctor called by Rva001129B0 (0x0005107D); retail calls SubsystemInterface ctor 0x001B4E63 there (alias)
 ?Get_HAnim@@YAPAVHAnimClass@@PBD@Z,0x0014CF5F,callee of setAnimNames (0x000B207F) at the site its BFME1 donor calls it; may be an ICF alias
 ?releaseBuffer@AsciiString@@AAEXXZ,0x00036410,callee of RAsciiComparator (0x0038233A) at the site its BFME1 donor calls it; may be an ICF alias
+?GetUnsignedIntFromRegistry@@YA_NVAsciiString@@0AAI@Z,0x00234F1A,callee of GetRegistryMapPackVersion (0x002351D1) at the site its BFME1 donor calls it
