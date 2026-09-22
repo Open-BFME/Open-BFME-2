@@ -58,6 +58,7 @@ FXListDie::FXListDie( Thing *thing, const ModuleData* moduleData ) : DieModule( 
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
+// ??1FXListDie@@MAE@XZ present-unmatched
 FXListDie::~FXListDie( void )
 {
 
@@ -66,6 +67,7 @@ FXListDie::~FXListDie( void )
 //-------------------------------------------------------------------------------------------------
 /** The die callback. */
 //-------------------------------------------------------------------------------------------------
+// ?onDie@FXListDie@@UAEXPBVDamageInfo@@@Z present-unmatched
 void FXListDie::onDie( const DamageInfo *damageInfo )
 {
 	if (!isUpgradeActive())
@@ -103,6 +105,7 @@ void FXListDie::onDie( const DamageInfo *damageInfo )
 // ------------------------------------------------------------------------------------------------
 /** CRC */
 // ------------------------------------------------------------------------------------------------
+// ?crc@FXListDie@@MAEXPAVXfer@@@Z present-unmatched
 void FXListDie::crc( Xfer *xfer )
 {
 
@@ -116,6 +119,7 @@ void FXListDie::crc( Xfer *xfer )
 	* Version Info:
 	* 1: Initial version */
 // ------------------------------------------------------------------------------------------------
+// ?xfer@FXListDie@@MAEXPAVXfer@@@Z present-unmatched
 void FXListDie::xfer( Xfer *xfer )
 {
 
@@ -132,6 +136,7 @@ void FXListDie::xfer( Xfer *xfer )
 // ------------------------------------------------------------------------------------------------
 /** Load post process */
 // ------------------------------------------------------------------------------------------------
+// ?loadPostProcess@FXListDie@@MAEXXZ present-unmatched
 void FXListDie::loadPostProcess( void )
 {
 

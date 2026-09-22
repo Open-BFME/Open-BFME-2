@@ -5344,7 +5344,6 @@ _current_time,,0x00656BB0,6,Code/GameEngine/Source/GameNetwork/GameSpy/nonport.c
 ?addObjectCreationNugget@ObjectCreationList@@QAEXPAVObjectCreationNugget@@@Z,,0x001F0BDA,21,Code/GameEngine/Source/GameLogic/Object/ObjectCreationList.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 ??0?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAE@ABV01@@Z,,0x000BC07E,93,Code/GameEngine/Source/GameLogic/Object/Contain/HelixContain.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 ??1HelixContainModuleData@@UAE@XZ,,0x001E116E,56,Code/GameEngine/Source/GameLogic/Object/Contain/HelixContain.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
-??1FXListDie@@MAE@XZ,,0x00485EC3,32,Code/GameEngine/Source/GameLogic/Object/Die/FXListDie.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 ??0EjectPilotDieModuleData@@QAE@XZ,,0x00605A28,29,Code/GameEngine/Source/GameLogic/Object/Die/EjectPilotDie.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 ?isDieApplicable@DieModule@@IBE_NPBVDamageInfo@@@Z,,0x0045CEA7,22,Code/GameEngine/Source/GameLogic/Object/Die/FXListDie.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 ?GameMakeColor@@YAHEEEE@Z,,0x0004145E,31,Code/GameEngine/Source/GameLogic/Object/SpecialPower/CashHackSpecialPower.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
@@ -5762,7 +5761,6 @@ _XMP_Move,,0x0061BE10,19,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,
 ?parseGameClientRandomDelay@@YAXPAVINI@@PAXPAVGameClientRandomVariable@@@Z,,0x004870F6,69,Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdate.cpp,matched,
 ?setUpdate@HijackerUpdate@@QAEX_N@Z,,0x0066CA90,10,Code/GameEngine/Source/GameLogic/Object/Update/HijackerUpdate.cpp,matched,
 ?push_back@?$vector@UAngleFXInfo@@V?$allocator@UAngleFXInfo@@@_STL@@@_STL@@QAEXABUAngleFXInfo@@@Z,,0x00626470,58,Code/GameEngine/Source/GameLogic/Object/Update/StructureToppleUpdate.cpp,matched,
-??_GFXListDie@@MAEPAXI@Z,,0x00485FC7,28,Code/GameEngine/Source/GameLogic/Object/Die/FXListDie.cpp,matched,
 ??A?$vector@URunwayInfo@ParkingPlaceBehavior@@V?$allocator@URunwayInfo@ParkingPlaceBehavior@@@_STL@@@_STL@@QAEAAURunwayInfo@ParkingPlaceBehavior@@I@Z,,0x006BD4B0,15,Code/GameEngine/Source/GameLogic/Object/Behavior/ParkingPlaceBehavior.cpp,matched,
 ??_GHelixContainModuleData@@UAEPAXI@Z,,0x001E1152,28,Code/GameEngine/Source/GameLogic/Object/Contain/HelixContain.cpp,matched,
 ??$_M_range_initialize@PAG@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@AAEXPAG0@Z,,0x000160F0,23,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_num_put_bool.cpp,matched,
