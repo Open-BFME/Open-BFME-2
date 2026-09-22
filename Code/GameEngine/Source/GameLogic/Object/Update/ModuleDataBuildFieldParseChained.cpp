@@ -317,6 +317,26 @@ void KeepObjectDieModuleData::buildFieldParse(MultiIniFieldParse &parse)
 	parse.add(reinterpret_cast<const FieldParse *>(0x00BF0994), 0);
 }
 
+class RefundDieModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+// ?buildFieldParse@RefundDieModuleData@@SAXAAVMultiIniFieldParse@@@Z,
+// retail 0x0025391E (34 bytes): double-add on the rowed Die getter 0x4CE52E
+// with extraOffset 8 then the RefundDie table at 0x00BF0700
+// (UpgradeRequired at +0x38 plus RefundPercent at +0x3C plus
+// BuildingRequired at +0x40 matching the ctor stores and member). The owning
+// ModuleData factory at 0x00253940 pushes this proc VA (unique image-wide)
+// and the ModuleFactory registrar maps the RefundDie INI name to that
+// factory.
+void RefundDieModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	parse.add(reinterpret_cast<const FieldParse *>(Rva004CE52EGet()), 8);
+	parse.add(reinterpret_cast<const FieldParse *>(0x00BF0700), 0);
+}
+
 class SpecialPowerCompletionDieModuleData
 {
 public:
