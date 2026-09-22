@@ -15775,3 +15775,4 @@ _Rva00819F50,,0x00685E50,1036,Code/Libraries/Source/DirtySock/Rva00819F50Comm.cp
 ??6Debug@@UAEAAV0@H@Z,,0x0003B3D0,79,Code/Libraries/Source/WWVegas/WWDebug/Debug_OperatorInteger.cpp,matched,ZH/BFME1 body; _itoa; vtable slots 0x2C and 0x34 (long overload folds here)
 ??6Debug@@UAEAAV0@I@Z,,0x0003B420,79,Code/Libraries/Source/WWVegas/WWDebug/Debug_OperatorInteger.cpp,matched,ZH/BFME1 body; _ultoa; vtable slots 0x28 and 0x30 (unsigned long overload folds here)
 ?Command@Debug@@UAE_NPBD@Z,,0x0003B640,47,Code/Libraries/Source/WWVegas/WWDebug/Debug_Command.cpp,matched,ZH Command made virtual (slot 0x8C) returning ExecCommand bool
+?ExecuteFrameCommands@Debug@@UAEXH@Z,,0x0003B670,134,Code/Libraries/Source/debug/Debug_FrameCommands.cpp,matched,due-frame command executor; vtable slot 0x90; name inferred from behavior

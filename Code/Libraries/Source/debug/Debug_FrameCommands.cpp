@@ -23,9 +23,15 @@ public:
         const char *command;
     };
 
+    // Runs and frees every pending command whose frame has arrived. Debug
+    // vtable (RVA 0x7BE810) slot 0x90; the name is inferred from behavior
+    // (pops due entries off the sorted list, re-runs them through
+    // ExecCommand, frees the strings).
+    virtual void ExecuteFrameCommands(int frame);
+
 private:
     // Retail Debug layout window used here (cf. debug_debug.cpp views).
-    char m_pad[0x9E08];
+    char m_pad[0x9E04];                 // after the vptr
     FrameCommand *frameCommands;        // 0x9E08, sorted by frame
     unsigned numFrameCommands;          // 0x9E0C
     unsigned frameCommandsAlloc;        // 0x9E10, capacity in entries
@@ -36,11 +42,6 @@ private:
     // the result; retail materializes ++numFrameCommands in eax, not the
     // array base, so the count -- not the base -- is the true return).
     unsigned ScheduleFrameCommand(int frame, const char *command);
-
-    // Runs and frees every pending command whose frame has arrived.
-    // Identity inferred from behavior (pops due entries off the sorted
-    // list, re-runs them through ExecCommand, frees the strings).
-    void ExecuteFrameCommands(int frame);
 
     // Resolves via the existing ExecCommand pin (private non-virtual AAEX).
     void ExecCommand(const char *, const char *);
@@ -80,36 +81,23 @@ unsigned Debug::ScheduleFrameCommand(int frame, const char *command)
     return ++numFrameCommands;
 }
 
-// ?ExecuteFrameCommands@Debug@@AAEXH@Z
+// ?ExecuteFrameCommands@Debug@@UAEXH@Z
 void Debug::ExecuteFrameCommands(int frame)
 {
-    if (numFrameCommands>0)
+    while (numFrameCommands>0)
     {
-        do
-        {
-            unsigned remaining=numFrameCommands;
-            FrameCommand *base=frameCommands;
-            if (base[remaining-1].frame>frame)
-                break;
-            numFrameCommands--;
-            const char *cmd=frameCommands[numFrameCommands].command;
+        if (frameCommands[numFrameCommands-1].frame>frame)
+            break;
+        const char *cmd=frameCommands[--numFrameCommands].command;
 
-            // find a nested "<frame>:" prefix, if any
-            unsigned len=strlen(cmd);
-            const char *sep=cmd;
-            if (len!=0)
-            {
-                do
-                {
-                    if (*sep==':')
-                        break;
-                    len--;
-                    sep++;
-                } while (len>0);
-            }
-            if (len>1)
-                ExecCommand(sep+1,sep+len);
-            DebugFreeMemory((void *)cmd);
-        } while (numFrameCommands>0);
+        // run whatever follows a nested "<frame>:" prefix
+        unsigned len=strlen(cmd);
+        const char *p=cmd;
+        for (;len>0;len--,p++)
+            if (*p==':')
+                break;
+        if (len>1)
+            ExecCommand(p+1,p+len);
+        DebugFreeMemory((void *)cmd);
     }
 }
