@@ -29,6 +29,11 @@ typedef bool Bool;
 #define NULL 0
 #endif
 
+extern "C" __declspec(dllimport) int __cdecl strncmp(const char *, const char *, unsigned int);
+extern "C" __declspec(dllimport) char *__cdecl strtok(char *, const char *);
+extern "C" __declspec(dllimport) int __cdecl _strcmpi(const char *, const char *);
+extern "C" char *strcpy(char *, const char *);
+
 class WinInstanceData
 {
 public:
@@ -37,10 +42,9 @@ public:
 	UnsignedInt m_status;  // +0x10
 };
 
-// parseBitString lives in GameWindowManagerScript.cpp (free function at
-// 0x00314D4D). Declared extern with the BFME1 signature; the decoration
-// matches and the pin resolves the address.
-void parseBitString(const char *inBuffer, UnsignedInt *bits, const char **flagList);
+// parseBitString is defined below (same TU). Static free function at
+// 0x00314D4D; the pin used to resolve it before conversion.
+static void parseBitString(const char *inBuffer, UnsignedInt *bits, const char **flagList);
 
 extern const char *WindowStatusNames[];
 extern const char *WindowStyleNames[];
@@ -65,3 +69,32 @@ static Bool parseStyle(char *token, WinInstanceData *instData, char *buffer, voi
 
 static const void *s_parseStatusStyleAnchor = (const void *)parseStatus;
 static const void *s_parseStatusStyleAnchor2 = (const void *)parseStyle;
+
+// ?parseBitString@@YAXPBDPAIPAPBD@Z
+// BFME1 GameWindowManagerScript.cpp donor with the table walk inlined:
+// each '+'-separated token is scanned against the flag table with _strcmpi
+// and the matching slot sets its bit. Verbatim otherwise.
+static void parseBitString(const char *inBuffer, UnsignedInt *bits, const char **flagList)
+{
+	char buffer[256];
+	char *tok;
+	int count;
+
+	// do not modify the inBuffer argument
+	strcpy(buffer, inBuffer);
+
+	if (strncmp(buffer, "NULL", 4)) {
+		for (tok = strtok(buffer, "+"); tok; tok = strtok(NULL, "+")) {
+			count = 0;
+			const char **name = flagList;
+			while (*name != NULL) {
+				if (_strcmpi(*name, tok) == 0) {
+					*bits |= 1u << count;
+					break;
+				}
+				++count;
+				++name;
+			}
+		}
+	}
+}

@@ -2913,7 +2913,6 @@ name,address,notes
 ?parse@StreakDrawModuleTemplate@FXParticleSystem@@QAEXPAVINI@@@Z,0x0055FD2F,BFME2 export; the module template INI parser createTemplate calls after allocating
 ?parse@TerrainCollisionModuleTemplate@FXParticleSystem@@QAEXPAVINI@@@Z,0x00564497,BFME2 export; the module template INI parser createTemplate calls after allocating
 ?parse@TerrainFireEmissionModuleTemplate@FXParticleSystem@@QAEXPAVINI@@@Z,0x0055E5E4,BFME2 export; the module template INI parser createTemplate calls after allocating
-?parseBitString@@YAXPBDPAIPAPBD@Z,0x00314D4D,BFME1 GameWindowManagerScript static bit-string parser; direct call from parseStatus 0x314FDC and parseStyle 0x314FFB; tables WindowStatusNames 0x9BE0D8 WindowStyleNames 0x9BE150
 ?parseDurationReal@INI@@SAXPAV1@PAX1PBX@Z,0x00338B0A
 ?parseIntMathExpression@INI@@QAEHPBDP81@AEH0@Z@Z,0x0002E0C9,INI thiscall #ADD(/#SUBTRACT( int math evaluator (sole caller scanInt 0x2ECF0 passes text + &INI::scanInt value callback); name provisional
 ?parseMathExpression@INI@@QAEMPBDP81@AEM0@Z@Z,0x0002E46A,INI thiscall #ADD(/#SUBTRACT( math evaluator (sole caller scanReal 0x2EDC6 passes text + &INI::scanReal value callback); name provisional
