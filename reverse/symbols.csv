@@ -2761,7 +2761,6 @@ name,address,notes
 ?invoke@Rva00893030Manager@@QAEXVRva00893030Ref@@PAX11@Z,0x006D25C0
 ?isAbleToAttack@Object@@QBE_NXZ,0x00290B73,address read from the REL32 displacement at a placed body
 ?isAmmoReady@Weapon@@QBE_NXZ,0x002CC3FF,owner-has-usable-ammo gate for the empty-clip READY path; true name unproven (BFME1 attempt used bfmeAmmoReady)
-?isAnyKindOf@Thing@@QBE_NABV?$BitFlags@$0EF@@@@Z,0x0030ADC7
 ?isClearLineOfSight@BaseHeightMapRenderObjClass@@QBE_NABUCoord3D@@0@Z,0x00066AD1,address read from the REL32 displacement at a placed body
 ?isDieApplicable@DieMuxData@@QBE_NPBVObject@@PBVDamageInfo@@@Z,0x004CE588,address read from the REL32 displacement at a placed body
 ?isEmpty@AsciiString@@QBE_NXZ,0x00001E2F,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
@@ -4008,3 +4007,4 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ??1?$_Deque_base@UBfmePod184@@V?$allocator@UBfmePod184@@@_STL@@@_STL@@QAE@XZ,0x0054FAAC
 ??1?$_Deque_base@VBuddyRequest@@V?$allocator@VBuddyRequest@@@_STL@@@_STL@@QAE@XZ,0x0054FAAC
 ??$_Destroy@U?$_Deque_iterator@UBfmePod184@@U?$_Nonconst_traits@UBfmePod184@@@_STL@@@_STL@@@_STL@@YAXU?$_Deque_iterator@UBfmePod184@@U?$_Nonconst_traits@UBfmePod184@@@_STL@@@0@0@Z,0x0054AD1F
+?test@?$BitFlags@$0EF@@@QBE_NPBX@Z,0x002615C0
