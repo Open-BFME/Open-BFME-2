@@ -127,13 +127,28 @@ enum DownloadStatus
 	DOWNLOADSTATUS_DONE = 0
 };
 
+enum DownloadEvent
+{
+	DOWNLOADEVENT_NOSUCHSERVER = 1,
+	DOWNLOADEVENT_COULDNOTCONNECT = 2,
+	DOWNLOADEVENT_LOGINFAILED = 3,
+	DOWNLOADEVENT_NOSUCHFILE = 4,
+	DOWNLOADEVENT_LOCALFILEOPENFAILED = 5,
+	DOWNLOADEVENT_TCPERROR = 6,
+	DOWNLOADEVENT_DISCONNECTERROR = 7
+};
+
 class DownloadManager
 {
 public:
 	virtual HRESULT OnStatusUpdate(int status);
+	virtual HRESULT OnError(int error);
 
 private:
-	unsigned char m_unknown00[0x10];
+	unsigned char m_unknown00[8];
+	bool m_wasError; // +0x0C
+	unsigned char m_unknown0D[3];
+	UnicodeString m_errorString; // +0x10
 	UnicodeString m_statusString; // +0x14
 };
 
@@ -169,5 +184,43 @@ HRESULT DownloadManager::OnStatusUpdate(int status)
 			break;
 	}
 	m_statusString = TheGameText->fetch(s);
+	return S_OK;
+}
+
+// ?OnError@DownloadManager@@UAEJH@Z
+// Retail 0x005E0628 (187B): same fetch idiom over m_errorString at +0x10
+// with the m_wasError byte at +0x0C. The DOWNLOADEVENT enum
+// (NOSUCHSERVER=1 .. DISCONNECTERROR=7) compiles to a dec/je chain, and the
+// m_wasError store rides between the AsciiString call setup (push+lea hoist
+// above the mem store) and its call. No DEBUG_LOG emission in retail.
+HRESULT DownloadManager::OnError(int error)
+{
+	m_wasError = true;
+	AsciiString s = "FTP:UnknownError";
+	switch (error)
+	{
+		case DOWNLOADEVENT_NOSUCHSERVER:
+			s = "FTP:NoSuchServer";
+			break;
+		case DOWNLOADEVENT_COULDNOTCONNECT:
+			s = "FTP:CouldNotConnect";
+			break;
+		case DOWNLOADEVENT_LOGINFAILED:
+			s = "FTP:LoginFailed";
+			break;
+		case DOWNLOADEVENT_NOSUCHFILE:
+			s = "FTP:NoSuchFile";
+			break;
+		case DOWNLOADEVENT_LOCALFILEOPENFAILED:
+			s = "FTP:LocalFileOpenFailed";
+			break;
+		case DOWNLOADEVENT_TCPERROR:
+			s = "FTP:TCPError";
+			break;
+		case DOWNLOADEVENT_DISCONNECTERROR:
+			s = "FTP:DisconnectError";
+			break;
+	}
+	m_errorString = TheGameText->fetch(s);
 	return S_OK;
 }
