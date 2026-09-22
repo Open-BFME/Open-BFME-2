@@ -16929,3 +16929,4 @@ _fprintf,,0x002CEC42,108,Code/GameEngine/Source/Common/FprintfAppendLine.cpp,mat
 ?ExecCommand@Debug@@AAE_NPBD0@Z,,0x00039E20,904,Code/Libraries/Source/WWVegas/WWDebug/DebugExecCommand.cpp,matched,ZH ExecCommand plus BFME2 frame prefix / nesting / bool result; BFME1 lifted twin b1 0x0088ABA0
 ?Execute@DebugCmdInterfaceDebug@@UAE_NAAVDebug@@PBDW4CommandMode@DebugCmdInterface@@IPBQBD@Z,,0x0003E570,3504,Code/Libraries/Source/WWVegas/WWDebug/DebugCmdInterfaceDebug_Execute.cpp,matched,ZH debug_cmd.cpp Execute plus BFME2 commands (skipstackwalk beep crash tests windowed fulldump errors)
 ?StopRange@Profile@@SAXPBD@Z,,0x006C57B0,379,Code/Libraries/Source/profile/ProfileStopRange.cpp,matched,ZH profile.cpp StopRange (_PROFILE) on BFME2 FrameName layout
+?StartRange@Profile@@SAXPBD@Z,,0x006C5940,515,Code/Libraries/Source/profile/ProfileStartRange.cpp,matched,ZH profile.cpp StartRange (_PROFILE) plus BFME2 pattern frame budget; ProfileAllocMemory inlined as in retail

@@ -4771,3 +4771,7 @@ _bfmeAppend,0x0060D5F2,callee of bfmeEmit (0x0060D7C0) at the site its BFME1 don
 ?GetDbghelpHandle@DebugStackwalk@@SAPAXXZ,0x0003C0F0,returns g_dbghelp (0x00DE08AC) as in debug_stack.cpp; its result feeds GetModuleFileNameA in Debug::PostStaticInit
 ?FrameEnd@ProfileId@@SAXHH@Z,0x006C6220,Profile::StopRange 0x006C5907 passes the high-level index (FrameName+0x10) and the mix index as in profile.cpp
 ?FrameEnd@ProfileFuncLevelTracer@@SAXHH@Z,0x006C83A0,Profile::StopRange 0x006C591E passes the function-level index (FrameName+0x14) and the mix index as in profile.cpp
+?FrameStart@ProfileId@@SAHXZ,0x006C61B0,Profile::StartRange stores its result as the high-level index (FrameName+0x10) as in profile.cpp
+?FrameStart@ProfileFuncLevelTracer@@SAHXZ,0x006C8380,Profile::StartRange stores its result as the function-level index (FrameName+0x14) as in profile.cpp
+?SimpleMatch@Profile@@SA_NPBD0@Z,0x00039480,identical to Debug::SimpleMatch and ICF-folded onto it; Profile::StartRange calls it for the frame-name patterns
+?RemovePatternEntry@Profile@@CAXPAUPatternListEntry@1@@Z,0x006C5310,unlinks one pattern entry from Profile::firstPatternEntry and frees it; Profile::StartRange calls it when the entry frame budget runs out
