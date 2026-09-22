@@ -4581,3 +4581,4 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ?q4Notify002CCB04@@YAXPAXPAVMade002CCB04@@HH@Z,0x0050B42C,four-argument __cdecl field parser called by parseEmotionWeaponNugget (0x002CCB04); address-derived name; identity not recovered
 ??0Made002CCB67@@QAE@XZ,0x0050B6B4,ctor of the StealMoneyNugget object newed by parseStealMoneyNugget (0x002CCB67); address-derived name; identity not recovered
 ?q4Notify002CCB67@@YAXPAXPAVMade002CCB67@@HH@Z,0x0050B5F6,four-argument __cdecl field parser called by parseStealMoneyNugget (0x002CCB67); address-derived name; identity not recovered
+?findDamageFX@DamageFXStore@@QBEPBVDamageFX@@VAsciiString@@@Z,0x00360966,TheDamageFXStore lookup called by INI::parseDamageFX (0x0033962F); ICF-shares the ArmorStore::findArmorTemplate body
