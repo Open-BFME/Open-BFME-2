@@ -1961,7 +1961,6 @@ name,address,notes
 ?bfmeFreeVDB@@YAXPAX@Z,0x0002FD60,BFME1 BfmeConv1350 donor call site; same body as rowed scalar delete
 ?bfmeFreeVMN@@YAXPAX@Z,0x0002FD60,BFME1 BfmeConv1447 donor call site; same body as rowed scalar delete
 ?bfmeFreeVNC@Rva00800E50Owner@@QAEXPAVRva007E8810Message@@@Z,0x0066D0B0
-?bfmeFwdOneSUA@BfmeThingSUA@@QAEXDH@Z,0x000274D0
 ?bfmeFwdOneSVA@BfmeThingSVA@@QAEXHH@Z,0x0002A300
 ?bfmeFwdSWA@BfmeThingSWA@@QAEXH@Z,0x0002A930
 ?bfmeFwdThreeSUA@BfmeThingSUA@@QAEXDH@Z,0x000275C0
