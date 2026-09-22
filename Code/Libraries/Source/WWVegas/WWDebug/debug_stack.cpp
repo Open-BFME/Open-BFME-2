@@ -119,6 +119,7 @@ static void InitDbghelp(void)
 
 //////////////////////////////////////////////////////////////////////////////
 
+// ??0Signature@DebugStackwalk@@QAE@ABV01@@Z present-unmatched
 DebugStackwalk::Signature::Signature(const Signature &src)
 {
   *this=src;
@@ -322,7 +323,6 @@ Debug& operator<<(Debug &dbg, const DebugStackwalk::Signature &sig)
 
 //////////////////////////////////////////////////////////////////////////////
 
-// ??0DebugStackwalk@@AAE@XZ present-unmatched
 DebugStackwalk::DebugStackwalk(void)
 {
   // it doesn't harm to do this here

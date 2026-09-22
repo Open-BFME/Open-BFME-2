@@ -15777,3 +15777,5 @@ _Rva00819F50,,0x00685E50,1036,Code/Libraries/Source/DirtySock/Rva00819F50Comm.cp
 ?Command@Debug@@UAE_NPBD@Z,,0x0003B640,47,Code/Libraries/Source/WWVegas/WWDebug/Debug_Command.cpp,matched,ZH Command made virtual (slot 0x8C) returning ExecCommand bool
 ?ExecuteFrameCommands@Debug@@UAEXH@Z,,0x0003B670,134,Code/Libraries/Source/debug/Debug_FrameCommands.cpp,matched,due-frame command executor; vtable slot 0x90; name inferred from behavior
 ?DebugIsDebuggerAttached@@YA_NXZ,,0x0003E3E0,108,Code/Libraries/Source/WWVegas/WWDebug/DebugIsDebuggerAttached.cpp,matched,BFME1 donor b1 0x0088EAF0 plus CheckRemoteDebuggerPresent; name describes behavior
+??0DebugStackwalk@@AAE@XZ,,0x0003C0E0,12,Code/Libraries/Source/WWVegas/WWDebug/debug_stack.cpp,matched,ZH DebugStackwalk ctor (InitDbghelp); already in the ported TU; member ctor of Debug at +0x9E7B
+??0Debug@@AAE@XZ,,0x00038440,408,Code/Libraries/Source/WWVegas/WWDebug/DebugConstructor.cpp,matched,BFME1 C++ ctor b1 0x00889370 on the BFME2 0x9F68 layout
