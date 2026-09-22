@@ -16833,3 +16833,6 @@ _rva0060E7F0,,0x00211245,100,Code/GameEngine/Source/GameLogic/Rva0060E7F0BattleM
 ?findFormat@@YA?AW4WW3DFormat@@QBW41@@Z,,0x0004D803,50,Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadar.cpp,matched,placed by masked byte search in its BFME1 donor unit
 ?removeCondition@OrCondition@@QAEPAVCondition@@PAV2@@Z,,0x003B2672,47,Code/GameEngine/Source/GameLogic/ScriptEngine/Scripts.cpp,matched,placed by masked byte search in its BFME1 donor unit
 ?findPreviousCondition@OrCondition@@QAEPAVCondition@@PAV2@@Z,,0x003B26C0,31,Code/GameEngine/Source/GameLogic/ScriptEngine/Scripts.cpp,matched,placed by masked byte search in its BFME1 donor unit
+??0?$ShareBufferClass@PAVTextureClass@@@@QAE@HPBDH@Z,,0x0015AD60,141,Code/Libraries/Source/WWVegas/WW3D2/meshmatdesc.cpp,matched,BSim pair of the BFME1 function this unit defines; byte-verified with callees pinned
+??0LogicalDecalClass@MultiFixedPoolDecalSystemClass@@QAE@XZ,,0x00143D40,39,Code/Libraries/Source/WWVegas/WW3D2/decalsys.cpp,matched,BSim pair of the BFME1 function this unit defines; byte-verified with callees pinned
+??0?$deque@PAVSightingInfo@@V?$allocator@PAVSightingInfo@@@_STL@@@_STL@@QAE@ABV?$allocator@PAVSightingInfo@@@1@@Z,,0x006209D0,46,Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp,matched,BSim pair of the BFME1 function this unit defines; byte-verified with callees pinned
