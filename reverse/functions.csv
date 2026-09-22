@@ -15476,3 +15476,4 @@ _bfmeHash1228,,0x0070F880,1504,Code/GameEngine/Source/Common/BfmeConv1228.cpp,ma
 ?removeObjectFromLookupTable@GameLogic@@QAEXPAVObject@@@Z,,0x00240144,35,Code/GameEngine/Source/GameLogic/Object/Object_setID.cpp,matched,GameLogic lookup remove; setID sibling calls it; map at +0xB4 via eraseSlot pin
 ?LZHLCompressorCalcMaxBuf@@YAII@Z,,0x0068ED50,13,Code/Libraries/Source/Compression/LZHCompress/NoxCompress.cpp,matched,
 ?getAbleToUseWeaponAgainstTarget@Object@@QBE?AW4CanAttackResult@@W4AbleToAttackType@@PBV1@PBUCoord3D@@W4CommandSourceType@@@Z,,0x0028AF2B,31,Code/GameEngine/Source/GameLogic/Object/ObjectGetAbleToUseWeaponAgainstTarget.cpp,matched,
+??0ReplaceSelfUpgradeModuleData@@QAE@XZ,,0x004B790B,83,Code/GameEngine/Source/GameLogic/Object/SpecialPower/ReplaceSelfUpgradeModuleDataCtor.cpp,matched,
