@@ -1,4 +1,4 @@
-// cl: /O1 /Ireference/shims/ini_bfme2 /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/open-bfme-1/Code/GameEngine/Source/Common/System /Ireference/open-bfme-1/Code/GameEngine/Include /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib
+// cl: /O1 /Ireference/shims/ini_bfme2 /Ireference/shims/subsystem_bfme2 /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/open-bfme-1/Code/GameEngine/Source/Common/System /Ireference/open-bfme-1/Code/GameEngine/Include /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib
 // stlport
 //
 // BFME's SubsystemInterface, built against the native headers. The ZH-tree port
@@ -177,3 +177,53 @@ template void initSubsystem<LuaScriptEngine>(LuaScriptEngine *&, AsciiString, Lu
 template void initSubsystem<HouseColorSystem>(HouseColorSystem *&, AsciiString, HouseColorSystem *, Xfer *, const char *, const char *, const char *);
 template void initSubsystem<LivingWorldCampaignManager>(LivingWorldCampaignManager *&, AsciiString, LivingWorldCampaignManager *, Xfer *, const char *, const char *, const char *);
 template void initSubsystem<VictorySystem>(VictorySystem *&, AsciiString, VictorySystem *, Xfer *, const char *, const char *, const char *);
+
+// Retail keeps each slot's ctor out of line, just ahead of its deleting dtor.
+// Explicit class instantiation emits it; the inlined copies in initSubsystem<T>
+// are unaffected.
+template class SubsystemSlot<SubsystemLegend>;
+template class SubsystemSlot<GlobalData>;
+template class SubsystemSlot<GlobalLanguage>;
+template class SubsystemSlot<GameTextInterface>;
+template class SubsystemSlot<AudioManager>;
+template class SubsystemSlot<Eva>;
+template class SubsystemSlot<ScienceStore>;
+template class SubsystemSlot<UpgradeCenter>;
+template class SubsystemSlot<MultiplayerSettings>;
+template class SubsystemSlot<TerrainTypeCollection>;
+template class SubsystemSlot<TerrainRoadCollection>;
+template class SubsystemSlot<FunctionLexicon>;
+template class SubsystemSlot<ModuleFactory>;
+template class SubsystemSlot<MessageStream>;
+template class SubsystemSlot<SidesList>;
+template class SubsystemSlot<CaveSystem>;
+template class SubsystemSlot<RankInfoStore>;
+template class SubsystemSlot<PlayerAITypeSet>;
+template class SubsystemSlot<PlayerTemplateStore>;
+template class SubsystemSlot<FXListStore>;
+template class SubsystemSlot<WeaponStore>;
+template class SubsystemSlot<ObjectCreationListStore>;
+template class SubsystemSlot<LocomotorStore>;
+template class SubsystemSlot<SpecialPowerStore>;
+template class SubsystemSlot<DamageFXStore>;
+template class SubsystemSlot<ArmorStore>;
+template class SubsystemSlot<BuildAssistant>;
+template class SubsystemSlot<EmotionSystem>;
+template class SubsystemSlot<ThingFactory>;
+template class SubsystemSlot<ExperienceLevelSystem>;
+template class SubsystemSlot<AI>;
+template class SubsystemSlot<AerialPathfinder>;
+template class SubsystemSlot<ScriptEngine>;
+template class SubsystemSlot<LuaScriptEngine>;
+template class SubsystemSlot<TeamFactory>;
+template class SubsystemSlot<CrateSystem>;
+template class SubsystemSlot<PlayerList>;
+template class SubsystemSlot<GameLogic>;
+template class SubsystemSlot<RecorderClass>;
+template class SubsystemSlot<VictoryConditionsInterface>;
+template class SubsystemSlot<MetaMap>;
+template class SubsystemSlot<HouseColorSystem>;
+template class SubsystemSlot<VictorySystem>;
+template class SubsystemSlot<ActionManager>;
+template class SubsystemSlot<GameStateMap>;
+template class SubsystemSlot<GameState>;
