@@ -49,12 +49,16 @@ private:
 	Header *m_data;
 };
 
+class UnicodeString : public StringBase<unsigned short>
+{
+};
+
 class Rva000B3F84Pair
 {
 public:
 	void copyBytes(void *dst, int off, int len);
 	void convertToWide(unsigned short *dst, int off, int len);
-	StringBase<unsigned short> toUnicode();
+	UnicodeString toUnicode();
 
 	const char *m_ptr;
 	int m_len;
@@ -81,10 +85,10 @@ void Rva000B3F84Pair::convertToWide(unsigned short *dst, int off, int len)
 	operator delete[](scratch);
 }
 
-// ?toUnicode@Rva000B3F84Pair@@QAE?AV?$StringBase@G@@XZ @0x234788
-StringBase<unsigned short> Rva000B3F84Pair::toUnicode()
+// ?toUnicode@Rva000B3F84Pair@@QAE?AVUnicodeString@@XZ @0x234788
+UnicodeString Rva000B3F84Pair::toUnicode()
 {
-	StringBase<unsigned short> tmp;
+	UnicodeString tmp;
 	convertToWide(tmp.getBufferForRead(m_len), 0, m_len);
 	return tmp;
 }
