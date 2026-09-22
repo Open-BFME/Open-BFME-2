@@ -16797,3 +16797,39 @@ _rva0060E7F0,,0x00211245,100,Code/GameEngine/Source/GameLogic/Rva0060E7F0BattleM
 ?decrementDataLeft@DataChunkInput@@IAEXH@Z,,0x00306E40,22,Code/GameEngine/Source/Common/System/DataChunkInput.cpp,matched,placed by masked byte search in its BFME1 donor unit
 ?getPlayerProfileIDCallback@@YAXPAXHPBDH0@Z,,0x00388BE4,22,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp,matched,placed by masked byte search in its BFME1 donor unit
 ??0TBib@@QAE@XZ,,0x000D4078,22,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBibBuffer.cpp,matched,placed by masked byte search in its BFME1 donor unit
+?set@Rva007D85C0@@MAEHW4FilterModes@@@Z,,0x000FA632,438,Code/GameEngineDevice/Source/W3DDevice/GameClient/ScreenFilterRva007D85C0Set.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
+?UnInstall_Materials@BfmeB1137@@UBEXXZ,,0x00094FAA,497,Code/GameEngine/Source/Common/BfmeConv1137Uninstall.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
+?set@Rva007D6B70@@MAEHW4FilterModes@@@Z,,0x000F816E,391,Code/GameEngineDevice/Source/W3DDevice/GameClient/ScreenFilterRva007D6B70Set.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
+??1W3DDebrisDraw@@MAE@XZ,,0x000B1CE2,225,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DDebrisDrawDestructor.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
+?GadgetTextEntryValidateCharacter@@YA_NGC@Z,,0x0035C872,231,Code/GameEngine/Source/GameClient/GUI/Gadget/GadgetTextEntryValidateCharacter.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
+?bfmeCallXO@@YA_NHHHUBfmeArgXO@@@Z,,0x0073A860,155,Code/GameEngine/Source/Common/RTS/ShroudVariantCircle008F9BB0.cpp,matched,BFME1 donor (donor flags); callees pinned from the retail calls
+??0W3DBufferManager@@QAE@XZ,,0x00115DF4,215,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DBufferManager.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
+?bfmeDump1191@BfmeD1191@@QAEXXZ,,0x0050C69D,362,Code/GameEngine/Source/Common/BfmeConv1191.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
+?duplicate@OrCondition@@QBEPAV1@XZ,,0x003B6D06,140,Code/GameEngine/Source/GameLogic/ScriptEngine/Scripts.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
+?setStringInRegistry@@YA_NPAXVAsciiString@@11@Z,,0x00234621,201,Code/GameEngine/Source/Common/System/RegistrySetString.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
+?shutdown@Rva007DCA80@@UAEHXZ,,0x000FA8AE,121,Code/GameEngineDevice/Source/W3DDevice/GameClient/ScreenFilterRva007DCA80Shutdown.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
+?method@Rva003CDDB0Range@@QAE_NPBU1@@Z,,0x00568B81,84,Code/GameEngine/Source/Common/Rva003CDDB0BitsetOverlap.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
+?XferEnum@XferSave@@UAEXPAXPBXI@Z,,0x0060C935,114,Code/Libraries/Source/xfer/xfer_save.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
+?shutdown@Rva007D85C0@@QAEHXZ,,0x000FB964,105,Code/GameEngine/Source/Common/Rva007D85C0FilterShutdown.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
+??1W3DStreakDraw@@UAE@XZ,,0x000CFFD3,115,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DStreakDrawDestructor.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
+?bfmeRelease@BfmeIndexedNodesFM@@QAEXH@Z,,0x0032C26D,87,Code/GameEngine/Source/Common/Bfme5IndexedNodeRelease.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
+?GetRegistryLanguage@@YA?AVAsciiString@@XZ,,0x00235029,162,Code/GameEngine/Source/Common/System/RegistryLanguage.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
+??0BfmeAptScreenBase@@QAE@PAX@Z,,0x00313847,204,Code/GameEngine/Source/GameClient/GUI/BfmeAptScreenBaseConstructor.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
+??1GhostObject@@UAE@XZ,,0x00305B5E,88,Code/GameEngine/Source/GameLogic/Object/GhostObjectCtorDtor.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
+?walk@BfmeGridWM@@QAEXXZ,,0x000AEBC7,56,Code/GameEngine/Source/Common/BfmeGrokGrid.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
+?clearCommandsExceptFrom@Connection@@QAEXH@Z,,0x0058B960,73,Code/GameEngine/Source/GameNetwork/Connection_clearCommandsExceptFrom.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
+??0Watchdog@@QAE@HHH@Z,,0x00225616,131,Code/GameEngine/Source/Common/Watchdog.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
+?parseCommand@CommandButton@@SAXPAVINI@@PAX1PBX@Z,,0x0035AF62,110,Code/GameEngine/Source/GameClient/GUI/ControlBar/CommandButton_parseCommand_Thunk.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
+??0W3DVideoBuffer@@QAE@H@Z,,0x000726B0,115,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVideoBufferCtorBfme.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
+?legalRadarPoint@@YA_NHH@Z,,0x0004E4ED,34,Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadar.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
+?_bfme_showCampaignReview@@YA_NXZ,,0x0051291C,44,Code/GameEngine/Source/GameClient/GUI/ShowCampaignReview.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
+?endBlock@XferSave@@UAEXXZ,,0x0060CA26,178,Code/Libraries/Source/xfer/xfer_save.cpp,matched,placed by masked byte search in its BFME1 donor unit
+??1Rva0013A820@@QAE@XZ,,0x0050C4E8,152,Code/GameEngine/Source/Common/BfmeConv1191.cpp,matched,placed by masked byte search in its BFME1 donor unit
+?freeAllBuffers@W3DBufferManager@@QAEXXZ,,0x00115F73,126,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DBufferManager.cpp,matched,placed by masked byte search in its BFME1 donor unit
+?bfmePrepareRelease@BfmeIndexedNodesFM@@QAEXH@Z,,0x0032C1F7,118,Code/GameEngine/Source/Common/Bfme5IndexedNodeRelease.cpp,matched,placed by masked byte search in its BFME1 donor unit
+??0BfmeD1191@@QAE@PBD@Z,,0x0050C62D,91,Code/GameEngine/Source/Common/BfmeConv1191.cpp,matched,placed by masked byte search in its BFME1 donor unit
+?radarToPixel@W3DRadar@@IAEXPBUICoord2D@@PAU2@HHHH@Z,,0x0004DB33,67,Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadar.cpp,matched,placed by masked byte search in its BFME1 donor unit
+?createWatchdog@@YAPAVWatchdog@@HHH@Z,,0x0022572C,62,Code/GameEngine/Source/Common/Watchdog.cpp,matched,placed by masked byte search in its BFME1 donor unit
+?findFormat@@YA?AW4WW3DFormat@@QBW41@@Z,,0x0004D803,50,Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadar.cpp,matched,placed by masked byte search in its BFME1 donor unit
+?removeCondition@OrCondition@@QAEPAVCondition@@PAV2@@Z,,0x003B2672,47,Code/GameEngine/Source/GameLogic/ScriptEngine/Scripts.cpp,matched,placed by masked byte search in its BFME1 donor unit
+?findPreviousCondition@OrCondition@@QAEPAVCondition@@PAV2@@Z,,0x003B26C0,31,Code/GameEngine/Source/GameLogic/ScriptEngine/Scripts.cpp,matched,placed by masked byte search in its BFME1 donor unit
