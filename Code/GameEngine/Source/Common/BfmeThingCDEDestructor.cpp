@@ -1,12 +1,11 @@
 // cl: /DNDEBUG /MD /EHs-c- /O2 /Ob2
 // ?bfmeDtorCDE@BfmeThingCDE@@QAEXXZ
 //
-// Ported from Open-BFME-1 Code/GameEngine/Source/Common/BfmeThingCDEDestructor.cpp
-// (BFME1 0x008F8340). The donor also defines ?bfmeCheckABI, which the sweep did
-// not place, so only the destructor body is defined here; the sibling stays
-// declared-only. The node at 0x008F7EC0 clears the same 0x10-byte entries that
-// this destructor passes to the array-delete helper. Its Ghidra body has no
-// source row, so the member call uses an address pin for that helper.
+// Ported from Open-BFME-1 Code/Libraries/Source/shroudmanager/shroudmanager_data.cpp.
+// The BFME2 array runs 20 wide where the donor runs 16. The node at 0x008F7EC0
+// clears the same 0x10-byte entries that this destructor passes to the
+// array-delete helper. Its Ghidra body has no source row, so the member call
+// uses an address pin for that helper.
 
 class CDEVirtualBase
 {
@@ -38,6 +37,21 @@ public:
 	void *m_0c;
 	char m_pad10[4];
 	void *m_14;
+};
+
+struct CDEArraySlot
+{
+	void *activeNode;
+	int unused04;
+	void *prevNode;
+	void *nextNode;
+};
+
+struct CDEListNode
+{
+	void *nextNode;
+	int unused04;
+	void *prevNode;
 };
 
 class BfmeThingCDE
@@ -76,6 +90,27 @@ public:
 
 void __stdcall ArrayDeleteHelperBodyThunk(void *, unsigned, unsigned, void *);
 extern void __cdecl operator delete[](void *);
+
+void BfmeThingCDE::d_008f7ec0()
+{
+	CDEArraySlot *endSlot = (CDEArraySlot *)((char *)m_array + (m_count << 4));
+	CDEArraySlot *curSlot = (CDEArraySlot *)m_array;
+	if (curSlot == endSlot)
+		return;
+	while (curSlot != endSlot)
+	{
+		if (curSlot->activeNode == 0)
+			return;
+		void *nextNode = curSlot->nextNode;
+		curSlot->activeNode = 0;
+		if (nextNode != 0)
+			((CDEListNode *)nextNode)->prevNode = curSlot->prevNode;
+		void *prevNode = curSlot->prevNode;
+		void *linkNode = curSlot->nextNode;
+		curSlot = (CDEArraySlot *)((char *)curSlot + 0x10);
+		((CDEListNode *)prevNode)->nextNode = linkNode;
+	}
+}
 
 bool BfmeThingCDE::bfmeCheckABI()
 {
