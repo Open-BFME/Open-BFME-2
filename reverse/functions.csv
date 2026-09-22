@@ -15475,3 +15475,4 @@ _bfmeHash1228,,0x0070F880,1504,Code/GameEngine/Source/Common/BfmeConv1228.cpp,ma
 ??1Node@?$SList@VTagBlockIndex@@@@QAE@XZ,,0x006204D0,8,Code/GameEngine/Source/Common/SListTagBlockIndexRemoveAllThunk.cpp,matched,this-adjust thunk add ecx 8 tail-jump StringBase dtor 0x36410; StringBase member at +8; called from Remove_All and ??_G
 ?removeObjectFromLookupTable@GameLogic@@QAEXPAVObject@@@Z,,0x00240144,35,Code/GameEngine/Source/GameLogic/Object/Object_setID.cpp,matched,GameLogic lookup remove; setID sibling calls it; map at +0xB4 via eraseSlot pin
 ?LZHLCompressorCalcMaxBuf@@YAII@Z,,0x0068ED50,13,Code/Libraries/Source/Compression/LZHCompress/NoxCompress.cpp,matched,
+?getAbleToUseWeaponAgainstTarget@Object@@QBE?AW4CanAttackResult@@W4AbleToAttackType@@PBV1@PBUCoord3D@@W4CommandSourceType@@@Z,,0x0028AF2B,31,Code/GameEngine/Source/GameLogic/Object/ObjectGetAbleToUseWeaponAgainstTarget.cpp,matched,
