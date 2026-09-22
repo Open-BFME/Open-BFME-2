@@ -170,3 +170,21 @@ void PlayerHealSpecialPowerModuleData::buildFieldParse(MultiIniFieldParse &parse
 	SpecialPowerModuleData::buildFieldParse(parse);
 	parse.add(reinterpret_cast<const FieldParse *>(0x00C5E298), 0);
 }
+
+class TaintSpecialPowerModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+// ?buildFieldParse@TaintSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z,
+// retail 0x004C487B (27 bytes): base-table call above plus the Taint table
+// at 0x00C5D518 (TaintObject at +0x7C, TaintRadius at +0x80, TaintFX at
+// +0x84, TaintOCL at +0x88). The TaintSpecialPower pool key at 0x4C48DF
+// sits in the same cluster (ElvenWood precedent). The owning factory at
+// 0x00251EE4 pushes this proc's VA (unique image-wide).
+void TaintSpecialPowerModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	SpecialPowerModuleData::buildFieldParse(parse);
+	parse.add(reinterpret_cast<const FieldParse *>(0x00C5D518), 0);
+}
