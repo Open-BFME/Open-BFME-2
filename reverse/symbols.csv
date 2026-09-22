@@ -3999,3 +3999,12 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ?_M_insert_overflow@?$vector@UBfmePod28@@V?$allocator@UBfmePod28@@@_STL@@@_STL@@IAEXPAUBfmePod28@@ABU3@ABU__false_type@2@I_N@Z,0x00216A39
 ?_M_insert_overflow@?$vector@UBfmePod40@@V?$allocator@UBfmePod40@@@_STL@@@_STL@@IAEXPAUBfmePod40@@ABU3@ABU__false_type@2@I_N@Z,0x00565B7D
 ?releaseBuffer@UnicodeString@@QAEXXZ,0x00036E70,Dict TU spelling of rowed StringBase wide releaseBuffer; same body
+?_M_increment@?$_Deque_iterator_base@UBfmePod132@@@_STL@@QAEXXZ,0x0042187F
+?_M_increment@?$_Deque_iterator_base@UBfmePod156@@@_STL@@QAEXXZ,0x005508A5
+??H?$_Deque_iterator@UBfmePod132@@U?$_Nonconst_traits@UBfmePod132@@@_STL@@@_STL@@QBE?AU01@H@Z,0x00422767
+??H?$_Deque_iterator@UBfmePod156@@U?$_Nonconst_traits@UBfmePod156@@@_STL@@@_STL@@QBE?AU01@H@Z,0x00422007
+??1?$_Deque_base@UBfmePod132@@V?$allocator@UBfmePod132@@@_STL@@@_STL@@QAE@XZ,0x0054FAAC
+??1?$_Deque_base@UBfmePod156@@V?$allocator@UBfmePod156@@@_STL@@@_STL@@QAE@XZ,0x0054FAAC
+??1?$_Deque_base@UBfmePod184@@V?$allocator@UBfmePod184@@@_STL@@@_STL@@QAE@XZ,0x0054FAAC
+??1?$_Deque_base@VBuddyRequest@@V?$allocator@VBuddyRequest@@@_STL@@@_STL@@QAE@XZ,0x0054FAAC
+??$_Destroy@U?$_Deque_iterator@UBfmePod184@@U?$_Nonconst_traits@UBfmePod184@@@_STL@@@_STL@@@_STL@@YAXU?$_Deque_iterator@UBfmePod184@@U?$_Nonconst_traits@UBfmePod184@@@_STL@@@0@0@Z,0x0054AD1F
