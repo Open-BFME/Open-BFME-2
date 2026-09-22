@@ -2533,7 +2533,6 @@ name,address,notes
 ?find@Rva00591560Context@@QAEPAVRva00591560Resource@@XZ,0x005C4ACD
 ?find@Rva00809010Finder@@QAEPAURva00809500Sink@@PAURva00809500Entry@@@Z,0x00674F10
 ?findBestInfoSlow@?$SparseMatchFinder@VWeaponTemplateSet@@V?$BitFlags@$0BB@@@@@ABEPBVWeaponTemplateSet@@ABV?$vector@VWeaponTemplateSet@@V?$allocator@VWeaponTemplateSet@@@_STL@@@_STL@@ABV?$BitFlags@$0BB@@@@Z,0x0033BE70
-?findDrawPositions@Radar@@QAEXHHHHPAUICoord2D@@0@Z,0x002D799C,BFME1 Radar findDrawPositions member; localPixelToRadar +0x49 direct call target in Radar cluster; ghidra 266B
 ?findModule@Object@@IBEPAVModule@@W4NameKeyType@@@Z,0x0028B6D6,address read from the REL32 displacement at a placed body
 ?findModuleTemplate@ModuleFactory@@IAEPBVModuleTemplate@1@ABVAsciiString@@W4ModuleType@@@Z,0x0025674F,address read from the REL32 displacement at a placed body
 ?findObjectByID@GameLogic@@QAEPAVObject@@W4ObjectID@@@Z,0x00049DC5,address read from the REL32 call site in cullFrontOfList after the dockupdate UpdateModule layout fix
