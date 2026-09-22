@@ -15748,3 +15748,4 @@ _rva002bcab_scanIndex,,0x0002BCAB,132,Code/GameEngine/Source/Common/System/INI_s
 ?GadgetSliderGetHiliteSelectedThumbBorderColor@@YAHPAVGameWindow@@@Z,,0x00323DE8,26,Code/GameEngine/Source/GameClient/GUI/Gadget/GadgetSliderSelectedThumbBorderColors.cpp,matched,BFME1 donor GadgetListBox; b1 0x004B6990; mirrors twin Enabled TU; winGetChild pin settles callee
 ??0ObjectCreationUpgradeModuleData@@QAE@XZ,,0x004B425B,128,Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeModuleDataCtor.cpp,matched,
 ??0ReplenishUnitsBehaviorModuleData@@QAE@XZ,,0x004841CC,91,Code/GameEngine/Source/GameLogic/Object/Behavior/ReplenishUnitsBehaviorModuleDataCtor.cpp,matched,
+??0?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@QAE@ABHABVMultiplayerColorDefinition@@@Z,,0x00380DEA,29,Code/GameEngine/Source/Common/MultiplayerColorPairConstructor.cpp,matched,
