@@ -183,7 +183,7 @@ def test_published_rows_are_unambiguous_anonymous_and_sized_by_the_inventory():
             f"0x{rva:X} published twice, as {seen[rva]!r} and {row['name']!r}: "
             f"an address named two ways is a coin flip, not identity")
         assert rva in inventory, f"0x{rva:X} is in no inventory row"
-        assert inventory[rva][1].startswith("FUN_"), (
+        assert build.is_ghidra_autoname(inventory[rva][1], rva), (
             f"0x{rva:X} is named {inventory[rva][1]} in the inventory, so "
             f"publishing a derived name for it is not new identity")
         assert int(row["target_size"]) == inventory[rva][0], (
@@ -232,6 +232,65 @@ def test_the_queue_drops_published_rows_the_ledger_has_claimed():
     assert rva not in {int(c["target_rva"], 16) for c in inside}
     assert "1 already landed" in note, note
     print(f"PASS the queue drops 0x{rva:X} once claimed, by name or by range")
+
+
+def a_synthetic_labeled_function():
+    """An unclaimed body Ghidra names with its own SEH-funclet convention
+    (Unwind@<va>/Catch@<va>) rather than FUN_<va>. A narrower `startswith
+    ("FUN_")` check treated this the same as a real Ghidra-recognized
+    identity and silently dropped it from the harvest -- 23,634 such rows
+    (Unwind@/Catch@/thunk_FUN_) sit in the committed inventory, none of
+    which name anything more than FUN_ does."""
+    inventory = {int(row["rva"], 16): row["name"] for row in csv.DictReader(
+        (ROOT / "reverse" / "ghidra_functions.csv").open(
+            newline="", encoding="utf-8"))}
+    claimed = {int(row["target_rva"], 16)
+               for row in build.load_all_function_rows()}
+    for rva, name in inventory.items():
+        if (name.startswith("Unwind@") or name.startswith("Catch@")) and rva not in claimed:
+            return rva
+    raise AssertionError("no unclaimed Unwind@/Catch@-labeled row in the inventory")
+
+
+def test_a_ghidra_synthetic_seh_label_is_still_anonymous_to_the_harvest():
+    body = a_synthetic_labeled_function()
+    rows = build.select_reloc_names(build.harvest_reloc_names(
+        [call_row(0x1000, body, symbol="?realName@SomeClass@@QAEXXZ")]))
+    assert [int(r["target_rva"], 16) for r in rows] == [body], (hex(body), rows)
+    print(f"PASS 0x{body:X}'s Unwind@/Catch@ label does not block the harvest")
+
+
+def a_pinned_unclaimed_address():
+    """An address reverse/symbols.csv pins but no functions.csv row claims,
+    and Ghidra still calls FUN_ -- so the OLD `claimed` set (built only from
+    functions.csv) missed it, and only the FUN_ check happened to still
+    catch it by coincidence. This fixture is what would have gone unnoticed
+    if that coincidence broke: a pin is a human identity assertion the
+    harvester must respect even when the inventory itself does not."""
+    inventory = {int(row["rva"], 16): row["name"] for row in csv.DictReader(
+        (ROOT / "reverse" / "ghidra_functions.csv").open(
+            newline="", encoding="utf-8"))}
+    claimed = {int(row["target_rva"], 16)
+               for row in build.load_all_function_rows()}
+    pinned = set()
+    with build.SYMBOLS.open(newline="", encoding="utf-8") as handle:
+        for row in csv.DictReader(handle):
+            try:
+                pinned.add(int(row["address"], 16))
+            except ValueError:
+                pass
+    for rva in pinned:
+        if rva not in claimed and inventory.get(rva, "").startswith("FUN_"):
+            return rva
+    raise AssertionError("no pinned-but-unclaimed FUN_ row to test against")
+
+
+def test_a_pinned_symbols_csv_address_does_not_lend_its_name_to_the_harvest():
+    body = a_pinned_unclaimed_address()
+    rows = build.select_reloc_names(build.harvest_reloc_names(
+        [call_row(0x1000, body, symbol="?realName@SomeClass@@QAEXXZ")]))
+    assert rows == [], (hex(body), rows)
+    print(f"PASS 0x{body:X} stays out of the harvest once symbols.csv pins it")
 
 
 def a_dup_claimed_function():

@@ -1218,6 +1218,33 @@ GEN_PLACEHOLDER_RE = re.compile(
 # and the reference TU's COMDAT it compiled is recorded in object-symbol= only
 # as the build directive it is. Such a row claims an address without naming it.
 DUP_ALIAS_RE = re.compile(r"^\?dup_[0-9a-f]{8}@@YAXXZ$")
+# Ghidra's own default names always bake the function's address into the
+# label -- FUN_<va>, LAB_<va>, SUB_<va>, DAT_<va>, PTR_<va>, switchD_<va>,
+# joined_r0x<va>, Unwind@<va>, Catch@<va> (confirmed against the committed
+# inventory: 39,076 FUN_, 23,354 Unwind@, 81 Catch@ rows all embed their own
+# RVA plus the 0x400000 image base as lowercase hex). No recovered identity
+# encodes its own address that way, so this is a self-verifying test that
+# needs no enumeration of Ghidra's naming families. thunk_FUN_ is the one
+# exception: it names a thunk stub after its call TARGET's address, not its
+# own, so it is matched by literal prefix instead (199 rows, verified against
+# the same inventory; no real ledger/pin name uses this or the @-suffixed
+# prefixes above, so the literal check cannot shadow a genuine identity).
+_GHIDRA_THUNK_PREFIX = "thunk_FUN_"
+
+
+def is_ghidra_autoname(name, rva):
+    """True when a ghidra_functions.csv name is Ghidra's own placeholder.
+
+    A narrower `startswith("FUN_")` check missed the 23,634 Unwind@/Catch@/
+    thunk_FUN_ rows the committed inventory already carries -- SEH funclet
+    and thunk labels that are exactly as identity-free as FUN_ but do not
+    start with it. select_reloc_names used the narrow check to decide an
+    address has no independent Ghidra opinion yet; against those rows it was
+    silently wrong, over-trusting a label that names nothing.
+    """
+    if name.startswith(_GHIDRA_THUNK_PREFIX):
+        return True
+    return f"{rva + 0x400000:08x}" in name.lower()
 
 
 def harvest_reloc_names(patches):
@@ -1294,7 +1321,9 @@ def select_reloc_names(named):
     identity it explicitly disclaims; both leave the address anonymous, and
     both would otherwise swallow the one piece of evidence that could name it
     -- the recovered ?findCommandSet@ControlBar@@... at 0x4A0340 survived only
-    because a human went looking after the line vanished.
+    because a human went looking after the line vanished. A reverse/symbols.csv
+    pin is a claim the same way: it is a human's identity assertion for that
+    address, just not yet backed by a compiling body, so it counts too.
     """
     inventory = {}
     with GHIDRA_FUNCTIONS.open("r", encoding="utf-8", newline="") as handle:
@@ -1302,6 +1331,13 @@ def select_reloc_names(named):
             inventory[int(row["rva"], 16)] = (int(row["size"]), row["name"])
     claimed = {int(row["target_rva"], 16) for row in load_all_function_rows()
                if not is_scaffold_row(row) and not DUP_ALIAS_RE.match(row["name"])}
+    if SYMBOLS.exists():
+        with SYMBOLS.open("r", encoding="utf-8", newline="") as handle:
+            for row in csv.DictReader(handle):
+                try:
+                    claimed.add(int(row["address"], 16))
+                except ValueError:
+                    pass
 
     selected = []
     for rva, entry in sorted(named.items()):
@@ -1311,7 +1347,7 @@ def select_reloc_names(named):
         if CLONE_LOCAL_RE.search(name):
             continue
         known = inventory.get(rva)
-        if known is None or not known[1].startswith("FUN_") or rva in claimed:
+        if known is None or rva in claimed or not is_ghidra_autoname(known[1], rva):
             continue
         selected.append({
             "name": name,
