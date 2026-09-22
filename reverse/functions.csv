@@ -15487,3 +15487,4 @@ _bfmeHash1228,,0x0070F880,1504,Code/GameEngine/Source/Common/BfmeConv1228.cpp,ma
 ?releaseInto@MixFileInfoBuffer@@QAEXPAX@Z,,0x0052DD41,35,Code/GameEngine/Source/Common/MixFileInfoBuffer_releaseInto.cpp,matched,
 ?bfmeUnlink@MixFileInfoBuffer@@AAEXXZ,,0x002E6BE2,33,Code/GameEngine/Source/Common/MixFileInfoBufferUnlink.cpp,matched,
 ??0W3DTruckDrawModuleData@@QAE@XZ,,0x000CB1C9,197,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTruckDrawModuleDataCtor.cpp,matched,W3D draw ModuleData ctor; base W3DModelDrawModuleData at 0xC8EEF (7 subclass callers); vtable 0xBCC508; 21 string slots +0x188..+0x1D8 per table 0xBCC358; 4x1.0f + 0.0f; factory 0x64AF0 sole caller
+??0W3DSupplyDrawModuleData@@QAE@XZ,,0x000CAF17,25,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DSupplyDrawModuleDataCtor.cpp,matched,W3D draw ModuleData ctor; base 0xC8EEF; vtable 0xBCC0D0; single string +0x188 per table; factory 0x64A61 sole caller

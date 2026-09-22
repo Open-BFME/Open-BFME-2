@@ -532,7 +532,6 @@ name,address,notes
 ??0W3DLightDrawModuleData@@QAE@XZ,0x000CFB3E,frameless light ctor with vtable 0xBCD820 plus color and flicker inits; Light factory at 0x64E2F news 0x48 and calls it
 ??0W3DModelDrawModuleData@@QAE@XZ,0x000C8EEF,two-phase ModuleData factory at 0x648D6 news 0x188 and calls it before initFromINIMultiProc with the W3DModelDraw table proc
 ??0W3DQuadrupedDrawModuleData@@QAE@XZ,0x000651C2,subclass ctor calling base W3DModelDrawModuleData ctor at 0xC8EEF then member construct at 0x629512; Quadruped factory at 0x65218 news 0x198 and calls it
-??0W3DSupplyDrawModuleData@@QAE@XZ,0x000CAF17,frameless subclass ctor calling base W3DModelDrawModuleData ctor at 0xC8EEF then vtable 0xBCC0D0; Supply factory at 0x64A61 news 0x18C and calls it
 ??0W3DTankDrawModuleData@@QAE@XZ,0x000CE6E6,subclass ctor calling base W3DModelDrawModuleData ctor at 0xC8EEF; Tank factory at 0x64B7F news 0x19C and calls it
 ??0WaypointMap@@QAE@ABV0@@Z,0x00303359,Complete27B WaypointMap copy; typed tree-copy3025A5 then count atC; MapMetaData member38 and BFME1 reference layout independently establish identity
 ??0WeaponTemplateSet@@QAE@ABV0@@Z,0x004AE811,WeaponTemplateSet copy ctor; _Construct at 0x4AE915 thiscall target
