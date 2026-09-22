@@ -307,7 +307,6 @@ name,address,notes
 ??0BfmeThingCDE@@QAE@PAX00@Z,0x00739E60
 ??0BfmeThingUNC@@QAE@HPAUBfmeOwnerUNC@@@Z,0x00674ED0
 ??0BfmeVector0022C55B@@QAE@ABU0@@Z,0x0022C55B,Complete71-byte vector copy;20-byte elements; getter21983A base4FF36C range2DBEFF; destructor22CAC4
-??0BoneFXUpdateModuleData@@QAE@XZ,0x00487797
 ??0BoxEmissionVolumeModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A6738,BFME2 export; the module template copy constructor the ConcreteModuleTemplate wrapper calls
 ??0BoxRenderObjClass@@QAE@ABUW3dBoxStruct@@@Z,0x00175A40,address read from the REL32 displacement at a placed body
 ??0BoxRenderObjClass@@QAE@XZ,0x00174C80,address read from the REL32 displacement at a placed body

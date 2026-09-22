@@ -15769,3 +15769,4 @@ _piProcessUTM,,0x006AA950,508,Code/GameEngine/Source/GameNetwork/GameSpy/peer/pe
 ?Rva009AA260Scale@@YAHPAURva009AA260Context@@PBEHIIPAEIII@Z,,0x001BACA0,596,Code/GameEngine/Source/Common/Rva009AA260Scale.cpp,matched,BFME1 donor with BFME2 callback-slot externs; b1 0x009AA260; sweep-miss with 3 intra Jcc
 _Rva00819F50,,0x00685E50,1036,Code/Libraries/Source/DirtySock/Rva00819F50Comm.cpp,matched,BFME1 byte-identical donor; b1 0x00819F50; sweep-miss with 9 intra branches; RTC and memcpy and Rva0081A360 settled
 ?AssertDone@Debug@@UAE_NH@Z,,0x0003A8A0,948,Code/Libraries/Source/WWVegas/WWDebug/Debug_AssertDone.cpp,matched,BFME1 near-miss donor b1 0x0088B530 (lifted there as AssertBegin); rebuilt as C++ from ZH AssertDone plus retail-read BFME2 changes; vtable slot 0x44; size includes switch table
+??0BoneFXUpdateModuleData@@QAE@XZ,,0x00487797,196,Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateModuleDataCtor.cpp,matched,
