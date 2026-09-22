@@ -4501,3 +4501,12 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ??0SupplyCenterProductionExitUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x004A65AE,(Thing*;ModuleData*) ctor called by SupplyCenterProductionExitUpdate::friend_newModuleInstance (0x0024EE3F); class from the ModuleFactory registration literal
 ??0SupplyCenterDockUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x004A0DC7,(Thing*;ModuleData*) ctor called by SupplyCenterDockUpdate::friend_newModuleInstance (0x0024E9D9); class from the ModuleFactory registration literal
 ??0DozerAIUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x004894F5,(Thing*;ModuleData*) ctor called by DozerAIUpdate::friend_newModuleInstance (0x0024CD7D); class from the ModuleFactory registration literal
+??0SiegeDockingBehaviorModuleData@@QAE@XZ,0x00254C8E,no-arg data ctor called by SiegeDockingBehavior::friend_newModuleData (0x0024AF5C); class name is ZH's <Module>ModuleData convention
+??0BezierProjectileBehaviorModuleData@@QAE@XZ,0x0045B4F1,no-arg data ctor called by BezierProjectileBehavior::friend_newModuleData (0x0024B183); class name is ZH's <Module>ModuleData convention
+??0DestroyDieModuleData@@QAE@XZ,0x00253510,no-arg data ctor called by DestroyDie::friend_newModuleData (0x00254E7D); class name is ZH's <Module>ModuleData convention
+??0FXListDieModuleData@@QAE@XZ,0x00253A78,no-arg data ctor called by FXListDie::friend_newModuleData (0x00253AB4); class name is ZH's <Module>ModuleData convention
+??0FireWeaponUpdateModuleData@@QAE@XZ,0x0048BC03,no-arg data ctor called by FireWeaponUpdate::friend_newModuleData (0x0024CF56); class name is ZH's <Module>ModuleData convention
+??0SpecialAbilityUpdateModuleData@@QAE@XZ,0x0044EB54,no-arg data ctor called by SpecialAbilityUpdate::friend_newModuleData (0x0024A882); class name is ZH's <Module>ModuleData convention
+??0ThreatFinderUpdateModuleData@@QAE@XZ,0x003ECC80,no-arg data ctor called by ThreatFinderUpdate::friend_newModuleData (0x0024FC08); class name is ZH's <Module>ModuleData convention
+??0ScavengerSpecialPowerModuleData@@QAE@XZ,0x004C2A6A,no-arg data ctor called by ScavengerSpecialPower::friend_newModuleData (0x00251DCC); class name is ZH's <Module>ModuleData convention
+??0ModelConditionSoundSelectorClientBehaviorModuleData@@QAE@XZ,0x004CAEE6,no-arg data ctor called by ModelConditionSoundSelectorClientBehavior::friend_newModuleData (0x00252C13); class name is ZH's <Module>ModuleData convention
