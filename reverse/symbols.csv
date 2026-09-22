@@ -4575,3 +4575,11 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ?findImageByName@ImageCollection@@QAEPBVImage@@ABVAsciiString@@@Z,0x002D92F6,TheMappedImageCollection lookup called by INI::parseMappedImage (0x003390B2)
 ?findObjectCreationList@ObjectCreationListStore@@QAEPBVObjectCreationList@@PBD@Z,0x001F07B8,TheObjectCreationListStore lookup called by INI::parseObjectCreationList (0x00338A6F)
 ?findWeaponTemplate@WeaponStore@@QBEPBVWeaponTemplate@@ABVAsciiString@@@Z,0x002CB8BF,TheWeaponStore lookup called by INI::parseWeaponTemplate (0x00339569)
+?winGetDisabledTextBorderColor@GameWindow@@QAEHXZ,0x00313EA1,GameWindow getter called by W3DGadgetComboBoxDraw (0x000A21A3); ICF-folded one-field getter shared with other classes
+?winGetDisabledTextColor@GameWindow@@QAEHXZ,0x00313E9A,GameWindow getter called by W3DGadgetComboBoxDraw (0x000A21A3); ICF-folded one-field getter shared with other classes
+?winGetEnabledTextBorderColor@GameWindow@@QAEHXZ,0x00313E93,GameWindow getter called by W3DGadgetComboBoxDraw (0x000A21A3); ICF-folded one-field getter shared with other classes
+?winGetEnabledTextColor@GameWindow@@QAEHXZ,0x00313E8C,GameWindow getter called by W3DGadgetComboBoxDraw (0x000A21A3); ICF-folded one-field getter shared with other classes
+?winGetFont@GameWindow@@QAEPAVGameFont@@XZ,0x00313D6C,GameWindow getter called by W3DGadgetComboBoxDraw (0x000A21A3); ICF-folded one-field getter shared with other classes
+?winGetHiliteTextBorderColor@GameWindow@@QAEHXZ,0x00313840,GameWindow getter called by W3DGadgetComboBoxDraw (0x000A21A3); ICF-folded one-field getter shared with other classes
+?winGetHiliteTextColor@GameWindow@@QAEHXZ,0x00313EB6,GameWindow getter called by W3DGadgetComboBoxDraw (0x000A21A3); ICF-folded one-field getter shared with other classes
+?winGetStatus@GameWindow@@QAEIXZ,0x0030F45F,GameWindow getter called by W3DGadgetComboBoxDraw (0x000A21A3); ICF-folded one-field getter shared with other classes
