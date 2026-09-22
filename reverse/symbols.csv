@@ -438,7 +438,6 @@ name,address,notes
 ??0Random3Class@@QAE@II@Z,0x006200B0,identical-code fold with the STLport _Hashtable_iterator constructor already matched here - both store two dwords at +0 and +4; address read from the retail REL32 in StreakRendererClass::subdivision_util at 0x00743280
 ??0RandomTextureMapperClass@@QAE@ABV0@@Z,0x00186880,address read from the REL32 displacement at a placed body; stlport 4.5.3
 ??0RankInfo@@QAE@XZ,0x0020010B,RankInfo ctor (76B: vtable 0xBE26E0 plus member inits); called right after operator new 0x44 from friend_parseRankDefinition 0x2003F5/0x20046C only; BFME1 has the same ctor shape with Overridable plus UnicodeString layout
-??0RemoveUpgradeUpgradeModuleData@@QAE@XZ,0x004B7FF1,EBP-frame ctor over base 0x253487; vtable plus 0x211E58 member-inits at +0x118/+0x124 plus bytes at +0x130/+0x131; sole raw caller is ModuleData factory 0x25082A which news 0x134
 ??0RenderObjClass@@QAE@ABV0@@Z,0x0013B430,RenderObj copy ctor427 independently identified by primary BD2F68 and secondary BD2F60 tables shared with default ctor13BF00; fresh refcount1 and copied transform/factors90/94; scene ownership cleared; base implementation remains unclaimed
 ??0RenderObjClass@@QAE@XZ,0x0013BF00,address read from the REL32 displacement at a placed body
 ??0RenderObjectDrawModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A9C80,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
@@ -3999,3 +3998,4 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ??0SlavedUpdateModuleData@@QAE@XZ,0x002552D7,sole raw E8 caller is ModuleData factory 0x255340 which news 0x70 and pushes rowed proc 0x2542E2
 ?Rva0026C2D9Command@Rva0026C2D9Commands@@QAEXPAXHH@Z,0x0026C2D9,3-param AICommand method on commands at AIUpdateInterface plus 0x20 (target then 0x7FFFFFFF then source at all 27 raw call sites); semantic identity unproven so Rva-addressed
 ?Rva00295A0FCommand@Rva00295A0FCommands@@QAEXPAXHH@Z,0x00295A0F,3-param AICommand method on commands at AIUpdateInterface plus 0x20 (target then 0x7FFFFFFF then source at all 14 raw call sites); semantic identity unproven so Rva-addressed
+??_7RemoveUpgradeUpgradeModuleData@@6B@,0x00C58EF0,slot0 is 0x4B8034 sitting right after ctor 0x4B7FF1 plus slot1 is 0x4B3FD0 ret-pair
