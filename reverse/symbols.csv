@@ -4541,3 +4541,4 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ?buildFieldParse@TintDrawableFXNugget@@SAXAAVMultiIniFieldParse@@@Z,0x001DFCD3,cdecl field-parse builder called by TintDrawableFXNugget::parse (0x001E1798); name is BFME's ModuleData convention
 ??0BuffNuggetFXNugget@@QAE@XZ,0x001E2FCE,no-arg ctor called by BuffNuggetFXNugget::parse (0x001E323B) for the BuffNugget FXList keyword; class name from BFME1
 ?buildFieldParse@BuffNuggetFXNugget@@SAXAAVMultiIniFieldParse@@@Z,0x001DFB64,cdecl field-parse builder called by BuffNuggetFXNugget::parse (0x001E323B); name is BFME's ModuleData convention
+??0AttackNugget@@QAE@XZ,0x001F05C1,out-of-line ctor called by AttackNugget::parse (0x001F0D96) for the Attack OCL keyword

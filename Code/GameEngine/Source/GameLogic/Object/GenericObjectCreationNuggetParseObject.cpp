@@ -62,6 +62,7 @@ class GenericObjectCreationNugget : public ObjectCreationNugget
 public:
 	GenericObjectCreationNugget();
 	static void parseObject(INI *ini, void *instance, void *, const void *);
+	static void parseDebris(INI *ini, void *instance, void *, const void *);
 
 protected:
 	~GenericObjectCreationNugget();
@@ -98,6 +99,29 @@ void GenericObjectCreationNugget::parseObject(INI *ini, void *instance,
 
 	GenericObjectCreationNugget *nugget = new GenericObjectCreationNugget;
 	nugget->m_nameAreObjects = true;
+
+	ini->initFromINIMulti(nugget, fields);
+	((ObjectCreationList *)instance)->addObjectCreationNugget(nugget);
+}
+
+// Debris table, 0x7E14A8 (the "CreateDebris" row of the OCL FieldParse).
+static const FieldParse s_debrisFieldParse[] =
+{
+	{ 0, 0, 0, 0 }
+};
+
+// ?parseDebris@GenericObjectCreationNugget@@SAXPAVINI@@PAX1PBX@Z
+// retail 0x001F340A (148 bytes): parseObject's twin with the debris table and
+// m_nameAreObjects cleared.
+void GenericObjectCreationNugget::parseDebris(INI *ini, void *instance,
+	void *, const void *)
+{
+	MultiIniFieldParse fields;
+	fields.add(s_commonFieldParse);
+	fields.add(s_debrisFieldParse);
+
+	GenericObjectCreationNugget *nugget = new GenericObjectCreationNugget;
+	nugget->m_nameAreObjects = false;
 
 	ini->initFromINIMulti(nugget, fields);
 	((ObjectCreationList *)instance)->addObjectCreationNugget(nugget);
