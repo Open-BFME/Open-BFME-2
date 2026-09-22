@@ -235,12 +235,7 @@ def test_the_queue_drops_published_rows_the_ledger_has_claimed():
 
 
 def a_synthetic_labeled_function():
-    """An unclaimed body Ghidra names with its own SEH-funclet convention
-    (Unwind@<va>/Catch@<va>) rather than FUN_<va>. A narrower `startswith
-    ("FUN_")` check treated this the same as a real Ghidra-recognized
-    identity and silently dropped it from the harvest -- 23,634 such rows
-    (Unwind@/Catch@/thunk_FUN_) sit in the committed inventory, none of
-    which name anything more than FUN_ does."""
+    """Return an unclaimed SEH label from the Ghidra inventory."""
     inventory = {int(row["rva"], 16): row["name"] for row in csv.DictReader(
         (ROOT / "reverse" / "ghidra_functions.csv").open(
             newline="", encoding="utf-8"))}
@@ -260,13 +255,16 @@ def test_a_ghidra_synthetic_seh_label_is_still_anonymous_to_the_harvest():
     print(f"PASS 0x{body:X}'s Unwind@/Catch@ label does not block the harvest")
 
 
+def test_synthetic_names_require_a_known_prefix_and_address():
+    for name in ("FUN_00401000", "Unwind@00401000", "Catch@00401000",
+                 "LAB_00401000", "thunk_FUN_00500000"):
+        assert build.is_ghidra_autoname(name, 0x1000)
+    for name in ("RealClass_00401000", "FUN_00402000", "PhysicsBehavior"):
+        assert not build.is_ghidra_autoname(name, 0x1000)
+
+
 def a_pinned_unclaimed_address():
-    """An address reverse/symbols.csv pins but no functions.csv row claims,
-    and Ghidra still calls FUN_ -- so the OLD `claimed` set (built only from
-    functions.csv) missed it, and only the FUN_ check happened to still
-    catch it by coincidence. This fixture is what would have gone unnoticed
-    if that coincidence broke: a pin is a human identity assertion the
-    harvester must respect even when the inventory itself does not."""
+    """Return an address pinned in symbols.csv but absent from functions.csv."""
     inventory = {int(row["rva"], 16): row["name"] for row in csv.DictReader(
         (ROOT / "reverse" / "ghidra_functions.csv").open(
             newline="", encoding="utf-8"))}

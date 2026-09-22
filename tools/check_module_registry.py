@@ -1,35 +1,20 @@
 #!/usr/bin/env python3
-"""Check module-factory rows against ModuleFactory's own registrations.
+"""Check recovered module-factory names against retail registrations.
 
-ModuleFactory::init registers every module with
-    addModuleInternal(X::friend_newModuleInstance, X::friend_newModuleData,
-                      type, AsciiString("X"), interfaces)
-so each call site pushes the module's name string and then its two factories.
-That pairing is retail evidence of identity. The byte gate cannot provide it:
-a factory, its data ctor and its buildFieldParse proc compile to the same bytes
-under any class name, which is how 32 data classes and 24 instance factories
-came to carry a neighbouring module's name.
-
-For every registration this checks:
-  * the data-factory row names the registered module's data class,
-  * the instance-factory row names the registered module,
-  * the data factory's ctor call and parse-proc push, where a row or pin names
-    them, use the same class as the factory row.
-
-reverse/module_registry_allowlist.txt holds legitimate exceptions (a module
-reusing another module's data class), one per line with a reason.
-reverse/module_registry_baseline.txt holds known violations still to be fixed;
-it may only shrink.
-
-    python3 tools/check_module_registry.py            # report
-    python3 tools/check_module_registry.py --check    # gate: fail on new/stale
-    python3 tools/check_module_registry.py --write-baseline   # shrink-only
+Requires GNU objdump or Capstone for x86 instruction boundaries.
+Use --check for the gate; --write-baseline may only shrink existing debt.
 """
 import argparse
+import bisect
 import csv
+import os
 import re
+import shutil
 import struct
+import subprocess
 import sys
+import tempfile
+from typing import NamedTuple
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -39,15 +24,61 @@ ROOT = build.ROOT
 ALLOWLIST = ROOT / "reverse" / "module_registry_allowlist.txt"
 BASELINE = ROOT / "reverse" / "module_registry_baseline.txt"
 IMAGE_BASE = 0x400000
-# ModuleFactory::addModuleInternal. Every one of its call sites is a
-# registration; decode() refuses to run if that stops being true.
+# ModuleFactory::addModuleInternal in the target image.
 ADD_MODULE_RVA = 0x002573EE
-MIN_REGISTRATIONS = 300
+EXPECTED_REGISTRATIONS = 329
 
 DATA_RE = re.compile(r"\?friend_newModuleData@([A-Za-z0-9_]+)@@")
 INST_RE = re.compile(r"\?friend_newModuleInstance@([A-Za-z0-9_]+)@@")
 CTOR_RE = re.compile(r"\?\?0([A-Za-z0-9_]+)@@QAE@XZ$")
 PROC_RE = re.compile(r"\?buildFieldParse@([A-Za-z0-9_]+)@@")
+INSTRUCTION_RE = re.compile(
+    r"^\s*([0-9a-f]+):\s*((?:[0-9a-f]{2}\s+)+)\s*([a-z][a-z0-9.]*)\s*(.*?)\s*$",
+    re.IGNORECASE,
+)
+IMMEDIATE_RE = re.compile(r"^0x([0-9a-f]+)(?:\s+<[^>]+>)?$", re.IGNORECASE)
+
+
+class Instruction(NamedTuple):
+    address: int
+    size: int
+    mnemonic: str
+    operands: str
+
+
+def parse_objdump_output(output):
+    """Parse instruction rows from objdump's raw i386 disassembly."""
+    instructions = []
+    for line in output.splitlines():
+        match = INSTRUCTION_RE.match(line)
+        if match:
+            raw = bytes.fromhex(match.group(2))
+            instructions.append(Instruction(
+                int(match.group(1), 16), len(raw), match.group(3).lower(),
+                match.group(4).strip(),
+            ))
+    return instructions
+
+
+def immediate_operand(instruction):
+    """Return a direct hexadecimal operand, or None for register/memory ops."""
+    match = IMMEDIATE_RE.fullmatch(instruction.operands.strip())
+    return int(match.group(1), 16) if match else None
+
+
+def validate_instructions(instructions, start, size):
+    end = start + size
+    for instruction in instructions:
+        if (instruction.address != start or instruction.size <= 0
+                or instruction.mnemonic in ("bad", ".byte")):
+            raise ValueError(f"incomplete disassembly at 0x{start:08X}")
+        start += instruction.size
+    if start != end:
+        raise ValueError(f"incomplete disassembly at 0x{start:08X}")
+
+
+def direct_call_target(instruction):
+    return immediate_operand(instruction) if instruction.mnemonic == "call" else None
 
 
 def data_class(module):
@@ -74,9 +105,22 @@ class Image:
         text = next(s for s in self.sections if s["name"] == ".text")
         self.text_rva = text["rva"]
         self.text = self.data[text["raw_pointer"]: text["raw_pointer"] + text["raw_size"]]
+        with build.GHIDRA_FUNCTIONS.open("r", encoding="utf-8", newline="") as handle:
+            self.function_sizes = {
+                int(row["rva"], 16): int(row["size"])
+                for row in csv.DictReader(handle)
+            }
+        # Some verified factories were recovered outside Ghidra's function list.
+        for row in build.load_all_function_rows():
+            if row["status"] == "matched":
+                self.function_sizes.setdefault(int(row["target_rva"], 16), int(row["target_size"]))
+        self.function_starts = sorted(self.function_sizes)
+        self.disassembly = {}
 
     def text_at(self, rva, size):
         off = rva - self.text_rva
+        if off < 0 or off + size > len(self.text):
+            raise ValueError(f"0x{rva:08X}+{size} is outside .text")
         return self.text[off: off + size]
 
     def string(self, va):
@@ -93,61 +137,103 @@ class Image:
     def is_code(self, va):
         return self.text_rva <= va - IMAGE_BASE < self.text_rva + len(self.text)
 
-    def callers(self, target):
+    def candidate_callers(self, target):
+        """Return raw E8 matches; callers must confirm them by disassembly."""
         out = []
         t = self.text
-        for i in range(len(t) - 5):
+        for i in range(len(t) - 4):
             if t[i] == 0xE8 and self.text_rva + i + 5 + struct.unpack_from("<i", t, i + 1)[0] == target:
                 out.append(self.text_rva + i)
         return out
 
+    def function_containing(self, rva):
+        index = bisect.bisect_right(self.function_starts, rva) - 1
+        while index >= 0:
+            start = self.function_starts[index]
+            size = self.function_sizes[start]
+            if start <= rva < start + size:
+                return start, size
+            index -= 1
+        return None
+
+    def instructions(self, start):
+        if start in self.disassembly:
+            return self.disassembly[start]
+        size = self.function_sizes.get(start)
+        if size is None:
+            raise ValueError(f"no function boundary at 0x{start:08X}")
+        data = self.text_at(start, size)
+        objdump = shutil.which("objdump")
+        if objdump:
+            fd, path = tempfile.mkstemp(prefix="bfme-module-registry-")
+            try:
+                with os.fdopen(fd, "wb") as handle:
+                    handle.write(data)
+                result = subprocess.run(
+                    [objdump, "-D", "-b", "binary", "-m", "i386", "-M", "intel",
+                     "--insn-width=16", "--disassemble-zeroes",
+                     f"--adjust-vma=0x{start + IMAGE_BASE:X}", path],
+                    capture_output=True, text=True, check=True,
+                )
+                decoded = parse_objdump_output(result.stdout)
+            finally:
+                os.unlink(path)
+        else:
+            try:
+                import capstone
+            except ImportError as exc:
+                raise SystemExit("Module registry: install GNU objdump or Capstone") from exc
+            decoder = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
+            decoded = [Instruction(insn.address, insn.size, insn.mnemonic.lower(), insn.op_str)
+                       for insn in decoder.disasm(data, start + IMAGE_BASE)]
+        validate_instructions(decoded, start + IMAGE_BASE, size)
+        self.disassembly[start] = decoded
+        return decoded
+
 
 def decode_registrations(img):
     """[(module, data_factory_rva, instance_factory_rva)] from every addModule call."""
+    functions = {}
+    for site in img.candidate_callers(ADD_MODULE_RVA):
+        bounds = img.function_containing(site)
+        if bounds:
+            functions.setdefault(bounds[0], set()).add(site)
     regs = []
-    for site in img.callers(ADD_MODULE_RVA):
-        window = img.text_at(site - 70, 70)
-        pushes = []
-        i = 0
-        while i < len(window) - 4:
-            if window[i] == 0x68:
-                pushes.append(struct.unpack_from("<I", window, i + 1)[0])
-                i += 5
-            else:
-                i += 1
-        names = [s for s in (img.string(v) for v in pushes) if s]
-        code = [v - IMAGE_BASE for v in pushes if img.is_code(v)]
-        if not names or len(code) < 2:
-            continue
-        regs.append((names[-1], code[-2], code[-1]))
-    if len(regs) < MIN_REGISTRATIONS:
-        raise SystemExit(f"Module registry: decoded only {len(regs)} registrations at "
+    for start, sites in sorted(functions.items()):
+        instructions = img.instructions(start)
+        for index, instruction in enumerate(instructions):
+            site = instruction.address - IMAGE_BASE
+            if (site not in sites
+                    or direct_call_target(instruction) != ADD_MODULE_RVA + IMAGE_BASE):
+                continue
+            # Retail pushes the name, then the two factories, within 70 bytes.
+            pushes = [immediate_operand(ins) for ins in instructions[:index]
+                      if ins.address >= instruction.address - 70 and ins.mnemonic == "push"]
+            pushes = [value for value in pushes if value is not None]
+            names = [s for s in (img.string(v) for v in pushes) if s]
+            code = [v - IMAGE_BASE for v in pushes if img.is_code(v)]
+            if not names or len(code) < 2:
+                raise SystemExit(f"Module registry: unrecognized registration at 0x{site:08X}")
+            regs.append((names[-1], code[-2], code[-1]))
+    if len(regs) != EXPECTED_REGISTRATIONS:
+        raise SystemExit(f"Module registry: decoded {len(regs)} registrations at "
                          f"0x{ADD_MODULE_RVA:08X}; the decoder no longer fits retail")
     return regs
 
 
 def factory_callees(img, factory, skip):
     """(first call target not in skip, first code-pointer push) of a data factory."""
-    body = img.text_at(factory, 110)
     call = proc = None
-    i = 0
-    while i < len(body) - 5:
-        op = body[i]
-        if op == 0x68:
-            v = struct.unpack_from("<I", body, i + 1)[0]
-            if proc is None and img.is_code(v):
-                proc = v - IMAGE_BASE
-            i += 5
-            continue
-        if op == 0xE8:
-            t = factory + i + 5 + struct.unpack_from("<i", body, i + 1)[0]
-            if call is None and t not in skip:
-                call = t
-            i += 5
-            continue
-        if op == 0xC3:
+    for instruction in img.instructions(factory):
+        if instruction.mnemonic in ("ret", "retf", "iret", "iretd"):
             break
-        i += 1
+        value = immediate_operand(instruction)
+        if instruction.mnemonic == "push" and value is not None:
+            if proc is None and img.is_code(value):
+                proc = value - IMAGE_BASE
+        target = direct_call_target(instruction)
+        if target is not None and call is None and target - IMAGE_BASE not in skip:
+            call = target - IMAGE_BASE
     return call, proc
 
 
@@ -193,17 +279,16 @@ def scan():
     # A trivial data ctor can be folded across classes, so a ctor/proc address
     # may legitimately carry the class of every factory that calls it.
     callee_classes = {}
-    factory_class = {}
     for dfac, modules in by_data.items():
         rows = [n for n in names.get(dfac, []) if DATA_RE.match(n)]
         if not rows:
             continue
-        token = DATA_RE.match(rows[0]).group(1)
-        factory_class[dfac] = token
+        tokens = {DATA_RE.match(row).group(1) for row in rows}
+        tokens = {token for token in tokens if names_module(token, modules)}
         call, proc = factory_callees(img, dfac, skip)
         for addr in (call, proc):
             if addr is not None:
-                callee_classes.setdefault(addr, set()).add(token)
+                callee_classes.setdefault(addr, set()).update(tokens)
 
     violations = []
     for dfac, modules in sorted(by_data.items()):
