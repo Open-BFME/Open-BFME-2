@@ -3693,7 +3693,6 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ??0?$_Vector_base@UBfmePod40@@V?$allocator@UBfmePod40@@@_STL@@@_STL@@QAE@IABV?$allocator@UBfmePod40@@@1@@Z,0x0053FF92,address read from the REL32 displacement at a placed body
 ??0?$_Vector_base@UBfmePod48@@V?$allocator@UBfmePod48@@@_STL@@@_STL@@QAE@IABV?$allocator@UBfmePod48@@@1@@Z,0x003F4443,address read from the REL32 displacement at a placed body
 ?_M_insert_overflow@?$vector@UBfmePod52@@V?$allocator@UBfmePod52@@@_STL@@@_STL@@IAEXPAUBfmePod52@@ABU3@ABU__false_type@2@I_N@Z,0x001DE402,address read from the REL32 displacement at a placed body
-?_M_insert_overflow@?$vector@UBfmePod60@@V?$allocator@UBfmePod60@@@_STL@@@_STL@@IAEXPAUBfmePod60@@ABU3@ABU__false_type@2@I_N@Z,0x000BD15B,address read from the REL32 displacement at a placed body
 ?allocate@?$allocator@UBfmePod32@@@_STL@@QBEPAUBfmePod32@@IPBX@Z,0x003F74B3,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
 ?get_allocator@?$vector@UBfmePod40@@V?$allocator@UBfmePod40@@@_STL@@@_STL@@QBE?AV?$allocator@UBfmePod40@@@2@XZ,0x0021983A,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
 ?get_allocator@?$vector@UBfmePod44@@V?$allocator@UBfmePod44@@@_STL@@@_STL@@QBE?AV?$allocator@UBfmePod44@@@2@XZ,0x0021983A,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
@@ -4007,3 +4006,4 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ??$__copy@PAVAsciiString@@PAV1@H@_STL@@YAPAVAsciiString@@PAV1@00ABUrandom_access_iterator_tag@0@PAH@Z,0x000B4431,TU spelling of the AsciiString bulk copy worker for VectorAsciiStringErase.cpp; body rowed as dup_000b4431
 ??$_Destroy@PAVAsciiString@@@_STL@@YAXPAVAsciiString@@0@Z,0x0002CB64,TU spelling of the AsciiString range destroy worker for VectorAsciiStringErase.cpp; body rowed as dup_0002cb64
 ??$__uninitialized_copy@PAUBfmePod28@@PAU1@@_STL@@YAPAUBfmePod28@@PAU1@00ABU__false_type@0@@Z,0x00215F38,Pod28 no-EH TU spelling of the rowed const-pointer uninit-copy worker; same trivial-copy body folded at this address
+??$__uninitialized_copy@PAUBfmePod60@@PAU1@@_STL@@YAPAUBfmePod60@@PAU1@00ABU__false_type@0@@Z,0x000B651E,Pod60 no-EH TU spelling of the rowed const-pointer uninit-copy worker; same trivial-copy body folded at this address
