@@ -208,3 +208,21 @@ void MobNexusContainModuleData::buildFieldParse(MultiIniFieldParse &parse)
 	SpecialPowerModuleData::buildFieldParse(parse);
 	parse.add(reinterpret_cast<const FieldParse *>(0x00C5C468), 0);
 }
+
+class FreezingRainSpecialPowerModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+// ?buildFieldParse@FreezingRainSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z,
+// retail 0x004C4B86 (27 bytes): base-table call above plus the FreezingRain
+// table at 0x00C5D6C0 (FreezingRainRadius at +0x7C plus FreezingRainFX at
+// +0x80 plus BurnRateModifier at +0x84). The rowed factory at 0x00251F70
+// calls the rowed ctor at 0x4C4D71 and pushes this proc's VA (unique
+// image-wide). Row supersedes the pin.
+void FreezingRainSpecialPowerModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	SpecialPowerModuleData::buildFieldParse(parse);
+	parse.add(reinterpret_cast<const FieldParse *>(0x00C5D6C0), 0);
+}
