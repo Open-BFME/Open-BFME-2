@@ -35,7 +35,9 @@ private:
 class AsciiString : public StringBase<char>
 {
 public:
+	AsciiString() {}
 	void clear();
+	AsciiString(const AsciiString &other);
 	AsciiString &operator=(const AsciiString &other);
 	// Inline teardown to the 0x36410 fold (writeNameKey/openDataChunk
 	// precedent): temp destruction emits a direct releaseBuffer call, which
@@ -111,4 +113,12 @@ MultiplayerColorDefinition *MultiplayerColorDefinition::operator=(const Multipla
 	m_rgbExtra2 = other.m_rgbExtra2;
 	m_extraFlag = other.m_extraFlag;
 	return this;
+}
+
+// ?getTooltipName@MultiplayerColorDefinition@@QBE?AVAsciiString@@XZ retail 0x002E4336 24 bytes.
+// Out-of-line AsciiString copy of m_tooltipName via StringBase copy 0x365F0 into hidden out.
+// Called from color operator= and new-color path. Row supersedes pin.
+AsciiString MultiplayerColorDefinition::getTooltipName() const
+{
+	return m_tooltipName;
 }
