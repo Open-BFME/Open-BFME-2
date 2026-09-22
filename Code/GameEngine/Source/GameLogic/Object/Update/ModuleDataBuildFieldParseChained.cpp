@@ -621,3 +621,20 @@ void CaveContainModuleData::buildFieldParse(MultiIniFieldParse &parse)
 	OpenContainModuleData::buildFieldParse(parse);
 	parse.add(reinterpret_cast<const FieldParse *>(0x00BEEAC8), 0);
 }
+
+// ?buildFieldParse@OpenContainModuleData@@SAXAAVMultiIniFieldParse@@@Z,
+// retail 0x0046523D (34 bytes): table-first double-add registering the
+// Contain table at 0x00C438B0 (ContainMax at +0x70 plus EnterSound at +0x38
+// plus ExitSound at +0x3C plus DamagePercentToUnits at +0x6C plus
+// PassengerFilter at +0x40 plus ManualPickUpFilter at +0x44 plus
+// PassengersTestCollisionHeight at +0x68 plus PassengersInTurret at +0x85)
+// then the Die getter 0x4CE52E with extraOffset 8 (RubbleRise table-first
+// precedent). All eight fields match BFME1's OpenContainModuleData table at
+// diverged offsets (votes 10/9); this proc is the base of the
+// GarrisonContain pinned chain plus the CaveContain and TimeForFullHeal
+// chains. Row supersedes the base pin.
+void OpenContainModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	parse.add(reinterpret_cast<const FieldParse *>(0x00C438B0), 0);
+	parse.add(reinterpret_cast<const FieldParse *>(Rva004CE52EGet()), 8);
+}
