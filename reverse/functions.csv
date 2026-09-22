@@ -15763,3 +15763,4 @@ _piProcessUTM,,0x006AA950,508,Code/GameEngine/Source/GameNetwork/GameSpy/peer/pe
 ??1BfmeNodeValueEBD@@QAE@XZ,,0x00382879,8,Code/GameEngine/Source/Common/BfmeNodeValueEBDDestructor.cpp,matched,Target 8B adjusts this+4 and tails to 0x38240F; scalar deleting destructor and matched EBD tree erase establish value lifecycle; BFME1 STLport tree model guides structure; mapped-value type remains opaque
 ?serialize@Rva007F1800Search@@QAEXPAVRva007E8810Message@@HPAX@Z,,0x0065E380,652,Code/GameEngine/Source/GameNetwork/Rva007F1800FeslSearch.cpp,matched,
 ?rva007F7DA0@BfmeThingZI@@QAEXPAVRva007E8810Message@@@Z,,0x00664420,404,Code/GameEngine/Source/GameNetwork/BfmeOneHundredFiftyEight.cpp,matched,
+?rva00085124@GameLogic@@QAE_NXZ,,0x00085124,23,Code/GameEngine/Source/GameLogic/System/GameLogicModeFourOrSeven.cpp,matched,reloc-named GameLogic mode predicate via isMultiplayer caller; returns mode 4 or 7
