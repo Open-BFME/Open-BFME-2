@@ -16,6 +16,7 @@ class ObjectLookupMap
 {
 public:
 	class Object **findSlot( int *id );
+	void eraseSlot( int *id );
 };
 
 class GameLogic
@@ -69,4 +70,12 @@ void GameLogic::addObjectToLookupTable( Object *obj )
 	int id = *(int *)((char *)obj + 0x74);
 	Object **slot = m_lookup.findSlot( &id );
 	*slot = obj;
+}
+
+void GameLogic::removeObjectFromLookupTable( Object *obj )
+{
+	if( obj == 0 )
+		return;
+	int id = *(int *)((char *)obj + 0x74);
+	m_lookup.eraseSlot( &id );
 }

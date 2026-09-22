@@ -3021,7 +3021,6 @@ name,address,notes
 ?removeGoal@Pathfinder@@QAEXPAVObject@@@Z,0x006D5B50
 ?removeLastChar@?$StringBase@D@@QAEXXZ,0x00036C50,explicit BFME2 PE export; copy-on-write character removal
 ?removeLastChar@?$StringBase@G@@QAEXXZ,0x000376E0,wide twin of pinned narrow removeLastChar at 0x36C50; MapMetaData base-name strips .map with 4 calls; ZH removeLastChar role; mangling follows the narrow pin pattern
-?removeObjectFromLookupTable@GameLogic@@QAEXPAVObject@@@Z,0x00240144
 ?removePos@Pathfinder@@QAEXPAVObject@@@Z,0x006D59F0
 ?removeTeamFromList@Player@@QAEXPAVTeamPrototype@@@Z,0x002ABD48
 ?report@Rva00294D61@@QAEXPAVObject@@H@Z,0x00294D61,address read from the retail REL32 at 0x0045FD87 in SpawnBehavior::onSpawnDeath; killer->report(owner 1) per BFME1 donor SpawnBehavior_onSpawnDeath
@@ -3990,3 +3989,4 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ?clear@ProductionPrerequisite@@QAEXXZ,0x004F5227,frameless helper clearing +0x00 via erase 0x4F50E2 and +0x0C via erase 0x532803; sole caller is default ctor 0x4F527A
 ?findSlot@ObjectLookupMap@@QAEPAPAVObject@@PAH@Z,0x0041F4E5,GameLogic lookup map slot finder; sole caller addObjectToLookupTable 0x242AC2
 ??1StringBase@@QAE@XZ,0x00036410
+?eraseSlot@ObjectLookupMap@@QAEXPAH@Z,0x0054883B,GameLogic lookup map erase; sole caller removeObjectFromLookupTable 0x240144

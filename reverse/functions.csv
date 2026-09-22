@@ -15473,3 +15473,4 @@ _bfmeHash1228,,0x0070F880,1504,Code/GameEngine/Source/Common/BfmeConv1228.cpp,ma
 ?calcHashForLowercaseString@@YAIPBD@Z,,0x0061FCA0,49,Code/GameEngine/Source/Common/namekey_hash_lowercase.cpp,matched,
 ?addObjectToLookupTable@GameLogic@@QAEXPAVObject@@@Z,,0x00242AC2,39,Code/GameEngine/Source/GameLogic/Object/Object_setID.cpp,matched,GameLogic lookup add; setID sibling calls it; map at +0xB4 via findSlot pin
 ??1Node@?$SList@VTagBlockIndex@@@@QAE@XZ,,0x006204D0,8,Code/GameEngine/Source/Common/SListTagBlockIndexRemoveAllThunk.cpp,matched,this-adjust thunk add ecx 8 tail-jump StringBase dtor 0x36410; StringBase member at +8; called from Remove_All and ??_G
+?removeObjectFromLookupTable@GameLogic@@QAEXPAVObject@@@Z,,0x00240144,35,Code/GameEngine/Source/GameLogic/Object/Object_setID.cpp,matched,GameLogic lookup remove; setID sibling calls it; map at +0xB4 via eraseSlot pin
