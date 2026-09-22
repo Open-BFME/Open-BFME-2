@@ -3987,3 +3987,4 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ??_7AssaultTransportAIUpdateModuleData@@6B@,0x00C4B6C8,AssaultTransportAIUpdateModuleData vtable installed by ctor 0x24D221; ICF-folded with the Worker and Wander vtables at the same address (identical trivial-hierarchy layout); TU spelling alias of their ??_7 pins
 ?buildFieldParse@OpenContainModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x0046523D,Contain-family base proc with table 0x8438B0 voting OpenContainModuleData 10/9 at diverged offsets; base of the GarrisonContain pinned chain plus the CaveContain and TimeForFullHeal chains
 ??0Rva00465124Base@@QAE@XZ,0x00465124,Big-EH ModuleData base ctor with DieMuxData init plus filters called at base position by 4 derived ctors (CaveContain 0x466D37 plus GarrisonContain 0x4797A2 plus 2); semantic identity unproven so Rva-addressed
+??0CreateObjectDieIfEldestKindofModuleData@@QAE@XZ,0x00485D88
