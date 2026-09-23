@@ -102,3 +102,17 @@ fresh clone, because `reverse/ghidra_functions.csv` is gitignored. That is the
 whole function-finding pipeline, and the failure is loud but easy to
 misdiagnose as a broken checkout. Regenerate before concluding a tool is
 broken.
+
+## Ledger-seeded run (BFME 2)
+
+    python3 tools/ghidra_seed.py > build/ghidra/seeds.tsv
+    analyzeHeadless build/ghidra/proj bfme2 -import game.dat -overwrite \
+        -scriptPath tools/ghidra -preScript seed_ledger.java build/ghidra/seeds.tsv \
+        -postScript list_functions.java build/ghidra/seeded_functions.csv
+
+Purpose: find functions a plain run misses. A plain run treats `__EH_prolog`
+as non-returning, so it stops reading every C++-unwind function after its
+prolog and never follows the calls inside. Seeding every verified ledger row
+with its exact extent first lets Ghidra read those bodies in full. The output
+restates the ledger's claims: use it only as a candidate list, never as a
+replacement for `reverse/ghidra_functions.csv`.
