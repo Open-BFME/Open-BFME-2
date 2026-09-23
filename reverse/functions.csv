@@ -17561,3 +17561,4 @@ _getluaproto,,0x0074CBA0,27,Code/Libraries/Source/Lua/ldebug.c,matched,placed by
 ?playPlayerLevelUpEffect@@YAXXZ,,0x003FE9F9,31,Code/GameEngine/Source/GameClient/UiCallbackFirers.cpp,matched,Fires PlayPlayerLevelUpEffect with no args through Rva00222A8BTarget invoker
 ?setPalantirFrameState@@YAXH@Z,,0x003FEA18,42,Code/GameEngine/Source/GameClient/UiCallbackFirers.cpp,matched,Fires SetPalantirFrameState with indexed frame state through Rva00222A8BTarget invoker
 ?setPlayerPowerCapState@@YAX_N@Z,,0x003FEA42,48,Code/GameEngine/Source/GameClient/UiCallbackFirers.cpp,matched,Conditional ring evenstar firer for SetPlayerPowerCapState through Rva00222A8BTarget invoker
+?setPlayerMagicProgress@@YAXH@Z,,0x003FE954,72,Code/GameEngine/Source/GameClient/UiCallbackFirers.cpp,matched,Fires SetPlayerMagicProgress with sprintf int through Rva00222A8BTarget invoker

@@ -119,3 +119,13 @@ void setPlayerPowerCapState(bool ring)
 {
 	TheRva00222A8BTarget->invoke(TheRva00222A8BOwner, "SetPlayerPowerCapState", 1, ring ? "_ring" : "_evenstar", 0, 0, 0, 0);
 }
+
+extern "C" __declspec(dllimport) int __cdecl sprintf(char *buffer, const char *format, ...);
+
+void setPlayerMagicProgress(int progress)
+{
+	if (progress < 1 && progress > 100)
+		return;
+	sprintf((char *)&progress, "%d", progress);
+	TheRva00222A8BTarget->invoke(TheRva00222A8BOwner, "SetPlayerMagicProgress", 1, (char *)&progress, 0, 0, 0, 0);
+}
