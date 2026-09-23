@@ -59,3 +59,10 @@ const char *XmlNameSlotList::tagAt(int index)
 		return 0;
 	return m_slots[index].tag;
 }
+
+const char *XmlNameSlotList::nameAt(int index)
+{
+	if (index < 0 || index >= m_count)
+		return 0;
+	return m_slots[index].name;
+}
