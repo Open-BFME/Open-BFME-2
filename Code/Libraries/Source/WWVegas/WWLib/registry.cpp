@@ -145,6 +145,9 @@ float	RegistryClass::Get_Float( const char * name, float def_value )
 	return data;
 }
 
+// ?Set_Float@RegistryClass@@QAEXPBDM@Z present-unmatched
+// Its emitted body matches the range owned by Set_Int; a distinct target
+// identity/address remains unestablished, so no duplicate claim is added.
 void	RegistryClass::Set_Float( const char * name, float value )
 {
 	assert( IsValid );
@@ -268,37 +271,6 @@ void	RegistryClass::Get_Value_List( DynamicVectorClass<StringClass> &list )
 
 	return ;
 }
-
-void	RegistryClass::Delete_Value( const char * name)
-{
-	if (IsLocked) {
-		return;
-	}
-	::RegDeleteValue( (HKEY)Key, name );
-	return ;
-}
-
-void	RegistryClass::Deleta_All_Values( void )
-{
-	if (IsLocked) {
-		return;
-	}
-	//
-	//	Build a list of the values in this key
-	//
-	DynamicVectorClass<StringClass> value_list;
-	Get_Value_List (value_list);
-
-	//
-	//	Loop over and delete each value
-	//
-	for (int index = 0; index < value_list.Count (); index ++) {
-		Delete_Value( value_list[index] );
-	}
-
-	return ;
-}
-
 
 void	RegistryClass::Get_String( const WCHAR * name, WideStringClass &string, const WCHAR *default_string )
 {
