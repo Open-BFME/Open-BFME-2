@@ -435,7 +435,6 @@ name,address,notes
 ??0Rva0015145C@@QAE@ABVHierarchyPrototypeRef@@@Z,0x0015145C,4-byte SEH owner copy ctor (same shape, own delegate); called from factory 0x15152B
 ??0Rva00180023@@QAE@ABVHierarchyPrototypeRef@@@Z,0x00180023,4-byte SEH owner copy ctor (same shape as 0x17FBED/0x14CED0, own delegate); called from factory 0x18008A
 ??0Rva002035E2@@QAE@XZ,0x002035E2,default ctor of the 0x0C-byte std::exception child thrown by the null-operation guards (TimedOperationRef::update 0x3FE6A0 + 7 family sites); import-ctor plus vtable install; 13B
-??0Rva00253510@@QAE@XZ,0x00253510,opaque SEH intermediate base ctor; 12 ctor-position callers (0x2538EC/0x2539C5/0x253A7B/0x253B7B/0x254E9E/0x2550F0/0x257301/0x45D17D/0x485D9B/0x485F45/0x486722/0x4C2311); serves opaque derived 0x253B78
 ??0Rva0033CopyBase@@QAE@ABV0@@Z,0x0020492B
 ??0Rva003623E5Member@@QAE@XZ,0x003623E5,opaque member-base ctor; sole site lea ecx [esi+8] in AnimationSteeringUpdateModuleData ctor 0x4BD651; 0x94-frame SEH body; identity unproven
 ??0Rva0036CA00Str@@QAE@ABV0@@Z,0x000A8C7C
