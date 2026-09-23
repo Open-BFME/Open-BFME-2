@@ -61,8 +61,8 @@ struct CameraMarker
 	AsciiString m_name;
 };
 
-// ILT is pinned at 0x00028984 and clear() calls it), but no row here claims its
-// bytes; the definition stays because removing it changes clear()'s inlining.
+// ??1CameraMarker@@QAE@XZ, retail 0x0029D7C2; clear() is its only caller.
+// Removing the definition also changes clear()'s inlining.
 CameraMarker::~CameraMarker()
 {
 }
