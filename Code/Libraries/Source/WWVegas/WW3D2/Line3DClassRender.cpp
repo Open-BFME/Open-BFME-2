@@ -238,18 +238,29 @@ public:
     V(61) V(62) V(63) V(64) V(65) V(66)
     virtual void Get_Obj_Space_Bounding_Sphere(SphereClass&) const;
     virtual void Get_Obj_Space_Bounding_Box(AABoxClass&) const;
-    V(69) V(70)
+    virtual void Update_Obj_Space_Bounding_Volumes();
+    V(70)
     V(71) V(72) V(73) V(74) V(75) V(76) V(77) V(78) V(79) V(80)
     V(81) V(82) V(83) V(84) V(85) V(86) V(87) V(88) V(89) V(90)
-    V(91) V(92) V(93)
+    virtual void Scale(float, float, float);
+    virtual void Scale(float);
+    V(93)
 #undef V
     virtual int Get_Sort_Level() const;
     virtual void Set_Sort_Level(int);
     virtual int Is_Really_Visible();
     virtual int Is_Not_Hidden_At_All();
-    char prefix[0x14];
+    // Retail code accesses flags@0x12, Transform@0x18, Container@0x7C,
+    // and the Line3D members begin at 0xC4. Names follow the donor view.
+    char beforeFlags[0x0E];
+    unsigned char Flags;
+    char beforeTransform[5];
     Matrix3D Transform;
-    char tail[0xC4 - 4 - 0x14 - sizeof(Matrix3D)];
+    char beforeContainer[0x34];
+    RenderObjClass* Container;
+    char trailing[0x44];
+    void Invalidate_Cached_Bounding_Volumes() { Flags &= 0xFD; }
+    RenderObjClass* Get_Container() { return Container; }
 };
 
 class Line3DClass : public RenderObjClass {
@@ -257,6 +268,8 @@ public:
     virtual void Render(RenderInfoClass &);
     virtual void Get_Obj_Space_Bounding_Sphere(SphereClass& sphere) const;
     virtual void Get_Obj_Space_Bounding_Box(AABoxClass& box) const;
+    virtual void Scale(float, float, float);
+    virtual void Scale(float);
     void Re_Color(float r, float g, float b);
     void Set_Opacity(float opacity);
     float Length;
@@ -430,4 +443,27 @@ void Line3DClass::Set_Opacity(float opacity)
 void Line3DClass::Re_Color(float r, float g, float b)
 {
     Color = Vector4(r, g, b, Color.W);
+}
+
+
+// Donor: reference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2/line3d.cpp.
+void Line3DClass::Scale(float scale)
+{
+    for (int i = 0; i < 8; ++i) vert[i] *= scale;
+    Length *= scale;
+    Width *= scale;
+    Invalidate_Cached_Bounding_Volumes();
+    RenderObjClass* container = Get_Container();
+    if (container) container->Update_Obj_Space_Bounding_Volumes();
+}
+
+void Line3DClass::Scale(float scale_x, float scale_y, float scale_z)
+{
+    Vector3 scale(scale_x, scale_y, scale_z);
+    for (int i = 0; i < 8; ++i) vert[i].Scale(scale);
+    Length *= scale_x;
+    Width *= scale_y;
+    Invalidate_Cached_Bounding_Volumes();
+    RenderObjClass* container = Get_Container();
+    if (container) container->Update_Obj_Space_Bounding_Volumes();
 }
