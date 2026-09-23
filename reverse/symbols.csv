@@ -470,7 +470,6 @@ name,address,notes
 ??0RvaSmartPtr12@@QAE@ABV0@@Z,0x0004CC19,RvaSmartPtr12 copy ctor: copies dword at that plus helper 0x4CB9A or zeroes; call target of the RVO smart-ptr getter at 0x3FDA90 (hidden retptr copy into out)
 ??0FlammableUpdateModuleData@@QAE@XZ,0x0048D541
 ??0SegLineRendererClass@@QAE@ABV0@@Z,0x00191B50,address read from the REL32 displacement at a placed body
-??0LockWeaponCreateModuleData@@QAE@XZ,0x00254C8E,12B trivial ctor installing folded vtable 0x00C4ED70 plus zero at +8; ICF-folded across three same-size factories 0x24AF5C 0x24B3B4 0x2509CE each pushing its own proc; sole SlotToLock factory user is 0x2509CE
 ??0SnapshotDupReplica@@QAE@XZ,0x00655770
 ??0SortingIndexBufferClass@@QAE@G@Z,0x00138B20,self-verifying: retail DynamicIBAccessClass::Allocate_Sorting_Dynamic_Buffer at 0x00138F50 encodes 0x00138B20 in its constructor call REL32 displacement
 ??0SpawnUnitBehaviorModuleData@@QAE@XZ,0x0025598C,SpawnUnitBehavior ModuleData ctor for 0x20 factory; sole raw E8 caller is ModuleData factory 0x2559F1; installs vtable 0x00BF36C0 plus AsciiString members at 8 and C
