@@ -464,7 +464,6 @@ name,address,notes
 ??0Rva00808920LanGame@@QAE@H@Z,0x006748B0
 ??0Rva00891540DebugIOCon@@QAE@XZ,0x00040C40
 ??0Rva008B2EF0@@QAE@II@Z,0x006F1310
-??0Rva009F69B1Subobject@@QAE@XZ,0x00003227
 ??0Rva00CE1E14Base@@QAE@XZ,0x0065D170,Complete9B base constructor returns this and installs vtableCE1E14; mutex ctor656B70 calls it before installing derived vtableCE12FC and CreateMutexA
 ??0Rva7F4CC0Child@@QAE@XZ,0x00655770
 ??0RvaSmartPtr12@@QAE@ABV0@@Z,0x0004CC19,RvaSmartPtr12 copy ctor: copies dword at that plus helper 0x4CB9A or zeroes; call target of the RVO smart-ptr getter at 0x3FDA90 (hidden retptr copy into out)
