@@ -4006,7 +4006,6 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ??0W3DPropDrawModuleData@@QAE@XZ,0x000CEF2B,ctor call in the byte-true W3DPropDraw data factory (ModuleFactory registers it under "W3DPropDraw")
 ??0W3DStreakDrawModuleData@@QAE@XZ,0x000D0520,ctor call in the byte-true W3DStreakDraw data factory (ModuleFactory registers it under "W3DStreakDraw")
 ??0W3DProjectileStreamDrawModuleData@@QAE@XZ,0x000D11D2,ctor call in the byte-true W3DProjectileStreamDraw data factory (ModuleFactory registers it under "W3DProjectileStreamDraw")
-??0W3DTornadoDrawModuleData@@QAE@XZ,0x000D16B4,ctor call in the byte-true W3DTornadoDraw data factory (ModuleFactory registers it under "W3DTornadoDraw")
 ??0GettingBuiltBehaviorModuleData@@QAE@XZ,0x0045324E,ctor call in the byte-true GettingBuiltBehavior data factory (ModuleFactory registers it under "GettingBuiltBehavior")
 ??0PropagandaTowerBehaviorModuleData@@QAE@XZ,0x0048197C,ctor call in the byte-true PropagandaTowerBehavior data factory (ModuleFactory registers it under "PropagandaTowerBehavior")
 ??0DeflectSpecialPowerModuleData@@QAE@XZ,0x004C5671,ctor call in the byte-true DeflectSpecialPower data factory (ModuleFactory registers it under "DeflectSpecialPower")
