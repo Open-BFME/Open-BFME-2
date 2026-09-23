@@ -4646,3 +4646,4 @@ _fmod,0x0062996A,MSVCR71 fmod import thunk; raw jmp through IAT00BBA554 independ
 ?count@XmlNameSlotList@@QAEHXZ,0x005C4AE1,alias of rowed Disp8 dword getter ?get@Rva005C4AE1DwordField; XmlNameSlotList count reads +0x28
 ?finish@XmlNameSlotList@@QAEXXZ,0x00542890,XmlNameSlotList finish 36B; advances past close markup; calls 0x542459
 ?invoke@Rva00222A8BTarget@@QAEXPAXPBDH10000@Z,0x00222A8B,UI callback invoker 8 stack args with target in ecx; sole callee of the UiCallbackFirers run at 0x003FEAA2
+?check@Rva002D3627Host@@QAE_NXZ,0x002D3627,22B visibility predicate over global 0xDFEF18 and member +0x10; sole decider for the HideScroll 0/1 firer at 0x003FE8EB

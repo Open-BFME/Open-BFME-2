@@ -67,3 +67,18 @@ void setPlayerButtonsState(bool ring)
 {
 	TheRva00222A8BTarget->invoke(TheRva00222A8BOwner, "SetPlayerButtonsState", 1, ring ? "_ring" : "_evenstar", 0, 0, 0, 0);
 }
+
+class Rva002D3627Host
+{
+	char m_pad[0x10];
+
+public:
+	bool check();
+};
+
+extern Rva002D3627Host *TheRva002D3627Host;
+
+void setHideScroll()
+{
+	TheRva00222A8BTarget->invoke(TheRva00222A8BOwner, "HideScroll", 1, TheRva002D3627Host->check() ? "0" : "1", 0, 0, 0, 0);
+}
