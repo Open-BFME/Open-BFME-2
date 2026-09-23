@@ -418,7 +418,6 @@ name,address,notes
 ??0RadiateFearUpdateModuleData@@QAE@XZ,0x0049C06C,EH ctor with vtable plus flag bytes plus emotion floats; sole raw caller is ModuleData factory 0x24E6E8 which news 0x130
 ??0ArrowStormUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x004909D7
 ??0DynamicShroudClearingRangeUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x0048B067,address read from the REL32 displacement at a placed body
-??0RainOfFireUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x004AC0A8,133B Update ctor over UpdateModule base with table slot + frame + float state + DPS-ramp check; sole raw caller is Update factory 0x24F3B3; 0.9 partial stash banked, needs hoist lever
 ??0RainOfFireUpdateModuleData@@QAE@XZ,0x004AC03D,89B frameless SSE ctor with float/int stores at +8/+0xC/+0x10 through +0x28; sole raw caller is ModuleData factory 0x24F3EB; table 0xC54B00 holds StartRainTime@8 through RainOffset@28
 ??0Random3Class@@QAE@II@Z,0x006200B0,identical-code fold with the STLport _Hashtable_iterator constructor already matched here - both store two dwords at +0 and +4; address read from the retail REL32 in StreakRendererClass::subdivision_util at 0x00743280
 ??0RandomTextureMapperClass@@QAE@ABV0@@Z,0x00186880,address read from the REL32 displacement at a placed body; stlport 4.5.3
