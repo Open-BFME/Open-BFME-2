@@ -4076,7 +4076,6 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ?buildFieldParse@W3DBuffDrawModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x000CEE93,parse-proc push in the byte-true W3DBuffDraw data factory (ModuleFactory registers it under "W3DBuffDraw")
 ??0W3DStreakDrawModuleData@@QAE@XZ,0x000D0520,ctor call in the byte-true W3DStreakDraw data factory (ModuleFactory registers it under "W3DStreakDraw")
 ?buildFieldParse@W3DStreakDrawModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x000D0726,parse-proc push in the byte-true W3DStreakDraw data factory (ModuleFactory registers it under "W3DStreakDraw")
-??0W3DSailModelDrawModuleData@@QAE@XZ,0x000D0737,ctor call in the byte-true W3DSailModelDraw data factory (ModuleFactory registers it under "W3DSailModelDraw")
 ?buildFieldParse@W3DSailModelDrawModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x000D0774,parse-proc push in the byte-true W3DSailModelDraw data factory (ModuleFactory registers it under "W3DSailModelDraw")
 ??0W3DBoatWakeModelDrawModuleData@@QAE@XZ,0x000D0CD8,ctor call in the byte-true W3DBoatWakeModelDraw data factory (ModuleFactory registers it under "W3DBoatWakeModelDraw")
 ?buildFieldParse@W3DBoatWakeModelDrawModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x000D0CF7,parse-proc push in the byte-true W3DBoatWakeModelDraw data factory (ModuleFactory registers it under "W3DBoatWakeModelDraw")
