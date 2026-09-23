@@ -32,7 +32,7 @@ struct BfmePod900 { int a[225]; };
 // Only allocation is established for this 132-byte element.
 template class _STL::allocator<BfmePod132>;
 template class _STL::deque<BfmePod156, _STL::allocator<BfmePod156 > >;
-template class _STL::deque<BfmePod184, _STL::allocator<BfmePod184 > >;
+template class _STL::allocator<BfmePod184>;
 template class _STL::deque<BfmePod204, _STL::allocator<BfmePod204 > >;
 template class _STL::deque<BfmePod272, _STL::allocator<BfmePod272 > >;
 template class _STL::deque<BfmePod276, _STL::allocator<BfmePod276 > >;
