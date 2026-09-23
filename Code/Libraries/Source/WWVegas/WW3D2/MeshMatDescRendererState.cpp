@@ -9,15 +9,32 @@
 // via the matched callback17098D. Scalar deletion at15D120 calls this dtor.
 class RefCountClass {
 public:
+    void Add_Ref() { ++NumRefs; }
     void Release_Ref() { --NumRefs; if (NumRefs == 0) Delete_This(); }
     virtual void Delete_This();
 private:
     int NumRefs;
 };
-class TextureBaseClass { public: void Release_Ref(); };
-class TextureClass : public TextureBaseClass {};
+// Only the target texture's reference-counted prefix is needed here.
+class TextureBaseClass {
+public:
+    void Release_Ref();
+protected:
+    void *VTable;
+    unsigned short NumRefs;
+};
+class TextureClass : public TextureBaseClass {
+public:
+    void Add_Ref() { ++NumRefs; }
+};
 template <class T> class RefCountPtr {
 public:
+    RefCountPtr &operator=(const RefCountPtr &that) {
+        if (that.Referent) that.Referent->Add_Ref();
+        if (Referent) Referent->Release_Ref();
+        Referent = that.Referent;
+        return *this;
+    }
     ~RefCountPtr() { if (Referent) { Referent->Release_Ref(); Referent = 0; } }
 private:
     T *Referent;
@@ -25,6 +42,7 @@ private:
 class MeshMatDescRendererState {
 public:
     ~MeshMatDescRendererState();
+    MeshMatDescRendererState &operator=(const MeshMatDescRendererState &that);
 private:
     RefCountPtr<TextureClass> Textures[2];
     unsigned Unknown08;
@@ -45,3 +63,16 @@ __declspec(noinline) void ForceRendererStateDelete(MeshMatDescRendererState *sta
 
 
 typedef char RendererStateSize16[(sizeof(MeshMatDescRendererState) == 16) ? 1 : -1];
+
+// Descriptor assignment calls15B5E0 after allocating16 bytes for its+C state.
+MeshMatDescRendererState &MeshMatDescRendererState::operator=(const MeshMatDescRendererState &that)
+{
+    for (int i = 0; i < 2; ++i) Textures[i] = that.Textures[i];
+    Unknown08 = that.Unknown08;
+    if (&OwnedRef0C != &that.OwnedRef0C) {
+        if (that.OwnedRef0C) that.OwnedRef0C->Add_Ref();
+        if (OwnedRef0C) OwnedRef0C->Release_Ref();
+        OwnedRef0C = that.OwnedRef0C;
+    }
+    return *this;
+}
