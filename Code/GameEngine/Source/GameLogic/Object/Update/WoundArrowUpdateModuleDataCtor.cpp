@@ -10,11 +10,21 @@
 // (Enraged precedent). Class size 0xD0 proven by the WoundArrowUpdate data
 // factory (news 0xD0, sole caller at 0x252368). Row supersedes the ctor pin.
 
+class MultiIniFieldParse;
+struct FieldParse;
+
+class MultiIniFieldParse
+{
+public:
+	void add(const FieldParse *parseTable, unsigned int extraOffset);
+};
+
 class __declspec(novtable) Rva0044EB54
 {
 public:
 	Rva0044EB54();
 	virtual ~Rva0044EB54();
+	static void buildFieldParse(MultiIniFieldParse &parse);
 
 private:
 	// +0x00 vptr (novtable: no compiler install here).
@@ -26,6 +36,7 @@ class __declspec(novtable) WoundArrowUpdateModuleData : public Rva0044EB54
 {
 public:
 	WoundArrowUpdateModuleData();
+	static void buildFieldParse(MultiIniFieldParse &parse);
 
 private:
 	// +0xC8 cap value.
@@ -42,4 +53,11 @@ WoundArrowUpdateModuleData::WoundArrowUpdateModuleData()
 	m_wordCC &= 0;
 	*(unsigned int *)this = 0x00C5F778;
 	m_capC8 = cap;
+}
+
+// ?buildFieldParse@WoundArrowUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z @0x004C68EA
+void WoundArrowUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	Rva0044EB54::buildFieldParse(parse);
+	parse.add(reinterpret_cast<const FieldParse *>(0x00C5DEAC), 0);
 }
