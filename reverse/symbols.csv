@@ -5145,3 +5145,6 @@ _AVIFileInit@0,0x0065479C,jmp [IAT 0xBBA050] stub; import table names avifil32!A
 ??4AsciiString@@QAEAAV0@PBD@Z,0x000366F0,AsciiString const-char assignment folding with the ABV0 op at this address per the DynamicPortalBehaviourModuleData WallBoundsMesh single-push call site
 ??0?$_Vector_base@UDynamicPortalWayPoint@@V?$allocator@UDynamicPortalWayPoint@@@_STL@@@_STL@@QAE@ABV?$allocator@UDynamicPortalWayPoint@@@1@@Z,0x00211E58,WayPoint and Link member spelling folding with the rowed BfmeE16 empty Vector_base at this address
 ?erase@?$vector@UDynamicPortalWayPoint@@V?$allocator@UDynamicPortalWayPoint@@@_STL@@@_STL@@QAEPAUDynamicPortalWayPoint@@PAU3@0@Z,0x003FA4DB,WayPoint clear spelling folding with the rowed Pod8 erase at this address per the 8B element size
+??1Rva003623E5Filter@@QAE@XZ,0x00360D26,Filter member teardown folding with the opaque pool-aware dtors at this address per the DynamicPortalBehaviourModuleData dtor call site
+??1DynamicPortalLinkVec@@QAE@XZ,0x004613EB,Link 12B-element vector-view teardown at this address per the DynamicPortalBehaviourModuleData dtor call site
+?freeWayPointVecStorage@@YAXPAX@Z,0x00030830,TU-local throwing free spelling for the DynamicPortal WayPoint inline teardown; same body as free at this address and the C++ decoration is what emits retail state-1
