@@ -12,10 +12,20 @@
 // Global word copied into +8 (absolute VA 0x00DBA4E4, DIR32-masked).
 extern int g_dword00DBA4E4;
 
+class MultiIniFieldParse;
+struct FieldParse;
+
+class MultiIniFieldParse
+{
+public:
+	void add(const FieldParse *parseTable, unsigned int extraOffset);
+};
+
 class CommandButtonHuntUpdateModuleData
 {
 public:
 	CommandButtonHuntUpdateModuleData();
+	static void buildFieldParse(MultiIniFieldParse &parse);
 
 private:
 	// +0x00 vtable (installed explicitly below; no base, no virtuals here).
@@ -35,4 +45,10 @@ CommandButtonHuntUpdateModuleData::CommandButtonHuntUpdateModuleData()
 	*(unsigned int *)this = 0x00C4ED70;
 	m_08 = g_dword00DBA4E4;
 	m_cap = cap;
+}
+
+// ?buildFieldParse@CommandButtonHuntUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z @0x004952BE
+void CommandButtonHuntUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	parse.add(reinterpret_cast<const FieldParse *>(0x00C4ECC0), 0);
 }
