@@ -3968,7 +3968,6 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ?bfmeGo1029E@BfmeE1029@@QAEXPADH@Z,0x006557F0,BFME1 alias of rowed set at Rva006557F0Holder (same 33B body) for Rva007F7DA0GameBrowserTicket donor call
 ?ExecCommand@Debug@@AAE_NPBD0@Z,0x00039E20,bool-returning ExecCommand (retail exits load al: xor al/al and a saved byte); REL32 from Debug::Command 0x0003B664
 ?ExceptionFilter@DebugExceptionhandler@@SGJPAU_EXCEPTION_POINTERS@@@Z,0x0003DCD0,LocalSETranslator 0x00038760 forwards its EXCEPTION_POINTERS here; Debug ctor passes the same address to SetUnhandledExceptionFilter
-?buildFieldParse@WeaponModeSpecialPowerUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x00494A7C,parse-proc push in the byte-true WeaponModeSpecialPowerUpdate data factory 0x0024DD21 (ModuleFactory registers it under "WeaponModeSpecialPowerUpdate")
 ??0DynamicPortalBehaviourModuleData@@QAE@XZ,0x0046142A,ctor call in the byte-true DynamicPortalBehaviour data factory (ModuleFactory registers it under "DynamicPortalBehaviour")
 ??0FakePathfindPortalBehaviourModuleData@@QAE@XZ,0x00372DB8,ctor call in the byte-true FakePathfindPortalBehaviour data factory (ModuleFactory registers it under "FakePathfindPortalBehaviour")
 ??0CreateObjectDieIfEldestKindofModuleData@@QAE@XZ,0x00485E19,ctor call in the byte-true CreateObjectDieIfEldestKindof data factory (ModuleFactory registers it under "CreateObjectDieIfEldestKindof")
@@ -3994,12 +3993,10 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ??0CaveContainModuleData@@QAE@XZ,0x00466D37,ctor call in the byte-true CaveContain data factory (ModuleFactory registers it under "CaveContain")
 ??0HealContainModuleData@@QAE@XZ,0x00466D37,ctor call in the byte-true HealContain data factory (ModuleFactory registers it under "HealContain")
 ??0HordeContainModuleData@@QAE@XZ,0x00475C9A,ctor call in the byte-true HordeContain data factory (ModuleFactory registers it under "HordeContain")
-?buildFieldParse@AODHordeContainModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x0047A3B0,parse-proc push in the byte-true AODHordeContain data factory (ModuleFactory registers it under "AODHordeContain")
 ??0TransportContainModuleData@@QAE@XZ,0x00468301,ctor call in the byte-true TransportContain data factory (ModuleFactory registers it under "TransportContain")
 ??0SiegeEngineContainModuleData@@QAE@XZ,0x0047C927,ctor call in the byte-true SiegeEngineContain data factory (ModuleFactory registers it under "SiegeEngineContain")
 ?buildFieldParse@SiegeEngineContainModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x0047B9F5,parse-proc push in the byte-true SiegeEngineContain data factory (ModuleFactory registers it under "SiegeEngineContain")
 ??0HordeSiegeEngineContainModuleData@@QAE@XZ,0x0047DA08,ctor call in the byte-true HordeSiegeEngineContain data factory (ModuleFactory registers it under "HordeSiegeEngineContain")
-?buildFieldParse@HordeSiegeEngineContainModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x0047CA32,parse-proc push in the byte-true HordeSiegeEngineContain data factory (ModuleFactory registers it under "HordeSiegeEngineContain")
 ??0TunnelContainModuleData@@QAE@XZ,0x0025797E,ctor call in the byte-true TunnelContain data factory (ModuleFactory registers it under "TunnelContain")
 ?buildFieldParse@HordeTransportContainModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x00476FFE,parse-proc push in the byte-true HordeTransportContain data factory (ModuleFactory registers it under "HordeTransportContain")
 ??0RiderChangeContainModuleData@@QAE@XZ,0x0047EABC,ctor call in the byte-true RiderChangeContain data factory (ModuleFactory registers it under "RiderChangeContain")
@@ -4017,9 +4014,6 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ??0GettingBuiltBehaviorModuleData@@QAE@XZ,0x0045324E,ctor call in the byte-true GettingBuiltBehavior data factory (ModuleFactory registers it under "GettingBuiltBehavior")
 ??0PropagandaTowerBehaviorModuleData@@QAE@XZ,0x0048197C,ctor call in the byte-true PropagandaTowerBehavior data factory (ModuleFactory registers it under "PropagandaTowerBehavior")
 ??0DeflectSpecialPowerModuleData@@QAE@XZ,0x004C5671,ctor call in the byte-true DeflectSpecialPower data factory (ModuleFactory registers it under "DeflectSpecialPower")
-?buildFieldParse@DeflectSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x004C5442,parse-proc push in the byte-true DeflectSpecialPower data factory (ModuleFactory registers it under "DeflectSpecialPower")
-?buildFieldParse@SiegeDeploySpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x004C569F,parse-proc push in the byte-true SiegeDeploySpecialPower data factory (ModuleFactory registers it under "SiegeDeploySpecialPower")
-?buildFieldParse@SiegeDeployHordeSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x004C636B,parse-proc push in the byte-true SiegeDeployHordeSpecialPower data factory (ModuleFactory registers it under "SiegeDeployHordeSpecialPower")
 ??0PlayerUpgradeSpecialPowerModuleData@@QAE@XZ,0x004C7D68,ctor call in the byte-true PlayerUpgradeSpecialPower data factory (ModuleFactory registers it under "PlayerUpgradeSpecialPower")
 ??0CostModifierUpgradeModuleData@@QAE@XZ,0x004B5BAC,ctor call in the byte-true CostModifierUpgrade data factory (ModuleFactory registers it under "CostModifierUpgrade")
 ??0SpellRechargeModifierUpgradeModuleData@@QAE@XZ,0x004B6011,ctor call in the byte-true SpellRechargeModifierUpgrade data factory (ModuleFactory registers it under "SpellRechargeModifierUpgrade")
