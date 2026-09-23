@@ -4511,7 +4511,6 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ??0DrawModule@@QAE@PAVThing@@PBVModuleData@@@Z,0x000B19A1,callee of 0W3DPropDraw (0x000CEEC0) at the site its BFME1 donor calls it; may be an ICF alias
 ??0CritterEmitterUpdateBase@@QAE@PAVThing@@PBVModuleData@@@Z,0x00253390,callee of 0CritterEmitterUpdate (0x004C8D86) at the site its BFME1 donor calls it; may be an ICF alias
 ??0TransportAIUpdateBase@@QAE@PAVThing@@PBVModuleData@@@Z,0x0026E9BD,callee of 0TransportAIUpdate (0x004A9042) at the site its BFME1 donor calls it; may be an ICF alias
-??0DieModule@@QAE@PAVThing@@PBVModuleData@@@Z,0x0045CEBD,callee of 0CrushDie (0x004862E1) at the site its BFME1 donor calls it; may be an ICF alias
 ??0DWSU_UpdateModule@@QAE@PAVThing@@PBVModuleData@@@Z,0x00253390,callee of 0DelayedWeaponSetUpgradeUpdate (0x004882E4) at the site its BFME1 donor calls it; may be an ICF alias
 ?entEnragedInitialValue@@YAHHIPBXH@Z,0x00233FF4,callee of 0EntEnragedUpdate (0x004B2516) at the site its BFME1 donor calls it; may be an ICF alias
 ??0SpawnUnitBehaviorBase@@QAE@PAVThing@@PBVModuleData@@@Z,0x00253390,callee of 0SpawnUnitBehavior (0x004B87E3) at the site its BFME1 donor calls it; may be an ICF alias
