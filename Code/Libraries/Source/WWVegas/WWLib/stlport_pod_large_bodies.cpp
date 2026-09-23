@@ -39,7 +39,7 @@ template class _STL::deque<BfmePod276, _STL::allocator<BfmePod276 > >;
 template class _STL::allocator<BfmePod476>;
 template class _STL::vector<BfmePod480, _STL::allocator<BfmePod480 > >;
 template class _STL::vector<BfmePod492, _STL::allocator<BfmePod492 > >;
-template class _STL::vector<BfmePod544, _STL::allocator<BfmePod544 > >;
+template class _STL::allocator<BfmePod544>;
 template class _STL::vector<BuddyRequest, _STL::allocator<BuddyRequest > >;
 template class _STL::vector<BfmePod840, _STL::allocator<BfmePod840 > >;
 template class _STL::vector<BfmePod872, _STL::allocator<BfmePod872 > >;
