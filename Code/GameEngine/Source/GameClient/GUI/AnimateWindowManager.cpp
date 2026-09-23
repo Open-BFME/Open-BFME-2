@@ -381,7 +381,6 @@ ProcessAnimateWindow *AnimateWindowManager::getProcessAnimate( AnimTypes animTyp
 	}
 }
 
-// ?reverseAnimateWindow@AnimateWindowManager@@QAEXXZ present-unmatched
 void AnimateWindowManager::reverseAnimateWindow( void )
 {
 	

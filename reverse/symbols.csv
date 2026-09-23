@@ -4753,3 +4753,4 @@ _bfmeAppend,0x0060D5F2,callee of bfmeEmit (0x0060D7C0) at the site its BFME1 don
 ??0?$_List_base@PAVAnimateWindow@@V?$allocator@PAVAnimateWindow@@@_STL@@@_STL@@QAE@ABV?$allocator@PAVAnimateWindow@@@1@@Z,0x004EC36C
 ?clear@?$_List_base@PAVAnimateWindow@@V?$allocator@PAVAnimateWindow@@@_STL@@@_STL@@QAEXXZ,0x0023DAA5
 ??0ProcessAnimateWindowSpiral@@QAE@XZ,0x005C4FFF
+?bfmePushBack@BFMEAnimateWindowListPush@@QAEXABQAVAnimateWindow@@@Z,0x0005548F,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
