@@ -32,3 +32,13 @@ void fadePalantirButtonsOne()
 {
 	TheRva00222A8BTarget->invoke(TheRva00222A8BOwner, "FadePalantirButtons", 1, "1", 0, 0, 0, 0);
 }
+
+void showObserverStuff()
+{
+	TheRva00222A8BTarget->invoke(TheRva00222A8BOwner, "SetObserverStuffState", 1, "_show", 0, 0, 0, 0);
+}
+
+void hideObserverStuff()
+{
+	TheRva00222A8BTarget->invoke(TheRva00222A8BOwner, "SetObserverStuffState", 1, "_hide", 0, 0, 0, 0);
+}
