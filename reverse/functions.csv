@@ -17527,3 +17527,4 @@ _getluaproto,,0x0074CBA0,27,Code/Libraries/Source/Lua/ldebug.c,matched,placed by
 ?D3DXVec4Dot@@YAMPBUD3DXVECTOR4@@0@Z,,0x0007DE69,37,Code/GameEngine/Source/Common/bezier_segment.cpp,matched,BFME1 bezier_segment.cpp donor; BFME2 /G7 /arch:SSE
 ??0TeleportSpecialAbilityUpdateModuleData@@QAE@XZ,,0x00492E43,54,Code/GameEngine/Source/GameLogic/Object/Update/TeleportSpecialAbilityUpdateModuleDataCtor.cpp,matched,
 ??0LaserUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,,0x00362EEE,112,Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdateCtor.cpp,matched,Frameless push-esi ctor; opaque rowed Rva00362EC7 base; hand-placed vtable C170E0; fzero/one locals with single barrier after float group; factory 0x24D522 news 0x54; supersedes ctor pin
+?Rva00C26802ClearFlag@@YAIXZ,,0x00776D4D,16,Code/GameEngine/Source/Common/GlobalFlagClearers_04.cpp,matched,BFME1 byte-identical donor; b1 0x00C26802; 8-window run placement with the 7 landed siblings
