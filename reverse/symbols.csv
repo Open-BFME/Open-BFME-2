@@ -3985,7 +3985,6 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ??0RespawnUpdateModuleData@@QAE@XZ,0x004AFB4E,ctor call in the byte-true RespawnUpdate data factory (ModuleFactory registers it under "RespawnUpdate")
 ??0SpecialDisguiseUpdateModuleData@@QAE@XZ,0x004B0255,ctor call in the byte-true SpecialDisguiseUpdate data factory (ModuleFactory registers it under "SpecialDisguiseUpdate")
 ??0StatusBitsUpgradeIfEldestKindofModuleData@@QAE@XZ,0x002547D1,ctor call in the byte-true StatusBitsUpgradeIfEldestKindof data factory (ModuleFactory registers it under "StatusBitsUpgradeIfEldestKindof")
-??0PillageModuleData@@QAE@XZ,0x00253830,ctor call in the byte-true PillageModule data factory (ModuleFactory registers it under "PillageModule")
 ??0TransitionDamageFXModuleData@@QAE@XZ,0x004BA58A,ctor call in the byte-true TransitionDamageFX data factory (ModuleFactory registers it under "TransitionDamageFX")
 ??0ProductionSpeedBonusModuleData@@QAE@XZ,0x004C2FE6,ctor call in the byte-true ProductionSpeedBonus data factory (ModuleFactory registers it under "ProductionSpeedBonus")
 ??0FellBeastSwoopPowerModuleData@@QAE@XZ,0x004923E2,ctor call in the byte-true FellBeastSwoopPower data factory (ModuleFactory registers it under "FellBeastSwoopPower")
