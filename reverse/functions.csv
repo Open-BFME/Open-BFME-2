@@ -16995,3 +16995,4 @@ _fprintf,,0x002CEC42,108,Code/GameEngine/Source/Common/FprintfAppendLine.cpp,mat
 ??0SpawnedModelConditionCreate@@QAE@PAVThing@@PBVModuleData@@@Z,,0x00250A1F,40,Code/GameEngine/Source/GameLogic/Object/Create/SpawnedModelConditionCreateCtor.cpp,matched,
 ??0SpecialPowerTimerRefreshSpecialPower@@QAE@PAVThing@@PBVModuleData@@@Z,,0x00251BDE,40,Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerTimerRefreshSpecialPowerCtor.cpp,matched,
 ??0UpgradeSoundSelectorClientBehavior@@QAE@PAVThing@@PBVModuleData@@@Z,,0x00252CB5,40,Code/GameEngine/Source/GameLogic/Object/Behavior/UpgradeSoundSelectorClientBehaviorCtor.cpp,matched,
+??0NotifyTargetsOfImminentProbableCrushingUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,,0x00253E64,40,Code/GameEngine/Source/GameLogic/Object/Update/NotifyTargetsOfImminentProbableCrushingUpdateCtor.cpp,matched,
