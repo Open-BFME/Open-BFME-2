@@ -155,7 +155,7 @@ void MeshModelClass::post_process_fog(void)
 
 				return;
 			}
-				
+
 			// Analyze the mesh to determine if it is the shiny mask effect and if it is, fix it up appropriately.
 			bool shiny_mask_effect = shader0.Get_Src_Blend_Func() == ShaderClass::SRCBLEND_ONE &&
 											 shader0.Get_Dst_Blend_Func() == ShaderClass::DSTBLEND_ZERO &&
@@ -170,7 +170,7 @@ void MeshModelClass::post_process_fog(void)
 			}
 		}
 	}
-		
+
 	// Mesh is not one of the special two-pass combinations. Apply a per-pass generic fix-up.
 	for (int pass = 0; pass < DefMatDesc->PassCount; pass++) {
 		DefMatDesc->Shader [pass].Enable_Fog (Get_Name());

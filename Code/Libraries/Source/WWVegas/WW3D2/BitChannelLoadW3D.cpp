@@ -38,7 +38,7 @@ private:
 bool BitChannelClass::Load_W3D(ChunkLoadClass & cload)
 {
 	Free();
-	
+
 
 
 	W3dBitChannelStruct chan;
@@ -62,14 +62,13 @@ bool BitChannelClass::Load_W3D(ChunkLoadClass & cload)
 	assert(Bits);
 
 	Bits[0] = chan.Data[0];
-	
+
 	if (bytesleft > 0) {
 		if (cload.Read(&(Bits[1]),bytesleft) != bytesleft) {
 			Free();
 			return false;
-		}	
+		}
 	}
 
 	return true;
 }
-

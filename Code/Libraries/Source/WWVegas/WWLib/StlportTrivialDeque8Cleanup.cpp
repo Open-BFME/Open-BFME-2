@@ -13,4 +13,3 @@ typedef char BfmeTrivialDequeElement8_is_8_bytes[
     sizeof(BfmeTrivialDequeElement8) == 8 ? 1 : -1];
 template class _STL::deque<BfmeTrivialDequeElement8,
                            _STL::allocator<BfmeTrivialDequeElement8> >;
-

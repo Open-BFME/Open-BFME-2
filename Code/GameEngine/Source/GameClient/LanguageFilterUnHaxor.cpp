@@ -65,4 +65,3 @@ void LanguageFilter::unHaxor(UnicodeString &word)
     }
     word.set(newWord);
 }
-

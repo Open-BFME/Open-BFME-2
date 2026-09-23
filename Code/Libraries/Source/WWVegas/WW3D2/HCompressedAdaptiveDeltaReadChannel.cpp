@@ -49,4 +49,3 @@ bool HCompressedAnimClass::read_channel(ChunkLoadClass &cload, AdaptiveDeltaMoti
     bool result = (*newchan)->Load_W3D(cload);
     return result;
 }
-

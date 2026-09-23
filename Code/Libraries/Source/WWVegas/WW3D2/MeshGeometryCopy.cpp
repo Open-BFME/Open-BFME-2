@@ -130,5 +130,3 @@ MeshGeometryClass &MeshGeometryClass::operator=(const MeshGeometryClass &that)
     }
     return *this;
 }
-
-

@@ -170,4 +170,3 @@ bool MeshGeometryClass::Load_W3D(ChunkLoadClass & cload)
 Error:
 	return false;
 }
-

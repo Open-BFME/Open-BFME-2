@@ -71,8 +71,8 @@ public:
 	virtual float				Get_Frame_Rate() = 0;
 	virtual float				Get_Total_Time() = 0;
 
-	virtual void				Get_Translation(int pividx,float frame) {}	
-	virtual void				Get_Orientation(int pividx,float frame) {}	
+	virtual void				Get_Translation(int pividx,float frame) {}
+	virtual void				Get_Orientation(int pividx,float frame) {}
 	virtual void				Get_Translation(Vector3& translation, int pividx,float frame) const = 0;
 	virtual bool				Get_Orientation(Quaternion& orientation, int pividx,float frame) const = 0;
 	virtual void				Get_Transform(Matrix3D&, int pividx, float frame) const = 0;
@@ -194,7 +194,7 @@ public:
 	MotionChannelClass(void);
 	~MotionChannelClass(void);
 
-	bool	Load_W3D(ChunkLoadClass & cload);		
+	bool	Load_W3D(ChunkLoadClass & cload);
 	WWINLINE int Get_Type(void) const { return Type; }
 	WWINLINE int Get_Pivot(void) const { return PivotIdx; }
 	WWINLINE void Set_Pivot(int idx) { PivotIdx=idx; }
@@ -301,7 +301,7 @@ int HRawAnimClass::Load_W3D(ChunkLoadClass & cload)
    WWASSERT(HierarchyName != NULL);
    WWASSERT(aheader.HierarchyName != NULL);
    WWASSERT(sizeof(HierarchyName) >= W3D_NAME_LEN);
-   
+
 	for (char *name = Name; *name != 0; ++name) *name = (char)toupper((int)*name);
 	NameKey = TheNameKeyGenerator->nameToKey(Name);
 	strncpy(HierarchyName,aheader.HierarchyName,W3D_NAME_LEN);
@@ -330,7 +330,7 @@ int HRawAnimClass::Load_W3D(ChunkLoadClass & cload)
 			case W3D_CHUNK_ANIMATION_CHANNEL:
 				if (!read_channel(cload,&newchan,pre30)) {
 					goto Error;
-				}			
+				}
 
 				if (newchan->Get_Pivot() < NumNodes) {
 					add_channel(newchan);
@@ -340,7 +340,7 @@ int HRawAnimClass::Load_W3D(ChunkLoadClass & cload)
 					::operator delete(newchan);
 				}
 				break;
-	
+
 			case W3D_CHUNK_BIT_CHANNEL:
 				if (!read_bit_channel(cload,&newbitchan,pre30)) {
 					goto Error;
@@ -373,12 +373,12 @@ Error:
 bool HRawAnimClass::read_channel(ChunkLoadClass & cload,MotionChannelClass * * newchan,bool pre30)
 {
 	*newchan = W3DNEW MotionChannelClass;
-	bool result = (*newchan)->Load_W3D(cload);	
-	
+	bool result = (*newchan)->Load_W3D(cload);
+
 	if (result && pre30) {
 		(*newchan)->Set_Pivot((*newchan)->Get_Pivot()+1);
 	}
-	
+
 	return result;
 }
 
@@ -426,12 +426,12 @@ void HRawAnimClass::add_channel(MotionChannelClass * newchan)
 bool HRawAnimClass::read_bit_channel(ChunkLoadClass & cload,BitChannelClass * * newchan,bool pre30)
 {
 	*newchan = W3DNEW BitChannelClass;
-	bool result = (*newchan)->Load_W3D(cload);	
+	bool result = (*newchan)->Load_W3D(cload);
 
 	if (result && pre30) {
 		(*newchan)->PivotIdx += 1;
 	}
-	
+
 	return result;
 }
 

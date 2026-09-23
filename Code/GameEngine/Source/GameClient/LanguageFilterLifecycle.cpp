@@ -87,4 +87,3 @@ LanguageFilter *createLanguageFilter()
 {
     return new LanguageFilter;
 }
-

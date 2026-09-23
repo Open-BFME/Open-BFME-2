@@ -72,5 +72,3 @@ bool AdaptiveDeltaMotionChannelClass::Load_W3D(ChunkLoadClass &cload)
     }
     return true;
 }
-
-
