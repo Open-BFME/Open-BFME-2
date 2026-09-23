@@ -16993,3 +16993,4 @@ _fprintf,,0x002CEC42,108,Code/GameEngine/Source/Common/FprintfAppendLine.cpp,mat
 ??0W3DTreeDraw@@QAE@PAVThing@@PBVModuleData@@@Z,,0x000CEB4D,28,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTreeDrawCtor.cpp,matched,
 ??0KeepObjectDie@@QAE@PAVThing@@PBVModuleData@@@Z,,0x00486D73,165,Code/GameEngine/Source/GameLogic/Object/Die/KeepObjectDieCtor.cpp,matched,KeepObjectDie behavior ctor over DieModule base plus BFME2 selectable debug tail
 ??0SpawnedModelConditionCreate@@QAE@PAVThing@@PBVModuleData@@@Z,,0x00250A1F,40,Code/GameEngine/Source/GameLogic/Object/Create/SpawnedModelConditionCreateCtor.cpp,matched,
+??0SpecialPowerTimerRefreshSpecialPower@@QAE@PAVThing@@PBVModuleData@@@Z,,0x00251BDE,40,Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerTimerRefreshSpecialPowerCtor.cpp,matched,
