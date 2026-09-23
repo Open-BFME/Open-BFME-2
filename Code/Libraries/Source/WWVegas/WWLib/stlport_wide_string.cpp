@@ -1,5 +1,6 @@
 // cl: /Ireference/shims/bfmealloc /EHsc /MD /D_STLP_USE_STATIC_LIB
 // stlport
+// STLport 4.5.3 wide-string instantiations.
 
 #include <string>
 
