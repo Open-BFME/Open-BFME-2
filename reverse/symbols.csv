@@ -4660,3 +4660,4 @@ _bfmeAppend,0x0060D5F2,callee of bfmeEmit (0x0060D7C0) at the site its BFME1 don
 ??_7RampageBehavior@@6B@,0x00C40DA8,primary vtable installed by RampageBehavior ctor at 0x458B60 with slot0 scalar-deleting dtor at 0x458BC5
 ??_7EnragedBehavior@@6B@,0x00C40FBC,primary vtable installed by EnragedBehavior ctor at 0x458FA3 with slot0 scalar-deleting dtor at 0x4AF161
 ??_7HitReactionBehavior@@6B@,0x00C41004,primary vtable installed by HitReactionBehavior ctor at 0x459228 with slot0 scalar-deleting dtor at 0x459285
+?privateFireWeapon@Weapon@@QAE_NPBVObject@@PBUCoord3D@@0H1HHHPAH@Z,0x002CE30A,Target 955B thiscall ret24; same receiver calls matched Weapon getStatus/getRemainingAmmo; allocated Weapon reaches wrapper via 2CE9DD and 2CEA01; BFME1 nine-arg overload supplies name; control-arg meanings remain donor-derived
