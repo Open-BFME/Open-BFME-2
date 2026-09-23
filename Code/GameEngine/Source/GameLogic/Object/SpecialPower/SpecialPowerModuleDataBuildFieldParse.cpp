@@ -262,3 +262,56 @@ void GrabPassengerSpecialPowerModuleData::buildFieldParse(MultiIniFieldParse &pa
 	SpecialPowerModuleData::buildFieldParse(parse);
 	parse.add(reinterpret_cast<const FieldParse *>(0x00C5D8A8), 0);
 }
+
+class OCLSpecialPowerModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+// ?buildFieldParse@OCLSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z
+// retail 0x004C3898 (27 bytes): base-table call above plus the OCL table at
+// 0x00C5CDC0. The owning factory at 0x00251B8A pushes this proc's VA (unique
+// image-wide); ModuleFactory registers it under "OCLSpecialPower".
+// Row supersedes the pin.
+void OCLSpecialPowerModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	SpecialPowerModuleData::buildFieldParse(parse);
+	parse.add(reinterpret_cast<const FieldParse *>(0x00C5CDC0), 0);
+}
+
+class ProductionSpeedBonusModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+// ?buildFieldParse@ProductionSpeedBonusModuleData@@SAXAAVMultiIniFieldParse@@@Z
+// retail 0x004C2EDA (27 bytes): base-table call above plus the
+// ProductionSpeedBonus table at 0x00C5C9A0. The owning factory pushes this
+// proc's VA; ModuleFactory registers it under "ProductionSpeedBonus".
+// The ProductionSpeedBonus pool key at 0x4C2F25 sits beside the ctor at
+// 0x4C2FE6. Row supersedes the pin.
+void ProductionSpeedBonusModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	SpecialPowerModuleData::buildFieldParse(parse);
+	parse.add(reinterpret_cast<const FieldParse *>(0x00C5C9A0), 0);
+}
+
+class PlayerUpgradeSpecialPowerModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+// ?buildFieldParse@PlayerUpgradeSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z
+// retail 0x004C7E48 (27 bytes): base-table call above plus the PlayerUpgrade
+// table at 0x00C5E23C. The owning factory pushes this proc's VA;
+// ModuleFactory registers it under "PlayerUpgradeSpecialPower".
+// The PlayerUpgradeSpecialPower pool key at 0x4C7C4C sits beside the ctor at
+// 0x4C7D68. Row supersedes the pin.
+void PlayerUpgradeSpecialPowerModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	SpecialPowerModuleData::buildFieldParse(parse);
+	parse.add(reinterpret_cast<const FieldParse *>(0x00C5E23C), 0);
+}
