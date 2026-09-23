@@ -10,7 +10,7 @@ class FrameData {
 public:
  __declspec(noinline) unsigned int getFrameCommandCount();
  unsigned int getCommandCount();
- void setFrameCommandCount(unsigned int count);
+ __declspec(noinline) void setFrameCommandCount(unsigned int count);
  __declspec(noinline) void zeroFrame();
  __declspec(noinline) void destroyGameMessages();
 private:
@@ -34,7 +34,7 @@ void FrameData::destroyGameMessages() {
 unsigned int FrameData::getFrameCommandCount() {
  return m_frameCommandCount;
 }
-void FrameData::setFrameCommandCount(unsigned int count) {
+__declspec(noinline) void FrameData::setFrameCommandCount(unsigned int count) {
  m_frameCommandCount = count;
 }
 
@@ -43,6 +43,7 @@ public:
  void destroyGameMessages();
  unsigned int getCommandCount(unsigned int frame);
  unsigned int getFrameCommandCount(unsigned int frame);
+ void setFrameCommandCount(unsigned int frame, unsigned int count);
  void setQuitFrame(unsigned int frame);
  bool getIsQuitting();
 private:
@@ -70,6 +71,10 @@ unsigned int FrameDataManager::getCommandCount(unsigned int frame) {
 unsigned int FrameDataManager::getFrameCommandCount(unsigned int frame) {
  unsigned int frameindex = frame % FRAME_DATA_LENGTH;
  return m_frameData[frameindex].getFrameCommandCount();
+}
+void FrameDataManager::setFrameCommandCount(unsigned int frame, unsigned int count) {
+ unsigned int frameindex = frame % FRAME_DATA_LENGTH;
+ m_frameData[frameindex].setFrameCommandCount(count);
 }
 void FrameDataManager::setQuitFrame(unsigned int frame) {
  m_isQuitting = true;
