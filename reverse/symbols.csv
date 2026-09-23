@@ -4250,7 +4250,6 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ??0CastleUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z,0x004B6869,(Thing*;ModuleData*) ctor called by CastleUpgrade::friend_newModuleInstance (0x002505D2); class from the ModuleFactory registration literal
 ??0CrushDie@@QAE@PAVThing@@PBVModuleData@@@Z,0x004862E1,(Thing*;ModuleData*) ctor called by CrushDie::friend_newModuleInstance (0x0024CA38); class from the ModuleFactory registration literal
 ??0TerrainResourceBehavior@@QAE@PAVThing@@PBVModuleData@@@Z,0x0048209B,(Thing*;ModuleData*) ctor called by TerrainResourceBehavior::friend_newModuleInstance (0x0024C26C); class from the ModuleFactory registration literal
-??0SlaveWatcherBehavior@@QAE@PAVThing@@PBVModuleData@@@Z,0x004845CB,(Thing*;ModuleData*) ctor called by SlaveWatcherBehavior::friend_newModuleInstance (0x0024C625); class from the ModuleFactory registration literal
 ??0LaserUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x00362EEE,(Thing*;ModuleData*) ctor called by LaserUpdate::friend_newModuleInstance (0x0024D522); class from the ModuleFactory registration literal
 ??0ReplenishUnitsBehavior@@QAE@PAVThing@@PBVModuleData@@@Z,0x00484227,(Thing*;ModuleData*) ctor called by ReplenishUnitsBehavior::friend_newModuleInstance (0x0024C599); class from the ModuleFactory registration literal
 ??0ClickReactionBehavior@@QAE@PAVThing@@PBVModuleData@@@Z,0x0045961D,(Thing*;ModuleData*) ctor called by ClickReactionBehavior::friend_newModuleInstance (0x0024AE9B); class from the ModuleFactory registration literal
