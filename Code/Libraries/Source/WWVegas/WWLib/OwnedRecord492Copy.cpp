@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /O1 /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // Target strings, bit vector and overlapping payload copies establish this layout.
 // Anonymous union alternatives reproduce the observed member-copy order.
@@ -55,3 +55,5 @@ typedef char Record492PayloadStart[
 template void _STL::_Construct<BfmeOpaqueOwnedRecord492,
 	BfmeOpaqueOwnedRecord492>(BfmeOpaqueOwnedRecord492 *,
 	const BfmeOpaqueOwnedRecord492 &);
+
+BfmeOpaqueOwnedRecord492::~BfmeOpaqueOwnedRecord492() {}
