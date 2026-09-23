@@ -4104,7 +4104,6 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ??0BezierProjectileBehavior@@QAE@PAVThing@@PBVModuleData@@@Z,0x0045C850,(Thing*;ModuleData*) ctor called by BezierProjectileBehavior::friend_newModuleInstance (0x0024B148); class from the ModuleFactory registration literal
 ??0OpenContain@@QAE@PAVThing@@PBVModuleData@@@Z,0x004649F8,(Thing*;ModuleData*) ctor called by OpenContain::friend_newModuleInstance (0x0024B6E9); class from the ModuleFactory registration literal
 ??0SpawnUnitBehavior@@QAE@PAVThing@@PBVModuleData@@@Z,0x004B87E3,(Thing*;ModuleData*) ctor called by SpawnUnitBehavior::friend_newModuleInstance (0x00250926); class from the ModuleFactory registration literal
-??0StancesBehavior@@QAE@PAVThing@@PBVModuleData@@@Z,0x0045EF80,(Thing*;ModuleData*) ctor called by StancesBehavior::friend_newModuleInstance (0x0024B37C); class from the ModuleFactory registration literal
 ??0SiegeEngineContain@@QAE@PAVThing@@PBVModuleData@@@Z,0x0047C21E,(Thing*;ModuleData*) ctor called by SiegeEngineContain::friend_newModuleInstance (0x0024BBB4); class from the ModuleFactory registration literal
 ??0HordeGarrisonContain@@QAE@PAVThing@@PBVModuleData@@@Z,0x0047A040,(Thing*;ModuleData*) ctor called by HordeGarrisonContain::friend_newModuleInstance (0x0024BA96); class from the ModuleFactory registration literal
 ??0PropagandaTowerBehavior@@QAE@PAVThing@@PBVModuleData@@@Z,0x004819CF,(Thing*;ModuleData*) ctor called by PropagandaTowerBehavior::friend_newModuleInstance (0x0024C1E3); class from the ModuleFactory registration literal
@@ -4644,3 +4643,4 @@ _fmod,0x0062996A,MSVCR71 fmod import thunk; raw jmp through IAT00BBA554 independ
 ?Rva00958570_Flush_Buffered_Frames@FrameGrabClass@@IAEXXZ,0x001767D0,FrameGrabClass buffered-frame flush called first by GetBuffer (0x00176860); BFME1 donor spelling (its 0x00958570)
 ?Insert_Triangles@SortingRendererClass@@SAXABVSphereClass@@GGGG@Z,0x0012FE00,Sphere overload tail-called by the no-sphere Insert_Triangles (0x0011C6B0), as in the reference
 ?Free_Object_Memory@?$ObjectPoolClass@VHAnimComboDataClass@@$0BAA@@@QAEXPAVHAnimComboDataClass@@@Z,0x00196470,ICF-folded with the claimed MultiListNode pool Free_Object_Memory; called by HAnimComboClass::Reset (0x00197680) and HAnimComboDataClass deleting dtor (0x00196C60)
+??0Rva00330757Member@@QAE@XZ,0x00330757
