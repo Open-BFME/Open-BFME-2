@@ -4075,7 +4075,6 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ?buildFieldParse@GettingBuiltBehaviorModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x00453396,parse-proc push in the byte-true GettingBuiltBehavior data factory (ModuleFactory registers it under "GettingBuiltBehavior")
 ??0InstantDeathBehaviorModuleData@@QAE@XZ,0x0045D176,ctor call in the byte-true InstantDeathBehavior data factory (ModuleFactory registers it under "InstantDeathBehavior")
 ?buildFieldParse@InstantDeathBehaviorModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x0045D35F,parse-proc push in the byte-true InstantDeathBehavior data factory (ModuleFactory registers it under "InstantDeathBehavior")
-?buildFieldParse@ShipSlowDeathBehaviorModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x0045E973,parse-proc push in the byte-true ShipSlowDeathBehavior data factory (ModuleFactory registers it under "ShipSlowDeathBehavior")
 ??0PropagandaTowerBehaviorModuleData@@QAE@XZ,0x0048197C,ctor call in the byte-true PropagandaTowerBehavior data factory (ModuleFactory registers it under "PropagandaTowerBehavior")
 ?buildFieldParse@PropagandaTowerBehaviorModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x004819BE,parse-proc push in the byte-true PropagandaTowerBehavior data factory (ModuleFactory registers it under "PropagandaTowerBehavior")
 ?buildFieldParse@ActivateModuleSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x004CDFBE,parse-proc push in the byte-true ActivateModuleSpecialPower data factory (ModuleFactory registers it under "ActivateModuleSpecialPower")
