@@ -1,0 +1,30 @@
+// cl: /O1 /DNDEBUG /MD
+//
+// W3DStreakDrawModuleData file-unit (parse first; the ctor at 0xD0520
+// remains pinned for a follow-up).
+//
+// ?buildFieldParse@W3DStreakDrawModuleData@@SAXAAVMultiIniFieldParse@@@Z,
+// retail 0x000D0726, 17 bytes. Single-table parse proc (table 0x00BCDB60)
+// through the rowed MultiIniFieldParse::add at 0x2BC6E. Row supersedes the
+// parse pin.
+
+class MultiIniFieldParse;
+struct FieldParse;
+
+class MultiIniFieldParse
+{
+public:
+	void add(const FieldParse *parseTable, unsigned int extraOffset);
+};
+
+class W3DStreakDrawModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+// ?buildFieldParse@W3DStreakDrawModuleData@@SAXAAVMultiIniFieldParse@@@Z @0x000D0726
+void W3DStreakDrawModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	parse.add(reinterpret_cast<const FieldParse *>(0x00BCDB60), 0);
+}
