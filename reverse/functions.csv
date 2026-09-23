@@ -16953,3 +16953,6 @@ _fprintf,,0x002CEC42,108,Code/GameEngine/Source/Common/FprintfAppendLine.cpp,mat
 ?Rva007E8D30@@YAHPBD0PADH@Z,,0x00655DC0,317,Code/GameEngine/Source/GameNetwork/Rva007E8D30FeslSetField.cpp,matched,BFME1 byte-identical donor; b1 0x007E8D30
 ?rva007E8EF0@Rva007E8810Message@@QAEXPBD0@Z,,0x00655F60,42,Code/GameEngine/Source/GameNetwork/Rva007E8D30FeslSetField.cpp,matched,BFME1 byte-identical donor; b1 0x007E8EF0
 ??0ProfileResultFileCSV@@QAE@PBD@Z,,0x006C75A0,80,Code/Libraries/Source/profile/profile_result_filecsv_ctor.cpp,matched,BFME2 CSV writer ctor: vftable 0x00CE85E4 (GetName=file_csv); ProfileAllocMemory-owned filename copy or NULL; strlen/strcpy inlined (/Oi); mirrors DOT ctor first half
+?Delete@ProfileResultFileDOT@@UAEXXZ,,0x006C74C0,8,Code/Libraries/Source/profile/profile_result_deletes.cpp,matched,ICF owner: one Delete body shared by all three result writers; trivial dtor plus ProfileFreeMemory
+?Delete@ProfileResultFileCSV@@UAEXXZ,,0x006C74C0,8,Code/Libraries/Source/profile/profile_result_deletes.cpp,matched,ICF alias of DOT Delete: identical trivial-dtor plus ProfileFreeMemory body
+?Delete@ProfileResultFileGTT@@UAEXXZ,,0x006C74C0,8,Code/Libraries/Source/profile/profile_result_deletes.cpp,matched,ICF alias of DOT Delete: identical trivial-dtor plus ProfileFreeMemory body
