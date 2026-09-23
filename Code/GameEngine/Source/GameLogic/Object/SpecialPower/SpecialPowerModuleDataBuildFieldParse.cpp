@@ -370,3 +370,21 @@ void RepairSpecialPowerModuleData::buildFieldParse(MultiIniFieldParse &parse)
 	SpecialPowerModuleData::buildFieldParse(parse);
 	parse.add(reinterpret_cast<const FieldParse *>(0x00C6BB18), 0);
 }
+
+class CombineHordeSpecialPowerModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+// ?buildFieldParse@CombineHordeSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z
+// retail 0x004C87A9 (27 bytes): base-table call above plus the CombineHorde
+// table at 0x00C5E6E4 (ScanRange at +0x7C the sole field). The owning
+// factory at 0x002527F1 pushes this proc's VA (unique image-wide);
+// ModuleFactory registers it under "CombineHordeSpecialPower".
+// Row supersedes the pin.
+void CombineHordeSpecialPowerModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	SpecialPowerModuleData::buildFieldParse(parse);
+	parse.add(reinterpret_cast<const FieldParse *>(0x00C5E6E4), 0);
+}
