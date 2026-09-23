@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep /Ibuild/toolchains/dx81/include
+// cl: /G7 /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep /Ibuild/toolchains/dx81/include
 /*
 ** Copyright 2025 Electronic Arts Inc.
 ** This program is free software: you can redistribute it and/or modify
@@ -27,7 +27,14 @@
 void __cdecl operator delete[](void *) throw();
 #include "shader.h"
 #include "vector.h"
-class VertexMaterialClass;
+// Reset accesses the target's RefCountClass prefix only.
+class VertexMaterialClass {
+public:
+    virtual void Delete_This();
+    void Release_Ref() { --m_refs; if (m_refs == 0) Delete_This(); }
+private:
+    unsigned int m_refs;
+};
 class TextureClass {
 public:
     void Add_Ref() {
@@ -69,3 +76,19 @@ private:
     BfmeHandleCX LastTexture;
 };
 MaterialCollectorClass::~MaterialCollectorClass() { Reset(); }
+
+// Reference matinfo.cpp Reset adapted for BFME2's owning texture-handle vector.
+// Target Reset at 0x16F460 releases raw vertex-material references explicitly,
+// then clears texture, vertex-material, and shader vectors.
+void MaterialCollectorClass::Reset()
+{
+    for (int i = 0; i < VertexMaterials.Count(); ++i) {
+        if (VertexMaterials[i]) {
+            VertexMaterials[i]->Release_Ref();
+            VertexMaterials[i] = 0;
+        }
+    }
+    Textures.Clear();
+    VertexMaterials.Clear();
+    Shaders.Clear();
+}
