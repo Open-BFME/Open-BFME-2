@@ -47,12 +47,17 @@ private:
 public:
     int CurPass;
     int CurTexStage;
-    char before_desc[0x90];
+    char before_textures[0x7c];
+    BfmeHandleCX *TextureHandles;
+    char before_desc[0x10];
     MeshMatDescClass AlternateMatDesc;
 private:
     friend class MeshModelClass;
-    BfmeHandleCX Peek_Texture(int index);
+    __declspec(noinline) BfmeHandleCX Peek_Texture(int index);
 };
+BfmeHandleCX MeshLoadContextClass::Peek_Texture(int index) {
+    return TextureHandles[index];
+}
 class MeshModelClass {
 private:
     char prefix[0x24];
