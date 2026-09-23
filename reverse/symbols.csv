@@ -4650,3 +4650,4 @@ _AVIMakeCompressedStream@16,0x00654784,jmp [IAT 0xBBA060] stub; import table nam
 _AVIFileCreateStreamA@12,0x00654790,jmp [IAT 0xBBA068] stub; import table names avifil32!AVIFileCreateStreamA
 _AVIFileOpen@16,0x00654796,jmp [IAT 0xBBA054] stub; import table names avifil32!AVIFileOpen
 _AVIFileInit@0,0x0065479C,jmp [IAT 0xBBA050] stub; import table names avifil32!AVIFileInit
+?Delete@?$DynamicVectorClass@PAVHAnimComboDataClass@@@@QAE_NH@Z,0x00196520,ICF-folded with the claimed DynamicVectorClass<FontCharsBuffer*>::Delete; called by HAnimComboClass::Remove_Anim_Combo_Data (0x00197190)

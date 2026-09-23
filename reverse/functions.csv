@@ -17583,3 +17583,15 @@ _getluaproto,,0x0074CBA0,27,Code/Libraries/Source/Lua/ldebug.c,matched,placed by
 ?ID@?$VectorClass@UTextureStatisticsStruct@@@@UAEHABUTextureStatisticsStruct@@@Z,,0x00129880,45,Code/Libraries/Source/WWVegas/WW3D2/TextureStatisticsVectorID.cpp,matched,BFME1 TextureStatisticsVector.cpp donor built /G7 /arch:SSE
 ??_G?$VectorClass@UTextureStatisticsStruct@@@@UAEPAXI@Z,,0x0012A5C0,93,Code/Libraries/Source/WWVegas/WW3D2/TextureStatisticsVectorID.cpp,matched,BFME1 TextureStatisticsVector.cpp donor built /G7 /arch:SSE
 ??_G?$VectorClassWide@UTextureStatisticsStructWide@@@@UAEPAXI@Z,,0x00156880,93,Code/Libraries/Source/WWVegas/WW3D2/TextureStatisticsVectorWideExtras.cpp,matched,BFME1 TextureStatisticsVectorWide.cpp donor built /G7 /arch:SSE
+?ID@?$VectorClass@UWeightInfoStruct@NamedPivotMapClass@@@@UAEHABUWeightInfoStruct@NamedPivotMapClass@@@Z,,0x00197200,43,Code/Libraries/Source/WWVegas/WW3D2/HAnimComboBFME1.cpp,matched,BFME1 hanim.cpp donor built /G7 /arch:SSE with its own headers
+?Set_Pivot_Map@HAnimComboDataClass@@QAEXPAVPivotMapClass@@@Z,,0x00196310,44,Code/Libraries/Source/WWVegas/WW3D2/HAnimComboBFME1.cpp,matched,BFME1 hanim.cpp donor built /G7 /arch:SSE with its own headers
+?Set_Motion@HAnimComboClass@@QAEXHPAVHAnimClass@@@Z,,0x00196640,47,Code/Libraries/Source/WWVegas/WW3D2/HAnimComboBFME1.cpp,matched,BFME1 hanim.cpp donor built /G7 /arch:SSE with its own headers
+?Set_Pivot_Weight_Map@HAnimComboClass@@QAEXHPAVPivotMapClass@@@Z,,0x00196700,52,Code/Libraries/Source/WWVegas/WW3D2/HAnimComboBFME1.cpp,matched,BFME1 hanim.cpp donor built /G7 /arch:SSE with its own headers
+??0HAnimComboDataClass@@QAE@ABV0@@Z,,0x001961E0,58,Code/Libraries/Source/WWVegas/WW3D2/HAnimComboBFME1.cpp,matched,BFME1 hanim.cpp donor built /G7 /arch:SSE with its own headers
+??8?$VectorClass@UWeightInfoStruct@NamedPivotMapClass@@@@UBE_NABV0@@Z,,0x00197230,63,Code/Libraries/Source/WWVegas/WW3D2/HAnimComboBFME1.cpp,matched,BFME1 hanim.cpp donor built /G7 /arch:SSE with its own headers
+?Append_Anim_Combo_Data@HAnimComboClass@@QAEXPAVHAnimComboDataClass@@@Z,,0x00197140,67,Code/Libraries/Source/WWVegas/WW3D2/HAnimComboBFME1.cpp,matched,BFME1 hanim.cpp donor built /G7 /arch:SSE with its own headers
+?Clear@HAnimComboDataClass@@QAEXXZ,,0x001962B0,82,Code/Libraries/Source/WWVegas/WW3D2/HAnimComboBFME1.cpp,matched,BFME1 hanim.cpp donor built /G7 /arch:SSE with its own headers
+?Copy@HAnimComboDataClass@@QAEXPBV1@@Z,,0x00196220,91,Code/Libraries/Source/WWVegas/WW3D2/HAnimComboBFME1.cpp,matched,BFME1 hanim.cpp donor built /G7 /arch:SSE with its own headers
+?Clear@HAnimComboClass@@QAEXXZ,,0x001965D0,109,Code/Libraries/Source/WWVegas/WW3D2/HAnimComboBFME1.cpp,matched,BFME1 hanim.cpp donor built /G7 /arch:SSE with its own headers
+?Update_Pivot_Map@NamedPivotMapClass@@QAEXPBVHTreeClass@@@Z,,0x00196560,110,Code/Libraries/Source/WWVegas/WW3D2/HAnimComboBFME1.cpp,matched,BFME1 hanim.cpp donor built /G7 /arch:SSE with its own headers
+?Remove_Anim_Combo_Data@HAnimComboClass@@QAEXPAVHAnimComboDataClass@@@Z,,0x00197190,32,Code/Libraries/Source/WWVegas/WW3D2/HAnimComboBFME1.cpp,matched,BFME1 hanim.cpp donor built /G7 /arch:SSE with its own headers
