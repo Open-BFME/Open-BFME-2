@@ -29,7 +29,8 @@ class BuddyRequest
 struct BfmePod840 { int a[210]; };
 struct BfmePod872 { int a[218]; };
 struct BfmePod900 { int a[225]; };
-template class _STL::deque<BfmePod132, _STL::allocator<BfmePod132 > >;
+// Only allocation is established for this 132-byte element.
+template class _STL::allocator<BfmePod132>;
 template class _STL::deque<BfmePod156, _STL::allocator<BfmePod156 > >;
 template class _STL::deque<BfmePod184, _STL::allocator<BfmePod184 > >;
 template class _STL::deque<BfmePod204, _STL::allocator<BfmePod204 > >;
