@@ -16971,3 +16971,4 @@ _fprintf,,0x002CEC42,108,Code/GameEngine/Source/Common/FprintfAppendLine.cpp,mat
 ?FrameStart@ProfileId@@SAHXZ,,0x006C61B0,111,Code/Libraries/Source/profile/ProfileIdFrames.cpp,matched,ZH profile_highlevel.cpp ProfileId; WWLib fast CS lock
 ?FrameEnd@ProfileId@@SAXHH@Z,,0x006C6220,311,Code/Libraries/Source/profile/ProfileIdFrames.cpp,matched,ZH profile_highlevel.cpp ProfileId; WWLib fast CS lock
 ?Shutdown@ProfileId@@SAXXZ,,0x006C6360,54,Code/Libraries/Source/profile/ProfileIdFrames.cpp,matched,ZH profile_highlevel.cpp ProfileId; WWLib fast CS lock
+??0W3DDebrisDraw@@QAE@PAVThing@@PBVModuleData@@@Z,,0x000B1C41,86,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DDebrisDrawCtor.cpp,matched,W3DDebrisDraw behavior ctor over rowed DrawModule base; frameless volatile-first plus barriers plus memset trio; completes file-unit
