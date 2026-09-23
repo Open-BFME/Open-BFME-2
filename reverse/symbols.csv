@@ -4000,7 +4000,6 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ??0GettingBuiltBehaviorModuleData@@QAE@XZ,0x0045324E,ctor call in the byte-true GettingBuiltBehavior data factory (ModuleFactory registers it under "GettingBuiltBehavior")
 ??0PropagandaTowerBehaviorModuleData@@QAE@XZ,0x0048197C,ctor call in the byte-true PropagandaTowerBehavior data factory (ModuleFactory registers it under "PropagandaTowerBehavior")
 ??0DeflectSpecialPowerModuleData@@QAE@XZ,0x004C5671,ctor call in the byte-true DeflectSpecialPower data factory (ModuleFactory registers it under "DeflectSpecialPower")
-??0PlayerUpgradeSpecialPowerModuleData@@QAE@XZ,0x004C7D68,ctor call in the byte-true PlayerUpgradeSpecialPower data factory (ModuleFactory registers it under "PlayerUpgradeSpecialPower")
 ??0CostModifierUpgradeModuleData@@QAE@XZ,0x004B5BAC,ctor call in the byte-true CostModifierUpgrade data factory (ModuleFactory registers it under "CostModifierUpgrade")
 ??0RefundDieModuleData@@QAE@XZ,0x002538DB,ctor call in the byte-true RefundDie data factory (ModuleFactory registers it under "RefundDie")
 ?buildFieldParse@RefundDieModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x0025391E,parse-proc push in the byte-true RefundDie data factory (ModuleFactory registers it under "RefundDie")
@@ -4653,3 +4652,4 @@ _AVIFileInit@0,0x0065479C,jmp [IAT 0xBBA050] stub; import table names avifil32!A
 ??_7ProductionSpeedBonusModuleData@@6B@,0x00C5CA80,slot0 is ??_G at 0x004C3048 immediately after the 98B ctor; vtable for the ProductionSpeedBonus file-unit
 ??_7ModelConditionSpecialAbilityUpdateModuleData@@6B@,0x00C4D828,slot0 is ??_G at 0x00490E5F immediately after the 132B ctor; vtable for the ModelCondition file-unit
 ??4TextureStatisticsStructWide@@QAEAAU0@ABU0@@Z,0x00154AF0,ICF alias of ?bfmeTakeFT@BfmeThingFT@@QAEAAV1@PBV1@@Z rowed at this address; retail Add at 0x00155630 reaches it through REL32 and both bodies take a 0x24 record with add/drop plus 9-dword copy
+??_7PlayerUpgradeSpecialPowerModuleData@@6B@,0x00C5E1C0,slot0 is ??_G at 0x004C7DB8 immediately after the 80B ctor; vtable for the PlayerUpgrade file-unit
