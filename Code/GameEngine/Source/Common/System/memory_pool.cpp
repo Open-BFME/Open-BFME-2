@@ -25,12 +25,30 @@ namespace EA
 {
 namespace Allocator
 {
-class GeneralAllocator;
+// PPMalloc's allocator. Its methods are named by address: the call shapes fit
+// the public PPMalloc API (noted beside each), but nothing in this binary
+// names them.
+class GeneralAllocator
+{
+public:
+	bool rva00032830(const void *block, int addressType);	// ValidateAddress-like
+	bool rva00032920(const void *block);			// owns-address test
+	bool rva000329E0(int level);				// ValidateHeap-like
+	unsigned int rva00032A20(const void *block);		// GetUsableSize-like
+	void rva000338F0(void *block);				// Free-like
+	void *rva00035080(unsigned int size, int flags);	// Malloc-like
+	void *rva00035190(void *block, unsigned int size, int flags);	// Realloc-like
+	void *rva00035210(unsigned int count, unsigned int size, int flags);	// Calloc-like
+};
 }
 }
 
 namespace MemoryPool
 {
+
+enum AllocType
+{
+};
 
 struct HeapRecord
 {
@@ -54,6 +72,11 @@ struct HeapTable
 	HeapRecord m_records[MAX_HEAPS];
 	HeapRecord *m_buckets[HEAP_BUCKETS];
 	EA::Allocator::GeneralAllocator *m_allocators[MAX_HEAPS + 1];
+	EA::Allocator::GeneralAllocator *m_defaultAllocator;
+	bool m_clearAllocations;
+	int m_initCount;
+	bool m_shutDown;
+	bool m_addingHeaps;
 };
 
 extern HeapTable g_heaps;
@@ -77,6 +100,72 @@ EA::Allocator::GeneralAllocator *_GetHeapAllocatorByIndex(unsigned int index)
 	if (index <= (unsigned int)g_heaps.m_count)
 		return g_heaps.m_allocators[index];
 	return 0;
+}
+
+void *_Allocate(unsigned int size, AllocType type, unsigned int heap)
+{
+	EA::Allocator::GeneralAllocator *allocator = _GetHeapAllocator(heap);
+	if (g_heaps.m_clearAllocations)
+		return allocator->rva00035210(size, 1, 0);
+	return allocator->rva00035080(size, 0);
+}
+
+void *_Reallocate(void *block, unsigned int size, AllocType type, unsigned int heap)
+{
+	EA::Allocator::GeneralAllocator *allocator = _GetHeapAllocator(heap);
+	return allocator->rva00035190(block, size, 0);
+}
+
+void _Free(void *block, AllocType type)
+{
+	if (g_heaps.m_shutDown)
+		return;
+	if (block == 0)
+		return;
+	for (int i = 0; i <= g_heaps.m_count; ++i)
+	{
+		if (g_heaps.m_allocators[i]->rva00032920(block))
+		{
+			g_heaps.m_allocators[i]->rva000338F0(block);
+			return;
+		}
+	}
+}
+
+bool _IsValidBlock(void *block, unsigned int heap)
+{
+	EA::Allocator::GeneralAllocator *allocator = _GetHeapAllocator(heap);
+	return allocator->rva00032830(block, 1);
+}
+
+unsigned int _GetBlockSize(void *block, unsigned int heap)
+{
+	if (block == 0)
+		return 0;
+	EA::Allocator::GeneralAllocator *allocator = _GetHeapAllocator(heap);
+	return allocator->rva00032A20(block);
+}
+
+unsigned int _GetBlockHeap(void *block)
+{
+	if (block == 0)
+		return 0;
+	for (int i = 0; i <= g_heaps.m_count; ++i)
+	{
+		if (g_heaps.m_allocators[i]->rva00032920(block))
+		{
+			if (i == 0)
+				return 0;
+			return g_heaps.m_records[i - 1].m_id;
+		}
+	}
+	return 0;
+}
+
+void _VerifyIntegrity()
+{
+	for (int i = 0; i <= g_heaps.m_count; ++i)
+		g_heaps.m_allocators[i]->rva000329E0(3);
 }
 
 }
