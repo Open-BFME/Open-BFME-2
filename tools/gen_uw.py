@@ -346,7 +346,7 @@ def read_funclets(ledger):
     it onto the ladder was left behind.  That is not a report: it is the reason
     column of the tombstone a previously-landed row gets when it drops out.
     """
-    data = build.EXE.read_bytes()
+    data, sections = build.exe_image()
     on_ladder, off_ladder = [], []
     tally = collections.Counter()
     tally_bytes = collections.Counter()
@@ -366,7 +366,7 @@ def read_funclets(ledger):
                     "the gen-dump row at 0x%08X is %d bytes and Ghidra calls the "
                     "funclet %d -- the boundary itself is in dispute" % (rva, dump, size))
                 continue
-            body = data[rva:rva + size]
+            body = build.read_pe_bytes(data, sections, rva, size)
             kind, disp, target, extra = classify(rva, body)
             if kind is None:
                 tally["D other"] += 1
