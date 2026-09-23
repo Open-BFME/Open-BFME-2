@@ -1,0 +1,53 @@
+// cl: /O1 /DNDEBUG /MD
+//
+// ??0WeaponBonusUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x004B5633, 49 bytes.
+// WeaponBonusUpgrade behavior ctor over the pinned UpgradeModule base
+// (0x460AEC, thing plus data): re-stores the primary vtable slot and the
+// +0x0C/+0x10/+0x18 secondary slots (address-of TU-local dummies,
+// DIR32-masked). The pool-key proc at 0x4B55EE (nameToKey("WeaponBonusUpgrade"))
+// ends exactly where this ctor begins, and the rowed instance factory
+// 0x2501E2 (registered under "WeaponBonusUpgrade") is the sole raw caller.
+// Row supersedes the ctor pin.
+
+class Thing;
+class ModuleData;
+
+static int s_vtable;
+static int s_secondary0C;
+static int s_secondary10;
+static int s_secondary18;
+
+// Opaque UpgradeModule base; ctor resolves to its pin. The explicit m_vtable
+// member stands in for the inherited vptr so body order is source order.
+class UpgradeModule
+{
+public:
+	UpgradeModule(Thing *thing, const ModuleData *moduleData);
+
+protected:
+	const void *m_vtable;
+	Thing *m_owner;
+	int m_pad08;
+	const void *m_p0C;
+	const void *m_p10;
+	unsigned char m_pad[0x18 - 0x14];
+};
+
+class WeaponBonusUpgrade : public UpgradeModule
+{
+public:
+	WeaponBonusUpgrade(Thing *thing, const ModuleData *moduleData);
+
+private:
+	const void *m_p18;
+};
+
+// ??0WeaponBonusUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z @0x4B5633
+WeaponBonusUpgrade::WeaponBonusUpgrade(Thing *thing, const ModuleData *moduleData)
+	: UpgradeModule(thing, moduleData)
+{
+	m_vtable = &s_vtable;
+	m_p0C = &s_secondary0C;
+	m_p10 = &s_secondary10;
+	m_p18 = &s_secondary18;
+}
