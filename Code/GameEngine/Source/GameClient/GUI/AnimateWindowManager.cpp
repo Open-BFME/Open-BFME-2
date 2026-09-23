@@ -87,7 +87,6 @@ AnimateWindow::AnimateWindow( void )
 	m_endTime = 0;
 	m_startTime = 0;
 }
-// ??1AnimateWindow@@UAE@XZ present-unmatched
 AnimateWindow::~AnimateWindow( void )
 {
 	m_win = NULL;
