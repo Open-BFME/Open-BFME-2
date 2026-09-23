@@ -441,7 +441,6 @@ void AnimateWindowManager::reverseAnimateWindow( void )
 
 }
 
-// ?resetToRestPosition@AnimateWindowManager@@QAEXXZ present-unmatched
 void AnimateWindowManager::resetToRestPosition( void )
 {
 	
