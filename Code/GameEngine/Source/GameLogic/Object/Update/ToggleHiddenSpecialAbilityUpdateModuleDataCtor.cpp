@@ -7,11 +7,21 @@
 // factory (news 0xCC, sole caller at 0x24F793); base size 0xC8 inferred from
 // the flag position. Row supersedes the ctor pin.
 
+class MultiIniFieldParse;
+struct FieldParse;
+
+class MultiIniFieldParse
+{
+public:
+	void add(const FieldParse *parseTable, unsigned int extraOffset);
+};
+
 class __declspec(novtable) Rva0044EB54
 {
 public:
 	Rva0044EB54();
 	virtual ~Rva0044EB54();
+	static void buildFieldParse(MultiIniFieldParse &parse);
 
 private:
 	// +0x00 vptr (novtable: no compiler install here).
@@ -23,6 +33,7 @@ class __declspec(novtable) ToggleHiddenSpecialAbilityUpdateModuleData : public R
 {
 public:
 	ToggleHiddenSpecialAbilityUpdateModuleData();
+	static void buildFieldParse(MultiIniFieldParse &parse);
 
 private:
 	// +0xC8 flag (false).
@@ -36,4 +47,11 @@ ToggleHiddenSpecialAbilityUpdateModuleData::ToggleHiddenSpecialAbilityUpdateModu
 {
 	*(unsigned int *)this = 0x00C5F778;
 	m_flagC8 = false;
+}
+
+// ?buildFieldParse@ToggleHiddenSpecialAbilityUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z @0x0024F719
+void ToggleHiddenSpecialAbilityUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	Rva0044EB54::buildFieldParse(parse);
+	parse.add(reinterpret_cast<const FieldParse *>(0x00BEF7E4), 0);
 }
