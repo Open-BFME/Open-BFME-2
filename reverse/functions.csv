@@ -17575,3 +17575,4 @@ _getluaproto,,0x0074CBA0,27,Code/Libraries/Source/Lua/ldebug.c,matched,placed by
 ?notify@ShroudManagerImpl008FBA40@@QAEXXZ,,0x0073B7E0,166,Code/GameEngine/Source/Common/RTS/ShroudManagerImpl008FBA40.cpp,matched,BFME1 ShroudManagerImpl008FBA40Notify.cpp donor; 20 players; 0xA8 element
 ?convertTitleSegments@Rva002343C3TitleSegment@@QAEHPAG@Z,,0x00234803,37,Code/GameEngine/Source/Main/WinMainPairUnicode.cpp,matched,
 ??0PropagandaTowerBehaviorModuleData@@QAE@XZ,,0x0048197C,66,Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehaviorModuleDataCtor2.cpp,matched,BFME1 donor-guided reconstruction; table 0xC49368 proves names/offsets; extern float loads for movss
+??0WorkerAIUpdateModuleData@@QAE@XZ,,0x00254434,101,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdateModuleDataCtor2.cpp,matched,Frameless Transport-base ctor; table 0x00BEF620 MaxBoxes-to-SuppliesDepletedVoice; factory 0x002544F1 news 0x94; vtable 0x00BF23C8 unique

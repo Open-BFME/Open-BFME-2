@@ -3978,7 +3978,6 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ??0WeaponSetSpecialAbilityUpdateModuleData@@QAE@XZ,0x004923E2,ctor call in the byte-true WeaponSetSpecialAbilityUpdate data factory (ModuleFactory registers it under "WeaponSetSpecialAbilityUpdate")
 ??0StructureCollapseUpdateModuleData@@QAE@XZ,0x00256ACC,ctor call in the byte-true StructureCollapseUpdate data factory (ModuleFactory registers it under "StructureCollapseUpdate")
 ??0AnimalAIUpdateModuleData@@QAE@XZ,0x0024BE43,ctor call in the byte-true AnimalAIUpdate data factory (ModuleFactory registers it under "AnimalAIUpdate")
-??0WorkerAIUpdateModuleData@@QAE@XZ,0x00254434,ctor call in the byte-true WorkerAIUpdate data factory (ModuleFactory registers it under "WorkerAIUpdate")
 ??0RespawnUpdateModuleData@@QAE@XZ,0x004AFB4E,ctor call in the byte-true RespawnUpdate data factory (ModuleFactory registers it under "RespawnUpdate")
 ??0StatusBitsUpgradeIfEldestKindofModuleData@@QAE@XZ,0x002547D1,ctor call in the byte-true StatusBitsUpgradeIfEldestKindof data factory (ModuleFactory registers it under "StatusBitsUpgradeIfEldestKindof")
 ??0TransitionDamageFXModuleData@@QAE@XZ,0x004BA58A,ctor call in the byte-true TransitionDamageFX data factory (ModuleFactory registers it under "TransitionDamageFX")
