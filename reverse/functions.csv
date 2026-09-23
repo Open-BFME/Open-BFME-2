@@ -17026,3 +17026,5 @@ _fprintf,,0x002CEC42,108,Code/GameEngine/Source/Common/FprintfAppendLine.cpp,mat
 ?registerGameWindow@AnimateWindowManager@@QAEXPAVGameWindow@@W4AnimTypes@@_NII@Z,,0x0053B843,155,Code/GameEngine/Source/GameClient/GUI/AnimateWindowManager.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 ?update@AnimateWindowManager@@UAEXXZ,,0x0053B387,144,Code/GameEngine/Source/GameClient/GUI/AnimateWindowManager.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 ?resetToRestPosition@AnimateWindowManager@@QAEXXZ,,0x0053B4B7,105,Code/GameEngine/Source/GameClient/GUI/AnimateWindowManager.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?setFinished@AnimateWindow@@QAEX_N@Z,,0x003B239B,10,Code/GameEngine/Source/GameClient/GUI/AnimateWindowManager.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?setNeedsToFinish@AnimateWindow@@QAEX_N@Z,,0x00203574,10,Code/GameEngine/Source/GameClient/GUI/AnimateWindowManager.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
