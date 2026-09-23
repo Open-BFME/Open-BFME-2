@@ -4775,3 +4775,4 @@ _bfmeAppend,0x0060D5F2,callee of bfmeEmit (0x0060D7C0) at the site its BFME1 don
 ??0UpgradeMux@@QAE@XZ,0x004CE2A3,UpgradeMux 0-arg ctor over vptr plus executed flag; sole shape at 12 behavior-ctor sites incl FireWeaponWhenDamaged 0x48282B; donor ZH UpgradeModule.h
 ?giveSelfUpgrade@UpgradeMux@@QAEXXZ,0x0045230C,UpgradeMux self-upgrade over 10 behavior-ctor sites incl FireWeaponWhenDamaged 0x4829F4 and Dead 0x482DF0; donor ZH ctor tail
 ?reloadAmmo@Weapon@@QAEXPBVObject@@@Z,0x002CE1E9,Weapon reload over 12 sites incl 8 FireWeaponWhenDamaged pairs plus Weapon.cpp neighbors; donor ZH Weapon.h reloadAmmo
+?frameToSleepTime@UpdateModule@@IAE?AW4UpdateSleepTime@@IIII@Z,0x0044DF28
