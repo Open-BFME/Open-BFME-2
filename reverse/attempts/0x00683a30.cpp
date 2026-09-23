@@ -1,10 +1,20 @@
 // _CommUdpProcess
-// partial score=0.9 date=2026-09-22
+// partial score=0.9 date=2026-09-23
+// _CommUdpProcess
+// partial score=0.9 date=2026-09-22, campaign 2026-09-23 (peppy-penguin)
 // cl: /DNDEBUG /MD /GX /Od /GZ /GS
 // Near miss for _CommUdpProcess at 0x00683A30 (2207 bytes). Drop this function
 // into Code/Libraries/Source/DirtySock/commudp.cpp in place of the 'Convert to
 // real C++ separately' note, and change that file's extern "C" prototype to
 // int CommUdpProcess(unsigned int tick) (its caller already passes tick).
+// GRAFT RECIPE (proven 2026-09-23: compiles+links, all callees resolve): add
+// the 7 missing callees to the TU extern "C" block with C linkage exactly as
+// Rva007FDA50/Rva007FF720/Rva008186C0/Rva008187E0/Rva00818620/Rva00816F60/
+// Rva00818AD0 (C decls match the _Rva rows; C++ decls do NOT resolve). The 3
+// globals (g_commUdpRecv/g_commUdpSplit/g_commUdpRefs) need NO pins: DIR32
+// slots are copied from retail and consistency-verified. Add the row with
+// add_match --no-verify for iteration; REMOVE the row and revert the TU before
+// committing anything else (never leave a nonmatching reconstruction in Code/).
 // State: the frame (0x44, /GZ guards around fromLength and from[]) and the first
 // 0x5A3 bytes match exactly. After the indirect callback at +0x592 retail picks
 // ecx where this picks eax for the next statement, and from there 155 of 162
@@ -12,6 +22,22 @@
 // follow from it). Tried: 3 decrement spellings, 3 call spellings, struct-member
 // call, &&/?: guards, /RTC1 /RTCsu /RTCsc, and compiling as C -- no change. With
 // /GZ removed the choice is still eax, so the ESP check is not the trigger.
+// 2026-09-23 PROBE CAMPAIGN (build/probe_*.cpp+*.py harness, ignored scratch:
+// compile_source + read_object_symbol_bytes + capstone; faithful harness proven
+// when the full-body probe reproduces the TU's EAX-home exactly): REFUTED as
+// flip levers -- expanded-assign/prefix-dec/post-dec-paren/+ -1 decrement forms;
+// decl-order perms x10 (slots move but home stays EAX; only same-slot perms are
+// TU-viable); empty-else x4 + comma-RMW + do-while-0 + nested-if-first-conjunct;
+// init-hoisting x2 + break-to-goto x2 + pre/post-inc x2; uchar-ref dropped as too
+// invasive; char-socket + unsigned-count + redundant-char-casts; &&/||
+// associativity + not-canonicalization + nested-last-conjunct; __assume/assert
+// no-ops. PROVEN: removing the dispatch block flips to ECX (so the trigger is
+// dispatch interference in global coloring), as do dropping the compare call,
+// the Setup call, or the socket conjunct -- but all change upstream bytes and
+// are NOT TU-viable. for-to-while on loop2 flips to ECX but loses the retail
+// loop-entry jmp (eb 09) so it breaks the prefix. Sole wall stands: post-call
+// ref home ECX (retail) vs EAX (all shapes). Next levers untried: struct-typed
+// ref member access (also a readability win), truthiness loop conditions.
 // The CommUDP tick. Reads at most one datagram per pass into the shared receive
 // record, dispatches it to the connection it belongs to (setup, poke, split
 // packets), then runs every connection's timers; a poke from an unexpected
