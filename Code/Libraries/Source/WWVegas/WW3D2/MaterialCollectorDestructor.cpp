@@ -92,3 +92,7 @@ void MaterialCollectorClass::Reset()
     VertexMaterials.Clear();
     Shaders.Clear();
 }
+
+// Emit the Resize overrides selected by the collector's target vtables.
+template class DynamicVectorClass<BfmeHandleCX>;
+template class DynamicVectorClass<ShaderClass>;
