@@ -16983,3 +16983,4 @@ _fprintf,,0x002CEC42,108,Code/GameEngine/Source/Common/FprintfAppendLine.cpp,mat
 ?Create@ProfileResultFileDOT@@SAPAVProfileResultInterface@@HPBQBD@Z,,0x006C7C50,186,Code/Libraries/Source/profile/ProfileResultCreate.cpp,matched,profile_result.cpp factory; default fold 999
 ?GetClockCyclesFast@@YA_JXZ,,0x006C5570,569,Code/Libraries/Source/profile/ProfileClockCycles.cpp,matched,ZH profile.cpp clock probe plus file_gtt_dot registration
 ?Create@ProfileResultFileGTT@@SAPAVProfileResultInterface@@HPBQBD@Z,,0x006C7D10,186,Code/Libraries/Source/profile/ProfileResultCreate.cpp,matched,BFME2 GTT DOT writer factory; default threshold 100
+?GetFrameValue@ProfileId@@QBE_NIAAN@Z,,0x006C5EC0,43,Code/Libraries/Source/profile/ProfileIdFrames.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
