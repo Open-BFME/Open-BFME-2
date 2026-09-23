@@ -40,6 +40,9 @@ public:
 
 void operator delete(void *ptr);
 
+extern "C" void _ReadWriteBarrier();
+#pragma intrinsic(_ReadWriteBarrier)
+
 class GameMessageList : public SubsystemInterface
 {
 public:
@@ -97,9 +100,18 @@ GameMessageList::GameMessageList() :
 	m_lastMessage = 0;
 }
 
-// ??1GameMessageList@@UAE@XZ @0x0030F57C banked 0.93 (stash
-// reverse/attempts/0x0030f57c.cpp): vptr-load hoists above the m_list null.
-// The declaration stays for the CommandList base call (pinned).
+// ??1GameMessageList@@UAE@XZ @0x0030F57C
+GameMessageList::~GameMessageList()
+{
+	GameMessage *msg, *nextMsg;
+	for (msg = m_firstMessage; msg; msg = nextMsg)
+	{
+		msg->m_list = 0;
+		_ReadWriteBarrier();
+		nextMsg = (GameMessage *)msg->m_next;
+		::operator delete(msg->deleteInstance(0));
+	}
+}
 
 // ??0CommandList@@QAE@XZ @0x0030F842
 CommandList::CommandList() :
