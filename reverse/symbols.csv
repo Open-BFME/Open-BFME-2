@@ -1474,7 +1474,6 @@ name,address,notes
 ?_Invalidate_Mesh_Cache@WW3D@@SAXXZ,0x001170A0,address read from the retail REL32 in DX8IndexBufferClass::DX8IndexBufferClass at 0x00138980
 ?_M_acquire_lock@NodeAllocMutex@_STL@@QAEXXZ,0x00007820
 ?_M_advance@?$_Deque_iterator_base@UBfmeE12@@@_STL@@QAEXH@Z,0x00584CB2,address read from the retail REL32 in both _Deque_iterator<BfmeE12> offset operators at 0x00584E57 and 0x004221E6
-?_M_advance@?$_Deque_iterator_base@UBfmeE16@@@_STL@@QAEXH@Z,0x004217DD
 ?_M_allocate_block@?$_String_base@DV?$allocator@D@_STL@@@_STL@@QAEXI@Z,0x00007460,STLport _M_allocate_block body at 0x00007460 landed under the basic_string scope; this pin spells the upstream _String_base scope for the fill-constructor call
 ?_M_allocate_buffers@?$basic_filebuf@DV?$char_traits@D@_STL@@@_STL@@AAE_NPADH@Z,0x00013F10,harvested from retail REL32 displacement at 0x00015C00
 ?_M_allocate_buffers@?$basic_filebuf@GV?$char_traits@G@_STL@@@_STL@@AAE_NPAGH@Z,0x000148F0,harvested from retail REL32 displacement at 0x00014890
@@ -3943,21 +3942,14 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ?_M_insert_overflow@?$vector@UBfmePod24@@V?$allocator@UBfmePod24@@@_STL@@@_STL@@IAEXPAUBfmePod24@@ABU3@ABU__false_type@2@I_N@Z,0x000BCFF9
 ?_M_insert_overflow@?$vector@UBfmePod40@@V?$allocator@UBfmePod40@@@_STL@@@_STL@@IAEXPAUBfmePod40@@ABU3@ABU__false_type@2@I_N@Z,0x00565B7D
 ?releaseBuffer@UnicodeString@@QAEXXZ,0x00036E70,Dict TU spelling of rowed StringBase wide releaseBuffer; same body
-?_M_increment@?$_Deque_iterator_base@UBfmePod156@@@_STL@@QAEXXZ,0x005508A5
-??H?$_Deque_iterator@UBfmePod156@@U?$_Nonconst_traits@UBfmePod156@@@_STL@@@_STL@@QBE?AU01@H@Z,0x00422007
-??1?$_Deque_base@UBfmePod156@@V?$allocator@UBfmePod156@@@_STL@@@_STL@@QAE@XZ,0x0054FAAC
 ??1?$_Deque_base@VBuddyRequest@@V?$allocator@VBuddyRequest@@@_STL@@@_STL@@QAE@XZ,0x0054FAAC
 ?test@?$BitFlags@$0EF@@@QBE_NPBX@Z,0x002615C0
-??$__uninitialized_copy@U?$_Deque_iterator@UBfmePod156@@U?$_Const_traits@UBfmePod156@@@_STL@@@_STL@@U?$_Deque_iterator@UBfmePod156@@U?$_Nonconst_traits@UBfmePod156@@@_STL@@@2@@_STL@@YA?AU?$_Deque_iterator@UBfmePod156@@U?$_Nonconst_traits@UBfmePod156@@@_STL@@@0@U?$_Deque_iterator@UBfmePod156@@U?$_Const_traits@UBfmePod156@@@_STL@@@0@0U10@ABU__false_type@0@@Z,0x004230EB
-??0?$_Deque_base@UBfmePod156@@V?$allocator@UBfmePod156@@@_STL@@@_STL@@QAE@ABV?$allocator@UBfmePod156@@@1@I@Z,0x00421F87
 ??0?$_STLP_alloc_proxy@IUBfmePod492@@V?$allocator@UBfmePod492@@@_STL@@@_STL@@QAE@ABV?$allocator@UBfmePod492@@@1@I@Z,0x0014F3C4
 ??0?$_STLP_alloc_proxy@IUBfmePod840@@V?$allocator@UBfmePod840@@@_STL@@@_STL@@QAE@ABV?$allocator@UBfmePod840@@@1@I@Z,0x0014F3C4
 ??0?$_STLP_alloc_proxy@IVBuddyRequest@@V?$allocator@VBuddyRequest@@@_STL@@@_STL@@QAE@ABV?$allocator@VBuddyRequest@@@1@I@Z,0x0014F3C4
 ??0?$_STLP_alloc_proxy@PAPAUBfmePod492@@PAU1@V?$allocator@PAUBfmePod492@@@_STL@@@_STL@@QAE@ABV?$allocator@PAUBfmePod492@@@1@PAPAUBfmePod492@@@Z,0x0014F3C4
 ??0?$_STLP_alloc_proxy@PAPAUBfmePod840@@PAU1@V?$allocator@PAUBfmePod840@@@_STL@@@_STL@@QAE@ABV?$allocator@PAUBfmePod840@@@1@PAPAUBfmePod840@@@Z,0x0014F3C4
 ??0?$_STLP_alloc_proxy@PAPAVBuddyRequest@@PAV1@V?$allocator@PAVBuddyRequest@@@_STL@@@_STL@@QAE@ABV?$allocator@PAVBuddyRequest@@@1@PAPAVBuddyRequest@@@Z,0x0014F3C4
-?_M_subtract@?$_Deque_iterator_base@UBfmePod156@@@_STL@@QBEHABU12@@Z,0x004217AD
-?get_allocator@?$deque@UBfmePod156@@V?$allocator@UBfmePod156@@@_STL@@@_STL@@QBE?AV?$allocator@UBfmePod156@@@2@XZ,0x0021983A
 ?Rva00530212Helper@@YGXPAVObject@@HHH@Z,0x00530212
 ?bfmeLookup1279@BfmeLookup1279@@QAEPAVBfmeNode1279@@AAUBfmeKey1279@@@Z,0x0070B380,TU spelling for BfmeQueryProcess1279 callee; retail E8 at 0x6F7269; find-by-key returning node or null
 ?bfmeErase1279@BfmeLookup1279@@QAEXAAUBfmeKey1279@@@Z,0x0070B2C0,TU spelling for BfmeQueryProcess1279 callee; retail E8 at 0x6F7275; erase-by-key
