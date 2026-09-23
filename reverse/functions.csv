@@ -17550,3 +17550,4 @@ _getluaproto,,0x0074CBA0,27,Code/Libraries/Source/Lua/ldebug.c,matched,placed by
 ?setResourceIconState@@YAX_N@Z,,0x003FEA72,48,Code/GameEngine/Source/GameClient/UiCallbackFirers.cpp,matched,Conditional _show/_hide firer for SetResourceIconState through Rva00222A8BTarget invoker
 ?setFlashObjectivesButton@@YAX_N@Z,,0x003FEB7A,48,Code/GameEngine/Source/GameClient/UiCallbackFirers.cpp,matched,Conditional _show/_hide firer for FlashObjectivesButton through Rva00222A8BTarget invoker
 ?enablePlayerMagicButton@@YAX_N@Z,,0x003FE88B,48,Code/GameEngine/Source/GameClient/UiCallbackFirers.cpp,matched,Conditional 1/0 firer for EnablePlayerMagicButton through Rva00222A8BTarget invoker
+?highlightPlayerMagicButton@@YAX_N@Z,,0x003FE8BB,48,Code/GameEngine/Source/GameClient/UiCallbackFirers.cpp,matched,Conditional 1/0 firer for HighlightPlayerMagicButton through Rva00222A8BTarget invoker
