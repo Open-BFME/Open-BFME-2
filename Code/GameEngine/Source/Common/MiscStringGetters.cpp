@@ -26,3 +26,9 @@
 // CC-padding both sides, sole .text dword-ref to the "6.1.0.5" string,
 // no callers, no branch sources. Opaque address-derived name.
 BFME_LITERAL_NAME_GETTER(Rva001B5830Named, "6.1.0.5")
+
+// ?name@Rva00603938Named@@QBEPBDXZ @ 0x00603938 (6B): returns "English".
+// Ret-terminated prev (lea/pop/ret), frameless-fn-start next bytes,
+// no callers, no branch sources per byte-level whole-image scan.
+// Opaque address-derived name.
+BFME_LITERAL_NAME_GETTER(Rva00603938Named, "English")
