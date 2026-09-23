@@ -92,3 +92,8 @@ void hideSpellBook()
 {
 	TheRva00222A8BTarget->invoke(TheRva00222A8BOwner, "HideSpellBook", 0, 0, 0, 0, 0, 0);
 }
+
+void playCommandPointEffect()
+{
+	TheRva00222A8BTarget->invoke(TheRva00222A8BOwner, "PlayCommandPointEffect", 0, 0, 0, 0, 0, 0);
+}
