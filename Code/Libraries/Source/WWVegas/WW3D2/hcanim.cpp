@@ -720,18 +720,7 @@ void HCompressedAnimClass::Get_Transform( Matrix3D& mtx, int pividx, float frame
  * HISTORY:                                                                                    *
  *   1/19/98    GTH : Created.                                                                 *
  *=============================================================================================*/
-// ?HCompressedAnimClass::Get_Visibility present-unmatched
-bool HCompressedAnimClass::Get_Visibility(int pividx,float frame)
-{		
-
-	if (NodeMotion[pividx].Vis != NULL) {
-		return (NodeMotion[pividx].Vis->Get_Bit((int)frame) == 1);
-	}
-
-
-	// default to always visible...
-	return 1;
-}
+// HCompressedAnimClass::Get_Visibility is recovered in HCompressedAnimGetters.cpp.
 
 
 
@@ -747,54 +736,17 @@ bool HCompressedAnimClass::Get_Visibility(int pividx,float frame)
  * HISTORY:                                                                                    *
  *   3/23/99    EHC : Created.                                                                 *
  *=============================================================================================*/
-// ?HCompressedAnimClass::Is_Node_Motion_Present present-unmatched
-bool HCompressedAnimClass::Is_Node_Motion_Present(int pividx) 
-{
-	WWASSERT((pividx >= 0) && (pividx < NumNodes));
+// HCompressedAnimClass::Is_Node_Motion_Present is recovered in HCompressedAnimGetters.cpp.
 
-	if (NodeMotion[pividx].vd.X != NULL)	return true;
-	if (NodeMotion[pividx].vd.Y != NULL)	return true;
-	if (NodeMotion[pividx].vd.Z != NULL)	return true;
-	if (NodeMotion[pividx].vd.Q  != NULL)	return true;
-	if (NodeMotion[pividx].Vis != NULL)		return true;
+// HCompressedAnimClass::Has_X_Translation is recovered in HCompressedAnimGetters.cpp.
 
-	return false;
-}
+// HCompressedAnimClass::Has_Y_Translation is recovered in HCompressedAnimGetters.cpp.
 
-// ?HCompressedAnimClass::Has_X_Translation present-unmatched
-bool HCompressedAnimClass::Has_X_Translation (int pividx)
-{
-	WWASSERT((pividx >= 0) && (pividx < NumNodes));
-	return NodeMotion[pividx].vd.X != NULL;
-}
+// HCompressedAnimClass::Has_Z_Translation is recovered in HCompressedAnimGetters.cpp.
 
-// ?HCompressedAnimClass::Has_Y_Translation present-unmatched
-bool HCompressedAnimClass::Has_Y_Translation (int pividx)
-{
-	WWASSERT((pividx >= 0) && (pividx < NumNodes));
-	return NodeMotion[pividx].vd.Y != NULL;
-}
+// HCompressedAnimClass::Has_Rotation is recovered in HCompressedAnimGetters.cpp.
 
-// ?HCompressedAnimClass::Has_Z_Translation present-unmatched
-bool HCompressedAnimClass::Has_Z_Translation (int pividx)
-{
-	WWASSERT((pividx >= 0) && (pividx < NumNodes));
-	return NodeMotion[pividx].vd.Z != NULL;
-}
-
-// ?HCompressedAnimClass::Has_Rotation present-unmatched
-bool HCompressedAnimClass::Has_Rotation (int pividx)
-{
-	WWASSERT((pividx >= 0) && (pividx < NumNodes));
-	return NodeMotion[pividx].vd.Q != NULL;
-}
-
-// ?HCompressedAnimClass::Has_Visibility present-unmatched
-bool HCompressedAnimClass::Has_Visibility (int pividx)
-{
-	WWASSERT((pividx >= 0) && (pividx < NumNodes));
-	return NodeMotion[pividx].Vis != NULL;
-}
+// HCompressedAnimClass::Has_Visibility is recovered in HCompressedAnimGetters.cpp.
 
 
 // eof - hcanim.cpp
