@@ -54,6 +54,27 @@
 #include <list>		// BFME uses STLport node_alloc for AnimateWindow lists; include
 						// before PreRTS.h so _STLP_USE_NEWALLOC does not force plain-new.
 
+// TU-local BFME2 SubsystemInterface (12-byte base, retail-proven). Retail base
+// ctor 0x001B4E63 installs vtable 0xBD77A0 then zeroes byte@4 and dword@8,
+// proving 0xC bytes, not the ZH 8 (see ArmorStoreCtor.cpp, CollisionManager-
+// Constructor.cpp). ZH's Common/SubsystemInterface.h (8-byte) would put
+// m_winList at +0x8/+0xC; retail 0x0053B550 uses +0xC/+0x10, first NEW ptr at
+// +0x18 (not +0x14). Block the ZH header and carry the extra here; derived
+// offsets (+0xC lists, +0x14/+0x15 flags, +0x18 first process ptr) then match.
+#define __SUBSYSTEMINTERFACE_H_
+class SubsystemInterface
+{
+public:
+	SubsystemInterface();
+	virtual ~SubsystemInterface();
+	virtual void init() = 0;
+	virtual void reset() = 0;
+	virtual void update() = 0;
+
+private:
+	unsigned char m_bfmeBasePad[8]; // byte@4 and dword@8 zeroed by 0x001B4E63
+};
+
 //-----------------------------------------------------------------------------
 // USER INCLUDES //////////////////////////////////////////////////////////////
 //-----------------------------------------------------------------------------
@@ -132,7 +153,6 @@ static void clearWinList(AnimateWindowList &winList)
 	}
 }
 
-// ??0AnimateWindowManager@@QAE@XZ present-unmatched
 AnimateWindowManager::AnimateWindowManager( void )
 {
 // we don't allocate many of these, so no MemoryPools used

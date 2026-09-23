@@ -4759,3 +4759,6 @@ _bfmeAppend,0x0060D5F2,callee of bfmeEmit (0x0060D7C0) at the site its BFME1 don
 ??0ProfileId@@QAE@PBD00HH@Z,0x006C5C60,ProfileHighLevel::AddProfile 0x006C65B7 constructs the new id here after ProfileAllocMemory(0x58) as in profile_highlevel.cpp
 ??0?$_Vector_base@UCashHackUpgrades@@V?$allocator@UCashHackUpgrades@@@_STL@@@_STL@@QAE@ABV?$allocator@UCashHackUpgrades@@@1@@Z,0x00211E58,ICF-folded empty vector base ctor (same 29B as matched BfmeE16 row); CashHackSpecialPowerModuleDataCtor TU vector<CashHackUpgrades> member
 ?erase@?$vector@UCashHackUpgrades@@V?$allocator@UCashHackUpgrades@@@_STL@@@_STL@@QAEPAUCashHackUpgrades@@PAU3@0@Z,0x003FA4DB,Upgrades-spelled erase alias to rowed Pod8 body (same 8B element size, same bytes); CashHackSpecialPowerModuleDataCtor TU clear() lowers to erase
+??0?$_List_base@PAVAnimateWindow@@V?$allocator@PAVAnimateWindow@@@_STL@@@_STL@@QAE@ABV?$allocator@PAVAnimateWindow@@@1@@Z,0x004EC36C
+?clear@?$_List_base@PAVAnimateWindow@@V?$allocator@PAVAnimateWindow@@@_STL@@@_STL@@QAEXXZ,0x0023DAA5
+??0ProcessAnimateWindowSpiral@@QAE@XZ,0x005C4FFF
