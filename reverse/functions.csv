@@ -32584,3 +32584,4 @@ _DXTraceA@20,,0x0065459C,476,vendor/dxerr9-aug2005/dxerr9.lib,matched,vendored=d
 ??0CommandList@@QAE@XZ,,0x0030F842,18,Code/GameEngine/Source/Common/MessageStreamListCtors.cpp,matched,ZH MessageStream donor shape over Subsystem base
 ??1CommandList@@UAE@XZ,,0x0031105A,56,Code/GameEngine/Source/Common/MessageStreamListCtors.cpp,matched,ZH MessageStream donor shape over Subsystem base
 ??_GCommandList@@UAEPAXI@Z,,0x00311415,26,Code/GameEngine/Source/Common/MessageStreamListCtors.cpp,matched,Scalar deleting dtor over rowed virtual dtor plus operator delete
+??_GGameMessageList@@UAEPAXI@Z,,0x00310F85,26,Code/GameEngine/Source/Common/MessageStreamListCtors.cpp,matched,Scalar deleting dtor over pinned virtual dtor plus operator delete
