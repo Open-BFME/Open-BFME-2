@@ -26,7 +26,7 @@ public:
     virtual void targetSlot6();
     virtual void targetSlot7();
     virtual void targetSlot8();
-    virtual void targetSlot9();
+    virtual void reset();
     virtual void targetSlot10();
     virtual void targetSlot11();
     virtual void targetSlot12();
@@ -105,6 +105,7 @@ class Overridable : public MemoryPoolObject {
 public:
     Overridable *m_nextOverride;
     bool m_isOverride;
+    Overridable *deleteOverrides();
     const Overridable *getFinalOverride() const
     {
         return m_nextOverride ? m_nextOverride->getFinalOverride() : this;
@@ -127,6 +128,7 @@ public:
         m_overridable = value;
         return *this;
     }
+    const T *getNonOverloadedPointer() const { return m_overridable; }
 };
 
 extern OVERRIDE<WeatherSetting> TheWeatherSetting;
@@ -140,4 +142,13 @@ SnowManager::~SnowManager()
         ::delete TheWeatherSetting;
         TheWeatherSetting = static_cast<const WeatherSetting *>(0);
     }
+}
+
+void SnowManager::reset()
+{
+    m_isVisible = true;
+    WeatherSetting *setting = const_cast<WeatherSetting *>(
+        TheWeatherSetting.getNonOverloadedPointer());
+    TheWeatherSetting = static_cast<WeatherSetting *>(setting->deleteOverrides());
+    updateIniSettings();
 }
