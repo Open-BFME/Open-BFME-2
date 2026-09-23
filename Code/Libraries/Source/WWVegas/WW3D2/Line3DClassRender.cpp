@@ -274,6 +274,7 @@ public:
     virtual void Get_Obj_Space_Bounding_Box(AABoxClass& box) const;
     virtual void Scale(float);
     virtual void Scale(float, float, float);
+    virtual int Get_Sort_Level() const;
     void Re_Color(float r, float g, float b);
     void Set_Opacity(float opacity);
     void Reset(const Vector3& new_start, const Vector3& new_end);
@@ -513,4 +514,10 @@ void Line3DClass::Reset(const Vector3& new_start, const Vector3& new_end, float 
     Invalidate_Cached_Bounding_Volumes();
     RenderObjClass* container = Get_Container();
     if (container) container->Update_Obj_Space_Bounding_Volumes();
+}
+
+// Target table BD3FA8 slot94 reads the signed sort-level byte at +0x140.
+int Line3DClass::Get_Sort_Level() const
+{
+    return SortLevel;
 }
