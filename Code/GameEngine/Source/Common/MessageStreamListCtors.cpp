@@ -66,10 +66,27 @@ public:
 	MessageStream();
 	virtual ~MessageStream();
 
+	struct TranslatorData
+	{
+		TranslatorData *m_next; // +0x00
+		TranslatorData *m_prev; // +0x04
+		unsigned int m_id; // +0x08
+		class GameMessageTranslator *m_translator; // +0x0C
+		unsigned int m_priority; // +0x10
+		~TranslatorData();
+	};
+
 private:
 	void *m_firstTranslator; // +0x14
 	void *m_lastTranslator; // +0x18
 	int m_nextTranslatorID; // +0x1C
+};
+
+class GameMessageTranslator
+{
+public:
+	virtual int translate();
+	virtual void *deleteInstance(int flags);
 };
 
 // ??0GameMessageList@@QAE@XZ @0x0030F562
@@ -127,4 +144,11 @@ MessageStream::MessageStream() :
 {
 	*(unsigned int *)this = (unsigned int)&s_messageStreamVtable;
 	m_nextTranslatorID = 1;
+}
+
+// ??1TranslatorData@MessageStream@@QAE@XZ @0x0030F463
+MessageStream::TranslatorData::~TranslatorData()
+{
+	GameMessageTranslator *trans = m_translator;
+	::operator delete(trans ? trans->deleteInstance(0) : 0);
 }
