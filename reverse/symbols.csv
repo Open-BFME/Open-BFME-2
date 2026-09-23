@@ -4339,7 +4339,6 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ??0WanderAIUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x004A931F,(Thing*;ModuleData*) ctor called by WanderAIUpdate::friend_newModuleInstance (0x0024F20D); class from the ModuleFactory registration literal
 ??0WorkerAIUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x004AA3AB,(Thing*;ModuleData*) ctor called by WorkerAIUpdate::friend_newModuleInstance (0x0024F2B4); class from the ModuleFactory registration literal
 ??0DetachableRiderUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x004AE883,(Thing*;ModuleData*) ctor called by DetachableRiderUpdate::friend_newModuleInstance (0x0024F86D); class from the ModuleFactory registration literal
-??0RespawnUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x004AF096,(Thing*;ModuleData*) ctor called by RespawnUpdate::friend_newModuleInstance (0x0024F8F6); class from the ModuleFactory registration literal
 ??0ArmorUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z,0x004B3468,(Thing*;ModuleData*) ctor called by ArmorUpgrade::friend_newModuleInstance (0x0024FDC7); class from the ModuleFactory registration literal
 ??0DelayedUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z,0x004B3C75,(Thing*;ModuleData*) ctor called by DelayedUpgrade::friend_newModuleInstance (0x0024FEC3); class from the ModuleFactory registration literal
 ??0StealthUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z,0x004B5378,(Thing*;ModuleData*) ctor called by StealthUpgrade::friend_newModuleInstance (0x0025011E); class from the ModuleFactory registration literal
