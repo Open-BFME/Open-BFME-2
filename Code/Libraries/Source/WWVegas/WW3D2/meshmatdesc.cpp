@@ -526,7 +526,6 @@ ShaderClass * MeshMatDescClass::Get_Shader_Array(int pass,bool create)
 	return NULL;
 }
 
-// ?Make_UV_Array_Unique@MeshMatDescClass@@ present-unmatched
 void MeshMatDescClass::Make_UV_Array_Unique(int pass,int stage)
 {
 	int uvindex = UVSource[pass][stage];
@@ -537,7 +536,6 @@ void MeshMatDescClass::Make_UV_Array_Unique(int pass,int stage)
 	}
 }
 
-// ?Make_Color_Array_Unique@MeshMatDescClass@@ present-unmatched
 void MeshMatDescClass::Make_Color_Array_Unique(int array)
 {
 	if ((ColorArray[array] != NULL) && (ColorArray[array]->Num_Refs() > 1)) {
