@@ -17492,3 +17492,4 @@ _getluaproto,,0x0074CBA0,27,Code/Libraries/Source/Lua/ldebug.c,matched,placed by
 ?Insert_Triangles@SortingRendererClass@@SAXGGGG@Z,,0x0011C6B0,58,Code/Libraries/Source/WWVegas/WW3D2/SortingRendererInsertTrianglesNoSphere.cpp,matched,BFME1 SortingRendererInsertTrianglesNoSphere.cpp donor; BFME2 /G7 /arch:SSE
 ??_GHAnimComboDataClass@@QAEPAXI@Z,,0x00196C60,63,Code/Libraries/Source/WWVegas/WW3D2/promoted__Reset_HAnimComboClass_QAEXXZ_00974DC0.cpp,matched,BFME1 HAnimComboClass donor; BFME2 /G7 /arch:SSE
 ?Reset@HAnimComboClass@@QAEXXZ,,0x00197680,98,Code/Libraries/Source/WWVegas/WW3D2/promoted__Reset_HAnimComboClass_QAEXXZ_00974DC0.cpp,matched,BFME1 HAnimComboClass donor; BFME2 /G7 /arch:SSE
+?Get_Texture_Index@MaterialInfoClass@@QAEHPBD@Z,,0x0016FC10,91,Code/Libraries/Source/WWVegas/WW3D2/MaterialInfoGetTextureIndex.cpp,matched,BFME1 MaterialInfoGetTextureIndex.cpp donor (handle class renamed to its BFME2 ledger name); /G7 /arch:SSE
