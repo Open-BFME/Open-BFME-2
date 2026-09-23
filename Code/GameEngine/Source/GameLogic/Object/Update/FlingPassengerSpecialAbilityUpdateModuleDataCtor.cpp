@@ -10,11 +10,21 @@
 // Class size 0xD8 proven by the FlingPassengerSpecialAbilityUpdate data
 // factory (news 0xD8, sole caller at 0x24DE96). Row supersedes the ctor pin.
 
+class MultiIniFieldParse;
+struct FieldParse;
+
+class MultiIniFieldParse
+{
+public:
+	void add(const FieldParse *parseTable, unsigned int extraOffset);
+};
+
 class __declspec(novtable) Rva0044EB54
 {
 public:
 	Rva0044EB54();
 	virtual ~Rva0044EB54();
+	static void buildFieldParse(MultiIniFieldParse &parse);
 
 private:
 	// +0x00 vptr (novtable: no compiler install here).
@@ -26,6 +36,7 @@ class __declspec(novtable) FlingPassengerSpecialAbilityUpdateModuleData : public
 {
 public:
 	FlingPassengerSpecialAbilityUpdateModuleData();
+	static void buildFieldParse(MultiIniFieldParse &parse);
 
 private:
 	// +0xC8/+0xCC/+0xD0 float zeros.
@@ -45,4 +56,11 @@ FlingPassengerSpecialAbilityUpdateModuleData::FlingPassengerSpecialAbilityUpdate
 	floats[1] = fzero;
 	floats[2] = fzero;
 	m_wordD4 &= 0;
+}
+
+// ?buildFieldParse@FlingPassengerSpecialAbilityUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z @0x0024DE1C
+void FlingPassengerSpecialAbilityUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	Rva0044EB54::buildFieldParse(parse);
+	parse.add(reinterpret_cast<const FieldParse *>(0x00BEF20C), 0);
 }
