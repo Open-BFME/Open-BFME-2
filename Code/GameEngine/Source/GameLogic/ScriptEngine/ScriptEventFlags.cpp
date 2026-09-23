@@ -100,3 +100,30 @@ void Rva002E2970Host::initEventKeys()
 	m_entries[15].setKeyFromName("OnGenericEvent");
 	m_entries[16].setKeyFromName("OnBuildVariation");
 }
+
+void Rva002E2970Host::applyNameFlags(XmlNameSlotList *xml)
+{
+	int i = 0;
+	if (xml->count() > 0)
+	{
+		do
+		{
+			int diff = strcmp(xml->tagAt(i), "Name");
+			if (diff == 0)
+			{
+				NameKeyType key = TheNameKeyGenerator->nameToKey(xml->nameAt(i));
+				int j;
+				for (j = 0; j < 17; ++j)
+				{
+					if (m_entries[j].key == key)
+					{
+						m_entries[j].flag = 1;
+						break;
+					}
+				}
+			}
+			++i;
+		} while (i < xml->count());
+	}
+	xml->finish();
+}

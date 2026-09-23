@@ -4643,3 +4643,5 @@ _fmod,0x0062996A,MSVCR71 fmod import thunk; raw jmp through IAT00BBA554 independ
 ?Free_Object_Memory@?$ObjectPoolClass@VHAnimComboDataClass@@$0BAA@@@QAEXPAVHAnimComboDataClass@@@Z,0x00196470,ICF-folded with the claimed MultiListNode pool Free_Object_Memory; called by HAnimComboClass::Reset (0x00197680) and HAnimComboDataClass deleting dtor (0x00196C60)
 ??0Rva00330757Member@@QAE@XZ,0x00330757
 ?notify@ShroudManagerImpl008FBA40@@QAEXXZ,0x0073B7E0,Last call of ShroudManagerImpl008FBA40::configure (0x0073DBF0) after the inlined drainPending, matching the BFME1 donor order; Ghidra boundary 159B
+?count@XmlNameSlotList@@QAEHXZ,0x005C4AE1,alias of rowed Disp8 dword getter ?get@Rva005C4AE1DwordField; XmlNameSlotList count reads +0x28
+?finish@XmlNameSlotList@@QAEXXZ,0x00542890,XmlNameSlotList finish 36B; advances past close markup; calls 0x542459
