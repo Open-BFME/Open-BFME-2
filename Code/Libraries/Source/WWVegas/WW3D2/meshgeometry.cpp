@@ -228,30 +228,7 @@ MeshGeometryClass::MeshGeometryClass(void) :
  * HISTORY:                                                                                    *
  *   11/9/2000  gth : Created.                                                                 *
  *=============================================================================================*/
-// ?MeshGeometryClass::MeshGeometryClass present-unmatched
-MeshGeometryClass::MeshGeometryClass(const MeshGeometryClass & that) :
-	MeshName(NULL),
-	UserText(NULL),
-	Flags(0),
-	SortLevel(SORT_LEVEL_NONE),
-	W3dAttributes(0),
-	PolyCount(0),
-	VertexCount(0),
-	Poly(NULL),
-	PolySurfaceType(NULL),
-	Vertex(NULL),
-	VertexNorm(NULL),
-	PlaneEq(NULL),
-	VertexShadeIdx(NULL),
-	VertexBoneLink(NULL),
-	BoundBoxMin(0,0,0),
-	BoundBoxMax(1,1,1),
-	BoundSphereCenter(0,0,0),
-	BoundSphereRadius(1),
-	CullTree(NULL)
-{
-	*this = that;
-}
+// Copy construction is recovered in MeshGeometryCopy.cpp.
 
 
 /***********************************************************************************************

@@ -58,6 +58,36 @@ private:
 
 typedef char MeshGeometryClass_size_check[(sizeof(MeshGeometryClass) == 0x8C) ? 1 : -1];
 
+MeshGeometryClass::MeshGeometryClass(const MeshGeometryClass &that) :
+    MeshName(NULL),
+    UserText(NULL),
+    Flags(0),
+    SortLevel(0),
+    W3dAttributes(0),
+    PolyCount(0),
+    VertexCount(0),
+    Poly(NULL),
+    VertexTangents(NULL),
+    VertexBinormals(NULL),
+    PlaneEq(NULL),
+    VertexShadeIdx(NULL),
+    VertexBoneLink(NULL),
+    UnknownBuffer54(NULL),
+    PolySurfaceType(NULL),
+    UnknownBuffer5C(NULL),
+    BoundBoxMin(0,0,0),
+    BoundBoxMax(1,1,1),
+    BoundSphereCenter(0,0,0),
+    BoundSphereRadius(1),
+    CullTree(NULL)
+{
+    for (int i = 0; i < 2; ++i) {
+        VertexBuffers[i] = NULL;
+        NormalBuffers[i] = NULL;
+    }
+    *this = that;
+}
+
 MeshGeometryClass &MeshGeometryClass::operator=(const MeshGeometryClass &that)
 {
     if (this != &that) {
