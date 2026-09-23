@@ -107,3 +107,10 @@ void playPlayerLevelUpEffect()
 {
 	TheRva00222A8BTarget->invoke(TheRva00222A8BOwner, "PlayPlayerLevelUpEffect", 0, 0, 0, 0, 0, 0);
 }
+
+static const char * const PalantirFrameStates[] = {"_hide", "_good", "_goodSingle", "_evil", "_evilSingle"};
+
+void setPalantirFrameState(int state)
+{
+	TheRva00222A8BTarget->invoke(TheRva00222A8BOwner, "SetPalantirFrameState", 1, PalantirFrameStates[state], 0, 0, 0, 0);
+}
