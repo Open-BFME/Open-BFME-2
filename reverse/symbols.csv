@@ -4269,7 +4269,6 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ??0W3DBuffDraw@@QAE@PAVThing@@PBVModuleData@@@Z,0x000CEDE1,(Thing*;ModuleData*) ctor called by W3DBuffDraw::friend_newModuleInstance (0x00064C5C); class from the ModuleFactory registration literal
 ??0W3DStreakDraw@@QAE@PAVThing@@PBVModuleData@@@Z,0x000D02A7,(Thing*;ModuleData*) ctor called by W3DStreakDraw::friend_newModuleInstance (0x00064F0F); class from the ModuleFactory registration literal
 ??0W3DSailModelDraw@@QAE@PAVThing@@PBVModuleData@@@Z,0x000D078F,(Thing*;ModuleData*) ctor called by W3DSailModelDraw::friend_newModuleInstance (0x00064F98); class from the ModuleFactory registration literal
-??0W3DBoatWakeModelDraw@@QAE@PAVThing@@PBVModuleData@@@Z,0x000D0B34,(Thing*;ModuleData*) ctor called by W3DBoatWakeModelDraw::friend_newModuleInstance (0x00065027); class from the ModuleFactory registration literal
 ??0W3DProjectileStreamDraw@@QAE@PAVThing@@PBVModuleData@@@Z,0x000D1370,(Thing*;ModuleData*) ctor called by W3DProjectileStreamDraw::friend_newModuleInstance (0x000650B0); class from the ModuleFactory registration literal
 ??0AutoHealBehavior@@QAE@PAVThing@@PBVModuleData@@@Z,0x00452592,(Thing*;ModuleData*) ctor called by AutoHealBehavior::friend_newModuleInstance (0x0024A8DC); class from the ModuleFactory registration literal
 ??0CastleBehavior@@QAE@PAVThing@@PBVModuleData@@@Z,0x003983D4,(Thing*;ModuleData*) ctor called by CastleBehavior::friend_newModuleInstance (0x0024AA5E); class from the ModuleFactory registration literal
