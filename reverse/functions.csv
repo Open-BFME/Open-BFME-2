@@ -17664,3 +17664,4 @@ _getluaproto,,0x0074CBA0,27,Code/Libraries/Source/Lua/ldebug.c,matched,placed by
 ??_GRva004E1B72@@UAEPAXI@Z,,0x004E1BA8,28,Code/GameEngine/Source/Common/Rva004E1B72Dtor.cpp,matched,unidentified class; formerly misnamed (see deleted_rows.csv)
 ??1Rva0035CCCAModuleData@@UAE@XZ,,0x0035CCCA,89,Code/GameEngine/Source/Common/Rva0035CCCAModuleData.cpp,matched,unidentified class; formerly misnamed (see deleted_rows.csv)
 ??_GRva0035CCCAModuleData@@UAEPAXI@Z,,0x0035CF10,28,Code/GameEngine/Source/Common/Rva0035CCCAModuleData.cpp,matched,unidentified class; formerly misnamed (see deleted_rows.csv)
+?compressData@CompressionManager@@SAHW4CompressionType@@PAXH1H@Z,,0x0068A360,374,Code/Libraries/Source/Compression/CompressionManager_decompressData.cpp,matched,BFME1 donor graft; b1 0x0081E710; TU sandwich with decompressData; all callees rowed

@@ -27,6 +27,8 @@ typedef unsigned char UnsignedByte;
 typedef bool Bool;
 
 extern "C" int __cdecl memcmp(const void *, const void *, unsigned int);
+extern "C" void * __cdecl memcpy(void *, const void *, unsigned int);
+#pragma intrinsic(memcpy)
 
 enum CompressionType
 {
@@ -54,9 +56,14 @@ extern "C" {
 	int __stdcall HUFF_decode(void *dest, const void *compresseddata, int *compressedsize);
 	int __stdcall REF_decode(void *dest, const void *compresseddata, int *compressedsize);
 	int uncompress(UnsignedByte *dest, unsigned long *destLen, const UnsignedByte *source, unsigned long sourceLen);
+	int __stdcall BTREE_encode(void *compresseddata, const void *source, int sourcesize, int *opts);
+	int __stdcall HUFF_encode(void *compresseddata, const void *source, int sourcesize, int *opts);
+	int __stdcall REF_encode(void *compresseddata, const void *source, int sourcesize, int *opts);
+	int compress2(UnsignedByte *dest, unsigned long *destLen, const UnsignedByte *source, unsigned long sourceLen, int level);
 }
 
 Bool DecompressMemory(void *inBufferVoid, Int inSize, void *outBufferVoid, Int &outSize);	// retail 0x0081EB80
+Bool CompressMemory(void *inBufferVoid, Int inSize, void *outBufferVoid, Int &outSize);	// retail 0x0081EDD0
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression/Compression.h
 class CompressionManager
@@ -65,6 +72,7 @@ public:
 	static CompressionType getCompressionType(const void *mem, Int len);	// retail 0x0081E560
 	static Bool isDataCompressed(const void *mem, Int len);
 	static Int getUncompressedSize(const void *mem, Int len);
+	static Int compressData(CompressionType compType, void *src, Int srcLen, void *dest, Int destLen);
 	static Int decompressData(const void *src, Int srcLen, void *dest, Int destLen);
 };
 
@@ -133,6 +141,103 @@ Int CompressionManager::getUncompressedSize( const void *mem, Int len )
 	}
 
 	return len;
+}
+
+// ?compressData@CompressionManager@@SAHW4CompressionType@@PAXH1H@Z
+//
+// CompressionManager::compressData, 0x0081E710, 374 bytes (ret at +0x175, int3
+// padding to decompressData). Retail has no caller, as in the reference, where
+// only the DEBUG compression test reaches it. The identity rests on the TU
+// sandwich (getUncompressedSize before, decompressData after), the five tag
+// literals EAB/EAH/EAR/NOX/ZL0 stored as imm32, and the callee set BTREE_encode,
+// HUFF_encode, REF_encode, CompressMemory and compress2 in the reference's arm
+// order. The signature is the reference header's; no call site witnesses it.
+Int CompressionManager::compressData( CompressionType compType, void *srcVoid, Int srcLen, void *destVoid, Int destLen )
+{
+	if (destLen < 8)
+		return 0;
+
+	destLen -= 8;
+
+	UnsignedByte *src = (UnsignedByte *)srcVoid;
+	UnsignedByte *dest = (UnsignedByte *)destVoid;
+
+	if (compType == COMPRESSION_BTREE)
+	{
+		memcpy(dest, "EAB", 4);
+		*(Int *)(dest+4) = 0;
+		Int ret = BTREE_encode(dest+8, src, srcLen, 0);
+		if (ret)
+		{
+			*(Int *)(dest+4) = srcLen;
+			return ret + 8;
+		}
+		else
+			return 0;
+	}
+	if (compType == COMPRESSION_HUFF)
+	{
+		memcpy(dest, "EAH", 4);
+		*(Int *)(dest+4) = 0;
+		Int ret = HUFF_encode(dest+8, src, srcLen, 0);
+		if (ret)
+		{
+			*(Int *)(dest+4) = srcLen;
+			return ret + 8;
+		}
+		else
+			return 0;
+	}
+	if (compType == COMPRESSION_REFPACK)
+	{
+		memcpy(dest, "EAR", 4);
+		*(Int *)(dest+4) = 0;
+		Int ret = REF_encode(dest+8, src, srcLen, 0);
+		if (ret)
+		{
+			*(Int *)(dest+4) = srcLen;
+			return ret + 8;
+		}
+		else
+			return 0;
+	}
+
+	if (compType == COMPRESSION_NOXLZH)
+	{
+		memcpy(dest, "NOX", 4);
+		*(Int *)(dest+4) = 0;
+		Bool ret = CompressMemory(src, srcLen, dest+8, destLen);
+		if (ret)
+		{
+			*(Int *)(dest+4) = srcLen;
+			return destLen + 8;
+		}
+		else
+			return 0;
+	}
+
+	if (compType >= COMPRESSION_ZLIB1 && compType <= COMPRESSION_ZLIB9)
+	{
+		Int level = compType - COMPRESSION_ZLIB1 + 1; // 1-9
+		memcpy(dest, "ZL0", 4);
+		dest[2] = '0' + level;
+		*(Int *)(dest+4) = 0;
+
+		unsigned long outLen = destLen;
+		Int err = compress2( dest+8, &outLen, src, srcLen, level );
+
+		if (err == Z_OK || err == Z_STREAM_END)
+		{
+			*(Int *)(dest+4) = srcLen;
+			return outLen + 8;
+		}
+		else
+		{
+			return 0;
+		}
+	}
+
+	return 0;
 }
 
 // ?decompressData@CompressionManager@@SAHPBXHPAXH@Z
