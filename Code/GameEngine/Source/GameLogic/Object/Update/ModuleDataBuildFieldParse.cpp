@@ -103,6 +103,8 @@ FIELD_PROC(LaserUpdateModuleData, 0x00C17208, LaserTable)
 FIELD_PROC(PassiveAreaEffectBehaviorModuleData, 0x00C4A388, PassiveAreaEffectTable)
 FIELD_PROC(DynamicShroudClearingRangeUpdateModuleData, 0x00C4BE20, DynamicShroudTable)
 FIELD_PROC(BloodthirstyUpdateModuleData, 0x00C3F120, BloodthirstyTable)
+FIELD_PROC(Rva0048C0B4Base, 0x00C4C210, Rva0048C0B4Table)
+FIELD_PROC(Rva0045B5E3Base, 0x00C41B58, Rva0045B5E3Table)
 
 // Chained proc: ?buildFieldParse@GiantBirdSlowDeathBehaviorModuleData@@,
 // retail 0x00461E3D, 27 bytes. Calls the rowed SlowDeath base proc above,
