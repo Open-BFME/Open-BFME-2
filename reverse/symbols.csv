@@ -4057,7 +4057,6 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ?buildFieldParse@SlaughterHordeContainModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x00480266,parse-proc push in the byte-true SlaughterHordeContain data factory (ModuleFactory registers it under "SlaughterHordeContain")
 ??0CitadelSlaughterHordeContainModuleData@@QAE@XZ,0x0048112F,ctor call in the byte-true CitadelSlaughterHordeContain data factory (ModuleFactory registers it under "CitadelSlaughterHordeContain")
 ?buildFieldParse@CitadelSlaughterHordeContainModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x004802F2,parse-proc push in the byte-true CitadelSlaughterHordeContain data factory (ModuleFactory registers it under "CitadelSlaughterHordeContain")
-?buildFieldParse@ProductionQueueHordeContainModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x0048175B,parse-proc push in the byte-true ProductionQueueHordeContain data factory (ModuleFactory registers it under "ProductionQueueHordeContain")
 ??0W3DHordeModelDrawModuleData@@QAE@XZ,0x000789E3,ctor call in the byte-true W3DHordeModelDraw data factory (ModuleFactory registers it under "W3DHordeModelDraw")
 ?buildFieldParse@W3DHordeModelDrawModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x000793E5,parse-proc push in the byte-true W3DHordeModelDraw data factory (ModuleFactory registers it under "W3DHordeModelDraw")
 ??0W3DFloorDrawModuleData@@QAE@XZ,0x000CF681,ctor call in the byte-true W3DFloorDraw data factory (ModuleFactory registers it under "W3DFloorDraw")

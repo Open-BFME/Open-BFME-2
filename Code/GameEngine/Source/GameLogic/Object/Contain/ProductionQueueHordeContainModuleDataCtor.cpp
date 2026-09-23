@@ -14,11 +14,21 @@
 
 #include <vector>
 
+class MultiIniFieldParse;
+struct FieldParse;
+
+class MultiIniFieldParse
+{
+public:
+	void add(const FieldParse *parseTable, unsigned int extraOffset);
+};
+
 class HordeGarrisonContainModuleData
 {
 public:
 	HordeGarrisonContainModuleData();
 	virtual void unused();
+	static void buildFieldParse(MultiIniFieldParse &parse);
 
 protected:
 	// +0x00 vptr; remainder opaque to 0x58 (rowed base size).
@@ -29,6 +39,7 @@ class ProductionQueueHordeContainModuleData : public HordeGarrisonContainModuleD
 {
 public:
 	ProductionQueueHordeContainModuleData();
+	static void buildFieldParse(MultiIniFieldParse &parse);
 
 private:
 	// +0x58 pad to the vector member.
@@ -41,4 +52,11 @@ private:
 ProductionQueueHordeContainModuleData::ProductionQueueHordeContainModuleData()
 	: HordeGarrisonContainModuleData()
 {
+}
+
+// ?buildFieldParse@ProductionQueueHordeContainModuleData@@SAXAAVMultiIniFieldParse@@@Z @0x0048175B
+void ProductionQueueHordeContainModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	HordeGarrisonContainModuleData::buildFieldParse(parse);
+	parse.add(reinterpret_cast<const FieldParse *>(0x00C490D4), 0);
 }
