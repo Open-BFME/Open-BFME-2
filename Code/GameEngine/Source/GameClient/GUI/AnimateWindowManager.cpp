@@ -302,7 +302,6 @@ struct BFMEAnimateWindowListPush : public AnimateWindowList
 	}
 };
 
-// ?registerGameWindow@AnimateWindowManager@@QAEXPAVGameWindow@@W4AnimTypes@@_NII@Z present-unmatched
 void AnimateWindowManager::registerGameWindow(GameWindow *win, AnimTypes animType, Bool needsToFinish, UnsignedInt ms, UnsignedInt delayMs)
 {
 	if(!win)
