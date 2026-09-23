@@ -317,7 +317,6 @@ name,address,notes
 ??0BufferedFileClass@@QAE@XZ,0x0061ADE0,address read from the REL32 displacement at a placed body; stlport 4.5.3
 ??0ButterflyDrawModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A7CEE,BFME2 export; the module template copy constructor the ConcreteModuleTemplate wrapper calls
 ??0ButterflyDrawModuleTemplate@FXParticleSystem@@QAE@XZ,0x003A7C97,BFME2 export; the module template default constructor the ConcreteModuleTemplate wrapper calls
-??0CashHackSpecialPowerModuleData@@QAE@XZ,0x004C2889
 ??0Cftp@@QAE@XZ,0x006CA5E0,address read from the REL32 displacement at a placed body
 ??0CollectionClass@@QAE@ABV0@@Z,0x00130C00,address read from the REL32 displacement at a placed body
 ??0CreateAHeroData@@QAE@ABV0@@Z,0x00409D4D,Complete339-byte copy;vtableC38D88 getter409353 names CreateAHeroData;Snapshot base and140-byte owning layout independently decoded
@@ -4758,3 +4757,5 @@ _bfmeAppend,0x0060D5F2,callee of bfmeEmit (0x0060D7C0) at the site its BFME1 don
 ?reloadAmmo@Weapon@@QAEXPBVObject@@@Z,0x002CE1E9,Weapon reload over 12 sites incl 8 FireWeaponWhenDamaged pairs plus Weapon.cpp neighbors; donor ZH Weapon.h reloadAmmo
 ?frameToSleepTime@UpdateModule@@IAE?AW4UpdateSleepTime@@IIII@Z,0x0044DF28
 ??0ProfileId@@QAE@PBD00HH@Z,0x006C5C60,ProfileHighLevel::AddProfile 0x006C65B7 constructs the new id here after ProfileAllocMemory(0x58) as in profile_highlevel.cpp
+??0?$_Vector_base@UCashHackUpgrades@@V?$allocator@UCashHackUpgrades@@@_STL@@@_STL@@QAE@ABV?$allocator@UCashHackUpgrades@@@1@@Z,0x00211E58,ICF-folded empty vector base ctor (same 29B as matched BfmeE16 row); CashHackSpecialPowerModuleDataCtor TU vector<CashHackUpgrades> member
+?erase@?$vector@UCashHackUpgrades@@V?$allocator@UCashHackUpgrades@@@_STL@@@_STL@@QAEPAUCashHackUpgrades@@PAU3@0@Z,0x003FA4DB,Upgrades-spelled erase alias to rowed Pod8 body (same 8B element size, same bytes); CashHackSpecialPowerModuleDataCtor TU clear() lowers to erase
