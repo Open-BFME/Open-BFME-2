@@ -4012,7 +4012,6 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ??0CreateObjectDieModuleData@@QAE@XZ,0x00485D88,ctor call in the byte-true CreateObjectDie data factory (ModuleFactory registers it under "CreateObjectDie")
 ??0HordeTransportContainDamageModuleData@@QAE@XZ,0x000B28BF,ctor call in the byte-true HordeTransportContainDamage data factory (ModuleFactory registers it under "HordeTransportContainDamage")
 ??0CallHelpOnDamageModuleData@@QAE@XZ,0x004BB3A7,ctor call in the byte-true CallHelpOnDamage data factory (ModuleFactory registers it under "CallHelpOnDamage")
-??0SalvageCrateCollideModuleData@@QAE@XZ,0x00255B7E,ctor call in the byte-true SalvageCrateCollide data factory (ModuleFactory registers it under "SalvageCrateCollide")
 ?handle@Gen0002857E@@QAEXXZ,0x0010ECBD,retail callee at +0x13 of the BFME1-donor Rva00691040Handle::operator= (0x000A8A43)
 ?release@Gen0002857E@@QAEXXZ,0x0010ECE4,retail callee at +0x1E of the BFME1-donor Rva00691040Handle::operator= (0x000A8A43)
 ?bfmeAskRV@BfmeMemberRV@@QAE_NXZ,0x002AA231,retail callee at +0xE of the BFME1-donor BfmeThingRV::bfmePickRV (0x002A7E14); unclaimed 20B body

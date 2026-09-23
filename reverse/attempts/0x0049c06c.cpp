@@ -1,26 +1,25 @@
 // ??0RadiateFearUpdateModuleData@@QAE@XZ
-// partial score=0.975 date=2026-09-23
+// partial score=0.97 date=2026-09-23
 // cl: /O1 /arch:SSE /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
 //
 // ??0RadiateFearUpdateModuleData@@QAE@XZ, retail 0x0049C06C, 120 bytes.
-// Radiate-fear behavior module data: the rowed chained buildFieldParse at
-// 0x49C0E4 double-adds on the rowed getter 0x4CE29D plus the own table at
-// 0x00C510B8 (InitiallyActive at +8, WhichSpecialPower at +0xC,
-// GenerateTerror at +0x10, GenerateFear at +0x11,
-// GenerateUncontrollableFear at +0x12, EmotionPulseRadius at +0x14,
-// EmotionPulseInterval at +0x18, VictimFilter at +0x1C) matching every
-// store below; the rowed ModuleData factory at 0x24E6E8 news 0x130 and
-// sole-calls this ctor; the rowed RadiateFearUpdate pool key at 0x49BFDD
-// is in the same cluster. Shape follows AttributeModifierAura (filter
-// member with dtor plus Rva0025342CMember construct member) with the
-// MobNexus single-temp applyFilter tail through the rowed 0x362120 pin:
-// the victim filter builds through the pinned 0x3623E5 spelling and the
-// 28-byte temp copies out of the 0x00DFEFA4 global through the rowed
-// 0x4543D spelling. The WhichSpecialPower or-first comes from the
-// novtable base's inline ctor (base completion brackets state 0 before
-// the derived vtable install, Topple empty-base pattern). Sole wall:
-// the +8 byte store sits in base-init (pre-state0) where retail sinks it
-// below the vtable install (post-state0); some 10 source shapes refuted.
+// MD ctor: WhichSpecialPower at +0x0C or-minus-one FIRST (OCLUpdate
+// precedent: body `|= -1` stays above the vtable store under /O1, a plain
+// `= -1` would emit a trailing mov), explicit vtable 0x00C50FF0, the
+// table-backed bytes (InitiallyActive at +0x08, GenerateTerror at +0x10,
+// GenerateFear at +0x11, GenerateUncontrollableFear at +0x12, all false),
+// EmotionPulseRadius at +0x14 as float zero, EmotionPulseInterval at +0x18
+// as zero, VictimFilter at +0x1C through the trivial Rva003623E5Member
+// (body construct call through the QAEXXZ pin) plus the +0x20 member
+// through Rva0025342CMember::construct (implicit trivial ctor plus
+// declared-only dtor, so EH state 1 lands right before its first
+// throwing call, matching retail), then the single-temp applyFilter tail
+// through the 0x362120 pin (MobNexus precedent: FixedStorage temp
+// copy-constructed in the call expression from 0x00DFEFA4). The empty
+// UpdateModuleData base (inline-empty ctor plus declared-only dtor)
+// advances EH state 0 with no emitted code. Field identity is the own
+// table at 0x00C510B8. The rowed factory at 0x24E6E8 news 0x130. Row
+// supersedes the ctor pin.
 
 class BfmeFixedStorage0004543D
 {
@@ -34,7 +33,7 @@ private:
 class Rva003623E5Member
 {
 public:
-	Rva003623E5Member();
+	void construct();
 	~Rva003623E5Member();
 
 private:
@@ -51,53 +50,52 @@ class Rva0025342CMember
 {
 public:
 	Rva0025342CMember *construct();
+	~Rva0025342CMember();
 
 private:
 	unsigned char m_pad[0x110];
 };
 
-class __declspec(novtable) RadiateFearModuleDataBase
+class UpdateModuleData
 {
 public:
-	RadiateFearModuleDataBase()
-	{
-		m_whichSpecialPower |= -1;
-		m_initiallyActive = false;
-	}
-	virtual ~RadiateFearModuleDataBase();
-
-protected:
-	int m_pad04; // +4
-	bool m_initiallyActive; // +8
-	int m_whichSpecialPower; // +0xC
+	UpdateModuleData() {}
+	~UpdateModuleData();
 };
 
-class RadiateFearUpdateModuleData : public RadiateFearModuleDataBase
+class RadiateFearUpdateModuleData : public UpdateModuleData
 {
 public:
 	RadiateFearUpdateModuleData();
-	virtual ~RadiateFearUpdateModuleData();
 
 private:
+	const void *m_vtable;
+	unsigned int m_unused04;
+	bool m_initiallyActive; // +0x08
+	int m_whichSpecialPower; // +0x0C
 	bool m_generateTerror; // +0x10
 	bool m_generateFear; // +0x11
 	bool m_generateUncontrollableFear; // +0x12
+	unsigned char m_pad13;
 	float m_emotionPulseRadius; // +0x14
 	int m_emotionPulseInterval; // +0x18
 	Rva003623E5Member m_victimFilter; // +0x1C
-	Rva0025342CMember m_block20; // +0x20
+	Rva0025342CMember m_member20; // +0x20
 };
 
-// ??0RadiateFearUpdateModuleData@@QAE@XZ @0x49C06C
+// ??0RadiateFearUpdateModuleData@@QAE@XZ @0x0049C06C
 RadiateFearUpdateModuleData::RadiateFearUpdateModuleData()
-	: m_generateTerror(false)
-	, m_generateFear(false)
-	, m_generateUncontrollableFear(false)
-	, m_emotionPulseRadius(0.0f)
-	, m_emotionPulseInterval(0)
-	, m_victimFilter()
 {
-	m_block20.construct();
+	m_whichSpecialPower |= -1;
+	m_vtable = reinterpret_cast<const void *>(0x00C50FF0);
+	m_initiallyActive = false;
+	m_generateTerror = false;
+	m_generateFear = false;
+	m_generateUncontrollableFear = false;
+	m_emotionPulseRadius = 0.0f;
+	m_emotionPulseInterval = 0;
+	m_victimFilter.construct();
+	m_member20.construct();
 	reinterpret_cast<Rva003623E5Filter *>(&m_victimFilter)->applyFilter(
 		BfmeFixedStorage0004543D(*reinterpret_cast<const BfmeFixedStorage0004543D *>(0x00DFEFA4)));
 }

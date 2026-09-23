@@ -40,6 +40,9 @@ private:
 	bool m_flag7C;	// +0x7C
 };
 
+extern "C" void _ReadWriteBarrier();
+#pragma intrinsic(_ReadWriteBarrier)
+
 SalvageCrateCollideModuleData::SalvageCrateCollideModuleData()
 {
 	*(unsigned int *)this = 0x00BF3A40;
@@ -50,6 +53,7 @@ SalvageCrateCollideModuleData::SalvageCrateCollideModuleData()
 	m_float6C = 0.5f;
 	m_int70 = 100;
 	m_int74 = 5000;
+	_ReadWriteBarrier();
 	m_int78 = 0;
 	m_flag7C = false;
 }
