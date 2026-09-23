@@ -17521,3 +17521,7 @@ _getluaproto,,0x0074CBA0,27,Code/Libraries/Source/Lua/ldebug.c,matched,placed by
 ?copy@?$char_traits@D@std@@SAPADPADPBDI@Z,,0x001B64A0,35,Code/GameEngine/Source/Common/Rva009A2030OwnedRecordDeletingDestructor.cpp,matched,BFME1 Rva009A2030OwnedRecordDeletingDestructor.cpp donor; BFME2 /G7 /arch:SSE
 ?Rva00060820@@YAXPBD@Z,,0x00116DD0,20,Code/GameEngine/Source/Common/T3Gen001336E5CForwarders.cpp,matched,BFME1 T3Gen001336E5CForwarders.cpp donor; BFME2 /G7 /arch:SSE
 ?update@T4Host00600400@@QAEXXZ,,0x00561F20,121,Code/GameEngine/Source/Common/T4LeafPredicatesAndMath.cpp,matched,BFME1 T4LeafPredicatesAndMath.cpp donor; BFME2 /G7 /arch:SSE
+?Resize@VectorClassBfmeThingFT@@UAE_NHPBVBfmeThingFT@@@Z,,0x00155490,345,Code/GameEngine/Source/Common/VectorClassBfmeThingFTResize.cpp,matched,BFME1 VectorClassBfmeThingFTResize.cpp donor; BFME2 /G7 /arch:SSE
+??0Rva000643C0Value@@QAE@PAX@Z,,0x00503EF8,52,Code/GameEngine/Source/Common/W3SmallValueInitializers.cpp,matched,BFME1 W3SmallValueInitializers.cpp donor; BFME2 /G7 /arch:SSE
+??0D3DXMATRIX@@QAE@MMMMMMMMMMMMMMMM@Z,,0x00183A40,180,Code/GameEngine/Source/Common/bezier_segment.cpp,matched,BFME1 bezier_segment.cpp donor; BFME2 /G7 /arch:SSE
+?D3DXVec4Dot@@YAMPBUD3DXVECTOR4@@0@Z,,0x0007DE69,37,Code/GameEngine/Source/Common/bezier_segment.cpp,matched,BFME1 bezier_segment.cpp donor; BFME2 /G7 /arch:SSE
