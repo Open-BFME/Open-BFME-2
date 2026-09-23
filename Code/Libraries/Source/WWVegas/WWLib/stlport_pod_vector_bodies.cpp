@@ -120,5 +120,9 @@ template class _STL::vector<BfmePod180, _STL::allocator<BfmePod180 > >;
 template class _STL::vector<BfmePod216, _STL::allocator<BfmePod216 > >;
 template class _STL::vector<BfmePod248, _STL::allocator<BfmePod248 > >;
 template class _STL::vector<BfmePod252, _STL::allocator<BfmePod252 > >;
-template class _STL::vector<BfmePod260, _STL::allocator<BfmePod260 > >;
+// Only allocation and plain assignment are claimed for this size-only view.
+template class _STL::allocator<BfmePod260>;
+template BfmePod260* _STL::__copy<BfmePod260*, BfmePod260*, int>(
+    BfmePod260*, BfmePod260*, BfmePod260*,
+    const _STL::random_access_iterator_tag&, int*);
 template class _STL::vector<BfmePod340, _STL::allocator<BfmePod340 > >;
