@@ -4229,7 +4229,6 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ??0OilSpillUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x0048C1F7,(Thing*;ModuleData*) ctor called by OilSpillUpdate::friend_newModuleInstance (0x0024CFA7); class from the ModuleFactory registration literal
 ??0SpawnBehavior@@QAE@PAVThing@@PBVModuleData@@@Z,0x0045F581,(Thing*;ModuleData*) ctor called by SpawnBehavior::friend_newModuleInstance (0x0024B405); class from the ModuleFactory registration literal
 ??0WallHubBehavior@@QAE@PAVThing@@PBVModuleData@@@Z,0x00452E27,(Thing*;ModuleData*) ctor called by WallHubBehavior::friend_newModuleInstance (0x0024A914); class from the ModuleFactory registration literal
-??0KeepObjectDie@@QAE@PAVThing@@PBVModuleData@@@Z,0x00486D73,(Thing*;ModuleData*) ctor called by KeepObjectDie::friend_newModuleInstance (0x0024CBD9); class from the ModuleFactory registration literal
 ??0StructureToppleUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x004A5556,(Thing*;ModuleData*) ctor called by StructureToppleUpdate::friend_newModuleInstance (0x0024EE07); class from the ModuleFactory registration literal
 ??0MineshaftPortalBehaviour@@QAE@PAVThing@@PBVModuleData@@@Z,0x00373096,(Thing*;ModuleData*) ctor called by MineshaftPortalBehaviour::friend_newModuleInstance (0x0024B625); class from the ModuleFactory registration literal
 ??0AODHordeContain@@QAE@PAVThing@@PBVModuleData@@@Z,0x0047B3DB,(Thing*;ModuleData*) ctor called by AODHordeContain::friend_newModuleInstance (0x0024BB25); class from the ModuleFactory registration literal

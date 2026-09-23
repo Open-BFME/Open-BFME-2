@@ -16991,3 +16991,4 @@ _fprintf,,0x002CEC42,108,Code/GameEngine/Source/Common/FprintfAppendLine.cpp,mat
 ?read_proxy_array@HLodDefClass@@AAE_NAAVChunkLoadClass@@@Z,,0x0019EDD0,317,Code/Libraries/Source/WWVegas/WW3D2/hlod.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 ?setAnimType@AnimateWindow@@QAEXW4AnimTypes@@@Z,,0x003B23B9,10,Code/GameEngine/Source/GameClient/GUI/AnimateWindowManager.cpp,matched,gen-alias;object-symbol=?setAnimType@AnimateWindow@@QAEXW4AnimTypes@@@Z;C++ alias
 ??0W3DTreeDraw@@QAE@PAVThing@@PBVModuleData@@@Z,,0x000CEB4D,28,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTreeDrawCtor.cpp,matched,
+??0KeepObjectDie@@QAE@PAVThing@@PBVModuleData@@@Z,,0x00486D73,165,Code/GameEngine/Source/GameLogic/Object/Die/KeepObjectDieCtor.cpp,matched,KeepObjectDie behavior ctor over DieModule base plus BFME2 selectable debug tail
