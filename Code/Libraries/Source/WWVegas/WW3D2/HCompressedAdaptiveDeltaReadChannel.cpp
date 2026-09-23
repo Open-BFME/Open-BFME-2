@@ -32,7 +32,7 @@ private:
     unsigned long Type;
     int VectorLen;
     unsigned long NumFrames;
-    unsigned long DataAllocationCount;
+    unsigned long DataByteCount;
     float Scale;
     unsigned long *Data;
 };
