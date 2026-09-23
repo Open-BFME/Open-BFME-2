@@ -53,14 +53,15 @@ class TexBufferClass;
 class UVBufferClass;
 class TextureClass;
 class MeshModelClass;
+class MeshMatDescRendererState;
 
 /**
 ** MeshMatDescClass - This class encapsulates all of the material description data for a mesh.
 ** WARNING: The vertex count and polygon count *MUST* be kept in sync with the mesh
 */
-class MeshMatDescClass // BFME: drop empty W3DMPO base (UV@+0x0c)
+class MeshMatDescClass // BFME2: no W3DMPO base; UV starts at +0x10.
 {
-	// W3DMPO_GLUE(MeshMatDescClass) // BFME: ColorArray at this+0x0c
+	// W3DMPO_GLUE(MeshMatDescClass) // BFME2 uses global allocation.
 public:
 
 	enum 
@@ -198,6 +199,9 @@ protected:
 	int													PassCount;
 	int													VertexCount;
 	int													PolyCount;	
+	// Reset15D140 and ctor15B480 establish this owned pointer at +0x0C.
+	// The pointed-to state's original type name remains unknown.
+	MeshMatDescRendererState *					RendererState;
 
 	// u-v coordinates
 	UVBufferClass *									UV[MAX_UV_ARRAYS];
@@ -211,30 +215,23 @@ protected:
 
 	// default textures, shader, vmat
 	TextureClass *										Texture[MAX_PASSES][MAX_TEX_STAGES];
-	// Set_Single_Shader at 0x0015A7E0 stores through [ecx+eax*4+0x98] where this
-	// header puts Shader at +0x94, so FOUR of the twenty unexplained bytes below
-	// sit ahead of Shader rather than after it. That body constrains nothing
-	// earlier than Shader, so this stays a named gap in the same spirit as the
-	// sixteen that remain.
-	char											_BfmeUnknownGapBeforeShader[4];
+	// Set_Single_Shader at 0x0015A7E0 stores through [ecx+eax*4+0x98].
+	// Reset and construction locate the earlier four bytes at RendererState.
 	ShaderClass											Shader[MAX_PASSES];
 	VertexMaterialClass *							Material[MAX_PASSES];
 
 	// BFME2 layout: retail puts TextureArray at +0xC8, MaterialArray at +0xE8
-	// and ShaderArray at +0xF8, read off the three anchored accessors. The
-	// reference layout puts them at +0xB4, +0xD4 and +0xE4, so this engine
-	// carries twenty bytes the reference does not somewhere ahead of them. Four of
-	// those twenty are now placed ahead of Shader (see the note there); these are
-	// the remaining sixteen.
-	// Where exactly is not determined - none of the three bodies touches the
-	// members before TextureArray - so it is a named gap rather than a guess
-	// at which member grew.
-	char												_BfmeUnknownGap[16];
+	// and ShaderArray at +0xF8, read off the three anchored accessors.
+	// Reset15D140 releases four RefCountClass pointers at +0xB8; their
+	// concrete buffer type and original member name remain unknown.
+	RefCountClass *									OpaquePassBuffers[MAX_PASSES];
 
 	// array textures, shaders, vmats
 	TexBufferClass *									TextureArray[MAX_PASSES][MAX_TEX_STAGES];
 	MatBufferClass *									MaterialArray[MAX_PASSES];
 	ShareBufferClass<ShaderClass> *				ShaderArray[MAX_PASSES];
+	// Reset releases another four opaque references at +0x108; size is 0x118.
+	RefCountClass *									OpaqueTailBuffers[MAX_PASSES];
 
 	friend class MeshModelClass;
 };
@@ -515,4 +512,3 @@ inline void MeshMatDescClass::Disable_Backface_Culling(void)
 }
 
 #endif //MESHMATDESC_H
-
