@@ -4040,7 +4040,6 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ?buildFieldParse@PorcupineFormationBodyModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x004C1FCB,parse-proc push in the byte-true PorcupineFormationBodyModule data factory (ModuleFactory registers it under "PorcupineFormationBodyModule")
 ??0ProductionSpeedBonusModuleData@@QAE@XZ,0x004C2FE6,ctor call in the byte-true ProductionSpeedBonus data factory (ModuleFactory registers it under "ProductionSpeedBonus")
 ?buildFieldParse@ProductionSpeedBonusModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x004C2EDA,parse-proc push in the byte-true ProductionSpeedBonus data factory (ModuleFactory registers it under "ProductionSpeedBonus")
-??0WoundArrowUpdateModuleData@@QAE@XZ,0x004C68C1,ctor call in the byte-true WoundArrowUpdate data factory (ModuleFactory registers it under "WoundArrowUpdate")
 ?buildFieldParse@WoundArrowUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x004C68EA,parse-proc push in the byte-true WoundArrowUpdate data factory (ModuleFactory registers it under "WoundArrowUpdate")
 ??0FellBeastSwoopPowerModuleData@@QAE@XZ,0x004923E2,ctor call in the byte-true FellBeastSwoopPower data factory (ModuleFactory registers it under "FellBeastSwoopPower")
 ?buildFieldParse@FellBeastSwoopPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x00252398,parse-proc push in the byte-true FellBeastSwoopPower data factory (ModuleFactory registers it under "FellBeastSwoopPower")
