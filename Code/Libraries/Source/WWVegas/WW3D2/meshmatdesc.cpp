@@ -223,41 +223,7 @@ ShaderClass MeshMatDescClass::NullShader(0);	// Used to mark no shader data
 
 // MeshMatDescClass default constructor is recovered in MeshMatDescDefaultCtor.cpp.
 
-// ??0MeshMatDescClass@@ present-unmatched
-MeshMatDescClass::MeshMatDescClass(const MeshMatDescClass & that) :
-	PassCount(1),
-	VertexCount(0),
-	PolyCount(0)
-{
-	int pass;
-	int stage;
-	int array;
-
-	// init everything to NULL
-	for (array=0;array < MAX_COLOR_ARRAYS; array++) {
-		ColorArray[array] = NULL;
-	}
-	for (array=0;array < MAX_UV_ARRAYS; array++) {
-		UV[array] = NULL;
-	}
-
-	for (pass=0; pass < MAX_PASSES; pass++) {
-		for (stage=0; stage < MAX_TEX_STAGES; stage++) {
-			UVSource[pass][stage] = -1;
-			Texture[pass][stage] = NULL;
-			TextureArray[pass][stage] = NULL;
-		}
-		DCGSource[pass] = VertexMaterialClass::MATERIAL;
-		DIGSource[pass] = VertexMaterialClass::MATERIAL;
-
-		Shader[pass] = 0; //ShaderClass::_PresetOpaqueSolidShader;
-		Material[pass] = NULL;
-		ShaderArray[pass] = NULL;
-		MaterialArray[pass] = NULL;
-	}
-
-	*this = that;
-}
+// MeshMatDescClass copy constructor is recovered in MeshMatDescDefaultCtor.cpp.
 
 MeshMatDescClass &
 // ??4MeshMatDescClass@@QAEAAV0@ABV0@@Z present-unmatched

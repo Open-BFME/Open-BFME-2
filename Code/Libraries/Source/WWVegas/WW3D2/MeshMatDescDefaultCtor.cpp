@@ -26,6 +26,8 @@ class MeshMatDescRendererState;
 class MeshMatDescClass {
 public:
     MeshMatDescClass();
+    MeshMatDescClass(const MeshMatDescClass &that);
+    MeshMatDescClass &operator=(const MeshMatDescClass &that);
 private:
     enum { MAX_PASSES = 4, MAX_TEX_STAGES = 2, MAX_UV_ARRAYS = 8 };
     int PassCount, VertexCount, PolyCount;
@@ -65,4 +67,28 @@ MeshMatDescClass::MeshMatDescClass() : PassCount(1), VertexCount(0), PolyCount(0
         MaterialArray[pass] = 0;
         UnknownPassBuffer108[pass] = 0;
     }
+}
+
+MeshMatDescClass::MeshMatDescClass(const MeshMatDescClass &that) : PassCount(1), VertexCount(0), PolyCount(0), RendererState(0) {
+    int pass, stage, array;
+    // init everything to NULL
+    for (array=0; array<2; ++array) ColorArray[array] = 0;
+    for (array=0; array<MAX_UV_ARRAYS; ++array) UV[array] = 0;
+    for (pass=0; pass<MAX_PASSES; ++pass) {
+        for (stage=0; stage<MAX_TEX_STAGES; ++stage) {
+            UVSource[pass][stage] = -1;
+            Texture[pass][stage].Clear();
+            TextureArray[pass][stage] = 0;
+        }
+        DCGSource[pass] = 0;
+        DIGSource[pass] = 0;
+        Shader[pass] = 0;
+        Material[pass] = 0;
+        UnknownPassBufferB8[pass] = 0;
+        ShaderArray[pass] = 0;
+        MaterialArray[pass] = 0;
+        UnknownPassBuffer108[pass] = 0;
+    }
+    // copy
+    *this = that;
 }
