@@ -17562,3 +17562,4 @@ _getluaproto,,0x0074CBA0,27,Code/Libraries/Source/Lua/ldebug.c,matched,placed by
 ?setPalantirFrameState@@YAXH@Z,,0x003FEA18,42,Code/GameEngine/Source/GameClient/UiCallbackFirers.cpp,matched,Fires SetPalantirFrameState with indexed frame state through Rva00222A8BTarget invoker
 ?setPlayerPowerCapState@@YAX_N@Z,,0x003FEA42,48,Code/GameEngine/Source/GameClient/UiCallbackFirers.cpp,matched,Conditional ring evenstar firer for SetPlayerPowerCapState through Rva00222A8BTarget invoker
 ?setPlayerMagicProgress@@YAXH@Z,,0x003FE954,72,Code/GameEngine/Source/GameClient/UiCallbackFirers.cpp,matched,Fires SetPlayerMagicProgress with sprintf int through Rva00222A8BTarget invoker
+?isSamePosition@@YA_NPBUCoord3D@@00@Z,,0x0033FA8E,91,Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetState_computePath_Bfme.cpp,matched,BFME1 Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetState_computePath_Bfme.cpp donor; BFME2 /G7 /arch:SSE
