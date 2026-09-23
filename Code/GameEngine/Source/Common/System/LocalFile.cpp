@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /O1 /DNDEBUG /MD /EHsc /G7
 // Open-BFME5: LocalFile, retail vtable 0x01143D38.
 //
 // File.cpp already pins this class by construction: 0x009D23E0 installs
@@ -108,6 +108,13 @@ extern "C" __declspec(dllimport) long __cdecl _lseek(int fd, long offset, int or
 extern "C" __declspec(dllimport) int __cdecl _read(int fd, void *buffer, unsigned int count);
 extern "C" __declspec(dllimport) int __cdecl _close(int fd);
 extern "C" __declspec(dllimport) int __cdecl _open(const char *filename, int oflag, ...);
+extern "C" __declspec(dllimport) int __cdecl _wopen(const unsigned short *filename, int oflag, ...);
+
+// Wide filename adapter, retail 0x002FB30: UTF16-to-UTF8 through
+// WideCharToMultiByte (CP_UTF8). Rowed in Utf8Conversions.cpp; the G spelling
+// matches that row so this TU resolves it with no pin.
+typedef unsigned short Wide;
+int BFME2WideToUtf8(const Wide *source, int count, char *output, int capacity);
 
 // <fcntl.h> / <sys/stat.h>, spelled out so this TU pulls in no CRT headers.
 #define _O_APPEND	0x0008
@@ -303,10 +310,17 @@ int LocalFile::read( void *buffer, int bytes )
 // ?open@LocalFile@@UAE_NPBDH@Z
 // Opens a file using the standard C open() call. Access flags are mapped to the
 // appropriate open flags. Returns true if the file was opened successfully.
-// ?open@LocalFile@@UAE_NPBDH@Z present-unmatched
+// Retail takes a wide filename: it converts to narrow for File::open's
+// bookkeeping, then opens wide through _wopen. The TU keeps the narrow
+// override spelling (slot 1, same as File::open) and casts at the two wide
+// call sites, which fold to zero bytes.
 bool LocalFile::open( const char *filename, int access )
 {
-	if( !File::open( filename, access) )
+	char narrowPath[0x410];
+
+	BFME2WideToUtf8( (const Wide *)filename, -1, narrowPath, 0x410 );
+
+	if( !File::open( narrowPath, access) )
 	{
 		return false;
 	}
@@ -343,14 +357,13 @@ bool LocalFile::open( const char *filename, int access )
 	else if(m_access & WRITE)
 	{
 		flags |= _O_WRONLY;
-		flags |= _O_CREAT;
 	}
 	else
 	{
 		flags |= _O_RDONLY;
 	}
 
-	m_handle = _open( filename, flags , _S_IREAD | _S_IWRITE);
+	m_handle = _wopen( (const Wide *)filename, flags , _S_IREAD | _S_IWRITE);
 
 	if( m_handle == -1 )
 	{
