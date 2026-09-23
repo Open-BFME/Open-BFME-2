@@ -102,3 +102,8 @@ void playPlayerSpellPointEffect()
 {
 	TheRva00222A8BTarget->invoke(TheRva00222A8BOwner, "PlayPlayerSpellPointEffect", 0, 0, 0, 0, 0, 0);
 }
+
+void playPlayerLevelUpEffect()
+{
+	TheRva00222A8BTarget->invoke(TheRva00222A8BOwner, "PlayPlayerLevelUpEffect", 0, 0, 0, 0, 0, 0);
+}

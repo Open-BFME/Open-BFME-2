@@ -17558,3 +17558,4 @@ _getluaproto,,0x0074CBA0,27,Code/Libraries/Source/Lua/ldebug.c,matched,placed by
 ?hideSpellBook@@YAXXZ,,0x003FE99C,31,Code/GameEngine/Source/GameClient/UiCallbackFirers.cpp,matched,Fires HideSpellBook with no args through Rva00222A8BTarget invoker
 ?playCommandPointEffect@@YAXXZ,,0x003FE9BB,31,Code/GameEngine/Source/GameClient/UiCallbackFirers.cpp,matched,Fires PlayCommandPointEffect with no args through Rva00222A8BTarget invoker
 ?playPlayerSpellPointEffect@@YAXXZ,,0x003FE9DA,31,Code/GameEngine/Source/GameClient/UiCallbackFirers.cpp,matched,Fires PlayPlayerSpellPointEffect with no args through Rva00222A8BTarget invoker
+?playPlayerLevelUpEffect@@YAXXZ,,0x003FE9F9,31,Code/GameEngine/Source/GameClient/UiCallbackFirers.cpp,matched,Fires PlayPlayerLevelUpEffect with no args through Rva00222A8BTarget invoker
