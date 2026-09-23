@@ -5140,3 +5140,6 @@ _AVIFileInit@0,0x0065479C,jmp [IAT 0xBBA050] stub; import table names avifil32!A
 ?_M_push_back_aux_v@?$deque@UBfmeOpaqueOwnedRecord1408@@V?$allocator@UBfmeOpaqueOwnedRecord1408@@@_STL@@@_STL@@IAEXABUBfmeOpaqueOwnedRecord1408@@@Z,0x00558E10,address read from the REL32 displacement at a placed body
 ?_M_reserve_map_at_back@?$deque@UBfmeOpaqueOwnedRecord1432@@V?$allocator@UBfmeOpaqueOwnedRecord1432@@@_STL@@@_STL@@IAEXI@Z,0x0055431E,address read from the REL32 displacement at a placed body
 ??0DieMuxData@@QAE@XZ,0x004CE534
+?toInteger@BfmeAptValue006DCD20@@QBEHXZ,0x006DD360,AptValue::toInteger() const (Castaway name); same address as the bfmeVal1034 pin; called by the ActionScript bitwise handlers
+?PopAndPush@AptBasePtrStack@@QAEXHPAVBfmeAptValue006DCD20@@@Z,0x006FE880,AptBasePtrStack::PopAndPush(int nItems + AptValue *element) (Castaway name); thiscall on AptActionInterpreter::stack from every binary-op handler
+?Create@AptInteger@@SAPAVBfmeAptValue006DCD20@@H@Z,0x006D8520,AptInteger::Create(int) spelled with this repo's AptValue class name; same address as the existing AptInteger::Create pins
