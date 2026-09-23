@@ -7,14 +7,6 @@
 // the returned constant. Kept in a fresh TU to avoid contending with hot
 // getter files. No // cl: line (defaults match the frameless 6-byte shape).
 
-// ?Rva001363C6Get@@YAHXZ @ 0x001363c6 (6B): returns 0x00bbac1c.
-// Follows a ret (prev C3), no .rdata vtable slot, no direct callers,
-// no branch sources. Opaque address-derived name.
-int Rva001363C6Get(void)
-{
-	return 0x00bbac1c;
-}
-
 // ?Rva001ED62EGet@@YAHXZ @ 0x001ed62e (6B): returns 0x00c036e8.
 // Follows a ret (prev C3), no .rdata vtable slot, no direct callers,
 // no branch sources. Opaque address-derived name.
@@ -29,14 +21,6 @@ int Rva001ED62EGet(void)
 int Rva002009FBGet(void)
 {
 	return 0x00c1ee54;
-}
-
-// ?Rva00215ECBGet@@YAHXZ @ 0x00215ecb (6B): returns 0x00be5850.
-// Follows a ret (prev C3), no .rdata vtable slot, no direct callers,
-// no branch sources. Opaque address-derived name.
-int Rva00215ECBGet(void)
-{
-	return 0x00be5850;
 }
 
 // ?Rva00252B62Get@@YAHXZ @ 0x00252b62 (6B): returns 0x00001000.

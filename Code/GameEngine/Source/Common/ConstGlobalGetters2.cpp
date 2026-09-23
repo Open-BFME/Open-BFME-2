@@ -288,14 +288,3 @@ int Rva006C5E70Get(void)
 {
 	return G00E0C620;
 }
-
-// ?Rva006F36DCGet@@YAHXZ @ 0x006F36DC (6B): returns global at 0xE18078.
-// Follows int3 (prev CC), followed by CC padding, no .rdata vtable slot,
-// no direct callers, no branch sources. Opaque address-derived name.
-// Two nearby twins read the same global (0x6F5100 dupe, 0x6FD2F9 odd
-// fragment); only this boundary-proven address is claimed.
-extern int G00E18078;
-int Rva006F36DCGet(void)
-{
-	return G00E18078;
-}

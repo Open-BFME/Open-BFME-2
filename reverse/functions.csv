@@ -8831,7 +8831,6 @@ _Rva008118C0,,0x0067D7C0,5,Code/Libraries/Source/DirtySock/Y5SmallHelpers.c,matc
 ?get@Rva003EFCB2ByteField@@QBEEXZ,,0x003EFCB2,7,Code/GameEngine/Source/Common/DispByteFieldGetters.cpp,matched,Disp32 byte getter
 ?get@Rva00403130ByteField@@QBEEXZ,,0x00403130,7,Code/GameEngine/Source/Common/DispByteFieldGetters.cpp,matched,Disp32 byte getter
 ?get@Rva0040C34AByteField@@QBEEXZ,,0x0040C34A,7,Code/GameEngine/Source/Common/DispByteFieldGetters.cpp,matched,Disp32 byte getter
-?get@Rva00420109ByteField@@QBEEXZ,,0x00420109,7,Code/GameEngine/Source/Common/DispByteFieldGetters.cpp,matched,Disp32 byte getter
 ?get@Rva004201CEByteField@@QBEEXZ,,0x004201CE,7,Code/GameEngine/Source/Common/DispByteFieldGetters.cpp,matched,Disp32 byte getter
 ?get@Rva0043C783ByteField@@QBEEXZ,,0x0043C783,7,Code/GameEngine/Source/Common/DispByteFieldGetters.cpp,matched,Disp32 byte getter
 ?get@Rva004571F4ByteField@@QBEEXZ,,0x004571F4,7,Code/GameEngine/Source/Common/DispByteFieldGetters.cpp,matched,Disp32 byte getter
@@ -9003,8 +9002,6 @@ _Rva008118C0,,0x0067D7C0,5,Code/Libraries/Source/DirtySock/Y5SmallHelpers.c,matc
 ?get@Rva0006E01DDwordField@@QBEHXZ,,0x0006E01D,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
 ?get@Rva0008EFB7DwordField@@QBEHXZ,,0x0008EFB7,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
 ?get@Rva0020E2E4ByteField@@QBEEXZ,,0x0020E2E4,7,Code/GameEngine/Source/Common/DispByteFieldGetters.cpp,matched,Disp32 byte getter
-?get@Rva0028B217DwordField@@QBEHXZ,,0x0028B217,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
-?get@Rva0028B51EDwordField@@QBEHXZ,,0x0028B51E,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
 ?get@Rva0028B7C1DwordField@@QBEHXZ,,0x0028B7C1,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
 ?get@Rva0029A9BBDwordField@@QBEHXZ,,0x0029A9BB,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
 ?get@Rva002AA0B8DwordField@@QBEHXZ,,0x002AA0B8,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
@@ -9025,7 +9022,6 @@ _Rva008118C0,,0x0067D7C0,5,Code/Libraries/Source/DirtySock/Y5SmallHelpers.c,matc
 ?get@Rva0033F917DwordField@@QBEHXZ,,0x0033F917,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
 ?get@Rva00356F60DwordField@@QBEHXZ,,0x00356F60,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
 ?get@Rva00356F67DwordField@@QBEHXZ,,0x00356F67,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
-?get@Rva0035AFDDDwordField@@QBEHXZ,,0x0035AFDD,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
 ?Clone@Vector3SolidSphereRandomizer@@UBEPAVVector3Randomizer@@XZ,,0x007235F0,35,Code/Libraries/Source/WWVegas/WWMath/Vector3SolidSphereRandomizerClone.cpp,matched,BFME1 v3_rnd.h verbatim plain new Clone for 8-byte Radius model; vtable 0xCEFD00 proves SolidSphere via Get_Vector 0x723260 and Scale 0x723320 slots; Hollow twin at 0x723630
 ?Clone@Vector3HollowSphereRandomizer@@UBEPAVVector3Randomizer@@XZ,,0x00723630,35,Code/Libraries/Source/WWVegas/WWMath/Vector3HollowSphereRandomizerClone.cpp,matched,BFME1 v3_rnd.h verbatim plain new Clone for 8-byte Radius model; vtable 0xCEFD1C proves HollowSphere via Get_Vector 0x723380 slot; Scale slot is folded 0x723320
 ?Get_Maximum_Extent@Vector3SolidSphereRandomizer@@UAEMXZ,,0x007234A0,4,Code/Libraries/Source/WWVegas/WWMath/Vector3SolidSphereRandomizerExtent.cpp,matched,BFME1 v3_rnd.cpp verbatim return Radius; vtable slots 3 and 6 in both Solid 0xCEFD00 and Hollow 0xCEFD1C carry 0x7234A0; Hollow folds here via pin
@@ -9421,8 +9417,6 @@ _Rva008118C0,,0x0067D7C0,5,Code/Libraries/Source/DirtySock/Y5SmallHelpers.c,matc
 ?disable@Rva0023C488ByteZeroSetter@@QAEXXZ,,0x0023C488,8,Code/GameEngine/Source/Common/DispByteOneSetters.cpp,matched,Disp32 byte zero-setter
 ?disable@Rva0029AB03ByteZeroSetter@@QAEXXZ,,0x0029AB03,8,Code/GameEngine/Source/Common/DispByteOneSetters.cpp,matched,Disp32 byte zero-setter
 ?disable@Rva0036859FByteZeroSetter@@QAEXXZ,,0x0036859F,8,Code/GameEngine/Source/Common/DispByteOneSetters.cpp,matched,Disp32 byte zero-setter
-?disable@Rva0048E6CAByteZeroSetter@@QAEXXZ,,0x0048E6CA,8,Code/GameEngine/Source/Common/DispByteOneSetters.cpp,matched,Disp32 byte zero-setter
-?disable@Rva0048E6F0ByteZeroSetter@@QAEXXZ,,0x0048E6F0,8,Code/GameEngine/Source/Common/DispByteOneSetters.cpp,matched,Disp32 byte zero-setter
 ?disable@Rva00513819ByteZeroSetter@@QAEXXZ,,0x00513819,8,Code/GameEngine/Source/Common/DispByteOneSetters.cpp,matched,Disp32 byte zero-setter
 ?disable@Rva005B0232ByteZeroSetter@@QAEXXZ,,0x005B0232,8,Code/GameEngine/Source/Common/DispByteOneSetters.cpp,matched,Disp32 byte zero-setter
 ?set@Rva000419CFDwordSlot@@QAEXH@Z,,0x000419CF,13,Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp,matched,Disp32 dword setter
@@ -9599,7 +9593,6 @@ _Rva008118C0,,0x0067D7C0,5,Code/Libraries/Source/DirtySock/Y5SmallHelpers.c,matc
 ?get@Rva00178FB0FloatField@@QBEMXZ,,0x00178FB0,4,Code/GameEngine/Source/Common/Disp8FloatFieldGetters.cpp,matched,
 ?get@Rva0018D340FloatField@@QBEMXZ,,0x0018D340,4,Code/GameEngine/Source/Common/Disp8FloatFieldGetters.cpp,matched,
 ?get@Rva0018F180FloatField@@QBEMXZ,,0x0018F180,4,Code/GameEngine/Source/Common/Disp8FloatFieldGetters.cpp,matched,
-?get@Rva006BD45DFloatField@@QBEMXZ,,0x006BD45D,4,Code/GameEngine/Source/Common/Disp8FloatFieldGetters.cpp,matched,
 ?get@Rva006C03E0FloatField@@QBEMXZ,,0x006C03E0,4,Code/GameEngine/Source/Common/Disp8FloatFieldGetters.cpp,matched,
 ?get@Rva00723490FloatField@@QBEMXZ,,0x00723490,4,Code/GameEngine/Source/Common/Disp8FloatFieldGetters.cpp,matched,
 ?get@Rva0073A1C0FloatField@@QBEMXZ,,0x0073A1C0,4,Code/GameEngine/Source/Common/Disp8FloatFieldGetters.cpp,matched,
@@ -10543,7 +10536,6 @@ _lua_settagmethod,,0x0074FE80,211,Code/Libraries/Source/Lua/ltm.c,matched,unclai
 _luaT_init,,0x0074FB40,122,Code/Libraries/Source/Lua/ltm.c,matched,unclaimed_scan exact modulo relocs; single call to luaM_growaux pin; emitted by ltm.c object; vendored=lua-4.0.1
 _setnodevector,,0x007506E0,135,Code/Libraries/Source/Lua/ltable.c,matched,unclaimed_scan exact modulo relocs; lua_error and luaM_realloc pins resolve both calls; emitted by ltable.c object; vendored=lua-4.0.1
 ?get@Rva0009AAA4DwordField@@QBEHXZ,,0x0009AAA4,4,Code/GameEngine/Source/Common/Disp8DwordFieldGetters.cpp,matched,Disp8 dword getter; address-derived opaque holder
-?get@Rva000A8AA2DwordField@@QBEHXZ,,0x000A8AA2,4,Code/GameEngine/Source/Common/Disp8DwordFieldGetters.cpp,matched,Disp8 dword getter; address-derived opaque holder
 ?get@Rva002004A1DwordField@@QBEHXZ,,0x002004A1,4,Code/GameEngine/Source/Common/Disp8DwordFieldGetters.cpp,matched,Disp8 dword getter; address-derived opaque holder
 ?get@Rva00091A56DwordField@@QBEHXZ,,0x00091A56,4,Code/GameEngine/Source/Common/Disp8DwordFieldGetters.cpp,matched,Disp8 dword getter; address-derived opaque holder
 _luaH_mainposition,,0x00750400,88,Code/Libraries/Source/Lua/ltable.c,matched,hash dispatcher with RVA jump table; ftol row serves the NUMBER case; emitted by ltable.c object; vendored=lua-4.0.1
@@ -10551,8 +10543,6 @@ _luaH_mainposition,,0x00750400,88,Code/Libraries/Source/Lua/ltable.c,matched,has
 _luaK_testgo,,0x00752FC0,251,Code/Libraries/Source/Lua/lcode.c,matched,BFME1 byte-identical donor; b1 0x0099F5C0
 _luaH_set,,0x007508F0,233,Code/Libraries/Source/Lua/ltable.c,matched,hash insert with mainposition and equalObj rows plus lua_error and realloc pins plus rehash pin; recursion self-serves; emitted by ltable.c object; vendored=lua-4.0.1
 _rehash,,0x00750830,183,Code/Libraries/Source/Lua/ltable.c,matched,TU-local static; numuse inlined; setnodevector and luaH_set rows plus realloc pin resolve calls; emitted by ltable.c object; vendored=lua-4.0.1
-?get@Rva0040315ADwordField@@QBEHXZ,,0x0040315A,4,Code/GameEngine/Source/Common/Disp8DwordFieldGetters.cpp,matched,Disp8 dword getter; address-derived opaque holder
-?get@Rva00201ADEDwordField@@QBEHXZ,,0x00201ADE,4,Code/GameEngine/Source/Common/Disp8DwordFieldGetters.cpp,matched,Disp8 dword getter; address-derived opaque holder
 ?get@Rva00225A98DwordField@@QBEHXZ,,0x00225A98,4,Code/GameEngine/Source/Common/Disp8DwordFieldGetters.cpp,matched,Disp8 dword getter; address-derived opaque holder
 ?get@Rva0030C896DwordField@@QBEHXZ,,0x0030C896,4,Code/GameEngine/Source/Common/Disp8DwordFieldGetters.cpp,matched,Disp8 dword getter; address-derived opaque holder
 ?get@Rva0036750CDwordField@@QBEHXZ,,0x0036750C,4,Code/GameEngine/Source/Common/Disp8DwordFieldGetters.cpp,matched,Disp8 dword getter; address-derived opaque holder
@@ -10561,9 +10551,7 @@ _luaH_setstrnum,,0x00750A10,55,Code/Libraries/Source/Lua/ltable.c,matched,unclai
 _luaK_kstr,,0x00752780,139,Code/Libraries/Source/Lua/lcode.c,matched,BFME1 byte-identical donor; b1 0x0099ED80; 2 DIR32 string literal(s) agree
 _luaK_infix,,0x007536C0,70,Code/Libraries/Source/Lua/lcode.c,matched,BFME1 byte-identical donor; b1 0x0099FCC0
 ?get@Rva005C4AF9DwordField@@QBEHXZ,,0x005C4AF9,4,Code/GameEngine/Source/Common/Disp8DwordFieldGetters.cpp,matched,Disp8 dword getter; address-derived opaque holder
-?get@Rva0040CA36DwordField@@QBEHXZ,,0x0040CA36,4,Code/GameEngine/Source/Common/Disp8DwordFieldGetters.cpp,matched,Disp8 dword getter; address-derived opaque holder
 _luaT_tag,,0x0074FDD0,28,Code/Libraries/Source/Lua/ltm.c,matched,call-free type switch unblocking call_binTM double call; emitted by ltm.c object; vendored=lua-4.0.1
-?get@Rva004E062EDwordField@@QBEHXZ,,0x004E062E,4,Code/GameEngine/Source/Common/Disp8DwordFieldGetters.cpp,matched,Disp8 dword getter; address-derived opaque holder
 ?get@Rva0057E556DwordField@@QBEHXZ,,0x0057E556,4,Code/GameEngine/Source/Common/Disp8DwordFieldGetters.cpp,matched,Disp8 dword getter; address-derived opaque holder
 ?get@Rva005C4AE9DwordField@@QBEHXZ,,0x005C4AE9,4,Code/GameEngine/Source/Common/Disp8DwordFieldGetters.cpp,matched,Disp8 dword getter; address-derived opaque holder
 _luaK_jump,,0x00752690,166,Code/Libraries/Source/Lua/lcode.c,matched,BFME1 byte-identical donor; b1 0x0099EC90; 2 DIR32 string literal(s) agree
@@ -10626,7 +10614,6 @@ _luaK_jump,,0x00752690,166,Code/Libraries/Source/Lua/lcode.c,matched,BFME1 byte-
 ?get@Rva004987FEFloatField@@QBEMXZ,,0x004987FE,4,Code/GameEngine/Source/Common/Disp8FloatFieldGetters.cpp,matched,Disp8 float getter; address-derived opaque holder
 ?disable@Rva001F384AByteZeroSetter@@QAEXXZ,,0x001F384A,8,Code/GameEngine/Source/Common/DispByteOneSetters.cpp,matched,Disp32 byte zero-setter
 ?bfmeSlotAt@@YGPAVBfmeRecJD@@H@Z,,0x00689400,66,Code/GameEngine/Source/Common/Bfme5NinetyTwo.cpp,matched,BFME1 byte-identical donor; b1 0x0081C5F0
-?get@Rva004E063BDwordField@@QBEHXZ,,0x004E063B,4,Code/GameEngine/Source/Common/Disp8DwordFieldGetters.cpp,matched,Disp8 dword getter
 ?get@Rva006E3C40WordIntField@@QBEHXZ,,0x006E3C40,5,Code/GameEngine/Source/Common/DispWordIntGetters.cpp,matched,Disp8 word-int getter movzx shape
 ?get@Rva004CEEA1WordIntField@@QBEHXZ,,0x004CEEA1,5,Code/GameEngine/Source/Common/DispWordIntGetters.cpp,matched,Disp8 word-int getter movzx shape
 ?LogoffFromServer@Cftp@@QAEJXZ,,0x006CAA70,183,Code/GameEngine/Source/GameNetwork/CftpLogoffFromServer.cpp,matched,BFME1 near-miss donor; b1 0x00885F60; immediate-only drift (data global -> OutputDebugStringA pair); ZeroStuff public per matched QAE row
@@ -10881,7 +10868,6 @@ _discharge,,0x00752BD0,520,Code/Libraries/Source/Lua/lcode.c,matched,BFME1 byte-
 ?disable@Rva001DBB87ZeroSetter@@QAEXXZ,,0x001DBB87,5,Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp,matched,Disp8 byte zero-setter
 ?disable@Rva00420B2AZeroSetter@@QAEXXZ,,0x00420B2A,5,Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp,matched,Disp8 byte zero-setter
 ?apply@Rva00395583DwordImmSetter@@QAEXXZ,,0x00395583,8,Code/GameEngine/Source/Common/Disp8DwordImmSetters.cpp,matched,Disp8 dword imm-setter
-?apply@Rva00419502DwordImmSetter@@QAEXXZ,,0x00419502,8,Code/GameEngine/Source/Common/Disp8DwordImmSetters.cpp,matched,Disp8 dword imm-setter
 _luaK_adjuststack,,0x00752A10,441,Code/Libraries/Source/Lua/lcode.c,matched,BFME1 byte-identical donor; exact via unclaimed_scan
 ??0GridClassicEnvironmentMapperClass@@QAE@ABVINIClass@@PBDI@Z,,0x0013D2F0,37,Code/Libraries/Source/WWVegas/WW3D2/vertmaterial.cpp,matched,placed by masked whole-text search of the compiled body - single hit; base GridTextureMapper ctor already matched
 _luaK_storevar,,0x00752E10,421,Code/Libraries/Source/Lua/lcode.c,matched,BFME1 byte-identical donor; exact via unclaimed_scan
@@ -10926,9 +10912,7 @@ _forbody,,0x007544E0,165,Code/Libraries/Source/Lua/lparser.c,matched,BFME1 byte-
 ?enable@Rva00428DBCOneSetter@@QAEXXZ,,0x00428DBC,5,Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp,matched,Disp8 byte one-setter
 ?enable@Rva00433D22OneSetter@@QAEXXZ,,0x00433D22,5,Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp,matched,Disp8 byte one-setter
 ?get@Rva004D5767WordField@@QBEGXZ,,0x004D5767,5,Code/GameEngine/Source/Common/Disp8WordFieldGetters.cpp,matched,Disp8 word getter
-?apply@Rva0023D2F9DwordImmSetter@@QAEXXZ,,0x0023D2F9,11,Code/GameEngine/Source/Common/DispDwordImmSetters.cpp,matched,Disp32 dword imm-setter
 ?disable@Rva0045F37DZeroSetter@@QAEXXZ,,0x0045F37D,5,Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp,matched,Disp8 byte zero-setter
-?apply@Rva0023D304DwordImmSetter@@QAEXXZ,,0x0023D304,11,Code/GameEngine/Source/Common/DispDwordImmSetters.cpp,matched,Disp32 dword imm-setter
 ?disable@Rva0039ABE6ZeroSetter@@QAEXXZ,,0x0039ABE6,5,Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp,matched,Disp8 byte zero-setter
 ?enable@Rva004A18C0OneSetter@@QAEXXZ,,0x004A18C0,5,Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp,matched,Disp8 byte one-setter
 ?apply@Rva0028576DDwordImmSetter@@QAEXXZ,,0x0028576D,11,Code/GameEngine/Source/Common/DispDwordImmSetters.cpp,matched,Disp32 dword imm-setter
@@ -10936,7 +10920,6 @@ _forbody,,0x007544E0,165,Code/Libraries/Source/Lua/lparser.c,matched,BFME1 byte-
 _adjustlocalvars,,0x00753C70,52,Code/Libraries/Source/Lua/lparser.c,matched,BFME1 byte-identical donor; emitted-but-unclaimed row; pin upgrade (forbody caller); exact via unclaimed_scan
 ?enable@Rva00050CFCOneSetter@@QAEXXZ,,0x00050CFC,5,Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp,matched,Disp8 byte one-setter
 ?disable@Rva00050D01ZeroSetter@@QAEXXZ,,0x00050D01,5,Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp,matched,Disp8 byte zero-setter
-?apply@Rva0029A755DwordImmSetter@@QAEXXZ,,0x0029A755,11,Code/GameEngine/Source/Common/DispDwordImmSetters.cpp,matched,Disp32 dword imm-setter
 _setfilebyname,,0x0074A240,26,Code/Libraries/Source/Lua/liolib_bfme1.c,matched,BFME1 byte-identical donor; b1 0x009930E0
 ?set@Rva0026FC9ETwoSetter@@QAEXXZ,,0x0026FC9E,5,Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp,matched,Disp8 byte two-setter
 _io_close,,0x0074A320,227,Code/Libraries/Source/Lua/liolib_bfme1.c,matched,BFME1 byte-identical donor; b1 0x009931C0
@@ -10979,7 +10962,6 @@ _new_localvar,,0x00753BF0,116,Code/Libraries/Source/Lua/lparser.c,matched,BFME1 
 ?get@Rva001DBA6DByteField@@QBEEXZ,,0x001DBA6D,4,Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp,matched,Disp8 byte getter
 ?apply@Rva00238D97DwordImmSetter@@QAEXXZ,,0x00238D97,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; mov [ecx] imm32 ret; cluster sibling of 238D8D/238D92 pair
 ?get@Rva001DCD01ByteField@@QBEEXZ,,0x001DCD01,4,Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp,matched,Disp8 byte getter
-?set@Rva0005159AWordSetter@@QAEXXZ,,0x0005159A,10,Code/GameEngine/Source/Common/Disp32WordImmSetters.cpp,matched,Disp32 word imm-setter
 ?get@Rva001D96ECLeaField@@QBEPAXXZ,,0x001D96EC,4,Code/GameEngine/Source/Common/Disp8LeaFieldGetters.cpp,matched,Disp8 LEA getter; address-derived opaque holder
 ?apply@Rva002B228DDwordImmSetter@@QAEXXZ,,0x002B228D,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; RET-PREV pair with 2B2294
 ?get@Rva001EAE43ByteField@@QBEEXZ,,0x001EAE43,4,Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp,matched,Disp8 byte getter
@@ -11174,7 +11156,6 @@ _lua_newuserdata,,0x00747D70,75,Code/Libraries/Source/Lua/lapi.c,matched,BFME1 b
 _luaS_newudata,,0x00750230,148,Code/Libraries/Source/Lua/lstring.c,matched,BFME1 byte-identical donor b1 lstring.c luaS_newudata; exact; resolves lua_newuserdata call
 ?get@Rva003673D5LeaGetter@@QBEPAXXZ,,0x003673D5,7,Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp,matched,Disp32 LEA getter
 ?apply@Rva00506B28DwordImmSetter@@QAEXXZ,,0x00506B28,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter
-?get@Rva003835D0LeaGetter@@QBEPAXXZ,,0x003835D0,7,Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp,matched,Disp32 LEA getter
 ?apply@Rva0052AF77DwordImmSetter@@QAEXXZ,,0x0052AF77,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter
 ?get@Rva0039D7C8LeaGetter@@QBEPAXXZ,,0x0039D7C8,7,Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp,matched,Disp32 LEA getter
 ?get@Rva00091A44FloatField@@QBEMXZ,,0x00091A44,4,Code/GameEngine/Source/Common/Disp8FloatFieldGetters.cpp,matched,Disp8 float getter; address-derived opaque holder
@@ -11220,7 +11201,6 @@ _luaS_newudata,,0x00750230,148,Code/Libraries/Source/Lua/lstring.c,matched,BFME1
 ?get@Rva005B0200LeaGetter@@QBEPAXXZ,,0x005B0200,7,Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp,matched,Disp32 LEA getter; address-derived opaque holder
 ?get@Rva00542BDEFloatField@@QBEMXZ,,0x00542BDE,4,Code/GameEngine/Source/Common/Disp8FloatFieldGetters.cpp,matched,Disp8 float getter
 _luaD_adjusttop,,0x0074D6B0,70,Code/Libraries/Source/Lua/ldo.c,matched,BFME1 byte-identical donor b1 ldo.c; exact; unblocks lua_settop
-?get@Rva0055B0C8FloatField@@QBEMXZ,,0x0055B0C8,4,Code/GameEngine/Source/Common/Disp8FloatFieldGetters.cpp,matched,Disp8 float getter
 ?get@Rva005C4ADDFloatField@@QBEMXZ,,0x005C4ADD,4,Code/GameEngine/Source/Common/Disp8FloatFieldGetters.cpp,matched,Disp8 float getter
 ?get@Rva00657600LeaGetter@@QBEPAXXZ,,0x00657600,7,Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp,matched,Disp32 LEA getter; address-derived opaque holder
 ?get@Rva005C4B01FloatField@@QBEMXZ,,0x005C4B01,4,Code/GameEngine/Source/Common/Disp8FloatFieldGetters.cpp,matched,Disp8 float getter
@@ -11275,7 +11255,6 @@ _lua_pushnumber,,0x00747570,45,Code/Libraries/Source/Lua/lapi.c,matched,BFME1 by
 ?apply@Rva0005F686ADwordImmSetter@@QAEXXZ,,0x005F686A,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B; retail C7-01-BCBCBF00-C3
 ?apply@Rva0005F3EE3DwordImmSetter@@QAEXXZ,,0x005F3EE3,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B; retail C7-01-2894C700-C3
 ?apply@Rva0005EA2ABDwordImmSetter@@QAEXXZ,,0x005EA2AB,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B; retail C7-01-F480C700-C3
-?get@Rva0030D657LeaField@@QBEPAXXZ,,0x0030D657,4,Code/GameEngine/Source/Common/Disp8LeaFieldGetters.cpp,matched,Disp8 LEA getter; RET-PREV; retail 8D-41-08-C3
 ?apply@Rva0005E6810DwordImmSetter@@QAEXXZ,,0x005E6810,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B; retail C7-01-287EC700-C3
 ?apply@Rva000549C6DDwordImmSetter@@QAEXXZ,,0x00549C6D,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B; retail C7-01-8CA6C600-C3
 ?apply@Rva0005E57C9DwordImmSetter@@QAEXXZ,,0x005E57C9,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B; retail C7-01-307DC700-C3
@@ -11341,7 +11320,6 @@ _luaD_openstack,,0x0074D700,77,Code/Libraries/Source/Lua/ldo.c,matched,BFME1 byt
 ?get@Rva004647CDLeaField@@QBEPAXXZ,,0x004647CD,4,Code/GameEngine/Source/Common/Disp8LeaFieldGetters.cpp,matched,Disp8 NEG LEA getter back-32; RET-PREV; retail 8D-41-E0-C3
 ?get@Rva0053B8E5LeaField@@QBEPAXXZ,,0x0053B8E5,4,Code/GameEngine/Source/Common/Disp8LeaFieldGetters.cpp,matched,Disp8 LEA getter; RET-PREV; retail 8D-41-48-C3
 ?get@Rva0053998CLeaField@@QBEPAXXZ,,0x0053998C,4,Code/GameEngine/Source/Common/Disp8LeaFieldGetters.cpp,matched,Disp8 LEA getter; RET-PREV; retail 8D-41-38-C3
-?get@Rva0052BABDLeaField@@QBEPAXXZ,,0x0052BABD,4,Code/GameEngine/Source/Common/Disp8LeaFieldGetters.cpp,matched,Disp8 LEA getter; RET-PREV; retail 8D-41-04-C3
 ?get@Rva004BF893LeaField@@QBEPAXXZ,,0x004BF893,4,Code/GameEngine/Source/Common/Disp8LeaFieldGetters.cpp,matched,Disp8 NEG LEA getter back-16; RET-PREV; retail 8D-41-F0-C3
 _luaH_getstr,,0x00750510,59,Code/Libraries/Source/Lua/ltable.c,matched,BFME1 byte-identical donor b1 ltable.c; exact via unclaimed_scan
 _luaF_protook,,0x00751BC0,58,Code/Libraries/Source/Lua/lfunc.c,matched,BFME1 byte-identical donor b1 lfunc.c; exact via unclaimed_scan
@@ -12831,58 +12809,17 @@ _luaX_lex,,0x00757C90,1324,Code/Libraries/Source/Lua/llex.c,matched,BFME1 byte-i
 ?Rva004FF2EEGet@@YAHXZ,,0x004FF2EE,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 returner ret e04544; prev C2-04-00 with no vtable and no callers; opaque name
 ?Rva00534B22Get@@YAHXZ,,0x00534B22,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 returner ret c68ae8; prev C2-04-00 with no vtable and no callers; opaque name
 ?Resize@?$DynamicVectorClass@VModelNodeClass@HLodClass@@@@UAE_NHPBVModelNodeClass@HLodClass@@@Z,,0x0019E9F0,47,Code/Libraries/Source/WWVegas/WW3D2/hlod.cpp,matched,located by masked whole-text search of the compiled body - single hit
-?Rva00075692Get@@YAHXZ,,0x00075692,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva0017FB0CGet@@YAHXZ,,0x0017FB0C,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva001E38B6Get@@YAHXZ,,0x001E38B6,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva001E4012Get@@YAHXZ,,0x001E4012,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
 ?Rva001F53FEGet@@YAHXZ,,0x001F53FE,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva002221A6Get@@YAHXZ,,0x002221A6,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva0023C921Get@@YAHXZ,,0x0023C921,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva0025DD45Get@@YAHXZ,,0x0025DD45,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva00271776Get@@YAHXZ,,0x00271776,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva0028B3A3Get@@YAHXZ,,0x0028B3A3,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
 ?Rva0028D4DDGet@@YAHXZ,,0x0028D4DD,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva002B2CC3Get@@YAHXZ,,0x002B2CC3,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
 ?Rva002B3635Get@@YAHXZ,,0x002B3635,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
 ?Rva002B3EF7Get@@YAHXZ,,0x002B3EF7,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva002D6BFFGet@@YAHXZ,,0x002D6BFF,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva00301B51Get@@YAHXZ,,0x00301B51,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva003427A6Get@@YAHXZ,,0x003427A6,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva003956E5Get@@YAHXZ,,0x003956E5,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
 ?Rva003E46B1Get@@YAHXZ,,0x003E46B1,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
 ?Rva003FE25AGet@@YAHXZ,,0x003FE25A,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva00406E1FGet@@YAHXZ,,0x00406E1F,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva004110D9Get@@YAHXZ,,0x004110D9,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva00418BF8Get@@YAHXZ,,0x00418BF8,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva0043287BGet@@YAHXZ,,0x0043287B,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva00444506Get@@YAHXZ,,0x00444506,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
 ?Rva00449A26Get@@YAHXZ,,0x00449A26,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva004524E2Get@@YAHXZ,,0x004524E2,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva004697DEGet@@YAHXZ,,0x004697DE,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva0047E4FCGet@@YAHXZ,,0x0047E4FC,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva004C30D5Get@@YAHXZ,,0x004C30D5,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
 ?Rva004D8D7CGet@@YAHXZ,,0x004D8D7C,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva004DD655Get@@YAHXZ,,0x004DD655,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva00523F1FGet@@YAHXZ,,0x00523F1F,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva0052B23AGet@@YAHXZ,,0x0052B23A,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva005312BBGet@@YAHXZ,,0x005312BB,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva0055D3F2Get@@YAHXZ,,0x0055D3F2,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva005CCAC7Get@@YAHXZ,,0x005CCAC7,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva005EB88CGet@@YAHXZ,,0x005EB88C,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva005EEA1DGet@@YAHXZ,,0x005EEA1D,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva005F0233Get@@YAHXZ,,0x005F0233,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva005F88F1Get@@YAHXZ,,0x005F88F1,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva0060B883Get@@YAHXZ,,0x0060B883,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva00740A5DGet@@YAHXZ,,0x00740A5D,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
 ?bfmeAttachAlways@Gen009D6E10@@QAEPAV1@PAVBfmePeer@@@Z,,0x0060D565,47,Code/GameEngine/Source/Common/Gen009D90D0.cpp,matched,BFME1 donor Gen009D90D0 with O1 for eax coloring; bfmeReset pinned
-?Rva00021736Get@@YAHXZ,,0x00021736,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 padded CC with no vtable and no callers; opaque name
-?Rva00030514Get@@YAHXZ,,0x00030514,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 padded CC with no vtable and no callers; opaque name
-?Rva000310EBGet@@YAHXZ,,0x000310EB,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 padded CC with no vtable and no callers; opaque name
-?Rva001499A5Get@@YAHXZ,,0x001499A5,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 padded CC with no vtable and no callers; opaque name
-?Rva001363C6Get@@YAHXZ,,0x001363C6,6,Code/GameEngine/Source/Common/ConstIntGetters6.cpp,matched,B8-6 returner ret bbac1c; prev C3 with no vtable and no callers; opaque name
 ?Rva001ED62EGet@@YAHXZ,,0x001ED62E,6,Code/GameEngine/Source/Common/ConstIntGetters6.cpp,matched,B8-6 returner ret c036e8; prev C3 with no vtable and no callers; opaque name
 ?Rva002009FBGet@@YAHXZ,,0x002009FB,6,Code/GameEngine/Source/Common/ConstIntGetters6.cpp,matched,B8-6 returner ret c1ee54; prev C3 with no vtable and no callers; opaque name
-?Rva00215ECBGet@@YAHXZ,,0x00215ECB,6,Code/GameEngine/Source/Common/ConstIntGetters6.cpp,matched,B8-6 returner ret be5850; prev C3 with no vtable and no callers; opaque name
 ?Rva00252B62Get@@YAHXZ,,0x00252B62,6,Code/GameEngine/Source/Common/ConstIntGetters6.cpp,matched,B8-6 returner ret 1000; prev C3 with no vtable and no callers; opaque name
 ?Get_Int_Bitfield@INIClass@@QAEHPBD0HQAPAD@Z,,0x006173A0,210,Code/Libraries/Source/WWVegas/WWLib/ini.cpp,matched,BFME1 donor verbatim; TU-local _STL::free decl reaches pinned 0x30830 direct call like stlport_ios_base_dtor precedent
 ?Get_Alloc_Int_Array@INIClass@@QAEPAHPBD0H@Z,,0x00617480,238,Code/Libraries/Source/WWVegas/WWLib/ini.cpp,matched,BFME1 donor verbatim; both frees via TU-local _STL::free to pinned 0x30830 like Get_Int_Bitfield sibling
@@ -12945,7 +12882,6 @@ _luaX_lex,,0x00757C90,1324,Code/Libraries/Source/Lua/llex.c,matched,BFME1 byte-i
 ?Rva00611020Get@@YAHXZ,,0x00611020,6,Code/GameEngine/Source/Common/ConstGlobalGetters2.cpp,matched,global-int getter A1-6 prev CC with no vtable and no callers; twin-free TU
 ?Rva0069BD50Get@@YAHXZ,,0x0069BD50,6,Code/GameEngine/Source/Common/ConstGlobalGetters2.cpp,matched,global-int getter A1-6 prev CC with no vtable and no callers; twin-free TU
 ?Rva006C5E70Get@@YAHXZ,,0x006C5E70,6,Code/GameEngine/Source/Common/ConstGlobalGetters2.cpp,matched,global-int getter A1-6 prev CC with no vtable and no callers; twin-free TU
-?Rva006F36DCGet@@YAHXZ,,0x006F36DC,6,Code/GameEngine/Source/Common/ConstGlobalGetters2.cpp,matched,global-int getter A1-6 prev CC with no vtable and no callers; twin-free TU
 ?set@Rva009A29A0WindowManager@@QAEXPAURva009A29A0Window@@@Z,,0x00758940,121,Code/GameEngine/Source/Common/Rva009A29A0WindowManagerSet.cpp,matched,BFME1 byte-identical donor; b1 0x009A29A0 area; record ctor at 0x7583B0 already rowed
 ?insertNode@Rva009A3290Owner@@QAEPAXPBX@Z,,0x00758FC0,106,Code/GameEngine/Source/Common/Rva009A3290HashInsert.cpp,matched,BFME1 byte-identical donor; operator new via ledger; memcpy intrinsic
 ?Rva009A6EC0Release@@YAXPAPAX@Z,,0x001B7930,94,Code/GameEngine/Source/Common/Rva009A6EC0Release.cpp,matched,BFME1 byte-identical donor; triple bfmeTwoBZB call resolves via existing 0x1B6410 pin
@@ -13323,14 +13259,7 @@ _luaB_tostring,,0x0074BFA0,284,Code/Libraries/Source/Lua/luaB_tostring.c,matched
 ?get@Rva005D4905FloatChaseField@@QBEMXZ,,0x005D4905,7,Code/GameEngine/Source/Common/Disp8FloatChaseGetters.cpp,matched,disp8 float-chase getter; opaque holder
 ?get@Rva005D490CFloatChaseField@@QBEMXZ,,0x005D490C,7,Code/GameEngine/Source/Common/Disp8FloatChaseGetters.cpp,matched,disp8 float-chase getter; opaque holder
 ?get@Rva005E0D8DFloatChaseField@@QBEMXZ,,0x005E0D8D,7,Code/GameEngine/Source/Common/Disp8FloatChaseGetters.cpp,matched,disp8 float-chase getter; opaque holder
-?Rva000454B7Get@@YA_NXZ,,0x000454B7,3,Code/GameEngine/Source/Common/ConstBoolTrueGetters.cpp,matched,Bool-true getter without vtable carriage; prev C3 next prologue; no callers branches or vtable refs
-?Rva00065E39Get@@YA_NXZ,,0x00065E39,3,Code/GameEngine/Source/Common/ConstBoolTrueGetters.cpp,matched,Bool-true getter without vtable carriage; prev C3 next prologue; no callers branches or vtable refs
-?Rva000B2EB2Get@@YA_NXZ,,0x000B2EB2,3,Code/GameEngine/Source/Common/ConstBoolTrueGetters.cpp,matched,Bool-true getter without vtable carriage; prev C3 next prologue; no callers branches or vtable refs
 ?Rva000B3EC4Get@@YA_NXZ,,0x000B3EC4,3,Code/GameEngine/Source/Common/ConstBoolTrueGetters.cpp,matched,Bool-true getter without vtable carriage; prev C3 next prologue; no callers branches or vtable refs
-?Rva001DBB01Get@@YA_NXZ,,0x001DBB01,3,Code/GameEngine/Source/Common/ConstBoolTrueGetters.cpp,matched,Bool-true getter without vtable carriage; prev C3 next prologue; no callers branches or vtable refs
-?Rva00238F8EGet@@YA_NXZ,,0x00238F8E,3,Code/GameEngine/Source/Common/ConstBoolTrueGetters.cpp,matched,Bool-true getter without vtable carriage; prev C3 next prologue; no callers branches or vtable refs
-?Rva0023C59CGet@@YA_NXZ,,0x0023C59C,3,Code/GameEngine/Source/Common/ConstBoolTrueGetters.cpp,matched,Bool-true getter without vtable carriage; prev C3 next prologue; no callers branches or vtable refs
-?Rva002C7269Get@@YA_NXZ,,0x002C7269,3,Code/GameEngine/Source/Common/ConstBoolTrueGetters.cpp,matched,Bool-true getter without vtable carriage; prev C3 next prologue; no callers branches or vtable refs
 ?get@Rva000515C7DwordField@@QBEHXZ,,0x000515C7,7,Code/GameEngine/Source/Common/Disp32DwordFieldGetters.cpp,matched,disp32 dword getter; opaque holder
 ?get@Rva0007E00FDwordField@@QBEHXZ,,0x0007E00F,7,Code/GameEngine/Source/Common/Disp32DwordFieldGetters.cpp,matched,disp32 dword getter; opaque holder
 ?get@Rva0009DC5ADwordField@@QBEHXZ,,0x0009DC5A,7,Code/GameEngine/Source/Common/Disp32DwordFieldGetters.cpp,matched,disp32 dword getter; opaque holder
@@ -13353,56 +13282,20 @@ _luaB_tostring,,0x0074BFA0,284,Code/Libraries/Source/Lua/luaB_tostring.c,matched
 ?get@Rva004DF1D1DwordField@@QBEHXZ,,0x004DF1D1,7,Code/GameEngine/Source/Common/Disp32DwordFieldGetters.cpp,matched,disp32 dword getter; opaque holder
 ?get@Rva0051C05CDwordField@@QBEHXZ,,0x0051C05C,7,Code/GameEngine/Source/Common/Disp32DwordFieldGetters.cpp,matched,disp32 dword getter; opaque holder
 ?get@Rva00552C39DwordField@@QBEHXZ,,0x00552C39,7,Code/GameEngine/Source/Common/Disp32DwordFieldGetters.cpp,matched,disp32 dword getter; opaque holder
-?Rva002C7512Get@@YA_NXZ,,0x002C7512,3,Code/GameEngine/Source/Common/ConstBoolTrueGetters.cpp,matched,Bool-true getter without vtable carriage; prev C3 next prologue; no callers branches or vtable refs
-?Rva002D76A3Get@@YA_NXZ,,0x002D76A3,3,Code/GameEngine/Source/Common/ConstBoolTrueGetters.cpp,matched,Bool-true getter without vtable carriage; prev C3 next prologue; no callers branches or vtable refs
-?Rva002D9C2CGet@@YA_NXZ,,0x002D9C2C,3,Code/GameEngine/Source/Common/ConstBoolTrueGetters.cpp,matched,Bool-true getter without vtable carriage; prev C3 next prologue; no callers branches or vtable refs
-?Rva00306E3DGet@@YA_NXZ,,0x00306E3D,3,Code/GameEngine/Source/Common/ConstBoolTrueGetters.cpp,matched,Bool-true getter without vtable carriage; prev C3 next prologue; no callers branches or vtable refs
-?Rva0035B161Get@@YA_NXZ,,0x0035B161,3,Code/GameEngine/Source/Common/ConstBoolTrueGetters.cpp,matched,Bool-true getter without vtable carriage; prev C3 next prologue; no callers branches or vtable refs
-?Rva0035BEC4Get@@YA_NXZ,,0x0035BEC4,3,Code/GameEngine/Source/Common/ConstBoolTrueGetters.cpp,matched,Bool-true getter without vtable carriage; prev C3 next prologue; no callers branches or vtable refs
-?Rva00388834Get@@YA_NXZ,,0x00388834,3,Code/GameEngine/Source/Common/ConstBoolTrueGetters.cpp,matched,Bool-true getter without vtable carriage; prev C3 next prologue; no callers branches or vtable refs
-?Rva00390554Get@@YA_NXZ,,0x00390554,3,Code/GameEngine/Source/Common/ConstBoolTrueGetters.cpp,matched,Bool-true getter without vtable carriage; prev C3 next prologue; no callers branches or vtable refs
-?Rva003B6A37Get@@YA_NXZ,,0x003B6A37,3,Code/GameEngine/Source/Common/ConstBoolTrueGetters.cpp,matched,Bool-true getter without vtable carriage; prev C3 next prologue; no callers branches or vtable refs
 ?getConstSlot@GameInfo@@QBEPBVGameSlot@@H@Z,,0x003FF2BE,24,Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp,matched,BFME1 GameInfo.cpp getConstSlot shape with slot array at +0x18 and MAX_SLOTS 8
 ??0Rva002E9E70@@QAE@ABV0@@Z,,0x003372EC,39,Code/GameEngine/Source/Common/Rva002E9E70Copy.cpp,matched,Opaque value copy-ctor; string via AsciiString set pin at 0x366F0 and vector member via new opaque assign pin at 0x332217; retail order falls out FIRST-TRY
-?Rva003B6C8BGet@@YA_NXZ,,0x003B6C8B,3,Code/GameEngine/Source/Common/ConstBoolTrueGetters.cpp,matched,Bool-true getter without vtable carriage; prev C3 next prologue; no callers branches or vtable refs
 ?_S_uninitialize@ios_base@_STL@@KAXXZ,,0x00015440,894,Code/Libraries/Source/WWVegas/WWLib/stlport_ios_base_uninitialize.cpp,matched,BFME1 X4Iostream.cpp donor; rva00832100Release pinned to the rowed _Loc_init dtor at 0x70E0 whose 27B body is identical
-?Rva00040F61Get@@YA_NXZ,,0x00040F61,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3 next prologue; no callers branches or vtable refs
 ?unAccept@GameSlot@@QAEXXZ,,0x003FF895,11,Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp,matched,BFME1 GameInfo.cpp unAccept with inlined isHuman
 ?setMapAvailability@GameSlot@@QAEX_N@Z,,0x003FF8A0,16,Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp,matched,BFME1 GameInfo.cpp setMapAvailability with inlined isHuman
-?Rva00040FE2Get@@YA_NXZ,,0x00040FE2,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3 next prologue; no callers branches or vtable refs
 ?Get_Shininess@VertexMaterialClass@@QBEMXZ,,0x0013CD20,7,Code/Libraries/Source/WWVegas/WW3D2/vertmaterial.cpp,matched,MaterialOld Power float getter; twin shape at 0x4D7C73 already rowed elsewhere; CC-padded isolated 7B
-?Rva00075743Get@@YA_NXZ,,0x00075743,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3 next prologue; no callers branches or vtable refs
-?Rva001D9864Get@@YA_NXZ,,0x001D9864,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3 next prologue; no callers branches or vtable refs
-?Rva001E3952Get@@YA_NXZ,,0x001E3952,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3 next prologue; no callers branches or vtable refs
-?Rva001FF367Get@@YA_NXZ,,0x001FF367,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3 next prologue; no callers branches or vtable refs
-?Rva002146F4Get@@YA_NXZ,,0x002146F4,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3 next prologue; no callers branches or vtable refs
-?Rva0023C6FAGet@@YA_NXZ,,0x0023C6FA,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3 next prologue; no callers branches or vtable refs
-?Rva0026EF31Get@@YA_NXZ,,0x0026EF31,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3 next prologue; no callers branches or vtable refs
-?Rva0028B13EGet@@YA_NXZ,,0x0028B13E,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3 next prologue; no callers branches or vtable refs
-?Rva002AA359Get@@YA_NXZ,,0x002AA359,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3 next prologue; no callers branches or vtable refs
 ?Rva002B4C32Get@@YA_NXZ,,0x002B4C32,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3 next prologue; no callers branches or vtable refs
-?Rva002C7608Get@@YA_NXZ,,0x002C7608,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3 next prologue; no callers branches or vtable refs
-?Rva002C959BGet@@YA_NXZ,,0x002C959B,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3 next prologue; no callers branches or vtable refs
-?Rva002CEF27Get@@YA_NXZ,,0x002CEF27,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3 next prologue; no callers branches or vtable refs
-?Rva0030B3CEGet@@YA_NXZ,,0x0030B3CE,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3 next prologue; no callers branches or vtable refs
-?Rva00318BA2Get@@YA_NXZ,,0x00318BA2,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3 next prologue; no callers branches or vtable refs
-?Rva00318F61Get@@YA_NXZ,,0x00318F61,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3 next prologue; no callers branches or vtable refs
-?Rva00341439Get@@YA_NXZ,,0x00341439,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3 next prologue; no callers branches or vtable refs
-?Rva00342309Get@@YA_NXZ,,0x00342309,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3 next prologue; no callers branches or vtable refs
-?Rva00405B5DGet@@YA_NXZ,,0x00405B5D,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3 next prologue; no callers branches or vtable refs
-?Rva0041B8B2Get@@YA_NXZ,,0x0041B8B2,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3 next prologue; no callers branches or vtable refs
-?Rva0041FE60Get@@YA_NXZ,,0x0041FE60,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3 next prologue; no callers branches or vtable refs
 ?isSlotLocalAlly@@YA_NPBVGameSlot@@@Z,,0x003FF7B7,92,Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp,matched,GameSlot apparent family ally helper with BFME1 GameInfo.cpp shape and getSlotIndex inlined and slot in EDI
 ?getApparentPlayerTemplate@GameSlot@@QBEHXZ,,0x003FF813,37,Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp,matched,GameSlot apparent template with BFME1 GameInfo.cpp shape and orig fallback for hidden random
 ?getApparentColor@GameSlot@@QBEHXZ,,0x003FF838,56,Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp,matched,GameSlot apparent color with BFME1 GameInfo.cpp shape and observer color path
 ?getApparentStartPos@GameSlot@@QBEHXZ,,0x003FF870,37,Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp,matched,GameSlot apparent start position with BFME1 GameInfo.cpp shape and orig fallback for hidden random
-?Rva0042638BGet@@YA_NXZ,,0x0042638B,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3 next prologue; no callers branches or vtable refs
-?Rva0044E60AGet@@YA_NXZ,,0x0044E60A,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3 next prologue; no callers branches or vtable refs
 ?get@Rva0013B150DwordField@@QBEHXZ,,0x0013B150,4,Code/GameEngine/Source/Common/Disp8DwordFieldGetters.cpp,matched,Disp8 dword getter
-?Rva0045314BGet@@YA_NXZ,,0x0045314B,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3 next prologue; no callers branches or vtable refs
 ?get@Rva002A79A1DwordField@@QBEHXZ,,0x002A79A1,4,Code/GameEngine/Source/Common/Disp8DwordFieldGetters.cpp,matched,Disp8 dword getter
 ?get@Rva00367508DwordField@@QBEHXZ,,0x00367508,4,Code/GameEngine/Source/Common/Disp8DwordFieldGetters.cpp,matched,Disp8 dword getter
-?Rva004A6AB2Get@@YA_NXZ,,0x004A6AB2,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3 next prologue; no callers branches or vtable refs
 ??0?$list@VUnicodeString@@V?$allocator@VUnicodeString@@@_STL@@@_STL@@QAE@I@Z,,0x0043C072,94,Code/Libraries/Source/WWVegas/WWLib/stlport_list_unicodestring_insert.cpp,matched,wide fill ctor; wide releaseBuffer teardown names element type; base/insert via twin pins; true extent 94B
 ?get@Rva004F04F1DwordField@@QBEHXZ,,0x004F04F1,4,Code/GameEngine/Source/Common/Disp8DwordFieldGetters.cpp,matched,Disp8 dword getter
 ?getApparentPlayerTemplateDisplayName@GameSlot@@QBE?AVUnicodeString@@XZ,,0x003FFBB4,116,Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp,matched,GameSlot apparent display name with BFME1 GameInfo.cpp shape and GUI Random Observer fetches
@@ -13743,196 +13636,15 @@ _luaB_tostring,,0x0074BFA0,284,Code/Libraries/Source/Lua/luaB_tostring.c,matched
 ?trim@?$StringBase@D@@QAEXXZ,0x00037CF0,0x00037CF0,147,Code/Libraries/Source/WWVegas/WWLib/StringBaseNarrowTrim.cpp,matched,StringBase family narrow trim; BFME2 exported identity and Ghidra 147B boundary; inlined leading scan and existing set/removeLastChar callees
 ?trim@?$StringBase@G@@QAEXXZ,0x00037F70,0x00037F70,127,Code/Libraries/Source/WWVegas/WWLib/StringBaseWideTrim.cpp,matched,BFME1 trim source adapted to BFME2 out-of-line set; export-confirmed identity and Ghidra boundary; static whitespace helper retains EAX ABI
 ?xfer@GameSlot@@UAEXPAVXfer@@@Z,,0x003FF616,384,Code/GameEngine/Source/Common/System/XferEnumHelpers.cpp,matched,
-?Rva0036E0E0Get@@YA_NXZ,,0x0036E0E0,3,Code/GameEngine/Source/Common/ConstBoolTrueGetters.cpp,matched,Bool-true getter without vtable carriage; prev C3; no callers branches or vtable refs
-?Rva003FF1D7Get@@YA_NXZ,,0x003FF1D7,3,Code/GameEngine/Source/Common/ConstBoolTrueGetters.cpp,matched,Bool-true getter without vtable carriage; prev C3; no callers branches or vtable refs
-?Rva004291C5Get@@YA_NXZ,,0x004291C5,3,Code/GameEngine/Source/Common/ConstBoolTrueGetters.cpp,matched,Bool-true getter without vtable carriage; prev C3; no callers branches or vtable refs
-?Rva004297B8Get@@YA_NXZ,,0x004297B8,3,Code/GameEngine/Source/Common/ConstBoolTrueGetters.cpp,matched,Bool-true getter without vtable carriage; prev C3; no callers branches or vtable refs
-?Rva004B0EE2Get@@YA_NXZ,,0x004B0EE2,3,Code/GameEngine/Source/Common/ConstBoolTrueGetters.cpp,matched,Bool-true getter without vtable carriage; prev C3; no callers branches or vtable refs
-?Rva004D95AFGet@@YA_NXZ,,0x004D95AF,3,Code/GameEngine/Source/Common/ConstBoolTrueGetters.cpp,matched,Bool-true getter without vtable carriage; prev C3; no callers branches or vtable refs
 ?Rva004F10E3Get@@YA_NXZ,,0x004F10E3,3,Code/GameEngine/Source/Common/ConstBoolTrueGetters.cpp,matched,Bool-true getter without vtable carriage; prev C3; no callers branches or vtable refs
 ?Rva004F19F3Get@@YA_NXZ,,0x004F19F3,3,Code/GameEngine/Source/Common/ConstBoolTrueGetters.cpp,matched,Bool-true getter without vtable carriage; prev C3; no callers branches or vtable refs
-?Rva00513863Get@@YA_NXZ,,0x00513863,3,Code/GameEngine/Source/Common/ConstBoolTrueGetters.cpp,matched,Bool-true getter without vtable carriage; prev C3; no callers branches or vtable refs
-?Rva00559B61Get@@YA_NXZ,,0x00559B61,3,Code/GameEngine/Source/Common/ConstBoolTrueGetters.cpp,matched,Bool-true getter without vtable carriage; prev C3; no callers branches or vtable refs
-?Rva0056B8F1Get@@YA_NXZ,,0x0056B8F1,3,Code/GameEngine/Source/Common/ConstBoolTrueGetters.cpp,matched,Bool-true getter without vtable carriage; prev C3; no callers branches or vtable refs
-?Rva0059EF46Get@@YA_NXZ,,0x0059EF46,3,Code/GameEngine/Source/Common/ConstBoolTrueGetters.cpp,matched,Bool-true getter without vtable carriage; prev C3; no callers branches or vtable refs
-?Rva005A678BGet@@YA_NXZ,,0x005A678B,3,Code/GameEngine/Source/Common/ConstBoolTrueGetters.cpp,matched,Bool-true getter without vtable carriage; prev C3; no callers branches or vtable refs
-?Rva005DB21EGet@@YA_NXZ,,0x005DB21E,3,Code/GameEngine/Source/Common/ConstBoolTrueGetters.cpp,matched,Bool-true getter without vtable carriage; prev C3; no callers branches or vtable refs
-?Rva006C53A5Get@@YA_NXZ,,0x006C53A5,3,Code/GameEngine/Source/Common/ConstBoolTrueGetters.cpp,matched,Bool-true getter without vtable carriage; prev C3; no callers branches or vtable refs
-?Rva006CE7C9Get@@YA_NXZ,,0x006CE7C9,3,Code/GameEngine/Source/Common/ConstBoolTrueGetters.cpp,matched,Bool-true getter without vtable carriage; prev C3; no callers branches or vtable refs
-?Rva006D0439Get@@YA_NXZ,,0x006D0439,3,Code/GameEngine/Source/Common/ConstBoolTrueGetters.cpp,matched,Bool-true getter without vtable carriage; prev C3; no callers branches or vtable refs
-?Rva00040FB2Get@@YA_NXZ,,0x00040FB2,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3; no callers branches or vtable refs
-?Rva00040FCAGet@@YA_NXZ,,0x00040FCA,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3; no callers branches or vtable refs
-?Rva0004E50FGet@@YA_NXZ,,0x0004E50F,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3; no callers branches or vtable refs
-?Rva00050DCDGet@@YA_NXZ,,0x00050DCD,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3; no callers branches or vtable refs
-?Rva00050DE0Get@@YA_NXZ,,0x00050DE0,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3; no callers branches or vtable refs
-?Rva0005155BGet@@YA_NXZ,,0x0005155B,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3; no callers branches or vtable refs
-?Rva0005320CGet@@YA_NXZ,,0x0005320C,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3; no callers branches or vtable refs
-?Rva00072580Get@@YA_NXZ,,0x00072580,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3; no callers branches or vtable refs
-?Rva000B3A7DGet@@YA_NXZ,,0x000B3A7D,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3; no callers branches or vtable refs
-?Rva001EB0C7Get@@YA_NXZ,,0x001EB0C7,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3; no callers branches or vtable refs
-?Rva001EB0E7Get@@YA_NXZ,,0x001EB0E7,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3; no callers branches or vtable refs
-?Rva001EB0F8Get@@YA_NXZ,,0x001EB0F8,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3; no callers branches or vtable refs
-?Rva00203B05Get@@YA_NXZ,,0x00203B05,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3; no callers branches or vtable refs
 ?Rva0020D7B9Get@@YA_NXZ,,0x0020D7B9,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3; no callers branches or vtable refs
-?Rva0028AFCFGet@@YA_NXZ,,0x0028AFCF,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3; no callers branches or vtable refs
-?Rva002B2B58Get@@YA_NXZ,,0x002B2B58,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3; no callers branches or vtable refs
-?Rva002B3750Get@@YA_NXZ,,0x002B3750,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3; no callers branches or vtable refs
-?Rva002C96F4Get@@YA_NXZ,,0x002C96F4,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3; no callers branches or vtable refs
-?Rva0030BF63Get@@YA_NXZ,,0x0030BF63,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3; no callers branches or vtable refs
-?Rva003182CAGet@@YA_NXZ,,0x003182CA,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3; no callers branches or vtable refs
-?Rva003182DEGet@@YA_NXZ,,0x003182DE,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3; no callers branches or vtable refs
-?Rva00327E1FGet@@YA_NXZ,,0x00327E1F,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3; no callers branches or vtable refs
-?Rva00340E5BGet@@YA_NXZ,,0x00340E5B,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3; no callers branches or vtable refs
-?Rva003889F3Get@@YA_NXZ,,0x003889F3,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3; no callers branches or vtable refs
-?Rva00388A01Get@@YA_NXZ,,0x00388A01,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3; no callers branches or vtable refs
-?Rva003ED3A7Get@@YA_NXZ,,0x003ED3A7,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3; no callers branches or vtable refs
-?Rva003F804FGet@@YA_NXZ,,0x003F804F,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3; no callers branches or vtable refs
-?Rva003F8064Get@@YA_NXZ,,0x003F8064,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3; no callers branches or vtable refs
-?Rva003FF1A4Get@@YA_NXZ,,0x003FF1A4,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3; no callers branches or vtable refs
-?Rva0041514AGet@@YA_NXZ,,0x0041514A,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3; no callers branches or vtable refs
-?Rva0044E630Get@@YA_NXZ,,0x0044E630,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3; no callers branches or vtable refs
-?Rva004695FFGet@@YA_NXZ,,0x004695FF,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3; no callers branches or vtable refs
-?Rva004A9649Get@@YA_NXZ,,0x004A9649,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3; no callers branches or vtable refs
-?Rva004AB4D5Get@@YA_NXZ,,0x004AB4D5,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3; no callers branches or vtable refs
-?Rva004B0FB6Get@@YA_NXZ,,0x004B0FB6,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3; no callers branches or vtable refs
-?Rva004D837AGet@@YA_NXZ,,0x004D837A,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3; no callers branches or vtable refs
-?Rva004EABB6Get@@YA_NXZ,,0x004EABB6,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3; no callers branches or vtable refs
-?Rva004F067EGet@@YA_NXZ,,0x004F067E,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3; no callers branches or vtable refs
-?Rva004F06CAGet@@YA_NXZ,,0x004F06CA,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3; no callers branches or vtable refs
-?Rva004F06E2Get@@YA_NXZ,,0x004F06E2,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3; no callers branches or vtable refs
-?Rva00514B8AGet@@YA_NXZ,,0x00514B8A,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3; no callers branches or vtable refs
-?Rva0053EC7AGet@@YA_NXZ,,0x0053EC7A,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3; no callers branches or vtable refs
-?Rva00550623Get@@YA_NXZ,,0x00550623,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3; no callers branches or vtable refs
-?Rva00579693Get@@YA_NXZ,,0x00579693,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3; no callers branches or vtable refs
-?Rva0058017FGet@@YA_NXZ,,0x0058017F,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3; no callers branches or vtable refs
-?Rva005AD999Get@@YA_NXZ,,0x005AD999,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3; no callers branches or vtable refs
-?Rva005AFD40Get@@YA_NXZ,,0x005AFD40,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3; no callers branches or vtable refs
 ?Rva005D1F42Get@@YA_NXZ,,0x005D1F42,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3; no callers branches or vtable refs
-?Rva0068A793Get@@YA_NXZ,,0x0068A793,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3; no callers branches or vtable refs
-?Rva006E0C46Get@@YA_NXZ,,0x006E0C46,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3; no callers branches or vtable refs
-?Rva00042FF5Get@@YAHXZ,,0x00042FF5,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva00094BEFGet@@YAHXZ,,0x00094BEF,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva00149A6CGet@@YAHXZ,,0x00149A6C,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva00179930Get@@YAHXZ,,0x00179930,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva00202028Get@@YAHXZ,,0x00202028,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva0028B83FGet@@YAHXZ,,0x0028B83F,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva002B256BGet@@YAHXZ,,0x002B256B,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva002D9580Get@@YAHXZ,,0x002D9580,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva002E6C8AGet@@YAHXZ,,0x002E6C8A,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva0035B1C0Get@@YAHXZ,,0x0035B1C0,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva00411128Get@@YAHXZ,,0x00411128,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva004A9911Get@@YAHXZ,,0x004A9911,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva00538D14Get@@YAHXZ,,0x00538D14,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva0059F379Get@@YAHXZ,,0x0059F379,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva0065EC9AGet@@YAHXZ,,0x0065EC9A,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva006C6490Get@@YAHXZ,,0x006C6490,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva00050D50Get@@YAHXZ,,0x00050D50,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva000B19F8Get@@YAHXZ,,0x000B19F8,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva00149A8CGet@@YAHXZ,,0x00149A8C,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva0017EF80Get@@YAHXZ,,0x0017EF80,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva00215EE9Get@@YAHXZ,,0x00215EE9,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva0028B872Get@@YAHXZ,,0x0028B872,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva002C0A0CGet@@YAHXZ,,0x002C0A0C,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva002D95A9Get@@YAHXZ,,0x002D95A9,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva002E6E9CGet@@YAHXZ,,0x002E6E9C,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
 ?Rva0035BD7BGet@@YAHXZ,,0x0035BD7B,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva0042D6D3Get@@YAHXZ,,0x0042D6D3,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva004B0D49Get@@YAHXZ,,0x004B0D49,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
 ?Rva0053EC1EGet@@YAHXZ,,0x0053EC1E,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva005A671AGet@@YAHXZ,,0x005A671A,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva00661618Get@@YAHXZ,,0x00661618,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva006C64F5Get@@YAHXZ,,0x006C64F5,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva00050D5DGet@@YAHXZ,,0x00050D5D,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva000B2CE2Get@@YAHXZ,,0x000B2CE2,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva0014A07FGet@@YAHXZ,,0x0014A07F,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva0017EFC0Get@@YAHXZ,,0x0017EFC0,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva00219837Get@@YAHXZ,,0x00219837,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva0028B8A3Get@@YAHXZ,,0x0028B8A3,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva002C5FD6Get@@YAHXZ,,0x002C5FD6,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva002D95D2Get@@YAHXZ,,0x002D95D2,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva0030BD05Get@@YAHXZ,,0x0030BD05,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva003626AAGet@@YAHXZ,,0x003626AA,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva0042D6E3Get@@YAHXZ,,0x0042D6E3,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva004C576FGet@@YAHXZ,,0x004C576F,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva0055C425Get@@YAHXZ,,0x0055C425,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva005E7604Get@@YAHXZ,,0x005E7604,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva00661F63Get@@YAHXZ,,0x00661F63,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva006CD9DFGet@@YAHXZ,,0x006CD9DF,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva00050DEDGet@@YAHXZ,,0x00050DED,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva000B3148Get@@YAHXZ,,0x000B3148,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva0014A0C6Get@@YAHXZ,,0x0014A0C6,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva0017F000Get@@YAHXZ,,0x0017F000,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva0025DE73Get@@YAHXZ,,0x0025DE73,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva0029A351Get@@YAHXZ,,0x0029A351,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva002D2553Get@@YAHXZ,,0x002D2553,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva002E6ADEGet@@YAHXZ,,0x002E6ADE,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva003143B6Get@@YAHXZ,,0x003143B6,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva00377610Get@@YAHXZ,,0x00377610,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva0042E8BEGet@@YAHXZ,,0x0042E8BE,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva004D8DE7Get@@YAHXZ,,0x004D8DE7,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva0056777FGet@@YAHXZ,,0x0056777F,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva006026D0Get@@YAHXZ,,0x006026D0,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva006694AAGet@@YAHXZ,,0x006694AA,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva0006CEEBGet@@YAHXZ,,0x0006CEEB,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva000FBA47Get@@YAHXZ,,0x000FBA47,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva001542C3Get@@YAHXZ,,0x001542C3,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva00181242Get@@YAHXZ,,0x00181242,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva002632C4Get@@YAHXZ,,0x002632C4,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva0029A35FGet@@YAHXZ,,0x0029A35F,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva002D25B7Get@@YAHXZ,,0x002D25B7,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva002E6B03Get@@YAHXZ,,0x002E6B03,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva00318D60Get@@YAHXZ,,0x00318D60,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva0037DC81Get@@YAHXZ,,0x0037DC81,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
 ?Rva004318C3Get@@YAHXZ,,0x004318C3,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva004E0602Get@@YAHXZ,,0x004E0602,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva0056DA35Get@@YAHXZ,,0x0056DA35,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva00602820Get@@YAHXZ,,0x00602820,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva0066CA0CGet@@YAHXZ,,0x0066CA0C,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva0007B716Get@@YAHXZ,,0x0007B716,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva000FC943Get@@YAHXZ,,0x000FC943,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva0016ABD1Get@@YAHXZ,,0x0016ABD1,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva001D909EGet@@YAHXZ,,0x001D909E,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva002632DEGet@@YAHXZ,,0x002632DE,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva002AA254Get@@YAHXZ,,0x002AA254,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva002D2C31Get@@YAHXZ,,0x002D2C31,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva002E6B16Get@@YAHXZ,,0x002E6B16,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva00327DF3Get@@YAHXZ,,0x00327DF3,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva00388F36Get@@YAHXZ,,0x00388F36,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva004319EFGet@@YAHXZ,,0x004319EF,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva004EABE7Get@@YAHXZ,,0x004EABE7,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva0057AAFDGet@@YAHXZ,,0x0057AAFD,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva00602860Get@@YAHXZ,,0x00602860,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva006C5FBAGet@@YAHXZ,,0x006C5FBA,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva0007E3AEGet@@YAHXZ,,0x0007E3AE,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva00104076Get@@YAHXZ,,0x00104076,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva0016ABF1Get@@YAHXZ,,0x0016ABF1,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva001E35C7Get@@YAHXZ,,0x001E35C7,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva0027175CGet@@YAHXZ,,0x0027175C,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva002AAD99Get@@YAHXZ,,0x002AAD99,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva002D36F2Get@@YAHXZ,,0x002D36F2,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva002E6B3AGet@@YAHXZ,,0x002E6B3A,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva0033F259Get@@YAHXZ,,0x0033F259,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva003F3F94Get@@YAHXZ,,0x003F3F94,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva00462589Get@@YAHXZ,,0x00462589,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
 ?Rva004FC217Get@@YAHXZ,,0x004FC217,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva0057B990Get@@YAHXZ,,0x0057B990,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva00658147Get@@YAHXZ,,0x00658147,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva006C5FD3Get@@YAHXZ,,0x006C5FD3,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva0008BBDDGet@@YAHXZ,,0x0008BBDD,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva0010615FGet@@YAHXZ,,0x0010615F,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva00176D69Get@@YAHXZ,,0x00176D69,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva001E368BGet@@YAHXZ,,0x001E368B,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva0028AF94Get@@YAHXZ,,0x0028AF94,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva002B225DGet@@YAHXZ,,0x002B225D,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
 ?Rva002D9557Get@@YAHXZ,,0x002D9557,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva002E6C5DGet@@YAHXZ,,0x002E6C5D,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva0033F514Get@@YAHXZ,,0x0033F514,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva00407702Get@@YAHXZ,,0x00407702,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva004A3A1DGet@@YAHXZ,,0x004A3A1D,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva0050DBE3Get@@YAHXZ,,0x0050DBE3,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva0059E10CGet@@YAHXZ,,0x0059E10C,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva0065E7CAGet@@YAHXZ,,0x0065E7CA,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva006C5FF3Get@@YAHXZ,,0x006C5FF3,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
 ??$_Construct@VProductionPrerequisite@@V1@@_STL@@YAXPAVProductionPrerequisite@@ABV1@@Z,,0x002D0C17,45,Code/GameEngine/Source/Common/Thing/ProductionPrerequisiteVectorPushBack.cpp,matched,prereq _Construct 45B exact via explicit-instantiation TU; retail REL32 in push_back at 0x0033EA10; copy ctor pin 0x002D08DA resolves
 ??0ProductionPrerequisite@@QAE@ABV0@@Z,,0x002D08DA,77,Code/GameEngine/Source/Common/Thing/ProductionPrerequisiteCopyCtor.cpp,matched,prereq copy ctor 77B exact via explicit member-init TU; member vectors at +0x00/+0x0C/+0x18 per retail callees; called from vector _Construct at 0x002D0C33
 ??0?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QAE@ABV01@@Z,,0x0054878E,68,Code/GameEngine/Source/Common/Thing/ProductionPrerequisiteCopyCtor.cpp,matched,vector<ScienceType> copy 68B exact; +0x0C member of ProductionPrerequisite per copy ctor at 0x002D08DA; sar-2 count of 4-byte elements
@@ -13970,7 +13682,6 @@ _luaB_tostring,,0x0074BFA0,284,Code/Libraries/Source/Lua/luaB_tostring.c,matched
 ?get@Rva004CEE9CWordField@@QBEGXZ,,0x004CEE9C,5,Code/GameEngine/Source/Common/Disp8WordFieldGetters.cpp,matched,Disp8 word getter
 ?get@Rva00568645WordField@@QBEGXZ,,0x00568645,5,Code/GameEngine/Source/Common/Disp8WordFieldGetters.cpp,matched,Disp8 word getter
 ?get@Rva001816E0DwordField@@QBEHXZ,,0x001816E0,3,Code/GameEngine/Source/Common/Disp0DwordFieldGetters.cpp,matched,Disp0 dword getter
-?get@Rva00373F29DwordField@@QBEHXZ,,0x00373F29,3,Code/GameEngine/Source/Common/Disp0DwordFieldGetters.cpp,matched,Disp0 dword getter
 ?Rva00083B7BGet@@YAHXZ,,0x00083B7B,6,Code/GameEngine/Source/Common/ColdGlobalDwordGetters.cpp,matched,Global dword getter reading 0x00DEC3CC
 ?Rva00094B87Get@@YAHXZ,,0x00094B87,6,Code/GameEngine/Source/Common/ColdGlobalDwordGetters.cpp,matched,Global dword getter reading 0x00DB47EC
 ?Rva0014D241Get@@YAHXZ,,0x0014D241,6,Code/GameEngine/Source/Common/ColdGlobalDwordGetters.cpp,matched,Global dword getter reading 0x00DEDA14
@@ -13993,7 +13704,6 @@ _luaB_tostring,,0x0074BFA0,284,Code/Libraries/Source/Lua/luaB_tostring.c,matched
 ?Rva0043C6E4Get@@YAHXZ,,0x0043C6E4,6,Code/GameEngine/Source/Common/ColdGlobalDwordGetters.cpp,matched,Global dword getter reading 0x00E0330C
 ?Rva0044C5C1Get@@YAHXZ,,0x0044C5C1,6,Code/GameEngine/Source/Common/ColdGlobalDwordGetters.cpp,matched,Global dword getter reading 0x00E06398
 ?Rva004B879DGet@@YAHXZ,,0x004B879D,6,Code/GameEngine/Source/Common/ColdGlobalDwordGetters.cpp,matched,Global dword getter reading 0x00DBA4E4
-?Rva004B8B09Get@@YAHXZ,,0x004B8B09,6,Code/GameEngine/Source/Common/ColdGlobalDwordGetters.cpp,matched,Global dword getter reading 0x00DBA4E4
 ?Rva004FDA11Get@@YAHXZ,,0x004FDA11,6,Code/GameEngine/Source/Common/ColdGlobalDwordGetters.cpp,matched,Global dword getter reading 0x00E063EC
 ?Rva0050B426Get@@YAHXZ,,0x0050B426,6,Code/GameEngine/Source/Common/ColdGlobalDwordGetters.cpp,matched,Global dword getter reading 0x00DFEFD8
 ?Rva005114B7Get@@YAHXZ,,0x005114B7,6,Code/GameEngine/Source/Common/ColdGlobalDwordGetters.cpp,matched,Global dword getter reading 0x00E06394
@@ -14005,7 +13715,6 @@ _luaB_tostring,,0x0074BFA0,284,Code/Libraries/Source/Lua/luaB_tostring.c,matched
 ?Rva005BA33EGet@@YAHXZ,,0x005BA33E,6,Code/GameEngine/Source/Common/ColdGlobalDwordGetters.cpp,matched,Global dword getter reading 0x00E06550
 ?Rva006891A0Get@@YAHXZ,,0x006891A0,6,Code/GameEngine/Source/Common/ColdGlobalDwordGetters.cpp,matched,Global dword getter reading 0x00E0ABB0
 ?Rva006F5100Get@@YAHXZ,,0x006F5100,6,Code/GameEngine/Source/Common/ColdGlobalDwordGetters.cpp,matched,Global dword getter reading 0x00E18078
-?Rva006FD2F9Get@@YAHXZ,,0x006FD2F9,6,Code/GameEngine/Source/Common/ColdGlobalDwordGetters.cpp,matched,Global dword getter reading 0x00E18078
 ?buildFieldParse@DetachableRiderBodyModuleData@@SAXAAVMultiIniFieldParse@@@Z,,0x004C1B80,43,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/ChinookAIUpdateBuildFieldParse.cpp,matched,BFME2 getter-table plus local-table shape over ZH Rope table; parent via SupplyTruck pin; /O1 for pop-ecx cleanup
 ?get@Rva00042F2BMovzxWordField@@QBEIXZ,,0x00042F2B,5,Code/GameEngine/Source/Common/Disp8MovzxFieldGetters.cpp,matched,Disp8 movzx word getter; address-derived opaque holder
 ?get@Rva004D5776MovzxWordField@@QBEIXZ,,0x004D5776,5,Code/GameEngine/Source/Common/Disp8MovzxFieldGetters.cpp,matched,Disp8 movzx word getter; address-derived opaque holder
