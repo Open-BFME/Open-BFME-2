@@ -17595,3 +17595,7 @@ _getluaproto,,0x0074CBA0,27,Code/Libraries/Source/Lua/ldebug.c,matched,placed by
 ?Clear@HAnimComboClass@@QAEXXZ,,0x001965D0,109,Code/Libraries/Source/WWVegas/WW3D2/HAnimComboBFME1.cpp,matched,BFME1 hanim.cpp donor built /G7 /arch:SSE with its own headers
 ?Update_Pivot_Map@NamedPivotMapClass@@QAEXPBVHTreeClass@@@Z,,0x00196560,110,Code/Libraries/Source/WWVegas/WW3D2/HAnimComboBFME1.cpp,matched,BFME1 hanim.cpp donor built /G7 /arch:SSE with its own headers
 ?Remove_Anim_Combo_Data@HAnimComboClass@@QAEXPAVHAnimComboDataClass@@@Z,,0x00197190,32,Code/Libraries/Source/WWVegas/WW3D2/HAnimComboBFME1.cpp,matched,BFME1 hanim.cpp donor built /G7 /arch:SSE with its own headers
+??4RenderStateStruct@@QAEAAU0@ABU0@@Z,,0x0012D8A0,854,Code/Libraries/Source/WWVegas/WW3D2/SortingRendererBFME1.cpp,matched,BFME1 donor built /G7 /arch:SSE with bfmecamera shim
+?Get_Render_State@DX8Wrapper@@SAXAAURenderStateStruct@@@Z,,0x0012E010,963,Code/Libraries/Source/WWVegas/WW3D2/SortingRendererBFME1.cpp,matched,BFME1 donor built /G7 /arch:SSE with bfmecamera shim
+?Set_Texture@StreakRendererClass@@QAEXPAVTextureClass@@@Z,,0x0014A0F0,39,Code/Libraries/Source/WWVegas/WW3D2/StreakRendererSetTextureBFME1.cpp,matched,BFME1 donor built /G7 /arch:SSE with bfmecamera shim
+?Insert_To_Sorting_Pool@SortingRendererClass@@CAXPAVSortingNodeStruct@@@Z,,0x0012D480,66,Code/Libraries/Source/WWVegas/WW3D2/SortingRendererBFME1.cpp,matched,BFME1 donor built /G7 /arch:SSE with bfmecamera shim
