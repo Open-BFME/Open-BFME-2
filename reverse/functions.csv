@@ -17571,3 +17571,5 @@ __RTC_SetErrorFunc,,0x0075ACD1,16,vendor/msvc71crt/msvcrt.lib,matched,vendored=m
 ??0CInitGDIPlus@CImage@ATL@@QAE@XZ,,0x00628B5D,71,Code/Libraries/Source/ATL/atlimage.cpp,matched,vendored=atl-7.1;atlimage.h ctor verbatim;bytes equal atls.lib atlimage.obj COMDAT placed uniquely by lib_probe
 ??0CDCCache@CImage@ATL@@QAE@XZ,,0x00628BB8,13,Code/Libraries/Source/ATL/atlimage.cpp,matched,vendored=atl-7.1;atlimage.h ctor verbatim;bytes equal atls.lib atlimage.obj COMDAT placed uniquely by lib_probe
 ??1CInitGDIPlus@CImage@ATL@@QAE@XZ,,0x00628BA4,20,Code/Libraries/Source/ATL/atlimage.cpp,matched,vendored=atl-7.1;atlimage.h dtor verbatim;follows the ctor and ends at the CDCCache ctor
+?_M_create_node@?$list@UBfmePod60@@V?$allocator@UBfmePod60@@@_STL@@@_STL@@IAEPAU?$_List_node@UBfmePod60@@@2@ABUBfmePod60@@@Z,,0x004E548D,34,Code/Libraries/Source/WWVegas/WWLib/stlport_pod_list_bodies.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+??ARva007F76F0Vector@@QAEPAURva007F76F0Slot@@H@Z,,0x006633C0,22,Code/GameEngine/Source/GameNetwork/Rva007F76F0FeslKeyIndex.cpp,matched,placed by masked whole-.text search of the compiled body - single hit

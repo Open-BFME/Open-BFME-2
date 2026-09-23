@@ -84,3 +84,8 @@ _io_writeto
 # Refused 2026-09-23: retired in reverse/deleted_rows.csv (vtable 0x00C4AB54 belongs to
 # DamageFilteredCreateObjectDie, not FXListDie); the ZH source matches by shape only.
 ??1FXListDie@@MAE@XZ
+
+# Refused 2026-09-23: bytes match, identity does not. The body at 0x0042545A
+# calls _Vector_base at 0x000B63B2, which allocates n * 0x18 (imul edi, edi,
+# 0x18): a 24-byte element, not the 872-byte BfmeObject872.
+??0?$vector@UBfmeObject872@@V?$allocator@UBfmeObject872@@@_STL@@@_STL@@QAE@IABUBfmeObject872@@ABV?$allocator@UBfmeObject872@@@1@@Z

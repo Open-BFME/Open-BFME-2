@@ -4640,3 +4640,4 @@ _fmod,0x0062996A,MSVCR71 fmod import thunk; raw jmp through IAT00BBA554 independ
 ??1GeometryShape@@QAE@XZ,0x002AF1EC,address read from the REL32 displacement at a placed body
 ??1PB_DeepBase@@UAE@XZ,0x0002CCC3,address read from the REL32 displacement at a placed body
 ?winGetStyle@GameWindow@@QAEIXZ,0x005C4AF1,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
+??$_Construct@UBfmePod60@@U1@@_STL@@YAXPAUBfmePod60@@ABU1@@Z,0x004E52FB,address read from the REL32 displacement at a placed body
