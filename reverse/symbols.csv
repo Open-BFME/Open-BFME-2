@@ -3650,7 +3650,6 @@ dup_7e86b0,0x00655770
 ?resize@?$vector@UCoord3D@@V?$allocator@UCoord3D@@@_STL@@@_STL@@QAEXI@Z,0x00CA33C,1-arg Coord3D resize; 5 retail callers pass a count; forwards to the 73B 2-arg resize at 0x00CA2F3
 ?_M_fill_insert@?$vector@W4ObjectID@@V?$allocator@W4ObjectID@@@_STL@@@_STL@@QAEXPAW4ObjectID@@IABW43@@Z,0x0058A00B,225B ObjectID fill; called from the 63B ObjectID resize grow branch at 0x005839DC
 ?_M_fill_insert@?$vector@_NV?$allocator@_N@_STL@@@_STL@@QAEXU?$_Bit_iter@U_Bit_reference@_STL@@PAU12@@2@I_N@Z,0x006C790,440B bit-vector fill; called from the 33B bit-vector insert at 0x006D556
-?buildFieldParse@Rva0045B5E3Base@@SAXAAVMultiIniFieldParse@@@Z,0x0045B5E3,opaque base link of Missile chained proc 0x4A74EF; DumbProjectile-flavored table 0xC41B58 but DumbProjectile name taken at 0x3901C9; do not name without poolkey or donor
 ??0?$_Vector_base@UCoord3D@@V?$allocator@UCoord3D@@@_STL@@@_STL@@QAE@ABV?$allocator@UCoord3D@@@1@@Z,0x00211E58,ICF-folded empty vector base ctor (same 29B as rowed BfmeE16); my TU emission byte-identical
 ??0?$_Vector_base@W4ObjectID@@V?$allocator@W4ObjectID@@@_STL@@@_STL@@QAE@ABV?$allocator@W4ObjectID@@@1@@Z,0x00211E58,ICF-folded empty vector base ctor (same 29B as rowed BfmeE16); my TU emission byte-identical
 ?resize@?$vector@UCoord3D@@V?$allocator@UCoord3D@@@_STL@@@_STL@@QAEXIUCoord3D@@@Z,0x00CA2F3,73B Coord3D 2-arg resize; called from the 1-arg forwarder and directly from the DockUpdate ctor else-branch
