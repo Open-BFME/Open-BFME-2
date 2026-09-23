@@ -3981,7 +3981,6 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ??0RespawnUpdateModuleData@@QAE@XZ,0x004AFB4E,ctor call in the byte-true RespawnUpdate data factory (ModuleFactory registers it under "RespawnUpdate")
 ??0StatusBitsUpgradeIfEldestKindofModuleData@@QAE@XZ,0x002547D1,ctor call in the byte-true StatusBitsUpgradeIfEldestKindof data factory (ModuleFactory registers it under "StatusBitsUpgradeIfEldestKindof")
 ??0TransitionDamageFXModuleData@@QAE@XZ,0x004BA58A,ctor call in the byte-true TransitionDamageFX data factory (ModuleFactory registers it under "TransitionDamageFX")
-??0ProductionSpeedBonusModuleData@@QAE@XZ,0x004C2FE6,ctor call in the byte-true ProductionSpeedBonus data factory (ModuleFactory registers it under "ProductionSpeedBonus")
 ??0FellBeastSwoopPowerModuleData@@QAE@XZ,0x004923E2,ctor call in the byte-true FellBeastSwoopPower data factory (ModuleFactory registers it under "FellBeastSwoopPower")
 ??0CaveContainModuleData@@QAE@XZ,0x00466D37,ctor call in the byte-true CaveContain data factory (ModuleFactory registers it under "CaveContain")
 ??0HealContainModuleData@@QAE@XZ,0x00466D37,ctor call in the byte-true HealContain data factory (ModuleFactory registers it under "HealContain")
@@ -4652,3 +4651,4 @@ _AVIFileOpen@16,0x00654796,jmp [IAT 0xBBA054] stub; import table names avifil32!
 _AVIFileInit@0,0x0065479C,jmp [IAT 0xBBA050] stub; import table names avifil32!AVIFileInit
 ?Delete@?$DynamicVectorClass@PAVHAnimComboDataClass@@@@QAE_NH@Z,0x00196520,ICF-folded with the claimed DynamicVectorClass<FontCharsBuffer*>::Delete; called by HAnimComboClass::Remove_Anim_Combo_Data (0x00197190)
 ?Release_Refs@@YAXPAVSortingNodeStruct@@@Z,0x0012D3D0,First call of SortingRendererClass::Insert_To_Sorting_Pool (0x0012D480) as in the reference sortingrenderer.cpp
+??_7ProductionSpeedBonusModuleData@@6B@,0x00C5CA80,slot0 is ??_G at 0x004C3048 immediately after the 98B ctor; vtable for the ProductionSpeedBonus file-unit
