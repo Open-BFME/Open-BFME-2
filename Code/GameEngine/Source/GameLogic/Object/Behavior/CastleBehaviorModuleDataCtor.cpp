@@ -4,7 +4,7 @@
 // for a follow-up).
 //
 // ?buildFieldParse@CastleBehaviorModuleData@@SAXAAVMultiIniFieldParse@@@Z,
-// retail 0x0039ABC5, 32 bytes. Double-table parse proc (tables 0x00BF00A0
+// retail 0x0039ABC5, 33 bytes. Double-table parse proc (tables 0x00BF00A0
 // and 0x00C1ABA0) through the rowed MultiIniFieldParse::add at 0x2BC6E.
 // Row supersedes the parse pin.
 
