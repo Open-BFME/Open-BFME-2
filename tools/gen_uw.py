@@ -383,6 +383,13 @@ def read_funclets(ledger):
                     "the destructor target 0x%08X this funclet jumps to is not a proven "
                     "boundary, so no pin can name it" % target)
                 continue
+            if kind == "C" and not ledger.resolves(DELETE_NAME, target):
+                # An array new-expression frees through operator delete[], and
+                # pinning ??3@YAXPAX@Z on that body names two functions as one.
+                ledger.declined[rva] = (
+                    "the new-expression funclet calls 0x%08X, which is not %s; no "
+                    "template emits that call yet" % (target, DELETE_NAME))
+                continue
             funclet = Funclet(kind, rva, size, disp, target, extra)
             if on_the_ladder(funclet):
                 on_ladder.append(funclet)
