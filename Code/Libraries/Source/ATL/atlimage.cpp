@@ -85,6 +85,10 @@ extern "C" __declspec(dllimport) UINT __stdcall SetDIBColorTable(
 extern "C" __declspec(dllimport) int __stdcall GetObjectA(HGDIOBJ object, int bytes, void *data);
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(CRITICAL_SECTION *section);
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(CRITICAL_SECTION *section);
+extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(CRITICAL_SECTION *section);
+extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(CRITICAL_SECTION *section);
+extern "C" __declspec(dllimport) __declspec(noreturn) void __stdcall RaiseException(
+    DWORD code, DWORD flags, DWORD argumentCount, const DWORD *arguments);
 extern "C" __declspec(dllimport) HBITMAP __stdcall CreateDIBSection(
     HDC dc, const BITMAPINFO *info, UINT usage, void **bits, HANDLE section, DWORD offset);
 extern "C" int __cdecl abs(int value);
@@ -379,6 +383,8 @@ private:
     class CInitGDIPlus
     {
     public:
+        CInitGDIPlus() throw();
+        ~CInitGDIPlus() throw();
         bool Init() throw();
         void ReleaseGDIPlus() throw();
         void IncreaseCImageCount() throw();
@@ -393,6 +399,7 @@ private:
     class CDCCache
     {
     public:
+        CDCCache() throw();
         HDC GetDC() throw();
         void ReleaseDC(HDC dc) throw();
 
@@ -453,6 +460,42 @@ private:
     static CInitGDIPlus s_initGDIPlus;
     void UpdateBitmapInfo(DIBOrientation orientation);
 };
+
+// ATL 7.1 verbatim, with _AtlRaiseException inlined as atlbase.h defines it:
+// RaiseException(EXCEPTION_ACCESS_VIOLATION, EXCEPTION_NONCONTINUABLE, 0, NULL).
+inline void __declspec(noreturn) _AtlRaiseException(DWORD dwExceptionCode, DWORD dwExceptionFlags = 1)
+{
+    RaiseException(dwExceptionCode, dwExceptionFlags, 0, 0);
+}
+
+CImage::CInitGDIPlus::CInitGDIPlus() throw() :
+    m_dwToken(0), m_nCImageObjects(0)
+{
+    __try
+    {
+        InitializeCriticalSection(&m_sect);
+    }
+    __except (1)
+    {
+        _AtlRaiseException(0xC0000005L);
+    }
+}
+
+CImage::CInitGDIPlus::~CInitGDIPlus() throw()
+{
+    ReleaseGDIPlus();
+    DeleteCriticalSection(&m_sect);
+}
+
+CImage::CDCCache::CDCCache() throw()
+{
+    int iDC;
+
+    for (iDC = 0; iDC < 4; iDC++)
+    {
+        m_ahDCs[iDC] = 0;
+    }
+}
 
 bool CImage::CInitGDIPlus::Init() throw()
 {

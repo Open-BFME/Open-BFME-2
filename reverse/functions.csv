@@ -17568,3 +17568,6 @@ __RTC_Shutdown,,0x0075A645,18,vendor/msvc71crt/msvcrt.lib,matched,vendored=msvc7
 __RTC_GetErrDesc,,0x0075AC98,24,vendor/msvc71crt/msvcrt.lib,matched,vendored=msvc71-crt;member=..\build\intel\dll_obj\userapi.obj;unique full-body placement in .text (relocations masked);follows import thunk jmp at 0x0075AC92;ends at __RTC_SetErrorType
 __RTC_SetErrorType,,0x0075ACB0,33,vendor/msvc71crt/msvcrt.lib,matched,vendored=msvc71-crt;member=..\build\intel\dll_obj\userapi.obj;unique full-body placement in .text (relocations masked);ends at __RTC_SetErrorFunc
 __RTC_SetErrorFunc,,0x0075ACD1,16,vendor/msvc71crt/msvcrt.lib,matched,vendored=msvc71-crt;member=..\build\intel\dll_obj\userapi.obj;unique full-body placement in .text (relocations masked);ghidra size agrees
+??0CInitGDIPlus@CImage@ATL@@QAE@XZ,,0x00628B5D,71,Code/Libraries/Source/ATL/atlimage.cpp,matched,vendored=atl-7.1;atlimage.h ctor verbatim;bytes equal atls.lib atlimage.obj COMDAT placed uniquely by lib_probe
+??0CDCCache@CImage@ATL@@QAE@XZ,,0x00628BB8,13,Code/Libraries/Source/ATL/atlimage.cpp,matched,vendored=atl-7.1;atlimage.h ctor verbatim;bytes equal atls.lib atlimage.obj COMDAT placed uniquely by lib_probe
+??1CInitGDIPlus@CImage@ATL@@QAE@XZ,,0x00628BA4,20,Code/Libraries/Source/ATL/atlimage.cpp,matched,vendored=atl-7.1;atlimage.h dtor verbatim;follows the ctor and ends at the CDCCache ctor
