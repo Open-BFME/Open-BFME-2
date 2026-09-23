@@ -4374,7 +4374,6 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ??0ActiveBody@@QAE@PAVThing@@PBVModuleData@@@Z,0x004BF6A1,(Thing*;ModuleData*) ctor called by ActiveBody::friend_newModuleInstance (0x002513AD); class from the ModuleFactory registration literal
 ??0HighlanderBody@@QAE@PAVThing@@PBVModuleData@@@Z,0x004C0781,(Thing*;ModuleData*) ctor called by HighlanderBody::friend_newModuleInstance (0x00251439); class from the ModuleFactory registration literal
 ??0ImmortalBody@@QAE@PAVThing@@PBVModuleData@@@Z,0x004C086E,(Thing*;ModuleData*) ctor called by ImmortalBody::friend_newModuleInstance (0x00251474); class from the ModuleFactory registration literal
-??0FreeLifeBody@@QAE@PAVThing@@PBVModuleData@@@Z,0x004C18CA,(Thing*;ModuleData*) ctor called by FreeLifeBody::friend_newModuleInstance (0x00251676); class from the ModuleFactory registration literal
 ??0DetachableRiderBody@@QAE@PAVThing@@PBVModuleData@@@Z,0x004C1C82,(Thing*;ModuleData*) ctor called by DetachableRiderBody::friend_newModuleInstance (0x00251705); class from the ModuleFactory registration literal
 ??0OathbreakerBody@@QAE@PAVThing@@PBVModuleData@@@Z,0x004C1EC7,(Thing*;ModuleData*) ctor called by OathbreakerBody::friend_newModuleInstance (0x00251794); class from the ModuleFactory registration literal
 ??0RespawnBody@@QAE@PAVThing@@PBVModuleData@@@Z,0x004C12EB,(Thing*;ModuleData*) ctor called by RespawnBody::friend_newModuleInstance (0x0025155B); class from the ModuleFactory registration literal
