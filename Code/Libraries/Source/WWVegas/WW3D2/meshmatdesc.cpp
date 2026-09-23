@@ -112,6 +112,7 @@ void MatBufferClass::Set_Element(int index,VertexMaterialClass * mat)
 	REF_PTR_SET(((BfmeMatBufferArray *)this)->m_array[index],mat);
 }
 
+// ?Get_Element@MatBufferClass@@ present-unmatched
 VertexMaterialClass * MatBufferClass::Get_Element(int index)
 {
 	if (Array[index]) {
@@ -120,6 +121,7 @@ VertexMaterialClass * MatBufferClass::Get_Element(int index)
 	return Array[index];
 }
 
+// ?Peek_Element@MatBufferClass@@ present-unmatched
 VertexMaterialClass * MatBufferClass::Peek_Element(int index)
 {
 	return Array[index];
@@ -168,6 +170,7 @@ TextureClass * TexBufferClass::Get_Element(int index)
 	return Array[index];
 }
 
+// ?Peek_Element@TexBufferClass@@ present-unmatched
 TextureClass * TexBufferClass::Peek_Element(int index)
 {
 	return Array[index];
@@ -181,7 +184,6 @@ TextureClass * TexBufferClass::Peek_Element(int index)
 **
 **
 **************************************************************************************************/
-// ??0UVBufferClass@@ present-unmatched
 UVBufferClass::UVBufferClass(const UVBufferClass & that) :
 	ShareBufferClass<Vector2>(that)
 {
@@ -194,6 +196,7 @@ bool UVBufferClass::operator == (const UVBufferClass & that)
 	return (CRC == that.CRC);
 }
 
+// ?Is_Equal_To@UVBufferClass@@ present-unmatched
 bool UVBufferClass::Is_Equal_To(const UVBufferClass & that)
 {
 	// NOTE: this only works if you've properly called Update_CRC after filling the array
@@ -353,38 +356,7 @@ TextureClass * MeshMatDescClass::Get_Single_Texture(int pass,int stage) const
 	return Texture[pass][stage];
 }
 
-// ?Reset@MeshMatDescClass@@QAEXHHH@Z present-unmatched
-void MeshMatDescClass::Reset(int polycount,int vertcount,int passcount)
-{
-	PolyCount = polycount;
-	VertexCount = vertcount;
-	PassCount = passcount;
-
-	for (int array=0; array<MAX_COLOR_ARRAYS; array++) {
-		REF_PTR_RELEASE(ColorArray[array]);
-	}
-
-	for (int uvarray=0; uvarray<MAX_UV_ARRAYS; uvarray++) {
-		REF_PTR_RELEASE(UV[uvarray]);
-	}
-
-	for (int pass=0;pass<MAX_PASSES;pass++) {
-		for (int stage=0; stage < MAX_TEX_STAGES; stage++) {
-			UVSource[pass][stage] = -1;
-			REF_PTR_RELEASE(Texture[pass][stage]);
-			REF_PTR_RELEASE(TextureArray[pass][stage]);
-		}
-
-		DCGSource[pass] = VertexMaterialClass::MATERIAL;
-		DIGSource[pass] = VertexMaterialClass::MATERIAL;
-		Shader[pass] = 0;
-		REF_PTR_RELEASE(ShaderArray[pass]);
-
-		REF_PTR_RELEASE(Material[pass]);
-		REF_PTR_RELEASE(MaterialArray[pass]);
-
-	}
-}
+// MeshMatDescClass::Reset is recovered in MeshMatDescReset.cpp.
 
 // byte-exact reconstruction: Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescInitAlternateThunk.cpp
 // ?Init_Alternate@MeshMatDescClass@@QAEXAAV1@0@Z present-unmatched
@@ -487,6 +459,7 @@ void MeshMatDescClass::Init_Alternate(MeshMatDescClass & default_materials,MeshM
 	}
 }
 
+// ?Is_Empty@MeshMatDescClass@@ present-unmatched
 bool MeshMatDescClass::Is_Empty(void)
 {
 	for (int array=0; array<MAX_COLOR_ARRAYS; array++) {
@@ -639,6 +612,7 @@ ShaderClass * MeshMatDescClass::Get_Shader_Array(int pass,bool create)
 	return NULL;
 }
 
+// ?Make_UV_Array_Unique@MeshMatDescClass@@ present-unmatched
 void MeshMatDescClass::Make_UV_Array_Unique(int pass,int stage)
 {
 	int uvindex = UVSource[pass][stage];
@@ -649,6 +623,7 @@ void MeshMatDescClass::Make_UV_Array_Unique(int pass,int stage)
 	}
 }
 
+// ?Make_Color_Array_Unique@MeshMatDescClass@@ present-unmatched
 void MeshMatDescClass::Make_Color_Array_Unique(int array)
 {
 	if ((ColorArray[array] != NULL) && (ColorArray[array]->Num_Refs() > 1)) {
@@ -703,6 +678,7 @@ void MeshMatDescClass::Install_UV_Array(int pass,int stage,Vector2 * uvs,int cou
 }
 
 
+// ?Post_Load_Process@MeshMatDescClass@@ present-unmatched
 void MeshMatDescClass::Post_Load_Process(bool lighting_enabled,MeshModelClass * parent)
 {
 	/*
