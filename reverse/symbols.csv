@@ -396,7 +396,6 @@ name,address,notes
 ??0OBBoxClass@@QAE@ABV0@@Z,0x00133990,OBBox copy ctor97 independently matches all emitted ordinary C++ bytes with zero relocations; Matrix3 basis and center/extent copied; exact Camera copy calls this body
 ??0ObbCollisionStruct@@QAE@ABVOBBoxClass@@ABVVector3@@01@Z,0x00728810,address read from the REL32 displacement at a placed body
 ??0ObjectModule@@QAE@PAVThing@@PBVModuleData@@@Z,0x00306AA7,address read from the retail REL32 displacement at the sole call site inside the BehaviorModule constructor at 0x00253330 - that body byte-verifies against this address so retail itself encodes it
-??0OneRingPenaltyUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x00499A70,pinned by OneRingPenaltyUpdate Update factory call-site decode; sole E8 caller is factory 0x24E3F4 which news 0x34 and forwards thing plus data; base is UpdateModule per rowed 0x253390 call in body; vtable 0x00C50260
 ??0OneRingPenaltyUpdateModuleData@@QAE@XZ,0x004999F1,sole caller is the 0x24E42C factory pushing the rowed OneRingPenaltyUpdateModuleData proc; installs vtable 0xC50298 and fits the 0x24 news size
 ??0OpenContainModuleData@@QAE@XZ,0x00253487,call site in HealContainModuleData ctor (0x4B57AA) bare thiscall with this=esi matching OpenContainModuleData base ctor per ZH HealContain.h hierarchy; retail 0x253487 (21B) stores folded vtable 0xBF2558 and constructs member at +8
 ??0OrthoEmissionVelocityModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A7173,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
