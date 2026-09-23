@@ -11,6 +11,11 @@
 
 extern unsigned int g_Va012F1BC0;
 
+unsigned int Rva00C267F2ClearFlag(void)
+{
+	return g_Va012F1BC0 &= 0xFFFEFFFFu;
+}
+
 unsigned int Rva00C26802ClearFlag(void)
 {
 	return g_Va012F1BC0 &= 0xFFFDFFFFu;
