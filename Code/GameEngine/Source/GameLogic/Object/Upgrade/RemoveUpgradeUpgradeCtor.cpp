@@ -1,0 +1,53 @@
+// cl: /O1 /DNDEBUG /MD
+//
+// ??0RemoveUpgradeUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x004B7FA4, 49 bytes.
+// RemoveUpgradeUpgrade behavior ctor over the pinned UpgradeModule base
+// (0x460AEC, thing plus data): re-stores the primary vtable slot and the
+// +0x0C/+0x10/+0x18 secondary slots (address-of TU-local dummies,
+// DIR32-masked). The rowed name getter at 0x4B7F3D and ModuleData pair
+// (proc 0x4B7F82 plus ctor 0x4B7FF1 plus factory 0x25082A) prove the class;
+// the rowed instance factory 0x2507F2 is the sole raw caller. Row supersedes
+// the ctor pin.
+
+class Thing;
+class ModuleData;
+
+static int s_vtable;
+static int s_secondary0C;
+static int s_secondary10;
+static int s_secondary18;
+
+// Opaque UpgradeModule base; ctor resolves to its pin. The explicit m_vtable
+// member stands in for the inherited vptr so body order is source order.
+class UpgradeModule
+{
+public:
+	UpgradeModule(Thing *thing, const ModuleData *moduleData);
+
+protected:
+	const void *m_vtable;
+	Thing *m_owner;
+	int m_pad08;
+	const void *m_p0C;
+	const void *m_p10;
+	unsigned char m_pad[0x18 - 0x14];
+};
+
+class RemoveUpgradeUpgrade : public UpgradeModule
+{
+public:
+	RemoveUpgradeUpgrade(Thing *thing, const ModuleData *moduleData);
+
+private:
+	const void *m_p18;
+};
+
+// ??0RemoveUpgradeUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z @0x4B7FA4
+RemoveUpgradeUpgrade::RemoveUpgradeUpgrade(Thing *thing, const ModuleData *moduleData)
+	: UpgradeModule(thing, moduleData)
+{
+	m_vtable = &s_vtable;
+	m_p0C = &s_secondary0C;
+	m_p10 = &s_secondary10;
+	m_p18 = &s_secondary18;
+}
