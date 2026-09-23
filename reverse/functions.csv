@@ -17001,3 +17001,4 @@ _fprintf,,0x002CEC42,108,Code/GameEngine/Source/Common/FprintfAppendLine.cpp,mat
 ??0CallHelpOnDamage@@QAE@PAVThing@@PBVModuleData@@@Z,,0x004BB43C,44,Code/GameEngine/Source/GameLogic/Object/Die/CallHelpOnDamageCtor.cpp,matched,
 ??0GettingBuiltBehavior@@QAE@PAVThing@@PBVModuleData@@@Z,,0x004542FA,169,Code/GameEngine/Source/GameLogic/Object/Behavior/GettingBuiltBehaviorCtor.cpp,matched,GettingBuiltBehavior ctor over UpdateModule base plus list head and flag bytes
 ??0HordeNotifyTargetsOfImminentProbableCrushingUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,,0x00253D88,40,Code/GameEngine/Source/GameLogic/Object/Update/HordeNotifyTargetsOfImminentProbableCrushingUpdateCtor.cpp,matched,
+??0InstantDeathBehavior@@QAE@PAVThing@@PBVModuleData@@@Z,,0x0045CF55,42,Code/GameEngine/Source/GameLogic/Object/Behavior/InstantDeathBehaviorCtor.cpp,matched,
