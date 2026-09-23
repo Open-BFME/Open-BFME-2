@@ -4409,7 +4409,6 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ??0SpecialPowerCreate@@QAE@PAVThing@@PBVModuleData@@@Z,0x004B9345,(Thing*;ModuleData*) ctor called by SpecialPowerCreate::friend_newModuleInstance (0x00250C53); class from the ModuleFactory registration literal
 ??0GrantUpgradeCreate@@QAE@PAVThing@@PBVModuleData@@@Z,0x004B8F62,(Thing*;ModuleData*) ctor called by GrantUpgradeCreate::friend_newModuleInstance (0x00250B09); class from the ModuleFactory registration literal
 ??0ExperienceLevelCreate@@QAE@PAVThing@@PBVModuleData@@@Z,0x004B917B,(Thing*;ModuleData*) ctor called by ExperienceLevelCreate::friend_newModuleInstance (0x00250B92); class from the ModuleFactory registration literal
-??0InheritUpgradeCreate@@QAE@PAVThing@@PBVModuleData@@@Z,0x004B9428,(Thing*;ModuleData*) ctor called by InheritUpgradeCreate::friend_newModuleInstance (0x00250C8B); class from the ModuleFactory registration literal
 ??0BoneFXDamage@@QAE@PAVThing@@PBVModuleData@@@Z,0x004B979C,(Thing*;ModuleData*) ctor called by BoneFXDamage::friend_newModuleInstance (0x00250D17); class from the ModuleFactory registration literal
 ??0TransitionDamageFX@@QAE@PAVThing@@PBVModuleData@@@Z,0x004BA3EA,(Thing*;ModuleData*) ctor called by TransitionDamageFX::friend_newModuleInstance (0x00250D4F); class from the ModuleFactory registration literal
 ??0ReflectDamage@@QAE@PAVThing@@PBVModuleData@@@Z,0x004BABB4,(Thing*;ModuleData*) ctor called by ReflectDamage::friend_newModuleInstance (0x00250D8A); class from the ModuleFactory registration literal
