@@ -5537,7 +5537,6 @@ _piCallbacksCleanup,,0x0069EEF0,24,Code/GameEngine/Source/GameNetwork/GameSpy/pe
 ??_G?$VectorClass@URendererDataStruct@Render2DSentenceClass@@@@UAEPAXI@Z,,0x001A3B90,71,Code/Libraries/Source/WWVegas/WW3D2/render2dsentence.cpp,matched,ported from BFME1; exact folded-body identity
 ??_G?$VectorClass@USentenceDataStruct@Render2DSentenceClass@@@@UAEPAXI@Z,,0x001A3B90,71,Code/Libraries/Source/WWVegas/WW3D2/render2dsentence.cpp,matched,ported from BFME1; exact folded-body identity
 ??_G?$VectorClass@PAVRender2DClass@@@@UAEPAXI@Z,,0x001A3B90,71,Code/Libraries/Source/WWVegas/WW3D2/render2dsentence.cpp,matched,ported from BFME1; exact folded-body identity
-??_G?$VectorClass@PAVTextureClass@@@@UAEPAXI@Z,,0x001A3B90,71,Code/Libraries/Source/WWVegas/WW3D2/matinfo.cpp,matched,ported from BFME1; exact folded-body identity
 ??_GSortingNodeStruct@@QAEPAXI@Z,,0x001303F0,30,Code/Libraries/Source/WWVegas/WW3D2/sortingrenderer.cpp,matched,ported from BFME1; exact target-side structural candidate
 ??_GIndexBufferClass@@MAEPAXI@Z,,0x001390A0,30,Code/Libraries/Source/WWVegas/WW3D2/dx8indexbuffer.cpp,matched,ported from BFME1; exact target-side structural candidate
 ??_GHAnimClass@@UAEPAXI@Z,,0x0018D1C0,30,Code/Libraries/Source/WWVegas/WW3D2/hanim.cpp,matched,ported from BFME1; exact target-side structural candidate
@@ -17291,3 +17290,4 @@ _fprintf,,0x002CEC42,108,Code/GameEngine/Source/Common/FprintfAppendLine.cpp,mat
 ??1?$SimpleDynVecClass@M@@UAE@XZ,,0x00167FF7,35,Code/Libraries/Source/WWVegas/WWLib/simplevec_float_cleanup.cpp,matched,BFME1 simplevec.h template; StreakLine widths tableBD41B8 wrapper168067 calls this; tail calls base cleanup167F67; complete tailjmp168015
 ??_G?$SimpleVecClass@M@@UAEPAXI@Z,,0x00168083,28,Code/Libraries/Source/WWVegas/WWLib/simplevec_float_cleanup.cpp,matched,BFME1 simplevec.h template; target base vtableBD41AC slot0; calls matched float base cleanup167F67; ret4 at16809C
 ??_G?$SimpleDynVecClass@M@@UAEPAXI@Z,,0x00168067,28,Code/Libraries/Source/WWVegas/WWLib/simplevec_float_cleanup.cpp,matched,BFME1 simplevec.h template; target widths vtableBD41B8 slot0 from StreakLine ctor742470; calls derived cleanup167FF7; ret4 at168080
+??_G?$VectorClass@PAVTextureClass@@@@UAEPAXI@Z,,0x00189620,71,Code/Libraries/Source/WWVegas/WW3D2/matinfo.cpp,matched,Target context ctor18B5F0 establishes raw texture vectorF4; matched Peek_Texture1886F0 reads arrayF8; context dtor18B180 installs base tableBD5B48 whose slot0 names189620; full ret4 at189664; replaces wrong vtable-masked alias1A3B90
