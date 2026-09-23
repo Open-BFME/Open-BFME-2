@@ -104,7 +104,13 @@ template class _STL::vector<BfmePod40, _STL::allocator<BfmePod40 > >;
 template class _STL::vector<BfmePod44, _STL::allocator<BfmePod44 > >;
 template class _STL::vector<BfmePod48, _STL::allocator<BfmePod48 > >;
 template class _STL::vector<BfmePod52, _STL::allocator<BfmePod52 > >;
-template class _STL::vector<BfmePod60, _STL::allocator<BfmePod60 > >;
+// This size-only view retains allocation and plain assignment operations.
+template class _STL::allocator<BfmePod60>;
+template BfmePod60* _STL::__copy<BfmePod60*, BfmePod60*, int>(
+    BfmePod60*, BfmePod60*, BfmePod60*, const _STL::random_access_iterator_tag&, int*);
+template BfmePod60* _STL::__copy_backward<BfmePod60*, BfmePod60*, int>(
+    BfmePod60*, BfmePod60*, BfmePod60*, const _STL::random_access_iterator_tag&, int*);
+template void _STL::fill<BfmePod60*, BfmePod60>(BfmePod60*, BfmePod60*, const BfmePod60&);
 template class _STL::vector<BfmePod68, _STL::allocator<BfmePod68 > >;
 template class _STL::vector<BfmePod76, _STL::allocator<BfmePod76 > >;
 template class _STL::vector<BfmePod80, _STL::allocator<BfmePod80 > >;
