@@ -17571,3 +17571,4 @@ _getluaproto,,0x0074CBA0,27,Code/Libraries/Source/Lua/ldebug.c,matched,placed by
 ??0W3DProjectileStreamDrawModuleData@@QAE@XZ,,0x000D11D2,84,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DProjectileStreamDrawModuleDataCtor.cpp,matched,
 ??1RiderInfo@@QAE@XZ,,0x0047E3AC,52,Code/GameEngine/Source/GameLogic/Object/Contain/RiderChangeContainModuleDataCtor.cpp,matched,RiderInfo dtor; two AsciiString teardowns via rowed 0x36410 with EH; pushed as ehvec dtor by verified ModuleData ctor 0x47EABC
 ??0RiderInfo@@QAE@XZ,,0x0047E3A2,9,Code/GameEngine/Source/GameLogic/Object/Contain/RiderChangeContainModuleDataCtor.cpp,matched,RiderInfo ctor; nulls two AsciiStrings; pushed as ehvec ctor by verified ModuleData ctor 0x47EABC
+?cast_ray_brute_force@MeshGeometryClass@@IAE_NAAVRayCollisionTestClass@@@Z,,0x0016CE00,438,Code/Libraries/Source/WWVegas/WW3D2/meshgeometry.cpp,matched,BFME1 meshgeometry.cpp donor (retail-offset view; surface types at +0x58)
