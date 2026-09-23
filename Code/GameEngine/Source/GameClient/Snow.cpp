@@ -5,7 +5,7 @@
 */
 // Zero Hour/BFME1 Snow.cpp donor, adapted to target layout and initialization.
 // Donor field names are retained through visibility; later fields are offset views.
-// Narrow ABI view for the target constructor body; omitted virtuals are not assigned identities here.
+// Unidentified virtual slots retain neutral names in this target ABI view.
 class SubsystemInterface {
 public:
     SubsystemInterface();
@@ -19,6 +19,19 @@ public:
     SnowManager();
     virtual ~SnowManager();
     virtual void init();
+    virtual void targetSlot2();
+    virtual void targetSlot3();
+    virtual void targetSlot4();
+    virtual void targetSlot5();
+    virtual void targetSlot6();
+    virtual void targetSlot7();
+    virtual void targetSlot8();
+    virtual void targetSlot9();
+    virtual void targetSlot10();
+    virtual void targetSlot11();
+    virtual void targetSlot12();
+    virtual void targetSlot13();
+    virtual void updateIniSettings();
 private:
     float *m_startingHeights;
     float m_time;
@@ -72,4 +85,13 @@ SnowManager::SnowManager()
     m_targetFloat70 = 0.0f;
     m_targetFloat48 = 0.0f;
     m_targetFloat4C = 0.0f;
+}
+
+extern void * __cdecl operator new[](unsigned int);
+
+void SnowManager::init()
+{
+    m_startingHeights = new float[64 * 64];
+    m_time = 0.0f;
+    updateIniSettings();
 }
