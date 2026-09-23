@@ -87,3 +87,8 @@ void setHideScroll()
 {
 	TheRva00222A8BTarget->invoke(TheRva00222A8BOwner, "HideScroll", 1, TheRva002D3627Host->check() ? "0" : "1", 0, 0, 0, 0);
 }
+
+void hideSpellBook()
+{
+	TheRva00222A8BTarget->invoke(TheRva00222A8BOwner, "HideSpellBook", 0, 0, 0, 0, 0, 0);
+}

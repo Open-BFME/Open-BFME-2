@@ -17555,3 +17555,4 @@ _getluaproto,,0x0074CBA0,27,Code/Libraries/Source/Lua/ldebug.c,matched,placed by
 ??0AudioLoopUpgradeModuleData@@QAE@XZ,,0x004B7C00,76,Code/GameEngine/Source/GameLogic/Object/Upgrade/AudioLoopUpgradeModuleDataCtor.cpp,matched,AudioLoopUpgradeModuleData ctor over rowed construct and DieMuxData init
 ?setHideScroll@@YAXXZ,,0x003FE8EB,57,Code/GameEngine/Source/GameClient/UiCallbackFirers.cpp,matched,HideScroll firer with 0/1 chosen by Rva002D3627Host check pin through Rva00222A8BTarget invoker
 ?setUiCallbackOwner@@YAXPAX@Z,,0x003FE881,9,Code/GameEngine/Source/GameClient/UiCallbackFirers.cpp,matched,Stores the owner pointer fired with every UI callback
+?hideSpellBook@@YAXXZ,,0x003FE99C,31,Code/GameEngine/Source/GameClient/UiCallbackFirers.cpp,matched,Fires HideSpellBook with no args through Rva00222A8BTarget invoker
