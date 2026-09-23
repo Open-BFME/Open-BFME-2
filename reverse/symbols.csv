@@ -4283,7 +4283,6 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ??0CastleBehavior@@QAE@PAVThing@@PBVModuleData@@@Z,0x003983D4,(Thing*;ModuleData*) ctor called by CastleBehavior::friend_newModuleInstance (0x0024AA5E); class from the ModuleFactory registration literal
 ??0BuildingBehavior@@QAE@PAVThing@@PBVModuleData@@@Z,0x00456217,(Thing*;ModuleData*) ctor called by BuildingBehavior::friend_newModuleInstance (0x0024AB77); class from the ModuleFactory registration literal
 ??0BridgeBehavior@@QAE@PAVThing@@PBVModuleData@@@Z,0x00457472,(Thing*;ModuleData*) ctor called by BridgeBehavior::friend_newModuleInstance (0x0024AC00); class from the ModuleFactory registration literal
-??0EnragedBehavior@@QAE@PAVThing@@PBVModuleData@@@Z,0x00458FA3,(Thing*;ModuleData*) ctor called by EnragedBehavior::friend_newModuleInstance (0x0024AD89); class from the ModuleFactory registration literal
 ??0EntEnragedUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x004B2516,(Thing*;ModuleData*) ctor called by EntEnragedUpdate::friend_newModuleInstance (0x0024FB47); class from the ModuleFactory registration literal
 ??0HitReactionBehavior@@QAE@PAVThing@@PBVModuleData@@@Z,0x00459228,(Thing*;ModuleData*) ctor called by HitReactionBehavior::friend_newModuleInstance (0x0024AE12); class from the ModuleFactory registration literal
 ??0SiegeDockingBehavior@@QAE@PAVThing@@PBVModuleData@@@Z,0x0045996C,(Thing*;ModuleData*) ctor called by SiegeDockingBehavior::friend_newModuleInstance (0x0024AF24); class from the ModuleFactory registration literal
@@ -4702,3 +4701,4 @@ _bfmeAppend,0x0060D5F2,callee of bfmeEmit (0x0060D7C0) at the site its BFME1 don
 ?setWakeFrame@Rva0026E9BDBase@@IAEXPAVObject@@I@Z,0x0044DF71,TU-spelling alias of UpdateModule setWakeFrame for Rva0026E9BDBase-based behavior ctors; same Object-uint shape resolved by HordeAIUpdateCtor
 ??0ObjectHelper@@QAE@PAVThing@@PBVModuleData@@@Z,0x0028C8DF,UpdateModule-derived helper intermediate base; sole base-call position in 6 Helper-family behavior ctors (ObjectHelper siblings plus 2 outer families); body calls rowed UpdateModule 0x253390 plus setWakeFrame pin 0x44DF71
 ??_7RampageBehavior@@6B@,0x00C40DA8,primary vtable installed by RampageBehavior ctor at 0x458B60 with slot0 scalar-deleting dtor at 0x458BC5
+??_7EnragedBehavior@@6B@,0x00C40FBC,primary vtable installed by EnragedBehavior ctor at 0x458FA3 with slot0 scalar-deleting dtor at 0x4AF161
