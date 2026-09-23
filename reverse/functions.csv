@@ -1527,7 +1527,6 @@ BasicStringCharDtor_dup,,0x0007FAB3,14,Code/Libraries/Source/WWVegas/WWLib/stlpo
 ??1Region3D@@QAE@XZ,0x000B3FD0,0x000B3FD0,1,Code/Libraries/Source/WWVegas/WWMath/region.cpp,matched,
 ??0RealRange@@QAE@MM@Z,0x00003F3A,0x00003F3A,26,Code/Libraries/Source/WWVegas/WWMath/region.cpp,matched,
 ??4RealRange@@QAEAAU0@ABU0@@Z,0x005CFBC2,0x005CFBC2,19,Code/Libraries/Source/WWVegas/WWMath/region.cpp,matched,
-??0Region2D@@QAE@ABU0@@Z,0x0004254E,0x0004254E,29,Code/Libraries/Source/WWVegas/WWMath/region.cpp,matched,
 ??4IRegion2D@@QAEAAU0@ABU0@@Z,0x002E7FDA,0x002E7FDA,19,Code/Libraries/Source/WWVegas/WWMath/region.cpp,matched,
 ??4IRegion3D@@QAEAAU0@ABU0@@Z,0x005F178F,0x005F178F,20,Code/Libraries/Source/WWVegas/WWMath/region.cpp,matched,
 ??4Region3D@@QAEAAU0@ABU0@@Z,0x005F178F,0x005F178F,20,Code/Libraries/Source/WWVegas/WWMath/region.cpp,matched,
@@ -17184,3 +17183,4 @@ _fprintf,,0x002CEC42,108,Code/GameEngine/Source/Common/FprintfAppendLine.cpp,mat
 ?readReal@DataChunkInput@@QAEMXZ,,0x00306E56,34,Code/GameEngine/Source/Common/System/DataChunkInputReadScalars.cpp,matched,BFME1 DataChunk.cpp donor; target four-byte stream read and matched protected decrement306E40 then ST0 return; float4 producer538A0B consumes float results; full34B ret boundary
 ?readByte@DataChunkInput@@QAEEXZ,,0x00306E9A,34,Code/GameEngine/Source/Common/System/DataChunkInputReadScalars.cpp,matched,BFME1 DataChunk.cpp donor; target stream read of1 byte and matched protected decrement306E40 then AL return; same receiver layout as matched readInt306E78; full34B ret boundary
 ?readArrayOfBytes@DataChunkInput@@QAEXPADH@Z,,0x00306EBC,32,Code/GameEngine/Source/Common/System/DataChunkInputReadScalars.cpp,matched,BFME1 DataChunk.cpp donor; target reads requested length through same stream then protected decrement306E40; callerB0EB0 also uses matched readInt; full32B ret8 boundary
+??0Region2D@@QAE@ABU0@@Z,0x0004254E,0x0004254E,31,Code/Libraries/Source/WWVegas/WWMath/region.cpp,matched,Full31B copy ctor includes ret4 at4256A through4256C; original29B claim truncated return; exact compile; folded Plane/Rect/four-float aliases stay candidate pins without duplicate rows
