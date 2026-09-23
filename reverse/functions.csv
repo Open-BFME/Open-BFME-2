@@ -13903,7 +13903,6 @@ _luaB_tostring,,0x0074BFA0,284,Code/Libraries/Source/Lua/luaB_tostring.c,matched
 ?Rva0057AAFDGet@@YAHXZ,,0x0057AAFD,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
 ?Rva00602860Get@@YAHXZ,,0x00602860,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
 ?Rva006C5FBAGet@@YAHXZ,,0x006C5FBA,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva0074CBB8Get@@YAHXZ,,0x0074CBB8,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
 ?Rva0007E3AEGet@@YAHXZ,,0x0007E3AE,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
 ?Rva00104076Get@@YAHXZ,,0x00104076,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
 ?Rva0016ABF1Get@@YAHXZ,,0x0016ABF1,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
@@ -17682,3 +17681,6 @@ _lua_setlinehook,,0x0074C9E0,15,Code/Libraries/Source/Lua/ldebug.c,matched,gen-a
 ?_com_dispatch_raw_propget@@YGJPAUIDispatch@@JGPAX@Z,,0x00655440,35,vendor/comsupp/comsupp.lib,matched,vendored=msvc71-comsupp;member=Release\invkprxy.obj;identical to _com_dispatch_propget (0x00654BF0);this copy sits in the invkprxy.obj run between _com_dispatch_raw_method and _com_dispatch_raw_propput
 ?_com_dispatch_raw_propput@@YAJPAUIDispatch@@JGZZ,,0x00655470,105,vendor/comsupp/comsupp.lib,matched,vendored=msvc71-comsupp;member=Release\invkprxy.obj;unique full-body placement in .text (relocations masked)
 ?WCodeToHRESULT@_com_error@@SAJG@Z,,0x006554E0,26,vendor/comsupp/comsupp.lib,matched,vendored=msvc71-comsupp;member=Release\invkerr.obj;unique full-body placement in .text (relocations masked);ends at _com_handle_excepinfo
+?Record_Texture@Debug_Statistics@@SAXABV?$RefCountPtr@VTextureClass@@@@@Z,,0x0012A2B0,333,Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsRecordTexture.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?Add_Record_Texture@@YAXABV?$RefCountPtr@VTextureClass@@@@@Z,,0x0012A210,154,Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsRecordTexture.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+_getluaproto,,0x0074CBA0,27,Code/Libraries/Source/Lua/ldebug.c,matched,placed by masked whole-.text search of the compiled body - single hit

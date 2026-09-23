@@ -242,7 +242,6 @@ static void Add_Record_Texture(RefCountPtr<TextureClass> const &t)
 	if (t.Is_Procedural()) procedural_texture_count++;
 }
 
-// ?Record_Texture@Debug_Statistics@@SAXABV?$RefCountPtr@VTextureClass@@@@@Z present-unmatched
 void Debug_Statistics::Record_Texture(RefCountPtr<TextureClass> const &t)
 {
 	record_count++;
