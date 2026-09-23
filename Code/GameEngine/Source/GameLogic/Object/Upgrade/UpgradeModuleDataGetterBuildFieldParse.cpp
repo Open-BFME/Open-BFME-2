@@ -85,6 +85,18 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
+class CostModifierUpgradeModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class SpellRechargeModifierUpgradeModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
 static const FieldParse s_commandSetTable;
 
 static const FieldParse s_radarTable;
@@ -96,6 +108,10 @@ static const FieldParse s_attributeModifierTable;
 static const FieldParse s_doCommandTable;
 
 static const FieldParse s_castleTable;
+
+static const FieldParse s_costModifierTable;
+
+static const FieldParse s_spellRechargeTable;
 
 // ?buildFieldParse@CommandSetUpgradeModuleData@@SAXAAVMultiIniFieldParse@@@Z
 void CommandSetUpgradeModuleData::buildFieldParse(MultiIniFieldParse &parse)
@@ -137,4 +153,28 @@ void CastleUpgradeModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
 	parse.add(reinterpret_cast<const FieldParse *>(Rva004CE29DGet()), 8);
 	parse.add(&s_castleTable, 0);
+}
+
+// ?buildFieldParse@CostModifierUpgradeModuleData@@SAXAAVMultiIniFieldParse@@@Z
+// retail 0x004B5CE9, 34 bytes: getter-head call above plus the CostModifier
+// table (retail 0x00C582D8). The owning factory at 0x00250316 pushes this
+// proc's VA (unique image-wide); ModuleFactory registers it under
+// "CostModifierUpgrade". The CostModifierUpgrade pool key at 0x4B59B7 sits
+// in the same cluster. Row supersedes the pin.
+void CostModifierUpgradeModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	parse.add(reinterpret_cast<const FieldParse *>(Rva004CE29DGet()), 8);
+	parse.add(&s_costModifierTable, 0);
+}
+
+// ?buildFieldParse@SpellRechargeModifierUpgradeModuleData@@SAXAAVMultiIniFieldParse@@@Z
+// retail 0x004B60FA, 34 bytes: getter-head call above plus the SpellRecharge
+// table (retail 0x00C58460). The owning factory at 0x002503A2 pushes this
+// proc's VA (unique image-wide); ModuleFactory registers it under
+// "SpellRechargeModifierUpgrade". The SpellRechargeModifierUpgrade pool key
+// at 0x4B5D38 sits in the same cluster. Row supersedes the pin.
+void SpellRechargeModifierUpgradeModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	parse.add(reinterpret_cast<const FieldParse *>(Rva004CE29DGet()), 8);
+	parse.add(&s_spellRechargeTable, 0);
 }
