@@ -1483,7 +1483,7 @@ void HLodClass::Free(void)
 // ?HLodClass::Clone present-unmatched
 RenderObjClass * HLodClass::Clone(void) const
 {
-	return W3DNEW HLodClass(*this);
+	return ::new HLodClass(*this);
 }
 
 
