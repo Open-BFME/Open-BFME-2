@@ -52,3 +52,18 @@ void setFlashObjectivesButton(bool show)
 {
 	TheRva00222A8BTarget->invoke(TheRva00222A8BOwner, "FlashObjectivesButton", 1, show ? "_show" : "_hide", 0, 0, 0, 0);
 }
+
+void enablePlayerMagicButton(bool enable)
+{
+	TheRva00222A8BTarget->invoke(TheRva00222A8BOwner, "EnablePlayerMagicButton", 1, enable ? "1" : "0", 0, 0, 0, 0);
+}
+
+void highlightPlayerMagicButton(bool highlight)
+{
+	TheRva00222A8BTarget->invoke(TheRva00222A8BOwner, "HighlightPlayerMagicButton", 1, highlight ? "1" : "0", 0, 0, 0, 0);
+}
+
+void setPlayerButtonsState(bool ring)
+{
+	TheRva00222A8BTarget->invoke(TheRva00222A8BOwner, "SetPlayerButtonsState", 1, ring ? "_ring" : "_evenstar", 0, 0, 0, 0);
+}
