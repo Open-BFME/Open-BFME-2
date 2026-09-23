@@ -39,6 +39,9 @@ public:
 	void *rva00035080(unsigned int size, int flags);	// Malloc-like
 	void *rva00035190(void *block, unsigned int size, int flags);	// Realloc-like
 	void *rva00035210(unsigned int count, unsigned int size, int flags);	// Calloc-like
+	void *rva000353B0(void *context, int blockTypes, bool copy, void *storage, unsigned int storageSize);	// ReportBegin-like
+	const void *rva00032F60(void *context, int blockTypes);	// ReportNext-like
+	void rva00033E90(void *context);			// ReportEnd-like
 };
 }
 }
@@ -166,6 +169,41 @@ void _VerifyIntegrity()
 {
 	for (int i = 0; i <= g_heaps.m_count; ++i)
 		g_heaps.m_allocators[i]->rva000329E0(3);
+}
+
+void _Exit()
+{
+	if (--g_heaps.m_initCount != 0)
+		return;
+
+	for (int i = 0; i <= g_heaps.m_count; ++i)
+	{
+		// The heap's four-character id, spelled for a log line the release
+		// build compiles out; only the byte stores survive.
+		char name[8];
+		char *p = &name[4];
+		// Retail walks a pointer to this record's id and reads the previous
+		// record's (heap i is record i-1; heap 0 is the default and has none).
+		unsigned int *ids = &g_heaps.m_records[i].m_id;
+		if (ids != &g_heaps.m_records[0].m_id)
+		{
+			unsigned int id = ids[-(int)(sizeof(HeapRecord) / sizeof(unsigned int))];
+			for (int shift = 0; shift < 32; shift += 8)
+			{
+				unsigned int c = id >> shift;
+				if (c == 0)
+					break;
+				*--p = (char)c;
+			}
+		}
+
+		void *report = g_heaps.m_allocators[i]->rva000353B0(0, 0x1f, true, 0, 0);
+		for (const void *block = g_heaps.m_allocators[i]->rva00032F60(report, 0x1f); block != 0;
+			block = g_heaps.m_allocators[i]->rva00032F60(report, 0x1f))
+		{
+		}
+		g_heaps.m_allocators[i]->rva00033E90(report);
+	}
 }
 
 }

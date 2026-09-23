@@ -17402,3 +17402,4 @@ _getluaproto,,0x0074CBA0,27,Code/Libraries/Source/Lua/ldebug.c,matched,placed by
 ?_GetBlockSize@MemoryPool@@YAIPAXI@Z,0x00030600,0x00030600,36,Code/GameEngine/Source/Common/System/memory_pool.cpp,matched,export name (reverse/exports.csv);thin wrapper over a PPMalloc GeneralAllocator method
 ?_GetBlockHeap@MemoryPool@@YAIPAX@Z,0x00030630,0x00030630,80,Code/GameEngine/Source/Common/System/memory_pool.cpp,matched,export name (reverse/exports.csv);thin wrapper over a PPMalloc GeneralAllocator method
 ?_VerifyIntegrity@MemoryPool@@YAXXZ,0x00030680,0x00030680,42,Code/GameEngine/Source/Common/System/memory_pool.cpp,matched,export name (reverse/exports.csv);thin wrapper over a PPMalloc GeneralAllocator method
+?_Exit@MemoryPool@@YAXXZ,0x000301A0,0x000301A0,164,Code/GameEngine/Source/Common/System/memory_pool.cpp,matched,export name (reverse/exports.csv);last release walks each heap block report
