@@ -13,11 +13,21 @@
 
 #include <vector>
 
+class MultiIniFieldParse;
+struct FieldParse;
+
+class MultiIniFieldParse
+{
+public:
+	void add(const FieldParse *parseTable, unsigned int extraOffset);
+};
+
 class Rva0044EB54
 {
 public:
 	Rva0044EB54();
 	virtual void unused();
+	static void buildFieldParse(MultiIniFieldParse &parse);
 
 protected:
 	// +0x00 vptr; remainder opaque to 0xC8 (ToggleHidden-inferred size).
@@ -28,6 +38,7 @@ class ActivateModuleSpecialPowerModuleData : public Rva0044EB54
 {
 public:
 	ActivateModuleSpecialPowerModuleData();
+	static void buildFieldParse(MultiIniFieldParse &parse);
 
 private:
 	// +0xC8 vector (implicit default init; ends at the rowed 0xD4 size).
@@ -38,4 +49,11 @@ private:
 ActivateModuleSpecialPowerModuleData::ActivateModuleSpecialPowerModuleData()
 	: Rva0044EB54()
 {
+}
+
+// ?buildFieldParse@ActivateModuleSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z @0x004CDFBE
+void ActivateModuleSpecialPowerModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	Rva0044EB54::buildFieldParse(parse);
+	parse.add(reinterpret_cast<const FieldParse *>(0x00C5FD70), 0);
 }
