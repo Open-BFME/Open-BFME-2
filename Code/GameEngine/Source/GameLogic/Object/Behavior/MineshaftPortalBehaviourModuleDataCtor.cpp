@@ -25,10 +25,22 @@ private:
 	unsigned char m_opaque[0x114];
 };
 
+class MultiIniFieldParse;
+struct FieldParse;
+
+class MultiIniFieldParse
+{
+public:
+	void add(const FieldParse *parseTable, unsigned int extraOffset);
+};
+
+int __cdecl Rva004CE29DGet();
+
 class __declspec(novtable) MineshaftPortalBehaviourModuleData : public OpenContainModuleData
 {
 public:
 	MineshaftPortalBehaviourModuleData();
+	static void buildFieldParse(MultiIniFieldParse &parse);
 
 private:
 	// +0x118/+0x119 trailing behavior flags (false).
@@ -44,4 +56,11 @@ MineshaftPortalBehaviourModuleData::MineshaftPortalBehaviourModuleData()
 	*(unsigned int *)this = 0x00BF2558;
 	m_trailingFlag0 = false;
 	m_trailingFlag1 = false;
+}
+
+// ?buildFieldParse@MineshaftPortalBehaviourModuleData@@SAXAAVMultiIniFieldParse@@@Z @0x00372DD8
+void MineshaftPortalBehaviourModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	parse.add(reinterpret_cast<const FieldParse *>(Rva004CE29DGet()), 8);
+	parse.add(reinterpret_cast<const FieldParse *>(0x00C42B10), 0);
 }
