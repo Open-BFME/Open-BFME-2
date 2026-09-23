@@ -114,3 +114,8 @@ void setPalantirFrameState(int state)
 {
 	TheRva00222A8BTarget->invoke(TheRva00222A8BOwner, "SetPalantirFrameState", 1, PalantirFrameStates[state], 0, 0, 0, 0);
 }
+
+void setPlayerPowerCapState(bool ring)
+{
+	TheRva00222A8BTarget->invoke(TheRva00222A8BOwner, "SetPlayerPowerCapState", 1, ring ? "_ring" : "_evenstar", 0, 0, 0, 0);
+}
