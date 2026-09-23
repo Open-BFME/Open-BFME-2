@@ -17637,3 +17637,4 @@ _getluaproto,,0x0074CBA0,27,Code/Libraries/Source/Lua/ldebug.c,matched,placed by
 ?validate@CopyProtect@@SA_NXZ,,0x00232D0C,44,Code/GameEngine/Source/Common/System/CopyProtectValidate.cpp,matched,BFME1 CopyProtection.cpp validate with G4 registry string and M guard; no DEBUG_LOG; WinMain dependency
 ?notifyLauncher@CopyProtect@@SA_NXZ,,0x00232C1F,200,Code/GameEngine/Source/Common/System/CopyProtectNotifyLauncher.cpp,matched,BFME1 CopyProtection.cpp notifyLauncher with G3 GUID and no DEBUG_LOG; WinMain dependency
 ??1LargeGroupBonusUpdateModuleData@@UAE@XZ,,0x0049048E,75,Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupBonusUpdateModuleDataDtor.cpp,matched,Snapshot-base restore to 0xBBB554 over HordeMemberFilter-led table 0xC4D1A8; factory 0x24D43F news 0x30
+??0GettingBuiltBehaviorModuleData@@QAE@XZ,,0x0045324E,199,Code/GameEngine/Source/GameLogic/Object/Behavior/GettingBuiltBehaviorModuleDataCtorShard.cpp,matched,
