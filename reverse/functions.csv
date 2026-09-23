@@ -5749,7 +5749,6 @@ _XMP_Move,,0x0061BE10,19,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,
 ?push_back@?$vector@UICoord2D@@V?$allocator@UICoord2D@@@_STL@@@_STL@@QAEXABUICoord2D@@@Z,,0x00181880,58,Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp,matched,
 ??_GAnimSet@GenericObjectCreationNugget@@QAEPAXI@Z,,0x001F05A5,28,Code/GameEngine/Source/GameLogic/Object/ObjectCreationList.cpp,matched,
 ??0ObjectCreationList@@QAE@XZ,,0x001F81BF,19,Code/GameEngine/Source/GameLogic/Object/ObjectCreationList.cpp,matched,
-??_GAttackNugget@@MAEPAXI@Z,,0x004E1BA8,28,Code/GameEngine/Source/GameLogic/Object/ObjectCreationList.cpp,matched,
 ?parseGameClientRandomDelay@@YAXPAVINI@@PAXPAVGameClientRandomVariable@@@Z,,0x004870F6,69,Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdate.cpp,matched,
 ?setUpdate@HijackerUpdate@@QAEX_N@Z,,0x0066CA90,10,Code/GameEngine/Source/GameLogic/Object/Update/HijackerUpdate.cpp,matched,
 ?push_back@?$vector@UAngleFXInfo@@V?$allocator@UAngleFXInfo@@@_STL@@@_STL@@QAEXABUAngleFXInfo@@@Z,,0x00626470,58,Code/GameEngine/Source/GameLogic/Object/Update/StructureToppleUpdate.cpp,matched,
@@ -6338,7 +6337,6 @@ _ciApplyChangesToMode,,0x006AC670,180,Code/GameEngine/Source/GameNetwork/GameSpy
 ?ExpandMagic@DebugIOFlat@@CAXPBD0PAD@Z,,0x0003FA20,733,Code/Libraries/Source/WWVegas/WWDebug/debug_io_flat.cpp,matched,WWDebug environment filename override with module fallback; exact C++ reconstruction
 ?_M_open@_Filebuf_base@_STL@@QAE_NPBDHJ@Z,,0x0001D390,321,Code/Libraries/Source/WWVegas/WWLib/stlport_filebuf_open.cpp,matched,Authored STLport 4.5.3 Win32 file opening; native field types and independently verified PE imports; full code and switch data
 ??1Locomotor@@MAE@XZ,,0x003067D2,60,Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp,matched,
-??1AttackNugget@@MAE@XZ,,0x004E1B72,54,Code/GameEngine/Source/GameLogic/Object/ObjectCreationList.cpp,matched,
 ??1?$pair@VAsciiString@@VAudioEventRTS@@@_STL@@QAE@XZ,,0x002A12E1,53,Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp,matched,
 _InitStatsThink,,0x006095B0,588,Code/GameEngine/Source/GameNetwork/GameSpy/gstats/gstats.c,matched,complete BFME2 statistics source body; retail disk configuration and connection semantics; independently verified call and named-import identities
 _CallReqCallback,,0x00607500,268,Code/GameEngine/Source/GameNetwork/GameSpy/gstats/gstats.c,matched,vendored=gamespy-2004; complete executable body ends at RET; adjacent four-entry switch table independently verified and excluded from claim
@@ -8654,8 +8652,6 @@ _Rva008118C0,,0x0067D7C0,5,Code/Libraries/Source/DirtySock/Y5SmallHelpers.c,matc
 ?rva0004BAE83@EvacuateDamage@@SA?AW4NameKeyType@@XZ,,0x004BAE83,69,Code/GameEngine/Source/GameLogic/Object/Die/EvacuateDamagePoolKey.cpp,matched,cached pool-name key; /O1 static-guard EH; nameToKey row
 ?rva0004BD60C@CivilianSpawnCollide@@SA?AW4NameKeyType@@XZ,,0x004BD60C,69,Code/GameEngine/Source/GameLogic/Object/Die/CivilianSpawnCollidePoolKey.cpp,matched,cached pool-name key; /O1 static-guard EH; nameToKey row
 ?findSpecialPowerCompletionDie@Object@@QBEPAVSpecialPowerCompletionDie@@XZ,,0x0028BE2B,84,Code/GameEngine/Source/GameLogic/Object/ObjectFindSpecialPowerCompletionDie.cpp,matched,ZH Object.cpp verbatim (const QBE donor-proven); findModule row; Weapon + ObjectCreationList callers mirror ZH
-??1CreateCrateDieModuleData@@UAE@XZ,,0x0035CCCA,89,Code/GameEngine/Source/GameLogic/Object/Die/CreateCrateDieModuleDataDtor.cpp,matched,ZH CreateCrateDie.h clear plus implicit teardown over BFME2 string at +0x10 and list at +0x3C
-??_GCreateCrateDieModuleData@@UAEPAXI@Z,,0x0035CF10,28,Code/GameEngine/Source/GameLogic/Object/Die/CreateCrateDieModuleDataDtor.cpp,matched,Scalar deleter co-emitted with the ModuleData dtor; flag plus global delete
 ??0MultiplayerColorDefinition@@QAE@XZ,,0x00380C4E,96,Code/GameEngine/Source/Common/MultiplayerColorDefinitionCtor.cpp,matched,
 ?isValidScience@ScienceStore@@QBE_NW4ScienceType@@@Z,,0x001FF50D,18,Code/GameEngine/Source/Common/RTS/ScienceStoreIsValidScience.cpp,matched,ZH Science.cpp verbatim (public const Bool); findScienceInfo pin; neg/sbb/neg null normalization
 ?friend_lookupScience@ScienceStore@@QBE?AW4ScienceType@@PBD@Z,,0x001FF65D,81,Code/GameEngine/Source/Common/RTS/ScienceStoreFriendLookupScience.cpp,matched,ZH Science.cpp verbatim (public const); isValidScience row; filler+throw idiom; Science-not-known literal
@@ -17664,3 +17660,7 @@ _getluaproto,,0x0074CBA0,27,Code/Libraries/Source/Lua/ldebug.c,matched,placed by
 ?dup_002c5309@@YAXXZ,,0x002C5309,18,Code/GameEngine/Source/Common/Thing/ModuleFactory.cpp,matched,gen-alias;object-symbol=??0?$list@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAE@ABV?$allocator@VAsciiString@@@1@@Z;C++ alias
 ?dup_0020781b@@YAXXZ,,0x0020781B,18,Code/GameEngine/Source/GameLogic/Object/Damage/EvacuateDamageCtorModuleFactoryBody.cpp,matched,gen-alias;object-symbol=??0?$list@UEvacuationRecord@@V?$allocator@UEvacuationRecord@@@_STL@@@_STL@@QAE@ABV?$allocator@UEvacuationRecord@@@1@@Z;C++ alias
 ?bfmeLoadReplayControlAR@@YAXXZ,,0x0029C269,40,Code/GameEngine/Source/Common/BfmeLoadReplayControlAR.cpp,matched,BFME1 near-miss donor; b1 0x0043E3E0; immediate-only drift
+??1Rva004E1B72@@UAE@XZ,,0x004E1B72,54,Code/GameEngine/Source/Common/Rva004E1B72Dtor.cpp,matched,unidentified class; formerly misnamed (see deleted_rows.csv)
+??_GRva004E1B72@@UAEPAXI@Z,,0x004E1BA8,28,Code/GameEngine/Source/Common/Rva004E1B72Dtor.cpp,matched,unidentified class; formerly misnamed (see deleted_rows.csv)
+??1Rva0035CCCAModuleData@@UAE@XZ,,0x0035CCCA,89,Code/GameEngine/Source/Common/Rva0035CCCAModuleData.cpp,matched,unidentified class; formerly misnamed (see deleted_rows.csv)
+??_GRva0035CCCAModuleData@@UAEPAXI@Z,,0x0035CF10,28,Code/GameEngine/Source/Common/Rva0035CCCAModuleData.cpp,matched,unidentified class; formerly misnamed (see deleted_rows.csv)
