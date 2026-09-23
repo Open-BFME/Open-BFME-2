@@ -4243,7 +4243,6 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ??0DarknessSpecialPower@@QAE@PAVThing@@PBVModuleData@@@Z,0x004C4DB9,(Thing*;ModuleData*) ctor called by DarknessSpecialPower::friend_newModuleInstance (0x00251FC4); class from the ModuleFactory registration literal
 ??0GeometryUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z,0x004B6A5E,(Thing*;ModuleData*) ctor called by GeometryUpgrade::friend_newModuleInstance (0x0025060A); class from the ModuleFactory registration literal
 ??0UnpauseSpecialPowerUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z,0x004B548C,(Thing*;ModuleData*) ctor called by UnpauseSpecialPowerUpgrade::friend_newModuleInstance (0x00250156); class from the ModuleFactory registration literal
-??0ReplaceSelfUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z,0x004B7045,(Thing*;ModuleData*) ctor called by ReplaceSelfUpgrade::friend_newModuleInstance (0x00250696); class from the ModuleFactory registration literal
 ??0DefectorSpecialPower@@QAE@PAVThing@@PBVModuleData@@@Z,0x004C298B,(Thing*;ModuleData*) ctor called by DefectorSpecialPower::friend_newModuleInstance (0x002519AB); class from the ModuleFactory registration literal
 ??0LevelUpUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z,0x004B3DC8,(Thing*;ModuleData*) ctor called by LevelUpUpgrade::friend_newModuleInstance (0x0024FEFB); class from the ModuleFactory registration literal
 ??0StatusBitsUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z,0x004B4960,(Thing*;ModuleData*) ctor called by StatusBitsUpgrade::friend_newModuleInstance (0x0025003E); class from the ModuleFactory registration literal
