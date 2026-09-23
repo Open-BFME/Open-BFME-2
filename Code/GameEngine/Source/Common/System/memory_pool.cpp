@@ -10,7 +10,8 @@
 //   0x00DE0418  number of registered heaps (index 0, the default, is extra)
 //   0x00DE0420  thirty 16-byte records: hash-chain link, id, size, allocator
 //   0x00DE0600  101 hash buckets keyed by id % 101
-//   0x00DE0798  allocator by index; [0] is the default heap
+//   0x00DE0798  allocator by index; [0] is the default heap (one unread
+//               dword sits between it and the buckets)
 //   0x00DB35A0  default heap size (_AddHeap with id 0)
 //   0x00DB35A4  TLS slot holding the calling thread's current heap id
 //   0x00DE0821  set only while _Init runs; _AddHeap is ignored otherwise
@@ -85,6 +86,7 @@ struct HeapTable
 	int m_reserved;
 	HeapRecord m_records[MAX_HEAPS];
 	HeapRecord *m_buckets[HEAP_BUCKETS];
+	unsigned int m_unknown380;	// 0x00DE0794: nothing here reads it
 	EA::Allocator::GeneralAllocator *m_allocators[MAX_HEAPS + 1];
 	EA::Allocator::GeneralAllocator *m_defaultAllocator;
 	bool m_clearAllocations;

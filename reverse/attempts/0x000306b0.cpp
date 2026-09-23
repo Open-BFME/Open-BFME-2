@@ -52,6 +52,7 @@ struct HeapTable
 	int m_reserved;
 	HeapRecord m_records[MAX_HEAPS];
 	HeapRecord *m_buckets[HEAP_BUCKETS];
+	unsigned int m_unknown380;	// 0x00DE0794: nothing here reads it
 	EA::Allocator::GeneralAllocator *m_allocators[MAX_HEAPS + 1];
 };
 
