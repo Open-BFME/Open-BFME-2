@@ -107,20 +107,19 @@ void SegmentedLineClass::Reset_Line(void)
 
 // These are segment points, and include the start and end point of the
 // entire line. Therefore there must be at least two.
-// ?SegmentedLineClass::Set_Points present-unmatched
+// Target 0x15F100 clears points and invalidates bounds before checking input.
+// The method name follows the BFME1 donor; the target uses the same point layout.
 void SegmentedLineClass::Set_Points(unsigned int num_points, Vector3 *locs)
 {
+	PointLocations.Delete_All();
+	Invalidate_Cached_Bounding_Volumes();
 	if (num_points < 2 || !locs) {
-		WWASSERT(0);
 		return;
 	}
 
-	PointLocations.Delete_All();
 	for (unsigned int i=0; i<num_points; i++) {
 		PointLocations.Add(locs[i],num_points);
 	}
-
-	Invalidate_Cached_Bounding_Volumes();
 }
 
 // These are segment points, and include the start and end point of the
@@ -329,15 +328,10 @@ void SegmentedLineClass::Set_Texture_Mapping_Mode(SegLineRendererClass::TextureM
 	LineRenderer.Set_Texture_Mapping_Mode(mode);
 }
 
-// ?Set_Texture_Tile_Factor@SegmentedLineClass@@QAEXM@Z present-unmatched
 void SegmentedLineClass::Set_Texture_Tile_Factor(float factor)
 {
-	// BFME field-order drift: retail's SegLineRendererClass::Set_Texture_Tile_Factor
-	// (the one at 0x95FEF0) clamps the value, but this forwarder does not call it --
-	// it writes LineRenderer's TextureTileFactor slot directly, unclamped. Reproduced
-	// byte-for-byte (SegmentedLineClass is a friend of SegLineRendererClass) rather
-	// than routed through the clamped setter.
-	LineRenderer.TextureTileFactor = factor;
+	// BFME2 0x15E3D0 forwards to the clamped renderer setter at 0x191230.
+	LineRenderer.Set_Texture_Tile_Factor(factor);
 }
 
 void SegmentedLineClass::Set_UV_Offset_Rate(const Vector2 &rate)
@@ -481,7 +475,6 @@ void SegmentedLineClass::Get_Obj_Space_Bounding_Box(AABoxClass & box) const
 	}
 }
 
-// ?SegmentedLineClass::Prepare_LOD present-unmatched
 void SegmentedLineClass::Prepare_LOD(CameraClass &camera)
 {
 	// Find the maximum screen dimension of the object in pixels
@@ -495,14 +488,7 @@ void SegmentedLineClass::Prepare_LOD(CameraClass &camera)
 	lvl = MIN(lvl, MaxSubdivisionLevels);
 	LineRenderer.Set_Current_Subdivision_Level(lvl);
 
-	// Prepare LOD processing if the line has subdivision enabled:
-	if (MaxSubdivisionLevels > 0) {
-		// Add myself to the LOD optimizer:
-		PredictiveLODOptimizerClass::Add_Object(this);
-	} else {
-		// Not added to optimizer, need to add cost
-		PredictiveLODOptimizerClass::Add_Cost(Get_Cost());
-	}
+	// BFME2's slot72 body ends here, without the donor's optimizer registration.
 }
 
 void SegmentedLineClass::Increment_LOD(void)
