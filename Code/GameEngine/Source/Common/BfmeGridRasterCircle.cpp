@@ -82,6 +82,10 @@ public:
 	unsigned char m_bfmeGap[3];				// +0x01
 	int m_bfmeValue;					// +0x04
 	int m_bfmeExtra;					// +0x08
+
+	// BFME2 paints through a three-argument helper (retail 0x006C15E0);
+	// declared here so the range updater below resolves it.
+	void bfmeUpdate(int amount, bool absolute, int mode);
 };
 
 typedef void (__cdecl *BfmeCellVisitorFC)(int x, int y,
@@ -94,6 +98,8 @@ public:
 	void bfmeConfigure(Region3D region, Real cellSize);
 	void bfmeGetCellRange(BfmeCellFC **first, BfmeCellFC **last,
 		int x1, int x2, int y);
+
+	friend class BfmeRangeUpdaterFC;
 
 private:
 	Region3D m_bfmeRegion;					// +0x00
@@ -111,9 +117,12 @@ public:
 	__declspec(noinline) void operator()(int firstX, int lastX, int y);
 
 private:
-	Gen_008812D0 *m_bfmeGrid;
-	int m_bfmeAmount;
-	bool m_bfmeAbsolute;
+	// BFME2 carries a fourth paint-mode word after the amount; the flag stays
+	// byte-sized at +0x0C (retail passes it through cl).
+	Gen_008812D0 *m_bfmeGrid;				// +0x00
+	int m_bfmeAmount;					// +0x04
+	int m_bfmeMode;						// +0x08
+	bool m_bfmeAbsolute;					// +0x0C
 };
 
 // ??0Gen_008812D0@@QAE@XZ
@@ -167,6 +176,21 @@ void __cdecl bfmeRasterCircleFC(int centerX, int centerY, const int radius,
 			--firstX;
 			d += ((x << 1) + 1);
 		}
+	}
+}
+
+// ??RBfmeRangeUpdaterFC@@QAEXHHH@Z
+void BfmeRangeUpdaterFC::operator()(int firstX, int lastX, int y)
+{
+	BfmeCellFC *first;
+	BfmeCellFC *last;
+	m_bfmeGrid->bfmeGetCellRange(&first, &last, firstX, lastX, y);
+
+	for (BfmeCellFC *cell = first; cell != last; ++cell)
+	{
+		cell->bfmeUpdate(m_bfmeAmount, m_bfmeAbsolute, m_bfmeMode);
+		m_bfmeGrid->m_bfmeVisitor(firstX, y, cell->m_bfmeKind);
+		++firstX;
 	}
 }
 
