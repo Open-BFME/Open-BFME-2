@@ -78,6 +78,9 @@ struct Region3D
 class BfmeCellFC
 {
 public:
+	BfmeCellFC();
+	~BfmeCellFC();
+
 	unsigned char m_bfmeKind;				// +0x00
 	unsigned char m_bfmeGap[3];				// +0x01
 	int m_bfmeValue;					// +0x04
@@ -212,4 +215,72 @@ void Gen_008812D0::bfmeGetCellRange(BfmeCellFC **first,
 		*first = row + x1;
 
 	*last += x2 < m_bfmeWidth ? x2 + 1 : m_bfmeWidth;
+}
+
+
+// BFME 2's cell grows a third field that its constructor (0x006C0BA0) sets to
+// -1; new[] passes that constructor and the empty destructor to the array
+// helper, so both are defined here rather than left implicit.
+BfmeCellFC::BfmeCellFC()
+	: m_bfmeKind(0x80), m_bfmeValue(0), m_bfmeExtra(-1)
+{
+}
+
+// ??1BfmeCellFC@@QAE@XZ present-unmatched
+BfmeCellFC::~BfmeCellFC()
+{
+}
+
+// Transferred from BFME 1's taintmanager_impl.cpp; only the cell size differs.
+// ?bfmeConfigure@Gen_008812D0@@QAEXURegion3D@@M@Z
+void Gen_008812D0::bfmeConfigure(Region3D region, Real cellSize)
+{
+	if (region.width() < 1.0f)
+		region.hi.x = region.lo.x + 1.0f;
+	if (region.height() < 1.0f)
+		region.hi.y = region.lo.y + 1.0f;
+
+	Real cellSizeInv = 1.0f / cellSize;
+	int width = bfmeFloatToLongFC(bfmeFloatCeilFC(
+		region.width() * cellSizeInv));
+	if (width < 1)
+		width = 1;
+	int height = bfmeFloatToLongFC(bfmeFloatCeilFC(
+		region.height() * cellSizeInv));
+	if (height < 1)
+		height = 1;
+
+	BfmeCellFC *cells = new BfmeCellFC[width * height];
+	BfmeCellFC *cell = cells;
+	for (unsigned int y = 0; y < (unsigned int)height; ++y)
+	{
+		int oldY = bfmeFloatToLongFC(bfmeFloatFloorFC(
+			((Real)y * cellSize + region.lo.y - m_bfmeRegion.lo.y)
+				* m_bfmeCellSizeInv));
+		if (oldY >= 0 && oldY < m_bfmeHeight)
+		{
+			for (unsigned int x = 0; x < (unsigned int)width;
+				++x, ++cell)
+			{
+				int oldX = bfmeFloatToLongFC(bfmeFloatFloorFC(
+					((Real)x * cellSize + region.lo.x - m_bfmeRegion.lo.x)
+						* m_bfmeCellSizeInv));
+				if (oldX >= 0 && oldX < m_bfmeWidth)
+					cell->m_bfmeKind = m_bfmeCells[
+						oldY * m_bfmeWidth + oldX].m_bfmeKind;
+			}
+		}
+		else
+		{
+			cell += width;
+		}
+	}
+
+	delete[] m_bfmeCells;
+	m_bfmeCells = cells;
+	m_bfmeRegion = region;
+	m_bfmeCellSizeInv = cellSizeInv;
+	m_bfmeWidth = width;
+	m_bfmeHeight = height;
+	m_bfmeCellSize = cellSize;
 }
