@@ -341,7 +341,6 @@ void AnimateWindowManager::registerGameWindow(GameWindow *win, AnimTypes animTyp
 		((BFMEAnimateWindowListPush &)m_winList).bfmePushBack(animWin);
 }
 
-// ?getProcessAnimate@AnimateWindowManager@@AAEPAVProcessAnimateWindow@@W4AnimTypes@@@Z present-unmatched
 ProcessAnimateWindow *AnimateWindowManager::getProcessAnimate( AnimTypes animType )
 {
 	switch (animType) {
