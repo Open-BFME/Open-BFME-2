@@ -17393,3 +17393,5 @@ _lua_setlinehook,,0x0074C9E0,15,Code/Libraries/Source/Lua/ldebug.c,matched,gen-a
 ?Record_Texture@Debug_Statistics@@SAXABV?$RefCountPtr@VTextureClass@@@@@Z,,0x0012A2B0,333,Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsRecordTexture.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 ?Add_Record_Texture@@YAXABV?$RefCountPtr@VTextureClass@@@@@Z,,0x0012A210,154,Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsRecordTexture.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 _getluaproto,,0x0074CBA0,27,Code/Libraries/Source/Lua/ldebug.c,matched,placed by masked whole-.text search of the compiled body - single hit
+?_GetHeapAllocator@MemoryPool@@YAPAVGeneralAllocator@Allocator@EA@@I@Z,0x000304B0,0x000304B0,72,Code/GameEngine/Source/Common/System/memory_pool.cpp,matched,export name (reverse/exports.csv);TlsGetValue current-heap lookup then id%101 bucket chain
+?_GetHeapAllocatorByIndex@MemoryPool@@YAPAVGeneralAllocator@Allocator@EA@@I@Z,0x00030500,0x00030500,23,Code/GameEngine/Source/Common/System/memory_pool.cpp,matched,export name (reverse/exports.csv);bounds-checked allocator table read
