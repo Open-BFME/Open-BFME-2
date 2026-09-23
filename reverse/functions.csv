@@ -17493,3 +17493,4 @@ _getluaproto,,0x0074CBA0,27,Code/Libraries/Source/Lua/ldebug.c,matched,placed by
 ??_GHAnimComboDataClass@@QAEPAXI@Z,,0x00196C60,63,Code/Libraries/Source/WWVegas/WW3D2/promoted__Reset_HAnimComboClass_QAEXXZ_00974DC0.cpp,matched,BFME1 HAnimComboClass donor; BFME2 /G7 /arch:SSE
 ?Reset@HAnimComboClass@@QAEXXZ,,0x00197680,98,Code/Libraries/Source/WWVegas/WW3D2/promoted__Reset_HAnimComboClass_QAEXXZ_00974DC0.cpp,matched,BFME1 HAnimComboClass donor; BFME2 /G7 /arch:SSE
 ?Get_Texture_Index@MaterialInfoClass@@QAEHPBD@Z,,0x0016FC10,91,Code/Libraries/Source/WWVegas/WW3D2/MaterialInfoGetTextureIndex.cpp,matched,BFME1 MaterialInfoGetTextureIndex.cpp donor (handle class renamed to its BFME2 ledger name); /G7 /arch:SSE
+?Rva0086B2F0@@YAXPADPAUpiPlayer@@@Z,,0x006AAB70,107,Code/GameEngine/Source/GameNetwork/GameSpy/peer/Rva0086B2F0.cpp,matched,BFME1 byte-identical donor; b1 0x0086B2F0; 1 DIR32 string literal(s) agree
