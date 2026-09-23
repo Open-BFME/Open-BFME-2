@@ -17407,3 +17407,4 @@ _fprintf,,0x002CEC42,108,Code/GameEngine/Source/Common/FprintfAppendLine.cpp,mat
 ?Rva009A7F60@@YAXPAHPAEHHHHPBH@Z,,0x001B89C0,123,Code/GameEngine/Source/Common/Rva009A7F60.cpp,matched,BFME1 byte-identical donor; b1 0x009A7F60
 ??0W3DBuffDrawModuleData@@QAE@XZ,,0x000CEE4C,17,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DBuffDrawModuleDataCtor.cpp,matched,Root ModuleData ctor (vtable 0xBCD270 plus cleared word at 8 plus false flag at 0xC); factory 0x64C94 news 0x10
 ??0SiegeAIUpdateModuleData@@QAE@XZ,,0x004904D9,18,Code/GameEngine/Source/GameLogic/Object/Update/SiegeAIUpdateModuleDataCtor.cpp,matched,ModuleData ctor over pinned Transport base (vtable 0xC4B6C8); factory news 0x64
+??0ShipSlowDeathBehaviorModuleData@@QAE@XZ,,0x0045E961,18,Code/GameEngine/Source/GameLogic/Object/Behavior/ShipSlowDeathBehaviorModuleDataCtor.cpp,matched,ModuleData ctor over pinned SlowDeath base (vtable 0xC42E98); factory news 0x190
