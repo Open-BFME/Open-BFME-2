@@ -10,11 +10,21 @@
 // the W3DSailModelDraw data factory (news 0x194, sole caller at 0x64FF7).
 // Row supersedes the ctor pin.
 
+class MultiIniFieldParse;
+struct FieldParse;
+
+class MultiIniFieldParse
+{
+public:
+	void add(const FieldParse *parseTable, unsigned int extraOffset);
+};
+
 class __declspec(novtable) W3DModelDrawModuleData
 {
 public:
 	W3DModelDrawModuleData();
 	virtual ~W3DModelDrawModuleData();
+	static void buildFieldParse(MultiIniFieldParse &parse);
 
 private:
 	// +0x00 vptr (novtable: no compiler install here).
@@ -26,6 +36,7 @@ class __declspec(novtable) W3DSailModelDrawModuleData : public W3DModelDrawModul
 {
 public:
 	W3DSailModelDrawModuleData();
+	static void buildFieldParse(MultiIniFieldParse &parse);
 
 private:
 	// +0x188 float zero.
@@ -47,4 +58,11 @@ W3DSailModelDrawModuleData::W3DSailModelDrawModuleData()
 	m_cap18C = cap25;
 	*(unsigned int *)this = 0x00BC6870;
 	m_cap190 = cap05;
+}
+
+// ?buildFieldParse@W3DSailModelDrawModuleData@@SAXAAVMultiIniFieldParse@@@Z @0x000D0774
+void W3DSailModelDrawModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	W3DModelDrawModuleData::buildFieldParse(parse);
+	parse.add(reinterpret_cast<const FieldParse *>(0x00BCDC20), 0);
 }
