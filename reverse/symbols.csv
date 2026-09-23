@@ -4452,7 +4452,6 @@ _bfmeAppend,0x0060D5F2,callee of bfmeEmit (0x0060D7C0) at the site its BFME1 don
 ?bfmeUpdate@BfmeCellFC@@QAEXH_NH@Z,0x006C15E0,BfmeCellFC paint helper; sole E8 caller is the range updater operator() at 0x6C0F20; 101B retail body fully decoded; row pending the or-esi lever
 ?Rva007E8D30@@YAHPBD0PADH@Z,0x00655DC0
 ?d_007e8b00@@YAXXZ,0x00655B90
-?giveSelfUpgrade@UpgradeMux@@QAEXXZ,0x0045230C,UpgradeMux self-upgrade over 10 behavior-ctor sites incl FireWeaponWhenDamaged 0x4829F4 and Dead 0x482DF0; donor ZH ctor tail
 ?reloadAmmo@Weapon@@QAEXPBVObject@@@Z,0x002CE1E9,Weapon reload over 12 sites incl 8 FireWeaponWhenDamaged pairs plus Weapon.cpp neighbors; donor ZH Weapon.h reloadAmmo
 ?frameToSleepTime@UpdateModule@@IAE?AW4UpdateSleepTime@@IIII@Z,0x0044DF28
 ??0ProfileId@@QAE@PBD00HH@Z,0x006C5C60,ProfileHighLevel::AddProfile 0x006C65B7 constructs the new id here after ProfileAllocMemory(0x58) as in profile_highlevel.cpp
