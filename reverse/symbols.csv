@@ -3996,7 +3996,6 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ??0CaveContainModuleData@@QAE@XZ,0x00466D37,ctor call in the byte-true CaveContain data factory (ModuleFactory registers it under "CaveContain")
 ??0HealContainModuleData@@QAE@XZ,0x00466D37,ctor call in the byte-true HealContain data factory (ModuleFactory registers it under "HealContain")
 ??0HordeContainModuleData@@QAE@XZ,0x00475C9A,ctor call in the byte-true HordeContain data factory (ModuleFactory registers it under "HordeContain")
-??0AODHordeContainModuleData@@QAE@XZ,0x0047A2E1,ctor call in the byte-true AODHordeContain data factory (ModuleFactory registers it under "AODHordeContain")
 ?buildFieldParse@AODHordeContainModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x0047A3B0,parse-proc push in the byte-true AODHordeContain data factory (ModuleFactory registers it under "AODHordeContain")
 ??0TransportContainModuleData@@QAE@XZ,0x00468301,ctor call in the byte-true TransportContain data factory (ModuleFactory registers it under "TransportContain")
 ??0SiegeEngineContainModuleData@@QAE@XZ,0x0047C927,ctor call in the byte-true SiegeEngineContain data factory (ModuleFactory registers it under "SiegeEngineContain")
@@ -4658,3 +4657,4 @@ _fmod,0x0062996A,MSVCR71 fmod import thunk; raw jmp through IAT00BBA554 independ
 ??0?$ConcreteModuleClass@V?$ModuleTag@$07$E?LIFE_EVENT_MODULE_KEY@FXParticleSystem@@3QBDB$E?LIFE_EVENT_MODULE_NAME@2@3QBDBVLifeEventModule@2@VLifeEventModuleTemplate@2@VParticleLifeEventModule@2@@FXParticleSystem@@@FXParticleSystem@@AAE@XZ,0x003AA8AB,exported ConcreteModuleClass constructor (reverse/exports.csv); also the call target in its getInstance
 ??0?$ConcreteModuleClass@V?$ModuleTag@$07$E?TERRAIN_COLLISION_MODULE_KEY@FXParticleSystem@@3QBDB$E?TERRAIN_COLLISION_MODULE_NAME@2@3QBDBVTerrainCollisionModule@2@VTerrainCollisionModuleTemplate@2@VParticleTerrainCollisionModule@2@@FXParticleSystem@@@FXParticleSystem@@AAE@XZ,0x003A8826,exported ConcreteModuleClass constructor (reverse/exports.csv); also the call target in its getInstance
 ??0XferException@@QAA@HPBDZZ,0x0060C36E,XferException(int tag; const char *format; ...): cdecl varargs ctor that Xfer::operator==(Version&) calls on its exception object; the ledger holds the same body as _bfmeFormatText
+?construct@Rva003623E5Filter@@QAEPAV1@XZ,0x003623E5,body-level member setup spelling for the 0x3623E5 body (see also the ??0 pins there); CallHelp ctor calls it on +0x18 before applyFilter
