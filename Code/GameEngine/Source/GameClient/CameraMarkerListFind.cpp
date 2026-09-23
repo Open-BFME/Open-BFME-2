@@ -61,7 +61,6 @@ struct CameraMarker
 	AsciiString m_name;
 };
 
-// ??1CameraMarker@@QAE@XZ present-unmatched -- the node destructor is real (its
 // ILT is pinned at 0x00028984 and clear() calls it), but no row here claims its
 // bytes; the definition stays because removing it changes clear()'s inlining.
 CameraMarker::~CameraMarker()

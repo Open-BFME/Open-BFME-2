@@ -126,7 +126,6 @@ void NetWrapperCommandMsg::setNumChunks(UnsignedInt numChunks)
 	m_numChunks = numChunks;
 }
 
-// ?getWrappedCommandID@NetWrapperCommandMsg@@QAEGXZ present-unmatched
 UnsignedShort NetWrapperCommandMsg::getWrappedCommandID()
 {
 	return m_wrappedCommandID;
