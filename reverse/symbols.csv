@@ -4553,7 +4553,6 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ?winDrawBorder@GameWindow@@QAEXXZ,0x00313D03,callee of W3DGadgetTabControlDraw (0x000A3373) at the site its BFME1 donor calls or inlines it
 ?drawStaticTextText@@YAXPAVGameWindow@@PAVWinInstanceData@@HH@Z,0x000A08FD,callee of the lexicon-named W3DGadgetStaticTextImageDraw (0x000A0B6A) at the site its Zero Hour source calls it; may be an ICF alias
 ??0?$_List_base@UEvacuationRecord@@V?$allocator@UEvacuationRecord@@@_STL@@@_STL@@QAE@ABV?$allocator@UEvacuationRecord@@@1@@Z,0x0035C9A6,callee of 0EvacuateDamage (0x004BAE1D) at the site its BFME1 donor calls it; may be an ICF alias
-??0DamageModule@@QAE@PAVThing@@PBVModuleData@@@Z,0x004B9704,callee of 0EvacuateDamage (0x004BAE1D) at the site its BFME1 donor calls it; may be an ICF alias
 ?clear@?$_List_base@UEvacuationRecord@@V?$allocator@UEvacuationRecord@@@_STL@@@_STL@@QAEXXZ,0x0023DAA5,callee of 0EvacuateDamage (0x004BAE1D) at the site its BFME1 donor calls it; may be an ICF alias
 ?setWakeFrame@UpdateModule@@QAEXPAVObject@@I@Z,0x0044DF71,callee of 0SiegeDockingBehavior (0x0045996C) at the site its BFME1 donor calls it; may be an ICF alias
 ??0WeaponModeSpecialPowerUpdateBase@@QAE@PAVThing@@PBVModuleData@@@Z,0x0058959A,callee of 0WeaponModeSpecialPowerUpdate (0x00494B38) at the site its BFME1 donor calls it; may be an ICF alias
