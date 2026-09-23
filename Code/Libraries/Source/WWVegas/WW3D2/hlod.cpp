@@ -231,7 +231,8 @@ protected:
 */
 class ProxyArrayClass : public W3DMPO, public VectorClass<ProxyRecordClass>, public RefCountClass
 {
-	W3DMPO_GLUE(ProxyArrayClass)
+	// BFME2 dropped the W3D pool for this class: retail ??_GProxyArrayClass
+	// calls global operator delete, so no W3DMPO_GLUE here.
 public:
 	ProxyArrayClass(int size) : VectorClass<ProxyRecordClass>(size)
 	{
