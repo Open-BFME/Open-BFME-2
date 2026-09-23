@@ -383,9 +383,7 @@ name,address,notes
 ??0MeshMatDescClass@@QAE@ABV0@@Z,0x0015DD10,MeshMatDescClass copy ctor: operator-new 0x118 plus copy from DefMatDesc/AlternateMatDesc members in MeshModel copy +0xCA/+0x109, ehvec 8xRefCountPtr over +0x78; ghidra 289B
 ??0MeshMatDescClass@@QAE@XZ,0x0015B480,MeshMatDescClass default ctor: retail MeshModelClass default 0x1727E0 allocates 0x118 via new@0x2FDA0 and thiscalls it with the fresh block storing to DefMatDesc/CurMatDesc +0x8C/+0x94; BFME1 meshmdl.cpp default news MeshMatDescClass the same way
 ??0MeshModelClass@@QAE@ABV0@@Z,0x00172940,MeshModelClass copy constructor: retail MeshClass::Make_Unique at 0x00149C10 calls it with the fresh allocation as this and the shared model as the argument right after operator new (Zero Hour NEW_REF(MeshModelClass;(*Model)))
-??0MinefieldBehavior@@QAE@PAVThing@@PBVModuleData@@@Z,0x004A8E7B,address read from the REL32 displacement at a placed body
 ??0MissileLauncherBuildingUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x004CD933
-??0DelayedLuaEventUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x004A8E7B,address read from the REL32 displacement at a placed body
 ??0InvisibilitySpecialPowerModuleData@@QAE@XZ,0x004C244D,address read from the REL32 displacement at a placed body
 ??0ModelConditionUpgradeModuleData@@QAE@XZ,0x004B6428,EH ctor over base 0x253487; vtable 0x00BF2558; condition members at +0x118/+0x164; sole raw caller is ModuleData factory 0x250546 which news 0x1B8
 ??0ModuleData@@QAE@XZ,0x006024FD,address read from the REL32 displacement at DieModuleData ctor 0x6054E7
