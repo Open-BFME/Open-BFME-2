@@ -79,29 +79,32 @@ public:
 class AsciiString : private StringBase<char>
 {
 public:
-    AsciiString() : StringBase<char>() {}
-    ~AsciiString() { releaseBuffer(); }
+	AsciiString() : StringBase<char>() {}
+	~AsciiString() { releaseBuffer(); }
 
-    void concat(const char *text, int length)
-    {
-        StringBase<char>::concat(text, length);
-    }
+	void clear();
 
-    void concat(char value)
-    {
-        char text[2];
-        text[0] = value;
-        StringBase<char>::concat(text, 1);
-    }
+	void concat(const char *text, int length)
+	{
+		StringBase<char>::concat(text, length);
+	}
 
-    const char *str() const
-    {
-        return m_data ? m_data->data : "";
-    }
+	void concat(char value)
+	{
+		char text[2];
+		text[0] = value;
+		StringBase<char>::concat(text, 1);
+	}
+
+	const char *str() const
+	{
+		return m_data ? m_data->data : "";
+	}
 };
 
 extern "C" __declspec(dllimport) int __cdecl atoi(const char *text);
 extern "C" __declspec(dllimport) double __cdecl atof(const char *text);
+extern "C" __declspec(dllimport) int __cdecl isspace(int c);
 
 extern "C" __declspec(dllimport) int __cdecl _write(int fd, const void *buffer, unsigned int count);
 extern "C" __declspec(dllimport) long __cdecl _lseek(int fd, long offset, int origin);
@@ -503,6 +506,37 @@ bool LocalFile::scanInt( int &newInt )
 	}
 
 	newInt = atoi( tempstr.str() );
+	return true;
+}
+
+// ?scanString@LocalFile@@UAE_NAAVAsciiString@@@Z
+bool LocalFile::scanString( AsciiString &newString )
+{
+	char c;
+	int val;
+
+	newString.clear();
+
+	// skip the preceding whitespace
+	do {
+		val = _read( m_handle, &c, 1 );
+	} while ((val != 0) && (isspace(c)));
+
+	if (val == 0) {
+		return false;
+	}
+
+	do {
+		char value[2];
+		value[0] = c;
+		newString.concat( value, 1 );
+		val = _read( m_handle, &c, 1 );
+	} while ((val != 0) && (!isspace(c)));
+
+	if (val != 0) {
+		_lseek( m_handle, -1, 1 /* SEEK_CUR */ );
+	}
+
 	return true;
 }
 
