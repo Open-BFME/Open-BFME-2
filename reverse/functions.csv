@@ -17469,3 +17469,4 @@ _getname,,0x0074CE40,135,Code/Libraries/Source/Lua/ldebug.c,matched,Lua 4.0.1 up
 _lua_getinfo,,0x0074D330,383,Code/Libraries/Source/Lua/ldebug.c,matched,Lua 4.0.1 upstream body; BFME1 full-file transfer; unique masked placement
 ?Flush@DX8MeshRendererClass@@QAEXXZ,,0x00148030,193,Code/Libraries/Source/WWVegas/WW3D2/DX8MeshRendererClass_Flush.cpp,matched,BFME1 DX8MeshRendererClass_Flush.cpp donor; BFME2 /G7 /arch:SSE
 ??0MineshaftPortalBehaviour@@QAE@PAVThing@@PBVModuleData@@@Z,,0x00373096,96,Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviourCtor.cpp,matched,Behavior-side ctor over rowed UpdateModule base plus implicit vector member; instance factory rowed at 0x24B625
+??0OilSpillUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,,0x0048C1F7,97,Code/GameEngine/Source/GameLogic/Object/Update/OilSpillUpdateCtor.cpp,matched,Behavior-side ctor over pinned FireWeaponUpdate base plus implicit vector member; instance factory rowed at 0x24CFA7
