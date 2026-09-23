@@ -58,6 +58,20 @@ public:
 	void destroyAllMessages();
 };
 
+static int s_messageStreamVtable;
+
+class __declspec(novtable) MessageStream : public GameMessageList
+{
+public:
+	MessageStream();
+	virtual ~MessageStream();
+
+private:
+	void *m_firstTranslator; // +0x14
+	void *m_lastTranslator; // +0x18
+	int m_nextTranslatorID; // +0x1C
+};
+
 // ??0GameMessageList@@QAE@XZ @0x0030F562
 GameMessageList::GameMessageList() :
 	SubsystemInterface()
@@ -103,4 +117,14 @@ void CommandList::destroyAllMessages()
 CommandList::~CommandList()
 {
 	destroyAllMessages();
+}
+
+// ??0MessageStream@@QAE@XZ @0x0030F697
+MessageStream::MessageStream() :
+	GameMessageList(),
+	m_firstTranslator(0),
+	m_lastTranslator(0)
+{
+	*(unsigned int *)this = (unsigned int)&s_messageStreamVtable;
+	m_nextTranslatorID = 1;
 }
