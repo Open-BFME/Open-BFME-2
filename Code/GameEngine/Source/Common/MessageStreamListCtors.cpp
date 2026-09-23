@@ -152,3 +152,8 @@ MessageStream::TranslatorData::~TranslatorData()
 	GameMessageTranslator *trans = m_translator;
 	::operator delete(trans ? trans->deleteInstance(0) : 0);
 }
+
+void deleteTranslatorData(MessageStream::TranslatorData *p)
+{
+	delete p;
+}
