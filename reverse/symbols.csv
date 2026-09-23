@@ -3803,14 +3803,12 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ??$pop_heap@PAHU?$less@H@_STL@@@_STL@@YAXPAH0U?$less@H@0@@Z,0x0040ADC6,REL32 displacement at a byte-true int algorithm call site
 ??$_Construct@UBfmePod16@@U1@@_STL@@YAXPAUBfmePod16@@ABU1@@Z,0x0041A727,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
 ?_M_push_back_aux_v@?$deque@UBfmePod16@@V?$allocator@UBfmePod16@@@_STL@@@_STL@@IAEXABUBfmePod16@@@Z,0x0041A9E8,address read from the REL32 displacement at a placed body
-??$_Construct@UBfmePod476@@U1@@_STL@@YAXPAUBfmePod476@@ABU1@@Z,0x001FEAD1,address read from the REL32 displacement at a placed body
 ??$_Construct@UBfmePod544@@U1@@_STL@@YAXPAUBfmePod544@@ABU1@@Z,0x004CADD1,address read from the REL32 displacement at a placed body
 ??$_Construct@UBfmePod872@@U1@@_STL@@YAXPAUBfmePod872@@ABU1@@Z,0x002CF8A9,address read from the REL32 displacement at a placed body
 ??$_Construct@UBfmePod900@@U1@@_STL@@YAXPAUBfmePod900@@ABU1@@Z,0x004CB8DE,address read from the REL32 displacement at a placed body
 ??$_M_allocate_and_copy@PBUBfmePod872@@@?$vector@UBfmePod872@@V?$allocator@UBfmePod872@@@_STL@@@_STL@@IAEPAUBfmePod872@@IPBU2@0@Z,0x002CFBC7,address read from the REL32 displacement at a placed body
 ??$__copy_ptrs@PBUBfmePod872@@PAU1@@_STL@@YAPAUBfmePod872@@PBU1@0PAU1@ABU__false_type@0@@Z,0x002CF27E,address read from the REL32 displacement at a placed body
 ??$__uninitialized_copy@PBUBfmePod872@@PAU1@@_STL@@YAPAUBfmePod872@@PBU1@0PAU1@ABU__false_type@0@@Z,0x0033AEAC,address read from the REL32 displacement at a placed body
-?_M_insert_overflow@?$vector@UBfmePod476@@V?$allocator@UBfmePod476@@@_STL@@@_STL@@IAEXPAUBfmePod476@@ABU3@ABU__false_type@2@I_N@Z,0x001FEEA3,address read from the REL32 displacement at a placed body
 ?_M_insert_overflow@?$vector@UBfmePod544@@V?$allocator@UBfmePod544@@@_STL@@@_STL@@IAEXPAUBfmePod544@@ABU3@ABU__false_type@2@I_N@Z,0x004CAF02,address read from the REL32 displacement at a placed body
 ?_M_insert_overflow@?$vector@UBfmePod872@@V?$allocator@UBfmePod872@@@_STL@@@_STL@@IAEXPAUBfmePod872@@ABU3@ABU__false_type@2@I_N@Z,0x0033CACB,address read from the REL32 displacement at a placed body
 ?_M_insert_overflow@?$vector@UBfmePod900@@V?$allocator@UBfmePod900@@@_STL@@@_STL@@IAEXPAUBfmePod900@@ABU3@ABU__false_type@2@I_N@Z,0x004CBA0F,address read from the REL32 displacement at a placed body
