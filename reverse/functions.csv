@@ -16979,3 +16979,7 @@ _fprintf,,0x002CEC42,108,Code/GameEngine/Source/Common/FprintfAppendLine.cpp,mat
 ?AddProfile@ProfileHighLevel@@SA?AVId@1@PBD00HH@Z,,0x006C6500,226,Code/Libraries/Source/profile/ProfileIdFrames.cpp,matched,ZH profile_highlevel.cpp; WWLib fast CS lock
 ?AddResultFunction@ProfileCmdInterface@@SAXP6APAVProfileResultInterface@@HPBQBD@ZPBD2@Z,,0x006C67F0,208,Code/Libraries/Source/profile/ProfileCmdAddResultFunction.cpp,matched,ZH profile_cmd.cpp verbatim
 ??1PoisonedBehavior@@MAE@XZ,,0x00482ED9,32,Code/GameEngine/Source/GameLogic/Object/Behavior/PoisonedBehaviorDtor.cpp,matched,Poisoned file-unit drain; BFME1 donor trivial dtor; four vptr stores +0/+0xC/+0x10/+0x20 then tail-jmp pinned UpdateModule dtor 0x24A797
+?Create@ProfileResultFileCSV@@SAPAVProfileResultInterface@@HPBQBD@Z,,0x006C80B0,103,Code/Libraries/Source/profile/ProfileResultCreate.cpp,matched,profile_result.cpp factory
+?Create@ProfileResultFileDOT@@SAPAVProfileResultInterface@@HPBQBD@Z,,0x006C7C50,186,Code/Libraries/Source/profile/ProfileResultCreate.cpp,matched,profile_result.cpp factory; default fold 999
+?GetClockCyclesFast@@YA_JXZ,,0x006C5570,569,Code/Libraries/Source/profile/ProfileClockCycles.cpp,matched,ZH profile.cpp clock probe plus file_gtt_dot registration
+?Create@ProfileResultFileGTT@@SAPAVProfileResultInterface@@HPBQBD@Z,,0x006C7D10,186,Code/Libraries/Source/profile/ProfileResultCreate.cpp,matched,BFME2 GTT DOT writer factory; default threshold 100
