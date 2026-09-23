@@ -2922,7 +2922,7 @@ name,address,notes
 ?push_back@IntFrameList@@QAEXABH@Z,0x0005548F,frame-history append; ICF-shares the address with the stlport list-int push_back row; serves FXList::shouldPlayFX
 ?radarToWorld@Radar@@QAE_NPBUICoord2D@@PAUCoord3D@@@Z,0x002D7744,BFME1 same-name matched 152B; screenPixelToWorld +0x5c tail-call target in Radar cluster; ghidra 133B
 ?read_Rva00188AF0@MeshModelClass@@IAE_NAAVChunkLoadClass@@PAVMeshLoadContextClass@@@Z,0x00188AF0,Opaque 0x3F-case reader in read_material_pass dispatch (chunk 0x3F undefined in w3d_file.h); address read from retail REL32 at 0x0018B459; frameless two-array-check shape; true name unknown
-?read_chunks@MeshGeometryClass@@IAE?AW4WW3DErrorType@@AAVChunkLoadClass@@@Z,0x0016D340,Load_W3D call-site callee
+?read_chunks@MeshGeometryClass@@IAE_NAAVChunkLoadClass@@@Z,0x0016D340,Load_W3D caller ignores result; target dispatch initializes status1 and returns AL1 on success or reader AL0 on failure; ret4 at16D436/16D43E; bool ABI replaces stale donor enum
 ?read_dcg@MeshModelClass@@IAE_NAAVChunkLoadClass@@PAVMeshLoadContextClass@@@Z,0x00188BB0,BFME1 matched row 121177 attests mangling and 0x3B-dispatch identity; address read from retail REL32 at 0x0018B464 in read_material_pass 0x3B-case; framed color reader
 ?read_dig@MeshModelClass@@IAE_NAAVChunkLoadClass@@PAVMeshLoadContextClass@@@Z,0x00188DF0,BFME1 matched row 121178 attests mangling and 0x3C-dispatch identity; address read from retail REL32 at 0x0018B46F in read_material_pass 0x3C-case; framed reader with done flag
 ?read_material_pass@MeshModelClass@@IAE_NAAVChunkLoadClass@@PAVMeshLoadContextClass@@@Z,0x0018B400,retail REL32 from read_prelit_material switch case for W3D_CHUNK_MATERIAL_PASS 0x38 at 0x0018B588 via jump-table index 4

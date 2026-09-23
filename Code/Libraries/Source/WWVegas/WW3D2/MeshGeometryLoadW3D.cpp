@@ -21,7 +21,7 @@
 // tests AL after the corresponding MeshModel virtual call. Full body643B
 // ends at ret4 at16DA92. Header loaders16D810/18BA10 establish MeshName+10;
 // chunk0x0C reader16B0E0 establishes UserText+14. Target Reset_Geometry
-// takes a third skin flag; read_chunks retains its donor enum declaration.
+// takes a third skin flag; read_chunks also returns target Boolean status.
 
 #include "always.h"
 #include "refcount.h"
@@ -32,7 +32,6 @@
 #include "vector4.h"
 #include "sphere.h"
 #include "multilist.h"
-#include "w3derr.h"
 #include "w3d_file.h"
 #include "chunkio.h"
 #include "wwdebug.h"
@@ -53,7 +52,7 @@ public:
 	int Get_Vertex_Count(void) { return VertexCount; }
 
 protected:
-	WW3DErrorType read_chunks(ChunkLoadClass & cload);
+	bool read_chunks(ChunkLoadClass & cload);
 	uint16 * get_bone_links(bool create = true);
 	void Generate_Culling_Tree(void);
 
