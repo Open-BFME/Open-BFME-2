@@ -58,7 +58,9 @@
 //   +0x48: plane equations, from matched get_planes 0x0016AC00.
 //   +0x50: bone links, from matched get_bone_links 0x0016A0C0.
 // The alternate-vertex name describes its target read/scale paths; no donor
-// member name is established for that slot. +0x54/+0x5C remain unidentified.
+// member name is established for that slot. The influence reader 0x0016B1A0
+// writes first-bone/run-length uint16 pairs through +0x54. The +0x5C buffer
+// has 16-byte opaque elements (constructor 0x00169B00); their meaning is unknown.
 // SortLevel/W3dAttributes at +0x1C/+0x20 are independently established by
 // the matched header loader 0x0016D810, which copies both W3D header fields.
 //
@@ -222,7 +224,7 @@ public:
 		ALLOW_NPATCHES							= 0x00010000,
 	};
 
-	void							Reset_Geometry(int polycount,int vertcount);
+	void							Reset_Geometry(int polycount,int vertcount,bool = true);
 
 	const char *				Get_Name(void) const;
 	void							Set_Name(const char * newname);
@@ -347,8 +349,8 @@ protected:
 	//     [+4] plus Release_Ref plus store) over every slot +0x30..+0x5C.
 	//   - copy ctor 0x0016A230 mem-init-zeroes +0x40..+0x5C (pre-vptr run)
 	//     and body-zeroes +0x3C with the +0x30 block (post-vptr run).
-	// Element types at +0x54/+0x5C remain unknown and use a forward-declared
-	// tag; their ref-counted pointer shape is established. Do NOT merge
+	// The +0x54 buffer stores uint16 run pairs; +0x5C has opaque 16-byte
+	// elements and only exposes its reference-counted base here. Do NOT merge
 	// +0x3C into an array with +0x30..+0x38: the copy ctor assigns +0x3C in
 	// the body while +0x40..+0x48 are mem-inits, so a single array member
 	// cannot reproduce both schedules.
@@ -360,9 +362,9 @@ protected:
 	ShareBufferClass<Vector4> *						PlaneEq;				// +0x48 (proven by get_planes)
 	ShareBufferClass<uint32> *						VertexShadeIdx;	// +0x4C (proven)
 	ShareBufferClass<uint16> *						VertexBoneLink;	// +0x50 (proven by get_bone_links)
-	ShareBufferClass<MeshGeometryUnknownBuffer> *UnknownBuffer54;	// +0x54 (2-byte elements; identity unresolved)
+	ShareBufferClass<uint16> *UnknownBuffer54;	// +0x54 (bone/run-length pairs; original name unknown)
 	ShareBufferClass<uint8> *						PolySurfaceType;	// +0x58 (proven)
-	ShareBufferClass<MeshGeometryUnknownBuffer> *UnknownBuffer5C;	// +0x5C (target buffer vtable BD4418; type unresolved)
+	RefCountClass *UnknownBuffer5C;	// +0x5C (opaque 16-byte buffer; vtable BD4418)
 	Vector3													BoundBoxMin;		// +0x60 (proven)
 	Vector3													BoundBoxMax;		// +0x6C (proven)
 	Vector3													BoundSphereCenter;// +0x78 (proven)

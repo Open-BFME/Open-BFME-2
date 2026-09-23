@@ -336,7 +336,7 @@ MeshGeometryClass::~MeshGeometryClass(void)
  *   11/9/2000  gth : Created.                                                                 *
  *=============================================================================================*/
 // MeshGeometryClass::Reset_Geometry exact retail body is emitted by
-// MeshGeometryClassResetGeometryThunk.cpp.
+// MeshGeometryReset.cpp.
 
 
 /***********************************************************************************************

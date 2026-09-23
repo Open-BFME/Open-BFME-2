@@ -1242,7 +1242,6 @@ name,address,notes
 ?Reset_Collection@CullSystemClass@@QAEXXZ,0x0065D1C0,address read from the REL32 displacement at a placed body; stlport 4.5.3
 ?Reset_D3D_Device@@YAX_N@Z,0x0004312A,address read from the REL32 in WndProc's WM_ACTIVATEAPP arm at 0x000019DA; same position and single bool argument as the reference's Reset_D3D_Device
 ?Reset_Device@DX8Wrapper@@SA_N_N@Z,0x00122600,address read from the REL32 displacement at a placed body
-?Reset_Geometry@MeshGeometryClass@@QAEXHH@Z,0x0016A320,Load_W3D call-site callee
 ?Reset_List@?$RefMultiListClass@VRenderObjClass@@@@QAEXXZ,0x0006F2DF,
 ?Resize@?$SimpleVecClass@K@@UAE_NH@Z,0x001A7C80
 ?Resize@?$SimpleVecClass@VVector4@@@@UAE_NH@Z,0x001A7C80,SimpleVec<Vector4> table VA BD71C8 slot1; slot2 is independently matched Vector4 Grow RVA1A7D60; both allocate16-byte elements through the same array constructor; direct callee of exact39-byte Vector4 ctor RVA1A8070
