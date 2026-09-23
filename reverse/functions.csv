@@ -17487,3 +17487,8 @@ _getluaproto,,0x0074CBA0,27,Code/Libraries/Source/Lua/ldebug.c,matched,placed by
 ??0SpellRechargeModifierUpgradeModuleData@@QAE@XZ,,0x004B6011,93,Code/GameEngine/Source/GameLogic/Object/Update/SpellRechargeModifierUpgradeModuleDataCtor.cpp,matched,EH derived ctor over rowed OpenContain base; vector member plus string set and flag
 ?handle@Gen00920BC0@@QAEXH@Z,,0x0013EA30,291,Code/GameEngineDevice/Source/W3DDevice/GameClient/Gen00920BC0Handle.cpp,matched,BFME1 Gen00920BC0Handle.cpp donor; BFME2 /G7 /arch:SSE
 ?copySurfaceRects006e@@YAXVW3DRadarResetSurface@@PBUBfmeRect@@01H@Z,,0x0011DCA0,120,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGetBackBufferSurface.cpp,matched,BFME1 W3DGetBackBufferSurface.cpp donor; BFME2 /G7 /arch:SSE
+?Add_Outline@Render2DClass@@QAEXABVRectClass@@MK@Z,,0x0011C1C0,318,Code/Libraries/Source/WWVegas/WW3D2/Render2DClassAddOutline.cpp,matched,BFME1 Render2DClassAddOutline.cpp donor; BFME2 /G7 /arch:SSE
+?GetBuffer@FrameGrabClass@@QAEPAJXZ,,0x00176860,36,Code/Libraries/Source/WWVegas/WW3D2/FrameGrabClassGetBuffer.cpp,matched,BFME1 FrameGrabClassGetBuffer.cpp donor; BFME2 /G7 /arch:SSE
+?Insert_Triangles@SortingRendererClass@@SAXGGGG@Z,,0x0011C6B0,58,Code/Libraries/Source/WWVegas/WW3D2/SortingRendererInsertTrianglesNoSphere.cpp,matched,BFME1 SortingRendererInsertTrianglesNoSphere.cpp donor; BFME2 /G7 /arch:SSE
+??_GHAnimComboDataClass@@QAEPAXI@Z,,0x00196C60,63,Code/Libraries/Source/WWVegas/WW3D2/promoted__Reset_HAnimComboClass_QAEXXZ_00974DC0.cpp,matched,BFME1 HAnimComboClass donor; BFME2 /G7 /arch:SSE
+?Reset@HAnimComboClass@@QAEXXZ,,0x00197680,98,Code/Libraries/Source/WWVegas/WW3D2/promoted__Reset_HAnimComboClass_QAEXXZ_00974DC0.cpp,matched,BFME1 HAnimComboClass donor; BFME2 /G7 /arch:SSE

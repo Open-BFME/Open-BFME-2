@@ -126,7 +126,6 @@ protected:
 };
 
 // ?Reset@HAnimComboClass@@QAEXXZ
-// ?Reset@HAnimComboClass@@QAEXXZ present-unmatched
 void	HAnimComboClass::Reset( void )
 {
 	int numAnimations = HAnimComboData.Count();
