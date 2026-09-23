@@ -5143,3 +5143,6 @@ _AVIFileInit@0,0x0065479C,jmp [IAT 0xBBA050] stub; import table names avifil32!A
 ?Create@AptInteger@@SAPAVBfmeAptValue006DCD20@@H@Z,0x006D8520,AptInteger::Create(int) spelled with this repo's AptValue class name; same address as the existing AptInteger::Create pins
 ?push_back@GateOpenBehaviorList@@QAEXABQAX@Z,0x004DFCB0,TU spelling alias for the GateOpenBehaviorList appendOnce push_back; body folds all 4-byte-pointer vectors
 ?orderPairs@GameWindow@@QAEXXZ,0x0031394A,GameWindow spelling of the rowed orderPairs helper at 0x31394A; shared layout on +0x14/+0x1C/+0x18/+0x20
+??4AsciiString@@QAEAAV0@PBD@Z,0x000366F0,AsciiString const-char assignment folding with the ABV0 op at this address per the DynamicPortalBehaviourModuleData WallBoundsMesh single-push call site
+??0?$_Vector_base@UDynamicPortalWayPoint@@V?$allocator@UDynamicPortalWayPoint@@@_STL@@@_STL@@QAE@ABV?$allocator@UDynamicPortalWayPoint@@@1@@Z,0x00211E58,WayPoint and Link member spelling folding with the rowed BfmeE16 empty Vector_base at this address
+?erase@?$vector@UDynamicPortalWayPoint@@V?$allocator@UDynamicPortalWayPoint@@@_STL@@@_STL@@QAEPAUDynamicPortalWayPoint@@PAU3@0@Z,0x003FA4DB,WayPoint clear spelling folding with the rowed Pod8 erase at this address per the 8B element size
