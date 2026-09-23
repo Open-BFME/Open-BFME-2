@@ -42,7 +42,11 @@ template class _STL::vector<BfmePod492, _STL::allocator<BfmePod492 > >;
 template class _STL::allocator<BfmePod544>;
 template class _STL::vector<BuddyRequest, _STL::allocator<BuddyRequest > >;
 template class _STL::vector<BfmePod840, _STL::allocator<BfmePod840 > >;
-template class _STL::vector<BfmePod872, _STL::allocator<BfmePod872 > >;
+// Only allocation and trivial assignment are claimed for this size-only view.
+template class _STL::allocator<BfmePod872>;
+template BfmePod872* _STL::__copy<BfmePod872*, BfmePod872*, int>(
+    BfmePod872*, BfmePod872*, BfmePod872*,
+    const _STL::random_access_iterator_tag&, int*);
 template class _STL::vector<BfmePod900, _STL::allocator<BfmePod900 > >;
 template class _STL::deque<BfmePod492, _STL::allocator<BfmePod492 > >;
 template class _STL::deque<BuddyRequest, _STL::allocator<BuddyRequest > >;
