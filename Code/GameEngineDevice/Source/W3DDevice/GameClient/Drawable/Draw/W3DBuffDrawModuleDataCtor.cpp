@@ -10,10 +10,20 @@
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 
+class MultiIniFieldParse;
+struct FieldParse;
+
+class MultiIniFieldParse
+{
+public:
+	void add(const FieldParse *parseTable, unsigned int extraOffset);
+};
+
 class W3DBuffDrawModuleData
 {
 public:
 	W3DBuffDrawModuleData();
+	static void buildFieldParse(MultiIniFieldParse &parse);
 
 private:
 	// +0x00 vtable (installed explicitly below; no base, no virtuals here).
@@ -34,4 +44,10 @@ W3DBuffDrawModuleData::W3DBuffDrawModuleData()
 	_ReadWriteBarrier();
 	m_08 &= 0;
 	m_0C = false;
+}
+
+// ?buildFieldParse@W3DBuffDrawModuleData@@SAXAAVMultiIniFieldParse@@@Z @0x000CEE93
+void W3DBuffDrawModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	parse.add(reinterpret_cast<const FieldParse *>(0x00BCD2F4), 0);
 }
