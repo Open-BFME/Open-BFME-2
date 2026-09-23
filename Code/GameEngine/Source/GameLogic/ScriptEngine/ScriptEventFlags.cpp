@@ -33,3 +33,29 @@ void EventFlagEntry::setKeyFromName(const char *name)
 {
 	key = TheNameKeyGenerator->nameToKey(name);
 }
+
+struct XmlNameSlot
+{
+	char tag[0x21];
+	char name[0x40];
+};
+
+class XmlNameSlotList
+{
+	char m_pad[0x28];
+	int m_count;
+	XmlNameSlot m_slots[];
+
+public:
+	int count();
+	const char *tagAt(int index);
+	const char *nameAt(int index);
+	void finish();
+};
+
+const char *XmlNameSlotList::tagAt(int index)
+{
+	if (index < 0 || index >= m_count)
+		return 0;
+	return m_slots[index].tag;
+}
