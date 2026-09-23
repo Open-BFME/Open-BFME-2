@@ -172,7 +172,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ??8Xfer@@UAEAAV0@AAM@Z,0x0000554C,0x0000554C,28,Code/GameEngine/Source/Common/System/Xfer.cpp,matched,Open-BFME5 clean C++; Xfer 'real' transfer operator at slot 28 of the retail vtable
 ??8@YA_NABVGameClientRandomVariable@@0@Z,0x00005568,0x00005568,51,Code/GameEngine/Source/GameClient/ClientRandomValue.cpp,matched,Open-BFME5 clean C++; GameClientRandomVariable equality over type and both Real bounds
 ??9@YA_NABVGameClientRandomVariable@@0@Z,0x0000559B,0x0000559B,21,Code/GameEngine/Source/GameClient/ClientRandomValue.cpp,matched,Open-BFME5 clean C++; GameClientRandomVariable inequality forwarding to the equality body
-?d_0000d540@@YAXXZ,,0x0000D540,118,Code/gen_asm/d_0000b550.asm,matched,gen-dump;ghidra=FUN_0040d540
 ?d_00012190@@YAXXZ,,0x00012190,122,Code/gen_asm/d_000112aa.asm,matched,gen-dump;ghidra=FUN_00412190
 ?d_0001220a@@YAXXZ,,0x0001220A,2680,Code/gen_asm/d_000112aa.asm,matched,gen-dump;ghidra=FUN_0041220a
 ?zero@ICoord3D@@QAEXXZ,0x00004DCF,0x00004DCF,11,Code/Libraries/Source/WWVegas/WWMath/icoord.cpp,matched,Open-BFME5 clean C++; ICoord3D zero from EA reference
@@ -17414,3 +17413,4 @@ _fprintf,,0x002CEC42,108,Code/GameEngine/Source/Common/FprintfAppendLine.cpp,mat
 ??0StatusBitsUpgradeIfEldestKindof@@QAE@PAVThing@@PBVModuleData@@@Z,,0x004B4A32,84,Code/GameEngine/Source/GameLogic/Object/Upgrade/StatusBitsUpgradeIfEldestKindofCtor.cpp,matched,Behavior ctor over rowed StatusBitsUpgrade base; sole caller rowed factory 0x250076 news 0x20
 ??0CommandButtonHuntUpdateModuleData@@QAE@XZ,,0x0049529F,31,Code/GameEngine/Source/GameLogic/Object/Update/CommandButtonHuntUpdateModuleDataCtor.cpp,matched,Root ModuleData ctor (vtable 0xC4ED70 plus global word at 8 plus 9999.0f cap at 0xC); factory news 0x10
 ??0ToggleDeploySpecialAbilityUpdateModuleData@@QAE@XZ,,0x004AE547,32,Code/GameEngine/Source/GameLogic/Object/Update/ToggleDeploySpecialAbilityUpdateModuleDataCtor.cpp,matched,ModuleData ctor over pinned Rva0044EB54 base (vtable 0xC553D8 plus cleared words at 0xC8/0xCC); factory news 0xD0
+??$__write_decimal_backward@J@_STL@@YAPADPADJHABU__true_type@0@@Z,,0x0000D540,118,Code/Libraries/Source/WWVegas/WWLib/stlport_write_decimal_backward_long.cpp,matched,stlport; the long instantiation; unsigned divide (__aulldvrm)
