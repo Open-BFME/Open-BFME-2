@@ -4447,7 +4447,6 @@ _bfmeAppend,0x0060D5F2,callee of bfmeEmit (0x0060D7C0) at the site its BFME1 don
 ?erase@?$vector@UCashHackUpgrades@@V?$allocator@UCashHackUpgrades@@@_STL@@@_STL@@QAEPAUCashHackUpgrades@@PAU3@0@Z,0x003FA4DB,Upgrades-spelled erase alias to rowed Pod8 body (same 8B element size, same bytes); CashHackSpecialPowerModuleDataCtor TU clear() lowers to erase
 ??0?$_List_base@PAVAnimateWindow@@V?$allocator@PAVAnimateWindow@@@_STL@@@_STL@@QAE@ABV?$allocator@PAVAnimateWindow@@@1@@Z,0x004EC36C
 ?clear@?$_List_base@PAVAnimateWindow@@V?$allocator@PAVAnimateWindow@@@_STL@@@_STL@@QAEXXZ,0x0023DAA5
-??0ProcessAnimateWindowSpiral@@QAE@XZ,0x005C4FFF
 ?bfmePushBack@BFMEAnimateWindowListPush@@QAEXABQAVAnimateWindow@@@Z,0x0005548F,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
 ?getTextLength@WinInstanceData@@QAEHXZ,0x000A3DCC,WinInstanceData inline getter called by W3DGadgetCheckBoxImageDraw (0x000A46B7) and W3DGadgetCheckBoxDraw (0x000A44D2); header-inline null-guarded m_text length
 ?drawCheckBoxText@@YAXPAVGameWindow@@PAVWinInstanceData@@@Z,0x000A43CD,file-static helper in W3DCheckBox.cpp called by both checkbox draws

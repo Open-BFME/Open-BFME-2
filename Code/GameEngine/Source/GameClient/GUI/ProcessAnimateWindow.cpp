@@ -955,12 +955,10 @@ Bool ProcessAnimateWindowSlideFromBottomTimed::reverseAnimateWindow( AnimateWind
 //-----------------------------------------------------------------------------
 // ProcessAnimateWindowSpiral PUBLIC FUNCTIONS ////////////////////////
 //-----------------------------------------------------------------------------
-
-ProcessAnimateWindowSpiral::ProcessAnimateWindowSpiral( void )
-{
-	m_maxR = TheDisplay->getWidth() / 2;
-	m_deltaTheta = .33f;	
-}
+// NOTE: the Spiral ctor lives in ProcessAnimateWindowSpiralCtor.cpp (it needs
+// /O1 for the EH_prolog-call prologue plus the donor-faithful
+// BFMEDisplayWidthSlot reinterpret_cast); the donor-verbatim def that stood
+// here did not reproduce retail and was removed on landing.
 
 //-----------------------------------------------------------------------------
 ProcessAnimateWindowSpiral::~ProcessAnimateWindowSpiral( void ) { }
