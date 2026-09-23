@@ -4340,7 +4340,6 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ??0HeightDieUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x0048FCB2,(Thing*;ModuleData*) ctor called by HeightDieUpdate::friend_newModuleInstance (0x0024D37E); class from the ModuleFactory registration literal
 ??0SiegeAIUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x00490506,(Thing*;ModuleData*) ctor called by SiegeAIUpdate::friend_newModuleInstance (0x0024D490); class from the ModuleFactory registration literal
 ??0AIUpdateInterface@@QAE@PAVThing@@PBVModuleData@@@Z,0x0026E9BD,(Thing*;ModuleData*) ctor called by AIUpdateInterface::friend_newModuleInstance (0x0024BDB7); class from the ModuleFactory registration literal
-??0HordeAIUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x0049A7F3,(Thing*;ModuleData*) ctor called by HordeAIUpdate::friend_newModuleInstance (0x0024E525); class from the ModuleFactory registration literal
 ??0HordeWorkerAIUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x0049AD15,(Thing*;ModuleData*) ctor called by HordeWorkerAIUpdate::friend_newModuleInstance (0x0024E560); class from the ModuleFactory registration literal
 ??0CommandButtonHuntUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x004952CF,(Thing*;ModuleData*) ctor called by CommandButtonHuntUpdate::friend_newModuleInstance (0x0024DF4F); class from the ModuleFactory registration literal
 ??0DemoTrapUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x004959B1,(Thing*;ModuleData*) ctor called by DemoTrapUpdate::friend_newModuleInstance (0x0024DFD8); class from the ModuleFactory registration literal
@@ -4721,3 +4720,4 @@ _bfmeAppend,0x0060D5F2,callee of bfmeEmit (0x0060D7C0) at the site its BFME1 don
 ?bfmePushBack@BFMEAnimateWindowListPush@@QAEXABQAVAnimateWindow@@@Z,0x0005548F,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
 ?getTextLength@WinInstanceData@@QAEHXZ,0x000A3DCC,WinInstanceData inline getter called by W3DGadgetCheckBoxImageDraw (0x000A46B7) and W3DGadgetCheckBoxDraw (0x000A44D2); header-inline null-guarded m_text length
 ?drawCheckBoxText@@YAXPAVGameWindow@@PAVWinInstanceData@@@Z,0x000A43CD,file-static helper in W3DCheckBox.cpp called by both checkbox draws
+?setWakeFrame@Rva0026E9BDBase@@IAEXPAVObject@@I@Z,0x0044DF71,TU-spelling alias of UpdateModule setWakeFrame for Rva0026E9BDBase-based behavior ctors; same Object-uint shape resolved by HordeAIUpdateCtor
