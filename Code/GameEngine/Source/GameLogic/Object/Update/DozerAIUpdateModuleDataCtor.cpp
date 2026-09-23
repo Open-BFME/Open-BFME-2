@@ -8,11 +8,21 @@
 // 0x70 proven by the DozerAIUpdate data factory (news 0x70, sole caller at
 // 0x24CDD9). Row supersedes the ctor pin.
 
+class MultiIniFieldParse;
+struct FieldParse;
+
+class MultiIniFieldParse
+{
+public:
+	void add(const FieldParse *parseTable, unsigned int extraOffset);
+};
+
 class __declspec(novtable) TransportAIUpdateModuleData
 {
 public:
 	TransportAIUpdateModuleData();
 	virtual ~TransportAIUpdateModuleData();
+	static void buildFieldParse(MultiIniFieldParse &parse);
 
 private:
 	// +0x00 vptr (novtable: no compiler install here).
@@ -24,6 +34,7 @@ class __declspec(novtable) DozerAIUpdateModuleData : public TransportAIUpdateMod
 {
 public:
 	DozerAIUpdateModuleData();
+	static void buildFieldParse(MultiIniFieldParse &parse);
 
 private:
 	// +0x64/+0x68/+0x6C float zeros (end at the rowed 0x70 instance size).
@@ -41,4 +52,11 @@ DozerAIUpdateModuleData::DozerAIUpdateModuleData()
 	m_64 = fzero;
 	m_68 = fzero;
 	m_6C = fzero;
+}
+
+// ?buildFieldParse@DozerAIUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z @0x00488AA5
+void DozerAIUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	TransportAIUpdateModuleData::buildFieldParse(parse);
+	parse.add(reinterpret_cast<const FieldParse *>(0x00C4B748), 0);
 }
