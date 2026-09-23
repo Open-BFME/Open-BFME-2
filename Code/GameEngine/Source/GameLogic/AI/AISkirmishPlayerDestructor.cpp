@@ -5,10 +5,10 @@
 // There is no RTTI locator at this vtable; identity comes from the factory
 // branch, canonical class contract, constructor and base-destructor chain.
 //
-// clearTeamsInQueue (0x160E70) drains the two intrusive lists at AIPlayer+4
-// and +8 through 0x1607C0/0x160990, passing the null-checked deleting callback
-// at 0x160E50. This matches AIPlayer.cpp's two removeAll calls and deleteQueue.
-// The final call reaches the independently matched AIPlayer destructor.
+// The destructor calls the 0x98A6F device teardown (rowed as
+// ?releaseDevices@Rva00098A6F@@QAEXXZ; previously misattributed to
+// AIPlayer::clearTeamsInQueue on a BFME1-donor resemblance, refuted since
+// the owning class is input-flavored) before the AIPlayer base destructor.
 //
 // Retail EH ownership: destructor operand +3 names handler 0x01005828;
 // that handler loads FuncInfo 0x011F3DE0, whose one-entry UnwindMap at
@@ -19,10 +19,15 @@ class AIPlayer
 {
 protected:
 	virtual ~AIPlayer();
-	void clearTeamsInQueue();
 
 private:
 	char m_unmodelled04[0x74];
+};
+
+class Rva00098A6F
+{
+public:
+	void releaseDevices();
 };
 
 class AISkirmishPlayer : public AIPlayer
@@ -36,5 +41,5 @@ private:
 
 AISkirmishPlayer::~AISkirmishPlayer()
 {
-	clearTeamsInQueue();
+	((Rva00098A6F *)this)->releaseDevices();
 }
