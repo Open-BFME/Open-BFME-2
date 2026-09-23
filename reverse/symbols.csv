@@ -3653,7 +3653,6 @@ dup_7e86b0,0x00655770
 ?resize@?$vector@UCoord3D@@V?$allocator@UCoord3D@@@_STL@@@_STL@@QAEXIUCoord3D@@@Z,0x00CA2F3,73B Coord3D 2-arg resize; called from the 1-arg forwarder and directly from the DockUpdate ctor else-branch
 ??0RubbleRiseUpdateModuleData@@QAE@XZ,0x00256653
 ??0Rva003B31ADMember@@QAE@XZ,0x003B31AD,alias of the rowed Rva003B31ADMember construct; PassiveAreaEffectBehaviorModuleDataCtor TU default-init spelling
-??0RadiusDecalTemplate@@QAE@XZ,0x00330E5D,BFME1 RadiusDecal.h donor class with AsciiString members; DynamicShroudClearingRangeUpdateModuleDataCtor TU member spelling; 9 member-position callers
 ??0SubObjectsUpgradeModuleData@@QAE@XZ,0x00257768
 ??0?$_List_base@UFloodMember@@V?$allocator@UFloodMember@@@_STL@@@_STL@@QAE@ABV?$allocator@UFloodMember@@@1@@Z,0x004EC36C
 ??0StancesBehaviorModuleData@@QAE@XZ,0x00254C8E,12B alias of ICF-folded trivial ctor installing vtable 0x00C4ED70 plus zero at +8; same body as pinned ??0SlotToLockUpdateModuleData@@QAE@XZ; used by StanceTemplate factory 0x24B3B4
