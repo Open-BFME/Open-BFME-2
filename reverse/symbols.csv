@@ -4054,7 +4054,6 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ??0PropagandaTowerBehaviorModuleData@@QAE@XZ,0x0048197C,ctor call in the byte-true PropagandaTowerBehavior data factory (ModuleFactory registers it under "PropagandaTowerBehavior")
 ??0DeflectSpecialPowerModuleData@@QAE@XZ,0x004C5671,ctor call in the byte-true DeflectSpecialPower data factory (ModuleFactory registers it under "DeflectSpecialPower")
 ?buildFieldParse@DeflectSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x004C5442,parse-proc push in the byte-true DeflectSpecialPower data factory (ModuleFactory registers it under "DeflectSpecialPower")
-??0SiegeDeploySpecialPowerModuleData@@QAE@XZ,0x004C5815,ctor call in the byte-true SiegeDeploySpecialPower data factory (ModuleFactory registers it under "SiegeDeploySpecialPower")
 ?buildFieldParse@SiegeDeploySpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x004C569F,parse-proc push in the byte-true SiegeDeploySpecialPower data factory (ModuleFactory registers it under "SiegeDeploySpecialPower")
 ??0SiegeDeployHordeSpecialPowerModuleData@@QAE@XZ,0x004C64D3,ctor call in the byte-true SiegeDeployHordeSpecialPower data factory (ModuleFactory registers it under "SiegeDeployHordeSpecialPower")
 ?buildFieldParse@SiegeDeployHordeSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x004C636B,parse-proc push in the byte-true SiegeDeployHordeSpecialPower data factory (ModuleFactory registers it under "SiegeDeployHordeSpecialPower")
