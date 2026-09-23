@@ -17543,3 +17543,4 @@ _getluaproto,,0x0074CBA0,27,Code/Libraries/Source/Lua/ldebug.c,matched,placed by
 ?applyNameFlags@Rva002E2970Host@@QAEXPAVXmlNameSlotList@@@Z,,0x00332C7A,117,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEventFlags.cpp,matched,BFME1 donor with BFME2 repairs: 17 entries; retail uses strcmp not memcmp
 ?showMovieButton@@YAXXZ,,0x003FEAA2,36,Code/GameEngine/Source/GameClient/UiCallbackFirers.cpp,matched,Fires SetMovieButtonState with _show through Rva00222A8BTarget invoker
 ?hideMovieButton@@YAXXZ,,0x003FEAC6,36,Code/GameEngine/Source/GameClient/UiCallbackFirers.cpp,matched,Fires SetMovieButtonState with _hide through Rva00222A8BTarget invoker
+?fadePalantirButtonsZero@@YAXXZ,,0x003FEAEA,36,Code/GameEngine/Source/GameClient/UiCallbackFirers.cpp,matched,Fires FadePalantirButtons with 0 through Rva00222A8BTarget invoker

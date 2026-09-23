@@ -22,3 +22,13 @@ void hideMovieButton()
 {
 	TheRva00222A8BTarget->invoke(TheRva00222A8BOwner, "SetMovieButtonState", 1, "_hide", 0, 0, 0, 0);
 }
+
+void fadePalantirButtonsZero()
+{
+	TheRva00222A8BTarget->invoke(TheRva00222A8BOwner, "FadePalantirButtons", 1, "0", 0, 0, 0, 0);
+}
+
+void fadePalantirButtonsOne()
+{
+	TheRva00222A8BTarget->invoke(TheRva00222A8BOwner, "FadePalantirButtons", 1, "1", 0, 0, 0, 0);
+}
