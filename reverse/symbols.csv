@@ -1430,7 +1430,6 @@ name,address,notes
 ?Set_Texture@SegLineRendererClass@@QAEXPAVTextureClass@@@Z,0x001911E0,address read from the REL32 displacement at a placed body
 ?Set_Texture@StreakRendererClass@@QAEXPAVTextureClass@@@Z,0x001911E0
 ?Set_Transform@RenderObjClass@@UAEXABVMatrix3D@@@Z,0x0013B790,address read from the REL32 displacement at a placed body
-?Shutdown@INIClass@@AAEXXZ,0x00616AC0,INIClass::Shutdown: retail ~INIClass (0x00617AC0) inlines Clear() and then tail-jumps here with this in ecx; BFME body differs from the Zero Hour three-delete shape so the row is not claimed
 ?SimpleMatch@Debug@@SA_NPBD0@Z,0x00039480,address read from the REL32 displacement at a placed body; stlport 4.5.3
 ?Simple_Evaluate_Pivot@HTreeClass@@QBE_NHABVMatrix3D@@PAV2@@Z,0x001606E0,address read from the REL32 displacement at a placed body
 ?Simple_Evaluate_Pivot@HTreeClass@@QBE_NPAVHAnimClass@@HMABVMatrix3D@@PAV3@@Z,0x00161700,address read from the REL32 displacement at a placed body
