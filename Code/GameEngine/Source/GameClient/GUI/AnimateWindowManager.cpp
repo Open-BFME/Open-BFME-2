@@ -215,7 +215,6 @@ void AnimateWindowManager::reset( void )
 	m_reverse = FALSE;
 }
 
-// ?update@AnimateWindowManager@@UAEXXZ present-unmatched
 void AnimateWindowManager::update( void )
 {
 	
