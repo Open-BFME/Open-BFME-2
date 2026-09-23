@@ -13,6 +13,11 @@ public:
 extern Rva00222A8BTarget *TheRva00222A8BTarget;
 extern void *TheRva00222A8BOwner;
 
+void setUiCallbackOwner(void *owner)
+{
+	TheRva00222A8BOwner = owner;
+}
+
 void showMovieButton()
 {
 	TheRva00222A8BTarget->invoke(TheRva00222A8BOwner, "SetMovieButtonState", 1, "_show", 0, 0, 0, 0);
