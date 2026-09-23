@@ -17548,3 +17548,4 @@ _getluaproto,,0x0074CBA0,27,Code/Libraries/Source/Lua/ldebug.c,matched,placed by
 ?showObserverStuff@@YAXXZ,,0x003FEB32,36,Code/GameEngine/Source/GameClient/UiCallbackFirers.cpp,matched,Fires SetObserverStuffState with _show through Rva00222A8BTarget invoker
 ?hideObserverStuff@@YAXXZ,,0x003FEB56,36,Code/GameEngine/Source/GameClient/UiCallbackFirers.cpp,matched,Fires SetObserverStuffState with _hide through Rva00222A8BTarget invoker
 ?setResourceIconState@@YAX_N@Z,,0x003FEA72,48,Code/GameEngine/Source/GameClient/UiCallbackFirers.cpp,matched,Conditional _show/_hide firer for SetResourceIconState through Rva00222A8BTarget invoker
+?setFlashObjectivesButton@@YAX_N@Z,,0x003FEB7A,48,Code/GameEngine/Source/GameClient/UiCallbackFirers.cpp,matched,Conditional _show/_hide firer for FlashObjectivesButton through Rva00222A8BTarget invoker
