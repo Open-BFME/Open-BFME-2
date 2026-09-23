@@ -4287,7 +4287,6 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ??0W3DSupplyDraw@@QAE@PAVThing@@PBVModuleData@@@Z,0x000CAE43,(Thing*;ModuleData*) ctor called by W3DSupplyDraw::friend_newModuleInstance (0x00064A26); class from the ModuleFactory registration literal
 ??0W3DTruckDraw@@QAE@PAVThing@@PBVModuleData@@@Z,0x000CB3FB,(Thing*;ModuleData*) ctor called by W3DTruckDraw::friend_newModuleInstance (0x00064AB5); class from the ModuleFactory registration literal
 ??0W3DTankDraw@@QAE@PAVThing@@PBVModuleData@@@Z,0x000CEA6C,(Thing*;ModuleData*) ctor called by W3DTankDraw::friend_newModuleInstance (0x00064B44); class from the ModuleFactory registration literal
-??0W3DTreeDraw@@QAE@PAVThing@@PBVModuleData@@@Z,0x000CEB4D,(Thing*;ModuleData*) ctor called by W3DTreeDraw::friend_newModuleInstance (0x00064BD3); class from the ModuleFactory registration literal
 ??0W3DFloorDraw@@QAE@PAVThing@@PBVModuleData@@@Z,0x000CF10B,(Thing*;ModuleData*) ctor called by W3DFloorDraw::friend_newModuleInstance (0x00064D6E); class from the ModuleFactory registration literal
 ??0W3DPropDraw@@QAE@PAVThing@@PBVModuleData@@@Z,0x000CEEC0,(Thing*;ModuleData*) ctor called by W3DPropDraw::friend_newModuleInstance (0x00064CE5); class from the ModuleFactory registration literal
 ??0W3DLightDraw@@QAE@PAVThing@@PBVModuleData@@@Z,0x000CF91D,(Thing*;ModuleData*) ctor called by W3DLightDraw::friend_newModuleInstance (0x00064DF7); class from the ModuleFactory registration literal
