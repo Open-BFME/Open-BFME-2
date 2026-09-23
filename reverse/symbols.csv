@@ -3887,7 +3887,6 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ??_7SlavedUpdateModuleData@@6B@,0x00BF34C0,slot0 is scalar-deleting ??_G at 0x255FA5 plus slot1 is 0x4B3FD0 ret-pair
 ??_7MonsterDockUpdateModuleData@@6B@,0x00C51DA8,slot0 is scalar-deleting ??_G at 0x4A1552 sitting right after ctor 0x4A1517 plus slot1 is 0x4B3FD0 ret-pair
 ?Rva006BE2E0Copy@@YAPAUBfmeElem60@@PAU1@00PAXH@Z,0x006BE2E0
-??0_PushButtonData@@QAE@XZ,0x00327E22
 ??_7ModelConditionUpgradeModuleData@@6B@,0x00BF2558,folded base vtable shared with OpenContainModuleData which installs the same address
 ?init@CondStore@@QAEXXZ,0x00042526,TU-spelling alias for the opaque 0x4C condition member init called twice by ModelConditionUpgradeModuleData ctor plus GenericObjectCreationNugget ctor
 ??1Path@@QAE@XZ,0x00364A89

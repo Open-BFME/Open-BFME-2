@@ -32508,3 +32508,4 @@ uw_007ab79b,,0x007AB79B,14,Code/gen_small/uw_gen_013.cpp,matched,gen-funclet;obj
 uw_007ab7d2,,0x007AB7D2,8,Code/gen_small/uw_gen_006.cpp,matched,gen-funclet;object-symbol=$L2774
 ??0CitadelSlaughterHordeContainModuleData@@QAE@XZ,,0x0048112F,155,Code/GameEngine/Source/GameLogic/Object/Contain/CitadelSlaughterHordeContainModuleDataCtor.cpp,matched,
 ??0OCLSpecialPowerModuleData@@QAE@XZ,,0x004C32BC,169,Code/GameEngine/Source/GameLogic/Object/SpecialPower/OCLSpecialPowerModuleDataCtor.cpp,matched,
+??0_PushButtonData@@QAE@XZ,,0x00327E22,46,Code/GameEngine/Source/GameClient/GUI/Gadget/GadgetUserDataHelpers.cpp,matched,zeroing leaf ctor over retail-measured 0x38 layout; row supersedes pin

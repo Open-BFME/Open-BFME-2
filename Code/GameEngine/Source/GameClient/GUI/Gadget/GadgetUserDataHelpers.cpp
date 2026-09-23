@@ -15,13 +15,51 @@ public:
 	void winSetStatus(unsigned int status);
 };
 
-// Push-button data: the same accessor, a different record.
+// Push-button data: the same accessor, a different record. The 0x38-byte
+// layout below is retail-measured: five byte members ride with three bytes
+// of pad each while the nine int members sit at +0x04/+0x08/+0x10/+0x14/
+// +0x18/+0x1C/+0x24/+0x2C/+0x30 (natural alignment, no donor; BFME1 keeps
+// this struct empty). Member names stay positional: their semantics are
+// unproven, only the offsets and access widths are.
 struct _PushButtonData
 {
 	_PushButtonData() throw();
 
-	char m_data[0x38];
+	char m_byte00;			// +0x00
+	int m_int04;			// +0x04
+	int m_int08;			// +0x08
+	char m_byte0C;			// +0x0C
+	int m_int10;			// +0x10
+	int m_int14;			// +0x14
+	int m_int18;			// +0x18
+	int m_int1C;			// +0x1C
+	char m_byte20;			// +0x20
+	int m_int24;			// +0x24
+	char m_byte28;			// +0x28
+	int m_int2C;			// +0x2C
+	int m_int30;			// +0x30
+	char m_byte34;			// +0x34
 };
+
+// ??0_PushButtonData@@QAE@XZ, retail 0x00327E22 (46B).
+// Zeroing leaf: xor-shared zero, this homed in eax, stores in retail order.
+_PushButtonData::_PushButtonData() throw()
+{
+	m_byte00 = 0;
+	m_int04 = 0;
+	m_int08 = 0;
+	m_byte0C = 0;
+	m_int10 = 0;
+	m_int14 = 0;
+	m_int18 = 0;
+	m_int1C = 0;
+	m_byte20 = 0;
+	m_int24 = 0;
+	m_byte28 = 0;
+	m_int2C = 0;
+	m_int30 = 0;
+	m_byte34 = 0;
+}
 
 extern _PushButtonData *getNewPushButtonData(void);
 
