@@ -16476,7 +16476,7 @@ _rva0060E7F0,,0x00211245,100,Code/GameEngine/Source/GameLogic/Rva0060E7F0BattleM
 ??0Watchdog@@QAE@HHH@Z,,0x00225616,131,Code/GameEngine/Source/Common/Watchdog.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
 ?parseCommand@CommandButton@@SAXPAVINI@@PAX1PBX@Z,,0x0035AF62,110,Code/GameEngine/Source/GameClient/GUI/ControlBar/CommandButton_parseCommand_Thunk.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
 ??0W3DVideoBuffer@@QAE@H@Z,,0x000726B0,115,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVideoBufferCtorBfme.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
-?legalRadarPoint@@YA_NHH@Z,,0x0004E4ED,34,Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadar.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
+?legalRadarPoint@@YA_NHH@Z,,0x0004E4ED,37,Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadar.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
 ?_bfme_showCampaignReview@@YA_NXZ,,0x0051291C,44,Code/GameEngine/Source/GameClient/GUI/ShowCampaignReview.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
 ?endBlock@XferSave@@UAEXXZ,,0x0060CA26,178,Code/Libraries/Source/xfer/xfer_save.cpp,matched,placed by masked byte search in its BFME1 donor unit
 ??1Rva0013A820@@QAE@XZ,,0x0050C4E8,152,Code/GameEngine/Source/Common/BfmeConv1191.cpp,matched,placed by masked byte search in its BFME1 donor unit
