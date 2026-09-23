@@ -42,3 +42,13 @@ void hideObserverStuff()
 {
 	TheRva00222A8BTarget->invoke(TheRva00222A8BOwner, "SetObserverStuffState", 1, "_hide", 0, 0, 0, 0);
 }
+
+void setResourceIconState(bool show)
+{
+	TheRva00222A8BTarget->invoke(TheRva00222A8BOwner, "SetResourceIconState", 1, show ? "_show" : "_hide", 0, 0, 0, 0);
+}
+
+void setFlashObjectivesButton(bool show)
+{
+	TheRva00222A8BTarget->invoke(TheRva00222A8BOwner, "FlashObjectivesButton", 1, show ? "_show" : "_hide", 0, 0, 0, 0);
+}

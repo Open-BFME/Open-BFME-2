@@ -17547,3 +17547,4 @@ _getluaproto,,0x0074CBA0,27,Code/Libraries/Source/Lua/ldebug.c,matched,placed by
 ?fadePalantirButtonsOne@@YAXXZ,,0x003FEB0E,36,Code/GameEngine/Source/GameClient/UiCallbackFirers.cpp,matched,Fires FadePalantirButtons with 1 through Rva00222A8BTarget invoker
 ?showObserverStuff@@YAXXZ,,0x003FEB32,36,Code/GameEngine/Source/GameClient/UiCallbackFirers.cpp,matched,Fires SetObserverStuffState with _show through Rva00222A8BTarget invoker
 ?hideObserverStuff@@YAXXZ,,0x003FEB56,36,Code/GameEngine/Source/GameClient/UiCallbackFirers.cpp,matched,Fires SetObserverStuffState with _hide through Rva00222A8BTarget invoker
+?setResourceIconState@@YAX_N@Z,,0x003FEA72,48,Code/GameEngine/Source/GameClient/UiCallbackFirers.cpp,matched,Conditional _show/_hide firer for SetResourceIconState through Rva00222A8BTarget invoker
