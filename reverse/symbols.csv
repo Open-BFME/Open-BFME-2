@@ -546,7 +546,6 @@ name,address,notes
 ??1?$pair@$$CBHV?$vector@IV?$allocator@I@_STL@@@_STL@@@_STL@@QAE@XZ,0x000796BC,Complete15B pair destructor frees vector storage at pair+4; same retail ICF body held by LocomotorSetType vector-pointer pair; map74 copy and erase prove this specialization
 ??1?$pair@$$CBVAsciiString@@UCoord3D@@@_STL@@QAE@XZ,0x0048BA39,Waypoint pair key is AsciiString and mapped coordinates are POD; metadata-source pair dtor independently emits exact5B tail to releaseBuffer36410; typed erase22CFB1 passes node+16
 ??1?$pair@$$CBVAsciiString@@UTreeHintPayload001F8ACB@@@_STL@@QAE@XZ,0x0048BA39,Complete5B implicit pair destructor releases its AsciiString key; scalar payload has no destructor; verified map50 erase1F8276 passes node+16
-??1?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAE@XZ,0x00036410,address read from the REL32 displacement at a placed body
 ??1AABTreeBuilderClass@@QAE@XZ,0x00199270,AABTreeBuilderClass destructor call target; exact 5-byte ILT thunk at this RVA jumps to matched AABTreeBuilderClass::Reset body at 0x00198B70
 ??1AIUpdateModuleData@@UAE@XZ,0x00036410,address read from the REL32 displacement at a placed body
 ??1AdaptiveDeltaMotionChannelClass@@QAE@XZ,0x001960E0,identical-code fold with TimeCodedMotionChannelClass::Free already matched here; address read from four retail REL32 sites in ~NodeCompressedMotionStruct at 0x0018F6A0
