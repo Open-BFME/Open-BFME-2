@@ -4647,3 +4647,11 @@ _AVIFileInit@0,0x0065479C,jmp [IAT 0xBBA050] stub; import table names avifil32!A
 ??_7CostModifierUpgradeModuleData@@6B@,0x00C58210,CostModifierUpgradeModuleData vtable installed by ctor 0x4B5BAC (mov [esi] imm); slot0 is scalar-deleting dtor 0x4B5C64 sitting right after the ctor; slot1 is shared ret stub 0xB3FD0
 ??0?$_Vector_base@MV?$allocator@M@_STL@@@_STL@@QAE@ABV?$allocator@M@1@@Z,0x00211E58,ICF-folded empty vector base ctor (same 29B as matched BfmeE16 row); CostModifierUpgradeModuleDataCtor TU vector<float> member
 ??0StringBaseNarrowAR@@IAE@PBD@Z,0x00037BA0,StringBase C-string ctor alias for BfmeLoadReplayControlAR TU; same 65B body as rowed StringBase narrow ctor
+??1Rva0057C2D4Elem@@QAE@XZ,0x0057C2D4,element destructor called by the guarded-delete clear helper; address from its retail REL32 call and a Ghidra function start
+??1Rva005C3A37Elem@@QAE@XZ,0x005C3A37,element destructor called by the guarded-delete clear helper; address from its retail REL32 call and a Ghidra function start
+??1Rva005C7954Elem@@QAE@XZ,0x005C7954,element destructor called by the guarded-delete clear helper; address from its retail REL32 call and a Ghidra function start
+??1Rva005CB4E6Elem@@QAE@XZ,0x005CB4E6,element destructor called by the guarded-delete clear helper; address from its retail REL32 call and a Ghidra function start
+??1Rva005CD0FEElem@@QAE@XZ,0x005CD0FE,element destructor called by the guarded-delete clear helper; address from its retail REL32 call and a Ghidra function start
+??1Rva005F2F80Elem@@QAE@XZ,0x005F2F80,element destructor called by the guarded-delete clear helper; address from its retail REL32 call and a Ghidra function start
+??1Rva005FBF97Elem@@QAE@XZ,0x005FBF97,element destructor called by the guarded-delete clear helper; address from its retail REL32 call and a Ghidra function start
+??1Rva005FFBCBElem@@QAE@XZ,0x005FFBCB,element destructor called by the guarded-delete clear helper; address from its retail REL32 call and a Ghidra function start
