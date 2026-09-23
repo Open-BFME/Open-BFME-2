@@ -4645,3 +4645,8 @@ _fmod,0x0062996A,MSVCR71 fmod import thunk; raw jmp through IAT00BBA554 independ
 ?Rva0017E210Init@@YAXXZ,0x0017E210,no-arg init call in Do_Onetime_Device_Dependent_Inits between VertexMaterialClass::Init and the next unlabeled init; address-derived like the donor's own Rva00917280Init/Rva0090F760Init naming for the same structural position
 ?Rva00177923Init@@YAXXZ,0x00177923,no-arg init call in Do_Onetime_Device_Dependent_Inits immediately after Rva0017E210Init and before DynamicVBAccessClass::bfmeRva0013A7D0; same address-derived naming rationale
 ?Rva0069E440Empty@DX8MeshRendererClass@@QAEXXZ,0x0069E440,thiscall empty member on TheDX8MeshRenderer called right after Init() in Do_Onetime_Device_Dependent_Inits; matches donor's Rva00944C40Empty structural position rebased onto BFME2's RVA; body at this address is a bare ret already ICF-folded under many unrelated names
+_AVIFileReadData@16,0x00654778,jmp [IAT 0xBBA058] stub; import table names avifil32!AVIFileReadData
+_AVIMakeCompressedStream@16,0x00654784,jmp [IAT 0xBBA060] stub; import table names avifil32!AVIMakeCompressedStream
+_AVIFileCreateStreamA@12,0x00654790,jmp [IAT 0xBBA068] stub; import table names avifil32!AVIFileCreateStreamA
+_AVIFileOpen@16,0x00654796,jmp [IAT 0xBBA054] stub; import table names avifil32!AVIFileOpen
+_AVIFileInit@0,0x0065479C,jmp [IAT 0xBBA050] stub; import table names avifil32!AVIFileInit
