@@ -16978,3 +16978,4 @@ _fprintf,,0x002CEC42,108,Code/GameEngine/Source/Common/FprintfAppendLine.cpp,mat
 ?FindProfile@ProfileHighLevel@@SA_NPBDAAVId@1@@Z,,0x006C63E0,139,Code/Libraries/Source/profile/ProfileIdFrames.cpp,matched,ZH profile_highlevel.cpp; WWLib fast CS lock
 ?AddProfile@ProfileHighLevel@@SA?AVId@1@PBD00HH@Z,,0x006C6500,226,Code/Libraries/Source/profile/ProfileIdFrames.cpp,matched,ZH profile_highlevel.cpp; WWLib fast CS lock
 ?AddResultFunction@ProfileCmdInterface@@SAXP6APAVProfileResultInterface@@HPBQBD@ZPBD2@Z,,0x006C67F0,208,Code/Libraries/Source/profile/ProfileCmdAddResultFunction.cpp,matched,ZH profile_cmd.cpp verbatim
+??1PoisonedBehavior@@MAE@XZ,,0x00482ED9,32,Code/GameEngine/Source/GameLogic/Object/Behavior/PoisonedBehaviorDtor.cpp,matched,Poisoned file-unit drain; BFME1 donor trivial dtor; four vptr stores +0/+0xC/+0x10/+0x20 then tail-jmp pinned UpdateModule dtor 0x24A797
