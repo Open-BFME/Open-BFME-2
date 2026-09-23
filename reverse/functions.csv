@@ -32506,3 +32506,4 @@ uw_007ab770,,0x007AB770,8,Code/gen_small/uw_gen_010.cpp,matched,gen-funclet;obje
 uw_007ab790,,0x007AB790,11,Code/gen_small/uw_gen_013.cpp,matched,gen-funclet;object-symbol=$L4266
 uw_007ab79b,,0x007AB79B,14,Code/gen_small/uw_gen_013.cpp,matched,gen-funclet;object-symbol=$L4276
 uw_007ab7d2,,0x007AB7D2,8,Code/gen_small/uw_gen_006.cpp,matched,gen-funclet;object-symbol=$L2774
+??0CitadelSlaughterHordeContainModuleData@@QAE@XZ,,0x0048112F,155,Code/GameEngine/Source/GameLogic/Object/Contain/CitadelSlaughterHordeContainModuleDataCtor.cpp,matched,
