@@ -66,3 +66,37 @@ const char *XmlNameSlotList::nameAt(int index)
 		return 0;
 	return m_slots[index].name;
 }
+
+class Rva002E2970Host
+{
+	char m_pad0[0x14];
+	EventFlagEntry m_entries[17];
+	char m_pad9C[0xDC - 0x9C];
+	NameKeyType m_onDestroyedKey;
+
+public:
+	void initEventKeys();
+	void applyNameFlags(XmlNameSlotList *xml);
+};
+
+void Rva002E2970Host::initEventKeys()
+{
+	m_entries[0].setKeyFromName("OnDamaged");
+	m_entries[1].setKeyFromName("OnDestroyed");
+	m_onDestroyedKey = TheNameKeyGenerator->nameToKey("OnDestroyed");
+	m_entries[2].setKeyFromName("OnArrived");
+	m_entries[3].setKeyFromName("OnUnitEntered");
+	m_entries[5].setKeyFromName("OnUnitExited");
+	m_entries[4].setKeyFromName("OnTeamEntered");
+	m_entries[6].setKeyFromName("OnTeamExited");
+	m_entries[7].setKeyFromName("OnTeamDestroyed");
+	m_entries[8].setKeyFromName("BeScary");
+	m_entries[9].setKeyFromName("DamageIncoming");
+	m_entries[10].setKeyFromName("OnAflame");
+	m_entries[11].setKeyFromName("OnQuenched");
+	m_entries[12].setKeyFromName("OnCreated");
+	m_entries[13].setKeyFromName("OnBuildingComplete");
+	m_entries[14].setKeyFromName("OnSlaughtered");
+	m_entries[15].setKeyFromName("OnGenericEvent");
+	m_entries[16].setKeyFromName("OnBuildVariation");
+}

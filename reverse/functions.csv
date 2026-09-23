@@ -17539,3 +17539,4 @@ _getluaproto,,0x0074CBA0,27,Code/Libraries/Source/Lua/ldebug.c,matched,placed by
 ?setKeyFromName@EventFlagEntry@@QAEXPBD@Z,,0x003316BA,21,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEventFlags.cpp,matched,BFME1 Rva002E2970ApplyNameFlags.cpp donor; global TheNameKeyGenerator DIR32-masked
 ?tagAt@XmlNameSlotList@@QAEPBDH@Z,,0x00542909,25,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEventFlags.cpp,matched,Indexed slot accessor stride 0x61 base +0x2C; bounds-checked
 ?nameAt@XmlNameSlotList@@QAEPBDH@Z,,0x00542924,25,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEventFlags.cpp,matched,Indexed slot accessor stride 0x61 base +0x4D; bounds-checked
+?initEventKeys@Rva002E2970Host@@QAEXXZ,,0x00332B7A,256,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEventFlags.cpp,matched,BFME1 donor with BFME2 repairs: 17 entries base +0x14 key +0xDC; extras OnBuildingComplete OnSlaughtered OnGenericEvent OnBuildVariation
