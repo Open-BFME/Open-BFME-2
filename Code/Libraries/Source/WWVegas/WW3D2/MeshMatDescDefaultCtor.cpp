@@ -14,6 +14,7 @@ class TextureClass : public TextureBaseClass {};
 template <class T> class RefCountPtr {
 public:
     RefCountPtr() : Referent(0) {}
+    T *Get() const { return Referent; }
     ~RefCountPtr() { if (Referent) { Referent->Release_Ref(); Referent = 0; } }
     void Clear() { if (Referent) { Referent->Release_Ref(); Referent = 0; } }
 private:
@@ -26,6 +27,7 @@ class MeshMatDescRendererState;
 class MeshMatDescClass {
 public:
     MeshMatDescClass();
+    bool Is_Empty();
     MeshMatDescClass(const MeshMatDescClass &that);
     MeshMatDescClass &operator=(const MeshMatDescClass &that);
 private:
@@ -91,4 +93,20 @@ MeshMatDescClass::MeshMatDescClass(const MeshMatDescClass &that) : PassCount(1),
     }
     // copy
     *this = that;
+}
+
+bool MeshMatDescClass::Is_Empty() {
+    for (int array=0; array<2; ++array) if (ColorArray[array]) return false;
+    for (int uvarray=0; uvarray<8; ++uvarray) if (UV[uvarray]) return false;
+    for (int pass=0; pass<4; ++pass) {
+        for (int stage=0; stage<2; ++stage) {
+            if (Texture[pass][stage].Get()) return false;
+            if (TextureArray[pass][stage]) return false;
+        }
+        if (Material[pass]) return false;
+        if (MaterialArray[pass]) return false;
+        if (UnknownPassBufferB8[pass]) return false;
+        if (UnknownPassBuffer108[pass]) return false;
+    }
+    return true;
 }

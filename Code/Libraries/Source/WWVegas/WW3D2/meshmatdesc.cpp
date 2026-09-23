@@ -397,31 +397,7 @@ void MeshMatDescClass::Init_Alternate(MeshMatDescClass & default_materials,MeshM
 	}
 }
 
-// ?Is_Empty@MeshMatDescClass@@ present-unmatched
-bool MeshMatDescClass::Is_Empty(void)
-{
-	for (int array=0; array<MAX_COLOR_ARRAYS; array++) {
-		if (ColorArray[array] != NULL) return false;
-	}
-
-	for (int uvarray=0; uvarray<MAX_UV_ARRAYS; uvarray++) {
-		if (UV[uvarray] != NULL) return false;
-	}
-
-	for (int pass=0; pass<MAX_PASSES; pass++) {
-		for (int stage=0; stage<MAX_TEX_STAGES; stage++) {
-			if (Texture[pass][stage] != NULL) return false;
-			if (TextureArray[pass][stage] != NULL) return false;
-		}
-
-//		if (UVIndex[pass] != NULL) return false;
-		if (Material[pass] != NULL) return false;
-		if (MaterialArray[pass] != NULL) return false;
-
-	}
-
-	return true;
-}
+// MeshMatDescClass::Is_Empty is recovered in MeshMatDescDefaultCtor.cpp.
 
 void MeshMatDescClass::Set_Single_Material(VertexMaterialClass * vmat,int pass)
 {
