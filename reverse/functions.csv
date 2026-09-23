@@ -16972,3 +16972,8 @@ _fprintf,,0x002CEC42,108,Code/GameEngine/Source/Common/FprintfAppendLine.cpp,mat
 ?FrameEnd@ProfileId@@SAXHH@Z,,0x006C6220,311,Code/Libraries/Source/profile/ProfileIdFrames.cpp,matched,ZH profile_highlevel.cpp ProfileId; WWLib fast CS lock
 ?Shutdown@ProfileId@@SAXXZ,,0x006C6360,54,Code/Libraries/Source/profile/ProfileIdFrames.cpp,matched,ZH profile_highlevel.cpp ProfileId; WWLib fast CS lock
 ??0W3DDebrisDraw@@QAE@PAVThing@@PBVModuleData@@@Z,,0x000B1C41,86,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DDebrisDrawCtor.cpp,matched,W3DDebrisDraw behavior ctor over rowed DrawModule base; frameless volatile-first plus barriers plus memset trio; completes file-unit
+?AsString@ProfileId@@QBEPBDN@Z,,0x006C60A0,271,Code/Libraries/Source/profile/ProfileIdFrames.cpp,matched,ZH profile_highlevel.cpp; WWLib fast CS lock
+?GetValue@Id@ProfileHighLevel@@QBEPBDI@Z,,0x006C64A0,52,Code/Libraries/Source/profile/ProfileIdFrames.cpp,matched,ZH profile_highlevel.cpp; WWLib fast CS lock
+?EnumProfile@ProfileHighLevel@@SA_NIAAVId@1@@Z,,0x006C63A0,58,Code/Libraries/Source/profile/ProfileIdFrames.cpp,matched,ZH profile_highlevel.cpp; WWLib fast CS lock
+?FindProfile@ProfileHighLevel@@SA_NPBDAAVId@1@@Z,,0x006C63E0,139,Code/Libraries/Source/profile/ProfileIdFrames.cpp,matched,ZH profile_highlevel.cpp; WWLib fast CS lock
+?AddProfile@ProfileHighLevel@@SA?AVId@1@PBD00HH@Z,,0x006C6500,226,Code/Libraries/Source/profile/ProfileIdFrames.cpp,matched,ZH profile_highlevel.cpp; WWLib fast CS lock

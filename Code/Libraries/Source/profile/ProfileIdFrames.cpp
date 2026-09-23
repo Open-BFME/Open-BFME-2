@@ -29,13 +29,35 @@ public:
 };
 
 void *ProfileReAllocMemory(void *oldPtr, unsigned int newSize);
+void *ProfileAllocMemory(unsigned int size);
+
+extern "C" __declspec(dllimport) int __cdecl wsprintfA(char *out, const char *fmt, ...);
+extern "C" __declspec(dllimport) int __cdecl _snprintf(char *buffer, unsigned int count, const char *fmt, ...);
+extern "C" void *__cdecl memcpy(void *dest, const void *src, unsigned int count);
+extern "C" int __cdecl strcmp(const char *a, const char *b);
+
+#include <new>
 
 // our own fast critical section
 static FastCriticalSectionClass cs;
 
 class ProfileId
 {
+	friend class ProfileHighLevel;
+
 public:
+	ProfileId(const char *name, const char *descr, const char *unit, int precision, int exp10);
+	const char *AsString(double v) const;
+	const char *GetName(void) const { return m_name; }
+	ProfileId *GetNext(void) const { return m_next; }
+	static ProfileId *GetFirst(void) { return first; }
+	bool GetFrameValue(unsigned frame, double &value) const
+	{
+		if (frame < (unsigned)m_firstFrame || frame >= (unsigned)curFrame)
+			return false;
+		value = m_recFrameVal[frame - m_firstFrame];
+		return true;
+	}
 	void Increment(double add);
 	void Maximum(double max);
 	static int FrameStart(void);
@@ -44,7 +66,7 @@ public:
 
 private:
 	enum ValueMode { Unknown, ModeIncrement, ModeMaximum };
-	enum { MAX_FRAME_RECORDS = 4 };
+	enum { MAX_FRAME_RECORDS = 4, STRING_BUFFER_SIZE = 1024 };
 
 	ProfileId *m_next;
 	char *m_name;
@@ -62,6 +84,26 @@ private:
 	static ProfileId *first;
 	static int curFrame;
 	static unsigned frameRecordMask;
+	static char stringBuf[STRING_BUFFER_SIZE];
+	static unsigned stringBufUnused;
+};
+
+class ProfileHighLevel
+{
+public:
+	class Id
+	{
+		friend class ProfileHighLevel;
+		ProfileId *m_idPtr;
+
+	public:
+		Id(void) : m_idPtr(0) {}
+		const char *GetValue(unsigned frame) const;
+	};
+
+	static Id AddProfile(const char *name, const char *descr, const char *unit, int precision, int exp10);
+	static bool EnumProfile(unsigned index, Id &id);
+	static bool FindProfile(const char *name, Id &id);
 };
 
 // ?Increment@ProfileId@@QAEXN@Z
@@ -188,4 +230,83 @@ void ProfileId::Shutdown(void)
 			if (frameRecordMask & (1 << i))
 				FrameEnd(i, -1);
 	}
+}
+
+// ?AsString@ProfileId@@QBEPBDN@Z
+const char *ProfileId::AsString(double v) const
+{
+	char help1[10], help[40];
+	wsprintfA(help1, "%%%i.lf", m_precision);
+
+	double mul = 1.0;
+	int k;
+	for (k = m_exp10; k < 0; k++) mul *= 10.0;
+	for (; k > 0; k--) mul /= 10.0;
+
+	unsigned len = _snprintf(help, sizeof(help), help1, v * mul) + 1;
+
+	FastCriticalSectionClass::LockClass lock(cs);
+	if (stringBufUnused + len > STRING_BUFFER_SIZE)
+		stringBufUnused = 0;
+	char *ret = stringBuf + stringBufUnused;
+	memcpy(ret, help, len);
+	stringBufUnused += len;
+	return ret;
+}
+
+// ?GetValue@Id@ProfileHighLevel@@QBEPBDI@Z
+const char *ProfileHighLevel::Id::GetValue(unsigned frame) const
+{
+	double v;
+	if (!m_idPtr || !m_idPtr->GetFrameValue(frame, v))
+		return 0;
+	return m_idPtr->AsString(v);
+}
+
+// ?AddProfile@ProfileHighLevel@@SA?AVId@1@PBD00HH@Z
+ProfileHighLevel::Id ProfileHighLevel::AddProfile(const char *name, const char *descr,
+	const char *unit, int precision, int exp10)
+{
+	// check if there is already an ID with the given name...
+	Id id;
+	if (FindProfile(name, id))
+		return id;
+
+	// checks...
+	if (!name)
+		return id;
+
+	// no, allocate one
+	FastCriticalSectionClass::LockClass lock(cs);
+	id.m_idPtr = new (ProfileAllocMemory(sizeof(ProfileId))) ProfileId(name, descr, unit, precision, exp10);
+	return id;
+}
+
+// ?EnumProfile@ProfileHighLevel@@SA_NIAAVId@1@@Z
+bool ProfileHighLevel::EnumProfile(unsigned index, Id &id)
+{
+	FastCriticalSectionClass::LockClass lock(cs);
+	ProfileId *cur;
+	for (cur = ProfileId::GetFirst(); cur && index--; cur = cur->GetNext())
+		;
+	id.m_idPtr = cur;
+	return cur != 0;
+}
+
+// ?FindProfile@ProfileHighLevel@@SA_NPBDAAVId@1@@Z
+bool ProfileHighLevel::FindProfile(const char *name, Id &id)
+{
+	if (!name)
+		return false;
+
+	FastCriticalSectionClass::LockClass lock(cs);
+	for (ProfileId *cur = ProfileId::GetFirst(); cur; cur = cur->GetNext())
+		if (!strcmp(name, cur->GetName()))
+		{
+			id.m_idPtr = cur;
+			return true;
+		}
+
+	id.m_idPtr = 0;
+	return false;
 }
