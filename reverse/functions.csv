@@ -9756,7 +9756,7 @@ _Rva009BD470Vp6FilterSse,,0x001CDD70,253,Code/GameEngine/Source/Common/BfmeConv9
 ?bfmeGoTDA@BfmeThingTDA@@QAEXXZ,,0x006586D0,29,Code/GameEngine/Source/Common/BfmeConv1309.cpp,matched,BFME1 byte-identical donor; b1 0x007EB740
 ?bfmeGoTDB@@YAXXZ,,0x0073F9D1,35,Code/GameEngine/Source/Common/BfmeConv1309.cpp,matched,BFME1 byte-identical donor; b1 0x007CC360; ICF-folded in BFME1 so the name is this sweep pick among its twins
 ?bfmeOp1209@BfmeA1209@@QAEXPBUBfmeS1209@@@Z,,0x0070E3E0,84,Code/GameEngine/Source/Common/BfmeConv1209.cpp,matched,BFME1 byte-identical donor; b1 0x008D2BB0; BFME1 dllimport bfmeNotify1209 is a runtime-filled callback cell in BFME2
-?bfmeReleaseDWD@BfmeThingDWD@@QAEXXZ,,0x00628CE7,23,Code/GameEngine/Source/Common/BfmeConv790.cpp,matched,BFME1 donor; Win32 LeaveCriticalSection import per retail IAT slot 0xBBA204 (BFME1 wraps it as bfmeLeaveDWD); b1 0x009F699A
+??1?$CComCritSecLock@VCComCriticalSection@ATL@@@ATL@@QAE@XZ,,0x00628CE7,23,Code/Libraries/Source/ATL/atlcomcritseclock.cpp,matched,vendored=atl-7.1;atlbase.h verbatim;was ?bfmeReleaseDWD@BfmeThingDWD@@QAEXXZ from a BFME1 donor
 ?reset@RvaA22F0FieldReset@@QAEXXZ,,0x004376BB,63,Code/GameEngine/Source/Common/RvaA22F0FieldReset.cpp,matched,BFME1 byte-identical donor; b1 0x000A22F0 (BFME1 d_ row); method reset zeroes 21 fields
 ?Rva00990210Lookup@@YAIPAURva00990210Range@@H@Z,,0x00747370,62,Code/GameEngine/Source/Common/Rva00990210RecordLookup.cpp,matched,BFME1 byte-identical donor; b1 0x00990210
 ?Rva009A4D00Init@@YAXXZ,,0x001B57D0,90,Code/GameEngine/Source/Common/Rva009A4D00TableInit.cpp,matched,BFME1 donor; 90B body uses imm-form BFME2 data addresses as extern spellings emit 93B lea-form; b1 0x009A4D00
@@ -9872,8 +9872,8 @@ _ProtoMangleDestroy,,0x00670370,80,Code/Libraries/Source/DirtySock/Y2ProtoMangle
 ?bfmeGoBLF@BfmeThingBLF@@QAEXPAX@Z,,0x00674B40,25,Code/GameEngine/Source/Common/BfmeConv487.cpp,matched,BFME1 byte-identical donor; b1 0x00808BF0
 ?m@T_007ea120@@QAEXXZ,,0x006570D0,458,Code/GameEngine/Source/GameNetwork/Rva007EA120Teardown.cpp,matched,BFME1 byte-identical donor; b1 0x007EA120
 ?forwardSentinel@@YAXXZ,,0x006572B0,20,Code/GameEngine/Source/Common/forwardSentinel.cpp,matched,BFME1 byte-identical donor; b1 0x007EA300
-?bfmeLockDWD@BfmeThingDWD@@QAEHXZ,,0x00628C56,19,Code/GameEngine/Source/Common/BfmeConv790.cpp,matched,BFME1 donor; Win32 EnterCriticalSection import per retail IAT (BFME1 wraps it as bfmeEnterDWD); b1 0x009F6909; ICF-folded in BFME1 so the name is this sweep pick among its twins
-?bfmeUnlockDWD@BfmeThingDWD@@QAEXXZ,,0x00628CAD,17,Code/GameEngine/Source/Common/BfmeConv790.cpp,matched,BFME1 donor; Win32 LeaveCriticalSection import per retail IAT (BFME1 wraps it as bfmeLeaveDWD); b1 0x009F6960; ICF-folded in BFME1 so the name is this sweep pick among its twins
+?Lock@?$CComCritSecLock@VCComCriticalSection@ATL@@@ATL@@QAEJXZ,,0x00628C56,19,Code/Libraries/Source/ATL/atlcomcritseclock.cpp,matched,vendored=atl-7.1;atlbase.h verbatim;was ?bfmeLockDWD@BfmeThingDWD@@QAEHXZ from a BFME1 donor
+?Unlock@?$CComCritSecLock@VCComCriticalSection@ATL@@@ATL@@QAEXXZ,,0x00628CAD,17,Code/Libraries/Source/ATL/atlcomcritseclock.cpp,matched,vendored=atl-7.1;atlbase.h verbatim;was ?bfmeUnlockDWD@BfmeThingDWD@@QAEXXZ from a BFME1 donor
 ?Notify_Added@LightClass@@UAEXPAVSceneClass@@@Z,,0x00130F00,29,Code/Libraries/Source/WWVegas/WW3D2/light_notify.cpp,matched,BFME1 byte-identical donor b1 0x0093BE20
 ?Rva007FB6D0@@YGXPAVRva007E8810Message@@HPBD1_N2@Z,,0x00667BE0,223,Code/GameEngine/Source/GameNetwork/Y4FeslBuddyRequests2.cpp,matched,BFME1 byte-identical donor; b1 0x007FB6D0; 5 DIR32 string literal(s) agree
 ?Rva007FB410@@YGXPAVRva007E8810Message@@PBDH_N@Z,,0x00667920,160,Code/GameEngine/Source/GameNetwork/Y4FeslBuddyRequests2.cpp,matched,BFME1 byte-identical donor; b1 0x007FB410; 5 DIR32 string literal(s) agree
@@ -17573,3 +17573,4 @@ __RTC_SetErrorFunc,,0x0075ACD1,16,vendor/msvc71crt/msvcrt.lib,matched,vendored=m
 ??1CInitGDIPlus@CImage@ATL@@QAE@XZ,,0x00628BA4,20,Code/Libraries/Source/ATL/atlimage.cpp,matched,vendored=atl-7.1;atlimage.h dtor verbatim;follows the ctor and ends at the CDCCache ctor
 ?_M_create_node@?$list@UBfmePod60@@V?$allocator@UBfmePod60@@@_STL@@@_STL@@IAEPAU?$_List_node@UBfmePod60@@@2@ABUBfmePod60@@@Z,,0x004E548D,34,Code/Libraries/Source/WWVegas/WWLib/stlport_pod_list_bodies.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 ??ARva007F76F0Vector@@QAEPAURva007F76F0Slot@@H@Z,,0x006633C0,22,Code/GameEngine/Source/GameNetwork/Rva007F76F0FeslKeyIndex.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+??0?$CComCritSecLock@VCComCriticalSection@ATL@@@ATL@@QAE@AAVCComCriticalSection@1@_N@Z,,0x00628CBE,41,Code/Libraries/Source/ATL/atlcomcritseclock.cpp,matched,vendored=atl-7.1;atlbase.h verbatim;bytes equal the atls.lib COMDAT placed uniquely by lib_probe
