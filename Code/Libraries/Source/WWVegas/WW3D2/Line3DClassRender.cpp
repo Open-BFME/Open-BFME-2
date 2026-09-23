@@ -27,6 +27,7 @@
 #include "vector3.h"
 #include "vector4.h"
 #include "matrix3d.h"
+#include "aabox.h"
 #include "always.h"
 #include "shader.h"
 #include "vertmaterial.h"
@@ -234,7 +235,10 @@ public:
     V(31) V(32) V(33) V(34) V(35) V(36) V(37) V(38) V(39) V(40)
     V(41) V(42) V(43) V(44) V(45) V(46) V(47) V(48) V(49) V(50)
     V(51) V(52) V(53) V(54) V(55) V(56) V(57) V(58) V(59) V(60)
-    V(61) V(62) V(63) V(64) V(65) V(66) V(67) V(68) V(69) V(70)
+    V(61) V(62) V(63) V(64) V(65) V(66)
+    virtual void Get_Obj_Space_Bounding_Sphere(SphereClass&) const;
+    virtual void Get_Obj_Space_Bounding_Box(AABoxClass&) const;
+    V(69) V(70)
     V(71) V(72) V(73) V(74) V(75) V(76) V(77) V(78) V(79) V(80)
     V(81) V(82) V(83) V(84) V(85) V(86) V(87) V(88) V(89) V(90)
     V(91) V(92) V(93)
@@ -251,6 +255,10 @@ public:
 class Line3DClass : public RenderObjClass {
 public:
     virtual void Render(RenderInfoClass &);
+    virtual void Get_Obj_Space_Bounding_Sphere(SphereClass& sphere) const;
+    virtual void Get_Obj_Space_Bounding_Box(AABoxClass& box) const;
+    void Re_Color(float r, float g, float b);
+    void Set_Opacity(float opacity);
     float Length;
     float Width;
     ShaderClass Shader;
@@ -381,4 +389,45 @@ void Line3DClass::Render(RenderInfoClass& rinfo)
 	DX8Wrapper::Set_Vertex_Buffer(*reinterpret_cast<DynamicVBAccessClass*>(&vb));
 	DX8Wrapper::Set_Index_Buffer(ib, 0);
 	DX8Wrapper::Draw_Triangles(0, 36 / 3, 0, 8);
+}
+
+
+// Direct vtable entries at BFME2 VA 0xBD40B4 / 0xBD40B8 identify these as
+// Line3DClass slots 67 and 68; the implementation uses matched Length@0xC4.
+void Line3DClass::Get_Obj_Space_Bounding_Sphere(SphereClass& sphere) const
+{
+    float half_l = Length * 0.5f;
+    sphere.Center.Set(half_l, 0.0f, 0.0f);
+    sphere.Radius = half_l;
+}
+
+void Line3DClass::Get_Obj_Space_Bounding_Box(AABoxClass& box) const
+{
+    float half_l = Length * 0.5f;
+    box.Center.Set(half_l, 0.0f, 0.0f);
+    box.Extent.Set(half_l, 0.0f, 0.0f);
+}
+
+
+// Donor: reference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2/line3d.cpp.
+// Retail 0x167370 selects the same alpha/opaque shader globals, calls the
+// vtable Set_Sort_Level slot, and stores opacity in Color.W@0x13C. The target
+// Line3D constructor at 0x1673D0 performs the same sequence inline.
+void Line3DClass::Set_Opacity(float opacity)
+{
+    if (opacity < 1.0f) {
+        Shader = ShaderClass::_PresetAlphaSolidShader;
+        Set_Sort_Level(1);
+    } else {
+        Shader = ShaderClass::_PresetOpaqueSolidShader;
+        Set_Sort_Level(SORT_LEVEL_NONE);
+    }
+    Color.W = opacity;
+}
+
+// Donor: reference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2/line3d.cpp.
+// Retail 0x167330 writes RGB at Color@0x130 and preserves Color.W@0x13C.
+void Line3DClass::Re_Color(float r, float g, float b)
+{
+    Color = Vector4(r, g, b, Color.W);
 }
