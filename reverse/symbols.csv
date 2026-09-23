@@ -4309,7 +4309,6 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ??0CreateCrateDie@@QAE@PAVThing@@PBVModuleData@@@Z,0x004854F0,(Thing*;ModuleData*) ctor called by CreateCrateDie::friend_newModuleInstance (0x0024C851); class from the ModuleFactory registration literal
 ??0RefundDie@@QAE@PAVThing@@PBVModuleData@@@Z,0x00485262,(Thing*;ModuleData*) ctor called by RefundDie::friend_newModuleInstance (0x0024C819); class from the ModuleFactory registration literal
 ??0UpgradeDie@@QAE@PAVThing@@PBVModuleData@@@Z,0x00486BBA,(Thing*;ModuleData*) ctor called by UpgradeDie::friend_newModuleInstance (0x0024CBA1); class from the ModuleFactory registration literal
-??0AssistedTargetingUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x00486E8D,(Thing*;ModuleData*) ctor called by AssistedTargetingUpdate::friend_newModuleInstance (0x0024CC11); class from the ModuleFactory registration literal
 ??0BroadcastStealthUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x004A342E,(Thing*;ModuleData*) ctor called by BroadcastStealthUpdate::friend_newModuleInstance (0x0024EBED); class from the ModuleFactory registration literal
 ??0StealthUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x00374B02,(Thing*;ModuleData*) ctor called by StealthUpdate::friend_newModuleInstance (0x0024EC25); class from the ModuleFactory registration literal
 ??0DeployStyleAIUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x0048E983,(Thing*;ModuleData*) ctor called by DeployStyleAIUpdate::friend_newModuleInstance (0x0024D1E6); class from the ModuleFactory registration literal
