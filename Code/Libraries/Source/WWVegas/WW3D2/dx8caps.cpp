@@ -48,6 +48,8 @@
 #include <windows.h>
 #include <mmsystem.h>
 
+// Target global E08D3C; initializer 7B54A0 is registered at RVA9A5BB0.
+// Its atexit cleanup 7B9AA0 frees this same string.
 static StringClass CapsWorkString;
 
 #define DXLOG(n) CapsWorkString.Format n ; CapsLog+=CapsWorkString;
