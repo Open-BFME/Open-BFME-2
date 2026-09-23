@@ -790,3 +790,29 @@ void FireWeaponWhenDeadBehaviorModuleData::buildFieldParse(MultiIniFieldParse &p
 	parse.add(reinterpret_cast<const FieldParse *>(Rva004CE29DGet()), 8);
 	parse.add(reinterpret_cast<const FieldParse *>(Rva004CE52EGet()), 0x12C);
 }
+
+class FireWeaponWhenDamagedBehaviorModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+// ?buildFieldParse@FireWeaponWhenDamagedBehaviorModuleData@@SAXAAVMultiIniFieldParse@@@Z
+// retail 0x002536E1 (34 bytes): table-first double-add with own table
+// 0x00BF0400 holding StartsActive at +0x118 plus ReactionWeaponPristine at
+// +0x124 plus ReactionWeaponDamaged at +0x128 plus
+// ReactionWeaponReallyDamaged at +0x12C plus ReactionWeaponRubble at +0x130
+// plus ContinuousWeaponPristine at +0x134 plus ContinuousWeaponDamaged at
+// +0x138 plus ContinuousWeaponReallyDamaged at +0x13C plus
+// ContinuousWeaponRubble at +0x140 plus DamageTypes at +0x11C plus
+// DamageAmount at +0x120 then the rowed getter 0x4CE29D with extraOffset 8
+// (RubbleRise table-first precedent). The free factory at 0x00253703 pushes
+// this proc VA (unique image-wide) and calls ctor 0x253682; field_names
+// votes ReactionWeaponPristine to FireWeaponWhenDamagedBehaviorModuleData;
+// behavior pool key at 0x4827AA names the family. Row supersedes pin when
+// the factory lands.
+void FireWeaponWhenDamagedBehaviorModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	parse.add(reinterpret_cast<const FieldParse *>(0x00BF0400), 0);
+	parse.add(reinterpret_cast<const FieldParse *>(Rva004CE29DGet()), 8);
+}
