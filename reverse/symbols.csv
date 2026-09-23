@@ -414,7 +414,6 @@ name,address,notes
 ??0QuadDrawModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A7C4C,BFME2 export; the module template copy constructor the ConcreteModuleTemplate wrapper calls
 ??0QuadDrawModuleTemplate@FXParticleSystem@@QAE@XZ,0x003A7BF5,BFME2 export; the module template default constructor the ConcreteModuleTemplate wrapper calls
 ??0RadiateFearUpdateModuleData@@QAE@XZ,0x0049C06C,EH ctor with vtable plus flag bytes plus emotion floats; sole raw caller is ModuleData factory 0x24E6E8 which news 0x130
-??0ArrowStormUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x004909D7
 ??0DynamicShroudClearingRangeUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x0048B067,address read from the REL32 displacement at a placed body
 ??0RainOfFireUpdateModuleData@@QAE@XZ,0x004AC03D,89B frameless SSE ctor with float/int stores at +8/+0xC/+0x10 through +0x28; sole raw caller is ModuleData factory 0x24F3EB; table 0xC54B00 holds StartRainTime@8 through RainOffset@28
 ??0Random3Class@@QAE@II@Z,0x006200B0,identical-code fold with the STLport _Hashtable_iterator constructor already matched here - both store two dwords at +0 and +4; address read from the retail REL32 in StreakRendererClass::subdivision_util at 0x00743280
@@ -5150,3 +5149,5 @@ _AVIFileInit@0,0x0065479C,jmp [IAT 0xBBA050] stub; import table names avifil32!A
 ??1GameMessageList@@UAE@XZ,0x0030F57C,GameMessageList virtual dtor for the CommandList base call; body banked 0.93 pending the vptr-load scheduling lever
 ??4Rva002E9E70Mid@@QAEAAV0@ABV0@@Z,0x00332217
 ?getVel@AnimateWindow@@QAE?AUCoord2D@@XZ,0x005C5046
+?init@Rva0029FB3BMember@@QAEXPAX@Z,0x0029FB3B,freelist-node member init harvested from retail REL32 at 6 behavior ctors; ret-4 single void-star arg; calls rowed 0x14F3C4 plus unrowed 0x2393E2
+?reset@Rva0029FB3BMember@@QAEXXZ,0x0026549E,alias for the compiling TU spelling of the lock-free pool helper at 0x26549E; rowed as opaque Rva0026549E
