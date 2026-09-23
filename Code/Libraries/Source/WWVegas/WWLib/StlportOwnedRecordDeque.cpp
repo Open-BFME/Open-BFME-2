@@ -27,20 +27,40 @@ struct BfmeOpaqueOwnedRecord840 {
 	~BfmeOpaqueOwnedRecord840();
 };
 
+// A separate deque node at RVA 0x0055315a advances by 0x580 bytes.
+// Its owning type and member meanings are not yet known.
+struct BfmeOpaqueOwnedRecord1408 {
+	union {
+		unsigned int alignmentWitness;
+		unsigned char bytes[1408];
+	};
+	BfmeOpaqueOwnedRecord1408();
+	BfmeOpaqueOwnedRecord1408(const BfmeOpaqueOwnedRecord1408 &);
+	~BfmeOpaqueOwnedRecord1408();
+};
+
 typedef char BfmeOpaqueOwnedRecord492_size_check[
 	sizeof(BfmeOpaqueOwnedRecord492) == 492 ? 1 : -1];
 typedef char BfmeOpaqueOwnedRecord840_size_check[
 	sizeof(BfmeOpaqueOwnedRecord840) == 840 ? 1 : -1];
+typedef char BfmeOpaqueOwnedRecord1408_size_check[
+	sizeof(BfmeOpaqueOwnedRecord1408) == 1408 ? 1 : -1];
 typedef char BfmeOpaqueOwnedRecord492_alignment_check[
 	__alignof(BfmeOpaqueOwnedRecord492) == 4 ? 1 : -1];
 typedef char BfmeOpaqueOwnedRecord840_alignment_check[
 	__alignof(BfmeOpaqueOwnedRecord840) == 4 ? 1 : -1];
+typedef char BfmeOpaqueOwnedRecord1408_alignment_check[
+	__alignof(BfmeOpaqueOwnedRecord1408) == 4 ? 1 : -1];
 
 typedef _STL::deque<BfmeOpaqueOwnedRecord492,
 	_STL::allocator<BfmeOpaqueOwnedRecord492> > BfmeDeque492;
 typedef _STL::deque<BfmeOpaqueOwnedRecord840,
 	_STL::allocator<BfmeOpaqueOwnedRecord840> > BfmeDeque840;
+typedef _STL::deque<BfmeOpaqueOwnedRecord1408,
+	_STL::allocator<BfmeOpaqueOwnedRecord1408> > BfmeDeque1408;
 template class _STL::deque<BfmeOpaqueOwnedRecord492,
 	_STL::allocator<BfmeOpaqueOwnedRecord492> >;
 template class _STL::deque<BfmeOpaqueOwnedRecord840,
 	_STL::allocator<BfmeOpaqueOwnedRecord840> >;
+template class _STL::deque<BfmeOpaqueOwnedRecord1408,
+	_STL::allocator<BfmeOpaqueOwnedRecord1408> >;

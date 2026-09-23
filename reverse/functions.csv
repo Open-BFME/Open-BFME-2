@@ -32528,3 +32528,4 @@ _DXGetErrorDescription9W@4,,0x00651603,11497,vendor/dxerr9-aug2005/dxerr9.lib,ma
 _DXTraceW@20,,0x006543BE,478,vendor/dxerr9-aug2005/dxerr9.lib,matched,vendored=dxerr9-aug2005;member=obj\i386\dxerr9.obj
 _DXTraceA@20,,0x0065459C,476,vendor/dxerr9-aug2005/dxerr9.lib,matched,vendored=dxerr9-aug2005;member=obj\i386\dxerr9.obj
 ??0BfmeFixedObject60@@QAE@ABU0@@Z,,0x000B41EF,122,Code/Libraries/Source/WWVegas/WWLib/StlportFixedObject60Copy.cpp,matched,neutral 60-byte structured copy via array-cursor local; row supersedes pin
+?_M_create_nodes@?$_Deque_base@UBfmeOpaqueOwnedRecord1408@@V?$allocator@UBfmeOpaqueOwnedRecord1408@@@_STL@@@_STL@@IAEXPAPAUBfmeOpaqueOwnedRecord1408@@0@Z,,0x00553032,36,Code/Libraries/Source/WWVegas/WWLib/StlportOwnedRecordDeque.cpp,matched,STLport deque node creation; target 0x0055315A calls this RVA; 0x580 node stride supports a 1408-byte element; owner identity unknown
