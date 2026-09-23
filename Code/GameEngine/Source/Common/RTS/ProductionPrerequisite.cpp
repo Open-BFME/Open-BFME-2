@@ -125,7 +125,6 @@ Int ProductionPrerequisite::calcNumPrereqUnitsOwned(const Player *player, Int co
 }
 
 //-----------------------------------------------------------------------------
-// ?getAllPossibleBuildFacilityTemplates@ProductionPrerequisite@@QBEHQAPBVThingTemplate@@H@Z present-unmatched
 Int ProductionPrerequisite::getAllPossibleBuildFacilityTemplates(const ThingTemplate* tmpls[], Int maxtmpls) const
 {
 	Int count = 0;

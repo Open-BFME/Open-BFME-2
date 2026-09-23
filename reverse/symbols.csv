@@ -4632,3 +4632,11 @@ _fmod,0x0062996A,MSVCR71 fmod import thunk; raw jmp through IAT00BBA554 independ
 ?Apply_Default_State@DX8Wrapper@@SAXXZ,0x00123170,Tail jump of DX8MeshRendererClass::Flush (0x00148030); 4597-byte render-state default body (Ghidra); same slot BFME1 pins at 0x009095A0 - identity inferred from role and size
 ?setWakeFrame@FireWeaponUpdate@@IAEXPAVObject@@I@Z,0x0044DF71,TU-spelling alias of UpdateModule setWakeFrame for FireWeaponUpdate-based behavior ctors; same Object-uint shape
 ?LookupFocusChannelVolume@@YAMH@Z,0x0035D20C,float helper called with the channel index by AudioManager focus restore; read from the REL32 in regainFocus at 0x0035D2FC
+??$__copy_ptrs@PAUGeometryShape@@PAU1@@_STL@@YAPAUGeometryShape@@PAU1@00ABU__false_type@0@@Z,0x002B0B71,address read from the REL32 displacement at a placed body
+??0PrereqUnitRec@ProductionPrerequisite@@QAE@ABU01@@Z,0x004EE1A9,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
+??1?$_List_base@UEvacuationRecord@@V?$allocator@UEvacuationRecord@@@_STL@@@_STL@@QAE@XZ,0x0002CC38,address read from the REL32 displacement at a placed body
+??1?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@XZ,0x00360D26,address read from the REL32 displacement at a placed body
+??1DamageModuleBase@@UAE@XZ,0x0044ECCE,address read from the REL32 displacement at a placed body
+??1GeometryShape@@QAE@XZ,0x002AF1EC,address read from the REL32 displacement at a placed body
+??1PB_DeepBase@@UAE@XZ,0x0002CCC3,address read from the REL32 displacement at a placed body
+?winGetStyle@GameWindow@@QAEIXZ,0x005C4AF1,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded

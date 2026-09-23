@@ -62,7 +62,6 @@ void GameWindow::winDrawBorder()
 }
 
 // ?drawWindow@GameWindowManager@@IAEHPAVGameWindow@@@Z
-// ?drawWindow@GameWindowManager@@IAEHPAVGameWindow@@@Z present-unmatched
 Int GameWindowManager::drawWindow(GameWindow *window)
 {
 	if (!window)

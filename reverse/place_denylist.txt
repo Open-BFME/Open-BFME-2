@@ -80,3 +80,7 @@ _io_writeto
 
 # Target42545A uses baseB63B2 with a 24-byte element stride.
 ??0?$vector@UBfmeFixedObject60@@V?$allocator@UBfmeFixedObject60@@@_STL@@@_STL@@QAE@IABUBfmeFixedObject60@@ABV?$allocator@UBfmeFixedObject60@@@1@@Z
+
+# Refused 2026-09-23: retired in reverse/deleted_rows.csv (vtable 0x00C4AB54 belongs to
+# DamageFilteredCreateObjectDie, not FXListDie); the ZH source matches by shape only.
+??1FXListDie@@MAE@XZ
