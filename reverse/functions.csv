@@ -17573,3 +17573,4 @@ _getluaproto,,0x0074CBA0,27,Code/Libraries/Source/Lua/ldebug.c,matched,placed by
 ??0RiderInfo@@QAE@XZ,,0x0047E3A2,9,Code/GameEngine/Source/GameLogic/Object/Contain/RiderChangeContainModuleDataCtor.cpp,matched,RiderInfo ctor; nulls two AsciiStrings; pushed as ehvec ctor by verified ModuleData ctor 0x47EABC
 ?cast_ray_brute_force@MeshGeometryClass@@IAE_NAAVRayCollisionTestClass@@@Z,,0x0016CE00,438,Code/Libraries/Source/WWVegas/WW3D2/meshgeometry.cpp,matched,BFME1 meshgeometry.cpp donor (retail-offset view; surface types at +0x58)
 ?notify@ShroudManagerImpl008FBA40@@QAEXXZ,,0x0073B7E0,166,Code/GameEngine/Source/Common/RTS/ShroudManagerImpl008FBA40.cpp,matched,BFME1 ShroudManagerImpl008FBA40Notify.cpp donor; 20 players; 0xA8 element
+?convertTitleSegments@Rva002343C3TitleSegment@@QAEHPAG@Z,,0x00234803,37,Code/GameEngine/Source/Main/WinMainPairUnicode.cpp,matched,

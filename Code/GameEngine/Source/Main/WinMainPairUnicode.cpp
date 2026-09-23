@@ -61,6 +61,7 @@ public:
 	void copyBytes(void *dst, int off, int len);
 	void convertToWide(unsigned short *dst, int off, int len);
 	int convertToWideBuffer(unsigned short *dst);
+	int copyWchars(unsigned short *dst);
 	UnicodeString toUnicode();
 
 	const char *m_ptr;
@@ -73,7 +74,9 @@ public:
 struct Rva002343C3TitleSegment : Rva000B3F84Pair
 {
 	int convertToWideBufferWithExtra(unsigned short *dst);
+	int convertTitleSegments(unsigned short *dst);
 	unsigned short m_extraChar;
+	Rva000B3F84Pair m_secondPair;
 };
 
 extern "C" void *memcpy(void *dst, const void *src, unsigned int n);
@@ -127,4 +130,12 @@ int Rva002343C3TitleSegment::convertToWideBufferWithExtra(unsigned short *dst)
 	int n = convertToWideBuffer(dst);
 	dst[n] = m_extraChar;
 	return n + 1;
+}
+
+// ?convertTitleSegments@Rva002343C3TitleSegment@@QAEHPAG@Z @0x234803
+int Rva002343C3TitleSegment::convertTitleSegments(unsigned short *dst)
+{
+	int first = convertToWideBufferWithExtra(dst);
+	int second = m_secondPair.copyWchars(dst + first);
+	return first + second;
 }
