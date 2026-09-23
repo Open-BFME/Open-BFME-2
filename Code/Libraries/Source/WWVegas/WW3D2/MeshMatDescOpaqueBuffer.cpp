@@ -11,12 +11,30 @@
 #include "always.h"
 #include <string.h>
 #include <sharebuf.h>
+extern void __cdecl operator delete[](void *) throw();
+
+// Target buffer destructors free the raw array without clearing the base fields.
+template <>
+ShareBufferClass<RefCountClass *>::~ShareBufferClass()
+{
+    ::operator delete[](RawBuffer);
+}
+
 class OpaqueRefBuffer : public ShareBufferClass<RefCountClass *> {
 public:
     OpaqueRefBuffer(int count, const char *msg) : ShareBufferClass<RefCountClass *>(count, msg) { Clear(); }
     virtual ~OpaqueRefBuffer();
     RefCountClass **Raw_Elements() { return RawBuffer; }
 };
+OpaqueRefBuffer::~OpaqueRefBuffer()
+{
+    for (int i = 0; i < Count; ++i) {
+        if (RawBuffer[i]) {
+            RawBuffer[i]->Release_Ref();
+            RawBuffer[i] = 0;
+        }
+    }
+}
 class MeshMatDescClass {
 public:
     int PassCount, VertexCount, PolyCount;
@@ -42,3 +60,7 @@ void MeshMatDescClass::Set_Rva0015D300(int index, void *entry, int pass)
     if (buffer->Raw_Elements()[index]) buffer->Raw_Elements()[index]->Release_Ref();
     buffer->Raw_Elements()[index] = value;
 }
+
+// Emission aid for the scalar deleting destructor selected by vtable 0xBD3CA4.
+// ?ForceDelete_OpaqueRefBuffer@@YAXPAVOpaqueRefBuffer@@@Z absent-from-retail
+void ForceDelete_OpaqueRefBuffer(OpaqueRefBuffer *p) { delete p; }
