@@ -330,3 +330,96 @@ ObjectShroudStatus ShroudManagerImpl008FBA40::getPropShroudStatusForPlayer(
 		return OBJECTSHROUD_FOGGED;
 	}
 }
+
+// Retail inlines drainPending into configure; the same body is also emitted
+// out of line from ShroudManagerImpl008FBA40CtorDrain.cpp (0x0073D7D0).
+inline void ShroudManagerImpl008FBA40::drainPending()
+{
+	++unknown38;
+	while (pendingPartitionData)
+	{
+		PartitionData *partitionData = pendingPartitionData;
+		partitionData->unlink();
+		partitionData->updateCellsTouched();
+	}
+
+	processPending(true);
+}
+
+// Transferred from BFME 1; the element is BFME 2's 20-player layout.
+void ShroudManagerImpl008FBA40::configure(Region3D newRegion, Real cellSize)
+{
+	drainPending();
+
+	for (BfmeThingCDE *node = reinterpret_cast<BfmeThingCDE *>(nodes);
+		node != 0; node = node->next)
+	{
+		node->d_008f7ec0();
+		node->d_008f7990();
+		reinterpret_cast<PartitionData *>(node)->makeDirty();
+	}
+
+	processPending(false);
+
+	if (newRegion.width() < 1.0f)
+		newRegion.hi.x = newRegion.lo.x + 1.0f;
+	if (newRegion.height() < 1.0f)
+		newRegion.hi.y = newRegion.lo.y + 1.0f;
+
+	Real newInverseCellSize = 1.0f / cellSize;
+	int newWidth = shroudFloatToLong(shroudCeil(
+		newRegion.width() * newInverseCellSize));
+	if (newWidth < 1)
+		newWidth = 1;
+	int newHeight = shroudFloatToLong(shroudCeil(
+		newRegion.height() * newInverseCellSize));
+	if (newHeight < 1)
+		newHeight = 1;
+
+	ShroudManagerImpl008FBA40Element *newElements =
+		new ShroudManagerImpl008FBA40Element[newWidth * newHeight];
+	ShroudManagerImpl008FBA40Element *newElement = newElements;
+	for (unsigned int y = 0; y < (unsigned int)newHeight; ++y)
+	{
+		int oldY = shroudFloatToLong(shroudFloor(
+			((Real)y * cellSize + newRegion.lo.y - region.lo.y)
+				* inverseCellSize));
+		if (oldY >= 0 && oldY < (int)height)
+		{
+			for (unsigned int x = 0; x < (unsigned int)newWidth;
+				++x, ++newElement)
+			{
+				int oldX = shroudFloatToLong(shroudFloor(
+					((Real)x * cellSize + newRegion.lo.x - region.lo.x)
+						* inverseCellSize));
+				if (oldX >= 0 && oldX < (int)width)
+				{
+					newElement->copyPlayerStatesFrom(
+						elements[oldY * width + oldX]);
+				}
+			}
+		}
+		else
+		{
+			newElement += newWidth;
+		}
+	}
+
+	delete[] elements;
+	elements = newElements;
+	region = newRegion;
+	inverseCellSize = newInverseCellSize;
+	width = newWidth;
+	height = newHeight;
+	defaultCellSize = cellSize;
+
+	if (!nodes)
+	{
+		unknown38 = 0;
+	}
+	else
+	{
+		drainPending();
+		notify();
+	}
+}
