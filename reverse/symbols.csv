@@ -4706,3 +4706,4 @@ _bfmeAppend,0x0060D5F2,callee of bfmeEmit (0x0060D7C0) at the site its BFME1 don
 ?getTextLength@WinInstanceData@@QAEHXZ,0x000A3DCC,WinInstanceData inline getter called by W3DGadgetCheckBoxImageDraw (0x000A46B7) and W3DGadgetCheckBoxDraw (0x000A44D2); header-inline null-guarded m_text length
 ?drawCheckBoxText@@YAXPAVGameWindow@@PAVWinInstanceData@@@Z,0x000A43CD,file-static helper in W3DCheckBox.cpp called by both checkbox draws
 ?setWakeFrame@Rva0026E9BDBase@@IAEXPAVObject@@I@Z,0x0044DF71,TU-spelling alias of UpdateModule setWakeFrame for Rva0026E9BDBase-based behavior ctors; same Object-uint shape resolved by HordeAIUpdateCtor
+??0ObjectHelper@@QAE@PAVThing@@PBVModuleData@@@Z,0x0028C8DF,UpdateModule-derived helper intermediate base; sole base-call position in 6 Helper-family behavior ctors (ObjectHelper siblings plus 2 outer families); body calls rowed UpdateModule 0x253390 plus setWakeFrame pin 0x44DF71
