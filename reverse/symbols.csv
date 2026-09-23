@@ -5148,3 +5148,4 @@ _AVIFileInit@0,0x0065479C,jmp [IAT 0xBBA050] stub; import table names avifil32!A
 ?freeWayPointVecStorage@@YAXPAX@Z,0x00030830,TU-local throwing free spelling for the DynamicPortal WayPoint inline teardown; same body as free at this address and the C++ decoration is what emits retail state-1
 ??1DynamicPortalLink@@QAE@XZ,0x0007FAB3,Link element teardown folding with the rowed basic_string-char dtor dup at this address per the range-destroy call site
 ??1GameMessageList@@UAE@XZ,0x0030F57C,GameMessageList virtual dtor for the CommandList base call; body banked 0.93 pending the vptr-load scheduling lever
+??4Rva002E9E70Mid@@QAEAAV0@ABV0@@Z,0x00332217
