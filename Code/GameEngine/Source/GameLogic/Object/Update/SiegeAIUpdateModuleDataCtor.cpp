@@ -7,11 +7,21 @@
 // data factory (news 0x64, sole caller at 0x24D4EC). Row supersedes the
 // ctor pin.
 
+class MultiIniFieldParse;
+struct FieldParse;
+
+class MultiIniFieldParse
+{
+public:
+	void add(const FieldParse *parseTable, unsigned int extraOffset);
+};
+
 class __declspec(novtable) TransportAIUpdateModuleData
 {
 public:
 	TransportAIUpdateModuleData();
 	virtual ~TransportAIUpdateModuleData();
+	static void buildFieldParse(MultiIniFieldParse &parse);
 
 private:
 	// +0x00 vptr (novtable: no compiler install here).
@@ -23,6 +33,7 @@ class __declspec(novtable) SiegeAIUpdateModuleData : public TransportAIUpdateMod
 {
 public:
 	SiegeAIUpdateModuleData();
+	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
 // ??0SiegeAIUpdateModuleData@@QAE@XZ @0x004904D9
@@ -30,4 +41,11 @@ SiegeAIUpdateModuleData::SiegeAIUpdateModuleData()
 	: TransportAIUpdateModuleData()
 {
 	*(unsigned int *)this = 0x00C4B6C8;
+}
+
+// ?buildFieldParse@SiegeAIUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z @0x004904EB
+void SiegeAIUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	TransportAIUpdateModuleData::buildFieldParse(parse);
+	parse.add(reinterpret_cast<const FieldParse *>(0x00C6BB18), 0);
 }
