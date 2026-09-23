@@ -4655,3 +4655,5 @@ _AVIFileInit@0,0x0065479C,jmp [IAT 0xBBA050] stub; import table names avifil32!A
 ??1Rva005F2F80Elem@@QAE@XZ,0x005F2F80,element destructor called by the guarded-delete clear helper; address from its retail REL32 call and a Ghidra function start
 ??1Rva005FBF97Elem@@QAE@XZ,0x005FBF97,element destructor called by the guarded-delete clear helper; address from its retail REL32 call and a Ghidra function start
 ??1Rva005FFBCBElem@@QAE@XZ,0x005FFBCB,element destructor called by the guarded-delete clear helper; address from its retail REL32 call and a Ghidra function start
+??0W3DRadarResetSurface@@QAE@PAVSurfaceResource@@@Z,0x00116600,address from the retail call in getBackBufferSurface006e; the body there is held as ??0BfmeThingDC@@QAE@PAUBfmeItemDC@@@Z and this unit models the same holder under another name
+??0W3DRadarResetSurface@@QAE@IIII@Z,0x001165D0,address from the retail call in getBackBufferSurface006e; the body there is held as SurfaceClass(unsigned; unsigned; WW3DFormat; D3DPOOL) and this unit models the same holder under another name
