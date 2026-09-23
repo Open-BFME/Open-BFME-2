@@ -1239,24 +1239,28 @@ WWINLINE void DX8Wrapper::Set_DX8_ZBias(int zbias)
 
 WWINLINE void DX8Wrapper::Set_Transform(D3DTRANSFORMSTATETYPE transform,const Matrix4x4& m)
 {
+	// BFME 2 order and projection handling, from VertexMaterialClass::Apply
+	// (0x0013D570): the matrix is stored before the identity/changed flags, and
+	// the projection case keeps the transpose in ProjectionMatrix and hands the
+	// device its DeviceProjectionMatrix copy, as Set_Projection_Transform_With_Z_Bias
+	// does, instead of a stack temporary.
 	switch ((int)transform) {
 	case D3DTS_WORLD:
 		render_state.world=m.Transpose();
-		render_state_changed|=(unsigned)WORLD_CHANGED;
 		render_state_changed&=~(unsigned)WORLD_IDENTITY;
+		render_state_changed|=(unsigned)WORLD_CHANGED;
 		break;
 	case D3DTS_VIEW:
 		render_state.view=m.Transpose();
-		render_state_changed|=(unsigned)VIEW_CHANGED;
 		render_state_changed&=~(unsigned)VIEW_IDENTITY;
+		render_state_changed|=(unsigned)VIEW_CHANGED;
 		break;
 	case D3DTS_PROJECTION:
-		{
-			Matrix4x4 ProjectionMatrix=m.Transpose();
-			ZFar=0.0f;
-			ZNear=0.0f;
-			DX8CALL(SetTransform(D3DTS_PROJECTION,(D3DMATRIX*)&ProjectionMatrix));
-		}
+		ProjectionMatrix=m.Transpose();
+		DeviceProjectionMatrix=ProjectionMatrix;
+		ZFar=0.0f;
+		ZNear=0.0f;
+		DX8CALL(SetTransform(D3DTS_PROJECTION,(D3DMATRIX*)&DeviceProjectionMatrix));
 		break;
 	default:
 		DX8_RECORD_MATRIX_CHANGE();

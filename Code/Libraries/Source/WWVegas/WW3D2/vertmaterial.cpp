@@ -1008,7 +1008,8 @@ WW3DErrorType VertexMaterialClass::Save_W3D(ChunkSaveClass & csave)
 	return WW3D_ERROR_OK;
 }
 
-// ?Apply@VertexMaterialClass@@ABEXXZ present-unmatched
+// ?Apply@VertexMaterialClass@@ABEXXZ matched in VertexMaterialApply.cpp; this
+// unmatched copy stays because its out-of-line call emits WW3D::Is_Coloring_Enabled
 void VertexMaterialClass::Apply(void) const
 {
 	int i;
