@@ -4433,7 +4433,6 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ??0BoneFXDamage@@QAE@PAVThing@@PBVModuleData@@@Z,0x004B979C,(Thing*;ModuleData*) ctor called by BoneFXDamage::friend_newModuleInstance (0x00250D17); class from the ModuleFactory registration literal
 ??0TransitionDamageFX@@QAE@PAVThing@@PBVModuleData@@@Z,0x004BA3EA,(Thing*;ModuleData*) ctor called by TransitionDamageFX::friend_newModuleInstance (0x00250D4F); class from the ModuleFactory registration literal
 ??0ReflectDamage@@QAE@PAVThing@@PBVModuleData@@@Z,0x004BABB4,(Thing*;ModuleData*) ctor called by ReflectDamage::friend_newModuleInstance (0x00250D8A); class from the ModuleFactory registration literal
-??0HordeTransportContainDamage@@QAE@PAVThing@@PBVModuleData@@@Z,0x004BB130,(Thing*;ModuleData*) ctor called by HordeTransportContainDamage::friend_newModuleInstance (0x00250E9C); class from the ModuleFactory registration literal
 ??0CallHelpOnDamage@@QAE@PAVThing@@PBVModuleData@@@Z,0x004BB43C,(Thing*;ModuleData*) ctor called by CallHelpOnDamage::friend_newModuleInstance (0x00250F25); class from the ModuleFactory registration literal
 ??0InactiveBody@@QAE@PAVThing@@PBVModuleData@@@Z,0x004BD8BD,(Thing*;ModuleData*) ctor called by InactiveBody::friend_newModuleInstance (0x00251375); class from the ModuleFactory registration literal
 ??0ActiveBody@@QAE@PAVThing@@PBVModuleData@@@Z,0x004BF6A1,(Thing*;ModuleData*) ctor called by ActiveBody::friend_newModuleInstance (0x002513AD); class from the ModuleFactory registration literal
