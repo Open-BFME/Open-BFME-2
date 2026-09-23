@@ -17084,3 +17084,4 @@ _fprintf,,0x002CEC42,108,Code/GameEngine/Source/Common/FprintfAppendLine.cpp,mat
 ??0ObjectHelper@@QAE@PAVThing@@PBVModuleData@@@Z,,0x0028C8DF,84,Code/GameEngine/Source/GameLogic/Object/Helper/ObjectHelperCtor.cpp,matched,
 ??0CollideModule@@QAE@PAVThing@@PBVModuleData@@@Z,,0x004BB702,49,Code/GameEngine/Source/GameLogic/Object/Collide/CollideModuleCtor.cpp,matched,BFME1 CollideModule.h donor with outlined ctor over rowed BehaviorModule plus inline interface vtable at plus10; five Collide behavior callers
 ??0RampageBehavior@@QAE@PAVThing@@PBVModuleData@@@Z,,0x00458B60,101,Code/GameEngine/Source/GameLogic/Object/Behavior/RampageBehaviorCtor.cpp,matched,Behavior ctor over rowed UpdateModule base 0x253390 with poolkey at 0x458B0A and sole-caller instance factory at 0x24AD00 with news 0x2C
+??0ObjectDefectionHelper@@QAE@PAVThing@@PBVModuleData@@@Z,,0x0028C955,61,Code/GameEngine/Source/GameLogic/Object/Helper/ObjectDefectionHelperCtor.cpp,matched,
