@@ -3843,7 +3843,6 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ??1Rva006CEAD0@@QAE@XZ,0x006CEAD0,destructor spelling of the matched Rva006CEAD0::drainChain body: the byte-true ModuleInfo::Nugget::~Nugget call at 0x006CFA30 destroys its +0 member through it
 ?buildFieldParse@GiveUpgradeUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x0049C391,parse-proc immediate pushed by the GiveUpgradeUpdate data factory 0x0024E800
 ??0InitiateVoiceEntry@@QAE@XZ,0x004CEE6E,8-byte voice pair init via or-minus-1 plus and-zero; shared fold with 42 member-position callers per SlotToLock precedent; Bloodthirsty voice member at plus-0x10
-??0BuildingBehaviorModuleData@@QAE@XZ,0x00456489
 ??$_M_range_initialize@PBD@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@AAEXPBD0ABUforward_iterator_tag@1@@Z,0x000078C0,private-member spelling of rowed 0x000078C0 _M_range_initialize; TU-local private decl needs AAE pin per alias law
 ??0CrateCollide@@QAE@PAVThing@@PBVModuleData@@@Z,0x004BC523,six raw callers all CrateCollide-family behavior ctors (Money 0x4BC93F plus Unit 0x4BCC13 plus Salvage 0x4BD1D7 plus 3 siblings); chains into 0x4BB702 then rowed BehaviorModule 0x253330; installs CrateCollide vtable 0xC5A618
 ??0LargeGroupAudioUpdateModuleData@@QAE@XZ,0x004ABED8
