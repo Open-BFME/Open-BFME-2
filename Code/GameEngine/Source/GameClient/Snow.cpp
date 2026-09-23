@@ -95,3 +95,49 @@ void SnowManager::init()
     m_time = 0.0f;
     updateIniSettings();
 }
+
+class MemoryPoolObject {
+public:
+    virtual ~MemoryPoolObject();
+};
+
+class Overridable : public MemoryPoolObject {
+public:
+    Overridable *m_nextOverride;
+    bool m_isOverride;
+    const Overridable *getFinalOverride() const
+    {
+        return m_nextOverride ? m_nextOverride->getFinalOverride() : this;
+    }
+};
+
+// Only the override prefix is needed for this cleanup path.
+class WeatherSetting : public Overridable {};
+
+template <class T> class OVERRIDE {
+public:
+    const T *m_overridable;
+    operator const T *() const
+    {
+        if (!m_overridable) return 0;
+        return static_cast<const T *>(m_overridable->getFinalOverride());
+    }
+    OVERRIDE &operator=(const T *value)
+    {
+        m_overridable = value;
+        return *this;
+    }
+};
+
+extern OVERRIDE<WeatherSetting> TheWeatherSetting;
+extern void __cdecl operator delete[](void *);
+
+SnowManager::~SnowManager()
+{
+    delete [] m_startingHeights;
+    m_startingHeights = 0;
+    if (TheWeatherSetting) {
+        ::delete TheWeatherSetting;
+        TheWeatherSetting = static_cast<const WeatherSetting *>(0);
+    }
+}
