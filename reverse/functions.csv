@@ -17509,3 +17509,15 @@ _getluaproto,,0x0074CBA0,27,Code/Libraries/Source/Lua/ldebug.c,matched,placed by
 ??0StancesBehavior@@QAE@PAVThing@@PBVModuleData@@@Z,,0x0045EF80,54,Code/GameEngine/Source/GameLogic/Object/Behavior/StancesBehaviorCtor.cpp,matched,Behavior ctor over rowed UpdateModule base plus pinned 0x330757 member at plus 0x20 plus trailing zero plus vtable fold
 ?checkForSupplyCenter@AIPlayer@@IAEXPAVBuildListInfo@@PAVObject@@@Z,,0x004F29E9,211,Code/GameEngine/Source/GameLogic/AI/AIPlayer.cpp,matched,BFME1 AIPlayerSupply donor reconstruction; BFME2 moves side to player+0x58 and AI chain to +0x18/+0xF4; volatile side read inside while loop; all 4 callees rowed
 ?configure@ShroudManagerImpl008FBA40@@QAEXURegion3D@@M@Z,,0x0073DBF0,862,Code/GameEngine/Source/Common/RTS/ShroudManagerImpl008FBA40.cpp,matched,BFME1 ShroudManagerImpl008FBA40.cpp configure on BFME2 20-player element; drainPending inlined
+?bfmeGo1052H@BfmeH1052@@QAEXPAVBfmeI1052@@@Z,,0x0066D080,38,Code/GameEngine/Source/Common/BfmeConv1052.cpp,matched,BFME1 BfmeConv1052.cpp donor; BFME2 /G7 /arch:SSE
+??0BfmeTagZB@@QAE@ABV0@@Z,,0x0014A120,21,Code/GameEngine/Source/Common/BfmeConv1733.cpp,matched,BFME1 BfmeConv1733.cpp donor; BFME2 /G7 /arch:SSE
+?advance@?$Rva001705A0DlinkIterator@VObject@@@@QAEXXZ,,0x00263526,32,Code/GameEngine/Source/Common/Rva001705A0LazyObject.cpp,matched,BFME1 Rva001705A0LazyObject.cpp donor; BFME2 /G7 /arch:SSE
+?positiveRatio@Rva0020E150Value@@QBEMXZ,,0x004BDC25,28,Code/GameEngine/Source/Common/Rva0020E150PositiveRatio.cpp,matched,BFME1 Rva0020E150PositiveRatio.cpp donor; BFME2 /G7 /arch:SSE
+?eq@Rva0025A3F0@@QBE_NH@Z,,0x00494ADF,20,Code/GameEngine/Source/Common/Rva0025A3F0Eq.cpp,matched,BFME1 Rva0025A3F0Eq.cpp donor; BFME2 /G7 /arch:SSE
+?set@Rva003F7520@@QAEXE@Z,,0x0052E08B,22,Code/GameEngine/Source/Common/Rva003F7520Set.cpp,matched,BFME1 Rva003F7520Set.cpp donor; BFME2 /G7 /arch:SSE
+?set@Rva00412FC0@@QAEXPBVVector3@@@Z,,0x002722D0,36,Code/GameEngine/Source/Common/Rva00412FC0SetVec.cpp,matched,BFME1 Rva00412FC0SetVec.cpp donor; BFME2 /G7 /arch:SSE
+?updateOffsets@Rva007AED00Table@@QAEXHMM@Z,,0x00108996,84,Code/GameEngine/Source/Common/Rva007AED00UpdateOffsets.cpp,matched,BFME1 Rva007AED00UpdateOffsets.cpp donor; BFME2 /G7 /arch:SSE
+??0BfmeElemCU@@QAE@PAVBfmeDropObjectA@@@Z,,0x006CD480,28,Code/GameEngine/Source/Common/Rva00893030ManagerCopyOut.cpp,matched,BFME1 Rva00893030ManagerCopyOut.cpp donor; BFME2 /G7 /arch:SSE
+?copy@?$char_traits@D@std@@SAPADPADPBDI@Z,,0x001B64A0,35,Code/GameEngine/Source/Common/Rva009A2030OwnedRecordDeletingDestructor.cpp,matched,BFME1 Rva009A2030OwnedRecordDeletingDestructor.cpp donor; BFME2 /G7 /arch:SSE
+?Rva00060820@@YAXPBD@Z,,0x00116DD0,20,Code/GameEngine/Source/Common/T3Gen001336E5CForwarders.cpp,matched,BFME1 T3Gen001336E5CForwarders.cpp donor; BFME2 /G7 /arch:SSE
+?update@T4Host00600400@@QAEXXZ,,0x00561F20,121,Code/GameEngine/Source/Common/T4LeafPredicatesAndMath.cpp,matched,BFME1 T4LeafPredicatesAndMath.cpp donor; BFME2 /G7 /arch:SSE
