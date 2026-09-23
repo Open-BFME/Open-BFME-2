@@ -11,6 +11,8 @@ Goal: Source code that rebuilds BFME 2's engine binary (`game.dat`) byte-for-byt
 * The target is `game.dat` — the real engine PE; `lotrbfme2.exe` is only a launcher stub
 * Sister project of [Open-BFME-1](https://github.com/Open-BFME/Open-BFME-1): same engine family, same MSVC 7.1 toolchain, same workflow — and BFME 1's converted source rides in as a submodule reference
 
+[![BFME 2 rebuild progress](docs/progress.svg)](tools/progress.py)
+
 ## Status
 
 **16.16% of the game's retail `.text` has exact byte coverage** — 1,299,292 C++
@@ -27,7 +29,7 @@ wide open.
 
 ## Roadmap
 
-* [ ] BFME 2 Source Code (16.16%)
+* [ ] BFME 2 Source Code (see the live progress bar above)
 * [ ] 60/120 FPS
 * [ ] Memory fix
 * [ ] Better crash logs

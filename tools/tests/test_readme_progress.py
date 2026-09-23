@@ -9,7 +9,7 @@ from urllib.error import URLError
 import pytest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-import discord_progress as daily
+import readme_progress as daily
 
 
 def setup_state(tmp_path, monkeypatch, state=None):
