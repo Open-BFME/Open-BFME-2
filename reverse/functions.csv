@@ -32579,3 +32579,4 @@ _DXTraceA@20,,0x0065459C,476,vendor/dxerr9-aug2005/dxerr9.lib,matched,vendored=d
 ?expandFootprint@GeometryInfo@@QAEXM@Z,,0x006BEB40,53,Code/GameEngine/Source/Common/System/GeometryInfoExpandFootprint.cpp,matched,BFME1 byte-identical donor; b1 0x0087F2B0
 ??$_Destroy@PAUDynamicPortalLink@@@_STL@@YAXPAUDynamicPortalLink@@0@Z,,0x003F29F8,25,Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalLinkVector.cpp,matched,Range destroy with stride 0xC calling the element dtor per Link record
 ??1?$vector@UDynamicPortalLink@@V?$allocator@UDynamicPortalLink@@@_STL@@@_STL@@QAE@XZ,,0x004613EB,63,Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalLinkVector.cpp,matched,Link vector teardown through the range destroy plus storage free
+??0GameMessageList@@QAE@XZ,,0x0030F562,26,Code/GameEngine/Source/Common/MessageStreamListCtors.cpp,matched,ZH MessageStream donor shape over Subsystem base
