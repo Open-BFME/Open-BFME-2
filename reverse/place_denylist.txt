@@ -69,3 +69,7 @@ _io_writeto
 ?_M_pop_front_aux@?$deque@UBfmeStringHeadRecord20@@V?$allocator@UBfmeStringHeadRecord20@@@_STL@@@_STL@@IAEXXZ
 ?push_back@?$deque@UBfmeStringHeadRecord20@@V?$allocator@UBfmeStringHeadRecord20@@@_STL@@@_STL@@QAEXABUBfmeStringHeadRecord20@@@Z
 ?pop_front@?$deque@UBfmeStringHeadRecord20@@V?$allocator@UBfmeStringHeadRecord20@@@_STL@@@_STL@@QAEXXZ
+
+# Target 423675 copies 40-byte nested deques through 4230EB/42301D.
+# The outer constructor shape alone does not establish a 2148-byte element.
+??0?$deque@UBfmeOpaque2148@@V?$allocator@UBfmeOpaque2148@@@_STL@@@_STL@@QAE@ABV01@@Z
