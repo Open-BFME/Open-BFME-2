@@ -8,11 +8,21 @@
 // caller at 0x24DDEC); base size 0xC8 inferred from the +0xC8 position. Row
 // supersedes the ctor pin.
 
+class MultiIniFieldParse;
+struct FieldParse;
+
+class MultiIniFieldParse
+{
+public:
+	void add(const FieldParse *parseTable, unsigned int extraOffset);
+};
+
 class __declspec(novtable) Rva0044EB54
 {
 public:
 	Rva0044EB54();
 	virtual ~Rva0044EB54();
+	static void buildFieldParse(MultiIniFieldParse &parse);
 
 private:
 	// +0x00 vptr (novtable: no compiler install here).
@@ -24,6 +34,7 @@ class __declspec(novtable) ScaleWallSpecialAbilityUpdateModuleData : public Rva0
 {
 public:
 	ScaleWallSpecialAbilityUpdateModuleData();
+	static void buildFieldParse(MultiIniFieldParse &parse);
 
 private:
 	// +0xC8 cleared word (ends at the rowed 0xCC instance size).
@@ -36,4 +47,11 @@ ScaleWallSpecialAbilityUpdateModuleData::ScaleWallSpecialAbilityUpdateModuleData
 {
 	m_wordC8 &= 0;
 	*(unsigned int *)this = 0x00C5F778;
+}
+
+// ?buildFieldParse@ScaleWallSpecialAbilityUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z @0x0024DD72
+void ScaleWallSpecialAbilityUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	Rva0044EB54::buildFieldParse(parse);
+	parse.add(reinterpret_cast<const FieldParse *>(0x00BEF1B4), 0);
 }
