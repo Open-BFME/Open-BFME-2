@@ -2443,7 +2443,6 @@ name,address,notes
 ?destroy@ParticleSystem@@QAEXXZ,0x001F462C,call site in destroyParticleSystemByID (0x1F5B79) mov ecx [ebp-0x18] (m_system) test je then bare thiscall matching ParticleSystem::destroy void; BFME1 ILT 0xE525
 ?destroyObject@GameLogic@@QAEXPAVObject@@@Z,0x00242C09,address read from the REL32 displacement at a placed body
 ?destroyParticleSystemByID@ParticleSystemManager@@QAEXW4ParticleSystemID@@@Z,0x001F5B79,address read from the REL32 displacement at a placed body
-?detach@NetCommandMsg@@QAEXXZ,0x004D55BC,NetCommandMsg refcount release at +0x18 with virtual-dtor flag-0 plus global opdelete; tail-call target of NetCommandNode::detach 12B at 0x58B8AE (jmp rel32); ZH NetCommandMsg::detach in NetCommandMsg.cpp
 ?detach@NetCommandNode@@QAEXXZ,0x0058B8AE,12-byte node cleanup; REL32 from NetCommandList::reset
 ?detach@Rva006CD530@@QAEXXZ,0x006CD530,opaque thiscall member (no args); called as mov ecx,esi + E8 from chain drain at 0x006CEAD0:0x6CEAEB; identity unproven
 ?disconnectPlayer@ConnectionManager@@QAE?AW4PlayerLeaveCode@@H@Z,0x004D13F8
