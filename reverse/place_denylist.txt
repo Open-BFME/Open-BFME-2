@@ -73,3 +73,7 @@ _io_writeto
 # Target 423675 copies 40-byte nested deques through 4230EB/42301D.
 # The outer constructor shape alone does not establish a 2148-byte element.
 ??0?$deque@UBfmeOpaque2148@@V?$allocator@UBfmeOpaque2148@@@_STL@@@_STL@@QAE@ABV01@@Z
+
+# Target54FE47 destroys its element via7FAB3 (free the first pointer).
+# Nested-word-deque elements require the verified inner-deque destructor422D48.
+?_M_pop_front_aux@?$deque@V?$deque@UBfmeWordValue4@@V?$allocator@UBfmeWordValue4@@@_STL@@@_STL@@V?$allocator@V?$deque@UBfmeWordValue4@@V?$allocator@UBfmeWordValue4@@@_STL@@@_STL@@@2@@_STL@@IAEXXZ
