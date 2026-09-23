@@ -4667,3 +4667,7 @@ _bfmeAppend,0x0060D5F2,callee of bfmeEmit (0x0060D7C0) at the site its BFME1 don
 ??0BfmeObject476@@QAE@ABU0@@Z,0x001FE352,Neutral476-byte target object copy constructor; _Construct wrapper calls it; target member copies and vptr stores establish construction; original type unknown
 ?allocate@?$allocator@UBfmeObject476@@@_STL@@QBEPAUBfmeObject476@@IPBX@Z,0x001FD26F,Qualified neutral476-byte alloc alias; full emitted body and call graph exact; existing ledger body retains address
 ??$__uninitialized_copy@PAUBfmeObject476@@PAU1@@_STL@@YAPAUBfmeObject476@@PAU1@00ABU__false_type@0@@Z,0x001FEAFE,Qualified neutral476-byte mutable-copy alias; full emitted body and call graph exact; existing ledger body retains address
+??0BfmeObject544@@QAE@ABU0@@Z,0x004CAD61,Neutral544-byte target object copy constructor; _Construct wrapper calls it; target member copies and EH cleanup establish construction; original type unknown
+??1BfmeObject544@@QAE@XZ,0x004CACB8,Neutral544-byte target destructor; direct call from4CAE55 range cleanup; destroys member20C and8 member objects ofsize38 at4C; ctor4CAD61 confirms layout; original type unknown
+?allocate@?$allocator@UBfmeObject544@@@_STL@@QBEPAUBfmeObject544@@IPBX@Z,0x004CAB6C,Qualified neutral544-byte alloc alias; full emitted body and call graph exact; existing ledger body retains address
+??$__uninitialized_copy@PAUBfmeObject544@@PAU1@@_STL@@YAPAUBfmeObject544@@PAU1@00ABU__false_type@0@@Z,0x004CADFE,Qualified neutral544-byte mutable-copy alias; full emitted body and call graph exact; existing ledger body retains address
