@@ -4645,3 +4645,4 @@ _fmod,0x0062996A,MSVCR71 fmod import thunk; raw jmp through IAT00BBA554 independ
 ?notify@ShroudManagerImpl008FBA40@@QAEXXZ,0x0073B7E0,Last call of ShroudManagerImpl008FBA40::configure (0x0073DBF0) after the inlined drainPending, matching the BFME1 donor order; Ghidra boundary 159B
 ?count@XmlNameSlotList@@QAEHXZ,0x005C4AE1,alias of rowed Disp8 dword getter ?get@Rva005C4AE1DwordField; XmlNameSlotList count reads +0x28
 ?finish@XmlNameSlotList@@QAEXXZ,0x00542890,XmlNameSlotList finish 36B; advances past close markup; calls 0x542459
+?invoke@Rva00222A8BTarget@@QAEXPAXPBDH10000@Z,0x00222A8B,UI callback invoker 8 stack args with target in ecx; sole callee of the UiCallbackFirers run at 0x003FEAA2
