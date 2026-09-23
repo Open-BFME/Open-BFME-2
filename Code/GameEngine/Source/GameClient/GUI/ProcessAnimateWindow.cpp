@@ -963,22 +963,10 @@ Bool ProcessAnimateWindowSlideFromBottomTimed::reverseAnimateWindow( AnimateWind
 //-----------------------------------------------------------------------------
 ProcessAnimateWindowSpiral::~ProcessAnimateWindowSpiral( void ) { }
 
-//-----------------------------------------------------------------------------
-void ProcessAnimateWindowSpiral::initReverseAnimateWindow( AnimateWindow *animWin, UnsignedInt maxDelay )
-{
-	if(!animWin)
-	{
-		DEBUG_ASSERTCRASH( animWin, ("animWin was passed into initAnimateWindow as a NULL Pointer... bad bad bad!"));
-		return;
-	}
-	if(animWin->getDelay() > 0)
-		animWin->setStartTime(timeGetTime() + (maxDelay - animWin->getDelay()));
-	Coord2D vel = animWin->getVel();
-	vel.x = 0;
-	vel.y = 0;
-	animWin->setVel( vel );	
-
-}
+// NOTE: Spiral::initReverseAnimateWindow lives in
+// ProcessAnimateWindowSpiralInitReverse.cpp (it needs /O1 for the framed
+// manual prologue; this /G7 TU emits a frameless shape). Donor-verbatim ZH
+// transcription with AnimateWindow::getVel pin at 0x005C5046.
 
 //-----------------------------------------------------------------------------
 void ProcessAnimateWindowSpiral::initAnimateWindow( AnimateWindow *animWin )
