@@ -4069,7 +4069,6 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ??0LaserUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x00362EEE,(Thing*;ModuleData*) ctor called by LaserUpdate::friend_newModuleInstance (0x0024D522); class from the ModuleFactory registration literal
 ??0ClickReactionBehavior@@QAE@PAVThing@@PBVModuleData@@@Z,0x0045961D,(Thing*;ModuleData*) ctor called by ClickReactionBehavior::friend_newModuleInstance (0x0024AE9B); class from the ModuleFactory registration literal
 ??0DelayedWeaponSetUpgradeUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x004882E4,(Thing*;ModuleData*) ctor called by DelayedWeaponSetUpgradeUpdate::friend_newModuleInstance (0x0024CCBC); class from the ModuleFactory registration literal
-??0PillageModule@@QAE@PAVThing@@PBVModuleData@@@Z,0x00484F0D,(Thing*;ModuleData*) ctor called by PillageModule::friend_newModuleInstance (0x0024C77B); class from the ModuleFactory registration literal
 ??0PorcupineFormationBodyModule@@QAE@PAVThing@@PBVModuleData@@@Z,0x004C1FE6,(Thing*;ModuleData*) ctor called by PorcupineFormationBodyModule::friend_newModuleInstance (0x002517CF); class from the ModuleFactory registration literal
 ??0ProductionSpeedBonus@@QAE@PAVThing@@PBVModuleData@@@Z,0x004C2EF5,(Thing*;ModuleData*) ctor called by ProductionSpeedBonus::friend_newModuleInstance (0x00251AC6); class from the ModuleFactory registration literal
 ??0HordeContain@@QAE@PAVThing@@PBVModuleData@@@Z,0x0046F543,(Thing*;ModuleData*) ctor called by HordeContain::friend_newModuleInstance (0x0024B8F0); class from the ModuleFactory registration literal
@@ -4653,3 +4652,4 @@ _AVIFileInit@0,0x0065479C,jmp [IAT 0xBBA050] stub; import table names avifil32!A
 ??_7ModelConditionSpecialAbilityUpdateModuleData@@6B@,0x00C4D828,slot0 is ??_G at 0x00490E5F immediately after the 132B ctor; vtable for the ModelCondition file-unit
 ??4TextureStatisticsStructWide@@QAEAAU0@ABU0@@Z,0x00154AF0,ICF alias of ?bfmeTakeFT@BfmeThingFT@@QAEAAV1@PBV1@@Z rowed at this address; retail Add at 0x00155630 reaches it through REL32 and both bodies take a 0x24 record with add/drop plus 9-dword copy
 ??_7PlayerUpgradeSpecialPowerModuleData@@6B@,0x00C5E1C0,slot0 is ??_G at 0x004C7DB8 immediately after the 80B ctor; vtable for the PlayerUpgrade file-unit
+??0Rva00588FFA@@QAE@PAVThing@@PBVModuleData@@@Z,0x00588FFA,opaque (Thing*,ModuleData*) behavior base over rowed BehaviorModule 0x253330; installs vtable 0x00C700C4; sole raw caller is PillageModule ctor 0x00484F0D; class from call-shape only
