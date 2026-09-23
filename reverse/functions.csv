@@ -32509,3 +32509,21 @@ uw_007ab7d2,,0x007AB7D2,8,Code/gen_small/uw_gen_006.cpp,matched,gen-funclet;obje
 ??0CitadelSlaughterHordeContainModuleData@@QAE@XZ,,0x0048112F,155,Code/GameEngine/Source/GameLogic/Object/Contain/CitadelSlaughterHordeContainModuleDataCtor.cpp,matched,
 ??0OCLSpecialPowerModuleData@@QAE@XZ,,0x004C32BC,169,Code/GameEngine/Source/GameLogic/Object/SpecialPower/OCLSpecialPowerModuleDataCtor.cpp,matched,
 ??0_PushButtonData@@QAE@XZ,,0x00327E22,46,Code/GameEngine/Source/GameClient/GUI/Gadget/GadgetUserDataHelpers.cpp,matched,zeroing leaf ctor over retail-measured 0x38 layout; row supersedes pin
+?StringCopyWorkerA@@YGJPADIPBD@Z,,0x0062AFE0,61,vendor/dxerr9-aug2005/dxerr9.lib,matched,vendored=dxerr9-aug2005;member=obj\i386\dxerr9.obj
+?StringCopyWorkerW@@YGJPAGIPBG@Z,,0x0062B01D,68,vendor/dxerr9-aug2005/dxerr9.lib,matched,vendored=dxerr9-aug2005;member=obj\i386\dxerr9.obj
+?StringVPrintfWorkerA@@YGJPADIPBD0@Z,,0x0062B061,76,vendor/dxerr9-aug2005/dxerr9.lib,matched,vendored=dxerr9-aug2005;member=obj\i386\dxerr9.obj
+?StringVPrintfWorkerW@@YGJPAGIPBGPAD@Z,,0x0062B0AD,77,vendor/dxerr9-aug2005/dxerr9.lib,matched,vendored=dxerr9-aug2005;member=obj\i386\dxerr9.obj
+?StringLengthWorkerA@@YGJPBDIPAI@Z,,0x0062B0FA,55,vendor/dxerr9-aug2005/dxerr9.lib,matched,vendored=dxerr9-aug2005;member=obj\i386\dxerr9.obj
+?StringLengthWorkerW@@YGJPBGIPAI@Z,,0x0062B131,57,vendor/dxerr9-aug2005/dxerr9.lib,matched,vendored=dxerr9-aug2005;member=obj\i386\dxerr9.obj
+_DXGetErrorString9A@4,,0x0062B16A,72878,vendor/dxerr9-aug2005/dxerr9.lib,matched,vendored=dxerr9-aug2005;member=obj\i386\dxerr9.obj
+_DXGetErrorString9W@4,,0x0063CE18,72450,vendor/dxerr9-aug2005/dxerr9.lib,matched,vendored=dxerr9-aug2005;member=obj\i386\dxerr9.obj
+_DXGetErrorDescription9A@4,,0x0064E91A,11497,vendor/dxerr9-aug2005/dxerr9.lib,matched,vendored=dxerr9-aug2005;member=obj\i386\dxerr9.obj;A/W twin placed by archive order and confirmed by string width
+_DXGetErrorDescription9W@4,,0x00651603,11497,vendor/dxerr9-aug2005/dxerr9.lib,matched,vendored=dxerr9-aug2005;member=obj\i386\dxerr9.obj;A/W twin placed by archive order and confirmed by string width
+?StringCchCopyA@@YGJPADIPBD@Z,,0x006542EC,29,vendor/dxerr9-aug2005/dxerr9.lib,matched,vendored=dxerr9-aug2005;member=obj\i386\dxerr9.obj;A/W twin placed by archive order and confirmed by callee
+?StringCchCopyW@@YGJPAGIPBG@Z,,0x00654309,29,vendor/dxerr9-aug2005/dxerr9.lib,matched,vendored=dxerr9-aug2005;member=obj\i386\dxerr9.obj;A/W twin placed by archive order and confirmed by callee
+?StringCchPrintfA@@YAJPADIPBDZZ,,0x00654326,41,vendor/dxerr9-aug2005/dxerr9.lib,matched,vendored=dxerr9-aug2005;member=obj\i386\dxerr9.obj;A/W twin placed by archive order and confirmed by callee
+?StringCchPrintfW@@YAJPAGIPBGZZ,,0x0065434F,41,vendor/dxerr9-aug2005/dxerr9.lib,matched,vendored=dxerr9-aug2005;member=obj\i386\dxerr9.obj;A/W twin placed by archive order and confirmed by callee
+?StringCchLengthA@@YGJPBDIPAI@Z,,0x00654378,35,vendor/dxerr9-aug2005/dxerr9.lib,matched,vendored=dxerr9-aug2005;member=obj\i386\dxerr9.obj;A/W twin placed by archive order and confirmed by callee
+?StringCchLengthW@@YGJPBGIPAI@Z,,0x0065439B,35,vendor/dxerr9-aug2005/dxerr9.lib,matched,vendored=dxerr9-aug2005;member=obj\i386\dxerr9.obj;A/W twin placed by archive order and confirmed by callee
+_DXTraceW@20,,0x006543BE,478,vendor/dxerr9-aug2005/dxerr9.lib,matched,vendored=dxerr9-aug2005;member=obj\i386\dxerr9.obj
+_DXTraceA@20,,0x0065459C,476,vendor/dxerr9-aug2005/dxerr9.lib,matched,vendored=dxerr9-aug2005;member=obj\i386\dxerr9.obj

@@ -1,0 +1,38 @@
+dxerr9.lib — Microsoft DirectX error-reporting library, as linked into game.dat
+=============================================================================
+
+dxerr9.lib
+  sha256  81204fd2c9e1be4abc63772e694f9d4c82b057611b4b64e81c2c58910fdcbe0a
+  size    4,360,028 bytes
+  dated   2005-07-22
+  from    DirectX 9.0c SDK (August 2005), Lib/x86/DxErr9.lib, inside
+          dxsdk_aug2005.exe (md5 053c7a32ce3d7982eb1191863d4e2ddb,
+          https://archive.org/details/dxsdk_aug2005)
+
+Why this SDK
+------------
+game.dat imports d3dx9_27.dll, the D3DX runtime of the August 2005 SDK.
+The Summer 2003 archive in vendor/dxerr9/ (kept for BFME 1) places only one
+of its fourteen bodies uniquely here; this one places all eighteen of its
+code COMDATs.
+
+Region
+------
+RVA 0x0062AFE0-0x00654778 (169,880 bytes), with import thunks on both sides;
+comsupp's first row follows at 0x006547C0. The single member
+obj\i386\dxerr9.obj supplies every body, in archive order.
+
+Placement
+---------
+Each COMDAT was compared against .text over its full length with relocation
+sites masked. Ten place once. The other eight are four A/W pairs whose masked
+bytes are identical (DXGetErrorDescription9, StringCchCopy, StringCchPrintf,
+StringCchLength); each pair has exactly two hits for two archive instances.
+Archive order puts A first, and two retail facts confirm it: every one of the
+28 internal calls lands on the placement of the callee it names, and all 626
+string pointers in each DXGetErrorDescription9 body point at narrow strings
+for A and wide strings for W.
+
+Rows sourced here carry `vendored=dxerr9-aug2005` and name the archive member
+their bytes come from; ./build.sh extracts that member and byte-compares it
+against retail like any other row.
