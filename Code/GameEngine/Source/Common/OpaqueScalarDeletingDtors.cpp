@@ -2132,7 +2132,8 @@ public:
 	void clear();
 
 private:
-	char m_pad[8];
+	class Rva005C7954Elem *m_elem;
+	int m_pad04;
 };
 
 class Rva005C7CBB
@@ -2162,7 +2163,8 @@ public:
 	void clear();
 
 private:
-	char m_pad[8];
+	class Rva005CD0FEElem *m_elem;
+	int m_pad04;
 };
 
 class Rva005CD1A9
@@ -2192,7 +2194,8 @@ public:
 	void clear();
 
 private:
-	char m_pad[8];
+	class Rva005F2F80Elem *m_elem;
+	int m_pad04;
 };
 
 class Rva005F38CA
@@ -2222,7 +2225,8 @@ public:
 	void clear();
 
 private:
-	char m_pad[8];
+	class Rva005FBF97Elem *m_elem;
+	int m_pad04;
 };
 
 class Rva005FC1E4
@@ -2252,7 +2256,8 @@ public:
 	void clear();
 
 private:
-	char m_pad[8];
+	class Rva005FFBCBElem *m_elem;
+	int m_pad04;
 };
 
 class Rva00600084
@@ -2324,7 +2329,8 @@ public:
 	void clear();
 
 private:
-	char m_pad[8];
+	class Rva0057C2D4Elem *m_elem;
+	int m_pad04;
 };
 
 class Rva0057C3B6
@@ -2405,7 +2411,8 @@ public:
 	void clear();
 
 private:
-	char m_pad[8];
+	class Rva005C3A37Elem *m_elem;
+	int m_pad04;
 };
 
 class Rva005C3F02
@@ -2435,7 +2442,8 @@ public:
 	void clear();
 
 private:
-	char m_pad[8];
+	class Rva005CB4E6Elem *m_elem;
+	int m_pad04;
 };
 
 class Rva005CB8D4
@@ -2990,4 +2998,112 @@ public:
 void Rva004D7B93_Anchor(Rva004D7B93 *p)
 {
 	p->Rva004D7B93::~Rva004D7B93();
+}
+
+// Guarded-delete clear() batch: each owner below holds a heap element at
+// +0. The retail body loads the element, nulls the slot, and on non-null
+// runs the element destructor followed by the shared scalar operator
+// delete (0x0002FD60). The null store compiles to AND under /O1.
+class Rva0057C2D4Elem
+{
+public:
+	~Rva0057C2D4Elem();
+};
+
+void Rva0057C39C::clear()
+{
+	Rva0057C2D4Elem *doomed = m_elem;
+	m_elem = 0;
+	delete doomed;
+}
+
+class Rva005C3A37Elem
+{
+public:
+	~Rva005C3A37Elem();
+};
+
+void Rva005C3EE8::clear()
+{
+	Rva005C3A37Elem *doomed = m_elem;
+	m_elem = 0;
+	delete doomed;
+}
+
+class Rva005C7954Elem
+{
+public:
+	~Rva005C7954Elem();
+};
+
+void Rva005C7CA1::clear()
+{
+	Rva005C7954Elem *doomed = m_elem;
+	m_elem = 0;
+	delete doomed;
+}
+
+class Rva005CB4E6Elem
+{
+public:
+	~Rva005CB4E6Elem();
+};
+
+void Rva005CB892::clear()
+{
+	Rva005CB4E6Elem *doomed = m_elem;
+	m_elem = 0;
+	delete doomed;
+}
+
+class Rva005CD0FEElem
+{
+public:
+	~Rva005CD0FEElem();
+};
+
+void Rva005CD14D::clear()
+{
+	Rva005CD0FEElem *doomed = m_elem;
+	m_elem = 0;
+	delete doomed;
+}
+
+class Rva005F2F80Elem
+{
+public:
+	~Rva005F2F80Elem();
+};
+
+void Rva005F35D3::clear()
+{
+	Rva005F2F80Elem *doomed = m_elem;
+	m_elem = 0;
+	delete doomed;
+}
+
+class Rva005FBF97Elem
+{
+public:
+	~Rva005FBF97Elem();
+};
+
+void Rva005FC1CA::clear()
+{
+	Rva005FBF97Elem *doomed = m_elem;
+	m_elem = 0;
+	delete doomed;
+}
+
+class Rva005FFBCBElem
+{
+public:
+	~Rva005FFBCBElem();
+};
+
+void Rva0060006A::clear()
+{
+	Rva005FFBCBElem *doomed = m_elem;
+	m_elem = 0;
+	delete doomed;
 }
