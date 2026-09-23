@@ -1,10 +1,11 @@
 // cl: /G7 /arch:SSE /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/open-bfme-1/reference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main
 // Support types and wrapper algorithms follow BFME 1 WWVegas headers. Retail
-// evidence places Line3D Render at vtable slot 12, Get_Sort_Level at 94, and
-// Is_Not_Hidden_At_All at 97 (table 0xBD3FA8). Its C4 base and Shader/vert/Color
-// offsets CC/D0/130 come from matched target accessors/copy construction. Other
-// base slots stay opaque. The target dynamic-index lock is 12 bytes; its fields
-// are supported by the matched index-buffer lock body.
+// evidence places Line3D Render at vtable slot 12, three-axis/scalar Scale at
+// 91/92, Get_Sort_Level at 94, and Is_Not_Hidden_At_All at 97 (table 0xBD3FA8).
+// Its C4 base and Shader/vert/Color offsets CC/D0/130 come from matched target
+// accessors/copy construction. Other base slots stay opaque. The target
+// dynamic-index lock is 12 bytes; its fields are supported by the matched
+// index-buffer lock body.
 /*
 ** Command & Conquer Generals Zero Hour(tm)
 ** Copyright 2025 Electronic Arts Inc.
@@ -157,7 +158,7 @@ WWINLINE void DX8Wrapper::Set_Transform(D3DTRANSFORMSTATETYPE transform,const Ma
 }
 
 // Adapted from reference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2/
-// dx8wrapper.h. Clean C++ and sqrt/intrinsic variants failed exact matching,
+// dx8wrapper.h. Clean C++ casts and SSE intrinsic variants failed matching,
 // so retain this donor x87 sequence. Input is expected clamped to [0,1]; the
 // control word selects truncation for RGBA*255, packs AARRGGBB, then restores
 // the caller's rounding mode. The target-derived col=0 initialization remains.
@@ -231,7 +232,8 @@ public:
     V(11)
     virtual void Render(RenderInfoClass&);
     V(13) V(14) V(15) V(16) V(17) V(18) V(19) V(20)
-    V(21) V(22) V(23) V(24) V(25) V(26) V(27) V(28) V(29) V(30)
+    virtual void Set_Transform(const Matrix3D&);
+    V(22) V(23) V(24) V(25) V(26) V(27) V(28) V(29) V(30)
     V(31) V(32) V(33) V(34) V(35) V(36) V(37) V(38) V(39) V(40)
     V(41) V(42) V(43) V(44) V(45) V(46) V(47) V(48) V(49) V(50)
     V(51) V(52) V(53) V(54) V(55) V(56) V(57) V(58) V(59) V(60)
@@ -242,8 +244,10 @@ public:
     V(70)
     V(71) V(72) V(73) V(74) V(75) V(76) V(77) V(78) V(79) V(80)
     V(81) V(82) V(83) V(84) V(85) V(86) V(87) V(88) V(89) V(90)
-    virtual void Scale(float, float, float);
+    // MSVC emits this overload group in reverse declaration order:
+    // target slots 91/92 are three-axis/scalar Scale.
     virtual void Scale(float);
+    virtual void Scale(float, float, float);
     V(93)
 #undef V
     virtual int Get_Sort_Level() const;
@@ -268,10 +272,12 @@ public:
     virtual void Render(RenderInfoClass &);
     virtual void Get_Obj_Space_Bounding_Sphere(SphereClass& sphere) const;
     virtual void Get_Obj_Space_Bounding_Box(AABoxClass& box) const;
-    virtual void Scale(float, float, float);
     virtual void Scale(float);
+    virtual void Scale(float, float, float);
     void Re_Color(float r, float g, float b);
     void Set_Opacity(float opacity);
+    void Reset(const Vector3& new_start, const Vector3& new_end);
+    void Reset(const Vector3& new_start, const Vector3& new_end, float new_width);
     float Length;
     float Width;
     ShaderClass Shader;
@@ -463,6 +469,47 @@ void Line3DClass::Scale(float scale_x, float scale_y, float scale_z)
     for (int i = 0; i < 8; ++i) vert[i].Scale(scale);
     Length *= scale_x;
     Width *= scale_y;
+    Invalidate_Cached_Bounding_Volumes();
+    RenderObjClass* container = Get_Container();
+    if (container) container->Update_Obj_Space_Bounding_Volumes();
+}
+
+
+// Donor: reference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2/line3d.cpp.
+// Target body is 318B at 0x167B60 and calls three-axis Scale at vtable +0x16C.
+void Line3DClass::Reset(const Vector3& new_start, const Vector3& new_end)
+{
+    float new_length = (new_end - new_start).Length();
+    if (new_length == 0.0f) {
+        new_length = 0.001f;
+    }
+    Scale(new_length / Length, 1.0f, 1.0f);
+    Length = new_length;
+    Matrix3D transform(true);
+    transform.Obj_Look_At(new_start, new_end, 0.0f);
+    Set_Transform(transform);
+    Invalidate_Cached_Bounding_Volumes();
+    RenderObjClass* container = Get_Container();
+    if (container) container->Update_Obj_Space_Bounding_Volumes();
+}
+
+// Donor name inferred from matching BFME1 semantics and target structure; no
+// direct target caller was found. Target body is 356B at 0x167CA0.
+void Line3DClass::Reset(const Vector3& new_start, const Vector3& new_end, float new_width)
+{
+    float new_length = (new_end - new_start).Length();
+    if (new_length == 0.0f) {
+        new_length = 0.001f;
+    }
+    float width_scale = new_width / Width;
+    Scale(new_length / Length, width_scale, width_scale);
+    Length = new_length;
+    Width = new_width;
+    Matrix3D transform(true);
+    transform.Obj_Look_At(new_start, new_end, 0.0f);
+    Set_Transform(transform);
+    Matrix3D inv;
+    transform.Get_Orthogonal_Inverse(inv);
     Invalidate_Cached_Bounding_Volumes();
     RenderObjClass* container = Get_Container();
     if (container) container->Update_Obj_Space_Bounding_Volumes();
