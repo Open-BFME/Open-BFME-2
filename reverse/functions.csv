@@ -17004,3 +17004,4 @@ _fprintf,,0x002CEC42,108,Code/GameEngine/Source/Common/FprintfAppendLine.cpp,mat
 ??0InstantDeathBehavior@@QAE@PAVThing@@PBVModuleData@@@Z,,0x0045CF55,42,Code/GameEngine/Source/GameLogic/Object/Behavior/InstantDeathBehaviorCtor.cpp,matched,
 ??0HeroDie@@QAE@PAVThing@@PBVModuleData@@@Z,,0x004C2324,42,Code/GameEngine/Source/GameLogic/Object/Die/HeroDieCtor.cpp,matched,
 ??0BannerCarrierUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,,0x00496A98,42,Code/GameEngine/Source/GameLogic/Object/Update/BannerCarrierUpdateCtor.cpp,matched,
+??0InvisibilitySpecialPower@@QAE@PAVThing@@PBVModuleData@@@Z,,0x004C23A4,42,Code/GameEngine/Source/GameLogic/Object/SpecialPower/InvisibilitySpecialPowerCtor.cpp,matched,
