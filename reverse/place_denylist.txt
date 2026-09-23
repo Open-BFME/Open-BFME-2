@@ -77,3 +77,6 @@ _io_writeto
 # Target54FE47 destroys its element via7FAB3 (free the first pointer).
 # Nested-word-deque elements require the verified inner-deque destructor422D48.
 ?_M_pop_front_aux@?$deque@V?$deque@UBfmeWordValue4@@V?$allocator@UBfmeWordValue4@@@_STL@@@_STL@@V?$allocator@V?$deque@UBfmeWordValue4@@V?$allocator@UBfmeWordValue4@@@_STL@@@_STL@@@2@@_STL@@IAEXXZ
+
+# Target42545A uses baseB63B2 with a 24-byte element stride.
+??0?$vector@UBfmeFixedObject60@@V?$allocator@UBfmeFixedObject60@@@_STL@@@_STL@@QAE@IABUBfmeFixedObject60@@ABV?$allocator@UBfmeFixedObject60@@@1@@Z

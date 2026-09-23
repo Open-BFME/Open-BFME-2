@@ -1,0 +1,14 @@
+// cl: /O1 /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// stlport
+// Target copy constructs three sixteen-byte blocks; assignment uses a separate
+// member operation. Original type names remain unknown.
+#include <vector>
+struct BfmeFixedBlock16 { unsigned int words[4]; BfmeFixedBlock16(); };
+struct BfmeFixedObject60 {
+    unsigned int word_00, word_04, word_08;
+    BfmeFixedBlock16 blocks_0C[3];
+    BfmeFixedObject60(const BfmeFixedObject60& rhs);
+};
+typedef char FixedObjectExtent[sizeof(BfmeFixedObject60) == 60 ? 1 : -1];
+
+template void _STL::_Construct<BfmeFixedObject60, BfmeFixedObject60>(BfmeFixedObject60 *, const BfmeFixedObject60&);
