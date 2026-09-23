@@ -267,7 +267,6 @@ name,address,notes
 ??0AnimationSoundClientBehaviorModuleData@@QAE@XZ,0x004CA70D,sole raw caller 0x252BE3 inside 0x18 factory 0x252BC2; rowed proc 0x4CAB2C of same class per BFME1 AnimationSoundClientBehaviorModuleData donor
 ??0AsciiString@@QAE@ABV0@@Z,0x00365F0,address read from the retail REL32 at 0x002E4968 in OptionPreferences::getFirewallNeedToRefresh; AsciiString copy ctor for the it->second copy
 ??0AudioLoopUpgradeModuleData@@QAE@XZ,0x004B7C00,EH ctor with vtable 0x00C58CF8 plus members at +0x14/+0x124; sole raw caller is ModuleData factory 0x250798 which news 0x154
-??0OCLSpecialPowerModuleData@@QAE@XZ,0x004C32BC
 ??0AutoPickUpUpdateModuleData@@QAE@XZ,0x00496308,pinned by AutoPickUpUpdateModuleData factory call-site decode
 ??0BFME2Encoding0MotionChannel@@QAE@XZ,0x001B2E2C,Descriptive encoding0 channel constructor; calls base1A465B then zeros14 and18 and installs BD7648; factory encoding0 allocates28 bytes and invokes this complete26-byte constructor
 ??0BFME2MotionChannel@@QAE@XZ,0x001A465B,base motion-channel ctor; Type and Pivot or-minus-1 then vtable; ghidra 17 bytes
@@ -5132,3 +5131,6 @@ _AVIFileInit@0,0x0065479C,jmp [IAT 0xBBA050] stub; import table names avifil32!A
 ??1Gen_uwm_00759d30@@QAE@XZ,0x00759D30,gen-uw-pin dtor target read from the retail funclet bytes
 ??_7SlaughterHordeContainModuleData@@6B@,0x00C48DC0,SlaughterHordeContainModuleData vtable installed by ctor 0x48104D; slot0 is scalar-deleting dtor 0x481113 calling dtor 0x4810D5
 ??_7CitadelSlaughterHordeContainModuleData@@6B@,0x00C48E40,CitadelSlaughterHordeContainModuleData vtable installed by ctor 0x48112F; slot0 is scalar-deleting dtor 0x4811CA
+??_7OCLSpecialPowerModuleData@@6B@,0x00C5CCB0,OCLSpecialPowerModuleData vtable installed by ctor 0x4C32BC; slot0 is scalar-deleting dtor 0x4C37A4 calling dtor 0x4C37C0
+??0?$_Vector_base@UOCLUpgradePair@@V?$allocator@UOCLUpgradePair@@@_STL@@@_STL@@QAE@ABV?$allocator@UOCLUpgradePair@@@1@@Z,0x00211E58,OCLUpgradePair-spelled Vector_base alias to rowed BfmeE16 body (same bytes); OCLSpecialPowerModuleDataCtor TU UpgradeOCL vector member
+?erase@?$vector@UOCLUpgradePair@@V?$allocator@UOCLUpgradePair@@@_STL@@@_STL@@QAEPAUOCLUpgradePair@@PAU3@0@Z,0x003FA4DB,OCLUpgradePair-spelled erase alias to rowed Pod8 body (same 8B element size same bytes); OCLSpecialPowerModuleDataCtor TU clear() lowers to erase
