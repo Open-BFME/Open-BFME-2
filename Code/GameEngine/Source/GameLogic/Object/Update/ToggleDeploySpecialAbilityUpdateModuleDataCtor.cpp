@@ -12,11 +12,21 @@
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 
+class MultiIniFieldParse;
+struct FieldParse;
+
+class MultiIniFieldParse
+{
+public:
+	void add(const FieldParse *parseTable, unsigned int extraOffset);
+};
+
 class __declspec(novtable) Rva0044EB54
 {
 public:
 	Rva0044EB54();
 	virtual ~Rva0044EB54();
+	static void buildFieldParse(MultiIniFieldParse &parse);
 
 private:
 	// +0x00 vptr (novtable: no compiler install here).
@@ -28,6 +38,7 @@ class __declspec(novtable) ToggleDeploySpecialAbilityUpdateModuleData : public R
 {
 public:
 	ToggleDeploySpecialAbilityUpdateModuleData();
+	static void buildFieldParse(MultiIniFieldParse &parse);
 
 private:
 	// +0xC8/+0xCC cleared words (end at the rowed 0xD0 instance size).
@@ -43,4 +54,11 @@ ToggleDeploySpecialAbilityUpdateModuleData::ToggleDeploySpecialAbilityUpdateModu
 	_ReadWriteBarrier();
 	m_wordC8 &= 0;
 	m_wordCC &= 0;
+}
+
+// ?buildFieldParse@ToggleDeploySpecialAbilityUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z @0x0024F7C3
+void ToggleDeploySpecialAbilityUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	Rva0044EB54::buildFieldParse(parse);
+	parse.add(reinterpret_cast<const FieldParse *>(0x00BEF820), 0);
 }
