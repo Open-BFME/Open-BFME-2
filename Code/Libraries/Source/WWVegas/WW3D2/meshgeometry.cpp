@@ -422,7 +422,7 @@ const char * MeshGeometryClass::Get_User_Text(void)
 // ?MeshGeometryClass::Set_User_Text present-unmatched
 void MeshGeometryClass::Set_User_Text(char * usertext)
 {
-	ShareBufferClass<char> *& user_text = *reinterpret_cast<ShareBufferClass<char> **>(reinterpret_cast<char *>(this) + 0x10);
+	ShareBufferClass<char> *& user_text = UserText;
 	if (user_text) {
 		user_text->Release_Ref();
 	}

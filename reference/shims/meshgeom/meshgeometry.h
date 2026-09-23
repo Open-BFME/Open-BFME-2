@@ -9,10 +9,12 @@
 //
 // Evidence, one retail body per anchored offset:
 //
-//   UserText @ +0x10   MeshGeometryClass::Set_User_Text  0x0016A6C0 (matched)
-//                      writes its ShareBufferClass<char>* to [ecx+0x10].
-//   MeshName @ +0x14   MeshGeometryClass::Get_Name  0x0016A780 (matched) reads
-//                      [ecx+0x14]; ::Set_Name 0x0016A790 (matched) writes it.
+//   MeshName @ +0x10   Header loaders 0x0016D810 and 0x0018BA10 construct
+//                      ContainerName.MeshName and call setter 0x0016A6C0.
+//                      Getter 0x0016A6B0 reads the same shared buffer.
+//   UserText @ +0x14   Chunk 0x0C (MESH_USER_TEXT) reader 0x0016B0E0 stores
+//                      its buffer here; getter/setter 0x0016A780/0x0016A790
+//                      use this field. Earlier labels swapped these roles.
 //   Flags    @ +0x18   MeshGeometryClass::Compute_Bounds  0x0016A9F0 (matched)
 //                      clears DIRTY_BOUNDS with `and [esi+0x18],0xFFFFFFFE`;
 //                      ::Compute_Plane_Equations  0x0016A850 (matched) clears
@@ -328,11 +330,9 @@ protected:
 	void get_deformed_vertices(Vector3 *dst_vert, const HTreeClass * htree);
 	void get_deformed_screenspace_vertices(Vector4 *dst_vert,const RenderInfoClass & rinfo,const Matrix3D & mesh_tm,const HTreeClass * htree);
 
-	// General info -- BFME2 order, see the evidence block at the top of this
-	// file. UserText precedes MeshName here (upstream has it the other way
-	// round, after Flags).
-	ShareBufferClass<char> *							UserText;			// +0x10 (proven)
-	ShareBufferClass<char> *							MeshName;			// +0x14 (proven)
+	// General info -- target roles are established by the two loader paths above.
+	ShareBufferClass<char> *MeshName; // +0x10
+	ShareBufferClass<char> *UserText; // +0x14
 	int														Flags;				// +0x18 (proven)
 	char														SortLevel;			// +0x1C (fits the gap; not independently read)
 	uint32													W3dAttributes;		// +0x20 (fits the gap; not independently read)
