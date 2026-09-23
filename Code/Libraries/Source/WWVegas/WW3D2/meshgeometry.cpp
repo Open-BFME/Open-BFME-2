@@ -192,12 +192,12 @@ MeshGeometryClass::MeshGeometryClass(void) :
 	PolyCount(0),
 	VertexCount(0),
 	Poly(NULL),
-	// Vertex/VertexNorm/PlaneEq/UnknownBuffer3C are body-zeroed with the
-	// +0x30 block (retail default ctor at 0x168F30 zeroes them post-floats),
-	// while +0x40..+0x5C are mem-init zeroes like the copy ctor.
-	UnknownBuffer40(NULL),
-	UnknownBuffer44(NULL),
-	UnknownBuffer48(NULL),
+	// Vertex/VertexNorm/VertexAlternate/AlternateVertexNorm are body-zeroed in the
+	// +0x30..+0x3C block (target default ctor stores all four pointers).
+	// Slots +0x40..+0x5C are mem-init zeroes like the copy ctor.
+	VertexTangents(NULL),
+	VertexBinormals(NULL),
+	PlaneEq(NULL),
 	VertexShadeIdx(NULL),
 	VertexBoneLink(NULL),
 	UnknownBuffer54(NULL),
@@ -210,9 +210,9 @@ MeshGeometryClass::MeshGeometryClass(void) :
 	CullTree(NULL)
 {
 	Vertex = NULL;
-	PlaneEq = NULL;
 	VertexNorm = NULL;
-	UnknownBuffer3C = NULL;
+	VertexAlternate = NULL;
+	AlternateVertexNorm = NULL;
 }
 
 
@@ -2106,12 +2106,12 @@ void MeshGeometryClass::Scale(const Vector3 &sc)
 	}
 
 	// BFME2 drift from Zero Hour: a second per-vertex array rides along.
-	if (VertexNorm != NULL) {
-		Vector3 * vert_norm = VertexNorm->Get_Array();
+	if (VertexAlternate != NULL) {
+		Vector3 * alternate_verts = VertexAlternate->Get_Array();
 		for (int i=0;i<VertexCount; i++) {
-			vert_norm[i].X = reinterpret_cast<const volatile float *>(&sc.X)[0] * vert_norm[i].X;
-			*reinterpret_cast<volatile float *>(&vert_norm[i].Y) *= sc.Y;
-			*reinterpret_cast<volatile float *>(&vert_norm[i].Z) *= sc.Z;
+			alternate_verts[i].X = reinterpret_cast<const volatile float *>(&sc.X)[0] * alternate_verts[i].X;
+			*reinterpret_cast<volatile float *>(&alternate_verts[i].Y) *= sc.Y;
+			*reinterpret_cast<volatile float *>(&alternate_verts[i].Z) *= sc.Z;
 		}
 	}
 

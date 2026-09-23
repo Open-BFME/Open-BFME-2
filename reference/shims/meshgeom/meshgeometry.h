@@ -50,19 +50,17 @@
 //   CullTree @ +0x88   Generate_Culling_Tree stores the built tree pointer
 //                      (or NULL on the failure path) to [esi+0x88].
 //
-// VertexNorm, PlaneEq and VertexBoneLink are real members -- other TUs
-// (constructors, copy-assign, meshmdlio.cpp, dx8renderer.cpp) reference them
-// by name and must keep compiling -- but NO retail body found so far reads
-// them at any offset. Only the SIZE of the space they (plus truly-unknown
-// BFME2 additions) occupy is proven, by subtraction between the anchors
-// above: 0x18 bytes between Vertex and VertexShadeIdx, and 0x8 bytes between
-// VertexShadeIdx and PolySurfaceType. This header places the three named
-// pointers at the front of each gap and burns the remainder as a named
-// unknown pad -- that placement is a CHOICE for compilation, not evidence.
-// Likewise SortLevel/W3dAttributes: no body was found reading them, but the
-// 8-byte gap between Flags and PolyCount fits exactly one `char` + 3 bytes of
-// natural alignment + one `uint32`, in the same order the upstream ZH header
-// uses, so upstream's order is kept rather than invented.
+// The formerly provisional buffer placements are now anchored by target bodies:
+//   +0x34: alternate vertices, from read_vertices 0x0016AE70 and matched Scale.
+//   +0x38/+0x3C: normal buffers, from matched bool getter 0x0016AAE0.
+//   +0x40/+0x44: tangents/binormals, from Reset_Geometry's Vector3 buffer
+//              constructor calls and the corresponding allocation strings.
+//   +0x48: plane equations, from matched get_planes 0x0016AC00.
+//   +0x50: bone links, from matched get_bone_links 0x0016A0C0.
+// The alternate-vertex name describes its target read/scale paths; no donor
+// member name is established for that slot. +0x54/+0x5C remain unidentified.
+// SortLevel/W3dAttributes at +0x1C/+0x20 are independently established by
+// the matched header loader 0x0016D810, which copies both W3D header fields.
 //
 // There is NO trailing pad. First cut of this shim added one anyway (0x8
 // bytes, to preserve the vendored header's historical sizeof of 0x94) -- that
@@ -334,8 +332,8 @@ protected:
 	ShareBufferClass<char> *MeshName; // +0x10
 	ShareBufferClass<char> *UserText; // +0x14
 	int														Flags;				// +0x18 (proven)
-	char														SortLevel;			// +0x1C (fits the gap; not independently read)
-	uint32													W3dAttributes;		// +0x20 (fits the gap; not independently read)
+	char														SortLevel;			// +0x1C (header loader)
+	uint32													W3dAttributes;		// +0x20 (header loader)
 
 	// Geometry
 	int														PolyCount;			// +0x24 (proven)
@@ -343,38 +341,28 @@ protected:
 
 	ShareBufferClass<TriIndex> *						Poly;					// +0x2C (proven)
 	ShareBufferClass<Vector3> *						Vertex;				// +0x30 (proven)
-	// CHOICE, not evidence: no retail body was found reading VertexNorm or
-	// PlaneEq at any offset. Only the total gap size before VertexShadeIdx
-	// (0x18 bytes) is proven; these two pointers are placed at its front so
-	// every other TU that names them keeps compiling, and the remainder is an
-	// honestly-unknown pad rather than a guessed shape.
-	ShareBufferClass<Vector3> *						VertexNorm;			// +0x34 (unverified placement)
-	ShareBufferClass<Vector4> *						PlaneEq;				// +0x38 (unverified placement)
-	// BFME2-new ref-counted buffers (no BFME1/ZH counterpart -- BFME1's class
-	// ends at CullTree with only the 9 ShareBuffers above). Proven pointers
+	// BFME2 adds ref-counted buffers to the donor layout. Proven pointers
 	// (not pad) by two retail bodies:
 	//   - operator= 0x00168FE0 runs the full REF_PTR_SET idiom (Add_Ref at
 	//     [+4] plus Release_Ref plus store) over every slot +0x30..+0x5C.
 	//   - copy ctor 0x0016A230 mem-init-zeroes +0x40..+0x5C (pre-vptr run)
 	//     and body-zeroes +0x3C with the +0x30 block (post-vptr run).
-	// Element types are unknown so they ride on a forward-declared tag; only
-	// the pointer shape (a RefCountClass at [+4]) is verified. Do NOT merge
+	// Element types at +0x54/+0x5C remain unknown and use a forward-declared
+	// tag; their ref-counted pointer shape is established. Do NOT merge
 	// +0x3C into an array with +0x30..+0x38: the copy ctor assigns +0x3C in
 	// the body while +0x40..+0x48 are mem-inits, so a single array member
 	// cannot reproduce both schedules.
-	ShareBufferClass<MeshGeometryUnknownBuffer> *UnknownBuffer3C;	// +0x3C (body-zeroed)
-	ShareBufferClass<MeshGeometryUnknownBuffer> *UnknownBuffer40;	// +0x40 (mem-init zeroed)
-	ShareBufferClass<MeshGeometryUnknownBuffer> *UnknownBuffer44;	// +0x44 (mem-init zeroed)
-	ShareBufferClass<MeshGeometryUnknownBuffer> *UnknownBuffer48;	// +0x48 (mem-init zeroed)
+	ShareBufferClass<Vector3> *						VertexAlternate;	// +0x34 (alternate vertex array; Scale and read_vertices target bodies)
+	ShareBufferClass<Vector3> *						VertexNorm;			// +0x38 (proven by getter)
+	ShareBufferClass<Vector3> *						AlternateVertexNorm; // +0x3C (proven by getter)
+	ShareBufferClass<Vector3> *						VertexTangents;	// +0x40 (target Reset_Geometry string + 12-byte count)
+	ShareBufferClass<Vector3> *						VertexBinormals;	// +0x44 (target Reset_Geometry string + 12-byte count)
+	ShareBufferClass<Vector4> *						PlaneEq;				// +0x48 (proven by get_planes)
 	ShareBufferClass<uint32> *						VertexShadeIdx;	// +0x4C (proven)
-	// Same as VertexNorm/PlaneEq above: VertexBoneLink's existence is real
-	// (dx8renderer.cpp, meshmdlio.cpp reference it by name) but its exact
-	// sub-offset within this proven 8-byte gap is a placement choice.
-	ShareBufferClass<uint16> *						VertexBoneLink;	// +0x50 (unverified placement)
-	ShareBufferClass<MeshGeometryUnknownBuffer> *UnknownBuffer54;	// +0x54 (mem-init zeroed)
-	ShareBufferClass<uint8> *							PolySurfaceType;	// +0x58 (proven)
-	ShareBufferClass<MeshGeometryUnknownBuffer> *UnknownBuffer5C;	// +0x5C (mem-init zeroed)
-
+	ShareBufferClass<uint16> *						VertexBoneLink;	// +0x50 (proven by get_bone_links)
+	ShareBufferClass<MeshGeometryUnknownBuffer> *UnknownBuffer54;	// +0x54 (2-byte elements; identity unresolved)
+	ShareBufferClass<uint8> *						PolySurfaceType;	// +0x58 (proven)
+	ShareBufferClass<MeshGeometryUnknownBuffer> *UnknownBuffer5C;	// +0x5C (target buffer vtable BD4418; type unresolved)
 	Vector3													BoundBoxMin;		// +0x60 (proven)
 	Vector3													BoundBoxMax;		// +0x6C (proven)
 	Vector3													BoundSphereCenter;// +0x78 (proven)
@@ -414,7 +402,7 @@ inline uint32 * MeshGeometryClass::get_shade_indices(bool create)
 inline uint16 * MeshGeometryClass::get_bone_links(bool create)
 {
 	if (create && !VertexBoneLink) {
-		VertexBoneLink = NEW_REF(ShareBufferClass<uint16>,(VertexCount, "MeshGeometryClass::VertexBoneLink"));
+		VertexBoneLink = NEW_REF(ShareBufferClass<uint16>,(VertexCount * 4, "MeshGeometryClass::VertexBoneLink"));
 	}
 	if (VertexBoneLink) {
 		return VertexBoneLink->Get_Array();
