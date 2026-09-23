@@ -138,6 +138,8 @@ public:
 
 	char unknown00[0x10];
 	BfmeThingCDE *next;
+	char unknown14[0x10];
+	int playerShroudState[20];			// +0x24, cleared by notify()
 };
 
 class ShroudManagerImpl008FBA40Node
@@ -165,6 +167,7 @@ public:
 private:
 	void updateCellsTouched();
 	friend class ShroudManagerImpl008FBA40;
+
 };
 
 struct ShroudManagerImpl008FBA40PlayerState
@@ -422,4 +425,38 @@ void ShroudManagerImpl008FBA40::configure(Region3D newRegion, Real cellSize)
 		drainPending();
 		notify();
 	}
+}
+
+
+// Transferred from BFME 1's ShroudManagerImpl008FBA40Notify.cpp: report every
+// cell's status for the active player through the refresh callback, then
+// clear that player's state on each node. BFME 2 tracks 20
+// players (BFME 1: 16) in its 0xA8-byte element.
+void ShroudManagerImpl008FBA40::notify()
+{
+	if (unknown64 < 0 || unknown64 >= 20)
+		return;
+
+	ShroudManagerImpl008FBA40Element *element = elements;
+	ShroudManagerImpl008FBA40Element *end = element + width * height;
+	int y = 0;
+	int x = 0;
+	while (element != end)
+	{
+		unsigned short state = element->playerStates[unknown64].status;
+		int status = state == 0xffff ? 2 : state == 0;
+		refreshCallback(x, y, status);
+
+		++x;
+		if (x == width)
+		{
+			x = 0;
+			++y;
+		}
+		++element;
+	}
+
+	for (BfmeThingCDE *node = reinterpret_cast<BfmeThingCDE *>(nodes);
+		node; node = node->next)
+		node->playerShroudState[unknown64] = 0;
 }
