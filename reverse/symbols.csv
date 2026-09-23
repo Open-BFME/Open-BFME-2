@@ -4301,7 +4301,6 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ??0DeployStyleAIUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x0048E983,(Thing*;ModuleData*) ctor called by DeployStyleAIUpdate::friend_newModuleInstance (0x0024D1E6); class from the ModuleFactory registration literal
 ??0GiantBirdAIUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x0036B717,(Thing*;ModuleData*) ctor called by GiantBirdAIUpdate::friend_newModuleInstance (0x0024D2EF); class from the ModuleFactory registration literal
 ??0LargeGroupBonusUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x004900B1,(Thing*;ModuleData*) ctor called by LargeGroupBonusUpdate::friend_newModuleInstance (0x0024D407); class from the ModuleFactory registration literal
-??0ToppleUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x004A8201,(Thing*;ModuleData*) ctor called by ToppleUpdate::friend_newModuleInstance (0x0024F080); class from the ModuleFactory registration literal
 ??0LifetimeUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x003A4B58,(Thing*;ModuleData*) ctor called by LifetimeUpdate::friend_newModuleInstance (0x0024E36B); class from the ModuleFactory registration literal
 ??0SpecialEnemySenseUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x00499FA9,(Thing*;ModuleData*) ctor called by SpecialEnemySenseUpdate::friend_newModuleInstance (0x0024E47D); class from the ModuleFactory registration literal
 ??0RadiusDecalUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x0039148A,(Thing*;ModuleData*) ctor called by RadiusDecalUpdate::friend_newModuleInstance (0x0024E4B5); class from the ModuleFactory registration literal
