@@ -407,7 +407,6 @@ name,address,notes
 ??0ParticleEmitterClass@@QAE@ABV0@@Z,0x001A1530,address read from the REL32 displacement at a placed body
 ??0ParticleEmitterDefClass@@QAE@XZ,0x001B1350,Independent constructor inspection; vtable BD74E8 and exact definition fields with 10441B shader default and zero keyframes
 ??0PointEmissionVolumeModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A64B0,BFME2 export; the module template copy constructor the ConcreteModuleTemplate wrapper calls
-??0DamageFieldUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x004912A9
 ??0ProductionPrerequisite@@QAE@ABV0@@Z,0x002D08DA,prereq copy ctor called from the retail REL32 in _Construct at 0x002D0C33; 77B EH body ending c9 c2-04-00 with next prologue 55-8b-ec; ghidra 10B extent understated
 ??0ProductionPrerequisite@@QAE@XZ,0x004F527A,BFME1 ctor mangling; 3x 0x611E58 vector inits at +0 +0xC +0x18; 3 prereq-cluster callers
 ??0ProductionUpdateModuleData@@QAE@XZ,0x0049F7DB,pinned by ProductionUpdateModuleData factory call-site decode
