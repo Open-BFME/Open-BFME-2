@@ -3,47 +3,48 @@
 // cl: /O1 /arch:SSE /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
 //
 // ??0RadiateFearUpdateModuleData@@QAE@XZ, retail 0x0049C06C, 120 bytes.
-// MD ctor: WhichSpecialPower at +0x0C or-minus-one FIRST (OCLUpdate
-// precedent: body `|= -1` stays above the vtable store under /O1, a plain
-// `= -1` would emit a trailing mov), explicit vtable 0x00C50FF0, the
-// table-backed bytes (InitiallyActive at +0x08, GenerateTerror at +0x10,
-// GenerateFear at +0x11, GenerateUncontrollableFear at +0x12, all false),
-// EmotionPulseRadius at +0x14 as float zero, EmotionPulseInterval at +0x18
-// as zero, VictimFilter at +0x1C through the trivial Rva003623E5Member
-// (body construct call through the QAEXXZ pin) plus the +0x20 member
-// through Rva0025342CMember::construct (implicit trivial ctor plus
-// declared-only dtor, so EH state 1 lands right before its first
-// throwing call, matching retail), then the single-temp applyFilter tail
-// through the 0x362120 pin (MobNexus precedent: FixedStorage temp
-// copy-constructed in the call expression from 0x00DFEFA4). The empty
-// UpdateModuleData base (inline-empty ctor plus declared-only dtor)
-// advances EH state 0 with no emitted code. Field identity is the own
-// table at 0x00C510B8. The rowed factory at 0x24E6E8 news 0x130. Row
-// supersedes the ctor pin.
+// Radiate-fear data over own INI table 0x00C510B8 (InitiallyActive,
+// WhichSpecialPower, GenerateTerror, GenerateFear,
+// GenerateUncontrollableFear, EmotionPulseRadius, EmotionPulseInterval,
+// VictimFilter; offsets read from the retail table; factory 0x24E6E8
+// news 0x130). InitiallyActive at +8 is false; WhichSpecialPower at +0xC
+// defaults to all via an inline or-minus-1 ctor; GenerateTerror at +0x10,
+// GenerateFear at +0x11 and GenerateUncontrollableFear at +0x12 are
+// false; EmotionPulseRadius at +0x14 nulls as float; EmotionPulseInterval
+// at +0x18 nulls; VictimFilter at +0x1C builds in place through the
+// pinned member ctor at 0x3623E5 while the +0x20 filter builds through
+// the pinned member construct at 0x25342C plus a 28B FixedStorage temp
+// from 0x00DFEFA4 applied through the pinned applyFilter at 0x362120.
+// Row supersedes the ctor pin. Shape follows CallHelpOnDamageModuleData
+// (or-first mask forces the vtable into the body). Both filters build
+// through their pinned construct methods; the +0x20 member carries the
+// sole EH state.
+//
+// WALL (4B, 116/120): the retail byte-1 EH state before the second
+// construct has no clean source (same wall as CallHelpOnDamage 0.97:
+// placement earns it with guard baggage, everything else earns nothing).
+// t=45.
+
+#include <cstring>
+
+struct SpecialPowerMask
+{
+	SpecialPowerMask()
+	{
+		m_mask |= -1;
+	}
+
+	unsigned int m_mask;
+};
 
 class BfmeFixedStorage0004543D
 {
 public:
 	BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &other);
+	~BfmeFixedStorage0004543D() {}
 
 private:
 	unsigned char m_bytes[28];
-};
-
-class Rva003623E5Member
-{
-public:
-	void construct();
-	~Rva003623E5Member();
-
-private:
-	char m_data[4];
-};
-
-class Rva003623E5Filter
-{
-public:
-	void applyFilter(BfmeFixedStorage0004543D storage);
 };
 
 class Rva0025342CMember
@@ -53,41 +54,51 @@ public:
 	~Rva0025342CMember();
 
 private:
-	unsigned char m_pad[0x110];
+	int m_x;
 };
 
-class UpdateModuleData
+Rva0025342CMember::~Rva0025342CMember()
+{
+	m_x = 0;
+}
+
+class Rva003623E5Filter
 {
 public:
-	UpdateModuleData() {}
-	~UpdateModuleData();
+	Rva003623E5Filter *construct();
+	void applyFilter(BfmeFixedStorage0004543D storage);
+
+private:
+	int m_handle;
 };
 
-class RadiateFearUpdateModuleData : public UpdateModuleData
+class RadiateFearUpdateModuleData
 {
 public:
 	RadiateFearUpdateModuleData();
 
 private:
-	const void *m_vtable;
-	unsigned int m_unused04;
-	bool m_initiallyActive; // +0x08
-	int m_whichSpecialPower; // +0x0C
-	bool m_generateTerror; // +0x10
-	bool m_generateFear; // +0x11
-	bool m_generateUncontrollableFear; // +0x12
-	unsigned char m_pad13;
-	float m_emotionPulseRadius; // +0x14
-	int m_emotionPulseInterval; // +0x18
-	Rva003623E5Member m_victimFilter; // +0x1C
-	Rva0025342CMember m_member20; // +0x20
+	void *m_vtable; // +0
+	int m_gap04; // +4
+	bool m_initiallyActive; // +8, InitiallyActive
+	unsigned char m_pad09[3]; // +9
+	SpecialPowerMask m_whichSpecialPower; // +0xC, WhichSpecialPower
+	bool m_generateTerror; // +0x10, GenerateTerror
+	bool m_generateFear; // +0x11, GenerateFear
+	bool m_generateUncontrollableFear; // +0x12, GenerateUncontrollableFear
+	unsigned char m_pad13; // +0x13
+	float m_emotionPulseRadius; // +0x14, EmotionPulseRadius
+	int m_emotionPulseInterval; // +0x18, EmotionPulseInterval
+	Rva003623E5Filter m_victimFilter; // +0x1C, VictimFilter
+	Rva0025342CMember m_secondFilter; // +0x20 (filter via pinned construct)
+	unsigned char m_pad24[0x130 - 0x24]; // +0x24 (factory news 0x130)
 };
 
 // ??0RadiateFearUpdateModuleData@@QAE@XZ @0x0049C06C
 RadiateFearUpdateModuleData::RadiateFearUpdateModuleData()
+	: m_whichSpecialPower()
 {
-	m_whichSpecialPower |= -1;
-	m_vtable = reinterpret_cast<const void *>(0x00C50FF0);
+	m_vtable = reinterpret_cast<void *>(0x00C50FF0);
 	m_initiallyActive = false;
 	m_generateTerror = false;
 	m_generateFear = false;
@@ -95,7 +106,7 @@ RadiateFearUpdateModuleData::RadiateFearUpdateModuleData()
 	m_emotionPulseRadius = 0.0f;
 	m_emotionPulseInterval = 0;
 	m_victimFilter.construct();
-	m_member20.construct();
-	reinterpret_cast<Rva003623E5Filter *>(&m_victimFilter)->applyFilter(
+	m_secondFilter.construct();
+	m_victimFilter.applyFilter(
 		BfmeFixedStorage0004543D(*reinterpret_cast<const BfmeFixedStorage0004543D *>(0x00DFEFA4)));
 }

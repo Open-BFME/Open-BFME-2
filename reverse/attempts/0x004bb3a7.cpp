@@ -1,69 +1,107 @@
 // ??0CallHelpOnDamageModuleData@@QAE@XZ
-// partial score=0.99 date=2026-09-23
-// cl: /O1 /MD /DNDEBUG /EHsc /arch:SSE
+// partial score=0.97 date=2026-09-23
+// cl: /O1 /arch:SSE /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
 //
-// ??0CallHelpOnDamageModuleData@@QAE@XZ, retail 0x004BB3A7 (116 bytes). EH
-// ModuleData ctor over a trivially-constructed base with a declared virtual
-// dtor (its unwind state 0 covers the member calls): ors -1 into the +0x08
-// word, loads 100.0, installs vtable 0x00C59EB8 automatically, stores the
-// +0x0C float and the scaled +0x10 int plus a zero flag, sets up the +0x18
-// member through a body-level construct call (OpenContain idiom; the new
-// construct spelling pins the same 0x003623E5 body the ??0 pins name),
-// copy-builds a 28-byte argument temporary from the zero global through the
-// rowed BfmeFixedStorage copy at 0x0004543D, then runs the member filter
-// through the pinned applyFilter at 0x00362120 under state 1. Donor: BFME1
-// Damage/Die files (same or-minus-one plus float/int member cadence).
+// ??0CallHelpOnDamageModuleData@@QAE@XZ, retail 0x004BB3A7, 116 bytes.
+// Call-for-help data over own INI tables 0x00C6BB18 + 0x00C59F70
+// (DamageTypes, CallRadius, CallDelay, MoveToAttacker, ValidObjects;
+// offsets read from the retail table). DamageTypes at +8 defaults to all
+// via an inline or-minus-1 ctor; CallRadius at +0xC defaults to 100.0f
+// from the float pool; CallDelay at +0x10 defaults to four
+// LogicFramesPerSecond; MoveToAttacker at +0x14 is false; ValidObjects at
+// +0x18 is filter storage built in place through the pinned member ctor
+// at 0x3623E5 plus a 28B FixedStorage temp from 0x00DFEFA4 applied
+// through the pinned applyFilter at 0x362120. Size 0x1C matches the
+// friend TU pad. Row supersedes the ctor pin. Shape follows
+// AttachUpdateModuleDataCtor (filter plus FixedStorage temps plus
+// explicit vtable), except the or-first DamageTypes init forces the
+// vtable into the body (members initialize in declaration order, so an
+// init-listed vtable would emit first) and the filter is constructed late
+// by an explicit ctor call over plain storage (an init-listed filter
+// would call before the vtable; a named construct() method call earns no
+// EH state).
+//
+// WALL (4B, 112/116): the retail byte-1 EH state before the FixedStorage
+// copy has no clean source. Scalar placement-new earns it but adds a
+// null-check plus a state reset (+11B); the explicit ctor call used here
+// earns no state. Repro needs a late-bumping construction without guard
+// code. t=60.
+
+#include <cstring>
+
+extern int g_Va00DBA4E4;
+
+struct DamageTypeMask
+{
+	DamageTypeMask()
+	{
+		m_mask |= -1;
+	}
+	~DamageTypeMask();
+
+	unsigned int m_mask;
+};
+
+DamageTypeMask::~DamageTypeMask()
+{
+	m_mask = 0;
+}
 
 class BfmeFixedStorage0004543D
 {
-	char m_bytes[28];
 public:
-	// NOTE: the rowed TU marks this nothrow, but this TU must not: the
-	// retail body sets unwind state 1 across the copy call, which only
-	// happens when the callee is assumed throwing.
-	BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &);
+	BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &other);
+	~BfmeFixedStorage0004543D() {}
+
+private:
+	unsigned char m_bytes[28];
 };
+
+class Rva003623E5Member
+{
+public:
+	Rva003623E5Member();
+	~Rva003623E5Member();
+
+private:
+	int m_x;
+};
+
+Rva003623E5Member::~Rva003623E5Member()
+{
+	m_x = 0;
+}
 
 class Rva003623E5Filter
 {
 public:
-	Rva003623E5Filter *construct();
-	void applyFilter(BfmeFixedStorage0004543D arg);
+	void applyFilter(BfmeFixedStorage0004543D storage);
 };
 
-extern int g_bfmeScaleBase;	// retail 0xDBA4E4, value 5 (DIR32-masked)
-extern BfmeFixedStorage0004543D g_bfmeFilterArg;	// retail 0xDFEFA4 zeros (DIR32-masked)
-
-class CallHelpBase
-{
-public:
-	virtual ~CallHelpBase();
-
-protected:
-	void *m_unsourced04;	// +0x04, retail never stores it
-	int m_or08;	// +0x08, or-minus-one by the derived ctor
-};
-
-class CallHelpOnDamageModuleData : public CallHelpBase
+class CallHelpOnDamageModuleData
 {
 public:
 	CallHelpOnDamageModuleData();
-	virtual ~CallHelpOnDamageModuleData();
 
 private:
-	float m_float0C;	// +0x0C
-	int m_int10;	// +0x10
-	bool m_flag14;	// +0x14
-	char m_pad15[3];	// +0x15, retail addresses the +0x18 member past it
-	Rva003623E5Filter m_filter18;	// +0x18
+	void *m_vtable; // +0
+	int m_gap04; // +4
+	DamageTypeMask m_damageTypes; // +8, DamageTypes
+	float m_callRadius; // +0xC, CallRadius
+	int m_callDelay; // +0x10, CallDelay
+	bool m_moveToAttacker; // +0x14, MoveToAttacker
+	int m_validObjectsFilterStorage; // +0x18, ValidObjects (filter built in place)
 };
 
+// ??0CallHelpOnDamageModuleData@@QAE@XZ @0x004BB3A7
 CallHelpOnDamageModuleData::CallHelpOnDamageModuleData()
+	: m_damageTypes()
 {
-	m_or08 |= -1;
-	m_float0C = 100.0f;
-	m_int10 = g_bfmeScaleBase * 4;
-	m_flag14 = false;
-	m_filter18.construct();
-	m_filter18.applyFilter(g_bfmeFilterArg);
+	m_vtable = reinterpret_cast<void *>(0x00C59EB8);
+	m_callRadius = 100.0f;
+	m_callDelay = 4 * g_Va00DBA4E4;
+	m_moveToAttacker = false;
+	reinterpret_cast<Rva003623E5Member *>(&m_validObjectsFilterStorage)->Rva003623E5Member::Rva003623E5Member();
+	reinterpret_cast<Rva003623E5Filter *>(&m_validObjectsFilterStorage)->applyFilter(
+		BfmeFixedStorage0004543D(*reinterpret_cast<const BfmeFixedStorage0004543D *>(0x00DFEFA4)));
 }
