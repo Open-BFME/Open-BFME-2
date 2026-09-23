@@ -315,3 +315,22 @@ void PlayerUpgradeSpecialPowerModuleData::buildFieldParse(MultiIniFieldParse &pa
 	SpecialPowerModuleData::buildFieldParse(parse);
 	parse.add(reinterpret_cast<const FieldParse *>(0x00C5E23C), 0);
 }
+
+class ScavengerSpecialPowerModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+// ?buildFieldParse@ScavengerSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z
+// retail 0x004C4338 (27 bytes): base-table call above plus the Scavenger
+// table at 0x00C5D27C (BountyPercent at +0x7C the sole field). The owning
+// factory at 0x00251DCC pushes this proc's VA (unique image-wide);
+// ModuleFactory registers it under "ScavengerSpecialPower". The Scavenger
+// module ctor at 0x4C4353 plus the name getter at 0x4C4381 plus the pool key
+// at 0x4C43BC sit in the same cluster. Row supersedes the pin.
+void ScavengerSpecialPowerModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	SpecialPowerModuleData::buildFieldParse(parse);
+	parse.add(reinterpret_cast<const FieldParse *>(0x00C5D27C), 0);
+}
