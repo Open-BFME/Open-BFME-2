@@ -17441,3 +17441,29 @@ _fprintf,,0x002CEC42,108,Code/GameEngine/Source/Common/FprintfAppendLine.cpp,mat
 ?buildFieldParse@ActivateModuleSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z,,0x004CDFBE,27,Code/GameEngine/Source/GameLogic/Object/SpecialPower/ActivateModuleSpecialPowerModuleDataCtor.cpp,matched,Chained parse (rowed Rva base parse plus own table 0xC5FD70); callees rowed
 ?buildFieldParse@W3DBoatWakeModelDrawModuleData@@SAXAAVMultiIniFieldParse@@@Z,,0x000D0CF7,17,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DBoatWakeModelDrawModuleDataCtor.cpp,matched,Single-table parse proc (table 0xBCDEE4); callee rowed 0x2BC6E; ctor parked 0.97
 ?Apply@VertexMaterialClass@@ABEXXZ,,0x0013D570,1084,Code/Libraries/Source/WWVegas/WW3D2/VertexMaterialApply.cpp,matched,BFME1 vertmaterial.cpp donor (matched Apply); /G7 /arch:SSE; BFME2 Set_Transform (bfmecamera shim) and caps tail +0x2C4/+0x2D0
+_callgcTMudata,,0x00751120,253,Code/Libraries/Source/Lua/lgc.c,matched,Lua 4.0.1 upstream body; BFME1 full-file transfer; unique masked placement
+_collectudata,,0x00750FC0,169,Code/Libraries/Source/Lua/lgc.c,matched,Lua 4.0.1 upstream body; BFME1 full-file transfer; unique masked placement
+_collectstrings,,0x00750F20,160,Code/Libraries/Source/Lua/lgc.c,matched,Lua 4.0.1 upstream body; BFME1 full-file transfer; unique masked placement
+_invalidaterefs,,0x00750DA0,136,Code/Libraries/Source/Lua/lgc.c,matched,Lua 4.0.1 upstream body; BFME1 full-file transfer; unique masked placement
+_callgcTM,,0x007510A0,113,Code/Libraries/Source/Lua/lgc.c,matched,Lua 4.0.1 upstream body; BFME1 full-file transfer; unique masked placement
+_hasmark,,0x00750D40,84,Code/Libraries/Source/Lua/lgc.c,matched,Lua 4.0.1 upstream body; BFME1 full-file transfer; unique masked placement
+_collectproto,,0x00750E30,57,Code/Libraries/Source/Lua/lgc.c,matched,Lua 4.0.1 upstream body; BFME1 full-file transfer; unique masked placement
+_collectclosure,,0x00750E70,52,Code/Libraries/Source/Lua/lgc.c,matched,Lua 4.0.1 upstream body; BFME1 full-file transfer; unique masked placement
+_collecttable,,0x00750EB0,52,Code/Libraries/Source/Lua/lgc.c,matched,Lua 4.0.1 upstream body; BFME1 full-file transfer; unique masked placement
+_checkMbuffer,,0x00751070,48,Code/Libraries/Source/Lua/lgc.c,matched,Lua 4.0.1 upstream body; BFME1 full-file transfer; unique masked placement
+_checktab,,0x00750EF0,48,Code/Libraries/Source/Lua/lgc.c,matched,Lua 4.0.1 upstream body; BFME1 full-file transfer; unique masked placement
+_luaC_checkGC,,0x00751470,22,Code/Libraries/Source/Lua/lgc.c,matched,Lua 4.0.1 upstream body; BFME1 full-file transfer; unique masked placement
+_getfuncname,,0x0074D1B0,154,Code/Libraries/Source/Lua/ldebug.c,matched,Lua 4.0.1 upstream body; BFME1 full-file transfer; unique masked placement
+_lua_setlocal,,0x0074CC40,148,Code/Libraries/Source/Lua/ldebug.c,matched,Lua 4.0.1 upstream body; BFME1 full-file transfer; unique masked placement
+_funcinfo,,0x0074CD00,133,Code/Libraries/Source/Lua/ldebug.c,matched,Lua 4.0.1 upstream body; BFME1 full-file transfer; unique masked placement
+_lua_getlocal,,0x0074CBC0,116,Code/Libraries/Source/Lua/ldebug.c,matched,Lua 4.0.1 upstream body; BFME1 full-file transfer; unique masked placement
+_currentline,,0x0074CB40,92,Code/Libraries/Source/Lua/ldebug.c,matched,Lua 4.0.1 upstream body; BFME1 full-file transfer; unique masked placement
+_travglobals,,0x0074CDE0,85,Code/Libraries/Source/Lua/ldebug.c,matched,Lua 4.0.1 upstream body; BFME1 full-file transfer; unique masked placement
+_travtagmethods,,0x0074CD90,68,Code/Libraries/Source/Lua/ldebug.c,matched,Lua 4.0.1 upstream body; BFME1 full-file transfer; unique masked placement
+_setnormalized,,0x0074C980,43,Code/Libraries/Source/Lua/ldebug.c,matched,Lua 4.0.1 upstream body; BFME1 full-file transfer; unique masked placement
+_nups,,0x0074CA60,33,Code/Libraries/Source/Lua/ldebug.c,matched,Lua 4.0.1 upstream body; BFME1 full-file transfer; unique masked placement
+_infoLproto,,0x0074CCE0,23,Code/Libraries/Source/Lua/ldebug.c,matched,Lua 4.0.1 upstream body; BFME1 full-file transfer; unique masked placement
+_luaC_collectgarbage,,0x007513F0,128,Code/Libraries/Source/Lua/lgc.c,matched,Lua 4.0.1 upstream body; BFME1 full-file transfer; unique masked placement
+_luaC_collect,,0x00751220,54,Code/Libraries/Source/Lua/lgc.c,matched,Lua 4.0.1 upstream body; BFME1 full-file transfer; unique masked placement
+_getname,,0x0074CE40,135,Code/Libraries/Source/Lua/ldebug.c,matched,Lua 4.0.1 upstream body; BFME1 full-file transfer; unique masked placement
+_lua_getinfo,,0x0074D330,383,Code/Libraries/Source/Lua/ldebug.c,matched,Lua 4.0.1 upstream body; BFME1 full-file transfer; unique masked placement
