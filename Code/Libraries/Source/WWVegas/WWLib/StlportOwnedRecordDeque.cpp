@@ -50,6 +50,17 @@ struct BfmeOpaqueOwnedRecord1432 {
 	~BfmeOpaqueOwnedRecord1432();
 };
 
+// The deque at RVA 0x00550a83 advances by 0x864 bytes per node.
+struct BfmeOpaqueOwnedRecord2148 {
+	union {
+		unsigned int alignmentWitness;
+		unsigned char bytes[2148];
+	};
+	BfmeOpaqueOwnedRecord2148();
+	BfmeOpaqueOwnedRecord2148(const BfmeOpaqueOwnedRecord2148 &);
+	~BfmeOpaqueOwnedRecord2148();
+};
+
 typedef char BfmeOpaqueOwnedRecord492_size_check[
 	sizeof(BfmeOpaqueOwnedRecord492) == 492 ? 1 : -1];
 typedef char BfmeOpaqueOwnedRecord840_size_check[
@@ -58,6 +69,8 @@ typedef char BfmeOpaqueOwnedRecord1408_size_check[
 	sizeof(BfmeOpaqueOwnedRecord1408) == 1408 ? 1 : -1];
 typedef char BfmeOpaqueOwnedRecord1432_size_check[
 	sizeof(BfmeOpaqueOwnedRecord1432) == 1432 ? 1 : -1];
+typedef char BfmeOpaqueOwnedRecord2148_size_check[
+	sizeof(BfmeOpaqueOwnedRecord2148) == 2148 ? 1 : -1];
 typedef char BfmeOpaqueOwnedRecord492_alignment_check[
 	__alignof(BfmeOpaqueOwnedRecord492) == 4 ? 1 : -1];
 typedef char BfmeOpaqueOwnedRecord840_alignment_check[
@@ -66,6 +79,8 @@ typedef char BfmeOpaqueOwnedRecord1408_alignment_check[
 	__alignof(BfmeOpaqueOwnedRecord1408) == 4 ? 1 : -1];
 typedef char BfmeOpaqueOwnedRecord1432_alignment_check[
 	__alignof(BfmeOpaqueOwnedRecord1432) == 4 ? 1 : -1];
+typedef char BfmeOpaqueOwnedRecord2148_alignment_check[
+	__alignof(BfmeOpaqueOwnedRecord2148) == 4 ? 1 : -1];
 
 typedef _STL::deque<BfmeOpaqueOwnedRecord492,
 	_STL::allocator<BfmeOpaqueOwnedRecord492> > BfmeDeque492;
@@ -75,6 +90,8 @@ typedef _STL::deque<BfmeOpaqueOwnedRecord1408,
 	_STL::allocator<BfmeOpaqueOwnedRecord1408> > BfmeDeque1408;
 typedef _STL::deque<BfmeOpaqueOwnedRecord1432,
 	_STL::allocator<BfmeOpaqueOwnedRecord1432> > BfmeDeque1432;
+typedef _STL::deque<BfmeOpaqueOwnedRecord2148,
+	_STL::allocator<BfmeOpaqueOwnedRecord2148> > BfmeDeque2148;
 template class _STL::deque<BfmeOpaqueOwnedRecord492,
 	_STL::allocator<BfmeOpaqueOwnedRecord492> >;
 template class _STL::deque<BfmeOpaqueOwnedRecord840,
@@ -83,3 +100,5 @@ template class _STL::deque<BfmeOpaqueOwnedRecord1408,
 	_STL::allocator<BfmeOpaqueOwnedRecord1408> >;
 template class _STL::deque<BfmeOpaqueOwnedRecord1432,
 	_STL::allocator<BfmeOpaqueOwnedRecord1432> >;
+template class _STL::deque<BfmeOpaqueOwnedRecord2148,
+	_STL::allocator<BfmeOpaqueOwnedRecord2148> >;
