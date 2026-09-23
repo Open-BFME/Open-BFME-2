@@ -169,3 +169,37 @@ void RespawnBodyModuleData::buildFieldParse(MultiIniFieldParse &parse)
 	ActiveBodyModuleData::buildFieldParse(parse);
 	parse.add(reinterpret_cast<const FieldParse *>(0x00C5B8BC), 0);
 }
+
+// Chained proc: ?buildFieldParse@StructureBodyModuleData@@,
+// retail 0x002514AF, 27 bytes. Calls the ActiveBodyModuleData base proc
+// above (0x4BFDF6, in this same TU), then registers the Structure table
+// 0x00C6BB18. Factory pushes this proc VA; ModuleFactory registers it
+// under "StructureBody". Row supersedes the pin.
+class StructureBodyModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+void StructureBodyModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	ActiveBodyModuleData::buildFieldParse(parse);
+	parse.add(reinterpret_cast<const FieldParse *>(0x00C6BB18), 0);
+}
+
+// Chained proc: ?buildFieldParse@SymbioticStructuresBodyModuleData@@,
+// retail 0x00251505, 27 bytes. Calls the ActiveBodyModuleData base proc
+// above (0x4BFDF6, in this same TU), then registers the SymbioticStructures
+// table 0x00BEFCD4. Factory pushes this proc VA; ModuleFactory registers it
+// under "SymbioticStructuresBody". Row supersedes the pin.
+class SymbioticStructuresBodyModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+void SymbioticStructuresBodyModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	ActiveBodyModuleData::buildFieldParse(parse);
+	parse.add(reinterpret_cast<const FieldParse *>(0x00BEFCD4), 0);
+}
