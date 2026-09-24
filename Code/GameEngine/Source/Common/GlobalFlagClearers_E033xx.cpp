@@ -21,3 +21,8 @@ unsigned int Rva007886AFClearFlag(void)
 {
 	return g_Va00E03334 &= 0xFFFFFFFEu;
 }
+
+unsigned int Rva007886C4ClearFlag(void)
+{
+	return g_Va00E03334 &= 0xFFFFFFFDu;
+}
