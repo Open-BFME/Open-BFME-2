@@ -31,6 +31,64 @@ public:
 	AsciiString() { m_data = 0; }
 };
 
+struct _iobuf;
+typedef struct _iobuf FILE;
+typedef long time_t;
+struct tm;
+extern "C" __declspec(dllimport) FILE *__cdecl _wfopen(const unsigned short *name, const unsigned short *mode);
+extern "C" __declspec(dllimport) int __cdecl fprintf(FILE *fp, const char *fmt, ...);
+extern "C" __declspec(dllimport) int __cdecl fclose(FILE *fp);
+extern "C" __declspec(dllimport) time_t __cdecl time(time_t *timer);
+extern "C" __declspec(dllimport) struct tm *__cdecl localtime(const time_t *timer);
+extern "C" __declspec(dllimport) char *__cdecl asctime(const struct tm *when);
+
+struct UnicodeStringData
+{
+	int refCount;
+	unsigned short length;
+	unsigned short capacity;
+	unsigned short text[1];
+};
+
+template <> class StringBase<unsigned short>
+{
+	friend class UnicodeString;
+	void releaseBuffer();
+
+public:
+	StringBase() : m_data(0) {}
+	~StringBase() { releaseBuffer(); }
+
+protected:
+	UnicodeStringData *m_data;
+};
+
+class UnicodeString : public StringBase<unsigned short>
+{
+public:
+	UnicodeString(const AsciiString &text);
+	const unsigned short *str() const { return m_data ? &m_data->text[0] : L""; }
+};
+
+// BFME2 reads the logic rate from a global (retail 0x00DBA4E4) where Zero
+// Hour and BFME1 use the LOGICFRAMES_PER_SECOND constant 5; baked like
+// GameEngineFrameTiming.cpp does.
+#define LogicFramesPerSecond (*(const UnsignedInt *)0x00DBA4E4)
+
+// Only the vtable slot writeFileEnd reads: getFramesPerSecondLimit at +0x4C.
+class GameEngine
+{
+public:
+	virtual void slot00(); virtual void slot01(); virtual void slot02(); virtual void slot03();
+	virtual void slot04(); virtual void slot05(); virtual void slot06(); virtual void slot07();
+	virtual void slot08(); virtual void slot09(); virtual void slot10(); virtual void slot11();
+	virtual void slot12(); virtual void slot13(); virtual void slot14(); virtual void slot15();
+	virtual void slot16(); virtual void slot17(); virtual void slot18();
+	virtual Int getFramesPerSecondLimit();
+};
+
+extern GameEngine *TheGameEngine;
+
 class Object;
 class Player;
 
@@ -151,8 +209,11 @@ public:
 	void collectMsgStats(const GameMessage *msg);
 	void startScrollTime();
 	void endScrollTime();
+	void writeFileEnd();
 
 private:
+	void writeStatInfo();
+
 	AsciiString m_statsFileName;
 	UnsignedInt m_moneyWithdrawn;
 	UnsignedInt m_moneyDeposited;
@@ -311,4 +372,36 @@ void StatsCollector::collectScoreKeeperStats()
 			m_scoreKeeperBuildingsLost = scoreKeeper->getTotalBuildingsLost();
 		}
 	}
+}
+
+// ?writeFileEnd@StatsCollector@@QAEXXZ, retail 0x00437C2D (210 bytes).
+// Identity: worldbuilder.exe's own assert names its partner
+// StatsCollector::writeFileEnd in StatsCollector.cpp; the two functions are
+// the only ones in each image referencing the "End Time:" and "* Times are in
+// Game Seconds" literals.
+// Body: BFME1 StatsCollector.cpp donor with BFME2 repairs read from retail:
+// - the file opens through a UnicodeString copy of the name and _wfopen,
+//   so the name's destructor (StringBase<G>::releaseBuffer) runs on both
+//   exits under an EH frame;
+// - the logic rate is the global at 0x00DBA4E4, not the constant 5, both in
+//   the divide and in the footer line.
+void StatsCollector::writeFileEnd()
+{
+	UnicodeString fileName( m_statsFileName );
+	FILE *f = _wfopen( fileName.str(), L"a" );
+	if( !f )
+		return;
+
+	m_timeCount += ( static_cast<GameLogic *>( TheGameLogic )->getFrame() - m_lastUpdate ) / LogicFramesPerSecond;
+	writeStatInfo();
+	fprintf( f, "---------------------------------------------------\n" );
+
+	time_t aclock;
+	time( &aclock );
+	struct tm *newTime = localtime( &aclock );
+	fprintf( f, "End Time:\t%s\n", asctime( newTime ) );
+	fprintf( f, "* Times are in Game Seconds which are based on logic FPS: current logic FPS is %d, max update FPS (game speed) is %d\n",
+		LogicFramesPerSecond, TheGameEngine->getFramesPerSecondLimit() );
+
+	fclose( f );
 }
