@@ -201,6 +201,18 @@ void UnpauseSpecialPowerUpgradeModuleData::buildFieldParse(MultiIniFieldParse &p
 	parse.add(reinterpret_cast<const FieldParse *>(0x00C57EF0), 0);
 }
 
+class AutoHealBehaviorModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+void AutoHealBehaviorModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	parse.add(reinterpret_cast<const FieldParse *>(0x00BF3CE0), 0);
+	parse.add(reinterpret_cast<const FieldParse *>(Rva004CE29DGet()), 8);
+}
+
 class AttributeModifierAuraUpdateModuleData
 {
 public:
