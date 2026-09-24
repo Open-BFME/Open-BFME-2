@@ -19,3 +19,13 @@ Rva00019EB0Holder::Rva00019EB0Holder()
 {
 	m_vtable = (void *)0x00BBC8D4;
 }
+class Rva000910D8Holder
+{
+public:
+	Rva000910D8Holder();
+	void *m_vtable;
+};
+Rva000910D8Holder::Rva000910D8Holder()
+{
+	m_vtable = (void *)0x00BC7F74;
+}
