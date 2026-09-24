@@ -129,3 +129,12 @@ BfmeContainerRecord00048139 *copyRecordRange(const char *first, const char *last
 	}
 	return dest;
 }
+
+// Checked range copy at 0x0004811C: own scratch byte plus zero size threaded
+// into copyRecordRange; the caller-context slot is observed dead like the
+// scratch pair below (single forwarder, no EH, straight-line).
+BfmeContainerRecord00048139 *copyRecordRangeWithScratch(const char *first, const char *last, BfmeContainerRecord00048139 *dest, void *outerCtx)
+{
+	char scratch;
+	return copyRecordRange(first, last, dest, &scratch, 0);
+}
