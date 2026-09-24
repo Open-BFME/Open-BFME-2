@@ -20,6 +20,31 @@
 		return *(float *)((char *)m_ptr + DISP2); \
 	}
 
+// Backward variant: the holder sits at a NEGATIVE displacement from `this`.
+// Spelled as an explicit backward cast, which MSVC folds to
+// `mov eax,[ecx-BACK]`; same reading as the dword/byte chase families.
+#define BFME_DISP8_FLOATCHASE_BEFORE_GETTER(NAME, BACK, INNER) \
+	class Inner##NAME \
+	{ \
+	public: \
+		char m_lead[INNER]; \
+		float m_value; \
+	}; \
+	class Sub##NAME \
+	{ \
+	public: \
+		Inner##NAME *m_holder; \
+	}; \
+	class NAME \
+	{ \
+	public: \
+		float get() const; \
+	}; \
+	float NAME::get() const \
+	{ \
+		return ((const Sub##NAME *)((const char *)this - (BACK)))->m_holder->m_value; \
+	}
+
 BFME_DISP8_FLOATCHASE_GETTER(Rva0007E066FloatChaseField, 0x0C, 0x28)
 BFME_DISP8_FLOATCHASE_GETTER(Rva0007E0F1FloatChaseField, 0x40, 0x5C)
 BFME_DISP8_FLOATCHASE_GETTER(Rva000910C0FloatChaseField, 0x2C, 0x20)
@@ -47,3 +72,4 @@ BFME_DISP8_FLOATCHASE_GETTER(Rva005D48FEFloatChaseField, 0x14, 0x18)
 BFME_DISP8_FLOATCHASE_GETTER(Rva005D4905FloatChaseField, 0x14, 0x1C)
 BFME_DISP8_FLOATCHASE_GETTER(Rva005D490CFloatChaseField, 0x14, 0x20)
 BFME_DISP8_FLOATCHASE_GETTER(Rva005E0D8DFloatChaseField, 0x08, 0x3C)
+BFME_DISP8_FLOATCHASE_BEFORE_GETTER(Rva004BDC41FloatChaseField, 0x0C, 0x18)
