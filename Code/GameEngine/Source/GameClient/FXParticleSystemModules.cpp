@@ -139,11 +139,38 @@ FX_VTABLE_ONLY_INFO(DefaultDrawModuleInfo)
 FX_VTABLE_ONLY_INFO(RenderObjectDrawModuleInfo)
 FX_VTABLE_ONLY_INFO(GpuDrawModuleInfo)
 FX_VTABLE_ONLY_INFO(LifeEventModuleInfo)
-// TerrainCollisionModuleTemplate puts its info's vtable at 0x0C rather than
-// 0x08, so there is a four-byte base or member between the secondary base and
-// the info that the rest of the family has not got. Until that is identified
-// this info stays declared and its wrapper's constructors stay unclaimed.
 FX_VTABLE_ONLY_INFO(TerrainCollisionModuleInfo)
+
+// The two category 8 templates put their info's vtable at 0x0C rather than
+// 0x08: their first base is CategoryModuleTemplate<8>, whose third base is the
+// two-flag EventModuleInfo at 0x08 (retail exports ??0EventModuleInfo at
+// 0x00001236 and CategoryModuleTemplate<8>'s assignment at 0x0000124F; see
+// FXParticleSystem.cpp). Both wrappers' constructors store the info vtable at
+// 0x0C after calling the template constructor.
+class ModuleInfo
+{
+};
+
+class EventModuleInfo : public ModuleInfo
+{
+public:
+    EventModuleInfo();
+
+    bool m_first;
+    bool m_second;
+};
+
+template <int CATEGORY>
+class CategoryModuleTemplate;
+
+template <>
+class CategoryModuleTemplate<8> : public ModuleTemplate, public SecondaryModuleBase,
+                                  public EventModuleInfo
+{
+public:
+    CategoryModuleTemplate();
+    CategoryModuleTemplate(const CategoryModuleTemplate &that);
+};
 
 class DefaultPhysicsModuleInfo
 {
@@ -293,8 +320,19 @@ FX_MODULE_TEMPLATE(LightningEmissionModuleTemplate, LightningEmissionInfo)
 FX_MODULE_TEMPLATE(RenderObjectUpdateModuleTemplate, RenderObjectUpdateModuleInfo)
 FX_MODULE_TEMPLATE(RenderObjectDrawModuleTemplate, RenderObjectDrawModuleInfo)
 FX_MODULE_TEMPLATE(GpuDrawModuleTemplate, GpuDrawModuleInfo)
-FX_MODULE_TEMPLATE(LifeEventModuleTemplate, LifeEventModuleInfo)
-FX_MODULE_TEMPLATE(TerrainCollisionModuleTemplate, TerrainCollisionModuleInfo)
+
+#define FX_EVENT_MODULE_TEMPLATE(NAME, INFO)                                                       \
+    class NAME : public CategoryModuleTemplate<8>, public INFO                                     \
+    {                                                                                              \
+    public:                                                                                        \
+        NAME();                                                                                    \
+        NAME(const NAME &that);                                                                    \
+                                                                                                   \
+        NAME &operator=(const NAME &that);                                                         \
+    };
+
+FX_EVENT_MODULE_TEMPLATE(LifeEventModuleTemplate, LifeEventModuleInfo)
+FX_EVENT_MODULE_TEMPLATE(TerrainCollisionModuleTemplate, TerrainCollisionModuleInfo)
 
 template <int CATEGORY>
 class DefaultParticleModule;
