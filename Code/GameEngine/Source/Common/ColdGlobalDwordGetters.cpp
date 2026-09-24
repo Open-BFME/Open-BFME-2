@@ -355,3 +355,14 @@ int Rva00415E90Get(void)
 {
 	return g_Va00E062EC;
 }
+
+extern int g_Va00E046B4;
+
+// ?Rva0050E9CDGet@@YAHXZ @ 0x0050e9cd (6B) over 0x00E046B4.
+// Follows a ret-with-pop (prev C2 0C 00); next is a frameless fn start;
+// phase-clean in 512B window; one E8 caller at 0x002D68D6.
+// Opaque address-derived name.
+int Rva0050E9CDGet(void)
+{
+	return g_Va00E046B4;
+}
