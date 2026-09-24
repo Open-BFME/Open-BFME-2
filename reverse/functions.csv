@@ -32969,3 +32969,23 @@ _DXTraceA@20,,0x0065459C,476,vendor/dxerr9-aug2005/dxerr9.lib,matched,vendored=d
 ?disable@Rva00660050DwordSetter@@QAEXXZ,,0x00660050,8,Code/GameEngine/Source/Common/Disp8DwordSetters.cpp,matched,disp8 dword setter; phase-proven no-branch-to-addr
 ?disable@Rva006F1350DwordSetter@@QAEXXZ,,0x006F1350,8,Code/GameEngine/Source/Common/Disp8DwordSetters.cpp,matched,disp8 dword setter; phase-proven no-branch-to-addr
 ?Rva00117AC0HasFlag@@YA_NXZ,,0x00117AC0,12,Code/GameEngine/Source/Common/BfmeThingTXAHasFlag.cpp,matched,TXA slot flag test; O1 cmp-mem shape plus int3-padded boundary
+?clear@Rva000685DADwordClearer@@QAEXXZ,,0x000685DA,8,Code/GameEngine/Source/Common/Disp32DwordClearers2.cpp,matched,disp32 dword clearer; and-zero under O1; phase-proven no-branch-to-addr
+?clear@Rva00262CB6DwordClearer@@QAEXXZ,,0x00262CB6,8,Code/GameEngine/Source/Common/Disp32DwordClearers2.cpp,matched,disp32 dword clearer; and-zero under O1; phase-proven no-branch-to-addr
+?clear@Rva002A9F0FDwordClearer@@QAEXXZ,,0x002A9F0F,8,Code/GameEngine/Source/Common/Disp32DwordClearers2.cpp,matched,disp32 dword clearer; and-zero under O1; phase-proven no-branch-to-addr
+?clear@Rva00381DB5DwordClearer@@QAEXXZ,,0x00381DB5,8,Code/GameEngine/Source/Common/Disp32DwordClearers2.cpp,matched,disp32 dword clearer; and-zero under O1; phase-proven no-branch-to-addr
+?clear@Rva0039D761DwordClearer@@QAEXXZ,,0x0039D761,8,Code/GameEngine/Source/Common/Disp32DwordClearers2.cpp,matched,disp32 dword clearer; and-zero under O1; phase-proven no-branch-to-addr
+?clear@Rva003ECB0BDwordClearer@@QAEXXZ,,0x003ECB0B,8,Code/GameEngine/Source/Common/Disp32DwordClearers2.cpp,matched,disp32 dword clearer; and-zero under O1; phase-proven no-branch-to-addr
+?clear@Rva0044E5B8DwordClearer@@QAEXXZ,,0x0044E5B8,8,Code/GameEngine/Source/Common/Disp32DwordClearers2.cpp,matched,disp32 dword clearer; and-zero under O1; phase-proven no-branch-to-addr
+?clear@Rva004A750ADwordClearer@@QAEXXZ,,0x004A750A,8,Code/GameEngine/Source/Common/Disp32DwordClearers2.cpp,matched,disp32 dword clearer; and-zero under O1; phase-proven no-branch-to-addr
+?clear@Rva004ACD43DwordClearer@@QAEXXZ,,0x004ACD43,8,Code/GameEngine/Source/Common/Disp32DwordClearers2.cpp,matched,disp32 dword clearer; and-zero under O1; phase-proven no-branch-to-addr
+?clear@Rva0010034FDwordClearer@@QAEXXZ,,0x0010034F,5,Code/GameEngine/Source/Common/Disp8DwordClearers.cpp,matched,disp8 dword clearer; and-zero under O1; phase-proven no-branch-to-addr
+?clear@Rva0020E34FDwordClearer@@QAEXXZ,,0x0020E34F,5,Code/GameEngine/Source/Common/Disp8DwordClearers.cpp,matched,disp8 dword clearer; and-zero under O1; phase-proven no-branch-to-addr
+?clear@Rva0023D2D8DwordClearer@@QAEXXZ,,0x0023D2D8,5,Code/GameEngine/Source/Common/Disp8DwordClearers.cpp,matched,disp8 dword clearer; and-zero under O1; phase-proven no-branch-to-addr
+?clear@Rva002E0668DwordClearer@@QAEXXZ,,0x002E0668,5,Code/GameEngine/Source/Common/Disp8DwordClearers.cpp,matched,disp8 dword clearer; and-zero under O1; phase-proven no-branch-to-addr
+?clear@Rva002FD7D7DwordClearer@@QAEXXZ,,0x002FD7D7,5,Code/GameEngine/Source/Common/Disp8DwordClearers.cpp,matched,disp8 dword clearer; and-zero under O1; phase-proven no-branch-to-addr
+?clear@Rva0033F9F9DwordClearer@@QAEXXZ,,0x0033F9F9,5,Code/GameEngine/Source/Common/Disp8DwordClearers.cpp,matched,disp8 dword clearer; and-zero under O1; phase-proven no-branch-to-addr
+?clear@Rva004C12CBDwordClearer@@QAEXXZ,,0x004C12CB,5,Code/GameEngine/Source/Common/Disp8DwordClearers.cpp,matched,disp8 dword clearer; and-zero under O1; phase-proven no-branch-to-addr
+?clear@Rva0055059ADwordClearer@@QAEXXZ,,0x0055059A,5,Code/GameEngine/Source/Common/Disp8DwordClearers.cpp,matched,disp8 dword clearer; and-zero under O1; phase-proven no-branch-to-addr
+?clear@Rva005A9D01DwordClearer@@QAEXXZ,,0x005A9D01,5,Code/GameEngine/Source/Common/Disp8DwordClearers.cpp,matched,disp8 dword clearer; and-zero under O1; phase-proven no-branch-to-addr
+?clear@Rva005B5B07DwordClearer@@QAEXXZ,,0x005B5B07,5,Code/GameEngine/Source/Common/Disp8DwordClearers.cpp,matched,disp8 dword clearer; and-zero under O1; phase-proven no-branch-to-addr
+?clear@Rva005C494DDwordClearer@@QAEXXZ,,0x005C494D,5,Code/GameEngine/Source/Common/Disp8DwordClearers.cpp,matched,disp8 dword clearer; and-zero under O1; phase-proven no-branch-to-addr
