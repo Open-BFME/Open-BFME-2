@@ -33160,3 +33160,4 @@ _DXTraceA@20,,0x0065459C,476,vendor/dxerr9-aug2005/dxerr9.lib,matched,vendored=d
 ?Rva0078F90AClearFlag@@YAIXZ,,0x0078F90A,13,Code/GameEngine/Source/Common/GlobalFlagClearers_08.cpp,matched,B2-native clearer on g_Va00E040B0 via /G7 al-form with rdata table slot
 ?get@Rva0051E3E5ImulAddField@@QBEHH@Z,,0x0051E3E5,12,Code/GameEngine/Source/Common/Disp8ImulAddDwordGetters.cpp,matched,disp8 imul-add dword getter; phase-proven no-branch-to-addr
 ?get@Rva0053FCCBImulAddField@@QBEHH@Z,,0x0053FCCB,12,Code/GameEngine/Source/Common/Disp8ImulAddDwordGetters.cpp,matched,disp8 imul-add dword getter; phase-proven no-branch-to-addr
+?get@Rva00564C40ImulAddField@@QBEHH@Z,,0x00564C40,12,Code/GameEngine/Source/Common/Disp8ImulAddDwordGetters.cpp,matched,disp8 imul-add dword getter; phase-proven no-branch-to-addr
