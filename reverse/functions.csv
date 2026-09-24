@@ -32882,3 +32882,6 @@ _DXTraceA@20,,0x0065459C,476,vendor/dxerr9-aug2005/dxerr9.lib,matched,vendored=d
 ?get@Rva0028A883MovsxByteField@@QBEHXZ,,0x0028A883,8,Code/GameEngine/Source/Common/DispMovsxByteFieldGetters.cpp,matched,disp32 movsx byte getter; adjacent pair
 ?get@Rva0023C51AMovsxByteField@@QBEHXZ,,0x0023C51A,8,Code/GameEngine/Source/Common/DispMovsxByteFieldGetters.cpp,matched,disp32 movsx byte getter; rowed neighbors both sides
 ?get@Rva0047A6ACMovsxByteField@@QBEHXZ,,0x0047A6AC,8,Code/GameEngine/Source/Common/DispMovsxByteFieldGetters.cpp,matched,disp32 movsx byte getter; getter-cluster member
+?get@Rva0028B217DwordField@@QBEHXZ,,0x0028B217,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,disp32 dword getter
+?get@Rva0028B51EDwordField@@QBEHXZ,,0x0028B51E,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,disp32 dword getter over +0x40C; setter writes same disp
+?get@Rva0035AFDDDwordField@@QBEHXZ,,0x0035AFDD,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,disp32 dword getter
