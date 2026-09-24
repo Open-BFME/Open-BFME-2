@@ -34320,3 +34320,4 @@ _WinMain@16,,0x00002C39,1382,Code/GameEngine/Source/Main/WinMain.cpp,matched,BFM
 ?get@Rva0030C900IntGetter@@QBEHXZ,,0x0030C900,9,Code/GameEngine/Source/Common/Disp32CvtFloatIntGetters.cpp,matched,Disp32 float-to-int getter; Ghidra bounds agree; live caller
 ??_GGpuDrawModuleTemplate@FXParticleSystem@@UAEPAXI@Z,,0x003A9F23,28,Code/GameEngine/Source/Common/FamilyDeletingDtors4.cpp,matched,scalar deleting dtor; same-shape sibling of ??_GVersion (0x21C7) selected by its dtor callee
 ?get@Rva0030C91AIntGetter@@QBEHXZ,,0x0030C91A,9,Code/GameEngine/Source/Common/Disp32CvtFloatIntGetters.cpp,matched,Disp32 float-to-int getter; Ghidra bounds agree; live caller
+?get@Rva0030C934IntGetter@@QBEHXZ,,0x0030C934,9,Code/GameEngine/Source/Common/Disp32CvtFloatIntGetters.cpp,matched,Disp32 float-to-int getter; Ghidra bounds agree; live caller
