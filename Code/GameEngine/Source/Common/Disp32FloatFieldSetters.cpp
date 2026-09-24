@@ -20,3 +20,4 @@
 		m_floatValue = newValue; \
 	}
 BFME_DISP32_FLOAT_SETTER(Rva002633F3FloatField, 0x168)
+BFME_DISP32_FLOAT_SETTER(Rva00167F15FloatField, 0xFC)
