@@ -1,5 +1,3 @@
-// ??0HordeContainRankInfo@@QAE@XZ
-// partial score=0.45 date=2026-09-24
 // cl: /O1 /Oy /DNDEBUG /MD /GX- /Oi- /D_STLP_USE_STATIC_LIB
 //
 // The RankInfo field callback at table 0x00C45530 allocates 0x38 bytes and
@@ -21,6 +19,8 @@ namespace _STL
 {
 template <class T> class allocator
 {
+public:
+	allocator() {}
 };
 
 template <class T, class Allocator> class _Vector_base
