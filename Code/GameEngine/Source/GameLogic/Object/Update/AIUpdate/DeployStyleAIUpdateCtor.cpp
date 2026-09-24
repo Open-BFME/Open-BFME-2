@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /O1 /arch:SSE /DNDEBUG /MD
 //
 // ??0DeployStyleAIUpdate@@QAE@PAVThing@@PBVModuleData@@@Z, retail
 // 0x0048E983 (112 bytes). Behavior ctor over the pinned opaque Transport
@@ -49,7 +49,7 @@ class DeployStyleAIUpdate : public Rva0026E9BDBase
 {
 public:
 	DeployStyleAIUpdate(Thing *thing, const ModuleData *moduleData);
-	void Rva0048E65BHelper();
+	void reset();
 
 protected:
 	Rva0026AFDAMember m_member3E4;		// +0x3E4 (init 0x26AFDA via TU method pin)
@@ -60,6 +60,18 @@ protected:
 	int m_4B0;				// +0x4B0
 	int m_4B4;				// +0x4B4
 	int m_4B8;				// +0x4B8
+	int m_4BC;				// +0x4BC
+	int m_4C0;				// +0x4C0
+	float m_4C4;			// +0x4C4
+	float m_4C8;			// +0x4C8
+	float m_4CC;			// +0x4CC
+	unsigned char m_4D0;		// +0x4D0
+	unsigned char m_4D1;		// +0x4D1
+	unsigned char m_4D2;		// +0x4D2
+	unsigned char m_4D3;		// +0x4D3
+	unsigned char m_4D4;		// +0x4D4
+	unsigned char m_4D5;		// +0x4D5
+	unsigned char m_4D6;		// +0x4D6
 };
 
 // ??0DeployStyleAIUpdate@@QAE@PAVThing@@PBVModuleData@@@Z @0x48E983
@@ -79,5 +91,27 @@ DeployStyleAIUpdate::DeployStyleAIUpdate(Thing *thing, const ModuleData *moduleD
 	m_4B4 = zero;
 	m_4B0 = zero;
 	m_4B8 = zero;
-	Rva0048E65BHelper();
+	reset();
+}
+
+// ?reset@DeployStyleAIUpdate@@QAEXXZ @0x48E65B (80 bytes). Clears the
+// transient deploy-motion block (+0x4BC..0x4D6): two ints, three floats and
+// seven flag bytes. Runs at the end of the ctor, on new AI commands and
+// from update. The float triple is zeroed through one address-taken pointer
+// (retail lea plus three movss); separate stores would use direct offsets.
+void DeployStyleAIUpdate::reset()
+{
+	m_4BC = 0;
+	m_4D0 = 0;
+	m_4D4 = 0;
+	m_4D3 = 0;
+	m_4D1 = 0;
+	m_4C0 = 0;
+	m_4D2 = 0;
+	m_4D5 = 0;
+	m_4D6 = 0;
+	float *goal = &m_4C4;
+	goal[0] = 0.0f;
+	goal[1] = 0.0f;
+	goal[2] = 0.0f;
 }
