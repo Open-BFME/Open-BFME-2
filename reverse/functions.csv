@@ -33498,3 +33498,4 @@ _WinMain@16,,0x00002C39,1382,Code/GameEngine/Source/Main/WinMain.cpp,matched,BFM
 ?toUnicode@Rva002343C3TitleSegment@@QAE?AVUnicodeString@@XZ,,0x0023490C,103,Code/GameEngine/Source/Main/WinMainPairUnicode.cpp,matched,title-segment to UnicodeString: getBufferForRead(length) then convertTitleSegments; nested inline length reproduces retail lea order
 ?toUnicode@WinMainTitlePair@@QAE?AVUnicodeString@@XZ,,0x00234973,101,Code/GameEngine/Source/Main/WinMainPairUnicode.cpp,matched,double-pair to UnicodeString: getBufferForRead(length) then convertTitlePair; twin of 0x23490C
 ?get@Rva0031A9E3CmpBoolField@@QBE_NXZ,,0x0031A9E3,9,Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp,matched,Disp8 byte-cmp bool getter; cmp byte [ecx+0x14] al sete; /O1
+?get@Rva003FE581CmpBoolField@@QBE_NXZ,,0x003FE581,9,Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp,matched,Disp8 byte-cmp bool getter; cmp byte [ecx+0x28] al sete; /O1
