@@ -33171,3 +33171,4 @@ _DXTraceA@20,,0x0065459C,476,vendor/dxerr9-aug2005/dxerr9.lib,matched,vendored=d
 ?get@Rva00136164NullAdjustGlobalField@@QBEHXZ,,0x00136164,17,Code/GameEngine/Source/Common/Disp8NullAdjustGetters.cpp,matched,disp8 null-adjust getter with global default; phase-proven no-branch-to-addr
 ?get@Rva00151733NullAdjustGlobalField@@QBEHXZ,,0x00151733,17,Code/GameEngine/Source/Common/Disp8NullAdjustGetters.cpp,matched,disp8 null-adjust getter with global default; phase-proven no-branch-to-addr
 ?get@Rva0020E3EFNullAdjustGlobalField@@QBEHXZ,,0x0020E3EF,17,Code/GameEngine/Source/Common/Disp8NullAdjustGetters.cpp,matched,disp8 null-adjust getter with global default; phase-proven no-branch-to-addr
+?m009F0E50@Q1Receiver0134FAAC@@QAEXH@Z,,0x00621B10,327,Code/Libraries/Source/assetmanager/assetmanager_impl.cpp,matched,BFME1 near-miss donor Q1Receiver0134FAAC_m009F0E50 with TU plus8 layout repair and pointer-set count

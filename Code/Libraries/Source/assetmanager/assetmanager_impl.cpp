@@ -28,6 +28,14 @@ struct Gen_t_009ee8e0_k4
 bool operator<(const Gen_t_009ee8e0_k4 &, const Gen_t_009ee8e0_k4 &);
 typedef _STL::set<Gen_t_009ee8e0_k4> Q1ReceiverSet;
 
+// m009F0E50 walks the copied set with builtin pointer compares (retail
+// inlines the tree descent: cmp/jb/jae, no operator< call), so it views the
+// same 12-byte set through a pointer element type. The copy constructor,
+// destructor thunk and layout stay the TU's own.
+struct Rva001408C0Target;
+typedef Rva001408C0Target *Q1ReceiverKey;
+typedef _STL::set<Q1ReceiverKey> Q1ReceiverPtrSet;
+
 void j_00015d7a();
 
 // ABI view of the canonical 12-byte STL set. The externally compiled copy
@@ -69,6 +77,17 @@ struct Q1ReceiverHashPayload
 	int m_flags;
 };
 
+// Hash payload as m009F0E50 sees it: the flag dword at +4 carries bit 26 as
+// a bitfield, and the key pointer lives at +8. Same object, donor's view.
+struct Q1ReceiverFlagPayload
+{
+	int m_unused;
+	unsigned int m_bits00 : 26;
+	unsigned int m_inSet : 1;
+	unsigned int m_bits27 : 5;
+	Q1ReceiverKey m_key;
+};
+
 typedef _STL::hash_map<int, Q1ReceiverHashPayload *> Q1ReceiverHashTable;
 
 struct CRITICAL_SECTION;
@@ -101,6 +120,7 @@ public:
 	void m009EC9A0(int which);
 	void m009ECA30(int value);
 	void m009F0D40(int value);
+	void m009F0E50(int value);
 	void m009EFD40(Q1ReceiverLocalSet *set);
 
 private:
@@ -182,6 +202,27 @@ void Q1Receiver0134FAAC::m009F0D40(int value)
 			found->second->m_flags |= 0x04000000;
 
 		++current;
+	}
+}
+
+// Sibling of m009F0D40: copy the argument set with 0x009EE8E0, hand the local
+// group to 0x009EFD40, then under the +0x68 and +0x34 locks walk the +0x4C
+// hash map and store, per payload, whether its key is in the copied set.
+// BFME1 donor Q1Receiver0134FAAC_m009F0E50.cpp with the TU's +8 layout repair.
+void Q1Receiver0134FAAC::m009F0E50(int value)
+{
+	Q1ReceiverLocalSet set = { *(Q1ReceiverSet *)value, 0, true };
+	m009EFD40(&set);
+
+	Q1ReceiverLockGuard lock60((int)m_lock_060);
+	Q1ReceiverLockGuard lock2c((int)m_lock_02C);
+
+	for (Q1ReceiverHashTable::iterator it = m_table.begin();
+		it != m_table.end(); ++it)
+	{
+		Q1ReceiverFlagPayload *payload = (Q1ReceiverFlagPayload *)it->second;
+		Q1ReceiverKey key = payload->m_key;
+		payload->m_inSet = ((Q1ReceiverPtrSet &)set.m_set.get()).count(key);
 	}
 }
 
