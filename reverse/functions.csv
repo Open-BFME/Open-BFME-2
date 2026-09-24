@@ -34353,3 +34353,4 @@ _WinMain@16,,0x00002C39,1382,Code/GameEngine/Source/Main/WinMain.cpp,matched,BFM
 ?set@Rva0030C909IntFloatField@@QAEXH@Z,,0x0030C909,17,Code/GameEngine/Source/Common/Disp32IntToFloatFieldSetters.cpp,matched,Disp32 int-to-float setter; precedes getter 0x30C91A at +0x11
 ?set@Rva0030C923IntFloatField@@QAEXH@Z,,0x0030C923,17,Code/GameEngine/Source/Common/Disp32IntToFloatFieldSetters.cpp,matched,Disp32 int-to-float setter; precedes getter 0x30C934 at +0x11
 ?set@Rva002620B6IntFloatField@@QAEXH@Z,,0x002620B6,17,Code/GameEngine/Source/Common/Disp32IntToFloatFieldSetters.cpp,matched,Disp32 int-to-float setter; pairs with getter 0x2620AD at +0x11
+?apply@Rva002620FADwordOrSetter@@QAEXXZ,,0x002620FA,4,Code/GameEngine/Source/Common/Disp0DwordOrSetters.cpp,matched,Disp0 OR-imm flag setter; or [ecx] with -1 under /O1; sibling of the 0x2620xx accessor cluster
