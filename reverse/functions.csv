@@ -32657,3 +32657,4 @@ _DXTraceA@20,,0x0065459C,476,vendor/dxerr9-aug2005/dxerr9.lib,matched,vendored=d
 ?get@Rva004A3904AddDwordField@@QBEHXZ,,0x004A3904,7,Code/GameEngine/Source/Common/Disp8AddDwordFieldGetters.cpp,matched,disp8 add dword getter with negative field; backward read
 ?get@Rva004ABAC4AddDwordField@@QBEHXZ,,0x004ABAC4,7,Code/GameEngine/Source/Common/Disp8AddDwordFieldGetters.cpp,matched,disp8 add dword getter with negative field; backward read
 ?get@Rva004BDC41FloatChaseField@@QBEMXZ,,0x004BDC41,7,Code/GameEngine/Source/Common/Disp8FloatChaseGetters.cpp,matched,disp8 float-chase getter with negative holder; backward cast
+?get@Rva004BDC4FFloatChaseField@@QBEMXZ,,0x004BDC4F,7,Code/GameEngine/Source/Common/Disp8FloatChaseGetters.cpp,matched,disp8 float-chase getter abutting landed chase row; backward cast
