@@ -33630,3 +33630,4 @@ _WinMain@16,,0x00002C39,1382,Code/GameEngine/Source/Main/WinMain.cpp,matched,BFM
 ?Rva0077433CClearFlag@@YAIXZ,,0x0077433C,13,Code/GameEngine/Source/Common/GlobalFlagClearers_DFEDxx.cpp,matched,B2-native scattered clearer with rdata table slot under /G7 narrowing
 ?Rva0077444AClearFlag@@YAIXZ,,0x0077444A,13,Code/GameEngine/Source/Common/GlobalFlagClearers_DFEDxx.cpp,matched,B2-native scattered clearer with rdata table slot under /G7 narrowing
 ?Rva007746A3ClearFlag@@YAIXZ,,0x007746A3,13,Code/GameEngine/Source/Common/GlobalFlagClearers_DFEDxx.cpp,matched,B2-native scattered clearer with rdata table slot under /G7 narrowing
+?get@Rva003730FCLeaNegSbbField@@QBEHXZ,,0x003730FC,13,Code/GameEngine/Source/Common/Disp8LeaNegSbbGetters.cpp,matched,13B branchless null-select lea-neg-sbb family; b2 0x003730FC; base this-12 field this+0x18; phase-proven boundary with genuine prev ret and next start and no branch target in +-1024
