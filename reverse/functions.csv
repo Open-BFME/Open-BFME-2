@@ -34345,3 +34345,4 @@ _WinMain@16,,0x00002C39,1382,Code/GameEngine/Source/Main/WinMain.cpp,matched,BFM
 ??_GVertexMaterialClass@@UAEPAXI@Z,,0x0013D550,30,Code/GameEngine/Source/Common/FamilyDeletingDtors5.cpp,matched,scalar deleting dtor; same-shape add-esp sibling of ??_GVersion (0x21C7) selected by its dtor callee
 ??_GMaterialInfoClass@@UAEPAXI@Z,,0x00170960,30,Code/GameEngine/Source/Common/FamilyDeletingDtors5.cpp,matched,scalar deleting dtor; same-shape add-esp sibling of ??_GVersion (0x21C7) selected by its dtor callee
 ??_GBfmeDirtyBase@@UAEPAXI@Z,,0x006560C0,30,Code/GameEngine/Source/Common/FamilyDeletingDtors5.cpp,matched,scalar deleting dtor; same-shape add-esp sibling of ??_GVersion (0x21C7) selected by its dtor callee
+??_GRva009A45A0CollisionData@@QAEPAXI@Z,,0x007588C0,30,Code/GameEngine/Source/Common/FamilyDeletingDtors5.cpp,matched,scalar deleting dtor; same-shape add-esp sibling of ??_GVersion (0x21C7) selected by its dtor callee
