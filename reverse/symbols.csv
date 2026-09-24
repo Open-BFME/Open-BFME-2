@@ -410,7 +410,6 @@ name,address,notes
 ??0ProductionUpdateModuleData@@QAE@XZ,0x0049F7DB,pinned by ProductionUpdateModuleData factory call-site decode
 ??0QuadDrawModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A7C4C,BFME2 export; the module template copy constructor the ConcreteModuleTemplate wrapper calls
 ??0QuadDrawModuleTemplate@FXParticleSystem@@QAE@XZ,0x003A7BF5,BFME2 export; the module template default constructor the ConcreteModuleTemplate wrapper calls
-??0RadiateFearUpdateModuleData@@QAE@XZ,0x0049C06C,EH ctor with vtable plus flag bytes plus emotion floats; sole raw caller is ModuleData factory 0x24E6E8 which news 0x130
 ??0RainOfFireUpdateModuleData@@QAE@XZ,0x004AC03D,89B frameless SSE ctor with float/int stores at +8/+0xC/+0x10 through +0x28; sole raw caller is ModuleData factory 0x24F3EB; table 0xC54B00 holds StartRainTime@8 through RainOffset@28
 ??0Random3Class@@QAE@II@Z,0x006200B0,identical-code fold with the STLport _Hashtable_iterator constructor already matched here - both store two dwords at +0 and +4; address read from the retail REL32 in StreakRendererClass::subdivision_util at 0x00743280
 ??0RandomTextureMapperClass@@QAE@ABV0@@Z,0x00186880,address read from the REL32 displacement at a placed body; stlport 4.5.3
