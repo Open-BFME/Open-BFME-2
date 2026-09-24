@@ -22,9 +22,19 @@ public:
 #undef V
 	virtual void setInputLockState(bool enabled, char *extra) = 0;
 	void setEngineInputEnabled(bool enabled);
+	void setInputEnabled(bool enabled);
 };
 
 void InGameUI::setEngineInputEnabled(bool enabled)
 {
 	setInputLockState(enabled, (char *)this + 0x15);
+}
+
+// InGameUI::setInputEnabled, retail 0x0029AB35 (19 bytes), directly after the
+// method above; the same forward with this+0x16. ZH's
+// ScriptActions::doEnableInput pairs it with Mouse::setVisibility, and
+// ScriptEngine::reset makes that same pair of calls with TRUE.
+void InGameUI::setInputEnabled(bool enabled)
+{
+	setInputLockState(enabled, (char *)this + 0x16);
 }

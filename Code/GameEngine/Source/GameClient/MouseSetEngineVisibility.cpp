@@ -33,6 +33,7 @@ public:
 	virtual void applyCursor( bool visible, const unsigned char *cursor );
 
 	void _bfme_setEngineVisibility( bool visible );
+	void setVisibility( bool visible );
 
 private:
 	// Retail's commit-if-dirty helper, factored out of this method (see
@@ -61,4 +62,15 @@ void Mouse::_bfme_setEngineVisibility( bool visible )
 {
 	commitPendingCursor();
 	applyCursor( visible, &m_cursor );
+}
+
+// Retail 0x001EE5D6 (24 bytes), directly after the method above: ZH's
+// Mouse::setVisibility, which BFME1 matched as the same shape over
+// m_cursorState (reference/open-bfme-1/Code/GameEngine/Source/Common/
+// promoted__setVisibility_BfmeMouse_setVisibility_QAEX_N_Z_005A4BA0.cpp).
+// ScriptEngine::reset calls it with TRUE.
+void Mouse::setVisibility( bool visible )
+{
+	commitPendingCursor();
+	applyCursor( visible, &m_cursorState );
 }
