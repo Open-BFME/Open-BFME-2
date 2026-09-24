@@ -1,10 +1,10 @@
-// ?parseSubtitleText@@YAXPAVINI@@PAX@Z
-// partial score=0.6 date=2026-09-24
+// ?parseSubtitleText@@YAXPAVINI@@PAX1PBX@Z
+// partial score=0.75 date=2026-09-24
 // Retail 0x00688B10, 1,578 bytes. The beta error strings identify the
 // subtitle label, color, style, alignment, line, and frame checks. Retail's
 // SubtitleManager FieldParse table registers this callback under "SubTitle".
 // The target calls the already matched SubtitleManager::addSubtitle body.
-// cl: /O1 /Oy- /DNDEBUG /MD /EHsc
+// cl: /O2 /DNDEBUG /MD /EHsc
 
 typedef int Int;
 typedef unsigned char Bool;
@@ -73,7 +73,12 @@ extern VideoPlayerInterface *TheVideoPlayer;
 class INIException
 {
 public:
-	INIException(Int argumentCount, const char *format, ...);
+	INIException(Int code, const char *format, ...);
+	INIException(const INIException &other);
+private:
+	Int m_code;
+	const char *m_message;
+public:
 };
 
 typedef void *(__cdecl *CreateSubtitleEntry)(AsciiString *, Int,
@@ -102,7 +107,7 @@ static const char *const subtitleAlignments[] = {
 };
 
 // ?parseSubtitleText@@YAXPAVINI@@PAX@Z
-void parseSubtitleText(INI *ini, void *fieldContext)
+void parseSubtitleText(INI *ini, void *instance, void *fieldContext, const void *userData)
 {
 	AsciiString label;
 	SubtitleManager *manager = (SubtitleManager *)TheVideoPlayer->getVideo(ini->getFilename());
