@@ -34343,3 +34343,4 @@ _WinMain@16,,0x00002C39,1382,Code/GameEngine/Source/Main/WinMain.cpp,matched,BFM
 ?set@Rva0030C8D5IntFloatField@@QAEXH@Z,,0x0030C8D5,17,Code/GameEngine/Source/Common/Disp32IntToFloatFieldSetters.cpp,matched,Disp32 int-to-float setter; precedes getter 0x30C8E6 at +0x11
 ?init@Rva00600611VTableInstall@@QAEPAV1@XZ,,0x00600611,9,Code/GameEngine/Source/Common/VTableInstalls.cpp,matched,Bare vtable install; return-this homes eax; live caller
 ??_GVertexMaterialClass@@UAEPAXI@Z,,0x0013D550,30,Code/GameEngine/Source/Common/FamilyDeletingDtors5.cpp,matched,scalar deleting dtor; same-shape add-esp sibling of ??_GVersion (0x21C7) selected by its dtor callee
+??_GMaterialInfoClass@@UAEPAXI@Z,,0x00170960,30,Code/GameEngine/Source/Common/FamilyDeletingDtors5.cpp,matched,scalar deleting dtor; same-shape add-esp sibling of ??_GVersion (0x21C7) selected by its dtor callee
