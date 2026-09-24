@@ -51,7 +51,7 @@ public:
 	T *getBufferForRead(int len);
 	void set(const StringBase &src);
 
-private:
+protected:
 	Header *m_data;
 };
 
@@ -61,6 +61,7 @@ public:
 	UnicodeString() {}
 	UnicodeString(const unsigned short *text) : StringBase<unsigned short>(text) {}
 	UnicodeString &operator=(const UnicodeString &src) { set(src); return *this; }
+	const unsigned short *str() const { return m_data ? m_data->data : L""; }
 };
 
 // A (pointer, length) string reference. The same shape holds narrow text
@@ -286,4 +287,30 @@ UnicodeString bfmeGetMainWindowTitle()
 	getStringFromRegistry(HKEY_LOCAL_MACHINE, makeStringRef(GetRegistryInstallerRegPath()),
 		L"DisplayName", title);
 	return title;
+}
+
+#define HKEY_CURRENT_USER ((HKEY)0x80000001)
+
+// ?GetStringFromRegistry@@YA_NVUnicodeString@@0AAV1@@Z @0x234ADD
+// Reads a wide value from the game's registry tree, machine-wide first and
+// per-user second.
+bool GetStringFromRegistry(UnicodeString path, UnicodeString key, UnicodeString &val)
+{
+	UnicodeString fullPath = buildGameRegistryPath(path.str());
+	if (getStringFromRegistry(HKEY_LOCAL_MACHINE, fullPath.str(), key.str(), val))
+		return true;
+	return getStringFromRegistry(HKEY_CURRENT_USER, fullPath.str(), key.str(), val);
+}
+
+const char *GetRegistryUserDataLeafName();
+
+// ?getUserDataLeafName@@YA?AVUnicodeString@@XZ @0x234BEC
+// The user-data folder leaf: the registry's UserDataLeafName value when it
+// is set, otherwise the built-in default from the registry block.
+UnicodeString getUserDataLeafName()
+{
+	UnicodeString leafName;
+	if (GetStringFromRegistry(L"", L"UserDataLeafName", leafName))
+		return leafName;
+	return makeStringRef(GetRegistryUserDataLeafName());
 }

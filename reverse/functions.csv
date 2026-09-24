@@ -33516,3 +33516,5 @@ _WinMain@16,,0x00002C39,1382,Code/GameEngine/Source/Main/WinMain.cpp,matched,BFM
 ??BWinMainTitlePair@@QAE?AVUnicodeString@@XZ,,0x00234973,101,Code/GameEngine/Source/Main/WinMainPairUnicode.cpp,matched,double-pair to UnicodeString conversion: getBufferForRead(length) then convertTitlePair
 ?buildGameRegistryPath@@YA?AVUnicodeString@@PBG@Z,,0x002349FD,224,Code/GameEngine/Source/Main/WinMainPairUnicode.cpp,matched,GameRegPath + optional backslash + subPath via expression-template concat and implicit UnicodeString conversion
 ?bfmeGetMainWindowTitle@@YA?AVUnicodeString@@XZ,,0x0023484D,191,Code/GameEngine/Source/Main/WinMainPairUnicode.cpp,matched,window title: GameName then HKLM DisplayName under InstallerRegPath
+?GetStringFromRegistry@@YA_NVUnicodeString@@0AAV1@@Z,,0x00234ADD,271,Code/GameEngine/Source/Main/WinMainPairUnicode.cpp,matched,wide GetStringFromRegistry: HKLM then HKCU under buildGameRegistryPath(path)
+?getUserDataLeafName@@YA?AVUnicodeString@@XZ,,0x00234BEC,186,Code/GameEngine/Source/Main/WinMainPairUnicode.cpp,matched,UserDataLeafName registry value or the registry-block default
