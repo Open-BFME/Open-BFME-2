@@ -63,6 +63,7 @@ public:
 	int convertToWideBuffer(unsigned short *dst);
 	int copyWchars(unsigned short *dst);
 	UnicodeString toUnicode();
+	int length() const { return m_len; }
 
 	const char *m_ptr;
 	int m_len;
@@ -75,6 +76,9 @@ struct Rva002343C3TitleSegment : Rva000B3F84Pair
 {
 	int convertToWideBufferWithExtra(unsigned short *dst);
 	int convertTitleSegments(unsigned short *dst);
+	UnicodeString toUnicode();
+	int length() const { return extendedLength() + m_secondPair.length(); }
+	int extendedLength() const { return Rva000B3F84Pair::length() + 1; }
 	unsigned short m_extraChar;
 	Rva000B3F84Pair m_secondPair;
 };
@@ -88,6 +92,9 @@ struct Rva002343C3TitleSegment : Rva000B3F84Pair
 struct WinMainTitlePair : Rva000B3F84Pair
 {
 	int convertTitlePair(unsigned short *dst);
+	UnicodeString toUnicode();
+	int length() const { return firstLength() + m_secondPair.length(); }
+	int firstLength() const { return Rva000B3F84Pair::length(); }
 	Rva000B3F84Pair m_secondPair;
 };
 
@@ -158,4 +165,22 @@ int WinMainTitlePair::convertTitlePair(unsigned short *dst)
 	int first = convertToWideBuffer(dst);
 	int second = m_secondPair.copyWchars(dst + first);
 	return first + second;
+}
+
+// ?toUnicode@Rva002343C3TitleSegment@@QAE?AVUnicodeString@@XZ @0x23490C
+// Sizes the wide buffer for both pairs plus the extra wchar, then fills it.
+UnicodeString Rva002343C3TitleSegment::toUnicode()
+{
+	UnicodeString tmp;
+	convertTitleSegments(tmp.getBufferForRead(length()));
+	return tmp;
+}
+
+// ?toUnicode@WinMainTitlePair@@QAE?AVUnicodeString@@XZ @0x234973
+// The double-pair twin: both pair lengths, no extra wchar.
+UnicodeString WinMainTitlePair::toUnicode()
+{
+	UnicodeString tmp;
+	convertTitlePair(tmp.getBufferForRead(length()));
+	return tmp;
 }
