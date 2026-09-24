@@ -34323,3 +34323,4 @@ _WinMain@16,,0x00002C39,1382,Code/GameEngine/Source/Main/WinMain.cpp,matched,BFM
 ?get@Rva0030C934IntGetter@@QBEHXZ,,0x0030C934,9,Code/GameEngine/Source/Common/Disp32CvtFloatIntGetters.cpp,matched,Disp32 float-to-int getter; Ghidra bounds agree; live caller
 ?set@Rva002A9E25FloatField@@QAEXM@Z,,0x002A9E25,17,Code/GameEngine/Source/Common/Disp32FloatFieldSetters.cpp,matched,disp32 float setter; opaque holder
 ?set@Rva002AA0CDFloatField@@QAEXM@Z,,0x002AA0CD,17,Code/GameEngine/Source/Common/Disp32FloatFieldSetters.cpp,matched,disp32 float setter; opaque holder
+?bump@Rva002B315BBumpCounter@@QAEHXZ,,0x002B315B,11,Code/GameEngine/Source/Common/Disp8BumpCounters.cpp,matched,Disp8 inc-and-fetch; /O1 memory form; Ghidra bounds agree; live callers
