@@ -1,5 +1,5 @@
-// Twelve B2-native flag-word clearers on twelve .data flag words
-// (0x00E035A4-0x00E0364C):
+// Eight B2-native flag-word clearers on eight .data flag words
+// (0x00E035A4-0x00E035F4):
 //
 //     mov eax,[<address>] / and al,<mask8> / mov [<address>],eax / ret
 //
@@ -17,10 +17,6 @@ extern unsigned int g_Va00E035D8;
 extern unsigned int g_Va00E035E0;
 extern unsigned int g_Va00E035EC;
 extern unsigned int g_Va00E035F4;
-extern unsigned int g_Va00E03600;
-extern unsigned int g_Va00E03620;
-extern unsigned int g_Va00E03644;
-extern unsigned int g_Va00E0364C;
 
 unsigned int Rva0078A6E1ClearFlag(void)
 {
@@ -60,25 +56,5 @@ unsigned int Rva0078A97DClearFlag(void)
 unsigned int Rva0078A994ClearFlag(void)
 {
 	return g_Va00E035F4 &= 0xFFFFFFFEu;
-}
-
-unsigned int Rva0078A9F1ClearFlag(void)
-{
-	return g_Va00E03600 &= 0xFFFFFFFEu;
-}
-
-unsigned int Rva0078AA08ClearFlag(void)
-{
-	return g_Va00E03620 &= 0xFFFFFFFEu;
-}
-
-unsigned int Rva0078AB49ClearFlag(void)
-{
-	return g_Va00E03644 &= 0xFFFFFFFEu;
-}
-
-unsigned int Rva0078ACF7ClearFlag(void)
-{
-	return g_Va00E0364C &= 0xFFFFFFFEu;
 }
 

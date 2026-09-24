@@ -33786,10 +33786,6 @@ _WinMain@16,,0x00002C39,1382,Code/GameEngine/Source/Main/WinMain.cpp,matched,BFM
 ?Rva0078B499ClearFlag@@YAIXZ,,0x0078B499,13,Code/GameEngine/Source/Common/GlobalFlagClearers_E036xx.cpp,matched,B2-native scattered clearer with rdata table slot under /G7 narrowing
 ?Rva0078B54FClearFlag@@YAIXZ,,0x0078B54F,13,Code/GameEngine/Source/Common/GlobalFlagClearers_E036xx.cpp,matched,B2-native scattered clearer with rdata table slot under /G7 narrowing
 ?Rva0078B5B0ClearFlag@@YAIXZ,,0x0078B5B0,13,Code/GameEngine/Source/Common/GlobalFlagClearers_E036xx.cpp,matched,B2-native scattered clearer with rdata table slot under /G7 narrowing
-?Rva0078A9F1ClearFlag@@YAIXZ,,0x0078A9F1,13,Code/GameEngine/Source/Common/GlobalFlagClearers_E035xx.cpp,matched,B2-native scattered clearer with rdata table slot under /G7 narrowing
-?Rva0078AA08ClearFlag@@YAIXZ,,0x0078AA08,13,Code/GameEngine/Source/Common/GlobalFlagClearers_E035xx.cpp,matched,B2-native scattered clearer with rdata table slot under /G7 narrowing
-?Rva0078AB49ClearFlag@@YAIXZ,,0x0078AB49,13,Code/GameEngine/Source/Common/GlobalFlagClearers_E035xx.cpp,matched,B2-native scattered clearer with rdata table slot under /G7 narrowing
-?Rva0078ACF7ClearFlag@@YAIXZ,,0x0078ACF7,13,Code/GameEngine/Source/Common/GlobalFlagClearers_E035xx.cpp,matched,B2-native scattered clearer with rdata table slot under /G7 narrowing
 ?Rva007899F7ClearFlag@@YAIXZ,,0x007899F7,13,Code/GameEngine/Source/Common/GlobalFlagClearers_E033xx.cpp,matched,Flag clearer via al narrowing over 0x00E03384
 ?Rva00789AC7ClearFlag@@YAIXZ,,0x00789AC7,13,Code/GameEngine/Source/Common/GlobalFlagClearers_E033xx.cpp,matched,Flag clearer via al narrowing over 0x00E03390
 ?Rva00789AF0ClearFlag@@YAIXZ,,0x00789AF0,13,Code/GameEngine/Source/Common/GlobalFlagClearers_E033xx.cpp,matched,Flag clearer via al narrowing over 0x00E03398
