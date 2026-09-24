@@ -33275,3 +33275,12 @@ _DXTraceA@20,,0x0065459C,476,vendor/dxerr9-aug2005/dxerr9.lib,matched,vendored=d
 ?get@Rva0007E19ADivAvgField@@QBEHXZ,,0x0007E19A,12,Code/GameEngine/Source/Common/Disp8DivAvgDwordGetters.cpp,matched,Disp8 div-avg getter /O1 push-imm8 shape phase-proven no-branch-to-addr
 ?get@Rva0007E358DivAvgField@@QBEHXZ,,0x0007E358,12,Code/GameEngine/Source/Common/Disp8DivAvgDwordGetters.cpp,matched,Disp8 div-avg getter /O1 push-imm8 shape phase-proven no-branch-to-addr
 ?get@Rva000AD6E8DivAvgField@@QBEHXZ,,0x000AD6E8,12,Code/GameEngine/Source/Common/Disp8DivAvgDwordGetters.cpp,matched,Disp8 div-avg getter /O1 push-imm8 shape phase-proven no-branch-to-addr
+?Rva0076929DClearFlag@@YAIXZ,,0x0076929D,13,Code/GameEngine/Source/Common/GlobalFlagClearers_DFD8xx.cpp,matched,B2-native clearer in DFD8-DCDF run; rdata table slot; /G7 narrowing
+?Rva007692AAClearFlag@@YAIXZ,,0x007692AA,13,Code/GameEngine/Source/Common/GlobalFlagClearers_DFD8xx.cpp,matched,B2-native clearer in DFD8-DCDF run; rdata table slot; /G7 narrowing
+?Rva00769BDDClearFlag@@YAIXZ,,0x00769BDD,13,Code/GameEngine/Source/Common/GlobalFlagClearers_DFD8xx.cpp,matched,B2-native clearer in DFD8-DCDF run; rdata table slot; /G7 narrowing
+?Rva00769BF4ClearFlag@@YAIXZ,,0x00769BF4,13,Code/GameEngine/Source/Common/GlobalFlagClearers_DFD8xx.cpp,matched,B2-native clearer in DFD8-DCDF run; rdata table slot; /G7 narrowing
+?Rva0076B063ClearFlag@@YAIXZ,,0x0076B063,13,Code/GameEngine/Source/Common/GlobalFlagClearers_DFD8xx.cpp,matched,B2-native clearer in DFD8-DCDF run; rdata table slot; /G7 narrowing
+?Rva0076B21CClearFlag@@YAIXZ,,0x0076B21C,13,Code/GameEngine/Source/Common/GlobalFlagClearers_DFD8xx.cpp,matched,B2-native clearer in DFD8-DCDF run; rdata table slot; /G7 narrowing
+?Rva0076B229ClearFlag@@YAIXZ,,0x0076B229,13,Code/GameEngine/Source/Common/GlobalFlagClearers_DFD8xx.cpp,matched,B2-native clearer in DFD8-DCDF run; rdata table slot; /G7 narrowing
+?Rva0076B248ClearFlag@@YAIXZ,,0x0076B248,13,Code/GameEngine/Source/Common/GlobalFlagClearers_DFD8xx.cpp,matched,B2-native clearer in DFD8-DCDF run; rdata table slot; /G7 narrowing
+?Rva0076B9FFClearFlag@@YAIXZ,,0x0076B9FF,13,Code/GameEngine/Source/Common/GlobalFlagClearers_DFD8xx.cpp,matched,B2-native clearer in DFD8-DCDF run; rdata table slot; /G7 narrowing
