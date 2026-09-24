@@ -1,5 +1,5 @@
-// ?parseSubtitleLineTable@@YAXPAVINI@@PAM@Z
-// partial score=0.35 date=2026-09-24
+// ?parseSubtitleLineTable@@YAXPAVINI@@PAX1PBX@Z
+// partial score=0.98 date=2026-09-24
 // Retail 0x006883F0, 340 bytes. The BFME2 beta debug string and the
 // SubtitleManager field table identify this as the LineTable parser.
 // The field table at data VA 0x00CE4410 stores it under "LineTable" at
@@ -8,7 +8,7 @@
 // Target behavior reconstructed from the retail body. The 15-point cap,
 // [0,1] range and 0.01875 minimum step are data/branch evidence, not donor
 // assumptions.
-// cl: /O1 /Oy- /DNDEBUG /MD /EHsc
+// cl: /O2 /DNDEBUG /MD /EHsc
 
 typedef int Int;
 typedef float Real;
@@ -75,39 +75,38 @@ extern VideoPlayerInterface *TheVideoPlayer;
 class INIException
 {
 public:
-	INIException(Int argumentCount, const char *format, ...);
+	INIException(Int code, const char *format, ...);
+	INIException(const INIException &other);
+
+private:
+	Int m_code;
+	const char *m_message;
 };
 
+extern Real s_lineTableMinSpacing;
+
 // The parser is registered directly in SubtitleManager's FieldParse table.
-void parseSubtitleLineTable(INI *ini, Real *values)
+void parseSubtitleLineTable(INI *ini, void *instance, void *store, const void *userData)
 {
+	Real *values = (Real *)store;
 	void *manager = TheVideoPlayer->getVideo(ini->getFilename());
 	if (manager != 0 && values != 0)
 	{
 		*((unsigned char *)manager + 0x60) = 1;
 		Real previous = -3.402823466e+38F;
-		Int index = 0;
-		while (true)
+		for (Int index = 0; index < 15; ++index)
 		{
-			const char *token = ini->getNextToken(0);
-			Real value = ini->scanReal(token);
-			if (value < *(volatile const Real *)0x00BBAEAC ||
-				value > *(volatile const Real *)0x00BBB8D8 ||
-				value <= previous + *(volatile const Real *)0x00CE4518)
+			Real value = ini->scanReal(ini->getNextToken(0));
+			if (!(value >= 0.0f && value <= 1.0f && value > previous + s_lineTableMinSpacing))
 			{
-				AsciiString filename = ini->getFilename();
 				throw INIException(8,
 					"LineTable values must be in the range (0.0 - 1.0) must increase in value. %s line %d",
-					*(const char **)&filename, ini->getLineNum());
+					ini->getFilename(), ini->getLineNum());
 			}
-			values[index] = value;
 			previous = value;
-			++index;
-			if (index > 14)
-				return;
+			values[index] = value;
 		}
+		return;
 	}
-	AsciiString filename = ini->getFilename();
-	throw INIException(9, "Could not locate SubTitleManager for %s",
-		*(const char **)&filename);
+	throw INIException(9, "Could not locate SubTitleManager for %s", ini->getFilename());
 }
