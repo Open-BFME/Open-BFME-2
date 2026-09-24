@@ -28,6 +28,8 @@ public:
 class MultiPlayMults
 {
 public:
+	MultiPlayMults();
+
 	void setMoneyMult( Int slot, Real value )
 	{
 		Int index = slot - 1;
@@ -39,13 +41,31 @@ public:
 
 
 
-	// PC arrays: +0, +0x50, +0xA0, +0xF0, +0x140; twenty slots each.
+	// PC arrays: +0, +0x50, +0xA0, +0xF0, +0x140, +0x190; twenty slots each.
 	Real m_money[ 20 ];
 	Real m_unitXP[ 20 ];
 	Real m_buildingXP[ 20 ];
 	Real m_unitSpeed[ 20 ];
 	Real m_buildingSpeed[ 20 ];
+	// BFME 2's sixth multiplier table: the constructor initialises it with
+	// the others, but no setter or getter in this block reaches it.
+	Real m_sixthMult[ 20 ];
 };
+
+// ??0MultiPlayMults@@QAE@XZ @0x2358A2
+// Every multiplier starts at 1.0 for all twenty player slots.
+MultiPlayMults::MultiPlayMults()
+{
+	for ( Int i = 0; i < 20; ++i )
+	{
+		m_money[ i ] = 1.0f;
+		m_unitXP[ i ] = 1.0f;
+		m_buildingXP[ i ] = 1.0f;
+		m_unitSpeed[ i ] = 1.0f;
+		m_buildingSpeed[ i ] = 1.0f;
+		m_sixthMult[ i ] = 1.0f;
+	}
+}
 
 // GlobalData keyword "MultiPlayMoneyMult", PC GlobalData offset 0xEC4
 void parseMultiPlayMoneyMult( INI *ini, void *, void *store, const void * )

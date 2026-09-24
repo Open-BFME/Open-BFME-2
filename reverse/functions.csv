@@ -33541,3 +33541,4 @@ _WinMain@16,,0x00002C39,1382,Code/GameEngine/Source/Main/WinMain.cpp,matched,BFM
 ?GetRegistryUseLocalUserMaps@@YA_NXZ,,0x00235159,120,Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp,matched,cached UseLocalUserMaps DWORD (0xDBA41C); missing value means true
 ?GetRegistryMapPackVersion@@YAIXZ,,0x00235228,87,Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp,matched,Zero Hour GetRegistryMapPackVersion: default 0x10000 then MapPackVersion DWORD
 ?parseCommandPoints@@YAXPAVINI@@PAX1PBX@Z,,0x0023528E,46,Code/GameEngine/Source/Common/MultiPlayMoneyMultParse.cpp,matched,FieldParse for Good/EvilCommandPoints* GlobalData rows (0x7E99E4..): two parseInt calls
+??0MultiPlayMults@@QAE@XZ,,0x002358A2,64,Code/GameEngine/Source/Common/MultiPlayMoneyMultParse.cpp,matched,MultiPlayMults ctor: six twenty-slot multiplier tables set to 1.0 (sixth table BFME2-new)
