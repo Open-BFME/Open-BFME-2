@@ -32876,3 +32876,5 @@ _DXTraceA@20,,0x0065459C,476,vendor/dxerr9-aug2005/dxerr9.lib,matched,vendored=d
 ?Rva004647D1Get@@YAMXZ,,0x004647D1,7,Code/GameEngine/Source/Common/GlobalFloatGetters.cpp,matched,global float getter over 1.0f; 33 vtable slots; phase-proven no-branch-to-addr
 ?Rva00167F59Get@@YAMXZ,,0x00167F59,7,Code/GameEngine/Source/Common/GlobalFloatGetters.cpp,matched,global float getter over FLT_MAX; 19 vtable slots; pair
 ?Rva00167F60Get@@YAMXZ,,0x00167F60,7,Code/GameEngine/Source/Common/GlobalFloatGetters.cpp,matched,global float getter over -1.0f; 19 vtable slots; pair
+?Rva000A92A2Get@@YAMXZ,,0x000A92A2,7,Code/GameEngine/Source/Common/GlobalFloatGetters.cpp,matched,global float getter over 1024.0f; stored to global; pair
+?Rva000A92A9Get@@YAMXZ,,0x000A92A9,7,Code/GameEngine/Source/Common/GlobalFloatGetters.cpp,matched,global float getter over 768.0f; stored to global; pair

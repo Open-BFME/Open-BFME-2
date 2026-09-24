@@ -41,3 +41,23 @@ float Rva00167F60Get(void)
 {
 	return g_Va00BD2F5C;
 }
+
+extern float g_Va00BC93F0;
+
+// ?Rva000A92A2Get@@YAMXZ @ 0x000a92a2 (7B) over 0x00BC93F0 (1024.0f).
+// Follows a ret (prev C3); address stored to global 0x00E177C8,
+// adjacent to Rva000A92A9Get below, no branch sources.
+float Rva000A92A2Get(void)
+{
+	return g_Va00BC93F0;
+}
+
+extern float g_Va00BC93F4;
+
+// ?Rva000A92A9Get@@YAMXZ @ 0x000a92a9 (7B) over 0x00BC93F4 (768.0f).
+// Adjacent after Rva000A92A2Get (pair proves both boundaries); address
+// stored to global 0x00E177CC, no branch sources.
+float Rva000A92A9Get(void)
+{
+	return g_Va00BC93F4;
+}
