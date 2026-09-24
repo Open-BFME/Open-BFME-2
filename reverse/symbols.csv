@@ -4162,7 +4162,6 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ??0DynamicDecalFXNugget@@QAE@XZ,0x001E0429,no-arg ctor called by DynamicDecalFXNugget::parse (0x001E149D) for the DynamicDecal FXList keyword; class name from BFME1
 ?buildFieldParse@DynamicDecalFXNugget@@SAXAAVMultiIniFieldParse@@@Z,0x001DFB43,cdecl field-parse builder called by DynamicDecalFXNugget::parse (0x001E149D); name is BFME's ModuleData convention
 ?buildFieldParse@LaserFXNugget@@SAXAAVMultiIniFieldParse@@@Z,0x001DFB85,cdecl field-parse builder called by LaserFXNugget::parse (0x001E1519); name is BFME's ModuleData convention
-??0TintDrawableFXNugget@@QAE@XZ,0x001E0986,no-arg ctor called by TintDrawableFXNugget::parse (0x001E1798) for the TintDrawable FXList keyword; class name from BFME1
 ?buildFieldParse@TintDrawableFXNugget@@SAXAAVMultiIniFieldParse@@@Z,0x001DFCD3,cdecl field-parse builder called by TintDrawableFXNugget::parse (0x001E1798); name is BFME's ModuleData convention
 ??0BuffNuggetFXNugget@@QAE@XZ,0x001E2FCE,no-arg ctor called by BuffNuggetFXNugget::parse (0x001E323B) for the BuffNugget FXList keyword; class name from BFME1
 ?buildFieldParse@BuffNuggetFXNugget@@SAXAAVMultiIniFieldParse@@@Z,0x001DFB64,cdecl field-parse builder called by BuffNuggetFXNugget::parse (0x001E323B); name is BFME's ModuleData convention
