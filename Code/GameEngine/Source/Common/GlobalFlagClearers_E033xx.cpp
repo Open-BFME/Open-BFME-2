@@ -12,6 +12,7 @@
 extern unsigned int g_Va00E03304;
 extern unsigned int g_Va00E03334;
 extern unsigned int g_Va00E03350;
+extern unsigned int g_Va00E0337C;
 
 unsigned int Rva00788149ClearFlag(void)
 {
@@ -46,4 +47,9 @@ unsigned int Rva00788A22ClearFlag(void)
 unsigned int Rva00788A37ClearFlag(void)
 {
 	return g_Va00E03350 &= 0xFFFFFFFDu;
+}
+
+unsigned int Rva00789673ClearFlag(void)
+{
+	return g_Va00E0337C &= 0xFFFFFFFEu;
 }
