@@ -6,7 +6,7 @@ queue: you cannot pick up "0x00273DCE, 33,685 bytes" the way you can pick up a
 source file. But retail kept the assert and DEBUG_LOG file-name strings, and
 they are absolute paths out of the original build tree --
 
-    F:\\bfme\\Code\\gameengine\\Source\\GameLogic\\Object\\Update\\AIUpdate.cpp
+    C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\...\\AIWallBuilder.cpp
 
 -- so a gap whose code pushes one of those addresses is that file's code, named
 by the binary itself rather than by inference. That turns the gap list into a
@@ -18,12 +18,12 @@ It is sparse: a release build keeps only the asserts that survived, so most
 gaps reference no path at all and stay anonymous. Silence is not evidence that
 a region is uninteresting.
 
-And the biggest gaps are anonymous for a reason. Everything between roughly
-0x9A0000 and 0xB00000 is statically linked Microsoft middleware, not game code:
-0xAC8183 (216KB) is the DirectX error-string tables (`E_ABORT`, the `CO_E_*`
-and `DIERR_*` families), and 0xA40673 (93KB) is the D3DX shader assembler
-(`POSITION`, `BLENDWEIGHT`, `TESSFACTOR`, "internal error: unknown node").
-Those are the top of every gap ranking and none of them is worth a cycle.
+An anonymous gap is not necessarily library code. game.dat links msvcr71,
+d3dx9_27, mss32 and gdiplus as DLLs, so statically linked middleware is small
+and mostly claimed already (dxerr9's string tables at 0x62AFE0 are). The
+largest anonymous gaps are game code whose asserts did not survive, the Apt
+runtime around 0x6C8000..0x710000, and the compiler-generated static
+initializer and atexit thunks from 0x7AB7DA to the end of .text.
 
 Usage:
   python3 tools/gap_owner.py                 # gaps over 8000 real bytes
@@ -101,18 +101,19 @@ def main():
 
     reports = []
     for lo, hi in unclaimed_gaps(text_lo, text_hi):
-        blob = data[lo:hi]
+        # Gaps are RVAs; .text's file offset is not its RVA.
+        blob = build.read_pe_bytes(data, sections, lo, hi - lo)
         real = len(blob) - blob.count(PADDING)
         if real < args.min:
             continue
         owners = {}
-        cursor = lo
-        while cursor < hi - 5:
-            opcode = data[cursor]
+        cursor = 0
+        while cursor < len(blob) - 5:
+            opcode = blob[cursor]
             # push imm32, and mov r32,imm32 -- the two ways a string address
             # reaches an assert call
             if opcode == 0x68 or 0xB8 <= opcode <= 0xBF:
-                value = struct.unpack_from("<I", data, cursor + 1)[0]
+                value = struct.unpack_from("<I", blob, cursor + 1)[0]
                 if IMAGE_BASE < value < IMAGE_BASE + 0x2000000:
                     path = string_at(value - IMAGE_BASE)
                     if path:
