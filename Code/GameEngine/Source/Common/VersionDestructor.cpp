@@ -124,6 +124,7 @@ public:
     AsciiString getAsciiBuildTime();
     AsciiString getAsciiVersion();
     AsciiString getAsciiBuildLocation();
+    AsciiString *getBuildGuid(void);
     ~Version();
     // Reconstruction name; the original method spelling is unknown.
     // Retail body reads the seven named build metadata keys.
@@ -161,6 +162,8 @@ AsciiString Version::getAsciiVersion()
 }
 
 AsciiString Version::getAsciiBuildLocation() { return m_buildLocation; }
+
+AsciiString *Version::getBuildGuid(void) { return &m_buildGuid; }
 
 void Version::initializeBuildMetadata()
 {
