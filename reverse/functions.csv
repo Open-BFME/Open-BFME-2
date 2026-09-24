@@ -33661,3 +33661,4 @@ _WinMain@16,,0x00002C39,1382,Code/GameEngine/Source/Main/WinMain.cpp,matched,BFM
 ?get@Rva0042D6BAPtrChaseField@@QBEHXZ,,0x0042D6BA,6,Code/GameEngine/Source/Common/Disp0PtrChaseDwordGetters.cpp,matched,Disp0-first ptr-chase getter via 0x1C in 8-member 0x42D6xx cluster live callers
 ?get@Rva0042D6C0PtrChaseField@@QBEHXZ,,0x0042D6C0,6,Code/GameEngine/Source/Common/Disp0PtrChaseDwordGetters.cpp,matched,Disp0-first ptr-chase getter via 0x38 in 8-member 0x42D6xx cluster live callers
 ?get@Rva0042D6E6PtrChaseField@@QBEHXZ,,0x0042D6E6,6,Code/GameEngine/Source/Common/Disp0PtrChaseDwordGetters.cpp,matched,Disp0-first ptr-chase getter via 0x20 in 8-member 0x42D6xx cluster live callers
+?get@Rva0042D6FDPtrChaseField@@QBEHXZ,,0x0042D6FD,6,Code/GameEngine/Source/Common/Disp0PtrChaseDwordGetters.cpp,matched,Disp0-first ptr-chase getter via 0x34 in 8-member 0x42D6xx cluster live callers
