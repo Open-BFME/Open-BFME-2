@@ -34337,3 +34337,5 @@ _WinMain@16,,0x00002C39,1382,Code/GameEngine/Source/Main/WinMain.cpp,matched,BFM
 ?init@Rva000910D8VTableInstall@@QAEPAV1@XZ,,0x000910D8,9,Code/GameEngine/Source/Common/VTableInstalls.cpp,matched,Bare vtable install; return-this homes eax; live caller
 ?init@Rva0037F4C0VTableInstall@@QAEPAV1@XZ,,0x0037F4C0,9,Code/GameEngine/Source/Common/VTableInstalls.cpp,matched,Bare vtable install; return-this homes eax; live callers
 ?init@Rva005114BDVTableInstall@@QAEPAV1@XZ,,0x005114BD,9,Code/GameEngine/Source/Common/VTableInstalls.cpp,matched,Bare vtable install; return-this homes eax; live caller
+?set@Rva0030C8EFIntFloatField@@QAEXH@Z,,0x0030C8EF,17,Code/GameEngine/Source/Common/Disp32IntToFloatFieldSetters.cpp,matched,Disp32 int-to-float setter; interleaved getter sibling at 0x30C900
+?get@Rva002620ADIntGetter@@QBEHXZ,,0x002620AD,9,Code/GameEngine/Source/Common/Disp32CvtFloatIntGetters.cpp,matched,Disp32 float-to-int getter; ret-delimited accessor run; sibling of 0x30C8CC family
