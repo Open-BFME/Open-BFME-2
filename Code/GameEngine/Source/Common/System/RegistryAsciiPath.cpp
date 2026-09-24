@@ -372,3 +372,13 @@ bool GetRegistryUseLocalUserMaps()
 	}
 	return s_useLocalUserMaps != 0;
 }
+
+// ?GetRegistryMapPackVersion@@YAIXZ @0x235228
+// Zero Hour's map-pack version reader: 1.0 (0x10000) unless the registry
+// says otherwise.
+unsigned int GetRegistryMapPackVersion()
+{
+	unsigned int val = 0x10000;
+	GetUnsignedIntFromRegistry("", "MapPackVersion", val);
+	return val;
+}
