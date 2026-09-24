@@ -10,6 +10,19 @@
 // is why the two families are kept in separate translation units. Identity
 // is not recovered: every name is derived from its address.
 // No // cl: line (defaults match the frameless seven-byte shape).
+// Backward variant: the field sits at a NEGATIVE displacement from `this`.
+// Spelled as an explicit backward read, which MSVC folds to
+// `mov eax,[ecx-BACK]`; same reading as the chase-family backward cast.
+#define BFME_DISP8_ADD_BEFORE_DWORD_GETTER(NAME, BACK, IMM) \
+	class NAME \
+	{ \
+	public: \
+		int get() const; \
+	}; \
+	int NAME::get() const \
+	{ \
+		return *(const int *)((const char *)this - (BACK)) + (IMM); \
+	}
 #define BFME_DISP8_ADD_DWORD_GETTER(NAME, DISP, IMM) \
 	class NAME \
 	{ \
@@ -39,3 +52,4 @@ BFME_DISP8_ADD_DWORD_GETTER(Rva005F17AAAddDwordField, 0x04, 0x24)
 BFME_DISP8_ADD_DWORD_GETTER(Rva005FC75BAddDwordField, 0x18, 0x0C)
 BFME_DISP8_ADD_DWORD_GETTER(Rva00709BD0AddDwordField, 0x30, 0x18)
 BFME_DISP8_ADD_DWORD_GETTER(Rva00709D10AddDwordField, 0x30, 0x1C)
+BFME_DISP8_ADD_BEFORE_DWORD_GETTER(Rva004A3904AddDwordField, 0x1C, 0x08)
