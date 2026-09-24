@@ -21,3 +21,23 @@ float Rva004647D1Get(void)
 {
 	return g_Va00BBB8D8;
 }
+
+extern float g_Va00BD2F58;
+
+// ?Rva00167F59Get@@YAMXZ @ 0x00167f59 (7B) over 0x00BD2F58 (FLT_MAX).
+// Follows a ret (prev C3); carried by 19 .rdata vtable slots, adjacent to
+// Rva00167F60Get below, no branch sources. Opaque address-derived name.
+float Rva00167F59Get(void)
+{
+	return g_Va00BD2F58;
+}
+
+extern float g_Va00BD2F5C;
+
+// ?Rva00167F60Get@@YAMXZ @ 0x00167f60 (7B) over 0x00BD2F5C (-1.0f).
+// Adjacent after Rva00167F59Get (pair proves both boundaries); carried by
+// 19 .rdata vtable slots, no branch sources. Opaque address-derived name.
+float Rva00167F60Get(void)
+{
+	return g_Va00BD2F5C;
+}

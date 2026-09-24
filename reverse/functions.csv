@@ -32874,3 +32874,5 @@ _DXTraceA@20,,0x0065459C,476,vendor/dxerr9-aug2005/dxerr9.lib,matched,vendored=d
 ?get@Rva003889CAMovzxByteField@@QBEIXZ,,0x003889CA,8,Code/GameEngine/Source/Common/Disp32MovzxByteGetters.cpp,matched,disp32 movzx byte getter; phase-proven no-branch-to-addr
 ?get@Rva00507921MovzxByteField@@QBEIXZ,,0x00507921,8,Code/GameEngine/Source/Common/Disp32MovzxByteGetters.cpp,matched,disp32 movzx byte getter; phase-proven no-branch-to-addr
 ?Rva004647D1Get@@YAMXZ,,0x004647D1,7,Code/GameEngine/Source/Common/GlobalFloatGetters.cpp,matched,global float getter over 1.0f; 33 vtable slots; phase-proven no-branch-to-addr
+?Rva00167F59Get@@YAMXZ,,0x00167F59,7,Code/GameEngine/Source/Common/GlobalFloatGetters.cpp,matched,global float getter over FLT_MAX; 19 vtable slots; pair
+?Rva00167F60Get@@YAMXZ,,0x00167F60,7,Code/GameEngine/Source/Common/GlobalFloatGetters.cpp,matched,global float getter over -1.0f; 19 vtable slots; pair
