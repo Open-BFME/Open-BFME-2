@@ -1,5 +1,5 @@
-// Eleven B2-native flag-word clearers on nine scattered .data flag words
-// (0x00774B58-0x00777532):
+// Twelve B2-native flag-word clearers on ten scattered .data flag words
+// (0x00774B31-0x00777532):
 //
 //     mov eax,[<address>] / and al,<mask8> / mov [<address>],eax / ret
 //
@@ -9,6 +9,7 @@
 // following GlobalFlagClearers_08.cpp.
 // cl: /G7 /MD /EHsc /DNDEBUG
 
+extern unsigned int g_Va00DFEEA8;
 extern unsigned int g_Va00DFEEB0;
 extern unsigned int g_Va00DFEEC4;
 extern unsigned int g_Va00DFEEDC;
@@ -18,6 +19,11 @@ extern unsigned int g_Va00DFF038;
 extern unsigned int g_Va00DFF04C;
 extern unsigned int g_Va00DFF058;
 extern unsigned int g_Va00DFF064;
+
+unsigned int Rva00774B31ClearFlag(void)
+{
+	return g_Va00DFEEA8 &= 0xFFFFFFFEu;
+}
 
 unsigned int Rva00774B58ClearFlag(void)
 {
