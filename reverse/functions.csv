@@ -33197,3 +33197,4 @@ _DXTraceA@20,,0x0065459C,476,vendor/dxerr9-aug2005/dxerr9.lib,matched,vendored=d
 ?Rva007AB490ClearFlag@@YAIXZ,,0x007AB490,13,Code/GameEngine/Source/Common/GlobalFlagClearers_E1F4E0.cpp,matched,B2-native al-form flag clearer on g_Va00E1F4E0; rdata table slot; /G7 narrowing
 ?get@Rva00051A6BDivMovField@@QBEHXZ,,0x00051A6B,14,Code/GameEngine/Source/Common/Disp8DivMovDwordGetters.cpp,matched,Disp8 div-mov getter frameless mov-sub-mov-cdq-idiv shape phase-proven no-branch-to-addr
 ?get@Rva00087A36DivMovField@@QBEHXZ,,0x00087A36,14,Code/GameEngine/Source/Common/Disp8DivMovDwordGetters.cpp,matched,Disp8 div-mov getter /O1 mov-imm32 shape phase-proven no-branch-to-addr
+?get@Rva000B3F67DivMovField@@QBEHXZ,,0x000B3F67,14,Code/GameEngine/Source/Common/Disp8DivMovDwordGetters.cpp,matched,Disp8 div-mov getter /O1 mov-imm32 shape phase-proven no-branch-to-addr
