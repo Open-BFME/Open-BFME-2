@@ -57,6 +57,8 @@ protected:
 	Header *m_data;
 };
 
+class UnicodeString;
+
 class AsciiString : public StringBase<char>
 {
 public:
@@ -67,6 +69,30 @@ public:
 
 	int getLength() const { return m_data ? m_data->length : 0; }
 	const char *str() const { return m_data ? m_data->data : ""; }
+	void translate(const UnicodeString &src);
+};
+
+// The wide string, as far as the registry readers reach it: its storage
+// releases inline, and it converts from an AsciiString out of line.
+template <>
+class StringBase<unsigned short>
+{
+	friend class UnicodeString;
+	void releaseBuffer();
+
+public:
+	StringBase() : m_data(0) {}
+	~StringBase() { releaseBuffer(); }
+
+private:
+	void *m_data;
+};
+
+class UnicodeString : public StringBase<unsigned short>
+{
+public:
+	UnicodeString() {}
+	UnicodeString(const AsciiString &src);
 };
 
 // The (pointer, length) text reference shared with the wide builders.
@@ -232,4 +258,85 @@ AsciiString buildGameRegistryPath(const char *subPath)
 	else
 		path = makeAsciiString(GetRegistryGameRegPath()) + subPath;
 	return path;
+}
+
+struct HKEY__;
+typedef HKEY__ *HKEY;
+typedef unsigned long DWORD;
+typedef long LONG;
+#define ERROR_SUCCESS 0L
+#define KEY_READ 0x20019L
+#define HKEY_CURRENT_USER ((HKEY)0x80000001)
+#define HKEY_LOCAL_MACHINE ((HKEY)0x80000002)
+
+extern "C" __declspec(dllimport) LONG __stdcall RegOpenKeyExA(
+		HKEY hKey, const char *lpSubKey, DWORD ulOptions, DWORD samDesired, HKEY *phkResult);
+extern "C" __declspec(dllimport) LONG __stdcall RegQueryValueExA(
+		HKEY hKey, const char *lpValueName, DWORD *lpReserved, DWORD *lpType,
+		unsigned char *lpData, DWORD *lpcbData);
+extern "C" __declspec(dllimport) LONG __stdcall RegCloseKey(HKEY hKey);
+
+bool getStringFromRegistry(HKEY root, UnicodeString path, UnicodeString key, UnicodeString &val);
+
+// ?getStringFromRegistry@@YA_NPAUHKEY__@@VAsciiString@@1AAV2@@Z @0x2344D5
+// BFME 2 reads registry strings wide; the narrow reader converts the path
+// and key, and translates the value back.
+bool getStringFromRegistry(HKEY root, AsciiString path, AsciiString key, AsciiString &val)
+{
+	UnicodeString wideValue;
+	bool result;
+	if (getStringFromRegistry(root, path, key, wideValue))
+	{
+		val.translate(wideValue);
+		result = true;
+	}
+	else
+	{
+		result = false;
+	}
+	return result;
+}
+
+// ?getUnsignedIntFromRegistry@@YA_NPAUHKEY__@@VAsciiString@@1AAI@Z @0x234570
+bool getUnsignedIntFromRegistry(HKEY root, AsciiString path, AsciiString key, unsigned int &val)
+{
+	HKEY handle;
+	unsigned char buffer[4];
+	DWORD size = sizeof(buffer);
+	DWORD type;
+	LONG returnValue;
+
+	if ((returnValue = RegOpenKeyExA(root, path.str(), 0, KEY_READ, &handle)) == ERROR_SUCCESS)
+	{
+		returnValue = RegQueryValueExA(handle, key.str(), 0, &type, buffer, &size);
+		RegCloseKey(handle);
+	}
+
+	if (returnValue == ERROR_SUCCESS)
+	{
+		val = *(unsigned int *)buffer;
+		return true;
+	}
+
+	return false;
+}
+
+// ?GetStringFromRegistry@@YA_NVAsciiString@@0AAV1@@Z @0x234E0B
+// Reads a string value from the game's registry tree, machine-wide first and
+// per-user second.
+bool GetStringFromRegistry(AsciiString path, AsciiString key, AsciiString &val)
+{
+	AsciiString fullPath = buildGameRegistryPath(path.str());
+	if (getStringFromRegistry(HKEY_LOCAL_MACHINE, fullPath.str(), key.str(), val))
+		return true;
+	return getStringFromRegistry(HKEY_CURRENT_USER, fullPath.str(), key.str(), val);
+}
+
+// ?GetUnsignedIntFromRegistry@@YA_NVAsciiString@@0AAI@Z @0x234F1A
+bool GetUnsignedIntFromRegistry(AsciiString path, AsciiString key, unsigned int &val)
+{
+	AsciiString fullPath = buildGameRegistryPath(path.str());
+	if (getUnsignedIntFromRegistry(HKEY_LOCAL_MACHINE, fullPath.str(), key.str(), val))
+		return true;
+	return getUnsignedIntFromRegistry(HKEY_CURRENT_USER, fullPath.str(), key.str(), val);
 }

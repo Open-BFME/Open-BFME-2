@@ -33531,3 +33531,7 @@ _WinMain@16,,0x00002C39,1382,Code/GameEngine/Source/Main/WinMain.cpp,matched,BFM
 ??H@YA?AUAsciiStringCharPlusText@@ABUAsciiStringRefWithChar@@PBD@Z,,0x00109CFD,61,Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp,matched,narrow concat: (AsciiString + char) + C string node
 ?makeAsciiString@@YA?AVAsciiString@@PBD@Z,,0x002343DF,24,Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp,matched,AsciiString by value from a C string
 ?buildGameRegistryPath@@YA?AVAsciiString@@PBD@Z,,0x00234D08,259,Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp,matched,narrow twin of the wide registry path builder: GameRegPath + optional backslash + subPath
+?getStringFromRegistry@@YA_NPAUHKEY__@@VAsciiString@@1AAV2@@Z,,0x002344D5,155,Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp,matched,narrow registry string read via the wide reader (implicit UnicodeString args; translate back)
+?getUnsignedIntFromRegistry@@YA_NPAUHKEY__@@VAsciiString@@1AAI@Z,,0x00234570,177,Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp,matched,Zero Hour getUnsignedIntFromRegistry: RegOpenKeyExA/RegQueryValueExA DWORD read
+?GetStringFromRegistry@@YA_NVAsciiString@@0AAV1@@Z,,0x00234E0B,271,Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp,matched,narrow GetStringFromRegistry: HKLM then HKCU under buildGameRegistryPath
+?GetUnsignedIntFromRegistry@@YA_NVAsciiString@@0AAI@Z,,0x00234F1A,271,Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp,matched,GetUnsignedIntFromRegistry: HKLM then HKCU under buildGameRegistryPath
