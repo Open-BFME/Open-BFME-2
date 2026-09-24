@@ -34522,3 +34522,4 @@ _Rva001CA000Vp6WideAccum,,0x001CA000,4240,Code/GameEngine/Source/Common/Rva001CA
 ?emptyTeams@SidesList@@QAEXXZ,,0x0032D05C,26,Code/GameEngine/Source/GameLogic/Map/SidesList_sidesInfo.cpp,matched,target clears TeamsInfoRec at +0xF44 and +0xF60
 ?addSide@SidesList@@QAEHPBVDict@@@Z,,0x0032D076,63,Code/GameEngine/Source/GameLogic/Map/SidesList_sidesInfo.cpp,matched,ZH addSide behavior; target returns index or -1 and posts indexed notification via +0x10; /G7
 ?clear@SidesList@@QAEXXZ,,0x0032DDDE,38,Code/GameEngine/Source/GameLogic/Map/SidesList_sidesInfo.cpp,matched,target clears sides and teams sets +0xF7C then posts clear notification
+?get@Rva002620DBIntPairField@@QAEXAAUDisp32IntPair@@@Z,,0x002620DB,24,Code/GameEngine/Source/Common/Disp32IntPairFieldGetters.cpp,matched,Disp32 int-pair out-copy; ret-delimited accessor run sibling of 0x2620C7/0x2620D4/0x2620F3 cluster; trial-exact first try
