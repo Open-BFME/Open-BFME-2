@@ -33459,3 +33459,4 @@ _DXTraceA@20,,0x0065459C,476,vendor/dxerr9-aug2005/dxerr9.lib,matched,vendored=d
 ?get@Rva00782E7CmpBoolField@@QBE_NXZ,,0x000782E7,9,Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp,matched,Disp8 cmp-zero bool getter; cmp [ecx+0x04] eax setne; /O1
 ?get@Rva000A7801CmpBoolField@@QBE_NXZ,,0x000A7801,9,Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp,matched,Disp8 cmp-zero bool getter; cmp [ecx+0x10] eax sete; /O1
 ?get@Rva000B4536CmpBoolField@@QBE_NXZ,,0x000B4536,12,Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp,matched,Disp32 cmp-zero bool getter; cmp [ecx+0x274] eax setne; /O1
+?get@Rva000E4401CmpBoolField@@QBE_NXZ,,0x000E4401,12,Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp,matched,Disp32 cmp-zero bool getter; cmp [ecx+0x98] eax setne; /O1
