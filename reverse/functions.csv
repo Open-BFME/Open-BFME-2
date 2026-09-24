@@ -34567,3 +34567,4 @@ _Rva001CA000Vp6WideAccum,,0x001CA000,4240,Code/GameEngine/Source/Common/Rva001CA
 ?set@Rva002C67C2DwordSlot@@QAEXH@Z,,0x002C67C2,13,Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp,matched,Disp32 dword setter; ret-delimited accessor run; opaque holder
 ?set@Rva004608BDDwordSlot@@QAEXH@Z,,0x004608BD,13,Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp,matched,Disp32 dword setter; ret-delimited accessor run; opaque holder
 ?set@Rva0046F7D7DwordSlot@@QAEXH@Z,,0x0046F7D7,13,Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp,matched,Disp32 dword setter; pairs with getter at 0x46F7E4; opaque holder
+??_Etype_info@@UAEPAXI@Z,,0x00629048,75,vendor/msvc71crt/msvcrt.lib,matched,vendored=msvc71-crt;member=build\intel\dll_obj\ti_inst.obj
