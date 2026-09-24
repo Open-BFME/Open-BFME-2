@@ -1040,3 +1040,45 @@ void __fastcall shutdownGameEngine(GameEngine *engine)
 	view->_M_slot_68();
 	delete view->acquirePostGameItem(0);
 }
+
+//----------------------------------------------------------------------------
+// GameMain at 0x00237D19 (36B). Zero Hour's GameMain in miniature: create the
+// engine, init it with the command line, then tail-run it. BFME 2 moved the
+// engine delete out to WinMain, so the run is a bare tail call and WinMain
+// pops GameMain's own argument pushes itself. The init virtual is __stdcall
+// (callee cleanup, which is why no add esp follows it); execute is a plain
+// thiscall tail jump. Only the slots this body reaches are modelled.
+//----------------------------------------------------------------------------
+
+class GameEngineInitView
+{
+public:
+	virtual void _M_slot_00();
+	virtual void _M_slot_04();
+	virtual void _M_slot_08();
+	virtual void _M_slot_0c();
+	virtual void _M_slot_10();
+	virtual void _M_slot_14();
+	virtual void _M_slot_18();
+	virtual void _M_slot_1c();
+	virtual void _M_slot_20();
+	virtual void _M_slot_24();
+	virtual void _M_slot_28();
+	virtual void _M_slot_2c();
+	virtual void _M_slot_30();
+	virtual void _M_slot_34();
+	virtual void init(int argc, char *argv[]);
+	virtual void execute();
+};
+
+GameEngine *CreateGameEngine();
+extern GameEngine *TheGameEngine;
+
+// ?GameMain@@YAXHPAPAD@Z @0x237d19
+void GameMain(int argc, char **argv)
+{
+	GameEngine *engine = CreateGameEngine();
+	TheGameEngine = engine;
+	((GameEngineInitView *)engine)->init(argc, argv);
+	return ((GameEngineInitView *)TheGameEngine)->execute();
+}
