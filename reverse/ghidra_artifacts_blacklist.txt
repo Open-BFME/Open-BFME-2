@@ -1,0 +1,14 @@
+# Ghidra boundary artifacts among the <= 16 byte functions: RVAs whose
+# retail bytes do not read as a complete function, so no source could ever
+# reproduce them. tools/gen_small.py never claims one.
+#
+# Regenerate (deterministic, from the retail image): python3 tools/gen_small.py classify
+# Format: 0x<rva> <reason>
+0x0002CD71 mid-instruction-target: jmp rel32 to 0x0002CCC3, which is not a function start (FUN_0042cd71)
+0x001174B0 mid-instruction-target: jmp rel32 to 0x00122A60, which is not a function start (Set_Swap_Interval)
+0x0031ABCF mid-instruction-target: jmp rel32 to 0x0053B1CF, which is not a function start (thunk_FUN_0093b1cf)
+0x0042E00F mid-instruction-target: jmp rel32 to 0x0042DFF5, which is not a function start (FUN_0082e00f)
+0x004C0A76 no-terminator: body ends mid-instruction (568b742408578bf98bce) (FUN_008c0a76)
+0x00502CF9 mid-instruction-target: jmp rel32 to 0x005029CA, which is not a function start (FUN_00902cf9)
+0x0059BE1A mid-instruction-target: jmp rel32 to 0x0059BDE2, which is not a function start (FUN_0099be1a)
+0x006C6090 mid-instruction-target: jmp rel32 to 0x006C6000, which is not a function start (FUN_00ac6090)
