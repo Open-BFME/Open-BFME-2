@@ -1,4 +1,4 @@
-// Twenty-six B2-native flag-word clearers on 25 .data flag words
+// Twenty-seven B2-native flag-word clearers on 25 .data flag words
 // (0x00DE6128-0x00DFF158):
 //
 //     mov eax,[<address>] / and a<l,h>,<mask8> / mov [<address>],eax / ret
@@ -163,5 +163,10 @@ unsigned int Rva0077909CClearFlag(void)
 unsigned int Rva00779416ClearFlag(void)
 {
 	return g_Va00DFF158 &= 0xFFFFFFFEu;
+}
+
+unsigned int Rva0076B1DFClearFlag(void)
+{
+	return g_Va00DFDCF4 &= 0xFFFFFFFEu;
 }
 

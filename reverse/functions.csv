@@ -34283,3 +34283,4 @@ _WinMain@16,,0x00002C39,1382,Code/GameEngine/Source/Main/WinMain.cpp,matched,BFM
 ?Rva0078FE76ClearFlag@@YAIXZ,,0x0078FE76,13,Code/GameEngine/Source/Common/GlobalFlagClearers_E041xx.cpp,matched,B2-native scattered clearer with rdata table slot under /G7 narrowing
 ?Rva0078FF3DClearFlag@@YAIXZ,,0x0078FF3D,13,Code/GameEngine/Source/Common/GlobalFlagClearers_E041xx.cpp,matched,B2-native scattered clearer with rdata table slot under /G7 narrowing
 ?Rva0078FFBFClearFlag@@YAIXZ,,0x0078FFBF,13,Code/GameEngine/Source/Common/GlobalFlagClearers_E041xx.cpp,matched,B2-native scattered clearer with rdata table slot under /G7 narrowing
+?Rva0076B1DFClearFlag@@YAIXZ,,0x0076B1DF,13,Code/GameEngine/Source/Common/GlobalFlagClearers_DFxx.cpp,matched,B2-native scattered clearer with rdata table slot under /G7 narrowing
