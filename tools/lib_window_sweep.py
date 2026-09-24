@@ -14,11 +14,10 @@ A masked body is not a unique fingerprint. A 40-byte prologue-heavy span can
 sit at several addresses, and picking one because "it matched" is how a wave
 lands 17 wrong addresses. So a placement is only claimed when all three hold:
 
-  in-window        the address lies in the sub-range of [0x9F6C00, 0xB00000)
-                   that this library already owns in the ledger. The four
-                   libraries occupy four contiguous, non-overlapping runs (see
-                   WINDOWS below); a d3dx9 body found inside dxerr9's run is a
-                   coincidence, not a placement.
+  in-window        the address lies in a run of [0x628F9E, 0x75B4CC) that this
+                   library already owns in the ledger. The three libraries
+                   occupy non-overlapping runs (see WINDOWS below); a CRT body
+                   found inside dxerr9's run is a coincidence, not a placement.
   count-agreement  retail holds no MORE copies of a body than the archive
                    supplies. A class with 3 archive instances and 4 in-window
                    hits is over-subscribed: at least one hit is a collision, we
@@ -107,10 +106,9 @@ import locate
 ROOT = B.ROOT
 MEMBER_CACHE = ROOT / "build" / "lib_window_sweep" / "members"
 
-VC_LIB = (ROOT / "build/toolchains/vs2003/Program Files"
-          / "Microsoft Visual Studio .NET 2003/Vc7/lib")
-PSDK_LIB = (ROOT / "build/toolchains/vs2003/Program Files"
-            / "Microsoft Visual Studio .NET 2003/Vc7/PlatformSDK/Lib")
+# The toolchain ships in the Open-BFME-1 submodule; build.py resolves it.
+VC_LIB = B.DEFAULT_VC71_ROOT / "Vc7/lib"
+PSDK_LIB = B.DEFAULT_VC71_ROOT / "Vc7/PlatformSDK/Lib"
 
 # The exe links /MD, so the static CRTs cannot be what retail holds; they are
 # swept anyway because a handful of statics (RunTmChk, msvcrt's own stubs) do
@@ -119,41 +117,40 @@ PSDK_LIB = (ROOT / "build/toolchains/vs2003/Program Files"
 DEBUG_VARIANTS = {"libcd", "libcmtd", "libcpd", "libcpmtd", "msvcrtd", "msvcprtd",
                   "comsuppd", "comsuppwd", "oledbd"}
 
-# Library territory, and the run each archive owns inside it. Each bound is the
-# hull of that archive's ALREADY-ATTACHED rows, rounded out to the next
-# library's first attached row.
+# Library territory in game.dat, and the runs each archive owns inside it. Each
+# run is the hull of that archive's ALREADY-ATTACHED rows, rounded out to the
+# neighbouring ledger rows (import thunks, or engine code for the second CRT
+# run). msvcrt.lib's objects land in two clusters: SEH/arithmetic/startup
+# ahead of dxerr9, and the /RTC and PDB-lookup support at 0x75A5A2.
 #
-# d3dx9's run starts BELOW its lowest attached row (0xA0009A) and below the
-# 0xA00000 vendor/d3dx9/PROVENANCE.txt states: [0x9F8AC0, 0xA00000) holds
-# d3dxmath.obj laid out in object order — ?WithinEpsilon, ?sincosf,
-# c_D3DXFloat32To16Array, then thirty init_/c_ pairs in source sequence. Only
-# one d3dxmath body had ever been attached, so the region read as unowned. The
-# ledger cannot bound this window; the object-order run is what does.
-WIN_LO, WIN_HI = 0x9F6C00, 0xB00000
+# No d3dx9 run: game.dat links d3dx9_27.dll, and lib_probe.py places none of
+# vendor/d3dx9 (Summer 2003, BFME 1's archive) here.
 WINDOWS = {
-    "crt": (0x9F6C00, 0x9F8AC0),
-    "d3dx9": (0x9F8AC0, 0xAD5401),
-    "dxerr9": (0xAD5401, 0xAFD550),
-    "comsupp": (0xAFD550, 0xB00000),
+    "crt": ((0x628F9E, 0x62AFE0), (0x75A4B9, 0x75B4CC)),
+    "dxerr9": ((0x62AFE0, 0x6547B0),),
+    "comsupp": ((0x6547B0, 0x65560A),),
 }
+WIN_LO = min(lo for runs in WINDOWS.values() for lo, _ in runs)
+WIN_HI = max(hi for runs in WINDOWS.values() for _, hi in runs)
 
 # tag -> (ledger source path, window key). A tag with no entry is CRT-window
 # and has no ledger home yet; it is swept for accounting and refused for
 # emission rather than silently attached to the wrong archive.
 LEDGER_SOURCE = {
-    "d3dx9": ("vendor/d3dx9/d3dx9.lib", "d3dx9"),
-    "dxerr9": ("vendor/dxerr9/dxerr9.lib", "dxerr9"),
+    "dxerr9": ("vendor/dxerr9-aug2005/dxerr9.lib", "dxerr9"),
     "vcomsupp": ("vendor/comsupp/comsupp.lib", "comsupp"),
     "comsupp": ("vendor/comsupp/comsupp.lib", "comsupp"),
     "comsuppw": ("vendor/comsupp/comsupp.lib", "comsupp"),
+    # byte-identical to the toolchain's copy (vendor/msvc71crt/PROVENANCE.txt)
+    "msvcrt": ("vendor/msvc71crt/msvcrt.lib", "crt"),
 }
 for _stem in ("libc", "libcmt", "libcp", "libcpmt", "msvcrt", "msvcprt",
               "oldnames", "RunTmChk"):
     LEDGER_SOURCE.setdefault(
-        _stem, (str((VC_LIB / f"{_stem}.lib").relative_to(ROOT)), "crt"))
+        _stem, ((VC_LIB / f"{_stem}.lib").relative_to(ROOT).as_posix(), "crt"))
 for _stem in ("strsafe", "bufferoverflow"):
     LEDGER_SOURCE.setdefault(
-        _stem, (str((PSDK_LIB / f"{_stem}.lib").relative_to(ROOT)), "crt"))
+        _stem, ((PSDK_LIB / f"{_stem}.lib").relative_to(ROOT).as_posix(), "crt"))
 
 # A span shorter than this carries too little shape to place by needle at all,
 # and build.py refuses a masked comparison with fewer than MIN_LIB_CONCRETE
@@ -183,8 +180,7 @@ def archive_paths():
         libs[path.stem] = path
     for path in sorted(VC_LIB.glob("*.obj")):
         libs["obj:" + path.stem] = path
-    for tag, path in [("d3dx9", ROOT / "vendor/d3dx9/d3dx9.lib"),
-                      ("dxerr9", ROOT / "vendor/dxerr9/dxerr9.lib"),
+    for tag, path in [("dxerr9", ROOT / "vendor/dxerr9-aug2005/dxerr9.lib"),
                       ("vcomsupp", ROOT / "vendor/comsupp/comsupp.lib"),
                       ("strsafe", PSDK_LIB / "strsafe.lib"),
                       ("bufferoverflow", PSDK_LIB / "bufferoverflow.lib")]:
@@ -665,10 +661,10 @@ def sweep(report, ledger_ref=None):
         size = key[0]
         instances = classes[key]
         tags = {i.tag for i in instances}
-        owner = next((t for t in ("d3dx9", "dxerr9", "vcomsupp") if t in tags),
+        owner = next((t for t in ("dxerr9", "vcomsupp") if t in tags),
                      sorted(tags)[0])
         source, window_key = LEDGER_SOURCE.get(owner, (None, "crt"))
-        wlo, whi = WINDOWS[window_key]
+        runs = WINDOWS[window_key]
         ordered = sorted((i for i in instances if i.tag == owner), key=lambda i: i.order)
         hits = placements(window, ordered[0])
         if hits is None:
@@ -676,7 +672,7 @@ def sweep(report, ledger_ref=None):
             continue
         if not hits:
             continue
-        in_window = sorted(h for h in hits if wlo <= h < whi)
+        in_window = sorted(h for h in hits if any(lo <= h < hi for lo, hi in runs))
         if not in_window:
             continue
         # Supply is the OWNER's instance count, not the class's: only this
@@ -1132,8 +1128,8 @@ def twin_name(row):
 def vendor_tag(source):
     """The `vendored=` value a row on this archive carries."""
     stem = Path(source).stem
-    return {"d3dx9": "d3dx9-summer2003", "dxerr9": "dxerr9-summer2003",
-            "comsupp": "comsupp-vs2003"}.get(stem, f"{stem}-vs2003")
+    return {"dxerr9": "dxerr9-aug2005", "comsupp": "msvc71-comsupp",
+            "msvcrt": "msvc71-crt"}.get(stem, f"{stem}-vs2003")
 
 
 def write_wave(path, rows):
