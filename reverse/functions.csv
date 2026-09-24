@@ -34526,3 +34526,11 @@ _Rva001CA000Vp6WideAccum,,0x001CA000,4240,Code/GameEngine/Source/Common/Rva001CA
 ?get@Rva005315B0IntPairField@@QAEXAAUDisp32IntPair@@@Z,,0x005315B0,24,Code/GameEngine/Source/Common/Disp32IntPairFieldGetters.cpp,matched,Disp32 int-pair out-copy; second member of pair-getter family; Ghidra FUN_009315b0 size agrees; trial shape proven at 0x2620DB
 ?set@Rva0030C882IntFloatField@@QAEXH@Z,,0x0030C882,14,Code/GameEngine/Source/Common/Disp32IntToFloatFieldSetters.cpp,matched,Disp8 int-to-float setter; precedes getter 0x30C890 at +0xE; disp8 encoding of the Disp32 family
 ?get@Rva00262186CmpBoolField@@QBE_NXZ,,0x00262186,13,Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp,matched,Disp8 cmp-imm bool; same disp/imm/op as Rva0036389F sibling; ret-delimited
+?get@Rva0004CACDOneGetter@@QBEHXZ,,0x0004CACD,4,Code/GameEngine/Source/Common/IntOneGetters.cpp,matched,Trivial int-one getter ret-delimited shared true-tail
+?get@Rva0007246EOneGetter@@QBEHXZ,,0x0007246E,4,Code/GameEngine/Source/Common/IntOneGetters.cpp,matched,Trivial int-one getter ret-delimited shared true-tail
+?get@Rva000782DDOneGetter@@QBEHXZ,,0x000782DD,4,Code/GameEngine/Source/Common/IntOneGetters.cpp,matched,Trivial int-one getter ret-delimited shared true-tail
+?get@Rva000B22C7OneGetter@@QBEHXZ,,0x000B22C7,4,Code/GameEngine/Source/Common/IntOneGetters.cpp,matched,Trivial int-one getter ret-delimited shared true-tail
+?get@Rva00262126OneGetter@@QBEHXZ,,0x00262126,4,Code/GameEngine/Source/Common/IntOneGetters.cpp,matched,Trivial int-one getter ret-delimited shared true-tail sibling of 0x262117
+?get@Rva000B2BDDOneGetter@@QBEHXZ,,0x000B2BDD,4,Code/GameEngine/Source/Common/IntOneGetters.cpp,matched,Trivial int-one getter ret-delimited shared true-tail
+?get@Rva000B4975OneGetter@@QBEHXZ,,0x000B4975,4,Code/GameEngine/Source/Common/IntOneGetters.cpp,matched,Trivial int-one getter ret-delimited shared true-tail
+?get@Rva0027000AOneGetter@@QBEHXZ,,0x0027000A,4,Code/GameEngine/Source/Common/IntOneGetters.cpp,matched,Trivial int-one getter ret-delimited shared true-tail
