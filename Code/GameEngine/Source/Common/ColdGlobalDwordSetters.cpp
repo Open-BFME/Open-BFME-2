@@ -18,3 +18,12 @@ void Rva00116E40Set(int value)
 {
 	g_Va00DB5FE0 = value;
 }
+extern int g_Va00DFDA54;
+
+// ?Rva001B6380Set@@YAXH@Z @ 0x001b6380 (10B) over 0x00DFDA54.
+// Int3-padded both sides (prev CC next CC), live E8 caller. Opaque
+// address-derived name.
+void Rva001B6380Set(int value)
+{
+	g_Va00DFDA54 = value;
+}
