@@ -34295,3 +34295,4 @@ _WinMain@16,,0x00002C39,1382,Code/GameEngine/Source/Main/WinMain.cpp,matched,BFM
 ?Rva007700C2ClearFlag@@YAIXZ,,0x007700C2,13,Code/GameEngine/Source/Common/GlobalFlagClearers_DFxx.cpp,matched,B2-native scattered clearer with rdata table slot under /G7 narrowing
 ?Rva00774B31ClearFlag@@YAIXZ,,0x00774B31,13,Code/GameEngine/Source/Common/GlobalFlagClearers_DFEExx.cpp,matched,B2-native scattered clearer; rdata table slot 0x0091BEE8; /G7 narrowing
 ?set@Rva002D94FEDwordSlot@@QAEXH@Z,,0x002D94FE,10,Code/GameEngine/Source/Common/Disp8DwordFieldSetters.cpp,matched,Disp8 dword arg setter; Ghidra bounds agree; live callers
+?set@Rva0033F15DDwordSlot@@QAEXH@Z,,0x0033F15D,10,Code/GameEngine/Source/Common/Disp8DwordFieldSetters.cpp,matched,Disp8 dword arg setter; Ghidra bounds agree; live callers
