@@ -985,3 +985,58 @@ void Debug::SetBuildInfo(const char *version, const char *internalVersion,
 {
 	theDebug->_M_slot_9c(version, internalVersion, buildDate);
 }
+
+//----------------------------------------------------------------------------
+// Engine teardown at 0x00225B4A (25B). WinMain calls it once, after GameMain
+// returns, to tear down the GameMain-created singleton at TheGameEngine
+// (0x00DFE710) and null the global. The body calls vtable slot 0x68, then
+// deletes whatever slot 0 hands back for a zero flag. The engine's full
+// vtable is unrecovered, so the calls go through a positional view class;
+// the cast is free. __fastcall because retail passes the pointer in ecx
+// with no stack push. Upgrades the pin of the same name.
+//----------------------------------------------------------------------------
+
+struct BfmePostGameItem
+{
+	unsigned char m_pad[4];
+};
+
+class GameEngineTeardownView
+{
+public:
+	virtual BfmePostGameItem *acquirePostGameItem(int flags);
+	virtual void _M_slot_04();
+	virtual void _M_slot_08();
+	virtual void _M_slot_0c();
+	virtual void _M_slot_10();
+	virtual void _M_slot_14();
+	virtual void _M_slot_18();
+	virtual void _M_slot_1c();
+	virtual void _M_slot_20();
+	virtual void _M_slot_24();
+	virtual void _M_slot_28();
+	virtual void _M_slot_2c();
+	virtual void _M_slot_30();
+	virtual void _M_slot_34();
+	virtual void _M_slot_38();
+	virtual void _M_slot_3c();
+	virtual void _M_slot_40();
+	virtual void _M_slot_44();
+	virtual void _M_slot_48();
+	virtual void _M_slot_4c();
+	virtual void _M_slot_50();
+	virtual void _M_slot_54();
+	virtual void _M_slot_58();
+	virtual void _M_slot_5c();
+	virtual void _M_slot_60();
+	virtual void _M_slot_64();
+	virtual void _M_slot_68();
+};
+
+// ?shutdownGameEngine@@YIXPAVGameEngine@@@Z @0x225b4a
+void __fastcall shutdownGameEngine(GameEngine *engine)
+{
+	GameEngineTeardownView *view = (GameEngineTeardownView *)engine;
+	view->_M_slot_68();
+	delete view->acquirePostGameItem(0);
+}

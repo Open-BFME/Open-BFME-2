@@ -32675,3 +32675,4 @@ _DXTraceA@20,,0x0065459C,476,vendor/dxerr9-aug2005/dxerr9.lib,matched,vendored=d
 ?get@Rva002C9504BinarySubField@@QBEHXZ,,0x002C9504,7,Code/GameEngine/Source/Common/Disp8BinarySubGetters.cpp,matched,disp8 binary-sub getter; two-field difference; phase-proven no-branch-to-addr
 ?get@Rva00306C42BinarySubField@@QBEHXZ,,0x00306C42,7,Code/GameEngine/Source/Common/Disp8BinarySubGetters.cpp,matched,disp8 binary-sub getter; two-field difference; phase-proven no-branch-to-addr
 ?get@Rva006DAE20BinarySubField@@QBEHXZ,,0x006DAE20,7,Code/GameEngine/Source/Common/Disp8BinarySubGetters.cpp,matched,disp8 binary-sub getter; two-field difference; phase-proven no-branch-to-addr
+?shutdownGameEngine@@YIXPAVGameEngine@@@Z,,0x00225B4A,25,Code/GameEngine/Source/Main/WinMain.cpp,matched,Engine teardown via positional view class plus trivial item delete; sole caller WinMain post-GameMain; row upgrades pin of same name
