@@ -20,6 +20,8 @@
 // cl: /G7 /MD /EHsc /DNDEBUG
 
 extern unsigned int g_Va00DFEFA0;
+extern unsigned int g_Va00E02F24;
+extern unsigned int g_Va00E040B0;
 
 unsigned int Rva00776C65ClearFlag(void)
 {
@@ -99,4 +101,79 @@ unsigned int Rva00776D21ClearFlag(void)
 unsigned int Rva00776D2FClearFlag(void)
 {
 	return g_Va00DFEFA0 &= 0xFFFF7FFFu;
+}
+
+unsigned int Rva00784B8EClearFlag(void)
+{
+	return g_Va00E02F24 &= 0xFFFFFFFEu;
+}
+
+unsigned int Rva00784B9BClearFlag(void)
+{
+	return g_Va00E02F24 &= 0xFFFFFFFDu;
+}
+
+unsigned int Rva00784BA8ClearFlag(void)
+{
+	return g_Va00E02F24 &= 0xFFFFFFFBu;
+}
+
+unsigned int Rva00784BB5ClearFlag(void)
+{
+	return g_Va00E02F24 &= 0xFFFFFFF7u;
+}
+
+unsigned int Rva00784BC2ClearFlag(void)
+{
+	return g_Va00E02F24 &= 0xFFFFFFEFu;
+}
+
+unsigned int Rva00784BCFClearFlag(void)
+{
+	return g_Va00E02F24 &= 0xFFFFFFDFu;
+}
+
+unsigned int Rva00784BDCClearFlag(void)
+{
+	return g_Va00E02F24 &= 0xFFFFFFBFu;
+}
+
+unsigned int Rva00784BF1ClearFlag(void)
+{
+	return g_Va00E02F24 &= 0xFFFFFF7Fu;
+}
+
+unsigned int Rva0078F8BCClearFlag(void)
+{
+	return g_Va00E040B0 &= 0xFFFFFFFEu;
+}
+
+unsigned int Rva0078F8C9ClearFlag(void)
+{
+	return g_Va00E040B0 &= 0xFFFFFFFDu;
+}
+
+unsigned int Rva0078F8D6ClearFlag(void)
+{
+	return g_Va00E040B0 &= 0xFFFFFFFBu;
+}
+
+unsigned int Rva0078F8E3ClearFlag(void)
+{
+	return g_Va00E040B0 &= 0xFFFFFFF7u;
+}
+
+unsigned int Rva0078F8F0ClearFlag(void)
+{
+	return g_Va00E040B0 &= 0xFFFFFFEFu;
+}
+
+unsigned int Rva0078F8FDClearFlag(void)
+{
+	return g_Va00E040B0 &= 0xFFFFFFDFu;
+}
+
+unsigned int Rva0078F90AClearFlag(void)
+{
+	return g_Va00E040B0 &= 0xFFFFFFBFu;
 }
