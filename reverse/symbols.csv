@@ -5156,3 +5156,4 @@ _AVIFileInit@0,0x0065479C,jmp [IAT 0xBBA050] stub; import table names avifil32!A
 ?initMember@Rva0026AFDAMember@@QAEXXZ,0x0026AFDA,TU-method pin for the 0xC4 member init called at member position by ??0DeployStyleAIUpdate (0x48E9BB); mov-ecx-thunk to 0x268B09; semantic identity unproven so Rva-addressed
 ??0Rva001DFEAABase@@QAE@XZ,0x001DFEAA,shared FXNugget-family base ctor; called with this undisplaced from 16 ctor-start sites incl AttachedModelFXNugget 0x1E084A; installs vtable 0xBDC940; do-not-name without family proof
 ??1Rva0026E9BDBase@@UAE@XZ,0x0026E836,DeployStyle dtor TU spelling for the opaque SEH base dtor; same body as pinned ??1Rva0026E836@@UAE@XZ
+?Rva00120720CreateTexture@@YAPAXHHHHHH@Z,0x00120720,cdecl 6-arg D3DX texture creator; sole caller is backend worker 0x131170; read from retail REL32 at 0x00131170
