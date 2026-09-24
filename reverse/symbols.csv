@@ -4154,7 +4154,6 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ?buildFieldParse@TerrainScorchFXNugget@@SAXAAVMultiIniFieldParse@@@Z,0x001E0965,cdecl field-parse builder called by TerrainScorchFXNugget::parse (0x001E171C); name is BFME's ModuleData convention
 ??0ParticleSystemFXNugget@@QAE@XZ,0x001E0AEF,no-arg ctor called by ParticleSystemFXNugget::parse (0x001E264F) for the ParticleSystem FXList keyword; class name from BFME1
 ?buildFieldParse@ParticleSystemFXNugget@@SAXAAVMultiIniFieldParse@@@Z,0x001DFD15,cdecl field-parse builder called by ParticleSystemFXNugget::parse (0x001E264F); name is BFME's ModuleData convention
-??0FXListAtBonePosFXNugget@@QAE@XZ,0x001E0A57,no-arg ctor called by FXListAtBonePosFXNugget::parse (0x001E1814) for the FXListAtBonePos FXList keyword; class name from BFME1
 ?buildFieldParse@FXListAtBonePosFXNugget@@SAXAAVMultiIniFieldParse@@@Z,0x001DFCF4,cdecl field-parse builder called by FXListAtBonePosFXNugget::parse (0x001E1814); name is BFME's ModuleData convention
 ??0CursorParticleSystemFXNugget@@QAE@XZ,0x001E0C90,no-arg ctor called by CursorParticleSystemFXNugget::parse (0x001E26CB) for the CursorParticleSystem FXList keyword; class name from BFME1
 ?buildFieldParse@CursorParticleSystemFXNugget@@SAXAAVMultiIniFieldParse@@@Z,0x001DFD36,cdecl field-parse builder called by CursorParticleSystemFXNugget::parse (0x001E26CB); name is BFME's ModuleData convention
