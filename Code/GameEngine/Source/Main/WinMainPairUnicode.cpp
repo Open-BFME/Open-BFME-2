@@ -26,13 +26,17 @@
 // buffer, copy and release steps resolve to the pinned StringBase bodies
 // with no extra pins beyond the two harvested below.
 
+class UnicodeString;
+
 template <typename T>
 class StringBase
 {
+	friend class UnicodeString;
+	StringBase(const T *text);
+
 public:
 	StringBase() : m_data(0) {}
 	StringBase(const StringBase &src);
-	StringBase(const T *text);
 	~StringBase() { releaseBuffer(); }
 
 	struct Header
@@ -45,6 +49,7 @@ public:
 
 	void releaseBuffer();
 	T *getBufferForRead(int len);
+	void set(const StringBase &src);
 
 private:
 	Header *m_data;
@@ -52,17 +57,26 @@ private:
 
 class UnicodeString : public StringBase<unsigned short>
 {
+public:
+	UnicodeString() {}
+	UnicodeString(const unsigned short *text) : StringBase<unsigned short>(text) {}
+	UnicodeString &operator=(const UnicodeString &src) { set(src); return *this; }
 };
 
+// A (pointer, length) string reference. The same shape holds narrow text
+// (init) and wide text (initWide); the empty constructor keeps it non-POD,
+// so by-value returns go through a hidden slot as retail shows.
 class Rva000B3F84Pair
 {
 public:
+	Rva000B3F84Pair() {}
 	Rva000B3F84Pair *init(const char *src);
+	Rva000B3F84Pair *initWide(const unsigned short *src);
 	void copyBytes(void *dst, int off, int len);
 	void convertToWide(unsigned short *dst, int off, int len);
 	int convertToWideBuffer(unsigned short *dst);
 	int copyWchars(unsigned short *dst);
-	UnicodeString toUnicode();
+	operator UnicodeString();
 	int length() const { return m_len; }
 
 	const char *m_ptr;
@@ -72,14 +86,20 @@ public:
 // Title segment behind 0x234803: a pair plus a trailing extra wchar at +8.
 // convertToWideBufferWithExtra converts the pair, appends the extra wchar,
 // and returns the total count; 0x234803 then appends the +0xC pair after it.
-struct Rva002343C3TitleSegment : Rva000B3F84Pair
+// A string reference followed by one wchar: the left half of
+// "reference + L'\\' + text" built by the operator+ at 0x2342F7.
+struct PairWithChar : Rva000B3F84Pair
+{
+	unsigned short m_extraChar;
+};
+
+struct Rva002343C3TitleSegment : PairWithChar
 {
 	int convertToWideBufferWithExtra(unsigned short *dst);
 	int convertTitleSegments(unsigned short *dst);
-	UnicodeString toUnicode();
+	operator UnicodeString();
 	int length() const { return extendedLength() + m_secondPair.length(); }
 	int extendedLength() const { return Rva000B3F84Pair::length() + 1; }
-	unsigned short m_extraChar;
 	Rva000B3F84Pair m_secondPair;
 };
 
@@ -92,13 +112,14 @@ struct Rva002343C3TitleSegment : Rva000B3F84Pair
 struct WinMainTitlePair : Rva000B3F84Pair
 {
 	int convertTitlePair(unsigned short *dst);
-	UnicodeString toUnicode();
+	operator UnicodeString();
 	int length() const { return firstLength() + m_secondPair.length(); }
 	int firstLength() const { return Rva000B3F84Pair::length(); }
 	Rva000B3F84Pair m_secondPair;
 };
 
 extern "C" void *memcpy(void *dst, const void *src, unsigned int n);
+extern "C" __declspec(dllimport) unsigned int __cdecl wcslen(const unsigned short *s);
 extern "C" unsigned int strlen(const char *s);
 void *operator new[](unsigned int n);
 void operator delete[](void *p);
@@ -128,8 +149,8 @@ void Rva000B3F84Pair::convertToWide(unsigned short *dst, int off, int len)
 	operator delete[](scratch);
 }
 
-// ?toUnicode@Rva000B3F84Pair@@QAE?AVUnicodeString@@XZ @0x234788
-UnicodeString Rva000B3F84Pair::toUnicode()
+// ??BRva000B3F84Pair@@QAE?AVUnicodeString@@XZ @0x234788
+Rva000B3F84Pair::operator UnicodeString()
 {
 	UnicodeString tmp;
 	convertToWide(tmp.getBufferForRead(m_len), 0, m_len);
@@ -167,20 +188,102 @@ int WinMainTitlePair::convertTitlePair(unsigned short *dst)
 	return first + second;
 }
 
-// ?toUnicode@Rva002343C3TitleSegment@@QAE?AVUnicodeString@@XZ @0x23490C
+// ??BRva002343C3TitleSegment@@QAE?AVUnicodeString@@XZ @0x23490C
 // Sizes the wide buffer for both pairs plus the extra wchar, then fills it.
-UnicodeString Rva002343C3TitleSegment::toUnicode()
+Rva002343C3TitleSegment::operator UnicodeString()
 {
 	UnicodeString tmp;
 	convertTitleSegments(tmp.getBufferForRead(length()));
 	return tmp;
 }
 
-// ?toUnicode@WinMainTitlePair@@QAE?AVUnicodeString@@XZ @0x234973
+// ??BWinMainTitlePair@@QAE?AVUnicodeString@@XZ @0x234973
 // The double-pair twin: both pair lengths, no extra wchar.
-UnicodeString WinMainTitlePair::toUnicode()
+WinMainTitlePair::operator UnicodeString()
 {
 	UnicodeString tmp;
 	convertTitlePair(tmp.getBufferForRead(length()));
 	return tmp;
+}
+
+// ?makeStringRef@@YA?AVRva000B3F84Pair@@PBD@Z @0x2343F7
+// Snapshots a C string as a (pointer, length) pair returned by value.
+Rva000B3F84Pair makeStringRef(const char *src)
+{
+	Rva000B3F84Pair ref;
+	ref.init(src);
+	return ref;
+}
+
+// ?initWide@Rva000B3F84Pair@@QAEPAV1@PBG@Z @0x2342D5
+Rva000B3F84Pair *Rva000B3F84Pair::initWide(const unsigned short *src)
+{
+	m_ptr = (const char *)src;
+	m_len = src != 0 ? wcslen(src) : 0;
+	return this;
+}
+
+// ??H@YA?AUPairWithChar@@ABVRva000B3F84Pair@@G@Z @0x2342F7
+PairWithChar operator+(const Rva000B3F84Pair &left, unsigned short separator)
+{
+	PairWithChar result;
+	static_cast<Rva000B3F84Pair &>(result) = left;
+	result.m_extraChar = separator;
+	return result;
+}
+
+// ??H@YA?AUWinMainTitlePair@@ABVRva000B3F84Pair@@PBG@Z @0x234324
+WinMainTitlePair operator+(const Rva000B3F84Pair &left, const unsigned short *right)
+{
+	Rva000B3F84Pair wide;
+	wide.initWide(right);
+	WinMainTitlePair result;
+	static_cast<Rva000B3F84Pair &>(result) = left;
+	result.m_secondPair = wide;
+	return result;
+}
+
+// ??H@YA?AURva002343C3TitleSegment@@ABUPairWithChar@@PBG@Z @0x513B5B
+Rva002343C3TitleSegment operator+(const PairWithChar &left, const unsigned short *right)
+{
+	Rva000B3F84Pair wide;
+	wide.initWide(right);
+	Rva002343C3TitleSegment result;
+	static_cast<PairWithChar &>(result) = left;
+	result.m_secondPair = wide;
+	return result;
+}
+
+const char *GetRegistryGameRegPath();
+
+// ?buildGameRegistryPath@@YA?AVUnicodeString@@PBG@Z @0x2349FD
+// Roots a registry sub-path under the game's GameRegPath value, inserting
+// the backslash separator unless the sub-path is empty or already has one.
+UnicodeString buildGameRegistryPath(const unsigned short *subPath)
+{
+	UnicodeString path;
+	if (subPath && *subPath && *subPath != L'\\')
+		path = makeStringRef(GetRegistryGameRegPath()) + L'\\' + subPath;
+	else
+		path = makeStringRef(GetRegistryGameRegPath()) + subPath;
+	return path;
+}
+
+struct HKEY__;
+typedef HKEY__ *HKEY;
+#define HKEY_LOCAL_MACHINE ((HKEY)0x80000002)
+
+const char *GetRegistryGameName();
+const char *GetRegistryInstallerRegPath();
+bool getStringFromRegistry(HKEY root, UnicodeString path, UnicodeString key, UnicodeString &val);
+
+// ?bfmeGetMainWindowTitle@@YA?AVUnicodeString@@XZ @0x23484D
+// The main window title: the registry GameName, replaced by the installer
+// key's DisplayName under HKEY_LOCAL_MACHINE when that value exists.
+UnicodeString bfmeGetMainWindowTitle()
+{
+	UnicodeString title = makeStringRef(GetRegistryGameName());
+	getStringFromRegistry(HKEY_LOCAL_MACHINE, makeStringRef(GetRegistryInstallerRegPath()),
+		L"DisplayName", title);
+	return title;
 }

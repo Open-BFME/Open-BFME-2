@@ -33506,3 +33506,13 @@ _WinMain@16,,0x00002C39,1382,Code/GameEngine/Source/Main/WinMain.cpp,matched,BFM
 ?get@Rva00462CD3Sub@@QBE_NXZ,,0x00462CD3,14,Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp,matched,Backward-chase ternary bool getter; interior subobject at -0x1C; cmp byte [eax+0x86] 0 setne; /O1
 ?get@Rva0047CB3FSub@@QBE_NXZ,,0x0047CB3F,14,Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp,matched,Backward-chase ternary bool getter; interior subobject at -0x1C; cmp byte [eax+0x1A0] 0 setne; /O1
 ?get@Rva0049CF9ESub@@QBE_NXZ,,0x0049CF9E,11,Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp,matched,Backward-chase ternary bool getter; interior subobject at -0x1C; cmp byte [eax+0x4C] 0 setne; /O1
+?initWide@Rva000B3F84Pair@@QAEPAV1@PBG@Z,,0x002342D5,34,Code/GameEngine/Source/Main/WinMainPairUnicode.cpp,matched,wide pair init: pointer then wcslen length (null-safe)
+??H@YA?AUPairWithChar@@ABVRva000B3F84Pair@@G@Z,,0x002342F7,45,Code/GameEngine/Source/Main/WinMainPairUnicode.cpp,matched,expression-template concat: string ref + separator wchar
+??H@YA?AUWinMainTitlePair@@ABVRva000B3F84Pair@@PBG@Z,,0x00234324,61,Code/GameEngine/Source/Main/WinMainPairUnicode.cpp,matched,expression-template concat: string ref + wide C string
+??H@YA?AURva002343C3TitleSegment@@ABUPairWithChar@@PBG@Z,,0x00513B5B,57,Code/GameEngine/Source/Main/WinMainPairUnicode.cpp,matched,expression-template concat: (string ref + wchar) + wide C string
+?makeStringRef@@YA?AVRva000B3F84Pair@@PBD@Z,,0x002343F7,32,Code/GameEngine/Source/Main/WinMainPairUnicode.cpp,matched,by-value pair snapshot: eax is the hidden return slot the builders reuse
+??BRva000B3F84Pair@@QAE?AVUnicodeString@@XZ,,0x00234788,99,Code/GameEngine/Source/Main/WinMainPairUnicode.cpp,matched,pair to UnicodeString conversion: sized getBufferForRead then convertToWide (was rowed as toUnicode)
+??BRva002343C3TitleSegment@@QAE?AVUnicodeString@@XZ,,0x0023490C,103,Code/GameEngine/Source/Main/WinMainPairUnicode.cpp,matched,segment to UnicodeString conversion: getBufferForRead(length) then convertTitleSegments
+??BWinMainTitlePair@@QAE?AVUnicodeString@@XZ,,0x00234973,101,Code/GameEngine/Source/Main/WinMainPairUnicode.cpp,matched,double-pair to UnicodeString conversion: getBufferForRead(length) then convertTitlePair
+?buildGameRegistryPath@@YA?AVUnicodeString@@PBG@Z,,0x002349FD,224,Code/GameEngine/Source/Main/WinMainPairUnicode.cpp,matched,GameRegPath + optional backslash + subPath via expression-template concat and implicit UnicodeString conversion
+?bfmeGetMainWindowTitle@@YA?AVUnicodeString@@XZ,,0x0023484D,191,Code/GameEngine/Source/Main/WinMainPairUnicode.cpp,matched,window title: GameName then HKLM DisplayName under InstallerRegPath
