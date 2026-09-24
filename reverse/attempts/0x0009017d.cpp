@@ -1,42 +1,31 @@
-// ?findFontCharsHandle@@YAPAVFontCharsClass@@PBDM_NH@Z
-// partial score=0.9 date=2026-09-24
-// cl: /O1 /G7 /EHsc /DNDEBUG
+// ?getFontCharsHandle@@YAPAVFontCharsClass@@PBDM_NH@Z
+// partial score=0.97 date=2026-09-24
+// cl: /O1 /G7 /arch:SSE /EHsc
 
-// Font-cache find-or-create worker, retail 0x0009017D (191 bytes).
-// BFME2's outlined equivalent of the ZH WW3DAssetManager::Get_FontChars flow
-// (assetmgr.cpp: loop the cache for an Is_Font match and Add_Ref it home,
-// else new a FontCharsClass, Initialize it, Add_Ref and append it to the
-// list): the point size is a float, a fourth detail argument rides every
-// worker call, the cache is a raw array plus count behind the list object,
-// and the whole body runs under the EH prologue. All callees are settled
-// rows or pins (Is_Font, operator new, the FontChars ctor, Initialize, the
-// SimpleDynVec Add fold); the list object, array and count ride masking.
+// getFontCharsHandle, retail 0x0009017D (191 bytes).
+// BFME2 find-or-create font-cache worker: scans the global FontCharsList for
+// a FontCharsClass matching (name, float pointSize, bold, extra) through
+// Is_Font, Add_Refs and returns the hit; on a miss it allocates a 0x464-byte
+// FontCharsClass with the rowed operator new, runs the rowed default ctor,
+// initializes it, Add_Refs it and appends it with a zero size hint.
+// Donor is BFME1 WW3DAssetManager::Get_FontChars (assetmgr.cpp); BFME2 repairs
+// are the float point size, the fourth detail argument and the two-argument
+// vector Add. Is_Font, Initialize_GDI_Font, the default ctor and operator new
+// are rows; the Add call needs this TU's own FontCharsClass-star alias pin at
+// 0x0009014A (same 4-byte-element body as the rowed unsigned twin).
 
-class W3DMPO
-{
-public:
-	virtual ~W3DMPO();
-};
-
-class RefCountClass
-{
-public:
-	void Add_Ref() { ++m_refs; }
-	void Release_Ref();
-
-private:
-	int m_refs;                   // +0x04 behind the W3DMPO vtable
-};
-
-class FontCharsClass : public W3DMPO, public RefCountClass
+class FontCharsClass
 {
 public:
 	FontCharsClass();
-	bool Is_Font(const char *font_name, float point_size, bool is_bold, int extra);
-	void Initialize_GDI_Font(const char *font_name, float point_size, bool is_bold, int extra);
+	bool Is_Font(const char *fontName, float pointSize, bool isBold, int extra);
+	void Initialize_GDI_Font(const char *fontName, float pointSize, bool isBold, int extra);
+	void Add_Ref() { ++m_refCount; }
 
 private:
-	char m_body[0x464 - 8];
+	void *m_vtableSlot;       // +0x00
+	int m_refCount;           // +0x04
+	char m_pad[0x464 - 8];
 };
 
 template <class Type>
@@ -44,33 +33,31 @@ class SimpleDynVecClass
 {
 public:
 	virtual ~SimpleDynVecClass();
-	bool Add(const Type &object, int new_size_hint);
-	bool Grow(int new_size_hint);
+	int Count() const { return m_activeCount; }
+	Type &operator[](int index) { return m_vector[index]; }
+	bool Add(const Type &object, int newSizeHint);
 
-	Type *Vector;
-	int VectorMax;
-	int ActiveCount;
+private:
+	Type *m_vector;     // +0x04
+	int m_vectorMax;    // +0x08
+	int m_activeCount;  // +0x0C
 };
 
-extern SimpleDynVecClass<FontCharsClass *> g_fontCharsCache;
-extern FontCharsClass **g_fontCharsArray;
-extern int g_fontCharsCount;
+extern SimpleDynVecClass<FontCharsClass *> FontCharsList;
 
-// ?findFontCharsHandle@@YAPAVFontCharsClass@@PBDMMH@Z @0x0009017D
-FontCharsClass *findFontCharsHandle(const char *name, float point_size, bool is_bold, int extra)
+// ?getFontCharsHandle@@YAPAVFontCharsClass@@PBDM_NH@Z @0x0009017D
+FontCharsClass *getFontCharsHandle(const char *name, float pointSize, bool isBold, int extra)
 {
-	for (int i = 0; i < g_fontCharsCount; i++) {
-		FontCharsClass *entry = g_fontCharsArray[i];
-		if (entry->Is_Font(name, point_size, is_bold, extra)) {
-			entry->Add_Ref();
-			return entry;
+	for (int i = 0; i < FontCharsList.Count(); i++) {
+		if (FontCharsList[i]->Is_Font(name, pointSize, isBold, extra)) {
+			FontCharsList[i]->Add_Ref();
+			return FontCharsList[i];
 		}
 	}
 
 	FontCharsClass *font = new FontCharsClass;
-	FontCharsClass *created = font;
-	created->Initialize_GDI_Font(name, point_size, is_bold, extra);
-	created->Add_Ref();
-	g_fontCharsCache.Add(font, 0);
-	return created;
+	font->Initialize_GDI_Font(name, pointSize, isBold, extra);
+	font->Add_Ref();
+	FontCharsList.Add(font, 0);
+	return font;
 }
