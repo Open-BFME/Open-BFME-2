@@ -32968,3 +32968,4 @@ _DXTraceA@20,,0x0065459C,476,vendor/dxerr9-aug2005/dxerr9.lib,matched,vendored=d
 ?disable@Rva00118CB0DwordSetter@@QAEXXZ,,0x00118CB0,8,Code/GameEngine/Source/Common/Disp8DwordSetters.cpp,matched,disp8 dword setter; phase-proven no-branch-to-addr
 ?disable@Rva00660050DwordSetter@@QAEXXZ,,0x00660050,8,Code/GameEngine/Source/Common/Disp8DwordSetters.cpp,matched,disp8 dword setter; phase-proven no-branch-to-addr
 ?disable@Rva006F1350DwordSetter@@QAEXXZ,,0x006F1350,8,Code/GameEngine/Source/Common/Disp8DwordSetters.cpp,matched,disp8 dword setter; phase-proven no-branch-to-addr
+?Rva00117AC0HasFlag@@YA_NXZ,,0x00117AC0,12,Code/GameEngine/Source/Common/BfmeThingTXAHasFlag.cpp,matched,TXA slot flag test; O1 cmp-mem shape plus int3-padded boundary
