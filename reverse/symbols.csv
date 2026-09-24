@@ -5209,3 +5209,5 @@ _D3DXCreateTexture@32,0x0062AF74,d3dx9_27 D3DXCreateTexture IAT thunk (jmp dword
 ?_M_fill_insert@?$vector@UBfmePod28@@V?$allocator@UBfmePod28@@@_STL@@@_STL@@QAEXPAUBfmePod28@@IABU3@@Z,0x00584405,retail resize call 0x00584A32; 225B insert body uses 0x1C element stride; type identity provisional
 ?erase@?$vector@UBfmePod52@@V?$allocator@UBfmePod52@@@_STL@@@_STL@@QAEPAUBfmePod52@@PAU3@0@Z,0x001DDC2C,retail resize call 0x001DED7F; 38B body updates finish and returns first; 52B type identity provisional
 ?_M_fill_insert@?$vector@UBfmePod52@@V?$allocator@UBfmePod52@@@_STL@@@_STL@@QAEXPAUBfmePod52@@IABU3@@Z,0x001DE5D2,retail resize call 0x001DED9C; 225B insert body uses 0x34 element stride; type identity provisional
+?erase@?$vector@UBfmePod60@@V?$allocator@UBfmePod60@@@_STL@@@_STL@@QAEPAUBfmePod60@@PAU3@0@Z,0x00587C1A,retail resize call 0x0058816D; 38B body updates finish and returns first; 60B type identity provisional
+?_M_fill_insert@?$vector@UBfmePod60@@V?$allocator@UBfmePod60@@@_STL@@@_STL@@QAEXPAUBfmePod60@@IABU3@@Z,0x00587DCD,retail resize call 0x0058818A; 226B insert body uses 0x3C element stride; type identity provisional
