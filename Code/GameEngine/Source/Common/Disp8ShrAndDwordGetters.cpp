@@ -36,9 +36,24 @@
 		return (m_value >> 3) & 1; \
 	}
 
+// General shift-count variant: `C1 E8 <COUNT>` for any bit-N test idiom.
+#define BFME_DISP8_SHRN_AND_DWORD_GETTER(NAME, DISP, COUNT) \
+	class NAME \
+	{ \
+	public: \
+		int get() const; \
+		char m_lead[DISP]; \
+		unsigned int m_value; \
+	}; \
+	int NAME::get() const \
+	{ \
+		return (m_value >> COUNT) & 1; \
+	}
+
 BFME_DISP8_SHR_AND_DWORD_GETTER(Rva00091A29ShrAndField, 0x44)
 BFME_DISP8_SHR_AND_DWORD_GETTER(Rva00179120ShrAndField, 0x30)
 BFME_DISP8_SHR_AND_DWORD_GETTER(Rva006DBB40ShrAndField, 0x04)
 BFME_DISP8_SHR_AND_DWORD_GETTER(Rva00433166ShrAnd32Field, 0xC4)
 BFME_DISP8_SHR3_AND_DWORD_GETTER(Rva00091A32Shr3AndField, 0x44)
 BFME_DISP8_SHR3_AND_DWORD_GETTER(Rva00433172Shr3And32Field, 0xC4)
+BFME_DISP8_SHRN_AND_DWORD_GETTER(Rva002638DAShrNAndField, 0x44, 6)
