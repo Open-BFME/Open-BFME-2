@@ -45,3 +45,13 @@ void Rva006CD1F0Set(int value)
 {
 	g_Va00DDC01C = value;
 }
+extern int g_Va00E17724;
+
+// ?Rva006CD210Set@@YAXH@Z @ 0x006cd210 (10B) over 0x00E17724.
+// Int3-padded both sides (prev CC next CC), live E8 caller at 0x006d198a.
+// Opaque address-derived name. Setter pairs with the rowed getter over the
+// same global (A1 2477E100 at 0x006cd220).
+void Rva006CD210Set(int value)
+{
+	g_Va00E17724 = value;
+}

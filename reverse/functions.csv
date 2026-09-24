@@ -33718,3 +33718,4 @@ _WinMain@16,,0x00002C39,1382,Code/GameEngine/Source/Main/WinMain.cpp,matched,BFM
 ?Rva001B6380Set@@YAXH@Z,,0x001B6380,10,Code/GameEngine/Source/Common/ColdGlobalDwordSetters.cpp,matched,Cold global dword setter via arg in 6-member CC-padded cluster live callers
 ?Rva0069BD40Set@@YAXH@Z,,0x0069BD40,10,Code/GameEngine/Source/Common/ColdGlobalDwordSetters.cpp,matched,Cold global dword setter via arg in 6-member CC-padded cluster live callers
 ?Rva006CD1F0Set@@YAXH@Z,,0x006CD1F0,10,Code/GameEngine/Source/Common/ColdGlobalDwordSetters.cpp,matched,Cold global dword setter via arg in 6-member CC-padded cluster live callers
+?Rva006CD210Set@@YAXH@Z,,0x006CD210,10,Code/GameEngine/Source/Common/ColdGlobalDwordSetters.cpp,matched,Cold global dword setter via arg in 6-member CC-padded cluster live callers
