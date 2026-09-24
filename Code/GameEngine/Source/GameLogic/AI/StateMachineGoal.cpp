@@ -14,11 +14,14 @@
 // ?internalGetState@StateMachine@@QAEPAUState@@H@Z,
 // retail 0x004D764C, 31 bytes, plus
 // ?internalSetState@StateMachine@@QAE?AW4StateReturnType@@H@Z,
-// retail 0x004D766B, 135 bytes. Dedicated TU for the StateMachine goal
+// retail 0x004D766B, 135 bytes, plus
+// ?initDefaultState@StateMachine@@QAE?AW4StateReturnType@@XZ,
+// retail 0x004D770F, 23 bytes. Dedicated TU for the StateMachine goal
 // file-unit: the lock-gated setter, the storing worker, the object setter,
 // the TurretAI wrapper that supplies the default range, the halt, the
-// state-map lookup, and the transition worker that exits the old state,
-// enters the new one, and handles sleep versus transition returns.
+// state-map lookup, the transition worker that exits the old state,
+// enters the new one, and handles sleep versus transition returns,
+// and the default-state initializer guarded by the inited flag.
 // BFME1 reference (reference/open-bfme-1/Code/GameEngine/Source/Common/
 // StateMachine.cpp, StateMachine::setGoalPosition plus
 // internalSetGoalPosition plus setGoalObject plus halt plus
@@ -112,6 +115,7 @@ public:
 	float m_goalRange; // +0x30, BFME2-new range carried with the goal
 	unsigned char m_pad34[0x38 - 0x34];
 	bool m_locked; // +0x38
+	bool m_defaultStateInited; // +0x39
 
 	void setGoalPosition(const Coord3D *pos, float goalRange);
 	void internalSetGoalPosition(const Coord3D *pos, float goalRange);
@@ -119,6 +123,7 @@ public:
 	void halt();
 	State *internalGetState(StateID id);
 	StateReturnType internalSetState(StateID newStateID);
+	StateReturnType initDefaultState();
 };
 
 class TurretStateMachine : public StateMachine
@@ -250,4 +255,16 @@ StateReturnType StateMachine::internalSetState(StateID newStateID)
 	{
 		return STATE_CONTINUE;
 	}
+}
+
+// ?initDefaultState@StateMachine@@QAE?AW4StateReturnType@@XZ
+StateReturnType StateMachine::initDefaultState()
+{
+	if (m_defaultStateInited)
+	{
+		return STATE_FAILURE;
+	}
+
+	m_defaultStateInited = true;
+	return internalSetState(m_defaultStateID);
 }
