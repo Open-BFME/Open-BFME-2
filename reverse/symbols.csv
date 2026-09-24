@@ -336,7 +336,6 @@ name,address,notes
 ??0FeslEchoMessage@@QAE@PADH@Z,0x00655900
 ??0FreeLifeBodyModuleData@@QAE@XZ,0x004C1B3B,frameless 64B ctor over pinned RespawnUpdate base 0x4C14DF with vtable 0xC5BC48 and stores at +0x6C/+0x70/+0x74/+0x78/+0x84 matching own table 0x85BD38; sole raw caller is ModuleData factory 0x2516B1 which news 0x88
 ??0GarrisonContainModuleData@@QAE@XZ,0x0047978F,callers are own ModuleData factory 0x254FB4 plus derived base-call from 0x47A251; installs vtable 0x00C462D8; stores match table offsets 0x98 to 0xA8; GarrisonContain pool key rowed at 0x47801C
-??0GateOpenAndCloseBehavior@@QAE@PAVThing@@PBVModuleData@@@Z,0x0049889C
 ??0GateOpenAndCloseBehaviorModuleData@@QAE@XZ,0x00498E2E
 ??0GenBase009EB7D0@@QAE@XZ,0x0061ED40,retail REL32 from Create_Rva00972880_Prototype at 0x00181165; BFME1 prototype base constructor
 ??0Gen_008AC620@@QAE@XZ,0x006ED060
