@@ -142,3 +142,14 @@ void *Rva00021080TableSlot(T2TableOwner0C *owner, int index)
 {
 	return owner->m_slots[index];
 }
+
+struct T2TableOwner3C
+{
+	char m_head[0x3C];
+	void *m_slots[1];
+};
+
+void *Rva00021090TableSlot(T2TableOwner3C *owner, int index)
+{
+	return owner->m_slots[index];
+}
