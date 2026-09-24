@@ -1178,7 +1178,6 @@ name,address,notes
 ?Read_Nodes@AABTreeClass@@AAEXAAVChunkLoadClass@@@Z,0x00197D20,address read from the REL32 displacement at a placed body; stlport 4.5.3
 ?Record_DX8_Polys_And_Vertices@Debug_Statistics@@YAXHHABVShaderClass@@@Z,0x00129540,Debug Statistics polygon and vertex accounting; complete 68-byte body checks shader NPatch bit and proven caps support then updates the three counters
 ?Record_Texture_End@@YAXXZ,0x00129E50,callee of Debug_Statistics End_Statistics at 0x12A450
-?Recreate_Device_Resources@BfmeResetTextureRef@@QAEXXZ,0x00132CD9,Recovered texture-holder role; 54-byte body recreates a missing default-pool texture using seven saved backend creation arguments
 ?RecvReply@Cftp@@QAEJPBDHPAH@Z,0x006CA080,retail REL32 from Cftp::ConnectToServer at 0x006CA852; BFME1 WWDownload identity
 ?RegisterCreateAHeroAtRva0021D517@@YAXPAVCreateAHeroData@@@Z,0x0021D517,Complete49-byte registry operation decoded; searches4-byte CreateAHeroData pointers atVA DFE358 and appends when absent; cdecl one-pointer ABI
 ?Release@Animatable3DObjClass@@IAEXXZ,0x001A4AA0,address read from the retail REL32 in Animatable3DObjClass Set_Animation at 0x001A4BD0
@@ -5152,3 +5151,4 @@ _AVIFileInit@0,0x0065479C,jmp [IAT 0xBBA050] stub; import table names avifil32!A
 ??0Rva0024613CMember@@QAE@XZ,0x0024613C,12B UnitSpecificSounds member ctor (calls 0x39FB49 init); called from RandomSoundSelector MD ctor 0x25785C at +0x1C8 plus 16 shared-member sibs
 ?Add@?$SimpleDynVecClass@PAVFontCharsClass@@@@QAE_NABQAVFontCharsClass@@H@Z,0x0009014A,FontChars star Add; 4-byte element twin of rowed unsigned Add at same address; sole caller getFontCharsHandle worker
 ??1BFMERetailAsciiString@@QAE@XZ,0x00036410,BFME2 4-byte string temp teardown; folds with StringBase and AsciiString clear at same address; sole caller getGhostObject worker
+?CreateTexture@BfmeResetTextureBackend@@QAEXHHHHHHH@Z,0x001310E3,Backend texture creation worker; thiscall with 7 creation args (width height plus 5 backend fields); 3 raw callers (Recreate 0x132D09 plus literal-init 0x132044 plus 0x131BCD); sanitizes format-usage args then D3DX-creates and stores com plus desc cache
