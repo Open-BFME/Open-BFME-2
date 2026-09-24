@@ -33592,3 +33592,4 @@ _WinMain@16,,0x00002C39,1382,Code/GameEngine/Source/Main/WinMain.cpp,matched,BFM
 ??0LadderPreferences@@QAE@XZ,,0x005DFFD3,55,Code/GameEngine/Source/GameNetwork/GameSpy/OnlinePreferences.cpp,matched,Zero Hour LadderPreferences (vtable 0xC77788; UserPreferences base; LadderPrefMap at +0x14)
 ??1LadderPreferences@@UAE@XZ,,0x005DFF7B,59,Code/GameEngine/Source/GameNetwork/GameSpy/OnlinePreferences.cpp,matched,Zero Hour LadderPreferences (vtable 0xC77788; UserPreferences base; LadderPrefMap at +0x14)
 ??_GLadderPreferences@@UAEPAXI@Z,,0x005E000A,28,Code/GameEngine/Source/GameNetwork/GameSpy/OnlinePreferences.cpp,matched,Zero Hour LadderPreferences (vtable 0xC77788; UserPreferences base; LadderPrefMap at +0x14)
+??0Rva007F6D60Child@@QAE@XZ,,0x00663450,130,Code/GameEngine/Source/GameNetwork/Rva007F6D60ChildConstructor.cpp,matched,BFME1 byte-identical donor; b1 0x007F6D60
