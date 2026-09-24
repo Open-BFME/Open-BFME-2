@@ -233,6 +233,19 @@ public:
 	virtual void _M_slot_6c();
 	virtual void _M_slot_70();
 	virtual bool _M_slot_74();
+	virtual void _M_slot_78();
+	virtual void _M_slot_7c();
+	virtual void _M_slot_80();
+	virtual void _M_slot_84();
+	virtual void _M_slot_88();
+	virtual void _M_slot_8c();
+	virtual void _M_slot_90();
+	virtual void _M_slot_94();
+	virtual void _M_slot_98();
+	virtual void _M_slot_9c(const char *version, const char *internalVersion,
+		const char *buildDate);
+	static void SetBuildInfo(const char *version, const char *internalVersion,
+		const char *buildDate);
 };
 
 Debug *theDebug;
@@ -955,4 +968,20 @@ void copyStringRef(void *dst, const char *src)
 	Rva000B3F84Pair tmp;
 	tmp.init(src);
 	*(Rva000B3F84Pair *)dst = tmp;
+}
+
+//----------------------------------------------------------------------------
+// Debug::SetBuildInfo static forward at 0x00001705 (27B). The Zero Hour
+// debug header declares this static next to the virtual of the same name; it
+// forwards its three strings to theDebug's virtual slot 0x9C, which the
+// WWDebug lane rowed as ?SetBuildInfo@Debug@@UAEXPBD00@Z at 0x00039510.
+// WinMain is its only caller. The two neighbouring gap thunklets (0x16F0 and
+// 0x16FA) are dead drops with no callers and are not claimed.
+//----------------------------------------------------------------------------
+
+// ?SetBuildInfo@Debug@@SAXPBD00@Z @0x1705
+void Debug::SetBuildInfo(const char *version, const char *internalVersion,
+	const char *buildDate)
+{
+	theDebug->_M_slot_9c(version, internalVersion, buildDate);
 }

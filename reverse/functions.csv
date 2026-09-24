@@ -153,7 +153,6 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ??0Snapshot@@QAE@ABV0@@Z,0x00001745,0x00001745,11,Code/GameEngine/Source/Common/System/Snapshot.cpp,matched,Open-BFME5 clean C++; Snapshot copy constructor ignoring its argument
 ?isEmpty@?$StringBase@D@@QBE_NXZ,0x00001E2F,0x00001E2F,20,Code/GameEngine/Source/Common/System/AsciiString.cpp,matched,Open-BFME5 clean C++; narrow StringBase emptiness test over the 16-bit length at offset 4
 ??0RandomAlphaKeyframe@FXParticleSystem@@QAE@XZ,0x00001E7F,0x00001E7F,47,Code/Libraries/Source/WWVegas/WWMath/color.cpp,matched,Open-BFME5 clean C++; RandomAlphaKeyframe initializes a zero uniform alpha range and frame
-?d_00002c39@@YAXXZ,,0x00002C39,10,Code/gen_asm/d_000010cf.asm,matched,gen-dump;ghidra=FUN_00402c39
 ?areApproxEqual@@YA_NMMM@Z,0x000034FA,0x000034FA,42,Code/Libraries/Source/WWVegas/WWMath/wwmath.cpp,matched,Open-BFME5 clean C++; float equality within a signed tolerance band
 ?scale@Coord3D@@QAEXM@Z,0x000036D1,0x000036D1,49,Code/Libraries/Source/WWVegas/WWMath/region.cpp,matched,Open-BFME5 clean C++; Coord3D component-wise scalar multiplication
 ??0Snapshot@@QAE@XZ,0x000053A6,0x000053A6,9,Code/GameEngine/Source/Common/System/Snapshot.cpp,matched,Open-BFME5 clean C++; Snapshot default constructor installing the vtable at 0x00BBB554
@@ -32672,3 +32671,4 @@ _DXTraceA@20,,0x0065459C,476,vendor/dxerr9-aug2005/dxerr9.lib,matched,vendored=d
 ??_GRva005F2F80Elem@@QAEPAXI@Z,,0x005F3282,28,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtors.cpp,matched,scalar deleting dtor calls rowed element destructor 0x005F2F80; Ghidra start and exact body verified
 ??_GRva005FBF97Elem@@QAEPAXI@Z,,0x005FC1AE,28,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtors.cpp,matched,scalar deleting dtor calls rowed element destructor 0x005FBF97; Ghidra start and exact body verified
 ??_GRva005FFBCBElem@@QAEPAXI@Z,,0x005FFEED,28,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtors.cpp,matched,scalar deleting dtor calls rowed element destructor 0x005FFBCB; Ghidra start and exact body verified
+?SetBuildInfo@Debug@@SAXPBD00@Z,,0x00001705,27,Code/GameEngine/Source/Main/WinMain.cpp,matched,Outlined static forward to theDebug virtual slot 0x9C; ZH debug header declares the static beside the virtual; sole caller WinMain 0x3090; neighbours 0x16F0 and 0x16FA are dead drops left unclaimed
