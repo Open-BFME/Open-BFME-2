@@ -1,15 +1,9 @@
 // cl: /O1 /DNDEBUG /MD /arch:SSE
 //
-// ?Rva0048E65BHelper@DeployStyleAIUpdate@@QAEXXZ, retail 0x0048E65B
-// (80 bytes). DeployStyle trailing-state zeroing shared by three DeployStyle
-// methods (raw callers 0x48E9E8 in DeployStyleAIUpdate's ctor, 0x48EA4A and
-// 0x48F1F9): int zero at +0x4BC, byte flags at +0x4D0..0x4D6 in
-// retail-scrambled order, int zero at +0x4C0, then three float zeros at
-// +0x4C4/0x4C8/0x4CC through a pointer-local base (/arch:SSE movss - direct
-// member stores address through ecx and miss the lea). Sharded here because
-// the DeployStyle home TU is red at HEAD (its 0x26AFDA initMember call was
-// never landed); the row carries the file-unit forward until that TU heals.
-// The layout below mirrors DeployStyleAIUpdateCtor.cpp through +0x4D6.
+// DeployStyle small-leaf shard: the home DeployStyleAIUpdateCtor TU carries
+// the file-unit's big bodies (ctor, dtor-adjacent reset), so single-serving
+// leaves land here instead of grafting. The layout below mirrors
+// DeployStyleAIUpdateCtor.cpp through +0x4D6.
 
 class Thing;
 class ModuleData;
@@ -50,7 +44,6 @@ class DeployStyleAIUpdate : public Rva0026E9BDBase
 public:
 	DeployStyleAIUpdate(Thing *thing, const ModuleData *moduleData);
 	void Rva0048E634Reset();
-	void Rva0048E65BHelper();
 
 protected:
 	Rva0026AFDAMember m_member3E4;		// +0x3E4 (init 0x26AFDA, banked 0.9)
@@ -78,22 +71,4 @@ void DeployStyleAIUpdate::Rva0048E634Reset()
 {
 	m_member3E4.m_headState |= -1;
 	m_flag4A9 = false;
-}
-
-// ?Rva0048E65BHelper@DeployStyleAIUpdate@@QAEXXZ @0x48E65B
-void DeployStyleAIUpdate::Rva0048E65BHelper()
-{
-	m_4BC = 0;
-	m_flag4D0 = false;
-	m_flag4D4 = false;
-	m_flag4D3 = false;
-	m_flag4D1 = false;
-	m_4C0 = 0;
-	m_flag4D2 = false;
-	m_flag4D5 = false;
-	m_flag4D6 = false;
-	float *float4C4 = m_float4C4;
-	float4C4[0] = 0.0f;
-	float4C4[1] = 0.0f;
-	float4C4[2] = 0.0f;
 }
