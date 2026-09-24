@@ -50,6 +50,20 @@
 		return (m_value >> COUNT) & 1; \
 	}
 
+// General shift-count and mask variant for multi-bit field extraction.
+#define BFME_DISP8_SHRN_AND_MASK_DWORD_GETTER(NAME, DISP, COUNT, MASK) \
+	class NAME \
+	{ \
+	public: \
+		int get() const; \
+		char m_lead[DISP]; \
+		unsigned int m_value; \
+	}; \
+	int NAME::get() const \
+	{ \
+		return (m_value >> COUNT) & MASK; \
+	}
+
 BFME_DISP8_SHR_AND_DWORD_GETTER(Rva00091A29ShrAndField, 0x44)
 BFME_DISP8_SHR_AND_DWORD_GETTER(Rva00179120ShrAndField, 0x30)
 BFME_DISP8_SHR_AND_DWORD_GETTER(Rva006DBB40ShrAndField, 0x04)
@@ -71,3 +85,4 @@ BFME_DISP8_SHRN_AND_DWORD_GETTER(Rva003685B4ShrNAnd32Field, 0x4B8, 8)
 BFME_DISP8_SHRN_AND_DWORD_GETTER(Rva0043317FShrNAnd32Field, 0xC4, 4)
 BFME_DISP8_SHRN_AND_DWORD_GETTER(Rva0043318CShrNAnd32Field, 0xC4, 5)
 BFME_DISP8_SHRN_AND_DWORD_GETTER(Rva00433199ShrNAnd32Field, 0xC4, 6)
+BFME_DISP8_SHRN_AND_MASK_DWORD_GETTER(Rva002E6B6EShrNMaskField, 0x0C, 19, 3)
