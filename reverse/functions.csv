@@ -33720,3 +33720,4 @@ _WinMain@16,,0x00002C39,1382,Code/GameEngine/Source/Main/WinMain.cpp,matched,BFM
 ?Rva006CD1F0Set@@YAXH@Z,,0x006CD1F0,10,Code/GameEngine/Source/Common/ColdGlobalDwordSetters.cpp,matched,Cold global dword setter via arg in 6-member CC-padded cluster live callers
 ?Rva006CD210Set@@YAXH@Z,,0x006CD210,10,Code/GameEngine/Source/Common/ColdGlobalDwordSetters.cpp,matched,Cold global dword setter via arg in 6-member CC-padded cluster live callers
 ?Rva006D37E0Set@@YAXH@Z,,0x006D37E0,10,Code/GameEngine/Source/Common/ColdGlobalDwordSetters.cpp,matched,Cold global dword setter via arg in 6-member CC-padded cluster live callers
+?Rva00788149ClearFlag@@YAIXZ,,0x00788149,13,Code/GameEngine/Source/Common/GlobalFlagClearers_E033xx.cpp,matched,B2-native scattered clearer with rdata table slot under /G7 narrowing
