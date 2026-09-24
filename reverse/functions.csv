@@ -33186,3 +33186,4 @@ _DXTraceA@20,,0x0065459C,476,vendor/dxerr9-aug2005/dxerr9.lib,matched,vendored=d
 ?get@Rva002D34F4SarAvgField@@QBEHXZ,,0x002D34F4,10,Code/GameEngine/Source/Common/Disp8SarAvgDwordGetters.cpp,matched,Disp8 sar-avg getter frameless mov-sub-sar shape phase-proven no-branch-to-addr
 ?get@Rva00329DB4SarAvgField@@QBEHXZ,,0x00329DB4,9,Code/GameEngine/Source/Common/Disp8SarAvgDwordGetters.cpp,matched,Disp8 sar-avg getter frameless mov-sub-sar shape phase-proven no-branch-to-addr
 ?get@Rva003B0FC6SarAvgField@@QBEHXZ,,0x003B0FC6,10,Code/GameEngine/Source/Common/Disp8SarAvgDwordGetters.cpp,matched,Disp8 sar-avg getter frameless mov-sub-sar shape phase-proven no-branch-to-addr
+?get@Rva0040A7CBSarAvgField@@QBEHXZ,,0x0040A7CB,10,Code/GameEngine/Source/Common/Disp8SarAvgDwordGetters.cpp,matched,Disp8 sar-avg getter frameless mov-sub-sar shape phase-proven no-branch-to-addr
