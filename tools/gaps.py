@@ -9,6 +9,8 @@ Run from the repo root: python3 tools/gaps.py
 """
 import csv
 
+import build
+
 
 def padding_split(chunk):
     """Return (0xCC padding bytes, real bytes) for a slice of .text.
@@ -23,9 +25,12 @@ def padding_split(chunk):
 
 
 def main():
-    data = open('baselines/bfme2/workshop-vanilla-1.06/files/game.dat', 'rb').read()
-    TEXT_START = 0x1000
-    TEXT_END = 0x1000 + 13049856
+    # Bounds and bytes come from the build gate's PE parser: ledger rows are
+    # RVAs, and .text's file offset is not its RVA.
+    data, sections = build.exe_image()
+    text = next(s for s in sections if s['name'] == '.text')
+    TEXT_START = text['rva']
+    TEXT_END = TEXT_START + text['size']
 
     iv = []
     for r in csv.DictReader(open('reverse/functions.csv', newline='')):
@@ -53,7 +58,7 @@ def main():
     scored = []
     total_pad = 0
     for s, e in gaps:
-        chunk = data[s:e]
+        chunk = build.read_pe_bytes(data, sections, s, e - s)
         pad, real = padding_split(chunk)
         total_pad += pad
         if real > 0:
