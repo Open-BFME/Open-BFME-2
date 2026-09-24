@@ -112,3 +112,20 @@ public:
 struct BfmeRecord001ECAF9{AsciiString a0,a4,a8,aC;Rva0036CA00Str s10;unsigned int w14;_STL::vector<AsciiString> v18;BfmeRecord001ECAF9(const BfmeRecord001ECAF9&o):a0(o.a0),a4(o.a4),a8(o.a8),aC(o.aC),s10(o.s10),w14(o.w14),v18(o.v18){}};template void _STL::_Construct<BfmeRecord001ECAF9,BfmeRecord001ECAF9>(BfmeRecord001ECAF9*,const BfmeRecord001ECAF9&);
 
 struct BfmeRecord001DD3BC{AsciiString a0;Rva0036CA00Str a4;BfmeRecord001DD3BC(const BfmeRecord001DD3BC&o):a0(o.a0),a4(o.a4){}};template void _STL::_Construct<BfmeRecord001DD3BC,BfmeRecord001DD3BC>(BfmeRecord001DD3BC*,const BfmeRecord001DD3BC&);
+
+// Raw range copy at 0x0004687B: assignment-loop over the byte span, count by
+// stride, trailing scratch pair observed dead in the body (callers push a
+// caller-local address plus zero; retail never reads them, frameless and no
+// EH funclet, so no exception-path use either).
+BfmeContainerRecord00048139 *copyRecordRange(const char *first, const char *last, BfmeContainerRecord00048139 *dest, void *scratchBuffer, int scratchSize)
+{
+	int count = (int)(last - first) / (int)sizeof(BfmeContainerRecord00048139);
+	if (count > 0) {
+		for (int left = count; left != 0; --left) {
+			*dest = *(const BfmeContainerRecord00048139 *)first;
+			first += sizeof(BfmeContainerRecord00048139);
+			++dest;
+		}
+	}
+	return dest;
+}
