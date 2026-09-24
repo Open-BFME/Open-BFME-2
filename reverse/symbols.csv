@@ -4389,7 +4389,6 @@ _bfmeAppend,0x0060D5F2,callee of bfmeEmit (0x0060D7C0) at the site its BFME1 don
 ??1NetCommandRef@@QAE@XZ,0x0058B8AE,callee of clearCommandsExceptFrom (0x0058B960) at the site its BFME1 donor calls it; may be an ICF alias
 ?removeMessage@NetCommandList@@QAEXPAVNetCommandRef@@@Z,0x0058B07E,callee of clearCommandsExceptFrom (0x0058B960) at the site its BFME1 donor calls it; may be an ICF alias
 ??0VideoBuffer@@QAE@H@Z,0x00689140,callee of 0W3DVideoBuffer (0x000726B0) at the site its BFME1 donor calls it; may be an ICF alias
-?Rva006F2890RegisterVideoBuffer@Display@@QAEXPAVVideoBuffer@@@Z,0x0004B180,callee of 0W3DVideoBuffer (0x000726B0) at the site its BFME1 donor calls it; may be an ICF alias
 ?push@Shell@@QAEXVAsciiString@@_N@Z,0x0035C74A,callee of _bfme_showCampaignReview (0x0051291C) at the site its BFME1 donor calls it; may be an ICF alias
 ??1Rva0036CA00Str@@QAE@XZ,0x00036410,callee of 1Rva0013A820 (0x0050C4E8) at the site its BFME1 donor calls it; may be an ICF alias
 ?erase@?$_Rb_tree@HU?$pair@$$CBHUGen_t_00196d30_p8cd@@@_STL@@U?$_Select1st@U?$pair@$$CBHUGen_t_00196d30_p8cd@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUGen_t_00196d30_p8cd@@@_STL@@@2@@_STL@@QAEXU?$_Rb_tree_iterator@U?$pair@$$CBHUGen_t_00196d30_p8cd@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHUGen_t_00196d30_p8cd@@@_STL@@@2@@2@@Z,0x0032B4B2,callee of bfmePrepareRelease (0x0032C1F7) at the site its BFME1 donor calls it; may be an ICF alias
@@ -5151,3 +5150,4 @@ _AVIFileInit@0,0x0065479C,jmp [IAT 0xBBA050] stub; import table names avifil32!A
 ?Add@?$SimpleDynVecClass@PAVFontCharsClass@@@@QAE_NABQAVFontCharsClass@@H@Z,0x0009014A,FontChars star Add; 4-byte element twin of rowed unsigned Add at same address; sole caller getFontCharsHandle worker
 ??1BFMERetailAsciiString@@QAE@XZ,0x00036410,BFME2 4-byte string temp teardown; folds with StringBase and AsciiString clear at same address; sole caller getGhostObject worker
 ?CreateTexture@BfmeResetTextureBackend@@QAEXHHHHHHH@Z,0x001310E3,Backend texture creation worker; thiscall with 7 creation args (width height plus 5 backend fields); 3 raw callers (Recreate 0x132D09 plus literal-init 0x132044 plus 0x131BCD); sanitizes format-usage args then D3DX-creates and stores com plus desc cache
+?push_back@?$vector@PAVVideoBuffer@@V?$allocator@PAVVideoBuffer@@@_STL@@@_STL@@QAEXABQAVVideoBuffer@@@Z,0x004DFCB0,VideoBuffer-spelling alias over rowed ModuleData push_back fold; same 49B shell
