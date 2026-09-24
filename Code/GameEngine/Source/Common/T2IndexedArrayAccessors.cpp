@@ -126,3 +126,19 @@ void *t2_table_slot(T2TableOwner *owner, int index)
 {
 	return owner->m_slots[index];
 }
+
+// Three disp8 siblings of t2_table_slot (tables at +0xC/+0x3C/+0x6C instead
+// of +0x88). One caller passes the same owner object to all three while
+// walking 12 string entries, so the tables likely belong to one class, but
+// the owner identity is unrecovered: each accessor gets a minimal owner
+// struct mirroring T2TableOwner and an address-derived name.
+struct T2TableOwner0C
+{
+	char m_head[0xC];
+	void *m_slots[1];
+};
+
+void *Rva00021080TableSlot(T2TableOwner0C *owner, int index)
+{
+	return owner->m_slots[index];
+}
