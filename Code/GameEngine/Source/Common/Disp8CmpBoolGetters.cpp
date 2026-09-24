@@ -219,3 +219,39 @@ BFME_DISP8_CMP_IMM_BOOL_GETTER(Rva00313913CmpBoolField, 0x1E0, 0x8020CE, ==)
 BFME_DISP8_CMP_IMM_BOOL_GETTER(Rva0031393ACmpBoolField, 0x1E0, 0x727E5D, ==)
 BFME_DISP8_BYTE_CMP_BOOL_GETTER(Rva0031A9E3CmpBoolField, 0x14, ==)
 BFME_DISP8_BYTE_CMP_BOOL_GETTER(Rva003FE581CmpBoolField, 0x28, ==)
+// Backward-chase ternary: the method runs on a subobject BACK bytes into its
+// container, so the pointer member is read at a negative displacement from
+// `this` and the inner byte is tested through it (probe-proven; a direct
+// backward cast would fold the two offsets into one read).
+#define BFME_DISP8_BACK_PTR_TERNARY_BOOL_GETTER(NAME, BACK, INNER_DISP) \
+	struct NAME##Inner \
+	{ \
+		char m_pad[INNER_DISP]; \
+		unsigned char m_b; \
+	}; \
+	struct NAME##Outer; \
+	class NAME##Sub \
+	{ \
+	public: \
+		bool get() const; \
+	}; \
+	struct NAME##Outer \
+	{ \
+		NAME##Inner *m_ptr; \
+		char m_fill[BACK - 4]; \
+		NAME##Sub m_sub; \
+	}; \
+	bool NAME##Sub::get() const \
+	{ \
+		return ((NAME##Outer *)((char *)this - BACK))->m_ptr->m_b ? true : false; \
+	}
+BFME_DISP8_BACK_PTR_TERNARY_BOOL_GETTER(Rva00462CD3, 0x1C, 0x86)
+BFME_DISP8_BACK_PTR_TERNARY_BOOL_GETTER(Rva0047CB3F, 0x1C, 0x1A0)
+BFME_DISP8_BACK_PTR_TERNARY_BOOL_GETTER(Rva0049CF9E, 0x1C, 0x4C)
+BFME_DISP8_CMP_ZERO_BOOL_GETTER(Rva00497960CmpBoolField, 0x10, !=)
+BFME_DISP8_CMP_ZERO_BOOL_GETTER(Rva004A8125CmpBoolField, 0x38, ==)
+BFME_DISP8_CMP_ZERO_BOOL_GETTER(Rva004D374CCmpBoolField, 0x120, !=)
+BFME_DISP8_CMP_IMM_BOOL_GETTER(Rva004D86B1CmpBoolField, 0x28, 1, ==)
+BFME_DISP8_CMP_IMM_BOOL_GETTER(Rva004D55FCCmpBoolField, 0x24, 0x448, ==)
+BFME_DISP8_TERNARY_CMP_BOOL_GETTER(Rva004D393ACmpBoolField, 0x0C, 1, ==)
+BFME_DISP8_PTR_TERNARY_BOOL_GETTER(Rva0036CC7ECmpBoolField, 0x04, 0x1C)
