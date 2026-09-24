@@ -1,4 +1,5 @@
-// cl: /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /O1 /DNDEBUG /MD /GX /arch:SSE /D_STLP_USE_STATIC_LIB
+// stlport
 //
 // ?internalSetGoalPosition@StateMachine@@QAEXPBVCoord3D@@M@Z,
 // retail 0x004D73C4, 32 bytes, plus
@@ -7,22 +8,31 @@
 // ?setGoalPosition@StateMachine@@QAEXPBVCoord3D@@M@Z,
 // retail 0x004D745C, 26 bytes, plus
 // ?setGoalPosition@TurretStateMachine@@QAEXPBUCoord3D@@@Z,
-// retail 0x00262224, 22 bytes. Dedicated TU for the StateMachine goal
+// retail 0x00262224, 22 bytes, plus
+// ?halt@StateMachine@@QAEXXZ,
+// retail 0x004D73A4, 9 bytes, plus
+// ?internalGetState@StateMachine@@QAEPAUState@@H@Z,
+// retail 0x004D764C, 31 bytes. Dedicated TU for the StateMachine goal
 // file-unit: the lock-gated setter, the storing worker, the object setter,
-// and the TurretAI wrapper that supplies the default range.
+// the TurretAI wrapper that supplies the default range, the halt, and the
+// state-map lookup.
 // BFME1 reference (reference/open-bfme-1/Code/GameEngine/Source/Common/
 // StateMachine.cpp, StateMachine::setGoalPosition plus
-// internalSetGoalPosition plus setGoalObject): the lock flag gates the
-// setter, the worker copies the position when non-null, and the object
-// setter records the id plus forwards the object's position. BFME2 deltas:
+// internalSetGoalPosition plus setGoalObject plus halt plus
+// internalGetState): the lock flag gates the setter, the worker copies the
+// position when non-null, and the object setter records the id plus
+// forwards the object's position. BFME2 deltas:
 // the worker takes a second float argument kept in the new member at +0x30
 // (callers pass FLT_MAX for the unlimited default, the object setter
-// forwards the stored value), the lock lives at +0x38, and the id/position
-// reads are direct (m_id at +0x74, m_position at +0x38) instead of virtual.
+// forwards the stored value), the lock lives at +0x38, the id/position
+// reads are direct (m_id at +0x74, m_position at +0x38) instead of virtual,
+// and the lookup returns null on a miss instead of recovering.
 
 #include <cfloat>
+#include <map>
 
 typedef int Int;
+typedef int StateID;
 
 struct Coord3D
 {
@@ -40,12 +50,18 @@ public:
 	Int m_id; // +0x74
 };
 
+struct State
+{
+	StateID m_id; // +0x04 in the full class; the map keeps pointers only
+};
+
 class StateMachine
 {
 public:
 	unsigned char m_pad00[0x04];
 	void *m_currentState; // +0x04
-	unsigned char m_pad08[0x20 - 0x08];
+	_STL::map<StateID, State *> m_stateMap; // +0x08
+	unsigned char m_pad14[0x20 - 0x14];
 	Int m_goalObjectID; // +0x20
 	Coord3D m_goalPosition; // +0x24
 	float m_goalRange; // +0x30, BFME2-new range carried with the goal
@@ -56,6 +72,7 @@ public:
 	void internalSetGoalPosition(const Coord3D *pos, float goalRange);
 	void setGoalObject(Object *obj);
 	void halt();
+	State *internalGetState(StateID id);
 };
 
 class TurretStateMachine : public StateMachine
@@ -105,4 +122,14 @@ void StateMachine::halt()
 {
 	m_locked = true;
 	m_currentState = 0; // don't exit current state, just clear it.
+}
+
+// ?internalGetState@StateMachine@@QAEPAUState@@H@Z
+State *StateMachine::internalGetState(StateID id)
+{
+	// locate the actual state associated with the given ID
+	_STL::map<StateID, State *>::iterator i = m_stateMap.find(id);
+	if (i == m_stateMap.end())
+		return 0;
+	return (*i).second;
 }
