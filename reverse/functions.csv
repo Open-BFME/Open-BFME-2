@@ -33060,3 +33060,4 @@ _DXTraceA@20,,0x0065459C,476,vendor/dxerr9-aug2005/dxerr9.lib,matched,vendored=d
 ?copyRecordRangeWithScratch@@YAPAUBfmeContainerRecord00048139@@PBD0PAU1@PAX@Z,,0x0004811C,29,Code/GameEngine/Source/Common/StringContainerRecordCopyBFME2.cpp,matched,
 ??0RayEffectFXNugget@@QAE@XZ,,0x001E01B2,123,Code/GameEngine/Source/GameClient/RayEffectFXNuggetCtor.cpp,matched,FXNugget-family base plus BFME1 donor template clear plus primary secondary offsets plus type-2 field; sole caller parse 0x1E13A5
 ??0FXListAtBonePosFXNugget@@QAE@XZ,,0x001E0A57,78,Code/GameEngine/Source/GameClient/FXListAtBonePosFXNuggetCtor.cpp,matched,FXNugget-family base plus BFME1 donor fx null plus bone clear plus type-10 field; sole caller parse 0x1E1814
+?Rva009B5DB0Vp6DecodeBlock@@YAXPAEHI@Z,,0x001C66B0,705,Code/GameEngine/Source/Common/Rva009B5DB0Vp6DecodeBlock.cpp,matched,BFME1 byte-identical donor; b1 0x009B5DB0
