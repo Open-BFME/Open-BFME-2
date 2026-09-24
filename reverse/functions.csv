@@ -33438,3 +33438,13 @@ _DXTraceA@20,,0x0065459C,476,vendor/dxerr9-aug2005/dxerr9.lib,matched,vendored=d
 ?Rva00781CECClearFlag@@YAIXZ,,0x00781CEC,13,Code/GameEngine/Source/Common/GlobalFlagClearers_E028xx.cpp,matched,B2-native clearer in E028-E029 run; rdata table slot; /G7 narrowing
 ?Rva00781D4FClearFlag@@YAIXZ,,0x00781D4F,13,Code/GameEngine/Source/Common/GlobalFlagClearers_E028xx.cpp,matched,B2-native clearer in E028-E029 run; rdata table slot; /G7 narrowing
 ?Rva00781D66ClearFlag@@YAIXZ,,0x00781D66,13,Code/GameEngine/Source/Common/GlobalFlagClearers_E028xx.cpp,matched,B2-native clearer in E028-E029 run; rdata table slot; /G7 narrowing
+?Rva00781D99ClearFlag@@YAIXZ,,0x00781D99,13,Code/GameEngine/Source/Common/GlobalFlagClearers_E02Axx.cpp,matched,B2-native clearer in E029-E02A run; rdata table slot; /G7 narrowing
+?Rva00781DB0ClearFlag@@YAIXZ,,0x00781DB0,13,Code/GameEngine/Source/Common/GlobalFlagClearers_E02Axx.cpp,matched,B2-native clearer in E029-E02A run; rdata table slot; /G7 narrowing
+?Rva00781DC7ClearFlag@@YAIXZ,,0x00781DC7,13,Code/GameEngine/Source/Common/GlobalFlagClearers_E02Axx.cpp,matched,B2-native clearer in E029-E02A run; rdata table slot; /G7 narrowing
+?Rva00781DDEClearFlag@@YAIXZ,,0x00781DDE,13,Code/GameEngine/Source/Common/GlobalFlagClearers_E02Axx.cpp,matched,B2-native clearer in E029-E02A run; rdata table slot; /G7 narrowing
+?Rva00781DF5ClearFlag@@YAIXZ,,0x00781DF5,13,Code/GameEngine/Source/Common/GlobalFlagClearers_E02Axx.cpp,matched,B2-native clearer in E029-E02A run; rdata table slot; /G7 narrowing
+?Rva00781E0CClearFlag@@YAIXZ,,0x00781E0C,13,Code/GameEngine/Source/Common/GlobalFlagClearers_E02Axx.cpp,matched,B2-native clearer in E029-E02A run; rdata table slot; /G7 narrowing
+?Rva00781E23ClearFlag@@YAIXZ,,0x00781E23,13,Code/GameEngine/Source/Common/GlobalFlagClearers_E02Axx.cpp,matched,B2-native clearer in E029-E02A run; rdata table slot; /G7 narrowing
+?Rva00781E3AClearFlag@@YAIXZ,,0x00781E3A,13,Code/GameEngine/Source/Common/GlobalFlagClearers_E02Axx.cpp,matched,B2-native clearer in E029-E02A run; rdata table slot; /G7 narrowing
+?Rva00781E51ClearFlag@@YAIXZ,,0x00781E51,13,Code/GameEngine/Source/Common/GlobalFlagClearers_E02Axx.cpp,matched,B2-native clearer in E029-E02A run; rdata table slot; /G7 narrowing
+?Rva00781E68ClearFlag@@YAIXZ,,0x00781E68,13,Code/GameEngine/Source/Common/GlobalFlagClearers_E02Axx.cpp,matched,B2-native clearer in E029-E02A run; rdata table slot; /G7 narrowing
