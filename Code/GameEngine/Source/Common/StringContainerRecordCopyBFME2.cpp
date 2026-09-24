@@ -18,6 +18,7 @@ class AsciiString : private StringBase<char> {
 public:
     __forceinline AsciiString(const AsciiString &other) : StringBase<char>(other) {}
     __forceinline ~AsciiString() {}
+    AsciiString &operator=(const AsciiString &other);
 };
 class UnicodeString : private StringBase<unsigned short> {
 public:
@@ -37,8 +38,10 @@ public:
 struct BfmeContainerRecord00048139 {
     AsciiString text0, text1; WeaponTemplateSetHead head; unsigned int word54, word58;
     BfmeContainerRecord00048139(const BfmeContainerRecord00048139 &o);
+    BfmeContainerRecord00048139 &operator=(const BfmeContainerRecord00048139 &o);
 };
 BfmeContainerRecord00048139::BfmeContainerRecord00048139(const BfmeContainerRecord00048139 &o) : text0(o.text0), text1(o.text1), head(o.head), word54(o.word54), word58(o.word58) {}
+BfmeContainerRecord00048139 &BfmeContainerRecord00048139::operator=(const BfmeContainerRecord00048139 &o) { text0 = o.text0; text1 = o.text1; head = o.head; word54 = o.word54; word58 = o.word58; return *this; }
 template void _STL::_Construct<BfmeContainerRecord00048139,BfmeContainerRecord00048139>(BfmeContainerRecord00048139*,const BfmeContainerRecord00048139&);
 
 // Complete retail record copy at 0x003A451B.
