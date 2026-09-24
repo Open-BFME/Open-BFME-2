@@ -10746,7 +10746,6 @@ _lua_strlibopen,,0x0074A0B0,21,Code/Libraries/Source/Lua/lstrlib.c,matched,BFME1
 ??1Rva00803890Owner@@UAE@XZ,,0x0066F8D0,96,Code/GameEngine/Source/GameNetwork/Rva00803890FeslDtor.cpp,matched,BFME1 byte-identical donor; b1 0x00803890
 ?bfmeDtorCDE@BfmeThingCDE@@QAEXXZ,,0x0073A900,170,Code/GameEngine/Source/Common/BfmeThingCDEDestructor.cpp,matched,BFME1 byte-identical donor; b1 0x008F8340
 ?Find@EAStringC@@QAEHDH@Z,,0x006D38E0,62,Code/Libraries/Source/EA/Apt/AptString/EAStringCFind.cpp,matched,BFME1 byte-identical donor; b1 0x0089E230
-??1LadderPreferences@@UAE@XZ,,0x006D6470,82,Code/GameEngine/Source/Common/LadderPreferencesDtor.cpp,matched,BFME1 near-miss donor; b1 0x000ABB70; immediate-only drift (+0x08 vs +0x14)
 _whilestat,,0x00755AA0,301,Code/Libraries/Source/Lua/lparser.c,matched,BFME1 byte-identical donor; b1 0x0099CC60; ICF-folded in BFME1 so the name is this sweeps pick among its twins
 _repeatstat,,0x00755BD0,265,Code/Libraries/Source/Lua/lparser.c,matched,BFME1 byte-identical donor; b1 0x0099CD90; ICF-folded in BFME1 so the name is this sweeps pick among its twins
 _breakstat,,0x00754AD0,156,Code/Libraries/Source/Lua/lparser.c,matched,BFME1 byte-identical donor; b1 0x0099BC90; ICF-folded in BFME1 so the name is this sweeps pick among its twins; 1 DIR32 string literal(s) agree
@@ -33589,3 +33588,4 @@ _WinMain@16,,0x00002C39,1382,Code/GameEngine/Source/Main/WinMain.cpp,matched,BFM
 ??0IgnorePreferences@@QAE@XZ,,0x003B21C0,113,Code/GameEngine/Source/Common/UserPreferences.cpp,matched,Zero Hour IgnorePreferences ctor: Online Files\IgnorePref<profile>.ini via TheGameSpyInfo slot 0x7C; vtable 0xC1EF40
 ??0QuickMatchPreferences@@QAE@XZ,,0x005DF1A3,113,Code/GameEngine/Source/GameNetwork/GameSpy/OnlinePreferences.cpp,matched,Zero Hour QuickMatchPreferences ctor: Online Files\QMPref<profile>.ini; vtable 0xC776DC
 ??0GameSpyMiscPreferences@@QAE@XZ,,0x00559711,113,Code/GameEngine/Source/GameNetwork/GameSpy/OnlinePreferences.cpp,matched,Zero Hour GameSpyMiscPreferences ctor: Online Files\GSMiscPref<profile>.ini; vtable 0xC6B3AC
+??1Rva006D6470Owner@@UAE@XZ,,0x006D6470,82,Code/GameEngine/Source/Common/LadderPreferencesDtor.cpp,matched,derived dtor (base 0x6DE350; vtable 0xCEA264); formerly misnamed LadderPreferences dtor; BFME1 0xABB70 near-miss
