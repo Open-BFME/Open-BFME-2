@@ -1439,3 +1439,4 @@ FUN_004C40BA	0x004C40BA	413	blocked	string-anchored (FIRING_OR_PREATTACK_B) but 
 ?setVisibility@Mouse@@QAEX_N@Z	0x001EE5D6	24	landed	ZH Mouse::setVisibility (BFME1 same shape over m_cursorState); sibling in the setEngineVisibility TU; first compile exact; t=5 model=claude-opus-5-5
 ?setInputEnabled@InGameUI@@QAEX_N@Z	0x0029AB35	19	landed	ZH InGameUI::setInputEnabled (doEnableInput pair); sibling of setEngineInputEnabled with this+0x16; first compile exact; t=5 model=claude-opus-5-5
 ?setScriptList@SidesInfo@@QAEXPAVScriptList@@@Z	0x003297F3	8	landed	ZH signature; tail jump to by-value ScriptList swap 0x3B58DF (pinned); first compile exact; t=5 model=claude-opus-5-5
+?OnGameCreate@LANAPI@@UAEXW4ReturnType@LANAPIInterface@@@Z	0x00249445	233	blocked	BFME1 donor compile crosses the target extent: REL32 at source offset 232 needs at least 236 bytes, while Ghidra boundary is 233; byte comparison did not run; t=5min model=gpt-6
