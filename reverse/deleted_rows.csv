@@ -454,3 +454,4 @@ name,target_rva,reason
 ??1CreateCrateDieModuleData@@UAE@XZ,0x0035CCCA,"Misattributed: this body installs vtable 0x00C16394, but the class the CreateCrateDie factory builds uses 0x00BF40A8. Renamed to ??1Rva0035CCCAModuleData@@UAE@XZ."
 ??_GCreateCrateDieModuleData@@UAEPAXI@Z,0x0035CF10,"Misattributed: this body installs vtable 0x00C16394, but the class the CreateCrateDie factory builds uses 0x00BF40A8. Renamed to ??_GRva0035CCCAModuleData@@UAEPAXI@Z."
 ?clearTeamsInQueue@AIPlayer@@IAEXXZ,0x00098A6F,"Refuted name: owning class reads CapsLock plus creates DirectInput devices (input class factory news 0xE28 not 0xA0); Unacquire plus Release is device teardown. Rowed as ?releaseDevices@Rva00098A6F@@QAEXXZ."
+?get@Rva00270FFFAddImm32Field@@QBEHXZ,0x00270FFF,"Interior fragment, not a function: je@0x00270FF6 targets this address, null-arm of the enclosing conditional-load fn. Direct window-decode proof 2026-09-24."

@@ -793,31 +793,3 @@ void Rva005B022AByteOneSetter::enable()
 {
 	m_enabled = 1;
 }
-
-class Rva0048E6CAByteZeroSetter
-{
-public:
-	void disable();
-
-	char m_lead[0x4D5];
-	unsigned char m_enabled;
-};
-
-void Rva0048E6CAByteZeroSetter::disable()
-{
-	m_enabled = 0;
-}
-
-class Rva0048E6F0ByteZeroSetter
-{
-public:
-	void disable();
-
-	char m_lead[0x4D6];
-	unsigned char m_enabled;
-};
-
-void Rva0048E6F0ByteZeroSetter::disable()
-{
-	m_enabled = 0;
-}
