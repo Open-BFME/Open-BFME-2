@@ -33564,3 +33564,19 @@ _WinMain@16,,0x00002C39,1382,Code/GameEngine/Source/Main/WinMain.cpp,matched,BFM
 ?bfmeMarkReceiverPayloads@@YAXH@Z,,0x0061F070,21,Code/Libraries/Source/assetmanager/q1_registry_forwards.cpp,matched,Guarded forward to Q1 m009F0D40 payload-mark; same E09C0C registry
 ?bfmeSetReceiverFlag@@YAXH@Z,,0x0061F130,21,Code/Libraries/Source/assetmanager/q1_registry_forwards.cpp,matched,Guarded forward to Q1 m009EC970 flag-set; same E09C0C registry
 ?bfmeClearReceiverFlag@@YAXH@Z,,0x0061F150,21,Code/Libraries/Source/assetmanager/q1_registry_forwards.cpp,matched,Guarded forward to Q1 m009EC9A0 flag-clear; same E09C0C registry
+?boolAsStr@@YA?AVAsciiString@@_N@Z,,0x003B194E,92,Code/GameEngine/Source/Common/UserPreferences.cpp,matched,Zero Hour boolAsStr: format %d
+?realAsStr@@YA?AVAsciiString@@M@Z,,0x003B19AA,95,Code/GameEngine/Source/Common/UserPreferences.cpp,matched,Zero Hour realAsStr: format %g
+?intAsStr@@YA?AVAsciiString@@H@Z,,0x003B18F4,90,Code/GameEngine/Source/Common/UserPreferences.cpp,matched,Zero Hour intAsStr: format %d
+?getAsciiString@UserPreferences@@UBE?AVAsciiString@@ABV2@0@Z,,0x003B1FA1,51,Code/GameEngine/Source/Common/UserPreferences.cpp,matched,UserPreferences vtable slot 8: map find or default (const-ref params)
+??1UserPreferences@@UAE@XZ,,0x003B1F65,60,Code/GameEngine/Source/Common/UserPreferences.cpp,matched,UserPreferences dtor: wide file name release then map dtor (was pinned opaque Rva003B1F65)
+??_GUserPreferences@@UAEPAXI@Z,,0x003B200A,28,Code/GameEngine/Source/Common/UserPreferences.cpp,matched,UserPreferences scalar deleting dtor (vtable slot 0)
+?getBool@UserPreferences@@UBE_NABVAsciiString@@_N@Z,,0x003B1DBE,192,Code/GameEngine/Source/Common/UserPreferences.cpp,matched,Zero Hour getBool (1/t/true/y/yes/ok) through virtual getAsciiString
+?getReal@UserPreferences@@UBEMABVAsciiString@@M@Z,,0x003B1A67,96,Code/GameEngine/Source/Common/UserPreferences.cpp,matched,Zero Hour getReal through virtual getAsciiString
+?getInt@UserPreferences@@UBEHABVAsciiString@@H@Z,,0x003B1AC7,89,Code/GameEngine/Source/Common/UserPreferences.cpp,matched,Zero Hour getInt through virtual getAsciiString
+?setBool@UserPreferences@@UAEXABVAsciiString@@_N@Z,,0x003B1B20,69,Code/GameEngine/Source/Common/UserPreferences.cpp,matched,Zero Hour setBool through virtual setAsciiString
+?setReal@UserPreferences@@UAEXABVAsciiString@@M@Z,,0x003B1B65,73,Code/GameEngine/Source/Common/UserPreferences.cpp,matched,Zero Hour setReal through virtual setAsciiString
+?setInt@UserPreferences@@UAEXABVAsciiString@@H@Z,,0x003B1BAE,69,Code/GameEngine/Source/Common/UserPreferences.cpp,matched,Zero Hour setInt through virtual setAsciiString
+?setAsciiString@UserPreferences@@UAEXABVAsciiString@@0@Z,,0x003B21A6,26,Code/GameEngine/Source/Common/UserPreferences.cpp,matched,UserPreferences vtable slot 12: map operator[] slot then assign
+??0UserPreferences@@QAE@XZ,,0x003B1FF1,25,Code/GameEngine/Source/Common/UserPreferences.cpp,matched,UserPreferences ctor: map ctor then vtable 0xC1EF0C and null wide file name
+?load@UserPreferences@@UAE_NABVAsciiString@@@Z,,0x003B1A09,94,Code/GameEngine/Source/Common/UserPreferences.cpp,matched,UserPreferences slot 2: widen leaf name then virtual load(UnicodeString)
+?getEnumIndex@UserPreferences@@UBEHPBDPAPBDHH@Z,,0x003B1CEE,138,Code/GameEngine/Source/Common/UserPreferences.cpp,matched,UserPreferences slot 7: case-insensitive index of stored value in a name table
