@@ -19,6 +19,7 @@ public:
 	const char *getNextTokenOrNull( const char *seps );
 	const char *getSepsColon( void ) const { return m_sepsColon; }
 	Real scanReal( const char *token );
+	static void parseInt( INI *ini, void *instance, void *store, const void *userData );
 
 	char m_unreconstructed_000[ 0x420 ];
 	const char *m_sepsColon;
@@ -77,4 +78,13 @@ void parseMultiPlayMoneyMult( INI *ini, void *, void *store, const void * )
 			token = ini->getNextTokenOrNull( ini->getSepsColon() );
 		}
 	}
+}
+
+// ?parseCommandPoints@@YAXPAVINI@@PAX1PBX@Z @0x23528E
+// FieldParse callback for the Good/EvilCommandPoints[AI|MPn] GlobalData
+// entries (rows from RVA 0x7E99E4): two consecutive ints per side.
+void parseCommandPoints( INI *ini, void *instance, void *store, const void *userData )
+{
+	INI::parseInt( ini, instance, store, userData );
+	INI::parseInt( ini, instance, (Int *)store + 1, userData );
 }
