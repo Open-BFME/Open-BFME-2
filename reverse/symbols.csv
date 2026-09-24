@@ -5157,3 +5157,4 @@ _AVIFileInit@0,0x0065479C,jmp [IAT 0xBBA050] stub; import table names avifil32!A
 ??0Rva001DFEAABase@@QAE@XZ,0x001DFEAA,shared FXNugget-family base ctor; called with this undisplaced from 16 ctor-start sites incl AttachedModelFXNugget 0x1E084A; installs vtable 0xBDC940; do-not-name without family proof
 ??1Rva0026E9BDBase@@UAE@XZ,0x0026E836,DeployStyle dtor TU spelling for the opaque SEH base dtor; same body as pinned ??1Rva0026E836@@UAE@XZ
 ?Rva00120720CreateTexture@@YAPAXHHHHHH@Z,0x00120720,cdecl 6-arg D3DX texture creator; sole caller is backend worker 0x131170; read from retail REL32 at 0x00131170
+?init@Rva00263895Member@@QAEXXZ,0x00263895,member-subobject init (44B body at 0x263895 stores vtable-like dwords plus float zeros plus byte zero and calls 0x263653 on +4 member); 41 raw member-call sites image-wide including AICommandParms ctor pin 0x351BD0 and Rva0026AFDAMember initMember 0x26AFDA; thiscall no args
