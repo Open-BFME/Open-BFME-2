@@ -33587,3 +33587,5 @@ _WinMain@16,,0x00002C39,1382,Code/GameEngine/Source/Main/WinMain.cpp,matched,BFM
 ?write@UserPreferences@@UAE_NXZ,,0x003B1BF3,150,Code/GameEngine/Source/Common/UserPreferences.cpp,matched,Zero Hour write with wide file name: _wfopen w then fprintf key = value lines
 ?load@UserPreferences@@UAE_NABVUnicodeString@@@Z,,0x003B2026,384,Code/GameEngine/Source/Common/UserPreferences.cpp,matched,Zero Hour load with wide path: clear map; user-data path + leaf; fgets/trim/nextToken loop
 ??0IgnorePreferences@@QAE@XZ,,0x003B21C0,113,Code/GameEngine/Source/Common/UserPreferences.cpp,matched,Zero Hour IgnorePreferences ctor: Online Files\IgnorePref<profile>.ini via TheGameSpyInfo slot 0x7C; vtable 0xC1EF40
+??0QuickMatchPreferences@@QAE@XZ,,0x005DF1A3,113,Code/GameEngine/Source/GameNetwork/GameSpy/OnlinePreferences.cpp,matched,Zero Hour QuickMatchPreferences ctor: Online Files\QMPref<profile>.ini; vtable 0xC776DC
+??0GameSpyMiscPreferences@@QAE@XZ,,0x00559711,113,Code/GameEngine/Source/GameNetwork/GameSpy/OnlinePreferences.cpp,matched,Zero Hour GameSpyMiscPreferences ctor: Online Files\GSMiscPref<profile>.ini; vtable 0xC6B3AC
