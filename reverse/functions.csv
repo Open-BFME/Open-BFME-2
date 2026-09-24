@@ -33586,3 +33586,4 @@ _WinMain@16,,0x00002C39,1382,Code/GameEngine/Source/Main/WinMain.cpp,matched,BFM
 ?getLANIPAddress@OptionPreferences@@QAEIXZ,,0x002E4F98,194,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_getLANIPAddress.cpp,matched,Zero Hour getLANIPAddress: stored IPAddress matched against enumerated IPs else GlobalData default IP
 ?write@UserPreferences@@UAE_NXZ,,0x003B1BF3,150,Code/GameEngine/Source/Common/UserPreferences.cpp,matched,Zero Hour write with wide file name: _wfopen w then fprintf key = value lines
 ?load@UserPreferences@@UAE_NABVUnicodeString@@@Z,,0x003B2026,384,Code/GameEngine/Source/Common/UserPreferences.cpp,matched,Zero Hour load with wide path: clear map; user-data path + leaf; fgets/trim/nextToken loop
+??0IgnorePreferences@@QAE@XZ,,0x003B21C0,113,Code/GameEngine/Source/Common/UserPreferences.cpp,matched,Zero Hour IgnorePreferences ctor: Online Files\IgnorePref<profile>.ini via TheGameSpyInfo slot 0x7C; vtable 0xC1EF40

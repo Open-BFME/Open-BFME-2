@@ -356,3 +356,61 @@ void UserPreferences::setAsciiString(const AsciiString &key, const AsciiString &
 	AsciiString &slot = (*this)[key];
 	slot = val;
 }
+
+// The GameSpy session info singleton (0x00E02320), as far as the ignore
+// list reaches it: getLocalProfileID sits in vtable slot 0x7C.
+class GameSpyInfoInterface
+{
+public:
+	virtual void _M_slot_00();
+	virtual void _M_slot_04();
+	virtual void _M_slot_08();
+	virtual void _M_slot_0c();
+	virtual void _M_slot_10();
+	virtual void _M_slot_14();
+	virtual void _M_slot_18();
+	virtual void _M_slot_1c();
+	virtual void _M_slot_20();
+	virtual void _M_slot_24();
+	virtual void _M_slot_28();
+	virtual void _M_slot_2c();
+	virtual void _M_slot_30();
+	virtual void _M_slot_34();
+	virtual void _M_slot_38();
+	virtual void _M_slot_3c();
+	virtual void _M_slot_40();
+	virtual void _M_slot_44();
+	virtual void _M_slot_48();
+	virtual void _M_slot_4c();
+	virtual void _M_slot_50();
+	virtual void _M_slot_54();
+	virtual void _M_slot_58();
+	virtual void _M_slot_5c();
+	virtual void _M_slot_60();
+	virtual void _M_slot_64();
+	virtual void _M_slot_68();
+	virtual void _M_slot_6c();
+	virtual void _M_slot_70();
+	virtual void _M_slot_74();
+	virtual void _M_slot_78();
+	virtual Int getLocalProfileID();
+};
+
+extern GameSpyInfoInterface *TheGameSpyInfo;
+
+class IgnorePreferences : public UserPreferences
+{
+public:
+	IgnorePreferences();
+	virtual ~IgnorePreferences();
+};
+
+// ??0IgnorePreferences@@QAE@XZ @0x3B21C0
+// Zero Hour's constructor with BFME 2's per-profile path under
+// "Online Files".
+IgnorePreferences::IgnorePreferences()
+{
+	AsciiString userPrefFilename;
+	userPrefFilename.format("%s\\IgnorePref%d.ini", "Online Files", TheGameSpyInfo->getLocalProfileID());
+	load(userPrefFilename);
+}
