@@ -447,6 +447,11 @@ class CopyProtect
 {
 public:
 	static void checkForMessage(UINT message, LPARAM lParam);
+	static bool isLauncherRunning();
+	static bool notifyLauncher();
+	static bool validate();
+	static void setVerified(bool verified);
+	static void shutdown();
 };
 
 extern "C" void bfmeRva0042CF86(WPARAM wParam);
@@ -938,14 +943,6 @@ static bool initializeAppWindows( HINSTANCE hInstance, int nCmdShow, bool runWin
 	return true;  // success
 }
 
-// WinMain is not converted yet.  This stands in for its one call at
-// 0x00002FAA so that the static body above is emitted, and emitted with the
-// register-passed hInstance retail uses.  It claims no retail address.
-bool bfmeCallInitializeAppWindows( HINSTANCE hInstance, int nCmdShow, bool runWindowed )
-{
-	return initializeAppWindows( hInstance, nCmdShow, runWindowed );
-}
-
 //----------------------------------------------------------------------------
 // copyStringRef, at 0x002343F7 (32B). Snapshots a C string into an 8-byte
 // caller slot: it inits a stack temp through the pinned 0xB3F84 pair init
@@ -1081,4 +1078,394 @@ void GameMain(int argc, char **argv)
 	TheGameEngine = engine;
 	((GameEngineInitView *)engine)->init(argc, argv);
 	return ((GameEngineInitView *)TheGameEngine)->execute();
+}
+
+//----------------------------------------------------------------------------
+// WinMain at 0x00002C39 (1382B), with its catch(...) continuation at
+// 0x0000319F (matched separately).  Zero Hour's WinMain reshaped for BFME 2:
+//   - the command line comes from GetCommandLineW, converted to UTF-8 into a
+//     new[] buffer, and argv[0] is the executable token (argc starts at 0);
+//   - the working directory is only forced when lotrsec.big is not visible;
+//   - a leading 0x96 (en dash) on an argument is rewritten to '-';
+//   - -DX resolves each hex address through DebugStackwalk::Signature;
+//   - -win/-fullscreen/-xpos/-ypos/-automatch are parsed in a second pass;
+//   - the splash is an ATL CImage loaded from <language>Splash.jpg (falling
+//     back to .bmp) and published through gLoadScreenBitmap;
+//   - the mutex and FindWindow key off the window class name;
+//   - the launcher handshake runs before GameMain, and teardown order depends
+//     on the TheGlobalData byte at +0xC74.
+//----------------------------------------------------------------------------
+
+typedef struct _FILETIME { DWORD dwLowDateTime; DWORD dwHighDateTime; } FILETIME;
+
+typedef struct _WIN32_FIND_DATAW
+{
+	DWORD dwFileAttributes;
+	FILETIME ftCreationTime;
+	FILETIME ftLastAccessTime;
+	FILETIME ftLastWriteTime;
+	DWORD nFileSizeHigh;
+	DWORD nFileSizeLow;
+	DWORD dwReserved0;
+	DWORD dwReserved1;
+	unsigned short cFileName[260];
+	unsigned short cAlternateFileName[14];
+} WIN32_FIND_DATAW;
+
+#define INVALID_HANDLE_VALUE  ((HANDLE)-1)
+#define ERROR_ALREADY_EXISTS  183
+#define SW_RESTORE            9
+
+extern "C" {
+__declspec(dllimport) unsigned short *WINAPI GetCommandLineW();
+__declspec(dllimport) HANDLE WINAPI FindFirstFileW(const unsigned short *, WIN32_FIND_DATAW *);
+__declspec(dllimport) BOOL WINAPI FindClose(HANDLE);
+__declspec(dllimport) DWORD WINAPI GetModuleFileNameW(HINSTANCE, unsigned short *, DWORD);
+__declspec(dllimport) BOOL WINAPI SetCurrentDirectoryW(const unsigned short *);
+__declspec(dllimport) HANDLE WINAPI CreateMutexW(void *, BOOL, const unsigned short *);
+__declspec(dllimport) DWORD WINAPI GetLastError();
+__declspec(dllimport) HWND WINAPI FindWindowW(const unsigned short *, const unsigned short *);
+__declspec(dllimport) BOOL WINAPI CloseHandle(HANDLE);
+__declspec(dllimport) BOOL WINAPI DeleteObject(HGDIOBJ);
+__declspec(dllimport) HINSTANCE WINAPI LoadLibraryA(const char *);
+__declspec(dllimport) unsigned int __cdecl wcslen(const unsigned short *);
+__declspec(dllimport) unsigned long __cdecl strtoul(const char *, char **, int);
+__declspec(dllimport) int __cdecl _strcmpi(const char *, const char *);
+__declspec(dllimport) long __cdecl atol(const char *);
+__declspec(dllimport) int __cdecl sprintf(char *, const char *, ...);
+unsigned int __cdecl strlen(const char *);
+char *__cdecl strcpy(char *, const char *);
+int __cdecl strcmp(const char *, const char *);
+}
+
+void *operator new[](unsigned int size);
+
+int BFME2WideToUtf8(const unsigned short *wide, int wideLength, char *utf8, int utf8Size);
+void Rva0005D6D0DisableImmTextFrameService();
+bool shutdownRenderDevice();
+
+class DebugStackwalk
+{
+public:
+	class Signature
+	{
+	public:
+		static void GetSymbol(unsigned int address, char *buffer, unsigned int bufferSize);
+	};
+};
+
+// Only the ATL 7.1 atlimage.h members WinMain reaches; the destructor and
+// Destroy are inline in the header, as retail shows them expanded here.
+struct HBITMAP__;
+
+namespace ATL
+{
+class CImage
+{
+	class CInitGDIPlus
+	{
+	public:
+		void DecreaseCImageCount() throw();
+	};
+
+public:
+	CImage() throw();
+	virtual ~CImage() throw()
+	{
+		Destroy();
+		s_initGDIPlus.DecreaseCImageCount();
+	}
+	void Destroy() throw()
+	{
+		if (m_hBitmap != 0)
+			DeleteObject(Detach());
+	}
+	HBITMAP__ *Detach() throw();
+	long Load(const char *fileName) throw();
+	operator HBITMAP() const throw() { return m_hBitmap; }
+
+private:
+	HBITMAP m_hBitmap;
+	void *m_pBits;
+	int m_nWidth;
+	int m_nHeight;
+	int m_nPitch;
+	int m_nBPP;
+	bool m_bIsDIBSection;
+	bool m_bHasAlphaChannel;
+	long m_iTransparentColor;
+	HDC m_hDC;
+	int m_nDCRefCount;
+	HBITMAP m_hOldBitmap;
+
+	static CInitGDIPlus s_initGDIPlus;
+};
+}
+
+// The engine's reference-counted narrow string: str() over the shared empty
+// literal, and the out-of-line StringBase<char> destructor.
+template <>
+class StringBase<char>
+{
+	friend class AsciiString;
+
+	struct Header
+	{
+		int ref_count;
+		unsigned short length;
+		unsigned short capacity;
+		char data[1];
+	};
+
+public:
+	~StringBase();
+
+private:
+	Header *m_data;
+};
+
+class AsciiString
+{
+public:
+	const char *str() const { return m_data.m_data ? m_data.m_data->data : ""; }
+
+private:
+	StringBase<char> m_data;
+};
+
+AsciiString GetRegistryLanguage();
+
+class Version
+{
+public:
+	Version();
+	~Version();
+	AsciiString getAsciiVersion();
+	AsciiString getAsciiBuildTime();
+	AsciiString *getBuildGuid();
+
+private:
+	unsigned char m_data[0x30];
+};
+
+Version *TheVersion;
+
+
+// TheGlobalData byte at +0xC74 selects the engine-first teardown below.
+class GlobalData
+{
+public:
+	unsigned char m_pad[0xC74];
+	bool m_bfmeTeardownEngineFirst;
+};
+
+extern GlobalData *TheGlobalData;
+
+// The two singletons torn down after GameMain; both are released through
+// their virtual destructor in slot 0 with a global delete.
+class BfmeDfe6ec
+{
+public:
+	virtual ~BfmeDfe6ec();
+};
+
+BfmeDfe6ec *theBfmeDfe6ec;
+
+class BfmeDfe6e8Owner
+{
+public:
+	virtual ~BfmeDfe6e8Owner();
+};
+
+static inline char *trimArgument(char *buffer)
+{
+	char *source = buffer;
+	while (*source != 0 && (unsigned char)*source <= ' ')
+		source++;
+	if (source != buffer)
+		strcpy(buffer, source);
+	for (int index = strlen(buffer) - 1; index >= 0; index--)
+	{
+		if (*source != 0 && (unsigned char)buffer[index] <= ' ')
+			buffer[index] = 0;
+		else
+			break;
+	}
+	return buffer;
+}
+
+#define MAX_ARGUMENTS 32
+
+// ?WinMain@@... _WinMain@16 @0x2c39
+extern "C" int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance,
+	char *lpCmdLine, int nCmdShow )
+{
+	Rva0005D6D0DisableImmTextFrameService();
+
+	unsigned short *wideCommandLine = GetCommandLineW();
+	int commandLineSize = BFME2WideToUtf8(wideCommandLine, -1, 0, 0);
+	char *commandLine = new char[commandLineSize];
+	BFME2WideToUtf8(wideCommandLine, -1, commandLine, commandLineSize);
+
+	try {
+
+		// Force the working directory to the executable's unless the game
+		// archives are already visible from here.
+		WIN32_FIND_DATAW findData;
+		HANDLE findHandle = FindFirstFileW(L"lotrsec.big", &findData);
+		if (findHandle != INVALID_HANDLE_VALUE)
+		{
+			FindClose(findHandle);
+		}
+		else
+		{
+			unsigned short buffer[260];
+			GetModuleFileNameW(0, buffer, 260);
+			unsigned short *pEnd = buffer + wcslen(buffer);
+			while (pEnd != buffer)
+			{
+				if (*pEnd == '\\')
+				{
+					*pEnd = 0;
+					break;
+				}
+				pEnd--;
+			}
+			SetCurrentDirectoryW(buffer);
+		}
+
+		int argc = 0;
+		char *argv[MAX_ARGUMENTS];
+		argv[0] = 0;
+
+		char *token = nextParam(commandLine, "\" ");
+		while (argc < MAX_ARGUMENTS && token != 0)
+		{
+			// Pasted shortcuts can carry an en dash in place of the hyphen.
+			if (*token == '\x96')
+				*token = '-';
+			argv[argc++] = trimArgument(token);
+			token = nextParam(0, "\" ");
+		}
+
+		if (argc > 2 && strcmp(argv[1], "-DX") == 0)
+		{
+			for (int i = 2; i < argc; i++)
+			{
+				unsigned int address = strtoul(argv[i], 0, 16);
+				char name[256];
+				DebugStackwalk::Signature::GetSymbol(address, name, 256);
+			}
+			return 0;
+		}
+
+		for (int i = 1; i < argc; i++)
+		{
+			if (_strcmpi(argv[i], "-win") == 0)
+			{
+				ApplicationIsWindowed = true;
+			}
+			else if (_strcmpi(argv[i], "-fullscreen") == 0)
+			{
+				ApplicationIsWindowed = false;
+			}
+			else if (i + 1 < argc && _strcmpi(argv[i], "-xpos") == 0)
+			{
+				g_windowPosX = atol(argv[i + 1]);
+				i++;
+			}
+			else if (i + 1 < argc && _strcmpi(argv[i], "-ypos") == 0)
+			{
+				g_windowPosY = atol(argv[i + 1]);
+				i++;
+			}
+			else if (_strcmpi(argv[i], "-automatch") == 0)
+			{
+			}
+		}
+
+		{
+			ATL::CImage splashImage;
+			char filePath[260];
+			sprintf(filePath, "%sSplash.jpg", GetRegistryLanguage().str());
+			if (splashImage.Load(filePath) < 0)
+			{
+				sprintf(filePath, "%sSplash.bmp", GetRegistryLanguage().str());
+				splashImage.Load(filePath);
+			}
+			gLoadScreenBitmap = splashImage;
+
+			HANDLE gameMutex = CreateMutexW(0, FALSE, g_windowClassName);
+			if (GetLastError() == ERROR_ALREADY_EXISTS)
+			{
+				HWND runningWindow = FindWindowW(g_windowClassName, 0);
+				if (runningWindow)
+				{
+					SetForegroundWindow(runningWindow);
+					ShowWindow(runningWindow, SW_RESTORE);
+				}
+				if (gameMutex != 0)
+					CloseHandle(gameMutex);
+				delete TheVersion;
+				TheVersion = 0;
+				return 0;
+			}
+
+			if (initializeAppWindows(hInstance, nCmdShow, ApplicationIsWindowed) == false)
+				return 0;
+		}
+
+		TheVersion = new Version;
+		Debug::SetBuildInfo(TheVersion->getAsciiVersion().str(),
+			TheVersion->getBuildGuid()->str(),
+			TheVersion->getAsciiBuildTime().str());
+
+		if (!CopyProtect::isLauncherRunning())
+		{
+			delete TheVersion;
+			TheVersion = 0;
+			return 0;
+		}
+		if (!CopyProtect::notifyLauncher())
+		{
+			delete TheVersion;
+			TheVersion = 0;
+			return 0;
+		}
+
+		CopyProtect::setVerified(CopyProtect::validate());
+		LoadLibraryA("setupapi.dll");
+
+		GameMain(argc, argv);
+
+		CopyProtect::shutdown();
+
+		delete TheVersion;
+		TheVersion = 0;
+
+		if (TheGlobalData->m_bfmeTeardownEngineFirst)
+		{
+			if (TheGameEngine)
+			{
+				shutdownGameEngine(TheGameEngine);
+				TheGameEngine = 0;
+			}
+			::delete theBfmeDfe6ec;
+		}
+		else
+		{
+			shutdownRenderDevice();
+			BfmeDfe6e8Owner *owner = (BfmeDfe6e8Owner *)theBfmeDfe6e8;
+			if (owner)
+			{
+				::delete owner;
+				theBfmeDfe6e8 = 0;
+			}
+		}
+	}
+	catch (...)
+	{
+	}
+
+	return 0;
 }
