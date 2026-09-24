@@ -43,7 +43,9 @@ public:
 class StateMachine
 {
 public:
-	unsigned char m_pad00[0x20];
+	unsigned char m_pad00[0x04];
+	void *m_currentState; // +0x04
+	unsigned char m_pad08[0x20 - 0x08];
 	Int m_goalObjectID; // +0x20
 	Coord3D m_goalPosition; // +0x24
 	float m_goalRange; // +0x30, BFME2-new range carried with the goal
@@ -53,6 +55,7 @@ public:
 	void setGoalPosition(const Coord3D *pos, float goalRange);
 	void internalSetGoalPosition(const Coord3D *pos, float goalRange);
 	void setGoalObject(Object *obj);
+	void halt();
 };
 
 class TurretStateMachine : public StateMachine
@@ -95,4 +98,11 @@ void StateMachine::setGoalObject(Object *obj)
 void TurretStateMachine::setGoalPosition(const Coord3D *pos)
 {
 	StateMachine::setGoalPosition(pos, FLT_MAX);
+}
+
+// ?halt@StateMachine@@QAEXXZ
+void StateMachine::halt()
+{
+	m_locked = true;
+	m_currentState = 0; // don't exit current state, just clear it.
 }
