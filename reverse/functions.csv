@@ -33062,3 +33062,4 @@ _DXTraceA@20,,0x0065459C,476,vendor/dxerr9-aug2005/dxerr9.lib,matched,vendored=d
 ??0FXListAtBonePosFXNugget@@QAE@XZ,,0x001E0A57,78,Code/GameEngine/Source/GameClient/FXListAtBonePosFXNuggetCtor.cpp,matched,FXNugget-family base plus BFME1 donor fx null plus bone clear plus type-10 field; sole caller parse 0x1E1814
 ?Rva009B5DB0Vp6DecodeBlock@@YAXPAEHI@Z,,0x001C66B0,705,Code/GameEngine/Source/Common/Rva009B5DB0Vp6DecodeBlock.cpp,matched,BFME1 byte-identical donor; b1 0x009B5DB0
 ?finish@Rva0080A940Owner@@QAE_NXZ,,0x006758A0,584,Code/GameEngine/Source/GameNetwork/Rva0080A940OwnerFinish.cpp,matched,BFME1 byte-identical donor; b1 0x0080A940
+??0SiegeEngineContainModuleData@@QAE@XZ,,0x0047C927,136,Code/GameEngine/Source/GameLogic/Object/Contain/SiegeEngineContainModuleDataCtor.cpp,matched,EH derived ctor over pinned Transport base 0x468301 plus member 0x3623E5; string+int198 pair-init plus mask reset 0x24CA24 plus AsciiString clear 0x36410; row supersedes pin
