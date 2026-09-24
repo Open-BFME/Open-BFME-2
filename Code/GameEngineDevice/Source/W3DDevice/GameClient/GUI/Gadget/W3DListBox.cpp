@@ -50,6 +50,8 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 // SYSTEM INCLUDES ////////////////////////////////////////////////////////////
+#define GadgetListBoxGetEnabledSelectedItemColor \
+	bfmeZhGadgetListBoxGetEnabledSelectedItemColor
 #include <stdlib.h>
 
 #include "../../../../../../../reference/shims/w3ddisplaystring/GameClient/DisplayString.h"
@@ -60,6 +62,16 @@
 #include "GameClient/GadgetListBox.h"
 #include "W3DDevice/GameClient/W3DGadget.h"
 #include "W3DDevice/GameClient/W3DDisplay.h"
+
+#undef GadgetListBoxGetEnabledSelectedItemColor
+
+// The donor inline reads enabledDrawData[1].color at +0x58. Retail's body at
+// 0x00698A20 reads [window+0x54], so keep its target-proven access separate
+// from the donor layout while retaining the donor identity as provenance.
+Color GadgetListBoxGetEnabledSelectedItemColor(GameWindow *window)
+{
+	return *(const Color *)((const char *)window + 0x54);
+}
 
 // DEFINES ////////////////////////////////////////////////////////////////////
 
