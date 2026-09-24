@@ -34330,3 +34330,4 @@ _WinMain@16,,0x00002C39,1382,Code/GameEngine/Source/Main/WinMain.cpp,matched,BFM
 ?Rva0031AB77SetFlag@@YAXXZ,,0x0031AB77,8,Code/GameEngine/Source/Common/GlobalByteFlagSetters.cpp,matched,global byte flag setter; opaque holder
 ?Rva004128E8SetFlag@@YAXXZ,,0x004128E8,8,Code/GameEngine/Source/Common/GlobalByteFlagSetters.cpp,matched,global byte flag setter; opaque holder
 ?Rva006CD200SetFlag@@YAXXZ,,0x006CD200,8,Code/GameEngine/Source/Common/GlobalByteFlagSetters.cpp,matched,global byte flag setter; opaque holder
+??0BfmeDualVtableReleaseDtor@@QAE@H@Z,,0x0020429D,88,Code/GameEngine/Source/Common/BfmeDualVtableReleaseDtorCtor.cpp,matched,FX particle-editor loader built in ScriptEngine::init; base DllHandle with FXParticleEditorI.dll plus GetFXParticleEditor factory plus slot-0 poke; failures throw LoadFailure via shared pad
