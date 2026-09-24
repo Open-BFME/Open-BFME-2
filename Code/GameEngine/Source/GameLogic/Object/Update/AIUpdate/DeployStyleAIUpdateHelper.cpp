@@ -41,14 +41,15 @@ class Rva0026AFDAMember
 public:
 	void initMember();
 
-private:
-	unsigned char m_pad[0xC4];
+	int m_headState;			// +0x3E4 (predicate 0x48E61F reads -1)
+	unsigned char m_pad[0xC4 - 4];
 };
 
 class DeployStyleAIUpdate : public Rva0026E9BDBase
 {
 public:
 	DeployStyleAIUpdate(Thing *thing, const ModuleData *moduleData);
+	void Rva0048E634Reset();
 	void Rva0048E65BHelper();
 
 protected:
@@ -71,6 +72,13 @@ protected:
 	bool m_flag4D5;				// +0x4D5
 	bool m_flag4D6;				// +0x4D6
 };
+
+// ?Rva0048E634Reset@DeployStyleAIUpdate@@QAEXXZ @0x48E634
+void DeployStyleAIUpdate::Rva0048E634Reset()
+{
+	m_member3E4.m_headState |= -1;
+	m_flag4A9 = false;
+}
 
 // ?Rva0048E65BHelper@DeployStyleAIUpdate@@QAEXXZ @0x48E65B
 void DeployStyleAIUpdate::Rva0048E65BHelper()
