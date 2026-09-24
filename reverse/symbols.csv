@@ -4088,7 +4088,6 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ??0LifetimeUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x003A4B58,(Thing*;ModuleData*) ctor called by LifetimeUpdate::friend_newModuleInstance (0x0024E36B); class from the ModuleFactory registration literal
 ??0SpecialEnemySenseUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x00499FA9,(Thing*;ModuleData*) ctor called by SpecialEnemySenseUpdate::friend_newModuleInstance (0x0024E47D); class from the ModuleFactory registration literal
 ??0RadiusDecalUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x0039148A,(Thing*;ModuleData*) ctor called by RadiusDecalUpdate::friend_newModuleInstance (0x0024E4B5); class from the ModuleFactory registration literal
-??0FireWeaponUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x0048C0C5,(Thing*;ModuleData*) ctor called by FireWeaponUpdate::friend_newModuleInstance (0x0024CF1E); class from the ModuleFactory registration literal
 ??0SiegeAIUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x00490506,(Thing*;ModuleData*) ctor called by SiegeAIUpdate::friend_newModuleInstance (0x0024D490); class from the ModuleFactory registration literal
 ??0AIUpdateInterface@@QAE@PAVThing@@PBVModuleData@@@Z,0x0026E9BD,(Thing*;ModuleData*) ctor called by AIUpdateInterface::friend_newModuleInstance (0x0024BDB7); class from the ModuleFactory registration literal
 ??0CommandButtonHuntUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x004952CF,(Thing*;ModuleData*) ctor called by CommandButtonHuntUpdate::friend_newModuleInstance (0x0024DF4F); class from the ModuleFactory registration literal
@@ -5144,3 +5143,4 @@ _AVIFileInit@0,0x0065479C,jmp [IAT 0xBBA050] stub; import table names avifil32!A
 ?reset@Rva0029FB3BMember@@QAEXXZ,0x0026549E,alias for the compiling TU spelling of the lock-free pool helper at 0x26549E; rowed as opaque Rva0026549E
 ??1FireWeaponUpdate@@UAE@XZ,0x0048BD11,virtual dtor tail-jumped to by DamageFieldUpdate dtor 0x49122C; EH body with list teardown; class proven by poolkey plus name plus factory
 ?Rva002CE1AC@Weapon@@QAEXPAVObject@@@Z,0x002CE1AC,opaque Weapon arming call from WeaponFireSpecialAbilityUpdate ctor plus 12 weapon-family callers; do-not-name without donor
+?Rva0048BDF8Helper@FireWeaponUpdate@@QAEXXZ,0x0048BDF8,single-caller weapon-loop helper called with FireWeaponUpdate this from behavior ctor 0x48C0C5; do-not-name without callee IDs
