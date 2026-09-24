@@ -33810,3 +33810,13 @@ _WinMain@16,,0x00002C39,1382,Code/GameEngine/Source/Main/WinMain.cpp,matched,BFM
 ?Rva0078F74AClearFlag@@YAIXZ,,0x0078F74A,13,Code/GameEngine/Source/Common/GlobalFlagClearers_E040xx.cpp,matched,Flag clearer via al narrowing over 0x00E04058
 ?Rva0078F78BClearFlag@@YAIXZ,,0x0078F78B,13,Code/GameEngine/Source/Common/GlobalFlagClearers_E040xx.cpp,matched,Flag clearer via al narrowing over 0x00E04060
 ?Rva0078F7A2ClearFlag@@YAIXZ,,0x0078F7A2,13,Code/GameEngine/Source/Common/GlobalFlagClearers_E040xx.cpp,matched,Flag clearer via al narrowing over 0x00E04068
+?Rva0078F7CEClearFlag@@YAIXZ,,0x0078F7CE,13,Code/GameEngine/Source/Common/GlobalFlagClearers_E040xx.cpp,matched,Flag clearer via al narrowing over 0x00E04074
+?Rva0078F817ClearFlag@@YAIXZ,,0x0078F817,13,Code/GameEngine/Source/Common/GlobalFlagClearers_E040xx.cpp,matched,Flag clearer via al narrowing over 0x00E0407C
+?Rva0078F86AClearFlag@@YAIXZ,,0x0078F86A,13,Code/GameEngine/Source/Common/GlobalFlagClearers_E040xx.cpp,matched,Flag clearer via al narrowing over 0x00E04084
+?Rva0078F893ClearFlag@@YAIXZ,,0x0078F893,13,Code/GameEngine/Source/Common/GlobalFlagClearers_E040xx.cpp,matched,Flag clearer via al narrowing over 0x00E04090
+?Rva0078FA4AClearFlag@@YAIXZ,,0x0078FA4A,13,Code/GameEngine/Source/Common/GlobalFlagClearers_E040xx.cpp,matched,Flag clearer via al narrowing over 0x00E040B8
+?Rva0078FB00ClearFlag@@YAIXZ,,0x0078FB00,13,Code/GameEngine/Source/Common/GlobalFlagClearers_E040xx.cpp,matched,Flag clearer via al narrowing over 0x00E0411C
+?Rva0078FB22ClearFlag@@YAIXZ,,0x0078FB22,13,Code/GameEngine/Source/Common/GlobalFlagClearers_E040xx.cpp,matched,Flag clearer via al narrowing over 0x00E04128
+?Rva0078FB39ClearFlag@@YAIXZ,,0x0078FB39,13,Code/GameEngine/Source/Common/GlobalFlagClearers_E040xx.cpp,matched,Flag clearer via al narrowing over 0x00E04130
+?Rva0078FB50ClearFlag@@YAIXZ,,0x0078FB50,13,Code/GameEngine/Source/Common/GlobalFlagClearers_E040xx.cpp,matched,Flag clearer via al narrowing over 0x00E04138
+?Rva0078FB67ClearFlag@@YAIXZ,,0x0078FB67,13,Code/GameEngine/Source/Common/GlobalFlagClearers_E040xx.cpp,matched,Flag clearer via al narrowing over 0x00E04140

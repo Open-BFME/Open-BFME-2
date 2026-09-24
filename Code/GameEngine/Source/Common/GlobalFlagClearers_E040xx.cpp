@@ -19,6 +19,16 @@ extern unsigned int g_Va00E04050;
 extern unsigned int g_Va00E04058;
 extern unsigned int g_Va00E04060;
 extern unsigned int g_Va00E04068;
+extern unsigned int g_Va00E04074;
+extern unsigned int g_Va00E0407C;
+extern unsigned int g_Va00E04084;
+extern unsigned int g_Va00E04090;
+extern unsigned int g_Va00E040B8;
+extern unsigned int g_Va00E0411C;
+extern unsigned int g_Va00E04128;
+extern unsigned int g_Va00E04130;
+extern unsigned int g_Va00E04138;
+extern unsigned int g_Va00E04140;
 
 unsigned int Rva0078F617ClearFlag(void)
 {
@@ -68,4 +78,54 @@ unsigned int Rva0078F78BClearFlag(void)
 unsigned int Rva0078F7A2ClearFlag(void)
 {
 	return g_Va00E04068 &= 0xFFFFFFFEu;
+}
+
+unsigned int Rva0078F7CEClearFlag(void)
+{
+	return g_Va00E04074 &= 0xFFFFFFFEu;
+}
+
+unsigned int Rva0078F817ClearFlag(void)
+{
+	return g_Va00E0407C &= 0xFFFFFFFEu;
+}
+
+unsigned int Rva0078F86AClearFlag(void)
+{
+	return g_Va00E04084 &= 0xFFFFFFFEu;
+}
+
+unsigned int Rva0078F893ClearFlag(void)
+{
+	return g_Va00E04090 &= 0xFFFFFFFEu;
+}
+
+unsigned int Rva0078FA4AClearFlag(void)
+{
+	return g_Va00E040B8 &= 0xFFFFFFFEu;
+}
+
+unsigned int Rva0078FB00ClearFlag(void)
+{
+	return g_Va00E0411C &= 0xFFFFFFFBu;
+}
+
+unsigned int Rva0078FB22ClearFlag(void)
+{
+	return g_Va00E04128 &= 0xFFFFFFFEu;
+}
+
+unsigned int Rva0078FB39ClearFlag(void)
+{
+	return g_Va00E04130 &= 0xFFFFFFFEu;
+}
+
+unsigned int Rva0078FB50ClearFlag(void)
+{
+	return g_Va00E04138 &= 0xFFFFFFFEu;
+}
+
+unsigned int Rva0078FB67ClearFlag(void)
+{
+	return g_Va00E04140 &= 0xFFFFFFFEu;
 }
