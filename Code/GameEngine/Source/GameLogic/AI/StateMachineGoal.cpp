@@ -16,12 +16,15 @@
 // ?internalSetState@StateMachine@@QAE?AW4StateReturnType@@H@Z,
 // retail 0x004D766B, 135 bytes, plus
 // ?initDefaultState@StateMachine@@QAE?AW4StateReturnType@@XZ,
-// retail 0x004D770F, 23 bytes. Dedicated TU for the StateMachine goal
+// retail 0x004D770F, 23 bytes, plus
+// ?hasState@StateMachine@@QAE_NH@Z,
+// retail 0x004D76F2, 29 bytes. Dedicated TU for the StateMachine goal
 // file-unit: the lock-gated setter, the storing worker, the object setter,
 // the TurretAI wrapper that supplies the default range, the halt, the
 // state-map lookup, the transition worker that exits the old state,
 // enters the new one, and handles sleep versus transition returns,
-// and the default-state initializer guarded by the inited flag.
+// and the default-state initializer guarded by the inited flag,
+// and the state-map contains check.
 // BFME1 reference (reference/open-bfme-1/Code/GameEngine/Source/Common/
 // StateMachine.cpp, StateMachine::setGoalPosition plus
 // internalSetGoalPosition plus setGoalObject plus halt plus
@@ -40,6 +43,7 @@
 typedef int Int;
 typedef unsigned int UnsignedInt;
 typedef int StateID;
+typedef bool Bool;
 
 enum { MACHINE_DONE_STATE_ID = 999998, INVALID_STATE_ID = 999999 };
 
@@ -122,6 +126,7 @@ public:
 	void setGoalObject(Object *obj);
 	void halt();
 	State *internalGetState(StateID id);
+	Bool hasState(StateID id);
 	StateReturnType internalSetState(StateID newStateID);
 	StateReturnType initDefaultState();
 };
@@ -267,4 +272,10 @@ StateReturnType StateMachine::initDefaultState()
 
 	m_defaultStateInited = true;
 	return internalSetState(m_defaultStateID);
+}
+
+// ?hasState@StateMachine@@QAE_NH@Z
+Bool StateMachine::hasState(StateID id)
+{
+	return m_stateMap.find(id) != m_stateMap.end();
 }
