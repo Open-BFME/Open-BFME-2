@@ -34336,3 +34336,4 @@ _WinMain@16,,0x00002C39,1382,Code/GameEngine/Source/Main/WinMain.cpp,matched,BFM
 ?init@Rva00019EB0VTableInstall@@QAEPAV1@XZ,,0x00019EB0,9,Code/GameEngine/Source/Common/VTableInstalls.cpp,matched,Bare vtable install; return-this homes eax; live caller
 ?init@Rva000910D8VTableInstall@@QAEPAV1@XZ,,0x000910D8,9,Code/GameEngine/Source/Common/VTableInstalls.cpp,matched,Bare vtable install; return-this homes eax; live caller
 ?init@Rva0037F4C0VTableInstall@@QAEPAV1@XZ,,0x0037F4C0,9,Code/GameEngine/Source/Common/VTableInstalls.cpp,matched,Bare vtable install; return-this homes eax; live callers
+?init@Rva005114BDVTableInstall@@QAEPAV1@XZ,,0x005114BD,9,Code/GameEngine/Source/Common/VTableInstalls.cpp,matched,Bare vtable install; return-this homes eax; live caller
