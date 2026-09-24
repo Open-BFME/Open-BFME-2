@@ -29,6 +29,13 @@
 #include <map>
 #include <stdlib.h>
 
+struct _iobuf;
+typedef struct _iobuf FILE;
+extern "C" __declspec(dllimport) FILE *__cdecl _wfopen(const unsigned short *name, const unsigned short *mode);
+extern "C" __declspec(dllimport) int __cdecl fprintf(FILE *fp, const char *fmt, ...);
+extern "C" __declspec(dllimport) int __cdecl fclose(FILE *fp);
+extern "C" __declspec(dllimport) char *__cdecl fgets(char *buf, int n, FILE *fp);
+
 typedef bool Bool;
 typedef int Int;
 typedef float Real;
@@ -54,6 +61,9 @@ public:
 	~StringBase();
 	Int compare(const char *other) const;
 	Int compareNoCase(const char *other) const;
+	void set(const T *text);
+	void trim(void);
+	Bool nextToken(StringBase *token, const char *seps);
 
 protected:
 	BfmeStringData<T> *m_data;
@@ -67,6 +77,9 @@ template <> class StringBase<unsigned short>
 public:
 	StringBase() : m_data(0) {}
 	~StringBase() { releaseBuffer(); }
+	bool isEmpty() const;
+	void set(const StringBase &other);
+	void concat(const StringBase &other);
 
 protected:
 	BfmeStringData<unsigned short> *m_data;
@@ -81,6 +94,7 @@ public:
 	AsciiString(const char *text) : StringBase<char>(text) {}
 	AsciiString(const AsciiString &other) : StringBase<char>(other) {}
 	AsciiString &operator=(const AsciiString &other);
+	AsciiString &operator=(const char *text) { set(text); return *this; }
 
 	const char *str() const { return m_data ? &m_data->text[0] : ""; }
 	Bool isEmpty() const { return m_data == 0 || m_data->length == 0; }
@@ -93,7 +107,9 @@ class UnicodeString : public StringBase<unsigned short>
 {
 public:
 	UnicodeString() {}
+	UnicodeString &operator=(const UnicodeString &other) { set(other); return *this; }
 	void translate(const char *text);
+	const unsigned short *str() const { return m_data ? &m_data->text[0] : L""; }
 };
 
 bool operator<(const AsciiString &left, const AsciiString &right);
@@ -138,6 +154,15 @@ protected:
 	UnicodeString m_filename;
 };
 
+// BFME 2's user-data path getter (rowed by address at 0x002360FC).
+class GlobalData
+{
+public:
+	UnicodeString rva002360FC() const;
+};
+
+extern GlobalData *TheGlobalData;
+
 // ?boolAsStr@@YA?AVAsciiString@@_N@Z @0x3B194E
 AsciiString boolAsStr(Bool val)
 {
@@ -178,6 +203,67 @@ Bool UserPreferences::load(const AsciiString &fname)
 	UnicodeString wideName;
 	wideName.translate(fname.str());
 	return load(wideName);
+}
+
+#define LINE_LEN 2048
+
+// ?load@UserPreferences@@UAE_NABVUnicodeString@@@Z @0x3B2026
+// Zero Hour's load with a wide path: the leaf is appended to the user-data
+// directory, and the map is cleared first.
+Bool UserPreferences::load(const UnicodeString &fname)
+{
+	clear();
+
+	m_filename = TheGlobalData->rva002360FC();
+	m_filename.concat(fname);
+
+	FILE *fp = _wfopen(m_filename.str(), L"r");
+	if (fp)
+	{
+		char buf[LINE_LEN];
+		while( fgets( buf, LINE_LEN, fp ) != NULL )
+		{
+			AsciiString line = buf;
+			line.trim();
+
+			AsciiString key, val;
+			line.nextToken(&key, "=");
+			val = line.str() + 1;
+
+			key.trim();
+			val.trim();
+
+			if (key.isEmpty() || val.isEmpty())
+				continue;
+
+			AsciiString &slot = (*this)[key];
+			slot = val;
+		}  // end while
+		fclose(fp);
+		return true;
+	}
+	return false;
+}
+
+// ?write@UserPreferences@@UAE_NXZ @0x3B1BF3
+Bool UserPreferences::write( void )
+{
+	if (m_filename.isEmpty())
+		return false;
+
+	FILE *fp = _wfopen(m_filename.str(), L"w");
+	if (fp)
+	{
+		PreferenceMap::const_iterator it = begin();
+		while (it != end())
+		{
+			fprintf(fp, "%s = %s\n", it->first.str(), it->second.str());
+			++it;
+		}
+		fclose(fp);
+		return true;
+	}
+	return false;
 }
 
 // ?getBool@UserPreferences@@UBE_NABVAsciiString@@_N@Z @0x3B1DBE
