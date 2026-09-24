@@ -31,3 +31,17 @@ BFME_DISP8_DWORD_CLEAR(Rva0055059ADwordClearer, 0x4)
 BFME_DISP8_DWORD_CLEAR(Rva005A9D01DwordClearer, 0x5C)
 BFME_DISP8_DWORD_CLEAR(Rva005B5B07DwordClearer, 0x10)
 BFME_DISP8_DWORD_CLEAR(Rva005C494DDwordClearer, 0x14)
+#define BFME_DISP8_DWORD_MASK(NAME, DISP, MASK) \
+	class NAME \
+	{ \
+	public: \
+		void clear(); \
+		char m_lead[DISP]; \
+		int m_counter; \
+	}; \
+	void NAME::clear() \
+	{ \
+		m_counter &= MASK; \
+	}
+BFME_DISP8_DWORD_MASK(Rva006DBD90DwordMask, 0x04, ~0x08)
+BFME_DISP8_DWORD_MASK(Rva006DBDC0DwordMask, 0x04, ~0x04)
