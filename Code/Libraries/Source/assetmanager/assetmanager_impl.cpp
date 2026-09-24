@@ -138,6 +138,7 @@ public:
 	void m009F0D40(int value);
 	void m009F0E50(int value);
 	void m009F19E0(int source);
+	void m009F1A60(int source);
 	void m009EFD40(Q1ReceiverLocalSet *set);
 	void refresh();
 
@@ -250,6 +251,23 @@ void Q1Receiver0134FAAC::m009F19E0(int source)
 {
 	Q1ReceiverLockGuard lock((int)m_lock_060);
 	BfmeThingBVA *record = (BfmeThingBVA *)((char *)this + 0x198);
+	BfmeThingBVA &source_record = *(BfmeThingBVA *)(unsigned int)source;
+
+	if (record != &source_record)
+	{
+		record->bfmeStepBVA(&source_record);
+		record->m_active = true;
+		record->set_value(source_record.m_value);
+	}
+	refresh();
+}
+
+// BFME1 donor Q1Receiver0134FAAC_m009F1A60.cpp: same step pattern as m009F19E0
+// against the record at +0x1AC (donor view +0x1A4 with the extra gap).
+void Q1Receiver0134FAAC::m009F1A60(int source)
+{
+	Q1ReceiverLockGuard lock((int)m_lock_060);
+	BfmeThingBVA *record = (BfmeThingBVA *)((char *)this + 0x1AC);
 	BfmeThingBVA &source_record = *(BfmeThingBVA *)(unsigned int)source;
 
 	if (record != &source_record)

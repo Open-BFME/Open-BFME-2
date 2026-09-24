@@ -33417,3 +33417,4 @@ _DXTraceA@20,,0x0065459C,476,vendor/dxerr9-aug2005/dxerr9.lib,matched,vendored=d
 ?get@Rva0050D18CmpBoolField@@QBE_NXZ,,0x00050D18,9,Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp,matched,Disp8 cmp-zero bool getter; cmp [ecx+0x14] eax setle; /O1
 ?get@Rva002A7EA0CmpBoolField@@QBE_NXZ,,0x002A7EA0,10,Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp,matched,Disp8 cmp-imm bool getter; cmp [ecx+0x14] 0x13 setl; /O1
 ?get@Rva001DBB54CmpBoolField@@QBE_NXZ,,0x001DBB54,8,Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp,matched,Disp8 ternary-cmp bool getter; cmp [ecx+0x04] 0 setl no-xor; /O1
+?m009F1A60@Q1Receiver0134FAAC@@QAEXH@Z,,0x00624710,117,Code/Libraries/Source/assetmanager/assetmanager_impl.cpp,matched,BFME1 donor Q1Receiver0134FAAC_m009F1A60 with TU plus8 layout repair; record at plus0x1AC and lock at plus0x68; step and refresh pins already live
