@@ -340,3 +340,35 @@ bool GetUnsignedIntFromRegistry(AsciiString path, AsciiString key, unsigned int 
 		return true;
 	return getUnsignedIntFromRegistry(HKEY_CURRENT_USER, fullPath.str(), key.str(), val);
 }
+
+const char *GetRegistryUserDataLeafName();
+
+// ?getUserDataLeafNameAscii@@YA?AVAsciiString@@XZ @0x2350CB
+// Narrow twin of the wide getUserDataLeafName: the registry's
+// UserDataLeafName value when it is set, otherwise the registry-block default.
+AsciiString getUserDataLeafNameAscii()
+{
+	AsciiString leafName;
+	if (GetStringFromRegistry("", "UserDataLeafName", leafName))
+		return leafName;
+	return GetRegistryUserDataLeafName();
+}
+
+// Cached UseLocalUserMaps registry flag (0x00DBA41C); negative until read.
+static int s_useLocalUserMaps = -1;
+
+// ?GetRegistryUseLocalUserMaps@@YA_NXZ @0x235159
+// Whether user maps live under the local user-data folder. Read once; a
+// missing value means yes.
+bool GetRegistryUseLocalUserMaps()
+{
+	if (s_useLocalUserMaps < 0)
+	{
+		unsigned int value;
+		if (GetUnsignedIntFromRegistry("", "UseLocalUserMaps", value))
+			s_useLocalUserMaps = value;
+		else
+			s_useLocalUserMaps = 1;
+	}
+	return s_useLocalUserMaps != 0;
+}

@@ -33537,3 +33537,5 @@ _WinMain@16,,0x00002C39,1382,Code/GameEngine/Source/Main/WinMain.cpp,matched,BFM
 ?GetUnsignedIntFromRegistry@@YA_NVAsciiString@@0AAI@Z,,0x00234F1A,271,Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp,matched,GetUnsignedIntFromRegistry: HKLM then HKCU under buildGameRegistryPath
 ?get@Rva0008E112CmpBoolField@@QBE_NXZ,,0x0008E112,13,Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp,matched,Disp32 cmp-imm bool getter; cmp [ecx+0x110] 9 setne; /O1
 ?bfmeInvoke@Gen_009EBA60Target@@QAEXPAX0@Z,,0x00621080,239,Code/GameEngine/Source/Common/Bfme/Gen_009EBA60Target_bfmeInvoke.cpp,matched,BFME1 near-miss donor; b1 0x009EEAC0; immediate-only plus8 repair
+?getUserDataLeafNameAscii@@YA?AVAsciiString@@XZ,,0x002350CB,142,Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp,matched,narrow UserDataLeafName: registry value or registry-block default
+?GetRegistryUseLocalUserMaps@@YA_NXZ,,0x00235159,120,Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp,matched,cached UseLocalUserMaps DWORD (0xDBA41C); missing value means true
