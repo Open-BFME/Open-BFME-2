@@ -33618,3 +33618,4 @@ _WinMain@16,,0x00002C39,1382,Code/GameEngine/Source/Main/WinMain.cpp,matched,BFM
 ?Rva00771C6BClearFlag@@YAIXZ,,0x00771C6B,13,Code/GameEngine/Source/Common/GlobalFlagClearers_DFE9xx.cpp,matched,B2-native scattered clearer with rdata table slot under /G7 narrowing
 ?Rva00771C94ClearFlag@@YAIXZ,,0x00771C94,13,Code/GameEngine/Source/Common/GlobalFlagClearers_DFE9xx.cpp,matched,B2-native scattered clearer with rdata table slot under /G7 narrowing
 ?Rva00771E82ClearFlag@@YAIXZ,,0x00771E82,13,Code/GameEngine/Source/Common/GlobalFlagClearers_DFE9xx.cpp,matched,B2-native scattered clearer with rdata table slot under /G7 narrowing
+??0ArmorUpgradeModuleData@@QAE@XZ,,0x00254556,26,Code/GameEngine/Source/GameLogic/Object/Upgrade/ArmorUpgradeModuleDataCtor.cpp,matched,Frameless OpenContain-based ctor; folded vtable 0xBF2558; table 0xDBA870 fields match stores; factory 0x2545DB sole caller
