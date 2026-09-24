@@ -33502,3 +33502,4 @@ _WinMain@16,,0x00002C39,1382,Code/GameEngine/Source/Main/WinMain.cpp,matched,BFM
 ??0AICommandParms@@QAE@W4AICommandType@@W4CommandSourceType@@@Z,,0x00351BD0,120,Code/GameEngine/Source/GameLogic/AI/AICommandParmsCtor.cpp,matched,BFME1 donor transcription at BFME2 0xC0 layout; trivial stand-ins keep EH-free; clear lowers to rowed erase; row supersedes pin
 ?get@Rva00497960CmpBoolField@@QBE_NXZ,,0x00497960,9,Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp,matched,Disp8 cmp-zero bool getter; cmp [ecx+0x10] eax setne; /O1
 ?get@Rva004A8125CmpBoolField@@QBE_NXZ,,0x004A8125,9,Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp,matched,Disp8 cmp-zero bool getter; cmp [ecx+0x38] eax sete; /O1
+?get@Rva004D374CCmpBoolField@@QBE_NXZ,,0x004D374C,12,Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp,matched,Disp32 cmp-zero bool getter; cmp [ecx+0x120] eax setne; /O1
