@@ -33076,3 +33076,4 @@ _DXTraceA@20,,0x0065459C,476,vendor/dxerr9-aug2005/dxerr9.lib,matched,vendored=d
 ?get@Rva00433172Shr3And32Field@@QBEHXZ,,0x00433172,13,Code/GameEngine/Source/Common/Disp8ShrAndDwordGetters.cpp,matched,disp8 shr3-and dword getter with disp32 displacement; phase-proven no-branch-to-addr
 ?get@Rva002638DAShrNAndField@@QBEHXZ,,0x002638DA,10,Code/GameEngine/Source/Common/Disp8ShrAndDwordGetters.cpp,matched,disp8 shr-N-and dword getter; phase-proven no-branch-to-addr
 ?get@Rva0027C1FEShrNAndField@@QBEHXZ,,0x0027C1FE,10,Code/GameEngine/Source/Common/Disp8ShrAndDwordGetters.cpp,matched,disp8 shr-N-and dword getter; phase-proven no-branch-to-addr
+?get@Rva002E6B46ShrNAndField@@QBEHXZ,,0x002E6B46,10,Code/GameEngine/Source/Common/Disp8ShrAndDwordGetters.cpp,matched,disp8 shr-N-and dword getter; phase-proven no-branch-to-addr
