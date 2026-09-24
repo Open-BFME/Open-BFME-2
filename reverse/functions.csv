@@ -33247,3 +33247,4 @@ _DXTraceA@20,,0x0065459C,476,vendor/dxerr9-aug2005/dxerr9.lib,matched,vendored=d
 ?get@Rva002E0856DivMovField@@QBEHXZ,,0x002E0856,14,Code/GameEngine/Source/Common/Disp8DivMovDwordGetters.cpp,matched,Disp8 div-mov getter /O1 mov-imm32 shape phase-proven no-branch-to-addr
 ?get@Rva00360C37DivMovField@@QBEHXZ,,0x00360C37,14,Code/GameEngine/Source/Common/Disp8DivMovDwordGetters.cpp,matched,Disp8 div-mov getter /O1 mov-imm32 shape phase-proven no-branch-to-addr
 ?get@Rva004CAB5EDivMovField@@QBEHXZ,,0x004CAB5E,14,Code/GameEngine/Source/Common/Disp8DivMovDwordGetters.cpp,matched,Disp8 div-mov getter /O1 mov-imm32 shape phase-proven no-branch-to-addr
+?get@Rva004CB13ADivMovField@@QBEHXZ,,0x004CB13A,14,Code/GameEngine/Source/Common/Disp8DivMovDwordGetters.cpp,matched,Disp8 div-mov getter /O1 mov-imm32 shape phase-proven no-branch-to-addr
