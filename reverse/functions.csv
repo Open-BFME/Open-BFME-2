@@ -34313,3 +34313,4 @@ _WinMain@16,,0x00002C39,1382,Code/GameEngine/Source/Main/WinMain.cpp,matched,BFM
 ?set@Rva00167F15FloatField@@QAEXM@Z,,0x00167F15,17,Code/GameEngine/Source/Common/Disp32FloatFieldSetters.cpp,matched,disp32 float setter; opaque holder
 ?set@Rva00167F37FloatField@@QAEXM@Z,,0x00167F37,17,Code/GameEngine/Source/Common/Disp32FloatFieldSetters.cpp,matched,disp32 float setter; opaque holder
 ?set@Rva001D972BFloatField@@QAEXM@Z,,0x001D972B,17,Code/GameEngine/Source/Common/Disp32FloatFieldSetters.cpp,matched,disp32 float setter; opaque holder
+?set@Rva0029A767FloatField@@QAEXM@Z,,0x0029A767,17,Code/GameEngine/Source/Common/Disp32FloatFieldSetters.cpp,matched,disp32 float setter; opaque holder
