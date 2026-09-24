@@ -5147,3 +5147,4 @@ _AVIFileInit@0,0x0065479C,jmp [IAT 0xBBA050] stub; import table names avifil32!A
 ?getVel@AnimateWindow@@QAE?AUCoord2D@@XZ,0x005C5046
 ?init@Rva0029FB3BMember@@QAEXPAX@Z,0x0029FB3B,freelist-node member init harvested from retail REL32 at 6 behavior ctors; ret-4 single void-star arg; calls rowed 0x14F3C4 plus unrowed 0x2393E2
 ?reset@Rva0029FB3BMember@@QAEXXZ,0x0026549E,alias for the compiling TU spelling of the lock-free pool helper at 0x26549E; rowed as opaque Rva0026549E
+??1FireWeaponUpdate@@UAE@XZ,0x0048BD11,virtual dtor tail-jumped to by DamageFieldUpdate dtor 0x49122C; EH body with list teardown; class proven by poolkey plus name plus factory
