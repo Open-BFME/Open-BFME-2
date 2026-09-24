@@ -5185,3 +5185,5 @@ _D3DXCreateTexture@32,0x0062AF74,d3dx9_27 D3DXCreateTexture IAT thunk (jmp dword
 ??0?$map@VAsciiString@@V1@U?$less@VAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@@_STL@@QAE@XZ,0x0033C432,ICF-folded STLport map default ctor (same body as map<int;void*>); REL32 at 0x003B1FF7 in the UserPreferences ctor
 ?getLANIPAddress@OptionPreferences@@QAEIXZ,0x002E4F98,Zero Hour getLANIPAddress: body looks up the IPAddress key (literal 0xC04E6C) in the preference map; REL32 at 0x002357A5 in GlobalData::applyOptionPreferences
 ??1OptionPreferences@@UAE@XZ,0x002E4272,OptionPreferences dtor: vtable 0xC04CE8 slot 0 is the deleting dtor 0x2E42D2 (rowed ??_GRva002E4272) which calls this body; REL32 at 0x00235890
+?getIPstring@EnumeratedIP@@QAE?AVAsciiString@@XZ,0x002E4336,ICF-shared copy of the AsciiString at +0 (also rowed as MultiplayerColorDefinition::getTooltipName); REL32 at 0x002E4FF9 in OptionPreferences::getLANIPAddress
+?getAddresses@IPEnumeration@@QAEPAVEnumeratedIP@@XZ,0x0050C02E,Zero Hour IPEnumeration::getAddresses: returns m_IPlist or WSAStartup(0x202) then enumerates; REL32 at 0x002E4FEA in OptionPreferences::getLANIPAddress
