@@ -10,3 +10,7 @@ void Rva0031AB77SetFlag(void)
 {
 	*(volatile unsigned char *)0x00E01D0C = 1;
 }
+void Rva004128E8SetFlag(void)
+{
+	*(volatile unsigned char *)0x00E0302C = 1;
+}
