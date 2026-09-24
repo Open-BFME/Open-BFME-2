@@ -35,6 +35,7 @@ class GameWindow
 public:
 	Int winGetScreenPosition(Int *x, Int *y);
 	Int winGetSize(Int *width, Int *height);
+	Int winGetPosition(Int *x, Int *y);
 
 private:
 	unsigned char m_unreconstructed_000[0x0C];
@@ -74,6 +75,21 @@ Int GameWindow::winGetSize(Int *width, Int *height)
 
 	*width = m_size.x;
 	*height = m_size.y;
+
+	return WIN_ERR_OK;
+}
+
+// ?winGetPosition@GameWindow@@QAEHPAH0@Z, retail 0x00313AE4 (38B). Twin of
+// winGetSize over the region origin at +0x14/+0x18: null-checked position
+// fetch with -3/0 codes. Called by the Slide/Spiral animate-window bodies.
+Int GameWindow::winGetPosition(Int *x, Int *y)
+{
+	if (x == NULL || y == NULL) {
+		return WIN_ERR_INVALID_PARAMETER;
+	}
+
+	*x = m_region.lo.x;
+	*y = m_region.lo.y;
 
 	return WIN_ERR_OK;
 }
