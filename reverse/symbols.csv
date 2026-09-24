@@ -5178,3 +5178,6 @@ _D3DXCreateTexture@32,0x0062AF74,d3dx9_27 D3DXCreateTexture IAT thunk (jmp dword
 ??1Rva00207761Map@@QAE@XZ,0x00207761,retail REL32 from ~ScriptEngine for the member at +0x190E8; STLport map dtor shape (clear the tree then free the header)
 ??1Rva0020779EMap@@QAE@XZ,0x0020779E,retail REL32 from ~ScriptEngine for the member at +0x190F4; STLport map dtor shape (clear the tree then free the header)
 ??_EScriptEngine@@UAEPAXI@Z,0x0020C0C7,weak-external alias MSVC emits for the vector deleting dtor when no new[] exists; resolves to the scalar deleting dtor; retail Snapshot adjustor thunk 0x2086C0 jumps here
+??$find@PAPAVObjectTypes@@PAV1@@_STL@@YAPAPAVObjectTypes@@PAPAV1@0ABQAV1@@Z,0x0020E873,retail REL32 from ScriptEngine::removeObjectTypes 0x204704; ICF-folded STLport find over a pointer range (already named here for CreateAHeroData)
+?erase@?$vector@PAVObjectTypes@@V?$allocator@PAVObjectTypes@@@_STL@@@_STL@@QAEPAPAVObjectTypes@@PAPAV3@@Z,0x001FF51F,retail REL32 from ScriptEngine::removeObjectTypes 0x204727; ICF-folded STLport pointer-vector erase already matched at this address
+?erase@?$vector@PAVSequentialScript@@V?$allocator@PAVSequentialScript@@@_STL@@@_STL@@QAEPAPAVSequentialScript@@PAPAV3@@Z,0x001FF51F,retail REL32 from ScriptEngine::cleanupSequentialScript 0x204797; ICF-folded STLport pointer-vector erase already matched at this address
