@@ -5150,3 +5150,6 @@ _AVIFileInit@0,0x0065479C,jmp [IAT 0xBBA050] stub; import table names avifil32!A
 _D3DXCreateTexture@32,0x0062AF74,d3dx9_27 D3DXCreateTexture IAT thunk (jmp dword ptr [0xBBAA20]); REL32 targets at 0x00120756 and 0x00120792 in Rva00120720CreateTexture
 ?d_009b58f0@@YAXXZ,0x001C61F0
 ?d_009b5af0@@YAXXZ,0x001C63F0
+?erase@Rva008312E0String@@QAEPADPAD0@Z,0x00012150
+?insertRange@Rva008312E0String@@QAEXPAD00ABURva008312E0Tag@@@Z,0x000284D0
+?replaceBase@Rva008312E0String@@QAEAAV1@PAD000ABURva008312E0Tag@@@Z,0x0002A610
