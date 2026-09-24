@@ -32838,3 +32838,4 @@ _DXTraceA@20,,0x0065459C,476,vendor/dxerr9-aug2005/dxerr9.lib,matched,vendored=d
 ?get@Rva0053916BFloatField@@QBEMXZ,,0x0053916B,7,Code/GameEngine/Source/Common/Disp32FloatGetters.cpp,matched,disp32 float getter; phase-proven no-branch-to-addr
 ?get@Rva0055F4AEFloatField@@QBEMXZ,,0x0055F4AE,7,Code/GameEngine/Source/Common/Disp32FloatGetters.cpp,matched,disp32 float getter; phase-proven no-branch-to-addr
 ?get@Rva00561F07FloatField@@QBEMXZ,,0x00561F07,7,Code/GameEngine/Source/Common/Disp32FloatGetters.cpp,matched,disp32 float getter; phase-proven no-branch-to-addr
+?xfer@DeletionUpdate@@MAEXPAVXfer@@@Z,,0x00488483,39,Code/GameEngine/Source/GameLogic/Object/Update/DeletionUpdateXfer.cpp,matched,DeletionUpdate xfer; vtable 0x84B344 holds update plus this plus poolkey
