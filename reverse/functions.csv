@@ -33387,3 +33387,4 @@ _DXTraceA@20,,0x0065459C,476,vendor/dxerr9-aug2005/dxerr9.lib,matched,vendored=d
 ?Rva007792F6ClearFlag@@YAIXZ,,0x007792F6,13,Code/GameEngine/Source/Common/GlobalFlagClearers_DFF0xx.cpp,matched,B2-native scattered clearer; rdata table slot; /G7 narrowing
 ?Rva0077942DClearFlag@@YAIXZ,,0x0077942D,13,Code/GameEngine/Source/Common/GlobalFlagClearers_DFF0xx.cpp,matched,B2-native scattered clearer; rdata table slot; /G7 narrowing
 ?Rva0077979DClearFlag@@YAIXZ,,0x0077979D,13,Code/GameEngine/Source/Common/GlobalFlagClearers_DFF0xx.cpp,matched,B2-native scattered clearer; rdata table slot; /G7 narrowing
+?m009F19E0@Q1Receiver0134FAAC@@QAEXH@Z,,0x00624690,117,Code/Libraries/Source/assetmanager/assetmanager_impl.cpp,matched,BFME1 donor Q1Receiver0134FAAC_m009F19E0 with TU plus8 layout repair; record at plus0x198 and lock at plus0x68; step pin folded with Rb_tree row and refresh pin both read from REL32

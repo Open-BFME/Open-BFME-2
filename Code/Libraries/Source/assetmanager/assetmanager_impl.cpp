@@ -113,6 +113,22 @@ public:
 	int m_lock;
 };
 
+// BFME1 donor view of the record at receiver +0x190 (BFME2 +0x198): step the
+// record from the source record, flag it active, copy its value, refresh.
+class BfmeThingBVA
+{
+public:
+	void bfmeStepBVA(BfmeThingBVA *other);
+	void set_value(int value)
+	{
+		m_value = value;
+	}
+
+	unsigned char m_unmodelled_000[0x0C];
+	int m_value;
+	bool m_active;
+};
+
 class Q1Receiver0134FAAC
 {
 public:
@@ -121,7 +137,9 @@ public:
 	void m009ECA30(int value);
 	void m009F0D40(int value);
 	void m009F0E50(int value);
+	void m009F19E0(int source);
 	void m009EFD40(Q1ReceiverLocalSet *set);
+	void refresh();
 
 private:
 	unsigned char m_unmodelled_000[0x24];
@@ -224,6 +242,23 @@ void Q1Receiver0134FAAC::m009F0E50(int value)
 		Q1ReceiverKey key = payload->m_key;
 		payload->m_inSet = ((Q1ReceiverPtrSet &)set.m_set.get()).count(key);
 	}
+}
+
+// BFME1 donor Q1Receiver0134FAAC_m009F19E0.cpp: guard the receiver lock, step
+// this receiver's record from the source record when they differ, refresh.
+void Q1Receiver0134FAAC::m009F19E0(int source)
+{
+	Q1ReceiverLockGuard lock((int)m_lock_060);
+	BfmeThingBVA *record = (BfmeThingBVA *)((char *)this + 0x198);
+	BfmeThingBVA &source_record = *(BfmeThingBVA *)(unsigned int)source;
+
+	if (record != &source_record)
+	{
+		record->bfmeStepBVA(&source_record);
+		record->m_active = true;
+		record->set_value(source_record.m_value);
+	}
+	refresh();
 }
 
 class BfmeThingXS
