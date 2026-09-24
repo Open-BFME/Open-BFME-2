@@ -639,3 +639,157 @@ void Rva0038896BByteOneSetter::enable()
 {
 	m_enabled = 1;
 }
+
+class Rva000875CEByteZeroSetter
+{
+public:
+	void disable();
+
+	char m_lead[0x2439];
+	unsigned char m_enabled;
+};
+
+void Rva000875CEByteZeroSetter::disable()
+{
+	m_enabled = 0;
+}
+
+class Rva00210D0DByteZeroSetter
+{
+public:
+	void disable();
+
+	char m_lead[0x2C0];
+	unsigned char m_enabled;
+};
+
+void Rva00210D0DByteZeroSetter::disable()
+{
+	m_enabled = 0;
+}
+
+class Rva00332B49ByteZeroSetter
+{
+public:
+	void disable();
+
+	char m_lead[0x3C5];
+	unsigned char m_enabled;
+};
+
+void Rva00332B49ByteZeroSetter::disable()
+{
+	m_enabled = 0;
+}
+
+class Rva004690C8ByteZeroSetter
+{
+public:
+	void disable();
+
+	char m_lead[0x1A8];
+	unsigned char m_enabled;
+};
+
+void Rva004690C8ByteZeroSetter::disable()
+{
+	m_enabled = 0;
+}
+
+class Rva000E43DFByteOneSetter
+{
+public:
+	void enable();
+
+	char m_lead[0x9D];
+	unsigned char m_enabled;
+};
+
+void Rva000E43DFByteOneSetter::enable()
+{
+	m_enabled = 1;
+}
+
+class Rva00210CB6ByteOneSetter
+{
+public:
+	void enable();
+
+	char m_lead[0x88];
+	unsigned char m_enabled;
+};
+
+void Rva00210CB6ByteOneSetter::enable()
+{
+	m_enabled = 1;
+}
+
+class Rva0039B78DByteOneSetter
+{
+public:
+	void enable();
+
+	char m_lead[0x110];
+	unsigned char m_enabled;
+};
+
+void Rva0039B78DByteOneSetter::enable()
+{
+	m_enabled = 1;
+}
+
+class Rva0046F822ByteOneSetter
+{
+public:
+	void enable();
+
+	char m_lead[0x188];
+	unsigned char m_enabled;
+};
+
+void Rva0046F822ByteOneSetter::enable()
+{
+	m_enabled = 1;
+}
+
+class Rva0052E112ByteOneSetter
+{
+public:
+	void enable();
+
+	char m_lead[0x1BA31];
+	unsigned char m_enabled;
+};
+
+void Rva0052E112ByteOneSetter::enable()
+{
+	m_enabled = 1;
+}
+
+class Rva0053997DByteOneSetter
+{
+public:
+	void enable();
+
+	char m_lead[0x43B];
+	unsigned char m_enabled;
+};
+
+void Rva0053997DByteOneSetter::enable()
+{
+	m_enabled = 1;
+}
+
+class Rva005B022AByteOneSetter
+{
+public:
+	void enable();
+
+	char m_lead[0x141];
+	unsigned char m_enabled;
+};
+
+void Rva005B022AByteOneSetter::enable()
+{
+	m_enabled = 1;
+}
