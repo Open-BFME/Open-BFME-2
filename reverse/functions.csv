@@ -34143,3 +34143,16 @@ _WinMain@16,,0x00002C39,1382,Code/GameEngine/Source/Main/WinMain.cpp,matched,BFM
 ??_GPlayerPosition@@QAEPAXI@Z,,0x0059E991,28,Code/GameEngine/Source/Common/FamilyDeletingDtors.cpp,matched,scalar deleting dtor; same-shape sibling of ??_GVersion (0x21C7) selected by its dtor callee
 ??_GBfmeContainerRecord005FDEC7@@QAEPAXI@Z,,0x005F9406,28,Code/GameEngine/Source/Common/FamilyDeletingDtors.cpp,matched,scalar deleting dtor; same-shape sibling of ??_GVersion (0x21C7) selected by its dtor callee
 ??_GXfer@@UAEPAXI@Z,,0x0060C8B1,28,Code/GameEngine/Source/Common/FamilyDeletingDtors.cpp,matched,scalar deleting dtor; same-shape sibling of ??_GVersion (0x21C7) selected by its dtor callee
+??_GBfmeStringTailRecord144@@QAEPAXI@Z,,0x00051B6D,28,Code/GameEngine/Source/Common/FamilyDeletingDtors2.cpp,matched,scalar deleting dtor; same-shape sibling of ??_GVersion (0x21C7) selected by its dtor callee
+??_GRadiusDecal@@QAEPAXI@Z,,0x000D1687,28,Code/GameEngine/Source/Common/FamilyDeletingDtors2.cpp,matched,scalar deleting dtor; same-shape sibling of ??_GVersion (0x21C7) selected by its dtor callee
+??_GBfmeStringTailRecord156@@QAEPAXI@Z,,0x001D99CB,28,Code/GameEngine/Source/Common/FamilyDeletingDtors2.cpp,matched,scalar deleting dtor; same-shape sibling of ??_GVersion (0x21C7) selected by its dtor callee
+??_GPath@@QAEPAXI@Z,,0x00262895,28,Code/GameEngine/Source/Common/FamilyDeletingDtors2.cpp,matched,scalar deleting dtor; same-shape sibling of ??_GVersion (0x21C7) selected by its dtor callee
+??_GGeometryShape@@QAEPAXI@Z,,0x002AF4D1,28,Code/GameEngine/Source/Common/FamilyDeletingDtors2.cpp,matched,scalar deleting dtor; same-shape sibling of ??_GVersion (0x21C7) selected by its dtor callee
+??_GBfmeStringHeadRecord148@@QAEPAXI@Z,,0x003611D3,28,Code/GameEngine/Source/Common/FamilyDeletingDtors2.cpp,matched,scalar deleting dtor; same-shape sibling of ??_GVersion (0x21C7) selected by its dtor callee
+??_GBfmeNodeZ@@QAEPAXI@Z,,0x003B4470,28,Code/GameEngine/Source/Common/FamilyDeletingDtors2.cpp,matched,scalar deleting dtor; same-shape sibling of ??_GVersion (0x21C7) selected by its dtor callee
+??_GBfmeStringRecord00111ACF@@QAEPAXI@Z,,0x003F63E5,28,Code/GameEngine/Source/Common/FamilyDeletingDtors2.cpp,matched,scalar deleting dtor; same-shape sibling of ??_GVersion (0x21C7) selected by its dtor callee
+??_GRva00360D26Member@@QAEPAXI@Z,,0x00421728,28,Code/GameEngine/Source/Common/FamilyDeletingDtors2.cpp,matched,scalar deleting dtor; same-shape sibling of ??_GVersion (0x21C7) selected by its dtor callee
+??_GBfmeObject544@@QAEPAXI@Z,,0x004CACFB,28,Code/GameEngine/Source/Common/FamilyDeletingDtors2.cpp,matched,scalar deleting dtor; same-shape sibling of ??_GVersion (0x21C7) selected by its dtor callee
+??_GGen_001DB2C0@@QAEPAXI@Z,,0x004DE5F4,28,Code/GameEngine/Source/Common/FamilyDeletingDtors2.cpp,matched,scalar deleting dtor; same-shape sibling of ??_GVersion (0x21C7) selected by its dtor callee
+??_GBfmeOpaqueOwnedRecord1432@@QAEPAXI@Z,,0x00555B81,28,Code/GameEngine/Source/Common/FamilyDeletingDtors2.cpp,matched,scalar deleting dtor; same-shape sibling of ??_GVersion (0x21C7) selected by its dtor callee
+??_GBfmeOpaqueOwnedRecord1408@@QAEPAXI@Z,,0x00555B9D,28,Code/GameEngine/Source/Common/FamilyDeletingDtors2.cpp,matched,scalar deleting dtor; same-shape sibling of ??_GVersion (0x21C7) selected by its dtor callee
