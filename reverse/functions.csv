@@ -32951,3 +32951,17 @@ _DXTraceA@20,,0x0065459C,476,vendor/dxerr9-aug2005/dxerr9.lib,matched,vendored=d
 ?clear@Rva0033F90FDwordClearer@@QAEXXZ,,0x0033F90F,8,Code/GameEngine/Source/Common/Disp32DwordFieldClearers.cpp,matched,disp32 dword clearer via and-zero in getter cluster; phase-proven no-branch-to-addr
 ?clear@Rva004CF406DwordClearer@@QAEXXZ,,0x004CF406,8,Code/GameEngine/Source/Common/Disp32DwordFieldClearers.cpp,matched,disp32 dword clearer via and-zero; phase-proven no-branch-to-addr
 ?clear@Rva0059EE7FDwordClearer@@QAEXXZ,,0x0059EE7F,8,Code/GameEngine/Source/Common/Disp32DwordFieldClearers.cpp,matched,disp32 dword clearer via and-zero; phase-proven no-branch-to-addr
+?disable@Rva00042687ByteSetter@@QAEXXZ,,0x00042687,5,Code/GameEngine/Source/Common/Disp8ByteSetters.cpp,matched,disp8 byte setter; phase-proven no-branch-to-addr
+?enable@Rva0006E293ByteSetter@@QAEXXZ,,0x0006E293,5,Code/GameEngine/Source/Common/Disp8ByteSetters.cpp,matched,disp8 byte setter; phase-proven no-branch-to-addr
+?enable@Rva0008BB6AByteSetter@@QAEXXZ,,0x0008BB6A,5,Code/GameEngine/Source/Common/Disp8ByteSetters.cpp,matched,disp8 byte setter; phase-proven no-branch-to-addr
+?disable@Rva00250A49ByteSetter@@QAEXXZ,,0x00250A49,5,Code/GameEngine/Source/Common/Disp8ByteSetters.cpp,matched,disp8 byte setter; phase-proven no-branch-to-addr
+?enable@Rva002A9911ByteSetter@@QAEXXZ,,0x002A9911,5,Code/GameEngine/Source/Common/Disp8ByteSetters.cpp,matched,disp8 byte setter; phase-proven no-branch-to-addr
+?enable@Rva002C5803ByteSetter@@QAEXXZ,,0x002C5803,5,Code/GameEngine/Source/Common/Disp8ByteSetters.cpp,matched,disp8 byte setter; phase-proven no-branch-to-addr
+?disable@Rva0033F2D7ByteSetter@@QAEXXZ,,0x0033F2D7,5,Code/GameEngine/Source/Common/Disp8ByteSetters.cpp,matched,disp8 byte setter; phase-proven no-branch-to-addr
+?enable@Rva00368129ByteSetter@@QAEXXZ,,0x00368129,5,Code/GameEngine/Source/Common/Disp8ByteSetters.cpp,matched,disp8 byte setter; phase-proven no-branch-to-addr
+?disable@Rva00421744ByteSetter@@QAEXXZ,,0x00421744,5,Code/GameEngine/Source/Common/Disp8ByteSetters.cpp,matched,disp8 byte setter; phase-proven no-branch-to-addr
+?disable@Rva0046191DByteSetter@@QAEXXZ,,0x0046191D,5,Code/GameEngine/Source/Common/Disp8ByteSetters.cpp,matched,disp8 byte setter; phase-proven no-branch-to-addr
+?disable@Rva004A808CByteSetter@@QAEXXZ,,0x004A808C,5,Code/GameEngine/Source/Common/Disp8ByteSetters.cpp,matched,disp8 byte setter; phase-proven no-branch-to-addr
+?enable@Rva004D3765ByteSetter@@QAEXXZ,,0x004D3765,5,Code/GameEngine/Source/Common/Disp8ByteSetters.cpp,matched,disp8 byte setter; phase-proven no-branch-to-addr
+?enable@Rva004D81D2ByteSetter@@QAEXXZ,,0x004D81D2,5,Code/GameEngine/Source/Common/Disp8ByteSetters.cpp,matched,disp8 byte setter; phase-proven no-branch-to-addr
+?enable@Rva005975F2ByteSetter@@QAEXXZ,,0x005975F2,5,Code/GameEngine/Source/Common/Disp8ByteSetters.cpp,matched,disp8 byte setter; phase-proven no-branch-to-addr
