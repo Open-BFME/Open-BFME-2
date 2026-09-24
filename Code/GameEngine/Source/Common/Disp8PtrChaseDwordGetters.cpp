@@ -20,6 +20,32 @@
 		return *(int *)((char *)m_ptr + DISP2); \
 	}
 
+// Backward variant: the holder sits at a NEGATIVE displacement from `this`
+// (a sub-object `this` pointing into a larger object). Spelled as an explicit
+// backward cast, which MSVC folds to `mov eax,[ecx-BACK]`; same shape and
+// reading as BFME1's ChainedFieldGetters.
+#define BFME_DISP8_PTRCHASE_BEFORE_DWORD_GETTER(NAME, BACK, INNER) \
+	class Inner##NAME \
+	{ \
+	public: \
+		char m_lead[INNER]; \
+		int m_value; \
+	}; \
+	class Sub##NAME \
+	{ \
+	public: \
+		Inner##NAME *m_holder; \
+	}; \
+	class NAME \
+	{ \
+	public: \
+		int get() const; \
+	}; \
+	int NAME::get() const \
+	{ \
+		return ((const Sub##NAME *)((const char *)this - (BACK)))->m_holder->m_value; \
+	}
+
 BFME_DISP8_PTRCHASE_DWORD_GETTER(Rva000425C4PtrChaseField, 0x08, 0x18)
 BFME_DISP8_PTRCHASE_DWORD_GETTER(RvaB49A1PtrChaseField, 0x2C, 0x0C)
 BFME_DISP8_PTRCHASE_DWORD_GETTER(Rva262193PtrChaseField, 0x04, 0x74)
@@ -61,3 +87,4 @@ BFME_DISP8_PTRCHASE_DWORD_GETTER(Rva005FC72DPtrChaseField, 0x18, 0x2C)
 BFME_DISP8_PTRCHASE_DWORD_GETTER(Rva005FC734PtrChaseField, 0x18, 0x30)
 BFME_DISP8_PTRCHASE_DWORD_GETTER(Rva005FC754PtrChaseField, 0x18, 0x08)
 BFME_DISP8_PTRCHASE_DWORD_GETTER(Rva005FF1E3PtrChaseField, 0x04, 0x24)
+BFME_DISP8_PTRCHASE_BEFORE_DWORD_GETTER(Rva00452DE8PtrChaseField, 0x1C, 0x38)
