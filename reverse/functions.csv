@@ -33310,3 +33310,4 @@ _DXTraceA@20,,0x0065459C,476,vendor/dxerr9-aug2005/dxerr9.lib,matched,vendored=d
 ?Rva0076EB92ClearFlag@@YAIXZ,,0x0076EB92,13,Code/GameEngine/Source/Common/GlobalFlagClearers_DFE4xx.cpp,matched,B2-native clearer in DFE4 run; rdata table slot; /G7 narrowing
 ?get@Rva001DD101DivAvgField@@QBEHXZ,,0x001DD101,12,Code/GameEngine/Source/Common/Disp8DivAvgDwordGetters.cpp,matched,Disp8 div-avg getter /O1 push-imm8 shape phase-proven no-branch-to-addr
 ?get@Rva002B2F3DDivAvgField@@QBEHXZ,,0x002B2F3D,12,Code/GameEngine/Source/Common/Disp8DivAvgDwordGetters.cpp,matched,Disp8 div-avg getter /O1 push-imm8 shape phase-proven no-branch-to-addr
+?get@Rva002CF006DivAvgField@@QBEHXZ,,0x002CF006,12,Code/GameEngine/Source/Common/Disp8DivAvgDwordGetters.cpp,matched,Disp8 div-avg getter /O1 push-imm8 shape phase-proven no-branch-to-addr
