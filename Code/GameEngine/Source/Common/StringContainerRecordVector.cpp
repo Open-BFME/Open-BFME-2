@@ -35,3 +35,6 @@ struct BfmeContainerRecord00048139 {
 BfmeContainerRecord00048139::~BfmeContainerRecord00048139()
 {
 }
+
+// ??$_Destroy@PAUBfmeContainerRecord00048139@@@_STL@@YAXPAUBfmeContainerRecord00048139@@0@Z @0x004A9F3
+template void _STL::_Destroy<BfmeContainerRecord00048139 *>(BfmeContainerRecord00048139 *, BfmeContainerRecord00048139 *);
