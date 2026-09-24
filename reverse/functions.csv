@@ -33066,3 +33066,4 @@ _DXTraceA@20,,0x0065459C,476,vendor/dxerr9-aug2005/dxerr9.lib,matched,vendored=d
 ?bfmeReplaceAliasedRange@Rva008312E0String@@QAEAAV1@PAD000ABURva008312E0Tag@@@Z,,0x0002AE50,511,Code/Libraries/Source/STLport/Rva008312E0StringReplace.cpp,matched,BFME1 donor-verbatim TU; pins erase 0x12150 insertRange 0x284D0 replaceBase 0x2A610
 ?get@Rva002E8B66ByteChase32Field@@QBEEXZ,,0x002E8B66,10,Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp,matched,disp8 byte-chase getter with disp32 inner; phase-proven no-branch-to-addr
 ?get@Rva00072756MaskedChaseField@@QBEHXZ,,0x00072756,10,Code/GameEngine/Source/Common/Disp8MaskedChaseDwordGetters.cpp,matched,disp8 masked-chase dword getter; phase-proven no-branch-to-addr
+?get@Rva0043315CMaskedDwordField@@QBEHXZ,,0x0043315C,10,Code/GameEngine/Source/Common/Disp8MaskedDwordFieldGetters.cpp,matched,disp8 masked dword getter with disp32 displacement; phase-proven no-branch-to-addr
