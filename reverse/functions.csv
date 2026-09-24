@@ -33151,3 +33151,10 @@ _DXTraceA@20,,0x0065459C,476,vendor/dxerr9-aug2005/dxerr9.lib,matched,vendored=d
 ?get@Rva0040A667ImulAddField@@QBEHH@Z,,0x0040A667,12,Code/GameEngine/Source/Common/Disp8ImulAddDwordGetters.cpp,matched,disp8 imul-add dword getter; phase-proven no-branch-to-addr
 ?get@Rva0047A875ImulAddField@@QBEHH@Z,,0x0047A875,12,Code/GameEngine/Source/Common/Disp8ImulAddDwordGetters.cpp,matched,disp8 imul-add dword getter; phase-proven no-branch-to-addr
 ?get@Rva004AE909ImulAddField@@QBEHH@Z,,0x004AE909,12,Code/GameEngine/Source/Common/Disp8ImulAddDwordGetters.cpp,matched,disp8 imul-add dword getter; phase-proven no-branch-to-addr
+?Rva0078F8BCClearFlag@@YAIXZ,,0x0078F8BC,13,Code/GameEngine/Source/Common/GlobalFlagClearers_08.cpp,matched,B2-native clearer on g_Va00E040B0 via /G7 al-form with rdata table slot
+?Rva0078F8C9ClearFlag@@YAIXZ,,0x0078F8C9,13,Code/GameEngine/Source/Common/GlobalFlagClearers_08.cpp,matched,B2-native clearer on g_Va00E040B0 via /G7 al-form with rdata table slot
+?Rva0078F8D6ClearFlag@@YAIXZ,,0x0078F8D6,13,Code/GameEngine/Source/Common/GlobalFlagClearers_08.cpp,matched,B2-native clearer on g_Va00E040B0 via /G7 al-form with rdata table slot
+?Rva0078F8E3ClearFlag@@YAIXZ,,0x0078F8E3,13,Code/GameEngine/Source/Common/GlobalFlagClearers_08.cpp,matched,B2-native clearer on g_Va00E040B0 via /G7 al-form with rdata table slot
+?Rva0078F8F0ClearFlag@@YAIXZ,,0x0078F8F0,13,Code/GameEngine/Source/Common/GlobalFlagClearers_08.cpp,matched,B2-native clearer on g_Va00E040B0 via /G7 al-form with rdata table slot
+?Rva0078F8FDClearFlag@@YAIXZ,,0x0078F8FD,13,Code/GameEngine/Source/Common/GlobalFlagClearers_08.cpp,matched,B2-native clearer on g_Va00E040B0 via /G7 al-form with rdata table slot
+?Rva0078F90AClearFlag@@YAIXZ,,0x0078F90A,13,Code/GameEngine/Source/Common/GlobalFlagClearers_08.cpp,matched,B2-native clearer on g_Va00E040B0 via /G7 al-form with rdata table slot
