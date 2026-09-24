@@ -90,6 +90,16 @@ struct Q1ReceiverFlagPayload
 
 typedef _STL::hash_map<int, Q1ReceiverHashPayload *> Q1ReceiverHashTable;
 
+// Pointer-set group at receiver +0x198 (donor view +0x190, BFME2 +8): the
+// tree the merge methods count into and insert into, with its count/active
+// trailer maintained alongside.
+struct Q1ReceiverSetGroup198
+{
+	Q1ReceiverPtrSet m_tree;
+	volatile unsigned int m_count;
+	volatile bool m_active;
+};
+
 struct CRITICAL_SECTION;
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(
 	CRITICAL_SECTION *lock);
@@ -140,6 +150,7 @@ public:
 	void m009F19E0(int source);
 	void m009F1A60(int source);
 	void m009F0CC0(int source);
+	void m009F0BD0(int value);
 	void m009EFD40(Q1ReceiverLocalSet *set);
 	void refresh();
 
@@ -152,7 +163,9 @@ private:
 	// Retail lock is at +0x60; the STL hash map at +0x44 occupies 20 bytes.
 	unsigned char m_unmodelled_058[8];
 	unsigned char m_lock_060[0x18];
-	unsigned char m_unmodelled_078[0x174];
+	unsigned char m_unmodelled_080[0x118];
+	Q1ReceiverSetGroup198 m_set198;
+	unsigned char m_unmodelled_1AC[0x48];
 	bool m_flag0;
 	bool m_flag1;
 	bool m_flag2;
@@ -294,6 +307,32 @@ void Q1Receiver0134FAAC::m009F0CC0(int source)
 		record->m_active = true;
 		record->set_value(source_record.m_value);
 	}
+	refresh();
+}
+
+// BFME1 donor Q1Receiver0134FAAC_m009F0BD0.cpp: merge every non-null key of
+// the argument pointer set that is missing from the +0x198 group set, then
+// refresh when anything was inserted.
+void Q1Receiver0134FAAC::m009F0BD0(int value)
+{
+	Q1ReceiverLockGuard lock((int)m_lock_060);
+	bool changed = false;
+	const Q1ReceiverPtrSet &source = *(const Q1ReceiverPtrSet *)value;
+
+	for (Q1ReceiverPtrSet::const_iterator it = source.begin();
+		it != source.end(); ++it)
+	{
+		Q1ReceiverKey key = *it;
+		if (m_set198.m_tree.count(key) == 0 && key != 0)
+		{
+			if (!changed)
+				changed = true;
+			m_set198.m_tree.insert(*it);
+		}
+	}
+
+	if (!changed)
+		return;
 	refresh();
 }
 
