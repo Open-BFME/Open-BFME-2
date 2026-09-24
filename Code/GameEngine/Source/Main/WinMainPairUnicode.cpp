@@ -79,6 +79,18 @@ struct Rva002343C3TitleSegment : Rva000B3F84Pair
 	Rva000B3F84Pair m_secondPair;
 };
 
+// Double-pair title segment behind 0x234828: two back-to-back pairs at +0
+// and +8 with no extra wchar. 0x234828 converts the first pair, appends the
+// second pair after it, and returns the total count. Adjacent after the
+// extra-char twin 0x234803, same shape with convertToWideBuffer first call
+// and +8 second-pair offset; sole caller 0x2349A5 mirrors the 0x234803
+// caller 0x234940 without the plus-one length.
+struct WinMainTitlePair : Rva000B3F84Pair
+{
+	int convertTitlePair(unsigned short *dst);
+	Rva000B3F84Pair m_secondPair;
+};
+
 extern "C" void *memcpy(void *dst, const void *src, unsigned int n);
 extern "C" unsigned int strlen(const char *s);
 void *operator new[](unsigned int n);
@@ -136,6 +148,14 @@ int Rva002343C3TitleSegment::convertToWideBufferWithExtra(unsigned short *dst)
 int Rva002343C3TitleSegment::convertTitleSegments(unsigned short *dst)
 {
 	int first = convertToWideBufferWithExtra(dst);
+	int second = m_secondPair.copyWchars(dst + first);
+	return first + second;
+}
+
+// ?convertTitlePair@WinMainTitlePair@@QAEHPAG@Z @0x234828
+int WinMainTitlePair::convertTitlePair(unsigned short *dst)
+{
+	int first = convertToWideBuffer(dst);
 	int second = m_secondPair.copyWchars(dst + first);
 	return first + second;
 }

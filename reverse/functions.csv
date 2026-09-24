@@ -32987,3 +32987,4 @@ _DXTraceA@20,,0x0065459C,476,vendor/dxerr9-aug2005/dxerr9.lib,matched,vendored=d
 ?broadcast@Rva0081D520Owner@@QAEXHMMMM@Z,,0x00688350,82,Code/GameEngine/Source/Common/Rva0081D520Owner.cpp,matched,BFME1 byte-identical donor; b1 0x0081D520
 ?Rva0050E9CDGet@@YAHXZ,,0x0050E9CD,6,Code/GameEngine/Source/Common/ColdGlobalDwordGetters.cpp,matched,Global dword getter reading 0x00E046B4
 ?init@Rva0029FB3BMember@@QAEPAXPAX@Z,,0x0029FB3B,40,Code/GameEngine/Source/GameLogic/Object/Update/Rva0029FB3BMemberInit.cpp,matched,Freelist-node member init shared by 7 behavior ctors; pops pool node at 0xDA60E8 and links circular sentinel; context arg unused
+?convertTitlePair@WinMainTitlePair@@QAEHPAG@Z,,0x00234828,37,Code/GameEngine/Source/Main/WinMainPairUnicode.cpp,matched,Double-pair title converter adjacent after 0x234803 extra-char twin with same shape and settled callees plus sole caller 0x2349A5
