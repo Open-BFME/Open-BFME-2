@@ -5204,3 +5204,4 @@ _D3DXCreateTexture@32,0x0062AF74,d3dx9_27 D3DXCreateTexture IAT thunk (jmp dword
 ?Rva005CB260@@YAXXZ,0x005CB260,opaque callback address from retail DIR32 operand VA 0x009CB260; Ghidra boundary 5 bytes; semantic name unknown
 ?Rva005CB26A@@YAXXZ,0x005CB26A,opaque callback address from retail DIR32 operand VA 0x009CB26A; Ghidra boundary 5 bytes; semantic name unknown
 ?erase@?$vector@DV?$allocator@D@_STL@@@_STL@@QAEPADPAD0@Z,0x0031BD55,retail resize call 0x000826FA; 34B char erase masked body equals rowed voidptr erase ICF twin; one-byte element identity remains provisional
+?erase@?$vector@UBfmePod44@@V?$allocator@UBfmePod44@@@_STL@@@_STL@@QAEPAUBfmePod44@@PAU3@0@Z,0x00081A4F,retail 0x00082D02 resize call; 38B body stores copy result in finish and returns first; BfmePod44 stride inferred from resize and type identity provisional

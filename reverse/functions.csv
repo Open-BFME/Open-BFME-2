@@ -34545,3 +34545,4 @@ _Rva001CA000Vp6WideAccum,,0x001CA000,4240,Code/GameEngine/Source/Common/Rva001CA
 ?get@Rva0007B716ZeroGetter@@QBEHXZ,,0x0007B716,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
 ?get@Rva0008550CZeroGetter@@QBEHXZ,,0x0008550C,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
 ?resize@?$vector@DV?$allocator@D@_STL@@@_STL@@QAEXID@Z,,0x000826E3,54,Code/Libraries/Source/WWVegas/WWLib/stlport_byte_vector_resize_value.cpp,matched,BFME1 STLport by-value resize shape; target 1-byte stride and 0x31BD55 erase call; char is size placeholder
+?resize@?$vector@UBfmePod44@@V?$allocator@UBfmePod44@@@_STL@@@_STL@@QAEXIUBfmePod44@@@Z,,0x00082CE1,73,Code/Libraries/Source/WWVegas/WWLib/stlport_pod44_vector_resize_value.cpp,matched,BFME1 STLport by-value resize shape; target 44-byte stride and 0x81A4F erase call; BfmePod44 is size placeholder
