@@ -142,3 +142,53 @@ BFME_DISP8_BYTE_CMP_BOOL_GETTER(Rva0055C428CmpBoolField, 0x80, ==)
 BFME_DISP8_BYTE_CMP_BOOL_GETTER(Rva000665A4CmpBoolField, 0x3880, ==)
 BFME_DISP8_BYTE_TERNARY_BOOL_GETTER(Rva0028ADECmpBoolField, 0x365)
 BFME_DISP8_PTR_TERNARY_BOOL_GETTER(Rva001E3441CmpBoolField, 0x04, 0xD8)
+BFME_DISP8_CMP_IMM_BOOL_GETTER(Rva004CAFCCmpBoolField, 0x04, 1, !=)
+BFME_DISP8_CMP_IMM_BOOL_GETTER(Rva0025DC26CmpBoolField, 0x10, 1, ==)
+BFME_DISP8_CMP_IMM_BOOL_GETTER(Rva005A687FCmpBoolField, 0x94C, 1, ==)
+BFME_DISP8_CMP_IMM_BOOL_GETTER(Rva005B5AAFCmpBoolField, 0x14C, 1, !=)
+BFME_DISP8_CMP_IMM_BOOL_GETTER(Rva005F8E03CmpBoolField, 0x28, 3, ==)
+BFME_DISP8_CMP_ZERO_BOOL_GETTER(Rva00782E7CmpBoolField, 0x04, !=)
+BFME_DISP8_CMP_ZERO_BOOL_GETTER(Rva000A7801CmpBoolField, 0x10, ==)
+BFME_DISP8_CMP_ZERO_BOOL_GETTER(Rva000B4536CmpBoolField, 0x274, !=)
+BFME_DISP8_CMP_ZERO_BOOL_GETTER(Rva000E4401CmpBoolField, 0x98, !=)
+BFME_DISP8_CMP_ZERO_BOOL_GETTER(Rva00111F02CmpBoolField, 0xC8, !=)
+BFME_DISP8_CMP_ZERO_BOOL_GETTER(Rva0014D1AECmpBoolField, 0x48, !=)
+BFME_DISP8_CMP_ZERO_BOOL_GETTER(Rva001DFAADCmpBoolField, 0x4C4, !=)
+BFME_DISP8_CMP_ZERO_BOOL_GETTER(Rva001F349ECmpBoolField, 0x08, ==)
+BFME_DISP8_CMP_ZERO_BOOL_GETTER(Rva0020E2F8CmpBoolField, 0x44, ==)
+BFME_DISP8_CMP_ZERO_BOOL_GETTER(Rva0026224BCmpBoolField, 0x50, !=)
+BFME_DISP8_CMP_ZERO_BOOL_GETTER(Rva0059EB27CmpBoolField, 0x2B0, !=)
+BFME_DISP8_CMP_ZERO_BOOL_GETTER(Rva0008FF78CmpBoolField, 0x1EC, !=)
+
+// Zero-displacement members: the compared dword is the first field, so no
+// lead padding is emitted (a zero-length pad array is not legal C++).
+class Rva004CB73CmpBoolField
+{
+public:
+	bool get() const;
+	int m_value;
+};
+bool Rva004CB73CmpBoolField::get() const
+{
+	return m_value != 0;
+}
+class Rva0050D3ECmpBoolField
+{
+public:
+	bool get() const;
+	int m_value;
+};
+bool Rva0050D3ECmpBoolField::get() const
+{
+	return m_value == 0;
+}
+class Rva002620FECmpBoolField
+{
+public:
+	bool get() const;
+	int m_value;
+};
+bool Rva002620FECmpBoolField::get() const
+{
+	return m_value != -1;
+}
