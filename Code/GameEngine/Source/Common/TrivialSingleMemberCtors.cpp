@@ -29,3 +29,13 @@ Rva000910D8Holder::Rva000910D8Holder()
 {
 	m_vtable = (void *)0x00BC7F74;
 }
+class Rva005114BDHolder
+{
+public:
+	Rva005114BDHolder();
+	const char *m_label;
+};
+Rva005114BDHolder::Rva005114BDHolder()
+{
+	m_label = (const char *)0x00C6573C;
+}

@@ -34349,3 +34349,4 @@ _WinMain@16,,0x00002C39,1382,Code/GameEngine/Source/Main/WinMain.cpp,matched,BFM
 ?init@Rva00602635VTableInstall@@QAEPAV1@XZ,,0x00602635,9,Code/GameEngine/Source/Common/VTableInstalls.cpp,matched,Bare vtable install; return-this homes eax; live caller
 ??0Rva00019EB0Holder@@QAE@XZ,,0x00019EB0,9,Code/GameEngine/Source/Common/TrivialSingleMemberCtors.cpp,matched,trivial single-member ctor; opaque holder
 ??0Rva000910D8Holder@@QAE@XZ,,0x000910D8,9,Code/GameEngine/Source/Common/TrivialSingleMemberCtors.cpp,matched,trivial single-member ctor; opaque holder
+??0Rva005114BDHolder@@QAE@XZ,,0x005114BD,9,Code/GameEngine/Source/Common/TrivialSingleMemberCtors.cpp,matched,trivial single-member ctor; opaque holder
