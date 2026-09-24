@@ -33148,3 +33148,4 @@ _DXTraceA@20,,0x0065459C,476,vendor/dxerr9-aug2005/dxerr9.lib,matched,vendored=d
 ?Rva00784BCFClearFlag@@YAIXZ,,0x00784BCF,13,Code/GameEngine/Source/Common/GlobalFlagClearers_08.cpp,matched,B2-native clearer on g_Va00E02F24 via /G7 al-form with rdata table slot
 ?Rva00784BDCClearFlag@@YAIXZ,,0x00784BDC,13,Code/GameEngine/Source/Common/GlobalFlagClearers_08.cpp,matched,B2-native clearer on g_Va00E02F24 via /G7 al-form with rdata table slot
 ?Rva00784BF1ClearFlag@@YAIXZ,,0x00784BF1,13,Code/GameEngine/Source/Common/GlobalFlagClearers_08.cpp,matched,B2-native clearer on g_Va00E02F24 via /G7 al-form with rdata table slot
+?get@Rva0040A667ImulAddField@@QBEHH@Z,,0x0040A667,12,Code/GameEngine/Source/Common/Disp8ImulAddDwordGetters.cpp,matched,disp8 imul-add dword getter; phase-proven no-branch-to-addr
