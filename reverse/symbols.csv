@@ -2506,7 +2506,6 @@ name,address,notes
 ?findParticleSystemByID@ParticleSystemManager@@AAE?AVBfmeParticleSystemHandle@@W4ParticleSystemID@@@Z,0x001F5B0A,call site in ParticleSystemManager::destroyParticleSystemByID (0x1F5B79) lea ret [ebp-0x18] push ret push ID [ebp+8] thiscall matching BFME1 findParticleSystemByID (ILT 0x2A216); returns handle by value with copy ctor
 ?findPlayerWithNameKey@PlayerList@@QAEPAVPlayer@@W4NameKeyType@@@Z,0x002A7A41,46B count+array scan comparing nameKey at +0x50; ecx is ThePlayerList global; key from matched nameToKey 0x148E1A; B1 ledger confirms name and 52B shape
 ?findScienceInfo@ScienceStore@@ABEPBVScienceInfo@@W4ScienceType@@@Z,0x001FF3AD,ZH ScienceStore::findScienceInfo (private const): linear scan with null-guarded getFinalOverride hop (pin 0x1E35DF) + m_science@+0x10 compare; 0.98 bank serves isValidScience landing; name follows ZH Science.h
-?finish@Rva0080A940Owner@@QAE_NXZ,0x006758A0
 ?first@Gen_00943CF0@@AAEXPAXPAH11@Z,0x00140FA0
 ?first@Gen_00943CF0@@AAEXPAXPAPAX11@Z,0x00140FA0
 ?first@Rva000427195@@QAEPAXPAVRva000411084@@@Z,0x00427195,Eva event-name table head fetch; thiscall on Eva+0x34 with the iterator home, returns the first node or null; nodes are {next+0 name+4 key+8}
