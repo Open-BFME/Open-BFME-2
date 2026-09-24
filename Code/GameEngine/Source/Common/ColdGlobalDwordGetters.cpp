@@ -335,3 +335,23 @@ int Rva006F5100Get(void)
 {
 	return g_Va00E18078;
 }
+
+extern int g_Va00DF6FD0;
+
+// ?Rva00174F30Get@@YAHXZ @ 0x00174f30 (6B) over 0x00DF6FD0.
+// Follows padding (prev CC), no .rdata vtable slot, no direct callers,
+// no branch sources. Opaque address-derived name.
+int Rva00174F30Get(void)
+{
+	return g_Va00DF6FD0;
+}
+
+extern int g_Va00E062EC;
+
+// ?Rva00415E90Get@@YAHXZ @ 0x00415e90 (6B) over 0x00E062EC.
+// Follows a ret (prev C3); next is a frameless fn start; no direct callers,
+// no branch sources. Opaque address-derived name.
+int Rva00415E90Get(void)
+{
+	return g_Va00E062EC;
+}

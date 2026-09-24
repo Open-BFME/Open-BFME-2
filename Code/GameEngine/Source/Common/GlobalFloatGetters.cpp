@@ -61,3 +61,83 @@ float Rva000A92A9Get(void)
 {
 	return g_Va00BC93F4;
 }
+
+extern float g_Va00BBB8E0;
+
+// ?Rva00050EA0Get@@YAMXZ @ 0x00050ea0 (7B) over 0x00BBB8E0 (FLT_MAX).
+// Adjacent before Rva00050EA7Get below (pair proves both boundaries);
+// follows a ret (prev C3), no direct callers, no branch sources.
+// Opaque address-derived name.
+float Rva00050EA0Get(void)
+{
+	return g_Va00BBB8E0;
+}
+
+extern float g_Va00BBDA30;
+
+// ?Rva00050EA7Get@@YAMXZ @ 0x00050ea7 (7B) over 0x00BBDA30 (inf).
+// Adjacent after Rva00050EA0Get (pair proves both boundaries), no branch sources.
+// Opaque address-derived name.
+float Rva00050EA7Get(void)
+{
+	return g_Va00BBDA30;
+}
+
+extern float g_Va00BBDA2C;
+
+// ?Rva00041457Get@@YAMXZ @ 0x00041457 (7B) over 0x00BBDA2C (NaN).
+// Follows a ret (prev C3); next is a frameless fn start; no direct callers,
+// no branch sources. Opaque address-derived name.
+float Rva00041457Get(void)
+{
+	return g_Va00BBDA2C;
+}
+
+extern float g_Va00DEDA74;
+
+// ?Rva000D1A9AGet@@YAMXZ @ 0x000d1a9a (7B) over 0x00DEDA74 (0.0f).
+// Follows a ret (prev C3); next is a frameless fn start; no direct callers,
+// no branch sources. Opaque address-derived name.
+float Rva000D1A9AGet(void)
+{
+	return g_Va00DEDA74;
+}
+
+// ?Rva00154310Get@@YAMXZ @ 0x00154310 (7B) over 0x00BBB8D8 (1.0f).
+// CC-padded both sides (isolated); same global as landed Rva004647D1Get
+// above (distinct address, not a fold); no direct callers, no branch sources.
+// Opaque address-derived name.
+float Rva00154310Get(void)
+{
+	return g_Va00BBB8D8;
+}
+
+extern float g_Va00DEDA2C;
+
+// ?Rva0018BD82Get@@YAMXZ @ 0x0018bd82 (7B) over 0x00DEDA2C (0.0f).
+// Follows another float getter (adjacent); no direct callers, no branch sources.
+// Opaque address-derived name.
+float Rva0018BD82Get(void)
+{
+	return g_Va00DEDA2C;
+}
+
+extern float g_Va00BBAEAC;
+
+// ?Rva002BFBF0Get@@YAMXZ @ 0x002bfbf0 (7B) over 0x00BBAEAC (0.0f).
+// Follows a ret (prev C3); carried by 28 .rdata vtable slots, no direct callers,
+// no branch sources. Opaque address-derived name.
+float Rva002BFBF0Get(void)
+{
+	return g_Va00BBAEAC;
+}
+
+extern float g_Va00BC28F4;
+
+// ?Rva006CBC10Get@@YAMXZ @ 0x006cbc10 (7B) over 0x00BC28F4 (2.0f).
+// CC-padded both sides (isolated); no direct callers, no branch sources.
+// Opaque address-derived name.
+float Rva006CBC10Get(void)
+{
+	return g_Va00BC28F4;
+}
