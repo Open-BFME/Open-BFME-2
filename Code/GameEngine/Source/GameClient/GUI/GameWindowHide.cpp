@@ -36,7 +36,9 @@ public:
 	V(32) V(33) V(34) V(35) V(36) V(37) V(38) V(39)
 	virtual void windowHiding(GameWindow *window) = 0;
 	V(41) V(42) V(43) V(44) V(45) V(46) V(47)
-	V(48) V(49) V(50) V(51) V(52) V(53) V(54) V(55)
+	virtual GameWindow *winGetFocus() = 0;
+	virtual Int winSetFocus(GameWindow *window) = 0;
+	V(50) V(51) V(52) V(53) V(54) V(55)
 	V(56) V(57)
 #undef V
 	virtual WindowMsgHandledType winSendSystemMsg(GameWindow *window, UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2) = 0;
@@ -49,10 +51,15 @@ class GameWindow
 public:
 	Int winHide(bool hide);
 	UnsignedInt winSetStatus(UnsignedInt status);
+	Int winEnable(bool enable);
 
 private:
 	unsigned char m_pad0[0x08];
 	UnsignedInt m_status;
+	unsigned char m_padC[0x1EC];
+	GameWindow *m_next;
+	unsigned char m_pad1FC[8];
+	GameWindow *m_child;
 };
 
 // ?winHide@GameWindow@@QAEH_N@Z, retail 0x00313C64 (117B).
@@ -86,4 +93,35 @@ UnsignedInt GameWindow::winSetStatus(UnsignedInt status)
 	UnsignedInt oldStatus = m_status;
 	m_status |= status;
 	return oldStatus;
+}
+
+// ?winEnable@GameWindow@@QAEH_N@Z, retail 0x00313BEC (120B).
+// Ported from Open-BFME-1 GameWindowFields.cpp donor (GameWindow::winEnable,
+// BFME1 0x00478390) with BFME2 repairs: the trailing winSendSystemMsg is
+// unconditional with (0x1C / 8 / enabled-bit) in place of the donor
+// conditional (0x1C / enable / 0) and m_child sits at +0x204 with m_next at
+// +0x1F8 per retail bytes. Focus slots are winGetFocus at 0xC0 and
+// winSetFocus at 0xC4. WIN_STATUS_ENABLED is 0x08.
+Int GameWindow::winEnable(bool enable)
+{
+	GameWindow *child;
+
+	if (enable)
+	{
+		m_status |= 0x08;
+	}
+	else
+	{
+		m_status &= ~0x08;
+
+		if (TheWindowManager->winGetFocus() == this)
+			TheWindowManager->winSetFocus(0);
+	}
+
+	for (child = m_child; child; child = child->m_next)
+		child->winEnable(enable);
+
+	TheWindowManager->winSendSystemMsg(this, 0x1C, 8, (m_status >> 3) & 1);
+
+	return WIN_ERR_OK;
 }
