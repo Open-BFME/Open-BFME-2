@@ -34561,3 +34561,9 @@ _Rva001CA000Vp6WideAccum,,0x001CA000,4240,Code/GameEngine/Source/Common/Rva001CA
 ?writeFileEnd@StatsCollector@@QAEXXZ,,0x00437C2D,210,Code/GameEngine/Source/Common/StatsCollector.cpp,matched,
 ?parseWeatherData@GlobalWeatherSystem@@SAXPAVINI@@@Z,,0x0031842A,142,Code/GameEngine/Source/GameLogic/System/GlobalWeatherSystem.cpp,matched,
 ?init@ControlBarSchemeManager@@QAEXXZ,,0x00320205,140,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarScheme.cpp,matched,
+?set@Rva00167EC4DwordSlot@@QAEXH@Z,,0x00167EC4,13,Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp,matched,Disp32 dword setter; ret-delimited accessor run; opaque holder
+?set@Rva00219370DwordSlot@@QAEXH@Z,,0x00219370,13,Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp,matched,Disp32 dword setter; ret-delimited accessor run; opaque holder
+?set@Rva00248D77DwordSlot@@QAEXH@Z,,0x00248D77,13,Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp,matched,Disp32 dword setter; ret-delimited accessor run; opaque holder
+?set@Rva002C67C2DwordSlot@@QAEXH@Z,,0x002C67C2,13,Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp,matched,Disp32 dword setter; ret-delimited accessor run; opaque holder
+?set@Rva004608BDDwordSlot@@QAEXH@Z,,0x004608BD,13,Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp,matched,Disp32 dword setter; ret-delimited accessor run; opaque holder
+?set@Rva0046F7D7DwordSlot@@QAEXH@Z,,0x0046F7D7,13,Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp,matched,Disp32 dword setter; pairs with getter at 0x46F7E4; opaque holder
