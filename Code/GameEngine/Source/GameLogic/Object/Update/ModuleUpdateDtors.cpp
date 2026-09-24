@@ -8,8 +8,10 @@
 // pin), because a same-TU definition would capture the call locally instead
 // of at the ledger address. Vtable values and consts are DIR32 auto-patches.
 // Derived identities come from factory stub order (OCLUpdate,
-// SpawnPointProductionExitUpdate, SupplyCenterDockUpdate); the base identity
-// is unproven (opaque Rva name). One ledger row per destructor, landed one
+// SupplyCenterDockUpdate); the base identity is unproven (opaque Rva name).
+// CurseSpecialPower is named by its vtable 0x00C5F850: its ctor at 0x004CCD7F
+// installs it, slot 0 is the ??_G at 0x004CCE30 and slot 4 is
+// CurseSpecialPower's pool-key getter at 0x004CCDEB. One ledger row per destructor, landed one
 // commit at a time. Each class also emits its scalar deleting destructor
 // (vtable slot 0), claimed as its own row once the primary lands.
 
@@ -50,13 +52,13 @@ OCLUpdate::~OCLUpdate()
 	m_p20 = &s_dummy20;
 }
 
-class SpawnPointProductionExitUpdate : public Rva0044EF5E
+class CurseSpecialPower : public Rva0044EF5E
 {
 public:
-	virtual ~SpawnPointProductionExitUpdate();
+	virtual ~CurseSpecialPower();
 };
 
-SpawnPointProductionExitUpdate::~SpawnPointProductionExitUpdate()
+CurseSpecialPower::~CurseSpecialPower()
 {
 	m_p0C = &s_dummy0C;
 	m_p10 = &s_dummy10;
