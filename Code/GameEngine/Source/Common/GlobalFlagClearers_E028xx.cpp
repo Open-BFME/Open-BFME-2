@@ -12,6 +12,7 @@
 // GlobalFlagClearers_08.cpp.
 // cl: /G7 /MD /EHsc /DNDEBUG
 
+extern unsigned int g_Va00E0282C;
 extern unsigned int g_Va00E02844;
 extern unsigned int g_Va00E028CC;
 extern unsigned int g_Va00E028D4;
@@ -95,4 +96,14 @@ unsigned int Rva00781D4FClearFlag(void)
 unsigned int Rva00781D66ClearFlag(void)
 {
 	return g_Va00E02958 &= 0xFFFFFFFEu;
+}
+
+unsigned int Rva007810A7ClearFlag(void)
+{
+	return g_Va00E0282C &= 0xFFFFFFFEu;
+}
+
+unsigned int Rva007810B4ClearFlag(void)
+{
+	return g_Va00E0282C &= 0xFFFFFFFDu;
 }
