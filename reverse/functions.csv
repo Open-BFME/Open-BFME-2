@@ -33052,3 +33052,4 @@ _DXTraceA@20,,0x0065459C,476,vendor/dxerr9-aug2005/dxerr9.lib,matched,vendored=d
 ??0ViewShakeFXNugget@@QAE@XZ,,0x001E07DF,35,Code/GameEngine/Source/GameClient/ViewShakeFXNuggetCtor.cpp,matched,BFME1 donor m_shake plus retail table Type at 0x148 plus type 6 at 0x4; sole caller is rowed parse 0x1E1611
 ??0LaserFXNugget@@QAE@XZ,,0x001E04DE,32,Code/GameEngine/Source/GameClient/LaserFXNuggetCtor.cpp,matched,BFME1 donor class plus retail table LaserName LaserBackwards; sole caller is rowed parse 0x1E1519
 ??0LightPulseFXNugget@@QAE@XZ,,0x001E0321,82,Code/GameEngine/Source/GameClient/LightPulseFXNuggetCtor.cpp,matched,BFME1 donor RGB plus radius plus pct plus frames plus type 4; sole caller is rowed parse 0x1E1421
+??0CameraShakerVolumeFXNugget@@QAE@XZ,,0x001E0714,76,Code/GameEngine/Source/GameClient/CameraShakerVolumeFXNuggetCtor.cpp,matched,BFME1 donor triple plus retail table Radius Duration Amplitude plus type 5; sole caller is rowed parse 0x1E1595
