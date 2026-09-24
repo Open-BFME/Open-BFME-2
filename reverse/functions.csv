@@ -33251,3 +33251,17 @@ _DXTraceA@20,,0x0065459C,476,vendor/dxerr9-aug2005/dxerr9.lib,matched,vendored=d
 ?initTemplateNameKeys@ScriptEngine@@QAEXXZ,,0x00204D87,221,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_initTemplateNameKeys.cpp,matched,Template finishing pass; ScriptEngine::init calls it at 0x205C78 after both tables; ZH init tail loops: uiName concat [index] and NAMEKEY(internalName) into +0x10; retail order actions 599 then conditions 202; callees format 38150 concat 6987 nameToKey 9FA65 StringBase dtor 36410
 ?get@Rva004D94A5DivMovField@@QBEHXZ,,0x004D94A5,14,Code/GameEngine/Source/Common/Disp8DivMovDwordGetters.cpp,matched,Disp8 div-mov getter /O1 mov-imm32 shape phase-proven no-branch-to-addr
 ?get@Rva004D94EEDivMovField@@QBEHXZ,,0x004D94EE,14,Code/GameEngine/Source/Common/Disp8DivMovDwordGetters.cpp,matched,Disp8 div-mov getter /O1 mov-imm32 shape phase-proven no-branch-to-addr
+?Rva007618F7ClearFlag@@YAIXZ,,0x007618F7,13,Code/GameEngine/Source/Common/GlobalFlagClearers_DEAFxx.cpp,matched,B2-native clearer in DEAF-DEBB run; rdata table slot; /G7 narrowing
+?Rva00761A48ClearFlag@@YAIXZ,,0x00761A48,13,Code/GameEngine/Source/Common/GlobalFlagClearers_DEAFxx.cpp,matched,B2-native clearer in DEAF-DEBB run; rdata table slot; /G7 narrowing
+?Rva00761BBAClearFlag@@YAIXZ,,0x00761BBA,13,Code/GameEngine/Source/Common/GlobalFlagClearers_DEAFxx.cpp,matched,B2-native clearer in DEAF-DEBB run; rdata table slot; /G7 narrowing
+?Rva00761BC7ClearFlag@@YAIXZ,,0x00761BC7,13,Code/GameEngine/Source/Common/GlobalFlagClearers_DEAFxx.cpp,matched,B2-native clearer in DEAF-DEBB run; rdata table slot; /G7 narrowing
+?Rva00761C5EClearFlag@@YAIXZ,,0x00761C5E,13,Code/GameEngine/Source/Common/GlobalFlagClearers_DEAFxx.cpp,matched,B2-native clearer in DEAF-DEBB run; rdata table slot; /G7 narrowing
+?Rva00762273ClearFlag@@YAIXZ,,0x00762273,13,Code/GameEngine/Source/Common/GlobalFlagClearers_DEAFxx.cpp,matched,B2-native clearer in DEAF-DEBB run; rdata table slot; /G7 narrowing
+?Rva00762319ClearFlag@@YAIXZ,,0x00762319,13,Code/GameEngine/Source/Common/GlobalFlagClearers_DEAFxx.cpp,matched,B2-native clearer in DEAF-DEBB run; rdata table slot; /G7 narrowing
+?Rva00762330ClearFlag@@YAIXZ,,0x00762330,13,Code/GameEngine/Source/Common/GlobalFlagClearers_DEAFxx.cpp,matched,B2-native clearer in DEAF-DEBB run; rdata table slot; /G7 narrowing
+?Rva00762382ClearFlag@@YAIXZ,,0x00762382,13,Code/GameEngine/Source/Common/GlobalFlagClearers_DEAFxx.cpp,matched,B2-native clearer in DEAF-DEBB run; rdata table slot; /G7 narrowing
+?Rva00762557ClearFlag@@YAIXZ,,0x00762557,13,Code/GameEngine/Source/Common/GlobalFlagClearers_DEAFxx.cpp,matched,B2-native clearer in DEAF-DEBB run; rdata table slot; /G7 narrowing
+?Rva00762614ClearFlag@@YAIXZ,,0x00762614,13,Code/GameEngine/Source/Common/GlobalFlagClearers_DEAFxx.cpp,matched,B2-native clearer in DEAF-DEBB run; rdata table slot; /G7 narrowing
+?Rva007626E1ClearFlag@@YAIXZ,,0x007626E1,13,Code/GameEngine/Source/Common/GlobalFlagClearers_DEAFxx.cpp,matched,B2-native clearer in DEAF-DEBB run; rdata table slot; /G7 narrowing
+?Rva007628D8ClearFlag@@YAIXZ,,0x007628D8,13,Code/GameEngine/Source/Common/GlobalFlagClearers_DEAFxx.cpp,matched,B2-native clearer in DEAF-DEBB run; rdata table slot; /G7 narrowing
+?Rva007629C6ClearFlag@@YAIXZ,,0x007629C6,13,Code/GameEngine/Source/Common/GlobalFlagClearers_DEAFxx.cpp,matched,B2-native clearer in DEAF-DEBB run; rdata table slot; /G7 narrowing
