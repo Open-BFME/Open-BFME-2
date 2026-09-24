@@ -33287,3 +33287,4 @@ _DXTraceA@20,,0x0065459C,476,vendor/dxerr9-aug2005/dxerr9.lib,matched,vendored=d
 ?get@Rva000B4272DivAvgField@@QBEHXZ,,0x000B4272,12,Code/GameEngine/Source/Common/Disp8DivAvgDwordGetters.cpp,matched,Disp8 div-avg getter /O1 push-imm8 shape phase-proven no-branch-to-addr
 ?get@Rva0014DB51DivAvgField@@QBEHXZ,,0x0014DB51,12,Code/GameEngine/Source/Common/Disp8DivAvgDwordGetters.cpp,matched,Disp8 div-avg getter /O1 push-imm8 shape phase-proven no-branch-to-addr
 ?get@Rva00151DBFDivAvgField@@QBEHXZ,,0x00151DBF,12,Code/GameEngine/Source/Common/Disp8DivAvgDwordGetters.cpp,matched,Disp8 div-avg getter /O1 push-imm8 shape phase-proven no-branch-to-addr
+?get@Rva00152FCEDivAvgField@@QBEHXZ,,0x00152FCE,12,Code/GameEngine/Source/Common/Disp8DivAvgDwordGetters.cpp,matched,Disp8 div-avg getter /O1 push-imm8 shape phase-proven no-branch-to-addr
