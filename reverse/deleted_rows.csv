@@ -453,3 +453,4 @@ name,target_rva,reason
 ??_GAttackNugget@@MAEPAXI@Z,0x004E1BA8,"Misattributed: this body installs vtable 0x00C61DC4, but the class AttackNugget::parse builds uses 0x00BE0FF4. Renamed to ??_GRva004E1B72@@UAEPAXI@Z."
 ??1CreateCrateDieModuleData@@UAE@XZ,0x0035CCCA,"Misattributed: this body installs vtable 0x00C16394, but the class the CreateCrateDie factory builds uses 0x00BF40A8. Renamed to ??1Rva0035CCCAModuleData@@UAE@XZ."
 ??_GCreateCrateDieModuleData@@UAEPAXI@Z,0x0035CF10,"Misattributed: this body installs vtable 0x00C16394, but the class the CreateCrateDie factory builds uses 0x00BF40A8. Renamed to ??_GRva0035CCCAModuleData@@UAEPAXI@Z."
+?clearTeamsInQueue@AIPlayer@@IAEXXZ,0x00098A6F,"Refuted name: owning class reads CapsLock plus creates DirectInput devices (input class factory news 0xE28 not 0xA0); Unacquire plus Release is device teardown. Rowed as ?releaseDevices@Rva00098A6F@@QAEXXZ."
