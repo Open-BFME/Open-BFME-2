@@ -33011,3 +33011,4 @@ _DXTraceA@20,,0x0065459C,476,vendor/dxerr9-aug2005/dxerr9.lib,matched,vendored=d
 ??0FontCharsClass@@QAE@XZ,,0x00157950,350,Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassConstructorBFME.cpp,matched,BFME1 donor attempt FontChars ctor
 ?_RTC_GetErrorFunc@@YAP6AHHPBDH00ZZPBX@Z,,0x0075ACE1,6,Code/Libraries/Source/CRT/RtcGetErrorFunc.cpp,matched,MSVC71 CRT userapi.obj file-unit; follows __RTC_SetErrorFunc at 0x0075ACD1 which writes the same .data slot 0x00E1F55C; Ghidra size 6 agrees
 ?WinGetDebugContext@@YAPAXXZ,,0x0075A744,10,vendor/msvc71crt/msvcrt.lib,matched,MSVC71 CRT error.obj file-unit;member=..\build\intel\dll_obj\error.obj;unique masked placement chained between landed IntToString and Initialize
+?Win95IsDebuggerPresent@@YGHXZ,,0x0075A74E,17,vendor/msvc71crt/msvcrt.lib,matched,MSVC71 CRT error.obj file-unit;member=..\build\intel\dll_obj\error.obj;unique masked placement chained between WinGetDebugContext and Initialize
