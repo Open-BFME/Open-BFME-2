@@ -34302,3 +34302,4 @@ _WinMain@16,,0x00002C39,1382,Code/GameEngine/Source/Main/WinMain.cpp,matched,BFM
 ?set@Rva004D576CByteSlot@@QAEXE@Z,,0x004D576C,10,Code/GameEngine/Source/Common/Disp8ByteFieldSetters.cpp,matched,Disp8 byte arg setter; Ghidra bounds agree; live callers
 ?set@Rva004D5984ByteSlot@@QAEXE@Z,,0x004D5984,10,Code/GameEngine/Source/Common/Disp8ByteFieldSetters.cpp,matched,Disp8 byte arg setter; Ghidra bounds agree; live callers
 ??_GLockClass@MutexClass@@QAEPAXI@Z,,0x00099203,28,Code/GameEngine/Source/Common/FamilyDeletingDtors3.cpp,matched,scalar deleting dtor; same-shape sibling of ??_GVersion (0x21C7) selected by its dtor callee
+??_GWriteLockClass@VertexBufferClass@@QAEPAXI@Z,,0x00107346,28,Code/GameEngine/Source/Common/FamilyDeletingDtors3.cpp,matched,scalar deleting dtor; same-shape sibling of ??_GVersion (0x21C7) selected by its dtor callee
