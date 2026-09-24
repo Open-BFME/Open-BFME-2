@@ -21,6 +21,32 @@
 		return *(unsigned char *)((char *)m_ptr + DISP2); \
 	}
 
+// Backward variant: the holder sits at a NEGATIVE displacement from `this`
+// (a sub-object `this` pointing into a larger object). Spelled as an explicit
+// backward cast, which MSVC folds to `mov eax,[ecx-BACK]`; same shape and
+// reading as BFME1's ChainedFieldGetters.
+#define BFME_DISP8_BYTECHASE_BEFORE_GETTER(NAME, BACK, INNER) \
+	class Inner##NAME \
+	{ \
+	public: \
+		char m_lead[INNER]; \
+		unsigned char m_value; \
+	}; \
+	class Sub##NAME \
+	{ \
+	public: \
+		Inner##NAME *m_holder; \
+	}; \
+	class NAME \
+	{ \
+	public: \
+		unsigned char get() const; \
+	}; \
+	unsigned char NAME::get() const \
+	{ \
+		return ((const Sub##NAME *)((const char *)this - (BACK)))->m_holder->m_value; \
+	}
+
 BFME_DISP8_BYTECHASE_GETTER(Rva0007E05FByteChaseField, 0x0C, 0x2C)
 BFME_DISP8_BYTECHASE_GETTER(Rva0033F988ByteChaseField, 0x04, 0x24)
 BFME_DISP8_BYTECHASE_GETTER(Rva00373CA3ByteChaseField, 0x04, 0x30)
@@ -55,3 +81,4 @@ BFME_DISP8_BYTECHASE_GETTER(Rva005F6B35ByteChaseField, 0x04, 0x67)
 BFME_DISP8_BYTECHASE_GETTER(Rva005FD4F0ByteChaseField, 0x04, 0x4E)
 BFME_DISP8_BYTECHASE_GETTER(Rva005FF1EAByteChaseField, 0x04, 0x3C)
 BFME_DISP8_BYTECHASE_GETTER(Rva005FF1F1ByteChaseField, 0x04, 0x3D)
+BFME_DISP8_BYTECHASE_BEFORE_GETTER(Rva004932D5ByteChaseField, 0x0C, 0x0D)
