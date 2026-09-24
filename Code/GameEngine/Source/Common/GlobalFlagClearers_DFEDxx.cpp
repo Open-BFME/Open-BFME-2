@@ -1,5 +1,5 @@
-// Thirteen B2-native flag-word clearers across thirteen .data flag words
-// of one contiguous run (0x00774353-0x00774780):
+// Sixteen B2-native flag-word clearers across fifteen .data flag words
+// of one contiguous run (0x0077433C-0x00774780):
 //
 //     mov eax,[<address>] / and al,<mask8> / mov [<address>],eax / ret
 //
@@ -10,6 +10,7 @@
 // GlobalFlagClearers_08.cpp.
 // cl: /G7 /MD /EHsc /DNDEBUG
 
+extern unsigned int g_Va00DFED00;
 extern unsigned int g_Va00DFED08;
 extern unsigned int g_Va00DFED10;
 extern unsigned int g_Va00DFED18;
@@ -17,6 +18,7 @@ extern unsigned int g_Va00DFED20;
 extern unsigned int g_Va00DFED28;
 extern unsigned int g_Va00DFED30;
 extern unsigned int g_Va00DFED38;
+extern unsigned int g_Va00DFED40;
 extern unsigned int g_Va00DFED48;
 extern unsigned int g_Va00DFED54;
 extern unsigned int g_Va00DFED5C;
@@ -87,4 +89,19 @@ unsigned int Rva007746C7ClearFlag(void)
 unsigned int Rva00774780ClearFlag(void)
 {
 	return g_Va00DFED7C &= 0xFFFFFFFEu;
+}
+
+unsigned int Rva0077433CClearFlag(void)
+{
+	return g_Va00DFED00 &= 0xFFFFFFFEu;
+}
+
+unsigned int Rva0077444AClearFlag(void)
+{
+	return g_Va00DFED40 &= 0xFFFFFFFEu;
+}
+
+unsigned int Rva007746A3ClearFlag(void)
+{
+	return g_Va00DFED6C &= 0xFFFFFFFEu;
 }
