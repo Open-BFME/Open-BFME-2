@@ -32598,3 +32598,4 @@ _DXTraceA@20,,0x0065459C,476,vendor/dxerr9-aug2005/dxerr9.lib,matched,vendored=d
 ?initReverseAnimateWindow@ProcessAnimateWindowSpiral@@UAEXPAVAnimateWindow@@I@Z,,0x005C5BE2,79,Code/GameEngine/Source/GameClient/GUI/ProcessAnimateWindowSpiralInitReverse.cpp,matched,ZH donor verbatim initReverse trial
 ??0ArrowStormUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,,0x004909D7,129,Code/GameEngine/Source/GameLogic/Object/Update/ArrowStormUpdateBehaviorCtor.cpp,matched,
 ??0DamageFieldUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,,0x004912A9,81,Code/GameEngine/Source/GameLogic/Object/Update/DamageFieldUpdateBehaviorCtor.cpp,matched,
+??0GloriousChargeUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,,0x004AD680,116,Code/GameEngine/Source/GameLogic/Object/Update/GloriousChargeUpdateBehaviorCtor.cpp,matched,
