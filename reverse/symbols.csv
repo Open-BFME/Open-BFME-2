@@ -5203,3 +5203,11 @@ _D3DXCreateTexture@32,0x0062AF74,d3dx9_27 D3DXCreateTexture IAT thunk (jmp dword
 ?post@SidesListNotifier@@QAEXP6AXXZPAX@Z,0x0032B522,retail REL32 from SidesList clear 0x32DDFD; notifier takes callback and owner
 ?Rva005CB260@@YAXXZ,0x005CB260,opaque callback address from retail DIR32 operand VA 0x009CB260; Ghidra boundary 5 bytes; semantic name unknown
 ?Rva005CB26A@@YAXXZ,0x005CB26A,opaque callback address from retail DIR32 operand VA 0x009CB26A; Ghidra boundary 5 bytes; semantic name unknown
+?erase@?$vector@DV?$allocator@D@_STL@@@_STL@@QAEPADPAD0@Z,0x0031BD55,retail resize call 0x000826FA; 34B char erase masked body equals rowed voidptr erase ICF twin; one-byte element identity remains provisional
+?erase@?$vector@UBfmePod44@@V?$allocator@UBfmePod44@@@_STL@@@_STL@@QAEPAUBfmePod44@@PAU3@0@Z,0x00081A4F,retail 0x00082D02 resize call; 38B body stores copy result in finish and returns first; BfmePod44 stride inferred from resize and type identity provisional
+?erase@?$vector@UBfmePod28@@V?$allocator@UBfmePod28@@@_STL@@@_STL@@QAEPAUBfmePod28@@PAU3@0@Z,0x005842F7,retail resize call 0x00584A15; 38B body updates finish and returns first; 28B type identity provisional
+?_M_fill_insert@?$vector@UBfmePod28@@V?$allocator@UBfmePod28@@@_STL@@@_STL@@QAEXPAUBfmePod28@@IABU3@@Z,0x00584405,retail resize call 0x00584A32; 225B insert body uses 0x1C element stride; type identity provisional
+?erase@?$vector@UBfmePod52@@V?$allocator@UBfmePod52@@@_STL@@@_STL@@QAEPAUBfmePod52@@PAU3@0@Z,0x001DDC2C,retail resize call 0x001DED7F; 38B body updates finish and returns first; 52B type identity provisional
+?_M_fill_insert@?$vector@UBfmePod52@@V?$allocator@UBfmePod52@@@_STL@@@_STL@@QAEXPAUBfmePod52@@IABU3@@Z,0x001DE5D2,retail resize call 0x001DED9C; 225B insert body uses 0x34 element stride; type identity provisional
+?erase@?$vector@UBfmePod60@@V?$allocator@UBfmePod60@@@_STL@@@_STL@@QAEPAUBfmePod60@@PAU3@0@Z,0x00587C1A,retail resize call 0x0058816D; 38B body updates finish and returns first; 60B type identity provisional
+?_M_fill_insert@?$vector@UBfmePod60@@V?$allocator@UBfmePod60@@@_STL@@@_STL@@QAEXPAUBfmePod60@@IABU3@@Z,0x00587DCD,retail resize call 0x0058818A; 226B insert body uses 0x3C element stride; type identity provisional
