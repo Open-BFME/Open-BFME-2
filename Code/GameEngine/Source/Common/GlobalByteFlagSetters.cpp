@@ -14,3 +14,7 @@ void Rva004128E8SetFlag(void)
 {
 	*(volatile unsigned char *)0x00E0302C = 1;
 }
+void Rva006CD200SetFlag(void)
+{
+	*(volatile unsigned char *)0x00E1770C = 1;
+}

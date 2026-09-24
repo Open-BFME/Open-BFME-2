@@ -34329,3 +34329,4 @@ _WinMain@16,,0x00002C39,1382,Code/GameEngine/Source/Main/WinMain.cpp,matched,BFM
 ?bump@Rva002B317CBumpCounter@@QAEHXZ,,0x002B317C,11,Code/GameEngine/Source/Common/Disp8BumpCounters.cpp,matched,Disp8 inc-and-fetch; /O1 memory form; Ghidra bounds agree; live caller; tail-call target
 ?Rva0031AB77SetFlag@@YAXXZ,,0x0031AB77,8,Code/GameEngine/Source/Common/GlobalByteFlagSetters.cpp,matched,global byte flag setter; opaque holder
 ?Rva004128E8SetFlag@@YAXXZ,,0x004128E8,8,Code/GameEngine/Source/Common/GlobalByteFlagSetters.cpp,matched,global byte flag setter; opaque holder
+?Rva006CD200SetFlag@@YAXXZ,,0x006CD200,8,Code/GameEngine/Source/Common/GlobalByteFlagSetters.cpp,matched,global byte flag setter; opaque holder
