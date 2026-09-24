@@ -1,8 +1,8 @@
 // cl: /O1 /EHsc /arch:SSE /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
 // stlport
 //
-// Per-profile online preference files: Zero Hour's QuickMatchPreferences and
-// GameSpyMiscPreferences constructors, which BFME 2 roots under
+// Per-profile online preference files: Zero Hour's QuickMatchPreferences,
+// GameSpyMiscPreferences and LadderPreferences constructors, which BFME 2 roots under
 // "Online Files" (Zero Hour used "GeneralsOnline"). Retail keeps them far
 // from UserPreferences.cpp (0x005DF1A3 and 0x00559711), so they get their
 // own unit. The UserPreferences model is the one in
@@ -205,4 +205,41 @@ GameSpyMiscPreferences::GameSpyMiscPreferences()
 	AsciiString userPrefFilename;
 	userPrefFilename.format("%s\\GSMiscPref%d.ini", "Online Files", TheGameSpyInfo->getLocalProfileID());
 	load(userPrefFilename);
+}
+
+typedef long time_t;
+typedef unsigned short UnsignedShort;
+
+class LadderPref
+{
+public:
+	UnicodeString name;
+	AsciiString address;
+	UnsignedShort port;
+	time_t lastPlayDate;
+};
+
+typedef _STL::map<time_t, LadderPref> LadderPrefMap;
+
+// Zero Hour's recent-ladder preferences: a UserPreferences file plus the
+// parsed LadderPrefMap at +0x14; write is overridden (vtable 0x00C77788
+// slot 3 is 0x005E0026).
+class LadderPreferences : public UserPreferences
+{
+public:
+	LadderPreferences();
+	virtual ~LadderPreferences();
+
+private:
+	LadderPrefMap m_ladders;
+};
+
+// ??0LadderPreferences@@QAE@XZ @0x5DFFD3
+LadderPreferences::LadderPreferences()
+{
+}
+
+// ??1LadderPreferences@@UAE@XZ @0x5DFF7B
+LadderPreferences::~LadderPreferences()
+{
 }

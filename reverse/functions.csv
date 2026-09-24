@@ -33589,3 +33589,6 @@ _WinMain@16,,0x00002C39,1382,Code/GameEngine/Source/Main/WinMain.cpp,matched,BFM
 ??0QuickMatchPreferences@@QAE@XZ,,0x005DF1A3,113,Code/GameEngine/Source/GameNetwork/GameSpy/OnlinePreferences.cpp,matched,Zero Hour QuickMatchPreferences ctor: Online Files\QMPref<profile>.ini; vtable 0xC776DC
 ??0GameSpyMiscPreferences@@QAE@XZ,,0x00559711,113,Code/GameEngine/Source/GameNetwork/GameSpy/OnlinePreferences.cpp,matched,Zero Hour GameSpyMiscPreferences ctor: Online Files\GSMiscPref<profile>.ini; vtable 0xC6B3AC
 ??1Rva006D6470Owner@@UAE@XZ,,0x006D6470,82,Code/GameEngine/Source/Common/LadderPreferencesDtor.cpp,matched,derived dtor (base 0x6DE350; vtable 0xCEA264); formerly misnamed LadderPreferences dtor; BFME1 0xABB70 near-miss
+??0LadderPreferences@@QAE@XZ,,0x005DFFD3,55,Code/GameEngine/Source/GameNetwork/GameSpy/OnlinePreferences.cpp,matched,Zero Hour LadderPreferences (vtable 0xC77788; UserPreferences base; LadderPrefMap at +0x14)
+??1LadderPreferences@@UAE@XZ,,0x005DFF7B,59,Code/GameEngine/Source/GameNetwork/GameSpy/OnlinePreferences.cpp,matched,Zero Hour LadderPreferences (vtable 0xC77788; UserPreferences base; LadderPrefMap at +0x14)
+??_GLadderPreferences@@UAEPAXI@Z,,0x005E000A,28,Code/GameEngine/Source/GameNetwork/GameSpy/OnlinePreferences.cpp,matched,Zero Hour LadderPreferences (vtable 0xC77788; UserPreferences base; LadderPrefMap at +0x14)
