@@ -32915,3 +32915,5 @@ _DXTraceA@20,,0x0065459C,476,vendor/dxerr9-aug2005/dxerr9.lib,matched,vendored=d
 ?get@Rva00460AE2ByteChaseField@@QBEEXZ,,0x00460AE2,10,Code/GameEngine/Source/Common/Disp8ByteChaseWideGetters.cpp,matched,wide byte-chase getter; backward cast
 ?get@Rva0047840CByteChaseField@@QBEEXZ,,0x0047840C,10,Code/GameEngine/Source/Common/Disp8ByteChaseWideGetters.cpp,matched,wide byte-chase getter; backward cast
 ?get@Rva004827F9ByteChaseField@@QBEEXZ,,0x004827F9,10,Code/GameEngine/Source/Common/Disp8ByteChaseWideGetters.cpp,matched,wide byte-chase getter; backward cast
+?get@Rva0026FDCAFloatChase32Field@@QBEMXZ,,0x0026FDCA,10,Code/GameEngine/Source/Common/Disp8FloatChaseGetters.cpp,matched,disp8 float-chase getter with disp32 inner; phase-proven no-branch-to-addr
+?get@Rva004BB980FloatChase32Field@@QBEMXZ,,0x004BB980,10,Code/GameEngine/Source/Common/Disp8FloatChaseGetters.cpp,matched,disp8 float-chase getter with disp32 inner; phase-proven no-branch-to-addr
