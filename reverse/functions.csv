@@ -33542,3 +33542,4 @@ _WinMain@16,,0x00002C39,1382,Code/GameEngine/Source/Main/WinMain.cpp,matched,BFM
 ?GetRegistryMapPackVersion@@YAIXZ,,0x00235228,87,Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp,matched,Zero Hour GetRegistryMapPackVersion: default 0x10000 then MapPackVersion DWORD
 ?parseCommandPoints@@YAXPAVINI@@PAX1PBX@Z,,0x0023528E,46,Code/GameEngine/Source/Common/MultiPlayMoneyMultParse.cpp,matched,FieldParse for Good/EvilCommandPoints* GlobalData rows (0x7E99E4..): two parseInt calls
 ??0MultiPlayMults@@QAE@XZ,,0x002358A2,64,Code/GameEngine/Source/Common/MultiPlayMoneyMultParse.cpp,matched,MultiPlayMults ctor: six twenty-slot multiplier tables set to 1.0 (sixth table BFME2-new)
+?setTimeOfDay@GlobalData@@QAE_NW4TimeOfDay@@@Z,,0x002352BC,86,Code/GameEngine/Source/Common/GlobalDataSetTimeOfDay.cpp,matched,Zero Hour GlobalData::setTimeOfDay: TOD +0x134; lighting table +0x140 (0x6C/TOD); current lights +0x8D8/+0x8FC/+0x920
