@@ -33044,3 +33044,4 @@ _DXTraceA@20,,0x0065459C,476,vendor/dxerr9-aug2005/dxerr9.lib,matched,vendored=d
 ??1BfmeContainerRecord00048139@@QAE@XZ,,0x000470A0,53,Code/GameEngine/Source/Common/StringContainerRecordVector.cpp,matched,
 ??$_Destroy@PAUBfmeContainerRecord00048139@@@_STL@@YAXPAUBfmeContainerRecord00048139@@0@Z,,0x0004A9F3,25,Code/GameEngine/Source/Common/StringContainerRecordVector.cpp,matched,
 ??1BfmeRecordRange004B205@@QAE@XZ,,0x0004B205,30,Code/GameEngine/Source/Common/StringContainerRecordVector.cpp,matched,
+??_GDeployStyleAIUpdate@@UAEPAXI@Z,,0x0048E9F3,28,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DeployStyleAIUpdateDtor.cpp,matched,Scalar-deleting dtor over rowed DeployStyle dtor plus rowed delete; b2 0x0048E9F3; TU-emitted pop-ecx shape; sole caller pattern per dtor row
