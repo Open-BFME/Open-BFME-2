@@ -5150,4 +5150,4 @@ _AVIFileInit@0,0x0065479C,jmp [IAT 0xBBA050] stub; import table names avifil32!A
 ?pop@FreelistPool@@QAEPAXXZ,0x002393E2,TU spelling of the freelist pop folded at this address; resolves the Rva0029FB3BMember init TU call
 ??0AutoHealBehaviorModuleData@@QAE@XZ,0x00254DE7
 ?setAll@Rva002535A5Mask@@SAXPAX@Z,0x002535A5
-??0Win32GameEngine@@QAE@XZ,0x00041D41,Win32GameEngine default ctor; sole caller CreateGameEngine 0x1D1F news 0x64 ret8
+??0GameEngine@@QAE@XZ,0x0022DA66,GameEngine default ctor; base of Win32GameEngine ctor 0x41D41
