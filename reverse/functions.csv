@@ -34297,3 +34297,4 @@ _WinMain@16,,0x00002C39,1382,Code/GameEngine/Source/Main/WinMain.cpp,matched,BFM
 ?set@Rva002D94FEDwordSlot@@QAEXH@Z,,0x002D94FE,10,Code/GameEngine/Source/Common/Disp8DwordFieldSetters.cpp,matched,Disp8 dword arg setter; Ghidra bounds agree; live callers
 ?set@Rva0033F15DDwordSlot@@QAEXH@Z,,0x0033F15D,10,Code/GameEngine/Source/Common/Disp8DwordFieldSetters.cpp,matched,Disp8 dword arg setter; Ghidra bounds agree; live callers
 ?set@Rva003FF0E7DwordSlot@@QAEXH@Z,,0x003FF0E7,10,Code/GameEngine/Source/Common/Disp8DwordFieldSetters.cpp,matched,Disp8 dword arg setter; Ghidra bounds agree; live callers
+?set@Rva00318D14ByteSlot@@QAEXE@Z,,0x00318D14,10,Code/GameEngine/Source/Common/Disp8ByteFieldSetters.cpp,matched,Disp8 byte arg setter; Ghidra bounds agree; live callers
