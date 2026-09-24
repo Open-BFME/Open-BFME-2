@@ -33870,3 +33870,8 @@ _WinMain@16,,0x00002C39,1382,Code/GameEngine/Source/Main/WinMain.cpp,matched,BFM
 ?Rva0078C30AClearFlag@@YAIXZ,,0x0078C30A,13,Code/GameEngine/Source/Common/GlobalFlagClearers_E038xx.cpp,matched,B2-native scattered clearer with rdata table slot under /G7 narrowing
 ?Rva0078C428ClearFlag@@YAIXZ,,0x0078C428,13,Code/GameEngine/Source/Common/GlobalFlagClearers_E038xx.cpp,matched,B2-native scattered clearer with rdata table slot under /G7 narrowing
 ?Rva0078C4A1ClearFlag@@YAIXZ,,0x0078C4A1,13,Code/GameEngine/Source/Common/GlobalFlagClearers_E038xx.cpp,matched,B2-native scattered clearer with rdata table slot under /G7 narrowing
+?Rva0078FBE5ClearFlag@@YAIXZ,,0x0078FBE5,13,Code/GameEngine/Source/Common/GlobalFlagClearers_E041xx.cpp,matched,Flag clearer via al narrowing over 0x00E0414C
+?Rva0078FBFCClearFlag@@YAIXZ,,0x0078FBFC,13,Code/GameEngine/Source/Common/GlobalFlagClearers_E041xx.cpp,matched,Flag clearer via al narrowing over 0x00E04154
+?Rva0078FC42ClearFlag@@YAIXZ,,0x0078FC42,13,Code/GameEngine/Source/Common/GlobalFlagClearers_E041xx.cpp,matched,Flag clearer via al narrowing over 0x00E0415C
+?Rva0078FC59ClearFlag@@YAIXZ,,0x0078FC59,13,Code/GameEngine/Source/Common/GlobalFlagClearers_E041xx.cpp,matched,Flag clearer via al narrowing over 0x00E04164
+?Rva0078FC70ClearFlag@@YAIXZ,,0x0078FC70,13,Code/GameEngine/Source/Common/GlobalFlagClearers_E041xx.cpp,matched,Flag clearer via al narrowing over 0x00E0416C
