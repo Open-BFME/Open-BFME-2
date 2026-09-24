@@ -32997,3 +32997,4 @@ _DXTraceA@20,,0x0065459C,476,vendor/dxerr9-aug2005/dxerr9.lib,matched,vendored=d
 ?get@Rva0066D800LeaField@@QBEPAXXZ,,0x0066D800,4,Code/GameEngine/Source/Common/Disp8LeaFieldGetters.cpp,matched,Disp8 LEA getter with vtable witness
 ?get@Rva0066E430LeaField@@QBEPAXXZ,,0x0066E430,4,Code/GameEngine/Source/Common/Disp8LeaFieldGetters.cpp,matched,Disp8 LEA getter with vtable witness
 ?get@Rva00723140LeaField@@QBEPAXXZ,,0x00723140,4,Code/GameEngine/Source/Common/Disp8LeaFieldGetters.cpp,matched,Disp8 LEA getter with vtable witness
+??_GTransport@@QAEPAXI@Z,,0x00449586,28,Code/GameEngine/Source/Common/ConnectionManagerAttachTransport.cpp,matched,scalar deleting dtor; TU already emits byte-exact body (explain_mismatch exact); landed attachTransport 0x4CF113 delete-calls it; ~Transport pinned 0x494BA; ghidra boundary+size 28
