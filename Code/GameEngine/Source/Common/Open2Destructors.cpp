@@ -73,7 +73,9 @@ Open2Dtor13A8E0::~Open2Dtor13A8E0()
 }
 
 // -------------------------------------------------------------------------
-// 0x0040B830 -- 118 bytes, 5 string member(s)
+// 0x0040B830 -- 118 bytes, 5 string member(s); BFME2 target layout places
+// the final string at +0x94 (the target default-record constructor copies it
+// from the global default block at base+0x94).
 class Open2Dtor40B830
 {
 public:
@@ -83,12 +85,11 @@ public:
 	AsciiString m_at08;
 	Open2Gap< 0x8 > m_pad0;
 	AsciiString m_at14;
-	Open2Gap< 0x70 > m_pad1;
-	AsciiString m_at88;
+	Open2Gap< 0x7c > m_pad1;
+	AsciiString m_at94;
 };
 
 // @??1Open2Dtor40B830@@QAE@XZ 0x0040B830
-// ??1Open2Dtor40B830@@QAE@XZ present-unmatched
 Open2Dtor40B830::~Open2Dtor40B830()
 {
 }
