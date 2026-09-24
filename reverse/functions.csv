@@ -32965,3 +32965,6 @@ _DXTraceA@20,,0x0065459C,476,vendor/dxerr9-aug2005/dxerr9.lib,matched,vendored=d
 ?enable@Rva004D3765ByteSetter@@QAEXXZ,,0x004D3765,5,Code/GameEngine/Source/Common/Disp8ByteSetters.cpp,matched,disp8 byte setter; phase-proven no-branch-to-addr
 ?enable@Rva004D81D2ByteSetter@@QAEXXZ,,0x004D81D2,5,Code/GameEngine/Source/Common/Disp8ByteSetters.cpp,matched,disp8 byte setter; phase-proven no-branch-to-addr
 ?enable@Rva005975F2ByteSetter@@QAEXXZ,,0x005975F2,5,Code/GameEngine/Source/Common/Disp8ByteSetters.cpp,matched,disp8 byte setter; phase-proven no-branch-to-addr
+?disable@Rva00118CB0DwordSetter@@QAEXXZ,,0x00118CB0,8,Code/GameEngine/Source/Common/Disp8DwordSetters.cpp,matched,disp8 dword setter; phase-proven no-branch-to-addr
+?disable@Rva00660050DwordSetter@@QAEXXZ,,0x00660050,8,Code/GameEngine/Source/Common/Disp8DwordSetters.cpp,matched,disp8 dword setter; phase-proven no-branch-to-addr
+?disable@Rva006F1350DwordSetter@@QAEXXZ,,0x006F1350,8,Code/GameEngine/Source/Common/Disp8DwordSetters.cpp,matched,disp8 dword setter; phase-proven no-branch-to-addr
