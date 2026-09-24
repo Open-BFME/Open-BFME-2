@@ -33050,3 +33050,4 @@ _DXTraceA@20,,0x0065459C,476,vendor/dxerr9-aug2005/dxerr9.lib,matched,vendored=d
 ??0SoundFXNugget@@QAE@XZ,,0x001E00A3,32,Code/GameEngine/Source/GameClient/SoundFXNuggetCtor.cpp,matched,BFME1 donor class plus retail table Name at 0x148 plus type 1 at 0x4; sole caller is rowed parse 0x1E1329
 ??0EvaEventFXNugget@@QAE@XZ,,0x001DFFFA,46,Code/GameEngine/Source/GameClient/EvaEventFXNuggetCtor.cpp,matched,BFME1 donor class plus retail table Owner Ally Enemy plus type 15 at 0x4; sole caller is rowed parse 0x1E12AD
 ??0ViewShakeFXNugget@@QAE@XZ,,0x001E07DF,35,Code/GameEngine/Source/GameClient/ViewShakeFXNuggetCtor.cpp,matched,BFME1 donor m_shake plus retail table Type at 0x148 plus type 6 at 0x4; sole caller is rowed parse 0x1E1611
+??0LaserFXNugget@@QAE@XZ,,0x001E04DE,32,Code/GameEngine/Source/GameClient/LaserFXNuggetCtor.cpp,matched,BFME1 donor class plus retail table LaserName LaserBackwards; sole caller is rowed parse 0x1E1519
