@@ -32649,3 +32649,4 @@ _DXTraceA@20,,0x0065459C,476,vendor/dxerr9-aug2005/dxerr9.lib,matched,vendored=d
 ?get@Rva00709D20PtrChaseField@@QBEHXZ,,0x00709D20,7,Code/GameEngine/Source/Common/Disp8PtrChaseDwordGetters.cpp,matched,disp8 pointer-chase dword getter; opaque holder
 ?get@Rva005FC726PtrChaseField@@QBEHXZ,,0x005FC726,7,Code/GameEngine/Source/Common/Disp8PtrChaseDwordGetters.cpp,matched,disp8 pointer-chase dword getter in chase run after loop jump; opaque holder
 ?get@Rva0056AD79ByteChaseField@@QBEEXZ,,0x0056AD79,7,Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp,matched,disp8 byte-chase getter; opaque holder
+?get@Rva00493236PtrChaseField@@QBEHXZ,,0x00493236,7,Code/GameEngine/Source/Common/Disp8PtrChaseDwordGetters.cpp,matched,disp8 pointer-chase dword getter with negative holder; backward cast
