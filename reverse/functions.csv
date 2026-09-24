@@ -32643,3 +32643,4 @@ _DXTraceA@20,,0x0065459C,476,vendor/dxerr9-aug2005/dxerr9.lib,matched,vendored=d
 ?get@Rva00143E30PtrChaseField@@QBEHXZ,,0x00143E30,7,Code/GameEngine/Source/Common/Disp8PtrChaseDwordGetters.cpp,matched,disp8 pointer-chase dword getter; opaque holder
 ?get@Rva00328A83PtrChaseField@@QBEHXZ,,0x00328A83,7,Code/GameEngine/Source/Common/Disp8PtrChaseDwordGetters.cpp,matched,disp8 pointer-chase dword getter abutting matched dtor; opaque holder
 ?get@Rva0033F26BPtrChaseField@@QBEHXZ,,0x0033F26B,7,Code/GameEngine/Source/Common/Disp8PtrChaseDwordGetters.cpp,matched,disp8 pointer-chase dword getter; opaque holder
+?get@Rva0036CBC5PtrChaseField@@QBEHXZ,,0x0036CBC5,7,Code/GameEngine/Source/Common/Disp8PtrChaseDwordGetters.cpp,matched,disp8 pointer-chase dword getter; opaque holder
