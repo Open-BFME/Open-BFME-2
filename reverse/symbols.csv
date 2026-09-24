@@ -5164,3 +5164,17 @@ _D3DXCreateTexture@32,0x0062AF74,d3dx9_27 D3DXCreateTexture IAT thunk (jmp dword
 ??0ScriptConditions@@QAE@XZ,0x003E5513,retail REL32 from ScriptEngine::init 0x205B55; new(0xC) stored to the global whose slot-15 call takes condition arguments at 0x20CB4C; installs sibling subsystem vtable 0xC35B38
 ??0BfmeDualVtableReleaseDtor@@QAE@H@Z,0x0020429D,retail REL32 from ScriptEngine::init 0x205BBC; ctor of the class whose matched dtor is 0x203629 (vtable 0xBE3994); loads FXParticleEditorI.dll and GetFXParticleEditor; stack argument unused (ret 4)
 ??0LoadFailure@DllHandle@@QAE@XZ,0x00203EA8,retail REL32 from DllHandle::DllHandle 0x20424F; builds the 12-byte object thrown with throw info 0xD11F4C whose catchable types name DllHandle::LoadFailure / DllHandle::Exception / exception (anonymous-namespace RTTI)
+?release@Rva0020453CHolderBase@@QAEXXZ,0x0020453C,retail REL32 from ~ScriptEngine 0x20A31E; called on the debug-window holder held at 0xDFE154 right after its inline dtor stores vtable 0xBE39F4; clears +4 when +4 and +8 are set
+?reset@ScriptEngine@@UAEXXZ,0x00209ABE,retail REL32 from ~ScriptEngine 0x20A35F; ScriptEngine vtable 0x7E3D70 slot 9 (the virtual init calls last as reset)
+??1Rva004EC395List@@QAE@XZ,0x004EC395,retail REL32 from ~ScriptEngine for the five lists at +0x1A254..+0x1A264 and +0x1A498; ICF-folded STLport list base dtor already matched at this address
+??1Rva00207E65Vector@@QAE@XZ,0x00207E65,retail REL32 from ~ScriptEngine for the member at +0x1A49C; STLport vector dtor shape (destroy range then free the buffer)
+??1Rva00207E26Vector@@QAE@XZ,0x00207E26,retail REL32 from ~ScriptEngine for the member at +0x1A120; STLport vector dtor shape (destroy range then free the buffer)
+??1Rva002075F3Map@@QAE@XZ,0x002075F3,retail REL32 from ~ScriptEngine for the member at +0x190A0; STLport map dtor shape (clear the tree then free the header)
+??1Rva00207630Map@@QAE@XZ,0x00207630,retail REL32 from ~ScriptEngine for the member at +0x190AC; STLport map dtor shape (clear the tree then free the header)
+??1Rva0020766DMap@@QAE@XZ,0x0020766D,retail REL32 from ~ScriptEngine for the member at +0x190B8; STLport map dtor shape (clear the tree then free the header)
+??1Rva002076AAMap@@QAE@XZ,0x002076AA,retail REL32 from ~ScriptEngine for the member at +0x190C4; STLport map dtor shape (clear the tree then free the header)
+??1Rva002076E7Map@@QAE@XZ,0x002076E7,retail REL32 from ~ScriptEngine for the member at +0x190D0; STLport map dtor shape (clear the tree then free the header)
+??1Rva00207724Map@@QAE@XZ,0x00207724,retail REL32 from ~ScriptEngine for the member at +0x190DC; STLport map dtor shape (clear the tree then free the header)
+??1Rva00207761Map@@QAE@XZ,0x00207761,retail REL32 from ~ScriptEngine for the member at +0x190E8; STLport map dtor shape (clear the tree then free the header)
+??1Rva0020779EMap@@QAE@XZ,0x0020779E,retail REL32 from ~ScriptEngine for the member at +0x190F4; STLport map dtor shape (clear the tree then free the header)
+??_EScriptEngine@@UAEPAXI@Z,0x0020C0C7,weak-external alias MSVC emits for the vector deleting dtor when no new[] exists; resolves to the scalar deleting dtor; retail Snapshot adjustor thunk 0x2086C0 jumps here
