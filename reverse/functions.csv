@@ -34332,3 +34332,4 @@ _WinMain@16,,0x00002C39,1382,Code/GameEngine/Source/Main/WinMain.cpp,matched,BFM
 ?Rva006CD200SetFlag@@YAXXZ,,0x006CD200,8,Code/GameEngine/Source/Common/GlobalByteFlagSetters.cpp,matched,global byte flag setter; opaque holder
 ??0BfmeDualVtableReleaseDtor@@QAE@H@Z,,0x0020429D,88,Code/GameEngine/Source/Common/BfmeDualVtableReleaseDtorCtor.cpp,matched,FX particle-editor loader built in ScriptEngine::init; base DllHandle with FXParticleEditorI.dll plus GetFXParticleEditor factory plus slot-0 poke; failures throw LoadFailure via shared pad
 ??_GDX8MeshRendererClass@@QAEPAXI@Z,,0x0011CBF0,30,Code/GameEngine/Source/Common/FamilyDeletingDtors5.cpp,matched,scalar deleting dtor; same-shape add-esp sibling of ??_GVersion (0x21C7) selected by its dtor callee
+??_GBfmeEnumerationCaps@@QAEPAXI@Z,,0x0011FE00,30,Code/GameEngine/Source/Common/FamilyDeletingDtors5.cpp,matched,scalar deleting dtor; same-shape add-esp sibling of ??_GVersion (0x21C7) selected by its dtor callee
