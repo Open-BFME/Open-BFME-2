@@ -34560,3 +34560,4 @@ _Rva001CA000Vp6WideAccum,,0x001CA000,4240,Code/GameEngine/Source/Common/Rva001CA
 ??0HordeContainRankInfo@@QAE@XZ,,0x0046F12A,79,Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainRankInfoCtor.cpp,matched,RankInfo field callback (PC table 0x00C45530) allocates 0x38 and calls it; callees BfmeE16 vector base 0x211E58 + bitset<128>::reset 0x24CA24 x2 + memset x2; class name descriptive
 ?writeFileEnd@StatsCollector@@QAEXXZ,,0x00437C2D,210,Code/GameEngine/Source/Common/StatsCollector.cpp,matched,
 ?parseWeatherData@GlobalWeatherSystem@@SAXPAVINI@@@Z,,0x0031842A,142,Code/GameEngine/Source/GameLogic/System/GlobalWeatherSystem.cpp,matched,
+?init@ControlBarSchemeManager@@QAEXXZ,,0x00320205,140,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarScheme.cpp,matched,
