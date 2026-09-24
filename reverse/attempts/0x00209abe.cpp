@@ -1,5 +1,7 @@
 // ?reset@ScriptEngine@@UAEXXZ
 // partial score=0.9 date=2026-09-24
+// ?reset@ScriptEngine@@UAEXXZ
+// partial score=0.9 date=2026-09-24
 // Banked partial: ScriptEngine::reset, retail 0x00209ABE (855 bytes).
 // Build: 859 bytes, instruction stream aligned 1:1 with retail (ratio 0.71 only
 // because of register names). Member layout = ScriptEngine_dtor.cpp.
@@ -15,6 +17,14 @@
 // /EHs /EHsc /GX, /G5 /G6 /G7 /arch:SSE /arch:SSE2, /O2 /Os /Ox decompositions,
 // inline ScriptList::reset (EH functions never inline), ablations of the zero
 // uses (zero keeps ebx regardless).
+// Later leads (also refuted):
+//   * corpus mining: of 135 matched __EH_prolog/this-in-esi bodies, zero sits in
+//     ebx in 22 and edi in 3; none shows retail's edi-zero + immediate byte-zero
+//     combination. Closest analogue ??0Image@@QAE@XZ (0x2D8FE4) keeps a member
+//     object's address in ebx as `this` for calls. A reference local for
+//     m_allObjectTypeLists moved the loop allocation (859 -> 856) but not zero.
+//   * real STLport 4.5.3 containers (vector/list/map, _STLP_USE_STATIC_LIB and
+//     _STLP_USE_MALLOC) in place of the opaque stand-ins: identical 859-byte output.
 //
 // Pins this body needs (none exist yet):
 //   ?rva0029AB35@Rva0029AB35Owner@@QAEX_N@Z          0x0029AB35 (global 0x00DFEDF0)
