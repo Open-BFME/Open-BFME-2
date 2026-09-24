@@ -58,3 +58,8 @@ unsigned int Rva00789688ClearFlag(void)
 {
 	return g_Va00E0337C &= 0xFFFFFFFDu;
 }
+
+unsigned int Rva0078969DClearFlag(void)
+{
+	return g_Va00E0337C &= 0xFFFFFFFBu;
+}
