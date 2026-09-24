@@ -38,3 +38,22 @@ BfmeContainerRecord00048139::~BfmeContainerRecord00048139()
 
 // ??$_Destroy@PAUBfmeContainerRecord00048139@@@_STL@@YAXPAUBfmeContainerRecord00048139@@0@Z @0x004A9F3
 template void _STL::_Destroy<BfmeContainerRecord00048139 *>(BfmeContainerRecord00048139 *, BfmeContainerRecord00048139 *);
+
+extern "C" void free(void *ptr);
+
+// Two-pointer owning range over the record buffer: destroy the live span,
+// then free the buffer when one was allocated.
+struct BfmeRecordRange004B205 {
+	BfmeContainerRecord00048139 *m_begin;
+	BfmeContainerRecord00048139 *m_end;
+	~BfmeRecordRange004B205();
+};
+
+// ??1BfmeRecordRange004B205@@QAE@XZ @0x004B205
+BfmeRecordRange004B205::~BfmeRecordRange004B205()
+{
+	_STL::_Destroy(m_begin, m_end);
+	if (m_begin != 0) {
+		free(m_begin);
+	}
+}
