@@ -34315,3 +34315,4 @@ _WinMain@16,,0x00002C39,1382,Code/GameEngine/Source/Main/WinMain.cpp,matched,BFM
 ?set@Rva001D972BFloatField@@QAEXM@Z,,0x001D972B,17,Code/GameEngine/Source/Common/Disp32FloatFieldSetters.cpp,matched,disp32 float setter; opaque holder
 ?set@Rva0029A767FloatField@@QAEXM@Z,,0x0029A767,17,Code/GameEngine/Source/Common/Disp32FloatFieldSetters.cpp,matched,disp32 float setter; opaque holder
 ?get@Rva0030C8CCIntGetter@@QBEHXZ,,0x0030C8CC,9,Code/GameEngine/Source/Common/Disp32CvtFloatIntGetters.cpp,matched,Disp32 float-to-int getter; Ghidra bounds agree; live caller; interleave setters parked dead
+?get@Rva0030C8E6IntGetter@@QBEHXZ,,0x0030C8E6,9,Code/GameEngine/Source/Common/Disp32CvtFloatIntGetters.cpp,matched,Disp32 float-to-int getter; Ghidra bounds agree; live caller
