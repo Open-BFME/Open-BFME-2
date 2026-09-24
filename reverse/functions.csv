@@ -33754,3 +33754,11 @@ _WinMain@16,,0x00002C39,1382,Code/GameEngine/Source/Main/WinMain.cpp,matched,BFM
 ?Rva0078A53FClearFlag@@YAIXZ,,0x0078A53F,13,Code/GameEngine/Source/Common/GlobalFlagClearers_E034xx.cpp,matched,B2-native scattered clearer with rdata table slot under /G7 narrowing
 ?Rva0078A5DCClearFlag@@YAIXZ,,0x0078A5DC,13,Code/GameEngine/Source/Common/GlobalFlagClearers_E034xx.cpp,matched,B2-native scattered clearer with rdata table slot under /G7 narrowing
 ?Rva0078A622ClearFlag@@YAIXZ,,0x0078A622,13,Code/GameEngine/Source/Common/GlobalFlagClearers_E034xx.cpp,matched,B2-native scattered clearer with rdata table slot under /G7 narrowing
+?Rva0078A6E1ClearFlag@@YAIXZ,,0x0078A6E1,13,Code/GameEngine/Source/Common/GlobalFlagClearers_E035xx.cpp,matched,B2-native scattered clearer with rdata table slot under /G7 narrowing
+?Rva0078A70AClearFlag@@YAIXZ,,0x0078A70A,13,Code/GameEngine/Source/Common/GlobalFlagClearers_E035xx.cpp,matched,B2-native scattered clearer with rdata table slot under /G7 narrowing
+?Rva0078A759ClearFlag@@YAIXZ,,0x0078A759,13,Code/GameEngine/Source/Common/GlobalFlagClearers_E035xx.cpp,matched,B2-native scattered clearer with rdata table slot under /G7 narrowing
+?Rva0078A7AAClearFlag@@YAIXZ,,0x0078A7AA,13,Code/GameEngine/Source/Common/GlobalFlagClearers_E035xx.cpp,matched,B2-native scattered clearer with rdata table slot under /G7 narrowing
+?Rva0078A7C1ClearFlag@@YAIXZ,,0x0078A7C1,13,Code/GameEngine/Source/Common/GlobalFlagClearers_E035xx.cpp,matched,B2-native scattered clearer with rdata table slot under /G7 narrowing
+?Rva0078A7EAClearFlag@@YAIXZ,,0x0078A7EA,13,Code/GameEngine/Source/Common/GlobalFlagClearers_E035xx.cpp,matched,B2-native scattered clearer with rdata table slot under /G7 narrowing
+?Rva0078A97DClearFlag@@YAIXZ,,0x0078A97D,13,Code/GameEngine/Source/Common/GlobalFlagClearers_E035xx.cpp,matched,B2-native scattered clearer with rdata table slot under /G7 narrowing
+?Rva0078A994ClearFlag@@YAIXZ,,0x0078A994,13,Code/GameEngine/Source/Common/GlobalFlagClearers_E035xx.cpp,matched,B2-native scattered clearer with rdata table slot under /G7 narrowing
