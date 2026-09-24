@@ -1,31 +1,41 @@
 // ?do_get@?$money_get@GV?$istreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@@_STL@@MBE?AV?$istreambuf_iterator@GV?$char_traits@G@_STL@@@2@V32@0_NAAVios_base@2@AAHAAV?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@2@@Z
-// partial score=0.63 date=2026-09-23
+// partial score=0.65 date=2026-09-24
 // ?do_get@?$money_get@GV?$istreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@@_STL@@MBE?AV?$istreambuf_iterator@GV?$char_traits@G@_STL@@@2@V32@0_NAAVios_base@2@AAHAAV?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@2@@Z
-// partial score=0.143825839 date=2026-09-07
+// partial score=0.65 date=2026-09-24
+// ?do_get@?$money_get@GV?$istreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@@_STL@@MBE?AV?$istreambuf_iterator@GV?$char_traits@G@_STL@@@2@V32@0_NAAVios_base@2@AAHAAV?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@2@@Z
+// partial score=0.63 date=2026-09-23
 // cl: /Ob1 /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC
 // stlport
 //
-// Banked reconstruction of STLport 4.5.3 wide money_get string parser.
-// NOT a byte match. The executable body and retail body are both 2802 bytes;
-// only 403 positional bytes match after justified callee resolution.
-// Retail spans RVA0x12190-0x12C82; 122+2680 byte dump fragments are one body.
-// The five-entry switch table begins at 0x12C84 after two alignment bytes.
+// Banked reconstruction of STLport 4.5.3 wide money_get string parser (2802B).
+// Current: 2816B (+14), all 63 E8 sites 1:1 in order, vendor-verbatim operator=
+// (__digits = __buf, NOT .assign(): vendor _monetary.c uses operator=, and only
+// operator= emits retail's inlined self-check cmp/je at both assign sites).
+// Retail spans RVA 0x12190-0x12C82; 122+2680 dump fragments are one body.
 //
-// This keeps the full algorithm and the narrow parser's useful source fixes:
-// C++ free linkage, visible locale cleanup, const-character comparison views,
-// and selective iterator inlining. All three wide comparisons inline mismatch.
-// The remaining obstacle is cleanup scheduling. Retail calls String_base for
-// six conditional temporaries, the currency symbol, and two error-path groups
-// of three locals. Final normal cleanup instead emits three inline frees.
-// This candidate inlines too many frees and outlines two locale cleanups.
-//
-// An explicit wchar String_base destructor declaration gives the right kind
-// of cleanup calls but also outlines final cleanup; body size becomes2652B
-// (or2644B with direct const begin/end views). Consolidating early returns
-// improves the exact prefix to135B but removes a cleanup group and shrinks
-// the body to2488B. Flagged storage owners add real flag tests/extra frame
-// bytes, so they do not reproduce the retail lifetime model here.
-// No guessed pointers or unresolved-call-derived pins have been added.
+// REMAINING WALLS (all mapped 2026-09-24):
+// (1) Temp-vs-named destruction split: retail destroys 13 conditional temps via
+// out-of-line ~_String_base (B3C0) but frees the 3 named strings (__buf/__ns/__ps)
+// inline (test+free-30830). PROVEN MECHANISM (num_put_bool precedent, rowed):
+// hide the dtor via `template <> _String_base<unsigned short,
+// allocator<unsigned short> >::~_String_base();` (use unsigned short, NOT
+// wchar_t, or C2888) so all destructions outline, then carve the 3 named
+// strings into explicit-free storage owners (placement-new + `if (data)
+// free(data)` dtor, _BoolStorageTag trick to avoid extra EH states). Hiding
+// alone gives 2672B/10xB3C0 (verified). The 3 owners must forward copy-ctor
+// (ea90), dispatch-source, insert (push_back/de40 + insert_aux/12d10),
+// begin/data/size, and back_insert_iterator wrapping.
+// (2) Tag store: retail `mov byte [esp+0x1e],0` zeroes the __false_type temp
+// before the shared dispatch tail (slot reuses dead __symbol_required). No
+// natural spelling emits it (operator=/assign/begin-end probes all bare);
+// value-init-temp-zeroing (num_put comment) did NOT reproduce under /Ob1 or
+// /O2. May fall out of the owner rewrite (different temp slot/pressure).
+// (3) EDI: retail homes __i (loop counter) + zero/facet temps in edi from the
+// prologue (push edi + xor edi,edi + mov [esp+0xc],edi); ours uses immediates.
+// Pressure-coupled, likely falls out of (1).
+// REFUTED: /O2-full (2988B, worse), member-template-direct assign (no check,
+// no tag), /Ob1-vs-/O2 for tag (neither emits it), wchar_t-spelled dtor decl
+// (C2888; must be unsigned short).
 /*
  * Copyright (c) 1999
  * Silicon Graphics Computer Systems, Inc.
@@ -304,7 +314,7 @@ template <> _MoneyIn money_get<wchar_t, _MoneyIn>::do_get(_MoneyIn __s, _MoneyIn
 	__err |= ios::failbit;
     }
     if (!(__err & ios_base::failbit))
-      __digits.assign(__buf);
+      __digits = __buf;
   }
   else {
     if (__ns.size() > 1) {
@@ -316,7 +326,7 @@ template <> _MoneyIn money_get<wchar_t, _MoneyIn>::do_get(_MoneyIn __s, _MoneyIn
     }
     if (!(__err & ios::failbit)) {
       __buf.insert(__buf.begin(),__c_type.widen('-'));
-      __digits.assign(__buf);
+      __digits = __buf;
     }
   }
   if (__s == __end)
