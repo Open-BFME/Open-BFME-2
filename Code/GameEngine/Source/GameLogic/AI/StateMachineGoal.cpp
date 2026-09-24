@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX
+// cl: /O1 /DNDEBUG /MD /GX /arch:SSE
 //
 // ?internalSetGoalPosition@StateMachine@@QAEXPBVCoord3D@@M@Z,
 // retail 0x004D73C4, 32 bytes, plus
