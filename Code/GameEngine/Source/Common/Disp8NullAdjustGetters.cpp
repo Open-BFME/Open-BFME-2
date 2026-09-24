@@ -40,3 +40,4 @@ extern BfmeNullAdjustDefault g_bfmeNullAdjustDE0878;
 	}
 
 BFME_DISP8_NULL_ADJUST_GETTER(Rva002B2252NullAdjustField, 0x08, 0x2C)
+BFME_DISP8_NULL_ADJUST_GETTER(Rva002C5FCBNullAdjustField, 0x0C, 8)
