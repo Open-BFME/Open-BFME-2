@@ -5153,3 +5153,4 @@ _D3DXCreateTexture@32,0x0062AF74,d3dx9_27 D3DXCreateTexture IAT thunk (jmp dword
 ?erase@Rva008312E0String@@QAEPADPAD0@Z,0x00012150
 ?insertRange@Rva008312E0String@@QAEXPAD00ABURva008312E0Tag@@@Z,0x000284D0
 ?replaceBase@Rva008312E0String@@QAEAAV1@PAD000ABURva008312E0Tag@@@Z,0x0002A610
+?Rva002ADB4FHandler@Player@@QAEXPAXHH@Z,0x002ADB4F,Player handler taking pointer int int called once from SpectreGunshipUpdate cleanUp 0x4984CC; reads 0x2ADB4F REL32

@@ -33120,3 +33120,4 @@ _DXTraceA@20,,0x0065459C,476,vendor/dxerr9-aug2005/dxerr9.lib,matched,vendored=d
 ?get@Rva006CBED0ShrNAndField@@QBEHXZ,,0x006CBED0,10,Code/GameEngine/Source/Common/Disp8ShrAndDwordGetters.cpp,matched,disp8 shr-and dword getter; C2-prev pad boundary; phase-proven no-branch-to-addr
 ?get@Rva006DB340ShrNAndField@@QBEHXZ,,0x006DB340,10,Code/GameEngine/Source/Common/Disp8ShrAndDwordGetters.cpp,matched,disp8 shr-and dword getter; AptValue bitfield cluster; phase-proven no-branch-to-addr
 ?get@Rva006DB3B0ShrNAndField@@QBEHXZ,,0x006DB3B0,10,Code/GameEngine/Source/Common/Disp8ShrAndDwordGetters.cpp,matched,disp8 shr-and dword getter; C2-prev pad boundary; phase-proven no-branch-to-addr
+?cleanUp@SpectreGunshipUpdate@@QAEXXZ,,0x004984CC,75,Code/GameEngine/Source/GameLogic/Object/Update/SpectreGunshipUpdateCleanUp.cpp,matched,Destroys tracked spawned object via rowed findObjectByID destroyObject then forwards payload to player 0x2ADB4F handler; all callees rowed or pinned
