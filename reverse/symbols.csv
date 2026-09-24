@@ -5152,3 +5152,5 @@ _AVIFileInit@0,0x0065479C,jmp [IAT 0xBBA050] stub; import table names avifil32!A
 ?CreateTexture@BfmeResetTextureBackend@@QAEXHHHHHHH@Z,0x001310E3,Backend texture creation worker; thiscall with 7 creation args (width height plus 5 backend fields); 3 raw callers (Recreate 0x132D09 plus literal-init 0x132044 plus 0x131BCD); sanitizes format-usage args then D3DX-creates and stores com plus desc cache
 ?push_back@?$vector@PAVVideoBuffer@@V?$allocator@PAVVideoBuffer@@@_STL@@@_STL@@QAEXABQAVVideoBuffer@@@Z,0x004DFCB0,VideoBuffer-spelling alias over rowed ModuleData push_back fold; same 49B shell
 ??$_M_find@H@?$_Rb_tree@HU?$pair@$$CBHPAUState@@@_STL@@U?$_Select1st@U?$pair@$$CBHPAUState@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHPAUState@@@_STL@@@2@@_STL@@ABEPAU?$_Rb_tree_node@U?$pair@$$CBHPAUState@@@_STL@@@1@ABH@Z,0x00357180,State map find for StateMachine state map; TU spelling of the rowed unsigned-int tree worker at 0x00357180
+?friend_checkForSleepTransitions@State@@QAE?AW4StateReturnType@@W42@@Z,0x004D722A
+?friend_checkForTransitions@State@@QAE?AW4StateReturnType@@W42@@Z,0x004D7148
