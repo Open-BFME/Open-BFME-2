@@ -33494,3 +33494,4 @@ _WinMain@16,,0x00002C39,1382,Code/GameEngine/Source/Main/WinMain.cpp,matched,BFM
 ?get@Rva0035BCD7CmpBoolField@@QBE_NXZ,,0x0035BCD7,13,Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp,matched,Disp32 cmp-imm bool getter; cmp [ecx+0x110] 4 sete; /O1
 ?get@Rva0036389FCmpBoolField@@QBE_NXZ,,0x0036389F,13,Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp,matched,Disp8 cmp-imm32 bool getter; cmp [ecx+0x20] 0x7FFFFFFF setne; /O1
 ?get@Rva00313913CmpBoolField@@QBE_NXZ,,0x00313913,16,Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp,matched,Disp32 cmp-imm32 bool getter; cmp [ecx+0x1E0] 0x8020CE sete; /O1
+?get@Rva0031393ACmpBoolField@@QBE_NXZ,,0x0031393A,16,Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp,matched,Disp32 cmp-imm32 bool getter; cmp [ecx+0x1E0] 0x727E5D sete; /O1
