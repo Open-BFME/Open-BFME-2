@@ -4144,7 +4144,6 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ??0DozerAIUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x004894F5,(Thing*;ModuleData*) ctor called by DozerAIUpdate::friend_newModuleInstance (0x0024CD7D); class from the ModuleFactory registration literal
 ?push_back@?$list@PAVFXNugget@@V?$allocator@PAVFXNugget@@@_STL@@@_STL@@QAEXABQAVFXNugget@@@Z,0x0005548F,FXList::addFXNugget append called by all 15 FX nugget parse callbacks; ICF-shares the list<int> push_back body
 ?buildFieldParse@SoundFXNugget@@SAXAAVMultiIniFieldParse@@@Z,0x001DFAE0,cdecl field-parse builder called by SoundFXNugget::parse (0x001E1329); name is BFME's ModuleData convention
-??0EvaEventFXNugget@@QAE@XZ,0x001DFFFA,no-arg ctor called by EvaEventFXNugget::parse (0x001E12AD) for the EvaEvent FXList keyword; class name from BFME1
 ?buildFieldParse@EvaEventFXNugget@@SAXAAVMultiIniFieldParse@@@Z,0x001DFABF,cdecl field-parse builder called by EvaEventFXNugget::parse (0x001E12AD); name is BFME's ModuleData convention
 ??0RayEffectFXNugget@@QAE@XZ,0x001E01B2,no-arg ctor called by RayEffectFXNugget::parse (0x001E13A5) for the RayEffect FXList keyword; class name from BFME1
 ?buildFieldParse@RayEffectFXNugget@@SAXAAVMultiIniFieldParse@@@Z,0x001DFB01,cdecl field-parse builder called by RayEffectFXNugget::parse (0x001E13A5); name is BFME's ModuleData convention
