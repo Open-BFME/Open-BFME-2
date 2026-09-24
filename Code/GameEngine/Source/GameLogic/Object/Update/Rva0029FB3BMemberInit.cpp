@@ -30,6 +30,7 @@ public:
 };
 
 extern FreelistPool g_freelistPool;
+extern void *g_freeList;
 
 // ?init@Rva0029FB3BMember@@QAEPAXPAX@Z @0x0029FB3B
 void *Rva0029FB3BMember::init(void *context)
@@ -42,4 +43,21 @@ void *Rva0029FB3BMember::init(void *context)
 	((void **)node)[1] = node;
 	m_head = node;
 	return this;
+}
+
+// ?reset@Rva0029FB3BMember@@QAEXXZ @0x0026549E
+void Rva0029FB3BMember::reset()
+{
+	void *node = ((void **)m_head)[0];
+	if (node != m_head) {
+		do {
+			void *freeHead = g_freeList;
+			void *current = node;
+			node = ((void **)current)[0];
+			((void **)current)[0] = freeHead;
+			g_freeList = current;
+		} while (node != m_head);
+	}
+	((void **)m_head)[0] = m_head;
+	((void **)m_head)[1] = m_head;
 }
