@@ -10,8 +10,14 @@
 // cl: /G7 /MD /EHsc /DNDEBUG
 
 extern unsigned int g_Va00E03304;
+extern unsigned int g_Va00E03334;
 
 unsigned int Rva00788149ClearFlag(void)
 {
 	return g_Va00E03304 &= 0xFFFFFFFEu;
+}
+
+unsigned int Rva007886AFClearFlag(void)
+{
+	return g_Va00E03334 &= 0xFFFFFFFEu;
 }
