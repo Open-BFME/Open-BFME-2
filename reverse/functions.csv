@@ -34309,3 +34309,4 @@ _WinMain@16,,0x00002C39,1382,Code/GameEngine/Source/Main/WinMain.cpp,matched,BFM
 ?Rva00021080TableSlot@@YAPAXPAUT2TableOwner0C@@H@Z,,0x00021080,13,Code/GameEngine/Source/Common/T2IndexedArrayAccessors.cpp,matched,t2_table_slot disp8 sibling; table at +0xC; same owner as 0x21090/0x210A0
 ?set@Rva002633F3FloatField@@QAEXM@Z,,0x002633F3,17,Code/GameEngine/Source/Common/Disp32FloatFieldSetters.cpp,matched,disp32 float setter; opaque holder
 ?Rva00021090TableSlot@@YAPAXPAUT2TableOwner3C@@H@Z,,0x00021090,13,Code/GameEngine/Source/Common/T2IndexedArrayAccessors.cpp,matched,t2_table_slot disp8 sibling; table at +0x3C; same owner as 0x21080/0x210A0
+?Rva000210A0TableSlot@@YAPAXPAUT2TableOwner6C@@H@Z,,0x000210A0,13,Code/GameEngine/Source/Common/T2IndexedArrayAccessors.cpp,matched,t2_table_slot disp8 sibling; table at +0x6C; same owner as 0x21080/0x21090
