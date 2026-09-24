@@ -32983,3 +32983,6 @@ _DXTraceA@20,,0x0065459C,476,vendor/dxerr9-aug2005/dxerr9.lib,matched,vendored=d
 ?clear@Rva005C494DDwordClearer@@QAEXXZ,,0x005C494D,5,Code/GameEngine/Source/Common/Disp8DwordClearers.cpp,matched,disp8 dword clearer; and-zero under O1; phase-proven no-branch-to-addr
 ?clear@Rva006DBD90DwordMask@@QAEXXZ,,0x006DBD90,5,Code/GameEngine/Source/Common/Disp8DwordClearers.cpp,matched,disp8 dword mask clearer; phase-proven no-branch-to-addr
 ?clear@Rva006DBDC0DwordMask@@QAEXXZ,,0x006DBDC0,5,Code/GameEngine/Source/Common/Disp8DwordClearers.cpp,matched,disp8 dword mask clearer; phase-proven no-branch-to-addr
+?disable@Rva0048E6CAByteZeroSetter@@QAEXXZ,,0x0048E6CA,8,Code/GameEngine/Source/Common/DispByteOneSetters.cpp,matched,disp32 byte zero setter; adjacent pair
+?disable@Rva0048E6F0ByteZeroSetter@@QAEXXZ,,0x0048E6F0,8,Code/GameEngine/Source/Common/DispByteOneSetters.cpp,matched,disp32 byte zero setter; adjacent pair
+?isWithinTargetPitch@Weapon@@QBE_NPBVObject@@0@Z,,0x002C9C82,185,Code/GameEngine/Source/GameLogic/Object/WeaponIsWithinTargetPitch.cpp,matched,Weapon pitch query via O1 shard; BFME1 donor plus inline positions and plusA8 geometries and plus88 ranges
