@@ -33518,3 +33518,16 @@ _WinMain@16,,0x00002C39,1382,Code/GameEngine/Source/Main/WinMain.cpp,matched,BFM
 ?bfmeGetMainWindowTitle@@YA?AVUnicodeString@@XZ,,0x0023484D,191,Code/GameEngine/Source/Main/WinMainPairUnicode.cpp,matched,window title: GameName then HKLM DisplayName under InstallerRegPath
 ?GetStringFromRegistry@@YA_NVUnicodeString@@0AAV1@@Z,,0x00234ADD,271,Code/GameEngine/Source/Main/WinMainPairUnicode.cpp,matched,wide GetStringFromRegistry: HKLM then HKCU under buildGameRegistryPath(path)
 ?getUserDataLeafName@@YA?AVUnicodeString@@XZ,,0x00234BEC,186,Code/GameEngine/Source/Main/WinMainPairUnicode.cpp,matched,UserDataLeafName registry value or the registry-block default
+?write@Rva000B3F84Pair@@QAEHPAD@Z,,0x000B44F0,27,Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp,matched,narrow concat: text reference write (memcpy; returns length)
+?write@AsciiStringRef@@QAEHPAD@Z,,0x0002C5B1,53,Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp,matched,narrow concat: AsciiString operand write (str/getLength memcpy)
+?write@AsciiStringRefWithChar@@QAEHPAD@Z,,0x0002C7A7,26,Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp,matched,narrow concat: AsciiString operand then one char
+?length@AsciiStringPlusText@@QBEHXZ,,0x002DBF50,22,Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp,matched,narrow concat node length: string + text
+?write@AsciiStringPlusText@@QAEHPAD@Z,,0x000BBD41,37,Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp,matched,narrow concat node write: string + text
+??BAsciiStringPlusText@@QAE?AVAsciiString@@XZ,,0x000BC4F7,98,Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp,matched,narrow concat node to AsciiString: sized getBufferForRead then write
+?length@AsciiStringCharPlusText@@QBEHXZ,,0x002347EB,24,Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp,matched,narrow concat node length: string + char + text
+?write@AsciiStringCharPlusText@@QAEHPAD@Z,,0x002349D8,37,Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp,matched,narrow concat node write: string + char + text
+??BAsciiStringCharPlusText@@QAE?AVAsciiString@@XZ,,0x00234CA6,98,Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp,matched,narrow concat node to AsciiString: sized getBufferForRead then write
+??H@YA?AUAsciiStringPlusText@@ABVAsciiString@@PBD@Z,,0x000B49C5,52,Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp,matched,narrow concat: AsciiString + C string node
+??H@YA?AUAsciiStringCharPlusText@@ABUAsciiStringRefWithChar@@PBD@Z,,0x00109CFD,61,Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp,matched,narrow concat: (AsciiString + char) + C string node
+?makeAsciiString@@YA?AVAsciiString@@PBD@Z,,0x002343DF,24,Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp,matched,AsciiString by value from a C string
+?buildGameRegistryPath@@YA?AVAsciiString@@PBD@Z,,0x00234D08,259,Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp,matched,narrow twin of the wide registry path builder: GameRegPath + optional backslash + subPath
