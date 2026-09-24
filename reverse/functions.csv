@@ -34334,3 +34334,4 @@ _WinMain@16,,0x00002C39,1382,Code/GameEngine/Source/Main/WinMain.cpp,matched,BFM
 ??_GDX8MeshRendererClass@@QAEPAXI@Z,,0x0011CBF0,30,Code/GameEngine/Source/Common/FamilyDeletingDtors5.cpp,matched,scalar deleting dtor; same-shape add-esp sibling of ??_GVersion (0x21C7) selected by its dtor callee
 ??_GBfmeEnumerationCaps@@QAEPAXI@Z,,0x0011FE00,30,Code/GameEngine/Source/Common/FamilyDeletingDtors5.cpp,matched,scalar deleting dtor; same-shape add-esp sibling of ??_GVersion (0x21C7) selected by its dtor callee
 ?init@Rva00019EB0VTableInstall@@QAEPAV1@XZ,,0x00019EB0,9,Code/GameEngine/Source/Common/VTableInstalls.cpp,matched,Bare vtable install; return-this homes eax; live caller
+?init@Rva000910D8VTableInstall@@QAEPAV1@XZ,,0x000910D8,9,Code/GameEngine/Source/Common/VTableInstalls.cpp,matched,Bare vtable install; return-this homes eax; live caller

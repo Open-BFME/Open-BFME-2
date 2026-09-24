@@ -22,3 +22,4 @@
 	}
 
 BFME_VTABLE_INSTALL(Rva00019EB0VTableInstall, reinterpret_cast<void *>(0x00BBC8D4))
+BFME_VTABLE_INSTALL(Rva000910D8VTableInstall, reinterpret_cast<void *>(0x00BC7F74))
