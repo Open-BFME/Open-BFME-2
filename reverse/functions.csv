@@ -34307,3 +34307,4 @@ _WinMain@16,,0x00002C39,1382,Code/GameEngine/Source/Main/WinMain.cpp,matched,BFM
 ??_GLockClass@CriticalSectionClass@@QAEPAXI@Z,,0x0055077C,28,Code/GameEngine/Source/Common/FamilyDeletingDtors3.cpp,matched,scalar deleting dtor; same-shape sibling of ??_GVersion (0x21C7) selected by its dtor callee
 ??_GPrereqUnitRec@ProductionPrerequisite@@QAEPAXI@Z,,0x003B3FB1,28,Code/GameEngine/Source/Common/FamilyDeletingDtors3.cpp,matched,scalar deleting dtor; same-shape sibling of ??_GVersion (0x21C7) selected by its dtor callee
 ?Rva00021080TableSlot@@YAPAXPAUT2TableOwner0C@@H@Z,,0x00021080,13,Code/GameEngine/Source/Common/T2IndexedArrayAccessors.cpp,matched,t2_table_slot disp8 sibling; table at +0xC; same owner as 0x21090/0x210A0
+?set@Rva002633F3FloatField@@QAEXM@Z,,0x002633F3,17,Code/GameEngine/Source/Common/Disp32FloatFieldSetters.cpp,matched,disp32 float setter; opaque holder
