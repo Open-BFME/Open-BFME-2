@@ -1178,7 +1178,6 @@ name,address,notes
 ?Read_Nodes@AABTreeClass@@AAEXAAVChunkLoadClass@@@Z,0x00197D20,address read from the REL32 displacement at a placed body; stlport 4.5.3
 ?Record_DX8_Polys_And_Vertices@Debug_Statistics@@YAXHHABVShaderClass@@@Z,0x00129540,Debug Statistics polygon and vertex accounting; complete 68-byte body checks shader NPatch bit and proven caps support then updates the three counters
 ?Record_Texture_End@@YAXXZ,0x00129E50,callee of Debug_Statistics End_Statistics at 0x12A450
-?Recreate_Device_Resources@BfmeResetShaderRef@@QAEXXZ,0x00151575,Recovered effect-holder role; 34-byte body null-checks resource and backend then invokes ID3DXEffect OnResetDevice slot 0x118
 ?Recreate_Device_Resources@BfmeResetTextureRef@@QAEXXZ,0x00132CD9,Recovered texture-holder role; 54-byte body recreates a missing default-pool texture using seven saved backend creation arguments
 ?RecvReply@Cftp@@QAEJPBDHPAH@Z,0x006CA080,retail REL32 from Cftp::ConnectToServer at 0x006CA852; BFME1 WWDownload identity
 ?RegisterCreateAHeroAtRva0021D517@@YAXPAVCreateAHeroData@@@Z,0x0021D517,Complete49-byte registry operation decoded; searches4-byte CreateAHeroData pointers atVA DFE358 and appends when absent; cdecl one-pointer ABI
