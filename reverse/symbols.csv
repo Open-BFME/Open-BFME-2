@@ -5189,3 +5189,17 @@ _D3DXCreateTexture@32,0x0062AF74,d3dx9_27 D3DXCreateTexture IAT thunk (jmp dword
 ??1?$_Rb_tree@JU?$pair@$$CBJVLadderPref@@@_STL@@U?$_Select1st@U?$pair@$$CBJVLadderPref@@@_STL@@@2@U?$less@J@2@V?$allocator@U?$pair@$$CBJVLadderPref@@@_STL@@@2@@_STL@@QAE@XZ,0x005DFE18,STLport _Rb_tree dtor for LadderPrefMap: clear() then free the header node; REL32 at 0x005DFF99 in the LadderPreferences dtor
 ??1Rva004907C0@@UAE@XZ,0x004907C0,pre-rename spelling of ArrowStormUpdate::~ArrowStormUpdate (row renamed in 1aaa8fd05); called by the deleting dtor 0x00490A58 in ModuleUpdateDtors2.cpp
 ?buildFieldParse@ArmorUpgradeModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x00254580,Getter-head proc 0x254580 over table 0xDBA870; pinned for ArmorUpgrade factory TU; supersede with row when proc lands
+?clear@Dict@@QAEXXZ,0x00313574,retail REL32 from SidesInfo::init 0x32CDCD; BFME2 Dict clear inferred from the call site and ZH donor behavior
+?clear@ScriptList@@QAEXXZ,0x003B7812,retail REL32 from SidesInfo::init 0x32CDD5; clear of the by-value ScriptList at +0x08
+??1ScriptList@@UAE@XZ,0x003B774B,retail REL32 from SidesInfo destructor 0x32D4F2; ScriptList member teardown
+??0ScriptList@@QAE@ABV0@@Z,0x003B88DA,retail REL32 from SidesInfo copy ctor 0x32C6E3; ScriptList member copy
+??0BuildListInfo@@QAE@ABV0@@Z,0x00329DE6,retail REL32 from SidesInfo copy ctor 0x32C71E; build list node copy
+?erase@SidesInfoStringVector@@QAEPAVAsciiString@@PAV2@0@Z,0x0002CCFC,retail REL32 from SidesInfo init 0x32CDE2; TU vector stand-in erase; same body as matched AsciiString vector erase
+??1SidesInfoStringVector@@QAE@XZ,0x0002CC70,retail REL32 from SidesInfo destructor 0x32D4E6; TU vector stand-in destructor; same body as matched AsciiString vector destructor
+?swap@SidesInfoStringVector@@QAEXAAV1@@Z,0x00567ECD,retail REL32 from SidesInfo swap 0x32B09F; TU vector stand-in swap; STLport vector swap body
+??0SidesInfoStringVector@@QAE@ABV0@@Z,0x000BC07E,retail REL32 from SidesInfo copy ctor 0x32C6F3; TU vector stand-in copy ctor; same body as matched AsciiString vector copy ctor
+?clear@TeamsInfoRec@@QAEXXZ,0x0032C9C6,retail call and tail JMP from SidesList emptyTeams at 0x32D065 and 0x32D071; team record clear
+?post@SidesListNotifier@@QAEXP6AXXZPAXH@Z,0x0032B540,retail REL32 from SidesList addSide 0x32D0A4; notifier takes callback owner and index
+?post@SidesListNotifier@@QAEXP6AXXZPAX@Z,0x0032B522,retail REL32 from SidesList clear 0x32DDFD; notifier takes callback and owner
+?Rva005CB260@@YAXXZ,0x005CB260,opaque callback address from retail DIR32 operand VA 0x009CB260; Ghidra boundary 5 bytes; semantic name unknown
+?Rva005CB26A@@YAXXZ,0x005CB26A,opaque callback address from retail DIR32 operand VA 0x009CB26A; Ghidra boundary 5 bytes; semantic name unknown

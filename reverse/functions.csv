@@ -34513,3 +34513,12 @@ _Rva001CA000Vp6WideAccum,,0x001CA000,4240,Code/GameEngine/Source/Common/Rva001CA
 ?ji_0075ace8@@YAXXZ,,0x0075ACE8,6,Code/gen_small/imports_000.cpp,matched,gen-import;slot=0x00BBA75C;dll=msvcr71.dll;import=_CRT_RTC_INIT;target=_CRT_RTC_INIT
 ?ji_0075b4cc@@YAXXZ,,0x0075B4CC,6,Code/gen_small/imports_000.cpp,matched,gen-import;slot=0x00BBA9A0;dll=wsock32.dll;import=inet_ntoa;target=inet_ntoa
 ?ji_0075b4f0@@YAXXZ,,0x0075B4F0,6,Code/gen_small/imports_000.cpp,matched,gen-import;slot=0x00BBA5F4;dll=msvcr71.dll;import=_strupr;target=_strupr
+?init@SidesInfo@@QAEXPBVDict@@@Z,,0x0032CDAA,84,Code/GameEngine/Source/GameLogic/Map/SidesList_sidesInfo.cpp,matched,ZH SidesInfo init; BFME2 target stores ScriptList by value and clears vector at +0x54; /O1 /G7
+?swap@SidesInfo@@QAEXPAV1@@Z,,0x0032B070,57,Code/GameEngine/Source/GameLogic/Map/SidesList_sidesInfo.cpp,matched,member-wise swap of build list Dict ScriptList and vector; target calls verified callees
+??0SidesInfo@@QAE@ABV0@@Z,,0x0032C6AD,204,Code/GameEngine/Source/GameLogic/Map/SidesList_sidesInfo.cpp,matched,ZH deep build-list copy moved into target copy ctor; target catch-all deletes partial list and rethrows; extent includes inline handler
+??1SidesInfo@@QAE@XZ,,0x0032D4C0,80,Code/GameEngine/Source/GameLogic/Map/SidesList_sidesInfo.cpp,matched,ZH SidesInfo teardown; target clears then destroys vector ScriptList and Dict members
+??4SidesInfo@@QAEAAV0@ABV0@@Z,,0x0032D510,68,Code/GameEngine/Source/GameLogic/Map/SidesList_sidesInfo.cpp,matched,target copy-and-swap assignment over verified copy ctor and swap
+?emptySides@SidesList@@QAEXXZ,,0x0032D81B,53,Code/GameEngine/Source/GameLogic/Map/SidesList_sidesInfo.cpp,matched,target zeroes both counts then clears twenty regular and skirmish SidesInfo entries
+?emptyTeams@SidesList@@QAEXXZ,,0x0032D05C,26,Code/GameEngine/Source/GameLogic/Map/SidesList_sidesInfo.cpp,matched,target clears TeamsInfoRec at +0xF44 and +0xF60
+?addSide@SidesList@@QAEHPBVDict@@@Z,,0x0032D076,63,Code/GameEngine/Source/GameLogic/Map/SidesList_sidesInfo.cpp,matched,ZH addSide behavior; target returns index or -1 and posts indexed notification via +0x10; /G7
+?clear@SidesList@@QAEXXZ,,0x0032DDDE,38,Code/GameEngine/Source/GameLogic/Map/SidesList_sidesInfo.cpp,matched,target clears sides and teams sets +0xF7C then posts clear notification

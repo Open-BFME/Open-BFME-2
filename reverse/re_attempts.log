@@ -1440,3 +1440,12 @@ FUN_004C40BA	0x004C40BA	413	blocked	string-anchored (FIRING_OR_PREATTACK_B) but 
 ?setInputEnabled@InGameUI@@QAEX_N@Z	0x0029AB35	19	landed	ZH InGameUI::setInputEnabled (doEnableInput pair); sibling of setEngineInputEnabled with this+0x16; first compile exact; t=5 model=claude-opus-5-5
 ?setScriptList@SidesInfo@@QAEXPAVScriptList@@@Z	0x003297F3	8	landed	ZH signature; tail jump to by-value ScriptList swap 0x3B58DF (pinned); first compile exact; t=5 model=claude-opus-5-5
 ?OnGameCreate@LANAPI@@UAEXW4ReturnType@LANAPIInterface@@@Z	0x00249445	233	blocked	BFME1 donor compile crosses the target extent: REL32 at source offset 232 needs at least 236 bytes, while Ghidra boundary is 233; byte comparison did not run; t=5min model=gpt-6
+?init@SidesInfo@@QAEXPBVDict@@@Z	0x0032CDAA	84	landed	Ghidra boundary 84B; BFME2 target call sites resolve to the pinned Dict ScriptList and vector callees; scoped /O1 /G7 build byte-exact; t=1min model=gpt-6
+?swap@SidesInfo@@QAEXPAV1@@Z	0x0032B070	57	landed	Ghidra boundary 57B; target call at +0x2F resolves to the shared vector swap; scoped /O1 /G7 build byte-exact; t=1min model=gpt-6
+??0SidesInfo@@QAE@ABV0@@Z	0x0032C6AD	204	landed	Ghidra boundary plus inline catch handler and shared epilogue; build-list copy and catch cleanup calls resolve; scoped build byte-exact; t=1min model=gpt-6
+??1SidesInfo@@QAE@XZ	0x0032D4C0	80	landed	Ghidra boundary 80B; destructor calls clear then verified member dtors; scoped build byte-exact; t=1min model=gpt-6
+??4SidesInfo@@QAEAAV0@ABV0@@Z	0x0032D510	68	landed	Ghidra boundary 68B; copy-and-swap calls verified copy ctor and swap; scoped build byte-exact; t=1min model=gpt-6
+?emptySides@SidesList@@QAEXXZ	0x0032D81B	53	landed	Ghidra boundary 53B; zeroes both counts then clears both arrays; scoped build byte-exact; t=1min model=gpt-6
+?emptyTeams@SidesList@@QAEXXZ	0x0032D05C	26	landed	Ghidra boundary 26B; call and tail jump at +9/+21 resolve to TeamsInfoRec clear; scoped build byte-exact; t=1min model=gpt-6
+?addSide@SidesList@@QAEHPBVDict@@@Z	0x0032D076	63	landed	Ghidra boundary 63B; notifier call resolves to +0x10 member wrapper; /G7 emits retail imul; scoped build byte-exact; t=1min model=gpt-6
+?clear@SidesList@@QAEXXZ	0x0032DDDE	38	landed	Ghidra boundary 38B; sets +0xF7C and calls two-argument notifier; scoped build byte-exact; t=1min model=gpt-6
