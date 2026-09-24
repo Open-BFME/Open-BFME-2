@@ -34316,3 +34316,4 @@ _WinMain@16,,0x00002C39,1382,Code/GameEngine/Source/Main/WinMain.cpp,matched,BFM
 ?set@Rva0029A767FloatField@@QAEXM@Z,,0x0029A767,17,Code/GameEngine/Source/Common/Disp32FloatFieldSetters.cpp,matched,disp32 float setter; opaque holder
 ?get@Rva0030C8CCIntGetter@@QBEHXZ,,0x0030C8CC,9,Code/GameEngine/Source/Common/Disp32CvtFloatIntGetters.cpp,matched,Disp32 float-to-int getter; Ghidra bounds agree; live caller; interleave setters parked dead
 ?get@Rva0030C8E6IntGetter@@QBEHXZ,,0x0030C8E6,9,Code/GameEngine/Source/Common/Disp32CvtFloatIntGetters.cpp,matched,Disp32 float-to-int getter; Ghidra bounds agree; live caller
+??_GRenderObjectDrawModuleTemplate@FXParticleSystem@@UAEPAXI@Z,,0x003A9CDC,28,Code/GameEngine/Source/Common/FamilyDeletingDtors4.cpp,matched,scalar deleting dtor; same-shape sibling of ??_GVersion (0x21C7) selected by its dtor callee
