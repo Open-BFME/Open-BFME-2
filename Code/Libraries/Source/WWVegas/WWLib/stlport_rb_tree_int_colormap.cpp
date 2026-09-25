@@ -41,3 +41,4 @@ template ColorMapTree::iterator ColorMapTree::insert_unique(ColorMapTree::iterat
 template void ColorMapTree::_M_erase(ColorMapTree::_Link_type);
 template void ColorMapTree::clear();
 template _STL::_Rb_tree_base<ColorMapValue, _STL::allocator<ColorMapValue> >::_Rb_tree_base(const _STL::allocator<ColorMapValue> &);
+template _STL::_Rb_tree<int, ColorMapValue, _STL::_Select1st<ColorMapValue>, _STL::less<int>, _STL::allocator<ColorMapValue> >::_Rb_tree(const _STL::less<int> &, const _STL::allocator<ColorMapValue> &);
