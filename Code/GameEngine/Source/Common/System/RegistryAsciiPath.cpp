@@ -143,6 +143,18 @@ struct AsciiStringCharPlusText : AsciiStringRefWithChar
 	Rva000B3F84Pair m_right;
 };
 
+// "string + string": two AsciiString operands. The length sums through the
+// shared header-length fold pinned at 0x002198C8 (layout-compatible with
+// the wide pair summer).
+struct AsciiStringPlusString : AsciiStringRef
+{
+	int length() const;
+	int write(char *dst);
+	operator AsciiString();
+
+	AsciiStringRef m_second;
+};
+
 // ?write@Rva000B3F84Pair@@QAEHPAD@Z @0xB44F0
 int Rva000B3F84Pair::write(char *dst)
 {
@@ -202,6 +214,21 @@ int AsciiStringCharPlusText::write(char *dst)
 
 // ??BAsciiStringCharPlusText@@QAE?AVAsciiString@@XZ @0x234CA6
 AsciiStringCharPlusText::operator AsciiString()
+{
+	AsciiString tmp;
+	write(tmp.getBufferForRead(length()));
+	return tmp;
+}
+
+// ?write@AsciiStringPlusString@@QAEHPAD@Z @0xBBD1C
+int AsciiStringPlusString::write(char *dst)
+{
+	int n = AsciiStringRef::write(dst);
+	return n + m_second.write(dst + n);
+}
+
+// ??BAsciiStringPlusString@@QAE?AVAsciiString@@XZ @0xBC495
+AsciiStringPlusString::operator AsciiString()
 {
 	AsciiString tmp;
 	write(tmp.getBufferForRead(length()));

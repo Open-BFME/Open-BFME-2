@@ -5339,3 +5339,4 @@ _strncat,0x0062950C
 ?Rva00381C82AddChatText@@YAXHABVUnicodeString@@H@Z,0x00381C82,cdecl chat-text helper taking window index plus text plus color; called from LANAPI::OnGameCreate arms at 0x002494C1/0x002494E5/0x0024950A with (1 text chatSystemColor) and from the 0x0024A323 chat path with (edi text -1); semantic identity unproven
 ?totalLength@BFME2WideConcatPair@@QBEHXZ,0x002198C8,null-safe wide length sum over the pair refs; sole in-file caller is the materializer 0x21C3F7; other callers unclaimed
 ?copyPayloadTo@BFME2WideStringRef@@QBEHPAG@Z,0x0021AC32,null-safe UTF16 payload memcpy with empty-literal fallback; called twice from pair copier 0x21B8A0
+?length@AsciiStringPlusString@@QBEHXZ,0x002198C8,layout-shared fold with the wide pair summer; two AsciiStringRef string pointers summed by header length word
