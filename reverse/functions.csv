@@ -35149,3 +35149,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ??BAsciiStringPlusString@@QAE?AVAsciiString@@XZ,,0x000BC495,98,Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp,matched,Two-ref narrow materializer via shared length fold. Six callers in registry plus text clusters.
 ?write@AsciiStringPlusStringChar@@QAEHPAD@Z,,0x0050EE58,26,Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp,matched,Two-ref write plus trailing char. In-file materializer and text callers to follow.
 ?write@AsciiStringPlusStringText@@QAEHPAD@Z,,0x0050F219,37,Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp,matched,Two-ref write plus trailing text. In-file materializer and text callers to follow.
+?post@SidesListNotifier@@QAEXP6AXXZPAX@Z,,0x0032B522,30,Code/GameEngine/Source/GameLogic/Map/SidesList_sidesInfo.cpp,matched,retail REL32 from SidesList clear 0x32DDFD; notifier takes callback and owner

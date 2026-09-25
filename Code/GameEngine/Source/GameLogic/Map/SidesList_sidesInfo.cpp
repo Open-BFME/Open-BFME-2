@@ -151,9 +151,39 @@ SidesInfo &SidesInfo::operator=(const SidesInfo &that)
 class SidesListNotifier
 {
 public:
+	struct Post
+	{
+		void (*callback)();
+		void *owner;
+	};
+	struct PostIndexed
+	{
+		void (*callback)();
+		void *owner;
+		int index;
+	};
+	void dispatch(const Post *p);
+	void dispatchIndexed(const PostIndexed *p);
 	void post(void (*callback)(), void *owner, int index);
 	void post(void (*callback)(), void *owner);
 };
+
+void SidesListNotifier::post(void (*callback)(), void *owner)
+{
+	Post p;
+	p.callback = callback;
+	p.owner = owner;
+	dispatch(&p);
+}
+
+void SidesListNotifier::post(void (*callback)(), void *owner, int index)
+{
+	PostIndexed p;
+	p.callback = callback;
+	p.owner = owner;
+	p.index = index;
+	dispatchIndexed(&p);
+}
 
 // Address-derived callback names: the retail DIR32 operands identify the
 // callback addresses, but their semantic names are not established.

@@ -5340,3 +5340,5 @@ _strncat,0x0062950C
 ?totalLength@BFME2WideConcatPair@@QBEHXZ,0x002198C8,null-safe wide length sum over the pair refs; sole in-file caller is the materializer 0x21C3F7; other callers unclaimed
 ?copyPayloadTo@BFME2WideStringRef@@QBEHPAG@Z,0x0021AC32,null-safe UTF16 payload memcpy with empty-literal fallback; called twice from pair copier 0x21B8A0
 ?length@AsciiStringPlusString@@QBEHXZ,0x002198C8,layout-shared fold with the wide pair summer; two AsciiStringRef string pointers summed by header length word
+?dispatch@SidesListNotifier@@QAEXPBUPost@1@@Z,0x0032AE25,retail REL32 from SidesListNotifier::post 0x32B537; notifier dispatch taking callback-owner pair
+?dispatchIndexed@SidesListNotifier@@QAEXPBUPostIndexed@1@@Z,0x0032AE92,retail REL32 from SidesListNotifier::post 0x32B55C; notifier dispatch taking callback owner and index
