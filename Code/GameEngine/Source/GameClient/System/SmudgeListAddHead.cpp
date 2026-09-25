@@ -1,0 +1,41 @@
+// cl: /O1 /Os /DNDEBUG /MD /EHsc
+// DLListClass<Smudge>::Add_Head, from the BFME1 Smudge list model.
+struct Smudge;
+
+template <class T> class DLNodeClass;
+
+template <class T> class DLListClass
+{
+    friend class DLNodeClass<T>;
+    DLNodeClass<T> *head;
+    DLNodeClass<T> *tail;
+public:
+    virtual ~DLListClass() {}
+    void Add_Head(DLNodeClass<T> *node);
+};
+
+template <class T> class DLNodeClass
+{
+    friend class DLListClass<T>;
+    DLNodeClass<T> *succ;
+    DLNodeClass<T> *pred;
+    DLListClass<T> *list;
+public:
+    void Insert_Before(DLNodeClass<T> *node);
+};
+
+template <class T> void DLListClass<T>::Add_Head(DLNodeClass<T> *node)
+{
+    node->list = this;
+    if (head) {
+        node->Insert_Before(head);
+        head = node;
+    } else {
+        tail = node;
+        head = node;
+        node->succ = 0;
+        node->pred = 0;
+    }
+}
+
+template void DLListClass<Smudge>::Add_Head(DLNodeClass<Smudge> *node);
