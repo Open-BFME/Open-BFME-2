@@ -12,6 +12,7 @@
 // 0x002FDE0. Sole known caller: Install_UV_Array at 0x0015B960.
 
 void *operator new[](unsigned int size) throw();
+void operator delete[](void *place) throw();
 inline void *operator new(unsigned int, void *place) { return place; }
 
 class Vector2
@@ -46,6 +47,7 @@ class ShareBufferClass : public RefCountClass
 {
 public:
 	ShareBufferClass(int count, const char *msg, int alignment = 0);
+	~ShareBufferClass();
 
 protected:
 	Type *RawBuffer;
@@ -70,3 +72,12 @@ ShareBufferClass<Type>::ShareBufferClass(int count, const char *msg, int alignme
 }
 
 template ShareBufferClass<Vector2>::ShareBufferClass(int, const char *, int);
+
+// ??1?$ShareBufferClass@VVector2@@@@UAE@XZ, retail 0x000D1DC8 (26 bytes).
+template <class Type>
+ShareBufferClass<Type>::~ShareBufferClass()
+{
+	delete[] RawBuffer;
+}
+
+template ShareBufferClass<Vector2>::~ShareBufferClass();
