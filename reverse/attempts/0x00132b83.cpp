@@ -1,5 +1,7 @@
 // ?Get_Texture_Memory_Usage@?$RefCountPtr@VTextureClass@@@@QBEIXZ
-// partial score=0.9 date=2026-09-25
+// partial score=0.96 date=2026-09-26
+// ?Get_Texture_Memory_Usage@?$RefCountPtr@VTextureClass@@@@QBEIXZ
+// partial score=0.96 date=2026-09-26
 // cl: /O1 /MD /DNDEBUG
 // RefCountPtr<TextureClass>::Get_Texture_Memory_Usage (retail 0x00132B83, 79B).
 // Null-guarded smart-pointer query: checks virtual Is_Initialized at slot 0x28,
@@ -65,14 +67,20 @@ unsigned RefCountPtr<TextureClass>::Get_Texture_Memory_Usage() const
 		return 0;
 	if (!tex->Is_Initialized())
 		return 0;
-	TextureSurfaceInfo *ediInfo = tex->m_surface;
-	unsigned fmt = ediInfo->m_format4C;
-	TextureSurfaceInfo *esiInfo = tex->m_surface;
+	TextureSurfaceInfo *surface = tex->m_surface;
+	unsigned fmt = surface->m_format4C;
+	TextureSurfaceInfo *dims = surface;
 	unsigned mem = Get_Bits_Per_Pixel((WW3DFormat)fmt);
-	mem = mem * esiInfo->m_dim30 * esiInfo->m_dim2C * esiInfo->m_dim28 >> 3;
-	if (esiInfo->m_type0C == 2)
-		mem = mem * 6;
-	if (ediInfo->m_mip44 != 1)
-		mem = mem * 4 / 3;
+	mem *= dims->m_dim30;
+	mem *= dims->m_dim2C;
+	mem *= dims->m_dim28;
+	mem >>= 3;
+	if (dims->m_type0C == 2)
+		mem *= 6;
+	if (surface->m_mip44 != 1) {
+		unsigned three = 3;
+		mem *= 4;
+		mem /= three;
+	}
 	return mem;
 }
