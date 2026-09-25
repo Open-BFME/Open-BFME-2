@@ -81,6 +81,7 @@ public:
 private:
 	void releaseData();
 	DictPair *findPairByKey(int key) const;
+	void sortPairs();
 
 	DictPairData *m_data;
 };
@@ -275,6 +276,32 @@ float Dict::getNthReal(int n) const
 			return *(float *)&pair->m_value;
 	}
 	return 0.0f;
+}
+
+// ?sortPairs@Dict@@AAEXXZ @0x00313299
+void Dict::sortPairs()
+{
+	if (m_data == 0)
+		return;
+	for (int gap = m_data->m_numPairsUsed >> 1; gap > 0; gap >>= 1)
+	{
+		for (int i = gap; i < m_data->m_numPairsUsed; ++i)
+		{
+			for (int j = i - gap; j >= 0; j -= gap)
+			{
+				DictPair *a = (DictPair *)(m_data + 1) + j;
+				DictPair *b = (DictPair *)(m_data + 1) + j + gap;
+				if ((int)((unsigned int)a->m_key >> 8) > (int)((unsigned int)b->m_key >> 8))
+				{
+					DictPair tmp = *a;
+					*a = *b;
+					*b = tmp;
+				}
+				else
+					break;
+			}
+		}
+	}
 }
 
 // ?getAsciiString@Dict@@QBE?AVAsciiString@@HPA_N@Z @0x0031359F
