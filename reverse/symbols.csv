@@ -5344,3 +5344,4 @@ _strncat,0x0062950C
 ?dispatchIndexed@SidesListNotifier@@QAEXPBUPostIndexed@1@@Z,0x0032AE92,retail REL32 from SidesListNotifier::post 0x32B55C; notifier dispatch taking callback owner and index
 ??0AnimationSoundTree@@QAE@XZ,0x004CA6DA,target of AnimationSoundClientBehaviorModuleData ctor 0x4CA70D at call site 0x4CA72B with ECX=this+8; 25B tree ctor establishing header/count layout; BFME1 AnimationSoundClientBehaviorModuleDataConstructor donor confirms tree at +0x08; address-derived helper identity
 _printf,0x00629B14,printf import thunk; retail E8 at 0x0065CEA9 targets thunk rowed as ji_00629b14; CRT printf via msvcr71
+??1?$basic_stringbuf@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@UAE@XZ,0x001F6606,direct REL32 call target at 0x001F66EC in basic_ostringstream dtor; EH vtable-store body abuts 0x001F6647
