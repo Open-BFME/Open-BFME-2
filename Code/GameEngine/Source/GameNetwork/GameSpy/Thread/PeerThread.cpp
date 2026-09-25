@@ -142,26 +142,19 @@ enum
 typedef std::queue<PeerRequest> RequestQueue;
 typedef std::queue<PeerResponse> ResponseQueue;
 
-// Retail's response deque advances by 0x580 bytes and its pop_front body is
-// already verified under this size-only element view. The payload identity is
-// still unknown; STLport queue stores its deque as the sole member `c`.
-struct BfmeOpaqueOwnedRecord1408 {
-	union { unsigned int alignmentWitness; unsigned char bytes[1408]; };
-	BfmeOpaqueOwnedRecord1408();
-	BfmeOpaqueOwnedRecord1408(const BfmeOpaqueOwnedRecord1408 &);
-	~BfmeOpaqueOwnedRecord1408();
+// The vtable-selected PeerResponse queue uses a 0x348-byte element. Its
+// pop_front specialization remains under this size-only target view until the
+// owner's full layout is established; STLport queue stores deque as member c.
+struct BfmeOpaqueOwnedRecord840 {
+	union { unsigned int alignmentWitness; unsigned char bytes[840]; };
+	BfmeOpaqueOwnedRecord840();
+	BfmeOpaqueOwnedRecord840(const BfmeOpaqueOwnedRecord840 &);
+	~BfmeOpaqueOwnedRecord840();
 };
-typedef char BfmeOpaqueOwnedRecord1408_size_check[
-	sizeof(BfmeOpaqueOwnedRecord1408) == 1408 ? 1 : -1];
-typedef _STL::deque<BfmeOpaqueOwnedRecord1408,
-	_STL::allocator<BfmeOpaqueOwnedRecord1408> > BfmeResponseDeque1408;
-
-// Ghidra body 0x556132/155 copies this opaque record. Keep its owner identity
-// address-derived until target members are independently witnessed.
-struct Rva00556132 {
-	union { unsigned int alignmentWitness; unsigned char bytes[1408]; };
-	Rva00556132 &operator=(const Rva00556132 &);
-};
+typedef char BfmeOpaqueOwnedRecord840_size_check[
+	sizeof(BfmeOpaqueOwnedRecord840) == 840 ? 1 : -1];
+typedef _STL::deque<BfmeOpaqueOwnedRecord840,
+	_STL::allocator<BfmeOpaqueOwnedRecord840> > BfmeResponseDeque840;
 
 class PeerThreadClass;
 
@@ -695,8 +688,8 @@ Bool GameSpyPeerMessageQueue::getResponse( PeerResponse& resp )
 
 	if (m_responses.empty())
 		return false;
-	*(Rva00556132 *)&resp = *(const Rva00556132 *)&m_responses.front();
-	((BfmeResponseDeque1408 *)&m_responses)->pop_front();
+	resp = m_responses.front();
+	((BfmeResponseDeque840 *)&m_responses)->pop_front();
 	return true;
 }
 
