@@ -1,43 +1,37 @@
 // ?cacheGameLogicFrame@StatusBitsEldestFrame@@QAEXXZ
-// partial score=0.79 date=2026-09-24
-// ?cacheGameLogicFrame@StatusBitsEldestFrame@@QAEXXZ
-// partial score=0.79 date=2026-09-24
+// partial score=0.8 date=2026-09-25
 // cl: /O1 /DNDEBUG /MD
 //
 // ?cacheGameLogicFrame@StatusBitsEldestFrame@@QAEXXZ, retail 0x00485975,
-// 14 bytes. StatusBits-eldest frame cache over TheGameLogic plus 0x40
-// (sole caller 0x004B4A55). 11/14 positional, sole wall is this-homing
-// plus global-load form: retail moves this to eax first (8B C1) then
-// loads the global into ecx (8B 0D) while every probed shape keeps this
-// in ecx and loads the global into eax (A1 moffs). Refuted: direct,
-// named-global-local, int-member, self-local, explicit-this, /O2, /Os,
-// defaults, /G6, volatile member, volatile global, both-locals, frame
-// temp, comma-duplicate. The A1 (mov eax moffs) vs 8B0D (mov ecx moffs)
-// choice follows the home register; no probed shape homes this to eax
-// first. Needs a this-to-eax lever. Zero new pins needed at landing
-// (TheGameLogic global is DIR32-masked). t=30 model=peppy-penguin
-// score=0.79 stash=reverse/attempts/0x00485975.cpp
+// 14 bytes. Sole-called helper refreshing the eldest-frame cache member
+// from the GameLogic frame (see StatusBitsUpgradeIfEldestKindofCtor.cpp
+// for the owning object and the +0x40 frame precedent).
+
+typedef unsigned int UnsignedInt;
 
 class GameLogic
 {
 public:
-	unsigned char m_pad[0x40];
-	unsigned int m_frame; // +0x40
-};
-
-#define TheGameLogic (*(GameLogic **)0x00DFE78C)
-
-class StatusBitsEldestFrame
-{
-public:
-	void cacheGameLogicFrame();
+	UnsignedInt getFrame() { return m_frame; }
 
 private:
-	unsigned int m_frame; // +0x00
+	unsigned char m_pad[0x40];
+	UnsignedInt m_frame; // +0x40 (Poisoned precedent)
+};
+
+extern GameLogic *TheGameLogic;
+
+struct StatusBitsEldestFrame
+{
+	void cacheGameLogicFrame(void);
+
+private:
+	int m_cachedFrame;
 };
 
 // ?cacheGameLogicFrame@StatusBitsEldestFrame@@QAEXXZ @0x00485975
-void StatusBitsEldestFrame::cacheGameLogicFrame()
+void StatusBitsEldestFrame::cacheGameLogicFrame(void)
 {
-	m_frame = TheGameLogic->m_frame;
+	int *slot = &m_cachedFrame;
+	*slot = (int)TheGameLogic->getFrame();
 }

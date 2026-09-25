@@ -5422,3 +5422,4 @@ __mbscpy,0x00629176,retail REL32 from INI getNextQuotedAsciiString 0x002E93F; IA
 __mbscat,0x0062988C,retail REL32 from INI getNextQuotedAsciiString 0x002E93F; IAT jmp to msvcr71 _mbscat via 0x00BBA5E8
 ?friend_awakenUpdateModule@GameLogic@@QAEXPAVObject@@PAVUpdateModule@@I@Z,0x0024297F,BFME1 donor GameLogicAwakenUpdate plus retail 0x44DF71 REL32 with obj-this-frame arg order
 ??1BfmeStringRecord000B94D2@@QAE@XZ,0x000B6CF1,two-string record dtor read from Rva000C3824 teardown REL32; shares address with gen-uw funclet pins
+?_M_erase@?$_Rb_tree@HU?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@U?$_Select1st@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@@2@@_STL@@AAEXPAU?$_Rb_tree_node@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@@2@@Z,0x00380EB1,called from color-tree clear 0x380F08 with root plus self-recursive Destroy-and-free shape
