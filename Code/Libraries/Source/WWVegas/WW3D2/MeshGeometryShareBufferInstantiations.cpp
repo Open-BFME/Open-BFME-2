@@ -39,6 +39,24 @@ ShareBufferClass<unsigned long>::~ShareBufferClass()
 	::operator delete[](RawBuffer);
 }
 
+// ShareBufferClass<Vector3> owns a raw vertex array; the destructor frees it.
+// The 0x169780 constructor installs vtable 0xBD43F0, whose deleting
+// destructor at 0x169D00 calls this body at 0x169D20.
+template <>
+ShareBufferClass<Vector3>::~ShareBufferClass()
+{
+	::operator delete[](RawBuffer);
+}
+
+// ShareBufferClass<Vector3i16> (TriIndex) owns a raw index array; the
+// destructor frees it. The 0x169670 constructor installs vtable 0xBD43E8,
+// whose deleting destructor at 0x169CC0 calls this body at 0x169CE0.
+template <>
+ShareBufferClass<Vector3i16>::~ShareBufferClass()
+{
+	::operator delete[](RawBuffer);
+}
+
 void MeshGeometryShareBufferInstantiations( int count )
 {
 	ShareBufferClass<TriIndex> *poly = new ShareBufferClass<TriIndex>( count, "MeshGeometryClass::Poly" );
