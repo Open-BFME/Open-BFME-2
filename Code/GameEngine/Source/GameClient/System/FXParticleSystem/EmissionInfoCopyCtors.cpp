@@ -45,4 +45,25 @@ CylindricalEmissionVelocityInfo::CylindricalEmissionVelocityInfo(const Cylindric
 {
 }
 
+class OrthoEmissionVelocityInfo : public EmissionVelocityInfo
+{
+public:
+    OrthoEmissionVelocityInfo(const OrthoEmissionVelocityInfo &that);
+    virtual ~OrthoEmissionVelocityInfo();
+
+private:
+    GameClientRandomVariable m_var0;
+    GameClientRandomVariable m_var1;
+    GameClientRandomVariable m_var2;
+};
+
+// ??0OrthoEmissionVelocityInfo@FXParticleSystem@@QAE@ABV01@@Z
+OrthoEmissionVelocityInfo::OrthoEmissionVelocityInfo(const OrthoEmissionVelocityInfo &that)
+    : EmissionVelocityInfo(that)
+    , m_var0(that.m_var0)
+    , m_var1(that.m_var1)
+    , m_var2(that.m_var2)
+{
+}
+
 }
