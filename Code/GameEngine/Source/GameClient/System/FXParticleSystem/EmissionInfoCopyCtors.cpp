@@ -1,0 +1,48 @@
+// cl: /DNDEBUG /MD /GX- /O1 /Ob2
+
+// Emission info copy constructors.
+//
+// BFME1 donor: reference/open-bfme-1/Code/GameEngine/Source/GameClient/System/
+// FXParticleSystem/fx_particle_system.cpp (Ortho/Cylindrical shapes). BFME2
+// keeps the same bodies: base copy out of line, vtable store, then one movsd
+// triple per 12-byte random variable. TerrainFireEmissionInfo is new in BFME2
+// (no donor); its layout comes from retail 0x003A6E0E and the sibling model in
+// Code/GameEngine/Source/GameClient/FXParticleSystemModules.cpp.
+
+namespace FXParticleSystem
+{
+
+struct GameClientRandomVariable
+{
+    unsigned int m_type;
+    float m_low;
+    float m_high;
+};
+
+class EmissionVelocityInfo
+{
+public:
+    EmissionVelocityInfo(const EmissionVelocityInfo &that);
+    virtual ~EmissionVelocityInfo();
+};
+
+class CylindricalEmissionVelocityInfo : public EmissionVelocityInfo
+{
+public:
+    CylindricalEmissionVelocityInfo(const CylindricalEmissionVelocityInfo &that);
+    virtual ~CylindricalEmissionVelocityInfo();
+
+private:
+    GameClientRandomVariable m_var0;
+    GameClientRandomVariable m_var1;
+};
+
+// ??0CylindricalEmissionVelocityInfo@FXParticleSystem@@QAE@ABV01@@Z
+CylindricalEmissionVelocityInfo::CylindricalEmissionVelocityInfo(const CylindricalEmissionVelocityInfo &that)
+    : EmissionVelocityInfo(that)
+    , m_var0(that.m_var0)
+    , m_var1(that.m_var1)
+{
+}
+
+}
