@@ -16,6 +16,7 @@ struct SBServer
     void *m_handle;
     SBServer();
     __declspec(noinline) SBServer(const SBServer &src);
+    __declspec(noinline) ~SBServer();
 };
 
 __declspec(noinline) SBServer::SBServer(const SBServer &src)
@@ -30,6 +31,22 @@ __declspec(noinline) SBServer::SBServer(const SBServer &src)
 }
 
 #include <map>
+
+// Teardown shares the rowed 0x7DEEF release helper: it computes the same
+// slot-derived object and tail-jumps to it (the fastcall argument is already
+// in ecx). Declaration mirrors TreeHintRefReleaseBFME2.cpp.
+struct TargetRef00217D4C { virtual void *destroy(unsigned flags); int references; };
+extern void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
+
+__declspec(noinline) SBServer::~SBServer()
+{
+    void *handle = m_handle;
+    if (handle != 0) {
+        void *slot = *(void **)handle;
+        char *obj = (char *)((void **)slot)[1] + (unsigned int)handle;
+        ReleaseTreeHintRef00217D4C((TargetRef00217D4C *)obj);
+    }
+}
 
 namespace _STL {
 
