@@ -178,6 +178,7 @@ public:
 	virtual Bool write(void);
 	_STL::list<UnicodeString> getUserNames_Rva0043C2D0(void);
 	void setCurrentUserName(const UnicodeString &newName);
+	AsciiString formatProfileKey(const AsciiString *keySource, const char *name);
 
 private:
 	void rebuildUserNamesEntry(void);
@@ -246,4 +247,12 @@ void SkirmishPreferences::setCurrentUserName(const UnicodeString &newName)
 	AsciiString key("CurrentUserName");
 	AsciiString &slot = (*this)[key];
 	slot = m_currentUserName;
+}
+
+// ?formatProfileKey@SkirmishPreferences@@QAE?AVAsciiString@@PBV2@PBD@Z @0x43BA95
+AsciiString SkirmishPreferences::formatProfileKey(const AsciiString *keySource, const char *name)
+{
+	AsciiString key;
+	key.format(":%d:%s:%s", m_profileIndex, keySource->str(), name);
+	return key;
 }
