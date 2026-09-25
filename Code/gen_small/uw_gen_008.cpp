@@ -52,6 +52,8 @@ struct Gen_uwm_00050b2a { int m; Gen_uwm_00050b2a(int); ~Gen_uwm_00050b2a(); };
 struct Gen_uwm_0005109d { int m; Gen_uwm_0005109d(int); ~Gen_uwm_0005109d(); };
 struct Gen_uwm_000519ab { int m; Gen_uwm_000519ab(int); ~Gen_uwm_000519ab(); };
 struct Gen_uwm_00051d93 { int m; Gen_uwm_00051d93(int); ~Gen_uwm_00051d93(); };
+struct Gen_uwm_00057994 { int m; Gen_uwm_00057994(int); ~Gen_uwm_00057994(); };
+struct Gen_uwm_00059f7c { int m; Gen_uwm_00059f7c(int); ~Gen_uwm_00059f7c(); };
 struct Gen_uwm_00065ca4 { int m; Gen_uwm_00065ca4(int); ~Gen_uwm_00065ca4(); };
 struct Gen_uwm_0006d0d7 { int m; Gen_uwm_0006d0d7(int); ~Gen_uwm_0006d0d7(); };
 struct Gen_uwm_0006f29b { int m; Gen_uwm_0006f29b(int); ~Gen_uwm_0006f29b(); };
@@ -339,6 +341,14 @@ Gen_uwh0_00051d93::Gen_uwh0_00051d93() : a0(0), z(0) {  }
 struct Gen_uwh4_00051d93 { Gen_uwm_00051d93 a0; Gen_uwm_00051d93 z; Gen_uwh4_00051d93(); };
 // ??0Gen_uwh4_00051d93@@QAE@XZ absent-from-retail
 Gen_uwh4_00051d93::Gen_uwh4_00051d93() : a0(0), z(0) { char pad[4]; gen_uw_sink(pad); }
+
+struct Gen_uwh4_00057994 { char q0[212]; Gen_uwm_00057994 a0; Gen_uwm_00057994 z; Gen_uwh4_00057994(); };
+// ??0Gen_uwh4_00057994@@QAE@XZ absent-from-retail
+Gen_uwh4_00057994::Gen_uwh4_00057994() : a0(0), z(0) { char pad[4]; gen_uw_sink(pad); }
+
+struct Gen_uwh4_00059f7c { char q0[2556]; Gen_uwm_00059f7c a0; Gen_uwm_00059f7c z; Gen_uwh4_00059f7c(); };
+// ??0Gen_uwh4_00059f7c@@QAE@XZ absent-from-retail
+Gen_uwh4_00059f7c::Gen_uwh4_00059f7c() : a0(0), z(0) { char pad[4]; gen_uw_sink(pad); }
 
 struct Gen_uwh0_00065ca4 { Gen_uwm_00065ca4 a0; Gen_uwm_00065ca4 z; Gen_uwh0_00065ca4(); };
 // ??0Gen_uwh0_00065ca4@@QAE@XZ absent-from-retail

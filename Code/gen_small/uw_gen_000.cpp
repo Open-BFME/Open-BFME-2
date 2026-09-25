@@ -32,6 +32,7 @@ struct Gen_uw_00050fc4 { int m; ~Gen_uw_00050fc4(); };
 struct Gen_uw_000519ab { int m; ~Gen_uw_000519ab(); };
 struct Gen_uw_0005333f { int m; ~Gen_uw_0005333f(); };
 struct Gen_uw_000543f5 { int m; ~Gen_uw_000543f5(); };
+struct Gen_uw_00059f7c { int m; ~Gen_uw_00059f7c(); };
 struct Gen_uw_000657d0 { int m; ~Gen_uw_000657d0(); };
 struct Gen_uw_00065ca4 { int m; ~Gen_uw_00065ca4(); };
 struct Gen_uw_000783c5 { int m; ~Gen_uw_000783c5(); };
@@ -739,6 +740,12 @@ void gen_uw_l40_000543f5()
 {
 	char pad[40]; gen_uw_sink(pad);
 	Gen_uw_000543f5 v; gen_uw_ext();
+}
+
+void gen_uw_l28_00059f7c()
+{
+	char pad[28]; gen_uw_sink(pad);
+	Gen_uw_00059f7c v; gen_uw_ext();
 }
 
 void gen_uw_l0_000657d0()
