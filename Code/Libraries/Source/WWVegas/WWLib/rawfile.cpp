@@ -15,6 +15,69 @@
 #include	<limits.h>
 #include	<errno.h>
 
+// BFME2 addresses files by Unicode name. Open, Is_Available and Delete convert
+// the narrow Filename once per call into a wide temporary via the exported
+// UnicodeString-from-AsciiString constructor (0x6CB6D0) and pass its text to
+// the W imports below. The narrow conversion temporary tears down through the
+// shared StringBase<char> destructor (0x36410); the wide local tears down
+// through its inline releaseBuffer call (0x36E70).
+extern "C" {
+__declspec(dllimport) void *__stdcall CreateFileW(const unsigned short *lpFileName, unsigned long dwDesiredAccess, unsigned long dwShareMode, void *lpSecurityAttributes, unsigned long dwCreationDisposition, unsigned long dwFlagsAndAttributes, void *hTemplateFile);
+__declspec(dllimport) int __stdcall DeleteFileW(const unsigned short *lpFileName);
+}
+
+class UnicodeString;
+
+template <typename T>
+class StringBase
+{
+	friend class AsciiString;
+	StringBase(const T *text);
+	StringBase(const StringBase &src);
+
+public:
+	StringBase() : m_data(0) {}
+	~StringBase();
+
+	struct Header
+	{
+		int ref_count;
+		unsigned short length;
+		unsigned short capacity;
+		T data[1];
+	};
+
+protected:
+	Header *m_data;
+};
+
+class AsciiString : public StringBase<char>
+{
+public:
+	AsciiString(const char *text) : StringBase<char>(text) {}
+};
+
+template <>
+class StringBase<unsigned short>
+{
+	friend class UnicodeString;
+	void releaseBuffer();
+
+public:
+	StringBase() : m_data(0) {}
+	~StringBase() { releaseBuffer(); }
+
+private:
+	void *m_data;
+};
+
+class UnicodeString : public StringBase<unsigned short>
+{
+public:
+	UnicodeString(const AsciiString &src);
+	const unsigned short *str() const { return m_data ? (const unsigned short *)m_data + 4 : L""; }
+};
+
 
 RawFileClass::RawFileClass(void) :
 	Rights(READ),
@@ -97,6 +160,8 @@ int RawFileClass::Open(int rights)
 		Error(ENOENT, false);
 	}
 
+	UnicodeString wideName((const char *)Filename);
+
 	/*
 	**	Record the access rights used for this open call. These rights will be used if the
 	**	file object is duplicated.
@@ -125,7 +190,7 @@ int RawFileClass::Open(int rights)
 				#ifdef _UNIX
 					Handle = fopen(Filename, "r");
 				#else
-					Handle = CreateFileA(Filename, GENERIC_READ, FILE_SHARE_READ,
+					Handle = CreateFileW(wideName.str(), GENERIC_READ, FILE_SHARE_READ,
 								NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 				#endif
 				break;
@@ -134,7 +199,7 @@ int RawFileClass::Open(int rights)
 				#ifdef _UNIX
 					Handle = fopen(Filename, "w");
 				#else
-					Handle = CreateFileA(Filename, GENERIC_WRITE, 0,
+					Handle = CreateFileW(wideName.str(), GENERIC_WRITE, 0,
 								NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
 				#endif
 				break;
@@ -145,7 +210,7 @@ int RawFileClass::Open(int rights)
 				#else
 					// SKB 5/13/99 use OPEN_ALWAYS instead of CREATE_ALWAYS so that files
 					//					does not get destroyed.
-					Handle = CreateFileA(Filename, GENERIC_READ | GENERIC_WRITE, 0,
+					Handle = CreateFileW(wideName.str(), GENERIC_READ | GENERIC_WRITE, 0,
 								NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
 				#endif
 				break;
@@ -176,6 +241,7 @@ int RawFileClass::Open(int rights)
 }
 
 
+// ?Is_Available@RawFileClass@@ present-unmatched
 bool RawFileClass::Is_Available(int forced)
 {
 	if (Filename.Get_Length()==0) return(false);
@@ -520,6 +586,7 @@ int RawFileClass::Create(void)
 }
 
 
+// ?Delete@RawFileClass@@ present-unmatched
 int RawFileClass::Delete(void)
 {
 	/*
