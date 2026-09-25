@@ -69,4 +69,24 @@ CylindricalEmissionVelocityInfo::CylindricalEmissionVelocityInfo()
 	m_var1.setRange(0.0f, 0.0f);
 }
 
+class OrthoEmissionVelocityInfo : public EmissionVelocityInfo
+{
+public:
+	OrthoEmissionVelocityInfo();
+	virtual ~OrthoEmissionVelocityInfo();
+
+private:
+	GameClientRandomVariable m_var0;
+	GameClientRandomVariable m_var1;
+	GameClientRandomVariable m_var2;
+};
+
+// ??0OrthoEmissionVelocityInfo@FXParticleSystem@@QAE@XZ @0x3A6FD0
+OrthoEmissionVelocityInfo::OrthoEmissionVelocityInfo()
+{
+	m_var0.setRange(0.0f, 0.0f);
+	m_var1.setRange(0.0f, 0.0f);
+	m_var2.setRange(0.0f, 0.0f);
+}
+
 }
