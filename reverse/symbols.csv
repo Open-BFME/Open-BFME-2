@@ -5257,3 +5257,5 @@ _strncat,0x0062950C
 ??0DefaultUpdateModuleInfo@FXParticleSystem@@QAE@XZ,0x0055F529,callee of DefaultModuleTemplate@$01 (0x003A98A9) at the site its BFME1 donor calls it; may be an ICF alias
 ??0DefaultPhysicsModuleInfo@FXParticleSystem@@QAE@XZ,0x0055EE5E,callee of DefaultModuleTemplate@$02 (0x003A9852) at the site its BFME1 donor calls it; may be an ICF alias
 ??0DefaultColorModuleInfo@FXParticleSystem@@QAE@XZ,0x0055BC39,callee of DefaultModuleTemplate@$0A (0x003A9789) at the site its BFME1 donor calls it; may be an ICF alias
+??0OrthoEmissionVelocityInfo@FXParticleSystem@@QAE@XZ,0x003A6FD0,callee of OrthoEmissionVelocityModuleTemplate (0x003A711C) at the matching structural site; rowed assignment ??4 at 0x3A70A9 names the class
+??0SphericalEmissionVelocityInfo@FXParticleSystem@@QAE@XZ,0x003A721F,callee of SphericalEmissionVelocityModuleTemplate (0x003A72F7) at the matching structural site; rowed assignment ??4 at 0x3A7296 names the class
