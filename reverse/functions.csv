@@ -35151,3 +35151,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ?write@AsciiStringPlusStringText@@QAEHPAD@Z,,0x0050F219,37,Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp,matched,Two-ref write plus trailing text. In-file materializer and text callers to follow.
 ?post@SidesListNotifier@@QAEXP6AXXZPAX@Z,,0x0032B522,30,Code/GameEngine/Source/GameLogic/Map/SidesList_sidesInfo.cpp,matched,retail REL32 from SidesList clear 0x32DDFD; notifier takes callback and owner
 ?post@SidesListNotifier@@QAEXP6AXXZPAXH@Z,,0x0032B540,37,Code/GameEngine/Source/GameLogic/Map/SidesList_sidesInfo.cpp,matched,retail REL32 from SidesList addSide 0x32D0A4; notifier takes callback owner and index
+??4GeometryRecord@@QAEAAU0@ABU0@@Z,,0x0004E512,36,Code/GameEngine/Source/Common/System/GeometryRecordAssign.cpp,matched,vector copy path via rowed __copy 0x635F8 and folded AsciiString assign pin 0x366F0
