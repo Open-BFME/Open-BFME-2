@@ -56,5 +56,5 @@ void _Construct(T1 *p, const T2 &value)
 
 }
 
-// ??$_Construct@UUpgrades@CashHackSpecialPowerModuleData@@U12@@_STL@@YAXPAUUpgrades@CashHackSpecialPowerModuleData@@ABU12@@Z present-unmatched
+// ??$_Construct@UUpgrades@CashHackSpecialPowerModuleData@@U12@@_STL@@YAXPAUUpgrades@CashHackSpecialPowerModuleData@@ABU12@@Z @0x003FA3D3
 template void _STL::_Construct(CashHackSpecialPowerModuleData::Upgrades *, const CashHackSpecialPowerModuleData::Upgrades &);
