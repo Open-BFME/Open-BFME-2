@@ -34581,3 +34581,13 @@ _Rva0080FD30,,0x0067BC30,146,Code/Libraries/Source/DirtySock/Rva0080FD30MultiPre
 ?get@Rva000CB0FCZeroGetter@@QBEHXZ,,0x000CB0FC,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
 ?get@Rva000FBA47ZeroGetter@@QBEHXZ,,0x000FBA47,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
 ?get@Rva000FC943ZeroGetter@@QBEHXZ,,0x000FC943,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
+?get@Rva001499A5ZeroGetter@@QBEHXZ,,0x001499A5,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
+?get@Rva00149A6CZeroGetter@@QBEHXZ,,0x00149A6C,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
+?get@Rva00149A8CZeroGetter@@QBEHXZ,,0x00149A8C,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
+?get@Rva0014A07FZeroGetter@@QBEHXZ,,0x0014A07F,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
+?get@Rva0014A0C6ZeroGetter@@QBEHXZ,,0x0014A0C6,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
+?get@Rva001542C3ZeroGetter@@QBEHXZ,,0x001542C3,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
+?get@Rva0016ABD1ZeroGetter@@QBEHXZ,,0x0016ABD1,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
+?get@Rva0016ABF1ZeroGetter@@QBEHXZ,,0x0016ABF1,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
+?get@Rva00176D69ZeroGetter@@QBEHXZ,,0x00176D69,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
+?get@Rva00179930ZeroGetter@@QBEHXZ,,0x00179930,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
