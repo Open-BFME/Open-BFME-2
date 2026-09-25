@@ -5331,3 +5331,4 @@ _strncat,0x0062950C
 ?Insert_After@?$DLNodeClass@USmudgeSet@@@@QAEXPAV1@@Z,0x002D2556,SmudgeSet Add_Tail direct callee and ICF template body at this address
 ?Remove_Tail@?$DLListClass@USmudge@@@@QAEXXZ,0x002D2775,Smudge node Remove direct tail-list callee and BFME1 list semantics
 ?Remove_Tail@?$DLListClass@USmudgeSet@@@@QAEXXZ,0x002D2796,SmudgeSet node Remove direct tail-list callee; four-byte derived adjustment
+?_M_append_buffer@?$basic_stringbuf@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@ABEXXZ,0x001F8FA6,STLport 4.5.3 narrow stringbuf append-buffer helper; address read from the retail basic_stringbuf::overflow REL32 displacement at 0x001F95F2 and the retail basic_stringbuf::setbuf REL32 displacement at 0x001F98E0
