@@ -205,7 +205,7 @@ public:
 		int playerIndex);
 	void updatePlayerCells008FC450(ShroudManagerImpl008FBA40 *manager,
 		int playerIndex);
-	int getPlayerStatus_Rva0073EA40(int playerIndex);
+	__declspec(noinline) int getPlayerStatus_Rva0073EA40(int playerIndex);
 
 private:
 	__forceinline void copyPlayerStatesFrom(
@@ -229,6 +229,8 @@ public:
 	__declspec(noinline) CellShroudStatus getShroudStatusForPlayer(
 		Int playerIndex, Int x, Int y) const;
 	CellShroudStatus getShroudStatusForPlayerCoord_Rva0073B940(
+		Int playerIndex, const Coord3D *loc) const;
+	int getPlayerStatusWord_Rva0073B890(
 		Int playerIndex, const Coord3D *loc) const;
 	ObjectShroudStatus getPropShroudStatusForPlayer(Int playerIndex,
 		const Coord3D *loc) const;
@@ -321,6 +323,24 @@ CellShroudStatus ShroudManagerImpl008FBA40::getShroudStatusForPlayerCoord_Rva007
 
 	return (CellShroudStatus)shroudStatusFromRaw(
 		element->playerStates[playerIndex][0]);
+}
+
+// Retail 0x0073B890 is the raw-word sibling of the coordinate getter above:
+// out-of-range players report 2, a missed element reports 0, otherwise the
+// element's unmapped status word comes back through getPlayerStatus_Rva0073EA40.
+// No direct callers remain in retail; the name is descriptive.
+int ShroudManagerImpl008FBA40::getPlayerStatusWord_Rva0073B890(
+	Int playerIndex, const Coord3D *loc) const
+{
+	if (playerIndex < 0 || playerIndex >= 20)
+		return CELLSHROUD_SHROUDED;
+
+	ShroudManagerImpl008FBA40ElementLayout *element =
+		elementAtByCoord_Rva0073A1D0(loc->x, loc->y);
+	if (element)
+		return reinterpret_cast<ShroudManagerImpl008FBA40Element *>(element)->
+			getPlayerStatus_Rva0073EA40(playerIndex);
+	return CELLSHROUD_CLEAR;
 }
 
 ObjectShroudStatus ShroudManagerImpl008FBA40::getPropShroudStatusForPlayer(
@@ -607,7 +627,7 @@ ShroudManagerImpl008FBA40::elementAtByCoord_Rva0073A1D0(Real x, Real y) const
 // at 0x0073EA40 loads the same element's status word for one player. No BFME 1
 // donor names it (its only caller is 0x0073B890), so it lands under a
 // descriptive Rva-qualified name.
-int ShroudManagerImpl008FBA40Element::getPlayerStatus_Rva0073EA40(
+__declspec(noinline) int ShroudManagerImpl008FBA40Element::getPlayerStatus_Rva0073EA40(
 	int playerIndex)
 {
 	return playerStates[playerIndex].status;
