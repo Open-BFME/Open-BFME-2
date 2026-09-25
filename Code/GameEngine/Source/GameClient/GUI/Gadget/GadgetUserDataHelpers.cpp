@@ -15,6 +15,65 @@ public:
 	void winSetStatus(unsigned int status);
 };
 
+// BFME1's GadgetListBoxSetColumnWidths donor sets percentage widths then
+// asks its listbox worker to convert them to pixels. Retail 0x003252EA
+// confirms the +2 count and +4 percentage buffer; the call target after
+// this body is the donor's j_000272fa. Its 246B retail body at 0x003251F4
+// recalculates pixel widths, so GadgetListBoxUpdateColumnWidths is a
+// descriptive target-local name inferred from that behavior.
+struct GadgetListboxColumnData
+{
+	unsigned char m_prefix[2];
+	unsigned short m_columnCount;
+	int *m_percentageWidths;
+};
+
+extern void *__cdecl operator new[](unsigned int size);
+extern void __cdecl operator delete[](void *memory);
+void GadgetListBoxUpdateColumnWidths(GameWindow *listbox);
+
+void GadgetListBoxSetColumnWidths(GameWindow *listbox, int count, int *widths)
+{
+	if (count <= 0)
+		return;
+	if (listbox == 0)
+		return;
+
+	GadgetListboxColumnData *data =
+		(GadgetListboxColumnData *)listbox->winGetUserData();
+	if (data == 0)
+		return;
+
+	data->m_columnCount = (unsigned short)count;
+	operator delete[](data->m_percentageWidths);
+	data->m_percentageWidths = new int[count];
+
+	if (widths != 0)
+	{
+		for (int index = 0; index < count; ++index)
+			data->m_percentageWidths[index] = widths[index];
+	}
+	else
+	{
+		int eachWidth = 100 / count;
+		int extraPixels = 100 % count;
+		for (int index = 0; index < count; ++index)
+		{
+			if (extraPixels != 0)
+			{
+				--extraPixels;
+				data->m_percentageWidths[index] = eachWidth + 1;
+			}
+			else
+			{
+				data->m_percentageWidths[index] = eachWidth;
+			}
+		}
+	}
+
+	GadgetListBoxUpdateColumnWidths(listbox);
+}
+
 // Push-button data: the same accessor, a different record. The 0x38-byte
 // layout below is retail-measured: five byte members ride with three bytes
 // of pad each while the nine int members sit at +0x04/+0x08/+0x10/+0x14/
