@@ -43,7 +43,6 @@ MutexClass::MutexClass(const char* name) : handle(NULL), locked(false)
 	#endif
 }
 
-// ??1MutexClass@@QAE@XZ present-unmatched
 MutexClass::~MutexClass()
 {
 	#ifdef _UNIX
@@ -67,6 +66,7 @@ bool MutexClass::Lock(int time)
 	#endif
 }
 
+// ?Unlock@MutexClass@@QAEXXZ present-unmatched
 void MutexClass::Unlock()
 {
 	#ifdef _UNIX
@@ -133,6 +133,7 @@ void CriticalSectionClass::Lock()
 	#endif
 }
 
+// ?Unlock@CriticalSectionClass@@QAEXXZ present-unmatched
 void CriticalSectionClass::Unlock()
 {
 	#ifdef _UNIX
@@ -157,5 +158,4 @@ CriticalSectionClass::LockClass::~LockClass()
 {
 	CriticalSection.Unlock();
 }
-
 
