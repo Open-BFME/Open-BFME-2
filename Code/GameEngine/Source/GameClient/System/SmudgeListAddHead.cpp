@@ -14,6 +14,7 @@ public:
     virtual ~DLListClass() {}
     void Add_Head(DLNodeClass<T> *node);
     void Add_Tail(DLNodeClass<T> *node);
+    void Remove_Head();
 };
 
 template <class T> class DLNodeClass
@@ -25,6 +26,7 @@ template <class T> class DLNodeClass
 public:
     void Insert_Before(DLNodeClass<T> *node);
     void Insert_After(DLNodeClass<T> *node);
+    void Remove();
 };
 
 template <class T> void DLListClass<T>::Add_Head(DLNodeClass<T> *node)
@@ -58,3 +60,18 @@ template <class T> void DLListClass<T>::Add_Tail(DLNodeClass<T> *node)
 }
 
 template void DLListClass<SmudgeSet>::Add_Tail(DLNodeClass<SmudgeSet> *node);
+
+template <class T> void DLListClass<T>::Remove_Head()
+{
+    if (!head)
+        return;
+    DLNodeClass<T> *oldHead = head;
+    head = head->succ;
+    if (!head)
+        tail = head;
+    else
+        head->pred = 0;
+    oldHead->Remove();
+}
+
+template void DLListClass<Smudge>::Remove_Head();
