@@ -34868,3 +34868,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ?getReal@Dict@@QBEMHPA_N@Z,,0x003131FC,54,Code/GameEngine/Source/Common/DictPairClear.cpp,matched,Dict getReal through rowed findPairByKey; float at pair+4; exists out-param
 ?getNthBool@Dict@@QBE_NH@Z,,0x00313232,33,Code/GameEngine/Source/Common/DictPairClear.cpp,matched,Dict indexed bool getter; pair at data+1+n; bool byte or false
 ?getNthInt@Dict@@QBEHH@Z,,0x00313253,33,Code/GameEngine/Source/Common/DictPairClear.cpp,matched,Dict indexed int getter; pair at data+1+n; dword or 0
+??0TerrainFireEmissionInfo@FXParticleSystem@@QAE@XZ,0x003A6D5F,0x003A6D5F,175,Code/GameEngine/Source/GameClient/System/FXParticleSystem/EmissionInfoDefaultCtors.cpp,matched,TerrainFire default ctor: volume-base inline flag plus own vtable 0xC1BBD0 (gate-filled) plus three inline vars plus setRange(0 0) three times at rowed 0x2341E7 plus 0.7f trailer; pin 5264; caller template default 0x3A6ECD

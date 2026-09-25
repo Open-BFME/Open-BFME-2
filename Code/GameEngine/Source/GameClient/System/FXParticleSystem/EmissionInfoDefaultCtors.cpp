@@ -89,4 +89,42 @@ OrthoEmissionVelocityInfo::OrthoEmissionVelocityInfo()
 	m_var2.setRange(0.0f, 0.0f);
 }
 
+// Retail 0x3A6D5F orders the flag store before the single vtable store:
+// the flag is set by the volume base's own inline default (its vtable
+// store dies against the derived one, as in the velocity defaults above),
+// so the bool lives in the base here. The virtual destructor is only
+// declared: it resolves to the folded 0x0049B47C family and supplies the
+// unwinding behind the EH frame.
+class EmissionVolumeInfo
+{
+public:
+	EmissionVolumeInfo() : m_flag(false) {}
+	virtual ~EmissionVolumeInfo();
+
+protected:
+	bool m_flag;
+};
+
+class TerrainFireEmissionInfo : public EmissionVolumeInfo
+{
+public:
+	TerrainFireEmissionInfo();
+	virtual ~TerrainFireEmissionInfo();
+
+private:
+	GameClientRandomVariable m_var0;
+	GameClientRandomVariable m_var1;
+	GameClientRandomVariable m_var2;
+	float m_unknown2C;
+};
+
+// ??0TerrainFireEmissionInfo@FXParticleSystem@@QAE@XZ @0x3A6D5F
+TerrainFireEmissionInfo::TerrainFireEmissionInfo()
+{
+	m_var0.setRange(0.0f, 0.0f);
+	m_var1.setRange(0.0f, 0.0f);
+	m_var2.setRange(0.0f, 0.0f);
+	m_unknown2C = 0.7f;
+}
+
 }
