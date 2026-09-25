@@ -460,3 +460,18 @@ void ShroudManagerImpl008FBA40::notify()
 		node; node = node->next)
 		node->playerShroudState[unknown64] = 0;
 }
+
+// Transferred from BFME 1's ShroudManagerImpl008FBA40.cpp verbatim: saturating
+// adjust of one player's counter word inside the 0xA8-byte element.
+void ShroudManagerImpl008FBA40Element::adjustPlayerCounter008FC1F0(
+	int playerIndex, int counterIndex, int amount)
+{
+	unsigned short *counter =
+		&playerStates[playerIndex].counters[counterIndex];
+	amount += *counter;
+	if (amount < 0)
+		amount = 0;
+	else if (amount > 0xffff)
+		amount = 0xffff;
+	*counter = (unsigned short)amount;
+}
