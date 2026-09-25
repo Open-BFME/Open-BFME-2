@@ -40,6 +40,18 @@ void GadgetListBoxReset(GameWindow *listbox)
 	TheWindowManager->winSendSystemMsg(listbox, 0x4013, 0, 0);
 }
 
+// BFME1's GadgetComboBoxReset sends GCM_DEL_ALL through TheWindowManager.
+// Retail at 0x0032273B confirms the 34B body, vtable slot +0xE8, and message
+// value 0x4025; the name is carried from the donor callback and call sites.
+enum { GCM_DEL_ALL = 0x4025 };
+
+void GadgetComboBoxReset(GameWindow *comboBox)
+{
+	if (comboBox == 0)
+		return;
+	TheWindowManager->winSendSystemMsg(comboBox, GCM_DEL_ALL, 0, 0);
+}
+
 // ?GadgetListBoxGetNumEntries@@YAHPAVGameWindow@@@Z, retail 0x0032475A (25B).
 // Ported from Open-BFME-1 Code/GameEngine/Source/GameClient/GUI/Gadget/GadgetListBox.cpp
 // (BFME1 0x004B77C0). The entry count is the Short endPos at +0x2C; keep the
