@@ -68,13 +68,14 @@ public:
 	};
 
 public:
-	void clear();
-	DataType getType(int key) const;
-	bool getBool(int key, bool *exists) const;
-	int getInt(int key, bool *exists) const;
-	float getReal(int key, bool *exists) const;
-	bool getNthBool(int n) const;
-	int getNthInt(int n) const;
+  void clear();
+  DataType getType(int key) const;
+  bool getBool(int key, bool *exists) const;
+  int getInt(int key, bool *exists) const;
+  float getReal(int key, bool *exists) const;
+  bool getNthBool(int n) const;
+  int getNthInt(int n) const;
+  float getNthReal(int n) const;
 	AsciiString getAsciiString(int key, bool *exists) const;
 
 private:
@@ -262,6 +263,18 @@ int Dict::getNthInt(int n) const
 			return *(int *)&pair->m_value;
 	}
 	return 0;
+}
+
+// ?getNthReal@Dict@@QBEMH@Z @0x00313274
+float Dict::getNthReal(int n) const
+{
+	if (m_data)
+	{
+		DictPair *pair = (DictPair *)(m_data + 1) + n;
+		if (pair && (pair->m_key & 0xFF) == DICT_REAL)
+			return *(float *)&pair->m_value;
+	}
+	return 0.0f;
 }
 
 // ?getAsciiString@Dict@@QBE?AVAsciiString@@HPA_N@Z @0x0031359F
