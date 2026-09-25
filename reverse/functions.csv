@@ -34755,3 +34755,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ??1Rva0035FF76@@UAE@XZ,,0x0035FF76,15,Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp,matched,derived dtor: clear +0xC then tail-call base 0x1DBAC3
 ??_GRva0035FF76@@UAEPAXI@Z,,0x003600BA,28,Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp,matched,scalar deleting dtor of the same class
 ??_GGen_uw_003b774b@@QAEPAXI@Z,,0x003B7D90,28,Code/GameEngine/Source/Common/FamilyDeletingDtors7.cpp,matched,scalar deleting dtor; same-shape sibling of ??_GVersion (0x21C7) selected by its dtor callee
+??H@YA?AUAsciiStringRefWithChar@@ABVAsciiString@@D@Z,,0x0002BF2F,27,Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
