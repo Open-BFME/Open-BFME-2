@@ -131,6 +131,7 @@ template <class T> void DLNodeClass<T>::Remove()
 
 template void DLNodeClass<Smudge>::Remove();
 template void DLNodeClass<SmudgeSet>::Remove();
+template DLNodeClass<Smudge>::~DLNodeClass();
 
 template <class T> void DLListClass<T>::Remove_Tail()
 {
