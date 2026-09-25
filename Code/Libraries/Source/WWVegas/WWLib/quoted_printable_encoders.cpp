@@ -74,7 +74,6 @@ static char intToHexDigit(int num)
 }
 
 // Convert unicode strings into ascii quoted-printable strings
-// ?AsciiStringToQuotedPrintable@@YA?AVAsciiString@@V1@@Z present-unmatched
 AsciiString UnicodeStringToQuotedPrintable(UnicodeString original)
 {
 	static char dest[1024];
