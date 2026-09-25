@@ -35,6 +35,7 @@ extern "C" __declspec(dllimport) FILE *__cdecl _wfopen(const unsigned short *nam
 extern "C" __declspec(dllimport) int __cdecl fprintf(FILE *fp, const char *fmt, ...);
 extern "C" __declspec(dllimport) int __cdecl fclose(FILE *fp);
 extern "C" __declspec(dllimport) char *__cdecl fgets(char *buf, int n, FILE *fp);
+extern "C" __declspec(dllimport) int __cdecl _wunlink(const unsigned short *path);
 
 typedef bool Bool;
 typedef int Int;
@@ -109,6 +110,7 @@ public:
 	UnicodeString() {}
 	UnicodeString &operator=(const UnicodeString &other) { set(other); return *this; }
 	void translate(const char *text);
+	void translate(const AsciiString &text);
 	const unsigned short *str() const { return m_data ? &m_data->text[0] : L""; }
 };
 
@@ -413,4 +415,32 @@ IgnorePreferences::IgnorePreferences()
 	AsciiString userPrefFilename;
 	userPrefFilename.format("%s\\IgnorePref%d.ini", "Online Files", TheGameSpyInfo->getLocalProfileID());
 	load(userPrefFilename);
+}
+
+// ?deleteFileInGlobalDataDir@@YA_NABVUnicodeString@@@Z @0x3B1C89
+// Removes a file from the user-data directory: the leaf is appended to
+// the GlobalData directory and unlinked. True when _wunlink succeeds.
+// The profile stat loaders (0x53789A/0x537A78) call this to clear stale
+// stats files.
+Bool deleteFileInGlobalDataDir(const UnicodeString &name)
+{
+	UnicodeString path = TheGlobalData->rva002360FC();
+	path.concat(name);
+	Bool success = false;
+	switch (_wunlink(path.str())) {
+	case 0:
+		success = true;
+		break;
+	}
+	return success;
+}
+
+// ?deleteFileInGlobalDataDir@@YA_NABVAsciiString@@@Z @0x3B1D78
+// Narrow spelling: widens through translate, then forwards to the wide
+// worker above.
+Bool deleteFileInGlobalDataDir(const AsciiString &name)
+{
+	UnicodeString wideName;
+	wideName.translate(name);
+	return deleteFileInGlobalDataDir(wideName);
 }
