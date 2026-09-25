@@ -34645,3 +34645,4 @@ _Rva008576C0,,0x00698C80,33,Code/GameEngine/Source/GameNetwork/GameSpy/peer/peer
 _piChannelNewUserListA,,0x006AB150,121,Code/GameEngine/Source/GameNetwork/GameSpy/peer/peerChannelNewUserList.cpp,matched,BFME1 byte-identical donor; b1 0x0086B8D0
 _peerUpdateGame,,0x00698C50,33,Code/GameEngine/Source/GameNetwork/GameSpy/peer/peerUpdateGame.cpp,matched,BFME1 byte-identical donor; b1 0x00857690; force0 twin of force1 Rva008576C0
 _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/peer/peerChannelKicked.cpp,matched,BFME1 byte-identical donor; b1 0x0086B570; ICF-fold twin eliminated: _piUserModeChangedA landed 54B at 0x006AB210
+??0Rva00808920LanGame@@QAE@H@Z,,0x006748B0,365,Code/GameEngine/Source/GameNetwork/Y4FeslLanGameCtor.cpp,matched,BFME1 byte-identical donor; b1 0x00808920; 1 DIR32 string literal agrees
