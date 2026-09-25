@@ -5421,3 +5421,4 @@ _printf,0x00629B14,printf import thunk; retail E8 at 0x0065CEA9 targets thunk ro
 __mbscpy,0x00629176,retail REL32 from INI getNextQuotedAsciiString 0x002E93F; IAT jmp to msvcr71 _mbscpy via 0x00BBA6D0
 __mbscat,0x0062988C,retail REL32 from INI getNextQuotedAsciiString 0x002E93F; IAT jmp to msvcr71 _mbscat via 0x00BBA5E8
 ?friend_awakenUpdateModule@GameLogic@@QAEXPAVObject@@PAVUpdateModule@@I@Z,0x0024297F,BFME1 donor GameLogicAwakenUpdate plus retail 0x44DF71 REL32 with obj-this-frame arg order
+??1BfmeStringRecord000B94D2@@QAE@XZ,0x000B6CF1,two-string record dtor read from Rva000C3824 teardown REL32; shares address with gen-uw funclet pins
