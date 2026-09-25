@@ -27,6 +27,7 @@ template <class T> class DLNodeClass
     DLNodeClass<T> *pred;
     DLListClass<T> *list;
 public:
+    ~DLNodeClass() { Remove(); }
     void Insert_Before(DLNodeClass<T> *node);
     void Insert_After(DLNodeClass<T> *node);
     void Remove();
@@ -84,6 +85,9 @@ template void DLListClass<Smudge>::Remove_Head();
 struct SmudgeSet : public DLNodeClass<SmudgeSet>
 {
     virtual ~SmudgeSet();
+    void reset();
+    DLListClass<Smudge> usedSmudges;
+    int usedSmudgeCount;
 };
 
 template <> void DLListClass<SmudgeSet>::Remove_Head()
@@ -142,6 +146,11 @@ template <class T> void DLListClass<T>::Remove_Tail()
 }
 
 template void DLListClass<Smudge>::Remove_Tail();
+
+SmudgeSet::~SmudgeSet()
+{
+    reset();
+}
 
 template <> void DLListClass<SmudgeSet>::Remove_Tail()
 {
