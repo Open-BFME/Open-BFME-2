@@ -166,6 +166,11 @@ template void initSubsystem<PlayerAITypeSet>(PlayerAITypeSet *&, AsciiString, Pl
 template void initSubsystem<EmotionSystem>(EmotionSystem *&, AsciiString, EmotionSystem *, Xfer *, const char *, const char *, const char *);
 template void initSubsystem<LightPointSystem>(LightPointSystem *&, AsciiString, LightPointSystem *, Xfer *, const char *, const char *, const char *);
 template void initSubsystem<ExperienceLevelSystem>(ExperienceLevelSystem *&, AsciiString, ExperienceLevelSystem *, Xfer *, const char *, const char *, const char *);
+// Opaque target identity for 0x0022C38B: the retail caller and the matched
+// SubsystemInterfaceList::initSubsystem callee establish this generic
+// registration helper, but not its concrete template parameter. This explicit
+// AptPlayer instantiation is only the C++ emission type for the pointer-level
+// sequence; it is not a BFME2 AptPlayer name claim.
 template void initSubsystem<AptPlayer>(AptPlayer *&, AsciiString, AptPlayer *, Xfer *, const char *, const char *, const char *);
 template void initSubsystem<LivingWorldManager>(LivingWorldManager *&, AsciiString, LivingWorldManager *, Xfer *, const char *, const char *, const char *);
 template void initSubsystem<AerialPathfinder>(AerialPathfinder *&, AsciiString, AerialPathfinder *, Xfer *, const char *, const char *, const char *);

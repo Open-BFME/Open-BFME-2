@@ -49,6 +49,43 @@
 #include <string.h>
 #include "nstrdup.h"
 
+// BFME1's hanim.h inserts _bfme_hanim_fade before Get_Num_Pivots, while the
+// BFME2 retail calls in this TU use Get_Num_Pivots at vtable +0x34 and
+// Is_Node_Motion_Present at +0x3C. HRawLoadW3D.cpp uses the same target-side
+// interface view. Keep this ABI shim local; do not alter the donor header.
+class BFME2HAnimClassSlots : public RefCountClass, public HashableClass
+{
+public:
+	enum
+	{
+		CLASSID_UNKNOWNANIM	= 0xFFFFFFFF,
+		CLASSID_HRAWANIM		= 0,
+		CLASSID_LASTANIM		= 0x0000FFFF
+	};
+
+	virtual ~BFME2HAnimClassSlots(void);
+	virtual const char *Get_Name(void) const = 0;
+	virtual const char *Get_HName(void) const = 0;
+	virtual const char *Get_Key(void) = 0;
+	virtual int Get_Num_Frames(void) = 0;
+	virtual float Get_Frame_Rate(void) = 0;
+	virtual float Get_Total_Time(void) = 0;
+	virtual void Get_Translation(int pividx, float frame) = 0;
+	virtual void Get_Orientation(int pividx, float frame) = 0;
+	virtual void Get_Translation(Vector3& translation, int pividx, float frame) const = 0;
+	virtual bool Get_Orientation(Quaternion& orientation, int pividx, float frame) const = 0;
+	virtual void Get_Transform(Matrix3D&, int pividx, float frame) const = 0;
+	virtual bool Get_Visibility(int pividx, float frame) = 0;
+	virtual int Get_Num_Pivots(void) const = 0;
+	virtual bool Is_Node_Motion_Present(int pividx) = 0;
+	virtual bool Has_X_Translation(int pividx) = 0;
+	virtual bool Has_Y_Translation(int pividx) = 0;
+	virtual bool Has_Z_Translation(int pividx) = 0;
+	virtual bool Has_Rotation(int pividx) = 0;
+	virtual bool Has_Visibility(int pividx) = 0;
+	virtual int Class_ID(void) const = 0;
+};
+
 
 
 /*
@@ -219,13 +256,13 @@ void HAnimComboDataClass::Build_Active_Pivot_Map(void)
 		return;
 	}
 
-	int numpivots = HAnim->Get_Num_Pivots();
+	int numpivots = reinterpret_cast<BFME2HAnimClassSlots *>(HAnim)->Get_Num_Pivots();
 	PivotMap = NEW_REF( PivotMapClass, ());
 	PivotMap->Resize(numpivots);
 
 	int count = 0;
 	while(count < numpivots) {
-		if(HAnim->Is_Node_Motion_Present(count)) {
+		if(reinterpret_cast<BFME2HAnimClassSlots *>(HAnim)->Is_Node_Motion_Present(count)) {
 			PivotMap->Add(1);
 
 		} else {
@@ -301,7 +338,7 @@ bool	HAnimComboClass::Normalize_Weights(void)
 	bool none_pivot_maps = true;
 	int num_anim_pivots = 100000;
 	for (anim_idx = 0; anim_idx < anim_count; anim_idx++ ) {
-		num_anim_pivots = MIN(num_anim_pivots, Peek_Motion(anim_idx)->Get_Num_Pivots());
+		num_anim_pivots = MIN(num_anim_pivots, reinterpret_cast<BFME2HAnimClassSlots *>(Peek_Motion(anim_idx))->Get_Num_Pivots());
 		bool has_pivot_map = Peek_Pivot_Weight_Map(anim_idx) != NULL;
 		all_pivot_maps &= has_pivot_map;
 		none_pivot_maps &= !has_pivot_map;
@@ -474,5 +511,3 @@ void HAnimComboClass::Remove_Anim_Combo_Data(HAnimComboDataClass * Data)
 {
 	HAnimComboData.Delete(Data);
 }
-
-

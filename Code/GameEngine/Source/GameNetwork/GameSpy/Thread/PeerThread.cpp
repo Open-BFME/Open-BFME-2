@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/open-bfme-1/reference/shims/nat /Ireference/open-bfme-1/reference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main
+// cl: /O1 /D_STLP_USE_STATIC_LIB /D_BFME_RETAIL_TREE_INSERT_LAYOUT /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/open-bfme-1/reference/shims/nat /Ireference/open-bfme-1/reference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main
 // stlport
 #define Matrix4x4 Matrix4  // BFME renamed it
 /*
@@ -139,8 +139,71 @@ enum
 
 //-------------------------------------------------------------------------
 
-typedef std::queue<PeerRequest> RequestQueue;
-typedef std::queue<PeerResponse> ResponseQueue;
+// Target vtable getters read PeerThreadClass connection bytes at +0x50/+0x51;
+// the donor class puts the same Bool members at +0x58/+0x59. Keep the target
+// offsets local to these queue getters instead of changing the class layout.
+struct BfmePeerThreadStatusView {
+	UnsignedByte unknown_00[0x50];
+	Bool m_isConnecting;
+	Bool m_isConnected;
+	Bool isConnecting( void ) { return m_isConnecting; }
+	Bool isConnected( void ) { return m_isConnected; }
+};
+struct Rva0009990D {
+	void *pointer;
+	Rva0009990D() : pointer(0) {}
+	void clear();
+	void set(void *pointer);
+	~Rva0009990D() { clear(); }
+};
+struct Rva006105F0 { void stop(); };
+struct Rva0038909EPeerThreadDtorView {
+	virtual void *destroy(unsigned int flags);
+};
+// The vtable installed by target constructor 0x38AAEB has scalar deleting
+// destructor at slot 0 and ThreadClass::Execute at slot +4. The object remains
+// address-derived because the target-only tail/layout is not otherwise named.
+struct Rva0038AAEBThreadObject {
+	void *targetVtable;
+	unsigned char opaqueTail[0x4ac];
+	Rva0038AAEBThreadObject(MutexClass *queueMutex);
+};
+typedef char Rva0038AAEBThreadObject_size_check[
+	sizeof(Rva0038AAEBThreadObject) == 0x4b0 ? 1 : -1];
+struct Rva0038AAEBThreadExecuteVtable {
+	virtual void scalarDeletingDtorSlot();
+	virtual void executeSlot();
+};
+
+// Target's request queue advances in 0x1EC-byte steps. Its push_back body is
+// already verified under this size-only record view. Target members and payload
+// meanings remain unclaimed; PeerRequest is donor context for the queue role.
+struct BfmeOpaqueOwnedRecord492 {
+	union { unsigned int alignmentWitness; unsigned char bytes[492]; };
+	BfmeOpaqueOwnedRecord492();
+	BfmeOpaqueOwnedRecord492(const BfmeOpaqueOwnedRecord492 &);
+	~BfmeOpaqueOwnedRecord492();
+};
+typedef char BfmeOpaqueOwnedRecord492_size_check[
+	sizeof(BfmeOpaqueOwnedRecord492) == 492 ? 1 : -1];
+typedef _STL::deque<BfmeOpaqueOwnedRecord492,
+	_STL::allocator<BfmeOpaqueOwnedRecord492> > BfmeRequestDeque492;
+
+// The vtable-selected response queue advances by 0x348 bytes. Keep its payload
+// owner opaque; STLport queue stores its deque as the sole member `c`.
+struct BfmeOpaqueOwnedRecord840 {
+	union { unsigned int alignmentWitness; unsigned char bytes[840]; };
+	BfmeOpaqueOwnedRecord840();
+	BfmeOpaqueOwnedRecord840(const BfmeOpaqueOwnedRecord840 &);
+	~BfmeOpaqueOwnedRecord840();
+};
+typedef char BfmeOpaqueOwnedRecord840_size_check[
+	sizeof(BfmeOpaqueOwnedRecord840) == 840 ? 1 : -1];
+typedef _STL::deque<BfmeOpaqueOwnedRecord840,
+	_STL::allocator<BfmeOpaqueOwnedRecord840> > BfmeResponseDeque840;
+typedef std::queue<BfmeOpaqueOwnedRecord492> RequestQueue;
+typedef std::queue<BfmeOpaqueOwnedRecord840> ResponseQueue;
+
 class PeerThreadClass;
 
 class GameSpyPeerMessageQueue : public GameSpyPeerMessageQueueInterface
@@ -174,14 +237,12 @@ private:
 
 	SerialAuthResult m_serialAuth;
 
-	// BFME-only tail. The retail constructor @0x64D650 runs MutexClass's ctor a
-	// third time on this+0x6C - the same one it uses for the two mutexes at +4
-	// and +0xC - and then zeroes this+0x74, which is why createNewMessageQueue
-	// @0x64E620 asks the allocator for 0x78 bytes and not 0x6C. Everything ahead
-	// of it is confirmed by the matched rows in this file (+0x14, +0x24, +0x3C,
-	// +0x64, +0x68), so the two extra members can only be here. Purpose unknown.
+	// Target constructor 0x38E171 constructs this MutexClass at +0x6C and clears
+	// +0x74. Target startThread stores an 8-byte heap owner there via 0x998EA;
+	// endThread and this owner's destructor release it via 0x9990D. Its payload
+	// identity remains opaque. Matched createNewMessageQueue allocates 0x78 bytes.
 	MutexClass _bfme_hole_thirdMutex;
-	Int _bfme_hole_tailWord;
+	Rva0009990D _bfme_hole_tailOwner;
 };
 
 GameSpyPeerMessageQueueInterface* GameSpyPeerMessageQueueInterface::createNewMessageQueue( void )
@@ -575,70 +636,67 @@ static void joinRoomCallback(PEER peer, PEERBool success, PEERJoinResult result,
 
 //-------------------------------------------------------------------------
 
-// ??0GameSpyPeerMessageQueue@@ present-unmatched
 GameSpyPeerMessageQueue::GameSpyPeerMessageQueue()
 {
 	m_thread = NULL;
 	m_serialAuth = SERIAL_OK;
 }
 
-// ??1GameSpyPeerMessageQueue@@ present-unmatched
 GameSpyPeerMessageQueue::~GameSpyPeerMessageQueue()
 {
 	endThread();
 }
 
-// ?startThread@GameSpyPeerMessageQueue@@ present-unmatched
 void GameSpyPeerMessageQueue::startThread( void )
 {
-	if (!m_thread)
-	{
-		m_thread = NEW PeerThreadClass;
-		m_thread->Execute();
-	}
-	else
-	{
-		if (!m_thread->Is_Running())
-		{
-			m_thread->Execute();
-		}
-	}
+	if (m_thread)
+		return;
+	_bfme_hole_tailOwner.set(NEW MutexClass::LockClass(
+		_bfme_hole_thirdMutex, -1));
+	Rva0038AAEBThreadObject *thread =
+		NEW Rva0038AAEBThreadObject(&_bfme_hole_thirdMutex);
+	m_thread = (PeerThreadClass *)thread;
+	((Rva0038AAEBThreadExecuteVtable *)thread)->executeSlot();
 }
 
-// ?endThread@GameSpyPeerMessageQueue@@ present-unmatched
 void GameSpyPeerMessageQueue::endThread( void )
 {
-	if (m_thread)
-		delete m_thread;
+	if (m_thread) {
+		_bfme_hole_tailOwner.clear();
+		((Rva006105F0 *)m_thread)->stop();
+		void *threadToFree;
+		if (m_thread)
+			threadToFree = ((Rva0038909EPeerThreadDtorView *)m_thread)->destroy(0);
+		else
+			threadToFree = NULL;
+		::operator delete(threadToFree);
+	}
 	m_thread = NULL;
 }
 
-// ?isThreadRunning@GameSpyPeerMessageQueue@@UAE_NXZ present-unmatched
 Bool GameSpyPeerMessageQueue::isThreadRunning( void )
 {
 	return (m_thread) ? m_thread->Is_Running() : false;
 }
 
-// ?isConnected@GameSpyPeerMessageQueue@@ present-unmatched
 Bool GameSpyPeerMessageQueue::isConnected( void )
 {
-	return (m_thread) ? m_thread->isConnected() : false;
+	return (m_thread) ? ((BfmePeerThreadStatusView *)m_thread)->isConnected() : false;
 }
 
-// ?isConnecting@GameSpyPeerMessageQueue@@ present-unmatched
 Bool GameSpyPeerMessageQueue::isConnecting( void )
 {
-	return (m_thread) ? m_thread->isConnecting() : false;
+	return (m_thread) ? ((BfmePeerThreadStatusView *)m_thread)->isConnecting() : false;
 }
 
-// ?addRequest@GameSpyPeerMessageQueue@@UAEXABVPeerRequest@@@Z present-unmatched
 void GameSpyPeerMessageQueue::addRequest( const PeerRequest& req )
 {
 	MutexClass::LockClass m(m_requestMutex);
 	if (m.Failed())
 		return;
 
-	m_requests.push(req);
+	((BfmeRequestDeque492 *)&m_requests)->push_back(
+		*(const BfmeOpaqueOwnedRecord492 *)&req);
 }
 
 //PeerRequest GameSpyPeerMessageQueue::getRequest( void )
@@ -650,8 +708,8 @@ Bool GameSpyPeerMessageQueue::getRequest( PeerRequest& req )
 
 	if (m_requests.empty())
 		return false;
-	req = m_requests.front();
-	m_requests.pop();
+	req = *(const PeerRequest *)&m_requests.front();
+	((BfmeRequestDeque492 *)&m_requests)->pop_front();
 	return true;
 }
 
@@ -664,10 +722,10 @@ void GameSpyPeerMessageQueue::addResponse( const PeerResponse& resp )
 	if (m.Failed())
 		return;
 
-	m_responses.push(resp);
+	((BfmeResponseDeque840 *)&m_responses)->push_back(
+		*(const BfmeOpaqueOwnedRecord840 *)&resp);
 }
 
-// ?getResponse@GameSpyPeerMessageQueue@@UAE_NAAVPeerResponse@@@Z present-unmatched
 //PeerResponse GameSpyPeerMessageQueue::getResponse( void )
 Bool GameSpyPeerMessageQueue::getResponse( PeerResponse& resp )
 {
@@ -677,8 +735,8 @@ Bool GameSpyPeerMessageQueue::getResponse( PeerResponse& resp )
 
 	if (m_responses.empty())
 		return false;
-	resp = m_responses.front();
-	m_responses.pop();
+	resp = *(const PeerResponse *)&m_responses.front();
+	((BfmeResponseDeque840 *)&m_responses)->pop_front();
 	return true;
 }
 
@@ -3033,4 +3091,3 @@ static void listingGamesCallback(PEER peer, PEERBool success, const char * name,
 }
 
 //-------------------------------------------------------------------------
-

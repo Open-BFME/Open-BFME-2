@@ -52,6 +52,8 @@ typedef char Record492VectorOffset[
 typedef char Record492PayloadStart[
 	offsetof(BfmeOpaqueOwnedRecord492, payload_word0) == 0x118 ? 1 : -1];
 
+BfmeOpaqueOwnedRecord492::BfmeOpaqueOwnedRecord492() {}
+
 template void _STL::_Construct<BfmeOpaqueOwnedRecord492,
 	BfmeOpaqueOwnedRecord492>(BfmeOpaqueOwnedRecord492 *,
 	const BfmeOpaqueOwnedRecord492 &);

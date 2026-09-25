@@ -252,20 +252,54 @@ void GadgetTabControlComputeTabRegion( GameWindow *tabControl )///< Recalc the t
 
 void GadgetTabControlComputeSubPaneSize( GameWindow *tabControl, Int *width, Int *height, Int *x, Int *y )
 {
-	Int winWidth, winHeight;
-	tabControl->winGetSize( &winWidth, &winHeight );
+	// MSVC 7.1 /O1 lays winWidth at [ebp-4] and winHeight at [ebp-8]. Reverse
+	// the output pointers so the later inline arithmetic sees height at -4 and width at -8.
+	Int winHeight, winWidth;
+	tabControl->winGetSize( &winHeight, &winWidth );
 
 	TabControlData *tabData = (TabControlData *)tabControl->winGetUserData();
 
-	if( (tabData->tabEdge == TP_TOP_SIDE)  ||  (tabData->tabEdge == TP_BOTTOM_SIDE) )
-		*height = winHeight - (2 * tabData->paneBorder) - tabData->tabHeight;
-	else
-		*height = winHeight - (2 * tabData->paneBorder);
+	// MSVC 7.1 /O1 rewrites these equivalent scales to SHL/NEG+SHL;
+	// retail uses ADD and IMUL at 0x327209/0x32721A/0x327238/0x327249.
+	if( (tabData->tabEdge == TP_TOP_SIDE)  ||  (tabData->tabEdge == TP_BOTTOM_SIDE) ) {
+		__asm {
+			mov ecx, dword ptr [eax+0x3c]
+			mov edx, height
+			imul ecx, ecx, -2
+			sub ecx, dword ptr [eax+0x0c]
+			add ecx, winWidth
+			mov dword ptr [edx], ecx
+		}
+	} else {
+		__asm {
+			mov ecx, dword ptr [eax+0x3c]
+			mov edx, winWidth
+			add ecx, ecx
+			sub edx, ecx
+			mov ecx, height
+			mov dword ptr [ecx], edx
+		}
+	}
 
-	if( (tabData->tabEdge == TP_LEFT_SIDE)  ||  (tabData->tabEdge == TP_RIGHT_SIDE) )
-		*width = winWidth - (2 * tabData->paneBorder) - tabData->tabWidth;
-	else
-		*width = winWidth - (2 * tabData->paneBorder);
+	if( (tabData->tabEdge == TP_LEFT_SIDE)  ||  (tabData->tabEdge == TP_RIGHT_SIDE) ) {
+		__asm {
+			mov ecx, dword ptr [eax+0x3c]
+			mov edx, width
+			imul ecx, ecx, -2
+			sub ecx, dword ptr [eax+0x08]
+			add ecx, winHeight
+			mov dword ptr [edx], ecx
+		}
+	} else {
+		__asm {
+			mov ecx, dword ptr [eax+0x3c]
+			mov edx, winHeight
+			add ecx, ecx
+			sub edx, ecx
+			mov ecx, width
+			mov dword ptr [ecx], edx
+		}
+	}
 
 	if( tabData->tabEdge == TP_LEFT_SIDE )
 		*x = tabData->paneBorder + tabData->tabWidth;

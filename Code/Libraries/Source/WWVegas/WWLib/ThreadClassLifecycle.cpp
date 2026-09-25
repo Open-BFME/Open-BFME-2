@@ -45,14 +45,17 @@ void ThreadClass::Set_Priority(int priority)
         SetThreadPriority(m_handle, m_priority);
 }
 
+// ??1ThreadClass@@UAE@XZ present-unmatched
 ThreadClass::~ThreadClass()
 {
 }
 
+#pragma optimize("s", on)
 bool ThreadClass::Is_Running()
 {
     return m_handle != 0;
 }
+#pragma optimize("s", off)
 
 void ThreadClass::Stop()
 {
