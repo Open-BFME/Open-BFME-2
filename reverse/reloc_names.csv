@@ -1,7 +1,4 @@
 name,target_rva,target_size,source,notes
-_WinMain@16,0x00002C39,1382,vendor/msvc71crt/msvcrt.lib,reloc-derived;call-sites=1;identity=real
-??4FXBoneInfo@@QAEAAU0@ABU0@@Z,0x001D9990,27,Code/GameEngine/Source/Common/Thing/EightByteVectorCopyLoop.cpp,reloc-derived;call-sites=1;identity=real
 ??1Gen_dtor_0034dd90@@UAE@XZ,0x00357C6A,56,Code/GameEngine/Source/Common/BfmeOwnedStringReset.cpp,reloc-derived;call-sites=1;identity=generated
 ?regainFocus@AudioManager@@QAEXXZ,0x0035D326,5,Code/GameEngine/Source/Main/WinMain.cpp,reloc-derived;call-sites=1;identity=real
 ??1Rva006CD6C0SizedDeleting@@UAE@XZ,0x006DAFA0,52,Code/GameEngine/Source/Common/SizedDeleteDestructors.cpp,reloc-derived;call-sites=1;identity=generated
-?_RTC_GetErrorFunc@@YAP6AHHPBDH00ZZPBX@Z,0x0075ACE1,6,vendor/msvc71crt/msvcrt.lib,reloc-derived;call-sites=1;identity=real
