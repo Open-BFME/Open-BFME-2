@@ -5219,3 +5219,4 @@ _D3DXCreateTexture@32,0x0062AF74,d3dx9_27 D3DXCreateTexture IAT thunk (jmp dword
 ??$__introsort_loop@PAHHHU?$greater@H@_STL@@@_STL@@YAXPAH00HU?$greater@H@0@@Z,0x005E523F,REL32 call in retail introsort_loop greater<int> at 0x005E523F; target boundary independently checked by Ghidra
 ??$partial_sort@PAHU?$greater@H@_STL@@@_STL@@YAXPAH00U?$greater@H@0@@Z,0x005E521C,REL32 call in retail introsort_loop greater<int> at 0x005E523F; target boundary independently checked by Ghidra
 ?writeStatInfo@StatsCollector@@AAEXXZ,0x00437921,StatsCollector::writeStatInfo; REL32 at 0x437C87 inside writeFileEnd (0x437C2D) right after the m_timeCount update, as in the BFME1/ZH donor; its body is the one the ScoreKeeper getter pins cite (call sites 0x437AB6/0x437AE8)
+?bfmeGo1055E@@YAXPAUBfmeR1055@@H@Z,0x006A4970
