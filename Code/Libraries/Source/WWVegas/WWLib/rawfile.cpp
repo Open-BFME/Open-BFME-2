@@ -241,7 +241,6 @@ int RawFileClass::Open(int rights)
 }
 
 
-// ?Is_Available@RawFileClass@@ present-unmatched
 bool RawFileClass::Is_Available(int forced)
 {
 	if (Filename.Get_Length()==0) return(false);
@@ -262,6 +261,8 @@ bool RawFileClass::Is_Available(int forced)
 		return(true);
 	}
 
+	UnicodeString wideName((const char *)Filename);
+
 	/*
 	**	Perform a raw open of the file. If this open fails for ANY REASON, including a missing
 	**	CD-ROM, this routine will return a failure condition. In all but the missing file
@@ -272,7 +273,7 @@ bool RawFileClass::Is_Available(int forced)
 		#ifdef _UNIX
 			Handle=fopen(Filename,"r");
 		#else
-			Handle = CreateFileA(Filename, GENERIC_READ, FILE_SHARE_READ,
+			Handle = CreateFileW(wideName.str(), GENERIC_READ, FILE_SHARE_READ,
 							NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 		#endif
 
