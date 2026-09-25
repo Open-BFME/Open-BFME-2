@@ -101,4 +101,21 @@ TerrainFireEmissionInfo::TerrainFireEmissionInfo(const TerrainFireEmissionInfo &
 {
 }
 
+class SphericalEmissionVelocityInfo : public EmissionVelocityInfo
+{
+public:
+    SphericalEmissionVelocityInfo(const SphericalEmissionVelocityInfo &that);
+    virtual ~SphericalEmissionVelocityInfo();
+
+private:
+    GameClientRandomVariable m_var0;
+};
+
+// ??0SphericalEmissionVelocityInfo@FXParticleSystem@@QAE@ABV01@@Z
+SphericalEmissionVelocityInfo::SphericalEmissionVelocityInfo(const SphericalEmissionVelocityInfo &that)
+    : EmissionVelocityInfo(that)
+    , m_var0(that.m_var0)
+{
+}
+
 }
