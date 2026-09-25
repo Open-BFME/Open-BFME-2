@@ -174,12 +174,9 @@ private:
 
 	SerialAuthResult m_serialAuth;
 
-	// BFME-only tail. The retail constructor @0x64D650 runs MutexClass's ctor a
-	// third time on this+0x6C - the same one it uses for the two mutexes at +4
-	// and +0xC - and then zeroes this+0x74, which is why createNewMessageQueue
-	// @0x64E620 asks the allocator for 0x78 bytes and not 0x6C. Everything ahead
-	// of it is confirmed by the matched rows in this file (+0x14, +0x24, +0x3C,
-	// +0x64, +0x68), so the two extra members can only be here. Purpose unknown.
+	// Target constructor 0x38E171 constructs this MutexClass at +0x6C and clears
+	// the trailing word at +0x74. Matched createNewMessageQueue at 0x38E460
+	// allocates 0x78 bytes; the purpose of this target-only tail remains unknown.
 	MutexClass _bfme_hole_thirdMutex;
 	Int _bfme_hole_tailWord;
 };
@@ -575,9 +572,9 @@ static void joinRoomCallback(PEER peer, PEERBool success, PEERJoinResult result,
 
 //-------------------------------------------------------------------------
 
-// ??0GameSpyPeerMessageQueue@@ present-unmatched
 GameSpyPeerMessageQueue::GameSpyPeerMessageQueue()
 {
+	_bfme_hole_tailWord = 0;
 	m_thread = NULL;
 	m_serialAuth = SERIAL_OK;
 }
