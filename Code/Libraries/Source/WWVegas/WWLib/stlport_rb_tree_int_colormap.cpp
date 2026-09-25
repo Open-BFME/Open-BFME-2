@@ -20,6 +20,7 @@ private:
 
 typedef _STL::pair<const int, MultiplayerColorDefinition> ColorMapValue;
 typedef _STL::_Rb_tree<int, ColorMapValue, _STL::_Select1st<ColorMapValue>, _STL::less<int>, _STL::allocator<ColorMapValue> > ColorMapTree;
+typedef _STL::map<int, MultiplayerColorDefinition, _STL::less<int>, _STL::allocator<ColorMapValue> > ColorMap;
 
 namespace _STL {
 // Declared only; the gate resolves this reference to the rowed body at
@@ -42,3 +43,4 @@ template void ColorMapTree::_M_erase(ColorMapTree::_Link_type);
 template void ColorMapTree::clear();
 template _STL::_Rb_tree_base<ColorMapValue, _STL::allocator<ColorMapValue> >::_Rb_tree_base(const _STL::allocator<ColorMapValue> &);
 template _STL::_Rb_tree<int, ColorMapValue, _STL::_Select1st<ColorMapValue>, _STL::less<int>, _STL::allocator<ColorMapValue> >::_Rb_tree(const _STL::less<int> &, const _STL::allocator<ColorMapValue> &);
+template _STL::map<int, MultiplayerColorDefinition, _STL::less<int>, _STL::allocator<ColorMapValue> >::map();
