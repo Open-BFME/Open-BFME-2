@@ -15,6 +15,9 @@ public:
     void Add_Head(DLNodeClass<T> *node);
     void Add_Tail(DLNodeClass<T> *node);
     void Remove_Head();
+    void Remove_Tail();
+    T *Head() { return static_cast<T *>(head); }
+    T *Tail() { return static_cast<T *>(tail); }
 };
 
 template <class T> class DLNodeClass
@@ -96,3 +99,30 @@ template <> void DLListClass<SmudgeSet>::Remove_Head()
         head->pred = 0;
     oldHead->Remove();
 }
+
+struct Smudge : public DLNodeClass<Smudge> {};
+
+template <class T> void DLNodeClass<T>::Remove()
+{
+    if (!list)
+        return;
+    if (list->Head() == this) {
+        DLListClass<T> *oldList = list;
+        list = 0;
+        oldList->Remove_Head();
+        return;
+    }
+    if (list->Tail() == this) {
+        DLListClass<T> *oldList = list;
+        list = 0;
+        oldList->Remove_Tail();
+        return;
+    }
+    if (succ)
+        succ->pred = pred;
+    if (pred)
+        pred->succ = succ;
+    list = 0;
+}
+
+template void DLNodeClass<Smudge>::Remove();

@@ -34940,3 +34940,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ?Add_Tail@?$DLListClass@USmudgeSet@@@@QAEXPAV?$DLNodeClass@USmudgeSet@@@@@Z,,0x002D2634,49,Code/GameEngine/Source/GameClient/System/SmudgeListAddHead.cpp,matched,BFME1 SmudgeSet list identity; retail call and layout evidence; byte verified
 ?Remove_Head@?$DLListClass@USmudge@@@@QAEXXZ,,0x002D2613,33,Code/GameEngine/Source/GameClient/System/SmudgeListAddHead.cpp,matched,BFME1 DLList remove head and retail Smudge layout; byte verified
 ?Remove_Head@?$DLListClass@USmudgeSet@@@@QAEXXZ,,0x002D2665,54,Code/GameEngine/Source/GameClient/System/SmudgeListAddHead.cpp,matched,BFME1 SmudgeSet list with retail four-byte node base adjustment; byte verified
+?Remove@?$DLNodeClass@USmudge@@@@QAEXXZ,,0x002D26BE,66,Code/GameEngine/Source/GameClient/System/SmudgeListAddHead.cpp,matched,BFME1 linked node removal with retail Smudge list calls; byte verified

@@ -5329,3 +5329,4 @@ _strncat,0x0062950C
 ?BFMEPoolYield@@YAXXZ,0x006105C0,descriptive local name; target pool-lock retry calls 0x6105C0 which loads a handle and calls WaitForSingleObject(handle 1); semantic identity inferred from target bytes
 ?Insert_Before@?$DLNodeClass@USmudge@@@@QAEXPAV1@@Z,0x002D2580,Smudge Add_Head direct callee and ICF template body at this address
 ?Insert_After@?$DLNodeClass@USmudgeSet@@@@QAEXPAV1@@Z,0x002D2556,SmudgeSet Add_Tail direct callee and ICF template body at this address
+?Remove_Tail@?$DLListClass@USmudge@@@@QAEXXZ,0x002D2775,Smudge node Remove direct tail-list callee and BFME1 list semantics
