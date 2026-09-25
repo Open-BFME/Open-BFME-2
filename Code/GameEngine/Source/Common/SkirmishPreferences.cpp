@@ -180,6 +180,7 @@ public:
 	void setCurrentUserName(const UnicodeString &newName);
 	AsciiString formatProfileKey(const AsciiString *keySource, const char *name);
 	AsciiString buildProfileKey(const char *name);
+	AsciiString encodeUserKey(const UnicodeString &user, const char *name);
 
 private:
 	void rebuildUserNamesEntry(void);
@@ -262,4 +263,10 @@ AsciiString SkirmishPreferences::formatProfileKey(const AsciiString *keySource, 
 AsciiString SkirmishPreferences::buildProfileKey(const char *name)
 {
 	return formatProfileKey(&m_currentUserName, name);
+}
+
+// ?encodeUserKey@SkirmishPreferences@@QAE?AVAsciiString@@ABVUnicodeString@@PBD@Z @0x43BB08
+AsciiString SkirmishPreferences::encodeUserKey(const UnicodeString &user, const char *name)
+{
+	return formatProfileKey(&UnicodeStringToQuotedPrintable(user), name);
 }
