@@ -464,14 +464,29 @@ DX8FVFCategoryContainer::DX8FVFCategoryContainer(unsigned FVF_,bool sorting_)
 
 // ----------------------------------------------------------------------------
 
-// ??1DX8FVFCategoryContainer@@ present-unmatched
+// Target vtable slot-0 view. Retail calls the scalar deleting destructor with
+// flags=0, then calls operator delete on its returned pointer; this declaration
+// models only that call-site ABI, not a separate class identity.
+class Rva00145000ScalarDtorSlotView
+{
+public:
+	virtual void *scalarDelete(unsigned int flags);
+};
+
+// Target-backed destructor for DX8FVFCategoryContainer.
 DX8FVFCategoryContainer::~DX8FVFCategoryContainer()
 {
-	REF_PTR_RELEASE(index_buffer);
+	// REF_PTR_RELEASE has the same refcount/delete semantics, but VC7.1 sinks
+	// its null store past the loop test. The volatile lvalue keeps the
+	// target-witnessed this+0xD0 clear inside the non-null branch.
+	if (index_buffer) {
+		index_buffer->Release_Ref();
+		*reinterpret_cast<void * volatile *>(&index_buffer) = NULL;
+	}
 
 	for (unsigned p=0;p<passes;++p) {
 		while (DX8TextureCategoryClass * tex = texture_category_list[p].Remove_Head()) {
-			delete tex;
+			::operator delete(reinterpret_cast<Rva00145000ScalarDtorSlotView *>(tex)->scalarDelete(0));
 		}
 	}
 }
@@ -2365,8 +2380,6 @@ void DX8MeshRendererClass::Invalidate( bool shutdown)
 
 	texture_category_container_lists_rigid.Delete_All();
 }
-
-
 
 
 

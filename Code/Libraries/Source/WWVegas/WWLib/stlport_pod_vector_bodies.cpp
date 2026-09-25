@@ -1,11 +1,12 @@
 // cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 //
-// Pristine STLport 4.5.3 vector members for fixed-size POD elements.
-// Each body was placed by a single masked whole-.text hit of this unit, but
-// none of its retail callers is claimed, so no real element type is proven:
-// BfmePodN is a placeholder naming only the element size (the BfmeE16 /
-// Rva..Element convention), and char likewise stands for any 1-byte element.
+// STLport 4.5.3 vector members instantiated with code-generation element
+// views. BfmePodN names only an element size (the BfmeE16/Rva..Element
+// convention); it is not an application-type claim. Some direct callers and
+// non-trivial element copy/destruction paths are now target-backed, but a
+// concrete identity is recorded only where that independent evidence supports
+// it. char likewise stands for any 1-byte element.
 //
 // BfmePodN (BfmeShortPodN: 2-byte aligned) is a placeholder for the real
 // N-byte element type at each site.

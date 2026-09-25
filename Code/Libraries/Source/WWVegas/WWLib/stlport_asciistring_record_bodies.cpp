@@ -9,10 +9,13 @@
 // plus ints only to give it that shape. The pair row calls the AsciiString
 // copy constructor, which ties its key. BfmeStringHeadRecordN is an N-byte
 // record whose destructor the placed bodies inline as StringBase<char>::
-// releaseBuffer on offset 0, which proves an AsciiString first member;
-// BfmeStringTailRecordN likewise releases offset N-4, a trailing AsciiString.
-// The assignable records spelled with ints first follow the placed layout.
-// No retail caller is claimed.
+// releaseBuffer on offset 0, which proves an AsciiString first member. The
+// BfmeStringTailRecordN declarations below are also code-generation views with
+// a trailing AsciiString, not complete application layouts. In particular,
+// independent target copy/destruction evidence for BfmeStringTailRecord144 is
+// modeled in stlport_stringtailrecord144_dtor.cpp and differs from this view.
+// The assignable records spelled with ints first likewise follow only the
+// placed helper layout; no application identity is inferred from their size.
 #include <vector>
 #include <map>
 
