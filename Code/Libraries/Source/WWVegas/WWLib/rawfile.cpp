@@ -587,7 +587,6 @@ int RawFileClass::Create(void)
 }
 
 
-// ?Delete@RawFileClass@@ present-unmatched
 int RawFileClass::Delete(void)
 {
 	/*
@@ -602,6 +601,8 @@ int RawFileClass::Delete(void)
 	if (!Filename) {
 		Error(ENOENT, false);
 	}
+
+	UnicodeString wideName((const char *)Filename);
 
 	/*
 	**	Repetitively try to delete the file if possible. Either return with success, or
@@ -623,7 +624,7 @@ int RawFileClass::Delete(void)
 		#ifdef _UNIX
 			deleteok=(unlink(Filename)==0)?TRUE:FALSE;
 		#else
-			deleteok=DeleteFile(Filename);
+			deleteok=DeleteFileW(wideName.str());
 		#endif
 
 		if (! deleteok) {
