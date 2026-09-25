@@ -5297,3 +5297,4 @@ _strncat,0x0062950C
 ?construct_from@RenderObjectUpdateModuleTemplateBaseCopyShim@FXParticleSystem@@QAEXPBX@Z,0x0004CB7B,callee of RenderObjectUpdateModuleTemplate copy (0x003A80FF) at the site its BFME1 donor calls it; rowed CategoryModuleTemplate copy
 ?construct_from@RenderObjectUpdateModuleTemplateSubCopyShim@FXParticleSystem@@QAEXPBX@Z,0x003A7F3E,callee of RenderObjectUpdateModuleTemplate copy (0x003A80FF) at the site its BFME1 donor calls it; rowed RenderObjectUpdateModuleInfo copy
 ?find@SkirmishFindMap@@QBEPAUSkirmishFindNode@@ABVAsciiString@@@Z,0x001F8437,Skirmish prefs throw() map lookup shim; aliases the shared _M_find worker; read from the retail REL32 in Skirmish ctor 0x0043C128
+??0RenderObjectDrawCategoryBase@@QAE@ABV0@@Z,0x004CB7B,callee of RenderObjectDrawModuleTemplate copy (0x003A9C80) at the site its BFME1 donor calls it; rowed CategoryModuleTemplate copy
