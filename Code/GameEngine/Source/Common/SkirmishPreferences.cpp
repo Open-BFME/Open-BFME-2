@@ -179,6 +179,7 @@ public:
 	_STL::list<UnicodeString> getUserNames_Rva0043C2D0(void);
 	void setCurrentUserName(const UnicodeString &newName);
 	AsciiString formatProfileKey(const AsciiString *keySource, const char *name);
+	AsciiString buildProfileKey(const char *name);
 
 private:
 	void rebuildUserNamesEntry(void);
@@ -255,4 +256,10 @@ AsciiString SkirmishPreferences::formatProfileKey(const AsciiString *keySource, 
 	AsciiString key;
 	key.format(":%d:%s:%s", m_profileIndex, keySource->str(), name);
 	return key;
+}
+
+// ?buildProfileKey@SkirmishPreferences@@QAE?AVAsciiString@@PBD@Z @0x43BB6A
+AsciiString SkirmishPreferences::buildProfileKey(const char *name)
+{
+	return formatProfileKey(&m_currentUserName, name);
 }
