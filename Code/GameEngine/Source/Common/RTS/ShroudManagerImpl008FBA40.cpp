@@ -232,6 +232,7 @@ public:
 		Int playerIndex, const Coord3D *loc) const;
 	int getPlayerStatusWord_Rva0073B890(
 		Int playerIndex, const Coord3D *loc) const;
+	void setEnabled_Rva0073B460(bool value);
 	ObjectShroudStatus getPropShroudStatusForPlayer(Int playerIndex,
 		const Coord3D *loc) const;
 	void drainPending();
@@ -341,6 +342,13 @@ int ShroudManagerImpl008FBA40::getPlayerStatusWord_Rva0073B890(
 		return reinterpret_cast<ShroudManagerImpl008FBA40Element *>(element)->
 			getPlayerStatus_Rva0073EA40(playerIndex);
 	return CELLSHROUD_CLEAR;
+}
+
+// Retail 0x0073B460 stores one byte into the manager's enabled flag at +0x68.
+// No BFME 1 donor names it; descriptive Rva-qualified name.
+void ShroudManagerImpl008FBA40::setEnabled_Rva0073B460(bool value)
+{
+	enabled = value;
 }
 
 ObjectShroudStatus ShroudManagerImpl008FBA40::getPropShroudStatusForPlayer(
