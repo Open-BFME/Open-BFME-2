@@ -34867,3 +34867,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ?getInt@Dict@@QBEHHPA_N@Z,,0x003131CA,50,Code/GameEngine/Source/Common/DictPairClear.cpp,matched,Dict getInt through rowed findPairByKey; int at pair+4; exists out-param
 ?getReal@Dict@@QBEMHPA_N@Z,,0x003131FC,54,Code/GameEngine/Source/Common/DictPairClear.cpp,matched,Dict getReal through rowed findPairByKey; float at pair+4; exists out-param
 ?getNthBool@Dict@@QBE_NH@Z,,0x00313232,33,Code/GameEngine/Source/Common/DictPairClear.cpp,matched,Dict indexed bool getter; pair at data+1+n; bool byte or false
+?getNthInt@Dict@@QBEHH@Z,,0x00313253,33,Code/GameEngine/Source/Common/DictPairClear.cpp,matched,Dict indexed int getter; pair at data+1+n; dword or 0

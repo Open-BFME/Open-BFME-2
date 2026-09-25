@@ -211,3 +211,15 @@ bool Dict::getNthBool(int n) const
 	}
 	return false;
 }
+
+// ?getNthInt@Dict@@QBEHH@Z @0x00313253
+int Dict::getNthInt(int n) const
+{
+	if (m_data)
+	{
+		DictPair *pair = (DictPair *)(m_data + 1) + n;
+		if (pair && (pair->m_key & 0xFF) == DICT_INT)
+			return *(int *)&pair->m_value;
+	}
+	return 0;
+}
