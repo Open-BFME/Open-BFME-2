@@ -66,4 +66,39 @@ OrthoEmissionVelocityInfo::OrthoEmissionVelocityInfo(const OrthoEmissionVelocity
 {
 }
 
+class EmissionVolumeInfo
+{
+public:
+    EmissionVolumeInfo(const EmissionVolumeInfo &that);
+    virtual ~EmissionVolumeInfo();
+
+    bool m_flag;
+};
+
+// New in BFME2: no BFME1 donor. Layout from retail 0x003A6E0E (three 12-byte
+// blocks at +8/+0x14/+0x20, scalar at +0x2C) and the sibling model in
+// Code/GameEngine/Source/GameClient/FXParticleSystemModules.cpp.
+class TerrainFireEmissionInfo : public EmissionVolumeInfo
+{
+public:
+    TerrainFireEmissionInfo(const TerrainFireEmissionInfo &that);
+    virtual ~TerrainFireEmissionInfo();
+
+private:
+    GameClientRandomVariable m_var0;
+    GameClientRandomVariable m_var1;
+    GameClientRandomVariable m_var2;
+    float m_unknown2C;
+};
+
+// ??0TerrainFireEmissionInfo@FXParticleSystem@@QAE@ABV01@@Z
+TerrainFireEmissionInfo::TerrainFireEmissionInfo(const TerrainFireEmissionInfo &that)
+    : EmissionVolumeInfo(that)
+    , m_var0(that.m_var0)
+    , m_var1(that.m_var1)
+    , m_var2(that.m_var2)
+    , m_unknown2C(that.m_unknown2C)
+{
+}
+
 }
