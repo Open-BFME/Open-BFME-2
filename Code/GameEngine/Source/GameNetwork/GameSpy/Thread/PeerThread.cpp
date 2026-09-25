@@ -661,10 +661,9 @@ Bool GameSpyPeerMessageQueue::isConnected( void )
 	return (m_thread) ? ((BfmePeerThreadStatusView *)m_thread)->isConnected() : false;
 }
 
-// ?isConnecting@GameSpyPeerMessageQueue@@UAE_NXZ present-unmatched
 Bool GameSpyPeerMessageQueue::isConnecting( void )
 {
-	return (m_thread) ? m_thread->isConnecting() : false;
+	return (m_thread) ? ((BfmePeerThreadStatusView *)m_thread)->isConnecting() : false;
 }
 
 void GameSpyPeerMessageQueue::addRequest( const PeerRequest& req )
