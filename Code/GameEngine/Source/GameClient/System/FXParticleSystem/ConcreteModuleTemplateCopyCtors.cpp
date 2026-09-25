@@ -12,10 +12,21 @@ public:
 	Rva003AEBC9(const Rva003AEBC9 &other);
 };
 
+class Rva003AEC8B
+{
+public:
+	Rva003AEC8B(const Rva003AEC8B &other);
+};
+
 extern "C" char Rva003AEB9C_v0;
 extern "C" char Rva003AEB9C_v14;
 extern "C" char Rva003AEB9C_v18;
 extern "C" char Rva003AEB9C_v1c;
+
+extern "C" char Rva003AEC5E_v0;
+extern "C" char Rva003AEC5E_v14;
+extern "C" char Rva003AEC5E_v18;
+extern "C" char Rva003AEC5E_v1c;
 
 class Rva003AEB9C
 {
@@ -39,4 +50,28 @@ Rva003AEB9C::Rva003AEB9C(const Rva003AEB9C &that)
 	*(void **)((char *)this + 0x14) = &Rva003AEB9C_v14;
 	*(void **)((char *)this + 0x18) = &Rva003AEB9C_v18;
 	*(void **)((char *)this + 0x1C) = &Rva003AEB9C_v1c;
+}
+
+class Rva003AEC5E
+{
+public:
+	__declspec(noinline) Rva003AEC5E(const Rva003AEC5E &other);
+
+private:
+	void *m_v0; // +0x00
+	char m_pad04[16]; // +0x04: smart member + int, owned by the template copy
+	void *m_v14; // +0x14
+	void *m_v18; // +0x18
+	void *m_v1c; // +0x1C
+};
+
+// ??0Rva003AEC5E@@QAE@ABV0@@Z
+Rva003AEC5E::Rva003AEC5E(const Rva003AEC5E &that)
+{
+	const void *src = &that;
+	((Rva003AEC8B *)this)->Rva003AEC8B::Rva003AEC8B(*(const Rva003AEC8B *)src);
+	*(void **)this = &Rva003AEC5E_v0;
+	*(void **)((char *)this + 0x14) = &Rva003AEC5E_v14;
+	*(void **)((char *)this + 0x18) = &Rva003AEC5E_v18;
+	*(void **)((char *)this + 0x1C) = &Rva003AEC5E_v1c;
 }
