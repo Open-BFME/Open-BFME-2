@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /D_STLP_NO_EXCEPTIONS /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
+// cl: /O1 /EHsc /D_STLP_NO_EXCEPTIONS /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT /Ireference/shims/bfmealloc
 // stlport
 // Tree mapping int keys to MultiplayerColorDefinition values (the
 // multiplayer color table). The node allocator and the pair _Construct are
@@ -22,11 +22,6 @@ typedef _STL::pair<const int, MultiplayerColorDefinition> ColorMapValue;
 typedef _STL::_Rb_tree<int, ColorMapValue, _STL::_Select1st<ColorMapValue>, _STL::less<int>, _STL::allocator<ColorMapValue> > ColorMapTree;
 
 namespace _STL {
-template <> class allocator<char> {
-public:
-	static char *allocate(unsigned int bytes, const void *hint);
-};
-
 // Declared only; the gate resolves this reference to the rowed body at
 // 0x380E07 (same mechanism as the fill_n cascade).
 template <>
@@ -45,3 +40,4 @@ ColorMapTree::_Link_type ColorMapTree::_M_create_node(const ColorMapValue &value
 template ColorMapTree::iterator ColorMapTree::insert_unique(ColorMapTree::iterator, const ColorMapValue &);
 template void ColorMapTree::_M_erase(ColorMapTree::_Link_type);
 template void ColorMapTree::clear();
+template _STL::_Rb_tree_base<ColorMapValue, _STL::allocator<ColorMapValue> >::_Rb_tree_base(const _STL::allocator<ColorMapValue> &);
