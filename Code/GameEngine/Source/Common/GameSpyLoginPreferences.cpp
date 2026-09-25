@@ -68,6 +68,7 @@ public:
 	~StringBase();
 	Int compare(const char *other) const;
 	Int compareNoCase(const char *other) const;
+	Bool startsWith(const char *prefix) const;
 	void set(const T *text);
 	void trim(void);
 	Bool nextToken(StringBase *token, const char *seps);
@@ -171,6 +172,7 @@ typedef _STL::map<AsciiString, _STL::list<AsciiString, _STL::allocator<AsciiStri
 typedef _STL::map<AsciiString, _STL::list<AsciiString, _STL::allocator<AsciiString> > > ClanMap;
 
 AsciiString AsciiStringToQuotedPrintable(AsciiString original);
+AsciiString QuotedPrintableToAsciiString(AsciiString original);
 AsciiString obfuscate(AsciiString in);
 
 // Retail vtable 0x00C74C48: the thirteen UserPreferences slots with the
@@ -283,6 +285,55 @@ void GameSpyLoginPreferences::ReadEmailList_Rva005CAEA3(NickMap &emails, const c
 	{
 		emails[email].push_back(nick);
 	}
+}
+
+// ?load@GameSpyLoginPreferences@@UAE_NVAsciiString@@@Z @0x5CAF5F
+// Zero Hour's load plus BFME 2's clan_ map: pass_ and date_ entries decode
+// inline, while the nick_ and clan_ lists share the helper above.
+Bool GameSpyLoginPreferences::load(AsciiString fname)
+{
+	if (!UserPreferences::load(fname))
+		return false;
+
+	UserPreferences::iterator upIt = begin();
+	while (upIt != end())
+	{
+		AsciiString key = upIt->first;
+		if (key.startsWith("pass_"))
+		{
+			AsciiString email, pass;
+			email = key.str() + 5;
+			pass = upIt->second;
+
+			AsciiString quoPass = QuotedPrintableToAsciiString(pass);
+			pass = obfuscate(quoPass);
+
+			AsciiString &passSlot = m_emailPasswordMap[email];
+			passSlot = pass;
+		}
+		if (key.startsWith("date_"))
+		{
+			AsciiString email, date;
+			email = key.str() + 5;
+			date = upIt->second;
+
+			date = QuotedPrintableToAsciiString(date);
+
+			AsciiString &dateSlot = m_emailDateMap[email];
+			dateSlot = date;
+		}
+		else if (key.startsWith("nick_"))
+		{
+			ReadEmailList_Rva005CAEA3(m_emailNickMap, "nick_", upIt);
+		}
+		else if (key.startsWith("clan_"))
+		{
+			ReadEmailList_Rva005CAEA3(m_emailClanMap, "clan_", upIt);
+		}
+		++upIt;
+	}
+
+	return true;
 }
 
 // FUN @0x5C9CDE: retail copy of Zero Hour's WOLLoginMenu obfuscate()
