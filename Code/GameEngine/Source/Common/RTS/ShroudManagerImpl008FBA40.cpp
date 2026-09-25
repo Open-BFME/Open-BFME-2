@@ -535,3 +535,28 @@ void ShroudManagerImpl008FBA40Element::updatePlayerCells008FC3B0(
 		}
 	}
 }
+
+// Transferred from BFME 1's ShroudManagerImpl008FBA40.cpp verbatim: the
+// full-shroud variant sets the status word and reports constant status 2.
+void ShroudManagerImpl008FBA40Element::updatePlayerCells008FC450(
+	ShroudManagerImpl008FBA40 *manager, int playerIndex)
+{
+	ShroudManagerImpl008FBA40PlayerState &playerState =
+		playerStates[playerIndex];
+	if (playerState.status == 0)
+	{
+		playerState.status = 0xffff;
+		for (ShroudManagerImpl008FBA40Node *node = cellNodes;
+			node; node = node->next)
+		{
+			node->object->playerState[playerIndex] = 0;
+		}
+
+		if (playerIndex == manager->unknown64)
+		{
+			int index = this - manager->elements;
+			manager->refreshCallback(index % manager->width,
+				index / manager->width, 2);
+		}
+	}
+}
