@@ -1,6 +1,7 @@
 // cl: /O1 /Os /DNDEBUG /MD /EHsc
 // DLListClass<Smudge>::Add_Head, from the BFME1 Smudge list model.
 struct Smudge;
+struct SmudgeSet;
 
 template <class T> class DLNodeClass;
 
@@ -12,6 +13,7 @@ template <class T> class DLListClass
 public:
     virtual ~DLListClass() {}
     void Add_Head(DLNodeClass<T> *node);
+    void Add_Tail(DLNodeClass<T> *node);
 };
 
 template <class T> class DLNodeClass
@@ -22,6 +24,7 @@ template <class T> class DLNodeClass
     DLListClass<T> *list;
 public:
     void Insert_Before(DLNodeClass<T> *node);
+    void Insert_After(DLNodeClass<T> *node);
 };
 
 template <class T> void DLListClass<T>::Add_Head(DLNodeClass<T> *node)
@@ -39,3 +42,19 @@ template <class T> void DLListClass<T>::Add_Head(DLNodeClass<T> *node)
 }
 
 template void DLListClass<Smudge>::Add_Head(DLNodeClass<Smudge> *node);
+
+template <class T> void DLListClass<T>::Add_Tail(DLNodeClass<T> *node)
+{
+    node->list = this;
+    if (tail) {
+        node->Insert_After(tail);
+        tail = node;
+    } else {
+        tail = node;
+        head = node;
+        node->succ = 0;
+        node->pred = 0;
+    }
+}
+
+template void DLListClass<SmudgeSet>::Add_Tail(DLNodeClass<SmudgeSet> *node);
