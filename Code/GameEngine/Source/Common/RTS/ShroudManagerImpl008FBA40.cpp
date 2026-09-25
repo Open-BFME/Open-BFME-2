@@ -261,6 +261,8 @@ private:
 	ShroudManagerImpl008FBA40RefreshCallback refreshCallback;
 
 	__declspec(noinline) void processPending(bool drainAll);
+	ShroudManagerImpl008FBA40ElementLayout *elementAtByCoord_Rva0073A1D0(
+		Real x, Real y) const;
 	friend class ShroudManagerImpl008FBA40Element;
 	friend class PartitionManager;
 	friend ShroudManagerImpl008FBA40ElementLayout *shroudElementAt(
@@ -560,6 +562,25 @@ void ShroudManagerImpl008FBA40Element::updatePlayerCells008FC450(
 				index / manager->width, 2);
 		}
 	}
+}
+
+// Retail 0x0073A1D0 outlines the float-coordinate variant of shroudElementAt:
+// floor the world-space point into cell indices and bounds-check them. BFME 1
+// only inlines the integer form, so this lands under a descriptive
+// Rva-qualified name.
+ShroudManagerImpl008FBA40ElementLayout *
+ShroudManagerImpl008FBA40::elementAtByCoord_Rva0073A1D0(Real x, Real y) const
+{
+	Int cellX = shroudFloatToLong(shroudFloor(
+		(x - region.lo.x) * inverseCellSize));
+	if (cellX < 0 || cellX >= (Int)width)
+		return 0;
+	Int cellY = shroudFloatToLong(shroudFloor(
+		(y - region.lo.y) * inverseCellSize));
+	if (cellY < 0 || cellY >= (Int)height)
+		return 0;
+	return reinterpret_cast<ShroudManagerImpl008FBA40ElementLayout *>(
+		elements + width * cellY + cellX);
 }
 
 // Retail 0x0073EA50 is this TU's adjustPlayerCounter008FC1F0; the 12B reader
