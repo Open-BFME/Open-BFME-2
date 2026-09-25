@@ -5418,3 +5418,5 @@ _printf,0x00629B14,printf import thunk; retail E8 at 0x0065CEA9 targets thunk ro
 ?_M_reallocate_map@?$deque@UBfmeE32@@V?$allocator@UBfmeE32@@@_STL@@@_STL@@IAEXI_N@Z,0x0073D5E0,retail REL32 from deque<BfmeE32>::_M_push_back_aux_v at 0x73E232; folded 128B-node map reallocator shared with int pin
 ??$__destroy_aux@U?$_Deque_iterator@UBfmeE32@@U?$_Nonconst_traits@UBfmeE32@@@_STL@@@_STL@@@_STL@@YAXU?$_Deque_iterator@UBfmeE32@@U?$_Nonconst_traits@UBfmeE32@@@_STL@@@0@0ABU__false_type@0@@Z,0x0073D030,retail REL32 from deque<BfmeE32> dtor at 0x73E121; folded with QueueElem32 row 46B identical bytes
 ?_M_destroy_nodes@?$_Deque_base@UBfmeE32@@V?$allocator@UBfmeE32@@@_STL@@@_STL@@IAEXPAPAUBfmeE32@@0@Z,0x00620200,retail REL32 from deque<BfmeE32> dtor at 0x73E13D; folded with int row 43B identical bytes
+__mbscpy,0x00629176,retail REL32 from INI getNextQuotedAsciiString 0x002E93F; IAT jmp to msvcr71 _mbscpy via 0x00BBA6D0
+__mbscat,0x0062988C,retail REL32 from INI getNextQuotedAsciiString 0x002E93F; IAT jmp to msvcr71 _mbscat via 0x00BBA5E8
