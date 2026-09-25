@@ -58,6 +58,7 @@ public:
 	DataType getType(int key) const;
 	bool getBool(int key, bool *exists) const;
 	int getInt(int key, bool *exists) const;
+	float getReal(int key, bool *exists) const;
 
 private:
 	void releaseData();
@@ -180,4 +181,19 @@ int Dict::getInt(int key, bool *exists) const
 	if (exists)
 		*exists = false;
 	return 0;
+}
+
+// ?getReal@Dict@@QBEMHPA_N@Z @0x003131FC
+float Dict::getReal(int key, bool *exists) const
+{
+	DictPair *pair = findPairByKey(key);
+	if (pair && (pair->m_key & 0xFF) == DICT_REAL)
+	{
+		if (exists)
+			*exists = true;
+		return *(float *)&pair->m_value;
+	}
+	if (exists)
+		*exists = false;
+	return 0.0f;
 }
