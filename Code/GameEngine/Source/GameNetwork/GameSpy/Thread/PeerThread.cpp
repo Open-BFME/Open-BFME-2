@@ -153,11 +153,26 @@ struct Rva0009990D {
 	void *pointer;
 	Rva0009990D() : pointer(0) {}
 	void clear();
+	void set(void *pointer);
 	~Rva0009990D() { clear(); }
 };
 struct Rva006105F0 { void stop(); };
 struct Rva0038909EPeerThreadDtorView {
 	virtual void *destroy(unsigned int flags);
+};
+// The vtable installed by target constructor 0x38AAEB has scalar deleting
+// destructor at slot 0 and ThreadClass::Execute at slot +4. The object remains
+// address-derived because the target-only tail/layout is not otherwise named.
+struct Rva0038AAEBThreadObject {
+	void *targetVtable;
+	unsigned char opaqueTail[0x4ac];
+	Rva0038AAEBThreadObject(MutexClass *queueMutex);
+};
+typedef char Rva0038AAEBThreadObject_size_check[
+	sizeof(Rva0038AAEBThreadObject) == 0x4b0 ? 1 : -1];
+struct Rva0038AAEBThreadExecuteVtable {
+	virtual void scalarDeletingDtorSlot();
+	virtual void executeSlot();
 };
 
 // Target's request queue advances in 0x1EC-byte steps. Its push_back body is
@@ -632,21 +647,16 @@ GameSpyPeerMessageQueue::~GameSpyPeerMessageQueue()
 	endThread();
 }
 
-// ?startThread@GameSpyPeerMessageQueue@@ present-unmatched
 void GameSpyPeerMessageQueue::startThread( void )
 {
-	if (!m_thread)
-	{
-		m_thread = NEW PeerThreadClass;
-		m_thread->Execute();
-	}
-	else
-	{
-		if (!m_thread->Is_Running())
-		{
-			m_thread->Execute();
-		}
-	}
+	if (m_thread)
+		return;
+	_bfme_hole_tailOwner.set(NEW MutexClass::LockClass(
+		_bfme_hole_thirdMutex, -1));
+	Rva0038AAEBThreadObject *thread =
+		NEW Rva0038AAEBThreadObject(&_bfme_hole_thirdMutex);
+	m_thread = (PeerThreadClass *)thread;
+	((Rva0038AAEBThreadExecuteVtable *)thread)->executeSlot();
 }
 
 void GameSpyPeerMessageQueue::endThread( void )
