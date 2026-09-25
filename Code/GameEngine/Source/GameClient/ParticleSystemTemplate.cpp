@@ -48,6 +48,10 @@ public:
     // does after the frame.
     ~AsciiString();
 
+    // Declared, never defined: setTextureFilename tail-jumps to it, and the
+    // call resolves through its own ledger row.
+    AsciiString &operator=(const AsciiString &that);
+
 private:
     char *m_text;
 };
@@ -136,6 +140,7 @@ public:
     AsciiString getName() const;
     AsciiString getTextureFilename() const;
     ParticleType getParticleType() const;
+    void setTextureFilename(const AsciiString &name);
     static void parse(INI *ini, void *instance, void *store, const void *userData);
 
 private:
@@ -182,6 +187,12 @@ AsciiString ParticleSystemTemplate::getTextureFilename() const
 ParticleType ParticleSystemTemplate::getParticleType() const
 {
     return m_particleType;
+}
+
+// ?setTextureFilename@ParticleSystemTemplate@FXParticleSystem@@QAEXABVAsciiString@@@Z
+void ParticleSystemTemplate::setTextureFilename(const AsciiString &name)
+{
+    m_textureFilename = name;
 }
 
 // ?parse@ParticleSystemTemplate@FXParticleSystem@@SAXPAVINI@@PAX1PBX@Z
