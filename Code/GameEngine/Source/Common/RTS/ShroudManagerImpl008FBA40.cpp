@@ -475,3 +475,33 @@ void ShroudManagerImpl008FBA40Element::adjustPlayerCounter008FC1F0(
 		amount = 0xffff;
 	*counter = (unsigned short)amount;
 }
+
+// Transferred from BFME 1's ShroudManagerImpl008FBA40.cpp verbatim: the
+// reveal-count-increment variant refreshes through the manager callback when
+// the visible status word changes.
+void ShroudManagerImpl008FBA40Element::updatePlayerCells008FC300(
+	ShroudManagerImpl008FBA40 *manager, int playerIndex)
+{
+	ShroudManagerImpl008FBA40PlayerState &playerState =
+		playerStates[playerIndex];
+	int oldStatus = shroudStatusFromCount(playerState.status);
+	++playerState.status;
+	if (playerState.status == 0)
+		playerState.status = 1;
+	int newStatus = shroudStatusFromCount(playerState.status);
+	if (newStatus != oldStatus)
+	{
+		for (ShroudManagerImpl008FBA40Node *node = cellNodes;
+			node; node = node->next)
+		{
+			node->object->playerState[playerIndex] = 0;
+		}
+
+		if (playerIndex == manager->unknown64)
+		{
+			int index = this - manager->elements;
+			manager->refreshCallback(index % manager->width,
+				index / manager->width, newStatus);
+		}
+	}
+}
