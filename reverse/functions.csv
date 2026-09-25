@@ -34621,3 +34621,18 @@ _Rva0080FD30,,0x0067BC30,146,Code/Libraries/Source/DirtySock/Rva0080FD30MultiPre
 ?get@Rva0027175CZeroGetter@@QBEHXZ,,0x0027175C,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
 ?get@Rva00271776ZeroGetter@@QBEHXZ,,0x00271776,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
 ?get@Rva0028AC5FZeroGetter@@QBEHXZ,,0x0028AC5F,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
+??_GTextureStatisticsStruct@@QAEPAXI@Z,,0x00118F30,30,Code/Libraries/Source/WWVegas/WWLib/FamilyDeletingDtorsO2.cpp,matched,scalar deleting dtor (/O2 add-esp form); same-shape sibling of 0x72C0 selected by its dtor callee
+??_GDX8IndexBufferClass@@UAEPAXI@Z,,0x00139200,30,Code/Libraries/Source/WWVegas/WWLib/FamilyDeletingDtorsO2.cpp,matched,scalar deleting dtor (/O2 add-esp form); same-shape sibling of 0x72C0 selected by its dtor callee
+??_GSortingIndexBufferClass@@UAEPAXI@Z,,0x00139220,30,Code/Libraries/Source/WWVegas/WWLib/FamilyDeletingDtorsO2.cpp,matched,scalar deleting dtor (/O2 add-esp form); same-shape sibling of 0x72C0 selected by its dtor callee
+??_GRva00145610@@UAEPAXI@Z,,0x00146EC0,30,Code/Libraries/Source/WWVegas/WWLib/FamilyDeletingDtorsO2.cpp,matched,scalar deleting dtor (/O2 add-esp form); same-shape sibling of 0x72C0 selected by its dtor callee
+??_GBfmeOwnVVE@@QAEPAXI@Z,,0x0015D020,30,Code/Libraries/Source/WWVegas/WWLib/FamilyDeletingDtorsO2.cpp,matched,scalar deleting dtor (/O2 add-esp form); same-shape sibling of 0x72C0 selected by its dtor callee
+??_GRva0015D0E0@@UAEPAXI@Z,,0x0015D7E0,30,Code/Libraries/Source/WWVegas/WWLib/FamilyDeletingDtorsO2.cpp,matched,scalar deleting dtor (/O2 add-esp form); same-shape sibling of 0x72C0 selected by its dtor callee
+??_GMeshGeometryClass@@UAEPAXI@Z,,0x0016D790,30,Code/Libraries/Source/WWVegas/WWLib/FamilyDeletingDtorsO2.cpp,matched,scalar deleting dtor (/O2 add-esp form); same-shape sibling of 0x72C0 selected by its dtor callee
+??_GRva00180EA0@@UAEPAXI@Z,,0x00180E80,30,Code/Libraries/Source/WWVegas/WWLib/FamilyDeletingDtorsO2.cpp,matched,scalar deleting dtor (/O2 add-esp form); same-shape sibling of 0x72C0 selected by its dtor callee
+??_GGen_dtor_00625040@@QAEPAXI@Z,,0x0061EF60,30,Code/Libraries/Source/WWVegas/WWLib/FamilyDeletingDtorsO2.cpp,matched,scalar deleting dtor (/O2 add-esp form); same-shape sibling of 0x72C0 selected by its dtor callee
+??_GGen_dtor_009f2600@@UAEPAXI@Z,,0x006252D0,30,Code/Libraries/Source/WWVegas/WWLib/FamilyDeletingDtorsO2.cpp,matched,scalar deleting dtor (/O2 add-esp form); same-shape sibling of 0x72C0 selected by its dtor callee
+??_GRva00666BA0@@UAEPAXI@Z,,0x00661330,30,Code/Libraries/Source/WWVegas/WWLib/FamilyDeletingDtorsO2.cpp,matched,scalar deleting dtor (/O2 add-esp form); same-shape sibling of 0x72C0 selected by its dtor callee
+??_GRva001D28F0Element@@QAEPAXI@Z,,0x006896D0,30,Code/Libraries/Source/WWVegas/WWLib/FamilyDeletingDtorsO2.cpp,matched,scalar deleting dtor (/O2 add-esp form); same-shape sibling of 0x72C0 selected by its dtor callee
+??_GGen_008812D0@@QAEPAXI@Z,,0x006C07D0,30,Code/Libraries/Source/WWVegas/WWLib/FamilyDeletingDtorsO2.cpp,matched,scalar deleting dtor (/O2 add-esp form); same-shape sibling of 0x72C0 selected by its dtor callee
+??_GGen_008AC620@@QAEPAXI@Z,,0x006EFB70,30,Code/Libraries/Source/WWVegas/WWLib/FamilyDeletingDtorsO2.cpp,matched,scalar deleting dtor (/O2 add-esp form); same-shape sibling of 0x72C0 selected by its dtor callee
+??_GStreakLineClass@@UAEPAXI@Z,,0x00742570,30,Code/Libraries/Source/WWVegas/WWLib/FamilyDeletingDtorsO2.cpp,matched,scalar deleting dtor (/O2 add-esp form); same-shape sibling of 0x72C0 selected by its dtor callee
