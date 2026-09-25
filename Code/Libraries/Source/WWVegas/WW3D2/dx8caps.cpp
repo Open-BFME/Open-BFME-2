@@ -932,16 +932,7 @@ void DX8Caps::Check_Render_To_Texture_Support(WW3DFormat display_format,const D3
 //! Check Depth Stencil Format Support
 /*! KJM
 */
-// ?Check_Depth_Stencil_Support@DX8Caps@@AAEXW4WW3DFormat@@ABU_D3DCAPS8@@@Z present-unmatched
-// STILL SHORT OF EXACT, and only by register naming.  The structure, the
-// switch range, both jump tables and all 146 bytes are right; retail keeps the
-// loop counter in esi and indexes the byte table with it directly
-// (`movzx ecx,[esi+52B3DEh]`) while our build recomputes i-70 into eax and
-// indexes with that, and the whole call sequence is shifted one register
-// across -- ecx/edx where we use edx/ecx.  That is the same allocator phase
-// 0x00038790 and 0x0000D050 are stuck behind.  `int` instead of `unsigned` for
-// the loop variable does not move it.
-//
+// ?Check_Depth_Stencil_Support@DX8Caps@@AAEXW4WW3DFormat@@ABU_D3DCAPS8@@@Z
 // BFME's depth-stencil table is indexed by the D3DFORMAT value itself, like
 // the other two, so the loop runs 70..80 -- D3DFMT_D16_LOCKABLE through
 // D3DFMT_D16 -- and skips the four values in that span that are not depth
@@ -970,7 +961,12 @@ void DX8Caps::Check_Depth_Stencil_Support(WW3DFormat display_format, const D3DCA
 
 	for (unsigned i=70;i<81;++i)
 	{
-		switch (i)
+		// The discriminant is signed (WW3DFormat is an enum): with a signed
+		// switch value the compiler indexes the case map with the raw loop
+		// counter (`movzx ecx,[esi+map]`) instead of reusing the range-check
+		// temporary (`movzx eax,[eax]`), and the whole call sequence follows
+		// retail's ecx/edx/dl allocation from there.
+		switch ((WW3DFormat)i)
 		{
 		// 82 and 83 are D3DFMT_D32F_LOCKABLE and D3DFMT_D24FS8 -- D3D9-only
 		// depth formats, and more corroboration that this renderer is D3D9.
