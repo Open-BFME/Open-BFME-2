@@ -5420,3 +5420,4 @@ _printf,0x00629B14,printf import thunk; retail E8 at 0x0065CEA9 targets thunk ro
 ?_M_destroy_nodes@?$_Deque_base@UBfmeE32@@V?$allocator@UBfmeE32@@@_STL@@@_STL@@IAEXPAPAUBfmeE32@@0@Z,0x00620200,retail REL32 from deque<BfmeE32> dtor at 0x73E13D; folded with int row 43B identical bytes
 __mbscpy,0x00629176,retail REL32 from INI getNextQuotedAsciiString 0x002E93F; IAT jmp to msvcr71 _mbscpy via 0x00BBA6D0
 __mbscat,0x0062988C,retail REL32 from INI getNextQuotedAsciiString 0x002E93F; IAT jmp to msvcr71 _mbscat via 0x00BBA5E8
+?friend_awakenUpdateModule@GameLogic@@QAEXPAVObject@@PAVUpdateModule@@I@Z,0x0024297F,BFME1 donor GameLogicAwakenUpdate plus retail 0x44DF71 REL32 with obj-this-frame arg order
