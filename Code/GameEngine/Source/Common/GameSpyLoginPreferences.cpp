@@ -31,6 +31,10 @@
 #include <map>
 #include <list>
 #include <stdlib.h>
+#include <string.h>
+
+void *operator new[](unsigned size);
+void operator delete[](void *p);
 
 struct _iobuf;
 typedef struct _iobuf FILE;
@@ -104,6 +108,7 @@ public:
 	void format(const char *fmt, ...);
 	void toLower();
 	Bool operator==(const char *other) const { return compare(other) == 0; }
+	int getLength() const { return m_data ? m_data->length : 0; }
 };
 
 class UnicodeString : public StringBase<unsigned short>
@@ -183,4 +188,26 @@ private:
 GameSpyLoginPreferences::GameSpyLoginPreferences( void )
 {
 	load("GameSpyLogin.ini");
+}
+
+// FUN @0x5C9CDE: retail copy of Zero Hour's WOLLoginMenu obfuscate()
+AsciiString obfuscate( AsciiString in )
+{
+	char *buf = new char[in.getLength() + 1];
+	strcpy(buf, in.str());
+	static const char *xor = "1337Munkee";
+	char *c = buf;
+	const char *c2 = xor;
+	while (*c)
+	{
+		if (!*c2)
+			c2 = xor;
+		if (*c != *c2)
+			*c = *c++ ^ *c2++;
+		else
+			c++, c2++;
+	}
+	AsciiString out = buf;
+	delete[] buf;
+	return out;
 }

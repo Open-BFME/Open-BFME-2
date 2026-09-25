@@ -5245,3 +5245,5 @@ _D3DXCreateTexture@32,0x0062AF74,d3dx9_27 D3DXCreateTexture IAT thunk (jmp dword
 _rand,0x00629A3C
 _strncat,0x0062950C
 ??1Rva001DBAC3Base@@UAE@XZ,0x001DBAC3,base destructor tail-called by twelve derived dtors (0x35D47B..0x35FF76); rowed under a setter placeholder
+??0?$map@VAsciiString@@V?$list@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@V?$list@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@@_STL@@@3@@_STL@@QAE@XZ,0x0033C432,ICF-folded STLport map default ctor (same 25B body as map<int,void*>); REL32s in GameSpyLoginPreferences ctor 0x5CB1B3 for the +0x2c/+0x38 list-valued maps
+?load@GameSpyLoginPreferences@@UAE_NVAsciiString@@@Z,0x005CAF5F,direct callee of GameSpyLoginPreferences ctor 0x5CB1B3 with GameSpyLogin.ini by-value temp; delegates to UserPreferences::load first; vtable 0xC74C48 slot 13; BFME1 GameSpyLoginPreferencesLoadThunk donor diverged with clan_ map
