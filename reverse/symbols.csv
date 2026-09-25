@@ -5330,3 +5330,4 @@ _strncat,0x0062950C
 ?Insert_Before@?$DLNodeClass@USmudge@@@@QAEXPAV1@@Z,0x002D2580,Smudge Add_Head direct callee and ICF template body at this address
 ?Insert_After@?$DLNodeClass@USmudgeSet@@@@QAEXPAV1@@Z,0x002D2556,SmudgeSet Add_Tail direct callee and ICF template body at this address
 ?Remove_Tail@?$DLListClass@USmudge@@@@QAEXXZ,0x002D2775,Smudge node Remove direct tail-list callee and BFME1 list semantics
+?Remove_Tail@?$DLListClass@USmudgeSet@@@@QAEXXZ,0x002D2796,SmudgeSet node Remove direct tail-list callee; four-byte derived adjustment
