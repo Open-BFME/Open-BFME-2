@@ -152,6 +152,11 @@ struct BfmePeerThreadStatusView {
 	Bool isConnecting( void ) { return m_isConnecting; }
 	Bool isConnected( void ) { return m_isConnected; }
 };
+struct Rva0009990D { void clear(); };
+struct Rva006105F0 { void stop(); };
+struct Rva0038909EPeerThreadDtorView {
+	virtual void *destroy(unsigned int flags);
+};
 
 // Target's request queue advances in 0x1EC-byte steps. Its push_back body is
 // already verified under this size-only record view; PeerRequest payload
@@ -215,8 +220,9 @@ private:
 	SerialAuthResult m_serialAuth;
 
 	// Target constructor 0x38E171 constructs this MutexClass at +0x6C and clears
-	// the trailing word at +0x74. Matched createNewMessageQueue at 0x38E460
-	// allocates 0x78 bytes; the purpose of this target-only tail remains unknown.
+	// +0x74. Target startThread stores a heap LockClass owner there via 0x998EA;
+	// endThread clears it via 0x9990D. Keep the wrapper itself opaque. Matched
+	// createNewMessageQueue at 0x38E460 allocates 0x78 bytes.
 	MutexClass _bfme_hole_thirdMutex;
 	Int _bfme_hole_tailWord;
 };
@@ -642,11 +648,18 @@ void GameSpyPeerMessageQueue::startThread( void )
 	}
 }
 
-// ?endThread@GameSpyPeerMessageQueue@@ present-unmatched
 void GameSpyPeerMessageQueue::endThread( void )
 {
-	if (m_thread)
-		delete m_thread;
+	if (m_thread) {
+		((Rva0009990D *)&_bfme_hole_tailWord)->clear();
+		((Rva006105F0 *)m_thread)->stop();
+		void *threadToFree;
+		if (m_thread)
+			threadToFree = ((Rva0038909EPeerThreadDtorView *)m_thread)->destroy(0);
+		else
+			threadToFree = NULL;
+		::operator delete(threadToFree);
+	}
 	m_thread = NULL;
 }
 
