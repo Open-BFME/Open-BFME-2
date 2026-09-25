@@ -8,9 +8,19 @@ class AsciiString
 {
 public:
 	~AsciiString();
+	AsciiString &operator=(const AsciiString &other);
 
 private:
 	char *m_data;
+};
+
+template <typename T> class StringBase
+{
+public:
+	void set(const StringBase &other);
+
+private:
+	void *m_data;
 };
 
 extern "C" void free(void *);
@@ -44,6 +54,7 @@ public:
 
 		void clear();
 		void setNameAndType(int key, DataType type);
+		void copyFrom(DictPair *that);
 	};
 
 	struct DictPairData
@@ -113,6 +124,31 @@ void Dict::DictPair::setNameAndType(int key, DataType type)
 	if ((m_key & 0xFF) != type)
 		clear();
 	m_key = (key << 8) | type;
+}
+
+// ?copyFrom@DictPair@Dict@@QAEXPAU12@@Z @0x00313404
+void Dict::DictPair::copyFrom(DictPair *that)
+{
+	int curType = m_key & 0xFF;
+	int newType = that->m_key & 0xFF;
+	if (curType != newType)
+		clear();
+	switch (newType)
+	{
+		case DICT_BOOL:
+		case DICT_INT:
+		case DICT_REAL:
+			*this = *that;
+			break;
+		case DICT_ASCIISTRING:
+			m_key = that->m_key;
+			*(AsciiString *)&m_value = *(AsciiString *)&that->m_value;
+			break;
+		case DICT_UNICODESTRING:
+			m_key = that->m_key;
+			((StringBase<unsigned short> *)&m_value)->set(*(StringBase<unsigned short> *)&that->m_value);
+			break;
+	}
 }
 
 // ?clear@Dict@@QAEXXZ @0x00313574
