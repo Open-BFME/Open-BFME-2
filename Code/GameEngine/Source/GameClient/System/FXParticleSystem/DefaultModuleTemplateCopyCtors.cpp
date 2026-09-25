@@ -22,6 +22,12 @@ public:
 	DefaultColorModuleInfo(const DefaultColorModuleInfo &other);
 };
 
+class DefaultPhysicsModuleInfo
+{
+public:
+	DefaultPhysicsModuleInfo(const DefaultPhysicsModuleInfo &other);
+};
+
 }
 
 extern "C" char Rva003AEB0A_v0a;
@@ -31,6 +37,14 @@ extern "C" char Rva003AEB0A_vsub;
 extern "C" char Rva003AEB0A_v0b;
 extern "C" char Rva003AEB0A_v14b;
 extern "C" char Rva003AEB0A_v18b;
+
+extern "C" char Rva003AEBC9_v0a;
+extern "C" char Rva003AEBC9_v14a;
+extern "C" char Rva003AEBC9_v18a;
+extern "C" char Rva003AEBC9_vsub;
+extern "C" char Rva003AEBC9_v0b;
+extern "C" char Rva003AEBC9_v14b;
+extern "C" char Rva003AEBC9_v18b;
 
 class Rva003AEB0A
 {
@@ -62,4 +76,36 @@ Rva003AEB0A::Rva003AEB0A(const Rva003AEB0A &that)
 	*(void **)this = &Rva003AEB0A_v0b;
 	*(void **)((char *)this + 0x14) = &Rva003AEB0A_v14b;
 	*(void **)((char *)this + 0x18) = &Rva003AEB0A_v18b;
+}
+
+class Rva003AEBC9
+{
+public:
+	__declspec(noinline) Rva003AEBC9(const Rva003AEBC9 &other);
+
+private:
+	void *m_v0; // +0x00
+	char m_pad04[16]; // +0x04: smart member + int, owned by the base copy
+	void *m_v14; // +0x14
+	void *m_v18; // +0x18
+	char m_info[4]; // +0x1C: info head, owned by the sub copy
+};
+
+// ??0Rva003AEBC9@@QAE@ABV0@@Z
+Rva003AEBC9::Rva003AEBC9(const Rva003AEBC9 &that)
+{
+	const void *src = &that;
+	((Rva003AEEB3 *)this)->Rva003AEEB3::Rva003AEEB3(*(const Rva003AEEB3 *)src);
+	const void *sub_src = src ? (const char *)src + 0x1C : 0;
+	FXParticleSystem::DefaultPhysicsModuleInfo *sub =
+		(FXParticleSystem::DefaultPhysicsModuleInfo *)((char *)this + 0x1C);
+	*(void **)this = &Rva003AEBC9_v0a;
+	*(void **)((char *)this + 0x14) = &Rva003AEBC9_v14a;
+	*(void **)((char *)this + 0x18) = &Rva003AEBC9_v18a;
+	sub->DefaultPhysicsModuleInfo::DefaultPhysicsModuleInfo(
+		*(const FXParticleSystem::DefaultPhysicsModuleInfo *)sub_src);
+	*(void **)sub = &Rva003AEBC9_vsub;
+	*(void **)this = &Rva003AEBC9_v0b;
+	*(void **)((char *)this + 0x14) = &Rva003AEBC9_v14b;
+	*(void **)((char *)this + 0x18) = &Rva003AEBC9_v18b;
 }
