@@ -34640,3 +34640,4 @@ _Rva0080FD30,,0x0067BC30,146,Code/Libraries/Source/DirtySock/Rva0080FD30MultiPre
 _piBroadcastKeyChangedA,,0x006AB1D0,59,Code/GameEngine/Source/GameNetwork/GameSpy/peer/peerChannelStateCallbacks.cpp,matched,BFME1 byte-identical donor; b1 0x0086B950
 _piUserModeChangedA,,0x006AB210,54,Code/GameEngine/Source/GameNetwork/GameSpy/peer/peerChannelStateCallbacks.cpp,matched,BFME1 byte-identical donor; b1 0x0086B990
 _piChannelModeChangedA,,0x006AB250,49,Code/GameEngine/Source/GameNetwork/GameSpy/peer/peerChannelStateCallbacks.cpp,matched,BFME1 byte-identical donor; b1 0x0086B9D0
+_piBroadcastKeyChangedA,,0x006AB1D0,59,Code/GameEngine/Source/GameNetwork/GameSpy/peer/peerChannelStateCallbacks.cpp,matched,BFME1 byte-identical donor; b1 0x0086B950
