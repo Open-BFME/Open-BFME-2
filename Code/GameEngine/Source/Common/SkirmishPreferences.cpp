@@ -171,6 +171,7 @@ public:
 	SkirmishPreferences(Int profileIndex);
 	virtual ~SkirmishPreferences();
 	virtual Bool write(void);
+	_STL::list<UnicodeString> getUserNames_Rva0043C2D0(void);
 
 private:
 	void rebuildUserNamesEntry(void);
@@ -215,4 +216,11 @@ SkirmishPreferences::SkirmishPreferences(Int profileIndex)
 // ??1SkirmishPreferences@@UAE@XZ @0x43C286
 SkirmishPreferences::~SkirmishPreferences()
 {
+}
+
+// ?getUserNames_Rva0043C2D0 @0x43C2D0: returns m_userNames by value
+// (copy ctor 0x43C0D0); callers at 0x522589/0x5226F0 iterate the list.
+_STL::list<UnicodeString> SkirmishPreferences::getUserNames_Rva0043C2D0(void)
+{
+	return m_userNames;
 }
