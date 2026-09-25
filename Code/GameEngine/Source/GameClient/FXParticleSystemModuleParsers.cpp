@@ -57,6 +57,7 @@ FX_PARTICLE_PARSER(RenderObjectUpdateModuleTemplate, 0x00C6C710)
 FX_PARTICLE_PARSER(RenderObjectDrawModuleTemplate, 0x00C6C8E0)
 FX_PARTICLE_PARSER(LifeEventModuleTemplate, 0x00C6CAC0)
 FX_PARTICLE_PARSER(TerrainCollisionModuleTemplate, 0x00C6CB68)
+FX_PARTICLE_PARSER(TerrainFireEmissionModuleTemplate, 0x00C6C128)
 
 #undef FX_PARTICLE_PARSER
 }
