@@ -59,6 +59,8 @@ public:
 	bool getBool(int key, bool *exists) const;
 	int getInt(int key, bool *exists) const;
 	float getReal(int key, bool *exists) const;
+	bool getNthBool(int n) const;
+	int getNthInt(int n) const;
 
 private:
 	void releaseData();
@@ -196,4 +198,16 @@ float Dict::getReal(int key, bool *exists) const
 	if (exists)
 		*exists = false;
 	return 0.0f;
+}
+
+// ?getNthBool@Dict@@QBE_NH@Z @0x00313232
+bool Dict::getNthBool(int n) const
+{
+	if (m_data)
+	{
+		DictPair *pair = (DictPair *)(m_data + 1) + n;
+		if (pair && (pair->m_key & 0xFF) == DICT_BOOL)
+			return *(bool *)&pair->m_value;
+	}
+	return false;
 }
