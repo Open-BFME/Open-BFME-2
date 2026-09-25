@@ -155,6 +155,22 @@ struct AsciiStringPlusString : AsciiStringRef
 	AsciiStringRef m_second;
 };
 
+// "string + string + char"
+struct AsciiStringPlusStringChar : AsciiStringPlusString
+{
+	int write(char *dst);
+
+	char m_char;
+};
+
+// "string + string + text"
+struct AsciiStringPlusStringText : AsciiStringPlusString
+{
+	int write(char *dst);
+
+	Rva000B3F84Pair m_text;
+};
+
 // ?write@Rva000B3F84Pair@@QAEHPAD@Z @0xB44F0
 int Rva000B3F84Pair::write(char *dst)
 {
@@ -233,6 +249,21 @@ AsciiStringPlusString::operator AsciiString()
 	AsciiString tmp;
 	write(tmp.getBufferForRead(length()));
 	return tmp;
+}
+
+// ?write@AsciiStringPlusStringChar@@QAEHPAD@Z @0x50EE58
+int AsciiStringPlusStringChar::write(char *dst)
+{
+	int n = AsciiStringPlusString::write(dst);
+	dst[n] = m_char;
+	return n + 1;
+}
+
+// ?write@AsciiStringPlusStringText@@QAEHPAD@Z @0x50F219
+int AsciiStringPlusStringText::write(char *dst)
+{
+	int n = AsciiStringPlusString::write(dst);
+	return n + m_text.write(dst + n);
 }
 
 // ??H@YA?AUAsciiStringPlusText@@ABVAsciiString@@PBD@Z @0xB49C5
