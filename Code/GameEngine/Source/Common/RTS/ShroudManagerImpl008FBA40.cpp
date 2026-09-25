@@ -228,6 +228,8 @@ public:
 	~ShroudManagerImpl008FBA40();
 	__declspec(noinline) CellShroudStatus getShroudStatusForPlayer(
 		Int playerIndex, Int x, Int y) const;
+	CellShroudStatus getShroudStatusForPlayerCoord_Rva0073B940(
+		Int playerIndex, const Coord3D *loc) const;
 	ObjectShroudStatus getPropShroudStatusForPlayer(Int playerIndex,
 		const Coord3D *loc) const;
 	void drainPending();
@@ -301,6 +303,24 @@ ShroudManagerImpl008FBA40::getShroudStatusForPlayer(
 	if (result == CELLSHROUD_FOGGED && !enabled)
 		result = CELLSHROUD_CLEAR;
 	return (CellShroudStatus)result;
+}
+
+// Retail 0x0073B940 is the coordinate overload of the cell-status getter: it
+// floors the world point through elementAtByCoord and maps the status word the
+// same way. No direct callers remain in retail; the name is descriptive.
+CellShroudStatus ShroudManagerImpl008FBA40::getShroudStatusForPlayerCoord_Rva0073B940(
+	Int playerIndex, const Coord3D *loc) const
+{
+	if (playerIndex < 0 || playerIndex >= 20)
+		return CELLSHROUD_SHROUDED;
+
+	ShroudManagerImpl008FBA40ElementLayout *element =
+		elementAtByCoord_Rva0073A1D0(loc->x, loc->y);
+	if (!element)
+		return CELLSHROUD_SHROUDED;
+
+	return (CellShroudStatus)shroudStatusFromRaw(
+		element->playerStates[playerIndex][0]);
 }
 
 ObjectShroudStatus ShroudManagerImpl008FBA40::getPropShroudStatusForPlayer(
