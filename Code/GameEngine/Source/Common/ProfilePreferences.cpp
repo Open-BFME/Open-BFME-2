@@ -151,6 +151,10 @@ extern UnicodeString g_emptyProfilePath;
 extern UnicodeString g_strategicStatsLeaf;
 extern UnicodeString g_realTimeStatsLeaf;
 
+// File deleter shared by the stat-clear helpers below: appends the leaf to
+// the profile path and removes that file from the user-data directory.
+Bool deleteFileInGlobalDataDir(const UnicodeString &fname);
+
 class ProfilePreferences : public UserPreferences
 {
 public:
@@ -172,6 +176,7 @@ public:
 	StrategicStatsPreferences(const UnicodeString &profilePath);
 	virtual ~StrategicStatsPreferences();
 	virtual void loadProfileStats(const UnicodeString &profilePath);
+	static Bool deleteStatsFile(const UnicodeString &profilePath);
 };
 
 // RealTimeStatsPreferences (vtable 0x00C69188) loads "RealTimeStats.ini"
@@ -185,6 +190,7 @@ public:
 	RealTimeStatsPreferences(const UnicodeString &profilePath);
 	virtual ~RealTimeStatsPreferences();
 	virtual void loadProfileStats(const UnicodeString &profilePath);
+	static Bool deleteStatsFile(const UnicodeString &profilePath);
 };
 
 // ??0ProfilePreferences@@QAE@H@Z
@@ -232,3 +238,15 @@ RealTimeStatsPreferences::RealTimeStatsPreferences(const UnicodeString &profileP
 	loadProfileStats(profilePath);
 	setBool("UseMapListTooltips", true);
 }
+
+// StrategicStatsPreferences::deleteStatsFile @0x53789A: copies the profile
+// path, appends the StrategicStats leaf and deletes that file from the
+// user-data directory, returning whether the removal succeeded. Called
+// directly (not through the vtable) by the profile reset at 0x0043C31F.
+Bool StrategicStatsPreferences::deleteStatsFile(const UnicodeString &profilePath)
+{
+	UnicodeString path(profilePath);
+	path.concat(g_strategicStatsLeaf);
+	return deleteFileInGlobalDataDir(path);
+}
+
