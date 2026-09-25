@@ -164,8 +164,8 @@ protected:
 
 typedef _STL::map<AsciiString, AsciiString> PassMap;
 typedef _STL::map<AsciiString, AsciiString> DateMap;
-typedef _STL::map<AsciiString, AsciiString> NickMap;
-typedef _STL::map<AsciiString, AsciiString> ClanMap;
+typedef _STL::map<AsciiString, _STL::list<AsciiString, _STL::allocator<AsciiString> > > NickMap;
+typedef _STL::map<AsciiString, _STL::list<AsciiString, _STL::allocator<AsciiString> > > ClanMap;
 
 // Retail vtable 0x00C74C48: the thirteen UserPreferences slots with the
 // deleting dtor and write overridden, plus the by-value load appended.
@@ -188,6 +188,11 @@ private:
 GameSpyLoginPreferences::GameSpyLoginPreferences( void )
 {
 	load("GameSpyLogin.ini");
+}
+
+// ??1GameSpyLoginPreferences@@UAE@XZ @0x5CAB59
+GameSpyLoginPreferences::~GameSpyLoginPreferences( void )
+{
 }
 
 // FUN @0x5C9CDE: retail copy of Zero Hour's WOLLoginMenu obfuscate()
