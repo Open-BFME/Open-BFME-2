@@ -56,6 +56,7 @@ public:
 public:
 	void clear();
 	DataType getType(int key) const;
+	bool getBool(int key, bool *exists) const;
 
 private:
 	void releaseData();
@@ -148,4 +149,19 @@ Dict::DataType Dict::getType(int key) const
 	if (pair)
 		return (DataType)(pair->m_key & 0xFF);
 	return DICT_NONE;
+}
+
+// ?getBool@Dict@@QBE_NHPA_N@Z @0x00313198
+bool Dict::getBool(int key, bool *exists) const
+{
+	DictPair *pair = findPairByKey(key);
+	if (pair && (pair->m_key & 0xFF) == DICT_BOOL)
+	{
+		if (exists)
+			*exists = true;
+		return *(bool *)&pair->m_value;
+	}
+	if (exists)
+		*exists = false;
+	return false;
 }
