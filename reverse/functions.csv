@@ -34568,3 +34568,4 @@ _Rva001CA000Vp6WideAccum,,0x001CA000,4240,Code/GameEngine/Source/Common/Rva001CA
 ?set@Rva0046F7D7DwordSlot@@QAEXH@Z,,0x0046F7D7,13,Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp,matched,Disp32 dword setter; pairs with getter at 0x46F7E4; opaque holder
 ??_Etype_info@@UAEPAXI@Z,,0x00629048,75,vendor/msvc71crt/msvcrt.lib,matched,vendored=msvc71-crt;member=build\intel\dll_obj\ti_inst.obj
 ?GadgetListBoxGetEnabledSelectedItemColor@@YAHPAVGameWindow@@@Z,,0x00698A20,8,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/Gadget/W3DListBox.cpp,matched,donor=Open-BFME-1 GadgetListBox.h inline; target-byte-evidence=retail load [window+0x54]; donor layout differs
+?get@Rva00262117NullOrZero@@QBEHXZ,,0x00262117,15,Code/GameEngine/Source/Common/PtrChaseNullOrZeroGetters.cpp,matched,Ret-delimited ptr-chase null-or-zero; shares true-tail OneGetter at 0x262126; trial-exact first try under /O1
