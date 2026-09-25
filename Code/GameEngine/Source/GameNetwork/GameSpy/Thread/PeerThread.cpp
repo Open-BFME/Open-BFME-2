@@ -139,9 +139,6 @@ enum
 
 //-------------------------------------------------------------------------
 
-typedef std::queue<PeerRequest> RequestQueue;
-typedef std::queue<PeerResponse> ResponseQueue;
-
 // Target vtable getters read PeerThreadClass connection bytes at +0x50/+0x51;
 // the donor class puts the same Bool members at +0x58/+0x59. Keep the target
 // offsets local to these queue getters instead of changing the class layout.
@@ -152,15 +149,20 @@ struct BfmePeerThreadStatusView {
 	Bool isConnecting( void ) { return m_isConnecting; }
 	Bool isConnected( void ) { return m_isConnected; }
 };
-struct Rva0009990D { void clear(); };
+struct Rva0009990D {
+	void *pointer;
+	Rva0009990D() : pointer(0) {}
+	void clear();
+	~Rva0009990D() { clear(); }
+};
 struct Rva006105F0 { void stop(); };
 struct Rva0038909EPeerThreadDtorView {
 	virtual void *destroy(unsigned int flags);
 };
 
 // Target's request queue advances in 0x1EC-byte steps. Its push_back body is
-// already verified under this size-only record view; PeerRequest payload
-// members remain donor-derived rather than asserted as target layout facts.
+// already verified under this size-only record view. Target members and payload
+// meanings remain unclaimed; PeerRequest is donor context for the queue role.
 struct BfmeOpaqueOwnedRecord492 {
 	union { unsigned int alignmentWitness; unsigned char bytes[492]; };
 	BfmeOpaqueOwnedRecord492();
@@ -172,9 +174,8 @@ typedef char BfmeOpaqueOwnedRecord492_size_check[
 typedef _STL::deque<BfmeOpaqueOwnedRecord492,
 	_STL::allocator<BfmeOpaqueOwnedRecord492> > BfmeRequestDeque492;
 
-// The vtable-selected PeerResponse queue uses a 0x348-byte element. Its
-// pop_front specialization remains under this size-only target view until the
-// owner's full layout is established; STLport queue stores deque as member c.
+// The vtable-selected response queue advances by 0x348 bytes. Keep its payload
+// owner opaque; STLport queue stores its deque as the sole member `c`.
 struct BfmeOpaqueOwnedRecord840 {
 	union { unsigned int alignmentWitness; unsigned char bytes[840]; };
 	BfmeOpaqueOwnedRecord840();
@@ -185,6 +186,8 @@ typedef char BfmeOpaqueOwnedRecord840_size_check[
 	sizeof(BfmeOpaqueOwnedRecord840) == 840 ? 1 : -1];
 typedef _STL::deque<BfmeOpaqueOwnedRecord840,
 	_STL::allocator<BfmeOpaqueOwnedRecord840> > BfmeResponseDeque840;
+typedef std::queue<BfmeOpaqueOwnedRecord492> RequestQueue;
+typedef std::queue<BfmeOpaqueOwnedRecord840> ResponseQueue;
 
 class PeerThreadClass;
 
@@ -220,11 +223,11 @@ private:
 	SerialAuthResult m_serialAuth;
 
 	// Target constructor 0x38E171 constructs this MutexClass at +0x6C and clears
-	// +0x74. Target startThread stores a heap LockClass owner there via 0x998EA;
-	// endThread clears it via 0x9990D. Keep the wrapper itself opaque. Matched
-	// createNewMessageQueue at 0x38E460 allocates 0x78 bytes.
+	// +0x74. Target startThread stores an 8-byte heap owner there via 0x998EA;
+	// endThread and this owner's destructor release it via 0x9990D. Its payload
+	// identity remains opaque. Matched createNewMessageQueue allocates 0x78 bytes.
 	MutexClass _bfme_hole_thirdMutex;
-	Int _bfme_hole_tailWord;
+	Rva0009990D _bfme_hole_tailOwner;
 };
 
 GameSpyPeerMessageQueueInterface* GameSpyPeerMessageQueueInterface::createNewMessageQueue( void )
@@ -620,12 +623,10 @@ static void joinRoomCallback(PEER peer, PEERBool success, PEERJoinResult result,
 
 GameSpyPeerMessageQueue::GameSpyPeerMessageQueue()
 {
-	_bfme_hole_tailWord = 0;
 	m_thread = NULL;
 	m_serialAuth = SERIAL_OK;
 }
 
-// ??1GameSpyPeerMessageQueue@@ present-unmatched
 GameSpyPeerMessageQueue::~GameSpyPeerMessageQueue()
 {
 	endThread();
@@ -651,7 +652,7 @@ void GameSpyPeerMessageQueue::startThread( void )
 void GameSpyPeerMessageQueue::endThread( void )
 {
 	if (m_thread) {
-		((Rva0009990D *)&_bfme_hole_tailWord)->clear();
+		_bfme_hole_tailOwner.clear();
 		((Rva006105F0 *)m_thread)->stop();
 		void *threadToFree;
 		if (m_thread)
@@ -697,8 +698,8 @@ Bool GameSpyPeerMessageQueue::getRequest( PeerRequest& req )
 
 	if (m_requests.empty())
 		return false;
-	req = m_requests.front();
-	m_requests.pop();
+	req = *(const PeerRequest *)&m_requests.front();
+	((BfmeRequestDeque492 *)&m_requests)->pop_front();
 	return true;
 }
 
@@ -711,7 +712,8 @@ void GameSpyPeerMessageQueue::addResponse( const PeerResponse& resp )
 	if (m.Failed())
 		return;
 
-	m_responses.push(resp);
+	((BfmeResponseDeque840 *)&m_responses)->push_back(
+		*(const BfmeOpaqueOwnedRecord840 *)&resp);
 }
 
 //PeerResponse GameSpyPeerMessageQueue::getResponse( void )
@@ -723,7 +725,7 @@ Bool GameSpyPeerMessageQueue::getResponse( PeerResponse& resp )
 
 	if (m_responses.empty())
 		return false;
-	resp = m_responses.front();
+	resp = *(const PeerResponse *)&m_responses.front();
 	((BfmeResponseDeque840 *)&m_responses)->pop_front();
 	return true;
 }
