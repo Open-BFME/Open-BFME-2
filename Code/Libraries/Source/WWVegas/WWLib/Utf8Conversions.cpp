@@ -14,3 +14,9 @@ extern "C" __declspec(dllimport) int __stdcall WideCharToMultiByte(
 int BFME2WideToUtf8(const Wide* source,int count,char* output,int capacity) {
     return WideCharToMultiByte(65001,0,source,count,output,capacity,0,0);
 }
+int multiByteToWideChar(const char* source,int count,Wide* output,int capacity) {
+    return MultiByteToWideChar(0,0,source,count,output,capacity);
+}
+int wideCharToMultiByte(const Wide* source,int count,char* output,int capacity) {
+    return WideCharToMultiByte(0,0,source,count,output,capacity,0,0);
+}
