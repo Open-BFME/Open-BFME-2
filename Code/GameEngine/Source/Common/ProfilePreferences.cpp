@@ -174,6 +174,19 @@ public:
 	virtual void loadProfileStats(const UnicodeString &profilePath);
 };
 
+// RealTimeStatsPreferences (vtable 0x00C69188) loads "RealTimeStats.ini"
+// (static at 0x00E05E00, initializer at 0x007B3A58 from 0x00C691C0) and
+// defaults the "UseMapListTooltips" key (0x00C69174) to true. Same vtable
+// shape as its sibling: thirteen UserPreferences slots, shared deleting
+// destructor at slot 0, loadProfileStats thunk at slot 13.
+class RealTimeStatsPreferences : public ProfilePreferences
+{
+public:
+	RealTimeStatsPreferences(const UnicodeString &profilePath);
+	virtual ~RealTimeStatsPreferences();
+	virtual void loadProfileStats(const UnicodeString &profilePath);
+};
+
 // ??0ProfilePreferences@@QAE@H@Z
 ProfilePreferences::ProfilePreferences(int profileKind)
 {
@@ -197,4 +210,10 @@ void ProfilePreferences::loadStatsFile(const UnicodeString &profilePath, const U
 void StrategicStatsPreferences::loadProfileStats(const UnicodeString &profilePath)
 {
 	loadStatsFile(profilePath, g_strategicStatsLeaf);
+}
+
+// ?loadProfileStats@RealTimeStatsPreferences@@UAEXABVUnicodeString@@@Z @0x537DAB
+void RealTimeStatsPreferences::loadProfileStats(const UnicodeString &profilePath)
+{
+	loadStatsFile(profilePath, g_realTimeStatsLeaf);
 }
