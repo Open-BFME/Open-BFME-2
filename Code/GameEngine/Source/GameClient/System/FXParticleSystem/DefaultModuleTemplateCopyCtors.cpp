@@ -40,6 +40,12 @@ public:
 	RenderObjectUpdateModuleInfo(const RenderObjectUpdateModuleInfo &other);
 };
 
+class WindModuleInfo
+{
+public:
+	WindModuleInfo(const WindModuleInfo &other);
+};
+
 }
 
 extern "C" char Rva003AEB0A_v0a;
@@ -200,4 +206,38 @@ Rva003AEF9B::Rva003AEF9B(const Rva003AEF9B &that)
 	*(void **)this = &Rva003AEF9B_v0b;
 	*(void **)((char *)this + 0x14) = &Rva003AEF9B_v14b;
 	*(void **)((char *)this + 0x18) = &Rva003AEF9B_v18b;
+}
+
+extern "C" char Rva003AED6B_v0;
+extern "C" char Rva003AED6B_v14;
+extern "C" char Rva003AED6B_v18;
+extern "C" char Rva003AED6B_vsub;
+
+class Rva003AED6B
+{
+public:
+	__declspec(noinline) Rva003AED6B(const Rva003AED6B &other);
+
+private:
+	void *m_v0; // +0x00
+	char m_pad04[16]; // +0x04: smart member + int, owned by the base copy
+	void *m_v14; // +0x14
+	void *m_v18; // +0x18
+	char m_info[4]; // +0x1C: info head, owned by the sub copy
+};
+
+// ??0Rva003AED6B@@QAE@ABV0@@Z
+Rva003AED6B::Rva003AED6B(const Rva003AED6B &that)
+{
+	const void *src = &that;
+	((Rva003AEEB3 *)this)->Rva003AEEB3::Rva003AEEB3(*(const Rva003AEEB3 *)src);
+	const void *sub_src = src ? (const char *)src + 0x1C : 0;
+	FXParticleSystem::WindModuleInfo *sub =
+		(FXParticleSystem::WindModuleInfo *)((char *)this + 0x1C);
+	sub->WindModuleInfo::WindModuleInfo(
+		*(const FXParticleSystem::WindModuleInfo *)sub_src);
+	*(void **)sub = &Rva003AED6B_vsub;
+	*(void **)this = &Rva003AED6B_v0;
+	*(void **)((char *)this + 0x14) = &Rva003AED6B_v14;
+	*(void **)((char *)this + 0x18) = &Rva003AED6B_v18;
 }
