@@ -463,14 +463,21 @@ void BoneFXUpdate::doParticleSystemAtBone(const ParticleSystemTemplate *particle
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
-// ?computeNextClientFXTime@BoneFXUpdate@@IAEXPBUBaseBoneListInfo@@AAH@Z present-unmatched
 void BoneFXUpdate::computeNextClientFXTime(const BaseBoneListInfo *info, Int &nextFrame)
 {
 	if (info->onlyOnce) {
 		nextFrame = -1;
 		return;
 	}
-	nextFrame = TheGameLogic->getFrame() + REAL_TO_INT(info->gameClientDelay.getValue());
+	// Retail reads GameLogic's current-frame field at +0x40; the included
+	// GeneralsMD getFrame() view reads +0x3C. Keep the target-specific layout
+	// local to this body instead of changing the shared GameLogic header.
+	struct BfmeGameLogicFrameView {
+		UnsignedByte unknown[0x40];
+		Int frame;
+	};
+	Int frame = ((const BfmeGameLogicFrameView *)TheGameLogic)->frame;
+	nextFrame = frame + static_cast<Int>(info->gameClientDelay.getValue());
 }
 
 //-------------------------------------------------------------------------------------------------
