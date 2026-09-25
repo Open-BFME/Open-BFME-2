@@ -50,4 +50,23 @@ SphericalEmissionVelocityInfo::SphericalEmissionVelocityInfo()
 	m_var0.setRange(0.0f, 0.0f);
 }
 
+class CylindricalEmissionVelocityInfo : public EmissionVelocityInfo
+{
+public:
+	CylindricalEmissionVelocityInfo();
+	virtual ~CylindricalEmissionVelocityInfo();
+
+private:
+	GameClientRandomVariable m_var0;
+	GameClientRandomVariable m_var1;
+};
+
+// ??0CylindricalEmissionVelocityInfo@FXParticleSystem@@QAE@XZ @0x3A7489
+// (Outward folds its default body here too; pin 5263.)
+CylindricalEmissionVelocityInfo::CylindricalEmissionVelocityInfo()
+{
+	m_var0.setRange(0.0f, 0.0f);
+	m_var1.setRange(0.0f, 0.0f);
+}
+
 }
