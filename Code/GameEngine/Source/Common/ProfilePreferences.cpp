@@ -250,3 +250,12 @@ Bool StrategicStatsPreferences::deleteStatsFile(const UnicodeString &profilePath
 	return deleteFileInGlobalDataDir(path);
 }
 
+// RealTimeStatsPreferences::deleteStatsFile @0x537A4C: same shape as its
+// Strategic sibling, appending the RealTimeStats leaf instead. Called by
+// the profile reset at 0x0043C30E.
+Bool RealTimeStatsPreferences::deleteStatsFile(const UnicodeString &profilePath)
+{
+	UnicodeString path(profilePath);
+	path.concat(g_realTimeStatsLeaf);
+	return deleteFileInGlobalDataDir(path);
+}
