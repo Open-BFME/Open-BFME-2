@@ -3,6 +3,10 @@
 // RadiusDecal::clear, retail 0x00330DBA, 28 bytes.
 // Zero the object pointer at +0, Release the holder at +4 (vtable+8),
 // then store 1 in the byte at +8.
+//
+// RadiusDecal::~RadiusDecal, retail 0x00330DD6, 5 bytes. All members are
+// trivial, so the destructor only runs clear(); MSVC 7.1 tail-calls it
+// into a bare jmp.
 
 class RadiusDecalObject
 {
@@ -19,8 +23,14 @@ class RadiusDecal
 	bool m_empty;
 
 public:
+	~RadiusDecal();
 	void clear();
 };
+
+RadiusDecal::~RadiusDecal()
+{
+	clear();
+}
 
 void RadiusDecal::clear()
 {
