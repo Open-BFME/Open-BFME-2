@@ -3889,7 +3889,7 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ?consume@DataChunkInput@@QAEXH@Z,0x00306E40
 ??_7StealthDetectorUpdateModuleData@@6B@,0x00BF3540,slot0 is scalar-deleting ??_G at 0x256000 plus slot1 is 0x4B3FD0 ret-pair
 ??$_Construct@UBfmePod40@@U1@@_STL@@YAXPAUBfmePod40@@ABU1@@Z,0x0052C320
-?_M_insert_overflow@?$vector@DV?$allocator@D@_STL@@@_STL@@IAEXPADABDABU__true_type@2@I_N@Z,0x0007EA1F
+?_M_insert_overflow@?$vector@DV?$allocator@D@_STL@@@_STL@@IAEXPADABDABU__true_type@2@I_N@Z,0x0007EA1F,target matched _M_fill_insert at 0x7FE65 calls this at 0x7FF0C with vector ECX and five overflow arguments; boundary 0x7EA1F/136 returns ret 0x14 and allocates/copies/fills/frees/replaces vector storage; target helpers are allocator<char> 0x307F0 __copy_trivial 0x179B0 FillN 0x24970 and _free 0x30830
 ?_M_insert_overflow@?$vector@UBfmePod20@@V?$allocator@UBfmePod20@@@_STL@@@_STL@@IAEXPAUBfmePod20@@ABU3@ABU__false_type@2@I_N@Z,0x0059B809
 ?_M_insert_overflow@?$vector@UBfmePod24@@V?$allocator@UBfmePod24@@@_STL@@@_STL@@IAEXPAUBfmePod24@@ABU3@ABU__false_type@2@I_N@Z,0x000BCFF9
 ?_M_insert_overflow@?$vector@UBfmePod40@@V?$allocator@UBfmePod40@@@_STL@@@_STL@@IAEXPAUBfmePod40@@ABU3@ABU__false_type@2@I_N@Z,0x00565B7D

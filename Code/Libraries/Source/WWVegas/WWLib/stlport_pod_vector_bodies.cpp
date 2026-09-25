@@ -94,6 +94,33 @@ inline bool operator<(const BfmePod260 &x, const BfmePod260 &y) { return x.a[0] 
 struct BfmePod340 { int a[85]; };
 inline bool operator==(const BfmePod340 &x, const BfmePod340 &y) { return x.a[0] == y.a[0]; }
 inline bool operator<(const BfmePod340 &x, const BfmePod340 &y) { return x.a[0] < y.a[0]; }
+
+// Target boundary 0x0007EA1F/136 is vector<char>::_M_insert_overflow for the
+// true_type path: matched _M_fill_insert at 0x0007FE65 calls it with the five
+// overflow arguments and the target returns with ret 0x14. The STLport 4.5.3
+// donor omits retail's zero-length allocation guard (128B here); this explicit
+// specialization adds that target-observed branch while retaining the donor's
+// copy/fill/capacity semantics. Helpers are target-resolved as allocator<char>
+// 0x307F0, __copy_trivial 0x179B0, FillN 0x24970 and _free 0x30830.
+template <> void _STL::vector<char, _STL::allocator<char> >::_M_insert_overflow(
+    char *position, const char &value, const _STL::__true_type &,
+    unsigned int fill_len, bool at_end)
+{
+    const unsigned int old_size = this->_M_finish - this->_M_start;
+    char *new_start;
+    const unsigned int new_len = old_size + (max)(old_size, fill_len);
+    if (new_len != 0)
+        new_start = this->_M_end_of_storage.allocate(new_len);
+    else
+        new_start = 0;
+    char *new_finish = (char *)_STL::__copy_trivial(this->_M_start, position, new_start);
+    new_finish = _STL::fill_n(new_finish, fill_len, value);
+    if (!at_end)
+        new_finish = (char *)_STL::__copy_trivial(position, this->_M_finish, new_finish);
+    this->_M_clear();
+    this->_M_set(new_start, new_finish, new_start + new_len);
+}
+
 template class _STL::vector<char, _STL::allocator<char > >;
 template class _STL::vector<BfmePod20, _STL::allocator<BfmePod20 > >;
 template class _STL::vector<BfmePod24, _STL::allocator<BfmePod24 > >;
