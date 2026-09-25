@@ -34570,3 +34570,4 @@ _Rva001CA000Vp6WideAccum,,0x001CA000,4240,Code/GameEngine/Source/Common/Rva001CA
 ?GadgetListBoxGetEnabledSelectedItemColor@@YAHPAVGameWindow@@@Z,,0x00698A20,8,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/Gadget/W3DListBox.cpp,matched,donor=Open-BFME-1 GadgetListBox.h inline; target-byte-evidence=retail load [window+0x54]; donor layout differs
 ?get@Rva00262117NullOrZero@@QBEHXZ,,0x00262117,15,Code/GameEngine/Source/Common/PtrChaseNullOrZeroGetters.cpp,matched,Ret-delimited ptr-chase null-or-zero; shares true-tail OneGetter at 0x262126; trial-exact first try under /O1
 ?get@Rva0030C890IntGetter@@QBEHXZ,,0x0030C890,6,Code/GameEngine/Source/Common/Disp32CvtFloatIntGetters.cpp,matched,Disp8 float-to-int getter; disp8 encoding of the Disp32 family; pairs with setter 0x30C882 at +0xE; Ghidra bounds agree
+_Rva0080FD30,,0x0067BC30,146,Code/Libraries/Source/DirtySock/Rva0080FD30MultiPrecisionAdd.c,matched,BFME1 byte-identical donor; b1 0x0080FD30
