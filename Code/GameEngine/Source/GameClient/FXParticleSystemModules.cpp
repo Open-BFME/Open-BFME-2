@@ -141,6 +141,12 @@ FX_VTABLE_ONLY_INFO(GpuDrawModuleInfo)
 FX_VTABLE_ONLY_INFO(LifeEventModuleInfo)
 FX_VTABLE_ONLY_INFO(TerrainCollisionModuleInfo)
 
+// The three draw modules whose template bodies live in FXParticleSystem.cpp:
+// this unit needs their infos only as complete types behind the class tags.
+FX_VTABLE_ONLY_INFO(StreakDrawModuleInfo)
+FX_VTABLE_ONLY_INFO(QuadDrawModuleInfo)
+FX_VTABLE_ONLY_INFO(ButterflyDrawModuleInfo)
+
 // The two category 8 templates put their info's vtable at 0x0C rather than
 // 0x08: their first base is CategoryModuleTemplate<8>, whose third base is the
 // two-flag EventModuleInfo at 0x08 (retail exports ??0EventModuleInfo at
@@ -320,6 +326,40 @@ FX_MODULE_TEMPLATE(LightningEmissionModuleTemplate, LightningEmissionInfo)
 FX_MODULE_TEMPLATE(RenderObjectUpdateModuleTemplate, RenderObjectUpdateModuleInfo)
 FX_MODULE_TEMPLATE(RenderObjectDrawModuleTemplate, RenderObjectDrawModuleInfo)
 FX_MODULE_TEMPLATE(GpuDrawModuleTemplate, GpuDrawModuleInfo)
+
+// Complete declarations only, exactly as in FXParticleSystem.cpp (no
+// assignment: this unit never assigns a template, it only news them). The
+// class instantiation below needs the templates complete; their bodies stay
+// over there.
+class StreakDrawModule;
+
+class StreakDrawModuleTemplate : public ModuleTemplate, public SecondaryModuleBase,
+                                 public StreakDrawModuleInfo
+{
+public:
+    StreakDrawModuleTemplate();
+    StreakDrawModuleTemplate(const StreakDrawModuleTemplate &that);
+};
+
+class QuadDrawModule;
+
+class QuadDrawModuleTemplate : public ModuleTemplate, public SecondaryModuleBase,
+                               public QuadDrawModuleInfo
+{
+public:
+    QuadDrawModuleTemplate();
+    QuadDrawModuleTemplate(const QuadDrawModuleTemplate &that);
+};
+
+class ButterflyDrawModule;
+
+class ButterflyDrawModuleTemplate : public ModuleTemplate, public SecondaryModuleBase,
+                                    public ButterflyDrawModuleInfo
+{
+public:
+    ButterflyDrawModuleTemplate();
+    ButterflyDrawModuleTemplate(const ButterflyDrawModuleTemplate &that);
+};
 
 #define FX_EVENT_MODULE_TEMPLATE(NAME, INFO)                                                       \
     class NAME : public CategoryModuleTemplate<8>, public INFO                                     \
@@ -639,6 +679,26 @@ FX_NAMED_WRAPPER(8, TERRAIN_COLLISION, TerrainCollisionModule, TerrainCollisionM
 
 FX_WRAPPER(6, RENDEROBJECT_DRAW, RenderObjectDrawModule, RenderObjectDrawModuleTemplate)
 FX_WRAPPER(6, GPU_DRAW, GpuDrawModule, GpuDrawModuleTemplate)
+
+// The classes whose template bodies live elsewhere: this unit emits only the
+// class constructors, over the same tags. A full FX_WRAPPER would also define
+// the template's global and duplicate the bodies FXParticleSystem.cpp owns.
+#define FX_CLASS_WRAPPER(CATEGORY, KEY, MOD, TMPL, DFLT)                                        \
+    extern const char *const KEY##_MODULE_KEY;                                                  \
+    extern const char *const KEY##_MODULE_NAME;                                                 \
+    typedef ModuleTag<CATEGORY, KEY##_MODULE_KEY, KEY##_MODULE_NAME, MOD, TMPL, DFLT >            \
+        MOD##ClassTag;                                                                          \
+    template class ConcreteModuleClass<MOD##ClassTag>;
+
+FX_CLASS_WRAPPER(6, STREAK_DRAW, StreakDrawModule, StreakDrawModuleTemplate, DefaultParticleModule<6>)
+FX_CLASS_WRAPPER(6, QUAD_DRAW, QuadDrawModule, QuadDrawModuleTemplate, DefaultParticleModule<6>)
+FX_CLASS_WRAPPER(6, BUTTERFLY_DRAW, ButterflyDrawModule, ButterflyDrawModuleTemplate,
+    DefaultParticleModule<6>)
+
+// The named-tag classes: same treatment, over the tags FX_NAMED_WRAPPER made.
+template class ConcreteModuleClass<RenderObjectUpdateModuleNamedTag>;
+template class ConcreteModuleClass<LifeEventModuleNamedTag>;
+template class ConcreteModuleClass<TerrainCollisionModuleNamedTag>;
 
 // The wrappers' generated assignments. They forward to the module template's own
 // assignment, which this unit only declares - beside the definitions MSVC 7.1
