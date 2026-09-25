@@ -5261,3 +5261,5 @@ _strncat,0x0062950C
 ??0SphericalEmissionVelocityInfo@FXParticleSystem@@QAE@XZ,0x003A721F,callee of SphericalEmissionVelocityModuleTemplate (0x003A72F7) at the matching structural site; rowed assignment ??4 at 0x3A7296 names the class
 ??0CylindricalEmissionVelocityInfo@FXParticleSystem@@QAE@XZ,0x003A7489,callee of CylindricalEmissionVelocityModuleTemplate (0x003A757D) at the matching structural site; BFME2 folds the outward info body here too (cf folded assignments at 0x3A765F)
 ??0OutwardEmissionVelocityInfo@FXParticleSystem@@QAE@XZ,0x003A7489,callee of OutwardEmissionVelocityModuleTemplate (0x003A767E) at the matching structural site; ICF-folded with CylindricalEmissionVelocityInfo above (cf folded assignments at 0x3A765F)
+??0TerrainFireEmissionInfo@FXParticleSystem@@QAE@XZ,0x003A6D5F,callee of TerrainFireEmissionModuleTemplate (0x003A6ECD) at the matching structural site; rowed assignment ??4 at 0x3A6E4E names the class
+??0GpuDrawModuleInfo@FXParticleSystem@@QAE@XZ,0x00563981,callee of GpuDrawModuleTemplate (0x003A9E29) at the matching structural site; rowed GetSnapshotName at 0x3A615D and assignment pin at 0x3A7EF0 name the class
