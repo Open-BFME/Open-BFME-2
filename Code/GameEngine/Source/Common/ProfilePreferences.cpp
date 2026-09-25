@@ -224,3 +224,11 @@ StrategicStatsPreferences::StrategicStatsPreferences(const UnicodeString &profil
 {
 	loadProfileStats(profilePath);
 }
+
+// ??0RealTimeStatsPreferences@@QAE@ABVUnicodeString@@@Z @0x537DF9
+RealTimeStatsPreferences::RealTimeStatsPreferences(const UnicodeString &profilePath)
+	: ProfilePreferences(0)
+{
+	loadProfileStats(profilePath);
+	setBool("UseMapListTooltips", true);
+}
