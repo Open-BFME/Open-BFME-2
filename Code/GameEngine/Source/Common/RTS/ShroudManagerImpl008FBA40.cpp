@@ -205,6 +205,7 @@ public:
 		int playerIndex);
 	void updatePlayerCells008FC450(ShroudManagerImpl008FBA40 *manager,
 		int playerIndex);
+	int getPlayerStatus_Rva0073EA40(int playerIndex);
 
 private:
 	__forceinline void copyPlayerStatesFrom(
@@ -559,4 +560,14 @@ void ShroudManagerImpl008FBA40Element::updatePlayerCells008FC450(
 				index / manager->width, 2);
 		}
 	}
+}
+
+// Retail 0x0073EA50 is this TU's adjustPlayerCounter008FC1F0; the 12B reader
+// at 0x0073EA40 loads the same element's status word for one player. No BFME 1
+// donor names it (its only caller is 0x0073B890), so it lands under a
+// descriptive Rva-qualified name.
+int ShroudManagerImpl008FBA40Element::getPlayerStatus_Rva0073EA40(
+	int playerIndex)
+{
+	return playerStates[playerIndex].status;
 }
