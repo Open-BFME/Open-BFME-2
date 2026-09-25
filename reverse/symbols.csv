@@ -5256,3 +5256,4 @@ _strncat,0x0062950C
 ??0DefaultAlphaModuleInfo@FXParticleSystem@@QAE@XZ,0x0055B44D,callee of DefaultModuleTemplate@$00 (0x003A9732) at the site its BFME1 donor calls it; may be an ICF alias
 ??0DefaultUpdateModuleInfo@FXParticleSystem@@QAE@XZ,0x0055F529,callee of DefaultModuleTemplate@$01 (0x003A98A9) at the site its BFME1 donor calls it; may be an ICF alias
 ??0DefaultPhysicsModuleInfo@FXParticleSystem@@QAE@XZ,0x0055EE5E,callee of DefaultModuleTemplate@$02 (0x003A9852) at the site its BFME1 donor calls it; may be an ICF alias
+??0DefaultColorModuleInfo@FXParticleSystem@@QAE@XZ,0x0055BC39,callee of DefaultModuleTemplate@$0A (0x003A9789) at the site its BFME1 donor calls it; may be an ICF alias
