@@ -187,6 +187,11 @@ public:
 	// factored the nick_ loop into this helper and reuses it for clan_.
 	void Write_Rva005C9DA8(NickMap &emails, const char *prefix, FILE *fp);
 
+	// Reads one list-valued email map entry with the given key prefix;
+	// retail factored the nick_ tokenize loop into this helper and reuses
+	// it for clan_.
+	void ReadEmailList_Rva005CAEA3(NickMap &emails, const char *prefix, UserPreferences::iterator &upIt);
+
 private:
 	PassMap m_emailPasswordMap;
 	DateMap m_emailDateMap;
@@ -264,6 +269,20 @@ Bool GameSpyLoginPreferences::write( void )
 		return true;
 	}
 	return false;
+}
+
+// @0x5CAEA3: the nick_ tokenize loop from Zero Hour's load, factored out
+// so the clan_ map reuses it with its own prefix.
+void GameSpyLoginPreferences::ReadEmailList_Rva005CAEA3(NickMap &emails, const char *prefix, UserPreferences::iterator &upIt)
+{
+	const AsciiString &key = upIt->first;
+	AsciiString email, nick, nicks;
+	email = key.str() + strlen(prefix);
+	nicks = upIt->second;
+	while (nicks.nextToken(&nick, ","))
+	{
+		emails[email].push_back(nick);
+	}
 }
 
 // FUN @0x5C9CDE: retail copy of Zero Hour's WOLLoginMenu obfuscate()
