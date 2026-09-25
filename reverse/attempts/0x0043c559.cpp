@@ -1,3 +1,5 @@
+// ?rebuildUserNamesEntry@SkirmishPreferences@@AAEXXZ
+// partial score=0.99 date=2026-09-25
 // cl: /O1 /EHsc /arch:SSE /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
 // stlport
 //
@@ -144,8 +146,8 @@ protected:
 
 UnicodeString QuotedPrintableToUnicodeString(AsciiString original);
 
-// Zero Hour QP encoder for the write path: the wide-to-Ascii direction
-// (retail 0x0053544C, rowed from quoted_printable_encoders.cpp).
+// Zero Hour QP encoder for the write path: the wide-to-Ascii direction with
+// its own static buffer (retail 0x0053544C, pinned until its body lands).
 AsciiString UnicodeStringToQuotedPrintable(UnicodeString original);
 
 // Retail's map lookup is throw(): the key temporaries carry EH state for
@@ -176,8 +178,6 @@ public:
 	SkirmishPreferences(Int profileIndex);
 	virtual ~SkirmishPreferences();
 	virtual Bool write(void);
-	_STL::list<UnicodeString> getUserNames_Rva0043C2D0(void);
-	void setCurrentUserName(const UnicodeString &newName);
 
 private:
 	void rebuildUserNamesEntry(void);
@@ -224,19 +224,19 @@ SkirmishPreferences::~SkirmishPreferences()
 {
 }
 
-// ?getUserNames_Rva0043C2D0 @0x43C2D0: returns m_userNames by value
-// (copy ctor 0x43C0D0); callers at 0x522589/0x5226F0 iterate the list.
-_STL::list<UnicodeString> SkirmishPreferences::getUserNames_Rva0043C2D0(void)
+// ?rebuildUserNamesEntry@SkirmishPreferences@@AAEXXZ @0x43C559
+void SkirmishPreferences::rebuildUserNamesEntry(void)
 {
-	return m_userNames;
-}
+	_STL::list<UnicodeString>::iterator it = m_userNames.begin();
+	UnicodeString joined;
+	for (; it != m_userNames.end(); ++it)
+	{
+		joined.concat(*it);
+		joined.concat(L",");
+	}
 
-// ?setCurrentUserName@SkirmishPreferences@@QAEXABVUnicodeString@@@Z @0x43C4D2
-void SkirmishPreferences::setCurrentUserName(const UnicodeString &newName)
-{
-	m_currentUserName = UnicodeStringToQuotedPrintable(newName);
-
-	AsciiString key("CurrentUserName");
+	AsciiString key("UserNames");
+	AsciiString encoded = UnicodeStringToQuotedPrintable(joined);
 	AsciiString &slot = (*this)[key];
-	slot = m_currentUserName;
+	slot = encoded;
 }
