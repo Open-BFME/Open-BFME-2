@@ -34864,3 +34864,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ?findPairByKey@Dict@@ABEPAUDictPair@1@H@Z,,0x0031313B,65,Code/GameEngine/Source/Common/DictPairClear.cpp,matched,Dict private const binary search by key>>8 from ZH Dict.cpp donor; donor branch order gives retail jle layout
 ?getType@Dict@@QBE?AW4DataType@1@H@Z,,0x0031317C,28,Code/GameEngine/Source/Common/DictPairClear.cpp,matched,Dict getType through rowed findPairByKey; type byte or DICT_NONE; no validate per retail
 ?getBool@Dict@@QBE_NHPA_N@Z,,0x00313198,50,Code/GameEngine/Source/Common/DictPairClear.cpp,matched,Dict getBool through rowed findPairByKey; bool byte at pair+4; exists out-param
+?getInt@Dict@@QBEHHPA_N@Z,,0x003131CA,50,Code/GameEngine/Source/Common/DictPairClear.cpp,matched,Dict getInt through rowed findPairByKey; int at pair+4; exists out-param
