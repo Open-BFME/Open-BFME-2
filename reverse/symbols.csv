@@ -5244,3 +5244,4 @@ _D3DXCreateTexture@32,0x0062AF74,d3dx9_27 D3DXCreateTexture IAT thunk (jmp dword
 ?ji_009f7b9a@@YAXXZ,0x0062950C
 _rand,0x00629A3C
 _strncat,0x0062950C
+??1Rva001DBAC3Base@@UAE@XZ,0x001DBAC3,base destructor tail-called by twelve derived dtors (0x35D47B..0x35FF76); rowed under a setter placeholder
