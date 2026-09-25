@@ -1628,3 +1628,10 @@ FUN_004C40BA	0x004C40BA	413	blocked	string-anchored (FIRING_OR_PREATTACK_B) but 
 ??$_S_merge@HV?$allocator@H@_STL@@U?$less@H@2@@_STL@@YAXAAV?$list@HV?$allocator@H@_STL@@@0@0U?$less@H@0@@Z	0x00525951	96	blocked	addr is list<short>::_S_merge per FV pin via sort 0x52611D REL32; body calls short comparator 0x525119; less<int> 0x626F90 has no callers so int merge is stripped; t=25
 ?splice@?$list@HV?$allocator@H@_STL@@@_STL@@QAEXU?$_List_iterator@HU?$_Nonconst_traits@H@_STL@@@2@AAV12@00@Z	0x00525990	30	blocked	mid-body of short merge 0x525951; not a boundary; t=10
 ??$_S_unique@HV?$allocator@H@_STL@@U?$equal_to@H@2@@_STL@@YAXAAV?$list@HV?$allocator@H@_STL@@@0@U?$equal_to@H@0@@Z	0x00028DB8	62	blocked	crosses ghidra bounds 0x28DC0/0x28DF0; bytes are reserve-shaped not list unique; t=10
+?_M_fill_assign@?$vector@U?$pair@HH@_STL@@V?$allocator@U?$pair@HH@_STL@@@2@@_STL@@QAEXIABU?$pair@HH@2@@Z	0x007B9C30	10	blocked	thunk-farm: 10B mov-ecx+jmp to rowed EAStringC dtor 0x6D3010, not a vector body; TU 12/12 landed, place_bodies 0; t=15
+?_M_insert_overflow@?$vector@U?$pair@HH@_STL@@V?$allocator@U?$pair@HH@_STL@@@2@@_STL@@IAEXPAU?$pair@HH@2@ABU32@ABU__true_type@2@I_N@Z	0x007B9BC7	9	blocked	thunk-farm mov-ecx+jmp cluster 0x7B9BC7-0x7B9C70, not a vector body; t=15
+?reserve@?$vector@U?$pair@HH@_STL@@V?$allocator@U?$pair@HH@_STL@@@2@@_STL@@QAEXI@Z	0x007B9C59	13	blocked	same thunk-farm cluster as 0x7B9C30; t=15
+?allocate@?$allocator@U?$pair@HH@_STL@@@_STL@@QBEPAU?$pair@HH@2@IPBX@Z	0x0002508F	47	blocked	off-by-one: 0x25090 rowed __malloc_alloc::allocate 48B STLMallocAlloc0Allocate.cpp; t=15
+?reserve@?$vector@HV?$allocator@H@_STL@@@_STL@@QAEXI@Z	0x00578701	35	blocked	35B ptr-setter w/ global-delete (callee 0x2FD60), caller game fn 0x578910; not vector reserve; TU place 0; t=12
+?_M_insert_overflow@?$vector@HV?$allocator@H@_STL@@@_STL@@IAEXPAHABHABU__false_type@2@I_N@Z	0x00415D21	331	blocked	anchor mid-function (dec edi/fcos tail garbage); t=12
+?_M_fill_insert@?$vector@HV?$allocator@H@_STL@@@_STL@@QAEXPAHIABH@Z	0x006889F0	282	blocked	SEH string-byte-loop fn (0x880 frame, calls 0x6888D0), not vector; t=12
