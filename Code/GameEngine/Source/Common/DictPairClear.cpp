@@ -53,6 +53,9 @@ public:
 		unsigned short m_numPairsUsed;
 	};
 
+public:
+	void clear();
+
 private:
 	void releaseData();
 
@@ -103,4 +106,11 @@ void Dict::DictPair::setNameAndType(int key, DataType type)
 	if ((m_key & 0xFF) != type)
 		clear();
 	m_key = (key << 8) | type;
+}
+
+// ?clear@Dict@@QAEXXZ @0x00313574
+void Dict::clear(void)
+{
+	releaseData();
+	m_data = 0;
 }
