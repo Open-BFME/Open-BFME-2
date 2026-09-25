@@ -35248,3 +35248,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ?pop_front@?$deque@UBfmeE32@@V?$allocator@UBfmeE32@@@_STL@@@_STL@@QAEXXZ,,0x0073CEF0,67,Code/Libraries/Source/WWVegas/WWLib/stlport_deque_e32_initmap.cpp,matched,stlport-4.5.3 noexc; placed by masked whole-text search
 ?push_back@?$deque@UBfmeE32@@V?$allocator@UBfmeE32@@@_STL@@@_STL@@QAEXABUBfmeE32@@@Z,,0x0073E480,49,Code/Libraries/Source/WWVegas/WWLib/stlport_deque_e32_initmap.cpp,matched,stlport-4.5.3 noexc; placed by masked whole-text search; calls rowed push_back_aux 0x73E200
 ??0Rva0017FB41_Prototype@@QAE@PBDHH@Z,,0x0017FB41,77,Code/GameEngine/Source/Common/Rva0017FB41Ctor.cpp,matched,HTree prototype ctor twin of HAnim 0x14CE67; vtable 0xBD4F10; GenBase 0x61ED40 plus StringClass 0xF0ED1
+??1Rva0017FB94@@UAE@XZ,,0x0017FB94,89,Code/GameEngine/Source/Common/Rva0017FB94Dtor.cpp,matched,HTree prototype dtor twin of HAnim 0x14CD63; owned HTree link via 0x1667E0 plus delete 0x2FD60
