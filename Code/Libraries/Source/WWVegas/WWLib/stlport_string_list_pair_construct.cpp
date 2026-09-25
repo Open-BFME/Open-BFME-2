@@ -8,6 +8,9 @@
 // at 0x365F0) and the list value at +0x04 (copied through the landed list
 // copy at 0x54D800). The key destructor stays declared-only so the pair
 // keeps retail's out-of-line key-teardown call.
+#include <utility>
+#undef _STLP_DEFAULT_CONSTRUCTED
+#define _STLP_DEFAULT_CONSTRUCTED(T) T()
 #include <map>
 #include <list>
 #include <new>
@@ -34,6 +37,13 @@ bool operator<(const AsciiString &left, const AsciiString &right);
 
 typedef _STL::list<AsciiString> AsciiStringList;
 typedef _STL::pair<const AsciiString, AsciiStringList> ListPair;
+typedef _STL::map<AsciiString, AsciiStringList, _STL::less<AsciiString>, _STL::allocator<ListPair> > ListMap;
+
+// Retail 0x005CAC49: the list-map subscript used by the nick/clan load
+// helper 0x5CAEA3. Misses lower-bound through 0x221B8D, builds the
+// key-plus-default-list temporary through the pair ctor above, then
+// hint-inserts through the shared wrapper at 0x5CABC0.
+template AsciiStringList &ListMap::operator[](const AsciiString &);
 
 // Anchor: emits the pair two-value constructor COMDAT (retail 0x005C9F08)
 // via placement new; the anchor itself never shipped.
