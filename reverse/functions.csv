@@ -34636,3 +34636,4 @@ _Rva0080FD30,,0x0067BC30,146,Code/Libraries/Source/DirtySock/Rva0080FD30MultiPre
 ??_GGen_008812D0@@QAEPAXI@Z,,0x006C07D0,30,Code/Libraries/Source/WWVegas/WWLib/FamilyDeletingDtorsO2.cpp,matched,scalar deleting dtor (/O2 add-esp form); same-shape sibling of 0x72C0 selected by its dtor callee
 ??_GGen_008AC620@@QAEPAXI@Z,,0x006EFB70,30,Code/Libraries/Source/WWVegas/WWLib/FamilyDeletingDtorsO2.cpp,matched,scalar deleting dtor (/O2 add-esp form); same-shape sibling of 0x72C0 selected by its dtor callee
 ??_GStreakLineClass@@UAEPAXI@Z,,0x00742570,30,Code/Libraries/Source/WWVegas/WWLib/FamilyDeletingDtorsO2.cpp,matched,scalar deleting dtor (/O2 add-esp form); same-shape sibling of 0x72C0 selected by its dtor callee
+??_GDebugIOCon@@UAEPAXI@Z,,0x00040E20,33,Code/GameEngine/Source/Common/FamilyDeletingDtors_039920.cpp,matched,scalar deleting dtor; same-shape sibling of 0x39920 selected by its dtor callee
