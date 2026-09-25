@@ -60,6 +60,8 @@ public:
 	~StringBase() { releaseBuffer(); }
 	bool isEmpty() const;
 	void set(const StringBase &other);
+	void trim(void);
+	Bool nextToken(StringBase *token, const unsigned short *seps);
 	void concat(const StringBase &other);
 
 protected:
@@ -91,6 +93,11 @@ public:
 	UnicodeString(const UnicodeString &other) : StringBase<unsigned short>(other) {}
 	UnicodeString &operator=(const UnicodeString &other) { set(other); return *this; }
 	void translate(const char *text);
+	void trim(void) { StringBase<unsigned short>::trim(); }
+	Bool nextToken(UnicodeString *token, const unsigned short *seps)
+	{
+		return StringBase<unsigned short>::nextToken(token, seps);
+	}
 	const unsigned short *str() const { return m_data ? &m_data->text[0] : L""; }
 };
 
@@ -136,6 +143,28 @@ protected:
 
 UnicodeString QuotedPrintableToUnicodeString(AsciiString original);
 
+// Retail's map lookup is throw(): the key temporaries carry EH state for
+// their own construction but no extra state across the find call itself.
+// _STL::map::find is not throw(), so the lookup goes through this
+// layout-compatible shim whose find is declared throw(). Its call is
+// pinned to the shared _M_find worker at 0x001F8437.
+struct SkirmishFindNode
+{
+	unsigned char m_pad[0x14];
+	AsciiString m_value;
+};
+
+class SkirmishFindMap
+{
+public:
+	SkirmishFindNode *find(const AsciiString &key) const throw();
+	SkirmishFindNode *end() const { return m_end; }
+
+private:
+	SkirmishFindNode *m_end;
+	unsigned char m_unreconstructed[8];
+};
+
 class SkirmishPreferences : public UserPreferences
 {
 public:
@@ -150,6 +179,38 @@ private:
 	_STL::list<UnicodeString> m_userNames;
 	AsciiString m_currentUserName;
 };
+
+// ??0SkirmishPreferences@@QAE@H@Z @0x43C128
+SkirmishPreferences::SkirmishPreferences(Int profileIndex)
+	: m_profileIndex(profileIndex), m_userNames(0)
+{
+	UserPreferences::load("Skirmish.ini");
+
+	UnicodeString userNames;
+	UnicodeString token;
+
+	SkirmishFindNode *it;
+	{
+		AsciiString key("UserNames");
+		it = ((const SkirmishFindMap *)(const PreferenceMap *)this)->find(key);
+	}
+	if (it == ((const SkirmishFindMap *)(const PreferenceMap *)this)->end())
+		return;
+
+	userNames = QuotedPrintableToUnicodeString(it->m_value);
+	userNames.trim();
+	while (userNames.nextToken(&token, L","))
+		m_userNames.push_back(token);
+
+	{
+		AsciiString currentKey("CurrentUserName");
+		it = ((const SkirmishFindMap *)(const PreferenceMap *)this)->find(currentKey);
+	}
+	if (it == ((const SkirmishFindMap *)(const PreferenceMap *)this)->end())
+		return;
+
+	m_currentUserName = it->m_value;
+}
 
 // ??1SkirmishPreferences@@UAE@XZ @0x43C286
 SkirmishPreferences::~SkirmishPreferences()
