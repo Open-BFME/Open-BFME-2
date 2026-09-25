@@ -140,3 +140,12 @@ Dict::DictPair *Dict::findPairByKey(int key) const
 	} while (lo < hi);
 	return 0;
 }
+
+// ?getType@Dict@@QBE?AW4DataType@1@H@Z @0x0031317C
+Dict::DataType Dict::getType(int key) const
+{
+	DictPair *pair = findPairByKey(key);
+	if (pair)
+		return (DataType)(pair->m_key & 0xFF);
+	return DICT_NONE;
+}
