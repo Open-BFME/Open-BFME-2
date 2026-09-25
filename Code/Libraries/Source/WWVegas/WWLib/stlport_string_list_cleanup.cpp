@@ -8,7 +8,7 @@
 // 0x2E44F2 with the list-tree erase 0x5CA25C as callee).
 #include <map>
 #include <list>
-template<class T> class StringBase { void *m_data; void releaseBuffer(); protected: __forceinline ~StringBase() { releaseBuffer(); } };
+template<class T> class StringBase { void *m_data; void releaseBuffer(); public: ~StringBase(); };
 class AsciiString : private StringBase<char> { public: AsciiString(const AsciiString &); __forceinline ~AsciiString() {} };
 bool operator<(const AsciiString &, const AsciiString &);
 typedef _STL::pair<const AsciiString,_STL::list<AsciiString> > StringListPair;
