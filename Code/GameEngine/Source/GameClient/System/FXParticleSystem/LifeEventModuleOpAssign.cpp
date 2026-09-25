@@ -67,4 +67,54 @@ LifeEventModuleInfo &LifeEventModuleInfo::operator=(const LifeEventModuleInfo &t
 	return *this;
 }
 
+class LifeEventCategoryBaseA
+{
+public:
+	virtual ~LifeEventCategoryBaseA();
+};
+
+class LifeEventCategoryBaseB
+{
+public:
+	virtual ~LifeEventCategoryBaseB();
+};
+
+class LifeEventCategoryBase
+	: public LifeEventCategoryBaseA,
+	  public LifeEventCategoryBaseB
+{
+public:
+	LifeEventCategoryBase(const LifeEventCategoryBase &) {}
+	virtual ~LifeEventCategoryBase();
+};
+
+class LifeEventCategoryTemplate : public LifeEventCategoryBase
+{
+public:
+	LifeEventCategoryTemplate(const LifeEventCategoryTemplate &that);
+	virtual ~LifeEventCategoryTemplate();
+
+protected:
+	volatile unsigned short m_word;
+};
+
+class LifeEventModuleTemplate : public LifeEventCategoryTemplate,
+				public LifeEventModuleInfo
+{
+public:
+	LifeEventModuleTemplate(const LifeEventModuleTemplate &that);
+	LifeEventModuleTemplate &operator=(const LifeEventModuleTemplate &that);
+	virtual ~LifeEventModuleTemplate();
+};
+
+// ??4LifeEventModuleTemplate@FXParticleSystem@@QAEAAV01@ABV01@@Z @0x3A7A7F
+LifeEventModuleTemplate &LifeEventModuleTemplate::operator=(const LifeEventModuleTemplate &that)
+{
+	const void *source = &that;
+	const void *word_source = source ? (const unsigned char *)source + 8 : 0;
+	m_word = *(const unsigned short *)word_source;
+	LifeEventModuleInfo::operator=(that);
+	return *this;
+}
+
 }
