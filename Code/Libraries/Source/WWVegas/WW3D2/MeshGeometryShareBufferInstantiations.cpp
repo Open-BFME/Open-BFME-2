@@ -17,6 +17,18 @@
 #include "rendobj.h"	// the bfmerendobj shim has to win the include guard
 #include "meshgeometry.h"
 
+extern void __cdecl operator delete[](void *) throw();
+
+// ShareBufferClass<uint8> owns a raw byte array; the destructor frees it.
+// The rowed constructor installs vtable 0xBD43F8, whose deleting destructor
+// at 0x169D40 calls this body at 0x169D60. Declared before first use so the
+// explicit specialization wins over the primary template.
+template <>
+ShareBufferClass<uint8>::~ShareBufferClass()
+{
+	::operator delete[](RawBuffer);
+}
+
 void MeshGeometryShareBufferInstantiations( int count )
 {
 	ShareBufferClass<TriIndex> *poly = new ShareBufferClass<TriIndex>( count, "MeshGeometryClass::Poly" );
