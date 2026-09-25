@@ -7,6 +7,9 @@
 class AsciiString
 {
 public:
+	static const AsciiString TheEmptyString;
+
+	AsciiString(const AsciiString &other);
 	~AsciiString();
 	AsciiString &operator=(const AsciiString &other);
 
@@ -72,6 +75,7 @@ public:
 	float getReal(int key, bool *exists) const;
 	bool getNthBool(int n) const;
 	int getNthInt(int n) const;
+	AsciiString getAsciiString(int key, bool *exists) const;
 
 private:
 	void releaseData();
@@ -258,4 +262,19 @@ int Dict::getNthInt(int n) const
 			return *(int *)&pair->m_value;
 	}
 	return 0;
+}
+
+// ?getAsciiString@Dict@@QBE?AVAsciiString@@HPA_N@Z @0x0031359F
+AsciiString Dict::getAsciiString(int key, bool *exists) const
+{
+	DictPair *pair = findPairByKey(key);
+	if (pair && (pair->m_key & 0xFF) == DICT_ASCIISTRING)
+	{
+		if (exists)
+			*exists = true;
+		return *(AsciiString *)&pair->m_value;
+	}
+	if (exists)
+		*exists = false;
+	return AsciiString::TheEmptyString;
 }
