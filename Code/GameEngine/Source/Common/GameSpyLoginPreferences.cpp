@@ -71,6 +71,9 @@ public:
 	void set(const T *text);
 	void trim(void);
 	Bool nextToken(StringBase *token, const char *seps);
+	void concat(const char *text, Int len);
+	void concat(const StringBase &other);
+	void concat(char c) { concat(&c, 1); }
 
 protected:
 	BfmeStringData<T> *m_data;
@@ -167,6 +170,9 @@ typedef _STL::map<AsciiString, AsciiString> DateMap;
 typedef _STL::map<AsciiString, _STL::list<AsciiString, _STL::allocator<AsciiString> > > NickMap;
 typedef _STL::map<AsciiString, _STL::list<AsciiString, _STL::allocator<AsciiString> > > ClanMap;
 
+AsciiString AsciiStringToQuotedPrintable(AsciiString original);
+AsciiString obfuscate(AsciiString in);
+
 // Retail vtable 0x00C74C48: the thirteen UserPreferences slots with the
 // deleting dtor and write overridden, plus the by-value load appended.
 class GameSpyLoginPreferences : public UserPreferences
@@ -176,6 +182,10 @@ public:
 	virtual ~GameSpyLoginPreferences();
 	virtual Bool write(void);
 	virtual Bool load(AsciiString fname);
+
+	// Writes one list-valued email map with the given key prefix; retail
+	// factored the nick_ loop into this helper and reuses it for clan_.
+	void Write_Rva005C9DA8(NickMap &emails, const char *prefix, FILE *fp);
 
 private:
 	PassMap m_emailPasswordMap;
@@ -193,6 +203,67 @@ GameSpyLoginPreferences::GameSpyLoginPreferences( void )
 // ??1GameSpyLoginPreferences@@UAE@XZ @0x5CAB59
 GameSpyLoginPreferences::~GameSpyLoginPreferences( void )
 {
+}
+
+// Helper @0x5C9DA8: the nick_ loop from Zero Hour's write, factored out so
+// the clan_ map reuses it with its own prefix.
+void GameSpyLoginPreferences::Write_Rva005C9DA8(NickMap &emails, const char *prefix, FILE *fp)
+{
+	NickMap::iterator it = emails.begin();
+	while (it != emails.end())
+	{
+		AsciiString nicks;
+		NickMap::mapped_type::iterator listIt = it->second.begin();
+		while (listIt != it->second.end())
+		{
+			nicks.concat(*listIt);
+			nicks.concat(',');
+			++listIt;
+		}
+		fprintf(fp, "%s%s = %s\n", prefix, it->first.str(), nicks.str());
+		++it;
+	}
+}
+
+// ?write@GameSpyLoginPreferences@@UAE_NXZ @0x5CA2B3
+// Zero Hour's write plus BFME 2's clan_ map, whose loop shares the nick_
+// helper above.
+Bool GameSpyLoginPreferences::write( void )
+{
+	if (m_filename.isEmpty())
+		return false;
+
+	FILE *fp = _wfopen(m_filename.str(), L"w");
+	if (fp)
+	{
+		fprintf(fp, "lastEmail = %s\n", ((*this)["lastEmail"].str()));
+		fprintf(fp, "lastName = %s\n", ((*this)["lastName"].str()));
+		fprintf(fp, "useProfiles = %s\n", ((*this)["useProfiles"].str()));
+
+		PassMap::iterator passIt = m_emailPasswordMap.begin();
+		while (passIt != m_emailPasswordMap.end())
+		{
+			AsciiString pass = obfuscate(passIt->second);
+			AsciiString quoPass = AsciiStringToQuotedPrintable(pass);
+			fprintf(fp, "pass_%s = %s\n", passIt->first.str(), quoPass.str());
+			++passIt;
+		}
+
+		DateMap::iterator dateIt = m_emailDateMap.begin();
+		while (dateIt != m_emailDateMap.end())
+		{
+			AsciiString date = AsciiStringToQuotedPrintable(dateIt->second);
+			fprintf(fp, "date_%s = %s\n", dateIt->first.str(), date.str());
+			++dateIt;
+		}
+
+		Write_Rva005C9DA8(m_emailNickMap, "nick_", fp);
+		Write_Rva005C9DA8(m_emailClanMap, "clan_", fp);
+
+		fclose(fp);
+		return true;
+	}
+	return false;
 }
 
 // FUN @0x5C9CDE: retail copy of Zero Hour's WOLLoginMenu obfuscate()
