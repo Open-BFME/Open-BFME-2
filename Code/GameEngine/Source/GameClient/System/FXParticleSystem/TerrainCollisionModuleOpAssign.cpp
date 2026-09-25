@@ -6,7 +6,10 @@
 // event name string at +4 through AsciiString::operator= (rowed callee
 // 0x000366F0), then one movsd triple for the 12-byte event time block at +8,
 // the flag byte at +0x14 and the cached dword at +0x18. Layout mirrors the
-// landed copy ctor thunk TerrainCollisionModuleInfoCopyCtorThunk.cpp.
+// Retail 0x003A81E2 (TerrainCollisionModuleTemplate::operator=, 51B)
+// keeps the template's null-preserving u16 sub-copy at +8 and forwards the
+// info subobject at +0xc to 0x003A81AE. Layouts mirror the landed copy ctor
+// thunk TerrainCollisionModuleTemplateCopyCtorThunk.cpp in this folder.
 
 template <typename Character>
 class StringBase
@@ -63,6 +66,56 @@ TerrainCollisionModuleInfo &TerrainCollisionModuleInfo::operator=(const TerrainC
 	m_eventTime = that.m_eventTime;
 	m_flag = that.m_flag;
 	m_cached = that.m_cached;
+	return *this;
+}
+
+class TerrainCollisionCategoryBaseA
+{
+public:
+	virtual ~TerrainCollisionCategoryBaseA();
+};
+
+class TerrainCollisionCategoryBaseB
+{
+public:
+	virtual ~TerrainCollisionCategoryBaseB();
+};
+
+class TerrainCollisionCategoryBase
+	: public TerrainCollisionCategoryBaseA,
+	  public TerrainCollisionCategoryBaseB
+{
+public:
+	TerrainCollisionCategoryBase(const TerrainCollisionCategoryBase &) {}
+	virtual ~TerrainCollisionCategoryBase();
+};
+
+class TerrainCollisionCategoryTemplate : public TerrainCollisionCategoryBase
+{
+public:
+	TerrainCollisionCategoryTemplate(const TerrainCollisionCategoryTemplate &that);
+	virtual ~TerrainCollisionCategoryTemplate();
+
+protected:
+	volatile unsigned short m_word;
+};
+
+class TerrainCollisionModuleTemplate : public TerrainCollisionCategoryTemplate,
+				public TerrainCollisionModuleInfo
+{
+public:
+	TerrainCollisionModuleTemplate(const TerrainCollisionModuleTemplate &that);
+	TerrainCollisionModuleTemplate &operator=(const TerrainCollisionModuleTemplate &that);
+	virtual ~TerrainCollisionModuleTemplate();
+};
+
+// ??4TerrainCollisionModuleTemplate@FXParticleSystem@@QAEAAV01@ABV01@@Z @0x3A81E2
+TerrainCollisionModuleTemplate &TerrainCollisionModuleTemplate::operator=(const TerrainCollisionModuleTemplate &that)
+{
+	const void *source = &that;
+	const void *word_source = source ? (const unsigned char *)source + 8 : 0;
+	m_word = *(const unsigned short *)word_source;
+	TerrainCollisionModuleInfo::operator=(that);
 	return *this;
 }
 
