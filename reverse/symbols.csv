@@ -5342,3 +5342,4 @@ _strncat,0x0062950C
 ?length@AsciiStringPlusString@@QBEHXZ,0x002198C8,layout-shared fold with the wide pair summer; two AsciiStringRef string pointers summed by header length word
 ?dispatch@SidesListNotifier@@QAEXPBUPost@1@@Z,0x0032AE25,retail REL32 from SidesListNotifier::post 0x32B537; notifier dispatch taking callback-owner pair
 ?dispatchIndexed@SidesListNotifier@@QAEXPBUPostIndexed@1@@Z,0x0032AE92,retail REL32 from SidesListNotifier::post 0x32B55C; notifier dispatch taking callback owner and index
+??0AnimationSoundTree@@QAE@XZ,0x004CA6DA,target of AnimationSoundClientBehaviorModuleData ctor 0x4CA70D at call site 0x4CA72B with ECX=this+8; 25B tree ctor establishing header/count layout; BFME1 AnimationSoundClientBehaviorModuleDataConstructor donor confirms tree at +0x08; address-derived helper identity
