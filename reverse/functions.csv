@@ -34571,3 +34571,13 @@ _Rva001CA000Vp6WideAccum,,0x001CA000,4240,Code/GameEngine/Source/Common/Rva001CA
 ?get@Rva00262117NullOrZero@@QBEHXZ,,0x00262117,15,Code/GameEngine/Source/Common/PtrChaseNullOrZeroGetters.cpp,matched,Ret-delimited ptr-chase null-or-zero; shares true-tail OneGetter at 0x262126; trial-exact first try under /O1
 ?get@Rva0030C890IntGetter@@QBEHXZ,,0x0030C890,6,Code/GameEngine/Source/Common/Disp32CvtFloatIntGetters.cpp,matched,Disp8 float-to-int getter; disp8 encoding of the Disp32 family; pairs with setter 0x30C882 at +0xE; Ghidra bounds agree
 _Rva0080FD30,,0x0067BC30,146,Code/Libraries/Source/DirtySock/Rva0080FD30MultiPrecisionAdd.c,matched,BFME1 byte-identical donor; b1 0x0080FD30
+?get@Rva0008BBDDZeroGetter@@QBEHXZ,,0x0008BBDD,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
+?get@Rva00094BEFZeroGetter@@QBEHXZ,,0x00094BEF,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
+?get@Rva0009FD8AZeroGetter@@QBEHXZ,,0x0009FD8A,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
+?get@Rva000B19F8ZeroGetter@@QBEHXZ,,0x000B19F8,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
+?get@Rva000B2CE2ZeroGetter@@QBEHXZ,,0x000B2CE2,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
+?get@Rva000B3148ZeroGetter@@QBEHXZ,,0x000B3148,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
+?get@Rva000B3809ZeroGetter@@QBEHXZ,,0x000B3809,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
+?get@Rva000CB0FCZeroGetter@@QBEHXZ,,0x000CB0FC,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
+?get@Rva000FBA47ZeroGetter@@QBEHXZ,,0x000FBA47,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
+?get@Rva000FC943ZeroGetter@@QBEHXZ,,0x000FC943,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
