@@ -233,6 +233,7 @@ public:
 	int getPlayerStatusWord_Rva0073B890(
 		Int playerIndex, const Coord3D *loc) const;
 	void setEnabled_Rva0073B460(bool value);
+	void updatePlayerCells300_Rva0073B410(int playerIndex);
 	ObjectShroudStatus getPropShroudStatusForPlayer(Int playerIndex,
 		const Coord3D *loc) const;
 	void drainPending();
@@ -349,6 +350,24 @@ int ShroudManagerImpl008FBA40::getPlayerStatusWord_Rva0073B890(
 void ShroudManagerImpl008FBA40::setEnabled_Rva0073B460(bool value)
 {
 	enabled = value;
+}
+
+// Retail 0x0073B410 runs the increment variant over every element for one
+// player. It matches the BFME 1 updatePlayerCells008FB010/008FB060 loop shape
+// but calls only the 008FC300 variant, so it lands under a descriptive
+// Rva-qualified name instead of a donor name.
+void ShroudManagerImpl008FBA40::updatePlayerCells300_Rva0073B410(
+	int playerIndex)
+{
+	if (playerIndex >= 0 && playerIndex < 20)
+	{
+		ShroudManagerImpl008FBA40Element *end = elements + height * width;
+		for (ShroudManagerImpl008FBA40Element *element = elements;
+			element != end; ++element)
+		{
+			element->updatePlayerCells008FC300(this, playerIndex);
+		}
+	}
 }
 
 ObjectShroudStatus ShroudManagerImpl008FBA40::getPropShroudStatusForPlayer(
