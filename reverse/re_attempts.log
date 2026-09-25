@@ -1701,3 +1701,5 @@ Catch@00630215	0x00230215	390	blocked	catch(ErrorCode) funclet of GameEngine::in
 ??0Rva003AEA42@@QAE@ABV0@@Z	0x003AEA42	95	partial	V1 shim 97B sole diff pop-ecx sits right after push-0x20 instead of after the 4 pre-stores; all else exact incl base call ternary rep-movsd and 8 vtable stores t=90 score=0.97 stash=reverse/attempts/0x003aea42.cpp
 ?Get_Texture_Memory_Usage@?$RefCountPtr@VTextureClass@@@@QBEIXZ	0x132B83	79	partial	edi+esi dual-reg + bpp-first imuls + imul-6 vs lea/shl; ours 81B single-reg bpp-last lea score=0.9 stash=reverse/attempts/0x00132b83.cpp
 ??0HAnimPrototypeOwner@@QAE@ABVHierarchyPrototypeRef@@@Z	0x0014CED0	49	landed	byte-exact via RefCountPtr holder plus rowed assign 0x14CDE4 t=40
+?MeshGeometryShareBufferInstantiations@@YAXH@Z	0x005FAC8F	307	blocked	synthetic instantiation helper per file comment has no retail counterpart; retail 0x5FAC8F is a 50B factory in the FUN_009fab9e family; t=15 model=muse-spark
+??1?$ShareBufferClass@E@@UAE@XZ	0x00169D60	95	blocked	95B guess refuted by vtable 0xBD43F8 evidence: true dtor is 29B at 0x169D60 with 30B deleting dtor at 0x169D40 and both are now landed; t=10 model=muse-spark
