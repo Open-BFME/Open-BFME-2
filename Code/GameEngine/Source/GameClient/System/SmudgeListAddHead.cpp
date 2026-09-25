@@ -75,3 +75,24 @@ template <class T> void DLListClass<T>::Remove_Head()
 }
 
 template void DLListClass<Smudge>::Remove_Head();
+
+// SmudgeSet has its own vptr before the DLNode base. Converting the
+// successor through SmudgeSet preserves the target's null adjustment.
+struct SmudgeSet : public DLNodeClass<SmudgeSet>
+{
+    virtual ~SmudgeSet();
+};
+
+template <> void DLListClass<SmudgeSet>::Remove_Head()
+{
+    if (!head)
+        return;
+    DLNodeClass<SmudgeSet> *oldHead = head;
+    SmudgeSet *next = static_cast<SmudgeSet *>(head->succ);
+    head = next;
+    if (!head)
+        tail = head;
+    else
+        head->pred = 0;
+    oldHead->Remove();
+}
