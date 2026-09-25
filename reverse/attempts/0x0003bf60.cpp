@@ -1,5 +1,8 @@
-// ??6@YAAAVDebug@@AAV0@ABVSignature@DebugStackwalk@@@Z
-// partial score=0.95 date=2026-09-22
+// ??6@YAAAVDebug@@AAV0@ABUSignature@DebugStackwalk@@@Z
+// partial score=0.95 date=2026-09-25
+// ??6@YAAAVDebug@@AAV0@ABUSignature@DebugStackwalk@@@Z
+// partial score=0.95 date=2026-09-26 (struct/U rename of the 2026-09-22 V partial;
+// rowed callers AssertDone 0x3A8A0 and CrashDone 0x3AED0 declare struct Signature)
 // cl: /DNDEBUG /MD /EHsc
 //
 // operator<<(Debug &, const DebugStackwalk::Signature &), retail 0x0003BF60
@@ -38,7 +41,7 @@ public:
 class DebugStackwalk
 {
 public:
-	class Signature
+	struct Signature
 	{
 		enum { MAX_ADDR = 256 };
 
@@ -69,7 +72,7 @@ static inline void PrintOffset(Debug &dbg, unsigned rel)
 		dbg << "+" << rel;
 }
 
-// ??6@YAAAVDebug@@AAV0@ABVSignature@DebugStackwalk@@@Z
+// ??6@YAAAVDebug@@AAV0@ABUSignature@DebugStackwalk@@@Z
 Debug &operator<<(Debug &dbg, const DebugStackwalk::Signature &sig)
 {
 	dbg << sig.Size() << " addresses:\n";
@@ -94,3 +97,11 @@ Debug &operator<<(Debug &dbg, const DebugStackwalk::Signature &sig)
 
 	return dbg;
 }
+
+// 2026-09-26 refuted on the U base (all keep the 375B/0.95 wall: global frame,
+// loop and homes match; only the 3 rel-test sites use eax+mov edi,eax instead
+// of retail mov edi/test edi): helper named-temp, ternary, param-swap,
+// __fastcall, plain static, rel>0, pragma-s on helper, by-ref/const-ref/pointer
+// params (these three also break global allocation to 380B ebx-based),
+// hand-inline (breaks global allocation: 0x28c frame, ebx=sig), outer copies
+// (387B, copies not sunk), hand-inline+/O1 (356B, reshaped).

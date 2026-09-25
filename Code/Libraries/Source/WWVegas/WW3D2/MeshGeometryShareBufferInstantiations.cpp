@@ -29,6 +29,16 @@ ShareBufferClass<uint8>::~ShareBufferClass()
 	::operator delete[](RawBuffer);
 }
 
+// ShareBufferClass<unsigned long> owns a raw dword array (the vertex shade
+// indices); the destructor frees it. The 0x169950 constructor installs vtable
+// 0xBD4400, whose deleting destructor at 0x169D80 calls this body at
+// 0x169DA0. Same explicit-specialization recipe as the uint8 destructor above.
+template <>
+ShareBufferClass<unsigned long>::~ShareBufferClass()
+{
+	::operator delete[](RawBuffer);
+}
+
 void MeshGeometryShareBufferInstantiations( int count )
 {
 	ShareBufferClass<TriIndex> *poly = new ShareBufferClass<TriIndex>( count, "MeshGeometryClass::Poly" );
