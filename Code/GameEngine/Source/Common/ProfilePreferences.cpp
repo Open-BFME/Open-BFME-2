@@ -217,3 +217,10 @@ void RealTimeStatsPreferences::loadProfileStats(const UnicodeString &profilePath
 {
 	loadStatsFile(profilePath, g_realTimeStatsLeaf);
 }
+
+// ??0StrategicStatsPreferences@@QAE@ABVUnicodeString@@@Z @0x537DBC
+StrategicStatsPreferences::StrategicStatsPreferences(const UnicodeString &profilePath)
+	: ProfilePreferences(1)
+{
+	loadProfileStats(profilePath);
+}
