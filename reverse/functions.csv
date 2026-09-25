@@ -35274,3 +35274,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ?parseFontDesc@GlobalLanguage@@SAXPAVINI@@PAX1PBX@Z,,0x0037691C,108,Code/GameEngine/Source/GameClient/GlobalLanguageParseFontDesc.cpp,matched,ZH font entry parser; quoted name plus int size plus bool bold; FontDesc 0 plus4 plus8
 ?parseQuotedAsciiString@INI@@SAXPAV1@PAX1PBX@Z,,0x0002F15A,60,Code/GameEngine/Source/Common/System/INI_parseQuotedAsciiString.cpp,matched,ZH quoted-string parser via rowed 0x2E93F plus op 0x366F0
 ??1?$ShareBufferClass@K@@UAE@XZ,,0x00169DA0,29,Code/Libraries/Source/WWVegas/WW3D2/MeshGeometryShareBufferInstantiations.cpp,matched,vtable 0xBD4400 installed by ctor 0x169950 and deleting dtor 0x169D80 calls it; VertexShadeIdx dword buffer
+??_G?$ShareBufferClass@K@@UAEPAXI@Z,,0x00169D80,30,Code/Libraries/Source/WWVegas/WW3D2/mesh_get_shade_indices.cpp,matched,vtable 0xBD4400 slot1 selected by ctor 0x169950 and calls rowed dtor 0x169DA0
