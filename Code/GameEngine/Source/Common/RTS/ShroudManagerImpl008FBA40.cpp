@@ -234,6 +234,7 @@ public:
 		Int playerIndex, const Coord3D *loc) const;
 	void setEnabled_Rva0073B460(bool value);
 	void updatePlayerCells300_Rva0073B410(int playerIndex);
+	void updatePlayerCells300And3B0_Rva0073B3B0(int playerIndex);
 	ObjectShroudStatus getPropShroudStatusForPlayer(Int playerIndex,
 		const Coord3D *loc) const;
 	void drainPending();
@@ -366,6 +367,26 @@ void ShroudManagerImpl008FBA40::updatePlayerCells300_Rva0073B410(
 			element != end; ++element)
 		{
 			element->updatePlayerCells008FC300(this, playerIndex);
+		}
+	}
+}
+
+// Retail 0x0073B3B0 runs the increment variant immediately followed by the
+// decrement variant over every element for one player. Same sweep shape as
+// the 0x0073B410 body with the element-first declaration order; descriptive
+// Rva-qualified name.
+void ShroudManagerImpl008FBA40::updatePlayerCells300And3B0_Rva0073B3B0(
+	int playerIndex)
+{
+	if (playerIndex >= 0 && playerIndex < 20)
+	{
+		ShroudManagerImpl008FBA40Element *element = elements;
+		ShroudManagerImpl008FBA40Element *end = element + height * width;
+		while (element != end)
+		{
+			element->updatePlayerCells008FC300(this, playerIndex);
+			element->updatePlayerCells008FC3B0(this, playerIndex);
+			++element;
 		}
 	}
 }
