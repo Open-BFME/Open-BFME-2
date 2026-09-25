@@ -55,9 +55,11 @@ public:
 
 public:
 	void clear();
+	DataType getType(int key) const;
 
 private:
 	void releaseData();
+	DictPair *findPairByKey(int key) const;
 
 	DictPairData *m_data;
 };
@@ -113,4 +115,28 @@ void Dict::clear(void)
 {
 	releaseData();
 	m_data = 0;
+}
+
+// ?findPairByKey@Dict@@ABEPAUDictPair@1@H@Z @0x0031313B
+Dict::DictPair *Dict::findPairByKey(int key) const
+{
+	DictPairData *data = m_data;
+	if (data == 0)
+		return 0;
+	int lo = 0;
+	int hi = data->m_numPairsUsed;
+	if (hi <= 0)
+		return 0;
+	do {
+		int mid = (hi + lo - 1) >> 1;
+		DictPair *pair = (DictPair *)(data + 1) + mid;
+		int pairKey = (int)((unsigned int)pair->m_key >> 8);
+		if (key > pairKey)
+			lo = mid + 1;
+		else if (key < pairKey)
+			hi = mid;
+		else
+			return pair;
+	} while (lo < hi);
+	return 0;
 }
