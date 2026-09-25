@@ -231,6 +231,13 @@ _STL::list<UnicodeString> SkirmishPreferences::getUserNames_Rva0043C2D0(void)
 	return m_userNames;
 }
 
+// ?write@SkirmishPreferences@@UAE_NXZ @0x43C6C7
+Bool SkirmishPreferences::write(void)
+{
+	rebuildUserNamesEntry();
+	return UserPreferences::write();
+}
+
 // ?setCurrentUserName@SkirmishPreferences@@QAEXABVUnicodeString@@@Z @0x43C4D2
 void SkirmishPreferences::setCurrentUserName(const UnicodeString &newName)
 {
