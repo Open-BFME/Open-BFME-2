@@ -28,6 +28,12 @@ public:
 	SphericalEmissionVelocityInfo(const SphericalEmissionVelocityInfo &other);
 };
 
+class CylindricalEmissionVelocityInfo
+{
+public:
+	CylindricalEmissionVelocityInfo(const CylindricalEmissionVelocityInfo &other);
+};
+
 }
 
 extern "C" char Rva003AF184_v0a;
@@ -41,6 +47,12 @@ extern "C" char Rva003AF22E_v14a;
 extern "C" char Rva003AF22E_vsub;
 extern "C" char Rva003AF22E_v0b;
 extern "C" char Rva003AF22E_v14b;
+
+extern "C" char Rva003AF34F_v0a;
+extern "C" char Rva003AF34F_v14a;
+extern "C" char Rva003AF34F_vsub;
+extern "C" char Rva003AF34F_v0b;
+extern "C" char Rva003AF34F_v14b;
 
 class Rva003AF184
 {
@@ -98,4 +110,33 @@ Rva003AF22E::Rva003AF22E(const Rva003AF22E &that)
 	*(void **)sub = &Rva003AF22E_vsub;
 	*(void **)this = &Rva003AF22E_v0b;
 	*(void **)((char *)this + 0x14) = &Rva003AF22E_v14b;
+}
+
+class Rva003AF34F
+{
+public:
+	__declspec(noinline) Rva003AF34F(const Rva003AF34F &other);
+
+private:
+	void *m_v0; // +0x00
+	char m_pad04[16]; // +0x04: smart member + int, owned by the base copy
+	void *m_v14; // +0x14
+	char m_info[4]; // +0x18: info head, owned by the sub copy
+};
+
+// ??0Rva003AF34F@@QAE@ABV0@@Z
+Rva003AF34F::Rva003AF34F(const Rva003AF34F &that)
+{
+	const void *src = &that;
+	((Rva003AF50D *)this)->Rva003AF50D::Rva003AF50D(*(const Rva003AF50D *)src);
+	const void *sub_src = src ? (const char *)src + 0x18 : 0;
+	FXParticleSystem::CylindricalEmissionVelocityInfo *sub =
+		(FXParticleSystem::CylindricalEmissionVelocityInfo *)((char *)this + 0x18);
+	*(void **)this = &Rva003AF34F_v0a;
+	*(void **)((char *)this + 0x14) = &Rva003AF34F_v14a;
+	sub->CylindricalEmissionVelocityInfo::CylindricalEmissionVelocityInfo(
+		*(const FXParticleSystem::CylindricalEmissionVelocityInfo *)sub_src);
+	*(void **)sub = &Rva003AF34F_vsub;
+	*(void **)this = &Rva003AF34F_v0b;
+	*(void **)((char *)this + 0x14) = &Rva003AF34F_v14b;
 }
