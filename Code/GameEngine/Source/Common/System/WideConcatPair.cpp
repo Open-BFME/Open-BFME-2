@@ -123,3 +123,43 @@ BFME2WideConcatPair::operator StringBase<unsigned short>()
 	copyPayloads(tmp.getBufferForRead(totalLength()));
 	return tmp;
 }
+
+// Triple-wide twin: the pair above plus a third reference at +8. Same
+// shape as the WinMainTitlePair/double-pair split: the sum adds the third
+// length to the pair sum and the copy appends the third payload after the
+// pair copy. Callers live in the 0x0037Dxxx subtitle/text cluster.
+
+// @0x0037BAC2 (27B): triple length sum
+// @0x0037BDF0 (37B): triple payload copy
+// @0x0037D3C9 (98B): triple materializer
+class BFME2WideConcatTriple : public BFME2WideConcatPair
+{
+public:
+	operator StringBase<unsigned short>();
+	int totalLength() const;
+	int copyPayloads(unsigned short *dst) const;
+
+private:
+	BFME2WideStringRef m_third;
+};
+
+int BFME2WideConcatTriple::totalLength() const
+{
+	int third = m_third.length();
+	int pair = BFME2WideConcatPair::totalLength();
+	return third + pair;
+}
+
+int BFME2WideConcatTriple::copyPayloads(unsigned short *dst) const
+{
+	int first = BFME2WideConcatPair::copyPayloads(dst);
+	int second = m_third.copyPayloadTo(dst + first);
+	return first + second;
+}
+
+BFME2WideConcatTriple::operator StringBase<unsigned short>()
+{
+	UnicodeString tmp;
+	copyPayloads(tmp.getBufferForRead(totalLength()));
+	return tmp;
+}
