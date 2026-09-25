@@ -142,6 +142,17 @@ enum
 typedef std::queue<PeerRequest> RequestQueue;
 typedef std::queue<PeerResponse> ResponseQueue;
 
+// Target vtable getters read PeerThreadClass connection bytes at +0x50/+0x51;
+// the donor class puts the same Bool members at +0x58/+0x59. Keep the target
+// offsets local to these queue getters instead of changing the class layout.
+struct BfmePeerThreadStatusView {
+	UnsignedByte unknown_00[0x50];
+	Bool m_isConnecting;
+	Bool m_isConnected;
+	Bool isConnecting( void ) { return m_isConnecting; }
+	Bool isConnected( void ) { return m_isConnected; }
+};
+
 // Target's request queue advances in 0x1EC-byte steps. Its push_back body is
 // already verified under this size-only record view; PeerRequest payload
 // members remain donor-derived rather than asserted as target layout facts.
@@ -645,13 +656,12 @@ Bool GameSpyPeerMessageQueue::isThreadRunning( void )
 	return (m_thread) ? m_thread->Is_Running() : false;
 }
 
-// ?isConnected@GameSpyPeerMessageQueue@@ present-unmatched
 Bool GameSpyPeerMessageQueue::isConnected( void )
 {
-	return (m_thread) ? m_thread->isConnected() : false;
+	return (m_thread) ? ((BfmePeerThreadStatusView *)m_thread)->isConnected() : false;
 }
 
-// ?isConnecting@GameSpyPeerMessageQueue@@ present-unmatched
+// ?isConnecting@GameSpyPeerMessageQueue@@UAE_NXZ present-unmatched
 Bool GameSpyPeerMessageQueue::isConnecting( void )
 {
 	return (m_thread) ? m_thread->isConnecting() : false;
