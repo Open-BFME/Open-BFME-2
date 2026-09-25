@@ -142,6 +142,20 @@ enum
 typedef std::queue<PeerRequest> RequestQueue;
 typedef std::queue<PeerResponse> ResponseQueue;
 
+// Target's request queue advances in 0x1EC-byte steps. Its push_back body is
+// already verified under this size-only record view; PeerRequest payload
+// members remain donor-derived rather than asserted as target layout facts.
+struct BfmeOpaqueOwnedRecord492 {
+	union { unsigned int alignmentWitness; unsigned char bytes[492]; };
+	BfmeOpaqueOwnedRecord492();
+	BfmeOpaqueOwnedRecord492(const BfmeOpaqueOwnedRecord492 &);
+	~BfmeOpaqueOwnedRecord492();
+};
+typedef char BfmeOpaqueOwnedRecord492_size_check[
+	sizeof(BfmeOpaqueOwnedRecord492) == 492 ? 1 : -1];
+typedef _STL::deque<BfmeOpaqueOwnedRecord492,
+	_STL::allocator<BfmeOpaqueOwnedRecord492> > BfmeRequestDeque492;
+
 // The vtable-selected PeerResponse queue uses a 0x348-byte element. Its
 // pop_front specialization remains under this size-only target view until the
 // owner's full layout is established; STLport queue stores deque as member c.
@@ -643,14 +657,14 @@ Bool GameSpyPeerMessageQueue::isConnecting( void )
 	return (m_thread) ? m_thread->isConnecting() : false;
 }
 
-// ?addRequest@GameSpyPeerMessageQueue@@UAEXABVPeerRequest@@@Z present-unmatched
 void GameSpyPeerMessageQueue::addRequest( const PeerRequest& req )
 {
 	MutexClass::LockClass m(m_requestMutex);
 	if (m.Failed())
 		return;
 
-	m_requests.push(req);
+	((BfmeRequestDeque492 *)&m_requests)->push_back(
+		*(const BfmeOpaqueOwnedRecord492 *)&req);
 }
 
 //PeerRequest GameSpyPeerMessageQueue::getRequest( void )
@@ -3044,4 +3058,3 @@ static void listingGamesCallback(PEER peer, PEERBool success, const char * name,
 }
 
 //-------------------------------------------------------------------------
-
