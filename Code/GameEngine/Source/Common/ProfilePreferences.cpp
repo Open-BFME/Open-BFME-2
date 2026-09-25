@@ -160,6 +160,20 @@ protected:
 	void loadStatsFile(const UnicodeString &profilePath, const UnicodeString &leafName);
 };
 
+// StrategicStatsPreferences (vtable 0x00C6913C) loads the global leaf
+// "StrategicStats.ini" (UnicodeString static at 0x00E05E04, built by the
+// dynamic initializer at 0x007B3AA5 from the .rdata leaf at 0x00C691D4).
+// Its vtable keeps the thirteen UserPreferences slots, overrides slot 0
+// with the shared deleting destructor at 0x00537E60 (already rowed), and
+// appends the loadProfileStats thunk at slot 13.
+class StrategicStatsPreferences : public ProfilePreferences
+{
+public:
+	StrategicStatsPreferences(const UnicodeString &profilePath);
+	virtual ~StrategicStatsPreferences();
+	virtual void loadProfileStats(const UnicodeString &profilePath);
+};
+
 // ??0ProfilePreferences@@QAE@H@Z
 ProfilePreferences::ProfilePreferences(int profileKind)
 {
@@ -177,4 +191,10 @@ void ProfilePreferences::loadStatsFile(const UnicodeString &profilePath, const U
 	UnicodeString path(profilePath);
 	path.concat(leafName);
 	UserPreferences::load(path);
+}
+
+// ?loadProfileStats@StrategicStatsPreferences@@UAEXABVUnicodeString@@@Z @0x537D9A
+void StrategicStatsPreferences::loadProfileStats(const UnicodeString &profilePath)
+{
+	loadStatsFile(profilePath, g_strategicStatsLeaf);
 }
