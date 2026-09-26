@@ -11,3 +11,7 @@ void famgenDelete(HeroModeSpecialAbilityUpdateModuleData *p) { delete p; }
 class RankInfo { public: __declspec(noinline) virtual ~RankInfo(); private: int m_famgen; };
 RankInfo::~RankInfo() { m_famgen = 0; }
 void famgenDelete(RankInfo *p) { delete p; }
+// ??_GBaikonurLaunchPower@@UAEPAXI@Z @0x004CAFC1
+class BaikonurLaunchPower { public: __declspec(noinline) virtual ~BaikonurLaunchPower(); private: int m_famgen; };
+BaikonurLaunchPower::~BaikonurLaunchPower() { m_famgen = 0; }
+void famgenDelete(BaikonurLaunchPower *p) { delete p; }
