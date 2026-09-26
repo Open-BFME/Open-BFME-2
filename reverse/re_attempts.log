@@ -1844,3 +1844,4 @@ FUN_00433B96	0x00433B96	39	blocked	list unicodestring 39B free find helper ident
 ?1EvacuateDamage@@UAE@XZ	0x004BAEC8	73	blocked	3-vptr plus List_base int vs Record plus base Rva pin needed t=4 model=muse-eeab
 FUN_009c5990	0x005C5990	28	blocked	vtable 0x874834 but callee 0x5C6317 installs 0x874804 not derived; empty donor dtor needs hierarchy proof t=12 model=muse-spark
 ??1ArrowStormUpdateModuleData@@UAE@XZ	0x00490695	10	blocked	EH dtor Ghidra-truncated 10B true size larger; needs base Rva0044EB54 dtor plus BFME2 layout vs BFME1 AsciiString donor t=8 model=muse-spark
+??1SoundFXNugget@@UAE@XZ	0x001E0E07	60	blocked	virtual dtor emits extra vtable store vs retail none; needs novtable-explicit vs virtual base investigation t=15 model=muse-spark
