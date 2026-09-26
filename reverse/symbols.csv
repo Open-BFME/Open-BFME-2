@@ -5525,3 +5525,4 @@ __mbscat,0x0062988C,retail REL32 from INI getNextQuotedAsciiString 0x002E93F; IA
 ??1Rva004E16D9Record@@QAE@XZ,0x004E1682,target record destructor called by ParseForceBattle at 0x4E16D9; address-derived record name
 ?append@Rva0056652FOwner@@QAEXPAVRva004E16D9Record@@@Z,0x0056652F,target 8-byte append thunk adjusts owner this by +0x14; address-derived record and owner names
 ?Rva008A4EA0MakeFloat@@YAPAVAptValue@@M@Z,0x006D8700,BFME2 0x006E89F0 passes scaled float here; target allocator stores it in the Apt float object at +8 and returns the object
+?bfmeRunRE@BfmeThingRE@@QAEXPAX@Z,0x006574A0,caller at 0x00664AB6 forwards the explicit stack argument; the matched 44B helper at this RVA is byte-identical to BFME1 0x007EA4F0 and tail-jumps through vtable slot 5 without cleaning it establishing this ICF signature alias
