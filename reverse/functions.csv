@@ -36032,3 +36032,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ??1InheritUpgradeCreateModuleData@@UAE@XZ,,0x004B9569,51,Code/GameEngine/Source/GameLogic/Object/Update/InheritUpgradeCreateModuleDataDtor.cpp,matched,ModuleData dtor via RefundDie pattern with Snapshot BBB554 and filter at 0x8C
 ??1BoredUpdateModuleData@@UAE@XZ,,0x004969B7,48,Code/GameEngine/Source/GameLogic/Object/Update/BoredUpdateModuleDataDtor.cpp,matched,implicit virtual dtor restoring BBB554 base plus pinned filter
 ??_GBoredUpdateModuleData@@UAEPAXI@Z,,0x0049699B,28,Code/GameEngine/Source/GameLogic/Object/Update/BoredUpdateModuleDataDtor.cpp,matched,28B deleting dtor via implicit dtor plus operator delete
+??1ToppleUpdateModuleData@@UAE@XZ,,0x004A83A7,48,Code/GameEngine/Source/GameLogic/Object/Update/ToppleUpdateModuleDataDtor.cpp,matched,vtable 0x008538A0 slot0 deleting dtor at 0x004A838B INI table 0x00C53980 ZH ToppleUpdate donor
