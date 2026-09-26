@@ -36314,3 +36314,4 @@ _Rva00680420,,0x00680420,17,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,mat
 ?Thread_Function@MouseThreadClass@@UAEXXZ,,0x00098DF2,119,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouse.cpp,matched,vtable slot 2 of 0x7C86CC BFME1 donor W3DMouse plus mutex try-lock loop
 ?doFXObj@LightPulseFXNugget@@UBEXPBVObject@@0@Z,,0x001E03B4,117,Code/GameEngine/Source/GameClient/LightPulseFXNuggetEffects.cpp,matched,vtable 0x7DD790 slot2 BFME1 donor doFXObj plus FieldParse 0xBDCBD8 offsets
 ?xfer@Rva003A49D1@@MAEXPAVXfer@@@Z,,0x003A4AFA,94,Code/GameEngine/Source/Common/Rva003A49D1Xfer.cpp,matched,slot3 xfer via base plus Version12 plus uints plus gated bool
+??1FireWeaponCollide@@UAE@XZ,,0x004BB6A7,85,Code/GameEngine/Source/GameLogic/Object/Collide/FireWeaponCollideDtor.cpp,matched,vtable 0x85A0FC via ctor 0xBB79A plus base CollideModule twin 0xBB68E plus deleteInstance 0

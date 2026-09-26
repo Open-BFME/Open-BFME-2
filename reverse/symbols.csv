@@ -5511,3 +5511,4 @@ __mbscat,0x0062988C,retail REL32 from INI getNextQuotedAsciiString 0x002E93F; IA
 ?allocate@?$allocator@UBfmePod20@@@_STL@@QBEPAUBfmePod20@@IPBX@Z,0x00395960,target overflow 0x59B809 calls allocator through vector proxy with count and null hint; matched 20-byte allocator body multiplies by 0x14; BfmePod20 is size-only emitter placeholder
 ??0?$_STLP_alloc_proxy@IUBfmeOpaqueOwnedRecord2148@@V?$allocator@UBfmeOpaqueOwnedRecord2148@@@_STL@@@_STL@@QAE@ABV?$allocator@UBfmeOpaqueOwnedRecord2148@@@1@I@Z,0x0014F3C4
 ??0?$_STLP_alloc_proxy@PAPAUBfmeOpaqueOwnedRecord2148@@PAU1@V?$allocator@PAUBfmeOpaqueOwnedRecord2148@@@_STL@@@_STL@@QAE@ABV?$allocator@PAUBfmeOpaqueOwnedRecord2148@@@1@PAPAUBfmeOpaqueOwnedRecord2148@@@Z,0x0014F3C4
+??1CollideModule@@UAE@XZ,0x004BB68E,twin of rowed Rva004BB68E dtor for FireWeaponCollide dtor at 0xBB6A7
