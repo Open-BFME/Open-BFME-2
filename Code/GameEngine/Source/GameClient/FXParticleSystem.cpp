@@ -958,7 +958,9 @@ LightningDrawModuleInfo::LightningDrawModuleInfo(const LightningDrawModuleInfo &
     m_unknown2C = that.m_unknown2C;
 }
 
-class OrthoEmissionVelocityInfo
+// Derives from EmissionVelocityInfo as in the target ctor TUs, so the folded
+// 0x49B47C dtor stores the Snapshot vtable like its siblings (DIR32).
+class OrthoEmissionVelocityInfo : public EmissionVelocityInfo
 {
 public:
     virtual ~OrthoEmissionVelocityInfo();
