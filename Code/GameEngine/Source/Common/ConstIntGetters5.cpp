@@ -265,3 +265,26 @@ int Rva00176E30Get(void)
 {
 	return 0x00bd4e3c;
 }
+
+// ?Rva001DAEB2Get@@YAHXZ @ 0x001daeb2 (6B): returns 0x00c03a28.
+// Preceded by int3 padding. No direct callers. Opaque address-derived name.
+int Rva001DAEB2Get(void)
+{
+	return 0x00c03a28;
+}
+
+// ?Rva001DAF77Get@@YAHXZ @ 0x001daf77 (6B): returns 0x00c15468.
+// Follows an SEH epilogue plus leave plus ret. No direct callers.
+// Opaque address-derived name.
+int Rva001DAF77Get(void)
+{
+	return 0x00c15468;
+}
+
+// ?Rva000454EDGet@@YAHXZ @ 0x000454ed (6B): returns 0x0000024f.
+// Follows an idiv helper tail. No direct callers. Opaque address-derived
+// name.
+int Rva000454EDGet(void)
+{
+	return 0x0000024f;
+}

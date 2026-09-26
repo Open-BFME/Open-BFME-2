@@ -35391,3 +35391,6 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ?Rva0008514EGet@@YAHXZ,,0x0008514E,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
 ?Rva00176E30Get@@YAHXZ,,0x00176E30,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
 ??1?$_Rb_tree@HU?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@U?$_Select1st@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@@2@@_STL@@QAE@XZ,,0x0038103F,56,Code/GameEngine/Source/Common/MultiplayerColorTreeDtor.cpp,matched,Color-tree dtor shell: outline clear 0x380F08 plus null-checked header free; explicit instantiation recipe per 0x21B775 and 0x589BE; reached as MultiplayerSettings +0x34 member teardown
+?Rva001DAEB2Get@@YAHXZ,,0x001DAEB2,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
+?Rva001DAF77Get@@YAHXZ,,0x001DAF77,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
+?Rva000454EDGet@@YAHXZ,,0x000454ED,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
