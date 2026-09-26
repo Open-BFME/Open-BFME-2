@@ -36429,3 +36429,4 @@ _setlinehook,,0x00748350,37,Code/Libraries/Source/Lua/ldblib.c,matched,BFME1 ldb
 ??_GStatusBitsUpgradeIfEldestKindofModuleData@@UAEPAXI@Z,,0x00255740,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-b0cb.cpp,matched,Deleting dtor slot 0 of vtable 0xBF25D8 calls rowed dtor 0x25575C
 ??0DefaultUpdateModuleInfo@FXParticleSystem@@QAE@XZ,0x0055F529,0x0055F529,339,Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultUpdateModuleInfoDefaultCtor.cpp,matched,BFME1 donor extended to 8 vars plus extra
 ?xfer@AODCrushCollide@@MAEXPAVXfer@@@Z,,0x004BBF03,65,Code/GameEngine/Source/GameLogic/Object/Collide/AODCrushCollideXfer.cpp,matched,slot3 of vtable 0x0085A31C Version1 plus UpdateModule xfer plus uint ObjectID bool
+??1WeaponFireSpecialAbilityUpdate@@UAE@XZ,,0x0049256B,106,Code/GameEngine/Source/GameLogic/Object/Update/WeaponFireSpecialAbilityUpdateDtor.cpp,matched,BFME1 donor with 0x88 base plus deleteInstance
