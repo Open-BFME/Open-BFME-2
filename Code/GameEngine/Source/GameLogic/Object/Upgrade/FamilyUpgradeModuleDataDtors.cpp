@@ -7,6 +7,8 @@
 
 class AsciiStringMember { public: ~AsciiStringMember(); char m_data[4]; };
 class ModuleDataBase { public: virtual ~ModuleDataBase() {} };
+class OpaqueRefCounted { public: void Release_Ref(); };
+struct SoundHolder { ~SoundHolder() { if (m_ptr) m_ptr->Release_Ref(); } OpaqueRefCounted *m_ptr; };
 
 class W3DBoatWakeModelDrawModuleData : public ModuleDataBase { public: char m_pad[0x8 - 4]; AsciiStringMember m_name; };
 void *famgenMakeW3DBoatWakeModelDrawModuleData() { return new W3DBoatWakeModelDrawModuleData; }
@@ -46,4 +48,12 @@ void *famgenMakeSpawnUnitBehaviorModuleData() { return new SpawnUnitBehaviorModu
 // vtable 0x00BBB554 restored.
 class CommandSetUpgradeModuleData : public ModuleDataBase { public: char m_pad[0x118 - 4]; AsciiStringMember m_commandSet; };
 void *famgenMakeCommandSetUpgradeModuleData() { return new CommandSetUpgradeModuleData; }
+
+// ??1StealthDetectorUpdateModuleData@@UAE@XZ, retail 0x0025601C, 95 bytes.
+// Two AsciiStrings at +0x6C/+0x2C plus two Release_Ref holders at +0x18/+0x14
+// (factory 0x2553C5 news 0x70; vtable 0x00BF3540; caller ??_G 0x256000 slot 0).
+// Same-shape sibling of AudioLoopUpgradeModuleData dtor 0x4B7C4C (holder plus
+// BBB554 base) with two strings then two holders then base vtable restored.
+class StealthDetectorUpdateModuleData : public ModuleDataBase { public: char m_pad04[0x14 - 4]; SoundHolder m_holder14; SoundHolder m_holder18; char m_pad1C[0x2C - 0x1C]; AsciiStringMember m_str2C; char m_pad30[0x6C - 0x30]; AsciiStringMember m_str6C; };
+void *famgenMakeStealthDetectorUpdateModuleData() { return new StealthDetectorUpdateModuleData; }
 

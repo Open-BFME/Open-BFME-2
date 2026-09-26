@@ -36249,3 +36249,4 @@ _Rva00680420,,0x00680420,17,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,mat
 ?xfer@Rva00499F45@@MAEXPAVXfer@@@Z,,0x0049A016,33,Code/GameEngine/Source/Common/Rva00499F45Xfer.cpp,matched,slot3 xfer via base plus IsLightCRC plus Version1
 ??1MonitorConditionUpdateModuleData@@UAE@XZ,,0x00491711,63,Code/GameEngine/Source/GameLogic/Object/Update/MonitorConditionUpdateModuleDataDtor.cpp,matched,Snapshot base 0xBBB554 with AsciiString pair at +0x54 +0x68 via pinned 0x36410 and ctor 0x4915FD vtable 0xC4DA50
 ??_GMonitorConditionUpdateModuleData@@UAEPAXI@Z,,0x004916F5,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-p7z-f52d.cpp,matched,slot 0 of vtable 0x0084DA50 calls rowed 0x00491711 and rowed delete 0x0002FD60
+??1StealthDetectorUpdateModuleData@@UAE@XZ,,0x0025601C,95,Code/GameEngine/Source/GameLogic/Object/Upgrade/FamilyUpgradeModuleDataDtors.cpp,matched,two strings at +0x6C/+0x2C two holders at +0x18/+0x14 vtable BF3540 caller 0x56000
