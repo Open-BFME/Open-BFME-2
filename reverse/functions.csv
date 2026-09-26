@@ -36350,3 +36350,4 @@ _Rva00680420,,0x00680420,17,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,mat
 ??_GAnimateWindowManager@@UAEPAXI@Z,,0x0053B827,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-2c79.cpp,matched,gap deleting dtor calls rowed dtor plus operator delete
 ??1StructureCollapseUpdateModuleData@@UAE@XZ,,0x00256B94,86,Code/GameEngine/Source/GameLogic/Object/Update/StructureCollapseUpdateModuleDataDtor.cpp,matched,vtable 0xBF3E30 slot0 0x256B78 Rubble sibling pattern
 ?XferEnum@Xfer@@UAEAAV1@PBDPAXI@Z,0x0060BBD5,0x0060BBD5,125,Code/GameEngine/Source/Common/System/Xfer.cpp,matched,slot37 of 0x7BB910 BFME1 XferEnumTransfer donor
+??1MonitorConditionUpdate@@UAE@XZ,,0x004916AC,73,Code/GameEngine/Source/GameLogic/Object/Update/MonitorConditionUpdateDtor.cpp,matched,dtor MI vptr restore plus StringBase plus UpdateModule base
