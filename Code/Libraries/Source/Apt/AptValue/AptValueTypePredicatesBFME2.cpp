@@ -15,6 +15,7 @@ public:
     int isRegister() const;
     int isFloat() const;
     int isString() const;
+    int isBoolean() const;
 };
 // Corresponding checked casts at 6DCD50/90/D0 and 6DCE10/50 assert these
 // exact predicate names. Type numbers are independently decoded from PC.
@@ -69,5 +70,15 @@ int BfmeAptValue006DCD20::isString() const
         if (g_bfmeAptBreakOnAssertAtDDC01C) __debugbreak();
     }
     if ((flags.type == 1 || flags.type == 42) && !isUndefined()) return 1;
+    return 0;
+}
+
+int BfmeAptValue006DCD20::isBoolean() const
+{
+    if (!this) {
+        g_bfmeAptAssertAtE17734("this","c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\AptValue/AptValue.inl",1510);
+        if (g_bfmeAptBreakOnAssertAtDDC01C) __debugbreak();
+    }
+    if (flags.type == 5 && !isUndefined()) return 1;
     return 0;
 }
