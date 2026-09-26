@@ -146,6 +146,7 @@ FX_VTABLE_ONLY_INFO(DefaultDrawModuleInfo)
 FX_VTABLE_ONLY_INFO(RenderObjectDrawModuleInfo)
 FX_VTABLE_ONLY_INFO(GpuDrawModuleInfo)
 FX_VTABLE_ONLY_INFO(QuadDrawModuleInfo)
+FX_VTABLE_ONLY_INFO(StreakDrawModuleInfo)
 FX_VTABLE_ONLY_INFO(ButterflyDrawModuleInfo)
 
 // Category 8 (LifeEvent and TerrainCollision) puts its info's vtable at 0x0C
@@ -353,6 +354,7 @@ FX_MODULE_TEMPLATE(RenderObjectUpdateModuleTemplate, RenderObjectUpdateModuleInf
 FX_MODULE_TEMPLATE(RenderObjectDrawModuleTemplate, RenderObjectDrawModuleInfo)
 FX_MODULE_TEMPLATE(GpuDrawModuleTemplate, GpuDrawModuleInfo)
 FX_MODULE_TEMPLATE(QuadDrawModuleTemplate, QuadDrawModuleInfo)
+FX_MODULE_TEMPLATE(StreakDrawModuleTemplate, StreakDrawModuleInfo)
 FX_MODULE_TEMPLATE(ButterflyDrawModuleTemplate, ButterflyDrawModuleInfo)
 
 #define FX_EVENT_MODULE_TEMPLATE(NAME, INFO)                                                        class NAME : public CategoryModuleTemplate<8>, public INFO                                     {                                                                                                  public:                                                                                            NAME();                                                                                        NAME(const NAME &that);                                                                        NAME &operator=(const NAME &that);                                                             void parse(INI *ini);                                                                      };
@@ -646,6 +648,7 @@ FX_NAMED_WRAPPER(8, TERRAIN_COLLISION, TerrainCollisionModule, TerrainCollisionM
 FX_WRAPPER(6, RENDEROBJECT_DRAW, RenderObjectDrawModule, RenderObjectDrawModuleTemplate)
 FX_WRAPPER(6, GPU_DRAW, GpuDrawModule, GpuDrawModuleTemplate)
 FX_WRAPPER(6, QUAD_DRAW, QuadDrawModule, QuadDrawModuleTemplate)
+FX_WRAPPER(6, STREAK_DRAW, StreakDrawModule, StreakDrawModuleTemplate)
 FX_WRAPPER(6, BUTTERFLY_DRAW, ButterflyDrawModule, ButterflyDrawModuleTemplate)
 
 // The named-tag classes: same treatment, over the tags FX_NAMED_WRAPPER made.
