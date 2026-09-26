@@ -36352,3 +36352,4 @@ _Rva00680420,,0x00680420,17,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,mat
 ?XferEnum@Xfer@@UAEAAV1@PBDPAXI@Z,0x0060BBD5,0x0060BBD5,125,Code/GameEngine/Source/Common/System/Xfer.cpp,matched,slot37 of 0x7BB910 BFME1 XferEnumTransfer donor
 ??1MonitorConditionUpdate@@UAE@XZ,,0x004916AC,73,Code/GameEngine/Source/GameLogic/Object/Update/MonitorConditionUpdateDtor.cpp,matched,dtor MI vptr restore plus StringBase plus UpdateModule base
 ??1ToggleDeploySpecialAbilityUpdateModuleData@@UAE@XZ,,0x004AE685,82,Code/GameEngine/Source/GameLogic/Object/Update/ToggleDeploySpecialAbilityUpdateModuleDataDtor.cpp,matched,vtable 0x00C553D8 slot0 caller 0x004AE669 plus Release_Ref holders at 0xC8 and 0xCC
+?xfer@DeflectSpecialPower@@MAEXPAVXfer@@@Z,,0x004C5571,65,Code/GameEngine/Source/GameLogic/Object/SpecialPower/DeflectSpecialPowerXfer.cpp,matched,vslot3 DeflectSpecialPower xfer; base Rva00589079 plus IsLightCRC plus Version1 plus bools 3C-3D
