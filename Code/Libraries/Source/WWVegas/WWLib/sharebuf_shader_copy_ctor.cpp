@@ -5,6 +5,7 @@
 
 void *operator new[](unsigned int size);
 inline void *operator new(unsigned int, void *place) { return place; }
+extern void __cdecl operator delete[](void *) throw();
 
 class ShaderClass
 {
@@ -39,6 +40,7 @@ class ShareBufferClass : public RefCountClass
 {
 public:
 	ShareBufferClass(const ShareBufferClass &);
+	~ShareBufferClass();
 
 protected:
 	Type *RawBuffer;
@@ -67,3 +69,12 @@ ShareBufferClass<Type>::ShareBufferClass(const ShareBufferClass<Type> &that) :
 
 template ShareBufferClass<ShaderClass>::ShareBufferClass(
 	const ShareBufferClass<ShaderClass> &);
+
+// ShareBufferClass<ShaderClass> owns a raw shader array; the destructor
+// frees it. The 0x15CF30 constructor installs vtable 0xBD3CEC, whose
+// deleting destructor at 0x15CEF0 calls this body at 0x15CF10.
+template <>
+ShareBufferClass<ShaderClass>::~ShareBufferClass()
+{
+	::operator delete[](RawBuffer);
+}
