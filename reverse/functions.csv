@@ -36432,3 +36432,5 @@ _setlinehook,,0x00748350,37,Code/Libraries/Source/Lua/ldblib.c,matched,BFME1 ldb
 ??1WeaponFireSpecialAbilityUpdate@@UAE@XZ,,0x0049256B,106,Code/GameEngine/Source/GameLogic/Object/Update/WeaponFireSpecialAbilityUpdateDtor.cpp,matched,BFME1 donor with 0x88 base plus deleteInstance
 ?openFromArchive@StreamingArchiveFile@@UAE_NPAVFile@@ABVAsciiString@@HH@Z,,0x00605B68,240,Code/GameEngine/Source/Common/System/LocalFile.cpp,matched,slot18 of vtable 0087AA50 plus BFME1 Streaming donor plus theDebug crash report
 ??_GWeaponFireSpecialAbilityUpdate@@UAEPAXI@Z,,0x004927B4,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-5ca3.cpp,matched,Deleting dtor slot 0 calls rowed dtor 0x49256B
+??_G?$DynamicVectorClass@PAVHAnimComboDataClass@@@@UAEPAXI@Z,,0x00197470,30,Code/Libraries/Source/WWVegas/WW3D2/hanim_vector_hanimcombo_ctor.cpp,matched,slot 0 of vtable 0x7D5E88 installed by HAnimComboClass ctors; calls rowed VectorClass dtor 0x196B50
+??_G?$VectorClass@PAVHAnimComboDataClass@@@@UAEPAXI@Z,,0x00196A20,71,Code/Libraries/Source/WWVegas/WW3D2/hanim_vector_hanimcombo_ctor.cpp,matched,slot 0 of vtable 0x7D5E58; inlined dtor plus delete

@@ -22,3 +22,8 @@
 #include "nstrdup.h"
 
 template VectorClass<HAnimComboDataClass*>::~VectorClass();
+
+// ??_G?$DynamicVectorClass@PAVHAnimComboDataClass@@@@UAEPAXI@Z at 0x00197470 (30B):
+// slot 0 of DynamicVectorClass vtable 0x7D5E88 installed by HAnimComboClass
+// ctors 0x196B80/0x197650; calls rowed ??1 VectorClass 0x196B50 then delete.
+template class DynamicVectorClass<HAnimComboDataClass *>;
