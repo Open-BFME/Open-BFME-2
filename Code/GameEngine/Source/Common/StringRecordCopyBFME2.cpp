@@ -168,3 +168,26 @@ struct BfmeStringRecord00239B46 {
     BfmeStringRecord00239B46(const BfmeStringRecord00239B46 &o) : text(o.text), short0(o.short0) {}
 };
 template void _STL::_Construct<BfmeStringRecord00239B46,BfmeStringRecord00239B46>(BfmeStringRecord00239B46*,const BfmeStringRecord00239B46&);
+
+// Retail dtor 0x001EA443 (53B) and deleting dtor 0x001EA4B5 (28B): two
+// narrow-string members at +0/+4 destroyed in reverse order through the
+// pinned StringBase dtor at 0x36410, with /EHsc states. Identity unproven
+// beyond the string-pair layout shared with BfmeStringRecord001EA478, so
+// both land under an honest Rva address name in this TU (same flags).
+template <typename T> class StringBase
+{
+public:
+	~StringBase();
+private:
+	void *m_data;
+};
+class Rva001EA443
+{
+public:
+	~Rva001EA443();
+private:
+	StringBase<char> m_text0;
+	StringBase<char> m_text1;
+};
+Rva001EA443::~Rva001EA443() {}
+void famgenDelete001EA443(Rva001EA443 *p) { delete p; }
