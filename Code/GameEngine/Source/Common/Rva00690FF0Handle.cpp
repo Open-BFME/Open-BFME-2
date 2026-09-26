@@ -11,6 +11,7 @@ class Rva00690FF0Handle
 {
 public:
 	Rva00690FF0Handle(Gen0002857E *target);
+	~Rva00690FF0Handle();
 
 	Gen0002857E *m_target;
 };
@@ -21,6 +22,12 @@ Rva00690FF0Handle::Rva00690FF0Handle(Gen0002857E *target)
 	m_target = target;
 	if (target)
 		target->handle();
+}
+
+Rva00690FF0Handle::~Rva00690FF0Handle()
+{
+	if (m_target)
+		m_target->release();
 }
 
 class Rva006910F0Handle
