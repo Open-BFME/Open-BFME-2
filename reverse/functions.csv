@@ -35947,3 +35947,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ??0Rva006166B0List@@QAE@XZ,,0x006166B0,18,Code/Libraries/Source/WWVegas/WWLib/ini.cpp,matched,Empty GenericList-derived List ctor. Calls rowed GenericList ctor then installs List vtable 0x87C2E0 shared by EntryList and SectionList. No callers
 ?close@RAMFile@@UAEXXZ,,0x00605547,29,Code/GameEngine/Source/Common/System/LocalFile.cpp,matched,ZH RAMFile close verbatim; delete array plus null plus File close tail; slot2 File family
 ?Rva00549D30Median@@YAABURva00549D30Elem@@ABU1@00@Z,,0x00549D30,75,Code/Libraries/Source/WWVegas/WWLib/Rva00549D30Median.cpp,matched,gap between _M_advance and _M_decrement caller 0x0054C199 SSE median float at plus4
+??1BaseUpgradeModuleData@@UAE@XZ,,0x004B3785,69,Code/GameEngine/Source/GameLogic/Object/Upgrade/BaseUpgradeModuleDataCtor.cpp,matched,ModuleData dtor with 2 Strings plus Snapshot vtable no base call

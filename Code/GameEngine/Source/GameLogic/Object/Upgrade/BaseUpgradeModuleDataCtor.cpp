@@ -20,7 +20,7 @@ class OpenContainModuleData
 {
 public:
 	OpenContainModuleData();
-	virtual ~OpenContainModuleData();
+	virtual ~OpenContainModuleData() {}
 
 private:
 	unsigned char m_pad[0x118 - 4];
@@ -43,7 +43,6 @@ class BaseUpgradeModuleData : public OpenContainModuleData
 {
 public:
 	BaseUpgradeModuleData();
-	virtual ~BaseUpgradeModuleData();
 
 private:
 	AsciiString m_buildingTemplateName; // +0x118
