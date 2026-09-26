@@ -36366,3 +36366,4 @@ _Rva00680420,,0x00680420,17,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,mat
 ?xfer@Rva00491DD3@@MAEXPAVXfer@@@Z,,0x00491F18,66,Code/GameEngine/Source/Common/Rva00491DD3Xfer.cpp,matched,slot3 xfer via UpdateModule base plus Version11 plus bool uint
 ?xfer@InheritUpgradeCreate@@MAEXPAVXfer@@@Z,,0x004B94E3,37,Code/GameEngine/Source/GameLogic/Object/Create/InheritUpgradeCreateXfer.cpp,matched,slot 3 of 0x008596F4 base CreateModule xfer plus Version 1 1
 ?xfer@DetachableRiderUpdate@@MAEXPAVXfer@@@Z,,0x004AE7AD,72,Code/GameEngine/Source/GameLogic/Object/Update/DetachableRiderUpdateXfer.cpp,matched,slot3 of vtable 0x00855468 plus Version 1 1 plus base 0x0044DF9F plus bools
+??_GDeflectSpecialPowerModuleData@@UAEPAXI@Z,,0x004C5683,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-cd13.cpp,matched,slot0 vtable C5DAB0; calls pinned dtor 0x4C64E9 plus delete 0x2FD60

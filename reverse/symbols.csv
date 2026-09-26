@@ -5514,3 +5514,4 @@ __mbscat,0x0062988C,retail REL32 from INI getNextQuotedAsciiString 0x002E93F; IA
 ??0?$_STLP_alloc_proxy@PAPAUBfmeOpaqueOwnedRecord2148@@PAU1@V?$allocator@PAUBfmeOpaqueOwnedRecord2148@@@_STL@@@_STL@@QAE@ABV?$allocator@PAUBfmeOpaqueOwnedRecord2148@@@1@PAPAUBfmeOpaqueOwnedRecord2148@@@Z,0x0014F3C4
 ??1CollideModule@@UAE@XZ,0x004BB68E,twin of rowed Rva004BB68E dtor for FireWeaponCollide dtor at 0xBB6A7
 ??1?$_List_base@PAVAnimateWindow@@V?$allocator@PAVAnimateWindow@@@_STL@@@_STL@@QAE@XZ,0x004EC395,ICF twin of int list-base dtor per AnimateWindowManager dtor 0x0053B6E0 call sites
+??1DeflectSpecialPowerModuleData@@UAE@XZ,0x004C64E9,ICF twin of rowed SiegeDeployHordeSpecialPowerModuleData dtor at same address; resolves Deflect deleting dtor call at 0x4C5686
