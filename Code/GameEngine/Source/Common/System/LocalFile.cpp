@@ -249,6 +249,7 @@ class StreamingArchiveFile : public RAMFile
 public:
 	virtual ~StreamingArchiveFile();
 	virtual bool openFromArchive(File *archiveFile, const AsciiString &filename, int offset, int size);
+	virtual int read(void *buffer, int bytes);
 
 protected:
 	File *m_file;		// +0x20
@@ -756,4 +757,38 @@ bool StreamingArchiveFile::openFromArchive( File *archiveFile, const AsciiString
 	*(AsciiString *)( &m_nameStr ) = filename;
 
 	return true;
+}
+
+// ?read@StreamingArchiveFile@@UAEHPAXH@Z @ 0x00605A82 (91B)
+// Slot 3 (offset 0xC) of vtable 0x0087AA50. ZH StreamingArchiveFile::read plus
+// BFME2 m_file lock/unlock: lock, seek(startingPos+curPos START), clamp to
+// RAMFile m_size, read, unlock, advance curPos. Donor is the ZH/BFME1
+// StreamingArchiveFile::read (see reference/open-bfme-1/.../StreamingArchiveFile.cpp)
+// with File::lock (slot 15 0x3C) and unlock (slot 16 0x40) around the seek/read.
+// Vtable 0087AA50 plus neighbours dtor 0x00605A45 / deleter 0x00605B1A prove
+// StreamingArchiveFile; +0x20 m_file +0x24 startingPos +0x28 curPos +0x1C m_size
+// match the openFromArchive layout in this TU.
+int StreamingArchiveFile::read( void *buffer, int bytes )
+{
+	if( !m_file )
+	{
+		return 0;
+	}
+
+	m_file->lock();
+
+	m_file->seek( m_startingPos + m_curPos, File::START );
+
+	if( bytes + m_curPos > RAMFile::m_size )
+	{
+		bytes = RAMFile::m_size - m_curPos;
+	}
+
+	int bytesRead = m_file->read( buffer, bytes );
+
+	m_file->unlock();
+
+	m_curPos += bytesRead;
+
+	return bytesRead;
 }
