@@ -1,6 +1,7 @@
 // cl: /O1 /DNDEBUG /MD /EHsc
 //
 // ?rva004B7B87@AudioLoopUpgrade@@QAEHXZ, retail 0x004B7B87, 35 bytes.
+// ?rva004B7DE0@AudioLoopUpgrade@@QAEXXZ, retail 0x004B7DE0, 46 bytes.
 // Virtual slot 18 (offset 0x48) of vtable 0x00858C70 (class of the rowed
 // AudioLoopUpgrade ctor; prev ModuleNameGetters 0x004B7B81 plus next pool key
 // 0x004B7BBB). Body stops the loop sound through TheAudio (data 0x009FE6E8)
@@ -49,14 +50,25 @@ public:
 
 extern AudioManager *TheAudio;
 
+class Object;
+
+class UpdateModule
+{
+public:
+	void setWakeFrame(Object *obj, unsigned int frame);
+};
+
 class AudioLoopUpgrade
 {
 public:
 	int rva004B7B87();
+	void rva004B7DE0();
 
 private:
-	unsigned char m_pad[0x1c];
-	unsigned int m_handle1C;
+	unsigned char m_pad0C[0xc];
+	unsigned int m_handle0C; // +0x0c
+	unsigned char m_pad1C[0xc];
+	unsigned int m_handle1C; // +0x1c
 };
 
 int AudioLoopUpgrade::rva004B7B87()
@@ -67,4 +79,16 @@ int AudioLoopUpgrade::rva004B7B87()
 		m_handle1C = 1;
 	}
 	return UPDATE_SLEEP_FOREVER;
+}
+
+void AudioLoopUpgrade::rva004B7DE0()
+{
+	if (TheAudio != 0)
+	{
+		TheAudio->removeAudioEvent(m_handle0C);
+		m_handle0C = 1;
+	}
+	UpdateModule *upd = (UpdateModule *)((char *)this - 0x20);
+	Object *obj = *(Object **)((char *)this - 0x18);
+	upd->setWakeFrame(obj, UPDATE_SLEEP_FOREVER);
 }
