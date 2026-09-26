@@ -36388,3 +36388,4 @@ _Rva00680420,,0x00680420,17,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,mat
 ?Rva00180782@Gen_dtor_00972460@@UAEXXZ,,0x00180782,18,Code/Libraries/Source/WWVegas/WW3D2/Gen_dtor_00972460Rva00180782.cpp,matched,vslot6 of 0x007D5010 deletes m_ptr at plus0x14 and nulls via rowed delete
 ??1GiveOrRestoreUpgradeSpecialPower@@UAE@XZ,,0x004CD166,83,Code/GameEngine/Source/GameLogic/Object/SpecialPower/GiveOrRestoreUpgradeSpecialPowerDtor.cpp,matched,dtor vslot 0 of 0x0085FA40 plus base Rva0044EF5E plus string 0x36410
 ??_GGiveOrRestoreUpgradeSpecialPower@@UAEPAXI@Z,,0x004CD332,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-f911.cpp,matched,slot 0 of 0x0085FA40 plus dtor 0x004CD166 plus delete 0x2FD60
+?Peek_Animation_And_Info@Animatable3DObjClass@@UAEPAVHAnimClass@@AAMAAH10@Z,,0x001A53E0,94,Code/Libraries/Source/WWVegas/WW3D2/Animatable3DObjPeekAnimationAndInfo.cpp,matched,vslot130 of 0x007D6D10 donor BFME1 Peek_Animation_And_Info HAnim slot5
