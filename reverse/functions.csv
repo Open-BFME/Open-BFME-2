@@ -36078,3 +36078,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ??_GStreamingArchiveFile@@UAEPAXI@Z,,0x00605B1A,28,Code/GameEngine/Source/Common/System/LocalFile.cpp,matched,slot0 of vtable 0087AA50 calls rowed StreamingArchive dtor plus rowed delete
 ??_GBaikonurLaunchPower@@UAEPAXI@Z,,0x004CAFC1,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-zqk.cpp,matched,slot0 vtable 0xC5F098 calls rowed 0x4CAFDD plus delete
 ??_GClearanceTestingSlowDeathBehaviorModuleData@@UAEPAXI@Z,,0x00483EC5,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-1fea.cpp,matched,slot0 of vtable 0x849E98 calls rowed 0x483EE1 plus delete 0x2FD60
+??1PassiveAreaEffectBehavior@@UAE@XZ,,0x00484B22,73,Code/GameEngine/Source/GameLogic/Object/Behavior/PassiveAreaEffectBehaviorDtor.cpp,matched,ctor 0x484A67 vtable 0xC4A448 slot0 0x484C3C base 0x24A797 list 0x4EC395 donor BFME1 destructors
