@@ -122,6 +122,28 @@ template <> void _STL::vector<char, _STL::allocator<char> >::_M_insert_overflow(
     this->_M_set(new_start, new_finish, new_start + new_len);
 }
 
+// Target boundary 0x00307641/63 is _Vector_base<char>::_Vector_base(count, alloc):
+// ??0?$_Vector_base@DV?$allocator@D@_STL@@@_STL@@QAE@IABV?$allocator@D@1@@Z,
+// pinned name, called at 0x00307C51 by vector<char> ctor 0x00307C43 (rowed
+// in this TU). The STLport 4.5.3 donor emits unconditional allocate (57B via
+// template class); retail skips allocate when count==0 (63B with xor-eax,
+// cmp ebx,eax and je). This explicit specialization adds that target-observed
+// guard while retaining donor semantics. Callees are alloc proxy 0x00007410
+// and byte allocator 0x000307F0, both settled. tmp starts as the current
+// (null) _M_finish to reproduce retail's eax zeroing.
+template <> _STL::_Vector_base<char, _STL::allocator<char> >::_Vector_base(unsigned int __n, const _STL::allocator<char> &__a)
+    : _M_start(0), _M_finish(0), _M_end_of_storage(__a, 0)
+{
+    char *tmp = _M_finish;
+    if (__n != 0)
+        tmp = _M_end_of_storage.allocate(__n);
+    else
+        tmp = 0;
+    _M_start = tmp;
+    _M_finish = tmp;
+    _M_end_of_storage._M_data = tmp + __n;
+}
+
 template class _STL::vector<char, _STL::allocator<char > >;
 template class _STL::vector<BfmePod20, _STL::allocator<BfmePod20 > >;
 template class _STL::vector<BfmePod24, _STL::allocator<BfmePod24 > >;
