@@ -35930,3 +35930,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ?Rva003BA8AC@ScriptActions@@UAEXXZ,,0x003BA8AC,24,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_ctor.cpp,matched,vslot9 ScriptActions suppressWindows plus global 1914
 ?Rva00A651C0@@YAIXZ,,0x006651C0,17,Code/Libraries/Source/DirtySock/Y2NetConn.cpp,matched,Tick forwarder honest name debug thunk
 ??0SlowDeathBehavior@@QAE@PAVThing@@PBVModuleData@@@Z,,0x0045D4B4,266,Code/GameEngine/Source/GameLogic/Object/Behavior/SlowDeathBehaviorCtor.cpp,matched,EH ctor over rowed UpdateModule base with two-phase slots and 1.0f plus 99999 plus probability throw plus vector checks plus setWakeFrame
+?Rva004C63DE@SiegeDeployHordeSpecialPower@@UAEXABUVector3@@@Z,,0x004C63DE,17,Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeployHordeSpecialPowerRva004C63DE.cpp,matched,vslot14 Siege 12B copy to 3C
