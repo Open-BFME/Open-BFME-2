@@ -35471,3 +35471,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ?FreePooledNode@@YAXPAX@Z,,0x00265488,22,Code/GameEngine/Source/GameLogic/AI/PathDtor.cpp,matched,null-checked path-node pool free via global pool plus rowed FreeObject
 ??1Path@@QAE@XZ,,0x00364A89,25,Code/GameEngine/Source/GameLogic/AI/PathDtor.cpp,matched,node-list teardown via checked pool free; sunk callee-saved push plus do-while on next
 ??0MultiplayerSettings@@QAE@XZ,,0x003811D8,159,Code/GameEngine/Source/Common/MultiplayerSettingsCtor.cpp,matched,MultiplayerSettings ctor over rowed map 0x3811A2 and MCD 0x380C4E bodies; singleton is 0xC4 so both color definitions are full 0x40 values; node count at +0x38 doubles as the lazy refill source
+?Rva001DCAED_ParseTransition@INI@@SAXPAV1@PAX1PBX@Z,,0x001DCAED,66,Code/GameEngine/Source/Common/System/INI_Rva001DCAEDParseTransition.cpp,matched,Lane-E table 0x7DBDB0 Transition entry; token dispatch via pinned findSlot

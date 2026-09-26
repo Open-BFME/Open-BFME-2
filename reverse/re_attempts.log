@@ -1754,3 +1754,4 @@ Catch@00630215	0x00230215	390	blocked	catch(ErrorCode) funclet of GameEngine::in
 ?Rva006F6809Frag@@YAHXZ	0x006F6809	6	blocked	jump-table case arm or jae-target arm into B8; not a standalone function; do not land
 ?Rva00719823Frag@@YAHXZ	0x00719823	6	blocked	jump-table case arm or jae-target arm into B8; not a standalone function; do not land
 ?findLocomotorTemplate@LocomotorStore@@QAEPBVLocomotorTemplate@@H@Z	0x001E6FEA	38	partial	shared zero-return placed late not early; all else exact score=0.95 stash=reverse/attempts/0x001e6fea.cpp
+?Rva0074EDD3Frag@@YAHXZ	0x0074EDD3	6	blocked	jne-target arm (jne plus4 over mov-eax plus ret into B8 00000001); frag class; do not land
