@@ -1824,3 +1824,6 @@ FUN_008b3cc2	0x004B3CC2	121	blocked	gap between dtors but 121B loop with 2x80 lo
 ?get@Rva0040A82DDivAvgField@@QBEHI@Z	0x0040A83A	37	blocked	indexed accessor for count-getter class needs base-reload not base-keep to get esi divisor and imul shape. tried base-local no-base unsigned flipped real-members volatile. t=25 model=muse-c855
 ??1CostModifierUpgradeModuleData@@UAE@XZ	0x004B5C80	105	blocked	missing float-vector free and extra base call t=12 model=muse-b4e7
 FUN_00789EA5	0x00389EA5	135	blocked	gap Stlport indexed getter UNKNOWN fallback; /G7 ternary gives 135B same-size shared-copy but allocator stosb and EH flag bits differ t=20 model=muse-589f
+?Get_Proxy@HLodClass@@UBE_NHAAVProxyClass@@@Z	0x0019C750	305	blocked	donor Get_Proxy as-is 399B vs retail 305B t=12 model=muse-b9d7
+?On_Frame_Update@ParticleBufferClass@@UAEXXZ	0x001A6710	52	blocked	donor exact size 52B 20insns but Emitter Emit slot 0x208 vs retail 0x204 t=15 model=muse-b9d7
+FUN_0051fc20	0x0011FC20	228	blocked	SEH DX-error String formatter no donor vtable or caller identity unprovable t=10 model=muse-b9d7
