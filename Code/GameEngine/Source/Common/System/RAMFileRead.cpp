@@ -37,19 +37,44 @@ class AsciiString : private StringBase<char>
 {
 public:
 	void clear();
+	AsciiString &operator=(const AsciiString &other);
 
 	void concat(const char *text, int length)
 	{
 		StringBase<char>::concat(text, length);
 	}
+
+	const char *str() const
+	{
+		return m_data ? m_data->data : "";
+	}
 };
+
+void *__cdecl operator new[](unsigned int s);
+void __cdecl operator delete[](void *block);
 
 class File
 {
 public:
-	virtual int read(void *buffer, int bytes);
-	virtual void nextLine(char *buf, int bufSize);
-	virtual bool scanString(AsciiString &newString);
+	enum seekMode { START, CURRENT, END };
+
+	virtual ~File();								// slot 0
+	virtual bool open(const char *filename, int access = 0);	// slot 1
+	virtual void close(void);						// slot 2
+	virtual int read(void *buffer, int bytes);			// slot 3
+	virtual int write(const void *buffer, int bytes);		// slot 4
+	virtual int seek(int pos, seekMode mode);			// slot 5
+	virtual void nextLine(char *buf, int bufSize);			// slot 6
+	virtual bool scanInt(int &newInt);				// slot 7
+	virtual bool scanReal(float &newReal);				// slot 8
+	virtual bool scanString(AsciiString &newString);		// slot 9
+	virtual bool print(const char *format, ...);			// slot 10
+	virtual int size(void);						// slot 11
+	virtual int position(void);					// slot 12
+	virtual char *readEntireAndClose(void);				// slot 13
+	virtual File *convertToRAMFile(void);				// slot 14
+	virtual void lock(void);						// slot 15
+	virtual void unlock(void);					// slot 16
 
 protected:
 	void *m_nameStr;	// +0x04 AsciiString untouched here
@@ -65,6 +90,7 @@ public:
 	virtual int read(void *buffer, int bytes);
 	virtual void nextLine(char *buf, int bufSize);
 	virtual bool scanString(AsciiString &newString);
+	virtual bool openFromArchive(File *archiveFile, const AsciiString &filename, int offset, int size);
 
 protected:
 	char *m_data;	// +0x14
@@ -156,4 +182,36 @@ bool RAMFile::scanString(AsciiString &newString)
 	} while ((m_pos < m_size) && (!isspace(m_data[m_pos])));
 
 	return true;
+}
+
+// ?openFromArchive@RAMFile@@UAE_NPAVFile@@ABVAsciiString@@HH@Z @ 0x0060577A
+// (146B): slot 18 (offset 0x48) of vtable 0x0087AA00. ZH GameEngine
+// RAMFile::openFromArchive verbatim (no RefPack decode in BFME2 retail).
+bool RAMFile::openFromArchive(File *archiveFile, const AsciiString &filename, int offset, int size)
+{
+	if (archiveFile == NULL) {
+		return false;
+	}
+
+	if (File::open(filename.str(), 0x41) == false) {
+		return false;
+	}
+
+	if (m_data != NULL) {
+		delete[] m_data;
+		m_data = NULL;
+	}
+	if (size > 0) {
+		m_data = new char[size];
+
+		if (archiveFile->seek(offset, File::START) == offset) {
+			if (archiveFile->read(m_data, size) == size) {
+				m_size = size;
+				*(AsciiString *)(&m_nameStr) = filename;
+
+				return true;
+			}
+		}
+	}
+	return false;
 }

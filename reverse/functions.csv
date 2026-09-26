@@ -36218,3 +36218,4 @@ _Rva00680420,,0x00680420,17,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,mat
 ?xfer@Rva004C908B@@MAEXPAVXfer@@@Z,,0x004C9505,142,Code/GameEngine/Source/GameLogic/Object/Update/Rva004C908BXfer.cpp,matched,slot 3 of vtable 0x0085EA8C via rowed ctor plus base ObjectModule plus lightCRC plus Version1 plus floats short bool
 ??_GAISpecialPowerUpdate@@UAEPAXI@Z,,0x004B2F5F,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-3266.cpp,matched,slot0 of vtable 0x856E1C calls rowed dtor 0x4B2E79
 ?draw@GameWindow@@UAEHPAX@Z,,0x0009DC05,29,Code/GameEngine/Source/GameClient/GUI/GameWindowDraw.cpp,matched,vtable 0x0080BBCC slot3 GameWindow draw via m_draw at 0x1E8 plus thunk caller
+?openFromArchive@RAMFile@@UAE_NPAVFile@@ABVAsciiString@@HH@Z,,0x0060577A,146,Code/GameEngine/Source/Common/System/RAMFileRead.cpp,matched,slot18 of vtable 0087AA00 plus ZH openFromArchive no decode
