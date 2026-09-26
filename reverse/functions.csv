@@ -36131,3 +36131,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ??1BuildingBehaviorModuleData@@UAE@XZ,,0x004564E6,58,Code/GameEngine/Source/GameLogic/Object/Behavior/BuildingBehaviorModuleDataDtor.cpp,matched,four window array via ehvec plus Snapshot base restore
 ??_GEntEnragedUpdateModuleData@@UAEPAXI@Z,,0x004B2706,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-x7q-eb73.cpp,matched,slot0 vtable C56980 calls rowed 4B2722 plus delete
 ??1RandomSoundSelectorClientBehaviorModuleData@@UAE@XZ,,0x002578DE,76,Code/GameEngine/Source/GameLogic/Object/Behavior/RandomSoundSelectorClientBehaviorModuleDataDtor.cpp,matched,Snapshot-base restore to BBB554 over map 25742C plus array 56x8 via 4C9F38; ctor 25785C vtable BF42A8 plus factory 25792A news 1E0 plus slot0 2578C2
+??_GLaserUpdate@@UAEPAXI@Z,,0x00363177,28,Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdateDtor.cpp,matched,slot0 vtable C170E0 calls rowed dtor plus delete
