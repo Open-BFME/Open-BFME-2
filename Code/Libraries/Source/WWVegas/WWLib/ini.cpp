@@ -2274,3 +2274,20 @@ void	INIClass::Keep_Blank_Entries (bool keep_blanks)
 	KeepBlankEntries = keep_blanks;
 }
 
+// ??0Rva006166B0List@@QAE@XZ, retail 0x006166B0 (18 bytes).
+// Empty GenericList-derived List ctor in the INI TU: calls the rowed
+// ??0GenericList@@QAE@XZ then installs the List vtable 0x0087C2E0. That vtable
+// is the one EntryList (INISection+0x10 in ??0INISection@@QAE@PAD@Z) and
+// SectionList (Initialize) both install after inlining GenericList; the TU
+// already rows List<INIEntry*> Delete but both List<INIEntry*> and
+// List<INISection*> share this vtable so the template argument is unproven.
+// Honest address name is used and template args are not guessed.
+struct Rva006166B0List : public GenericList
+{
+	Rva006166B0List();
+};
+
+Rva006166B0List::Rva006166B0List()
+{
+}
+
