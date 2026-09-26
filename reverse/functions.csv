@@ -36148,3 +36148,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ??1DX8RigidFVFCategoryContainer@@UAE@XZ,,0x00145460,104,Code/Libraries/Source/WWVegas/WW3D2/dx8renderer.cpp,matched,BFME1 donor Release plus volatile null plus rowed base
 ??1SymbioticStructuresBodyModuleData@@UAE@XZ,,0x002570F9,53,Code/GameEngine/Source/GameLogic/Object/Body/SymbioticStructuresBodyModuleDataDtor.cpp,matched,String at 64 via 36410 plus base 256CB0; ctor 256D0D vtable BF3EE0 plus slot0 2570DD
 ??_GDX8RigidFVFCategoryContainer@@UAEPAXI@Z,,0x00146930,30,Code/Libraries/Source/WWVegas/WW3D2/dx8renderer.cpp,matched,slot0 vtable 7D3528 calls rowed dtor plus delete
+??_GSymbioticStructuresBodyModuleData@@UAEPAXI@Z,,0x002570DD,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-2335.cpp,matched,Deleting dtor slot 0 of vtable 7F3EE0; calls rowed 2570F9 plus rowed delete 2FD60
