@@ -133,6 +133,8 @@ otherwise reassess the batch.
 
 6. This step governs when to run #5 and limits its retries. Normally, publish after 1 verified commit. Keep substantive changes in separate atomic, verified commits; the publication batching below changes push frequency only.
 
+If a verified commit recovers under 100 retail bytes and you expect to make another commit, hold publication. Continue accumulating verified commits under 100 retail bytes, then publish them together with the next verified commit of 100 retail bytes or more. Keep each change as a separate verified commit. If you do not expect another commit, follow the normal publication limits below. Existing time, session-ending, and unpublished-commit limits still apply.
+
 On a non-fast-forward push rejection caused by `origin/master` advancing, rebase, recheck the ledger, complete any required verification, and retry once.
 
 If that retry is also rejected because `origin/master` advanced again, accumulate 2 verified commits since the last publication attempt before trying again. If contention continues, accumulate 3–5 verified commits between publication attempts. 
