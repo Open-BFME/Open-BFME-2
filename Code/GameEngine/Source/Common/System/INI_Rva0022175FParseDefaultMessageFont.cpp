@@ -69,3 +69,13 @@ FontDesc::FontDesc() : name("Arial Unicode MS"), size(12), bold(false)
 {
 }
 
+
+// ??4FontDesc@@QAEAAU0@ABU0@@Z
+FontDesc &FontDesc::operator=(const FontDesc &other)
+{
+	*(AsciiString *)this = *(const AsciiString *)&other;
+	size = other.size;
+	bold = other.bold;
+	return *this;
+}
+
