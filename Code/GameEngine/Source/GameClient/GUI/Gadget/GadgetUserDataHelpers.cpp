@@ -13,6 +13,7 @@ public:
 	void *winGetUserData(void);
 	void winSetUserData(void *data);
 	void winSetStatus(unsigned int status);
+	int winGetSize(int *width, int *height);
 };
 
 // BFME1's GadgetListBoxSetColumnWidths donor sets percentage widths then
@@ -24,8 +25,12 @@ public:
 struct GadgetListboxColumnData
 {
 	unsigned char m_prefix[2];
-	unsigned short m_columnCount;
-	int *m_percentageWidths;
+	short m_columnCount;				// +0x02 (signed: retail movsx proves signed)
+	int *m_percentageWidths;			// +0x04
+	unsigned char m_gap08[12];			// +0x08..+0x13
+	int *m_pixelWidths;				// +0x14
+	unsigned char m_gap18[12];			// +0x18..+0x23
+	GameWindow *m_slider;				// +0x24
 };
 
 extern void *__cdecl operator new[](unsigned int size);
@@ -72,6 +77,73 @@ void GadgetListBoxSetColumnWidths(GameWindow *listbox, int count, int *widths)
 	}
 
 	GadgetListBoxUpdateColumnWidths(listbox);
+}
+
+// ?GadgetListBoxUpdateColumnWidths@@YAXPAVGameWindow@@@Z, retail 0x003251F4 (246B).
+// Ported from Open-BFME-1 Code/GameEngine/Source/GameClient/GUI/Gadget/GadgetListBox.cpp
+// (BFME1 0x004B8230 Rva004B8230UpdateColumnWidths). Same percent-to-pixel worker:
+// single column stores the window width minus the slider, otherwise rebuilds the
+// pixel buffer from the percentage buffer. Retail proves +2 count (signed short,
+// movsx), +4 percentage, +0x14 pixel, +0x24 slider; callers are
+// GadgetListBoxSetColumnWidths at 0x0032537E and the 0x002C1465 site.
+struct ListboxSliderSize
+{
+	int x;
+	int y;
+};
+
+void GadgetListBoxUpdateColumnWidths(GameWindow *listbox)
+{
+	if (listbox == 0)
+		return;
+
+	GadgetListboxColumnData *data =
+		(GadgetListboxColumnData *)listbox->winGetUserData();
+	if (data == 0)
+		return;
+
+	int width;
+	int height;
+	listbox->winGetSize(&width, &height);
+
+	if (data->m_columnCount == 1)
+	{
+		data->m_pixelWidths = new int[1];
+		data->m_pixelWidths[0] = width;
+
+		if (data->m_slider == 0)
+			return;
+
+		ListboxSliderSize sliderSize;
+		data->m_slider->winGetSize(&sliderSize.x, &sliderSize.y);
+		data->m_pixelWidths[0] += -2 - sliderSize.x;
+		return;
+	}
+
+	if (data->m_percentageWidths == 0)
+	{
+		GadgetListBoxSetColumnWidths(listbox, data->m_columnCount, 0);
+		return;
+	}
+
+	if (data->m_pixelWidths != 0)
+	{
+		operator delete[](data->m_pixelWidths);
+		data->m_pixelWidths = 0;
+	}
+	data->m_pixelWidths = new int[data->m_columnCount];
+
+	int totalWidth = width;
+	if (data->m_slider != 0)
+	{
+		ListboxSliderSize sliderSize;
+		data->m_slider->winGetSize(&sliderSize.x, &sliderSize.y);
+		totalWidth += -2 - sliderSize.x;
+	}
+
+	for (int index = 0; index < data->m_columnCount; ++index)
+		data->m_pixelWidths[index] =
+			data->m_percentageWidths[index] * totalWidth / 100;
 }
 
 // Push-button data: the same accessor, a different record. The 0x38-byte
