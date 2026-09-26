@@ -7,3 +7,7 @@ void famgenDelete(CivilianSpawnCollideModuleData *p) { delete p; }
 class HeroModeSpecialAbilityUpdateModuleData { public: __declspec(noinline) virtual ~HeroModeSpecialAbilityUpdateModuleData(); private: int m_famgen; };
 HeroModeSpecialAbilityUpdateModuleData::~HeroModeSpecialAbilityUpdateModuleData() { m_famgen = 0; }
 void famgenDelete(HeroModeSpecialAbilityUpdateModuleData *p) { delete p; }
+// ??_GRankInfo@@UAEPAXI@Z @0x0020021A
+class RankInfo { public: __declspec(noinline) virtual ~RankInfo(); private: int m_famgen; };
+RankInfo::~RankInfo() { m_famgen = 0; }
+void famgenDelete(RankInfo *p) { delete p; }
