@@ -5501,3 +5501,4 @@ __mbscat,0x0062988C,retail REL32 from INI getNextQuotedAsciiString 0x002E93F; IA
 ??$__uninitialized_fill_n@PAUPrereqUnitRec@ProductionPrerequisite@@IU12@@_STL@@YAPAUPrereqUnitRec@ProductionPrerequisite@@PAU12@IABU12@ABU__false_type@0@@Z,0x004F50BD,overflow 0x004F5165 fill path; 37B byte-exact twin of rowed PAU BfmeStringRecord worker via _Construct 0x002CF99D
 ??1UpgradeModule@@MAE@XZ,0x0046089D,twin of rowed FireWeaponWhenDead dtor for ArmorUpgrade base call
 ??1?$DynamicVectorClass@PAVVertexMaterialClass@@@@UAE@XZ,0x0016F580,twin of dup row 0x0016F580 whose object-symbol is this dtor; call site 0x0016FF33 in 30B deleting dtor
+??1Cftp@@UAE@XZ,0x006CA600,twin of rowed d_00885af0 dtor for Cftp deleting dtor call; vtable 0xCE8A38 same as ctor 0x6CA5E0; BFME1 donor virtual ~Cftp
