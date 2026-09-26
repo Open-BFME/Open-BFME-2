@@ -35966,3 +35966,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ?rva00198170@BfmeThingVJS@@QAEPAXI@Z,,0x00198170,30,Code/GameEngine/Source/Common/Rva00198170Delete.cpp,matched,gap between Load 0x00198090 and copy ctor 0x00198190 owner BfmeThingVJS via clear 0x00197F30 and delete 0x0002FD60
 ??_GGen_uw_001212f0@@QAEPAXI@Z,,0x00122190,30,Code/Libraries/Source/WWVegas/WW3D2/Rva00122190Delete.cpp,matched,gap between VectorClass deleting dtor 0x00122130 and BfmeEnumDesc ctor 0x001221B0 via pinned dtor 0x001212F0 and delete 0x0002FD60
 ?concat@?$StringBase@D@@QAEXPBDH@Z,0x000369A0,0x000369A0,134,Code/Libraries/Source/WWVegas/WWLib/StringBaseNarrowStrLenSet.cpp,matched,pinned name callers set wrapper ensure via wide twin concat 37410 same TU set 36780
+?rva00133DA0Set@CameraClass@@QAEXABUMatrix4@@@Z,,0x00133DA0,150,Code/Libraries/Source/WWVegas/WW3D2/CameraAdditionalTransformSetter.cpp,matched,CameraClass AdditionalTransform 64B setter via 16 movs

@@ -1817,3 +1817,5 @@ FUN_00714cc1	0x00314CC1	80	blocked	opaque vslot76 EH SSE font wrapper needs Asci
 @__security_check_cookie@4	0x00629BAB	14	blocked	vendor thin 6of14 below 8; C++ 7.1 emits je+jmp+ret vs retail jne+ret+jmp t=15 model=muse-f3df
 ?ensureUniqueBufferOfSize@?$StringBase@D@@AAEXH_NPBV?$CharSource@D@@1@Z	0x000364A0	330	blocked	6 variants O2-G7 best 328B vs 330B; early push esi-edi vs late ebp-esi plus lea vs add-dec and shl vs add-add walls t=25 model=muse-f3df
 FUN_0070ad8b	0x0030AD8B	60	blocked	x87 fcomi wall 6 probes G7 SSE2 O1 O2 reordered globals still 62B vs 60B with const-first and je-vs-jne and fld-st1-vs-fxch t=22 model=muse-7ec2
+??1InstantDeathBehaviorModuleData@@UAE@XZ	0x0045D28D	105	blocked	needs 0x45D137 vector-OpaqueRef dtor duplicate of rowed 0x57994 same mangled no dup rows t=15 model=muse-67c0
+FUN_008b3cc2	0x004B3CC2	121	blocked	gap between dtors but 121B loop with 2x80 locals and 4 virtuals no callers no pin no vslot identity unprovable t=10 model=muse-67c0
