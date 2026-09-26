@@ -35,8 +35,10 @@ private:
     };
     Header *m_data;
     void releaseBuffer();
+    void ensureUniqueBufferOfSize(int newLen, bool keepData, const CharSource<T> *src1, const CharSource<T> *src2);
 public:
     void set(const T *str, int len);
+    void concat(const T *str, int len);
 };
 
 class NarrowStrLenSource : public CharSource<char> {
@@ -89,4 +91,17 @@ void StringBase<char>::set(const char *str, int len)
         return;
     }
     releaseBuffer();
+}
+
+template <>
+void StringBase<char>::concat(const char *str, int len)
+{
+    if (len == 0)
+        return;
+    if (m_data != 0) {
+        NarrowStrLenSource src(str, len);
+        ensureUniqueBufferOfSize(m_data->length + len, true, 0, &src);
+        return;
+    }
+    set(str, len);
 }
