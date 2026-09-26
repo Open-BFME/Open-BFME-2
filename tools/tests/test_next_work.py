@@ -2,6 +2,7 @@
 """Focused tests for the validated, decentralized work queue."""
 
 import csv
+import contextlib
 import json
 import subprocess
 import sys
@@ -317,6 +318,36 @@ def test_logged_dead_ends_suppressed(ranked):
           f"name(s) including all {len(retired)} with a standing verdict")
 
 
+@contextlib.contextmanager
+def synthetic_log(*rows):
+    """Point re_log at a log this test owns, built from (symbol, rva, status, note).
+
+    Assertions about the reader's RULES must not be pinned to rows of the live
+    reverse/re_attempts.log: it is append-only and shared by the whole fleet, so
+    a later verdict on a cited symbol silently turns the test red without
+    anything being broken. Three tests here had drifted that way and were
+    asserting about data that no longer said what they claimed. A tempfile
+    rather than the tmp_path fixture, because main() calls these tests directly
+    with no fixtures. Mirrors
+    test_void_is_positional_so_a_later_verdict_still_stands.
+    """
+    import re_log
+
+    with tempfile.TemporaryDirectory() as temp:
+        log = Path(temp) / "re_attempts.log"
+        log.write_text("".join(
+            "\t".join((symbol, rva, "16", status, note)) + "\r\n"
+            for symbol, rva, status, note in rows), encoding="utf-8")
+        original = re_log.RE_ATTEMPTS
+        re_log.RE_ATTEMPTS = log
+        re_log._reset()
+        try:
+            yield re_log
+        finally:
+            re_log.RE_ATTEMPTS = original
+            re_log._reset()
+
+
 def test_a_verdict_with_no_boundary_is_not_released_by_a_snap(ranked):
     """Every drift candidate is snap-corrected by construction, so reading
     "the boundary moved" as "the verdict no longer applies" released every
@@ -325,16 +356,35 @@ def test_a_verdict_with_no_boundary_is_not_released_by_a_snap(ranked):
     A row that records no boundary is a finding about the symbol."""
     import re_log
 
-    repeat_offender = "?PreStaticInit@Debug@@CAXXZ"   # three no-match rows, no rva
-    assert re_log.is_dead_end(repeat_offender, 0x00C6E37E, boundary_moved=True)
-    assert re_log.is_dead_end(repeat_offender, 0x00C6E37E, boundary_moved=False)
+    # The rule, on rows this test owns. The symbol this used to cite
+    # (?PreStaticInit@Debug@@CAXXZ) has since left the shared log entirely, so
+    # the assertion was passing or failing on whatever the fleet had appended.
+    owned = "?NoBoundaryRecorded@@CAXXZ"
+    with synthetic_log((owned, "", "no-match", "three looks, no boundary")) as log:
+        assert log.is_dead_end(owned, 0x00C6E37E, boundary_moved=True)
+        assert log.is_dead_end(owned, 0x00C6E37E, boundary_moved=False)
+
+    # And the consequence, against the real queue: whichever symbols currently
+    # carry a standing no-rva dead end, none of them may be served. Chosen from
+    # the log rather than named, so this keeps testing the integration as the
+    # log changes instead of decaying into an assertion about one dead symbol.
+    re_log._load()
+    no_rva_dead_ends = {
+        symbol for symbol, verdicts in re_log._BY_BOUNDARY.items()
+        if None in verdicts and verdicts[None] in re_log.DEAD_END_STATUSES}
     served = {name for key in QUEUES for c in ranked[key] for name in served_names(c)}
-    assert repeat_offender not in served
+    # Conditional, not required: the log has since migrated to the 5-field shape
+    # throughout, so it may legitimately carry no boundary-less verdict at all.
+    # The rule itself is proven above on owned rows, so an empty set here leaves
+    # nothing unchecked -- whereas demanding one would fail on a clean log.
+    assert not (served & no_rva_dead_ends), sorted(served & no_rva_dead_ends)[:3]
+    print(f"       ({len(no_rva_dead_ends)} boundary-less dead end(s) in the live log)")
 
     # A verdict that DOES record its boundary still only retires that boundary.
-    at_boundary = "??0FastAllocatorGeneral@@QAE@XZ"
-    assert re_log.is_dead_end(at_boundary, 0x00B027B0)
-    assert not re_log.is_dead_end(at_boundary, 0x00B027B0 + 0x40, boundary_moved=True)
+    at_boundary = "??0AtBoundary@@QAE@XZ"
+    with synthetic_log((at_boundary, "0x00B027B0", "refuted", "measured here")) as log:
+        assert log.is_dead_end(at_boundary, 0x00B027B0)
+        assert not log.is_dead_end(at_boundary, 0x00B027B0 + 0x40, boundary_moved=True)
     print("PASS dead-end verdicts recorded without an rva survive a boundary snap")
 
 
@@ -354,27 +404,36 @@ def test_void_retracts_the_row_it_names_and_nothing_else():
     import re_log
 
     false_locator, measured = 0x0099D2E0, 0x0099D670
+    # _LoadInt's own rows, reproduced here rather than read out of the live log:
+    # the shared log kept being appended to, and the measured boundary this test
+    # asserts on no longer carried the verdict it was written against.
+    rows = (
+        ("_LoadInt", "0x%08X" % false_locator, "blocked", "typed from memory"),
+        ("_LoadInt", "0x%08X" % measured, "blocked", "measured, real boundary"),
+        ("_LoadInt", "0x%08X" % false_locator, "void", "retracts the typo"),
+    )
 
-    def fresh(void_enabled):
-        re_log._reset()
-        re_log.VOID_STATUS = "void" if void_enabled else "__void_disabled__"
-        re_log._load()
+    def fresh(log, void_enabled):
+        log._reset()
+        log.VOID_STATUS = "void" if void_enabled else "__void_disabled__"
+        log._load()
 
-    try:
-        fresh(True)
-        assert re_log.standing_status("_LoadInt", false_locator,
-                                      boundary_moved=True) is None, (
-            "the retracted boundary still governs candidates")
-        assert re_log.standing_status("_LoadInt", measured,
-                                      boundary_moved=True) == "blocked", (
-            "voiding the typo also released the boundary that WAS measured")
+    with synthetic_log(*rows) as log:
+        try:
+            fresh(log, True)
+            assert log.standing_status("_LoadInt", false_locator,
+                                       boundary_moved=True) is None, (
+                "the retracted boundary still governs candidates")
+            assert log.standing_status("_LoadInt", measured,
+                                       boundary_moved=True) == "blocked", (
+                "voiding the typo also released the boundary that WAS measured")
 
-        fresh(False)
-        assert re_log.standing_status("_LoadInt", false_locator,
-                                      boundary_moved=True) == "blocked", (
-            "this test cannot fail on the broken code, so it proves nothing")
-    finally:
-        fresh(True)
+            fresh(log, False)
+            assert log.standing_status("_LoadInt", false_locator,
+                                       boundary_moved=True) == "blocked", (
+                "this test cannot fail on the broken code, so it proves nothing")
+        finally:
+            fresh(log, True)
 
     # A void names a row; one that names no row is a typo about a typo.
     proc = subprocess.run(
@@ -461,15 +520,36 @@ def test_dead_end_index_reads_both_log_shapes():
     rows were invisible. Annotations must not overturn a standing verdict."""
     import re_log
 
+    # The live log only has to be non-empty and readable; WHICH rows it holds is
+    # the fleet's business, so every rule below is asserted on owned rows.
     dead, total = re_log.stats()
     assert total > 0 and dead > 0, (dead, total)
-    # ends `converted` after earlier dead ends -> released for work
-    assert not re_log.is_dead_end("?removeAllShadows@W3DProjectedShadowManager@@QAEXXZ")
-    # ends `refuted` after three `solved` rows -> stays retired
-    assert re_log.is_dead_end("??0FastAllocatorGeneral@@QAE@XZ")
-    # no-match then six annotation rows -> the annotations must not release it
-    assert re_log.is_dead_end("?validateAudio@ThingTemplate@@IAEXXZ")
-    assert not re_log.is_dead_end("?NeverLoggedAnywhere@@QAEXXZ")
+
+    rows = (
+        # 5-field shape: field 1 is the RVA. The old reader tested field 1 for
+        # "no-match", so every row of this shape -- 441 of them -- was invisible.
+        ("?Released@@QAEXXZ", "0x00401000", "no-match", "not here"),
+        ("?Released@@QAEXXZ", "0x00401000", "converted", "found it after all"),
+        ("?Retired@@QAEXXZ", "0x00402000", "solved", "thought so"),
+        ("?Retired@@QAEXXZ", "0x00402000", "refuted", "arity says otherwise"),
+        # a status outside VERDICT_STATUSES is an annotation, and an annotation
+        # must never overturn the verdict standing above it
+        ("?Annotated@@QAEXXZ", "0x00403000", "no-match", "measured absent"),
+        ("?Annotated@@QAEXXZ", "0x00403000", "note", "see the cluster writeup"),
+    )
+    with synthetic_log(*rows) as log:
+        # ends `converted` after an earlier dead end -> released for work
+        assert not log.is_dead_end("?Released@@QAEXXZ", 0x00401000)
+        # ends `refuted` after a `solved` row -> stays retired
+        assert log.is_dead_end("?Retired@@QAEXXZ", 0x00402000)
+        # no-match then an annotation -> the annotation must not release it
+        assert log.is_dead_end("?Annotated@@QAEXXZ", 0x00403000)
+        assert not log.is_dead_end("?NeverLoggedAnywhere@@QAEXXZ")
+        assert log.stats()[1] == 3, log.stats()
+    # a row that records no boundary is a finding about the SYMBOL, so it
+    # governs every address and survives a drift snap
+    with synthetic_log(("?NoRva@@QAEXXZ", "", "no-match", "no boundary examined")) as log:
+        assert log.is_dead_end("?NoRva@@QAEXXZ", 0x00404000, boundary_moved=True)
     print(f"PASS dead-end index: {dead} standing dead ends of {total} symbols with verdicts")
 
 
@@ -480,9 +560,12 @@ def test_corrupt_ledger():
         (temp / "tools").mkdir()
         (temp / "reverse" / "zh_sweep").mkdir(parents=True)
         (temp / "src" / "zh").mkdir(parents=True)
-        for name in ("next_work.py", "check_csv.py", "re_log.py", "yield_model.py",
-                     "boundary_validator.py", "audit_ret_arity.py"):
-            (temp / "tools" / name).write_bytes((ROOT / "tools" / name).read_bytes())
+        # Every tools/*.py, not a hand-kept list: the list had drifted out of
+        # step with the modules' imports (re_log imports ledger_io, which was
+        # never copied), so next_work died with ModuleNotFoundError and exited 1
+        # instead of the 2 this test asserts -- it could not pass at all.
+        for module in sorted((ROOT / "tools").glob("*.py")):
+            (temp / "tools" / module.name).write_bytes(module.read_bytes())
         (temp / "src" / "zh" / "stub.cpp").write_text("// stub\n")
         row = "?Foo@@QAEXXZ,,0x00400000,16,src/zh/stub.cpp,matched,\r\n"
         (temp / "reverse" / "functions.csv").write_bytes(
