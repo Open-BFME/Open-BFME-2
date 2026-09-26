@@ -35697,3 +35697,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ??1Transport@@QAE@XZ,,0x004494BA,64,Code/GameEngine/Source/GameNetwork/Transport.cpp,matched,non-virtual network Transport dtor; slot clearer plus 8-slot ehvec teardown
 ??0ProductionUpdateModuleData@@QAE@XZ,,0x0049F7DB,178,Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateModuleDataCtor.cpp,matched,INI table 0xC517F0 layout; ZH donor door-zeroes plus HELD mask; maxQueue 0x14; folded vector base 0x211E58 plus 8B erase 0x207F0D via twin pins; EBO base arms EH states
 ?swap@ScriptList@@QAEXPAV1@@Z,,0x003B58DF,57,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListSwap.cpp,matched,member-wise swap of by-value ScriptList via rowed bfmeSwap plus pinned subrecord swap
+??0Transport@@QAE@XZ,,0x004D4AF2,153,Code/GameEngine/Source/GameNetwork/TransportCtor.cpp,matched,throw-off EH prologue with mem-init scalars interleaved around slot vector-ctor call
