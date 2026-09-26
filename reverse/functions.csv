@@ -36230,3 +36230,4 @@ _Rva00680420,,0x00680420,17,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,mat
 ??0Rva002542F3Member@@QAE@XZ,,0x002542F3,119,Code/GameEngine/Source/GameLogic/Object/Update/Rva002542F3MemberCtor.cpp,matched,frameless nugget ctor via FireWeapon reset-plus-memset recipe
 ??1DoCommandUpgradeModuleData@@UAE@XZ,,0x00256222,69,Code/GameEngine/Source/GameLogic/Object/Upgrade/FamilyUpgradeModuleDataDtors.cpp,matched,sibling of UpgradeModuleData dtor 0x255A42 with two strings at +0x118/+0x11C vtable BF3840 caller deleting dtor 0x256283
 ??_GRefundDieModuleData@@UAEPAXI@Z,,0x0025504B,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-7c2e.cpp,matched,slot0 vtable 0x7F0660 calls rowed 0x255067
+?Clone@GridEnvironmentMapperClass@@UBEPAVTextureMapperClass@@XZ,,0x0013D390,85,Code/Libraries/Source/WWVegas/WW3D2/GridEnvironmentMapperClone.cpp,matched,sibling of rowed GridClassic Clone via GridTexture base copy plus global new plus derived vtable
