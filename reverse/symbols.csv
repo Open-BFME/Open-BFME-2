@@ -3319,6 +3319,7 @@ __strdup,0x006C4C70
 __strlwr,0x006299A6
 __strupr,0x0075B4F0
 _abs,0x0062909A,MSVCR71 import thunk identified by official ATL 7.1 call and retail target
+_abs,0x00629952,MSVCR71 abs import thunk variant called by E8 from accumulateOnlineMiscPrefs 0x00384A62; IAT slot 0x00BBA564 per rowed ?ji_00629952@@YAXXZ; twin of pinned 0x0062909A
 _accept@12,0x00687CE4,PE-verified FF25 import thunk to ws2_32.dll!accept via IAT 0x00BBA938; independently read from retail import directory
 _adjust_mult_assign,0x00753EC0,address read from the REL32 call at 0x0075495C in the _localstat body; Lua 4.0.1 lparser.c static
 _assignment,0x007559C0,address read from the REL32 call at 0x00755EDE in the _namestat body; Lua 4.0.1 lparser.c static
