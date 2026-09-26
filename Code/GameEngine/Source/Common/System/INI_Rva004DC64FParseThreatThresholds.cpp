@@ -26,3 +26,12 @@ void INI::Rva004DC64F_ParseThreatAbove(INI *ini, void *instance, void *store, co
 	((int *)store)[1] = value;
 }
 
+// ?Rva004DC625_ParseThreatBelow@INI@@SAXPAV1@PAX1PBX@Z
+void INI::Rva004DC625_ParseThreatBelow(INI *ini, void *instance, void *store, const void *userData)
+{
+	int value;
+	INI::dup_002EF72(ini, 0, &value, 0);
+	value = -value;
+	((int *)store)[0] = 1;
+	((int *)store)[1] = value;
+}
