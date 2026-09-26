@@ -13,6 +13,39 @@
 #include "PreRTS.h"
 #include "GameLogic/Module/FireWeaponWhenDeadBehavior.h"
 
+// TU-scoped shims for ?loadPostProcess@Rva004B4CDF@@MAEXXZ @0x004B4D05 (25B,
+// slot 1 of primary vtable 0x00857C40; tail-jmp to pinned
+// ?loadPostProcess@UpdateModule@@MAEXXZ at 0x0058B03E).
+// Retail: if (byte at +0x20) ((Member10*)(this+0x10))->s10();
+// UpdateModule::loadPostProcess(). The indirect call is slot 10 (0x28) of the
+// UpgradeMux-side vtable 0x00857BF8 (18 slots; per-derived slots 8/10 are
+// 0x004B5101/0x004B5020 for this class). Primary slot layout (dtor/name/xfer/
+// poolkey/empty) matches HijackerUpdate vtable 0x008525E4 whose slot 1 is the
+// rowed ?loadPostProcess@HijackerUpdate@@MAEXXZ.
+class Rva004B4CDF;
+class UpdateModule
+{
+protected:
+	virtual void loadPostProcess();
+	friend class Rva004B4CDF;
+};
+
+class Rva004B4CDFMember10
+{
+public:
+	virtual void v00();
+	virtual void v01();
+	virtual void v02();
+	virtual void v03();
+	virtual void v04();
+	virtual void v05();
+	virtual void v06();
+	virtual void v07();
+	virtual void v08();
+	virtual void v09();
+	virtual void v10();
+};
+
 class Rva004B362D : public FireWeaponWhenDeadBehavior
 {
 public:
@@ -77,7 +110,20 @@ class Rva004B4CDF : public FireWeaponWhenDeadBehavior
 {
 public:
 	virtual ~Rva004B4CDF();
+protected:
+	virtual void loadPostProcess();
 };
+
+void Rva004B4CDF::loadPostProcess()
+{
+	// +0x20 is an unidentified bool in the FireWeaponWhenDeadBehavior base
+	// (inside the 0xAC body; UpgradeMux itself lives at +0x10 with its bool at
+	// +0x14, Die at +0x18). +0x10 is the UpgradeMux-side base whose vtable is
+	// 0x00857BF8; v10 is slot 10 (0x28), retail target 0x004B5020.
+	if (*reinterpret_cast<bool*>(reinterpret_cast<char*>(this) + 0x20))
+		reinterpret_cast<Rva004B4CDFMember10*>(reinterpret_cast<char*>(this) + 0x10)->v10();
+	reinterpret_cast<UpdateModule*>(reinterpret_cast<void*>(this))->UpdateModule::loadPostProcess();
+}
 
 Rva004B4CDF::~Rva004B4CDF()
 {
