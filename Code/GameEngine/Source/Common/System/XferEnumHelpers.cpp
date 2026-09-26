@@ -388,6 +388,15 @@ void XferDeployStateTypes(Xfer *xfer, int *value)
 	xfer->XferEnum("DeployStateTypes", value, 4);
 }
 
+// Retail 0x0030609A (24B): labelled-enum helper moving a 4-byte bridge tower
+// type through XferEnum with the "BridgeTowerType" label (string at
+// 0x00807CB8 between RotationType and ObjectID). Sole caller is
+// BridgeTowerBehavior::xfer at 0x004587CD passing &m_20.
+void XferBridgeTowerType(Xfer *xfer, int *value)
+{
+	xfer->XferEnum("BridgeTowerType", value, 4);
+}
+
 // Two version bytes, stored back to back: the retail Version1 body writes 1 to
 // both of them in a four-byte stack slot before handing their address to the
 // slot-10 transfer operator. Xfer.cpp's model verbatim.
