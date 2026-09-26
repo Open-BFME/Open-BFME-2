@@ -39,4 +39,7 @@ public:
 };
 messages<char>::~messages() { if (_M_impl && _M_impl->_M_delete) delete _M_impl; }
 messages<wchar_t>::~messages() { if (_M_impl && _M_impl->_M_delete) delete _M_impl; }
+int _Messages::do_open(const string&, const locale&) const { return -1; }
+// ??1_Messages@_STL@@UAE@XZ present-unmatched
+_Messages::~_Messages() {}
 }
