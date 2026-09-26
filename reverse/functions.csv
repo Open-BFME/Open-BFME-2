@@ -36291,3 +36291,4 @@ _Rva00680420,,0x00680420,17,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,mat
 ?xfer@Rva004B8732@@MAEXPAVXfer@@@Z,,0x004B87A3,64,Code/GameEngine/Source/Common/Rva004B8732Xfer.cpp,matched,slot3 of vtable 0x8591EC via Version12 gated base plus bool
 ??_GGeometryUpgradeModuleData@@UAEPAXI@Z,,0x004B6F65,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-63c1.cpp,matched,deleting dtor slot 0 of vtable 0x8589F0 calls rowed 0x4B6F81 plus delete 0x2FD60
 ?xfer@CreateModule@@MAEXPAVXfer@@@Z,,0x004B8D4E,51,Code/GameEngine/Source/GameLogic/Object/Create/CreateModuleXfer.cpp,matched,slot3 of vtable 0x859368 via BehaviorModule base plus Version1 plus bool
+?xfer@Rva004B89C4@@MAEXPAVXfer@@@Z,,0x004B8A28,81,Code/GameEngine/Source/Common/Rva004B89C4Xfer.cpp,matched,slot3 of vtable 0x85928C via Version13 gated base plus float plus bool
