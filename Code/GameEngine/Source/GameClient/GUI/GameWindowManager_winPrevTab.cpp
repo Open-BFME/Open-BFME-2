@@ -17,8 +17,9 @@ public:
 	V(16) V(17) V(18) V(19) V(20) V(21) V(22) V(23)
 	V(24) V(25) V(26) V(27) V(28) V(29) V(30) V(31)
 	V(32) V(33) V(34) V(35) V(36) V(37) V(38) V(39)
-	V(40) V(41) V(42)
+	V(40) V(41)
 #undef V
+	virtual void winNextTab(GameWindow *window);
 	virtual void winPrevTab(GameWindow *window);
 #define W(n) virtual void pad##n() = 0;
 	W(44) W(45) W(46) W(47) W(48)
@@ -35,6 +36,30 @@ private:
 	unsigned char m_pad28[0x08];
 	GameWindowList m_tabList;
 };
+
+void GameWindowManager::winNextTab(GameWindow *window)
+{
+	if (m_tabList.size() == 0 || m_modalHead)
+		return;
+
+	GameWindowList::iterator it = m_tabList.begin();
+	while (it != m_tabList.end())
+	{
+		if (*it == window)
+		{
+			it++;
+			break;
+		}
+		it++;
+	}
+	if (it != m_tabList.end())
+		winSetFocus(*it);
+	else
+	{
+		winSetFocus(*m_tabList.begin());
+	}
+	winSetLoneWindow(0);
+}
 
 void GameWindowManager::winPrevTab(GameWindow *window)
 {
