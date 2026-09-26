@@ -36304,3 +36304,4 @@ _Rva00680420,,0x00680420,17,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,mat
 ??_GBuildingBehaviorModuleData@@UAEPAXI@Z,,0x004564CA,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-0ecc.cpp,matched,slot 0 of vtable 0x00840798 calls rowed 0x004564E6 and rowed delete 0x0002FD60
 ?xfer@Rva004561A2@@MAEXPAVXfer@@@Z,,0x004562C0,56,Code/GameEngine/Source/Common/Rva004561A2Xfer.cpp,matched,slot 3 of vtable 0x008406D4 via rowed dtor 0x004561A2 plus Version1 0x53EE plus base xfer 0x44DF9F
 ?xfer@BloodthirstyUpdate@@MAEXPAVXfer@@@Z,,0x0044E006,78,Code/GameEngine/Source/GameLogic/Object/Update/BloodthirstyUpdateXfer.cpp,matched,slot 3 vtable 0083F0B4 base UpdateModule xfer Version 1 1 via Xfer slot 0x28
+?rva001A3930@AggregateDefClass@@QBEHXZ,,0x001A3930,40,Code/Libraries/Source/WWVegas/WW3D2/AggregateDefRva001A3930.cpp,matched,gap size query base 0x5C plus name plus count64
