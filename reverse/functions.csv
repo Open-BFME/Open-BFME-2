@@ -36420,3 +36420,5 @@ _setlinehook,,0x00748350,37,Code/Libraries/Source/Lua/ldblib.c,matched,BFME1 ldb
 ?rva001A4E70@Animatable3DObjClass@@UAE_NH@Z,,0x001A4E70,72,Code/Libraries/Source/WWVegas/WW3D2/AnimatableGetBoneTransform.cpp,matched,vtable 0x7D6D10 slot 53 honest bool int Validates Updates reads HTree captured flag
 ?rva002C0F68@GameWindowManager@@UAEH_N0@Z,,0x002C0F68,97,Code/GameEngine/Source/GameClient/GUI/GameWindowManager_enableWindowsInRange.cpp,matched,vtable 0x7C7C90 slot 47 parent chain via winGetParent and slot59 0xEC member 0x20
 ?clear@Rva0060C45E@@QAEXXZ,,0x0060C45E,11,Code/GameEngine/Source/Common/Rva0060C45EClear.cpp,matched,honest clearer and [ecx+0x14] 0 via O1
+??1DynamicShroudClearingRangeUpdateModuleData@@UAE@XZ,,0x0048B634,48,Code/GameEngine/Source/GameLogic/Object/Update/DynamicShroudClearingRangeUpdateModuleDataDtor.cpp,matched,Snapshot-base restore to 0xBBB554 over RadiusDecal member at 0x28 via pinned 0xB6CF1
+??_GDynamicShroudClearingRangeUpdateModuleData@@UAEPAXI@Z,,0x0048B618,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-14b2.cpp,matched,slot 0 of vtable 0x84BEF8 calls rowed 0x48B634 plus delete 0x2FD60
