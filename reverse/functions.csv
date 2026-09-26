@@ -36064,3 +36064,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ??_GCreateObjectDieModuleData@@UAEPAXI@Z,,0x00485E50,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-ae2e.cpp,matched,slot 0 deleting dtor for CreateObjectDieModuleData via famgen
 ??1CreateObjectDieIfEldestKindofModuleData@@UAE@XZ,,0x00485E88,59,Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDieIfEldestKindofModuleDataDtor.cpp,matched,EldestKindof dtor via second-base filter 0x360D26 plus base 0x485DDA
 ??1RankInfo@@UAE@XZ,,0x00200236,74,Code/GameEngine/Source/GameLogic/System/RankInfoDtor.cpp,matched,BFME1 donor empty dtor plus vector free 0x30830 plus string 0x36E70 plus base 0x1E3624
+??_G?$SimpleDynVecClass@E@@UAEPAXI@Z,,0x001A8050,30,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-7a10c.cpp,matched,slot0 of 0x007D71EC calls pinned dtor 0x001A7F20

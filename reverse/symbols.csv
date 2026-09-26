@@ -5503,3 +5503,4 @@ __mbscat,0x0062988C,retail REL32 from INI getNextQuotedAsciiString 0x002E93F; IA
 ??1?$DynamicVectorClass@PAVVertexMaterialClass@@@@UAE@XZ,0x0016F580,twin of dup row 0x0016F580 whose object-symbol is this dtor; call site 0x0016FF33 in 30B deleting dtor
 ??1Cftp@@UAE@XZ,0x006CA600,twin of rowed d_00885af0 dtor for Cftp deleting dtor call; vtable 0xCE8A38 same as ctor 0x6CA5E0; BFME1 donor virtual ~Cftp
 ??1Rva00801FB0Elem@@QAE@XZ,0x0066DF10,twin of rowed bfmeClearVHW clear for Rva00801FB0Elem deleting dtor call; vtable 0xCE3C20 same as ctor 0x66E270; ICF-folded clear-dtor body
+??1?$SimpleDynVecClass@E@@UAE@XZ,0x001A7F20,twin of rowed bfmeGo943E clear for SimpleDynVec deleting dtor call; vtable 0x7D71EC then 0x7D71E0 same as derived-base; StreakLine donor virtual dtor
