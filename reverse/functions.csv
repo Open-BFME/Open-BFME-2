@@ -35399,3 +35399,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ?Rva001DFAB9Get@@YAHXZ,,0x001DFAB9,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
 ?Rva001E392EGet@@YAHXZ,,0x001E392E,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
 ?Rva0020049BGet@@YAHXZ,,0x0020049B,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
+?FillLevelSurfaces@CursorTextureSlot@@QAEXXZ,,0x00132989,266,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseCursorSurfaceLevel.cpp,matched,per-level cursor-surface fill with one-hot float triple plus rvalue worker fetch; rvalue method call reuses hidden-slot register; SSE const-pool triple

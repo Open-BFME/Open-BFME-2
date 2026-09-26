@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /MD /EHsc /DNDEBUG
+// cl: /O1 /Oy- /MD /EHsc /DNDEBUG /arch:SSE
 
 // ?Get_Surface_Level@CursorTextureSlot@@QAE?AVW3DRadarResetSurface@@XZ,
 // retail 0x00132D70, 25 bytes. Zero-level forwarder: the cursor loader keeps
@@ -24,6 +24,7 @@ public:
 	W3DRadarResetSurface(void *surface) : m_surface(surface) {}
 	W3DRadarResetSurface(const W3DRadarResetSurface &other);
 	~W3DRadarResetSurface();
+	void Rva00116990(float a, float b, float c);
 };
 
 struct CursorTextureSlot
@@ -32,6 +33,7 @@ struct CursorTextureSlot
 
 	W3DRadarResetSurface Get_Surface_Level(void);
 	W3DRadarResetSurface Get_Surface_Level(int level);
+	void FillLevelSurfaces(void);
 };
 
 // ?Get_Surface_Level@CursorTextureSlot@@QAE?AVW3DRadarResetSurface@@XZ
@@ -79,7 +81,7 @@ struct ISurface8
 	virtual void __stdcall Slot_10() = 0;
 	virtual void __stdcall Slot_11() = 0;
 	virtual void __stdcall Slot_12() = 0;
-	virtual void __stdcall Slot_13() = 0;
+	virtual int __stdcall Slot_13() = 0;
 	virtual void __stdcall Slot_14() = 0;
 	virtual void __stdcall Slot_15() = 0;
 	virtual void __stdcall Slot_16() = 0;
@@ -141,4 +143,49 @@ W3DRadarResetSurface CursorTextureSlot::Get_Surface_Level(int level)
 		item->Release();
 	surface->Release();
 	return (const W3DRadarResetSurface &)thing;
+}
+
+// ?FillLevelSurfaces@CursorTextureSlot@@QAEXXZ, retail 0x00132989, 266 bytes.
+// Probe v1: per-level surface fill over the slot texture.
+void CursorTextureSlot::FillLevelSurfaces(void)
+{
+	TexObject *tex = (TexObject *)Ptr;
+	if (tex == NULL)
+		return;
+	if (!tex->Is_Initialized())
+		return;
+	Level14 *frame = tex->m_field14;
+	if (frame->m_ptr08 == NULL)
+		return;
+	int count = frame->m_ptr08->Slot_13();
+	for (int level = 1; level < count; level++)
+	{
+		float a;
+		float b;
+		float c;
+		switch (level)
+		{
+		case 1:
+			a = 1.0f;
+			b = 0.0f;
+			c = 0.0f;
+			break;
+		case 2:
+			a = 0.0f;
+			b = 1.0f;
+			c = 0.0f;
+			break;
+		case 3:
+			a = 0.0f;
+			b = 0.0f;
+			c = 1.0f;
+			break;
+		default:
+			a = 1.0f;
+			b = 1.0f;
+			c = 0.0f;
+			break;
+		}
+		Get_Surface_Level(level).Rva00116990(a, b, c);
+	}
 }
