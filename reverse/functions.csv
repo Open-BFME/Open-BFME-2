@@ -36378,3 +36378,6 @@ _Rva00680420,,0x00680420,17,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,mat
 ?forward@Rva0081D3E0Object@@QAEXHH@Z,,0x006882B0,19,Code/GameEngine/Source/Common/Rva0081D3E0CallbackForward.cpp,matched,BFME1 byte-identical donor; b1 0x0081D3E0
 ?clearFields@Rva00801430Owner@@QAEXXZ,,0x0066D780,18,Code/GameEngine/Source/Common/Rva00801430ClearFields.cpp,matched,BFME1 byte-identical donor; b1 0x00801430
 ?clearFields@Rva008008C0Owner@@QAEXXZ,,0x0066CCA0,17,Code/GameEngine/Source/Common/Rva008008C0ClearFields.cpp,matched,BFME1 byte-identical donor; b1 0x008008C0
+?handleQueueReply@Rva007F5840Owner@@QAEXPAVRva007E8810Message@@PAVBfmeOwnerYA@@@Z,,0x00661FE0,181,Code/GameEngine/Source/GameNetwork/Rva007F5840QueueReply.cpp,matched,BFME1 byte-identical donor; b1 0x007F5840
+?compare008B4260@Rva008B4260StringRef@@QBEHABU1@@Z,,0x006D36C0,36,Code/Libraries/Source/EA/Apt/Rva008B4260StringCompare.cpp,matched,BFME1 byte-identical donor; b1 0x008B4260
+?aptHelperSetFlag008AE470@@YAPAVAptValue@@PAXH@Z,,0x006ED470,21,Code/Libraries/Source/EA/Apt/Rva008AE470AptHelperDispatch.cpp,matched,BFME1 byte-identical donor; b1 0x008AE470

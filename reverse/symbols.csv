@@ -5516,3 +5516,8 @@ __mbscat,0x0062988C,retail REL32 from INI getNextQuotedAsciiString 0x002E93F; IA
 ??1?$_List_base@PAVAnimateWindow@@V?$allocator@PAVAnimateWindow@@@_STL@@@_STL@@QAE@XZ,0x004EC395,ICF twin of int list-base dtor per AnimateWindowManager dtor 0x0053B6E0 call sites
 ??1DeflectSpecialPowerModuleData@@UAE@XZ,0x004C64E9,ICF twin of rowed SiegeDeployHordeSpecialPowerModuleData dtor at same address; resolves Deflect deleting dtor call at 0x4C5686
 ??1Rva003623E5Member@@QAE@XZ,0x00360D26,twin of pool-aware member dtor for DamageFieldUpdateModuleData dtor 0x0049116A filter call
+?d_009f74f4@@YAXXZ,0x00629BAB
+?bfmeCompareVSC@@YAHPBD0@Z,0x00629A2A
+?ji_009f6fa0@@YAXXZ,0x00629A2A
+?aptHelper008AE3A0@@YAPAVAptValue@@PAXHH@Z,0x006ED390
+?d_008ae3a0@@YAXXZ,0x006ED390
