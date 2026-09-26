@@ -447,3 +447,43 @@ int Rva0024DCE3Get(void)
 {
 	return 257;
 }
+
+// ?Rva0024FB41Get@@YAHXZ @ 0x0024fb41 (6B): returns 513.
+// Follows an SEH epilogue plus leave plus ret. No direct callers.
+// Opaque address-derived name.
+int Rva0024FB41Get(void)
+{
+	return 513;
+}
+
+// ?Rva00250722Get@@YAHXZ @ 0x00250722 (6B): returns 140.
+// Follows an SEH epilogue plus leave plus ret. No direct callers.
+// Opaque address-derived name.
+int Rva00250722Get(void)
+{
+	return 140;
+}
+
+// ?Rva002507ECGet@@YAHXZ @ 0x002507ec (6B): returns 131.
+// Follows an SEH epilogue plus leave plus ret. No direct callers.
+// Opaque address-derived name.
+int Rva002507ECGet(void)
+{
+	return 131;
+}
+
+// ?Rva00252165Get@@YAHXZ @ 0x00252165 (6B): returns 273.
+// Follows an SEH epilogue plus leave plus ret. No direct callers.
+// Opaque address-derived name.
+int Rva00252165Get(void)
+{
+	return 273;
+}
+
+// ?Rva002532CEGet@@YAHXZ @ 0x002532ce (6B): returns 0x00dbaa40.
+// Follows an SEH epilogue plus leave plus ret. No direct callers.
+// Opaque address-derived name.
+int Rva002532CEGet(void)
+{
+	return 0x00dbaa40;
+}
