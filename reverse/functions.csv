@@ -35522,3 +35522,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ?Rva00328A5FGet@@YAHXZ,,0x00328A5F,6,Code/GameEngine/Source/Common/ConstIntGetters9.cpp,matched,B8-6 const-int returner ret 0x00dff0b8 after leave-ret; opaque address-derived name
 ?Rva0033A3EEGet@@YAHXZ,,0x0033A3EE,6,Code/GameEngine/Source/Common/ConstIntGetters9.cpp,matched,B8-6 const-int returner ret 0x00dbe9b0 after leave-ret; opaque address-derived name
 ?Rva006D4F00Append@EAStringC@@QAEAAV1@ABV1@@Z,,0x006D4F00,105,Code/Libraries/Source/EA/Apt/AptString/EAStringCRefCount.cpp,matched,string append via ChangeBuffer growth and copying memcpy
+?Rva0033A43EGet@@YAHXZ,,0x0033A43E,6,Code/GameEngine/Source/Common/ConstIntGetters9.cpp,matched,B8-6 const-int returner ret 0x00dbecd8 in movsx-movzx getter cluster; opaque address-derived name
