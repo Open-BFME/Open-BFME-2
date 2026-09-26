@@ -291,6 +291,11 @@ int Rva008144C0( struct Rva00814700Comm *comm )
 	return 4;
 }
 
+unsigned int Rva00680420( void )
+{
+	return Rva007FEA00();
+}
+
 int Rva00815830( struct Rva00814700Comm *comm )
 {
 	if ( comm->m_state == 1 || comm->m_state == 2 )
