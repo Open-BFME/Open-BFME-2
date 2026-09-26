@@ -35562,3 +35562,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ?name@Rva00483C63Named@@QBEPBDXZ,,0x00483C63,6,Code/GameEngine/Source/Common/ModuleNameGetters2.cpp,matched,B8-6 const string returner ClearanceTestingSlowDeathBehavior
 ?name@Rva00484181Named@@QBEPBDXZ,,0x00484181,6,Code/GameEngine/Source/Common/ModuleNameGetters2.cpp,matched,B8-6 const string returner ReplenishUnitsBehavior
 ?name@Rva00485956Named@@QBEPBDXZ,,0x00485956,6,Code/GameEngine/Source/Common/ModuleNameGetters2.cpp,matched,B8-6 const string returner CreateObjectDie
+??0Rva00C6F248Iface@@QAE@XZ,,0x004A184C,9,Code/GameEngine/Source/GameLogic/Object/Update/Rva00C6F248Iface.cpp,matched,Second-base interface ctor installing vtable 0xC6F248; +0x20 slot sharer with BattlePlanUpdate ctor
