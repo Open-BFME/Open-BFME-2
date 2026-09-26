@@ -5,6 +5,7 @@
 // Sizes, four-byte alignment and lifetime calls are target evidence;
 // original record names and member meanings remain unknown.
 #include <deque>
+#include <queue>
 #include <new>
 
 struct BfmeOpaqueOwnedRecord492 {
@@ -102,3 +103,7 @@ template class _STL::deque<BfmeOpaqueOwnedRecord1432,
 	_STL::allocator<BfmeOpaqueOwnedRecord1432> >;
 template class _STL::deque<BfmeOpaqueOwnedRecord2148,
 	_STL::allocator<BfmeOpaqueOwnedRecord2148> >;
+typedef _STL::queue<BfmeOpaqueOwnedRecord492> BfmeQueue492;
+typedef _STL::queue<BfmeOpaqueOwnedRecord840> BfmeQueue840;
+template class _STL::queue<BfmeOpaqueOwnedRecord492>;
+template class _STL::queue<BfmeOpaqueOwnedRecord840>;
