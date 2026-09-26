@@ -35569,3 +35569,15 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ??0?$BitFlags@$0L@@@QAE@W4BogusInitType@0@HHHH@Z,,0x005CBA5F,109,Code/GameEngine/Source/Common/System/BitFlags11DisabilityCtors.cpp,matched,DisabledMask four-bit ctor for the per-global initializer at 0x007B4998 building bits 0 1 2 3
 ??$_M_allocate_and_copy@PAVProductionPrerequisite@@@?$vector@VProductionPrerequisite@@V?$allocator@VProductionPrerequisite@@@_STL@@@_STL@@IAEPAVProductionPrerequisite@@IPAV2@0@Z,,0x002D0F09,45,Code/GameEngine/Source/Common/Thing/ProductionPrerequisiteInsertOverflow.cpp,matched,vector allocate and copy range via pinned allocator and uninitialized_copy
 ??0?$BitFlags@$0L@@@QAE@XZ,,0x003B31AD,20,Code/GameEngine/Source/Common/System/BitFlags11DisabilityCtors.cpp,matched,DisabledMask default ctor zeroing the 4-byte mask slot called on +0x2C in ModuleData ctors
+?name@Rva0033FB8FNamed@@QBEPBDXZ,,0x0033FB8F,6,Code/GameEngine/Source/Common/ModuleNameGetters3.cpp,matched,B8-6 const string returner AttackContesterStateMachine
+?name@Rva00367F98Named@@QBEPBDXZ,,0x00367F98,6,Code/GameEngine/Source/Common/ModuleNameGetters3.cpp,matched,B8-6 const string returner GiantBirdGuardMachine
+?name@Rva00398525Named@@QBEPBDXZ,,0x00398525,6,Code/GameEngine/Source/Common/ModuleNameGetters3.cpp,matched,B8-6 const string returner CastleBehavior
+?name@Rva0039ADFENamed@@QBEPBDXZ,,0x0039ADFE,6,Code/GameEngine/Source/Common/ModuleNameGetters3.cpp,matched,B8-6 const string returner ExperienceTrackerObject
+?name@Rva003A433BNamed@@QBEPBDXZ,,0x003A433B,6,Code/GameEngine/Source/Common/ModuleNameGetters3.cpp,matched,B8-6 const string returner FadeAndDieOrnamentUpdate
+?name@Rva003ABCEENamed@@QBEPBDXZ,,0x003ABCEE,6,Code/GameEngine/Source/Common/ModuleNameGetters3.cpp,matched,B8-6 const string returner DefaultModule<CAT_COLOR>
+?name@Rva0044E000Named@@QBEPBDXZ,,0x0044E000,6,Code/GameEngine/Source/Common/ModuleNameGetters3.cpp,matched,B8-6 const string returner BloodthirstyUpdate
+?name@Rva00452D72Named@@QBEPBDXZ,,0x00452D72,6,Code/GameEngine/Source/Common/ModuleNameGetters3.cpp,matched,B8-6 const string returner WallHubBehavior
+?name@Rva004561BBNamed@@QBEPBDXZ,,0x004561BB,6,Code/GameEngine/Source/Common/ModuleNameGetters3.cpp,matched,B8-6 const string returner BuildingBehavior
+?name@Rva00458AC7Named@@QBEPBDXZ,,0x00458AC7,6,Code/GameEngine/Source/Common/ModuleNameGetters3.cpp,matched,B8-6 const string returner RampageBehavior
+?name@Rva0045B14DNamed@@QBEPBDXZ,,0x0045B14D,6,Code/GameEngine/Source/Common/ModuleNameGetters3.cpp,matched,B8-6 const string returner AimWeaponBehavior
+?name@Rva0045CE86Named@@QBEPBDXZ,,0x0045CE86,6,Code/GameEngine/Source/Common/ModuleNameGetters3.cpp,matched,B8-6 const string returner InstantDeathBehavior
