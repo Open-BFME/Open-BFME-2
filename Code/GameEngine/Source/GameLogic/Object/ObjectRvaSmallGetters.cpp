@@ -43,7 +43,7 @@ bool Object::rva0028ADE0() const
 }
 
 // ?rva0028ADF7@Object@@QBEHH@Z
-// ?rva0028ADF7@Object@@QBEHH@Z present-unmatched
+// ?rva0028ADF7@Object@@QBEHH@Z
 int Object::rva0028ADF7(int slot) const
 {
 	return (m_mask360 & (1 << slot)) != 0 ? 1 : 0;
