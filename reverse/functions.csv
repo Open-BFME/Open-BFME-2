@@ -36255,3 +36255,4 @@ _Rva00680420,,0x00680420,17,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,mat
 ??_GAttachUpdateModuleData@@UAEPAXI@Z,,0x00491A84,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-p7z-f52d.cpp,matched,slot 0 of vtable 0x0084DD18 calls rowed 0x00491AA0 and rowed delete 0x0002FD60
 ??1PickupStuffUpdateModuleData@@UAE@XZ,,0x00491F76,48,Code/GameEngine/Source/GameLogic/Object/Update/PickupStuffUpdateModuleDataDtor.cpp,matched,Snapshot base 0xBBB554 with filter at +0x10 via pinned 0x360D26 and ctor 0x491E37 vtable 0xC4DDE0
 ??_GInheritUpgradeCreateModuleData@@UAEPAXI@Z,,0x004B954D,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-01b0.cpp,matched,slot 0 of vtable 0x00859768 calls rowed 0x004B9569 and rowed delete 0x0002FD60
+??_GPickupStuffUpdateModuleData@@UAEPAXI@Z,,0x00491F5A,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-p7z-f52d.cpp,matched,slot 0 of vtable 0x0084DDE0 calls rowed 0x00491F76 and rowed delete 0x0002FD60
