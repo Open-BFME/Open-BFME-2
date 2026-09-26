@@ -36228,3 +36228,4 @@ _Rva00680420,,0x00680420,17,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,mat
 ??_GCommandPointsUpgradeModuleData@@UAEPAXI@Z,,0x0025593D,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-7c2e.cpp,matched,slot0 vtable 0x7F2658 calls rowed 0x255959
 ?rva004625F0@SlaughterHordeContain@@UAEXPAX@Z,,0x004625F0,43,Code/GameEngine/Source/GameLogic/Object/Contain/SlaughterHordeContainRva004625BB.cpp,matched,vslot 129 of 0x00848AA0 void twin plus slot-68 iterate plus callback 0x4625AA
 ??0Rva002542F3Member@@QAE@XZ,,0x002542F3,119,Code/GameEngine/Source/GameLogic/Object/Update/Rva002542F3MemberCtor.cpp,matched,frameless nugget ctor via FireWeapon reset-plus-memset recipe
+??1DoCommandUpgradeModuleData@@UAE@XZ,,0x00256222,69,Code/GameEngine/Source/GameLogic/Object/Upgrade/FamilyUpgradeModuleDataDtors.cpp,matched,sibling of UpgradeModuleData dtor 0x255A42 with two strings at +0x118/+0x11C vtable BF3840 caller deleting dtor 0x256283

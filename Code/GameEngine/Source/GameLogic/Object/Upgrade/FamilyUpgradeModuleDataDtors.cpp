@@ -20,3 +20,12 @@ void *famgenMakeBroadcastStealthUpdateModuleData() { return new BroadcastStealth
 class FadeAndDieOrnamentUpdateModuleData : public ModuleDataBase { public: char m_pad[0x8 - 4]; AsciiStringMember m_name; };
 void *famgenMakeFadeAndDieOrnamentUpdateModuleData() { return new FadeAndDieOrnamentUpdateModuleData; }
 
+// ??1DoCommandUpgradeModuleData@@UAE@XZ, retail 0x00256222, 69 bytes.
+// Two AsciiString members at +0x118/+0x11C (own table 0x00857BC4 holding
+// GetUpgradeCommandButtonName plus RemoveUpgradeCommandButtonName; ctor
+// 0x255795 and0 factory 0x2557B5 news 0x120; vtable 0x00BF3840; caller
+// ??_G 0x256283 slot 0). Same-shape sibling of UpgradeModuleData dtor
+// 0x255A42 with two releases then base vtable 0x00BBB554 restored.
+class DoCommandUpgradeModuleData : public ModuleDataBase { public: char m_pad[0x118 - 4]; AsciiStringMember m_getUpgradeCommandButtonName; AsciiStringMember m_removeUpgradeCommandButtonName; };
+void *famgenMakeDoCommandUpgradeModuleData() { return new DoCommandUpgradeModuleData; }
+
