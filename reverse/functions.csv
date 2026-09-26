@@ -35973,3 +35973,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ??_GStealthUpgrade@@MAEPAXI@Z,,0x004B53A9,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-b4e7.cpp,matched,slot 0 of 0x00857E30 calls rowed StealthUpgrade dtor 0x004B530D
 ?isNativeFunction@BfmeAptValue006DCD20@@QBEHXZ,,0x006DC260,78,Code/Libraries/Source/Apt/AptValue/AptValueTypePredicatesBFME2.cpp,matched,isNativeFunction type 9 with undefined exclusion. Caller 0x6DCF23 asserts isNativeFunction. Line 1610. 9 callers
 ?isScriptFunction@BfmeAptValue006DCD20@@QBEHXZ,,0x006DC2B0,79,Code/Libraries/Source/Apt/AptValue/AptValueTypePredicatesBFME2.cpp,matched,isScriptFunction types 43 to 45 with undefined exclusion. Caller 0x6DCEE3 asserts isScriptFunction. Line 1635. 17 callers
+?Rva00129510Inc@@YAXXZ,,0x00129510,8,Code/GameEngine/Source/Common/Rva00129510Inc.cpp,matched,same O2 G7 add idiom as Rva00129670Inc over 0x00DEE8B0
