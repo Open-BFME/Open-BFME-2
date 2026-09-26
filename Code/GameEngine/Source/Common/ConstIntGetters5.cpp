@@ -328,3 +328,58 @@ int Rva0020049BGet(void)
 {
 	return 0x00be29ec;
 }
+
+// ?Rva002009F5Get@@YAHXZ @ 0x002009f5 (6B): returns 0x00c0c3a8.
+// Follows a leave plus ret tail. No direct callers. Opaque
+// address-derived name.
+int Rva002009F5Get(void)
+{
+	return 0x00c0c3a8;
+}
+
+// ?Rva00200BB4Get@@YAHXZ @ 0x00200bb4 (6B): returns 0x00c07fe0.
+// Follows a leave plus ret tail. No direct callers. Opaque
+// address-derived name.
+int Rva00200BB4Get(void)
+{
+	return 0x00c07fe0;
+}
+
+// ?Rva00201992Get@@YAHXZ @ 0x00201992 (6B): returns 0x00be3098.
+// Preceded by int3 padding. No direct callers. Opaque address-derived name.
+int Rva00201992Get(void)
+{
+	return 0x00be3098;
+}
+
+// ?Rva0020D7A6Get@@YAHXZ @ 0x0020d7a6 (6B): returns 0x00be3fd4.
+// Follows a leave plus ret tail. No direct callers. Opaque
+// address-derived name.
+int Rva0020D7A6Get(void)
+{
+	return 0x00be3fd4;
+}
+
+// ?Rva0020E2F2Get@@YAHXZ @ 0x0020e2f2 (6B): returns 0x00be4120.
+// Follows an al-returner tail. No direct callers. Opaque
+// address-derived name.
+int Rva0020E2F2Get(void)
+{
+	return 0x00be4120;
+}
+
+// ?Rva00215C48Get@@YAHXZ @ 0x00215c48 (6B): returns 0x00c387c0.
+// Follows a call plus ret tail. No direct callers. Opaque
+// address-derived name.
+int Rva00215C48Get(void)
+{
+	return 0x00c387c0;
+}
+
+// ?Rva00215C4EGet@@YAHXZ @ 0x00215c4e (6B): returns 0x00c38760.
+// Abuts the twin getter above. No direct callers. Opaque
+// address-derived name.
+int Rva00215C4EGet(void)
+{
+	return 0x00c38760;
+}
