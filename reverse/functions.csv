@@ -36063,3 +36063,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ??1CreateObjectDieModuleData@@UAE@XZ,,0x00485DDA,63,Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDieModuleDataDtor.cpp,matched,Snapshot BBB554 restore with vector 0x2CC70 and string 0x36410 via CivilianSpawn shape
 ??_GCreateObjectDieModuleData@@UAEPAXI@Z,,0x00485E50,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-ae2e.cpp,matched,slot 0 deleting dtor for CreateObjectDieModuleData via famgen
 ??1CreateObjectDieIfEldestKindofModuleData@@UAE@XZ,,0x00485E88,59,Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDieIfEldestKindofModuleDataDtor.cpp,matched,EldestKindof dtor via second-base filter 0x360D26 plus base 0x485DDA
+??1RankInfo@@UAE@XZ,,0x00200236,74,Code/GameEngine/Source/GameLogic/System/RankInfoDtor.cpp,matched,BFME1 donor empty dtor plus vector free 0x30830 plus string 0x36E70 plus base 0x1E3624
