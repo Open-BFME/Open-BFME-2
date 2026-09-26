@@ -36012,3 +36012,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ??_GShareExperienceBehaviorModuleData@@UAEPAXI@Z,,0x0047FFB2,28,Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehaviorModuleDataDtor.cpp,matched,deleting dtor via implicit dtor plus operator delete
 ?Update_Cached_Bounding_Volumes@ParticleEmitterClass@@EBEXXZ,,0x001A1D70,97,Code/Libraries/Source/WWVegas/WW3D2/part_emt_update_cached.cpp,matched,vslot 127 of ParticleEmitterClass vtable donor Init Center Extent Validate
 ?DoAssign@@YAXXZ,,0x006B8780,463,Code/Libraries/Source/Benchmark/nbench1.cpp,matched,DoAssign with buggy inlined i-times-size predating Eike Dierks fix
+??1CivilianSpawnUpdateModuleData@@UAE@XZ,,0x0047FABF,63,Code/GameEngine/Source/GameLogic/Object/Update/CivilianSpawnUpdateModuleDataDtor.cpp,matched,dtor via novtable plus Snapshot BBB554 plus vector and filter
