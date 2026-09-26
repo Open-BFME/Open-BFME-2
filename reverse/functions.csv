@@ -35386,3 +35386,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ?Rva00051EA9Get@@YAHXZ,,0x00051EA9,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
 ?Rva0011C460Get@@YAHXZ,,0x0011C460,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
 ?Rva002A8A0FGet@@YAHXZ,,0x002A8A0F,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
+?Get_Surface_Level@CursorTextureSlot@@QAE?AVW3DRadarResetSurface@@H@Z,,0x0013289D,236,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseCursorSurfaceLevel.cpp,matched,leveled cursor-surface worker; COM refcount ballet with AddRef in thing ctor plus Release pair plus holder copy; named-bool false-compare gives cmp-al-bl
