@@ -36395,3 +36395,4 @@ _Rva00680420,,0x00680420,17,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,mat
 ?Rva00547070@Rva00546F61@@UAEPAUCoord3D@@H@Z,,0x00547070,41,Code/GameEngine/Source/Common/Rva00546F61Slot8.cpp,matched,vslot8 of 0x86A420; findObjectByID 0x49DC5 plus 12B position copy; ignores dummy param
 ?rva002CF172@Rva004CA13@@UAE_NPA_N@Z,,0x002CF172,87,Code/GameEngine/Source/Common/Rva004CA13Reload.cpp,matched,vslot4 of 0x7C4858 via RIF ThingTemplates message
 ?xfer@Rva00494A97@@MAEXPAVXfer@@@Z,,0x00494BBA,42,Code/GameEngine/Source/Common/Rva00494A97Xfer.cpp,matched,vslot3 xfer via base plus bool at 0x38
+?xfer@FoundationAIUpdate@@MAEXPAVXfer@@@Z,,0x004550F8,100,Code/GameEngine/Source/GameLogic/Object/Update/FoundationAIUpdateXfer.cpp,matched,slot 3 of 0x00840608 FoundationAIUpdate via name poolkey ctor; Version1-1 base IsLightCRC audio ObjectID bool
