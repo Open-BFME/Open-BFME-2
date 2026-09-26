@@ -36225,3 +36225,4 @@ _Rva00680420,,0x00680420,17,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,mat
 ?scanReal@RAMFile@@UAE_NAAM@Z,,0x006058CD,232,Code/GameEngine/Source/Common/System/RAMFileRead.cpp,matched,slot8 of vtable 0087AA00 plus ZH scanReal with char2 temp
 ?rva004625BB@SlaughterHordeContain@@UAE_NPAXH@Z,,0x004625BB,53,Code/GameEngine/Source/GameLogic/Object/Contain/SlaughterHordeContainRva004625BB.cpp,matched,vslot 128 of 0x00848AA0 plus slot-68 iterate plus callback 0x46258C
 ??1CommandPointsUpgradeModuleData@@UAE@XZ,,0x00255959,51,Code/GameEngine/Source/GameLogic/Object/Upgrade/CommandPointsUpgradeModuleDataDtor.cpp,matched,Snapshot BBB554 base filter 0x360D26 slot0 0x25593D
+??_GCommandPointsUpgradeModuleData@@UAEPAXI@Z,,0x0025593D,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-7c2e.cpp,matched,slot0 vtable 0x7F2658 calls rowed 0x255959
