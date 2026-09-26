@@ -35881,3 +35881,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ?get@Rva0042D703PtrChaseField@@QBEHXZ,,0x0042D703,17,Code/GameEngine/Source/Common/Disp0PtrChaseDwordGetters.cpp,matched,null-checked ptr-chase plus tail-jmp rowed getter 0x225A98 and 14 callers
 ??_GSpecialEnemySenseUpdateModuleData@@UAEPAXI@Z,,0x0025523F,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-e2de.cpp,matched,slot0 vtable 0xBF1AD8 calls rowed 0x25525B
 ??0W3DSnowManager@@QAE@XZ,,0x00093162,113,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DSnow.cpp,matched,donor BFME1 W3DSnow ctor; base SnowManager 0x0020109B plus vtable 0x007C8144 plus 10 int NULLs plus 5 float zeros; caller 0x0004C61C createSnowManager
+?Set_Name@CompositeRenderObjClass@@UAEXPBD@Z,,0x001A6170,11,Code/Libraries/Source/WWVegas/WW3D2/composite.cpp,matched,vtable slot 7 of Composite vtable 0x007D6F30; donor Set_Name tail-jmp to StringClass assign at plus 0xC4; sibling Set_Base at plus 0xC8
