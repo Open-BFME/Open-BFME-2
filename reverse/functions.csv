@@ -36016,3 +36016,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ??1RebuildHoleExposeDieModuleData@@UAE@XZ,,0x004869CC,48,Code/GameEngine/Source/GameLogic/Object/Die/RebuildHoleExposeDieModuleDataDtor.cpp,matched,ModuleData dtor via RefundDie pattern with Snapshot BBB554 and AsciiStringMember at 0x38
 ??1BloodthirstyUpdate@@MAE@XZ,,0x0044DFE0,32,Code/GameEngine/Source/GameLogic/Object/Update/BloodthirstyUpdateDtor.cpp,matched,dtor lane; 4 vptr stores plus tail-jmp pinned UpdateModule base 0x0024A797; vtable 0x0083F0B4
 ??_GBloodthirstyUpdate@@MAEPAXI@Z,,0x0044E113,28,Code/GameEngine/Source/GameLogic/Object/Update/BloodthirstyUpdateDtor.cpp,matched,slot 0 of vtable 0x0083F0B4; calls rowed ??1 0x0044DFE0
+??1BloodthirstyUpdateModuleData@@UAE@XZ,,0x0044E331,67,Code/GameEngine/Source/GameLogic/Object/Update/BloodthirstyUpdateModuleDataDtor.cpp,matched,dtor lane; filter plus holder plus Snapshot BBB554 restore; ctor 0x0044E2AC vtable 0x0083F160
