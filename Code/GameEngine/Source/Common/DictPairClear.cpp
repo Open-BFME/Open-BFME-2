@@ -75,6 +75,7 @@ public:
 	};
 
 public:
+  Dict(int numPairsToPreAllocate);
   void clear();
   DataType getType(int key) const;
   bool getBool(int key, bool *exists) const;
@@ -214,6 +215,17 @@ void Dict::clear(void)
 {
 	releaseData();
 	m_data = 0;
+}
+
+// ??0Dict@@QAE@H@Z @0x00313581 30B
+// Dict ctor from ZH Dict.cpp donor (BFME1 Dict::Dict). Inits m_data to 0 and
+// ensures capacity via rowed ensureUnique at 0x0031346B when prealloc nonzero.
+// Between clear at 0x00313574 and getAsciiString at 0x0031359F. Callers include
+// BfmeThingUBB ctor pin plus 11 unclaimed Dict users. Returns this.
+Dict::Dict(int numPairsToPreAllocate) : m_data(0)
+{
+	if (numPairsToPreAllocate)
+		ensureUnique(numPairsToPreAllocate, false, 0);
 }
 
 // ?findPairByKey@Dict@@ABEPAUDictPair@1@H@Z @0x0031313B
