@@ -229,6 +229,90 @@ void XferRotationType(Xfer *xfer, int *value)
 	xfer->XferEnum("RotationType", value, 4);
 }
 
+// Retail 0x00305BD2 (24B): labelled-enum helper with the "ModelConditionFlagType"
+// label (string at 0x0080796C).
+void XferModelConditionFlagType(Xfer *xfer, int *value)
+{
+	xfer->XferEnum("ModelConditionFlagType", value, 4);
+}
+
+// Retail 0x00305BEA (24B): labelled-enum helper with the "GameDifficulty"
+// label (string at 0x00807984).
+void XferGameDifficulty(Xfer *xfer, int *value)
+{
+	xfer->XferEnum("GameDifficulty", value, 4);
+}
+
+// Retail 0x00305C02 (24B): labelled-enum helper with the "CommandSourceType"
+// label (string at 0x00807994).
+void XferCommandSourceType(Xfer *xfer, int *value)
+{
+	xfer->XferEnum("CommandSourceType", value, 4);
+}
+
+// Retail 0x00305C1A (24B): labelled-enum helper with the "WhichTurretType"
+// label (string at 0x008079A8).
+void XferWhichTurretType(Xfer *xfer, int *value)
+{
+	xfer->XferEnum("WhichTurretType", value, 4);
+}
+
+// Retail 0x00305C32 (24B): labelled-enum helper with the "Relationship"
+// label (string at 0x008079B8).
+void XferRelationship(Xfer *xfer, int *value)
+{
+	xfer->XferEnum("Relationship", value, 4);
+}
+
+// Retail 0x00305C4A (24B): labelled-enum helper with the "FormationID"
+// label (string at 0x008079C8).
+void XferFormationID(Xfer *xfer, int *value)
+{
+	xfer->XferEnum("FormationID", value, 4);
+}
+
+// Retail 0x00305C62 (24B): labelled-enum helper with the "WaypointID"
+// label (string at 0x008079D4).
+void XferWaypointID(Xfer *xfer, int *value)
+{
+	xfer->XferEnum("WaypointID", value, 4);
+}
+
+// Retail 0x00305D0A (24B): labelled-enum helper with the "PathfindLayerEnum"
+// label (string at 0x00807A20).
+void XferPathfindLayerEnum(Xfer *xfer, int *value)
+{
+	xfer->XferEnum("PathfindLayerEnum", value, 4);
+}
+
+// Retail 0x00305D3A (24B): labelled-enum helper with the "RadarEventType"
+// label (string at 0x00807A40).
+void XferRadarEventType(Xfer *xfer, int *value)
+{
+	xfer->XferEnum("RadarEventType", value, 4);
+}
+
+// Retail 0x00305DCA (24B): labelled-enum helper with the "TurretTargetType"
+// label (string at 0x00807AA0).
+void XferTurretTargetType(Xfer *xfer, int *value)
+{
+	xfer->XferEnum("TurretTargetType", value, 4);
+}
+
+// Retail 0x00305DFA (24B): labelled-enum helper with the "ScaffoldTargetMotion"
+// label (string at 0x00807AD0).
+void XferScaffoldTargetMotion(Xfer *xfer, int *value)
+{
+	xfer->XferEnum("ScaffoldTargetMotion", value, 4);
+}
+
+// Retail 0x00305E12 (24B): labelled-enum helper with the "BodyDamageType"
+// label (string at 0x00807AE8).
+void XferBodyDamageType(Xfer *xfer, int *value)
+{
+	xfer->XferEnum("BodyDamageType", value, 4);
+}
+
 // Two version bytes, stored back to back: the retail Version1 body writes 1 to
 // both of them in a four-byte stack slot before handing their address to the
 // slot-10 transfer operator. Xfer.cpp's model verbatim.
