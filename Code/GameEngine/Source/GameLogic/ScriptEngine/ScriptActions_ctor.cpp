@@ -32,12 +32,38 @@ public:
 	ScriptActions();
 	virtual ~ScriptActions();
 	virtual void init();
+	virtual void slot02() = 0;
+	virtual void slot03() = 0;
+	virtual void slot04() = 0;
+	virtual void slot05() = 0;
+	virtual void slot06() = 0;
+	virtual void slot07() = 0;
+	virtual void slot08() = 0;
+	virtual void Rva003BA8AC() = 0;
 
 private:
 	bool m_suppressNewWindows; // +0x0C
 };
 
+#define Rva00DFEC50 (*(void **)0x00DFEC50)
+
+struct Rva00DFEC50Obj
+{
+	unsigned char m_pad[0x1914];
+	bool m_flag1914;
+};
+
 ScriptActions::ScriptActions()
 {
+	m_suppressNewWindows = false;
+}
+
+void ScriptActions::Rva003BA8AC()
+{
+	m_suppressNewWindows = false;
+	if (Rva00DFEC50 != 0)
+	{
+		reinterpret_cast<Rva00DFEC50Obj *>(Rva00DFEC50)->m_flag1914 = false;
+	}
 	m_suppressNewWindows = false;
 }

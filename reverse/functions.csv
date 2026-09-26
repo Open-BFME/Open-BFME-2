@@ -35927,3 +35927,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ?Rva00125430@@YAX_N@Z,,0x00125430,38,Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp,matched,gap in dx8wrapper between 0x00125400 and 0x00125460 via tail-call to rowed Set_Light_Environment with shared cold dword
 ?Rva00689180@VideoPlayer@@UAEXXZ,,0x00689180,21,Code/GameEngine/Source/GameClient/VideoPlayerRva00689180.cpp,matched,vslot9 VideoPlayer bool18 plus closeAllStreams slot19
 ?get@Rva005FC745PtrChaseField@@QBEPAXXZ,,0x005FC745,15,Code/GameEngine/Source/Common/Disp8PtrChaseDwordGetters.cpp,matched,Ptr-chase virtual-fallback getter honest name
+?Rva003BA8AC@ScriptActions@@UAEXXZ,,0x003BA8AC,24,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_ctor.cpp,matched,vslot9 ScriptActions suppressWindows plus global 1914
