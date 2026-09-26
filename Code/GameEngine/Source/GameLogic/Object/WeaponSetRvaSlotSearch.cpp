@@ -44,11 +44,12 @@ RvaWeaponSlot *WeaponSet::rva002C73F7() const
 	return 0;
 }
 
-// ?rva002C741C@WeaponSet@@QBEPAURvaWeaponSlot@@XZ present-unmatched
+// ?rva002C741C@WeaponSet@@QBEPAURvaWeaponSlot@@XZ
 RvaWeaponSlot *WeaponSet::rva002C741C() const
 {
+	int i = 5;
 	RvaWeaponSlot **pp = (RvaWeaponSlot **)((char *)this + 0x1C);
-	for (int i = 5; i >= 0; i--, pp--)
+	for (; i >= 0; i--, pp--)
 	{
 		RvaWeaponSlot *slot = *pp;
 		if (slot != 0 && slot->m_state->m_flag132)
