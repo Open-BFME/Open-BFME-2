@@ -41,10 +41,22 @@ class Open2Held880FC0;
 
 typedef std::map<NameKeyType, Open2Held880FC0 *, std::less<NameKeyType> > Open2Map880FC0;
 
+struct Rva009F5970StateInit
+{
+	float value[6];
+};
+
+class T_009f4fb0
+{
+public:
+	void m(Rva009F5970StateInit *value);
+};
+
 class Open2Store880FC0 : public SubsystemInterface, public Snapshot
 {
 public:
 	virtual ~Open2Store880FC0();
+	virtual void init();
 
 private:
 	Open2Map880FC0 *m_map;
@@ -54,4 +66,17 @@ private:
 Open2Store880FC0::~Open2Store880FC0()
 {
 	delete m_map;
+}
+
+// ?init@Open2Store880FC0@@UAEXXZ 0x00625560 67B slot1 of 0x0087C6B0 calls T_009f4fb0::m at 0x006276E0 with zeroed state
+void Open2Store880FC0::init()
+{
+	Rva009F5970StateInit state;
+	state.value[0] = 0.0f;
+	state.value[1] = 0.0f;
+	state.value[2] = 0.0f;
+	state.value[3] = 0.0f;
+	state.value[4] = 0.0f;
+	state.value[5] = 0.0f;
+	((T_009f4fb0 *)m_map)->m(&state);
 }

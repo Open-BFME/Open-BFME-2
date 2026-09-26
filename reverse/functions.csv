@@ -36200,3 +36200,4 @@ _Rva00680420,,0x00680420,17,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,mat
 ?Rva000CFF4C@W3DStreakDraw@@UAEX_N@Z,,0x000CFF4C,51,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DStreakDrawRva000CFF4C.cpp,matched,vslot 16 of vtable 0x00BCD9B8 plus dtor 0xCFFD3 plus streak int slots 101 and 105
 ??1AudioLoopUpgrade@@MAE@XZ,,0x004B7B20,97,Code/GameEngine/Source/GameLogic/Object/Upgrade/AudioLoopUpgradeDtor.cpp,matched,5-vptr restore plus TheAudio slot 0x6c remove at 0x2c plus base row 0x24A797 plus slot0 0x4B7D37
 ??_GAudioLoopUpgrade@@MAEPAXI@Z,,0x004B7D37,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-b1dd.cpp,matched,slot 0 of vtable 0x858CC4 calls rowed dtor 0x4B7B20 then rowed delete 0x2FD60
+?init@Open2Store880FC0@@UAEXXZ,,0x00625560,67,Code/GameEngine/Source/GameClient/Open2Twins006.cpp,matched,slot1 of 0x0087C6B0 calls T_009f4fb0 m at 0x006276E0 with zeroed state
