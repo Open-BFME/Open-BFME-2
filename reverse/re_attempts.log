@@ -1854,3 +1854,4 @@ FUN_004ab0f5	0x000AB0F5	76	blocked	gap between deleting dtors but body is Armor 
 FUN_004A2C30	0x004A2C30	68	blocked	vslot3 of 0x851FC0 calls Xfer vtable 0x28 plus UpdateModule xfer plus 0x90 with arg-slot reuse at ebp+b; Xfer slot layout and derived xfer identity need proof t=15 model=muse-10df
 ?rva000AB0F5@Rva000AB0F5@@QAEPAXH@Z	0x000AB0F5	76	partial	xor esi before call vs retail after plus test vs cmp t=22 model=muse-3266 score=0.93 stash=reverse/attempts/0x000ab0f5.cpp
 ?Rva00404C26Get@Rva00404C26Store@@QAEPAUBfmeStringRecord00404BF3@@H@Z	0x00404C26	58	partial	keeps m_begin in edi vs retail reload mem; divisor ecx vs edi; sub-add reg vs mem t=30 model=muse-7c2e score=0.93 stash=reverse/attempts/0x00404c26.cpp
+FUN_00654CCF	0x00254CCF	60	blocked	vslot slot34 of 0x7F3F60 ActivateModuleSP; Xfer Version1 inline plus int-vector loop via slots 0x28/0x30; no donor and slot12 operator identity unclear; EBP-frame loop shape needs Xfer model probe t=15 model=muse-0612
