@@ -36344,3 +36344,4 @@ _Rva00680420,,0x00680420,17,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,mat
 ??_GAutoDepositUpdateModuleData@@UAEPAXI@Z,,0x0025528B,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-91c6.cpp,matched,slot 0 vtable 0x7F1BC8 calls rowed dtor 0x2552A7 and delete 0x2FD60
 ?winNextTab@GameWindowManager@@UAEXPAVGameWindow@@@Z,,0x002C5408,107,Code/GameEngine/Source/GameClient/GUI/GameWindowManager_winPrevTab.cpp,matched,vtable 0x7C7C90 slot 42 BFME1 donor winNextTab m_tabList plus 0x30
 ??_G?$ShareBufferClass@PAVVertexMaterialClass@@@@UAEPAXI@Z,,0x0015B0D0,30,Code/Libraries/Source/WWVegas/WW3D2/MatBufferCleanup.cpp,matched,vtable BD3C84 slot1; calls rowed dtor 0x15AC90 plus scalar delete 0x2FD60
+??_G?$ShareBufferClass@PAVRefCountClass@@@@UAEPAXI@Z,,0x0015B0F0,30,Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescOpaqueBuffer.cpp,matched,vtable BD3C8C slot1; calls rowed dtor 0x15ADF0 plus scalar delete 0x2FD60
