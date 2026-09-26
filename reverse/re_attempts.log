@@ -1814,3 +1814,5 @@ FUN_0033E17D	0x0033E17D	59	blocked	LocomotorSet map clear-plus-push helper (map 
 ??1AttackNugget@@UAE@XZ	0x001F0622	48	blocked	extra derived vptr store t=10 model=muse-beed
 @__security_check_cookie@4	0x00629BAB	14	blocked	secchk.obj vendor thin: 6 concrete of 14B under MIN_LIB_CONCRETE 8 floor; gate thin-fails; prior attach dropped same reason t=5 model=muse-affe
 FUN_00714cc1	0x00314CC1	80	blocked	opaque vslot76 EH SSE font wrapper needs AsciiString model t=12 model=muse-d8bd
+@__security_check_cookie@4	0x00629BAB	14	blocked	vendor thin 6of14 below 8; C++ 7.1 emits je+jmp+ret vs retail jne+ret+jmp t=15 model=muse-f3df
+?ensureUniqueBufferOfSize@?$StringBase@D@@AAEXH_NPBV?$CharSource@D@@1@Z	0x000364A0	330	blocked	6 variants O2-G7 best 328B vs 330B; early push esi-edi vs late ebp-esi plus lea vs add-dec and shl vs add-add walls t=25 model=muse-f3df
