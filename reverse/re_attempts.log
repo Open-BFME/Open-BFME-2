@@ -1849,3 +1849,4 @@ FUN_009c5990	0x005C5990	28	blocked	vtable 0x874834 but callee 0x5C6317 installs 
 FUN_004c92e8	0x000C92E8	14	blocked	vslot slot1 of 0xBCB9E0; validate-fold plus bool at 0x24; donor mapping uncertain t=12 model=muse-c9a1
 ??1FloodUpdate@@UAE@XZ	0x0048E454	142	blocked	list at +0x20 element type unproven int vs string twins fold for ctor but dtor needs free plus delete per node; no donor for FloodUpdate dtor; needs element-type proof plus UpdateModule base layout t=15 model=muse-d000
 ?Rva0035D14A@Rva0035D0D1@@UAEXH@Z	0x0035D14A	115	blocked	vslot2 update fade: retail esi=frame edi=start plus mov-dl forward kept for redundant test; probes give edx-frame plus cmp reload and folded 0.0f-1.0f stores (99 vs 115B). t=22 model=muse-06c4
+??1W3DTornadoDrawModuleData@@UAE@XZ	0x000D1713	48	blocked	dtor stores only base vtable 0xBBB554 no derived 0xBCE198; probe with virtual model emits both plus 6B. t=15 model=muse-06c4
