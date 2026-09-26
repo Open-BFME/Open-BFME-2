@@ -1730,3 +1730,4 @@ Catch@00630215	0x00230215	390	blocked	catch(ErrorCode) funclet of GameEngine::in
 ?Rva00260DE7Frag@@YAHXZ	0x00260DE7	6	blocked	je-target arm (test plus je plus4 over mov-eax plus ret into B8 0F423F); same frag class as 0x1363C6; do not land
 ?Rva00260DFBFrag@@YAHXZ	0x00260DFB	6	blocked	je-target arm into B8 0F423F; twin of 0x260DE7 frag; do not land
 ?Rva00262245Frag@@YAHXZ	0x00262245	6	blocked	je-target arm into B8 0F423F; same family; do not land
+?Rva002D9ACEFrag@@YAHXZ	0x002D9ACE	6	blocked	je-target arm (test plus je plus4 over add plus ret into B8); same frag class as 0x1363C6; do not land

@@ -551,3 +551,19 @@ int Rva002D6AEFGet(void)
 {
 	return 0x00c031f0;
 }
+
+// ?Rva00309E1EGet@@YAHXZ @ 0x00309e1e (6B): returns 0x00c08350.
+// Follows byte-store plus ret tail. No direct callers. Opaque
+// address-derived name.
+int Rva00309E1EGet(void)
+{
+	return 0x00c08350;
+}
+
+// ?Rva00309E24Get@@YAHXZ @ 0x00309e24 (6B): returns 0x00c08400.
+// Abuts the twin getter above. No direct callers. Opaque
+// address-derived name.
+int Rva00309E24Get(void)
+{
+	return 0x00c08400;
+}
