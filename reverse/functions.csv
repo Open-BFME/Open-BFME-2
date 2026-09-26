@@ -35935,3 +35935,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ?xfer@SlowDeathBehavior@@MAEXPAVXfer@@@Z,,0x0045D3CB,142,Code/GameEngine/Source/GameLogic/Object/Behavior/SlowDeathBehaviorXfer.cpp,matched,xfer over rowed UpdateModule base with Version1 plus 9 members in retail order
 ?peekWindow@@YAPAVGameWindow@@XZ,,0x00314EEE,19,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp,matched,gap between resetWindowDefaults and popWindow donor ZH peekWindow
 ??4SBServer@@QAEAAU0@ABU0@@Z,,0x005E3B4A,57,Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_sbserver.cpp,matched,SBServer copy-assign between copy ctor and dtor. AddRef src then release old via rowed 0x7DEEF. Called by 0x5E4D55
+?get@Rva002C8EF9ByteFloatField@@QBEMXZ,,0x002C8EF9,19,Code/GameEngine/Source/Common/DispByteFloatFieldGetters.cpp,matched,byte to float getter via fild with EBP frame
