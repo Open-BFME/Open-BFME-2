@@ -235,6 +235,7 @@ public:
 	virtual ~RAMFile();
 	virtual bool open( File *file );
 	virtual void close( void );
+	virtual bool copyDataToFile( File *file );
 
 protected:
 	char *m_data;
@@ -629,4 +630,25 @@ void RAMFile::close( void )
 	}
 
 	File::close();
+}
+
+// ?copyDataToFile@RAMFile@@UAE_NPAVFile@@@Z, retail 0x0060565E, 36 bytes.
+// Slot 19 (offset 0x4C) of vtable 0x0087AA00; Win32BIGFileOpenArchived donor
+// says openFromArchive/copyDataToFile land on 0x48/0x4C. Writes m_data/m_size
+// through the File write slot (call [eax+0x10]) and returns (eax == m_size).
+// Null file returns false. The if-return-false form folds to cmp/sete;
+// a direct return of == uses sub/neg/sbb/inc instead.
+bool RAMFile::copyDataToFile( File *file )
+{
+	if( !file )
+	{
+		return false;
+	}
+
+	if( file->write( m_data, m_size ) != m_size )
+	{
+		return false;
+	}
+
+	return true;
 }

@@ -36065,3 +36065,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ??1CreateObjectDieIfEldestKindofModuleData@@UAE@XZ,,0x00485E88,59,Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDieIfEldestKindofModuleDataDtor.cpp,matched,EldestKindof dtor via second-base filter 0x360D26 plus base 0x485DDA
 ??1RankInfo@@UAE@XZ,,0x00200236,74,Code/GameEngine/Source/GameLogic/System/RankInfoDtor.cpp,matched,BFME1 donor empty dtor plus vector free 0x30830 plus string 0x36E70 plus base 0x1E3624
 ??_G?$SimpleDynVecClass@E@@UAEPAXI@Z,,0x001A8050,30,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-7a10c.cpp,matched,slot0 of 0x007D71EC calls pinned dtor 0x001A7F20
+?copyDataToFile@RAMFile@@UAE_NPAVFile@@@Z,,0x0060565E,36,Code/GameEngine/Source/Common/System/LocalFile.cpp,matched,slot19 of vtable 0087AA00 writes m_data m_size via File write slot
