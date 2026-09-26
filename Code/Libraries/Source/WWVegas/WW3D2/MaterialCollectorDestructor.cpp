@@ -96,3 +96,5 @@ void MaterialCollectorClass::Reset()
 // Emit the Resize overrides selected by the collector's target vtables.
 template class DynamicVectorClass<BfmeHandleCX>;
 template class DynamicVectorClass<ShaderClass>;
+// 0x0016FF30 ??_G?$DynamicVectorClass@PAVVertexMaterialClass@@@@UAEPAXI@Z 30B scalar deleting dtor; callee ??1 at 0x0016F580.
+template class DynamicVectorClass<VertexMaterialClass *>;
