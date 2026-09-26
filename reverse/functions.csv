@@ -35407,3 +35407,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ?Rva0020E2F2Get@@YAHXZ,,0x0020E2F2,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
 ?Rva00215C48Get@@YAHXZ,,0x00215C48,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
 ?Rva00215C4EGet@@YAHXZ,,0x00215C4E,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
+?FillFourSlots@Rva0011216CSlotQuartet@@QAEXXZ,,0x0011216C,43,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseCursorSlotQuartet.cpp,matched,four-slot level filler with ready flag plus tail-jump; Rva holder class with CursorTextureSlot members
