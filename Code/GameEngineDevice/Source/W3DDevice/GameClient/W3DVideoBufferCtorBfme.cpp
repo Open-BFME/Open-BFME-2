@@ -38,6 +38,12 @@ private:
     unsigned int m_flags;
 };
 
+class Rva00739C70
+{
+public:
+    void cleanup();
+};
+
 class VideoBuffer
 {
 public:
@@ -80,6 +86,7 @@ public:
     virtual void *lock();
     virtual void unlock();
     virtual bool valid();
+    virtual void Rva000723FB();
 
 private:
     Rva00739C70State m_states[1];
@@ -101,4 +108,15 @@ W3DVideoBuffer::W3DVideoBuffer(int format)
     if (TheDisplay != 0) {
         TheDisplay->Rva006F2890RegisterVideoBuffer(this);
     }
+}
+
+// ?Rva000723FB@W3DVideoBuffer@@UAEXXZ @0x000723FB 17B
+// Virtual slot 5 (offset 0x14) of vtable 0x007C64D8 (class of ??0W3DVideoBuffer).
+// Calls rowed ?cleanup@Rva00739C70@@QAEXXZ on +0x44 then sets +0x28 to 1.
+// Same shape as Owner00739C90::cleanup; offsets match W3DVideoBuffer layout
+// (m_state_44 at +0x44 via vptr; m_flag_28 at +0x28).
+void W3DVideoBuffer::Rva000723FB()
+{
+    ((Rva00739C70 *)m_state_44)->cleanup();
+    m_flag_28 = true;
 }

@@ -36170,3 +36170,4 @@ _Rva00680420,,0x00680420,17,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,mat
 ?Rva0035D1C6@Rva0035D0D1@@UAEXXZ,,0x0035D1C6,33,Code/GameEngine/Source/Common/Rva001DBAC3Derived.cpp,matched,vslot 5 of 0x008163D8; INI StartFrame EndFrame ViewsToFade LeaveSilent; float 1.0f
 ?update@FullFadeTransition@@UAEXH@Z,,0x0035F241,114,Code/GameEngine/Source/GameClient/GUI/FullFadeTransitionUpdate.cpp,matched,vtable 0x0081663C slot 2 donor BFME1 FullFade update with winHide row
 ?Rva0035DD9C@Rva0035DCF9@@UAEXXZ,,0x0035DD9C,33,Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp,matched,vslot 3 of 0x00816574; hide windows plus 0xC plus 0x44 via rowed winHide
+?Rva000723FB@W3DVideoBuffer@@UAEXXZ,,0x000723FB,17,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVideoBufferCtorBfme.cpp,matched,vtable 0x007C64D8 slot5 plus rowed cleanup callee plus Owner shape
