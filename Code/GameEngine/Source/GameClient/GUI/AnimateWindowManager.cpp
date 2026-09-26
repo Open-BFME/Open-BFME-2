@@ -140,15 +140,22 @@ AnimateWindowGetRestPos g_animateWindowGetRestPos = &AnimateWindow::getRestPos;
 // PUBLIC FUNCTIONS ///////////////////////////////////////////////////////////
 //-----------------------------------------------------------------------------
 
+// ?clearWinList@@YAXAAV?$list@PAVAnimateWindow@@V?$allocator@PAVAnimateWindow@@@_STL@@@_STL@@@Z, retail 0x0053B520 (48B).
+// Gap between ?resetToRestPosition@AnimateWindowManager (0x0053B4B7/105) and ??0AnimateWindowManager (0x0053B550/400).
+// ZH donor GameEngine/Source/GameClient/GUI/AnimateWindowManager.cpp clearWinList proves identity; BFME2 drops the
+// memory pool for plain delete shape via slot-0 virtual with 0 plus separate operator delete (push eax) and the
+// int-list pop_front twin at 0x0037BCF9. Callers pass the list in edi: dtor 0x0053B7A7/0x0053B7AF,
+// init 0x0053B7EB/0x0053B7F3, reset 0x0053B80F/0x0053B817.
+struct AnimateWindowSlotDeleter { virtual void *deleteInstance(int flags); };
 static void clearWinList(AnimateWindowList &winList)
 {
 	AnimateWindow *win = NULL;
 	while (!winList.empty())
 	{
 		win = *(winList.begin());
-		winList.pop_front();
+		reinterpret_cast<_STL::list<int, _STL::allocator<int> >&>(winList).pop_front();
 		if (win)
-			delete win;  // BFME: no memory pool for AnimateWindow
+			::operator delete(reinterpret_cast<AnimateWindowSlotDeleter*>(win)->deleteInstance(0));
 		win = NULL;
 	}
 }
