@@ -35730,3 +35730,21 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ?Check@Rva0049D1B1@@UAE_NH@Z,,0x0049CDF9,47,Code/GameEngine/Source/GameLogic/Object/Update/Rva0049D1B1Check.cpp,matched,vtable slot9 virtual-chain predicate over V21 head plus V22 next with plus04 eq2 and plus0C arg match
 ??1AIPlayer@@MAE@XZ,,0x00232976,65,Code/GameEngine/Source/GameLogic/AI/AIPlayerDestructor.cpp,matched,vtable 0xBE81F0 store plus vector-start free at plus 0x10 via Cpp free plus rowed GameEngineDeletingBase dtor
 ??_GAIPlayer@@MAEPAXI@Z,,0x002329B7,28,Code/GameEngine/Source/GameLogic/AI/AIPlayerDestructor.cpp,matched,scalar deleting dtor via implicit emission calls rowed dtor plus operator delete pin
+?Rva0002CF5EGet@@YAHXZ,,0x0002CF5E,6,Code/GameEngine/Source/Common/ConstIntGetters.cpp,matched,B8-6 const-int returner ret 0x0042CF5A; Ghidra-6; opaque address-derived name
+?Rva0006182EGet@@YAHXZ,,0x0006182E,6,Code/GameEngine/Source/Common/ConstIntGetters.cpp,matched,B8-6 const-int returner ret 0x00461834; Ghidra-6; opaque address-derived name
+?Rva00061983Get@@YAHXZ,,0x00061983,6,Code/GameEngine/Source/Common/ConstIntGetters.cpp,matched,B8-6 const-int returner ret 0x00461989; Ghidra-6; opaque address-derived name
+?Rva0022D537Get@@YAHXZ,,0x0022D537,6,Code/GameEngine/Source/Common/ConstIntGetters.cpp,matched,B8-6 const-int returner ret 0x0062D53D; Ghidra-6; opaque address-derived name
+?Rva00282C9BGet@@YAHXZ,,0x00282C9B,6,Code/GameEngine/Source/Common/ConstIntGetters.cpp,matched,B8-6 const-int returner ret 0x00682CA1; Ghidra-6; opaque address-derived name
+?Rva002DF1EBGet@@YAHXZ,,0x002DF1EB,6,Code/GameEngine/Source/Common/ConstIntGetters.cpp,matched,B8-6 const-int returner ret 0x006DF116; Ghidra-6; opaque address-derived name
+?Rva0030539FGet@@YAHXZ,,0x0030539F,6,Code/GameEngine/Source/Common/ConstIntGetters.cpp,matched,B8-6 const-int returner ret 0x007053A5; Ghidra-6; opaque address-derived name
+?Rva00317717Get@@YAHXZ,,0x00317717,6,Code/GameEngine/Source/Common/ConstIntGetters.cpp,matched,B8-6 const-int returner ret 0x007176F7; Ghidra-6; opaque address-derived name
+?Rva003341CDGet@@YAHXZ,,0x003341CD,6,Code/GameEngine/Source/Common/ConstIntGetters.cpp,matched,B8-6 const-int returner ret 0x007341D3; Ghidra-6; opaque address-derived name
+?Rva00337055Get@@YAHXZ,,0x00337055,6,Code/GameEngine/Source/Common/ConstIntGetters.cpp,matched,B8-6 const-int returner ret 0x0073705B; Ghidra-6; opaque address-derived name
+?Rva0033984FGet@@YAHXZ,,0x0033984F,6,Code/GameEngine/Source/Common/ConstIntGetters.cpp,matched,B8-6 const-int returner ret 0x00739855; Ghidra-6; opaque address-derived name
+?Rva003FA6FFGet@@YAHXZ,,0x003FA6FF,6,Code/GameEngine/Source/Common/ConstIntGetters.cpp,matched,B8-6 const-int returner ret 0x00C378F0; Ghidra-6; opaque address-derived name
+?Rva0041A967Get@@YAHXZ,,0x0041A967,6,Code/GameEngine/Source/Common/ConstIntGetters.cpp,matched,B8-6 const-int returner ret 0x0081A8B1; Ghidra-6; opaque address-derived name
+?Rva004D02F0Get@@YAHXZ,,0x004D02F0,6,Code/GameEngine/Source/Common/ConstIntGetters.cpp,matched,B8-6 const-int returner ret 0x008D02D3; Ghidra-6; opaque address-derived name
+?Rva0055037EGet@@YAHXZ,,0x0055037E,6,Code/GameEngine/Source/Common/ConstIntGetters.cpp,matched,B8-6 const-int returner ret 0x0095026E; Ghidra-6; opaque address-derived name
+?Rva00552BD2Get@@YAHXZ,,0x00552BD2,6,Code/GameEngine/Source/Common/ConstIntGetters.cpp,matched,B8-6 const-int returner ret 0x009521D4; Ghidra-6; opaque address-derived name
+?Rva00558D07Get@@YAHXZ,,0x00558D07,6,Code/GameEngine/Source/Common/ConstIntGetters.cpp,matched,B8-6 const-int returner ret 0x009588A1; Ghidra-6; opaque address-derived name
+?Rva0073F640Get@@YAHXZ,,0x0073F640,6,Code/GameEngine/Source/Common/ConstIntGetters.cpp,matched,B8-6 const-int returner ret 0x00B3F646; Ghidra-6; opaque address-derived name

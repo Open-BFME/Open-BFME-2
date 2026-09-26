@@ -662,3 +662,113 @@ int Rva0033A495Get(void)
 {
 	return 0x00C100C0;
 }
+
+// ?Rva0002CF5EGet@@YAHXZ @ 0x0002CF5E (6B): returns 0x0042CF5A.
+// Ghidra-6 B8-imm/ret island; unclaimed on master; opaque address-derived
+// name following the ConstIntGetters family precedent.
+int Rva0002CF5EGet(void)
+{
+	return 0x0042CF5A;
+}
+
+// ?Rva0006182EGet@@YAHXZ @ 0x0006182E (6B): returns 0x00461834.
+int Rva0006182EGet(void)
+{
+	return 0x00461834;
+}
+
+// ?Rva00061983Get@@YAHXZ @ 0x00061983 (6B): returns 0x00461989.
+int Rva00061983Get(void)
+{
+	return 0x00461989;
+}
+
+// ?Rva0022D537Get@@YAHXZ @ 0x0022D537 (6B): returns 0x0062D53D.
+int Rva0022D537Get(void)
+{
+	return 0x0062D53D;
+}
+
+// ?Rva00282C9BGet@@YAHXZ @ 0x00282C9B (6B): returns 0x00682CA1.
+int Rva00282C9BGet(void)
+{
+	return 0x00682CA1;
+}
+
+// ?Rva002DF1EBGet@@YAHXZ @ 0x002DF1EB (6B): returns 0x006DF116.
+int Rva002DF1EBGet(void)
+{
+	return 0x006DF116;
+}
+
+// ?Rva0030539FGet@@YAHXZ @ 0x0030539F (6B): returns 0x007053A5.
+int Rva0030539FGet(void)
+{
+	return 0x007053A5;
+}
+
+// ?Rva00317717Get@@YAHXZ @ 0x00317717 (6B): returns 0x007176F7.
+int Rva00317717Get(void)
+{
+	return 0x007176F7;
+}
+
+// ?Rva003341CDGet@@YAHXZ @ 0x003341CD (6B): returns 0x007341D3.
+int Rva003341CDGet(void)
+{
+	return 0x007341D3;
+}
+
+// ?Rva00337055Get@@YAHXZ @ 0x00337055 (6B): returns 0x0073705B.
+int Rva00337055Get(void)
+{
+	return 0x0073705B;
+}
+
+// ?Rva0033984FGet@@YAHXZ @ 0x0033984F (6B): returns 0x00739855.
+int Rva0033984FGet(void)
+{
+	return 0x00739855;
+}
+
+// ?Rva003FA6FFGet@@YAHXZ @ 0x003FA6FF (6B): returns 0x00C378F0.
+int Rva003FA6FFGet(void)
+{
+	return 0x00C378F0;
+}
+
+// ?Rva0041A967Get@@YAHXZ @ 0x0041A967 (6B): returns 0x0081A8B1.
+int Rva0041A967Get(void)
+{
+	return 0x0081A8B1;
+}
+
+// ?Rva004D02F0Get@@YAHXZ @ 0x004D02F0 (6B): returns 0x008D02D3.
+int Rva004D02F0Get(void)
+{
+	return 0x008D02D3;
+}
+
+// ?Rva0055037EGet@@YAHXZ @ 0x0055037E (6B): returns 0x0095026E.
+int Rva0055037EGet(void)
+{
+	return 0x0095026E;
+}
+
+// ?Rva00552BD2Get@@YAHXZ @ 0x00552BD2 (6B): returns 0x009521D4.
+int Rva00552BD2Get(void)
+{
+	return 0x009521D4;
+}
+
+// ?Rva00558D07Get@@YAHXZ @ 0x00558D07 (6B): returns 0x009588A1.
+int Rva00558D07Get(void)
+{
+	return 0x009588A1;
+}
+
+// ?Rva0073F640Get@@YAHXZ @ 0x0073F640 (6B): returns 0x00B3F646.
+int Rva0073F640Get(void)
+{
+	return 0x00B3F646;
+}
