@@ -36207,3 +36207,4 @@ _Rva00680420,,0x00680420,17,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,mat
 ??_GRva006D86F0@@UAEPAXI@Z,,0x006D86C0,35,Code/GameEngine/Source/Common/Rva006D86F0DeletingDtor.cpp,matched,slot14 of 0x008EA560 calls rowed dtor at 0x006D86F0 and pool free at 0x006DB270
 ??_GRva006D88B0@@UAEPAXI@Z,,0x006D8880,35,Code/GameEngine/Source/Common/Rva006D88B0DeletingDtor.cpp,matched,slot14 of 0x008EA600 calls rowed dtor at 0x006D88B0 and pool free at 0x006DB270
 ?xfer@EvaAnnounceClientCreate@@MAEXPAVXfer@@@Z,,0x004C9B44,75,Code/GameEngine/Source/GameLogic/Object/Create/EvaAnnounceClientCreateXfer.cpp,matched,slot 3 of vtable 0x0085ED50 via rowed ctor plus base ObjectModule plus Version 1 2 plus bool uint
+??1W3DFloorDrawModuleData@@UAE@XZ,,0x000CF6C3,80,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DFloorDrawModuleDataDtor.cpp,matched,vtable 0xBCD5D8 plus free 0x30830 plus vector 0xCF60B plus base 0xCEF3C
