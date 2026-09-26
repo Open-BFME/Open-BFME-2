@@ -35891,3 +35891,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ??_GPillageModuleData@@UAEPAXI@Z,,0x00254FFF,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-e2de.cpp,matched,slot0 vtable 0xBF0568 calls rowed 0x25501B
 ?get@Rva0042D6D6PtrChaseField@@QBEHXZ,,0x0042D6D6,16,Code/GameEngine/Source/Common/Disp0PtrChaseDwordGetters.cpp,matched,null-checked ptr-chase plus offset 4 and 2 callers
 ??1RefundDieModuleData@@UAE@XZ,,0x00255067,48,Code/GameEngine/Source/GameLogic/Object/Die/RefundDieModuleDataDtor.cpp,matched,dtor via Snapshot BBB554 base filter 0x360D26 slot0 0x5504B
+??0BuffNuggetFXNugget@@QAE@XZ,,0x001E2FCE,295,Code/GameEngine/Source/GameClient/BuffNuggetFXNuggetCtor.cpp,matched,BFME1 donor plus FieldParse 0xBDCEB8 plus parse caller 0x1E3265
