@@ -173,6 +173,23 @@ struct WideCharCompare
     int compareNoCase(const wchar_t *a, const wchar_t *b, int len) const;
 };
 
+int compareRange(const wchar_t *a, int alen, const wchar_t *b, int blen, WideCharCompare tag);
+
+// The wide single-character comparison delegates to the shared worker rather
+// than inlining memcmp like the narrow twin above: the worker picks the
+// shorter of mylen and 1 with the trait comparison and the length difference
+// as the tie-break. The tag is zeroed with a movb like the other wide
+// compareRange callers; retail empties through L"" at 0x7BB5C4.
+template <>
+int StringBase<wchar_t>::compare(wchar_t c) const
+{
+    WideCharCompare tag;
+    tag.m_unused = 0;
+    const int mylen = m_data ? m_data->length : 0;
+    const wchar_t *data = m_data ? &m_data->data[0] : L"";
+    return compareRange(data, mylen, &c, 1, tag);
+}
+
 template <>
 bool StringBase<wchar_t>::endsWith(const wchar_t *str, int len) const
 {
