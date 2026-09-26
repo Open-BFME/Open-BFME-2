@@ -89,7 +89,8 @@ private:
 class UpdateModuleData
 {
 public:
-	virtual ~UpdateModuleData();
+	UpdateModuleData() {}
+	virtual ~UpdateModuleData() {}
 
 private:
 	unsigned char m_pad04[4];
@@ -151,4 +152,8 @@ SlowDeathBehaviorModuleData::SlowDeathBehaviorModuleData()
 	m_flingPitchVariance = 0.0f;
 	m_fadeTime = 6;
 	m_fadeDelay = 0xfacade00;
+}
+
+SlowDeathBehaviorModuleData::~SlowDeathBehaviorModuleData()
+{
 }
