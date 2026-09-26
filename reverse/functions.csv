@@ -36040,3 +36040,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ??_GEvacuateDamageModuleData@@UAEPAXI@Z,,0x004BAD75,28,Code/GameEngine/Source/GameLogic/Object/Update/EvacuateDamageModuleDataDtor.cpp,matched,deleting dtor via implicit dtor plus operator delete
 ??1DelayedLuaEventUpdate@@UAE@XZ,,0x004A8D4A,73,Code/GameEngine/Source/GameLogic/Object/Update/DelayedLuaEventUpdateDtor.cpp,matched,vtable 0x00853A5C slot0 deleting dtor at 0x004A8EEF member 0xB6DD2 base 0x24A797
 ??1TerrainResourceBehaviorModuleData@@UAE@XZ,,0x00482275,48,Code/GameEngine/Source/GameLogic/Object/Behavior/TerrainResourceBehaviorModuleDataDtor.cpp,matched,dtor via implicit plus base restore plus member 0x18
+?toLower@?$StringBase@D@@QAEXXZ,0x00036A70,0x00036A70,233,Code/Libraries/Source/WWVegas/WWLib/StringBaseNarrowToLower.cpp,matched,explicit BFME2 export copy-on-write rts-tagged duplicate with tolower IAT
