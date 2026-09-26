@@ -157,6 +157,22 @@ template void initSubsystem<CaveSystem>(CaveSystem *&, AsciiString, CaveSystem *
 template void initSubsystem<GameClient>(GameClient *&, AsciiString, GameClient *, Xfer *, const char *, const char *, const char *);
 template void initSubsystem<VictoryConditionsInterface>(VictoryConditionsInterface *&, AsciiString, VictoryConditionsInterface *, Xfer *, const char *, const char *, const char *);
 
+// ??$initSubsystem@VRadar@@@@YAXAAPAVRadar@@VAsciiString@@PAV0@PAVXfer@@PBD44@Z, retail 0x0022B888, 128 bytes.
+// Between 0x0022B813 (RecorderClass) and 0x0022B908 (VictoryConditionsInterface).
+// Evidence: GameEngine::init call site at 0x0022F6E9 pushes TheRadar literal 0x007E7B60 and global 0x009FF070;
+// slot vtable 0x007E7384 sits between RecorderClass 0x007E7380 and VictoryConditionsInterface 0x007E7388;
+// donor reference/open-bfme-1 Radar.h declares class Radar : public Snapshot, public SubsystemInterface.
+// The second-base conversion emits sys ? sys+4 : 0, the 11-byte excess over the 117-byte single-base bodies.
+class Snapshot
+{
+public:
+	virtual ~Snapshot();
+};
+class Radar : public Snapshot, public SubsystemInterface
+{
+};
+template void initSubsystem<Radar>(Radar *&, AsciiString, Radar *, Xfer *, const char *, const char *, const char *);
+
 // Convention-named from the registration-site "TheXxx" literal, not from a
 // decorated symbol -- see the block at the end of game_engine_subsystems.h for
 // what that is worth and why the two stronger routes produce nothing here.
