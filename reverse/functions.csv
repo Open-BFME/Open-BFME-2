@@ -35610,3 +35610,17 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ?name@Rva004966B3Named@@QBEPBDXZ,,0x004966B3,6,Code/GameEngine/Source/Common/ModuleNameGetters3.cpp,matched,B8-6 const string returner BoredUpdate
 ?name@Rva00496A18Named@@QBEPBDXZ,,0x00496A18,6,Code/GameEngine/Source/Common/ModuleNameGetters3.cpp,matched,B8-6 const string returner BannerCarrierUpdate
 ?findLocomotorTemplate@LocomotorStore@@QAEPAVLocomotorTemplate@@H@Z,,0x001E6FEA,38,Code/GameEngine/Source/GameLogic/Object/LocomotorStoreFindTemplate.cpp,matched,BFME1 Locomotor.cpp donor verbatim non-const overload; else-form gives retail jne-into-find plus shared early xor; int key per lea-esp+8; member int-int so _M_find names rowed 0x388F63
+?name@Rva00499954Named@@QBEPBDXZ,,0x00499954,6,Code/GameEngine/Source/Common/ModuleNameGetters3.cpp,matched,B8-6 const string returner OneRingPenaltyUpdate
+?name@Rva00499F5ENamed@@QBEPBDXZ,,0x00499F5E,6,Code/GameEngine/Source/Common/ModuleNameGetters3.cpp,matched,B8-6 const string returner SpecialEnemySenseUpdate
+?name@Rva0049A1C4Named@@QBEPBDXZ,,0x0049A1C4,6,Code/GameEngine/Source/Common/ModuleNameGetters3.cpp,matched,B8-6 const string returner AutoDepositUpdate
+?name@Rva0049ACC5Named@@QBEPBDXZ,,0x0049ACC5,6,Code/GameEngine/Source/Common/ModuleNameGetters3.cpp,matched,B8-6 const string returner HordeWorkerAIUpdate
+?name@Rva0049B2BBNamed@@QBEPBDXZ,,0x0049B2BB,6,Code/GameEngine/Source/Common/ModuleNameGetters3.cpp,matched,B8-6 const string returner OCLUpdate
+?name@Rva0049BFD7Named@@QBEPBDXZ,,0x0049BFD7,6,Code/GameEngine/Source/Common/ModuleNameGetters3.cpp,matched,B8-6 const string returner RadiateFearUpdate
+?name@Rva0049FE94Named@@QBEPBDXZ,,0x0049FE94,6,Code/GameEngine/Source/Common/ModuleNameGetters3.cpp,matched,B8-6 const string returner ProneUpdate
+?name@Rva004A0017Named@@QBEPBDXZ,,0x004A0017,6,Code/GameEngine/Source/Common/ModuleNameGetters3.cpp,matched,B8-6 const string returner QueueProductionExitUpdate
+?name@Rva004A0C27Named@@QBEPBDXZ,,0x004A0C27,6,Code/GameEngine/Source/Common/ModuleNameGetters3.cpp,matched,B8-6 const string returner RadarUpdate
+?name@Rva004A2BEANamed@@QBEPBDXZ,,0x004A2BEA,6,Code/GameEngine/Source/Common/ModuleNameGetters3.cpp,matched,B8-6 const string returner StealthDetectorUpdate
+?name@Rva004A3FA4Named@@QBEPBDXZ,,0x004A3FA4,6,Code/GameEngine/Source/Common/ModuleNameGetters3.cpp,matched,B8-6 const string returner HijackerUpdate
+?name@Rva004A4234Named@@QBEPBDXZ,,0x004A4234,6,Code/GameEngine/Source/Common/ModuleNameGetters3.cpp,matched,B8-6 const string returner StructureCollapseUpdate
+?name@Rva004A4C39Named@@QBEPBDXZ,,0x004A4C39,6,Code/GameEngine/Source/Common/ModuleNameGetters3.cpp,matched,B8-6 const string returner RubbleRiseUpdate
+?name@Rva004A54C8Named@@QBEPBDXZ,,0x004A54C8,6,Code/GameEngine/Source/Common/ModuleNameGetters3.cpp,matched,B8-6 const string returner StructureToppleUpdate
