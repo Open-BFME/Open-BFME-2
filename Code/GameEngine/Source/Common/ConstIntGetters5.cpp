@@ -221,3 +221,33 @@ int Rva00030F58Get(void)
 {
 	return 126;
 }
+
+// ?Rva000454CEGet@@YAHXZ @ 0x000454ce (6B): returns 0x00da5f30.
+// Follows a tiny mov-al returner. No direct callers.
+// Opaque address-derived name.
+int Rva000454CEGet(void)
+{
+	return 0x00da5f30;
+}
+
+// ?Rva00051EA9Get@@YAHXZ @ 0x00051ea9 (6B): returns 1000000.
+// Follows a ret tail. No direct callers. Opaque address-derived name.
+int Rva00051EA9Get(void)
+{
+	return 1000000;
+}
+
+// ?Rva0011C460Get@@YAHXZ @ 0x0011c460 (6B): returns 0x00dec5e8.
+// int3-padded both sides, no direct callers. Opaque address-derived name.
+int Rva0011C460Get(void)
+{
+	return 0x00dec5e8;
+}
+
+// ?Rva002A8A0FGet@@YAHXZ @ 0x002a8a0f (6B): returns 0x00bfda50.
+// Follows the BrutalDifficultyCheats parser tail. No direct callers.
+// Opaque address-derived name. The constant is the table at 0x7fda50.
+int Rva002A8A0FGet(void)
+{
+	return 0x00bfda50;
+}
