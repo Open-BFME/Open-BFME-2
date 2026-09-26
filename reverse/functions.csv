@@ -36212,3 +36212,4 @@ _Rva00680420,,0x00680420,17,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,mat
 ??_GW3DFloorDrawModuleData@@UAEPAXI@Z,,0x000CF820,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-e4e5.cpp,matched,slot 0 of vtable 0xBCD5D8 plus dtor 0xCF6C3 plus delete 0x2FD60
 ?nextLine@RAMFile@@UAEXPADH@Z,,0x006055E7,119,Code/GameEngine/Source/Common/System/RAMFileRead.cpp,matched,slot6 of vtable 0087AA00 plus ZH GameEngine RAMFile nextLine verbatim
 ??_GRva006DE350@@UAEPAXI@Z,,0x006DE820,75,Code/Libraries/Source/Apt/AptValue/Rva006DE350Dtor.cpp,matched,vslot slot14 vtable 0x008EAED0 ctor 0x006DCD20 assert IsDestroyedGC inlined deleting dtor
+??1Rva006DE350@@UAE@XZ,,0x006DE350,51,Code/Libraries/Source/Apt/AptValue/Rva006DE350Dtor.cpp,matched,base dtor vtable 0x008EAED0 assert IsDestroyedGC same TU as deleting dtor
