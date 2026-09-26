@@ -35903,3 +35903,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ??0SlowDeathBehaviorModuleData@@QAE@XZ,,0x0045E386,287,Code/GameEngine/Source/GameLogic/Object/Behavior/SlowDeathBehaviorModuleDataCtor.cpp,matched,INI table 0xC42290 plus 4 callers plus vtable 0x842108
 ?init@WinInstanceData@@QAEXXZ,,0x00322174,230,Code/GameEngine/Source/GameClient/GUI/WinInstanceData.cpp,matched,ZH donor plus wide manager free 0x3c
 ??_GBoneFXUpdate@@MAEPAXI@Z,,0x00487DD2,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-e9f1b.cpp,matched,slot0 of 0x84B170 calls rowed dtor 0x487ABF
+?Rva006C64E0Get@Id@ProfileHighLevel@@QBEPBDXZ,,0x006C64E0,24,Code/Libraries/Source/profile/ProfileIdFrames.cpp,matched,gap total-value string via m_totalVal; caller 0x006C7BC4 CSV path

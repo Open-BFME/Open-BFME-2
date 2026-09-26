@@ -75,7 +75,9 @@ private:
 	int m_precision;
 	int m_exp10;
 	double m_curVal;
+public:
 	double m_totalVal;
+private:
 	double m_frameVal[MAX_FRAME_RECORDS];
 	double *m_recFrameVal;
 	int m_firstFrame;
@@ -99,6 +101,7 @@ public:
 	public:
 		Id(void) : m_idPtr(0) {}
 		const char *GetValue(unsigned frame) const;
+		const char *Rva006C64E0Get(void) const;
 	};
 
 	static Id AddProfile(const char *name, const char *descr, const char *unit, int precision, int exp10);
@@ -261,6 +264,14 @@ const char *ProfileHighLevel::Id::GetValue(unsigned frame) const
 	if (!m_idPtr || !m_idPtr->GetFrameValue(frame, v))
 		return 0;
 	return m_idPtr->AsString(v);
+}
+
+// ?Rva006C64E0Get@Id@ProfileHighLevel@@QBEPBDXZ @0x006C64E0 (24B): total-value string via m_totalVal (+0x20).
+const char *ProfileHighLevel::Id::Rva006C64E0Get(void) const
+{
+	if (m_idPtr)
+		return m_idPtr->AsString(m_idPtr->m_totalVal);
+	return 0;
 }
 
 // ?AddProfile@ProfileHighLevel@@SA?AVId@1@PBD00HH@Z
