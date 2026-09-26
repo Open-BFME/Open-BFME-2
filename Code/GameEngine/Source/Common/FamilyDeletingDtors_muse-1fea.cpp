@@ -14,3 +14,8 @@ void famgenDelete(ScriptActions *p) { delete p; }
 class ClearanceTestingSlowDeathBehaviorModuleData { public: __declspec(noinline) virtual ~ClearanceTestingSlowDeathBehaviorModuleData(); private: int m_famgen; };
 ClearanceTestingSlowDeathBehaviorModuleData::~ClearanceTestingSlowDeathBehaviorModuleData() { m_famgen = 0; }
 void famgenDelete(ClearanceTestingSlowDeathBehaviorModuleData *p) { delete p; }
+// ??_GRadiusDecalUpdate@@UAEPAXI@Z @0x003914F9 28B
+// Deleting dtor slot 0 of vtable 0x0081A018; calls rowed ??1 at 0x003913E4 then rowed operator delete at 0x0002FD60.
+class RadiusDecalUpdate { public: __declspec(noinline) virtual ~RadiusDecalUpdate(); private: int m_famgen; };
+RadiusDecalUpdate::~RadiusDecalUpdate() { m_famgen = 0; }
+void famgenDelete(RadiusDecalUpdate *p) { delete p; }
