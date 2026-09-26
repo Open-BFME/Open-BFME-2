@@ -87,6 +87,7 @@ public:
     virtual void unlock();
     virtual bool valid();
     virtual void Rva000723FB();
+    virtual void Rva00072472();
 
 private:
     Rva00739C70State m_states[1];
@@ -119,4 +120,16 @@ void W3DVideoBuffer::Rva000723FB()
 {
     ((Rva00739C70 *)m_state_44)->cleanup();
     m_flag_28 = true;
+}
+
+// ?Rva00072472@W3DVideoBuffer@@UAEXXZ @0x00072472 14B
+// Virtual slot 11 (offset 0x2C) of vtable 0x007C64D8 (class of ??0W3DVideoBuffer).
+// Calls slot 3 (offset 0xC, retail 0x00072583) then sets +0x4A to 1.
+// In this simplified 6-virtual model slot 3 is lock(); retail has 17 slots
+// so its slot 3 (0x72583, 57B reset-like, unclaimed) is a different method;
+// lock() is used here only to reproduce the slot-3 call offset for byte match.
+void W3DVideoBuffer::Rva00072472()
+{
+    lock();
+    m_flag_4a = true;
 }
