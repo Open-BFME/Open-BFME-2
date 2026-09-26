@@ -35911,3 +35911,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ??_GWinInstanceData@@UAEPAXI@Z,,0x00322414,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-ca77.cpp,matched,slot0 of 0x80D830 calls rowed dtor 0x3222B8
 ??_GSlowDeathBehaviorModuleData@@UAEPAXI@Z,,0x0045E88D,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-d9ee.cpp,matched,deleting dtor slot 0 of 0x842108 calls rowed 0x45E4A5
 ??0ParticleSystemFXNugget@@QAE@XZ,,0x001E0AEF,392,Code/GameEngine/Source/GameClient/ParticleSystemFXNuggetCtor.cpp,matched,BFME1 donor plus FieldParse 0x00BDD428 plus parse caller 0x001E2679 plus vtable 0x00BDD908
+?Release_Refs@@YAXPAVSortingNodeStruct@@@Z,,0x0012D3D0,170,Code/Libraries/Source/WWVegas/WW3D2/SortingRendererBFME1.cpp,matched,BFME1 donor with BFME2 caps offset 0x2b0 and 16 stages

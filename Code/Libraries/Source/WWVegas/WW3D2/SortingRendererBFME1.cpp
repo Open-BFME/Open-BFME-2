@@ -395,7 +395,7 @@ void Release_Refs(SortingNodeStruct* state)
 	}
 	BFME_RELEASE_REFS(state->sorting_state.index_buffer);
 	BFME_RELEASE_REFS(state->sorting_state.material);
-	for (i=0;i<*(const int *)(BfmeCurrentCaps+0x278);++i)
+	for (i=0;i<*(const int *)(BfmeCurrentCaps+0x2b0);++i)
 	{
 		state->sorting_state.Textures[i].Clear();
 	}
