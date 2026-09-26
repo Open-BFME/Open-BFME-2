@@ -35919,3 +35919,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ?storeImage@Anim2DTemplate@@QAEXPBVImage@@@Z,,0x002D7355,122,Code/GameEngine/Source/GameClient/System/Anim2DTemplateStoreImage.cpp,matched,Anim2DTemplate storeImage via direct str no temps strict exact
 ??1QueueProductionExitUpdate@@MAE@XZ,,0x0049FFF7,32,Code/GameEngine/Source/GameLogic/Object/Update/QueueProductionExitUpdateDtor.cpp,matched,4 vptrs plus tail-jmp UpdateModule base Invisibility recipe
 ?Set_Texture@SegmentedLineClass@@QAEXPAVTextureClass@@@Z,,0x0015E250,11,Code/Libraries/Source/WWVegas/WW3D2/segline.cpp,matched,SegmentedLine thunk via LineRenderer tail jmp
+??_GQueueProductionExitUpdate@@MAEPAXI@Z,,0x004A0178,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-d57a.cpp,matched,slot0 vtable 0x008519C8 calls rowed 0x0049FFF7
