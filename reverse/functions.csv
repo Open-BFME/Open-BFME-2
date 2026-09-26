@@ -36074,3 +36074,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ??_GPassiveAreaEffectBehaviorModuleData@@UAEPAXI@Z,,0x00484E8D,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-a0ab.cpp,matched,slot0 of vtable 0xC4A490 calls rowed dtor 0x484EA9
 ??1StreamingArchiveFile@@UAE@XZ,,0x00605A45,56,Code/GameEngine/Source/Common/System/LocalFile.cpp,matched,vtable 0087AA50 calls rowed File close then rowed RAMFile dtor
 ??1BaikonurLaunchPower@@UAE@XZ,,0x004CAFDD,48,Code/GameEngine/Source/GameLogic/Object/Update/BaikonurLaunchPowerDtor.cpp,matched,BFME1 donor virtual dtor plus vector 0x4CAE89 at 8 plus Snapshot BBB554 plus slot0 0x4CAFC1
+??1ClearanceTestingSlowDeathBehaviorModuleData@@UAE@XZ,,0x00483EE1,56,Code/GameEngine/Source/GameLogic/Object/Behavior/ClearanceTestingSlowDeathBehaviorModuleDataDtor.cpp,matched,BFME1 donor plus vtable 0x849E98 plus member 0x50B2A plus base 0x45E4A5 plus slot0 0x483EC5
