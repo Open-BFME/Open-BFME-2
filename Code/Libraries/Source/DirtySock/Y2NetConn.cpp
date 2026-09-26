@@ -433,3 +433,8 @@ char *Rva007F89F0( void )
 
 	return g_Rva0130A840Text;
 }
+
+unsigned int Rva00A651C0( void )
+{
+	return Rva007FEA00Tick();
+}
