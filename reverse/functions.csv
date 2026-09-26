@@ -36298,3 +36298,4 @@ _Rva00680420,,0x00680420,17,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,mat
 ??1Rva0031468C@@QAE@XZ,,0x0031468C,80,Code/GameEngine/Source/GameClient/GUI/GameWindowRva0031468CDtor.cpp,matched,four strings at 0 plus4 plus8 plusC via 0x36410 callers 0x314926 plus 0x314A6C
 ??_GRva0031468C@@QAEPAXI@Z,,0x00314926,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-7f75.cpp,matched,scalar deleting dtor calls rowed 0x31468C plus delete 0x2FD60
 ??_GAttributeModifierAuraUpdateModuleData@@UAEPAXI@Z,,0x0049BF50,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-0ecc.cpp,matched,slot 0 of vtable 0x00850EE8 calls rowed 0x0049BF6C and rowed delete 0x0002FD60
+?Read_Header@AggregateDefClass@@MAE_NAAVChunkLoadClass@@@Z,,0x001A3400,95,Code/Libraries/Source/WWVegas/WW3D2/AggregateDefReadHeader.cpp,matched,vslot 3 of vtable 0x007D6C70 BFME1 bool donor byte-identical
