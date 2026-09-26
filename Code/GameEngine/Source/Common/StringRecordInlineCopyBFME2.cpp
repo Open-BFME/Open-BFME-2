@@ -54,8 +54,12 @@ template void _STL::_Construct<BfmeStringRecord002199C8,BfmeStringRecord002199C8
 struct BfmeStringRecord00219A68 {
     unsigned int word0; AsciiString text0, text1; unsigned int word1, word2;
     BfmeStringRecord00219A68(const BfmeStringRecord00219A68 &o);
+    BfmeStringRecord00219A68(unsigned int w0, const AsciiString &t0, const AsciiString &t1, unsigned int w1, unsigned int w2);
 };
 BfmeStringRecord00219A68::BfmeStringRecord00219A68(const BfmeStringRecord00219A68 &o) : word0(o.word0), text0(o.text0), text1(o.text1), word1(o.word1), word2(o.word2) {}
+// Retail 0x00219A1B is the 5-arg ctor of the same record: word0 + two AsciiString copies via 0x365F0 + word1/word2.
+// Same EH scope as the copy (mov eax 0xb6e568); sole placed caller 0x0021ECB2 pushes (0, "None", "None", -1, 2).
+BfmeStringRecord00219A68::BfmeStringRecord00219A68(unsigned int w0, const AsciiString &t0, const AsciiString &t1, unsigned int w1, unsigned int w2) : word0(w0), text0(t0), text1(t1), word1(w1), word2(w2) {}
 template void _STL::_Construct<BfmeStringRecord00219A68,BfmeStringRecord00219A68>(BfmeStringRecord00219A68*,const BfmeStringRecord00219A68&);
 
 // Complete retail record copy at0x0022074B.
