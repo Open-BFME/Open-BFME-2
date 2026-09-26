@@ -4,7 +4,7 @@
 // text-mode Xfer's slot-37 XferEnum virtual with its field-name label (the
 // label strings live in .rdata next to neighbouring enum labels). The bodies
 // are free cdecl functions taking (Xfer*, value*) with no other dependencies,
-// so both helpers share this TU. The Xfer declaration below is Xfer.cpp's
+// so all helpers share this TU. The Xfer declaration below is Xfer.cpp's
 // model verbatim so the XferEnum call lands on the shipped slot.
 
 enum SlotState
@@ -16,6 +16,11 @@ enum SlotState
 	SLOT_BRUTAL_AI = 4,
 	SLOT_AI_5 = 5,
 	SLOT_PLAYER = 6
+};
+
+enum ObjectID
+{
+	INVALID_ID = 0
 };
 
 struct Coord3DBase
@@ -189,6 +194,15 @@ void XferSlotState(Xfer *xfer, SlotState *state)
 void XferLivingWorldPlayerID(Xfer *xfer, int *playerID)
 {
 	xfer->XferEnum("LivingWorldPlayerID", playerID, 4);
+}
+
+// Retail 0x003060B2 (24B): labelled-enum helper moving a 4-byte ObjectID
+// through XferEnum with the "ObjectID" label (string at 0x00807CC8 next to
+// DrawableID). 40+ callers including FoundationAIUpdate::xfer at 0x00455141
+// passing &m_28.
+void XferObjectID(Xfer *xfer, ObjectID *objectID)
+{
+	xfer->XferEnum("ObjectID", objectID, 4);
 }
 
 // Two version bytes, stored back to back: the retail Version1 body writes 1 to

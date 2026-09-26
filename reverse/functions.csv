@@ -36163,3 +36163,4 @@ _Rva00680420,,0x00680420,17,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,mat
 ??_GTransitionDamageFX@@MAEPAXI@Z,,0x004BA7C4,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-v4q-f92c.cpp,matched,slot 0 of vtable 0x859AEC plus calls rowed dtor at 0x4BA47C plus protected to match MAE
 ?reverse@TextOnFrameTransition@@UAEXXZ,,0x0035FB18,33,Code/GameEngine/Source/GameClient/GUI/TextOnFrameTransitionReverse.cpp,matched,vtable 0x0081669C slot 3 donor BFME1 reverse with winIsHidden row
 ?update@TextOnFrameTransition@@UAEXH@Z,,0x0035FACE,74,Code/GameEngine/Source/GameClient/GUI/TextOnFrameTransitionUpdate.cpp,matched,vtable 0x0081669C slot 2 donor BFME1 update with winHide row
+?XferObjectID@@YAXPAVXfer@@PAW4ObjectID@@@Z,,0x003060B2,24,Code/GameEngine/Source/Common/System/XferEnumHelpers.cpp,matched,labelled-enum helper ObjectID string via XferEnum slot 37; 40 callers incl FoundationAIUpdate xfer
