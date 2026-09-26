@@ -1,24 +1,15 @@
 // ??0PhysicsBehavior@@QAE@PAVThing@@PBVModuleData@@@Z
-// partial score=0.99 date=2026-09-23
+// partial score=0.99 date=2026-09-26
 // cl: /O1 /arch:SSE /GX /Oy- /MD /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
-// Identity: ModuleFactory registers this behavior class under "PhysicsBehavior"
-// (addModule pairs the name with the instance factory at 0x24E73C, the sole
-// raw caller of this ctor); poolkey rowed at 0x39085C, ModuleData proc rowed
-// at 0x3901C9, ModuleData factory rowed at 0x24E774, instance factory rowed at
-// 0x24E73C news 0x34.
+// Identity: sole raw caller is the rowed PhysicsBehavior instance factory
+// 0x24E73C (news 0x34); Dumb pin at this address superseded.
+// 182/182B 52/52insns; vtables are gate-filled relocs. Sole wall: EH state1
+// store placement (ours 0x45 eager after vector-ctor, retail 0x98 sunk below
+// the setWakeFrame pushes to just before the MD store). Refuted: barrier
+// removal (MD-load hoists), empty asm (no barrier), volatile load (hoists),
+// /EHsc + /EHs (same wall). Retry needs a non-flushing order lever, not flags.
 // stlport
 //
-// ??0PhysicsBehavior@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x003907A6,
-// 182 bytes. UpdateModule is 0x20 (BehaviorModule pair plus
-// UpdateModuleInterface plus three ints, per UpdateModuleCtor.cpp); the
-// derived re-installs its three vtables at +0/+0xC/+0x10, builds an empty
-// 16B-element vector at +0x20 through the rowed BfmeE16-spelled Vector_base
-// 0x211E58 (1-byte stack allocator temp idiom, SupplyTruck precedent), zeroes
-// its float/int/byte tail, copies ModuleData byte +0x58 to +0x5D and parks
-// itself awake with setWakeFrame via the rowed UpdateModule base and the
-// pinned 0x44DF71. Zero new pins (all callees rowed/pinned). Element type is
-// unproven (BfmeE16 placeholder matches the rowed Vector_base spelling).
-
 #include <vector>
 
 struct BfmeE16

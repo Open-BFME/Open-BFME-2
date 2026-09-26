@@ -3,37 +3,14 @@
 // cl: /O1 /MD /EHsc /arch:SSE /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 //
-// ??0GenericObjectCreationNugget@@QAE@XZ, retail 0x001F0E32, 478 bytes.
-// GenericObjectCreationNugget default ctor: installs vtable 0x00BE1160
-// (slot0 is the rowed ??_G at 0x001F31AA), builds the two 16-byte-element
-// vectors (+0x04/+0x14) and the two tail vectors (+0x114/+0x120) through
-// the rowed E16 Vector_base at 0x00211E58, initializes the two name
-// strings (+0x10/+0x24) from the empty-string global through the pinned
-// StringBase<char> copy ctor at 0x000365F0, zeroes the offset in the body
-// via RetailCoord3D::zero (the three late movss stores), and constructs
-// the +0xB4 condition member through the rowed Rva0042526Member at
-// 0x00042526. Total size 0x12C matches the parseObject `push 0x12C` and
-// the sibling dtor TU's static assert.
-//
-// Identity: symbols.csv pin (BFME1-attested QAE mangling, called by
-// parseObject new at 0x1F311B); the sibling dtor TU
-// (GenericObjectCreationNuggetDtor.cpp) proves the member map
-// (AsciiString vectors at +0x04/+0x114/+0x120, AnimSet vector at +0x14,
-// AsciiStrings at +0x10/+0x24/+0x108/+0x10C, pool handle at +0x7C, B4
-// memset region, m_nameAreObjects at +0xA8). Scalar names follow the
-// Open-BFME-1 donor
-// (Code/GameEngine/Source/GameLogic/Object/
-// GenericObjectCreationNuggetConstructor.cpp) where offsets and values
-// agree; BFME2-only tail fields keep descriptive TU-local names.
-//
-// Schedule (all probe-proven in build/probe_nug, P7): the dtorful,
-// trivially-constructed ObjectCreationNugget base shifts the EH states to
-// retail's 0/1/3 (a baseless probe numbers them 0/2); the vector base
-// calls stay out-of-line and arm no states; the Rva member (trivial dtor)
-// arms none; the string constructions arm states 1 and 3 through an
-// inline AsciiString forwarder so the member-inits call the pinned base
-// copy directly. The allocator temp is the shared one-byte stack slot.
-
+// 478/478B 110/110insns. Sole diff: `lea ecx,[esi+0xB4]` hoisted to +0x67
+// (ours) vs +0xBA (retail); the Rva call itself is in-order at +0x15C in
+// BOTH (verified in obj). Refuted: throw()-removal (adds state-4, 482B),
+// implicit-vs-explicit mem-init (same), mem-init list reorder (same).
+// The hoist is pure scheduler gap-filling; needs a scheduling lever that
+// keeps ecx busy across 0x67-0xBA without changing bytes.
+// States 0/1/3, vtable + float-literal are gate relocs. See the full
+// derivation notes in git history of this stash path.
 #include <vector>
 
 struct BfmeE16 { float x, y, z, w; };
@@ -214,7 +191,6 @@ GenericObjectCreationNugget::GenericObjectCreationNugget()
 	, m_flagAE(false)
 	, m_flagAF(false)
 	, m_unkB0(0)
-	, m_condition()
 	, m_flag100(true)
 	, m_flag101(false)
 	, m_flag102(false)
@@ -224,6 +200,7 @@ GenericObjectCreationNugget::GenericObjectCreationNugget()
 	, m_pad111(0)
 	, m_tailVec114()
 	, m_tailVec120()
+	, m_condition()
 {
 	m_offset.x = 0.0f;
 	m_offset.y = 0.0f;
