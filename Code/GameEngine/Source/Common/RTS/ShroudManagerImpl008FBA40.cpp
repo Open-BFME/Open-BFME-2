@@ -272,6 +272,7 @@ private:
 		Real x, Real y) const;
 	friend class ShroudManagerImpl008FBA40Element;
 	friend class PartitionManager;
+	friend class ShroudManager;
 	friend ShroudManagerImpl008FBA40ElementLayout *shroudElementAt(
 		const ShroudManagerImpl008FBA40 *manager, Int x, Int y);
 };
@@ -679,4 +680,33 @@ __declspec(noinline) int ShroudManagerImpl008FBA40Element::getPlayerStatus_Rva00
 	int playerIndex)
 {
 	return playerStates[playerIndex].status;
+}
+
+// Retail 0x0073D810 is ShroudManager::undoRevealMapForPlayerPermanently,
+// the tail-call target of the PartitionManager undo thunk at 0x007397B0.
+// It is the decrement twin of updatePlayerCells300_Rva0073B410 above:
+// same 20-player guard and element sweep, but it drains pending work
+// first and runs the 008FC3B0 (reveal-decrement) variant. ShroudManager
+// derives from the Impl (base at +0), so the member reads and the
+// processPending call need no this adjustment.
+class ShroudManager : public ShroudManagerImpl008FBA40
+{
+public:
+	void undoRevealMapForPlayerPermanently(int playerIndex);
+};
+
+// ?undoRevealMapForPlayerPermanently@ShroudManager@@QAEXH@Z
+void ShroudManager::undoRevealMapForPlayerPermanently(int playerIndex)
+{
+	if (playerIndex >= 0 && playerIndex < 20)
+	{
+		processPending(false);
+
+		ShroudManagerImpl008FBA40Element *end = elements + height * width;
+		for (ShroudManagerImpl008FBA40Element *element = elements;
+			element != end; ++element)
+		{
+			element->updatePlayerCells008FC3B0(this, playerIndex);
+		}
+	}
 }
