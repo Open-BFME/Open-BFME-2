@@ -35913,3 +35913,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ??0ParticleSystemFXNugget@@QAE@XZ,,0x001E0AEF,392,Code/GameEngine/Source/GameClient/ParticleSystemFXNuggetCtor.cpp,matched,BFME1 donor plus FieldParse 0x00BDD428 plus parse caller 0x001E2679 plus vtable 0x00BDD908
 ?Release_Refs@@YAXPAVSortingNodeStruct@@@Z,,0x0012D3D0,170,Code/Libraries/Source/WWVegas/WW3D2/SortingRendererBFME1.cpp,matched,BFME1 donor with BFME2 caps offset 0x2b0 and 16 stages
 ??0CursorParticleSystemFXNugget@@QAE@XZ,,0x001E0C90,157,Code/GameEngine/Source/GameClient/CursorParticleSystemFXNuggetCtor.cpp,matched,BFME1 donor plus FieldParse 0x00BDD600 plus parse caller 0x001E26F5 plus vtable 0x00BDD91C
+??4Nugget@ModuleInfo@@QAEAAU01@ABU01@@Z,,0x002CEFCD,57,Code/GameEngine/Source/Common/Thing/ModuleInfoNuggetAssign.cpp,matched,BFME1 Rva0013E5D0Nugget 2-bool layout per-element of 0x002CF0BE copy loop
