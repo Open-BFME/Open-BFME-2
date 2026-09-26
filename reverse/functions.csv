@@ -35418,3 +35418,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ?Rva0024DCDDGet@@YAHXZ,,0x0024DCDD,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
 ?Rva0024DCE3Get@@YAHXZ,,0x0024DCE3,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
 ??0LivingWorldRegionConnection@@QAE@XZ,,0x003F24F3,36,Code/GameEngine/Source/Common/System/LivingWorldRegionConnectionCtor.cpp,matched,Lane-E Connection table 0x836560 sub-table 0xC36FD4; vtable 0xC36E48 plus E8 base fold pin 0x211E58
+??_GMultiplayerSettings@@QAEPAXI@Z,,0x00381277,28,Code/GameEngine/Source/Common/MultiplayerSettingsDeletingDtor.cpp,matched,Scalar deleting dtor over the rowed non-virtual MultiplayerSettings dtor; famgen gdtor shell with local planter
