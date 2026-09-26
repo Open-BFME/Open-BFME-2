@@ -17,9 +17,9 @@
 // this+0x18 (instance factory 0x00250FAE news 0x1C).
 //
 // Scheduling: the init-list zero emits before the single EH state store,
-// which emits before the implicit primary vtable store and the two explicit
-// secondary stores (opaque-member pattern alone misplaces the zero; the
-// virtual spelling reproduces the order). The allocateNewWeapon spelling
+// which emits before the three implicit vtable stores of the
+// multiple-inheritance layout (+0x00/+0x0C/+0x10, named as in the dtor TU so
+// DIR32 consistency holds). The allocateNewWeapon spelling
 // resolves to its pin at 0x0028AA81; TheWeaponStore is a TU-local extern
 // (DIR32 slot patches from retail, no pin). Class identity is the
 // FireWeapon retail cluster (pool key rowed at 0x004BB755 pushing the same
@@ -29,9 +29,6 @@
 class Thing;
 class ModuleData;
 class WeaponTemplate;
-
-static int s_secondary0C;
-static int s_secondary10;
 
 enum WeaponSlotType
 {
@@ -60,17 +57,40 @@ public:
 	int m_weaponStatus;
 };
 
-class CollideModule
+// Same multiple-inheritance layout as FireWeaponCollideDtor.cpp, so both TUs
+// name the three vtables alike (+0x00 ObjectModule, +0x0C
+// BehaviorModuleInterface, +0x10 CollideModuleInterface).
+class ObjectModule
 {
 public:
-	CollideModule(Thing *thing, const ModuleData *moduleData);
-	virtual ~CollideModule();
+	virtual ~ObjectModule();
 
 protected:
 	const ModuleData *m_moduleData;
 	Object *m_object;
-	const void *m_p0C;
-	const void *m_p10;
+};
+
+class BehaviorModuleInterface
+{
+public:
+	virtual void behaviorSlot();
+};
+
+class BehaviorModule : public ObjectModule, public BehaviorModuleInterface
+{
+};
+
+class CollideModuleInterface
+{
+public:
+	virtual void collideSlot();
+};
+
+class CollideModule : public BehaviorModule, public CollideModuleInterface
+{
+public:
+	CollideModule(Thing *thing, const ModuleData *moduleData);
+	virtual ~CollideModule();
 };
 
 class FireWeaponCollideModuleData
@@ -101,8 +121,6 @@ FireWeaponCollide::FireWeaponCollide(Thing *thing, const ModuleData *moduleData)
 	CollideModule(thing, moduleData),
 	m_collideWeapon(0)
 {
-	m_p0C = &s_secondary0C;
-	m_p10 = &s_secondary10;
 	m_collideWeapon = TheWeaponStore->allocateNewWeapon(
 		getFireWeaponCollideModuleData()->m_collideWeaponTemplate, PRIMARY_WEAPON);
 	m_collideWeapon->m_status = m_object->m_weaponStatus;
