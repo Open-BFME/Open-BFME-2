@@ -121,3 +121,22 @@ BFME_DISP8_PTRCHASE_DWORD_GETTER(Rva004F6131PtrChase32Field, 0x2C, 0x5C4)
 BFME_DISP8_PTRCHASE_DWORD_GETTER(Rva004F614BPtrChase32Field, 0x2C, 0x494)
 BFME_DISP8_PTRCHASE_DWORD_GETTER(Rva00507548PtrChase32Field, 0x04, 0x110)
 BFME_DISP8_PTRCHASE_BEFORE_DWORD_GETTER(Rva005A00CCPtrChase32Field, 0x08, 0x274)
+
+// Byte bit-7 getters: ptr-chase byte read plus shr to LSB (bool from high bit).
+// Retail 0x005FC73B is mov eax,[ecx+0x18] / mov al,[eax+0x34] / shr al,7 / ret.
+struct Rva005FC73BPtrChaseInner
+{
+	char m_pad[0x34];
+	unsigned char m_byte;
+};
+class Rva005FC73BPtrChaseField
+{
+public:
+	bool get() const;
+	char m_lead[0x18];
+	Rva005FC73BPtrChaseInner *m_ptr;
+};
+bool Rva005FC73BPtrChaseField::get() const
+{
+	return (m_ptr->m_byte >> 7);
+}
