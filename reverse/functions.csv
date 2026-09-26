@@ -35757,3 +35757,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ?get@Rva0030BBA5LeaField@@QBEPAXXZ,,0x0030BBA5,4,Code/GameEngine/Source/Common/Disp8LeaFieldGetters.cpp,matched,Disp8 LEA getter disp 0x68; prev ret plus 3 rdata refs; opaque address-derived name
 ?get@Rva003F712FLeaField@@QBEPAXXZ,,0x003F712F,4,Code/GameEngine/Source/Common/Disp8LeaFieldGetters.cpp,matched,Disp8 LEA getter disp 0x10; prev leave-ret plus 2 rdata refs; opaque address-derived name
 ?get@Rva004FA5F4LeaField@@QBEPAXXZ,,0x004FA5F4,4,Code/GameEngine/Source/Common/Disp8LeaFieldGetters.cpp,matched,Disp8 NEG LEA getter back 12 (F4); prev ret plus 5 rdata refs; opaque address-derived name
+?findImageByName@ImageCollection@@QAEPBVImage@@ABVAsciiString@@@Z,,0x002D92F6,53,Code/GameEngine/Source/GameClient/System/ImageCollectionFindImage.cpp,matched,BFME1 Image.cpp donor; key via rowed 0x2D91AF; map at +0xC behind 12B subsystem base
