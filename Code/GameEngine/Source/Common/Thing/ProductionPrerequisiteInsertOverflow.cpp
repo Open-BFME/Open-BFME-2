@@ -32,3 +32,7 @@ template void _STL::vector<ProductionPrerequisite>::_M_clear();
 template void _STL::vector<ProductionPrerequisite>::_M_insert_overflow(
 	ProductionPrerequisite *, const ProductionPrerequisite &, const _STL::__false_type &,
 	unsigned int, bool);
+
+template _STL::vector<ProductionPrerequisite>::pointer
+_STL::vector<ProductionPrerequisite>::_M_allocate_and_copy(
+	unsigned int, ProductionPrerequisite *, ProductionPrerequisite *);
