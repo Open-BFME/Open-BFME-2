@@ -74,8 +74,8 @@ private:
 	char *m_unit;
 	int m_precision;
 	int m_exp10;
-	double m_curVal;
 public:
+	double m_curVal;
 	double m_totalVal;
 private:
 	double m_frameVal[MAX_FRAME_RECORDS];
@@ -102,6 +102,7 @@ public:
 		Id(void) : m_idPtr(0) {}
 		const char *GetValue(unsigned frame) const;
 		const char *Rva006C64E0Get(void) const;
+		const char *Rva006C6470Get(void) const;
 	};
 
 	static Id AddProfile(const char *name, const char *descr, const char *unit, int precision, int exp10);
@@ -271,6 +272,18 @@ const char *ProfileHighLevel::Id::Rva006C64E0Get(void) const
 {
 	if (m_idPtr)
 		return m_idPtr->AsString(m_idPtr->m_totalVal);
+	return 0;
+}
+
+// ?Rva006C6470Get@Id@ProfileHighLevel@@QBEPBDXZ @0x006C6470 (35B): cur-value string via m_curVal (+0x18), reset to 0.
+const char *ProfileHighLevel::Id::Rva006C6470Get(void) const
+{
+	if (m_idPtr)
+	{
+		double v = m_idPtr->m_curVal;
+		m_idPtr->m_curVal = 0.0;
+		return m_idPtr->AsString(v);
+	}
 	return 0;
 }
 
