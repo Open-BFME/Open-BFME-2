@@ -59,6 +59,7 @@
 
 //Since there can't be more than 1 mouse, might as well keep these static.
 static CriticalSectionClass mutex;
+static MutexClass threadMutex;
 static Bool isThread;
 static TextureClass *cursorTextures[Mouse::NUM_MOUSE_CURSORS][MAX_2D_CURSOR_ANIM_FRAMES];	///<Textures for each cursor type
 static const Image *cursorImages[Mouse::NUM_MOUSE_CURSORS];			///<Images for use with the RM_POLYGON method.
@@ -66,6 +67,18 @@ static RenderObjClass *cursorModels[Mouse::NUM_MOUSE_CURSORS];	///< W3D models f
 static HAnimClass			*cursorAnims[Mouse::NUM_MOUSE_CURSORS];		///< W3D animations for each cursor type
 
 ///Mouse polling/update thread function
+// Retail reaches Mouse::draw through [eax+0x30]; the reference Mouse header
+// puts it at [eax+0x14]. Spelled TU-locally as a facade with the intervening
+// slots left anonymous, because Mouse.h is shared and only this body proves
+// where draw ended up in BFME.
+class BfmeMouseDrawCall
+{
+public:
+	virtual void slot00(); virtual void slot01(); virtual void slot02(); virtual void slot03();
+	virtual void slot04(); virtual void slot05(); virtual void slot06(); virtual void slot07();
+	virtual void slot08(); virtual void slot09(); virtual void slot0A(); virtual void slot0B();
+	virtual void draw();
+};
 static class MouseThreadClass : public ThreadClass
 {
 
@@ -77,19 +90,20 @@ public:
 
 } thread;
 
-// ?Thread_Function@MouseThreadClass@@ present-unmatched
 void MouseThreadClass::Thread_Function()
 {
 
 	//poll mouse and update position
 
-	while (running) 
+	for (;;)
 	{
+		MutexClass::LockClass lock(threadMutex, 1);
+		if (!lock.Failed())
+			break;
 		isThread=TRUE;
-		if (TheMouse)
-			TheMouse->draw();
+		if (TheMouse != 0)
+			((BfmeMouseDrawCall *)TheMouse)->draw();
 		isThread=FALSE;
-		Switch_Thread();
 	}
 }
 

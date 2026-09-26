@@ -36311,3 +36311,4 @@ _Rva00680420,,0x00680420,17,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,mat
 ?xfer@AIGateUpdate@@MAEXPAVXfer@@@Z,,0x004B095C,139,Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdateXfer.cpp,matched,slot 3 of vtable 0x00856480 via ctor 0x004B08E8 plus base xfer 0x0044DF9F plus Version 1 2
 ?xfer@FireWeaponWhenDamagedBehavior@@MAEXPAVXfer@@@Z,,0x004A4EE9,137,Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDamagedBehaviorXfer.cpp,matched,slot 3 vtable 00852868 base UpdateModule xfer Version 1 2
 ?xfer@Rva003A4322@@MAEXPAVXfer@@@Z,,0x003A4408,84,Code/GameEngine/Source/Common/Rva003A4322Xfer.cpp,matched,slot3 xfer via Version12 plus base plus ObjectID plus gated float
+?Thread_Function@MouseThreadClass@@UAEXXZ,,0x00098DF2,119,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouse.cpp,matched,vtable slot 2 of 0x7C86CC BFME1 donor W3DMouse plus mutex try-lock loop
