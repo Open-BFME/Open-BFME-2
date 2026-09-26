@@ -1750,6 +1750,7 @@ name,address,notes
 ?bfmeAskDHA@BfmeOuterDHA@@QAE_NXZ,0x004C0D4F
 ?bfmeAskDHB@BfmeOuterDHB@@QAE_NXZ,0x004C0D4F
 ?bfmeAskDHC@BfmeOuterDHC@@QAE_NXZ,0x004C0D4F
+?bfmeAskCAE@BfmeOuterCAE@@QAE_NXZ,0x004C0D4F,CAE Ask shares folded Ask body at 0x4C0D4F per GoCAE 0x4C0E68 call site plus BFME1 BfmeConv565 donor
 ?bfmeAskDSK@BfmeThingDSK@@QAE_NXZ,0x00256996
 ?bfmeAskEME@BfmeObjEME@@QAE_NPAX@Z,0x0061FF70
 ?bfmeAskEQ@BfmeThingEQ@@QAEEPAX@Z,0x00625720
