@@ -36236,3 +36236,4 @@ _Rva00680420,,0x00680420,17,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,mat
 ??_GDoCommandUpgradeModuleData@@UAEPAXI@Z,,0x00256283,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-cfe6.cpp,matched,slot0 vtable 0x7F3840 calls rowed 0x256222
 ?rva0046255E@SlaughterHordeContain@@QAEXPBUCoord3D0046255E@@@Z,,0x0046255E,27,Code/GameEngine/Source/GameLogic/Object/Contain/SlaughterHordeContainRva004625BB.cpp,matched,12B copy to +0xA0 plus flag +0xAC same flags and class as slots 128-129
 ??1SpawnUnitBehaviorModuleData@@UAE@XZ,,0x002562BB,63,Code/GameEngine/Source/GameLogic/Object/Upgrade/FamilyUpgradeModuleDataDtors.cpp,matched,two strings at +0x8/+0xC UnitName UnitCommand vtable BF36C0 caller deleting dtor 0x25629F
+??_GSpawnUnitBehaviorModuleData@@UAEPAXI@Z,,0x0025629F,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-cfe6.cpp,matched,slot0 vtable 0x7F36C0 calls rowed 0x2562BB

@@ -5,3 +5,11 @@ class DoCommandUpgradeModuleData { public: __declspec(noinline) virtual ~DoComma
 // ??1DoCommandUpgradeModuleData@@UAE@XZ present-unmatched
 DoCommandUpgradeModuleData::~DoCommandUpgradeModuleData() { m_famgen = 0; }
 void famgenDeleteDoCommandUpgradeModuleData(DoCommandUpgradeModuleData *p) { delete p; }
+
+// ??_GSpawnUnitBehaviorModuleData@@UAEPAXI@Z @0x0025629F 28B
+// Deleting dtor slot 0 of vtable 0x007F36C0; calls rowed ??1 at 0x002562BB then rowed operator delete at 0x0002FD60.
+// BFME1 donor: Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnUnitBehaviorModuleDataDestructor.cpp
+class SpawnUnitBehaviorModuleData { public: __declspec(noinline) virtual ~SpawnUnitBehaviorModuleData(); private: int m_famgen; };
+// ??1SpawnUnitBehaviorModuleData@@UAE@XZ present-unmatched
+SpawnUnitBehaviorModuleData::~SpawnUnitBehaviorModuleData() { m_famgen = 0; }
+void famgenDeleteSpawnUnitBehaviorModuleData(SpawnUnitBehaviorModuleData *p) { delete p; }
