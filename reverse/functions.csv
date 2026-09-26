@@ -35945,3 +35945,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ?stopBurningSound@FlammableUpdate@@IAEXXZ,,0x0048C55E,28,Code/GameEngine/Source/GameLogic/Object/Update/FlammableUpdate.cpp,matched,gap between calcSleepTime and wouldIgnite donor ZH stopBurningSound
 ?Rva00129670Inc@@YAXXZ,,0x00129670,8,Code/GameEngine/Source/Common/Rva00129670Inc.cpp,matched,gap between 0x00129660 and 0x00129680 over 0x00DEE8C0 add-idiom /O2 /G7
 ??0Rva006166B0List@@QAE@XZ,,0x006166B0,18,Code/Libraries/Source/WWVegas/WWLib/ini.cpp,matched,Empty GenericList-derived List ctor. Calls rowed GenericList ctor then installs List vtable 0x87C2E0 shared by EntryList and SectionList. No callers
+?close@RAMFile@@UAEXXZ,,0x00605547,29,Code/GameEngine/Source/Common/System/LocalFile.cpp,matched,ZH RAMFile close verbatim; delete array plus null plus File close tail; slot2 File family

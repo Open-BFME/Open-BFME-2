@@ -138,6 +138,7 @@ int BFME2Utf8ToWide(const char *source, int count, Wide *output, int capacity);
 // (0x00881F70), so the declaration has to be visible here the way <new> makes
 // it visible in the real project TUs.
 void *operator new[](unsigned int);
+void operator delete[](void *block);
 
 class File
 {
@@ -232,6 +233,7 @@ class RAMFile : public File
 public:
 	RAMFile();
 	virtual bool open( File *file );
+	virtual void close( void );
 
 protected:
 	char *m_data;
@@ -597,4 +599,20 @@ bool LocalFile::rva00605CFB( const char *filename, int access )
 	BFME2Utf8ToWide( filename, -1, widePath, 0x104 );
 
 	return wideOpenStub( widePath, access );
+}
+
+// ?close@RAMFile@@UAEXXZ @ 0x00605547 (29B): ZH RAMFile::close verbatim.
+// If m_data is set delete[] it and null it then tail-jump to File::close.
+// Vtable 0x0087AA00 slot 2 is the File-family close slot; the delete-zero
+// plus File::close tail match the ZH donor exactly. Explicit vector-delete
+// call: delete[] on char* folds to scalar ??3 here but retail calls ??_V.
+void RAMFile::close( void )
+{
+	if( m_data )
+	{
+		::operator delete[]( m_data );
+		m_data = NULL;
+	}
+
+	File::close();
 }
