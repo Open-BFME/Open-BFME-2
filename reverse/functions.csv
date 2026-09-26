@@ -35835,3 +35835,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ??1?$vector@VRva00297360Element@@V?$allocator@VRva00297360Element@@@_STL@@@_STL@@QAE@XZ,,0x00403960,63,Code/GameEngine/Source/Common/FamilyVectorDtors_CodexSep26.cpp,matched,stlport 4.5.3 vector<T> dtor; same-shape sibling of 0x2CC70 selected by the rowed _Destroy callee
 ??1Image@@UAE@XZ,,0x002D91CC,94,Code/GameEngine/Source/GameClient/GUI/ImageDtor.cpp,matched,Image dtor via holder TU; vtable 0xC037B8; Release 0x61ED10; strings via 0x36410 pin; holder in edi
 ??_GImage@@UAEPAXI@Z,,0x002D9262,28,Code/GameEngine/Source/GameClient/GUI/ImageDtor.cpp,matched,Image deleting dtor; implicit emission over rowed 0x2D91CC
+?ErrorExit@@YAXXZ,,0x006B8C20,8,Code/Libraries/Source/WWVegas/WWDebug/ErrorExit.cpp,matched,WWDebug fatal exit path pushes status 1 then calls msvcr71 exit via import at 0xBBA608; body identity supported by existing REL32 pin
