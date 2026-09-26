@@ -163,3 +163,10 @@ int Rva002A88C1Get(void)
 {
 	return 0x00bfd7c0;
 }
+
+// ?Rva00007450Get@@YAHXZ @ 0x00007450 (6B): returns -2.
+// int3-padded both sides, no direct callers. Opaque address-derived name.
+int Rva00007450Get(void)
+{
+	return -2;
+}
