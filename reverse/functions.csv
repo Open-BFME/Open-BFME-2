@@ -36068,3 +36068,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ?copyDataToFile@RAMFile@@UAE_NPAVFile@@@Z,,0x0060565E,36,Code/GameEngine/Source/Common/System/LocalFile.cpp,matched,slot19 of vtable 0087AA00 writes m_data m_size via File write slot
 ??_GRankInfo@@UAEPAXI@Z,,0x0020021A,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-zqk.cpp,matched,slot0 vtable 0x7E26E0 calls rowed 0x200236 plus delete
 ??1PassiveAreaEffectBehaviorModuleData@@UAE@XZ,,0x00484EA9,75,Code/GameEngine/Source/GameLogic/Object/Behavior/PassiveAreaEffectBehaviorModuleDataDtor.cpp,matched,ctor 0x484DF4 vtable 0xC4A490 table 0xC4A388 factory 0x24C724 slot0 0x484E8D donor BFME1 destructor thunk
+??1ScriptActions@@UAE@XZ,,0x003BD582,22,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_ctor.cpp,matched,BFME1 donor plus vtable 0x81FE48 plus base 0x81FD98 plus Rva 0x3BA8AC plus slot0 0x3BE5AD

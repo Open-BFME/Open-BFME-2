@@ -58,6 +58,18 @@ ScriptActions::ScriptActions()
 	m_suppressNewWindows = false;
 }
 
+// ??1ScriptActions@@UAE@XZ, retail 0x003BD582, 22 bytes. Dtor calls the
+// rowed Rva003BA8AC clear then tail-jmps to the pinned SubsystemInterface
+// base dtor at 0x1B4E74; compiler emits the derived 0xC1FE48 plus base
+// 0xC1FD98 vtable stores. Donor is BFME1 ScriptActionsDestructor.cpp.
+// Caller is the slot-0 ??_G at 0x3BE5AD (vtable 0x81FE48).
+
+ScriptActions::~ScriptActions()
+{
+	Rva003BA8AC();
+	*(const void **)this = reinterpret_cast<const void *>(0x00C1FD98);
+}
+
 void ScriptActions::Rva003BA8AC()
 {
 	m_suppressNewWindows = false;
