@@ -35898,3 +35898,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ??1BoneFXUpdateModuleData@@UAE@XZ,,0x00487877,111,Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateModuleDataDtor.cpp,matched,Snapshot base plus novtable derived empty body
 ??_GBoneFXUpdateModuleData@@UAEPAXI@Z,,0x0048785B,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-e9f1.cpp,matched,slot0 of 0x84B0E8 calls rowed dtor 0x487877
 ?GadgetListBoxUpdateColumnWidths@@YAXPAVGameWindow@@@Z,,0x003251F4,246,Code/GameEngine/Source/GameClient/GUI/Gadget/GadgetUserDataHelpers.cpp,matched,BFME1 donor GadgetListBox plus slider struct O1
+??1BoneFXUpdate@@MAE@XZ,,0x00487ABF,161,Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateDtor.cpp,matched,ZH dtor plus vector Coord destroys and UpdateModule base
