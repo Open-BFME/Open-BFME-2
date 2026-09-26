@@ -36214,3 +36214,4 @@ _Rva00680420,,0x00680420,17,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,mat
 ??_GRva006DE350@@UAEPAXI@Z,,0x006DE820,75,Code/Libraries/Source/Apt/AptValue/Rva006DE350Dtor.cpp,matched,vslot slot14 vtable 0x008EAED0 ctor 0x006DCD20 assert IsDestroyedGC inlined deleting dtor
 ??1Rva006DE350@@UAE@XZ,,0x006DE350,51,Code/Libraries/Source/Apt/AptValue/Rva006DE350Dtor.cpp,matched,base dtor vtable 0x008EAED0 assert IsDestroyedGC same TU as deleting dtor
 ?scanString@RAMFile@@UAE_NAAVAsciiString@@@Z,,0x006056FA,128,Code/GameEngine/Source/Common/System/RAMFileRead.cpp,matched,slot9 of vtable 0087AA00 plus ZH scanString with temp1 concat
+??1AISpecialPowerUpdate@@UAE@XZ,,0x004B2E79,85,Code/GameEngine/Source/GameLogic/Object/Update/AISpecialPowerUpdateDtor.cpp,matched,vtable 0x856E1C slot0 calls here plus base 0x24A797 plus ctor 0x4B2F2A
