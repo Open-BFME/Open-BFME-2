@@ -117,3 +117,14 @@ int INIFileTable::getFileId( int fileIndex ) const
 		return (*(INIFileRecord * volatile *)&m_records.m_begin)[ fileIndex ].m_fileId;
 	return 0;
 }
+
+
+// ?getName@INIFileTable@@QBE?AVAsciiString@@H@Z
+AsciiString INIFileTable::getName( int fileIndex ) const
+{
+	const INIFileRecordTable *table = &m_records;
+	int count = ((int)table->m_end - (int)table->m_begin) / (int)sizeof( INIFileRecord );
+	if ( fileIndex < count )
+		return table->getRecordName( fileIndex );
+	return g_emptyAsciiString;
+}

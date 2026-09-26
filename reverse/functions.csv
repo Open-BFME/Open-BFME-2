@@ -35807,3 +35807,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ?rva0028AC62@Object@@QBE_NXZ,,0x0028AC62,27,Code/GameEngine/Source/GameLogic/Object/ObjectRva0028AC4EAccessors.cpp,matched,Object holder-entry flag reader. Double pinned-getter call with entry next-link at +0x4 plus flag byte at +0x150. Visible noinline getter keeps this in ecx across calls.
 ??_G?$messages@D@_STL@@MAEPAXI@Z,,0x00019F80,30,Code/Libraries/Source/WWVegas/WWLib/stlport_messages_dtors.cpp,matched,slot 0 of messages<char> vtable; implicit emission calls rowed dtor
 ?getFileId@INIFileTable@@QBEHH@Z,,0x006018B6,38,Code/GameEngine/Source/GameClient/INIFileTableGetName.cpp,matched,INI record fileId accessor over 12B records via volatile base reload
+?getName@INIFileTable@@QBE?AVAsciiString@@H@Z,,0x00601903,62,Code/GameEngine/Source/GameClient/INIFileTableGetName.cpp,matched,INI filename accessor with empty-singleton fallback via record-table worker
