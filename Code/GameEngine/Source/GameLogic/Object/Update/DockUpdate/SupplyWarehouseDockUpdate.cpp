@@ -111,6 +111,7 @@ public:
 	Int m_startingBoxes;
 };
 
+// ?onObjectCreated@SupplyWarehouseDockUpdate@@MAEXXZ present-unmatched
 void SupplyWarehouseDockUpdate::onObjectCreated()
 {
 	char *rawThis = reinterpret_cast<char *>( this );
@@ -261,6 +262,7 @@ public:
 	Bool m_deleteWhenEmpty;
 };
 
+// ?action@SupplyWarehouseDockUpdate@@UAE_NPAVObject@@0@Z present-unmatched
 Bool SupplyWarehouseDockUpdate::action( Object* docker, Object *drone )
 {
 	char *rawThis = reinterpret_cast<char *>( this );
@@ -383,28 +385,6 @@ void SupplyWarehouseDockUpdate::crc( Xfer *xfer )
 }  // end crc
 
 // ------------------------------------------------------------------------------------------------
-/** Xfer method
-	* Version Info:
-	* 1: Initial version */
-// ------------------------------------------------------------------------------------------------
-// ?xfer@SupplyWarehouseDockUpdate@@MAEXPAVXfer@@@Z present-unmatched
-void SupplyWarehouseDockUpdate::xfer( Xfer *xfer )
-{
-
-	// version
-	XferVersion currentVersion = 1;
-	XferVersion version = currentVersion;
-	xfer->xferVersion( &version, currentVersion );
-
-	// extend base class
-	DockUpdate::xfer( xfer );
-
-	// boxes stored
-	xfer->xferInt( &m_boxesStored );
-
-}  // end xfer
-
-// ------------------------------------------------------------------------------------------------
 /** Load post process */
 // ------------------------------------------------------------------------------------------------
 class SupplyWarehouseDockUpdateRetailModuleData
@@ -430,6 +410,7 @@ public:
 	virtual Drawable *getDrawable( void ) = 0;
 };
 
+// ?loadPostProcess@SupplyWarehouseDockUpdate@@MAEXXZ present-unmatched
 void SupplyWarehouseDockUpdate::loadPostProcess( void )
 {
 	// extend base class
