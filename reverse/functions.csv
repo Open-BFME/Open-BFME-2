@@ -35625,3 +35625,17 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ?name@Rva004A4C39Named@@QBEPBDXZ,,0x004A4C39,6,Code/GameEngine/Source/Common/ModuleNameGetters3.cpp,matched,B8-6 const string returner RubbleRiseUpdate
 ?name@Rva004A54C8Named@@QBEPBDXZ,,0x004A54C8,6,Code/GameEngine/Source/Common/ModuleNameGetters3.cpp,matched,B8-6 const string returner StructureToppleUpdate
 ?erase@?$vector@UFXBoneInfo@@V?$allocator@UFXBoneInfo@@@_STL@@@_STL@@QAEPAUFXBoneInfo@@PAU3@0@Z,,0x00207F0D,51,Code/GameEngine/Source/Common/Thing/FXBoneInfoVectorErase.cpp,matched,8B-pair range erase via rowed copy_ptrs wrapper and pair destroy; TU emission byte-identical to retail
+?name@Rva004A655DNamed@@QBEPBDXZ,,0x004A655D,6,Code/GameEngine/Source/Common/ModuleNameGetters3.cpp,matched,B8-6 const string returner SupplyCenterProductionExitUpdate
+?name@Rva004A6C64Named@@QBEPBDXZ,,0x004A6C64,6,Code/GameEngine/Source/Common/ModuleNameGetters3.cpp,matched,B8-6 const string returner SupplyTruckStateMachine
+?name@Rva004A7D75Named@@QBEPBDXZ,,0x004A7D75,6,Code/GameEngine/Source/Common/ModuleNameGetters3.cpp,matched,B8-6 const string returner SupplyWarehouseDockUpdate
+?name@Rva004A80B1Named@@QBEPBDXZ,,0x004A80B1,6,Code/GameEngine/Source/Common/ModuleNameGetters3.cpp,matched,B8-6 const string returner ToppleUpdate
+?name@Rva004A996FNamed@@QBEPBDXZ,,0x004A996F,6,Code/GameEngine/Source/Common/ModuleNameGetters3.cpp,matched,B8-6 const string returner WorkerStateMachine
+?name@Rva004AB26DNamed@@QBEPBDXZ,,0x004AB26D,6,Code/GameEngine/Source/Common/ModuleNameGetters3.cpp,matched,B8-6 const string returner WallUpgradeUpdate
+?name@Rva004ACED2Named@@QBEPBDXZ,,0x004ACED2,6,Code/GameEngine/Source/Common/ModuleNameGetters3.cpp,matched,B8-6 const string returner RousingSpeechUpdate
+?name@Rva004AD5C8Named@@QBEPBDXZ,,0x004AD5C8,6,Code/GameEngine/Source/Common/ModuleNameGetters3.cpp,matched,B8-6 const string returner GloriousChargeUpdate
+?name@Rva004AD9DANamed@@QBEPBDXZ,,0x004AD9DA,6,Code/GameEngine/Source/Common/ModuleNameGetters3.cpp,matched,B8-6 const string returner ToggleMountedSpecialAbilityUpdate
+?name@Rva004AE7A7Named@@QBEPBDXZ,,0x004AE7A7,6,Code/GameEngine/Source/Common/ModuleNameGetters3.cpp,matched,B8-6 const string returner DetachableRiderUpdate
+?name@Rva004B2394Named@@QBEPBDXZ,,0x004B2394,6,Code/GameEngine/Source/Common/ModuleNameGetters3.cpp,matched,B8-6 const string returner EntEnragedUpdate
+?name@Rva004B341DNamed@@QBEPBDXZ,,0x004B341D,6,Code/GameEngine/Source/Common/ModuleNameGetters3.cpp,matched,B8-6 const string returner ArmorUpgrade
+?name@Rva004B364DNamed@@QBEPBDXZ,,0x004B364D,6,Code/GameEngine/Source/Common/ModuleNameGetters3.cpp,matched,B8-6 const string returner BaseUpgrade
+?name@Rva004B3A1CNamed@@QBEPBDXZ,,0x004B3A1C,6,Code/GameEngine/Source/Common/ModuleNameGetters3.cpp,matched,B8-6 const string returner CommandSetUpgrade
