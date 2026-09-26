@@ -8,9 +8,9 @@
 // that ctor's own row), then feeds the new data plus its class parse proc
 // (pushed immediate, auto-filled by the gate, no pin) to INI::initFromINIMultiProc
 // (rowed at 0x2DEB5) when ini is non-null. Operator new and __EH_prolog resolve
-// via their rows. Owner classes are Rva-named: the real owners are unknown (the
-// factories are referenced only by address from the module registration
-// tables), so each claims a descriptive Rva owner rather than guessing.
+// via their rows. Owner classes carry the data-class name that
+// ModuleFactory::init registers each factory under (each registration pushes
+// the module name string, then its instance and data factories).
 
 class ModuleData;
 class INI;
@@ -36,14 +36,14 @@ private:
 	unsigned char m_pad[0x80 - 4];
 };
 
-class Rva00251DCC
+class ScavengerSpecialPowerModuleData
 {
 public:
 	static ModuleData *friend_newModuleData(INI *ini);
 };
 
-// ?friend_newModuleData@Rva00251DCC@@SAPAVModuleData@@PAVINI@@@Z
-ModuleData *Rva00251DCC::friend_newModuleData(INI *ini)
+// ?friend_newModuleData@ScavengerSpecialPowerModuleData@@SAPAVModuleData@@PAVINI@@@Z
+ModuleData *ScavengerSpecialPowerModuleData::friend_newModuleData(INI *ini)
 {
 	DefectorSpecialPowerModuleData *data = new DefectorSpecialPowerModuleData;
 	if (ini)
@@ -66,20 +66,20 @@ private:
 	unsigned char m_pad[0xC8 - 4];
 };
 
-class Rva002531B0
+class EvacuateGarrisonSpecialPowerModuleData
 {
 public:
 	static ModuleData *friend_newModuleData(INI *ini);
 };
 
-class Rva0025327A
+class UnleashSpecialPowerModuleData
 {
 public:
 	static ModuleData *friend_newModuleData(INI *ini);
 };
 
-// ?friend_newModuleData@Rva002531B0@@SAPAVModuleData@@PAVINI@@@Z
-ModuleData *Rva002531B0::friend_newModuleData(INI *ini)
+// ?friend_newModuleData@EvacuateGarrisonSpecialPowerModuleData@@SAPAVModuleData@@PAVINI@@@Z
+ModuleData *EvacuateGarrisonSpecialPowerModuleData::friend_newModuleData(INI *ini)
 {
 	SupplyWarehouseDockUpdate *data = new SupplyWarehouseDockUpdate;
 	if (ini)
@@ -87,8 +87,8 @@ ModuleData *Rva002531B0::friend_newModuleData(INI *ini)
 	return reinterpret_cast<ModuleData *>(data);
 }
 
-// ?friend_newModuleData@Rva0025327A@@SAPAVModuleData@@PAVINI@@@Z
-ModuleData *Rva0025327A::friend_newModuleData(INI *ini)
+// ?friend_newModuleData@UnleashSpecialPowerModuleData@@SAPAVModuleData@@PAVINI@@@Z
+ModuleData *UnleashSpecialPowerModuleData::friend_newModuleData(INI *ini)
 {
 	SupplyWarehouseDockUpdate *data = new SupplyWarehouseDockUpdate;
 	if (ini)

@@ -6,9 +6,9 @@
 // row), then feeds the new data plus its class parse proc (pushed immediate,
 // auto-filled by the gate, no pin) to INI::initFromINIMultiProc (rowed at
 // 0x2DEB5) when ini is non-null. Operator new and __EH_prolog resolve via
-// their rows. Owner classes are Rva-named: the real owners are unknown (the
-// factories are referenced only by address from the module registration
-// tables), so each claims a descriptive Rva owner rather than guessing.
+// their rows. Owner classes carry the data-class name that
+// ModuleFactory::init registers each factory under (each registration pushes
+// the module name string, then its instance and data factories).
 
 class ModuleData;
 class INI;
@@ -34,14 +34,14 @@ private:
 	unsigned char m_pad[0x0C - 4];
 };
 
-class Rva0024AF5C
+class SiegeDockingBehaviorModuleData
 {
 public:
 	static ModuleData *friend_newModuleData(INI *ini);
 };
 
-// ?friend_newModuleData@Rva0024AF5C@@SAPAVModuleData@@PAVINI@@@Z
-ModuleData *Rva0024AF5C::friend_newModuleData(INI *ini)
+// ?friend_newModuleData@SiegeDockingBehaviorModuleData@@SAPAVModuleData@@PAVINI@@@Z
+ModuleData *SiegeDockingBehaviorModuleData::friend_newModuleData(INI *ini)
 {
 	LockWeaponCreateModuleData *data = new LockWeaponCreateModuleData;
 	if (ini)
@@ -63,14 +63,14 @@ private:
 	unsigned char m_pad[0x10 - 4];
 };
 
-class Rva0024CF56
+class FireWeaponUpdateModuleData
 {
 public:
 	static ModuleData *friend_newModuleData(INI *ini);
 };
 
-// ?friend_newModuleData@Rva0024CF56@@SAPAVModuleData@@PAVINI@@@Z
-ModuleData *Rva0024CF56::friend_newModuleData(INI *ini)
+// ?friend_newModuleData@FireWeaponUpdateModuleData@@SAPAVModuleData@@PAVINI@@@Z
+ModuleData *FireWeaponUpdateModuleData::friend_newModuleData(INI *ini)
 {
 	Rva0048BC03Base *data = new Rva0048BC03Base;
 	if (ini)
@@ -92,14 +92,14 @@ private:
 	unsigned char m_pad[0x0C - 4];
 };
 
-class Rva0024FC08
+class ThreatFinderUpdateModuleData
 {
 public:
 	static ModuleData *friend_newModuleData(INI *ini);
 };
 
-// ?friend_newModuleData@Rva0024FC08@@SAPAVModuleData@@PAVINI@@@Z
-ModuleData *Rva0024FC08::friend_newModuleData(INI *ini)
+// ?friend_newModuleData@ThreatFinderUpdateModuleData@@SAPAVModuleData@@PAVINI@@@Z
+ModuleData *ThreatFinderUpdateModuleData::friend_newModuleData(INI *ini)
 {
 	RadarUpdateModuleData *data = new RadarUpdateModuleData;
 	if (ini)
@@ -125,32 +125,32 @@ private:
 	unsigned char m_pad[0x7C - 4];
 };
 
-class Rva002524B2
+class UntamedAllegianceSpecialPowerModuleData
 {
 public:
 	static ModuleData *friend_newModuleData(INI *ini);
 };
 
-class Rva002526DF
+class ManTheWallsSpecialPowerModuleData
 {
 public:
 	static ModuleData *friend_newModuleData(INI *ini);
 };
 
-class Rva00252768
+class RepairSpecialPowerModuleData
 {
 public:
 	static ModuleData *friend_newModuleData(INI *ini);
 };
 
-class Rva0025287D
+class HordeDispatchSpecialPowerModuleData
 {
 public:
 	static ModuleData *friend_newModuleData(INI *ini);
 };
 
-// ?friend_newModuleData@Rva002524B2@@SAPAVModuleData@@PAVINI@@@Z
-ModuleData *Rva002524B2::friend_newModuleData(INI *ini)
+// ?friend_newModuleData@UntamedAllegianceSpecialPowerModuleData@@SAPAVModuleData@@PAVINI@@@Z
+ModuleData *UntamedAllegianceSpecialPowerModuleData::friend_newModuleData(INI *ini)
 {
 	DeliverPayloadAIUpdate *data = new DeliverPayloadAIUpdate;
 	if (ini)
@@ -158,8 +158,8 @@ ModuleData *Rva002524B2::friend_newModuleData(INI *ini)
 	return reinterpret_cast<ModuleData *>(data);
 }
 
-// ?friend_newModuleData@Rva002526DF@@SAPAVModuleData@@PAVINI@@@Z
-ModuleData *Rva002526DF::friend_newModuleData(INI *ini)
+// ?friend_newModuleData@ManTheWallsSpecialPowerModuleData@@SAPAVModuleData@@PAVINI@@@Z
+ModuleData *ManTheWallsSpecialPowerModuleData::friend_newModuleData(INI *ini)
 {
 	DeliverPayloadAIUpdate *data = new DeliverPayloadAIUpdate;
 	if (ini)
@@ -167,8 +167,8 @@ ModuleData *Rva002526DF::friend_newModuleData(INI *ini)
 	return reinterpret_cast<ModuleData *>(data);
 }
 
-// ?friend_newModuleData@Rva00252768@@SAPAVModuleData@@PAVINI@@@Z
-ModuleData *Rva00252768::friend_newModuleData(INI *ini)
+// ?friend_newModuleData@RepairSpecialPowerModuleData@@SAPAVModuleData@@PAVINI@@@Z
+ModuleData *RepairSpecialPowerModuleData::friend_newModuleData(INI *ini)
 {
 	DeliverPayloadAIUpdate *data = new DeliverPayloadAIUpdate;
 	if (ini)
@@ -176,8 +176,8 @@ ModuleData *Rva00252768::friend_newModuleData(INI *ini)
 	return reinterpret_cast<ModuleData *>(data);
 }
 
-// ?friend_newModuleData@Rva0025287D@@SAPAVModuleData@@PAVINI@@@Z
-ModuleData *Rva0025287D::friend_newModuleData(INI *ini)
+// ?friend_newModuleData@HordeDispatchSpecialPowerModuleData@@SAPAVModuleData@@PAVINI@@@Z
+ModuleData *HordeDispatchSpecialPowerModuleData::friend_newModuleData(INI *ini)
 {
 	DeliverPayloadAIUpdate *data = new DeliverPayloadAIUpdate;
 	if (ini)
@@ -199,14 +199,14 @@ private:
 	unsigned char m_pad[0x14 - 4];
 };
 
-class Rva00252C13
+class ModelConditionSoundSelectorClientBehaviorModuleData
 {
 public:
 	static ModuleData *friend_newModuleData(INI *ini);
 };
 
-// ?friend_newModuleData@Rva00252C13@@SAPAVModuleData@@PAVINI@@@Z
-ModuleData *Rva00252C13::friend_newModuleData(INI *ini)
+// ?friend_newModuleData@ModelConditionSoundSelectorClientBehaviorModuleData@@SAPAVModuleData@@PAVINI@@@Z
+ModuleData *ModelConditionSoundSelectorClientBehaviorModuleData::friend_newModuleData(INI *ini)
 {
 	BaikonurLaunchPower *data = new BaikonurLaunchPower;
 	if (ini)
