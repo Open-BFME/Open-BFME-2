@@ -1864,3 +1864,5 @@ FUN_00a63430	0x00663430	30	blocked	dtor lane mis-serve: vtable 0x008E0F20 single
 ?onBuildComplete@PreorderCreate@@UAEXXZ	0x004B93EF	57	blocked	slot13 vtable 00859674 PreorderCreate likely onBuildComplete per shouldDo-clear prologue and slot12-13 onCreate-onBuildComplete pattern across 16-slot Creates but module-loop at +0x244 via slot8-slot7 interfaces unmapped t=25 model=muse-01b0
 ??1W3DProjectileStreamDraw@@UAE@XZ	0x000D146B	142	partial	extra derived vtable store at entry plus missing base vtable 0xBC9690 before base call t=25 model=muse-ad75 score=0.95 stash=reverse/attempts/0x000d146b.cpp
 FUN_001F6083	0x001F6083	28	blocked	gap STL deletor calls BFME StringBase clear 0x48BA39 no vtable no donor no callers identity unprovable t=12 model=muse-51c8
+FUN_001F6083	0x001F6083	28	blocked	STL ostream gap identity unprovable without donor t=5 model=muse-a3ef
+??1FireWeaponCollide@@UAE@XZ	0x004BB6A7	85	blocked	opaque Rva004BB68E base plus split-delete flag0 plus EH t=10 model=muse-a3ef
