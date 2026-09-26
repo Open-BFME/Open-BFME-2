@@ -17,3 +17,9 @@ class SymbioticStructuresBodyModuleData { public: __declspec(noinline) virtual ~
 // ??1SymbioticStructuresBodyModuleData@@UAE@XZ present-unmatched
 SymbioticStructuresBodyModuleData::~SymbioticStructuresBodyModuleData() { m_famgen = 0; }
 void famgenDelete(SymbioticStructuresBodyModuleData *p) { delete p; }
+// ??_GActiveBodyModuleData@@UAEPAXI@Z @0x004BF9B5 28B
+// Deleting dtor slot 0 of vtable 0x0085AFB8; calls rowed ??1 at 0x00256CB0 then rowed operator delete at 0x0002FD60.
+class ActiveBodyModuleData { public: __declspec(noinline) virtual ~ActiveBodyModuleData(); private: int m_famgen; };
+// ??1ActiveBodyModuleData@@UAE@XZ present-unmatched
+ActiveBodyModuleData::~ActiveBodyModuleData() { m_famgen = 0; }
+void famgenDelete(ActiveBodyModuleData *p) { delete p; }
