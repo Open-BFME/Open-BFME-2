@@ -29,3 +29,12 @@ void *famgenMakeFadeAndDieOrnamentUpdateModuleData() { return new FadeAndDieOrna
 class DoCommandUpgradeModuleData : public ModuleDataBase { public: char m_pad[0x118 - 4]; AsciiStringMember m_getUpgradeCommandButtonName; AsciiStringMember m_removeUpgradeCommandButtonName; };
 void *famgenMakeDoCommandUpgradeModuleData() { return new DoCommandUpgradeModuleData; }
 
+// ??1SpawnUnitBehaviorModuleData@@UAE@XZ, retail 0x002562BB, 63 bytes.
+// Two AsciiString members at +0x8/+0xC (UnitName plus UnitCommand per own
+// table 0x00C59238 and ctor 0x25598C; factory 0x2559F1 news 0x20; vtable
+// 0x00BF36C0; caller ??_G 0x25629F slot 0). Same-shape sibling of
+// DoCommandUpgradeModuleData dtor 0x256222 with two releases then base
+// vtable 0x00BBB554 restored.
+class SpawnUnitBehaviorModuleData : public ModuleDataBase { public: char m_pad[0x8 - 4]; AsciiStringMember m_unitName; AsciiStringMember m_unitCommand; };
+void *famgenMakeSpawnUnitBehaviorModuleData() { return new SpawnUnitBehaviorModuleData; }
+
