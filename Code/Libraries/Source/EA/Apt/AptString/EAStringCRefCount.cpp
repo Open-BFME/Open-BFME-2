@@ -13,6 +13,10 @@ void __debugbreak();
 #pragma intrinsic(memcmp)
 
 extern "C" int __cdecl memcmp(const void *left, const void *right, unsigned int count);
+extern "C" void *__cdecl memcpy(void *dst, const void *src, unsigned int count);
+extern "C" unsigned int __cdecl strlen(const char *str);
+#pragma intrinsic(memcpy)
+#pragma intrinsic(strlen)
 
 class Rva006DB270
 {
@@ -55,6 +59,7 @@ public:
 	~EAStringC();
 	EAStringC &clear();
 	void Reserve(int size);
+	void SetSize(int size);
 	void Assign(const char *text);
 	int GetAt(int index) const;
 	bool IsEmpty() const;
@@ -206,4 +211,28 @@ bool EAStringC::IsEqualTo(const EAStringC *other) const
 	if (ownData == otherData)
 		return true;
 	return memcmp(ownData + 1, otherData + 1, ownSize) == 0;
+}
+
+// ?Assign@EAStringC@@QAEXPBD@Z, retail 0x006D4BF0 (144B, abuts the 25B
+// PBD ctor at 0x006D4C80). C-string assignment: null text trips the
+// EAString.cpp assert, empty text re-roots the immortal singleton, and
+// anything else is measured with intrinsic strlen, reserved, sized and
+// copied with its terminator (length + 1) via intrinsic memcpy.
+void EAStringC::Assign(const char *text)
+{
+	if (text == 0) {
+		g_bfmeAptAssertAtE17734("pStrText != NULL",
+			"C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\string\\EAString.cpp", 0x82F);
+		if (g_bfmeAptBreakOnAssertAtDDC01C) __debugbreak();
+	}
+	if (*text == 0) {
+		m_pData = &g_eaEmptyStringData;
+		++g_eaEmptyStringData.m_uRefCount;
+		return;
+	}
+	unsigned int length = strlen(text);
+	Reserve(length);
+	SetSize(length);
+	m_pData->m_uHash = 0;
+	memcpy((char *)m_pData + sizeof(StringDataC), text, length + 1);
 }
