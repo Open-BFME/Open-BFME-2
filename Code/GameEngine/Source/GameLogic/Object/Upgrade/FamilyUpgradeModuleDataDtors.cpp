@@ -38,3 +38,12 @@ void *famgenMakeDoCommandUpgradeModuleData() { return new DoCommandUpgradeModule
 class SpawnUnitBehaviorModuleData : public ModuleDataBase { public: char m_pad[0x8 - 4]; AsciiStringMember m_unitName; AsciiStringMember m_unitCommand; };
 void *famgenMakeSpawnUnitBehaviorModuleData() { return new SpawnUnitBehaviorModuleData; }
 
+// ??1CommandSetUpgradeModuleData@@UAE@XZ, retail 0x002561EF, 51 bytes.
+// Single AsciiString at +0x118 (CommandSet per own table 0x008572C0 and ctor
+// 0x255652; factory 0x255698 news 0x11C; vtable 0x00BF37C0; caller ??_G
+// 0x256267 slot 0 shared with AttributeModifier/Castle ICF). Same-shape
+// sibling of UpgradeModuleData dtor 0x255A42 with one release then base
+// vtable 0x00BBB554 restored.
+class CommandSetUpgradeModuleData : public ModuleDataBase { public: char m_pad[0x118 - 4]; AsciiStringMember m_commandSet; };
+void *famgenMakeCommandSetUpgradeModuleData() { return new CommandSetUpgradeModuleData; }
+
