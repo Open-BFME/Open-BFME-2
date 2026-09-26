@@ -35963,3 +35963,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ??_GOilSpillUpdate@@UAEPAXI@Z,,0x0048C2F2,28,Code/GameEngine/Source/GameLogic/Object/Update/OilSpillUpdateDtor.cpp,matched,slot0 vtable 0x0084C380 calls rowed dtor 0x0048C2A3
 ?set@?$StringBase@D@@QAEXPBDH@Z,0x00036780,0x00036780,320,Code/Libraries/Source/WWVegas/WWLib/StringBaseNarrowStrLenSet.cpp,matched,pinned name callers CharSource wrapper vtable allocator releaseBuffer via wide twin StringBaseWideStrLenSet
 ??1BfmeD1191@@QAE@XZ,,0x0050C688,21,Code/GameEngine/Source/Common/BfmeConv1191.cpp,matched,dtor closing FILE plus tail-jmp to base
+?rva00198170@BfmeThingVJS@@QAEPAXI@Z,,0x00198170,30,Code/GameEngine/Source/Common/Rva00198170Delete.cpp,matched,gap between Load 0x00198090 and copy ctor 0x00198190 owner BfmeThingVJS via clear 0x00197F30 and delete 0x0002FD60
