@@ -35995,3 +35995,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ?Calculate_Texture_Matrix@EdgeMapperClass@@UAEXAAVMatrix4@@@Z,,0x00183540,214,Code/Libraries/Source/WWVegas/WW3D2/EdgeTextureMapperCalculate.cpp,matched,vtable slot 9 of 0x007D5738 gap Reset WSEnv ZH donor Edge Calculate Init as stores
 ?clear@Rva000A8879@@QAEXXZ,,0x000A8879,26,Code/GameEngine/Source/Common/Rva000A8879Clear.cpp,matched,gap after scalar deleting holder at plus30 of Rva00A897D via pinned dtor plus rowed delete
 ?Calculate_Texture_Matrix@ZigZagLinearOffsetTextureMapperClass@@UAEXAAVMatrix4@@@Z,,0x00183240,248,Code/Libraries/Source/WWVegas/WW3D2/ZigZagLinearOffsetTextureMapperCalculate.cpp,matched,vtable slot 9 of 0x007D56F8 gap Reset EdgeCtor ZH donor ZigZag Calculate true248
+?getNthAsciiString@Dict@@QBE?AVAsciiString@@H@Z,,0x0031362D,56,Code/GameEngine/Source/Common/DictPairClear.cpp,matched,Dict indexed Ascii getter via rowed find plus base copy

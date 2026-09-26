@@ -89,9 +89,10 @@ public:
   bool getBool(int key, bool *exists) const;
   int getInt(int key, bool *exists) const;
   float getReal(int key, bool *exists) const;
-  bool getNthBool(int n) const;
-  int getNthInt(int n) const;
-  float getNthReal(int n) const;
+ bool getNthBool(int n) const;
+ int getNthInt(int n) const;
+ float getNthReal(int n) const;
+ AsciiString getNthAsciiString(int n) const;
  AsciiString getAsciiString(int key, bool *exists) const;
  UnicodeString getUnicodeString(int key, bool *exists) const;
 
@@ -349,6 +350,22 @@ float Dict::getNthReal(int n) const
 			return *(float *)&pair->m_value;
 	}
 	return 0.0f;
+}
+
+// ?getNthAsciiString@Dict@@QBE?AVAsciiString@@H@Z @0x0031362D 56B
+// Dict indexed Ascii getter twin of rowed getNthBool at 0x00313232. Checks pair
+// type DICT_ASCIISTRING via m_data peek plus n then copies through pinned
+// StringBase narrow copy at 0x000365F0 or returns TheEmptyString. Caller at
+// 0x00307E56. Prev getUnicodeString next SidesList getter.
+AsciiString Dict::getNthAsciiString(int n) const
+{
+	if (m_data)
+	{
+		DictPair *pair = (DictPair *)(m_data + 1) + n;
+		if (pair && (pair->m_key & 0xFF) == DICT_ASCIISTRING)
+			return *(AsciiString *)&pair->m_value;
+	}
+	return AsciiString::TheEmptyString;
 }
 
 // ?sortPairs@Dict@@AAEXXZ @0x00313299
