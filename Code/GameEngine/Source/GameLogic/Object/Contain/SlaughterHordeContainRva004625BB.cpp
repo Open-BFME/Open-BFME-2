@@ -31,7 +31,10 @@ struct Coord3D0046255E {
 class SlaughterHordeContain
 {
 public:
-	SLOT16(s0) SLOT16(s1) SLOT16(s2) SLOT16(s3)
+	SLOT16(s0) SLOT16(s1)
+	virtual void s20(int); virtual void s21(); virtual void s22(); virtual void s23(); virtual void s24(); virtual void s25(); virtual void s26(); virtual void s27();
+	SLOT08(s28,s29,s2A,s2B,s2C,s2D,s2E,s2F)
+	SLOT08(s30,s31,s32,s33,s34,s35,s36,s37) SLOT08(s38,s39,s3A,s3B,s3C,s3D,s3E,rva00462504);
 	virtual void s40(); virtual void s41(); virtual void s42(); virtual void s43();
 	virtual void iterateContained(ContainIterateFunc func, void *userData, bool reverse);
 	SLOT16(s69) SLOT16(s6A) SLOT16(s6B)
@@ -44,6 +47,8 @@ public:
 	char m_pad9C[0x9C];
 	Coord3D0046255E m_posA0;
 	bool m_flagAC;
+	char m_padAD[0xC1 - 0xAD];
+	bool m_flagC1;
 };
 
 struct IterateUser004625BB {
@@ -92,4 +97,15 @@ void SlaughterHordeContain::rva0046255E(const Coord3D0046255E *pos)
 {
 	m_posA0 = *pos;
 	m_flagAC = true;
+}
+
+// ?rva00462504@SlaughterHordeContain@@UAEXXZ, retail 0x00462504, 18 bytes.
+// Virtual slot 63 (offset 0xFC) of vtable 0x00848AA0: clears the byte at
+// +0xC1 then forwards constant 2 to slot 32 (offset 0x80). Same /O1 flags
+// and class as slots 128/129/62CE1 neighbours; virtual call needs no row.
+// Honest address name: class plus slot are proven, method identity is not.
+void SlaughterHordeContain::rva00462504()
+{
+	m_flagC1 = false;
+	s20(2);
 }
