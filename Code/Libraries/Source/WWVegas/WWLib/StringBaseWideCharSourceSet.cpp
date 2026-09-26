@@ -33,8 +33,10 @@ private:
     };
     Header *m_data;
     void releaseBuffer();
+    void ensureUniqueBufferOfSize(int newLen, bool keepData, const CharSource<T> *src1, const CharSource<T> *src2);
 public:
     void set(const CharSource<T> &source);
+    void concat(const CharSource<T> &source);
 };
 
 template <>
@@ -64,4 +66,17 @@ void StringBase<wchar_t>::set(const CharSource<wchar_t> &source)
         return;
     }
     releaseBuffer();
+}
+
+template <>
+void StringBase<wchar_t>::concat(const CharSource<wchar_t> &source)
+{
+    int len = source.getLength();
+    if (len == 0)
+        return;
+    if (m_data != 0) {
+        ensureUniqueBufferOfSize(m_data->length + len, true, 0, &source);
+        return;
+    }
+    set(source);
 }
