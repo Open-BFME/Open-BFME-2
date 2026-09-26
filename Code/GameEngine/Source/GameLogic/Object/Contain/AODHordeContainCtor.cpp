@@ -96,17 +96,16 @@ void Element16::clear()
 	m_f[3] = 0.0f;
 }
 
-struct Element24
+struct Rva0047A702
 {
-	Element24();
-	~Element24();
+	Rva0047A702();
+	~Rva0047A702();
 	float m_f[5];
 	unsigned char m_b;
 	unsigned char m_pad[3];
 };
 
-// ??0Element24@@QAE@XZ present-unmatched
-Element24::Element24()
+Rva0047A702::Rva0047A702()
 {
 	m_f[0] = 0.0f;
 	m_f[1] = 0.0f;
@@ -116,8 +115,8 @@ Element24::Element24()
 	m_b = 0;
 }
 
-// ??1Element24@@QAE@XZ present-unmatched
-Element24::~Element24()
+// ??1Rva0047A702@@QAE@XZ present-unmatched
+Rva0047A702::~Rva0047A702()
 {
 }
 
@@ -139,7 +138,7 @@ private:
 	float m_334;
 	Element16 m_arrayA[0x3C];
 	int m_6F8;
-	Element24 m_arrayB[0x14];
+	Rva0047A702 m_arrayB[0x14];
 	int m_8DC;
 };
 

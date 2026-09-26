@@ -36321,3 +36321,4 @@ _Rva00680420,,0x00680420,17,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,mat
 ??0?$_Vector_base@FV?$allocator@F@_STL@@@_STL@@QAE@IABV?$allocator@F@1@@Z,,0x00513D55,58,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_s_o1.cpp,matched,STLport 4.5.3 _Vector_base<short> ctor; unresolved AllocProxyIntCtor_dupA call pinned at 0x7410; verified byte-exact
 ??1DoCommandUpgrade@@MAE@XZ,,0x004B4BA1,32,Code/GameEngine/Source/GameLogic/Object/Upgrade/DoCommandUpgradeDtor.cpp,matched,4 vptrs plus tail-jmp UpgradeModule twin 0x46089D vtable 0x857B58
 ?xfer@Rva004A3F8B@@MAEXPAVXfer@@@Z,,0x004A3FAA,102,Code/GameEngine/Source/Common/Rva004A3F8BXfer.cpp,matched,slot3 xfer via base plus Version1 plus ObjectID plus Coord plus bools
+??0Rva0047A702@@QAE@XZ,,0x0047A702,34,Code/GameEngine/Source/GameLogic/Object/Contain/AODHordeContainCtor.cpp,matched,arrayB element ctor for AODHordeContain 0x47B3DB zeroes five floats plus byte
