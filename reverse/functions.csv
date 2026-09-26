@@ -35949,3 +35949,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ?Rva00549D30Median@@YAABURva00549D30Elem@@ABU1@00@Z,,0x00549D30,75,Code/Libraries/Source/WWVegas/WWLib/Rva00549D30Median.cpp,matched,gap between _M_advance and _M_decrement caller 0x0054C199 SSE median float at plus4
 ??1BaseUpgradeModuleData@@UAE@XZ,,0x004B3785,69,Code/GameEngine/Source/GameLogic/Object/Upgrade/BaseUpgradeModuleDataCtor.cpp,matched,ModuleData dtor with 2 Strings plus Snapshot vtable no base call
 ??1FlammableUpdate@@UAE@XZ,,0x0048C724,77,Code/GameEngine/Source/GameLogic/Object/Update/FlammableUpdateDtor.cpp,matched,dtor calls rowed stopBurningSound 0x48C55E and pinned base 0x24A797
+??1INIEntry@@UAE@XZ,,0x00616530,124,Code/Libraries/Source/WWVegas/WWLib/ini.cpp,matched,INIEntry dtor frees Entry and Value via rowed _STL free 0x30830 then unlinks GenericNode. Called by deleting dtor 0x6167C0

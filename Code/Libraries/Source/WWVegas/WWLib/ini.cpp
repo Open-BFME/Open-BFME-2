@@ -171,12 +171,11 @@ bool INIClass::KeepBlankEntries = false;
 const int INIClass::MAX_LINE_LENGTH = 4096;
 
 
-// ??1INIEntry@@UAE@XZ absent-from-retail
 INIEntry::~INIEntry(void)
 {
-	free(Entry);
+	_STL::free(Entry);
 	Entry = NULL;
-	free(Value);
+	_STL::free(Value);
 	Value = NULL;
 }
 
