@@ -36128,3 +36128,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ??_GStealthUpdateModuleData@@UAEPAXI@Z,,0x003759D9,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-x7q-eb73.cpp,matched,slot0 vtable C184D8 calls rowed 3759F5 plus delete
 ??1EntEnragedUpdateModuleData@@UAE@XZ,,0x004B2722,63,Code/GameEngine/Source/GameLogic/Object/Update/EntEnragedUpdateModuleDataDtor.cpp,matched,vtable C56980 base BBB554 two filters
 ??1LaserUpdate@@UAE@XZ,,0x00362F64,95,Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdateDtor.cpp,matched,BFME1 LaserUpdate dtor via opaque base plus manager destroys
+??1BuildingBehaviorModuleData@@UAE@XZ,,0x004564E6,58,Code/GameEngine/Source/GameLogic/Object/Behavior/BuildingBehaviorModuleDataDtor.cpp,matched,four window array via ehvec plus Snapshot base restore
