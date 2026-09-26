@@ -213,6 +213,22 @@ void XferStancesEnum(Xfer *xfer, int *stances)
 	xfer->XferEnum("StancesEnum", stances, 4);
 }
 
+// Retail 0x00305F92 (24B): labelled-enum helper moving a 4-byte distribution
+// type through XferEnum with the "GameClientRandomVariable::DistributionType"
+// label (string at 0x00807BBC). Sole caller is FUN_00706183 at 0x003061E7.
+void XferDistributionType(Xfer *xfer, int *value)
+{
+	xfer->XferEnum("GameClientRandomVariable::DistributionType", value, 4);
+}
+
+// Retail 0x00306082 (24B): labelled-enum helper moving a 4-byte rotation type
+// through XferEnum with the "RotationType" label (string at 0x00807CA8).
+// Callers include DoXfer bodies at 0x0055F6DB 0x0055F7D1 0x00562226 0x0056233E.
+void XferRotationType(Xfer *xfer, int *value)
+{
+	xfer->XferEnum("RotationType", value, 4);
+}
+
 // Two version bytes, stored back to back: the retail Version1 body writes 1 to
 // both of them in a four-byte stack slot before handing their address to the
 // slot-10 transfer operator. Xfer.cpp's model verbatim.
