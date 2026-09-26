@@ -35909,3 +35909,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ??1SlowDeathBehaviorModuleData@@UAE@XZ,,0x0045E4A5,142,Code/GameEngine/Source/GameLogic/Object/Behavior/SlowDeathBehaviorModuleDataCtor.cpp,matched,destructor of rowed ctor 0x45E386 via same TU
 ?Rva006C6470Get@Id@ProfileHighLevel@@QBEPBDXZ,,0x006C6470,35,Code/Libraries/Source/profile/ProfileIdFrames.cpp,matched,gap cur-value string via m_curVal reset 0; caller 0x00376877
 ??_GWinInstanceData@@UAEPAXI@Z,,0x00322414,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-ca77.cpp,matched,slot0 of 0x80D830 calls rowed dtor 0x3222B8
+??_GSlowDeathBehaviorModuleData@@UAEPAXI@Z,,0x0045E88D,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-d9ee.cpp,matched,deleting dtor slot 0 of 0x842108 calls rowed 0x45E4A5
