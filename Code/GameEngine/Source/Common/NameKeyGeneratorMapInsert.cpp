@@ -1,11 +1,15 @@
 // cl: /O1 /DNDEBUG /MD
 //
-// NameKeyGenerator::KeyToBucketMap::insert, retail 0x004DA240, 36 bytes, and
-// NameKeyGenerator::KeyToBucketMap::do_insert, retail 0x0005574B, 112 bytes.
-// Dedicated TU so NameKeyGenerator.cpp cannot see these bodies. insert does
-// resize then the hashtable insert; do_insert is the insert_unique_noresize
-// half: bucket walk with early found-return, else allocate/link/count and an
-// added-return. Count lives at +0x10.
+// NameKeyGenerator::KeyToBucketMap::insert, retail 0x004DA240, 36 bytes,
+// NameKeyGenerator::KeyToBucketMap::do_insert, retail 0x0005574B, 112 bytes,
+// and NameKeyGenerator::KeyToBucketMap::insertNode, retail 0x0053F3B1,
+// 73 bytes. Dedicated TU so NameKeyGenerator.cpp cannot see these bodies.
+// insert does resize then the hashtable insert; do_insert is the
+// insert_unique_noresize half: bucket walk with early found-return, else
+// allocate/link/count and an added-return. insertNode is the blind half
+// used by lookup-map find-slots (ObjectLookupMap::findSlot 0x0041F4E5):
+// resize, no walk, link, and the key slot back so the caller fills it.
+// Count lives at +0x10.
 //
 // The class is STLport's hashtable shape (functors at +0 padding to four,
 // the bucket vector's three pointers at +4/+8/+0x0C, count at +0x10), and the
@@ -93,6 +97,7 @@ public:
 		void resize(unsigned);
 		void *allocateNode(const value_type &value);
 		insert_result do_insert(const value_type &value);
+		int *insertNode(const value_type &value);
 
 		static int lookupKey(const value_type &v) { return v.first; }
 		unsigned tableSize() const { return m_table.size(); }
@@ -138,4 +143,16 @@ void *NameKeyGenerator::KeyToBucketMap::allocateNode(const value_type &value)
 	node->next = 0;
 	_STL::_Construct((value_type *)&node->key, value);
 	return node;
+}
+
+int *NameKeyGenerator::KeyToBucketMap::insertNode(const value_type &value)
+{
+	resize(m_count + 1);
+	const unsigned n = (unsigned)lookupKey(value) % tableSize();
+	Bucket *oldHead = tableAt(n);
+	Bucket *node = (Bucket *)allocateNode(value);
+	node->next = oldHead;
+	tableAt(n) = node;
+	++m_count;
+	return &node->key;
 }
