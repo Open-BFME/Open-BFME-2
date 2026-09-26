@@ -36022,3 +36022,5 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ??_GCivilianSpawnUpdateModuleData@@UAEPAXI@Z,,0x0047FAA3,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-eeab.cpp,matched,deleting dtor via family pattern plus rowed dtor
 ??_GRebuildHoleExposeDieModuleData@@UAEPAXI@Z,,0x004869B0,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-4f8a.cpp,matched,Deleting dtor slot 0 of vtable 0xC4AD40 calls rowed 0x4869CC
 ?get@Rva0042D69DPtrChaseField@@QBEHXZ,,0x0042D69D,17,Code/GameEngine/Source/Common/Disp0PtrChaseDwordGetters.cpp,matched,null-checked ptr-chase plus tail-jmp rowed getter 0x5C4AF9
+??1RampageBehaviorModuleData@@UAE@XZ,,0x00458C9B,48,Code/GameEngine/Source/GameLogic/Object/Behavior/RampageBehaviorModuleDataDtor.cpp,matched,Virtual dtor with vector at 8 and Snapshot base
+??_GRampageBehaviorModuleData@@UAEPAXI@Z,,0x00458C7F,28,Code/GameEngine/Source/GameLogic/Object/Behavior/RampageBehaviorModuleDataDtor.cpp,matched,Scalar deleting dtor via implicit dtor
