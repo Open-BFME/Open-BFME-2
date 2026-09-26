@@ -1871,9 +1871,8 @@ abase1.ptrs.p=arraybase;
 LoadAssign(*(abase.ptrs.ap));
 if(numarrays>1)
 	for(i=1;i<numarrays;i++)
-	  {     /* abase1.ptrs.p+=i*ASSIGNROWS*ASSIGNCOLS; */
-	        /* Fixed  by Eike Dierks */
-	        abase1.ptrs.p+=ASSIGNROWS*ASSIGNCOLS;
+	  {     /* Retail predates Eike Dierks fix: buggy i*size */
+	        abase1.ptrs.p+=i*ASSIGNROWS*ASSIGNCOLS;
 		CopyToAssign(*(abase.ptrs.ap),*(abase1.ptrs.ap));
 	}
 

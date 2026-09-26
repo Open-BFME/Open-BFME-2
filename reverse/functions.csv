@@ -36003,3 +36003,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ??_G?$DynamicVectorClass@PAVVertexMaterialClass@@@@UAEPAXI@Z,,0x0016FF30,30,Code/Libraries/Source/WWVegas/WW3D2/MaterialCollectorDestructor.cpp,matched,gap between Resize rows in same TU; callee ??1 at 0x0016F580 rowed; 30B deleting dtor shape
 ?Rva005EE317@@YGXPAVCoord3D@@@Z,,0x005EE317,125,Code/GameEngine/Source/Common/Rva005EE317RandomDir.cpp,matched,gap between 0x005EE30C and 0x005EE394 via AISPecialPowerTargetAoE file string plus rowed callees
 ?rva007397A0@PartitionManager@@QAEX_N@Z,,0x007397A0,8,Code/GameEngine/Source/GameLogic/Object/PartitionManagerShroudThunks.cpp,matched,this-adjusting thunk tail-jumping to ShroudManagerImpl setEnabled row
+?LoadAssignArrayWithRand@@YAXPAJK@Z,,0x006B6AB0,106,Code/Libraries/Source/Benchmark/nbench1.cpp,matched,gap between TrapezoidIntegrate and Assignment with buggy i-times-size predating Eike Dierks fix
