@@ -36073,3 +36073,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ??1RousingSpeechUpdateModuleData@@UAE@XZ,,0x004AD34F,74,Code/GameEngine/Source/GameLogic/Object/Update/RousingSpeechUpdateModuleDataDtor.cpp,matched,vtable 0x00C55048 slot0 0x004AD333 plus table 0x00C54F28 plus factory 0x24F58C
 ??_GPassiveAreaEffectBehaviorModuleData@@UAEPAXI@Z,,0x00484E8D,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-a0ab.cpp,matched,slot0 of vtable 0xC4A490 calls rowed dtor 0x484EA9
 ??1StreamingArchiveFile@@UAE@XZ,,0x00605A45,56,Code/GameEngine/Source/Common/System/LocalFile.cpp,matched,vtable 0087AA50 calls rowed File close then rowed RAMFile dtor
+??1BaikonurLaunchPower@@UAE@XZ,,0x004CAFDD,48,Code/GameEngine/Source/GameLogic/Object/Update/BaikonurLaunchPowerDtor.cpp,matched,BFME1 donor virtual dtor plus vector 0x4CAE89 at 8 plus Snapshot BBB554 plus slot0 0x4CAFC1
