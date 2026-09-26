@@ -36299,3 +36299,4 @@ _Rva00680420,,0x00680420,17,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,mat
 ??_GRva0031468C@@QAEPAXI@Z,,0x00314926,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-7f75.cpp,matched,scalar deleting dtor calls rowed 0x31468C plus delete 0x2FD60
 ??_GAttributeModifierAuraUpdateModuleData@@UAEPAXI@Z,,0x0049BF50,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-0ecc.cpp,matched,slot 0 of vtable 0x00850EE8 calls rowed 0x0049BF6C and rowed delete 0x0002FD60
 ?Read_Header@AggregateDefClass@@MAE_NAAVChunkLoadClass@@@Z,,0x001A3400,95,Code/Libraries/Source/WWVegas/WW3D2/AggregateDefReadHeader.cpp,matched,vslot 3 of vtable 0x007D6C70 BFME1 bool donor byte-identical
+?Rva00314C3E@Rva008FCA3@@UAEPBVImage@@PBD@Z,,0x00314C3E,85,Code/GameEngine/Source/Common/Rva00314C3EFindImage.cpp,matched,slot71 of vtable 0x7C7C90 null guard plus image lookup via 0x37BA0 plus 0x2D92F6 plus 0x36410
