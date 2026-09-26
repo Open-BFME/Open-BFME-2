@@ -1781,3 +1781,6 @@ FUN_005EA2CF	0x005EA2CF	223	blocked	mis-anchor: interior of frameless float work
 ?clear@ScriptList@@QAEXXZ	0x003B7812	36	partial	swap target uses ctor return mov ecx,eax with this in esi; all spellings give lea or drop esi; t=40 model=muse-spark score=0.97 stash=reverse/attempts/0x003b7812.cpp
 ?clearNodesRva003B578E@@YAXPAURecA@@@Z	0x003B578E	47	partial	hoisted test-edi with late je plus pop-before-cmp; plain while is 45/47; t=30 model=muse-spark score=0.94 stash=reverse/attempts/0x003b578e.cpp
 ?clearNodesRva003B578E@@YAXPAURecA@@@Z	0x003B578E	47	void	retract just-recorded partial: address already rowed as ?clearRva00359330Nodes (BSim e77858845); stash deleted
+?_M_new_elements_at_front@?$deque@HV?$allocator@H@_STL@@@_STL@@IAEXI@Z	0x007B9BE0	10	blocked	10B mov-ecx-plus-jmp thunk to 0x36410 not deque code; thunk-farm address; t=5
+?clear@?$deque@HV?$allocator@H@_STL@@@_STL@@QAEXXZ	0x004E7C52	56	blocked	56B EH teardown calling 0x4E7BAF plus _free not deque clear; prior cold verdict stands; t=5
+?erase@?$deque@HV?$allocator@H@_STL@@@_STL@@QAE?AU?$_Deque_iterator@HU?$_Nonconst_traits@H@_STL@@@2@U32@@Z	0x0060CF5A	28	blocked	28B string-pair teardown via 0x7FAB3 plus _free not deque erase returning iterator; mis-anchor; t=5
