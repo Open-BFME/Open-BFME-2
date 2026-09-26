@@ -33,3 +33,16 @@ void Rva0048B97A_InitObject(INI *ini, void *obj, int, int)
 	parse.add(reinterpret_cast<const FieldParse *>(0x00C4C0C0), 0);
 	ini->initFromINIMulti(obj, parse);
 }
+
+// ?Rva0049CBA0_InitObject@@YAXPAVINI@@PAXHH@Z, retail 0x0049CBA0, 58 bytes.
+// Same recipe as Rva0048B97A_InitObject above: single-entry parse list from
+// the table at 0x00C51380 through rowed ctor 0x002BAA0 and rowed add
+// 0x002BC6E, then pinned INI::initFromINIMulti 0x002D7A8. Trailing params
+// unread. Sole caller at 0x0049DEA5 (news 0x14 plus ctor 0x0049D7B3, then
+// list push_back 0x0005548F).
+void Rva0049CBA0_InitObject(INI *ini, void *obj, int, int)
+{
+	MultiIniFieldParse parse;
+	parse.add(reinterpret_cast<const FieldParse *>(0x00C51380), 0);
+	ini->initFromINIMulti(obj, parse);
+}
