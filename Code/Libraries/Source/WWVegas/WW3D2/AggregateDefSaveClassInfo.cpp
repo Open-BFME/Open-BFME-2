@@ -18,6 +18,17 @@ class RenderObjClass;
 struct W3dAggregateSubobjectStruct;
 template <class T> class DynamicVectorClass;
 
+// Kernel32 string import (sweep/winbase_shim.h idiom, kept TU-local so this
+// self-contained unit needs no include chain): retail calls the IAT slot
+// directly.
+extern "C" __declspec(dllimport) char * __stdcall lstrcpyn(char *, const char *, int);
+
+struct W3dAggregateHeaderStruct
+{
+	unsigned m_version; // W3D_CURRENT_AGGREGATE_VERSION is 0x10003
+	char m_name[16];
+};
+
 class ChunkSaveClass
 {
 public:
@@ -75,6 +86,35 @@ bool AggregateDefClass::Save_Class_Info(ChunkSaveClass &chunk_save)
 		}
 
 		// End the class info chunk
+		chunk_save.End_Chunk();
+	}
+
+	// Return the success flag
+	return ret_val;
+}
+
+// ?Save_Header@AggregateDefClass@@MAE_NAAVChunkSaveClass@@@Z @0x1A35F0
+bool AggregateDefClass::Save_Header(ChunkSaveClass &chunk_save)
+{
+	// Assume error
+	bool ret_val = false;
+
+	// Begin a chunk that identifies the aggregate
+	if (chunk_save.Begin_Chunk(0x601) == true) {
+
+		// Fill the header structure
+		W3dAggregateHeaderStruct header = { 0 };
+		header.m_version = 0x10003;
+		::lstrcpyn(header.m_name, m_name, sizeof(header.m_name));
+		header.m_name[sizeof(header.m_name) - 1] = 0;
+
+		// Write the header out to the chunk
+		if (chunk_save.Write(&header, sizeof(header)) == sizeof(header)) {
+			// Success!
+			ret_val = true;
+		}
+
+		// End the header chunk
 		chunk_save.End_Chunk();
 	}
 
