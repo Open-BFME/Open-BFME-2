@@ -36242,3 +36242,4 @@ _Rva00680420,,0x00680420,17,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,mat
 ??1Rva0048BC03Base@@UAE@XZ,,0x0048BC46,117,Code/GameEngine/Source/GameLogic/Object/Update/Rva0048BC03BaseDtor.cpp,matched,vtable C4C110 plus list drain via folded 0x36410 plus Snapshot BBB554
 ??1HordeWorkerAIUpdate@@UAE@XZ,,0x0049AC94,49,Code/GameEngine/Source/GameLogic/Object/Update/HordeWorkerAIUpdateDtor.cpp,matched,6-vptr dtor via DeployStyle shape with extra store
 ??_GHordeWorkerAIUpdate@@UAEPAXI@Z,,0x0049AD9B,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-0612.cpp,matched,slot0 deleting dtor via rowed dtor
+?Rva001A5460@Animatable3DObjClass@@UAEXPAV1@@Z,,0x001A5460,75,Code/Libraries/Source/WWVegas/WW3D2/Animatable3DObjClassRva001A5460.cpp,matched,vslot59 of 0x007D6D10 slave master at FC via Get_HTree slot58 and REF_PTR_SET
