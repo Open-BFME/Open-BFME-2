@@ -1791,3 +1791,9 @@ FUN_0033E17D	0x0033E17D	59	blocked	LocomotorSet map clear-plus-push helper (map 
 ??0?$gslice_array@H@_STL@@AAE@Vgslice@1@AAV?$valarray@H@1@@Z	0x000B68C3	45	blocked	retail 45B is EH-prolog plus local-static-guard singleton shape calling 0xB4414 not a 94B gslice ctor; SEH-dictionary family; needs owner forensics; t=10
 ?Rva0049D114@@YAXH@Z	0x0049D114	25	blocked	EH-frame guarded wrapper calling unclaimed 0x27675F (166B EH-prolog family) with 0x2C; sole caller 0x49F16C unclaimed; land 0x27675F first then resweep; t=10
 ??0BattlePlanUpdateModuleData@@QAE@XZ	0x0049780A	153	partial	StealthDetector-shaped model (virtual class, scalar init-list, 13 inline AsciiString, implicit 0x24C7B3 members) is 146/153: sole wall is scheduler sinking the +0xA4 zero plus pop edi to right after the 1.0f load; refuted init-list vision, volatile barrier, EH on/off, G6, pointer members, explicit member inits; t=50 model=muse-spark score=0.95 stash=reverse/attempts/0x0049780a.cpp
+?reserve@?$vector@HV?$allocator@H@_STL@@@_STL@@QAEXI@Z	0x00578707	167	blocked	disx shows mid-instruction garbage (xor [ebx],edi head), not a function boundary; t=5
+??1?$vector@HV?$allocator@H@_STL@@@_STL@@QAE@XZ	0x007AB73A	45	blocked	EH funclet fragment (jmp 0x49b47c head), not a boundary; drift tail-garbage into 0x7AB718; t=5
+?deallocate@?$_STLP_alloc_proxy@PAHHV?$allocator@H@_STL@@@_STL@@QAEXPAHI@Z	0x007AB73C	47	blocked	same EH funclet fragment as 0x7AB73A (jmp 0x49b47c), not a boundary; t=3
+??$_M_allocate_and_copy@PAH@?$vector@HV?$allocator@H@_STL@@@_STL@@IAEPAHIPAH0@Z	0x007ACBAD	78	blocked	thunk-farm garbage (invalid decode head), not a boundary; t=3
+?allocate@?$_STLP_alloc_proxy@PAHHV?$allocator@H@_STL@@@_STL@@QAEPAHI@Z	0x007ACBAE	46	blocked	mid-instruction garbage (out ff,eax invalid), not a boundary; t=3
+?push_back@?$vector@HV?$allocator@H@_STL@@@_STL@@QAEXABH@Z	0x00688935	61	blocked	off-by-one of rowed push_back 0x688940 (11B int3 padding head), already landed; t=3
