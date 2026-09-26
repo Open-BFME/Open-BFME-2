@@ -35394,3 +35394,8 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ?Rva001DAEB2Get@@YAHXZ,,0x001DAEB2,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
 ?Rva001DAF77Get@@YAHXZ,,0x001DAF77,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
 ?Rva000454EDGet@@YAHXZ,,0x000454ED,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
+?Rva001DBA71Get@@YAHXZ,,0x001DBA71,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
+?Rva001DCC3FGet@@YAHXZ,,0x001DCC3F,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
+?Rva001DFAB9Get@@YAHXZ,,0x001DFAB9,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
+?Rva001E392EGet@@YAHXZ,,0x001E392E,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
+?Rva0020049BGet@@YAHXZ,,0x0020049B,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner

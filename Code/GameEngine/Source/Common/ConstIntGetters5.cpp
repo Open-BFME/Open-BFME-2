@@ -288,3 +288,43 @@ int Rva000454EDGet(void)
 {
 	return 0x0000024f;
 }
+
+// ?Rva001DBA71Get@@YAHXZ @ 0x001dba71 (6B): returns 0x00bdbbcc.
+// Follows an al-returner tail. No direct callers. Opaque address-derived
+// name.
+int Rva001DBA71Get(void)
+{
+	return 0x00bdbbcc;
+}
+
+// ?Rva001DCC3FGet@@YAHXZ @ 0x001dcc3f (6B): returns 0x00bdbe10.
+// Follows a leave plus ret tail. No direct callers. Opaque
+// address-derived name.
+int Rva001DCC3FGet(void)
+{
+	return 0x00bdbe10;
+}
+
+// ?Rva001DFAB9Get@@YAHXZ @ 0x001dfab9 (6B): returns 0x00bdca18.
+// Follows a setne-al returner tail. No direct callers. Opaque
+// address-derived name.
+int Rva001DFAB9Get(void)
+{
+	return 0x00bdca18;
+}
+
+// ?Rva001E392EGet@@YAHXZ @ 0x001e392e (6B): returns 0x00bde2f8.
+// Follows a store plus pop plus ret tail. No direct callers. Opaque
+// address-derived name.
+int Rva001E392EGet(void)
+{
+	return 0x00bde2f8;
+}
+
+// ?Rva0020049BGet@@YAHXZ @ 0x0020049b (6B): returns 0x00be29ec.
+// Follows a leave plus ret tail. No direct callers. Opaque
+// address-derived name.
+int Rva0020049BGet(void)
+{
+	return 0x00be29ec;
+}
