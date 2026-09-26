@@ -36361,3 +36361,4 @@ _Rva00680420,,0x00680420,17,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,mat
 ?xfer@MonitorConditionUpdate@@UAEXPAVXfer@@@Z,,0x004915C6,55,Code/GameEngine/Source/GameLogic/Object/Update/MonitorConditionUpdateXfer.cpp,matched,vslot 3 xfer Version 1 1 plus string plus UpdateModule base
 ?xfer@SiegeDeploySpecialPower@@MAEXPAVXfer@@@Z,,0x004C5B39,170,Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeploySpecialPowerXfer.cpp,matched,vslot3 SiegeDeploySpecialPower xfer; base Rva00589079 plus IsLightCRC plus Version12 plus ObjectIDs plus Coords plus bools
 ?DoXfer@Rva004E1B72@@UAEXAAVXfer@@@Z,,0x004E1355,61,Code/GameEngine/Source/Common/Rva004E1B72Dtor.cpp,matched,slot3 of vtable 0x00C61DC4 with GetSnapshotName SetPlayerControlOfArmy
+?DoXfer@Rva004E1B00@@UAEXAAVXfer@@@Z,,0x004E1302,58,Code/GameEngine/Source/Common/Rva004E1B00DoXfer.cpp,matched,slot3 of vtable 0x00C61DB4 with GetSnapshotName MoveArmy
