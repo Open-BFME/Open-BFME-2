@@ -35375,3 +35375,6 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ?Rva00028D80Alloc@@YAPAXI@Z,,0x00028D80,52,Code/GameEngine/Source/Common/BfmeAllocRva.cpp,matched,alloc twin of bfmeAllocPR; big 0x23790 plus small 0x27A90 via pins; Rva owner
 ?Rva00007450Get@@YAHXZ,,0x00007450,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
 ?Rva00016AC0Get@@YAHXZ,,0x00016AC0,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
+?Rva00018080Get@@YAHXZ,,0x00018080,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
+?Rva00018610Get@@YAHXZ,,0x00018610,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
+?Rva00019B50Get@@YAHXZ,,0x00019B50,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner

@@ -177,3 +177,24 @@ int Rva00016AC0Get(void)
 {
 	return 0x00bbbddc;
 }
+
+// ?Rva00018080Get@@YAHXZ @ 0x00018080 (6B): returns INT_MIN.
+// int3-padded both sides, no direct callers. Opaque address-derived name.
+int Rva00018080Get(void)
+{
+	return (int)0x80000000;
+}
+
+// ?Rva00018610Get@@YAHXZ @ 0x00018610 (6B): returns INT_MAX.
+// int3-padded both sides, no direct callers. Opaque address-derived name.
+int Rva00018610Get(void)
+{
+	return 0x7fffffff;
+}
+
+// ?Rva00019B50Get@@YAHXZ @ 0x00019b50 (6B): returns 0x7ffffffe.
+// int3-padded both sides, no direct callers. Opaque address-derived name.
+int Rva00019B50Get(void)
+{
+	return 0x7ffffffe;
+}
