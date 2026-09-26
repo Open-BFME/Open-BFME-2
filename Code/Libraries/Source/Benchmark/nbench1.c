@@ -1716,7 +1716,7 @@ locassignstruct=&global_assignstruct;
 /*
 ** Set the error context string.
 */
-errorcontext="CPU:Assignment";
+errorcontext="";
 
 /*
 ** See if we need to do self adjustment code.
