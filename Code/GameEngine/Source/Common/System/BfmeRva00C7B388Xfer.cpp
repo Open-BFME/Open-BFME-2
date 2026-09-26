@@ -252,6 +252,7 @@ public:
     virtual Xfer &operator==(RGBColor &value);
     virtual Xfer &operator==(RGBAColorReal &value);
     virtual Xfer &operator==(RGBAColorInt &value);
+    virtual Xfer &XferEnum(const char *name, void *data, unsigned int size);
 
 private:
     bool m_bfme04;				// +0x04: skip the indent once, after a label
@@ -494,6 +495,33 @@ Xfer &BfmeRva00C7B388::operator==(RGBAColorInt &value)
     if (!m_bfme04)
         Print(this, 0);
     Print(this, "r:%i,g:%i,b:%i,a:%i [irgba]\n", value.red, value.green, value.blue, value.alpha);
+    m_bfme04 = false;
+    return *this;
+}
+
+// 0x0060DD1B 124B: vtable slot 37 (offset 0x94) of 0x00C7B388, the XferEnum
+// override. Base Xfer::XferEnum at 0x0060BBD5 is slot 37 of 0x00BBB910.
+// Prints the integer value selected by size, then " [name]", then newline.
+Xfer &BfmeRva00C7B388::XferEnum(const char *name, void *data, unsigned int size)
+{
+    if (!m_bfme04)
+        Print(this, 0);
+    switch (size) {
+    case 1:
+        Print(this, "%i", *(unsigned char *)data);
+        break;
+    case 2:
+        Print(this, "%i", *(unsigned short *)data);
+        break;
+    case 3:
+        Print(this, "%i", *(int *)data & 0xffffff);
+        break;
+    case 4:
+        Print(this, "%i", *(int *)data);
+        break;
+    }
+    Print(this, " [%s]", name);
+    Print(this, "\n");
     m_bfme04 = false;
     return *this;
 }

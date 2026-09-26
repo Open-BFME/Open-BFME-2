@@ -36150,3 +36150,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ??_GDX8RigidFVFCategoryContainer@@UAEPAXI@Z,,0x00146930,30,Code/Libraries/Source/WWVegas/WW3D2/dx8renderer.cpp,matched,slot0 vtable 7D3528 calls rowed dtor plus delete
 ??_GSymbioticStructuresBodyModuleData@@UAEPAXI@Z,,0x002570DD,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-2335.cpp,matched,Deleting dtor slot 0 of vtable 7F3EE0; calls rowed 2570F9 plus rowed delete 2FD60
 _Rva00680420,,0x00680420,17,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,matched,Tick wrapper returning Rva007FEA00; gap between 6803C0 and 680440 in same TU
+?XferEnum@BfmeRva00C7B388@@UAEAAVXfer@@PBDPAXI@Z,,0x0060DD1B,124,Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp,matched,slot 37 of vtable 0xC7B388 same slot as base XferEnum 0x60BBD5
