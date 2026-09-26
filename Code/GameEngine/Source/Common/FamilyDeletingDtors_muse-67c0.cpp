@@ -9,3 +9,9 @@ class ArmorUpgrade { protected: __declspec(noinline) virtual ~ArmorUpgrade(); pr
   friend void famgenDelete(ArmorUpgrade *p); };
 ArmorUpgrade::~ArmorUpgrade() { m_famgen = 0; }
 void famgenDelete(ArmorUpgrade *p) { delete p; }
+
+// ??_GBaseUpgradeModuleData@@UAEPAXI@Z @0x004B3769
+class BaseUpgradeModuleData { public: __declspec(noinline) virtual ~BaseUpgradeModuleData(); private: int m_famgen;
+  friend void famgenDelete(BaseUpgradeModuleData *p); };
+BaseUpgradeModuleData::~BaseUpgradeModuleData() { m_famgen = 0; }
+void famgenDelete(BaseUpgradeModuleData *p) { delete p; }
