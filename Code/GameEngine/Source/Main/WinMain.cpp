@@ -370,7 +370,12 @@ public:
 	void regainFocus();
 };
 
-AudioManager *TheAudio;
+// The WM_ACTIVATE singleton at 0x00DFDC14 is not TheAudio (0x00DFE6E8: this
+// body's WM_ACTIVATEAPP focus slots, FlammableUpdate/AudioLoopUpgrade sound
+// calls). Its focus method 0x0035D2F7 restores channel volumes through
+// 0x00DFE6E8's vtable, so the AudioManager spelling here only carries the
+// pinned regainFocus call; the owner is unrecovered.
+AudioManager *theBfmeDfdc14;
 
 class GameEngine
 {
@@ -618,8 +623,8 @@ LRESULT CALLBACK WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam 
 				if( TheMouse )
 					TheMouse->setMouseLimits();
 
-				if( TheAudio )
-					TheAudio->regainFocus();
+				if( theBfmeDfdc14 )
+					theBfmeDfdc14->regainFocus();
 			}
 			break;
 		}
