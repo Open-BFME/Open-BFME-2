@@ -10,6 +10,13 @@
 // floats); BFME1 donor has uint/uint/float/uint/float but retail xfer proves
 // BFME2 is uint plus four floats so retail is followed. Recipe is the
 // SlowDeathBehaviorXfer/Rva004C908BXfer slot-3 pattern.
+//
+// ?rva004AC18D@RainOfFireUpdate@@QAEXM@Z, retail 0x004AC18D, 62 bytes.
+// Honest address name (no donor): stores float arg to +0x28 then gated
+// 1.0-minus-product to display slot 0xC0 via global 0x009FE9D8 when module
+// data at +0x04 and display are present. ModuleData +0x14 is darkness per
+// the rowed ModuleData table and callers at 0x004AC246/0x004AC28B/0x004AC321
+// prove the RainOfFireUpdate file-unit.
 
 class AsciiString;
 class UnicodeString;
@@ -29,8 +36,34 @@ class RGBAColorReal;
 class RGBAColorInt;
 class Snapshot;
 class Thing;
-class ModuleData;
 class Object;
+
+class ModuleData
+{
+public:
+	unsigned char m_pad[0x14];
+	float m_field14;
+};
+
+class Display
+{
+public:
+	virtual void s00(); virtual void s01(); virtual void s02(); virtual void s03();
+	virtual void s04(); virtual void s05(); virtual void s06(); virtual void s07();
+	virtual void s08(); virtual void s09(); virtual void s10(); virtual void s11();
+	virtual void s12(); virtual void s13(); virtual void s14(); virtual void s15();
+	virtual void s16(); virtual void s17(); virtual void s18(); virtual void s19();
+	virtual void s20(); virtual void s21(); virtual void s22(); virtual void s23();
+	virtual void s24(); virtual void s25(); virtual void s26(); virtual void s27();
+	virtual void s28(); virtual void s29(); virtual void s30(); virtual void s31();
+	virtual void s32(); virtual void s33(); virtual void s34(); virtual void s35();
+	virtual void s36(); virtual void s37(); virtual void s38(); virtual void s39();
+	virtual void s40(); virtual void s41(); virtual void s42(); virtual void s43();
+	virtual void s44(); virtual void s45(); virtual void s46(); virtual void s47();
+	virtual void setLevel(float v);
+};
+
+extern Display *TheDisplay;
 
 class Xfer
 {
@@ -121,6 +154,7 @@ class RainOfFireUpdate : public UpdateModule, public RainOfFireInterface
 {
 public:
 	RainOfFireUpdate(Thing *thing, const ModuleData *moduleData);
+	void rva004AC18D(float value);
 
 protected:
 	virtual void xfer(Xfer *xfer);
@@ -132,6 +166,16 @@ private:
 	float m_state30;
 	float m_state34;
 };
+
+void RainOfFireUpdate::rva004AC18D(float value)
+{
+	m_state28 = value;
+	if (m_moduleData == 0)
+		return;
+	if (TheDisplay == 0)
+		return;
+	TheDisplay->setLevel(1.0 - (m_moduleData->m_field14 * m_state2C * value));
+}
 
 void RainOfFireUpdate::xfer(Xfer *xfer)
 {
