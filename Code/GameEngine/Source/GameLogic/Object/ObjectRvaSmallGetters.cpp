@@ -11,11 +11,19 @@ struct Rva0028AD6CSub
 	int m_value;					// +0x028
 };
 
+struct Rva0028AF76Sub
+{
+	char m_pad[0x44];				// +0x000..+0x044 unknown
+	int m_value;					// +0x044
+};
+
 class Object
 {
 	char m_pad0[0xA4];				// +0x000..+0x0A4 unknown
 	Rva0028AD6CSub *m_sub;			// +0x0A4
-	char m_pad1[0x358 - 0xA4 - 4];	// +0x0A8..+0x358 unknown
+	char m_pad1[0x240 - 0xA4 - 4];	// +0x0A8..+0x240 unknown
+	Rva0028AF76Sub *m_sub240;		// +0x240
+	char m_pad2[0x358 - 0x244];		// +0x244..+0x358 unknown
 	int m_flag358;					// +0x358
 	int m_pad358;					// +0x35C unknown
 	int m_mask360;					// +0x360
@@ -24,6 +32,7 @@ public:
 	int rva0028AD6C() const;
 	bool rva0028ADE0() const;
 	int rva0028ADF7(int slot) const;
+	int rva0028AF76() const;
 };
 
 // ?rva0028AD6C@Object@@QBEHXZ
@@ -47,4 +56,13 @@ bool Object::rva0028ADE0() const
 int Object::rva0028ADF7(int slot) const
 {
 	return (m_mask360 & (1 << slot)) != 0 ? 1 : 0;
+}
+
+int Object::rva0028AF76() const
+{
+	int result = 0;
+	const Rva0028AF76Sub *sub = m_sub240;
+	if (sub != 0)
+		result = sub->m_value;
+	return result;
 }
