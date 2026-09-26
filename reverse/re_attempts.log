@@ -1724,3 +1724,4 @@ Catch@00630215	0x00230215	390	blocked	catch(ErrorCode) funclet of GameEngine::in
 ?_M_free_tree@?$_Rope_RopeRep@DV?$allocator@D@_STL@@@_STL@@QAEXXZ	0x00028D80	168	blocked	retail body is 52B /Od alloc dispatcher (landed Rva00028D80Alloc: big 0x23790 small 0x27A90), not 168B free_tree; t=25 muse-spark
 ?_S_tree_concat@?$rope@DV?$allocator@D@_STL@@@_STL@@KAPAU?$_Rope_RopeRep@DV?$allocator@D@_STL@@@2@PAU32@0@Z	0x0073EA92	196	blocked	not a boundary: disx decodes mid-instruction garbage (or al 0x56), no ghidra entry near 0x73EA00; t=10 muse-spark
 ??1?$_Rope_RopeLeaf@DV?$allocator@D@_STL@@@_STL@@QAE@XZ	0x0079A68F	94	blocked	not a boundary: disx decodes zero-byte garbage (add [eax] al), no ghidra entry near 0x79A68F; t=10 muse-spark
+?Rva000F1ECDGet@@YAHXZ	0x000F1ECD	6	blocked	je-target arm of preceding getter (je@0x000F1EC7 skips add-eax-8 plus ret into B8 00BBAC1C); same frag class as deleted 0x001363C6; do not land as standalone

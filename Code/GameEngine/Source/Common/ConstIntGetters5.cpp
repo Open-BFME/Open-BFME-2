@@ -251,3 +251,17 @@ int Rva002A8A0FGet(void)
 {
 	return 0x00bfda50;
 }
+
+// ?Rva0008514EGet@@YAHXZ @ 0x0008514e (6B): returns 0x00e00944.
+// Follows a ret tail. No direct callers. Opaque address-derived name.
+int Rva0008514EGet(void)
+{
+	return 0x00e00944;
+}
+
+// ?Rva00176E30Get@@YAHXZ @ 0x00176e30 (6B): returns 0x00bd4e3c.
+// int3-padded both sides, no direct callers. Opaque address-derived name.
+int Rva00176E30Get(void)
+{
+	return 0x00bd4e3c;
+}

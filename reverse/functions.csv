@@ -35388,3 +35388,5 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ?Rva002A8A0FGet@@YAHXZ,,0x002A8A0F,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
 ?Get_Surface_Level@CursorTextureSlot@@QAE?AVW3DRadarResetSurface@@H@Z,,0x0013289D,236,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseCursorSurfaceLevel.cpp,matched,leveled cursor-surface worker; COM refcount ballet with AddRef in thing ctor plus Release pair plus holder copy; named-bool false-compare gives cmp-al-bl
 ?friend_getAIModuleInfo@ThingTemplate@@QAEPAVAIUpdateModuleData@@XZ,,0x0033B387,80,Code/GameEngine/Source/Common/Thing/ModuleInfoGetNthData.cpp,matched,ThingTemplate AI module scan via rowed getNthData plus slot16 predicate
+?Rva0008514EGet@@YAHXZ,,0x0008514E,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
+?Rva00176E30Get@@YAHXZ,,0x00176E30,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
