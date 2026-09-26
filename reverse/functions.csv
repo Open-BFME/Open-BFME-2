@@ -36383,3 +36383,4 @@ _Rva00680420,,0x00680420,17,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,mat
 ?aptHelperSetFlag008AE470@@YAPAVAptValue@@PAXH@Z,,0x006ED470,21,Code/Libraries/Source/EA/Apt/Rva008AE470AptHelperDispatch.cpp,matched,BFME1 byte-identical donor; b1 0x008AE470
 ??_GDamageFieldUpdateModuleData@@UAEPAXI@Z,,0x0049114E,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-2c79.cpp,matched,dtor lane deleting dtor calls rowed dtor plus operator delete
 ?Rva00181040@Rva00180EA0@@UAEPAXXZ,,0x00181040,135,Code/Libraries/Source/WWVegas/WW3D2/Null3DObjClassCopyCtor.cpp,matched,slot 15 of vtable 0x7D5090 creates Null3DObjClass with NULL literal
+?setFullyObscuredByShroud@W3DProjectileStreamDraw@@UAEX_N@Z,,0x000D1124,130,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DProjectileStreamDrawSetFullyObscured.cpp,matched,vslot 35 of 0x007CE010 ZH donor setFullyObscuredByShroud
