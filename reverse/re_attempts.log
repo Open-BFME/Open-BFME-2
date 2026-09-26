@@ -1827,3 +1827,4 @@ FUN_00789EA5	0x00389EA5	135	blocked	gap Stlport indexed getter UNKNOWN fallback;
 ?Get_Proxy@HLodClass@@UBE_NHAAVProxyClass@@@Z	0x0019C750	305	blocked	donor Get_Proxy as-is 399B vs retail 305B t=12 model=muse-b9d7
 ?On_Frame_Update@ParticleBufferClass@@UAEXXZ	0x001A6710	52	blocked	donor exact size 52B 20insns but Emitter Emit slot 0x208 vs retail 0x204 t=15 model=muse-b9d7
 FUN_0051fc20	0x0011FC20	228	blocked	SEH DX-error String formatter no donor vtable or caller identity unprovable t=10 model=muse-b9d7
+FUN_005f43bd	0x001F43BD	33	blocked	gap setter deletes old ptr via slot0+operator-delete then stores new; probes explicit-dtor and virt-get0 give 32B vs 33B xor-cmp-push-reg vs test-push-imm plus reload-vs-reuse; virtual identity unproven; callers 8 thunks A4-C0 plus 4 parse loops t=45 model=muse-c2b5
