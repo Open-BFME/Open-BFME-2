@@ -8,6 +8,7 @@
 extern char g_bfmeFormatBuffer[2048];
 extern "C" __declspec(dllimport) int __cdecl _vsnprintf(char *, unsigned int, const char *, va_list);
 extern "C" void *__cdecl bfmeArrayNew(unsigned int);
+void __cdecl operator delete[](void *block);
 
 class INIException
 {
@@ -15,6 +16,7 @@ public:
     char *mFailureMessage;
     int m_argCount;
     INIException(int argCount, const char *format, ...);
+    ~INIException();
 };
 
 INIException::INIException(int argCount, const char *format, ...)
@@ -30,4 +32,15 @@ INIException::INIException(int argCount, const char *format, ...)
         mFailureMessage[length] = 0;
         va_end(args);
     }
+}
+
+// ??1INIException@@QAE@XZ, retail 0x0002BD30, 9 bytes. Gap between
+// _rva002bcab_scanIndex and ?scanIndexList@INI@@QAEHPBDPBQBD@Z in
+// INI_scanIndexList.cpp. ZH donor
+// reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/INIException.h
+// proves public non-virtual dtor deleting mFailureMessage at +0 with
+// ??_V@YAXPAX@Z at 0x0002FD80. No vtable so QAE.
+INIException::~INIException()
+{
+    delete[] mFailureMessage;
 }
