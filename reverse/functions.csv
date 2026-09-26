@@ -36071,3 +36071,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ??1ScriptActions@@UAE@XZ,,0x003BD582,22,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_ctor.cpp,matched,BFME1 donor plus vtable 0x81FE48 plus base 0x81FD98 plus Rva 0x3BA8AC plus slot0 0x3BE5AD
 ??_GScriptActions@@UAEPAXI@Z,,0x003BE5AD,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-1fea.cpp,matched,slot0 of vtable 0x81FE48 calls rowed 0x3BD582 plus delete 0x2FD60
 ??1RousingSpeechUpdateModuleData@@UAE@XZ,,0x004AD34F,74,Code/GameEngine/Source/GameLogic/Object/Update/RousingSpeechUpdateModuleDataDtor.cpp,matched,vtable 0x00C55048 slot0 0x004AD333 plus table 0x00C54F28 plus factory 0x24F58C
+??_GPassiveAreaEffectBehaviorModuleData@@UAEPAXI@Z,,0x00484E8D,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-a0ab.cpp,matched,slot0 of vtable 0xC4A490 calls rowed dtor 0x484EA9
