@@ -36202,3 +36202,4 @@ _Rva00680420,,0x00680420,17,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,mat
 ??_GAudioLoopUpgrade@@MAEPAXI@Z,,0x004B7D37,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-b1dd.cpp,matched,slot 0 of vtable 0x858CC4 calls rowed dtor 0x4B7B20 then rowed delete 0x2FD60
 ?init@Open2Store880FC0@@UAEXXZ,,0x00625560,67,Code/GameEngine/Source/GameClient/Open2Twins006.cpp,matched,slot1 of 0x0087C6B0 calls T_009f4fb0 m at 0x006276E0 with zeroed state
 ??_GRva006D8510@@UAEPAXI@Z,,0x006D84E0,35,Code/GameEngine/Source/Common/Rva006D8510DeletingDtor.cpp,matched,slot14 of 0x008EA4C0 calls rowed dtor at 0x006D8510 and pool free at 0x006DB270
+??1W3DPropDrawModuleData@@UAE@XZ,,0x000CEF3C,54,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DPropDrawModuleDataDtor.cpp,matched,vtable 0xBCD420 plus string 0x36410 plus base 0xBBB554 and ctor 0xCEF2B
