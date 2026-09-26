@@ -54,6 +54,7 @@ protected:
 template <> class StringBase<unsigned short>
 {
 	friend class UnicodeString;
+	StringBase(const StringBase &other);
 	void releaseBuffer();
 
 public:
@@ -89,6 +90,7 @@ class UnicodeString : public StringBase<unsigned short>
 {
 public:
 	UnicodeString() {}
+	UnicodeString(const UnicodeString &other) : StringBase<unsigned short>(other) {}
 	UnicodeString &operator=(const UnicodeString &other) { set(other); return *this; }
 	void translate(const char *text);
 	const unsigned short *str() const { return m_data ? &m_data->text[0] : L""; }
@@ -213,6 +215,7 @@ typedef unsigned short UnsignedShort;
 class LadderPref
 {
 public:
+	LadderPref(const LadderPref &other);
 	~LadderPref();
 
 	UnicodeString name;
@@ -220,6 +223,9 @@ public:
 	UnsignedShort port;
 	time_t lastPlayDate;
 };
+
+AsciiString AsciiStringToQuotedPrintable(AsciiString original);
+AsciiString UnicodeStringToQuotedPrintable(UnicodeString original);
 
 typedef _STL::map<time_t, LadderPref> LadderPrefMap;
 
@@ -231,6 +237,7 @@ class LadderPreferences : public UserPreferences
 public:
 	LadderPreferences();
 	virtual ~LadderPreferences();
+	virtual Bool write(void);
 
 private:
 	LadderPrefMap m_ladders;
@@ -249,4 +256,28 @@ LadderPreferences::~LadderPreferences()
 // ??1LadderPref@@QAE@XZ @0x5BA3C0
 LadderPref::~LadderPref()
 {
+}
+
+// ?write@LadderPreferences@@UAE_NXZ @0x5E0026
+Bool LadderPreferences::write(void)
+{
+	clear();
+
+	static const Int MAX_LADDERS = 5;
+	LadderPrefMap::iterator lpIt;
+	Int count;
+	for (lpIt = m_ladders.begin(), count = 0;
+		lpIt != m_ladders.end() && count < MAX_LADDERS;
+		++lpIt, ++count)
+	{
+		LadderPref p = lpIt->second;
+		AsciiString ladName;
+		AsciiString ladData;
+		ladName.format("%s:%d", AsciiStringToQuotedPrintable(p.address).str(), p.port);
+		ladData.format("%s:%d", UnicodeStringToQuotedPrintable(p.name).str(), p.lastPlayDate);
+		AsciiString &slot = (*this)[ladName];
+		slot = ladData;
+	}
+
+	return UserPreferences::write();
 }
