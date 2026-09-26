@@ -4,3 +4,9 @@
 class FXListAtBonePosFXNugget { public: __declspec(noinline) virtual ~FXListAtBonePosFXNugget(); private: int m_famgen; };
 FXListAtBonePosFXNugget::~FXListAtBonePosFXNugget() { m_famgen = 0; }
 void famgenDelete(FXListAtBonePosFXNugget *p) { delete p; }
+
+// ??_GParticleSystemFXNugget@@UAEPAXI@Z @0x001E10CE 28B
+// Deleting dtor slot 0 of vtable 0x007DD908; calls rowed ??1 at 0x001E10EA then rowed operator delete at 0x0002FD60.
+class ParticleSystemFXNugget { public: __declspec(noinline) virtual ~ParticleSystemFXNugget(); private: int m_famgen; };
+ParticleSystemFXNugget::~ParticleSystemFXNugget() { m_famgen = 0; }
+void famgenDelete(ParticleSystemFXNugget *p) { delete p; }
