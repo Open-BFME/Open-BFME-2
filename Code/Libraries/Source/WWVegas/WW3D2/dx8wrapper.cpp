@@ -985,18 +985,24 @@ bool DX8Wrapper::Reset_Device(bool reload_assets)
 	}
 	return false;
 }
-// ?Release_Device@DX8Wrapper@@ present-unmatched
+// BFME2 dispatches these methods through D3D9 slots while the shared shim has the D3D8 layout.
+typedef HRESULT (__stdcall *BfmeD3D9SetTextureProc)(IDirect3DDevice8 *, DWORD, IDirect3DBaseTexture8 *);
+typedef HRESULT (__stdcall *BfmeD3D9SetStreamSourceProc)(IDirect3DDevice8 *, UINT, IDirect3DVertexBuffer8 *, UINT, UINT);
+typedef HRESULT (__stdcall *BfmeD3D9SetIndicesProc)(IDirect3DDevice8 *, IDirect3DIndexBuffer8 *);
 void DX8Wrapper::Release_Device(void)
 {
 	if (D3DDevice) {
 
 		for (int a=0;a<MAX_TEXTURE_STAGES;++a)
 		{	//release references to any textures that were used in last rendering call
-			DX8CALL(SetTexture(a,NULL));
+			(*(BfmeD3D9SetTextureProc **)D3DDevice)[0x104 / 4](D3DDevice, a, NULL);
+			number_of_DX8_calls++;
 		}
 
-		DX8CALL(SetStreamSource(0, NULL, 0));	//release reference count on last rendered vertex buffer
-		DX8CALL(SetIndices(NULL,0));	//release reference count on last rendered index buffer
+		(*(BfmeD3D9SetStreamSourceProc **)D3DDevice)[0x190 / 4](D3DDevice, 0, NULL, 0, 0);
+			number_of_DX8_calls++;	//release reference count on last rendered vertex buffer
+		(*(BfmeD3D9SetIndicesProc **)D3DDevice)[0x1A0 / 4](D3DDevice, NULL);
+			number_of_DX8_calls++;	//release reference count on last rendered index buffer
 
 
 		/*
@@ -1005,10 +1011,16 @@ void DX8Wrapper::Release_Device(void)
 		for (unsigned i=0;i<MAX_VERTEX_STREAMS;++i) 
 		{
 			if (render_state.vertex_buffers[i]) render_state.vertex_buffers[i]->Release_Engine_Ref();
-			REF_PTR_RELEASE(render_state.vertex_buffers[i]);
+			if (render_state.vertex_buffers[i]) {
+				render_state.vertex_buffers[i]->Release_Ref();
+				render_state.vertex_buffers[i] = NULL;
+			}
 		}
 		if (render_state.index_buffer) render_state.index_buffer->Release_Engine_Ref();
-		REF_PTR_RELEASE(render_state.index_buffer);
+		if (render_state.index_buffer) {
+			render_state.index_buffer->Release_Ref();
+			render_state.index_buffer = NULL;
+		}
 
 		/*
 		** Shutdown all subsystems
