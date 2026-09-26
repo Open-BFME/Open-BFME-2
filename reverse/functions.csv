@@ -35487,3 +35487,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ?Rva006C5E87Get@@YAHXZ,,0x006C5E87,6,Code/GameEngine/Source/Common/ConstIntGetters7.cpp,matched,B8-6 const-int returner batch; cold slice
 ?Rva006C5E97Get@@YAHXZ,,0x006C5E97,6,Code/GameEngine/Source/Common/ConstIntGetters7.cpp,matched,B8-6 const-int returner batch; cold slice
 ??1FlammableUpdateModuleData@@UAE@XZ,,0x0048D075,73,Code/GameEngine/Source/GameLogic/Object/Update/FlammableUpdateModuleDataDtor.cpp,matched,FlammableUpdateModuleData dtor over Snapshot base with CameraMarker vector at +0x28 via pinned 0x48D003 and Release holder at +0x18 via rowed 0x50ED3; vtable C4C408 to base BBB554
+??A?$map@HMU?$less@H@_STL@@V?$allocator@U?$pair@$$CBHM@_STL@@@2@@_STL@@QAEAAMABH@Z,,0x0033D042,73,Code/GameEngine/Source/Common/Thing/IntFloatMapSubscript.cpp,matched,Int-float map subscript via twin-pinned lower bound plus insert
