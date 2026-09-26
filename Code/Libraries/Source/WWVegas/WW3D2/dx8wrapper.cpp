@@ -500,6 +500,9 @@ static unsigned char g_rva00DB621CFlag;
 // (named g_Va00DEDA14 in ColdGlobalDwordGetters.cpp), not
 // texture_stage_state_changes, which lives at 0x00DEDA68.
 extern int g_Va00DEDA14;
+// Retail byte at VA 0x00DEDA20 (RVA 0x009EDA20) written by 0x00125430;
+// no donor or getter claims it so the VA-derived name asserts only the address.
+extern unsigned char g_Va00DEDA20;
 
 void DX8Wrapper::Invalidate_Cached_Render_States(void)
 {
@@ -1575,6 +1578,24 @@ bool DX8Wrapper::Set_Next_Render_Device(void)
 {
 	int new_dev = (CurRenderDevice + 1) % _RenderDeviceNameTable.Count();
 	return Set_Render_Device(new_dev);
+}
+
+// ?Rva00125430@@YAX_N@Z @ 0x00125430 (38B): gap between
+// ?Set_Next_Render_Device@DX8Wrapper@@KA_NXZ 0x00125400 and Vector Resize
+// 0x00125460 in this TU; stores the bool to VA 0x00DEDA20 and when false
+// takes the saved pointer from VA 0x00DEDA14 clears it and tail-calls the
+// rowed ?Set_Light_Environment@DX8Wrapper@@SAXPAVLightEnvironmentClass@@@Z
+// 0x00122EA0; both callers in 0x00174BA6 push 1 then 0 around the texture-stage
+// invalidate; the dword is the cold word shared with Invalidate above.
+// Address-derived global name asserts only the RVA not the original spelling.
+void Rva00125430(bool enable)
+{
+	g_Va00DEDA20 = enable;
+	if (!enable) {
+		LightEnvironmentClass *tmp = reinterpret_cast<LightEnvironmentClass *>(g_Va00DEDA14);
+		g_Va00DEDA14 = 0;
+		DX8Wrapper::Set_Light_Environment(tmp);
+	}
 }
 
 // ?Toggle_Windowed@DX8Wrapper@@ present-unmatched
