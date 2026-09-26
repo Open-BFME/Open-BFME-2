@@ -1,13 +1,14 @@
-// cl: /O1 /arch:SSE /GX /MD /DNDEBUG
+// cl: /O1 /G7 /arch:SSE /GX /MD /DNDEBUG
 //
-// W3DTreeDrawModuleData file-unit (retail 0x000CEBBF..0x000CED02): the empty
-// virtual base brackets the EH states with no emitted code (its vtable store
-// is dead and removed, the derived store leads), the four AsciiString
-// members (+08/+0C/+28/+48) build inline as nulls and tear down through the
-// folded string dtor (0x36410), and the float/int/bool tail follows the BFME1
-// W3DTreeDraw donor with BFME2 Morph/Fade/Tainted fields plus the
-// LogicFramesPerSecond*10 sink/morph times. Factory 0x64C0B news 0x64 with
-// the ctor as sole caller and pushes the rowed proc 0xCED03.
+// ??0W3DTreeDrawModuleData@@QAE@XZ 231B @0x000CEBBF.
+// Same file-unit layout as W3DTreeDrawModuleDataCtor.cpp (empty virtual base,
+// four AsciiStrings at +08/+0C/+28/+48 via folded 0x36410, floats/ints/bools).
+// Split to its own TU for /G7: /O1 alone emits lea+shl for the *10 sink/morph
+// times where retail has imul eax,0xa, and schedules the sinkDistance store
+// after the sinkFrames store. BFME1 donor W3DTreeDraw.cpp uses 10*FPS; BFME2
+// keeps FPS*10 but the initialVelocity block leads the tail (retail stores
+// +2C/+30/+34/+38 before the +3C/+3D bools and the FPS*10 pair). Factory
+// 0x64C0B news 0x64 with this ctor as sole caller. Donor: BFME1 W3DTreeDraw.
 
 #define LogicFramesPerSecond (*(const int *)0x00DBA4E4)
 
@@ -65,7 +66,27 @@ private:
 	float m_fadeDistance; // +60
 };
 
-// ??1W3DTreeDrawModuleData@@UAE@XZ @0xCECA6 (matched): inline empty dtor
-// emits the 4-string teardown. Ctor 0xCEBBF lives in
-// W3DTreeDrawModuleDataCtorG7.cpp under /G7 for the imul and float scheduling.
-W3DTreeDrawModuleData::~W3DTreeDrawModuleData() {}
+W3DTreeDrawModuleData::W3DTreeDrawModuleData() :
+	m_framesToMoveOutward(1),
+	m_framesToMoveInward(1),
+	m_maxOutwardMovement(1.0f),
+	m_darkening(0.0f)
+{
+	m_toppleFX = 0;
+	m_bounceFX = 0;
+	m_stumpName.clear();
+	m_initialVelocityPercent = 0.2f;
+	m_initialAccelPercent = 0.01f;
+	m_bounceVelocityPercent = 0.3f;
+	m_minimumToppleSpeed = 0.5f;
+	m_doTopple = false;
+	m_killWhenToppled = true;
+	m_sinkFrames = LogicFramesPerSecond * 10;
+	m_sinkDistance = 20.0f;
+	m_morphTime = LogicFramesPerSecond * 10;
+	m_morphFX = 0;
+	m_taintedTree = false;
+	m_fadeRate = 5;
+	m_fadeTarget = 105;
+	m_fadeDistance = 40.0f;
+}
