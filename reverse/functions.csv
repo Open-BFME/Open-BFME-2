@@ -36244,3 +36244,4 @@ _Rva00680420,,0x00680420,17,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,mat
 ??_GHordeWorkerAIUpdate@@UAEPAXI@Z,,0x0049AD9B,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-0612.cpp,matched,slot0 deleting dtor via rowed dtor
 ?Rva001A5460@Animatable3DObjClass@@UAEXPAV1@@Z,,0x001A5460,75,Code/Libraries/Source/WWVegas/WW3D2/Animatable3DObjClassRva001A5460.cpp,matched,vslot59 of 0x007D6D10 slave master at FC via Get_HTree slot58 and REF_PTR_SET
 ??_GCommandSetUpgradeModuleData@@UAEPAXI@Z,,0x00256267,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-cfe6.cpp,matched,slot0 vtable 0x7F37C0 calls rowed 0x2561EF
+??1MonsterDockUpdateModuleData@@UAE@XZ,,0x004A156E,48,Code/GameEngine/Source/GameLogic/Object/Update/MonsterDockUpdateModuleDataDtor.cpp,matched,EH over Snapshot BBB554 plus filter at +0x10 via 0x360D26 plus slot0 0x4A1552 plus vtable 0xC51DA8 plus BFME1 donor
