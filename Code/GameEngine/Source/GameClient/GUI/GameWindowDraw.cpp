@@ -17,6 +17,15 @@ private:
 	char m_data[ 0x1A8 ];
 };
 
+class GameWindow;
+
+class DrawSub
+{
+public:
+	virtual void unused();
+	virtual void draw( GameWindow *win, WinInstanceData *data );
+};
+
 class GameWindow
 {
 public:
@@ -24,6 +33,7 @@ public:
 	virtual int slot1( unsigned int, unsigned int, unsigned int );
 	virtual int slot2( unsigned int, unsigned int, unsigned int );
 	virtual int draw( void *data );
+	int rva0009DC32( WinInstanceData *instData );
 
 private:
 	void *m_bfmeAnchor;
@@ -54,6 +64,7 @@ private:
 	void *m_prevLayout;
 	void *m_layout;
 	void *m_editData;
+	DrawSub m_drawSub;
 };
 
 int GameWindow::draw( void *data )
@@ -63,4 +74,18 @@ int GameWindow::draw( void *data )
 		return 1;
 	}
 	return 0;
+}
+
+// ?rva0009DC32@GameWindow@@QAEHPAVWinInstanceData@@@Z @0x0009DC32 40B
+// Default-draw dispatch BFME1 inlined out of line: tries draw (0x0009DC05),
+// else draws through the sub-object at +0x218 (DrawSub slot 1, offset 0x4).
+// Evidence: Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/Gadget/W3DGadgetTabControlDraw.cpp
+// declares rva0009DC32 and documents this shape with five callers; retail
+// lea ecx,[esi+0x218] plus call [eax+4] proves the embedded DrawSub.
+int GameWindow::rva0009DC32( WinInstanceData *instData )
+{
+	if ( GameWindow::draw( instData ) == 1 )
+		return 1;
+	m_drawSub.draw( this, instData );
+	return 1;
 }
