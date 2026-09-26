@@ -36419,3 +36419,4 @@ _setlinehook,,0x00748350,37,Code/Libraries/Source/Lua/ldblib.c,matched,BFME1 ldb
 ?rva004B23C5@Rva004B237B@@QAEXPAVXfer@@@Z,,0x004B23C5,147,Code/GameEngine/Source/Common/Rva004B237BXfer.cpp,matched,vslot3 of 0x00856948 UpdateModule xfer with Version 1 1 and uint bool fields
 ?rva001A4E70@Animatable3DObjClass@@UAE_NH@Z,,0x001A4E70,72,Code/Libraries/Source/WWVegas/WW3D2/AnimatableGetBoneTransform.cpp,matched,vtable 0x7D6D10 slot 53 honest bool int Validates Updates reads HTree captured flag
 ?rva002C0F68@GameWindowManager@@UAEH_N0@Z,,0x002C0F68,97,Code/GameEngine/Source/GameClient/GUI/GameWindowManager_enableWindowsInRange.cpp,matched,vtable 0x7C7C90 slot 47 parent chain via winGetParent and slot59 0xEC member 0x20
+?clear@Rva0060C45E@@QAEXXZ,,0x0060C45E,11,Code/GameEngine/Source/Common/Rva0060C45EClear.cpp,matched,honest clearer and [ecx+0x14] 0 via O1
