@@ -52,6 +52,16 @@ public:
 
 	StringDataC *m_pData;
 
+private:
+	enum CBPushZero
+	{
+		CB_NO_PUSH_ZERO,
+		CB_PUSH_ZERO
+	};
+
+	void ChangeBuffer(unsigned int uSizeToReserve, unsigned int uOffsetCopy,
+		unsigned int uSizeCopy, CBPushZero ePushZero, unsigned int uInternalSize);
+
 public:
 	EAStringC(const EAStringC &other);
 	EAStringC(const char *text);
@@ -61,6 +71,7 @@ public:
 	void Reserve(int size);
 	void SetSize(int size);
 	void Assign(const char *text);
+	EAStringC &Rva006D4F00Append(const EAStringC &other);
 	int GetAt(int index) const;
 	bool IsEmpty() const;
 	bool IsEqualTo(const EAStringC *other) const;
@@ -235,4 +246,25 @@ void EAStringC::Assign(const char *text)
 	SetSize(length);
 	m_pData->m_uHash = 0;
 	memcpy((char *)m_pData + sizeof(StringDataC), text, length + 1);
+}
+
+// ?Rva006D4F00Append@EAStringC@@QAEAAV1@ABV1@@Z, retail 0x006D4F00 (105B).
+// String append: an empty target delegates to assignment, an empty source
+// is a no-op, otherwise the buffer grows through ChangeBuffer and the
+// source text (terminator included) lands via intrinsic memcpy.
+EAStringC &EAStringC::Rva006D4F00Append(const EAStringC &other)
+{
+	unsigned int oldSize = m_pData->m_uSize;
+	if (oldSize == 0) {
+		operator=(other);
+		return *this;
+	}
+	unsigned int otherSize = other.m_pData->m_uSize;
+	if (otherSize == 0)
+		return *this;
+	unsigned int newSize = oldSize + otherSize;
+	ChangeBuffer(newSize, 0, oldSize, CB_NO_PUSH_ZERO, newSize);
+	memcpy((char *)m_pData + sizeof(StringDataC) + oldSize,
+		(char *)other.m_pData + sizeof(StringDataC), otherSize + 1);
+	return *this;
 }
