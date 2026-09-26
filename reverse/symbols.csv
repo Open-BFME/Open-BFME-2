@@ -5456,3 +5456,5 @@ __mbscat,0x0062988C,retail REL32 from INI getNextQuotedAsciiString 0x002E93F; IA
 ?allocate@?$allocator@VProductionPrerequisite@@@_STL@@QBEPAVProductionPrerequisite@@IPBX@Z,0x005DFB2C,prereq overflow 0x33E927 calls allocator through the vector proxy with count and null hint; shared 36-byte fold with rowed BfmeStringRecord body
 ??$_Destroy@PAVProductionPrerequisite@@@_STL@@YAXPAVProductionPrerequisite@@0@Z,0x002CFBAE,prereq destroy range called from _M_clear 0x2D02DF; dup_ row at 0x2CFBAE holds the body under alias
 ??$__uninitialized_copy@PAVProductionPrerequisite@@PAV1@@_STL@@YAPAVProductionPrerequisite@@PAV1@00ABU__false_type@0@@Z,0x0033E0B7,prereq overflow 0x33E927 calls it twice for old-range and tail copies; dup_ row at 0x33E0B7 holds the body under alias
+?copyEightByteRange@@YAPAUFXBoneInfo@@PAU1@00PAXH@Z,0x00254D65,8B copy worker called by the copy_ptrs wrapper at 0x255CFA; dup_ row at 0x254D65 holds the body under alias
+??$__copy_ptrs@PAUFXBoneInfo@@PAU1@@_STL@@YAPAUFXBoneInfo@@PAU1@00ABU__false_type@0@@Z,0x00255CFA,TU-local wrapper emission resolves the erase internal call; dup_ row at 0x255CFA holds the body under alias
