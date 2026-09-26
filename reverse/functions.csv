@@ -35445,3 +35445,11 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ??0?$vector@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@QAE@ABV01@@Z,,0x004334D7,68,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_e8_allocate_copy.cpp,matched,no-EH explicit instantiation emission; detour copy callee plus E8 get_allocator pin
 ?insert@BFME2RespawnRuleTree@@QAE?AURespawnInsertResult@@ABURespawnRule@@@Z,,0x004AFB2B,35,Code/GameEngine/Source/GameLogic/Object/Body/RespawnRuleTreeInsert.cpp,matched,hidden-result wrapper over unique-insert worker; inline memberwise copy ctor gives hidden-first dword-plus-byte copy
 ??0LivingWorldRegionConnection@@QAE@ABV0@@Z,,0x003F247D,83,Code/GameEngine/Source/Common/System/LivingWorldRegionConnectionCopy.cpp,matched,string copy pin plus E8 vector copy row; two EH states
+?Rva003B321BGet@@YAHXZ,,0x003B321B,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
+?Rva0040C344Get@@YAHXZ,,0x0040C344,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
+?Rva00417AE3Get@@YAHXZ,,0x00417AE3,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
+?Rva00418060Get@@YAHXZ,,0x00418060,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
+?Rva004186DAGet@@YAHXZ,,0x004186DA,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
+?Rva0041901DGet@@YAHXZ,,0x0041901D,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
+?Rva00419663Get@@YAHXZ,,0x00419663,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
+?Rva0041F286Get@@YAHXZ,,0x0041F286,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
