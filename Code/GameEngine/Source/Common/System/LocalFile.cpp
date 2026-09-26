@@ -118,6 +118,7 @@ extern "C" __declspec(dllimport) int __cdecl _wopen(const unsigned short *filena
 // matches that row so this TU resolves it with no pin.
 typedef unsigned short Wide;
 int BFME2WideToUtf8(const Wide *source, int count, char *output, int capacity);
+int BFME2Utf8ToWide(const char *source, int count, Wide *output, int capacity);
 
 // <fcntl.h> / <sys/stat.h>, spelled out so this TU pulls in no CRT headers.
 #define _O_APPEND	0x0008
@@ -213,6 +214,14 @@ public:
 	virtual bool scanString( AsciiString &newString );
 	virtual char *readEntireAndClose( void );
 	virtual File *convertToRAMFile( void );
+	// Retail slot 17 (0x44) is the wide-filename worker (0x00605D36, rowed as
+	// narrow-spelled open). Declared-only so gap's virtual call emits
+	// call [eax+0x44] with no extra row.
+	virtual bool wideOpenStub( const Wide *filename, int access );
+	// Retail slot 1 (0x04) narrow adapter 0x00605CFB 59B: Utf8->Wide then
+	// slot 17. Honest address name: vtable proves LocalFile slot 1, ret 8
+	// plus Utf8ToWide call proves (const char*,int)->bool.
+	virtual bool rva00605CFB( const char *filename, int access );
 
 protected:
 	int m_handle;			// +0x14, -1 when closed
@@ -574,4 +583,18 @@ bool LocalFile::scanReal( float &newReal )
 
 	newReal = (float)atof( tempstr.str() );
 	return true;
+}
+
+// ?rva00605CFB@LocalFile@@UAE_NPBDH@Z @ 0x00605CFB (59B): narrow-to-wide open
+// adapter. Retail converts the narrow filename to a 260-wide stack buffer
+// via BFME2Utf8ToWide then tail-calls slot 17 (the wide worker rowed as
+// ?open@LocalFile). Vtable 0x0087AB28 slot 1 proves LocalFile; ret 8 plus the
+// Utf8ToWide call proves (const char*,int)->bool.
+bool LocalFile::rva00605CFB( const char *filename, int access )
+{
+	Wide widePath[0x104];
+
+	BFME2Utf8ToWide( filename, -1, widePath, 0x104 );
+
+	return wideOpenStub( widePath, access );
 }
