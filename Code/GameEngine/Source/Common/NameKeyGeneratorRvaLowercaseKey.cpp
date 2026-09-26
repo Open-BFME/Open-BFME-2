@@ -70,7 +70,6 @@ NameKeyType NameKeyGenerator::Rva00148F02(const char *nameString)
 	return nameToKey(lowered.str());
 }
 
-// ?Rva002D91AF@NameKeyGenerator@@QAE?AW4NameKeyType@@ABVAsciiString@@@Z present-unmatched
 NameKeyType NameKeyGenerator::Rva002D91AF(const AsciiString &nameString)
 {
 	return Rva00148F02(nameString.str());
