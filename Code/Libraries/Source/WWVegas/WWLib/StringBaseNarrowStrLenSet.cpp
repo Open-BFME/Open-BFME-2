@@ -38,6 +38,7 @@ private:
     void ensureUniqueBufferOfSize(int newLen, bool keepData, const CharSource<T> *src1, const CharSource<T> *src2);
 public:
     void set(const T *str, int len);
+    void set(const CharSource<T> &source);
     void concat(const T *str, int len);
 };
 
@@ -104,4 +105,34 @@ void StringBase<char>::concat(const char *str, int len)
         return;
     }
     set(str, len);
+}
+
+template <>
+void StringBase<char>::set(const CharSource<char> &source)
+{
+    int len = source.getLength();
+    if (len != 0) {
+        if (m_data && m_data->capacity > len && m_data->ref_count == 1) {
+            char *dest = &m_data->data[0];
+            int got = source.getChars(dest);
+            m_data->length = (unsigned short)got;
+            m_data->data[m_data->length] = 0;
+            return;
+        }
+        int bytes = len + 9;
+        if (bytes > 0x7fff)
+            throw 1;
+        bytes = ((bytes + 3) / 4) * 4;
+        Header *fresh = (Header *)_STL::allocator<char>::allocate(bytes, (const void *)0x737472);
+        fresh->ref_count = 1;
+        fresh->capacity = (unsigned short)(bytes - 8);
+        fresh->length = 0;
+        int got = source.getChars(&fresh->data[0]);
+        fresh->length = (unsigned short)got;
+        fresh->data[fresh->length] = 0;
+        releaseBuffer();
+        m_data = fresh;
+        return;
+    }
+    releaseBuffer();
 }
