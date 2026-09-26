@@ -70,10 +70,9 @@ Gen0014AE40::Gen0014AE40(AsciiString name) :
 {
 }
 
-// ??1Gen0014AE40@@UAE@XZ present-unmatched
 Gen0014AE40::~Gen0014AE40()
 {
 	if (m_bfmeOwned != 0)
-		delete m_bfmeOwned;
+		::delete m_bfmeOwned;
 	m_bfmeOwned = 0;
 }

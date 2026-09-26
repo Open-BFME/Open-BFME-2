@@ -36116,3 +36116,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ??_GGettingBuiltBehaviorModuleData@@UAEPAXI@Z,,0x004534D9,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-x7q-eb73.cpp,matched,slot0 vtable C40090 calls rowed 453315 plus delete
 ??_GBuffNuggetFXNugget@@UAEPAXI@Z,,0x001E32B7,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-c9a1.cpp,matched,slot0 of vtable 0x7DD9B4 calls rowed 0x1E32D3 plus delete 0x2FD60
 ??1MissileUpdateModuleData@@UAE@XZ,,0x004A7869,51,Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdateModuleDataDtor.cpp,matched,dtor lane single string 0x11C plus BBB554 base vtable 0x853668
+??1Gen0014AE40@@UAE@XZ,,0x002FE0A5,76,Code/GameEngine/Source/Common/Rva0014AE40OwnerDestructor.cpp,matched,owning dtor via global delete and String teardown
