@@ -8,6 +8,7 @@
 class BfmeResetTextureRef {
     void *m_texture;
 public:
+    BfmeResetTextureRef() : m_texture(0) {}
     void clear();
     ~BfmeResetTextureRef();
 };
@@ -40,6 +41,7 @@ public:
 
 class SnowManager {
 public:
+    SnowManager();
     virtual ~SnowManager();
     virtual void init();
 private:
@@ -48,6 +50,7 @@ private:
 
 class W3DSnowManager : public SnowManager {
 public:
+    W3DSnowManager();
     virtual ~W3DSnowManager();
     virtual void init();
     void ReleaseResources();
@@ -56,12 +59,41 @@ private:
     IndexBufferClass *m_indexBuffer;
     BfmeResetTextureRef m_snowTexture;
     IDirect3DVertexBuffer8 *m_vertexBuffer;
-    unsigned int m_targetCounters[3];
-    unsigned char m_targetTail[0x24];
+    unsigned int m_80;
+    unsigned int m_84;
+    unsigned int m_88;
+    unsigned int m_8C;
+    float m_90;
+    float m_94;
+    float m_98;
+    float m_9C;
+    unsigned int m_A0;
+    float m_A4;
+    unsigned int m_A8;
+    unsigned int m_AC;
 };
 
 typedef char SnowBaseExtent[sizeof(SnowManager) == 0x74 ? 1 : -1];
 typedef char W3DSnowExtent[sizeof(W3DSnowManager) == 0xB0 ? 1 : -1];
+
+W3DSnowManager::W3DSnowManager()
+    : m_indexBuffer(0)
+    , m_vertexBuffer(0)
+    , m_80(0)
+    , m_84(0)
+    , m_88(0)
+    , m_8C(0)
+    , m_90(0.0f)
+    , m_94(0.0f)
+    , m_A0(0)
+    , m_A4(0.0f)
+    , m_A8(0)
+    , m_AC(0)
+{
+    float *pair98 = &m_98;
+    pair98[0] = 0.0f;
+    pair98[1] = 0.0f;
+}
 
 void W3DSnowManager::ReleaseResources()
 {
