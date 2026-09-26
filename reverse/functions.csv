@@ -35959,3 +35959,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ??1Rva006166B0List@@UAE@XZ,,0x00616480,5,Code/Libraries/Source/WWVegas/WWLib/ini.cpp,matched,Rva List dtor tail-jumps to rowed GenericList dtor. Called by List deleting dtor 0x6169C0
 ??_GRva006166B0List@@UAEPAXI@Z,,0x006169C0,30,Code/Libraries/Source/WWVegas/WWLib/ini.cpp,matched,Rva List deleting dtor calls rowed Rva dtor 0x616480 then deletes. Vtable 0x87C2E0 slot 0
 ?concat@?$StringBase@G@@QAEXPBGH@Z,0x00037410,0x00037410,134,Code/Libraries/Source/WWVegas/WWLib/StringBaseWideStrLenSet.cpp,matched,pinned name callers set ensure wrapper vtable
+??1OilSpillUpdate@@UAE@XZ,,0x0048C2A3,79,Code/GameEngine/Source/GameLogic/Object/Update/OilSpillUpdateDtor.cpp,matched,dtor frees buf 0x2C via rowed free calls rowed base 0x48BD11
