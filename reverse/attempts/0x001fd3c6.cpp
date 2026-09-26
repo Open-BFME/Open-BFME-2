@@ -1,67 +1,83 @@
 // ?getNthPlayerTemplate@PlayerTemplateStore@@QBEPBVPlayerTemplate@@H@Z
-// partial score=0.93 date=2026-09-23
-// cl: /O1 /DNDEBUG /MD
+// partial score=0.97 date=2026-09-26
+// cl: /O1 /MD /EHsc /D_STLP_USE_STATIC_LIB
+// stlport
 //
 // ?getNthPlayerTemplate@PlayerTemplateStore@@QBEPBVPlayerTemplate@@H@Z,
-// retail 0x001FD3C6, 62 bytes. PlayerTemplateStore indexed accessor with
-// stride-0x1DC bounds check and null-guarded override hop.
+// retail 0x001FD3C6, 62 bytes.
 //
-// Shape: negative-index early-out, (finish-start)/476 via signed idiv
-// (byte-diff members force the explicit divide; typed vector would fold
-// it), upper-bound early-out, start+index*476 element address, then the
-// Overridable hop (ScienceStore precedent: m_nextOverride at +4, out-of-line
-// getFinalOverride via pinned 0x1E35DF only when non-null, otherwise the
-// element itself). Zero new pins (getFinalOverride resolves via the existing
-// Overridable pin). Row supersedes the getNthPlayerTemplate pin.
+// Bounds-checked selection from the template vector with override resolution:
+// out-of-range (or negative) index yields NULL, otherwise the element's final
+// override (the element itself when it has no next override). The first
+// override level is tested inline; deeper levels go through the rowed folded
+// getFinalOverride span at 0x1E35DF (gen-alias object-symbol).
+// Ported from Open-BFME-1
+// Code/GameEngine/Source/Common/RTS/PlayerTemplate.cpp (BFME1 lacks the
+// override branch; BFME2's PlayerTemplate derives from Overridable, which
+// moves m_nameKey to +0x10 and puts m_nextOverride at +0x04).
+// BFME2 facts (all retail-measured):
+// - The template vector triple sits at +0x0C (start/finish/alloc); size() and
+//   operator[] inline to the sub+idiv/imul 0x1DC stride pair, so
+//   sizeof(PlayerTemplate) == 0x1DC.
+// - The sole out-of-line callee is getFinalOverride (thiscall on the +0x04
+//   word); getNextOverride inlines to the mov/test pair.
 
-#define NULL 0
+typedef int Int;
 
-extern "C" void _ReadWriteBarrier(void);
-#pragma intrinsic(_ReadWriteBarrier)
+#include <vector>
 
-class Overridable
+// ZH Overridable.h: Overridable : MemoryPoolObject {
+//   Overridable *m_nextOverride; Bool m_isOverride; ... } with inline
+// getNextOverride and out-of-line getFinalOverride. MemoryPoolObject
+// contributes the leading word (its vtable), modeled here as one pure slot
+// so no vtable is emitted from this TU while m_nextOverride lands at +0x04.
+class MemoryPoolObject
 {
 public:
-	void *m_vftable; // +0
-	Overridable *m_nextOverride; // +4
-	int m_isOverride; // +8
-	int m_third; // +0xC
+	virtual void poolPlaceholder() = 0;
+};
 
+class Overridable : public MemoryPoolObject
+{
+public:
+	const Overridable *getNextOverride() const { return m_nextOverride; }
 	const Overridable *getFinalOverride() const;
+
+private:
+	Overridable *m_nextOverride; // +0x04
+	bool m_isOverride;
 };
 
 class PlayerTemplate : public Overridable
 {
 private:
-	unsigned char m_pad[0x1DC - 0x10]; // total 0x1DC (476)
+	// Trailing members (name key at +0x10, display name at +0x14, ...) are
+	// established by the sibling PlayerTemplateGetName/DisplayName TUs and
+	// untouched by this body; the pad only fixes the retail-measured size.
+	char m_pad[0x1DC - sizeof(Overridable)];
 };
 
 class PlayerTemplateStore
 {
 public:
-	const PlayerTemplate *getNthPlayerTemplate(int index) const;
+	const PlayerTemplate *getNthPlayerTemplate(Int i) const;
 
 private:
-	unsigned char m_pad[0xC]; // +0..+0xB
-	char *m_start; // +0xC
-	char *m_finish; // +0x10
+	// Leading words (subsystem base) untouched by this body.
+	char m_pad[0x0C];
+	std::vector<PlayerTemplate> m_playerTemplates; // +0x0C
 };
 
-// ?getNthPlayerTemplate@PlayerTemplateStore@@QBEPBVPlayerTemplate@@H@Z @0x001FD3C6
-const PlayerTemplate *PlayerTemplateStore::getNthPlayerTemplate(int index) const
+// ?getNthPlayerTemplate@PlayerTemplateStore@@QBEPBVPlayerTemplate@@H@Z
+const PlayerTemplate *PlayerTemplateStore::getNthPlayerTemplate(Int i) const
 {
-	if (index >= 0)
+	if (i >= 0 && i < m_playerTemplates.size())
 	{
-		int count = (int)(m_finish - m_start) / 0x1DC;
-		_ReadWriteBarrier();
-		if ((unsigned int)index < (unsigned int)count)
-		{
-			char *elemAddr = m_start + index * 0x1DC;
-			Overridable *over = *(Overridable **)(elemAddr + 4);
-			if (over == NULL)
-				return (const PlayerTemplate *)elemAddr;
-			return (const PlayerTemplate *)over->getFinalOverride();
-		}
+		const PlayerTemplate &t = *(m_playerTemplates.begin() + i);
+		const Overridable *o = t.getNextOverride();
+		if (o == NULL)
+			return &t;
+		return (const PlayerTemplate *)o->getFinalOverride();
 	}
 	return NULL;
 }
