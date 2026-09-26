@@ -28,6 +28,13 @@ private:
 
 extern "C" void free(void *);
 
+#pragma function(memset)
+extern "C" void *memset(void *dst, int value, unsigned int size);
+
+namespace _STL { template <class _Tp> class allocator; template <> class allocator<char> { public: static char *allocate(unsigned int bytes, const void *hint); }; }
+
+__declspec(noreturn) void __stdcall _CxxThrowException(void *pExc, void *pInfo);
+
 class UnicodeString
 {
 public:
@@ -82,6 +89,7 @@ private:
 	void releaseData();
 	DictPair *findPairByKey(int key) const;
 	void sortPairs();
+	DictPair *ensureUnique(int numPairsNeeded, bool preserveData, DictPair *pairToTranslate);
 
 	DictPairData *m_data;
 };
@@ -155,6 +163,50 @@ void Dict::DictPair::copyFrom(DictPair *that)
 			((StringBase<unsigned short> *)&m_value)->set(*(StringBase<unsigned short> *)&that->m_value);
 			break;
 	}
+}
+
+// ?ensureUnique@Dict@@AAEPAUDictPair@1@H_NPAU21@@Z @0x0031346B 265B
+// Dict::ensureUnique from ZH Dict.cpp donor (BFME1 0x000683D0). Early-out when
+// unique with enough slots, throws 0xDEAD0002 via 0xCFEEE4 info when over
+// MAX_LEN, else rounds to 4 via allocate plus memset and copies via copyFrom.
+// Callers at 0x00313594 0x003136C3 0x003137C4, layout from DictPairData header.
+Dict::DictPair *Dict::ensureUnique(int numPairsNeeded, bool preserveData, DictPair *pairToTranslate)
+{
+	if (m_data && m_data->m_refCount == 1 && m_data->m_numPairsAllocated >= numPairsNeeded)
+		return pairToTranslate;
+	if (numPairsNeeded > 32767)
+	{
+		int marker = 0xdead0002;
+		_CxxThrowException(&marker, (void *)0xCFEEE4);
+	}
+	DictPairData *newData = 0;
+	if (numPairsNeeded > 0)
+	{
+		int minBytes = sizeof(DictPairData) + numPairsNeeded * sizeof(DictPair);
+		int actualBytes = ((minBytes + 3) / 4) * 4;
+		newData = (DictPairData *)_STL::allocator<char>::allocate(actualBytes, 0);
+		memset(newData, 0, actualBytes);
+		newData->m_refCount = 1;
+		newData->m_numPairsAllocated = (actualBytes - sizeof(DictPairData)) / sizeof(DictPair);
+		newData->m_numPairsUsed = 0;
+		if (preserveData && m_data)
+		{
+			int i = 0;
+			DictPair *src = (DictPair *)(m_data + 1);
+			DictPair *dst = (DictPair *)(newData + 1);
+			for (; i < m_data->m_numPairsUsed; ++i, ++src, ++dst)
+				dst->copyFrom(src);
+			newData->m_numPairsUsed = m_data->m_numPairsUsed;
+		}
+	}
+	int delta = 0;
+	if (pairToTranslate && m_data)
+		delta = pairToTranslate - (DictPair *)(m_data + 1);
+	releaseData();
+	m_data = newData;
+	if (pairToTranslate && m_data)
+		pairToTranslate = (DictPair *)(m_data + 1) + delta;
+	return pairToTranslate;
 }
 
 // ?clear@Dict@@QAEXXZ @0x00313574

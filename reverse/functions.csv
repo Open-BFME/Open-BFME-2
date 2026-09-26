@@ -35981,3 +35981,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ?Calculate_Texture_Matrix@StepLinearOffsetTextureMapperClass@@UAEXAAVMatrix4@@@Z,,0x00182E80,400,Code/Libraries/Source/WWVegas/WW3D2/StepLinearOffsetTextureMapperCalculate.cpp,matched,vtable slot 9 of 0x007D56B0 gap Reset ZigZag ZH donor Step Calculate
 ??1RemoveUpgradeUpgrade@@MAE@XZ,,0x004B7F01,32,Code/GameEngine/Source/GameLogic/Object/Upgrade/RemoveUpgradeUpgradeDtor.cpp,matched,dtor 4 vptr stores tail jmp UpgradeModule twin 0x46089D vtable 0x858E20
 ??_GRemoveUpgradeUpgrade@@MAEPAXI@Z,,0x004B7FD5,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-b9d7.cpp,matched,scalar deleting dtor slot 0 vtable 0x858E20 needs dtor 0x4B7F01
+?ensureUnique@Dict@@AAEPAUDictPair@1@H_NPAU21@@Z,,0x0031346B,265,Code/GameEngine/Source/Common/DictPairClear.cpp,matched,Dict ensureUnique from ZH donor with allocate plus memset and copyFrom
