@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /O1 /DNDEBUG /MD /EHsc /G7
 // readable body of ?allocateSlotStorage@W3DBufferManager@@: Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DBufferManager.cpp
 // readable body of ?freeAllSlots@W3DBufferManager@@: Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DBufferManager.cpp
 // readable body of ?getSlot@W3DBufferManager@@: Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DBufferManager.cpp
@@ -394,7 +394,6 @@ W3DBufferManager::W3DVertexBufferSlot *W3DBufferManager::allocateSlotStorage(
 	return NULL;
 }
 
-// ?allocateSlotStorage@W3DBufferManager@@IAEPAUW3DIndexBufferSlot@1@H@Z present-unmatched
 W3DBufferManager::W3DIndexBufferSlot *W3DBufferManager::allocateSlotStorage( Int size )
 {
 	W3DIndexBuffer *pIB = m_W3DIndexBuffers;
