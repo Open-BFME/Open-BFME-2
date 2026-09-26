@@ -140,3 +140,28 @@ bool Rva005FC73BPtrChaseField::get() const
 {
 	return (m_ptr->m_byte >> 7);
 }
+
+// Virtual-fallback ptr-chase getter: if bit 3 of the chased byte is set,
+// tail-jump to virtual slot 1; else return the chased pointer.
+// Retail 0x005FC745 is mov eax,[ecx+0x18] / test byte [eax+0x34],8 /
+// je ret / mov eax,[ecx] / jmp [eax+4] / ret.
+struct Rva005FC745PtrChaseInner
+{
+	char m_pad[0x34];
+	unsigned char m_flag;
+};
+class Rva005FC745PtrChaseField
+{
+	virtual ~Rva005FC745PtrChaseField() {}
+	virtual void *fetch() const = 0;
+	char m_lead[0x18 - 4];
+public:
+	void *get() const;
+	Rva005FC745PtrChaseInner *m_ptr;
+};
+void *Rva005FC745PtrChaseField::get() const
+{
+	if (m_ptr->m_flag & 8)
+		return fetch();
+	return m_ptr;
+}
