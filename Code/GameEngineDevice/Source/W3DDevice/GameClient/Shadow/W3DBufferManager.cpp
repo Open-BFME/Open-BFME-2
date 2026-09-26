@@ -152,7 +152,6 @@ W3DBufferManager::W3DBufferManager(void)
 	}
 }
 
-// ??1W3DBufferManager@@QAE@XZ present-unmatched
 W3DBufferManager::~W3DBufferManager(void)
 {
 	freeAllSlots();

@@ -36027,3 +36027,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ??1GrantUpgradeCreateModuleData@@UAE@XZ,,0x004B914B,48,Code/GameEngine/Source/GameLogic/Object/Create/GrantUpgradeCreateModuleDataDtor.cpp,matched,ModuleData dtor via RefundDie pattern with Snapshot BBB554 and AsciiStringMember at 0x08
 ??1Rva001EA443@@QAE@XZ,,0x001EA443,53,Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp,matched,EH dtor over two StringBase members via pinned 0x36410
 ??_GRva001EA443@@QAEPAXI@Z,,0x001EA4B5,28,Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp,matched,28B deleting dtor calling 0x1EA443 then operator delete
+??1W3DBufferManager@@QAE@XZ,,0x001163E7,10,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DBufferManager.cpp,matched,gap dtor calls freeAllSlots then tail jmps freeAllBuffers
