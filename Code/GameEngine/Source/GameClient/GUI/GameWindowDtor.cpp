@@ -39,7 +39,11 @@ public:
 
 class GameWindow;
 
-class GameWindowManager
+// The global read at 0x00DFE728 is TheIMEManager (WinMain WndProc reads it as
+// such); the other GUI bodies put TheWindowManager at 0x00DFEF1C. Generals
+// ~GameWindow likewise detaches the IME manager when it owns this window.
+// Slot names stay offset placeholders.
+class IMEManager
 {
 public:
 	virtual void m00() = 0;
@@ -65,7 +69,7 @@ public:
 	virtual GameWindow *m50() = 0;
 };
 
-extern GameWindowManager *TheWindowManager;
+extern IMEManager *TheIMEManager;
 
 void __cdecl BFME_DX8_Thread_Lock();
 bool __cdecl BFME_DX8_Thread_Assert();
@@ -114,8 +118,8 @@ private:
 
 GameWindow::~GameWindow()
 {
-	if ( TheWindowManager && TheWindowManager->m50() == this )
-		TheWindowManager->m3C();
+	if ( TheIMEManager && TheIMEManager->m50() == this )
+		TheIMEManager->m3C();
 
 	if ( m_inputData )
 		delete m_inputData;
