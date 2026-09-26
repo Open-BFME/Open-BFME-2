@@ -103,6 +103,16 @@ class UnicodeString;
 class PooledString;
 struct XferUnknown11;
 
+struct XferException
+{
+	void *text;
+	int tag;
+};
+
+extern "C" XferException *__cdecl bfmeFormatText(XferException *result, int tag, const char *format, ...);
+__declspec(noreturn) void __stdcall _CxxThrowException(void *object, void *throwInfo);
+extern int g_guardTargetTypeThrowInfo;
+
 // The retail vtable at 0x00BBB910 is 39 slots wide and the primitive transfer
 // operators call slot 38 (0x98) through it, so every preceding slot has to be
 // declared here in retail order even where only the pure-virtual shape of it is
@@ -388,5 +398,31 @@ Xfer &Xfer::XferRawBytes(void *data, unsigned int size)
     XferData('raw', &size, sizeof(size));
     XferData(0, data, size);
 
+    return *this;
+}
+
+Xfer &Xfer::XferEnum(const char *name, void *data, unsigned int size)
+{
+    if (size == 0 || size > 4)
+    {
+        XferException error;
+        bfmeFormatText(&error, 4, 0);
+        _CxxThrowException(&error, &g_guardTargetTypeThrowInfo);
+    }
+    switch (size)
+    {
+    case 1:
+        XferData(0x656E7531, data, 1);
+        break;
+    case 2:
+        XferData(0x656E7532, data, 2);
+        break;
+    case 3:
+        XferData(0x656E7533, data, 3);
+        break;
+    case 4:
+        XferData(0x656E7534, data, 4);
+        break;
+    }
     return *this;
 }
