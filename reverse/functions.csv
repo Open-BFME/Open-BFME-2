@@ -35837,3 +35837,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ??_GImage@@UAEPAXI@Z,,0x002D9262,28,Code/GameEngine/Source/GameClient/GUI/ImageDtor.cpp,matched,Image deleting dtor; implicit emission over rowed 0x2D91CC
 ?ErrorExit@@YAXXZ,,0x006B8C20,8,Code/Libraries/Source/WWVegas/WWDebug/ErrorExit.cpp,matched,WWDebug fatal exit path pushes status 1 then calls msvcr71 exit via import at 0xBBA608; body identity supported by existing REL32 pin
 ?pop@FreelistPool@@QAEPAXXZ,,0x002393E2,38,Code/GameEngine/Source/GameLogic/Object/Update/FreelistPoolPop.cpp,matched,behavior node pool pop with grow retry via pinned grow
+?set@Rva00549237Setter@@QAEXH@Z,,0x00549237,27,Code/GameEngine/Source/Common/Rva00549237ClampedSetter.cpp,matched,clamp setter 2 to 6 at plus 4; sole caller 0x549556 in 0x1BC stride loop; first-try exact
