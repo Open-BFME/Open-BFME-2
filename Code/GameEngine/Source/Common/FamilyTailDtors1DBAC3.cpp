@@ -13,6 +13,11 @@
 // of vtable 0x00816594): same range-select shape with second window at +0x4C
 // (not +0x44); first equality branch hides only m_44. Evidence: vtable
 // 0x00816594 slot 2 plus rowed winHide 0x00313C64.
+// vslot 0x0035E97E (?init@ButtonFlashTransition@@UAEXPAVGameWindow@@@Z, 135B,
+// slot 1 offset 0x4 of vtable 0x008165F0): BFME1 ButtonFlash init reuse;
+// Gradient image to +0x24 via StringBase/findImage; update(0) via slot 2.
+// Evidence: donor GameWindowTransitionsStyles plus string Gradient plus
+// vtable 0x008165F0 slot 1 plus winGetSize/Position rows.
 
 class Rva001DBAC3Base { public: virtual ~Rva001DBAC3Base(); };
 
@@ -20,6 +25,8 @@ class GameWindow
 {
 public:
 	int winHide(bool hide);
+	int winGetSize(int *width, int *height);
+	int winGetScreenPosition(int *x, int *y);
 };
 
 class Rva0035D47B : public Rva001DBAC3Base { public: virtual ~Rva0035D47B(); int m_pad[2]; int m_field; };
@@ -165,6 +172,114 @@ void famgenDelete(Rva0035E2CF *p) { delete p; }
 class Rva0035E378 : public Rva001DBAC3Base { public: virtual ~Rva0035E378(); int m_pad[2]; int m_field; };
 Rva0035E378::~Rva0035E378() { m_field = 0; }
 void famgenDelete(Rva0035E378 *p) { delete p; }
+
+// ?init@ButtonFlashTransition@@UAEXPAVGameWindow@@@Z @ 0x0035E97E (135B):
+// slot 1 offset 0x4 of vtable 0x008165F0 (class of ??1Rva0035E378@@UAE@XZ).
+// Direct reuse of open-bfme-1 ButtonFlashTransition::init
+// (GameWindowTransitionsStyles.cpp + ButtonFlashTransition_init_Thunk.cpp):
+// winGetSize/Position into +0x18/+0x1C/+0x10/+0x14, update(0) via slot 2,
+// isFinished/isForward at +8/+9, Gradient image to +0x24 via rowed
+// StringBase ctor 0x37BA0, findImage 0x2D92F6 and pinned dtor 0x36410.
+struct ICoord2D
+{
+	int x;
+	int y;
+};
+
+template <typename T>
+class StringBase
+{
+	friend class AsciiString;
+
+private:
+	StringBase(const T *s);
+	StringBase(const StringBase<T> &that);
+	void releaseBuffer();
+
+	struct Header
+	{
+		int ref_count;
+		unsigned short length;
+		unsigned short capacity;
+		T data[1];
+	};
+	Header *m_data;
+
+public:
+	void set(const T *s);
+	void set(const StringBase<T> &that);
+};
+
+class AsciiString
+{
+public:
+	AsciiString(const char *s) : m_data(s) {}
+	~AsciiString();
+	AsciiString &operator=(const char *s)
+	{
+		m_data.set(s);
+		return *this;
+	}
+
+private:
+	StringBase<char> m_data;
+};
+
+class Image;
+
+class ImageCollection
+{
+public:
+	const Image *findImageByName(const AsciiString &name);
+};
+
+extern ImageCollection *TheMappedImageCollection;
+
+class Transition
+{
+public:
+	virtual ~Transition();
+	virtual void init(GameWindow *) = 0;
+	virtual void update(int) = 0;
+	virtual void reverse() = 0;
+	virtual void draw() = 0;
+	virtual void skip() = 0;
+
+protected:
+	int m_frameLength;
+	bool m_isFinished;
+	bool m_isForward;
+	bool m_isReversed;
+	unsigned char m_pad0b;
+	GameWindow *m_win;
+};
+
+class ButtonFlashTransition : public Transition
+{
+public:
+	virtual void init(GameWindow *);
+
+protected:
+	ICoord2D m_pos;
+	ICoord2D m_size;
+	int m_drawState;
+	const Image *m_gradient;
+};
+
+void ButtonFlashTransition::init(GameWindow *win)
+{
+	if (win) {
+		m_win = win;
+		m_win->winGetSize(&m_size.x, &m_size.y);
+		m_win->winGetScreenPosition(&m_pos.x, &m_pos.y);
+	}
+	m_isForward = false;
+	update(0);
+	m_isFinished = false;
+	m_isForward = true;
+	AsciiString gradient("Gradient");
+	m_gradient = TheMappedImageCollection->findImageByName(gradient);
+}
 
 class Rva0035ED92 : public Rva001DBAC3Base { public: virtual ~Rva0035ED92(); int m_pad[2]; int m_field; };
 Rva0035ED92::~Rva0035ED92() { m_field = 0; }
