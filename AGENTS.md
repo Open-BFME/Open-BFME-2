@@ -78,6 +78,21 @@ Record the successful check time locally in ignored `build/bfme1-last-check.txt`
 do not repeat the check per transfer. After a pointer change, run BFME 2's full
 build verification and include the verified pointer in the next commit batch.
 
+**The pointer bump to current upstream is blocked; do not retry it without
+fixing this first.** Upstream restructured its tree — `Code/` -> `game/`,
+`reference/` -> `inputs/reference/`, `build/toolchains/` -> `inputs/toolchains/`,
+`baselines/` -> `inputs/baselines/`, `vendor/` -> `inputs/vendor/`. BFME 2's own
+tooling is layout-agnostic and survives the move (`build.bfme1_subtree()` probes
+both spellings), but **626 byte-matched sources under `Code/` name the submodule's
+old `Code/` prefix in their `// cl:` provenance line**. Those `/I` directories
+silently stop existing after the bump: `cl` does not error on a missing include
+directory, so 6070 of 6071 TUs still compiled and only `WWMath/matrix3d.cpp`
+failed outright (its shim's `always.h` had no other source). The rest resolved
+their headers from somewhere else, unverified. Rewriting the 626 provenance lines
+to `game/` is not a free rename either: it would re-point them at headers carrying
+1785 commits of drift, changing codegen for 626 already-matched TUs. Land a
+verified path-migration plan for those `// cl:` lines before moving the pointer.
+
 ## Work the file, not the row
 
 `next_work.py` lists every other queued candidate in the same source file.

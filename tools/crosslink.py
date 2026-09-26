@@ -21,6 +21,9 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import build  # noqa: E402  (bfme1_path resolves the submodule's two layouts)
+
 LEDGER = ROOT / "reverse" / "functions.csv"
 SOURCE_SUFFIXES = (".cpp", ".h")
 SKIP_DIRS = ("gen_asm", "gen_small", "masm_dumps")
@@ -34,7 +37,7 @@ CLASS_RE_MULTI = re.compile(r"\b(?:class|struct)\s+(?:[A-Z_]+\s+)?(\w+)\s*(?::[^
 # base-class clause. Scan a short way ahead, and stop at `;` -- that is a forward
 # declaration, which has no layout to point at.
 DEFINITION_LOOKAHEAD = 4
-UPSTREAM = ROOT / "reference" / "open-bfme-1" / "reference" / "CnC_Generals_Zero_Hour" / "GeneralsMD" / "Code"
+UPSTREAM = build.bfme1_path("reference", "CnC_Generals_Zero_Hour", "GeneralsMD", "Code")
 FORWARD = "// byte-exact reconstruction: "
 REVERSE = "// readable body of "
 LAYOUT = "// upstream layout: "

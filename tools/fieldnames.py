@@ -50,9 +50,12 @@ import struct
 import sys
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import build  # noqa: E402  (bfme1_subtree resolves the submodule's two layouts)
+
 DEFAULT_ROOT = Path(__file__).resolve().parents[1]
 BINARY = "baselines/bfme2/workshop-vanilla-1.06/files/game.dat"
-UPSTREAM = "reference/open-bfme-1/reference/CnC_Generals_Zero_Hour"
+UPSTREAM = f"reference/open-bfme-1/{build.bfme1_subtree('reference')}/CnC_Generals_Zero_Hour"
 OUT = "reverse/field_names.csv"
 COLUMNS = ["table_rva", "ini_key", "bfme_offset", "upstream_class",
            "upstream_member", "votes", "margin", "notes"]

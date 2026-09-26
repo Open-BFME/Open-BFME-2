@@ -59,7 +59,12 @@ VENDORED_ROOTS = (
     # happens to compile to the same bytes -- so it belongs beside the other
     # upstreams rather than in the reverse-engineered figure. (EA-authored
     # libraries that BFME itself ships under Code/ are the game and stay out.)
+    # Both submodule layouts are listed, not just the current one: these are
+    # prefixes of ledger `source` values, so dropping the legacy spelling
+    # would silently reclassify any row recorded before upstream's move.
     "reference/open-bfme-1/reference/CnC_Generals_Zero_Hour/",
+    "reference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/",
+    "reference/open-bfme-1/inputs/toolchains/",
 )
 # GameSpy's SDK is the one vendored library that cannot be routed by directory:
 # EA dropped its C sources straight into the game's own C++ directory, so

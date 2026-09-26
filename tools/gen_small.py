@@ -3963,7 +3963,8 @@ def cmd_gen_tgrid(args):
 # name names. Nothing is placed by search, so there is no ambiguity to resolve.
 
 TINST_NOTE = "gen-tinst"
-TINST_REF = "reference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code"
+TINST_REF = (f"reference/open-bfme-1/{B.bfme1_subtree('reference')}"
+             "/CnC_Generals_Zero_Hour/GeneralsMD/Code")
 TINST_INCDIRS = [f"{TINST_REF}/GameEngine/Include", f"{TINST_REF}/GameEngine/Source",
                  f"{TINST_REF}/GameEngineDevice/Include", f"{TINST_REF}/Libraries/Include",
                  f"{TINST_REF}/Libraries/Source", f"{TINST_REF}/Libraries/Source/WWVegas",

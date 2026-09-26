@@ -129,18 +129,46 @@ def extract_lib_members(rows):
         print(f"Lib members: {sum(len(n) for n in wanted.values())} extracted from "
               f"{len(wanted)} archive(s)")
 NOOP_EXE = PATCH_DIR / "game.noop.dat"
+# Open-BFME-1 restructured its tree: Code/ -> game/, reference/ ->
+# inputs/reference/, build/toolchains/ -> inputs/toolchains/, baselines/ ->
+# inputs/baselines/, vendor/ -> inputs/vendor/. Every path this repo reaches
+# into the submodule with goes through bfme1_subtree(), which probes both
+# spellings, so a clone pinned to either submodule commit resolves the same
+# logical subtree and nothing has to be set by hand.
+BFME1_ROOT = ROOT / "reference" / "open-bfme-1"
+_BFME1_LAYOUTS = {
+    # logical name: (current upstream spelling, legacy spelling)
+    "reference": ("inputs/reference", "reference"),
+    "toolchains": ("inputs/toolchains", "build/toolchains"),
+    "baselines": ("inputs/baselines", "baselines"),
+    "vendor": ("inputs/vendor", "vendor"),
+    "game": ("game", "Code"),
+}
+
+
+def bfme1_subtree(kind):
+    """Relative posix path of one logical open-bfme-1 subtree, layout-agnostic.
+
+    Returns the first spelling that exists, else the current upstream one, so
+    a "missing submodule" message names where the tree belongs today rather
+    than the location upstream retired.
+    """
+    candidates = _BFME1_LAYOUTS[kind]
+    for relative in candidates:
+        if (BFME1_ROOT / relative).exists():
+            return relative
+    return candidates[0]
+
+
+def bfme1_path(kind, *parts):
+    """Absolute path inside one logical open-bfme-1 subtree."""
+    return BFME1_ROOT.joinpath(bfme1_subtree(kind), *parts)
+
+
 # The MSVC 7.1 toolchain ships in the Open-BFME-1 submodule; this repo does not
 # duplicate it. A missing path here means `git submodule update --init`.
-DEFAULT_VC71_ROOT = (
-    ROOT
-    / "reference"
-    / "open-bfme-1"
-    / "build"
-    / "toolchains"
-    / "vs2003"
-    / "Program Files"
-    / "Microsoft Visual Studio .NET 2003"
-)
+DEFAULT_VC71_ROOT = bfme1_path(
+    "toolchains", "vs2003", "Program Files", "Microsoft Visual Studio .NET 2003")
 _WINE_PATH_CACHE = {}
 _WINE_PATH_LOCK = threading.Lock()
 
@@ -476,11 +504,11 @@ def stlport_include_dir():
 # Code/ source uses to declare its build settings; a row sourced from here gets
 # its flags from the path instead. Both settings below are what the 420-TU sweep
 # compiled and matched with.
-ZH_REFERENCE_ROOT = ROOT / "reference" / "open-bfme-1" / "reference" / "CnC_Generals_Zero_Hour" / "GeneralsMD" / "Code"
+ZH_REFERENCE_ROOT = bfme1_path("reference", "CnC_Generals_Zero_Hour", "GeneralsMD", "Code")
 # The base game beside it. BFME forked the SAGE engine before Zero Hour did, so
 # where the expansion's copy of a translation unit drifted, the base game's copy
 # is the one whose bodies still compile byte-true.
-GENERALS_REFERENCE_ROOT = ROOT / "reference" / "open-bfme-1" / "reference" / "CnC_Generals_Zero_Hour" / "Generals" / "Code"
+GENERALS_REFERENCE_ROOT = bfme1_path("reference", "CnC_Generals_Zero_Hour", "Generals", "Code")
 _ZH_INCLUDE_PARTS = (
     "GameEngine/Include", "GameEngine/Source", "Libraries/Include",
     "Libraries/Source", "Libraries/Source/Compression",
@@ -941,8 +969,8 @@ def load_symbol_map():
 # default path so they never change codegen for the 10k+ already-matched sources.
 _SWEEP_INCLUDE_DIRS = [
     ROOT / "reference" / "shims" / "sweep",
-    ROOT / "reference" / "open-bfme-1" / "reference" / "CnC_Generals_Zero_Hour" / "GeneralsMD" / "Code",
-    ROOT / "reference" / "open-bfme-1" / "reference" / "CnC_Generals_Zero_Hour" / "GeneralsMD" / "Code" / "Include",
+    ZH_REFERENCE_ROOT,
+    ZH_REFERENCE_ROOT / "Include",
 ]
 
 

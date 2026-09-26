@@ -46,7 +46,7 @@ import progress as P
 ROOT = Path(__file__).resolve().parents[1]
 GHIDRA = ROOT / "reverse" / "ghidra_functions.csv"
 XREFS = ROOT / "reverse" / "string_xrefs.tsv"
-ZH = ROOT / "reference" / "open-bfme-1" / "reference" / "CnC_Generals_Zero_Hour"
+ZH = build.bfme1_path("reference", "CnC_Generals_Zero_Hour")
 OUT = ROOT / "reverse" / "anchored_candidates.csv"
 
 # Short literals ("OK", "%d") are shared by hundreds of functions and identify
