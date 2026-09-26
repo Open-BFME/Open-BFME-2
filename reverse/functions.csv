@@ -36094,3 +36094,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ??_GSpecialDisguiseUpdateModuleData@@UAEPAXI@Z,,0x004B044C,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-zqk.cpp,matched,slot0 vtable 0x563F8 calls rowed 0x4B0468 plus delete
 ??1SlaveWatcherBehavior@@UAE@XZ,,0x00484739,112,Code/GameEngine/Source/GameLogic/Object/Behavior/SlaveWatcherBehaviorDtor.cpp,matched,ctor 0x4845CB vtable 0xC4A264 slot0 0x4848CA base 0x24A797 kill 0x2984D4 donor BFME1 destructors
 ??1GiveOrRestoreUpgradeSpecialPowerModuleData@@UAE@XZ,,0x004CD2E8,74,Code/GameEngine/Source/GameLogic/Object/SpecialPower/GiveOrRestoreUpgradeSpecialPowerModuleDataDtor.cpp,matched,strings plus DamageModuleBase; ctor TU layout
+??_GSlaveWatcherBehavior@@UAEPAXI@Z,,0x004848CA,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-a0ab.cpp,matched,slot0 of vtable 0xC4A264 calls rowed dtor 0x484739
