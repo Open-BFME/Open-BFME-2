@@ -22,3 +22,10 @@ void famgenDelete(BuffNuggetFXNugget *p) { delete p; }
 class W3DLaserDrawModuleData { public: __declspec(noinline) virtual ~W3DLaserDrawModuleData(); private: int m_famgen; };
 W3DLaserDrawModuleData::~W3DLaserDrawModuleData() { m_famgen = 0; }
 void famgenDelete(W3DLaserDrawModuleData *p) { delete p; }
+
+// ??_GCaveContain@@MAEPAXI@Z @0x004666AD 28B
+// Deleting dtor slot 0 of vtable 0x00843CB8; calls rowed ??1 at 0x004663B2 then rowed operator delete at 0x0002FD60.
+class CaveContain { protected: __declspec(noinline) virtual ~CaveContain(); private: int m_famgen;
+  friend void famgenDelete(CaveContain *p); };
+CaveContain::~CaveContain() { m_famgen = 0; }
+void famgenDelete(CaveContain *p) { delete p; }
