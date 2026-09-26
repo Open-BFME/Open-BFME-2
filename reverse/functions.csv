@@ -35874,3 +35874,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ??1InvisibilityUpdate@@MAE@XZ,,0x004A389F,32,Code/GameEngine/Source/GameLogic/Object/Update/InvisibilityUpdateDtor.cpp,matched,InvisibilityUpdate dtor 4 vptr stores plus tail-jmp UpdateModule base
 ??_GInvisibilityUpdate@@MAEPAXI@Z,,0x004A3883,28,Code/GameEngine/Source/GameLogic/Object/Update/InvisibilityUpdateDtor.cpp,matched,InvisibilityUpdate deleting dtor slot0 vtable 852534
 ?compare@?$StringBase@G@@QBEHG@Z,0x00036150,0x00036150,57,Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp,matched,gap between narrow endsWithNoCase and wide startsWith with wide worker and single-char shape and narrow sibling at 0x35F60
+??1DelayedWeaponSetUpgradeUpdate@@MAE@XZ,,0x00488268,32,Code/GameEngine/Source/GameLogic/Object/Update/DelayedWeaponSetUpgradeUpdateDtor.cpp,matched,four vptrs plus tail-jmp pinned UpdateModule 0x24A797 and BFME1 donor
