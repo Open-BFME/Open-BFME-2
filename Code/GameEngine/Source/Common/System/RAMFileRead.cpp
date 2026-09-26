@@ -14,6 +14,7 @@ class File
 {
 public:
 	virtual int read(void *buffer, int bytes);
+	virtual void nextLine(char *buf, int bufSize);
 
 protected:
 	void *m_nameStr;	// +0x04 AsciiString untouched here
@@ -27,6 +28,7 @@ class RAMFile : public File
 {
 public:
 	virtual int read(void *buffer, int bytes);
+	virtual void nextLine(char *buf, int bufSize);
 
 protected:
 	char *m_data;	// +0x14
@@ -56,4 +58,40 @@ int RAMFile::read(void *buffer, int bytes)
 	m_pos += bytes;
 
 	return bytes;
+}
+
+// ?nextLine@RAMFile@@UAEXPADH@Z @ 0x006055E7 (119B): slot 6 (offset 0x18) of
+// vtable 0x0087AA00. ZH GameEngine RAMFile::nextLine verbatim: seek past
+// newline with bounded buf copy, copy the newline itself, null-terminate,
+// clamp m_pos to m_size. Contiguous with rowed read 0x00605564.
+void RAMFile::nextLine(char *buf, int bufSize)
+{
+	int i = 0;
+	// seek to the next new-line character
+	while ((m_pos < m_size) && (m_data[m_pos] != '\n')) {
+		if ((buf != NULL) && (i < (bufSize - 1))) {
+			buf[i] = m_data[m_pos];
+			++i;
+		}
+		++m_pos;
+	}
+
+	// we got to the new-line character, now go one past it.
+	if (m_pos < m_size) {
+		if ((buf != NULL) && (i < bufSize)) {
+			buf[i] = m_data[m_pos];
+			++i;
+		}
+		++m_pos;
+	}
+	if (buf != NULL) {
+		if (i < bufSize) {
+			buf[i] = 0;
+		} else {
+			buf[bufSize] = 0;
+		}
+	}
+	if (m_pos >= m_size) {
+		m_pos = m_size;
+	}
 }

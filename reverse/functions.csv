@@ -36210,3 +36210,4 @@ _Rva00680420,,0x00680420,17,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,mat
 ??1W3DFloorDrawModuleData@@UAE@XZ,,0x000CF6C3,80,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DFloorDrawModuleDataDtor.cpp,matched,vtable 0xBCD5D8 plus free 0x30830 plus vector 0xCF60B plus base 0xCEF3C
 ?read@RAMFile@@UAEHPAXH@Z,,0x00605564,70,Code/GameEngine/Source/Common/System/RAMFileRead.cpp,matched,slot3 of vtable 0087AA00 plus ZH GameEngine RAMFile read verbatim plus cmov via archSSE
 ??_GW3DFloorDrawModuleData@@UAEPAXI@Z,,0x000CF820,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-e4e5.cpp,matched,slot 0 of vtable 0xBCD5D8 plus dtor 0xCF6C3 plus delete 0x2FD60
+?nextLine@RAMFile@@UAEXPADH@Z,,0x006055E7,119,Code/GameEngine/Source/Common/System/RAMFileRead.cpp,matched,slot6 of vtable 0087AA00 plus ZH GameEngine RAMFile nextLine verbatim
