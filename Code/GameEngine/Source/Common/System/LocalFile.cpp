@@ -83,6 +83,7 @@ public:
 	~AsciiString() { releaseBuffer(); }
 
 	void clear();
+	AsciiString &operator=(const AsciiString &other);
 
 	void concat(const char *text, int length)
 	{
@@ -247,7 +248,33 @@ class StreamingArchiveFile : public RAMFile
 {
 public:
 	virtual ~StreamingArchiveFile();
+	virtual bool openFromArchive(File *archiveFile, const AsciiString &filename, int offset, int size);
+
+protected:
+	File *m_file;		// +0x20
+	int m_startingPos;	// +0x24
+	int m_curPos;		// +0x28
 };
+
+class Debug
+{
+public:
+	virtual void pad00(); virtual void pad01(); virtual void pad02(); virtual void pad03();
+	virtual void pad04(); virtual void pad05(); virtual void pad06(); virtual void pad07();
+	virtual void pad08(); virtual void pad09(); virtual void pad10(); virtual void pad11();
+	virtual void pad12(); virtual void pad13();
+	virtual Debug &operator<<(const char *str);
+	virtual void pad15(); virtual void pad16(); virtual void pad17(); virtual void pad18();
+	virtual bool CrashDone(int mode);
+	virtual void pad20(); virtual void pad21(); virtual void pad22();
+	virtual void SetCrashAddress(void *returnAddress, int set);
+	virtual void SkipNext();
+	virtual void pad25(); virtual void pad26();
+	virtual Debug &CrashBegin(const char *file, int line, int reserved);
+};
+
+extern Debug *theDebug;
+extern void _bfme_debugRecordCallsite(int kind);
 
 // The running count of open local files, retail 0x0134D064. Bumped once per
 // successful _open and never read here, so only the increment is visible.
@@ -668,6 +695,65 @@ bool RAMFile::copyDataToFile( File *file )
 	{
 		return false;
 	}
+
+	return true;
+}
+
+// ?openFromArchive@StreamingArchiveFile@@UAE_NPAVFile@@ABVAsciiString@@HH@Z @ 0x00605B68 (240B)
+// Slot 18 (offset 0x48) of vtable 0x0087AA50. BFME1 StreamingArchiveFile::openFromArchive
+// with the BFME2 compressed-archive guard: stores m_file/m_startingPos/RAMFile m_size/m_curPos,
+// verifies seek(offset)+seek(size) bracket, rewinds, reads the 2-byte compression marker at
+// [ebp+8] (reused dead arg slot), reports 0x15fb through theDebug SkipNext/CrashBegin/operator<</
+// CrashDone plus _bfme_debugRecordCallsite(1), rewinds, assigns the name, returns true.
+// Donor: reference/open-bfme-1/Code/Libraries/Source/file/StreamingArchiveFile.cpp
+// (File::open READ|BINARY|STREAMING, seek START/CURRENT, read 2, 0x15fb, debug, seek, assign).
+// Vtable 0x0087AA50 and neighbours ??_GStreamingArchiveFile 0x00605B1A / dtor 0x00605A45 prove
+// StreamingArchiveFile; string 0x00C7AAA0 and theDebug 0x00DE0880 are DIR32-filled.
+bool StreamingArchiveFile::openFromArchive( File *archiveFile, const AsciiString &filename, int offset, int size )
+{
+	if( archiveFile == NULL )
+	{
+		return false;
+	}
+
+	if( File::open( filename.str(), File::READ | File::BINARY | File::STREAMING ) == false )
+	{
+		return false;
+	}
+
+	m_file = archiveFile;
+	m_startingPos = offset;
+	RAMFile::m_size = size;
+	m_curPos = 0;
+
+	if( m_file->seek( offset, File::START ) != offset )
+	{
+		return false;
+	}
+
+	if( m_file->seek( size, File::CURRENT ) != m_startingPos + size )
+	{
+		return false;
+	}
+
+	m_file->seek( offset, File::START );
+
+	unsigned short compressionMarker = 0;
+	if( m_file->read( &compressionMarker, 2 ) != 2 )
+	{
+		return false;
+	}
+
+	if( compressionMarker == 0x15fb )
+	{
+		_bfme_debugRecordCallsite( 1 );
+		theDebug->SkipNext();
+		( theDebug->CrashBegin( 0, 0, 0 ) << "Streaming from a compressed archive file is not supported" ).CrashDone( 1 );
+	}
+
+	m_file->seek( offset, File::START );
+
+	*(AsciiString *)( &m_nameStr ) = filename;
 
 	return true;
 }
