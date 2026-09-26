@@ -11,6 +11,7 @@
 extern "C" void *__cdecl memcpy(void *dst, const void *src, unsigned int n);
 extern "C" __declspec(dllimport) int __cdecl isspace(int c);
 extern "C" __declspec(dllimport) int __cdecl atoi(const char *text);
+extern "C" __declspec(dllimport) double __cdecl atof(const char *text);
 
 template <typename T> class StringBase
 {
@@ -94,6 +95,7 @@ public:
 	virtual int read(void *buffer, int bytes);
 	virtual void nextLine(char *buf, int bufSize);
 	virtual bool scanInt(int &newInt);
+	virtual bool scanReal(float &newReal);
 	virtual bool scanString(AsciiString &newString);
 	virtual bool openFromArchive(File *archiveFile, const AsciiString &filename, int offset, int size);
 
@@ -249,5 +251,41 @@ bool RAMFile::scanInt(int &newInt)
 		((m_data[m_pos] >= '0') && (m_data[m_pos] <= '9')));
 
 	newInt = atoi(tempstr.str());
+	return true;
+}
+
+// ?scanReal@RAMFile@@UAE_NAAM@Z @ 0x006058CD (232B): slot 8 (offset 0x20) of
+// vtable 0x0087AA00. ZH GameEngine RAMFile::scanReal verbatim with BFME2
+// (temp,1) concat spelling.
+bool RAMFile::scanReal(float &newReal)
+{
+	newReal = 0.0f;
+	AsciiString tempstr;
+	bool sawDec = false;
+
+	while ((m_pos < m_size) &&
+		((m_data[m_pos] < '0') || (m_data[m_pos] > '9')) &&
+		(m_data[m_pos] != '-') && (m_data[m_pos] != '.')) {
+		++m_pos;
+	}
+
+	if (m_pos >= m_size) {
+		m_pos = m_size;
+		return false;
+	}
+
+	do {
+		char value[2];
+		value[0] = m_data[m_pos];
+		tempstr.concat(value, 1);
+		if (m_data[m_pos] == '.') {
+			sawDec = true;
+		}
+		++m_pos;
+	} while ((m_pos < m_size) &&
+		(((m_data[m_pos] >= '0') && (m_data[m_pos] <= '9')) ||
+		((m_data[m_pos] == '.') && !sawDec)));
+
+	newReal = (float)atof(tempstr.str());
 	return true;
 }
