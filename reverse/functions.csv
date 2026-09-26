@@ -35879,3 +35879,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ??1SpecialEnemySenseUpdateModuleData@@UAE@XZ,,0x0025525B,48,Code/GameEngine/Source/GameLogic/Object/Update/SpecialEnemySenseUpdateModuleDataDtor.cpp,matched,dtor via Snapshot BBB554 base filter 0x360D26 caller slot0 0x25523F
 ?Rva004A390B@InvisibilityUpdate@@MAEXXZ,,0x004A390B,49,Code/GameEngine/Source/GameLogic/Object/Update/InvisibilityUpdateRva004A390B.cpp,matched,InvisibilityUpdate vslot5 stealth-gated wake refresh via setWakeFrame
 ?get@Rva0042D703PtrChaseField@@QBEHXZ,,0x0042D703,17,Code/GameEngine/Source/Common/Disp0PtrChaseDwordGetters.cpp,matched,null-checked ptr-chase plus tail-jmp rowed getter 0x225A98 and 14 callers
+??_GSpecialEnemySenseUpdateModuleData@@UAEPAXI@Z,,0x0025523F,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-e2de.cpp,matched,slot0 vtable 0xBF1AD8 calls rowed 0x25525B
