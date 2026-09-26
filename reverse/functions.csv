@@ -35510,3 +35510,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ?Rva001FF282Get@@YAHXZ,,0x001FF282,6,Code/GameEngine/Source/Common/ConstIntGetters8.cpp,matched,B8-6 const-int returner batch; cold slice
 ?Rva00203517Get@@YAHXZ,,0x00203517,6,Code/GameEngine/Source/Common/ConstIntGetters8.cpp,matched,B8-6 const-int returner batch; cold slice
 ?Rva0020D4DDGet@@YAHXZ,,0x0020D4DD,6,Code/GameEngine/Source/Common/ConstIntGetters8.cpp,matched,B8-6 const-int returner batch; cold slice
+?Rva0032C0CADestroyPairs@@YAXPAURvaPair0032C0CA@@0@Z,,0x0032C0CA,25,Code/Libraries/Source/WWVegas/WWLib/Rva0032C0CADestroyPairs.cpp,matched,8-byte pair range destroy via rowed AsciiString dtor; called by 8-byte vector erase at 0x207F0D
