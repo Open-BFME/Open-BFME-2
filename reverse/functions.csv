@@ -35893,3 +35893,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ??1RefundDieModuleData@@UAE@XZ,,0x00255067,48,Code/GameEngine/Source/GameLogic/Object/Die/RefundDieModuleDataDtor.cpp,matched,dtor via Snapshot BBB554 base filter 0x360D26 slot0 0x5504B
 ??0BuffNuggetFXNugget@@QAE@XZ,,0x001E2FCE,295,Code/GameEngine/Source/GameClient/BuffNuggetFXNuggetCtor.cpp,matched,BFME1 donor plus FieldParse 0xBDCEB8 plus parse caller 0x1E3265
 ?allocateSlotStorage@W3DBufferManager@@IAEPAUW3DIndexBufferSlot@1@H@Z,,0x001162BE,297,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DBufferManager_Slots.cpp,matched,BFME1 donor Slots index body with G7 for add-imul-add shape
+??0BoneFXUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,,0x004878E6,307,Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateCtor.cpp,matched,ZH donor verbatim plus explicit secondaries and SSE O1
