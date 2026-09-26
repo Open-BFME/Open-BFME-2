@@ -1767,3 +1767,8 @@ Catch@00630215	0x00230215	390	blocked	catch(ErrorCode) funclet of GameEngine::in
 ??1?$SimpleVecClass@VAABoxClass@@@@UAE@XZ	0x007B7480	59	blocked	retail 59B singleton teardown with vtable 0xBD4EE4 not 41B dtor; same family as 0x7B73C0 t=10
 ??_G?$SimpleVecClass@VAABoxClass@@@@UAEPAXI@Z	0x007972E4	14	blocked	retail 14B mov-ecx add-0x9c jmp-0x52D20C thunk not 61B deleting dtor t=5
 ?Rva00318B39Frag@@YAHXZ	0x00318B39	6	blocked	je at 0x318b30 targets the B8; conditional-arm frag not a standalone function; t=10
+?Rva0001B052Frag@@YAHXZ	0x0001B052	6	blocked	mid-fn fragment inside rowed Stl_is_inf 0x1B030; t=10
+?Rva00035750Frag@@YAHXZ	0x00035750	6	blocked	mid-fn fragment inside rowed 0x35740; t=5
+?Rva006906FCFrag@@YAHXZ	0x006906FC	6	blocked	mid-fn fragment inside rowed 0x6906C0; t=5
+?Rva0012A994Frag@@YAHXZ	0x0012A994	6	blocked	mid-fn fragment inside rowed 0x12A7D0; t=5
+?Rva0072B827Frag@@YAHXZ	0x0072B827	6	blocked	mid-fn fragment inside rowed 0x72B800; t=5
