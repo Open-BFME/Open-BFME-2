@@ -36081,3 +36081,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ??1PassiveAreaEffectBehavior@@UAE@XZ,,0x00484B22,73,Code/GameEngine/Source/GameLogic/Object/Behavior/PassiveAreaEffectBehaviorDtor.cpp,matched,ctor 0x484A67 vtable 0xC4A448 slot0 0x484C3C base 0x24A797 list 0x4EC395 donor BFME1 destructors
 ??1AudioLoopUpgradeModuleData@@UAE@XZ,,0x004B7C4C,58,Code/GameEngine/Source/GameLogic/Object/Upgrade/AudioLoopUpgradeModuleDataDtor.cpp,matched,Release_Ref holder plus BBB554 base; ctor TU layout
 ??_GAudioLoopUpgradeModuleData@@UAEPAXI@Z,,0x004B7EBD,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-7a10d.cpp,matched,slot0 of 0x00858CF8 calls rowed dtor 0x004B7C4C
+??_GPassiveAreaEffectBehavior@@UAEPAXI@Z,,0x00484C3C,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-a0ab.cpp,matched,slot0 of vtable 0xC4A448 calls rowed dtor 0x484B22

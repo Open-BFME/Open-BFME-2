@@ -8,3 +8,9 @@ class PassiveAreaEffectBehaviorModuleData { public: __declspec(noinline) virtual
   friend void famgenDelete(PassiveAreaEffectBehaviorModuleData *p); };
 PassiveAreaEffectBehaviorModuleData::~PassiveAreaEffectBehaviorModuleData() { m_famgen = 0; }
 void famgenDelete(PassiveAreaEffectBehaviorModuleData *p) { delete p; }
+
+// ??_GPassiveAreaEffectBehavior@@UAEPAXI@Z @0x484c3c
+class PassiveAreaEffectBehavior { public: __declspec(noinline) virtual ~PassiveAreaEffectBehavior(); private: int m_famgen;
+  friend void famgenDelete(PassiveAreaEffectBehavior *p); };
+PassiveAreaEffectBehavior::~PassiveAreaEffectBehavior() { m_famgen = 0; }
+void famgenDelete(PassiveAreaEffectBehavior *p) { delete p; }
