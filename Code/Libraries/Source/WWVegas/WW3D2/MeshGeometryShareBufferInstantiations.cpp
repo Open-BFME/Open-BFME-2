@@ -67,6 +67,25 @@ ShareBufferClass<unsigned short>::~ShareBufferClass()
 	::operator delete[](RawBuffer);
 }
 
+// ShareBufferClass<char> owns a raw char array; the destructor frees it.
+// The 0x169A70 constructor (in meshgeometry.cpp) installs vtable 0xBD4410,
+// whose deleting destructor at 0x169E00 calls this body at 0x169E20.
+template <>
+ShareBufferClass<char>::~ShareBufferClass()
+{
+	::operator delete[](RawBuffer);
+}
+
+// ShareBufferClass<Vector4> owns a raw plane-equation array (MeshGeometry
+// PlaneEq); the destructor frees it. The 0x169B90 constructor (in
+// part_buf.cpp) installs vtable 0xBD4420, whose deleting destructor at
+// 0x169E80 calls this body at 0x169EA0.
+template <>
+ShareBufferClass<Vector4>::~ShareBufferClass()
+{
+	::operator delete[](RawBuffer);
+}
+
 void MeshGeometryShareBufferInstantiations( int count )
 {
 	ShareBufferClass<TriIndex> *poly = new ShareBufferClass<TriIndex>( count, "MeshGeometryClass::Poly" );
