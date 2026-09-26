@@ -63,7 +63,6 @@ private:
 	int m_badPackets;
 };
 
-// ??0Rva004D4A80Slot@@QAE@XZ present-unmatched
 Rva004D4A80Slot::Rva004D4A80Slot(void)
 {
 	m_object = NULL;
