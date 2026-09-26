@@ -3923,7 +3923,7 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ?bfmeVM0WorkerThread@@YGKPAX@Z,0x0065D128,watcher thread armed by BfmeStrVM0 bfmeGoVM0; pushed as CreateThread start inside 0x0025D904; entry sits inside Ghidra FUN_00a5d0b0 range so the name records its use not a proven boundary
 ?parse@VersionBlockParser@@AAEXPBD@Z,0x004289B8,Version-block header parse feeding the record vector; sole caller is the parser ctor 0x428C04 passing the 512B block; memcmp plus sscanf body returns bool
 ??0?$_Vector_base@UVersionBlockEntry@@V?$allocator@UVersionBlockEntry@@@_STL@@@_STL@@QAE@ABV?$allocator@UVersionBlockEntry@@@1@@Z,0x00211E58,ICF-folded empty vector base ctor same 29B as matched BfmeE16 row; VersionBlockParserCtor TU vector VersionBlockEntry member
-??$__copy_ptrs@PAUNugget@ModuleInfo@@PAU12@@_STL@@YAPAUNugget@ModuleInfo@@PAU12@00PBU__false_type@0@H@Z,0x002CF0BE,STLport 5-arg __copy_ptrs worker called from the 4-arg Nugget forwarder at 0x002CF2B8; read from the retail REL32 there
+??4Nugget@ModuleInfo@@QAEAAU01@ABU01@@Z,0x002CEFCD,ModuleInfo Nugget copy assignment; per-element callee of the 5-arg __copy_ptrs loop at 0x002CF0BE; address read from the retail REL32 there
 ?attach@RvaSmartPtr12@@QAEXXZ,0x0004CB9A,Intrusive-list attach for the 12-byte smart pointer; links the fresh copy into the owner list at ptr plus 0xA0; sole unknown callee of the copy ctor at 0x0004CC19 read from the retail REL32 there
 ?get@Bfme939Helper@@QBEHXZ,0x0030F2C7,TU-local alias of rowed disp8 dword getter at same body
 ??0Rva004CEE6EMember@@QAE@XZ,0x004CEE6E
