@@ -36157,3 +36157,4 @@ _Rva00680420,,0x00680420,17,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,mat
 ?reset@AnimateWindowManager@@UAEXXZ,,0x0053B803,36,Code/GameEngine/Source/GameClient/GUI/AnimateWindowManager.cpp,matched,vslot reset calls restPosition plus both win lists; ZH donor; callees rowed
 ??1RespawnBodyModuleData@@UAE@XZ,,0x004C1569,53,Code/GameEngine/Source/GameLogic/Object/Update/RespawnBodyModuleDataDtor.cpp,matched,vtable C5BA00 slot0 4C154D calls it filter 64 via 360D26 base 256CB0 Symbiotic53B precedent
 ??_GRespawnBodyModuleData@@UAEPAXI@Z,,0x004C154D,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-x7k-9927.cpp,matched,slot0 of C5BA00 calls rowed 4C1569 plus delete 2FD60
+??1FireWeaponWhenDamagedBehavior@@UAE@XZ,,0x00482551,234,Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDamagedBehaviorDtor.cpp,matched,5vptr MI plus 8 Weapon deleteInstance0 plus base 24A797 FireWeaponUpdate precedent
