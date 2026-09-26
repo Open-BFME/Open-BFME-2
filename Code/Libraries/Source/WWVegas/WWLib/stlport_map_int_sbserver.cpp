@@ -17,6 +17,7 @@ struct SBServer
     SBServer();
     __declspec(noinline) SBServer(const SBServer &src);
     __declspec(noinline) ~SBServer();
+    SBServer &operator=(const SBServer &src);
 };
 
 __declspec(noinline) SBServer::SBServer(const SBServer &src)
@@ -46,6 +47,26 @@ __declspec(noinline) SBServer::~SBServer()
         char *obj = (char *)((void **)slot)[1] + (unsigned int)handle;
         ReleaseTreeHintRef00217D4C((TargetRef00217D4C *)obj);
     }
+}
+
+SBServer &SBServer::operator=(const SBServer &src)
+{
+    if (this != &src) {
+        void *shandle = src.m_handle;
+        if (shandle != 0) {
+            void *slot = *(void **)shandle;
+            char *obj = (char *)((void **)slot)[1] + (unsigned int)shandle;
+            ++*(int *)(obj + 4);
+        }
+        void *h = m_handle;
+        if (h != 0) {
+            void *slot2 = *(void **)h;
+            char *obj2 = (char *)((void **)slot2)[1] + (unsigned int)h;
+            ReleaseTreeHintRef00217D4C((TargetRef00217D4C *)obj2);
+        }
+        m_handle = src.m_handle;
+    }
+    return *this;
 }
 
 namespace _STL {
