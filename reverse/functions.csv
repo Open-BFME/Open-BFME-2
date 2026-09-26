@@ -36008,3 +36008,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ??1Rva00534E13@@QAE@XZ,,0x00534E13,134,Code/Libraries/Source/WWVegas/WWLib/Rva00534E13Dtor.cpp,matched,EH dtor with MapPlayers wrapper and Coord3D lists
 ?Start@ParticleEmitterClass@@QAEXXZ,,0x001A1B20,176,Code/Libraries/Source/WWVegas/WW3D2/part_emt_start.cpp,matched,gap between Reset and Stop same TU BFME1 donor order matches
 ?DoAssignIteration@@YAKPAJK@Z,,0x006B78B0,62,Code/Libraries/Source/Benchmark/nbench1.cpp,matched,gap between DoFPUTransIteration and DoIDEA with buggy i-times-size predating Eike Dierks fix
+??1ShareExperienceBehaviorModuleData@@UAE@XZ,,0x0047FFCE,48,Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehaviorModuleDataDtor.cpp,matched,dtor via implicit virtual plus base vtable restore plus pinned filter
