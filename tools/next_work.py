@@ -534,6 +534,49 @@ def _print_stash(candidate):
         print(line)
 
 
+def _candidate_rva(candidate):
+    """This candidate's boundary as an int, or None if it carries no address."""
+    for key in ("candidate_rva", "target_rva"):
+        text = candidate.get(key)
+        if text:
+            try:
+                return int(str(text), 16)
+            except ValueError:
+                return None
+    return None
+
+
+def _print_boundary_verdicts(candidate, limit=3):
+    """Report standing verdicts recorded at this candidate's own address.
+
+    One retail address carries several drifted names, and a verdict retires the
+    name it names -- not the address. So the queue legitimately re-serves an
+    address under the next name, and did so with no sign anybody had looked:
+    0x0054C5D5 was recorded mis-anchored as deque<BfmeE8>::_M_range_check
+    because the body builds a formatted exception message, then came back as
+    deque<BfmeE8>::resize. Printing the earlier finding is not a filter -- "not
+    A" is no proof of "not B" -- it just starts the next agent from the
+    disassembly that was already paid for.
+    """
+    rva = _candidate_rva(candidate)
+    if rva is None:
+        return
+    found = re_log.verdicts_at(rva, exclude=candidate.get("function"))
+    if not found:
+        return
+    print(f"       already investigated at this same address "
+          f"({len(found)} verdict(s), evidence in reverse/re_attempts.log):")
+    for symbol, status, evidence in found[:limit]:
+        shown = " ".join(evidence.split())
+        if len(shown) > 140:
+            shown = shown[:139] + "…"
+        print(f"         {status} as {symbol}")
+        if shown:
+            print(f"           {shown}")
+    if len(found) > limit:
+        print(f"         ... and {len(found) - limit} more at this address")
+
+
 def drop_logged(candidates):
     """Filter one queue, returning (kept, dropped_count). Never silent: main()
     reports the count so a shrunken queue is visibly explained, not mistaken
@@ -937,6 +980,7 @@ def print_candidate(label, candidate, meta, candidates=()):
               f"address already agrees on {candidate['aligned_pct']}% of the "
               f"non-relocation bytes")
         _print_stash(candidate)
+        _print_boundary_verdicts(candidate)
         print(f"       start: read {candidate['packet']}, port {candidate['source']}")
         return
     if label == "reloc-named unclaimed function":
@@ -944,6 +988,7 @@ def print_candidate(label, candidate, meta, candidates=()):
         print(f"       {candidate['target_rva']} ({candidate['notes']}) — named by a "
               f"byte-true call in {candidate['source']}")
         _print_stash(candidate)
+        _print_boundary_verdicts(candidate)
         print(f"       start: {candidate['command']}")
         # No file cluster here: the whole point of this tier is that the body
         # has no source file yet, so there is no translation unit to drain and
@@ -960,6 +1005,7 @@ def print_candidate(label, candidate, meta, candidates=()):
         print(f"       {candidate['source']} @ {candidate['candidate_rva']}  "
               f"hint: {candidate['hint']}")
         _print_stash(candidate)
+        _print_boundary_verdicts(candidate)
         print(f"       fix the literal in source, then byte-verify: {candidate['command']}")
     elif label == "structural reconciliation":
         print(f"  {candidate['aligned_pct']:>3}% {candidate['size']:>5}B "
@@ -973,6 +1019,7 @@ def print_candidate(label, candidate, meta, candidates=()):
             print(f"       {shared} other drifted name(s) claim this same address; "
                   f"the body decides which one it is")
         _print_stash(candidate)
+        _print_boundary_verdicts(candidate)
         print(f"       start: {candidate['command']}")
     elif label == "string-anchored unclaimed function":
         print(f"  {candidate['confidence']:<6} {candidate['size']:>5}B "
@@ -983,6 +1030,7 @@ def print_candidate(label, candidate, meta, candidates=()):
                  if candidate['alternates'] else ""))
         print(f"       local source: {candidate['source']}")
         _print_stash(candidate)
+        _print_boundary_verdicts(candidate)
         print(f"       start: {candidate['command']}")
     else:
         anchors = ", ".join(repr(value) for value in candidate["anchors"][:3])
@@ -992,6 +1040,7 @@ def print_candidate(label, candidate, meta, candidates=()):
               f"{candidate['ghidra_name']} ({len(candidate['anchors'])} anchor(s): "
               f"{anchors}; {candidate['alternates']} alternate(s))")
         _print_stash(candidate)
+        _print_boundary_verdicts(candidate)
         print(f"       start: {candidate['command']}")
     print_cluster(candidate, candidates)
 
@@ -1014,6 +1063,7 @@ def print_ranked(args, ledger, drifts, structural, ghidra_meta, ghidra_absent,
             print(f"       {candidate['target_rva']} named by a call in "
                   f"{candidate['source']} ({candidate['notes']})")
             _print_stash(candidate)
+            _print_boundary_verdicts(candidate)
             print(f"       start: {candidate['command']}")
 
     if args.tier not in ("named", "structural", "ghidra"):
@@ -1038,6 +1088,7 @@ def print_ranked(args, ledger, drifts, structural, ghidra_meta, ghidra_absent,
             print(f"       {candidate['source']} @ {candidate['candidate_rva']}  "
                   f"hint: {candidate['hint']}")
             _print_stash(candidate)
+            _print_boundary_verdicts(candidate)
             print(f"       start: {candidate['command']}")
 
     if args.tier in (None, "ghidra"):
@@ -1053,6 +1104,7 @@ def print_ranked(args, ledger, drifts, structural, ghidra_meta, ghidra_absent,
                   f"{candidate['ghidra_name']} ({len(candidate['anchors'])} anchor(s): "
                   f"{anchors}; {candidate['alternates']} alternate(s))")
             _print_stash(candidate)
+            _print_boundary_verdicts(candidate)
             print(f"       start: {candidate['command']}")
 
     if args.tier in ("named", "structural", "ghidra"):

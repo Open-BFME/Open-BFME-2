@@ -86,14 +86,23 @@ VOID_STATUS = "void"
 _BY_BOUNDARY = None   # {symbol: {rva|None: latest status}}
 _LATEST = None        # {symbol: latest status seen at any boundary}
 _ATTEMPTS = None      # {symbol: how many deferral rows it carries}
+# {rva: {symbol: (status, evidence)}} -- the same standing verdicts indexed by
+# BOUNDARY instead of by symbol. One retail address carries many candidate names
+# (the structural queue routinely reports "+4 name(s) at this address"), and a
+# verdict retires the name it was recorded against, not the address. Without
+# this index the next agent is served the same bytes under the next name with no
+# sign that somebody already disassembled them: 0x0054C5D5 was recorded
+# mis-anchored as deque<BfmeE8>::_M_range_check (the body builds a formatted
+# exception message) and came straight back as deque<BfmeE8>::resize.
+_BY_RVA = None
 
 
 def _reset():
     """Drop the parsed index. Tests repoint RE_ATTEMPTS at a tmpdir, and
     monkeypatch restores the attribute but not the cache built from it -- so
     this belongs both before the repoint and in the test's finally."""
-    global _BY_BOUNDARY, _LATEST, _ATTEMPTS
-    _BY_BOUNDARY = _LATEST = _ATTEMPTS = None
+    global _BY_BOUNDARY, _LATEST, _ATTEMPTS, _BY_RVA
+    _BY_BOUNDARY = _LATEST = _ATTEMPTS = _BY_RVA = None
 
 
 def _parse(fields):
@@ -104,17 +113,17 @@ def _parse(fields):
             rva = int(rva_text, 16) if rva_text else None
         except ValueError:
             rva = None
-        return symbol, status, rva
+        return symbol, status, rva, fields[4]
     if len(fields) >= 3:
-        return fields[0], fields[1], None
+        return fields[0], fields[1], None, ""
     return None
 
 
 def _load():
-    global _BY_BOUNDARY, _LATEST, _ATTEMPTS
+    global _BY_BOUNDARY, _LATEST, _ATTEMPTS, _BY_RVA
     if _BY_BOUNDARY is not None:
         return
-    _BY_BOUNDARY, _LATEST, _ATTEMPTS = {}, {}, {}
+    _BY_BOUNDARY, _LATEST, _ATTEMPTS, _BY_RVA = {}, {}, {}, {}
     if not RE_ATTEMPTS.exists():
         return
     rows = []
@@ -123,20 +132,20 @@ def _load():
             parsed = _parse(line.rstrip("\r\n").split("\t"))
             if parsed is None:
                 continue
-            symbol, status, rva = parsed
+            symbol, status, rva, evidence = parsed
             if not symbol or not status:
                 continue
             if status == VOID_STATUS:
-                rows.append((symbol, status, rva))
+                rows.append((symbol, status, rva, evidence))
                 continue
             if status not in VERDICT_STATUSES:
                 continue          # an annotation never overrides a standing verdict
-            rows.append((symbol, status, rva))
+            rows.append((symbol, status, rva, evidence))
 
     # A void retracts only the rows ABOVE it at its own (symbol, rva), so the
     # log stays chronological and re-recording the same boundary later works.
     live = [True] * len(rows)
-    for index, (symbol, status, rva) in enumerate(rows):
+    for index, (symbol, status, rva, _evidence) in enumerate(rows):
         if status != VOID_STATUS:
             continue
         live[index] = False
@@ -144,11 +153,15 @@ def _load():
             if rows[earlier][0] == symbol and rows[earlier][2] == rva:
                 live[earlier] = False
 
-    for keep, (symbol, status, rva) in zip(live, rows):
+    for keep, (symbol, status, rva, evidence) in zip(live, rows):
         if not keep:
             continue
         _BY_BOUNDARY.setdefault(symbol, {})[rva] = status
         _LATEST[symbol] = status
+        if rva is not None:
+            # Same last-write-wins as _BY_BOUNDARY, and voided rows are already
+            # dropped, so this holds exactly the verdicts that still stand.
+            _BY_RVA.setdefault(rva, {})[symbol] = (status, evidence)
         if status in DEFERRED_STATUSES:
             _ATTEMPTS[symbol] = _ATTEMPTS.get(symbol, 0) + 1
 
@@ -173,6 +186,36 @@ def is_deferred(symbol, rva=None, *, boundary_moved=False):
     """
     return standing_status(symbol, rva,
                            boundary_moved=boundary_moved) in DEFERRED_STATUSES
+
+
+def verdicts_at(rva, exclude=None):
+    """Standing verdicts recorded at exactly `rva`, under names other than `exclude`.
+
+    Returns [(symbol, status, evidence)] with the boundary findings first, then
+    resolved rows, then deferrals -- the order an agent wants to read them in,
+    because "this address is not a function" and "this address is already
+    claimed" both settle the candidate, while a deferral is only context.
+
+    This does NOT retire anything: a verdict that `rva` is not symbol A is no
+    proof that it is not symbol B. It is served as evidence so the next agent
+    starts from what was already disassembled instead of cold.
+    """
+    _load()
+    at = _BY_RVA.get(rva)
+    if not at:
+        return []
+
+    def rank(item):
+        status = item[1]
+        if status in DEAD_END_STATUSES:
+            return 0
+        if status in RESOLVED_STATUSES:
+            return 1
+        return 2
+
+    found = [(symbol, status, evidence)
+             for symbol, (status, evidence) in at.items() if symbol != exclude]
+    return sorted(found, key=lambda item: (rank(item), item[0]))
 
 
 def attempts(symbol):
