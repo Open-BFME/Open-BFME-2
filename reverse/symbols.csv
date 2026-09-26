@@ -5521,3 +5521,6 @@ __mbscat,0x0062988C,retail REL32 from INI getNextQuotedAsciiString 0x002E93F; IA
 ?ji_009f6fa0@@YAXXZ,0x00629A2A
 ?aptHelper008AE3A0@@YAPAVAptValue@@PAXHH@Z,0x006ED390
 ?d_008ae3a0@@YAXXZ,0x006ED390
+??0Rva004E16D9Record@@QAE@XZ,0x004E15FB,target record constructor called by ParseForceBattle at 0x4E16D9; address-derived record name
+??1Rva004E16D9Record@@QAE@XZ,0x004E1682,target record destructor called by ParseForceBattle at 0x4E16D9; address-derived record name
+?append@Rva0056652FOwner@@QAEXPAVRva004E16D9Record@@@Z,0x0056652F,target 8-byte append thunk adjusts owner this by +0x14; address-derived record and owner names
