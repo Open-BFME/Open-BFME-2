@@ -56,6 +56,30 @@
 
 // DEFINES ////////////////////////////////////////////////////////////////////
 
+// Retail BFME2 widens the display-string manager vtable past the ZH donor:
+// newDisplayString at 0x38, freeDisplayString at 0x3c (donor gives 0x1c).
+// TU-scoped wide view for init's frees; the narrow header stays for the ctor.
+class DisplayString;
+struct BfmeWideManager
+{
+	virtual ~BfmeWideManager() {}
+	virtual void w04() = 0;
+	virtual void w08() = 0;
+	virtual void w0C() = 0;
+	virtual void w10() = 0;
+	virtual void w14() = 0;
+	virtual void w18() = 0;
+	virtual void w1C() = 0;
+	virtual void w20() = 0;
+	virtual void w24() = 0;
+	virtual void w28() = 0;
+	virtual void w2C() = 0;
+	virtual void w30() = 0;
+	virtual void w34() = 0;
+	virtual void *newDisplayString();
+	virtual void freeDisplayString(DisplayString *s);
+};
+
 // PRIVATE TYPES //////////////////////////////////////////////////////////////
 
 // PRIVATE DATA ///////////////////////////////////////////////////////////////
@@ -103,7 +127,6 @@ WinInstanceData::~WinInstanceData( void )
 /** Set initial values for instance data if desired */
 //=============================================================================
 // byte-exact reconstruction: Code/GameEngine/Source/GameClient/GUI/WinInstanceDataDisplayStrings.cpp
-// ?init@WinInstanceData@@QAEXXZ present-unmatched
 void WinInstanceData::init( void )
 {
 	Int i;
@@ -152,14 +175,14 @@ void WinInstanceData::init( void )
 	if( m_text )
 	{
 
-		TheDisplayStringManager->freeDisplayString( m_text );
+		((BfmeWideManager *)TheDisplayStringManager)->freeDisplayString( m_text );
 		m_text = NULL;
 
 	}  // end if
 	if( m_tooltip )
 	{
 
-		TheDisplayStringManager->freeDisplayString( m_tooltip );
+		((BfmeWideManager *)TheDisplayStringManager)->freeDisplayString( m_tooltip );
 		m_tooltip = NULL;
 
 	}  // end if

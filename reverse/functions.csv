@@ -35901,3 +35901,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ??1BoneFXUpdate@@MAE@XZ,,0x00487ABF,161,Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateDtor.cpp,matched,ZH dtor plus vector Coord destroys and UpdateModule base
 ?dup_0006BF2A@@YAXXZ,,0x0006BF2A,56,Code/GameEngine/Source/Common/System/SaveGame/CreateAHeroDataDtor.cpp,matched,gen-alias;object-symbol=??1?$_Rb_tree@HU?$pair@$$CBHH@_STL@@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@QAE@XZ;C++ alias; twin of rowed 0x0021B775 modulo clear-callee rel32
 ??0SlowDeathBehaviorModuleData@@QAE@XZ,,0x0045E386,287,Code/GameEngine/Source/GameLogic/Object/Behavior/SlowDeathBehaviorModuleDataCtor.cpp,matched,INI table 0xC42290 plus 4 callers plus vtable 0x842108
+?init@WinInstanceData@@QAEXXZ,,0x00322174,230,Code/GameEngine/Source/GameClient/GUI/WinInstanceData.cpp,matched,ZH donor plus wide manager free 0x3c
