@@ -7,3 +7,7 @@ void famgenDelete(CivilianSpawnUpdateModuleData *p) { delete p; }
 class StrafeAreaUpdateModuleData { public: __declspec(noinline) virtual ~StrafeAreaUpdateModuleData(); private: int m_famgen; };
 StrafeAreaUpdateModuleData::~StrafeAreaUpdateModuleData() { m_famgen = 0; }
 void famgenDelete(StrafeAreaUpdateModuleData *p) { delete p; }
+// ??_GTerrainResourceBehaviorModuleData@@UAEPAXI@Z @0x00482259
+class TerrainResourceBehaviorModuleData { public: __declspec(noinline) virtual ~TerrainResourceBehaviorModuleData(); private: int m_famgen; };
+TerrainResourceBehaviorModuleData::~TerrainResourceBehaviorModuleData() { m_famgen = 0; }
+void famgenDelete(TerrainResourceBehaviorModuleData *p) { delete p; }
