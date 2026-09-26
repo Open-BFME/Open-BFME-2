@@ -35877,3 +35877,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ??1DelayedWeaponSetUpgradeUpdate@@MAE@XZ,,0x00488268,32,Code/GameEngine/Source/GameLogic/Object/Update/DelayedWeaponSetUpgradeUpdateDtor.cpp,matched,four vptrs plus tail-jmp pinned UpdateModule 0x24A797 and BFME1 donor
 ??_GDelayedWeaponSetUpgradeUpdate@@MAEPAXI@Z,,0x0048831C,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-a8e6.cpp,matched,slot 0 of vtable 0xC4B2F8 plus dtor 0x488268 plus delete 0x2FD60
 ??1SpecialEnemySenseUpdateModuleData@@UAE@XZ,,0x0025525B,48,Code/GameEngine/Source/GameLogic/Object/Update/SpecialEnemySenseUpdateModuleDataDtor.cpp,matched,dtor via Snapshot BBB554 base filter 0x360D26 caller slot0 0x25523F
+?Rva004A390B@InvisibilityUpdate@@MAEXXZ,,0x004A390B,49,Code/GameEngine/Source/GameLogic/Object/Update/InvisibilityUpdateRva004A390B.cpp,matched,InvisibilityUpdate vslot5 stealth-gated wake refresh via setWakeFrame
