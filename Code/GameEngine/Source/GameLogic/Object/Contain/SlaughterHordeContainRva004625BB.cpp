@@ -17,6 +17,7 @@ class Object;
 typedef void (__cdecl *ContainIterateFunc)(Object *obj, void *userData);
 
 void iterCallback0046258C(Object *obj, void *userData);
+void iterCallback004625AA(Object *obj, void *userData);
 
 #define SLOT08(a,b,c,d,e,f,g,h) virtual void a(); virtual void b(); virtual void c(); virtual void d(); virtual void e(); virtual void f(); virtual void g(); virtual void h();
 #define SLOT16(a) SLOT08(a##0,a##1,a##2,a##3,a##4,a##5,a##6,a##7) SLOT08(a##8,a##9,a##A,a##B,a##C,a##D,a##E,a##F)
@@ -31,11 +32,18 @@ public:
 	SLOT08(s6C0,s6C1,s6C2,s6C3,s6C4,s6C5,s6C6,s6C7)
 	virtual void s6D0(); virtual void s6D1(); virtual void s6D2();
 	virtual bool rva004625BB(void *a, int b);
+	virtual void rva004625F0(void *a);
 };
 
 struct IterateUser004625BB {
 	void *a;
 	int b;
+	bool flag;
+};
+
+struct IterateUser004625F0 {
+	int zero;
+	void *a;
 	bool flag;
 };
 
@@ -47,4 +55,19 @@ bool SlaughterHordeContain::rva004625BB(void *a, int b)
 	user.flag = false;
 	iterateContained(iterCallback0046258C, &user, true);
 	return user.flag == false;
+}
+
+// ?rva004625F0@SlaughterHordeContain@@UAEXPAX@Z, retail 0x004625F0, 43 bytes.
+// Virtual slot 129 (offset 0x204) of vtable 0x00848AA0, void twin of slot 128:
+// zeroes the first user DWORD, stores the single arg as the second DWORD,
+// passes the retail callback at 0x004625AA plus the struct plus true to the
+// slot-68 virtual. Same flags and class as slot 128, no direct callees.
+// Honest address name: class plus slot are proven, method identity is not.
+void SlaughterHordeContain::rva004625F0(void *a)
+{
+	IterateUser004625F0 user;
+	user.zero = 0;
+	user.a = a;
+	user.flag = false;
+	iterateContained(iterCallback004625AA, &user, true);
 }
