@@ -35962,3 +35962,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ??1OilSpillUpdate@@UAE@XZ,,0x0048C2A3,79,Code/GameEngine/Source/GameLogic/Object/Update/OilSpillUpdateDtor.cpp,matched,dtor frees buf 0x2C via rowed free calls rowed base 0x48BD11
 ??_GOilSpillUpdate@@UAEPAXI@Z,,0x0048C2F2,28,Code/GameEngine/Source/GameLogic/Object/Update/OilSpillUpdateDtor.cpp,matched,slot0 vtable 0x0084C380 calls rowed dtor 0x0048C2A3
 ?set@?$StringBase@D@@QAEXPBDH@Z,0x00036780,0x00036780,320,Code/Libraries/Source/WWVegas/WWLib/StringBaseNarrowStrLenSet.cpp,matched,pinned name callers CharSource wrapper vtable allocator releaseBuffer via wide twin StringBaseWideStrLenSet
+??1BfmeD1191@@QAE@XZ,,0x0050C688,21,Code/GameEngine/Source/Common/BfmeConv1191.cpp,matched,dtor closing FILE plus tail-jmp to base

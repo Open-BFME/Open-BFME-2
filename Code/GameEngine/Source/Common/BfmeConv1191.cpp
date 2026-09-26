@@ -7,6 +7,7 @@ extern "C" char g_bfmeFmtB1191[];
 extern "C" char g_bfmeFmtC1191[];
 extern "C" int (__cdecl *g_bfmeFmt1191)(char *dst, const char *fmt, ...);
 extern "C" __declspec(dllimport) void * __cdecl fopen(const char *, const char *);
+extern "C" __declspec(dllimport) int __cdecl fclose(void *);
 extern "C" __declspec(dllimport) int __cdecl fprintf(void *, const char *, ...);
 extern "C" __declspec(dllimport) unsigned long __stdcall GetLastError(void);
 
@@ -49,6 +50,7 @@ class BfmeD1191 : public Rva0013A820
 {
 public:
 	BfmeD1191(const char *filename);
+	~BfmeD1191();
 	void bfmeDump1191(void);
 	char *m_bfme48;
 };
@@ -59,6 +61,12 @@ BfmeD1191::BfmeD1191(const char *filename)
 	m_bfme48 = (char *)fopen(filename, "w+");
 	GetLastError();
 	fprintf(m_bfme48, "Thing,Class,Draw,Tag,Model,Verts,Polys,Skel,Anim,Frames,Texture,Width,Height,Depth,TexTotl,File,Line,Desc\n");
+}
+
+// ??1BfmeD1191@@QAE@XZ @0x0050C688
+BfmeD1191::~BfmeD1191()
+{
+	fclose(m_bfme48);
 }
 
 void BfmeD1191::bfmeDump1191(void)
