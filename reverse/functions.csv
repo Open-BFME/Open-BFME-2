@@ -35974,3 +35974,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ?isNativeFunction@BfmeAptValue006DCD20@@QBEHXZ,,0x006DC260,78,Code/Libraries/Source/Apt/AptValue/AptValueTypePredicatesBFME2.cpp,matched,isNativeFunction type 9 with undefined exclusion. Caller 0x6DCF23 asserts isNativeFunction. Line 1610. 9 callers
 ?isScriptFunction@BfmeAptValue006DCD20@@QBEHXZ,,0x006DC2B0,79,Code/Libraries/Source/Apt/AptValue/AptValueTypePredicatesBFME2.cpp,matched,isScriptFunction types 43 to 45 with undefined exclusion. Caller 0x6DCEE3 asserts isScriptFunction. Line 1635. 17 callers
 ?Rva00129510Inc@@YAXXZ,,0x00129510,8,Code/GameEngine/Source/Common/Rva00129510Inc.cpp,matched,same O2 G7 add idiom as Rva00129670Inc over 0x00DEE8B0
+?invoke@Rva001531F2Ref@@QAEHHH@Z,,0x001531F2,49,Code/Libraries/Source/WWVegas/WWLib/FunctorRefInvoke001531F2.cpp,matched,FunctorNotSet guard via 0x2035E2 row and 0xD0B644 throwinfo plus slot-1 virtual with two int args
