@@ -36396,4 +36396,6 @@ _Rva00680420,,0x00680420,17,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,mat
 ?rva002CF172@Rva004CA13@@UAE_NPA_N@Z,,0x002CF172,87,Code/GameEngine/Source/Common/Rva004CA13Reload.cpp,matched,vslot4 of 0x7C4858 via RIF ThingTemplates message
 ?xfer@Rva00494A97@@MAEXPAVXfer@@@Z,,0x00494BBA,42,Code/GameEngine/Source/Common/Rva00494A97Xfer.cpp,matched,vslot3 xfer via base plus bool at 0x38
 ?xfer@FoundationAIUpdate@@MAEXPAVXfer@@@Z,,0x004550F8,100,Code/GameEngine/Source/GameLogic/Object/Update/FoundationAIUpdateXfer.cpp,matched,slot 3 of 0x00840608 FoundationAIUpdate via name poolkey ctor; Version1-1 base IsLightCRC audio ObjectID bool
+_setcallhook,,0x00748320,37,Code/Libraries/Source/Lua/ldblib.c,matched,target .rdata dblib registration; BFME1 same 37B source body
 ?ParseForceBattle@@YAXPAVINI@@PAX1PBX@Z,,0x004E16D9,123,Code/GameEngine/Source/GameLogic/LivingWorld/ParseForceBattle.cpp,matched,target ForceBattle callback and exception literal; 0x28 local record; table 0xC61AE8; append thunk adjusts owner +0x14; BFME1 donor corroborates behavior and field offsets; target record identity address-derived
+_setlinehook,,0x00748350,37,Code/Libraries/Source/Lua/ldblib.c,matched,BFME1 ldblib donor maps uniquely by address to this target; 37B exact source body; target callback registration and adjacent dblib opener confirm setlinehook identity
