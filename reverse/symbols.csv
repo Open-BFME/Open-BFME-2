@@ -5508,3 +5508,4 @@ __mbscat,0x0062988C,retail REL32 from INI getNextQuotedAsciiString 0x002E93F; IA
 ??_7W3DLaserDrawModuleData@@6B@,0x00BCB960,W3DLaserDrawModuleData vtable installed by ctor 0xC9A6F and restored by dtor 0xC9AE7; factory 0x64962 news 0x74; base restore is Snapshot 0xBBB554
 ??_7WallHubBehaviorModuleData@@6B@,0x00C3FF98,WallHubBehaviorModuleData vtable installed by ctor 0x453020 and restored by dtor 0x452F9F; factory 0x24A94C news 0x3C; base restore is Snapshot 0xBBB554
 ??1DamageModule@@UAE@XZ,0x004B96CC,twin of rowed Rva004B96CC for TransitionDamageFX dtor at 0x4BA47C which calls here plus ctor at 0x4BA3EA calls DamageModule ctor at 0x4B9704
+?allocate@?$allocator@UBfmePod20@@@_STL@@QBEPAUBfmePod20@@IPBX@Z,0x00395960,target overflow 0x59B809 calls allocator through vector proxy with count and null hint; matched 20-byte allocator body multiplies by 0x14; BfmePod20 is size-only emitter placeholder
