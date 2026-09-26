@@ -35816,3 +35816,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ?rva0028ADE0@Object@@QBE_NXZ,,0x0028ADE0,11,Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp,matched,Object +0x358 flag test. /O1 xor-first cmp-mem-reg shape.
 ?rva0028ADF7@Object@@QBEHH@Z,,0x0028ADF7,28,Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp,matched,Object +0x360 bit-test with slot param. /O1 hoisted-xor plus inc plus neg-sbb-neg booleanize.
 ?insertNode@KeyToBucketMap@NameKeyGenerator@@AAEPAHABUvalue_type@12@@Z,,0x0053F3B1,73,Code/GameEngine/Source/Common/NameKeyGeneratorMapInsert.cpp,matched,blind hashtable insert returning key slot for lookup-map findSlot
+?findWeaponTemplate@WeaponStore@@QBEPBVWeaponTemplate@@ABVAsciiString@@@Z,,0x002CB8BF,67,Code/GameEngine/Source/GameLogic/Object/WeaponStoreFindWeaponTemplate.cpp,matched,None shortcut via strcmpi plus key lookup via pinned Rva002CADBE plus rowed nameToKey
