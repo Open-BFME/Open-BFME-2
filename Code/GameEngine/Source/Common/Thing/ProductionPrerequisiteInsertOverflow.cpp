@@ -28,3 +28,7 @@ private:
 typedef char ProductionPrerequisiteSizeCheck[sizeof(ProductionPrerequisite) == 0x24 ? 1 : -1];
 
 template void _STL::vector<ProductionPrerequisite>::_M_clear();
+
+template void _STL::vector<ProductionPrerequisite>::_M_insert_overflow(
+	ProductionPrerequisite *, const ProductionPrerequisite &, const _STL::__false_type &,
+	unsigned int, bool);
