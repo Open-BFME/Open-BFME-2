@@ -35988,3 +35988,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ??0Dict@@QAE@H@Z,,0x00313581,30,Code/GameEngine/Source/Common/DictPairClear.cpp,matched,Dict ctor via rowed ensureUnique with prealloc
 ?Calculate_Texture_Matrix@RotateTextureMapperClass@@UAEXAAVMatrix4@@@Z,,0x00182800,416,Code/Libraries/Source/WWVegas/WW3D2/RotateTextureMapperCalculate.cpp,matched,vtable slot 9 of 0x007D560C gap Reset SineCtor ZH donor Rotate Calculate
 ?isAnyTaskPending@DozerAIUpdate@@UAE_NXZ,,0x00488B64,31,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DozerAIUpdateIsAnyTaskPending.cpp,matched,ZH donor loop over isTaskPending slot 0x18; /O1 not /G7 for inc plus shared epilogue; gap between isTaskPending and getTaskTarget
+?rva00232F84@Rva00232F84@@QAEXH@Z,,0x00232F84,184,Code/GameEngine/Source/Common/Rva00232F84Layout.cpp,matched,gap between Disp getters; GameWindows 3050 3058 3060; font get 313D6C; global 9C8630; caller 2338B4
