@@ -29,3 +29,9 @@ class CaveContain { protected: __declspec(noinline) virtual ~CaveContain(); priv
   friend void famgenDelete(CaveContain *p); };
 CaveContain::~CaveContain() { m_famgen = 0; }
 void famgenDelete(CaveContain *p) { delete p; }
+
+// ??_GWallHubBehaviorModuleData@@UAEPAXI@Z @0x004530B4 28B
+// Deleting dtor slot 0 of vtable 0x0083FF98; calls rowed ??1 at 0x00452F9F then rowed operator delete at 0x0002FD60.
+class WallHubBehaviorModuleData { public: __declspec(noinline) virtual ~WallHubBehaviorModuleData(); private: int m_famgen; };
+WallHubBehaviorModuleData::~WallHubBehaviorModuleData() { m_famgen = 0; }
+void famgenDelete(WallHubBehaviorModuleData *p) { delete p; }
