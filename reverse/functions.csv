@@ -36268,3 +36268,4 @@ _Rva00680420,,0x00680420,17,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,mat
 ?xfer@DestroyEnvironmentUpdate@@MAEXPAVXfer@@@Z,,0x004AC6CB,60,Code/GameEngine/Source/GameLogic/Object/Update/DestroyEnvironmentUpdateXfer.cpp,matched,slot 3 of vtable 0x00854D64 via ctor 0x004AC63A plus rowed base xfer plus Version1 plus uint and ObjectID runs
 ?Rva0035DD08@Rva0035DCF9@@UAEXH@Z,,0x0035DD08,148,Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp,matched,vslot 2 of vtable 816574; range-select hide via rowed winHide 313C64
 ?xfer@DelayedLuaEventList@@UAEXPAVXfer@@@Z,,0x003316D2,68,Code/GameEngine/Source/GameLogic/ScriptEngine/DelayedLuaEventListXfer.cpp,matched,slot3 xfer via Snapshot base plus IsLightCRC plus Version 1 1 plus 3x element xfer
+??0Rva004FCD49@@QAE@XZ,,0x004FCD29,32,Code/GameEngine/Source/Common/Rva004FCD49Ctor.cpp,matched,gap ctor for Rva004FCD49 vtable 0x0086355C builds vector at +4 via rowed 0x00211E58 and zeroes +0x10
