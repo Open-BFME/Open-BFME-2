@@ -57,6 +57,19 @@
 //
 const char * const EMPTY_STRING			= "";
 
+// Rowed global factory at 0x00136175: BFME2 calls
+// it directly instead of the ZH member wrapper below.
+RenderObjClass * __cdecl Create_Render_Obj (const char *name);
+
+// BFME2 reads the sub-object-LOD flag as a direct bit extract instead of the
+// ZH virtual query (retail: ([param+0x10] >> 0x14) & 1 into Flags). TU-local
+// reader so the shared RenderObjClass shim stays untouched.
+class RenderObjFlagReader : public RenderObjClass
+{
+public:
+	unsigned long Read_Subobj_Lod_Bit (void) const	{ return ((Bits >> 0x14) & 1); }
+};
+
 
 ///////////////////////////////////////////////////////////////////////////////////
 //
@@ -388,7 +401,6 @@ AggregateDefClass::Load_Assets (const char *passet_name)
 //	Initialize
 //
 void
-// ?AggregateDefClass::Initialize present-unmatched
 AggregateDefClass::Initialize (RenderObjClass &base_model)
 {
 	// Start with fresh lists
@@ -402,9 +414,9 @@ AggregateDefClass::Initialize (RenderObjClass &base_model)
 	::lstrcpy (m_Info.BaseModelName, orig_model_name);
 	m_Info.SubobjectCount = 0;
 	m_MiscInfo.OriginalClassID = base_model.Class_ID ();
-	m_MiscInfo.Flags = 0;	
-	m_MiscInfo.Flags |= base_model.Is_Sub_Objects_Match_LOD_Enabled () ? W3D_AGGREGATE_FORCE_SUB_OBJ_LOD : 0;
-	
+	m_MiscInfo.Flags = 0;
+	m_MiscInfo.Flags = ((const RenderObjFlagReader &)base_model).Read_Subobj_Lod_Bit ();
+
 
 	// Pass the aggregate name along
 	Set_Name (base_model.Get_Name ());
@@ -412,10 +424,23 @@ AggregateDefClass::Initialize (RenderObjClass &base_model)
 	// Create a new instance of the model which we can use
 	// to compare with the supplied model and determine
 	// which 'bones-models' and textures are new.
-	RenderObjClass *pvanilla_model = (RenderObjClass *)Create_Render_Object (orig_model_name);
+	RenderObjClass *pvanilla_model = ::Create_Render_Obj (orig_model_name);
 
-	// Build lists of changes from the delta between the original model and the provided one
-	Build_Subobject_List (*pvanilla_model, base_model);
+	// Build lists of changes from the delta between the original model and the provided one.
+	// BFME2's AggregateDefClass declares two virtuals fewer ahead of
+	// Build_Subobject_List (the ZH Load_Assets/Create_Render_Object slots are
+	// gone: retail vtable 0x00BD6C70 has Is_Object_In_List at 0x3C and Build
+	// at 0x40, where the ZH header puts Load_Assets/Create_Render_Object/
+	// Is_Object_In_List/Build at 0x3C/0x40/0x44/0x48). Route the raw slot
+	// through a pointer-to-member cast -- that keeps __thiscall without naming
+	// the nonstandard keyword, and without touching the ZH agg_def.h, which
+	// every other matched row in the TU compiles against.
+	struct AggDefBuildThunk { void Call (RenderObjClass &a, RenderObjClass &b); };
+	typedef void (AggDefBuildThunk::*AggDefBuildFn) (RenderObjClass &, RenderObjClass &);
+	void **up_vtbl = *reinterpret_cast<void ***> (this);
+	union { void *asVoid; AggDefBuildFn asMember; } up_fnCast;
+	up_fnCast.asVoid = up_vtbl[0x40 / 4];
+	(reinterpret_cast<AggDefBuildThunk *> (this)->*up_fnCast.asMember) (*pvanilla_model, base_model);
 
 	// Release the model if necessary
 	REF_PTR_RELEASE (pvanilla_model);	
