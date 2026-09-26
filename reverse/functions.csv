@@ -36113,3 +36113,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ??1INIException@@QAE@XZ,,0x0002BD30,9,Code/GameEngine/Source/Common/INI/INIExceptionCtor.cpp,matched,ZH INIException dtor deleting mFailureMessage via rowed array-delete
 ??1BuffNuggetFXNugget@@UAE@XZ,,0x001E32D3,179,Code/GameEngine/Source/GameClient/BuffNuggetFXNuggetDtor.cpp,matched,vtable 0x7DD9B4 slot0 wrapper 0x1E32B7 calls here; ctor 0x1E2FCE installs vtable; FieldParse 0xBDCEB8 eight strings 0x154 to 0x170 plus vector 0x184; base dtor 0x1DFA48
 ??1GettingBuiltBehaviorModuleData@@UAE@XZ,,0x00453315,129,Code/GameEngine/Source/GameLogic/Object/Behavior/GettingBuiltBehaviorModuleDataDtor.cpp,matched,vtable C40090 base BBB554 donor BFME1 destructor thunk
+??_GGettingBuiltBehaviorModuleData@@UAEPAXI@Z,,0x004534D9,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-x7q-eb73.cpp,matched,slot0 vtable C40090 calls rowed 453315 plus delete
