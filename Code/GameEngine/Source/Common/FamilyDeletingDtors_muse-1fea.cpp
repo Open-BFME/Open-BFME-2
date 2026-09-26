@@ -9,3 +9,8 @@ void famgenDelete(LevelGrantSpecialPowerModuleData *p) { delete p; }
 class ScriptActions { public: __declspec(noinline) virtual ~ScriptActions(); private: int m_famgen; };
 ScriptActions::~ScriptActions() { m_famgen = 0; }
 void famgenDelete(ScriptActions *p) { delete p; }
+// ??_GClearanceTestingSlowDeathBehaviorModuleData@@UAEPAXI@Z @0x00483EC5 28B
+// Deleting dtor slot 0 of vtable 0x00849E98; calls rowed ??1 at 0x00483EE1 then rowed operator delete at 0x0002FD60.
+class ClearanceTestingSlowDeathBehaviorModuleData { public: __declspec(noinline) virtual ~ClearanceTestingSlowDeathBehaviorModuleData(); private: int m_famgen; };
+ClearanceTestingSlowDeathBehaviorModuleData::~ClearanceTestingSlowDeathBehaviorModuleData() { m_famgen = 0; }
+void famgenDelete(ClearanceTestingSlowDeathBehaviorModuleData *p) { delete p; }
