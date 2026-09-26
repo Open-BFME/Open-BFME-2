@@ -1813,3 +1813,4 @@ FUN_0033E17D	0x0033E17D	59	blocked	LocomotorSet map clear-plus-push helper (map 
 ?Clear@DX8Wrapper@@SAX_N00ABUVector3@@MMI@Z	0x0011D330	329	partial	push-ebx-timing plus xor-vs-test plus slot-reuse t=20 model=muse-beed score=0.93 stash=reverse/attempts/0x0011d330.cpp
 ??1AttackNugget@@UAE@XZ	0x001F0622	48	blocked	extra derived vptr store t=10 model=muse-beed
 @__security_check_cookie@4	0x00629BAB	14	blocked	secchk.obj vendor thin: 6 concrete of 14B under MIN_LIB_CONCRETE 8 floor; gate thin-fails; prior attach dropped same reason t=5 model=muse-affe
+FUN_00714cc1	0x00314CC1	80	blocked	opaque vslot76 EH SSE font wrapper needs AsciiString model t=12 model=muse-d8bd

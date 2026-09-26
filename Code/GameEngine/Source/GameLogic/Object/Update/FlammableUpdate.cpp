@@ -241,7 +241,7 @@ void FlammableUpdate::doAflameDamage()
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
-// BFME m_audioHandle at +0x34; removeAudioEvent at AudioManager vtable +0x4c.
+// BFME m_audioHandle at +0x34; removeAudioEvent at AudioManager vtable +0x6c (retail call [edx+0x6c]).
 class AudioManager_RemoveSlot {
 public:
 	virtual void _pad0(void) = 0;
@@ -263,9 +263,16 @@ public:
 	virtual void _pad16(void) = 0;
 	virtual void _pad17(void) = 0;
 	virtual void _pad18(void) = 0;
+	virtual void _pad19(void) = 0;
+	virtual void _pad20(void) = 0;
+	virtual void _pad21(void) = 0;
+	virtual void _pad22(void) = 0;
+	virtual void _pad23(void) = 0;
+	virtual void _pad24(void) = 0;
+	virtual void _pad25(void) = 0;
+	virtual void _pad26(void) = 0;
 	virtual void removeAudioEvent( void *handle ) = 0;
 };
-// ?stopBurningSound@FlammableUpdate@@IAEXXZ present-unmatched
 void FlammableUpdate::stopBurningSound()
 {
 	struct AudioHandleField {

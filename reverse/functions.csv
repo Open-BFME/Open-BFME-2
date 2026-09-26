@@ -35942,3 +35942,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ?clear@Rva003FA5B9@@QAEXXZ,,0x003FA5B9,59,Code/GameEngine/Source/GameLogic/Object/SpecialPower/Rva003FA5B9Clear.cpp,matched,gap between overflow 0x003FA501 and push_back 0x003FA5F4 same TU flags callers 0x003FA657 and 0x002142E4 via erase 0x003FA4DB and delete 0x0002FD60
 ??1ArmorUpgrade@@MAE@XZ,,0x004B33FD,32,Code/GameEngine/Source/GameLogic/Object/Upgrade/ArmorUpgradeDtor.cpp,matched,dtor with 4 vptrs plus tail-jmp to UpgradeModule base via twin pin
 ??_GArmorUpgrade@@MAEPAXI@Z,,0x004B3499,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-67c0.cpp,matched,deleting dtor slot 0 calling rowed dtor plus delete
+?stopBurningSound@FlammableUpdate@@IAEXXZ,,0x0048C55E,28,Code/GameEngine/Source/GameLogic/Object/Update/FlammableUpdate.cpp,matched,gap between calcSleepTime and wouldIgnite donor ZH stopBurningSound
