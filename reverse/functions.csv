@@ -35498,3 +35498,15 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ?Rva003F29AD_FillRange@@YAPAVLivingWorldRegionConnection@@PAV1@IABV1@@Z,,0x003F29AD,37,Code/GameEngine/Source/Common/System/LivingWorldRegionConnectionHelpers.cpp,matched,uninitialized fill loop through rowed _Construct
 ?Rva00565A24_ScrapStorage@ConnectionVec@@QAEXXZ,,0x00565A24,30,Code/GameEngine/Source/Common/System/LivingWorldRegionConnectionHelpers.cpp,matched,destroy range plus pinned free; grow callee
 ?write@LadderPreferences@@UAE_NXZ,,0x005E0026,340,Code/GameEngine/Source/GameNetwork/GameSpy/OnlinePreferences.cpp,matched,LadderPreferences write over BFME1 donor shape: clears prefs then rebuilds up to 5 entries from the LadderPrefMap through rowed copy plus QP encoders plus format plus slot-ref store then forwards to UserPreferences write
+?Rva00020E6BGet@@YAHXZ,,0x00020E6B,6,Code/GameEngine/Source/Common/ConstIntGetters8.cpp,matched,B8-6 const-int returner batch; cold slice
+?Rva000310ACGet@@YAHXZ,,0x000310AC,6,Code/GameEngine/Source/Common/ConstIntGetters8.cpp,matched,B8-6 const-int returner batch; cold slice
+?Rva000B4935Get@@YAHXZ,,0x000B4935,6,Code/GameEngine/Source/Common/ConstIntGetters8.cpp,matched,B8-6 const-int returner batch; cold slice
+?Rva000F1ECDGet@@YAHXZ,,0x000F1ECD,6,Code/GameEngine/Source/Common/ConstIntGetters8.cpp,matched,B8-6 const-int returner batch; cold slice
+?Rva0011F519Get@@YAHXZ,,0x0011F519,6,Code/GameEngine/Source/Common/ConstIntGetters8.cpp,matched,B8-6 const-int returner batch; cold slice
+?Rva0014A0C0Get@@YAHXZ,,0x0014A0C0,6,Code/GameEngine/Source/Common/ConstIntGetters8.cpp,matched,B8-6 const-int returner batch; cold slice
+?Rva001542BDGet@@YAHXZ,,0x001542BD,6,Code/GameEngine/Source/Common/ConstIntGetters8.cpp,matched,B8-6 const-int returner batch; cold slice
+?Rva0018123CGet@@YAHXZ,,0x0018123C,6,Code/GameEngine/Source/Common/ConstIntGetters8.cpp,matched,B8-6 const-int returner batch; cold slice
+?Rva001EF348Get@@YAHXZ,,0x001EF348,6,Code/GameEngine/Source/Common/ConstIntGetters8.cpp,matched,B8-6 const-int returner batch; cold slice
+?Rva001FF282Get@@YAHXZ,,0x001FF282,6,Code/GameEngine/Source/Common/ConstIntGetters8.cpp,matched,B8-6 const-int returner batch; cold slice
+?Rva00203517Get@@YAHXZ,,0x00203517,6,Code/GameEngine/Source/Common/ConstIntGetters8.cpp,matched,B8-6 const-int returner batch; cold slice
+?Rva0020D4DDGet@@YAHXZ,,0x0020D4DD,6,Code/GameEngine/Source/Common/ConstIntGetters8.cpp,matched,B8-6 const-int returner batch; cold slice

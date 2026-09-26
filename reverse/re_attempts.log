@@ -1761,3 +1761,4 @@ Catch@00630215	0x00230215	390	blocked	catch(ErrorCode) funclet of GameEngine::in
 ??1?$SimpleVecClass@VAABoxClass@@@@UAE@XZ	0x007B748D	41	blocked	not a boundary: mid-instruction garbage (xchg esp,eax; fild); t=5 muse-spark
 ??_G?$SimpleVecClass@VAABoxClass@@@@UAEPAXI@Z	0x007972ED	61	blocked	not a boundary: jump-table area (jmp 0x52d20c); t=5 muse-spark
 ??0PhysicsBehaviorModuleData@@QAE@XZ	0x390119	178	partial	176/178B 38/38insns frameless ctor; all 25 stores plus G-triple plus frame exact; sole wall is 4-load hoisting to xmm0-3 (13 shape/flag variants refuted incl semantic/init-list/locals; see stash); supersedes 2026-09-23 0.85 positional stash; t=50 model=muse-spark score=0.98 stash=reverse/attempts/0x00390119.cpp
+?Rva0001818CGet@@YAHXZ	0x0001818C	6	blocked	return -1 folds to or-eax (83C8FF, 4B) vs retail mov-eax-imm (B8, 6B); no clean spelling forces B8; t=10 muse-spark
