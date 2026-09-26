@@ -22,10 +22,10 @@ class StringBase
 private:
 	struct Header
 	{
-		int ref_count;
-		unsigned short length;
-		unsigned short capacity;
-		T data[1];
+		int ref_count; // +0x00
+		unsigned short length; // +0x04 (movzx word)
+		unsigned short capacity; // +0x06
+		T data[1]; // +0x08
 	};
 
 	Header *m_data;
@@ -35,6 +35,7 @@ private:
 public:
 	void set(const T *str, int pos, int count);
 	void set(const T *str, int len);
+	void set(const StringBase<T> &src, int pos, int count);
 };
 
 template <>
@@ -57,4 +58,23 @@ void StringBase<WideChar>::set(const WideChar *str, int pos, int count)
 	if (pos + count >= len)
 		count = len - pos;
 	set(str + pos, count);
+}
+
+// ?set@?$StringBase@G@@QAEXABV1@HH@Z @0x00037EF0
+template <>
+void StringBase<WideChar>::set(const StringBase<WideChar> &src, int pos, int count)
+{
+	int end = pos + count;
+	if (end < 0 || pos >= (src.m_data ? src.m_data->length : 0)) {
+		releaseBuffer();
+		return;
+	}
+	if (pos < 0) {
+		count = end;
+		pos = 0;
+	}
+	if (pos + count >= (src.m_data ? src.m_data->length : 0))
+		count = (src.m_data ? src.m_data->length : 0) - pos;
+	const WideChar *s = src.m_data ? &src.m_data->data[0] : L"";
+	set(s + pos, count);
 }
