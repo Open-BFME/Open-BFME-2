@@ -62,6 +62,21 @@ private:
 	WatchdogCriticalSection &m_section;
 };
 
+class Rva0009990D
+{
+public:
+	void clear();
+
+private:
+	void *m_lock;
+};
+
+class ThreadClass
+{
+public:
+	void Stop();
+};
+
 class Watchdog
 {
 public:
@@ -69,6 +84,7 @@ public:
 	virtual void start();
 	virtual void Thread_Function();
 	virtual void reportWatchdog();
+	void stop();
 
 private:
 	char m_threadClass[0x4c];
@@ -82,6 +98,7 @@ private:
 	int m_suppressionCount;
 	WatchdogCriticalSection m_criticalSection;
 	MutexClass m_mutex;
+	Rva0009990D m_ownedLock;
 };
 
 void Watchdog::Thread_Function()
@@ -124,4 +141,10 @@ void Watchdog::Thread_Function()
 			}
 		}
 	}
+}
+
+void Watchdog::stop(void)
+{
+	m_ownedLock.clear();
+	((ThreadClass *)this)->Stop();
 }
