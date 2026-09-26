@@ -36477,3 +36477,15 @@ _setlinehook,,0x00748350,37,Code/Libraries/Source/Lua/ldblib.c,matched,BFME1 ldb
 ?XferScaffoldTargetMotion@@YAXPAVXfer@@PAH@Z,,0x00305DFA,24,Code/GameEngine/Source/Common/System/XferEnumHelpers.cpp,matched,labelled-enum helper ScaffoldTargetMotion via XferEnum
 ?XferBodyDamageType@@YAXPAVXfer@@PAH@Z,,0x00305E12,24,Code/GameEngine/Source/Common/System/XferEnumHelpers.cpp,matched,labelled-enum helper BodyDamageType via XferEnum
 ?rva0028B511@Object@@QBEHXZ,,0x0028B511,20,Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp,matched,Rva getter flag 0x48C else value 0x40C; 40 plus callers
+?XferWeaponSlotType@@YAXPAVXfer@@PAH@Z,,0x00305CF2,24,Code/GameEngine/Source/Common/System/XferEnumHelpers.cpp,matched,labelled-enum helper WeaponSlotType via XferEnum
+?XferOrderMode@@YAXPAVXfer@@PAH@Z,,0x00305D22,24,Code/GameEngine/Source/Common/System/XferEnumHelpers.cpp,matched,labelled-enum helper OrderMode via XferEnum
+?XferSaveFileType@@YAXPAVXfer@@PAH@Z,,0x00305D52,24,Code/GameEngine/Source/Common/System/XferEnumHelpers.cpp,matched,labelled-enum helper SaveFileType via XferEnum
+?XferBuildableStatus@@YAXPAVXfer@@PAH@Z,,0x00305D6A,24,Code/GameEngine/Source/Common/System/XferEnumHelpers.cpp,matched,labelled-enum helper BuildableStatus via XferEnum
+?XferWeaponStatus@@YAXPAVXfer@@PAH@Z,,0x00305D82,24,Code/GameEngine/Source/Common/System/XferEnumHelpers.cpp,matched,labelled-enum helper WeaponStatus via XferEnum
+?XferAttitudeType@@YAXPAVXfer@@PAH@Z,,0x00305D9A,24,Code/GameEngine/Source/Common/System/XferEnumHelpers.cpp,matched,labelled-enum helper AttitudeType via XferEnum
+?XferAICommandType@@YAXPAVXfer@@PAH@Z,,0x00305DB2,24,Code/GameEngine/Source/Common/System/XferEnumHelpers.cpp,matched,labelled-enum helper AICommandType via XferEnum
+?XferBodySideDestroyedType@@YAXPAVXfer@@PAH@Z,,0x00305E2A,24,Code/GameEngine/Source/Common/System/XferEnumHelpers.cpp,matched,labelled-enum helper BodySideDestroyedType via XferEnum
+?XferLocomotorSetType@@YAXPAVXfer@@PAH@Z,,0x00305E42,24,Code/GameEngine/Source/Common/System/XferEnumHelpers.cpp,matched,labelled-enum helper LocomotorSetType via XferEnum
+?XferGuardTargetType@@YAXPAVXfer@@PAH@Z,,0x00305E5A,24,Code/GameEngine/Source/Common/System/XferEnumHelpers.cpp,matched,labelled-enum helper GuardTargetType via XferEnum
+?XferFlammabilityStatusType@@YAXPAVXfer@@PAH@Z,,0x00305E72,24,Code/GameEngine/Source/Common/System/XferEnumHelpers.cpp,matched,labelled-enum helper FlammabilityStatusType via XferEnum
+?XferDeployStateTypes@@YAXPAVXfer@@PAH@Z,,0x00305E8A,24,Code/GameEngine/Source/Common/System/XferEnumHelpers.cpp,matched,labelled-enum helper DeployStateTypes via XferEnum

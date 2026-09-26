@@ -313,6 +313,81 @@ void XferBodyDamageType(Xfer *xfer, int *value)
 	xfer->XferEnum("BodyDamageType", value, 4);
 }
 
+// Retail 0x00305CF2 (24B): labelled-enum helper with the "WeaponSlotType"
+// label.
+void XferWeaponSlotType(Xfer *xfer, int *value)
+{
+	xfer->XferEnum("WeaponSlotType", value, 4);
+}
+
+// Retail 0x00305D22 (24B): labelled-enum helper with the "OrderMode" label.
+void XferOrderMode(Xfer *xfer, int *value)
+{
+	xfer->XferEnum("OrderMode", value, 4);
+}
+
+// Retail 0x00305D52 (24B): labelled-enum helper with the "SaveFileType" label.
+void XferSaveFileType(Xfer *xfer, int *value)
+{
+	xfer->XferEnum("SaveFileType", value, 4);
+}
+
+// Retail 0x00305D6A (24B): labelled-enum helper with the "BuildableStatus" label.
+void XferBuildableStatus(Xfer *xfer, int *value)
+{
+	xfer->XferEnum("BuildableStatus", value, 4);
+}
+
+// Retail 0x00305D82 (24B): labelled-enum helper with the "WeaponStatus" label.
+void XferWeaponStatus(Xfer *xfer, int *value)
+{
+	xfer->XferEnum("WeaponStatus", value, 4);
+}
+
+// Retail 0x00305D9A (24B): labelled-enum helper with the "AttitudeType" label.
+void XferAttitudeType(Xfer *xfer, int *value)
+{
+	xfer->XferEnum("AttitudeType", value, 4);
+}
+
+// Retail 0x00305DB2 (24B): labelled-enum helper with the "AICommandType" label.
+void XferAICommandType(Xfer *xfer, int *value)
+{
+	xfer->XferEnum("AICommandType", value, 4);
+}
+
+// Retail 0x00305E2A (24B): labelled-enum helper with the "BodySideDestroyedType"
+// label.
+void XferBodySideDestroyedType(Xfer *xfer, int *value)
+{
+	xfer->XferEnum("BodySideDestroyedType", value, 4);
+}
+
+// Retail 0x00305E42 (24B): labelled-enum helper with the "LocomotorSetType" label.
+void XferLocomotorSetType(Xfer *xfer, int *value)
+{
+	xfer->XferEnum("LocomotorSetType", value, 4);
+}
+
+// Retail 0x00305E5A (24B): labelled-enum helper with the "GuardTargetType" label.
+void XferGuardTargetType(Xfer *xfer, int *value)
+{
+	xfer->XferEnum("GuardTargetType", value, 4);
+}
+
+// Retail 0x00305E72 (24B): labelled-enum helper with the "FlammabilityStatusType"
+// label.
+void XferFlammabilityStatusType(Xfer *xfer, int *value)
+{
+	xfer->XferEnum("FlammabilityStatusType", value, 4);
+}
+
+// Retail 0x00305E8A (24B): labelled-enum helper with the "DeployStateTypes" label.
+void XferDeployStateTypes(Xfer *xfer, int *value)
+{
+	xfer->XferEnum("DeployStateTypes", value, 4);
+}
+
 // Two version bytes, stored back to back: the retail Version1 body writes 1 to
 // both of them in a four-byte stack slot before handing their address to the
 // slot-10 transfer operator. Xfer.cpp's model verbatim.
