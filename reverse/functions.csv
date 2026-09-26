@@ -36334,3 +36334,4 @@ _Rva00680420,,0x00680420,17,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,mat
 ??1DX8TextureCategoryClass@@UAE@XZ,,0x00144AF0,212,Code/Libraries/Source/WWVegas/WW3D2/DX8TextureCategoryDtor.cpp,matched,vtable 0x7D3508 ctor 0x144A00 donor BFME1 dx8renderer dtor caller deleting dtor 0x1460C0
 ??_GSpecialPowerModuleData@@UAEPAXI@Z,,0x00548A09,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-d4d4.cpp,matched,slot 0 of vtable 0x86A520 plus dtor 0x548948 plus delete 0x2FD60
 ?xfer@Rva00589079@@MAEXPAVXfer@@@Z,,0x00589215,72,Code/GameEngine/Source/Common/Rva00589079Xfer.cpp,matched,slot3 xfer via Version1 plus base plus uint int uint float
+?findLadder@LadderList@@QAEPBVLadderInfo@@ABVAsciiString@@G@Z,,0x0054D74B,151,Code/Libraries/Source/WWVegas/WWLib/LadderListFindLadder.cpp,matched,gap in asciistring_insert plus BFME1 LadderList donor plus JoinFailed caller
