@@ -103,6 +103,56 @@ class UnicodeString;
 class PooledString;
 struct XferUnknown11;
 
+// Retail StringBase<char> layout (Header at m_data): ref_count +0, length
+// WORD +4, capacity WORD +6, data +8. getLength/str/clear inline here so the
+// AsciiString transfer below emits the witnessed movzx/getBufferForRead/clear
+// sequence; getBufferForRead and releaseBuffer resolve via pins 0x36640/0x36410.
+template <typename T>
+class StringBase
+{
+public:
+    int getLength() const
+    {
+        return m_data ? m_data->length : 0;
+    }
+    const T *str() const
+    {
+        return m_data ? m_data->data : (const T *)"";
+    }
+    void clear()
+    {
+        releaseBuffer();
+    }
+    T *getBufferForRead(int len);
+
+private:
+    void releaseBuffer();
+
+    struct Header
+    {
+        int ref_count;
+        unsigned short length;
+        unsigned short capacity;
+        T data[1];
+    };
+
+    Header *m_data;
+};
+
+// AsciiString is one pointer (StringBase<char> layover): delegate so the
+// transfer below inlines call-free getLength/str and direct getBufferForRead
+// (0x36640) and clear/releaseBuffer (0x36410) calls.
+class AsciiString
+{
+public:
+    int getLength() const { return ((const StringBase<char> *)this)->getLength(); }
+    const char *str() const { return ((const StringBase<char> *)this)->str(); }
+    void clear() { ((StringBase<char> *)this)->clear(); }
+
+private:
+    char *m_text;
+};
+
 struct XferException
 {
 	void *text;
@@ -131,8 +181,8 @@ public:
 
     void Version1();
 
-    virtual bool IsStoring() const;
     virtual bool IsLoading() const;
+    virtual bool IsStoring() const;
     virtual bool IsCRC() const;
     virtual bool IsLightCRC() const;
 
@@ -197,12 +247,12 @@ Xfer::~Xfer()
 {
 }
 
-bool Xfer::IsStoring() const
+bool Xfer::IsLoading() const
 {
     return false;
 }
 
-bool Xfer::IsLoading() const
+bool Xfer::IsStoring() const
 {
     return false;
 }
@@ -423,6 +473,47 @@ Xfer &Xfer::XferEnum(const char *name, void *data, unsigned int size)
     case 4:
         XferData(0x656E7534, data, 4);
         break;
+    }
+    return *this;
+}
+
+// Retail 0x0060BEA4, 250B, vtable slot 27 of 0x007BB910. Base AsciiString
+// transfer (astr tag 0x61737472) via XferData slot 38; donor
+// XferAsciiStringTransfer.cpp logic with Xfer.cpp /O1 layout.
+Xfer &Xfer::operator==(AsciiString &as)
+{
+    if (IsStoring())
+    {
+        int length = as.getLength();
+        if (length >= 255)
+        {
+            unsigned char marker = 255;
+            XferData(0x61737472, &marker, 1);
+            XferData(0, &length, 4);
+        }
+        else
+        {
+            XferData(0x61737472, &length, 1);
+        }
+        XferData(0, (void *)as.str(), length);
+    }
+    else
+    {
+        int length = 0;
+        XferData(0x61737472, &length, 1);
+        if (length == 255)
+        {
+            XferData(0, &length, 4);
+        }
+        if (length != 0)
+        {
+            XferData(0, ((StringBase<char> *)&as)->getBufferForRead(length), length);
+            ((StringBase<char> *)&as)->getBufferForRead(length)[length] = 0;
+        }
+        else
+        {
+            as.clear();
+        }
     }
     return *this;
 }
