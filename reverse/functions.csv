@@ -36097,3 +36097,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ??_GSlaveWatcherBehavior@@UAEPAXI@Z,,0x004848CA,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-a0ab.cpp,matched,slot0 of vtable 0xC4A264 calls rowed dtor 0x484739
 ??_GRva0065D1D0@@UAEPAXI@Z,,0x0065D810,36,Code/Libraries/Source/DirtySock/Rva0065D1D0Deleter.cpp,matched,vtable 0xCE1E30 slot0 calls base 0x658650 plus global delete
 ??_GRousingSpeechUpdateModuleData@@UAEPAXI@Z,,0x004AD333,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-94e1.cpp,matched,slot0 of 0x00C55048 calls rowed 0x004AD34F plus delete 0x2FD60
+??1?$DynamicVectorClass@VKeyClass@Curve3DClass@@@@UAE@XZ,,0x000F1D19,11,Code/Libraries/Source/WWVegas/WWMath/curve.cpp,matched,vtable 0x7CEFDC slot0 0xF28A7 plus base 0x7CEFAC plus Clear twin 0xF0CD4
