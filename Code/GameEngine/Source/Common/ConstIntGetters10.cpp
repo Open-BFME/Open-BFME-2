@@ -14,3 +14,9 @@ int Rva002DF99DGet(void)
 {
 	return 0x00c04310;
 }
+
+// ?Rva00318B39Get@@YAHXZ @ 0x00318b39 (6B): returns 0x00de0878.
+int Rva00318B39Get(void)
+{
+	return 0x00de0878;
+}
