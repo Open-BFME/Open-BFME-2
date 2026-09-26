@@ -10,3 +10,9 @@ void famgenDelete(SiegeDeployHordeSpecialPower *p) { delete p; }
 class AIUpdateModuleData { public: __declspec(noinline) virtual ~AIUpdateModuleData(); private: int m_famgen; };
 AIUpdateModuleData::~AIUpdateModuleData() { m_famgen = 0; }
 void famgenDelete(AIUpdateModuleData *p) { delete p; }
+
+// ??_GWeaponModeSpecialPowerUpdateModuleData@@UAEPAXI@Z @0x00494D60 28B
+// Deleting dtor slot 0 of vtable 0x0084EA88; calls rowed ??1 at 0x00494D7C then rowed operator delete at 0x0002FD60.
+class WeaponModeSpecialPowerUpdateModuleData { public: __declspec(noinline) virtual ~WeaponModeSpecialPowerUpdateModuleData(); private: int m_famgen; };
+WeaponModeSpecialPowerUpdateModuleData::~WeaponModeSpecialPowerUpdateModuleData() { m_famgen = 0; }
+void famgenDelete(WeaponModeSpecialPowerUpdateModuleData *p) { delete p; }
