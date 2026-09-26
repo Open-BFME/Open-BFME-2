@@ -36087,3 +36087,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ??1PartTheHeavensUpdate@@UAE@XZ,,0x004AC8EF,77,Code/GameEngine/Source/GameLogic/Object/Update/PartTheHeavensUpdateDtor.cpp,matched,MI dtor with pointee Release plus base 0x24A797 via Poisoned shape
 ??_GPartTheHeavensUpdate@@UAEPAXI@Z,,0x004AC9DE,28,Code/GameEngine/Source/GameLogic/Object/Update/PartTheHeavensUpdateDtor.cpp,matched,slot 0 deleting dtor for PartTheHeavensUpdate via own TU
 ??1RadiusDecalUpdate@@UAE@XZ,,0x003913E4,91,Code/GameEngine/Source/GameLogic/Object/Update/RadiusDecalUpdateCtorThunk.cpp,matched,BFME1 donor plus 3 vptrs plus clear 0x330DBA plus dtor 0x330DD6 plus base 0x24A797 plus slot0 0x3914F9
+??_GRemoveUpgradeUpgradeModuleData@@UAEPAXI@Z,,0x004B8034,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-zqk.cpp,matched,slot0 vtable 0x58EF0 calls rowed 0x4B8050 plus delete
