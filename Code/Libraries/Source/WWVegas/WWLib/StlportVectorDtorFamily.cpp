@@ -12,6 +12,16 @@
 struct OpaqueRefElement4 { public: ~OpaqueRefElement4(); };
 template _STL::vector<OpaqueRefElement4>::~vector();
 
+// ??1?$vector@UQuantityModifier@@V?$allocator@UQuantityModifier@@@_STL@@@_STL@@QAE@XZ @0x49e274
+// (_Destroy at 0x32c0ca, pinned twin of the rowed 8-byte-pair destroy).
+// QuantityModifier is ProductionUpdateModuleData's +0x1C modifier element: an
+// 8-byte AsciiString-plus-int pair (full layout in the ctor TU
+// ProductionUpdateModuleDataCtor.cpp, INI table 0x00C517F0). The 8-byte
+// stride is all this body observes, so the element stays size-free here per
+// the family rule; the range destroy folds with Rva0032C0CADestroyPairs.
+struct QuantityModifier { public: ~QuantityModifier(); };
+template _STL::vector<QuantityModifier>::~vector();
+
 // ??1?$vector@UBfmeVectorRecord000BDF17@@V?$allocator@UBfmeVectorRecord000BDF17@@@_STL@@@_STL@@QAE@XZ @0xc6878 (_Destroy at 0xc37cd)
 struct BfmeVectorRecord000BDF17 { public: ~BfmeVectorRecord000BDF17(); };
 template _STL::vector<BfmeVectorRecord000BDF17>::~vector();
