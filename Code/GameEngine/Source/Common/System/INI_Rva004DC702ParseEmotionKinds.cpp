@@ -51,3 +51,15 @@ void INI::Rva004DC702_ParseEmotionType(INI *ini, void *instance, void *store, co
 	_CxxThrowException(&e, (void *)&emotionThrowInfoAnchor);
 }
 
+// ?Rva004DC745_ParseAIState@INI@@SAXPAV1@PAX1PBX@Z
+void INI::Rva004DC745_ParseAIState(INI *ini, void *instance, void *store, const void *userData)
+{
+	const char *token = ini->getNextToken(0);
+	if (token != 0) {
+		*(int *)store = BitFlags<6>::getSingleBitFromName(token);
+		return;
+	}
+	INIException e;
+	rva002f681_fill(&e, 3, "Emotion AI type expected.");
+	_CxxThrowException(&e, (void *)&emotionThrowInfoAnchor);
+}
