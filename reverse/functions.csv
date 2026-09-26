@@ -36035,3 +36035,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ??1ToppleUpdateModuleData@@UAE@XZ,,0x004A83A7,48,Code/GameEngine/Source/GameLogic/Object/Update/ToppleUpdateModuleDataDtor.cpp,matched,vtable 0x008538A0 slot0 deleting dtor at 0x004A838B INI table 0x00C53980 ZH ToppleUpdate donor
 ??1StrafeAreaUpdateModuleData@@UAE@XZ,,0x003A4ECF,54,Code/GameEngine/Source/GameLogic/Object/Update/StrafeAreaUpdateModuleDataDtor.cpp,matched,dtor via derived vtable plus AsciiString plus Snapshot BBB554
 ??_GStrafeAreaUpdateModuleData@@UAEPAXI@Z,,0x003A4F05,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-eeab.cpp,matched,deleting dtor via family pattern plus rowed dtor
+??1EvacuateDamageModuleData@@UAE@XZ,,0x004BAD91,48,Code/GameEngine/Source/GameLogic/Object/Update/EvacuateDamageModuleDataDtor.cpp,matched,dtor via implicit virtual plus base restore plus AsciiString
