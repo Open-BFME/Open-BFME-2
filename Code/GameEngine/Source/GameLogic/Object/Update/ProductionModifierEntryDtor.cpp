@@ -51,3 +51,9 @@ private:
 ProductionModifierEntry::~ProductionModifierEntry()
 {
 }
+
+// ??_GProductionModifierEntry@@QAEPAXI@Z @0x0049D82F (28 bytes, abuts the
+// entry dtor's ??_G slot; boundary proven by the ret at 0x0049D82E plus the
+// ??_G prologue). Emitted by the delete helper (Version precedent); the dtor
+// and operator-delete calls resolve through their rows.
+void deleteProductionModifierEntry(ProductionModifierEntry *entry) { delete entry; }
