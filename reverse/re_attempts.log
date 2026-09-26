@@ -1755,3 +1755,8 @@ Catch@00630215	0x00230215	390	blocked	catch(ErrorCode) funclet of GameEngine::in
 ?Rva00719823Frag@@YAHXZ	0x00719823	6	blocked	jump-table case arm or jae-target arm into B8; not a standalone function; do not land
 ?findLocomotorTemplate@LocomotorStore@@QAEPBVLocomotorTemplate@@H@Z	0x001E6FEA	38	partial	shared zero-return placed late not early; all else exact score=0.95 stash=reverse/attempts/0x001e6fea.cpp
 ?Rva0074EDD3Frag@@YAHXZ	0x0074EDD3	6	blocked	jne-target arm (jne plus4 over mov-eax plus ret into B8 00000001); frag class; do not land
+?_M_insert_overflow@?$vector@U?$pair@HH@_STL@@V?$allocator@U?$pair@HH@_STL@@@_STL@@IAEXPAU?$pair@HH@2@ABU32@ABU__true_type@2@I_N@Z	0x007B9BC0	238	blocked	retail is 10B mov-ecx+jmp thunk (0x7B9BC0: mov ecx 0xe0abb4 + jmp 0x689db0), not 238B overflow; whole 0x7B9Bxx-0x7B9Cxx cluster is thunk farm; t=10 muse-spark
+??0LightningEmissionInfo@FXParticleSystem@@QAE@ABV01@@Z	0x003A6AF5	154	partial	push-edi source-invariant: ruled out both-struct/point1-struct/slicing-base/indexed-array (all 154/68 same wall); t=+35 muse-spark score=0.95 stash=reverse/attempts/0x003a6af5.cpp
+?_M_insert_overflow@?$vector@U?$pair@HH@_STL@@V?$allocator@U?$pair@HH@_STL@@@_STL@@IAEXPAU?$pair@HH@2@ABU32@ABU__false_type@2@I_N@Z	0x005E4087	290	blocked	retail 143B frame-pointer game method (arg vs [this+0x28], 6 unclaimed callees), not vector overflow; t=10 muse-spark
+??1?$SimpleVecClass@VAABoxClass@@@@UAE@XZ	0x007B748D	41	blocked	not a boundary: mid-instruction garbage (xchg esp,eax; fild); t=5 muse-spark
+??_G?$SimpleVecClass@VAABoxClass@@@@UAEPAXI@Z	0x007972ED	61	blocked	not a boundary: jump-table area (jmp 0x52d20c); t=5 muse-spark

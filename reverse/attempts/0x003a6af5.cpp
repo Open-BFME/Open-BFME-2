@@ -1,5 +1,5 @@
 // ??0LightningEmissionInfo@FXParticleSystem@@QAE@ABV01@@Z
-// partial score=0.95 date=2026-09-25
+// partial score=0.95 date=2026-09-26
 // cl: /DNDEBUG /MD /GX- /O1 /Ob2
 
 // LightningEmissionInfo copy ctor, retail 0x003A6AF5 (154B).
