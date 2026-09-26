@@ -36451,3 +36451,4 @@ _setlinehook,,0x00748350,37,Code/Libraries/Source/Lua/ldblib.c,matched,BFME1 ldb
 ?start@Watchdog@@UAEXXZ,,0x002256C0,86,Code/GameEngine/Source/Common/WatchdogThreadFunction.cpp,matched,vtable slot 1 Watchdog start via new Lock plus holder set plus base Execute
 ?getParameterType@Template@@QBE?AW4ParameterType@Parameter@@H@Z,,0x003B27A3,24,Code/GameEngine/Source/GameLogic/ScriptEngine/TemplateGetParameterType.cpp,matched,ZH Scripts.cpp donor shared ActionTemplate ConditionTemplate callers
 ?Rva0027D85B@Rva0062AF7@@UAEMPAX@Z,,0x0027D85B,51,Code/GameEngine/Source/Common/Rva0062AF7Rva0027D815.cpp,matched,vslot 30 of 0x007C5890 via honest address name plus grid global 0x00DBB710 plus pooled 0.0f
+?setCoord3D@Parameter@@IAEXPBUCoord3D@@@Z,,0x003B27E2,22,Code/GameEngine/Source/GameLogic/ScriptEngine/ParameterSetCoord3D.cpp,matched,ZH Scripts.cpp donor type 0x10 coord at 0x14
