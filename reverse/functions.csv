@@ -36252,3 +36252,4 @@ _Rva00680420,,0x00680420,17,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,mat
 ??1StealthDetectorUpdateModuleData@@UAE@XZ,,0x0025601C,95,Code/GameEngine/Source/GameLogic/Object/Upgrade/FamilyUpgradeModuleDataDtors.cpp,matched,two strings at +0x6C/+0x2C two holders at +0x18/+0x14 vtable BF3540 caller 0x56000
 ??_GStealthDetectorUpdateModuleData@@UAEPAXI@Z,,0x00256000,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-cfe6.cpp,matched,slot0 vtable 0x7F3540 calls rowed 0x25601C
 ??1AttachUpdateModuleData@@UAE@XZ,,0x00491AA0,48,Code/GameEngine/Source/GameLogic/Object/Update/AttachUpdateModuleDataDtor.cpp,matched,Snapshot base 0xBBB554 with filter at +8 via pinned 0x360D26 and ctor 0x491968 vtable 0xC4DD18
+??_GAttachUpdateModuleData@@UAEPAXI@Z,,0x00491A84,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-p7z-f52d.cpp,matched,slot 0 of vtable 0x0084DD18 calls rowed 0x00491AA0 and rowed delete 0x0002FD60
