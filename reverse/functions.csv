@@ -35808,3 +35808,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ??_G?$messages@D@_STL@@MAEPAXI@Z,,0x00019F80,30,Code/Libraries/Source/WWVegas/WWLib/stlport_messages_dtors.cpp,matched,slot 0 of messages<char> vtable; implicit emission calls rowed dtor
 ?getFileId@INIFileTable@@QBEHH@Z,,0x006018B6,38,Code/GameEngine/Source/GameClient/INIFileTableGetName.cpp,matched,INI record fileId accessor over 12B records via volatile base reload
 ?getName@INIFileTable@@QBE?AVAsciiString@@H@Z,,0x00601903,62,Code/GameEngine/Source/GameClient/INIFileTableGetName.cpp,matched,INI filename accessor with empty-singleton fallback via record-table worker
+?rva0028AC7D@Object@@QBEMXZ,,0x0028AC7D,35,Code/GameEngine/Source/GameLogic/Object/ObjectRva0028AC4EAccessors.cpp,matched,Object holder-entry float with global fallback. Pinned getter plus rowed disp8 float at +0x40. /O1 plus /arch:SSE gives retail fldz-fld-fcompi compare.

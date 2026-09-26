@@ -68,7 +68,7 @@ bool Object::rva0028AC62() const
 }
 
 // ?rva0028AC7D@Object@@QBEMXZ
-// ?rva0028AC7D@Object@@QBEMXZ present-unmatched
+// ?rva0028AC7D@Object@@QBEMXZ
 float Object::rva0028AC7D() const
 {
 	const Rva0028AC4EEntry *entry = rva0028AC4E();
