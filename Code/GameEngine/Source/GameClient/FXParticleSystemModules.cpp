@@ -178,6 +178,47 @@ public:
     CategoryModuleTemplate(const CategoryModuleTemplate &that);
 };
 
+// Category 7 is wind: retail DefaultModuleTemplate<7> copy at 0x003A8CA5 calls
+// CategoryModuleTemplate<7> copy at 0x001F44E4 and its assignment at 0x003A8CF1
+// calls CategoryModuleTemplate<7> assignment at 0x001F3719 (both rows in
+// FXParticleSystem.cpp), and DefaultModuleTemplate<7> derives from the category
+// (see FXParticleSystemDefaultTemplateDtor.cpp). The wind info below copies the
+// 17-member layout from FXParticleSystem.cpp (14 floats, a bool, 2 floats: 68
+// data + vptr = 72, + 8 = 80 = 0x50 retail clone push at 0x003A9499).
+class WindModuleInfo
+{
+public:
+    virtual ~WindModuleInfo();
+    virtual void v1() = 0;
+
+    float m_unknown04;
+    float m_unknown08;
+    float m_unknown0C;
+    float m_unknown10;
+    float m_unknown14;
+    float m_unknown18;
+    float m_unknown1C;
+    float m_unknown20;
+    float m_unknown24;
+    float m_unknown28;
+    float m_unknown2C;
+    float m_unknown30;
+    float m_unknown34;
+    float m_unknown38;
+    bool m_unknown3C;
+    float m_unknown40;
+    float m_unknown44;
+};
+
+template <>
+class CategoryModuleTemplate<7> : public ModuleTemplate, public SecondaryModuleBase,
+                                  public WindModuleInfo
+{
+public:
+    CategoryModuleTemplate();
+    CategoryModuleTemplate(const CategoryModuleTemplate &that);
+};
+
 class DefaultPhysicsModuleInfo
 {
 public:
@@ -616,7 +657,17 @@ FX_DEFAULT_TEMPLATE(1, DefaultAlphaModuleInfo)
 FX_DEFAULT_TEMPLATE(2, DefaultUpdateModuleInfo)
 FX_DEFAULT_TEMPLATE(3, DefaultPhysicsModuleInfo)
 FX_DEFAULT_TEMPLATE(6, DefaultDrawModuleInfo)
-FX_DEFAULT_TEMPLATE(7, DefaultCategory7ModuleInfo)
+// Default 7 is not a triple over DefaultCategory7ModuleInfo (which would be
+// 76 + 8 = 84 = 0x54): it derives from CategoryModuleTemplate<7> above, giving
+// 72 + 8 = 80 = 0x50 as retail 0x003A9499 pushes. The unused
+// DefaultCategory7ModuleInfo above is kept only to minimise the diff.
+template <>
+class DefaultModuleTemplate<7> : public CategoryModuleTemplate<7>
+{
+public:
+    DefaultModuleTemplate();
+    DefaultModuleTemplate(const DefaultModuleTemplate<7> &that);
+};
 
 template <int CATEGORY>
 struct DefaultModuleKey

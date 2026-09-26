@@ -35938,3 +35938,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ?get@Rva002C8EF9ByteFloatField@@QBEMXZ,,0x002C8EF9,19,Code/GameEngine/Source/Common/DispByteFloatFieldGetters.cpp,matched,byte to float getter via fild with EBP frame
 ?Rva00314C13Get@@YGHPAH@Z,,0x00314C13,10,Code/GameEngine/Source/Common/Rva00314C13Get.cpp,matched,slot72 vtable 0x007C7C90 direct caller 0x000D78DB
 ?rva00605CFB@LocalFile@@UAE_NPBDH@Z,,0x00605CFB,59,Code/GameEngine/Source/Common/System/LocalFile.cpp,matched,LocalFile slot1 narrow adapter via Utf8ToWide plus slot17 wide worker; vtable 0087AB28; honest address name
+?clone@?$ConcreteModuleTemplate@V?$DefaultModuleTag@$06@FXParticleSystem@@@FXParticleSystem@@UBEPAV?$DefaultModuleTemplate@$06@2@XZ,0x003A9499,0x003A9499,29,Code/GameEngine/Source/GameClient/FXParticleSystemModules.cpp,matched,vtable slot1 0x0081BFB8 copyctor 0x003A8CCB size 0x50 wind category7
