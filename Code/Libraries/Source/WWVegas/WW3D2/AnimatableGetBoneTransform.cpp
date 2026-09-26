@@ -1,13 +1,26 @@
-// cl: /Ireference/shims/bfme2htree /Ireference/shims/bfme2renderobj /Ireference/shims/bfmeanimobj /arch:SSE /O2 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/sweep
+// cl: /Ireference/shims/bfme2htree /Ireference/shims/bfme2renderobj /Ireference/shims/bfmeanimobj /arch:SSE /G7 /O2 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/sweep
 // ?Get_Bone_Transform@Animatable3DObjClass@@UAE?AVMatrix3D@@PBD@Z @0x001A4DE0 133B
 // Animatable3DObjClass::Get_Bone_Transform by-name forwarder to by-index at slot 51 (+0xCC); BFME1 donor animobj.cpp Get_Bone_Transform but BFME2 returns Matrix3D by value (hidden ptr, ret 8); vtable 0x7D6D10 slot 52; HTree +0xF8 Transform +0x18; callee Get_Bone_Index 0x160B60 rowed.
 
 #include "matrix3d.h"
 
+struct HTreeBone
+{
+	unsigned char m_pad00[0x50];
+	bool m_captured;
+	unsigned char m_pad51[88 - 0x50 - 1];
+};
+
 class HTreeClass
 {
+	friend class Animatable3DObjClass;
+
 public:
 	int Get_Bone_Index(const char *bonename) const;
+
+private:
+	unsigned char m_pad00[0x14];
+	HTreeBone *m_bones;
 };
 
 class Animatable3DObjClass
@@ -55,7 +68,7 @@ public:
 	virtual void pad39() = 0;
 	virtual void pad40() = 0;
 	virtual void pad41() = 0;
-	virtual void pad42() = 0;
+	virtual void Update_Sub_Object_Transforms();
 	virtual void pad43() = 0;
 	virtual void pad44() = 0;
 	virtual void pad45() = 0;
@@ -66,11 +79,14 @@ public:
 	virtual void pad50() = 0;
 	virtual Matrix3D Get_Bone_Transform(const char *bonename);
 	virtual Matrix3D Get_Bone_Transform(int boneindex);
+	virtual bool rva001A4E70(int boneindex);
 
 private:
 	unsigned char m_pad04[0x18 - 4];
 	Matrix3D m_transform;
-	unsigned char m_pad48[0xF8 - 0x48];
+	unsigned char m_pad48[0xF4 - 0x48];
+	bool m_hierarchyValid;
+	unsigned char m_padF5[0xF8 - 0xF5];
 	HTreeClass *m_htree;
 };
 
@@ -82,5 +98,17 @@ Matrix3D Animatable3DObjClass::Get_Bone_Transform(const char *bonename)
 	} else {
 		Validate_Transform();
 		return m_transform;
+	}
+}
+
+bool Animatable3DObjClass::rva001A4E70(int boneindex)
+{
+	Validate_Transform();
+	if (m_htree) {
+		if (!m_hierarchyValid)
+			Update_Sub_Object_Transforms();
+		return m_htree->m_bones[boneindex].m_captured;
+	} else {
+		return true;
 	}
 }
