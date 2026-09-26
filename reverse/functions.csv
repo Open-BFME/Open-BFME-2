@@ -36111,3 +36111,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ??_GParticleSystemFXNugget@@UAEPAXI@Z,,0x001E10CE,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-c9a1.cpp,matched,slot0 of vtable 0x7DD908 calls rowed 0x1E10EA plus delete 0x2FD60
 ?xfer@InvisibilityUpdate@@MAEXPAVXfer@@@Z,,0x004A3981,61,Code/GameEngine/Source/GameLogic/Object/Update/InvisibilityUpdateXfer.cpp,matched,slot 3 of vtable 0x852534 base xfer plus Version 1 2 plus bool 0x24
 ??1INIException@@QAE@XZ,,0x0002BD30,9,Code/GameEngine/Source/Common/INI/INIExceptionCtor.cpp,matched,ZH INIException dtor deleting mFailureMessage via rowed array-delete
+??1BuffNuggetFXNugget@@UAE@XZ,,0x001E32D3,179,Code/GameEngine/Source/GameClient/BuffNuggetFXNuggetDtor.cpp,matched,vtable 0x7DD9B4 slot0 wrapper 0x1E32B7 calls here; ctor 0x1E2FCE installs vtable; FieldParse 0xBDCEB8 eight strings 0x154 to 0x170 plus vector 0x184; base dtor 0x1DFA48
