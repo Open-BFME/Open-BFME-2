@@ -232,6 +232,7 @@ class RAMFile : public File
 {
 public:
 	RAMFile();
+	virtual ~RAMFile();
 	virtual bool open( File *file );
 	virtual void close( void );
 
@@ -257,6 +258,19 @@ LocalFile::~LocalFile()
 
 	File::close();
 
+}
+
+// ??1RAMFile@@UAE@XZ, retail 0x00605504, 67 bytes. RAMFile destructor: stores
+// vtable 0x0087AA00, array-deletes m_data at +0x14 via rowed ??_V 0x0002FD80,
+// calls rowed File::close 0x0060259A, then the rowed File dtor 0x006025CE.
+// Vtable slots prove RAMFile (slot 2 is rowed RAMFile::close 0x00605547, slot 3
+// is 0x00605564 read, slot 5 seek, slot 6 nextLine); donor is BFME1
+// RAMFileDestructorThunk (protected spelling) but File-family dtors here are
+// public UAE like LocalFile/File, and the ctor at 0x006054E7 is public QAE.
+RAMFile::~RAMFile()
+{
+	::operator delete[](m_data);
+	File::close();
 }
 
 // Closes the current file if it is open. Must be called once per successful

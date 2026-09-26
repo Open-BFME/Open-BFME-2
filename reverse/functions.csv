@@ -36054,3 +36054,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ??_GCftp@@UAEPAXI@Z,,0x006CB5B0,30,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-7a10.cpp,matched,slot0 of 0x008E8A38 calls pinned dtor 0x006CA600
 ??_GLevelGrantSpecialPowerModuleData@@UAEPAXI@Z,,0x004C2C06,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-1fea.cpp,matched,slot0 of vtable 0xC5C828 calls rowed 0x4C2C22 plus delete 0x2FD60
 ??1HeroModeSpecialAbilityUpdateModuleData@@UAE@XZ,,0x004922F1,56,Code/GameEngine/Source/GameLogic/Object/Update/HeroModeSpecialAbilityUpdateModuleDataDtor.cpp,matched,BFME1 donor virtual dtor plus string 0x36410 at C8 plus base 0x44ECCE plus slot0 0x4922D5
+??1RAMFile@@UAE@XZ,,0x00605504,67,Code/GameEngine/Source/Common/System/LocalFile.cpp,matched,vtable 0087AA00 slot0 deleter calls it plus rowed RAMFile close slot2 plus BFME1 RAMFileDestructorThunk shape
