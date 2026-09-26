@@ -8,6 +8,7 @@ typedef bool Bool;
 class GameWindow
 {
 public:
+	Int winHide(Bool hide);
 	Int winEnable(Bool enable);
 };
 
@@ -19,8 +20,9 @@ public:
 	V(8) V(9) V(10) V(11) V(12) V(13) V(14) V(15)
 	V(16) V(17) V(18) V(19) V(20) V(21) V(22) V(23)
 	V(24) V(25) V(26) V(27) V(28) V(29) V(30) V(31)
-	V(32) V(33) V(34) V(35) V(36) V(37) V(38)
+	V(32) V(33) V(34) V(35) V(36) V(37)
 #undef V
+	virtual void hideWindowsInRange(GameWindow *baseWindow, Int first, Int last, Bool hideFlag);
 	virtual void enableWindowsInRange(GameWindow *baseWindow, Int first, Int last, Bool enableFlag);
 #define W(n) virtual void pad##n() = 0;
 	W(40) W(41) W(42) W(43) W(44) W(45) W(46) W(47)
@@ -29,6 +31,19 @@ public:
 #undef W
 	virtual GameWindow *winGetWindowFromId(GameWindow *window, Int id) = 0;
 };
+
+void GameWindowManager::hideWindowsInRange(GameWindow *baseWindow, Int first, Int last, Bool hideFlag)
+{
+	Int i;
+	GameWindow *window;
+
+	for (i = first; i <= last; i++)
+	{
+		window = winGetWindowFromId(baseWindow, i);
+		if (window)
+			window->winHide(hideFlag);
+	}
+}
 
 void GameWindowManager::enableWindowsInRange(GameWindow *baseWindow, Int first, Int last, Bool enableFlag)
 {
