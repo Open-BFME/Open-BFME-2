@@ -36232,3 +36232,4 @@ _Rva00680420,,0x00680420,17,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,mat
 ??_GRefundDieModuleData@@UAEPAXI@Z,,0x0025504B,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-7c2e.cpp,matched,slot0 vtable 0x7F0660 calls rowed 0x255067
 ?Clone@GridEnvironmentMapperClass@@UBEPAVTextureMapperClass@@XZ,,0x0013D390,85,Code/Libraries/Source/WWVegas/WW3D2/GridEnvironmentMapperClone.cpp,matched,sibling of rowed GridClassic Clone via GridTexture base copy plus global new plus derived vtable
 ?rva0013D250@VertexMaterialClass@@QBEHXZ,,0x0013D250,89,Code/Libraries/Source/WWVegas/WW3D2/VertexMaterialComputeRamSize.cpp,matched,gap in vertmaterial via 0x6C or 0xB0 plus 0x20 per present Mapper
+??_GRva0065E7D0@@UAEPAXI@Z,,0x0065E8E0,36,Code/Libraries/Source/DirtySock/Rva0065E7D0Deleter.cpp,matched,vtable 0x008E2368 slot0 calls base 0x658650 plus global delete
