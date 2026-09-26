@@ -58,3 +58,29 @@ def test_a_missing_marker_pair_is_reported_and_nothing_is_written(tmp_path, monk
     before = path.read_bytes()
     assert marker_screen.screen("d.cpp", str(path), "?f@C@@QAEXXZ") == "no-marker-pair"
     assert path.read_bytes() == before
+
+
+def test_an_absent_destination_is_a_verdict_not_a_traceback(tmp_path):
+    """Six of the queue's nineteen pairs name a destination that does not exist.
+
+    The subsystem was never consolidated -- VideoPlayer.cpp is absent beside
+    VideoPlayerDeletingDtor.cpp and VideoPlayerGetVideo.cpp -- so there is
+    nothing to repoint into. screen() used to die in read_bytes with a
+    FileNotFoundError traceback, which reads as a broken checkout rather than as
+    the free dead end it is, and made looping over the queue impossible.
+    """
+    verdict = marker_screen.screen(
+        "donor.cpp", str(tmp_path / "NeverAuthored.cpp"), "?f@C@@QAEXXZ")
+    assert verdict.startswith("NO-DESTINATION"), verdict
+    assert "NeverAuthored.cpp" in verdict
+
+
+def test_an_absent_destination_is_decided_before_any_file_is_touched(tmp_path,
+                                                                    monkeypatch):
+    """It must be one of the free verdicts: no compile, no write, no restore."""
+    def boom(*a, **k):
+        raise AssertionError("screen() went on to compile an absent destination")
+    monkeypatch.setattr(marker_screen, "_screen_cleared", boom)
+    assert marker_screen.screen(
+        "donor.cpp", str(tmp_path / "Nope.cpp"), "?f@C@@QAEXXZ"
+    ).startswith("NO-DESTINATION")

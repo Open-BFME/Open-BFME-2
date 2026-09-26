@@ -26,6 +26,9 @@ Three verdicts are worth acting on and the rest are triage:
 
 Two verdicts are dead ends and both are free, before any compile runs:
 
+  NO-DESTINATION   the destination file does not exist: the subsystem was never
+                   consolidated and lives only as per-function scaffolds, so
+                   there is nothing to repoint into. Authoring work, not this.
   OBJECT-SYMBOL    the row's notes pin it to a spelling that is not its name and
                    build.py reads THAT out of the object. If the destination
                    cannot emit it -- an ICF twin's name, a donor-private wrapper
@@ -92,6 +95,14 @@ def screen(donor, dest, symbol):
         return "OBJECT-SYMBOL: " + note.group(1)
 
     path = ROOT / dest
+    if not path.is_file():
+        # The destination is the consolidated file the marker points at, and for
+        # six of the queue's nineteen pairs it was never authored -- the subsystem
+        # exists only as per-function scaffolds (VideoPlayer.cpp is absent beside
+        # VideoPlayerDeletingDtor.cpp, VideoPlayerGetVideo.cpp and the rest). That
+        # is a free dead end like the other two, so report it instead of dying in
+        # read_bytes with a traceback that reads as a broken checkout.
+        return "NO-DESTINATION: " + dest
     original = path.read_bytes()
     text = original.decode("utf-8")
     marker = "// byte-exact reconstruction: %s\n// %s present-unmatched\n" % (donor, symbol)
