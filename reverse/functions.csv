@@ -36220,3 +36220,4 @@ _Rva00680420,,0x00680420,17,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,mat
 ?draw@GameWindow@@UAEHPAX@Z,,0x0009DC05,29,Code/GameEngine/Source/GameClient/GUI/GameWindowDraw.cpp,matched,vtable 0x0080BBCC slot3 GameWindow draw via m_draw at 0x1E8 plus thunk caller
 ?openFromArchive@RAMFile@@UAE_NPAVFile@@ABVAsciiString@@HH@Z,,0x0060577A,146,Code/GameEngine/Source/Common/System/RAMFileRead.cpp,matched,slot18 of vtable 0087AA00 plus ZH openFromArchive no decode
 ?scanInt@RAMFile@@UAE_NAAH@Z,,0x0060580C,193,Code/GameEngine/Source/Common/System/RAMFileRead.cpp,matched,slot7 of vtable 0087AA00 plus ZH scanInt with char temp
+?Clone@ScreenMapperClass@@UBEPAVTextureMapperClass@@XZ,,0x0013DA80,85,Code/Libraries/Source/WWVegas/WW3D2/ScreenMapperClone.cpp,matched,slot 3 of vtable 0x007D32D0 via LinearOffset base copy plus global new plus derived vtable
