@@ -176,25 +176,29 @@ AnimateWindowManager::AnimateWindowManager( void )
 	m_reverse = FALSE;
 	m_winMustFinishList.clear();
 }
-// ??1AnimateWindowManager@@UAE@XZ present-unmatched
+// Retail deletes each process helper via slot-0 virtual with 0 plus separate
+// operator delete (push eax + call 0x0002FD60), not a single deleting-dtor
+// call with 1; same shape as clearWinList above. The shim shares slot 0/ABI
+// with every ??_G in this family, so one deleter covers all 8 members.
+struct ProcessAnimateWindowSlotDeleter { virtual void *deleteInstance(int flags); };
 AnimateWindowManager::~AnimateWindowManager( void )
 {
 	if(m_slideFromRight)
-		delete m_slideFromRight;
+		::operator delete(reinterpret_cast<ProcessAnimateWindowSlotDeleter*>(m_slideFromRight)->deleteInstance(0));
 	if(m_slideFromRightFast)
-		delete m_slideFromRightFast;
+		::operator delete(reinterpret_cast<ProcessAnimateWindowSlotDeleter*>(m_slideFromRightFast)->deleteInstance(0));
 	if(m_slideFromLeft)
-		delete m_slideFromLeft;
+		::operator delete(reinterpret_cast<ProcessAnimateWindowSlotDeleter*>(m_slideFromLeft)->deleteInstance(0));
 	if(m_slideFromTop)
-		delete m_slideFromTop;
+		::operator delete(reinterpret_cast<ProcessAnimateWindowSlotDeleter*>(m_slideFromTop)->deleteInstance(0));
 	if(m_slideFromTopFast)
-		delete m_slideFromTopFast;
+		::operator delete(reinterpret_cast<ProcessAnimateWindowSlotDeleter*>(m_slideFromTopFast)->deleteInstance(0));
 	if(m_slideFromBottom)
-		delete m_slideFromBottom;
+		::operator delete(reinterpret_cast<ProcessAnimateWindowSlotDeleter*>(m_slideFromBottom)->deleteInstance(0));
 	if(m_spiral)
-		delete m_spiral;
+		::operator delete(reinterpret_cast<ProcessAnimateWindowSlotDeleter*>(m_spiral)->deleteInstance(0));
 	if (m_slideFromBottomTimed)
-		delete m_slideFromBottomTimed;
+		::operator delete(reinterpret_cast<ProcessAnimateWindowSlotDeleter*>(m_slideFromBottomTimed)->deleteInstance(0));
 
 	m_slideFromRight = NULL;
 	resetToRestPosition( );
