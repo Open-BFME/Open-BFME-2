@@ -36316,3 +36316,4 @@ _Rva00680420,,0x00680420,17,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,mat
 ?xfer@Rva003A49D1@@MAEXPAVXfer@@@Z,,0x003A4AFA,94,Code/GameEngine/Source/Common/Rva003A49D1Xfer.cpp,matched,slot3 xfer via base plus Version12 plus uints plus gated bool
 ??1FireWeaponCollide@@UAE@XZ,,0x004BB6A7,85,Code/GameEngine/Source/GameLogic/Object/Collide/FireWeaponCollideDtor.cpp,matched,vtable 0x85A0FC via ctor 0xBB79A plus base CollideModule twin 0xBB68E plus deleteInstance 0
 ??0AODHordeContain@@QAE@PAVThing@@PBVModuleData@@@Z,,0x0047B3DB,317,Code/GameEngine/Source/GameLogic/Object/Contain/AODHordeContainCtor.cpp,matched,ModuleFactory AODHordeContain registration plus sole caller friend_new 0x24BB25
+?xfer@Rva003A4CAE@@MAEXPAVXfer@@@Z,,0x003A4DC0,154,Code/GameEngine/Source/Common/Rva003A4CAEXfer.cpp,matched,slot3 xfer via Version13 plus base plus gated coords float int bool uint
