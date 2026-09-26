@@ -35693,3 +35693,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ?name@Rva005E717ENamed@@QBEPBDXZ,,0x005E717E,6,Code/GameEngine/Source/Common/ModuleNameGetters3.cpp,matched,B8-6 const string returner StrategicDetailsBuildQueue.swf
 ?name@Rva0061F62ANamed@@QBEPBDXZ,,0x0061F62A,6,Code/GameEngine/Source/Common/ModuleNameGetters3.cpp,matched,B8-6 const string returner no-asset-manager fallback
 ?name@Rva00425DD7Named@@QBEPBDXZ,,0x00425DD7,6,Code/GameEngine/Source/Common/ModuleNameGetters4.cpp,matched,B8-6 const string returner Unknown
+?Rva004D5496@Transport@@QAEXXZ,,0x004D5496,43,Code/GameEngine/Source/GameNetwork/Transport.cpp,matched,Transport 8-slot clear loop plus winsock-active byte teardown; slot callee pinned 0x4D5133; WSACleanup via dllimport
