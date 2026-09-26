@@ -36283,3 +36283,4 @@ _Rva00680420,,0x00680420,17,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,mat
 ?xfer@Rva00483C35@@MAEXPAVXfer@@@Z,,0x00483E0A,27,Code/GameEngine/Source/Common/Rva00483C35Xfer.cpp,matched,slot3 of vtable 0x849E4C via base SlowDeathBehavior xfer
 ??1SpellRechargeModifierUpgradeModuleData@@UAE@XZ,,0x004B608A,75,Code/GameEngine/Source/GameLogic/Object/Update/SpellRechargeModifierUpgradeModuleDataDtor.cpp,matched,EH ModuleData dtor with string at +0x128 via 0x36410 and vector buffer at +0x118 via _free matching vtable 0xBBB554 and ctor 0x4B6011
 ??_GSpellRechargeModifierUpgradeModuleData@@UAEPAXI@Z,,0x004B606E,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-63c1.cpp,matched,deleting dtor slot 0 of vtable 0x8583E0 calls rowed 0x4B608A plus delete 0x2FD60
+?xfer@Rva004839D3@@MAEXPAVXfer@@@Z,,0x00483BDF,59,Code/GameEngine/Source/Common/Rva004839D3Xfer.cpp,matched,slot3 of vtable 0x849AC8 via UpdateModule base plus Version1 plus 2 uints
