@@ -35997,3 +35997,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ?Calculate_Texture_Matrix@ZigZagLinearOffsetTextureMapperClass@@UAEXAAVMatrix4@@@Z,,0x00183240,248,Code/Libraries/Source/WWVegas/WW3D2/ZigZagLinearOffsetTextureMapperCalculate.cpp,matched,vtable slot 9 of 0x007D56F8 gap Reset EdgeCtor ZH donor ZigZag Calculate true248
 ?getNthAsciiString@Dict@@QBE?AVAsciiString@@H@Z,,0x0031362D,56,Code/GameEngine/Source/Common/DictPairClear.cpp,matched,Dict indexed Ascii getter via rowed find plus base copy
 ?Calculate_Texture_Matrix@RandomTextureMapperClass@@UAEXAAVMatrix4@@@Z,,0x001838B0,393,Code/Libraries/Source/WWVegas/WW3D2/RandomTextureMapperCalculate.cpp,matched,vtable slot 9 of 0x007D57F4 gap Reset D3DXMATRIX ZH donor Random Calculate randomize inlined
+?rva000A89C1@Rva00A897D@@QAEXXZ,,0x000A89C1,8,Code/GameEngine/Source/Common/Rva000A89C1Thunk.cpp,matched,thunk to rowed clear holder at plus30 of Rva00A897D via tail jmp caller at 0x6102A
