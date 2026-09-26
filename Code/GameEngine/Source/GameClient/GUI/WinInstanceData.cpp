@@ -109,15 +109,14 @@ WinInstanceData::WinInstanceData( void )
 
 // WinInstanceData::~WinInstanceData ==========================================
 //=============================================================================
-// ??1WinInstanceData@@UAE@XZ present-unmatched
 WinInstanceData::~WinInstanceData( void )
 {
 
 	if( m_text )
-		TheDisplayStringManager->freeDisplayString( m_text );
+		((BfmeWideManager *)TheDisplayStringManager)->freeDisplayString( m_text );
 
 	if( m_tooltip )
-		TheDisplayStringManager->freeDisplayString( m_tooltip );
+		((BfmeWideManager *)TheDisplayStringManager)->freeDisplayString( m_tooltip );
 
 	m_videoBuffer = NULL; //Video Buffer needs to be clean up by the control that is in charge of the video.
 
