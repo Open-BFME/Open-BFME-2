@@ -36327,3 +36327,4 @@ _Rva00680420,,0x00680420,17,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,mat
 ?xfer@QueueProductionExitUpdate@@MAEXPAVXfer@@@Z,,0x004A0057,107,Code/GameEngine/Source/GameLogic/Object/Update/QueueProductionExitUpdateXfer.cpp,matched,slot 3 of vtable 0x008519C8 via rowed dtor plus rowed ctor layout plus ZH donor
 ?xfer@DockUpdate@@MAEXPAVXfer@@@Z,,0x0058A410,439,Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdateXfer.cpp,matched,slot 3 of vtable 0x00870378 via rowed ctor plus ZH donor plus Xfer pattern
 ?xfer@Rva0045B134@@MAEXPAVXfer@@@Z,,0x0045B153,69,Code/GameEngine/Source/Common/Rva0045B134Xfer.cpp,matched,slot 3 of vtable 0x008418CC plus UpdateModule base call
+??1SpecialPowerModuleData@@UAE@XZ,,0x00548948,60,Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDataDtor.cpp,matched,dtor via own C6A520 then Snapshot BBB554 plus single free at 0x30830
