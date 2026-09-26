@@ -70,6 +70,44 @@ float Rva0062AF7::Rva0027D815(float x, float y)
 }
 
 //
+// ?Rva0027D85B@Rva0062AF7@@UAEMPAX@Z retail 0x0027D85B 51 bytes.
+// Vslot 30 (offset 0x78) of vtable 0x007C5890 primary of ??1Rva0062AF7@@UAE@XZ.
+// Null or grid-handle (global 0x00DBB710) returns pooled 0.0f at 0x007BAEAC.
+// Else water+0x18 holds inner, inner+0x04 holds byte offset, real object at
+// water+0x18+offset exposes int at slot 2 (offset 8) converted via fild.
+// Layout witnessed from retail bytes only; helper view names are honest
+// address-derived, not donor claims. Identity class plus slot, honest name.
+// Flags: /O1 plus /arch:SSE plus /G7 (section 4.1, same TU as neighbours).
+extern void *g_Va00DBB710;
+struct Rva0027D85BPolyView
+{
+	virtual void slot00();
+	virtual void slot01();
+	virtual int slot08();
+};
+struct Rva0027D85BInnerView
+{
+	char m_pad00[4];
+	int m_off04;
+};
+struct Rva0027D85BWaterView
+{
+	char m_pad00[0x18];
+	Rva0027D85BInnerView *m_inner18;
+};
+float Rva0062AF7::Rva0027D85B(void *water)
+{
+	Rva0027D85BWaterView *view = (Rva0027D85BWaterView *)water;
+	if (water == 0)
+		return 0.0f;
+	if (water == g_Va00DBB710)
+		return 0.0f;
+	int off = view->m_inner18->m_off04;
+	Rva0027D85BPolyView *real = (Rva0027D85BPolyView *)((char *)water + 0x18 + off);
+	return (float)real->slot08();
+}
+
+//
 // ?Rva0027D88E@Rva0062AF7@@UAEXPAXMMM@Z retail 0x0027D88E 210 bytes.
 // Vslot 32 (offset 0x80) of vtable 0x007C5890 primary of ??1Rva0062AF7@@UAE@XZ.
 // Donor: BFME1 TerrainLogic::changeWaterHeightOverTime in
