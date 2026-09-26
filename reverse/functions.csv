@@ -36341,3 +36341,4 @@ _Rva00680420,,0x00680420,17,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,mat
 ??_GRunOffMapBehaviorModuleData@@UAEPAXI@Z,,0x00255E8C,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-91c6.cpp,matched,slot 0 vtable 0x7F3298 calls rowed dtor 0x255EA8 and delete 0x2FD60
 ?winPrevTab@GameWindowManager@@UAEXPAVGameWindow@@@Z,,0x002C5473,123,Code/GameEngine/Source/GameClient/GUI/GameWindowManager_winPrevTab.cpp,matched,vtable 0x7C7C90 slot 43 BFME1 donor winPrevTab m_tabList plus 0x30
 ??1AutoDepositUpdateModuleData@@UAE@XZ,,0x002552A7,48,Code/GameEngine/Source/GameLogic/Object/Update/AutoDepositUpdateModuleDataDtor.cpp,matched,vtable 0xBF1BC8 ctor 0x2540ED Snapshot base 0xBBB554 member 0x1C via 0x360D26
+??_GAutoDepositUpdateModuleData@@UAEPAXI@Z,,0x0025528B,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-91c6.cpp,matched,slot 0 vtable 0x7F1BC8 calls rowed dtor 0x2552A7 and delete 0x2FD60
