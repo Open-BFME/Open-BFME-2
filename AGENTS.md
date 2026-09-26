@@ -129,15 +129,13 @@ otherwise reassess the batch.
    Check every new ledger source is tracked.
 4. Commit normally. **Never bypass hooks.**
 5. `git pull --rebase origin master`, `git push`, then pull --rebase again. On
-   rejection: rebase, recheck the ledger, retry, final pull (Subject to the batching and retry limits in #6).
+   rejection, follow the batching and retry rules in #6 before another attempt.
 
 6. This step governs when to run #5 and limits its retries. Normally, publish after 1 verified commit. Keep substantive changes in separate atomic, verified commits; the publication batching below changes push frequency only.
 
 If a verified commit recovers under 100 retail bytes and you expect to make another commit, hold publication. Continue accumulating verified commits under 100 retail bytes, then publish them together with the next verified commit of 100 retail bytes or more. Keep each change as a separate verified commit. If you do not expect another commit, follow the normal publication limits below. Existing time, session-ending, and unpublished-commit limits still apply.
 
-On a non-fast-forward push rejection caused by `origin/master` advancing, rebase, recheck the ledger, complete any required verification, and retry once.
-
-If that retry is also rejected because `origin/master` advanced again, normally accumulate 2 verified commits since the last publication attempt before trying again. If only one verified unpublished commit remains and no further commit is expected, keep rebasing, rechecking, and retrying it until published instead of waiting for another commit. If contention continues and more work is expected, accumulate 3–5 verified commits between publication attempts.
+After a non-fast-forward push rejection caused by `origin/master` advancing, rebase, recheck the ledger, and complete any required verification. If more verified work is expected, accumulate 3–5 verified unpublished commits before the next publication attempt; do not retry immediately. Rebase, recheck, and verify again before that attempt. If only one verified unpublished commit remains and no further commit is expected, keep rebasing, rechecking, and retrying it until published instead of waiting for another commit.
 
 Once there are 5 verified unpublished commits, do not increase the batch size further solely as a result of `origin/master` advancing. Keep the existing batch, rebase, recheck, verify as required, and attempt publication again until published.
 
