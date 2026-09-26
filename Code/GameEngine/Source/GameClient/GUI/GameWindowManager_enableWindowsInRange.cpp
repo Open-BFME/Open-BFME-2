@@ -5,11 +5,24 @@
 typedef int Int;
 typedef bool Bool;
 
+#ifndef NULL
+#define NULL 0
+#endif
+
 class GameWindow
 {
 public:
 	Int winHide(Bool hide);
 	Int winEnable(Bool enable);
+
+private:
+	unsigned char m_pad00[0x1F8];
+
+public:
+	GameWindow *m_next;
+	GameWindow *m_prev;
+	GameWindow *m_parent;
+	GameWindow *m_child;
 };
 
 class GameWindowManager
@@ -27,10 +40,38 @@ public:
 #define W(n) virtual void pad##n() = 0;
 	W(40) W(41) W(42) W(43) W(44) W(45) W(46) W(47)
 	W(48) W(49) W(50) W(51) W(52) W(53) W(54) W(55)
-	W(56) W(57) W(58) W(59)
+	W(56)
 #undef W
+	virtual void addWindowToParentAtEnd(GameWindow *window, GameWindow *parent);
+#define X(n) virtual void pad##n() = 0;
+	X(58) X(59)
+#undef X
 	virtual GameWindow *winGetWindowFromId(GameWindow *window, Int id) = 0;
 };
+
+void GameWindowManager::addWindowToParentAtEnd(GameWindow *window, GameWindow *parent)
+{
+	if (parent)
+	{
+		window->m_prev = NULL;
+		window->m_next = NULL;
+		if (parent->m_child)
+		{
+			GameWindow *last;
+
+			last = parent->m_child;
+			while (last->m_next != NULL)
+				last = last->m_next;
+
+			last->m_next = window;
+			window->m_prev = last;
+		}
+		else
+			parent->m_child = window;
+
+		window->m_parent = parent;
+	}
+}
 
 void GameWindowManager::hideWindowsInRange(GameWindow *baseWindow, Int first, Int last, Bool hideFlag)
 {
