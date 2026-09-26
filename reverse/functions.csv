@@ -36135,3 +36135,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ??1CaveContain@@MAE@XZ,,0x004663B2,77,Code/GameEngine/Source/GameLogic/Object/Contain/CaveContainDtor.cpp,matched,ten vptrs plus tail base 0x464692; ctor 0x46630 proves layout; factory 0x24B797 news 0x10C; slot0 wrapper 0x466AD
 ??_GRandomSoundSelectorClientBehaviorModuleData@@UAEPAXI@Z,,0x002578C2,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-2335.cpp,matched,Deleting dtor slot 0 of vtable 7F42A8; calls rowed 2578DE plus rowed delete 2FD60
 ??_GCaveContain@@MAEPAXI@Z,,0x004666AD,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-c9a1.cpp,matched,slot0 of vtable 0x843CB8 calls rowed 0x4663B2 plus delete 0x2FD60
+??1SpawnBehaviorModuleData@@UAE@XZ,,0x0025766F,48,Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehaviorModuleDataDtor.cpp,matched,Single vector at 20 via 2CC70 plus Snapshot BBB554; ctor 2575C2 vtable BF4128 news 174 plus slot0 257653
