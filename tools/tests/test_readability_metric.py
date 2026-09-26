@@ -209,11 +209,26 @@ def test_a_cache_entry_under_another_hash_is_recomputed_never_served(tmp_path):
     assert header_blob in json.loads(counts.read_text())["files"]
 
 
-@pytest.mark.skipif(os.geteuid() == 0, reason="root reads through chmod 000")
+# os.geteuid is POSIX-only, and a module-level AttributeError here aborted
+# collection of the whole suite on Windows. Absent the call, treat the
+# session as unprivileged: chmod 000 is honoured for non-root POSIX users,
+# and the test body skips itself below if the file stays readable anyway.
+@pytest.mark.skipif(getattr(os, "geteuid", lambda: -1)() == 0,
+                    reason="root reads through chmod 000")
 def test_an_unreadable_source_aborts_instead_of_totalling_the_rest(tmp_path):
     root = world(tmp_path)
     blocked = root / AREA / "alpha.cpp"
     blocked.chmod(0o000)
+    try:
+        # chmod 000 does not deny reads everywhere -- on Windows it only sets the
+        # read-only attribute. Probe the effect instead of the platform name, so
+        # the test exercises the abort wherever the mode really bites and skips
+        # where there is no unreadable file to abort on.
+        blocked.read_bytes()
+    except OSError:
+        pass
+    else:
+        pytest.skip("chmod 000 does not deny reads on this platform")
     done = cli(root)
     assert done.returncode != 0
     assert str(blocked) in done.stderr
