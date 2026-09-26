@@ -20,3 +20,4 @@
 #include "nstrdup.h"
 
 template VectorClass<HAnimComboDataClass*>::VectorClass(int, HAnimComboDataClass* const *);
+template VectorClass<HAnimComboDataClass*>::~VectorClass();
