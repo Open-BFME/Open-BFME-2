@@ -36322,3 +36322,4 @@ _Rva00680420,,0x00680420,17,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,mat
 ??1DoCommandUpgrade@@MAE@XZ,,0x004B4BA1,32,Code/GameEngine/Source/GameLogic/Object/Upgrade/DoCommandUpgradeDtor.cpp,matched,4 vptrs plus tail-jmp UpgradeModule twin 0x46089D vtable 0x857B58
 ?xfer@Rva004A3F8B@@MAEXPAVXfer@@@Z,,0x004A3FAA,102,Code/GameEngine/Source/Common/Rva004A3F8BXfer.cpp,matched,slot3 xfer via base plus Version1 plus ObjectID plus Coord plus bools
 ??0Rva0047A702@@QAE@XZ,,0x0047A702,34,Code/GameEngine/Source/GameLogic/Object/Contain/AODHordeContainCtor.cpp,matched,arrayB element ctor for AODHordeContain 0x47B3DB zeroes five floats plus byte
+??_GDoCommandUpgrade@@MAEPAXI@Z,,0x004B4C5F,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-556a.cpp,matched,slot0 vtable 0x857B58 calls rowed 0x4B4BA1 plus delete 0x2FD60
