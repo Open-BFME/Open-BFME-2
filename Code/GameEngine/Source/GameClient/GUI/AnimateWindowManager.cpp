@@ -211,7 +211,6 @@ void AnimateWindowManager::init( void )
 	m_reverse = FALSE;
 }
 
-// ?reset@AnimateWindowManager@@UAEXXZ present-unmatched
 void AnimateWindowManager::reset( void )
 {
 	resetToRestPosition();
