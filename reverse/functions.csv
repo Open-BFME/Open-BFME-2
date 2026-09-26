@@ -35870,3 +35870,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ??_GW3DStreakDrawModuleData@@UAEPAXI@Z,,0x000D0673,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-a8e6.cpp,matched,slot 0 of vtable 0xBCDAB0 plus dtor 0xD057C plus delete 0x2FD60
 ??1SubtitleEntry@@MAE@XZ,,0x006885A0,14,Code/GameEngine/Source/GameClient/SubtitleEntryDtor.cpp,matched,SubtitleEntry dtor via StringBase tail-jmp vtable 0x8E451C releaseBuffer 0x36E70
 ??_GSubtitleEntry@@MAEPAXI@Z,,0x006886F0,30,Code/GameEngine/Source/GameClient/SubtitleEntryDtor.cpp,matched,SubtitleEntry deleting dtor slot0 vtable 0x8E451C via rowed dtor and delete 0x2FD60
+?first@Rva00800550Chain@@QAEPAXXZ,,0x0066CA00,15,Code/GameEngine/Source/GameNetwork/Y2FeslBufferAndChain.cpp,matched,BFME1 donor first via m_count m_head caller 0x6668C9

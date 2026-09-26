@@ -129,6 +129,7 @@ class Rva00800550Chain
 public:
 	void  clear();              // 0x00800550
 	void *append( int size );   // 0x00800590
+	void *first();              // 0x0066CA00
 	void  popFront();           // 0x008005F0
 
 	int              m_count;
@@ -169,6 +170,12 @@ void *Rva00800550Chain::append( int size )
 		++m_count;
 	}
 	return node + 1;
+}
+
+// ?first@Rva00800550Chain@@QAEPAXXZ 0x0066CA00 15B: BFME1 donor first via m_count and m_head plus 1. Caller 0x006668C9.
+void *Rva00800550Chain::first()
+{
+	return m_count != 0 ? m_head + 1 : 0;
 }
 
 void Rva00800550Chain::popFront()
