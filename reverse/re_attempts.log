@@ -1735,3 +1735,16 @@ Catch@00630215	0x00230215	390	blocked	catch(ErrorCode) funclet of GameEngine::in
 ?Rva00425DD7Frag@@YAHXZ	0x00425DD7	6	blocked	jge-target arm (jge plus8 over indexed-mov plus rets into B8); conditional-arm frag class; do not land
 ?Rva005234A1Frag@@YAHXZ	0x005234A1	6	blocked	jne-target arm (jne plus6 over first B8 plus ret into second B8); two-armed conditional getter; do not land either arm
 ?Rva005234A7Frag@@YAHXZ	0x005234A7	6	blocked	third B8 arm of the 0x52349B conditional getter; do not land
+?Rva005468DBFrag@@YAHXZ	0x005468DB	6	blocked	je-target arm into B8 00BBAC1C empty-string; same frag class as 0x1363C6; do not land
+?Rva00546BE7Frag@@YAHXZ	0x00546BE7	6	blocked	je-target arm into B8 00BBAC1C empty-string; same frag class as 0x1363C6; do not land
+?Rva00546D76Frag@@YAHXZ	0x00546D76	6	blocked	je-target arm into B8 00BBAC1C empty-string; same frag class as 0x1363C6; do not land
+?Rva00547038Frag@@YAHXZ	0x00547038	6	blocked	je-target arm into B8 00BBAC1C empty-string; same frag class as 0x1363C6; do not land
+?Rva005472CDFrag@@YAHXZ	0x005472CD	6	blocked	je-target arm into B8 00BBAC1C empty-string; same frag class as 0x1363C6; do not land
+?Rva00547B84Frag@@YAHXZ	0x00547B84	6	blocked	je-target arm into B8 00BBAC1C empty-string; same frag class as 0x1363C6; do not land
+?Rva005508FEFrag@@YAHXZ	0x005508FE	6	blocked	je-target arm into B8 00BBAC1C empty-string; same frag class as 0x1363C6; do not land
+?Rva00550912Frag@@YAHXZ	0x00550912	6	blocked	je-target arm into B8 00BBAC1C empty-string; same frag class as 0x1363C6; do not land
+?Rva00559F57Frag@@YAHXZ	0x00559F57	6	blocked	conditional arm into B8 (je over xor-ret or switch-case arm); frag class; do not land
+?Rva00559F5DFrag@@YAHXZ	0x00559F5D	6	blocked	conditional arm into B8 (je over xor-ret or switch-case arm); frag class; do not land
+?Rva00559F72Frag@@YAHXZ	0x00559F72	6	blocked	conditional arm into B8 (je over xor-ret or switch-case arm); frag class; do not land
+?Rva00559F78Frag@@YAHXZ	0x00559F78	6	blocked	conditional arm into B8 (je over xor-ret or switch-case arm); frag class; do not land
+?Rva006154C0Frag@@YAHXZ	0x006154C0	6	blocked	conditional arm into B8 (je over xor-ret or switch-case arm); frag class; do not land
