@@ -110,6 +110,7 @@ static void adjustVector(Coord3D *vec, const Matrix3D* mtx)
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 //-------------------------------------------------------------------------------------------------
+// ?create@ObjectCreationNugget@@ present-unmatched
 Object* ObjectCreationNugget::create( const Object* primary, const Object* secondary, UnsignedInt lifetimeFrames ) const
 {
 	return create( primary, primary ? primary->getPosition() : NULL, secondary ? secondary->getPosition() : NULL, INVALID_ANGLE, lifetimeFrames );
@@ -123,6 +124,7 @@ Object* ObjectCreationNugget::create( const Object* primary, const Object* secon
 
 //-------------------------------------------------------------------------------------------------
 //This one is called only when we have a nugget that doesn't care about createOwner.
+// ?create@ObjectCreationNugget@@ present-unmatched
 Object* ObjectCreationNugget::create( const Object *primaryObj, const Coord3D *primary, const Coord3D *secondary, Bool createOwner, UnsignedInt lifetimeFrames ) const
 {
 	return create( primaryObj, primary, secondary, INVALID_ANGLE, lifetimeFrames );
@@ -1520,6 +1522,7 @@ static const FieldParse TheObjectCreationListFieldParse[] =
 };
 
 //-------------------------------------------------------------------------------------------------
+// ?clear@ObjectCreationList@@ present-unmatched
 void ObjectCreationList::clear()
 {
 	// do NOT delete the nuggets -- they're owned by the Store.
@@ -1534,6 +1537,7 @@ void ObjectCreationList::addObjectCreationNugget(ObjectCreationNugget* nugget)
 }
 
 //-------------------------------------------------------------------------------------------------
+// ?createInternal@ObjectCreationList@@ present-unmatched
 Object* ObjectCreationList::createInternal( const Object* primaryObj, const Coord3D *primary, const Coord3D* secondary, Bool createOwner, UnsignedInt lifetimeFrames ) const
 {
 	DEBUG_ASSERTCRASH(primaryObj != NULL, ("You should always call OCLs with a non-null primary Obj, even for positional calls, to get team ownership right"));
@@ -1549,6 +1553,7 @@ Object* ObjectCreationList::createInternal( const Object* primaryObj, const Coor
 }
 
 //-------------------------------------------------------------------------------------------------
+// ?createInternal@ObjectCreationList@@ present-unmatched
 Object* ObjectCreationList::createInternal( const Object* primaryObj, const Coord3D *primary, const Coord3D* secondary, Real angle, UnsignedInt lifetimeFrames ) const
 {
 	DEBUG_ASSERTCRASH(primaryObj != NULL, ("You should always call OCLs with a non-null primary Obj, even for positional calls, to get team ownership right"));
@@ -1564,6 +1569,7 @@ Object* ObjectCreationList::createInternal( const Object* primaryObj, const Coor
 }
 
 //-------------------------------------------------------------------------------------------------
+// ?createInternal@ObjectCreationList@@ present-unmatched
 Object* ObjectCreationList::createInternal( const Object* primary, const Object* secondary, UnsignedInt lifetimeFrames ) const
 {
 	DEBUG_ASSERTCRASH(primary != NULL, ("You should always call OCLs with a non-null primary Obj, even for positional calls, to get team ownership right"));
@@ -1583,11 +1589,13 @@ Object* ObjectCreationList::createInternal( const Object* primary, const Object*
 //-------------------------------------------------------------------------------------------------
 
 //-------------------------------------------------------------------------------------------------
+// ??0ObjectCreationListStore@@ present-unmatched
 ObjectCreationListStore::ObjectCreationListStore()
 {
 }
 
 //-------------------------------------------------------------------------------------------------
+// ??1ObjectCreationListStore@@ present-unmatched
 ObjectCreationListStore::~ObjectCreationListStore()
 {
 	for (ObjectCreationNuggetVector::iterator i = m_nuggets.begin(); i != m_nuggets.end(); ++i)
@@ -1601,17 +1609,22 @@ ObjectCreationListStore::~ObjectCreationListStore()
 //-------------------------------------------------------------------------------------------------
 const ObjectCreationList *ObjectCreationListStore::findObjectCreationList(const char* name) const
 {
-	if (stricmp(name, "None") == 0)
+	typedef int (__cdecl *CaseInsensitiveCompare)(const char *, const char *);
+	if ((*reinterpret_cast<CaseInsensitiveCompare *>(0x00BBA518))(name, "None") == 0)
 		return NULL;
 
-  ObjectCreationListMap::const_iterator it = m_ocls.find(NAMEKEY(name));
-  if (it == m_ocls.end()) 
+	NameKeyType key = NAMEKEY(name);
+	// BFME2 places the map four bytes later and stores list pointers.
+	const ObjectCreationListMap &lists = *reinterpret_cast<const ObjectCreationListMap *>(
+		reinterpret_cast<const char *>(this) + 0x0c);
+	ObjectCreationListMap::const_iterator it = lists.find(key);
+	if (it == lists.end())
 	{
 		return NULL;
 	}
 	else
 	{
-		return &(*it).second;
+		return *reinterpret_cast<const ObjectCreationList *const *>(&(*it).second);
 	}
 }
 
