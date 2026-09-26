@@ -36166,3 +36166,4 @@ _Rva00680420,,0x00680420,17,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,mat
 ?XferObjectID@@YAXPAVXfer@@PAW4ObjectID@@@Z,,0x003060B2,24,Code/GameEngine/Source/Common/System/XferEnumHelpers.cpp,matched,labelled-enum helper ObjectID string via XferEnum slot 37; 40 callers incl FoundationAIUpdate xfer
 ??_GRva006FB9B0@@UAEPAXI@Z,,0x006FB980,35,Code/GameEngine/Source/Common/Rva006FB9B0DeletingDtor.cpp,matched,vslot 14 of 0x008ED808 calls rowed 0x006FB9B0 and pinned pool free 0x006DB270 via 0x00E176E8
 ?init@FullFadeTransition@@UAEXPAVGameWindow@@@Z,,0x0035F1DF,98,Code/GameEngine/Source/GameClient/GUI/FullFadeTransitionInit.cpp,matched,vtable 0x0081663C slot 1 donor BFME1 FullFade init with size pos and percent
+??_GRva006FBA10@@UAEPAXI@Z,,0x006FB9E0,35,Code/GameEngine/Source/Common/Rva006FBA10DeletingDtor.cpp,matched,vslot 14 of 0x008ED844 calls rowed 0x006FBA10 and pinned pool free 0x006DB270 via 0x00E176E8
