@@ -87,3 +87,21 @@ int Rva0042D714PtrChaseField::get() const
 {
 	return *(int *)((char *)m_ptr + 0x2C);
 }
+class Rva00225A98DwordField
+{
+public:
+	int get() const;
+};
+class Rva0042D703PtrChaseField
+{
+public:
+	int get() const;
+	void *m_ptr;
+};
+int Rva0042D703PtrChaseField::get() const
+{
+	const Rva00225A98DwordField *q = *(const Rva00225A98DwordField *const *)((const char *)m_ptr + 0x24);
+	if (q)
+		return q->get();
+	return 0;
+}
