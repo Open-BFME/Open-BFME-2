@@ -36144,3 +36144,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ??_GWeaponModeSpecialPowerUpdateModuleData@@UAEPAXI@Z,,0x00494D60,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-5c79.cpp,matched,slot0 of vtable 0x84EA88 calls rowed 0x494D7C plus delete 0x2FD60
 ??_GWallHubBehaviorModuleData@@UAEPAXI@Z,,0x004530B4,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-c9a1.cpp,matched,slot0 of vtable 0x83FF98 calls rowed 0x452F9F plus delete 0x2FD60
 ??_GRubbleRiseUpdateModuleData@@UAEPAXI@Z,,0x00256C3E,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-7f3a.cpp,matched,slot0 deleting dtor calls rowed dtor plus delete
+??1ActiveBodyModuleData@@UAE@XZ,,0x00256CB0,93,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/ActiveBodyModuleDataDtor.cpp,matched,Free at 58 via 30830 plus strings at 34 30 2C via 36410 plus BBB554; ctor 4BF59F vtable C5AFB8 news 64
