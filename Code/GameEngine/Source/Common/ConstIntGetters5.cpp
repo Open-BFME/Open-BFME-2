@@ -135,3 +135,13 @@ int Rva00534B22Get(void)
 {
 	return 0x00c68ae8;
 }
+
+// ?Rva002A893FGet@@YAHXZ @ 0x002a893f (6B): returns 0x00bfd85c.
+// Follows a near ret (BrutalDifficultyCheats ctor tail), no .rdata vtable
+// slot, no direct callers, no branch sources. Opaque address-derived name.
+// The constant is the BrutalDifficultyCheats sub-table also pushed as an
+// immediate by the rowed parser at 0x002a898a.
+int Rva002A893FGet(void)
+{
+	return 0x00bfd85c;
+}
