@@ -203,7 +203,6 @@ AnimateWindowManager::~AnimateWindowManager( void )
 }
 
 	
-// ?init@AnimateWindowManager@@UAEXXZ present-unmatched
 void AnimateWindowManager::init( void )
 {
 	clearWinList(m_winList);
