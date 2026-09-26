@@ -36491,3 +36491,4 @@ _setlinehook,,0x00748350,37,Code/Libraries/Source/Lua/ldblib.c,matched,BFME1 ldb
 ?XferDeployStateTypes@@YAXPAVXfer@@PAH@Z,,0x00305E8A,24,Code/GameEngine/Source/Common/System/XferEnumHelpers.cpp,matched,labelled-enum helper DeployStateTypes via XferEnum
 ?xfer@BridgeScaffoldBehavior@@MAEXPAVXfer@@@Z,,0x00458638,115,Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeScaffoldBehaviorXfer.cpp,matched,slot 3 vtable 00840C54 via rowed ctor plus base xfer plus Version1 plus enum helper
 ?XferBridgeTowerType@@YAXPAVXfer@@PAH@Z,,0x0030609A,24,Code/GameEngine/Source/Common/System/XferEnumHelpers.cpp,matched,labelled-enum helper BridgeTowerType string via XferEnum slot 37
+?findAttributeModifierPoolUpdate@Object@@ABEPAVAttributeModifierPoolUpdate@@XZ,,0x0028BDD7,84,Code/GameEngine/Source/GameLogic/Object/ObjectFindAttributeModifierPoolUpdate.cpp,matched,BFME1 ObjectContainQueries donor plus string at 007F4ED8 plus 26 callers
