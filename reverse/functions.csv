@@ -35609,3 +35609,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ?name@Rva00495C68Named@@QBEPBDXZ,,0x00495C68,6,Code/GameEngine/Source/Common/ModuleNameGetters3.cpp,matched,B8-6 const string returner AutoPickUpUpdate
 ?name@Rva004966B3Named@@QBEPBDXZ,,0x004966B3,6,Code/GameEngine/Source/Common/ModuleNameGetters3.cpp,matched,B8-6 const string returner BoredUpdate
 ?name@Rva00496A18Named@@QBEPBDXZ,,0x00496A18,6,Code/GameEngine/Source/Common/ModuleNameGetters3.cpp,matched,B8-6 const string returner BannerCarrierUpdate
+?findLocomotorTemplate@LocomotorStore@@QAEPAVLocomotorTemplate@@H@Z,,0x001E6FEA,38,Code/GameEngine/Source/GameLogic/Object/LocomotorStoreFindTemplate.cpp,matched,BFME1 Locomotor.cpp donor verbatim non-const overload; else-form gives retail jne-into-find plus shared early xor; int key per lea-esp+8; member int-int so _M_find names rowed 0x388F63
