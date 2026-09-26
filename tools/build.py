@@ -606,6 +606,35 @@ def compiler_environment(root, source=None):
     return env
 
 
+def _current_bfme1_include_flag(flag):
+    """Translate legacy Open-BFME-1 include paths after its tree migration.
+
+    Hundreds of BFME2 TUs keep their original ``// cl: /I...`` directives.
+    Resolve those paths through the same logical subtrees as the toolchain and
+    reference roots so old and new submodule layouts compile identically.
+    """
+    prefix = "-I" if flag.startswith("-I") else "/I" if flag.startswith("/I") else None
+    if prefix is None:
+        return flag
+    include = flag[len(prefix):]
+    root = "reference/open-bfme-1/"
+    if not include.startswith(root):
+        return flag
+    relative = include[len(root):]
+    layouts = (
+        ("Code/", "game"),
+        ("reference/", "reference"),
+        ("build/toolchains/", "toolchains"),
+        ("baselines/", "baselines"),
+        ("vendor/", "vendor"),
+    )
+    for old, kind in layouts:
+        if relative.startswith(old):
+            mapped = bfme1_subtree(kind) + "/" + relative[len(old):]
+            return prefix + root + mapped
+    return flag
+
+
 def source_extra_flags(source):
     # A source that needs different compiler flags (e.g. /EHsc for functions the
     # original built with exception handling) declares them in its first lines:
@@ -634,7 +663,9 @@ def source_extra_flags(source):
             if line.startswith("// cl:"):
                 # Use '-' style options so MSYS/Cygwin shells don't rewrite
                 # leading '/' arguments as Windows paths.
-                return [f.replace("/", "-", 1) if f.startswith("/") else f for f in line[len("// cl:") :].split()]
+                flags = [f.replace("/", "-", 1) if f.startswith("/") else f
+                         for f in line[len("// cl:") :].split()]
+                return [_current_bfme1_include_flag(flag) for flag in flags]
     return []
 
 
