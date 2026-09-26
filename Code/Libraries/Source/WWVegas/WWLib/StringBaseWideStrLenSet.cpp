@@ -1,14 +1,18 @@
 // cl: /O2 /EHsc
 // ?set@?$StringBase@G@@QAEXPBGH@Z @0x000371E0 321B
+// ?concat@?$StringBase@G@@QAEXPBGH@Z @0x00037410 134B
 // Wide StringBase (ptr,len) setter: alias check then length branch, wrapper
 // CharSource on the stack for the copy, fast in-place when unique with spare
 // capacity else allocate via the rowed byte allocator with the 0x737472 tag.
-// Evidence: pinned name, callers at 0x00005679 0x0000568A 0x000066A2
-// 0x00037818 0x00037E25 0x00037ED8, wrapper vtable 0x00BBE798 slots getLength
+// Wide (ptr,len) concat: empty length returns, null buffer forwards to the
+// 2-arg set, else wraps (str,len) and grows via ensureUniqueBufferOfSize.
+// Evidence: pinned names, set callers at 0x00005679 0x0000568A 0x000066A2
+// 0x00037818 0x00037E25 0x00037ED8, concat callers at 0x000056AE 0x000056BF
+// 0x000066D2 0x00006A4C, wrapper vtable 0x00BBE798 slots getLength
 // 0x00144010 copy-mid 0x00035E70 getChars 0x00035EA0, releaseBuffer 0x00036E70,
-// allocator 0x000307F0. Model/flags donor TU
+// ensure 0x00036F00, allocator 0x000307F0. Model/flags donor TU
 // Code/Libraries/Source/WWVegas/WWLib/StringBaseWideCharSourceSet.cpp // cl: /O2
-// plus /EHsc for the handler 0x0075CD08 scope 0x00CFEA70 unwind of the stack source.
+// plus /EHsc for the handler 0x0075CD08 scope unwind of the stack source.
 typedef unsigned short wchar_t;
 
 namespace _STL {
@@ -38,8 +42,10 @@ private:
     };
     Header *m_data;
     void releaseBuffer();
+    void ensureUniqueBufferOfSize(int newLen, bool keepData, const CharSource<T> *src1, const CharSource<T> *src2);
 public:
     void set(const T *str, int len);
+    void concat(const T *str, int len);
 };
 
 class WideStrLenSource : public CharSource<wchar_t> {
@@ -92,4 +98,17 @@ void StringBase<wchar_t>::set(const wchar_t *str, int len)
         return;
     }
     releaseBuffer();
+}
+
+template <>
+void StringBase<wchar_t>::concat(const wchar_t *str, int len)
+{
+    if (len == 0)
+        return;
+    if (m_data != 0) {
+        WideStrLenSource src(str, len);
+        ensureUniqueBufferOfSize(m_data->length + len, true, 0, &src);
+        return;
+    }
+    set(str, len);
 }
