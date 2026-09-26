@@ -5442,3 +5442,4 @@ __mbscat,0x0062988C,retail REL32 from INI getNextQuotedAsciiString 0x002E93F; IA
 ??0Rva002A8823Tuning@@QAE@XZ,0x002A8823,target Ghidra boundary 0x2A8823/34 default-builds the DifficultyTuning temp (2 plus six 1s plus -1); called once with ECX=temp by the DifficultyTuning parser at 0x2A89D2; address-derived class view
 ??0AsciiString@@QAE@PBD@Z,0x00037BA0,AsciiString const-char temp construction shared with the rowed StringBase body here; REL32 from placed RegionBonus parser epilogue at 0x3F156F; twin of the rowed StringBase spelling (empty-derived layout)
 ?bfmeSmallAllocPS@@YAPAXI@Z,0x00027A90,small arm of the 0x28D80 alloc dispatcher (Rva00028D80Alloc twin of bfmeAllocPR); rowed as node-alloc _M_allocate
+??0?$_Vector_base@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@QAE@ABV?$allocator@UBfmeE8@@@1@@Z,0x00211E58,ICF-folded empty vector base ctor (same 29B as matched BfmeE16 row); LivingWorldRegionConnectionCtor TU vector<BfmeE8> member
