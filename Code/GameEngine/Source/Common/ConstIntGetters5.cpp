@@ -145,3 +145,12 @@ int Rva002A893FGet(void)
 {
 	return 0x00bfd85c;
 }
+
+// ?Rva002A88BBGet@@YAHXZ @ 0x002a88bb (6B): returns 0x00bfd768.
+// Abuts the probability parser at 0x002a8845 (ends +118) and a twin getter
+// below. Opaque address-derived name. The constant is the DifficultyTuning
+// sub-table also pushed as an immediate by the rowed parser at 0x002a89d2.
+int Rva002A88BBGet(void)
+{
+	return 0x00bfd768;
+}
