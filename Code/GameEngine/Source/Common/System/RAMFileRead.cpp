@@ -10,6 +10,7 @@
 
 extern "C" void *__cdecl memcpy(void *dst, const void *src, unsigned int n);
 extern "C" __declspec(dllimport) int __cdecl isspace(int c);
+extern "C" __declspec(dllimport) int __cdecl atoi(const char *text);
 
 template <typename T> class StringBase
 {
@@ -36,6 +37,9 @@ public:
 class AsciiString : private StringBase<char>
 {
 public:
+	AsciiString() : StringBase<char>() {}
+	~AsciiString() { releaseBuffer(); }
+
 	void clear();
 	AsciiString &operator=(const AsciiString &other);
 
@@ -89,6 +93,7 @@ class RAMFile : public File
 public:
 	virtual int read(void *buffer, int bytes);
 	virtual void nextLine(char *buf, int bufSize);
+	virtual bool scanInt(int &newInt);
 	virtual bool scanString(AsciiString &newString);
 	virtual bool openFromArchive(File *archiveFile, const AsciiString &filename, int offset, int size);
 
@@ -214,4 +219,35 @@ bool RAMFile::openFromArchive(File *archiveFile, const AsciiString &filename, in
 		}
 	}
 	return false;
+}
+
+// ?scanInt@RAMFile@@UAE_NAAH@Z @ 0x0060580C (193B): slot 7 (offset 0x1C) of
+// vtable 0x0087AA00. ZH GameEngine RAMFile::scanInt verbatim with BFME2
+// (temp,1) concat spelling.
+bool RAMFile::scanInt(int &newInt)
+{
+	newInt = 0;
+	AsciiString tempstr;
+
+	while ((m_pos < m_size) &&
+		((m_data[m_pos] < '0') || (m_data[m_pos] > '9')) &&
+		(m_data[m_pos] != '-')) {
+		++m_pos;
+	}
+
+	if (m_pos >= m_size) {
+		m_pos = m_size;
+		return false;
+	}
+
+	do {
+		char value;
+		value = m_data[m_pos];
+		tempstr.concat(&value, 1);
+		++m_pos;
+	} while ((m_pos < m_size) &&
+		((m_data[m_pos] >= '0') && (m_data[m_pos] <= '9')));
+
+	newInt = atoi(tempstr.str());
+	return true;
 }
