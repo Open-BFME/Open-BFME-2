@@ -79,3 +79,11 @@ FontDesc &FontDesc::operator=(const FontDesc &other)
 	return *this;
 }
 
+
+// ?Rva0022175F_ParseDefaultMessageFont@INI@@SAXPAV1@PAX1PBX@Z
+void INI::Rva0022175F_ParseDefaultMessageFont(INI *ini, void *instance, void *store, const void *userData)
+{
+	FontDesc font;
+	GlobalLanguage::parseFontDesc(ini, &font, &font, 0);
+	((FontDesc *)((char *)instance + 0x18))->FontDesc::operator=(font);
+}
