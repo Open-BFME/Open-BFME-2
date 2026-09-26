@@ -21,3 +21,10 @@ class CommandSetUpgradeModuleData { public: __declspec(noinline) virtual ~Comman
 // ??1CommandSetUpgradeModuleData@@UAE@XZ present-unmatched
 CommandSetUpgradeModuleData::~CommandSetUpgradeModuleData() { m_famgen = 0; }
 void famgenDeleteCommandSetUpgradeModuleData(CommandSetUpgradeModuleData *p) { delete p; }
+
+// ??_GStealthDetectorUpdateModuleData@@UAEPAXI@Z @0x00256000 28B
+// Deleting dtor slot 0 of vtable 0x007F3540; calls rowed ??1 at 0x0025601C then rowed operator delete at 0x0002FD60.
+class StealthDetectorUpdateModuleData { public: __declspec(noinline) virtual ~StealthDetectorUpdateModuleData(); private: int m_famgen; };
+// ??1StealthDetectorUpdateModuleData@@UAE@XZ present-unmatched
+StealthDetectorUpdateModuleData::~StealthDetectorUpdateModuleData() { m_famgen = 0; }
+void famgenDeleteStealthDetectorUpdateModuleData(StealthDetectorUpdateModuleData *p) { delete p; }
