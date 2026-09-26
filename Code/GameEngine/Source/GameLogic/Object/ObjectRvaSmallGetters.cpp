@@ -36,7 +36,7 @@ int Object::rva0028AD6C() const
 }
 
 // ?rva0028ADE0@Object@@QBE_NXZ
-// ?rva0028ADE0@Object@@QBE_NXZ present-unmatched
+// ?rva0028ADE0@Object@@QBE_NXZ
 bool Object::rva0028ADE0() const
 {
 	return m_flag358 != 0;
