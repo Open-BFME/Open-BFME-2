@@ -35888,3 +35888,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ??_GW3DBuffDrawModuleData@@UAEPAXI@Z,,0x000CEEA4,28,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DBuffDrawModuleDataDtor.cpp,matched,deleting dtor calls rowed dtor 0xCEE5D same TU
 ??1PillageModuleData@@UAE@XZ,,0x0025501B,48,Code/GameEngine/Source/GameLogic/Object/PillageModuleDataDtor.cpp,matched,dtor via Snapshot BBB554 base filter 0x360D26 slot0 0x54FFF
 ?get@Rva0042D6C6PtrChaseField@@QBEHXZ,,0x0042D6C6,16,Code/GameEngine/Source/Common/Disp0PtrChaseDwordGetters.cpp,matched,null-checked ptr-chase plus offset 0x18 and 2 callers
+??_GPillageModuleData@@UAEPAXI@Z,,0x00254FFF,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-e2de.cpp,matched,slot0 vtable 0xBF0568 calls rowed 0x25501B
