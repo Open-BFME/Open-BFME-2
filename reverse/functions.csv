@@ -35432,3 +35432,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ?Rva002AA2C9Get@@YAHXZ,,0x002AA2C9,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
 ?Rva002C8E5AGet@@YAHXZ,,0x002C8E5A,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
 ?Rva002D6AEFGet@@YAHXZ,,0x002D6AEF,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
+?SetSize@EAStringC@@QAEXH@Z,,0x006D3BC0,82,Code/Libraries/Source/Apt/EAStringCSetSize.cpp,matched,EA Apt string size install via shared assert triple plus int3 barrier
