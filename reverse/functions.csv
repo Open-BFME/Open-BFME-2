@@ -36234,3 +36234,4 @@ _Rva00680420,,0x00680420,17,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,mat
 ?rva0013D250@VertexMaterialClass@@QBEHXZ,,0x0013D250,89,Code/Libraries/Source/WWVegas/WW3D2/VertexMaterialComputeRamSize.cpp,matched,gap in vertmaterial via 0x6C or 0xB0 plus 0x20 per present Mapper
 ??_GRva0065E7D0@@UAEPAXI@Z,,0x0065E8E0,36,Code/Libraries/Source/DirtySock/Rva0065E7D0Deleter.cpp,matched,vtable 0x008E2368 slot0 calls base 0x658650 plus global delete
 ??_GDoCommandUpgradeModuleData@@UAEPAXI@Z,,0x00256283,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-cfe6.cpp,matched,slot0 vtable 0x7F3840 calls rowed 0x256222
+?rva0046255E@SlaughterHordeContain@@QAEXPBUCoord3D0046255E@@@Z,,0x0046255E,27,Code/GameEngine/Source/GameLogic/Object/Contain/SlaughterHordeContainRva004625BB.cpp,matched,12B copy to +0xA0 plus flag +0xAC same flags and class as slots 128-129

@@ -19,6 +19,12 @@ typedef void (__cdecl *ContainIterateFunc)(Object *obj, void *userData);
 void iterCallback0046258C(Object *obj, void *userData);
 void iterCallback004625AA(Object *obj, void *userData);
 
+struct Coord3D0046255E {
+	float x;
+	float y;
+	float z;
+};
+
 #define SLOT08(a,b,c,d,e,f,g,h) virtual void a(); virtual void b(); virtual void c(); virtual void d(); virtual void e(); virtual void f(); virtual void g(); virtual void h();
 #define SLOT16(a) SLOT08(a##0,a##1,a##2,a##3,a##4,a##5,a##6,a##7) SLOT08(a##8,a##9,a##A,a##B,a##C,a##D,a##E,a##F)
 
@@ -33,6 +39,11 @@ public:
 	virtual void s6D0(); virtual void s6D1(); virtual void s6D2();
 	virtual bool rva004625BB(void *a, int b);
 	virtual void rva004625F0(void *a);
+	void rva0046255E(const Coord3D0046255E *pos);
+
+	char m_pad9C[0x9C];
+	Coord3D0046255E m_posA0;
+	bool m_flagAC;
 };
 
 struct IterateUser004625BB {
@@ -70,4 +81,15 @@ void SlaughterHordeContain::rva004625F0(void *a)
 	user.a = a;
 	user.flag = false;
 	iterateContained(iterCallback004625AA, &user, true);
+}
+
+// ?rva0046255E@SlaughterHordeContain@@QAEXPBUCoord3D0046255E@@@Z, retail 0x0046255E, 27 bytes.
+// 12-byte copy from the single pointer arg to +0xA0 plus flag at +0xAC set to
+// 1 (push esi/edi, lea edi [ecx+0xA0], three movsd, flag). Same /O1 flags and
+// class as slots 128/129; no callees. Shape matches OpenContain::setRallyPoint
+// (m_rallyPoint plus exists) but identity is unproven, so honest address name.
+void SlaughterHordeContain::rva0046255E(const Coord3D0046255E *pos)
+{
+	m_posA0 = *pos;
+	m_flagAC = true;
 }
