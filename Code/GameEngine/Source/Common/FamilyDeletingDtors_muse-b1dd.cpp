@@ -11,3 +11,10 @@ class ReplaceSelfUpgrade { protected: __declspec(noinline) virtual ~ReplaceSelfU
   friend void famgenDelete(ReplaceSelfUpgrade *p); };
 ReplaceSelfUpgrade::~ReplaceSelfUpgrade() { m_famgen = 0; }
 void famgenDelete(ReplaceSelfUpgrade *p) { delete p; }
+
+// ??_GAudioLoopUpgrade@@MAEPAXI@Z @0x004B7D37 28B
+// Deleting dtor slot 0 of vtable 0x00858CC4; calls rowed ??1AudioLoopUpgrade@@MAE@XZ at 0x004B7B20 then rowed operator delete at 0x0002FD60.
+class AudioLoopUpgrade { protected: __declspec(noinline) virtual ~AudioLoopUpgrade(); private: int m_famgen;
+  friend void famgenDelete(AudioLoopUpgrade *p); };
+AudioLoopUpgrade::~AudioLoopUpgrade() { m_famgen = 0; }
+void famgenDelete(AudioLoopUpgrade *p) { delete p; }
