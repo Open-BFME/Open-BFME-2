@@ -36061,3 +36061,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ??_GDetachableRiderUpdateModuleData@@UAEPAXI@Z,,0x004AEB23,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-95ab.cpp,matched,slot 0 of vtable 0x00855510 calls rowed 0x004AEB3F plus operator delete
 ??_GRva00801FB0Elem@@QAEPAXI@Z,,0x0066E2E0,30,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-7a10b.cpp,matched,slot0 of 0x008E3C20 calls pinned dtor 0x0066DF10
 ??1CreateObjectDieModuleData@@UAE@XZ,,0x00485DDA,63,Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDieModuleDataDtor.cpp,matched,Snapshot BBB554 restore with vector 0x2CC70 and string 0x36410 via CivilianSpawn shape
+??_GCreateObjectDieModuleData@@UAEPAXI@Z,,0x00485E50,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-ae2e.cpp,matched,slot 0 deleting dtor for CreateObjectDieModuleData via famgen
