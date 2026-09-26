@@ -5531,3 +5531,6 @@ __mbscat,0x0062988C,retail REL32 from INI getNextQuotedAsciiString 0x002E93F; IA
 ?clear@?$_List_base@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@_STL@@QAEXXZ,0x0023DAA5,ICF twin of int list-base clear per GameWindowManager registerTabList 0x002C55AC call site
 ??4?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z,0x002C54EE,ICF twin of int list assign per GameWindowManager registerTabList 0x002C55AC call site
 ??1?$_List_base@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@_STL@@QAE@XZ,0x004EC395,ICF twin of int list-base dtor per GameWindowManager registerTabList 0x002C55AC call site
+?rva0087ED00@GeometryShape@@QBEMXZ,0x006BE5A0,called at target 0x006BE72C from the Ghidra-start GeometryInfo method; B1 donor helper is 0x0087ED00
+?rva0087ED70@GeometryShape@@QBEMXZ,0x006BE610,called at target 0x006BE74F from the Ghidra-start GeometryInfo method; B1 donor helper is 0x0087ED70
+?rva0087E650@GeometryInfo@@QAEXPAURva0087E650Bounds@@@Z,0x006BDEE0,called at target 0x006BE782 from the Ghidra-start GeometryInfo method; B1 donor supplies the six-float bounds ABI
