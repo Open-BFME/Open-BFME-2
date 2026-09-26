@@ -36332,3 +36332,4 @@ _Rva00680420,,0x00680420,17,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,mat
 ?xfer@LargeGroupBonusUpdate@@MAEXPAVXfer@@@Z,,0x00490031,111,Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupBonusUpdateXfer.cpp,matched,slot3 xfer via UpdateModule base plus IsLightCRC plus Version12 plus bools plus gated uint
 ?xfer@WallUpgradeUpdate@@MAEXPAVXfer@@@Z,,0x004AB273,95,Code/GameEngine/Source/GameLogic/Object/Update/WallUpgradeUpdateXfer.cpp,matched,slot3 xfer via Version11 plus base plus ObjectID int bools
 ??1DX8TextureCategoryClass@@UAE@XZ,,0x00144AF0,212,Code/Libraries/Source/WWVegas/WW3D2/DX8TextureCategoryDtor.cpp,matched,vtable 0x7D3508 ctor 0x144A00 donor BFME1 dx8renderer dtor caller deleting dtor 0x1460C0
+??_GSpecialPowerModuleData@@UAEPAXI@Z,,0x00548A09,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-d4d4.cpp,matched,slot 0 of vtable 0x86A520 plus dtor 0x548948 plus delete 0x2FD60
