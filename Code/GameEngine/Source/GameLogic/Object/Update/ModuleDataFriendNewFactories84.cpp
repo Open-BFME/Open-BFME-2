@@ -51,25 +51,21 @@ ModuleData *ScavengerSpecialPowerModuleData::friend_newModuleData(INI *ini)
 	return reinterpret_cast<ModuleData *>(data);
 }
 
-// 0x002531B0 / 0x0025327A: both news 0xC8 with ctor ??0SupplyWarehouseDockUpdate
-// (rowed 0x4CDFD9); parse procs 0x8CDBE1 and 0x8CDFEB.
-void SupplyWarehouseDockUpdateParse_2531B0(MultiIniFieldParse &parse);
-void SupplyWarehouseDockUpdateParse_25327A(MultiIniFieldParse &parse);
-
-class SupplyWarehouseDockUpdate
-{
-public:
-	SupplyWarehouseDockUpdate();
-	virtual ~SupplyWarehouseDockUpdate();
-
-private:
-	unsigned char m_pad[0xC8 - 4];
-};
+// 0x002531B0 / 0x0025327A: both news 0xC8 with the one folded ctor
+// ??0EvacuateGarrisonSpecialPowerModuleData (rowed 0x4CDFD9); parse procs
+// 0x8CDBE1 and 0x8CDFEB.
+void EvacuateGarrisonSpecialPowerParse_2531B0(MultiIniFieldParse &parse);
+void UnleashSpecialPowerParse_25327A(MultiIniFieldParse &parse);
 
 class EvacuateGarrisonSpecialPowerModuleData
 {
 public:
+	EvacuateGarrisonSpecialPowerModuleData();
+	virtual ~EvacuateGarrisonSpecialPowerModuleData();
 	static ModuleData *friend_newModuleData(INI *ini);
+
+private:
+	unsigned char m_pad[0xC8 - 4];
 };
 
 class UnleashSpecialPowerModuleData
@@ -81,17 +77,17 @@ public:
 // ?friend_newModuleData@EvacuateGarrisonSpecialPowerModuleData@@SAPAVModuleData@@PAVINI@@@Z
 ModuleData *EvacuateGarrisonSpecialPowerModuleData::friend_newModuleData(INI *ini)
 {
-	SupplyWarehouseDockUpdate *data = new SupplyWarehouseDockUpdate;
+	EvacuateGarrisonSpecialPowerModuleData *data = new EvacuateGarrisonSpecialPowerModuleData;
 	if (ini)
-		ini->initFromINIMultiProc(data, SupplyWarehouseDockUpdateParse_2531B0);
+		ini->initFromINIMultiProc(data, EvacuateGarrisonSpecialPowerParse_2531B0);
 	return reinterpret_cast<ModuleData *>(data);
 }
 
 // ?friend_newModuleData@UnleashSpecialPowerModuleData@@SAPAVModuleData@@PAVINI@@@Z
 ModuleData *UnleashSpecialPowerModuleData::friend_newModuleData(INI *ini)
 {
-	SupplyWarehouseDockUpdate *data = new SupplyWarehouseDockUpdate;
+	EvacuateGarrisonSpecialPowerModuleData *data = new EvacuateGarrisonSpecialPowerModuleData;
 	if (ini)
-		ini->initFromINIMultiProc(data, SupplyWarehouseDockUpdateParse_25327A);
+		ini->initFromINIMultiProc(data, UnleashSpecialPowerParse_25327A);
 	return reinterpret_cast<ModuleData *>(data);
 }
