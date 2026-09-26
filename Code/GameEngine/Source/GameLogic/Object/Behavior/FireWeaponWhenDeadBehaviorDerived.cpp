@@ -224,3 +224,13 @@ public:
 Rva004B66B3::~Rva004B66B3()
 {
 }
+
+class CommandPointsUpgrade : public FireWeaponWhenDeadBehavior
+{
+public:
+	virtual ~CommandPointsUpgrade();
+};
+
+CommandPointsUpgrade::~CommandPointsUpgrade()
+{
+}
