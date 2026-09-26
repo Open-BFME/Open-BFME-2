@@ -36021,3 +36021,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ?grow@FreelistPool@@AAE_NHH@Z,,0x001EAEF9,101,Code/GameEngine/Source/GameLogic/Object/Update/FreelistPoolPop.cpp,matched,pool grow with retry via m_alloc and 0x10-node carve
 ??_GCivilianSpawnUpdateModuleData@@UAEPAXI@Z,,0x0047FAA3,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-eeab.cpp,matched,deleting dtor via family pattern plus rowed dtor
 ??_GRebuildHoleExposeDieModuleData@@UAEPAXI@Z,,0x004869B0,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-4f8a.cpp,matched,Deleting dtor slot 0 of vtable 0xC4AD40 calls rowed 0x4869CC
+?get@Rva0042D69DPtrChaseField@@QBEHXZ,,0x0042D69D,17,Code/GameEngine/Source/Common/Disp0PtrChaseDwordGetters.cpp,matched,null-checked ptr-chase plus tail-jmp rowed getter 0x5C4AF9
