@@ -153,6 +153,19 @@ private:
     char *m_text;
 };
 
+// UnicodeString is one pointer (StringBase<unsigned short> layover): same
+// pattern with wide getBufferForRead (0x370A0) and clear (0x36E70).
+class UnicodeString
+{
+public:
+    int getLength() const { return ((const StringBase<unsigned short> *)this)->getLength(); }
+    const unsigned short *str() const { return ((const StringBase<unsigned short> *)this)->str(); }
+    void clear() { ((StringBase<unsigned short> *)this)->clear(); }
+
+private:
+    unsigned short *m_text;
+};
+
 struct XferException
 {
 	void *text;
@@ -513,6 +526,47 @@ Xfer &Xfer::operator==(AsciiString &as)
         else
         {
             as.clear();
+        }
+    }
+    return *this;
+}
+
+// Retail 0x0060BF9E, 258B, vtable slot 26 of 0x007BB910. Base UnicodeString
+// transfer (ustr tag 0x75737472) via XferData slot 38; donor
+// XferUnicodeStringTransfer.cpp logic with Xfer.cpp /O1 layout.
+Xfer &Xfer::operator==(UnicodeString &us)
+{
+    if (IsStoring())
+    {
+        int length = us.getLength();
+        if (length >= 255)
+        {
+            unsigned char marker = 255;
+            XferData(0x75737472, &marker, 1);
+            XferData(0, &length, 4);
+        }
+        else
+        {
+            XferData(0x75737472, &length, 1);
+        }
+        XferData(0, (void *)us.str(), length * 2);
+    }
+    else
+    {
+        int length = 0;
+        XferData(0x75737472, &length, 1);
+        if (length == 255)
+        {
+            XferData(0, &length, 4);
+        }
+        if (length != 0)
+        {
+            XferData(0, ((StringBase<unsigned short> *)&us)->getBufferForRead(length), length * 2);
+            ((StringBase<unsigned short> *)&us)->getBufferForRead(length)[length] = 0;
+        }
+        else
+        {
+            us.clear();
         }
     }
     return *this;
