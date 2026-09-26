@@ -7,10 +7,13 @@ typedef unsigned int UnsignedInt;
 extern "C" __declspec(dllimport) long __cdecl time(long *value);
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(void *section);
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(void *section);
+extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(void *section);
 
 class MutexClass
 {
 public:
+	~MutexClass();
+
 	class LockClass
 	{
 	public:
@@ -66,6 +69,7 @@ class Rva0009990D
 {
 public:
 	void clear();
+	void set(void *p);
 
 private:
 	void *m_lock;
@@ -74,7 +78,9 @@ private:
 class ThreadClass
 {
 public:
+	virtual ~ThreadClass();
 	void Stop();
+	virtual void Execute();
 };
 
 class Watchdog
@@ -97,7 +103,7 @@ private:
 	long m_nextWarning;
 	int m_suppressionCount;
 	WatchdogCriticalSection m_criticalSection;
-	MutexClass m_mutex;
+	char m_mutexStorage[8];
 	Rva0009990D m_ownedLock;
 };
 
@@ -105,7 +111,7 @@ void Watchdog::Thread_Function()
 {
 	for (;;)
 	{
-		MutexClass::LockClass lock(m_mutex, 1000);
+		MutexClass::LockClass lock(*(MutexClass *)&m_mutexStorage, 1000);
 		if (!lock.Failed())
 			break;
 
@@ -147,4 +153,11 @@ void Watchdog::stop(void)
 {
 	m_ownedLock.clear();
 	((ThreadClass *)this)->Stop();
+}
+
+void Watchdog::start(void)
+{
+	MutexClass::LockClass *lock = new MutexClass::LockClass(*(MutexClass *)&m_mutexStorage, -1);
+	m_ownedLock.set(lock);
+	((ThreadClass *)this)->ThreadClass::Execute();
 }
