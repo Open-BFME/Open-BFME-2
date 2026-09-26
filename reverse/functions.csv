@@ -36030,3 +36030,5 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ??1W3DBufferManager@@QAE@XZ,,0x001163E7,10,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DBufferManager.cpp,matched,gap dtor calls freeAllSlots then tail jmps freeAllBuffers
 ??_GGrantUpgradeCreateModuleData@@UAEPAXI@Z,,0x004B912F,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-4f8a.cpp,matched,Deleting dtor slot 0 of vtable 0xC594E0 calls rowed 0x4B914B
 ??1InheritUpgradeCreateModuleData@@UAE@XZ,,0x004B9569,51,Code/GameEngine/Source/GameLogic/Object/Update/InheritUpgradeCreateModuleDataDtor.cpp,matched,ModuleData dtor via RefundDie pattern with Snapshot BBB554 and filter at 0x8C
+??1BoredUpdateModuleData@@UAE@XZ,,0x004969B7,48,Code/GameEngine/Source/GameLogic/Object/Update/BoredUpdateModuleDataDtor.cpp,matched,implicit virtual dtor restoring BBB554 base plus pinned filter
+??_GBoredUpdateModuleData@@UAEPAXI@Z,,0x0049699B,28,Code/GameEngine/Source/GameLogic/Object/Update/BoredUpdateModuleDataDtor.cpp,matched,28B deleting dtor via implicit dtor plus operator delete
