@@ -137,7 +137,7 @@ If a verified commit recovers under 100 retail bytes and you expect to make anot
 
 On a non-fast-forward push rejection caused by `origin/master` advancing, rebase, recheck the ledger, complete any required verification, and retry once.
 
-If that retry is also rejected because `origin/master` advanced again, accumulate 2 verified commits since the last publication attempt before trying again. If contention continues, accumulate 3–5 verified commits between publication attempts. 
+If that retry is also rejected because `origin/master` advanced again, normally accumulate 2 verified commits since the last publication attempt before trying again. If only one verified unpublished commit remains and no further commit is expected, keep rebasing, rechecking, and retrying it until published instead of waiting for another commit. If contention continues and more work is expected, accumulate 3–5 verified commits between publication attempts.
 
 Once there are 5 verified unpublished commits, do not increase the batch size further solely as a result of `origin/master` advancing. Keep the existing batch, rebase, recheck, verify as required, and attempt publication again until published.
 
