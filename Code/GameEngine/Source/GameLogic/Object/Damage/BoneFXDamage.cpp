@@ -59,9 +59,20 @@ BoneFXDamage::~BoneFXDamage( void )
 
 }  // end ~BoneFXDamage
 
+// BFME2 throws a formatted INIException here (retail 0x004B97E2 calls the
+// rowed ??0INIException@@QAA@HPBDZZ then _CxxThrowException); ZH threw a bare
+// INI_INVALID_DATA. TU-local to avoid a shared-header edit.
+class INIException
+{
+public:
+	char *mFailureMessage;
+	int m_argCount;
+	INIException(int argCount, const char *format, ...);
+	INIException(const INIException &other);
+	~INIException();
+};
+
 //-------------------------------------------------------------------------------------------------
-// byte-exact reconstruction: Code/GameEngine/Source/GameLogic/Object/Damage/BoneFXDamage_onObjectCreated_Thunk.cpp
-// ?onObjectCreated@BoneFXDamage@@ present-unmatched
 void BoneFXDamage::onObjectCreated()
 {
 	static NameKeyType key_BoneFXUpdate = NAMEKEY("BoneFXUpdate");
@@ -69,7 +80,7 @@ void BoneFXDamage::onObjectCreated()
 	if (bfxu == NULL)
 	{
 		DEBUG_ASSERTCRASH(bfxu != NULL, ("BoneFXDamage requires BoneFXUpdate"));
-		throw INI_INVALID_DATA;
+		throw INIException(3, "BoneFXDamage requires BoneFXUpdate");
 	}
 }
 
