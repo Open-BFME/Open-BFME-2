@@ -10,3 +10,9 @@ void famgenDelete(RadiateFearUpdateModuleData *p) { delete p; }
 class GiveUpgradeUpdateModuleData { public: __declspec(noinline) virtual ~GiveUpgradeUpdateModuleData(); private: int m_famgen; };
 GiveUpgradeUpdateModuleData::~GiveUpgradeUpdateModuleData() { m_famgen = 0; }
 void famgenDelete(GiveUpgradeUpdateModuleData *p) { delete p; }
+
+// ??_GRva0031468C@@QAEPAXI@Z @0x00314926 28B
+// Scalar deleting dtor; calls rowed ??1 at 0x0031468C then rowed operator delete at 0x0002FD60.
+class Rva0031468C { public: __declspec(noinline) ~Rva0031468C(); private: int m_famgen; };
+Rva0031468C::~Rva0031468C() { m_famgen = 0; }
+void famgenDelete(Rva0031468C *p) { delete p; }

@@ -36296,3 +36296,4 @@ _Rva00680420,,0x00680420,17,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,mat
 ??_GGiveUpgradeUpdateModuleData@@UAEPAXI@Z,,0x0049C624,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-7f75.cpp,matched,slot0 of vtable 0x851280 calls rowed 0x49C640 plus delete 0x2FD60
 ?Rva0049CBA0_InitObject@@YAXPAVINI@@PAXHH@Z,,0x0049CBA0,58,Code/GameEngine/Source/Common/System/INI_Rva0048BCBBParseFireWeaponNugget.cpp,matched,single-entry parse table 0xC51380 via ctor plus add plus pinned multi caller 0x49DEA5
 ??1Rva0031468C@@QAE@XZ,,0x0031468C,80,Code/GameEngine/Source/GameClient/GUI/GameWindowRva0031468CDtor.cpp,matched,four strings at 0 plus4 plus8 plusC via 0x36410 callers 0x314926 plus 0x314A6C
+??_GRva0031468C@@QAEPAXI@Z,,0x00314926,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-7f75.cpp,matched,scalar deleting dtor calls rowed 0x31468C plus delete 0x2FD60
