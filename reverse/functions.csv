@@ -36270,3 +36270,4 @@ _Rva00680420,,0x00680420,17,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,mat
 ?xfer@DelayedLuaEventList@@UAEXPAVXfer@@@Z,,0x003316D2,68,Code/GameEngine/Source/GameLogic/ScriptEngine/DelayedLuaEventListXfer.cpp,matched,slot3 xfer via Snapshot base plus IsLightCRC plus Version 1 1 plus 3x element xfer
 ??0Rva004FCD49@@QAE@XZ,,0x004FCD29,32,Code/GameEngine/Source/Common/Rva004FCD49Ctor.cpp,matched,gap ctor for Rva004FCD49 vtable 0x0086355C builds vector at +4 via rowed 0x00211E58 and zeroes +0x10
 ??_GRadiateFearUpdateModuleData@@UAEPAXI@Z,,0x0049C1D2,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-7f75.cpp,matched,slot0 of vtable 0x850FF0 calls rowed 0x49C1EE plus delete 0x2FD60
+??1GeometryUpgrade@@UAE@XZ,,0x004B6C55,53,Code/GameEngine/Source/GameLogic/Object/Upgrade/GeometryUpgradeDtor.cpp,matched,EH dtor with StringBase member at +0x1C via 0x36410 and UpgradeModule base via twin pin at 0x46089D matching vtable 0x8589C0 and BFME1 donor
