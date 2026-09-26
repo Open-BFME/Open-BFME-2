@@ -35885,3 +35885,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ??1Rva00690FF0Handle@@QAE@XZ,,0x000A8A37,12,Code/GameEngine/Source/Common/Rva00690FF0Handle.cpp,matched,gap 12B handle dtor null-checked release tail-jmp via pinned Gen0002857E release; abuts operator equals at 0x000A8A43
 ??0W3DTreeDrawModuleData@@QAE@XZ,,0x000CEBBF,231,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTreeDrawModuleDataCtorG7.cpp,matched,BFME1 W3DTreeDraw donor G7 for imul float scheduling sole caller factory
 ??1W3DBuffDrawModuleData@@UAE@XZ,,0x000CEE5D,54,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DBuffDrawModuleDataDtor.cpp,matched,BFME1 Destructor donor single string vtable swap gap dtor
+??_GW3DBuffDrawModuleData@@UAEPAXI@Z,,0x000CEEA4,28,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DBuffDrawModuleDataDtor.cpp,matched,deleting dtor calls rowed dtor 0xCEE5D same TU
