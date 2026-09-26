@@ -5507,3 +5507,4 @@ __mbscat,0x0062988C,retail REL32 from INI getNextQuotedAsciiString 0x002E93F; IA
 ?Clear@?$VectorClass@VKeyClass@Curve3DClass@@@@UAEXXZ,0x000F0CD4,ICF twin of H Clear at same address; call site 0xF1D1F plus identical 37B body
 ??_7W3DLaserDrawModuleData@@6B@,0x00BCB960,W3DLaserDrawModuleData vtable installed by ctor 0xC9A6F and restored by dtor 0xC9AE7; factory 0x64962 news 0x74; base restore is Snapshot 0xBBB554
 ??_7WallHubBehaviorModuleData@@6B@,0x00C3FF98,WallHubBehaviorModuleData vtable installed by ctor 0x453020 and restored by dtor 0x452F9F; factory 0x24A94C news 0x3C; base restore is Snapshot 0xBBB554
+??1DamageModule@@UAE@XZ,0x004B96CC,twin of rowed Rva004B96CC for TransitionDamageFX dtor at 0x4BA47C which calls here plus ctor at 0x4BA3EA calls DamageModule ctor at 0x4B9704
