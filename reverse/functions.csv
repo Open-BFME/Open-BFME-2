@@ -36037,3 +36037,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ??_GStrafeAreaUpdateModuleData@@UAEPAXI@Z,,0x003A4F05,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-eeab.cpp,matched,deleting dtor via family pattern plus rowed dtor
 ??1EvacuateDamageModuleData@@UAE@XZ,,0x004BAD91,48,Code/GameEngine/Source/GameLogic/Object/Update/EvacuateDamageModuleDataDtor.cpp,matched,dtor via implicit virtual plus base restore plus AsciiString
 ??_GToppleUpdateModuleData@@UAEPAXI@Z,,0x004A838B,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-b075.cpp,matched,slot0 vtable 0x008538A0 calls rowed 0x004A83A7
+??_GEvacuateDamageModuleData@@UAEPAXI@Z,,0x004BAD75,28,Code/GameEngine/Source/GameLogic/Object/Update/EvacuateDamageModuleDataDtor.cpp,matched,deleting dtor via implicit dtor plus operator delete
