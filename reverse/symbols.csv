@@ -5486,3 +5486,4 @@ __mbscat,0x0062988C,retail REL32 from INI getNextQuotedAsciiString 0x002E93F; IA
 ?Rva002CADBE@WeaponStore@@ABEPBVWeaponTemplate@@H@Z,0x002CADBE,linear key search over the +0xC/+0x10 pointer range comparing element+0xC; 3 WeaponStore-method callers (0x2C8D9A/0x2CB8F8/0x2CE141); blocks findWeaponTemplate 0x2CB8BF; 0.85 partial banked
 ?find@KeyToBucketMap@NameKeyGenerator@@QAEPAUSlot@12@AAU312@PBH@Z,0x00148B27,KeyToBucketMap out-pair find called by ObjectLookupMap findSlot 0x41F4E5 with out-first key-ptr protocol; forwards key to rowed _M_find 0x2888D4 and fills node/map; shares address with Armor find dup row by identical bytes
 ?grow@FreelistPool@@AAE_NHH@Z,0x001EAEF9,pool grow with retry called by freelist pop 0x2393E2 with 0 0; bool return in al with ret 8; int int params descriptive
+?reloadWithBonus@Weapon@@IAEXPBVObject@@ABVWeaponBonus@@_N@Z,0x002CDB99,called from the retail loadAmmoNow and reloadAmmo bodies with matching donor argument order
