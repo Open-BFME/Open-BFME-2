@@ -1834,10 +1834,9 @@ elapsed=StartStopwatch();
 ** Execute assignment algorithms
 */
 for(i=0;i<numarrays;i++)
-{       /* abase.ptrs.p+=i*ASSIGNROWS*ASSIGNCOLS; */
-        /* Fixed  by Eike Dierks */
+{       /* Retail predates Eike Dierks fix: buggy i*size */
+	abase.ptrs.p+=i*ASSIGNROWS*ASSIGNCOLS;
 	Assignment(*abase.ptrs.ap);
-	abase.ptrs.p+=ASSIGNROWS*ASSIGNCOLS;
 }
 
 /*
