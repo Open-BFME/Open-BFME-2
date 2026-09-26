@@ -1,7 +1,14 @@
 // cl: /O1 /GX /MD /DNDEBUG
 //
-// ??0Rva0048BC03Base@@QAE@XZ, retail 0x0048BC03, 67 bytes. Framed
-// single-state EH ctor: folded vtable 0x00C4C110 plus one float-list
+// ??0FireWeaponUpdateModuleData@@QAE@XZ, retail 0x0048BC03, 67 bytes.
+// Target identity: ModuleFactory registers data factory 0x24CF56 for
+// FireWeaponUpdate; it news 0x10 with this ctor and pushes parse proc
+// 0x48C0B4, whose table 0xC4C210 holds FireWeaponNugget (+0x08),
+// HeroModeTrigger (+0x0C), ChargingModeTrigger (+0x0D), AliveOnly (+0x0E).
+// DamageField/OilSpill data derive from it (base ctor call plus chained
+// 0x48C0B4 parse). Previously address-named Rva0048BC03Base/Rva0048C0B4Base.
+//
+// Framed single-state EH ctor: folded vtable 0x00C4C110 plus one float-list
 // member at +8 through the folded _List_base (0x4EC36C, float-spelling
 // alias pin) plus three flag bytes at +0xC/+0xD/+0xE. Unknown dword at +4
 // kept as explicit pad. Recipe follows FloodUpdateModuleDataCtor (landed):
@@ -43,10 +50,10 @@ public:
 	~Rva0048BC03BaseBase();
 };
 
-class Rva0048BC03Base : public Rva0048BC03BaseBase
+class FireWeaponUpdateModuleData : public Rva0048BC03BaseBase
 {
 public:
-	Rva0048BC03Base();
+	FireWeaponUpdateModuleData();
 
 private:
 	const void *m_vtable; // +0
@@ -57,8 +64,8 @@ private:
 	bool m_flag0e; // +0xE
 };
 
-// ??0Rva0048BC03Base@@QAE@XZ @0x0048BC03
-Rva0048BC03Base::Rva0048BC03Base()
+// ??0FireWeaponUpdateModuleData@@QAE@XZ @0x0048BC03
+FireWeaponUpdateModuleData::FireWeaponUpdateModuleData()
 	: m_vtable(reinterpret_cast<const void *>(0x00C4C110))
 	, m_list(_STL::allocator<float>())
 {

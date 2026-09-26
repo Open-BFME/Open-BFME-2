@@ -17,11 +17,11 @@
 // through the rowed 0x00365F0 copy ctor advances state 1 (AsciiString
 // dtor via the 0x0036410 fold). Row supersedes the ctor pin.
 
-class Rva0048BC03Base
+class FireWeaponUpdateModuleData
 {
 public:
-	Rva0048BC03Base();
-	virtual ~Rva0048BC03Base();
+	FireWeaponUpdateModuleData();
+	virtual ~FireWeaponUpdateModuleData();
 
 private:
 	unsigned char m_pad[0x10 - 4];
@@ -49,7 +49,7 @@ private:
 
 extern AsciiString g_emptyAsciiString;
 
-class DamageFieldUpdateModuleData : public Rva0048BC03Base
+class DamageFieldUpdateModuleData : public FireWeaponUpdateModuleData
 {
 public:
 	DamageFieldUpdateModuleData();

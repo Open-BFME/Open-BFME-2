@@ -23,16 +23,16 @@
 // while the reg-only xorps plus xor float above the vtable and the float
 // store waits last. 37 of 37.
 
-class Rva0048BC03Base
+class FireWeaponUpdateModuleData
 {
 public:
-	Rva0048BC03Base();
+	FireWeaponUpdateModuleData();
 
 private:
 	unsigned char m_pad[0x10];
 };
 
-class OilSpillUpdateModuleData : public Rva0048BC03Base
+class OilSpillUpdateModuleData : public FireWeaponUpdateModuleData
 {
 public:
 	OilSpillUpdateModuleData();
@@ -46,7 +46,7 @@ private:
 
 // ??0OilSpillUpdateModuleData@@QAE@XZ @0x48C16C
 OilSpillUpdateModuleData::OilSpillUpdateModuleData()
-	: Rva0048BC03Base()
+	: FireWeaponUpdateModuleData()
 {
 	int *breadcrumbName = &m_breadcrumbName;
 	int *ignitionWeaponName = &m_ignitionWeaponName;

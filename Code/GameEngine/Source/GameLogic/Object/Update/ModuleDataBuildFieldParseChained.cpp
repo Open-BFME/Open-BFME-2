@@ -453,7 +453,7 @@ void HordeGarrisonContainModuleData::buildFieldParse(MultiIniFieldParse &parse)
 	parse.add(reinterpret_cast<const FieldParse *>(0x00C46388), 0);
 }
 
-class Rva0048C0B4Base
+class FireWeaponUpdateModuleData
 {
 public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
@@ -467,7 +467,7 @@ public:
 
 void OilSpillUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
-	Rva0048C0B4Base::buildFieldParse(parse);
+	FireWeaponUpdateModuleData::buildFieldParse(parse);
 	parse.add(reinterpret_cast<const FieldParse *>(0x00C4C2A8), 0);
 }
 

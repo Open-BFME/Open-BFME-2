@@ -1,7 +1,7 @@
 // cl: /O1 /GX /MD /DNDEBUG
 // stlport
 //
-// ??1Rva0048BC03Base@@UAE@XZ, retail 0x0048BC46, 117 bytes. Virtual dtor for
+// ??1FireWeaponUpdateModuleData@@UAE@XZ, retail 0x0048BC46, 117 bytes. Virtual dtor for
 // the rowed base ctor 0x0048BC03 (vtable 0x00C4C110, slot0 deleting dtor
 // 0x0048C098 calls this). Shape follows FireWeaponUpdate dtor 0x0048BD11:
 // vptr store plus watch-list drain loop (per value: AsciiString teardown via
@@ -34,10 +34,10 @@ private:
 	void *m_data;
 };
 
-class Rva0048BC03Base : public Snapshot
+class FireWeaponUpdateModuleData : public Snapshot
 {
 public:
-	virtual ~Rva0048BC03Base();
+	virtual ~FireWeaponUpdateModuleData();
 
 private:
 	int m_unk04; // +4
@@ -47,7 +47,7 @@ private:
 	bool m_flag0e; // +0xE
 };
 
-Rva0048BC03Base::~Rva0048BC03Base()
+FireWeaponUpdateModuleData::~FireWeaponUpdateModuleData()
 {
 	_STL::list<int> *trackedList = &m_list;
 	_STL::list<int>::iterator it = trackedList->begin();
