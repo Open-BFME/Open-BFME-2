@@ -27,6 +27,7 @@ public:
 
 	BitFlags(BogusInitType init, Int bit);
 	BitFlags(BogusInitType init, Int b0, Int b1, Int b2, Int b3);
+	BitFlags();
 
 private:
 	UnsignedInt m_words[1];
@@ -49,8 +50,17 @@ BitFlags<NUM_BITS>::BitFlags(BogusInitType, Int b0, Int b1, Int b2, Int b3)
 	m_words[(UnsignedInt)b3 >> 5] |= (1u << (b3 & 31));
 }
 
+template <int NUM_BITS>
+BitFlags<NUM_BITS>::BitFlags()
+{
+	memset(m_words, 0, sizeof(m_words));
+}
+
 // ??0?$BitFlags@$0L@@@QAE@W4BogusInitType@0@H@Z
 template BitFlags<11>::BitFlags(BitFlags<11>::BogusInitType, Int);
 
 // ??0?$BitFlags@$0L@@@QAE@W4BogusInitType@0@HHHH@Z
 template BitFlags<11>::BitFlags(BitFlags<11>::BogusInitType, Int, Int, Int, Int);
+
+// ??0?$BitFlags@$0L@@@QAE@XZ
+template BitFlags<11>::BitFlags();
