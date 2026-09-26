@@ -36239,3 +36239,4 @@ _Rva00680420,,0x00680420,17,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,mat
 ??_GSpawnUnitBehaviorModuleData@@UAEPAXI@Z,,0x0025629F,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-cfe6.cpp,matched,slot0 vtable 0x7F36C0 calls rowed 0x2562BB
 ?rva00462504@SlaughterHordeContain@@UAEXXZ,,0x00462504,18,Code/GameEngine/Source/GameLogic/Object/Contain/SlaughterHordeContainRva004625BB.cpp,matched,vslot 63 of 0x00848AA0 clears +0xC1 then slot-32 with 2
 ??1CommandSetUpgradeModuleData@@UAE@XZ,,0x002561EF,51,Code/GameEngine/Source/GameLogic/Object/Upgrade/FamilyUpgradeModuleDataDtors.cpp,matched,single string at +0x118 CommandSet vtable BF37C0 caller deleting dtor 0x256267
+??1Rva0048BC03Base@@UAE@XZ,,0x0048BC46,117,Code/GameEngine/Source/GameLogic/Object/Update/Rva0048BC03BaseDtor.cpp,matched,vtable C4C110 plus list drain via folded 0x36410 plus Snapshot BBB554
