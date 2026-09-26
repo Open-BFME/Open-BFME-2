@@ -36091,3 +36091,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ??_GRadiusDecalUpdate@@UAEPAXI@Z,,0x003914F9,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-1fea.cpp,matched,slot0 of vtable 0x81A018 calls rowed 0x3913E4 plus delete 0x2FD60
 ??1SpecialDisguiseUpdateModuleData@@UAE@XZ,,0x004B0468,74,Code/GameEngine/Source/GameLogic/Object/Update/SpecialDisguiseUpdateModuleDataDtor.cpp,matched,BFME1 donor virtual dtor plus strings 0x36410 at D4 then D0 plus base 0x44ECCE plus slot0 0x4B044C
 ??1RadiateFearUpdateModuleData@@UAE@XZ,,0x0049C1EE,48,Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdateModuleDataDtor.cpp,matched,Pillage shape plus filter 0x360D26 at plus 0x1C plus Snapshot BBB554 plus slot0 0x49C1D2
+??_GSpecialDisguiseUpdateModuleData@@UAEPAXI@Z,,0x004B044C,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-zqk.cpp,matched,slot0 vtable 0x563F8 calls rowed 0x4B0468 plus delete

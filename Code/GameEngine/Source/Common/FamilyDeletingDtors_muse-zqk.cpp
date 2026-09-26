@@ -19,3 +19,7 @@ void famgenDelete(BaikonurLaunchPower *p) { delete p; }
 class RemoveUpgradeUpgradeModuleData { public: __declspec(noinline) virtual ~RemoveUpgradeUpgradeModuleData(); private: int m_famgen; };
 RemoveUpgradeUpgradeModuleData::~RemoveUpgradeUpgradeModuleData() { m_famgen = 0; }
 void famgenDelete(RemoveUpgradeUpgradeModuleData *p) { delete p; }
+// ??_GSpecialDisguiseUpdateModuleData@@UAEPAXI@Z @0x004B044C
+class SpecialDisguiseUpdateModuleData { public: __declspec(noinline) virtual ~SpecialDisguiseUpdateModuleData(); private: int m_famgen; };
+SpecialDisguiseUpdateModuleData::~SpecialDisguiseUpdateModuleData() { m_famgen = 0; }
+void famgenDelete(SpecialDisguiseUpdateModuleData *p) { delete p; }
