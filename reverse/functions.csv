@@ -36386,3 +36386,4 @@ _Rva00680420,,0x00680420,17,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,mat
 ?setFullyObscuredByShroud@W3DProjectileStreamDraw@@UAEX_N@Z,,0x000D1124,130,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DProjectileStreamDrawSetFullyObscured.cpp,matched,vslot 35 of 0x007CE010 ZH donor setFullyObscuredByShroud
 ?Rva0035E0F7@Rva0035E00F@@UAEXH@Z,,0x0035E0F7,142,Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp,matched,slot 2 of vtable 0x816594 range hide with second window at 0x4C
 ?Rva00180782@Gen_dtor_00972460@@UAEXXZ,,0x00180782,18,Code/Libraries/Source/WWVegas/WW3D2/Gen_dtor_00972460Rva00180782.cpp,matched,vslot6 of 0x007D5010 deletes m_ptr at plus0x14 and nulls via rowed delete
+??1GiveOrRestoreUpgradeSpecialPower@@UAE@XZ,,0x004CD166,83,Code/GameEngine/Source/GameLogic/Object/SpecialPower/GiveOrRestoreUpgradeSpecialPowerDtor.cpp,matched,dtor vslot 0 of 0x0085FA40 plus base Rva0044EF5E plus string 0x36410
