@@ -243,6 +243,12 @@ protected:
 	int m_size;
 };
 
+class StreamingArchiveFile : public RAMFile
+{
+public:
+	virtual ~StreamingArchiveFile();
+};
+
 // The running count of open local files, retail 0x0134D064. Bumped once per
 // successful _open and never read here, so only the increment is visible.
 static int s_totalOpen = 0;
@@ -271,6 +277,19 @@ LocalFile::~LocalFile()
 RAMFile::~RAMFile()
 {
 	::operator delete[](m_data);
+	File::close();
+}
+
+// ??1StreamingArchiveFile@@UAE@XZ, retail 0x00605A45, 56 bytes.
+// StreamingArchiveFile dtor (vtable 0x0087AA50): stores its vtable, calls rowed
+// File::close 0x0060259A, then the rowed RAMFile dtor 0x00605504 as base.
+// The ctor at 0x00605A28 (mislabeled EjectPilotDieModuleData) calls the RAMFile
+// ctor and zeroes +0x20/+0x24/+0x28 (m_file/startingPos/size), matching BFME1
+// StreamingArchiveFile layout; slot 3 read at 0x00605A82 uses +0x20 File*.
+// Packet class EjectPilotDieModuleData is a ledger mislabel: that ModuleData
+// cannot call File::close or a RAMFile base.
+StreamingArchiveFile::~StreamingArchiveFile()
+{
 	File::close();
 }
 
