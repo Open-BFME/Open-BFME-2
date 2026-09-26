@@ -10,3 +10,9 @@ void famgenDelete(DominateEnemySpecialPowerModuleData *p) { delete p; }
 class AODCrushCollideModuleData { public: __declspec(noinline) virtual ~AODCrushCollideModuleData(); private: int m_famgen; };
 AODCrushCollideModuleData::~AODCrushCollideModuleData() { m_famgen = 0; }
 void famgenDelete(AODCrushCollideModuleData *p) { delete p; }
+
+// ??_GDetachableRiderUpdateModuleData@@UAEPAXI@Z @0x004AEB23 28B
+// Deleting dtor slot 0 of vtable 0x00855510; calls rowed ??1 at 0x004AEB3F then rowed operator delete at 0x0002FD60.
+class DetachableRiderUpdateModuleData { public: __declspec(noinline) virtual ~DetachableRiderUpdateModuleData(); private: int m_famgen; };
+DetachableRiderUpdateModuleData::~DetachableRiderUpdateModuleData() { m_famgen = 0; }
+void famgenDelete(DetachableRiderUpdateModuleData *p) { delete p; }

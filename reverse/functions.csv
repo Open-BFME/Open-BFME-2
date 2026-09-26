@@ -36058,3 +36058,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ??_GHeroModeSpecialAbilityUpdateModuleData@@UAEPAXI@Z,,0x004922D5,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-zqk.cpp,matched,slot0 vtable 0xC4DF58 calls rowed 0x4922F1 plus delete
 ??1DetachableRiderUpdateModuleData@@UAE@XZ,,0x004AEB3F,69,Code/GameEngine/Source/GameLogic/Object/Behavior/DetachableRiderUpdateModuleDataDtor.cpp,matched,ModuleData dtor with AsciiString vector at +0x14 via rowed 0x2CC70 plus trivial vec at +0x08 via rowed free plus BBB554 plus slot0 0x004AEB23 plus vtable 0x00855510
 ??_GRAMFile@@UAEPAXI@Z,,0x006056A1,28,Code/GameEngine/Source/Common/System/LocalFile.cpp,matched,slot0 of vtable 0087AA00 calls rowed RAMFile dtor plus rowed delete
+??_GDetachableRiderUpdateModuleData@@UAEPAXI@Z,,0x004AEB23,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-95ab.cpp,matched,slot 0 of vtable 0x00855510 calls rowed 0x004AEB3F plus operator delete
