@@ -1841,3 +1841,4 @@ FUN_00433B96	0x00433B96	39	blocked	list unicodestring 39B free find helper ident
 ?getBufferForRead@?$StringBase@G@@QAEPAGH@Z	0x000370A0	174	blocked	wide scheduler wall like narrow 0x36640 0.89; capacity unsigned shr vs signed div plus throw ecx setup t=12 model=muse-7a57
 ?getBufferForRead@?$StringBase@G@@QAEPAGH@Z	0x000370A0	174	partial	scheduling only mov ecx plus stores plus add esp order t=12 model=muse-eeab score=0.93 stash=reverse/attempts/0x000370a0.cpp
 ??_GMaterialInfoClass@@UAEPAXI@Z	0x001708B0	30	blocked	calls dup 0x16FDB0 DynamicVector not MaterialInfo dtor 0x170130 plus duplicate name row at 0x170960 t=3 model=muse-eeab
+?1EvacuateDamage@@UAE@XZ	0x004BAEC8	73	blocked	3-vptr plus List_base int vs Record plus base Rva pin needed t=4 model=muse-eeab
