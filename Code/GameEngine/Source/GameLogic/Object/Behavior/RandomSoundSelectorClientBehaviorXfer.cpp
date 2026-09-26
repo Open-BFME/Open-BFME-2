@@ -30,6 +30,30 @@ class Thing;
 class ModuleData;
 class Object;
 
+typedef float Real;
+Real GetGameClientRandomValueReal(Real lo, Real hi, char *file, int line);
+
+class Rva00DFE77CHolder
+{
+public:
+	virtual void slot00(); virtual void slot01(); virtual void slot02(); virtual void slot03();
+	virtual void slot04(); virtual void slot05(); virtual void slot06(); virtual void slot07();
+	virtual void slot08(); virtual void slot09(); virtual void slot0A(); virtual void slot0B();
+	virtual void slot0C(); virtual void slot0D(); virtual void slot0E(); virtual void slot0F();
+	virtual void slot10(); virtual void slot11(); virtual void slot12(); virtual void slot13();
+	virtual void slot14(); virtual void slot15(); virtual void slot16(); virtual void slot17();
+	virtual void slot18(); virtual void slot19(); virtual void slot1A(); virtual void slot1B();
+	virtual void slot1C(); virtual void slot1D(); virtual void slot1E(); virtual int slot1F();
+};
+
+#define TheRva00DFE77C (*(Rva00DFE77CHolder **)0x00DFE77C)
+
+struct RandomSoundSelectorClientBehaviorModuleDataView
+{
+	char m_pad[0x1DD];
+	bool m_rerollOnEveryFrame;
+};
+
 class Xfer
 {
 public:
@@ -112,6 +136,8 @@ protected:
 	virtual void xfer(Xfer *xfer);
 
 private:
+	void reroll();
+
 	float m_randomSelection;
 	unsigned int m_lastFrame;
 };
@@ -122,4 +148,23 @@ void RandomSoundSelectorClientBehavior::xfer(Xfer *xfer)
 	xfer->Version1();
 	*xfer == m_randomSelection;
 	*xfer == m_lastFrame;
+}
+
+void RandomSoundSelectorClientBehavior::reroll()
+{
+	RandomSoundSelectorClientBehaviorModuleDataView *moduleData =
+		(RandomSoundSelectorClientBehaviorModuleDataView *)m_moduleData;
+	if (!moduleData->m_rerollOnEveryFrame)
+		return;
+	Rva00DFE77CHolder *holder = TheRva00DFE77C;
+	if (holder == 0)
+		return;
+	if (holder->slot1F() == (int)m_lastFrame)
+		return;
+	m_randomSelection = GetGameClientRandomValueReal(
+		0.0f,
+		1.0f,
+		"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameClient\\Drawable\\Behavior\\RandomSoundSelectorClientBehavior.cpp",
+		0x74);
+	m_lastFrame = TheRva00DFE77C->slot1F();
 }
