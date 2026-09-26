@@ -213,6 +213,8 @@ typedef unsigned short UnsignedShort;
 class LadderPref
 {
 public:
+	~LadderPref();
+
 	UnicodeString name;
 	AsciiString address;
 	UnsignedShort port;
@@ -241,5 +243,10 @@ LadderPreferences::LadderPreferences()
 
 // ??1LadderPreferences@@UAE@XZ @0x5DFF7B
 LadderPreferences::~LadderPreferences()
+{
+}
+
+// ??1LadderPref@@QAE@XZ @0x5BA3C0
+LadderPref::~LadderPref()
 {
 }
