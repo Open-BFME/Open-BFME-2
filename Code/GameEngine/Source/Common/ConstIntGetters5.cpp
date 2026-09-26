@@ -687,3 +687,35 @@ int Rva0041F286Get(void)
 {
 	return 0x00c3b000;
 }
+
+// ?Rva0041F71AGet@@YAHXZ @ 0x0041f71a (6B): returns 0x00c3b5e8.
+// Follows a leave plus ret tail. No direct callers. Opaque
+// address-derived name.
+int Rva0041F71AGet(void)
+{
+	return 0x00c3b5e8;
+}
+
+// ?Rva004D949FGet@@YAHXZ @ 0x004d949f (6B): returns INT_MIN.
+// Follows a byte-store plus ret tail. No direct callers. Opaque
+// address-derived name.
+int Rva004D949FGet(void)
+{
+	return (int)0x80000000;
+}
+
+// ?Rva00509DA5Get@@YAHXZ @ 0x00509da5 (6B): returns 0x00c64810.
+// Follows a leave plus ret tail. No direct callers. Opaque
+// address-derived name.
+int Rva00509DA5Get(void)
+{
+	return 0x00c64810;
+}
+
+// ?Rva0050B5C9Get@@YAHXZ @ 0x0050b5c9 (6B): returns 0x00c64d60.
+// Follows a mov-al plus ret tail. No direct callers. Opaque
+// address-derived name.
+int Rva0050B5C9Get(void)
+{
+	return 0x00c64d60;
+}

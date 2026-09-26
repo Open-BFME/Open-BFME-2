@@ -1732,3 +1732,6 @@ Catch@00630215	0x00230215	390	blocked	catch(ErrorCode) funclet of GameEngine::in
 ?Rva00262245Frag@@YAHXZ	0x00262245	6	blocked	je-target arm into B8 0F423F; same family; do not land
 ?Rva002D9ACEFrag@@YAHXZ	0x002D9ACE	6	blocked	je-target arm (test plus je plus4 over add plus ret into B8); same frag class as 0x1363C6; do not land
 ?Rva00390623Frag@@YAHXZ	0x00390623	6	blocked	jle-target arm (jle plus4 over xor-inc plus ret into B8 3FFFFFFF); frag class; do not land
+?Rva00425DD7Frag@@YAHXZ	0x00425DD7	6	blocked	jge-target arm (jge plus8 over indexed-mov plus rets into B8); conditional-arm frag class; do not land
+?Rva005234A1Frag@@YAHXZ	0x005234A1	6	blocked	jne-target arm (jne plus6 over first B8 plus ret into second B8); two-armed conditional getter; do not land either arm
+?Rva005234A7Frag@@YAHXZ	0x005234A7	6	blocked	third B8 arm of the 0x52349B conditional getter; do not land
