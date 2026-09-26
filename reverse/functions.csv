@@ -36307,3 +36307,4 @@ _Rva00680420,,0x00680420,17,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,mat
 ?rva001A3930@AggregateDefClass@@QBEHXZ,,0x001A3930,40,Code/Libraries/Source/WWVegas/WW3D2/AggregateDefRva001A3930.cpp,matched,gap size query base 0x5C plus name plus count64
 ?xfer@DelayedLuaEventUpdate@@MAEXPAVXfer@@@Z,,0x004A8E0A,113,Code/GameEngine/Source/GameLogic/Object/Update/DelayedLuaEventUpdateXfer.cpp,matched,slot3 xfer via UpdateModule base plus IsLightCRC plus Version11 plus float bool bool plus RawBytes plus events
 ?xfer@Rva004A8091@@MAEXPAVXfer@@@Z,,0x004A86E7,168,Code/GameEngine/Source/Common/Rva004A8091Xfer.cpp,matched,slot3 xfer via UpdateModule base plus Version1 plus floats plus Coord plus RawBytes plus int bool uint plus ObjectID
+?xfer@Rva004CC63A@@MAEXPAVXfer@@@Z,,0x004CC72C,105,Code/GameEngine/Source/Common/Rva004CC63AXfer.cpp,matched,slot 3 vtable 0x85F5A0 via rowed dtor 0xCC63A plus base xfer 0x44DF9F plus Version 1 3
