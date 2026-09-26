@@ -36125,3 +36125,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ??1SiegeDeployHordeSpecialPower@@UAE@XZ,,0x004C63EF,39,Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeployHordeSpecialPowerDtor.cpp,matched,vtable 0x85DD94 plus base 0x589079 plus BFME1 donor
 ??_GSiegeDeployHordeSpecialPower@@UAEPAXI@Z,,0x004C64B7,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-5c79.cpp,matched,slot0 of vtable 0x85DD94 calls rowed 0x4C63EF plus delete 0x2FD60
 ??1StealthUpdateModuleData@@UAE@XZ,,0x003759F5,119,Code/GameEngine/Source/GameLogic/Object/Update/StealthUpdateModuleDataDtor.cpp,matched,vtable C184D8 base BBB554 vectors plus holders
+??_GStealthUpdateModuleData@@UAEPAXI@Z,,0x003759D9,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-x7q-eb73.cpp,matched,slot0 vtable C184D8 calls rowed 3759F5 plus delete
