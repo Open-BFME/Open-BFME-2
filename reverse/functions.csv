@@ -35699,3 +35699,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ?swap@ScriptList@@QAEXPAV1@@Z,,0x003B58DF,57,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListSwap.cpp,matched,member-wise swap of by-value ScriptList via rowed bfmeSwap plus pinned subrecord swap
 ??0Transport@@QAE@XZ,,0x004D4AF2,153,Code/GameEngine/Source/GameNetwork/TransportCtor.cpp,matched,throw-off EH prologue with mem-init scalars interleaved around slot vector-ctor call
 ??0Rva004D4A80Slot@@QAE@XZ,,0x004D4A80,14,Code/GameEngine/Source/GameNetwork/Transport.cpp,matched,slot element zeroing ctor; complements 8-slot vector-ctor call in Transport ctor
+??0Rva003B761E@@QAE@XZ,,0x003B761E,41,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListSubrecordCtor.cpp,matched,ctor of ScriptList 0x20 subrecords; vectors via rowed base plus or-minus-one int inits
