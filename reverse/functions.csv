@@ -36357,3 +36357,4 @@ _Rva00680420,,0x00680420,17,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,mat
 ?Rva0027D815@Rva0062AF7@@UAEMMM@Z,,0x0027D815,70,Code/GameEngine/Source/Common/Rva0062AF7Rva0027D815.cpp,matched,vslot 25 of 0x007C5890 via honest address name plus slot 19 call plus pooled 0.0f
 ?onObjectCreated@BoneFXDamage@@MAEXXZ,,0x004B97E2,124,Code/GameEngine/Source/GameLogic/Object/Damage/BoneFXDamage.cpp,matched,vslot 5 of 0x008598B4 ctor vtable ZH lookup with BFME2 INIException throw
 ??_GToggleDeploySpecialAbilityUpdateModuleData@@UAEPAXI@Z,,0x004AE669,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-caa4.cpp,matched,slot0 of vtable 0x00C553D8 calls rowed 0x004AE685 plus delete 0x0002FD60
+??1SiegeDeployHordeSpecialPowerModuleData@@UAE@XZ,,0x004C64E9,5,Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeployHordeSpecialPowerModuleDataDtor.cpp,matched,trivial novtable tail-jmp to rowed base 0x494BE4 plus ctor 0x4C64D3 plus caller 0x4C5683

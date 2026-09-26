@@ -1897,3 +1897,4 @@ FUN_001F6083	0x001F6083	28	blocked	STL ostream gap identity unprovable without d
 FUN_002C5408	0x002C5408	107	blocked	slot42 list-iteration pattern outside xfer specialty t=3 model=muse-a3ef
 FUN_00281E47	0x00281E47	94	blocked	slot39 string-list search calls contested 0x365F0 t=2 model=muse-a3ef
 FUN_008b5ec4	0x004B5EC4	219	blocked	vslot9 primary C583B0 5-vptr base; disp dec-inc-get-set on 0x6FC-0x6F8 holders plus float array esi+0x118-0x11c plus secondary slot9 call; base slot9 identity unproven no donor t=15 model=muse-cd13
+?rva005D89F0@Rva005D8964@@UAE_NPAVObject@@@Z	0x005D89F0	115	blocked	SSE reg-mem subs plus bool tail mov-vs-inc t=20 model=muse-718b
