@@ -35344,3 +35344,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ?Rva004DC702_ParseEmotionType@INI@@SAXPAV1@PAX1PBX@Z,,0x004DC702,66,Code/GameEngine/Source/Common/System/INI_Rva004DC702ParseEmotionKinds.cpp,matched,Lane-E Emotion table 0x861310 Type entry
 ?Rva004DC745_ParseAIState@INI@@SAXPAV1@PAX1PBX@Z,,0x004DC745,66,Code/GameEngine/Source/Common/System/INI_Rva004DC702ParseEmotionKinds.cpp,matched,Lane-E Emotion table 0x861310 AIState entry
 ?Rva002A898A_ParseBrutalDifficultyCheats@INI@@SAXPAV1@PAX1PBX@Z,,0x002A898A,72,Code/GameEngine/Source/Common/System/INI_Rva002A898AParseBrutalDifficultyCheats.cpp,matched,Lane-E table 0x7fda50 BrutalDifficultyCheats entry; initFromINI table 0xbfd85c
+?Rva004E8EFF_ParseDisabledSlots@INI@@SAXPAV1@PAX1PBX@Z,,0x004E8EFF,56,Code/GameEngine/Source/Common/System/INI_Rva004E8EFFParseDisabledSlots.cpp,matched,Lane-E table 0x7fda50 disabled-slots entry; for-loop token list
