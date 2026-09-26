@@ -35536,3 +35536,16 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ?accumulateOnlineMiscPrefs@@YAXPAUOnlineMiscProfileStats@@@Z,,0x00384A62,887,Code/GameEngine/Source/Common/OnlineMiscPrefAccumulate.cpp,matched,Twin of rowed sumOnlineMiscPrefs 0x38470E with same scratch UserPreferences digit-key pattern plus GameSpyInfo slot178 gate and slot17c refresh. Keys 0-2 accumulate to +0x140 and keys 3-5 to +0x13C via abs plus atoi. Presence check before value re-lookup.
 ?Rva00288A5CAssign@@YAXPAUCameraMarker@@00PAX@Z,,0x00288A5C,29,Code/Libraries/Source/WWVegas/WWLib/Rva00288A5CAssign.cpp,matched,CameraMarker range assign wrapper over rowed copy with stack tag plus null extra
 ?Add_Sphere@SphereClass@@QAEXABV1@@Z,,0x0019BE00,277,Code/Libraries/Source/WWVegas/WWMath/SphereClassAddSphere.cpp,matched,ZH sphere.h donor; caller at HLod Update_Obj_Space_Bounding_Volumes Add_Sphere site; /O2 frameless (ReCenter /O1 frames); named diff local reuses dx/dy/dz in xmm1-3; x87 fsqrt asm helper
+?name@Rva0033FAF4Named@@QBEPBDXZ,,0x0033FAF4,6,Code/GameEngine/Source/Common/ModuleNameGetters2.cpp,matched,B8-6 const string returner AttackStateMachine
+?name@Rva0033FB05Named@@QBEPBDXZ,,0x0033FB05,6,Code/GameEngine/Source/Common/ModuleNameGetters2.cpp,matched,B8-6 const string returner AttackMeleeStateMachine
+?name@Rva0033FB7ENamed@@QBEPBDXZ,,0x0033FB7E,6,Code/GameEngine/Source/Common/ModuleNameGetters2.cpp,matched,B8-6 const string returner AttackFireWhileMovingMachine
+?name@Rva0033FBA0Named@@QBEPBDXZ,,0x0033FBA0,6,Code/GameEngine/Source/Common/ModuleNameGetters2.cpp,matched,B8-6 const string returner AttackFireWhileChargingMachine
+?name@Rva0033FBB1Named@@QBEPBDXZ,,0x0033FBB1,6,Code/GameEngine/Source/Common/ModuleNameGetters2.cpp,matched,B8-6 const string returner AttackPositionStateMachine
+?name@Rva0033FC15Named@@QBEPBDXZ,,0x0033FC15,6,Code/GameEngine/Source/Common/ModuleNameGetters2.cpp,matched,B8-6 const string returner MoveOntoWallStateMachine
+?name@Rva00340057Named@@QBEPBDXZ,,0x00340057,6,Code/GameEngine/Source/Common/ModuleNameGetters2.cpp,matched,B8-6 const string returner AIAttackMOveStateMachine
+?name@Rva003402DBNamed@@QBEPBDXZ,,0x003402DB,6,Code/GameEngine/Source/Common/ModuleNameGetters2.cpp,matched,B8-6 const string returner BackAwayAndCowerStateMachine
+?name@Rva00341456Named@@QBEPBDXZ,,0x00341456,6,Code/GameEngine/Source/Common/ModuleNameGetters2.cpp,matched,B8-6 const string returner StateMachine
+?name@Rva003A49EANamed@@QBEPBDXZ,,0x003A49EA,6,Code/GameEngine/Source/Common/ModuleNameGetters2.cpp,matched,B8-6 const string returner LifetimeUpdate
+?name@Rva003A4CC7Named@@QBEPBDXZ,,0x003A4CC7,6,Code/GameEngine/Source/Common/ModuleNameGetters2.cpp,matched,B8-6 const string returner StrafeAreaUpdate
+?name@Rva003B040CNamed@@QBEPBDXZ,,0x003B040C,6,Code/GameEngine/Source/Common/ModuleNameGetters2.cpp,matched,B8-6 const string returner TerrainFireSystemStorageModule
+?name@Rva00455070Named@@QBEPBDXZ,,0x00455070,6,Code/GameEngine/Source/Common/ModuleNameGetters2.cpp,matched,B8-6 const string returner FoundationAIUpdate
