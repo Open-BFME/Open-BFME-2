@@ -36288,3 +36288,4 @@ _Rva00680420,,0x00680420,17,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,mat
 ??1GeometryUpgradeModuleData@@UAE@XZ,,0x004B6F81,114,Code/GameEngine/Source/GameLogic/Object/Upgrade/GeometryUpgradeModuleDataDtor.cpp,matched,ModuleData dtor with 3 strings via 0x36410 and 2 vectors via 0x2CC70 matching vtable 0xBBB554 and ctor 0x4B6EE2
 ?rva00538AB0@BfmeQuickMatchScreenBase@@UAEX_N@Z,,0x00538AB0,44,Code/GameEngine/Source/GameClient/GUI/BfmeQuickMatchScreenBaseSlot4.cpp,matched,slot4 hide loop via winHide plus next getter plus flag store
 ??_GRainOfFireUpdate@@UAEPAXI@Z,,0x004AC5D9,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-e81b.cpp,matched,slot 0 of vtable 0x00854C74 calls rowed 0x004AC24D plus rowed delete
+?xfer@Rva004B8732@@MAEXPAVXfer@@@Z,,0x004B87A3,64,Code/GameEngine/Source/Common/Rva004B8732Xfer.cpp,matched,slot3 of vtable 0x8591EC via Version12 gated base plus bool
