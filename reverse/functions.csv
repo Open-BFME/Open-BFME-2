@@ -35964,3 +35964,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ?set@?$StringBase@D@@QAEXPBDH@Z,0x00036780,0x00036780,320,Code/Libraries/Source/WWVegas/WWLib/StringBaseNarrowStrLenSet.cpp,matched,pinned name callers CharSource wrapper vtable allocator releaseBuffer via wide twin StringBaseWideStrLenSet
 ??1BfmeD1191@@QAE@XZ,,0x0050C688,21,Code/GameEngine/Source/Common/BfmeConv1191.cpp,matched,dtor closing FILE plus tail-jmp to base
 ?rva00198170@BfmeThingVJS@@QAEPAXI@Z,,0x00198170,30,Code/GameEngine/Source/Common/Rva00198170Delete.cpp,matched,gap between Load 0x00198090 and copy ctor 0x00198190 owner BfmeThingVJS via clear 0x00197F30 and delete 0x0002FD60
+??_GGen_uw_001212f0@@QAEPAXI@Z,,0x00122190,30,Code/Libraries/Source/WWVegas/WW3D2/Rva00122190Delete.cpp,matched,gap between VectorClass deleting dtor 0x00122130 and BfmeEnumDesc ctor 0x001221B0 via pinned dtor 0x001212F0 and delete 0x0002FD60
