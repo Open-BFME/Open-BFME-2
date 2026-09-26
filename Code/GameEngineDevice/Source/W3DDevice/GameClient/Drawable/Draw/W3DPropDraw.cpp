@@ -58,6 +58,9 @@
 #endif
 
 //-------------------------------------------------------------------------------------------------
+// Retail W3DPropDrawModuleData ctor is 0x000CEF2B (pinned; ModuleFactory
+// registration); this donor spelling does not reproduce it.
+// ??0W3DPropDrawModuleData@@QAE@XZ present-unmatched
 W3DPropDrawModuleData::W3DPropDrawModuleData() 
 {
 }
