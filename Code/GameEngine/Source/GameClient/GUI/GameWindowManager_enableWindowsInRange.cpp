@@ -15,6 +15,7 @@ public:
 	Int winHide(Bool hide);
 	Int winEnable(Bool enable);
 	Int winGetWindowId();
+	GameWindow *winGetParent();
 
 private:
 	unsigned char m_pad00[0x1F8];
@@ -39,19 +40,23 @@ public:
 	virtual void hideWindowsInRange(GameWindow *baseWindow, Int first, Int last, Bool hideFlag);
 	virtual void enableWindowsInRange(GameWindow *baseWindow, Int first, Int last, Bool enableFlag);
 #define W(n) virtual void pad##n() = 0;
-	W(40) W(41) W(42) W(43) W(44) W(45) W(46) W(47)
+	W(40) W(41) W(42) W(43) W(44) W(45) W(46)
+	virtual Int rva002C0F68(Bool a, Bool b);
 	W(48) W(49) W(50) W(51) W(52) W(53) W(54) W(55)
 	W(56)
 #undef W
 	virtual void addWindowToParentAtEnd(GameWindow *window, GameWindow *parent);
 #define X(n) virtual void pad##n() = 0;
-	X(58) X(59)
+	X(58)
+	virtual Int slot59(GameWindow *win, Int arg, Int a, Int b);
 #undef X
 	virtual GameWindow *winGetWindowFromId(GameWindow *window, Int id);
 
 private:
 	unsigned char m_pad04[8];
 	GameWindow *m_windowList;
+	unsigned char m_pad10[0x20 - 0x10];
+	GameWindow *m_window20;
 };
 
 GameWindow *GameWindowManager::winGetWindowFromId(GameWindow *window, Int id)
@@ -123,4 +128,37 @@ void GameWindowManager::enableWindowsInRange(GameWindow *baseWindow, Int first, 
 		if (window)
 			window->winEnable(enableFlag);
 	}
+}
+
+// ?rva002C0F68@GameWindowManager@@UAEH_N0@Z @0x002C0F68 97B
+// GameWindowManager slot 47 (0xBC) of vtable 0x7C7C90; walks parent chain via winGetParent and tries slot59 (0xEC) with 21; member at +0x20.
+Int GameWindowManager::rva002C0F68(Bool a, Bool b)
+{
+	Int result = 0;
+	GameWindow *cur2;
+	GameWindow *cur = m_window20;
+	if (!cur)
+		goto done;
+	if (!a)
+		goto done;
+	cur2 = cur;
+	{
+		Int bb = b;
+		Int ab = a;
+		result = 1;
+		goto tryIt;
+	loop:
+		cur2 = cur2->winGetParent();
+		if (!cur2) {
+			result = 0;
+			goto done;
+		}
+	tryIt:
+		if (slot59(cur2, 21, ab, bb))
+			goto done;
+		else
+			goto loop;
+	}
+done:
+	return result;
 }
