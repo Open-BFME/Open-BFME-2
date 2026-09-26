@@ -35435,3 +35435,10 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ?SetSize@EAStringC@@QAEXH@Z,,0x006D3BC0,82,Code/Libraries/Source/Apt/EAStringCSetSize.cpp,matched,EA Apt string size install via shared assert triple plus int3 barrier
 ?Rva00309E1EGet@@YAHXZ,,0x00309E1E,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
 ?Rva00309E24Get@@YAHXZ,,0x00309E24,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
+?Rva0033A507Get@@YAHXZ,,0x0033A507,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
+?Rva0033A7BBGet@@YAHXZ,,0x0033A7BB,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
+?Rva0035B298Get@@YAHXZ,,0x0035B298,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
+?Rva0035C959Get@@YAHXZ,,0x0035C959,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
+?Rva0039009BGet@@YAHXZ,,0x0039009B,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
+?Rva003B0FA6Get@@YAHXZ,,0x003B0FA6,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
+?Rva003B31C1Get@@YAHXZ,,0x003B31C1,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
