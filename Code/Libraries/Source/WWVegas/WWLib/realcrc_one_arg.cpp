@@ -22,3 +22,21 @@ unsigned long CRC_String(char const *string)
   }
   return crc;
 }
+
+unsigned long CRC_Stringi(char *string)
+{
+  unsigned long crc = 0;
+  char c;
+  if (string != 0 && (c = *string) != 0) {
+    crc = 0xFFFFFFFF;
+    do {
+      ++string;
+      if (c >= 'a' && c <= 'z')
+        c &= 0xDF;
+      crc = (crc >> 8) ^ CRC32_Table[(char)crc ^ c];
+      c = *string;
+    } while (c != 0);
+    crc = ~crc;
+  }
+  return crc;
+}
