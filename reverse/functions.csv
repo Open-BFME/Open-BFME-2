@@ -36280,3 +36280,4 @@ _Rva00680420,,0x00680420,17,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,mat
 ?rva004AC227@RainOfFireUpdate@@MAEXXZ,,0x004AC227,38,Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdateXfer.cpp,matched,slot 1 of vtable 0x00854C74 via pinned loadPostProcess plus secondary 0x20 plus setter row
 ??1CommandButtonHuntUpdate@@MAE@XZ,,0x00495389,73,Code/GameEngine/Source/GameLogic/Object/Update/CommandButtonHuntUpdateDtor.cpp,matched,MI dtor via 3 vptrs plus AsciiString 0x20 plus UpdateModule base
 ??_GCommandButtonHuntUpdate@@MAEPAXI@Z,,0x004953D2,28,Code/GameEngine/Source/GameLogic/Object/Update/CommandButtonHuntUpdateDtor.cpp,matched,slot0 deleting dtor calls rowed 0x00495389
+?xfer@Rva00483C35@@MAEXPAVXfer@@@Z,,0x00483E0A,27,Code/GameEngine/Source/Common/Rva00483C35Xfer.cpp,matched,slot3 of vtable 0x849E4C via base SlowDeathBehavior xfer
