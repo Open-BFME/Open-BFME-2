@@ -36385,3 +36385,4 @@ _Rva00680420,,0x00680420,17,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,mat
 ?Rva00181040@Rva00180EA0@@UAEPAXXZ,,0x00181040,135,Code/Libraries/Source/WWVegas/WW3D2/Null3DObjClassCopyCtor.cpp,matched,slot 15 of vtable 0x7D5090 creates Null3DObjClass with NULL literal
 ?setFullyObscuredByShroud@W3DProjectileStreamDraw@@UAEX_N@Z,,0x000D1124,130,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DProjectileStreamDrawSetFullyObscured.cpp,matched,vslot 35 of 0x007CE010 ZH donor setFullyObscuredByShroud
 ?Rva0035E0F7@Rva0035E00F@@UAEXH@Z,,0x0035E0F7,142,Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp,matched,slot 2 of vtable 0x816594 range hide with second window at 0x4C
+?Rva00180782@Gen_dtor_00972460@@UAEXXZ,,0x00180782,18,Code/Libraries/Source/WWVegas/WW3D2/Gen_dtor_00972460Rva00180782.cpp,matched,vslot6 of 0x007D5010 deletes m_ptr at plus0x14 and nulls via rowed delete
