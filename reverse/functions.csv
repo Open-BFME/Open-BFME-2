@@ -36462,3 +36462,4 @@ _setlinehook,,0x00748350,37,Code/Libraries/Source/Lua/ldblib.c,matched,BFME1 ldb
 ??1GiantBirdSlowDeathBehaviorModuleData@@UAE@XZ,,0x00461FED,5,Code/GameEngine/Source/GameLogic/Object/Behavior/GiantBirdSlowDeathBehaviorModuleDataDtor.cpp,matched,trivial novtable tail-jmp to rowed base 0x45E4A5 plus ctor 0x461F7F
 ?XferDistributionType@@YAXPAVXfer@@PAH@Z,,0x00305F92,24,Code/GameEngine/Source/Common/System/XferEnumHelpers.cpp,matched,labelled-enum helper DistributionType string via XferEnum
 ?XferRotationType@@YAXPAVXfer@@PAH@Z,,0x00306082,24,Code/GameEngine/Source/Common/System/XferEnumHelpers.cpp,matched,labelled-enum helper RotationType string via XferEnum
+?rebuildScatterTargets@Weapon@@IAEXXZ,,0x002CDB53,70,Code/GameEngine/Source/Common/WeaponRebuildScatterTargets.cpp,matched,BFME1 donor rebuildScatterTargets with reload callers proving Weapon ownership

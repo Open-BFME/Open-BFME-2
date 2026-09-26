@@ -5534,3 +5534,5 @@ __mbscat,0x0062988C,retail REL32 from INI getNextQuotedAsciiString 0x002E93F; IA
 ?rva0087ED00@GeometryShape@@QBEMXZ,0x006BE5A0,called at target 0x006BE72C from the Ghidra-start GeometryInfo method; B1 donor helper is 0x0087ED00
 ?rva0087ED70@GeometryShape@@QBEMXZ,0x006BE610,called at target 0x006BE74F from the Ghidra-start GeometryInfo method; B1 donor helper is 0x0087ED70
 ?rva0087E650@GeometryInfo@@QAEXPAURva0087E650Bounds@@@Z,0x006BDEE0,called at target 0x006BE782 from the Ghidra-start GeometryInfo method; B1 donor supplies the six-float bounds ABI
+?erase@?$vector@JV?$allocator@J@_STL@@@_STL@@QAEPAJPAJ0@Z,0x0031BD55,ICF twin of the rowed vector-voidptr erase at the same address; 4-byte long elements fold to identical pointer-move bytes; Weapon rebuildScatterTargets TU clear call
+?push_back@?$vector@JV?$allocator@J@_STL@@@_STL@@QAEXABJ@Z,0x004DFCB0,ICF twin of the rowed ModuleData push_back at the same address; 4-byte long elements fold to identical push bytes; Weapon rebuildScatterTargets TU push call
