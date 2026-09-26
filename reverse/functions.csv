@@ -36069,3 +36069,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ??_GRankInfo@@UAEPAXI@Z,,0x0020021A,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-zqk.cpp,matched,slot0 vtable 0x7E26E0 calls rowed 0x200236 plus delete
 ??1PassiveAreaEffectBehaviorModuleData@@UAE@XZ,,0x00484EA9,75,Code/GameEngine/Source/GameLogic/Object/Behavior/PassiveAreaEffectBehaviorModuleDataDtor.cpp,matched,ctor 0x484DF4 vtable 0xC4A490 table 0xC4A388 factory 0x24C724 slot0 0x484E8D donor BFME1 destructor thunk
 ??1ScriptActions@@UAE@XZ,,0x003BD582,22,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_ctor.cpp,matched,BFME1 donor plus vtable 0x81FE48 plus base 0x81FD98 plus Rva 0x3BA8AC plus slot0 0x3BE5AD
+??_GScriptActions@@UAEPAXI@Z,,0x003BE5AD,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-1fea.cpp,matched,slot0 of vtable 0x81FE48 calls rowed 0x3BD582 plus delete 0x2FD60
