@@ -36318,3 +36318,4 @@ _Rva00680420,,0x00680420,17,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,mat
 ??0AODHordeContain@@QAE@PAVThing@@PBVModuleData@@@Z,,0x0047B3DB,317,Code/GameEngine/Source/GameLogic/Object/Contain/AODHordeContainCtor.cpp,matched,ModuleFactory AODHordeContain registration plus sole caller friend_new 0x24BB25
 ?xfer@Rva003A4CAE@@MAEXPAVXfer@@@Z,,0x003A4DC0,154,Code/GameEngine/Source/Common/Rva003A4CAEXfer.cpp,matched,slot3 xfer via Version13 plus base plus gated coords float int bool uint
 ??_GFireWeaponCollide@@UAEPAXI@Z,,0x004BB806,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-ad75.cpp,matched,slot 0 of 0x85A0FC calls rowed dtor 0xBB6A7 plus delete 0x2FD60
+??0?$_Vector_base@FV?$allocator@F@_STL@@@_STL@@QAE@IABV?$allocator@F@1@@Z,,0x00513D55,58,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_s_o1.cpp,matched,STLport 4.5.3 _Vector_base<short> ctor; unresolved AllocProxyIntCtor_dupA call pinned at 0x7410; verified byte-exact
