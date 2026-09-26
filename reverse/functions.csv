@@ -35991,3 +35991,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ?rva00232F84@Rva00232F84@@QAEXH@Z,,0x00232F84,184,Code/GameEngine/Source/Common/Rva00232F84Layout.cpp,matched,gap between Disp getters; GameWindows 3050 3058 3060; font get 313D6C; global 9C8630; caller 2338B4
 ?Calculate_Texture_Matrix@ScaleTextureMapperClass@@UAEXAAVMatrix4@@@Z,,0x00182270,108,Code/Libraries/Source/WWVegas/WW3D2/ScaleTextureMapperCalculate.cpp,matched,vtable slot 9 of 0x007D55D4 gap ScaleCopy LinearCalc ZH donor Scale Calculate
 ?getUnicodeString@Dict@@QBE?AVUnicodeString@@HPA_N@Z,,0x003135E6,71,Code/GameEngine/Source/Common/DictPairClear.cpp,matched,Dict Unicode getter twin via rowed findPairByKey
+?clear@Rva000A880F@@QAEXXZ,,0x000A880F,30,Code/GameEngine/Source/Common/Rva000A880FClear.cpp,matched,gap between scalar deletings same flags holder at plus4 of Rva0073EE55 via third virtual plus rowed delete
