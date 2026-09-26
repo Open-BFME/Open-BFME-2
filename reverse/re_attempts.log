@@ -1748,3 +1748,8 @@ Catch@00630215	0x00230215	390	blocked	catch(ErrorCode) funclet of GameEngine::in
 ?Rva00559F72Frag@@YAHXZ	0x00559F72	6	blocked	conditional arm into B8 (je over xor-ret or switch-case arm); frag class; do not land
 ?Rva00559F78Frag@@YAHXZ	0x00559F78	6	blocked	conditional arm into B8 (je over xor-ret or switch-case arm); frag class; do not land
 ?Rva006154C0Frag@@YAHXZ	0x006154C0	6	blocked	conditional arm into B8 (je over xor-ret or switch-case arm); frag class; do not land
+?Rva006F67F7Frag@@YAHXZ	0x006F67F7	6	blocked	jump-table case arm or jae-target arm into B8; not a standalone function; do not land
+?Rva006F67FDFrag@@YAHXZ	0x006F67FD	6	blocked	jump-table case arm or jae-target arm into B8; not a standalone function; do not land
+?Rva006F6803Frag@@YAHXZ	0x006F6803	6	blocked	jump-table case arm or jae-target arm into B8; not a standalone function; do not land
+?Rva006F6809Frag@@YAHXZ	0x006F6809	6	blocked	jump-table case arm or jae-target arm into B8; not a standalone function; do not land
+?Rva00719823Frag@@YAHXZ	0x00719823	6	blocked	jump-table case arm or jae-target arm into B8; not a standalone function; do not land

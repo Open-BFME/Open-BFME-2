@@ -35461,3 +35461,6 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ?Rva00611030Get@@YAHXZ,,0x00611030,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
 ?Rva00619FF0Get@@YAHXZ,,0x00619FF0,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
 ??1LivingWorldRegionConnection@@UAE@XZ,,0x003F2517,69,Code/GameEngine/Source/Common/System/LivingWorldRegionConnectionDtor.cpp,matched,novtable plus inline Snapshot BBB554 restore; pinned string dtor plus Cpp free pin
+?Rva00620170Get@@YAHXZ,,0x00620170,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
+?Rva006882D0Get@@YAHXZ,,0x006882D0,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
+?Rva006E3E14Get@@YAHXZ,,0x006E3E14,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner

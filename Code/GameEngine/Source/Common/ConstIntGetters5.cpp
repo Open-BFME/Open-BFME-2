@@ -742,3 +742,26 @@ int Rva00619FF0Get(void)
 {
 	return -17;
 }
+
+// ?Rva00620170Get@@YAHXZ @ 0x00620170 (6B): returns 32.
+// Follows a sar plus ret plus int3 run. No direct callers. Opaque
+// address-derived name.
+int Rva00620170Get(void)
+{
+	return 32;
+}
+
+// ?Rva006882D0Get@@YAHXZ @ 0x006882d0 (6B): returns 0x00ce43b0.
+// int3-padded both sides, no direct callers. Opaque address-derived name.
+int Rva006882D0Get(void)
+{
+	return 0x00ce43b0;
+}
+
+// ?Rva006E3E14Get@@YAHXZ @ 0x006e3e14 (6B): returns 6.
+// Follows a movsx plus sub plus ret tail. No direct callers. Opaque
+// address-derived name.
+int Rva006E3E14Get(void)
+{
+	return 6;
+}
