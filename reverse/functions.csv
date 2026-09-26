@@ -36449,3 +36449,4 @@ _setlinehook,,0x00748350,37,Code/Libraries/Source/Lua/ldblib.c,matched,BFME1 ldb
 ??_GCritterEmitterUpdate@@MAEPAXI@Z,,0x004C8DC6,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-e49c.cpp,matched,dtor lane vtable 0x0085E8E8 slot0; ??1 0x004C8D1B rowed; famgen MAE pattern
 ?xfer@CritterEmitterUpdate@@MAEXPAVXfer@@@Z,,0x004C8E42,65,Code/GameEngine/Source/GameLogic/Object/Update/CritterEmitterUpdateXfer.cpp,matched,slot 3 vtable 0x0085E8E8; base 0x44DF9F Version1 bool 0x24 0x25
 ?start@Watchdog@@UAEXXZ,,0x002256C0,86,Code/GameEngine/Source/Common/WatchdogThreadFunction.cpp,matched,vtable slot 1 Watchdog start via new Lock plus holder set plus base Execute
+?getParameterType@Template@@QBE?AW4ParameterType@Parameter@@H@Z,,0x003B27A3,24,Code/GameEngine/Source/GameLogic/ScriptEngine/TemplateGetParameterType.cpp,matched,ZH Scripts.cpp donor shared ActionTemplate ConditionTemplate callers
