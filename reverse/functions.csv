@@ -36455,3 +36455,4 @@ _setlinehook,,0x00748350,37,Code/Libraries/Source/Lua/ldblib.c,matched,BFME1 ldb
 ?getCoord3D@Parameter@@QBEXPAUCoord3D@@@Z,,0x003B27BB,39,Code/GameEngine/Source/GameLogic/ScriptEngine/ParameterGetCoord3D.cpp,matched,ZH Scripts.cpp donor SSE zeroing coord at 0x14
 ?xfer@ShipSlowDeathBehavior@@MAEXPAVXfer@@@Z,,0x0045ED0E,33,Code/GameEngine/Source/GameLogic/Object/Behavior/ShipSlowDeathBehaviorXfer.cpp,matched,slot 3 of vtable 0x008423FC via rowed base xfer 0x45D3CB and Version1 0x53EE
 ?xfer@GiantBirdSlowDeathBehavior@@MAEXPAVXfer@@@Z,,0x00461F34,75,Code/GameEngine/Source/GameLogic/Object/Behavior/GiantBirdSlowDeathBehaviorXfer.cpp,matched,slot3 of vtable 0x00842E64 via Version1 plus base SlowDeathBehavior xfer
+?XferStancesEnum@@YAXPAVXfer@@PAH@Z,,0x0045ED66,24,Code/GameEngine/Source/Common/System/XferEnumHelpers.cpp,matched,labelled-enum helper StancesEnum string via XferEnum slot 37

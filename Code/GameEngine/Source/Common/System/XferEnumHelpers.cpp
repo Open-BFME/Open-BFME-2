@@ -205,6 +205,14 @@ void XferObjectID(Xfer *xfer, ObjectID *objectID)
 	xfer->XferEnum("ObjectID", objectID, 4);
 }
 
+// Retail 0x0045ED66 (24B): labelled-enum helper moving a 4-byte stances value
+// through XferEnum with the "StancesEnum" label. Callers include
+// StancesBehavior::xfer at 0x0045EDC8 passing &m_30 (rowed int at +0x30).
+void XferStancesEnum(Xfer *xfer, int *stances)
+{
+	xfer->XferEnum("StancesEnum", stances, 4);
+}
+
 // Two version bytes, stored back to back: the retail Version1 body writes 1 to
 // both of them in a four-byte stack slot before handing their address to the
 // slot-10 transfer operator. Xfer.cpp's model verbatim.
