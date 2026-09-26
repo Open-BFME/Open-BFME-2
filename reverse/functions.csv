@@ -35371,3 +35371,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ??0BrutalDifficultyCheats@@QAE@XZ,,0x002A8928,23,Code/GameEngine/Source/Common/System/INI_Rva002A8928BrutalDifficultyCheatsCtor.cpp,matched,Lane-E BrutalDifficultyCheats default ctor; zero plus global default via sibling extern
 ?Rva002A893FGet@@YAHXZ,,0x002A893F,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 table-address returner for the brutal sub-table
 ?Rva002A88BBGet@@YAHXZ,,0x002A88BB,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 table-address returner for the tuning sub-table
+?Rva002A88C1Get@@YAHXZ,,0x002A88C1,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 table-address returner in the tuning table family

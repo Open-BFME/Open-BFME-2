@@ -154,3 +154,12 @@ int Rva002A88BBGet(void)
 {
 	return 0x00bfd768;
 }
+
+// ?Rva002A88C1Get@@YAHXZ @ 0x002a88c1 (6B): returns 0x00bfd7c0.
+// Abuts the twin getter above and the CombatChainEntry ctor at 0x002a88c7.
+// Opaque address-derived name. The constant is a sub-table VA in the same
+// 0xBFD7xx family as the tuning table.
+int Rva002A88C1Get(void)
+{
+	return 0x00bfd7c0;
+}
