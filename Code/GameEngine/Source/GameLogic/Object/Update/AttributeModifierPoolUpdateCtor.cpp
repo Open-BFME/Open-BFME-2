@@ -29,15 +29,6 @@ struct BfmeE16
 	float x, y, z, w;
 };
 
-namespace _STL {
-// The modifier vector builds through the ICF-folded base ctor at
-// 0x211E58 (same 29B as the matched BfmeE16 row). Declared here
-// without a body so the call stays outlined with EH (BannerCarrier
-// precedent); with the visible STLport definition the build would
-// inline the base and lose the EH states retail carries.
-template<> _Vector_base<BfmeE16, allocator<BfmeE16> >::_Vector_base(const allocator<BfmeE16> &);
-}
-
 class AsciiString
 {
 public:
@@ -57,6 +48,15 @@ private:
 	int m_08;
 	int m_0C;
 };
+
+namespace _STL {
+// The modifier vector is 16B elements. Its base builds through the
+// ICF-folded ctor at 0x211E58 (same 29B as the matched BfmeE16 row;
+// twin-pinned Rva spelling, BannerCarrier precedent) and its dtor is
+// the rowed Rva vector dtor at 0x403960. Declared without bodies so
+// the calls stay outlined with EH.
+template<> _Vector_base<Rva00297360Element, allocator<Rva00297360Element> >::_Vector_base(const allocator<Rva00297360Element> &);
+}
 
 class Rva002983DAVector
 {
@@ -99,7 +99,7 @@ class UpdateModule : public BehaviorModule, public UpdateModuleInterface
 
 public:
 	UpdateModule(Thing *thing, const ModuleData *moduleData);
-	~UpdateModule();
+	virtual ~UpdateModule();
 	virtual void update();
 protected:
 	void setWakeFrame(Object *obj, UpdateSleepTime frame);
@@ -109,8 +109,9 @@ class AttributeModifierPoolUpdate : public UpdateModule
 {
 public:
 	AttributeModifierPoolUpdate(Thing *thing, const ModuleData *moduleData);
+	virtual ~AttributeModifierPoolUpdate();
 private:
-	_STL::vector<BfmeE16> m_modifiers;
+	_STL::vector<Rva00297360Element> m_modifiers;
 	unsigned int m_maxFrame;
 	AsciiString m_poolNames[15];
 	unsigned int m_poolCounts[15];
@@ -128,4 +129,9 @@ AttributeModifierPoolUpdate::AttributeModifierPoolUpdate(Thing *thing, const Mod
 		m_poolCounts[i] = 0;
 	}
 	setWakeFrame(*(Object **)((char *)this + 8), UPDATE_SLEEP_FOREVER);
+}
+
+// ??1AttributeModifierPoolUpdate@@UAE@XZ @0x00403A12
+AttributeModifierPoolUpdate::~AttributeModifierPoolUpdate()
+{
 }
