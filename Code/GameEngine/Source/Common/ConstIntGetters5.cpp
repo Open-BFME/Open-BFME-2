@@ -487,3 +487,67 @@ int Rva002532CEGet(void)
 {
 	return 0x00dbaa40;
 }
+
+// ?Rva00285B54Get@@YAHXZ @ 0x00285b54 (6B): returns 4095.
+// Follows a lea plus ret tail. No direct callers. Opaque
+// address-derived name.
+int Rva00285B54Get(void)
+{
+	return 4095;
+}
+
+// ?Rva00285B5AGet@@YAHXZ @ 0x00285b5a (6B): returns 1023.
+// Abuts the twin getter above. No direct callers. Opaque
+// address-derived name.
+int Rva00285B5AGet(void)
+{
+	return 1023;
+}
+
+// ?Rva00285B60Get@@YAHXZ @ 0x00285b60 (6B): returns 255.
+// Abuts the twin getter above. No direct callers. Opaque
+// address-derived name.
+int Rva00285B60Get(void)
+{
+	return 255;
+}
+
+// ?Rva0028B04AGet@@YAHXZ @ 0x0028b04a (6B): returns -16777216.
+// Follows a conditional mov plus ret tail (its je targets the ret, not
+// this body). No direct callers. Opaque address-derived name.
+int Rva0028B04AGet(void)
+{
+	return (int)0xff000000;
+}
+
+// ?Rva0028B074Get@@YAHXZ @ 0x0028b074 (6B): returns -16777216.
+// Follows a conditional mov plus ret tail (its je targets the ret, not
+// this body). No direct callers. Opaque address-derived name.
+int Rva0028B074Get(void)
+{
+	return (int)0xff000000;
+}
+
+// ?Rva002AA2C9Get@@YAHXZ @ 0x002aa2c9 (6B): returns 218.
+// Follows an idiv helper tail. No direct callers. Opaque
+// address-derived name.
+int Rva002AA2C9Get(void)
+{
+	return 218;
+}
+
+// ?Rva002C8E5AGet@@YAHXZ @ 0x002c8e5a (6B): returns 0x00c00b48.
+// Follows an and-store plus ret tail. No direct callers. Opaque
+// address-derived name.
+int Rva002C8E5AGet(void)
+{
+	return 0x00c00b48;
+}
+
+// ?Rva002D6AEFGet@@YAHXZ @ 0x002d6aef (6B): returns 0x00c031f0.
+// Follows a word-load plus ret tail. No direct callers. Opaque
+// address-derived name.
+int Rva002D6AEFGet(void)
+{
+	return 0x00c031f0;
+}
