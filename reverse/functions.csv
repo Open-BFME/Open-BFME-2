@@ -36368,3 +36368,13 @@ _Rva00680420,,0x00680420,17,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,mat
 ?xfer@DetachableRiderUpdate@@MAEXPAVXfer@@@Z,,0x004AE7AD,72,Code/GameEngine/Source/GameLogic/Object/Update/DetachableRiderUpdateXfer.cpp,matched,slot3 of vtable 0x00855468 plus Version 1 1 plus base 0x0044DF9F plus bools
 ??_GDeflectSpecialPowerModuleData@@UAEPAXI@Z,,0x004C5683,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-cd13.cpp,matched,slot0 vtable C5DAB0; calls pinned dtor 0x4C64E9 plus delete 0x2FD60
 ??1DamageFieldUpdateModuleData@@UAE@XZ,,0x0049116A,68,Code/GameEngine/Source/GameLogic/Object/Update/DamageFieldUpdateModuleDataDtor.cpp,matched,dtor string plus filter plus base via novtable
+??0Rva008809E0Transform2D@@QAE@PBURva008809E0Vec2@@MHH@Z,,0x006C03F0,73,Code/GameEngine/Source/Common/SmallGaps/Rva008809E0Transform2D.cpp,matched,BFME1 byte-identical donor; b1 0x008809E0
+?Rva009A5AA0InstallFilter@@YAXPAX00H@Z,,0x001B6520,193,Code/GameEngine/Source/Common/Rva009A5AA0InstallFilter.cpp,matched,BFME1 byte-identical donor; b1 0x009A5AA0
+?Rva009A9370@@YAXPAEHI@Z,,0x001B9DB0,130,Code/Libraries/Source/WWVegas/WW3D2/Rva009A9370InterpRows.cpp,matched,BFME1 byte-identical donor; b1 0x009A9370
+?resetTables@Rva00826840Owner@@QAEXXZ,,0x00692360,67,Code/GameEngine/Source/Common/SmallGaps/Rva00826840ResetTables.cpp,matched,BFME1 byte-identical donor; b1 0x00826840
+?Rva009AF530Setup@@YAXPAURva009AF530Context@@@Z,,0x001BFF20,51,Code/GameEngine/Source/Common/Rva009AF530SetupDispatch.cpp,matched,BFME1 byte-identical donor; b1 0x009AF530
+?Rva009AC240Init@@YAXPAURva009AC240State@@PAX@Z,,0x001BCC40,36,Code/GameEngine/Source/Common/Rva009AC240StateInit.cpp,matched,BFME1 byte-identical donor; b1 0x009AC240
+?aptPackedKeyFieldAt008A5360@@YAPAVAptInteger@@XZ,,0x006E8C60,26,Code/Libraries/Source/EA/Apt/Rva008A5360PackedKeyField.cpp,matched,BFME1 byte-identical donor; b1 0x008A5360
+?forward@Rva0081D3E0Object@@QAEXHH@Z,,0x006882B0,19,Code/GameEngine/Source/Common/Rva0081D3E0CallbackForward.cpp,matched,BFME1 byte-identical donor; b1 0x0081D3E0
+?clearFields@Rva00801430Owner@@QAEXXZ,,0x0066D780,18,Code/GameEngine/Source/Common/Rva00801430ClearFields.cpp,matched,BFME1 byte-identical donor; b1 0x00801430
+?clearFields@Rva008008C0Owner@@QAEXXZ,,0x0066CCA0,17,Code/GameEngine/Source/Common/Rva008008C0ClearFields.cpp,matched,BFME1 byte-identical donor; b1 0x008008C0

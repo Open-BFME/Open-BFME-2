@@ -62,10 +62,11 @@ import build
 
 ROOT = build.ROOT
 BFME1 = ROOT / "reference" / "open-bfme-1"
-BFME1_EXE = BFME1 / "baselines" / "bfme1" / "workshop-vanilla-1.03" / "files" / "lotrbfme.exe"
-BFME1_LEDGER = BFME1 / "reverse" / "functions.csv"
+BFME1_EXE = BFME1 / "inputs" / "baselines" / "bfme1" / "workshop-vanilla-1.03" / "files" / "lotrbfme.exe"
+BFME1_LEDGER = BFME1 / "targets" / "game" / "reverse" / "functions.csv"
 BFME2_LEDGER = ROOT / "reverse" / "functions.csv"
 BFME2_SYMBOLS = ROOT / "reverse" / "symbols.csv"
+BFME1_SYMBOLS = BFME1 / "targets" / "game" / "reverse" / "symbols.csv"
 OUT_DIR = ROOT / "build" / "bfme1_sweep"
 MATCH_JSON = OUT_DIR / "match.json"
 # Scratch, not tracked. A packet is derived from match.json and the live
@@ -104,7 +105,8 @@ FLAGGED_SUBSTRINGS = {
     "GameSpy": "GameSpy SDK is permitted but needs PROVENANCE.txt mirrored here first",
 }
 
-GEN_SOURCE_PREFIXES = ("Code/gen_small", "Code/gen_asm", "Code/masm_dumps")
+GEN_SOURCE_PREFIXES = ("Code/gen_small", "Code/gen_asm", "Code/masm_dumps",
+                       "game/gen_small", "game/gen_asm", "game/masm_dumps")
 # .githooks/pre-commit refuses a NEW source anywhere else under Code/. Wave 1
 # landed Code/stlport/CodecvtWideNarrow.cpp clean and could not commit it.
 PLACEMENT_ROOTS = ("Code/GameEngine/", "Code/GameEngineDevice/", "Code/Libraries/",
@@ -116,6 +118,13 @@ HELD_COPY_TIERS = {"L", "P", "S"}
 COPY_ORDER = {"A": 0, "B": 1, "C": 2, "D": 3, "S": 4, "P": 5, "L": 6}
 INCLUDE_RE = re.compile(r'^\s*#\s*include\s*([<"])([^">]+)[">]', re.M)
 CL_RE = re.compile(r"^// cl:(.*)$", re.M)
+
+
+def bfme2_source_path(donor_source):
+    """Map BFME 1's current ``game/`` tree into BFME 2's ``Code/`` tree."""
+    if donor_source.startswith("game/"):
+        return "Code/" + donor_source[len("game/"):]
+    return donor_source
 
 
 class Image:
@@ -524,7 +533,7 @@ def donor_rows(min_size):
     with BFME1_LEDGER.open(newline="", encoding="utf-8") as handle:
         for row in csv.DictReader(handle):
             source = row.get("source") or ""
-            if not source.startswith("Code/") or source.startswith(GEN_SOURCE_PREFIXES):
+            if not source.startswith(("Code/", "game/")) or source.startswith(GEN_SOURCE_PREFIXES):
                 continue
             notes = row.get("notes") or ""
             if "gen-" in notes or "vendored=" in notes:
@@ -631,9 +640,6 @@ def import_alias_note(source, imports):
             "import or Import-ref verify refuses it (no pin can fix this)")
 
 
-BFME1_SYMBOLS = BFME1 / "reverse" / "symbols.csv"
-
-
 def bfme1_names_by_rva():
     """Every name Open-BFME-1 resolves at an address, ledger rows AND pins.
 
@@ -712,6 +718,7 @@ def copy_tier(source):
        this repo owns; the donor needs a distinct TU name.
     """
     path = BFME1 / source
+    target_source = bfme2_source_path(source)
     try:
         text = path.read_text(encoding="utf-8", errors="replace")
     except OSError:
@@ -723,11 +730,11 @@ def copy_tier(source):
     if LIFT_RE.search(text):
         return ("L", "donor carries a __declspec(naked)/__emit body: a lift, which the "
                 "conversion gate refuses (AGENTS.md anti-lift policy)", cl_line, stlport)
-    if not source.startswith(PLACEMENT_ROOTS):
-        return ("P", f"{source.split('/')[1]}/ is not an allowed root for a new source "
+    if not target_source.startswith(PLACEMENT_ROOTS):
+        return ("P", f"{target_source.split('/')[1]}/ is not an allowed root for a new source "
                 "(.githooks/pre-commit placement rule)", cl_line, stlport)
-    if (ROOT / source).exists():
-        return "D", f"{source} already exists in this repo", cl_line, stlport
+    if (ROOT / target_source).exists():
+        return "D", f"{target_source} already exists in this repo", cl_line, stlport
     if "reference/CnC_Generals_Zero_Hour" in cl_line or "reference/shims" in cl_line:
         return "C", "// cl: include paths need the reference/open-bfme-1/ prefix", cl_line, stlport
     if project:
@@ -745,6 +752,7 @@ def copy_tier(source):
 
 
 def policy(source):
+    source = bfme2_source_path(source)
     for prefix, reason in REFUSED_PREFIXES.items():
         if source.startswith(prefix):
             return "refused", reason
@@ -1040,7 +1048,7 @@ def bfme1_siblings():
     with BFME1_LEDGER.open(newline="", encoding="utf-8") as handle:
         for row in csv.DictReader(handle):
             source = row.get("source") or ""
-            if not source.startswith("Code/") or source.startswith(GEN_SOURCE_PREFIXES):
+            if not source.startswith(("Code/", "game/")) or source.startswith(GEN_SOURCE_PREFIXES):
                 continue
             notes = row.get("notes") or ""
             if "gen-" in notes or "vendored=" in notes:
@@ -1134,6 +1142,7 @@ def do_ranked(args):
 
 def packet_text(entry):
     source = entry["source"]
+    target_source = bfme2_source_path(source)
     donor = f"reference/open-bfme-1/{source}"
     lines = []
     lines.append(f"# {source}")
@@ -1143,7 +1152,7 @@ def packet_text(entry):
                  f"{entry['bytes']} bytes of unclaimed game.dat .text")
     lines.append("")
     lines.append(f"    donor   {donor}")
-    lines.append(f"    dest    {source}")
+    lines.append(f"    dest    {target_source}")
     lines.append(f"    copy    {entry['copy_note']}")
     lines.append(f"    cl:     {entry['cl'] or '(none — build.py base flags)'}")
     lines.append(f"    stlport {'yes' if entry['stlport'] else 'no'}")
@@ -1182,10 +1191,10 @@ def packet_text(entry):
     lines.append("## Steps")
     lines.append("")
     lines.append("```sh")
-    lines.append(f"mkdir -p {str(Path(source).parent)}")
+    lines.append(f"mkdir -p {str(Path(target_source).parent)}")
     lines.append(f"cp {donor} \\")
-    lines.append(f"   {source}")
-    lines.append(f"git add -- {source}       # check_csv refuses an untracked ledger source")
+    lines.append(f"   {target_source}")
+    lines.append(f"git add -- {target_source}       # check_csv refuses an untracked ledger source")
     if entry["copy_tier"] == "C":
         lines.append("# then rewrite the `// cl:` -I paths: reference/CnC_Generals_Zero_Hour/...")
         lines.append("#                              -> reference/open-bfme-1/reference/CnC_Generals_Zero_Hour/...")
@@ -1214,9 +1223,9 @@ def packet_text(entry):
     lines.append("```sh")
     for body in entry["bodies"]:
         lines.append(f"python3 tools/add_match.py '{body['name']}' 0x{body['bfme2_rva']:08X} "
-                     f"{body['size']} {source} \\")
+                     f"{body['size']} {target_source} \\")
         lines.append(f"    --notes '{ledger_note(body)}'")
-    lines.append(f"./build.sh {source}")
+    lines.append(f"./build.sh {target_source}")
     lines.append("python3 tools/check_csv.py")
     if pins:
         lines.append("python3 tools/pin_consistency.py --check")
@@ -1225,7 +1234,7 @@ def packet_text(entry):
     lines.append("On a refusal, revert your own work only and record the verdict:")
     lines.append("")
     lines.append("```sh")
-    lines.append(f"git checkout -- reverse/functions.csv reverse/symbols.csv && rm -f {source}")
+    lines.append(f"git checkout -- reverse/functions.csv reverse/symbols.csv && rm -f {target_source}")
     first = entry["bodies"][0]
     lines.append(f"python3 tools/re_log.py record '{first['name']}' 0x{first['bfme2_rva']:08X} "
                  f"{first['size']} no-match 'bfme1_sweep donor <what cl did instead>'")
@@ -1457,6 +1466,7 @@ def do_ambiguous(args):
 
 def near_packet(entry):
     source = entry["source"]
+    target_source = bfme2_source_path(source)
     donor, window, fields = entry["donor"], entry["window"], entry["fields"]
     mask = mask_from(fields, len(donor))
     lines = [f"# {entry['name']}", ""]
@@ -1470,7 +1480,7 @@ def near_packet(entry):
     lines.append("look and never a bad match.")
     lines.append("")
     lines.append(f"    donor    reference/open-bfme-1/{source}")
-    lines.append(f"    dest     {source}")
+    lines.append(f"    dest     {target_source}")
     lines.append(f"    bfme1    0x{entry['bfme1_rva']:08X}  {entry['size']} bytes")
     lines.append(f"    bfme2    0x{entry['bfme2_rva']:08X}  [{entry['boundary']}]")
     if entry["ghidra_size"] is not None:
@@ -1498,16 +1508,16 @@ def near_packet(entry):
     lines.append("## Steps")
     lines.append("")
     lines.append("```sh")
-    lines.append(f"mkdir -p {Path(source).parent}")
+    lines.append(f"mkdir -p {Path(target_source).parent}")
     lines.append(f"cp reference/open-bfme-1/{source} \\")
-    lines.append(f"   {source}")
-    lines.append(f"git add -- {source}")
+    lines.append(f"   {target_source}")
+    lines.append(f"git add -- {target_source}")
     lines.append("# apply the difference above, then resolve the call sites:")
     lines.append(f"python3 tools/decode_calls.py '{entry['name']}' "
-                 f"--rva 0x{entry['bfme2_rva']:08X} --source {source}")
+                 f"--rva 0x{entry['bfme2_rva']:08X} --source {target_source}")
     lines.append("# check each suggested pin, append it to reverse/symbols.csv (LF only), then:")
     lines.append(f"python3 tools/add_match.py '{entry['name']}' 0x{entry['bfme2_rva']:08X} "
-                 f"{entry['size']} {source} \\")
+                 f"{entry['size']} {target_source} \\")
     lines.append(f"    --notes 'BFME1 near-miss donor; b1 0x{entry['bfme1_rva']:08X}; "
                  f"{entry['klass']} drift'")
     lines.append("```")
@@ -1516,7 +1526,7 @@ def near_packet(entry):
     lines.append("a nonmatching body in Code/:")
     lines.append("")
     lines.append("```sh")
-    lines.append(f"git checkout -- reverse/ && rm -f {source}")
+    lines.append(f"git checkout -- reverse/ && rm -f {target_source}")
     lines.append(f"python3 tools/re_log.py record '{entry['name']}' 0x{entry['bfme2_rva']:08X} "
                  f"{entry['size']} partial 'bfme1_sweep near miss; <what is still wrong>' "
                  f"--stash <your .cpp> --score 0.9")
@@ -1595,11 +1605,12 @@ def do_land(args):
 
     source = entry["source"]
     donor = BFME1 / source
-    dest = ROOT / source
+    target_source = bfme2_source_path(source)
+    dest = ROOT / target_source
     pins = sorted({(name, address) for body in bodies for name, address in body["pins"]})
 
     print(f"donor  {donor.relative_to(ROOT)}")
-    print(f"dest   {source}  (copy-tier {entry['copy_tier']}: {entry['copy_note']})")
+    print(f"dest   {target_source}  (copy-tier {entry['copy_tier']}: {entry['copy_note']})")
     for name, address in pins:
         print(f"pin    {name},0x{address:08X}")
     for body in bodies:
@@ -1617,7 +1628,7 @@ def do_land(args):
     # check_csv refuses a row whose source is untracked, so the copy is staged
     # as part of making it: an unstaged donor is a ledger error, not a file the
     # committer will notice later.
-    subprocess.run(["git", "add", "--", source], cwd=ROOT, check=True)
+    subprocess.run(["git", "add", "--", target_source], cwd=ROOT, check=True)
     if pins:
         with BFME2_SYMBOLS.open("a", encoding="utf-8", newline="") as handle:
             for name, address in pins:
@@ -1627,7 +1638,7 @@ def do_land(args):
     try:
         for body in bodies:
             command = [sys.executable, str(ROOT / "tools" / "add_match.py"), body["name"],
-                       f"0x{body['bfme2_rva']:08X}", str(body["size"]), source,
+                       f"0x{body['bfme2_rva']:08X}", str(body["size"]), target_source,
                        "--notes", ledger_note(body)]
             result = subprocess.run(command, cwd=ROOT)
             if result.returncode != 0:
@@ -1636,7 +1647,7 @@ def do_land(args):
     except (RuntimeError, KeyboardInterrupt) as error:
         print(f"bfme1_sweep: {error}", file=sys.stderr)
         if not landed:
-            subprocess.run(["git", "rm", "--cached", "--quiet", "--", source], cwd=ROOT)
+            subprocess.run(["git", "rm", "--cached", "--quiet", "--", target_source], cwd=ROOT)
             dest.unlink(missing_ok=True)
             if symbols_before is not None:
                 BFME2_SYMBOLS.write_bytes(symbols_before)
@@ -1664,13 +1675,13 @@ def do_land(args):
     subprocess.run(["git", "add", "--", "reverse/functions.csv"], cwd=ROOT, check=True)
     declared = subprocess.run(
         [sys.executable, str(ROOT / "tools" / "find_declared_unmatched.py"), "--fail",
-         "--staged", source], cwd=ROOT, capture_output=True, text=True)
+         "--staged", target_source], cwd=ROOT, capture_output=True, text=True)
     if declared.returncode != 0:
-        remove_rows(source)
+        remove_rows(target_source)
         subprocess.run(["git", "add", "--", "reverse/functions.csv"], cwd=ROOT, check=True)
-        subprocess.run(["git", "rm", "--cached", "--quiet", "--", source], cwd=ROOT)
+        subprocess.run(["git", "rm", "--cached", "--quiet", "--", target_source], cwd=ROOT)
         dest.unlink(missing_ok=True)
-        print(f"bfme1_sweep: {source} defines functions the ledger does not declare, which the "
+        print(f"bfme1_sweep: {target_source} defines functions the ledger does not declare, which the "
               "pre-commit hook refuses. Rows and copy reverted (pins kept: they are additive "
               "and later files may resolve through them):", file=sys.stderr)
         print("\n".join(declared.stdout.splitlines()[:6]), file=sys.stderr)
