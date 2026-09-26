@@ -14,6 +14,7 @@ class GameWindow
 public:
 	Int winHide(Bool hide);
 	Int winEnable(Bool enable);
+	Int winGetWindowId();
 
 private:
 	unsigned char m_pad00[0x1F8];
@@ -46,8 +47,33 @@ public:
 #define X(n) virtual void pad##n() = 0;
 	X(58) X(59)
 #undef X
-	virtual GameWindow *winGetWindowFromId(GameWindow *window, Int id) = 0;
+	virtual GameWindow *winGetWindowFromId(GameWindow *window, Int id);
+
+private:
+	unsigned char m_pad04[8];
+	GameWindow *m_windowList;
 };
+
+GameWindow *GameWindowManager::winGetWindowFromId(GameWindow *window, Int id)
+{
+	if (window == NULL)
+		window = m_windowList;
+
+	for (; window; window = window->m_next)
+	{
+		if (window->winGetWindowId() == id)
+			return window;
+		else if (window->m_child)
+		{
+			GameWindow *child = winGetWindowFromId(window->m_child, id);
+
+			if (child)
+				return child;
+		}
+	}
+
+	return NULL;
+}
 
 void GameWindowManager::addWindowToParentAtEnd(GameWindow *window, GameWindow *parent)
 {
