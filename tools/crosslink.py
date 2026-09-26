@@ -182,7 +182,21 @@ def rewrite(path, forward, reverse, headers):
 
 
 def main():
-    check = "--check" in sys.argv[1:]
+    # Writing is the default, so an unrecognised argument must NOT fall through
+    # to it: `--help` wrote links into 2,804 files before this check existed,
+    # because nothing here had ever looked at argv beyond `--check`. A typo like
+    # `--chek` or a habitual `--dry-run` did the same. Refuse instead.
+    argv = sys.argv[1:]
+    if "--help" in argv or "-h" in argv:
+        print(__doc__.strip())
+        return 0
+    unknown = [arg for arg in argv if arg != "--check"]
+    if unknown:
+        print(f"crosslink: unknown argument(s): {' '.join(unknown)}", file=sys.stderr)
+        print("crosslink: writing is the default, so nothing was written. "
+              "See --help.", file=sys.stderr)
+        return 2
+    check = "--check" in argv
     index = ledger_index()
     names = sorted(index)
     headers = upstream_headers()
