@@ -16,7 +16,10 @@ enum NameKeyType
 	NAMEKEY_INVALID = 0
 };
 
-class AsciiString;
+class AsciiString
+{
+	void *m_data;
+};
 
 class NameKeyGenerator
 {
@@ -26,10 +29,17 @@ public:
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class Image;
+class Image
+{
+public:
+	virtual ~Image();
+	const AsciiString &getName() const { return m_name; }
+
+private:
+	AsciiString m_name;
+};
 
 typedef _STL::map<unsigned int, Image *> ImageNameMap;
-
 // TU-local BFME2 SubsystemInterface (12-byte base, retail-proven).
 #define __SUBSYSTEMINTERFACE_H_
 class SubsystemInterface
@@ -49,9 +59,20 @@ class ImageCollection : public SubsystemInterface
 {
 public:
 	const Image *findImageByName(const AsciiString &name);
+	void addImage(Image *image);
 
 protected:
 	ImageNameMap m_imageMap;
+};
+
+// Declaration-only view of ImageNameMap whose subscript stays out-of-line:
+// retail folds every unsigned-key pointer-map operator[] into the single
+// shared worker at 0x2077D6 (which drives the rowed PAX _M_lower_bound at
+// 0x4FF3B6), so the call below is pinned there instead of inlining.
+class ImageSubscriptMap
+{
+public:
+	Image *&operator[](const unsigned int &key);
 };
 
 // ?findImageByName@ImageCollection@@QAEPBVImage@@ABVAsciiString@@@Z, retail 0x002D92F6 (53B).
@@ -59,4 +80,10 @@ const Image *ImageCollection::findImageByName(const AsciiString &name)
 {
 	ImageNameMap::const_iterator it = m_imageMap.find(TheNameKeyGenerator->Rva002D91AF(name));
 	return it == m_imageMap.end() ? NULL : it->second;
+}
+
+// ?addImage@ImageCollection@@QAEXPAVImage@@@Z, retail 0x002D9457 (48B).
+void ImageCollection::addImage(Image *image)
+{
+	((ImageSubscriptMap *)&m_imageMap)->operator[](TheNameKeyGenerator->Rva002D91AF(image->getName())) = image;
 }
