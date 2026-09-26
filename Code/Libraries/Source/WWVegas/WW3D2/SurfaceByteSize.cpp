@@ -62,3 +62,46 @@ unsigned int SurfaceClass::Rva008FCA30_Surface_Byte_Size() const
         size /= 2;
     return size;
 }
+
+// ?Get_Description@SurfaceClass@@QAEXAAUSurfaceDescription@1@@Z, retail 0x00116620 (94B).
+// The surface is a COM object: GetDesc is the __stdcall slot-12 virtual, so
+// retail pushes (desc, this) with callee cleanup. D3DSURFACE_DESC is 32 bytes
+// with Format/Width/Height at +0/+0x18/+0x1c; the null-surface path leaves
+// the caller's description untouched. The memset intrinsic is what emits the
+// retail xor-plus-eight-movs zeroing (brace init sinks the first store).
+#include <string.h>
+typedef long HRESULT;
+struct D3DSurfaceDesc
+{
+    unsigned int Format;
+    unsigned int Type;
+    unsigned int Usage;
+    unsigned int Pool;
+    unsigned int Size;
+    unsigned int MultiSampleType;
+    unsigned int Width;
+    unsigned int Height;
+};
+class D3DSurface
+{
+public:
+#define V(n) virtual HRESULT __stdcall v##n() = 0;
+    V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7) V(8) V(9) V(10) V(11)
+#undef V
+    virtual HRESULT __stdcall GetDesc(D3DSurfaceDesc *desc) = 0;
+};
+void Log_DX8_ErrorCode(unsigned int code);
+void SurfaceClass::Get_Description(SurfaceDescription &description)
+{
+    D3DSurfaceDesc d3dDesc;
+    memset(&d3dDesc, 0, sizeof(d3dDesc));
+    D3DSurface *d3dSurface = (D3DSurface *)surface;
+    if (!d3dSurface)
+        return;
+    HRESULT hr = d3dSurface->GetDesc(&d3dDesc);
+    if (hr != 0)
+        Log_DX8_ErrorCode((unsigned int)hr);
+    description.Format = d3dDesc.Format;
+    description.Height = d3dDesc.Height;
+    description.Width = d3dDesc.Width;
+}
