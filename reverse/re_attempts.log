@@ -1766,3 +1766,4 @@ Catch@00630215	0x00230215	390	blocked	catch(ErrorCode) funclet of GameEngine::in
 ??1AABTreeCullSystemClass@@UAE@XZ	0x007B73C0	59	blocked	retail 59B singleton teardown with vtable 0xBCEFAC not 280B dtor; place_bodies 0 hits; AABTreeCull absent from retail t=25
 ??1?$SimpleVecClass@VAABoxClass@@@@UAE@XZ	0x007B7480	59	blocked	retail 59B singleton teardown with vtable 0xBD4EE4 not 41B dtor; same family as 0x7B73C0 t=10
 ??_G?$SimpleVecClass@VAABoxClass@@@@UAEPAXI@Z	0x007972E4	14	blocked	retail 14B mov-ecx add-0x9c jmp-0x52D20C thunk not 61B deleting dtor t=5
+?Rva00318B39Frag@@YAHXZ	0x00318B39	6	blocked	je at 0x318b30 targets the B8; conditional-arm frag not a standalone function; t=10
