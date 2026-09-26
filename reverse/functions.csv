@@ -35968,3 +35968,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ?concat@?$StringBase@D@@QAEXPBDH@Z,0x000369A0,0x000369A0,134,Code/Libraries/Source/WWVegas/WWLib/StringBaseNarrowStrLenSet.cpp,matched,pinned name callers set wrapper ensure via wide twin concat 37410 same TU set 36780
 ?rva00133DA0Set@CameraClass@@QAEXABUMatrix4@@@Z,,0x00133DA0,150,Code/Libraries/Source/WWVegas/WW3D2/CameraAdditionalTransformSetter.cpp,matched,CameraClass AdditionalTransform 64B setter via 16 movs
 ?set@?$StringBase@D@@QAEXABV?$CharSource@D@@@Z,0x000368C0,0x000368C0,216,Code/Libraries/Source/WWVegas/WWLib/StringBaseNarrowStrLenSet.cpp,matched,pinned name callers CharSource wrapper via wide twin set 37330 same TU
+??1StealthUpgrade@@MAE@XZ,,0x004B530D,32,Code/GameEngine/Source/GameLogic/Object/Upgrade/StealthUpgradeConstructor.cpp,matched,four vptr stores plus tail jmp to UpgradeModule twin at 0x0046089D vtable 0x00857E30
