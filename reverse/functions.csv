@@ -36168,3 +36168,4 @@ _Rva00680420,,0x00680420,17,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,mat
 ?init@FullFadeTransition@@UAEXPAVGameWindow@@@Z,,0x0035F1DF,98,Code/GameEngine/Source/GameClient/GUI/FullFadeTransitionInit.cpp,matched,vtable 0x0081663C slot 1 donor BFME1 FullFade init with size pos and percent
 ??_GRva006FBA10@@UAEPAXI@Z,,0x006FB9E0,35,Code/GameEngine/Source/Common/Rva006FBA10DeletingDtor.cpp,matched,vslot 14 of 0x008ED844 calls rowed 0x006FBA10 and pinned pool free 0x006DB270 via 0x00E176E8
 ?Rva0035D1C6@Rva0035D0D1@@UAEXXZ,,0x0035D1C6,33,Code/GameEngine/Source/Common/Rva001DBAC3Derived.cpp,matched,vslot 5 of 0x008163D8; INI StartFrame EndFrame ViewsToFade LeaveSilent; float 1.0f
+?update@FullFadeTransition@@UAEXH@Z,,0x0035F241,114,Code/GameEngine/Source/GameClient/GUI/FullFadeTransitionUpdate.cpp,matched,vtable 0x0081663C slot 2 donor BFME1 FullFade update with winHide row
