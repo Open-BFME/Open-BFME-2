@@ -107,28 +107,23 @@ ModuleData *ThreatFinderUpdateModuleData::friend_newModuleData(INI *ini)
 	return reinterpret_cast<ModuleData *>(data);
 }
 
-// 0x002524B2 / 0x002526DF / 0x00252768 / 0x0025287D: all news 0x7C with ctor
-// ??0DeliverPayloadAIUpdate (rowed 0x4C72D3); parse procs 0x8C7AEB,
-// 0x8C856F, 0x8C8699, 0x8C89CB.
-void DeliverPayloadAIUpdateParse_2524B2(MultiIniFieldParse &parse);
-void DeliverPayloadAIUpdateParse_2526DF(MultiIniFieldParse &parse);
-void DeliverPayloadAIUpdateParse_252768(MultiIniFieldParse &parse);
-void DeliverPayloadAIUpdateParse_25287D(MultiIniFieldParse &parse);
-
-class DeliverPayloadAIUpdate
-{
-public:
-	DeliverPayloadAIUpdate();
-	virtual ~DeliverPayloadAIUpdate();
-
-private:
-	unsigned char m_pad[0x7C - 4];
-};
+// 0x002524B2 / 0x002526DF / 0x00252768 / 0x0025287D: all news 0x7C with the
+// one folded ctor ??0UntamedAllegianceSpecialPowerModuleData (rowed 0x4C72D3);
+// parse procs 0x8C7AEB, 0x8C856F, 0x8C8699, 0x8C89CB.
+void UntamedAllegianceSpecialPowerParse_2524B2(MultiIniFieldParse &parse);
+void ManTheWallsSpecialPowerParse_2526DF(MultiIniFieldParse &parse);
+void RepairSpecialPowerParse_252768(MultiIniFieldParse &parse);
+void HordeDispatchSpecialPowerParse_25287D(MultiIniFieldParse &parse);
 
 class UntamedAllegianceSpecialPowerModuleData
 {
 public:
+	UntamedAllegianceSpecialPowerModuleData();
+	virtual ~UntamedAllegianceSpecialPowerModuleData();
 	static ModuleData *friend_newModuleData(INI *ini);
+
+private:
+	unsigned char m_pad[0x7C - 4];
 };
 
 class ManTheWallsSpecialPowerModuleData
@@ -152,36 +147,36 @@ public:
 // ?friend_newModuleData@UntamedAllegianceSpecialPowerModuleData@@SAPAVModuleData@@PAVINI@@@Z
 ModuleData *UntamedAllegianceSpecialPowerModuleData::friend_newModuleData(INI *ini)
 {
-	DeliverPayloadAIUpdate *data = new DeliverPayloadAIUpdate;
+	UntamedAllegianceSpecialPowerModuleData *data = new UntamedAllegianceSpecialPowerModuleData;
 	if (ini)
-		ini->initFromINIMultiProc(data, DeliverPayloadAIUpdateParse_2524B2);
+		ini->initFromINIMultiProc(data, UntamedAllegianceSpecialPowerParse_2524B2);
 	return reinterpret_cast<ModuleData *>(data);
 }
 
 // ?friend_newModuleData@ManTheWallsSpecialPowerModuleData@@SAPAVModuleData@@PAVINI@@@Z
 ModuleData *ManTheWallsSpecialPowerModuleData::friend_newModuleData(INI *ini)
 {
-	DeliverPayloadAIUpdate *data = new DeliverPayloadAIUpdate;
+	UntamedAllegianceSpecialPowerModuleData *data = new UntamedAllegianceSpecialPowerModuleData;
 	if (ini)
-		ini->initFromINIMultiProc(data, DeliverPayloadAIUpdateParse_2526DF);
+		ini->initFromINIMultiProc(data, ManTheWallsSpecialPowerParse_2526DF);
 	return reinterpret_cast<ModuleData *>(data);
 }
 
 // ?friend_newModuleData@RepairSpecialPowerModuleData@@SAPAVModuleData@@PAVINI@@@Z
 ModuleData *RepairSpecialPowerModuleData::friend_newModuleData(INI *ini)
 {
-	DeliverPayloadAIUpdate *data = new DeliverPayloadAIUpdate;
+	UntamedAllegianceSpecialPowerModuleData *data = new UntamedAllegianceSpecialPowerModuleData;
 	if (ini)
-		ini->initFromINIMultiProc(data, DeliverPayloadAIUpdateParse_252768);
+		ini->initFromINIMultiProc(data, RepairSpecialPowerParse_252768);
 	return reinterpret_cast<ModuleData *>(data);
 }
 
 // ?friend_newModuleData@HordeDispatchSpecialPowerModuleData@@SAPAVModuleData@@PAVINI@@@Z
 ModuleData *HordeDispatchSpecialPowerModuleData::friend_newModuleData(INI *ini)
 {
-	DeliverPayloadAIUpdate *data = new DeliverPayloadAIUpdate;
+	UntamedAllegianceSpecialPowerModuleData *data = new UntamedAllegianceSpecialPowerModuleData;
 	if (ini)
-		ini->initFromINIMultiProc(data, DeliverPayloadAIUpdateParse_25287D);
+		ini->initFromINIMultiProc(data, HordeDispatchSpecialPowerParse_25287D);
 	return reinterpret_cast<ModuleData *>(data);
 }
 
