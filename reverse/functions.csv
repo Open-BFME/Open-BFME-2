@@ -36275,3 +36275,4 @@ _Rva00680420,,0x00680420,17,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,mat
 ?xfer@OneRingPenaltyUpdate@@MAEXPAVXfer@@@Z,,0x0049995A,82,Code/GameEngine/Source/GameLogic/Object/Update/OneRingPenaltyUpdateXfer.cpp,matched,slot3 xfer via UpdateModule base plus IsLightCRC plus Version1 plus ObjectID uint float uint
 ?rva004AC18D@RainOfFireUpdate@@QAEXM@Z,,0x004AC18D,62,Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdateXfer.cpp,matched,honest setter stores to 0x28 plus display 0xC0 via global 0x009FE9D8 plus callers prove file-unit
 ??_GGeometryUpgrade@@UAEPAXI@Z,,0x004B6C39,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-63c1.cpp,matched,deleting dtor slot 0 of vtable 0x8589C0 calls rowed 0x4B6C55 plus delete 0x2FD60
+??1RebuildHoleBehavior@@UAE@XZ,,0x0048353E,118,Code/GameEngine/Source/GameLogic/Object/Behavior/RebuildHoleBehaviorDtor.cpp,matched,vtable 0x849A74 slot0 0x483629 ctor 0x483271 ZH shape BFME1 donor
