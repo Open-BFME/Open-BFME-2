@@ -83,7 +83,6 @@ Rva0049D1B1::Rva0049D1B1()
 }
 
 // ??1Rva0049D1B1@@UAE@XZ @0x0049D1B1
-// ??1Rva0049D1B1@@ present-unmatched
 Rva0049D1B1::~Rva0049D1B1()
 {
 	m_48 = 0;
