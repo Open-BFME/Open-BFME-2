@@ -35409,3 +35409,11 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ?Rva00215C4EGet@@YAHXZ,,0x00215C4E,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
 ?FillFourSlots@Rva0011216CSlotQuartet@@QAEXXZ,,0x0011216C,43,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseCursorSlotQuartet.cpp,matched,four-slot level filler with ready flag plus tail-jump; Rva holder class with CursorTextureSlot members
 ??1MultiplayerSettings@@QAE@XZ,,0x00381293,83,Code/GameEngine/Source/Common/MultiplayerSettingsDtor.cpp,matched,MultiplayerSettings dtor is non-virtual QAE: no vptr restore in body and no vtable references the deleting dtor and sibling getColor plus newMultiplayerColorDefinition are QAE; GameEngineDeletingBase is a composed +0 member; tree at +0x34 via rowed 0x38103F and strings at +0x44 and +0x84
+?Rva0024A8D6Get@@YAHXZ,,0x0024A8D6,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
+?Rva0024B43DGet@@YAHXZ,,0x0024B43D,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
+?Rva0024B507Get@@YAHXZ,,0x0024B507,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
+?Rva0024C32DGet@@YAHXZ,,0x0024C32D,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
+?Rva0024C775Get@@YAHXZ,,0x0024C775,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
+?Rva0024D51CGet@@YAHXZ,,0x0024D51C,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
+?Rva0024DCDDGet@@YAHXZ,,0x0024DCDD,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
+?Rva0024DCE3Get@@YAHXZ,,0x0024DCE3,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner

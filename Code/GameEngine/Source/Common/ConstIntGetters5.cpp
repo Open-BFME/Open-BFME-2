@@ -383,3 +383,67 @@ int Rva00215C4EGet(void)
 {
 	return 0x00c38760;
 }
+
+// ?Rva0024A8D6Get@@YAHXZ @ 0x0024a8d6 (6B): returns 132.
+// Follows an SEH epilogue plus leave plus ret. No direct callers.
+// Opaque address-derived name.
+int Rva0024A8D6Get(void)
+{
+	return 132;
+}
+
+// ?Rva0024B43DGet@@YAHXZ @ 0x0024b43d (6B): returns 135.
+// Follows an SEH epilogue plus leave plus ret. No direct callers.
+// Opaque address-derived name.
+int Rva0024B43DGet(void)
+{
+	return 135;
+}
+
+// ?Rva0024B507Get@@YAHXZ @ 0x0024b507 (6B): returns 142.
+// Follows an SEH epilogue plus leave plus ret. No direct callers.
+// Opaque address-derived name.
+int Rva0024B507Get(void)
+{
+	return 142;
+}
+
+// ?Rva0024C32DGet@@YAHXZ @ 0x0024c32d (6B): returns 133.
+// Follows an SEH epilogue plus leave plus ret. No direct callers.
+// Opaque address-derived name.
+int Rva0024C32DGet(void)
+{
+	return 133;
+}
+
+// ?Rva0024C775Get@@YAHXZ @ 0x0024c775 (6B): returns 8192.
+// Follows an SEH epilogue plus leave plus ret. No direct callers.
+// Opaque address-derived name.
+int Rva0024C775Get(void)
+{
+	return 8192;
+}
+
+// ?Rva0024D51CGet@@YAHXZ @ 0x0024d51c (6B): returns 2048.
+// Follows an SEH epilogue plus leave plus ret. No direct callers.
+// Opaque address-derived name.
+int Rva0024D51CGet(void)
+{
+	return 2048;
+}
+
+// ?Rva0024DCDDGet@@YAHXZ @ 0x0024dcdd (6B): returns 256.
+// Follows an SEH epilogue plus leave plus ret. No direct callers.
+// Opaque address-derived name.
+int Rva0024DCDDGet(void)
+{
+	return 256;
+}
+
+// ?Rva0024DCE3Get@@YAHXZ @ 0x0024dce3 (6B): returns 257.
+// Abuts the twin getter above. No direct callers. Opaque
+// address-derived name.
+int Rva0024DCE3Get(void)
+{
+	return 257;
+}
