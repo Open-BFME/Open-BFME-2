@@ -36248,3 +36248,4 @@ _Rva00680420,,0x00680420,17,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,mat
 ??_GRva0048BC03Base@@UAEPAXI@Z,,0x0048C098,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-95c8.cpp,matched,slot0 of vtable C4C110 calls rowed 0x48BC46 plus delete 0x2FD60
 ?xfer@Rva00499F45@@MAEXPAVXfer@@@Z,,0x0049A016,33,Code/GameEngine/Source/Common/Rva00499F45Xfer.cpp,matched,slot3 xfer via base plus IsLightCRC plus Version1
 ??1MonitorConditionUpdateModuleData@@UAE@XZ,,0x00491711,63,Code/GameEngine/Source/GameLogic/Object/Update/MonitorConditionUpdateModuleDataDtor.cpp,matched,Snapshot base 0xBBB554 with AsciiString pair at +0x54 +0x68 via pinned 0x36410 and ctor 0x4915FD vtable 0xC4DA50
+??_GMonitorConditionUpdateModuleData@@UAEPAXI@Z,,0x004916F5,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-p7z-f52d.cpp,matched,slot 0 of vtable 0x0084DA50 calls rowed 0x00491711 and rowed delete 0x0002FD60
