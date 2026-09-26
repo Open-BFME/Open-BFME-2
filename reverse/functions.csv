@@ -36476,3 +36476,4 @@ _setlinehook,,0x00748350,37,Code/Libraries/Source/Lua/ldblib.c,matched,BFME1 ldb
 ?XferTurretTargetType@@YAXPAVXfer@@PAH@Z,,0x00305DCA,24,Code/GameEngine/Source/Common/System/XferEnumHelpers.cpp,matched,labelled-enum helper TurretTargetType via XferEnum
 ?XferScaffoldTargetMotion@@YAXPAVXfer@@PAH@Z,,0x00305DFA,24,Code/GameEngine/Source/Common/System/XferEnumHelpers.cpp,matched,labelled-enum helper ScaffoldTargetMotion via XferEnum
 ?XferBodyDamageType@@YAXPAVXfer@@PAH@Z,,0x00305E12,24,Code/GameEngine/Source/Common/System/XferEnumHelpers.cpp,matched,labelled-enum helper BodyDamageType via XferEnum
+?rva0028B511@Object@@QBEHXZ,,0x0028B511,20,Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp,matched,Rva getter flag 0x48C else value 0x40C; 40 plus callers

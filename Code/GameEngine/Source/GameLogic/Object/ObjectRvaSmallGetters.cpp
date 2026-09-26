@@ -27,12 +27,17 @@ class Object
 	int m_flag358;					// +0x358
 	int m_pad358;					// +0x35C unknown
 	int m_mask360;					// +0x360
+	char m_pad364[0x40C - 0x364];	// +0x364..+0x40C unknown
+	int m_value40C;					// +0x40C
+	char m_pad410[0x48C - 0x410];	// +0x410..+0x48C unknown
+	unsigned char m_flag48C;		// +0x48C
 
 public:
 	int rva0028AD6C() const;
 	bool rva0028ADE0() const;
 	int rva0028ADF7(int slot) const;
 	int rva0028AF76() const;
+	int rva0028B511() const;
 };
 
 // ?rva0028AD6C@Object@@QBEHXZ
@@ -65,4 +70,11 @@ int Object::rva0028AF76() const
 	if (sub != 0)
 		result = sub->m_value;
 	return result;
+}
+
+int Object::rva0028B511() const
+{
+	if (m_flag48C != 0)
+		return 1;
+	return m_value40C;
 }
