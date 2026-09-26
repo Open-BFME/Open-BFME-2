@@ -36082,3 +36082,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ??1AudioLoopUpgradeModuleData@@UAE@XZ,,0x004B7C4C,58,Code/GameEngine/Source/GameLogic/Object/Upgrade/AudioLoopUpgradeModuleDataDtor.cpp,matched,Release_Ref holder plus BBB554 base; ctor TU layout
 ??_GAudioLoopUpgradeModuleData@@UAEPAXI@Z,,0x004B7EBD,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-7a10d.cpp,matched,slot0 of 0x00858CF8 calls rowed dtor 0x004B7C4C
 ??_GPassiveAreaEffectBehavior@@UAEPAXI@Z,,0x00484C3C,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-a0ab.cpp,matched,slot0 of vtable 0xC4A448 calls rowed dtor 0x484B22
+??1RemoveUpgradeUpgradeModuleData@@UAE@XZ,,0x004B8050,69,Code/GameEngine/Source/GameLogic/Object/Update/RemoveUpgradeUpgradeModuleDataDtor.cpp,matched,two AsciiString vectors 0x2CC70 at 124 then 118 plus Snapshot BBB554 plus slot0 0x4B8034
