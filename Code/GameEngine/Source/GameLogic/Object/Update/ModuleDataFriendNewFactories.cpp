@@ -180,31 +180,26 @@ ModuleData *HordeDispatchSpecialPowerModuleData::friend_newModuleData(INI *ini)
 	return reinterpret_cast<ModuleData *>(data);
 }
 
-// 0x00252C13: news 0x14, ctor ??0BaikonurLaunchPower (rowed 0x4CAEE6),
+// 0x00252C13: news 0x14, ctor ??0ModelConditionSoundSelectorClientBehaviorModuleData (rowed 0x4CAEE6),
 // parse proc 0x8CB0F3.
-void BaikonurLaunchPowerParse_252C13(MultiIniFieldParse &parse);
+void ModelConditionSoundSelectorClientBehaviorParse_252C13(MultiIniFieldParse &parse);
 
-class BaikonurLaunchPower
+class ModelConditionSoundSelectorClientBehaviorModuleData
 {
 public:
-	BaikonurLaunchPower();
-	virtual ~BaikonurLaunchPower();
+	ModelConditionSoundSelectorClientBehaviorModuleData();
+	virtual ~ModelConditionSoundSelectorClientBehaviorModuleData();
+	static ModuleData *friend_newModuleData(INI *ini);
 
 private:
 	unsigned char m_pad[0x14 - 4];
 };
 
-class ModelConditionSoundSelectorClientBehaviorModuleData
-{
-public:
-	static ModuleData *friend_newModuleData(INI *ini);
-};
-
 // ?friend_newModuleData@ModelConditionSoundSelectorClientBehaviorModuleData@@SAPAVModuleData@@PAVINI@@@Z
 ModuleData *ModelConditionSoundSelectorClientBehaviorModuleData::friend_newModuleData(INI *ini)
 {
-	BaikonurLaunchPower *data = new BaikonurLaunchPower;
+	ModelConditionSoundSelectorClientBehaviorModuleData *data = new ModelConditionSoundSelectorClientBehaviorModuleData;
 	if (ini)
-		ini->initFromINIMultiProc(data, BaikonurLaunchPowerParse_252C13);
+		ini->initFromINIMultiProc(data, ModelConditionSoundSelectorClientBehaviorParse_252C13);
 	return reinterpret_cast<ModuleData *>(data);
 }

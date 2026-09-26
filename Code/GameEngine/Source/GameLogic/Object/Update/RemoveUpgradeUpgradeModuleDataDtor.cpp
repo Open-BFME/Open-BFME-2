@@ -6,7 +6,7 @@
 // then +0x118 (state 0) through the rowed 0x2CC70 body, then restores the
 // Snapshot base vtable 0x00BBB554. Empty derived body with no base call since
 // the large 0x118 base dtor is inline. Shape follows the landed
-// BaikonurLaunchPowerDtor/CivilianSpawnCollideModuleDataDtor (TU-local base
+// ModelConditionSoundSelectorClientBehaviorModuleDataDtor/CivilianSpawnCollideModuleDataDtor (TU-local base
 // with inline BBB554-restoring dtor, novtable derived, empty body) plus the
 // Rampage vector precedent. Layout from the rowed ctor 0x004B7FF1 (base
 // 0x118 via OpenContain 0x253487, vectors at +0x118/+0x124, bytes at

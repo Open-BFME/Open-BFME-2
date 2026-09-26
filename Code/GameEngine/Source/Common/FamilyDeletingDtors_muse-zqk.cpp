@@ -11,10 +11,10 @@ void famgenDelete(HeroModeSpecialAbilityUpdateModuleData *p) { delete p; }
 class RankInfo { public: __declspec(noinline) virtual ~RankInfo(); private: int m_famgen; };
 RankInfo::~RankInfo() { m_famgen = 0; }
 void famgenDelete(RankInfo *p) { delete p; }
-// ??_GBaikonurLaunchPower@@UAEPAXI@Z @0x004CAFC1
-class BaikonurLaunchPower { public: __declspec(noinline) virtual ~BaikonurLaunchPower(); private: int m_famgen; };
-BaikonurLaunchPower::~BaikonurLaunchPower() { m_famgen = 0; }
-void famgenDelete(BaikonurLaunchPower *p) { delete p; }
+// ??_GModelConditionSoundSelectorClientBehaviorModuleData@@UAEPAXI@Z @0x004CAFC1
+class ModelConditionSoundSelectorClientBehaviorModuleData { public: __declspec(noinline) virtual ~ModelConditionSoundSelectorClientBehaviorModuleData(); private: int m_famgen; };
+ModelConditionSoundSelectorClientBehaviorModuleData::~ModelConditionSoundSelectorClientBehaviorModuleData() { m_famgen = 0; }
+void famgenDelete(ModelConditionSoundSelectorClientBehaviorModuleData *p) { delete p; }
 // ??_GRemoveUpgradeUpgradeModuleData@@UAEPAXI@Z @0x004B8034
 class RemoveUpgradeUpgradeModuleData { public: __declspec(noinline) virtual ~RemoveUpgradeUpgradeModuleData(); private: int m_famgen; };
 RemoveUpgradeUpgradeModuleData::~RemoveUpgradeUpgradeModuleData() { m_famgen = 0; }
