@@ -107,3 +107,13 @@ AsciiString INIFileRecordTable::getRecordName( int fileIndex ) const
 	int nameIndex = m_begin[ fileIndex ].m_nameIndex;
 	return m_names[ nameIndex ];
 }
+
+
+// ?getFileId@INIFileTable@@QBEHH@Z
+int INIFileTable::getFileId( int fileIndex ) const
+{
+	int count = ((int)m_records.m_end - (int)m_records.m_begin) / (int)sizeof( INIFileRecord );
+	if ( fileIndex < count )
+		return (*(INIFileRecord * volatile *)&m_records.m_begin)[ fileIndex ].m_fileId;
+	return 0;
+}
