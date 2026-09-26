@@ -1846,3 +1846,4 @@ FUN_009c5990	0x005C5990	28	blocked	vtable 0x874834 but callee 0x5C6317 installs 
 ??1ArrowStormUpdateModuleData@@UAE@XZ	0x00490695	10	blocked	EH dtor Ghidra-truncated 10B true size larger; needs base Rva0044EB54 dtor plus BFME2 layout vs BFME1 AsciiString donor t=8 model=muse-spark
 ??1SoundFXNugget@@UAE@XZ	0x001E0E07	60	blocked	virtual dtor emits extra vtable store vs retail none; needs novtable-explicit vs virtual base investigation t=15 model=muse-spark
 ??1CreateCrateDieModuleData@@UAE@XZ	0x00257355	72	blocked	ctor TU gives 54B vs 72B missing List_base clear plus edi shape t=12 model=muse-7fd4
+FUN_004c92e8	0x000C92E8	14	blocked	vslot slot1 of 0xBCB9E0; validate-fold plus bool at 0x24; donor mapping uncertain t=12 model=muse-c9a1
