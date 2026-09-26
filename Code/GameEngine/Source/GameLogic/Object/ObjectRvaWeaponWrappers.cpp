@@ -53,7 +53,7 @@ RvaWeaponSlot *Object::rva0028AEEA() const
 	return m_weaponSet.rva002C741C();
 }
 
-// ?rva0028AEF5@Object@@QBE_NPAPAXPAI@Z present-unmatched
+// ?rva0028AEF5@Object@@QBE_NPAPAXPAI@Z
 bool Object::rva0028AEF5(void **outPtr, unsigned *outAmmo) const
 {
 	RvaWeaponSlot *slot = m_weaponSet.rva002C73F7();
