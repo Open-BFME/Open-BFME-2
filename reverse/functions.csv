@@ -35899,3 +35899,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ??_GBoneFXUpdateModuleData@@UAEPAXI@Z,,0x0048785B,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-e9f1.cpp,matched,slot0 of 0x84B0E8 calls rowed dtor 0x487877
 ?GadgetListBoxUpdateColumnWidths@@YAXPAVGameWindow@@@Z,,0x003251F4,246,Code/GameEngine/Source/GameClient/GUI/Gadget/GadgetUserDataHelpers.cpp,matched,BFME1 donor GadgetListBox plus slider struct O1
 ??1BoneFXUpdate@@MAE@XZ,,0x00487ABF,161,Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateDtor.cpp,matched,ZH dtor plus vector Coord destroys and UpdateModule base
+?dup_0006BF2A@@YAXXZ,,0x0006BF2A,56,Code/GameEngine/Source/Common/System/SaveGame/CreateAHeroDataDtor.cpp,matched,gen-alias;object-symbol=??1?$_Rb_tree@HU?$pair@$$CBHH@_STL@@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@QAE@XZ;C++ alias; twin of rowed 0x0021B775 modulo clear-callee rel32
