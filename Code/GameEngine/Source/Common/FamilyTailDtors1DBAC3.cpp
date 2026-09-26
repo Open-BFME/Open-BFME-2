@@ -3,8 +3,17 @@
 // restore the class vtable, and tail-call the base destructor at 0x1DBAC3.
 // Owners are unidentified, so each keeps an address name; the base is
 // declared by its pinned destructor spelling. Deleting destructors follow.
+// vslot 0x0035DD9C (?Rva0035DD9C@Rva0035DCF9@@UAEXXZ, 33B, slot 3 offset 0xC
+// of vtable 0x00816574): hide windows at +0xC and +0x44 via rowed winHide
+// 0x00313C64; clears +0x8/+0x9. Evidence: vtable 0x00816574.
 
 class Rva001DBAC3Base { public: virtual ~Rva001DBAC3Base(); };
+
+class GameWindow
+{
+public:
+	int winHide(bool hide);
+};
 
 class Rva0035D47B : public Rva001DBAC3Base { public: virtual ~Rva0035D47B(); int m_pad[2]; int m_field; };
 Rva0035D47B::~Rva0035D47B() { m_field = 0; }
@@ -18,9 +27,37 @@ class Rva0035DA01 : public Rva001DBAC3Base { public: virtual ~Rva0035DA01(); int
 Rva0035DA01::~Rva0035DA01() { m_field = 0; }
 void famgenDelete(Rva0035DA01 *p) { delete p; }
 
-class Rva0035DCF9 : public Rva001DBAC3Base { public: virtual ~Rva0035DCF9(); int m_pad[2]; int m_field; };
-Rva0035DCF9::~Rva0035DCF9() { m_field = 0; }
+class Rva0035DCF9 : public Rva001DBAC3Base
+{
+public:
+	virtual ~Rva0035DCF9();
+	virtual void slot1();
+	virtual void slot2();
+	virtual void Rva0035DD9C();
+	virtual void slot4();
+	virtual void slot5();
+	virtual void slot6();
+	virtual void slot7();
+private:
+	char m_pad4[4];
+	bool m_8;
+	bool m_9;
+	char m_padA[2];
+	GameWindow *m_C;
+	char m_pad10[0x44 - 0x10];
+	GameWindow *m_44;
+};
+Rva0035DCF9::~Rva0035DCF9() { m_C = 0; }
 void famgenDelete(Rva0035DCF9 *p) { delete p; }
+
+void Rva0035DCF9::Rva0035DD9C()
+{
+	GameWindow *w1 = m_C;
+	m_8 = false;
+	m_9 = false;
+	w1->winHide(true);
+	m_44->winHide(true);
+}
 
 class Rva0035E00F : public Rva001DBAC3Base { public: virtual ~Rva0035E00F(); int m_pad[2]; int m_field; };
 Rva0035E00F::~Rva0035E00F() { m_field = 0; }
