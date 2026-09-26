@@ -20,6 +20,7 @@ private:
 template <typename T> class StringBase
 {
 public:
+	StringBase(const StringBase &other);
 	void set(const StringBase &other);
 
 private:
@@ -38,7 +39,14 @@ __declspec(noreturn) void __stdcall _CxxThrowException(void *pExc, void *pInfo);
 class UnicodeString
 {
 public:
+	UnicodeString(const UnicodeString &other)
+	{
+		((StringBase<unsigned short> *)this)->StringBase<unsigned short>::StringBase(*(const StringBase<unsigned short> *)&other);
+	}
+	~UnicodeString();
 	void releaseBuffer();
+
+	static const UnicodeString TheEmptyString;
 
 private:
 	unsigned short *m_data;
@@ -84,7 +92,8 @@ public:
   bool getNthBool(int n) const;
   int getNthInt(int n) const;
   float getNthReal(int n) const;
-	AsciiString getAsciiString(int key, bool *exists) const;
+ AsciiString getAsciiString(int key, bool *exists) const;
+ UnicodeString getUnicodeString(int key, bool *exists) const;
 
 private:
 	void releaseData();
@@ -381,4 +390,23 @@ AsciiString Dict::getAsciiString(int key, bool *exists) const
 	if (exists)
 		*exists = false;
 	return AsciiString::TheEmptyString;
+}
+
+// ?getUnicodeString@Dict@@QBE?AVUnicodeString@@HPA_N@Z @0x003135E6 71B
+// Dict Unicode getter twin of rowed getAsciiString at 0x0031359F. Checks for
+// DICT_UNICODESTRING via rowed findPairByKey at 0x0031313B then copies through
+// the pinned StringBase wide copy at 0x00037050 or returns TheEmptyString.
+// Caller at 0x002AFD6F. Prev getAsciiString next SidesList getter.
+UnicodeString Dict::getUnicodeString(int key, bool *exists) const
+{
+	DictPair *pair = findPairByKey(key);
+	if (pair && (pair->m_key & 0xFF) == DICT_UNICODESTRING)
+	{
+		if (exists)
+			*exists = true;
+		return *(UnicodeString *)&pair->m_value;
+	}
+	if (exists)
+		*exists = false;
+	return UnicodeString::TheEmptyString;
 }
