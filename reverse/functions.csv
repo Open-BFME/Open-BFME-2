@@ -35465,3 +35465,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ?Rva006882D0Get@@YAHXZ,,0x006882D0,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
 ?Rva006E3E14Get@@YAHXZ,,0x006E3E14,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
 ??_GLivingWorldRegionConnection@@UAEPAXI@Z,,0x003F2A70,28,Code/GameEngine/Source/Common/System/LivingWorldRegionConnectionDeletingDtor.cpp,matched,local-stub deleting dtor; complete dtor plus operator delete rows
+?FreeObject@Rva00065964ObjectPool@@QAEXPAX@Z,,0x00065964,38,Code/Libraries/Source/WWVegas/WWLib/Rva00065964ObjectPoolFree.cpp,matched,pooled-object free with lock plus volatile ordered stores; named lock pointer fixes pop scheduling
