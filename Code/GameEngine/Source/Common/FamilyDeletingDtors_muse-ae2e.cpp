@@ -8,3 +8,9 @@ class CreateObjectDieModuleData { public: __declspec(noinline) virtual ~CreateOb
   friend void famgenDelete(CreateObjectDieModuleData *p); };
 CreateObjectDieModuleData::~CreateObjectDieModuleData() { m_famgen = 0; }
 void famgenDelete(CreateObjectDieModuleData *p) { delete p; }
+
+// ??_GCreateObjectDieIfEldestKindofModuleData@@UAEPAXI@Z @0x485e6c
+class CreateObjectDieIfEldestKindofModuleData { public: __declspec(noinline) virtual ~CreateObjectDieIfEldestKindofModuleData(); private: int m_famgen;
+  friend void famgenDeleteEldest(CreateObjectDieIfEldestKindofModuleData *p); };
+CreateObjectDieIfEldestKindofModuleData::~CreateObjectDieIfEldestKindofModuleData() { m_famgen = 0; }
+void famgenDeleteEldest(CreateObjectDieIfEldestKindofModuleData *p) { delete p; }
