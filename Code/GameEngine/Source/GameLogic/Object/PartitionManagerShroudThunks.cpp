@@ -39,6 +39,12 @@ public:
 	void Rva00627810(void *ptr);
 };
 
+class ShroudManagerImpl008FBA40
+{
+public:
+	void setEnabled_Rva0073B460(bool value);
+};
+
 class PartitionManager
 {
 public:
@@ -52,6 +58,9 @@ public:
 	void rva00625300(const Region3D *region);
 	void rva00625310(int value);
 	void rva00625320(void *ptr);
+	// Retail 0x007397A0 forwards to ShroudManagerImpl008FBA40::setEnabled_Rva0073B460
+	// (single-byte enabled flag at +0x68). Identity unproven, honest address name.
+	void rva007397A0(bool value);
 
 private:
 	char m_pad[0x10];
@@ -82,7 +91,7 @@ void PartitionManager::setRegion(const Region3D *region, float cellSize)
 	m_shroudManager->setRegion(region, cellSize);
 }
 
-// ?rva00625300@PartitionManager@@QAEXPAURegion3D@@@Z
+// ?rva00625300@PartitionManager@@QAEXPBURegion3D@@@Z
 void PartitionManager::rva00625300(const Region3D *region)
 {
 	m_shroudManager->Rva006276E0(region);
@@ -98,4 +107,10 @@ void PartitionManager::rva00625310(int value)
 void PartitionManager::rva00625320(void *ptr)
 {
 	m_shroudManager->Rva00627810(ptr);
+}
+
+// ?rva007397A0@PartitionManager@@QAEX_N@Z
+void PartitionManager::rva007397A0(bool value)
+{
+	reinterpret_cast<ShroudManagerImpl008FBA40 *>(m_shroudManager)->setEnabled_Rva0073B460(value);
 }
