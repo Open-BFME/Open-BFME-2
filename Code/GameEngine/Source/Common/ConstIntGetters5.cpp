@@ -198,3 +198,26 @@ int Rva00019B50Get(void)
 {
 	return 0x7ffffffe;
 }
+
+// ?Rva0002BBC3Get@@YAHXZ @ 0x0002bbc3 (6B): returns 0x00ddf5b8.
+// Follows a ret tail, next function starts with mov ecx plus call.
+// No direct callers. Opaque address-derived name.
+int Rva0002BBC3Get(void)
+{
+	return 0x00ddf5b8;
+}
+
+// ?Rva00030A40Get@@YAHXZ @ 0x00030a40 (6B): returns 16.
+// Follows a ret tail, int3-padded after. No direct callers.
+// Opaque address-derived name.
+int Rva00030A40Get(void)
+{
+	return 16;
+}
+
+// ?Rva00030F58Get@@YAHXZ @ 0x00030f58 (6B): returns 126.
+// Follows a ret tail. No direct callers. Opaque address-derived name.
+int Rva00030F58Get(void)
+{
+	return 126;
+}
