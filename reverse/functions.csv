@@ -35983,3 +35983,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ??_GRemoveUpgradeUpgrade@@MAEPAXI@Z,,0x004B7FD5,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-b9d7.cpp,matched,scalar deleting dtor slot 0 vtable 0x858E20 needs dtor 0x4B7F01
 ?ensureUnique@Dict@@AAEPAUDictPair@1@H_NPAU21@@Z,,0x0031346B,265,Code/GameEngine/Source/Common/DictPairClear.cpp,matched,Dict ensureUnique from ZH donor with allocate plus memset and copyFrom
 ?Prepare_LOD@StreakLineClass@@UAEXAAVCameraClass@@@Z,,0x00741A80,60,Code/Libraries/Source/WWVegas/WW3D2/streak.cpp,matched,BFME omits ZH Add_Object tail; slot 0x168 Get_Screen_Size; clamp Current vs Max; between Set_End_Caps and Increment_LOD
+?Calculate_Texture_Matrix@LinearOffsetTextureMapperClass@@UAEXAAVMatrix4@@@Z,,0x001822E0,337,Code/Libraries/Source/WWVegas/WW3D2/LinearOffsetTextureMapperCalculate.cpp,matched,vtable slot 9 of 0x007D577C gap ScaleCopy GridReset ZH donor Linear Calculate
