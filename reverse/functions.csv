@@ -35767,3 +35767,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ?CRC_Stringi@@YAKPAD@Z,,0x003EC953,62,Code/Libraries/Source/WWVegas/WWLib/realcrc_one_arg.cpp,matched,1-arg case-insensitive one-shot CRC_Stringi with inline a-z fold and raw xor index. Shares realcrc.cpp CRC32_Table. Called by in-family wrapper 0x3ECA44.
 ?Rva00139090Get@@YAGXZ,,0x00139090,7,Code/GameEngine/Source/Common/GlobalWordGetters.cpp,matched,Global word getter over 0x00DB62D4; CC-island plus Ghidra-7 plus direct caller 0x12EE58; opaque address-derived name
 ?Rva0013ABB0Get@@YAGXZ,,0x0013ABB0,7,Code/GameEngine/Source/Common/GlobalWordGetters.cpp,matched,Global word getter over 0x00DFA2E6; CC-island plus Ghidra-7 plus direct caller 0x12E938; opaque address-derived name
+?get@Rva00464825DwordField@@QBEHXZ,,0x00464825,4,Code/GameEngine/Source/Common/Disp8DwordFieldGetters.cpp,matched,Disp8 NEG dword getter index -6 (disp E8); 17 rdata refs; opaque address-derived name
