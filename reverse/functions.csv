@@ -36348,3 +36348,4 @@ _Rva00680420,,0x00680420,17,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,mat
 ?xfer@SiegeDeployHordeSpecialPower@@MAEXPAVXfer@@@Z,,0x004C6416,92,Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeployHordeSpecialPowerXfer.cpp,matched,slot3 xfer via rowed base 0x589215 plus IsLightCRC plus Version12 plus ObjectID plus Coord plus gated int
 ??1AnimateWindowManager@@UAE@XZ,,0x0053B6E0,260,Code/GameEngine/Source/GameClient/GUI/AnimateWindowManager.cpp,matched,gap dtor via slot-0 deleter shim BFME1 donor
 ??_GAnimateWindowManager@@UAEPAXI@Z,,0x0053B827,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-2c79.cpp,matched,gap deleting dtor calls rowed dtor plus operator delete
+??1StructureCollapseUpdateModuleData@@UAE@XZ,,0x00256B94,86,Code/GameEngine/Source/GameLogic/Object/Update/StructureCollapseUpdateModuleDataDtor.cpp,matched,vtable 0xBF3E30 slot0 0x256B78 Rubble sibling pattern
