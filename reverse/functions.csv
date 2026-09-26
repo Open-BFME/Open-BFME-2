@@ -35950,3 +35950,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ??1BaseUpgradeModuleData@@UAE@XZ,,0x004B3785,69,Code/GameEngine/Source/GameLogic/Object/Upgrade/BaseUpgradeModuleDataCtor.cpp,matched,ModuleData dtor with 2 Strings plus Snapshot vtable no base call
 ??1FlammableUpdate@@UAE@XZ,,0x0048C724,77,Code/GameEngine/Source/GameLogic/Object/Update/FlammableUpdateDtor.cpp,matched,dtor calls rowed stopBurningSound 0x48C55E and pinned base 0x24A797
 ??1INIEntry@@UAE@XZ,,0x00616530,124,Code/Libraries/Source/WWVegas/WWLib/ini.cpp,matched,INIEntry dtor frees Entry and Value via rowed _STL free 0x30830 then unlinks GenericNode. Called by deleting dtor 0x6167C0
+??_GFlammableUpdate@@UAEPAXI@Z,,0x0048C8DD,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-d8bd2.cpp,matched,slot0 vtable 0x0084C3D4 calls rowed dtor 0x0048C724
