@@ -36336,3 +36336,4 @@ _Rva00680420,,0x00680420,17,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,mat
 ?xfer@Rva00589079@@MAEXPAVXfer@@@Z,,0x00589215,72,Code/GameEngine/Source/Common/Rva00589079Xfer.cpp,matched,slot3 xfer via Version1 plus base plus uint int uint float
 ?findLadder@LadderList@@QAEPBVLadderInfo@@ABVAsciiString@@G@Z,,0x0054D74B,151,Code/Libraries/Source/WWVegas/WWLib/LadderListFindLadder.cpp,matched,gap in asciistring_insert plus BFME1 LadderList donor plus JoinFailed caller
 ??_GDX8TextureCategoryClass@@UAEPAXI@Z,,0x001460C0,30,Code/Libraries/Source/WWVegas/WW3D2/DX8TextureCategoryDtor.cpp,matched,slot 0 vtable 0x7D3508 calls rowed dtor 0x144AF0 and delete 0x2FD60
+?xfer@Rva0045ADC1@@MAEXPAVXfer@@@Z,,0x0045AEC9,75,Code/GameEngine/Source/Common/Rva0045ADC1Xfer.cpp,matched,slot3 xfer via Version12 plus base plus bool plus gated uint
