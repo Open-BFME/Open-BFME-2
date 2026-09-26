@@ -22,6 +22,7 @@ class AsciiString
 {
 public:
 	~AsciiString();
+	AsciiString &operator=(const AsciiString &that);
 
 	Int compare(const AsciiString &that) const
 	{
@@ -56,10 +57,24 @@ inline bool operator==(const AsciiString &left, const AsciiString &right)
 struct CameraMarker
 {
 	~CameraMarker();
+	CameraMarker &operator=(const CameraMarker &src);
 
 	CameraMarker *m_next;
 	AsciiString m_name;
 };
+
+// ??4CameraMarker@@QAEAAV0@ABV0@@Z, retail 0x0028876F, 29 bytes.
+// CameraMarker copy assignment: copies the next link, then the name through
+// the rowed AsciiString assignment at 0x366F0. Called pairwise by the
+// CameraMarker range-copy loop at 0x48C897 and directly by the indexed
+// copy-out at 0xB82EB. Layout is the donor struct above (8 bytes); the
+// rowed 0x29D7C2 destructor plus the _Destroy stride prove the element.
+CameraMarker &CameraMarker::operator=(const CameraMarker &src)
+{
+	m_next = src.m_next;
+	m_name = src.m_name;
+	return *this;
+}
 
 // ??1CameraMarker@@QAE@XZ, retail 0x0029D7C2; clear() is its only caller.
 // Removing the definition also changes clear()'s inlining.

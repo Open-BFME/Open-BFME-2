@@ -35528,3 +35528,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ?Rva00318B39Get@@YAHXZ,,0x00318B39,6,Code/GameEngine/Source/Common/ConstIntGetters10.cpp,matched,B8-6 const-int returner cold slice standalone
 ?set@?$StringBase@G@@QAEXPBGHH@Z,0x00037E90,0x00037E90,96,Code/Libraries/Source/WWVegas/WWLib/StringBaseWideSet.cpp,matched,StringBase wide substring setter with wcslen measure plus range clamp plus rowed 2-arg set; /O2 for add-esp cleanup and dual epilogues
 ?set@?$StringBase@G@@QAEXABV1@HH@Z,0x00037EF0,0x00037EF0,118,Code/Libraries/Source/WWVegas/WWLib/StringBaseWideSet.cpp,matched,StringBase wide src-substring setter with triple length reads plus shared set tail; inline len pins evaluation order
+??4CameraMarker@@QAEAAU0@ABU0@@Z,,0x0028876F,29,Code/GameEngine/Source/GameClient/CameraMarkerListFind.cpp,matched,CameraMarker copy assignment with next link plus name via rowed AsciiString op; struct spelling per emission
