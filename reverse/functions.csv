@@ -35692,3 +35692,4 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ?name@Rva005E39E0Named@@QBEPBDXZ,,0x005E39E0,6,Code/GameEngine/Source/Common/ModuleNameGetters3.cpp,matched,B8-6 const string returner StrategicDetailsArmyRetinue.swf
 ?name@Rva005E717ENamed@@QBEPBDXZ,,0x005E717E,6,Code/GameEngine/Source/Common/ModuleNameGetters3.cpp,matched,B8-6 const string returner StrategicDetailsBuildQueue.swf
 ?name@Rva0061F62ANamed@@QBEPBDXZ,,0x0061F62A,6,Code/GameEngine/Source/Common/ModuleNameGetters3.cpp,matched,B8-6 const string returner no-asset-manager fallback
+?name@Rva00425DD7Named@@QBEPBDXZ,,0x00425DD7,6,Code/GameEngine/Source/Common/ModuleNameGetters4.cpp,matched,B8-6 const string returner Unknown
