@@ -1851,3 +1851,4 @@ FUN_004c92e8	0x000C92E8	14	blocked	vslot slot1 of 0xBCB9E0; validate-fold plus b
 ?Rva0035D14A@Rva0035D0D1@@UAEXH@Z	0x0035D14A	115	blocked	vslot2 update fade: retail esi=frame edi=start plus mov-dl forward kept for redundant test; probes give edx-frame plus cmp reload and folded 0.0f-1.0f stores (99 vs 115B). t=22 model=muse-06c4
 ??1W3DTornadoDrawModuleData@@UAE@XZ	0x000D1713	48	blocked	dtor stores only base vtable 0xBBB554 no derived 0xBCE198; probe with virtual model emits both plus 6B. t=15 model=muse-06c4
 FUN_004ab0f5	0x000AB0F5	76	blocked	gap between deleting dtors but body is Armor hashtable find plus new4 plus ObjectLookupMap findSlot sharing this+0x1c; enclosing class unproven t=15 model=muse-10df
+FUN_004A2C30	0x004A2C30	68	blocked	vslot3 of 0x851FC0 calls Xfer vtable 0x28 plus UpdateModule xfer plus 0x90 with arg-slot reuse at ebp+b; Xfer slot layout and derived xfer identity need proof t=15 model=muse-10df
