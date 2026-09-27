@@ -392,12 +392,10 @@ Int GameLODManager::getStaticGameLODIndex(AsciiString name)
 /**Parse a description of all the LOD settings for a given detail level*/
 // ?parseStaticGameLODDefinition@INI@@SAXPAV1@@Z
 // The "StaticGameLOD" block. BFME's field set is not Zero Hour's, so this table
-// carries the offsets retail's own table at 0x01076760 holds rather than
-// offsetof against a reconstructed struct: the element is 0x30 bytes (the parse
-// function indexes it as index*0x30) but not every member type past the offset
-// is pinned yet. m_staticGameLODInfo sits at offset 0 of GameLODManager --
-// retail computes the element address as TheGameLODManager + index*0x30 with
-// nothing added.
+// carries the offsets retail's own table at 0x00BE3478 holds rather than
+// offsetof against a reconstructed struct. The matching retail parser passes
+// TheGameLODManager + 0x1c8 + (index << 4) to initFromINI; this proves the
+// address formula, not the complete layout of the parsed region.
 static const FieldParse TheBFMEStaticGameLODFieldParseTable[] =
 {
 	{ "MaxParticleCount",			INI::parseInt,			NULL,	0x00 },
@@ -425,14 +423,15 @@ static const FieldParse TheBFMEStaticGameLODFieldParseTable[] =
 /*static*/ void INI::parseStaticGameLODDefinition( INI* ini )
 {
 	AsciiString name;
-	name = ini->getNextToken();
+	((StringBase<char> *)&name)->set(ini->getNextToken());
 
 	if( TheGameLODManager )
 	{
 		Int index = TheGameLODManager->getStaticGameLODIndex( name );
 		if( index != STATIC_GAME_LOD_UNKNOWN )
 		{
-			void *lodInfo = (char *)TheGameLODManager + index * 0x30;
+			// Retail computes manager + 0x1c8 + (index << 4) here.
+			void *lodInfo = (char *)TheGameLODManager + index * 16 + 0x1c8;
 			ini->initFromINI( lodInfo, TheBFMEStaticGameLODFieldParseTable );
 		}
 	}
