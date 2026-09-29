@@ -1,4 +1,6 @@
 // ?Update_Obj_Space_Bounding_Volumes@HLodClass@@MAEXXZ
+// partial score=0.976 date=2026-09-29
+// ?Update_Obj_Space_Bounding_Volumes@HLodClass@@MAEXXZ
 // partial score=0.9760095962 date=2026-09-27
 // cl: /Ireference/shims/bfme2renderobj /Ireference/shims /Ireference/shims/bfmerendobj /G7 /arch:SSE /DNDEBUG /MD /Ireference/shims/bfmevector /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep
 // Banked HLodClass::Update_Obj_Space_Bounding_Volumes: RVA19DB50,2501B.
