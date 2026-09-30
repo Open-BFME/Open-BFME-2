@@ -44910,3 +44910,4 @@ _FreeGame,,0x00606EE0,101,Code/GameEngine/Source/GameNetwork/GameSpy/gstats/gsta
 ??1BroadcastStealthUpdate@@UAE@XZ,,0x004A3555,88,Code/GameEngine/Source/GameLogic/Object/Update/BroadcastStealthUpdateDtor.cpp,matched,dtor: four vtables then helper 0x004A33EE (pinned) then inline PoolMember release at +0x28 then base 0x0024A797
 ?Rva002E3714Unlink@@YAXPAURva002E36D5Node@@@Z,,0x002E3714,40,Code/GameEngine/Source/Common/Rva002E3714Unlink.cpp,matched,unlink node from the 0x00DFF0B8 list via +0x3C next; callers follow Rva002E36D5Find
 ??1AIGateUpdate@@UAE@XZ,,0x004B0802,116,Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdateDtor.cpp,matched,dtor: find by +0x24 ID then unlink then notify 0x0023D661 then slot-0 delete; base 0x0024A797
+?bfmeDescribe@Gen_00881040@@QAEXPAVBfmeFlagTarget@@@Z,,0x00625530,46,Code/GameEngine/Source/GameClient/Open2Twins006.cpp,matched,BFME1 byte-identical donor; b1 0x00881040; 1 REL32 call site
