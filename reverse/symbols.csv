@@ -6671,3 +6671,4 @@ _tan,0x0062993A,CRT import thunk; retail target of the tan call in Rva005046B0Sc
 ?rva0046183B@FakePathfindPortalBehaviour@@QAEXXZ,0x0046183B,called on this from the FakePathfindPortalBehaviour dtor 0x004619F2 in EH state 0; second caller 0x0046190A adjusts this by -0x20 from the +0x20 interface
 ?rva004A33EE@BroadcastStealthUpdate@@QAEXXZ,0x004A33EE,called on this from the BroadcastStealthUpdate dtor 0x004A3555 in EH state 1; second caller 0x004A35DE
 ?bfmeAccept@BfmeSinkA@@QAEXPAVBfmeFlagTarget@@@Z,0x00758CF0
+?bfmeMakeWideResult@BfmeWideResultSource@@QAE?AUBfmeWideResult@@HHHHHH@Z,0x00628770
