@@ -5801,3 +5801,4 @@ _Rva00812690	0x0067E590	1507	blocked	Ghidra FUN_00a7e590 boundary 1507B; matched
 ??1Rva005F2B22@@UAE@XZ	0x005F2B22	84	blocked	extra push ecx and mov ecx edi after state not before t=15 model=muse-09 (stash 0.95 kept)
 ?rva0070EDC0@Rva0070EDC0@@QAEXHH@Z	0x0070EDC0	550	blocked	complex Apt slide with 8-way switch plus 3 sort calls plus hash teardown needs donor t=20 model=muse-spark
 ??0Rva0041F8F4@@QAE@XZ	0x0041F8F4	31	partial	call to dup 0x0041F720 resolves to owner 0x00360B59 via true hashtable name; needs dup-name thiscall emission blocked by C4234 or second pin blocked by pin_consistency t=25 model=muse-spark score=0.96 stash=reverse/attempts/0x0041f8f4.cpp
+?method@Rva0089EFE0@@QAEHD@Z	0x006D5580	35	blocked	BFME1 EAString.cpp uniquely places the wrapper, but its native thiscall RET8 callee 0x006D47F0 has no recovered C++ definition; a pin alone would leave the imported unit unlinked. Original receiver/member identity remains unknown. t=8min model=Codex-GPT-6
