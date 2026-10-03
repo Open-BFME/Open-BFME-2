@@ -102,6 +102,7 @@ public:
 		AnimationSoundTreeNode *b,
 		void const *v,
 		AnimationSoundTreeNode *c);
+	AnimationSoundTreeNode **rva004CA68B(AnimationSoundTreeNode **out, void const *v);
 
 private:
 	AnimationSoundTreeHeaderHandle m_handle;
@@ -268,4 +269,25 @@ void AnimationSoundTree::rva004CA293(
 		(_STL::_Rb_tree_node_base *&)((AnimationSoundTreeHead *)m_handle.m_header)->m_parent);
 	++m_count;
 	out = node;
+}
+
+// ?rva004CA68B@AnimationSoundTree@@QAEPAPAUAnimationSoundTreeNode@@PAPAU2@PBX@Z, retail 0x004CA68B, 74 bytes.
+// RB find-or-insert for the AnimationSoundTree: walk from root via the member
+// twin compare at +8 (v first, node+0x10 second), left on true (+8) else right
+// (+0xC), then insert through rowed rva004CA293 with out, 0, parent, v, 0 and
+// return out. Layout header+0 count+4 compare+8 from siblings.
+// Evidence: callees rowed 0x004C9D93 plus 0x004CA293; callers at 0x004CA6FD etc.
+AnimationSoundTreeNode **AnimationSoundTree::rva004CA68B(AnimationSoundTreeNode **out, void const *v)
+{
+	AnimationSoundTreeNode *parent = (AnimationSoundTreeNode *)m_handle.m_header;
+	AnimationSoundTreeNode *cur = ((AnimationSoundTreeHead *)parent)->m_parent;
+	while (cur) {
+		parent = cur;
+		if (m_compare.rva004C9D93Compare((void *)v, (char *)cur + 0x10))
+			cur = cur->m_left;
+		else
+			cur = cur->m_right;
+	}
+	rva004CA293((AnimationSoundTreeNode *&)*out, 0, parent, v, 0);
+	return out;
 }
