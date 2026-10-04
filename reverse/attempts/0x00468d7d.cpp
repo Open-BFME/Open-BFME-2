@@ -1,3 +1,5 @@
+// ?rva00468D7D@HordeContain@@UAEXPAVObject@@@Z
+// partial score=0.85 date=2026-10-04
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /arch:SSE /EHs /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 //
@@ -322,6 +324,7 @@ public:
 	virtual bool rva0047306E(Object *obj, int a2);
 	virtual bool rva00468DCD(Object *obj);
 	virtual bool rva0046A4C8();
+	virtual void rva00468D7D(Object *obj);
 	virtual void rva0046981C();
 	virtual void rva00469851();
 	virtual void rva00468BDC(int on);
@@ -673,6 +676,22 @@ bool HordeContain::rva00468DCD(Object *obj)
 	if ((obj->m_74 == m_288 || id == m_288) && TheGameLogic->m_frame < m_28C)
 		return true;
 	return m_2C8->rva00468DCDSlot14(obj);
+}
+
+// ?rva00468D7D@HordeContain@@UAEXPAVObject@@@Z @0x00468D7D: slot 89, for the
+// Object recorded at +0x288 (matched as slot 85 does) pushes +0x28C to three
+// times g_009BA4E4 frames from now.
+void HordeContain::rva00468D7D(Object *obj)
+{
+	if (!obj)
+		return;
+	int id = obj->m_74;
+	unsigned int delay = g_009BA4E4 * 3;
+	Object *other = obj->rva002931F5(false);
+	if (other)
+		id = other->m_74;
+	if (obj->m_74 == m_288 || id == m_288)
+		m_28C = TheGameLogic->m_frame + delay;
 }
 
 // ?rva0046981C@HordeContain@@UAEXXZ @0x0046981C: slot 121, slot 118 for each name
