@@ -36,6 +36,7 @@
 // condition on every member.
 
 #include <list>
+#include <string.h>
 
 typedef int Int;
 
@@ -104,15 +105,41 @@ public:
 	unsigned int m_18;
 };
 
+// WeaponSetFlags is BitFlags<117> in BFME 2 (0x10 bytes, zeroed with memset).
+template <int Bits>
+class BitFlags
+{
+public:
+	BitFlags() { memset(m_words, 0, sizeof(m_words)); }
+	void set(unsigned int i) { m_words[i >> 5] |= 1u << (i & 0x1F); }
+private:
+	unsigned int m_words[4];
+};
+typedef BitFlags<117> WeaponSetFlags;
+enum WeaponSetType
+{
+	WEAPONSET_VETERAN = 0
+};
+class WeaponTemplateSet;
+class ThingTemplate
+{
+public:
+	const WeaponTemplateSet *findWeaponTemplateSet(const WeaponSetFlags &t) const;
+};
+
 class Object
 {
 public:
+	const ThingTemplate *getTemplate() const { return m_template; }
+	void setWeaponSetFlag(WeaponSetType wst);
 	void rva0028C20F(int x);
 	const Weapon *getCurrentWeapon(WeaponSlotType *slot) const;
 	bool setWeaponLock(WeaponSlotType weaponSlot, WeaponLockType lockType);
 	void releaseWeaponLock(WeaponLockType lockType);
 	void setSpecialModelConditionState(ModelConditionFlagType mc, unsigned int frames);
-	char m_pad[0x258];
+	char m_pad[0x04];
+	const ThingTemplate *m_template; // +0x04
+	char m_pad08[0x258 - 0x08];
 	AIUpdateInterface *m_ai;
 };
 
@@ -127,6 +154,7 @@ public:
 	bool setWeaponLockForGroup(WeaponSlotType weaponSlot, WeaponLockType lockType);
 	void rva0036DDCD(int x);
 	void releaseWeaponLockForGroup(WeaponLockType lockType);
+	void setWeaponSetFlag( WeaponSetType wst );
 
 private:
 	std::list<Object *> m_memberList;
@@ -235,5 +263,30 @@ void AIGroup::releaseWeaponLockForGroup(WeaponLockType lockType)
 	for( i = m_memberList.begin(); i != m_memberList.end(); ++i )
 	{
 		(*i)->releaseWeaponLock(lockType);
+	}
+}
+
+// ?setWeaponSetFlag@AIGroup@@QAEXW4WeaponSetType@@@Z
+// AIGroup::setWeaponSetFlag, retail 0x0036DE17 (114 bytes), after
+// releaseWeaponLockForGroup as in retail: Zero Hour's walk setting the weapon
+// set flag on the members whose template has a weapon set for it
+// (ThingTemplate::findWeaponTemplateSet 0x0033DCD1 on template +0x04; the
+// rowed Object::setWeaponSetFlag 0x00290963).
+void AIGroup::setWeaponSetFlag( WeaponSetType wst )
+{
+	std::list<Object *>::iterator i;
+	for( i = m_memberList.begin(); i != m_memberList.end(); ++i )
+	{
+		Object *obj = (*i);
+		//First check to see if our object even has the specified weaponset. It's very
+		//likely that a selected group won't all have the same weaponset options, so
+		//only set it for those members that have it.
+		WeaponSetFlags flags;
+		flags.set( wst );
+		const WeaponTemplateSet* set = obj->getTemplate()->findWeaponTemplateSet( flags );
+		if( set )
+		{
+			obj->setWeaponSetFlag( wst );
+		}
 	}
 }
