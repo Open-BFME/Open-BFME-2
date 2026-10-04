@@ -118,9 +118,26 @@ private:
 	char m_unmodelled[0x1D4];
 };
 
+class Drawable;
+struct RayEffectData;
+
+class RayEffectSystem
+{
+public:
+	void getRayEffectData(const Drawable *draw, RayEffectData *effectData);	///< pinned 0x002CEDF1
+	void deleteRayEffect(const Drawable *draw);								///< pinned 0x002CEDD7
+};
+
+extern RayEffectSystem *TheRayEffects;
+
+// Slots 19 and 20 of 0x00BC4738 (0x00238F34, 0x00238F29) are Zero Hour's
+// GameClient ray-effect pass-throughs to TheRayEffects (VA 0x00DFEFF4),
+// lone tail jumps.
 class Rva004C743
 {
 public:
+	virtual void removeFromRayEffects(Drawable *draw);
+	virtual void getRayEffectData(Drawable *draw, RayEffectData *effectData);
 	void *rva0004C45D();
 	void *rva0004C492();
 	void *rva0004C4C7();
@@ -178,4 +195,14 @@ Win32Mouse *Rva004C743::rva0004C709()
 void *Rva004C743::rva0004C8DD()
 {
 	return new Rva0009D55BProduct;
+}
+
+void Rva004C743::removeFromRayEffects(Drawable *draw)
+{
+	TheRayEffects->deleteRayEffect(draw);
+}
+
+void Rva004C743::getRayEffectData(Drawable *draw, RayEffectData *effectData)
+{
+	TheRayEffects->getRayEffectData(draw, effectData);
 }
