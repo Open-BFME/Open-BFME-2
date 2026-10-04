@@ -54030,3 +54030,4 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ?rva002C5AE6@Rva002C589B@@QAEMXZ,,0x002C5AE6,96,Code/GameEngine/Source/Common/Rva002C589BMax.cpp,matched,finish stash 0.99 max array float plus m_28 pin QAEMXZ
 ??_GRva0043DABD@@UAEPAXI@Z,,0x0043DAEB,28,Code/GameEngine/Source/Common/Rva0043DABD.cpp,matched,chain deleting dtor from own ??1 unit slot0 vtable 0x0083D954
 ?rva006E4A90@Rva006E3230@@QAEXXZ,,0x006E4A90,239,Code/Libraries/Source/Apt/Rva006E4FF0Cluster.cpp,matched,Apt pool drain via rowed rva006E3230 and slot1 virtuals from Validate sibling
+?rva005509AF@Rva00550995Owner@@QAEXPAVLockClass@CriticalSectionClass@@@Z,,0x005509AF,35,Code/Libraries/Source/WWVegas/WWLib/Rva00550995LockCleanup.cpp,matched,setter via clearLock TU member plus0 Lock dtor 0x613B80 delete 0x2FD60 caller 0x50FC5

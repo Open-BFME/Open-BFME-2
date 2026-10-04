@@ -12,6 +12,7 @@ class Rva00550995Owner
 {
 public:
     void clearLock();
+    void rva005509AF(CriticalSectionClass::LockClass *newLock);
 private:
     CriticalSectionClass::LockClass *m_lock;
 };
@@ -21,4 +22,15 @@ void Rva00550995Owner::clearLock()
     CriticalSectionClass::LockClass *lock = m_lock;
     m_lock = 0;
     delete lock;
+}
+
+void Rva00550995Owner::rva005509AF(CriticalSectionClass::LockClass *newLock)
+{
+    CriticalSectionClass::LockClass *old = m_lock;
+    if (newLock == old)
+        return;
+    m_lock = newLock;
+    if (!old)
+        return;
+    delete old;
 }
