@@ -17,6 +17,14 @@
 // FreezingRainSpecialPower 0x004C4D22 (79 bytes, vftable 0x00C5D700):
 // helper 0x004C4C99, then hands the module data's +0x84 value to the
 // g_00DFEC68 manager (0x00287519).
+// ElvenWoodSpecialPower 0x004C3CFF (77 bytes, vftable 0x00C5CE28): Taint's
+// shape with the name at module data +0x88 and helper 0x004C3B17.
+// ElvenWoodSpecialPower slots 10 and 11 are also the slot-10/11 entries of
+// the CloudBreak, Taint and FreezingRain vftables (identical code folded to
+// one copy): slot 10 0x004C4C4B (78 bytes, doSpecialPower) places the power
+// at a copy of the Object's own position, slot 11 0x004C4E63 (48 bytes,
+// doSpecialPowerAtObject) at the target Object's position, both through the
+// virtual slot 12 and both nothing while the Object is disabled.
 // CloudBreakSpecialPower 0x004C482B (80 bytes, vftable 0x00C5D3C8): helpers
 // 0x004C4621 (with the location) and 0x004C4582, then clears +0x98 of the
 // g_00DFEC68 manager.
@@ -37,7 +45,17 @@ private:
 
 #include "string_base.h"
 
-class Object;
+class Object
+{
+public:
+	bool isDisabled() const { return m_disabledMask.any(); }
+	const Coord3D *getPosition() const { return &m_position; }
+private:
+	unsigned char m_pad000[0x38];
+	Coord3D m_position;		// +0x38
+	unsigned char m_pad044[0x1C8 - 0x44];
+	BitFlags<11> m_disabledMask;	// +0x1C8
+};
 
 // Object's disabled mask is at +0x1C8. Retail forms its address (and the
 // Taint module data's +0x7C name) by adding the offset to the pointer loaded
@@ -85,8 +103,8 @@ public:
 	virtual void s07() = 0;
 	virtual void s08() = 0;
 	virtual void s09() = 0;
-	virtual void s0A() = 0;
-	virtual void s0B() = 0;
+	virtual void doSpecialPower(unsigned int options) = 0;
+	virtual void doSpecialPowerAtObject(Object *obj, unsigned int options) = 0;
 	virtual void doSpecialPowerAtLocation(const Coord3D *loc, unsigned int options) = 0;
 };
 
@@ -95,6 +113,15 @@ class SpecialPowerModule : public ModuleBase, public BehaviorModuleInterface,
 {
 public:
 	virtual void doSpecialPowerAtLocation(const Coord3D *loc, unsigned int options);	// 0x004949D8
+};
+
+class ElvenWoodSpecialPower : public SpecialPowerModule
+{
+public:
+	virtual void doSpecialPower(unsigned int options);
+	virtual void doSpecialPowerAtObject(Object *obj, unsigned int options);
+	virtual void doSpecialPowerAtLocation(const Coord3D *loc, unsigned int options);
+	void rva004C3B17(const Coord3D *loc);
 };
 
 class DarknessSpecialPower : public SpecialPowerModule
@@ -190,4 +217,43 @@ void CloudBreakSpecialPower::doSpecialPowerAtLocation(const Coord3D *loc, unsign
 	rva004C4621(loc);
 	rva004C4582();
 	g_00DFEC68->clear98();
+}
+
+void ElvenWoodSpecialPower::doSpecialPower(unsigned int options)
+{
+	Object *object = m_object;
+	if (object->isDisabled())
+		return;
+	Coord3D pos;
+	pos.x = object->getPosition()->x;
+	pos.y = object->getPosition()->y;
+	pos.z = object->getPosition()->z;
+	doSpecialPowerAtLocation(&pos, options);
+}
+
+void ElvenWoodSpecialPower::doSpecialPowerAtObject(Object *obj, unsigned int options)
+{
+	const void *object = m_object;
+	const BitFlags<11> *disabled = (const BitFlags<11> *)((const char *)object + 0x1C8);
+	if (disabled->any())
+		return;
+	if (obj == 0)
+		return;
+	doSpecialPowerAtLocation(obj->getPosition(), options);
+}
+
+void ElvenWoodSpecialPower::doSpecialPowerAtLocation(const Coord3D *loc, unsigned int options)
+{
+	const void *object = m_object;
+	const BitFlags<11> *disabled = (const BitFlags<11> *)((const char *)object + 0x1C8);
+	if (disabled->any())
+		return;
+	if (loc == 0)
+		return;
+	const void *data = m_moduleData;
+	const StringBase<char> *name = (const StringBase<char> *)((const char *)data + 0x88);
+	if (name->isEmpty())
+		return;
+	SpecialPowerModule::doSpecialPowerAtLocation(loc, options);
+	rva004C3B17(loc);
 }
