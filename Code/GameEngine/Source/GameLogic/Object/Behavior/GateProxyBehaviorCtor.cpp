@@ -44,6 +44,7 @@ class GateOpenAndCloseBehavior : public ProxyBaseA, public ProxyBaseB, public Pr
 {
 public:
 	GateOpenAndCloseBehavior(Thing *thing, const ModuleData *moduleData);
+	virtual ~GateOpenAndCloseBehavior(); // out of line: GateOpenAndCloseBehaviorDtor.cpp
 
 private:
 	unsigned char m_pad[0x4C - 0x18];

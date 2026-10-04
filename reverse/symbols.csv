@@ -8761,3 +8761,4 @@ _Rva0030CAF8CursorEqual,0x0007E394,twin of dup_0007e394 29B exact cursor equalit
 ??1Rva00042100@@UAE@XZ,0x00042100,"destructor of the Win32GameEngine slot 31 product (a lone jmp to base dtor 0x00256E96); REL32 in its scalar deleting destructor 0x000420E7"
 ??_ERva0004208C@@UAEPAXI@Z,0x00042070,"vector deleting destructor name the this-adjusting thunk 0x00042068 jumps to; the linker resolves it to the scalar deleting destructor at the same address (weak external)"
 ??_ERva00042100@@UAEPAXI@Z,0x000420E4,"vector deleting destructor name the this-adjusting thunk 0x000420DC jumps to; the linker resolves it to the scalar deleting destructor at the same address (weak external)"
+??_EGateOpenAndCloseBehavior@@UAEPAXI@Z,0x00498964,weak-external alias MSVC emits for the vector deleting dtor when no new[] exists; resolves to the rowed scalar deleting dtor; retail adjustor thunk 0x0049884F jumps to 0x00498964

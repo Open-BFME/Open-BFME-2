@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /O1 /DNDEBUG /MD /arch:SSE /GX
 //
 // Four GateOpenAndCloseBehavior overrides on the primary vtable 0x00C50178
 // that its matched ctor 0x0049889C installs at +0 (the gate interface ahead of
@@ -18,6 +18,17 @@
 // bytes: slot 8; the same when slot 6 holds, with state 2.
 // ?rva00498806@GateOpenAndCloseBehavior@@UAEXXZ, retail 0x00498806, 23
 // bytes: slot 9; slot 8 when slot 6 holds, else slot 7.
+//
+// The destructor family enters through the UpdateModule vtable 0x00C50144 at
+// +4, so its slot 0 holds an adjustor thunk:
+// ??1GateOpenAndCloseBehavior@@UAE@XZ, retail 0x00498798, 92 bytes: restores
+// the four vptrs (0x00C50178 +0, 0x00C50144 +4, 0x00BEF248 +0x10, 0x00C50138
+// +0x14), removes this from the global gate list ([0x00DFEEF8]+0x940, the
+// list the ctor appends to) through the rowed 0x004E908C, then runs the
+// UpdateModule base dtor 0x0024A797.
+// ??_GGateOpenAndCloseBehavior@@UAEPAXI@Z, retail 0x00498964, 28 bytes.
+// ??_EGateOpenAndCloseBehavior@@W3AEPAXI@Z, retail 0x0049884F, 8 bytes:
+// this-4 then the deleting dtor.
 
 class Object;
 class Thing;
@@ -34,6 +45,20 @@ private:
 	unsigned int m_frame;
 };
 extern GameLogic *TheGameLogic;
+
+class GateOpenBehaviorList
+{
+public:
+	void rva004E908C(void *item);
+};
+
+class Rva002A8F24
+{
+public:
+	unsigned char m_pad[0x940];
+	GateOpenBehaviorList *m_gateList; // +0x940
+};
+extern Rva002A8F24 *g_00DFEEF8;
 
 class GatePrimary
 {
@@ -63,6 +88,8 @@ struct BehaviorModuleInterface { virtual void f0C(); };
 struct UpdateModuleInterface { virtual void f10(); };
 class UpdateModule : public BehaviorModule, public BehaviorModuleInterface, public UpdateModuleInterface
 {
+public:
+	virtual ~UpdateModule();
 protected:
 	unsigned int m_14;
 	int m_18;
@@ -72,6 +99,7 @@ protected:
 class GateOpenAndCloseBehavior : public GatePrimary, public UpdateModule
 {
 public:
+	virtual ~GateOpenAndCloseBehavior();
 	virtual bool rva00498BAF(Object *object);
 	virtual void rva004991CB();
 	virtual void rva0049920B();
@@ -87,6 +115,13 @@ private:
 	float m_38;
 	unsigned int m_3C; // +0x3C
 };
+
+// ??1GateOpenAndCloseBehavior@@UAE@XZ @0x00498798
+GateOpenAndCloseBehavior::~GateOpenAndCloseBehavior()
+{
+	GateOpenBehaviorList *list = g_00DFEEF8->m_gateList;
+	list->rva004E908C(this);
+}
 
 // ?rva00498BAF@GateOpenAndCloseBehavior@@UAE_NPAVObject@@@Z @0x00498BAF
 bool GateOpenAndCloseBehavior::rva00498BAF(Object *object)
