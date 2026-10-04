@@ -8822,3 +8822,11 @@ _Rva0030CAF8CursorEqual,0x0007E394,twin of dup_0007e394 29B exact cursor equalit
 ?isEqualCommandMsg@NetCommandList@@QAE_NPAVNetCommandMsg@@0@Z,0x0058B174,Zero Hour NetCommandList::isEqualCommandMsg(msg1 / msg2): findMessage(NetCommandMsg *) 0x0058B4E2 calls it at 0x0058B4F4 and addMessage 0x0058B2C6 four times; body compares the timestamps (+4) then DoesCommandRequireACommandID on both types (+0x14) then the ids / players as Zero Hour's does (returns al)
 ?rva005EE317@Rva005EE816@@QAEXPAUCoord3D@@@Z,0x005EE317,member view of the rowed ?Rva005EE317@@YGXPAVCoord3D@@@Z (ret 4; ignores ECX): REL32 at 0x005D80B9 in 0x005D7FA6 with ECX the AoE picker and the out direction pushed
 ?Rva00328700@@YAHPAVGameWindow@@@Z,0x00328700,"cdecl helper taking a window, called by push-button window slot 5 0x000A495E (REL32 at 0x000A495F); identity not recovered"
+??0Rva00049DEAProduct@@QAE@XZ,0x00049DEA,"constructor storing vtable 0x00BC3C80; REL32 in game client vtable 0x00BC4738 factory 0x0004C45D after new 0x2B0"
+??0Rva0008EF3FProduct@@QAE@XZ,0x0008EF3F,"constructor storing vtable 0x00BC7A88; REL32 in game client vtable 0x00BC4738 factory 0x0004C492 after new 0xAC0"
+??0Rva008FCA3@@QAE@XZ,0x0008FC51,"constructor storing vtable 0x00BC7C90; REL32 in game client vtable 0x00BC4738 factory 0x0004C4C7 after new 0x40"
+??0Rva00091A80Product@@QAE@XZ,0x00091A80,"constructor storing vtable 0x00BC80A0; REL32 in game client vtable 0x00BC4738 factory 0x0004C5C6 after new 0x24"
+??0Rva0009525EProduct@@QAE@XZ,0x0009525E,"constructor storing vtable 0x00BC8208; REL32 in game client vtable 0x00BC4738 factory 0x0004C62D after new 0x108"
+??0Rva00098667Product@@QAE@XZ,0x00098667,"constructor storing vtable 0x00BC8358; REL32 in game client vtable 0x00BC4738 factory 0x0004C694 after new 0x68"
+??0W3DMouse@@QAE@XZ,0x00098E69,"constructor of the 0x60A8-byte mouse the game client createMouse slot (0x0004C709) builds and stores in TheWin32Mouse (vtable 0x00BC86D8); ZH W3DMouse by that shape (inferred)"
+??0Rva0009D55BProduct@@QAE@XZ,0x0009D55B,"constructor storing vtable 0x00BC89C8; REL32 in game client vtable 0x00BC4738 factory 0x0004C8DD after new 0x1D4"
