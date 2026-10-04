@@ -1,42 +1,6 @@
 // ?rva0070ABC0@AptNativeHash@@QAEXXZ
 // partial score=0.99 date=2026-10-05
 // ?rva0070ABC0@AptNativeHash@@QAEXXZ
-// partial score=0.99 date=2026-10-04
-// ?rva0070ABC0@AptNativeHash@@QAEXXZ
-// partial score=0.99 date=2026-10-04
-// ?rva0070ABC0@AptNativeHash@@QAEXXZ
-// partial score=0.99 date=2026-10-04
-// ?rva0070ABC0@AptNativeHash@@QAEXXZ
-// Seat-4 re-bank of the 0x0070ABC0 partial. The swap tail was rewritten from the
-// bank's two-operand-at-a-time spelling to four captured operands, ordered so that
-// both newTable fields are read before either is stored:
-//   od = mpData; nd = newTable.mpData; ns = newTable.mnTotalSize;
-//   mpData = nd; os = mnTotalSize; newTable.mpData = od;
-//   mnTotalSize = ns; newTable.mnTotalSize = os;
-// That is the only source form this compiler emits retail's tail schedule under.
-// The bank asserted no ordering of the four assignments reaches it; a search over
-// all 8! orderings of the eight tail statements shows the opposite -- several
-// orderings DO reproduce it -- but only of a tail that captures all four operands.
-// Every ordering of the bank's three capture shapes (with mpData[i].value kept in
-// the loop) stays at 6 differing bytes, so the captures are what matters, not their
-// order. This takes the residual from 6 differing bytes to ONE (offset 103).
-//
-// The remaining byte is a pure SIB base/index role swap in the migrated-value
-// load: retail reads mov ebx,[ebx+ecx*1+0x4] -- base=EBX, the loop's i*8 byte
-// offset -- where this build emits mov ebx,[ecx+ebx*1+0x4], base=ECX. Same base and
-// index registers, same displacement, same loaded value; only the SIB byte's
-// base/index fields differ. It is structurally forced here, swept and rejected:
-//   - reading the value through the entry pointer (e->value, &e->value, char*-plus-4
-//     offsets, const-qualified, and a two-local spelling) either collapses the body
-//     to 183B with the first difference moving to +0x18 (the i*8 offset is then only
-//     live through ESI, never in EBX) or is byte-identical;
-//   - re-deriving the entry address in the loop (a second Entry*, a char* cast,
-//     an index-free loop head) is byte-identical at 1 differing byte;
-//   - every /G* flag (G3 G4 G5 G6 Gd Gr Gs Gs- Gt Gw Gw- Gy Gy- Gi) is identical,
-//     as are /Ot /Ob2 /Ox /Gs /Oi-; /G7 is worse (7 differing from +0x1E), /Oy-
-//     regresses to a 190B ebp frame, and /O1 to 167B.
-// Cl 7.1 orders the SIB base before the index for both roles, so this single byte is
-// not reachable from source.
 // cl: /O2 /MD
 // Reconstructed from BFME2 and APT 0.19.03 Xbox final donor evidence, matching
 // the layout and flags of Code/Libraries/Source/Apt/AptNativeHashBFME2.cpp.
