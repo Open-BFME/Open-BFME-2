@@ -55670,3 +55670,4 @@ __Locale_ctype_create,,0x00022360,1316,Code/Libraries/Source/WWVegas/WWLib/stlpo
 ?rva00306C15@Rva00306C49@@QAEHPAXH@Z,,0x00306C15,45,Code/GameEngine/Source/Common/System/Rva00306C15MemoryChunkRead.cpp,matched,memory chunk stream read as slot 0 of VA 0xBEDAA8; cmovg needs /arch:SSE
 ?rva005D4118@Rva005D4118@@QAEXXZ,,0x005D4118,41,Code/GameEngine/Source/Common/Rva005D40A6Dtor.cpp,matched,flash apt call via EmptyString fallback and rowed AptCall caller 0x0057A37D
 ??1Rva003ABC0B@@UAE@XZ,,0x003ABC0B,22,Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003ABC0BDtor.cpp,matched,null guarded vptr restore plus tail jmp to base
+??0Rva003ACC7C@@QAE@PAX0@Z,,0x003ACC7C,49,Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003ACC7CCtor.cpp,matched,chain ctor calls base 0x003ABFE1 then vtable immediates
