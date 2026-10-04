@@ -9,6 +9,8 @@ extern "C" __declspec(dllimport) int __stdcall QueryPerformanceCounter(__int64 *
 
 extern class GameLogic *TheGameLogic;
 
+extern const void *const g_00BF6040[];
+
 class GameLogic
 {
 public:
@@ -56,7 +58,7 @@ void *BFME2NativeNetwork::construct(void)
 	m_stallTimerRunning = false;
 	m_stallCount = 0;
 	m_flag38 = false;
-	m_vtable = (void *)0x00BF6040;
+	m_vtable = (void *)g_00BF6040;
 	QueryPerformanceFrequency(&m_performanceFrequency);
 	QueryPerformanceCounter(&m_lastPerformanceCounter);
 	return this;
