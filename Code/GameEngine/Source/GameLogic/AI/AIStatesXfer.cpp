@@ -31,7 +31,11 @@
 // named the same way; their members are known only by offset and by the
 // Xfer overload each is passed to. AIMoveOntoWallState and AIHarvestState
 // save a sub-machine the way Zero Hour's attack states do (has-machine Bool,
-// recreated with a 0x3C-byte new on load, then its snapshot).
+// recreated with a 0x3C-byte new on load, then its snapshot). The
+// giant-bird states and GiantBirdGuardMachine at the end are named the same
+// way; the guard-state body also fills the attack-aggressor and inner guard
+// tables, and the AIGiantBirdAttack body the DozerActionMoveToActionPosState
+// table (identical code, named by the first table).
 
 class AsciiString;
 class UnicodeString;
@@ -393,6 +397,63 @@ private:
 	Bool m_bfmeFlag24;																												///< 0x24
 };
 
+// BFME 2 giant-bird states and guard machine, named the same way.
+class AIGuardMachine : public StateMachine
+{
+protected:
+	virtual void xfer( Xfer *xfer );
+};
+
+class GiantBirdGuardMachine : public AIGuardMachine
+{
+protected:
+	virtual void xfer( Xfer *xfer );
+};
+
+class AIGiantBirdFollowThruState : public State
+{
+protected:
+	virtual void xfer( Xfer *xfer );
+private:
+	char m_unrecovered04[ 0x20 - 0x04 ];
+	Bool m_bfmeFlag20;																												///< 0x20
+	Int m_bfmeValue24;																												///< 0x24
+};
+
+class GiantBirdGuardOuterState : public State
+{
+protected:
+	virtual void xfer( Xfer *xfer );
+private:
+	char m_unrecovered04[ 0x24 - 0x04 ];
+	Int m_bfmeValue24;																												///< 0x24
+	Coord3DBase m_bfmePosition28;																							///< 0x28
+	float m_bfmeReal34;																												///< 0x34
+	UnsignedInt m_bfmeValue38;																								///< 0x38
+};
+
+class AIGiantBirdSwoopState : public State
+{
+protected:
+	virtual void xfer( Xfer *xfer );
+private:
+	char m_unrecovered04[ 0x20 - 0x04 ];
+	UnsignedInt m_bfmeRaw20;																									///< 0x20, 4 raw bytes
+	Coord3DBase m_bfmePosition24;																							///< 0x24
+	Bool m_bfmeFlag30;																												///< 0x30
+	UnsignedInt m_bfmeValue34;																								///< 0x34
+	float m_bfmeReal38;																												///< 0x38
+};
+
+class AIGiantBirdAttack : public State
+{
+protected:
+	virtual void xfer( Xfer *xfer );
+private:
+	char m_unrecovered04[ 0x20 - 0x04 ];
+	UnsignedInt m_bfmeRaw20;																									///< 0x20, 4 raw bytes
+};
+
 // ------------------------------------------------------------------------------------------------
 /** Xfer Method */
 // ------------------------------------------------------------------------------------------------
@@ -612,4 +673,60 @@ void AIHarvestState::xfer( Xfer *xfer )
 	if( hasMachine )
 		*xfer == *m_harvestMachine;
 	*xfer == m_bfmeFlag24;
+}  // end xfer
+
+// ------------------------------------------------------------------------------------------------
+/** Xfer Method */
+// ------------------------------------------------------------------------------------------------
+void GiantBirdGuardMachine::xfer( Xfer *xfer )
+{
+	xfer->Version1();
+	if( !xfer->IsLightCRC() )
+		AIGuardMachine::xfer( xfer );
+}  // end xfer
+
+// ------------------------------------------------------------------------------------------------
+/** Xfer Method */
+// ------------------------------------------------------------------------------------------------
+void AIGiantBirdFollowThruState::xfer( Xfer *xfer )
+{
+	Xfer::Version version( 1, 2 );
+	*xfer == version;
+	*xfer == m_bfmeFlag20;
+	if( version.m_minimum >= 2 )
+		*xfer == m_bfmeValue24;
+}  // end xfer
+
+// ------------------------------------------------------------------------------------------------
+/** Xfer Method */
+// ------------------------------------------------------------------------------------------------
+void GiantBirdGuardOuterState::xfer( Xfer *xfer )
+{
+	xfer->Version1();
+	*xfer == m_bfmeValue38;
+	*xfer == m_bfmePosition28;
+	*xfer == m_bfmeValue24;
+	*xfer == m_bfmeReal34;
+}  // end xfer
+
+// ------------------------------------------------------------------------------------------------
+/** Xfer Method */
+// ------------------------------------------------------------------------------------------------
+void AIGiantBirdSwoopState::xfer( Xfer *xfer )
+{
+	xfer->Version1();
+	xfer->XferRawBytes( &m_bfmeRaw20, 4 );
+	*xfer == m_bfmePosition24;
+	*xfer == m_bfmeFlag30;
+	*xfer == m_bfmeValue34;
+	*xfer == m_bfmeReal38;
+}  // end xfer
+
+// ------------------------------------------------------------------------------------------------
+/** Xfer Method */
+// ------------------------------------------------------------------------------------------------
+void AIGiantBirdAttack::xfer( Xfer *xfer )
+{
+	xfer->Version1();
+	xfer->XferRawBytes( &m_bfmeRaw20, 4 );
 }  // end xfer
