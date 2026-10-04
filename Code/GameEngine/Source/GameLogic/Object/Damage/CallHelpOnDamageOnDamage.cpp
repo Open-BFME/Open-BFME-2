@@ -1,6 +1,13 @@
-// ?onDamage@CallHelpOnDamage@@UAEXPAUDamageInfo@@@Z
-// partial score=0.97 date=2026-10-04
 // cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
+//
+// CallHelpOnDamage::onDamage (0x004BB547, slot 0 of its DamageModuleInterface
+// vftable 0x00859FD0, the +0x10 subobject; deleting dtor 0x004BB4B5 heads the
+// primary vftable). Field names are the module data's INI table at 0x00859F70.
+// On a listed damage type once CallDelay has passed: every object of the
+// owner's player (0x00260E2A) that ValidObjects (0x002614EC) and 0x0026185B
+// accept within CallRadius (BFME2's partition filter chain, the view
+// AIStructureCreepTactic.cpp documents) gets AI command 0x003C7653 at the
+// attacker (MoveToAttacker, when 0x00049DC5 finds it) or the owner.
 class Object;
 class Player;
 
@@ -136,6 +143,7 @@ class BehaviorModule
 {
 public:
 	virtual ~BehaviorModule();
+	Object *getObject() const { return m_object; }
 protected:
 	const ModuleData *m_moduleData; // +0x04
 	Object *m_object; // +0x08
@@ -189,7 +197,7 @@ void CallHelpOnDamage::onDamage(DamageInfo *damageInfo)
 	if (!data->m_moveToAttacker || (target = TheGameLogic->findObjectByID(damageInfo->m_sourceID)) == 0)
 		target = m_object;
 
-	BfmeWideResult hits = ThePartitionManager->iterateObjectsInRange(m_object->getPosition(), data->m_callRadius, 1,
+	BfmeWideResult hits = ThePartitionManager->iterateObjectsInRange(getObject()->getPosition(), data->m_callRadius, 1,
 		Rva00260E2AFilter(m_object->getControllingPlayer())
 			.link(&Rva002614ECFilter(&data->m_validObjects, m_object->getControllingPlayer(), true))
 			->link(&Rva0026185BFilter(true)), 0);
