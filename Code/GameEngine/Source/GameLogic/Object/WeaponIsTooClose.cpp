@@ -33,6 +33,8 @@ public:
 	float getMinimumAttackRange() const;
 	char m_pad00[0x13c];
 	int m_13c; // +0x13c
+	char m_pad140[0x157 - 0x140];
+	bool m_157; // +0x157
 };
 
 class GameLogic
@@ -53,6 +55,7 @@ public:
 	bool rva002C95F0() const;
 	void rva002C95DE(int offset);
 	void rva002C959E();
+	bool rva002C969D(const void *a, int b);
 
 private:
 	char m_pad00[4];
@@ -118,4 +121,36 @@ void Weapon::rva002C959E()
 	else
 		v = 0;
 	m_58 = v;
+}
+
+// ?rva002C969D@Weapon@@QAE_NPBXH@Z, retail 0x002C969D, 59 bytes.
+// Guarded virtual slot 0x98 call via +0x250.
+// Evidence: unlock lane; callers 0x002C8223 0x0036BFC0 0x004BBB35; same Weapon TU.
+class Rva002C969DTarget { public: char m_pad[0x250]; void *m_250; };
+class Rva002C969DVtab {
+public:
+    virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
+    virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07();
+    virtual void v08(); virtual void v09(); virtual void v10(); virtual void v11();
+    virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15();
+    virtual void v16(); virtual void v17(); virtual void v18(); virtual void v19();
+    virtual void v20(); virtual void v21(); virtual void v22(); virtual void v23();
+    virtual void v24(); virtual void v25(); virtual void v26(); virtual void v27();
+    virtual void v28(); virtual void v29(); virtual void v30(); virtual void v31();
+    virtual void v32(); virtual void v33(); virtual void v34(); virtual void v35();
+    virtual void v36(); virtual void v37(); virtual bool v38(const void *a, int b, int c);
+};
+bool Weapon::rva002C969D(const void *a, int b)
+{
+    if (!m_template->m_157)
+        return false;
+    if (!b)
+        return false;
+    const Rva002C969DTarget *t = (const Rva002C969DTarget *)a;
+    if (!t)
+        return false;
+    Rva002C969DVtab *v = *(Rva002C969DVtab *const *)((const char *)t + 0x250);
+    if (v)
+        return v->v38((const void *)b, 1, 0);
+    return false;
 }
