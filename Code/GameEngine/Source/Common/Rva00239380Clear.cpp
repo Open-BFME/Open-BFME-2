@@ -55,6 +55,7 @@ class Rva0023932BPtr
 
 public:
 	void rva0023932B();
+	void rva00239345(Rva0042C1B7Item *item);
 };
 
 void Rva0023932BPtr::rva0023932B()
@@ -63,6 +64,17 @@ void Rva0023932BPtr::rva0023932B()
 	m_ptr = 0;
 	if (old != 0) {
 		delete old;
+	}
+}
+
+void Rva0023932BPtr::rva00239345(Rva0042C1B7Item *item)
+{
+	if (item != m_ptr) {
+		Rva0042C1B7Item *old = m_ptr;
+		m_ptr = item;
+		if (old != 0) {
+			delete old;
+		}
 	}
 }
 
