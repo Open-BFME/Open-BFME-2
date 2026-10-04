@@ -1,7 +1,7 @@
 // cl: /O1 /DNDEBUG /MD /arch:SSE
 //
-// Small computePath (slot 17) and onExit (slot 5) overrides of AI states,
-// each named by its vtable's own slot-2 name getter (the state's name
+// Small computePath (slot 17), onExit (slot 5) and other overrides of AI
+// states, each named by its vtable's own slot-2 name getter (the state's name
 // literal). BFME 2 logs a numbered "CritterDesync" line from computePath
 // when the desync log is on (g_00E03745, file g_00DFEFF0):
 //
@@ -27,6 +27,19 @@
 //    model-condition bit 65 cleared (notifying through the rowed
 //    Object::rva0028AE6D), AI slot 142 with 0 and the AI byte +0x3C8 cleared.
 //
+//  - AIWaitUntilFinishedFiringState::update 0x0034133E (83 bytes): fails
+//    without a current weapon (rowed Object::getCurrentWeapon); continues
+//    while the weapon's frame (+0x2C) plus its template delay (+0x78, when
+//    not negative) is ahead of TheGameLogic's frame or its rowed
+//    Weapon::getStatus is 5; then succeeds for a negative delay, else fails.
+//  - AIMoveToStateSA::update 0x00347A51 (91 bytes; 0x00C11F00): while +0x50
+//    is set, fails once TheGameLogic's frame passes +0x4C and otherwise
+//    clears condition bit 61 and continues; else follows the machine goal
+//    object's position and runs the pinned AIInternalMoveToState::update.
+//  - AIGoingIdleState::onEnter 0x00341E48 (40 bytes; 0x00C11798): pokes the
+//    owner's StancesBehavior module (rowed Object::findModule with the
+//    StancesBehavior key, pinned member 0x0045F235) and fails.
+//
 // The meaning of the status, condition and AI bytes is not recovered.
 
 typedef bool Bool;
@@ -37,8 +50,64 @@ enum StateExitType
 };
 enum StateReturnType
 {
-	STATE_CONTINUE = 0
+	STATE_CONTINUE = 0,
+	STATE_SUCCESS = -1,
+	STATE_FAILURE = -2
 };
+enum NameKeyType
+{
+	NAMEKEY_INVALID = 0
+};
+enum WeaponSlotType
+{
+	PRIMARY_WEAPON = 0
+};
+enum WeaponStatus
+{
+	WEAPON_STATUS_BFME_5 = 5
+};
+
+struct Coord3D
+{
+	Real x, y, z;
+};
+
+class GameLogic
+{
+public:
+	unsigned int getFrame() const { return m_frame; }
+private:
+	unsigned char m_pad00[0x40];
+	unsigned int m_frame; // +0x40
+};
+extern GameLogic *TheGameLogic;
+
+struct WeaponTemplateView
+{
+	unsigned char m_pad00[0x78];
+	int m_bfmeDelay78; // +0x78
+};
+
+class Weapon
+{
+public:
+	WeaponStatus getStatus() const;
+	const WeaponTemplateView *m_template04() const { return m_template; }
+	unsigned int m_bfmeFrame2C() const { return m_frame; }
+private:
+	unsigned char m_pad00[0x04];
+	const WeaponTemplateView *m_template; // +0x04
+	unsigned char m_pad08[0x2C - 0x08];
+	unsigned int m_frame; // +0x2C
+};
+
+class StancesBehavior
+{
+public:
+	void rva0045F235();
+};
+
+NameKeyType Rva0045EE2CGet();
 enum ObjectStatusTypes
 {
 	OBJECT_STATUS_BFME_1C = 0x1C
@@ -98,10 +167,15 @@ private:
 	unsigned int m_words[19];
 };
 
+class Module;
+
 class Object
 {
 public:
 	AIUpdateInterface *getAI() { return m_ai; }
+	const Coord3D *getPosition() const { return &m_position; }
+	const Weapon *getCurrentWeapon(WeaponSlotType *wslot = 0) const;
+	Module *findModule(NameKeyType key) const;
 	void setStatus(ObjectStatusTypes status, Bool set);
 	void releaseWeaponLock(WeaponLockType lockType);
 	void rva0028AE6D();
@@ -114,7 +188,9 @@ public:
 		}
 	}
 private:
-	unsigned char m_pad000[0x10C];
+	unsigned char m_pad000[0x38];
+	Coord3D m_position; // +0x38
+	unsigned char m_pad044[0x10C - 0x44];
 	Rva0010CBits m_conditionBits; // +0x10C
 	unsigned char m_pad158[0x258 - (0x10C + sizeof(Rva0010CBits))];
 	AIUpdateInterface *m_ai; // +0x258
@@ -124,6 +200,7 @@ class StateMachine
 {
 public:
 	Object *getOwner() const { return m_owner; }
+	Object *getGoalObject();
 private:
 	unsigned char m_pad00[0x14];
 	Object *m_owner; // +0x14
@@ -145,6 +222,7 @@ public:
 	virtual void slot16();
 protected:
 	virtual Bool computePath();
+	StateMachine *getMachine() const { return m_machine; }
 	Object *getMachineOwner() const { return m_machine->getOwner(); }
 	unsigned char m_pad04[0x18 - 0x04];
 	StateMachine *m_machine; // +0x18
@@ -154,9 +232,12 @@ class AIInternalMoveToState : public State
 {
 public:
 	virtual void onExit(StateExitType status);
+	virtual StateReturnType update();
 protected:
 	virtual Bool computePath();
-	unsigned char m_pad1C[0x4C - 0x1C];
+	unsigned char m_pad1C[0x20 - 0x1C];
+	Coord3D m_goalPosition; // +0x20
+	unsigned char m_pad2C[0x4C - 0x2C];
 };
 
 class AIMoveAndTightenState : public AIInternalMoveToState
@@ -263,7 +344,26 @@ class AIWaitUntilFinishedFiringState : public State
 {
 public:
 	virtual void onExit(StateExitType status);
+	virtual StateReturnType update();
 };
+
+StateReturnType AIWaitUntilFinishedFiringState::update()
+{
+	const Weapon *weapon = getMachineOwner()->getCurrentWeapon();
+	if (!weapon)
+		return STATE_FAILURE;
+	int delay = weapon->m_template04()->m_bfmeDelay78;
+	if (delay >= 0)
+	{
+		if (weapon->m_bfmeFrame2C() + delay > TheGameLogic->getFrame())
+			return STATE_CONTINUE;
+	}
+	if (weapon->getStatus() == WEAPON_STATUS_BFME_5)
+		return STATE_CONTINUE;
+	if (weapon->m_template04()->m_bfmeDelay78 < 0)
+		return STATE_SUCCESS;
+	return STATE_FAILURE;
+}
 
 void AIWaitUntilFinishedFiringState::onExit(StateExitType status)
 {
@@ -280,4 +380,46 @@ void AIAttackMeleeSquishState::onExit(StateExitType status)
 {
 	AIInternalMoveToState::onExit(status);
 	getMachineOwner()->setStatus(OBJECT_STATUS_BFME_1C, false);
+}
+
+class AIMoveToStateSA : public AIInternalMoveToState
+{
+public:
+	virtual StateReturnType update();
+private:
+	unsigned int m_bfmeFrame4C; // +0x4C
+	Bool m_bfmeFlag50; // +0x50
+};
+
+StateReturnType AIMoveToStateSA::update()
+{
+	if (m_bfmeFlag50)
+	{
+		if (TheGameLogic->getFrame() > m_bfmeFrame4C)
+			return STATE_FAILURE;
+		getMachineOwner()->clearModelConditionBit(61);
+		return STATE_CONTINUE;
+	}
+	Object *goal = getMachine()->getGoalObject();
+	if (goal)
+		m_goalPosition = *goal->getPosition();
+	return AIInternalMoveToState::update();
+}
+
+class AIGoingIdleState : public State
+{
+public:
+	virtual StateReturnType onEnter();
+};
+
+StateReturnType AIGoingIdleState::onEnter()
+{
+	Object *owner = getMachineOwner();
+	if (owner)
+	{
+		StancesBehavior *stances = (StancesBehavior *)owner->findModule(Rva0045EE2CGet());
+		if (stances)
+			stances->rva0045F235();
+	}
+	return STATE_FAILURE;
 }
