@@ -55699,3 +55699,4 @@ __Locale_ctype_create,,0x00022360,1316,Code/Libraries/Source/WWVegas/WWLib/stlpo
 ??_GRva004F07E6@@UAEPAXI@Z,,0x004F111C,28,Code/GameEngine/Source/GameLogic/AI/Rva004F07E6Dtor.cpp,matched,deleting dtor via own dtor unit chain from base
 ?rva005CEA51@Rva005CEA51@@QAEXPAVRva005E8F50@@@Z,,0x005CEA51,35,Code/GameEngine/Source/Common/Rva005CEA51.cpp,matched,unlock via caller 0x005CF68E plus rowed 0x005E8F6A plus rowed delete 0x0002FD60
 ?rva004A7551@MissileUpdate@@QAEXPAVObject@@PBUCoord3D@@0HHPBURva0045B936Arg@@PAVRva002CBA7C@@PBVMatrix3D@@@Z,,0x004A7551,47,Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdate_rva004A7551.cpp,matched,MissileUpdate gap forward to Bezier rva0045B936 with victim id to m74
+?Rva003E4C77Get@@YAHXZ,,0x003E4C77,22,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_Rva003E4C77.cpp,matched,leaf audio check via TheAudio slot 39 with 0 then logical not
