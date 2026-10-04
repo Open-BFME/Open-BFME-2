@@ -17,6 +17,8 @@ private:
 	unsigned char m_body[0x110];
 };
 
+extern const void *const g_00C577C8[];
+
 class __declspec(novtable) ObjectCreationUpgradeModuleData
 {
 public:
@@ -47,7 +49,7 @@ private:
 // ??0ObjectCreationUpgradeModuleData@@QAE@XZ @0x4B425B
 ObjectCreationUpgradeModuleData::ObjectCreationUpgradeModuleData()
 {
-	*(void **)this = reinterpret_cast<void *>(0x00C577C8);
+	*(const void **)this = g_00C577C8;
 	m_08 = 0;
 	m_0C = 0;
 	m_10.construct();
