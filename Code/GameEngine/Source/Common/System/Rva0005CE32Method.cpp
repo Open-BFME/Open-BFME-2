@@ -3,8 +3,22 @@
 //
 // ?rva0005CE32@Rva0005CE32@@QAEXABVAsciiString@@@Z 0x0005CE32 65B evidence: erase 0x0005B5EA via AsciiString; float m_9c vs g_Va00BBB8D8; spaces fill 48B at +0x188; caller 0x0005E19F in 0x0005E168; prev XferUnicodeStringVector same flags
 #include "ascii_string.h"
-#include <set>
 extern float g_Va00BBB8D8;
+namespace _STL
+{
+// Declare the AsciiString set-tree erase owned by
+// stlport_asciistring_set_base.cpp so this TU calls it without emitting
+// its own copies of the _Rb_tree inline members.
+template <class T> struct _Identity;
+template <class T> struct less;
+template <class T> class allocator;
+template <class K, class V, class KoV, class Cmp, class Al> class _Rb_tree
+{
+	char _opaque[12];
+public:
+	unsigned int erase(const AsciiString &x);
+};
+}
 typedef _STL::_Rb_tree<AsciiString, AsciiString, _STL::_Identity<AsciiString>, _STL::less<AsciiString>, _STL::allocator<AsciiString> > AsciiStringSetTree;
 class Rva0005CE32
 {
