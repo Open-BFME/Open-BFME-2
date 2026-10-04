@@ -116,9 +116,18 @@ class Rva004E7C1C
 {
 public:
     void rva004E7C1C();
+    void rva004E7C8A();
+    void rva004E7D24();
 private:
     void *head;
 };
+
+// Ghidra 4E7D24/5B aliases the rowed list teardown at 4E7C8A.
+void Rva004E7C1C::rva004E7D24()
+{
+    rva004E7C8A();
+}
+
 class Rva004E7B13
 {
 public:
