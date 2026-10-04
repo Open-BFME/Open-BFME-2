@@ -1,5 +1,6 @@
 name,address,notes
 ??1ProxyClass@@QAE@XZ,0x00118800,"ProxyClass has a 0x74-byte first-member refcounted texture handle; its destructor matches the rowed TextureStatisticsStruct release-only body at this ICF address; target erase calls it per 0x74-byte element"
+?rva005F9330@Rva005F9330@@QAEXXZ,0x005F9330,address-derived callee of matched forwarder 0x005FD8C1; retail mov ecx [ecx+4] then E9 67 BA FF FF at +3 targets 0x005F9330; Ghidra FUN_009f9330 independently bounds 52 bytes; callee body remains unclaimed; no named identity inferred
 ??$__copy@PAVProxyClass@@PAV1@H@_STL@@YAPAVProxyClass@@PAV1@00ABUrandom_access_iterator_tag@0@PAH@Z,0x00119AD0,"Ghidra helper called by target erase shifts 0x74-byte ProxyClass elements using rowed ProxyClass::operator= at 0x118E50; matches the random-access pointer-range copy"
 ?erase@?$vector@URva00B6CF1@@V?$allocator@URva00B6CF1@@@_STL@@@_STL@@QAEPAURva00B6CF1@@PAU3@0@Z,0x000C0628,"Ghidra target dtor at 0x004B5214 calls this vector range cleanup for its +0x13C Rva00B6CF1-style elements; callee destroys the range then resets vector end"
 ?clear@Rva0009990D@@QAEXXZ,0x0009990D,target endThread call at 0x3890AA passes ECX=this+0x74; target helper clears the owned pointer and destroys/frees its LockClass payload; address-derived helper identity
