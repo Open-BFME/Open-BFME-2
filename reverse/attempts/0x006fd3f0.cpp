@@ -1,7 +1,7 @@
 // ?rva006FD3F0@@YAPAVAptString@@PAVAptValue@@0@Z
 // partial score=0.93 date=2026-10-04
 // ?rva006FD3F0@@YAPAVAptString@@PAVAptValue@@0@Z
-// partial score=0.9 date=2026-10-04
+// partial score=0.93 date=2026-10-04
 // cl: /O2 /MD /EHsc
 // The scoped temporary is a real EAStringC with a declared destructor, and the
 // SEH frame is the compiler's automatic unwinder rather than an explicit __try:
@@ -81,21 +81,24 @@ public:
 	EAStringC m_str;
 };
 
+// The destination is written through `result->m_str` rather than a cached
+// `EAStringC *dest`. The cached pointer costs a register that has to stay live
+// across Create, and dropping it aligns the body from +0x16 onward exactly:
+// 75/203 same-position bytes against the bank's 61, at the same 207B.
 AptString *__cdecl rva006FD3F0(AptValue *arg1, AptValue *arg2)
 {
 	AptString *result = AptString::Create();
-	EAStringC *dest = &result->m_str;
 	if (arg1->isString())
-		*dest = *((EAStringC *)((char *)arg1->rva006DCE50() + 8));
+		result->m_str = *((EAStringC *)((char *)arg1->rva006DCE50() + 8));
 	else
-		arg1->rva006DD6C0(dest);
+		arg1->rva006DD6C0(&result->m_str);
 	if (arg2->isString())
-		dest->Rva006D4F00Append(*((EAStringC *)((char *)arg2->rva006DCE50() + 8)));
+		result->m_str.Rva006D4F00Append(*((EAStringC *)((char *)arg2->rva006DCE50() + 8)));
 	else
 	{
 		EAStringC temp;                                       // clear 0x006D2F90
 		arg2->rva006DD6C0(&temp);
-		dest->Rva006D4F00Append(temp);
+		result->m_str.Rva006D4F00Append(temp);
 	}                                                        // ~temp 0x006D3010
 	return result;
 }
