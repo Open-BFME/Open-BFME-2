@@ -53012,3 +53012,4 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ?createStreamMessages@Keyboard@@UAEXXZ,,0x002326FB,104,Code/GameEngine/Source/GameClient/Input/KeyboardInitUpdate.cpp,matched,Keyboard vtable 0x00BE81F0 slot 15; ZH createStreamMessages over BFME2's key vector
 ?isLocationSafe@AIPlayer@@QAE_NPBUCoord3D@@PBVThingTemplate@@@Z,,0x004F08A8,295,Code/GameEngine/Source/GameLogic/AI/AIPlayerIsLocationSafe.cpp,matched,ZH AIPlayer::isLocationSafe over the BFME2 filter chain (six filters one to one; player filter for stealth)
 ??0Rva00355F3E@@QAE@XZ,,0x00355EFC,66,Code/GameEngine/Source/Common/Rva00355D66Dtor.cpp,matched,ctor via base 0x355D4E and vtable 0x814E8C arrays like dtor
+?Rva004A452BUpdate@@YAXPAX00@Z,,0x004A452B,85,Code/GameEngine/Source/GameLogic/Object/Update/Rva004A452B.cpp,matched,free update over 5 groups via rowed callees
