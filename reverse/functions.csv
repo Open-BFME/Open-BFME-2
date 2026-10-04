@@ -52534,3 +52534,4 @@ _Rva0088E190TimerTick@16,,0x0003D870,9,Code/Libraries/Source/WWVegas/WWDebug/Rva
 ?rva00588D24@Rva0047A040Base9E0@@QAE_NPAXPAVObject@@@Z,,0x00588D24,117,Code/GameEngine/Source/GameLogic/Object/Contain/Rva00588D24.cpp,matched,unlock via caller 0x00479ADA plus pin rva00588BF3 plus slots
 ?Rva00337802Forward@@YAXPAX00@Z,,0x00337802,23,Code/GameEngine/Source/Common/Rva00337802Forward.cpp,matched,unlock via 0x003377BC with 0 third arg
 ?Rva0033788FSortHeap@@YAXPAX00@Z,,0x0033788F,65,Code/GameEngine/Source/Common/Rva0033788FSortHeap.cpp,matched,chain of 0x00337802 sort heap loop by 0x14
+?rva001539BC@Rva001539BC@@QAEAAV1@ABV1@@Z,,0x001539BC,48,Code/Libraries/Source/WWVegas/WWLib/Rva001539BCAssign.cpp,matched,unlock 6 vectors via rowed 0x001537D8
