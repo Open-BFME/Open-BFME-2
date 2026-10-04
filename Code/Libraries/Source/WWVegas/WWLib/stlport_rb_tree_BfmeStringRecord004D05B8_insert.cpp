@@ -8,6 +8,10 @@ struct BfmeStringRecord004D05B8 { unsigned short m_key; unsigned char m_pad[6]; 
 inline bool operator<(const BfmeStringRecord004D05B8 &x, const BfmeStringRecord004D05B8 &y) { return x.m_key < y.m_key; }
 typedef _STL::_Rb_tree<BfmeStringRecord004D05B8, BfmeStringRecord004D05B8, _STL::_Identity<BfmeStringRecord004D05B8>, _STL::less<BfmeStringRecord004D05B8>, _STL::allocator<BfmeStringRecord004D05B8> > UBfmeStringRecord004D05B8SetTree;
 namespace _STL {
+template <> void _Construct<BfmeStringRecord004D05B8>(BfmeStringRecord004D05B8 *, const BfmeStringRecord004D05B8 &);
+}
+template <> UBfmeStringRecord004D05B8SetTree::_Link_type UBfmeStringRecord004D05B8SetTree::_M_create_node(const UBfmeStringRecord004D05B8SetTree::value_type &);
+namespace _STL {
 template <> class allocator<char> {
 public:
     static char *allocate(unsigned int bytes, const void *hint);
