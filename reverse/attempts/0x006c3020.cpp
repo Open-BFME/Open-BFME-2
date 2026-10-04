@@ -1,5 +1,5 @@
 // ?VerifyGuardFill@GeneralAllocatorDebug@@QAE_NPAXHE@Z
-// partial score=0.8 date=2026-10-04
+// partial score=0.85 date=2026-10-04
 // cl: /O2 /DNDEBUG /MD
 // ?VerifyGuardFill@GeneralAllocatorDebug@@QAE_NPAXPAXE@Z @ 0x006C3020 (156B).
 //
@@ -34,9 +34,11 @@ public:
 
 	// 0x006C25F0: thiscall with six stack arguments (ret 0x18), builds the guard
 	// run and returns it in eax while writing the run length through outLen.
-	// Unnamed body; the spelling is address-derived.
-	void *rva006C25F0(int a, int b, int kind, void *runBlock,
-	                  unsigned int *outLen, int leadingZero);
+	// Unnamed body; the spelling is address-derived. Retail pushes its five
+	// stack arguments as (kind, 0, 0, outLen, runBlock), which is the reverse
+	// of this declaration order -- cdecl pushes the last argument first.
+	void *rva006C25F0(int kind, int a, int b, unsigned int *outLen,
+	                  void *runBlock);
 
 	unsigned char m_unaccessed[0x50b];
 	unsigned char m_guardFillByte; // +0x50b
@@ -48,6 +50,11 @@ public:
 // Retail keeps the caller block in ebp: three stack arguments plus this exhaust
 // the argument slots once 0x006C25F0's five arguments are pushed, so the block
 // pointer has to live in a callee-saved register across that call.
+//
+// Retail's own epilogue is the two bytes `pop ebp / ret 0xC` with no register
+// restores at all: it restores edi on each exit path individually and never
+// needs esi, so MSVC is given no callee-saved register to preserve by writing
+// the body as a single `return`.
 bool GeneralAllocatorDebug::VerifyGuardFill(void *block, int alsoBeyond, unsigned char mode)
 {
 	void *const callerBlock = block;
@@ -59,7 +66,7 @@ bool GeneralAllocatorDebug::VerifyGuardFill(void *block, int alsoBeyond, unsigne
 		unsigned char *const run = (unsigned char *)callerBlock + 8;
 		unsigned int len;
 
-		void *built = rva006C25F0(0, 0, 0xB, run, &len, 0);
+		void *built = rva006C25F0(0xB, 0, 0, &len, run);
 		if (built) {
 			unsigned char *fill = (unsigned char *)built;
 			unsigned int span = len < 0x40 ? len : 0x40;
