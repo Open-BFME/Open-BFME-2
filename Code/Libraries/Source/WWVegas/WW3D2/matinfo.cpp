@@ -218,73 +218,8 @@ TextureClass * MaterialRemapperClass::Remap_Texture(TextureClass * src)
 	return NULL;
 }
 
-VertexMaterialClass * MaterialRemapperClass::Remap_Vertex_Material(VertexMaterialClass * src)
-{
-	if (src == NULL) return src;
-	if (src == LastSrcVmat) return LastDestVmat;
-	for (int i=0; i<VertexMaterialCount; i++) {
-		if (VertexMaterialRemaps[i].Src == src) {
-			LastSrcVmat = src;
-			LastDestVmat = VertexMaterialRemaps[i].Dest;
-			return VertexMaterialRemaps[i].Dest;
-		}
-	}
-	WWASSERT(0); // uh-oh didn't find the material, what happend???
-	return NULL;
-}
-
-// ?Remap_Mesh@MaterialRemapperClass@@QAEXPBVMeshMatDescClass@@PAV2@@Z present-unmatched
-void MaterialRemapperClass::Remap_Mesh(const MeshMatDescClass * srcmeshmatdesc, MeshMatDescClass * destmeshmatdesc)
-{
-	/*
-	** Remap the vertex materials if there is at least one of them
-	*/
-	if (SrcMatInfo->Vertex_Material_Count() >= 1) {
-	
-		for (int pass = 0;pass < srcmeshmatdesc->Get_Pass_Count(); pass++) {
-
-			if (srcmeshmatdesc->Has_Material_Array(pass)) {
-				
-				for (int vert_index = 0; vert_index < srcmeshmatdesc->Get_Vertex_Count(); vert_index++) {
-					VertexMaterialClass * src = srcmeshmatdesc->Peek_Material(vert_index, pass);
-					destmeshmatdesc->Set_Material(vert_index, Remap_Vertex_Material(src),pass);
-				}
-
-			} else {
-			
-				VertexMaterialClass * src = srcmeshmatdesc->Peek_Single_Material(pass);
-				destmeshmatdesc->Set_Single_Material(Remap_Vertex_Material(src), pass);
-				
-			}
-		}
-	}
-	
-	/*
-	** Remap the textures if there is at least one of them
-	*/
-	if (SrcMatInfo->Texture_Count() >= 1) {
-	
-		for (int pass = 0;pass < srcmeshmatdesc->Get_Pass_Count(); pass++) {
-
-			for (int stage = 0; stage < MeshMatDescClass::MAX_TEX_STAGES; stage++) {
-			
-				if (srcmeshmatdesc->Has_Texture_Array(pass, stage)) {
-					
-					for (int poly_index = 0; poly_index < srcmeshmatdesc->Get_Polygon_Count(); poly_index++) {
-						TextureClass * src = srcmeshmatdesc->Peek_Texture(poly_index, pass, stage);
-						destmeshmatdesc->Set_Texture(poly_index, Remap_Texture(src), pass, stage);
-					}
-
-				} else {
-				
-					TextureClass * src = srcmeshmatdesc->Peek_Single_Texture(pass, stage);
-					destmeshmatdesc->Set_Single_Texture(Remap_Texture(src), pass, stage);
-
-				}
-			}
-		}
-	}
-}
+// MaterialRemapperClass::Remap_Vertex_Material and Remap_Mesh are owned by
+// MaterialRemapMesh.cpp, where their shared body visibility matches retail.
 
 // byte-exact reconstruction: Code/Libraries/Source/WWVegas/WW3D2/MaterialCollectorClass_ctor_Thunk.cpp
 // ??0MaterialCollectorClass@@QAE@XZ present-unmatched
