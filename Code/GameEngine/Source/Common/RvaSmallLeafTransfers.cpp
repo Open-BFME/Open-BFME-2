@@ -361,3 +361,22 @@ void Rva00661300::clearWords8()
 {
     for (int i=0;i<4;++i) m_words8[i]=0;
 }
+
+// BFME1 donor revision 775a0370b7:
+// game/GameEngine/Source/Common/Rva00801040Accessors.cpp, whole unit compiled.
+// Its sole supported new placement is this 0x0066D470/13 body. Native reads
+// +128 into EAX and +12C into EDX, then returns; both boundaries have padding.
+// An unsigned 64-bit view preserves that return bit pattern. Signedness,
+// original field/owner types and full object layout remain unestablished.
+class Rva0066D470
+{
+public:
+    unsigned __int64 readWord128() const;
+private:
+    char m_unmodelled0[0x128];
+    unsigned __int64 m_word128;
+};
+unsigned __int64 Rva0066D470::readWord128() const
+{
+    return m_word128;
+}
