@@ -55753,3 +55753,4 @@ ___Extract_locale_name,,0x000216A0,153,Code/Libraries/Source/WWVegas/WWLib/Local
 ??1?$vector@UBfmePod216@@V?$allocator@UBfmePod216@@@_STL@@@_STL@@QAE@XZ,,0x0021F7A7,63,Code/Libraries/Source/WWVegas/WWLib/StlportVectorDtorFamily.cpp,matched,Destroy via rowed 0x0021F466 frees via 0x00030830 caller 0x0021F90E
 ?Rva00217F96Aux@@YAXPAURva004748F0Element@@0URva004748F0Compare@@@Z,,0x00217F96,23,Code/GameEngine/Source/Common/RvaPopHeapWrapper00217F96.cpp,matched,unlock wrapper forwards to rowed PopHeapAux with null
 ??0Rva003AE50B@@QAE@PAX0@Z,,0x005600F8,49,Code/GameEngine/Source/GameClient/Rva003AE50BCtor.cpp,matched,Ctor forwards 2 args to pinned base plus vtable and slots
+?rva004D0A0A@ConnectionManager@@QAEXXZ,,0x004D0A0A,154,Code/GameEngine/Source/GameNetwork/ConnectionManager_rva004D0A0A.cpp,matched,ConnectionManager keepalive send via Rva004D5795 and setDisconnectSlot and TheGameLogic frame

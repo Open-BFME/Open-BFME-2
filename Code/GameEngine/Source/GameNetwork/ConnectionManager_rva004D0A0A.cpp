@@ -1,6 +1,4 @@
-// ?rva004D0A0A@ConnectionManager@@QAEXXZ
-// partial score=0.97 date=2026-10-04
-// cl: /O1 /DNDEBUG /DWIN32 -D_WINDOWS -MD -EHsc -Ireference/open-bfme-1/game/GameEngine/Source/GameNetwork
+// cl: /O1 /G7 /DNDEBUG /DWIN32 -D_WINDOWS -MD -EHsc -Ireference/open-bfme-1/game/GameEngine/Source/GameNetwork
 
 // ?rva004D0A0A@ConnectionManager@@QAEXXZ @0x004D0A0A 154B: ConnectionManager keepalive-style send via Rva004D5795 plus slot byte plus TheGameLogic frame plus Does plus sendLocalCommand plus timeGetTime.
 // Target evidence: new Rva004D5795 0x004D5795 then setter 0x0006EDE3 via setDisconnectSlot pin plus TheGameLogic+0x38 plus DoesCommandRequireACommandID 0x005811B5 plus GenerateNextCommandID 0x005811A8 plus sendLocalCommand 0x004CFF21 plus detach 0x004D55BC plus timeGetTime IAT; caller 0x0025E75F.
@@ -42,10 +40,10 @@ private:
 	char m_pad1D[0x20 - 0x1D];
 };
 
-class Script
+class NetDisconnectPlayerCommandMsg
 {
 public:
-	void setActive(bool active);
+	void setDisconnectSlot(UnsignedByte slot);
 };
 
 class GameLogic
@@ -72,18 +70,17 @@ private:
 	char m_pad04[0x12028 - 4];
 	union
 	{
-		bool m_slotBool;
+		UnsignedByte m_slotByte;
 		UnsignedInt m_localPlayerID;
 	};
 	char m_pad1202C[0x12130 - 0x12028 - 4];
 	UnsignedInt m_lastTime;
 };
 
-// ?rva004D0A0A@ConnectionManager@@QAEXXZ present-unmatched
 void ConnectionManager::rva004D0A0A()
 {
 	Rva004D5795 *cmd = new Rva004D5795();
-	((Script *)cmd)->setActive(m_slotBool);
+	((NetDisconnectPlayerCommandMsg *)cmd)->setDisconnectSlot(m_slotByte);
 	cmd->m_timestamp = TheGameLogic->m_frame;
 	cmd->m_executionFrame = (UnsignedInt)-1;
 	if ((UnsignedByte)DoesCommandRequireACommandID(cmd->m_commandType))
