@@ -54115,3 +54115,4 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ?rva00583B6F@Rva00583B6F@@QAEXXZ,,0x00583B6F,119,Code/GameEngine/Source/Common/Rva00583B6F.cpp,matched,leaf vtable slot 4 Thing setOrientation setPosition list walk
 ??0Rva005838B5@@QAE@PAX@Z,,0x005838B5,39,Code/GameEngine/Source/Common/Rva005838B5Ctor.cpp,matched,leaf ctor vtable 0086FC30 base Rva005D6FCC vector BfmeE16
 ?Rva005BE264Close@@YAXXZ,,0x005BE264,110,Code/GameEngine/Source/Common/Rva005BE264Close.cpp,matched,unlock AptTimeLine InitGadgets SetPlayerFocus rowed rva00224455
+?rva005B80D0@@YAMEPAVRva005B8053@@@Z,,0x005B80D0,34,Code/Libraries/Source/WWVegas/WWLib/Rva005B80D0Finish.cpp,matched,byte-key float lookup via rowed lower_bound and float at 0x14
