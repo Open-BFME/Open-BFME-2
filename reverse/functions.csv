@@ -55690,3 +55690,4 @@ __Locale_ctype_create,,0x00022360,1316,Code/Libraries/Source/WWVegas/WWLib/stlpo
 ?update@Rva005AD6C3@@UAEXXZ,,0x005AD806,291,Code/GameEngine/Source/Common/Rva005AD6C3Finish.cpp,matched,receiver hoisted into a local Rva005AD6C3AI pointer so MSVC loads m_ai before the args; completes the 0.93 bank
 ?v3@Rva005DCB27@@UAE_NPAXH@Z,,0x005DCB32,121,Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITacticsGenerator/AITacticDefensive.cpp,matched,AITacticDefensive slot 3 by retail __FILE__ line 43; chance-gated +0x2D0 then +0x21C; fcompi needs /arch:SSE
 ?rva0044BF13@Rva0044BF13@@QAEPAU1@ABURva004C5DD0Pair@@@Z,,0x0044BF13,45,Code/GameEngine/Source/Common/Rva005173CBSet.cpp,matched,Setter twin via rowed ctor 0x0044BDD8 and new 0x2FDA0
+?rva0044BFB2@Rva0044BFB2@@QAEPAU1@URva0044BA4E@@@Z,,0x0044BFB2,55,Code/GameEngine/Source/Common/Rva0044BF40.cpp,matched,EH setter twin via rowed 0x0044BF13 and dtor 0x0044BA4E
