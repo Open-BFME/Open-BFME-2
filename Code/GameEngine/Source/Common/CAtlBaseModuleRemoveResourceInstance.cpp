@@ -1,4 +1,4 @@
-// cl: /O1 /Oy-
+// cl: /O1
 // Open-BFME5: ATL 7.1 CAtlBaseModule::RemoveResourceInstance.
 //
 // The implementation and member layout are recovered from the pristine
@@ -17,6 +17,8 @@ extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(void *cs);
 
 namespace ATL
 {
+__declspec(noinline) __declspec(noreturn) void __stdcall AtlThrow(HRESULT hr);
+
 class CComCriticalSection
 {
 public:
@@ -43,7 +45,9 @@ public:
 		{
 			HRESULT hr = Lock();
 			if (FAILED(hr))
-				return;
+			{
+				AtlThrow(hr);
+			}
 		}
 	}
 	// Retail keeps this cleanup as a separate COMDAT call from the body.
@@ -110,6 +114,7 @@ public:
 	bool RemoveResourceInstance(HINSTANCE hInst) throw();
 };
 
+#pragma optimize("y", off)
 bool CAtlBaseModule::RemoveResourceInstance(HINSTANCE hInst) throw()
 {
 	CComCritSecLock<CComCriticalSection> lock(m_csResource, false);
@@ -128,4 +133,5 @@ bool CAtlBaseModule::RemoveResourceInstance(HINSTANCE hInst) throw()
 	}
 	return false;
 }
+#pragma optimize("", on)
 }
