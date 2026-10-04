@@ -1,5 +1,3 @@
-// ?rva002C693B@Rva002C693B@@QAEXXZ
-// partial score=0.95 date=2026-10-04
 // cl: /O1 /arch:SSE /MD
 //
 // ?rva002C693B@Rva002C693B@@QAEXXZ @0x002C693B 258B
@@ -51,7 +49,6 @@ private:
 	int m_174;
 };
 
-// ?rva002C693B@Rva002C693B@@QAEXXZ present-unmatched
 void Rva002C693B::rva002C693B()
 {
 	Rva002A8B59Data *data = g_00DFEEF8->rva002A8B59(m_15C);
@@ -60,8 +57,8 @@ void Rva002C693B::rva002C693B()
 	case 0: {
 		float t = (float)delta * g_secondsPerLogicFrame;
 		if (t >= data->m_a4) {
-			m_16C = 1;
 			m_170 = 0.0f;
+			m_16C = 1;
 			return;
 		}
 		if (!(data->m_a4 > BfmeZeroRange))
@@ -73,8 +70,8 @@ void Rva002C693B::rva002C693B()
 		float t = (float)delta * g_secondsPerLogicFrame;
 		float sum = data->m_a8 + data->m_a4;
 		if (t >= sum) {
-			m_16C = 2;
 			m_170 = 0.0f;
+			m_16C = 2;
 			return;
 		}
 		if (!(sum > BfmeZeroRange))
