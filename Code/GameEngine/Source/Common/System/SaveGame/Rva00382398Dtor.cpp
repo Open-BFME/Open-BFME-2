@@ -52,6 +52,15 @@ private:
     AsciiString m_1d8;
     AsciiString m_1dc;
 };
-Rva00382398::~Rva00382398()
+inline Rva00382398::~Rva00382398()
 {
 }
+
+// This destructor is a header inline in the copier unit; the anchor is not retail code.
+#pragma inline_depth(0)
+// ?_bfmeRva00382398DtorInlineAnchor@@YAXXZ absent-from-retail
+void _bfmeRva00382398DtorInlineAnchor()
+{
+    static_cast<Rva00382398 *>(0)->Rva00382398::~Rva00382398();
+}
+#pragma inline_depth()
