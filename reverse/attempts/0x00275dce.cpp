@@ -1,5 +1,5 @@
 // ?rva00275DCE@Drawable@@QAEXHMMM@Z
-// partial score=0.91 date=2026-10-02
+// partial score=0.93 date=2026-10-04
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /arch:SSE
 // ?rva00275DCE@Drawable@@QAEXHMMM@Z @0x00275DCE (369B): Drawable state update.
 // Early-out if a1==m_164 then clamp a4 via INV/g_00BC6258 to m_c0 then ftol
@@ -79,11 +79,13 @@ void Drawable::rva00275DCE(int a1, float a2, float a3, float a4)
 	float tmp = g_Va00BBB8D8;
 	m_BC = tmp;
 	m_B8 = tmp;
-	float c = a4;
-	if (INV > c)
+	float c;
+	if (INV > a4)
 		c = INV;
-	else if (c > g_00BC6258)
+	else if (a4 > g_00BC6258)
 		c = g_00BC6258;
+	else
+		c = a4;
 	m_C0 = c;
 	m_D4 = (int)((double)g_00DBA4E8 * (double)a4);
 	m_D0 = m_B4;
@@ -96,10 +98,10 @@ void Drawable::rva00275DCE(int a1, float a2, float a3, float a4)
 		break;
 	case 1:
 	case 4: {
-		m_BC = a3;
 		m_B8 = a2;
-		float k = g_Va007C26F0;
 		float hi = g_00BC7468;
+		m_BC = a3;
+		float k = g_Va007C26F0;
 		m_C4 = (a2 + a3) * k;
 		m_C8 = (a3 - a2) * k;
 		m_CC = GetGameClientRandomValueReal(0.0f, hi, (char *)"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameClient\\Drawable.cpp", 0x1074);

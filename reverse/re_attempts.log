@@ -7455,3 +7455,4 @@ FUN_008f7883	0x004F7883	168	blocked	EH prolog push ecx plus frame plus copy_back
 ?Rva0021E673Sort@@YAXPAX@Z	0x0021E673	23	blocked	pushes UNCLAIMED comparator 0x21AD88 no row pin literal refused by link hook t=5 model=muse-04
 ?bfmeDetachCFF@BfmeOwnerCFF@@QAEXPAVBfmeThingCFF@@@Z	0x002ABD48	75	partial	redundant push-store only lea and mov ecx esi fixed via DetachList thiscall row stdcall needs review t=25 model=muse-04 score=0.95 stash=reverse/attempts/0x002abd48.cpp
 ?rva00106AC9@Rva00106AC9@@QAE_NPBDH_N@Z	0x00106AC9	256	partial	missing mov ecx esi before invoke; 254vs256B 0-reg-diff t=25 model=muse-08 score=0.98 stash=reverse/attempts/0x00106ac9.cpp
+?rva00275DCE@Drawable@@QAEXHMMM@Z	0x00275DCE	369	partial	clamp fixed explicit-else keeps result in xmm0 plus case1-4 fld-hi and k-load early vs late with B8-store late vs early and fldz-fstp-addss order t=25 model=muse-07 score=0.93 stash=reverse/attempts/0x00275dce.cpp
