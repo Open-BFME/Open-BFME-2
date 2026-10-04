@@ -7,6 +7,10 @@
 // the unit to the closest kind-120 object (within 1000000) that passes the
 // player filter for that (null) player.
 //
+// 0x003E83AF (caller 0x003EB3AB) is the team twin: the team's first member
+// (0x0039E8EB) and the closest such object to the team's centre
+// (0x0039E5B9).
+//
 // The filters are BFME2's partition filter chain (the view
 // AIStructureCreepTactic.cpp documents): a vptr, the +0x04 link to the next
 // filter (PartitionFilter::link 0x00625790), then each filter's members;
@@ -94,9 +98,17 @@ public:
 	AsciiString m_string;	// +0x10
 };
 
+class Team
+{
+public:
+	Object *rva0039E8EB();			// 0x0039E8EB
+	void rva0039E5B9(Coord3D *center);	// 0x0039E5B9
+};
+
 class ScriptEngine
 {
 public:
+	Team *getTeamNamed(AsciiString name, bool exact);			// 0x003584E9
 	Object *getUnitNamed(Parameter *parameter);				// 0x003588E7
 	int rva00357475(const AsciiString &name, bool *found);			// 0x00357475
 };
@@ -136,6 +148,7 @@ class ScriptConditions
 {
 public:
 	bool rva003E5CB1(Parameter *unitParm, Parameter *playerParm);
+	bool rva003E83AF(Parameter *teamParm, Parameter *playerParm);
 };
 
 bool ScriptConditions::rva003E5CB1(Parameter *unitParm, Parameter *playerParm)
@@ -147,6 +160,27 @@ bool ScriptConditions::rva003E5CB1(Parameter *unitParm, Parameter *playerParm)
 	if (player != 0)
 		return false;
 	Object *found = ThePartitionManager->getClosestObject(&obj->m_pos, 1000000.0f, 0,
+		Rva0004584D(*(BfmeFixedStorage0004543D *)&Rva00045411BitSet(0, 120),
+			*(BfmeFixedStorage0004543D *)g_00DFEFA4StoragePrototype).link(&Rva0026137EFilter(player, true)));
+	if (found == 0)
+		return false;
+	return TheAI->pathfinder()->rva002F477E(obj, &obj->m_pos, &found->m_pos, 0);
+}
+
+bool ScriptConditions::rva003E83AF(Parameter *teamParm, Parameter *playerParm)
+{
+	Team *team = TheScriptEngine->getTeamNamed(teamParm->m_string, false);
+	if (team == 0)
+		return false;
+	Object *obj = team->rva0039E8EB();
+	if (obj == 0)
+		return false;
+	Player *player = ThePlayerList->getPlayerFromMask(TheScriptEngine->rva00357475(playerParm->m_string, 0));
+	if (player != 0)
+		return false;
+	Coord3D center;
+	team->rva0039E5B9(&center);
+	Object *found = ThePartitionManager->getClosestObject(&center, 1000000.0f, 0,
 		Rva0004584D(*(BfmeFixedStorage0004543D *)&Rva00045411BitSet(0, 120),
 			*(BfmeFixedStorage0004543D *)g_00DFEFA4StoragePrototype).link(&Rva0026137EFilter(player, true)));
 	if (found == 0)
