@@ -39,3 +39,8 @@ ShareBufferClassBase::ShareBufferClassBase(int count, const char *name, int alig
 			(reinterpret_cast<unsigned int>(m_rawBuffer) + m_alignment - 1) & ~(m_alignment - 1));
 	}
 }
+
+// ??1ShareBufferClassBase@@UAE@XZ present-unmatched
+ShareBufferClassBase::~ShareBufferClassBase()
+{
+}
