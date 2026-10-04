@@ -69,6 +69,7 @@ public:
 	PhysicsBehavior(Thing *thing, const ModuleData *moduleData);
 	virtual ~PhysicsBehavior();
 	UpdateSleepTime rva00390601();
+	bool rva0039051E() const;
 private:
 	_STL::vector<Gen_p12pod> m_elements;
 	Coord3D m_bfme2C;
@@ -94,4 +95,15 @@ UpdateSleepTime PhysicsBehavior::rva00390601()
 	if (m_bfme5C && m_bfme58 > 0)
 		return UPDATE_SLEEP_NONE;
 	return UPDATE_SLEEP_FOREVER;
+}
+
+// BFME1 donor1281192f68 Bfme5TinyTwentyFive.cpp /O1 supplies the unsigned
+// size comparison. Target Ghidra0039051E/21B proves the +20/+24 pointer
+// difference divided by12. Retail caller0045DD60 obtains this from Object
+// +25C and tests AL, supporting the existing PhysicsBehavior view and a
+// bool result. Constness is a donor/source inference; the method name is
+// unknown. The old int-return bank missed this compiler shape.
+bool PhysicsBehavior::rva0039051E() const
+{
+	return m_elements.size() > 0;
 }
