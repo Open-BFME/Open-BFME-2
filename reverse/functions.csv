@@ -53520,3 +53520,32 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ?removeFromRayEffects@Rva004C743@@UAEXPAVDrawable@@@Z,,0x00238F34,11,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClientFactories.cpp,matched,game client vtable 0x00BC4738 slot 19: ZH removeFromRayEffects (TheRayEffects->deleteRayEffect)
 ?getRayEffectData@Rva004C743@@UAEXPAVDrawable@@PAURayEffectData@@@Z,,0x00238F29,11,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClientFactories.cpp,matched,game client vtable 0x00BC4738 slot 20: ZH getRayEffectData pass-through
 ??__EAIStructureCreep_IsRunning@@YAXXZ,,0x007B458D,27,Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITacticsGenerator/TargetlessTactics/AIStructureCreepTactic.cpp,matched,object-symbol=_$E1;TU-local dynamic initializer constructing the AIStructureCreep_IsRunning AsciiString key at 0x00E06418 through AsciiString(const char *) 0x0000654A and registering the rowed atexit cleanup 0x007B9644
+?rva000B31B9@Rva000B31B9NullForwarder@@QAEXH@Z,,0x000B31B9,18,Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp,matched,vtable 0x00BCBC40#26 null-checked forwarder
+?rva0006820F@Rva0006820FNullForwarder@@QAE_NH@Z,,0x0006820F,20,Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp,matched,vtable 0x00BC5DB0#142 null-checked forwarder
+?rva00091E38@Rva00091E38NullForwarder@@QAEXXZ,,0x00091E38,13,Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp,matched,vtable 0x00BC80A0#17 null-checked forwarder
+?rva00091EDD@Rva00091EDDNullForwarder@@QAEXH@Z,,0x00091EDD,15,Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp,matched,vtable 0x00BC80A0#22 null-checked forwarder
+?rva00091F2A@Rva00091F2ANullForwarder@@QAEHHH@Z,,0x00091F2A,17,Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp,matched,vtable 0x00BC80A0#24 null-checked forwarder
+?rva00091F51@Rva00091F51NullForwarder@@QAE_NHH@Z,,0x00091F51,17,Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp,matched,vtable 0x00BC80A0#28 null-checked forwarder
+?rva00091F62@Rva00091F62NullForwarder@@QAE_NHH@Z,,0x00091F62,17,Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp,matched,vtable 0x00BC80A0#29 null-checked forwarder
+?rva00091F73@Rva00091F73NullForwarder@@QAE_NHH@Z,,0x00091F73,17,Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp,matched,vtable 0x00BC80A0#30 null-checked forwarder
+?rva00091F84@Rva00091F84NullForwarder@@QAE_NH@Z,,0x00091F84,17,Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp,matched,vtable 0x00BC80A0#31 null-checked forwarder
+?rva00091FAB@Rva00091FABNullForwarder@@QAEXH@Z,,0x00091FAB,15,Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp,matched,vtable 0x00BC80A0#27 null-checked forwarder
+?rva0017FEC1@Rva0017FEC1NullForwarder@@QAEHXZ,,0x0017FEC1,15,Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp,matched,vtable 0x00BD4F50#14 null-checked forwarder
+?rva0018036C@Rva0018036CNullForwarder@@QAEHXZ,,0x0018036C,15,Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp,matched,vtable 0x00BD4F90#14 null-checked forwarder
+?rva00180AA6@Rva00180AA6NullForwarder@@QAEHXZ,,0x00180AA6,15,Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp,matched,vtable 0x00BD5050#14 null-checked forwarder
+?rva001E129B@Rva001E129BNullForwarder@@QAEXHH@Z,,0x001E129B,18,Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp,matched,vtable 0x00BDD8F4#3 null-checked forwarder
+?rva001EB722@Rva001EB722NullForwarder@@QAEXXZ,,0x001EB722,13,Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp,matched,vtable 0x00BDF228#9 null-checked forwarder
+?rva001F01B9@Rva001F01B9NullForwarder@@QAEXHH@Z,,0x001F01B9,15,Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp,matched,vtable 0x00BE09E8#4 null-checked forwarder
+?rva0025DBCD@Rva0025DBCDNullForwarder@@QAEXH@Z,,0x0025DBCD,15,Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp,matched,vtable 0x00BF6040#17 null-checked forwarder
+?rva0025DBFB@Rva0025DBFBNullForwarder@@QAEXXZ,,0x0025DBFB,13,Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp,matched,vtable 0x00BF6040#20 null-checked forwarder
+?rva0025DC08@Rva0025DC08NullForwarder@@QAEXH@Z,,0x0025DC08,15,Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp,matched,vtable 0x00BF6040#19 null-checked forwarder
+?rva0025DC17@Rva0025DC17NullForwarder@@QAEHXZ,,0x0025DC17,15,Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp,matched,vtable 0x00BF6040#23 null-checked forwarder
+?rva0025DC5E@Rva0025DC5ENullForwarder@@QAEXH@Z,,0x0025DC5E,15,Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp,matched,vtable 0x00BF6040#35 null-checked forwarder
+?rva0025DC6D@Rva0025DC6DNullForwarder@@QAEXXZ,,0x0025DC6D,13,Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp,matched,vtable 0x00BF6040#36 null-checked forwarder
+?rva0025DCE2@Rva0025DCE2NullForwarder@@QAEHXZ,,0x0025DCE2,15,Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp,matched,vtable 0x00BF6040#44 null-checked forwarder
+?rva0025DCF1@Rva0025DCF1NullForwarder@@QAEHXZ,,0x0025DCF1,16,Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp,matched,vtable 0x00BF6040#45 null-checked forwarder
+?rva0025DD01@Rva0025DD01NullForwarder@@QAEHXZ,,0x0025DD01,16,Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp,matched,vtable 0x00BF6040#46 null-checked forwarder
+?rva0025DEBB@Rva0025DEBBNullForwarder@@QAE_NH@Z,,0x0025DEBB,17,Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp,matched,vtable 0x00BF6040#64 null-checked forwarder
+?rva0025DECC@Rva0025DECCNullForwarder@@QAE_NH@Z,,0x0025DECC,17,Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp,matched,vtable 0x00BF6040#65 null-checked forwarder
+?rva0025E27F@Rva0025E27FNullForwarder@@QAEXH@Z,,0x0025E27F,15,Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp,matched,vtable 0x00BF6040#39 null-checked forwarder
+?rva0035BD00@Rva0035BD00NullForwarder@@QAEXXZ,,0x0035BD00,13,Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp,matched,vtable 0x00C16208#1 null-checked forwarder
