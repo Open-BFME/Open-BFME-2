@@ -7467,3 +7467,4 @@ FUN_008f7883	0x004F7883	168	blocked	EH prolog push ecx plus frame plus copy_back
 ?Rva00545F80Get@@YAHXZ	0x00545F80	129	blocked	leaf free-function boundary suspect test-eax-on-entry plus ebx-used-without-save t=8 model=muse-01
 ?rva00545DEE@Rva00545DEE@@QAEPAVObject@@XZ	0x00545DEE	146	blocked	filter-chain sibling of banked 0x5455E3 derived-vs-manual EH plus push-order wall t=12 model=muse-01
 ?Rva00573512Check@@YGHPAUThing@@PAX@Z	0x00573512	180	partial	ecx-vs-eax for 0x10000000 ors plus je-xor-inc-jmp vs jne plus neg-sbb vs test-jne-xor t=20 model=muse-03 score=0.93 stash=reverse/attempts/0x00573512.cpp
+?rva00491FA6@Rva00491FA6@@QAEXXZ	0x00491FA6	227	blocked	complex BfmeWide partition query with float EH and pin-only link t=15 model=muse-04

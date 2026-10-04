@@ -52598,3 +52598,4 @@ _Rva0088E190TimerTick@16,,0x0003D870,9,Code/Libraries/Source/WWVegas/WWDebug/Rva
 ?rva00524306@Rva00524306@@QAEXABV?$StringBase@D@@@Z,,0x00524306,67,Code/Libraries/Source/WWVegas/WWLib/Rva00524306.cpp,matched,sibling of 0x005241DF via Find and rva00223A94
 ?rva0039E8FF@Team@@QAE_NH@Z,,0x0039E8FF,105,Code/GameEngine/Source/Common/RTS/TeamRva0039E8EB.cpp,matched,Team method via rowed iterate and advance plus virtual 0x7c and 0xac plus pinned bfmeHas985C caller 0x003C4A28
 ?rva0058AFB3@Rva0058AFB3@@QAE_NPAX@Z,,0x0058AFB3,139,Code/GameEngine/Source/GameLogic/SkirmishAI/AIDifficulty.cpp,matched,tactical gate via difficulty table plus owner record check caller 0x00506193
+?rva003F5BDB@Rva003F498A@@QAEXPAXPAV?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@@Z,,0x003F5BDB,116,Code/Libraries/Source/WWVegas/WWLib/Rva003F5BDB.cpp,matched,Rva003F498A filter via rva003F4DEE and pred into ScienceType vector caller 0x00217116
