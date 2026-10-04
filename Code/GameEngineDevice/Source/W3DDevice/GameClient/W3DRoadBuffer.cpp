@@ -3019,7 +3019,6 @@ void W3DRoadBuffer::setMap(WorldHeightMap *pMap)
 //=============================================================================
 /** Loads the roads from the map objects. */
 //=============================================================================
-// ?loadRoads@W3DRoadBuffer@@ present-unmatched
 void W3DRoadBuffer::loadRoads()
 {
 	if (!m_initialized) {
@@ -3034,7 +3033,14 @@ void W3DRoadBuffer::loadRoads()
 	insertCurveSegments();
 	insertCrossTypeJoins();
 	preloadRoadsInVertexAndIndexBuffers();
-	m_updateBuffers = true;
+	// Retail closes this body with c6 46 4c 01 = mov byte [esi+0x4C],1, the
+	// same one-byte store the matched updateLighting body 0x000D4A4B carries:
+	// the LOAD_TEST_ASSETS slot is one byte wide in the image, so
+	// `m_updateBuffers = true` (an Int member at +0x50) misses by address and
+	// store width. The union that gives the slot a byte member is the filed
+	// follow-up card; until then the byte at the member's own address is what
+	// the image does.
+	*(unsigned char *)&m_curOpenRoad = 1;
 	//ticks = ::GetTickCount() - ticks;
 	//char buf[256];
 	//sprintf(buf, "%d road segs, %d milisec.\n", m_numRoads, ticks);
