@@ -7956,3 +7956,4 @@ _CurDrawableShowModule	0x0033373B	25	partial	Retail registration335E7E pushes ex
 ?rva005D7395@Rva005D736E@@QAE_NPAVObject@@@Z	0x005D7395	394	blocked	vslot 394B x87 plus SSE plus random needs full FILE string at 0x00875D08 truncated in packet plus hash_map t=8 model=muse-03
 ??0Rva005D0C31@@QAE@PAX@Z	0x005D0C31	86	partial	missing first plus0x10 vtable 0xc7528c ours 80B 2 stores vs retail 3 t=15 model=muse-03 score=0.93 stash=reverse/attempts/0x005d0c31.cpp
 ?rva004DD2C0@Emotion@@QAEXXZ	0x004DD2C0	457	partial	ebx-vs-edi regalloc plus cmp-ebx-vs-test and push-mem-vs-reg; 451/456B t=28 model=muse-03 score=0.92 stash=reverse/attempts/0x004dd2c0.cpp
+?Rva0006FABFClear@@YGXPAPAXPAX@Z	0x0006FABF	45	partial	register allocation eax-ecx-edx rotation, size exact 45B structural 0 t=25 model=muse-06 score=0.92 stash=reverse/attempts/0x0006fabf.cpp
