@@ -21,7 +21,6 @@ target_rva,target_size,zh_source,alternates,confidence,ghidra_name,anchor
 0x0031ED2C,2583,ControlBar.cpp,4,medium,FUN_0071ed2c,ControlBar.wnd:ButtonPlaceBeacon
 0x000AD112,1494,WHeightMapEdit.cpp,1,medium,FUN_004ad112,GlobalLighting
 0x006C9300,808,autorun.cpp,2,medium,FUN_00ac9300,MapPackVersion
-0x0031553A,644,GameWindowManagerScript.cpp,1,medium,FUN_0071553a,SCROLLLISTBOX
 0x00338E52,605,DynamicGeometryInfoUpdate.cpp,1,medium,FUN_00738e52,SustainOpacity
 0x0039A7E2,556,GameLogic.cpp,2,medium,FUN_0079a7e2,CAMP: Frame %d: Castle %s(%d) Packed(aka:DIE) called by %s
 0x00154630,488,GenerateDlg.cpp,2,medium,FUN_00554630,Generals
