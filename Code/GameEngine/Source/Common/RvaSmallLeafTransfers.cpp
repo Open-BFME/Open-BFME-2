@@ -148,3 +148,23 @@ void Rva0066E4A0::clear()
 	m_28 = 0;
 }
 
+// Target 0x0066F550, 12 bytes; preceding int3 padding; terminal ret and int3 padding.
+// Donor b1 RVA 0x00803500; target instructions corroborate these accesses.
+class Rva0066F550
+{
+public:
+	void clear();
+
+	char m_lead[ 0xC ];
+	int m_c;
+	int m_10;
+	int m_14;
+};
+
+void Rva0066F550::clear()
+{
+	m_c = 0;
+	m_10 = 0;
+	m_14 = 0;
+}
+
