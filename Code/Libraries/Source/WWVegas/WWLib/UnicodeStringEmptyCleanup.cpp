@@ -18,3 +18,16 @@ void rva007B9C10DestroyEmptyUnicodeString()
 {
     reinterpret_cast<UnicodeStringCleanup *>(&UnicodeString::TheEmptyString)->destroy();
 }
+
+// Native 007B6740..007B6756 constructs the same object, then registers
+// its cleanup with atexit. The constructor's folded address is 00326BE6.
+extern "C" int __cdecl atexit(void (__cdecl *function)());
+// AtexitThunk.cpp defines the recovered CRT body as __atexit in COFF.
+#pragma comment(linker, "/alternatename:_atexit=__atexit")
+#pragma inline_depth(0)
+void rva007B6740InitializeEmptyUnicodeString()
+{
+    UnicodeString::TheEmptyString.UnicodeString::UnicodeString();
+    atexit(rva007B9C10DestroyEmptyUnicodeString);
+}
+#pragma inline_depth()
