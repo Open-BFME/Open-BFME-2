@@ -15,6 +15,7 @@
 // model; the owning struct is BFME2-new (no BFME1 donor).
 
 struct FieldParse;
+extern const struct FieldParse g_00BFD804[];
 
 extern "C" void *memset(void *dst, int val, unsigned int n);
 extern "C" void *memcpy(void *dst, const void *src, unsigned int n);
@@ -56,6 +57,6 @@ CombatChainEntry &CombatChainEntry::operator=(const CombatChainEntry &that)
 void INI::Rva002A8945_ParseCombatChainDefinition(INI *ini, void *instance, void *store, const void *userData)
 {
 	CombatChainEntry entry;
-	ini->initFromINI(&entry, reinterpret_cast<const FieldParse *>(0x00BFD804));
+	ini->initFromINI(&entry, g_00BFD804);
 	((CombatChainEntry *)instance)[entry.unit] = entry;
 }
