@@ -52713,3 +52713,4 @@ __Multiply,,0x0067BA40,481,Code/Libraries/Source/DirtySock/cryptrsa.c,matched,EA
 ?rva00262989@AIUpdateInterface@@QAEXI@Z,,0x00262989,97,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_wakeUpNow.cpp,matched,4-entry frame cache oldest-reuse via TheGameLogic frame plus callers
 ??1Rva001E2747@@UAE@XZ,,0x001E27C6,84,Code/GameEngine/Source/GameClient/FXListRva001E2747Ctor.cpp,matched,dtor via FXList clear plus list string members
 ??1BfmeAptScreenInGameChat@@UAE@XZ,,0x004E83EB,116,Code/GameEngine/Source/GameClient/GUI/BfmeAptScreenInGameChatDestructor.cpp,matched,AptInGameChat dtor via BFME1 donor close InitGadgets base AptGameWindow
+?rva003972D3@Rva003972D3@@QAEXPAURva003972D3Range@@PBVUpgradeTemplate@@@Z,,0x003972D3,132,Code/GameEngine/Source/Common/Rva003972D3Apply.cpp,matched,unlock via TheGameLogic findObjectByID and rowed Object helpers slot3 slot6
