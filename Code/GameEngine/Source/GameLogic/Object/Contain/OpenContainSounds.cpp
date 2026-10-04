@@ -1,5 +1,3 @@
-// ?doLoadSound@OpenContain@@MAEXXZ
-// partial score=0.99 date=2026-10-04
 // cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /O1 /DNDEBUG /MD /EHsc
 //
 // OpenContain::doLoadSound, retail 0x0046279C (143 bytes), and
