@@ -53901,3 +53901,4 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ?rva003A36F7@Rva003ABEFD@@QAEMH@Z,,0x003A36F7,9,Code/GameEngine/Source/Common/VtableSlotBodiesR3F.cpp,matched,unclaimed straight-line vtable slot body (vftable_map); address-named owner; float types inferred from movss/x87 use
 ?rva003F7257@Rva003ABEFD@@QAEMHH@Z,,0x003F7257,9,Code/GameEngine/Source/Common/VtableSlotBodiesR3F.cpp,matched,unclaimed straight-line vtable slot body (vftable_map); address-named owner; float types inferred from movss/x87 use
 ?rva002E53FA@OptionPreferences@@QAEXH@Z,,0x002E53FA,96,Code/GameEngine/Source/Common/Rva002E53FAFinish.cpp,matched,BFME1 OptionPreferences AudioLOD setter; new pin getAudioLODLevelName binds thiscall call site to rowed __stdcall address 0x202678
+?rva0043DBA3@Rva0043DFE0@@QAEXXZ,,0x0043DBA3,39,Code/GameEngine/Source/Common/Rva0043DFE0.cpp,matched,leaf flag 0x2C4 save 0x00511730 target 0x58 slot 0x40
