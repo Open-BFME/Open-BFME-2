@@ -5,13 +5,14 @@
 
 extern const void *const g_00BC6F24[];
 
-class Snapshot
+class Rva00BC6F24Base
 {
 public:
-	virtual ~Snapshot();
+	virtual ~Rva00BC6F24Base();
 };
 
-inline Snapshot::~Snapshot()
+// ??1Rva00BC6F24Base@@UAE@XZ present-unmatched
+inline Rva00BC6F24Base::~Rva00BC6F24Base()
 {
 	*(const void **)this = g_00BC6F24;
 }
@@ -26,13 +27,13 @@ struct Rva001501CA
 	~Rva001501CA();
 };
 
-class __declspec(novtable) Rva00150558 : public Snapshot
+class __declspec(novtable) Rva00150558 : public Rva00BC6F24Base
 {
 public:
 	virtual ~Rva00150558();
 private:
 	Rva001501CA m_04;
-	Snapshot m_10;
+	Rva00BC6F24Base m_10;
 };
 
 Rva00150558::~Rva00150558()
