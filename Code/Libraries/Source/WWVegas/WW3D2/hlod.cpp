@@ -45,6 +45,12 @@ void __cdecl operator delete[](void *block);
 #include <string.h>
 #define _CRTIMP
 #include "vector3.h" // select the verified three-word constructor before donor math headers
+// Native RefCountClass::Release_Ref is the10B dec form at5D1A7D.
+// Under/G7 the default speed form emits add[ecx+4],-1 (11B).
+// Compile the existing RefCount inline definitions for size before rendobj.
+#pragma optimize("s", on)
+#include "refcount.h"
+#pragma optimize("", on)
 #include "rendobj.h"	// the scoped BFME2 RenderObj layout and slots must win the include guard
 #include "winbase_shim.h"
 /*
