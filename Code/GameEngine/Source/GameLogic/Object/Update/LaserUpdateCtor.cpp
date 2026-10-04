@@ -37,7 +37,7 @@ protected:
 class LaserUpdate : public Rva00362EC7
 {
 public:
-	LaserUpdate(Thing *thing, const ModuleData *moduleData);
+	inline __declspec(noinline) LaserUpdate(Thing *thing, const ModuleData *moduleData);
 
 private:
 	float m_0C;					// +0x0C
@@ -62,7 +62,7 @@ private:
 };
 
 // ??0LaserUpdate@@QAE@PAVThing@@PBVModuleData@@@Z @0x00362EEE
-LaserUpdate::LaserUpdate(Thing *thing, const ModuleData *moduleData)
+inline __declspec(noinline) LaserUpdate::LaserUpdate(Thing *thing, const ModuleData *moduleData)
 	: Rva00362EC7(thing, moduleData)
 {
 	float fzero = 0.0f;
@@ -90,3 +90,15 @@ LaserUpdate::LaserUpdate(Thing *thing, const ModuleData *moduleData)
 	m_50 = zero;
 	m_3C = one;
 }
+
+// This TU owns the LaserUpdate ctor row; another TU emits a header/implicit
+// copy, so emit ours as a select-any COMDAT rather than a strong duplicate.
+// The anchor forces emission here for the ledger row; it is not retail code.
+// noinline keeps the rowed factory caller (0x24D522) calling instead of inlining.
+#pragma inline_depth(0)
+// ?bfmeEmitLaserUpdateCtor@@YAXPAVLaserUpdate@@PAVThing@@PBVModuleData@@@Z present-unmatched
+void bfmeEmitLaserUpdateCtor(LaserUpdate *out, Thing *thing, const ModuleData *moduleData)
+{
+	out->LaserUpdate::LaserUpdate(thing, moduleData);
+}
+#pragma inline_depth()
