@@ -8401,3 +8401,4 @@ _Rva0030CAF8CursorEqual,0x0007E394,twin of dup_0007e394 29B exact cursor equalit
 ?findModule@Object@@QBEPAVModule@@W4NameKeyType@@@Z,0x0028B6D6,callee of ?helper@Rva002EFB20@@YAXPAX_N@Z at retail 0x003BC2BB read from its REL32 displacement; public-spelling view of the matched protected ?findModule@Object@@IBEPAVModule@@W4NameKeyType@@@Z body at this address
 ?tryToIgnite@FlammableUpdate@@QAEXXZ,0x0048CB18,callee of ?helper@Rva002EFB20@@YAXPAX_N@Z at retail 0x003BC2CC read from its REL32 displacement; body unrowed
 ?apply@FlameCleanup00293E50@@QAEXXZ,0x0048C8F9,callee of ?helper@Rva002EFB20@@YAXPAX_N@Z at retail 0x003BC2D3 read from its REL32 displacement; body unrowed
+?bfmeAppend@Gen003B1B40@@QAEXPAVBfmeItemXN@@@Z,0x0056655F,callee of ?ParseFlashRegionsEvent@@YAXPAVINI@@PAX1PBX@Z at retail 0x004E152B read from its REL32 displacement; this+0x84 adjustor thunk route=0x005663DF (16-byte element vector append); body unrowed
