@@ -55457,3 +55457,4 @@ uw_0076765b,,0x0076765B,8,Code/Libraries/Source/WWVegas/WW3D2/meshgeometry.cpp,m
 ??0Rva005D0C31@@QAE@PAX@Z,,0x005D0C31,86,Code/GameEngine/Source/Common/System/Rva005D0C31Ctor.cpp,matched,MI ctor base 0x005CF8A1 second base at 0x10 via Rva00575125 pattern
 ?Rva001F949DConvert@@YA?AV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@ABV?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@2@D@Z,,0x001F949D,135,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_from_wide_push.cpp,matched,rowed wide get_allocator narrow reserve bfmeFwdVMX push_back copy free caller writeINI
 ?rva002A9CA4@Player@@QAE_NH@Z,,0x002A9CA4,20,Code/GameEngine/Source/Common/RTS/PlayerAIDelegates.cpp,matched,Player AI delegate default true via caller 0x003E4A63 and rowed AIPlayer rva004F2BEE
+?rva0041FE63@Rva00420110@@UAEXXZ,,0x0041FE63,35,Code/GameEngine/Source/Common/Rva0041FE63.cpp,matched,vslot 31 timeout via timeGetTime then tail slot 24

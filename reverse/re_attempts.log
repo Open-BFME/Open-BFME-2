@@ -8176,3 +8176,6 @@ Rva00415B91	0x00415B91	197	blocked	Native Ghidra197 is a separate EH-framed pars
 ?rva005424C4@Rva005424C4@@QAEHXZ	0x005424C4	535	blocked	complex XML tag lexer 32 structural regions plus 34B delta first variant t=15 model=muse-01
 ?Rva002BEF4BGet@@YGXPAVRva002BEF4BObj@@@Z	0x002BEF4B	154	blocked	inc eax push eax spill vs inc mem push mem plus tmp-cur slots swapped t=10 model=muse-01 (stash 0.93 kept)
 ?rva005105D7@Rva005105D7@@QAEXXZ	0x005105D7	86	blocked	vector dtor func 0x0050EAB9 unclaimed plus EH handler 0x00794A57 unclaimed plus pin-only base 0x005248D0 t=10 model=muse-04
+??0Rva000AB8F1@@QAE@XZ	0x000AB8F1	31	blocked	STL version wall vendored 4.5.3 hashtable takes no int bucket vs retail 4.6-style push 0x64 with 3 empty args t=10 model=muse-07
+?rva000ABA2F@Rva00062918Host@@QAEXXZ	0x000ABA2F	339	blocked	leaf table filler stores 30-plus code VAs many UNCLAIMED with no row or pin and literal code addresses hook-refused t=5 model=muse-07
+?rva000AC514@WorldHeightMap@@QAEXMMPAURGBColor@@@Z	0x000AC514	299	blocked	chain terrain color needs donor floor macro plus 16-bit 565 unpack plus INV and double 1-255 shape far 283vs299 t=12 model=muse-07
