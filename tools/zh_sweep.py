@@ -260,6 +260,11 @@ def merged_claims():
 
 
 def do_compile(args):
+    from concurrent.futures import ThreadPoolExecutor
+
+    jobs = getattr(args, "jobs", 1)
+    if jobs < 1:
+        raise SystemExit("compile: --jobs must be at least 1")
     sources = []
     for subtree in SUBTREES:
         found = sorted((ZH / subtree).rglob("*.cpp"))
@@ -268,23 +273,29 @@ def do_compile(args):
             found = [found[int(i * step)] for i in range(args.limit)]
         sources += found
     OBJ_DIR.mkdir(parents=True, exist_ok=True)
-    built = failed = cached = 0
-    for source in sources:
+
+    def compile_one(source):
         obj = OBJ_DIR / (object_stem(source.relative_to(ROOT))
                          + (".stl" if build.source_needs_stlport(source) else "") + ".obj")
         if obj.exists() and not args.force:
-            cached += 1
-            continue
+            return "cached"
         try:
             build.compile_source(source, obj)
-            built += 1
+            return "built"
         except SystemExit:
-            # A ZH TU that will not compile is the expected minority (the sweep
-            # runs at ~95%), not a reason to abandon the other 400.
-            failed += 1
+            # A failed forced rebuild must not leave an older object available
+            # to match/packets under the new source or header configuration.
+            obj.unlink(missing_ok=True)
+            obj.with_suffix(".deps.json").unlink(missing_ok=True)
             print(f"  compile FAILED {source.relative_to(ROOT)}", flush=True)
-    print(f"compile: {built} built, {cached} cached, {failed} failed "
-          f"of {len(sources)} translation unit(s)")
+            return "failed"
+
+    counts = {"built": 0, "cached": 0, "failed": 0}
+    with ThreadPoolExecutor(max_workers=jobs) as pool:
+        for result in pool.map(compile_one, sources):
+            counts[result] += 1
+    print(f"compile: {counts['built']} built, {counts['cached']} cached, "
+          f"{counts['failed']} failed of {len(sources)} translation unit(s)")
 
 
 def do_match(args):
@@ -1593,6 +1604,8 @@ def main():
     compile_parser.add_argument("--limit", type=int, default=0,
                                 help="sample at most N sources per subtree")
     compile_parser.add_argument("--force", action="store_true", help="rebuild cached objects")
+    compile_parser.add_argument("--jobs", type=int, default=1,
+                                help="parallel compiler processes (default 1)")
     compile_parser.set_defaults(run=do_compile)
     sub.add_parser("match", help="place every carved COMDAT in .text").set_defaults(run=do_match)
     land_parser = sub.add_parser("land", help="ledger rows for landable placements")
