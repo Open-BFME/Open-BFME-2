@@ -1,10 +1,17 @@
 // ?Rva001F7F1CGet@@YAXPAXH@Z
-// partial score=0.92 date=2026-10-01
-// ?Rva001F7F1CGet@@YAXPAXH@Z
-// partial score=0.92 date=2026-10-01
-// ?Rva001F7F1CGet@@YAXPAXH@Z
-// partial score=0.92 date=2026-10-01
-// cl: /O1 /MD /arch:SSE /EHsc
+// partial score=0.94 date=2026-10-04
+// cl: /O1 /Oy- /DNDEBUG /MD /GX /arch:SSE
+// ?Rva001F7F1CGet@@YAXPAXH@Z, retail 0x001F7F1C (237B).
+// Fills a caller-supplied Float4 from the live particle system: zero the
+// destination, then when TheParticleSystemManager is non-null and its
+// RvaSmartPtr12 (get@Rva001F6C54SmartField, member at +0x68) holds a system,
+// reuse it or build the null system via Make001FCBD7, read the +4/+8 pair
+// through rowed rva001F529D into the first two lanes and zero the rest, then
+// hand the four floats to the object's slot-34 vtable entry.
+// Flags follow the matched RvaSmartPtr12 getter 0x001F6C54 (/O1 /Oy- /GX)
+// with /arch:SSE, which retail's xorps-based zeroing proves.
+// The RvaSmartPtr12 destructor is out of line here (retail calls 0x004CBC0
+// twice; 0x001F6C54's own copy-ctor call fixes the same callee identity).
 // ?Rva001F7F1CGet@@YAXPAXH@Z present-unmatched
 class ParticleSystem;
 extern ParticleSystem *Make001FCBD7();
@@ -14,7 +21,7 @@ struct BfmeParticleSystemHandle { ~BfmeParticleSystemHandle(); void *m_system; v
 class RvaSmartPtr12 {
 public:
     RvaSmartPtr12(const RvaSmartPtr12 &that);
-    ~RvaSmartPtr12() { if (m_ptr != 0) ((BfmeParticleSystemHandle *)this)->~BfmeParticleSystemHandle(); }
+    ~RvaSmartPtr12();
     void *m_ptr;
     int m_pad04;
     int m_pad08;
