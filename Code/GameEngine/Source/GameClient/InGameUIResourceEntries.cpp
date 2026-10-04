@@ -150,3 +150,17 @@ void ResourceEntryOwner::rva004E7CEF()
         collector.rva004E551E();
     }
 }
+
+class Rva004E7B0CHolder
+{
+public:
+    void rva004E7D1D();
+private:
+    ResourceEntryOwner *owner;
+};
+
+// TheInGameUI+0x58C is a pointer holder; retail forwards through its +0.
+void Rva004E7B0CHolder::rva004E7D1D()
+{
+    owner->rva004E7CEF();
+}
