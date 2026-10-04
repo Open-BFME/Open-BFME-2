@@ -33,7 +33,8 @@ Rva0004CA4C::Rva0004CA4C()
 {
 }
 
-extern char g_00DB3D18[];
+// g_00DB3D18: passed as an empty registration table at VA 0xdb3d18; zero-filled at retail like its siblings below.
+char g_00DB3D18[12];
 // g_00DE1CD8: matched references place it at VA 0xde1cd8; zero-filled at retail, sized to the
 // 0xc-byte gap before the next known global there.
 char g_00DE1CD8[12];
