@@ -7540,3 +7540,6 @@ FUN_007b7836	0x003B7836	260	blocked	no callers prove 3-arg free-function types p
 ??1Rva005B3D94@@UAE@XZ	0x005B3D94	197	blocked	dtor-like with 2 vtables needs full layout from 1010B ctor 0x005B414F with unclaimed callees plus vector-unicode members t=12 model=muse-06
 ?rva00479C35@HordeGarrisonContain@@QAEXPAUCoord3D@@0@Z	0x00479C35	164	partial	xmm allocation rotated low-vs-high plus 3 matrix loads before add vs after t=28 model=muse-07 score=0.9 stash=reverse/attempts/0x00479c35.cpp
 ?rva00479C35@HordeGarrisonContain@@QAEXPAUCoord3D@@0@Z	0x00479C35	164	blocked	structural 0 but xmm rotated low-vs-high and oy-first vs ox-first with deferred stores t=22 model=muse-07 (stash 0.9 kept)
+?rva00397357@Rva003972D3@@QAEXPBVUpgradeTemplate@@@Z	0x00397357	148	partial	ebp-ebx mirror only; exact size 148/148 same 60 insns; kept-copy lever no change t=15 model=muse-02 score=0.9 stash=reverse/attempts/0x00397357.cpp
+?rva0026163A@Rva0026163A@@QAE_NPBUCoord3D@@@Z	0x0026163A	151	partial	final ret shares mov al,1 vs neg-sbb-inc branchless plus early-ret jmp t=25 model=muse-02 score=0.95 stash=reverse/attempts/0x0026163a.cpp
+?Rva00397FEBFind@@YAPAXHW4ObjectID@@PAX_N@Z	0x00397FEB	212	blocked	EH_prolog plus funclet 0x00780F0D no dtor local proven t=15 model=muse-02
