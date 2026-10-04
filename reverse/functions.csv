@@ -55625,3 +55625,4 @@ uw_0075c910,,0x0075C910,8,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_str
 ??1Rva005EFDDB@@UAE@XZ,,0x005EFDDB,14,Code/GameEngine/Source/Common/Rva005EFD39.cpp,matched,dtor stores vtable then clears inner Rva005EFD39 at plus4
 ??_GRva005EFDDB@@UAEPAXI@Z,,0x005EFE52,28,Code/GameEngine/Source/Common/Rva005EFD39.cpp,matched,deleting dtor for Rva005EFDDB via same TU
 ?Rva0008FBDDCreate@@YGPAVRva000A15FE@@PAX@Z,,0x0008FBDD,58,Code/GameEngine/Source/Common/Rva0008FBDDCreate.cpp,matched,chain lane same 58B new+ctor shape as siblings
+?Rva0008FB2FCreate@@YGPAVRva000A0D3A@@PAX@Z,,0x0008FB2F,58,Code/GameEngine/Source/Common/Rva0008FB2FCreate.cpp,matched,chain lane same 58B new+ctor shape as siblings
