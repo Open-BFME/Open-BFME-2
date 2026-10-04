@@ -8755,3 +8755,4 @@ _Rva0030CAF8CursorEqual,0x0007E394,twin of dup_0007e394 29B exact cursor equalit
 ??1Rva000D089D@@UAE@XZ,0x000D089D,"destructor the scalar deleting destructor 0x00079111 calls (REL32 at 0x00079114; vtable 0x00BC6870#0); opaque address name"
 ??1Rva000AB0D4@@UAE@XZ,0x000AB0D4,"destructor the scalar deleting destructor 0x000AB0B8 calls (REL32 at 0x000AB0BB; vtable 0x00BC9468#0); opaque address name"
 ??1Rva00256B94@@UAE@XZ,0x00256B94,"destructor the scalar deleting destructor 0x00256B78 calls (REL32 at 0x00256B7B; vtable 0x00BF3E30#0); opaque address name"
+?rva00573CFB@Rva00573B23@@UAEHPAVPlayer@@@Z,0x00573CFB,"slot 4 of the build-order vftable 0x00C6E2A0 (Rva00573B23, slot 0 its xfer 0x00573A35): takes the owner player, returns a state int; the derived order Rva00573F03 overrides the slot with 0x0057402F and calls this base at 0x00574140 when the site is not crowded"
