@@ -145,7 +145,7 @@ private:
 	void *render_task_head;
 };
 
-DX8TextureCategoryClass::~DX8TextureCategoryClass()
+inline DX8TextureCategoryClass::~DX8TextureCategoryClass()
 {
 	if (TheDX8MeshRenderer != 0) {
 		while (DX8PolygonRendererClass *p_renderer = PolygonRendererList.Get_Head()) {
@@ -158,3 +158,15 @@ DX8TextureCategoryClass::~DX8TextureCategoryClass()
 	if (material != 0)
 		material->Release_Ref();
 }
+
+// DX8TextureCategoryClass dtor is a header inline elsewhere: other units emit
+// select-any copies, so a strong definition here was a duplicate in the linked
+// build. This anchor only makes this unit emit its copy for the ledger row;
+// it is not retail code.
+#pragma inline_depth(0)
+// ?bfmeEmitDX8TextureCategoryDtor@@YAXPAVDX8TextureCategoryClass@@@Z present-unmatched
+void bfmeEmitDX8TextureCategoryDtor(DX8TextureCategoryClass *p)
+{
+	p->DX8TextureCategoryClass::~DX8TextureCategoryClass();
+}
+#pragma inline_depth()
