@@ -53966,3 +53966,4 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ??1Rva0057EE5C@@UAE@XZ,,0x0057EE5C,141,Code/GameEngine/Source/Common/Rva0057EE5C.cpp,matched,unlock dtor vtable 0x0086F4F0 frees plus release plus base 0x005248D0
 ??_GRva0050FAEC@@UAEPAXI@Z,,0x0050E7C5,28,Code/GameEngine/Source/Common/System/Rva0050FAECDtor.cpp,matched,deleting dtor from ??1 unit vtable slot0
 ?rva005B808D@@YAHEPAVRva005B8053@@@Z,,0x005B808D,34,Code/Libraries/Source/WWVegas/WWLib/Rva005B808DFinish.cpp,matched,byte-key lookup via rowed lower_bound and word at 0x12
+??1Rva0043DABD@@UAE@XZ,,0x0043DABD,11,Code/GameEngine/Source/Common/Rva0043DABD.cpp,matched,chain dtor vtable 0x0083D954 tail-jmp base 0x0057EE5C
