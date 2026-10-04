@@ -55765,3 +55765,4 @@ ___Extract_locale_name,,0x000216A0,153,Code/Libraries/Source/WWVegas/WWLib/Local
 ?Rva00217F7DMake@@YAXPAUQ3SortElem16@@0UQ3SortCompare@@@Z,,0x00217F7D,25,Code/GameEngine/Source/Common/Q3MakeHeapWrapper00217F7D.cpp,matched,unlock wrapper to rowed make_heap via null tail args
 ??$copy_backward@PAUFileInfoStruct@MixFileCreator@@PAU12@@_STL@@YAPAUFileInfoStruct@MixFileCreator@@PAU12@00@Z,,0x00217B93,27,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_fileinfo_copy_backward.cpp,matched,unlock copy_backward wrapper to rowed copy_backward_ptrs via false_type
 ?Rva001F3744IsZero@@YA_NPBUS001F3744@@@Z,,0x001F3744,42,Code/GameEngine/Source/Common/Rva001F3744IsZero.cpp,matched,float pair zero predicate via ucomiss lahf callers test al
+?rva00468B24@HordeContain@@QAEXM@Z,,0x00468B24,55,Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp,matched,HordeContain m_2EC max-then-cap to g_00BC5CD4 neighbour slots

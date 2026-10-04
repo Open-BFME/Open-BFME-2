@@ -329,6 +329,7 @@ public:
 	virtual void rva00469851();
 	virtual void rva00468BDC(int on);
 	virtual void rva0046AF85();
+	void rva00468B24(float value);
 private:
 	__forceinline const _STL::list<Object *> *containedItems()
 	{
@@ -738,4 +739,16 @@ void HordeContain::rva0046AF85()
 		if (m_17C.find(obj->getID()) == m_17C.end())
 			rva00470D09(obj);
 	}
+}
+
+// ?rva00468B24@HordeContain@@QAEXM@Z @0x00468B24 55B: max-then-cap on +0x2EC;
+// raises to the argument when larger, then clamps to g_00BC5CD4. Offset and
+// neighbour slots prove HordeContain.
+void HordeContain::rva00468B24(float value)
+{
+	if (value > m_2EC)
+		m_2EC = value;
+	extern float g_00BC5CD4;
+	if (m_2EC > g_00BC5CD4)
+		m_2EC = g_00BC5CD4;
 }
