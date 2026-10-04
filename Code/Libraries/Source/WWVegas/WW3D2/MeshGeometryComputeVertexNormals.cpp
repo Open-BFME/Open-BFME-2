@@ -1,9 +1,15 @@
-// ?Compute_Vertex_Normals@MeshGeometryClass@@MAEXPAVVector3@@_N@Z
-// partial score=0.8826185102 date=2026-09-23
-// Scratch recovery trial for MeshGeometryClass::Compute_Vertex_Normals at
-// 0x16CFC0. Target layout comes from the BFME2 matched geometry siblings;
-// BFME1 meshgeometry.cpp supplies the accumulation/smoothing semantics.
-// cl: /DNDEBUG /MD /EHsc /G7 /arch:SSE /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep
+// cl: /DNDEBUG /MD /EHsc /G7 /arch:SSE /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/game/Libraries/Source/Compression /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep
+// MeshGeometryClass normal accumulation, retail RVA 0x0016CFC0..0x0016D336.
+// BFME1 meshgeometry.cpp provides the accumulation and smoothing algorithm;
+// donor revision 6583b3c1ff21db4a561285717028fdafc780b7db. Target identity is
+// independently established by vtable VA 0x00BD43D0 slot +0x10 and the normal
+// accessor at RVA 0x0016AB90. RET8 establishes the extra bool parameter.
+// Target siblings establish Flags +0x18, counts +0x24/+0x28 and Poly +0x2C.
+// The bool is unused in this implementation. The unnamed vtable slot remains
+// opaque. Keep helpers declaration-only: retail calls get_planes and the plane
+// computation instead of inlining their definitions from the home unit.
+// Volatile scalar accesses preserve retail's SSE operand order, following the
+// already verified MeshGeometryClass::Scale technique. No assembly is used.
 
 #include "always.h"
 #include "refcount.h"
@@ -66,15 +72,15 @@ void MeshGeometryClass::Compute_Vertex_Normals(Vector3 *vnorm, bool)
         }
     } else {
         for (int pidx = 0; pidx < PolyCount; ++pidx) {
-            vnorm[shadeIx[poly[pidx].I]].X += peq[pidx].X;
-            vnorm[shadeIx[poly[pidx].I]].Y += peq[pidx].Y;
-            vnorm[shadeIx[poly[pidx].I]].Z += peq[pidx].Z;
+            *reinterpret_cast<volatile float *>(&vnorm[shadeIx[poly[pidx].I]].X) += peq[pidx].X;
+            *reinterpret_cast<volatile float *>(&vnorm[shadeIx[poly[pidx].I]].Y) += peq[pidx].Y;
+            vnorm[shadeIx[poly[pidx].I]].Z = *reinterpret_cast<const volatile float *>(&peq[pidx].Z) + vnorm[shadeIx[poly[pidx].I]].Z;
             vnorm[shadeIx[poly[pidx].J]].X += peq[pidx].X;
-            vnorm[shadeIx[poly[pidx].J]].Y += peq[pidx].Y;
+            *reinterpret_cast<volatile float *>(&vnorm[shadeIx[poly[pidx].J]].Y) += peq[pidx].Y;
             vnorm[shadeIx[poly[pidx].J]].Z += peq[pidx].Z;
-            vnorm[shadeIx[poly[pidx].K]].X += peq[pidx].X;
-            vnorm[shadeIx[poly[pidx].K]].Y += peq[pidx].Y;
-            vnorm[shadeIx[poly[pidx].K]].Z += peq[pidx].Z;
+            *reinterpret_cast<volatile float *>(&vnorm[shadeIx[poly[pidx].K]].X) += peq[pidx].X;
+            *reinterpret_cast<volatile float *>(&vnorm[shadeIx[poly[pidx].K]].Y) += peq[pidx].Y;
+            vnorm[shadeIx[poly[pidx].K]].Z = *reinterpret_cast<const volatile float *>(&peq[pidx].Z) + vnorm[shadeIx[poly[pidx].K]].Z;
         }
 
         for (unsigned int vidx = 0; vidx < (unsigned int)VertexCount; ++vidx) {
