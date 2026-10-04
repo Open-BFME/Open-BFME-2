@@ -24,3 +24,17 @@ Rva000A15FE::Rva000A15FE(void *context)
 {
 	*(const void **)this = g_00BC8DB4;
 }
+
+extern const void *const g_00BC8DE0[];
+
+class Rva000A1646 : public Rva000A15FE
+{
+public:
+	Rva000A1646(void *context);
+};
+
+Rva000A1646::Rva000A1646(void *context)
+	: Rva000A15FE(context)
+{
+	*(const void **)this = g_00BC8DE0;
+}
