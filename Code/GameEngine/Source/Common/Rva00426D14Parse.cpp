@@ -79,7 +79,7 @@ struct INIExceptionBuf
 };
 
 extern "C" void rva002f681_fill(void *e, int argCount, const char *format, ...);
-__declspec(noreturn) void __stdcall _CxxThrowException(void *, void *);
+extern "C" void __stdcall _CxxThrowException(void *pExceptionObject, const _s__ThrowInfo *pThrowInfo);
 struct ThrowAnchor00426D14 { int a; int b; int c; int d; };
 static const ThrowAnchor00426D14 throwAnchor00426D14 = { 0, 0, 0, 0 };
 
@@ -109,10 +109,5 @@ void __cdecl Rva00426D14Parse(INI *ini)
 	b->h19(1);
 	INIExceptionBuf e;
 	rva002f681_fill(&e, 9, (const char *)0);
-	_CxxThrowException(&e, (void *)&throwAnchor00426D14);
+	_CxxThrowException(&e, (const _s__ThrowInfo *)&throwAnchor00426D14); __assume(0);
 }
-
-// The (void *, void *) declaration above is a C++ overload, so calls spell
-// ?_CxxThrowException@@YGXPAX0@Z; retail calls the MSVC 7.1 throw helper
-// __CxxThrowException@8 (its import thunk at 0x00629094). Same ABI: bind the spelling.
-#pragma comment(linker, "/alternatename:?_CxxThrowException@@YGXPAX0@Z=__CxxThrowException@8")
