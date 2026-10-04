@@ -7560,3 +7560,4 @@ FUN_007b7836	0x003B7836	260	blocked	no callers prove 3-arg free-function types p
 ?_M_clear@?$vector@UBfmeStringRecord00426A5B@@V?$allocator@UBfmeStringRecord00426A5B@@@_STL@@@_STL@@IAEXXZ	0x00507C0F	30	partial	byte-exact 30B 15insns 0structural via template _M_clear; landing blocked by duplicate name at 0x004C3D8B which calls DestroyPairs not destroy_aux t=20 model=muse-12 score=1.0 stash=reverse/attempts/0x00507c0f.cpp
 ?rva005075D6@Rva00507823@@QAEEXPBX0@Z	0x005075D6	372	blocked	372B filter chain over Object ThingTemplate ObjectFilter plus x87 float needs donor layout t=5 model=muse-12
 ?Rva00357025Get@@YAMXZ	0x00357025	172	blocked	172B Script float SSE plus x87 needs donor plus globals g_DFEEF8 g_BBB9AC t=5 model=muse-12
+?rva004D3A1B@DisconnectManager@@QAEXHPAUConnectionManager@@@Z	0x004D3A1B	151	blocked	complex inform-leave 151B needs NetCommandMsg layout plus auto_ptr plus TheGameLogic 0x40 t=12 model=muse-10
