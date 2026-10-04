@@ -53215,3 +53215,4 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ??_EPlayer@@W7AEPAXI@Z,,0x002B1182,8,Code/GameEngine/Source/Common/RTS/PlayerDeleter.cpp,matched,this-adjusting (-0x8) deleting-dtor thunk to ??_GPlayer 0x002B14CF
 ??_ETeam@@O3AEPAXI@Z,,0x003A370F,8,Code/GameEngine/Source/Common/RTS/TeamDeleter.cpp,matched,this-adjusting (-0x4) deleting-dtor thunk to ??_GTeam 0x003A38CD
 ??_ETerrainLogic@@W3AEPAXI@Z,,0x00284182,8,Code/GameEngine/Source/GameLogic/Map/TerrainLogicDeleter.cpp,matched,this-adjusting (-0x4) deleting-dtor thunk to ??_GTerrainLogic 0x00285177
+?rva005D874A@Rva005EEDB5Picker@@QAE_NPAVObject@@@Z,,0x005D874A,295,Code/GameEngine/Source/GameLogic/SkirmishAI/AISpecialPowers/AISpecialPowerPickers.cpp,matched,only slot of vftable 0x00C76180; victim-gated allied scan over the +0x10 radius keeping the target with the lower +0x254 slot-5 value; filter chain alive.link(relationship flags 4)

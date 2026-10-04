@@ -9,6 +9,12 @@
 //               stands within 500 of it, place the power at the nearest such
 //               (0x005EE8DD); otherwise false when 0x005D7558 holds, else the
 //               fallback 0x005D7D93
+//   0x005D874A  the only slot of vftable 0x00C76180: while the caster has a
+//               victim (0x0058AE1E), clear the +0x1C target id (0x005EEDB5)
+//               and walk the alive objects allied (flags 4) to the caster
+//               within the +0x10 radius, taking the first one, then the
+//               first whose +0x254 module slot 5 value is below the
+//               target's; true when a target is held (0x005EEDE6)
 //
 // The filters are BFME2's partition filter chain (the view
 // AIStructureCreepTactic.cpp documents): a vptr, the +0x04 link to the next
@@ -91,6 +97,18 @@ struct Rva005D75BEMask
 	unsigned int m_bits[7];
 };
 
+// The module at Object +0x254: slot 5 returns a float 0x005D874A compares.
+class Rva005D874AModule
+{
+public:
+	virtual void v0();
+	virtual void v1();
+	virtual void v2();
+	virtual void v3();
+	virtual void v4();
+	virtual float rva005D874AValue() const;	// slot 5
+};
+
 class Object
 {
 public:
@@ -98,6 +116,8 @@ public:
 	const Coord3D *getPosition() const { return &m_pos; }
 	char m_pad000[0x38];
 	Coord3D m_pos;		// +0x38
+	char m_pad044[0x254 - 0x44];
+	Rva005D874AModule *m_254;	// +0x254
 };
 
 struct BfmeWideResult
@@ -149,4 +169,49 @@ bool Rva005EE816::rva005D75BE(Object *source)
 			return rva005EE8DD(hit->getPosition(), source);
 	}
 	return rva005D7558(source) ? false : rva005D7D93(source);
+}
+
+// Retail tests only AL after this call; the row 0x0058AE1E returns the
+// victim test as an int.
+bool __stdcall Rva0058AE1EHasVictim(Object *obj);	// 0x0058AE1E
+
+// The picker 0x005D874A runs on: +0x10 a radius, +0x1C a target object id
+// that 0x005EEDB5 stores (null clears it) and 0x005EEDE6 resolves.
+class Rva005EEDB5Picker
+{
+public:
+	void rva005EEDB5(Object *obj);		// 0x005EEDB5
+	Object *rva005EEDE6() const;		// 0x005EEDE6
+	float getRadius() const { return m_10; }
+	bool rva005D874A(Object *source);
+private:
+	char m_pad00[0x10];
+	float m_10;		// +0x10
+	char m_pad14[0x08];
+	int m_1C;		// +0x1C
+};
+
+bool Rva005EEDB5Picker::rva005D874A(Object *source)
+{
+	if (Rva0058AE1EHasVictim(source)) {
+		rva005EEDB5(0);
+		BfmeWideResult hits = ThePartitionManager->iterateObjectsInRange(source->getPosition(), getRadius(), 0,
+			Rva0026119DFilter().link(&Rva00261409Filter(source->getControllingPlayer(), true, 4)), 1);
+		Object *obj;
+		while ((obj = hits.next()) != 0) {
+			if (!rva005EEDE6()) {
+				rva005EEDB5(obj);
+				continue;
+			}
+			Rva005D874AModule *mine = obj->m_254;
+			Rva005D874AModule *theirs = rva005EEDE6()->m_254;
+			if (mine->rva005D874AValue() < theirs->rva005D874AValue()) {
+				rva005EEDB5(obj);
+				break;
+			}
+		}
+	}
+	if (rva005EEDE6())
+		return true;
+	return false;
 }

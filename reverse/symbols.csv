@@ -8787,3 +8787,6 @@ _Rva0030CAF8CursorEqual,0x0007E394,twin of dup_0007e394 29B exact cursor equalit
 ??_EPlayer@@UAEPAXI@Z,0x002B14CF,"vector deleting destructor name the this-adjusting thunk 0x002B1182 jumps to; the linker resolves it to the scalar deleting destructor at this address (weak external)"
 ??_ETeam@@MAEPAXI@Z,0x003A38CD,"vector deleting destructor name the this-adjusting thunk 0x003A370F jumps to; the linker resolves it to the scalar deleting destructor at this address (weak external)"
 ??_ETerrainLogic@@UAEPAXI@Z,0x00285177,"vector deleting destructor name the this-adjusting thunk 0x00284182 jumps to; the linker resolves it to the scalar deleting destructor at this address (weak external)"
+?Rva0058AE1EHasVictim@@YG_NPAVObject@@@Z,0x0058AE1E,bool view of the rowed int victim test ?Rva0058AE1EGet@@YGHPAX@Z (stdcall ret 4); REL32 at 0x005D875F in 0x005D874A whose caller tests only AL
+?rva005EEDB5@Rva005EEDB5Picker@@QAEXPAVObject@@@Z,0x005EEDB5,stores the object +0x74 id (0 for null) into ECX+0x1C (ret 4); REL32 at 0x005D8772/0x005D87F6/0x005D8843 in 0x005D874A; ICF alias of the rowed ?setTargetObject@StickyBombUpdate@@QAEXPAVObject@@@Z
+?rva005EEDE6@Rva005EEDB5Picker@@QBEPAVObject@@XZ,0x005EEDE6,pushes ECX+0x1C and resolves it through TheGameLogic (0x00449DC5); REL32 at 0x005D87EA/0x005D8803/0x005D8857 in 0x005D874A
