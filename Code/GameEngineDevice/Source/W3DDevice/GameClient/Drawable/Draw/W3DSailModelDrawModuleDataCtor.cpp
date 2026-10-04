@@ -11,7 +11,30 @@
 // Row supersedes the ctor pin.
 
 class MultiIniFieldParse;
-struct FieldParse;
+class INI;
+typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
+struct FieldParse
+{
+	const char *token;
+	INIFieldParseProc parse;
+	const void *userData;
+	int offset;
+};
+
+class INI
+{
+public:
+	static void parseAngleReal(INI *ini, void *instance, void *store, const void *userData);
+	static void parseReal(INI *ini, void *instance, void *store, const void *userData);
+};
+
+// Retail VA 0x00BCDC20 (.rdata): 3 field records and a zero sentinel.
+extern const FieldParse g_00BCDC20[] = {
+	{ "MaxRotationDegrees", &INI::parseAngleReal, 0, 0x188 },
+	{ "BlowingThresholdDegrees", &INI::parseAngleReal, 0, 0x18C },
+	{ "AboutDamping", &INI::parseReal, 0, 0x190 },
+	{ 0, 0, 0, 0 }
+};
 
 class MultiIniFieldParse
 {
@@ -64,5 +87,5 @@ W3DSailModelDrawModuleData::W3DSailModelDrawModuleData()
 void W3DSailModelDrawModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
 	W3DModelDrawModuleData::buildFieldParse(parse);
-	parse.add(reinterpret_cast<const FieldParse *>(0x00BCDC20), 0);
+	parse.add(g_00BCDC20, 0);
 }

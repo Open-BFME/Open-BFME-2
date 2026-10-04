@@ -31,7 +31,33 @@ public:
 };
 
 class MultiIniFieldParse;
-struct FieldParse;
+class INI;
+typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
+struct FieldParse
+{
+	const char *token;
+	INIFieldParseProc parse;
+	const void *userData;
+	int offset;
+};
+
+class INI
+{
+public:
+	static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);
+	static void parseInt(INI *ini, void *instance, void *store, const void *userData);
+	static void parseReal(INI *ini, void *instance, void *store, const void *userData);
+};
+
+// Retail VA 0x00BCDFB0 (.rdata): 5 field records and a zero sentinel.
+extern const FieldParse g_00BCDFB0[] = {
+	{ "Texture", &INI::parseAsciiString, 0, 0x8 },
+	{ "Width", &INI::parseReal, 0, 0xC },
+	{ "TileFactor", &INI::parseReal, 0, 0x10 },
+	{ "ScrollRate", &INI::parseReal, 0, 0x14 },
+	{ "MaxSegments", &INI::parseInt, 0, 0x18 },
+	{ 0, 0, 0, 0 }
+};
 
 class MultiIniFieldParse
 {
@@ -58,7 +84,7 @@ private:
 // ?buildFieldParse@W3DProjectileStreamDrawModuleData@@SAXAAVMultiIniFieldParse@@@Z @0x000D125C
 void W3DProjectileStreamDrawModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
-	parse.add(reinterpret_cast<const FieldParse *>(0x00BCDFB0), 0);
+	parse.add(g_00BCDFB0, 0);
 }
 
 // ??0W3DProjectileStreamDrawModuleData@@QAE@XZ @0x000D11D2

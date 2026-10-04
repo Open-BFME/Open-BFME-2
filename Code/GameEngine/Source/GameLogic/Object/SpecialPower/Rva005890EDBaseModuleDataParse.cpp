@@ -13,7 +13,31 @@
 // call here, proving it is their shared base.
 
 class MultiIniFieldParse;
-struct FieldParse;
+class INI;
+typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
+struct FieldParse
+{
+	const char *token;
+	INIFieldParseProc parse;
+	const void *userData;
+	int offset;
+};
+
+class INI
+{
+public:
+	static void parseBool(INI *ini, void *instance, void *store, const void *userData);
+	static void parseSpecialPowerTemplate(INI *ini, void *instance, void *store, const void *userData);
+};
+
+void Rva003393DFParse(INI *ini, void *instance, void *store, const void *userData);
+// Retail VA 0x00C701E0 (.rdata): 3 field records and a zero sentinel.
+extern const FieldParse g_00C701E0[] = {
+	{ "SpecialPowerTemplate", &INI::parseSpecialPowerTemplate, 0, 0x8 },
+	{ "InitiateSound", &Rva003393DFParse, 0, 0xC },
+	{ "StartsPaused", &INI::parseBool, 0, 0x14 },
+	{ 0, 0, 0, 0 }
+};
 
 class MultiIniFieldParse
 {
@@ -30,5 +54,5 @@ public:
 // ?buildFieldParse@Rva005890EDBase@@SAXAAVMultiIniFieldParse@@@Z @0x005890ED
 void Rva005890EDBase::buildFieldParse(MultiIniFieldParse &parse)
 {
-	parse.add(reinterpret_cast<const FieldParse *>(0x00C701E0), 0);
+	parse.add(g_00C701E0, 0);
 }

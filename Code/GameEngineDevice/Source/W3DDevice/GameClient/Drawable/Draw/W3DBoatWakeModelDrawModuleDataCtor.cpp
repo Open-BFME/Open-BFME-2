@@ -15,7 +15,29 @@
 // factory (news 0x18, sole caller at 0x65080). Row supersedes the ctor pin.
 
 class MultiIniFieldParse;
-struct FieldParse;
+class INI;
+typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
+struct FieldParse
+{
+	const char *token;
+	INIFieldParseProc parse;
+	const void *userData;
+	int offset;
+};
+
+class INI
+{
+public:
+	static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);
+	static void parseCoord3D(INI *ini, void *instance, void *store, const void *userData);
+};
+
+// Retail VA 0x00BCDEE4 (.rdata): 2 field records and a zero sentinel.
+extern const FieldParse g_00BCDEE4[] = {
+	{ "ModelName", &INI::parseAsciiString, 0, 0x8 },
+	{ "Offset", &INI::parseCoord3D, 0, 0xC },
+	{ 0, 0, 0, 0 }
+};
 
 class MultiIniFieldParse
 {
@@ -56,7 +78,7 @@ inline W3DBoatWakeModelDrawModuleData::W3DBoatWakeModelDrawModuleData()
 // ?buildFieldParse@W3DBoatWakeModelDrawModuleData@@SAXAAVMultiIniFieldParse@@@Z @0x000D0CF7
 void W3DBoatWakeModelDrawModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
-	parse.add(reinterpret_cast<const FieldParse *>(0x00BCDEE4), 0);
+	parse.add(g_00BCDEE4, 0);
 }
 
 // Header inlines that the units including the header emit as select-any

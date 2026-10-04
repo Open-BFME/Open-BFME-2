@@ -13,7 +13,23 @@ extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 
 class MultiIniFieldParse;
-struct FieldParse;
+class INI;
+typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
+struct FieldParse
+{
+	const char *token;
+	INIFieldParseProc parse;
+	const void *userData;
+	int offset;
+};
+
+void Rva00339900Parse(INI *ini, void *instance, void *store, const void *userData);
+// Retail VA 0x00BEF820 (.rdata): 2 field records and a zero sentinel.
+extern const FieldParse g_00BEF820[] = {
+	{ "SoundDeploy", &Rva00339900Parse, 0, 0xC8 },
+	{ "SoundUndeploy", &Rva00339900Parse, 0, 0xCC },
+	{ 0, 0, 0, 0 }
+};
 
 class MultiIniFieldParse
 {
@@ -60,5 +76,5 @@ ToggleDeploySpecialAbilityUpdateModuleData::ToggleDeploySpecialAbilityUpdateModu
 void ToggleDeploySpecialAbilityUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
 	Rva0044EB54::buildFieldParse(parse);
-	parse.add(reinterpret_cast<const FieldParse *>(0x00BEF820), 0);
+	parse.add(g_00BEF820, 0);
 }

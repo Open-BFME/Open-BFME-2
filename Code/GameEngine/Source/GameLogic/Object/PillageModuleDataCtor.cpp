@@ -18,7 +18,30 @@
 // the ctor pin.
 
 class MultiIniFieldParse;
-struct FieldParse;
+class INI;
+typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
+struct FieldParse
+{
+	const char *token;
+	INIFieldParseProc parse;
+	const void *userData;
+	int offset;
+};
+
+class INI
+{
+public:
+	static void dup_002EF72(INI *ini, void *instance, void *store, const void *userData);
+};
+
+void iniParseObjectFilter(INI *ini, void *instance, void *store, const void *userData);
+// Retail VA 0x00BF0620 (.rdata): 3 field records and a zero sentinel.
+extern const FieldParse g_00BF0620[] = {
+	{ "PillageAmount", &INI::dup_002EF72, 0, 0x8 },
+	{ "NumDamageEventsPerPillage", &INI::dup_002EF72, 0, 0xC },
+	{ "PillageFilter", &iniParseObjectFilter, 0, 0x10 },
+	{ 0, 0, 0, 0 }
+};
 extern const int g_emptyFieldParseTable[4];
 
 class MultiIniFieldParse
@@ -77,5 +100,5 @@ PillageModuleData::PillageModuleData()
 void PillageModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
 	parse.add(reinterpret_cast<const FieldParse *>(g_emptyFieldParseTable), 0);
-	parse.add(reinterpret_cast<const FieldParse *>(0x00BF0620), 0);
+	parse.add(g_00BF0620, 0);
 }

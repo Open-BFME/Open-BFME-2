@@ -10,7 +10,31 @@
 // under "DamageFieldUpdate". Row supersedes the parse pin.
 
 class MultiIniFieldParse;
-struct FieldParse;
+class INI;
+typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
+struct FieldParse
+{
+	const char *token;
+	INIFieldParseProc parse;
+	const void *userData;
+	int offset;
+};
+
+class INI
+{
+public:
+	static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);
+	static void parseInt(INI *ini, void *instance, void *store, const void *userData);
+};
+
+void iniParseObjectFilter(INI *ini, void *instance, void *store, const void *userData);
+// Retail VA 0x00C4D8A8 (.rdata): 3 field records and a zero sentinel.
+extern const FieldParse g_00C4D8A8[] = {
+	{ "Radius", &INI::parseInt, 0, 0x10 },
+	{ "ObjectFilter", &iniParseObjectFilter, 0, 0x14 },
+	{ "RequiredUpgrade", &INI::parseAsciiString, 0, 0x18 },
+	{ 0, 0, 0, 0 }
+};
 
 class MultiIniFieldParse
 {
@@ -34,5 +58,5 @@ public:
 void DamageFieldUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
 	FireWeaponUpdateModuleData::buildFieldParse(parse);
-	parse.add(reinterpret_cast<const FieldParse *>(0x00C4D8A8), 0);
+	parse.add(g_00C4D8A8, 0);
 }
