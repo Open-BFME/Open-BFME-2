@@ -52527,3 +52527,4 @@ _Rva0088E190TimerTick@16,,0x0003D870,9,Code/Libraries/Source/WWVegas/WWDebug/Rva
 ?rva0058DD89@NetPacket@@SAPAVNetCommandMsg@@PAEAAH@Z,,0x0058DD89,105,Code/GameEngine/Source/GameNetwork/NetPacket_Rva0058DD89.cpp,matched,static factory 8 byte order plus rowed ctor plus rowed setter
 ?rva005974CC@Rva0059734B@@UAEXPAVXfer@@PAX@Z,,0x005974CC,244,Code/GameEngine/Source/Common/Rva005974CC.cpp,matched,slot12 xfer override pruning via AsciiString and command buttons vtable 0x00870BD0 caller 0x005972B3
 ?rva002AB8FB@Player@@QAEXPAVObject@@_N@Z,,0x002AB8FB,322,Code/GameEngine/Source/Common/RTS/PlayerRva002AB8FB.cpp,matched,Player grant AI difficulty upgrade via rowed callees caller 0x0028B25B
+?Rva0038766BAlloc@@YGPAU_Rva0038766BNode@@PBURva0038768DData@@@Z,,0x0038766B,34,Code/GameEngine/Source/GameClient/LanguageFilterRva0038766B.cpp,matched,chain of 0x0038768D via alloc 0x18 tail copy
