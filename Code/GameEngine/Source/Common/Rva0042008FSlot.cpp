@@ -32,6 +32,38 @@ public:
 };
 extern GameInfo *TheGameInfo;
 
+class Player
+{
+public:
+	virtual ~Player();
+};
+
+class PlayerList
+{
+public:
+	Player *getNthPlayer(int i);
+};
+extern PlayerList *ThePlayerList;
+
+class RecorderClass
+{
+public:
+	bool isMultiplayer();
+};
+
+struct Bfme939Helper : public RecorderClass
+{
+};
+extern Bfme939Helper *g_bfme939Helper;
+
+class Radar
+{
+public:
+	unsigned char m_pad[0x11];
+	unsigned char m_11;
+};
+extern Radar *TheRadar;
+
 class Rva00420110
 {
 public:
@@ -50,7 +82,20 @@ public:
 	virtual void v12() = 0;
 	virtual void v13() = 0;
 	virtual bool v14(int x) = 0;
+	virtual void v15() = 0;
+	virtual void v16() = 0;
+	virtual void v17() = 0;
+	virtual void v18() = 0;
+	virtual void v19() = 0;
+	virtual void v20() = 0;
+	virtual void v21() = 0;
+	virtual void v22() = 0;
+	virtual void v23() = 0;
+	virtual void v24() = 0;
+	virtual void v25() = 0;
+	virtual bool v26(Player *p) = 0;
 	bool rva0042008F();
+	void rva0041FFAD();
 private:
 	char m_pad04[0x8];
 	int m_0C;
@@ -74,4 +119,33 @@ bool Rva00420110::rva0042008F()
 	if (idx < 0 || (unsigned int)idx >= 0x14)
 		return false;
 	return v14(m_dword18[idx]);
+}
+
+// ?rva0041FFAD@Rva00420110@@QAEXXZ @0x0041FFAD 106B
+// Vslot 17 of vtable 0x00C3BA28 (offset 0x44). If not multiplayer return;
+// else poll 20 players via ThePlayerList slot, count true from own slot
+// 0x68, zero m_dword18 tail, then if m_68<0 set m_84/m_86 and TheRadar+0x11.
+// Evidence: same this as neighbours, layout +0x18/+0x68/+0x84/+0x86 matches
+// init 0x0041FE86 and slot 0x0042008F; callees rowed isMultiplayer
+// 0x0037B18C getNthPlayer 0x002A7A29 plus own slot 0x68; globals
+// g_bfme939Helper ThePlayerList TheRadar as packet annotates.
+void Rva00420110::rva0041FFAD()
+{
+	if (!g_bfme939Helper->isMultiplayer())
+		return;
+	unsigned int n = 0;
+	for (int i = 0; i < 0x14; ++i) {
+		Player *p = ThePlayerList->getNthPlayer(i);
+		if (v26(p))
+			++n;
+	}
+	if (n < 0x14) {
+		for (unsigned int i = n; i < 0x14; ++i)
+			m_dword18[i] = 0;
+	}
+	if (m_68 >= 0)
+		return;
+	m_84 = 1;
+	TheRadar->m_11 = 1;
+	m_86 = 1;
 }
