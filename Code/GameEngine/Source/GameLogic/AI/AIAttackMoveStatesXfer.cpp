@@ -25,8 +25,11 @@
 // Slot 3 of vftables 0x00C12610 (name getter 0x00342972,
 // "AIAttackApproachTargetState") and 0x00C12730 (0x00342A4A,
 // "AIAttackPursueTargetState"). A second vftable (0x00C12678) shares the
-// approach name getter with a different 130-byte xfer; it is a BFME 2 variant
-// and is not claimed here.
+// approach name getter with a different 128-byte xfer (0x00340623); it is a
+// BFME 2 variant, AIAttackApproachTargetState00C12678 (address-derived name,
+// see AIAttackApproachTargetStateOnExit.cpp), whose fields are named here by
+// offset and xfer type only: of them only +0x61 (the initial-approach flag
+// its onExit clears) has a known meaning.
 //
 // Both run the AIInternalMoveToState base (0x0033FF76), then the light-CRC
 // gate, then ZH's fields. BFME 2 adds fields after them. The approach state
@@ -175,6 +178,20 @@ private:
 };
 
 // ------------------------------------------------------------------------------------------------
+class AIAttackApproachTargetState00C12678 : public AIInternalMoveToState
+{
+protected:
+	virtual void xfer( Xfer *xfer );
+private:
+	Coord3DBase m_bfmePosition4C;																							///< 0x4C
+	UnsignedInt m_bfmeFrame58;																								///< 0x58
+	UnsignedInt m_bfmeFrame5C;																								///< 0x5C
+	Bool m_bfmeFlag60;																												///< 0x60
+	Bool m_isInitialApproach;																									///< 0x61
+	Bool m_bfmeFlag62;																												///< 0x62
+};
+
+// ------------------------------------------------------------------------------------------------
 /** Xfer method
 	* Version Info:
 	* 1: Initial version */
@@ -226,4 +243,23 @@ void AIAttackPursueTargetState::xfer( Xfer *xfer )
 	*xfer == m_stopIfInRange;
 	*xfer == m_isInitialApproach;
 	*xfer == m_bfmeFlag60;
+}  // end xfer
+
+// ------------------------------------------------------------------------------------------------
+void AIAttackApproachTargetState00C12678::xfer( Xfer *xfer )
+{
+	Xfer::Version version( 1, 1 );
+	*xfer == version;
+
+	AIInternalMoveToState::xfer( xfer );
+
+	if( xfer->IsLightCRC() )
+		return;
+
+	*xfer == m_bfmeFrame58;
+	*xfer == m_bfmeFlag60;
+	*xfer == m_isInitialApproach;
+	*xfer == m_bfmePosition4C;
+	*xfer == m_bfmeFrame5C;
+	*xfer == m_bfmeFlag62;
 }  // end xfer
