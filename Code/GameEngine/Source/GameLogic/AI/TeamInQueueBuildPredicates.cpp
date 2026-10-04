@@ -32,9 +32,13 @@ public:
 	bool isAllBuilt();
 	bool isMinimumBuilt();
 	bool areBuildsComplete();
+	void dlink_removeFrom_TeamReadyQueue(TeamInQueue **head);
 
 private:
-	char m_unreconstructed_04[0x10];
+	TeamInQueue *m_previousBuild; // +04
+	TeamInQueue *m_nextBuild; // +08
+	TeamInQueue *m_previousReady; // +0C
+	TeamInQueue *m_nextReady; // +10
 	WorkOrder *m_workOrders;       // +0x14
 };
 
@@ -64,4 +68,25 @@ bool TeamInQueue::areBuildsComplete()
 		order = order->m_next;
 	}
 	return true;
+}
+
+// Whole BFME1 AIPlayerQueueTeardown.cpp at1281192f682ce6f29b8f06b7daea4b5e8fdfbb24
+// supplies the two-list unlink protocol. Native Ghidra4F03AF/48 RET4
+// independently witnesses next+10 and previous+0C, neighbour repairs,
+// the supplied-head store only when previous is null, and both clears.
+// Native4F0479/32 checks rowed4EF342 with AIPlayer+8, then calls this
+// entry with the same node/head arguments. The Ready/Build labels come
+// from the reference DLINK declaration order; target bytes prove offsets
+// and relationships, not the original spelling or the full class layout.
+// Existing work-order methods continue to read the unchanged pointer+14.
+void TeamInQueue::dlink_removeFrom_TeamReadyQueue(TeamInQueue **head)
+{
+    if (m_nextReady)
+        m_nextReady->m_previousReady = m_previousReady;
+    if (m_previousReady)
+        m_previousReady->m_nextReady = m_nextReady;
+    else
+        *head = m_nextReady;
+    m_previousReady = 0;
+    m_nextReady = 0;
 }
