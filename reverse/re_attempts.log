@@ -7444,3 +7444,6 @@ FUN_008f7883	0x004F7883	168	blocked	EH prolog push ecx plus frame plus copy_back
 ?rva00091763@Rva007E3C20Vp6Stream@@UAEHABVAsciiString@@@Z	0x00091763	345	blocked	EH audio slot20 needs donor for m_b52 plus ebx1 esi0 regalloc and stack slots t=25 model=muse-08
 ?rva003596AD@Rva003596AD@@QAEPAMPBH@Z	0x003596AD	124	blocked	dual map int-int lower_bound plus int-float insert with Rva set and TreeHintRelease EH-SSE2 wall t=12 model=muse-07
 ?rva00337DEF@Rva00337DEF@@QAEPBURva00335CAERec@@ABVAsciiString@@@Z	0x00337DEF	187	blocked	5-push LowerBound call vs 3-arg row plus comp stosb vs mov t=18 model=muse-12
+?rva004ADCE8@Rva004ADCE8@@QAEXPBX@Z	0x004ADCE8	165	blocked	virtual slot 0x5c interface plus SpecialPower loop needs donor t=10 model=muse-06
+?rva004AD7B6@Rva004AD7B6@@QAEXXZ	0x004AD7B6	218	blocked	same partition forward plus Rva000421C8 link wall as 0x004B68B6 t=3 model=muse-06
+?rva004AD176@Rva004AD176@@QAEXXZ	0x004AD176	313	blocked	same partition forward plus link wall t=3 model=muse-06
