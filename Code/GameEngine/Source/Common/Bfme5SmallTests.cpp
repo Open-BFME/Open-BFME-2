@@ -119,3 +119,35 @@ void Rva001DBA9BSectionView::leave()
     LeaveCriticalSection(m_section00);
 }
 #pragma optimize("", on)
+
+// Whole BFME1 SmallLeafBodies.cpp at5cc75ddda6455c338a5068307e587a793f96d6b3
+// compiled O1/Ob1 supplies the same byte-store pattern at two offsets.
+// Target45311A/10 follows the prior ret453119 and ends ret4 at453121 before
+// Ghidra453124; target330CD3/10 follows Ghidra330CC2/17's ret4 at330CD0
+// and ends ret4 at330CDA before Ghidra330CDD. Each native body independently
+// proves its offset and low-eight stack bits. Owner, purpose, padding types,
+// original signedness, and complete class size remain unknown.
+class Rva0045311AByteView
+{
+public:
+    unsigned char m_unobserved00[0x32];
+    unsigned char m_bits32;
+    void setBits(unsigned char bits);
+};
+class Rva00330CD3ByteView
+{
+public:
+    unsigned char m_unobserved00[0x64];
+    unsigned char m_bits64;
+    void setBits(unsigned char bits);
+};
+#pragma optimize("s", on)
+void Rva0045311AByteView::setBits(unsigned char bits)
+{
+    m_bits32 = bits;
+}
+void Rva00330CD3ByteView::setBits(unsigned char bits)
+{
+    m_bits64 = bits;
+}
+#pragma optimize("", on)
