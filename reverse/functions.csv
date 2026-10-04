@@ -52536,3 +52536,4 @@ _Rva0088E190TimerTick@16,,0x0003D870,9,Code/Libraries/Source/WWVegas/WWDebug/Rva
 ?Rva0033788FSortHeap@@YAXPAX00@Z,,0x0033788F,65,Code/GameEngine/Source/Common/Rva0033788FSortHeap.cpp,matched,chain of 0x00337802 sort heap loop by 0x14
 ?rva001539BC@Rva001539BC@@QAEAAV1@ABV1@@Z,,0x001539BC,48,Code/Libraries/Source/WWVegas/WWLib/Rva001539BCAssign.cpp,matched,unlock 6 vectors via rowed 0x001537D8
 ?rva0028B238@Object@@QAEX_N@Z,,0x0028B238,45,Code/GameEngine/Source/GameLogic/Object/ObjectRva0028B238.cpp,matched,Object byte setter at 0x43c forwarding to Player rva002AB8FB callers 0x0029354A 0x003BCC4F
+??1ProductionUpdate@@UAE@XZ,,0x0049E1BF,181,Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateDtor.cpp,matched,donor BFME1 ProductionUpdateDestructor plus ctor layout plus pin caller 0x0049E34F
