@@ -76,3 +76,4 @@ Rva007FA990::Rva007FA990(void *arg) throw()
 // stores). Bind them to the rows at those functions.
 #pragma comment(linker, "/alternatename:?v4@Rva007FA990@@UAEXXZ=?bfmeFlushVQB@BfmeHubVQB@@QAEXH@Z")
 #pragma comment(linker, "/alternatename:?v0@Rva007FA990@@UAEXXZ=?bfmeKillVF@BfmeThingVF@@QAEPAXH@Z")
+#pragma comment(linker, "/alternatename:?v0@Rva007FA990Base0@@UAEXXZ=?bfmeKillVF@BfmeThingVF@@QAEPAXH@Z")
