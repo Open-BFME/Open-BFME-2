@@ -268,8 +268,10 @@ typedef unsigned short UnsignedShort;
 class LadderPref
 {
 public:
+	LadderPref();
 	LadderPref(const LadderPref &other);
 	~LadderPref();
+	LadderPref &operator=(const LadderPref &other);
 
 	UnicodeString name;
 	AsciiString address;
@@ -279,6 +281,10 @@ public:
 
 AsciiString AsciiStringToQuotedPrintable(AsciiString original);
 AsciiString UnicodeStringToQuotedPrintable(UnicodeString original);
+AsciiString QuotedPrintableToAsciiString(AsciiString original);
+UnicodeString QuotedPrintableToUnicodeString(AsciiString original);
+extern "C" unsigned int __cdecl strlen(const char *s);
+extern "C" __declspec(dllimport) int __cdecl atoi(const char *s) throw();
 
 typedef _STL::map<time_t, LadderPref> LadderPrefMap;
 
@@ -291,6 +297,7 @@ public:
 	LadderPreferences();
 	virtual ~LadderPreferences();
 	virtual Bool write(void);
+	Bool loadProfile(Int profileID);
 
 private:
 	LadderPrefMap m_ladders;
@@ -308,6 +315,10 @@ LadderPreferences::~LadderPreferences()
 
 // ??1LadderPref@@QAE@XZ @0x5BA3C0
 inline LadderPref::~LadderPref()
+{
+}
+
+inline LadderPref::LadderPref()
 {
 }
 
@@ -333,6 +344,56 @@ Bool LadderPreferences::write(void)
 	}
 
 	return UserPreferences::write();
+}
+
+// ?loadProfile@LadderPreferences@@QAE_NH@Z @0x005E0201 501B
+// BFME2 port of ZH LadderPreferences::loadProfile: Online Files root,
+// parses base map entries into m_ladders via QP decoders. Evidence: rowed
+// load slot 0x005E0026 neighbours, strings Online Files plus %s\Ladders%d.ini,
+// rowed clear/format/atoi/QP/map ops, caller at 0x005BC3B1.
+Bool LadderPreferences::loadProfile(Int profileID)
+{
+	clear();
+	m_ladders.clear();
+	AsciiString userPrefFilename;
+	userPrefFilename.format("%s\\Ladders%d.ini", "Online Files", profileID);
+	Bool success = load(userPrefFilename);
+	if (!success)
+		return success;
+
+	for (LadderPreferences::iterator it = begin(); it != end(); ++it)
+	{
+		LadderPref p;
+		AsciiString ladName = it->first;
+		AsciiString ladData = it->second;
+
+		const char *ptr = ladName.reverseFind(':');
+		if (!ptr)
+			continue;
+
+		p.port = (UnsignedShort)atoi(ptr + 1);
+		Int i;
+		for (i = 0; i < strlen(ptr); ++i)
+		{
+			ladName.removeLastChar();
+		}
+		p.address = QuotedPrintableToAsciiString(ladName);
+
+		ptr = ladData.reverseFind(':');
+		if (!ptr)
+			continue;
+
+		p.lastPlayDate = atoi(ptr + 1);
+		for (i = 0; i < strlen(ptr); ++i)
+		{
+			ladData.removeLastChar();
+		}
+		p.name = QuotedPrintableToUnicodeString(ladData);
+
+		m_ladders[p.lastPlayDate] = p;
+	}
+
+	return true;
 }
 
 // ?Rva0055A087Format@@YAXPAHPAVAsciiString@@@Z @0x0055A087 (86B): formats ten

@@ -54732,3 +54732,4 @@ rva007916E1_constructor_unwind,,0x007916E1,11,Code/GameEngine/Source/Common/INI/
 ?rva007B87AF@@YAXXZ,,0x007B87AF,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
 ?rva007B87B9@@YAXXZ,,0x007B87B9,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
 ?rva007B87C3@@YAXXZ,,0x007B87C3,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?loadProfile@LadderPreferences@@QAE_NH@Z,,0x005E0201,501,Code/GameEngine/Source/GameNetwork/GameSpy/OnlinePreferences.cpp,matched,ZH loadProfile via Online Files plus QP decoders and LadderPrefMap callers 0x005BC3B1
