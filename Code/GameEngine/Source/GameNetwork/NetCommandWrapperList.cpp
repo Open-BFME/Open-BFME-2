@@ -237,60 +237,7 @@ void NetCommandWrapperList::processWrapper(NetCommandRef *ref) {
 	temp->copyChunkData(msg);
 }
 
-// byte-exact reconstruction: Code/GameEngine/Source/GameNetwork/NetCommandWrapperList_getReadyCommands.cpp
-// ?getReadyCommands@NetCommandWrapperList@@QAEPAVNetCommandList@@XZ present-unmatched
-NetCommandList * NetCommandWrapperList::getReadyCommands() 
-{
-	NetCommandList *retlist = newInstance(NetCommandList);
-	retlist->init();
-
-	NetCommandWrapperListNode *temp = m_list;
-	NetCommandWrapperListNode *next = NULL;
-
-	while (temp != NULL) {
-		next = temp->m_next;
-		if (temp->isComplete()) {
-			NetCommandRef *msg = NetPacket::ConstructNetCommandMsgFromRawData(temp->getRawData(), temp->getRawDataLength());
-			NetCommandRef *ret = retlist->addMessage(msg->getCommand());
-			ret->setRelay(msg->getRelay());
-
-			msg->deleteInstance();
-			msg = NULL;
-
-			removeFromList(temp);
-			temp = NULL;
-		}
-		temp = next;
-	}
-
-	return retlist;
-}
-
-// ?removeFromList@NetCommandWrapperList@@IAEXPAVNetCommandWrapperListNode@@@Z present-unmatched
-void NetCommandWrapperList::removeFromList(NetCommandWrapperListNode *node) {
-	if (node == NULL) {
-		return;
-	}
-
-	NetCommandWrapperListNode *temp = m_list;
-	NetCommandWrapperListNode *prev = NULL;
-
-	while ((temp != NULL) && (temp->getCommandID() != node->getCommandID())) {
-		prev = temp;
-		temp = temp->m_next;
-	}
-
-	if (temp == NULL) {
-		return;
-	}
-
-	if (prev == NULL) {
-		m_list = temp->m_next;
-		temp->deleteInstance();
-		temp = NULL;
-	} else {
-		prev->m_next = temp->m_next;
-		temp->deleteInstance();
-		temp = NULL;
-	}
-}
+// getReadyCommands (0x0058C2AD) and removeFromList (0x0058C1A5) live in
+// NetCommandWrapperList_getReadyCommands.cpp: BFME 2's versions need the
+// de-pooled NetCommandRef (command at +0x00, relay at +0x0C) and a global
+// delete, which this unit's Zero Hour headers cannot express.
