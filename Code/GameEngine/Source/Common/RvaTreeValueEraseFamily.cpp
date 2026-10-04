@@ -189,6 +189,8 @@ public:
 	unsigned int _pad;
 };
 
+class Rva00170999;
+
 namespace _STL
 {
 template <> class allocator<char>
@@ -284,6 +286,14 @@ void Rva00170B19::rva00170C87(void **out, Rva00170B19Node *x, Rva00170B19Node *y
 	_STL::_Rb_global<bool>::_Rebalance((_STL::_Rb_tree_node_base *)z, (_STL::_Rb_tree_node_base *&)m_00Head->_parent);
 	++m_04Flag;
 	*out = z;
+}
+
+// ?Rva00170B4EBuynode@@YGPAXABVRva00170999@@@Z 34B @0x00170B4E: tree node buy allocating 0x24 via rowed stlport byte allocator plus rowed _Construct of Rva00170999 at +0x10. Same shape as sibling rva00170B70 (0x18 for Rva00151DAB). Evidence: callers at 0x00170C27 0x00170C40 in 0x00170BFF plus rowed callees.
+void *__stdcall Rva00170B4EBuynode(const Rva00170999 &x)
+{
+	char *block = _STL::allocator<char>::allocate(0x24, 0);
+	_STL::_Construct((Rva00170999 *)(block + 0x10), x);
+	return block;
 }
 
 class Rva0027EA49 { public: ~Rva0027EA49(); };
