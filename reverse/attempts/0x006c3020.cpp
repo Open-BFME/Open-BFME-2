@@ -1,11 +1,13 @@
 // ?VerifyGuardFill@GeneralAllocatorDebug@@QAE_NPAXHE@Z
+// partial score=0.92 date=2026-10-05
+// ?VerifyGuardFill@GeneralAllocatorDebug@@QAE_NPAXHE@Z
 // partial score=0.92 date=2026-10-04
 // ?VerifyGuardFill@GeneralAllocatorDebug@@QAE_NPAXHE@Z
 // cl: /O2 /DNDEBUG /MD
 // The guard verifier of GeneralAllocatorDebug, at retail 0x006C3020 (156
 // bytes). The sibling of VerifyDelayedFreeFill at 0x006C30C0, and named the
 // same way: this body carries its own retail failure string
-// "GeneralAllocatorDebug::VerifyGuardFill failure." at 0x00CE7C0C and reports
+// "GeneralAllocatorDebug::VerifyGuardFill failure." at 0x008E7C0C and reports
 // through the same unnamed helper 0x006C2FB0, so the class and method names are
 // retail's own rather than address-derived.
 //
@@ -27,6 +29,17 @@
 // dword test a pointer declaration produces.
 unsigned char __cdecl rva00030E20Fill(void *dst, unsigned int count, unsigned char c);
 
+// 0x006C2FB0: the shared verify-guard report helper, also reached from
+// VerifyDelayedFreeFill at 0x006C30C0.
+//
+// Its own 97-byte body reads the first argument off the stack (`mov edx,[esp+8]`)
+// and returns with a plain ret, so it is a FREE cdecl function whose caller
+// cleans both arguments -- not the thiscall member the 0.92 bank recorded. That
+// is why the report pushes are in retail's order here: the block is the FIRST
+// declared argument and the message the last, and cdecl pushes the last one
+// first. The cost is a trailing `add esp,8` that retail does not have.
+void __cdecl rva006C2FB0Report(void *block, const char *msg);
+
 class GeneralAllocatorDebug
 {
 public:
@@ -40,13 +53,6 @@ public:
 	// what puts its frame slot at [esp+0x18] for the read-back after the call.
 	void *rva006C25F0Run(void *runBlock, int kind, unsigned int zero3,
 	                     unsigned int zero2, unsigned int *outLen, int zero1);
-
-	// 0x006C2FB0: thiscall, two stack arguments (message, block) cleaned by the
-	// callee. The shared verify-guard report helper, also reached from
-	// VerifyDelayedFreeFill at 0x006C30C0, which is where the thiscall
-	// spelling was proved: retail loads ecx from the allocator object
-	// immediately before the call and never emits an add esp,8.
-	void rva006C2FB0Report(const char *what, void *block);
 
 	unsigned int GetBlockSize(const void *block);
 
@@ -93,7 +99,8 @@ bool GeneralAllocatorDebug::VerifyGuardFill(void *block, int alsoBeyond,
 			span -= (unsigned int)built;
 
 			if (rva00030E20Fill(built, span, m_guardFillByte) == 0)
-				rva006C2FB0Report("GeneralAllocatorDebug::VerifyGuardFill failure.", block);
+				rva006C2FB0Report(block,
+				                  "GeneralAllocatorDebug::VerifyGuardFill failure.");
 		}
 	}
 
