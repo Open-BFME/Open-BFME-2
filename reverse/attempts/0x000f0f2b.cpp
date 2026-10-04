@@ -4,9 +4,10 @@
 // F0F2B/48 native constructor; original class name remains unknown.
 // EFA4E is now a rowed void initializer, called before dispatch assignment.
 // Prefix matches Rva000EFA4EBase.cpp; future landing must share that layout.
-// Target tableBCEFA0 has three entries (EFAD2,B3FD0,__purecall).
-// Existing BfmeShadowBufferOwnerBase table provider emits only four bytes,
-// so its folded-address alias does not establish a complete usable table.
+// Observed consecutive words atBCEFA0 are EFAD2,B3FD0,__purecall; table
+// extent is not independently established (adjacent tables are possible).
+// Existing BfmeShadowBufferOwnerBase provider emits four bytes. Reconcile
+// the dispatch-table identity and extent before claiming this complete.
 struct RvaVec3
 {
 	float x;
