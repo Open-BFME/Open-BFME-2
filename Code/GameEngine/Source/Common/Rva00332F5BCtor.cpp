@@ -8,7 +8,6 @@ class UnicodeString
 {
 public:
 	UnicodeString();
-private:
 	void *m_text;
 };
 
@@ -24,6 +23,7 @@ class Rva00332F5B
 {
 public:
 	Rva00332F5B(const WeaponTemplateSetHead &a, const WeaponTemplateSetHead &b);
+	int rva00332F81(const Rva00332F5B &other) const;
 private:
 	UnicodeString m_uni;
 	WeaponTemplateSetHead m_a;
@@ -32,4 +32,19 @@ private:
 
 Rva00332F5B::Rva00332F5B(const WeaponTemplateSetHead &a, const WeaponTemplateSetHead &b) : m_uni(), m_a(a), m_b(b)
 {
+}
+
+bool __cdecl Rva00045473Equal(const void *a, const void *b);
+
+int Rva00332F5B::rva00332F81(const Rva00332F5B &other) const
+{
+	if (m_uni.m_text == other.m_uni.m_text)
+	{
+		if (Rva00045473Equal(&m_a, &other.m_a))
+		{
+			if (Rva00045473Equal(&m_b, &other.m_b))
+				return true;
+		}
+	}
+	return false;
 }
