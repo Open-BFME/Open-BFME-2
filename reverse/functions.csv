@@ -54117,3 +54117,4 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ?Rva005BE264Close@@YAXXZ,,0x005BE264,110,Code/GameEngine/Source/Common/Rva005BE264Close.cpp,matched,unlock AptTimeLine InitGadgets SetPlayerFocus rowed rva00224455
 ?rva005B80D0@@YAMEPAVRva005B8053@@@Z,,0x005B80D0,34,Code/Libraries/Source/WWVegas/WWLib/Rva005B80D0Finish.cpp,matched,byte-key float lookup via rowed lower_bound and float at 0x14
 ?rva003C013C@ScriptActions@@IAEXABVAsciiString@@0@Z,,0x003C013C,111,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C013C.cpp,matched,trigger-area shroud reveal via rowed trigger lookup and player mask and shroud siblings
+?rva00509753@Made002CC7DE@@QAEXHH@Z,,0x00509753,45,Code/GameEngine/Source/Common/Made002CC7DERva00509753.cpp,matched,Made002CC7DE forwards via 0x128 0x12c chain from 0x002CAC6E
