@@ -82,3 +82,16 @@ void Rva0073A360::clear( int index )
 	m_slots[ index ] = 0;
 }
 
+// Target 0x00674B60, 14 bytes; preceding int3 padding; terminal ret and int3 padding.
+// Donor b1 RVA 0x00808C10; target instructions corroborate these accesses.
+struct Rva00674B60Record
+{
+	char m_lead[ 0x20 ];
+	unsigned int m_20;
+};
+
+void __stdcall Rva00674B60( Rva00674B60Record *record )
+{
+	record->m_20 = 0xC0000000;
+}
+
