@@ -398,3 +398,19 @@ extern "C" unsigned __stdcall Rva006680B0(const Rva006680B0WordView *target)
 {
     return target->m_word20;
 }
+
+// BFME1 775a0370b7 whole-unit lead Rva007FD010OffsetGetter.cpp.
+// Native 0x00669500/13 ignores ECX and the second stack word, reads the
+// first-stack-pointer +29C into EAX, and pops 8 bytes. Retail table CE3944
+// references it. Preserve the unknown original virtual/member prototype.
+// This C-linkage stack-ABI projection preserves only that return bit pattern;
+// field signedness, input owner and complete layout are not established.
+struct Rva00669500WordView
+{
+    char m_unmodelled0[0x29c];
+    unsigned m_word29C;
+};
+extern "C" unsigned __stdcall Rva00669500(const Rva00669500WordView *target, unsigned)
+{
+    return target->m_word29C;
+}
