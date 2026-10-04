@@ -7844,3 +7844,5 @@ FUN_007b7836	0x003B7836	260	blocked	no callers prove 3-arg free-function types p
 ?rva00420254@Rva00420110@@QAEXPAXPAXPAXPAX@Z	0x00420254	255	blocked	vslot ShowEndGame needs GameText fetch slot plus base layout plus Apt alternatename plus timeGetTime plus string EH temps t=15 model=muse-07
 ?rva00209382@ScriptEngine@@QAE_NPAX@Z	0x00209382	131	blocked	ScriptEngine AsciiString plus list traversal needs BFME1 donor mapping t=12 model=muse-spark
 ?rva004DCECE@Rva004DCECE@@QAE_NXZ	0x004DCECE	330	blocked	complex 330B EH predicate 15 regions after 2 variants t=15 model=muse-spark
+?rva00286CC4@Rva00286CC4@@QAEXXZ	0x00286CC4	138	blocked	grid teardown emits lea not imul for x20 biased ptr and scalar delete not array t=18 model=muse-06
+?Rva002862C9Get@@YAPAXXZ	0x002862C9	136	blocked	singleton getter needs unknown atexit code 0x7B7810 and pin-only bfmeAddKey shares this with OCL ctor t=15 model=muse-06
