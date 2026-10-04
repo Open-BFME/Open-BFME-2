@@ -2662,7 +2662,6 @@ name,address,notes
 ?hasOverrideWindow@RadarWindowOverrideSource@@QBE_NXZ,0x002D35D6,call site in Radar::newMap (0x2D7B6B) dispatches a bare thiscall on VA 0xDFF028 whose result feeds a byte test before the fallback NAMEKEY path; identity beyond this call shape is unknown
 ?hasPacketRouterFrameStall@BFMEConnectionManager@@QAE_NXZ,0x004CFBF9,BFME2 packet-router frame stall scan used by NetworkInterface slot +0x54
 ?hasRadar@Player@@QBE_NXZ,0x002AA08E,BFME1 Player::hasRadar matched 28B; our 35B shares the 3-flag head (+0xA8/+0xA4); call site in InGameUI::handleRadiusCursor (0x29A661) passes PlayerList+0x10 localPlayer as this and tests the bool result for radarOn
-?helper@@YGXPAH@Z,0x00657050
 ?helper@Gen_00942BC0@@AAEXPAHPAX11H@Z,0x00159700
 ?helper@Rva007FA2C0@@QAEXPAXH@Z,0x006666C0
 ?imbue@?$basic_ios@DV?$char_traits@D@_STL@@@_STL@@QAE?AVlocale@2@ABV32@@Z,0x00016110,STLport 4.5.3 basic_ios char imbue; address read from retail basic_ios char init REL32 at 0x00016341
