@@ -8,6 +8,11 @@
 // sources, so no class identity is witnessed. No // cl: line (defaults match
 // the frameless 6-byte shape).
 
+// The three Apt screen factories these getters return are matched rows.
+void *__stdcall createAptScreenInGameChat(void *);
+void *__stdcall createAptScreenObjectives(void *);
+void *__stdcall createAptScreenQuickMatchMenu(void *);
+
 // ?Rva0033F4ABGet@@YAHXZ @ 0x0033f4ab (6B): returns 0x00C1123C.
 // Follows a ret-8 (prev C2-08-00), carried by 1 .rdata vtable slot,
 // no direct callers, no branch sources. Opaque address-derived name.
@@ -342,30 +347,6 @@ int Rva002D6E02Get(void)
 int Rva002E07C6Get(void)
 {
 	return (int)"LivingWorldPlayer";
-}
-
-// ?Rva0008FC9DGet@@YAHXZ @ 0x0008fc9d (6B): returns 0x0049DCEE.
-// Follows a ret-4 (prev C2-04-00), carried by 1 .rdata vtable slot,
-// no direct callers, no branch sources. Opaque address-derived name.
-int Rva0008FC9DGet(void)
-{
-	return 0x0049DCEE;
-}
-
-// ?Rva0008FFBEGet@@YAHXZ @ 0x0008ffbe (6B): returns 0x0048FF84.
-// Follows a ret-4 (prev C2-04-00), carried by 1 .rdata vtable slot,
-// no direct callers, no branch sources. Opaque address-derived name.
-int Rva0008FFBEGet(void)
-{
-	return 0x0048FF84;
-}
-
-// ?Rva001052F9Get@@YAHXZ @ 0x001052f9 (6B): returns 0x00504FD5.
-// Follows a ret-4 (prev C2-04-00), carried by 1 .rdata vtable slot,
-// no direct callers, no branch sources. Opaque address-derived name.
-int Rva001052F9Get(void)
-{
-	return 0x00504FD5;
 }
 
 // ?Rva003A59ADGet@@YAHXZ @ 0x003a59ad (6B): returns 0x00C1B5B8.
@@ -733,15 +714,7 @@ int Rva0041431FGet(void)
 // no direct callers, no branch sources. Opaque address-derived name.
 int Rva00436846Get(void)
 {
-	return 0x006D20D3;
-}
-
-// ?Rva0044643DGet@@YAHXZ @ 0x0044643d (6B): returns 0x006D1F77.
-// Follows a ret-4 (prev C2-04-00), carried by 1 .rdata vtable slot,
-// no direct callers, no branch sources. Opaque address-derived name.
-int Rva0044643DGet(void)
-{
-	return 0x006D1F77;
+	return (int)&createAptScreenQuickMatchMenu;
 }
 
 // ?Rva004543A3Get@@YAHXZ @ 0x004543a3 (6B): returns 0x00BF5CF4.
@@ -1936,22 +1909,6 @@ int Rva004E30C6Get(void)
 	return (int)"SpawnArmy";
 }
 
-// ?Rva004E4DFFGet@@YAHXZ @ 0x004e4dff (6B): returns 0x006d1feb.
-// Follows a ret-4 (prev C2-04-00), carried by 1 .rdata vtable slot,
-// no direct callers, no branch sources. Opaque address-derived name.
-int Rva004E4DFFGet(void)
-{
-	return 0x006d1feb;
-}
-
-// ?Rva004E8D86Get@@YAHXZ @ 0x004e8d86 (6B): returns 0x006d1f3d.
-// Follows a ret-12 (prev C2-0C-00), carried by 1 .rdata vtable slot,
-// no direct callers, no branch sources. Opaque address-derived name.
-int Rva004E8D86Get(void)
-{
-	return 0x006d1f3d;
-}
-
 // ?Rva004EECFCGet@@YAHXZ @ 0x004eecfc (6B): returns 0x00c62ad4.
 // Follows a ret-8 (prev C2-08-00), carried by 1 .rdata vtable slot,
 // no direct callers, no branch sources. Opaque address-derived name.
@@ -1976,68 +1933,12 @@ int Rva004F05BAGet(void)
 	return (int)"AIPlayer";
 }
 
-// ?Rva00512C82Get@@YAHXZ @ 0x00512c82 (6B): returns 0x006d1e8f.
-// Follows a ret-4 (prev C2-04-00), carried by 1 .rdata vtable slot,
-// no direct callers, no branch sources. Opaque address-derived name.
-int Rva00512C82Get(void)
-{
-	return 0x006d1e8f;
-}
-
 // ?Rva00513813Get@@YAHXZ @ 0x00513813 (6B): returns 0x006d1ec9.
 // Follows a ret-4 (prev C2-04-00), carried by 1 .rdata vtable slot,
 // no direct callers, no branch sources. Opaque address-derived name.
 int Rva00513813Get(void)
 {
-	return 0x006d1ec9;
-}
-
-// ?Rva0051482FGet@@YAHXZ @ 0x0051482f (6B): returns 0x006d1f03.
-// Follows a ret-4 (prev C2-04-00), carried by 1 .rdata vtable slot,
-// no direct callers, no branch sources. Opaque address-derived name.
-int Rva0051482FGet(void)
-{
-	return 0x006d1f03;
-}
-
-// ?Rva00516D03Get@@YAHXZ @ 0x00516d03 (6B): returns 0x006d1fb1.
-// Follows a ret-4 (prev C2-04-00), carried by 1 .rdata vtable slot,
-// no direct callers, no branch sources. Opaque address-derived name.
-int Rva00516D03Get(void)
-{
-	return 0x006d1fb1;
-}
-
-// ?Rva0051AEE3Get@@YAHXZ @ 0x0051aee3 (6B): returns 0x006d205f.
-// Follows a ret-4 (prev C2-04-00), carried by 1 .rdata vtable slot,
-// no direct callers, no branch sources. Opaque address-derived name.
-int Rva0051AEE3Get(void)
-{
-	return 0x006d205f;
-}
-
-// ?Rva005206DCGet@@YAHXZ @ 0x005206dc (6B): returns 0x006d2147.
-// Follows a ret-12 (prev C2-0C-00), carried by 1 .rdata vtable slot,
-// no direct callers, no branch sources. Opaque address-derived name.
-int Rva005206DCGet(void)
-{
-	return 0x006d2147;
-}
-
-// ?Rva005232CAGet@@YAHXZ @ 0x005232ca (6B): returns 0x006d21bb.
-// Follows a ret-12 (prev C2-0C-00), carried by 1 .rdata vtable slot,
-// no direct callers, no branch sources. Opaque address-derived name.
-int Rva005232CAGet(void)
-{
-	return 0x006d21bb;
-}
-
-// ?Rva00523D54Get@@YAHXZ @ 0x00523d54 (6B): returns 0x006d21fb.
-// Follows a ret-4 (prev C2-04-00), carried by 1 .rdata vtable slot,
-// no direct callers, no branch sources. Opaque address-derived name.
-int Rva00523D54Get(void)
-{
-	return 0x006d21fb;
+	return (int)&createAptScreenObjectives;
 }
 
 // ?Rva0052CFABGet@@YAHXZ @ 0x0052cfab (6B): returns 0x00c68790.
@@ -2205,7 +2106,7 @@ int Rva0055A914Get(void)
 // no direct callers, no branch sources. Opaque address-derived name.
 int Rva0056DC46Get(void)
 {
-	return 0x0081025d;
+	return (int)&createAptScreenInGameChat;
 }
 
 // ?Rva0058902FGet@@YAHXZ @ 0x0058902f (6B): returns 0x00c700f4.
