@@ -55722,3 +55722,4 @@ __Locale_ctype_create,,0x00022360,1316,Code/Libraries/Source/WWVegas/WWLib/stlpo
 ??$__uninitialized_fill_n@PAVRva0021F876@@IV1@@_STL@@YAPAVRva0021F876@@PAV1@IABV1@ABU__false_type@0@@Z,,0x0021FA6D,37,Code/Libraries/Source/WWVegas/WWLib/Rva0021F876FillN.cpp,matched,fill_n 37B via rowed Construct 0x0021FA1A stride 0x20
 ??1Rva0057AD6E@@UAE@XZ,,0x0057AD6E,158,Code/GameEngine/Source/Common/Rva0057AD6EDtor.cpp,matched,deleting-dtor caller 0x0042D523 and assign caller 0x0042D81D member rows vtable stores
 ?rva0057A92D@Rva0057A92D@@QAEXXZ,,0x0057A92D,52,Code/GameEngine/Source/Common/Rva0057A92DApt.cpp,matched,sibling Rva0057A961Apt pattern AptCall OpenList empty-string global
+??$__uninitialized_copy@PAVRva0021F876@@PAV1@@_STL@@YAPAVRva0021F876@@PAV1@00ABU__false_type@0@@Z,,0x0021FA47,38,Code/Libraries/Source/WWVegas/WWLib/Rva0021F876UninitCopy.cpp,matched,copy 38B via rowed Construct 0x0021FA1A stride 0x20
