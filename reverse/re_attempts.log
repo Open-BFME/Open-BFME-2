@@ -7569,3 +7569,4 @@ FUN_007b7836	0x003B7836	260	blocked	no callers prove 3-arg free-function types p
 ?getCRC@GameLogic@@QAEIH@Z	0x0023CB2C	542	partial	extra xor eax before mov al for BFMECRCWriter bool arg t=25 model=muse-06 score=0.99 stash=reverse/attempts/0x0023cb2c.cpp
 ?rva00265AF9@Rva00265AF9@@QAEHXZ	0x00265AF9	354	blocked	lazy global placement ctor plus x87 float compares plus 15 branches t=12 model=muse-09
 ?rva00529318@Rva00529318@@QAEXXZ	0x00529318	84	blocked	EH prolog plus states 2 1 0 with no dtor local or try visible t=14 model=muse-09
+?rva004D3942@Rva004D3942@@QAEXPAVConnectionManager@@@Z	0x004D3942	156	blocked	extra xor eax eax before mov al1 for mask persists across UnsignedByte local and 0xff-xor spellings t=18 model=muse-10 (stash 0.98 kept)
