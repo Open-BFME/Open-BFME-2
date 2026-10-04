@@ -54837,3 +54837,4 @@ rva007916E1_constructor_unwind,,0x007916E1,11,Code/GameEngine/Source/Common/INI/
 ?rva007B8B8D@@YAXXZ,,0x007B8B8D,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
 ?rva007B8B97@@YAXXZ,,0x007B8B97,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
 ?rva007B8BA1@@YAXXZ,,0x007B8BA1,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+??0Init@ios_base@_STL@@QAE@XZ,,0x00016AA0,21,Code/Libraries/Source/WWVegas/WWLib/stlport_loc_init.cpp,matched,Rehome existing21B from BfmeConv936: four native global receiver initializer/atexit-dtor pairs prove stream Init lifetime; private counter and helper ABI follow STLport4.5.3 header

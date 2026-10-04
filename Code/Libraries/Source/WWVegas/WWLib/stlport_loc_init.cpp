@@ -50,7 +50,20 @@ public:
 
 class ios_base
 {
+protected:
+    static void _S_initialize();
+    static void _S_uninitialize();
 public:
+    class Init
+    {
+    public:
+        Init();
+        ~Init();
+    private:
+        static long _S_count;
+        friend class ios_base;
+    };
+    friend class Init;
 	class _Loc_init
 	{
 	public:
@@ -111,3 +124,17 @@ void locale::_S_uninitialize()
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
 #pragma comment(linker, "/alternatename:?rva00832100Release@_STL@@YAXXZ=??1_Loc_init@ios_base@_STL@@QAE@XZ")
+
+// Stream-Init view: STLport4.5.3 _ios_base.h establishes the empty nested
+// class and its private long counter; no complete ios_base layout is modelled.
+// Native16AA0/21 initializes four global receivers: DDE070,DE1CCC,E01E40,E06664.
+// Each initializer then registers its matching destruction wrapper with atexit;
+// those wrappers load the same receiver and tail-call15E70. Shared DDEBA0 is
+// the Init counter also used by rowed _S_initialize166C0/_S_uninitialize15440.
+// Rehome the existing21-byte BfmeConv936 body under that established Init role.
+// Target omits the upstream count increment: initialize only when zero.
+namespace _STL {
+ios_base::Init::Init() {
+    if (_S_count==0) ios_base::_S_initialize();
+}
+}
