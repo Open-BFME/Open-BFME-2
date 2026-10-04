@@ -5,6 +5,7 @@
 // Evidence: self-call at 0x00415820 with [esi+0xC], lea ecx [esi+0x10] call
 // rowed 0x004156FC, push esi call rowed _free 0x00030830, loop via [esi+8];
 // callers at 0x00415820 (self) 0x00415894; unblocks 0x00415886.
+#include "../../../Libraries/Source/WWVegas/WWLib/string_base.h"
 extern "C" void __cdecl free(void *block);
 
 class Rva0041579E
@@ -148,5 +149,27 @@ Rva0041580E *Rva0041580E::rva004159E2(const Rva0041580E &other)
             m_flag04=other.m_flag04;
         }
     }
+    return this;
+}
+
+// BFME 1 5cc75ddda6455c338a5068307e587a793f96d6b3 BfmeConv1623 is the
+// whole donor lead. Native 0x415C84/39 performs copy SET, word copy and tree
+// assignment, so its nominal donor constructor/12-byte layout are refuted.
+// This minimum 16-byte address view reuses the canonical StringBase<char>
+// and the existing tree view; original owner, full layout and lifetime unknown.
+class Rva00415C84
+{
+public:
+    Rva00415C84 *assignMembers(const Rva00415C84 &other);
+private:
+    StringBase<char> m_string00;
+    unsigned int m_word04;
+    Rva0041580E m_tree08;
+};
+Rva00415C84 *Rva00415C84::assignMembers(const Rva00415C84 &other)
+{
+    m_string00.set(other.m_string00);
+    m_word04=other.m_word04;
+    m_tree08.rva004159E2(other.m_tree08);
     return this;
 }
