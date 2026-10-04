@@ -54387,3 +54387,4 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ??0Rva000A12FE@@QAE@PAX@Z,,0x000A12FE,24,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/Gadget/W3DGadgetWindowRva000A15FE.cpp,matched,gap ctor forwards void to base stores BC8D5C
 ??1Rva00521206@@UAE@XZ,,0x00521206,79,Code/GameEngine/Source/GameClient/GUI/Rva00521206Dtor.cpp,matched,Apt-screen dtor via InGameChat precedent clears global member base
 ??_GRva00521206@@UAEPAXI@Z,,0x005212E0,28,Code/GameEngine/Source/GameClient/GUI/Rva00521206Dtor.cpp,matched,deleting dtor emitted by own dtor TU
+?rva0032FEF5@Rva0032FEF5@@QAEXXZ,,0x0032FEF5,83,Code/GameEngine/Source/Common/Rva0032FEF5Loop.cpp,matched,loop over m_count with temp vector via Vector_base ctor and Rva0032D279 dtor calling pinned helper
