@@ -26,8 +26,17 @@ struct Rva00288BF9Record
     Rva00288BF9AllocationLifetime buffer;
     AsciiString text;
     ~Rva00288BF9Record();
+    void *destroy(unsigned flags);
 };
 typedef char Rva00288BF9RecordSize[(sizeof(Rva00288BF9Record) == 16) ? 1 : -1];
 
 // ?Rva00288BF9Record::~Rva00288BF9Record present-unmatched
 Rva00288BF9Record::~Rva00288BF9Record() {}
+
+// ?Rva00288BF9Record::destroy present-unmatched
+void *Rva00288BF9Record::destroy(unsigned flags)
+{
+    this->~Rva00288BF9Record();
+    if (flags & 1) ::operator delete(this);
+    return this;
+}
