@@ -54575,3 +54575,4 @@ _Rva00669500@8,,0x00669500,13,Code/GameEngine/Source/Common/RvaSmallLeafTransfer
 ??1Rva005F8FEE@@UAE@XZ,,0x005F8FEE,101,Code/GameEngine/Source/Common/Rva005F8FEEDtor.cpp,matched,virtual dtor TreeHintRef holders AsciiString vector
 ?markBit@Rva000ADA1AMask@@QAEXHHE@Z,,0x000ADA1A,83,Code/GameEngine/Source/Common/Rva00749A10MaskAX.cpp,matched,Whole BFME1 Rva007498E0MaskMark donor@1281192 Os; nativeGhidraADA1A/83 completeRET12 independently proves signedbounds dimensions8/C stride34 buffer50/54 and byte set-clear; siblingADADC/83 verifiedsamepattern separatebuffer74/78; distinct address-qualified prefix owner unknown; no calls globals or pins; real C++
 ??_GRva0054D2CF@@UAEPAXI@Z,,0x0054D4B1,28,Code/GameEngine/Source/Common/Rva0054CC1BRelease.cpp,matched,chain deleting dtor for 0054D2CF
+??1Rva0050ED58@@QAE@XZ,,0x0050ED58,91,Code/Libraries/Source/WWVegas/WWLib/Rva0050ED58Dtor.cpp,matched,dtor with 7x8B array plus member dtors plus EH states
