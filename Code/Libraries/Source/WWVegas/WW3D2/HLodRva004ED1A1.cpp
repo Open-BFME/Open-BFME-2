@@ -69,6 +69,7 @@ public:
 	void rva004ED1FD(int id, const struct Coord3D *p);
 	void rva004ED257(int id, const struct Coord3D *p);
 	void rva004ED342(void *p);
+	void rva004ED372(const struct Coord3D *p);
 private:
 	char m_pad00[0x14];
 	Rva004ECECDNode *m_begin;
@@ -127,6 +128,16 @@ void Rva004ECECD::rva004ED342(void *p)
 	unsigned int count = (unsigned int)(m_end - m_begin);
 	for (unsigned int i = 0; i < count; ++i)
 		rva004ED1FD((int)i, (const struct Coord3D *)p);
+}
+
+// ?rva004ED372@Rva004ECECD@@QAEXPBUCoord3D@@@Z @0x004ED372 48B
+// Loop over Rva004ECECDNode range calling rowed 0x004ED257 with same point; count is (m_end-m_begin)/0x14 via idiv like sibling 0x004ED342.
+// Evidence: chain via just-landed 0x004ED257; callers 0x004EDA76 0x005A991D 0x005AB713 pass getPosition and record points; pin QAEXPBUCoord3D const Coord3D spelling.
+void Rva004ECECD::rva004ED372(const struct Coord3D *p)
+{
+	unsigned int count = (unsigned int)(m_end - m_begin);
+	for (unsigned int i = 0; i < count; ++i)
+		rva004ED257((int)i, p);
 }
 
 // Retail's data references in this unit's matched rows land on globals defined
