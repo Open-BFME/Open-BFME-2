@@ -35251,7 +35251,6 @@ _Rva001CA000Vp6WideAccum,,0x001CA000,4240,Code/GameEngine/Source/Common/Rva001CA
 ?get@Rva00262117NullOrZero@@QBEHXZ,,0x00262117,15,Code/GameEngine/Source/Common/PtrChaseNullOrZeroGetters.cpp,matched,Ret-delimited ptr-chase null-or-zero; shares true-tail OneGetter at 0x262126; trial-exact first try under /O1
 ?get@Rva0030C890IntGetter@@QBEHXZ,,0x0030C890,6,Code/GameEngine/Source/Common/Disp32CvtFloatIntGetters.cpp,matched,Disp8 float-to-int getter; disp8 encoding of the Disp32 family; pairs with setter 0x30C882 at +0xE; Ghidra bounds agree
 __Addition,,0x0067BC30,146,Code/Libraries/Source/DirtySock/cryptrsa.c,matched,EA DirtySDK donor 03db25634fe8696ee060e1c01bff8fa0911fcba8; original private C body; target bytes and internal call cluster corroborate identity; see docs/reconstruction/dirtysdk-crypto.md; existing span unchanged
-?get@Rva000B3809ZeroGetter@@QBEHXZ,,0x000B3809,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
 ?get@Rva000CB0FCZeroGetter@@QBEHXZ,,0x000CB0FC,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
 ??_GTextureStatisticsStruct@@QAEPAXI@Z,,0x00118F30,30,Code/Libraries/Source/WWVegas/WWLib/FamilyDeletingDtorsO2.cpp,matched,scalar deleting dtor (/O2 add-esp form); same-shape sibling of 0x72C0 selected by its dtor callee
 ??_GDX8IndexBufferClass@@UAEPAXI@Z,,0x00139200,30,Code/Libraries/Source/WWVegas/WWLib/FamilyDeletingDtorsO2.cpp,matched,scalar deleting dtor (/O2 add-esp form); same-shape sibling of 0x72C0 selected by its dtor callee
