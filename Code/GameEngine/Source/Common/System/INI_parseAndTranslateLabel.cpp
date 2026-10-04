@@ -35,7 +35,7 @@ class UnicodeString : public StringBase<unsigned short>
 public:
 	__forceinline ~UnicodeString() { releaseBuffer(); }
 	bool isEmpty() const { return m_data == 0 || m_data->m_length == 0; }
-	const unsigned short *str() const { return m_data->m_chars; }
+	const unsigned short *str() const { return m_data ? m_data->m_chars : (const unsigned short *)""; }
 };
 
 class GameTextInterface
