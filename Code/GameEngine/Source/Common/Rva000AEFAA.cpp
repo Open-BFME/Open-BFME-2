@@ -34,3 +34,19 @@ Rva000AEFAA::Rva000AEFAA(void *owner, BfmeParserRegistryVE *registry, const Asci
 	m_owner(owner)
 {
 }
+
+// ??0Rva000AEF42@@QAE@PAXPAVBfmeParserRegistryVE@@PBVAsciiString@@@Z @0x000AEF42 104B
+// Evidence: unlock lane, HeightMapData literal, vtable g_00BC95D0, base pin 0x000ABB87, caller 0x000AF238.
+class Rva000AEF42 : public BfmeParserBindingBaseVE
+{
+public:
+	Rva000AEF42(void *owner, BfmeParserRegistryVE *registry, const AsciiString *parentLabel);
+private:
+	void *m_owner;
+};
+
+Rva000AEF42::Rva000AEF42(void *owner, BfmeParserRegistryVE *registry, const AsciiString *parentLabel)
+	: BfmeParserBindingBaseVE(registry, (void *)&AsciiString("HeightMapData"), (void *)(parentLabel ? parentLabel : &AsciiString::TheEmptyString)),
+	m_owner(owner)
+{
+}
