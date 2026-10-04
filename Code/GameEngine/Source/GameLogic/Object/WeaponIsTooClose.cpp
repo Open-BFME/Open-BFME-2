@@ -31,6 +31,8 @@ class WeaponTemplate
 {
 public:
 	float getMinimumAttackRange() const;
+	char m_pad00[0x13c];
+	int m_13c; // +0x13c
 };
 
 class GameLogic
@@ -50,12 +52,15 @@ public:
 	float rva002C957E() const;
 	bool rva002C95F0() const;
 	void rva002C95DE(int offset);
+	void rva002C959E();
 
 private:
 	char m_pad00[4];
 	const WeaponTemplate *m_template; // +4
 	char m_pad08[0x50 - 8]; // +8..0x50
 	volatile unsigned int m_50; // +0x50 volatile forces m_50-first load order (retail 17B vs 16B A1 size opt)
+	int m_54; // +0x54
+	int m_58; // +0x58
 };
 
 bool Weapon::isTooClose(const Object *source, const Coord3D *pos) const
@@ -99,4 +104,18 @@ bool Weapon::rva002C95F0() const
 void Weapon::rva002C95DE(int offset)
 {
 	m_50 = TheGameLogic->m_frame + offset;
+}
+
+// ?rva002C959E@Weapon@@QAEXXZ, retail 0x002C959E, 46 bytes.
+// Randomize m_58 from template +0x13C via GetGameLogicRandomValue.
+// Evidence: unlock lane; caller 0x002CDC46; same Weapon TU and flags.
+int __cdecl GetGameLogicRandomValue(int lo, int hi, char *file, int line);
+void Weapon::rva002C959E()
+{
+	int v;
+	if (m_template->m_13c)
+		v = GetGameLogicRandomValue(0, m_template->m_13c, (char *)"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Weapon.cpp", 3644);
+	else
+		v = 0;
+	m_58 = v;
 }
