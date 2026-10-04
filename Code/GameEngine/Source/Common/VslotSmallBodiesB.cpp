@@ -86,8 +86,15 @@ class Rva003EF13E
 public:
 	void rva003EF13E(Int value, Int, Int);
 	void rva003EF08B(Int value);
+	void rva003EF1D9(const _STL::vector<Int> &vec);
 };
 void Rva003EF13E::rva003EF13E(Int value, Int, Int) { rva003EF08B(value); }
+
+void Rva003EF13E::rva003EF1D9(const _STL::vector<Int> &vec)
+{
+	for (unsigned i = 0; i < vec.size(); ++i)
+		rva003EF08B(vec[i]);
+}
 
 // vtable 0x00BC57E0#18 and #19: hand the argument to two cdecl functions,
 // the second the ledger's Rva000A8F64Set.
