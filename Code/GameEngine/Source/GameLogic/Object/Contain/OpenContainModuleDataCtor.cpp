@@ -79,8 +79,20 @@ Rva0025342CMember *Rva0025342CMember::construct()
 }
 
 // ??0OpenContainModuleData@@QAE@XZ
-OpenContainModuleData::OpenContainModuleData()
+inline OpenContainModuleData::OpenContainModuleData()
 {
 	*(unsigned int *)this = ((unsigned int)vtbl_00BF2558);
 	m_member08.construct();
 }
+
+// OpenContainModuleData ctor is a header inline elsewhere: another unit emits
+// a select-any copy, so a strong definition here was a duplicate in the linked
+// build. This anchor only makes this unit emit its copy for the ledger row; it
+// is not retail code.
+#pragma inline_depth(0)
+// ?bfmeEmitOpenContainModuleDataCtor@@YAXPAVOpenContainModuleData@@@Z present-unmatched
+void bfmeEmitOpenContainModuleDataCtor(OpenContainModuleData *p)
+{
+	p->OpenContainModuleData::OpenContainModuleData();
+}
+#pragma inline_depth()
