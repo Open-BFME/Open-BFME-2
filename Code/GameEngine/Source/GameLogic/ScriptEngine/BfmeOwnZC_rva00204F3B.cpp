@@ -52,3 +52,6 @@ void *BfmeOwnZC::bfmeRunZC(BfmeRoomZC name, void *extra)
 		result = 0;
 	return result;
 }
+
+// Pin twin of the rowed free-function body at 0x00204E64; only the name moves.
+#pragma comment(linker, "/alternatename:?rva00204E64@BfmeOwnZC@@QAEPAVScriptList@@ABVAsciiString@@@Z=?Rva00204E64Find@@YGPAVScriptList@@ABVAsciiString@@@Z")
