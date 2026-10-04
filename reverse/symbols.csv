@@ -8807,3 +8807,4 @@ _Rva0030CAF8CursorEqual,0x0007E394,twin of dup_0007e394 29B exact cursor equalit
 ?Rva000A46B7Draw@@YAXPAVGameWindow@@PAVWinInstanceData@@@Z,0x000A46B7,"gadget draw function (cdecl window, instance data) slot 3 of gadget vtable 0x00BC91D8#3 calls (REL32 at 0x000A479B); identity not recovered"
 ?Rva000A53DEDraw@@YAXPAVGameWindow@@PAVWinInstanceData@@@Z,0x000A53DE,"gadget draw function (cdecl window, instance data) slot 3 of gadget vtable 0x00BC9204#3 calls (REL32 at 0x000A600D); identity not recovered"
 ?rva00362862@Rva00362862Item@@QAEXHH@Z,0x00362862,"vector element notify helper called in loop at 0x00239300"
+??1Rva0042C1B7Item@@QAE@XZ,0x0042C1B7,"destructor thunk called by smart pointer reset at 0x0023932B and 0x00239345"

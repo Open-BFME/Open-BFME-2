@@ -43,6 +43,29 @@ void Rva00239300::rva00239300(int a, int b)
 	}
 }
 
+class Rva0042C1B7Item
+{
+public:
+	~Rva0042C1B7Item();
+};
+
+class Rva0023932BPtr
+{
+	Rva0042C1B7Item *m_ptr;
+
+public:
+	void rva0023932B();
+};
+
+void Rva0023932BPtr::rva0023932B()
+{
+	Rva0042C1B7Item *old = m_ptr;
+	m_ptr = 0;
+	if (old != 0) {
+		delete old;
+	}
+}
+
 class Rva00239AF4
 {
 public:
