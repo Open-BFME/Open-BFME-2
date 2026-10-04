@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
 //
 // ProductionQueueHordeContain primary slots 29 and 30 (vtable 0x00C49040),
 // over the HordeGarrisonContain slot-29/30 bases (0x00479B7F rowed,
@@ -11,6 +11,55 @@
 //   slot 30, retail 0x00481439 (67 bytes): the module of the Object at the
 //            argument's +0x274, whose ID is passed.
 // Named by the bases' addresses.
+#include "ascii_string.h"
+
+class BfmeTab1026
+{
+public:
+	char bfmeHas1026(int a, int b);
+};
+
+struct Rva0048130E
+{
+	BfmeTab1026 m_tab;
+	AsciiString m_str;
+};
+
+class ProductionQueueHordeContainModuleData
+{
+public:
+	unsigned char m_pad[0xD4];
+	Rva0048130E *m_begin;
+	Rva0048130E *m_end;
+};
+
+class Rva002D06CA
+{
+public:
+	void *rva002D06CA(const AsciiString *key);
+};
+
+extern Rva002D06CA *g_009FF000;
+
+class Rva0028BC58Ret
+{
+public:
+	virtual void s00();
+	virtual void s01();
+	virtual int s02();
+	virtual void s03();
+	virtual void s04();
+	virtual void s05();
+	virtual void s06();
+	virtual void s07();
+	virtual void s08(void *p1, int p2, int p3, int p4, int p5, const AsciiString *p6, int p7);
+	virtual void s09();
+	virtual void s10();
+	virtual void s11();
+	virtual void s12();
+	virtual void s13();
+	virtual void s14(int a, int b);
+};
 template <int N> class Rva004814D1Slots : public Rva004814D1Slots<N - 1>
 {
 public:
@@ -44,6 +93,7 @@ private:
 class Object
 {
 public:
+	void *rva0028BC58(int a);
 	unsigned char m_pad000[0x04];
 	const ThingTemplate *m_template;	// +0x04
 	unsigned char m_pad008[0x74 - 0x08];
@@ -82,4 +132,24 @@ void ProductionQueueHordeContain::rva00479ADA(Object *obj)
 	HordeGarrisonContain::rva00479ADA(obj);
 	if (obj->m_274->m_250->rvaSlot31()->rvaSlot61())
 		rva004813B3(obj->m_274->m_id, obj);
+}
+
+void ProductionQueueHordeContain::rva004813B3(ObjectID id, Object *obj)
+{
+	void *ret = m_object->rva0028BC58(0);
+	if (!ret)
+		return;
+	Rva0028BC58Ret *r = (Rva0028BC58Ret *)ret;
+	const ProductionQueueHordeContainModuleData *md = (const ProductionQueueHordeContainModuleData *)m_moduleData;
+	int slot2 = r->s02();
+	for (Rva0048130E *p = md->m_begin; p != md->m_end; ++p)
+	{
+		if (p->m_tab.bfmeHas1026((int)obj, 0))
+		{
+			void *thing = g_009FF000->rva002D06CA(&p->m_str);
+			r->s08(thing, -1, slot2, -1, 0, &AsciiString::TheEmptyString, 0);
+			r->s14(slot2, id);
+			return;
+		}
+	}
 }

@@ -8179,3 +8179,4 @@ Rva00415B91	0x00415B91	197	blocked	Native Ghidra197 is a separate EH-framed pars
 ??0Rva000AB8F1@@QAE@XZ	0x000AB8F1	31	blocked	STL version wall vendored 4.5.3 hashtable takes no int bucket vs retail 4.6-style push 0x64 with 3 empty args t=10 model=muse-07
 ?rva000ABA2F@Rva00062918Host@@QAEXXZ	0x000ABA2F	339	blocked	leaf table filler stores 30-plus code VAs many UNCLAIMED with no row or pin and literal code addresses hook-refused t=5 model=muse-07
 ?rva000AC514@WorldHeightMap@@QAEXMMPAURGBColor@@@Z	0x000AC514	299	blocked	chain terrain color needs donor floor macro plus 16-bit 565 unpack plus INV and double 1-255 shape far 283vs299 t=12 model=muse-07
+?Rva000A0D5EDraw@@YAXPAVGameWindow@@PAVWinInstanceData@@@Z	0x000A0D5E	493	partial	cmp vs mov-test for progress if plus imul order plus lea base-index order t=22 model=muse-05 score=0.95 stash=reverse/attempts/0x000a0d5e.cpp
