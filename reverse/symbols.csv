@@ -8365,3 +8365,4 @@ _Rva0030CAF8CursorEqual,0x0007E394,twin of dup_0007e394 29B exact cursor equalit
 ?setHiddenControlBar@ControlBar@@IAEXXZ,0x0031AE01,callee of ?switchControlBarStage@ControlBar@@QAEXW4ControlBarStages@@@Z at retail 0x0031B99A read from its REL32 displacement; ICF alias onto ?rva0031AE01@ControlBar@@QAEXXZ (matched)
 ?setLowControlBarConfig@ControlBar@@IAEXXZ,0x0031B134,callee of ?switchControlBarStage@ControlBar@@QAEXW4ControlBarStages@@@Z at retail 0x0031B99A read from its REL32 displacement; body unrowed
 ?setDefaultControlBarConfig@ControlBar@@IAEXXZ,0x0031B0CE,callee of ?switchControlBarStage@ControlBar@@QAEXW4ControlBarStages@@@Z at retail 0x0031B99A read from its REL32 displacement; body unrowed
+?bfmeShowDN@ControlBar@@QAEXPAUBfmeMsgDN@@@Z,0x00405C04,callee of ?rva004C1B60@ControlBar@@QAEXPAVGameWindow@@PAX@Z at retail 0x00405DBC read from its REL32 displacement; body unrowed
