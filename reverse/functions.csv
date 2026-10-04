@@ -52481,3 +52481,4 @@ _Rva0088E190TimerTick@16,,0x0003D870,9,Code/Libraries/Source/WWVegas/WWDebug/Rva
 ?rva00210EE1@Rva00210EE1@@QAEXXZ,,0x00210EE1,16,Code/GameEngine/Source/Common/Rva00210EE1Method.cpp,matched,thunk to LivingWorldEyeTower rva003F9B5A via plus0x2c4
 ?bfmeGo1001A@BfmeA1001@@QAEXPAX@Z,,0x004F33BD,47,Code/GameEngine/Source/Common/BfmeConv1001.cpp,matched,BFME1 donor game/GameEngine/Source/Common/BfmeConv1001.cpp recompiled /Os; unique masked placement on unclaimed .text
 ?bfmeGoDGH@@YGXPAX0@Z,,0x00212183,27,Code/GameEngine/Source/Common/BfmeConv694.cpp,matched,BFME1 donor game/GameEngine/Source/Common/BfmeConv694.cpp recompiled /Os; unique masked placement on unclaimed .text
+?bfmeGo1034A@@YGXHH@Z,,0x0040DAF0,30,Code/GameEngine/Source/Common/BfmeConv1034_bfmeGo1034A_YGXHH_Z.cpp,matched,BFME1 donor game/GameEngine/Source/Common/BfmeConv1034.cpp recompiled /Os; unique masked placement on unclaimed .text
