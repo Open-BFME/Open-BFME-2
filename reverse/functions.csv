@@ -54577,3 +54577,4 @@ _Rva00669500@8,,0x00669500,13,Code/GameEngine/Source/Common/RvaSmallLeafTransfer
 ??_GRva0054D2CF@@UAEPAXI@Z,,0x0054D4B1,28,Code/GameEngine/Source/Common/Rva0054CC1BRelease.cpp,matched,chain deleting dtor for 0054D2CF
 ??1Rva0050ED58@@QAE@XZ,,0x0050ED58,91,Code/Libraries/Source/WWVegas/WWLib/Rva0050ED58Dtor.cpp,matched,dtor with 7x8B array plus member dtors plus EH states
 ?rva002A7500@Rva002A7500@@QAEXPAX@Z,,0x002A7500,19,Code/GameEngine/Source/GameLogic/Object/Rva002A7500.cpp,matched,chain from 0x002A74C3 plus rowed Rva002A74C3Get adds to plus0xC
+??0Rva000A0CE7@@QAE@PAX@Z,,0x000A0CE7,24,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/Gadget/Rva000A0CE7Ctor.cpp,matched,Gadget ctor via Host base plus vtable 0x00BC8D04
