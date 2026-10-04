@@ -53,6 +53,7 @@ public:
     int rva003F4831();
     int rva003F45DF();
     bool rva003F4538();
+    int rva003F458A(int idx);
     Rva003F498AOuter *rva003F4634(void *p);
     void *rva003F4DEE(void *p);
     void *rva003F4FBD(void *p);
@@ -280,6 +281,12 @@ bool Rva003F498A::rva003F4538()
         }
     }
     return false;
+}
+
+// ?rva003F458A@Rva003F498A@@QAEHH@Z @0x003F458A 16B unlock outer unk0 getter via 0x1C imul same TU flags callers 0x002BAFDB 0x002BC222 gap between 0x003F4538 and 0x003F45DF
+int Rva003F498A::rva003F458A(int idx)
+{
+    return m_outers[idx].unk0;
 }
 
 int Rva003F498A::rva003F45DF()
