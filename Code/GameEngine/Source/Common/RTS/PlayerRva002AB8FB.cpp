@@ -1,5 +1,3 @@
-// ?rva002AB8FB@Player@@QAEXPAVObject@@_N@Z
-// partial score=0.91 date=2026-10-01
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /G5
 // stlport
 //
@@ -28,7 +26,7 @@ class Object
 public:
 	bool rva0028AFBB() const;
 	Player *getControllingPlayer() const;
-	void rva00293077(const void *upgrade) const;
+	void rva00293077(const void *upgrade);
 };
 
 class BfmeGlob939D
@@ -71,7 +69,6 @@ public:
 
 void __cdecl Rva002AA41A(Object *obj, void *userData);
 
-// ?rva002AB8FB@Player@@QAEXPAVObject@@_N@Z present-unmatched
 void Player::rva002AB8FB(Object *obj, bool flag)
 {
 	if (!flag)
@@ -88,27 +85,8 @@ void Player::rva002AB8FB(Object *obj, bool flag)
 		return;
 	AsciiString tmp;
 	BfmeGlob939D *g = *(BfmeGlob939D **)&TheGameLogic;
-	if (g->bfmeCall939D() != 0) {
-		GameWindow *gw = m_window;
-		if (gw == 0)
-			return;
-		switch ((int)gw->winGetUserData()) {
-		case 0:
-			tmp.set("Upgrade_EasyAIMultiPlayer");
-			break;
-		case 1:
-			tmp.set("Upgrade_MediumAIMultiPlayer");
-			break;
-		case 2:
-			tmp.set("Upgrade_HardAIMultiPlayer");
-			break;
-		case 3:
-			tmp.set("Upgrade_BrutalAIMultiPlayer");
-			break;
-		default:
-			return;
-		}
-	} else {
+	GameWindow *gw;
+	if (g->bfmeCall939D() == 0 || (gw = m_window) == 0) {
 		GameLogic *gl = *(GameLogic **)&TheGameLogic;
 		switch (*(int *)((char *)gl + 0xA4)) {
 		case 0:
@@ -123,8 +101,21 @@ void Player::rva002AB8FB(Object *obj, bool flag)
 		case 3:
 			tmp.set("Upgrade_BrutalAISinglePlayer");
 			break;
-		default:
-			return;
+		}
+	} else {
+		switch ((int)gw->winGetUserData()) {
+		case 0:
+			tmp.set("Upgrade_EasyAIMultiPlayer");
+			break;
+		case 1:
+			tmp.set("Upgrade_MediumAIMultiPlayer");
+			break;
+		case 2:
+			tmp.set("Upgrade_HardAIMultiPlayer");
+			break;
+		case 3:
+			tmp.set("Upgrade_BrutalAIMultiPlayer");
+			break;
 		}
 	}
 	const char *s = tmp.str();
