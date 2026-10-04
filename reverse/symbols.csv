@@ -9058,3 +9058,8 @@ _Rva0030CAF8CursorEqual,0x0007E394,twin of dup_0007e394 29B exact cursor equalit
 ??_ERva0020DF0B@@UAEPAXI@Z,0x0020E1E1,"vector deleting destructor name the class's this-adjusting thunks jump to; the linker resolves it to the scalar deleting destructor at this address (weak external)"
 ??_ERva0023AE08@@UAEPAXI@Z,0x0023BDBB,"vector deleting destructor name the class's this-adjusting thunks jump to; the linker resolves it to the scalar deleting destructor at this address (weak external)"
 ??_ERva00243BA0@@UAEPAXI@Z,0x00246213,"vector deleting destructor name the class's this-adjusting thunks jump to; the linker resolves it to the scalar deleting destructor at this address (weak external)"
+??_ERva0014A5B0Dtor@@UAEPAXI@Z,0x0014BB70,"vector deleting destructor name the class's this-adjusting thunks jump to; the linker resolves it to the scalar deleting destructor at this address (weak external)"
+??_ERva001811D0Dtor@@UAEPAXI@Z,0x001811B0,"vector deleting destructor name the class's this-adjusting thunks jump to; the linker resolves it to the scalar deleting destructor at this address (weak external)"
+??_ERva001976F0Dtor@@UAEPAXI@Z,0x001977B0,"vector deleting destructor name the class's this-adjusting thunks jump to; the linker resolves it to the scalar deleting destructor at this address (weak external)"
+??_ERva0019EF70Dtor@@UAEPAXI@Z,0x0019F990,"vector deleting destructor name the class's this-adjusting thunks jump to; the linker resolves it to the scalar deleting destructor at this address (weak external)"
+??_ERva000647D4@@UAEPAXI@Z,0x00064809,"vector deleting destructor name the class's this-adjusting thunks jump to; the linker resolves it to the scalar deleting destructor at this address (weak external)"

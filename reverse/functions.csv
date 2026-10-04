@@ -53717,3 +53717,8 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ??_ERva0020DF0B@@WM@AEPAXI@Z,,0x0020DDFB,8,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB04.cpp,matched,this-adjusting (-0xC) deleting-dtor thunk of opaque class Rva0020DF0B
 ??_ERva0023AE08@@WM@AEPAXI@Z,,0x0023B270,8,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB04.cpp,matched,this-adjusting (-0xC) deleting-dtor thunk of opaque class Rva0023AE08
 ??_ERva00243BA0@@WM@AEPAXI@Z,,0x00243EDF,8,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB05.cpp,matched,this-adjusting (-0xC) deleting-dtor thunk of opaque class Rva00243BA0
+??_ERva0014A5B0Dtor@@W7AEPAXI@Z,,0x0014A140,8,Code/Libraries/Source/WWVegas/WWLib/Rva00170C0Siblings.cpp,matched,this-adjusting (-0x8) deleting-dtor thunk of opaque class Rva0014A5B0Dtor
+??_ERva001811D0Dtor@@W7AEPAXI@Z,,0x001811A0,8,Code/Libraries/Source/WWVegas/WWLib/Rva00170C0Siblings.cpp,matched,this-adjusting (-0x8) deleting-dtor thunk of opaque class Rva001811D0Dtor
+??_ERva001976F0Dtor@@WBI@AEPAXI@Z,,0x001977A0,8,Code/Libraries/Source/WWVegas/WWLib/Rva00170C0Siblings.cpp,matched,this-adjusting (-0x18) deleting-dtor thunk of opaque class Rva001976F0Dtor
+??_ERva0019EF70Dtor@@W7AEPAXI@Z,,0x0019F030,8,Code/Libraries/Source/WWVegas/WWLib/Rva00170C0Siblings.cpp,matched,this-adjusting (-0x8) deleting-dtor thunk of opaque class Rva0019EF70Dtor
+??_ERva000647D4@@W3AEPAXI@Z,,0x00064801,8,Code/GameEngine/Source/GameLogic/Object/LocomotorDerivedDtors.cpp,matched,this-adjusting (-0x4) deleting-dtor thunk of the opaque Locomotor-derived class Rva000647D4

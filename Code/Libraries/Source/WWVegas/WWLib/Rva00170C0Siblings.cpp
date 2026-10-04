@@ -101,7 +101,23 @@ __declspec(noinline) Rva00141C30Dtor::~Rva00141C30Dtor()
 {
 }
 
-class Rva0014A5B0Dtor
+class Rva0014A5B0DtorBase0
+{
+public:
+	virtual ~Rva0014A5B0DtorBase0();
+private:
+	char m_unmodelled[0x4];
+};
+
+// Secondary base at +0x8: the this-adjusting deleting-destructor thunk
+// (sub ecx, 0x8) at 0x0014A140 in its vtable is target evidence for it.
+class Rva0014A5B0DtorBase8
+{
+public:
+	virtual ~Rva0014A5B0DtorBase8();
+};
+
+class Rva0014A5B0Dtor : public Rva0014A5B0DtorBase0, public Rva0014A5B0DtorBase8
 {
 public:
 	virtual ~Rva0014A5B0Dtor();
@@ -151,7 +167,23 @@ __declspec(noinline) Rva00157C20Dtor::~Rva00157C20Dtor()
 {
 }
 
-class Rva001811D0Dtor
+class Rva001811D0DtorBase0
+{
+public:
+	virtual ~Rva001811D0DtorBase0();
+private:
+	char m_unmodelled[0x4];
+};
+
+// Secondary base at +0x8: the this-adjusting deleting-destructor thunk
+// (sub ecx, 0x8) at 0x001811A0 in its vtable is target evidence for it.
+class Rva001811D0DtorBase8
+{
+public:
+	virtual ~Rva001811D0DtorBase8();
+};
+
+class Rva001811D0Dtor : public Rva001811D0DtorBase0, public Rva001811D0DtorBase8
 {
 public:
 	virtual ~Rva001811D0Dtor();
@@ -171,7 +203,23 @@ __declspec(noinline) Rva001880D0Dtor::~Rva001880D0Dtor()
 {
 }
 
-class Rva001976F0Dtor
+class Rva001976F0DtorBase0
+{
+public:
+	virtual ~Rva001976F0DtorBase0();
+private:
+	char m_unmodelled[0x14];
+};
+
+// Secondary base at +0x18: the this-adjusting deleting-destructor thunk
+// (sub ecx, 0x18) at 0x001977A0 in its vtable is target evidence for it.
+class Rva001976F0DtorBase18
+{
+public:
+	virtual ~Rva001976F0DtorBase18();
+};
+
+class Rva001976F0Dtor : public Rva001976F0DtorBase0, public Rva001976F0DtorBase18
 {
 public:
 	virtual ~Rva001976F0Dtor();
@@ -181,7 +229,23 @@ __declspec(noinline) Rva001976F0Dtor::~Rva001976F0Dtor()
 {
 }
 
-class Rva0019EF70Dtor
+class Rva0019EF70DtorBase0
+{
+public:
+	virtual ~Rva0019EF70DtorBase0();
+private:
+	char m_unmodelled[0x4];
+};
+
+// Secondary base at +0x8: the this-adjusting deleting-destructor thunk
+// (sub ecx, 0x8) at 0x0019F030 in its vtable is target evidence for it.
+class Rva0019EF70DtorBase8
+{
+public:
+	virtual ~Rva0019EF70DtorBase8();
+};
+
+class Rva0019EF70Dtor : public Rva0019EF70DtorBase0, public Rva0019EF70DtorBase8
 {
 public:
 	virtual ~Rva0019EF70Dtor();
