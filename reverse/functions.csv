@@ -52991,3 +52991,5 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ?OnGameList@LANAPI@@UAEXPAVLANGameInfo@@@Z,,0x00248E6F,24,Code/GameEngine/Source/GameNetwork/LANAPILobbyMenuForwarders.cpp,matched,LANAPI vtable 0x00C3E680 slot 32
 ?rva00248E87@LANAPI@@UAEXXZ,,0x00248E87,17,Code/GameEngine/Source/GameNetwork/LANAPILobbyMenuForwarders.cpp,matched,LANAPI vtable 0x00C3E680 slot 33
 ?OnHostLeave@LANAPI@@UAEXXZ,,0x00248E41,46,Code/GameEngine/Source/GameNetwork/LANAPILobbyMenuForwarders.cpp,matched,LANAPI vtable 0x00C3E680 slot 36; ZH OnHostLeave by slot
+?rva0046132F@DynamicPortalBehaviour@@UAEXXZ,,0x0046132F,12,Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviourSlots.cpp,matched,slot 1 of the +0x20 vtable 0x00C427A8 (DynamicPortalBehaviour ctor); clears +0x3D then the pinned private member 0x461257
+?rva00461284@DynamicPortalBehaviour@@UAEXH@Z,,0x00461284,22,Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviourSlots.cpp,matched,slot 45 of the +0x0C vtable 0x00C42808 (DynamicPortalBehaviour ctor); the pinned private member 0x461257 unless TheGameLogic +0x6E
