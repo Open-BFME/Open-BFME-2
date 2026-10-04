@@ -54122,3 +54122,4 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ?rva0054288B@Rva0054288B@@QAEXXZ,,0x0054288B,5,Code/GameEngine/Source/Common/Rva0054288BThunk.cpp,matched,tail-jmp to rowed 0x005427F1 flush
 ?rva002B86AA@Rva002B86AA@@QBE_NPAURva002B86AAKey@@PAURva002B86AAVal@@@Z,,0x002B86AA,71,Code/Libraries/Source/WWVegas/WWLib/Rva002B86AA.cpp,matched,equal_range plus increment rows ret8 map at 0x13c key at 0x4c val at 0x14
 ?rva002922D9@Object@@QAE_NPBVCommandButton@@@Z,,0x002922D9,87,Code/GameEngine/Source/GameLogic/Object/ObjectRva002922D9.cpp,matched,pin Object rva002922D9 via BfmeSubBEC row plus Object name plus Rva0031D5F8 plus CommandSet
+?Rva005D0100Get@@YA?AVUnicodeString@@H@Z,,0x005D0100,46,Code/GameEngine/Source/Common/System/Rva005D0100Get.cpp,matched,battle message fetch via rowed TheGameText slot 0x3C with string select
