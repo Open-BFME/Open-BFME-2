@@ -8676,3 +8676,5 @@ _Rva0030CAF8CursorEqual,0x0007E394,twin of dup_0007e394 29B exact cursor equalit
 ??1Rva00413A24@@UAE@XZ,0x00413A24,"destructor the scalar deleting destructor 0x0022DE4F calls (REL32 at 0x0022DE52; vtable 0x00BE7660#0); opaque address name"
 ??1Rva002376CC@@UAE@XZ,0x002376CC,"destructor the scalar deleting destructor 0x00237CFD calls (REL32 at 0x00237D00; vtable 0x00BED1C4#0); opaque address name"
 ??1Rva0023FD06@@UAE@XZ,0x0023FD06,"destructor the scalar deleting destructor 0x0023FCEA calls (REL32 at 0x0023FCED; vtable 0x00BEDC94#0); opaque address name"
+?rva00498FAA@GateOpenAndCloseBehavior@@AAEXXZ,0x00498FAA,callee of ?rva004991CB@GateOpenAndCloseBehavior (0x004991E4) and ?rva0049920B (0x00499224) read from the REL32 displacement; this = full object; EH-prolog body reading [this+0xC] (unrowed)
+?rva00498AB2@GateOpenAndCloseBehavior@@AAEXH@Z,0x00498AB2,callee of ?rva004991CB@GateOpenAndCloseBehavior (0x004991ED push 0) and ?rva0049920B (0x0049922D push 2) read from the REL32 displacement; state setter comparing its argument with +0x28 (unrowed)
