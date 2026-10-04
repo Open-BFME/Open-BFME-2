@@ -55,3 +55,10 @@ void Rva004E5086::rva004E4E9E()
 {
     rva004E4E76();
 }
+
+// Retail 4E5086/66B destroys list members at +38 then +34 after cleanup.
+// Two EH states preserve both member cleanups if slot 2 throws.
+Rva004E5086::~Rva004E5086()
+{
+    rva004E4E76();
+}
