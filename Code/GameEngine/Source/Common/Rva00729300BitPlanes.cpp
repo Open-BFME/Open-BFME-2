@@ -52,3 +52,42 @@ bool Rva00729300BitPlane::test( int x, int y ) const
 	bool result = (value & mask) != 0;
 	return result;
 }
+
+// The complete five-body clean BFME1 donor at revision
+// 1281192f682ce6f29b8f06b7daea4b5e8fdfbb24 also supplies the
+// Rva00729370BitPlane::test source lead. Target Ghidra6AB49/79 and
+// complete RET8 independently prove signed bounds against +8/+C,
+// stride +34 and byte-range pointers +50/+54. The native final byte
+// mask test establishes the return's zero/nonzero meaning. This is a
+// separate observed prefix; original owners, full layouts and any
+// relationship to the existing +44/+48 bit plane remain unknown.
+class Rva0006AB49BitPlane
+{
+public:
+    bool test(int x, int y) const;
+private:
+    Byte reserved00[8];
+    int width;
+    int height;
+    Byte reserved10[0x24];
+    int stride;
+    Byte reserved38[0x18];
+    Rva00729300Bytes bits;
+};
+
+bool Rva0006AB49BitPlane::test(int x, int y) const
+{
+    register const Rva0006AB49BitPlane *self = this;
+    if (x < 0 || y < 0 || y >= self->height || x >= self->width)
+        return false;
+
+    const int index = self->stride * y + (x >> 3);
+    if ((unsigned)index >= self->bits.size())
+        return false;
+
+    int mask = 1;
+    mask <<= x & 7;
+    Byte value = self->bits[index];
+    bool result = (value & mask) != 0;
+    return result;
+}

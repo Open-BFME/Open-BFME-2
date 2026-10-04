@@ -54621,3 +54621,4 @@ _Rva00669500@8,,0x00669500,13,Code/GameEngine/Source/Common/RvaSmallLeafTransfer
 ?rva007B8319@@YAXXZ,,0x007B8319,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
 ?rva007B832D@@YAXXZ,,0x007B832D,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
 ?rva007B8337@@YAXXZ,,0x007B8337,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?test@Rva0006AB49BitPlane@@QBE_NHH@Z,,0x0006AB49,79,Code/GameEngine/Source/Common/Rva00729300BitPlanes.cpp,matched,Whole five-body BFME1 Rva00729300BitPlanes donor@1281192 Os; nativeGhidra6AB49/79 completeRET8 independently proves signedbounds dimensions8/C stride34 begin-end50/54 and byte mask test; old79 sibling1126FD remains unchanged; distinct address-qualified observedprefix owner/fulltype unknown; no calls globals or pins; real C++
