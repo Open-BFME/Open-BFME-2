@@ -38,7 +38,7 @@ struct Rva00511730State
 };
 
 extern Rva00511730State *g_Va00E046B8;
-extern UnicodeString g_Va00E048C0;
+UnicodeString g_Va00E048C0;
 
 void __cdecl Rva00511730(int unused)
 {
