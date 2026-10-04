@@ -1,5 +1,3 @@
-// ?rva00351570@Rva00351570@@QAEXABURva00351570Src@@@Z
-// partial score=0.97 date=2026-10-02
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /G7 /EHsc
 // ?rva00351570@Rva00351570@@QAEXABURva00351570Src@@@Z, RVA 0x00351570, 222 bytes.
 // Copy from template/init struct to instance. Evidence: dword copies +0/+4,
@@ -13,15 +11,17 @@ struct BfmeVec12
 {
 	float x, y, z;
 };
-struct Rva0035149F
+class Rva0035149F
 {
+public:
 	BfmeVec12 *m_start;
 	BfmeVec12 *m_finish;
 	BfmeVec12 *m_end;
 	Rva0035149F &rva0035149F(const Rva0035149F &other);
 };
-struct Rva003427DD
+class Rva003427DD
 {
+public:
 	char m_data[0x7C];
 	Rva003427DD &operator=(const Rva003427DD &src);
 };
@@ -78,7 +78,6 @@ public:
 	int m_C0;
 	void rva00351570(const Rva00351570Src &src);
 };
-// ?rva00351570@Rva00351570@@QAEXABURva00351570Src@@@Z present-unmatched
 void Rva00351570::rva00351570(const Rva00351570Src &src)
 {
 	m_00 = src.m_00;
@@ -89,9 +88,9 @@ void Rva00351570::rva00351570(const Rva00351570Src &src)
 	if (src.m_1C != 0)
 	{
 		Rva00351570_MidB *b0 = src.m_1C->m_30;
-		((StringBase<char> &)m_1C).set(b0 ? (const StringBase<char> &)b0->m_10 : (const StringBase<char> &)AsciiString::TheEmptyString);
+		((StringBase<char> &)m_1C).set(!b0 ? (const StringBase<char> &)AsciiString::TheEmptyString : (const StringBase<char> &)b0->m_10);
 		Rva00351570_MidB *b1 = src.m_1C->m_30;
-		((StringBase<char> &)m_20).set(b1 ? (const StringBase<char> &)b1->m_14 : (const StringBase<char> &)AsciiString::TheEmptyString);
+		((StringBase<char> &)m_20).set(!b1 ? (const StringBase<char> &)AsciiString::TheEmptyString : (const StringBase<char> &)b1->m_14);
 	}
 	else
 	{
