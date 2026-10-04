@@ -9,6 +9,7 @@ class Rva00239380Holder
 {
 public:
 	void *m_head;
+	void rva00239368(void *node, int dummy);
 	void rva00239380();
 };
 extern void *g_freeList00239380;
@@ -35,6 +36,14 @@ void Rva00239AF4::rva00239AF4()
 		g_freeList00239380 = head;
 	}
 }
+void Rva00239380Holder::rva00239368(void *node, int dummy)
+{
+	if (node != 0) {
+		void *freeHead = g_freeList00239380;
+		((void **)node)[0] = freeHead;
+		g_freeList00239380 = node;
+	}
+}
 void Rva00239380Holder::rva00239380()
 {
 	void *node = ((void **)m_head)[0];
@@ -44,7 +53,7 @@ void Rva00239380Holder::rva00239380()
 			void *current = node;
 			node = ((void **)current)[0];
 			((void **)current)[0] = freeHead;
-			g_freeList00239380 = current;
+		g_freeList00239380 = current;
 		} while (node != m_head);
 	}
 	((void **)m_head)[0] = m_head;
