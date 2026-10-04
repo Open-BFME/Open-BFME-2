@@ -10,6 +10,7 @@ class Rva00528FE6
 {
 public:
 	void rva00528FE6(CameraMarker *p);
+	void rva00529009();
 private:
 	CameraMarker *m_ptr;
 };
@@ -23,4 +24,13 @@ void Rva00528FE6::rva00528FE6(CameraMarker *p)
 	if (!old)
 		return;
 	delete old;
+}
+
+void Rva00528FE6::rva00529009()
+{
+	CameraMarker *p = m_ptr;
+	m_ptr = 0;
+	if (!p)
+		return;
+	delete p;
 }
