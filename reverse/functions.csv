@@ -55785,3 +55785,4 @@ ___Extract_locale_name,,0x000216A0,153,Code/Libraries/Source/WWVegas/WWLib/Local
 ?Rva002D0D5ECopy@@YAPADPAD00H@Z,,0x002D0D5E,29,Code/Libraries/Source/WWVegas/WWLib/StlportCopyRva002D0D5E.cpp,matched,wrapper over counted copy 0x002D0BB8 stride 92
 ?rva0053DB02@Rva0053DB02@@QAEXXZ,,0x0053DB02,43,Code/GameEngine/Source/GameClient/GUI/ControlBar/Rva0053DB02Clear.cpp,matched,unlock 32-slot window clear via rowed user-data helper
 ?Rva002ABC22Compare@@YAHHHH@Z,,0x002ABC22,84,Code/GameEngine/Source/Common/Rva002ABC22Compare.cpp,matched,unlock via two Reader adaptors and Compare
+?rva00561DB3@LightningDrawModuleTemplate@FXParticleSystem@@QAEXPAVFile@@I@Z,,0x00561DB3,340,Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva00561DB3Write.cpp,matched,writeINI via WriteHeader gated OffsetXYZ MultiChance TileTexture same shape as Gpu rva00563D3F
