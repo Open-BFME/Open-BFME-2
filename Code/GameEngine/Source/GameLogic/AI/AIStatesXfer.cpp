@@ -27,8 +27,9 @@
 // operator== chains. The BFME 2-only states below them (AIMoveToStateSA,
 // BackAwayAndCowerStateMachine, AIUncontrollableCower, the melee horde-wait,
 // melee approach/squish and fire-during-approach states, and
-// AIAttackPositionAimAtTargetState) are named the same way; their members
-// are known only by offset and by the Xfer overload each is passed to.
+// AIAttackPositionAimAtTargetState, AIHordeExitState and AIRampageState) are
+// named the same way; their members are known only by offset and by the
+// Xfer overload each is passed to.
 
 class AsciiString;
 class UnicodeString;
@@ -311,6 +312,26 @@ private:
 	Bool m_bfmeFlag21;																												///< 0x21
 };
 
+class AIHordeExitState : public State
+{
+protected:
+	virtual void xfer( Xfer *xfer );
+private:
+	char m_unrecovered04[ 0x20 - 0x04 ];
+	Bool m_bfmeFlag20;																												///< 0x20
+};
+
+class AIRampageState : public State
+{
+protected:
+	virtual void xfer( Xfer *xfer );
+private:
+	char m_unrecovered04[ 0x20 - 0x04 ];
+	Bool m_bfmeFlag20;																												///< 0x20
+	UnsignedInt m_bfmeValue24;																								///< 0x24
+	UnsignedInt m_bfmeValue28;																								///< 0x28
+};
+
 // ------------------------------------------------------------------------------------------------
 /** Xfer Method */
 // ------------------------------------------------------------------------------------------------
@@ -476,4 +497,27 @@ void AIAttackPositionAimAtTargetState::xfer( Xfer *xfer )
 	xfer->Version1();
 	*xfer == m_bfmeFlag20;
 	*xfer == m_bfmeFlag21;
+}  // end xfer
+
+// ------------------------------------------------------------------------------------------------
+/** Xfer Method */
+// ------------------------------------------------------------------------------------------------
+void AIHordeExitState::xfer( Xfer *xfer )
+{
+	Xfer::Version version( 1, 2 );
+	*xfer == version;
+	if( version.m_minimum >= 2 )
+		*xfer == m_bfmeFlag20;
+}  // end xfer
+
+// ------------------------------------------------------------------------------------------------
+/** Xfer Method */
+// ------------------------------------------------------------------------------------------------
+void AIRampageState::xfer( Xfer *xfer )
+{
+	Xfer::Version version( 1, 1 );
+	*xfer == version;
+	*xfer == m_bfmeFlag20;
+	*xfer == m_bfmeValue24;
+	*xfer == m_bfmeValue28;
 }  // end xfer
