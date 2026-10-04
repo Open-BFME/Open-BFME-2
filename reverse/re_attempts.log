@@ -7820,3 +7820,4 @@ FUN_007b7836	0x003B7836	260	blocked	no callers prove 3-arg free-function types p
 ?init@ConnectionManager@@UAEXXZ	0x004D24A2	453	partial	disconnect new home stores from ecx not eax; mov ecx eax hoisted above null check; rest exact 453B 133 insns t=20 model=muse-10 score=0.98 stash=reverse/attempts/0x004d24a2.cpp
 ?RequestGameLeave@LANAPI@@UAEXXZ	0x0044A0CF	325	partial	store8 hoisted before compare vs retail after test plus one empty mov still merged t=25 model=muse-10 score=0.98 stash=reverse/attempts/0x0044a0cf.cpp
 ?Rva00655B90Fesl@@YAHPAEHPBD@Z	0x00655B90	549	blocked	Fesl SetField 549B GS parser rep-vs-call and EBP-EBX mirror t=25 model=muse-20
+?rva00599D56@Rva00599D56@@QAEHH@Z	0x00599D56	390	blocked	390B EH STL multi-vector GameLogic float sort needs substantial reconstruction t=10 model=muse-15
