@@ -310,3 +310,10 @@ char *Rva00020EB0( char *record )
 	return record + 0x1D;
 }
 
+// Target 0x00020EE0, 8 bytes; preceding int3 padding; terminal ret and int3 padding.
+// Donor b1 RVA 0x0084DC60; target instructions corroborate these accesses.
+char *Rva00020EE0( char *record )
+{
+	return record + 0x28;
+}
+
