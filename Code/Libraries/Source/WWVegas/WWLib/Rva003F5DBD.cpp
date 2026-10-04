@@ -37,6 +37,7 @@ class Rva003F5DBD
 	_STL::vector<ScienceType> m_10;
 public:
 	void rva003F5DBD(void *a, int idx);
+	void rva003F5E3F(void *a, void *key);
 };
 
 void Rva003F5DBD::rva003F5DBD(void *a, int idx)
@@ -60,4 +61,16 @@ void Rva003F5DBD::rva003F5DBD(void *a, int idx)
 		}
 	}
 	m_04.erase(m_04.begin() + idx);
+}
+
+void Rva003F5DBD::rva003F5E3F(void *a, void *key)
+{
+	for (unsigned int i = 0; i < m_04.size(); ++i)
+	{
+		if (m_04[i].m_00 == key)
+		{
+			rva003F5DBD(a, (int)i);
+			return;
+		}
+	}
 }
