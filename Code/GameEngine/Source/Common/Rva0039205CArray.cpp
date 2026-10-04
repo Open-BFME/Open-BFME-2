@@ -34,6 +34,7 @@ public:
 	unsigned char rva00392D49(unsigned int index);
 	float rva00392D1D(unsigned int index);
 	void rva00392196(unsigned int index, int value);
+	void rva003921C8(unsigned int index, unsigned char value);
 private:
 	int m_count00;
 	int m_pad04;
@@ -74,4 +75,13 @@ void Rva0039205C::rva00392196(unsigned int index, int value)
 	if (index >= TheWritableGlobalData->m_count)
 		return;
 	m_array08[index].m_int18 = value;
+}
+
+void Rva0039205C::rva003921C8(unsigned int index, unsigned char value)
+{
+	if (m_array08 == 0)
+		((Rva00392092Target *)this)->rva00392092();
+	if (index >= TheWritableGlobalData->m_count)
+		return;
+	m_array08[index].m_byte10 = value;
 }
