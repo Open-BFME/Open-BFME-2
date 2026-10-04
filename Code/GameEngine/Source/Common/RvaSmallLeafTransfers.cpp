@@ -194,3 +194,22 @@ int Rva001B6330( const Rva001B6330Record *record )
 	return record->m_244;
 }
 
+// Target 0x00665670, 11 bytes; preceding int3 padding; terminal ret and int3 padding.
+// Donor b1 RVA 0x007F90D0; target instructions corroborate these accesses.
+class Rva00665670
+{
+public:
+	void clear();
+
+	int m_0;
+	int m_4;
+	int m_8;
+};
+
+void Rva00665670::clear()
+{
+	m_4 = 0;
+	m_0 = 0;
+	m_8 = 0;
+}
+
