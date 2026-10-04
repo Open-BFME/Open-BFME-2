@@ -54875,3 +54875,4 @@ rva007916E1_constructor_unwind,,0x007916E1,11,Code/GameEngine/Source/Common/INI/
 ?rva0042D803@Rva0042D7E0@@QAEXXZ,,0x0042D803,26,Code/GameEngine/Source/Common/Rva0042D7E0Set.cpp,matched,chain clear via rowed dtor 0x00579AB7 plus delete plus callers
 ?Rva003BC2E4Do@@YGXPAVParameter@@_N@Z,,0x003BC2E4,34,Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003BC2E4Do.cpp,matched,getUnitNamed then Rva002EFB20 helper via g_Va009FE16C
 ??1Rva0035A9C1@@UAE@XZ,,0x0035A9C1,125,Code/GameEngine/Source/Common/Rva0035A9C1Dtor.cpp,matched,dtor via forEach list-clear array-delete free Snapshot-base
+??1Rva005FBF97Elem@@QAE@XZ,,0x005FBF97,78,Code/GameEngine/Source/Common/Rva005FBF97ElemDtor.cpp,matched,dtor via audio helper plus string members

@@ -8038,3 +8038,5 @@ rva007916E1_constructor_unwind	0x007916E1	11	converted	Normal full11B exact on r
 ?rva002EABF3@Rva002EABF3@@QAE_NXZ	0x002EABF3	33	blocked	lea fusion vs mov-plus-sub same wall as 0x002EAC9F; next-minus-0x200 tried same 31 vs 33 t=8 model=muse-10 (stash 0.94 kept)
 ?rva002EAC14@Rva002EAC14@@QAEXPBI@Z	0x002EAC14	45	blocked	lea fusion vs mov-plus-sub same family wall; stash confirm 43 vs 45 t=5 model=muse-10 (stash 0.93 kept)
 ?Rva003BCF2FDo@@YGXPBVAsciiString@@PAVParameter@@@Z	0x003BCF2F	154	blocked	chain script action with float virtual slot 0x1c; push 0-0 early vs late plus vtable save to ebp+8 wall; 2 variants 148 vs 154 t=15 model=muse-10
+?rva005EE5D7@Rva005EE5D7@@QAEHPAVObject@@_NPAX@Z	0x005EE5D7	575	blocked	575B partition loop with array-new _L _M plus filter chain and BfmeWideResult enumeration t=15 model=muse-03
+?xfer@Rva004DD489@@UAEXPAVXfer@@@Z	0x004DD489	400	partial	402B vs 400B extra xor eax eax before mov ax for ushort key plus frame 0x10 vs 0xC t=20 model=muse-03 score=0.97 stash=reverse/attempts/0x004dd489.cpp
