@@ -53644,3 +53644,14 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ?rva004B5DDC@SpellRechargeModifierUpgrade@@UAEXXZ,,0x004B5DDC,42,Code/GameEngine/Source/GameLogic/Object/Upgrade/SpellRechargeModifierUpgradeSlots.cpp,matched,SpellRechargeModifierUpgrade +0x1C interface slot 1 (vtable 0x00C58358 of ctor 0x004B5D7D): +0x124 flag then mux slots 10 and 9
 ?rva004AB3AE@WallUpgradeUpdate@@UAE_NXZ,,0x004AB3AE,61,Code/GameEngine/Source/GameLogic/Object/Update/WallUpgradeUpdateSlots.cpp,matched,WallUpgradeUpdate +0x24 interface slot 0 (vtable 0x00C54764 of ctor 0x004AB317): KindOf 0x109/0x108/0x107 test
 ?rva004AB3EB@WallUpgradeUpdate@@UAEXHHH@Z,,0x004AB3EB,42,Code/GameEngine/Source/GameLogic/Object/Update/WallUpgradeUpdateSlots.cpp,matched,WallUpgradeUpdate +0x20 interface slot 2 (vtable 0x00C54768 of ctor 0x004AB317): arms +0x2C and wakes on rising to 3
+??_ERva002793F0@@WGA@AEPAXI@Z,,0x0027966F,8,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB05.cpp,matched,this-adjusting (-0x60) deleting-dtor thunk of opaque class Rva002793F0
+??_ERva00285BEC@@W3AEPAXI@Z,,0x00285BE4,8,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB05.cpp,matched,this-adjusting (-0x4) deleting-dtor thunk of opaque class Rva00285BEC
+??_ERva00286F8F@@WM@AEPAXI@Z,,0x00286F87,8,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB05.cpp,matched,this-adjusting (-0xC) deleting-dtor thunk of opaque class Rva00286F8F
+??_ERva002A5B30@@WM@AEPAXI@Z,,0x002A5EDE,8,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB05.cpp,matched,this-adjusting (-0xC) deleting-dtor thunk of opaque class Rva002A5B30
+??_ERva002A921B@@WM@AEPAXI@Z,,0x002A92EA,8,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB05.cpp,matched,this-adjusting (-0xC) deleting-dtor thunk of opaque class Rva002A921B
+??_ERva002DE58D@@WM@AEPAXI@Z,,0x002DE585,8,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB06.cpp,matched,this-adjusting (-0xC) deleting-dtor thunk of opaque class Rva002DE58D
+??_ERva002FEBB7@@WM@AEPAXI@Z,,0x002FEB32,8,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB06.cpp,matched,this-adjusting (-0xC) deleting-dtor thunk of opaque class Rva002FEBB7
+??_ERva00318637@@WM@AEPAXI@Z,,0x00318613,8,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB06.cpp,matched,this-adjusting (-0xC) deleting-dtor thunk of opaque class Rva00318637
+??_ERva0032EC63@@WM@AEPAXI@Z,,0x0032ED59,8,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB06.cpp,matched,this-adjusting (-0xC) deleting-dtor thunk of opaque class Rva0032EC63
+??_ERva00355BDA@@WM@AEPAXI@Z,,0x00355BB6,8,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB06.cpp,matched,this-adjusting (-0xC) deleting-dtor thunk of opaque class Rva00355BDA
+??_ERva003B923B@@WM@AEPAXI@Z,,0x003B912A,8,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB07.cpp,matched,this-adjusting (-0xC) deleting-dtor thunk of opaque class Rva003B923B

@@ -225,7 +225,22 @@ Rva003B0344::Rva003B0344(EmitVtableTag *)
 {
 }
 
-class Rva003B923B
+class Rva003B923BBase0
+{
+public:
+	virtual ~Rva003B923BBase0();
+private:
+	char m_unmodelled_04[0xC - 0x04];
+};
+
+// Secondary base at +0xC: the this-adjusting deleting-destructor thunk
+// (sub ecx, 0xC) at 0x003B912A in its vtable is target evidence for it.
+class Rva003B923BBaseC
+{
+public:
+	virtual ~Rva003B923BBaseC();
+};
+class Rva003B923B : public Rva003B923BBase0, public Rva003B923BBaseC
 {
 public:
 	Rva003B923B(EmitVtableTag *);
