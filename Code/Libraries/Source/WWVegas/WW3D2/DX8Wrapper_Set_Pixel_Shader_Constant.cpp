@@ -154,7 +154,7 @@ public:
 	static void Set_Pixel_Shader_Constant(int reg, const void *data, int count);
 	static IDirect3DDevice8 *_Get_D3D_Device8() { return D3DDevice; }
 
-private:
+protected:	// as dx8wrapper.h: the statics mangle as protected members
 	static IDirect3DDevice8 *D3DDevice;
 	static Vector4 Pixel_Shader_Constants[8];
 };
