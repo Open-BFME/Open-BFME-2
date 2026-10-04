@@ -55534,3 +55534,4 @@ uw_00767228,,0x00767228,11,Code/Libraries/Source/WWVegas/WW3D2/ShareBufferClassT
 ?push_back@?$vector@VAssetReference@@V?$allocator@VAssetReference@@@_STL@@@_STL@@QAEXABVAssetReference@@@Z,,0x000C9D01,55,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_assetreference_overflow.cpp,matched,vector AssetReference pushback via overflow chain
 ?rva00539281@Rva00539281@@QAEXHH@Z,,0x00539281,65,Code/GameEngine/Source/Common/Rva00539281.cpp,matched,virtual loop with byte at 0x28 and two int args
 ?Rva002D2E57Get@@YAHXZ,,0x002D2E57,101,Code/GameEngine/Source/Common/Rva002D2E57Get.cpp,matched,free getter via selection lock and player list
+?erase@?$vector@URva003B8B61Elem@@V?$allocator@URva003B8B61Elem@@@_STL@@@_STL@@QAEPAURva003B8B61Elem@@PAU3@@Z,,0x003F4B51,56,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva003b8b61elem_single_erase.cpp,matched,single erase via CopyDispatch and virtual destroy callers 0x003F5718 0x003F68E2
