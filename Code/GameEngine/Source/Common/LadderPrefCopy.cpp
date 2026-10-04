@@ -20,7 +20,7 @@ class UnicodeString;
 class LadderPref
 {
 public:
-    __declspec(noinline) LadderPref(const LadderPref &source);
+    inline __declspec(noinline) LadderPref(const LadderPref &source);
 
     UnicodeString name;
     AsciiString address;
@@ -29,7 +29,7 @@ public:
 };
 
 // Keep the copy out of the pair constructor, whose retail body calls it at +0x13.
-LadderPref::LadderPref(const LadderPref &source)
+inline LadderPref::LadderPref(const LadderPref &source)
     : name(source.name), address(source.address), port(source.port), lastPlayDate(source.lastPlayDate)
 {
 }
@@ -37,3 +37,14 @@ LadderPref::LadderPref(const LadderPref &source)
 typedef std::pair<const long, LadderPref> LadderPrefPair;
 template LadderPrefPair::pair(const long &, const LadderPref &);
 template LadderPrefPair::~pair();
+
+// This TU owns the LadderPref copy row; other TUs emit header/implicit copies,
+// so emit ours as a select-any COMDAT rather than a strong duplicate. The anchor
+// forces emission here for the ledger row; it is not retail code.
+#pragma inline_depth(0)
+// ?bfmeEmitLadderPrefCopy@@YAXPAVLadderPref@@ABV1@@Z present-unmatched
+void bfmeEmitLadderPrefCopy(LadderPref *out, const LadderPref &source)
+{
+	out->LadderPref::LadderPref(source);
+}
+#pragma inline_depth()
