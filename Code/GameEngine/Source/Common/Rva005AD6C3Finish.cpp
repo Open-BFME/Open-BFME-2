@@ -1,5 +1,12 @@
 // ?update@Rva005AD6C3@@UAEXXZ
-// partial score=0.93 date=2026-10-04
+// Finish pass 2026-10-04 seat8 from reverse/attempts/0x005ad806.cpp
+//
+// Closing the last 21 bytes: naming the receiver `ship->m_ai` in a local
+// `Rva005AD6C3AI *ai` immediately before the final attack command makes MSVC
+// load it into a callee-saved register before it evaluates the two arguments,
+// which is retail's `mov esi,[ebx+0x258]` / `push 0` / `push eax` / `call` /
+// `lea ecx,[esi+0x20]`. Inlined, the same expression schedules the
+// findObjectByID call first and reloads ecx from [ebx+0x258] afterwards.
 // cl: /O1 /DNDEBUG /MD /GX /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_STLP_USE_MALLOC /D_CRTIMP= /Ireference/shims/bfmealloc
 // stlport
 //
@@ -242,7 +249,8 @@ void Rva005AD6C3::update()
 			"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\SkirmishAI\\AITacticalAI\\AITacticalNavy\\AINavyUnitBattleShip.cpp",
 			65)];
 		m_field08 = chosen;
-		ship->m_ai->m_commands.rva003C7653(TheGameLogic->findObjectByID(chosen), CMD_FROM_PLAYER);
+		Rva005AD6C3AI *ai = ship->m_ai;
+		ai->m_commands.rva003C7653(TheGameLogic->findObjectByID(chosen), CMD_FROM_PLAYER);
 	} else {
 		rva005AD6F5();
 	}
