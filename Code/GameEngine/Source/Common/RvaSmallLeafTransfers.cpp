@@ -127,3 +127,24 @@ __int64 Rva0066E440::get() const
 	return m_90;
 }
 
+// Target 0x0066E4A0, 12 bytes; preceding int3 padding; terminal ret and int3 padding.
+// Donor b1 RVA 0x008021F0; target instructions corroborate these accesses.
+class Rva0066E4A0
+{
+public:
+	void clear();
+
+	int m_0;
+	int m_4;
+	char m_lead[ 0x1C ];
+	int m_24;
+	int m_28;
+};
+
+void Rva0066E4A0::clear()
+{
+	m_4 = 0;
+	m_24 = 0;
+	m_28 = 0;
+}
+
