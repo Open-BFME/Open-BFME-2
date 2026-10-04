@@ -13,6 +13,8 @@
 
 extern "C" const void *const vtbl_00BE2B78[];  // folded, 9 classes; via ??_7ClearanceTestingSlowDeathBehaviorIface5@@6B@
 #pragma comment(linker, "/alternatename:_vtbl_00BE2B78=??_7ClearanceTestingSlowDeathBehaviorIface5@@6B@")
+extern const void *const g_00C5F378[];
+extern const void *const g_00C5F368[];
 
 extern class ClientFrameSubsystem *TheGameClient;
 
@@ -65,8 +67,8 @@ RandomSoundSelectorClientBehavior::RandomSoundSelectorClientBehavior(Thing *thin
 {
 	int *slot0C = (int *)&m_0C;
 	*slot0C = (int)((unsigned int)vtbl_00BE2B78);
-	m_vtable = (const void *)0x00C5F378;
-	m_0C = (const void *)0x00C5F368;
+	m_vtable = g_00C5F378;
+	m_0C = g_00C5F368;
 	m_10 = GetGameClientRandomValueReal(0.0f, 1.0f, "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameClient\\Drawable\\Behavior\\RandomSoundSelectorClientBehavior.cpp", 0x62);
 	Rva00DFE77CHolder *holder = TheRva00DFE77C;
 	if (holder != 0)
