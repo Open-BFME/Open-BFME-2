@@ -1,6 +1,8 @@
 // cl: /O1 /DNDEBUG /MD
 //
-// Slot 3 of seventeen BFME2 gadget window vtables (all sharing slot 0, the
+// Slots 1 and 2 forward the window and the message to the gadget's input
+// and system callbacks (cdecl (GameWindow *, msg, mData1, mData2)); slot 3
+// of seventeen BFME2 gadget window vtables (all sharing slot 0, the
 // scalar deleting destructor 0x0008FFC4): each hands the window and the
 // instance data to its W3DGadget*Draw function (cdecl, (GameWindow *,
 // WinInstanceData *)) and returns 1. That BFME2's gadgets are GameWindow
@@ -12,6 +14,14 @@
 //   slot body   vtable      draw function
 
 typedef int Int;
+typedef unsigned int UnsignedInt;
+typedef UnsignedInt WindowMsgData;
+
+enum WindowMsgHandledType
+{
+	MSG_IGNORED,
+	MSG_HANDLED
+};
 
 class WinInstanceData;
 
@@ -19,8 +29,8 @@ class GameWindow
 {
 public:
 	virtual ~GameWindow();
-	virtual void slot1();
-	virtual void slot2();
+	virtual WindowMsgHandledType input(UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2);
+	virtual WindowMsgHandledType system(UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2);
 	virtual Int draw(WinInstanceData *instData);
 };
 //   0x000A1CFB  0x00BC8D5C#3  Rva000A166ADraw
@@ -41,6 +51,28 @@ public:
 //   0x000A4795  0x00BC91D8#3  Rva000A46B7Draw
 //   0x000A6007  0x00BC9204#3  Rva000A53DEDraw
 
+WindowMsgHandledType GadgetCheckBoxInput(GameWindow *window, UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2);
+WindowMsgHandledType GadgetCheckBoxSystem(GameWindow *window, UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2);
+WindowMsgHandledType GadgetComboBoxSystem(GameWindow *window, UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2);
+WindowMsgHandledType GadgetListBoxSystem(GameWindow *window, UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2);
+WindowMsgHandledType GadgetProgressBarSystem(GameWindow *window, UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2);
+WindowMsgHandledType GadgetPushButtonInput(GameWindow *window, UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2);
+WindowMsgHandledType GadgetPushButtonSystem(GameWindow *window, UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2);
+WindowMsgHandledType GadgetRadioButtonInput(GameWindow *window, UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2);
+WindowMsgHandledType GadgetRadioButtonSystem(GameWindow *window, UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2);
+WindowMsgHandledType GadgetStaticTextInput(GameWindow *window, UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2);
+WindowMsgHandledType GadgetStaticTextSystem(GameWindow *window, UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2);
+WindowMsgHandledType GadgetTabControlInput(GameWindow *window, UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2);
+WindowMsgHandledType GadgetTabControlSystem(GameWindow *window, UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2);
+WindowMsgHandledType Rva003207F5System(GameWindow *window, UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2);
+WindowMsgHandledType Rva00320DA9Input(GameWindow *window, UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2);
+WindowMsgHandledType Rva00321620Input(GameWindow *window, UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2);
+WindowMsgHandledType Rva003218B0System(GameWindow *window, UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2);
+WindowMsgHandledType Rva00321B50Input(GameWindow *window, UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2);
+WindowMsgHandledType Rva00321E5CSystem(GameWindow *window, UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2);
+WindowMsgHandledType Rva00322C25Input(GameWindow *window, UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2);
+WindowMsgHandledType Rva00324E92Input(GameWindow *window, UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2);
+WindowMsgHandledType Rva003285D4Input(GameWindow *window, UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2);
 void Rva000A03BFDraw(GameWindow *window, WinInstanceData *instData);
 void Rva000A0581Draw(GameWindow *window, WinInstanceData *instData);
 void Rva000A0D5EDraw(GameWindow *window, WinInstanceData *instData);
@@ -62,6 +94,8 @@ void W3DGadgetTabControlImageDraw(GameWindow *window, WinInstanceData *instData)
 class Rva000A1CFBWindow : public GameWindow
 {
 public:
+	virtual WindowMsgHandledType input(UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2);
+	virtual WindowMsgHandledType system(UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2);
 	virtual Int draw(WinInstanceData *instData);
 };
 
@@ -71,9 +105,20 @@ Int Rva000A1CFBWindow::draw(WinInstanceData *instData)
 	return 1;
 }
 
+WindowMsgHandledType Rva000A1CFBWindow::input(UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2)
+{
+	return Rva00321620Input(this, msg, mData1, mData2);
+}
+
+WindowMsgHandledType Rva000A1CFBWindow::system(UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2)
+{
+	return Rva003218B0System(this, msg, mData1, mData2);
+}
+
 class Rva000A3131Window : public GameWindow
 {
 public:
+	virtual WindowMsgHandledType system(UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2);
 	virtual Int draw(WinInstanceData *instData);
 };
 
@@ -83,9 +128,16 @@ Int Rva000A3131Window::draw(WinInstanceData *instData)
 	return 1;
 }
 
+WindowMsgHandledType Rva000A3131Window::system(UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2)
+{
+	return GadgetListBoxSystem(this, msg, mData1, mData2);
+}
+
 class Rva000A6097Window : public GameWindow
 {
 public:
+	virtual WindowMsgHandledType input(UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2);
+	virtual WindowMsgHandledType system(UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2);
 	virtual Int draw(WinInstanceData *instData);
 };
 
@@ -95,9 +147,21 @@ Int Rva000A6097Window::draw(WinInstanceData *instData)
 	return 1;
 }
 
+WindowMsgHandledType Rva000A6097Window::input(UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2)
+{
+	return Rva003285D4Input(this, msg, mData1, mData2);
+}
+
+WindowMsgHandledType Rva000A6097Window::system(UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2)
+{
+	return GadgetPushButtonSystem(this, msg, mData1, mData2);
+}
+
 class Rva000A086DWindow : public GameWindow
 {
 public:
+	virtual WindowMsgHandledType input(UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2);
+	virtual WindowMsgHandledType system(UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2);
 	virtual Int draw(WinInstanceData *instData);
 };
 
@@ -105,6 +169,16 @@ Int Rva000A086DWindow::draw(WinInstanceData *instData)
 {
 	Rva000A03BFDraw(this, instData);
 	return 1;
+}
+
+WindowMsgHandledType Rva000A086DWindow::input(UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2)
+{
+	return Rva00320DA9Input(this, msg, mData1, mData2);
+}
+
+WindowMsgHandledType Rva000A086DWindow::system(UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2)
+{
+	return Rva003207F5System(this, msg, mData1, mData2);
 }
 
 class Rva000A087FWindow : public GameWindow
@@ -122,6 +196,8 @@ Int Rva000A087FWindow::draw(WinInstanceData *instData)
 class Rva000A0C42Window : public GameWindow
 {
 public:
+	virtual WindowMsgHandledType input(UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2);
+	virtual WindowMsgHandledType system(UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2);
 	virtual Int draw(WinInstanceData *instData);
 };
 
@@ -131,9 +207,20 @@ Int Rva000A0C42Window::draw(WinInstanceData *instData)
 	return 1;
 }
 
+WindowMsgHandledType Rva000A0C42Window::input(UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2)
+{
+	return GadgetStaticTextInput(this, msg, mData1, mData2);
+}
+
+WindowMsgHandledType Rva000A0C42Window::system(UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2)
+{
+	return GadgetStaticTextSystem(this, msg, mData1, mData2);
+}
+
 class Rva000A12E6Window : public GameWindow
 {
 public:
+	virtual WindowMsgHandledType system(UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2);
 	virtual Int draw(WinInstanceData *instData);
 };
 
@@ -141,6 +228,11 @@ Int Rva000A12E6Window::draw(WinInstanceData *instData)
 {
 	Rva000A0D5EDraw(this, instData);
 	return 1;
+}
+
+WindowMsgHandledType Rva000A12E6Window::system(UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2)
+{
+	return GadgetProgressBarSystem(this, msg, mData1, mData2);
 }
 
 class Rva000A15ECWindow : public GameWindow
@@ -170,6 +262,8 @@ Int Rva000A1D0DWindow::draw(WinInstanceData *instData)
 class Rva000A260AWindow : public GameWindow
 {
 public:
+	virtual WindowMsgHandledType input(UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2);
+	virtual WindowMsgHandledType system(UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2);
 	virtual Int draw(WinInstanceData *instData);
 };
 
@@ -179,9 +273,21 @@ Int Rva000A260AWindow::draw(WinInstanceData *instData)
 	return 1;
 }
 
+WindowMsgHandledType Rva000A260AWindow::input(UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2)
+{
+	return Rva00322C25Input(this, msg, mData1, mData2);
+}
+
+WindowMsgHandledType Rva000A260AWindow::system(UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2)
+{
+	return GadgetComboBoxSystem(this, msg, mData1, mData2);
+}
+
 class Rva000A3DA8Window : public GameWindow
 {
 public:
+	virtual WindowMsgHandledType input(UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2);
+	virtual WindowMsgHandledType system(UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2);
 	virtual Int draw(WinInstanceData *instData);
 };
 
@@ -189,6 +295,16 @@ Int Rva000A3DA8Window::draw(WinInstanceData *instData)
 {
 	W3DGadgetTabControlDraw(this, instData);
 	return 1;
+}
+
+WindowMsgHandledType Rva000A3DA8Window::input(UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2)
+{
+	return GadgetTabControlInput(this, msg, mData1, mData2);
+}
+
+WindowMsgHandledType Rva000A3DA8Window::system(UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2)
+{
+	return GadgetTabControlSystem(this, msg, mData1, mData2);
 }
 
 class Rva000A3DBAWindow : public GameWindow
@@ -206,6 +322,8 @@ Int Rva000A3DBAWindow::draw(WinInstanceData *instData)
 class Rva000A4328Window : public GameWindow
 {
 public:
+	virtual WindowMsgHandledType input(UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2);
+	virtual WindowMsgHandledType system(UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2);
 	virtual Int draw(WinInstanceData *instData);
 };
 
@@ -213,6 +331,16 @@ Int Rva000A4328Window::draw(WinInstanceData *instData)
 {
 	Rva000A3F61Draw(this, instData);
 	return 1;
+}
+
+WindowMsgHandledType Rva000A4328Window::input(UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2)
+{
+	return GadgetRadioButtonInput(this, msg, mData1, mData2);
+}
+
+WindowMsgHandledType Rva000A4328Window::system(UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2)
+{
+	return GadgetRadioButtonSystem(this, msg, mData1, mData2);
 }
 
 class Rva000A433AWindow : public GameWindow
@@ -230,6 +358,8 @@ Int Rva000A433AWindow::draw(WinInstanceData *instData)
 class Rva000A4783Window : public GameWindow
 {
 public:
+	virtual WindowMsgHandledType input(UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2);
+	virtual WindowMsgHandledType system(UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2);
 	virtual Int draw(WinInstanceData *instData);
 };
 
@@ -237,6 +367,16 @@ Int Rva000A4783Window::draw(WinInstanceData *instData)
 {
 	Rva000A44D2Draw(this, instData);
 	return 1;
+}
+
+WindowMsgHandledType Rva000A4783Window::input(UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2)
+{
+	return GadgetCheckBoxInput(this, msg, mData1, mData2);
+}
+
+WindowMsgHandledType Rva000A4783Window::system(UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2)
+{
+	return GadgetCheckBoxSystem(this, msg, mData1, mData2);
 }
 
 class Rva000A4795Window : public GameWindow
@@ -254,6 +394,7 @@ Int Rva000A4795Window::draw(WinInstanceData *instData)
 class Rva000A6007Window : public GameWindow
 {
 public:
+	virtual WindowMsgHandledType input(UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2);
 	virtual Int draw(WinInstanceData *instData);
 };
 
@@ -261,4 +402,37 @@ Int Rva000A6007Window::draw(WinInstanceData *instData)
 {
 	Rva000A53DEDraw(this, instData);
 	return 1;
+}
+
+WindowMsgHandledType Rva000A6007Window::input(UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2)
+{
+	return GadgetPushButtonInput(this, msg, mData1, mData2);
+}
+
+class Rva000A1616Window : public GameWindow
+{
+public:
+	virtual WindowMsgHandledType input(UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2);
+	virtual WindowMsgHandledType system(UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2);
+};
+
+WindowMsgHandledType Rva000A1616Window::input(UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2)
+{
+	return Rva00321B50Input(this, msg, mData1, mData2);
+}
+
+WindowMsgHandledType Rva000A1616Window::system(UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2)
+{
+	return Rva00321E5CSystem(this, msg, mData1, mData2);
+}
+
+class Rva000A26DFWindow : public GameWindow
+{
+public:
+	virtual WindowMsgHandledType input(UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2);
+};
+
+WindowMsgHandledType Rva000A26DFWindow::input(UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2)
+{
+	return Rva00324E92Input(this, msg, mData1, mData2);
 }
