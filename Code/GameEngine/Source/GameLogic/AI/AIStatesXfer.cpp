@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX
+// cl: /O1 /DNDEBUG /MD /GX /Ireference/shims/moduledata
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
@@ -29,7 +29,9 @@
 // melee approach/squish and fire-during-approach states, and
 // AIAttackPositionAimAtTargetState, AIHordeExitState and AIRampageState) are
 // named the same way; their members are known only by offset and by the
-// Xfer overload each is passed to.
+// Xfer overload each is passed to. AIMoveOntoWallState and AIHarvestState
+// save a sub-machine the way Zero Hour's attack states do (has-machine Bool,
+// recreated with a 0x3C-byte new on load, then its snapshot).
 
 class AsciiString;
 class UnicodeString;
@@ -47,7 +49,7 @@ class RealRange;
 class RGBColor;
 class RGBAColorReal;
 class RGBAColorInt;
-class Snapshot;
+#include "Common/Snapshot.h"
 
 class Xfer
 {
@@ -332,6 +334,65 @@ private:
 	UnsignedInt m_bfmeValue28;																								///< 0x28
 };
 
+// The sub-machines two BFME 2 states own and recreate on load; their
+// constructors are pinned by address (owner identities from their tables'
+// slot-2 name literals: MoveOntoWallStateMachine and AIHarvestMachine).
+class Object;
+class Rva0033FC0A : public Snapshot
+{
+public:
+	Rva0033FC0A( Object *owner, UnsignedInt nameKey );
+protected:
+	virtual void crc( Xfer *xfer );
+	virtual void xfer( Xfer *xfer );
+	virtual void loadPostProcess( void );
+private:
+	char m_unrecovered04[ 0x3C - 0x04 ];																				///< to 0x3C bytes (operator new size)
+};
+
+class Rva00544C51 : public Snapshot
+{
+public:
+	Rva00544C51( Object *owner );
+protected:
+	virtual void crc( Xfer *xfer );
+	virtual void xfer( Xfer *xfer );
+	virtual void loadPostProcess( void );
+private:
+	char m_unrecovered04[ 0x3C - 0x04 ];																				///< to 0x3C bytes (operator new size)
+};
+
+struct StateMachineOwnerView
+{
+	char m_unrecovered00[ 0x14 ];
+	Object *m_owner;																													///< 0x14
+};
+
+class AIMoveOntoWallState : public State
+{
+protected:
+	virtual void xfer( Xfer *xfer );
+private:
+	Object *getMachineOwner() const { return m_machine->m_owner; }
+	char m_unrecovered04[ 0x18 - 0x04 ];
+	StateMachineOwnerView *m_machine;																						///< 0x18
+	char m_unrecovered1C[ 0x20 - 0x1C ];
+	Rva0033FC0A *m_wallMachine;																								///< 0x20
+};
+
+class AIHarvestState : public State
+{
+protected:
+	virtual void xfer( Xfer *xfer );
+private:
+	Object *getMachineOwner() const { return m_machine->m_owner; }
+	char m_unrecovered04[ 0x18 - 0x04 ];
+	StateMachineOwnerView *m_machine;																						///< 0x18
+	char m_unrecovered1C[ 0x20 - 0x1C ];
+	Rva00544C51 *m_harvestMachine;																						///< 0x20
+	Bool m_bfmeFlag24;																												///< 0x24
+};
+
 // ------------------------------------------------------------------------------------------------
 /** Xfer Method */
 // ------------------------------------------------------------------------------------------------
@@ -520,4 +581,35 @@ void AIRampageState::xfer( Xfer *xfer )
 	*xfer == m_bfmeFlag20;
 	*xfer == m_bfmeValue24;
 	*xfer == m_bfmeValue28;
+}  // end xfer
+
+// ------------------------------------------------------------------------------------------------
+/** Xfer Method */
+// ------------------------------------------------------------------------------------------------
+void AIMoveOntoWallState::xfer( Xfer *xfer )
+{
+	xfer->Version1();
+	Bool hasMachine = m_wallMachine != 0;
+	*xfer == hasMachine;
+	if( hasMachine && m_wallMachine == 0 )
+		m_wallMachine = new Rva0033FC0A( getMachineOwner(), 0xD30E2FB3 );
+	if( hasMachine )
+		*xfer == *m_wallMachine;
+}  // end xfer
+
+// ------------------------------------------------------------------------------------------------
+/** Xfer Method */
+// ------------------------------------------------------------------------------------------------
+void AIHarvestState::xfer( Xfer *xfer )
+{
+	if( xfer->IsLightCRC() )
+		return;
+	xfer->Version1();
+	Bool hasMachine = m_harvestMachine != 0;
+	*xfer == hasMachine;
+	if( hasMachine && m_harvestMachine == 0 )
+		m_harvestMachine = new Rva00544C51( getMachineOwner() );
+	if( hasMachine )
+		*xfer == *m_harvestMachine;
+	*xfer == m_bfmeFlag24;
 }  // end xfer
