@@ -25,6 +25,7 @@ extern "C" const void *const vtbl_00C508BC[];  // ??_7HordeWorkerAIUpdate@@6BDBa
 #pragma comment(linker, "/alternatename:_vtbl_00C508BC=??_7HordeWorkerAIUpdate@@6BDBaseB2@@@")
 extern "C" const void *const vtbl_00C508C8[];  // ??_7HordeWorkerAIUpdate@@6BDBaseRoot@@@
 #pragma comment(linker, "/alternatename:_vtbl_00C508C8=??_7HordeWorkerAIUpdate@@6BDBaseRoot@@@")
+extern const void *const g_00C50868[];
 
 class Thing;
 class ModuleData;
@@ -81,7 +82,7 @@ HordeWorkerAIUpdate::HordeWorkerAIUpdate(Thing *thing, const ModuleData *moduleD
 	m_p10 = (const void *)((unsigned int)vtbl_00C508BC);
 	m_p20 = (const void *)((unsigned int)vtbl_00C508B8);
 	m_p24 = (const void *)((unsigned int)vtbl_00C52F88);
-	m_p3E4 = (const void *)0x00C50868;
+	m_p3E4 = (const void *)g_00C50868;
 	m_3E8 = zero;
 	m_3EC = zero;
 	m_3F0 = zero;
