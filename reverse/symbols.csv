@@ -9287,3 +9287,4 @@ _Rva0030CAF8CursorEqual,0x0007E394,twin of dup_0007e394 29B exact cursor equalit
 ?rva003EF08B@Rva003EF13E@@QAEXH@Z,0x003EF08B,callee of ?rva003EF13E@Rva003EF13E@@QAEXHHH@Z at retail 0x003EF142 read from its REL32 displacement; argument count from the callee ret
 ?Rva000A90B0@@YAXH@Z,0x000A90B0,callee of ?rva00062A1C@Rva00062A1C@@QAEXH@Z at retail 0x00062A20 read from its REL32 displacement; argument count from the callee ret
 ?rva00261C89@Rva00261C89@@QAEXXZ,0x00261C89,callee of ?rva00261D01@Rva00261D01@@QAEXPAURva00261D01Holder@@@Z at retail 0x00261D08 read from its REL32 displacement; argument count from the callee ret
+?rva002615E3@Object@@QBEMPBUCoord3D@@@Z,0x002615E3,"Object member returning the squared 2D distance from its +0x38 position to a Coord3D (ret 4; the matched Rva000CBA20::distSq body): REL32 at 0x004903E9 in LargeGroupBonusUpdate::update 0x00490225 with ECX = the module object and the hit position +0x38 pushed"
