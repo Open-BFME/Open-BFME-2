@@ -51,3 +51,11 @@ public:
 Rva001FBCA1::~Rva001FBCA1()
 {
 }
+class Rva001FC0B6 : public Rva001FB94FFirst, public Rva001FBCA1
+{
+public:
+    ~Rva001FC0B6();
+};
+Rva001FC0B6::~Rva001FC0B6()
+{
+}
