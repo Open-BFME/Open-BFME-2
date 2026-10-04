@@ -55463,3 +55463,4 @@ uw_0076765b,,0x0076765B,8,Code/Libraries/Source/WWVegas/WW3D2/meshgeometry.cpp,m
 ?rva00318333@Rva00318333@@QAEXPAVObject@@_N@Z,,0x00318333,247,Code/GameEngine/Source/GameNetwork/Rva00318333.cpp,matched,controlling player flag 0x1BC ThePlayerList mask bfmeHas1026 isEmpty BitFlags any pool update
 ?rva00318719@Rva00318333@@QAEXXZ,,0x00318719,79,Code/GameEngine/Source/GameNetwork/Rva00318333.cpp,matched,chain clears m18 m20 m24 m2C m58 via GameLogic objects
 ?rva00318807@Rva00318333@@QAEXHPAHPAXPBV?$StringBase@D@@0H@Z,,0x00318807,106,Code/GameEngine/Source/GameNetwork/Rva00318333.cpp,matched,chain init m18 m1C m20 m58 m24 m2C via GameLogic
+?rva002972B1@Object@@QAEMM@Z,,0x002972B1,45,Code/GameEngine/Source/GameLogic/Object/ObjectRva002972B1.cpp,matched,callee row 0x00295844 TheGameLogic offsets 0x444 0x448 0x40
