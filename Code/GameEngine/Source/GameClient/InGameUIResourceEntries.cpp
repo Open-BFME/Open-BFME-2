@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
 // Entries retained by the holder at TheInGameUI+0x58C. Original entry and
 // container names remain unknown. Retail 0x004E4E76..0x004E4E9E walks the
 // circular list at entry+0x34, invokes slot 2 on non-null node+8 pointers,
@@ -6,6 +6,8 @@
 // The predecessor ends at 0x004E4E76; the destructor at 0x004E5086 calls
 // this entry directly. The following 5-byte tail thunk ends at Ghidra's
 // 0x004E4EA3 boundary.
+#include "ascii_string.h"
+
 class ResourceEntrySlot2
 {
 public:
@@ -128,16 +130,30 @@ private:
 class ResourceEntryOwner
 {
 public:
+    __declspec(noinline) void rva004E7CBA(const AsciiString &value);
     __declspec(noinline) void rva004E7CEF();
 private:
     char unknown00[4];
     int users;
-    char unknown08[4];
+    AsciiString name;
     Rva004E7C1C list;
     Rva004E7B13 tree;
     char unknown18[4];
     ResourceEntryCollector collector;
 };
+
+// Retail 4E7CBA..4E7CEF compares the argument with the +8 narrow string.
+// A changed name is copied before the +C list and +10 tree are cleared.
+// The string identity follows the rowed compare/set callees, not adjacency.
+void ResourceEntryOwner::rva004E7CBA(const AsciiString &value)
+{
+    if (value.compare(name))
+    {
+        name = value;
+        list.rva004E7C1C();
+        tree.rva004E7BAF();
+    }
+}
 
 // Retail 4E7CEF/39B decrements +4 and clears all three stores at <=0.
 void ResourceEntryOwner::rva004E7CEF()
