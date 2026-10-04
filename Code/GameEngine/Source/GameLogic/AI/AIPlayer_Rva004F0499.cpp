@@ -17,15 +17,19 @@ class Rva004F0479
 {
 public:
 	void rva004F0479( TeamInQueue *entry );
+	void firstUnlink( TeamInQueue *entry );
 };
 
 class AIPlayer
 {
 public:
 	void removeAll_TeamReadyQueue( RemoveAllProc removeCallback );
+	void removeAll_TeamBuildQueue( RemoveAllProc removeCallback );
+	void clearTeamsInQueue();
 
 private:
-	char m_pad[8];
+	char m_pad[4];
+	TeamInQueue *m_firstHead; // +04
 	TeamInQueue *m_queueHead;	// +0x08
 };
 
@@ -39,3 +43,27 @@ void AIPlayer::removeAll_TeamReadyQueue( RemoveAllProc removeCallback )
 			(*removeCallback)( tmp );
 	}
 }
+
+// Actual rowed/link-clean two-list wrappers in Rva004F040FList.cpp.
+// These existing declaration-only receiver projections have the same
+// RET4 node-pointer call ABI; no original owner or full layout is inferred.
+#pragma comment(linker, "/alternatename:?rva004F0479@Rva004F0479@@QAEXPAVTeamInQueue@@@Z=?rva004F0479@Rva004F040F@@QAEXPAX@Z")
+#pragma comment(linker, "/alternatename:?firstUnlink@Rva004F0479@@QAEXPAVTeamInQueue@@@Z=?rva004F040F@Rva004F040F@@QAEXPAX@Z")
+
+void AIPlayer::removeAll_TeamBuildQueue(RemoveAllProc removeCallback)
+{
+    while (m_firstHead)
+    {
+        TeamInQueue *entry = m_firstHead;
+        ((Rva004F0479 *)this)->firstUnlink(entry);
+        if (removeCallback)
+            (*removeCallback)(entry);
+    }
+}
+
+// Whole BFME1 AIPlayerQueueTeardown.cpp and AIPlayer.cpp@1281192
+// provide the two-list drain and deleteInstance protocol. Target first
+// loop4F042F/39 independently proves receiver head+4 and callback RET4;
+// sibling4F0499/39 proves head+8. The existing owner prefix is extended,
+// not a new private copy. Reference supplies original labels; the target
+// proves the offsets/calls/control flow, not an unrecovered full layout.

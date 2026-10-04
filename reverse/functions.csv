@@ -55097,3 +55097,4 @@ rva007916E1_constructor_unwind,,0x007916E1,11,Code/GameEngine/Source/Common/INI/
 ?rva007B96D0@@YAXXZ,,0x007B96D0,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
 ?rva007B96DA@@YAXXZ,,0x007B96DA,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
 ?rva007B96E4@@YAXXZ,,0x007B96E4,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?removeAll_TeamBuildQueue@AIPlayer@@QAEXP6AXPAVTeamInQueue@@@Z@Z,,0x004F042F,39,Code/GameEngine/Source/GameLogic/AI/AIPlayer_Rva004F0499.cpp,matched,Whole BFME1 queue teardown donor@1281192; nativeGhidra4F042F/39 complete RET4 loops head+4 invokes rowed linked4F040F/32 then optional cdecl callback; existing39-byte sibling head+8 unchanged; actual ABI alternatives also make that old sibling provider resolve; original method labels donor-derived full owner layout unknown; real C++
