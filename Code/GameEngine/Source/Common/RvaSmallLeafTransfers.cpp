@@ -95,3 +95,19 @@ void __stdcall Rva00674B60( Rva00674B60Record *record )
 	record->m_20 = 0xC0000000;
 }
 
+// Target 0x00758CA0, 13 bytes; preceding int3 padding; terminal ret and int3 padding.
+// Donor b1 RVA 0x009A2F20; target instructions corroborate these accesses.
+class Rva00758CA0
+{
+public:
+	int bit0() const;
+
+	char m_lead[ 0xC ];
+	unsigned int m_c;
+};
+
+int Rva00758CA0::bit0() const
+{
+	return ( m_c & 1 ) == 1;
+}
+
