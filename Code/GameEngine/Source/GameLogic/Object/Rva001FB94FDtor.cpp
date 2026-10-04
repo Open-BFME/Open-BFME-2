@@ -59,3 +59,56 @@ public:
 Rva001FC0B6::~Rva001FC0B6()
 {
 }
+class Rva001F4C67
+{
+public:
+    virtual ~Rva001F4C67();
+};
+struct RefObj
+{
+    virtual void v0();
+    virtual void v1();
+    virtual void v2();
+    virtual void v3();
+    virtual void v4();
+    virtual void v5();
+    virtual void v6();
+    virtual void v7();
+    virtual void v8();
+    virtual void v9();
+    virtual void v10();
+    virtual void v11();
+    virtual void v12();
+    virtual void v13();
+    virtual void v14();
+    virtual void v15();
+    virtual void v16();
+    int m_ref;
+};
+class Rva001FC0F1 : public Rva001F4C67
+{
+public:
+    char m_pad[0x88];
+    RefObj *m_8c;
+    RefObj *m_90;
+    Rva001FC0B6 m_94;
+    virtual ~Rva001FC0F1();
+};
+Rva001FC0F1::~Rva001FC0F1()
+{
+    if (m_8c) {
+        m_8c->v16();
+        RefObj *p = m_8c;
+        if (p) {
+            if (--p->m_ref == 0)
+                p->v0();
+            m_8c = 0;
+        }
+    }
+    RefObj *q = m_90;
+    if (q) {
+        if (--q->m_ref == 0)
+            q->v0();
+        m_90 = 0;
+    }
+}
