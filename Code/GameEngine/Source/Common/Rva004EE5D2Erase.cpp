@@ -19,9 +19,9 @@ public:
 
 class Rva002BA8F1Logic;
 extern Rva002BA8F1Logic *g_009FEF10;
-extern Rva002B7250 g_00E04424;
+Rva002B7250 g_00E04424;
 extern Rva002B7250 g_00E02E88;
-extern Rva002B7250 g_00E044F0;
+Rva002B7250 g_00E044F0;
 
 class BfmeSelectionState
 {
