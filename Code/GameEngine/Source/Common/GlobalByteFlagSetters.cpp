@@ -7,14 +7,9 @@
 // from its address, with the SetFlag verb describing the store.
 // No // cl: line (defaults match the frameless eight-byte shape).
 // Each address is one zero-filled .data/bss byte in the retail image.
-unsigned char g_Va00E01D0C;
 unsigned char g_Va00E0302C;
 unsigned char g_Va00E1770C;
 
-void Rva0031AB77SetFlag(void)
-{
-	g_Va00E01D0C = 1;
-}
 void Rva004128E8SetFlag(void)
 {
 	g_Va00E0302C = 1;
