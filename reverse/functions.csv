@@ -52818,3 +52818,4 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ??_GRva0051CBC6@@UAEPAXI@Z,,0x0051CE56,28,Code/GameEngine/Source/GameClient/GUI/BfmeAptScreenScoreDestructor.cpp,matched,deleting dtor for Rva0051CBC6 via own TU
 ??1Rva0056B126@@UAE@XZ,,0x0056B126,90,Code/GameEngine/Source/Common/Rva0056B126Dtor.cpp,matched,dtor three vptrs erase 0x002B7250 base 0x0056AC26
 ??_GRva0056B126@@UAEPAXI@Z,,0x0056B3D9,28,Code/GameEngine/Source/Common/Rva0056B126Dtor.cpp,matched,deleting dtor for Rva0056B126 via own TU
+??_GCallHelpOnDamageModuleData@@UAEPAXI@Z,,0x004BB4FB,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_CallHelpOnDamageModuleData.cpp,matched,deleting dtor via family file twin pin of dup_004bb517 vtable slot 0

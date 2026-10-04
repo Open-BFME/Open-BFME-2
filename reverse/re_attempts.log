@@ -7543,3 +7543,6 @@ FUN_007b7836	0x003B7836	260	blocked	no callers prove 3-arg free-function types p
 ?rva00397357@Rva003972D3@@QAEXPBVUpgradeTemplate@@@Z	0x00397357	148	partial	ebp-ebx mirror only; exact size 148/148 same 60 insns; kept-copy lever no change t=15 model=muse-02 score=0.9 stash=reverse/attempts/0x00397357.cpp
 ?rva0026163A@Rva0026163A@@QAE_NPBUCoord3D@@@Z	0x0026163A	151	partial	final ret shares mov al,1 vs neg-sbb-inc branchless plus early-ret jmp t=25 model=muse-02 score=0.95 stash=reverse/attempts/0x0026163a.cpp
 ?Rva00397FEBFind@@YAPAXHW4ObjectID@@PAX_N@Z	0x00397FEB	212	blocked	EH_prolog plus funclet 0x00780F0D no dtor local proven t=15 model=muse-02
+?rva002AE3F4@Rva002AE3F4@@QAEXW4ObjectID@@@Z	0x002AE3F4	65	partial	sentinel in eax vs ecx cmp via ebp-4 vs eax +1B t=18 model=muse-09 score=0.97 stash=reverse/attempts/0x002ae3f4.cpp
+?rva00265173@Rva00265173@@QAEXXZ	0x00265173	225	partial	test al al vs cmp al bl for rva bool t=25 model=muse-09 score=0.99 stash=reverse/attempts/0x00265173.cpp
+?rva0026594F@Rva0026594F@@QAEXPBUCoord3D@@0HW4PathfindLayerEnum@@00@Z	0x0026594F	348	blocked	EH SSE new Path 5 prepends order tmp copy mismatch t=22 model=muse-09

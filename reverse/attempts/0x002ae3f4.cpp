@@ -1,5 +1,5 @@
 // ?rva002AE3F4@Rva002AE3F4@@QAEXW4ObjectID@@@Z
-// partial score=0.93 date=2026-10-04
+// partial score=0.97 date=2026-10-04
 // cl: /O1 /MD /GX-
 // stlport
 // ?rva002AE3F4@Rva002AE3F4@@QAEXW4ObjectID@@@Z @0x002AE3F4 65B
@@ -22,6 +22,7 @@ class BridgeBehaviorObjectIDList
 {
 public:
 	void push_back(const ObjectID &value);
+	void *m_node;
 };
 
 class Rva002AE3F4
@@ -30,11 +31,13 @@ public:
 	void rva002AE3F4(ObjectID val);
 private:
 	char _pad[0x754];
-	_STL::list<ObjectID> m_list;
+	BridgeBehaviorObjectIDList m_list;
 };
 
 void Rva002AE3F4::rva002AE3F4(ObjectID val)
 {
-	if (_STL::find(m_list.begin(), m_list.end(), val) == m_list.end())
-		((BridgeBehaviorObjectIDList &)m_list).push_back(val);
+	_STL::list<ObjectID> &lst = (_STL::list<ObjectID> &)m_list;
+	_STL::list<ObjectID>::iterator it = _STL::find(lst.begin(), lst.end(), val);
+	if (m_list.m_node == (void *)it._M_node)
+		m_list.push_back(val);
 }
