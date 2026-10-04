@@ -26,10 +26,11 @@ public:
 int AptScriptFunctionBase::rva007097B0(void *pSaveBase)
 {
     CHECK_AT(spRegBlockBase,"spRegBlockBase",195);
-    CHECK_AT(pSaveBase>=spRegBlockBase && pSaveBase<=spRegBlockCurrentFrameBase,"pSaveBase >= spRegBlockBase && pSaveBase <= spRegBlockCurrentFrameBase",199);
+    AptValue **cur=spRegBlockCurrentFrameBase;
+    CHECK_AT(pSaveBase>=spRegBlockBase && pSaveBase<=cur,"pSaveBase >= spRegBlockBase && pSaveBase <= spRegBlockCurrentFrameBase",199);
     for(int i=0;i<snRegBlockCurrentFrameCount;++i) {
-        AptValue *tmp=spRegBlockCurrentFrameBase[i];
-        spRegBlockCurrentFrameBase[i]=gpUndefinedValue;
+        AptValue *tmp=cur[i];
+        cur[i]=gpUndefinedValue;
         tmp->Release();
     }
     int n=(char *)spRegBlockCurrentFrameBase-(char *)pSaveBase;
