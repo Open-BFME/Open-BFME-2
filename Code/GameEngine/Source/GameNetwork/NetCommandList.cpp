@@ -45,6 +45,8 @@ public:
 class NetCommandRef
 {
 public:
+	NetCommandMsg *getCommand() { return m_command; }
+
 	NetCommandMsg *m_command;
 	NetCommandRef *m_next;
 	NetCommandRef *m_prev;
@@ -61,6 +63,8 @@ public:
 	void reset();
 	void removeMessage(NetCommandRef *msg);
 	NetCommandRef *findMessage(UnsignedShort id, UnsignedByte player, UnsignedInt frame);
+	NetCommandRef *findMessage(NetCommandMsg *msg);
+	bool isEqualCommandMsg(NetCommandMsg *msg1, NetCommandMsg *msg2);
 };
 
 void NetCommandList::reset()
@@ -132,6 +136,22 @@ NetCommandRef *NetCommandList::findMessage(UnsignedShort id, UnsignedByte player
 			msg->m_id == id && msg->m_playerID == player)
 		{
 			return (NetCommandRef *)retval;
+		}
+		retval = retval->m_next;
+	}
+	return 0;
+}
+
+// ?findMessage@NetCommandList@@QAEPAVNetCommandRef@@PAVNetCommandMsg@@@Z
+// retail 0x0058B4E2, 45 bytes: Zero Hour's NetCommandList::findMessage
+// (NetCommandMsg *), the first node whose command isEqualCommandMsg
+// (0x0058B174) says matches; BFME 2 returns from inside the loop.
+NetCommandRef *NetCommandList::findMessage(NetCommandMsg *msg)
+{
+	NetCommandRef *retval = (NetCommandRef *)m_first;
+	while (retval != 0) {
+		if (isEqualCommandMsg(retval->getCommand(), msg)) {
+			return retval;
 		}
 		retval = retval->m_next;
 	}
