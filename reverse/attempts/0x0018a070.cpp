@@ -1,4 +1,6 @@
 // ?install_materials@MeshModelClass@@IAEXPAVMeshLoadContextClass@@@Z
+// partial score=0.9261744966 date=2026-10-04
+// ?install_materials@MeshModelClass@@IAEXPAVMeshLoadContextClass@@@Z
 // partial score=0.9261744966 date=2026-09-23
 // cl: /G7 /DNDEBUG /MD /EHsc /O2 /Ob2
 // Adapted from BFME1 MeshModelInstallMaterials.cpp (RVA 0x0096E7C0, 316 bytes).
