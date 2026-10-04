@@ -1,7 +1,5 @@
 // ??1Rva006E6430@@QAE@XZ
 // partial score=0.9 date=2026-10-04
-// ??1Rva006E6430@@QAE@XZ
-// partial score=0.85 date=2026-10-04
 // cl: /O2 /EHa /MD
 // ??1Rva006E6430@@UAE@XZ @0x006E6430 259B.
 //
@@ -50,10 +48,11 @@ extern Rva006DB270 *g_pChainBlockAllocator;
 // keeps the unwind-state updates alive (see stlport_time_info_dtor.cpp).
 void Rva006CD460Free(void *p) throw(...);
 
-// 0x00629110 is the debug operator delete:
-// (size, block, header, dealloc) -- retail pushes 0x20, the block pointer, the
-// header word at [block-4], and the 0x00AE4F60 deallocator.
-void __cdecl bfmeDebugDelete(unsigned int size, void *block, unsigned int header,
+// 0x00629110 is the debug operator delete. cdecl pushes right-to-left, and
+// retail pushes 0x00AE4F60, the header word at [block-4], the constant 0x20 and
+// the block pointer, so the declared parameter order is (block, size, header,
+// dealloc).
+void __cdecl bfmeDebugDelete(void *block, unsigned int size, unsigned int header,
 	void (*dealloc)(void *));
 
 // The pool teardown routines this dtor drives, pinned by address. Retail reaches
@@ -127,19 +126,20 @@ Rva006E6430::~Rva006E6430()
 	if (m_p34)
 	{
 		char *block = (char *)m_p34;
-		bfmeDebugDelete(0x20, block, *(unsigned int *)(block - 4),
+		bfmeDebugDelete(block, 0x20, *(unsigned int *)(block - 4),
 			(void (*)(void *))0x00AE4F60);
 		Rva006CD460Free(block - 4);
 	}
 	if (m_p14)
 		Rva006CD460Free(m_p14);
 	g_pChainBlockAllocator->freeBlock(m_p00, m_nA4 * 4);
-	// Retail keeps this block in edi across the release call
-	// (mov edi,[esi+0xa0]; ... call 0x006CD460; ... push edi; call freeBlock).
-	// Naming it in a local is what makes the allocator save edi in the prologue,
-	// and that extra callee-saved push is what places the unwind-state slot at
-	// retail's constant [esp+0x14] rather than [esp+0x10].
-	void *blockA0 = m_pA0;
+	// Retail reads this block in edi at its own point in the body and keeps it
+	// across the release call (mov edi,[esi+0xa0]; ... call 0x006CD460; ...
+	// push edi; call freeBlock). Reading it here rather than naming it in a local
+	// above is what keeps edi saved in the prologue -- that extra callee-saved
+	// push is what places the unwind-state slot at retail's constant [esp+0x14]
+	// rather than [esp+0x10].
+	char *blockA0 = (char *)m_pA0;
 	if (blockA0)
 	{
 		Rva006CD460Free(*(void **)blockA0);
