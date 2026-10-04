@@ -17,6 +17,11 @@
 //    (0x004D837D) and friend_checkForIdleMoodTarget (0x004D88AC) are out of
 //    line. (The two onEnter callers, 0x004D83D1 and 0x004D84D2, are banked
 //    near-misses: their argument pushes are scheduled differently.)
+//  - TurretAIIdleScanState::onEnter, retail 0x004D8448 (138 bytes): Zero
+//    Hour's body (idle scan angles from the turret data +0x50 / +0x54,
+//    desired angle +0x20; TurretAI.cpp lines 1381 and 1382).
+//  - TurretAI::friend_isSweepEnabled, retail 0x004D8365 (24 bytes): Zero
+//    Hour's body (m_enableSweepUntil +0x24).
 // BFME 2 layout (target evidence): the state machine's turret +0x3C; the
 // turret's which-turret +0x0C and data +0x08 (recenter time +0x60); the AI's
 // turret sync +0x210 (resetNextMoodCheckTime is the rowed 0x00263025); the
@@ -24,6 +29,11 @@
 typedef unsigned int UnsignedInt;
 typedef int Int;
 typedef bool Bool;
+typedef float Real;
+
+int GetGameLogicRandomValue(int low, int high, char *file, int line);
+Real GetGameLogicRandomValueReal(Real low, Real high, char *file, int line);
+#define TURRETAI_FILE "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\AI\\TurretAI.cpp"
 
 enum StateReturnType
 {
@@ -70,7 +80,10 @@ public:
 
 struct TurretAIData
 {
-	unsigned char m_pad00[0x60];
+	unsigned char m_pad00[0x50];
+	Real m_minIdleScanAngle; // +0x50
+	Real m_maxIdleScanAngle; // +0x54
+	unsigned char m_pad58[0x60 - 0x58];
 	UnsignedInt m_recenterTime; // +0x60
 };
 
@@ -81,10 +94,15 @@ public:
 	void friend_checkForIdleMoodTarget();
 	WhichTurretType friend_getWhichTurret() const { return m_whichTurret; }
 	UnsignedInt getRecenterTime() const { return m_data->m_recenterTime; }
+	Real getMinIdleScanAngle() const { return m_data->m_minIdleScanAngle; }
+	Real getMaxIdleScanAngle() const { return m_data->m_maxIdleScanAngle; }
+	Bool friend_isSweepEnabled() const;
 private:
 	unsigned char m_pad00[0x08];
 	const TurretAIData *m_data; // +0x08
 	WhichTurretType m_whichTurret; // +0x0C
+	unsigned char m_pad10[0x24 - 0x10];
+	UnsignedInt m_enableSweepUntil; // +0x24
 };
 
 class StateMachine
@@ -135,6 +153,15 @@ public:
 private:
 	unsigned char m_pad1C[0x20 - 0x1C];
 	UnsignedInt m_nextIdleScan; // +0x20
+};
+
+class TurretAIIdleScanState : public TurretState
+{
+public:
+	virtual StateReturnType onEnter();
+private:
+	unsigned char m_pad1C[0x20 - 0x1C];
+	Real m_desiredAngle; // +0x20
 };
 
 class TurretAIHoldTurretState : public TurretState
@@ -195,4 +222,28 @@ StateReturnType TurretAIHoldTurretState::update()
 	turret->friend_checkForIdleMoodTarget();
 
 	return frameToSleepTime(turret->friend_getNextIdleMoodTargetFrame(), m_timestamp);
+}
+
+//----------------------------------------------------------------------------------------------------------
+Bool TurretAI::friend_isSweepEnabled() const
+{
+	if (m_enableSweepUntil != 0 && m_enableSweepUntil > TheGameLogic->getFrame())
+		return true;
+
+	return false;
+}
+
+//----------------------------------------------------------------------------------------------------------
+StateReturnType TurretAIIdleScanState::onEnter()
+{
+	Real minA = getTurretAI()->getMinIdleScanAngle();
+	Real maxA = getTurretAI()->getMaxIdleScanAngle();
+	if (minA == 0.0f && maxA == 0.0f)
+		return STATE_SUCCESS;
+
+	m_desiredAngle = minA + GetGameLogicRandomValueReal(0, maxA - minA, TURRETAI_FILE, 1381);
+	if (GetGameLogicRandomValue( 0, 1, TURRETAI_FILE, 1382 ) == 0)
+		m_desiredAngle = -m_desiredAngle;
+
+	return STATE_CONTINUE;
 }
