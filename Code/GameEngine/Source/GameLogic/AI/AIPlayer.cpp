@@ -303,6 +303,7 @@ int BuildListInfo::getDesiredGatherers()
 }
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/AIPlayer.h
+class ThingTemplate;
 class AIPlayer
 {
 public:
@@ -311,10 +312,12 @@ public:
 	virtual void v08(); virtual void v09(); virtual void v10(); virtual void v11();
 	virtual Player *getAiEnemy();				// +0x30
 	static void getPlayerStructureBounds(Region2D *bounds, Int playerIndex);	// 0x004F1B8C
+	bool isLocationSafe(const Coord3D *pos, const ThingTemplate *tmpl);
 
 protected:
 	void checkForSupplyCenter(BuildListInfo *info, Object *bldg);
 	Object *findSupplyCenter(Int minimumCash);
+	bool rva004F2BEE(int minimumCash);
 
 private:
 	unsigned char m_pre[0x0C - 0x04];
@@ -449,4 +452,12 @@ Object *AIPlayer::findSupplyCenter(Int minimumCash)
 	} while (minimumCash > 100);
 
 	return bestSupplyWarehouse;
+}
+
+bool AIPlayer::rva004F2BEE(int minimumCash)
+{
+	Object *supply = findSupplyCenter(minimumCash);
+	if (supply == 0)
+		return true;
+	return isLocationSafe(supply->getPosition(), (const ThingTemplate *)supply->m_template);
 }
