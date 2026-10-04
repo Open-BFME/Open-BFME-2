@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/open-bfme-1/inputs/toolchains/vs2003/PROG~FBU/MICR~2RR.NET/Vc7/PLAT~MIB/Include /arch:SSE /G7
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /I"reference/open-bfme-1/inputs/toolchains/vs2003/Program Files/Microsoft Visual Studio .NET 2003/Vc7/PlatformSDK/Include" /arch:SSE /G7
 // Provenance: Open-BFME-1 game/Libraries/Source/WWVegas/WW3D2/DX8WebBrowserInitialize.cpp at 6583b3c1ff; include paths repointed at the
 // reference checkout and built the BFME2 way (/arch:SSE /G7), where its body places
 // exactly once in game.dat by masked byte search.

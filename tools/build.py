@@ -652,6 +652,40 @@ def _current_bfme1_include_flag(flag, source=None):
     return flag
 
 
+def _source_flag_tokens(text):
+    """Keep bare flags unchanged; accept quoted /I paths as one operand."""
+    tokens = []
+    cursor = 0
+    while cursor < len(text):
+        if text[cursor].isspace():
+            cursor += 1
+            continue
+        match = re.match(r"\S+", text[cursor:])
+        token = match.group(0)
+        end = cursor + len(token)
+        if token.startswith(("/I", "-I")):
+            operand = cursor + 2
+            if token in ("/I", "-I"):
+                while operand < len(text) and text[operand].isspace():
+                    operand += 1
+            if operand < len(text) and text[operand] == '"':
+                close = text.find('"', operand + 1)
+                if close < 0:
+                    raise SystemExit("cl flags: unterminated quoted /I include path")
+                if close == operand + 1:
+                    raise SystemExit("cl flags: empty quoted /I include path")
+                if close + 1 < len(text) and not text[close + 1].isspace():
+                    raise SystemExit("cl flags: trailing characters after quoted /I include path")
+                tokens.append(token[:2] + text[operand + 1:close])
+                cursor = close + 1
+                continue
+            if '"' in token:
+                raise SystemExit("cl flags: malformed quoted /I include path")
+        tokens.append(token)
+        cursor = end
+    return tokens
+
+
 def source_extra_flags(source):
     # A source that needs different compiler flags (e.g. /EHsc for functions the
     # original built with exception handling) declares them in its first lines:
@@ -681,7 +715,7 @@ def source_extra_flags(source):
                 # Use '-' style options so MSYS/Cygwin shells don't rewrite
                 # leading '/' arguments as Windows paths.
                 flags = [f.replace("/", "-", 1) if f.startswith("/") else f
-                         for f in line[len("// cl:") :].split()]
+                         for f in _source_flag_tokens(line[len("// cl:") :])]
                 return [_current_bfme1_include_flag(flag, source) for flag in flags]
     return []
 
