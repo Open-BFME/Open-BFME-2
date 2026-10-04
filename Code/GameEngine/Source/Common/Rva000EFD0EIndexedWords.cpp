@@ -37,7 +37,6 @@ public:
 	Rva000F0D22Record6 *m_items;
 };
 
-// ?rva000F0D22@Rva000F0D22Indexed@@QAEPAURva000F0D22Record6@@H@Z present-unmatched
 Rva000F0D22Record6 *Rva000F0D22Indexed::rva000F0D22(int index)
 {
 	return m_items + index;
