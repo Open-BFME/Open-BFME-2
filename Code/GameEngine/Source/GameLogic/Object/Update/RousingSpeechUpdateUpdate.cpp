@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /O1 /DNDEBUG /MD /GX /arch:SSE
 //
 // RousingSpeechUpdate::update, retail 0x004AD019 (213 bytes): slot 0 of the
 // vtable 0x00C54FD8 that the matched RousingSpeechUpdate dtor installs at +0x10
@@ -11,6 +11,14 @@
 // data +0xE0 capped at +0xC8, when the +0xDC flag is set), call virtual slot 17
 // and return data +0xD0; afterwards clear condition bit 6*32+15 and sleep
 // forever. The cap test is written !(m_94 >= cap), the form retail compares.
+// RousingSpeechUpdate::rva004AD176, retail 0x004AD176 (313 bytes): the
+// non-virtual helper the slot-17 override 0x004AD399 calls, GloriousCharge's
+// 0x004AD7B6 with two more filters: push the ID of every other object within
+// the +0x98 radius that is allied (relationship 4, 0x00260EB1), passes
+// 0x002614EC over the data +0xF4 and the controlling player, is alive, passes
+// 0x002611BF for this object and this unit's 0x004ACDAC (+0x94 radius round
+// the object) onto the +0x88 list (0x002A1B6F). /GX for the filter
+// temporaries.
 // Model as in GloriousChargeUpdateUpdate.cpp; condition word array at
 // Object+0x10C with masked-word accessors.
 
@@ -37,13 +45,27 @@ enum KindOfType
 {
 	KINDOF_FIRST = 0
 };
+struct Coord3D
+{
+	float x;
+	float y;
+	float z;
+};
+class Player;
 class Object
 {
 public:
 	void rva0028AE6D();
 	Drawable *getDrawable() const;
 	bool isKindOf(KindOfType t) const;
-	unsigned char m_pad000[0x10C];
+	Player *getControllingPlayer() const; // 0x0028AFA9
+	const Coord3D *getPosition() const { return &m_pos; }
+	ObjectID getID() const { return m_id; }
+	unsigned char m_pad000[0x38];
+	Coord3D m_pos; // +0x38
+	unsigned char m_pad044[0x74 - 0x44];
+	ObjectID m_id; // +0x74
+	unsigned char m_pad078[0x10C - 0x78];
 	Rva0010CConditionBits m_conditionBits; // +0x10C
 	unsigned char m_pad15C[0x44C - 0x15C];
 	int m_44C; // +0x44C
@@ -91,8 +113,86 @@ public:
 	Rva004AD613Iterator begin() const { Rva004AD613Iterator it; it.m_node = m_head->m_next; return it; }
 	Rva004AD613Iterator end() const { Rva004AD613Iterator it; it.m_node = m_head; return it; }
 	void reset();
+	void push_back(const ObjectID &id);	// 0x002A1B6F
 	Rva004AD613Node *m_head;
 };
+// BFME2's partition filters (the view AIStructureCreepTactic.cpp documents):
+// a vptr, the +0x04 link to the next filter (0x00625790), then each filter's
+// own members.
+class Rva000421C8
+{
+public:
+	Rva000421C8() : m_next(0) {}
+	virtual ~Rva000421C8() {}
+	virtual bool allow(Object *obj) = 0;
+	virtual int getPlayerMask();
+	Rva000421C8 *link(Rva000421C8 *next);	// 0x00625790
+	Rva000421C8 *m_next;
+};
+// vftable 0x00BFAD10, allow 0x0026119D: not effectively dead.
+class Rva0026119DFilter : public Rva000421C8
+{
+public:
+	virtual bool allow(Object *obj);
+};
+// vftable 0x00BFBC90, allow 0x00260EB1: the object, relationship flags and
+// whether a hit allows.
+class Rva00260EB1Filter : public Rva000421C8
+{
+public:
+	Rva00260EB1Filter(const Object *obj, int flags, bool match)
+		: m_obj(obj), m_flags(flags), m_match(match) {}
+	virtual bool allow(Object *obj);
+	virtual int getPlayerMask();
+	const Object *m_obj;
+	int m_flags;
+	bool m_match;
+};
+// vftable 0x00BF91BC, allow 0x002611BF: +0x08 an object.
+class Rva002611BFFilter : public Rva000421C8
+{
+public:
+	Rva002611BFFilter(const Object *obj) : m_obj(obj) {}
+	virtual bool allow(Object *obj);
+	const Object *m_obj;
+};
+// vftable 0x00BCECF0, allow 0x002614EC: +0x08 what to compare, +0x0C a
+// player, +0x10 whether a hit allows.
+class Rva002614ECFilter : public Rva000421C8
+{
+public:
+	Rva002614ECFilter(const void *what, Player *player, bool match)
+		: m_what(what), m_player(player), m_match(match) {}
+	virtual bool allow(Object *obj);
+	const void *m_what;
+	Player *m_player;
+	bool m_match;
+};
+// vftable 0x00C54EB4, allow 0x004ACDAC (this unit's own filter): +0x08 a
+// radius, +0x0C a centre.
+class Rva004ACDACFilter : public Rva000421C8
+{
+public:
+	Rva004ACDACFilter(float radius, const Coord3D *centre)
+		: m_radius(radius), m_centre(centre) {}
+	virtual bool allow(Object *obj);
+	float m_radius;
+	const Coord3D *m_centre;
+};
+#pragma comment(linker, "/alternatename:?getPlayerMask@Rva000421C8@@UAEHXZ=?Get_File_Handle@FileClass@@UAEPAXXZ")
+struct BfmeWideResult
+{
+	Object *next() throw();	// 0x00045623
+	~BfmeWideResult();	// 0x0004AA28
+	void *m_value;
+};
+class PartitionManager
+{
+public:
+	BfmeWideResult iterateObjectsInRange(const Coord3D *pos, float radius, int distCalc,
+		Rva000421C8 *filters, int order);	// 0x00625610
+};
+extern PartitionManager *ThePartitionManager;
 class Thing;
 class ModuleData;
 class BehaviorModule
@@ -156,11 +256,14 @@ public:
 	unsigned char m_padD4[0xDC - 0xD4];
 	bool m_DC; // +0xDC
 	float m_E0; // +0xE0
+	unsigned char m_padE4[0xF4 - 0xE4];
+	unsigned char m_F4[4]; // +0xF4
 };
 class RousingSpeechUpdate : public SpecialAbilityUpdate
 {
 public:
 	void rva004ACF1D();
+	void rva004AD176();
 	virtual UpdateSleepTime update();
 private:
 	const RousingSpeechUpdateModuleData *getRousingSpeechData() const
@@ -198,4 +301,17 @@ UpdateSleepTime RousingSpeechUpdate::update()
 	m_90 = false;
 	clearModelConditionBit(m_object, 6 * 32 + 15);
 	return UPDATE_SLEEP_FOREVER;
+}
+void RousingSpeechUpdate::rva004AD176()
+{
+	const RousingSpeechUpdateModuleData *data = getRousingSpeechData();
+	Object *self = m_object;
+	BfmeWideResult hits = ThePartitionManager->iterateObjectsInRange(self->getPosition(), m_98, 0,
+		Rva00260EB1Filter(self, 4, false).link(Rva002614ECFilter(data->m_F4, self->getControllingPlayer(), true)
+			.link(Rva0026119DFilter().link(Rva002611BFFilter(self).link(&Rva004ACDACFilter(m_94, self->getPosition()))))), 1);
+	for (Object *obj = hits.next(); obj; obj = hits.next()) {
+		if (obj == self)
+			continue;
+		m_88.push_back(obj->getID());
+	}
 }

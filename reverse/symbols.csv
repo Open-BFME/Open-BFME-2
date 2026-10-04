@@ -8883,3 +8883,4 @@ _Rva0030CAF8CursorEqual,0x0007E394,twin of dup_0007e394 29B exact cursor equalit
 ??1Rva003AA17FVec@@UAE@XZ,0x003AA0C0,"destructor the vector deleting destructor 0x003AA17F calls and hands to the eh vector destructor iterator (DIR32 at 0x003AA18E); opaque address name"
 ??1Rva003AA6BD@@UAE@XZ,0x003AA6BD,"destructor the vector deleting destructor 0x003AA704 calls and hands to the eh vector destructor iterator (DIR32 at 0x003AA713); opaque address name"
 ??1Rva003AA76F@@UAE@XZ,0x003AA76F,"destructor the vector deleting destructor 0x003AA7B6 calls and hands to the eh vector destructor iterator (DIR32 at 0x003AA7C5); opaque address name"
+??_7Rva004ACDACFilter@@6B@,0x00C54EB4,"partition filter vftable stored inline at 0x004AD1A1 in RousingSpeechUpdate 0x004AD176 (+0x08 a radius; +0x0C a centre); slot 0 the shared deleting dtor 0x00395A19, slot 1 allow 0x004ACDAC, slot 2 0x0036CC7A"
