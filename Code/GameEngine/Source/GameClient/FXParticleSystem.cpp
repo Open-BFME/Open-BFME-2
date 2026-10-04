@@ -165,8 +165,12 @@ class CategoryModuleTemplate : public CategoryModuleTemplateBase<CATEGORY>,
                                public CategoryInfo<CATEGORY>::Type
 {
 public:
+    CategoryModuleTemplate();
     virtual void v1();
 };
+
+template <int CATEGORY>
+inline CategoryModuleTemplate<CATEGORY>::CategoryModuleTemplate() {}
 
 // The retail instantiations are reached through derived module templates, so
 // nothing in this translation unit would emit their constructors on its own.
@@ -865,6 +869,10 @@ struct CategoryInfo<7>
 
 // After the specialization, not with the others: naming CategoryModuleTemplate<7>
 // any earlier instantiates CategoryInfo<7> from the primary template.
+template CategoryModuleTemplateBase<7>::CategoryModuleTemplateBase();
+
+// The wind constructor needs EH cleanup; its definition is compiled separately.
+template <> CategoryModuleTemplate<7>::CategoryModuleTemplate();
 CategoryModuleTemplate<7> g_categoryModuleTemplate7;
 
 // Its generated assignment rides here for the same reason: it assigns the
