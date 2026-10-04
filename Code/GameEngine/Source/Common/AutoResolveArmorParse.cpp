@@ -15,6 +15,7 @@ public:
 };
 
 extern const FieldParse g_00C69638;
+extern const FieldParse g_00C695B0;
 
 struct INIException
 {
@@ -71,4 +72,21 @@ void __cdecl Rva00542BA1Parse(INI *ini, void *a2, void *vecPtr, void *a4)
 	Rva005429D7 tmp;
 	((_STL::vector<BfmeFixedObject260, _STL::allocator<BfmeFixedObject260> > *)vecPtr)->push_back(*(const BfmeFixedObject260 *)(const void *)tmp.rva005429D7());
 	Rva00542B61Parse(ini, a2, (char *)*(void **)((char *)vecPtr + 4) - 0x104, a4);
+}
+
+// ?Rva00542997Parse@@YAXPAVINI@@PAX11@Z, retail 0x00542997, 64 bytes.
+// INI field parser twin of 0x00542B61: initFromINI(instance) via rowed 0x0002DE78
+// with table g_00C695B0, then if first dword of instance is 0 throw INIException
+// code 8 with retail literal "AutoResolveWeapon entry in Object block: Weapon
+// name MUST be specified" (string_xrefs.tsv). Evidence: packet disassembly,
+// caller 0x00542B56 (4 __cdecl args), prev/next flags, sibling armor parser.
+void __cdecl Rva00542997Parse(INI *ini, void *a2, void *instance, void *a4)
+{
+	INIException e;
+	ini->initFromINI(instance, &g_00C695B0);
+	if (*(void **)instance == 0)
+	{
+		rva002f681_fill(&e, 8, "AutoResolveWeapon entry in Object block: Weapon name MUST be specified");
+		_CxxThrowException(&e, (const _s__ThrowInfo *)&rva00542B61ThrowInfoAnchor);
+	}
 }
