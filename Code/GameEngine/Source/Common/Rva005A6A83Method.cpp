@@ -1,6 +1,4 @@
-// ?rva005A6A83@Rva005A6A83@@QAEXXZ
-// partial score=0.93 date=2026-10-04
-// cl: /O1
+// cl: /O1 /G7
 // ?rva005A6A83@Rva005A6A83@@QAEXXZ @0x005A6A83 145B. Firewall NAT probe:
 // pre-check ++m_936==0 skips to open; loop two getNextTemporarySourcePort(0)
 // until second==first+1; openSpareSocket(m_936); ++m_934; sendToMangler
@@ -45,7 +43,6 @@ private:
 	UnsignedLong m_addr944;                 // +0x944
 };
 
-// ?rva005A6A83@Rva005A6A83@@QAEXXZ present-unmatched
 void Rva005A6A83::rva005A6A83()
 {
 	unsigned int p = m_port936;
