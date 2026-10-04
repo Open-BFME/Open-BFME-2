@@ -60,7 +60,8 @@ struct XferException
 };
 extern "C" XferException *__cdecl bfmeFormatText(XferException *result, int tag, const char *format, ...);
 extern int g_guardTargetTypeThrowInfo;
-extern void __declspec(noreturn) __stdcall _CxxThrowException(void *object, void *throwInfo);
+struct _s__ThrowInfo;
+extern "C" void __stdcall _CxxThrowException(void *pExceptionObject, const _s__ThrowInfo *pThrowInfo);
 typedef _STL::vector<BfmeStringRecord00426A5B> BfmeVec;
 Xfer *Rva00426F17Xfer(Xfer *xfer, BfmeVec *vec)
 {
@@ -81,7 +82,7 @@ Xfer *Rva00426F17Xfer(Xfer *xfer, BfmeVec *vec)
 		if (!vec->empty()) {
 			XferException error;
 			bfmeFormatText(&error, 4, "Vector must be empty on load");
-			_CxxThrowException(&error, &g_guardTargetTypeThrowInfo);
+			_CxxThrowException(&error, (const _s__ThrowInfo *)&g_guardTargetTypeThrowInfo); __assume(0);
 		}
 		vec->reserve(count);
 		BfmeStringRecord00426A5B value;
@@ -94,8 +95,3 @@ Xfer *Rva00426F17Xfer(Xfer *xfer, BfmeVec *vec)
 	}
 	return xfer;
 }
-
-// The (void *, void *) declaration above is a C++ overload, so calls spell
-// ?_CxxThrowException@@YGXPAX0@Z; retail calls the MSVC 7.1 throw helper
-// __CxxThrowException@8 (its import thunk at 0x00629094). Same ABI: bind the spelling.
-#pragma comment(linker, "/alternatename:?_CxxThrowException@@YGXPAX0@Z=__CxxThrowException@8")
