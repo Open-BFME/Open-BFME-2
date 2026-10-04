@@ -52628,3 +52628,4 @@ _Rva0088E190TimerTick@16,,0x0003D870,9,Code/Libraries/Source/WWVegas/WWDebug/Rva
 ??0Rva0030BF80@@QAE@PAXPAVBfmeParserRegistryVE@@PBVAsciiString@@@Z,,0x0030BF80,104,Code/GameEngine/Source/Common/Rva0030BF80.cpp,matched,RiverAreas parser binding ctor sibling of Rva0030C97E
 ??0Rva0040B707@@QAE@ABV0@@Z,,0x0040B707,119,Code/Libraries/Source/WWVegas/WWLib/Rva0040B707Copy.cpp,matched,copy ctor via caller 0x0040B9BB vector plus strings
 ??0Rva00328BFC@@QAE@PAVBfmeParserRegistryVE@@PBVAsciiString@@@Z,,0x00328BFC,98,Code/GameEngine/Source/Common/Rva00328BFCCtor.cpp,matched,WaterAreas literal plus StandingWaveAreas sibling recipe plus caller 0x00328C5E plus base pin plus StringBase plus releaseBuffer
+??1BfmeNodeZ@@QAE@XZ,,0x003B3F5E,8,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListNodeZDtor.cpp,matched,node link plus Script member tail-jmp to pinned Script dtor
