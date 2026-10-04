@@ -60,6 +60,11 @@ float Rva001E46E1::rva001E488A(Object *obj)
 		value = m_34;
 	return value;
 }
+bool Rva001E46E1::rva001E543F(Object *obj)
+{
+	float current = m_40;
+	return current > rva001E46E1(obj) * 0.25f;
+}
 float Rva001E46E1::rva001E48CF(Object *obj)
 {
 	if (m_60 < ((const Rva001E46E1FrameView *)TheGameLogic)->m_frame)
