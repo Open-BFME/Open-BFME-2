@@ -5,6 +5,7 @@ class Rva002C5FE8
 {
 public:
 	void *rva002C5FE8(int key);
+	void rva002C60A9(unsigned int key);
 	char m_lead[0x20];
 	void **m_begin;
 	void **m_end;
@@ -18,4 +19,33 @@ void *Rva002C5FE8::rva002C5FE8(int key)
 			return *p;
 	}
 	return 0;
+}
+
+namespace _STL {
+template <class _Tp> class allocator {};
+template <class _Tp, class _Alloc> class vector {
+public:
+	void **erase(void **__pos);
+};
+}
+void __cdecl operator delete(void *p);
+
+void Rva002C5FE8::rva002C60A9(unsigned int key)
+{
+	typedef _STL::vector<void *, _STL::allocator<void *> > Vec;
+	Vec *vec = (Vec *)&m_begin;
+	for (void **p = m_begin; p != m_end;)
+	{
+		if (*(int *)*p == (int)key)
+		{
+			void *elem = *p;
+			if (elem)
+				operator delete(elem);
+			p = vec->erase(p);
+		}
+		else
+		{
+			++p;
+		}
+	}
 }
