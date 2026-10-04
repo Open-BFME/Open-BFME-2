@@ -1,5 +1,7 @@
 // ?rva006D5DA0@EAStringC@@QAE_NPBD@Z
 // partial score=0.9 date=2026-10-04
+// ?rva006D5DA0@EAStringC@@QAE_NPBD@Z
+// partial score=0.9 date=2026-10-04
 // cl: /O2 /DNDEBUG /DWIN32 /D_WINDOWS /MD
 // ?rva006D5DA0@EAStringC@@QAE_NPBD@Z @0x006D5DA0 201B (thiscall, ret 4).
 //
@@ -72,11 +74,12 @@ public:
 	{
 	public:
 		StringDataC *m_pData;
-		~Sub();
+		Sub() {}
+		~Sub() { FreeData(m_pData); }
 	};
 
-	// 0x006D55B0: the substring helper, (this, count, out) returning out.
-	EAStringC *rva006D55B0(unsigned int count, EAStringC *out);
+	// 0x006D55B0: the substring helper, (this, count) returning the storage.
+	EAStringC *rva006D55B0(unsigned int count);
 
 public:
 	bool rva006D5DA0(const char *pStrText);
@@ -117,10 +120,7 @@ StringDataC *data = m_pData;
 	if (size < len)
 		return false;
 
-	// Retail compares through repz cmps with no length-zero guard: the scan runs
-	// even when len is 0, which is what suppresses MSVC's `xor eax,eax` plus
-	// `test eax,eax` short-circuit pair ahead of the compare.
-	if (len != 0 && memcmp((const char *)data + sizeof(StringDataC) + (size - len),
+	if (memcmp((const char *)data + sizeof(StringDataC) + (size - len),
 		pStrText, len) != 0)
 		return false;
 
@@ -132,9 +132,8 @@ StringDataC *data = m_pData;
 		// extra store; the destructor stays because it is what drives the SEH
 		// frame retail opens with.
 		Sub sub;
-		rva006D55B0(size - len, (EAStringC *)&sub);
+		((EAStringC *)&sub)->rva006D55B0(size - len);
 		*this = *(const EAStringC *)&sub;
-		FreeData(sub.m_pData);
 	}
 	return true;
 }
