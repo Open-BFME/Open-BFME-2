@@ -35,3 +35,19 @@ char *Gen_007ea670::bfmePlatform(void)
 
 	return text;
 }
+
+// Additional raw ABI read from the whole BFME1 unit
+// game/GameEngine/Source/Common/S3SmallAccessorFamilies.cpp at revision
+// 5cc75ddda6455c338a5068307e587a793f96d6b3, blob
+// 2d6cda34b5ca9f338c92879a2e58f06342b5c2ca. No header dependencies.
+// Discovery used /O1 /Ob1; this home's unchanged settings are also exact.
+// Target: independent INT3-delimited entry 0x00665440/15, RET4 and the
+// native function-pointer sequence at RVA0x008E316C establish the entry.
+// The word width, +0x20 read and low24 mask are target facts; the argument
+// view reuses the existing raw-width sibling. Original name and owner remain
+// unknown; this declaration does not establish an original object extent.
+// ?rva00665440@@YGIPBUGen_007f8dc0Bits@@@Z
+unsigned int __stdcall rva00665440(const Gen_007f8dc0Bits *view)
+{
+	return view->m_bfmeFlags & 0xFFFFFF;
+}
