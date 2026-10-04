@@ -34,6 +34,7 @@ class Rva005D791C : public Rva005EE30C
 {
 public:
 	Rva005D791C();
+	virtual ~Rva005D791C();
 private:
 	_STL::set<AsciiString, _STL::less<AsciiString>, _STL::allocator<AsciiString> > m_set28;
 };
