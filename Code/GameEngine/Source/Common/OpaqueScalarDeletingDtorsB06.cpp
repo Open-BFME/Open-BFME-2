@@ -8,7 +8,8 @@
 // destructor already carried one); the dummy tag constructors (no retail
 // counterpart) only make this TU emit each vtable and with it the deleting
 // destructor. Owner identities are not recovered, and these declarations
-// model no layout (docs/reconstruction/deleting-destructor-identity-audit.md).
+// model no layout (docs/reconstruction/deleting-destructor-identity-audit.md)
+// beyond the secondary-base offsets their adjustor thunks prove.
 //
 //   wrapper     dtor        vtable#slot
 //   0x002D628F  0x002D5380  0x00C02DC0#0
@@ -182,7 +183,22 @@ Rva0031DCF0::Rva0031DCF0(EmitVtableTag *)
 {
 }
 
-class Rva00328CF8
+class Rva00328CF8Base0
+{
+public:
+	virtual ~Rva00328CF8Base0();
+private:
+	char m_unmodelled_04[0xC - 0x04];
+};
+
+// Secondary base at +0xC: the this-adjusting deleting-destructor thunk
+// (sub ecx, 0xC) in its vtable is target evidence for it.
+class Rva00328CF8BaseC
+{
+public:
+	virtual ~Rva00328CF8BaseC();
+};
+class Rva00328CF8 : public Rva00328CF8Base0, public Rva00328CF8BaseC
 {
 public:
 	Rva00328CF8(EmitVtableTag *);

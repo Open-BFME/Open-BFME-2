@@ -8,7 +8,8 @@
 // destructor already carried one); the dummy tag constructors (no retail
 // counterpart) only make this TU emit each vtable and with it the deleting
 // destructor. Owner identities are not recovered, and these declarations
-// model no layout (docs/reconstruction/deleting-destructor-identity-audit.md).
+// model no layout (docs/reconstruction/deleting-destructor-identity-audit.md)
+// beyond the secondary-base offsets their adjustor thunks prove.
 //
 //   wrapper     dtor        vtable#slot
 //   0x00148DC3  0x00148BC2  0x00BD3568#0
@@ -86,7 +87,22 @@ Rva00152411::Rva00152411(EmitVtableTag *)
 {
 }
 
-class Rva001684D6
+class Rva001684D6Base0
+{
+public:
+	virtual ~Rva001684D6Base0();
+private:
+	char m_unmodelled_04[0x8 - 0x04];
+};
+
+// Secondary base at +0x8: the this-adjusting deleting-destructor thunk
+// (sub ecx, 0x8) in its vtable is target evidence for it.
+class Rva001684D6Base8
+{
+public:
+	virtual ~Rva001684D6Base8();
+};
+class Rva001684D6 : public Rva001684D6Base0, public Rva001684D6Base8
 {
 public:
 	Rva001684D6(EmitVtableTag *);
@@ -151,7 +167,22 @@ Rva001E125D::Rva001E125D(EmitVtableTag *)
 {
 }
 
-class Rva001E2906
+class Rva001E2906Base0
+{
+public:
+	virtual ~Rva001E2906Base0();
+private:
+	char m_unmodelled_04[0x28 - 0x04];
+};
+
+// Secondary base at +0x28: the this-adjusting deleting-destructor thunk
+// (sub ecx, 0x28) in its vtable is target evidence for it.
+class Rva001E2906Base28
+{
+public:
+	virtual ~Rva001E2906Base28();
+};
+class Rva001E2906 : public Rva001E2906Base0, public Rva001E2906Base28
 {
 public:
 	Rva001E2906(EmitVtableTag *);
@@ -203,7 +234,20 @@ Rva0037DEE4::Rva0037DEE4(EmitVtableTag *)
 {
 }
 
-class Rva001ED41B
+class Rva001ED41BBase0
+{
+public:
+	virtual ~Rva001ED41BBase0();
+};
+
+// Secondary base at +0x4: the this-adjusting deleting-destructor thunk
+// (sub ecx, 0x4) in its vtable is target evidence for it.
+class Rva001ED41BBase4
+{
+public:
+	virtual ~Rva001ED41BBase4();
+};
+class Rva001ED41B : public Rva001ED41BBase0, public Rva001ED41BBase4
 {
 public:
 	Rva001ED41B(EmitVtableTag *);

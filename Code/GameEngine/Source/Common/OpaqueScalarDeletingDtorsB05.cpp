@@ -8,7 +8,8 @@
 // destructor already carried one); the dummy tag constructors (no retail
 // counterpart) only make this TU emit each vtable and with it the deleting
 // destructor. Owner identities are not recovered, and these declarations
-// model no layout (docs/reconstruction/deleting-destructor-identity-audit.md).
+// model no layout (docs/reconstruction/deleting-destructor-identity-audit.md)
+// beyond the secondary-base offsets their adjustor thunks prove.
 //
 //   wrapper     dtor        vtable#slot
 //   0x00246213  0x00243BA0  0x00BEE130#0
@@ -90,7 +91,22 @@ Rva002563CE::Rva002563CE(EmitVtableTag *)
 {
 }
 
-class Rva00256E96
+class Rva00256E96Base0
+{
+public:
+	virtual ~Rva00256E96Base0();
+private:
+	char m_unmodelled_04[0xC - 0x04];
+};
+
+// Secondary base at +0xC: the this-adjusting deleting-destructor thunk
+// (sub ecx, 0xC) in its vtable is target evidence for it.
+class Rva00256E96BaseC
+{
+public:
+	virtual ~Rva00256E96BaseC();
+};
+class Rva00256E96 : public Rva00256E96Base0, public Rva00256E96BaseC
 {
 public:
 	Rva00256E96(EmitVtableTag *);
@@ -194,7 +210,22 @@ Rva002894A2::Rva002894A2(EmitVtableTag *)
 {
 }
 
-class Rva00299CE4
+class Rva00299CE4Base0
+{
+public:
+	virtual ~Rva00299CE4Base0();
+private:
+	char m_unmodelled_04[0x60 - 0x04];
+};
+
+// Secondary base at +0x60: the this-adjusting deleting-destructor thunk
+// (sub ecx, 0x60) in its vtable is target evidence for it.
+class Rva00299CE4Base60
+{
+public:
+	virtual ~Rva00299CE4Base60();
+};
+class Rva00299CE4 : public Rva00299CE4Base0, public Rva00299CE4Base60
 {
 public:
 	Rva00299CE4(EmitVtableTag *);
@@ -233,7 +264,22 @@ Rva002A921B::Rva002A921B(EmitVtableTag *)
 {
 }
 
-class Rva002B964F
+class Rva002B964FBase0
+{
+public:
+	virtual ~Rva002B964FBase0();
+private:
+	char m_unmodelled_04[0xC - 0x04];
+};
+
+// Secondary base at +0xC: the this-adjusting deleting-destructor thunk
+// (sub ecx, 0xC) in its vtable is target evidence for it.
+class Rva002B964FBaseC
+{
+public:
+	virtual ~Rva002B964FBaseC();
+};
+class Rva002B964F : public Rva002B964FBase0, public Rva002B964FBaseC
 {
 public:
 	Rva002B964F(EmitVtableTag *);

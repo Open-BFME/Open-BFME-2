@@ -53189,3 +53189,22 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ??_GGateOpenAndCloseBehavior@@UAEPAXI@Z,,0x00498964,28,Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorSlots.cpp,matched,scalar deleting dtor over 0x00498798
 ??_EGateOpenAndCloseBehavior@@W3AEPAXI@Z,,0x0049884F,8,Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorSlots.cpp,matched,adjustor thunk (this-4) in slot 0 of the UpdateModule vtable 0x00C50144; jumps to 0x00498964
 ?rva005D75BE@Rva005EE816@@QAE_NPAVObject@@@Z,,0x005D75BE,310,Code/GameEngine/Source/GameLogic/SkirmishAI/AISpecialPowers/AISpecialPowerPickers.cpp,matched,AoE picker slot 4 (vftable 0x00C75D9C): place at the nearest allied kind-194 object near the finder target else fallbacks; filter chain; address name
+??_ERva0037381C@@WM@AEPAXI@Z,,0x00373417,8,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB07.cpp,matched,this-adjusting (-0xC) deleting-dtor thunk of opaque class Rva0037381C
+??_ERva003ABA4C@@WBI@AEPAXI@Z,,0x003AE9B7,8,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB07.cpp,matched,this-adjusting (-0x18) deleting-dtor thunk of opaque class Rva003ABA4C
+??_ERva00328CF8@@WM@AEPAXI@Z,,0x00328CD4,8,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB06.cpp,matched,this-adjusting (-0xC) deleting-dtor thunk of opaque class Rva00328CF8
+??_ERva00256E96@@WM@AEPAXI@Z,,0x00256E8E,8,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB05.cpp,matched,this-adjusting (-0xC) deleting-dtor thunk of opaque class Rva00256E96
+??_ERva00299CE4@@WGA@AEPAXI@Z,,0x00299C89,8,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB05.cpp,matched,this-adjusting (-0x60) deleting-dtor thunk of opaque class Rva00299CE4
+??_ERva002B964F@@WM@AEPAXI@Z,,0x002B9647,8,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB05.cpp,matched,this-adjusting (-0xC) deleting-dtor thunk of opaque class Rva002B964F
+??_ERva00214405@@WM@AEPAXI@Z,,0x00214058,8,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB04.cpp,matched,this-adjusting (-0xC) deleting-dtor thunk of opaque class Rva00214405
+??_ERva001684D6@@W7AEPAXI@Z,,0x001684B2,8,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB03.cpp,matched,this-adjusting (-0x8) deleting-dtor thunk of opaque class Rva001684D6
+??_ERva001E2906@@WCI@AEPAXI@Z,,0x001E28E2,8,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB03.cpp,matched,this-adjusting (-0x28) deleting-dtor thunk of opaque class Rva001E2906
+??_ERva001ED41B@@W3AEPAXI@Z,,0x001ED413,8,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB03.cpp,matched,this-adjusting (-0x4) deleting-dtor thunk of opaque class Rva001ED41B
+??_ERva003ABC0B@@WBM@AEPAXI@Z,,0x003A588E,8,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB02.cpp,matched,this-adjusting (-0x1C) deleting-dtor thunk of opaque class Rva003ABC0B
+??_ERva003ABC21@@WCA@AEPAXI@Z,,0x003AEEAB,8,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB02.cpp,matched,this-adjusting (-0x20) deleting-dtor thunk of opaque class Rva003ABC21
+??_ERva003ACB6F@@WBM@AEPAXI@Z,,0x003A59B3,8,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB02.cpp,matched,this-adjusting (-0x1C) deleting-dtor thunk of opaque class Rva003ACB6F
+??_ERva003ACB74@@WCA@AEPAXI@Z,,0x003ABE38,8,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB02.cpp,matched,this-adjusting (-0x20) deleting-dtor thunk of opaque class Rva003ACB74
+??_ERva003ACED6@@WBI@AEPAXI@Z,,0x003ABB83,8,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB02.cpp,matched,this-adjusting (-0x18) deleting-dtor thunk of opaque class Rva003ACED6
+??_ERva003ACEF7@@WBI@AEPAXI@Z,,0x003ABC03,8,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB02.cpp,matched,this-adjusting (-0x18) deleting-dtor thunk of opaque class Rva003ACEF7
+??_ERva003AD273@@WBI@AEPAXI@Z,,0x003ABABB,8,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB02.cpp,matched,this-adjusting (-0x18) deleting-dtor thunk of opaque class Rva003AD273
+??_ERva003AD2AE@@WBM@AEPAXI@Z,,0x003ABF0C,8,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB02.cpp,matched,this-adjusting (-0x1C) deleting-dtor thunk of opaque class Rva003AD2AE
+??_ERva003ADFB2@@WM@AEPAXI@Z,,0x003A5A48,8,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB02.cpp,matched,this-adjusting (-0xC) deleting-dtor thunk of opaque class Rva003ADFB2
