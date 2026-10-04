@@ -7594,3 +7594,5 @@ FUN_007b7836	0x003B7836	260	blocked	no callers prove 3-arg free-function types p
 ?rva00271BDE@Rva00271BDE@@QAE_NXZ	0x00271BDE	62	blocked	branch order plus sbb vs xor final needs return shape work t=10 model=muse-12
 ??0Made002CC841@@QAE@XZ	0x00509CC3	95	partial	lea eax esi+0x140 at +0x0d vs +0x31 size-exact 95B 21insns t=20 model=muse-17 score=0.94 stash=reverse/attempts/0x00509cc3.cpp
 ?rva00261ABB@Rva00261ABB@@QAE_NPAVRva001E438B@@@Z	0x00261ABB	195	blocked	add-eax-8 wall plus xmm and stack rotation persists across xx-yy-zz split direct-dot reversed-dot and DNDEBUG-EHsc flags t=18 model=muse-02
+?Rva001E1890Parse@@YAXPAVINI@@PAX1PBX@Z	0x001E1890	318	partial	single call order swapped near string temp 317 vs 318B zero reg mem diffs t=25 model=muse-01 score=0.99 stash=reverse/attempts/0x001e1890.cpp
+?rva001F131F@Rva001F131F@@QAEXHH@Z	0x001F131F	407	partial	second flying PlusString uses lea eax ebx-4 and mov eax where retail uses lea ecx ebx-4 and mov ecx with prefix-temp interleaved; first and third blocks exact; G7 no effect; via-local optimized away t=15 model=muse-01 score=0.97 stash=reverse/attempts/0x001f131f.cpp
