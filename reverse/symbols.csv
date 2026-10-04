@@ -9415,3 +9415,4 @@ _Rva003F417EConstructRecords,0x003F417E,"Native003F5254 calls existing verified 
 ?release@Rva004E1579StringCleanup@@QAEXXZ,0x00036410,"Native ParseEnableRegion4E1579 cleanup calls verifiedStringBase-char releaseBuffer36410/133 onrecordfield+4. One-pointer thiscallABI route; alias binds actualexisting canonical provider. No new originalclass identity."
 ?rva00362862@Rva00362862Item@@QAEXHH@Z,0x00362862,"vector element notify helper called in loop at 0x00239300"
 ??1Rva0042C1B7Item@@QAE@XZ,0x0042C1B7,"destructor thunk called by smart pointer reset at 0x0023932B and 0x00239345"
+??1AptValueNameEntry@@QAE@XZ,0x006EB6A0,implicit dtor of the AptValueNameEntry temporaries in ?Rva00895050@Gen_uw_00893e70@@QAEXPAV1@@Z: retail funclets 0x007A8380 (eh vector dtor push) and 0x007A8393 (jmp) both target this jmp-to-EAStringC-dtor body (ICF shared with the Rva006EC170 pin)
