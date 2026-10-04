@@ -102,13 +102,25 @@ class Rva001684D6Base8
 public:
 	virtual ~Rva001684D6Base8();
 };
+// Slot 2 of its vtable 0x00BD41C8 (0x001686EB) is a Clone: new 0x108 bytes
+// and the copy constructor 0x00168527, which starts with the RenderObjClass
+// copy at 0x0013BF00. Size from that allocation.
 class Rva001684D6 : public Rva001684D6Base0, public Rva001684D6Base8
 {
 public:
 	Rva001684D6(EmitVtableTag *);
+	Rva001684D6(const Rva001684D6 &src);
+	virtual Rva001684D6 *Clone() const;
 public:
 	virtual ~Rva001684D6();
+private:
+	char m_unmodelled_0C[0x108 - 0x0C];
 };
+
+Rva001684D6 *Rva001684D6::Clone() const
+{
+	return new Rva001684D6(*this);
+}
 
 // ?<Rva001684D6::Rva001684D6> absent-from-retail
 Rva001684D6::Rva001684D6(EmitVtableTag *)

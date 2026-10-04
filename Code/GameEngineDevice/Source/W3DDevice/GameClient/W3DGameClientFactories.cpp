@@ -31,13 +31,30 @@ private:
 	char m_unmodelled[0x2B0];
 };
 
+class Rva0008B7CFProduct
+{
+public:
+	Rva0008B7CFProduct();
+private:
+	char m_unmodelled[0x2508];
+};
+
+// Slot 118 of this product's vtable 0x00BC7A88 (0x0008EFD8) is itself a
+// factory of the same shape: new 0x2508 bytes and the constructor 0x0008B7CF
+// (pinned).
 class Rva0008EF3FProduct
 {
 public:
 	Rva0008EF3FProduct();
+	void *rva0008EFD8();
 private:
 	char m_unmodelled[0xAC0];
 };
+
+void *Rva0008EF3FProduct::rva0008EFD8()
+{
+	return new Rva0008B7CFProduct;
+}
 
 class Rva008FCA3
 {

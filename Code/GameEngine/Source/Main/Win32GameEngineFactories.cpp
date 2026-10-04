@@ -100,12 +100,28 @@ private:
 	char m_unmodelled_10[0x2A8 - 0x10];
 };
 
+class Rva00062A7EProduct
+{
+public:
+	Rva00062A7EProduct();
+private:
+	char m_unmodelled[0x1924];
+};
+
+// Slot 14 of its vtable 0x00BC25E0 (0x00041FCF) is another factory of the
+// same shape: new 0x1924 bytes and the constructor 0x00062A7E (pinned).
 class Rva0004208C : public Rva002470AEBase
 {
 public:
 	__forceinline Rva0004208C() {}
 	virtual ~Rva0004208C();
+	void *rva00041FCF();
 };
+
+void *Rva0004208C::rva00041FCF()
+{
+	return new Rva00062A7EProduct;
+}
 
 class Rva00256E19Base : public Rva002470AEFirst, public Rva002470AESnapshot
 {
