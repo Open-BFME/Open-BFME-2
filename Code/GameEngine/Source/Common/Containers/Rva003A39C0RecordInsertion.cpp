@@ -1,13 +1,13 @@
 // cl: /D_CRTIMP= /Ireference/shims/bfmealloc/stl -DNDEBUG -DWIN32 -MD -EHsc -D_STLP_USE_STATIC_LIB -D_STLP_NO_EXCEPTIONS /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common/Containers
 // stlport
 
-// retail RVA 0x003A39C0. A temporary Rva003A35A0Element (the same 184-byte
-// STLport vector element already landed at 0x003A35F0,
-// Rva003A35F0VectorInsert.cpp) is default-constructed through the pinned
-// 0x22F0C ctor, its three words at +0xA4..+0xAC overwritten from the incoming
-// pointer argument, and the result inserted at this->m_index20+2 into the
-// vector at this+0x2C. No named caller, owner class or field identity is
-// available, so the owner and fields are address-derived.
+// Native BFME2 indexed wrapper313008/108B constructs the measured184B
+// element via3118DF, copies12 raw bytes into+A4, inserts at index20+2 in
+// the vector at owner+2C via312E04, then destroys the temporary via89851.
+// Native constructor312C95 stores vtable7C7514; its slots4/5 identify this
+// indexed operation and the begin-insert operation313074 below as one owner.
+// This remains a partial layout/codegen view. Original owner/input names
+// and the input words' semantic scalar types are not established.
 
 #include <cstddef>
 #include "_alloc.h"
@@ -37,6 +37,7 @@ struct Rva003A35A0Element
 struct Rva003A39C0Owner
 {
 	void insertAfterIndex(const Rva003A39C0Words &src);
+	void insertAtBegin(const Rva003A39C0Words &src);
 
 	unsigned char m_prefix[0x20];
 	int m_index20;					// +0x20
@@ -44,7 +45,7 @@ struct Rva003A39C0Owner
 	_STL::vector<Rva003A35A0Element> m_records;	// +0x2c
 };
 
-// retail RVA 0x003A39C0
+// Native BFME2 RVA0x00313008.
 void Rva003A39C0Owner::insertAfterIndex(const Rva003A39C0Words &src)
 {
 	Rva003A35A0Element temp;
@@ -52,4 +53,18 @@ void Rva003A39C0Owner::insertAfterIndex(const Rva003A39C0Words &src)
 	temp.position = src;
 
 	m_records.insert(m_records.begin() + (m_index20 + 2), temp);
+}
+
+
+// Whole donor: Open-BFME-1 1281192f682ce6f29b8f06b7daea4b5e8fdfbb24,
+// game/GameEngine/Source/Common/Containers/Rva003A3A90.cpp. Its begin-insert
+// semantics carry over; target313074/95B uses an aggregate12B copy at+A4
+// where that donor spelled three scalar assignments. Native ctor/insert/
+// dtor calls and the shared vtable establish the target relationships;
+// donor names do not establish original application owner or input types.
+void Rva003A39C0Owner::insertAtBegin(const Rva003A39C0Words &src)
+{
+    Rva003A35A0Element temp;
+    temp.position=src;
+    m_records.insert(m_records.begin(),temp);
 }
