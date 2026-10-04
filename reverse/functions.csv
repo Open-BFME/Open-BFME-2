@@ -54126,3 +54126,4 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ?Rva005D012EGet@@YA?AVUnicodeString@@H@Z,,0x005D012E,46,Code/GameEngine/Source/Common/System/Rva005D012EGet.cpp,matched,starting battle message fetch via rowed TheGameText slot 0x3C
 ?rva0031B5A3@ControlBar@@QAEXPBVPlayer@@@Z,,0x0031B5A3,106,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031B5A3.cpp,matched,ControlBar arrow refresh via local money audio ingameui precedent siblings
 ?rva003B44C7@Rva003B44AB@@QAEPAV1@PBVRva003529B0@@@Z,,0x003B44C7,21,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListNodeRva003B44AB.cpp,matched,Rva003B44AB copies 0x04 from Rva003529B0 sibling of 0x003B44AB
+??1Rva002DAB18@@UAE@XZ,,0x002DAB6C,79,Code/GameEngine/Source/Common/Rva002DAB18Finish.cpp,matched,dual-vptr dtor via shared AsciiString and inline SnapBase vptr

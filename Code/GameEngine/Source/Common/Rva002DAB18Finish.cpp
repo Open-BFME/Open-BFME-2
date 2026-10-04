@@ -1,6 +1,6 @@
 // ??0Rva002DAB18@@QAE@XZ
 // partial score=0.97 date=2026-09-30
-// cl: /O1 /EHsc /MD
+// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD
 //
 // ??0Rva002DAB18@@QAE@XZ @0x002DAB18 (70B):
 // Multiple-inheritance ctor: primary base SnapBase at +0 installs vtable
@@ -14,12 +14,14 @@
 // puts the ecx restore right after the base call; and the +0x10 member is a
 // struct with an inline zeroing ctor so its store is ordered after the vptr
 // stores instead of being hoisted above them.
+extern const void *const g_00BBB554[];
 class SnapBase
 {
 public:
 	virtual void keep();
-	virtual ~SnapBase();
+	virtual ~SnapBase() { *(const void **)this = g_00BBB554; }
 };
+#include "ascii_string.h"
 class SubsystemInterface
 {
 public:
@@ -28,19 +30,23 @@ public:
 private:
 	char m_pad04[8];
 };
-struct IntZero
-{
-	int m_value;
-	IntZero() : m_value(0) {}
-};
 class Rva002DAB18 : public SnapBase, public SubsystemInterface
 {
 public:
 	Rva002DAB18();
 	virtual ~Rva002DAB18();
 private:
-	IntZero m_10;
+	AsciiString m_10;
 };
 Rva002DAB18::Rva002DAB18()
+{
+}
+
+// ??1Rva002DAB18@@UAE@XZ, retail 0x002DAB6C, 79 bytes.
+// Dual-vptr dtor: derived vtables 0x00C03910 at +0 and 0x00C039A0 at +4,
+// AsciiString member at +0x10 via shared header (releaseBuffer rowed),
+// secondary base via GameEngineDeletingBase dtor, primary SnapBase inline
+// vptr restore to g_00BBB554. Evidence: gap packet, callers, prev/next flags.
+Rva002DAB18::~Rva002DAB18()
 {
 }
