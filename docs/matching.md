@@ -98,6 +98,15 @@ push/call, `mov dword ptr [reg], 0` rather than the three-byte `and dword ptr [r
 `rep cmpsb` rather than a `memcmp` call (/O2 implies /Oi). Recompiling a whole unit at the other
 level and counting what breaks is a cheap, decisive test.
 
+A seventh: **a global that retail schedules around stores is file-static.** MSVC 7.1 keeps a
+store to an `extern` (or plain global) byte ahead of a later load through `this` (the vptr, a
+member pointer), and keeps its test after unrelated stores, because the byte could alias them. A
+`static` global whose address is never taken cannot, so retail's `mov eax,[ecx]` before
+`mov byte ptr [g],0`, or `cmp byte ptr [g],0` hoisted above two stores, means the byte was
+file-static. Making it `static` landed the reload notices 0x0031E7F0, 0x00289812 and 0x001E51AC
+after locals, reordering and branch duplication had all failed. Every reader and writer of that
+byte then belongs in the same unit (the static has no cross-unit name).
+
 Two smaller ones. **`inline` is a lever in both directions**: MSVC will not auto-inline a 93-byte
 `SetIdentity` however the file is ordered, and marking it `inline` (with its address taken to keep
 the standalone copy) is what lets two constructors absorb it; conversely a base constructor that
