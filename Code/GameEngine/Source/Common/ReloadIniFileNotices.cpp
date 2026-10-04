@@ -18,9 +18,27 @@
 // argument (typed int here; the banked Locomotor slot 4 0x001E51AC writes a
 // "needs restart" Bool through it). The Weapon store's slot 5 (0x002CAE6C)
 // reports "RIF: Weapons reloaded" once after a reload latched its byte,
-// clearing it.
+// clearing it. Slot 5 of Sciences, AttributeModifier and Upgrades
+// (0x001FF354, 0x002146E1, 0x0026EF1E) only consume the latch (clear it and
+// answer whether it was set); PlayerTemplate's (0x001FD5B2) also tells the
+// player to restart and appends message 0x70 to MessageStreamSubsystem (its
+// slot 18). The message type's meaning is not recovered.
 
 #include "unicode_string.h"
+
+class GameMessage;
+
+class MessageStream
+{
+public:
+	virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
+	virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
+	virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11();
+	virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15();
+	virtual void v16(); virtual void v17();
+	virtual GameMessage *appendMessage(int type);	// slot 18 (+0x48)
+};
+extern MessageStream *MessageStreamSubsystem;	// VA 0x00E00950
 
 class InGameUI
 {
@@ -97,6 +115,7 @@ bool g_Va00DFE0D4;
 class Rva001FDB55 : public RifStore
 {
 public:
+	bool rva001FD5B2();
 	bool rva001FD57A(int reason);
 };
 
@@ -116,6 +135,7 @@ bool g_Va00DFE0E4;
 class Rva001FF909 : public RifStore
 {
 public:
+	bool rva001FF354();
 	bool rva001FF625(int reason);
 };
 
@@ -135,6 +155,7 @@ bool g_Va00DFE1D8;
 class Rva0022CA95 : public RifStore
 {
 public:
+	bool rva002146E1();
 	bool rva0021494B(int reason);
 };
 
@@ -154,6 +175,7 @@ bool g_Va00DFEB64;
 class Rva0026F445 : public RifStore
 {
 public:
+	bool rva0026EF1E();
 	bool rva0026F16D(int reason);
 };
 
@@ -210,6 +232,49 @@ bool Rva002CCD56::rva002CAE6C()
 	{
 		TheInGameUI->message(UnicodeString(L"RIF: Weapons reloaded"));
 		g_Va00DFEFE0 = false;
+		return true;
+	}
+	return false;
+}
+
+bool Rva001FF909::rva001FF354()
+{
+	if (g_Va00DFE0E4)
+	{
+		g_Va00DFE0E4 = false;
+		return true;
+	}
+	return false;
+}
+
+bool Rva0022CA95::rva002146E1()
+{
+	if (g_Va00DFE1D8)
+	{
+		g_Va00DFE1D8 = false;
+		return true;
+	}
+	return false;
+}
+
+bool Rva0026F445::rva0026EF1E()
+{
+	if (g_Va00DFEB64)
+	{
+		g_Va00DFEB64 = false;
+		return true;
+	}
+	return false;
+}
+
+bool Rva001FDB55::rva001FD5B2()
+{
+	if (g_Va00DFE0D4)
+	{
+		TheInGameUI->message(UnicodeString(L"Reloaded PlayerTemplates require a map RESTART."));
+		TheInGameUI->message(UnicodeString(L"Use the Pause menu to RESTART at any time.."));
+		MessageStreamSubsystem->appendMessage(0x70);
+		g_Va00DFE0D4 = false;
 		return true;
 	}
 	return false;
