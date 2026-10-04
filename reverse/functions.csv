@@ -52590,3 +52590,4 @@ _Rva0088E190TimerTick@16,,0x0003D870,9,Code/Libraries/Source/WWVegas/WWDebug/Rva
 ?Rva00153A98Copy@@YAPAVRva001539BC@@PAV1@00@Z,,0x00153A98,50,Code/Libraries/Source/WWVegas/WWLib/Rva00153A98Copy.cpp,matched,chain of 0x001539BC copy forward
 ?Rva00153A7BFill@@YAXPAVRva001539BC@@0ABV1@@Z,,0x00153A7B,29,Code/Libraries/Source/WWVegas/WWLib/Rva00153A7BFill.cpp,matched,chain of 0x001539BC fill range
 ??0AITNGuardAttackAggressorState@@QAE@PAVStateMachine@@@Z,,0x00545E80,44,Code/GameEngine/Source/GameLogic/AI/AITNGuardAttackAggressorStateCtor.cpp,matched,AITNGuardAttackAggressorState ctor via State hash 33E96013 sibling of InnerState
+??0AIGuardRetaliateReturnState@@QAE@PAVStateMachine@@@Z,,0x005453BB,33,Code/GameEngine/Source/GameLogic/AI/AIGuardRetaliateReturnStateCtor.cpp,matched,AIGuardRetaliateReturnState ctor via AIInternalMoveToState hash C784A170

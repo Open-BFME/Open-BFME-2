@@ -7464,3 +7464,5 @@ FUN_008f7883	0x004F7883	168	blocked	EH prolog push ecx plus frame plus copy_back
 ?rva002C61AF@Rva002C61AF@@QAEXXZ	0x002C61AF	133	blocked	and-zero before pop-ecx vs after pop; barriers fixed and-before-next-load but and-after-pop remains t=18 model=muse-02 (stash 0.97 kept)
 ?rva002C600A@Rva002C600A@@QAE_NPAXPAVObject@@@Z	0x002C600A	159	blocked	finish wall confirmed 1 probe size-exact 159B 6 regions: early true-false tails inline vs shared plus push-pop order plus add-esi-258 vs mov plus sete-vs-single-branch t=12 model=muse-02
 ?Rva00153A5ECopyBackward@@YAPAVRva001539BC@@PAV1@00@Z	0x00153A5E	29	blocked	needs 0x001539EC 5-arg STL __copy_backward plus tag fix t=12 model=muse-12
+?Rva00545F80Get@@YAHXZ	0x00545F80	129	blocked	leaf free-function boundary suspect test-eax-on-entry plus ebx-used-without-save t=8 model=muse-01
+?rva00545DEE@Rva00545DEE@@QAEPAVObject@@XZ	0x00545DEE	146	blocked	filter-chain sibling of banked 0x5455E3 derived-vs-manual EH plus push-order wall t=12 model=muse-01
