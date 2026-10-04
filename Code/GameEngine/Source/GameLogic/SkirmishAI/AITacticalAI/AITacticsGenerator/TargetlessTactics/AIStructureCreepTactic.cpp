@@ -32,7 +32,11 @@ extern int g_Va00DBA4E4;
 
 // This unit's statics (0x00E06418..0x00E06428, built in this order by
 // 0x007B458D, 0x007B45A8, 0x007B45C1, 0x007B45CE and 0x007B45D9).
+// Retail's initializer calls AsciiString's out-of-line const char * ctor
+// (0x0000654A) rather than expanding it, so inline expansion is off here.
+#pragma inline_depth(0)
 AsciiString AIStructureCreep_IsRunning("AIStructureCreep_IsRunning");
+#pragma inline_depth()
 float g_00E0641C = g_Va00DBA4E4 * 30.0f;
 int g_00E06420 = g_Va00DBA4E4 * 2;
 int g_00E06424 = g_Va00DBA4E4;
