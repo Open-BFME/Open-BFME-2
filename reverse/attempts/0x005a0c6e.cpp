@@ -1,5 +1,5 @@
 // ?rva005A0C6E@Rva005A083C@@QAEXPBDHPAVGameWindow@@@Z
-// partial score=0.99 date=2026-10-02
+// partial score=0.99 date=2026-10-05
 // cl: /Ireference/shims/bfmelist /O1 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva005A083C@Rva005A083C@@QAEXXZ, retail 0x005A083C 140B. Unlock: builds 2-int list from +0x498/+0x49C when both non-null then WindowManager 0xB4/0xB0.
