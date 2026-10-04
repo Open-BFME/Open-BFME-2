@@ -55599,3 +55599,4 @@ uw_0075c910,,0x0075C910,8,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_str
 ??0Rva005DE9C4@@QAE@I@Z,,0x005DE9C4,31,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva005de9c4_ctor.cpp,matched,gap ctor Gen vector plus zero
 ??1Rva00309D9E@@UAE@XZ,,0x00309D9E,60,Code/GameEngine/Source/Common/Rva00309D9E.cpp,matched,dtor via releaseBuffer twice vtable 0x00C082E8 caller 0x00309DDD
 ?rva005E1246@Rva005E1246@@QAEXXZ,,0x005E1246,26,Code/GameEngine/Source/Common/Rva005E1246.cpp,matched,holder clear via rowed dtor and delete caller 0x005E12B9
+?rva000AD9FE@Rva000AD9AB@@QAEXXZ,,0x000AD9FE,28,Code/GameEngine/Source/Common/Rva000AD9ABFinish.cpp,matched,gap fill bitplane via 0x000ABC25 same 0x44 layout

@@ -19,6 +19,7 @@ class Rva000AD9AB
 {
 public:
 	void rva000AD9AB(int x, int y, bool value);
+	void rva000AD9FE();
 
 private:
 	char m_pad00[8];
@@ -52,4 +53,14 @@ void Rva000AD9AB::rva000AD9AB(int x, int y, bool value)
 		*slot |= (unsigned char)(1 << (x & 7));
 	else
 		*slot &= (unsigned char)~(1 << (x & 7));
+}
+
+// ?rva000AD9FE@Rva000AD9AB@@QAEXXZ, retail 0x000AD9FE, 28 bytes.
+// Zero-fill of the bit plane at +0x44/+0x48 via rowed fill 0x000ABC25.
+// Evidence: gap between 0x000AD9AB and 0x000ADA1A; same +0x44/+0x48 layout.
+namespace _STL { void __cdecl fill(unsigned char *, unsigned char *, const unsigned char &); }
+void Rva000AD9AB::rva000AD9FE()
+{
+	unsigned char tmp = 0;
+	_STL::fill(m_bits.m_begin, m_bits.m_end, tmp);
 }
