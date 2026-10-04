@@ -208,4 +208,22 @@ void BuddyThreadClass::requestCallback(GPConnection *connection,
 	TheGameSpyBuddyMessageQueue->addResponse(response);
 }
 
+void BuddyThreadClass::messageCallback(GPConnection *connection,
+	GPRecvBuddyMessageArg *arg)
+{
+	BuddyResponse response;
+	response.buddyResponseType = BuddyResponse::BUDDYRESPONSE_MESSAGE;
+	response.profile = arg->profile;
+
+	gpGetInfo(connection, arg->profile, 1, 1,
+		(GPCallback)getNickForMessage, &response);
+
+	_STL::wstring text = MultiByteToWideCharSingleLine(arg->message);
+	wcsncpy(response.arg.message.text, text.c_str(), 128);
+	response.arg.message.text[127] = 0;
+	response.arg.message.date = arg->date;
+
+	TheGameSpyBuddyMessageQueue->addResponse(response);
+}
+
 
