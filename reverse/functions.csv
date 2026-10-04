@@ -55719,3 +55719,4 @@ __Locale_ctype_create,,0x00022360,1316,Code/Libraries/Source/WWVegas/WWLib/stlpo
 ?rva004A7F78@Rva004A7D55@@QAEXH@Z,,0x004A7F78,77,Code/GameEngine/Source/Common/Rva004A7FC5Slot.cpp,matched,Rva004A7D55 leaf ceil divisor broadcast via drawable
 ?Rva0021784ACopy@@YAPAUFileInfoStruct@MixFileCreator@@PAU12@00@Z,,0x0021784A,38,Code/Libraries/Source/WWVegas/WWLib/stlport_uninit_copy_0021784A.cpp,matched,unlock uninitialized_copy stride 0x10 via rowed dup _Construct at 0x0021781D
 ??4Rva003F610FElement@@QAEAAU0@ABU0@@Z,,0x003F554C,56,Code/Libraries/Source/WWVegas/WWLib/StlportRva003F610FAssign.cpp,matched,Element assign via vector uint and Vector104 plus tail20 rep
+??$__uninitialized_fill_n@PAVRva0021F876@@IV1@@_STL@@YAPAVRva0021F876@@PAV1@IABV1@ABU__false_type@0@@Z,,0x0021FA6D,37,Code/Libraries/Source/WWVegas/WWLib/Rva0021F876FillN.cpp,matched,fill_n 37B via rowed Construct 0x0021FA1A stride 0x20
