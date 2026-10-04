@@ -54585,7 +54585,6 @@ _Rva00669500@8,,0x00669500,13,Code/GameEngine/Source/Common/RvaSmallLeafTransfer
 ?storeWord@Rva0023425D@@QAEPAV1@G@Z,,0x0023425D,13,Code/GameEngine/Source/Common/RvaSmallLeafTransfers.cpp,matched,BFME1 5cc75ddd whole BfmeConv1047.cpp compiled; target-address ABI word-store view only; constructor and owner identity unproven
 ?d_0001b3e0@@YAXXZ,,0x0001B3E0,254,Code/gen_asm/d_0001b3e0.asm,matched,gen-dump;ghidra=FUN_0041b3e0
 ?d_0001c090@@YAXXZ,,0x0001C090,132,Code/gen_asm/d_0001b3e0.asm,matched,gen-dump;ghidra=FUN_0041c090
-?d_0002a420@@YAXXZ,,0x0002A420,254,Code/gen_asm/d_0001b3e0.asm,matched,gen-dump;ghidra=FUN_0042a420
 ?d_0002c7fd@@YAXXZ,,0x0002C7FD,214,Code/gen_asm/d_0001b3e0.asm,matched,gen-dump;ghidra=FUN_0042c7fd
 ?rva007B80D3@@YAXXZ,,0x007B80D3,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
 ?rva007B80DD@@YAXXZ,,0x007B80DD,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
@@ -54623,3 +54622,4 @@ _Rva00669500@8,,0x00669500,13,Code/GameEngine/Source/Common/RvaSmallLeafTransfer
 ?substr@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QBE?AV12@II@Z,,0x0002AD50,251,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_string_substr.cpp,matched,STLport 4.5.3 substr; native RET12 and const-char range initializer; BFME1 1281192 sibling range-helper adaptation
 ??$__find_if@V?$reverse_iterator@PBD@_STL@@U?$_Not_within_traits@V?$char_traits@D@_STL@@@2@@_STL@@YA?AV?$reverse_iterator@PBD@0@V10@0U?$_Not_within_traits@V?$char_traits@D@_STL@@@0@ABUrandom_access_iterator_tag@0@@Z,,0x00028200,715,Code/Libraries/Source/WWVegas/WWLib/stlport_reverse_string_search.cpp,matched,STLport4.5.3 BFME1 1281192f682; native reverse-iterator four-way search and predicate call26C60; full715B exact /Od /Ob2
 ??$find_if@V?$reverse_iterator@PBD@_STL@@U?$_Not_within_traits@V?$char_traits@D@_STL@@@2@@_STL@@YA?AV?$reverse_iterator@PBD@0@V10@0U?$_Not_within_traits@V?$char_traits@D@_STL@@@0@@Z,,0x00029EE0,61,Code/Libraries/Source/WWVegas/WWLib/stlport_reverse_string_search.cpp,matched,STLport4.5.3 BFME1 1281192; target61B public find_if dispatch to28200 exact including outgoing iterator copies; replaces prior address-derived assembly claim
+?find_last_not_of@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QBEIPBDII@Z,,0x0002A420,254,Code/Libraries/Source/WWVegas/WWLib/stlport_reverse_string_search.cpp,matched,STLport4.5.3 _string.c BFME1 1281192; native254B RET12 reverse predicate dispatch29EE0 and bound/npos paths; full exact /Od /Ob2
