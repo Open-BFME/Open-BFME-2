@@ -52621,3 +52621,4 @@ _Rva0088E190TimerTick@16,,0x0003D870,9,Code/Libraries/Source/WWVegas/WWDebug/Rva
 ?Rva0038968FDup@@YGPAU_Rva0038766BNode@@PBU1@@Z,,0x0038968F,30,Code/GameEngine/Source/GameClient/LanguageFilterRva0038968F.cpp,matched,chain of 0x0038766B dup init
 ?rva00335FE1@BfmeObjectEventDispatch@@QAEXPBVWeaponTemplateSetHead@@0PAX@Z,,0x00335FE1,122,Code/GameEngine/Source/GameLogic/ScriptEngine/BfmeObjectEventDispatchRva00335FE1.cpp,matched,dispatch loop via rowed check and invoke pins caller 0x00264069
 ?rva00479ADA@HordeGarrisonContain@@UAEXPAVObject@@@Z,,0x00479ADA,48,Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContainRva00479ADA.cpp,matched,chain via 0x00588D24 plus pin rva00588BF3 plus slots
+?rva0006ACBD@BaseHeightMapRenderObjClass@@QAEXVAsciiString@@@Z,,0x0006ACBD,173,Code/GameEngine/Source/Common/Rva0006ACBDMethod.cpp,matched,same-this caller 0x0006B804 plus slot caller 0x000926AC plus prev next
