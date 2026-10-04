@@ -1,6 +1,6 @@
-// ?rva0055ADE2@Rva0055ADE2@@QAEXPAVPlayer@@@Z
-// partial score=0.93 date=2026-10-04
-// cl: /O1 /G6 /MD
+// cl: /O1 /G6 /arch:SSE /MD
+// Retail compares the two floats with fcomi, a P6 instruction MSVC 7.1 emits
+// only under /arch:SSE; /O1 /G6 alone gives fcom/fnstsw.
 // ?rva0055ADE2@Rva0055ADE2@@QAEXPAVPlayer@@@Z @0x0055ADE2 147B
 // __thiscall void (Player*): lookup store via g_00DFEEF8 map, amount=(int)(v09-cost),
 // gated by +0x21 bool and float compare, spend via rowed 0x005963C8, tail v15.
@@ -53,7 +53,6 @@ private:
 	bool m_flag21;
 };
 
-// ?rva0055ADE2@Rva0055ADE2@@QAEXPAVPlayer@@@Z present-unmatched
 void Rva0055ADE2::rva0055ADE2(Player *player)
 {
 	void *store = g_00DFEEF8->rva002A8F24(player);

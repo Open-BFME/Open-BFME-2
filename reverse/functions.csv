@@ -55665,3 +55665,4 @@ __Locale_ctype_create,,0x00022360,1316,Code/Libraries/Source/WWVegas/WWLib/stlpo
 ?rva00421A16@Rva00421A16@@QAE_NPBM0@Z,,0x00421A16,53,Code/Libraries/Source/WWVegas/WWLib/Rva00421A16DistCompare.cpp,matched,nearer-point comparator over squared distance 0x4219F4; fcompi needs /arch:SSE
 ?rva005490AE@Rva005490D2@@QBEHXZ,,0x005490AE,36,Code/GameEngine/Source/Common/Rva005490D2Sum.cpp,matched,max sibling of 0x5490D2 sum over +0x564; cmovg needs /arch:SSE
 ?addWaypointLink@TerrainLogic@@IAEXHH@Z,,0x0027F009,150,Code/GameEngine/Source/GameLogic/Map/TerrainLogic_parseWaypointData.cpp,matched,ZH addWaypointLink with BFME link count read once per waypoint; cmove needs /arch:SSE
+?rva0055ADE2@Rva0055ADE2@@QAEXPAVPlayer@@@Z,,0x0055ADE2,147,Code/GameEngine/Source/Common/Rva0055ADE2Spend.cpp,matched,player store spend gate; fcomi needs /arch:SSE
