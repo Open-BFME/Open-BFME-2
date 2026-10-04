@@ -9770,7 +9770,6 @@ _ProtoMangleDestroy,,0x00670370,80,Code/Libraries/Source/DirtySock/Y2ProtoMangle
 ?copyName@@YGXPAURva00808C20Entry@@PBU1@@Z,,0x00674B70,44,Code/GameEngine/Source/Common/SmallGaps/copyName.cpp,matched,BFME1 byte-identical donor; b1 0x00808C20
 ?bfmeGoBLF@BfmeThingBLF@@QAEXPAX@Z,,0x00674B40,25,Code/GameEngine/Source/Common/BfmeConv487.cpp,matched,BFME1 byte-identical donor; b1 0x00808BF0
 ?m@T_007ea120@@QAEXXZ,,0x006570D0,458,Code/GameEngine/Source/GameNetwork/Rva007EA120Teardown.cpp,matched,BFME1 byte-identical donor; b1 0x007EA120
-?forwardSentinel@@YAXXZ,,0x006572B0,20,Code/GameEngine/Source/Common/forwardSentinel.cpp,matched,BFME1 byte-identical donor; b1 0x007EA300
 ?Lock@?$CComCritSecLock@VCComCriticalSection@ATL@@@ATL@@QAEJXZ,,0x00628C56,19,Code/Libraries/Source/ATL/atlcomcritseclock.cpp,matched,vendored=atl-7.1;atlbase.h verbatim;was ?bfmeLockDWD@BfmeThingDWD@@QAEHXZ from a BFME1 donor
 ?Unlock@?$CComCritSecLock@VCComCriticalSection@ATL@@@ATL@@QAEXXZ,,0x00628CAD,17,Code/Libraries/Source/ATL/atlcomcritseclock.cpp,matched,vendored=atl-7.1;atlbase.h verbatim;was ?bfmeUnlockDWD@BfmeThingDWD@@QAEXXZ from a BFME1 donor
 ?Notify_Added@LightClass@@UAEXPAVSceneClass@@@Z,,0x00130F00,29,Code/Libraries/Source/WWVegas/WW3D2/light_notify.cpp,matched,BFME1 byte-identical donor b1 0x0093BE20
