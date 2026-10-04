@@ -343,52 +343,6 @@ bool DX8Wrapper::Init(void * hwnd, bool lite)
 	return(true);
 }
 
-// ?Shutdown@DX8Wrapper@@ present-unmatched
-void DX8Wrapper::Shutdown(void)
-{
-	if (D3DDevice) {
-
-		Set_Render_Target ((IDirect3DSurface8 *)NULL);
-		Release_Device();
-	}
-
-	if (D3DInterface) {
-		D3DInterface->Release();
-		D3DInterface=NULL;
-
-	}
-
-	if (CurrentCaps)
-	{
-		int max=CurrentCaps->Get_Max_Textures_Per_Pass();
-		for (int i = 0; i < max; i++) 
-		{
-			if (Textures[i]) 
-			{
-				Textures[i]->Release();
-				Textures[i] = NULL;
-			}
-		}
-	}
-
-	if (D3DInterface) {
-		UINT newRefCount=D3DInterface->Release();
-		D3DInterface=NULL;
-	}
-
-	if (D3D8Lib) {
-		FreeLibrary(D3D8Lib);
-		D3D8Lib = NULL;
-	}
-
-	_RenderDeviceNameTable.Clear();		 // note - Delete_All() resizes the vector, causing a reallocation.  Clear is better. jba.
-	_RenderDeviceShortNameTable.Clear();
-	_RenderDeviceDescriptionTable.Clear();	
-
-	DX8Caps::Shutdown();
-	IsInitted = false;		// 010803 srj
-}
-
 // ?Do_Onetime_Device_Dependent_Inits@DX8Wrapper@@ present-unmatched
 void DX8Wrapper::Do_Onetime_Device_Dependent_Inits(void)
 {
@@ -4856,3 +4810,79 @@ float bfmeProjectionBias;
 // Retail's data references in this unit's matched rows land on globals defined
 // under other spellings at the same addresses (addend-corrected DIR32). Bind them.
 #pragma comment(linker, "/alternatename:?bfmeProjectionApplied@@3VMatrix4@@A=?g_mapperProjectionUpload_009EDBF0@@3VMatrix4@@A")
+
+// Shutdown follows the readable ZH DX8Wrapper::Shutdown semantic guide at
+// BFME1 6583b3c1. Retail 0x00125DC0..0x00125F98 independently proves the
+// D3D9 caps +0x2B0 limit, callback resets, 1464-byte descriptor cleanup and
+// destruction of renderer/context pointers at DF363C/DF6F94. Context naming
+// comes from existing target initialization/use evidence. Its declaration
+// only spells this direct destructor call, not a claim about its vtable.
+// The destructor target 0x00174753 is independently reached by the existing
+// deleting destructor at 0x0011CC10; class layout remains opaque here.
+// Retail clears these writable callback slots when unloading D3D8Lib.
+// DC/E0 call signatures come from the already rowed BfmeDX8Callbacks.cpp.
+// E4/E8 are opaque pointer slots; this body only resets them.
+typedef void (__stdcall *BfmeWideTextHook)(void *,const unsigned short *);
+typedef void (*BfmeVoidHook)(void);
+BfmeWideTextHook bfmeData00DEDBDC = 0;
+BfmeVoidHook bfmeData00DEDBE0 = 0;
+void *bfmeData00DEDBE4 = 0;
+void *bfmeData00DEDBE8 = 0;
+extern DX8MeshRendererClass *ShutdownMeshRenderer;
+class Rva00DF6F94GapFillerContext { public: ~Rva00DF6F94GapFillerContext(); };
+extern Rva00DF6F94GapFillerContext *TheMeshGapFillerContext;
+#pragma comment(linker, "/alternatename:?ShutdownMeshRenderer@@3PAVDX8MeshRendererClass@@A=?TheDX8MeshRenderer@@3PAVDX8MeshRendererClass@@A")
+void DX8Wrapper::Shutdown(void)
+{
+	if (D3DDevice) {
+
+		Set_Render_Target ((IDirect3DSurface8 *)NULL);
+		Release_Device();
+	}
+
+	if (D3DInterface) {
+		D3DInterface->Release();
+		D3DInterface=NULL;
+
+	}
+
+	if (CurrentCaps)
+	{
+		int max=reinterpret_cast<BfmeEnumerationCaps *>(CurrentCaps)->MaxTexturesPerPass;
+		for (int i = 0; i < max; i++) 
+		{
+			if (Textures[i]) 
+			{
+				Textures[i]->Release();
+				Textures[i] = NULL;
+			}
+		}
+	}
+
+	if (D3DInterface) {
+		UINT newRefCount=D3DInterface->Release();
+		D3DInterface=NULL;
+	}
+
+	if (D3D8Lib) {
+		FreeLibrary(D3D8Lib);
+		D3D8Lib = NULL;
+        Direct3DCreate8Ptr = NULL;
+        bfmeData00DEDBDC = 0;
+        bfmeData00DEDBE0 = 0;
+        bfmeData00DEDBE4 = 0;
+        bfmeData00DEDBE8 = 0;
+	}
+
+	_RenderDeviceNameTable.Clear();		 // note - Delete_All() resizes the vector, causing a reallocation.  Clear is better. jba.
+	_RenderDeviceShortNameTable.Clear();
+	*(int *)((char *)&_RenderDeviceDescriptionTable + 0x14) = 0; reinterpret_cast<VectorClass<BfmeEnumerationDesc> &>(_RenderDeviceDescriptionTable).VectorClass<BfmeEnumerationDesc>::Clear();	
+
+	delete ShutdownMeshRenderer;
+    ShutdownMeshRenderer = 0;
+    delete TheMeshGapFillerContext;
+    TheMeshGapFillerContext = 0;
+	IsInitted = false;		// 010803 srj
+}
+
+
