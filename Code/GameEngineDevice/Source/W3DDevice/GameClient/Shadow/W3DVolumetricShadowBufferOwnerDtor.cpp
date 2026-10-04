@@ -6,11 +6,7 @@
 // (??_V@YAXPAX@Z, 0x00881EF0), not the scalar operator delete at
 // 0x00881EB0 -- a different 21-byte body.
 void __cdecl operator delete[](void *block);
-class BfmeShadowBufferOwnerBase
-{
-public:
-	virtual ~BfmeShadowBufferOwnerBase() {}
-};
+#include "BfmeShadowPrefix.h"
 
 class BfmeShadowRefCount
 {
@@ -37,7 +33,7 @@ struct BfmeShadowBufferEntry
 
 class BfmeVolumetricShadowBufferOwner : public BfmeShadowBufferOwnerBase
 {
-	unsigned char m_unreconstructed_004[ 0x64 ];
+	unsigned char m_unreconstructed_058[ 0x10 ];
 	BfmeVolumetricShadowBufferOwner **m_prevLink;
 	BfmeVolumetricShadowBufferOwner *m_next;
 	unsigned int m_unreconstructed_070;

@@ -9,66 +9,32 @@
 // at BBB8D8. Original class name and complete object size remain unknown.
 // Adapted from banked native reconstruction reverse/attempts/0x000efa4e.cpp;
 // two-byte constructor-return mismatch resolved by the target's void ABI.
-struct RvaVec3
-{
-	float x;
-	float y;
-	float z;
-};
-
-class Rva000EFA4E
-{
-public:
-	void initialize();
-private:
-	char m_pad00[4];
-	unsigned char m_04;
-	unsigned char m_05;
-	char m_pad06[2];
-	RvaVec3 m_08;
-	RvaVec3 m_14;
-	float m_20;
-	int m_24;
-	int m_28;
-	int m_2C;
-	unsigned char m_30;
-	char m_pad31[3];
-	int m_34;
-	int m_38;
-	int m_3C;
-	int m_40;
-	int m_44;
-	int m_48;
-	int m_4C;
-	int m_50;
-	int m_54;
-};
-
+#include "BfmeShadowPrefix.h"
 void Rva000EFA4E::initialize()
 {
-	RvaVec3 tmp;
+	BfmeShadowVectorPrefix tmp;
 	tmp.x = 0.0f;
 	tmp.y = 0.0f;
 	tmp.z = 0.0f;
-	m_28 = -1;
-	m_24 = -1;
-	m_08 = tmp;
+	m_fields.m_28 = -1;
+	m_fields.m_24 = -1;
+	m_fields.m_08 = tmp;
 	tmp.x = 0.0f;
 	tmp.y = 0.0f;
 	tmp.z = 1.0f;
-	m_14 = tmp;
-	m_04 = 1;
-	m_05 = 0;
-	m_20 = 0.0f;
-	m_2C = 0xFF;
-	m_30 = 1;
-	m_34 = 0;
-	m_38 = 0;
-	m_3C = -1;
-	m_40 = 0;
-	m_44 = 0;
-	m_48 = 0;
-	m_4C = 0;
-	m_50 = 0;
-	m_54 = 0;
+	m_fields.m_14 = tmp;
+	m_fields.m_04 = 1;
+	m_fields.m_05 = 0;
+	m_fields.m_20 = 0.0f;
+	m_fields.m_2C = 0xFF;
+	m_fields.m_30 = 1;
+	m_fields.m_34 = 0;
+	m_fields.m_38 = 0;
+	m_fields.m_3C = -1;
+	m_fields.m_40 = 0;
+	m_fields.m_44 = 0;
+	m_fields.m_48 = 0;
+	m_fields.m_4C = 0;
+	m_fields.m_50 = 0;
+	m_fields.m_54 = 0;
 }
