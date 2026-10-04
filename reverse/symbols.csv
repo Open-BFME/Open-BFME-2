@@ -8746,3 +8746,12 @@ _Rva0030CAF8CursorEqual,0x0007E394,twin of dup_0007e394 29B exact cursor equalit
 ??1Rva003F9D08@@UAE@XZ,0x003F9D08,"destructor the scalar deleting destructor 0x003F9DBE calls (REL32 at 0x003F9DC1; vtable 0x00C375F0#0); opaque address name"
 ??1Rva003FE58A@@UAE@XZ,0x003FE58A,"destructor the scalar deleting destructor 0x003FE5F3 calls (REL32 at 0x003FE5F6; vtable 0x00C37E48#0); opaque address name"
 ?reactToTurretChange@Object@@QAEXW4WhichTurretType@@MM@Z,0x0028B141,Zero Hour Object::reactToTurretChange(turret / old rotation / old pitch): TurretAI::friend_turnTowardsAngle 0x004D8990 calls it at 0x004D8B14 when the angle changed with (m_whichTurret +0xC / the original angle / m_pitch +0x1C) all pushed as floats after the id
+??1Rva000A43C8@@UAE@XZ,0x000A43C8,"destructor the scalar deleting destructor 0x0008FFC4 calls (REL32 at 0x0008FFC7; vtable 0x00BC7DC8#0); opaque address name"
+??1Rva000E14BD@@UAE@XZ,0x000E14BD,"destructor the scalar deleting destructor 0x001F45C3 calls (REL32 at 0x001F45C6; vtable 0x00BC6F2C#0); opaque address name"
+??1Rva000411BC@@UAE@XZ,0x000411BC,"destructor the scalar deleting destructor 0x000411A0 calls (REL32 at 0x000411A3; vtable 0x00BC16C4#2); opaque address name"
+??1Rva00072FE1@@UAE@XZ,0x00072FE1,"destructor the scalar deleting destructor 0x00072FC5 calls (REL32 at 0x00072FC8; vtable 0x00BC6568#1); opaque address name"
+??1Rva000416E7@@UAE@XZ,0x000416E7,"destructor the scalar deleting destructor 0x000416CB calls (REL32 at 0x000416CE; vtable 0x00BC2420#0); opaque address name"
+??1Rva006109C0@@UAE@XZ,0x006109C0,"destructor the scalar deleting destructor 0x000657E6 calls (REL32 at 0x000657E9; vtable 0x00BC5C6C#0); opaque address name"
+??1Rva000D089D@@UAE@XZ,0x000D089D,"destructor the scalar deleting destructor 0x00079111 calls (REL32 at 0x00079114; vtable 0x00BC6870#0); opaque address name"
+??1Rva000AB0D4@@UAE@XZ,0x000AB0D4,"destructor the scalar deleting destructor 0x000AB0B8 calls (REL32 at 0x000AB0BB; vtable 0x00BC9468#0); opaque address name"
+??1Rva00256B94@@UAE@XZ,0x00256B94,"destructor the scalar deleting destructor 0x00256B78 calls (REL32 at 0x00256B7B; vtable 0x00BF3E30#0); opaque address name"
