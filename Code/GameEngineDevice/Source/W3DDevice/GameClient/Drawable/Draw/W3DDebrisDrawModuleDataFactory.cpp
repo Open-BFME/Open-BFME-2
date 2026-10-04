@@ -9,15 +9,15 @@ public:
 	void initFromINI(void *object, const FieldParse *fields);
 };
 
-// upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/Module.h
-class ModuleData
-{
-public:
-	ModuleData() {}
-	virtual ~ModuleData();
-
-private:
-	int m_moduleTagNameKey;
+// Native 0x306A6E..0x306A9B allocates eight bytes and only writes
+// vptr VA 0xC4ED70. This differs from the recovered 0x14-byte ModuleData
+// constructor at 0x6024FD (vptr VA 0xC7A808). Keep this data view anonymous.
+class ModuleData;
+extern "C" void *const __identifier("??_7Rva00306A6EData@@6B@")[ ];
+struct Rva00306A6EData {
+    Rva00306A6EData() : vtable(__identifier("??_7Rva00306A6EData@@6B@")) {}
+    void *const *vtable;
+    unsigned int opaque04;
 };
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include/W3DDevice/GameClient/Module/W3DDebrisDraw.h
@@ -29,8 +29,8 @@ public:
 
 ModuleData *W3DDebrisDraw::friend_newModuleData(INI *ini)
 {
-	ModuleData *data = ::new ModuleData;
+	Rva00306A6EData *data = ::new Rva00306A6EData;
 	if (ini)
 		ini->initFromINI(data, 0);
-	return data;
+	return reinterpret_cast<ModuleData *>(data);
 }
