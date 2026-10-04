@@ -1,6 +1,6 @@
 // ?update@Rva005AD6C3@@UAEXXZ
-// partial score=0.8 date=2026-10-04
-// cl: /O1 /MD /GX /DNDEBUG /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// partial score=0.93 date=2026-10-04
+// cl: /O1 /DNDEBUG /MD /GX /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_STLP_USE_MALLOC /D_CRTIMP= /Ireference/shims/bfmealloc
 // stlport
 //
 // ??0Rva005AD6C3@@QAE@PBURva005DCC4BSource@@@Z @ 0x005AD6C3 39B
@@ -238,10 +238,11 @@ void Rva005AD6C3::update()
 		return;
 	_STL::vector<ObjectID> targets(*(const _STL::vector<ObjectID> *)((Rva005AD6C3Holder *)g_00DFEEF8->rva002A8F24(player))->m_04->get());
 	if (!targets.empty()) {
-		m_field08 = targets[GetGameLogicRandomValue(0, targets.size() - 1,
+		ObjectID chosen = targets[GetGameLogicRandomValue(0, targets.size() - 1,
 			"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\SkirmishAI\\AITacticalAI\\AITacticalNavy\\AINavyUnitBattleShip.cpp",
 			65)];
-		ship->m_ai->m_commands.rva003C7653(TheGameLogic->findObjectByID((ObjectID)m_field08), CMD_FROM_PLAYER);
+		m_field08 = chosen;
+		ship->m_ai->m_commands.rva003C7653(TheGameLogic->findObjectByID(chosen), CMD_FROM_PLAYER);
 	} else {
 		rva005AD6F5();
 	}
