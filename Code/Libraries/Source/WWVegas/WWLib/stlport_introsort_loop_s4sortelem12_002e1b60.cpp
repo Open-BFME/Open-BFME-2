@@ -1,0 +1,55 @@
+// cl: -DNDEBUG -MD -EHsc /Os -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
+// stlport
+
+// Open-BFME5: _STL::__introsort_loop<S4SortElem12 *, S4SortElem12, int,
+// S4Cmp002E1690>, retail 0x002E1B60, 259 bytes.  The twelve-byte element
+// carries a narrow StringBase member and a byte flag, so STLport emits the
+// member copy constructor while it partitions the range.
+
+#include <algorithm>
+
+template <class T>
+class StringBase
+{
+private:
+	StringBase(const StringBase<T> &other);
+	void releaseBuffer(void);
+	~StringBase(void) { releaseBuffer(); }
+	T *m_bfmeData;
+
+	friend struct S4SortElem12;
+};
+
+struct S4SortElem12
+{
+	int m_bfmeA;
+	StringBase<char> m_bfmeName;
+	char m_bfmeC;
+};
+
+struct S4Cmp002E1690
+{
+	int m_bfmeSlot;
+
+	bool operator()(const S4SortElem12 &left,
+		const S4SortElem12 &right) const
+	{
+		return left.m_bfmeA < right.m_bfmeA;
+	}
+};
+
+void Rva002E00E0Swap(S4SortElem12 &left, S4SortElem12 &right);
+
+namespace _STL
+{
+
+void iter_swap(S4SortElem12 *left, S4SortElem12 *right)
+{
+	Rva002E00E0Swap(*left, *right);
+}
+
+template void __introsort_loop<S4SortElem12 *, S4SortElem12, int,
+	S4Cmp002E1690>(S4SortElem12 *, S4SortElem12 *, S4SortElem12 *, int,
+	S4Cmp002E1690);
+
+}
