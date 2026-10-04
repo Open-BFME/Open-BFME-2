@@ -1,6 +1,21 @@
-// ?rva0041C9F8@ActionManager@@QAE_NPBVObject@@PBUCoord3D@@PBVSpecialPowerTemplate@@@Z
-// partial score=0.95 date=2026-10-04
 // cl: /O1 /MD /GX /arch:SSE
+//
+// ActionManager special-power location checks called in a row by the
+// placement validator 0x0041D60B.
+//
+//   0x0041C9F8  when the power template's final override has flag bit 4
+//               (+0x18), true only if no alive object passing the 0x002614EC
+//               filter (override +0x78, the caster's controlling player) is
+//               within the override's +0x7C range of the location (2D)
+//
+// Retail evaluates the range into a spilled local between building the
+// filter temporaries and linking them; the assignment inside the call is
+// what gives that order.
+//
+// The filters are BFME2's partition filter chain (the view
+// AIStructureCreepTactic.cpp documents): a vptr, the +0x04 link to the next
+// filter (PartitionFilter::link 0x00625790), then each filter's members;
+// address-derived names after allow (slot 1), the ctors being inline.
 class Object;
 class Player;
 
@@ -111,7 +126,6 @@ class ActionManager
 {
 public:
 	bool rva0041C9F8(const Object *obj, const Coord3D *pos, const SpecialPowerTemplate *sp);
-	bool rva0041D4FA(const Object *obj, const Coord3D *pos, const SpecialPowerTemplate *sp);
 };
 
 bool ActionManager::rva0041C9F8(const Object *obj, const Coord3D *pos, const SpecialPowerTemplate *sp)
@@ -119,9 +133,8 @@ bool ActionManager::rva0041C9F8(const Object *obj, const Coord3D *pos, const Spe
 	if (!sp->getFinalOverride()->flag4())
 		return true;
 	Player *player = obj->getControllingPlayer();
-	Rva002614ECFilter same(sp->getFinalOverride()->m_78, player, true);
-	Rva0026119DFilter alive;
-	float range = sp->getFinalOverride()->m_7C;
-	return !ThePartitionManager->getClosestObject(pos, range, 1, alive.link(&same));
+	float range;
+	Object *found = ThePartitionManager->getClosestObject(pos, (range = sp->getFinalOverride()->m_7C), 1,
+		Rva0026119DFilter().link(&Rva002614ECFilter(sp->getFinalOverride()->m_78, player, true)));
+	return found == 0;
 }
-
