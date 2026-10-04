@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /arch:SSE /EHsc
 //
 // SymbioticStructuresBody overrides in the vtables its matched ctor 0x004C0AF1
 // installs over ActiveBody: primary 0x00C5B830, +0x0C 0x00C5B770 and the body
@@ -10,8 +10,68 @@
 // (after the pinned refresh 0x004C0C52 for slot 5 and primary slot 24), else
 // answer 0. Primary slot 24 asks the host's body-interface slot 4.
 
-class Object;
+#include "ascii_string.h"
 class ModuleData;
+
+// A status/condition bit set: 0x4C bytes cleared, then three bits (first
+// argument ignored); rowed ctor 0x00265254.
+class Rva00265254
+{
+public:
+	Rva00265254(unsigned int a1, unsigned int a2, unsigned int a3, unsigned int a4);
+private:
+	unsigned int m_bits[19];
+};
+
+enum ObjectStatusTypes
+{
+	OBJECT_STATUS_NONE = 0
+};
+
+class Matrix3D;
+
+class Thing
+{
+public:
+	void setTransformMatrix(const Matrix3D *mtx);
+};
+
+class Object : public Thing
+{
+public:
+	const Matrix3D *rva004C1170Transform() const { return (const Matrix3D *)m_pad00; }
+	unsigned char m_pad00[8];
+	unsigned char m_transform[0x74 - 8]; // +0x08
+	int m_74; // +0x74 (ID)
+	int getID() const { return m_74; }
+	unsigned char m_pad78[0x88 - 0x78];
+	AsciiString m_88; // +0x88
+	Object *m_8C; // +0x8C (next)
+	void rva001E42F2(const Rva00265254 &bits);
+	void setStatus(ObjectStatusTypes bit, bool set);
+};
+
+class FXList
+{
+public:
+	static void doFXObj(const FXList *fx, const Object *primary, const Object *secondary);
+};
+
+struct SymbioticStructuresBodyModuleData
+{
+	unsigned char m_pad00[0x48];
+	const FXList *m_48; // +0x48
+	unsigned char m_pad4C[0x64 - 0x4C];
+	AsciiString m_64; // +0x64 (host template name)
+};
+
+class GameLogic
+{
+public:
+	Object *getFirstObject();
+};
+
+extern GameLogic *TheGameLogic;
 
 template <int N> class Rva004C0D13Slots : public Rva004C0D13Slots<N - 1>
 {
@@ -55,10 +115,11 @@ public:
 	virtual void gap20() = 0; virtual void gap21() = 0; virtual void gap22() = 0; virtual void gap23() = 0;
 	virtual void gap24() = 0; virtual void gap25() = 0; virtual void gap26() = 0;
 	virtual float rva004C0DF3() = 0;
-	virtual void gap28() = 0; virtual void gap29() = 0; virtual void gap30() = 0; virtual void gap31() = 0;
+	virtual AsciiString rva004C0ECE() = 0; virtual void gap29() = 0; virtual void gap30() = 0; virtual void gap31() = 0;
 	virtual void gap32() = 0; virtual void gap33() = 0; virtual void gap34() = 0; virtual void gap35() = 0;
 	virtual void gap36() = 0; virtual void gap37() = 0; virtual void gap38() = 0;
 	virtual void rva004C121B(void *a1) = 0;
+	virtual void rva004C123C(void *a1, bool doFX) = 0;
 };
 
 class BehaviorModuleInterface
@@ -72,7 +133,20 @@ struct Rva004C0B60Arg
 	int m_words[32];
 };
 
-class BehaviorModule : public Rva004C0D13Slots<23>
+class BehaviorModuleHead : public Rva004C0D13Slots<1>
+{
+protected:
+	virtual void loadPostProcess();
+};
+template <int N> class Rva004C1170Gaps : public Rva004C1170Gaps<N - 1>
+{
+public:
+	virtual void gap2(char (*)[N]) = 0;
+};
+template <> class Rva004C1170Gaps<2> : public BehaviorModuleHead
+{
+};
+class BehaviorModule : public Rva004C1170Gaps<23>
 {
 public:
 	virtual void rva004C0B60(Rva004C0B60Arg arg) = 0;
@@ -103,11 +177,17 @@ public:
 	virtual float rva004C105A();
 	virtual float rva004C108B();
 	virtual float rva004C0DF3();
+	virtual AsciiString rva004C0ECE();
 	virtual void rva004C121B(void *a1);
+	virtual void rva004C123C(void *a1, bool doFX);
+	void rva004C0B63();
+protected:
+	virtual void loadPostProcess();
 private:
 	BfmeOwnFCB *refresher() { return (BfmeOwnFCB *)(BehaviorModule *)this; }
 	Rva004C0D4F *checker() { return (Rva004C0D4F *)(BehaviorModule *)this; }
 	HostBodyModule *m_host; // +0x100
+	int m_104; // +0x104 (the host's ID)
 };
 
 // ?rva004C0B60@SymbioticStructuresBody@@UAEXURva004C0B60Arg@@@Z, retail 0x004C0B60,
@@ -164,4 +244,67 @@ void SymbioticStructuresBody::rva004C121B(void *a1)
 		((BfmeSubFCB *)obj)->bfmeCallFCB(a1, 0);
 		refresher()->bfmeAfterFCB();
 	}
+}
+
+// ?rva004C0ECE@SymbioticStructuresBody@@UAE?AVAsciiString@@XZ, retail
+// 0x004C0ECE, 161 bytes: body interface slot 28; the host's slot-28 string
+// when the rowed Rva004C0D4F check holds, else an empty string.
+AsciiString SymbioticStructuresBody::rva004C0ECE()
+{
+	return checker()->rva004C0D4F() ? m_host->rva004C0ECE() : AsciiString("");
+}
+
+// ?rva004C123C@SymbioticStructuresBody@@UAEXPAX_N@Z, retail 0x004C123C, 143
+// bytes: body interface slot 40 (the first argument unread). After the pinned
+// refresh 0x004C0C52 and the primary member 0x004C0B63, when the primary slot
+// 24 figure equals the body slot 6 figure, the Object drops condition bits
+// 0x43..0x45 (0x001E42F2 with an Rva00265254 set) and statuses 2 and 0x15;
+// then, asked to, plays the module data's +0x48 FX on the Object.
+void SymbioticStructuresBody::rva004C123C(void *a1, bool doFX)
+{
+	refresher()->bfmeAfterFCB();
+	rva004C0B63();
+	float before = rva004C0D9C();
+	if (before == rva004C105A())
+	{
+		Object *obj = m_object;
+		obj->rva001E42F2(Rva00265254(0, 0x43, 0x44, 0x45));
+		m_object->setStatus((ObjectStatusTypes)2, false);
+		m_object->setStatus((ObjectStatusTypes)0x15, false);
+	}
+	if (doFX)
+	{
+		const FXList *fx = ((const SymbioticStructuresBodyModuleData *)m_moduleData)->m_48;
+		if (fx)
+			FXList::doFXObj(fx, m_object, 0);
+	}
+}
+
+// ?loadPostProcess@SymbioticStructuresBody@@MAEXXZ, retail 0x004C1170, 171
+// bytes: primary slot 1 (vtable 0x00C5B830), the loadPostProcess slot. Finds
+// the first Object in TheGameLogic's list (next at +0x8C) whose +0x88 name
+// equals the module data's +0x64 name, takes on its transform (Thing
+// setTransformMatrix with its +8 matrix), records its ID at +0x104 and
+// refreshes; then the primary member 0x004C0B63 and the refresh again.
+void SymbioticStructuresBody::loadPostProcess()
+{
+	Object *obj = m_object;
+	if (obj == 0)
+		return;
+	const SymbioticStructuresBodyModuleData *d = (const SymbioticStructuresBodyModuleData *)m_moduleData;
+	Object *o = TheGameLogic->getFirstObject();
+	AsciiString name;
+	for (; o; o = o->m_8C)
+	{
+		name = o->m_88;
+		if (name.compare(d->m_64) == 0)
+		{
+			obj->setTransformMatrix((const Matrix3D *)o->m_transform);
+			m_104 = o->getID();
+			refresher()->bfmeAfterFCB();
+			break;
+		}
+	}
+	rva004C0B63();
+	refresher()->bfmeAfterFCB();
 }
