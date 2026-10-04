@@ -40,3 +40,17 @@ Rva002299F1MetadataHeader::Rva002299F1MetadataHeader(const RvaMapCacheEmptyAlloc
  :header00(RvaMapCacheEmptyAllocator(),0) {
  header00.pointer00=reinterpret_cast<RvaMapCacheNodeHeader*>(_STL::allocator<char>::allocate(0x114,0));
 }
+class Rva0022C68CMetadataTree {
+public:
+ __declspec(noinline) Rva0022C68CMetadataTree(const RvaMapCacheEmptyAllocator&,const RvaMapCacheEmptyAllocator&);
+ Rva002299F1MetadataHeader base00;
+ unsigned int count04,opaque08;
+};
+Rva0022C68CMetadataTree::Rva0022C68CMetadataTree(const RvaMapCacheEmptyAllocator&,const RvaMapCacheEmptyAllocator&allocator)
+ :base00(allocator) {
+ count04=0;
+ base00.header00.pointer00->color00=0;
+ base00.header00.pointer00->parent04=0;
+ base00.header00.pointer00->left08=base00.header00.pointer00;
+ base00.header00.pointer00->right0C=base00.header00.pointer00;
+}
