@@ -70,3 +70,24 @@ Xfer *Rva0073EB00Xfer(Xfer *xfer, unsigned short *vals)
 	} while (--n != 0);
 	return xfer;
 }
+
+// Native 0x0073EA90..0x0073EAFA is the N=2 legacy counter helper.
+// The matched ShroudManagerImpl008FBA40Element::xfer at 0x0073EBB0
+// calls it for pre-1.2 loads, then zeros the third counter. Its Ghidra
+// extent and the call target independently establish the 106-byte body;
+// the previous rope/parseTurret drift votes are unrelated identities.
+Xfer *rva0073ea90(Xfer *xfer, unsigned short *vals)
+{
+	UnsignedInt count = 2;
+	int n = 2;
+	xfer->xferUnsignedInt(&count);
+	if (count != 2) {
+		XferException error;
+		bfmeFormatText(&error, 0, 0);
+		_CxxThrowException(&error, (const _s__ThrowInfo *)&g_guardTargetTypeThrowInfo); __assume(0);
+	}
+	do {
+		xfer->xferShort(vals++);
+	} while (--n != 0);
+	return xfer;
+}
