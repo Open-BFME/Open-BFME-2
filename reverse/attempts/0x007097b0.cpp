@@ -1,6 +1,8 @@
 // ?rva007097B0@AptScriptFunctionBase@@SAHPAX@Z
 // partial score=0.98 date=2026-10-04
 // ?rva007097B0@AptScriptFunctionBase@@SAHPAX@Z
+// partial score=0.98 date=2026-10-04
+// ?rva007097B0@AptScriptFunctionBase@@SAHPAX@Z
 // partial score=0.9766 date=2026-10-04
 // cl: /O2 /MD
 // experiment: default-construct + Release in the loop, no gpUndefinedValue store
