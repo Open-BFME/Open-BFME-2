@@ -75,3 +75,18 @@ void *Rva00180EA0::Rva00181040()
 {
 	return new Null3DObjClass("NULL");
 }
+
+// Zero Hour's nullrobj.cpp bounds (vtable 0x00BD50D0 slots 67 and 68,
+// retail 0x00180FE0 and 0x00181010): a 0.1 sphere and box about the origin,
+// stored with SSE as this unit's /arch:SSE emits them.
+void Null3DObjClass::Get_Obj_Space_Bounding_Sphere(SphereClass & sphere) const
+{
+	sphere.Center.Set(0,0,0);
+	sphere.Radius = 0.1f;
+}
+
+void Null3DObjClass::Get_Obj_Space_Bounding_Box(AABoxClass & box) const
+{
+	box.Center.Set(0,0,0);
+	box.Extent.Set(0.1f,0.1f,0.1f);
+}

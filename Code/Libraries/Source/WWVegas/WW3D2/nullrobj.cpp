@@ -103,19 +103,8 @@ void Null3DObjClass::Render(RenderInfoClass & rinfo)
 { 
 }
 
-// ?Null3DObjClass::Get_Obj_Space_Bounding_Sphere present-unmatched
-void Null3DObjClass::Get_Obj_Space_Bounding_Sphere(SphereClass & sphere) const
-{
-   sphere.Center.Set(0,0,0);
-	sphere.Radius = 0.1f;
-}
-
-// ?Null3DObjClass::Get_Obj_Space_Bounding_Box present-unmatched
-void Null3DObjClass::Get_Obj_Space_Bounding_Box(AABoxClass & box) const
-{
-	box.Center.Set(0,0,0);
-	box.Extent.Set(0.1f,0.1f,0.1f);
-}
+// Null3DObjClass::Get_Obj_Space_Bounding_Sphere and _Box: defined in
+// Null3DObjClassCopyCtor.cpp (their rows' unit; retail stores them with SSE).
 
 /*
 ** NullPrototypeClass
