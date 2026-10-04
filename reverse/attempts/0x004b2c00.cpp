@@ -1,3 +1,5 @@
+// ?rva004B2C00@ReplaceObjectUpdate@@QAEXPAVObject@@PAVRva004B2A9D@@@Z
+// partial score=0.8 date=2026-10-04
 // cl: /O1 /MD /GX /arch:SSE
 //
 // ReplaceObjectUpdate.cpp (the unit 0x004B2A9D's random-range assert names).
@@ -10,10 +12,6 @@
 //               object and 0x002614EC for the entry and the controlling
 //               player, and hand each whose +0x274 object is null or passes
 //               0x0028C197 to 0x004B2C00 with the entry
-//
-//   0x004B2A60  kill the given object on behalf of this module's object (a
-//               DamageInfo with the +0x08 source ID and the +0x24 flag set)
-//               and destroy it
 //
 // The filters are BFME2's partition filter chain (the view
 // AIStructureCreepTactic.cpp documents).
@@ -70,9 +68,30 @@ struct Coord3D
 	float z;
 };
 
+#include "../../reference/shims/bfme2_ascii/ascii_string.h"
+
 enum ObjectID
 {
 	INVALID_ID = 0
+};
+
+enum CommandSourceType
+{
+	CMD_FROM_PLAYER = 0
+};
+
+// The AI command entry at AIUpdateInterface +0x20 (0x0047ED64).
+class Rva0047ED64
+{
+public:
+	void rva0047ED64(void *obj, CommandSourceType src);
+};
+
+class AIUpdateInterface
+{
+public:
+	char m_pad00[0x20];
+	Rva0047ED64 m_20;	// +0x20
 };
 
 class DamageInfo
@@ -92,13 +111,17 @@ public:
 	Player *getControllingPlayer() const;	// 0x0028AFA9
 	void *rva0028C197() const;		// 0x0028C197
 	void attemptDamage(DamageInfo *info);	// 0x0029848E
+	const Coord3D *getPosition() const { return &m_pos; }
+	float getOrientation() const { return m_44; }
 	ObjectID getID() const { return m_id; }
 	char m_pad000[0x38];
 	Coord3D m_pos;		// +0x38
 	float m_44;		// +0x44
 	char m_pad048[0x74 - 0x48];
 	ObjectID m_id;		// +0x74
-	char m_pad078[0x274 - 0x78];
+	char m_pad078[0x258 - 0x78];
+	AIUpdateInterface *m_258;	// +0x258
+	char m_pad25C[0x274 - 0x25C];
 	Object *m_274;		// +0x274
 };
 
@@ -108,6 +131,42 @@ public:
 	void destroyObject(Object *obj);	// 0x00242C09
 };
 extern GameLogic *TheGameLogic;
+
+class ThingTemplate;
+class ThingFactory
+{
+public:
+	const ThingTemplate *findTemplate(const AsciiString &name);	// 0x002D06CA
+};
+extern ThingFactory *TheThingFactory;
+
+class PlayerList
+{
+public:
+	char m_pad00[0x18];
+	void *m_18;		// +0x18
+};
+extern PlayerList *ThePlayerList;
+
+// The object maker at 0x00DFE7B8... (g_00A027B8): slot 14 builds an object
+// of a template at a point and angle for a creator.
+class Rva00A027B8
+{
+public:
+	virtual void s00(); virtual void s01(); virtual void s02(); virtual void s03();
+	virtual void s04(); virtual void s05(); virtual void s06(); virtual void s07();
+	virtual void s08(); virtual void s09(); virtual void s10(); virtual void s11();
+	virtual void s12(); virtual void s13();
+	virtual Object *rva00A027B8Create(Object *creator, const ThingTemplate *tmpl,
+		const Coord3D *pos, float angle, void *owner);	// slot 14
+};
+extern Rva00A027B8 *g_00A027B8;
+
+class FXList
+{
+public:
+	static void doFXObj(const FXList *fx, const Object *primary, const Object *secondary);	// 0x000B2235
+};
 
 struct BfmeWideResult
 {
@@ -124,8 +183,12 @@ public:
 };
 extern PartitionManager *ThePartitionManager;
 
-// A replacement entry (0x004B2A9D picks one of its names at random).
-class Rva004B2A9D;
+// A replacement entry: 0x004B2A9D picks one of its template names at random.
+class Rva004B2A9D
+{
+public:
+	const AsciiString *rva004B2A9D();	// 0x004B2A9D
+};
 
 class ReplaceObjectUpdateModuleData
 {
@@ -135,6 +198,8 @@ public:
 	Rva004B2A9D **m_CC;	// +0xCC their end
 	char m_padD0[4];
 	float m_D4;		// +0xD4 the radius
+	const FXList *m_D8;	// +0xD8
+	bool m_DC;		// +0xDC
 };
 
 class SpecialAbilityUpdate
@@ -151,7 +216,7 @@ class ReplaceObjectUpdate : public SpecialAbilityUpdate
 {
 public:
 	virtual void rva004B2D28();
-	void rva004B2C00(Object *obj, Rva004B2A9D *entry);	// 0x004B2C00
+	void rva004B2C00(Object *obj, Rva004B2A9D *entry);
 	void rva004B2A60(Object *obj);
 private:
 	const ReplaceObjectUpdateModuleData *getReplaceObjectData() const
@@ -170,23 +235,19 @@ void ReplaceObjectUpdate::rva004B2A60(Object *obj)
 	obj->attemptDamage(&info);
 	TheGameLogic->destroyObject(obj);
 }
-void ReplaceObjectUpdate::rva004B2D28()
+void ReplaceObjectUpdate::rva004B2C00(Object *obj, Rva004B2A9D *entry)
 {
-	SpecialAbilityUpdate::rva0045108D();
-	if (getObject()) {
-		const ReplaceObjectUpdateModuleData *data = getReplaceObjectData();
-		for (Rva004B2A9D **it = data->m_C8; it != data->m_CC; ++it) {
-			Rva004B2A9D *entry = *it;
-			if (entry) {
-				BfmeWideResult hits = ThePartitionManager->iterateObjectsInRange(&m_44, data->m_D4, 0,
-					Rva0026119DFilter().link(Rva002614DFFilter(m_object).link(&Rva002614ECFilter(entry, m_object->getControllingPlayer(), true))), 0);
-				Object *obj;
-				while ((obj = hits.next()) != 0) {
-					Object *other = obj->m_274;
-					if (!other || other->rva0028C197())
-						rva004B2C00(obj, entry);
-				}
-			}
+	const ThingTemplate *tmpl = TheThingFactory->findTemplate(*entry->rva004B2A9D());
+	Object *self = getObject();
+	Object *created = g_00A027B8->rva00A027B8Create(self, tmpl, obj->getPosition(), obj->getOrientation(), ThePlayerList->m_18);
+	if (created) {
+		FXList::doFXObj(getReplaceObjectData()->m_D8, created, 0);
+		if (getReplaceObjectData()->m_DC) {
+			AIUpdateInterface *ai = created->m_258;
+			if (ai)
+				ai->m_20.rva0047ED64(getObject(), (CommandSourceType)2);
 		}
 	}
+	rva004B2A60(obj);
 }
+

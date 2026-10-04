@@ -53480,3 +53480,4 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ?set@Rva002B22A5DwordSlot@@QAEXH@Z,,0x002B22A5,10,Code/GameEngine/Source/Common/DispArgFieldSettersVslots.cpp,matched,vtable-slot argument setter (int at +0x14)
 ?set@Rva002E067DDwordSlot@@QAEXH@Z,,0x002E067D,10,Code/GameEngine/Source/Common/DispArgFieldSettersVslots.cpp,matched,vtable-slot argument setter (int at +0x54)
 ?set@Rva002E640BDwordSlot@@QAEXH@Z,,0x002E640B,10,Code/GameEngine/Source/Common/DispArgFieldSettersVslots.cpp,matched,vtable-slot argument setter (int at +0x40)
+?rva004B2A60@ReplaceObjectUpdate@@QAEXPAVObject@@@Z,,0x004B2A60,61,Code/GameEngine/Source/GameLogic/Object/Update/ReplaceObjectUpdate.cpp,matched,kill helper of 0x004B2C00: DamageInfo (0x00263895) with source ID +0x08 and flag +0x24; attemptDamage then TheGameLogic->destroyObject
