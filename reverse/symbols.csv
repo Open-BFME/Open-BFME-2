@@ -9489,3 +9489,4 @@ _Rva003F417EConstructRecords,0x003F417E,"Native003F5254 calls existing verified 
 ?setDisconnectSlot@NetDisconnectPlayerCommandMsg@@QAEXE@Z,0x0006EDE3,REL32 in sendDisconnectCommand 0x004D3D5C; folded 10-byte byte setter at +0x1C
 ?setDisconnectFrame@NetDisconnectPlayerCommandMsg@@QAEXI@Z,0x005739F6,REL32 in sendDisconnectCommand 0x004D3D5C; folded 10-byte dword setter at +0x24
 ?sendLocalCommand@ConnectionManager@@QAEXPAVNetCommandMsg@@E@Z,0x004CFF21,REL32 in sendDisconnectCommand 0x004D3D5C; body tests CommandRequiresDirectSend then m_packetRouterSlot<8 and m_connections[slot] as in ZH
+?rva00913AF0@PointGroupClass@@QAEXH_N@Z,0x00179B50,"PointGroupClass vertex-buffer submit (Open-BFME-1 donor name, b1 0x00913AF0); read from the byte-true call at 0x0017F6C6 in the donor Render placed exactly once at 0x0017F400; Ghidra bounds 3371B at this address; body unclaimed"

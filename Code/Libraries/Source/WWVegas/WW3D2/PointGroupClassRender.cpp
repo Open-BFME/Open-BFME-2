@@ -1,9 +1,9 @@
-// cl: /DNDEBUG /MD /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/game/Libraries/Source/Compression /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/inputs/reference/shims/sweep
+// cl: /DNDEBUG /MD /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/game/Libraries/Source/Compression /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/inputs/reference/shims/sweep /arch:SSE /G7
 // Provenance: Open-BFME-1 game/Libraries/Source/WWVegas/WW3D2/PointGroupClassRender.cpp at
 // 10af19f44a (BFME1 byte-identical donor, b1 0x00917920, here 0x0017F1B0); include paths
-// repointed at the reference checkout. Only the APT compression helper is carried:
-// game.dat's Render differs from BFME 1's, so its definition is left out (the
-// declaration stays, and it belongs in this unit if it is recovered: see below).
+// repointed at the reference checkout. Render was first left out as differing
+// from BFME 1's; built /arch:SSE /G7 like its BFME2 siblings, the donor's Render
+// places exactly once at 0x0017F400 (the APT helper still matches under SSE).
 // BFME renamed GeneralsMD Matrix4x4 -> Matrix4 (see pointgr.cpp).
 // The compiler-generated vector constructor iterator (??_H) takes the
 // optimization state of the first function that needs it. Retail links one
@@ -157,4 +157,43 @@ void PointGroupClass::rva00917920(Vector3 **point_loc, Vector4 **point_diffuse, 
 			*point_frame = PointFrame->Get_Array();
 		}
 	}
+}
+
+void PointGroupClass::Render(RenderInfoClass &rinfo, int unknown)
+{
+	if (PointCount == 0) return;
+
+	prepare_shader();
+
+	Vector3 *current_loc = NULL;
+	Vector4 *current_diffuse = NULL;
+	float *current_size = NULL;
+	unsigned char *current_orient = NULL;
+	unsigned char *current_frame = NULL;
+	rva00917920(&current_loc, &current_diffuse, &current_size, &current_orient, &current_frame);
+
+	Matrix4x4 view;
+	DX8Wrapper::Get_Transform(D3DTS_VIEW, view);
+
+	if (Get_Flag(TRANSFORM) && Get_Flag(BILLBOARD)) {
+		if (compressed_loc.Length() < PointCount) {
+			compressed_loc.Resize(PointCount * 2);
+		}
+		Vector4 result;
+		for (int i = 0; i < PointCount; i++) {
+			result = view * current_loc[i];
+			compressed_loc[i][0] = result[0];
+			compressed_loc[i][1] = result[1];
+			compressed_loc[i][2] = result[2];
+		}
+		current_loc = &compressed_loc[0];
+	}
+
+	int count = PointCount;
+	int vnum;
+	rva00914860(count, PointLoc->Get_Count(), &vnum);
+	rva009148C0(current_loc, current_size, current_orient, count);
+	rva00916CD0(current_frame, count, unknown);
+	rva00912880(current_diffuse, count);
+	rva00913AF0(vnum, current_diffuse == NULL);
 }
