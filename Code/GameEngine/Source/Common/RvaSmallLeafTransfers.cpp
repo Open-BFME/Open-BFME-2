@@ -360,4 +360,3 @@ int Rva00665A30::increment()
 {
 	return ++m_c;
 }
-
