@@ -87,6 +87,7 @@ public:
 	void rva003EF13E(Int value, Int, Int);
 	void rva003EF08B(Int value);
 	void rva003EF1D9(const _STL::vector<Int> &vec);
+	void rva003EF2FF();
 };
 void Rva003EF13E::rva003EF13E(Int value, Int, Int) { rva003EF08B(value); }
 
@@ -94,6 +95,40 @@ void Rva003EF13E::rva003EF1D9(const _STL::vector<Int> &vec)
 {
 	for (unsigned i = 0; i < vec.size(); ++i)
 		rva003EF08B(vec[i]);
+}
+
+struct Rva003EF2FFHolder
+{
+	char m_pad[0x2C];
+	_STL::vector<Int> m_2C;
+};
+
+struct Rva003EF2FFMid
+{
+	char m_pad[0x8];
+	Rva003EF2FFHolder *m_8;
+};
+
+class Rva002BA8F1Logic
+{
+public:
+	char m_pad[0xB0];
+	Rva003EF2FFMid *m_B0;
+};
+
+extern Rva002BA8F1Logic *g_009FEF10;
+
+void Rva003EF13E::rva003EF2FF()
+{
+	Rva003EF2FFHolder *holder = g_009FEF10->m_B0->m_8;
+	_STL::vector<Int> *range;
+	if (holder)
+		range = &holder->m_2C;
+	else
+		range = 0;
+	if (!range)
+		return;
+	rva003EF1D9(*range);
 }
 
 // vtable 0x00BC57E0#18 and #19: hand the argument to two cdecl functions,
