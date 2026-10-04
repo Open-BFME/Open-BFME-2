@@ -53335,3 +53335,4 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ?rva00201B05@HeaderTemplateManager@@QAEXXZ,,0x00201B05,76,Code/GameEngine/Source/GameClient/GUI/HeaderTemplateManagerRva00201B05.cpp,matched,unlock via caller 0x00201BD0 HeaderTemplate.ini with rowed adjustFontSize 0x001EA40D and getFont 0x002189E1
 ?rva005893AD@WeaponModeSpecialPowerUpdateBase@@QAEHXZ,,0x005893AD,103,Code/GameEngine/Source/GameLogic/Object/Update/Rva00589135VSlot.cpp,matched,vslot 4 of 0x00870108 via rowed BitFlags plus slot6 virtual plus TheGameLogic
 ?rva0028AB4E@Object@@QBEXXZ,,0x0028AB4E,39,Code/GameEngine/Source/GameLogic/Object/ObjectRva0028AB4E.cpp,matched,Object module scan via plus244 plus0C slot3 then slot2
+?rva002B8A9F@Rva002B8A9F@@QAEXPAVModuleData@@@Z,,0x002B8A9F,33,Code/Libraries/Source/WWVegas/WWLib/Rva002B8A9FPushOnce.cpp,matched,push-once ModuleData into vector +0x118 if flag +0x75 clear via push_back 0x4DFCB0 callers 0x2BA3DA
