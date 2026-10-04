@@ -55058,3 +55058,4 @@ rva007916E1_constructor_unwind,,0x007916E1,11,Code/GameEngine/Source/Common/INI/
 ?Rva003BC903Do@@YGXPAVParameter@@H@Z,,0x003BC903,57,Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003BC903Do.cpp,matched,getUnitNamed then ExperienceTracker rva0039B315 via g_Va009FE16C
 ?rva0042D7C6@Rva0042D7A3@@QAEXXZ,,0x0042D7C6,26,Code/GameEngine/Source/Common/Rva0042D7A3Set.cpp,matched,chain clear via rowed dtor 0x005794ED plus delete plus callers
 ??_GRva00579AB7@@UAEPAXI@Z,,0x0042D507,28,Code/GameEngine/Source/Common/Rva00579AB7Dtor.cpp,matched,deleting dtor via own dtor TU plus callers none
+??1Rva005FB615@@QAE@XZ,,0x005FB615,81,Code/GameEngine/Source/Common/Rva005FB615Dtor.cpp,matched,nonvirtual dtor with string members
