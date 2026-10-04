@@ -8899,3 +8899,4 @@ _Rva0030CAF8CursorEqual,0x0007E394,twin of dup_0007e394 29B exact cursor equalit
 ??1Rva003A9329Vec@@UAE@XZ,0x003A9397,"destructor the vector deleting destructor 0x003A9329 calls and hands to the eh vector destructor iterator (DIR32 at 0x003A9338); opaque address name"
 ??1Rva003AB86E@@UAE@XZ,0x003AB86E,"destructor the vector deleting destructor 0x003AB899 calls and hands to the eh vector destructor iterator (DIR32 at 0x003AB8A8); opaque address name"
 ??1Rva003AB946Vec@@UAE@XZ,0x003AB86E,"destructor the vector deleting destructor 0x003AB946 calls and hands to the eh vector destructor iterator (DIR32 at 0x003AB955); opaque address name"
+?rva004B2C00@ReplaceObjectUpdate@@QAEXPAVObject@@PAVRva004B2A9D@@@Z,0x004B2C00,ReplaceObjectUpdate member (ret 8; ECX the module): REL32 at 0x004B2E19 in the slot-17 override 0x004B2D28 with the scanned object and the data entry; it calls the entry pick 0x004B2A9D on the second argument
