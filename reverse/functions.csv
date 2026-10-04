@@ -54571,3 +54571,4 @@ _Rva00669500@8,,0x00669500,13,Code/GameEngine/Source/Common/RvaSmallLeafTransfer
 ?rva005BE20B@Rva004EE485@@QAEHXZ,,0x005BE20B,26,Code/GameEngine/Source/Common/Rva004EE3F9.cpp,matched,same-ecx callee 0x004EE485 proves Rva004EE485 class plus A8 AC
 ??1Rva0054D2CF@@UAE@XZ,,0x0054D2CF,14,Code/GameEngine/Source/Common/Rva0054CC1BRelease.cpp,matched,chain vptr tail to 0054CC1B LINK-46B
 ?rva005CFC12@Rva005D00A6@@UAEXPAVINI@@@Z,,0x005CFC12,163,Code/GameEngine/Source/Common/System/Rva005CFC12.cpp,matched,vslot slot1 offset0x4 donor Rva005D00A6Ctor rowed initFromINI plus IAT floor via fast_floor fast_round precedent Rva002E7875WorldToCell
+?Rva002A74C3Get@@YGHPAX@Z,,0x002A74C3,61,Code/GameEngine/Source/GameLogic/Object/Rva002A74C3.cpp,matched,linkbody via 0x002A7500 plus rowed Object 0x0028C149 ret4 single arg
