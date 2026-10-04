@@ -1,8 +1,13 @@
-// ?Rva002AADB6Compare@@YAHPAVRva002AADB6Reader@@0H@Z
-// partial score=0.95 date=2026-10-04
-// cl: /O1 /G7 /DNDEBUG /MD
-// ?Rva002AADB6Compare@@YAHPAVRva002AADB6Reader@@0H@Z RVA 0x002AADB6 size 135
-// Evidence: unlock lane; callers 0x002ABC22 0x0032AF02 forward (wrapper vtables 0x7FDC60 0x7FDC6C 0x80D938); virtual slot0 len slot1 read buf-offset-size with 16B stack buffers and memcmp; min-remaining loop returning memcmp diff else lenA-lenB.
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD
+// ?Rva002AADB6Compare@@YAHPAVRva002AADB6Reader@@0H@Z @0x002AADB6 (135B).
+// Target facts: cdecl with three arguments (both callers, 0x002ABC62 and
+// 0x0032AF42, pop 12 bytes). Each caller builds two stack reader adaptors
+// (vtables 0x00BFDC60/0x00BFDC6C) and passes them with a third argument this
+// body never reads. Slot 0 returns a length; slot 1 reads (buffer, offset,
+// size) into a 16-byte stack buffer. The loop compares at most 16 bytes per
+// step with memcmp, returns the first nonzero difference, and otherwise
+// returns lenA - lenB. Retail picks the chunk size with cmovl, which MSVC 7.1
+// emits only under /arch:SSE. Original class and function names are unknown.
 
 extern "C" int __cdecl memcmp(const void *, const void *, unsigned int);
 
@@ -13,7 +18,6 @@ public:
 	virtual void Read(void *buf, int offset, int size);
 };
 
-// ?Rva002AADB6Compare@@YAHPAVRva002AADB6Reader@@0H@Z present-unmatched
 int Rva002AADB6Compare(Rva002AADB6Reader *a, Rva002AADB6Reader *b, int unused)
 {
 	(void)unused;
