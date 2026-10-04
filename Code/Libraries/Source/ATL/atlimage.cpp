@@ -251,6 +251,7 @@ class Bitmap : public Image
 public:
     Bitmap(const unsigned short *filename, int useEmbeddedColorManagement = 0);
     Bitmap(INT width, INT height, INT stride, PixelFormat format, unsigned char *scan0);
+    virtual ~Bitmap();
 
     Status LockBits(const Rect *rect, UINT flags, PixelFormat format, BitmapData *lockedBitmapData);
     Status UnlockBits(BitmapData *lockedBitmapData);
@@ -460,6 +461,9 @@ private:
     static CInitGDIPlus s_initGDIPlus;
     void UpdateBitmapInfo(DIBOrientation orientation);
 };
+
+CImage::CDCCache CImage::s_cache;
+CImage::CInitGDIPlus CImage::s_initGDIPlus;
 
 // ATL 7.1 verbatim, with _AtlRaiseException inlined as atlbase.h defines it:
 // RaiseException(EXCEPTION_ACCESS_VIOLATION, EXCEPTION_NONCONTINUABLE, 0, NULL).
