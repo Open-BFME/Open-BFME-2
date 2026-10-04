@@ -1,9 +1,11 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /GX
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /GX
 //
 // BFME2 DataChunkInput version getter, transferred from the exact BFME1
 // reconstruction (Code/GameEngine/Source/Common/System/DataChunk.cpp).
 // Retail BFME2 keeps the same shape: null chunk stack reads zero, otherwise
 // the version word at chunk+0xC with the stack head at this+0x1C.
+
+#include "ascii_string.h"
 
 struct InputChunk
 {
@@ -44,6 +46,7 @@ public:
 	virtual void *deleteInstance(int flags);
 
 	Mapping *m_next;			// +0x04
+	AsciiString m_name;			// +0x08
 };
 
 void operator delete(void *ptr);
@@ -58,6 +61,9 @@ public:
 	int m_listLength;			// +0x04
 	unsigned int m_nextID;		// +0x08
 	bool m_headerOpened;		// +0x0C
+
+private:
+	Mapping *findMapping( const AsciiString& name );
 };
 
 // ??0DataChunkTableOfContents@@QAE@XZ
@@ -101,4 +107,18 @@ void DataChunkInput::clearChunkStack()
 		::operator delete(chunk->deleteInstance(0));
 	}
 	m_chunkStack = 0;
+}
+
+// ?findMapping@DataChunkTableOfContents@@AAEPAVMapping@@ABVAsciiString@@@Z
+// Retail 0x00307A2C (39B): Zero Hour's DataChunk.cpp lookup of a chunk name
+// in the mapping list (name at Mapping +0x08; AsciiString compare 0x000069D6).
+Mapping *DataChunkTableOfContents::findMapping( const AsciiString& name )
+{
+	Mapping *m;
+
+	for( m=m_list; m; m=m->m_next )
+		if (name == m->m_name )
+			return m;
+
+	return 0;
 }
