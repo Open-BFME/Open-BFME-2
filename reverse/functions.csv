@@ -55712,3 +55712,4 @@ __Locale_ctype_create,,0x00022360,1316,Code/Libraries/Source/WWVegas/WWLib/stlpo
 ?rva0044BEB9@Rva0044BEB9@@QAEPAU1@ABURva004C5DD0Pair@@@Z,,0x0044BEB9,45,Code/GameEngine/Source/Common/Rva005173CBSet.cpp,matched,Allocating setter twin via rowed ctor 0x0044BD34 and new 0x2FDA0
 ??1Rva0057A2B0@@UAE@XZ,,0x0057A2B0,84,Code/GameEngine/Source/Common/Rva0057A2B0Dtor.cpp,matched,MI dtor via 8B base and Rva005D40A6 slot6 caller 0x0057A455
 ??_GRva0057A2B0@@UAEPAXI@Z,,0x0057A455,28,Code/GameEngine/Source/Common/Rva0057A2B0Dtor.cpp,matched,deleting dtor from Rva0057A2B0 unit
+?createModule@?$ConcreteModuleTemplate@V?$DefaultModuleTag@$05@FXParticleSystem@@@FXParticleSystem@@UAEPAV?$DefaultModule@$05@2@AAV?$TrackingPtr@VParticleSystem@FXParticleSystem@@@2@@Z,,0x003AD6DF,60,Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AD6DFCreate.cpp,matched,factory new 0x1c calls ctor 0x003ACD71 with EH prolog
