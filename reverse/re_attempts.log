@@ -7627,3 +7627,4 @@ FUN_007b7836	0x003B7836	260	blocked	no callers prove 3-arg free-function types p
 ?tossEmitters@W3DTankDraw@@IAEXXZ	0x000CE7B4	131	blocked	ebx-edi mirror persists after zero-self reorder t=15 model=muse-01 (stash 0.95 kept)
 ?rva004DCC84@Rva004DCC84@@QAEXPAXH@Z	0x004DCC84	461	blocked	large 461B EH Lua dispatch unknown class no donor t=15 model=muse-spark
 ?rva0042B038@Rva0042B038@@QAEXPAX000@Z	0x0042B038	48	partial	edi holds end not this pos cached in ebx not reloaded missing dummy push and mov ecx edi -2B t=25 model=muse-14 score=0.93 stash=reverse/attempts/0x0042b038.cpp
+?rva005BA3AD@Rva005BA3AD@@QAEXXZ	0x005BA3AD	19	blocked	int to bool arg always normalizes test setne in 6 probe spellings t=20 model=muse-09
