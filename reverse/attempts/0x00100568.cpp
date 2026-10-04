@@ -1,4 +1,6 @@
 // ?rva00100568@?$SimpleDynVecClass@VVector3@@@@QAEXXZ
+// partial score=0.93 date=2026-10-04
+// ?rva00100568@?$SimpleDynVecClass@VVector3@@@@QAEXXZ
 // partial score=0.93 date=2026-10-02
 // cl: /O1 /G7 /arch:SSE /MD
 //
