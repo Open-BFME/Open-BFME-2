@@ -1,7 +1,4 @@
 // ?rva006FEC00@@YAEHHPAVEAStringC@@PAH0@Z
-// partial score=0.88 date=2026-10-04
-// ?rva006FEC00@@YAEHHPAVEAStringC@@PAH0@Z
-// partial score=0.88 date=2026-10-04
 // cl: /O2 /MD
 // Address-derived Apt string worker next to the banked
 // ?rva006FEB50@AptActionInterpreter@@QAEXXZ (0x006FEB50), in the same Apt
@@ -90,7 +87,7 @@ public:
 // push &buf, push ecx (arg4), push esi (arg3), push edx (strict, arg2),
 // reload edx = outString (arg1), push edx. The register reuse of edx across
 // two arguments is what the hoisted strict flag enables.
-unsigned char __cdecl rva006FD100(EAStringC *outString, int strict,
+unsigned char __cdecl rva006FD100(int value, int strict,
 	EAStringC *src, int *resultSlot, char *buf);
 
 // Retail stack layout, after sub esp,0x104 / push esi: value at esp+0x118,
@@ -122,9 +119,8 @@ unsigned char rva006FEC00(int value, int allowEmpty, EAStringC *src,
 	}
 
 	char buf[0x100];
-	unsigned char ok = rva006FD100(outString, allowEmpty, src, resultSlot, buf);
+	unsigned char ok = rva006FD100(value, allowEmpty, src, resultSlot, buf);
 	EAStringC tmp(buf);
 	*outString = tmp;
-	tmp.~EAStringC();
 	return ok;
 }
