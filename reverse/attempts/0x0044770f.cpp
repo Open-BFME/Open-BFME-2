@@ -1,85 +1,133 @@
-// ?rva0044770F@GameSlot@@QBE_NXZ
-// partial score=0.98 date=2026-09-29
-// ?rva0044770F@GameSlot@@QBE_NXZ
-// partial score=0.98 date=2026-09-29
-// ?rva0044770F@GameSlot@@QBE_NXZ
-// partial score=0.98 date=2026-09-29
-// cl: /O1 /G7 /Oy- /DNDEBUG /MD
+// ?isLocalPlayer@LANGameSlot@@QBE_NXZ
+// partial score=0.94 date=2026-10-04
+// cl: /O1 /DNDEBUG /MD
 //
-// ?rva0044770F@GameSlot@@QBE_NXZ, retail 0x0044770F, 100 bytes.
-// Chain via BfmeNetAddress compare 0x00248CBF plus GameSlot isHuman 0x003FF0F1
-// plus null-checked global 0x009FE958 slot 64 returning address plus embedded
-// address at GameSlot+0x38 plus port bump by 8 on the copied address.
+// LANGameInfo::getLocalSlotNum, retail 0x00447794 (51 bytes), and
+// LANGameInfo::resetAccepted, retail 0x004477E0 (47 bytes): slots 13 and 14
+// of vtable 0x00C3E518, whose unique slot-2 name getter returns
+// "LANGameInfo"; in the GameInfo vtable the same slots hold the rowed
+// GameInfo::getLocalSlotNum and resetAccepted, which Zero Hour's LANGameInfo
+// overrides. Ported from Zero Hour's GameEngine/Source/GameNetwork/
+// LANGameInfo.cpp (GeneralsMD tree vendored under
+// reference/open-bfme-1/inputs/reference).
+// Callees: getConstLANSlot is the rowed opaque indexer 0x00447773 (slots of
+// 0x1D0 bytes from +0xDC, MAX_SLOTS 8), pinned by its Zero Hour name;
+// LANGameSlot::isLocalPlayer is pinned at 0x0044770F; GameSlot::unAccept is
+// rowed.
+// BFME 2 differences: getLocalSlotNum keeps one result and a single exit;
+// resetAccepted only resets TheLAN's start timer (its
+// vslot 31; TheLAN is the rowed global g_Va009FE958) before unaccepting the
+// slots, without Zero Hour's host start-button refresh.
+// LANGameSlot::isLocalPlayer, retail 0x0044770F (100 bytes): Zero Hour's
+// isHuman() && TheLAN && local IP == slot IP, where BFME 2 compares 8-byte
+// addresses (TheLAN vslot 64 returns the local one; the slot's is at +0x38)
+// through the pinned BfmeNetAddress::Rva00248CBF, and on a mismatch tries
+// once more with the local port raised by 8.
+// Layout: m_inGame +0x10.
+typedef bool Bool;
+typedef int Int;
 typedef unsigned int UnsignedInt;
 typedef unsigned short UnsignedShort;
-typedef unsigned char UnsignedByte;
-typedef int Int;
-typedef bool Bool;
 struct BfmeNetAddress
 {
 	bool Rva00248CBF(const BfmeNetAddress *other) const;
-	UnsignedInt ip;
-	UnsignedShort port;
+	UnsignedInt m_ip;
+	UnsignedShort m_port;
 };
-struct Global009FE958
+enum
 {
-	virtual int v00(); virtual int v01(); virtual int v02(); virtual int v03();
-	virtual int v04(); virtual int v05(); virtual int v06(); virtual int v07();
-	virtual int v08(); virtual int v09(); virtual int v10(); virtual int v11();
-	virtual int v12(); virtual int v13(); virtual int v14(); virtual int v15();
-	virtual int v16(); virtual int v17(); virtual int v18(); virtual int v19();
-	virtual int v20(); virtual int v21(); virtual int v22(); virtual int v23();
-	virtual int v24(); virtual int v25(); virtual int v26(); virtual int v27();
-	virtual int v28(); virtual int v29(); virtual int v30(); virtual int v31();
-	virtual int v32(); virtual int v33(); virtual int v34(); virtual int v35();
-	virtual int v36(); virtual int v37(); virtual int v38(); virtual int v39();
-	virtual int v40(); virtual int v41(); virtual int v42(); virtual int v43();
-	virtual int v44(); virtual int v45(); virtual int v46(); virtual int v47();
-	virtual int v48(); virtual int v49(); virtual int v50(); virtual int v51();
-	virtual int v52(); virtual int v53(); virtual int v54(); virtual int v55();
-	virtual int v56(); virtual int v57(); virtual int v58(); virtual int v59();
-	virtual int v60(); virtual int v61(); virtual int v62(); virtual int v63();
-	virtual BfmeNetAddress *v64();
+	MAX_SLOTS = 8
 };
-extern Global009FE958 *g_009FE958;
+template <int N> class VSlots : public VSlots<N - 1>
+{
+public:
+	virtual void gap(char (*)[N]) = 0;
+};
+template <> class VSlots<0>
+{
+};
+struct Global009FE958 : public VSlots<31>
+{
+	virtual void ResetGameStartTimer(void) = 0;
+	virtual void slot32() = 0; virtual void slot33() = 0; virtual void slot34() = 0; virtual void slot35() = 0;
+	virtual void slot36() = 0; virtual void slot37() = 0; virtual void slot38() = 0; virtual void slot39() = 0;
+	virtual void slot40() = 0; virtual void slot41() = 0; virtual void slot42() = 0; virtual void slot43() = 0;
+	virtual void slot44() = 0; virtual void slot45() = 0; virtual void slot46() = 0; virtual void slot47() = 0;
+	virtual void slot48() = 0; virtual void slot49() = 0; virtual void slot50() = 0; virtual void slot51() = 0;
+	virtual void slot52() = 0; virtual void slot53() = 0; virtual void slot54() = 0; virtual void slot55() = 0;
+	virtual void slot56() = 0; virtual void slot57() = 0; virtual void slot58() = 0; virtual void slot59() = 0;
+	virtual void slot60() = 0; virtual void slot61() = 0; virtual void slot62() = 0; virtual void slot63() = 0;
+	virtual const BfmeNetAddress *GetLocalAddress(void) = 0;
+};
+extern Global009FE958 *g_Va009FE958;
+#define TheLAN g_Va009FE958
 class GameSlot
 {
 public:
-	Bool isHuman() const;
-	Bool rva0044770F() const;
-private:
-	void *m_vtable;
-	Int m_state;
-	Bool m_isAccepted;
-	Bool m_hasMap;
-	Bool m_isMuted;
-	char m_pad0B[1];
-	Int m_color;
-	Int m_startPos;
-	Int m_bfme14;
-	Int m_playerTemplate;
-	Int m_teamNumber;
-	Int m_bfme20;
-	Int m_origColor;
-	Int m_origStartPos;
-	Int m_origPlayerTemplate;
-	char m_pad30[8];
-	BfmeNetAddress m_addr38;
+	void unAccept(void);
+	Bool isHuman(void) const;
 };
-// ?rva0044770F@GameSlot@@QBE_NXZ present-unmatched
-Bool GameSlot::rva0044770F() const
+class LANGameSlot : public GameSlot
 {
-	if (!isHuman())
-		return false;
-	Global009FE958 *g = g_009FE958;
-	if (g != 0)
+public:
+	Bool isLocalPlayer(void) const;
+private:
+	unsigned char m_pad00[0x38];
+	BfmeNetAddress m_address; // +0x38
+	unsigned char m_pad40[0x1D0 - 0x40];
+};
+class LANGameInfo
+{
+public:
+	virtual Int getLocalSlotNum(void) const;
+	virtual void resetAccepted(void);
+	const LANGameSlot *getConstLANSlot(Int slotNum) const;
+private:
+	unsigned char m_pad04[0x10 - 0x04];
+	Bool m_inGame; // +0x10
+	unsigned char m_pad11[0xDC - 0x11];
+	LANGameSlot m_LANSlot[MAX_SLOTS]; // +0xDC
+};
+
+Bool LANGameSlot::isLocalPlayer( void ) const
+{
+	if (isHuman() && TheLAN)
 	{
-		const BfmeNetAddress *mine = &m_addr38;
-		if (g->v64()->Rva00248CBF(mine))
+		if (TheLAN->GetLocalAddress()->Rva00248CBF(&m_address))
 			return true;
-		BfmeNetAddress tmp = *g_009FE958->v64();
-		tmp.port += 8;
-		return tmp.Rva00248CBF(mine);
+		BfmeNetAddress alternate = *TheLAN->GetLocalAddress();
+		alternate.m_port += 8;
+		return alternate.Rva00248CBF(&m_address);
 	}
 	return false;
+}
+
+Int LANGameInfo::getLocalSlotNum( void ) const
+{
+	Int localSlot = -1;
+	if (m_inGame)
+	{
+		for (Int i=0; i<MAX_SLOTS; ++i)
+		{
+			const LANGameSlot *slot = getConstLANSlot(i);
+			if (slot->isLocalPlayer())
+			{
+				localSlot = i;
+				break;
+			}
+		}
+	}
+	return localSlot;
+}
+
+void LANGameInfo::resetAccepted( void )
+{
+	if (TheLAN)
+	{
+		TheLAN->ResetGameStartTimer();
+	}
+	for(int i = 0; i< MAX_SLOTS; i++)
+	{
+		m_LANSlot[i].unAccept();
+	}
 }
