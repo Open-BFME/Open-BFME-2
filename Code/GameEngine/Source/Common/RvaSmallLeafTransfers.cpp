@@ -342,3 +342,22 @@ Rva00665660 *Rva00665660::copyWord4(const Rva00665660 *other)
     m_word4 = other->m_word4;
     return this;
 }
+
+// BFME1 donor revision 775a0370b7:
+// game/GameEngine/Source/GameNetwork/Rva007F4850FieldReset.cpp, full unit.
+// Target 0x00661300/15 is padding-isolated: its only writes zero the four
+// receiver words at +8, +C, +10 and +14. It returns without stack arguments.
+// This unsigned-word ABI view preserves those bit writes only; original
+// field types, owner identity and full layout are not established.
+class Rva00661300
+{
+public:
+    void clearWords8();
+private:
+    char m_unmodelled0[8];
+    unsigned int m_words8[4];
+};
+void Rva00661300::clearWords8()
+{
+    for (int i=0;i<4;++i) m_words8[i]=0;
+}
