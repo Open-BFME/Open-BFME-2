@@ -52649,3 +52649,4 @@ _Rva0088E190TimerTick@16,,0x0003D870,9,Code/Libraries/Source/WWVegas/WWDebug/Rva
 ?rva004DF3B0@Rva004DF2E2@@QAEXPAX@Z,,0x004DF3B0,72,Code/GameEngine/Source/Common/Rva004DF3B0.cpp,matched,chain via findObjectByID 0x0028BC05 and 0x004DF2E2 caller 0x0028BBEB
 ??0Rva003085FB@@QAE@PAXPAVBfmeParserRegistryVE@@PBVAsciiString@@@Z,,0x003085FB,104,Code/GameEngine/Source/Common/Rva003085FB.cpp,matched,unlock lane caller 0x000AF3C3 same caller as AEFAA-AEF42 via StandingWaterAreas
 ?Rva003C0DE1Do@@YGXABVAsciiString@@_N@Z,,0x003C0DE1,81,Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003C0DE1Do.cpp,matched,team helper via getTeamNamed iterate Rva-advance caller 0x003CCFD1
+?rva0059EB90@@YAXPAVINI@@PAVGen_00489270@@@Z,,0x0035DBA2,81,Code/GameEngine/Source/Common/Rva0059EB90IniParse_Rva0035DBA2.cpp,matched,BFME1 donor game/GameEngine/Source/Common/Rva0059EB90IniParse.cpp recompiled /Os; unique masked placement on unclaimed .text
