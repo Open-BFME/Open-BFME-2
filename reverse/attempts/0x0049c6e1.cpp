@@ -1,5 +1,5 @@
 // ?rva0049C6E1@Rva0049C6E1@@QAE_NPAVObject@@@Z
-// partial score=0.93 date=2026-10-04
+// partial score=0.96 date=2026-10-04
 // cl: /O1 /DNDEBUG /MD
 //
 // ?rva0049C6E1@Rva0049C6E1@@QAE_NPAVObject@@@Z @0x0049C6E1 89B. Upgrade check via
@@ -77,24 +77,23 @@ bool Rva0049C6E1::rva0049C6E1(Object *arg)
 	void *upgrade = ((Rva0026F0F0 *)TheUpgradeCenter)->rva0026F0F0((const void *)((char *)m_ptr08 + 0x284));
 	if (upgrade == 0)
 		goto ret_false;
+	unsigned char ok;
 	if (arg->m_int274 != 0)
 	{
 		void *prov = ((Rva0049C5F4 *)this)->rva0049C5F4(arg);
 		if (prov == 0)
 			goto ret_false;
-		unsigned char ok = ((Rva0049C6E1Prov *)prov)->slot43(upgrade);
-		if (!ok)
-			goto ret_false;
+		ok = ((Rva0049C6E1Prov *)prov)->slot43(upgrade);
 	}
 	else
 	{
-		unsigned char ok = ((BfmeArg985 *)arg)->bfmeHas985C((int)upgrade);
-		if (!ok)
-			goto ret_false;
+		ok = ((BfmeArg985 *)arg)->bfmeHas985C((int)upgrade);
 	}
+	if (ok == 0)
+		goto ret_false;
 	goto ret_true;
-ret_false:
-	return false;
 ret_true:
 	return true;
+ret_false:
+	return false;
 }

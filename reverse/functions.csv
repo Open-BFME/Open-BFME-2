@@ -55062,3 +55062,4 @@ rva007916E1_constructor_unwind,,0x007916E1,11,Code/GameEngine/Source/Common/INI/
 ?Rva003BCA43Do@@YGXABVAsciiString@@@Z,,0x003BCA43,26,Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003BCA43Do.cpp,matched,undoNamedMapReveal then tail rva00357D52 via g_Va009FE16C
 ?rva005DCAF4@Rva005DC87B@@QAE_NXZ,,0x005DCAF4,25,Code/GameEngine/Source/Common/Rva005DCAF4.cpp,matched,bool getter via object bit
 ??1Rva001ED41B@@UAE@XZ,,0x001ED41B,91,Code/GameEngine/Source/Common/Rva001ED41BDtor.cpp,matched,pin plus caller 0x001ED530 deleting dtor plus vector 0x001ED363 plus clear 0x000AD6F4 plus base 0x001B4E74
+??_GRva005E0DC0@@QAEPAXI@Z,,0x005E11E8,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_Rva005E0DC0.cpp,matched,chain from 0x005E0DC0 landing via rowed dtor plus delete

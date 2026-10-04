@@ -8061,3 +8061,5 @@ rva007916E1_constructor_unwind	0x007916E1	11	converted	Normal full11B exact on r
 ?rva003B8D71@BfmeGlobal_012f1024@@QAEXPAX@Z	0x003B8D71	102	blocked	globals unresolved, 2 memory diffs on g addrs t=5 model=muse-spark
 ?rva003B8CAC@Rva003B8CAC@@QAE_NXZ	0x003B8CAC	52	partial	reg swap eax-edx plus jb-vs-jae layout, sar+unsigned compare t=25 model=muse-spark score=0.93 stash=reverse/attempts/0x003b8cac.cpp
 ?Rva002BEF4BGet@@YGXPAVRva002BEF4BObj@@@Z	0x002BEF4B	154	partial	inc eax push eax spill vs inc mem push mem plus tmp-cur slots swapped t=20 model=muse-01 score=0.93 stash=reverse/attempts/0x002bef4b.cpp
+?rva005973D8@Rva005973D8@@QAEHXZ	0x005973D8	78	blocked	mov edi-TheGameLogic vs mov ebx-id order swapped plus jne ret_zero vs je ret_one with inc placement t=20 model=muse-12 (stash 0.93 kept)
+?rva0049C6E1@Rva0049C6E1@@QAE_NPAVObject@@@Z	0x0049C6E1	89	partial	pin shared test after else via single ok plus true-first vs false-first with je vs jne t=18 model=muse-12 score=0.96 stash=reverse/attempts/0x0049c6e1.cpp
