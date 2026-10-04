@@ -80,3 +80,17 @@ Rva000A435C::Rva000A435C(void *context)
 {
 	*(const void **)this = g_00BC91AC;
 }
+
+extern const void *const g_00BC91D8[];
+
+class Rva000A43A4 : public Rva000A435C
+{
+public:
+	Rva000A43A4(void *context);
+};
+
+Rva000A43A4::Rva000A43A4(void *context)
+	: Rva000A435C(context)
+{
+	*(const void **)this = g_00BC91D8;
+}
