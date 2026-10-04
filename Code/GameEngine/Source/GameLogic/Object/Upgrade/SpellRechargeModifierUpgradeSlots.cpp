@@ -1,7 +1,7 @@
 // cl: /O1 /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
 // stlport
 //
-// SpellRechargeModifierUpgrade overrides on the vtables its matched ctor
+// Three SpellRechargeModifierUpgrade overrides on the vtables its matched ctor
 // 0x004B5D7D installs: the upgrade mux 0x00C58368 at +0x10 and the 4-slot
 // interface 0x00C58358 at +0x1C (the ctor also sets the bool at +0x20). Each
 // is compiled with its subobject this. The controlling player's counter and
@@ -10,7 +10,10 @@
 // modifiers come from the module data's float vector at +0x118, indexed by
 // the counter minus one, clamped to the vector. Names are by address.
 //
-// Mux slots 10 (0x004B5F9F) and 8 (0x004B5E46) are banked near-misses.
+// ?rva004B5F9F@SpellRechargeModifierUpgrade@@UAEXXZ, retail 0x004B5F9F, 114
+// bytes: mux slot 10; counts one more upgrade and applies its modifier.
+// ?rva004B5E46@SpellRechargeModifierUpgrade@@UAEXXZ, retail 0x004B5E46, 126
+// bytes: mux slot 8; when mux slot 0 holds, counts one fewer and reapplies.
 // ?rva004B5DDC@SpellRechargeModifierUpgrade@@UAEXXZ, retail 0x004B5DDC, 42
 // bytes: +0x1C slot 1; with the module data's +0x124 flag runs mux slots 10
 // and 9 (1), then sets +0x20.
@@ -37,6 +40,28 @@ struct SpellRechargeModifierUpgradeModuleData
 	_STL::vector<float> m_modifiers; // +0x118
 	bool m_124; // +0x124
 };
+
+// The clamps compare as (a < b) ? a : b and (a > b) ? a : b, the operand
+// order retail tests (STLport's min and max test b < a and a < b), and the
+// index lives in one variable throughout: that is what puts it in the first
+// of the two stack temporaries both clamps share, as retail does.
+template <class T> inline const T &lowerOf(const T &a, const T &b)
+{
+	return (a < b) ? a : b;
+}
+template <class T> inline const T &higherOf(const T &a, const T &b)
+{
+	return (a > b) ? a : b;
+}
+
+static __forceinline void applyModifier(Player *player, const SpellRechargeModifierUpgradeModuleData *data)
+{
+	int index = ((Rva002AA0B8DwordField *)player)->get() - 1;
+	index = higherOf(index, 0);
+	int last = (int)data->m_modifiers.size() - 1;
+	index = lowerOf(index, last);
+	((Rva002AA0CDFloatField *)player)->set(data->m_modifiers[index]);
+}
 
 class BehaviorModule
 {
@@ -77,10 +102,34 @@ public:
 class SpellRechargeModifierUpgrade : public UpgradeModule, public UpgradeIface18, public Rva004B5DDCIface
 {
 public:
+	virtual void rva004B5F9F();
+	virtual void rva004B5E46();
 	virtual void rva004B5DDC();
 private:
 	bool m_20; // +0x20
 };
+
+// ?rva004B5F9F@SpellRechargeModifierUpgrade@@UAEXXZ @0x004B5F9F
+void SpellRechargeModifierUpgrade::rva004B5F9F()
+{
+	Player *player = m_object->getControllingPlayer();
+	const SpellRechargeModifierUpgradeModuleData *data = m_moduleData;
+	((Rva002AA0BFDwordCounter *)player)->inc();
+	applyModifier(player, data);
+}
+
+// ?rva004B5E46@SpellRechargeModifierUpgrade@@UAEXXZ @0x004B5E46
+void SpellRechargeModifierUpgrade::rva004B5E46()
+{
+	if (!slot0())
+		return;
+	const SpellRechargeModifierUpgradeModuleData *data = m_moduleData;
+	Player *player = m_object->getControllingPlayer();
+	if (!player)
+		return;
+	((Rva002AA0C6DwordCounter *)player)->dec();
+	applyModifier(player, data);
+}
 
 // ?rva004B5DDC@SpellRechargeModifierUpgrade@@UAEXXZ @0x004B5DDC
 void SpellRechargeModifierUpgrade::rva004B5DDC()
