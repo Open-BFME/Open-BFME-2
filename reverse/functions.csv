@@ -53015,3 +53015,4 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ?Rva004A452BUpdate@@YAXPAX00@Z,,0x004A452B,85,Code/GameEngine/Source/GameLogic/Object/Update/Rva004A452B.cpp,matched,free update over 5 groups via rowed callees
 ?Rva004C7EC7Update@@YAXPAX00@Z,,0x004C7EC7,52,Code/GameEngine/Source/GameLogic/Object/SpecialPower/Rva004C7EC7.cpp,matched,free update via rowed callees same args
 ?rva003F5DBD@Rva003F5DBD@@QAEXPAXH@Z,,0x003F5DBD,130,Code/Libraries/Source/WWVegas/WWLib/Rva003F5DBD.cpp,matched,this+4 Gen vector this+10 ScienceType vector via rowed callees
+?rva0026163A@Rva0026163A@@QAE_NPBUCoord3D@@@Z,,0x0026163A,151,Code/GameEngine/Source/Common/Rva0026163A.cpp,matched,finish stash nested ai true-share plus bool blocked branch

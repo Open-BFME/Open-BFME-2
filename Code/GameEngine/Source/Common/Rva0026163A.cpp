@@ -1,5 +1,3 @@
-// ?rva0026163A@Rva0026163A@@QAE_NPBUCoord3D@@@Z
-// partial score=0.95 date=2026-10-04
 // cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
 // ?rva0026163A@Rva0026163A@@QAE_NPBUCoord3D@@@Z RVA 0x0026163A 151B
 // Evidence: calls GeometryInfo::getMaxHeightAbovePosition 0x006BD7C0, TheTerrainLogic virtual +0x3c,
@@ -73,7 +71,6 @@ public:
 	bool rva0026163A(const Coord3D *target);
 };
 
-// ?rva0026163A@Rva0026163A@@QAE_NPBUCoord3D@@@Z present-unmatched
 bool Rva0026163A::rva0026163A(const Coord3D *target)
 {
 	Coord3D sourcePos;
@@ -88,11 +85,12 @@ bool Rva0026163A::rva0026163A(const Coord3D *target)
 	if (!TheTerrainLogic->checkClear(&sourcePos, &targetPos))
 		return false;
 	AI *ai = g_Va009FF0F8;
-	if (!ai)
-		return true;
-	Pathfinder *pf = ai->m_pathfinder;
-	unsigned char blocked = pf->isAttackViewBlockedByObstacle(m_obj, &targetPos);
-	if (blocked)
-		return false;
+	if (ai != 0)
+	{
+		Pathfinder *pf = ai->m_pathfinder;
+		bool blocked = pf->isAttackViewBlockedByObstacle(m_obj, &targetPos);
+		if (blocked)
+			return false;
+	}
 	return true;
 }
