@@ -52643,3 +52643,4 @@ _Rva0088E190TimerTick@16,,0x0003D870,9,Code/Libraries/Source/WWVegas/WWDebug/Rva
 ??0Rva0004708A@@QAE@XZ,,0x0004708A,22,Code/GameEngine/Source/Common/Rva0004708ACtor.cpp,matched,ctor zero ints plus member via callee row caller 0x0004B36B
 ?rva0028BBF3@Object@@QAEXPAV1@@Z,,0x0028BBF3,18,Code/GameEngine/Source/Common/ObjectRva0028BBF3.cpp,matched,chain via 0x004DF2FC holder at 0x23C caller onExit 0x003513A4
 ?rva002C693B@Rva002C693B@@QAEXXZ,,0x002C693B,258,Code/GameEngine/Source/Common/Rva002C693BMethod.cpp,matched,honest-address thiscall zero store before state store defeats tail-merge
+?rva002C7196@Rva002A8AB1Record@@QAEHABVAsciiString@@@Z,,0x002C7196,52,Code/GameEngine/Source/Common/Rva002C7196Method.cpp,matched,get-or-default int via rowed contains plus rowed find plus pinned insert
