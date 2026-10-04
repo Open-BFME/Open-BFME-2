@@ -53727,3 +53727,4 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ?rva001DC1FD@GameWindowTransitionsHandler@@QAEHVAsciiString@@@Z,,0x001DC1FD,85,Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsHandlerGroups.cpp,matched,BFME 2 handler query: findGroup then TransitionGroup total frames 0x001DBDA4 or 0; caller 0x0025C97E
 ??_EPlayerList@@WM@AEPAXI@Z,,0x002A7ECD,8,Code/GameEngine/Source/Common/RTS/PlayerListDtor.cpp,matched,this-adjusting (-0xC) deleting-dtor thunk of PlayerList in its Snapshot table
 ??1Rva0050FAEC@@UAE@XZ,,0x0050FAEC,11,Code/GameEngine/Source/Common/System/Rva0050FAECDtor.cpp,matched,trivial dtor store plus tail-jmp to pinned base 0x005248D0
+?rva0050FF7F@Rva0050F5A6@@QAEHIPAVGameWindow@@I@Z,,0x0050FF7F,65,Code/GameEngine/Source/Common/System/Rva0050FF7FMethod.cpp,matched,router over array via rowed rva0050FED4 returns 1 on handled
