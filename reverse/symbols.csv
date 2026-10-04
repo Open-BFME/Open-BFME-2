@@ -9388,3 +9388,5 @@ _Rva0030CAF8CursorEqual,0x0007E394,twin of dup_0007e394 29B exact cursor equalit
 ??$copy_backward@PAUS4SortElem8B@@PAU1@@_STL@@YAPAUS4SortElem8B@@PAU1@00@Z,0x004C72FE,ICF with the rowed 8-byte copy_backward (instantiation B)
 ??MS4SortElem8@@QBE_NABU0@@Z,0x005EC52E,score-row record operator< read from the REL32s of the placed heap and insertion helpers (adjust_heap 0x0051D178 push_heap 0x005EC5F5)
 ??MS4SortElem8B@@QBE_NABU0@@Z,0x005EC52E,score-row record operator< shared by instantiation B (identical code folded)
+??$find_if@PADU?$_Eq_char_bound@V?$char_traits@D@_STL@@@_STL@@@_STL@@YAPADPAD0U?$_Eq_char_bound@V?$char_traits@D@_STL@@@0@@Z,0x00026C60
+??$__find_if@PADU?$_Eq_char_bound@V?$char_traits@D@_STL@@@_STL@@@_STL@@YAPADPAD0U?$_Eq_char_bound@V?$char_traits@D@_STL@@@0@ABUrandom_access_iterator_tag@0@@Z,0x00025B80
