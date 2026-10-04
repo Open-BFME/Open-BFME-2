@@ -767,3 +767,37 @@ int Rva00203665::rva00203665()
 {
 	return ((Rva00203665Data *)TheWritableGlobalData)->m_valueAC8;
 }
+
+// 0x00345F76: 0 when bit 0x2000 of the +0x114 word four links down (+0x18,
+// +0x14, +4) is set, else -2.
+struct Rva00345F76Leaf
+{
+	char m_pad00[0x114];
+	unsigned int m_flags114;
+};
+
+struct Rva00345F76Mid
+{
+	char m_pad00[4];
+	Rva00345F76Leaf *m_leaf04;
+};
+
+struct Rva00345F76Top
+{
+	char m_pad00[0x14];
+	Rva00345F76Mid *m_mid14;
+};
+
+class Rva00345F76
+{
+public:
+	int rva00345F76();
+private:
+	char m_pad00[0x18];
+	Rva00345F76Top *m_top18;
+};
+
+int Rva00345F76::rva00345F76()
+{
+	return (m_top18->m_mid14->m_leaf04->m_flags114 & 0x2000) ? 0 : -2;
+}

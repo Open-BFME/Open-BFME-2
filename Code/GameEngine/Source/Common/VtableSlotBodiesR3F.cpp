@@ -398,3 +398,18 @@ float Rva003ABEFD::rva003F7257(int, int)
 {
 	return 0.0f;
 }
+
+// 0x00101CA0: the byte at +0x18 as a float (through a stack slot, fild).
+class Rva00101CA0
+{
+public:
+	float rva00101CA0();
+private:
+	char m_pad00[0x18];
+	unsigned char m_value18;
+};
+
+float Rva00101CA0::rva00101CA0()
+{
+	return (float)m_value18;
+}
