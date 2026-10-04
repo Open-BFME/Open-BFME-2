@@ -1,4 +1,6 @@
 // ?rva007097B0@AptScriptFunctionBase@@SAHPAX@Z
+// partial score=0.98 date=2026-10-05
+// ?rva007097B0@AptScriptFunctionBase@@SAHPAX@Z
 // partial score=0.98 date=2026-10-04
 // ?rva007097B0@AptScriptFunctionBase@@SAHPAX@Z
 // partial score=0.98 date=2026-10-04
