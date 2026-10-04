@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /O1 /DNDEBUG /MD /GX /arch:SSE
 //
 // ModelConditionSpecialAbilityUpdate's slot-22 override (vftable whose
 // slot-2 name getter returns "ModelConditionSpecialAbilityUpdate"; rowed
@@ -16,8 +16,90 @@
 // Slot 13, where the SpecialAbilityUpdate vftable holds the rowed onExit
 // 0x004502CE: runs it, then clears the bit slot 22 set (same choice by module
 // data +0xC8) and notifies when it was set.
+//
+// ?rva0045108D@ModelConditionSpecialAbilityUpdate@@UAEXXZ, retail 0x00490FAE, 313 bytes.
+// Slot 17 (vftable 0x0084D7C8): after SpecialAbilityUpdate's slot 17, when
+// the module data's +0xCC or +0xCD flag is set, hand every object within its
+// +0xD0 radius that the player's relationship flag 4 accepts, other than the
+// owner, and that passes the 0x002614EC filter over the data's +0xD4 and the
+// owner's player, to 0x0028EC68 (6 for +0xCC, 5 for +0xCD; the owner; 1).
+// The filters are BFME2's partition filter chain (the view
+// AIStructureCreepTactic.cpp documents).
 
 class ModuleData;
+class Object;
+class Player;
+
+class Rva000421C8
+{
+public:
+	Rva000421C8() : m_next(0) {}
+	virtual ~Rva000421C8() {}
+	virtual bool allow(Object *obj) = 0;
+	virtual int getPlayerMask();
+	Rva000421C8 *link(Rva000421C8 *next);	// 0x00625790
+	Rva000421C8 *m_next;
+};
+
+// vftable 0x00BF91BC, allow 0x002611BF.
+class Rva002611BFFilter : public Rva000421C8
+{
+public:
+	Rva002611BFFilter(const Object *obj) : m_obj(obj) {}
+	virtual bool allow(Object *obj);
+	const Object *m_obj;
+};
+
+// vftable 0x00BCECF0, allow 0x002614EC: +0x08 what to compare, +0x0C a
+// player, +0x10 whether a hit allows.
+class Rva002614ECFilter : public Rva000421C8
+{
+public:
+	Rva002614ECFilter(const void *what, Player *player, bool match)
+		: m_what(what), m_player(player), m_match(match) {}
+	virtual bool allow(Object *obj);
+	const void *m_what;
+	Player *m_player;
+	bool m_match;
+};
+
+// vftable 0x00C004D8, allow 0x00261409: the player's relationship to the
+// object's team against the +0x10 flags, +0x0C whether a hit allows.
+class Rva00261409Filter : public Rva000421C8
+{
+public:
+	Rva00261409Filter(Player *player, bool match, int flags)
+		: m_player(player), m_match(match), m_flags(flags) {}
+	virtual bool allow(Object *obj);
+	virtual int getPlayerMask();
+	Player *m_player;
+	bool m_match;
+	int m_flags;
+};
+
+#pragma comment(linker, "/alternatename:?getPlayerMask@Rva000421C8@@UAEHXZ=?Get_File_Handle@FileClass@@UAEPAXXZ")
+
+struct Coord3D
+{
+	float x;
+	float y;
+	float z;
+};
+
+struct BfmeWideResult
+{
+	Object *next() throw();	// 0x00045623
+	~BfmeWideResult();	// 0x0004AA28
+	void *m_value;
+};
+
+class PartitionManager
+{
+public:
+	BfmeWideResult iterateObjectsInRange(const Coord3D *pos, float radius, int distCalc,
+		Rva000421C8 *filters, int order);	// 0x00625610
+};
+extern PartitionManager *ThePartitionManager;
 
 class Rva0010CBits
 {
@@ -42,7 +124,13 @@ class Object
 {
 public:
 	void rva0028AE6D();
-	unsigned char m_pad000[0x10C];
+	Player *getControllingPlayer() const;	// 0x0028AFA9
+	void bfmeApplySpecialModelCondition(int a, const void *b, int c);	// 0x0028EC68
+	void applyFrom(int a, Object *source) { bfmeApplySpecialModelCondition(a, source, 1); }
+	const Coord3D *getPosition() const { return &m_pos; }
+	unsigned char m_pad000[0x38];
+	Coord3D m_pos;	// +0x38
+	unsigned char m_pad044[0x10C - 0x44];
 	Rva0010CBits m_conditionBits; // +0x10C
 };
 
@@ -68,6 +156,10 @@ struct ModelConditionSpecialAbilityUpdateModuleData
 {
 	unsigned char m_pad00[0xC8];
 	int m_C8;
+	bool m_CC;
+	bool m_CD;
+	float m_D0;	// +0xD0 the radius
+	char m_D4[4];	// +0xD4 what the 0x002614EC filter compares
 };
 
 class ModelConditionSpecialAbilityUpdate;
@@ -76,10 +168,12 @@ class SpecialAbilityUpdate
 {
 	friend class ModelConditionSpecialAbilityUpdate;
 public:
+	virtual void rva0045108D();
 	virtual void rva004508B7();
 private:
 	void onExit(bool a, bool b);
 protected:
+	Object *getObject() const { return m_object; }
 	const ModuleData *m_moduleData; // +0x04
 	Object *m_object; // +0x08
 	unsigned char m_pad0C[0x24 - 0x0C];
@@ -89,6 +183,7 @@ protected:
 class ModelConditionSpecialAbilityUpdate : public SpecialAbilityUpdate
 {
 public:
+	virtual void rva0045108D();
 	virtual void rva004508B7();
 protected:
 	virtual void onExit(bool a, bool b);
@@ -144,4 +239,23 @@ void ModelConditionSpecialAbilityUpdate::onExit(bool a, bool b)
 		clearModelConditionBit(object, 6 * 32 + 21);
 		break;
 	}
+}
+
+void ModelConditionSpecialAbilityUpdate::rva0045108D()
+{
+	SpecialAbilityUpdate::rva0045108D();
+	const ModelConditionSpecialAbilityUpdateModuleData *data =
+		(const ModelConditionSpecialAbilityUpdateModuleData *)m_moduleData;
+	if (data && (data->m_CC || data->m_CD)) {
+	BfmeWideResult hits = ThePartitionManager->iterateObjectsInRange(getObject()->getPosition(), data->m_D0, 0,
+		Rva00261409Filter(m_object->getControllingPlayer(), true, 4).link(Rva002611BFFilter(m_object)
+			.link(&Rva002614ECFilter(data->m_D4, m_object->getControllingPlayer(), true))), 0);
+	Object *other;
+	while ((other = hits.next()) != 0) {
+		if (data->m_CC)
+			other->applyFrom(6, m_object);
+		if (data->m_CD)
+			other->applyFrom(5, m_object);
+	}
+}
 }
