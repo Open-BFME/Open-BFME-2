@@ -54655,3 +54655,4 @@ _Rva00669500@8,,0x00669500,13,Code/GameEngine/Source/Common/RvaSmallLeafTransfer
 ?rva007B8503@@YAXXZ,,0x007B8503,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
 ?rva007B850D@@YAXXZ,,0x007B850D,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
 ?rva007B8517@@YAXXZ,,0x007B8517,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?readNestedUserData@Rva000A2128@@QAEPAXXZ,,0x000A2128,15,Code/GameEngine/Source/Common/BfmeConv812.cpp,matched,BFME1 5cc75ddd full BfmeConv433 source lead; two native5C4ACD calls use existing pointer-return accessor ABI; original wrapper owner/prototype unknown
