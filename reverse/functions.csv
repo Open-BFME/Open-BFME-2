@@ -19510,12 +19510,12 @@ uw_00767b5b,,0x00767B5B,11,Code/Libraries/Source/WWVegas/WW3D2/MeshModelClassMak
 uw_00767b66,,0x00767B66,11,Code/Libraries/Source/WWVegas/WW3D2/MeshModelClassMakeGeometryUnique.cpp,matched,gen-funclet;object-symbol=$L2502;parent=?Make_Geometry_Unique@MeshModelClass@@QAEXXZ;unwind state 2 of FuncInfo 0x0090C5EC read from the parent prolog handler stub; emitted by the parent C++ in this TU
 uw_00767b71,,0x00767B71,11,Code/Libraries/Source/WWVegas/WW3D2/MeshModelClassMakeGeometryUnique.cpp,matched,gen-funclet;object-symbol=$L2503;parent=?Make_Geometry_Unique@MeshModelClass@@QAEXXZ;unwind state 3 of FuncInfo 0x0090C5EC read from the parent prolog handler stub; emitted by the parent C++ in this TU
 uw_00767b7c,,0x00767B7C,11,Code/Libraries/Source/WWVegas/WW3D2/MeshModelClassMakeGeometryUnique.cpp,matched,gen-funclet;object-symbol=$L2504;parent=?Make_Geometry_Unique@MeshModelClass@@QAEXXZ;unwind state 4 of FuncInfo 0x0090C5EC read from the parent prolog handler stub; emitted by the parent C++ in this TU
-uw_00767ba0,,0x00767BA0,8,Code/gen_small/uw_gen_010.cpp,matched,gen-funclet;object-symbol=$L6167
-uw_00767ba8,,0x00767BA8,14,Code/gen_small/uw_gen_010.cpp,matched,gen-funclet;object-symbol=$L6016
-uw_00767bb6,,0x00767BB6,11,Code/gen_small/uw_gen_008.cpp,matched,gen-funclet;object-symbol=$L3007
-uw_00767bc1,,0x00767BC1,11,Code/gen_small/uw_gen_008.cpp,matched,gen-funclet;object-symbol=$L3007
-uw_00767be0,,0x00767BE0,8,Code/gen_small/uw_gen_010.cpp,matched,gen-funclet;object-symbol=$L6157
-uw_00767be8,,0x00767BE8,14,Code/gen_small/uw_gen_010.cpp,matched,gen-funclet;object-symbol=$L6006
+uw_00767ba0,,0x00767BA0,8,Code/Libraries/Source/WWVegas/WW3D2/MeshModelClassDefaultCtor.cpp,matched,gen-funclet;object-symbol=$L525;parent=??0MeshModelClass@@QAE@XZ;unwind state 0 of FuncInfo 0x0090C628 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_00767ba8,,0x00767BA8,14,Code/Libraries/Source/WWVegas/WW3D2/MeshModelClassDefaultCtor.cpp,matched,gen-funclet;object-symbol=$L526;parent=??0MeshModelClass@@QAE@XZ;unwind state 1 of FuncInfo 0x0090C628 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_00767bb6,,0x00767BB6,11,Code/Libraries/Source/WWVegas/WW3D2/MeshModelClassDefaultCtor.cpp,matched,gen-funclet;object-symbol=$L527;parent=??0MeshModelClass@@QAE@XZ;unwind state 2 of FuncInfo 0x0090C628 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_00767bc1,,0x00767BC1,11,Code/Libraries/Source/WWVegas/WW3D2/MeshModelClassDefaultCtor.cpp,matched,gen-funclet;object-symbol=$L528;parent=??0MeshModelClass@@QAE@XZ;unwind state 3 of FuncInfo 0x0090C628 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_00767be0,,0x00767BE0,8,Code/Libraries/Source/WWVegas/WW3D2/MeshModelClassCopyCtor.cpp,matched,gen-funclet;object-symbol=$L497;parent=??0MeshModelClass@@QAE@ABV0@@Z;unwind state 0 of FuncInfo 0x0090C664 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_00767be8,,0x00767BE8,14,Code/Libraries/Source/WWVegas/WW3D2/MeshModelClassCopyCtor.cpp,matched,gen-funclet;object-symbol=$L498;parent=??0MeshModelClass@@QAE@ABV0@@Z;unwind state 1 of FuncInfo 0x0090C664 read from the parent prolog handler stub; emitted by the parent C++ in this TU
 uw_00767c20,,0x00767C20,8,Code/gen_small/uw_gen_010.cpp,matched,gen-funclet;object-symbol=$L6157
 uw_00767c28,,0x00767C28,14,Code/gen_small/uw_gen_010.cpp,matched,gen-funclet;object-symbol=$L6006
 uw_00767c40,,0x00767C40,8,Code/gen_small/uw_gen_010.cpp,matched,gen-funclet;object-symbol=$L6056
