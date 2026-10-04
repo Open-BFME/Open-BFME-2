@@ -19,7 +19,7 @@ public:
     virtual void UnknownSlot3();
     virtual void UnknownSlot4();
     virtual void UnknownSlot5();
-    virtual void UnknownSlot6();
+    virtual int UnknownSlot6();
     BFME2MotionChannel();
     int Type, Pivot, Count, Components;
 };
@@ -28,6 +28,7 @@ public:
     BFME2StreamMotionChannel();
     virtual bool Load(ChunkLoadClass &);
     virtual ~BFME2StreamMotionChannel();
+    virtual int UnknownSlot2();
     unsigned char EncodedHeader[20];
     unsigned char *Data;
 };
@@ -36,20 +37,21 @@ public:
     virtual void UnknownSlot3();
     virtual void UnknownSlot4();
     virtual void UnknownSlot5();
-    virtual void UnknownSlot6();
+    virtual int UnknownSlot6();
 };
 class BFME2Encoding2MotionChannel : public BFME2StreamMotionChannel {
 public:
     virtual void UnknownSlot3();
     virtual void UnknownSlot4();
     virtual void UnknownSlot5();
-    virtual void UnknownSlot6();
+    virtual int UnknownSlot6();
 };
 class BFME2Encoding0MotionChannel : public BFME2MotionChannel {
 public:
     BFME2Encoding0MotionChannel();
     virtual bool Load(ChunkLoadClass &);
     virtual ~BFME2Encoding0MotionChannel();
+    virtual int UnknownSlot6();
     unsigned short *TimeCodes;
     float *Samples;
 };
@@ -100,4 +102,30 @@ bool BFME2Encoding0MotionChannel::Load(ChunkLoadClass &chunk)
     if (Count & 1) chunk.Seek(2);
     if (chunk.Read(Samples, Components * Count * 4) != Components * Count * 4) return false;
     return true;
+}
+
+// Slot 2 of the stream channels (0x001B21D3) and slot 6 of each encoding
+// (0x001B21DE, 0x001B21F7, 0x001B2EEA) are size computations over Count
+// (+0x0C) and Components (+0x10): eight bytes per component plus four for
+// the stream header, and per encoding the payload of 16-frame blocks (9 or
+// 17 bytes per component) or of the raw time-coded samples. What they size
+// is not established, so they keep the file's slot-position names.
+int BFME2StreamMotionChannel::UnknownSlot2()
+{
+    return Components * 8 + 4;
+}
+
+int BFME2Encoding1MotionChannel::UnknownSlot6()
+{
+    return (Count + 15) / 16 * Components * 9 + 4;
+}
+
+int BFME2Encoding2MotionChannel::UnknownSlot6()
+{
+    return (Count + 15) / 16 * Components * 17 + 4;
+}
+
+int BFME2Encoding0MotionChannel::UnknownSlot6()
+{
+    return (Components * 4 + 2) * Count + 0x1C;
 }
