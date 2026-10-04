@@ -9258,3 +9258,4 @@ _Rva0030CAF8CursorEqual,0x0007E394,twin of dup_0007e394 29B exact cursor equalit
 ?Rva00339184@@YAXPBDPAX@Z,0x00339184,cdecl audio-event token parser (NoSound clears the event) called with (token; store) by the FieldParse proc 0x00339900
 ?rva001DE9C4@Eva@@QAEHPBD@Z,0x001DE9C4,Eva (the global at 0x00DFDC30) member: event index for a name; returns -1 for None (_strcmpi against 0x00BDBFE8); ret 4; called on TheEva by the FieldParse proc 0x001DEE74
 ?rva00256499@Rva00256499@@QAEXPAVINI@@PAX@Z,0x00256499,thiscall (ini; 0) self-parse with an SEH frame; ret 8; called on the store by the 16-byte FieldParse proc 0x002567EA
+?deleteNode@Rva00289371HashTable@@AAEXPAUNode@1@@Z,0x00289164,callee of ?clear@Rva00289371HashTable@@QAEXXZ at retail 0x00289392 read from its REL32 displacement; destroys node+4 (0x00288B89) then operator delete
