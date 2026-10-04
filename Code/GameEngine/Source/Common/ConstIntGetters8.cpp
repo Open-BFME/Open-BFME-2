@@ -27,12 +27,7 @@ int Rva0014A0C0Get(void)
 	return 0x00000001;
 }
 
-// ?Rva001542BDGet@@YAHXZ @ 0x001542bd (6B): returns 0x00000001.
-// Branch target (cmp / ja +6). Opaque address-derived name.
-int Rva001542BDGet(void)
-{
-	return 0x00000001;
-}
+
 
 // ?Rva0018123CGet@@YAHXZ @ 0x0018123c (6B): returns 0x00000001.
 // Conditional-skip target (cmp / jne +6). Opaque address-derived name.

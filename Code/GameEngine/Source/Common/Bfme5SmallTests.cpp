@@ -195,3 +195,21 @@ unsigned long rva0000118E(unsigned long bits)
     return (bits >> 18) & 1;
 }
 #pragma optimize("", on)
+
+// Primary semantic guide: whole BFME1 Small03fRangeClassify.cpp at
+// 5cc75ddda6455c338a5068307e587a793f96d6b3, without headers. Discovery
+// used O2/Ob1/GX-/GS; the unchanged expression also matches under this
+// home's O2/Ob1. Target 1542A0/38 is independently bounded by preceding
+// RET15429C/INT3 and final returns1542C2/1542C5 followed by INT3 before
+// next Ghidra1542D0. Native reads the low16 bits of one cdecl stack word
+// and returns32-bit zero/one for two inclusive unsigned ranges. Original
+// owner, semantic name, and character/enum interpretation remain unknown.
+#pragma optimize("t", on)
+int rva001542A0(unsigned short bits)
+{
+    if ((bits < 0x0E01 || bits > 0x0E3A) &&
+        (bits < 0x0E3F || bits > 0x0E5B))
+        return 0;
+    return 1;
+}
+#pragma optimize("", on)
