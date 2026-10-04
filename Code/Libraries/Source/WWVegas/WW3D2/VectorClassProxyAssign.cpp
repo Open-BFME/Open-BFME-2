@@ -25,6 +25,7 @@
 // ProxyClass views other TUs use untouched.
 
 extern void *__cdecl operator new[](unsigned int size);
+extern void __cdecl operator delete[](void *block);
 
 class TextureBaseClass
 {

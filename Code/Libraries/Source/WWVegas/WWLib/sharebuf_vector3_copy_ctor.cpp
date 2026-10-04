@@ -4,6 +4,7 @@
 // body in sharebuf_vector2_copy_ctor.cpp.
 
 void *operator new[](unsigned int size);
+void operator delete[](void *block);
 inline void *operator new(unsigned int, void *place) { return place; }
 
 class Vector3

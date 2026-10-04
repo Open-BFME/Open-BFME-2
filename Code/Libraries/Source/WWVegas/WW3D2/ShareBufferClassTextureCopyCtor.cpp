@@ -65,6 +65,7 @@ protected:
 };
 
 void *operator new[](unsigned int size);
+void operator delete[](void *block);
 
 template <class T>
 ShareBufferClass<T>::ShareBufferClass(const ShareBufferClass<T> &that) :
