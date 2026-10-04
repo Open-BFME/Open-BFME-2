@@ -54978,3 +54978,4 @@ rva007916E1_constructor_unwind,,0x007916E1,11,Code/GameEngine/Source/Common/INI/
 ?rva007B9130@@YAXXZ,,0x007B9130,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
 ?rva007B913A@@YAXXZ,,0x007B913A,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
 ?rva007B9144@@YAXXZ,,0x007B9144,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva0025F3F3@BfmeThingBFG@@QAEXXZ,,0x0025F3F3,19,Code/GameEngine/Source/Common/BfmeThingBFGTail.cpp,matched,BFME1 5cc75ddd whole BfmeConv802 lead; real206B callee visible preserves ECX and removes prior reload wall; honest noarg member clear ABI bound to rowed53B provider

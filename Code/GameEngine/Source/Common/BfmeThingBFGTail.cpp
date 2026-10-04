@@ -11,6 +11,10 @@ class BfmeThingBFG
 {
 public:
 	void bfmeTailBFG();
+    void rva0025F3F3();
+    void rva0025F30DCallView();
+    char m_unmodelled0[0x74];
+    char m_flag74;
 };
 
 void BfmeThingBFG::bfmeTailBFG()
@@ -58,4 +62,21 @@ void BfmeThingBFG::bfmeTailBFG()
 		movss dword ptr [ecx + 0xAC], xmm0
 		movss dword ptr [ecx + 0xB0], xmm0
 	}
+}
+
+// BFME1 full lead5cc75ddda6455c338a5068307e587a793f96d6b3,
+// game/GameEngine/Source/Common/BfmeConv802.cpp. Native Ghidra25F3F3/19 calls
+// the existing206-byte tail then rowed CameraMarkerList::clear53 with the same
+// ECX receiver, and finally clears byte+74. The donor's second free-call
+// declaration is replaced with the witnessed zero-argument thiscall protocol.
+// Keeping the actual tail definition visible lets VC7.1 prove ECX survives it;
+// earlier isolated trials inserted an extra reload between these two calls.
+// The existing BFG view models only this observed byte; owner identity and full
+// layout remain unknown. An address-qualified call alias binds the same
+// receiver to the existing clear body without a private CameraMarkerList view.
+#pragma comment(linker, "/alternatename:?rva0025F30DCallView@BfmeThingBFG@@QAEXXZ=?clear@CameraMarkerList@@QAEXXZ")
+void BfmeThingBFG::rva0025F3F3() {
+    bfmeTailBFG();
+    rva0025F30DCallView();
+    m_flag74=0;
 }
