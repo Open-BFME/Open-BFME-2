@@ -30,6 +30,29 @@ struct Rva0027D6DFRes
 	float out2;
 	float m_spare;
 };
+struct Coord3D
+{
+	float x;
+	float y;
+	float z;
+};
+class Matrix3D
+{
+public:
+	float m[16];
+};
+enum PathfindLayerEnum
+{
+	LAYER_INVALID = 0,
+	LAYER_GROUND = 1
+};
+class Object;
+class TerrainLogic
+{
+public:
+	PathfindLayerEnum getLayerForDestination(Object *obj, const Coord3D *pos);
+};
+void alignToTerrain(float angle, const Coord3D &pos, const Coord3D &normal, Matrix3D &mtx);
 class Rva0062AF7
 {
 public:
@@ -40,7 +63,7 @@ public:
 	virtual void slot04();
 	virtual void slot05();
 	virtual float slot06(float x, float y, int z);
-	virtual void slot07();
+	virtual float slot07(float x, float y, int layer, Coord3D *out, int flag);
 	virtual void slot08(Rva0027D5E0Box *box);
 	virtual void slot09();
 	virtual void slot10();
@@ -51,7 +74,7 @@ public:
 	virtual void slot15();
 	virtual void slot16();
 	virtual void slot17();
-	virtual void slot18();
+	virtual PathfindLayerEnum Rva002811DD(float angle, const Coord3D &pos, bool stickToGround, Matrix3D &mtx);
 	virtual bool Rva0027D77D(float x, float y, float *a, float *b, bool *c);
 	virtual void slot20();
 	virtual void slot21();
@@ -343,4 +366,27 @@ void Rva0062AF7::Rva0027D6DF(float *out, const float *in)
 	out[2] = slot06(res.out1, res.out2, 0);
 	out[0] = res.out1;
 	out[1] = res.out2;
+}
+
+//
+// ?Rva002811DD@Rva0062AF7@@UAE?AW4PathfindLayerEnum@@MABUCoord3D@@_NAAVMatrix3D@@@Z retail 0x002811DD 127 bytes.
+// Vslot 18 (offset 0x48) of vtable 0x007C5890 primary of ??1Rva0062AF7@@UAE@XZ.
+// Donor: BFME1 TerrainLogic::alignOnTerrain in
+// reference/open-bfme-1/game/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp
+// (getLayerForDestination NULL pos, getLayerHeight x y layer normal, +2.5f
+// above ground, alignToTerrain angle pos normal mtx, Set_Z_Translation).
+// Slot07 is getLayerHeight (float x y int layer Coord3D out int 1) via 0x1c.
+// LAYER_GROUND is 1 (cmp ebx 1 jle). 2.5f pooled at 0x00BCFB10 via /arch:SSE.
+// Identity class plus slot honest address name. Flags /O1 /arch:SSE /G7 same TU.
+PathfindLayerEnum Rva0062AF7::Rva002811DD(float angle, const Coord3D &pos, bool stickToGround, Matrix3D &mtx)
+{
+	Coord3D terrainNormal;
+	PathfindLayerEnum layer = ((TerrainLogic *)this)->getLayerForDestination(0, &pos);
+	float terrainAtPos = slot07(pos.x, pos.y, layer, &terrainNormal, 1);
+	if (layer > LAYER_GROUND)
+		terrainAtPos += 2.5f;
+	alignToTerrain(angle, pos, terrainNormal, mtx);
+	if (stickToGround)
+		mtx.m[11] = terrainAtPos;
+	return layer;
 }

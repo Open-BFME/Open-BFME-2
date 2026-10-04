@@ -7443,3 +7443,4 @@ FUN_008f7883	0x004F7883	168	blocked	EH prolog push ecx plus frame plus copy_back
 ?rva000911F6@Rva007E3C20Vp6Stream@@UAEHH@Z	0x000911F6	301	partial	vtable fixed via same-class thiscall for 0x90FE0; remain ebx-edi swap plus stack slots and missing early mov ebp-8 ebx t=22 model=muse-08 score=0.93 stash=reverse/attempts/0x000911f6.cpp
 ?rva00091763@Rva007E3C20Vp6Stream@@UAEHABVAsciiString@@@Z	0x00091763	345	blocked	EH audio slot20 needs donor for m_b52 plus ebx1 esi0 regalloc and stack slots t=25 model=muse-08
 ?rva003596AD@Rva003596AD@@QAEPAMPBH@Z	0x003596AD	124	blocked	dual map int-int lower_bound plus int-float insert with Rva set and TreeHintRelease EH-SSE2 wall t=12 model=muse-07
+?rva00337DEF@Rva00337DEF@@QAEPBURva00335CAERec@@ABVAsciiString@@@Z	0x00337DEF	187	blocked	5-push LowerBound call vs 3-arg row plus comp stosb vs mov t=18 model=muse-12
