@@ -17,6 +17,7 @@ class __declspec(novtable) Rva00528349
 public:
 	virtual ~Rva00528349();
 	void rva00528349();
+	void rva00528389();
 private:
 	int m_04;
 	char m_pad08[0x14 - 0x08];
@@ -34,4 +35,16 @@ void Rva00528349::rva00528349()
 	const char *prefix = m_18 ? m_18->m_name : g_Rva0107301CEmptyString;
 	Rva00524EF4AptCall(TheRva00222A8BTarget, (void *)m_04, prefix, "FadeIn");
 	m_14 = 2;
+}
+
+void Rva00528349::rva00528389()
+{
+	int state = m_14;
+	if (state == 0)
+		return;
+	if (state == 4)
+		return;
+	const char *prefix = m_18 ? m_18->m_name : g_Rva0107301CEmptyString;
+	Rva00524EF4AptCall(TheRva00222A8BTarget, (void *)m_04, prefix, "FadeOut");
+	m_14 = 4;
 }

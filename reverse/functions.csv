@@ -55168,3 +55168,4 @@ rva007916E1_constructor_unwind,,0x007916E1,11,Code/GameEngine/Source/Common/INI/
 ??_GRva0050ED58@@QAEPAXI@Z,,0x0050F182,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_Rva0050ED58.cpp,matched,scalar deleting dtor calls rowed dtor plus delete
 ??1Rva00510CC3@@QAE@XZ,,0x00510CC3,68,Code/GameEngine/Source/Common/Rva00510CC3Dtor.cpp,matched,dtor holder clear plus member dtors with EH 1 0
 ?rva00528349@Rva00528349@@QAEXXZ,,0x00528349,64,Code/GameEngine/Source/Common/Rva00528349Fade.cpp,matched,unlock via rowed AptCall plus FadeIn plus empty plus TheRva
+?rva00528389@Rva00528349@@QAEXXZ,,0x00528389,64,Code/GameEngine/Source/Common/Rva00528349Fade.cpp,matched,unlock via rowed AptCall plus FadeOut plus empty plus TheRva
