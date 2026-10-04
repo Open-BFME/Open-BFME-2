@@ -10,12 +10,16 @@ public:
 	bool rva0028EA91(const class AsciiString &s, int v);
 private:
 	class AttributeModifierPoolUpdate *findAttributeModifierPoolUpdate() const;
+public:
+	char m_pad00[0x8C];
+	Object *m_8C;
 };
 class AsciiString;
 template<class T> class StringBase
 {
 public:
 	bool isEmpty() const;
+	void set(const T *);
 };
 class PlayerList
 {
@@ -56,15 +60,26 @@ class Rva00318333
 {
 public:
 	void rva00318333(Object *obj, bool flag);
+	void rva00318719();
 private:
 	char m_pad00[0x18];
 	int m_18;
 	BfmeTab1026 m_1C;
 	StringBase<char> m_20;
 	int m_24;
-	char m_pad28[0x30];
+	char m_pad28[4];
+	int m_2C;
+	char m_pad30[0x28];
 	BitFlags<11> m_58;
 };
+extern "C" void *__cdecl memset(void *dst, int c, unsigned int count);
+class GameLogic
+{
+public:
+	Object *getFirstObject();
+};
+extern GameLogic *TheGameLogic;
+extern const char g_Rva0107301CEmptyString[];
 void Rva00318333::rva00318333(Object *obj, bool flag)
 {
 	if (!obj)
@@ -114,4 +129,17 @@ void Rva00318333::rva00318333(Object *obj, bool flag)
 	} else {
 		((AttributeModifierPoolUpdate *)pool)->rva00403415((int *)&m_58, 0x3B9AC9FF);
 	}
+}
+void Rva00318333::rva00318719()
+{
+	Object *obj = TheGameLogic->getFirstObject();
+	while (obj) {
+		rva00318333(obj, true);
+		obj = obj->m_8C;
+	}
+	m_18 = 0;
+	m_20.set(g_Rva0107301CEmptyString);
+	memset(&m_58, 0, 4);
+	m_24 = 0;
+	m_2C = 0;
 }
