@@ -8385,3 +8385,4 @@ _Rva0030CAF8CursorEqual,0x0007E394,twin of dup_0007e394 29B exact cursor equalit
 ??0SnapshotBlock@GameState@@QAE@ABU01@@Z,0x000CF475,GameState registration2DE34B native list node construction chain; exact full emitted extent; same-layout folded helper owned by existing TreeKey row; no new byte claim
 ?Rva0043CCC2GetRoute@@YAPAXXZ,0x0043CCC2
 ?Rva004E4312GetRoute@@YAPAXXZ,0x004E4312
+?rva00478C2C@Rva00478C2C@@QAEXPAVObject@@PAX@Z,0x00478C2C,call site 0x00479AFA lea ecx esi+0x20 with pushes 0 and obj plus vtable slot 60 plus exact 48B shape
