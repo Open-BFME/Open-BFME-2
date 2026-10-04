@@ -152,3 +152,10 @@ template _STL::vector<BfmeStringHeadRecord184>::~vector();
 // nugget dtor at 0x00508684 calls this for its +0x168 member.
 struct Rva005088CEDamageScalar { public: ~Rva005088CEDamageScalar(); };
 template _STL::vector<Rva005088CEDamageScalar>::~vector();
+
+// ??1?$vector@UBfmePod216@@V?$allocator@UBfmePod216@@@_STL@@@_STL@@QAE@XZ @0x0021F7A7 63B.
+// Same 63B Destroy-plus-free shape: destroys the range through the rowed
+// _Destroy at 0x0021F466 then frees via 0x30830; caller at 0x0021F90E in 0x0021F8F3.
+// Element is the 216-byte pod in StlportVectorGrowthFootprints.cpp.
+struct BfmePod216 { public: ~BfmePod216(); };
+template _STL::vector<BfmePod216>::~vector();
