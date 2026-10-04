@@ -78,7 +78,6 @@ Rva00560135::Rva00560135()
 // Native atexit callback independently names the publisher destructor;
 // release/null behavior and counter+4 disposal-slot0 are target facts.
 // Original publisher identity and complete receiver layout remain unknown.
-// ?Rva003A8354Init@@YAXXZ present-unmatched
 void __cdecl Rva003A8354Init()
 {
     static Rva00560135 publisher;
