@@ -47,3 +47,7 @@ void __stdcall Rva003BC6D9Set(const AsciiString &playerName, const AsciiString &
 			player->grantScience(st);
 	} while (mask != 0);
 }
+
+// Retail's call at 0x003BC6E6 reaches the rowed free function under this
+// method spelling; bind it so the linked build resolves to the row.
+#pragma comment(linker, "/alternatename:?rva001FF725@ScienceStore@@QBE?AW4ScienceType@@ABVAsciiString@@@Z=?Rva001FF725Get@@YG?AW4ScienceType@@ABVAsciiString@@@Z")
