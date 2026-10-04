@@ -63,16 +63,22 @@ public:
 	void rva00318333(Object *obj, bool flag);
 	void rva00318719();
 	void rva00318807(int m18, int *m1Csrc, void *shiftSrc, const StringBase<char> *m20src, int *m58src, int m2C);
+	void rva00318768();
 private:
 	char m_pad00[0x18];
 	int m_18;
 	BfmeTab1026 m_1C;
 	StringBase<char> m_20;
 	int m_24;
-	char m_pad28[4];
+	int m_28;
 	int m_2C;
 	char m_pad30[0x28];
 	BitFlags<11> m_58;
+};
+class Rva003186EE
+{
+public:
+	void rva003186EE(int a, int b, int c);
 };
 extern "C" void *__cdecl memset(void *dst, int c, unsigned int count);
 class GameLogic
@@ -159,5 +165,24 @@ void Rva00318333::rva00318807(int m18, int *m1Csrc, void *shiftSrc, const String
 	while (obj) {
 		rva00318333(obj, false);
 		obj = obj->m_8C;
+	}
+}
+void Rva00318333::rva00318768()
+{
+	int o1 = m_2C;
+	int c1 = o1 - 1;
+	m_2C = c1;
+	if (!o1) {
+	} else if (c1) {
+	} else {
+		rva00318719();
+	}
+	int o2 = m_28;
+	int c2 = o2 - 1;
+	m_28 = c2;
+	if (!o2) {
+	} else if (c2) {
+	} else {
+		((Rva003186EE *)this)->rva003186EE(0, 0, 0);
 	}
 }
