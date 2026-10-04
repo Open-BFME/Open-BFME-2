@@ -15,6 +15,13 @@
 
 #include <list>
 
+// Retail calls the separately rowed four-byte-element append at 0x5548F.
+// The list<void*> instance owned by the 3D pool TU is 0x526103 and calls
+// a different insertion provider. Preserve it, but select the retail call.
+// The int-element view selects that verified four-byte ABI instance.
+// The target sample/record remains a pointer; no int-container identity is claimed.
+
+
 class AsciiString;
 class UnicodeString;
 class PooledString;
@@ -167,7 +174,7 @@ void FloodUpdate::xfer(Xfer *xfer)
 			XferObjectID(xfer, &record->m_00);
 			Rva00390911XferCoordVector(xfer, &record->m_vec);
 			*xfer == record->m_10;
-			m_20.push_back(reinterpret_cast<void *const &>(record));
+			reinterpret_cast<_STL::list<int> *>(&m_20)->push_back(reinterpret_cast<const int &>(record));
 		}
 	}
 	else if (xfer->IsStoring())

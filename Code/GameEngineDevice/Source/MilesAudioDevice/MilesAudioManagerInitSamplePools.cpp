@@ -11,6 +11,13 @@
 #define _STLP_NO_EXCEPTIONS 1
 #include <list>
 
+// Retail calls the separately rowed four-byte-element append at 0x5548F.
+// The list<void*> instance owned by the 3D pool TU is 0x526103 and calls
+// a different insertion provider. Preserve it, but select the retail call.
+// The int-element view selects that verified four-byte ABI instance.
+// The target sample/record remains a pointer; no int-container identity is claimed.
+
+
 typedef void *HSAMPLE;
 typedef void *HDIGDRIVER;
 
@@ -58,7 +65,7 @@ void MilesAudioManager::initSamplePools(void)
 		AIL_init_sample(sample);
 		AIL_set_sample_user_data(sample, 0,
 			(unsigned int)m_availableSamples.size() + 1);
-		m_availableSamples.push_back(sample);
+		reinterpret_cast<_STL::list<int> *>(&m_availableSamples)->push_back(reinterpret_cast<const int &>(sample));
 		++m_num2DSamples;
 	}
 
