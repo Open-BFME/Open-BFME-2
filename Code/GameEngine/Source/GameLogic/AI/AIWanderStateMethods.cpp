@@ -24,6 +24,12 @@
 // Object::getVisionRange 0x0028DDE0, AI::findClosestRepulsor 0x002FDC9A,
 // AIFollowWaypointPathState::getNextWaypoint 0x00340F7C (Zero Hour's: random
 // link of m_currentWaypoint, m_priorWaypoint, goal position).
+// AIFollowWaypointPathState::getNextWaypoint, retail 0x00340F7C (67 bytes),
+// is Zero Hour's ALLOW_BACKTRACK body over a local copy of m_currentWaypoint
+// read after the random draw (random link, prior waypoint, goal
+// position through the pinned StateMachine::setGoalPosition 0x00262224);
+// calcExtraPathDistance, retail 0x00340FCD (110 bytes), is Zero Hour's body
+// over the rowed Coord2D::length 0x00003755.
 // AIPanicState::onEnter, retail 0x0034F505 (293 bytes), and update, retail
 // 0x0034A38E (333 bytes): slots 4 and 6 of the vtable whose slot-2 name getter
 // returns AIPanicState; Zero Hour's bodies on the same layout, with
@@ -188,6 +194,7 @@ class StateMachine
 {
 public:
 	Object *getOwner() const { return m_owner; }
+	void setGoalPosition(const Coord3D *pos);
 protected:
 	unsigned char m_pad00[0x14];
 	Object *m_owner; // +0x14
@@ -240,6 +247,21 @@ protected:
 struct Coord2D
 {
 	Real x, y;
+	Real length() const;
+};
+// Waypoint (target evidence): location +0x0C, link count +0x4C; getLink is
+// the rowed out-of-line 0x00085404.
+class Waypoint
+{
+public:
+	const Coord3D *getLocation() const { return &m_location; }
+	Int getNumLinks() const { return m_numLinks; }
+	Waypoint *getLink(Int ndx) const;
+private:
+	unsigned char m_pad00[0x0C];
+	Coord3D m_location; // +0x0C
+	unsigned char m_pad18[0x4C - 0x18];
+	Int m_numLinks; // +0x4C
 };
 class AIFollowWaypointPathState : public AIInternalMoveToState
 {
@@ -437,4 +459,38 @@ StateReturnType AIPanicState::update()
 	}
 	// Never leave this state until told to.
 	return STATE_CONTINUE;
+}
+
+//----------------------------------------------------------------------------------------------------------
+const Waypoint * AIFollowWaypointPathState::getNextWaypoint(void)
+{
+	Int linkCount = m_currentWaypoint->getNumLinks();
+	Int which = GetGameLogicRandomValue( 0, linkCount-1, AISTATES_FILE, 9814 );
+	const Waypoint *curWay = m_currentWaypoint;
+	const Waypoint *nextWay = curWay->getLink( which );
+	m_priorWaypoint = curWay;
+
+	getMachine()->setGoalPosition(curWay->getLocation());// THANKS, JOHN
+	return nextWay;
+}
+
+//----------------------------------------------------------------------------------------------------------
+Real AIFollowWaypointPathState::calcExtraPathDistance(void)
+{
+	Real extra = PATHFIND_CELL_SIZE_F/10.0f;
+	const Waypoint *curWay = m_currentWaypoint;
+	Int limit = 5; // just look ahead 5, in case of circular paths.  jba
+	while (curWay && limit>0) {
+		limit--;
+		Int linkCount = curWay->getNumLinks();
+		if (linkCount == 0) return extra;
+		Int which = 0;
+		const Waypoint *nextWay = curWay->getLink( which );
+		Coord2D delta;
+		delta.x = nextWay->getLocation()->x - curWay->getLocation()->x;
+		delta.y = nextWay->getLocation()->y - curWay->getLocation()->y;
+		extra += delta.length();
+		curWay = nextWay;
+	}
+	return extra;
 }
