@@ -52702,3 +52702,4 @@ _Rva0088E190TimerTick@16,,0x0003D870,9,Code/Libraries/Source/WWVegas/WWDebug/Rva
 ?clearUnseenMaps@MapCache@@AAE_NVAsciiString@@@Z,,0x0030469E,166,Code/GameEngine/Source/GameClient/MapCacheClearUnseenMaps_Rva0030469e.cpp,matched,BFME1 donor MapCacheClearUnseenMaps.cpp recompiled /Os; unique masked placement on unclaimed .text
 ??1Rva006609D0@@UAE@XZ,,0x0054FFA5,156,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/Rva006609D0Destructor_Rva0054ffa5.cpp,matched,BFME1 donor Rva006609D0Destructor.cpp recompiled /Os; unique masked placement on unclaimed .text
 ?updateFadeLevel@ScreenCrossFadeFilter@@IAE_NXZ,,0x000F633A,193,Code/GameEngineDevice/Source/W3DDevice/GameClient/ScreenCrossFadeFilterUpdateFadeLevel.cpp,matched,BFME1 donor W3DShaderManager updateFadeLevel via globals and TacticalView
+??_GRva001E125D@@UAEPAXI@Z,,0x001E1241,28,Code/GameEngine/Source/Common/Rva001E125D.cpp,matched,chain deleting dtor from own TU vtable slot 0
