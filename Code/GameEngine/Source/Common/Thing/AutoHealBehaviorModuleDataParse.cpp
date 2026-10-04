@@ -5,7 +5,27 @@
 // factory-pinned AutoHeal proc at 0x256929, so keep this address anonymous.
 
 class MultiIniFieldParse;
-struct FieldParse;
+class INI;
+typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
+struct FieldParse
+{
+	const char *token;
+	INIFieldParseProc parse;
+	const void *userData;
+	int offset;
+};
+
+class INI
+{
+public:
+	static void parseReal(INI *ini, void *instance, void *store, const void *userData);
+};
+
+// Retail VA 0x00C64D60 (.rdata): 1 field records and a zero sentinel.
+extern const FieldParse g_00C64D60[] = {
+	{ "AmountStolenPerAttack", &INI::parseReal, 0, 0x128 },
+	{ 0, 0, 0, 0 }
+};
 
 class MultiIniFieldParse
 {
@@ -25,5 +45,5 @@ int __cdecl Rva00507552Get();
 void Rva0050B5CFBuildFieldParse::buildFieldParse(MultiIniFieldParse &parse)
 {
 	parse.add(reinterpret_cast<const FieldParse *>(Rva00507552Get()), 0);
-	parse.add(reinterpret_cast<const FieldParse *>(0x00C64D60), 0);
+	parse.add(g_00C64D60, 0);
 }

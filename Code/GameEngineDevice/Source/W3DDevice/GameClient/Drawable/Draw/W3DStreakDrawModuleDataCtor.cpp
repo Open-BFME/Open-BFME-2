@@ -9,7 +9,38 @@
 // parse pin.
 
 class MultiIniFieldParse;
-struct FieldParse;
+class INI;
+typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
+struct FieldParse
+{
+	const char *token;
+	INIFieldParseProc parse;
+	const void *userData;
+	int offset;
+};
+
+class INI
+{
+public:
+	static void dup_002EF72(INI *ini, void *instance, void *store, const void *userData);
+	static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);
+	static void parseBool(INI *ini, void *instance, void *store, const void *userData);
+	static void parseRGBColor(INI *ini, void *instance, void *store, const void *userData);
+	static void parseReal(INI *ini, void *instance, void *store, const void *userData);
+};
+
+void Rva000D06C6Parse(INI *ini, void *instance, void *store, const void *userData);
+// Retail VA 0x00BCDB60 (.rdata): 7 field records and a zero sentinel.
+extern const FieldParse g_00BCDB60[] = {
+	{ "Length", &INI::parseReal, 0, 0x8 },
+	{ "Width", &INI::parseReal, 0, 0xC },
+	{ "Additive", &INI::parseBool, 0, 0x10 },
+	{ "Color", &INI::parseRGBColor, 0, 0x14 },
+	{ "Texture", &INI::parseAsciiString, 0, 0x24 },
+	{ "NumSegments", &INI::dup_002EF72, 0, 0x20 },
+	{ "WeatherTexture", &Rva000D06C6Parse, 0, 0x28 },
+	{ 0, 0, 0, 0 }
+};
 
 class MultiIniFieldParse
 {
@@ -26,5 +57,5 @@ public:
 // ?buildFieldParse@W3DStreakDrawModuleData@@SAXAAVMultiIniFieldParse@@@Z @0x000D0726
 void W3DStreakDrawModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
-	parse.add(reinterpret_cast<const FieldParse *>(0x00BCDB60), 0);
+	parse.add(g_00BCDB60, 0);
 }
