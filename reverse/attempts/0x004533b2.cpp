@@ -1,3 +1,5 @@
+// ?rva004533B2@GettingBuiltBehavior@@UAE_NXZ
+// partial score=0.8 date=2026-10-04
 // cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
 //
 // Overrides in the vtables the matched GettingBuiltBehavior ctor 0x004542FA
@@ -51,24 +53,29 @@ public:
 	int rva0033A69A(Object *obj, int a2, int a3) const;
 };
 
-// Object +0x254: slot 8 a state.
-class Rva0045342FBody : public Rva00454430Slots<8>
+// Object +0x254: slot 5 a float fraction, slot 8 a state.
+class Rva004533B2Body : public Rva00454430Slots<5>
 {
 public:
-	virtual int rva0045342FSlot8() = 0;
+	virtual float rva004533B2Slot5() = 0;
+	virtual void gap6() = 0;
+	virtual void gap7() = 0;
+	virtual int rva004533B2Slot8() = 0;
 };
 
-// What Object::rva0028BCF4 hands back: slot 5 runs on it.
-class Rva00454501Peer : public Rva00454430Slots<5>
+class GlobalData
 {
 public:
-	virtual void rva00454501Slot5() = 0;
+	unsigned char m_pad000[0xA88];
+	int m_A88; // +0xA88
 };
+
+extern GlobalData *TheGlobalData;
 
 class Object
 {
 public:
-	void *rva0028BCF4() const;
+	bool rva0028C264(int *out, int value);
 	void rva0028AE6D();
 	void *rva0028BD17() const;
 	void setStatus(ObjectStatusTypes bit, bool set);
@@ -77,13 +84,12 @@ public:
 	const ThingTemplate *m_template; // +0x04
 	unsigned char m_pad008[0x74 - 0x08];
 	int m_74; // +0x74 (ID)
-	int m_78; // +0x78 (an Object ID)
-	unsigned char m_pad07C[0x94 - 0x7C];
+	unsigned char m_pad078[0x94 - 0x78];
 	unsigned int m_94; // +0x94
 	unsigned char m_pad098[0x10C - 0x98];
 	Rva0010CBits m_conditionBits; // +0x10C
 	unsigned char m_pad158[0x254 - 0x158];
-	Rva0045342FBody *m_254; // +0x254
+	Rva004533B2Body *m_254; // +0x254
 	unsigned char m_pad258[0x438 - 0x258];
 	unsigned char m_438; // +0x438
 };
@@ -99,7 +105,7 @@ extern GameLogic *TheGameLogic;
 class AudioManager : public Rva00454430Slots<27>
 {
 public:
-	virtual void rva004535B7Slot27(unsigned int handle) = 0;
+	virtual void rva004535B7Slot27(int handle) = 0;
 };
 
 extern AudioManager *TheAudio;
@@ -158,9 +164,6 @@ class BehaviorModule
 {
 public:
 	virtual ~BehaviorModule();
-	virtual void gap1(); virtual void gap2(); virtual void gap3(); virtual void gap4();
-	virtual void gap5(); virtual void gap6(); virtual void gap7();
-	virtual void rva00454501();
 protected:
 	const ModuleData *m_moduleData; // +0x04
 	Object *m_object; // +0x08
@@ -221,16 +224,37 @@ public:
 	virtual bool rva004531E4(Object *obj);
 	virtual bool rva0045362B(int id);
 	virtual void rva00453F31(int a1);
+	virtual bool rva004533B2();
 	virtual float rva0045342F(Object *obj);
-	virtual void rva00454501();
 private:
-	void rva004541AB();
+	bool rva00453124();
+	__forceinline int rva004533B2Ready()
+	{
+		Rva004533B2Body *body = m_object->m_254;
+		if (data()->m_20 < 0.0f)
+		{
+			int out = 0;
+			if (m_object->rva0028C264(&out, TheGlobalData->m_A88))
+				return 0;
+			if (!(body->rva004533B2Slot5() < 1.0f))
+				return 0;
+		}
+		else if (!rva004533B2State3(body))
+			return 0;
+		if (rva00453124())
+			return 0;
+		return 1;
+	}
+	static bool rva004533B2State3(Rva004533B2Body *body)
+	{
+		return body->rva004533B2Slot8() == 3;
+	}
 	static GettingBuiltBehaviorInterface *interfaceOf(Object *obj)
 	{
 		return (GettingBuiltBehaviorInterface *)obj->rva0028BD17();
 	}
 	const GettingBuiltBehaviorModuleData *data() const { return (const GettingBuiltBehaviorModuleData *)m_moduleData; }
-	unsigned int m_24; // +0x24 (an audio handle)
+	int m_24; // +0x24
 	float m_28; // +0x28
 	unsigned int m_2C; // +0x2C
 	bool m_30; // +0x30
@@ -391,6 +415,19 @@ void GettingBuiltBehavior::rva00453F31(int a1)
 	}
 }
 
+// ?rva004533B2@GettingBuiltBehavior@@UAE_NXZ, retail 0x004533B2, 125 bytes:
+// slot 8 of the +0x20 vtable; false while slot 6 answers. With a negative
+// module-data +0x20 it needs the owner's rowed 0x0028C264 test against
+// TheGlobalData +0xA88 to fail and the +0x254 slot 5 fraction to be under 1,
+// otherwise the +0x254 slot 8 state to be 3; then true unless the owner's
+// 0x00453124 test passes.
+bool GettingBuiltBehavior::rva004533B2()
+{
+	if (rva004535B7Slot6())
+		return false;
+	return rva004533B2Ready();
+}
+
 // ?rva0045342F@GettingBuiltBehavior@@UAEMPAVObject@@@Z, retail 0x0045342F, 62
 // bytes: slot 12 of the +0x20 vtable; the owner template's 0x0033A69A figure
 // for the Object (0, -1) scaled by the module-data +0x30 entry for the owner's
@@ -398,31 +435,6 @@ void GettingBuiltBehavior::rva00453F31(int a1)
 float GettingBuiltBehavior::rva0045342F(Object *obj)
 {
 	float value = (float)m_object->m_template->rva0033A69A(obj, 0, -1);
-	Rva0045342FBody *body = m_object->m_254;
-	return value * data()->m_30[body->rva0045342FSlot8()];
-}
-
-// ?rva00454501@GettingBuiltBehavior@@UAEXXZ, retail 0x00454501, 86 bytes: slot
-// 8 of the primary vtable 0x00C404FC. When the Object named by the owner's
-// +0x78 exists and Object::rva0028BCF4 finds its peer, the peer's slot 5 runs,
-// +0x30 is raised and the pinned member 0x004541AB follows; then a +0x24 audio
-// handle of 5 or more goes to TheAudio slot 27 and resets to 1.
-void GettingBuiltBehavior::rva00454501()
-{
-	Object *other = TheGameLogic->findObjectByID(m_object->m_78);
-	if (other)
-	{
-		Rva00454501Peer *peer = (Rva00454501Peer *)other->rva0028BCF4();
-		if (peer)
-		{
-			peer->rva00454501Slot5();
-			m_30 = true;
-			rva004541AB();
-		}
-	}
-	if (TheAudio && m_24 >= 5)
-	{
-		TheAudio->rva004535B7Slot27(m_24);
-		m_24 = 1;
-	}
+	Rva004533B2Body *body = m_object->m_254;
+	return value * data()->m_30[body->rva004533B2Slot8()];
 }
