@@ -9,6 +9,7 @@
 extern "C" __declspec(dllimport) void *__stdcall CreateThread(void *attrs, unsigned long stack, unsigned long (__stdcall *start)(void *), void *param, unsigned long flags, unsigned long *tid);
 extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long ms);
 extern "C" __declspec(dllimport) void *__stdcall gethostbyname(const char *name);
+extern "C" __declspec(dllimport) int __stdcall TerminateThread(void *thread, unsigned long exitCode);
 
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
@@ -57,4 +58,16 @@ unsigned long __stdcall Rva005BC4AEThread(void *param)
     g_00E06575 = gethostbyname((const char *)param) != 0;
     g_00DD3C7C = 1;
     return 0;
+}
+
+// Same donor's StopAsyncDNSCheck; native 005BC555/33 reads the handle used by
+// the rowed starter, calls TerminateThread at IAT BBA350, then clears that
+// handle and the independently observed lookup-in-progress byte at E06576.
+// Preserve the target-address name until independent name evidence is found.
+void __cdecl Rva005BC555Stop()
+{
+    if (g_00E06578)
+        TerminateThread(g_00E06578, 0);
+    g_00E06578 = 0;
+    g_00E06576 = 0;
 }
