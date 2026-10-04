@@ -2,8 +2,9 @@
 // 0x010EC760. No evidence proves the semantic class name, so the type keeps the address.
 
 extern int R2Data010EC760;
-// R2Data010EC760: matched references place it at VA 0xc619a0 (retail .rdata value 9312743).
-int R2Data010EC760 = 9312743;
+// The native C619A0 slot points to the FlashRegion record deleting destructor.
+// Resolve this existing address view to its verified C++ vtable provider.
+#pragma comment(linker, "/alternatename:?R2Data010EC760@@3HA=??_7Rva004E14E1FlashRecord@@6B@")
 
 class Rva003A6360Record
 {
