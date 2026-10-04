@@ -48,8 +48,8 @@ public:
 	void rva006E1DD0(void *pRect);
 };
 
-extern AptRenderingContext *g_aptRenderingContextAtE180C0; // VA 0x00E180C0
-extern BfmeM1208 g_aptBoxAtE180C4;                         // VA 0x00E180C4
+AptRenderingContext *g_aptRenderingContextAtE180C0; // VA 0x00E180C0
+BfmeM1208 g_aptBoxAtE180C4;                         // VA 0x00E180C4
 
 class Rva006E1E30
 {
