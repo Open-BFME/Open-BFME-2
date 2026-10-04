@@ -1,4 +1,6 @@
 // ?rva007097B0@AptScriptFunctionBase@@SAHPAX@Z
+// partial score=0.98 date=2026-10-04
+// ?rva007097B0@AptScriptFunctionBase@@SAHPAX@Z
 // partial score=0.9766 date=2026-10-04
 // cl: /O2 /MD
 // experiment: default-construct + Release in the loop, no gpUndefinedValue store
@@ -28,8 +30,8 @@ int AptScriptFunctionBase::rva007097B0(void *pSaveBase)
     CHECK_AT(pSaveBase>=spRegBlockBase && pSaveBase<=spRegBlockCurrentFrameBase,"pSaveBase >= spRegBlockBase && pSaveBase <= spRegBlockCurrentFrameBase",199);
     for(int i=0;i<snRegBlockCurrentFrameCount;++i) {
         AptValue *tmp=spRegBlockCurrentFrameBase[i];
+        spRegBlockCurrentFrameBase[i]=gpUndefinedValue;
         tmp->Release();
-        new (&spRegBlockCurrentFrameBase[i]) AptValue;
     }
     int n=(char *)spRegBlockCurrentFrameBase-(char *)pSaveBase;
     spRegBlockCurrentFrameBase=(AptValue **)pSaveBase;
