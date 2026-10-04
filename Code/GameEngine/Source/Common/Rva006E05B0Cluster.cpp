@@ -16,15 +16,16 @@ class AptValue
 {
 public:
 	unsigned int getRefCount() const;
+	virtual void AddRef();
+	virtual void Release();
 };
 
 class Rva006E05B0 : public AptValue
 {
 public:
-	void rva006DCB20();
 	void rva006E05B0();
 
-	char m_pad00[0x5c];
+	char m_pad00[0x5c - 4];
 	int m_field5c;
 };
 
@@ -42,5 +43,5 @@ void Rva006E05B0::rva006E05B0()
 	if ((m_field5c & 0xc0000) == 0x40000 && refCount == 1)
 		return;
 
-	rva006DCB20();
+	AptValue::Release();
 }
