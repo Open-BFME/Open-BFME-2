@@ -49,6 +49,7 @@ class StancesBehavior : public UpdateModule
 public:
 	virtual UpdateSleepTime update();
 	void rva0045F084(int value);
+	void rva0045F21C();
 private:
 	int m_30;			// +0x30
 };
@@ -60,4 +61,16 @@ UpdateSleepTime StancesBehavior::update()
 	if (m_30 == 0)
 		rva0045F084(1);
 	return UPDATE_SLEEP_FOREVER;
+}
+
+// ?rva0045F21C@StancesBehavior@@QAEXXZ, retail 0x0045F21C, 25 bytes.
+// Stance selector over +0x30: 3 -> rva0045F084(5), 4 -> rva0045F084(1).
+// Evidence: neighbours 0x0045F068/0x0045F290 same TU class and flags;
+// callee rowed via pin 0x0045F084; caller 0x002673F6; LINK BONUS via.
+void StancesBehavior::rva0045F21C()
+{
+	if (m_30 == 3)
+		rva0045F084(5);
+	else if (m_30 == 4)
+		rva0045F084(1);
 }

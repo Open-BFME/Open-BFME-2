@@ -54440,3 +54440,4 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ?rva003921C8@Rva0039205C@@QAEXIE@Z,,0x003921C8,50,Code/GameEngine/Source/Common/Rva0039205CArray.cpp,matched,byte setter at elem plus 0x10 via global count
 ??1?$vector@UBfmePod252@@V?$allocator@UBfmePod252@@@_STL@@@_STL@@QAE@XZ,,0x000C8216,63,Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp,matched,vector dtor via rowed Destroy plus free adjacent to _M_clear
 ?rva0006F373@Rva0006F373@@QAE_NPAXHH000@Z,,0x0006F373,63,Code/Libraries/Source/WWVegas/WWLib/Rva0006F373Set.cpp,matched,conditional stores then grow-or-false unlocks 0x0006FAEC
+?rva0045F21C@StancesBehavior@@QAEXXZ,,0x0045F21C,25,Code/GameEngine/Source/GameLogic/Object/Behavior/StancesBehaviorUpdate.cpp,matched,StancesBehavior stance selector via rva0045F084
