@@ -7459,3 +7459,4 @@ FUN_008f7883	0x004F7883	168	blocked	EH prolog push ecx plus frame plus copy_back
 ?lookForInnerTarget@AITNGuardMachine@@QAE_NXZ	0x005461A2	395	partial	edi-esi swap this-vs-currentTunnel plus ebx-vs-esi attackerID; list head fixed pad4; size exact 395 137insns t=18 model=muse-spark score=0.92 stash=reverse/attempts/0x005461a2.cpp
 ?rva0028D4E0@Object@@QAEPAUCoord3D@@PAU2@0@Z	0x0028D4E0	305	blocked	frame sub 0x14 vs 0x18 with 19 ebp displacement shifts and status test byte vs mov shr test al t=30 model=muse-09
 ?lookForInnerTarget@AITNGuardMachine@@QAE_NXZ	0x005461A2	395	blocked	edi-esi swap this-vs-currentTunnel plus ebx-vs-esi attackerID t=20 model=muse-09 (stash 0.92 kept)
+?lookForInnerTarget@AIGuardRetaliateMachine@@QAE_NXZ	0x005455E3	362	partial	EH states misplaced 0 1 vs 0 1 5 plus vptr order next-first and extra lea for kindFilter t=20 model=muse-01 score=0.9 stash=reverse/attempts/0x005455e3.cpp
