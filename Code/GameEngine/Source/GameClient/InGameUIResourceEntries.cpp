@@ -98,7 +98,7 @@ void ResourceOwnedEntryList::rva004E54ED()
 class ResourceEntryCollector
 {
 public:
-    void rva004E551E();
+    __declspec(noinline) void rva004E551E();
 private:
     char unknown00[4];
     ResourceOwnedEntryList entries;
@@ -108,4 +108,45 @@ private:
 void ResourceEntryCollector::rva004E551E()
 {
     entries.rva004E54ED();
+}
+
+class Rva004E7C1C
+{
+public:
+    void rva004E7C1C();
+private:
+    void *head;
+};
+class Rva004E7B13
+{
+public:
+    void rva004E7BAF();
+private:
+    void *head;
+    int count;
+};
+class ResourceEntryOwner
+{
+public:
+    __declspec(noinline) void rva004E7CEF();
+private:
+    char unknown00[4];
+    int users;
+    char unknown08[4];
+    Rva004E7C1C list;
+    Rva004E7B13 tree;
+    char unknown18[4];
+    ResourceEntryCollector collector;
+};
+
+// Retail 4E7CEF/39B decrements +4 and clears all three stores at <=0.
+void ResourceEntryOwner::rva004E7CEF()
+{
+    --users;
+    if (users <= 0)
+    {
+        list.rva004E7C1C();
+        tree.rva004E7BAF();
+        collector.rva004E551E();
+    }
 }
