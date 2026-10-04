@@ -1,18 +1,20 @@
-// ??0Rva002541FA@@QAE@XZ
+// ??0QueueProductionExitUpdateModuleData@@QAE@XZ
 // partial score=0.97 date=2026-09-29
 // cl: /O1 /DNDEBUG /MD /arch:SSE
 //
-// ??0Rva002541FA@@QAE@XZ @ 0x002541FA (68B). Ctor stores vtable 0x00BF1D58,
+// Identity: retail ModuleFactory registers "QueueProductionExitUpdate" with a
+// data factory that calls this ctor (tools/check_module_registry.py).
+// ??0QueueProductionExitUpdateModuleData@@QAE@XZ @ 0x002541FA (68B). Ctor stores vtable 0x00BF1D58,
 // six floats at +0x08..+0x1C via movss, ints/bytes at +0x20..+0x32, byte +0x32=1.
 // Caller at 0x0025425E. Finish from banked 0.97 stash: xor ecx early vs late
 // only diff; try literals for ints so xor lands late like retail.
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 
-class Rva002541FA
+class QueueProductionExitUpdateModuleData
 {
 public:
-	Rva002541FA();
+	QueueProductionExitUpdateModuleData();
 private:
 	const void *m_vtable;
 	int m_unk04;
@@ -31,7 +33,7 @@ private:
 	unsigned char m_31;
 	unsigned char m_32;
 };
-Rva002541FA::Rva002541FA()
+QueueProductionExitUpdateModuleData::QueueProductionExitUpdateModuleData()
 {
 	float fzero = 0.0f;
 	m_vtable = (const void *)0x00BF1D58;
