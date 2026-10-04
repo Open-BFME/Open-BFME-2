@@ -598,15 +598,4 @@ float project_to_sphere(float r, float x, float y)
 }
 
 
-// ?Randomize@Quaternion@@ present-unmatched
-void Quaternion::Randomize(void)
-{
-	X = ((float) (rand() & 0xFFFF)) / 65536.0f;
-	Y = ((float) (rand() & 0xFFFF)) / 65536.0f;
-	Z = ((float) (rand() & 0xFFFF)) / 65536.0f;
-	W = ((float) (rand() & 0xFFFF)) / 65536.0f;
-	
-	Normalize();
-}
-
-
+// Randomize is recovered in QuaternionRandomize.cpp with retail CRT imports.
