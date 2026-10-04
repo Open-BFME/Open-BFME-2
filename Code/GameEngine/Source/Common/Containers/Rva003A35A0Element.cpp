@@ -55,9 +55,11 @@ struct Rva00311FE2Words {
     // ?Rva00311FE2Words::Rva00311FE2Words present-unmatched
     Rva00311FE2Words(const Rva00311FE2Words& s) {word00=s.word00;word04=s.word04;word08=s.word08;}
 };
+struct Rva00311431Arg;
 struct Rva003A35A0Element {
     Rva003A35A0Element();
     ~Rva003A35A0Element();
+    Rva003A35A0Element* rva00311431(const Rva00311431Arg*);
     unsigned int word00;
     float values[10];
     Coord3D points[10];
@@ -104,4 +106,35 @@ Rva003A35A0Element::Rva003A35A0Element()
         values[i]=0.0f;
         points[i].rva003118DFZero();
     }
+}
+
+
+// Target311431 reads only these input offsets. Its caller312EDA also uses
+// other input fields, so this is a partial view, not a complete original type.
+struct Rva00311431Arg {
+    unsigned char unknown00[4];
+    unsigned int word04;
+    AsciiString text08;
+    Rva00311FE2Words point0C;
+};
+
+// Target Ghidra311431/98B supplies the reset and input-field behavior below.
+// Caller312EDA constructs the same184B temporary via3118DF, resets it here,
+// appends via312DCA, assigns via311537, and destroys it via89851. This ties
+// the method to this element independently of the original BF1 donor names.
+// The old bank's flat coordinate view missed native +34 loop addressing;
+// the independently matched149B constructor establishes the shared loop.
+// Canonical StringBase<char>::set366F0 and the+A4 raw-copy behavior are target
+// facts. Original owner/input names and scalar meanings remain unknown.
+Rva003A35A0Element* Rva003A35A0Element::rva00311431(const Rva00311431Arg* arg)
+{
+    text=arg->text08;
+    point=arg->point0C;
+    wordB4=arg->word04;
+    *(float*)&word00=0.0f;
+    for(int i=0;i<10;++i) {
+        values[i]=0.0f;
+        points[i].rva003118DFZero();
+    }
+    return this;
 }
