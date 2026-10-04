@@ -414,3 +414,24 @@ extern "C" unsigned __stdcall Rva00669500(const Rva00669500WordView *target, uns
 {
     return target->m_word29C;
 }
+
+// Whole BFME1 donor: 5cc75ddda6455c338a5068307e587a793f96d6b3,
+// game/GameEngine/Source/Common/BfmeConv1047.cpp; native compiler profile.
+// The donor calls its matching emitted body a word-value constructor. Target
+// evidence establishes only this standalone ABI: the preceding function ends
+// at 23425C; 23425D stores the low stack word through ECX, returns that receiver
+// in EAX, and pops four bytes; the next body begins at 23426A. No native caller
+// or address reference proves a constructor, original type, owner or lifetime.
+// Preserve just the word bits and observed return in this address-based view.
+class Rva0023425D
+{
+public:
+    Rva0023425D *storeWord(unsigned short bits);
+private:
+    unsigned short m_word;
+};
+Rva0023425D *Rva0023425D::storeWord(unsigned short bits)
+{
+    m_word=bits;
+    return this;
+}

@@ -54583,3 +54583,4 @@ _Rva00669500@8,,0x00669500,13,Code/GameEngine/Source/Common/RvaSmallLeafTransfer
 ?rva002A7513@Rva002A7513@@QAEXPAX@Z,,0x002A7513,19,Code/GameEngine/Source/GameLogic/Object/Rva002A7513.cpp,matched,chain from 0x002A74C3 plus rowed Rva002A74C3Get subs from plus0xC
 ?rva0052C036@Rva0052C036@@QAE_NXZ,,0x0052C036,54,Code/GameEngine/Source/Common/System/Rva0052C036Step.cpp,matched,chain via rowed 0x003EF2FF plus pin bfmeEnter plus g_009FE1C8 plus callers 0x003B8CAC 0x0052C9F9
 ??0Rva000A0D3A@@QAE@PAX@Z,,0x000A0D3A,24,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/Gadget/Rva000A0D3ACtor.cpp,matched,Gadget ctor via Rva000A0CE7 base plus vtable 0x00BC8D30
+?storeWord@Rva0023425D@@QAEPAV1@G@Z,,0x0023425D,13,Code/GameEngine/Source/Common/RvaSmallLeafTransfers.cpp,matched,BFME1 5cc75ddd whole BfmeConv1047.cpp compiled; target-address ABI word-store view only; constructor and owner identity unproven
