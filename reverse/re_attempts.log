@@ -7831,3 +7831,5 @@ FUN_007b7836	0x003B7836	260	blocked	no callers prove 3-arg free-function types p
 ??1Rva0044455C@@UAE@XZ	0x0044455C	288	blocked	288B MI dtor needs 3 vptrs basic_string UnicodeString layout t=18 model=muse-06
 ?rva00286E33@Rva00286E33@@QAEHXZ	0x00286E33	149	blocked	149B map insert needs custom compare Gen types version wall t=10 model=muse-06
 ?rva004EB405@Rva004EB405@@QAEX_N@Z	0x004EB405	279	blocked	control-flow mismatch in state-kind dispatch with 8 structural regions and size plus5 t=8 model=muse-08
+?_bfmeFXParticleSystemHeaderInlineAnchor@FXParticleSystem@@YAXPAX@Z	0x004CC5AA	80	blocked	Served helper name refuted: target is TerrainResourceClientBehavior destructor; existing symbols pin and matched slot-0 wrapper 0x00252E56 plus class-name accessor establish identity. Following actual destructor and cleanup dependencies separately. t=1
+??_G?$CategoryModuleTemplate@$00@FXParticleSystem@@UAEPAXI@Z	0x007AB718	39	blocked	Inventory is Unwind@00bab718; reads parent EBP locals and tail-jumps to shared 49B47C destructor. Not a standalone deleting destructor or recoverable category-template body. t=1
