@@ -13,6 +13,7 @@ void Rva005E8EA1_Delete(Rva005E8EA1 *p) { delete p; }
 class Rva005E8F50 {
 public:
 	void clear();
+	void rva005E8F6A();
 private:
 	Rva005E8EA1 *value;
 };
@@ -22,4 +23,11 @@ void Rva005E8F50::clear()
 	Rva005E8EA1 *old = value;
 	value = 0;
 	delete old;
+}
+
+// Ghidra's separate thunk at 005E8F6A forwards the unchanged this pointer
+// directly to 005E8F50. Its original entry-point name is not established.
+void Rva005E8F50::rva005E8F6A()
+{
+	clear();
 }
