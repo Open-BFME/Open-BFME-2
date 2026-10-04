@@ -35222,13 +35222,6 @@ _Rva001CA000Vp6WideAccum,,0x001CA000,4240,Code/GameEngine/Source/Common/Rva001CA
 ?get@Rva000B2BDDOneGetter@@QBEHXZ,,0x000B2BDD,4,Code/GameEngine/Source/Common/IntOneGetters.cpp,matched,Trivial int-one getter ret-delimited shared true-tail
 ?get@Rva000B4975OneGetter@@QBEHXZ,,0x000B4975,4,Code/GameEngine/Source/Common/IntOneGetters.cpp,matched,Trivial int-one getter ret-delimited shared true-tail
 ?get@Rva0027000AOneGetter@@QBEHXZ,,0x0027000A,4,Code/GameEngine/Source/Common/IntOneGetters.cpp,matched,Trivial int-one getter ret-delimited shared true-tail
-?get@Rva00021736ZeroGetter@@QBEHXZ,,0x00021736,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
-?get@Rva000310EBZeroGetter@@QBEHXZ,,0x000310EB,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
-?get@Rva00050D50ZeroGetter@@QBEHXZ,,0x00050D50,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
-?get@Rva00050D5DZeroGetter@@QBEHXZ,,0x00050D5D,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
-?get@Rva00050DEDZeroGetter@@QBEHXZ,,0x00050DED,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
-?get@Rva00075692ZeroGetter@@QBEHXZ,,0x00075692,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
-?get@Rva0007B716ZeroGetter@@QBEHXZ,,0x0007B716,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
 ?get@Rva0008550CZeroGetter@@QBEHXZ,,0x0008550C,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
 ?resize@?$vector@DV?$allocator@D@_STL@@@_STL@@QAEXID@Z,,0x000826E3,54,Code/Libraries/Source/WWVegas/WWLib/stlport_byte_vector_resize_value.cpp,matched,BFME1 STLport by-value resize shape; target 1-byte stride and 0x31BD55 erase call; char is size placeholder
 ?resize@?$vector@UBfmePod44@@V?$allocator@UBfmePod44@@@_STL@@@_STL@@QAEXIUBfmePod44@@@Z,,0x00082CE1,73,Code/Libraries/Source/WWVegas/WWLib/stlport_pod44_vector_resize_value.cpp,matched,BFME1 STLport by-value resize shape; target 44-byte stride and 0x81A4F erase call; BfmePod44 is size placeholder
@@ -35258,49 +35251,8 @@ _Rva001CA000Vp6WideAccum,,0x001CA000,4240,Code/GameEngine/Source/Common/Rva001CA
 ?get@Rva00262117NullOrZero@@QBEHXZ,,0x00262117,15,Code/GameEngine/Source/Common/PtrChaseNullOrZeroGetters.cpp,matched,Ret-delimited ptr-chase null-or-zero; shares true-tail OneGetter at 0x262126; trial-exact first try under /O1
 ?get@Rva0030C890IntGetter@@QBEHXZ,,0x0030C890,6,Code/GameEngine/Source/Common/Disp32CvtFloatIntGetters.cpp,matched,Disp8 float-to-int getter; disp8 encoding of the Disp32 family; pairs with setter 0x30C882 at +0xE; Ghidra bounds agree
 __Addition,,0x0067BC30,146,Code/Libraries/Source/DirtySock/cryptrsa.c,matched,EA DirtySDK donor 03db25634fe8696ee060e1c01bff8fa0911fcba8; original private C body; target bytes and internal call cluster corroborate identity; see docs/reconstruction/dirtysdk-crypto.md; existing span unchanged
-?get@Rva0008BBDDZeroGetter@@QBEHXZ,,0x0008BBDD,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
-?get@Rva00094BEFZeroGetter@@QBEHXZ,,0x00094BEF,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
-?get@Rva000B19F8ZeroGetter@@QBEHXZ,,0x000B19F8,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
-?get@Rva000B2CE2ZeroGetter@@QBEHXZ,,0x000B2CE2,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
-?get@Rva000B3148ZeroGetter@@QBEHXZ,,0x000B3148,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
 ?get@Rva000B3809ZeroGetter@@QBEHXZ,,0x000B3809,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
 ?get@Rva000CB0FCZeroGetter@@QBEHXZ,,0x000CB0FC,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
-?get@Rva000FBA47ZeroGetter@@QBEHXZ,,0x000FBA47,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
-?get@Rva000FC943ZeroGetter@@QBEHXZ,,0x000FC943,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
-?get@Rva001499A5ZeroGetter@@QBEHXZ,,0x001499A5,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
-?get@Rva00149A6CZeroGetter@@QBEHXZ,,0x00149A6C,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
-?get@Rva00149A8CZeroGetter@@QBEHXZ,,0x00149A8C,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
-?get@Rva0014A07FZeroGetter@@QBEHXZ,,0x0014A07F,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
-?get@Rva0014A0C6ZeroGetter@@QBEHXZ,,0x0014A0C6,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
-?get@Rva0016ABD1ZeroGetter@@QBEHXZ,,0x0016ABD1,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
-?get@Rva0016ABF1ZeroGetter@@QBEHXZ,,0x0016ABF1,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
-?get@Rva00179930ZeroGetter@@QBEHXZ,,0x00179930,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
-?get@Rva0017EF80ZeroGetter@@QBEHXZ,,0x0017EF80,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
-?get@Rva0017EFC0ZeroGetter@@QBEHXZ,,0x0017EFC0,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
-?get@Rva0017F000ZeroGetter@@QBEHXZ,,0x0017F000,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
-?get@Rva00181242ZeroGetter@@QBEHXZ,,0x00181242,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
-?get@Rva006026D0ZeroGetter@@QBEHXZ,,0x006026D0,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
-?get@Rva00602820ZeroGetter@@QBEHXZ,,0x00602820,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
-?get@Rva00602860ZeroGetter@@QBEHXZ,,0x00602860,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
-?get@Rva0065E7CAZeroGetter@@QBEHXZ,,0x0065E7CA,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
-?get@Rva0065EC9AZeroGetter@@QBEHXZ,,0x0065EC9A,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
-?get@Rva00104076ZeroGetter@@QBEHXZ,,0x00104076,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
-?get@Rva0010615FZeroGetter@@QBEHXZ,,0x0010615F,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
-?get@Rva0017FB0CZeroGetter@@QBEHXZ,,0x0017FB0C,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
-?get@Rva001D909EZeroGetter@@QBEHXZ,,0x001D909E,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
-?get@Rva001E35C7ZeroGetter@@QBEHXZ,,0x001E35C7,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
-?get@Rva001E38B6ZeroGetter@@QBEHXZ,,0x001E38B6,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
-?get@Rva001E4012ZeroGetter@@QBEHXZ,,0x001E4012,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
-?get@Rva001F376BZeroGetter@@QBEHXZ,,0x001F376B,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
-?get@Rva00219837ZeroGetter@@QBEHXZ,,0x00219837,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
-?get@Rva002221A6ZeroGetter@@QBEHXZ,,0x002221A6,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
-?get@Rva0023C921ZeroGetter@@QBEHXZ,,0x0023C921,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
-?get@Rva0025DD45ZeroGetter@@QBEHXZ,,0x0025DD45,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
-?get@Rva0025DE73ZeroGetter@@QBEHXZ,,0x0025DE73,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
-?get@Rva002632C4ZeroGetter@@QBEHXZ,,0x002632C4,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
-?get@Rva002632DEZeroGetter@@QBEHXZ,,0x002632DE,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
-?get@Rva0027175CZeroGetter@@QBEHXZ,,0x0027175C,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
-?get@Rva00271776ZeroGetter@@QBEHXZ,,0x00271776,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
 ??_GTextureStatisticsStruct@@QAEPAXI@Z,,0x00118F30,30,Code/Libraries/Source/WWVegas/WWLib/FamilyDeletingDtorsO2.cpp,matched,scalar deleting dtor (/O2 add-esp form); same-shape sibling of 0x72C0 selected by its dtor callee
 ??_GDX8IndexBufferClass@@UAEPAXI@Z,,0x00139200,30,Code/Libraries/Source/WWVegas/WWLib/FamilyDeletingDtorsO2.cpp,matched,scalar deleting dtor (/O2 add-esp form); same-shape sibling of 0x72C0 selected by its dtor callee
 ??_GSortingIndexBufferClass@@UAEPAXI@Z,,0x00139220,30,Code/Libraries/Source/WWVegas/WWLib/FamilyDeletingDtorsO2.cpp,matched,scalar deleting dtor (/O2 add-esp form); same-shape sibling of 0x72C0 selected by its dtor callee
