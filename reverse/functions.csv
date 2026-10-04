@@ -54879,3 +54879,19 @@ rva007916E1_constructor_unwind,,0x007916E1,11,Code/GameEngine/Source/Common/INI/
 ?_M_insert_overflow@?$vector@UBfmeVectorRecord000C0BEC@@V?$allocator@UBfmeVectorRecord000C0BEC@@@_STL@@@_STL@@IAEXPAUBfmeVectorRecord000C0BEC@@ABU3@ABU__false_type@2@I_N@Z,,0x000C781E,183,Code/GameEngine/Source/Common/Containers/Rva000C781ERecordGrowth.cpp,matched,BF1 donor1281192 wholeRva007701C0Vector; native Ghidra183/pushC8255 prove20B growth ABI; STLport4.5.3 caller reference maximum specialization preserves bytes and avoids unused wrongmax; native rowed allocator/copy/construct/fill/clear closure
 ?push_back@?$vector@UBfmeVectorRecord000C0BEC@@V?$allocator@UBfmeVectorRecord000C0BEC@@@_STL@@@_STL@@QAEXABUBfmeVectorRecord000C0BEC@@@Z,,0x000C8255,55,Code/GameEngine/Source/Common/Containers/Rva000C781ERecordGrowth.cpp,matched,BF1 donor1281192 wholeRva007701C0Vector; native Ghidra55 and ownerC8492 caller identify20B record push; ConstructC23B4/45 and rowedgrowthC781E/183 exact; partial record original identity unknown
 ?findOrCreateRecord@Rva000C8492RecordOwner@@QAEPAUBfmeVectorRecord000C0BEC@@ABVAsciiString@@@Z,,0x000C8492,202,Code/GameEngine/Source/Common/Containers/Rva000C781ERecordGrowth.cpp,matched,BFME1 whole Rva007701C0Vector.cpp at1281192f682ce6f29b8f06b7daea4b5e8fdfbb24; target full Ghidra202 boundary and owner vector+7C vs donor+78; native20B record text+0 names+4 word+10 and rowed ctorBDD48 copyC0BEC dtorBEDF0 plus pushC8255; original owner/record identity and word meaning remain unknown; /G7 /O1; named strcmpi import and canonical string calls; pointer maximum selection preserves growth183 and full actual-position LINK closure
+?rva007B8CF5@@YAXXZ,,0x007B8CF5,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva007B8CFF@@YAXXZ,,0x007B8CFF,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva007B8D09@@YAXXZ,,0x007B8D09,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva007B8D13@@YAXXZ,,0x007B8D13,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva007B8D1D@@YAXXZ,,0x007B8D1D,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva007B8D27@@YAXXZ,,0x007B8D27,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva007B8D31@@YAXXZ,,0x007B8D31,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva007B8D3B@@YAXXZ,,0x007B8D3B,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva007B8D45@@YAXXZ,,0x007B8D45,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva007B8D4F@@YAXXZ,,0x007B8D4F,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva007B8D59@@YAXXZ,,0x007B8D59,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva007B8D63@@YAXXZ,,0x007B8D63,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva007B8D6D@@YAXXZ,,0x007B8D6D,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva007B8D77@@YAXXZ,,0x007B8D77,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva007B8D81@@YAXXZ,,0x007B8D81,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva007B8D8B@@YAXXZ,,0x007B8D8B,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
