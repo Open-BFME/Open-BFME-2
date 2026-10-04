@@ -54284,3 +54284,4 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ??_GRva0056DC6B@@UAEPAXI@Z,,0x0056DC88,28,Code/GameEngine/Source/Common/Rva0056DC6BDtor.cpp,matched,deleting dtor emitted by ??1 unit vtable slot 0
 ?rva0031BAB1@ControlBar@@QAEXXZ,,0x0031BAB1,18,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031BAB1.cpp,matched,if-else on m_0024 via rowed switchControlBarStage 0x0031B99A with caller 0x004028C3
 ?rva00262F19@AIUpdateInterface@@UAEXABVRva0035149F@@@Z,,0x00262F19,69,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_rva00262F19.cpp,matched,slot 117 AIUpdate vtable via g_Va00DBA4E4 plus rowed callees
+?Rva004EA2C5Get@@YAHXZ,,0x004EA2C5,55,Code/GameEngine/Source/Common/Rva004EA2C5.cpp,matched,walks GameLogic list via getFirstObject and StringBase compare holder plus4 name plus64 TheGameLogic in use

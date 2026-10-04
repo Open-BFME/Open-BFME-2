@@ -1,5 +1,3 @@
-// ?Rva004EA2C5Get@@YAHXZ
-// partial score=0.93 date=2026-10-04
 // cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHs
 // ?Rva004EA2C5Get@@YAHXZ @0x004EA2C5 55B
 // Counts world objects whose template name matches global g_00E04490.
@@ -43,7 +41,8 @@ int __cdecl Rva004EA2C5Get()
 {
 	int count = 0;
 	for (Object *obj = TheGameLogic->getFirstObject(); obj; obj = obj->getNextObject()) {
-		if (obj->m_holder->m_name.compare(g_00E04490) == 0)
+		Rva004EA2C5Template *holder = obj->m_holder;
+		if (holder->m_name.compare(g_00E04490) == 0)
 			++count;
 	}
 	return count;
