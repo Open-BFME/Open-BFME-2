@@ -54377,3 +54377,4 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ??0Rva005D00A6@@QAE@XZ,,0x005D00A6,90,Code/GameEngine/Source/Common/System/Rva005D00A6Ctor.cpp,matched,BattleResolver temp to base 0x00221635 with two 1000 stores
 ??0Rva000A15FE@@QAE@PAX@Z,,0x000A15FE,24,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/Gadget/W3DGadgetWindowRva000A15FE.cpp,matched,gap ctor forwards void to base stores vtable BC8DB4
 ??0Rva000A1646@@QAE@PAX@Z,,0x000A1646,24,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/Gadget/W3DGadgetWindowRva000A15FE.cpp,matched,chain ctor forwards void to base 000A15FE stores BC8DE0
+??0Rva0035615D@@QAE@ABVAsciiString@@ABVRva0036CA00Str@@1_N@Z,,0x0035615D,97,Code/GameEngine/Source/Common/Rva0035615DCtor.cpp,matched,unlock ctor vtable 0x00814EBC base Rva00490470 callers 0x0023DE2C
