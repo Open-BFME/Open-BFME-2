@@ -1,3 +1,5 @@
+// ?onEnter@AIAttackMeleeHordeWaitPathState@@UAE?AW4StateReturnType@@XZ
+// partial score=0.98 date=2026-10-04
 // cl: /O1 /DNDEBUG /MD /arch:SSE
 //
 // onEnter/onExit overrides of BFME 2 states, each named by its vtable's
@@ -34,12 +36,6 @@
 //    StateMachine::getGoalObject) or AI; else AI slot 142 with 4, +0x4C = 1,
 //    +0x50 = true, the pinned AI member 0x00263EA2 with the goal's id (+0x74)
 //    and the pinned AIInternalMoveToState::onEnter as a tail call.
-//  - AIFaceDirectionState::update, retail 0x003425BF (90 bytes): slot 6 of
-//    0x00C12378. Within PI/10 (.rdata 0x00C123D4) of the +0x20 angle
-//    (rowed normalizeAngle of the difference to the owner's orientation
-//    +0x44) it sets the orientation (rowed Thing::setOrientation) and
-//    succeeds; otherwise it turns through AI slot 135
-//    (setLocomotorGoalOrientation) and continues.
 //
 // Layout and callees as in AIFollowPathStateOnExit.cpp and
 // AIStatesDerivedOnExit.cpp; the meaning of the status, condition and kind
@@ -61,6 +57,7 @@ enum ObjectStatusTypes
 	OBJECT_STATUS_BFME_3 = 3,
 	OBJECT_STATUS_BFME_19 = 0x19,
 	OBJECT_STATUS_BFME_26 = 0x26,
+	OBJECT_STATUS_BFME_44 = 0x44,
 	OBJECT_STATUS_BFME_4B = 0x4B,
 	OBJECT_STATUS_BFME_4E = 0x4E,
 	OBJECT_STATUS_BFME_5D = 0x5D
@@ -74,6 +71,17 @@ enum
 	STATE_SUCCESS = -1,
 	STATE_FAILURE = -2
 };
+class GameLogic
+{
+public:
+	unsigned int getFrame() const { return m_frame; }
+private:
+	unsigned char m_pad00[0x40];
+	unsigned int m_frame; // +0x40
+};
+extern GameLogic *TheGameLogic;
+extern int g_Va00DBA4E4;
+
 enum WeaponLockType
 {
 	NOT_LOCKED,
@@ -135,6 +143,9 @@ private:
 	Locomotor *m_curLocomotor; // +0x1F0
 	unsigned char m_pad1F4[0x3BA - 0x1F4];
 	Bool m_canPathThroughUnits; // +0x3BA
+	unsigned char m_pad3BB[0x3CC - 0x3BB];
+public:
+	Bool m_bfmeFlag3CC; // +0x3CC
 };
 
 class Rva0010CBits
@@ -219,6 +230,7 @@ public:
 	virtual StateReturnType setState(StateID newStateID);
 	Object *getOwner() const { return m_owner; }
 	Object *getGoalObject();
+	Bool isGoalObjectDestroyed() const;
 	void rva0034BF11ClearByte3A() { m_bfmeFlag3A = false; }
 private:
 	unsigned char m_pad04[0x14 - 0x04];
@@ -402,5 +414,30 @@ StateReturnType AIFaceDirectionState::update()
 		return (StateReturnType)STATE_SUCCESS;
 	}
 	owner->getAI()->setLocomotorGoalOrientation(m_angle);
+	return STATE_CONTINUE;
+}
+
+class AIAttackMeleeHordeWaitPathState : public State
+{
+public:
+	virtual StateReturnType onEnter();
+private:
+	unsigned char m_pad1C[0x20 - 0x1C];
+	unsigned int m_waitUntil; // +0x20
+	int m_bfmeValue24; // +0x24
+};
+
+StateReturnType AIAttackMeleeHordeWaitPathState::onEnter()
+{
+	m_bfmeValue24 = 0;
+	if (getMachine()->isGoalObjectDestroyed())
+		return (StateReturnType)STATE_SUCCESS;
+	if (!getMachine()->getGoalObject())
+		return (StateReturnType)STATE_SUCCESS;
+	unsigned int now = TheGameLogic->getFrame();
+	m_waitUntil = now;
+	Object *owner = getMachineOwner();
+	if (owner->testStatus(OBJECT_STATUS_BFME_44) || owner->getAI()->m_bfmeFlag3CC)
+		m_waitUntil = now + g_Va00DBA4E4 + 2;
 	return STATE_CONTINUE;
 }
