@@ -1,5 +1,3 @@
-// ?rva002C5AE6@Rva002C589B@@QAEMXZ
-// partial score=0.99 date=2026-10-04
 // cl: /O1 /DNDEBUG /MD /arch:SSE
 // ?rva002C5AE6@Rva002C589B@@QAEMXZ @0x002C5AE6 96B via max array float plus m_28
 // Evidence: pin QAEMXZ float no args; caller 0x00505383 matched plus 0x0059A1F0; this+0 m_00 via global g_00DFEEF8 to rowed rva002A8AB1 pin; rec+0x164 plus 0x20 bounds; elems float at +0x18 max from 0.0f; m_28 float at +0x28 max; SSE xorps movss comiss plus fld return; prev/next Rva002C589B same class
@@ -62,7 +60,6 @@ private:
 	float m_28;
 };
 
-// ?rva002C5AE6@Rva002C589B@@QAEMXZ present-unmatched
 float Rva002C589B::rva002C5AE6()
 {
 	float vmax = 0.0f;
@@ -76,6 +73,5 @@ float Rva002C589B::rva002C5AE6()
 			vmax = e->m_18;
 		it++;
 	}
-	vmax = (vmax > m_28) ? vmax : m_28;
-	return vmax;
+	return (vmax > m_28) ? vmax : m_28;
 }
