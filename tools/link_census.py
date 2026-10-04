@@ -1814,12 +1814,30 @@ def write_status(log, rows, present, meta, kept, publish=True):
           f"address by link order ({stats.get('losers_first', 0):,} losing copies)")
     unresolved = collections.defaultdict(set)
     duplicates = collections.defaultdict(set)
+    # An /alternatename alias whose target is an excused name: /NODEFAULTLIB
+    # leaves the target unresolved, so link.exe reports the alias, but the real
+    # link resolves the target from the import library and the alias with it
+    # (2026-10-04: ten units bind ?_CxxThrowException@@YGXPAX0@Z, the spelling
+    # VC7.1's predeclared C-linkage helper forces on a (void *, void *)
+    # declaration, to __CxxThrowException@8). Chains are followed, as link.exe does.
+    import link_check
+    aliases = collections.defaultdict(set)
+    for obj in present:
+        for alias, target in link_check.alternate_names(obj).items():
+            aliases[alias].add(target)
+
+    def excused_through(symbol, seen=frozenset()):
+        if excused(symbol, runtime, imported, thunks):
+            return True
+        seen = seen | {symbol}
+        return any(target not in seen and excused_through(target, seen) for target in aliases.get(symbol, ()))
+
     for line in log.splitlines():
         found = UNRESOLVED.search(line)
         if found:
             symbol = found.group(1) or found.group(2)
             referrer = REFERRER.match(line)
-            if referrer and not excused(symbol, runtime, imported, thunks):
+            if referrer and not excused_through(symbol):
                 unresolved[Path(referrer.group(1)).name].add(symbol)
             continue
         found = DUPLICATE.match(line)
