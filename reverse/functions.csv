@@ -53807,3 +53807,4 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ?rva0033C259@ModuleInfo@@QBEMH@Z,,0x0033C259,47,Code/GameEngine/Source/Common/Thing/ModuleInfoRva0033C259.cpp,matched,map find guarded by count returns float bits else BfmeZeroRange
 ?Rva00332197SortHeap@@YAXPAUS4SortElem12@@0US4Cmp002E0CD0@@@Z,,0x00332197,65,Code/GameEngine/Source/Common/Rva003320B0PopHeap.cpp,matched,S4 sort_heap loop over rowed 0x003320B0
 ?rva00332F81@Rva00332F5B@@QBEHABV1@@Z,,0x00332F81,64,Code/GameEngine/Source/Common/Rva00332F5BCtor.cpp,matched,Rva00332F5B equals via dword plus Equal 0x4c twice
+?rva00332FE7@Rva00332FC1@@QBEHABV1@@Z,,0x00332FE7,64,Code/GameEngine/Source/Common/Rva00332FC1Ctor.cpp,matched,Rva00332FC1 equals via dword plus Equal twice
