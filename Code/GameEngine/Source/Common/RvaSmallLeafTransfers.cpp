@@ -526,3 +526,37 @@ bool __stdcall Rva0004538C(int value, unsigned int)
     return true;
 }
 #pragma optimize("",on)
+
+// Whole clean BFME 1 S1InequalityPredicates.cpp donor at
+// 6583b3c1ff21db4a561285717028fdafc780b7db. Whole-unit /O2 and /O1 trials
+// supplied these two independently verified placements; the other donor bodies
+// supplied no supported unclaimed placement. There are no calls or new pins.
+// Native 0066EA40/12 is INT3-isolated on both sides. It compares receiver
+// word +8 with FFFFFFFE and returns precisely 0 or 1 in EAX. Neither that
+// sentinel's meaning nor the original owner/type/name is established.
+class Rva0066EA40
+{
+public:
+    bool word8DiffersFromMinusTwo() const;
+private:
+    char m_unmodelled0[8];
+    unsigned int m_word8;
+};
+bool Rva0066EA40::word8DiffersFromMinusTwo() const
+{
+    return m_word8 != 0xfffffffeU;
+}
+
+// Native 003807AA/13 lies between the RET at 3807A9 and the next Ghidra
+// entry at 3807B7. It compares the four bytes at VA DC06A0 with
+// FFFFFFFF and returns precisely 0 or 1 in EAX. The loaded value is -1;
+// seven native absolute operands corroborate this shared global address.
+// Reuse its existing link-clean TooltipHide definition and declared pointer
+// representation; no original function purpose or pointee type is claimed.
+extern void *TheRva00222A8BOwner;
+#pragma optimize("s",on)
+bool Rva003807AASentinelDiffers()
+{
+    return TheRva00222A8BOwner != (void *)-1;
+}
+#pragma optimize("",on)
