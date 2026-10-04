@@ -7848,3 +7848,4 @@ FUN_007b7836	0x003B7836	260	blocked	no callers prove 3-arg free-function types p
 ?Rva002862C9Get@@YAPAXXZ	0x002862C9	136	blocked	singleton getter needs unknown atexit code 0x7B7810 and pin-only bfmeAddKey shares this with OCL ctor t=15 model=muse-06
 ?rva005A6A83@Rva005A6A83@@QAEXXZ	0x005A6A83	145	partial	narrow WORD push gives movzx-xor vs retail mov ax; 149B vs 145B 0reg 3regions t=15 model=muse-05 score=0.93 stash=reverse/attempts/0x005a6a83.cpp
 ?Rva003B15D6Get@@YAHXZ	0x003B15D6	541	blocked	541B EH INI parse with throw; no callers no donor free signature unknown; identity unproven t=5 model=muse-05
+?rva003F42F7@Rva003F42F7@@QAEXXZ	0x003F42F7	59	blocked	edi ebx swapped plus lea vs add plus push order stable across 6 variants t=20 model=muse-12

@@ -20,6 +20,7 @@ class Rva003F44A9 {
     _STL::vector<Rva003F44A9Element *> m_list;
 public:
     void *rva003F44A9();
+    bool rva003F44ED();
 };
 void *Rva003F44A9::rva003F44A9()
 {
@@ -36,4 +37,20 @@ void *Rva003F44A9::rva003F44A9()
         } while (i < m_list.size());
     }
     return 0;
+}
+
+bool Rva003F44A9::rva003F44ED()
+{
+    unsigned i = 0;
+    if (i < m_list.size()) {
+        Rva003F44A9Element **cur = m_list.begin();
+        _ReadWriteBarrier();
+        do {
+            if (!(*cur)->m_str.isEmpty())
+                return true;
+            ++i;
+            ++cur;
+        } while (i < m_list.size());
+    }
+    return false;
 }
