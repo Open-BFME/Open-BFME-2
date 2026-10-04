@@ -11,6 +11,9 @@
 // construction). Identity is the ModuleFactory registration under
 // "AODHordeContain" (sole-caller data factory per the superseded ctor pin).
 
+extern "C" const void *const vtbl_00C465F8[];  // ??_7Rva0024B9BA@@6B@
+#pragma comment(linker, "/alternatename:_vtbl_00C465F8=??_7Rva0024B9BA@@6B@")
+
 class HordeContainModuleData
 {
 public:
@@ -51,7 +54,7 @@ private:
 AODHordeContainModuleData::AODHordeContainModuleData()
 	: HordeContainModuleData()
 {
-	*(unsigned int *)this = 0x00C465F8;
+	*(unsigned int *)this = ((unsigned int)vtbl_00C465F8);
 	m_f274 = 0.0f;
 	m_f278 = 0.0f;
 	m_f27C = 0.0f;
