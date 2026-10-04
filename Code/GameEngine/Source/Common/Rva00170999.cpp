@@ -122,3 +122,15 @@ template <> void _STL::_Construct<Rva00151DAB, Rva00151DAB>(Rva00151DAB *p, cons
 	}
 	p->Rva00151DAB::Rva00151DAB(v);
 }
+
+// Retail 0x00170A85..0x00170A97: nullable placement-copy wrapper.
+// The native call at 0x00170A91 targets the rowed copy constructor 0x001709D7;
+// the adjacent Rva00151DAB _Construct specialization establishes the STL shape.
+// Rva00170999 remains an address-derived type; its original name is unknown.
+template <> void _STL::_Construct<Rva00170999, Rva00170999>(Rva00170999 *p, const Rva00170999 &v)
+{
+	if (p == 0) {
+		return;
+	}
+	p->Rva00170999::Rva00170999(v);
+}
