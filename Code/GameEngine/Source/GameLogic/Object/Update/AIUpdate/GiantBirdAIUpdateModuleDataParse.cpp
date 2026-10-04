@@ -10,7 +10,37 @@
 // under "GiantBirdAIUpdate". Row supersedes the parse pin.
 
 class MultiIniFieldParse;
-struct FieldParse;
+class INI;
+typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
+struct FieldParse
+{
+	const char *token;
+	INIFieldParseProc parse;
+	const void *userData;
+	int offset;
+};
+
+class INI
+{
+public:
+	static void parseFXList(INI *ini, void *instance, void *store, const void *userData);
+	static void parseIndexList(INI *ini, void *instance, void *store, const void *userData);
+	static void parseReal(INI *ini, void *instance, void *store, const void *userData);
+};
+
+extern const char *TheLocomotorSetNames[];
+// Retail VA 0x00C178D8 (.rdata): 8 field records and a zero sentinel.
+extern const FieldParse g_00C178D8[] = {
+	{ "AttackLocomotorType", &INI::parseIndexList, TheLocomotorSetNames, 0x64 },
+	{ "ReturnForAmmoLocomotorType", &INI::parseIndexList, TheLocomotorSetNames, 0x68 },
+	{ "GrabTossTimeTrigger", &INI::parseReal, 0, 0x6C },
+	{ "GrabTossHeightTrigger", &INI::parseReal, 0, 0x70 },
+	{ "FollowThroughDistance", &INI::parseReal, 0, 0x74 },
+	{ "FollowThroughCheckStep", &INI::parseReal, 0, 0x78 },
+	{ "FollowThroughGradient", &INI::parseReal, 0, 0x7C },
+	{ "TossFX", &INI::parseFXList, 0, 0x80 },
+	{ 0, 0, 0, 0 }
+};
 
 class MultiIniFieldParse
 {
@@ -34,5 +64,5 @@ public:
 void GiantBirdAIUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
 	TransportAIUpdateModuleData::buildFieldParse(parse);
-	parse.add(reinterpret_cast<const FieldParse *>(0x00C178D8), 0);
+	parse.add(g_00C178D8, 0);
 }

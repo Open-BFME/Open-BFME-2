@@ -12,7 +12,27 @@ extern "C" const void *const vtbl_00C4ED70[];  // folded, 9 classes; via ??_7Bea
 #pragma comment(linker, "/alternatename:_vtbl_00C4ED70=??_7BeaconClientUpdateModuleData@@6B@")
 
 class MultiIniFieldParse;
-struct FieldParse;
+class INI;
+typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
+struct FieldParse
+{
+	const char *token;
+	INIFieldParseProc parse;
+	const void *userData;
+	int offset;
+};
+
+class INI
+{
+public:
+	static void parseReal(INI *ini, void *instance, void *store, const void *userData);
+};
+
+// Retail VA 0x00C40F90 (.rdata): 1 field records and a zero sentinel.
+extern const FieldParse g_00C40F90[] = {
+	{ "EnragedLifeTimer", &INI::parseReal, 0, 0x8 },
+	{ 0, 0, 0, 0 }
+};
 
 class MultiIniFieldParse
 {
@@ -46,5 +66,5 @@ EnragedBehaviorModuleData::EnragedBehaviorModuleData()
 // ?buildFieldParse@EnragedBehaviorModuleData@@SAXAAVMultiIniFieldParse@@@Z @0x00458F92
 void EnragedBehaviorModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
-	parse.add(reinterpret_cast<const FieldParse *>(0x00C40F90), 0);
+	parse.add(g_00C40F90, 0);
 }

@@ -10,7 +10,27 @@
 // Row supersedes the parse pin.
 
 class MultiIniFieldParse;
-struct FieldParse;
+class INI;
+typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
+struct FieldParse
+{
+	const char *token;
+	INIFieldParseProc parse;
+	const void *userData;
+	int offset;
+};
+
+class INI
+{
+public:
+	static void parseBool(INI *ini, void *instance, void *store, const void *userData);
+};
+
+// Retail VA 0x00C5DD44 (.rdata): 1 field records and a zero sentinel.
+extern const FieldParse g_00C5DD44[] = {
+	{ "HordeDeploy", &INI::parseBool, 0, 0x18 },
+	{ 0, 0, 0, 0 }
+};
 
 class MultiIniFieldParse
 {
@@ -34,5 +54,5 @@ public:
 void SiegeDeployHordeSpecialPowerModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
 	Rva005890EDBase::buildFieldParse(parse);
-	parse.add(reinterpret_cast<const FieldParse *>(0x00C5DD44), 0);
+	parse.add(g_00C5DD44, 0);
 }

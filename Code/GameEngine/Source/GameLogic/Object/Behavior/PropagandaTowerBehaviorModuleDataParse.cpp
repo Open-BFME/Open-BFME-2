@@ -11,7 +11,37 @@
 // parse pin.
 
 class MultiIniFieldParse;
-struct FieldParse;
+class INI;
+typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
+struct FieldParse
+{
+	const char *token;
+	INIFieldParseProc parse;
+	const void *userData;
+	int offset;
+};
+
+class INI
+{
+public:
+	static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);
+	static void parseDurationUnsignedInt(INI *ini, void *instance, void *store, const void *userData);
+	static void parseFXList(INI *ini, void *instance, void *store, const void *userData);
+	static void parsePercentToReal(INI *ini, void *instance, void *store, const void *userData);
+	static void parseReal(INI *ini, void *instance, void *store, const void *userData);
+};
+
+// Retail VA 0x00C49368 (.rdata): 7 field records and a zero sentinel.
+extern const FieldParse g_00C49368[] = {
+	{ "Radius", &INI::parseReal, 0, 0x8 },
+	{ "DelayBetweenUpdates", &INI::parseDurationUnsignedInt, 0, 0xC },
+	{ "HealPercentEachSecond", &INI::parsePercentToReal, 0, 0x10 },
+	{ "UpgradedHealPercentEachSecond", &INI::parsePercentToReal, 0, 0x1C },
+	{ "PulseFX", &INI::parseFXList, 0, 0x14 },
+	{ "UpgradeRequired", &INI::parseAsciiString, 0, 0x18 },
+	{ "UpgradedPulseFX", &INI::parseFXList, 0, 0x20 },
+	{ 0, 0, 0, 0 }
+};
 
 class MultiIniFieldParse
 {
@@ -28,5 +58,5 @@ public:
 // ?buildFieldParse@PropagandaTowerBehaviorModuleData@@SAXAAVMultiIniFieldParse@@@Z @0x004819BE
 void PropagandaTowerBehaviorModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
-	parse.add(reinterpret_cast<const FieldParse *>(0x00C49368), 0);
+	parse.add(g_00C49368, 0);
 }

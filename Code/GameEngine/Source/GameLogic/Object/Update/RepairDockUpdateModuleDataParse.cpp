@@ -10,7 +10,27 @@
 // under "RepairDockUpdate". Row supersedes the parse pin.
 
 class MultiIniFieldParse;
-struct FieldParse;
+class INI;
+typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
+struct FieldParse
+{
+	const char *token;
+	INIFieldParseProc parse;
+	const void *userData;
+	int offset;
+};
+
+class INI
+{
+public:
+	static void parseDurationReal(INI *ini, void *instance, void *store, const void *userData);
+};
+
+// Retail VA 0x00C51C10 (.rdata): 1 field records and a zero sentinel.
+extern const FieldParse g_00C51C10[] = {
+	{ "TimeForFullHeal", &INI::parseDurationReal, 0, 0x10 },
+	{ 0, 0, 0, 0 }
+};
 
 class MultiIniFieldParse
 {
@@ -34,5 +54,5 @@ public:
 void RepairDockUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
 	DockUpdateModuleData::buildFieldParse(parse);
-	parse.add(reinterpret_cast<const FieldParse *>(0x00C51C10), 0);
+	parse.add(g_00C51C10, 0);
 }

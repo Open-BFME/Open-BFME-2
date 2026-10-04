@@ -11,7 +11,28 @@
 // under "FakePathfindPortalBehaviour". Row supersedes the parse pin.
 
 class MultiIniFieldParse;
-struct FieldParse;
+class INI;
+typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
+struct FieldParse
+{
+	const char *token;
+	INIFieldParseProc parse;
+	const void *userData;
+	int offset;
+};
+
+class INI
+{
+public:
+	static void parseBool(INI *ini, void *instance, void *store, const void *userData);
+};
+
+// Retail VA 0x00C42B10 (.rdata): 2 field records and a zero sentinel.
+extern const FieldParse g_00C42B10[] = {
+	{ "AllowEnemies", &INI::parseBool, 0, 0x118 },
+	{ "AllowNonSkirmishAIUnits", &INI::parseBool, 0, 0x119 },
+	{ 0, 0, 0, 0 }
+};
 
 class MultiIniFieldParse
 {
@@ -31,5 +52,5 @@ public:
 void FakePathfindPortalBehaviourModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
 	parse.add(reinterpret_cast<const FieldParse *>(Rva004CE29DGet()), 8);
-	parse.add(reinterpret_cast<const FieldParse *>(0x00C42B10), 0);
+	parse.add(g_00C42B10, 0);
 }

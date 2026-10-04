@@ -12,7 +12,36 @@
 // Row supersedes the parse pin.
 
 class MultiIniFieldParse;
-struct FieldParse;
+class INI;
+typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
+struct FieldParse
+{
+	const char *token;
+	INIFieldParseProc parse;
+	const void *userData;
+	int offset;
+};
+
+class INI
+{
+public:
+	static void parseBool(INI *ini, void *instance, void *store, const void *userData);
+	static void parseDurationUnsignedInt(INI *ini, void *instance, void *store, const void *userData);
+	static void parseReal(INI *ini, void *instance, void *store, const void *userData);
+};
+
+// Retail VA 0x00C5DBD8 (.rdata): 8 field records and a zero sentinel.
+extern const FieldParse g_00C5DBD8[] = {
+	{ "LowerDelay", &INI::parseDurationUnsignedInt, 0, 0x18 },
+	{ "RaiseDelay", &INI::parseDurationUnsignedInt, 0, 0x1C },
+	{ "EvacuatePassengersOnDeploy", &INI::parseBool, 0, 0x20 },
+	{ "EvacuateCrewOnDeploy", &INI::parseBool, 0, 0x21 },
+	{ "SkipAdjustPosition", &INI::parseBool, 0, 0x22 },
+	{ "WallSearchDistance", &INI::parseReal, 0, 0x24 },
+	{ "AwayFromWallWaitDist", &INI::parseReal, 0, 0x28 },
+	{ "ExtraWallDistance", &INI::parseReal, 0, 0x2C },
+	{ 0, 0, 0, 0 }
+};
 
 class MultiIniFieldParse
 {
@@ -36,5 +65,5 @@ public:
 void SiegeDeploySpecialPowerModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
 	Rva005890EDBase::buildFieldParse(parse);
-	parse.add(reinterpret_cast<const FieldParse *>(0x00C5DBD8), 0);
+	parse.add(g_00C5DBD8, 0);
 }

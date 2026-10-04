@@ -14,7 +14,29 @@ extern "C" const void *const vtbl_00C5F778[];  // folded, 3 classes; via ??_7Eva
 #pragma comment(linker, "/alternatename:_vtbl_00C5F778=??_7EvacuateGarrisonSpecialPowerModuleData@@6B@")
 
 class MultiIniFieldParse;
-struct FieldParse;
+class INI;
+typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
+struct FieldParse
+{
+	const char *token;
+	INIFieldParseProc parse;
+	const void *userData;
+	int offset;
+};
+
+class INI
+{
+public:
+	static void parseCoord3D(INI *ini, void *instance, void *store, const void *userData);
+	static void parseWeaponTemplate(INI *ini, void *instance, void *store, const void *userData);
+};
+
+// Retail VA 0x00BEF20C (.rdata): 2 field records and a zero sentinel.
+extern const FieldParse g_00BEF20C[] = {
+	{ "FlingPassengerVelocity", &INI::parseCoord3D, 0, 0xC8 },
+	{ "FlingPassengerLandingWarhead", &INI::parseWeaponTemplate, 0, 0xD4 },
+	{ 0, 0, 0, 0 }
+};
 
 class MultiIniFieldParse
 {
@@ -65,5 +87,5 @@ FlingPassengerSpecialAbilityUpdateModuleData::FlingPassengerSpecialAbilityUpdate
 void FlingPassengerSpecialAbilityUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
 	Rva0044EB54::buildFieldParse(parse);
-	parse.add(reinterpret_cast<const FieldParse *>(0x00BEF20C), 0);
+	parse.add(g_00BEF20C, 0);
 }

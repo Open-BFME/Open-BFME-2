@@ -16,7 +16,29 @@ extern "C" const void *const vtbl_00C4ED70[];  // folded, 9 classes; via ??_7Bea
 extern int g_Va00DBA4E4;
 
 class MultiIniFieldParse;
-struct FieldParse;
+class INI;
+typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
+struct FieldParse
+{
+	const char *token;
+	INIFieldParseProc parse;
+	const void *userData;
+	int offset;
+};
+
+class INI
+{
+public:
+	static void parseDurationUnsignedInt(INI *ini, void *instance, void *store, const void *userData);
+	static void parseReal(INI *ini, void *instance, void *store, const void *userData);
+};
+
+// Retail VA 0x00C4ECC0 (.rdata): 2 field records and a zero sentinel.
+extern const FieldParse g_00C4ECC0[] = {
+	{ "ScanRate", &INI::parseDurationUnsignedInt, 0, 0x8 },
+	{ "ScanRange", &INI::parseReal, 0, 0xC },
+	{ 0, 0, 0, 0 }
+};
 
 class MultiIniFieldParse
 {
@@ -53,5 +75,5 @@ CommandButtonHuntUpdateModuleData::CommandButtonHuntUpdateModuleData()
 // ?buildFieldParse@CommandButtonHuntUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z @0x004952BE
 void CommandButtonHuntUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
-	parse.add(reinterpret_cast<const FieldParse *>(0x00C4ECC0), 0);
+	parse.add(g_00C4ECC0, 0);
 }

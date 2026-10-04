@@ -12,7 +12,27 @@ extern "C" const void *const vtbl_00C5F778[];  // folded, 3 classes; via ??_7Eva
 #pragma comment(linker, "/alternatename:_vtbl_00C5F778=??_7EvacuateGarrisonSpecialPowerModuleData@@6B@")
 
 class MultiIniFieldParse;
-struct FieldParse;
+class INI;
+typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
+struct FieldParse
+{
+	const char *token;
+	INIFieldParseProc parse;
+	const void *userData;
+	int offset;
+};
+
+class INI
+{
+public:
+	static void parseDurationUnsignedInt(INI *ini, void *instance, void *store, const void *userData);
+};
+
+// Retail VA 0x00BEF1B4 (.rdata): 1 field records and a zero sentinel.
+extern const FieldParse g_00BEF1B4[] = {
+	{ "DelayAtFootOfWall", &INI::parseDurationUnsignedInt, 0, 0xC8 },
+	{ 0, 0, 0, 0 }
+};
 
 class MultiIniFieldParse
 {
@@ -56,5 +76,5 @@ ScaleWallSpecialAbilityUpdateModuleData::ScaleWallSpecialAbilityUpdateModuleData
 void ScaleWallSpecialAbilityUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
 	Rva0044EB54::buildFieldParse(parse);
-	parse.add(reinterpret_cast<const FieldParse *>(0x00BEF1B4), 0);
+	parse.add(g_00BEF1B4, 0);
 }

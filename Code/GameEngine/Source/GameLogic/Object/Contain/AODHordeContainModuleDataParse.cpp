@@ -12,7 +12,47 @@
 // the parse pin.
 
 class MultiIniFieldParse;
-struct FieldParse;
+class INI;
+typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
+struct FieldParse
+{
+	const char *token;
+	INIFieldParseProc parse;
+	const void *userData;
+	int offset;
+};
+
+class INI
+{
+public:
+	static void parseDurationUnsignedInt(INI *ini, void *instance, void *store, const void *userData);
+	static void parseReal(INI *ini, void *instance, void *store, const void *userData);
+};
+
+// Retail VA 0x00C467D8 (.rdata): 20 field records and a zero sentinel.
+extern const FieldParse g_00C467D8[] = {
+	{ "FrequencyScale", &INI::parseReal, 0, 0x274 },
+	{ "FrequencyRandomness", &INI::parseReal, 0, 0x278 },
+	{ "AmplitudeScale", &INI::parseReal, 0, 0x27C },
+	{ "FrequencyRandomness", &INI::parseReal, 0, 0x278 },
+	{ "AmplitudeRandomness", &INI::parseReal, 0, 0x280 },
+	{ "StillAmplitude", &INI::parseReal, 0, 0x284 },
+	{ "FrequencyScaleZ", &INI::parseReal, 0, 0x288 },
+	{ "FrequencyRandomnessZ", &INI::parseReal, 0, 0x28C },
+	{ "AmplitudeScaleZ", &INI::parseReal, 0, 0x290 },
+	{ "FrequencyRandomnessZ", &INI::parseReal, 0, 0x28C },
+	{ "AmplitudeRandomnessZ", &INI::parseReal, 0, 0x294 },
+	{ "StillAmplitudeZ", &INI::parseReal, 0, 0x298 },
+	{ "OathFulfilledZFactor", &INI::parseReal, 0, 0x29C },
+	{ "LargeUnitHeightFactor", &INI::parseReal, 0, 0x2A0 },
+	{ "LargeUnitMinHeight", &INI::parseReal, 0, 0x2A4 },
+	{ "LargeUnitMaxHeight", &INI::parseReal, 0, 0x2A8 },
+	{ "LargeUnitTimeout", &INI::parseDurationUnsignedInt, 0, 0x2AC },
+	{ "LargeUnitTailOff", &INI::parseReal, 0, 0x2B0 },
+	{ "ScatterSpeedFactor", &INI::parseReal, 0, 0x2B4 },
+	{ "ScatterRandomness", &INI::parseReal, 0, 0x2B8 },
+	{ 0, 0, 0, 0 }
+};
 
 class MultiIniFieldParse
 {
@@ -36,5 +76,5 @@ public:
 void AODHordeContainModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
 	HordeContainModuleData::buildFieldParse(parse);
-	parse.add(reinterpret_cast<const FieldParse *>(0x00C467D8), 0);
+	parse.add(g_00C467D8, 0);
 }

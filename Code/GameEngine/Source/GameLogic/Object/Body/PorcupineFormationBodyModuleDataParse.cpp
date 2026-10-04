@@ -10,7 +10,30 @@
 // under "PorcupineFormationBodyModule". Row supersedes the parse pin.
 
 class MultiIniFieldParse;
-struct FieldParse;
+class INI;
+typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
+struct FieldParse
+{
+	const char *token;
+	INIFieldParseProc parse;
+	const void *userData;
+	int offset;
+};
+
+class INI
+{
+public:
+	static void parseByte(INI *ini, void *instance, void *store, const void *userData);
+	static void parseWeaponTemplate(INI *ini, void *instance, void *store, const void *userData);
+};
+
+// Retail VA 0x00C5C2D8 (.rdata): 3 field records and a zero sentinel.
+extern const FieldParse g_00C5C2D8[] = {
+	{ "DamageWeaponTemplate", &INI::parseWeaponTemplate, 0, 0x64 },
+	{ "CrushDamageWeaponTemplate", &INI::parseWeaponTemplate, 0, 0x68 },
+	{ "CrusherLevelResisted", &INI::parseByte, 0, 0x6C },
+	{ 0, 0, 0, 0 }
+};
 
 class MultiIniFieldParse
 {
@@ -34,5 +57,5 @@ public:
 void PorcupineFormationBodyModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
 	ActiveBodyModuleData::buildFieldParse(parse);
-	parse.add(reinterpret_cast<const FieldParse *>(0x00C5C2D8), 0);
+	parse.add(g_00C5C2D8, 0);
 }

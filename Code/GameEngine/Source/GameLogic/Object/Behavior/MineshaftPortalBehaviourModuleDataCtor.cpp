@@ -29,7 +29,24 @@ private:
 };
 
 class MultiIniFieldParse;
-struct FieldParse;
+class INI;
+typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
+struct FieldParse
+{
+	const char *token;
+	INIFieldParseProc parse;
+	const void *userData;
+	int offset;
+};
+
+class INI
+{
+public:
+	static void parseBool(INI *ini, void *instance, void *store, const void *userData);
+};
+
+// Retail VA 0x00C42B10 (.rdata): defined with its records in the sibling unit.
+extern const FieldParse g_00C42B10[];
 
 class MultiIniFieldParse
 {
@@ -65,7 +82,7 @@ MineshaftPortalBehaviourModuleData::MineshaftPortalBehaviourModuleData()
 void MineshaftPortalBehaviourModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
 	parse.add(reinterpret_cast<const FieldParse *>(Rva004CE29DGet()), 8);
-	parse.add(reinterpret_cast<const FieldParse *>(0x00C42B10), 0);
+	parse.add(g_00C42B10, 0);
 }
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
