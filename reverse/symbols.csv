@@ -808,7 +808,7 @@ name,address,notes
 ??1Rva00CE1E14Base@@UAE@XZ,0x0065D180,Complete7B base destructor installs vtableCE1E14; derived mutex destructor656C10 tail-calls it and existing deleting destructor656C30 calls it; ctor65D170 installs same base table
 ??1Rva00F2ECB@@UAE@XZ,0x00F2ECB,opaque SEH dtor (mov-eax-cookie prologue); called by scalar-deleting-dtor at 0x9A21C; identity unproven, address-derived name
 ??1Rva00FF4D6@@UAE@XZ,0x00FF4D6,opaque SEH dtor (mov-eax-cookie prologue); called by scalar-deleting-dtor at 0x7E10A; identity unproven, address-derived name
-??1RvaVec002B80CE@@QAE@XZ,0x002B80CE,opaque vector-member dtor (SEH range-destroy via _Destroy 0x2B70B3 then operator delete); serves Rva004E32F2 member at plus 0x0C; element type unproven
+??1RvaVec002B80CE@@QAE@XZ,0x002B80CE,legacy address view of recovered tree destructor; calls clear 0x2B70B3 then frees header; native definition and link alias in stlport_int_ascii_tree_dtor.cpp
 ??1RvaVecAnimSet@@QAE@XZ,0x001F0D04,opaque 12B vector-member dtor (range-destroy via AnimSet _Destroy 0x1F0801); serves GenericObjectCreationNugget member +0x14; true element type unproven (AnimSet per destroyee)
 ??1RvaVecAscii@@QAE@XZ,0x0002CC70,opaque 12B vector-member dtor (range-destroy via AsciiString _Destroy 0x2CB64); serves GenericObjectCreationNugget members +0x04/+0x114/+0x120; true element type unproven (AsciiString per destroyee)
 ??1S4Base009A1A40@@UAE@XZ,0x006D6470
