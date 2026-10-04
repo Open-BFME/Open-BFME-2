@@ -17,6 +17,7 @@
 
 extern "C" const void *const vtbl_00BE3994[];  // ??_7BfmeDualVtableReleaseDtor@@6B@
 #pragma comment(linker, "/alternatename:_vtbl_00BE3994=??_7BfmeDualVtableReleaseDtor@@6B@")
+extern const void *const g_00BD3B54[];
 
 typedef void *HMODULE;
 typedef int (__stdcall *FARPROC)();
@@ -65,7 +66,7 @@ class LoadFailure : public exception
 public:
 	LoadFailure()
 	{
-		*(unsigned int *)this = 0x00BD3B54;
+		*(const void **)this = g_00BD3B54;
 	}
 };
 
