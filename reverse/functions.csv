@@ -55698,3 +55698,4 @@ __Locale_ctype_create,,0x00022360,1316,Code/Libraries/Source/WWVegas/WWLib/stlpo
 ?Rva003E4ED5Get@@YG_NPAVParameter@@@Z,,0x003E4ED5,48,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_Rva003E4ED5.cpp,matched,TheTacticalView slot 143 float above the condition Real; fcompi needs /arch:SSE
 ?Rva003E4F05Get@@YG_NPAVParameter@@@Z,,0x003E4F05,54,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_Rva003E4ED5.cpp,matched,TheTacticalView slot 144 float above the condition Real in radians; fcompi needs /arch:SSE
 ?Rva003E4F3BGet@@YG_NPAVParameter@@@Z,,0x003E4F3B,48,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_Rva003E4ED5.cpp,matched,TheTacticalView slot 145 float above the condition Real; fcompi needs /arch:SSE
+?Rva003E4F6BGet@@YG_NXZ,,0x003E4F6B,14,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_Rva003E4ED5.cpp,matched,TheTacticalView bool slot 146 tail call; parameterless condition case 0x3EAB9F

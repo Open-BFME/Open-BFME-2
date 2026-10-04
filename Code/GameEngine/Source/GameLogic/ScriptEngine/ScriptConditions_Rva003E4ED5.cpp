@@ -171,6 +171,7 @@ public:
 	virtual float slot23C();
 	virtual float slot240();
 	virtual float slot244();
+	virtual bool slot248();
 };
 extern TacticalView *TheTacticalView;
 
@@ -190,4 +191,12 @@ bool __stdcall Rva003E4F05Get(Parameter *p)
 bool __stdcall Rva003E4F3BGet(Parameter *p)
 {
 	return TheTacticalView->slot244() > p->getReal();
+}
+
+// ?Rva003E4F6BGet@@YG_NXZ @0x003E4F6B 14B
+// The next dispatch case (0x003EAB9F) takes no parameter and returns
+// TheTacticalView's bool slot 146 (+0x248) directly, as a tail jump.
+bool __stdcall Rva003E4F6BGet()
+{
+	return TheTacticalView->slot248();
 }
