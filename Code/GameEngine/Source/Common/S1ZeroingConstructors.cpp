@@ -97,3 +97,27 @@ Rva000724A0ZeroView *Rva000724A0ZeroView::rva000724A0()
 	c = 0;
 	return this;
 }
+
+// Same whole donor/revision/blob; the speed sibling profile
+// /O2 /Ob1 /GX- /GS places this operation, and unchanged home defaults are exact.
+// Target: INT3-delimited entry 0x0066F030/11. Its actual address is pushed
+// at 0x0066F137 to the rowed non-EH vector constructor iterator0x00001423,
+// with count0x80 and stride0x10 following a 0x800-byte allocation. Only
+// the two raw word clears at +8/+0xC and returned receiver are modelled;
+// original class identity, field meaning and full class lifetime remain unknown.
+class Rva0066F030ZeroView
+{
+public:
+	Rva0066F030ZeroView *rva0066F030();
+private:
+	unsigned char head[8];
+	unsigned int a, b;
+};
+
+// ?rva0066F030@Rva0066F030ZeroView@@QAEPAV1@XZ
+Rva0066F030ZeroView *Rva0066F030ZeroView::rva0066F030()
+{
+	a = 0;
+	b = 0;
+	return this;
+}
