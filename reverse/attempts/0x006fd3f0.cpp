@@ -1,10 +1,14 @@
 // ?rva006FD3F0@@YAPAVAptString@@PAVAptValue@@0@Z
+// partial score=0.93 date=2026-10-04
+// ?rva006FD3F0@@YAPAVAptString@@PAVAptValue@@0@Z
 // partial score=0.9 date=2026-10-04
-// cl: /O2 /GX /DNDEBUG /MD
-// /GX (rather than the sibling file's bare /MD, and not /O1) is the pairing that
-// emits retail's frame: a bare SEH setup with no push ebp / mov ebp,esp, no
-// local stack reservation and no separate funclet call -- the __try body stays
-// inline. /O1 splits the filter and body into helpers instead.
+// cl: /O2 /MD /EHsc
+// The scoped temporary is a real EAStringC with a declared destructor, and the
+// SEH frame is the compiler's automatic unwinder rather than an explicit __try:
+// that is the Rva006e9730Cluster.cpp recipe (same /O2 /MD /EHsc, same
+// clear 0x006D2F90 + ~EAStringC 0x006D3010 pairing), and it is what emits
+// retail's bare push -1 / push handler / mov fs:[0] frame with no push ebp
+// frame, no local stack reservation and no separate funclet call.
 // ?rva006FD3F0@@YAPEAVRva006D7D00@@0@Z @0x006FD3F0 203B (cdecl).
 //
 // Apt string-pair conversion callback, sitting immediately after the rowed
@@ -34,24 +38,18 @@
 
 #include <excpt.h>
 
-class EAStringC
-{
-public:
-	EAStringC &rva006D2F90Construct();                    // 0x006D2F90
-	void rva006D3010Destroy();                            // 0x006D3010
-	EAStringC &operator=(const EAStringC &);               // 0x006D3030
-	EAStringC &Rva006D4F00Append(const EAStringC &);       // 0x006D4F00
-};
-
 // The real EAStringC carries a data pointer and a small inline buffer; retail's
 // scoped temporary occupies only one dword at [esp+0x0c] (the scope cookie at
-// [esp+0x10]), so it is modelled as the single pointer the methods thread.
-class Rva006EAStringCPointer
+// [esp+0x10]). The default constructor is the clear 0x006D2F90 and the declared
+// destructor is 0x006D3010, exactly as Rva006e9730Cluster.cpp models them.
+class EAStringC
 {
 	void *m_pData;
 public:
-	void rva006D2F90Construct();
-	void rva006D3010Destroy();
+	EAStringC();
+	~EAStringC();
+	EAStringC &operator=(const EAStringC &);               // 0x006D3030
+	EAStringC &Rva006D4F00Append(const EAStringC &);       // 0x006D4F00
 };
 
 // 0x006DD6C0 fills `out` in place from the AptValue in ecx (ret 4 thiscall);
@@ -87,25 +85,17 @@ AptString *__cdecl rva006FD3F0(AptValue *arg1, AptValue *arg2)
 {
 	AptString *result = AptString::Create();
 	EAStringC *dest = &result->m_str;
-	__try
+	if (arg1->isString())
+		*dest = *((EAStringC *)((char *)arg1->rva006DCE50() + 8));
+	else
+		arg1->rva006DD6C0(dest);
+	if (arg2->isString())
+		dest->Rva006D4F00Append(*((EAStringC *)((char *)arg2->rva006DCE50() + 8)));
+	else
 	{
-		if (arg1->isString())
-			*dest = *((EAStringC *)((char *)arg1->rva006DCE50() + 8));
-		else
-			arg1->rva006DD6C0(dest);
-		if (arg2->isString())
-			dest->Rva006D4F00Append(*((EAStringC *)((char *)arg2->rva006DCE50() + 8)));
-		else
-		{
-			Rva006EAStringCPointer temp;
-			temp.rva006D2F90Construct();
-			arg2->rva006DD6C0((EAStringC *)&temp);
-			dest->Rva006D4F00Append((const EAStringC &)temp);
-			temp.rva006D3010Destroy();
-		}
-	}
-	__except (EXCEPTION_EXECUTE_HANDLER)
-	{
-	}
+		EAStringC temp;                                       // clear 0x006D2F90
+		arg2->rva006DD6C0(&temp);
+		dest->Rva006D4F00Append(temp);
+	}                                                        // ~temp 0x006D3010
 	return result;
 }
