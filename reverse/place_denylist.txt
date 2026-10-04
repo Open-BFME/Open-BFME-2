@@ -101,3 +101,8 @@ _io_writeto
 # it lacks the independently identified animation cluster supporting other helpers.
 # Revisit only with new target identity evidence, not the same unique byte shape.
 ?setCurPos@AnimateWindow@@QAEXUICoord2D@@@Z
+
+# Refused 2026-10-04: BFME 1 UnclaimedSmallLeaves02.cpp places this donor at
+# 0x00176D60/12, but add_match rejects the overlapping matched zero-return tail
+# at 0x00176D69/3 in IntZeroGetters.cpp. Preserve that row; do not re-offer it.
+?get@Rva00958A20@@QBEHXZ
