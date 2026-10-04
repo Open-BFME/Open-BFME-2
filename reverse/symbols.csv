@@ -8340,3 +8340,6 @@ _Rva0030CAF8CursorEqual,0x0007E394,twin of dup_0007e394 29B exact cursor equalit
 ??0BfmeTmpCF@@QAE@XZ,0x001E7087,callee of ?bfmeMakeCF@@YAXPAX0@Z at retail 0x0033A5CA read from its REL32 displacement; donor-named alias of the rowed ctor at 0x001E7087; body unrowed
 ?bfmeRunCF@BfmeTmpCF@@QAEXPAX0@Z,0x001EA3AE,callee of ?bfmeMakeCF@@YAXPAX0@Z at retail 0x0033A5DC read from its REL32 displacement; donor-reconstruction name; body unrowed
 ??1BfmeTmpCF@@QAE@XZ,0x001E86D0,callee of ?bfmeMakeCF@@YAXPAX0@Z at retail 0x0033A5E8 read from its REL32 displacement; donor-named alias of the pinned dtor at 0x001E86D0
+??0BfmeScopeCN@@QAE@PAXPAVBfmeTargetCN@@0@Z,0x0030D849,callee of ?bfmeGuardedCN@BfmeOwnCN@@QAEDPAVBfmeTargetCN@@PAX@Z at retail 0x0030D938 read from its REL32 displacement; donor-reconstruction name; body unrowed
+?bfmeStepCN@BfmeTargetCN@@QAEDH@Z,0x00307AC0,callee of ?bfmeGuardedCN@BfmeOwnCN@@QAEDPAVBfmeTargetCN@@PAX@Z at retail 0x0030D946 read from its REL32 displacement; donor-reconstruction name; body unrowed
+?bfmeCloseCN@BfmeInnerCN@@QAEXPAX@Z,0x00306D7B,callee of ?bfmeGuardedCN@BfmeOwnCN@@QAEDPAVBfmeTargetCN@@PAX@Z at retail 0x0030D95E read from its REL32 displacement; donor-named alias of the rowed body at 0x00306D7B
