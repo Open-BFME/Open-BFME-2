@@ -67,3 +67,14 @@ void AIPlayer::removeAll_TeamBuildQueue(RemoveAllProc removeCallback)
 // sibling4F0499/39 proves head+8. The existing owner prefix is extended,
 // not a new private copy. Reference supplies original labels; the target
 // proves the offsets/calls/control flow, not an unrecovered full layout.
+
+// Callback body is rowed at4F05C0/22 in the existing TeamInQueue
+// predicate home. Native4F05D8 loads that exact address and both calls
+// use this owner; first4F042F drains head+4, second4F0499 head+8.
+void rva004F05C0(TeamInQueue *entry);
+
+void AIPlayer::clearTeamsInQueue()
+{
+    removeAll_TeamBuildQueue(rva004F05C0);
+    removeAll_TeamReadyQueue(rva004F05C0);
+}
