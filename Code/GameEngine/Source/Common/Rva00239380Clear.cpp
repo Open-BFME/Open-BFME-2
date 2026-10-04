@@ -20,6 +20,29 @@ void * g_freeList00239380;
 // pushes the head node at this+0 onto freelist 0x009BA5E8 when non-null).
 // Callers include 0x0023B22F 0x0026B2E5 0x0026B36A plus 30 more; owner
 // class unproven so honest address name.
+class Rva00362862Item
+{
+public:
+	void rva00362862(int a, int b);
+};
+
+class Rva00239300
+{
+	char m_pad[0xe8];
+	Rva00362862Item **m_begin;
+	Rva00362862Item **m_end;
+
+public:
+	void rva00239300(int a, int b);
+};
+
+void Rva00239300::rva00239300(int a, int b)
+{
+	for (Rva00362862Item **it = m_begin; it != m_end; ++it) {
+		(*it)->rva00362862(a, b);
+	}
+}
+
 class Rva00239AF4
 {
 public:
