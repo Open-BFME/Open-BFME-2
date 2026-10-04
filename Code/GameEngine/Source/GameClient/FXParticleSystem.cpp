@@ -1752,7 +1752,8 @@ TerrainFireEmissionModuleTemplateAssign g_terrainFireEmissionModuleTemplateAssig
 
 typedef LifeEventModuleTemplate &(LifeEventModuleTemplate::*LifeEventModuleTemplateAssign)(const LifeEventModuleTemplate &);
 
-LifeEventModuleTemplateAssign g_lifeEventModuleTemplateAssign = &LifeEventModuleTemplate::operator=;
+// Removed: g_lifeEventModuleTemplateAssign emitted a wrong COMDAT copy; retail copy is in
+// System/FXParticleSystem/LifeEventModuleOpAssign.cpp, no row here inlines it.
 
 typedef RenderObjectUpdateModuleTemplate &(RenderObjectUpdateModuleTemplate::*RenderObjectUpdateModuleTemplateAssign)(const RenderObjectUpdateModuleTemplate &);
 
@@ -1760,7 +1761,8 @@ RenderObjectUpdateModuleTemplateAssign g_renderObjectUpdateModuleTemplateAssign 
 
 typedef TerrainCollisionModuleTemplate &(TerrainCollisionModuleTemplate::*TerrainCollisionModuleTemplateAssign)(const TerrainCollisionModuleTemplate &);
 
-TerrainCollisionModuleTemplateAssign g_terrainCollisionModuleTemplateAssign = &TerrainCollisionModuleTemplate::operator=;
+// Removed: g_terrainCollisionModuleTemplateAssign emitted a wrong COMDAT copy; retail copy is in
+// System/FXParticleSystem/TerrainCollisionModuleOpAssign.cpp, no row here inlines it.
 
 typedef OrthoEmissionVelocityModuleTemplate &(OrthoEmissionVelocityModuleTemplate::*OrthoEmissionVelocityModuleTemplateAssign)(const OrthoEmissionVelocityModuleTemplate &);
 
