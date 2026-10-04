@@ -41,6 +41,7 @@ class CategoryModuleTemplate<8> : public ModuleTemplate, public SecondaryModuleB
 {
 public:
     CategoryModuleTemplate();
+    ~CategoryModuleTemplate();
 };
 
 class TerrainCollisionModuleInfo
