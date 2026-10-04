@@ -86,7 +86,9 @@ public:
 	virtual int shutdown();
 };
 
-static ShaderInterface *W3DShaders[17];
+// Target operands at 0x768BD and 0x768D1 span VA 0xDE1F24..0xDE1F2C,
+// proving two shader pointers. The BFME 1 donor has seventeen.
+static ShaderInterface *W3DShaders[2];
 static FilterInterface *W3DFilters[10];
 
 class W3DShaderManager
@@ -126,7 +128,7 @@ void W3DShaderManager::shutdown()
 	m_resource012F9D14 = 0;
 	m_resource012F9D18 = 0;
 
-	for (int i = 0; i < 17; ++i) {
+	for (int i = 0; i < 2; ++i) {
 		if (W3DShaders[i])
 			W3DShaders[i]->shutdown();
 	}
