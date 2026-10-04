@@ -7863,3 +7863,4 @@ FUN_007b7836	0x003B7836	260	blocked	no callers prove 3-arg free-function types p
 ?rva005AB9EE@Rva005AB7E5@@QAE_NPAVObject@@@Z	0x005AB9EE	107	blocked	operator== keeps esi-edi but uses edx for template name compare keeps ecx but swaps esi-edi t=18 model=muse-09 (stash 0.97 kept)
 ?rva00265173@Rva00265173@@QAEXXZ	0x00265173	225	blocked	test al al vs cmp al bl for rva bool tried bool-char-uchar zero locals t=15 model=muse-09 (stash 0.99 kept)
 ?rva005AB4B9@Rva005AB309@@QAE_NXZ	0x005AB4B9	254	blocked	EH AsciiString format with shared cleanup plus push and mov walls no NEW lever beyond prior 0.92 t=8 model=muse-09
+?rva005D7B65@Rva005D7B3E@@QAE_NPAVObject@@@Z	0x005D7B65	160	blocked	STL vector collect plus Object+4+0x520 scan first variant 147B 9 regions need raw begin-end t=12 model=muse-03

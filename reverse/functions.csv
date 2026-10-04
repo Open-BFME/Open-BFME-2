@@ -54402,3 +54402,4 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ?rva005CF9C9@Rva005CF9C9@@QAEXH@Z,,0x005CF9C9,54,Code/GameEngine/Source/Common/Rva005CF9C9.cpp,matched,unlock lane MessageStreamSubsystem slot 0x48 type 0x6a7 with two appendIntegerArgument
 ?rva00392D49@Rva0039205C@@QAEEI@Z,,0x00392D49,40,Code/GameEngine/Source/Common/Rva0039205CArray.cpp,matched,byte getter at elem plus 0x10 via init pin plus dtor layout
 ?rva005BA31F@Rva005BA31F@@QAEHXZ,,0x005BA31F,31,Code/GameEngine/Source/Common/Rva005BA31FExpiry.cpp,matched,expiry check via timeGetTime zero guard unsigned jae xor-inc
+?rva005D7766@Rva005D7706@@QAE_NPAVObject@@@Z,,0x005D7766,221,Code/GameEngine/Source/Common/Rva005D7766.cpp,matched,slot 6 terrain picker via shroud then 0x005EE8DD
