@@ -47,7 +47,13 @@ class AsciiString
 public:
     AsciiString(const AsciiString &that) : m_data(that.m_data) {}
     ~AsciiString() { m_data.releaseBuffer(); }
-    char getCharAt(int index) const { return m_data.getCharAt(index); }
+    // Inline the StringBase logic here instead of calling
+    // StringBase<char>::getCharAt: that call forced this TU to emit a
+    // select-any copy of it, and this TU's /O1 shape (shared epilogue) loses
+    // against WWLib/string_base_inline.cpp's retail /O2 copy. Reading the
+    // header through the friendship gives the rows the identical inlined
+    // code while emitting no competing copy.
+    char getCharAt(int index) const { return m_data.m_data ? m_data.m_data->data[index] : 0; }
 private:
     StringBase<char> m_data;
 };
@@ -59,6 +65,11 @@ public:
     ~UnicodeString() { m_data.releaseBuffer(); }
     void translate(const AsciiString &that);
     void __cdecl format(const wchar_t *format, ...);
+    // NOTE: this TU also emits ?str@UnicodeString@@QBEPBGXZ, which the link
+    // census calls a loser (first copy lives in a ZH-port TU). It cannot be
+    // declaration-only or reshaped from here: the Version rows above inline
+    // it together with StringBase<wchar_t>::str and reference that static
+    // TheNullChr, so any body change breaks their 5/5 match.
     const wchar_t *str() const { return m_data.str(); }
 private:
     StringBase<wchar_t> m_data;
