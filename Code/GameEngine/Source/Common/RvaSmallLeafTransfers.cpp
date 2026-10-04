@@ -338,3 +338,10 @@ char Rva00020F10( const char *record )
 	return record[ 0x30 ];
 }
 
+// Target 0x00030A20, 8 bytes; preceding int3 padding; terminal ret and int3 padding.
+// Donor b1 RVA 0x00897230; target instructions corroborate these accesses.
+char *Rva00030A20( char *block )
+{
+	return block - 8;
+}
+
