@@ -49,16 +49,19 @@ public:
     ~Rva004C9DC9Primary() {}
 };
 
-class ASCB_Iface
+class Rva004C9E33Iface
 {
 public:
-    virtual void ifaceSlot();
+    virtual void rva004C9E33() = 0;
+    virtual void rva004C9E48() = 0;
 };
 
-class AnimationSoundClientBehavior : public Rva004C9DC9Primary, public ASCB_Iface
+class AnimationSoundClientBehavior : public Rva004C9DC9Primary, public Rva004C9E33Iface
 {
 public:
     virtual ~AnimationSoundClientBehavior();
+    virtual void rva004C9E33();
+    virtual void rva004C9E48();
 };
 
 AnimationSoundClientBehavior::~AnimationSoundClientBehavior()
