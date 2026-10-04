@@ -52812,3 +52812,4 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ??_GRva0026E7EA@@UAEPAXI@Z,,0x0026E81A,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_Rva0026E7EA.cpp,matched,deleting dtor via rowed dtor 0x0026E7EA plus rowed delete
 ?xferSTLObjectIDList@@YAPAVXfer@@PAV1@PAVBridgeBehaviorObjectIDList@@@Z,,0x00331F2D,196,Code/GameEngine/Source/Common/XferSTLObjectIDList.cpp,matched,pinned name callers Bezier ArrowStorm DamageField via XferListInt skeleton
 ??1Rva005B2575@@UAE@XZ,,0x005B2575,86,Code/GameEngine/Source/Common/Rva005B2575Dtor.cpp,matched,dtor closes CahBonus InitGadgets screen via pin plus rowed StringBase plus releaseBuffer
+??_GRva005B2575@@UAEPAXI@Z,,0x005B25CB,28,Code/GameEngine/Source/Common/Rva005B2575Dtor.cpp,matched,deleting dtor via rowed dtor 0x005B2575 plus rowed delete
