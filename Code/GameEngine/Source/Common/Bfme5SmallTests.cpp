@@ -62,3 +62,23 @@ void __cdecl rva00222440(unsigned int bits)
     g_rva00E02FC0Bits &= ~bits;
 }
 #pragma optimize("", on)
+
+// Whole donor ConditionalPointerStoreThunk.cpp at5cc75ddda6455c338a5068307e587a793f96d6b3
+// emitted this sole new body under O1/Ob1. Native Ghidra133E/34 ends with
+// ret8 at135D, so1360 follows at a true boundary; next Ghidra1368 follows
+// its own ret at1367. Only the read/zero word at+8 is established. Native
+// return use, original owner, pointee type, and complete layout are unknown.
+struct Rva00001360Bits
+{
+    unsigned int m_unobserved00[2];
+    unsigned int m_bits08;
+    unsigned int takeBits();
+};
+#pragma optimize("s", on)
+unsigned int Rva00001360Bits::takeBits()
+{
+    unsigned int result = m_bits08;
+    m_bits08 = 0;
+    return result;
+}
+#pragma optimize("", on)
