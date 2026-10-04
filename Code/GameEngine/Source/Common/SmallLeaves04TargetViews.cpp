@@ -30,7 +30,6 @@ private:
 
 // Native: INT3 padding before 6CFD40 and after terminal RET at 6CFD45.
 // Predecrements receiver's first word and returns its new value.
-// ?step@Rva006CFD40@@QAEHXZ present-unmatched
 int Rva006CFD40::step()
 {
     return --m_word;
