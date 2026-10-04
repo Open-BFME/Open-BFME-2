@@ -332,6 +332,7 @@ struct Rva005F9852 : Rva005D3311
 {
 	int length() const;
 	int write(char *dst);
+	operator AsciiString();
 
 	AsciiStringRef m_ref;
 };
@@ -349,6 +350,17 @@ int Rva005F9852::write(char *dst)
 {
 	int n = Rva005D3311::write(dst);
 	return n + m_ref.write(dst + n);
+}
+
+// 0x005F9D69..0x005F9DCB: same owning-string materialization as the
+// other verified concat nodes, with this node's own length/write callees.
+// RET4 consumes only the hidden result pointer; the drift queue's proposed
+// GameState path getter would need an additional filename argument.
+Rva005F9852::operator AsciiString()
+{
+	AsciiString tmp;
+	write(tmp.getBufferForRead(length()));
+	return tmp;
 }
 
 // ??BRva0050F23E@@QAE?AVAsciiString@@XZ @0x0050F7B4 107B narrow concat to AsciiString: sized getBufferForRead then Rva0050F23E write; length is base PlusString fold plus text len plus 1 for char.
