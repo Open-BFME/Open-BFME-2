@@ -53266,3 +53266,5 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ??_GRva00140C00@@UAEPAXI@Z,,0x00140C00,31,Code/Libraries/Source/WWVegas/WWLib/InlineDtorDeletingDtorsC03.cpp,matched,scalar deleting dtor with the empty inline dtor (stores vtable 0x00BD3338) then operator delete
 ??_GStaticSortListClass@@UAEPAXI@Z,,0x00176940,31,Code/Libraries/Source/WWVegas/WWLib/InlineDtorDeletingDtorsC03.cpp,matched,scalar deleting dtor with the empty inline dtor (stores vtable 0x00BD4E24) then operator delete
 ??_GRva00191120@@UAEPAXI@Z,,0x00191120,31,Code/Libraries/Source/WWVegas/WWLib/InlineDtorDeletingDtorsC03.cpp,matched,scalar deleting dtor with the empty inline dtor (stores vtable 0x00BD5E38) then operator delete
+?rva00455B67@FoundationAIUpdate@@UAEXPAVPlayer@@0@Z,,0x00455B67,118,Code/GameEngine/Source/GameLogic/Object/Update/FoundationAIUpdateSlots.cpp,matched,FoundationAIUpdate-only vtable slot (ctor 0x004551B3; see source header)
+?rva00455B42@FoundationAIUpdate@@UAEXH@Z,,0x00455B42,37,Code/GameEngine/Source/GameLogic/Object/Update/FoundationAIUpdateSlots.cpp,matched,FoundationAIUpdate-only vtable slot (ctor 0x004551B3; see source header)
