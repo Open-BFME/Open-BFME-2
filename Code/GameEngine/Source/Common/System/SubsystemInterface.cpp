@@ -53,22 +53,9 @@
 Real SubsystemInterface::s_msConsumed = 0;
 #endif
 
-//-----------------------------------------------------------------------------
-SubsystemInterface::SubsystemInterface()
-#ifdef DUMP_PERF_STATS
-:m_curDrawTime(0),
-m_startDrawTimeConsumed(0),
-m_startTimeConsumed(0),
-m_curUpdateTime(0),
-m_dumpUpdate(false),
-m_dumpDraw(false)
-#endif
-{
-	if (TheSubsystemList) {
-		TheSubsystemList->addSubsystem(this);
-	}
-}
-
+// SubsystemInterface::SubsystemInterface is not carried: retail's base ctor
+// (0x001B4E63) is a different body, and this unit's donor copy was kept by
+// the link over it.
 
 #ifdef DUMP_PERF_STATS
 static const Real MIN_TIME_THRESHOLD = 0.0002f;
