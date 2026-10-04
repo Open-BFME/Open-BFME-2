@@ -1,0 +1,70 @@
+// ?rva006ccaf0@@YAXPBD@Z
+// partial score=0.85 date=2026-10-04
+// cl: /O2 /MD
+// ?rva006ccaf0@@YAXPBD@Z @ 0x006CCAF0 (139B).
+//
+// Address-derived recovery of the Apt value-name registration that names a
+// freshly created value. It builds an EAStringC from the caller's name, asks
+// the unrowed Apt name factory 0x006CC530 for the canonical name, constructs
+// the rowed AptValueNameEntry 0x006DCD20 through the named-value cache at
+// 0x00E182E0, sets the entry's key through 0x006DE870 and finishes with the
+// entry's virtual Release (slot 1). The SEH frame is the EAStringC temporary's
+// destructor 0x006D3010, which is the same shape the rowed Apt clusters
+// Rva006ffce0Cluster.cpp and Rva006ffc30Cluster.cpp already carry.
+//
+// The name factory 0x006CC530 is cdecl with six stack arguments -- retail
+// pushes 0, 1, 1, the out EAStringC*, then 0, 0 -- and returns the canonical
+// char* it built. Its body is unnamed, so the spelling here is address-derived.
+
+class EAStringC
+{
+public:
+	EAStringC();
+	EAStringC(const char *value);
+	~EAStringC();
+};
+
+// 0x006CC530: cdecl, six stack arguments (0, 0, out string, 1, 1, 0); returns
+// the canonical char* it wrote. Unnamed body; address-derived here. The
+// declaration order is the reverse of retail's push sequence, which is why the
+// out pointer is the third parameter rather than the first.
+const char *rva006CC530(int zero, int zero2, EAStringC *out, int one,
+                        int oneAgain, int zero3);
+
+class Rva006DCD20
+{
+public:
+	// 0x006DE870: thiscall, one stack argument; appends the run into the entry's
+	// key buffer. Unnamed body; address-derived here.
+	void rva006DE870(const char *key);
+
+	virtual void slot0();
+	virtual void release();
+};
+
+// The named-value cache that lives at 0x00E182E0. Retail enters the 0x006FFD80
+// ctor with `mov ecx,0x00E182E0`, so the cache is reached through that address
+// rather than through a pointer loaded out of .bss.
+class Rva006DCD20Cache
+{
+public:
+	Rva006DCD20 *rva006FFD80(const char *name);
+};
+
+extern Rva006DCD20Cache *g_bfmeAptNameCacheAtE182E0;
+
+// ?rva006ccaf0@@YAXPBD@Z @ 0x006CCAF0 (139B)
+void rva006ccaf0(const char *name)
+{
+	// The temporary is at function scope, not in a nested block: that is what
+	// makes the SEH scope slot sit at [esp+0x28] and the teardown run after
+	// the release, exactly as retail lays it out.
+	EAStringC wanted(name);
+
+	const char *canonical = rva006CC530(0, 0, &wanted, 1, 1, 0);
+
+	Rva006DCD20 *entry = g_bfmeAptNameCacheAtE182E0->rva006FFD80(canonical);
+	entry->slot0();
+	entry->rva006DE870(name);
+	entry->release();
+}

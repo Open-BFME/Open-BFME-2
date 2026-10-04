@@ -9450,3 +9450,6 @@ _Rva003F417EConstructRecords,0x003F417E,"Native003F5254 calls existing verified 
 ?rva006C25F0@GeneralAllocatorDebug@@QAEPAXPAXHHHHPAX@Z,0x006C25F0,address-derived GeneralAllocatorDebug guard-run builder; thiscall six stack args ret 0x18 out-length 0 0 0 kind 0xB runBlock returns the run; body unrowed; called by VerifyGuardFill 0x006C3020
 ??0Rva006FBED0Root@@QAE@PAX@Z,0x006FBAA0,address-derived single-run Rva8D0D80Result gc-root ctor; thiscall one stack arg the run at owner+0x28; body unrowed; reached only from 0x006FBED0
 ??0Rva006FBED0Root@@QAE@PAXH@Z,0x006FBB10,address-derived paired-run Rva8D0D80Result gc-root ctor; thiscall two stack args run and count; body unrowed; reached only from 0x006FBED0
+?rva006CC530@@YAPBDHHPAVEAStringC@@HHH@Z,0x006CC530,address-derived Apt name factory; cdecl six args (0 0 out-string 1 1 0) returns the canonical char*; body unrowed; called only from 0x006CCAF0
+?rva006FFD80@Rva006DCD20Cache@@QAEPAVRva006DCD20@@PBD@Z,0x006FFD80,address-derived Apt value ctor entered with the 0x00E182E0 named-value cache in ecx and one stack arg; returns the AptValueNameEntry; body unrowed; called only from 0x006CCAF0
+?rva006DE870@Rva006DCD20@@QAEXPBD@Z,0x006DE870,address-derived Apt value-name key writer; thiscall one stack arg; appends the run into the entry key buffer; body unrowed; called only from 0x006CCAF0
