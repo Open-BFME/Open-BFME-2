@@ -54311,3 +54311,4 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ??1Rva001FBAEE@@QAE@XZ,,0x001FBAEE,59,Code/GameEngine/Source/GameLogic/Object/Rva001FB94FDtor.cpp,matched,second base Rva001FB94F plus4 with inlined first-base rva001F4206 caller 0x001FBCA1
 ??1Rva001FBCA1@@QAE@XZ,,0x001FBCA1,59,Code/GameEngine/Source/GameLogic/Object/Rva001FB94FDtor.cpp,matched,second base Rva001FBAEE plus4 with inlined first-base rva001F4206 caller 0x001FC0B6
 ??1Rva001FC0B6@@QAE@XZ,,0x001FC0B6,59,Code/GameEngine/Source/GameLogic/Object/Rva001FB94FDtor.cpp,matched,second base Rva001FBCA1 plus4 with inlined first-base rva001F4206
+??0Rva0052B53C@@QAE@E@Z,,0x0052B42B,93,Code/GameEngine/Source/Common/Rva0052B53CLazy.cpp,matched,unlock ctor vtable 0x00868620 plus BlockWriter plus MD5Init plus memset 0x10

@@ -3,23 +3,46 @@
 // of digest at +0x41 with ctx ptr at +0x54 guarded by flag at +0x58; callers
 // at 0x002DE265/0x0052B562; unblocks 0x0052B559. Prev/next are Disp getters
 // (no // cl:); /O1 for pop-pop cleanup and cmp-byte guard.
-struct MD5_CTX;
+struct MD5_CTX
+{
+	char m_pad[0x58];
+};
 void __cdecl MD5Final(unsigned char digest[16], MD5_CTX *context);
+void __cdecl MD5Init(MD5_CTX *context);
+void *__cdecl ji_006291ae(void *dest, int val, unsigned int count);
+#pragma comment(linker, "/alternatename:?ji_006291ae@@YAPAXPAXHI@Z=?ji_006291ae@@YAXXZ")
 
 typedef int Int;
 
-class Rva0052B53C
+class Rva009D8630BlockWriter
 {
 public:
+	Rva009D8630BlockWriter();
+	virtual ~Rva009D8630BlockWriter();
+	char m_pad[0x40 - 4];
+};
+
+class Rva0052B53C : public Rva009D8630BlockWriter
+{
+public:
+	Rva0052B53C(unsigned char v);
 	void rva0052B53C();
 	unsigned char *rva0052B559();
 private:
-	char m_pad[0x41];
+	unsigned char m_0040;
 	unsigned char m_digest[16];
 	char m_pad2[3];
 	MD5_CTX *m_ctx;
 	unsigned char m_done;
 };
+Rva0052B53C::Rva0052B53C(unsigned char v)
+{
+	m_0040 = v;
+	m_ctx = new MD5_CTX;
+	m_done = 0;
+	ji_006291ae(m_digest, 0, 0x10);
+	MD5Init(m_ctx);
+}
 void Rva0052B53C::rva0052B53C()
 {
 	if (m_done == 0) {
