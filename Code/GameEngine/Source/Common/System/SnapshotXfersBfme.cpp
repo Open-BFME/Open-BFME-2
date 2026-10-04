@@ -17,6 +17,19 @@
 //    version, an AsciiString (+0x04), an Int (+0x90), a Real (+0x08), the
 //    rowed Rva004E0513 xfer of the member at +0x94, the pinned 1024-bit set
 //    helper 0x003064CB on +0x10, and an Int (+0x0C).
+//  - RegionBonusInfo::xfer, retail 0x003EFCD1 (102 bytes; vftable
+//    0x00BE4324): version, then six Ints (+0x04, +0x0C, +0x08, +0x10,
+//    +0x14, +0x18).
+//  - ScoreKeeper::PerFrameStats::xfer, retail 0x0039B823 (112 bytes;
+//    vftable 0x00C1AD6C): version 3; an Int (+0x04), two Shorts (+0x0C,
+//    +0x0E), from version 2 a Real (+0x08), from version 3 an UnsignedShort
+//    (+0x10).
+//  - TBuff::xfer, retail 0x000D211D (152 bytes; vftable 0x00BCE310): nothing
+//    for a light CRC; version 5, below which it throws XferException's
+//    unnamed enum value 2 (retail throw info 0x00D00D44 names the type
+//    .?AW4__unnamed@XferException@@); a copy of the Int at +0x04, 4 raw
+//    bytes (+0x08), a Real (+0x0C), a Bool (+0x44), a Coord3D (+0x48) and a
+//    Real (+0x54).
 
 #include "ascii_string.h"
 
@@ -187,6 +200,66 @@ private:
 	Rva004E0513 m_bfmeMember94;																								///< 0x94
 };
 
+class RegionBonusInfo : public SnapshotBase
+{
+protected:
+	virtual void xfer( Xfer *xfer );
+private:
+	Int m_bfmeValue04;																												///< 0x04
+	Int m_bfmeValue08;																												///< 0x08
+	Int m_bfmeValue0C;																												///< 0x0C
+	Int m_bfmeValue10;																												///< 0x10
+	Int m_bfmeValue14;																												///< 0x14
+	Int m_bfmeValue18;																												///< 0x18
+};
+
+class ScoreKeeper
+{
+public:
+	class PerFrameStats : public SnapshotBase
+	{
+	protected:
+		virtual void xfer( Xfer *xfer );
+	private:
+		Int m_bfmeValue04;																											///< 0x04
+		Real m_bfmeReal08;																											///< 0x08
+		short m_bfmeShort0C;																										///< 0x0C
+		short m_bfmeShort0E;																										///< 0x0E
+		unsigned short m_bfmeShort10;																						///< 0x10
+	};
+};
+
+class XferException
+{
+public:
+	enum
+	{
+		XFER_EXCEPTION_BFME_2 = 2
+	};
+};
+
+class Coord3DBase
+{
+public:
+	float x;
+	float y;
+	float z;
+};
+
+class TBuff : public SnapshotBase
+{
+protected:
+	virtual void xfer( Xfer *xfer );
+private:
+	Int m_bfmeValue04;																												///< 0x04
+	UnsignedInt m_bfmeRaw08;																									///< 0x08, 4 raw bytes
+	Real m_bfmeReal0C;																												///< 0x0C
+	char m_unrecovered10[ 0x44 - 0x10 ];
+	Bool m_bfmeFlag44;																												///< 0x44
+	Coord3DBase m_bfmePosition48;																							///< 0x48
+	Real m_bfmeReal54;																												///< 0x54
+};
+
 // ------------------------------------------------------------------------------------------------
 /** Xfer method */
 // ------------------------------------------------------------------------------------------------
@@ -244,4 +317,55 @@ void CarryoverUnit::xfer( Xfer *xfer )
 	m_bfmeMember94.rva004E0513( xfer );
 	rva003064CB( xfer, &m_bfmeBits10 );
 	*xfer == m_bfmeValue0C;
+}  // end xfer
+
+// ------------------------------------------------------------------------------------------------
+/** Xfer method */
+// ------------------------------------------------------------------------------------------------
+void RegionBonusInfo::xfer( Xfer *xfer )
+{
+	Xfer::Version version( 1, 1 );
+	*xfer == version;
+	*xfer == m_bfmeValue04;
+	*xfer == m_bfmeValue0C;
+	*xfer == m_bfmeValue08;
+	*xfer == m_bfmeValue10;
+	*xfer == m_bfmeValue14;
+	*xfer == m_bfmeValue18;
+}  // end xfer
+
+// ------------------------------------------------------------------------------------------------
+/** Xfer method */
+// ------------------------------------------------------------------------------------------------
+void ScoreKeeper::PerFrameStats::xfer( Xfer *xfer )
+{
+	Xfer::Version version( 1, 3 );
+	*xfer == version;
+	*xfer == m_bfmeValue04;
+	*xfer == m_bfmeShort0C;
+	*xfer == m_bfmeShort0E;
+	if( version.m_minimum >= 2 )
+		*xfer == m_bfmeReal08;
+	if( version.m_minimum >= 3 )
+		*xfer == m_bfmeShort10;
+}  // end xfer
+
+// ------------------------------------------------------------------------------------------------
+/** Xfer method */
+// ------------------------------------------------------------------------------------------------
+void TBuff::xfer( Xfer *xfer )
+{
+	if( xfer->IsLightCRC() )
+		return;
+	Xfer::Version version( 1, 5 );
+	*xfer == version;
+	if( version.m_minimum < 5 )
+		throw XferException::XFER_EXCEPTION_BFME_2;
+	Int value = m_bfmeValue04;
+	*xfer == value;
+	xfer->XferRawBytes( &m_bfmeRaw08, 4 );
+	*xfer == m_bfmeReal0C;
+	*xfer == m_bfmeFlag44;
+	*xfer == m_bfmePosition48;
+	*xfer == m_bfmeReal54;
 }  // end xfer
