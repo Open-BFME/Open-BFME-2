@@ -55065,3 +55065,19 @@ rva007916E1_constructor_unwind,,0x007916E1,11,Code/GameEngine/Source/Common/INI/
 ??_GRva005E0DC0@@QAEPAXI@Z,,0x005E11E8,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_Rva005E0DC0.cpp,matched,chain from 0x005E0DC0 landing via rowed dtor plus delete
 ?rva002AD1FD@Player@@QAEXXZ,,0x002AD1FD,94,Code/GameEngine/Source/Common/RTS/PlayerRva002AD1FD.cpp,matched,Player this via ecx passthrough with rowed callees and global g_bfmeWorldRV
 ?rva0028DA67@Object@@QAEXXZ,,0x0028DA67,82,Code/GameEngine/Source/GameLogic/Object/ObjectRva0028DA67.cpp,matched,Object flag plus template extents with testStatus and Player notify
+?rva007B952C@@YAXXZ,,0x007B952C,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva007B9536@@YAXXZ,,0x007B9536,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva007B9540@@YAXXZ,,0x007B9540,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva007B954A@@YAXXZ,,0x007B954A,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva007B9554@@YAXXZ,,0x007B9554,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva007B955E@@YAXXZ,,0x007B955E,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva007B9568@@YAXXZ,,0x007B9568,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva007B9572@@YAXXZ,,0x007B9572,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva007B9590@@YAXXZ,,0x007B9590,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva007B959A@@YAXXZ,,0x007B959A,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva007B95AE@@YAXXZ,,0x007B95AE,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva007B95B8@@YAXXZ,,0x007B95B8,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva007B95C2@@YAXXZ,,0x007B95C2,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva007B95CC@@YAXXZ,,0x007B95CC,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva007B95D6@@YAXXZ,,0x007B95D6,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva007B95E0@@YAXXZ,,0x007B95E0,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
