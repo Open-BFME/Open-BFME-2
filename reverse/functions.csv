@@ -52538,3 +52538,4 @@ _Rva0088E190TimerTick@16,,0x0003D870,9,Code/Libraries/Source/WWVegas/WWDebug/Rva
 ?rva0028B238@Object@@QAEX_N@Z,,0x0028B238,45,Code/GameEngine/Source/GameLogic/Object/ObjectRva0028B238.cpp,matched,Object byte setter at 0x43c forwarding to Player rva002AB8FB callers 0x0029354A 0x003BCC4F
 ??1ProductionUpdate@@UAE@XZ,,0x0049E1BF,181,Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateDtor.cpp,matched,donor BFME1 ProductionUpdateDestructor plus ctor layout plus pin caller 0x0049E34F
 ??0Rva0030C97E@@QAE@PAXPAVBfmeParserRegistryVE@@PBVAsciiString@@@Z,,0x0030C97E,104,Code/GameEngine/Source/Common/Rva0030C97E.cpp,matched,StandingWaveAreas binding same recipe as Rva000AEFAA via BlendTileData sibling
+?rva00264558@AIUpdateInterface@@MAEXPAVObject@@W4CommandSourceType@@@Z,,0x00264558,97,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivate264558.cpp,matched,vtable slot 18 AIUpdate state 0x3F clear goal
