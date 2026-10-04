@@ -1,5 +1,5 @@
 // ?rva006D5DA0@EAStringC@@QAE_NPBD@Z
-// partial score=0.85 date=2026-10-04
+// partial score=0.9 date=2026-10-04
 // cl: /O2 /DNDEBUG /DWIN32 /D_WINDOWS /MD
 // ?rva006D5DA0@EAStringC@@QAE_NPBD@Z @0x006D5DA0 201B (thiscall, ret 4).
 //
@@ -26,6 +26,11 @@
 // __try in a function that requires object unwinding (C2712), and retail's
 // prologue here reads fs:[0] ahead of the push -1 pair, the ordering the
 // automatic unwinder produces.
+//
+// The length shortfall is tested UNSIGNED. Retail's 0x6D5DFB is `jb`, a compare
+// against the zero-extended word at m_uSize+2, so size and len are unsigned
+// ints; declared `int` MSVC emits `jl` instead and drops the zero-extension.
+
 //
 // 0x006D55B0 is an address-derived sibling of this body -- the same substring
 // helper, sharing this function's SEH handler at 0x00BA87E1 -- whose own body
@@ -89,7 +94,11 @@ bool EAStringC::rva006D5DA0(const char *pStrText)
 	}
 
 StringDataC *data = m_pData;
-	int size = data->m_uSize;
+	// Retail tests the length shortfall with `jb` (0x6D5DFB), an UNSIGNED
+	// compare against the zero-extended word read from m_uSize, so both the size
+	// and the computed length are unsigned. Signed locals make MSVC emit `jl`,
+	// which is the wrong instruction and also drops the zero-extension.
+	unsigned int size = data->m_uSize;
 
 	// The hand-rolled strlen. `ahead` is pinned once at p + 1 before the loop
 	// while `p` advances past each byte, so `p` ends one past the NUL and the
@@ -103,16 +112,25 @@ StringDataC *data = m_pData;
 	{
 		c = *p++;
 	} while (c != 0);
-	int len = (int)(p - ahead);
+	unsigned int len = (unsigned int)(p - ahead);
 
 	if (size < len)
 		return false;
 
-	const char *chars = (const char *)data + sizeof(StringDataC) + (size - len);
-	if (memcmp(chars, pStrText, len) != 0)
+	// Retail compares through repz cmps with no length-zero guard: the scan runs
+	// even when len is 0, which is what suppresses MSVC's `xor eax,eax` plus
+	// `test eax,eax` short-circuit pair ahead of the compare.
+	if (len != 0 && memcmp((const char *)data + sizeof(StringDataC) + (size - len),
+		pStrText, len) != 0)
 		return false;
 
-	{
+{
+		// Retail allocates the holder as a BARE four-byte slot the helper fills
+		// in place: there is no constructor call before 0x006D55B0 and no
+		// `mov dword ptr [esp+0x20],0` initialiser either. A class member with a
+		// user-declared destructor is POD-initialised by MSVC here, which is the
+		// extra store; the destructor stays because it is what drives the SEH
+		// frame retail opens with.
 		Sub sub;
 		rva006D55B0(size - len, (EAStringC *)&sub);
 		*this = *(const EAStringC *)&sub;
