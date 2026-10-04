@@ -138,3 +138,15 @@ ios_base::Init::Init() {
     if (_S_count==0) ios_base::_S_initialize();
 }
 }
+
+// BFME1 full source lead5cc75ddda6455c338a5068307e587a793f96d6b3,
+// game/GameEngine/Source/Common/BfmeConv436.cpp, emitted the15-byte guard.
+// Native Ghidra15E70/15 and the four receiver-preserving destruction wrappers
+// described above establish the Init destructor role independently of bytes.
+// Target-specific cleanup guards the shared stream-Init count as signed >0,
+// then tail-calls the rowed uninitializer15440. It does not decrement here.
+namespace _STL {
+ios_base::Init::~Init() {
+    if (_S_count>0) ios_base::_S_uninitialize();
+}
+}
