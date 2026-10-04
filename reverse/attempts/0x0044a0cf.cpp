@@ -1,5 +1,5 @@
 // ?RequestGameLeave@LANAPI@@UAEXXZ
-// partial score=0.97 date=2026-09-29
+// partial score=0.98 date=2026-10-04
 // ?RequestGameLeave@LANAPI@@UAEXXZ
 // partial score=0.97 date=2026-09-29
 // cl: /O1 /DNDEBUG /MD /EHsc
@@ -19,6 +19,10 @@ typedef unsigned short WideChar;
 extern "C" __declspec(dllimport) WideChar * __cdecl wcsncpy(
 	WideChar *, const WideChar *, unsigned int );
 extern "C" __declspec(dllimport) unsigned long __stdcall timeGetTime( void );
+
+extern "C" void _WriteBarrier( void );
+extern "C" void _ReadWriteBarrier( void );
+#pragma intrinsic( _WriteBarrier, _ReadWriteBarrier )
 
 void __cdecl operator delete( void *memory );
 
@@ -42,7 +46,10 @@ public:
 	{
 		const StringBase<WideChar> *base = (const StringBase<WideChar> *)this;
 		void *data = base->m_data;
-		return data ? (const WideChar *)((const char *)data + 8) : L"";
+		if( data )
+			return (const WideChar *)((const char *)data + 8);
+		_ReadWriteBarrier();
+		return L"";
 	}
 };
 
@@ -216,7 +223,7 @@ void LANAPI::RequestGameLeave( void )
 	fillInLANMessage( &message );
 
 	LANGameInfo *game = m_currentGame;
-	wcsncpy( message.gameName, game ? game->getName().str() : L"", 0x10 );
+	wcsncpy( message.gameName, game ? game->getName().str() : ( _WriteBarrier(), L"" ), 0x10 );
 	message.gameName[0x10] = 0;
 
 	Rva004495A2( &message, 0 );

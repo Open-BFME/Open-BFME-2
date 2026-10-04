@@ -54303,3 +54303,4 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ??_GRva004421E1@@UAEPAXI@Z,,0x004428AD,28,Code/GameEngine/Source/Common/Rva004421E1Dtor.cpp,matched,chain deleting dtor from own dtor unit vtable slot0
 ?rva0031B1BC@ControlBar@@QAEXPBVImage@@0000000@Z,,0x0031B1BC,84,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031B1BC.cpp,matched,8 image slots then rowed rva0031AE13 with caller 0x0031EDD6
 ?rva002A9F5E@Rva002A9F5E@@QAEXH@Z,,0x002A9F5E,66,Code/GameEngine/Source/Common/Rva002A9F5EMethod.cpp,matched,chain via rowed 0x0031B5A3 plus 0x0039B668 plus 0x0038027B offsets 0x3B4 0x1C
+?init@ConnectionManager@@UAEXXZ,,0x004D24A2,453,Code/GameEngine/Source/Common/ConnectionManagerInit2.cpp,matched,slot 0 of 0x008601C0 plus offsets 0x12138 0x12150 plus rowed ctors and loop
