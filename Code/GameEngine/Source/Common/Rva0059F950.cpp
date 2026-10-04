@@ -86,3 +86,108 @@ void Rva0059F950::rva0059F950()
 		m_prefs.rva0044DD83(g_00E02324->getMap());
 	m_prefs.write();
 }
+
+struct Member70
+{
+	virtual ~Member70();
+	virtual void slot01();
+};
+
+struct Ret53Obj
+{
+	virtual void gap00();
+	virtual void gap01();
+	virtual void gap02();
+	virtual void gap03();
+	virtual void gap04();
+	virtual void gap05();
+	virtual void gap06();
+	virtual void gap07();
+	virtual void gap08();
+	virtual void gap09();
+	virtual void slot10();
+};
+
+class GameSpyInfoInterface
+{
+public:
+	virtual void gap00();
+	virtual void gap01();
+	virtual void gap02();
+	virtual void gap03();
+	virtual void gap04();
+	virtual void gap05();
+	virtual void gap06();
+	virtual void gap07();
+	virtual void gap08();
+	virtual void gap09();
+	virtual void gap10();
+	virtual void gap11();
+	virtual void gap12();
+	virtual void gap13();
+	virtual void gap14();
+	virtual void gap15();
+	virtual void gap16();
+	virtual void gap17();
+	virtual void gap18();
+	virtual void gap19();
+	virtual void gap20();
+	virtual void gap21();
+	virtual void gap22();
+	virtual void gap23();
+	virtual void gap24();
+	virtual void gap25();
+	virtual void gap26();
+	virtual void gap27();
+	virtual void gap28();
+	virtual void gap29();
+	virtual void gap30();
+	virtual void gap31();
+	virtual void gap32();
+	virtual void gap33();
+	virtual void gap34();
+	virtual void gap35();
+	virtual void gap36();
+	virtual void gap37();
+	virtual void gap38();
+	virtual void gap39();
+	virtual void gap40();
+	virtual void gap41();
+	virtual void gap42();
+	virtual void gap43();
+	virtual void gap44();
+	virtual void gap45();
+	virtual void gap46();
+	virtual void slot47();
+	virtual void gap48();
+	virtual void gap49();
+	virtual void gap50();
+	virtual void gap51();
+	virtual void gap52();
+	virtual Ret53Obj *slot53();
+};
+
+extern GameSpyInfoInterface *TheGameSpyInfo;
+
+class Rva0059FC45
+{
+public:
+	void rva0059FC45(int dummy);
+};
+
+void Rva0059FC45::rva0059FC45(int)
+{
+	if (*(int *)((char *)this + 0x488) == 8) {
+		*(bool *)((char *)this + 0x333) = false;
+		return;
+	}
+	((Rva0059F950 *)this)->rva0059F950();
+	if (TheGameSpyInfo) {
+		Ret53Obj *ret = TheGameSpyInfo->slot53();
+		if (ret)
+			ret->slot10();
+		TheGameSpyInfo->slot47();
+	}
+	((Member70 *)((char *)this + 0x70))->slot01();
+	*(int *)((char *)this + 0x488) = 0;
+}
