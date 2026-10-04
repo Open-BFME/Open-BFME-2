@@ -54342,3 +54342,4 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ?rva005D0602@Rva005D0602@@QAEHPAG@Z,,0x005D0602,28,Code/GameEngine/Source/Common/System/Rva005D0602.cpp,matched,caller 005D061E ref plus char copy
 ?rva005D061E@Rva005D061E@@QAEHPAG@Z,,0x005D061E,37,Code/GameEngine/Source/Common/System/Rva005D061E.cpp,matched,chain from 005D0602 pair copy sum
 ??1Rva001FC0F1@@UAE@XZ,,0x001FC0F1,136,Code/GameEngine/Source/GameLogic/Object/Rva001FB94FDtor.cpp,matched,virtual dtor vtbl BE1A38 releases 8c via slot16 then 90 then base Rva001FC0B6 and base Rva001F4C67
+?rva004F0681@Rva004F0681@@QAEEXZ,,0x004F0681,37,Code/GameEngine/Source/GameLogic/AI/Rva004F0681Predicate.cpp,matched,contiguous TeamInQueue predicate triple-deref plus TheGameLogic unsigned above
