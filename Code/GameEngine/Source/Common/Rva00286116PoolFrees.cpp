@@ -58,10 +58,22 @@ struct Node0028614C
 	Iface0028614C m_10;
 };
 
+struct Head0028662D
+{
+	void *m_00;
+	Node0028614C *m_04;
+	void *m_08;
+	void *m_0C;
+};
+
 class Rva0028614C
 {
 public:
 	void rva0028614C(Node0028614C *root);
+	void rva0028662D();
+private:
+	Head0028662D *m_head;
+	int m_count;
 };
 
 void Rva0028614C::rva0028614C(Node0028614C *root)
@@ -75,4 +87,16 @@ void Rva0028614C::rva0028614C(Node0028614C *root)
 		free(cur);
 		cur = next;
 	}
+}
+
+// ?rva0028662D@Rva0028614C@@QAEXXZ @0x0028662D 41B: clear guarded by m_count; frees head list via rva0028614C then re-inits head to empty (next 0 self links) and clears count. Evidence: same this calls rowed 0x0028614C; callers 0x0028682F/0x00286D46 tail into it; jmp from 0x00286CC4 via lea [edi+0x84].
+void Rva0028614C::rva0028662D()
+{
+	if (m_count == 0)
+		return;
+	rva0028614C(m_head->m_04);
+	m_head->m_08 = m_head;
+	m_head->m_04 = 0;
+	m_head->m_0C = m_head;
+	m_count = 0;
 }
