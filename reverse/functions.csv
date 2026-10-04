@@ -55514,3 +55514,4 @@ uw_007a7230,,0x007A7230,8,Code/Libraries/Source/WWVegas/WWLib/INIPutWideString.c
 ?xfer@Rva0040C351@@MAEXPAVXfer@@@Z,,0x0040C4FE,136,Code/GameEngine/Source/Common/Rva0040C351Xfer.cpp,matched,slot 3 of 0x0083944C version 1 1 base CarryoverUnit bool C5 Get B4 LivingWorld B8 bool C4 Get BC Parse C0
 ?rva00271423@Rva00271423@@QAEPAVMatrix3D@@XZ,,0x00271423,115,Code/GameEngine/Source/Common/Rva00271423.cpp,matched,time gated lerp via GetTime and rowed Lerp caller 0x0027BF32
 ??1Rva0052936C@@QAE@XZ,,0x0052936C,103,Code/GameEngine/Source/Common/Rva0052936CDtor.cpp,matched,destructor via rowed callees and array count 6 size 0x14
+?rva00573DCD@Rva00573B23@@QAEMH@Z,,0x00573DCD,77,Code/GameEngine/Source/Common/Rva00573DCDMethod.cpp,matched,vtable slot 9 float via ThingTemplate and GameLogic
