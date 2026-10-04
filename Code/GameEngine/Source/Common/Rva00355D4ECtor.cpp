@@ -1,5 +1,3 @@
-// ??0Rva00355D66@@QAE@XZ
-// partial score=0.9 date=2026-10-03
 // cl: /O1 /MD /EHsc
 //
 // ??0Rva00355D66@@QAE@XZ @0x00355D4E 24B. Derived ctor of Rva00355D66 calling
@@ -11,10 +9,18 @@
 class Gen_004902A0
 {
 public:
-	Gen_004902A0();
+	__declspec(noinline) Gen_004902A0();
 	virtual ~Gen_004902A0();
 	Gen_004902A0 *m_next;
 };
+
+extern Gen_004902A0 *g_00E01E1C;
+
+__declspec(noinline) Gen_004902A0::Gen_004902A0()
+{
+	m_next = g_00E01E1C;
+	g_00E01E1C = this;
+}
 
 class GameWindow;
 
@@ -29,7 +35,6 @@ private:
 	bool m_flag;
 };
 
-// ??0Rva00355D66@@QAE@XZ present-unmatched
 Rva00355D66::Rva00355D66() : m_win(0), m_flag(true)
 {
 }

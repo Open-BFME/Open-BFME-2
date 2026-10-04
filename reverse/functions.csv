@@ -54366,3 +54366,4 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ?rva004E7D24@Rva004E7C1C@@QAEXXZ,,0x004E7D24,5,Code/GameEngine/Source/GameClient/InGameUIResourceEntries.cpp,matched,Ghidra4E7D24/5; unchanged-this tail jump to verified list cleanup4E7C8A; original wrapper name unknown
 ?rva002C5D8B@Rva002C5D8B@@QAEXPAVObject@@M@Z,,0x002C5D8B,27,Code/GameEngine/Source/Common/Rva002C5D8BChoice.cpp,matched,pin REL32 at 0x005739CE with 200.0 plus neighbours share flags
 ?Rva0041BF47Get@@YG_NPAVObject@@0H@Z,,0x0041BF47,91,Code/GameEngine/Source/Common/Rva0041BF47.cpp,matched,leaf free bool Object pair via relationship 2 and healing
+??0Rva00355D66@@QAE@XZ,,0x00355D4E,24,Code/GameEngine/Source/Common/Rva00355D4ECtor.cpp,matched,ctor via rowed base 0x00355C60 with edx this plus vtable 0x00814E5C
