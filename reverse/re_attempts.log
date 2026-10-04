@@ -7546,3 +7546,4 @@ FUN_007b7836	0x003B7836	260	blocked	no callers prove 3-arg free-function types p
 ?rva002AE3F4@Rva002AE3F4@@QAEXW4ObjectID@@@Z	0x002AE3F4	65	partial	sentinel in eax vs ecx cmp via ebp-4 vs eax +1B t=18 model=muse-09 score=0.97 stash=reverse/attempts/0x002ae3f4.cpp
 ?rva00265173@Rva00265173@@QAEXXZ	0x00265173	225	partial	test al al vs cmp al bl for rva bool t=25 model=muse-09 score=0.99 stash=reverse/attempts/0x00265173.cpp
 ?rva0026594F@Rva0026594F@@QAEXPBUCoord3D@@0HW4PathfindLayerEnum@@00@Z	0x0026594F	348	blocked	EH SSE new Path 5 prepends order tmp copy mismatch t=22 model=muse-09
+?rva0006ABE7@BaseHeightMapRenderObjClass@@QAEXVAsciiString@@_N@Z	0x0006ABE7	214	partial	esi edi swap throughout t=25 model=muse-05 score=0.95 stash=reverse/attempts/0x0006abe7.cpp
