@@ -330,10 +330,20 @@ int Rva005D3311::write(char *dst)
 // ?write@Rva005F9852@@QAEHPAD@Z @0x005F9852 37B narrow concat node: base Rva005D3311 write 0x005D3311 then AsciiStringRef write 0x0002C5B1 at +0x20; caller 0x005F9D98.
 struct Rva005F9852 : Rva005D3311
 {
+	int length() const;
 	int write(char *dst);
 
 	AsciiStringRef m_ref;
 };
+
+// 0x005F9791..0x005F97AC: the materializer at 0x005F9D69 calls this
+// before the verified writer. It reads the trailing string at +0x20 and
+// adds the three-span base length; no original template name is inferred.
+int Rva005F9852::length() const
+{
+	int n = m_ref.m_string->getLength();
+	return Rva005D3311::length() + n;
+}
 
 int Rva005F9852::write(char *dst)
 {
