@@ -30,7 +30,7 @@
 // Debug I/O class flat (flat or split log file)
 //////////////////////////////////////////////////////////////////////////////
 #pragma optimize("y", off)
-#include "_pch.h"
+#include <_pch.h>
 #include <stdlib.h>
 #pragma optimize("y",on)
 #include <new>      // needed for placement new prototype

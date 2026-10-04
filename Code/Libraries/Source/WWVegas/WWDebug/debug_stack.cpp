@@ -30,7 +30,7 @@
 // Stack walker
 //////////////////////////////////////////////////////////////////////////////
 #include <debug_stack.h>
-#include "_pch.h"
+#include <_pch.h>
 #include "dbghelp.h"
 
 // From Open-BFME-1's copy, for the BFME StackWalk below.

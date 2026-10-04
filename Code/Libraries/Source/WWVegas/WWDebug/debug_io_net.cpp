@@ -29,7 +29,7 @@
 //
 // Debug I/O class net (Network destination via named pipe)
 //////////////////////////////////////////////////////////////////////////////
-#include "_pch.h"
+#include <_pch.h>
 #include <new>      // needed for placement new prototype
 
 // DebugIONet::DebugIONet: defined in DebugIONetConstructorThunk.cpp (its row's unit).
