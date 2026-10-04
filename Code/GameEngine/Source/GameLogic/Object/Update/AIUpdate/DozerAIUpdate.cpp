@@ -83,6 +83,16 @@ public:
 	virtual void slot15() = 0;
 	virtual void slot16() = 0;
 	virtual AudioHandle addAudioEvent(const AudioEventRTS *event) = 0;
+	virtual void slot18() = 0;
+	virtual void slot19() = 0;
+	virtual void slot20() = 0;
+	virtual void slot21() = 0;
+	virtual void slot22() = 0;
+	virtual void slot23() = 0;
+	virtual void slot24() = 0;
+	virtual void slot25() = 0;
+	virtual void slot26() = 0;
+	virtual void removeAudioEvent(AudioHandle handle) = 0;
 };
 
 #ifdef _INTERNAL
@@ -4520,10 +4530,11 @@ void DozerAIUpdate::startBuildingSound( const AudioEventRTS *sound, ObjectID con
 }
 
 //------------------------------------------------------------------------------------------------
-// ?finishBuildingSound@DozerAIUpdate@@UAEXXZ present-unmatched
 void DozerAIUpdate::finishBuildingSound()
 {
-	TheAudio->removeAudioEvent( m_buildingSound.getPlayingHandle() );
+	AudioHandle *handle = (AudioHandle *)((char *)this + 0x2E4);
+	reinterpret_cast<BFMERetailAudioManagerVTable *>(TheAudio)->removeAudioEvent( *handle );
+	*handle = 1;
 }
 
 
