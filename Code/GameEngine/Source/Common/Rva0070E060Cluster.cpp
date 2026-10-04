@@ -29,6 +29,12 @@ public:
 	BfmeNode1279 *bfmeLookup1279(BfmeKey1279 &key);
 };
 
+class Rva0070B380
+{
+public:
+	void *lookup(const EAStringC &key);
+};
+
 class Rva0070E060
 {
 public:
@@ -47,7 +53,7 @@ BfmeAptValue006DCD20 *Rva0070E060::rva0070E060(int *out)
 	if ((m_flag & 0xff) > 0)
 	{
 		EAStringC key("__INTERFACES__");
-		return ((BfmeAptValue006DCD20 *)m_table.bfmeLookup1279(*(BfmeKey1279 *)&key))->rva006DCFA0();
+		return ((BfmeAptValue006DCD20 *)((Rva0070B380 *)&m_table)->lookup(key))->rva006DCFA0();
 	}
 	return 0;
 }
