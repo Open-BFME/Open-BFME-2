@@ -13,12 +13,20 @@ enum UpdateSleepTime
 };
 enum ObjectStatusTypes
 {
+	OBJECT_STATUS_10 = 0x10,
 	OBJECT_STATUS_5A = 0x5a
+};
+class AIUpdateInterface
+{
+public:
+	void rva00262D40(int mode);
 };
 class Object
 {
 public:
 	bool testStatus(ObjectStatusTypes status) const;
+	char m_pad00[0x258];
+	AIUpdateInterface *m_ai258;	// +0x258
 };
 class ModuleData;
 class ModuleBase
@@ -50,6 +58,7 @@ public:
 	virtual UpdateSleepTime update();
 	void rva0045F084(int value);
 	void rva0045F21C();
+	void rva0045F235();
 private:
 	int m_30;			// +0x30
 };
@@ -73,4 +82,32 @@ void StancesBehavior::rva0045F21C()
 		rva0045F084(5);
 	else if (m_30 == 4)
 		rva0045F084(1);
+}
+
+// ?rva0045F235@StancesBehavior@@QAEXXZ @0x0045F235 (91B).
+// Gap between 0x0045F21C and update in same TU. Stance-gated AI guard-mode
+// set: 5 -> rva0045F084(3), then 3/1/4 filter, Object at +8, status 0x10
+// reject, AI at Object+0x258, mode 1 for stance 3/4 else 0 via rowed
+// ?rva00262D40@AIUpdateInterface@@QAEXH@Z. Caller 0x00341E66.
+void StancesBehavior::rva0045F235()
+{
+	if (m_30 == 5)
+		rva0045F084(3);
+	int stance = m_30;
+	if (stance != 3 && stance != 1 && stance != 4)
+		return;
+	Object *obj = m_object;
+	if (!obj)
+		return;
+	if (obj->testStatus(OBJECT_STATUS_10))
+		return;
+	AIUpdateInterface *ai = obj->m_ai258;
+	if (!ai)
+		return;
+	int mode;
+	if (stance == 3 || stance == 4)
+		mode = 1;
+	else
+		mode = 0;
+	ai->rva00262D40(mode);
 }
