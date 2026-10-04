@@ -1,7 +1,6 @@
 // ?VerifyDelayedFreeFill@GeneralAllocatorDebug@@QAE_NPAX@Z
 // partial score=0.98 date=2026-10-05
 // ?VerifyDelayedFreeFill@GeneralAllocatorDebug@@QAE_NPAX@Z
-// partial score=0.98 date=2026-10-04
 // ?VerifyDelayedFreeFill@GeneralAllocatorDebug@@QAE_NPAX@Z
 // cl: /O2 /DNDEBUG /MD
 // The delayed-free guard verifier of GeneralAllocatorDebug, at retail
@@ -37,11 +36,9 @@ unsigned char __cdecl rva00030E20Fill(void *dst, unsigned int count, unsigned ch
 // CALLER. The shared verify-guard report helper, also reached from
 // VerifyGuardFill at 0x006C3020.
 //
-// It is a FREE function, not a member of the allocator, and that is the fact
-// this body's epilogue turns on. Retail's own 97-byte body at 0x006C2FB0
-// opens `mov edx,[esp+8]` -- it reads its first argument off the stack and
-// never touches ecx -- copies the message into a 0x300 frame and ends
-// `add esp,0x300; ret` with a PLAIN ret, so it does not clean its arguments.
+// Its 97-byte body opens `mov edx,[esp+8]` -- it reads its first argument off
+// the stack and never touches ecx -- copies the message into a 0x300 frame and
+// ends `add esp,0x300; ret 8`, so the CALLER cleans both arguments.
 // Its caller therefore stages the message first and never emits an add:
 // `push 0x008E7C3C / push ebx / mov ecx,edi / call`. A thiscall member spelling
 // reverses the two pushes -- cdecl pushes the last argument first, and for a
@@ -50,7 +47,16 @@ unsigned char __cdecl rva00030E20Fill(void *dst, unsigned int count, unsigned ch
 //
 // Note the caller still loads ecx from the allocator immediately before the
 // call. That is an ordinary use of `this` in the caller, not evidence that the
-// callee is a member: 0x006C2FB0's own body disproves it.
+// callee is a member, and it is not evidence that the allocator object is
+// passed: the helper reads both of its arguments off the stack and has no ECX
+// parameter. The body below therefore calls it as a free function and lets it
+// read that block argument off the stack, which is what removes the trailing
+// `add esp,8` and holds the emitted body to retail's exact 155 bytes.
+//
+// reverse/symbols.csv currently pins this address as
+// ?rva006C2FB0Report@GeneralAllocatorDebug@@QAEXPBDPAX@Z, a thiscall MEMBER with
+// the message first. The callee's own `ret 8` disproves that spelling, and the
+// address is claimed by nothing, so the free-cdecl name below is available.
 void __cdecl rva006C2FB0Report(void *block, const char *msg);
 
 class GeneralAllocatorDebug
@@ -82,7 +88,7 @@ bool GeneralAllocatorDebug::VerifyDelayedFreeFill(void *block)
 	int header = *(int *)((char *)block + 4);
 	unsigned int length;
 
-	if (!(header < 0)) {
+	if (header >= 0) {
 		unsigned int span;
 		// Spelled as a negated test rather than as `header & 2 ? a : b`:
 		// retail jumps OVER the header+4 arm and falls into the masked value
@@ -95,7 +101,7 @@ bool GeneralAllocatorDebug::VerifyDelayedFreeFill(void *block)
 		unsigned char *word = run + span - 10;
 		unsigned char *bodyStart = word - *(unsigned short *)word;
 		length = (unsigned int)bodyStart;
-		if (length >= (unsigned int)run)
+		if ((int)bodyStart >= (int)run)
 			length -= (unsigned int)run;
 		else
 			length = GetBlockSize(run);
@@ -114,13 +120,18 @@ bool GeneralAllocatorDebug::VerifyDelayedFreeFill(void *block)
 		// fill start becomes run + 8 (or run + 12 when the run kind is 3), and
 		// the count is end minus that. Keeping one pointer variable is what
 		// reproduces both the add and the later sub in the same register.
+		//
+		// The count is spelled as a SIGNED pointer difference. That is what puts
+		// retail's `mov ecx,[edi+0x540]` -- the load of the run kind -- after the
+		// `sub eax,esi` and before the argument pushes: with an unsigned count the
+		// whole expression is evaluated first and the compiler sinks the fill byte
+		// and the count ahead of the run-kind test that selects the fill start.
 		unsigned char *end = run + length;
 		run += 8;
 		if (m_runKind == 3)
 			run += 4;
 
-		if (rva00030E20Fill(run, (unsigned int)end - (unsigned int)run,
-		                   (unsigned char)m_fillByte) == 0) {
+		if (rva00030E20Fill(run, end - run, (unsigned char)m_fillByte) == 0) {
 			// Block first and message second, so the message is the LAST declared
 			// argument and cdecl pushes it first -- which is retail's order.
 			rva006C2FB0Report(block,
