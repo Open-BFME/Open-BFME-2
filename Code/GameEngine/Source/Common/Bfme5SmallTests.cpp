@@ -94,3 +94,28 @@ unsigned int __cdecl rva00306B85(unsigned int bits)
     return bits & 0xff;
 }
 #pragma optimize("", on)
+
+// The shipped VS2003 WinBase.h declares VOID WINAPI LeaveCriticalSection
+// (LPCRITICAL_SECTION). This opaque tag preserves that actual import ABI
+// without claiming any CRITICAL_SECTION fields or receiver lifetime.
+struct _RTL_CRITICAL_SECTION;
+extern "C" __declspec(dllimport) void __stdcall
+LeaveCriticalSection(_RTL_CRITICAL_SECTION *section);
+
+// Three whole BFME1 donor units at5cc75ddda6455c338a5068307e587a793f96d6b3
+// place their differently named cleanup members at native Ghidra1DBA9B/9:
+// Bfme/Glo00EF3330_h004893E0.cpp, Watchdog.cpp, GameResultsCounterDestructor.cpp.
+// Their owner/lifetime labels remain donor facts. Native only pushes receiver
+// word0 to the real LeaveCriticalSection IATBBA204 and returns. No virtual
+// table, constructor, destructor, or original class identity is claimed.
+struct Rva001DBA9BSectionView
+{
+    _RTL_CRITICAL_SECTION *m_section00;
+    void leave();
+};
+#pragma optimize("s", on)
+void Rva001DBA9BSectionView::leave()
+{
+    LeaveCriticalSection(m_section00);
+}
+#pragma optimize("", on)
