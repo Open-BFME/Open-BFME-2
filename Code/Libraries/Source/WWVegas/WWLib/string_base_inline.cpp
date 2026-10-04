@@ -519,28 +519,13 @@ const wchar_t *StringBase<wchar_t>::reverseFind(wchar_t c) const
 // operand and loads the string byte into the register, while MSVC 7.1 hoists the
 // parameter into the register before the loop and compares against memory. Four
 // loop shapes all produce the hoisted form.
-// 0x000359B0 - the startsWith of this pair - stays unclaimed: retail holds the
-// string's own length in edx and the argument length in ecx, MSVC 7.1 the other
-// way round, and swapping the comparison, naming the length, casting the count
-// and splitting the result out all leave it unchanged. The endsWith twin, which
-// uses the length twice, comes out with retail's assignment on its own.
-//
-// The case-insensitive pair, identical to the case-sensitive one except that
-// the comparison is the _memicmp import rather than an inlined rep cmpsb, and
-// the result is inverted with neg/sbb/inc rather than a sete.
-template <typename T>
-bool StringBase<T>::startsWithNoCase(const T *str, int len) const
-{
-    if (*str == 0) {
-        return true;
-    }
-
-    if ((m_data ? m_data->length : 0) < len) {
-        return false;
-    }
-
-    return _memicmp(&m_data->data[0], str, len) == 0;
-}
+// The exact 0x000359B0 length-bounded narrow prefix worker is emitted by
+// string_base_starts_with_nocase.cpp. This unit's former explicit template
+// instantiation reversed the native register assignment and emitted a proven
+// nonretail COMDAT before that correct copy. Keep only the header declaration
+// here so the linked build selects the verified worker. The single-argument
+// body below already spells out its own comparison and does not need that
+// discarded template definition.
 
 // Single-argument narrow prefix test: measures with an inlined strlen scan,
 // then runs the length-bounded worker. Routes the comparison through an
@@ -597,7 +582,6 @@ template int StringBase<char>::compareNoCase(char c) const;
 template bool StringBase<char>::endsWithNoCase(const char *str) const;
 template bool StringBase<char>::endsWithNoCase(const StringBase<char> &str) const;
 template bool StringBase<wchar_t>::isNotEmpty() const;
-template bool StringBase<char>::startsWithNoCase(const char *str, int len) const;
 template bool StringBase<char>::endsWithNoCase(const char *str, int len) const;
 template bool StringBase<char>::startsWith(const StringBase<char> &str) const;
 template bool StringBase<char>::startsWith(const char *str, int len) const;
