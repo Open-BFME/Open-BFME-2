@@ -1,3 +1,7 @@
+// The members of the Disp0DwordImmSetters.cpp family whose immediate is an image
+// address no unit defines yet (mostly vftables), split out so the rest of the
+// family links; each moves back once its target has a definition to name.
+//
 // Disp0 dword immediate setters: seven-byte __thiscall members with one shape:
 //
 //     mov dword ptr [ecx],<IMM32> / ret
@@ -155,7 +159,7 @@ extern "C" const void *const vtbl_00CE1E14[];  // ??_7Rva00CE1E14Base@@6B@
 extern "C" const void *const vtbl_00CEFD60[];  // ??_7CullSystemClass@@6B@
 #pragma comment(linker, "/alternatename:_vtbl_00CEFD60=??_7CullSystemClass@@6B@")
 
-class Rva00238D97DwordImmSetter
+class Rva002B228DDwordImmSetter
 {
 public:
 	void apply();
@@ -163,12 +167,12 @@ public:
 	unsigned int m_value;
 };
 
-void Rva00238D97DwordImmSetter::apply()
+void Rva002B228DDwordImmSetter::apply()
 {
-	m_value = ((unsigned int)vtbl_00BED658);
+	m_value = 0x00BFDF8C;
 }
 
-class Rva002B2294DwordImmSetter
+class Rva0007DEA1DwordImmSetter
 {
 public:
 	void apply();
@@ -176,12 +180,12 @@ public:
 	unsigned int m_value;
 };
 
-void Rva002B2294DwordImmSetter::apply()
+void Rva0007DEA1DwordImmSetter::apply()
 {
-	m_value = ((unsigned int)vtbl_00C77F44);
+	m_value = 0x00BC6EEC;
 }
 
-class Rva0057428CDwordImmSetter
+class Rva0007DEA8DwordImmSetter
 {
 public:
 	void apply();
@@ -189,12 +193,12 @@ public:
 	unsigned int m_value;
 };
 
-void Rva0057428CDwordImmSetter::apply()
+void Rva0007DEA8DwordImmSetter::apply()
 {
-	m_value = ((unsigned int)vtbl_00C6E350);
+	m_value = 0x00BC6F04;
 }
 
-class Rva00574293DwordImmSetter
+class Rva0007DE9ADwordImmSetter
 {
 public:
 	void apply();
@@ -202,12 +206,12 @@ public:
 	unsigned int m_value;
 };
 
-void Rva00574293DwordImmSetter::apply()
+void Rva0007DE9ADwordImmSetter::apply()
 {
-	m_value = ((unsigned int)vtbl_00C6E360);
+	m_value = 0x00BC6EC0;
 }
 
-class Rva0057A23CDwordImmSetter
+class Rva004EDFF8DwordImmSetter
 {
 public:
 	void apply();
@@ -215,12 +219,12 @@ public:
 	unsigned int m_value;
 };
 
-void Rva0057A23CDwordImmSetter::apply()
+void Rva004EDFF8DwordImmSetter::apply()
 {
-	m_value = ((unsigned int)vtbl_00C42518);
+	m_value = 0x00C62A14;
 }
 
-class Rva005E3947DwordImmSetter
+class Rva004EDFFFDwordImmSetter
 {
 public:
 	void apply();
@@ -228,12 +232,12 @@ public:
 	unsigned int m_value;
 };
 
-void Rva005E3947DwordImmSetter::apply()
+void Rva004EDFFFDwordImmSetter::apply()
 {
-	m_value = ((unsigned int)vtbl_00C79544);
+	m_value = 0x00C62A20;
 }
 
-class Rva000657ACDwordImmSetter
+class Rva004EE006DwordImmSetter
 {
 public:
 	void apply();
@@ -241,12 +245,12 @@ public:
 	unsigned int m_value;
 };
 
-void Rva000657ACDwordImmSetter::apply()
+void Rva004EE006DwordImmSetter::apply()
 {
-	m_value = 0;
+	m_value = 0x00BC6F34;
 }
 
-class Rva00072892DwordImmSetter
+class Rva0057A235DwordImmSetter
 {
 public:
 	void apply();
@@ -254,12 +258,12 @@ public:
 	unsigned int m_value;
 };
 
-void Rva00072892DwordImmSetter::apply()
+void Rva0057A235DwordImmSetter::apply()
 {
-	m_value = ((unsigned int)vtbl_00BC650C);
+	m_value = 0x00C6EE20;
 }
 
-class Rva00078246DwordImmSetter
+class Rva0057A243DwordImmSetter
 {
 public:
 	void apply();
@@ -267,12 +271,12 @@ public:
 	unsigned int m_value;
 };
 
-void Rva00078246DwordImmSetter::apply()
+void Rva0057A243DwordImmSetter::apply()
 {
-	m_value = ((unsigned int)vtbl_00BC6730);
+	m_value = 0x00C6EE28;
 }
 
-class Rva0008523ADwordImmSetter
+class Rva005CF843DwordImmSetter
 {
 public:
 	void apply();
@@ -280,12 +284,12 @@ public:
 	unsigned int m_value;
 };
 
-void Rva0008523ADwordImmSetter::apply()
+void Rva005CF843DwordImmSetter::apply()
 {
-	m_value = ((unsigned int)vtbl_00BC745C);
+	m_value = 0x00C75284;
 }
 
-class Rva000E14BDDwordImmSetter
+class Rva005CF84ADwordImmSetter
 {
 public:
 	void apply();
@@ -293,12 +297,12 @@ public:
 	unsigned int m_value;
 };
 
-void Rva000E14BDDwordImmSetter::apply()
+void Rva005CF84ADwordImmSetter::apply()
 {
-	m_value = ((unsigned int)vtbl_00BC6F24);
+	m_value = 0x00C7528C;
 }
 
-class Rva000EF9CFDwordImmSetter
+class Rva005E394EDwordImmSetter
 {
 public:
 	void apply();
@@ -306,12 +310,12 @@ public:
 	unsigned int m_value;
 };
 
-void Rva000EF9CFDwordImmSetter::apply()
+void Rva005E394EDwordImmSetter::apply()
 {
-	m_value = ((unsigned int)vtbl_00BCEF94);
+	m_value = 0x00C77BE8;
 }
 
-class Rva00104D73DwordImmSetter
+class Rva000723C0DwordImmSetter
 {
 public:
 	void apply();
@@ -319,12 +323,12 @@ public:
 	unsigned int m_value;
 };
 
-void Rva00104D73DwordImmSetter::apply()
+void Rva000723C0DwordImmSetter::apply()
 {
-	m_value = ((unsigned int)vtbl_00BCF7E8);
+	m_value = 0x00BC64B0;
 }
 
-class Rva00108B4DDwordImmSetter
+class Rva0011647BDwordImmSetter
 {
 public:
 	void apply();
@@ -332,12 +336,12 @@ public:
 	unsigned int m_value;
 };
 
-void Rva00108B4DDwordImmSetter::apply()
+void Rva0011647BDwordImmSetter::apply()
 {
-	m_value = ((unsigned int)vtbl_00BCEFA0);
+	m_value = 0x00BCFB24;
 }
 
-class Rva0010EFCDDwordImmSetter
+class Rva0020E205DwordImmSetter
 {
 public:
 	void apply();
@@ -345,12 +349,12 @@ public:
 	unsigned int m_value;
 };
 
-void Rva0010EFCDDwordImmSetter::apply()
+void Rva0020E205DwordImmSetter::apply()
 {
-	m_value = ((unsigned int)vtbl_00BC5128);
+	m_value = 0x00BE4318;
 }
 
-class Rva001A466CDwordImmSetter
+class Rva00210CC5DwordImmSetter
 {
 public:
 	void apply();
@@ -358,12 +362,12 @@ public:
 	unsigned int m_value;
 };
 
-void Rva001A466CDwordImmSetter::apply()
+void Rva00210CC5DwordImmSetter::apply()
 {
-	m_value = ((unsigned int)vtbl_00BD6CB4);
+	m_value = 0x00BE5114;
 }
 
-class Rva001DBAC3DwordImmSetter
+class Rva002BEDA4DwordImmSetter
 {
 public:
 	void apply();
@@ -371,12 +375,12 @@ public:
 	unsigned int m_value;
 };
 
-void Rva001DBAC3DwordImmSetter::apply()
+void Rva002BEDA4DwordImmSetter::apply()
 {
-	m_value = ((unsigned int)vtbl_00BDBC10);
+	m_value = 0x00BFE4EC;
 }
 
-class Rva00270158DwordImmSetter
+class Rva002D3354DwordImmSetter
 {
 public:
 	void apply();
@@ -384,12 +388,12 @@ public:
 	unsigned int m_value;
 };
 
-void Rva00270158DwordImmSetter::apply()
+void Rva002D3354DwordImmSetter::apply()
 {
-	m_value = ((unsigned int)vtbl_00BFAD38);
+	m_value = 0x00C02A84;
 }
 
-class Rva002A983DDwordImmSetter
+class Rva00330440DwordImmSetter
 {
 public:
 	void apply();
@@ -397,12 +401,12 @@ public:
 	unsigned int m_value;
 };
 
-void Rva002A983DDwordImmSetter::apply()
+void Rva00330440DwordImmSetter::apply()
 {
-	m_value = ((unsigned int)vtbl_00BFDC30);
+	m_value = 0x00C0DB24;
 }
 
-class Rva002D24EFDwordImmSetter
+class Rva0037F4C9DwordImmSetter
 {
 public:
 	void apply();
@@ -410,12 +414,12 @@ public:
 	unsigned int m_value;
 };
 
-void Rva002D24EFDwordImmSetter::apply()
+void Rva0037F4C9DwordImmSetter::apply()
 {
-	m_value = ((unsigned int)vtbl_00C02A58);
+	m_value = 0x00C18DFC;
 }
 
-class Rva002D2507DwordImmSetter
+class Rva00381D71DwordImmSetter
 {
 public:
 	void apply();
@@ -423,12 +427,12 @@ public:
 	unsigned int m_value;
 };
 
-void Rva002D2507DwordImmSetter::apply()
+void Rva00381D71DwordImmSetter::apply()
 {
-	m_value = ((unsigned int)vtbl_00C02A5C);
+	m_value = 0x00C19230;
 }
 
-class Rva0030D353DwordImmSetter
+class Rva003916A4DwordImmSetter
 {
 public:
 	void apply();
@@ -436,12 +440,12 @@ public:
 	unsigned int m_value;
 };
 
-void Rva0030D353DwordImmSetter::apply()
+void Rva003916A4DwordImmSetter::apply()
 {
-	m_value = ((unsigned int)vtbl_00C089EC);
+	m_value = 0x00C1A074;
 }
 
-class Rva00388845DwordImmSetter
+class Rva004059ACDwordImmSetter
 {
 public:
 	void apply();
@@ -449,12 +453,12 @@ public:
 	unsigned int m_value;
 };
 
-void Rva00388845DwordImmSetter::apply()
+void Rva004059ACDwordImmSetter::apply()
 {
-	m_value = ((unsigned int)vtbl_00C1980C);
+	m_value = 0x00BE5838;
 }
 
-class Rva003F3F7CDwordImmSetter
+class Rva00468A3FDwordImmSetter
 {
 public:
 	void apply();
@@ -462,12 +466,12 @@ public:
 	unsigned int m_value;
 };
 
-void Rva003F3F7CDwordImmSetter::apply()
+void Rva00468A3FDwordImmSetter::apply()
 {
-	m_value = ((unsigned int)vtbl_00C3702C);
+	m_value = 0x00C44890;
 }
 
-class Rva003F7BC5DwordImmSetter
+class Rva004BDA05DwordImmSetter
 {
 public:
 	void apply();
@@ -475,12 +479,12 @@ public:
 	unsigned int m_value;
 };
 
-void Rva003F7BC5DwordImmSetter::apply()
+void Rva004BDA05DwordImmSetter::apply()
 {
-	m_value = ((unsigned int)vtbl_00C37298);
+	m_value = 0x00C5AEB0;
 }
 
-class Rva004102A4DwordImmSetter
+class Rva004E14E1DwordImmSetter
 {
 public:
 	void apply();
@@ -488,12 +492,12 @@ public:
 	unsigned int m_value;
 };
 
-void Rva004102A4DwordImmSetter::apply()
+void Rva004E14E1DwordImmSetter::apply()
 {
-	m_value = ((unsigned int)vtbl_00C3962C);
+	m_value = 0x00C619A0;
 }
 
-class Rva004CEE78DwordImmSetter
+class Rva000A8EEFDwordImmSetter
 {
 public:
 	void apply();
@@ -501,12 +505,12 @@ public:
 	unsigned int m_value;
 };
 
-void Rva004CEE78DwordImmSetter::apply()
+void Rva000A8EEFDwordImmSetter::apply()
 {
-	m_value = ((unsigned int)vtbl_00C60130);
+	m_value = 0x00BC93DC;
 }
 
-class Rva004D381BDwordImmSetter
+class Rva0052AF77DwordImmSetter
 {
 public:
 	void apply();
@@ -514,12 +518,12 @@ public:
 	unsigned int m_value;
 };
 
-void Rva004D381BDwordImmSetter::apply()
+void Rva0052AF77DwordImmSetter::apply()
 {
-	m_value = ((unsigned int)vtbl_00C601DC);
+	m_value = 0x00C37E18;
 }
 
-class Rva004E1416DwordImmSetter
+class Rva005676F4DwordImmSetter
 {
 public:
 	void apply();
@@ -527,12 +531,12 @@ public:
 	unsigned int m_value;
 };
 
-void Rva004E1416DwordImmSetter::apply()
+void Rva005676F4DwordImmSetter::apply()
 {
-	m_value = ((unsigned int)vtbl_00C618CC);
+	m_value = 0x00C6CE84;
 }
 
-class Rva000A8EC2DwordImmSetter
+class Rva0059EB3ADwordImmSetter
 {
 public:
 	void apply();
@@ -540,12 +544,12 @@ public:
 	unsigned int m_value;
 };
 
-void Rva000A8EC2DwordImmSetter::apply()
+void Rva0059EB3ADwordImmSetter::apply()
 {
-	m_value = ((unsigned int)vtbl_00BC93C8);
+	m_value = 0x00C711BC;
 }
 
-class Rva00506B28DwordImmSetter
+class Rva000141C30DwordImmSetter
 {
 public:
 	void apply();
@@ -553,12 +557,12 @@ public:
 	unsigned int m_value;
 };
 
-void Rva00506B28DwordImmSetter::apply()
+void Rva000141C30DwordImmSetter::apply()
 {
-	m_value = ((unsigned int)vtbl_00C63F9C);
+	m_value = 0x00BD3338;
 }
 
-class Rva0054E796DwordImmSetter
+class Rva0005CF81FDwordImmSetter
 {
 public:
 	void apply();
@@ -566,12 +570,12 @@ public:
 	unsigned int m_value;
 };
 
-void Rva0054E796DwordImmSetter::apply()
+void Rva0005CF81FDwordImmSetter::apply()
 {
-	m_value = ((unsigned int)vtbl_00C6A894);
+	m_value = 0x00C75278;
 }
 
-class Rva00596686DwordImmSetter
+class Rva00066D580DwordImmSetter
 {
 public:
 	void apply();
@@ -579,12 +583,12 @@ public:
 	unsigned int m_value;
 };
 
-void Rva00596686DwordImmSetter::apply()
+void Rva00066D580DwordImmSetter::apply()
 {
-	m_value = ((unsigned int)vtbl_00C70A5C);
+	m_value = 0x00CE3B38;
 }
 
-class Rva00019EC0DwordImmSetter
+class Rva000604A68DwordImmSetter
 {
 public:
 	void apply();
@@ -592,12 +596,12 @@ public:
 	unsigned int m_value;
 };
 
-void Rva00019EC0DwordImmSetter::apply()
+void Rva000604A68DwordImmSetter::apply()
 {
-	m_value = ((unsigned int)vtbl_00BBC8D4);
+	m_value = 0x00C7A974;
 }
 
-class Rva00035780DwordImmSetter
+class Rva00060263EDwordImmSetter
 {
 public:
 	void apply();
@@ -605,12 +609,12 @@ public:
 	unsigned int m_value;
 };
 
-void Rva00035780DwordImmSetter::apply()
+void Rva00060263EDwordImmSetter::apply()
 {
-	m_value = ((unsigned int)vtbl_00BE2B78);
+	m_value = 0x00C7A84C;
 }
 
-class Rva000176930DwordImmSetter
+class Rva0005F3EE3DwordImmSetter
 {
 public:
 	void apply();
@@ -618,12 +622,12 @@ public:
 	unsigned int m_value;
 };
 
-void Rva000176930DwordImmSetter::apply()
+void Rva0005F3EE3DwordImmSetter::apply()
 {
-	m_value = ((unsigned int)vtbl_00BD4E24);
+	m_value = 0x00C79428;
 }
 
-class Rva0005CF86BDwordImmSetter
+class Rva0005EA2ABDwordImmSetter
 {
 public:
 	void apply();
@@ -631,12 +635,12 @@ public:
 	unsigned int m_value;
 };
 
-void Rva0005CF86BDwordImmSetter::apply()
+void Rva0005EA2ABDwordImmSetter::apply()
 {
-	m_value = ((unsigned int)vtbl_00C75290);
+	m_value = 0x00C780F4;
 }
 
-class Rva0005D23FEDwordImmSetter
+class Rva0005E57C9DwordImmSetter
 {
 public:
 	void apply();
@@ -644,12 +648,12 @@ public:
 	unsigned int m_value;
 };
 
-void Rva0005D23FEDwordImmSetter::apply()
+void Rva0005E57C9DwordImmSetter::apply()
 {
-	m_value = ((unsigned int)vtbl_00C078DC);
+	m_value = 0x00C77D30;
 }
 
-class Rva0003F320DwordImmSetter
+class Rva000550576DwordImmSetter
 {
 public:
 	void apply();
@@ -657,12 +661,12 @@ public:
 	unsigned int m_value;
 };
 
-void Rva0003F320DwordImmSetter::apply()
+void Rva000550576DwordImmSetter::apply()
 {
-	m_value = ((unsigned int)vtbl_00BC0990);
+	m_value = 0x00C6ABC0;
 }
 
-class Rva000724560DwordImmSetter
+class Rva00054F91BDwordImmSetter
 {
 public:
 	void apply();
@@ -670,12 +674,12 @@ public:
 	unsigned int m_value;
 };
 
-void Rva000724560DwordImmSetter::apply()
+void Rva00054F91BDwordImmSetter::apply()
 {
-	m_value = ((unsigned int)vtbl_00CEFD60);
+	m_value = 0x00C6AB10;
 }
 
-class Rva000724510DwordImmSetter
+class Rva000549C6DDwordImmSetter
 {
 public:
 	void apply();
@@ -683,12 +687,12 @@ public:
 	unsigned int m_value;
 };
 
-void Rva000724510DwordImmSetter::apply()
+void Rva000549C6DDwordImmSetter::apply()
 {
-	m_value = ((unsigned int)vtbl_00BC650C);
+	m_value = 0x00C6A68C;
 }
 
-class Rva0006C5930DwordImmSetter
+class Rva00052B588DwordImmSetter
 {
 public:
 	void apply();
@@ -696,12 +700,12 @@ public:
 	unsigned int m_value;
 };
 
-void Rva0006C5930DwordImmSetter::apply()
+void Rva00052B588DwordImmSetter::apply()
 {
-	m_value = ((unsigned int)vtbl_00BBE7EC);
+	m_value = 0x00C686BC;
 }
 
-class Rva00065D180DwordImmSetter
+class Rva000524F5ADwordImmSetter
 {
 public:
 	void apply();
@@ -709,12 +713,12 @@ public:
 	unsigned int m_value;
 };
 
-void Rva00065D180DwordImmSetter::apply()
+void Rva000524F5ADwordImmSetter::apply()
 {
-	m_value = ((unsigned int)vtbl_00CE1E14);
+	m_value = 0x00C67E3C;
 }
 
-class Rva000610480DwordImmSetter
+class Rva0005D387BDwordImmSetter
 {
 public:
 	void apply();
@@ -722,12 +726,12 @@ public:
 	unsigned int m_value;
 };
 
-void Rva000610480DwordImmSetter::apply()
+void Rva0005D387BDwordImmSetter::apply()
 {
-	m_value = ((unsigned int)vtbl_00C7B6AC);
+	m_value = 0x00C75908;
 }
 
-class Rva0005F686ADwordImmSetter
+class Rva0005D10D6DwordImmSetter
 {
 public:
 	void apply();
@@ -735,12 +739,12 @@ public:
 	unsigned int m_value;
 };
 
-void Rva0005F686ADwordImmSetter::apply()
+void Rva0005D10D6DwordImmSetter::apply()
 {
-	m_value = ((unsigned int)vtbl_00BFBCBC);
+	m_value = 0x00C7559C;
 }
 
-class Rva0005E6810DwordImmSetter
+class Rva0007461FDwordImmSetter
 {
 public:
 	void apply();
@@ -748,12 +752,12 @@ public:
 	unsigned int m_value;
 };
 
-void Rva0005E6810DwordImmSetter::apply()
+void Rva0007461FDwordImmSetter::apply()
 {
-	m_value = ((unsigned int)vtbl_00C77E28);
+	m_value = 0x00BC65A8;
 }
 
-class Rva0005E211FDwordImmSetter
+class Rva0005CE8EEDwordImmSetter
 {
 public:
 	void apply();
@@ -761,168 +765,11 @@ public:
 	unsigned int m_value;
 };
 
-void Rva0005E211FDwordImmSetter::apply()
+void Rva0005CE8EEDwordImmSetter::apply()
 {
-	m_value = ((unsigned int)vtbl_00C77E7C);
+	m_value = 0x00C751A8;
 }
-
-class Rva0005E186ADwordImmSetter
-{
-public:
-	void apply();
-
-	unsigned int m_value;
-};
-
-void Rva0005E186ADwordImmSetter::apply()
-{
-	m_value = ((unsigned int)vtbl_00C6E330);
-}
-
-class Rva0005DB82BDwordImmSetter
-{
-public:
-	void apply();
-
-	unsigned int m_value;
-};
-
-void Rva0005DB82BDwordImmSetter::apply()
-{
-	m_value = ((unsigned int)vtbl_00C767D4);
-}
-
-class Rva000552C08DwordImmSetter
-{
-public:
-	void apply();
-
-	unsigned int m_value;
-};
-
-void Rva000552C08DwordImmSetter::apply()
-{
-	m_value = ((unsigned int)vtbl_00C6B090);
-}
-
-class Rva000575395DwordImmSetter
-{
-public:
-	void apply();
-
-	unsigned int m_value;
-};
-
-void Rva000575395DwordImmSetter::apply()
-{
-	m_value = ((unsigned int)vtbl_00C6E5B4);
-}
-
-class Rva0005277B3DwordImmSetter
-{
-public:
-	void apply();
-
-	unsigned int m_value;
-};
-
-void Rva0005277B3DwordImmSetter::apply()
-{
-	m_value = ((unsigned int)vtbl_00C4EF80);
-}
-
-class Rva0004EA016DwordImmSetter
-{
-public:
-	void apply();
-
-	unsigned int m_value;
-};
-
-void Rva0004EA016DwordImmSetter::apply()
-{
-	m_value = ((unsigned int)vtbl_00C62888);
-}
-
-class Rva0004E84A4DwordImmSetter
-{
-public:
-	void apply();
-
-	unsigned int m_value;
-};
-
-void Rva0004E84A4DwordImmSetter::apply()
-{
-	m_value = ((unsigned int)vtbl_00BC6F20);
-}
-
-class Rva00049C38ADwordImmSetter
-{
-public:
-	void apply();
-
-	unsigned int m_value;
-};
-
-void Rva00049C38ADwordImmSetter::apply()
-{
-	m_value = ((unsigned int)vtbl_00BC26E0);
-}
-
-class Rva0004318D8DwordImmSetter
-{
-public:
-	void apply();
-
-	unsigned int m_value;
-};
-
-void Rva0004318D8DwordImmSetter::apply()
-{
-	m_value = ((unsigned int)vtbl_00C3C970);
-}
-
-class Rva000429191DwordImmSetter
-{
-public:
-	void apply();
-
-	unsigned int m_value;
-};
-
-void Rva000429191DwordImmSetter::apply()
-{
-	m_value = ((unsigned int)vtbl_00BDBA74);
-}
-
-class Rva000419B8DDwordImmSetter
-{
-public:
-	void apply();
-
-	unsigned int m_value;
-};
-
-void Rva000419B8DDwordImmSetter::apply()
-{
-	m_value = ((unsigned int)vtbl_00BBE7EC);
-}
-
-class Rva0005D6FDEDwordImmSetter
-{
-public:
-	void apply();
-
-	unsigned int m_value;
-};
-
-void Rva0005D6FDEDwordImmSetter::apply()
-{
-	m_value = ((unsigned int)vtbl_00C75C38);
-}
-
-class Rva0005D2EA1DwordImmSetter
+class Rva000579656DwordImmSetter
 {
 public:
 	void apply();
@@ -930,12 +777,11 @@ public:
 	unsigned int m_value;
 };
 
-void Rva0005D2EA1DwordImmSetter::apply()
+void Rva000579656DwordImmSetter::apply()
 {
-	m_value = ((unsigned int)vtbl_00BE2B78);
+	m_value = 0x00BFBC9C;
 }
-
-class Rva00078274DwordImmSetter
+class Rva000574265DwordImmSetter
 {
 public:
 	void apply();
@@ -943,23 +789,12 @@ public:
 	unsigned int m_value;
 };
 
-void Rva00078274DwordImmSetter::apply()
+void Rva000574265DwordImmSetter::apply()
 {
-	m_value = ((unsigned int)vtbl_00BC6778);
+	m_value = 0x00C6E344;
 }
-class Rva0005CB9F3DwordImmSetter
-{
-public:
-	void apply();
-
-	unsigned int m_value;
-};
 
-void Rva0005CB9F3DwordImmSetter::apply()
-{
-	m_value = ((unsigned int)vtbl_00C74DB8);
-}
-class Rva0005C1872DwordImmSetter
+class Rva00090771DwordImmSetter
 {
 public:
 	void apply();
@@ -967,11 +802,11 @@ public:
 	unsigned int m_value;
 };
 
-void Rva0005C1872DwordImmSetter::apply()
+void Rva00090771DwordImmSetter::apply()
 {
-	m_value = ((unsigned int)vtbl_00C743B8);
+	m_value = 0x00BC7E94;
 }
-class Rva0005B2551DwordImmSetter
+class Rva0002B221ADwordImmSetter
 {
 public:
 	void apply();
@@ -979,11 +814,11 @@ public:
 	unsigned int m_value;
 };
 
-void Rva0005B2551DwordImmSetter::apply()
+void Rva0002B221ADwordImmSetter::apply()
 {
-	m_value = ((unsigned int)vtbl_00C72B74);
+	m_value = 0x00BFDF68;
 }
-class Rva0005970E6DwordImmSetter
+class Rva000A8E95DwordImmSetter
 {
 public:
 	void apply();
@@ -991,60 +826,38 @@ public:
 	unsigned int m_value;
 };
 
-void Rva0005970E6DwordImmSetter::apply()
+void Rva000A8E95DwordImmSetter::apply()
 {
-	m_value = ((unsigned int)vtbl_00C70B80);
+	m_value = 0x00BC93BC;
 }
-class Rva00057C51EDwordImmSetter
-{
-public:
-	void apply();
-
-	unsigned int m_value;
-};
 
-void Rva00057C51EDwordImmSetter::apply()
+class Rva0010846EDwordImmSetter
 {
-	m_value = ((unsigned int)vtbl_00C363B8);
-}
-class Rva00057571CDwordImmSetter
-{
 public:
 	void apply();
 
 	unsigned int m_value;
 };
 
-void Rva00057571CDwordImmSetter::apply()
+void Rva0010846EDwordImmSetter::apply()
 {
-	m_value = ((unsigned int)vtbl_00C6E60C);
+	m_value = 0x00BCF994;
 }
-class Rva00028562EDwordImmSetter
-{
-public:
-	void apply();
-
-	unsigned int m_value;
-};
 
-void Rva00028562EDwordImmSetter::apply()
+class Rva00108650DwordImmSetter
 {
-	m_value = ((unsigned int)vtbl_00BFB698);
-}
-class Rva000225A55DwordImmSetter
-{
 public:
 	void apply();
 
 	unsigned int m_value;
 };
 
-void Rva000225A55DwordImmSetter::apply()
+void Rva00108650DwordImmSetter::apply()
 {
-	m_value = ((unsigned int)vtbl_00BE714C);
+	m_value = 0x00BCEF9C;
 }
 
-class Rva001F0409DwordImmSetter
+class Rva005753E2DwordImmSetter
 {
 public:
 	void apply();
@@ -1052,12 +865,12 @@ public:
 	unsigned int m_value;
 };
 
-void Rva001F0409DwordImmSetter::apply()
+void Rva005753E2DwordImmSetter::apply()
 {
-	m_value = ((unsigned int)vtbl_00BE09D0);
+	m_value = 0x00C6E5C4;
 }
 
-class Rva00203611DwordImmSetter
+class Rva0057851BDwordImmSetter
 {
 public:
 	void apply();
@@ -1065,20 +878,22 @@ public:
 	unsigned int m_value;
 };
 
-void Rva00203611DwordImmSetter::apply()
+void Rva0057851BDwordImmSetter::apply()
 {
-	m_value = ((unsigned int)vtbl_00BE3990);
+	m_value = 0x00C79760;
 }
-
-class Rva00576456DwordImmSetter
-{
-public:
-	void apply();
 
-	unsigned int m_value;
-};
+// Callers elsewhere reach bodies in this unit through other spellings; retail's
+// call sites in their matched rows land on these addresses (same ABI). Bind them.
+#pragma comment(linker, "/alternatename:??1Rva005D6FCC@@UAE@XZ=?apply@Rva0005D6FDEDwordImmSetter@@QAEXXZ")
+#pragma comment(linker, "/alternatename:??1Rva001DBAC3Base@@UAE@XZ=?apply@Rva001DBAC3DwordImmSetter@@QAEXXZ")
 
-void Rva00576456DwordImmSetter::apply()
-{
-	m_value = ((unsigned int)vtbl_00C6E788);
-}
+// Callers elsewhere reach bodies in this unit through other spellings; retail's
+// call sites in their matched rows land on these addresses (same ABI). Bind them.
+#pragma comment(linker, "/alternatename:??1Rva00539926Base@@UAE@XZ=?apply@Rva0004E84A4DwordImmSetter@@QAEXXZ")
+#pragma comment(linker, "/alternatename:??1Rva001DBAC3@@UAE@XZ=?apply@Rva001DBAC3DwordImmSetter@@QAEXXZ")
+#pragma comment(linker, "/alternatename:?bfmeDtorTVA@BfmeThingTVA@@QAEXXZ=?apply@Rva00065D180DwordImmSetter@@QAEXXZ")
+#pragma comment(linker, "/alternatename:??1Rva00CE1E14Base@@UAE@XZ=?apply@Rva00065D180DwordImmSetter@@QAEXXZ")
+#pragma comment(linker, "/alternatename:??1BfmeModuleDataSnapshotBase@@UAE@XZ=?apply@Rva0011647BDwordImmSetter@@QAEXXZ")
+#pragma comment(linker, "/alternatename:??1CountUpTransitionBase@@UAE@XZ=?apply@Rva001DBAC3DwordImmSetter@@QAEXXZ")
+#pragma comment(linker, "/alternatename:?bfmeTailSF@BfmeThingSF@@QAEXXZ=?apply@Rva001DBAC3DwordImmSetter@@QAEXXZ")

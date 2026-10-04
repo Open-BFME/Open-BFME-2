@@ -10853,25 +10853,25 @@ _new_localvar,,0x00753BF0,116,Code/Libraries/Source/Lua/lparser.c,matched,BFME1 
 ?apply@Rva00238D97DwordImmSetter@@QAEXXZ,,0x00238D97,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; mov [ecx] imm32 ret; cluster sibling of 238D8D/238D92 pair
 ?get@Rva001DCD01ByteField@@QBEEXZ,,0x001DCD01,4,Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp,matched,Disp8 byte getter
 ?get@Rva001D96ECLeaField@@QBEPAXXZ,,0x001D96EC,4,Code/GameEngine/Source/Common/Disp8LeaFieldGetters.cpp,matched,Disp8 LEA getter; address-derived opaque holder
-?apply@Rva002B228DDwordImmSetter@@QAEXXZ,,0x002B228D,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; RET-PREV pair with 2B2294
+?apply@Rva002B228DDwordImmSetter@@QAEXXZ,,0x002B228D,7,Code/GameEngine/Source/Common/Disp0DwordImmSettersAddr.cpp,matched,Disp0 dword imm-setter; RET-PREV pair with 2B2294
 ?get@Rva001EAE43ByteField@@QBEEXZ,,0x001EAE43,4,Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp,matched,Disp8 byte getter
 ?get@Rva0020354FByteField@@QBEEXZ,,0x0020354F,4,Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp,matched,Disp8 byte getter
 ?apply@Rva002B2294DwordImmSetter@@QAEXXZ,,0x002B2294,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; adjacent pair with 2B228D
 ?get@Rva002035A1ByteField@@QBEEXZ,,0x002035A1,4,Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp,matched,Disp8 byte getter
 ?get@Rva002035A5ByteField@@QBEEXZ,,0x002035A5,4,Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp,matched,Disp8 byte getter
 ?get@Rva001D96F0LeaField@@QBEPAXXZ,,0x001D96F0,4,Code/GameEngine/Source/Common/Disp8LeaFieldGetters.cpp,matched,Disp8 LEA getter; address-derived opaque holder
-?apply@Rva0007DEA1DwordImmSetter@@QAEXXZ,,0x0007DEA1,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; triple middle (7DE9A/A1/A8)
-?apply@Rva0007DEA8DwordImmSetter@@QAEXXZ,,0x0007DEA8,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; triple last (7DE9A/A1/A8)
+?apply@Rva0007DEA1DwordImmSetter@@QAEXXZ,,0x0007DEA1,7,Code/GameEngine/Source/Common/Disp0DwordImmSettersAddr.cpp,matched,Disp0 dword imm-setter; triple middle (7DE9A/A1/A8)
+?apply@Rva0007DEA8DwordImmSetter@@QAEXXZ,,0x0007DEA8,7,Code/GameEngine/Source/Common/Disp0DwordImmSettersAddr.cpp,matched,Disp0 dword imm-setter; triple last (7DE9A/A1/A8)
 ?get@Rva00042280LeaGetter@@QBEPAXXZ,,0x00042280,7,Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp,matched,Disp32 LEA getter
 ?get@Rva002035A9ByteField@@QBEEXZ,,0x002035A9,4,Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp,matched,Disp8 byte getter
 ?get@Rva002259EFByteField@@QBEEXZ,,0x002259EF,4,Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp,matched,Disp8 byte getter
-?apply@Rva0007DE9ADwordImmSetter@@QAEXXZ,,0x0007DE9A,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; triple first after ret-4
+?apply@Rva0007DE9ADwordImmSetter@@QAEXXZ,,0x0007DE9A,7,Code/GameEngine/Source/Common/Disp0DwordImmSettersAddr.cpp,matched,Disp0 dword imm-setter; triple first after ret-4
 ?get@Rva001D96F4LeaField@@QBEPAXXZ,,0x001D96F4,4,Code/GameEngine/Source/Common/Disp8LeaFieldGetters.cpp,matched,Disp8 LEA getter; address-derived opaque holder
 ?get@Rva00042299LeaGetter@@QBEPAXXZ,,0x00042299,7,Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp,matched,Disp32 LEA getter
 ?get@Rva0023C418ByteField@@QBEEXZ,,0x0023C418,4,Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp,matched,Disp8 byte getter
 ?get@Rva000425A2LeaGetter@@QBEPAXXZ,,0x000425A2,7,Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp,matched,Disp32 LEA getter
 ?get@Rva0023C561ByteField@@QBEEXZ,,0x0023C561,4,Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp,matched,Disp8 byte getter
-?apply@Rva004EDFF8DwordImmSetter@@QAEXXZ,,0x004EDFF8,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; triple first (4EDFF8/F8+7/F8+14)
+?apply@Rva004EDFF8DwordImmSetter@@QAEXXZ,,0x004EDFF8,7,Code/GameEngine/Source/Common/Disp0DwordImmSettersAddr.cpp,matched,Disp0 dword imm-setter; triple first (4EDFF8/F8+7/F8+14)
 _luaK_fixjump,,0x00751D60,88,Code/Libraries/Source/Lua/lcode.c,matched,vendored Lua code-generator; exact via unclaimed_scan; pin upgrade
 ??1Rva00484EF4@@UAE@XZ,,0x00484EF4,25,Code/GameEngine/Source/Common/Rva0049B47CThreeVptrDerived.cpp,matched,Opaque MI middle 25B order +0x10/+0/+0xC tail-jumping the 0x49B47C fold; shared PrimaryP plus own B2; upgrades opaque pin
 ??1Rva004BD763@@UAE@XZ,,0x004BD763,25,Code/GameEngine/Source/Common/Rva0049B47CThreeVptrDerived.cpp,matched,Opaque MI middle 25B order +0x10/+0/+0xC tail-jumping the 0x49B47C fold; shared PrimaryP plus own B2; upgrades opaque pin
@@ -10882,29 +10882,29 @@ _search_local,,0x00753D10,98,Code/Libraries/Source/Lua/lparser.c,matched,BFME1 b
 _string_constant,,0x00753A20,76,Code/Libraries/Source/Lua/lparser.c,matched,BFME1 byte-identical donor; exact via unclaimed_scan
 ??1Rva0024A797@@UAE@XZ,,0x0024A797,25,Code/GameEngine/Source/Common/Rva0024A797DeletingDtor.cpp,matched,Opaque MI middle 25B order +0x10/+0/+0xC tail-jumping the 0x49B47C fold; per-TU PrimaryP plus own B2; upgrades opaque base pin
 ??1Rva004B8CDE@@UAE@XZ,,0x004B8CDE,25,Code/GameEngine/Source/Common/Rva004B8CDEDeletingDtor.cpp,matched,Opaque MI middle 25B order +0x10/+0/+0xC tail-jumping the 0x49B47C fold; per-TU PrimaryP plus own B2; upgrades opaque base pin
-?apply@Rva004EDFFFDwordImmSetter@@QAEXXZ,,0x004EDFFF,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; triple middle
+?apply@Rva004EDFFFDwordImmSetter@@QAEXXZ,,0x004EDFFF,7,Code/GameEngine/Source/Common/Disp0DwordImmSettersAddr.cpp,matched,Disp0 dword imm-setter; triple middle
 ?get@Rva002B2366ByteField@@QBEEXZ,,0x002B2366,4,Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp,matched,Disp8 byte getter
-?apply@Rva004EE006DwordImmSetter@@QAEXXZ,,0x004EE006,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; triple last
+?apply@Rva004EE006DwordImmSetter@@QAEXXZ,,0x004EE006,7,Code/GameEngine/Source/Common/Disp0DwordImmSettersAddr.cpp,matched,Disp0 dword imm-setter; triple last
 ?get@Rva00299C74LeaField@@QBEPAXXZ,,0x00299C74,4,Code/GameEngine/Source/Common/Disp8LeaFieldGetters.cpp,matched,Disp8 LEA getter at negative displacement; address-derived opaque holder
 ?apply@Rva0057428CDwordImmSetter@@QAEXXZ,,0x0057428C,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; pair first
 ?get@Rva00078922LeaGetter@@QBEPAXXZ,,0x00078922,7,Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp,matched,Disp32 LEA getter
 ?get@Rva00299C78LeaField@@QBEPAXXZ,,0x00299C78,4,Code/GameEngine/Source/Common/Disp8LeaFieldGetters.cpp,matched,Disp8 LEA getter at negative displacement; address-derived opaque holder
 ?apply@Rva00574293DwordImmSetter@@QAEXXZ,,0x00574293,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; pair second
 ?get@Rva00300011ByteField@@QBEEXZ,,0x00300011,4,Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp,matched,Disp8 byte getter
-?apply@Rva0057A235DwordImmSetter@@QAEXXZ,,0x0057A235,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; triple first
+?apply@Rva0057A235DwordImmSetter@@QAEXXZ,,0x0057A235,7,Code/GameEngine/Source/Common/Disp0DwordImmSettersAddr.cpp,matched,Disp0 dword imm-setter; triple first
 ?apply@Rva0057A23CDwordImmSetter@@QAEXXZ,,0x0057A23C,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; triple middle
 ?get@Rva003297EFByteField@@QBEEXZ,,0x003297EF,4,Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp,matched,Disp8 byte getter
 ?get@Rva003674FAByteField@@QBEEXZ,,0x003674FA,4,Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp,matched,Disp8 byte getter
-?apply@Rva0057A243DwordImmSetter@@QAEXXZ,,0x0057A243,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; triple last
+?apply@Rva0057A243DwordImmSetter@@QAEXXZ,,0x0057A243,7,Code/GameEngine/Source/Common/Disp0DwordImmSettersAddr.cpp,matched,Disp0 dword imm-setter; triple last
 ?get@Rva00098559LeaGetter@@QBEPAXXZ,,0x00098559,7,Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp,matched,Disp32 LEA getter
 ?get@Rva00373C9FByteField@@QBEEXZ,,0x00373C9F,4,Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp,matched,Disp8 byte getter
-?apply@Rva005CF843DwordImmSetter@@QAEXXZ,,0x005CF843,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; pair first
-?apply@Rva005CF84ADwordImmSetter@@QAEXXZ,,0x005CF84A,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; pair second
+?apply@Rva005CF843DwordImmSetter@@QAEXXZ,,0x005CF843,7,Code/GameEngine/Source/Common/Disp0DwordImmSettersAddr.cpp,matched,Disp0 dword imm-setter; pair first
+?apply@Rva005CF84ADwordImmSetter@@QAEXXZ,,0x005CF84A,7,Code/GameEngine/Source/Common/Disp0DwordImmSettersAddr.cpp,matched,Disp0 dword imm-setter; pair second
 ?get@Rva003860EFByteField@@QBEEXZ,,0x003860EF,4,Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp,matched,Disp8 byte getter
 ?get@Rva000B28F2LeaGetter@@QBEPAXXZ,,0x000B28F2,7,Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp,matched,Disp32 LEA getter
 ?get@Rva001D96F8LeaGetter@@QBEPAXXZ,,0x001D96F8,7,Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp,matched,Disp32 LEA getter
 ?apply@Rva005E3947DwordImmSetter@@QAEXXZ,,0x005E3947,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; pair first
-?apply@Rva005E394EDwordImmSetter@@QAEXXZ,,0x005E394E,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; pair second
+?apply@Rva005E394EDwordImmSetter@@QAEXXZ,,0x005E394E,7,Code/GameEngine/Source/Common/Disp0DwordImmSettersAddr.cpp,matched,Disp0 dword imm-setter; pair second
 ?apply@Rva000657ACDwordImmSetter@@QAEXXZ,,0x000657AC,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; null store
 ?get@Rva003E3BC9ByteField@@QBEEXZ,,0x003E3BC9,4,Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp,matched,Disp8 byte getter
 ?get@Rva00042287LeaField@@QBEPAXXZ,,0x00042287,4,Code/GameEngine/Source/Common/Disp8LeaFieldGetters.cpp,matched,Disp8 LEA getter; address-derived opaque holder
@@ -10913,7 +10913,7 @@ _open_func,,0x00754080,87,Code/Libraries/Source/Lua/lparser.c,matched,BFME1 byte
 ?get@Rva001EAE47LeaGetter@@QBEPAXXZ,,0x001EAE47,7,Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp,matched,Disp32 LEA getter
 ?get@Rva003FF0CCByteField@@QBEEXZ,,0x003FF0CC,4,Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp,matched,Disp8 byte getter
 ?get@Rva001EAE55LeaGetter@@QBEPAXXZ,,0x001EAE55,7,Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp,matched,Disp32 LEA getter
-?apply@Rva000723C0DwordImmSetter@@QAEXXZ,,0x000723C0,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter
+?apply@Rva000723C0DwordImmSetter@@QAEXXZ,,0x000723C0,7,Code/GameEngine/Source/Common/Disp0DwordImmSettersAddr.cpp,matched,Disp0 dword imm-setter
 ?get@Rva003FF0D0ByteField@@QBEEXZ,,0x003FF0D0,4,Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp,matched,Disp8 byte getter
 ?apply@Rva00072892DwordImmSetter@@QAEXXZ,,0x00072892,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter
 ?get@Rva004543B6ByteField@@QBEEXZ,,0x004543B6,4,Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp,matched,Disp8 byte getter
@@ -10935,7 +10935,7 @@ _open_func,,0x00754080,87,Code/Libraries/Source/Lua/lparser.c,matched,BFME1 byte
 ?apply@Rva00108B4DDwordImmSetter@@QAEXXZ,,0x00108B4D,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter
 ?apply@Rva0010EFCDDwordImmSetter@@QAEXXZ,,0x0010EFCD,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter
 ?get@Rva004A6A40ByteField@@QBEEXZ,,0x004A6A40,4,Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp,matched,Disp8 byte getter
-?apply@Rva0011647BDwordImmSetter@@QAEXXZ,,0x0011647B,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter
+?apply@Rva0011647BDwordImmSetter@@QAEXXZ,,0x0011647B,7,Code/GameEngine/Source/Common/Disp0DwordImmSettersAddr.cpp,matched,Disp0 dword imm-setter
 ?get@Rva001F49A5LeaGetter@@QBEPAXXZ,,0x001F49A5,7,Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp,matched,Disp32 LEA getter
 ?get@Rva001F49ACLeaGetter@@QBEPAXXZ,,0x001F49AC,7,Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp,matched,Disp32 LEA getter
 ?get@Rva004C9990ByteField@@QBEEXZ,,0x004C9990,4,Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp,matched,Disp8 byte getter
@@ -10946,10 +10946,10 @@ _open_func,,0x00754080,87,Code/Libraries/Source/Lua/lparser.c,matched,BFME1 byte
 ?apply@Rva001DBAC3DwordImmSetter@@QAEXXZ,,0x001DBAC3,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter
 ?get@Rva001F49BALeaGetter@@QBEPAXXZ,,0x001F49BA,7,Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp,matched,Disp32 LEA getter
 ?get@Rva004F5F8EByteField@@QBEEXZ,,0x004F5F8E,4,Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp,matched,Disp8 byte getter
-?apply@Rva0020E205DwordImmSetter@@QAEXXZ,,0x0020E205,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter
+?apply@Rva0020E205DwordImmSetter@@QAEXXZ,,0x0020E205,7,Code/GameEngine/Source/Common/Disp0DwordImmSettersAddr.cpp,matched,Disp0 dword imm-setter
 ?get@Rva005505DFByteField@@QBEEXZ,,0x005505DF,4,Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp,matched,Disp8 byte getter
 ?get@Rva00203509LeaGetter@@QBEPAXXZ,,0x00203509,7,Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp,matched,Disp32 LEA getter
-?apply@Rva00210CC5DwordImmSetter@@QAEXXZ,,0x00210CC5,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter
+?apply@Rva00210CC5DwordImmSetter@@QAEXXZ,,0x00210CC5,7,Code/GameEngine/Source/Common/Disp0DwordImmSettersAddr.cpp,matched,Disp0 dword imm-setter
 ?get@Rva00203548LeaGetter@@QBEPAXXZ,,0x00203548,7,Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp,matched,Disp32 LEA getter
 ?get@Rva0056A99FByteField@@QBEEXZ,,0x0056A99F,4,Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp,matched,Disp8 byte getter
 ?apply@Rva00270158DwordImmSetter@@QAEXXZ,,0x00270158,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter
@@ -10958,7 +10958,7 @@ _open_func,,0x00754080,87,Code/Libraries/Source/Lua/lparser.c,matched,BFME1 byte
 ?apply@Rva002A983DDwordImmSetter@@QAEXXZ,,0x002A983D,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter
 ?get@Rva0026FF2CLeaGetter@@QBEPAXXZ,,0x0026FF2C,7,Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp,matched,Disp32 LEA getter
 ?get@Rva00578526ByteField@@QBEEXZ,,0x00578526,4,Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp,matched,Disp8 byte getter
-?apply@Rva002BEDA4DwordImmSetter@@QAEXXZ,,0x002BEDA4,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter
+?apply@Rva002BEDA4DwordImmSetter@@QAEXXZ,,0x002BEDA4,7,Code/GameEngine/Source/Common/Disp0DwordImmSettersAddr.cpp,matched,Disp0 dword imm-setter
 ?get@Rva00285B4DLeaGetter@@QBEPAXXZ,,0x00285B4D,7,Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp,matched,Disp32 LEA getter
 ?get@Rva0057852AByteField@@QBEEXZ,,0x0057852A,4,Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp,matched,Disp8 byte getter
 ?apply@Rva002D24EFDwordImmSetter@@QAEXXZ,,0x002D24EF,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter
@@ -10966,36 +10966,36 @@ _open_func,,0x00754080,87,Code/Libraries/Source/Lua/lparser.c,matched,BFME1 byte
 ?apply@Rva002D2507DwordImmSetter@@QAEXXZ,,0x002D2507,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter
 ?get@Rva0028A8F7LeaGetter@@QBEPAXXZ,,0x0028A8F7,7,Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp,matched,Disp32 LEA getter
 ?get@Rva0057A3D3ByteField@@QBEEXZ,,0x0057A3D3,4,Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp,matched,Disp8 byte getter
-?apply@Rva002D3354DwordImmSetter@@QAEXXZ,,0x002D3354,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter
+?apply@Rva002D3354DwordImmSetter@@QAEXXZ,,0x002D3354,7,Code/GameEngine/Source/Common/Disp0DwordImmSettersAddr.cpp,matched,Disp0 dword imm-setter
 ?get@Rva005C4135ByteField@@QBEEXZ,,0x005C4135,4,Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp,matched,Disp8 byte getter
 ?get@Rva0028A93DLeaGetter@@QBEPAXXZ,,0x0028A93D,7,Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp,matched,Disp32 LEA getter
 ?get@Rva0008BD0FFloatField@@QBEMXZ,,0x0008BD0F,4,Code/GameEngine/Source/Common/Disp8FloatFieldGetters.cpp,matched,Disp8 float getter; address-derived opaque holder
 ?apply@Rva0030D353DwordImmSetter@@QAEXXZ,,0x0030D353,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter
 ?get@Rva0028A9D3LeaGetter@@QBEPAXXZ,,0x0028A9D3,7,Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp,matched,Disp32 LEA getter
 ?get@Rva005C4139ByteField@@QBEEXZ,,0x005C4139,4,Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp,matched,Disp8 byte getter
-?apply@Rva00330440DwordImmSetter@@QAEXXZ,,0x00330440,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter
+?apply@Rva00330440DwordImmSetter@@QAEXXZ,,0x00330440,7,Code/GameEngine/Source/Common/Disp0DwordImmSettersAddr.cpp,matched,Disp0 dword imm-setter
 ?get@Rva002A980CLeaGetter@@QBEPAXXZ,,0x002A980C,7,Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp,matched,Disp32 LEA getter
-?apply@Rva0037F4C9DwordImmSetter@@QAEXXZ,,0x0037F4C9,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter
+?apply@Rva0037F4C9DwordImmSetter@@QAEXXZ,,0x0037F4C9,7,Code/GameEngine/Source/Common/Disp0DwordImmSettersAddr.cpp,matched,Disp0 dword imm-setter
 ?get@Rva005C4AE5ByteField@@QBEEXZ,,0x005C4AE5,4,Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp,matched,Disp8 byte getter
 ?get@Rva002A9813LeaGetter@@QBEPAXXZ,,0x002A9813,7,Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp,matched,Disp32 LEA getter
 ?get@Rva005CD5F6ByteField@@QBEEXZ,,0x005CD5F6,4,Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp,matched,Disp8 byte getter
-?apply@Rva00381D71DwordImmSetter@@QAEXXZ,,0x00381D71,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter
+?apply@Rva00381D71DwordImmSetter@@QAEXXZ,,0x00381D71,7,Code/GameEngine/Source/Common/Disp0DwordImmSettersAddr.cpp,matched,Disp0 dword imm-setter
 ?get@Rva005EE2CBByteField@@QBEEXZ,,0x005EE2CB,4,Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp,matched,Disp8 byte getter
 ?bfmeDropXX@BfmeLinkXX@@QAEXXZ,,0x00758490,33,Code/GameEngine/Source/Common/BfmeOneHundredFortyEight.cpp,matched,BFME1 byte-identical donor; b1 0x009A2320; resized 25 to 33 (row had truncated the m_bfmeOn nulling store and ret)
 ?get@Rva002A981ALeaGetter@@QBEPAXXZ,,0x002A981A,7,Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp,matched,Disp32 LEA getter
 ?apply@Rva00388845DwordImmSetter@@QAEXXZ,,0x00388845,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter
-?apply@Rva003916A4DwordImmSetter@@QAEXXZ,,0x003916A4,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter
+?apply@Rva003916A4DwordImmSetter@@QAEXXZ,,0x003916A4,7,Code/GameEngine/Source/Common/Disp0DwordImmSettersAddr.cpp,matched,Disp0 dword imm-setter
 ?get@Rva002A9821LeaGetter@@QBEPAXXZ,,0x002A9821,7,Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp,matched,Disp32 LEA getter
 ?apply@Rva003F3F7CDwordImmSetter@@QAEXXZ,,0x003F3F7C,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter
 ?apply@Rva003F7BC5DwordImmSetter@@QAEXXZ,,0x003F7BC5,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter
 ?get@Rva002A9836LeaGetter@@QBEPAXXZ,,0x002A9836,7,Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp,matched,Disp32 LEA getter
-?apply@Rva004059ACDwordImmSetter@@QAEXXZ,,0x004059AC,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter
+?apply@Rva004059ACDwordImmSetter@@QAEXXZ,,0x004059AC,7,Code/GameEngine/Source/Common/Disp0DwordImmSettersAddr.cpp,matched,Disp0 dword imm-setter
 ?apply@Rva004102A4DwordImmSetter@@QAEXXZ,,0x004102A4,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter
 ?get@Rva002A9916LeaGetter@@QBEPAXXZ,,0x002A9916,7,Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp,matched,Disp32 LEA getter
-?apply@Rva00468A3FDwordImmSetter@@QAEXXZ,,0x00468A3F,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter
+?apply@Rva00468A3FDwordImmSetter@@QAEXXZ,,0x00468A3F,7,Code/GameEngine/Source/Common/Disp0DwordImmSettersAddr.cpp,matched,Disp0 dword imm-setter
 ?get@Rva002B2375LeaGetter@@QBEPAXXZ,,0x002B2375,7,Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp,matched,Disp32 LEA getter
 ?get@Rva0011C420WordField@@QBEGXZ,,0x0011C420,5,Code/GameEngine/Source/Common/Disp8WordFieldGetters.cpp,matched,Disp8 word getter
-?apply@Rva004BDA05DwordImmSetter@@QAEXXZ,,0x004BDA05,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter
+?apply@Rva004BDA05DwordImmSetter@@QAEXXZ,,0x004BDA05,7,Code/GameEngine/Source/Common/Disp0DwordImmSettersAddr.cpp,matched,Disp0 dword imm-setter
 ?get@Rva002C5808LeaGetter@@QBEPAXXZ,,0x002C5808,7,Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp,matched,Disp32 LEA getter
 ?get@Rva002C8E8ALeaGetter@@QBEPAXXZ,,0x002C8E8A,7,Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp,matched,Disp32 LEA getter
 _luaK_code0,,0x00752650,23,Code/Libraries/Source/Lua/lcode.c,matched,BFME1 byte-identical donor; exact via unclaimed_scan
@@ -11021,13 +11021,13 @@ _block,,0x007544B0,46,Code/Libraries/Source/Lua/lparser.c,matched,BFME1 byte-ide
 ?get@Rva0031A9CELeaGetter@@QBEPAXXZ,,0x0031A9CE,7,Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp,matched,Disp32 LEA getter
 _lua_newtag,,0x0074FBC0,113,Code/Libraries/Source/Lua/ltm.c,matched,BFME1 byte-identical donor b1 ltm.c lua_newtag; exact via unclaimed_scan; ghidra 103B extent truncated true 113B
 ?get@Rva0031A9D5LeaGetter@@QBEPAXXZ,,0x0031A9D5,7,Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp,matched,Disp32 LEA getter
-?apply@Rva004E14E1DwordImmSetter@@QAEXXZ,,0x004E14E1,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter
+?apply@Rva004E14E1DwordImmSetter@@QAEXXZ,,0x004E14E1,7,Code/GameEngine/Source/Common/Disp0DwordImmSettersAddr.cpp,matched,Disp0 dword imm-setter
 ?get@Rva0031A9DCLeaGetter@@QBEPAXXZ,,0x0031A9DC,7,Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp,matched,Disp32 LEA getter
 ?get@Rva00332AFFLeaGetter@@QBEPAXXZ,,0x00332AFF,7,Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp,matched,Disp32 LEA getter
 ?collectAll@Rva00758B20@@QAEXXZ,,0x00758B20,59,Code/GameEngine/Source/Common/Rva00758B20Collect.cpp,matched,CGD bucket drain; this is the +0xAE10 region (head lands on +0xC05C freelist slot); called from bfmeGlobalCGD
 ?apply@Rva000A8EC2DwordImmSetter@@QAEXXZ,,0x000A8EC2,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter
 ?collectAll@Rva007589F0@@QAEXXZ,,0x007589F0,59,Code/GameEngine/Source/Common/Rva007589F0Collect.cpp,matched,CGD bucket drain over the 0x2B7B table (head at +0xADEC); called from bfmeGlobalCGD
-?apply@Rva000A8EEFDwordImmSetter@@QAEXXZ,,0x000A8EEF,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter
+?apply@Rva000A8EEFDwordImmSetter@@QAEXXZ,,0x000A8EEF,7,Code/GameEngine/Source/Common/Disp0DwordImmSettersAddr.cpp,matched,Disp0 dword imm-setter
 _TestSize,,0x00756A90,109,Code/Libraries/Source/Lua/lundump.c,matched,BFME1 byte-identical donor b1 lundump.c TestSize; exact via unclaimed_scan; unblocks LoadHeader
 _LoadSignature,,0x00756A00,131,Code/Libraries/Source/Lua/lundump.c,matched,BFME1 byte-identical donor b1 lundump.c LoadSignature; exact via unclaimed_scan; unblocks LoadHeader
 _LoadBlock,,0x00756340,143,Code/Libraries/Source/Lua/lundump.c,matched,BFME1 byte-identical donor b1 lundump.c LoadBlock; exact via unclaimed_scan; unblocks LoadHeader
@@ -11046,16 +11046,16 @@ _lua_newuserdata,,0x00747D70,75,Code/Libraries/Source/Lua/lapi.c,matched,BFME1 b
 _luaS_newudata,,0x00750230,148,Code/Libraries/Source/Lua/lstring.c,matched,BFME1 byte-identical donor b1 lstring.c luaS_newudata; exact; resolves lua_newuserdata call
 ?get@Rva003673D5LeaGetter@@QBEPAXXZ,,0x003673D5,7,Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp,matched,Disp32 LEA getter
 ?apply@Rva00506B28DwordImmSetter@@QAEXXZ,,0x00506B28,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter
-?apply@Rva0052AF77DwordImmSetter@@QAEXXZ,,0x0052AF77,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter
+?apply@Rva0052AF77DwordImmSetter@@QAEXXZ,,0x0052AF77,7,Code/GameEngine/Source/Common/Disp0DwordImmSettersAddr.cpp,matched,Disp0 dword imm-setter
 ?get@Rva0039D7C8LeaGetter@@QBEPAXXZ,,0x0039D7C8,7,Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp,matched,Disp32 LEA getter
 ?get@Rva00091A44FloatField@@QBEMXZ,,0x00091A44,4,Code/GameEngine/Source/Common/Disp8FloatFieldGetters.cpp,matched,Disp8 float getter; address-derived opaque holder
 ?apply@Rva0054E796DwordImmSetter@@QAEXXZ,,0x0054E796,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter
 ?get@Rva003ABE78LeaGetter@@QBEPAXXZ,,0x003ABE78,7,Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp,matched,Disp32 LEA getter
-?apply@Rva005676F4DwordImmSetter@@QAEXXZ,,0x005676F4,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter
+?apply@Rva005676F4DwordImmSetter@@QAEXXZ,,0x005676F4,7,Code/GameEngine/Source/Common/Disp0DwordImmSettersAddr.cpp,matched,Disp0 dword imm-setter
 ?apply@Rva00596686DwordImmSetter@@QAEXXZ,,0x00596686,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter
 ?get@Rva00406D51LeaGetter@@QBEPAXXZ,,0x00406D51,7,Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp,matched,Disp32 LEA getter
 ?get@Rva00406D58LeaGetter@@QBEPAXXZ,,0x00406D58,7,Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp,matched,Disp32 LEA getter
-?apply@Rva0059EB3ADwordImmSetter@@QAEXXZ,,0x0059EB3A,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter
+?apply@Rva0059EB3ADwordImmSetter@@QAEXXZ,,0x0059EB3A,7,Code/GameEngine/Source/Common/Disp0DwordImmSettersAddr.cpp,matched,Disp0 dword imm-setter
 ?get@Rva0040C91BLeaGetter@@QBEPAXXZ,,0x0040C91B,7,Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp,matched,Disp32 LEA getter
 ?get@Rva00426667LeaGetter@@QBEPAXXZ,,0x00426667,7,Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp,matched,Disp32 LEA getter
 ?get@Rva0045A21FLeaGetter@@QBEPAXXZ,,0x0045A21F,7,Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp,matched,Disp32 LEA getter
@@ -11106,7 +11106,7 @@ _luaD_adjusttop,,0x0074D6B0,70,Code/Libraries/Source/Lua/ldo.c,matched,BFME1 byt
 ?get@Rva003673CEFloatField@@QBEMXZ,,0x003673CE,7,Code/GameEngine/Source/Common/DispFloatFieldGetters.cpp,matched,Disp32 float getter; address-derived opaque holder
 ?get@Rva0045A20AFloatField@@QBEMXZ,,0x0045A20A,7,Code/GameEngine/Source/Common/DispFloatFieldGetters.cpp,matched,Disp32 float getter; address-derived opaque holder
 ?get@Rva0045D381FloatField@@QBEMXZ,,0x0045D381,7,Code/GameEngine/Source/Common/DispFloatFieldGetters.cpp,matched,Disp32 float getter; address-derived opaque holder
-?apply@Rva000141C30DwordImmSetter@@QAEXXZ,,0x00141C30,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B cc-pad; retail C7-01-3833BD00-C3
+?apply@Rva000141C30DwordImmSetter@@QAEXXZ,,0x00141C30,7,Code/GameEngine/Source/Common/Disp0DwordImmSettersAddr.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B cc-pad; retail C7-01-3833BD00-C3
 ?get@Rva004BB968FloatField@@QBEMXZ,,0x004BB968,7,Code/GameEngine/Source/Common/DispFloatFieldGetters.cpp,matched,Disp32 float getter; address-derived opaque holder
 ?get@Rva004BB96FFloatField@@QBEMXZ,,0x004BB96F,7,Code/GameEngine/Source/Common/DispFloatFieldGetters.cpp,matched,Disp32 float getter; address-derived opaque holder
 ?get@Rva004CBBC5FloatField@@QBEMXZ,,0x004CBBC5,7,Code/GameEngine/Source/Common/DispFloatFieldGetters.cpp,matched,Disp32 float getter; address-derived opaque holder
@@ -11114,7 +11114,7 @@ _luaD_adjusttop,,0x0074D6B0,70,Code/Libraries/Source/Lua/ldo.c,matched,BFME1 byt
 ?get@Rva0055F4B5FloatField@@QBEMXZ,,0x0055F4B5,7,Code/GameEngine/Source/Common/DispFloatFieldGetters.cpp,matched,Disp32 float getter; address-derived opaque holder
 ?apply@Rva000176930DwordImmSetter@@QAEXXZ,,0x00176930,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B cc-pad; retail C7-01-244EBD00-C3
 ?get@Rva00203ACEByteField@@QBEEXZ,,0x00203ACE,7,Code/GameEngine/Source/Common/DispByteFieldGetters.cpp,matched,Disp32 byte getter; address-derived opaque holder
-?apply@Rva0005CF81FDwordImmSetter@@QAEXXZ,,0x005CF81F,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B ret-prev; retail C7-01-7852C700-C3
+?apply@Rva0005CF81FDwordImmSetter@@QAEXXZ,,0x005CF81F,7,Code/GameEngine/Source/Common/Disp0DwordImmSettersAddr.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B ret-prev; retail C7-01-7852C700-C3
 ?get@Rva002C9400ByteField@@QBEEXZ,,0x002C9400,7,Code/GameEngine/Source/Common/DispByteFieldGetters.cpp,matched,Disp32 byte getter; address-derived opaque holder
 ?apply@Rva0005CF86BDwordImmSetter@@QAEXXZ,,0x005CF86B,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B ret-prev; retail C7-01-9052C700-C3
 _luaS_init,,0x0074FF60,80,Code/Libraries/Source/Lua/lstring.c,matched,BFME1 byte-identical donor b1 lstring.c; exact via unclaimed_scan
@@ -11134,19 +11134,19 @@ _lua_pushnumber,,0x00747570,45,Code/Libraries/Source/Lua/lapi.c,matched,BFME1 by
 ?apply@Rva000724560DwordImmSetter@@QAEXXZ,,0x00724560,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B; retail C7-01-60FDCE00-C3
 ?apply@Rva000724510DwordImmSetter@@QAEXXZ,,0x00724510,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B; retail C7-01-0C65BC00-C3
 ?apply@Rva0006C5930DwordImmSetter@@QAEXXZ,,0x006C5930,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B; retail C7-01-ECE7BB00-C3
-?apply@Rva00066D580DwordImmSetter@@QAEXXZ,,0x0066D580,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; RET-PREV 7B; retail C7-01-383BCE00-C3
+?apply@Rva00066D580DwordImmSetter@@QAEXXZ,,0x0066D580,7,Code/GameEngine/Source/Common/Disp0DwordImmSettersAddr.cpp,matched,Disp0 dword imm-setter; RET-PREV 7B; retail C7-01-383BCE00-C3
 ?apply@Rva00065D180DwordImmSetter@@QAEXXZ,,0x0065D180,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B cc-pad; retail C7-01-141ECE00-C3
 ?apply@Rva000610480DwordImmSetter@@QAEXXZ,,0x00610480,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B cc-pad; retail C7-01-ACB6C700-C3
 ?get@Rva005C4AD9LeaField@@QBEPAXXZ,,0x005C4AD9,4,Code/GameEngine/Source/Common/Disp8LeaFieldGetters.cpp,matched,Disp8 LEA getter; RET-PREV adjacent to 005C4AD5; retail 8D-41-14-C3
 ?apply@Rva000575395DwordImmSetter@@QAEXXZ,,0x00575395,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B; retail C7-01-B4E5C600-C3
-?apply@Rva000604A68DwordImmSetter@@QAEXXZ,,0x00604A68,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B; retail C7-01-74A9C700-C3
-?apply@Rva00060263EDwordImmSetter@@QAEXXZ,,0x0060263E,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B; retail C7-01-4CA8C700-C3
+?apply@Rva000604A68DwordImmSetter@@QAEXXZ,,0x00604A68,7,Code/GameEngine/Source/Common/Disp0DwordImmSettersAddr.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B; retail C7-01-74A9C700-C3
+?apply@Rva00060263EDwordImmSetter@@QAEXXZ,,0x0060263E,7,Code/GameEngine/Source/Common/Disp0DwordImmSettersAddr.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B; retail C7-01-4CA8C700-C3
 ?apply@Rva0005F686ADwordImmSetter@@QAEXXZ,,0x005F686A,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B; retail C7-01-BCBCBF00-C3
-?apply@Rva0005F3EE3DwordImmSetter@@QAEXXZ,,0x005F3EE3,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B; retail C7-01-2894C700-C3
-?apply@Rva0005EA2ABDwordImmSetter@@QAEXXZ,,0x005EA2AB,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B; retail C7-01-F480C700-C3
+?apply@Rva0005F3EE3DwordImmSetter@@QAEXXZ,,0x005F3EE3,7,Code/GameEngine/Source/Common/Disp0DwordImmSettersAddr.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B; retail C7-01-2894C700-C3
+?apply@Rva0005EA2ABDwordImmSetter@@QAEXXZ,,0x005EA2AB,7,Code/GameEngine/Source/Common/Disp0DwordImmSettersAddr.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B; retail C7-01-F480C700-C3
 ?apply@Rva0005E6810DwordImmSetter@@QAEXXZ,,0x005E6810,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B; retail C7-01-287EC700-C3
-?apply@Rva000549C6DDwordImmSetter@@QAEXXZ,,0x00549C6D,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B; retail C7-01-8CA6C600-C3
-?apply@Rva0005E57C9DwordImmSetter@@QAEXXZ,,0x005E57C9,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B; retail C7-01-307DC700-C3
+?apply@Rva000549C6DDwordImmSetter@@QAEXXZ,,0x00549C6D,7,Code/GameEngine/Source/Common/Disp0DwordImmSettersAddr.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B; retail C7-01-8CA6C600-C3
+?apply@Rva0005E57C9DwordImmSetter@@QAEXXZ,,0x005E57C9,7,Code/GameEngine/Source/Common/Disp0DwordImmSettersAddr.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B; retail C7-01-307DC700-C3
 ?apply@Rva0005E211FDwordImmSetter@@QAEXXZ,,0x005E211F,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B; retail C7-01-7C7EC700-C3
 ?apply@Rva0005E186ADwordImmSetter@@QAEXXZ,,0x005E186A,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B; retail C7-01-30E3C600-C3
 ?apply@Rva0005DB82BDwordImmSetter@@QAEXXZ,,0x005DB82B,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B; retail C7-01-D467C700-C3
@@ -11178,11 +11178,11 @@ _luaD_breakrun,,0x0074DE30,59,Code/Libraries/Source/Lua/ldo.c,matched,BFME1 byte
 _luaD_callTM,,0x0074DE70,55,Code/Libraries/Source/Lua/ldo.c,matched,BFME1 byte-identical donor b1 ldo.c; exact via unclaimed_scan
 _lua_error,,0x0074D570,36,Code/Libraries/Source/Lua/ldo.c,matched,BFME1 byte-identical donor b1 ldo.c; exact via unclaimed_scan
 ?get@Rva003674F6LeaField@@QBEPAXXZ,,0x003674F6,4,Code/GameEngine/Source/Common/Disp8LeaFieldGetters.cpp,matched,Disp8 LEA getter; RET-PREV; retail 8D-41-54-C3
-?apply@Rva000550576DwordImmSetter@@QAEXXZ,,0x00550576,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B; retail C7-01-C0ABC600-C3
-?apply@Rva00054F91BDwordImmSetter@@QAEXXZ,,0x0054F91B,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B; retail C7-01-10ABC600-C3
-?apply@Rva00052B588DwordImmSetter@@QAEXXZ,,0x0052B588,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B; retail C7-01-BC86C600-C3
+?apply@Rva000550576DwordImmSetter@@QAEXXZ,,0x00550576,7,Code/GameEngine/Source/Common/Disp0DwordImmSettersAddr.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B; retail C7-01-C0ABC600-C3
+?apply@Rva00054F91BDwordImmSetter@@QAEXXZ,,0x0054F91B,7,Code/GameEngine/Source/Common/Disp0DwordImmSettersAddr.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B; retail C7-01-10ABC600-C3
+?apply@Rva00052B588DwordImmSetter@@QAEXXZ,,0x0052B588,7,Code/GameEngine/Source/Common/Disp0DwordImmSettersAddr.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B; retail C7-01-BC86C600-C3
 ?apply@Rva0005277B3DwordImmSetter@@QAEXXZ,,0x005277B3,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B; retail C7-01-80EFC400-C3
-?apply@Rva000524F5ADwordImmSetter@@QAEXXZ,,0x00524F5A,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B; retail C7-01-3C7EC600-C3
+?apply@Rva000524F5ADwordImmSetter@@QAEXXZ,,0x00524F5A,7,Code/GameEngine/Source/Common/Disp0DwordImmSettersAddr.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B; retail C7-01-3C7EC600-C3
 ?apply@Rva0004EA016DwordImmSetter@@QAEXXZ,,0x004EA016,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B; retail C7-01-8828C600-C3
 ?apply@Rva0004E84A4DwordImmSetter@@QAEXXZ,,0x004E84A4,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B; retail C7-01-206FBC00-C3
 ?apply@Rva00049C38ADwordImmSetter@@QAEXXZ,,0x0049C38A,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B; retail C7-01-E026BC00-C3
@@ -11221,30 +11221,30 @@ _luaV_gettable,,0x0074E560,236,Code/Libraries/Source/Lua/lvm.c,matched,BFME1 byt
 _luaH_next,,0x007505A0,115,Code/Libraries/Source/Lua/ltable.c,matched,BFME1 byte-identical donor b1 ltable.c; exact via unclaimed_scan
 _luaH_getany,,0x00750460,81,Code/Libraries/Source/Lua/ltable.c,matched,BFME1 byte-identical donor b1 ltable.c; exact via unclaimed_scan
 ?apply@Rva0005D6FDEDwordImmSetter@@QAEXXZ,,0x005D6FDE,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B; retail C7-01-385CC700-C3
-?apply@Rva0005D387BDwordImmSetter@@QAEXXZ,,0x005D387B,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B; retail C7-01-0859C700-C3
+?apply@Rva0005D387BDwordImmSetter@@QAEXXZ,,0x005D387B,7,Code/GameEngine/Source/Common/Disp0DwordImmSettersAddr.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B; retail C7-01-0859C700-C3
 ?apply@Rva0005D2EA1DwordImmSetter@@QAEXXZ,,0x005D2EA1,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B; retail C7-01-782BBE00-C3
 _luaV_tonumber,,0x0074E320,56,Code/Libraries/Source/Lua/lvm.c,matched,BFME1 byte-identical donor b1 lvm.c; exact via unclaimed_scan
 ?get@Rva000CB0FFFildField@@QBENXZ,,0x000CB0FF,4,Code/GameEngine/Source/Common/Disp8FildFieldGetters.cpp,matched,Disp8 fild int-to-double getter; RET-PREV C3; retail DB-41-38-C3
 _luaO_str2d,,0x0074E160,112,Code/Libraries/Source/Lua/lobject.c,matched,BFME1 byte-identical donor b1 lobject.c; exact via unclaimed_scan
 ??1?$SimpleVecClass@VVector2@@@@UAE@XZ,,0x001883C0,41,Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextCtor.cpp,matched,gen-alias;object-symbol=??1?$SimpleVecClass@VVector2@@@@UAE@XZ;C++ alias
 ??_G?$SimpleVecClass@VVector2@@@@UAEPAXI@Z,,0x00188540,61,Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextCtor.cpp,matched,gen-alias;object-symbol=??_G?$SimpleVecClass@VVector2@@@@UAEPAXI@Z;C++ alias
-?apply@Rva0005D10D6DwordImmSetter@@QAEXXZ,,0x005D10D6,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B; retail C7-01-9C55C700-C3
-?apply@Rva0007461FDwordImmSetter@@QAEXXZ,,0x0007461F,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B; retail C7-01-A865BC00-C3
+?apply@Rva0005D10D6DwordImmSetter@@QAEXXZ,,0x005D10D6,7,Code/GameEngine/Source/Common/Disp0DwordImmSettersAddr.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B; retail C7-01-9C55C700-C3
+?apply@Rva0007461FDwordImmSetter@@QAEXXZ,,0x0007461F,7,Code/GameEngine/Source/Common/Disp0DwordImmSettersAddr.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B; retail C7-01-A865BC00-C3
 ?get@Rva004543BAFildField@@QBENXZ,,0x004543BA,4,Code/GameEngine/Source/Common/Disp8FildFieldGetters.cpp,matched,Disp8 fild int-to-double getter; RET-PREV C3; retail DB-41-18-C3
 ?get@Rva006D89D0ByteField@@QBEEXZ,,0x006D89D0,4,Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp,matched,Disp8 byte getter CC-island Ghidra-4B standalone; address-derived opaque holder
 ?apply@Rva00078274DwordImmSetter@@QAEXXZ,,0x00078274,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B; retail C7-01-7867BC00-C3
-?apply@Rva0005CE8EEDwordImmSetter@@QAEXXZ,,0x005CE8EE,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B; retail C7-01-A851C700-C3
+?apply@Rva0005CE8EEDwordImmSetter@@QAEXXZ,,0x005CE8EE,7,Code/GameEngine/Source/Common/Disp0DwordImmSettersAddr.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B; retail C7-01-A851C700-C3
 ?apply@Rva0005CB9F3DwordImmSetter@@QAEXXZ,,0x005CB9F3,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B; retail C7-01-B84DC700-C3
 ?apply@Rva0005C1872DwordImmSetter@@QAEXXZ,,0x005C1872,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B; retail C7-01-B843C700-C3
 ?apply@Rva0005B2551DwordImmSetter@@QAEXXZ,,0x005B2551,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B; retail C7-01-742BC700-C3
 ?apply@Rva0005970E6DwordImmSetter@@QAEXXZ,,0x005970E6,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B; retail C7-01-800BC700-C3
 ?apply@Rva00057C51EDwordImmSetter@@QAEXXZ,,0x0057C51E,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B; retail C7-01-B863C300-C3
-?apply@Rva000579656DwordImmSetter@@QAEXXZ,,0x00579656,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B; retail C7-01-9CBCBF00-C3
+?apply@Rva000579656DwordImmSetter@@QAEXXZ,,0x00579656,7,Code/GameEngine/Source/Common/Disp0DwordImmSettersAddr.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B; retail C7-01-9CBCBF00-C3
 ?apply@Rva00057571CDwordImmSetter@@QAEXXZ,,0x0057571C,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B; retail C7-01-0CE6C600-C3
-?apply@Rva000574265DwordImmSetter@@QAEXXZ,,0x00574265,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B; retail C7-01-44E3C600-C3
+?apply@Rva000574265DwordImmSetter@@QAEXXZ,,0x00574265,7,Code/GameEngine/Source/Common/Disp0DwordImmSettersAddr.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B; retail C7-01-44E3C600-C3
 ?get@Rva0066D7D0LeaField@@QBEPAXXZ,,0x0066D7D0,4,Code/GameEngine/Source/Common/Disp8LeaFieldGetters.cpp,matched,Disp8 LEA getter; Ghidra-standalone cc-isolated; retail 8D-41-30-C3
-?apply@Rva00090771DwordImmSetter@@QAEXXZ,,0x00090771,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B; retail C7-01-947EBC00-C3
-?apply@Rva0002B221ADwordImmSetter@@QAEXXZ,,0x002B221A,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B; retail C7-01-68DFBF00-C3
+?apply@Rva00090771DwordImmSetter@@QAEXXZ,,0x00090771,7,Code/GameEngine/Source/Common/Disp0DwordImmSettersAddr.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B; retail C7-01-947EBC00-C3
+?apply@Rva0002B221ADwordImmSetter@@QAEXXZ,,0x002B221A,7,Code/GameEngine/Source/Common/Disp0DwordImmSettersAddr.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B; retail C7-01-68DFBF00-C3
 ?apply@Rva00028562EDwordImmSetter@@QAEXXZ,,0x0028562E,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B; retail C7-01-98B6BF00-C3
 ?apply@Rva000225A55DwordImmSetter@@QAEXXZ,,0x00225A55,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B; retail C7-01-4C71BE00-C3
 ??0Rva007F9B80@@QAE@PAX@Z,,0x006660D0,208,Code/GameEngine/Source/GameNetwork/Rva007F9B80Ctor.cpp,matched,BFME1 byte-identical donor; b1 0x007F9B80
@@ -11789,16 +11789,16 @@ _inclinenumber,,0x007574E0,108,Code/Libraries/Source/Lua/llex.c,matched,gen-alia
 ?update@AIPickUpCrateState@@UAE?AW4StateReturnType@@XZ,,0x0034DEDE,26,Code/GameEngine/Source/GameLogic/AI/AIPickUpCrateStateUpdate.cpp,matched,BFME1 AIStates.cpp donor (BFME1 matched same 26B at 0x00178E10); ZH AIPickUpCrateState::update verbatim; callees base onEnter@0x34C146 + base update@0x347460 pinned
 ??0GridWSEnvironmentMapperClass@@QAE@MIIIW4AxisType@GridWSEnvMapperClass@@I@Z,,0x00187470,88,Code/Libraries/Source/WWVegas/WW3D2/mapper.cpp,matched,BFME1 near-miss donor; derived 6-arg with same-TU inlined GridWSEnv base (vptrs 0xBD3198/0xBD57B4/derived 0xBD58B0 = Environment); Axis +0x34
 ?install_alternate_material_desc@MeshModelClass@@IAEXPAVMeshLoadContextClass@@@Z,,0x00188290,134,Code/Libraries/Source/WWVegas/WW3D2/MeshModelInstallAlternate.cpp,matched,ZH packet 95.1pct; dedicated TU with retail-anchored views; pins Is_Empty Init_Alternate
-?apply@Rva000A8E95DwordImmSetter@@QAEXXZ,,0x000A8E95,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter
-?apply@Rva0010846EDwordImmSetter@@QAEXXZ,,0x0010846E,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter
-?apply@Rva00108650DwordImmSetter@@QAEXXZ,,0x00108650,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter
+?apply@Rva000A8E95DwordImmSetter@@QAEXXZ,,0x000A8E95,7,Code/GameEngine/Source/Common/Disp0DwordImmSettersAddr.cpp,matched,Disp0 dword imm-setter
+?apply@Rva0010846EDwordImmSetter@@QAEXXZ,,0x0010846E,7,Code/GameEngine/Source/Common/Disp0DwordImmSettersAddr.cpp,matched,Disp0 dword imm-setter
+?apply@Rva00108650DwordImmSetter@@QAEXXZ,,0x00108650,7,Code/GameEngine/Source/Common/Disp0DwordImmSettersAddr.cpp,matched,Disp0 dword imm-setter
 ??0RayCollisionTestClass@@QAE@ABV0@ABVMatrix3D@@@Z,,0x001493B0,64,Code/Libraries/Source/WWVegas/WW3D2/RayCollisionCopyCtor.cpp,matched,ZH coltest.h inline port + _bfme_flag42(false); LineSeg 2-arg ctor inlines to Set@0x718F70; end-adjacent to update_bounding_box@0x1493F0
 ?allow@PartitionFilterRejectByKindOf@@UAE_NPAVObject@@@Z,,0x0026115D,25,Code/GameEngine/Source/GameLogic/Object/PartitionFilterRejectByKindOfAllow.cpp,matched,ZH packet 90.5pct; dedicated TU with 28B masks and cast offsets; pins isKindOfMulti
 ?apply@Rva001F0409DwordImmSetter@@QAEXXZ,,0x001F0409,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter
 ?apply@Rva00203611DwordImmSetter@@QAEXXZ,,0x00203611,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter
-?apply@Rva005753E2DwordImmSetter@@QAEXXZ,,0x005753E2,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter
+?apply@Rva005753E2DwordImmSetter@@QAEXXZ,,0x005753E2,7,Code/GameEngine/Source/Common/Disp0DwordImmSettersAddr.cpp,matched,Disp0 dword imm-setter
 ?apply@Rva00576456DwordImmSetter@@QAEXXZ,,0x00576456,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter
-?apply@Rva0057851BDwordImmSetter@@QAEXXZ,,0x0057851B,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter
+?apply@Rva0057851BDwordImmSetter@@QAEXXZ,,0x0057851B,7,Code/GameEngine/Source/Common/Disp0DwordImmSettersAddr.cpp,matched,Disp0 dword imm-setter
 _luaG_binerror,,0x0074D2B0,35,Code/Libraries/Source/Lua/ldebug.c,matched,BFME1 byte-identical donor; b1 ldebug.c luaG_binerror; vendored=lua-4.0.1
 _luaG_ordererror,,0x0074D2E0,73,Code/Libraries/Source/Lua/ldebug.c,matched,BFME1 byte-identical donor; b1 ldebug.c luaG_ordererror; vendored=lua-4.0.1
 ?name@Rva000CA83BNamed@@QBEPBDXZ,,0x000CA83B,6,Code/GameEngine/Source/Common/W3DDrawNameGetters.cpp,matched,literal name getter returning W3DRopeDraw; vtable ref at 0x7CBD68; address-derived placeholder name
