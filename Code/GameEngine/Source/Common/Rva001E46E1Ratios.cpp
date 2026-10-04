@@ -60,3 +60,9 @@ float Rva001E46E1::rva001E488A(Object *obj)
 		value = m_34;
 	return value;
 }
+float Rva001E46E1::rva001E48CF(Object *obj)
+{
+	if (m_60 < ((const Rva001E46E1FrameView *)TheGameLogic)->m_frame)
+		return rva001E46E1(obj);
+	return m_5C;
+}
