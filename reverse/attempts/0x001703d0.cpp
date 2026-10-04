@@ -145,7 +145,7 @@ void MaterialCollectorClass::Collect_Materials(MeshModelClass * mesh)
 
 		// Vertex materials (either single or per vertex)
 		if (mesh->Has_Material_Array(pass)) {
-			
+
 			for (int vert_index = 0;vert_index < mesh->Get_Vertex_Count(); vert_index++) {
 				VertexMaterialClass * mat = mesh->Peek_Material(vert_index,pass);
 				Add_Vertex_Material(mat);
@@ -156,7 +156,7 @@ void MaterialCollectorClass::Collect_Materials(MeshModelClass * mesh)
 			Add_Vertex_Material(mat);
 			if (mat) { mat->Release_Ref(); mat = 0; }
 		}
-		
+
 
 		// Shaders (single or per poly...)
 		if (mesh->Has_Shader_Array(pass)) {
@@ -167,20 +167,20 @@ void MaterialCollectorClass::Collect_Materials(MeshModelClass * mesh)
 			ShaderClass sh = mesh->Get_Single_Shader(pass);
 			Add_Shader(sh);
 		}
-				
-		
+
+
 		// Textures per pass, per stage (either array or single...)
 		for (int stage = 0; stage < 2; stage++) {
 
 			if (mesh->Has_Texture_Array(pass,stage)) {
-				
+
 				for (int poly_index = 0;poly_index < mesh->Get_Polygon_Count(); poly_index++) {
 					RefCountPtr<TextureClass> tex = mesh->Peek_Texture(poly_index,pass,stage);
 					Add_Texture(tex);
 				}
 
 			} else {
-			
+
 				RefCountPtr<TextureClass> tex = mesh->Peek_Single_Texture(pass,stage);
 				Add_Texture(tex);
 
@@ -188,4 +188,3 @@ void MaterialCollectorClass::Collect_Materials(MeshModelClass * mesh)
 		}
 	}
 }
-
