@@ -1,6 +1,6 @@
 // cl: /O1 /MD
 // ?rva0041580E@Rva0041580E@@QAEXPAURva0041580ENode@@@Z @0x0041580E 53B chain via rowed ??1Rva0041579E.
-// List cleanup recursing on +0xC with same this then destroying +0x10 via rowed
+// Branch cleanup recursing on +0xC with same this then destroying +0x10 via rowed
 // Rva0041579E dtor and freeing the node, iterating via +8.
 // Evidence: self-call at 0x00415820 with [esi+0xC], lea ecx [esi+0x10] call
 // rowed 0x004156FC, push esi call rowed _free 0x00030830, loop via [esi+8];
@@ -12,6 +12,7 @@ class Rva0041579E
 {
 public:
 	~Rva0041579E();
+	int m_key00;
 };
 
 struct Rva0041580ENode
@@ -38,6 +39,8 @@ struct Rva0041580E
 	int m_flag04;
 	void rva0041580E(Rva0041580ENode *node);
 	void rva00415886();
+	char *rva00415843CallView(const Rva0041579E &source);
+	void rva004158AF(Rva0041580ENode *&out,Rva0041580ENode *x,Rva0041580ENode *parent,const Rva0041579E &value,Rva0041580ENode *w);
 	Rva0041580E *rva004159E2(const Rva0041580E &other);
 	__forceinline Rva0041580ENode *&rootRef() { return m_head00->m_first04; }
 	Rva0041580ENode *rva00415937(Rva0041580ENode *source,Rva0041580ENode *parent);
@@ -45,7 +48,7 @@ struct Rva0041580E
 };
 
 // ?rva00415886@Rva0041580E@@QAEXXZ @0x00415886 41B chain via rowed 0x0041580E.
-// Resets list head to empty after cleanup. Evidence: ECX passthrough to rowed
+// Resets the tree-like header to empty after cleanup. Evidence: ECX passthrough to rowed
 // 0x0041580E at 0x00415894, callers at 0x004159BF 0x004159EE.
 void Rva0041580E::rva0041580E(Rva0041580ENode *node)
 {
@@ -172,4 +175,46 @@ Rva00415C84 *Rva00415C84::assignMembers(const Rva00415C84 &other)
     m_word04=other.m_word04;
     m_tree08.rva004159E2(other.m_tree08);
     return this;
+}
+
+// STLport 4.5.3 _tree.c _M_insert and existing 136-byte int-key sibling
+// Rva0043B2E2::rva0043B3A1 guide this witnessed insertion protocol. Native
+// Ghidra 0x4158AF/136 has five stack words: output storage, x, parent, value,
+// w. Explicit output-reference ABI records its final store without claiming
+// the original iterator return type. Signed first-word comparison is native;
+// the original value type, full node/layout and original membership are unknown.
+// Rva0041579E's first-word prefix agrees with its rowed copy constructor29.
+// Native supplies this ECX to create37; that body ignores ECX and ret4,
+// so its address-qualified member call view aliases the proven stdcall body.
+namespace _STL {
+struct _Rb_tree_node_base;
+template<class Dummy> class _Rb_global {
+public:
+    static void _Rebalance(_Rb_tree_node_base *,_Rb_tree_node_base *&);
+};
+}
+#pragma comment(linker, "/alternatename:?rva00415843CallView@Rva0041580E@@QAEPADABVRva0041579E@@@Z=?Rva00415843Create@@YGPADABVRva0041579E@@@Z")
+void Rva0041580E::rva004158AF(Rva0041580ENode *&out,Rva0041580ENode *x,Rva0041580ENode *parent,const Rva0041579E &value,Rva0041580ENode *w)
+{
+    Rva0041580ENode *node;
+    if(parent!=(Rva0041580ENode *)m_head00 && (w!=0 || (x==0 && value.m_key00>=parent->m_item10.m_key00))) {
+        node=(Rva0041580ENode *)rva00415843CallView(value);
+        parent->m_child0C=node;
+        Rva0041580EHead *head=m_head00;
+        if(parent==(Rva0041580ENode *)head->m_child0C) head->m_child0C=(Rva0041580EHead *)node;
+    } else {
+        node=(Rva0041580ENode *)rva00415843CallView(value);
+        parent->m_next08=node;
+        Rva0041580EHead *head=m_head00;
+        if(parent==(Rva0041580ENode *)head) {
+            head->m_first04=node;
+            m_head00->m_child0C=(Rva0041580EHead *)node;
+        } else if(parent==(Rva0041580ENode *)head->m_next08) head->m_next08=(Rva0041580EHead *)node;
+    }
+    node->m_next08=0;
+    node->m_child0C=0;
+    node->m_parent04=parent;
+    _STL::_Rb_global<bool>::_Rebalance((_STL::_Rb_tree_node_base *)node,(_STL::_Rb_tree_node_base *&)m_head00->m_first04);
+    ++m_flag04;
+    out=node;
 }
