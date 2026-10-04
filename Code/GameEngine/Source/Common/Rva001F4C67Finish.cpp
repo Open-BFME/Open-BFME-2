@@ -43,7 +43,7 @@ struct Wrap78 {
 	~Wrap78() { if (m_h.m_system) ((BfmeParticleSystemHandle *)&m_h)->~BfmeParticleSystemHandle(); }
 	RawHandle m_h;
 };
-struct Base001F4C67 { virtual void bv0(); virtual void bv1(); virtual ~Base001F4C67(); };
+struct Base001F4C67 { virtual void bv0() = 0; virtual void bv1() = 0; virtual ~Base001F4C67(); };
 class Rva001F4C67 : public Base001F4C67
 {
 public:
