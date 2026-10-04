@@ -55459,3 +55459,4 @@ uw_0076765b,,0x0076765B,8,Code/Libraries/Source/WWVegas/WW3D2/meshgeometry.cpp,m
 ?rva002A9CA4@Player@@QAE_NH@Z,,0x002A9CA4,20,Code/GameEngine/Source/Common/RTS/PlayerAIDelegates.cpp,matched,Player AI delegate default true via caller 0x003E4A63 and rowed AIPlayer rva004F2BEE
 ?rva0041FE63@Rva00420110@@UAEXXZ,,0x0041FE63,35,Code/GameEngine/Source/Common/Rva0041FE63.cpp,matched,vslot 31 timeout via timeGetTime then tail slot 24
 ?rva004813B3@ProductionQueueHordeContain@@QAEXW4ObjectID@@PAVObject@@@Z,,0x004813B3,134,Code/GameEngine/Source/GameLogic/Object/Contain/ProductionQueueHordeContainSlots.cpp,matched,HordeContain slot via ModuleData vector plus BfmeTab1026 plus ThingFactory
+??1Rva005248D0@@UAE@XZ,,0x005248D0,111,Code/Libraries/Source/WWVegas/WWLib/Rva005248D0Dtor.cpp,matched,six vector-holder dtor via Rva0052493F offsets no base
