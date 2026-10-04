@@ -31,11 +31,14 @@ struct Rva002A8AE4Record : public Rva002C67CFCmpBoolField
 {
 };
 
+struct Rva002A8B59Data;
+
 class Rva002A8F24
 {
 public:
 	Rva002A8AB1Record *rva002A8AB1(void *key);
 	Rva002A8AE4Record *rva002A8AE4(void *key);
+	Rva002A8B59Data *rva002A8B59(void *key);
 };
 
 Rva002A8AE4Record *Rva002A8F24::rva002A8AE4(void *key)
@@ -47,4 +50,14 @@ Rva002A8AE4Record *Rva002A8F24::rva002A8AE4(void *key)
 		return (Rva002A8AE4Record *)rva002A8AB1(p);
 	}
 	return (Rva002A8AE4Record *)r;
+}
+
+// ?rva002A8B59@Rva002A8F24@@QAEPAURva002A8B59Data@@PAX@Z, retail 0x002A8B59, 26 bytes.
+// Lookup-or-field: look up void* key via pin-only 0x002A8AB1, and when non-null
+// return the pointer at +0x160, else null. Evidence: packet disassembly,
+// callers (2 matched rows show void* key), prev/next flags, pin-held name.
+Rva002A8B59Data *Rva002A8F24::rva002A8B59(void *key)
+{
+	Rva002A8AB1Record *r = rva002A8AB1(key);
+	return r ? *(Rva002A8B59Data **)((char *)r + 0x160) : 0;
 }
