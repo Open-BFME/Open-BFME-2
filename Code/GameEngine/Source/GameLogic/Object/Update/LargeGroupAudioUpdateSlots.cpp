@@ -24,10 +24,24 @@ public:
 	virtual void gap(char (*)[1]) = 0;
 };
 
+// An 8-byte x/y pair returned through a hidden pointer, so not a POD in
+// retail's source; its member-wise copy is what loads x through the FPU.
+struct Rva004ABA81Pair
+{
+	Rva004ABA81Pair() {}
+	Rva004ABA81Pair(const Rva004ABA81Pair &o) : x(o.x), y(o.y) {}
+	float x;
+	float y;
+};
+
 class Object
 {
 public:
 	bool rva002943B2(const Player *player);
+	const Rva004ABA81Pair *getPositionPair() const { return &m_position; }
+private:
+	unsigned char m_pad00[0x38];
+	Rva004ABA81Pair m_position; // +0x38
 };
 
 struct LargeGroupAudioUpdateModuleData
@@ -68,9 +82,15 @@ public:
 	virtual void rva004ABA79() = 0;
 };
 
-class Rva004ABABCIface : public Rva004ABB37Slots<6>
+class Rva004ABABCIface
 {
 public:
+	virtual Rva004ABA81Pair rva004ABA81() const = 0;
+	virtual Rva004ABA81Pair rva004ABA93() const = 0;
+	virtual void gap2() = 0;
+	virtual void gap3() = 0;
+	virtual void gap4() = 0;
+	virtual void gap5() = 0;
 	virtual unsigned short rva004ABABC() = 0;
 	virtual void gap7() = 0;
 	virtual bool rva004ABACB() = 0;
@@ -86,10 +106,13 @@ public:
 	virtual void rva004ABA79();
 	virtual unsigned short rva004ABABC();
 	virtual bool rva004ABACB();
+	virtual Rva004ABA81Pair rva004ABA81() const;
+	virtual Rva004ABA81Pair rva004ABA93() const;
 	void rva004AB90A();
 	void rva004AB9A2();
 private:
-	unsigned char m_pad28[0x8D - 0x28];
+	Rva004ABA81Pair m_28; // +0x28
+	unsigned char m_pad30[0x8D - 0x30];
 	bool m_8D; // +0x8D
 };
 
@@ -134,4 +157,18 @@ unsigned short LargeGroupAudioUpdate::rva004ABABC()
 bool LargeGroupAudioUpdate::rva004ABACB()
 {
 	return m_object->rva002943B2(0);
+}
+
+// ?rva004ABA81@LargeGroupAudioUpdate@@UBE?AURva004ABA81Pair@@XZ, retail
+// 0x004ABA81, 18 bytes: +0x24 slot 0, the pair at +0x28.
+Rva004ABA81Pair LargeGroupAudioUpdate::rva004ABA81() const
+{
+	return m_28;
+}
+
+// ?rva004ABA93@LargeGroupAudioUpdate@@UBE?AURva004ABA81Pair@@XZ, retail
+// 0x004ABA93, 23 bytes: +0x24 slot 1, the x/y of the Object's position (+0x38).
+Rva004ABA81Pair LargeGroupAudioUpdate::rva004ABA93() const
+{
+	return *m_object->getPositionPair();
 }
