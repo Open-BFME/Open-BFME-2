@@ -8521,3 +8521,4 @@ _Rva0030CAF8CursorEqual,0x0007E394,twin of dup_0007e394 29B exact cursor equalit
 ?updateInternal@AIAttackPursueTargetState@@AAE?AW4StateReturnType@@XZ,0x0034939E,REL32 callee of AIAttackPursueTargetState::update 0x003495A9 (ECX the state) whose result update returns, as Zero Hour's private updateInternal
 ?rva005CB265@Rva005CB265@@QAEXPBUCoord3D@@@Z,0x005CB265,one-pointer use of the folded forwarder (mov eax [ecx]; jmp [eax+0xC]) by RadarMarkerClientUpdate::clientUpdate 0x004C9CF7 (push of Drawable position then call); the forwarder passes its arguments through to the referent slot 3
 ??0Rva009D8630BlockWriter@@QAE@XZ,0x0060D1F7,base block-writer ctor called by BFMECRCWriter::BFMECRCWriter 0x00225A2D; donor GameLogicCRC.cpp comment fixes ctor/dtor RVAs 0x0060D1F7/0x0060D0B3
+??0Rva003525E0Pair@@QAE@ABV0@@Z,0x003B3FCD,Rva003525E0Pair copy ctor called by Rva003529B0 clone ctor 0x003B410E; donor Rva003529B0Clone.cpp member-without-body
