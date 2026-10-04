@@ -31,6 +31,17 @@ struct Rva004A7FC5Aux
 	int m_10;
 };
 
+class GlobalData
+{
+public:
+	unsigned char m_pad00[0xA5C];
+	int m_A5C;
+};
+
+extern GlobalData *TheWritableGlobalData;
+
+extern "C" __declspec(dllimport) double __cdecl ceil(double v);
+
 class Rva004A7D55
 {
 public:
@@ -40,6 +51,7 @@ public:
 	virtual void s3();
 	virtual void s4();
 	virtual void s5();
+	void rva004A7F78(int val);
 private:
 	Rva004A7FC5Aux *m_04;
 	Thing *m_08;
@@ -56,4 +68,13 @@ void Rva004A7D55::rva004A7FC5()
 	if (d == 0)
 		return;
 	((Rva002716Holder *)d)->Rva0027164EBroadcast(aux->m_10, m_88);
+}
+
+void Rva004A7D55::rva004A7F78(int val)
+{
+	m_88 = (int)ceil((double)val / TheWritableGlobalData->m_A5C);
+	Drawable *d = m_08->getDrawable();
+	if (d == 0)
+		return;
+	((Rva002716Holder *)d)->Rva0027164EBroadcast(m_04->m_10, m_88);
 }
