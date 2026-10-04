@@ -52851,3 +52851,4 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ?rva00272AD5@Drawable@@QAEPAVObject@@XZ,,0x00272AD5,214,Code/GameEngine/Source/GameClient/Drawable_rva00272AD5.cpp,matched,closest kind-0x7A/0x9E object within global 0x00DFDC30 +0x80 passing alive/0x002611DD/player/near-position filters; filter chain; address name
 ?rva002C5F65@Rva002C5F65@@QAEXXZ,,0x002C5F65,13,Code/GameEngine/Source/Common/Rva002C5F65.cpp,matched,tail forward to rowed Rva0050542B method when member non-null
 ?rva006E24D0@AptCIH@@QAE_NXZ,,0x006E24D0,11,Code/Libraries/Source/Apt/Rva006E24D0.cpp,matched,AptCIH forward with constant to rowed rva006E1F90
+?rva0033A9A5@Rva0033A9A5@@QAEPBVRva00427157@@PBX@Z,,0x0033A9A5,61,Code/GameEngine/Source/Common/Rva0033A9A5.cpp,matched,rowed 0x0033A8D9 plus rowed 0x0042724D plus ret-4
