@@ -54371,3 +54371,4 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ?rva004ED372@Rva004ECECD@@QAEXPBUCoord3D@@@Z,,0x004ED372,48,Code/Libraries/Source/WWVegas/WW3D2/HLodRva004ED1A1.cpp,matched,chain via 0x004ED257 loop over node range with point
 ?rva0042008F@Rva00420110@@QAE_NXZ,,0x0042008F,60,Code/GameEngine/Source/Common/Rva0042008FSlot.cpp,matched,vslot 18 via GameInfo slot 80 plus own slot 56 plus bounds unsigned
 ??0Rva00420E67@@QAE@XZ,,0x00420E0D,82,Code/GameEngine/Source/Common/System/Rva00420E67Ctor.cpp,matched,MI ctor via baseConstruct plus Snapshot plus Coord3D list plus bool
+?forward@Rva0019C520Owner@@QAEHVAsciiString@@H@Z,,0x0032D7DB,64,Code/GameEngine/Source/GameLogic/Map/SidesList_forward.cpp,matched,donor Rva0019C520Forward via SidesList offset 0xF44 caller verifyValidTeam

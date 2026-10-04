@@ -7842,3 +7842,4 @@ FUN_007b7836	0x003B7836	260	blocked	no callers prove 3-arg free-function types p
 ??0Rva00355B61@@QAE@XZ	0x00355B61	85	blocked	two hash_map calls go to TU-local copy not abutting twin 0x00355B42 t=15 model=muse-12 (stash 0.91 kept)
 ??1?$vector@UBfmeAssignRecord52@@V?$allocator@UBfmeAssignRecord52@@@_STL@@@_STL@@QAE@XZ	0x002BBB18	63	blocked	calls _Destroy instead of rowed __destroy_aux 0x002BB6A5 t=20 model=muse-12 (stash 0.93 kept)
 ?rva00420254@Rva00420110@@QAEXPAXPAXPAXPAX@Z	0x00420254	255	blocked	vslot ShowEndGame needs GameText fetch slot plus base layout plus Apt alternatename plus timeGetTime plus string EH temps t=15 model=muse-07
+?rva00209382@ScriptEngine@@QAE_NPAX@Z	0x00209382	131	blocked	ScriptEngine AsciiString plus list traversal needs BFME1 donor mapping t=12 model=muse-spark
