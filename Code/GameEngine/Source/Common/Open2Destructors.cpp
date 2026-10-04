@@ -1,6 +1,6 @@
 // cl: /O1 /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib
 //
-// Six record destructors.  A record destructor's only visible work is
+// Record destructors.  A record destructor's only visible work is
 // destroying the members that HAVE a destructor, in reverse declaration order,
 // so each class below carries only the AsciiStrings and the gaps between them
 // -- that is all these bytes attest to, and inventing the rest would be
@@ -148,5 +148,54 @@ public:
 // @??1Open2Dtor69CF00@@QAE@XZ 0x0069CF00
 // ??1Open2Dtor69CF00@@QAE@XZ present-unmatched
 Open2Dtor69CF00::~Open2Dtor69CF00()
+{
+}
+
+// 0x002E096A..0x002E0A0A -- target-only layout, not the drift queue's
+// Open2Dtor69CF00 identity. Eight calls to narrow releaseBuffer at 0x36410
+// and two null-guarded calls to OpaqueRefCounted::Release_Ref at 0x50ED3
+// accompany ten member cleanup states. The original record name is unknown.
+// This referent declaration agrees with OpaqueRefOwnership.cpp.
+class OpaqueRefCounted
+{
+public:
+	virtual ~OpaqueRefCounted();
+	void Add_Ref();
+	void Release_Ref();
+private:
+	long refs;
+};
+
+class Open2OwnedReference
+{
+public:
+	__forceinline ~Open2OwnedReference()
+	{
+		if (referent)
+			referent->Release_Ref();
+	}
+private:
+	OpaqueRefCounted *referent;
+};
+
+class Rva002E096A
+{
+public:
+	~Rva002E096A();
+private:
+	AsciiString m_at00;
+	AsciiString m_at04;
+	Open2Gap<0x18> m_pad08;
+	AsciiString m_at20;
+	AsciiString m_at24;
+	AsciiString m_at28;
+	AsciiString m_at2c;
+	AsciiString m_at30;
+	AsciiString m_at34;
+	Open2OwnedReference m_at38;
+	Open2OwnedReference m_at3c;
+};
+
+Rva002E096A::~Rva002E096A()
 {
 }
