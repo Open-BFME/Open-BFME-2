@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /O1 /DNDEBUG /MD /arch:SSE /G7
 //
 // AIAttackApproachTargetState::onExit, retail 0x0034894C (166 bytes): slot 5
 // of vtable 0x00C12610, whose slot-2 name getter returns
@@ -12,6 +12,15 @@
 // rowed Thing::setPosition, and m_isInitialApproach (+0x6F) cleared.
 // BFME 2 addition (target evidence): AI slot 136 is called last inside the
 // AI block. BFME 2 sums dy*dy first.
+//
+// AIAttackApproachTargetState::update, retail 0x003488AF (157 bytes): slot 6
+// of the same vtable. Zero Hour's body over the pinned private
+// updateInternal (0x00348356): keep following a mobile owner's live,
+// non-immobile victim (template kind byte +0x108 mask 4; the pinned
+// Object::isMobile), and on the initial approach aim the current weapon's
+// turret (rowed getWhichTurretForCurWeapon and setTurretTargetObject, pinned
+// getNextMoodTarget) at a mood target. BFME 2 drops the owner null test and
+// sets the AI byte +0x3C7 after aiming.
 
 typedef bool Bool;
 typedef float Real;
@@ -22,6 +31,10 @@ enum StateExitType
 enum StateReturnType
 {
 	STATE_CONTINUE = 0
+};
+enum WhichTurretType
+{
+	TURRET_INVALID = -1
 };
 #define PATHFIND_CELL_SIZE_F 10.0f
 
@@ -70,15 +83,22 @@ public:
 	virtual Bool isDoingGroundMovement() const = 0;
 	void ignoreObstacle(const Object *obj);
 	Locomotor *getCurLocomotor() { return m_curLocomotor; }
+	WhichTurretType getWhichTurretForCurWeapon() const;
+	Object *getNextMoodTarget(Bool calledByAI, Bool calledDuringIdle);
+	void setTurretTargetObject(WhichTurretType tur, Object *o, Bool isForceAttacking);
 private:
 	unsigned char m_pad004[0x1F0 - 0x04];
 	Locomotor *m_curLocomotor; // +0x1F0
+	unsigned char m_pad1F4[0x3C7 - 0x1F4];
+public:
+	Bool m_bfmeFlag3C7; // +0x3C7
 };
 
 class ThingTemplate
 {
 public:
 	Bool isKindOfProjectile() const { return (m_kindOf[3] & 2) != 0; }
+	Bool isKindOfImmobile() const { return (m_kindOf[0] & 4) != 0; }
 private:
 	unsigned char m_pad00[0x108];
 	unsigned char m_kindOf[4]; // +0x108
@@ -102,6 +122,7 @@ class Object : public Thing
 public:
 	AIUpdateInterface *getAI() { return m_ai; }
 	Bool isKindOfProjectile() const { return getTemplate()->isKindOfProjectile(); }
+	Bool isMobile() const;
 private:
 	unsigned char m_pad044[0x258 - 0x44];
 	AIUpdateInterface *m_ai; // +0x258
@@ -111,6 +132,7 @@ class StateMachine
 {
 public:
 	Object *getOwner() const { return m_owner; }
+	Object *getGoalObject();
 private:
 	unsigned char m_pad00[0x14];
 	Object *m_owner; // +0x14
@@ -125,8 +147,10 @@ public:
 	virtual void slot03();
 	virtual StateReturnType onEnter();
 	virtual void onExit(StateExitType status);
+	virtual StateReturnType update();
 protected:
 	Object *getMachineOwner() const { return m_machine->getOwner(); }
+	Object *getMachineGoalObject() const { return m_machine->getGoalObject(); }
 	unsigned char m_pad04[0x18 - 0x04];
 	StateMachine *m_machine; // +0x18
 };
@@ -144,9 +168,15 @@ class AIAttackApproachTargetState : public AIInternalMoveToState
 {
 public:
 	virtual void onExit(StateExitType status);
+	virtual StateReturnType update();
 private:
-	unsigned char m_pad2C[0x6F - 0x2C];
+	StateReturnType updateInternal( void );
+	unsigned char m_pad2C[0x6C - 0x2C];
+	Bool m_follow; // +0x6C
+	Bool m_isAttackingObject; // +0x6D
+	Bool m_stopIfInRange; // +0x6E
 	Bool m_isInitialApproach; // +0x6F
+	Bool m_isForceAttacking; // +0x70
 };
 
 void AIAttackApproachTargetState::onExit( StateExitType status )
@@ -179,4 +209,45 @@ void AIAttackApproachTargetState::onExit( StateExitType status )
 
 	m_isInitialApproach = false;	// We only want to allow turreted things to fire at enemies during their
 																// first approach
+}
+
+StateReturnType AIAttackApproachTargetState::update()
+{
+	// contained by AIAttackState, so no separate timer
+
+	StateReturnType code = updateInternal();
+	Object* source = getMachineOwner();
+	AIUpdateInterface *ai = source->getAI();
+
+	if (m_follow && m_isAttackingObject)
+	{
+		// Basically, if the object is alive, we continue, in case the target moves.
+		Object* victim = getMachineGoalObject();
+		if (victim && source->isMobile() && !victim->getTemplate()->isKindOfImmobile())
+		{
+			if (code != STATE_CONTINUE)
+			{
+				m_isInitialApproach = false;
+			}
+			// Object is still alive (and so are we)
+			// It could move (and so can we), so just continue & keep checking.
+			code = STATE_CONTINUE;
+		}
+	}
+
+	if (m_isInitialApproach)
+	{
+		WhichTurretType tur = ai->getWhichTurretForCurWeapon();
+		if (tur != TURRET_INVALID)
+		{
+			Object *temporaryTarget = ai->getNextMoodTarget( true, false );
+			if (temporaryTarget)
+			{
+				ai->setTurretTargetObject(tur, temporaryTarget, m_isForceAttacking);
+				ai->m_bfmeFlag3C7 = true;
+			}
+		}
+	}
+
+	return code;
 }
