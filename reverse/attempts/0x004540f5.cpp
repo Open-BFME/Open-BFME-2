@@ -1,3 +1,5 @@
+// ?rva004540F5@GettingBuiltBehavior@@UAE_NXZ
+// partial score=0.85 date=2026-10-04
 // cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
 //
 // Overrides in the vtables the matched GettingBuiltBehavior ctor 0x004542FA
@@ -195,6 +197,8 @@ public:
 	virtual void rva004543D5(bool value);
 	virtual bool rva004531E4(Object *obj);
 	virtual bool rva0045362B(int id);
+	virtual bool rva004540F5();
+	virtual float rva00453FE7(Object *obj);
 	virtual void rva00453F31(int a1);
 private:
 	static GettingBuiltBehaviorInterface *interfaceOf(Object *obj)
@@ -329,6 +333,72 @@ bool GettingBuiltBehavior::rva0045362B(int id)
 // both directions while they share its template (rowed
 // ThingTemplate::isEquivalentTo) and carry the +0x438 flag, through each one's
 // interface (rowed Object::rva0028BD17).
+
+// ?rva004540F5@GettingBuiltBehavior@@UAE_NXZ, retail 0x004540F5, 182 bytes: slot
+// 19 of the +0x20 vtable; with the flag and slot 8, whether any such
+// neighbour's slot 8 answers too.
+bool GettingBuiltBehavior::rva004540F5()
+{
+	Object *me = m_object;
+	const ThingTemplate *tmpl = me->m_template;
+	int id = me->m_74;
+	if (rva00453F31Flag(me) && rva004533B2())
+	{
+		Object *other;
+		for (int upId = id + 1; (other = TheGameLogic->findObjectByID(upId)) != 0; ++upId)
+		{
+			if (!other->m_template->isEquivalentTo(tmpl) || !rva00453F31Flag(other))
+				break;
+			GettingBuiltBehaviorInterface *gbi = interfaceOf(other);
+			if (gbi && gbi->rva004533B2())
+				return true;
+		}
+		while ((other = TheGameLogic->findObjectByID(--id)) != 0)
+		{
+			if (!other->m_template->isEquivalentTo(tmpl) || !rva00453F31Flag(other))
+				break;
+			GettingBuiltBehaviorInterface *gbi = interfaceOf(other);
+			if (gbi && gbi->rva004533B2())
+				return true;
+		}
+	}
+	return false;
+}
+
+// ?rva00453FE7@GettingBuiltBehavior@@UAEMPAVObject@@@Z, retail 0x00453FE7, 270
+// bytes: slot 20 of the +0x20 vtable; with the flag, the sum of slot 12 for
+// the argument over the owner and the neighbours whose slot 8 answers; 0
+// without it.
+float GettingBuiltBehavior::rva00453FE7(Object *obj)
+{
+	float total = 0.0f;
+	Object *me = m_object;
+	int id = me->m_74;
+	if (!rva00453F31Flag(me))
+		return 0.0f;
+	const ThingTemplate *tmpl = me->m_template;
+	if (rva004533B2())
+		total = rva0045314ESlot12(obj);
+
+	Object *other;
+	for (int upId = id + 1; (other = TheGameLogic->findObjectByID(upId)) != 0; ++upId)
+	{
+		if (!other->m_template->isEquivalentTo(tmpl) || !rva00453F31Flag(other))
+			break;
+		GettingBuiltBehaviorInterface *gbi = interfaceOf(other);
+		if (gbi && gbi->rva004533B2())
+			total += gbi->rva0045314ESlot12(obj);
+	}
+	while ((other = TheGameLogic->findObjectByID(--id)) != 0)
+	{
+		if (!other->m_template->isEquivalentTo(tmpl) || !rva00453F31Flag(other))
+			break;
+		GettingBuiltBehaviorInterface *gbi = interfaceOf(other);
+		if (gbi && gbi->rva004533B2())
+			total += gbi->rva0045314ESlot12(obj);
+	}
+	return total;
+}
 
 // ?rva00453F31@GettingBuiltBehavior@@UAEXH@Z, retail 0x00453F31, 182 bytes: slot
 // 21 of the +0x20 vtable; with the flag, slot 4 with the argument on the owner
