@@ -23,7 +23,11 @@
 //               or the owner's base
 #include "ascii_string.h"
 
+// Retail's initializer calls AsciiString's out-of-line const char * ctor
+// (0x0000654A) rather than expanding it, so inline expansion is off here.
+#pragma inline_depth(0)
 AsciiString AIReturnTheRingTactic_IsRunning("AIReturnTheRingTactic_IsRunning");
+#pragma inline_depth()
 
 extern int g_009BA4E8;
 

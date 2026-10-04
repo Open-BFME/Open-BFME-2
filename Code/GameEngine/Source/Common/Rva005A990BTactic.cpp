@@ -21,7 +21,11 @@
 //               0x004ED169 says so or the +0x20 record is flagged at +0x18
 #include "ascii_string.h"
 
+// Retail's initializer calls AsciiString's out-of-line const char * ctor
+// (0x0000654A) rather than expanding it, so inline expansion is off here.
+#pragma inline_depth(0)
 AsciiString AIBasePenetrationTroopsTactic_IsRunning("AIBasePenetrationTroopsTactic_IsRunning");
+#pragma inline_depth()
 
 // The engine's float helpers (fast_float_floor / fast_float2long_round).
 extern "C" __declspec(dllimport) double __cdecl floor(double);

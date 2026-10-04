@@ -18,7 +18,11 @@
 //               (0x004EBF4B) and finish
 #include "ascii_string.h"
 
+// Retail's initializer calls AsciiString's out-of-line const char * ctor
+// (0x0000654A) rather than expanding it, so inline expansion is off here.
+#pragma inline_depth(0)
 AsciiString StartWoTRBattleTacticHasRun("StartWoTRBattleTacticHasRun");
+#pragma inline_depth()
 
 struct Coord3DBase
 {
