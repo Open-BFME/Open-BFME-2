@@ -26,6 +26,16 @@
 //
 //   slot 28  0x00041F81  new 0x2A8   base ctor 0x002470AE  vtables 0x00BC25E0/0x00BC25D0  dtor 0x0004208C
 //   slot 31  0x00042091  new 0x28    base ctor 0x00256E19  vtables 0x00BC2640/0x00BC2630  dtor 0x00042100
+//
+// The derived vtables this TU emits also carry those classes' scalar
+// deleting destructors (0x00042070, 0x000420E4: slot 0 of 0x00BC25E0 and
+// 0x00BC2640) and, because the Snapshot base at +0x0C has a virtual
+// destructor, the this-adjusting thunks in slot 0 of the secondary tables
+// (0x00042068, 0x000420DC: sub ecx, 0xC then jump). The thunks name the
+// vector deleting destructor, which the linker resolves to the scalar one
+// (weak external); both are pinned at the scalar body's address. The
+// destructors themselves (0x0004208C, 0x00042100) are lone tail jumps to
+// their bases' destructors and stay pinned, not defined.
 
 class Rva004C743
 {
@@ -79,7 +89,7 @@ private:
 class Rva002470AESnapshot
 {
 public:
-	virtual void slot00();
+	virtual ~Rva002470AESnapshot();
 };
 
 class Rva002470AEBase : public Rva002470AEFirst, public Rva002470AESnapshot
