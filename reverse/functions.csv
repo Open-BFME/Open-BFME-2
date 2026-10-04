@@ -54350,3 +54350,4 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ?rva004F040F@Rva004F040F@@QAEXPAX@Z,,0x004F040F,32,Code/GameEngine/Source/Common/Rva004F040FList.cpp,matched,list check-then-remove with this-plus-4 head
 ?rva0028614C@Rva0028614C@@QAEXPAUNode0028614C@@@Z,,0x0028614C,55,Code/GameEngine/Source/Common/Rva00286116PoolFrees.cpp,matched,unlock recursive list destroy virtual free
 ?rva0028662D@Rva0028614C@@QAEXXZ,,0x0028662D,41,Code/GameEngine/Source/Common/Rva00286116PoolFrees.cpp,matched,same this calls rowed 0x0028614C tail from 0x00286CC4
+?rva004ED257@Rva004ECECD@@QAEXHPBUCoord3D@@@Z,,0x004ED257,150,Code/Libraries/Source/WWVegas/WW3D2/HLodRva004ED1A1.cpp,matched,same TU as rva004ED1A1 siblings via 0x004ECF05 and group move 0x00372571

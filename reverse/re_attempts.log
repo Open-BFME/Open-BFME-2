@@ -7830,3 +7830,4 @@ FUN_007b7836	0x003B7836	260	blocked	no callers prove 3-arg free-function types p
 ?rva004422DD@Rva004421E1@@QAEXXZ	0x004422DD	522	blocked	522B GameSlot map vector method needs full layout second loop and vector bool t=15 model=muse-06
 ??1Rva0044455C@@UAE@XZ	0x0044455C	288	blocked	288B MI dtor needs 3 vptrs basic_string UnicodeString layout t=18 model=muse-06
 ?rva00286E33@Rva00286E33@@QAEHXZ	0x00286E33	149	blocked	149B map insert needs custom compare Gen types version wall t=10 model=muse-06
+?rva004EB405@Rva004EB405@@QAEX_N@Z	0x004EB405	279	blocked	control-flow mismatch in state-kind dispatch with 8 structural regions and size plus5 t=8 model=muse-08

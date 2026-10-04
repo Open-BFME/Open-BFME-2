@@ -25,8 +25,27 @@ struct Rva004ECECDNode
 	char m_pad0[0xC];
 	int m_10;
 };
+struct Coord3D;
+struct Rva00372571Params
+{
+	const Coord3D *m_pos;
+	bool m_04;
+	int m_08;
+	int m_0C;
+	int m_10;
+	int m_14;
+	int m_18;
+	bool m_1C;
+};
+class Rva002A9BF2
+{
+public:
+	void *rva002A9BF2();
+};
 class AIGroup
 {
+public:
+	void rva00372571(Rva00372571Params *params, int source);
 private:
 	void groupAttackObjectPrivate(bool a, Object *victim, int b, CommandSourceType c);
 	friend class Rva004ECECD;
@@ -48,11 +67,14 @@ public:
 	Rva004ECECDNode *rva004ECF05(int id);
 	void rva004ED1A1(int id, Object *victim);
 	void rva004ED1FD(int id, const struct Coord3D *p);
+	void rva004ED257(int id, const struct Coord3D *p);
 	void rva004ED342(void *p);
 private:
 	char m_pad00[0x14];
 	Rva004ECECDNode *m_begin;
 	Rva004ECECDNode *m_end;
+	char m_pad1C[0x8];
+	Rva002A9BF2 *m_24;
 };
 void Rva004ECECD::rva004ED1A1(int id, Object *victim)
 {
@@ -63,6 +85,37 @@ void Rva004ECECD::rva004ED1A1(int id, Object *victim)
 		Team *team = ((Rva0039F761Owner *)TheTeamFactory)->findInstance(node->m_model);
 		team->getTeamAsAIGroup(group);
 		group->groupAttackObjectPrivate(false, victim, 0x7fffffff, (CommandSourceType)0);
+		g_Va009FF0F8->rva002FE712(group);
+		node->m_10 = 0;
+	}
+}
+
+// ?rva004ED257@Rva004ECECD@@QAEXHPBUCoord3D@@@Z @0x004ED257 150B
+// Guarded move-order helper: if +0x24 difficulty source is null delegate to rowed rva004ED1FD, else node via 0x004ECF05 then create AI group, fill via Team, issue group move via 0x00372571 with position block, destroy group, clear +0x10.
+// Evidence: same TU/class as rva004ED1A1 siblings; callees rowed rva002A9BF2 0x002A9BF2 rva004ECF05 0x004ECF05 createGroup 0x002FEC4B getTeamAsAIGroup 0x003A0F62 rva002FE712 0x002FE712 plus pins rva004ED1FD 0x004ED1FD findInstance 0x0039F761 rva00372571 0x00372571; globals g_Va009FF0F8 TheTeamFactory; ret 8 two args.
+void Rva004ECECD::rva004ED257(int id, const struct Coord3D *p)
+{
+	if (m_24->rva002A9BF2() == 0)
+	{
+		rva004ED1FD(id, p);
+		return;
+	}
+	Rva004ECECDNode *node = rva004ECF05(id);
+	if (node != 0)
+	{
+		AIGroup *group = g_Va009FF0F8->createGroup();
+		Team *team = ((Rva0039F761Owner *)TheTeamFactory)->findInstance(node->m_model);
+		team->getTeamAsAIGroup(group);
+		Rva00372571Params params;
+		params.m_14 = -1;
+		params.m_pos = p;
+		params.m_04 = false;
+		params.m_08 = 0;
+		params.m_0C = 0;
+		params.m_10 = 0;
+		params.m_18 = 0;
+		params.m_1C = false;
+		group->rva00372571(&params, 0);
 		g_Va009FF0F8->rva002FE712(group);
 		node->m_10 = 0;
 	}
