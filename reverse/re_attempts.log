@@ -7907,3 +7907,5 @@ _CurDrawableShowModule	0x0033373B	25	partial	Retail registration335E7E pushes ex
 ??1Rva0022DC9B@@QAE@XZ	0x0022DC9B	63	blocked	vector dtor needs 2-push destroy without tag plus EH while explicit 3-arg call gives 3 pushes no EH t=14 model=muse-06
 ??0Rva0022D95A@@QAE@XZ	0x0022D95A	31	blocked	dup row 0x22D85D has wrong 0-arg type needs central retype to 4-arg hashtable ctor t=12 model=muse-06
 ?resize@?$hashtable@U?$pair@$$CBW4NameKeyType@@PBVRva00427157@@@_STL@@W4NameKeyType@@U?$hash@W4NameKeyType@@@rts@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@PBVRva00427157@@@_STL@@@2@U?$equal_to@W4NameKeyType@@@2@V?$allocator@U?$pair@$$CBW4NameKeyType@@PBVRva00427157@@@_STL@@@2@@_STL@@QAEXI@Z	0x0060CBAC	197	blocked	hashtable resize wrong Key NameKeyType inlines div vs retail calls PBD bkt_num t=12 model=muse-07
+?Rva00324D84Add@@YAHPAXHHHPAVGameWindow@@HH@Z	0x00324D84	270	blocked	addImageEntry scaledWidth ebx-vs-stack xor-vs-and t=15 model=muse-20
+?rva0026B487@Rva0026B487@@QAEXPBVWaypoint@@MMH@Z	0x0026B487	224	blocked	vslot13 shared 7 AIUpdate classes no donor x87 pin-only callees t=8 model=muse-20

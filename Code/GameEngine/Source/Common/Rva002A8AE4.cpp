@@ -33,12 +33,19 @@ struct Rva002A8AE4Record : public Rva002C67CFCmpBoolField
 
 struct Rva002A8B59Data;
 
+class Rva004E9600
+{
+public:
+	bool rva004E9600(void *p);
+};
+
 class Rva002A8F24
 {
 public:
 	Rva002A8AB1Record *rva002A8AB1(void *key);
 	Rva002A8AE4Record *rva002A8AE4(void *key);
 	Rva002A8B59Data *rva002A8B59(void *key);
+	Rva004E9600 *rva002A8B24(void *key);
 };
 
 Rva002A8AE4Record *Rva002A8F24::rva002A8AE4(void *key)
@@ -60,4 +67,25 @@ Rva002A8B59Data *Rva002A8F24::rva002A8B59(void *key)
 {
 	Rva002A8AB1Record *r = rva002A8AB1(key);
 	return r ? *(Rva002A8B59Data **)((char *)r + 0x160) : 0;
+}
+
+// ?rva002A8B24@Rva002A8F24@@QAEPAVRva004E9600@@PAX@Z, retail 0x002A8B24, 53 bytes.
+// Scan pointer range at +0x914/+0x918, return first whose rowed
+// Rva004E9600::rva004E9600(key) is true, else null. Evidence: gap between
+// 0x002A8AE4 and 0x002A8B59 same TU same flags, callers 0x002A8B77
+// 0x002C6AD7 0x002C6C66, callee rowed 0x004E9600.
+Rva004E9600 *Rva002A8F24::rva002A8B24(void *key)
+{
+	Rva004E9600 *result = 0;
+	Rva004E9600 **cur = *(Rva004E9600 ***)((char *)this + 0x914);
+check:
+	if (cur == *(Rva004E9600 ***)((char *)this + 0x918))
+		goto done;
+	if ((*cur)->rva004E9600(key))
+		result = *cur;
+	cur++;
+	if (result == 0)
+		goto check;
+done:
+	return result;
 }
