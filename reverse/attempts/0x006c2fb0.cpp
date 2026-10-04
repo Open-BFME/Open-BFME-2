@@ -29,16 +29,16 @@ public:
 void Rva006C2D20Sink::rva006C2FB0(const char *text, const char *extra)
 {
 	char buffer[0x300];
-	const char *cursor = extra;
-	const char *base = cursor + 1;
+	const char *copy = extra;
+	const char *base = copy + 1;
 	char c;
 	do
 	{
-		c = *cursor;
-		++cursor;
+		c = *extra;
+		++extra;
 	} while (c);
-	int len = (int)(cursor - base);
-	const char *arg2 = extra;
+	int len = (int)(extra - base);
+	const char *arg2 = copy;
 	if ((unsigned int)(len + 1) < 0x2ff)
 	{
 		char *dst = buffer;
