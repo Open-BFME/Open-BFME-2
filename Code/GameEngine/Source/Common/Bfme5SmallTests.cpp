@@ -171,3 +171,27 @@ Rva00360BFEWordView *Rva00360BFEWordView::resetBits(unsigned int)
     return this;
 }
 #pragma optimize("", on)
+
+// Primary semantic lead: complete BFME1 PackedByteExtractThunk.cpp
+// at5cc75ddda6455c338a5068307e587a793f96d6b3 (no header dependencies),
+// compiled O1/Ob1. Target established GdiplusStartupInput115D/32 ends
+// ret12 at117A. Three distinct cdecl leaves follow:117D/6 returns stack
+// bits8..15,1183/11 returns bit16,118E/11 returns bit18; their own returns
+// are at1182/118D/1198, before the next distinct body1199. Native behavior,
+// 32-bit stack words and boundaries are facts; donor names and the original
+// bitfield owner/type are not. Byte access spells the proven x86 object
+// representation without assigning a target structure or semantic flag name.
+#pragma optimize("s", on)
+unsigned long rva0000117D(unsigned long bits)
+{
+    return reinterpret_cast<const unsigned char *>(&bits)[1];
+}
+unsigned long rva00001183(unsigned long bits)
+{
+    return (bits >> 16) & 1;
+}
+unsigned long rva0000118E(unsigned long bits)
+{
+    return (bits >> 18) & 1;
+}
+#pragma optimize("", on)
