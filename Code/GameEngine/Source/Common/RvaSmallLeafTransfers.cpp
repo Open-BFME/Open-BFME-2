@@ -380,3 +380,21 @@ unsigned __int64 Rva0066D470::readWord128() const
 {
     return m_word128;
 }
+
+// BFME1 775a0370b7 whole-unit leads Rva007FD000OffsetGetter.cpp and
+// Bfme/Rva007FBBA0FieldGet.cpp agree on the bit operation but disagree on
+// original member/static and signed/unsigned prototypes. Preserve that doubt.
+// Native 0x006680B0/10 ignores ECX, reads first-stack-pointer +20 into EAX,
+// then pops 4 bytes. Two retail tables reference it (CE36A8 and CE393C).
+// This C-linkage callee-pop ABI view models those observed stack bytes only;
+// it does not assert an original static/member identity, virtual prototype,
+// field signedness or owner. The input projection describes only the read.
+struct Rva006680B0WordView
+{
+    char m_unmodelled0[0x20];
+    unsigned m_word20;
+};
+extern "C" unsigned __stdcall Rva006680B0(const Rva006680B0WordView *target)
+{
+    return target->m_word20;
+}
