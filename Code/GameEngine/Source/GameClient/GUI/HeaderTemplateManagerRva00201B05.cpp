@@ -27,6 +27,24 @@ public:
 extern GlobalLanguage *TheGlobalLanguageData;
 extern FontLibrary *TheFontLibrary;
 
+class Xfer;
+enum INILoadType
+{
+	INI_LOAD_OVERWRITE = 1
+};
+
+class INI
+{
+public:
+	INI();
+	~INI();
+	void loadFile(AsciiString filename, INILoadType type, Xfer *xfer);
+private:
+	char m_pad[0x87C];
+};
+
+typedef char INISizeCheck[(sizeof(INI) == 0x87C) ? 1 : -1];
+
 class HeaderTemplate
 {
 public:
@@ -43,6 +61,7 @@ class HeaderTemplateManager
 {
 public:
 	void rva00201B05();
+	void init();
 private:
 	typedef std::list<HeaderTemplate *> HeaderTemplateList;
 	HeaderTemplateList m_headerTemplateList;
@@ -56,4 +75,11 @@ void HeaderTemplateManager::rva00201B05()
 		int adjusted = TheGlobalLanguageData->adjustFontSize(ht->m_point);
 		ht->m_font = TheFontLibrary->getFont(&ht->m_fontName, (float)adjusted, ht->m_bold);
 	}
+}
+
+void HeaderTemplateManager::init()
+{
+	INI ini;
+	ini.loadFile("HeaderTemplate.ini", INI_LOAD_OVERWRITE, NULL);
+	rva00201B05();
 }
