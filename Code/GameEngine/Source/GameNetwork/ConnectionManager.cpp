@@ -1678,26 +1678,8 @@ void ConnectionManager::handleAllCommandsReady(void)
  *       frames so we can potentially send those commands to the other players in the
  *       game so they can catch up.
  */
-// ?getFrameCommandList@ConnectionManager@@ present-unmatched
-NetCommandList *ConnectionManager::getFrameCommandList(UnsignedInt frame) 
-{
-	NetCommandList *retlist = newInstance(NetCommandList);
-	retlist->init();
-
-	for (Int i = 0; i < MAX_SLOTS; ++i) {
-		if (m_frameData[i] != NULL) {
-			retlist->appendList(m_frameData[i]->getFrameCommandList(frame));
-			if (frame > FRAMES_TO_KEEP) {
-				m_frameData[i]->resetFrame(frame - FRAMES_TO_KEEP);	// After getting the commands for that frame from this
-													// FrameDataManager object, we need to tell it that we're
-													// done with the messages for that frame.
-				DEBUG_LOG(("getFrameCommandList - called reset frame on player %d for frame %d\n", i, frame - FRAMES_TO_KEEP));
-			}
-		}
-	}
-
-	return retlist; // retlist deallocated by calling function.
-}
+// The BFME2 body is defined in ConnectionManagerFrameList.cpp.
+// Its target layout and resetFrame ABI differ from the ZH definition.
 
 // ?setFrameGrouping@ConnectionManager@@ present-unmatched
 void ConnectionManager::setFrameGrouping(time_t frameGrouping) {
