@@ -12,27 +12,6 @@
 // addresses.
 //
 //   slot body   vtable      draw function
-
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef UnsignedInt WindowMsgData;
-
-enum WindowMsgHandledType
-{
-	MSG_IGNORED,
-	MSG_HANDLED
-};
-
-class WinInstanceData;
-
-class GameWindow
-{
-public:
-	virtual ~GameWindow();
-	virtual WindowMsgHandledType input(UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2);
-	virtual WindowMsgHandledType system(UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2);
-	virtual Int draw(WinInstanceData *instData);
-};
 //   0x000A1CFB  0x00BC8D5C#3  Rva000A166ADraw
 //   0x000A3131  0x00BC904C#3  W3DGadgetListBoxDraw
 //   0x000A6097  0x00BC7DC8#3  W3DGadgetPushButtonImageDraw
@@ -50,6 +29,76 @@ public:
 //   0x000A4783  0x00BC91AC#3  Rva000A44D2Draw
 //   0x000A4795  0x00BC91D8#3  Rva000A46B7Draw
 //   0x000A6007  0x00BC9204#3  Rva000A53DEDraw
+
+typedef int Int;
+typedef unsigned int UnsignedInt;
+typedef UnsignedInt WindowMsgData;
+
+enum WindowMsgHandledType
+{
+	MSG_IGNORED,
+	MSG_HANDLED
+};
+
+class WinInstanceData;
+
+class GameWindow;
+
+typedef WindowMsgHandledType (*GameWinInputFunc)(GameWindow *, UnsignedInt, WindowMsgData, WindowMsgData);
+typedef void (*GameWinTooltipFunc)(GameWindow *, WinInstanceData *, UnsignedInt);
+typedef void (*Rva0009FD78Func)(GameWindow *);
+
+// GameWindow's own versions of slots 1, 3, 4 and 5 (shared by the window
+// tables that do not override them; slot counts in the comments): input
+// calls the window's input callback (+0x1E0, winSetInputFunc's field), draw
+// does nothing but answer 1, slot 4 calls the tooltip callback (+0x1EC,
+// winSetTooltipFunc's field) and slot 5 the callback at +0x1F0, each
+// answering whether there was one. Slot names follow the callbacks they call
+// (inferred).
+class GameWindow
+{
+public:
+	virtual ~GameWindow();
+	virtual WindowMsgHandledType input(UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2);	// 0x000A0CFF (4 tables)
+	virtual WindowMsgHandledType system(UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2);
+	virtual Int draw(WinInstanceData *instData);									// 0x000A12F8 (23 tables)
+	virtual Int tooltip(WinInstanceData *instData, UnsignedInt mouse);				// 0x0008FF56 (29 tables)
+	virtual Int rva0009FD78();														// 0x0009FD78 (24 tables)
+
+private:
+	unsigned char m_unmodelled_04[0x1E0 - 0x04];
+	GameWinInputFunc m_inputFunc;				// +0x1E0
+	unsigned char m_unmodelled_1E4[0x1EC - 0x1E4];
+	GameWinTooltipFunc m_tooltipFunc;			// +0x1EC
+	Rva0009FD78Func m_bfmeFunc1F0;				// +0x1F0, unnamed
+};
+
+WindowMsgHandledType GameWindow::input(UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2)
+{
+	if (m_inputFunc)
+		return m_inputFunc(this, msg, mData1, mData2);
+	return MSG_IGNORED;
+}
+
+Int GameWindow::draw(WinInstanceData *instData)
+{
+	return 1;
+}
+
+Int GameWindow::tooltip(WinInstanceData *instData, UnsignedInt mouse)
+{
+	if (m_tooltipFunc)
+	{
+		m_tooltipFunc(this, instData, mouse);
+		return 1;
+	}
+	return 0;
+}
+
+// Slot 5 (0x0009FD78) calls the +0x1F0 callback the same way, but retail's
+// null path jumps into the three bytes after it (0x0009FD8A, xor eax, eax;
+// ret), which the ledger rows as their own zero getter; it is recorded
+// blocked rather than defined here (reverse/re_attempts.log).
 
 WindowMsgHandledType GadgetCheckBoxInput(GameWindow *window, UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2);
 WindowMsgHandledType GadgetCheckBoxSystem(GameWindow *window, UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2);
