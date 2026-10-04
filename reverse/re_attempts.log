@@ -7547,3 +7547,16 @@ FUN_007b7836	0x003B7836	260	blocked	no callers prove 3-arg free-function types p
 ?rva00265173@Rva00265173@@QAEXXZ	0x00265173	225	partial	test al al vs cmp al bl for rva bool t=25 model=muse-09 score=0.99 stash=reverse/attempts/0x00265173.cpp
 ?rva0026594F@Rva0026594F@@QAEXPBUCoord3D@@0HW4PathfindLayerEnum@@00@Z	0x0026594F	348	blocked	EH SSE new Path 5 prepends order tmp copy mismatch t=22 model=muse-09
 ?rva0006ABE7@BaseHeightMapRenderObjClass@@QAEXVAsciiString@@_N@Z	0x0006ABE7	214	partial	esi edi swap throughout t=25 model=muse-05 score=0.95 stash=reverse/attempts/0x0006abe7.cpp
+?rva004AF1CE@RespawnUpdate@@QAE_NXZ	0x004AF1CE	143	blocked	EH 143B RespawnUpdate link plus PartitionManager float needs donor layout t=8 model=muse-12
+?rva004ECF9C@Rva004ECF9C@@QAE_NXZ	0x004ECF9C	238	blocked	WARN byte before F8 may be mid-function plus 238B SSE Team needs donor t=5 model=muse-12
+??1?$vector@UBfmeAssignRecord52@@V?$allocator@UBfmeAssignRecord52@@@_STL@@@_STL@@QAE@XZ	0x002BBB18	63	partial	calls _Destroy instead of rowed __destroy_aux 0x002BB6A5 t=20 model=muse-12 score=0.93 stash=reverse/attempts/0x002bbb18.cpp
+??0Rva002BB686@@QAE@XZ	0x002BB686	31	blocked	hashtable ctor type unknown plus dup callee needs donor t=10 model=muse-12
+?rva004EC8F4@Rva004EC8F4@@QAEXPAUObject@@@Z	0x004EC8F4	269	blocked	Object Team SSE layout needs donor plus 0x140 0x38 members t=10 model=muse-12
+?Rva002BB49CMake@@YAXPAXPAU_Rva002B2275Obj@@@Z	0x002BB49C	321	blocked	ModuleFactory virtuals plus donor layout needs ZH t=8 model=muse-12
+?erase@?$vector@UBfmeAssignRecord52@@V?$allocator@UBfmeAssignRecord52@@@_STL@@@_STL@@QAEPAUBfmeAssignRecord52@@PAU3@0@Z	0x002BBB96	51	partial	extra tag push for destroy_aux needs stack reuse t=25 model=muse-12 score=0.91 stash=reverse/attempts/0x002bbb96.cpp
+?_M_clear@?$vector@UBfmeAssignRecord52@@V?$allocator@UBfmeAssignRecord52@@@_STL@@@_STL@@IAEXXZ	0x002BB6D7	30	blocked	calls unrowed _Destroy not rowed destroy_aux needs ICF t=10 model=muse-12
+?rva003573C4@ScriptEngine@@QAEPAVScript@@ABVAsciiString@@0H@Z	0x003573C4	82	blocked	ScriptEngine lookup needs RoomZC donor plus callZC return type wrong t=10 model=muse-12
+??1?$vector@UBfmeStringRecord00426A5B@@V?$allocator@UBfmeStringRecord00426A5B@@@_STL@@@_STL@@QAE@XZ	0x00507BD0	63	partial	calls _Destroy not rowed __destroy_aux 0x00507BB7 t=15 model=muse-12 score=0.93 stash=reverse/attempts/0x00507bd0.cpp
+?_M_clear@?$vector@UBfmeStringRecord00426A5B@@V?$allocator@UBfmeStringRecord00426A5B@@@_STL@@@_STL@@IAEXXZ	0x00507C0F	30	partial	byte-exact 30B 15insns 0structural via template _M_clear; landing blocked by duplicate name at 0x004C3D8B which calls DestroyPairs not destroy_aux t=20 model=muse-12 score=1.0 stash=reverse/attempts/0x00507c0f.cpp
+?rva005075D6@Rva00507823@@QAEEXPBX0@Z	0x005075D6	372	blocked	372B filter chain over Object ThingTemplate ObjectFilter plus x87 float needs donor layout t=5 model=muse-12
+?Rva00357025Get@@YAMXZ	0x00357025	172	blocked	172B Script float SSE plus x87 needs donor plus globals g_DFEEF8 g_BBB9AC t=5 model=muse-12
