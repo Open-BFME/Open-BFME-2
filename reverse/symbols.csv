@@ -9210,3 +9210,4 @@ _Rva0030CAF8CursorEqual,0x0007E394,twin of dup_0007e394 29B exact cursor equalit
 ?allow@Rva00260F1BFilter@@UAE_NPAVObject@@@Z,0x00260F1B,"slot 1 of partition filter vftable 0x00C6E1B0: tests bit (relationship of +0x08 to the object) of the +0x0C flags"
 ?getPlayerMask@Rva00260F1BFilter@@UAEHXZ,0x00260EE0,"slot 2 of partition filter vftable 0x00C6E1B0: -1 without a player, else a mask from the +0x0C flags through 0x002A7C70"
 ?rva004CB333@Rva004CB51CEntry@@QAE_NPAVObject@@@Z,0x004CB333,"test run on each 0x384-byte UpgradeSoundSelectorClientBehavior module-data entry with the drawable Object (slot 2 0x004CB51C at 0x004CB53E; ret 4, bool); read from its REL32 displacement; body unrowed"
+?loadBridges@W3DBridgeBuffer@@QAEXPAVW3DTerrainLogic@@_N@Z,0x000DFB3C,REL32 read at the byte-verified BaseHeightMapRenderObjClass::loadRoadsAndBridges 0x00067800: called on the +0x3870 bridge buffer with (pTerrainLogic saveGame) as in ZH
