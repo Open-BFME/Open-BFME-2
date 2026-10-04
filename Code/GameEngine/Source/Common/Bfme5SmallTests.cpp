@@ -82,3 +82,15 @@ unsigned int Rva00001360Bits::takeBits()
     return result;
 }
 #pragma optimize("", on)
+
+// Primary semantic lead: whole BFME1 Dict_getAsciiString.cpp at5cc75ddda6455c338a5068307e587a793f96d6b3
+// under O1/Ob1 emitted DictPair::getTypeFromKey. Native306B19/108 ends
+// ret8 at306B82; this leaf306B85/10 ends ret306B8E before another distinct
+// stack-word shift leaf306B8F. The bits and cdecl ABI are target facts;
+// donor Dict names, key enum, and DataType identity remain unproven here.
+#pragma optimize("s", on)
+unsigned int __cdecl rva00306B85(unsigned int bits)
+{
+    return bits & 0xff;
+}
+#pragma optimize("", on)
