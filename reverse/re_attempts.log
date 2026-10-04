@@ -8444,3 +8444,4 @@ __Locale_ctype_create	0x22360	1316	converted	Clean whole Open-BFME1 LocaleFacets
 ?rva004DE85F@ObjectSMCHelper@@QAEXW4ModelConditionFlagType@@I@Z	0x004DE85F	167	blocked	167B leaf needs list-T reconciliation int-vs-record plus UpdateModule inheritance plus GameLogic plus bitfield no donor t=8 model=muse-16
 ?rva004BDB37@Rva004BDB37@@QAEXXZ	0x004BDB37	78	partial	push-0 hoisted above getDrawable in retail late in ours t=18 model=muse-16 score=0.96 stash=reverse/attempts/0x004bdb37.cpp
 ?rva00294815@Object@@QAEDXZ	0x00294815	131	blocked	131B SSE leaf with bitfield plus pool-pin plus flag-range no donor needs Object layout t=6 model=muse-16
+?rva00492329@Rva00492179@@UAEXXZ	0x00492329	185	partial	callee-saved perm esi edi ebx only same 185B 61 insns t=25 model=muse-10 score=0.93 stash=reverse/attempts/0x00492329.cpp
