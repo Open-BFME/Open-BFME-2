@@ -55703,3 +55703,4 @@ __Locale_ctype_create,,0x00022360,1316,Code/Libraries/Source/WWVegas/WWLib/stlpo
 ?Rva002E6E9FGet@@YAPAXPAX@Z,,0x002E6E9F,43,Code/GameEngine/Source/Common/Rva002E6E9F.cpp,matched,unlock lane table scan at 0x244 slot 0x68 then slot 0
 ?rva005CE7EA@Rva005CEA51@@QAEXXZ,,0x005CE7EA,26,Code/GameEngine/Source/Common/Rva005CEA51.cpp,matched,unlock sibling of 0x005CEA51 same member plus rowed 0x005E8F6A plus rowed delete 0x0002FD60
 ?Rva002AA41A@@YAHPAVObject@@PAX@Z,,0x002AA41A,64,Code/GameEngine/Source/Common/RTS/PlayerRva002AA41ABest.cpp,matched,nearest object with +0x45C set iteration callback; fcompi needs /arch:SSE
+?rva00088D0A@Rva000869CF@@QAEXMHM@Z,,0x00088D0A,91,Code/GameEngine/Source/GameClient/Rva000869CFReset.cpp,matched,reset via same-TU 0x869CF then rescale +0x24C8 member slots; fcompi needs /arch:SSE

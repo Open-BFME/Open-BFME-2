@@ -7,12 +7,28 @@ struct Rva000869CFVec3
 	float z;
 };
 
+class Rva00088D0AMember
+{
+public:
+	virtual float v0();
+	virtual float v1();
+	virtual void v2();
+	virtual void v3();
+	virtual void v4();
+	virtual void v5();
+	virtual void v6();
+	virtual void v7(float value);
+};
+
 class Rva000869CF
 {
 public:
 	float *rva000869CF();
+	void rva00088D0A(float value, int unused, float scale);
 
-	char m_pad0[0x58];
+	char m_pad0[0x4c];
+	float m_4c;
+	char m_pad50[0x58 - 0x50];
 	int m_58;
 	int m_5c;
 	char m_pad60[0x8];
@@ -32,6 +48,8 @@ public:
 	unsigned char m_23c8;
 	char m_pad23c9[0x83];
 	float m_244cArr[3];
+	char m_pad2458[0x24c8 - 0x2458];
+	Rva00088D0AMember m_24c8;
 };
 
 float *Rva000869CF::rva000869CF()
@@ -51,4 +69,19 @@ float *Rva000869CF::rva000869CF()
 	m_5c = 0;
 	m_68 = 0.0f;
 	return vec;
+}
+
+// ?rva00088D0A@Rva000869CF@@QAEXMHM@Z @0x00088D0A 91B, slot 0 of the table
+// at VA 0x00BC764C: reset through 0x000869CF (same unit, so retail keeps
+// ECX across the call), store the first argument at +0x4C, rescale the
+// +0x24C8 member's slot-7 value from its slot 1 by the third argument, and
+// pull slot 7 down to slot 0 when slot 0 exceeds slot 1. The second
+// argument is unused. Retail compares with fcompi under /arch:SSE.
+void Rva000869CF::rva00088D0A(float value, int unused, float scale)
+{
+	rva000869CF();
+	m_4c = value;
+	m_24c8.v7(m_24c8.v1() * scale);
+	if (m_24c8.v0() > m_24c8.v1())
+		m_24c8.v7(m_24c8.v0());
 }
