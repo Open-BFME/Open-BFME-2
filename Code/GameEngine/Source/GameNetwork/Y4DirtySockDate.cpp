@@ -1,4 +1,3 @@
-// cl: /Ob1
 /* A small CALENDAR DATE class sitting just below the DirtySock text helpers.
  * It is a separate translation unit from those because it is built with
  * OPTIMISATION ON: no /GZ local fill, no frame pointer, a switch lowered to an
@@ -28,6 +27,7 @@ struct Rva007FF700Date
 	int setDay( int day );
 	int setMonth( int month );
 	int setYear( int year );
+	int setDate( int month, int day, int year );
 };
 
 /* The ordinary rule, and the bytes show all three tests: divisible by four,
@@ -70,4 +70,19 @@ int Rva007FF700Date::setYear( int year )
 		return 0;
 	}
 	return -3;
+}
+
+// Complete retail body at 0x0066B9C0 (BFME 1 0x007FF4F0): the month/year
+// validation helpers inline before the call to setDay. Keeping their result
+// tests preserves retail's separate month (-1) and year (-3) failure tails.
+// The unit builds at plain /O2 for this: under /Ob1 the two helpers, which
+// must also stay out of line for their own rows, are called instead.
+int Rva007FF700Date::setDate( int month, int day, int year )
+{
+	int result;
+	if ( (result = setMonth( month )) != 0 )
+		return result;
+	if ( (result = setYear( year )) != 0 )
+		return result;
+	return setDay( day );
 }
