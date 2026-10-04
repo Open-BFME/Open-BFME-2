@@ -74,6 +74,27 @@ public:
 	virtual void v3c();
 };
 
+class Rva001E11F8
+{
+public:
+	void rva001E11F8(int a, int b);
+};
+
+class Rva002CAC6ENotify
+{
+public:
+	virtual void v00();
+	virtual void v04();
+	virtual void v08();
+	virtual void v0c();
+	virtual void v10();
+	virtual void v14();
+	virtual void v18();
+	virtual void v1c();
+	virtual void v20();
+	virtual void v24(int a, int b);
+};
+
 class Rva002CA9CA
 {
 public:
@@ -84,10 +105,21 @@ public:
 	void rva002CAA9D(int a1, const void *a2, const void *a3, int a4);
 	float rva002CACD7(const void *arg);
 	bool rva002CAD8B();
+	void rva002CAC6E(int a, int b);
 private:
 	char m_pad00[0x58];
 	int m_58;
-	char m_pad5c[0x110 - 0x5c];
+	char m_pad5c[0xa4 - 0x5c];
+	Rva001E11F8 *m_a4;
+	Rva001E11F8 *m_a8;
+	Rva001E11F8 *m_ac;
+	Rva001E11F8 *m_b0;
+	char m_padb4[0xb8 - 0xb4];
+	Rva001E11F8 *m_b8;
+	Rva001E11F8 *m_bc;
+	Rva001E11F8 *m_c0;
+	Rva001E11F8 *m_c4;
+	char m_padc8[0x110 - 0xc8];
 	unsigned char m_110;
 	char m_pad111[0x130 - 0x111];
 	float m_130;
@@ -258,6 +290,29 @@ void Rva002CA9CA::rva002CA942()
 	{
 		VirtNode2 *obj = (VirtNode2 *)cur->m_data;
 		obj->v20();
+		cur = cur->m_next;
+	}
+}
+
+void Rva002CA9CA::rva002CAC6E(int a, int b)
+{
+	char *esi = (char *)this + 0xB8;
+	int n = 4;
+	do {
+		Rva001E11F8 *p1 = *(Rva001E11F8 **)(esi - 0x14);
+		if (p1)
+			p1->rva001E11F8(a, b);
+		Rva001E11F8 *p2 = *(Rva001E11F8 **)(esi);
+		if (p2)
+			p2->rva001E11F8(a, b);
+		esi += 4;
+	} while (--n != 0);
+	ListNode *cur = m_17c->m_next;
+	while (cur != m_17c)
+	{
+		Rva002CAC6ENotify *obj = (Rva002CAC6ENotify *)cur->m_data;
+		if (obj)
+			obj->v24(a, b);
 		cur = cur->m_next;
 	}
 }
