@@ -1,79 +1,69 @@
 // ?keyToName@NameKeyGenerator@@QAEABVAsciiString@@W4NameKeyType@@@Z
-// partial score=0.89 date=2026-09-22
-// cl: /O1 /DNDEBUG /MD /GX- /Oi-
+// partial score=0.85 date=2026-10-04
+// cl: /Ireference/shims/bfme_namekey /Ireference/shims/bfme2_ascii /MD /O1 /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /EHs-
 // stlport
-// PROBE V2 (build/ scratch, never committed): keyToName 107B, no-end null-test.
+#include <hash_map>
+#include <cstddef>
+#include "ascii_string.h"
 
-class AsciiString
+enum NameKeyType
+{
+	NAMEKEY_INVALID = 0,
+	NAMEKEY_MAX = 1 << 23,
+	FORCE_NAMEKEYTYPE_LONG = 0x7fffffff
+};
+
+namespace rts
+{
+template <typename T> struct hash
+{
+	size_t operator()(const T &value) const;
+};
+template <typename T> struct equal_to
+{
+	bool operator()(const T &a, const T &b) const;
+};
+}
+
+// The reverse key->Bucket index shares its code with the ArmorTemplate map
+// instantiation (retail calls that rowed _M_find 0x002888D4); the bucket
+// pointer is the first word of the mapped value.
+class ArmorTemplate
 {
 public:
-	char* m_text;
-	static AsciiString TheEmptyString;
+	float m_damageCoefficient[38];
 };
+typedef std::hash_map<NameKeyType, ArmorTemplate, rts::hash<NameKeyType>, rts::equal_to<NameKeyType> > KeyToBucketMap;
 
-class CriticalSection
+#include <windows.h>
+#include "Common/CriticalSection.h"
+
+class Bucket
 {
 public:
-	virtual ~CriticalSection();
-	void* m_handle;
-	char m_win[24];
-	bool m_disabled;
-};
-
-#pragma optimize("s", off)
-class ScopedCriticalSection
-{
-	CriticalSection* m_cs;
-	bool m_locked;
-	__declspec(noinline) void Lock();
-	__declspec(noinline) void Unlock();
-public:
-	__forceinline ScopedCriticalSection(CriticalSection* cs) : m_cs(cs), m_locked(false) { Lock(); }
-	__forceinline ~ScopedCriticalSection() { if (m_locked) Unlock(); }
-};
-#pragma optimize("s", on)
-
-struct Bucket
-{
-	void* m_vtable;
-	Bucket* m_nextInSocket;
-	int m_key;
-	AsciiString m_nameString;
-};
-
-struct MapNode
-{
-	void* m_next;
-	int m_key;
-	Bucket* m_bucket;
-};
-
-typedef int NameKeyType;
-
-class KeyToBucketMap
-{
-public:
-	MapNode* find(const NameKeyType& key) const;
-private:
-	unsigned m_storage[5];
+	void *m_vtbl;
+	Bucket *m_nextInSocket;
+	NameKeyType m_key;
+	AsciiString m_nameString; // +0x0C
 };
 
 class NameKeyGenerator
 {
 public:
-	const AsciiString& keyToName(NameKeyType key);
+	const AsciiString &keyToName(NameKeyType key);
+private:
 	char m_pad[0x2BF4C];
-	KeyToBucketMap m_map;
-	CriticalSection m_mutex;
-	KeyToBucketMap& keyToBucketMap() { return m_map; }
+	KeyToBucketMap &keyToBucketMap() { return *(KeyToBucketMap *)m_keyToBucketStorage; }
+	unsigned int m_keyToBucketStorage[5];  // +0x2BF4C
+	char m_mutex[1];                       // +0x2BF60 CriticalSection
 };
 
-const AsciiString& NameKeyGenerator::keyToName(NameKeyType key)
+const AsciiString &NameKeyGenerator::keyToName(NameKeyType key)
 {
-	ScopedCriticalSection lock(&m_mutex);
-	KeyToBucketMap* map = &keyToBucketMap();
-	MapNode* node = map->find(key);
-	if (!node)
+	ScopedCriticalSection scopedCriticalSection((CriticalSection *)m_mutex);
+	NameKeyType k = key;
+	KeyToBucketMap::iterator it = keyToBucketMap().find(k);
+	if (it == keyToBucketMap().end())
 		return AsciiString::TheEmptyString;
-	return node->m_bucket->m_nameString;
+	return (*(Bucket **)&(*it).second)->m_nameString;
 }
