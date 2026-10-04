@@ -55777,3 +55777,4 @@ ___Extract_locale_name,,0x000216A0,153,Code/Libraries/Source/WWVegas/WWLib/Local
 ?Rva0053E754Get@@YGPAVObject@@H@Z,,0x0053E754,47,Code/GameEngine/Source/GameClient/GUI/ControlBar/Rva0053E754Get.cpp,matched,unlock table g_00E05E20 to TheGameLogic findObjectByID caller 0x00328700
 ?Rva002D0BB8Copy@@YAPADPAD00@Z,,0x002D0BB8,50,Code/GameEngine/Source/Common/Rva002D0BB8Copy.cpp,matched,counted copy stride 92 via bfmeAssign
 ?__linear_insert@@YAXPAUQ3SortElem16@@0U1@UQ3SortCompare@@@Z,,0x00217F0E,111,Code/GameEngine/Source/Common/Q3LinearInsert00217F0E.cpp,matched,chain linear_insert via rowed copy_backward plus ICF unguarded
+?Rva001F8FEEWrite@@YAXAAV?$basic_ostream@DV?$char_traits@D@_STL@@@_STL@@IPBDABUS001F87D5@@@Z,,0x001F8FEE,24,Code/Libraries/Source/WWVegas/WWLib/Rva001F8FEEWrite.cpp,matched,guarded forward via IsZero to Rva001F8B5FWrite chain from 0x001F3744 same shape as Rva001F9006Write
