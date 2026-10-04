@@ -24,7 +24,8 @@ struct Rva003A35A0Element
 	Rva003A3B50Input m_point;
 	unsigned char m_tail[8];
 
-	// Existing default-constructor symbol reaches body0x003A18D0 through ILT0x22F0C.
+	// Native call at 0x003130EE reaches the verified default ctor 0x003118DF.
+	// The donor's different address does not identify a BFME2 body.
 	Rva003A35A0Element();
 	Rva003A35A0Element( const Rva003A35A0Element & );
 	~Rva003A35A0Element();
