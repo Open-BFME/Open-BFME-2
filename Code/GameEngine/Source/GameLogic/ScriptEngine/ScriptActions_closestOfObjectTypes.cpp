@@ -6,6 +6,11 @@
 //               team's new group is ordered (0x00372571, source 1) to the
 //               closest object of the given types or template to the team's
 //               centre
+//   0x003C276A  (called from the dispatcher 0x003CA4BE at 0x003CDFAF): the
+//               player-mask form of 0x003C2662: for each player of the
+//               named mask the closest object of the types or template to
+//               the team's centre that player owns; the nearest of those
+//               (within 99999) is where the team's new group is ordered
 //   0x003C4625  (called from the action dispatcher 0x003CA4BE at
 //               0x003CDD4D): the closest object to the team's centre that
 //               the team's controlling player owns, of the given ObjectTypes
@@ -86,6 +91,7 @@ public:
 
 struct Coord3D
 {
+	float length() const;	// 0x00003571
 	float x;
 	float y;
 	float z;
@@ -187,6 +193,7 @@ class ScriptEngine
 public:
 	Team *getTeamNamed(AsciiString name, bool exact);			// 0x003584E9
 	ObjectTypes *getObjectTypes(const AsciiString &name);			// 0x00357651
+	int rva00357B82(Parameter *playerParm);					// 0x00357B82
 	int rva00357475(const AsciiString &name, bool *found);			// 0x00357475
 	void rva00208968(const AsciiString &name, Object *obj);			// 0x00208968
 	void rva0020A5FF(Object *obj, const AsciiString &name);			// 0x0020A5FF
@@ -200,6 +207,7 @@ public:
 	void rva003C33C9(Parameter *typeParm, Parameter *playerParm, Parameter *teamParm, Parameter *nameParm,
 		bool flag);
 	void rva003C2662(const AsciiString &teamName, const AsciiString &objectType);
+	void rva003C276A(const AsciiString &teamName, const AsciiString &objectType, Parameter *playerParm);
 	void rva003C4625(const AsciiString &objectType, Parameter *teamParm, const AsciiString &unitName);
 	void rva003C420A(void *what, const AsciiString &name, Object *obj);	// 0x003C420A
 	void rva003C56D6(void *what, const AsciiString &name, const AsciiString &objectType,
@@ -355,5 +363,67 @@ void ScriptActions::rva003C33C9(Parameter *typeParm, Parameter *playerParm, Para
 	if (obj) {
 		TheScriptEngine->rva00208968(nameParm->getString(), obj);
 		TheScriptEngine->rva0020A5FF(obj, nameParm->getString());
+	}
+}
+
+void ScriptActions::rva003C276A(const AsciiString &teamName, const AsciiString &objectType, Parameter *playerParm)
+{
+	Team *team = TheScriptEngine->getTeamNamed(teamName, false);
+	if (!team)
+		return;
+	Coord3D pos;
+	team->rva0039E5B9(&pos);
+	ObjectTypes *types = TheScriptEngine->getObjectTypes(objectType);
+	const ThingTemplate *templ = 0;
+	if (!types) {
+		templ = TheThingFactory->findTemplate(objectType);
+		if (!templ)
+			return;
+	}
+	Object *best = 0;
+	float bestDist = 99999.0f;
+	int mask = TheScriptEngine->rva00357B82(playerParm);
+	if (!mask)
+		return;
+	do {
+		Player *player = ThePlayerList->getEachPlayerFromMask(mask);
+		Object *obj;
+		if (types)
+			obj = rva003C24F0(&pos, types, player, false);
+		else
+			obj = ThePartitionManager->getClosestObject(&pos, REALLY_FAR, 0,
+				Rva00261750Filter(templ, true).link(&Rva0026137EFilter(player, true)));
+		if (obj) {
+			Coord3D delta;
+			delta.x = obj->getPosition()->x;
+			delta.y = obj->getPosition()->y;
+			delta.z = obj->getPosition()->z;
+			delta.x -= pos.x;
+			delta.y -= pos.y;
+			delta.z -= pos.z;
+			float dist = delta.length();
+			if (!best || bestDist > dist) {
+				best = obj;
+				bestDist = dist;
+			}
+		}
+	} while (mask);
+	if (!best)
+		return;
+	AIGroup *group = TheAI->createGroup();
+	if (!group)
+		return;
+	team->getTeamAsAIGroup(group);
+	{
+		Rva00372571Params params;
+		params.m_14 = -1;
+		params.m_pos = best->getPosition();
+		params.m_04 = false;
+		params.m_08 = 0;
+		params.m_0C = 0;
+		params.m_10 = 0;
+		params.m_18 = 0;
+		params.m_1C = false;
+		group->rva00372571(&params, 1);
 	}
 }
