@@ -1,13 +1,6 @@
 // ?getDayOfWeek@AptDate@@QAEHHHH@Z
-// partial score=0.94 date=2026-09-27
+// partial score=0.97 date=2026-10-04
 // cl: /O2 /MD
-// Banked near match: target getDayOfWeek6F4290+450; compiler emits454 bytes.
-// Donor APT0.19.03 Xbox final supplies identity. Target floor thunk629940
-// resolves through IAT BBA570 to msvcr71.dll!floor. Helper6F4080 is already
-// recovered under ?isLeapYear@@YG_NH@Z; this helper spelling is donor-derived.
-// Trial-only mappings: ?dateIsYearLeap@AptDate@@QAE_NH@Z ->6F4080;
-// _floor ->629940. No new pins were landed for this partial.
-// Remaining delta: stack temporaries and final arithmetic/register scheduling.
 extern "C" double __cdecl floor(double);
 extern "C" int __cdecl abs(int);
 #pragma intrinsic(abs)
@@ -16,7 +9,7 @@ public:
     bool dateIsYearLeap(int year);
     int getDayOfWeek(int year,int month,int day);
 };
-bool AptDate::dateIsYearLeap(int year)
+static bool febLeap(int year)
 {
     bool result = false;
     if (year % 4 == 0) {
@@ -36,7 +29,7 @@ int AptDate::getDayOfWeek(int year,int month,int day)
     else nCentury=abs(century-19)%4;
     nCentury=aCentury[nCentury];
     int base=year-remainder;
-    if (month==1) anchor=28+(dateIsYearLeap(year)?1:0);
+    if (month==1) anchor=28+(febLeap(year)?1:0);
     else if (month%2==0) {
         if (month==8) anchor=5;
         else if (month==4) anchor=9;
@@ -46,6 +39,7 @@ int AptDate::getDayOfWeek(int year,int month,int day)
         else if (month==0) anchor=31+(dateIsYearLeap(year)?1:0);
     }
     if (nCentury<0 || anchor<0) return -1;
-    if (anchor>day) day=anchor-(anchor-day)%7+7;
-    return (((int)floor((year-base)*0.25f)-base+nCentury+year)%7+(day-anchor)%7)%7;
+    int d=day;
+    if (anchor>d) d=anchor-(anchor-d)%7+7;
+    return (((int)floor((year-base)*0.25f)-base+nCentury+year)%7+(d-anchor)%7)%7;
 }

@@ -1,4 +1,4 @@
-// cl: /O1 /Oy-
+// cl: /O1
 // Open-BFME5: ATL 7.1 CAtlBaseModule::GetHInstanceAt.
 //
 // Ghidra identifies retail 0x009F6A42 as GetHInstanceAt.  Its member layout
@@ -16,6 +16,8 @@ extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(void *cs);
 
 namespace ATL
 {
+__declspec(noinline) __declspec(noreturn) void __stdcall AtlThrow(HRESULT hr);
+
 class CComCriticalSection
 {
 public:
@@ -32,19 +34,12 @@ public:
 	unsigned long m_sec[6];
 };
 
+#pragma optimize("sy", on)
 template <class TLock>
 class CComCritSecLock
 {
 public:
-	CComCritSecLock(TLock& cs, bool bInitialLock = true) : m_cs(cs), m_bLocked(false)
-	{
-		if (bInitialLock)
-		{
-			HRESULT hr = Lock();
-			if (FAILED(hr))
-				return;
-		}
-	}
+	CComCritSecLock(TLock& cs, bool bInitialLock = true);
 	__declspec(noinline) ~CComCritSecLock() throw();
 	HRESULT Lock() throw()
 	{
@@ -66,11 +61,25 @@ private:
 };
 
 template <class TLock>
+inline CComCritSecLock<TLock>::CComCritSecLock(TLock& cs, bool bInitialLock) : m_cs(cs), m_bLocked(false)
+{
+	if (bInitialLock)
+	{
+		HRESULT hr = Lock();
+		if (FAILED(hr))
+			AtlThrow(hr);
+	}
+}
+
+template <class TLock>
 CComCritSecLock<TLock>::~CComCritSecLock() throw()
 {
 	if (m_bLocked)
 		Unlock();
 }
+
+template class CComCritSecLock<CComCriticalSection>;
+#pragma optimize("", on)
 
 template <class T>
 class CSimpleArrayEqualHelper
