@@ -43,6 +43,7 @@ class BezierProjectileBehavior
 {
 public:
 	BezierProjectileBehavior(Thing *thing, const ModuleData *moduleData);
+	void rva0045C026();
 
 protected:
 	const void *m_vtable0; // +0
@@ -117,6 +118,7 @@ public:
 	void Rva004A7512Clear();
 	void Rva004A7530Set(int val);
 	void Rva004A75A3Init();
+	void rva004A7580();
 
 private:
 	int m_88; // +0x88
@@ -181,4 +183,12 @@ void MissileUpdate::Rva004A75A3Init()
 {
 	m_98 = TheGameLogic->getFrame();
 	Rva004A7530Set(7);
+}
+void MissileUpdate::rva004A7580()
+{
+	if (m_CE != 0)
+		return;
+	rva0045C026();
+	Rva004A7530Set(7);
+	m_CE = 1;
 }

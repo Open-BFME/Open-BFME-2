@@ -55638,3 +55638,4 @@ __Locale_ctype_create,,0x00022360,1316,Code/Libraries/Source/WWVegas/WWLib/stlpo
 ?Rva005548E9Xfer@@YGXPAVMapHolder@@PAVXferStub@@@Z,,0x005548E9,177,Code/Libraries/Source/WWVegas/WWLib/StlportUcharMapXfer005548E9.cpp,matched,unlock lane map uchar-short xfer via G7 no-xor callers 5550A0 555109
 ?rva0009B266@Rva0009B266@@QBE?AV?$RefCountPtr@VTextureClass@@@@HHH@Z,,0x0009B266,38,Code/GameEngine/Source/Common/Rva0009B266.cpp,matched,forward to +0x94 provider via rowed Get_Texture same shape as Rva006FD440 bfmeGet
 ??_GRva005D40A6@@UAEPAXI@Z,,0x005D4141,28,Code/GameEngine/Source/Common/Rva005D40A6Dtor.cpp,matched,deleting dtor from Rva005D40A6 unit vtable slot0
+?rva004A7580@MissileUpdate@@QAEXXZ,,0x004A7580,35,Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdateCtor.cpp,matched,MissileUpdate detonate guard via base plus Set7
