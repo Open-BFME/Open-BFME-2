@@ -55483,3 +55483,4 @@ uw_0076765b,,0x0076765B,8,Code/Libraries/Source/WWVegas/WW3D2/meshgeometry.cpp,m
 ??1Rva00367E26@@UAE@XZ,,0x00367E26,11,Code/GameEngine/Source/Common/Rva00367E26Dtor.cpp,matched,vtable 0x00C17600 via deleting dtor 0x00367E0A tail-jmp pinned base 0x003516F3
 ??1Rva005F1CE8@@UAE@XZ,,0x005F1CE8,14,Code/GameEngine/Source/Common/Rva005F1CE8Dtor.cpp,matched,virtual dtor sets vtable then tailjmps to rowed holder clear
 ??_GRva005F1CE8@@UAEPAXI@Z,,0x005F1D2B,28,Code/GameEngine/Source/Common/Rva005F1CE8Dtor.cpp,matched,deleting dtor from own dtor TU via rowed dtor plus delete
+?Rva004E7B6EErase@@YGXPAPAXPAURva004E7B6ENode@@@Z,,0x004E7B6E,42,Code/Libraries/Source/WWVegas/WWLib/stlport_list_rva004e7b6e_erase.cpp,matched,list unlink destroy free via rowed 0x004E7A76 and free
