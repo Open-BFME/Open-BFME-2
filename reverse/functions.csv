@@ -55653,3 +55653,4 @@ __Locale_ctype_create,,0x00022360,1316,Code/Libraries/Source/WWVegas/WWLib/stlpo
 ?rva004A7AF6@MissileUpdate@@QAEXXZ,,0x004A7AF6,82,Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdateCtor.cpp,matched,MissileUpdate frame guard via detonate plus find
 ?rva004A7A86@MissileUpdate@@QAEXH@Z,,0x004A7A86,112,Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdateCtor.cpp,matched,MissileUpdate full update via clear plus float Set4
 ??0Rva003ABFE1@@QAE@PAX0@Z,,0x003ABFE1,75,Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003ABFE1Ctor.cpp,matched,neg sbb branchless select with LineEmission copy and vtable immediates
+?rva0044BF77@Rva0044BF77@@QAEPAU1@URva0051732A@@@Z,,0x0044BF77,59,Code/GameEngine/Source/Common/Rva0044BF77.cpp,matched,EH setter twin of 0x00517547 via rowed 0x0044BEE6 and fastcall 0x7DEEF
