@@ -9214,3 +9214,5 @@ _Rva0030CAF8CursorEqual,0x0007E394,twin of dup_0007e394 29B exact cursor equalit
 ?getCurrentSelectionAsAIGroup@Player@@QAEXPAVAIGroup@@@Z,0x002AA164,REL32 read at the byte-verified GameLogic::deselectObject 0x0023C9F8 (player plus the fresh AI group as in ZH); 18-byte body forwards the group to the +0x730 selection when present
 ?setCurrentlySelectedAIGroup@Player@@QAEXPAVAIGroup@@@Z,0x002ACC53,REL32 read at the byte-verified GameLogic::deselectObject 0x0023C9F8: called with the group when remove kept members and with NULL when it emptied it as in ZH
 ?rva00290496@Object@@QAEXPAVPlayer@@@Z,0x00290496,REL32 read at the byte-verified GameLogic::deselectObject 0x0023C9F8 (object plus each player); when that player controls the object it clears +0x121 bit 2 and calls 0x0028AE6D then tells the contain module; identity unknown
+??0BfmeItemERF@@QAE@XZ,0x003F609E,callee of ?resize@Rva00427130Vector@@QAEXI@Z at retail 0x003F7015 read from its REL32 displacement; body unrowed
+?bfmeResizeERF@BfmeVecERF@@QAEXIUBfmeItemERF@@@Z,0x003F6EA1,callee of ?resize@Rva00427130Vector@@QAEXI@Z at retail 0x003F701F read from its REL32 displacement; body unrowed
