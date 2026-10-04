@@ -54380,3 +54380,4 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ??0Rva0035615D@@QAE@ABVAsciiString@@ABVRva0036CA00Str@@1_N@Z,,0x0035615D,97,Code/GameEngine/Source/Common/Rva0035615DCtor.cpp,matched,unlock ctor vtable 0x00814EBC base Rva00490470 callers 0x0023DE2C
 ?rva003F44ED@Rva003F44A9@@QAE_NXZ,,0x003F44ED,62,Code/Libraries/Source/WWVegas/WWLib/Rva003F44A9.cpp,matched,sibling of 0x003F44A9 first-nonempty scan via rowed isEmpty
 ?rva003920F7@Rva003920F7@@QAEXIPBURva003920F7Src@@@Z,,0x003920F7,50,Code/GameEngine/Source/Common/Rva003920F7Array.cpp,matched,unlock array init 0x00392092 bounds TheWritableGlobalData+0xA94 stride 0x1C
+??_GRva0056E79E@@UAEPAXI@Z,,0x0056EE43,28,Code/GameEngine/Source/Common/Rva0056E79EDtor.cpp,matched,chain deleting dtor of Rva0056E79E from dtor TU
