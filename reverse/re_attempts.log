@@ -7809,3 +7809,5 @@ FUN_007b7836	0x003B7836	260	blocked	no callers prove 3-arg free-function types p
 ??_GRva005838B5@@UAEPAXI@Z	0x005838DC	28	blocked	??_G calls dup_005838F8 not rowed proper ??1 t=12 model=muse-02
 ?Rva005837F0Get@@YAXXZ	0x005837F0	197	blocked	EH-throw AsciiString plus two virtuals no donor t=6 model=muse-02
 ?rva005C8876@Rva005C8876@@QAEHH@Z	0x005C8876	546	blocked	546B x87-SSE TerrainLogic-gated float accum needs substantial reconstruction t=15 model=muse-15
+?rva00174350@Rva00174753Dtor@@QAEXXZ	0x00174350	45	blocked	vector-base reg esi-vs-edx plus lea-vs-add prologue and cached-last vs mem finish after 6 variants t=25 model=muse-18
+??0Rva003F9FA9@@QAE@ABVAsciiString@@@Z	0x003F9FA9	61	partial	or scheduling only: ours 61B/23insns emits or [esi+0x28] and or [esi+0x2c] early around xor before zero movs; retail groups six zero movs then two ors at end; 0 reg 0 mem diffs; tried init-list -1 and body -1 both same early-or t=25 model=muse-18 score=0.95 stash=reverse/attempts/0x003f9fa9.cpp

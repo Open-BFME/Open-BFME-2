@@ -79,6 +79,7 @@ class Rva00136794 : public GenBase009EB7D0
 {
 public:
 	Rva00136794(const char *s1, const char *s2, float f, const Rva0013101E *r, const _STL::vector<AsciiString, _STL::allocator<AsciiString> > &v1, const _STL::vector<AsciiString, _STL::allocator<AsciiString> > &v2, const _STL::vector<AsciiString, _STL::allocator<AsciiString> > &v3);
+	virtual ~Rva00136794();
 	void rva00135E6D();
 private:
 	StringBase<char> m_s1;
