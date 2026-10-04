@@ -32,7 +32,7 @@ public:
 
 // Native DIR32 operands at +0x21 and +0x2E both identify VA 0x00E17820.
 // INIException owns a separate buffer at VA 0x00DDF9D0; capacity here is unproven.
-extern char Va00E17820FormatBuffer[];
+char Va00E17820FormatBuffer[2048];
 
 // ?rva006D7010@@YAXPAVRva006D7010Owner@@PBDZZ
 void rva006D7010(Rva006D7010Owner *owner, const char *fmt, ...)
