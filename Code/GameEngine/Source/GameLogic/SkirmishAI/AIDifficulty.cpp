@@ -20,7 +20,15 @@ struct AIDiffEntry
 	char _pad0[12];
 	int m_num; // +0x0C
 	int m_den; // +0x10
-	char _pad1[12];
+	int m_14; // +0x14
+	int m_18; // +0x18
+	char _pad2[4];
+};
+
+struct Rva002A8AB1Record
+{
+	char m_pad[0x16C];
+	int m_16C; // +0x16C
 };
 
 class Rva002A8F24
@@ -28,9 +36,18 @@ class Rva002A8F24
 public:
 	char m_pad[0x888];
 	AIDiffEntry m_table[4]; // +0x888
+	Rva002A8AB1Record *rva002A8AB1(void *key);
+};
+
+class Rva0058AFB3
+{
+public:
+	bool rva0058AFB3(void *key);
 };
 
 extern Rva002A8F24 *g_00DFEEF8;
+
+extern float g_Va00BBB8D8;
 
 int GetGameLogicRandomValue(int lo, int hi, char *file, int line);
 
@@ -45,6 +62,27 @@ bool __stdcall Rva0058AF47Check(Rva002A9BF2 *p)
 	{
 		int r = GetGameLogicRandomValue(0, e.m_den - 1, "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\SkirmishAI\\AIDifficulty.cpp", 0x40);
 		return r < e.m_num;
+	}
+	return true;
+}
+
+bool Rva0058AFB3::rva0058AFB3(void *key)
+{
+	int diff = (int)((Rva002A9BF2 *)key)->rva002A9BF2();
+	if (diff == 0)
+	{
+		Rva002A8AB1Record *rec = g_00DFEEF8->rva002A8AB1(key);
+		if (rec->m_16C == diff)
+			return false;
+	}
+	AIDiffEntry e = g_00DFEEF8->m_table[diff];
+	float num = (float)e.m_14;
+	float den = (float)e.m_18;
+	float ratio = num / den;
+	if (ratio < 1.0f)
+	{
+		int r = GetGameLogicRandomValue(0, e.m_18 - 1, "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\SkirmishAI\\AIDifficulty.cpp", 0x5b);
+		return r < e.m_14;
 	}
 	return true;
 }
