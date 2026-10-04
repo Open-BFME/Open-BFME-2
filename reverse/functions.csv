@@ -54623,3 +54623,19 @@ _Rva00669500@8,,0x00669500,13,Code/GameEngine/Source/Common/RvaSmallLeafTransfer
 ??$__find_if@V?$reverse_iterator@PBD@_STL@@U?$_Not_within_traits@V?$char_traits@D@_STL@@@2@@_STL@@YA?AV?$reverse_iterator@PBD@0@V10@0U?$_Not_within_traits@V?$char_traits@D@_STL@@@0@ABUrandom_access_iterator_tag@0@@Z,,0x00028200,715,Code/Libraries/Source/WWVegas/WWLib/stlport_reverse_string_search.cpp,matched,STLport4.5.3 BFME1 1281192f682; native reverse-iterator four-way search and predicate call26C60; full715B exact /Od /Ob2
 ??$find_if@V?$reverse_iterator@PBD@_STL@@U?$_Not_within_traits@V?$char_traits@D@_STL@@@2@@_STL@@YA?AV?$reverse_iterator@PBD@0@V10@0U?$_Not_within_traits@V?$char_traits@D@_STL@@@0@@Z,,0x00029EE0,61,Code/Libraries/Source/WWVegas/WWLib/stlport_reverse_string_search.cpp,matched,STLport4.5.3 BFME1 1281192; target61B public find_if dispatch to28200 exact including outgoing iterator copies; replaces prior address-derived assembly claim
 ?find_last_not_of@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QBEIPBDII@Z,,0x0002A420,254,Code/Libraries/Source/WWVegas/WWLib/stlport_reverse_string_search.cpp,matched,STLport4.5.3 _string.c BFME1 1281192; native254B RET12 reverse predicate dispatch29EE0 and bound/npos paths; full exact /Od /Ob2
+?rva007B8341@@YAXXZ,,0x007B8341,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva007B8355@@YAXXZ,,0x007B8355,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva007B835F@@YAXXZ,,0x007B835F,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva007B8373@@YAXXZ,,0x007B8373,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva007B8387@@YAXXZ,,0x007B8387,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva007B8391@@YAXXZ,,0x007B8391,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva007B83AF@@YAXXZ,,0x007B83AF,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva007B83C3@@YAXXZ,,0x007B83C3,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva007B83CD@@YAXXZ,,0x007B83CD,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva007B83D7@@YAXXZ,,0x007B83D7,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva007B8413@@YAXXZ,,0x007B8413,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva007B841D@@YAXXZ,,0x007B841D,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva007B8427@@YAXXZ,,0x007B8427,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva007B8431@@YAXXZ,,0x007B8431,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva007B8445@@YAXXZ,,0x007B8445,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva007B8459@@YAXXZ,,0x007B8459,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
