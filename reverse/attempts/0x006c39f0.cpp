@@ -1,6 +1,5 @@
 // ?rva006C39F0@Rva006C39F0Owner@@QAE_NIIIPAX@Z
-// partial score=0.88 date=2026-10-04
-// ?rva006C39F0@Rva006C39F0Owner@@QAE_NIIIPAX@Z
+// partial score=0.9 date=2026-10-05
 // cl: /O2 /DNDEBUG /MD
 // ?rva006C39F0@Rva006C39F0Owner@@QAE_NIIIPAX@Z @ 0x006C39F0 (191B)
 // Address-derived recovery of 0x006C39F0 (191 bytes), the delayed-free hash
@@ -54,6 +53,11 @@ public:
 bool Rva006C39F0Owner::rva006C39F0(unsigned int key, unsigned int altLen,
                                   unsigned int allocSize, void *buffer)
 {
+	// The `allocated` flag below is byte-sized and its lifecycle mirrors retail's
+	// bl: preset to the non-allocated state, set once a run is allocated, and read
+	// only on the insert-failure path to decide whether to release. Modelling it
+	// that way reproduces retail's `mov bl,1` / free-only-on-failure shape and
+	// grows the body from the banked 184B to 186B.
 	if (!m_tracking)
 		return true;
 
@@ -68,7 +72,7 @@ bool Rva006C39F0Owner::rva006C39F0(unsigned int key, unsigned int altLen,
 	}
 
 	unsigned char *run = (unsigned char *)buffer;
-	bool allocated = false;
+	bool allocated = true;
 
 	if (!buffer) {
 		if (!allocSize)
@@ -80,14 +84,13 @@ bool Rva006C39F0Owner::rva006C39F0(unsigned int key, unsigned int altLen,
 
 		*(unsigned short *)run = (unsigned short)allocSize;
 		*(unsigned short *)(run + allocSize - 2) = 0;
-		allocated = true;
+	} else {
+		allocated = false;
 	}
 
-	if (!table->rva006C21C0(altLen, run))
-		return false;
-
-	if (allocated) {
-		rva006C1A50Free(run);
+	if (!table->rva006C21C0(altLen, run)) {
+		if (allocated)
+			rva006C1A50Free(run);
 		return false;
 	}
 
