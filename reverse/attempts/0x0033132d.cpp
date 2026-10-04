@@ -1,26 +1,9 @@
 // ?rva0033132D@Rva0033132D@@QAEXPBUCoord3D@@MPAPAXPAVRadiusDecal@@@Z
-// partial score=0.93 date=2026-09-30
-// ?rva0033132D@Rva0033132D@@QAEXPBUCoord3D@@MPAPAXPAVRadiusDecal@@@Z
-// partial score=0.93 date=2026-09-30
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// partial score=0.94 date=2026-10-04
+// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /arch:SSE
+#include "ascii_string.h"
 // ?rva0033132D@Rva0033132D@@QAEXPBUCoord3D@@MPAPAXPAVRadiusDecal@@@Z @0x0033132D 300B: RadiusDecalTemplate::createRadiusDecal shape.
-// Evidence: this+0 isEmpty StringBase-D row 0x1E2F, clear row 0x30DBA on arg4, AudioEventRTS ctor row 0x79514 plus dtor row 0x793FA, AsciiString op= pin 0x366F0 x2, manager g_00DEC2D4 slot 8 create, SetTexture pin 0x330995, neighbours RadiusDecal_rva00330F7D /O1.
-
-template <class T> class StringBase
-{
-public:
-	bool isEmpty() const;
-};
-
-class AsciiString
-{
-public:
-	AsciiString();
-	AsciiString &operator=(const AsciiString &other);
-private:
-	void *m_data;
-};
-
+// Evidence: this+0 isEmpty StringBase-D row 0x1E2F, clear row 0x30DBA on arg4, AudioEventRTS ctor row 0x79514 plus dtor row 0x793FA, StringBase set row 0x366F0 x2, manager g_00DEC2D4 slot 8 create, Shadow setOpacity row 0x330995, neighbours RadiusDecal_rva00330F7D /O1.
 class AudioEventRTS
 {
 public:
@@ -47,10 +30,10 @@ struct Coord3D
 	float z;
 };
 
-class RadiusDecalObject
+class Shadow
 {
 public:
-	void rva00330995(void *tex);
+	void rva00330995(int tex);
 	char m_pad0[8];
 	float m_posX;
 	float m_posY;
@@ -64,7 +47,7 @@ class RadiusDecal
 public:
 	void clear();
 	const void *m_template;
-	RadiusDecalObject *m_object;
+	Shadow *m_object;
 	bool m_empty;
 };
 
@@ -73,7 +56,7 @@ class DecalManager
 public:
 	virtual void *slot0();
 	virtual void *slot1();
-	virtual RadiusDecalObject *create(AudioEventRTS *ev);
+	virtual Shadow *create(AudioEventRTS *ev);
 };
 
 extern DecalManager *g_00DEC2D4;
@@ -105,8 +88,8 @@ void Rva0033132D::rva0033132D(const Coord3D *pos, float radius, void **texpp, Ra
 	decal->clear();
 	decal->m_empty = false;
 	AudioEventRTS ev;
-	ev.m_first = m_first;
-	ev.m_second = m_second;
+	ev.m_first.set(m_first);
+	ev.m_second.set(m_second);
 	ev.m_floatC = m_size24;
 	ev.m_float10 = m_size24;
 	ev.m_byte25 = 1;
@@ -118,11 +101,11 @@ void Rva0033132D::rva0033132D(const Coord3D *pos, float radius, void **texpp, Ra
 	if (!decal->m_object)
 		return;
 	decal->m_object->m_radius = radius;
-	decal->m_object->rva00330995(*texpp);
+	decal->m_object->rva00330995((int)(size_t)*texpp);
 	Coord3D tmp;
-	tmp.x = pos->x + ev.m_float14;
-	tmp.y = pos->y + ev.m_float18;
 	tmp.z = pos->z;
+	tmp.y = pos->y + ev.m_float18;
+	tmp.x = pos->x + ev.m_float14;
 	*(Coord3D *)&decal->m_object->m_posX = tmp;
 	decal->m_template = this;
 }

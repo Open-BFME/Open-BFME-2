@@ -53731,3 +53731,4 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ?rva0055ADBA@Rva00506FE9Hit@@QAEXPAX@Z,,0x0055ADBA,30,Code/GameEngine/Source/Common/Rva0055ADBAWrapper.cpp,matched,wrapper via global g_00DFEEF8 and rowed callees
 ?rva0055AD91@Rva0055AD91@@QAEXPAX_N@Z,,0x0055AD91,41,Code/GameEngine/Source/Common/Rva0055AD91Wrapper.cpp,matched,vtable slot 6 wrapper via global g_00DFEEF8 and rowed callees
 ?rva00550720@BuddyThreadClass@@QAEXPAVGPConnection@@PAUGPRecvBuddyRequestArg@@@Z,,0x00550720,79,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/BuddyThreadCallbacks.cpp,matched,caller 0x00551FDF dispatch with BuddyResponse type 7 via rowed _mbscpy 0x00629176 and queue slot 0x20
+?Rva003320B0PopHeap@@YAXPAUS4SortElem12@@0US4Cmp002E0CD0@@@Z,,0x003320B0,23,Code/GameEngine/Source/Common/Rva003320B0PopHeap.cpp,matched,S4 pop_heap 3-arg forwarder over rowed 0x00331E80
