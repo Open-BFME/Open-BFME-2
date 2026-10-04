@@ -13,6 +13,7 @@ class Rva005C87F8
 {
 public:
 	void rva005C87F8(bool flag);
+	void rva005C879E(Rva005C87F8 **src);
 private:
 	char m_pad00[0x0c];
 	Rva005C87F8 *m_kids[8]; // +0x0c
@@ -34,4 +35,18 @@ void Rva005C87F8::rva005C87F8(bool flag)
 		++p;
 	} while (--n != 0);
 	m_47 = ((m_47 & 0xf0) | ((m_47 + d) & 0x0f));
+}
+
+void Rva005C87F8::rva005C879E(Rva005C87F8 **src)
+{
+	m_47 &= 0x0f;
+	for (int i = 0; i < 8; ++i) {
+		if (src[i] == 0) {
+			unsigned char cur = m_47;
+			unsigned char hi = (unsigned char)((cur & 0xf0) + 0x10);
+			unsigned char lo = (unsigned char)(cur & 0x0f);
+			m_47 = (unsigned char)(hi ^ lo);
+		}
+		m_kids[i] = src[i];
+	}
 }
