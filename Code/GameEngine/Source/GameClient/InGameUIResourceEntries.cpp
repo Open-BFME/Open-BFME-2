@@ -94,3 +94,18 @@ void ResourceOwnedEntryList::rva004E54ED()
     head->next = head;
     head->prev = head;
 }
+
+class ResourceEntryCollector
+{
+public:
+    void rva004E551E();
+private:
+    char unknown00[4];
+    ResourceOwnedEntryList entries;
+};
+
+// Retail 4E551E/8B adjusts to the +4 list and forwards its cleanup.
+void ResourceEntryCollector::rva004E551E()
+{
+    entries.rva004E54ED();
+}
