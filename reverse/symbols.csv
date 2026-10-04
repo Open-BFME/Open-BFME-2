@@ -9216,3 +9216,5 @@ _Rva0030CAF8CursorEqual,0x0007E394,twin of dup_0007e394 29B exact cursor equalit
 ?rva00290496@Object@@QAEXPAVPlayer@@@Z,0x00290496,REL32 read at the byte-verified GameLogic::deselectObject 0x0023C9F8 (object plus each player); when that player controls the object it clears +0x121 bit 2 and calls 0x0028AE6D then tells the contain module; identity unknown
 ??0BfmeItemERF@@QAE@XZ,0x003F609E,callee of ?resize@Rva00427130Vector@@QAEXI@Z at retail 0x003F7015 read from its REL32 displacement; body unrowed
 ?bfmeResizeERF@BfmeVecERF@@QAEXIUBfmeItemERF@@@Z,0x003F6EA1,callee of ?resize@Rva00427130Vector@@QAEXI@Z at retail 0x003F701F read from its REL32 displacement; body unrowed
+?bfme_showBackground@WindowManager@@QAEXH@Z,0x002233A6,donor callee name at retail 0x002233A6 read from ?Rva0046ED80@@YAXPBD@Z REL32 +0x0027; body already rowed as ?rva002233A6@Rva00222A8BTarget@@QAEXH@Z
+?bfme_hideBackground@WindowManager@@QAEX_N@Z,0x00222F55,donor callee name at retail 0x00222F55 read from ?Rva0046ED80@@YAXPBD@Z REL32 +0x0055; body already rowed as ?rva00222F55@Rva00222A8BTarget@@QAEX_N@Z
