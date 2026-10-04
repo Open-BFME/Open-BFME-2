@@ -53586,3 +53586,29 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ?rva003F82CF@Rva003F81FDProxy@@QAE_NXZ,,0x003F82CF,19,Code/GameEngine/Source/Common/VslotProxyForwarders.cpp,matched,proxy vtable 0x00C3731C#13: forwards to the inner object's same slot
 ?rva004388E3@Rva004389AE@@QAE_NPAVObject@@PBUCoord3D@@PAURva004388E3Template@@@Z,,0x004388E3,203,Code/GameEngine/Source/GameLogic/AI/Rva004389AENearbyCheck.cpp,matched,the +0x1C mask meets the object's +0x284 mask or an alive kind-94 object or TheTerrainLogic 0x0027F108 hit within 50: partition filter chain
 ?rva004389AE@Rva004389AE@@QAE_NPAVObject@@PBUCoord3D@@PAURva004388E3Template@@@Z,,0x004389AE,45,Code/GameEngine/Source/GameLogic/AI/Rva004389AENearbyCheck.cpp,matched,0x004388E3 gated on the third argument's +0x9C or +0x00 bit 0; REL32 twice in 0x004D990E
+?rva0005BD20@Rva0005BD20Host@@QAEXXZ,,0x0005BD20,8,Code/GameEngine/Source/Common/VslotMiscForwarders.cpp,matched,calls this->0x0005BBE2 with a constant
+?rva0005BD28@Rva0005BD28Host@@QAEXXZ,,0x0005BD28,8,Code/GameEngine/Source/Common/VslotMiscForwarders.cpp,matched,calls this->0x0005BBE2 with a constant
+?rva000F42F7@Rva000F42F7Host@@QAEXXZ,,0x000F42F7,8,Code/GameEngine/Source/Common/VslotMiscForwarders.cpp,matched,calls this->0x000F4017 with a constant
+?rva0034A871@Rva0034A871Host@@QAEXXZ,,0x0034A871,8,Code/GameEngine/Source/Common/VslotMiscForwarders.cpp,matched,calls this->0x0034A570 with a constant
+?rva00351949@Rva00351949Host@@QAEXXZ,,0x00351949,8,Code/GameEngine/Source/Common/VslotMiscForwarders.cpp,matched,calls this->0x003508C5 with a constant
+?rva0035D781@Rva0035D781Self@@QAEXXZ,,0x0035D781,8,Code/GameEngine/Source/Common/VslotMiscForwarders.cpp,matched,calls its own vtable slot 2 with a constant
+?rva0035E603@Rva0035D781Self@@QAEXXZ,,0x0035E603,8,Code/GameEngine/Source/Common/VslotMiscForwarders.cpp,matched,calls its own vtable slot 2 with a constant
+?rva0035F49E@Rva0035D781Self@@QAEXXZ,,0x0035F49E,8,Code/GameEngine/Source/Common/VslotMiscForwarders.cpp,matched,calls its own vtable slot 2 with a constant
+?rva0025ED90@Rva0025ED90Math@@QAEMM@Z,,0x0025ED90,17,Code/GameEngine/Source/Common/VslotMiscForwarders.cpp,matched,float function of the float argument
+?rva0025EDA1@Rva0025ED90Math@@QAEMM@Z,,0x0025EDA1,17,Code/GameEngine/Source/Common/VslotMiscForwarders.cpp,matched,float function of the float argument
+?rva0025EDB2@Rva0025ED90Math@@QAEMM@Z,,0x0025EDB2,17,Code/GameEngine/Source/Common/VslotMiscForwarders.cpp,matched,float function of the float argument
+?rva0025EDC3@Rva0025ED90Math@@QAEMM@Z,,0x0025EDC3,17,Code/GameEngine/Source/Common/VslotMiscForwarders.cpp,matched,float function of the float argument
+?rva003FDD05@Rva003FDD05Host@@QAEXXZ,,0x003FDD05,16,Code/GameEngine/Source/Common/VslotMiscForwarders.cpp,matched,two member calls (the second a tail jump)
+?rva00062908@Rva00062908Host@@QAEXXZ,,0x00062908,16,Code/GameEngine/Source/Common/VslotMiscForwarders.cpp,matched,two member calls (the second a tail jump)
+?rva00062918@Rva00062918Host@@QAEXXZ,,0x00062918,16,Code/GameEngine/Source/Common/VslotMiscForwarders.cpp,matched,two member calls (the second a tail jump)
+?rva0008FF12@Rva0008FF12Host@@QAEXXZ,,0x0008FF12,16,Code/GameEngine/Source/Common/VslotMiscForwarders.cpp,matched,two member calls (the second a tail jump)
+?rva0009C134@Rva0009C134Host@@QAEXXZ,,0x0009C134,16,Code/GameEngine/Source/Common/VslotMiscForwarders.cpp,matched,two member calls (the second a tail jump)
+?rva003FE402@Rva003FE402Host@@QAEXXZ,,0x003FE402,16,Code/GameEngine/Source/Common/VslotMiscForwarders.cpp,matched,two member calls (the second a tail jump)
+?set@Rva0008BBA1PairSlot@@QAEXHH@Z,,0x0008BBA1,23,Code/GameEngine/Source/Common/VslotMiscForwarders.cpp,matched,vtable-slot body (size corrected)
+?set@Rva0029A85BPairSlot@@QAEXHH@Z,,0x0029A85B,23,Code/GameEngine/Source/Common/VslotMiscForwarders.cpp,matched,vtable-slot body (size corrected)
+?set@Rva000851A6PairSlot@@QAEXHH@Z,,0x000851A6,17,Code/GameEngine/Source/Common/VslotMiscForwarders.cpp,matched,vtable-slot body (size corrected)
+?rva002CEF14@Rva002CEF14FlagTest@@QAE_NXZ,,0x002CEF14,22,Code/GameEngine/Source/Common/VslotMiscForwarders.cpp,matched,vtable-slot body (size corrected)
+?rva000F168B@Rva000F168BHost@@QAEXXZ,,0x000F168B,13,Code/GameEngine/Source/Common/VslotMiscForwarders.cpp,matched,vtable-slot body (size corrected)
+?rva001074C8@Rva001074C8Host@@QAEXXZ,,0x001074C8,13,Code/GameEngine/Source/Common/VslotMiscForwarders.cpp,matched,vtable-slot body (size corrected)
+?rva00109DA6@Rva00109DA6Host@@QAEXXZ,,0x00109DA6,13,Code/GameEngine/Source/Common/VslotMiscForwarders.cpp,matched,vtable-slot body (size corrected)
+?rva0010BB04@Rva0010BB04Host@@QAEXXZ,,0x0010BB04,13,Code/GameEngine/Source/Common/VslotMiscForwarders.cpp,matched,vtable-slot body (size corrected)
