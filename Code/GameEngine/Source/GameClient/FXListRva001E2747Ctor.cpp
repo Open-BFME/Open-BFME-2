@@ -13,7 +13,13 @@
 #include "ascii_string.h"
 
 
-class Rva001E2747
+class FXList
+{
+public:
+	void clear();
+};
+
+class Rva001E2747 : public FXList
 {
 public:
 	Rva001E2747(const AsciiString &name);
@@ -40,4 +46,9 @@ Rva001E2747::Rva001E2747(const AsciiString &name) :
 	m_field20 = 60;
 	m_list18.clear();
 	m_field24 = 0;
+}
+
+Rva001E2747::~Rva001E2747()
+{
+	((FXList *)(void *)this)->clear();
 }

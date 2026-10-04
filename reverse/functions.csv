@@ -52711,3 +52711,4 @@ __Multiply,,0x0067BA40,481,Code/Libraries/Source/DirtySock/cryptrsa.c,matched,EA
 ??_GRva001DA2D5@@UAEPAXI@Z,,0x001DA754,28,Code/Libraries/Source/WWVegas/WWLib/Rva001DA2D5Finish.cpp,matched,deleting dtor via own ??1 unit Rva001DA2D5 caller none
 ?markAsDead@AIUpdateInterface@@QAEXXZ,,0x0026296D,28,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_wakeUpNow.cpp,matched,named via BFME1 donor plus pinned setDead plus rowed wakeUp tail
 ?rva00262989@AIUpdateInterface@@QAEXI@Z,,0x00262989,97,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_wakeUpNow.cpp,matched,4-entry frame cache oldest-reuse via TheGameLogic frame plus callers
+??1Rva001E2747@@UAE@XZ,,0x001E27C6,84,Code/GameEngine/Source/GameClient/FXListRva001E2747Ctor.cpp,matched,dtor via FXList clear plus list string members

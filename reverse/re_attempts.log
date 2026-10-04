@@ -7524,3 +7524,5 @@ FUN_007b7836	0x003B7836	260	blocked	no callers prove 3-arg free-function types p
 ?rva004DFB7E@Rva004DFB7E@@QAE_NPAX@Z	0x004DFB7E	111	blocked	esi edi swapped rec in esi vs edi xor edi early vs xor esi late definition-order swap tried t=10 model=muse-04 (stash 0.92 kept)
 ?rva003511E3@Rva0033F6DA@@QAEHXZ	0x003511E3	378	partial	fucompi+lahf vs fcompi+jae and lea-vs-add t=35 model=muse-spark score=0.93 stash=reverse/attempts/0x003511e3.cpp
 ?rva00344598@Rva00344598@@QAEHXZ	0x00344598	157	partial	ebx ebp mirror and je vs jne trig edi order t=25 model=muse-02 score=0.93 stash=reverse/attempts/0x00344598.cpp
+?rva003A2659@Rva0039FE6COwner@@QAEPAVTeamPrototype@@ABVBfmeWordEL@@@Z	0x003A2659	141	partial	lea ecx vs lea eax for helper init plus reload lea t=22 model=muse-03 score=0.96 stash=reverse/attempts/0x003a2659.cpp
+?Rva006B3640Get@@YAHXZ	0x006B3640	673	blocked	673B nbench init too large low unlock value 0-ready t=5 model=muse-03
