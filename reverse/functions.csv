@@ -53702,3 +53702,10 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ??_ERva008E4EC@@W7AEPAXI@Z,,0x0008E52B,8,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB09.cpp,matched,this-adjusting (-0x8) deleting-dtor thunk of opaque class Rva008E4EC
 ??_ERva008F00D@@WM@AEPAXI@Z,,0x0008F371,8,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB09.cpp,matched,this-adjusting (-0xC) deleting-dtor thunk of opaque class Rva008F00D
 ??_ERva009203A@@W3AEPAXI@Z,,0x00092032,8,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB09.cpp,matched,this-adjusting (-0x4) deleting-dtor thunk of opaque class Rva009203A
+??_EW3DShadowTexture@@W7AEPAXI@Z,,0x00108D0F,8,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowTextureDestructor.cpp,matched,this-adjusting (-0x8) deleting-dtor thunk of W3DShadowTexture already emitted by its unit
+??_ESegmentedLineClass@@W7AEPAXI@Z,,0x0015E750,8,Code/Libraries/Source/WWVegas/WW3D2/segline.cpp,matched,this-adjusting (-0x8) deleting-dtor thunk of SegmentedLineClass already emitted by its unit
+??_ERva00166DE0@@W7AEPAXI@Z,,0x001673C0,8,Code/Libraries/Source/WWVegas/WW3D2/RenderObjClassDerivedDtors.cpp,matched,this-adjusting (-0x8) deleting-dtor thunk of Rva00166DE0 already emitted by its unit
+??_EHAnimClass@@W7AEPAXI@Z,,0x0018E730,8,Code/Libraries/Source/WWVegas/WW3D2/hanim.cpp,matched,this-adjusting (-0x8) deleting-dtor thunk of HAnimClass already emitted by its unit
+??_EHCompressedAnimClass@@W7AEPAXI@Z,,0x0018FAA0,8,Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp,matched,this-adjusting (-0x8) deleting-dtor thunk of HCompressedAnimClass already emitted by its unit
+??_EParticleEmitterClass@@W7AEPAXI@Z,,0x001A22C0,8,Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp,matched,this-adjusting (-0x8) deleting-dtor thunk of ParticleEmitterClass already emitted by its unit
+??_ETeamFactory@@WM@AEPAXI@Z,,0x003A2624,8,Code/GameEngine/Source/Common/RTS/TeamFactoryDtor.cpp,matched,this-adjusting (-0xC) deleting-dtor thunk of TeamFactory already emitted by its unit
