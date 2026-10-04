@@ -17516,7 +17516,7 @@ uw_0075b770,,0x0075B770,8,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_num
 uw_0075b790,,0x0075B790,8,Code/gen_small/uw_gen_000.cpp,matched,gen-funclet;object-symbol=$L3247
 uw_0075b798,,0x0075B798,8,Code/gen_small/uw_gen_000.cpp,matched,gen-funclet;object-symbol=$L3310
 uw_0075b7a0,,0x0075B7A0,8,Code/gen_small/uw_gen_000.cpp,matched,gen-funclet;object-symbol=$L3328
-uw_0075b7c0,,0x0075B7C0,11,Code/gen_small/uw_gen_014.cpp,matched,gen-funclet;object-symbol=$L5284
+uw_0075b7c0,,0x0075B7C0,11,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_string_base_dtor.cpp,matched,gen-funclet;object-symbol=$L346;parent=??1?$_String_base@DV?$allocator@D@_STL@@@_STL@@QAE@XZ;unwind state 0 of FuncInfo 0x008FD380 read from the parent prolog handler stub; emitted by the parent C++ in this TU
 uw_0075b7f1,,0x0075B7F1,18,Code/Libraries/Source/WWVegas/WWLib/stlport_classic_locale.cpp,matched,gen-funclet;object-symbol=$L22751;parent=?make_classic_locale@_Locale_impl@_STL@@SAPAV12@XZ;unwind state 1 of FuncInfo 0x008FD43C read from the parent prolog handler stub; emitted by the parent C++ in this TU
 uw_0075b803,,0x0075B803,18,Code/Libraries/Source/WWVegas/WWLib/stlport_classic_locale.cpp,matched,gen-funclet;object-symbol=$L22757;parent=?make_classic_locale@_Locale_impl@_STL@@SAPAV12@XZ;unwind state 2 of FuncInfo 0x008FD43C read from the parent prolog handler stub; emitted by the parent C++ in this TU
 uw_0075b815,,0x0075B815,8,Code/Libraries/Source/WWVegas/WWLib/stlport_classic_locale.cpp,matched,gen-funclet;object-symbol=$L22898;parent=?make_classic_locale@_Locale_impl@_STL@@SAPAV12@XZ;unwind state 3 of FuncInfo 0x008FD43C read from the parent prolog handler stub; emitted by the parent C++ in this TU
@@ -32606,7 +32606,7 @@ uw_007a6e16,,0x007A6E16,11,Code/gen_small/uw_gen_006.cpp,matched,gen-funclet;obj
 uw_007a6e50,,0x007A6E50,8,Code/gen_small/uw_gen_000.cpp,matched,gen-funclet;object-symbol=$L5589
 uw_007a6e70,,0x007A6E70,8,Code/gen_small/uw_gen_000.cpp,matched,gen-funclet;object-symbol=$L4270
 uw_007a6e90,,0x007A6E90,8,Code/gen_small/uw_gen_006.cpp,matched,gen-funclet;object-symbol=$L4011
-uw_007a6f10,,0x007A6F10,8,Code/gen_small/uw_gen_008.cpp,matched,gen-funclet;object-symbol=$L4024
+uw_007a6f10,,0x007A6F10,8,Code/Libraries/Source/WWVegas/WWLib/ffactory.cpp,matched,gen-funclet;object-symbol=$L9524;parent=??0SimpleFileFactoryClass@@QAE@XZ;unwind state 0 of FuncInfo 0x009607EC read from the parent prolog handler stub; emitted by the parent C++ in this TU
 uw_007a6f50,,0x007A6F50,11,Code/gen_small/uw_gen_008.cpp,matched,gen-funclet;object-symbol=$L3007
 uw_007a6fa0,,0x007A6FA0,8,Code/gen_small/uw_gen_006.cpp,matched,gen-funclet;object-symbol=$L3339
 uw_007a6fc0,,0x007A6FC0,11,Code/gen_small/uw_gen_006.cpp,matched,gen-funclet;object-symbol=$L3366
@@ -32637,8 +32637,8 @@ uw_007a7278,,0x007A7278,8,Code/gen_small/uw_gen_006.cpp,matched,gen-funclet;obje
 uw_007a7290,,0x007A7290,8,Code/gen_small/uw_gen_006.cpp,matched,gen-funclet;object-symbol=$L3393
 uw_007a72b0,,0x007A72B0,8,Code/gen_small/uw_gen_006.cpp,matched,gen-funclet;object-symbol=$L3239
 uw_007a72d0,,0x007A72D0,8,Code/gen_small/uw_gen_006.cpp,matched,gen-funclet;object-symbol=$L4011
-uw_007a72f0,,0x007A72F0,8,Code/gen_small/uw_gen_008.cpp,matched,gen-funclet;object-symbol=$L4014
-uw_007a7310,,0x007A7310,8,Code/gen_small/uw_gen_008.cpp,matched,gen-funclet;object-symbol=$L4014
+uw_007a72f0,,0x007A72F0,8,Code/Libraries/Source/WWVegas/WWLib/rawfile.cpp,matched,gen-funclet;object-symbol=$L9927;parent=??0RawFileClass@@QAE@PBD@Z;unwind state 0 of FuncInfo 0x00960BFC read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_007a7310,,0x007A7310,8,Code/Libraries/Source/WWVegas/WWLib/rawfile.cpp,matched,gen-funclet;object-symbol=$L10078;parent=??1RawFileClass@@UAE@XZ;unwind state 0 of FuncInfo 0x00960C28 read from the parent prolog handler stub; emitted by the parent C++ in this TU
 uw_007a7330,,0x007A7330,8,Code/gen_small/uw_gen_002.cpp,matched,gen-funclet;object-symbol=$L293
 uw_007a7338,,0x007A7338,8,Code/gen_small/uw_gen_005.cpp,matched,gen-funclet;object-symbol=$L2575
 uw_007a7350,,0x007A7350,8,Code/gen_small/uw_gen_007.cpp,matched,gen-funclet;object-symbol=$L321
