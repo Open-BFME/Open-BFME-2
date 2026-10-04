@@ -1,3 +1,9 @@
+## Instruction freshness
+
+Before continuing work, reread `AGENTS.md` if 24 hours have elapsed
+since the last read. Reread it immediately whenever a user message
+or commit message reports an edit to `AGENTS.md`.
+
 # Contributing
 
 Several agents push to `origin/master` continuously. Keep each change small,
