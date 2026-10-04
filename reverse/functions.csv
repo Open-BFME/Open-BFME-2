@@ -55727,3 +55727,4 @@ __Locale_ctype_create,,0x00022360,1316,Code/Libraries/Source/WWVegas/WWLib/stlpo
 ?Rva00217B07Each@@YAXPAUBfmeElemQR@@0PAX@Z,,0x00217B07,23,Code/GameEngine/Source/Common/BfmeEachWrapper00217B07.cpp,matched,unlock wrapper forwards to rowed bfmeEachQR with 0
 ?Rva003F5584CopyBackward@@YAPADPAD00@Z,,0x003F5584,50,Code/Libraries/Source/WWVegas/WWLib/Rva003F5584CopyBackward.cpp,matched,counted copy-backward stride 48 via Element assign
 ?Rva003F58F8Copy@@YAPADPAD00@Z,,0x003F58F8,50,Code/Libraries/Source/WWVegas/WWLib/Rva003F58F8Copy.cpp,matched,counted copy stride 48 via Element assign
+?Rva003F58C0Fill@@YAXPAD00@Z,,0x003F58C0,29,Code/Libraries/Source/WWVegas/WWLib/Rva003F58C0Fill.cpp,matched,range fill stride 48 via Element assign
