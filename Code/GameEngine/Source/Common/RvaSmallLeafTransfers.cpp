@@ -280,3 +280,19 @@ unsigned int Rva00614D60::flag() const
 	return m_4 & 0x80000000;
 }
 
+// Target 0x00758C90, 9 bytes; preceding int3 padding; terminal ret and int3 padding.
+// Donor b1 RVA 0x009A2F10; target instructions corroborate these accesses.
+class Rva00758C90
+{
+public:
+	unsigned int notBit0() const;
+
+	char m_lead[ 0xC ];
+	unsigned int m_c;
+};
+
+unsigned int Rva00758C90::notBit0() const
+{
+	return ~m_c & 1;
+}
+
