@@ -9243,3 +9243,8 @@ _Rva0030CAF8CursorEqual,0x0007E394,twin of dup_0007e394 29B exact cursor equalit
 ?cleanup@Rva00785FD0Item@@QAEXXZ,0x000A9F98,callee of ?rva00785FD0Flush@@YAXXZ at retail 0x000AA5E1 read from its REL32 displacement; body unrowed
 ?bfmeFlagForWrite@ScriptEngine@@IAEPA_NVAsciiString@@@Z,0x002088A0,callee of ?setFlag@ScriptEngine@@IAEXPAVScriptAction@@_N@Z at retail 0x00209405 read from its REL32 displacement; body unrowed
 ?bfmeFlagForRead@ScriptEngine@@IAEPA_NVAsciiString@@@Z,0x0020881A,callee of ?setFlag@ScriptEngine@@IAEXPAVScriptAction@@_N@Z at retail 0x00209405 read from its REL32 displacement; ICF alias onto the matched ?rva0020881A@ScriptEngine@@QAEPAXVAsciiString@@@Z
+?rva0011A040@Rva0011A040Target@@QAEXXZ,0x0011A040,callee of ?rva000448C4@Rva000448C4Forwarder@@QAEXXZ at retail 0x000448C4 read from its REL32 displacement; argument count from the callee's ret
+?rva00141F90@Rva00141F90Target@@QAEXH@Z,0x00141F90,callee of ?rva001428E0@Rva001428E0Forwarder@@QAEXH@Z at retail 0x001428E0 read from its REL32 displacement; argument count from the callee's ret
+?rva00142060@Rva00142060Target@@QAEXH@Z,0x00142060,callee of ?rva001428F0@Rva001428F0Forwarder@@QAEXH@Z at retail 0x001428F0 read from its REL32 displacement; argument count from the callee's ret
+?rva002BEECD@Rva002BEECDTarget@@QAEXH@Z,0x002BEECD,callee of ?rva002BEF43@Rva002BEF43Forwarder@@QAEXH@Z at retail 0x002BEF43 read from its REL32 displacement; argument count from the callee's ret
+?rva002D39E5@Rva002D39E5Target@@QAEXH@Z,0x002D39E5,callee of ?rva002D4678@Rva002D4678Forwarder@@QAEXH@Z at retail 0x002D4678 read from its REL32 displacement; argument count from the callee's ret
