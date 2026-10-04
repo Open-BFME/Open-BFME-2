@@ -1,5 +1,5 @@
 // ?rva006C1D60@Rva006C1D60@@QAE_NI_N@Z
-// partial score=0.96 date=2026-10-05
+// partial score=0.97 date=2026-10-05
 // ?rva006C1D60@Rva006C1D60@@QAE_NI_N@Z
 // cl: /EHsc /DNDEBUG /DWIN32 /MD
 //
@@ -54,9 +54,8 @@ bool Rva006C1D60::rva006C1D60(unsigned int key, bool freeValue)
 				node = node->m_next;
 			if (node != 0)
 			{
-				bool result = t->m_table != 0;
-				t->rva006C18A0(key, freeValue);
-				return result;
+				if (t->rva006C18A0(key, freeValue))
+					return true;
 			}
 		}
 		return false;
