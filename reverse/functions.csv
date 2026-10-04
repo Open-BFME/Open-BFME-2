@@ -55640,3 +55640,4 @@ __Locale_ctype_create,,0x00022360,1316,Code/Libraries/Source/WWVegas/WWLib/stlpo
 ??_GRva005D40A6@@UAEPAXI@Z,,0x005D4141,28,Code/GameEngine/Source/Common/Rva005D40A6Dtor.cpp,matched,deleting dtor from Rva005D40A6 unit vtable slot0
 ?rva004A7580@MissileUpdate@@QAEXXZ,,0x004A7580,35,Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdateCtor.cpp,matched,MissileUpdate detonate guard via base plus Set7
 ?Rva003E4EA5Get@@YG_NPAVParameter@@@Z,,0x003E4EA5,48,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_Rva003E4EA5.cpp,matched,terrain tactical check via TheTerrainLogic slot88 plus TheTacticalView slot6C
+?bfmeApplyABG@BfmeK1094@@QAEXPAX0@Z,,0x0029725B,86,Code/GameEngine/Source/GameLogic/Object/BfmeK1094ApplyABG.cpp,matched,pin name caller 0x0036E25E donor ObjectBfmeApplyABG type 0x2e over 32
