@@ -1,3 +1,5 @@
+// ?rva001E51AC@Rva001E72B4@@QAE_NPA_N@Z
+// partial score=0.98 date=2026-10-04
 // cl: /O1 /DNDEBUG /MD /Ireference/shims/bfme2_ascii
 //
 // "Reload INI file" notifications (slot 4) of nine INI-backed stores, each
@@ -15,10 +17,11 @@
 // The store names come from the literals; the classes keep their
 // address-derived ledger names, and the slot-2 and message meanings are
 // inferred from the calls. The nine bodies above never touch their stack
-// argument (typed int here; the banked Locomotor slot 4 0x001E51AC writes a
-// "needs restart" Bool through it). The Weapon store's slot 5 (0x002CAE6C)
-// reports "RIF: Weapons reloaded" once after a reload latched its byte,
-// clearing it.
+// argument (typed int here); the Locomotor store's slot 4 (0x001E51AC)
+// writes 1 through it when its "needs restart" byte (.bss 0x00DFDC61) was
+// raised during the reload, so there it is a Bool pointer. The Weapon
+// store's slot 5 (0x002CAE6C) reports "RIF: Weapons reloaded" once after a
+// reload latched its byte, clearing it.
 
 #include "unicode_string.h"
 
@@ -202,6 +205,34 @@ bool Rva002376CC::rva0023624A(int reason)
 		return true;
 	}
 	return false;
+}
+
+// g_Va00DFDC60 / g_Va00DFDC61: VA 0x00DFDC60 / 0x00DFDC61 (.bss); retail
+// initial bytes 00.
+bool g_Va00DFDC60;
+bool g_Va00DFDC61;
+
+class Rva001E72B4 : public RifStore
+{
+public:
+	bool rva001E51AC(bool *needsRestart);
+};
+
+bool Rva001E72B4::rva001E51AC(bool *needsRestart)
+{
+	g_Va00DFDC61 = false;
+	if (rva001B5384Slot2())
+	{
+		if (TheInGameUI)
+			TheInGameUI->message(UnicodeString(L"RIF: Locomotor reloaded"));
+		g_Va00DFDC60 = true;
+	}
+	if (g_Va00DFDC61)
+	{
+		*needsRestart = true;
+		g_Va00DFDC61 = false;
+	}
+	return g_Va00DFDC60;
 }
 
 bool Rva002CCD56::rva002CAE6C()
