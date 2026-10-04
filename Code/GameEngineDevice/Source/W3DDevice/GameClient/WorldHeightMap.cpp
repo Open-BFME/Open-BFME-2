@@ -2284,43 +2284,8 @@ TerrainTextureClass *WorldHeightMap::getFlatTexture(Int xCell, Int yCell, Int ce
 }
 
 
-// ?setDrawOrg@WorldHeightMap@@ present-unmatched
-Bool WorldHeightMap::setDrawOrg(Int xOrg, Int yOrg)
-{
-	Int newX, newY;
-	Int newWidth, newHeight;
-	newX = xOrg;
-	newY = yOrg;
-	newWidth = m_drawWidthX;
-	newHeight = m_drawHeightY;
-	if (TheGlobalData && TheGlobalData->m_stretchTerrain) {
-		newWidth=STRETCH_DRAW_WIDTH;
-		newHeight=STRETCH_DRAW_HEIGHT;
-	}
-	if (TheGlobalData && TheGlobalData->m_drawEntireTerrain) {
-		newWidth=m_width;
-		newHeight=m_height;
-	}
-	if (newWidth > m_width) newWidth = m_width;
-	if (newHeight > m_height) newHeight = m_height;
-	if (newX > m_width - newWidth) newX = m_width-newWidth; 
-	if (newX<0) newX=0;
-	if (newY > m_height - newHeight) newY = m_height - newHeight; 
-	if (newY<0) newY=0;
-	Bool anythingDifferent = (m_drawOriginX!=newX) ||
-										 (m_drawOriginY!=newY) ||
-										 (m_drawWidthX!=newWidth) ||
-										 (m_drawHeightY!=newHeight) ;
-
-	if (anythingDifferent) {
-		m_drawOriginX=newX;
-		m_drawOriginY=newY;
-		m_drawWidthX=newWidth;
-		m_drawHeightY=newHeight;
-		return(true);
-	}
-	return(false);
-}
+// setDrawOrg (retail 0x000AC40D) is recovered against the BFME 2 layout in
+// WorldHeightMapSetDrawOrg.cpp.
 
 /** Gets global texture class. */
 // ?getTextureClass@WorldHeightMap@@ present-unmatched

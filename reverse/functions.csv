@@ -55728,3 +55728,4 @@ __Locale_ctype_create,,0x00022360,1316,Code/Libraries/Source/WWVegas/WWLib/stlpo
 ?Rva003F5584CopyBackward@@YAPADPAD00@Z,,0x003F5584,50,Code/Libraries/Source/WWVegas/WWLib/Rva003F5584CopyBackward.cpp,matched,counted copy-backward stride 48 via Element assign
 ?Rva003F58F8Copy@@YAPADPAD00@Z,,0x003F58F8,50,Code/Libraries/Source/WWVegas/WWLib/Rva003F58F8Copy.cpp,matched,counted copy stride 48 via Element assign
 ?Rva003F58C0Fill@@YAXPAD00@Z,,0x003F58C0,29,Code/Libraries/Source/WWVegas/WWLib/Rva003F58C0Fill.cpp,matched,range fill stride 48 via Element assign
+?setDrawOrg@WorldHeightMap@@QAE_NHH@Z,,0x000AC40D,185,Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapSetDrawOrg.cpp,matched,ZH WorldHeightMap::setDrawOrg over BFME2 layout; cmovg needs /arch:SSE
