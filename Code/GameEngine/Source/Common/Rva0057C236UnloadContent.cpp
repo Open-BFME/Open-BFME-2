@@ -1,5 +1,3 @@
-// ?rva0057C236@Rva0057C236@@QAEXXZ
-// partial score=0.95 date=2026-10-04
 // cl: /O1 /MD
 // ?rva0057C236@Rva0057C236@@QAEXXZ @0x0057C236 54B
 // UnloadContent Apt setter via rowed AptCall 0x00524EF4 with team+8 or empty string.
@@ -24,7 +22,6 @@ private:
     char m_pad08[0x18 - 8];
     bool m_flag;
 };
-// ?rva0057C236@Rva0057C236@@QAEXXZ present-unmatched
 void Rva0057C236::rva0057C236()
 {
     if (!m_flag)
