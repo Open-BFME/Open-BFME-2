@@ -35,3 +35,11 @@ public:
 Rva001FB94F::~Rva001FB94F()
 {
 }
+class Rva001FBAEE : public Rva001FB94FFirst, public Rva001FB94F
+{
+public:
+    ~Rva001FBAEE();
+};
+Rva001FBAEE::~Rva001FBAEE()
+{
+}
