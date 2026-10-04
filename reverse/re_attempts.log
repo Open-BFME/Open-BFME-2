@@ -8239,3 +8239,4 @@ Rva00415B91	0x00415B91	197	blocked	Native Ghidra197 is a separate EH-framed pars
 ?Rva004449FDProcess@@YA_NPAXH@Z	0x004449FD	198	blocked	AsciiString EH plus 4 virtuals needs donor t=10 model=muse-19
 ?rva00444279@Rva00444279@@QAEXXZ	0x00444279	98	blocked	57-virt global plus GameModePrefs sync needs donor t=8 model=muse-19
 ?Rva00444AC3Process@@YA_NPAXH@Z	0x00444AC3	205	blocked	same family as 004449FD AsciiString EH virtuals needs donor t=5 model=muse-19
+??_GRva005E129B@@UAEPAXI@Z	0x005E1334	28	blocked	whole TU fails on unrowed callee 0x005E1246 in ??1 t=5 model=muse-12
