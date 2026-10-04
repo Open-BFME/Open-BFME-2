@@ -28,7 +28,11 @@ struct Holder00426D14
 	Rva00426C4D *m_10;
 };
 
-extern Holder00426D14 *g_00E031E8;
+// g_00E031E8 is defined as Rva0039B95FHolder* in Rva0039B95FCount.cpp (same
+// VA 0x00E031E8, same +0x10 holder slot); declare that exact name here and
+// cast at use so the link resolves instead of adding a second global name.
+struct Rva0039B95FHolder;
+extern Rva0039B95FHolder *g_00E031E8;
 
 void *__cdecl operator new(unsigned int size);
 void __cdecl operator delete(void *p);
@@ -87,13 +91,13 @@ void __cdecl Rva00426D14Parse(INI *ini)
 {
 	if (ini->m_08 == 2)
 	{
-		if (g_00E031E8 == 0)
+		if ((Holder00426D14 *)g_00E031E8 == 0)
 			return;
 		Rva00426C4D *p = new Rva00426C4D;
 		((Rva0042666E *)p)->rva0042666E(ini);
-		if (g_00E031E8->m_10 == 0)
+		if (((Holder00426D14 *)g_00E031E8)->m_10 == 0)
 		{
-			g_00E031E8->m_10 = p;
+			((Holder00426D14 *)g_00E031E8)->m_10 = p;
 			return;
 		}
 		void *q = p ? p->v0(0) : (void *)0;
