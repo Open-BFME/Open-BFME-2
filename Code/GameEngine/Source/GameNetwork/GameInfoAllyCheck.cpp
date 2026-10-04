@@ -8,9 +8,7 @@ class GameSlot
 {
 public:
 	virtual void reset();
-	Int getTeamNumber() const { return m_teamNumber; }
 
-private:
 	Int m_state;
 	Bool m_isAccepted;
 	Bool m_hasMap;
@@ -56,8 +54,8 @@ Bool Rva005BF28EIsAlly(const GameInfo *gameInfo, const GameSlot *slot)
 		return true;
 	if (slot == localSlot)
 		return true;
-	Int team = slot->getTeamNumber();
+	Int team = slot->m_teamNumber;
 	if (team < 0)
 		return false;
-	return team == localSlot->getTeamNumber();
+	return team == localSlot->m_teamNumber;
 }
