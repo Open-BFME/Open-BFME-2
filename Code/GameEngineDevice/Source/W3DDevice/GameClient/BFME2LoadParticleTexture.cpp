@@ -16,6 +16,14 @@ public:
 	void Release_Ref();
 };
 
+class BfmeThingSJ : public TextureClass
+{
+public:
+	BfmeThingSJ(int val);
+};
+
+extern const void *const g_00BD2690[];
+
 class HierarchyPrototypeRef
 {
 public:
@@ -79,7 +87,7 @@ public:
 	}
 };
 
-class Rva00132D43TextureCtor : public TextureClass
+class Rva00132D43TextureCtor : public BfmeThingSJ
 {
 	unsigned char m_pad08[0x28];
 
@@ -108,6 +116,12 @@ public:
 };
 
 extern void Add_Prototype(void *prototype);
+
+Rva00132D43TextureCtor::Rva00132D43TextureCtor(const char *filename)
+	: BfmeThingSJ((int)filename)
+{
+	*(const void **)this = g_00BD2690;
+}
 
 BFME2ParticleTextureHandle __cdecl BFME2LoadParticleTexture(
 	const char *filename, int option0, int option1)
