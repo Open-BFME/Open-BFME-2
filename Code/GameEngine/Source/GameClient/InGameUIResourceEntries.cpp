@@ -122,8 +122,10 @@ private:
 class Rva004E7B13
 {
 public:
+    ~Rva004E7B13();
     void rva004E7BAF();
     void rva004E7C4D();
+    void rva004E7CB5();
 private:
     void *head;
     int count;
@@ -133,6 +135,12 @@ private:
 void Rva004E7B13::rva004E7C4D()
 {
     rva004E7BAF();
+}
+
+// Ghidra 4E7CB5/5B aliases the rowed 4E7C52 tree destructor.
+void Rva004E7B13::rva004E7CB5()
+{
+    this->~Rva004E7B13();
 }
 
 class ResourceEntryOwner
