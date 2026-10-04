@@ -64,3 +64,24 @@ void Rva0041580E::rva00415886()
 		m_flag04 = 0;
 	}
 }
+
+// Target reference repair: STLport 4.5.3 _tree.h _M_create_node semantic guide.
+// Native 0x415843/37 requests exactly 0x1E0 raw bytes from rowed byte allocator
+// 0x307F0, then calls rowed _Construct<Rva0041579E> at 0x4157E1 on +0x10.
+// ECX is never read; ret 4. A stdcall ABI view avoids asserting member identity.
+// The allocated block's complete original node/value layout is not claimed.
+class Rva0041579E;
+namespace _STL {
+template<class T> class allocator;
+template<> class allocator<char> {
+public:
+    static char *allocate(unsigned int bytes,const void *hint);
+};
+template<class T,class U> void _Construct(T *destination,const U &source);
+}
+char *__stdcall Rva00415843Create(const Rva0041579E &source)
+{
+    char *storage=_STL::allocator<char>::allocate(0x1E0,0);
+    _STL::_Construct<Rva0041579E,Rva0041579E>((Rva0041579E *)(storage+0x10),source);
+    return storage;
+}
