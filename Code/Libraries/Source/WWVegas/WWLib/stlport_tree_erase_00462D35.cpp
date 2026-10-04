@@ -19,6 +19,8 @@ typedef _STL::_Rb_tree<int, Rva00462D35Pair, _STL::_Select1st<Rva00462D35Pair>, 
 
 template void Rva00462D35Tree::_M_erase(Rva00462D35Tree::_Link_type);
 
-// Whole-class instantiation of this tree. It reproduces clear (retail 0x004633FC)
-// byte for byte; their calls read the tree's matched STL helpers.
-template class _STL::_Rb_tree<int,_STL::pair<int const ,Rva00462D35Mapped>,_STL::_Select1st<_STL::pair<int const ,Rva00462D35Mapped> >,_STL::less<int>,_STL::allocator<_STL::pair<int const ,Rva00462D35Mapped> > >;
+// Retain only the matched clear body at 0x004633FC. The former whole-class
+// instantiation also emitted a wrong destructor keeper, displacing the exact
+// 0x004636FE provider used by native 0x004DD206 constructor unwind cleanup.
+// The two retained bodies still verify in full; allocator COMDAT debt remains.
+template void Rva00462D35Tree::clear();
