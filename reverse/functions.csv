@@ -52646,3 +52646,4 @@ _Rva0088E190TimerTick@16,,0x0003D870,9,Code/Libraries/Source/WWVegas/WWDebug/Rva
 ?rva002C7196@Rva002A8AB1Record@@QAEHABVAsciiString@@@Z,,0x002C7196,52,Code/GameEngine/Source/Common/Rva002C7196Method.cpp,matched,get-or-default int via rowed contains plus rowed find plus pinned insert
 ?rva004DF4B5@Rva004DF4B5@@QAEXPAX@Z,,0x004DF4B5,32,Code/GameEngine/Source/Common/Rva004DF4B5.cpp,matched,unlock push ObjectID at 0x74 into list at 0x24 caller 0x0028BC0F
 ?rva0028BC05@Rva0028BC05@@QAEXPAX@Z,,0x0028BC05,18,Code/GameEngine/Source/Common/Rva0028BC05.cpp,matched,chain via 0x004DF4B5 holder at 0x23C caller 0x004DF3E8
+?rva004DF3B0@Rva004DF2E2@@QAEXPAX@Z,,0x004DF3B0,72,Code/GameEngine/Source/Common/Rva004DF3B0.cpp,matched,chain via findObjectByID 0x0028BC05 and 0x004DF2E2 caller 0x0028BBEB
