@@ -37,6 +37,8 @@ struct Rva0041580E
 	int m_flag04;
 	void rva0041580E(Rva0041580ENode *node);
 	void rva00415886();
+	Rva0041580E *rva004159E2(const Rva0041580E &other);
+	__forceinline Rva0041580ENode *&rootRef() { return m_head00->m_first04; }
 	Rva0041580ENode *rva00415937(Rva0041580ENode *source,Rva0041580ENode *parent);
 	Rva0041580ENode *rva00415868(const Rva0041580ENode *source);
 };
@@ -122,4 +124,29 @@ Rva0041580ENode *Rva0041580E::rva00415937(Rva0041580ENode *source,Rva0041580ENod
         source=source->m_next08;
     }
     return top;
+}
+
+// STLport 4.5.3 _Rb_tree assignment guide. Both header views preserve the
+// witnessed common 16-byte prefix; casts below do not assert inheritance.
+Rva0041580E *Rva0041580E::rva004159E2(const Rva0041580E &other)
+{
+    if (this!=&other) {
+        rva00415886();
+        m_flag04=0;
+        if(other.m_head00->m_first04==0) {
+            m_head00->m_first04=0;
+            m_head00->m_next08=m_head00;
+            m_head00->m_child0C=m_head00;
+        } else {
+            rootRef()=rva00415937(other.m_head00->m_first04,(Rva0041580ENode *)m_head00);
+            Rva0041580ENode *cur=m_head00->m_first04;
+            while(cur->m_next08) cur=cur->m_next08;
+            m_head00->m_next08=(Rva0041580EHead *)cur;
+            cur=m_head00->m_first04;
+            while(cur->m_child0C) cur=cur->m_child0C;
+            m_head00->m_child0C=(Rva0041580EHead *)cur;
+            m_flag04=other.m_flag04;
+        }
+    }
+    return this;
 }
