@@ -46,10 +46,24 @@ struct Rva007F49E0Packet
 	unsigned int dword_1c;
 };
 
+// 0x00661470/15 reference transfer from BFME1 revision 775a0370b7,
+// game/GameEngine/Source/Common/Rva007F49C0VirtualForwarder.cpp.
+// Native target facts independently prove this owner's vptr: constructor
+// stores at 0x0066140B install VA CE2C1C at +0 and CE2C10 at +4.
+// Table CE2C1C contains this wrapper at slot 1, the verified send at slot 3,
+// and the verified two-slot pointer store 0x00661430 at slot 4. The wrapper
+// forwards its four-byte argument and zero through slot 4, then pops 4 bytes.
+// Only that virtual prefix is represented; reserved slots are never called,
+// and no complete table, RTTI, original owner name or larger layout is claimed.
+// The donor supplies forwarding semantics, not the target's original identity.
 class Rva007F49E0VtableSlot3
 {
 public:
+	virtual void reserved0();
+	virtual void invokeDefault( void *value );
+	virtual void reserved2();
 	virtual int send( Rva007F49E0Packet *record );
+	virtual void setSlot( void *value, int index );
 
 private:
 	Rva007F49E0Member4 m_object4;
@@ -57,6 +71,11 @@ private:
 	Rva007F49E0SharedSocket *m_sharedSocket;
 	unsigned int dword_14;
 };
+
+void Rva007F49E0VtableSlot3::invokeDefault( void *value )
+{
+	setSlot( value, 0 );
+}
 
 int Rva007F49E0VtableSlot3::send( Rva007F49E0Packet *record )
 {
