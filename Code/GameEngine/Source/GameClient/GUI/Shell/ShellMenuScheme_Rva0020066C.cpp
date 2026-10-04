@@ -1,0 +1,192 @@
+// cl: -DNDEBUG -DWIN32 -D_WINDOWS -MD -EHsc -D_STLP_USE_STATIC_LIB -DBFME_STLP_NODE_ALLOC -Ireference/open-bfme-1/inputs/reference/shims/stlp_nodealloc -Ireference/open-bfme-1/inputs/reference/shims/sweep -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Os -Ireference/open-bfme-1/game/GameEngine/Source/GameClient/GUI/Shell
+// stlport
+// Both constructors used to live in ShellMenuSchemeCtor.cpp purely for the
+// STLport link mode: retail calls __new_alloc::allocate directly and without
+// /D_STLP_USE_STATIC_LIB the header declares it dllimport, so the node
+// allocation comes out as `call [__imp_...]` instead of `call`. Adding the
+// define here re-verified all 24 rows this file already had, which is what the
+// split was avoiding.
+#define Matrix4x4 Matrix4  // BFME renamed it
+/*
+**	Command & Conquer Generals Zero Hour(tm)
+**	Copyright 2025 Electronic Arts Inc.
+**
+**	This program is free software: you can redistribute it and/or modify
+**	it under the terms of the GNU General Public License as published by
+**	the Free Software Foundation, either version 3 of the License, or
+**	(at your option) any later version.
+**
+**	This program is distributed in the hope that it will be useful,
+**	but WITHOUT ANY WARRANTY; without even the implied warranty of
+**	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+**	GNU General Public License for more details.
+**
+**	You should have received a copy of the GNU General Public License
+**	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+////////////////////////////////////////////////////////////////////////////////
+//																																						//
+//  (c) 2001-2003 Electronic Arts Inc.																				//
+//																																						//
+////////////////////////////////////////////////////////////////////////////////
+
+// FILE: ShellMenuScheme.cpp /////////////////////////////////////////////////
+//-----------------------------------------------------------------------------
+//                                                                          
+//                       Electronic Arts Pacific.                          
+//                                                                          
+//                       Confidential Information                           
+//                Copyright (C) 2002 - All Rights Reserved                  
+//                                                                          
+//-----------------------------------------------------------------------------
+//
+//	created:	Jul 2002
+//
+//	Filename: 	ShellMenuScheme.cpp
+//
+//	author:		Chris Huybregts
+//	
+//	purpose:	
+//
+//-----------------------------------------------------------------------------
+///////////////////////////////////////////////////////////////////////////////
+
+//-----------------------------------------------------------------------------
+// SYSTEM INCLUDES ////////////////////////////////////////////////////////////
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// USER INCLUDES //////////////////////////////////////////////////////////////
+//-----------------------------------------------------------------------------
+#include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
+
+#include "Common/INI.h"
+#include "GameClient/ShellMenuScheme.h"
+#include "GameClient/Shell.h"
+#include "GameClient/Display.h"
+//-----------------------------------------------------------------------------
+// DEFINES ////////////////////////////////////////////////////////////////////
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// PUBLIC FUNCTIONS ///////////////////////////////////////////////////////////
+//-----------------------------------------------------------------------------
+// ?parseShellMenuSchemeDefinition@INI@@SAXPAV1@@Z
+// Body is MASM exact-byte dump (game/masm_dumps/INI_parseShellMenuSchemeDefinition_581790.asm).
+// Retail @ 0x581790; C++ blocked on AsciiString::set vs StringBase::set(s,len) shape.
+// ??1ShellMenuSchemeLine@@QAE@XZ present-unmatched
+
+// ??1ShellMenuSchemeImage@@QAE@XZ present-unmatched
+ShellMenuSchemeImage::~ShellMenuSchemeImage( void )
+{
+	m_image = NULL;
+}
+
+ShellMenuScheme::ShellMenuScheme( void )
+{
+	
+}
+
+// byte-exact reconstruction: game/GameEngine/Source/Common/ShellMenuSchemeDestructor.cpp
+// ??1ShellMenuScheme@@QAE@XZ present-unmatched
+
+// ?addLine@ShellMenuScheme@@QAEXPAVShellMenuSchemeLine@@@Z present-unmatched
+
+
+// ?addImage@ShellMenuScheme@@QAEXPAVShellMenuSchemeImage@@@Z present-unmatched
+
+// Display as ShellMenuScheme::draw reaches it: slot +0xB0 opens and +0xDC
+// closes a precise-draw bracket around the Real-coordinate image (+0xD4) and
+// line (+0xB8) calls; the inline wrappers take Real coordinates, so the Int
+// fields are converted at the call site in right-to-left argument order.
+// Address-derived; never treat as an identity.
+class Rva00580BD0Display
+{
+public:
+	virtual void slot00();
+	virtual void slot04();
+	virtual void slot08();
+	virtual void slot0C();
+	virtual void slot10();
+	virtual void slot14();
+	virtual void slot18();
+	virtual void slot1C();
+	virtual void slot20();
+	virtual void slot24();
+	virtual void slot28();
+	virtual void slot2C();
+	virtual void slot30();
+	virtual void slot34();
+	virtual void slot38();
+	virtual void slot3C();
+	virtual void slot40();
+	virtual void slot44();
+	virtual void slot48();
+	virtual void slot4C();
+	virtual void slot50();
+	virtual void slot54();
+	virtual void slot58();
+	virtual void slot5C();
+	virtual void slot60();
+	virtual void slot64();
+	virtual void slot68();
+	virtual void slot6C();
+	virtual void slot70();
+	virtual void slot74();
+	virtual void slot78();
+	virtual void slot7C();
+	virtual void slot80();
+	virtual void slot84();
+	virtual void slot88();
+	virtual void slot8C();
+	virtual void slot90();
+	virtual void slot94();
+	virtual void slot98();
+	virtual void slot9C();
+	virtual void slotA0();
+	virtual void slotA4();
+	virtual void slotA8();
+	virtual void slotAC();
+	virtual void beginRva00580BD0( void ); // +0xB0
+	virtual void slotB4();
+	virtual void drawLineRva00580BD0( Real startX, Real startY, Real endX, Real endY,
+		Real lineWidth, UnsignedInt lineColor ); // +0xB8
+	virtual void slotBC(); virtual void slotC0(); virtual void slotC4();
+	virtual void slotC8(); virtual void slotCC(); virtual void slotD0();
+	virtual void drawImageRva00580BD0( const Image *image, Real startX, Real startY,
+		Real endX, Real endY, Color color, Int mode ); // +0xD4
+	virtual void slotD8();
+	virtual void endRva00580BD0( void ); // +0xDC
+
+	void drawImage( const Image *image, Real startX, Real startY, Real endX, Real endY,
+		Color color = 0xFFFFFFFF, Int mode = 2 )
+	{
+		beginRva00580BD0();
+		drawImageRva00580BD0( image, startX, startY, endX, endY, color, mode );
+		endRva00580BD0();
+	}
+
+	void drawLine( Real startX, Real startY, Real endX, Real endY, Real lineWidth,
+		UnsignedInt lineColor )
+	{
+		beginRva00580BD0();
+		drawLineRva00580BD0( startX, startY, endX, endY, lineWidth, lineColor );
+		endRva00580BD0();
+	}
+};
+
+// byte-exact reconstruction: game/GameEngine/Source/Common/ShellMenuSchemeManager_parseImagePart_Thunk.cpp
+// ?parseImagePart@ShellMenuSchemeManager@@ present-unmatched
+
+// byte-exact reconstruction: game/GameEngine/Source/Common/ShellMenuSchemeManager_parseLinePart_Thunk.cpp
+// ?parseLinePart@ShellMenuSchemeManager@@ present-unmatched
+
+// byte-exact reconstruction: game/GameEngine/Source/Common/ShellMenuSchemeManager_newShellMenuScheme_Thunk.cpp
+// ?newShellMenuScheme@ShellMenuSchemeManager@@QAEPAVShellMenuScheme@@VAsciiString@@@Z present-unmatched
+
+// byte-exact reconstruction: game/GameEngine/Source/GameClient/ShellMenuScheme_set.cpp
+// ?setShellMenuScheme@ShellMenuSchemeManager@@QAEXVAsciiString@@@Z present-unmatched
+//-----------------------------------------------------------------------------
+// PRIVATE FUNCTIONS //////////////////////////////////////////////////////////
+//-----------------------------------------------------------------------------
