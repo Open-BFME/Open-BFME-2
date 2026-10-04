@@ -17,7 +17,13 @@ class BfmeThingVJH
 {
 public:
 	void bfmeGoVJH(int a);
-	void bfmeSendVJH(BfmeMsgVJH *m) throw();
+};
+
+class BfmeC994;
+class Rva008038F0Sender
+{
+public:
+	void send(BfmeC994 *message) throw();
 };
 
 void BfmeThingVJH::bfmeGoVJH(int a)
@@ -28,7 +34,7 @@ void BfmeThingVJH::bfmeGoVJH(int a)
 	msg.bfmeSet3VJH("TID", a);
 	msg.bfmeSet3VJH("LID", -2);
 	msg.bfmeSetVJH("NAME", "LAN");
-	bfmeSendVJH(&msg);
+	((Rva008038F0Sender *)this)->send((BfmeC994 *)&msg);
 }
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
