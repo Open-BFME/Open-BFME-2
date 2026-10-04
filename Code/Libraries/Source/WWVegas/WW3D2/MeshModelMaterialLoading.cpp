@@ -35,10 +35,7 @@ public:
 	{
 		if (p) p->Add_Ref();
 	}
-	~BfmeHandleCX(void)
-	{
-		if (p) p->Release_Ref();
-	}
+	~BfmeHandleCX(void);
 	BfmeHandleCX &operator=(const BfmeHandleCX &other)
 	{
 		if (other.p) other.p->Add_Ref();
