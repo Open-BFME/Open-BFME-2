@@ -1,5 +1,3 @@
-// ?doSpecialPowerAtLocation@SpecialPowerModule@@UAEXPBUCoord3D@@I@Z
-// partial score=0.97 date=2026-10-04
 // cl: /O1 /DNDEBUG /MD
 //
 // SpecialPowerModule's three "do" entries, Zero Hour SpecialPowerModule.cpp
@@ -17,8 +15,15 @@
 // inferred); and doSpecialPowerAtObject, when the owner has status 0x26 and
 // module data byte +0x68 is set, first swaps the target for what
 // 0x0028CCB9 (an Object method, unnamed) returns for (owner, 1, 0).
-// triggerSpecialPower is 0x004941F3; isDisabled is the inline
-// BitFlags<11>::any of Object +0x1C8.
+// triggerSpecialPower is 0x004941F3; the disabled test is the rowed
+// BitFlags<11>::any (0x0023C58B) of Object +0x1C8.
+//
+// Shape: retail loads the Object into ecx and adds the mask offset in place
+// (mov ecx, [esi-8] / add ecx, 0x1C8). cl 7.1 emits that for byte-pointer
+// arithmetic on the m_object member written in the body; the typed
+// Object::isDisabled inline (or any accessor such as getObject()) instead
+// loads into eax and forms the address with lea ecx, [eax+0x1C8]. The same
+// fact holds in AreaSpecialPowersAtLocation.cpp.
 
 #include <stddef.h>
 
@@ -59,7 +64,6 @@ class Object
 {
 public:
 	Bool testStatus(ObjectStatusTypes bit) const;
-	Bool isDisabled() const { return m_disabledMask.any(); }
 	const Coord3D *getPosition() const { return &m_pos; }
 	Object *rva0028CCB9(Object *owner, Int a, Int b);
 
@@ -67,8 +71,13 @@ private:
 	unsigned char m_pad000[0x38];
 	Coord3D m_pos;                          // +0x38
 	unsigned char m_pad044[0x1C8 - 0x44];
-	BitFlags<11> m_disabledMask;            // +0x1C8
+	BitFlags<11> m_disabledMask;            // +0x1C8, see disabledMask() below
 };
+
+// Object +0x1C8 as byte-pointer arithmetic on the Object pointer, written as
+// a macro so the arithmetic stays in each body (see the shape note above).
+#define OBJECT_DISABLED_MASK(object) \
+	((const BitFlags<11> *)((const char *)(object) + 0x1C8))
 
 class SpecialPowerModuleData
 {
@@ -136,7 +145,7 @@ private:
 
 void SpecialPowerModule::doSpecialPower(UnsignedInt commandOptions)
 {
-	if (!(commandOptions & COMMAND_FIRED_BY_SCRIPT) && (m_pausedCount > 0 || getObject()->isDisabled()))
+	if (!(commandOptions & COMMAND_FIRED_BY_SCRIPT) && (m_pausedCount > 0 || OBJECT_DISABLED_MASK(m_object)->any()))
 		return;
 
 	initiateIntentToDoSpecialPower(NULL, NULL, commandOptions, NULL);
@@ -147,7 +156,7 @@ void SpecialPowerModule::doSpecialPower(UnsignedInt commandOptions)
 
 void SpecialPowerModule::doSpecialPowerAtObject(Object *obj, UnsignedInt commandOptions)
 {
-	if (!(commandOptions & COMMAND_FIRED_BY_SCRIPT) && (m_pausedCount > 0 || getObject()->isDisabled()))
+	if (!(commandOptions & COMMAND_FIRED_BY_SCRIPT) && (m_pausedCount > 0 || OBJECT_DISABLED_MASK(m_object)->any()))
 		return;
 
 	Object *owner = getObject();
@@ -162,7 +171,7 @@ void SpecialPowerModule::doSpecialPowerAtObject(Object *obj, UnsignedInt command
 
 void SpecialPowerModule::doSpecialPowerAtLocation(const Coord3D *loc, UnsignedInt commandOptions)
 {
-	if (!(commandOptions & COMMAND_FIRED_BY_SCRIPT) && (m_pausedCount > 0 || getObject()->isDisabled()))
+	if (!(commandOptions & COMMAND_FIRED_BY_SCRIPT) && (m_pausedCount > 0 || OBJECT_DISABLED_MASK(m_object)->any()))
 		return;
 
 	initiateIntentToDoSpecialPower(NULL, loc, commandOptions, NULL);
