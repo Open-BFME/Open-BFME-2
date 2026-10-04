@@ -55471,3 +55471,4 @@ uw_0076765b,,0x0076765B,8,Code/Libraries/Source/WWVegas/WW3D2/meshgeometry.cpp,m
 ?rva00318768@Rva00318333@@QAEXXZ,,0x00318768,56,Code/GameEngine/Source/GameNetwork/Rva00318333.cpp,matched,chain decrement m2C m28 via clear and init
 ?Rva003E4B83Get@@YG_NPAVParameter@@@Z,,0x003E4B83,119,Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003E4B83Siege.cpp,matched,free siege-deploy check via rowed getUnitNamed static key rowed findModule rowed bool getter
 ?Rva003E477FGet@@YG_NPAVParameter@@00@Z,,0x003E477F,145,Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003E477FCompare.cpp,matched,leaf via rowed rva00357B82 plus rowed getEachPlayerFromMask plus globals
+?Rva0008FBA3Create@@YGPAVRva000A1346@@PAX@Z,,0x0008FBA3,58,Code/GameEngine/Source/Common/Rva0008FBA3Create.cpp,matched,chain factory via just-landed Rva000A1346 ctor plus new
