@@ -39,25 +39,19 @@ class WinInstanceData
 {
 public:
 	virtual ~WinInstanceData(void);
+	// Declared only: getText, getTooltipText and the copy assignment resolve to
+	// the shared WinInstanceData rows; the donor's inline bodies were emitted
+	// here as private COMDATs that are not retail's.
+	WinInstanceData &operator=(const WinInstanceData &);
 
-	UnicodeString getText(void)
-	{
-		if (m_text)
-			return m_text->getText();
-		return UnicodeString::TheEmptyString;
-	}
+	UnicodeString getText(void);
 	Int getTextLength(void)
 	{
 		if (m_text)
 			return m_text->getTextLength();
 		return 0;
 	}
-	UnicodeString getTooltipText(void)
-	{
-		if (m_tooltip)
-			return m_tooltip->getText();
-		return UnicodeString::TheEmptyString;
-	}
+	UnicodeString getTooltipText(void);
 	Int getTooltipTextLength(void)
 	{
 		if (m_tooltip)
