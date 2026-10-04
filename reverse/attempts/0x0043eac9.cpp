@@ -1,3 +1,5 @@
+// ??$equal@U?$_Bit_iter@_NPB_N@_STL@@U12@@_STL@@YA_NU?$_Bit_iter@_NPB_N@0@00@Z
+// partial score=1.0 date=2026-10-04
 // stlport
 // cl: /O1 /EHs-c-
 // STLport 4.5.3; pristine definitions are in vendor/stlport.
