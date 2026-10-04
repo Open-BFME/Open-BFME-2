@@ -33,6 +33,13 @@ class Rva002BF75A
 {
 public:
 	void rva002BF75A(void *p);
+	void rva002BF7BE();
+private:
+	void *m_unused00;
+	void **m_beginBuckets;
+	void **m_endBuckets;
+	void **m_storageEnd;
+	unsigned int m_numElements;
 };
 
 void Rva002BF75A::rva002BF75A(void *p)
@@ -40,4 +47,21 @@ void Rva002BF75A::rva002BF75A(void *p)
 	((PairDtorFn)&dup_002bf0d6)((void *)((char *)p + 4));
 	if (p)
 		free(p);
+}
+
+// ?rva002BF7BE@Rva002BF75A@@QAEXXZ @0x002BF7BE 73B chain clear via rowed 0x002BF75A plus callers 0x002BFA62 0x002BFD81 plus same shape as rowed Rva00223591 clear.
+void Rva002BF75A::rva002BF7BE()
+{
+	for (unsigned i = 0; i < (unsigned)(((char *)m_endBuckets - (char *)m_beginBuckets) >> 2); ++i)
+	{
+		void *cur = m_beginBuckets[i];
+		while (cur != 0)
+		{
+			void *next = *(void **)cur;
+			rva002BF75A(cur);
+			cur = next;
+		}
+		m_beginBuckets[i] = 0;
+	}
+	m_numElements = 0;
 }
