@@ -88,11 +88,14 @@ float RenderObjClass::Get_Cost(void) const
 	return( cost );
 }
 
-// ?Calculate_Cost_Value_Arrays@RenderObjClass@@UBEHMPAM0@Z present-unmatched
 int RenderObjClass::Calculate_Cost_Value_Arrays(float screen_area, float *values, float *costs) const
 {
-	values[0] = AT_MIN_LOD;
-	values[1] = AT_MAX_LOD;
+	// AT_MIN_LOD / AT_MAX_LOD by value (FLT_MAX, -1). Inference: in retail
+	// the two loads come from literal pools (0x00BBB8E0, 0x00BD2F5C) scheduled
+	// after the values-pointer load; reading the static const members compiles
+	// the first movss ahead of that load, so the constants were visible here.
+	values[0] = FLT_MAX;
+	values[1] = -1.0f;
 	costs[0] = Get_Cost();
 	return 0;
 }
