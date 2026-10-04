@@ -54121,3 +54121,4 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ?rva003B44AB@Rva003B44AB@@QAEPAV1@PBV1@@Z,,0x003B44AB,28,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListNodeRva003B44AB.cpp,matched,Rva003B44AB clears 0 copies 0x04 via Rva003529B0 LINK unblocks 0x003B7FE0
 ?rva0054288B@Rva0054288B@@QAEXXZ,,0x0054288B,5,Code/GameEngine/Source/Common/Rva0054288BThunk.cpp,matched,tail-jmp to rowed 0x005427F1 flush
 ?rva002B86AA@Rva002B86AA@@QBE_NPAURva002B86AAKey@@PAURva002B86AAVal@@@Z,,0x002B86AA,71,Code/Libraries/Source/WWVegas/WWLib/Rva002B86AA.cpp,matched,equal_range plus increment rows ret8 map at 0x13c key at 0x4c val at 0x14
+?rva002922D9@Object@@QAE_NPBVCommandButton@@@Z,,0x002922D9,87,Code/GameEngine/Source/GameLogic/Object/ObjectRva002922D9.cpp,matched,pin Object rva002922D9 via BfmeSubBEC row plus Object name plus Rva0031D5F8 plus CommandSet
