@@ -24,7 +24,11 @@
 // in BFME 2, AIIdleState (0x0033FEA3) under AIFaceState. BFME 2 adds one
 // more Bool to AIAttackAimAtTargetState (+0x23) and a version-2 Bool to
 // AIExitState (+0x24). Its Version struct is passed by reference and its
-// operator== chains.
+// operator== chains. The BFME 2-only states below them (AIMoveToStateSA,
+// BackAwayAndCowerStateMachine, AIUncontrollableCower, the melee horde-wait,
+// melee approach/squish and fire-during-approach states, and
+// AIAttackPositionAimAtTargetState) are named the same way; their members
+// are known only by offset and by the Xfer overload each is passed to.
 
 class AsciiString;
 class UnicodeString;
@@ -121,6 +125,13 @@ public:
 	float z;
 };
 
+class ICoord2D
+{
+public:
+	Int x;
+	Int y;
+};
+
 // The state base: only its virtual table matters to these bodies.
 class State
 {
@@ -212,6 +223,95 @@ private:
 };
 
 // ------------------------------------------------------------------------------------------------
+// BFME 2 states with no Zero Hour counterpart, named by their tables'
+// slot-2 name literals; members are labelled by offset and Xfer type only.
+class AIMoveToStateSA : public AIInternalMoveToState
+{
+protected:
+	virtual void xfer( Xfer *xfer );
+private:
+	UnsignedInt m_bfmeValue4C;																								///< 0x4C
+	Bool m_bfmeFlag50;																												///< 0x50
+};
+
+class BackAwayAndCowerStateMachine : public StateMachine
+{
+protected:
+	virtual void xfer( Xfer *xfer );
+};
+
+class AIUncontrollableCower : public State
+{
+protected:
+	virtual void xfer( Xfer *xfer );
+private:
+	char m_unrecovered04[ 0x20 - 0x04 ];
+	Bool m_bfmeFlag20;																												///< 0x20
+};
+
+class AIAttackMeleeHordeWaitState : public State
+{
+protected:
+	virtual void xfer( Xfer *xfer );
+private:
+	char m_unrecovered04[ 0x20 - 0x04 ];
+	UnsignedInt m_bfmeValue20;																								///< 0x20
+};
+
+class AIAttackMeleeHordeWaitPathState : public State
+{
+protected:
+	virtual void xfer( Xfer *xfer );
+private:
+	char m_unrecovered04[ 0x20 - 0x04 ];
+	UnsignedInt m_bfmeValue20;																								///< 0x20
+	Int m_bfmeValue24;																												///< 0x24
+};
+
+class AIAttackMeleeApproachState : public AIInternalMoveToState
+{
+protected:
+	virtual void xfer( Xfer *xfer );
+private:
+	UnsignedInt m_bfmeValue4C;																								///< 0x4C
+	Coord3DBase m_bfmePosition50;																							///< 0x50
+	ICoord2D m_bfmeCell5C;																										///< 0x5C
+};
+
+class AIAttackFireDuringApproachState : public AIInternalMoveToState
+{
+protected:
+	virtual void xfer( Xfer *xfer );
+private:
+	UnsignedInt m_bfmeValue4C;																								///< 0x4C
+	Coord3DBase m_bfmePosition50;																							///< 0x50
+	ICoord2D m_bfmeCell5C;																										///< 0x5C
+	ObjectID m_bfmeObject64;																									///< 0x64
+	Bool m_bfmeFlag68;																												///< 0x68
+};
+
+class AIAttackMeleeSquishState : public AIInternalMoveToState
+{
+protected:
+	virtual void xfer( Xfer *xfer );
+private:
+	UnsignedInt m_bfmeValue4C;																								///< 0x4C
+	Coord3DBase m_bfmePosition50;																							///< 0x50
+	ICoord2D m_bfmeCell5C;																										///< 0x5C
+	Bool m_bfmeFlag64;																												///< 0x64
+};
+
+class AIAttackPositionAimAtTargetState : public State
+{
+protected:
+	virtual void xfer( Xfer *xfer );
+private:
+	char m_unrecovered04[ 0x20 - 0x04 ];
+	Bool m_bfmeFlag20;																												///< 0x20
+	Bool m_bfmeFlag21;																												///< 0x21
+};
+
+// ------------------------------------------------------------------------------------------------
 /** Xfer Method */
 // ------------------------------------------------------------------------------------------------
 void AIMoveAndEvacuateState::xfer( Xfer *xfer )
@@ -263,4 +363,117 @@ void AIExitState::xfer( Xfer *xfer )
 	XferObjectID( xfer, &m_entryToClear );
 	if( version.m_minimum >= 2 )
 		*xfer == m_bfmeFlag24;
+}  // end xfer
+
+// ------------------------------------------------------------------------------------------------
+/** Xfer Method */
+// ------------------------------------------------------------------------------------------------
+void AIMoveToStateSA::xfer( Xfer *xfer )
+{
+	Xfer::Version version( 1, 1 );
+	*xfer == version;
+	AIInternalMoveToState::xfer(xfer);
+	if( xfer->IsLightCRC() )
+		return;
+	*xfer == m_bfmeValue4C;
+	*xfer == m_bfmeFlag50;
+}  // end xfer
+
+// ------------------------------------------------------------------------------------------------
+/** Xfer Method */
+// ------------------------------------------------------------------------------------------------
+void BackAwayAndCowerStateMachine::xfer( Xfer *xfer )
+{
+	xfer->Version1();
+	StateMachine::xfer(xfer);
+}  // end xfer
+
+// ------------------------------------------------------------------------------------------------
+/** Xfer Method */
+// ------------------------------------------------------------------------------------------------
+void AIUncontrollableCower::xfer( Xfer *xfer )
+{
+	xfer->Version1();
+	*xfer == m_bfmeFlag20;
+	xfer->Version1();
+}  // end xfer
+
+// ------------------------------------------------------------------------------------------------
+/** Xfer Method */
+// ------------------------------------------------------------------------------------------------
+void AIAttackMeleeHordeWaitState::xfer( Xfer *xfer )
+{
+	xfer->Version1();
+	if( xfer->IsLightCRC() )
+		return;
+	*xfer == m_bfmeValue20;
+}  // end xfer
+
+// ------------------------------------------------------------------------------------------------
+/** Xfer Method */
+// ------------------------------------------------------------------------------------------------
+void AIAttackMeleeHordeWaitPathState::xfer( Xfer *xfer )
+{
+	Xfer::Version version( 1, 2 );
+	*xfer == version;
+	if( xfer->IsLightCRC() )
+		return;
+	*xfer == m_bfmeValue20;
+	if( version.m_minimum > 1 )
+		*xfer == m_bfmeValue24;
+}  // end xfer
+
+// ------------------------------------------------------------------------------------------------
+/** Xfer Method */
+// ------------------------------------------------------------------------------------------------
+void AIAttackMeleeApproachState::xfer( Xfer *xfer )
+{
+	xfer->Version1();
+	AIInternalMoveToState::xfer(xfer);
+	if( xfer->IsLightCRC() )
+		return;
+	*xfer == m_bfmePosition50;
+	*xfer == m_bfmeCell5C;
+	*xfer == m_bfmeValue4C;
+}  // end xfer
+
+// ------------------------------------------------------------------------------------------------
+/** Xfer Method */
+// ------------------------------------------------------------------------------------------------
+void AIAttackFireDuringApproachState::xfer( Xfer *xfer )
+{
+	xfer->Version1();
+	AIInternalMoveToState::xfer(xfer);
+	if( xfer->IsLightCRC() )
+		return;
+	*xfer == m_bfmePosition50;
+	*xfer == m_bfmeCell5C;
+	*xfer == m_bfmeValue4C;
+	XferObjectID( xfer, &m_bfmeObject64 );
+	*xfer == m_bfmeFlag68;
+}  // end xfer
+
+// ------------------------------------------------------------------------------------------------
+/** Xfer Method */
+// ------------------------------------------------------------------------------------------------
+void AIAttackMeleeSquishState::xfer( Xfer *xfer )
+{
+	xfer->Version1();
+	AIInternalMoveToState::xfer(xfer);
+	if( xfer->IsLightCRC() )
+		return;
+	*xfer == m_bfmePosition50;
+	*xfer == m_bfmeCell5C;
+	*xfer == m_bfmeValue4C;
+	*xfer == m_bfmeFlag64;
+}  // end xfer
+
+// ------------------------------------------------------------------------------------------------
+/** Xfer Method */
+// ------------------------------------------------------------------------------------------------
+void AIAttackPositionAimAtTargetState::xfer( Xfer *xfer )
+{
+	xfer->Version1();
+	*xfer == m_bfmeFlag20;
+	*xfer == m_bfmeFlag21;
 }  // end xfer
