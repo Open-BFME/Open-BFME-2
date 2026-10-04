@@ -165,6 +165,9 @@ public:
 	static int StackWalk(Signature &sig, _CONTEXT *context, bool fullWalk);
 };
 
+// Retail RepeatChar/MemDump copies are frameless /O2-style; this TU builds
+// /Oy-, so emit those select-any copies with fast frame omission.
+#pragma optimize("ty", on)
 class Debug
 {
 public:
@@ -250,6 +253,7 @@ private:
 	unsigned char m_pad9F57[0xD];
 	bool m_inAssertDialog;               // +0x9F64
 };
+#pragma optimize("", on)
 
 Debug &operator<<(Debug &dbg, const DebugStackwalk::Signature &sig);
 // This TU spells Signature as a struct; debug_stack.cpp's same-layout type is a class.
