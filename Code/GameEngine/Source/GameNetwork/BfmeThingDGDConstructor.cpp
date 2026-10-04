@@ -27,6 +27,10 @@ extern "C" const void *const vtbl_00C1C780[];  // folded, 49 classes; via ??_7?$
 extern "C" const void *const vtbl_00C6FFFC[];  // folded, 10 classes; via ??_7?$CategoryModuleClass@$00@FXParticleSystem@@6B@
 #pragma comment(linker, "/alternatename:_vtbl_00C6FFFC=??_7?$CategoryModuleClass@$00@FXParticleSystem@@6B@")
 
+extern const void *const g_00CE3018[];
+extern const void *const g_00CE3010[];
+extern const void *const g_00CE3008[];
+
 struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
 #pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
@@ -112,9 +116,9 @@ public:
 	Rva007F8090Base()
 	{
 		// BFME2 vtable VAs measured from retail (BFME1 donor holds 0x0112b800/0x0112b7f8/0x0112b7f0).
-		m_v0 = 0x00ce3018;
-		m_v4 = 0x00ce3010;
-		m_v8 = 0x00ce3008;
+		m_v0 = ((unsigned int)g_00CE3018);
+		m_v4 = ((unsigned int)g_00CE3010);
+		m_v8 = ((unsigned int)g_00CE3008);
 	}
 };
 
