@@ -52,3 +52,17 @@ Rva000A12FE::Rva000A12FE(void *context)
 {
 	*(const void **)this = g_00BC8D5C;
 }
+
+extern const void *const g_00BC8D88[];
+
+class Rva000A1346 : public Rva000A12FE
+{
+public:
+	Rva000A1346(void *context);
+};
+
+Rva000A1346::Rva000A1346(void *context)
+	: Rva000A12FE(context)
+{
+	*(const void **)this = g_00BC8D88;
+}
