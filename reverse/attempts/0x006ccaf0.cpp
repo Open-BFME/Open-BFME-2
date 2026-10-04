@@ -1,5 +1,5 @@
 // ?rva006ccaf0@@YAXPBD@Z
-// partial score=0.85 date=2026-10-04
+// partial score=0.9 date=2026-10-04
 // cl: /O2 /MD
 // ?rva006ccaf0@@YAXPBD@Z @ 0x006CCAF0 (139B).
 //
@@ -28,7 +28,13 @@ public:
 // the canonical char* it wrote. Unnamed body; address-derived here. The
 // declaration order is the reverse of retail's push sequence, which is why the
 // out pointer is the third parameter rather than the first.
-const char *rva006CC530(int zero, int zero2, EAStringC *out, int one,
+//
+// The callee writes through its out argument, but the pointer-vs-reference
+// spelling is not what the pushes can settle: both spellings give the same six
+// pushes and both were measured. What the pushes DO show is that the EAStringC
+// sits at [esp+8] and that the caller reloads its own argument straight out of
+// [esp+0x14] rather than spilling it, so the body needs no named local for it.
+const char *rva006CC530(int zero, int zero2, EAStringC &out, int one,
                         int oneAgain, int zero3);
 
 class Rva006DCD20
@@ -44,14 +50,17 @@ public:
 
 // The named-value cache that lives at 0x00E182E0. Retail enters the 0x006FFD80
 // ctor with `mov ecx,0x00E182E0`, so the cache is reached through that address
-// rather than through a pointer loaded out of .bss.
+// rather than through a pointer loaded out of .bss. Naming the cache TYPE
+// rather than a pointer to it is what reproduces the immediate form: naming an
+// object type makes this an object expression, and MSVC materializes such an
+// address as an immediate `mov ecx,<addr>` instead of a load through .bss.
 class Rva006DCD20Cache
 {
 public:
 	Rva006DCD20 *rva006FFD80(const char *name);
 };
 
-extern Rva006DCD20Cache *g_bfmeAptNameCacheAtE182E0;
+extern Rva006DCD20Cache g_bfmeAptNameCacheAtE182E0;
 
 // ?rva006ccaf0@@YAXPBD@Z @ 0x006CCAF0 (139B)
 void rva006ccaf0(const char *name)
@@ -61,9 +70,9 @@ void rva006ccaf0(const char *name)
 	// the release, exactly as retail lays it out.
 	EAStringC wanted(name);
 
-	const char *canonical = rva006CC530(0, 0, &wanted, 1, 1, 0);
+	const char *canonical = rva006CC530(0, 0, wanted, 1, 1, 0);
 
-	Rva006DCD20 *entry = g_bfmeAptNameCacheAtE182E0->rva006FFD80(canonical);
+	Rva006DCD20 *entry = g_bfmeAptNameCacheAtE182E0.rva006FFD80(canonical);
 	entry->slot0();
 	entry->rva006DE870(name);
 	entry->release();
