@@ -345,3 +345,19 @@ char *Rva00030A20( char *block )
 	return block - 8;
 }
 
+// Target 0x00665A30, 8 bytes; preceding int3 padding; terminal ret and int3 padding.
+// Donor b1 RVA 0x007F9490; target instructions corroborate these accesses.
+class Rva00665A30
+{
+public:
+	int increment();
+
+	char m_lead[ 0xC ];
+	int m_c;
+};
+
+int Rva00665A30::increment()
+{
+	return ++m_c;
+}
+
