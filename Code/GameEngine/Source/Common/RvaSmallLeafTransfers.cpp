@@ -213,3 +213,23 @@ void Rva00665670::clear()
 	m_8 = 0;
 }
 
+// Target 0x00661D40, 11 bytes; preceding int3 padding; terminal ret and int3 padding.
+// Donor b1 RVA 0x007F5520; target instructions corroborate these accesses.
+class Rva00661D40
+{
+public:
+	int get() const;
+
+	char m_lead[ 0x28 ];
+	int m_28;
+	int m_2c;
+};
+
+int Rva00661D40::get() const
+{
+	int value = m_2c;
+	if ( !value )
+		value = m_28;
+	return value;
+}
+
