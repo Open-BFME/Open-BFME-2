@@ -9414,3 +9414,4 @@ _Rva003F417EConstructRecords,0x003F417E,"Native003F5254 calls existing verified 
 ?Rva00030830FreeAllocation@@YAXPAX@Z,0x00030830,"Native record dtor288BF9 calls rowed GameMemory _free30830/17. One cdecl pointer argument; C++ call route retains EH state transition seen in target. Alias binds existing verified _free provider. Original source spelling unknown."
 ?release@Rva004E1579StringCleanup@@QAEXXZ,0x00036410,"Native ParseEnableRegion4E1579 cleanup calls verifiedStringBase-char releaseBuffer36410/133 onrecordfield+4. One-pointer thiscallABI route; alias binds actualexisting canonical provider. No new originalclass identity."
 ?rva00362862@Rva00362862Item@@QAEXHH@Z,0x00362862,"vector element notify helper called in loop at 0x00239300"
+??1Rva0042C1B7Item@@QAE@XZ,0x0042C1B7,"destructor thunk called by smart pointer reset at 0x0023932B and 0x00239345"
