@@ -62,6 +62,7 @@ extern GameWindowManager *TheWindowManager;
 class Rva00355D66 : public Gen_004902A0
 {
 public:
+	Rva00355D66();
 	virtual ~Rva00355D66();
 protected:
 	GameWindow *m_win;
@@ -101,6 +102,7 @@ Rva00355DC5::~Rva00355DC5()
 class Rva00355F3E : public Rva00355D66
 {
 public:
+	Rva00355F3E();
 	virtual ~Rva00355F3E();
 private:
 	int m_a[8];
@@ -110,7 +112,27 @@ private:
 	int m_e[8];
 	int m_f;
 	int m_g;
+	int m_h;
 };
+
+// ??0Rva00355F3E@@QAE@XZ @0x00355EFC 66B
+// Ctor counterpart of the 55B dtor above (vtable 0x00814E8C): base ctor 0x00355D4E
+// (pinned twin Rva00355D66, ICF with Rva00490470), vtable store, init five 8-int
+// arrays at +0x10/+0x30/+0x50 to 0 and +0x70/+0x90 to -1 plus +0xB0/+0xB4/+0xB8 to 0.
+// Evidence: gap between 0x00355EE1 and 0x00355F3E, same // cl, callees pinned.
+Rva00355F3E::Rva00355F3E()
+{
+	m_h = 0;
+	for (int i = 0; i < 8; i++) {
+		m_a[i] = 0;
+		m_b[i] = 0;
+		m_c[i] = 0;
+		m_d[i] = -1;
+		m_e[i] = -1;
+	}
+	m_f = 0;
+	m_g = 0;
+}
 
 Rva00355F3E::~Rva00355F3E()
 {
