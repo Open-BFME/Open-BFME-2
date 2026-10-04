@@ -9,7 +9,7 @@
 // INI evidence from game.dat .rdata: EquivalentTo token VA 0xC0F540 offset
 // +0x33c and BuildVariations token VA 0xC0F550 offset +0x330 share parse fn
 // 0x42F196 (parseAsciiStringVector), file offsets 0x9bdc58/0x9bdc48.
-// Layout is retail-measured: Overridable m_nextOverride +0x4 (via rowed
+// Layout is retail-measured: Rva001E35DFView m_nextOverride +0x4 (via rowed
 // getFinalOverride 0x1E35DF), name +0x64 (StringBase<char> compareNoCase rowed
 // 0x6A00), prereq vec +0x324 (per parsePrerequisites TU), m_buildVariations
 // +0x330, m_equivalentTo +0x33c. EquivalentTo uses iterator (pointer) loops
@@ -38,10 +38,15 @@ private:
 	Header *m_data;
 };
 
-class Overridable
+// TU-scoped ABI view for the exact14-byte getter at0x001E35DF.
+// Separate spelling avoids incompatible shared Overridable getter COMDATs;
+// Native335B callers and the14B getter prove the chain pointer at+4.
+// Original base-class spelling Overridable comes from donor source;
+// target bytes establish this view and chain walk, not that original name.
+class Rva001E35DFView
 {
 public:
-	const Overridable *getFinalOverride() const
+	const Rva001E35DFView *getFinalOverride() const
 	{
 		if (m_nextOverride)
 			return m_nextOverride->getFinalOverride();
@@ -49,11 +54,11 @@ public:
 	}
 
 	void *m_vtable;
-	Overridable *m_nextOverride;
+	Rva001E35DFView *m_nextOverride;
 	Bool m_isOverride;
 };
 
-class ThingTemplate : public Overridable
+class ThingTemplate : public Rva001E35DFView
 {
 public:
 	const StringBase<char> &getName() const { return m_name; }
