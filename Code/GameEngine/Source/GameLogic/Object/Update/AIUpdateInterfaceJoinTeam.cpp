@@ -1,8 +1,7 @@
 // cl: /O1 /Oy- /DNDEBUG /MD
 // These declarations use the native call-site spellings. Existing kept
-// definitions cover the same iterator operation and folded +0x48 setter.
+// definition covers the same iterator operation.
 #pragma comment(linker, "/alternatename:?advance@?$DLINK_ITERATOR@VObject@@@@QAEXXZ=?advance@?$Rva001705A0DlinkIterator@VObject@@@@QAEXXZ")
-#pragma comment(linker, "/alternatename:?setGoalWaypoint@AIStateMachine@@QAEXPBVWaypoint@@@Z=?Set_ObjectScale@RenderObjClass@@UAEXM@Z")
 // Reference: GeneralsMD AIUpdate.cpp at BFME1 1281192f682ce6f29b8f06b7daea4b5e8fdfbb24.
 // Target 0x0026D478..0x0026D56C: catch up with an eligible team member.
 // Native offsets and call/virtual-slot sequence are target evidence; the
