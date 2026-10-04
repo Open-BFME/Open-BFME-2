@@ -52846,3 +52846,5 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ?rva00529009@Rva00528FE6@@QAEXXZ,,0x00529009,26,Code/GameEngine/Source/Common/Rva00528FE6Setter.cpp,matched,clear owned CameraMarker then delete via rowed dtor
 ??0Rva0043A278@@QAE@XZ,,0x0043A278,18,Code/GameEngine/Source/Common/Rva0043A278Ctor.cpp,matched,ctor via pinned base plus vtable store
 ?rva0033A632@Rva0033A632@@QAEHXZ,,0x0033A632,44,Code/GameEngine/Source/Common/Rva0033A632.cpp,matched,TheGameLogic plus rowed 0x00245EDF plus movsx fallback
+??0Rva005E95C0@@QAE@ABV0@@Z,,0x003ADD9D,42,Code/GameEngine/Source/Common/V3PolyCopyCtorsO1.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+??0Rva005E9390@@QAE@ABV0@@Z,,0x003ADCC7,30,Code/GameEngine/Source/Common/V3PolyCopyCtorsO1.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
