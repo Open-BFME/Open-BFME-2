@@ -54167,3 +54167,20 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ?rva003775F7@Rva003775F7@@QAEPAVObject@@XZ,,0x003775F7,28,Code/GameEngine/Source/Common/System/Rva003775F7.cpp,matched,null guard plus getPart double deref plus TheGameLogic find
 ??0Rva005BEA06@@QAE@XZ,,0x005BEA06,28,Code/GameEngine/Source/Common/Rva005BEA06Ctor.cpp,matched,unlock ctor vector ushort 3 rowed 0x002339F3
 ?rva00262B53@Rva00262B53@@QAE_NPBUCoord3D@@@Z,,0x00262B53,42,Code/GameEngine/Source/GameLogic/Object/Update/Rva00262B53.cpp,matched,AI pathfinder wrapper via g_Va009FF0F8 plus rva002F477E pin
+?rva000512BC@Rva000512BCForwarder@@QAEXXZ,,0x000512BC,8,Code/GameEngine/Source/Common/VslotSizedForwarders.cpp,matched,vtable 0x00BC55B0#96 slot forwarder to slot 94 (arguments unproven)
+?rva00078AC6@Rva00078AC6Forwarder@@QAEXXZ,,0x00078AC6,8,Code/GameEngine/Source/Common/VslotSizedForwarders.cpp,matched,vtable 0x00BCBC40#60 (??_7Rva000CA119@@6BRva000C79C9@@@) slot forwarder to slot 30 (arguments unproven)
+?rva0008605A@Rva0008605AForwarder@@QAEXXZ,,0x0008605A,11,Code/GameEngine/Source/Common/VslotSizedForwarders.cpp,matched,vtable 0x00BC7568#94 slot forwarder to slot 12 (arguments unproven)
+?rva0008615B@Rva0008615BForwarder@@QAEXXZ,,0x0008615B,11,Code/GameEngine/Source/Common/VslotSizedForwarders.cpp,matched,vtable 0x00BC7568#58 slot forwarder to slot 1 (arguments unproven)
+?rva0008BD2B@Rva0008BD2BForwarder@@QAEXXZ,,0x0008BD2B,11,Code/GameEngine/Source/Common/VslotSizedForwarders.cpp,matched,vtable 0x00BC7568#138 slot forwarder to slot 20 (arguments unproven)
+?rva00091D32@Rva00091D32Forwarder@@QAEXXZ,,0x00091D32,11,Code/GameEngine/Source/Common/VslotSizedForwarders.cpp,matched,vtable 0x00BC80A0#5 slot forwarder to slot 132 (arguments unproven)
+?rva000ABD68@Rva000ABD68Forwarder@@QAEXXZ,,0x000ABD68,8,Code/GameEngine/Source/Common/VslotSizedForwarders.cpp,matched,vtable 0x00BC957C#0 (??_7Rva000ABD56@@6B@) slot forwarder to slot 3 (arguments unproven)
+?rva001EDDBB@Rva001EDDBBForwarder@@QAEXXZ,,0x001EDDBB,11,Code/GameEngine/Source/Common/VslotSizedForwarders.cpp,matched,vtable 0x00BE0358#9 (??_7Rva001EE3DE@@6B@) slot forwarder to slot 5 (arguments unproven)
+?rva0024002E@Rva0024002EForwarder@@QAEXXZ,,0x0024002E,7,Code/GameEngine/Source/Common/VslotSizedForwarders.cpp,matched,vtable 0x00BEDCB4#0 slot forwarder to slot 0 (arguments unproven)
+?rva00240035@Rva00240035Forwarder@@QAEXXZ,,0x00240035,8,Code/GameEngine/Source/Common/VslotSizedForwarders.cpp,matched,vtable 0x00BEDCB4#1 slot forwarder to slot 1 (arguments unproven)
+?rva0024003D@Rva0024003DForwarder@@QAEXXZ,,0x0024003D,8,Code/GameEngine/Source/Common/VslotSizedForwarders.cpp,matched,vtable 0x00BEDCB4#2 slot forwarder to slot 2 (arguments unproven)
+?rva0025C25A@Rva0025C25AForwarder@@QAEXXZ,,0x0025C25A,8,Code/GameEngine/Source/Common/VslotSizedForwarders.cpp,matched,vtable 0x00BF5DA0#12 (??_7BfmeStrVM0@@6B@) slot forwarder to slot 38 (arguments unproven)
+?rva0029AC98@Rva0029AC98Forwarder@@QAEXXZ,,0x0029AC98,8,Code/GameEngine/Source/Common/VslotSizedForwarders.cpp,matched,vtable 0x00BC7A88#83 slot forwarder to slot 67 (arguments unproven)
+?rva0030ADE8@Rva0030ADE8Forwarder@@QAEXXZ,,0x0030ADE8,5,Code/GameEngine/Source/Common/VslotSizedForwarders.cpp,matched,vtable 0x00BC8318#1 (??_7Rva00985E4@@6B@) slot forwarder to slot 14 (arguments unproven)
+?rva00328CC5@Rva00328CC5Forwarder@@QAEXXZ,,0x00328CC5,7,Code/GameEngine/Source/Common/VslotSizedForwarders.cpp,matched,vtable 0x00C0D8D8#2 slot forwarder to slot 0 (arguments unproven)
+?rva00328CCC@Rva00328CCCForwarder@@QAEXXZ,,0x00328CCC,8,Code/GameEngine/Source/Common/VslotSizedForwarders.cpp,matched,vtable 0x00C0D8E4#2 slot forwarder to slot 1 (arguments unproven)
+?rva0039AC9C@Rva0039AC9CForwarder@@QAEXXZ,,0x0039AC9C,8,Code/GameEngine/Source/Common/VslotSizedForwarders.cpp,matched,vtable 0x00C1AD20#1 (??_7Rva0039AD56@@6B@) slot forwarder to slot 1 (arguments unproven)
