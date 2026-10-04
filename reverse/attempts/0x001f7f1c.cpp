@@ -1,5 +1,5 @@
 // ?Rva001F7F1CGet@@YAXPAXH@Z
-// partial score=0.94 date=2026-10-04
+// partial score=0.94 date=2026-10-05
 // cl: /O1 /Oy- /DNDEBUG /MD /GX /arch:SSE
 // ?Rva001F7F1CGet@@YAXPAXH@Z, retail 0x001F7F1C (237B).
 // Fills a caller-supplied Float4 from the live particle system: zero the
@@ -18,13 +18,18 @@ extern ParticleSystem *Make001FCBD7();
 struct Vec2001F529D { float x; float y; };
 class Rva001F529D { public: void rva001F529D(Vec2001F529D *out); };
 struct BfmeParticleSystemHandle { ~BfmeParticleSystemHandle(); void *m_system; void *m_prev; void *m_next; };
+// The smart pointer is a 12-byte list element: 0x004CBC0, the callee retail
+// calls for its destructor, is an intrusive doubly-linked-list node unlink that
+// rewrites both neighbour slots (or the owner's +0x9C/+0xA0 sentinel pair when
+// this is the first node) and then clears +4 and +8. That fixes the field order
+// as prev at +0, next at +4, owner at +8.
 class RvaSmartPtr12 {
 public:
     RvaSmartPtr12(const RvaSmartPtr12 &that);
     ~RvaSmartPtr12();
-    void *m_ptr;
-    int m_pad04;
-    int m_pad08;
+    void *m_prev;
+    void *m_next;
+    void *m_owner;
 };
 class Rva001F6C54SmartField { public: RvaSmartPtr12 get() const; };
 class ParticleSystemManager;
@@ -35,19 +40,17 @@ struct Float4 { float a; float b; float c; float d; };
 void __cdecl Rva001F7F1CGet(void *obj, int arg)
 {
     float dest[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
-    if (TheParticleSystemManager != 0 && ((Rva001F6C54SmartField *)TheParticleSystemManager)->get().m_ptr != 0) {
+    if (TheParticleSystemManager != 0 && ((Rva001F6C54SmartField *)TheParticleSystemManager)->get().m_prev != 0) {
         RvaSmartPtr12 tmp2 = ((Rva001F6C54SmartField *)TheParticleSystemManager)->get();
-        ParticleSystem *sys = (ParticleSystem *)tmp2.m_ptr;
+        ParticleSystem *sys = (ParticleSystem *)tmp2.m_next;
         if (sys == 0)
             sys = Make001FCBD7();
         Vec2001F529D v;
         ((Rva001F529D *)sys)->rva001F529D(&v);
-        Float4 tmpArr;
-        tmpArr.a = v.x;
-        tmpArr.b = v.y;
-        tmpArr.c = 0.0f;
-        tmpArr.d = 0.0f;
-        *(Float4 *)dest = tmpArr;
+        dest[0] = v.x;
+        dest[1] = v.y;
+        dest[2] = 0.0f;
+        dest[3] = 0.0f;
     }
     FinalObj *o = (FinalObj *)obj;
     o->vtbl->slot(obj, arg, dest);
