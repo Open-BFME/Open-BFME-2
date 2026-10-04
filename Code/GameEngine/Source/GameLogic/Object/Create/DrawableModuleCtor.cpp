@@ -52,7 +52,9 @@ class DrawableModule : public Module
 {
 public:
 	DrawableModule(Thing *thing, const ModuleData *moduleData);
+protected:
 	virtual ~DrawableModule();
+public:
 	virtual void onCapture(Player *oldOwner, Player *newOwner) {}
 	virtual void onDisabledEdge(Bool nowDisabled) {}
 
