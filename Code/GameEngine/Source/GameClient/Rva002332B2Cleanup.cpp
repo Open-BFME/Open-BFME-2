@@ -47,8 +47,7 @@ class StringBase
 public:
 	friend class Rva002332B2;
 private:
-	~StringBase() { releaseBuffer(); }
-	void releaseBuffer();
+	~StringBase();
 	T *m_data;
 };
 
