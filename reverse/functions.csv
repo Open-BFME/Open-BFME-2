@@ -55062,7 +55062,6 @@ rva007916E1_constructor_unwind,,0x007916E1,11,Code/GameEngine/Source/Common/INI/
 ?Rva003BCA43Do@@YGXABVAsciiString@@@Z,,0x003BCA43,26,Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003BCA43Do.cpp,matched,undoNamedMapReveal then tail rva00357D52 via g_Va009FE16C
 ?rva005DCAF4@Rva005DC87B@@QAE_NXZ,,0x005DCAF4,25,Code/GameEngine/Source/Common/Rva005DCAF4.cpp,matched,bool getter via object bit
 ??1Rva001ED41B@@UAE@XZ,,0x001ED41B,91,Code/GameEngine/Source/Common/Rva001ED41BDtor.cpp,matched,pin plus caller 0x001ED530 deleting dtor plus vector 0x001ED363 plus clear 0x000AD6F4 plus base 0x001B4E74
-??_GRva005E0DC0@@QAEPAXI@Z,,0x005E11E8,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_Rva005E0DC0.cpp,matched,chain from 0x005E0DC0 landing via rowed dtor plus delete
 ?rva002AD1FD@Player@@QAEXXZ,,0x002AD1FD,94,Code/GameEngine/Source/Common/RTS/PlayerRva002AD1FD.cpp,matched,Player this via ecx passthrough with rowed callees and global g_bfmeWorldRV
 ?rva0028DA67@Object@@QAEXXZ,,0x0028DA67,82,Code/GameEngine/Source/GameLogic/Object/ObjectRva0028DA67.cpp,matched,Object flag plus template extents with testStatus and Player notify
 ?rva007B952C@@YAXXZ,,0x007B952C,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
@@ -55191,3 +55190,4 @@ _Rva003B8B44CopyDispatch,,0x003B8B44,29,Code/Libraries/Source/WWVegas/WWLib/Stlp
 ?rva004D05D7@Rva004D05D7@@QAEXVUnicodeString@@@Z,,0x004D05D7,52,Code/GameEngine/Source/Common/Rva004D05D7Set.cpp,matched,unlock via rowed set plus releaseBuffer plus caller
 ??_GRva00510CC3@@QAEPAXI@Z,,0x00510CA7,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_Rva00510CC3.cpp,matched,scalar deleting dtor via family pattern rowed base dtor
 ?rva002A9D02@Rva002A9BF2@@QAEXHPAVObject@@H@Z,,0x002A9D02,135,Code/GameEngine/Source/Common/RTS/Rva002A9BF2Get.cpp,matched,same 0x2DC window plus rowed callees and globals
+?rva005E1246@Rva005E1246@@QAEXXZ,,0x005E1246,26,Code/GameEngine/Source/Common/Rva005E1246.cpp,matched,chain via 0x005E0DC0 landing caller 0x005E12B9 plus8
