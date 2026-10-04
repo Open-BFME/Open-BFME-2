@@ -9219,3 +9219,5 @@ _Rva0030CAF8CursorEqual,0x0007E394,twin of dup_0007e394 29B exact cursor equalit
 ?bfme_showBackground@WindowManager@@QAEXH@Z,0x002233A6,donor callee name at retail 0x002233A6 read from ?Rva0046ED80@@YAXPBD@Z REL32 +0x0027; body already rowed as ?rva002233A6@Rva00222A8BTarget@@QAEXH@Z
 ?bfme_hideBackground@WindowManager@@QAEX_N@Z,0x00222F55,donor callee name at retail 0x00222F55 read from ?Rva0046ED80@@YAXPBD@Z REL32 +0x0055; body already rowed as ?rva00222F55@Rva00222A8BTarget@@QAEX_N@Z
 ?clear@?$StringBase@D@@QAEXXZ,0x00036410,donor callee of ??0ShellMenuSchemeImage@@QAE@XZ at retail 0x002004E1 read from its REL32 displacement; same body as ?releaseBuffer@?$StringBase@D@@AAEXXZ and ??1?$StringBase@D@@QAE@XZ pinned here
+??0?$DefaultParticleModule@$04@FXParticleSystem@@QAE@PAX0@Z,0x003ABF54,donor callee of the LightningEmissionModule ctor at retail 0x0055E2F4 read from its REL32 displacement; body unrowed
+??0LightningEmissionInfo@FXParticleSystem@@QAE@ABV01@@Z,0x003A6AF5,donor callee of the LightningEmissionModule ctor at retail 0x0055E30A read from its REL32 displacement; body unrowed
