@@ -55,6 +55,7 @@ public:
 	virtual Int getLocalSlotNum(void) const;
 	virtual void resetAccepted(void);
 	const LANGameSlot *getConstLANSlot(Int slotNum) const;
+	Bool rva004477C7(void) const;
 private:
 	unsigned char m_pad04[0x10 - 0x04];
 	Bool m_inGame; // +0x10
@@ -90,4 +91,11 @@ void LANGameInfo::resetAccepted( void )
 	{
 		m_LANSlot[i].unAccept();
 	}
+}
+
+Bool LANGameInfo::rva004477C7(void) const
+{
+	if (!m_inGame)
+		return false;
+	return m_LANSlot[0].isLocalPlayer();
 }
