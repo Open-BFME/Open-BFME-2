@@ -53612,3 +53612,11 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ?rva001074C8@Rva001074C8Host@@QAEXXZ,,0x001074C8,13,Code/GameEngine/Source/Common/VslotMiscForwarders.cpp,matched,vtable-slot body (size corrected)
 ?rva00109DA6@Rva00109DA6Host@@QAEXXZ,,0x00109DA6,13,Code/GameEngine/Source/Common/VslotMiscForwarders.cpp,matched,vtable-slot body (size corrected)
 ?rva0010BB04@Rva0010BB04Host@@QAEXXZ,,0x0010BB04,13,Code/GameEngine/Source/Common/VslotMiscForwarders.cpp,matched,vtable-slot body (size corrected)
+?getNextTemporarySourcePort@FirewallHelperClass@@QAEGH@Z,,0x0059539B,89,Code/GameEngine/Source/GameNetwork/FirewallHelperDetection.cpp,matched,ZH FirewallHelper port probe; BFME2 wraps to 8088
+?getManglerResponse@FirewallHelperClass@@QAEGGH@Z,,0x00594E07,232,Code/GameEngine/Source/GameNetwork/FirewallHelperDetection.cpp,matched,ZH FirewallHelper mangler reply reader on BFME2 layout; htons import for the swap
+?detectionTest2Update@FirewallHelperClass@@QAE_NXZ,,0x0059573C,153,Code/GameEngine/Source/GameNetwork/FirewallHelperDetection.cpp,matched,ZH FirewallHelper detection test 2; BFME2 clears SIMPLE when mangled
+?detectionTest4Stage2Update@FirewallHelperClass@@QAE_NXZ,,0x00595B97,109,Code/GameEngine/Source/GameNetwork/FirewallHelperDetection.cpp,matched,ZH FirewallHelper test 4 stage 2; BFME2 has no test 5
+?detectionTest1Update@FirewallHelperClass@@QAE_NXZ,,0x00595685,183,Code/GameEngine/Source/GameNetwork/FirewallHelperDetection.cpp,matched,ZH FirewallHelper detection test 1; BFME2 send takes dest port
+?detectionTest3Update@FirewallHelperClass@@QAE_NXZ,,0x005957D5,215,Code/GameEngine/Source/GameNetwork/FirewallHelperDetection.cpp,matched,ZH FirewallHelper detection test 3
+?detectionTest4Stage1Update@FirewallHelperClass@@QAE_NXZ,,0x00595A9F,248,Code/GameEngine/Source/GameNetwork/FirewallHelperDetection.cpp,matched,ZH FirewallHelper test 4 stage 1; sends to port 4322
+?detectionTest3WaitForResponsesUpdate@FirewallHelperClass@@QAE_NXZ,,0x005958AC,499,Code/GameEngine/Source/GameNetwork/FirewallHelperDetection.cpp,matched,ZH FirewallHelper test 3 wait; BFME2 Int relativeDelta scheme 0x00594F19
