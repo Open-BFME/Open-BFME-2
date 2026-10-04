@@ -199,3 +199,16 @@ public:
 Rva005D9C6C::Rva005D9C6C()
 {
 }
+
+class Rva005D7A1B : public Rva005EE30C
+{
+public:
+	Rva005D7A1B();
+	virtual ~Rva005D7A1B();
+};
+
+// ??0Rva005D7A1B@@QAE@XZ @0x005D7A09 18B: base ctor 0x005EE2E6 then vtable
+// 0x00875E20. Evidence: vtable store at [this]; precedes rowed dtor 0x005D7A1B.
+Rva005D7A1B::Rva005D7A1B()
+{
+}
