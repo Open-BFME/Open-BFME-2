@@ -24,3 +24,25 @@ void famgenDelete(CriticalSectionClass::LockClass *p) { delete p; }
 // ??_GPrereqUnitRec@ProductionPrerequisite@@QAEPAXI@Z @0x3b3fb1
 struct ProductionPrerequisite { struct PrereqUnitRec { ~PrereqUnitRec(); }; };
 void famgenDelete(ProductionPrerequisite::PrereqUnitRec *p) { delete p; }
+
+// Native577DE1/26 is a no-argument thiscall that clears its one pointer word
+// before destroying and freeing the old value. The original owner and payload
+// names remain unknown. The existing PrereqUnitRec destructor spelling is used
+// only as the already-linked call contract for the native577998 shared cleanup;
+// its +8 AsciiString teardown does not identify this payload as PrereqUnitRec.
+class Rva00577DE1OwningCell
+{
+    void *m_value;
+public:
+    void clear();
+};
+void Rva00577DE1OwningCell::clear()
+{
+    void *old = m_value;
+    m_value = 0;
+    if (old)
+    {
+        static_cast<ProductionPrerequisite::PrereqUnitRec *>(old)->~PrereqUnitRec();
+        ::operator delete(old);
+    }
+}
