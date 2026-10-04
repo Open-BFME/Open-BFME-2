@@ -62,3 +62,35 @@ Rva004E5086::~Rva004E5086()
 {
     rva004E4E76();
 }
+
+struct ResourceOwnedEntryNode
+{
+    ResourceOwnedEntryNode *next;
+    ResourceOwnedEntryNode *prev;
+    Rva004E5086 entry;
+};
+class ResourceOwnedEntryList
+{
+public:
+    void rva004E54ED();
+    ResourceOwnedEntryNode *head;
+};
+extern "C" void __cdecl free(void *);
+
+// Retail 4E54ED/49B: destroy each node+8 entry, free the node, reset head.
+void ResourceOwnedEntryList::rva004E54ED()
+{
+    ResourceOwnedEntryNode *node = head->next;
+    if (node != head)
+    {
+        do
+        {
+            ResourceOwnedEntryNode *old = node;
+            node = node->next;
+            old->entry.~Rva004E5086();
+            free(old);
+        } while (node != head);
+    }
+    head->next = head;
+    head->prev = head;
+}
