@@ -34,7 +34,8 @@ class Rva00577DE1OwningCell
 {
     void *m_value;
 public:
-    void clear();
+    __declspec(noinline) void clear();
+    void rva00577E3EForwardClear();
 };
 void Rva00577DE1OwningCell::clear()
 {
@@ -45,4 +46,11 @@ void Rva00577DE1OwningCell::clear()
         static_cast<ProductionPrerequisite::PrereqUnitRec *>(old)->~PrereqUnitRec();
         ::operator delete(old);
     }
+}
+
+// Native Ghidra577E3E/5 retains the no-argument receiver contract above.
+// Its whole body tail-jumps to the independently verified577DE1 clear.
+void Rva00577DE1OwningCell::rva00577E3EForwardClear()
+{
+    clear();
 }
