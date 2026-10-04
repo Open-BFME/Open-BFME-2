@@ -1,5 +1,3 @@
-// ?rva0005117B@Rva0005117B@@QAEMM@Z
-// partial score=0.96 date=2026-09-30
 // cl: /O1 /arch:SSE /MD /EHsc /DNDEBUG
 // ?rva0005117B@Rva0005117B@@QAEMM@Z @0x0005117B 72B: clamp 1-v/denom to [0,1]
 // Evidence: callers 0x0005AA24 0x0005F715 0x0005F766 0x0005F91E; global 1.0f g_Va00BBB8D8.
