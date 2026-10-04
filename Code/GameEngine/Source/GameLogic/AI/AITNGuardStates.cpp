@@ -37,6 +37,12 @@
 //    line 586; TAiData m_guardEnemyScanRate +0x40, m_nextEnemyScanTime +0x20),
 //    then the AI's friend_setGoalObject(NULL) (rowed opaque
 //    AIUpdateInterface::rva00262B0F).
+//  - AITNGuardInnerState::update, retail 0x005463C9 (261 bytes): slot 6 of
+//    0x00C6A140; Zero Hour's body, with the guard machine read once into a
+//    local for the nemesis and owner lookups (retail keeps it in a register
+//    across the call). TunnelNetworkScan is the rowed file
+//    helper 0x00545DEE, which takes the owner in ECX (__fastcall, see
+//    AITNGuardScan.cpp).
 // BFME2 layout (target evidence): the attack sub-state is deleted with a
 // global-scope delete (vslot 0 with flag 0, then ::operator delete); owner
 // team +0x304, object id +0x74, player tunnel tracker +0x2E8, guard machine
@@ -52,7 +58,8 @@ enum ObjectID
 };
 enum StateExitType
 {
-	EXIT_NORMAL = 0
+	EXIT_NORMAL = 0,
+	EXIT_RESET = 1
 };
 enum StateReturnType
 {
@@ -271,6 +278,7 @@ class AITNGuardInnerState : public State
 public:
 	virtual StateReturnType onEnter();
 	virtual void onExit(StateExitType status);
+	virtual StateReturnType update();
 private:
 	AITNGuardMachine *getGuardMachine() { return (AITNGuardMachine *)getMachine(); }
 	unsigned char m_pad1C[0x20 - 0x1C];
@@ -448,6 +456,63 @@ StateReturnType AITNGuardOuterState::onEnter( void )
 
 	// if we had no one to attack, we were successful, so go to the next state.
 	return STATE_SUCCESS;
+}
+
+Object *__fastcall TunnelNetworkScan(Object *owner);
+
+//--------------------------------------------------------------------------------------
+StateReturnType AITNGuardInnerState::update( void )
+{
+	AITNGuardMachine *machine = getGuardMachine();
+	Object* nemesis = TheGameLogic->findObjectByID(machine->getNemesisID()) ;
+	Player *ownerPlayer = machine->getOwner()->getControllingPlayer();
+	TunnelTracker *tunnels = NULL;
+	if (ownerPlayer) {
+		tunnels = ownerPlayer->getTunnelSystem();
+	}
+
+	Object* owner = getMachineOwner();
+	// killed him.
+	Object *teamVictim = owner->getTeam()->getTeamTargetObject();
+	if (nemesis == NULL)
+	{
+		if (teamVictim)
+		{
+			getGuardMachine()->setNemesisID(teamVictim->getID());
+			m_exitConditions.m_attackGiveUpFrame = TheGameLogic->getFrame() + TheAI->getAiData()->m_guardChaseUnitFrames;
+			return STATE_CONTINUE;
+		}
+
+		// Check tunnel.
+		if (tunnels) {
+			nemesis = tunnels->getCurNemesis();
+			if (nemesis) {
+				getGuardMachine()->setNemesisID(nemesis->getID());
+				m_exitConditions.m_attackGiveUpFrame = TheGameLogic->getFrame() + TheAI->getAiData()->m_guardChaseUnitFrames;
+				return STATE_CONTINUE;
+			}
+		}
+
+		if (m_scanForEnemy) {
+			m_scanForEnemy = false; // we just do 1 scan.
+			nemesis = TunnelNetworkScan(owner);
+			if (nemesis) {
+				m_attackState->onExit(EXIT_RESET);
+				m_attackState->getMachine()->setGoalObject(nemesis);
+				if (tunnels) {
+					tunnels->updateNemesis(nemesis);
+				}
+				StateReturnType returnVal = m_attackState->onEnter();
+				return returnVal;
+			}
+		}
+	} else {
+		if (nemesis != teamVictim && teamVictim != NULL) {
+			tunnels->updateNemesis(nemesis);
+			getGuardMachine()->setNemesisID(teamVictim->getID());
+		}
+	}
+	return m_attackState->update();
 }
 
 StateReturnType AITNGuardOuterState::update( void )
