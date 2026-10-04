@@ -53,3 +53,10 @@ float Rva001E46E1::rva001E4845(Object *obj)
 		value = m_30;
 	return value;
 }
+float Rva001E46E1::rva001E488A(Object *obj)
+{
+	float value = rva001E46E1(obj) / (float)m_data->m_50;
+	if (value > m_34)
+		value = m_34;
+	return value;
+}
