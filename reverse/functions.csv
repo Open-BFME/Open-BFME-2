@@ -52822,3 +52822,4 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ?rva004BBA3D@GeometryInfo@@QAEXM@Z,,0x004BBA3D,40,Code/GameEngine/Source/Common/System/GeometryInfoRva004BBA3D.cpp,matched,GeometryInfo first-shape radius store then rowed calcBoundingStuff
 ??1Rva0037BB53@@UAE@XZ,,0x0037BB53,69,Code/GameEngine/Source/Common/Rva0037BB53Dtor.cpp,matched,dtor over Rva00382FA7 base with 8x0x1AC array via vector dtor
 ??1Rva0037BBED@@UAE@XZ,,0x0037BBED,120,Code/GameEngine/Source/Common/Rva0037BBEDDtor.cpp,matched,outer dtor with TheGameInfo fclose and Rva0037BB53 member
+?rva00377064@Rva00377064@@QAEXHHH@Z,,0x00377064,168,Code/GameEngine/Source/Common/System/Rva00377064Update.cpp,matched,unlock via GameLogic GlobalData Shell rows callers 0x002B47F8 0x002B4877 0x003779BB
