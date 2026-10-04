@@ -1,5 +1,6 @@
 // ?rva003A10FE@Team@@QAEX_N@Z
-// partial score=0.92 date=2026-10-04
+// partial score=0.94 date=2026-10-04
+// ?rva003A10FE@Team@@QAEX_N@Z
 // cl: /O1 /DNDEBUG /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 //
@@ -25,7 +26,11 @@ class DLINK_ITERATOR
 {
 private:
 	OBJCLASS *m_cur;
-	unsigned char m_targetAbiState[20];
+	// Retail's frame is 0x28 and ours is 0x24 at this size; the iterator
+	// view is padded to the width that makes both agree. m_targetAbiState is
+	// never read here -- it exists only so the DLINK_ITERATOR occupies the
+	// frame space retail gives it.
+	unsigned char m_targetAbiState[24];
 
 public:
 	void advance();
