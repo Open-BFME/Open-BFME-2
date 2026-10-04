@@ -42,8 +42,11 @@ public:
 };
 extern GameLogic *TheGameLogic;
 
-class AudioManager;
-extern AudioManager *TheAudio;
+class GameWindowTransitionsHandler;
+extern GameWindowTransitionsHandler *TheTransitionHandler;
+// Native DIR32 0xDFDC14 is the transition singleton, defined in WinMain.cpp.
+// TheAudio is separately located at 0xDFE6E8. Use the established typed alias.
+#pragma comment(linker, "/alternatename:?TheTransitionHandler@@3PAVGameWindowTransitionsHandler@@A=?theBfmeDfdc14@@3PAVAudioManager@@A")
 
 class GameWindowTransitionsHandler
 {
@@ -71,7 +74,7 @@ void Rva00420110::rva00420110()
 		TheDisplay->m_140 = 1;
 		if (((BfmeGlob939D *)TheGameLogic)->bfmeCall939D() != 0 && m_85 != 0)
 		{
-			((GameWindowTransitionsHandler *)TheAudio)->setGroup(AsciiString("MPorSkirmishFadeToScoreScreen"), 0);
+			TheTransitionHandler->setGroup(AsciiString("MPorSkirmishFadeToScoreScreen"), 0);
 		}
 	}
 }

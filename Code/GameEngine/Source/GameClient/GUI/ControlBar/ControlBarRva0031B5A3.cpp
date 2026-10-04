@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
 // ?rva0031B5A3@ControlBar@@QAEXPBVPlayer@@@Z @0x0031B5A3 106B ControlBar arrow group refresh for local player.
-// Evidence: isLocalPlayer rowed 0x002A9D89; money via ThePlayerList 0x009FEEE8 plus 0x10 plus 0x24 vs +0x27C; TheAudio 0x009FDC14 null plus TheInGameUI 0x009FEDF0 bytes 0x15 0x16; ControlBarArrow literal via rowed StringBase ctor 0x00037BA0 plus setGroup rowed 0x001DC252; sets +0x278 and +0x28; callers 0x002A9F95 0x002A9FED 0x002A9FFE; neighbours share /O1.
+// Evidence: isLocalPlayer rowed 0x002A9D89; money via ThePlayerList 0x009FEEE8 plus 0x10 plus 0x24 vs +0x27C; TheTransitionHandler 0x00DFDC14 null plus TheInGameUI 0x009FEDF0 bytes 0x15 0x16; ControlBarArrow literal via rowed StringBase ctor 0x00037BA0 plus setGroup rowed 0x001DC252; sets +0x278 and +0x28; callers 0x002A9F95 0x002A9FED 0x002A9FFE; neighbours share /O1.
 #include "ascii_string.h"
 
 class Player
@@ -24,8 +24,11 @@ public:
 
 extern PlayerList *ThePlayerList;
 
-class AudioManager;
-extern AudioManager *TheAudio;
+class GameWindowTransitionsHandler;
+extern GameWindowTransitionsHandler *TheTransitionHandler;
+// Native DIR32 0xDFDC14 is the transition singleton, defined in WinMain.cpp.
+// TheAudio is separately located at 0xDFE6E8. Use the established typed alias.
+#pragma comment(linker, "/alternatename:?TheTransitionHandler@@3PAVGameWindowTransitionsHandler@@A=?theBfmeDfdc14@@3PAVAudioManager@@A")
 
 class InGameUI
 {
@@ -67,13 +70,13 @@ void ControlBar::rva0031B5A3(const Player *player)
 		if (m_027C > money)
 			goto done;
 	}
-	if (TheAudio == 0)
+	if (TheTransitionHandler == 0)
 		goto done;
 	if (TheInGameUI->m_15 == 0)
 		goto done;
 	if (TheInGameUI->m_16 == 0)
 		goto done;
-	((GameWindowTransitionsHandler *)TheAudio)->setGroup(AsciiString("ControlBarArrow"), 0);
+	TheTransitionHandler->setGroup(AsciiString("ControlBarArrow"), 0);
 done:
 	m_0278 = 1;
 	m_0028 = 1;
