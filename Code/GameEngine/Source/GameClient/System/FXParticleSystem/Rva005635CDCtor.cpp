@@ -51,3 +51,6 @@ void __cdecl Rva003A8454Init()
 // nonvirtual destructor ABI matches the existing rowed Coord3D destructor;
 // the publisher original name and receiver extent remain unknown.
 #pragma comment(linker, "/alternatename:??1Rva005635CD@@QAE@XZ=??1Coord3D@@QAE@XZ")
+
+// Compiler-emitted atexit callback _$E2 at0x007B7E99/10 loads receiverE02934
+// and tail-jumps to the independently verified empty destructor B3FD0.
