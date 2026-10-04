@@ -433,55 +433,6 @@ void OpenContain::harmAndForceExitAllContained( DamageInfo *info )
 
 
 //-------------------------------------------------------------------------------------------------
-//-------------------------------------------------------------------------------------------------
-// ?OpenContain::doLoadSound present-unmatched
-void OpenContain::doLoadSound()
-{
-	//
-	// play a sound for loading someone into a building
-	//
-	if( m_loadSoundsEnabled )
-	{
-		UnsignedInt now = TheGameLogic->getFrame();
-		if( now != m_lastLoadSoundFrame )
-		{
-			if (getOpenContainModuleData())
-			{
-				AudioEventRTS enterSound(getOpenContainModuleData()->m_enterSound);
-				enterSound.setObjectID(getObject()->getID());
-				TheAudio->addAudioEvent(&enterSound);
-			}
-			// save this frame as the last time we did this sound
-			m_lastLoadSoundFrame = now;
-		}
-	}
-}
-
-//-------------------------------------------------------------------------------------------------
-//-------------------------------------------------------------------------------------------------
-// ?OpenContain::doUnloadSound present-unmatched
-void OpenContain::doUnloadSound()
-{
-	//
-	// play a sound for unloading someone from a building ... but don't play more
-	// than one per frame (we can do meta unload all commands)
-	//
-	UnsignedInt now = TheGameLogic->getFrame();
-	if( now != m_lastUnloadSoundFrame )
-	{
-		if (getOpenContainModuleData())
-		{
-			AudioEventRTS exitSound(getOpenContainModuleData()->m_exitSound);
-			exitSound.setObjectID(getObject()->getID());
-
-			TheAudio->addAudioEvent(&exitSound);
-		}
-		// save this frame as the last time we did this sound
-		m_lastUnloadSoundFrame = now;
-	}
-}
-
-//-------------------------------------------------------------------------------------------------
 /** Iterate the contained list and call the callback on each of the objects */
 //-------------------------------------------------------------------------------------------------
 // ?OpenContain::iterateContained present-unmatched
