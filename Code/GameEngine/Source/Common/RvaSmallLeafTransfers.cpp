@@ -248,3 +248,19 @@ void Rva006D3840::clear()
 	m_target[ 3 ] = 0;
 }
 
+// Target 0x0019B080, 9 bytes; preceding ret 4 and aligned entry; terminal ret and int3 padding.
+// Donor b1 RVA 0x00979380; target instructions corroborate these accesses.
+class Rva0019B080
+{
+public:
+	unsigned int flag() const;
+
+	char m_lead[ 0x10 ];
+	unsigned int m_10;
+};
+
+unsigned int Rva0019B080::flag() const
+{
+	return m_10 & 0x100000;
+}
+
