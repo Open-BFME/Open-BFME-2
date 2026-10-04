@@ -49,7 +49,6 @@ private:
 
 // Native: predecessorRET at6341A, complete11B before next Ghidra body63426,
 // rdata pointer7C5988 names this entry; conditionally zeroes the+8 word.
-// ?reset@Rva0006341B@@QAEXXZ present-unmatched
 void Rva0006341B::reset()
 {
     if (m_word08)
