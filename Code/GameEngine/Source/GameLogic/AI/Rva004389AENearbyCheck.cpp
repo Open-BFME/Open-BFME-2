@@ -8,6 +8,13 @@
 //   0x004389AE  the same test, taken only when the third argument's +0x9C or +0x00
 //               bit 0 is set (both REL32 in 0x004D990E with ECX the
 //               TheGameLogic +0x178 member)
+//   0x0043912F  whether an object other than this one, alive, passing
+//               0x002614DF and 0x0026118B, of the TheGlobalData +0xEB4
+//               object filter for the object's player and relationship 4
+//               (the third argument's +0x9C bit 1) or 1 to it lies within its
+//               template radius times the third argument's +0x14 scale of the
+//               position (searched within this +0x10 times that scale, 3D
+//               distance); its ID goes to the fourth argument when given
 
 class Object;
 class Player;
@@ -57,6 +64,58 @@ struct Rva00045411BitSet
 };
 extern unsigned char g_00DFEFA4StoragePrototype[28];
 
+// vftable 0x00BF91BC, allow 0x002611BF.
+class Rva002611BFFilter : public Rva000421C8
+{
+public:
+	Rva002611BFFilter(const Object *obj) : m_obj(obj) {}
+	virtual bool allow(Object *obj);
+	const Object *m_obj;
+};
+
+// vftable 0x00C07190, allow 0x002614DF: +0x08 an object.
+class Rva002614DFFilter : public Rva000421C8
+{
+public:
+	Rva002614DFFilter(const Object *obj) : m_obj(obj) {}
+	virtual bool allow(Object *obj);
+	const Object *m_obj;
+};
+
+// vftable 0x00C17F08, allow 0x0026118B: no members of its own.
+class Rva0026118BFilter : public Rva000421C8
+{
+public:
+	virtual bool allow(Object *obj);
+};
+
+// vftable 0x00BCECF0, allow 0x002614EC: +0x08 what to compare, +0x0C a
+// player, +0x10 whether a hit allows.
+class Rva002614ECFilter : public Rva000421C8
+{
+public:
+	Rva002614ECFilter(const void *what, Player *player, bool match)
+		: m_what(what), m_player(player), m_match(match) {}
+	virtual bool allow(Object *obj);
+	const void *m_what;
+	Player *m_player;
+	bool m_match;
+};
+
+// vftable 0x00BFBC90, allow 0x00260EB1, getPlayerMask 0x00260E6A: the object,
+// relationship flags and whether a hit allows.
+class Rva00260EB1Filter : public Rva000421C8
+{
+public:
+	Rva00260EB1Filter(const Object *obj, int flags, bool match)
+		: m_obj(obj), m_flags(flags), m_match(match) {}
+	virtual bool allow(Object *obj);
+	virtual int getPlayerMask();
+	const Object *m_obj;
+	int m_flags;
+	bool m_match;
+};
+
 #pragma comment(linker, "/alternatename:?getPlayerMask@Rva000421C8@@UAEHXZ=?Get_File_Handle@FileClass@@UAEPAXXZ")
 
 struct Coord3D
@@ -74,19 +133,48 @@ private:
 	unsigned m_data[32];
 };
 
+class ThingTemplate
+{
+public:
+	char m_pad00[0x10];
+	float m_10;			// +0x10 the radius
+};
+
+enum ObjectID
+{
+	INVALID_ID = 0
+};
+
 class Object
 {
 public:
 	bool isEffectivelyDead() const { return (m_438 & 1) != 0; }
-	char m_pad000[0x284];
+	Player *getControllingPlayer() const;	// 0x0028AFA9
+	const Coord3D *getPosition() const { return &m_pos; }
+	char m_pad000[0x04];
+	const ThingTemplate *m_template;	// +0x04
+	char m_pad008[0x38 - 0x08];
+	Coord3D m_pos;			// +0x38
+	char m_pad044[0x74 - 0x44];
+	ObjectID m_74;			// +0x74 the ID
+	char m_pad078[0x284 - 0x78];
 	unsigned m_284[32];		// +0x284
 	char m_pad304[0x438 - 0x304];
 	unsigned char m_438;		// +0x438
 };
 
+struct BfmeWideResult
+{
+	Object *next() throw();	// 0x00045623
+	~BfmeWideResult();	// 0x0004AA28
+	void *m_value;
+};
+
 class PartitionManager
 {
 public:
+	BfmeWideResult iterateObjectsInRange(const Coord3D *pos, float radius, int distCalc,
+		Rva000421C8 *filters, int order);	// 0x00625610
 	Object *getClosestObject(const Coord3D *pos, float maxDist, int dc,
 		Rva000421C8 *filters);	// 0x00625360
 };
@@ -102,16 +190,31 @@ extern TerrainLogic *TheTerrainLogic;
 struct Rva004388E3Template
 {
 	unsigned char m_00;		// +0x00 bit 0
-	char m_pad01[0x1C - 0x01];
+	char m_pad01[0x14 - 0x01];
+	float m_14;			// +0x14 the scale
+	char m_pad18[0x1C - 0x18];
 	Rva00406F9C m_1C;		// +0x1C
-	unsigned char m_9C;		// +0x9C bit 0
+	unsigned char m_9C;		// +0x9C bits 0 and 1
 };
+
+
+class GlobalData
+{
+public:
+	char m_pad000[0xEB4];
+	int m_EB4;		// +0xEB4 what the 0x002614EC filter compares
+};
+extern GlobalData *TheGlobalData;
 
 class Rva004389AE
 {
 public:
 	bool rva004388E3(Object *obj, const Coord3D *pos, Rva004388E3Template *tmpl);
 	bool rva004389AE(Object *obj, const Coord3D *pos, Rva004388E3Template *tmpl);
+	bool rva0043912F(Object *obj, const Coord3D *pos, Rva004388E3Template *tmpl, ObjectID *out);
+private:
+	char m_pad00[0x10];
+	float m_10;		// +0x10 the scale
 };
 
 bool Rva004389AE::rva004388E3(Object *obj, const Coord3D *pos, Rva004388E3Template *tmpl)
@@ -132,5 +235,36 @@ bool Rva004389AE::rva004389AE(Object *obj, const Coord3D *pos, Rva004388E3Templa
 {
 	if (((tmpl->m_9C & 1) || (tmpl->m_00 & 1)) && rva004388E3(obj, pos, tmpl))
 		return true;
+	return false;
+}
+
+bool Rva004389AE::rva0043912F(Object *obj, const Coord3D *pos, Rva004388E3Template *tmpl, ObjectID *out)
+{
+	int flags = (tmpl->m_9C & 2) ? 4 : 1;
+	Rva002614DFFilter notThis(obj);
+	Rva0026119DFilter alive;
+	Rva0026118BFilter third;
+	Rva002611BFFilter notSelf(obj);
+	Rva002614ECFilter same(&TheGlobalData->m_EB4, obj->getControllingPlayer(), true);
+	Rva00260EB1Filter relationship(obj, flags, true);
+	notThis.link(&alive);
+	notThis.link(&third);
+	notThis.link(&notSelf);
+	notThis.link(&same);
+	notThis.link(&relationship);
+	BfmeWideResult hits = ThePartitionManager->iterateObjectsInRange(pos,
+		m_10 * tmpl->m_14, 2, &notThis, 0);
+	Object *other;
+	while ((other = hits.next()) != 0) {
+		float r = other->m_template->m_10 * tmpl->m_14;
+		float dx = pos->x - other->m_pos.x;
+		float dy = pos->y - other->m_pos.y;
+		float dz = pos->z - other->m_pos.z;
+		if (dx * dx + dy * dy + dz * dz < r * r) {
+			if (out)
+				*out = other->m_74;
+			return true;
+		}
+	}
 	return false;
 }
