@@ -1,6 +1,8 @@
 // ?rva006C39F0@Rva006C39F0Owner@@QAE_NIIIPAX@Z
-// partial score=0.85 date=2026-10-04
+// partial score=0.88 date=2026-10-04
+// ?rva006C39F0@Rva006C39F0Owner@@QAE_NIIIPAX@Z
 // cl: /O2 /DNDEBUG /MD
+// ?rva006C39F0@Rva006C39F0Owner@@QAE_NIIIPAX@Z @ 0x006C39F0 (191B)
 // Address-derived recovery of 0x006C39F0 (191 bytes), the delayed-free hash
 // insert of the debug allocator. Structure, hash shape and flags come from the
 // near file Rva006C21C0.cpp, whose rowed body this one calls at 0x006C21C0.
@@ -18,7 +20,6 @@
 //
 // The class view is deliberately partial: only the fields these two bodies
 // touch are named, and the allocator object is known to exceed 0x684 bytes.
-
 struct Rva006C17B0Node
 {
 	unsigned int m_key;
@@ -26,9 +27,6 @@ struct Rva006C17B0Node
 	Rva006C17B0Node *m_next;
 };
 
-// Retail reads the bucket array at table+0 and divides by table+8, so only
-// those two leading fields are named here; the rowed insert body at 0x006C21C0
-// proves the rest of the object independently and is not re-declared.
 class Rva006C17B0
 {
 public:
@@ -42,9 +40,7 @@ public:
 class Rva006C39F0Owner
 {
 public:
-	// 0x006C3940: thiscall, ret 4, returns the run base or null.
 	void *rva006C3940Alloc(unsigned int size);
-	// 0x006C1A50: thiscall, ret 4, releases a run.
 	void rva006C1A50Free(void *run);
 
 	bool rva006C39F0(unsigned int key, unsigned int altLen, unsigned int allocSize, void *buffer);
@@ -52,53 +48,48 @@ public:
 	unsigned char m_unaccessed[0x680];
 	unsigned char m_tracking;
 	unsigned char m_pad681[3];
-	Rva006C17B0 m_table; // +0x684, embedded by value
+	Rva006C17B0 m_table;
 };
 
-// ?rva006C39F0@Rva006C39F0Owner@@QAE_NIIIPAX@Z @ 0x006C39F0 (191B)
-// Retail holds `this` in a local (spilled to [esp+4]) because the allocator and
-// release calls clobber ecx, and it carries two byte flags: bl starts 1 so the
-// not-tracking and chain-hit paths share the `al = bl` epilogue and return true,
-// is cleared before the miss work, and is set again once an allocation succeeds
-// so only a genuinely self-allocated run is released when the insert rejects it.
 bool Rva006C39F0Owner::rva006C39F0(unsigned int key, unsigned int altLen,
                                   unsigned int allocSize, void *buffer)
 {
-	Rva006C39F0Owner *self = this;
-	bool result = true;
+	if (!m_tracking)
+		return true;
 
-	if (self->m_tracking) {
-		Rva006C17B0 *table = &self->m_table;
-		Rva006C17B0Node *node = table->m_array
-			? table->m_array[(key >> 3) % table->m_prime] : 0;
+	Rva006C17B0 *table = &m_table;
+	Rva006C17B0Node *node = table->m_array
+		? table->m_array[(key >> 3) % table->m_prime] : 0;
 
-		while (node) {
-			if (node->m_key == key)
-				return result;
-			node = node->m_next;
-		}
-
-		result = false;
-		unsigned char *run = (unsigned char *)buffer;
-		bool allocated = false;
-
-		if (buffer) {
-			if (table->rva006C21C0(key, run))
-				return true;
-		} else if (allocSize) {
-			run = (unsigned char *)self->rva006C3940Alloc(allocSize);
-			if (run) {
-				*(unsigned short *)run = (unsigned short)allocSize;
-				*(unsigned short *)(run + allocSize - 2) = 0;
-				allocated = true;
-				result = true;
-				if (table->rva006C21C0(altLen, run))
-					return true;
-			}
-			if (allocated)
-				self->rva006C1A50Free(run);
-		}
+	while (node) {
+		if (node->m_key == key)
+			return true;
+		node = node->m_next;
 	}
 
-	return result;
+	unsigned char *run = (unsigned char *)buffer;
+	bool allocated = false;
+
+	if (!buffer) {
+		if (!allocSize)
+			return false;
+
+		run = (unsigned char *)rva006C3940Alloc(allocSize);
+		if (!run)
+			return false;
+
+		*(unsigned short *)run = (unsigned short)allocSize;
+		*(unsigned short *)(run + allocSize - 2) = 0;
+		allocated = true;
+	}
+
+	if (!table->rva006C21C0(altLen, run))
+		return false;
+
+	if (allocated) {
+		rva006C1A50Free(run);
+		return false;
+	}
+
+	return true;
 }
