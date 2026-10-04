@@ -1,0 +1,59 @@
+// cl: /Ireference/shims/bfme2_ascii -DNDEBUG -MD -EHsc /Os /G7 -Ireference/open-bfme-1/game/GameEngine/Source/GameClient/GUI
+// stlport
+// ?rva00201B05@HeaderTemplateManager@@QAEXXZ @0x00201B05 76B
+// HeaderTemplateManager font refresh loop. Evidence: caller 0x00201BD0 loads
+// HeaderTemplate.ini then calls here; prev 0x00201AE2 getNextHeader and next
+// 0x00201C39 newHeaderTemplate prove HeaderTemplateManager owner; rowed callees
+// adjustFontSize 0x001EA40D and getFont 0x002189E1 with globals TheGlobalLanguageData
+// 0x009FDC84 and TheFontLibrary 0x009FE33C; layout from HeaderTemplateCreation
+// (m_font +0 m_name +4 m_fontName +8 m_point +0xC m_bold +0x10 size 20).
+#define _STLP_NO_EXCEPTIONS 1
+#define _STLP_USE_STATIC_LIB 1
+#include <list>
+#include "ascii_string.h"
+
+class GameFont;
+class GlobalLanguage
+{
+public:
+	int adjustFontSize(int value);
+};
+class FontLibrary
+{
+public:
+	GameFont *getFont(const AsciiString *name, float size, bool bold);
+};
+
+extern GlobalLanguage *TheGlobalLanguageData;
+extern FontLibrary *TheFontLibrary;
+
+class HeaderTemplate
+{
+public:
+	GameFont *m_font;
+	AsciiString m_name;
+	AsciiString m_fontName;
+	int m_point;
+	bool m_bold;
+};
+
+typedef char HeaderTemplateSizeCheck[(sizeof(HeaderTemplate) == 20) ? 1 : -1];
+
+class HeaderTemplateManager
+{
+public:
+	void rva00201B05();
+private:
+	typedef std::list<HeaderTemplate *> HeaderTemplateList;
+	HeaderTemplateList m_headerTemplateList;
+};
+
+void HeaderTemplateManager::rva00201B05()
+{
+	for (HeaderTemplateList::iterator it = m_headerTemplateList.begin(); it != m_headerTemplateList.end(); ++it)
+	{
+		HeaderTemplate *ht = *it;
+		int adjusted = TheGlobalLanguageData->adjustFontSize(ht->m_point);
+		ht->m_font = TheFontLibrary->getFont(&ht->m_fontName, (float)adjusted, ht->m_bold);
+	}
+}
