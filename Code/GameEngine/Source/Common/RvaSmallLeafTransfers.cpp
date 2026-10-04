@@ -44,3 +44,25 @@ int Rva00674E70::isRecent( unsigned int now ) const
 	return now - m_1c < 3000;
 }
 
+// Target 0x0061FC30, 15 bytes; preceding int3 padding; terminal ret and int3 padding.
+// Donor b1 RVA 0x009ECA50; target instructions corroborate these accesses.
+struct Rva0061FC30Block
+{
+	char m_lead[ 4 ];
+	unsigned short m_refs;
+};
+
+class Rva0061FC30
+{
+public:
+	Rva0061FC30( Rva0061FC30Block *block );
+
+	Rva0061FC30Block *m_block;
+};
+
+Rva0061FC30::Rva0061FC30( Rva0061FC30Block *block )
+{
+	m_block = block;
+	++block->m_refs;
+}
+
