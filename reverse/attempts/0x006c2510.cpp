@@ -1,5 +1,6 @@
 // ?rva006C2510@Rva006C1F60@@QAEIPADHPAPAD@Z
-// partial score=0.93 date=2026-10-02
+// partial score=0.95 date=2026-10-04
+// cl: /O2 /MD /EHsc
 // ?rva006C2510@Rva006C1F60@@QAEIPADHPAPAD@Z, retail 0x006C2510, 214 bytes.
 // Unlock lane: landing it makes 0x006C26F0 and 0x006C4730 ready.
 // Evidence: lock at +0x4e4 with AddRef 0x00030DD0 / Release 0x00030DF0 (same
@@ -66,16 +67,20 @@ unsigned int Rva006C1F60::rva006C2510(char *base, int type, char **out)
 	if (eff == 2)
 		eff = m_67c;
 	if (eff == 0) {
+		char *p = base;
 		unsigned int h = *(unsigned int *)(base - 4);
 		unsigned int size;
 		if ((h & 2) == 0)
 			size = (h & 0x7ffffff8) + 4;
 		else
 			size = h & 0x7ffffff8;
-		unsigned short trail = *(unsigned short *)(size + base - 10);
-		if (out != 0)
-			*out = size + base - 10 - trail;
-		result = (unsigned int)trail + 2;
+		unsigned short trail = *(unsigned short *)(size + p - 10);
+		if (out != 0) {
+			*out = size + p - 10 - trail;
+			result = trail + 2;
+		} else {
+			result = trail + 2;
+		}
 	} else {
 		if (m_680 == 0)
 			goto done;
