@@ -26,10 +26,18 @@
 // within the module data's +0xC8 radius that is allied (relationship 4,
 // 0x00260EB1), alive and passes 0x002611BF for this object onto the +0x88
 // list (0x002A1B6F). /GX for the filter temporaries.
+// Retail 0x004AD8E3 (195 bytes): the slot-17 override (base 0x0045108D,
+// pinned SpecialAbilityUpdate::rva0045108D) that update() calls each frame of
+// the charge: after the base, refresh the list (0x004AD7B6) and for each
+// listed object still alive call 0x0028EA91 with "RohanCharge", set condition
+// bit 6*32+9 and store this object's ID at its +0x44C; retail then sets bit 3
+// of the +0x118 word of its Drawable (0x005508E2) even when the lookup failed.
 //
 // Model-condition bits: the Object word array starts at +0x10C (see
 // GloriousChargeUpdateRva004AD554.cpp); masked-word accessors in a free
 // __forceinline helper call the pinned notifier 0x0028AE6D on a change.
+
+#include "../../../../../../reference/shims/bfme2_ascii/ascii_string.h"
 
 class Drawable;
 class Rva0010CConditionBits
@@ -38,6 +46,10 @@ public:
 	unsigned int test(int bit) const
 	{
 		return m_words[bit >> 5] & (1U << (bit & 0x1f));
+	}
+	void set(int bit)
+	{
+		m_words[bit >> 5] |= 1U << (bit & 0x1f);
 	}
 	void clear(int bit)
 	{
@@ -64,6 +76,7 @@ class Object
 {
 public:
 	void rva0028AE6D();
+	bool rva0028EA91(const AsciiString &name, int n);	// 0x0028EA91
 	Drawable *getDrawable() const;
 	bool isKindOf(KindOfType t) const;
 	const Coord3D *getPosition() const { return &m_pos; }
@@ -85,6 +98,20 @@ static __forceinline void clearModelConditionBit(Object *object, int bit)
 		object->rva0028AE6D();
 	}
 }
+static __forceinline void setModelConditionBit(Object *object, int bit)
+{
+	if (object->m_conditionBits.test(bit) == 0)
+	{
+		object->m_conditionBits.set(bit);
+		object->rva0028AE6D();
+	}
+}
+// The Drawable word 0x004AD8E3 sets bit 3 of.
+struct Rva004AD8E3Drawable
+{
+	unsigned char m_pad[0x118];
+	unsigned int m_118; // +0x118
+};
 class GameLogic
 {
 public:
@@ -226,7 +253,7 @@ public:
 	virtual void slot13(); virtual void slot14();
 	virtual void slot15(); // 0x00450D9A, GloriousChargeUpdate 0x004AD554
 	virtual void slot16();
-	virtual void slot17(); // 0x0045108D, GloriousChargeUpdate 0x004AD8E3
+	virtual void rva0045108D(); // slot 17; GloriousChargeUpdate 0x004AD8E3
 private:
 	unsigned char m_pad24[0x88 - 0x24];
 };
@@ -243,6 +270,7 @@ class GloriousChargeUpdate : public SpecialAbilityUpdate
 public:
 	void rva004AD613();
 	void rva004AD7B6();
+	virtual void rva004AD8E3();
 	virtual UpdateSleepTime update();
 private:
 	const GloriousChargeUpdateModuleData *getGloriousChargeData() const
@@ -292,7 +320,7 @@ UpdateSleepTime GloriousChargeUpdate::update()
 			((Rva00270619 *)draw)->Rva00270619Clear(0x10);
 		return UPDATE_SLEEP_FOREVER;
 	}
-	slot17();
+	rva0045108D();
 	return (UpdateSleepTime)getGloriousChargeData()->m_D0;
 }
 void GloriousChargeUpdate::rva004AD7B6()
@@ -305,5 +333,26 @@ void GloriousChargeUpdate::rva004AD7B6()
 		if (obj == self)
 			continue;
 		m_88.push_back(obj->getID());
+	}
+}
+void GloriousChargeUpdate::rva004AD8E3()
+{
+	SpecialAbilityUpdate::rva0045108D();
+	rva004AD7B6();
+	if (!m_88.empty())
+	{
+		for (Rva004AD613Iterator it = m_88.begin(); it != m_88.end(); ++it)
+		{
+			Object *object = TheGameLogic->findObjectByID(*it);
+			if (object)
+			{
+				object->rva0028EA91(AsciiString("RohanCharge"), -1);
+				setModelConditionBit(object, 6 * 32 + 9);
+				object->m_44C = m_object->getID();
+			}
+			Drawable *draw = object->getDrawable();
+			if (draw)
+				((Rva004AD8E3Drawable *)draw)->m_118 |= 8;
+		}
 	}
 }
