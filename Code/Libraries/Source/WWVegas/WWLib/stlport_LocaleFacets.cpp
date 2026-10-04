@@ -27,12 +27,14 @@
 
 typedef unsigned long LCID;
 
-// BFME2 pointer VA 0x00DA71A0; referenced category string verified in retail.
-const char *g_localeNumericCategoryName = "LC_NUMERIC";
-// BFME2 pointer VA 0x00DA719C; referenced category string verified in retail.
-const char *g_localeMonetaryCategoryName = "LC_MONETARY";
-// BFME2 pointer VA 0x00DA71A4; referenced category string verified in retail.
-const char *g_localeTimeCategoryName = "LC_TIME";
+// Native VA DA7190 holds six contiguous four-byte category-string pointers.
+// Their payloads, in this order, are BBCD94/BBCD88/BBCD7C/BBCD70/BBCD64/BBCD5C.
+// The five facet consumers independently reference slots +4/+8/+12/+16/+20;
+// the retained locale-name extractor indexes the same table. Keep one provider
+// for this shared storage rather than five overlapping per-category objects.
+extern "C" const char *__category_name[6] = {
+    "LC_ALL", "LC_COLLATE", "LC_CTYPE", "LC_MONETARY", "LC_NUMERIC", "LC_TIME"
+};
 
 extern "C" {
 
@@ -478,7 +480,7 @@ void *_Locale_numeric_create(const char *name)
 
     if (name[0] == 'L' && name[1] == 'C' && name[2] == '_')
     {
-        char *p = strstr(name, g_localeNumericCategoryName);
+        char *p = strstr(name, __category_name[4]);
         if (p != 0)
         {
             char *q = strchr(p, '=');
@@ -553,7 +555,7 @@ void *_Locale_time_create(const char *name)
 
     if (name[0] == 'L' && name[1] == 'C' && name[2] == '_')
     {
-        char *p = strstr(name, g_localeTimeCategoryName);
+        char *p = strstr(name, __category_name[5]);
         if (p != 0)
         {
             char *q = strchr(p, '=');
@@ -672,7 +674,7 @@ void *_Locale_monetary_create(const char *name)
 
     if (name[0] == 'L' && name[1] == 'C' && name[2] == '_')
     {
-        char *p = strstr(name, g_localeMonetaryCategoryName);
+        char *p = strstr(name, __category_name[3]);
         if (p != 0)
         {
             char *q = strchr(p, '=');
@@ -738,8 +740,6 @@ void *_Locale_monetary_create(const char *name)
 
 }
 
-// BFME2 pointer VA 0x00DA7194; referenced category string verified in retail.
-const char *g_localeCollateCategoryName = "LC_COLLATE";
 typedef struct
 {
     LCID lcid;
@@ -759,7 +759,7 @@ extern "C" void *_Locale_collate_create(const char *name)
 
     if (name[0] == 'L' && name[1] == 'C' && name[2] == '_')
     {
-        char *p = strstr(name, g_localeCollateCategoryName);
+        char *p = strstr(name, __category_name[1]);
         if (p != 0)
         {
             char *q = strchr(p, '=');
@@ -798,9 +798,6 @@ extern "C" void *_Locale_collate_create(const char *name)
 // support the upstream ctype-create purpose and 256-dword table at+0C.
 // Existing rowed same-TU resolver221B0 supplies the sole direct call.
 extern "C" {
-
-/* Slot holding the "LC_CTYPE" category name. */
-const char *g_localeCtypeCategoryName = "LC_CTYPE";
 
 typedef struct _OSVERSIONINFOA {
     unsigned long dwOSVersionInfoSize;
@@ -857,7 +854,7 @@ void *_Locale_ctype_create(const char *name)
 
     if (name[0] == 'L' && name[1] == 'C' && name[2] == '_')
     {
-        char *p = strstr(name, g_localeCtypeCategoryName);
+        char *p = strstr(name, __category_name[2]);
         if (p != 0)
         {
             char *q = strchr(p, '=');
