@@ -27,6 +27,8 @@ class LivingWorldEyeTower {
   EyeTowerPair *m_capacity;
   void *getPair();
   void processItems();
+public:
+  void rva003F9B5A();
   unsigned int m_state;
   EyeTowerPair m_to;
   EyeTowerPair m_from;
@@ -49,4 +51,15 @@ void LivingWorldEyeTower::processItems() {
   m_rate6C = 1.0f / (float)frames;
   m_progress70 = 0.0f;
   m_state = 1;
+}
+void LivingWorldEyeTower::rva003F9B5A()
+{
+  m_current = *(EyeTowerPair *)getPair();
+  if ((((char *)m_end - (char *)m_begin) & 0xFFFFFFF8) == 0)
+  {
+    m_state = 1;
+    m_rate6C = 0.0f;
+    return;
+  }
+  processItems();
 }
