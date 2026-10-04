@@ -55159,3 +55159,4 @@ rva007916E1_constructor_unwind,,0x007916E1,11,Code/GameEngine/Source/Common/INI/
 ?rva007B9A2D@@YAXXZ,,0x007B9A2D,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
 ?rva007B9CA8@@YAXXZ,,0x007B9CA8,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
 ?readSlotBits@Rva00421A4B@@QBEII@Z,,0x00421A4B,12,Code/GameEngine/Source/Common/RvaSmallLeafTransfers.cpp,matched,BFME1 donor 5cc75ddda6455c338a5068307e587a793f96d6b3 Bfme5ClearsWithTails whole TU compiled with native settings; native separate 12-byte indexed slot reader between ret8 and next Ghidra function; address-qualified read-only bit view only; original vector identity and pointee/index types unknown; no pins
+?rva001EDDC6@Rva001EDDC6@@QAEXE@Z,,0x001EDDC6,57,Code/GameEngine/Source/Common/Rva001EDDC6Store.cpp,matched,caller 0x0051B48B plus prev next neighbours
