@@ -1,5 +1,5 @@
 // ?rva005D4A66@Rva005D4A66@@QAEXPAVRva005D48DB@@@Z
-// partial score=0.93 date=2026-10-03
+// partial score=0.93 date=2026-10-04
 // cl: /O1 /MD /EHsc
 // ?rva005D4A66@Rva005D4A66@@QAEXPAVRva005D48DB@@@Z, RVA 0x005D4A66, 106B. Chain lane: applies
 // forwarder 0x005D48DB to each element of vector at +0/+4, tracking progress in
