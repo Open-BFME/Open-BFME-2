@@ -21,6 +21,7 @@ private:
 class __declspec(novtable) Rva0056B218B1 {
 public:
     virtual ~Rva0056B218B1() {}
+    virtual void b1Anchor();
     int m_a8;
     int m_bC;
 };
@@ -46,4 +47,8 @@ Rva0056B218::~Rva0056B218()
         m_parent1C->holder.rva002B7250((CreateAHeroData *)(Rva0056B218B2 *)this);
         m_parent1C = 0;
     }
+}
+// ?b1Anchor@Rva0056B218B1@@UAEXXZ present-unmatched
+void Rva0056B218B1::b1Anchor()
+{
 }
