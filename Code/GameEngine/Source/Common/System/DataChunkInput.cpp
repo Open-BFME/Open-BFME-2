@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /O1 /arch:SSE /DNDEBUG /MD /EHsc
 // readable body of ??1DataChunkInput@@QAE@XZ: Code/GameEngine/Source/Common/System/DataChunk.cpp
 // readable body of ?readArrayOfBytes@DataChunkInput@@QAEXPADH@Z: Code/GameEngine/Source/Common/System/DataChunk.cpp
 // readable body of ?readAsciiString@DataChunkInput@@QAE?AVAsciiString@@XZ: Code/GameEngine/Source/Common/System/DataChunk.cpp
@@ -288,10 +288,9 @@ public:
 		void *userData);
 
 	AsciiString openDataChunk(DataChunkVersionType *ver);
-	// parse()'s call site has no separate call target for this either -- it
-	// is the same 12-byte body as the standalone matched row at 0x00102740,
-	// inlined here because the caller is visibly small too.
-	UnsignedInt getChunkDataSize(void)
+	// Retail parse() at 0x00307AC0 CALLs the 12-byte out-of-line copy at
+	// 0x00306E16 (rowed in this TU); do not inline it there.
+	__declspec(noinline) UnsignedInt getChunkDataSize(void)
 	{
 		if (m_chunkStack == 0) {
 			return 0;
@@ -380,7 +379,6 @@ AsciiString DataChunkInput::readAsciiString(void)
 // See 0x003077E0.
 
 // ?parse@DataChunkInput@@QAE_NPAX@Z
-// ?parse@DataChunkInput@@QAE_NPAX@Z present-unmatched
 Bool DataChunkInput::parse(void *userData)
 {
 	AsciiString label;
