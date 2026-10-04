@@ -3,6 +3,8 @@
 // ?rva0070ABC0@AptNativeHash@@QAEXXZ
 // partial score=0.99 date=2026-10-04
 // ?rva0070ABC0@AptNativeHash@@QAEXXZ
+// partial score=0.99 date=2026-10-04
+// ?rva0070ABC0@AptNativeHash@@QAEXXZ
 // Seat-4 re-bank of the 0x0070ABC0 partial. The swap tail was rewritten from the
 // bank's two-operand-at-a-time spelling to four captured operands, ordered so that
 // both newTable fields are read before either is stored:
