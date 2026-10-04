@@ -43,6 +43,7 @@ class Rva0045EF90Object : public Rva0045EF90Base
 {
 public:
 	Rva0045EF90Object();
+	virtual ~Rva0045EF90Object();
 private:
 	Rva0045EF90Fields m_fields;
 };
