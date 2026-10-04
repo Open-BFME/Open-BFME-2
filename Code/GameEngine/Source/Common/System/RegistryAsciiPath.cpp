@@ -307,10 +307,19 @@ int Rva005D32EC::write(char *dst)
 // ?write@Rva005D3311@@QAEHPAD@Z @0x005D3311 37B narrow concat node: base Rva005D32EC write 0x005D32EC then Rva pair write 0x000B44F0 at +0x18; callers 0x005D3365 0x005F985C.
 struct Rva005D3311 : Rva005D32EC
 {
+	int length() const;
 	int write(char *dst);
 
 	Rva000B3F84Pair m_text3;
 };
+
+// 0x005D32D9..0x005D32EC: length counterpart to the verified writer below.
+// The call is the existing two-string length at 0x002198C8; native additions
+// read the three text-span lengths at +0x1C, +0x14, and +0x0C in that order.
+int Rva005D3311::length() const
+{
+	return AsciiStringPlusString::length() + m_text3.m_len + m_text2.m_len + m_text.m_len;
+}
 
 int Rva005D3311::write(char *dst)
 {
