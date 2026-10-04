@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
+// cl: /O1 /G7 /DNDEBUG /MD /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_CRTIMP= /Ireference/shims/bfmealloc
 // stlport
 // ?rva00293330@Rva00293330@@QAEPAXI@Z, retail 0x00293330, 63 bytes.
 // Map lookup at this+0x268 via rowed _M_find 0x00357180: found returns
