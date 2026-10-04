@@ -15,7 +15,9 @@ public:
 
 struct Rva0041580ENode
 {
-	char _00[8];
+	unsigned char m_colour00;
+	char m_pad01[3];
+	Rva0041580ENode *m_parent04;
 	Rva0041580ENode *m_next08;
 	Rva0041580ENode *m_child0C;
 	Rva0041579E m_item10;
@@ -35,6 +37,7 @@ struct Rva0041580E
 	int m_flag04;
 	void rva0041580E(Rva0041580ENode *node);
 	void rva00415886();
+	Rva0041580ENode *rva00415868(const Rva0041580ENode *source);
 };
 
 // ?rva00415886@Rva0041580E@@QAEXXZ @0x00415886 41B chain via rowed 0x0041580E.
@@ -84,4 +87,18 @@ char *__stdcall Rva00415843Create(const Rva0041579E &source)
     char *storage=_STL::allocator<char>::allocate(0x1E0,0);
     _STL::_Construct<Rva0041579E,Rva0041579E>((Rva0041579E *)(storage+0x10),source);
     return storage;
+}
+
+// STLport 4.5.3 _M_clone_node guides this header copy. Native 0x415868/30
+// calls the verified create helper with source+0x10, copies its colour byte,
+// and clears left/right links. Recursive tree copy forwards its ECX receiver.
+// This address-named method records that call protocol; original membership,
+// key/value identity and complete node layout are not asserted.
+Rva0041580ENode *Rva0041580E::rva00415868(const Rva0041580ENode *source)
+{
+    Rva0041580ENode *node=(Rva0041580ENode *)Rva00415843Create(source->m_item10);
+    node->m_colour00=source->m_colour00;
+    node->m_next08=0;
+    node->m_child0C=0;
+    return node;
 }
