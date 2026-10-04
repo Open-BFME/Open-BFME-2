@@ -8988,3 +8988,5 @@ _Rva0030CAF8CursorEqual,0x0007E394,twin of dup_0007e394 29B exact cursor equalit
 ?rva003FE342@Rva003FE402Host@@QAEXXZ,0x003FE342,"member vtable slot 0x003FE402 calls first; opaque address name"
 ?rva005392EC@Rva003FE402Host@@QAEXXZ,0x005392EC,"member vtable slot 0x003FE402 tail-jumps to; opaque address name"
 ?rva00594F19@Rva00594F19@@QAEHHPAG0AAHAA_N@Z,0x00594F19,REL32 callee decoded at the retail call site 0x0059598E in detectionTest3WaitForResponsesUpdate (BFME 2 getNATPortAllocationScheme with Int relativeDelta; body unmatched)
+??0ShellMenuSchemeImage@@QAE@XZ,0x002004C3,callee of ?parseImagePart@ShellMenuSchemeManager@@SAXPAVINI@@PAX1PBX@Z at retail 0x00200842 read from its REL32 displacement; donor defines the body as ShellMenuSchemeImage::ShellMenuSchemeImage; body unrowed
+?addImage@ShellMenuScheme@@QAEXPAVShellMenuSchemeImage@@@Z,0x002007BE,callee of ?parseImagePart@ShellMenuSchemeManager@@SAXPAVINI@@PAX1PBX@Z at retail 0x00200842 read from its REL32 displacement; retail adds schemeImage+4 into the scheme image list at ecx+4; body unrowed
