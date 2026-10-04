@@ -53286,3 +53286,4 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ?draw@Rva000A4795Window@@UAEHPAVWinInstanceData@@@Z,,0x000A4795,18,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/Gadget/W3DGadgetWindowDrawSlots.cpp,matched,gadget vtable 0x00BC91D8#3: calls Rva000A46B7Draw then returns 1 (draw name inferred)
 ?draw@Rva000A6007Window@@UAEHPAVWinInstanceData@@@Z,,0x000A6007,18,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/Gadget/W3DGadgetWindowDrawSlots.cpp,matched,gadget vtable 0x00BC9204#3: calls Rva000A53DEDraw then returns 1 (draw name inferred)
 ?rva002CAC6E@Rva002CA9CA@@QAEXHH@Z,,0x002CAC6E,105,Code/GameEngine/Source/GameLogic/Object/Rva002CA9CAContains.cpp,matched,Rva002CA9CA notify over 4 pairs plus list v24
+?rva0037BD64@FXList@@QAEHXZ,,0x0037BD64,29,Code/GameEngine/Source/GameClient/FXListRva0037BD64.cpp,matched,FXList pop-front helper via caller 0x0037D0A7 and list at plus4
