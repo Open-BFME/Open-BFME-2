@@ -70,11 +70,22 @@ public:
 	char m_pad28[0x58 - 0x28];
 };
 
+class Object;
+
+class GameLogic
+{
+public:
+	class Object *findObjectByID(enum ObjectID id);
+};
+
+extern GameLogic *TheGameLogic;
+
 class Rva005DC87B : public Rva005DC73C
 {
 public:
 	virtual ~Rva005DC87B();
 	virtual void xfer(Xfer *xfer);
+	class Object *rva005DCAE5();
 	enum ObjectID m_58; // +0x58
 };
 
@@ -84,4 +95,12 @@ void Rva005DC87B::xfer(Xfer *xfer)
 	*xfer == version;
 	Rva004ECECD::xfer(xfer);
 	XferObjectID(xfer, &m_58);
+}
+
+// ?rva005DCAE5@Rva005DC87B@@QAEPAVObject@@XZ, retail 0x005DCAE5, 15 bytes.
+// Object at this+0x58 via TheGameLogic->findObjectByID; callers 0x005A9B2E
+// 0x005A9DED 0x005DCAF4, callee row 0x00049DC5.
+Object *Rva005DC87B::rva005DCAE5()
+{
+	return TheGameLogic->findObjectByID(m_58);
 }
