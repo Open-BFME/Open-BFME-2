@@ -64,3 +64,32 @@ Rva00560A1B::Rva00560A1B(void *a, void *b)
 	m_14 = (void *)&s_slot3E4first;
 	m_18 = (void *)g_00C1D46C;
 }
+
+// ??0Rva003AE61F@@QAE@PAX0@Z @0x00561375 49B twin over the same pinned base:
+// vtable VA 0x00C1D4B8 plus data VAs 0x00C1BD50/0x00C1C780(s_slot3E4first)/
+// 0x00C1D4A8 at +0/+0x14/+0x18 (twice). Same volatile +0x18 recipe and flags.
+// Evidence: push esi push [esp+0xc] mov esi ecx push [esp+0xc] call 0x0055C86D
+// then stores at +0x18/+0/+0x14/+0x18; caller at 0x003ABB2E; naming stores
+// vtable 0x0081D4B8 at [this] proving Rva003AE61F.
+extern const void *const g_00C1BD50[];
+extern const void *const g_00C1D4B8[];
+extern const void *const g_00C1D4A8[];
+
+class __declspec(novtable) Rva003AE61F : public ParticleModule005F2CA0
+{
+public:
+	Rva003AE61F(void *a, void *b);
+
+private:
+	void *m_14;
+	void *volatile m_18;
+};
+
+Rva003AE61F::Rva003AE61F(void *a, void *b)
+	: ParticleModule005F2CA0(a, b)
+{
+	m_18 = (void *)g_00C1BD50;
+	*(const void **)this = g_00C1D4B8;
+	m_14 = (void *)&s_slot3E4first;
+	m_18 = (void *)g_00C1D4A8;
+}
