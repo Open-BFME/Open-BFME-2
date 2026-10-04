@@ -156,59 +156,9 @@ Mapping *DataChunkTableOfContents::findMapping( const AsciiString& name )
 	return 0;
 }
 
-// ?read@DataChunkTableOfContents@@QAEXAAVChunkInputStream@@@Z
-// Retail 0x003071E9 (301B): Zero Hour's DataChunk.cpp table-of-contents
-// reader ('CkMp' tag, count, then length-prefixed names and ids prepended
-// to the list); BFME 2 news the 0x10-byte mapping directly.
-void DataChunkTableOfContents::read( ChunkInputStream &s)
-{
-	int count, i;
-	unsigned int maxID = 0;
-	unsigned char len;
-	Mapping *m;
-
-	char tag[4]={'x','x', 'x', 'x'};	// Chunky height map. jba.
-	s.read(tag,sizeof(tag));
-	if (tag[0] != 'C' || tag[1] != 'k' || tag[2] != 'M' || tag[3] != 'p') {
-		return;	 // Don't throw, may happen with legacy files.
-	}
-
-	// get number of symbols in table
-	s.read( (char *)&count, sizeof(int) );
-
-	for( i=0; i<count; i++ )
-	{
-		// allocate new id mapping
-		m = (Mapping *)new Rva0030714F;
-
-		// read string length
-		s.read( (char *)&len, sizeof(unsigned char) );
-
-		// allocate and read in string
-		if (len>0) {
-			char *str = ((StringBase<char> *)&m->m_name)->getBufferForRead(len);
-			s.read( str, len );
-			str[len] = '\000';
-		}
-
-		// read id
-		s.read( (char *)&m->m_id, sizeof(unsigned int) );
-
-		// prepend to list
-		m->m_next = this->m_list;
-		this->m_list = m;
-
-		this->m_listLength++;
-
-		// track max ID used
-		if (m->m_id > maxID)
-			maxID = m->m_id;
-	}
-	m_headerOpened = count > 0 && !s.eof();
-
-	// adjust next ID so no ID's are reused
-	this->m_nextID = max( this->m_nextID, maxID+1 );
-}
+// The verified 301-byte reader at 0x003071E9 is defined only by
+// DataChunkTableOfContentsRead.cpp. This unit's old unrowed reconstruction
+// used a different Mapping vtable and lost the retail selection check.
 
 // ?allocateID@DataChunkTableOfContents@@QAEIABVAsciiString@@@Z
 // Retail 0x00307A6A (86B): Zero Hour's DataChunk.cpp id allocation: reuse

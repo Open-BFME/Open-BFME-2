@@ -16,6 +16,12 @@ public:
 	virtual bool eof(void);
 };
 
+class OutputStream
+{
+public:
+	virtual Int write(const void *pData, Int numBytes) = 0;
+};
+
 struct Mapping
 {
 	virtual ~Mapping();
@@ -33,6 +39,7 @@ class DataChunkTableOfContents
 {
 public:
 	void read(ChunkInputStream &s);
+	void write(OutputStream &s);
 
 private:
 	Mapping *m_list;
@@ -84,4 +91,30 @@ void DataChunkTableOfContents::read(ChunkInputStream &s)
 
 	m_headerOpened = count > 0 && !s.eof();
 	m_nextID = max(m_nextID, maxID + 1);
+}
+
+// ?write@DataChunkTableOfContents@@QAEXAAVOutputStream@@@Z
+// BFME1 donor: 1281192f682ce6f29b8f06b7daea4b5e8fdfbb24,
+// game/GameEngine/Source/Common/System/DataChunkTableOfContents.cpp.
+// Retail 0x0030715D..0x003071E8 is the complete 140-byte RET 4 body:
+// it writes CkMp, the count at +4, then each node's byte length, text, and
+// id. The native list walk proves next +4, string +8, id +C; its virtual
+// stream calls use slot zero. Donor supplies the writer's semantic name;
+// those offsets and the canonical string header are target evidence.
+// Native caller 0x003076A5 passes [esi] as stream and esi+8 as the table;
+// the following code closes the output's temporary FILE at receiver+4.
+void DataChunkTableOfContents::write(OutputStream &s)
+{
+	Mapping *m;
+	unsigned char len;
+	Byte tag[4] = {'C', 'k', 'M', 'p'};
+	s.write(tag, sizeof(tag));
+	s.write((void *)&m_listLength, sizeof(Int));
+	for (m = m_list; m; m = m->next)
+	{
+		len = m->name.getLength();
+		s.write((char *)&len, sizeof(unsigned char));
+		s.write(m->name.str(), len);
+		s.write((char *)&m->id, sizeof(UnsignedInt));
+	}
 }
