@@ -1,3 +1,5 @@
+// ?rva00468CA3@HordeContain@@UAEXPBURva00468CA3Arg@@@Z
+// partial score=0.8 date=2026-10-04
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /arch:SSE /EHs /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 //
@@ -150,8 +152,7 @@ public:
 template <> class Rva0046BB38Slots<0>
 {
 };
-// HordeContain's +0x11C interface (vtable 0x00C44C58), 152 slots; named ones are
-// the overrides below plus slot 144 (banked) and the slots they call.
+// HordeContain's +0x11C interface (vtable 0x00C44C58): slots 6, 9 and 144.
 class Rva0046BB38Iface6 : public Rva0046BB38Slots<6>
 {
 public:
@@ -236,6 +237,7 @@ public:
 	virtual void rva00472C8E(Object *obj, CommandSourceType cmdSource);
 	virtual bool rva00468D11();
 	virtual bool rva00468D2C();
+	virtual void rva00468CA3(const Rva00468CA3Arg *arg);
 	virtual bool rva0046F8A5();
 	virtual bool rva0046F8F4();
 	virtual Object *rva0046D372();
@@ -345,6 +347,14 @@ bool HordeContain::rva00468D2C()
 	if (!ai)
 		return false;
 	return ai->rva00468D2CSlot115();
+}
+
+// ?rva00468CA3@HordeContain@@UAEXPBURva00468CA3Arg@@@Z @0x00468CA3: slot 45,
+// slot 44 with the argument's +0x38.
+void HordeContain::rva00468CA3(const Rva00468CA3Arg *arg)
+{
+	void *value = arg->m_38;
+	rva0046B95E(value);
 }
 
 // ?rva0046F8A5@HordeContain@@UAE_NXZ @0x0046F8A5: slot 59, module data +0x1D8.
