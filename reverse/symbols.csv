@@ -8383,3 +8383,5 @@ _Rva0030CAF8CursorEqual,0x0007E394,twin of dup_0007e394 29B exact cursor equalit
 ??1BfmeShadowBufferOwnerBase@@UAE@XZ,0x00108B4D,Native EFAD2 deleting destructor calls108B4D vtable reset; complete7-byte body already rowed under address-derived setter; generated destructor same full bytes and BCEFA0 reference
 ??$_Construct@USnapshotBlock@GameState@@U12@@_STL@@YAXPAUSnapshotBlock@GameState@@ABU12@@Z,0x002DCD64,GameState registration2DE34B native list node construction chain; exact full emitted extent; same-layout folded helper owned by existing TreeKey row; no new byte claim
 ??0SnapshotBlock@GameState@@QAE@ABU01@@Z,0x000CF475,GameState registration2DE34B native list node construction chain; exact full emitted extent; same-layout folded helper owned by existing TreeKey row; no new byte claim
+?Rva0043CCC2GetRoute@@YAPAXXZ,0x0043CCC2
+?Rva004E4312GetRoute@@YAPAXXZ,0x004E4312
