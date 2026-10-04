@@ -506,3 +506,23 @@ unsigned int Rva006B2150()
         ++g_00E0C0EC.m_word;
     return value;
 }
+
+// Whole clean BFME 1 Gen_006eab10_Clamp.cpp donor at 1281192f682ce6f29b8f06b7daea4b5e8fdfbb24.
+// Native 0004538C/32 is a complete RET8 body, referenced by retail callback
+// table operand 007C3DD0. It compares a signed dword at VA DE1B28, clears it
+// when positive, otherwise stores the first stack word, and returns AL=1.
+// Data xrefs and the loaded image establish four zero-initialized bytes.
+// Callback purpose, ignored second word's original type, and global owner
+// remain unknown; the donor's clamp name is not promoted to a target identity.
+int g_00DE1B28;
+
+#pragma optimize("s",on)
+bool __stdcall Rva0004538C(int value, unsigned int)
+{
+    if (g_00DE1B28 > 0)
+        g_00DE1B28 = 0;
+    else
+        g_00DE1B28 = value;
+    return true;
+}
+#pragma optimize("",on)
