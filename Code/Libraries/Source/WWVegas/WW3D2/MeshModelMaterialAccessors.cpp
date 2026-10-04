@@ -13,35 +13,38 @@
 class VertexMaterialClass {
 public:
     virtual void Delete_This();
-    void Add_Ref() { ++References; }
+    void addMaterialReference() { ++References; }
 private:
     unsigned int References;
 };
-class MeshMatDescClass {
+class MeshModelMaterialDescriptor {
     char beforeMaterial[0xA8];
     VertexMaterialClass *Material[4];
     char beforeMaterialArray[0x30];
     void *MaterialArray[4];
 public:
-    VertexMaterialClass *Get_Single_Material(int pass) const {
-        if (Material[pass]) Material[pass]->Add_Ref();
+    VertexMaterialClass *getMaterial(int pass) const {
+        if (Material[pass]) Material[pass]->addMaterialReference();
         return Material[pass];
     }
-    bool Has_Material_Array(int pass) const { return MaterialArray[pass] != 0; }
+    bool hasMaterialArray(int pass) const { return MaterialArray[pass] != 0; }
 };
 class MeshModelClass {
     char beforeCurrentDescription[0x94];
-    MeshMatDescClass *CurMatDesc;
+    MeshModelMaterialDescriptor *CurMatDesc;
 public:
     VertexMaterialClass *Get_Single_Material(int pass) const;
     bool Has_Material_Array(int pass) const;
 };
-VertexMaterialClass *MeshModelClass::Get_Single_Material(int pass) const
+inline VertexMaterialClass *MeshModelClass::Get_Single_Material(int pass) const
 {
-    return CurMatDesc->Get_Single_Material(pass);
+    return CurMatDesc->getMaterial(pass);
 }
-// ?Has_Material_Array@MeshModelClass@@QBE_NH@Z present-unmatched
-bool MeshModelClass::Has_Material_Array(int pass) const
+inline bool MeshModelClass::Has_Material_Array(int pass) const
 {
-    return CurMatDesc->Has_Material_Array(pass);
+    return CurMatDesc->hasMaterialArray(pass);
 }
+
+// Emit the inline accessors as foldable copies, like their original headers.
+extern VertexMaterialClass *(MeshModelClass::*const MeshModelSingleMaterialAccessor)(int) const = &MeshModelClass::Get_Single_Material;
+extern bool (MeshModelClass::*const MeshModelMaterialArrayAccessor)(int) const = &MeshModelClass::Has_Material_Array;
