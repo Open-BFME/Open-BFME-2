@@ -3900,58 +3900,29 @@ Bool DozerAIUpdate::canAcceptNewRepair( Object *obj )
 // ------------------------------------------------------------------------------------------------
 /** Issue an order for the Dozer to go repair the target 'obj' */
 // ------------------------------------------------------------------------------------------------
-// ?privateRepair@DozerAIUpdate@@ present-unmatched
 void DozerAIUpdate::privateRepair( Object *obj, CommandSourceType cmdSource )
 {
-	// Two offsets are BFME's: m_object at module+0x08 (the BFME_MODULE_NO_MPO
-	// layout) and the DozerAIInterface base at this+0x340, where this tree
-	// lands it at +0x200. canAcceptNewRepair is slot 20 of that base.
 	Object *dozer = *(Object **)((char *)this + 0x08);
-	DozerAIInterface *self = (DozerAIInterface *)((char *)this + 0x340);
-
-	// if we are already repairing this target do nothing
-	if( self->canAcceptNewRepair( obj ) == FALSE )
-		return;
 
 	// sanity, if we can't repair the object then get out of there
 	if( TheActionManager->canRepairObject( dozer, obj, cmdSource ) == FALSE )
 		return;
 
-	// if this object is already actively being repaired by another dozertype we won't also try to go repair it
-	ObjectID currentRepairer = obj->getSoleHealingBenefactor();
-	if( currentRepairer != INVALID_ID && currentRepairer != dozer->getID() )
-		return;
+	const ThingTemplate *tmpl = *(const ThingTemplate **)((char *)dozer + 4);
+	if( ( ( *(const unsigned char *)((const char *)tmpl + 0x109) ) & 0x80 ) == 0 )
+	{
+		DozerAIInterface *self = (DozerAIInterface *)((char *)this + 0x3e4);
+		// if we are already repairing this target do nothing
+		if( self->canAcceptNewRepair( obj ) == FALSE )
+			return;
 
-	// Bridges have been made indestructible, so these checks were in vain. -- ML
+		// if this object is already actively being repaired by another dozertype we won't also try to go repair it
+		ObjectID currentRepairer = obj->getSoleHealingBenefactor();
+		if( currentRepairer != INVALID_ID && currentRepairer != dozer->getID() )
+			return;
+	}
 
-	// if this object is a bridge tower, we need to check the status of the bridge in order
-	// to check for a 'duplicate repair'
-	//
-	//if( obj->isKindOf( KINDOF_BRIDGE_TOWER ) )
-	//{
-	//	BridgeTowerBehaviorInterface *btbi = BridgeTowerBehavior::getBridgeTowerBehaviorInterfaceFromObject( obj );
-	//	DEBUG_ASSERTCRASH( btbi, ("Unable to find bridge tower behavior interface\n") );
-  //
-	//	Object *bridge = TheGameLogic->findObjectByID( btbi->getBridgeID() );
-	//	DEBUG_ASSERTCRASH( bridge, ("Unable to find bridge object\n") );
-	//	if( BitTest( bridge->getStatusBits(), OBJECT_STATUS_UNDERGOING_REPAIR ) == TRUE )
-	//		return;
-  //
-	//}  // end if
-	
-	
-	// for bridges, set the status for the bridge object
-	//if( obj->isKindOf( KINDOF_BRIDGE_TOWER ) )
-	//{
-	//	BridgeTowerBehaviorInterface *btbi = BridgeTowerBehavior::getBridgeTowerBehaviorInterfaceFromObject( obj );
-	//	DEBUG_ASSERTCRASH( btbi, ("Unable to find bridge tower behavior interface\n") );
-	//
-	//  Object *bridge = TheGameLogic->findObjectByID( btbi->getBridgeID() );
-	//	DEBUG_ASSERTCRASH( bridge, ("Unable to find bridge object\n") );
-	//	bridge->setStatus( OBJECT_STATUS_UNDERGOING_REPAIR );
-  //
-	//}  // end if
-
+	DozerAIInterface *self = (DozerAIInterface *)((char *)this + 0x3e4);
 	// start the new task
 	self->newTask( DOZER_TASK_REPAIR, obj );
 
