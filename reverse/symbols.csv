@@ -8386,3 +8386,6 @@ _Rva0030CAF8CursorEqual,0x0007E394,twin of dup_0007e394 29B exact cursor equalit
 ?Rva0043CCC2GetRoute@@YAPAXXZ,0x0043CCC2
 ?Rva004E4312GetRoute@@YAPAXXZ,0x004E4312
 ?rva00478C2C@Rva00478C2C@@QAEXPAVObject@@PAX@Z,0x00478C2C,call site 0x00479AFA lea ecx esi+0x20 with pushes 0 and obj plus vtable slot 60 plus exact 48B shape
+?findGroup@GameWindowTransitionsHandler@@AAEPAVTransitionGroup@@VAsciiString@@@Z,0x001DC01C,callee of ?bfmeGetGroupTotalFrames@GameWindowTransitionsHandler@@QAEHVAsciiString@@@Z at retail 0x001DC222 read from its REL32 displacement; body walks the +0x20 group-list sentinel comparing names; body unrowed
+?getTotalFrames@TransitionGroup@@QAEHXZ,0x001DBDA4,callee of ?bfmeGetGroupTotalFrames@GameWindowTransitionsHandler@@QAEHVAsciiString@@@Z at retail 0x001DC22D read from its REL32 displacement; ICF alias of the matched body ?rva001DBDA4@Rva001DBDA4@@QBEHXZ at this address
+??1?$StringBase@D@@AAE@XZ,0x00036410,callee of ?bfmeGetGroupTotalFrames@GameWindowTransitionsHandler@@QAEHVAsciiString@@@Z at retail 0x001DC23B read from its REL32 displacement; retail AsciiString/StringBase teardown body; the matched 5-byte AAE row at 0x0048BA39 tail-jumps here
