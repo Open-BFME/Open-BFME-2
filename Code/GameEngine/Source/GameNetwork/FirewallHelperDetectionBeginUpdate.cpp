@@ -1,6 +1,6 @@
 // cl: /O1 /G7 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/open-bfme-1/inputs/reference/shims/firewall /Ireference/open-bfme-1/inputs/reference/shims/ini /Ireference/open-bfme-1/inputs/reference/shims/sweep /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad
 //
-// FirewallHelperClass::detectionBeginUpdate, ported from Zero Hour's GameEngine/Source/GameNetwork/
+// FirewallHelperClass::getManglerName and detectionBeginUpdate, ported from Zero Hour's GameEngine/Source/GameNetwork/
 // FirewallHelper.cpp (GeneralsMD tree vendored under reference/open-bfme-1/
 // inputs/reference; the Open-BFME-1 reconstruction carries the same bodies).
 // The ZH class layout is BFME 2's (target evidence: ctor 0x00594CDD news
@@ -72,6 +72,14 @@ static const UnsignedShort BFME_MANGLER_PORT = 4321;
 
 #define sendToManglerFromPort(address, port, packetID, destPort) \
 	(((Rva0059517F *)this)->rva0059517F((address), (port), (packetID), (destPort), FALSE))
+
+/* static */ void FirewallHelperClass::getManglerName(Int manglerIndex, Char *nameBuf)
+{
+	AsciiString host;
+	UnsignedShort port;
+	((BfmeGameSpyConfigView *)TheGameSpyConfig)->getManglerLocation(manglerIndex, host, port);
+	strcpy(nameBuf, host.str());
+}
 
 #pragma intrinsic(memset)
 Bool FirewallHelperClass::detectionBeginUpdate() {

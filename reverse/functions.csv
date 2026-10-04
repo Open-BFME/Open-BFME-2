@@ -53623,3 +53623,4 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ?Get_Obj_Space_Bounding_Sphere@Null3DObjClass@@UBEXAAVSphereClass@@@Z,,0x00180FE0,37,Code/Libraries/Source/WWVegas/WW3D2/Null3DObjClassCopyCtor.cpp,matched,ZH Null3DObjClass bounds (vtable 0x00BD50D0 slot 67)
 ?Get_Obj_Space_Bounding_Box@Null3DObjClass@@UBEXAAVAABoxClass@@@Z,,0x00181010,47,Code/Libraries/Source/WWVegas/WW3D2/Null3DObjClassCopyCtor.cpp,matched,ZH Null3DObjClass bounds (vtable 0x00BD50D0 slot 68)
 ?detectionBeginUpdate@FirewallHelperClass@@QAE_NXZ,,0x00595452,563,Code/GameEngine/Source/GameNetwork/FirewallHelperDetectionBeginUpdate.cpp,matched,ZH FirewallHelper detection begin; BFME2 config vslot 11 and GlobalData +0xA50/+0xA54; memset intrinsic
+?getManglerName@FirewallHelperClass@@SAXHPAD@Z,,0x005953F4,94,Code/GameEngine/Source/GameNetwork/FirewallHelperDetectionBeginUpdate.cpp,matched,ZH FirewallHelper static getManglerName; BFME2 config vslot 11
