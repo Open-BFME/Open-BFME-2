@@ -182,7 +182,10 @@ public:
     struct PendingSurfaceStruct : public W3DRadarResetSurface
     {
         ~PendingSurfaceStruct() {}
-        VectorClass<Render2DClass *> rendererBase;
+        // Native destruction selects the shared BBB5AC vector table and
+        // ClearF0CD4. Use its established four-byte scalar view; the donor
+        // renderer-pointer specialization instead selects BD6C24 elsewhere.
+        VectorClass<int> rendererBase;
         int rendererActiveCount;
         int rendererGrowthStep;
     };
