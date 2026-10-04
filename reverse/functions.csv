@@ -53802,3 +53802,4 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ?rva0051AEEF@Rva0051AEEF@@QBE_NXZ,,0x0051AEEF,20,Code/GameEngine/Source/Common/Rva0051AEEFCheck.cpp,matched,two-byte-flag predicate B4 and B6; caller 0x51B450; frameless const bool shape
 ??_GRva0043DAE0@@UAEPAXI@Z,,0x0043DB07,28,Code/GameEngine/Source/Common/Rva0043DAE0.cpp,matched,chain from 0x0043DAE0 deleting dtor same TU
 ?rva0043D5CB@Rva0043D3A8@@QAEXW4ScienceType@@@Z,,0x0043D5CB,42,Code/GameEngine/Source/Common/Rva0043D3DAClear.cpp,matched,unlock TheScienceStore cost push_back at 0x08 add at 0x14 caller 0x0043D67A
+?rva0043DFE0@Rva0043DFE0@@QAE_NH@Z,,0x0043DFE0,109,Code/GameEngine/Source/Common/Rva0043DFE0.cpp,matched,leaf provider 0x5C target 0x58 slot 0x30 flag 0x2C3 combo 0x314 caller 0x00442DF3
