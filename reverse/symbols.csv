@@ -9443,3 +9443,5 @@ _Rva003F417EConstructRecords,0x003F417E,"Native003F5254 calls existing verified 
 ?clearBIL@AptAnimationPoolData@@QAEXXZ,0x006E35A0,matched-rowed member; external thiscall form used by the Apt shutdown 0x006CC880 to clear the 0x00E176D0 pool
 ?rva006F7720Sub@AptAnimationPoolData@@QAEXPAXH@Z,0x006F7720,address-derived queue flush member of the 0x00E176D0 pool sub-object at +0x30; called from 0x006CC8D4 with the 0x00E180C0 queue and 0; body unrowed
 ?rva006dffa0@@YAXXZ,0x006DFFA0,address-derived Apt shutdown clip-stack step at 0x006DFFA0: call ClipStackPush 0x006DFDF0 then tail-jump 0x006DFEA0; called from the Apt shutdown 0x006CC8BE; body unrowed
+?rva006C3940Alloc@Rva006C39F0Owner@@QAEPAXI@Z,0x006C3940,address-derived run allocator; thiscall ret 4 on the debug allocator object; body unrowed; called by 0x006C39F0 with the byte count
+?rva006C1A50Free@Rva006C39F0Owner@@QAEXPAX@Z,0x006C1A50,address-derived run release; thiscall ret 4 on the debug allocator object; body unrowed; called by 0x006C39F0 to drop a run the insert rejected
