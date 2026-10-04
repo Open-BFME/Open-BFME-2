@@ -240,3 +240,19 @@ int Rva000B22B3StateView::rva000B22B3() const
 	return word == 0x400 || word == 0x800;
 }
 #pragma optimize("", on)
+
+// Whole clean BFME1 Small03iListPush.cpp @5cc75ddda6455c338a5068307e587a793f96d6b3.
+// Target 0x00140BE0 is bounded by INT3 padding before and after its RET.
+// The native body copies the first pointer word from the first argument to the
+// second, stores the second argument in the first word, and returns that pointer.
+// Original names/owner and complete object extent are unresolved; this cell
+// models only the single pointer word physically accessed by the helper.
+struct Rva00140BE0WordCell {void *word;};
+Rva00140BE0WordCell *rva00140BE0(Rva00140BE0WordCell *list,
+                              Rva00140BE0WordCell *node)
+{
+ void *head=list->word;
+ node->word=head;
+ list->word=node;
+ return node;
+}
