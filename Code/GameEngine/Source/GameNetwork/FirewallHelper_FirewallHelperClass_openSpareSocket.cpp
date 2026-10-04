@@ -73,6 +73,18 @@
 #endif
 extern FirewallHelperClass *TheFirewallHelper;
 
+// ??0Rva005948F5@@QAE@XZ is rowed from Rva005948F5Ctor.cpp (0x005948F5): the
+// 0x20-byte UDP default ctor this handler news at 0x00595089. Call it by the
+// row name so the link resolves; the pin spelling ??0UDP@@QAE@XZ names the
+// same address. Only the name moves (the pad keeps operator new's size).
+class Rva005948F5
+{
+public:
+	Rva005948F5();
+private:
+	char m_pad[0x20];
+};
+
 /***********************************************************************************************
  * FirewallHelperClass::FirewallHelperClass -- Constructor                                     *
  *                                                                                             *
@@ -155,7 +167,7 @@ Bool FirewallHelperClass::openSpareSocket(UnsignedShort port) {
 		return FALSE;
 	}
 
-	m_spareSockets[i].udp = NEW UDP();
+	m_spareSockets[i].udp = (UDP *)NEW Rva005948F5();
 	if (m_spareSockets[i].udp == NULL) {
 		DEBUG_LOG(("FirewallHelperClass::openSpareSocket - failed to create UDP object\n"));
 		return FALSE;
