@@ -7452,3 +7452,5 @@ FUN_008f7883	0x004F7883	168	blocked	EH prolog push ecx plus frame plus copy_back
 ?rva002C6234@Rva002C6234@@QAEXXZ	0x002C6234	288	blocked	EH 288B ctor-like with 5 calls plus loop; link pin takes 1 arg but site pushes 2 so pin suspect; ret c means 3 args need donor t=10 model=muse-02
 ??1Rva0026E836@@UAE@XZ	0x0026E836	263	blocked	complex 263B MI dtor with 5 vptrs plus 10 callees needs full layout t=10 model=muse-10
 ?rva00291837@Rva002917E8@@QAE_NXZ	0x00291837	60	blocked	esi-edi swap cmdSet vs loop index persists after definition-order and Rva-wrapper tries t=15 model=muse-10 (stash 0.9 kept)
+?Rva0021E673Sort@@YAXPAX@Z	0x0021E673	23	blocked	pushes UNCLAIMED comparator 0x21AD88 no row pin literal refused by link hook t=5 model=muse-04
+?bfmeDetachCFF@BfmeOwnerCFF@@QAEXPAVBfmeThingCFF@@@Z	0x002ABD48	75	partial	redundant push-store only lea and mov ecx esi fixed via DetachList thiscall row stdcall needs review t=25 model=muse-04 score=0.95 stash=reverse/attempts/0x002abd48.cpp

@@ -52525,3 +52525,4 @@ _Rva0088E190TimerTick@16,,0x0003D870,9,Code/Libraries/Source/WWVegas/WWDebug/Rva
 ?rva002C60A9@Rva002C5FE8@@QAEXI@Z,,0x002C60A9,59,Code/GameEngine/Source/Common/Rva002C5FE8Search.cpp,matched,leaf pin plus prev searcher same vector erase plus delete
 ??0Rva00131BE5@@QAE@PAX000HH@Z,,0x00131B57,142,Code/Libraries/Source/WWVegas/WW3D2/Rva00131BE5Ctor.cpp,matched,ctor vtable same as dtor neighbour plus BfmeThingSJ 0x3C layout plus rowed callees
 ?rva0058DD89@NetPacket@@SAPAVNetCommandMsg@@PAEAAH@Z,,0x0058DD89,105,Code/GameEngine/Source/GameNetwork/NetPacket_Rva0058DD89.cpp,matched,static factory 8 byte order plus rowed ctor plus rowed setter
+?rva005974CC@Rva0059734B@@UAEXPAVXfer@@PAX@Z,,0x005974CC,244,Code/GameEngine/Source/Common/Rva005974CC.cpp,matched,slot12 xfer override pruning via AsciiString and command buttons vtable 0x00870BD0 caller 0x005972B3

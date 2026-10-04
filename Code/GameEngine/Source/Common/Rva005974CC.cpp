@@ -1,8 +1,8 @@
-// ?rva005974CC@Rva0059734B@@UAEXPAVXfer@@PAX@Z
-// partial score=0.93 date=2026-10-04
 // cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD
 // ?rva005974CC@Rva0059734B@@UAEXPAVXfer@@PAX@Z @0x005974CC 244B: slot12 xfer override pruning via AsciiString and command buttons; vtable 0x00870BD0 caller 0x005972B3
 #include "ascii_string.h"
+extern "C" void _ReadWriteBarrier(void);
+#pragma intrinsic(_ReadWriteBarrier)
 
 enum ObjectID
 {
@@ -135,6 +135,7 @@ void Rva0059734B::rva005974CC(Xfer *x, void *p)
 	x->v27(tmp);
 	if (!x->IsLoading())
 		return;
+	_ReadWriteBarrier();
 	if (((const StringBase<char> *)&tmp)->compare(*(const StringBase<char> *)&AsciiString::TheEmptyString) == 0)
 		return;
 	Object *obj = TheGameLogic->findObjectByID(m_08);
@@ -142,17 +143,16 @@ void Rva0059734B::rva005974CC(Xfer *x, void *p)
 		return;
 	const AsciiString *name = obj->rva00290E67();
 	void *world = ((Rva0031D5F8 *)g_bfmeWorldRV)->rva0031D5F8(name);
-	if (m_30 != 0)
-		return;
 	for (int i = 0; i < 0x20; ++i)
 	{
+		if (m_30 != 0)
+			break;
 		const CommandButton *b = ((CommandSet *)world)->getCommandButton(i);
 		if (b != 0)
 		{
 			if (((const StringBase<char> *)&b->m_10)->compare(*(const StringBase<char> *)&tmp) == 0)
 			{
 				m_30 = (CommandButton *)b;
-				break;
 			}
 		}
 	}
