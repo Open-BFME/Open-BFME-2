@@ -20,5 +20,4 @@ class Rva000EFD3DInlineRecords {
 public: Rva000EFD3DRecord52 *rva000EFD3D(int index);
 private: unsigned char m_unknown00[0x14]; Rva000EFD3DRecord52 m_records[160];
 };
-// ?rva000EFD3D@Rva000EFD3DInlineRecords@@QAEPAURva000EFD3DRecord52@@H@Z present-unmatched
 Rva000EFD3DRecord52 *Rva000EFD3DInlineRecords::rva000EFD3D(int index) { return m_records + index; }
