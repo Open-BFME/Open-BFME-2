@@ -123,10 +123,18 @@ class Rva004E7B13
 {
 public:
     void rva004E7BAF();
+    void rva004E7C4D();
 private:
     void *head;
     int count;
 };
+
+// Clear tail wrapper between the 4E7C1C list body and 4E7C52 tree destructor.
+void Rva004E7B13::rva004E7C4D()
+{
+    rva004E7BAF();
+}
+
 class ResourceEntryOwner
 {
 public:
