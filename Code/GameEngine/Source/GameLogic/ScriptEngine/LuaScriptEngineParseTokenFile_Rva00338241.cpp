@@ -1,5 +1,3 @@
-// ?rva00338241@LuaScriptEngine@@QAEXPBD_N@Z
-// partial score=0.93 date=2026-10-04
 // cl: -DNDEBUG -DWIN32 -D_WINDOWS -MD -EHsc /O1 -Ireference/open-bfme-1/game/GameEngine/Source/GameLogic/ScriptEngine
 // ?rva00338241@LuaScriptEngine@@QAEXPBD_N@Z, retail 0x00338241, 214 bytes.
 // BFME2 ParseTokenFile over LuaScriptEngine: openFile 3-arg plus size plus
@@ -46,7 +44,6 @@ class Rva00542806
 {
 public:
 	Rva00542806 *rva00542806(char *a1, int a2, int a3);
-	~Rva00542806();
 private:
 	char *m_ptr;
 	char m_pad4[8];
@@ -61,7 +58,18 @@ private:
 	int m_28;
 	char m_buf[0x184];
 };
-#pragma comment(linker, "/alternatename:??1Rva00542806@@QAE@XZ=?rva0054288B@Rva0054288B@@QAEXXZ")
+
+class Rva0054288B
+{
+public:
+	void rva0054288B();
+};
+
+struct ParserWrap : Rva00542806
+{
+	ParserWrap(char *a1, int a2, int a3) { rva00542806(a1, a2, a3); }
+	~ParserWrap() { ((Rva0054288B *)this)->rva0054288B(); }
+};
 
 class XmlNameSlotList
 {
@@ -92,8 +100,7 @@ void LuaScriptEngine::rva00338241(const char *filename, Bool keepOpen)
 		file->close();
 		char buffer[0x1000];
 		m_keepOpen = keepOpen;
-		Rva00542806 parser;
-		parser.rva00542806(source, (int)buffer, 0xFFF);
+		ParserWrap parser(source, (int)buffer, 0xFFF);
 		for (;;)
 		{
 			Int status = ((XmlNameSlotList *)&parser)->finish();
