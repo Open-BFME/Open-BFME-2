@@ -224,3 +224,5 @@ template void _STL::vector<BfmeNarrowRecord00427F75>::push_back(const BfmeNarrow
 // Retail 0x0010E604: copy ctor; its get_allocator, _Vector_base(n) and const
 // __uninitialized_copy callees are ICF aliases pinned at the rowed bodies.
 template _STL::vector<Rva0007BB16Record>::vector(const _STL::vector<Rva0007BB16Record> &);
+// Retail 0x000C8B83.
+template _STL::vector<BfmePod248>::~vector();
