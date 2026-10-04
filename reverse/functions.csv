@@ -55650,3 +55650,4 @@ __Locale_ctype_create,,0x00022360,1316,Code/Libraries/Source/WWVegas/WWLib/stlpo
 ?Rva0008F78FCreate@@YGPAVRva000A4969@@PAX@Z,,0x0008F78F,58,Code/GameEngine/Source/Common/Rva0008F78FCreate.cpp,matched,chain lane same 58B new+ctor shape as siblings
 ??1Rva005D4913@@QAE@XZ,,0x005D4913,54,Code/GameEngine/Source/Common/Rva005D4913Dtor.cpp,matched,dtor via AsciiString and Rva0052413E members callers 0x005D49DD 0x005D4BE7
 ?rva005D4BE7@Rva005D4BE7@@QAEXXZ,,0x005D4BE7,26,Code/GameEngine/Source/Common/Rva005D4BE7.cpp,matched,holder clear via rowed dtor 0x005D4913 and delete caller 0x005D4C97
+?rva004A7AF6@MissileUpdate@@QAEXXZ,,0x004A7AF6,82,Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdateCtor.cpp,matched,MissileUpdate frame guard via detonate plus find

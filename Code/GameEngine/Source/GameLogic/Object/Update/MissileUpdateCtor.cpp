@@ -62,6 +62,8 @@ class Thing
 public:
 	unsigned char m_pad[0xCC];
 	int m_unkCC; // +0xCC
+	unsigned char m_padD0[8]; // +0xD0..+0xD7
+	unsigned char m_D8; // +0xD8
 };
 
 struct TriInt
@@ -86,10 +88,17 @@ public:
 	TriInt m_flight; // +0x38 (copied into the behavior +0xAC)
 };
 
+class Object;
+enum ObjectID
+{
+	INVALID_OBJECT_ID = 0
+};
+
 class GameLogic
 {
 public:
 	unsigned int getFrame() { return m_frame; }
+	Object *findObjectByID(ObjectID id);
 
 private:
 	unsigned char m_pad[0x40];
@@ -119,6 +128,7 @@ public:
 	void Rva004A7530Set(int val);
 	void Rva004A75A3Init();
 	void rva004A7580();
+	void rva004A7AF6();
 
 private:
 	int m_88; // +0x88
@@ -191,4 +201,24 @@ void MissileUpdate::rva004A7580()
 	rva0045C026();
 	Rva004A7530Set(7);
 	m_CE = 1;
+}
+void MissileUpdate::rva004A7AF6()
+{
+	unsigned int curFrame = TheGameLogic->getFrame();
+	if (curFrame >= (unsigned int)m_98)
+	{
+		if (m_thing->m_D8 == 0)
+		{
+			Rva004A75A3Init();
+			return;
+		}
+		rva004A7580();
+		return;
+	}
+	rva004A7580();
+	if (m_CC != 0)
+	{
+		if (TheGameLogic->findObjectByID((ObjectID)m_94) == 0)
+			Rva004A75A3Init();
+	}
 }
