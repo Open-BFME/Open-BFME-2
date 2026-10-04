@@ -55012,3 +55012,4 @@ rva007916E1_constructor_unwind,,0x007916E1,11,Code/GameEngine/Source/Common/INI/
 ?rva007B9342@@YAXXZ,,0x007B9342,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
 ?rva007B934C@@YAXXZ,,0x007B934C,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
 ?setScaledTangent@Rva00106F82Field@@QAEXM@Z,,0x00106F82,35,Code/GameEngine/Source/Common/Rva00106F82TangentField.cpp,matched,BFME1 donor1281192 Rva007AE410TinyBodies whole-file /O1 recompile; native35B boundary caller1083F3; float coefficient bits42652EE0 and tan import62993A independently checked; original owner and method identity unknown
+?rva00531720@Rva00531720@@QAEEII@Z,,0x00531720,55,Code/GameEngine/Source/Common/Rva00531720Finish.cpp,matched,local two-byte mask array keeps both gates live so /O1 saves esi for the index
