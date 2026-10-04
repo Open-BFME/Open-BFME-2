@@ -124,7 +124,6 @@ BfmeVectorRecord000C0BEC *Rva000C8492RecordOwner::findOrCreateRecord(const Ascii
 }
 
 
-// ?push_back@?$vector@UBfmeVectorRecord000C0BEC@@V?$allocator@UBfmeVectorRecord000C0BEC@@@_STL@@@_STL@@QAEXABUBfmeVectorRecord000C0BEC@@@Z present-unmatched
 template void _STL::vector<BfmeVectorRecord000C0BEC>::push_back(const BfmeVectorRecord000C0BEC &);
 
 // Native ownerC852B and growthC78B7 name the rowed teardown providers.
