@@ -1,5 +1,3 @@
-// ?doSpecialPowerAtObject@RepairSpecialPower@@UAEXPAVObject@@I@Z
-// partial score=0.95 date=2026-10-04
 // cl: /O1 /MD /GX /arch:SSE
 //
 // RepairSpecialPower::doSpecialPowerAtObject, retail 0x004C875E, 75 bytes:
@@ -47,12 +45,12 @@ class Object
 {
 public:
 	const ThingTemplate *getTemplate() const { return m_template; }
-	ObjectID getID() const { return m_id; }
 	AIUpdateInterface *getAI() { return m_ai; }
-private:
 	unsigned char m_pad00[0x04];
 	const ThingTemplate *m_template; // +0x04
 	unsigned char m_pad08[0x74 - 0x08];
+	// Read as a member: an inline getID() makes cl 7.1 load the ID into a
+	// register before TheGameLogic, where retail pushes it from memory.
 	ObjectID m_id; // +0x74
 	unsigned char m_pad78[0x258 - 0x78];
 	AIUpdateInterface *m_ai; // +0x258
@@ -112,6 +110,6 @@ void RepairSpecialPower::doSpecialPowerAtObject(Object *obj, unsigned int option
 	{
 		AIUpdateInterface *ai = self->getAI();
 		if (ai)
-			ai->getCommandInterface()->rva0036F19B(TheGameLogic->findObjectByID(obj->getID()), CMD_FROM_PLAYER);
+			ai->getCommandInterface()->rva0036F19B(TheGameLogic->findObjectByID(obj->m_id), CMD_FROM_PLAYER);
 	}
 }
