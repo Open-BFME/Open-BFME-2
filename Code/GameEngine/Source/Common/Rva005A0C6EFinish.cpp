@@ -64,20 +64,9 @@ private:
 	int m_49C;
 };
 
-void Rva005A083C::rva005A083C()
-{
-	if (m_498 == 0)
-		return;
-	if (m_49C == 0)
-		return;
-	_STL::list<int> lst;
-	lst.push_front(m_498);
-	lst.push_back(m_49C);
-	TheWindowManager->slotB4();
-	TheWindowManager->slotB0(lst);
-}
 
-// ?rva005A0C6E@Rva005A083C@@QAEXPBDHPAUGameWindow@@@Z present-unmatched
+
+
 void Rva005A083C::rva005A0C6E(const char *a1, int a2, GameWindow *a3)
 {
 	if (a3 == 0)
@@ -103,13 +92,15 @@ void Rva005A083C::rva005A0C6E(const char *a1, int a2, GameWindow *a3)
 	if (strcmp(a1, "GameName") == 0) {
 		m_498 = (int)a3;
 		bfmeGo924F((BfmeKeyLC *)a3, 0x14);
+		a3->winSetStatus(2);
+		rva005A083C();
 	} else {
 		if (strcmp(a1, "GamePassword") != 0)
 			return;
 		m_49C = (int)a3;
 		Rva0032060D(a3, 5);
 		bfmeGo924F((BfmeKeyLC *)a3, 0x14);
+		a3->winSetStatus(2);
+		rva005A083C();
 	}
-	a3->winSetStatus(2);
-	rva005A083C();
 }
