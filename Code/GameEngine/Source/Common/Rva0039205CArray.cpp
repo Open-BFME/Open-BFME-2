@@ -3,7 +3,9 @@
 class Rva004D9A3C
 {
 public:
-	char m_pad[0x1C];
+	char m_pad00[0x10];
+	unsigned char m_byte10;
+	char m_pad11[0x0B];
 };
 
 class Rva00392092Target
@@ -16,6 +18,7 @@ class Rva0039205C
 {
 public:
 	Rva004D9A3C *rva00392CF9(unsigned int index);
+	unsigned char rva00392D49(unsigned int index);
 private:
 	int m_count00;
 	int m_pad04;
@@ -28,5 +31,14 @@ Rva004D9A3C *Rva0039205C::rva00392CF9(unsigned int index)
 		((Rva00392092Target *)this)->rva00392092();
 	if (index < (unsigned int)m_count00)
 		return m_array08 + index;
+	return 0;
+}
+
+unsigned char Rva0039205C::rva00392D49(unsigned int index)
+{
+	if (m_array08 == 0)
+		((Rva00392092Target *)this)->rva00392092();
+	if (index < (unsigned int)m_count00)
+		return m_array08[index].m_byte10;
 	return 0;
 }
