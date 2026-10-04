@@ -55454,3 +55454,4 @@ uw_0076765b,,0x0076765B,8,Code/Libraries/Source/WWVegas/WW3D2/meshgeometry.cpp,m
 ?rva000512C4@Rva000512C4@@QAEXH@Z,,0x000512C4,143,Code/GameEngine/Source/Common/Rva000512C4.cpp,matched,audio room via AIL with LOD gate TheGameLODManager IAT mss32 callers 0x530DF 0x5522C
 ?rva004D04C9@Rva004D04C9@@QAEPAXXZ,,0x004D04C9,23,Code/GameEngine/Source/Common/Rva004D04C9Clear.cpp,matched,memset this 0x2000 and return this via ji pin plus caller 0x004D152E
 ??0Rva005DC87B@@QAE@ABVAsciiString@@@Z,,0x005DC85F,28,Code/GameEngine/Source/Common/Rva005DC87BCtor.cpp,matched,tactic ctor base name plus zero m58 vtable 876808
+??0Rva005D0C31@@QAE@PAX@Z,,0x005D0C31,86,Code/GameEngine/Source/Common/System/Rva005D0C31Ctor.cpp,matched,MI ctor base 0x005CF8A1 second base at 0x10 via Rva00575125 pattern
