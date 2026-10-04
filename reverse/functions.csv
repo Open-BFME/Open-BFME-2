@@ -55172,3 +55172,4 @@ rva007916E1_constructor_unwind,,0x007916E1,11,Code/GameEngine/Source/Common/INI/
 ?rva004F2BEE@AIPlayer@@IAE_NH@Z,,0x004F2BEE,38,Code/GameEngine/Source/GameLogic/AI/AIPlayer.cpp,matched,unlock via rowed findSupplyCenter plus rowed isLocationSafe plus caller
 ?rva003E6A2B@ScriptConditions@@IAE_NPAVParameter@@0@Z,,0x003E6A2B,126,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_Rva003E6A2B.cpp,matched,ScriptConditions 2-param bool via dispatcher 0x003EADEF getUnitNamed flag mask loop
 ?Rva0033939F@@YAXPBDPAX@Z,,0x0033939F,64,Code/GameEngine/Source/Common/INI/Rva0033939F.cpp,matched,audio token EVA gate via 0x00339235 and INIException throw
+??1Rva0014DC9E@@UAE@XZ,,0x0014DC9E,14,Code/GameEngine/Source/Common/Rva0014DC9EDtor.cpp,matched,triple vtable store dtor like Init sibling
