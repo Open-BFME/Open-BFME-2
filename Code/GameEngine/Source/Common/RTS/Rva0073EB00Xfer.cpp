@@ -52,8 +52,8 @@ struct XferException
 };
 
 extern "C" XferException *__cdecl bfmeFormatText(XferException *result, int tag, const char *format, ...);
+extern "C" void __stdcall _CxxThrowException(void *pExceptionObject, const _s__ThrowInfo *pThrowInfo);
 extern int g_guardTargetTypeThrowInfo;
-extern void __declspec(noreturn) __stdcall _CxxThrowException(void *object, void *throwInfo);
 
 Xfer *Rva0073EB00Xfer(Xfer *xfer, unsigned short *vals)
 {
@@ -63,15 +63,10 @@ Xfer *Rva0073EB00Xfer(Xfer *xfer, unsigned short *vals)
 	if (count != 3) {
 		XferException error;
 		bfmeFormatText(&error, 0, 0);
-		_CxxThrowException(&error, &g_guardTargetTypeThrowInfo);
+		_CxxThrowException(&error, (const _s__ThrowInfo *)&g_guardTargetTypeThrowInfo); __assume(0);
 	}
 	do {
 		xfer->xferShort(vals++);
 	} while (--n != 0);
 	return xfer;
 }
-
-// The (void *, void *) declaration above is a C++ overload, so calls spell
-// ?_CxxThrowException@@YGXPAX0@Z; retail calls the MSVC 7.1 throw helper
-// __CxxThrowException@8 (its import thunk at 0x00629094). Same ABI: bind the spelling.
-#pragma comment(linker, "/alternatename:?_CxxThrowException@@YGXPAX0@Z=__CxxThrowException@8")
