@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE2 /MD /EHsc /Ireference/shims/bfme2_ascii /DWIN32 /DNDEBUG /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc/stl
+// cl: /O1 /arch:SSE /MD /EHsc /Ireference/shims/bfme2_ascii /DWIN32 /DNDEBUG /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc/stl
 // Reference lead: Open-BFME-1 1281192f682ce6f29b8f06b7daea4b5e8fdfbb24,
 // game/GameEngine/Source/Common/Containers/Rva003A3A90.cpp. Its whole /O1
 // unit places the 214B STLport insert at target312E04, whose native calls
@@ -12,6 +12,8 @@
 // Original element/owner names and the A4 scalar types remain unknown;
 // unsigned words model the target's integer copies, not a semantic claim.
 // The donor-qualified element spelling preserves existing caller symbols.
+// Native scalar zero stores use SSE1. This setting also preserves the
+// verified uint max's scheduling; SSE2 changes that shared helper's bytes.
 // stlport
 // Include only the existing BFME allocator override. Its directory root
 // also contains force-inline algorithm overrides, which change insert214.
@@ -93,7 +95,10 @@ Rva003A35A0Element::Rva003A35A0Element()
 {
     point.rva003118DFZero();
     wordB4=0;
-    text.clear();
+    // The canonical public wrapper inlines the native releaseBuffer call.
+    // Its one-pointer compatibility view follows AsciiString's own header;
+    // calling the AsciiString::clear spelling would select another body.
+    reinterpret_cast<StringBase<char>*>(&text)->clear();
     *(float*)&word00=0.0f;
     for(int i=0;i<10;++i) {
         values[i]=0.0f;
