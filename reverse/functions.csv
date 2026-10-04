@@ -52540,3 +52540,4 @@ _Rva0088E190TimerTick@16,,0x0003D870,9,Code/Libraries/Source/WWVegas/WWDebug/Rva
 ??0Rva0030C97E@@QAE@PAXPAVBfmeParserRegistryVE@@PBVAsciiString@@@Z,,0x0030C97E,104,Code/GameEngine/Source/Common/Rva0030C97E.cpp,matched,StandingWaveAreas binding same recipe as Rva000AEFAA via BlendTileData sibling
 ?rva00264558@AIUpdateInterface@@MAEXPAVObject@@W4CommandSourceType@@@Z,,0x00264558,97,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivate264558.cpp,matched,vtable slot 18 AIUpdate state 0x3F clear goal
 ??0AITNGuardInnerState@@QAE@PAVStateMachine@@@Z,,0x00545D50,40,Code/GameEngine/Source/GameLogic/AI/AITNGuardInnerStateCtor.cpp,matched,AITNGuardInnerState ctor via State hash D405C261 donor ZH AITNGuard
+?bfmeGoFCB@BfmeThingFCB@@QAEXPAX@Z,,0x004C121B,33,Code/GameEngine/Source/Common/BfmeConv892_Rva004C121B.cpp,matched,BFME1 donor game/GameEngine/Source/Common/BfmeConv892.cpp recompiled /Os; unique masked placement on unclaimed .text
