@@ -52478,3 +52478,4 @@ _Rva0088E190TimerTick@16,,0x0003D870,9,Code/Libraries/Source/WWVegas/WWDebug/Rva
 ?rva005D796F@Rva005D791C@@UAE_NPAVObject@@@Z,,0x005D796F,154,Code/GameEngine/Source/Common/Rva005D796F.cpp,matched,slot 6 vtable 0x875DFC with map find set insert and pin call
 ?rva002754E3@Drawable@@QAEXXZ,,0x002754E3,98,Code/GameEngine/Source/GameClient/Drawable_rva00275545.cpp,matched,unlock Drawable gate via Object plus slots
 ?rva002BF7BE@Rva002BF75A@@QAEXXZ,,0x002BF7BE,73,Code/GameEngine/Source/GameClient/Rva002BF75AFree.cpp,matched,chain calls 0x002BF75A now rowed plus same shape as rowed Rva00223591 clear
+?rva00210EE1@Rva00210EE1@@QAEXXZ,,0x00210EE1,16,Code/GameEngine/Source/Common/Rva00210EE1Method.cpp,matched,thunk to LivingWorldEyeTower rva003F9B5A via plus0x2c4
