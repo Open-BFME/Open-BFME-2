@@ -1,5 +1,5 @@
 // ?rva003511E3@Rva0033F6DA@@QAEHXZ
-// partial score=0.93 date=2026-10-04
+// partial score=0.95 date=2026-10-04
 // cl: /O1 /MD /arch:SSE
 // ?rva003511E3@Rva0033F6DA@@QAEHXZ, RVA 0x003511E3, 378 bytes.
 // Slot 4 (offset 0x10) of vtable 0x00811740 (ctor 0x0033F6DA hash 0xEBE7A650,
@@ -234,11 +234,12 @@ int Rva0033F6DA::rva003511E3()
 		m_20->m_44 = v;
 		const Coord3D *p = ai->v118();
 		float len = p->GetLengthEstimate();
-		if (0.0 >= len) {
+		if (len <= 0.0f) {
 		} else {
 			const Coord3D *p2 = ai->v118();
-			m_20->m_54 = *p2;
-			m_20->m_60 = 1;
+			Snapshot *snap = m_20;
+			snap->m_54 = *p2;
+			snap->m_60 = 1;
 		}
 		break;
 	}
