@@ -55536,3 +55536,4 @@ uw_00767228,,0x00767228,11,Code/Libraries/Source/WWVegas/WW3D2/ShareBufferClassT
 ?Rva002D2E57Get@@YAHXZ,,0x002D2E57,101,Code/GameEngine/Source/Common/Rva002D2E57Get.cpp,matched,free getter via selection lock and player list
 ?erase@?$vector@URva003B8B61Elem@@V?$allocator@URva003B8B61Elem@@@_STL@@@_STL@@QAEPAURva003B8B61Elem@@PAU3@@Z,,0x003F4B51,56,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva003b8b61elem_single_erase.cpp,matched,single erase via CopyDispatch and virtual destroy callers 0x003F5718 0x003F68E2
 ?rva004477C7@LANGameInfo@@QBE_NXZ,,0x004477C7,20,Code/GameEngine/Source/GameNetwork/LANGameInfoSlots.cpp,matched,gap inGame check then first slot isLocalPlayer
+?rva0009AB6B@Rva0009AB6B@@QAEXXZ,,0x0009AB6B,26,Code/GameEngine/Source/Common/Rva0009AB6BMethod.cpp,matched,chain Reset then two virtuals
