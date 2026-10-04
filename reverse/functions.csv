@@ -55631,3 +55631,4 @@ __Locale_ctype_create,,0x00022360,1316,Code/Libraries/Source/WWVegas/WWLib/stlpo
 ?rva002C969D@Weapon@@QAE_NPBXH@Z,,0x002C969D,59,Code/GameEngine/Source/GameLogic/Object/WeaponIsTooClose.cpp,matched,unlock guarded virtual 0x98 via 0x250 callers 3
 ?Rva0008FC17Create@@YGPAVRva000A1646@@PAX@Z,,0x0008FC17,58,Code/GameEngine/Source/Common/Rva0008FC17Create.cpp,matched,chain lane same 58B new+ctor shape as siblings
 ?Rva0008F71BCreate@@YGPAVRva000A08D9@@PAX@Z,,0x0008F71B,58,Code/GameEngine/Source/Common/Rva0008F71BCreate.cpp,matched,chain lane same 58B new+ctor shape as siblings
+?rva0045108D@GiveOrRestoreUpgradeSpecialPower@@UAEXXZ,,0x004CD1B9,275,Code/GameEngine/Source/GameLogic/Object/SpecialPower/GiveOrRestoreUpgradeSpecialPowerSlot17.cpp,matched,slot 17 of vtable 0x0085FA40 base slot 17 then upgrade and toggle masks
