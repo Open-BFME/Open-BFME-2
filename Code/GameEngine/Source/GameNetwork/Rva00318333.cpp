@@ -20,6 +20,7 @@ template<class T> class StringBase
 public:
 	bool isEmpty() const;
 	void set(const T *);
+	void set(const StringBase &);
 };
 class PlayerList
 {
@@ -61,6 +62,7 @@ class Rva00318333
 public:
 	void rva00318333(Object *obj, bool flag);
 	void rva00318719();
+	void rva00318807(int m18, int *m1Csrc, void *shiftSrc, const StringBase<char> *m20src, int *m58src, int m2C);
 private:
 	char m_pad00[0x18];
 	int m_18;
@@ -142,4 +144,20 @@ void Rva00318333::rva00318719()
 	memset(&m_58, 0, 4);
 	m_24 = 0;
 	m_2C = 0;
+}
+void Rva00318333::rva00318807(int m18, int *m1Csrc, void *shiftSrc, const StringBase<char> *m20src, int *m58src, int m2C)
+{
+	rva00318719();
+	m_18 = m18;
+	m_1C.m_00 = *m1Csrc;
+	m_20.set(*m20src);
+	m_58.m_words[0] = (unsigned int)*m58src;
+	int sh = *(int *)((char *)shiftSrc + 0x54);
+	m_24 = 1 << sh;
+	m_2C = m2C;
+	Object *obj = TheGameLogic->getFirstObject();
+	while (obj) {
+		rva00318333(obj, false);
+		obj = obj->m_8C;
+	}
 }

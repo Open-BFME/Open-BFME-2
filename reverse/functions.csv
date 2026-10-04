@@ -55462,3 +55462,4 @@ uw_0076765b,,0x0076765B,8,Code/Libraries/Source/WWVegas/WW3D2/meshgeometry.cpp,m
 ??1Rva005248D0@@UAE@XZ,,0x005248D0,111,Code/Libraries/Source/WWVegas/WWLib/Rva005248D0Dtor.cpp,matched,six vector-holder dtor via Rva0052493F offsets no base
 ?rva00318333@Rva00318333@@QAEXPAVObject@@_N@Z,,0x00318333,247,Code/GameEngine/Source/GameNetwork/Rva00318333.cpp,matched,controlling player flag 0x1BC ThePlayerList mask bfmeHas1026 isEmpty BitFlags any pool update
 ?rva00318719@Rva00318333@@QAEXXZ,,0x00318719,79,Code/GameEngine/Source/GameNetwork/Rva00318333.cpp,matched,chain clears m18 m20 m24 m2C m58 via GameLogic objects
+?rva00318807@Rva00318333@@QAEXHPAHPAXPBV?$StringBase@D@@0H@Z,,0x00318807,106,Code/GameEngine/Source/GameNetwork/Rva00318333.cpp,matched,chain init m18 m1C m20 m58 m24 m2C via GameLogic
