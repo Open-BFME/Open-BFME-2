@@ -8360,3 +8360,4 @@ _Rva0030CAF8CursorEqual,0x0007E394,twin of dup_0007e394 29B exact cursor equalit
 ?bfmeApplySpecialModelCondition@Object@@QAEXHPBXH@Z,0x0028EC68,callee of ?bfmeHelper6280@@YAHPAUlua_State@@@Z at retail 0x0033514A read from its REL32 displacement; 2B thunk body unrowed
 ??1Rva006ABC60TrailingMember@@QAE@XZ,0x000589FB,callee of ??1Rva006ABC60@@QAE@XZ at retail 0x0005925E read from its REL32 displacement; ICF alias onto ??1Rva00056CF8@@QAE@XZ (matched)
 ??0RetailDamageModuleDataBase@@QAE@XZ,0x0026E5D7,callee of ?friend_newModuleData@DamageModule@@SAPAVModuleData@@PAVINI@@@Z at retail 0x002541A3 read from its REL32 displacement; ICF alias onto ??0TransportAIUpdateModuleData@@QAE@XZ (matched)
+??1DebugCommandMapEntry@@QAE@XZ,0x001DB48E,callee of ?parseDebugCommandMap@@YAXPAVINI@@@Z at retail 0x001DB4CF read from its REL32 displacement; ICF alias onto ??1MetaMapRec@@QAE@XZ (matched)
