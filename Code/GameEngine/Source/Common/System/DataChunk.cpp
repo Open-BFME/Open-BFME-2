@@ -88,6 +88,7 @@ public:
 	~DataChunkTableOfContents();
 
 	void read( ChunkInputStream &s);
+	unsigned int allocateID( const AsciiString& name );
 
 	Mapping *m_list;			// +0x00
 	int m_listLength;			// +0x04
@@ -207,4 +208,31 @@ void DataChunkTableOfContents::read( ChunkInputStream &s)
 
 	// adjust next ID so no ID's are reused
 	this->m_nextID = max( this->m_nextID, maxID+1 );
+}
+
+// ?allocateID@DataChunkTableOfContents@@QAEIABVAsciiString@@@Z
+// Retail 0x00307A6A (86B): Zero Hour's DataChunk.cpp id allocation: reuse
+// a known name's id, else prepend a new mapping (newed as in read()).
+unsigned int DataChunkTableOfContents::allocateID(const AsciiString& name )
+{
+	Mapping *m = findMapping( name );
+
+	if (m)
+		return m->m_id;
+	else
+	{
+		// allocate new id mapping
+		m = (Mapping *)new Rva0030714F;
+
+		m->m_id = this->m_nextID++;
+		m->m_name = name ;
+
+		// prepend to list
+		m->m_next = this->m_list;
+		this->m_list = m;
+
+		this->m_listLength++;
+
+		return m->m_id;
+	}
 }

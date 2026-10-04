@@ -53655,3 +53655,4 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ??_ERva0032EC63@@WM@AEPAXI@Z,,0x0032ED59,8,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB06.cpp,matched,this-adjusting (-0xC) deleting-dtor thunk of opaque class Rva0032EC63
 ??_ERva00355BDA@@WM@AEPAXI@Z,,0x00355BB6,8,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB06.cpp,matched,this-adjusting (-0xC) deleting-dtor thunk of opaque class Rva00355BDA
 ??_ERva003B923B@@WM@AEPAXI@Z,,0x003B912A,8,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB07.cpp,matched,this-adjusting (-0xC) deleting-dtor thunk of opaque class Rva003B923B
+?allocateID@DataChunkTableOfContents@@QAEIABVAsciiString@@@Z,,0x00307A6A,86,Code/GameEngine/Source/Common/System/DataChunk.cpp,matched,ZH DataChunkTableOfContents::allocateID; pinned
