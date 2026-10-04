@@ -2604,6 +2604,7 @@ Code/GameEngine/Source/Common/Rva00286297Zero.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva0028867DCheck.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva00288940Find.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva00288BBACtor.cpp,no,0,0,4,0,1
+Code/GameEngine/Source/Common/Rva00288BF9RecordDtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva00289180Finish.cpp,no,0,0,3,0,1
 Code/GameEngine/Source/Common/Rva00289371HashClear.cpp,no,1,0,0,0,0
 Code/GameEngine/Source/Common/Rva00289ABDCtor.cpp,no,1,0,37,0,14
@@ -7888,7 +7889,7 @@ Code/GameEngine/Source/GameLogic/AI/ai_Rva002FD791.cpp,no,4,1,0,0,0
 Code/GameEngine/Source/GameLogic/GameLogicFindObjectByID.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/LivingWorld/FlashRegionRecord.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/LivingWorld/LivingWorldSoundAssign_Rva003FB00B.cpp,no,3,0,0,0,0
-Code/GameEngine/Source/GameLogic/LivingWorld/ParseEnableRegion.cpp,no,0,0,1,0,0
+Code/GameEngine/Source/GameLogic/LivingWorld/ParseEnableRegion.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/LivingWorld/ParseFlashRegionsEvent_Rva004e14e8.cpp,no,2,0,1,0,0
 Code/GameEngine/Source/GameLogic/LivingWorld/ParseForceBattle.cpp,no,1,0,0,1,0
 Code/GameEngine/Source/GameLogic/LivingWorld/ParseLivingWorldPlayer.cpp,no,1,0,0,0,0
@@ -13924,6 +13925,7 @@ Code/Libraries/Source/WWVegas/WWLib/StlportOwnedRecord1408Destroy.cpp,yes,0,0,0,
 Code/Libraries/Source/WWVegas/WWLib/StlportOwnedRecord1432Destroy.cpp,no,1,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/StlportOwnedRecordDeque.cpp,no,8,0,21,0,15
 Code/Libraries/Source/WWVegas/WWLib/StlportOwner900VectorDtor.cpp,no,0,0,16,0,5
+Code/Libraries/Source/WWVegas/WWLib/StlportRecordRangeCopyDispatch.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/StlportReserveRva0047B35E.cpp,no,0,0,1,0,1
 Code/Libraries/Source/WWVegas/WWLib/StlportReserveRva004DA039.cpp,no,0,0,0,0,1
 Code/Libraries/Source/WWVegas/WWLib/StlportRva003F610FDefaultCtor.cpp,no,0,0,5,0,0
@@ -13933,6 +13935,7 @@ Code/Libraries/Source/WWVegas/WWLib/StlportTreeDtor0016DAA0.cpp,no,0,0,1,0,1
 Code/Libraries/Source/WWVegas/WWLib/StlportTrivialDeque8Cleanup.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/StlportUcharMaps005538CE.cpp,no,0,0,7,0,4
 Code/Libraries/Source/WWVegas/WWLib/StlportUnicodeStringVectorDtor.cpp,no,0,0,0,0,1
+Code/Libraries/Source/WWVegas/WWLib/StlportVector104Assignment.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/StlportVectorAllocateAndCopyRva002D0EDC.cpp,no,1,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/StlportVectorConstructRva00414BDB.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/StlportVectorDtor004CC1AD.cpp,no,0,0,3,0,2
