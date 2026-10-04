@@ -55602,3 +55602,4 @@ uw_0075c910,,0x0075C910,8,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_str
 ?rva000AD9FE@Rva000AD9AB@@QAEXXZ,,0x000AD9FE,28,Code/GameEngine/Source/Common/Rva000AD9ABFinish.cpp,matched,gap fill bitplane via 0x000ABC25 same 0x44 layout
 ?Rva000ADE45Copy@@YAPAUBfmeStringRecord00063BE4@@PAU1@00@Z,,0x000ADE45,29,Code/GameEngine/Source/Common/Rva000ADE45Unlock.cpp,matched,unlock copy wrapper tag null distance caller 0x00335C9B
 ?rva0029ACA0@Rva0029ACA0@@QAEXHI@Z,,0x0029ACA0,39,Code/GameEngine/Source/Common/Rva0029ACA0.cpp,matched,unlock callee of 0x29ACC7 loop via O1 G7
+?rva0029ACC7@Rva0029ACA0@@QAEXH@Z,,0x0029ACC7,28,Code/GameEngine/Source/Common/Rva0029ACA0.cpp,matched,chain caller looping target 25 times
