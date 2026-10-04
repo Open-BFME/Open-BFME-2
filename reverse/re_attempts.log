@@ -7806,3 +7806,5 @@ FUN_007b7836	0x003B7836	260	blocked	no callers prove 3-arg free-function types p
 ?rva00421292@Rva00421292@@QAEXPAVGen_0039BE00@@PBV?$StringBase@D@@@Z	0x00421292	82	blocked	extra ebx spill and cmp vs mov-test for null check t=25 model=muse-spark
 ?rva004EA33A@Rva004EA33A@@QAEXXZ	0x004EA33A	106	partial	esi edi swap only size exact 106 loop je and pop fixed via barrier push edi early t=20 model=muse-08 score=0.96 stash=reverse/attempts/0x004ea33a.cpp
 ?rva004EA1A5@Rva004EA1A5@@QAEXPAX@Z	0x004EA1A5	191	blocked	exact size 191B ebx-edi swap obj-vs-this persists across deforder register this-direct t=15 model=muse-08 (stash 0.95 kept)
+??_GRva005838B5@@UAEPAXI@Z	0x005838DC	28	blocked	??_G calls dup_005838F8 not rowed proper ??1 t=12 model=muse-02
+?Rva005837F0Get@@YAXXZ	0x005837F0	197	blocked	EH-throw AsciiString plus two virtuals no donor t=6 model=muse-02
