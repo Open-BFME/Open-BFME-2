@@ -9,6 +9,12 @@
 // the Player's +0x738 member 0x0037F32F (pinned by address) with the Player;
 // then TheControlBar is flagged (+0x28) to rebuild and the UpgradeModule
 // condition apply 0x004CE4A0 runs (tail call).
+// BuildableHeroListUpgrade::upgradeRemovalImplementation, retail 0x004B8484
+// (102 bytes), slot 8: for every listed name, the template goes first to the
+// class's 0x004B83D2 (which walks the Player's teams; pinned by address) and
+// then to the +0x738 member's 0x0037EEB9 (pinned by address); then the same
+// TheControlBar flag and the condition removal 0x004CE4A8 (tail call). It
+// does not test whether the upgrade is in effect.
 #include "ascii_string.h"
 #include <vector>
 typedef bool Bool;
@@ -25,6 +31,7 @@ class Rva0037F32F
 {
 public:
 	void rva0037F32F(const ThingTemplate *tmpl, Player *player);
+	void rva0037EEB9(const ThingTemplate *tmpl);
 };
 struct Rva004B837FList
 {
@@ -85,11 +92,14 @@ class UpgradeModule : public ObjectModuleBase, public UpgradeModuleInterface, pu
 {
 public:
 	void rva004CE4A0();
+	void rva004CE4A8();
 };
 class BuildableHeroListUpgrade : public UpgradeModule
 {
 protected:
+	virtual void upgradeRemovalImplementation();
 	virtual void upgradeImplementation();
+	void rva004B83D2(const ThingTemplate *tmpl);
 };
 void BuildableHeroListUpgrade::upgradeImplementation()
 {
@@ -102,4 +112,18 @@ void BuildableHeroListUpgrade::upgradeImplementation()
 	}
 	TheControlBar->m_28 = true;
 	rva004CE4A0();
+}
+void BuildableHeroListUpgrade::upgradeRemovalImplementation()
+{
+	Player *player = getObject()->getControllingPlayer();
+	_STL::vector<AsciiString> &names = player->m_34->m_names;
+	Rva0037F32F *holder = &player->m_738;
+	for (_STL::vector<AsciiString>::iterator it = names.begin(); it != names.end(); ++it)
+	{
+		const ThingTemplate *tmpl = TheThingFactory->findTemplate(*it);
+		rva004B83D2(tmpl);
+		holder->rva0037EEB9(tmpl);
+	}
+	TheControlBar->m_28 = true;
+	rva004CE4A8();
 }
