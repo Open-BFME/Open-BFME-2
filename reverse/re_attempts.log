@@ -8243,3 +8243,5 @@ Rva00415B91	0x00415B91	197	blocked	Native Ghidra197 is a separate EH-framed pars
 ?Rva00309358Loop@@YAXXZ	0x00309358	158	blocked	complex 158B string vector loop with 7 callees needs donor t=10 model=muse-12
 ?xfer@OilSpillUpdate@@MAEXPAVXfer@@@Z	0x0048C415	235	blocked	xfer 235B with vector count divide 0xc vs ctor int plus SSE loop needs full version analysis t=15 model=muse-12
 ?rva0049083C@ArrowStormUpdate@@AAE_NXZ	0x0049083C	411	blocked	list loop ebx vs stack plus frame 0x14 vs 0x1c plus 12 structural regions t=25 model=muse-17
+??1Gen_00757830@@QAE@XZ	0x000C9A12	63	blocked	EH dtor wall t=12 model=muse-09
+?rva0039D97E@Team@@QAEXPAVBfmeOwnerCFF@@@Z	0x0039D97E	101	blocked	loop var still ecx not edi plus mov direction t=10 model=muse-09 (stash 0.95 kept)
