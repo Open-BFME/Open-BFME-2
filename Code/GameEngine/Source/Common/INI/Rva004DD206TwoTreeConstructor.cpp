@@ -39,6 +39,5 @@ public:
  Rva004DD206TreeView tree14,tree20;
  unsigned int word2C,word30;
 };
-// ?Rva004DD206Owner::Rva004DD206Owner present-unmatched
 Rva004DD206Owner::Rva004DD206Owner(unsigned int a,unsigned int b)
  :word00(a),word04(b),word08(0),word0C(0),word10(0) {word2C=0;word30=0;}
