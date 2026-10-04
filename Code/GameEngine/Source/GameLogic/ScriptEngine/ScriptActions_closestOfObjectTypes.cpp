@@ -1,7 +1,11 @@
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /GX /arch:SSE
 //
-// BFME2 script actions that name the object of a type nearest a team.
+// BFME2 script actions over the object of a type nearest a team.
 //
+//   0x003C2662  (called from the dispatcher 0x003CA4BE at 0x003CDF80): the
+//               team's new group is ordered (0x00372571, source 1) to the
+//               closest object of the given types or template to the team's
+//               centre
 //   0x003C4625  (called from the action dispatcher 0x003CA4BE at
 //               0x003CDD4D): the closest object to the team's centre that
 //               the team's controlling player owns, of the given ObjectTypes
@@ -118,11 +122,14 @@ public:
 	AsciiString m_string;	// +0x10
 };
 
+class AIGroup;
+
 class Team
 {
 public:
 	Player *getControllingPlayer() const;	// 0x0039D7CF
 	void rva0039E5B9(Coord3D *center);	// 0x0039E5B9
+	void getTeamAsAIGroup(AIGroup *group);	// 0x003A0F62
 };
 
 class PlayerList
@@ -131,6 +138,32 @@ public:
 	Player *getEachPlayerFromMask(int &mask);	// 0x002A7BC9
 };
 extern PlayerList *ThePlayerList;
+
+// The argument block 0x00372571 takes (built inline by its callers).
+struct Rva00372571Params
+{
+	const Coord3D *m_pos;
+	bool m_04;
+	int m_08;
+	int m_0C;
+	int m_10;
+	int m_14;
+	int m_18;
+	bool m_1C;
+};
+
+class AIGroup
+{
+public:
+	void rva00372571(Rva00372571Params *params, int source);	// 0x00372571
+};
+
+class AI
+{
+public:
+	AIGroup *createGroup();	// 0x002FEC4B
+};
+extern AI *TheAI;
 
 class ScriptEngine
 {
@@ -147,6 +180,7 @@ class ScriptActions
 {
 public:
 	Object *rva003C24F0(const Coord3D *pos, ObjectTypes *types, Player *player, bool flag);
+	void rva003C2662(const AsciiString &teamName, const AsciiString &objectType);
 	void rva003C4625(const AsciiString &objectType, Parameter *teamParm, const AsciiString &unitName);
 	void rva003C420A(void *what, const AsciiString &name, Object *obj);	// 0x003C420A
 	void rva003C56D6(void *what, const AsciiString &name, const AsciiString &objectType,
@@ -154,6 +188,43 @@ public:
 	void rva003C55A6(void *what, const AsciiString &name, const AsciiString &objectType,
 		const AsciiString &teamName, const AsciiString &playerName);
 };
+
+void ScriptActions::rva003C2662(const AsciiString &teamName, const AsciiString &objectType)
+{
+	Team *team = TheScriptEngine->getTeamNamed(teamName, false);
+	if (!team)
+		return;
+	Coord3D pos;
+	team->rva0039E5B9(&pos);
+	Object *obj;
+	ObjectTypes *types = TheScriptEngine->getObjectTypes(objectType);
+	if (types) {
+		obj = rva003C24F0(&pos, types, 0, false);
+	} else {
+		const ThingTemplate *templ = TheThingFactory->findTemplate(objectType);
+		if (!templ)
+			return;
+		obj = ThePartitionManager->getClosestObject(&pos, REALLY_FAR, 0, &Rva00261750Filter(templ, true));
+	}
+	if (!obj)
+		return;
+	AIGroup *group = TheAI->createGroup();
+	if (!group)
+		return;
+	team->getTeamAsAIGroup(group);
+	{
+		Rva00372571Params params;
+		params.m_14 = -1;
+		params.m_pos = obj->getPosition();
+		params.m_04 = false;
+		params.m_08 = 0;
+		params.m_0C = 0;
+		params.m_10 = 0;
+		params.m_18 = 0;
+		params.m_1C = false;
+		group->rva00372571(&params, 1);
+	}
+}
 
 void ScriptActions::rva003C4625(const AsciiString &objectType, Parameter *teamParm, const AsciiString &unitName)
 {
