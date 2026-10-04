@@ -66,3 +66,19 @@ Rva0061FC30::Rva0061FC30( Rva0061FC30Block *block )
 	++block->m_refs;
 }
 
+// Target 0x0073A360, 15 bytes; preceding int3 padding; terminal ret and int3 padding.
+// Donor b1 RVA 0x008F7DC0; target instructions corroborate these accesses.
+class Rva0073A360
+{
+public:
+	void clear( int index );
+
+	char m_lead[ 0x24 ];
+	int m_slots[ 1 ];
+};
+
+void Rva0073A360::clear( int index )
+{
+	m_slots[ index ] = 0;
+}
+
