@@ -44,7 +44,6 @@ public:
 	Rva000EFA35Target *m_34;
 };
 
-// ?rva000EFA35@Rva000EFA35Selector@@QAEPAURva000EFA35Target@@E@Z present-unmatched
 Rva000EFA35Target *Rva000EFA35Selector::rva000EFA35(unsigned char flag)
 {
 	Rva000EFA35Target *target;
