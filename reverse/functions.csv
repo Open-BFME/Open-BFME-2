@@ -54287,3 +54287,4 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ?Rva004EA2C5Get@@YAHXZ,,0x004EA2C5,55,Code/GameEngine/Source/Common/Rva004EA2C5.cpp,matched,walks GameLogic list via getFirstObject and StringBase compare holder plus4 name plus64 TheGameLogic in use
 ?bfmeForgetCC@BfmeRegistryCC@@QAEXPAX@Z,,0x000480ED,47,Code/GameEngine/Source/Common/BfmeRegistryForgetCC.cpp,matched,find-erase like Rva004DFB55 caller 0x72838 pin-named
 ?rva00599564@Rva00599564@@QAEXPAVObject@@@Z,,0x00599564,162,Code/Libraries/Source/WWVegas/WWLib/Rva00599564.cpp,matched,unlock virtual dispatch rowed pin-only TheEmptyString g_009FF000
+??1Rva004421E1@@UAE@XZ,,0x004421E1,211,Code/GameEngine/Source/Common/Rva004421E1Dtor.cpp,matched,chain lane vtable 0x83DD7C global clear free vector array members base pin
