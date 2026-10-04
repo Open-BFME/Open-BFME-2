@@ -19,7 +19,7 @@
 // Opaque address-derived name.
 int Rva002BE8CEGet(void)
 {
-	return 0x00BFE4D4;
+	return (int)"LivingWorld (client)";
 }
 
 // ?Rva0009FDF5Get@@YAHXZ @ 0x0009FDF5 (6B): returns 0x0048F925.
@@ -58,7 +58,7 @@ int Rva00180778Get(void)
 // literal (no DIR32 for literals). Opaque address-derived name.
 int Rva00180E60Get(void)
 {
-	return 0x00BBE8D4;
+	return (int)"NULL";
 }
 
 // ?Rva000A08F1Get@@YAHXZ @ 0x000A08F1 (6B): returns 0x0048F6E1.
@@ -284,7 +284,7 @@ int Rva002376C6Get(void)
 // Opaque address-derived name.
 int Rva00285745Get(void)
 {
-	return 0x00BFB6C8;
+	return (int)"FireLogicSystem::BurningCell";
 }
 
 // ?Rva0039B81DGet@@YAHXZ @ 0x0039B81D (6B): returns 0x00C1AD7C.
@@ -293,7 +293,7 @@ int Rva00285745Get(void)
 // Opaque address-derived name.
 int Rva0039B81DGet(void)
 {
-	return 0x00C1AD7C;
+	return (int)"ScoreKeeper::PerFrameStats";
 }
 
 // ?Rva004B29B8Get@@YAHXZ @ 0x004B29B8 (6B): returns 0x00BF4E80.
@@ -303,7 +303,7 @@ int Rva0039B81DGet(void)
 // Opaque address-derived name.
 int Rva004B29B8Get(void)
 {
-	return 0x00BF4E80;
+	return (int)"ReplaceObjectUpdate";
 }
 
 // ?Rva004C07ABGet@@YAHXZ @ 0x004C07AB (6B): returns 0x00BF4894.
@@ -313,7 +313,7 @@ int Rva004B29B8Get(void)
 // Opaque address-derived name.
 int Rva004C07ABGet(void)
 {
-	return 0x00BF4894;
+	return (int)"HighlanderBody";
 }
 
 // ?Rva0033F3E9Get@@YAHXZ @ 0x0033F3E9 (6B): returns 0x00C1104C.
@@ -321,7 +321,7 @@ int Rva004C07ABGet(void)
 // callers, no branch sources. Opaque address-derived name.
 int Rva0033F3E9Get(void)
 {
-	return 0x00C1104C;
+	return (int)"AIAttackAimAtTargetState";
 }
 
 // ?Rva0033F414Get@@YAHXZ @ 0x0033F414 (6B): returns 0x00C110AC.
@@ -329,7 +329,7 @@ int Rva0033F3E9Get(void)
 // callers, no branch sources. Opaque address-derived name.
 int Rva0033F414Get(void)
 {
-	return 0x00C110AC;
+	return (int)"AIAttackPositionAimAtTargetState";
 }
 
 // ?Rva0033F437Get@@YAHXZ @ 0x0033F437 (6B): returns 0x00C11114.
@@ -337,7 +337,7 @@ int Rva0033F414Get(void)
 // callers, no branch sources. Opaque address-derived name.
 int Rva0033F437Get(void)
 {
-	return 0x00C11114;
+	return (int)"AIWaitState";
 }
 
 // ?Rva0033F45AGet@@YAHXZ @ 0x0033F45A (6B): returns 0x00C11164.
@@ -345,7 +345,7 @@ int Rva0033F437Get(void)
 // callers, no branch sources. Opaque address-derived name.
 int Rva0033F45AGet(void)
 {
-	return 0x00C11164;
+	return (int)"AIWaitUntilFinishedFiringState";
 }
 
 // ?Rva0033F47DGet@@YAHXZ @ 0x0033F47D (6B): returns 0x00C111CC.
@@ -353,5 +353,5 @@ int Rva0033F45AGet(void)
 // callers, no branch sources. Opaque address-derived name.
 int Rva0033F47DGet(void)
 {
-	return 0x00C111CC;
+	return (int)"AIWaitUntilMembersFinishedBeforeExitState";
 }

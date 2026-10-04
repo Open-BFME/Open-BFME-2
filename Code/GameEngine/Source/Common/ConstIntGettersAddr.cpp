@@ -248,7 +248,7 @@ int Rva002856FDGet(void)
 // Opaque address-derived name.
 int Rva003ABD55Get(void)
 {
-	return 0x00C1C59C;
+	return (int)"DefaultModule<CAT_PHYSICS>";
 }
 
 // ?Rva003AC9A1Get@@YAHXZ @ 0x003AC9A1 (6B): returns 0x00C1C96C.
@@ -257,7 +257,7 @@ int Rva003ABD55Get(void)
 // Opaque address-derived name.
 int Rva003AC9A1Get(void)
 {
-	return 0x00C1C96C;
+	return (int)"DefaultParticleModule<CAT_COLOR>";
 }
 
 // ?Rva0008EFCCGet@@YAHXZ @ 0x0008EFCC (6B): returns 0x00BFC338.
@@ -329,7 +329,7 @@ int Rva000EF29AGet(void)
 // Opaque address-derived name.
 int Rva00342868Get(void)
 {
-	return 0x00C12520;
+	return (int)"AIMoveAndTightenState";
 }
 
 // ?Rva000907A1Get@@YAHXZ @ 0x000907A1 (6B): returns 0x00CE4818.
@@ -347,7 +347,7 @@ int Rva000907A1Get(void)
 // Opaque address-derived name.
 int Rva006C7580Get(void)
 {
-	return 0x00CE7D14;
+	return (int)"file_dot";
 }
 
 // ?Rva006C7590Get@@YAHXZ @ 0x006C7590 (6B): returns 0x00CE7CBC.
@@ -355,7 +355,7 @@ int Rva006C7580Get(void)
 // direct callers, no branch sources. Opaque address-derived name.
 int Rva006C7590Get(void)
 {
-	return 0x00CE7CBC;
+	return (int)"file_gtt_dot";
 }
 
 // ?Rva003007A2Get@@YAHXZ @ 0x003007A2 (6B): returns 0x00700778.
@@ -436,7 +436,7 @@ int Rva00201095Get(void)
 // Opaque address-derived name.
 int Rva004EE155Get(void)
 {
-	return 0x00C62A38;
+	return (int)"LivingWorldScoreKeeper::PerTurnStats";
 }
 
 // ?Rva00655114Get@@YAHXZ @ 0x00655114 (6B): returns 1. Follows a

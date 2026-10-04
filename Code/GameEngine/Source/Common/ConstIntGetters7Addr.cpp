@@ -15,21 +15,21 @@
 // Opaque address-derived name.
 int Rva0052349BGet(void)
 {
-	return 0x00c622e4;
+	return (int)"GUI:PlayerAlive";
 }
 
 // ?Rva005234A1Get@@YAHXZ @ 0x005234a1 (6B): returns 0x00c622c0.
 // Abuts the 0x0052349b getter above. Opaque address-derived name.
 int Rva005234A1Get(void)
 {
-	return 0x00c622c0;
+	return (int)"GUI:PlayerDead";
 }
 
 // ?Rva005234A7Get@@YAHXZ @ 0x005234a7 (6B): returns 0x00c62298.
 // Abuts the 0x005234a1 getter above. Opaque address-derived name.
 int Rva005234A7Get(void)
 {
-	return 0x00c62298;
+	return (int)"GUI:PlayerGone";
 }
 
 // ?Rva00559F57Get@@YAHXZ @ 0x00559f57 (6B): returns 0x00dd2380.
