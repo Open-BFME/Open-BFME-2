@@ -14,3 +14,5 @@ enum ScienceType
 };
 
 template class _STL::hash_map<int, _STL::vector<ScienceType>, _STL::hash<int>, _STL::equal_to<int>, _STL::allocator<_STL::pair<const int, _STL::vector<ScienceType> > > >;
+
+template bool _STL::operator!=(const _STL::vector<ScienceType, _STL::allocator<ScienceType> > &, const _STL::vector<ScienceType, _STL::allocator<ScienceType> > &);
