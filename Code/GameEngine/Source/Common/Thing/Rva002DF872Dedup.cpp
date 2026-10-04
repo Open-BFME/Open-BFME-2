@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /Ireference/shims/bfmealloc
+// cl: /O1 /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP=
 // stlport
 // ?rva002DF872@Rva002DF872@@QAEXXZ @0x002DF872 41B: dedup adjacent 12-byte recs by first dword via BfmePod12 erase 0x0034C117; caller 0x002DF985.
 // Evidence: retail calls rowed erase vector<BfmePod12> 0x0034C117; begin/end from [esi]/[esi+4]; called from 0x002DF93D.
