@@ -51,6 +51,7 @@ public:
     int rva003F4FAA(int outerIdx, void *p);
     int rva003F47E6(int outerIdx);
     int rva003F4831();
+    int rva003F45DF();
     Rva003F498AOuter *rva003F4634(void *p);
     void *rva003F4DEE(void *p);
     void *rva003F4FBD(void *p);
@@ -264,4 +265,13 @@ void Rva003F498A::rva003F470E(int outerIdx, int innerIdx, void *p)
     tail[2] = *(int *)((char *)sk + 0x74);
     tail[1] = *(int *)((char *)sk + 0xD4);
     tail[4] = 12345;
+}
+
+int Rva003F498A::rva003F45DF()
+{
+    for (unsigned i = 0; i < m_outers.size(); ++i) {
+        if (m_outers[i].inners.size() > 0)
+            return (int)i;
+    }
+    return 0;
 }
