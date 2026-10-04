@@ -10,6 +10,8 @@
 //   0x001E488A  worker / count50, capped at +0x34
 //   0x001E48CF  cached +0x5C unless its frame is stale, else the worker
 //   0x001E543F  whether +0x40 exceeds a quarter of the worker
+//   0x001E53D8  step +0x40 toward a limit by the +0x30-capped ratio, then
+//               clamp it to [0, worker]
 // Retail compares with fcompi, which MSVC 7.1 emits only under /arch:SSE.
 // Class and member names are unknown, hence address-derived.
 class Object;
@@ -35,6 +37,7 @@ public:
 	float rva001E488A(Object *obj);
 	bool rva001E543F(Object *obj);
 	float rva001E48CF(Object *obj);
+	void rva001E53D8(float limit, Object *obj);
 	void *m_00;
 	const Rva001E46E1Data *m_data;
 	char m_pad08[0x30 - 8];
@@ -70,4 +73,26 @@ float Rva001E46E1::rva001E48CF(Object *obj)
 	if (m_60 < ((const Rva001E46E1FrameView *)TheGameLogic)->m_frame)
 		return rva001E46E1(obj);
 	return m_5C;
+}
+
+static inline float bfmeClamp(float value, float lo, float hi)
+{
+	if (value < lo)
+		return lo;
+	if (value > hi)
+		return hi;
+	return value;
+}
+
+void Rva001E46E1::rva001E53D8(float limit, Object *obj)
+{
+	if (limit > m_40) {
+		m_40 += rva001E4845(obj);
+		if (m_40 > limit)
+			m_40 = limit;
+	} else {
+		m_40 = limit;
+	}
+	float cap = rva001E46E1(obj);
+	m_40 = bfmeClamp(m_40, 0.0f, cap);
 }
