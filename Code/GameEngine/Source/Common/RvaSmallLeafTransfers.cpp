@@ -168,3 +168,16 @@ void Rva0066F550::clear()
 	m_14 = 0;
 }
 
+// Target 0x00699700, 11 bytes; preceding int3 padding; terminal ret and int3 padding.
+// Donor b1 RVA 0x00858140; target instructions corroborate these accesses.
+struct Rva00699700Record
+{
+	char m_lead[ 0x18D4 ];
+	int m_18d4;
+};
+
+int Rva00699700( const Rva00699700Record *record )
+{
+	return record->m_18d4;
+}
+
