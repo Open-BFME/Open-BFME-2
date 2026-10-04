@@ -6,16 +6,18 @@ extern void *DebugAllocMemory(unsigned size);
 
 class Rva00891540DebugIOCon
 {
-public:
-    __declspec(noinline) Rva00891540DebugIOCon(void);
-
 private:
     char m_body[0x110];
 };
 
-__declspec(noinline) Rva00891540DebugIOCon::Rva00891540DebugIOCon(void)
+class DebugIOCon
 {
-}
+public:
+    DebugIOCon(void);
+
+private:
+    char m_body[0x110];
+};
 
 class Rva00891540DebugIOConFactory
 {
@@ -26,6 +28,6 @@ public:
 // ?Create@Rva00891540DebugIOConFactory@@SAPAVRva00891540DebugIOCon@@XZ
 Rva00891540DebugIOCon *Rva00891540DebugIOConFactory::Create(void)
 {
-    return new (DebugAllocMemory(sizeof(Rva00891540DebugIOCon)))
-        Rva00891540DebugIOCon();
+    return (Rva00891540DebugIOCon *)new (DebugAllocMemory(sizeof(Rva00891540DebugIOCon)))
+        DebugIOCon();
 }
