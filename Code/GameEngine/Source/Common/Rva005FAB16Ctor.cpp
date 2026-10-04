@@ -7,7 +7,7 @@ struct Payload005FAB16 {
     int v[4];
 };
 struct Rva005FAB16 {
-    virtual void _vf();
+    virtual void _vf() {}
     int m4;
     Payload005FAB16 m8;
     Rva005FAB16(const Payload005FAB16 &o);
