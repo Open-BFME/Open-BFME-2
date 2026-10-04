@@ -35,7 +35,8 @@
 // giant-bird states and GiantBirdGuardMachine at the end are named the same
 // way; the guard-state body also fills the attack-aggressor and inner guard
 // tables, and the AIGiantBirdAttack body the DozerActionMoveToActionPosState
-// table (identical code, named by the first table).
+// table (identical code, named by the first table). AIEnterAndAttackState
+// and GiantBirdGuardReturnState follow.
 
 class AsciiString;
 class UnicodeString;
@@ -454,6 +455,25 @@ private:
 	UnsignedInt m_bfmeRaw20;																									///< 0x20, 4 raw bytes
 };
 
+class AIEnterAndAttackState : public AIInternalMoveToState
+{
+protected:
+	virtual void xfer( Xfer *xfer );
+private:
+	ObjectID m_bfmeObject4C;																									///< 0x4C
+	ObjectID m_bfmeObject50;																									///< 0x50
+};
+
+class GiantBirdGuardReturnState : public State
+{
+protected:
+	virtual void xfer( Xfer *xfer );
+private:
+	char m_unrecovered04[ 0x24 - 0x04 ];
+	UnsignedInt m_bfmeValue24;																								///< 0x24
+	Coord3DBase m_bfmePosition28;																							///< 0x28
+};
+
 // ------------------------------------------------------------------------------------------------
 /** Xfer Method */
 // ------------------------------------------------------------------------------------------------
@@ -729,4 +749,25 @@ void AIGiantBirdAttack::xfer( Xfer *xfer )
 {
 	xfer->Version1();
 	xfer->XferRawBytes( &m_bfmeRaw20, 4 );
+}  // end xfer
+
+// ------------------------------------------------------------------------------------------------
+/** Xfer Method */
+// ------------------------------------------------------------------------------------------------
+void AIEnterAndAttackState::xfer( Xfer *xfer )
+{
+	xfer->Version1();
+	AIInternalMoveToState::xfer(xfer);
+	XferObjectID( xfer, &m_bfmeObject4C );
+	XferObjectID( xfer, &m_bfmeObject50 );
+}  // end xfer
+
+// ------------------------------------------------------------------------------------------------
+/** Xfer Method */
+// ------------------------------------------------------------------------------------------------
+void GiantBirdGuardReturnState::xfer( Xfer *xfer )
+{
+	xfer->Version1();
+	*xfer == m_bfmeValue24;
+	*xfer == m_bfmePosition28;
 }  // end xfer
