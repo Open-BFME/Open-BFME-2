@@ -179,3 +179,9 @@ bool __stdcall Rva003E4ED5Get(Parameter *p)
 {
 	return TheTacticalView->slot23C() > p->getReal();
 }
+
+// ?Rva003E4F05Get@@YG_NPAVParameter@@@Z @0x003E4F05 54B
+bool __stdcall Rva003E4F05Get(Parameter *p)
+{
+	return TheTacticalView->slot240() > p->getReal() * 0.017453292f;
+}
