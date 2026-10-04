@@ -46,3 +46,17 @@ extern "C" void *Rva00414403CopyDispatch(void *first, void *last, void *result,
     RvaCopyIteratorTag tag;
     return Rva004143A4CopyRecords(first, last, result, tag, 0);
 }
+
+// Native 003B8B44/29 has the same dispatch ABI; worker 003F421D is already
+// rowed and independently proves stride 104. No element layout is inferred.
+extern "C" void *Rva003F421DCopyRecords(void *, void *, void *,
+    const RvaCopyIteratorTag &, int *);
+#pragma comment(linker, "/alternatename:_Rva003F421DCopyRecords=??$__copy@PAUBfmeAssignRecord104@@PAU1@H@_STL@@YAPAUBfmeAssignRecord104@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z")
+
+// ?Rva003B8B44CopyDispatch present-unmatched
+extern "C" void *Rva003B8B44CopyDispatch(void *first, void *last, void *result,
+    const RvaCopyIteratorTag &)
+{
+    RvaCopyIteratorTag tag;
+    return Rva003F421DCopyRecords(first, last, result, tag, 0);
+}
