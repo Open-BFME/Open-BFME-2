@@ -8510,3 +8510,7 @@ _Rva0030CAF8CursorEqual,0x0007E394,twin of dup_0007e394 29B exact cursor equalit
 ?getConstLANSlot@LANGameInfo@@QBEPBVLANGameSlot@@H@Z,0x00447773,ZH name for the rowed opaque indexer ?rva00447773@Rva00447773 (slot i of 8 at +0xDC stride 0x1D0, NULL out of range, as Zero Hour's getConstLANSlot); REL32 callee of LANGameInfo::getLocalSlotNum 0x004477A7
 ?isLocalPlayer@LANGameSlot@@QBE_NXZ,0x0044770F,REL32 callee of LANGameInfo::getLocalSlotNum 0x004477AE on each LAN slot; body opens with GameSlot::isHuman as Zero Hour's isLocalPlayer
 ?resetAccepted@GameInfo@@UAEXXZ,0x003FF9B4,virtual name of the rowed ?resetAccepted@GameInfo@@QAEXXZ (slot 14 of the GameInfo vtable 0x00C187C0); REL32 base call from GameSpyStagingRoom::resetAccepted 0x004FDA65 as in Zero Hour
+??0Rva005257F6String@@QAE@PBD@Z,0x00037BA0,retail 005257F6 call at +34 to matched narrow StringBase constructor; target static string is one pointer
+??1Rva005257F6String@@QAE@XZ,0x00036410,retail registered destructor 007B9220 loads static string and jumps to matched narrow releaseBuffer
+?find@Rva005257F6Registry@@QAEPAXABVRva005257F6String@@@Z,0x0031BE3C,retail 005257F6 call at +4F to matched ControlBar findCommandButton using target command literal
+?use@Rva005257F6Registry@@QAEXHPAX@Z,0x00405DBC,retail 005257F6 call at +62 to matched ControlBar RVA method with zero then command pointer; opaque donor signature view
