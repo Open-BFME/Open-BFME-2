@@ -9087,3 +9087,6 @@ _Rva0030CAF8CursorEqual,0x0007E394,twin of dup_0007e394 29B exact cursor equalit
 ?rva0053807B@Rva0053805DBase@@QAEXXZ,0x0053807B,"base broadcast (list at +8) that slot 0x0030C22C runs first"
 ?rva0053808A@Rva0053805DBase@@QAEXXZ,0x0053808A,"base broadcast (list at +8) that slot 0x0030C244 runs first"
 ?rva00538099@Rva0053805DBase@@QAEXXZ,0x00538099,"base broadcast (list at +8, ??_9@$BM@AE) that slots 0x0030C29E and 0x0030C2B6 both run first"
+?forEach@Rva003F86D4List@@QAEXP8Rva003F87FFListener@@AEXPAVRva0056AC26Owner@@PAVRva0056AC26@@@Z01@Z,0x003F86D4,"listener-list forEach (member-function pointer plus two arguments, ret 0xC) called by the registry broadcasts 0x003F87FF..0x003F88A7; packs all three for 0x003F8646; address-named owner"
+?forEach@Rva003089CFList@@QAEXP8Rva00308AA4Listener@@AEXPAVRva00308AA4Owner@@@Z0@Z,0x003089CF,"listener-list forEach (member-function pointer plus one argument, ret 8) called by the broadcast slots 0x00308AA4..0x00308AEC; packs both for 0x00308688"
+?forEach@Rva003089CFList@@QAEXP8Rva00308AA4Listener@@AEXPAVRva00308AA4Owner@@H@Z0H@Z,0x003089ED,"listener-list forEach with two arguments (ret 0xC) called by broadcast slot 0x00308B23"
