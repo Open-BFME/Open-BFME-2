@@ -55792,3 +55792,4 @@ ___Extract_locale_name,,0x000216A0,153,Code/Libraries/Source/WWVegas/WWLib/Local
 ??0Rva0041E6BE@@QAE@HHPAVDataChunkInput@@PBVAsciiString@@1@Z,,0x0041E6BE,45,Code/GameEngine/Source/GameLogic/Object/Rva0041E6BECtor.cpp,matched,unlock View-derived ctor via rowed base plus vtable
 ??4?$vector@URva002D0EDCElement@@V?$allocator@URva002D0EDCElement@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z,,0x002D0F65,206,Code/GameEngine/Source/Common/Thing/Rva002D0F65VectorAssign.cpp,matched,vector Rva002D0EDCElement assign via allocate_and_copy CopyRange Destroy uninit
 ?Rva003F636DFill@@YAXPAXI0@Z,,0x003F636D,27,Code/Libraries/Source/WWVegas/WWLib/Rva003F636DFill.cpp,matched,leaf wrapper via rowed fill-n 0x003F631B and caller 0x003F6C74
+??1Rva005CC5C8@@UAE@XZ,,0x005CC5C8,11,Code/GameEngine/Source/Common/Rva005CC5C8Dtor.cpp,matched,chain dtor stores vtable then tail-jmps to rowed base 0x005E3258
