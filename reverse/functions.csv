@@ -55724,3 +55724,4 @@ __Locale_ctype_create,,0x00022360,1316,Code/Libraries/Source/WWVegas/WWLib/stlpo
 ?rva0057A92D@Rva0057A92D@@QAEXXZ,,0x0057A92D,52,Code/GameEngine/Source/Common/Rva0057A92DApt.cpp,matched,sibling Rva0057A961Apt pattern AptCall OpenList empty-string global
 ??$__uninitialized_copy@PAVRva0021F876@@PAV1@@_STL@@YAPAVRva0021F876@@PAV1@00ABU__false_type@0@@Z,,0x0021FA47,38,Code/Libraries/Source/WWVegas/WWLib/Rva0021F876UninitCopy.cpp,matched,copy 38B via rowed Construct 0x0021FA1A stride 0x20
 ?Rva00217870Fill@@YAPAUFileInfoStruct@MixFileCreator@@PAU12@IABU12@@Z,,0x00217870,37,Code/Libraries/Source/WWVegas/WWLib/stlport_uninit_fill_00217870.cpp,matched,unlock counted fill stride 0x10 via rowed dup _Construct at 0x0021781D
+?Rva00217B07Each@@YAXPAUBfmeElemQR@@0PAX@Z,,0x00217B07,23,Code/GameEngine/Source/Common/BfmeEachWrapper00217B07.cpp,matched,unlock wrapper forwards to rowed bfmeEachQR with 0
