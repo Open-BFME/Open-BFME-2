@@ -14,10 +14,13 @@ class Rva005C87F8
 public:
 	void rva005C87F8(bool flag);
 	void rva005C879E(Rva005C87F8 **src);
+	void rva005C87DB(unsigned short val);
 private:
 	char m_pad00[0x0c];
 	Rva005C87F8 *m_kids[8]; // +0x0c
-	char m_pad2c[0x1b]; // +0x2c
+	char m_pad2c[0x18]; // +0x2c..0x43
+	unsigned short m_44; // +0x44
+	unsigned char m_pad46; // +0x46
 	unsigned char m_47; // +0x47
 };
 
@@ -49,4 +52,13 @@ void Rva005C87F8::rva005C879E(Rva005C87F8 **src)
 		}
 		m_kids[i] = src[i];
 	}
+}
+
+void Rva005C87F8::rva005C87DB(unsigned short val)
+{
+	unsigned short old = m_44;
+	if (old < val)
+		m_44 = 0;
+	else
+		m_44 = (unsigned short)(old - val);
 }

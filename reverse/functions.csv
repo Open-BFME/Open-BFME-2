@@ -54163,3 +54163,4 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ?doFXObj@AttachedModelFXNugget@@UBEXPBVObject@@0@Z,,0x001E0878,97,Code/GameEngine/Source/GameClient/AttachedModelFXNuggetSlots.cpp,matched,vtable 0x00BDD814 slot 2; model attach on the primary drawable via 0x00276223
 ?rva001E1709@AttachedModelFXNugget@@UBEXAAVAssetList@@H@Z,,0x001E1709,19,Code/GameEngine/Source/GameClient/AttachedModelFXNuggetSlots.cpp,matched,vtable 0x00BDD814 slot 3; model name appended to an AssetList
 ?rva005C879E@Rva005C87F8@@QAEXPAPAV1@@Z,,0x005C879E,61,Code/Libraries/Source/WWVegas/WWLib/Rva005C87F8Adjust.cpp,matched,unlock same class array copy high-nibble count caller 0x005C8332
+?rva005C87DB@Rva005C87F8@@QAEXG@Z,,0x005C87DB,29,Code/Libraries/Source/WWVegas/WWLib/Rva005C87F8Adjust.cpp,matched,unlock gap saturating sub same class prev next
