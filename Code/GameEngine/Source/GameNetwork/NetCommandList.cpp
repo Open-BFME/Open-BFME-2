@@ -46,10 +46,14 @@ class NetCommandRef
 {
 public:
 	NetCommandMsg *getCommand() { return m_command; }
+	NetCommandRef *getNext() { return m_next; }
+	UnsignedByte getRelay() const { return m_relay; }
+	void setRelay(UnsignedByte relay) { m_relay = relay; }
 
 	NetCommandMsg *m_command;
 	NetCommandRef *m_next;
 	NetCommandRef *m_prev;
+	UnsignedByte m_relay; ///< retail this+0x0C, copied by appendList
 };
 
 class NetCommandList
@@ -61,6 +65,9 @@ class NetCommandList
 
 public:
 	void reset();
+	void appendList(NetCommandList *list);
+	NetCommandRef *addMessage(NetCommandMsg *cmdMsg);
+	NetCommandRef *getFirstMessage() { return (NetCommandRef *)m_first; }
 	void removeMessage(NetCommandRef *msg);
 	NetCommandRef *findMessage(UnsignedShort id, UnsignedByte player, UnsignedInt frame);
 	NetCommandRef *findMessage(NetCommandMsg *msg);
@@ -156,4 +163,30 @@ NetCommandRef *NetCommandList::findMessage(NetCommandMsg *msg)
 		retval = retval->m_next;
 	}
 	return 0;
+}
+
+// ?appendList@NetCommandList@@QAEXPAV1@@Z, retail 0x0058B531, 54 bytes.
+// Zero Hour's NetCommandList::appendList as the Open-BFME-1 donor
+// game/GameEngine/Source/GameNetwork/NetCommandList.cpp (1281192f68) carries
+// it; compiled /O1 the donor body places uniquely on unclaimed .text. Each
+// message is re-added through addMessage (pinned at 0x0058B2C6, read from the
+// retail call) and the relay byte at +0xC is copied onto the new reference.
+void NetCommandList::appendList(NetCommandList *list)
+{
+	if (list == 0) {
+		return;
+	}
+
+	// Need to do it this way because of the reference counting that needs to happen in appendMessage.
+	NetCommandRef *msg = list->getFirstMessage();
+	NetCommandRef *next = 0;
+	while (msg != 0) {
+		next = msg->getNext();
+		NetCommandRef *temp = addMessage(msg->getCommand());
+		if (temp != 0) {
+			temp->setRelay(msg->getRelay());
+		}
+
+		msg = next;
+	}
 }
