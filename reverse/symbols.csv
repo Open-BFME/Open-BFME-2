@@ -9453,3 +9453,6 @@ _Rva003F417EConstructRecords,0x003F417E,"Native003F5254 calls existing verified 
 ?rva006CC530@@YAPBDHHPAVEAStringC@@HHH@Z,0x006CC530,address-derived Apt name factory; cdecl six args (0 0 out-string 1 1 0) returns the canonical char*; body unrowed; called only from 0x006CCAF0
 ?rva006FFD80@Rva006DCD20Cache@@QAEPAVRva006DCD20@@PBD@Z,0x006FFD80,address-derived Apt value ctor entered with the 0x00E182E0 named-value cache in ecx and one stack arg; returns the AptValueNameEntry; body unrowed; called only from 0x006CCAF0
 ?rva006DE870@Rva006DCD20@@QAEXPBD@Z,0x006DE870,address-derived Apt value-name key writer; thiscall one stack arg; appends the run into the entry key buffer; body unrowed; called only from 0x006CCAF0
+?allocate@?$allocator@VAssetReference@@@_STL@@QBEPAVAssetReference@@IPBX@Z,0x00068E15,ICF twin of rowed BfmeE12ptr allocate at same address identical 28B forwarding body
+??$__uninitialized_copy@PAVAssetReference@@PAV1@@_STL@@YAPAVAssetReference@@PAV1@00ABU__false_type@0@@Z,0x000C9308,ICF twin of rowed const copy at same address identical 38B loop via rowed _Construct
+?_M_clear@?$vector@VAssetReference@@V?$allocator@VAssetReference@@@_STL@@@_STL@@IAEXXZ,0x000C9A51,ICF twin of rowed Rva000C9A51 helper at same address identical 30B destroy-plus-free tail
