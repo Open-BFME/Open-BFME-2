@@ -78,8 +78,12 @@ class Rva004EE485
 {
 public:
 	int rva004EE485();
+	int rva005BE20B();
 private:
-	char m_pad[0xC0];
+	char m_pad[0xA8];
+	int m_A8;
+	int m_AC;
+	char m_pad2[0xC0 - 0xA8 - 8];
 	_STL::_Rb_tree_node_base *m_C0;
 };
 
@@ -94,6 +98,13 @@ int Rva004EE485::rva004EE485()
 		node = _STL::_Rb_global<bool>::_M_increment(node);
 	}
 	return sum;
+}
+
+int Rva004EE485::rva005BE20B()
+{
+	int a = m_A8;
+	int b = m_AC;
+	return a + b + rva004EE485();
 }
 
 class Rva004EE447
