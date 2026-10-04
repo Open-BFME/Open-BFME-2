@@ -1,6 +1,15 @@
-// ?rva004973CF@BannerCarrierUpdate@@QAEXXZ
-// partial score=0.98 date=2026-10-04
 // cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
+//
+// BannerCarrierUpdate's replenish scan (0x004973CF; REL32 from 0x00497524).
+// Field names are the module data's INI table (UnitSpawnFX +0x34,
+// ReplenishNearbyHorde +0x38, ReplenishAllNearbyHordes +0x39,
+// ScanHordeDistance +0x3C; BannerCarrierUpdateModuleDataCtor.cpp). Every
+// kind-109 object the controlling player's relationship flag 2 accepts
+// within ScanHordeDistance (BFME2's partition filter chain, the view
+// AIStructureCreepTactic.cpp documents), unless status 2, whose horde
+// contain (Object::rva0028C197) has room (slot 98 below slot 95) spawns one
+// through slot 99 (partition refresh and UnitSpawnFX), stopping after the
+// first unless ReplenishAllNearbyHordes; a full one above 1 gets slot 93(1).
 class Object;
 class Player;
 
@@ -141,6 +150,7 @@ class BannerCarrierUpdate
 {
 public:
 	void rva004973CF();
+	Object *getObject() const { return m_object; }
 private:
 	const BannerCarrierUpdateModuleData *getBannerCarrierUpdateModuleData() const
 	{
@@ -157,7 +167,7 @@ void BannerCarrierUpdate::rva004973CF()
 	if (!player)
 		return;
 	const BannerCarrierUpdateModuleData *data = getBannerCarrierUpdateModuleData();
-	BfmeWideResult hits = ThePartitionManager->iterateObjectsInRange(m_object->getPosition(), data->m_scanHordeDistance, 0,
+	BfmeWideResult hits = ThePartitionManager->iterateObjectsInRange(getObject()->getPosition(), data->m_scanHordeDistance, 0,
 		Rva0004584D(*(BfmeFixedStorage0004543D *)&Rva00045411BitSet(0, 109),
 			*(BfmeFixedStorage0004543D *)g_00DFEFA4StoragePrototype).link(&Rva00261409Filter(player, true, 2)), 1);
 	Object *other;
