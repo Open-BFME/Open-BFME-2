@@ -110,6 +110,7 @@ public:
 	void rva0028C20F(int x);
 	const Weapon *getCurrentWeapon(WeaponSlotType *slot) const;
 	bool setWeaponLock(WeaponSlotType weaponSlot, WeaponLockType lockType);
+	void releaseWeaponLock(WeaponLockType lockType);
 	void setSpecialModelConditionState(ModelConditionFlagType mc, unsigned int frames);
 	char m_pad[0x258];
 	AIUpdateInterface *m_ai;
@@ -125,6 +126,7 @@ public:
 	void setAttitude(AttitudeType tude);
 	bool setWeaponLockForGroup(WeaponSlotType weaponSlot, WeaponLockType lockType);
 	void rva0036DDCD(int x);
+	void releaseWeaponLockForGroup(WeaponLockType lockType);
 
 private:
 	std::list<Object *> m_memberList;
@@ -220,5 +222,18 @@ void AIGroup::rva0036DDCD(int x)
 {
 	for (std::list<Object *>::iterator i = m_memberList.begin(); i != m_memberList.end(); ++i) {
 		(*i)->rva0028C20F(x);
+	}
+}
+
+// ?releaseWeaponLockForGroup@AIGroup@@QAEXW4WeaponLockType@@@Z
+// AIGroup::releaseWeaponLockForGroup, retail 0x0036DDF2 (37 bytes), right
+// after rva0036DDCD as in retail: Zero Hour's member-list walk over
+// Object::releaseWeaponLock (0x0028D8B6).
+void AIGroup::releaseWeaponLockForGroup(WeaponLockType lockType)
+{
+	std::list<Object *>::iterator i;
+	for( i = m_memberList.begin(); i != m_memberList.end(); ++i )
+	{
+		(*i)->releaseWeaponLock(lockType);
 	}
 }
