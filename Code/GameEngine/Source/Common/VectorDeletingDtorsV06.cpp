@@ -19,20 +19,52 @@
 // as retail does; left undeclared, cl falls back to scalar operator delete.
 void operator delete[](void *p);
 
-class Rva003AB86E
+class Rva003AB86EBase0
+{
+public:
+	virtual ~Rva003AB86EBase0();
+private:
+	char m_unmodelled_04[0xC - 0x04];
+};
+
+// Secondary base at +0xC, proven by the this-adjusting thunk (sub ecx,
+// 0xC) to this class's vector deleting destructor in its vtable.
+class Rva003AB86EBaseC
+{
+public:
+	virtual ~Rva003AB86EBaseC();
+private:
+	char m_unmodelled_04[0x18 - 0x04];
+};
+
+class Rva003AB86E : public Rva003AB86EBase0, public Rva003AB86EBaseC
 {
 public:
 	virtual ~Rva003AB86E();
-private:
-	char m_unmodelled_04[0x24 - 0x04];
 };
 
-class Rva003AB946Vec
+class Rva003AB946VecBase0
+{
+public:
+	virtual ~Rva003AB946VecBase0();
+private:
+	char m_unmodelled_04[0xC - 0x04];
+};
+
+// Secondary base at +0xC, proven by the this-adjusting thunk (sub ecx,
+// 0xC) to this class's vector deleting destructor in its vtable.
+class Rva003AB946VecBaseC
+{
+public:
+	virtual ~Rva003AB946VecBaseC();
+private:
+	char m_unmodelled_04[0x1C - 0x04];
+};
+
+class Rva003AB946Vec : public Rva003AB946VecBase0, public Rva003AB946VecBaseC
 {
 public:
 	virtual ~Rva003AB946Vec();
-private:
-	char m_unmodelled_04[0x28 - 0x04];
 };
 
 // ?<bfmeVectorDeleteAnchorV06> absent-from-retail

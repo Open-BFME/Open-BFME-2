@@ -33,52 +33,148 @@
 // as retail does; left undeclared, cl falls back to scalar operator delete.
 void operator delete[](void *p);
 
-class Rva003A8BD7Vec
+class Rva003A8BD7VecBase0
+{
+public:
+	virtual ~Rva003A8BD7VecBase0();
+private:
+	char m_unmodelled_04[0x8 - 0x04];
+};
+
+// Secondary base at +0x8, proven by the this-adjusting thunk (sub ecx,
+// 0x8) to this class's vector deleting destructor in its vtable.
+class Rva003A8BD7VecBase8
+{
+public:
+	virtual ~Rva003A8BD7VecBase8();
+private:
+	char m_unmodelled_04[0x24 - 0x04];
+};
+
+class Rva003A8BD7Vec : public Rva003A8BD7VecBase0, public Rva003A8BD7VecBase8
 {
 public:
 	virtual ~Rva003A8BD7Vec();
-private:
-	char m_unmodelled_04[0x2C - 0x04];
 };
 
-class Rva003A8C5AVec
+class Rva003A8C5AVecBase0
+{
+public:
+	virtual ~Rva003A8C5AVecBase0();
+private:
+	char m_unmodelled_04[0x8 - 0x04];
+};
+
+// Secondary base at +0x8, proven by the this-adjusting thunk (sub ecx,
+// 0x8) to this class's vector deleting destructor in its vtable.
+class Rva003A8C5AVecBase8
+{
+public:
+	virtual ~Rva003A8C5AVecBase8();
+private:
+	char m_unmodelled_04[0x68 - 0x04];
+};
+
+class Rva003A8C5AVec : public Rva003A8C5AVecBase0, public Rva003A8C5AVecBase8
 {
 public:
 	virtual ~Rva003A8C5AVec();
-private:
-	char m_unmodelled_04[0x70 - 0x04];
 };
 
-class Rva003A8E25Vec
+class Rva003A8E25VecBase0
+{
+public:
+	virtual ~Rva003A8E25VecBase0();
+private:
+	char m_unmodelled_04[0x8 - 0x04];
+};
+
+// Secondary base at +0x8, proven by the this-adjusting thunk (sub ecx,
+// 0x8) to this class's vector deleting destructor in its vtable.
+class Rva003A8E25VecBase8
+{
+public:
+	virtual ~Rva003A8E25VecBase8();
+private:
+	char m_unmodelled_04[0x28 - 0x04];
+};
+
+class Rva003A8E25Vec : public Rva003A8E25VecBase0, public Rva003A8E25VecBase8
 {
 public:
 	virtual ~Rva003A8E25Vec();
-private:
-	char m_unmodelled_04[0x30 - 0x04];
 };
 
-class Rva003A9057Vec
+class Rva003A9057VecBase0
+{
+public:
+	virtual ~Rva003A9057VecBase0();
+private:
+	char m_unmodelled_04[0x8 - 0x04];
+};
+
+// Secondary base at +0x8, proven by the this-adjusting thunk (sub ecx,
+// 0x8) to this class's vector deleting destructor in its vtable.
+class Rva003A9057VecBase8
+{
+public:
+	virtual ~Rva003A9057VecBase8();
+private:
+	char m_unmodelled_04[0x8 - 0x04];
+};
+
+class Rva003A9057Vec : public Rva003A9057VecBase0, public Rva003A9057VecBase8
 {
 public:
 	virtual ~Rva003A9057Vec();
-private:
-	char m_unmodelled_04[0x10 - 0x04];
 };
 
-class Rva003A9152Vec
+class Rva003A9152VecBase0
+{
+public:
+	virtual ~Rva003A9152VecBase0();
+private:
+	char m_unmodelled_04[0x8 - 0x04];
+};
+
+// Secondary base at +0x8, proven by the this-adjusting thunk (sub ecx,
+// 0x8) to this class's vector deleting destructor in its vtable.
+class Rva003A9152VecBase8
+{
+public:
+	virtual ~Rva003A9152VecBase8();
+private:
+	char m_unmodelled_04[0x14 - 0x04];
+};
+
+class Rva003A9152Vec : public Rva003A9152VecBase0, public Rva003A9152VecBase8
 {
 public:
 	virtual ~Rva003A9152Vec();
-private:
-	char m_unmodelled_04[0x1C - 0x04];
 };
 
-class Rva003A91E3Vec
+class Rva003A91E3VecBase0
+{
+public:
+	virtual ~Rva003A91E3VecBase0();
+private:
+	char m_unmodelled_04[0x8 - 0x04];
+};
+
+// Secondary base at +0x8, proven by the this-adjusting thunk (sub ecx,
+// 0x8) to this class's vector deleting destructor in its vtable.
+class Rva003A91E3VecBase8
+{
+public:
+	virtual ~Rva003A91E3VecBase8();
+private:
+	char m_unmodelled_04[0xC - 0x04];
+};
+
+class Rva003A91E3Vec : public Rva003A91E3VecBase0, public Rva003A91E3VecBase8
 {
 public:
 	virtual ~Rva003A91E3Vec();
-private:
-	char m_unmodelled_04[0x14 - 0x04];
 };
 
 class Rva003A9F8A
@@ -89,12 +185,28 @@ private:
 	char m_unmodelled_04[0x18 - 0x04];
 };
 
-class Rva003AA0C0
+class Rva003AA0C0Base0
+{
+public:
+	virtual ~Rva003AA0C0Base0();
+private:
+	char m_unmodelled_04[0xC - 0x04];
+};
+
+// Secondary base at +0xC, proven by the this-adjusting thunk (sub ecx,
+// 0xC) to this class's vector deleting destructor in its vtable.
+class Rva003AA0C0BaseC
+{
+public:
+	virtual ~Rva003AA0C0BaseC();
+private:
+	char m_unmodelled_04[0x18 - 0x04];
+};
+
+class Rva003AA0C0 : public Rva003AA0C0Base0, public Rva003AA0C0BaseC
 {
 public:
 	virtual ~Rva003AA0C0();
-private:
-	char m_unmodelled_04[0x24 - 0x04];
 };
 
 class Rva003A9A8B
@@ -105,12 +217,28 @@ private:
 	char m_unmodelled_04[0x40 - 0x04];
 };
 
-class Rva003A9C39
+class Rva003A9C39Base0
+{
+public:
+	virtual ~Rva003A9C39Base0();
+private:
+	char m_unmodelled_04[0x8 - 0x04];
+};
+
+// Secondary base at +0x8, proven by the this-adjusting thunk (sub ecx,
+// 0x8) to this class's vector deleting destructor in its vtable.
+class Rva003A9C39Base8
+{
+public:
+	virtual ~Rva003A9C39Base8();
+private:
+	char m_unmodelled_04[0x40 - 0x04];
+};
+
+class Rva003A9C39 : public Rva003A9C39Base0, public Rva003A9C39Base8
 {
 public:
 	virtual ~Rva003A9C39();
-private:
-	char m_unmodelled_04[0x48 - 0x04];
 };
 
 class Rva003A9D43
@@ -121,12 +249,28 @@ private:
 	char m_unmodelled_04[0x14 - 0x04];
 };
 
-class Rva003A9E80
+class Rva003A9E80Base0
+{
+public:
+	virtual ~Rva003A9E80Base0();
+private:
+	char m_unmodelled_04[0x8 - 0x04];
+};
+
+// Secondary base at +0x8, proven by the this-adjusting thunk (sub ecx,
+// 0x8) to this class's vector deleting destructor in its vtable.
+class Rva003A9E80Base8
+{
+public:
+	virtual ~Rva003A9E80Base8();
+private:
+	char m_unmodelled_04[0x14 - 0x04];
+};
+
+class Rva003A9E80 : public Rva003A9E80Base0, public Rva003A9E80Base8
 {
 public:
 	virtual ~Rva003A9E80();
-private:
-	char m_unmodelled_04[0x1C - 0x04];
 };
 
 class Rva003AA02DVec
@@ -137,12 +281,28 @@ private:
 	char m_unmodelled_04[0x1C - 0x04];
 };
 
-class Rva003AA17FVec
+class Rva003AA17FVecBase0
+{
+public:
+	virtual ~Rva003AA17FVecBase0();
+private:
+	char m_unmodelled_04[0xC - 0x04];
+};
+
+// Secondary base at +0xC, proven by the this-adjusting thunk (sub ecx,
+// 0xC) to this class's vector deleting destructor in its vtable.
+class Rva003AA17FVecBaseC
+{
+public:
+	virtual ~Rva003AA17FVecBaseC();
+private:
+	char m_unmodelled_04[0x1C - 0x04];
+};
+
+class Rva003AA17FVec : public Rva003AA17FVecBase0, public Rva003AA17FVecBaseC
 {
 public:
 	virtual ~Rva003AA17FVec();
-private:
-	char m_unmodelled_04[0x28 - 0x04];
 };
 
 class Rva003AA6BD
@@ -153,12 +313,28 @@ private:
 	char m_unmodelled_04[0x48 - 0x04];
 };
 
-class Rva003AA76F
+class Rva003AA76FBase0
+{
+public:
+	virtual ~Rva003AA76FBase0();
+private:
+	char m_unmodelled_04[0x8 - 0x04];
+};
+
+// Secondary base at +0x8, proven by the this-adjusting thunk (sub ecx,
+// 0x8) to this class's vector deleting destructor in its vtable.
+class Rva003AA76FBase8
+{
+public:
+	virtual ~Rva003AA76FBase8();
+private:
+	char m_unmodelled_04[0x14 - 0x04];
+};
+
+class Rva003AA76F : public Rva003AA76FBase0, public Rva003AA76FBase8
 {
 public:
 	virtual ~Rva003AA76F();
-private:
-	char m_unmodelled_04[0x1C - 0x04];
 };
 
 // ?<bfmeVectorDeleteAnchorV04> absent-from-retail

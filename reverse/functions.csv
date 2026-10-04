@@ -53419,3 +53419,42 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ??_ERva003AB946Vec@@UAEPAXI@Z,,0x003AB946,75,Code/GameEngine/Source/Common/VectorDeletingDtorsV06.cpp,matched,vector deleting dtor (element 0x28; vtable 0x00C1C314#0); calls pinned dtor 0x003AB86E
 ??0?$_Slist_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z,,0x0006FA99,38,Code/gen_small/tgrid_008_Rva0006FA99.cpp,matched,STLport slist<int> _Slist_base allocator copy ctor via BFME1 donor gen_small/tgrid_008.cpp at /Os unique masked placement
 ?rva004B2D28@ReplaceObjectUpdate@@UAEXXZ,,0x004B2D28,309,Code/GameEngine/Source/GameLogic/Object/Update/ReplaceObjectUpdate.cpp,matched,slot 17 of the ReplaceObjectUpdate vftable (slot 0 0x004B2A44): per data entry (+0xC8 array) scan alive objects within data +0xD4 of +0x44 passing 0x002614DF(object)/0x002614EC(entry; player) and hand each to 0x004B2C00
+??_ERva003A7B9FVec@@W7AEPAXI@Z,,0x003A966D,8,Code/GameEngine/Source/Common/VectorDeletingDtorsV03.cpp,matched,this-adjusting (-0x8) thunk to the vector deleting dtor 0x003A7B9F
+??_ERva003A9397@@W7AEPAXI@Z,,0x003A96BD,8,Code/GameEngine/Source/Common/VectorDeletingDtorsV01.cpp,matched,this-adjusting (-0x8) thunk to the vector deleting dtor 0x003A85CC
+??_ERva003A6F85Vec@@W7AEPAXI@Z,,0x003A964D,8,Code/GameEngine/Source/Common/VectorDeletingDtorsV02.cpp,matched,this-adjusting (-0x8) thunk to the vector deleting dtor 0x003A6F85
+??_ERva003A8681Vec@@W7AEPAXI@Z,,0x003A9665,8,Code/GameEngine/Source/Common/VectorDeletingDtorsV02.cpp,matched,this-adjusting (-0x8) thunk to the vector deleting dtor 0x003A8681
+??_ERva003A8FACVec@@W7AEPAXI@Z,,0x003A9675,8,Code/GameEngine/Source/Common/VectorDeletingDtorsV02.cpp,matched,this-adjusting (-0x8) thunk to the vector deleting dtor 0x003A8FAC
+??_ERva003A9286Vec@@W7AEPAXI@Z,,0x003A96FD,8,Code/GameEngine/Source/Common/VectorDeletingDtorsV02.cpp,matched,this-adjusting (-0x8) thunk to the vector deleting dtor 0x003A9286
+??_ERva001F4540Vec@@W7AEPAXI@Z,,0x001F4A12,8,Code/GameEngine/Source/Common/VectorDeletingDtorsV02.cpp,matched,this-adjusting (-0x8) thunk to the vector deleting dtor 0x001F4540
+??_ERva003A6D11Vec@@W7AEPAXI@Z,,0x003A9635,8,Code/GameEngine/Source/Common/VectorDeletingDtorsV05.cpp,matched,this-adjusting (-0x8) thunk to the vector deleting dtor 0x003A6D11
+??_ERva003A628BVec@@W7AEPAXI@Z,,0x003A963D,8,Code/GameEngine/Source/Common/VectorDeletingDtorsV05.cpp,matched,this-adjusting (-0x8) thunk to the vector deleting dtor 0x003A628B
+??_ERva003A8BD7Vec@@W7AEPAXI@Z,,0x003A9645,8,Code/GameEngine/Source/Common/VectorDeletingDtorsV04.cpp,matched,this-adjusting (-0x8) thunk to the vector deleting dtor 0x003A8BD7
+??_ERva003A743EVec@@W7AEPAXI@Z,,0x003A9655,8,Code/GameEngine/Source/Common/VectorDeletingDtorsV01.cpp,matched,this-adjusting (-0x8) thunk to the vector deleting dtor 0x003A743E
+??_ERva003A7853Vec@@W7AEPAXI@Z,,0x003A965D,8,Code/GameEngine/Source/Common/VectorDeletingDtorsV03.cpp,matched,this-adjusting (-0x8) thunk to the vector deleting dtor 0x003A7853
+??_ERva003A73ADVec@@W7AEPAXI@Z,,0x003A967D,8,Code/GameEngine/Source/Common/VectorDeletingDtorsV03.cpp,matched,this-adjusting (-0x8) thunk to the vector deleting dtor 0x003A73AD
+??_ERva003A6201@@W7AEPAXI@Z,,0x003A9685,8,Code/GameEngine/Source/Common/VectorDeletingDtorsV01.cpp,matched,this-adjusting (-0x8) thunk to the vector deleting dtor 0x003A6AAA
+??_ERva003A679DVec@@W7AEPAXI@Z,,0x003A968D,8,Code/GameEngine/Source/Common/VectorDeletingDtorsV03.cpp,matched,this-adjusting (-0x8) thunk to the vector deleting dtor 0x003A679D
+??_ERva003A93D4Vec@@W7AEPAXI@Z,,0x003A9695,8,Code/GameEngine/Source/Common/VectorDeletingDtorsV02.cpp,matched,this-adjusting (-0x8) thunk to the vector deleting dtor 0x003A93D4
+??_ERva003A63EEVec@@W7AEPAXI@Z,,0x003A969D,8,Code/GameEngine/Source/Common/VectorDeletingDtorsV05.cpp,matched,this-adjusting (-0x8) thunk to the vector deleting dtor 0x003A63EE
+??_ERva003A64F0Vec@@W7AEPAXI@Z,,0x003A96A5,8,Code/GameEngine/Source/Common/VectorDeletingDtorsV03.cpp,matched,this-adjusting (-0x8) thunk to the vector deleting dtor 0x003A64F0
+??_ERva003A8E25Vec@@W7AEPAXI@Z,,0x003A96AD,8,Code/GameEngine/Source/Common/VectorDeletingDtorsV04.cpp,matched,this-adjusting (-0x8) thunk to the vector deleting dtor 0x003A8E25
+??_ERva003A7A06Vec@@W7AEPAXI@Z,,0x003A96B5,8,Code/GameEngine/Source/Common/VectorDeletingDtorsV03.cpp,matched,this-adjusting (-0x8) thunk to the vector deleting dtor 0x003A7A06
+??_ERva003A9152Vec@@W7AEPAXI@Z,,0x003A96C5,8,Code/GameEngine/Source/Common/VectorDeletingDtorsV04.cpp,matched,this-adjusting (-0x8) thunk to the vector deleting dtor 0x003A9152
+??_ERva003A9057Vec@@W7AEPAXI@Z,,0x003A96CD,8,Code/GameEngine/Source/Common/VectorDeletingDtorsV04.cpp,matched,this-adjusting (-0x8) thunk to the vector deleting dtor 0x003A9057
+??_ERva003A8ACBVec@@W7AEPAXI@Z,,0x003A96D5,8,Code/GameEngine/Source/Common/VectorDeletingDtorsV05.cpp,matched,this-adjusting (-0x8) thunk to the vector deleting dtor 0x003A8ACB
+??_ERva003A71D4Vec@@W7AEPAXI@Z,,0x003A96DD,8,Code/GameEngine/Source/Common/VectorDeletingDtorsV03.cpp,matched,this-adjusting (-0x8) thunk to the vector deleting dtor 0x003A71D4
+??_ERva003A8C5AVec@@W7AEPAXI@Z,,0x003A96E5,8,Code/GameEngine/Source/Common/VectorDeletingDtorsV04.cpp,matched,this-adjusting (-0x8) thunk to the vector deleting dtor 0x003A8C5A
+??_ERva003A7614Vec@@W7AEPAXI@Z,,0x003A96ED,8,Code/GameEngine/Source/Common/VectorDeletingDtorsV02.cpp,matched,this-adjusting (-0x8) thunk to the vector deleting dtor 0x003A7614
+??_ERva003A9329Vec@@W7AEPAXI@Z,,0x003A96F5,8,Code/GameEngine/Source/Common/VectorDeletingDtorsV05.cpp,matched,this-adjusting (-0x8) thunk to the vector deleting dtor 0x003A9329
+??_ERva003A91E3Vec@@W7AEPAXI@Z,,0x003A9705,8,Code/GameEngine/Source/Common/VectorDeletingDtorsV04.cpp,matched,this-adjusting (-0x8) thunk to the vector deleting dtor 0x003A91E3
+??_ERva003A8160Vec@@W7AEPAXI@Z,,0x003A970D,8,Code/GameEngine/Source/Common/VectorDeletingDtorsV05.cpp,matched,this-adjusting (-0x8) thunk to the vector deleting dtor 0x003A8160
+??_ERva003A8B51Vec@@W7AEPAXI@Z,,0x003A9715,8,Code/GameEngine/Source/Common/VectorDeletingDtorsV05.cpp,matched,this-adjusting (-0x8) thunk to the vector deleting dtor 0x003A8B51
+??_ERva003A8D6DVec@@W7AEPAXI@Z,,0x003A971D,8,Code/GameEngine/Source/Common/VectorDeletingDtorsV05.cpp,matched,this-adjusting (-0x8) thunk to the vector deleting dtor 0x003A8D6D
+??_ERva003A690DVec@@W7AEPAXI@Z,,0x003A9725,8,Code/GameEngine/Source/Common/VectorDeletingDtorsV03.cpp,matched,this-adjusting (-0x8) thunk to the vector deleting dtor 0x003A690D
+??_ERva003AA76F@@W7AEPAXI@Z,,0x003ABF14,8,Code/GameEngine/Source/Common/VectorDeletingDtorsV04.cpp,matched,this-adjusting (-0x8) thunk to the vector deleting dtor 0x003AA7B6
+??_ERva003A9E80@@W7AEPAXI@Z,,0x003ABF1C,8,Code/GameEngine/Source/Common/VectorDeletingDtorsV04.cpp,matched,this-adjusting (-0x8) thunk to the vector deleting dtor 0x003A9F3F
+??_ERva003AA17FVec@@WM@AEPAXI@Z,,0x003ABF2C,8,Code/GameEngine/Source/Common/VectorDeletingDtorsV04.cpp,matched,this-adjusting (-0xC) thunk to the vector deleting dtor 0x003AA17F
+??_ERva003AB86E@@WM@AEPAXI@Z,,0x003ABF34,8,Code/GameEngine/Source/Common/VectorDeletingDtorsV06.cpp,matched,this-adjusting (-0xC) thunk to the vector deleting dtor 0x003AB899
+??_ERva003AA0C0@@WM@AEPAXI@Z,,0x003ABF3C,8,Code/GameEngine/Source/Common/VectorDeletingDtorsV04.cpp,matched,this-adjusting (-0xC) thunk to the vector deleting dtor 0x003A9A40
+??_ERva003A9C39@@W7AEPAXI@Z,,0x003ABF44,8,Code/GameEngine/Source/Common/VectorDeletingDtorsV04.cpp,matched,this-adjusting (-0x8) thunk to the vector deleting dtor 0x003A9CF8
+??_ERva003AB946Vec@@WM@AEPAXI@Z,,0x003ABF4C,8,Code/GameEngine/Source/Common/VectorDeletingDtorsV06.cpp,matched,this-adjusting (-0xC) thunk to the vector deleting dtor 0x003AB946
