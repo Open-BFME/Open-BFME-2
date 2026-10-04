@@ -87,10 +87,23 @@ public:
 	int rva002A75C9(Rva002A7588In *p);
 };
 
+class Rva002A7500
+{
+public:
+	void rva002A7500(void *a);
+};
+
+class Rva002A75B8
+{
+public:
+	int rva002A75B8(Rva002A7588In *p);
+};
+
 class Rva002A9B58
 {
 public:
 	void rva002A9B58(Rva002A7588In *p);
+	void rva002A9B35(Rva002A7588In *p);
 private:
 	char m_pad00[0x60];
 };
@@ -104,4 +117,15 @@ void Rva002A9B58::rva002A9B58(Rva002A7588In *p)
 		a->rva002A7513(p);
 	else
 		b->rva002A75C9(p);
+}
+
+void Rva002A9B58::rva002A9B35(Rva002A7588In *p)
+{
+	Rva002A7500 *a = (Rva002A7500 *)((char *)this + 0x60);
+	Rva002A75B8 *b = (Rva002A75B8 *)((char *)this + 0x60);
+	Rva002A9B58Mid *mid = (Rva002A9B58Mid *)p->m_p4;
+	if (mid->_61c > 0)
+		a->rva002A7500(p);
+	else
+		b->rva002A75B8(p);
 }

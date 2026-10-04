@@ -54804,3 +54804,4 @@ rva007916E1_constructor_unwind,,0x007916E1,11,Code/GameEngine/Source/Common/INI/
 ?rva007B8A61@@YAXXZ,,0x007B8A61,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
 ?rva0042D7A3@Rva0042D7A3@@QAEXPAVRva005794ED@@@Z,,0x0042D7A3,35,Code/GameEngine/Source/Common/Rva0042D7A3Set.cpp,matched,chain via rowed dtor 0x005794ED plus rowed delete plus caller 0x0042DAF0
 ?rva002A9B58@Rva002A9B58@@QAEXPAURva002A7588In@@@Z,,0x002A9B58,35,Code/GameEngine/Source/Common/Rva002A9ACCDict.cpp,matched,this plus 0x60 dispatches to rowed add vs sub via 0x61c flag
+?rva002A9B35@Rva002A9B58@@QAEXPAURva002A7588In@@@Z,,0x002A9B35,35,Code/GameEngine/Source/Common/Rva002A9ACCDict.cpp,matched,this plus 0x60 dispatches to rowed add variants via 0x61c flag
