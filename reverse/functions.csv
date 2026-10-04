@@ -53656,3 +53656,7 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ??_ERva00355BDA@@WM@AEPAXI@Z,,0x00355BB6,8,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB06.cpp,matched,this-adjusting (-0xC) deleting-dtor thunk of opaque class Rva00355BDA
 ??_ERva003B923B@@WM@AEPAXI@Z,,0x003B912A,8,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB07.cpp,matched,this-adjusting (-0xC) deleting-dtor thunk of opaque class Rva003B923B
 ?allocateID@DataChunkTableOfContents@@QAEIABVAsciiString@@@Z,,0x00307A6A,86,Code/GameEngine/Source/Common/System/DataChunk.cpp,matched,ZH DataChunkTableOfContents::allocateID; pinned
+??_ERva003ABC58@@WBM@AEPAXI@Z,,0x003ABFD9,8,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-05.cpp,matched,this-adjusting (-0x1C) deleting-dtor thunk of family class Rva003ABC58
+??_ERva003ABA36@@WBI@AEPAXI@Z,,0x003AC1EF,8,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-05.cpp,matched,this-adjusting (-0x18) deleting-dtor thunk of family class Rva003ABA36
+??_ERva003AE358@@WBA@AEPAXI@Z,,0x003ACA8B,8,Code/GameEngine/Source/Common/FamilyDeletingDtors_Rva003AE358.cpp,matched,this-adjusting (-0x10) deleting-dtor thunk of family class Rva003AE358
+??_ERva003AB9FF@@WBI@AEPAXI@Z,,0x003AE718,8,Code/GameEngine/Source/Common/FamilyDeletingDtors_Rva003AB9FF.cpp,matched,this-adjusting (-0x18) deleting-dtor thunk of family class Rva003AB9FF
