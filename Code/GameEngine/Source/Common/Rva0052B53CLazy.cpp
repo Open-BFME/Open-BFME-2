@@ -9,6 +9,13 @@ struct MD5_CTX
 };
 void __cdecl MD5Final(unsigned char digest[16], MD5_CTX *context);
 void __cdecl MD5Init(MD5_CTX *context);
+void __cdecl MD5Update(MD5_CTX *context, unsigned char *input, unsigned int inputLen);
+
+class XferSave
+{
+public:
+	virtual void XferEnum(void *context, const void *bytes, unsigned int count);
+};
 void *__cdecl ji_006291ae(void *dest, int val, unsigned int count);
 #pragma comment(linker, "/alternatename:?ji_006291ae@@YAPAXPAXHI@Z=?ji_006291ae@@YAXXZ")
 
@@ -28,6 +35,7 @@ public:
 	Rva0052B53C(unsigned char v);
 	void rva0052B53C();
 	unsigned char *rva0052B559();
+	void rva0052B4FF(void *a, const void *b, unsigned int c);
 private:
 	unsigned char m_0040;
 	unsigned char m_digest[16];
@@ -59,4 +67,18 @@ unsigned char *Rva0052B53C::rva0052B559()
 	if (m_done == 0)
 		rva0052B53C();
 	return m_digest;
+}
+
+// ?rva0052B4FF@Rva0052B53C@@QAEXPAXPBXI@Z @0x0052B4FF 61B. vslot slot 38
+// offset 0x98 of vtable 0x00C68620; forwards (context/bytes/count) to
+// XferSave::XferEnum then MD5Update(ctx at +0x54) unless null bytes with
+// nonzero count or done flag at +0x58; callees rowed.
+void Rva0052B53C::rva0052B4FF(void *a, const void *b, unsigned int c)
+{
+	if (b == 0 && c != 0)
+		return;
+	if (m_done != 0)
+		return;
+	((XferSave *)this)->XferSave::XferEnum(a, b, c);
+	MD5Update(m_ctx, (unsigned char *)b, c);
 }
