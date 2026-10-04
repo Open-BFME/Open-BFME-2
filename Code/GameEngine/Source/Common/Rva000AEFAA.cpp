@@ -50,3 +50,17 @@ Rva000AEF42::Rva000AEF42(void *owner, BfmeParserRegistryVE *registry, const Asci
 	m_owner(owner)
 {
 }
+
+// ??0Rva000AF0E4@@QAE@PAVBfmeParserRegistryVE@@PBVAsciiString@@@Z @0x000AF0E4 98B
+// PostEffectsChunk binding, 2-arg (registry, parentLabel), no owner member.
+// Evidence: same base pin 0x000ABB87 and caller 0x000AF238 as siblings; literal "PostEffectsChunk"; vtable g_00BC9600; ret 8.
+class Rva000AF0E4 : public BfmeParserBindingBaseVE
+{
+public:
+	Rva000AF0E4(BfmeParserRegistryVE *registry, const AsciiString *parentLabel);
+};
+
+Rva000AF0E4::Rva000AF0E4(BfmeParserRegistryVE *registry, const AsciiString *parentLabel)
+	: BfmeParserBindingBaseVE(registry, (void *)&AsciiString("PostEffectsChunk"), (void *)(parentLabel ? parentLabel : &AsciiString::TheEmptyString))
+{
+}
