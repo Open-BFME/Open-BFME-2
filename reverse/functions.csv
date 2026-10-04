@@ -55761,3 +55761,4 @@ ___Extract_locale_name,,0x000216A0,153,Code/Libraries/Source/WWVegas/WWLib/Local
 ??1Rva0021F876@@QAE@XZ,,0x0021F8F3,104,Code/GameEngine/Source/Common/Rva0021F876Dtor.cpp,matched,dtor five AsciiStrings plus vector via rowed 0x0021F7A7 layout from copy 0x0021F876
 ?rva0042D81D@Rva0042D81D@@QAEXPAVRva0057AD6E@@@Z,,0x0042D81D,35,Code/GameEngine/Source/Common/Rva0042D81DSet.cpp,matched,set holder via rowed dtor 0x0057AD6E plus delete
 ?rva0042D840@Rva0042D81D@@QAEXXZ,,0x0042D840,26,Code/GameEngine/Source/Common/Rva0042D81DSet.cpp,matched,clear holder via rowed dtor 0x0057AD6E plus delete
+?rva0057A7CE@Rva0057A7CE@@QAEXXZ,,0x0057A7CE,55,Code/GameEngine/Source/Common/Rva0057A7CEApt.cpp,matched,vslot slot 2 of 0x0086F118 class Rva0057AD6E rowed AptCall FadeOut globals sibling Rva0057A92DApt
