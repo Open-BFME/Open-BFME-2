@@ -52508,3 +52508,4 @@ _Rva0088E190TimerTick@16,,0x0003D870,9,Code/Libraries/Source/WWVegas/WWDebug/Rva
 ?Rva0042F0D0@@YG_NVAsciiString@@@Z,,0x00239949,57,Code/GameEngine/Source/Common/Rva0042F0D0.cpp,matched,BFME1 donor game/GameEngine/Source/Common/Rva0042F0D0.cpp recompiled /Os; unique masked placement on unclaimed .text
 ??0Rva003C2F40Owner@@QAE@XZ,,0x002BAE57,50,Code/GameEngine/Source/Common/Rva003C2F40TreeCtor.cpp,matched,BFME1 donor game/GameEngine/Source/Common/Rva003C2F40TreeCtor.cpp recompiled /Os; unique masked placement on unclaimed .text
 ?eraseByKey@Rva001DB370List@@QAEHH@Z,,0x004DE610,71,Code/GameEngine/Source/Common/Rva001DB370EraseByKey.cpp,matched,BFME1 donor game/GameEngine/Source/Common/Rva001DB370EraseByKey.cpp recompiled /Os; unique masked placement on unclaimed .text
+?Rva0038768DCopy@@YAXPAURva0038768DData@@PBU1@@Z,,0x0038768D,23,Code/GameEngine/Source/GameClient/LanguageFilterRva0038768D.cpp,matched,linkbody via 0x38766B plus byte dword copy
