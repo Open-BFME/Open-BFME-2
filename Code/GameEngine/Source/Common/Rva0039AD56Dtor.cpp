@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/moduledata /O1 /DNDEBUG /MD /EHsc
 // ??1Rva0039AD56@@UAE@XZ @0x0039AD56 89B
 // Target evidence: vtable 0x0081AD20 at +0 then base Snapshot 0x007BB554; EH frame
 //  with states 1 then 0; member at +0x2C deleted via virtual slot0 with 0
@@ -7,24 +7,12 @@
 //  the deleting dtor 0x0039AF5A plus derived dtors 0x0039ADF3 and 0x005DB100.
 // Shape follows PlayerList dtor (ternary deleteInstance plus null plus EH).
 
+#include "Common/Snapshot.h"
+
 extern "C" const void *const vtbl_00BBB554[];  // folded, 23 classes; via ??_7BfmeBaseVUQ@@6B@
 #pragma comment(linker, "/alternatename:_vtbl_00BBB554=??_7BfmeBaseVUQ@@6B@")
 
 void __cdecl operator delete(void *p);
-
-class Snapshot
-{
-public:
-	virtual ~Snapshot();
-	virtual void crc();
-	virtual void loadPostProcess();
-	virtual void xfer();
-};
-
-inline Snapshot::~Snapshot()
-{
-	*(const void **)this = reinterpret_cast<const void *>(((unsigned int)vtbl_00BBB554));
-}
 
 class AsciiStringMember
 {
