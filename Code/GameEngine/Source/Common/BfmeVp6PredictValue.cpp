@@ -15,6 +15,7 @@ struct Rva009B4880Neighbor
 };
 
 extern unsigned char g_bfmeVp6SelectorMap[];
+unsigned char g_bfmeVp6SelectorMap[256];
 
 void Rva009B4880PredictValue(Rva009B4880State *state, int block,
 	short *output, const Rva009B4880Neighbor *left,
