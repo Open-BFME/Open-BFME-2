@@ -24,3 +24,14 @@ void Rva0054CC1B::rva0054CC1B()
 	if (p)
 		delete p;
 }
+class Rva0054D2CF
+{
+public:
+	virtual ~Rva0054D2CF();
+private:
+	Rva0054CC1B m_holder;	// +0x04 (vptr at +0x00)
+};
+Rva0054D2CF::~Rva0054D2CF()
+{
+	m_holder.rva0054CC1B();
+}
