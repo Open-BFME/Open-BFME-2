@@ -52852,3 +52852,4 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ?rva002C5F65@Rva002C5F65@@QAEXXZ,,0x002C5F65,13,Code/GameEngine/Source/Common/Rva002C5F65.cpp,matched,tail forward to rowed Rva0050542B method when member non-null
 ?rva006E24D0@AptCIH@@QAE_NXZ,,0x006E24D0,11,Code/Libraries/Source/Apt/Rva006E24D0.cpp,matched,AptCIH forward with constant to rowed rva006E1F90
 ?rva0033A9A5@Rva0033A9A5@@QAEPBVRva00427157@@PBX@Z,,0x0033A9A5,61,Code/GameEngine/Source/Common/Rva0033A9A5.cpp,matched,rowed 0x0033A8D9 plus rowed 0x0042724D plus ret-4
+?rva00295844@Object@@QAEXM@Z,,0x00295844,227,Code/GameEngine/Source/GameLogic/Object/ObjectRva00295844.cpp,matched,sum of template +0x51C over alive enemy same-map objects in range -> +0x444 then 5000 ms timer; filter chain; address name
