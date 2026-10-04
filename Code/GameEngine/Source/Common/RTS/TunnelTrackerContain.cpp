@@ -101,7 +101,8 @@ public:
 	char m_pad00[0xA98];
 	Int m_maxTunnelCapacity; // +0xA98
 };
-extern GlobalData *TheGlobalData;
+extern GlobalData *TheWritableGlobalData; // 0x00DFE758
+#define TheGlobalData TheWritableGlobalData
 
 // The contain list's append is the STLport four-byte list push_back body
 // 0x0005548F (ICF-shared with list<int>), not the separate list<Object*>
