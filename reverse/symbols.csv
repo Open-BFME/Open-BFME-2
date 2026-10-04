@@ -8303,3 +8303,5 @@ _Rva0030CAF8CursorEqual,0x0007E394,twin of dup_0007e394 29B exact cursor equalit
 ?bfmeAdd1034@BfmeSubA1034@@QAEXH@Z,0x000366F0,callee of ?bfmeGo1034A@@YGXHH@Z at retail 0x0040DAF0 read from its REL32 displacement; ICF alias onto ?set@?$StringBase@D@@QAEXABV1@@Z (matched)
 ?bfmeFind1037F@@YGPAVBfmeG1037@@H@Z,0x00468E26,callee of ?bfmeGo1037F@@YGXHHH@Z at retail 0x00468E79 read from its REL32 displacement; ICF alias onto ?Rva00468E26Get@@YGPAVModule@@PAVObject@@@Z (matched)
 ?bfmeDo1037@BfmeG1037@@QAEXHH@Z,0x00496E05,callee of ?bfmeGo1037F@@YGXHHH@Z at retail 0x00468E79 read from its REL32 displacement; opens an SEH frame and reads this+8; body unrowed
+??0BfmeErr1042@@QAE@XZ,0x002035E2,callee of ?bfmeGo1042D@BfmeA1042N@@QAEXXZ at retail 0x0044BD79 read from its REL32 displacement; builds the 0xC-byte error object at ebp-0xC; ICF alias onto ??0FunctorNotSet@@QAE@XZ (matched)
+?bfmeFatal1042@@YGXPAVBfmeErr1042@@PAD@Z,0x00629094,callee of ?bfmeGo1042D@BfmeA1042N@@QAEXXZ at retail 0x0044BD79 read from its REL32 displacement; ICF alias onto ?_CxxThrowException@@YGXPAX0@Z (matched)
