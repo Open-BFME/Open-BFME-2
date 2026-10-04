@@ -52587,3 +52587,4 @@ _Rva0088E190TimerTick@16,,0x0003D870,9,Code/Libraries/Source/WWVegas/WWDebug/Rva
 ??0Rva003B3485@@QAE@PAX0PAVBfmeParserRegistryVE@@PBVAsciiString@@@Z,,0x003B3485,110,Code/GameEngine/Source/Common/Rva003B3485Ctor.cpp,matched,unlock ScriptGroup base pin 0xABB87 StringBase row TheEmptyString
 ??0Rva003B3417@@QAE@PAX0PAVBfmeParserRegistryVE@@PBVAsciiString@@@Z,,0x003B3417,110,Code/GameEngine/Source/Common/Rva003B3417Ctor.cpp,matched,unlock PlayerScriptsList sibling 0x003B3485 base pin StringBase row
 ??0Rva003B37C8@@QAE@PAX0PAVBfmeParserRegistryVE@@PBVAsciiString@@@Z,,0x003B37C8,110,Code/GameEngine/Source/Common/Rva003B37C8Ctor.cpp,matched,unlock Script sibling 0x003B3485 base pin StringBase row
+?Rva00153A98Copy@@YAPAVRva001539BC@@PAV1@00@Z,,0x00153A98,50,Code/Libraries/Source/WWVegas/WWLib/Rva00153A98Copy.cpp,matched,chain of 0x001539BC copy forward
