@@ -54806,3 +54806,19 @@ rva007916E1_constructor_unwind,,0x007916E1,11,Code/GameEngine/Source/Common/INI/
 ?rva002A9B58@Rva002A9B58@@QAEXPAURva002A7588In@@@Z,,0x002A9B58,35,Code/GameEngine/Source/Common/Rva002A9ACCDict.cpp,matched,this plus 0x60 dispatches to rowed add vs sub via 0x61c flag
 ?rva002A9B35@Rva002A9B58@@QAEXPAURva002A7588In@@@Z,,0x002A9B35,35,Code/GameEngine/Source/Common/Rva002A9ACCDict.cpp,matched,this plus 0x60 dispatches to rowed add variants via 0x61c flag
 ??1Rva005D25F2@@UAE@XZ,,0x005D25F2,91,Code/GameEngine/Source/Common/Rva005D25F2Dtor.cpp,matched,virtual dtor AsciiString at 8 plus rowed 0052413E at C plus array 6x0x1C at 1C plus vtables
+?rva007B8A6B@@YAXXZ,,0x007B8A6B,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva007B8A75@@YAXXZ,,0x007B8A75,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva007B8A7F@@YAXXZ,,0x007B8A7F,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva007B8A89@@YAXXZ,,0x007B8A89,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva007B8A93@@YAXXZ,,0x007B8A93,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva007B8A9D@@YAXXZ,,0x007B8A9D,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva007B8AA7@@YAXXZ,,0x007B8AA7,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva007B8AB1@@YAXXZ,,0x007B8AB1,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva007B8ABB@@YAXXZ,,0x007B8ABB,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva007B8AC5@@YAXXZ,,0x007B8AC5,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva007B8ACF@@YAXXZ,,0x007B8ACF,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva007B8AD9@@YAXXZ,,0x007B8AD9,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva007B8AE3@@YAXXZ,,0x007B8AE3,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva007B8AED@@YAXXZ,,0x007B8AED,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva007B8AF7@@YAXXZ,,0x007B8AF7,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva007B8B01@@YAXXZ,,0x007B8B01,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
