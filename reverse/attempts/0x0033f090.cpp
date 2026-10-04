@@ -1,7 +1,5 @@
 // ?getAllPoints@ProjectileStreamUpdate@@QAEXPAVVector3@@PAH@Z
-// partial score=0.93 date=2026-09-29
-// ?getAllPoints@ProjectileStreamUpdate@@QAEXPAVVector3@@PAH@Z
-// partial score=0.93 date=2026-09-29
+// partial score=0.95 date=2026-10-04
 // cl: /O1 /G7 /GX /DNDEBUG /MD /arch:SSE
 //
 // ?getAllPoints@ProjectileStreamUpdate@@QAEXPAVVector3@@PAH@Z @0x0033F090, 143B.
@@ -80,29 +78,35 @@ void ProjectileStreamUpdate::getAllPoints(Vector3 *points, Int *count)
 {
 	Int pointCount = 0;
 	Int pointIndex = m_firstValidOrNextFree74;
+	Vector3 *out = points;
 	while (pointIndex != m_firstValidOrNextFree70) {
+		float x, y, z;
 		Object *projectile = TheGameLogic->findObjectByID(m_projectileIDs[pointIndex]);
 		if (projectile) {
 			Drawable *drawable = projectile->getDrawable();
 			if (drawable) {
 				const Coord3D *pos = ((BFMERopeDrawable *)drawable)->getPosition();
-				points[pointCount].X = pos->x;
-				points[pointCount].Y = pos->y;
-				points[pointCount].Z = pos->z;
+				y = pos->y;
+				z = pos->z;
+				x = pos->x;
+				out->Y = y;
+				out->Z = z;
 			}
 			else {
-				points[pointCount].X = 0;
-				points[pointCount].Y = 0;
-				points[pointCount].Z = 0;
+				out->Y = 0;
+				out->Z = 0;
+				x = 0;
 			}
 		}
 		else {
-			points[pointCount].X = 0;
-			points[pointCount].Y = 0;
-			points[pointCount].Z = 0;
+			out->Y = 0;
+			out->Z = 0;
+			x = 0;
 		}
 		pointIndex = (pointIndex + 1) % 20;
 		pointCount++;
+		out->X = x;
+		++out;
 	}
 	*count = pointCount;
 }
