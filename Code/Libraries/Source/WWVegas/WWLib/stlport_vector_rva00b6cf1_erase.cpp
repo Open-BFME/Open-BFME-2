@@ -30,18 +30,20 @@ private:
 	iterator m_finish;
 	iterator m_endOfStorage;
 };
+template <class InputIter, class OutputIter, class Distance>
+OutputIter __copy(InputIter first, InputIter last, OutputIter result,
+	const random_access_iterator_tag &tag, Distance *extra);
+// ??$__copy_ptrs@PAURva00B6CF1@@PAU1@@_STL@@YAPAURva00B6CF1@@PAU1@00ABU__false_type@0@@Z present-unmatched
 template <class InputIter, class OutputIter>
-OutputIter __copy_ptrs(InputIter first, InputIter last, OutputIter result, const __false_type &tag);
-template <class InputIter, class OutputIter>
-OutputIter __copy(InputIter first, InputIter last, OutputIter result, const random_access_iterator_tag &tag, int *distance);
+OutputIter __copy_ptrs(InputIter first, InputIter last, OutputIter result,
+	const __false_type &tag)
+{
+	__false_type local;
+	return __copy(first, last, result,
+		reinterpret_cast<const random_access_iterator_tag &>(local), (int *)0);
+}
 template <class ForwardIter>
 void _Destroy(ForwardIter first, ForwardIter last);
-}
-// ??$__copy_ptrs@PAURva00B6CF1@@PAU1@@_STL@@YAPAURva00B6CF1@@PAU1@00ABU__false_type@0@@Z present-unmatched
-template <>
-__declspec(noinline) Rva00B6CF1 *_STL::__copy_ptrs<Rva00B6CF1 *, Rva00B6CF1 *>(Rva00B6CF1 *first, Rva00B6CF1 *last, Rva00B6CF1 *result, const _STL::__false_type &tag)
-{
-	return _STL::__copy(first, last, result, _STL::random_access_iterator_tag(), (int *)0);
 }
 inline _STL::vector<Rva00B6CF1, _STL::allocator<Rva00B6CF1> >::iterator _STL::vector<Rva00B6CF1, _STL::allocator<Rva00B6CF1> >::erase(iterator first, iterator last)
 {
