@@ -9,4 +9,8 @@
 #include <string>
 namespace _STL {
 template reverse_iterator<const char *> __find_if(reverse_iterator<const char *>, reverse_iterator<const char *>, _Not_within_traits<char_traits<char> >, const random_access_iterator_tag &);
+// Native 0x00029EE0/61B is the public find_if dispatch into the core above.
+// Vendor reverse_iterator copy construction reproduces its outgoing slots;
+// /Od /Ob2 retains the temporaries without inline assembly.
+template reverse_iterator<const char *> find_if(reverse_iterator<const char *>, reverse_iterator<const char *>, _Not_within_traits<char_traits<char> >);
 }
