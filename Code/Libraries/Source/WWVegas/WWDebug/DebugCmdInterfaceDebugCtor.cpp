@@ -55,6 +55,12 @@ void deleteCmdInterfaceDebug(DebugCmdInterfaceDebug *p)
 	delete p;
 }
 
+// ?Delete@DebugCmdInterfaceDebug@@UAEXXZ present-unmatched
+void DebugCmdInterfaceDebug::Delete(void)
+{
+	delete this;
+}
+
 // Header inlines that the units including the header emit as select-any
 // copies, which plain definitions here collided with. The anchor keeps this
 // unit's copies for the rows; it is not retail code.
