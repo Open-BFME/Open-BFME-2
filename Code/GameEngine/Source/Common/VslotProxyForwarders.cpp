@@ -9,6 +9,9 @@
 //   vtable 0x00C37358  inner object at +0x1C, its interface at +8 (Bool)
 //   vtable 0x00C3731C  inner interface from 0x003F81B0 (this)      (Bool)
 //
+// Slots 1 and 2 of each proxy and slot 14 of the last two forward the same
+// way (slot 14 there answers 0).
+//
 // The interfaces are modelled only by those slots and argument counts;
 // every name is address-derived.
 
@@ -19,8 +22,8 @@ class Rva003F7C53Inner
 {
 public:
 	virtual void slot0() = 0;
-	virtual void slot1() = 0;
-	virtual void slot2() = 0;
+	virtual Int slot1(Int a0) = 0;
+	virtual Int slot2(Int a0) = 0;
 	virtual Int slot3(Int a0, Int a1) = 0;
 	virtual Int slot4(Int a0, Int a1) = 0;
 	virtual Int slot5(Int a0) = 0;
@@ -39,8 +42,8 @@ class Rva003F7D86Inner
 {
 public:
 	virtual void slot0() = 0;
-	virtual void slot1() = 0;
-	virtual void slot2() = 0;
+	virtual Bool slot1(Int a0) = 0;
+	virtual Bool slot2(Int a0) = 0;
 	virtual Bool slot3(Int a0, Int a1) = 0;
 	virtual Bool slot4(Int a0, Int a1) = 0;
 	virtual Bool slot5(Int a0) = 0;
@@ -52,6 +55,7 @@ public:
 	virtual Bool slot11(Int a0, Int a1) = 0;
 	virtual Bool slot12(Int a0) = 0;
 	virtual Bool slot13() = 0;
+	virtual Int slot14(Int a0) = 0;
 };
 
 // The object the 0x00C37358 proxy holds; the interface sits at +8.
@@ -70,6 +74,8 @@ class Rva003F7D86Holder : public Rva003F7D86HolderBase, public Rva003F7D86Inner
 class Rva003F7C53Proxy
 {
 public:
+	Int rva003F7C2F(Int a0);
+	Int rva003F7C41(Int a0);
 	Int rva003F7C53(Int a0, Int a1);
 	Int rva003F7C65(Int a0, Int a1);
 	Int rva003F7C77(Int a0);
@@ -163,6 +169,8 @@ Int Rva003F7C53Proxy::rva003F7D17(Int a0)
 class Rva003F7D86Proxy
 {
 public:
+	Bool rva003F7D5E(Int a0);
+	Bool rva003F7D72(Int a0);
 	Bool rva003F7D86(Int a0, Int a1);
 	Bool rva003F7D9A(Int a0, Int a1);
 	Bool rva003F7DAE(Int a0);
@@ -174,6 +182,7 @@ public:
 	Bool rva003F7E26(Int a0, Int a1);
 	Bool rva003F7E3A(Int a0);
 	Bool rva003F7E4E();
+	Int rva003F7E60(Int a0);
 private:
 	char m_lead[0x1C];
 	Rva003F7D86Holder *m_holder;			// +0x1C
@@ -270,6 +279,8 @@ Bool Rva003F7D86Proxy::rva003F7E4E()
 class Rva003F81FDProxy
 {
 public:
+	Bool rva003F81D3(Int a0);
+	Bool rva003F81E8(Int a0);
 	Bool rva003F81FD(Int a0, Int a1);
 	Bool rva003F8212(Int a0, Int a1);
 	Bool rva003F8227(Int a0);
@@ -281,6 +292,7 @@ public:
 	Bool rva003F82A5(Int a0, Int a1);
 	Bool rva003F82BA(Int a0);
 	Bool rva003F82CF();
+	Int rva003F834C(Int a0);
 	Rva003F7D86Inner *rva003F81B0();			///< pinned 0x003F81B0
 private:
 	char m_lead[4];
@@ -411,4 +423,62 @@ private:
 Int Rva0014CDBBProxy::rva0014CDBB()
 {
 	return m_inner ? m_inner->slot22() : 0;
+}
+
+// 0x00C372D4#1 and #2
+Int Rva003F7C53Proxy::rva003F7C2F(Int a0)
+{
+	return m_inner ? m_inner->slot1(a0) : 0;
+}
+
+Int Rva003F7C53Proxy::rva003F7C41(Int a0)
+{
+	return m_inner ? m_inner->slot2(a0) : 0;
+}
+
+// 0x00C37358#1, #2 and #14
+Bool Rva003F7D86Proxy::rva003F7D5E(Int a0)
+{
+	if (m_holder)
+		return static_cast<Rva003F7D86Inner *>(m_holder)->slot1(a0);
+	return false;
+}
+
+Bool Rva003F7D86Proxy::rva003F7D72(Int a0)
+{
+	if (m_holder)
+		return static_cast<Rva003F7D86Inner *>(m_holder)->slot2(a0);
+	return false;
+}
+
+Int Rva003F7D86Proxy::rva003F7E60(Int a0)
+{
+	if (m_holder)
+		return static_cast<Rva003F7D86Inner *>(m_holder)->slot14(a0);
+	return 0;
+}
+
+// 0x00C3731C#1, #2 and #14
+Bool Rva003F81FDProxy::rva003F81D3(Int a0)
+{
+	Rva003F7D86Inner *inner = rva003F81B0();
+	if (inner)
+		return inner->slot1(a0);
+	return false;
+}
+
+Bool Rva003F81FDProxy::rva003F81E8(Int a0)
+{
+	Rva003F7D86Inner *inner = rva003F81B0();
+	if (inner)
+		return inner->slot2(a0);
+	return false;
+}
+
+Int Rva003F81FDProxy::rva003F834C(Int a0)
+{
+	Rva003F7D86Inner *inner = rva003F81B0();
+	if (inner)
+		return inner->slot14(a0);
+	return 0;
 }
