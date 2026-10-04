@@ -55647,3 +55647,4 @@ __Locale_ctype_create,,0x00022360,1316,Code/Libraries/Source/WWVegas/WWLib/stlpo
 ?rva00001183@@YAKK@Z,,0x00001183,11,Code/GameEngine/Source/Common/Bfme5SmallTests.cpp,matched,Same whole BFME1 donor at5cc75ddd O1Ob1; independent native boundary1183 throughRET118D; raw stackword bit16; original name/type unknown
 ?rva0000118E@@YAKK@Z,,0x0000118E,11,Code/GameEngine/Source/Common/Bfme5SmallTests.cpp,matched,Same whole BFME1 donor at5cc75ddd O1Ob1; independent native boundary118E throughRET1198 before1199; raw stackword bit18; original name/type unknown
 ?Rva0008FAF5Create@@YGPAVRva000A0CE7@@PAX@Z,,0x0008FAF5,58,Code/GameEngine/Source/Common/Rva0008FAF5Create.cpp,matched,chain lane same 58B new+ctor shape as siblings
+?Rva0008F78FCreate@@YGPAVRva000A4969@@PAX@Z,,0x0008F78F,58,Code/GameEngine/Source/Common/Rva0008F78FCreate.cpp,matched,chain lane same 58B new+ctor shape as siblings
