@@ -184,3 +184,31 @@ void ExperienceTracker::xfer( Xfer *xfer )
 	if( version.m_current >= 5 )
 		*xfer == m_28;
 }
+
+// ?xfer@Rva0039ADF3@@MAEXPAVXfer@@@Z @0x0039B10D 56B: slot 3 of vtable
+// 0x0081AD34 (class of the rowed ??_GRva0039ADF3 0x0039B0F1, whose dtor
+// 0x0039ADF3 chains to the tracker's): version 1, the tracker's xfer, then
+// the ObjectID at +0x38 through the rowed XferObjectID 0x003060B2.
+enum ObjectID
+{
+	INVALID_ID = 0,
+	FORCE_OBJECTID_TO_LONG_SIZE = 0x7fffffff
+};
+void XferObjectID( Xfer *xfer, ObjectID *id );
+
+class Rva0039ADF3 : public ExperienceTracker
+{
+protected:
+	virtual void xfer(Xfer *xfer);
+private:
+	int m_34;
+	ObjectID m_38;
+};
+
+void Rva0039ADF3::xfer( Xfer *xfer )
+{
+	Xfer::Version version( 1, 1 );
+	*xfer == version;
+	ExperienceTracker::xfer( xfer );
+	XferObjectID( xfer, &m_38 );
+}
