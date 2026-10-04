@@ -7503,3 +7503,5 @@ FUN_006dd6d2	0x002DD6D2	147	blocked	Ghidra Catch147B extent confirmed; native bo
 ?rva005B32D5@Rva005B32D5@@QAEHPAURva005B2E09Cell@@@Z	0x005B32D5	137	blocked	complex 6-return branching keeps m_50 in mem not ebx and tail branchless setl-lea vs jl-jge t=12 model=muse-06
 ?rva004DFB7E@Rva004DFB7E@@QAE_NPAX@Z	0x004DFB7E	111	partial	esi edi swapped xor edi early vs xor esi late t=25 model=muse-04 score=0.92 stash=reverse/attempts/0x004dfb7e.cpp
 ?rva00056FD9@Rva00056FD9@@QAEXH@Z	0x00056FD9	239	blocked	MilesAudioManager cleanup with list plus 3 hashtables and 6 callees no donor layout for +0x98 +0x9c unproven t=8 model=muse-09
+?Rva000470D5Get@@YAPAXPAPAXPAX@Z	0x000470D5	216	blocked	complex EH texture handle with shroud particle refcount plus empty string needs donor layout t=15 model=muse-03
+?Rva006B3100Get@@YAXPAUVector2@@PAUSegment@@PBU1@@Z	0x006B3100	256	blocked	ClosestPoint x87 float stack uses mov-to-temp not pushes plus trailing globals needs donor t=15 model=muse-03

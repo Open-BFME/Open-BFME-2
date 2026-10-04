@@ -52626,3 +52626,4 @@ _Rva0088E190TimerTick@16,,0x0003D870,9,Code/Libraries/Source/WWVegas/WWDebug/Rva
 ?rva004DF3F8@Rva004DF3F8@@QAEXPAX@Z,,0x004DF3F8,32,Code/GameEngine/Source/Common/Rva004DF3F8.cpp,matched,list BfmePod12 remove by int at 0x74 caller jmp 0x0028BC21
 ?privateGuardPosition@AIUpdateInterface@@MAEXPBUCoord3D@@W4GuardMode@@W4CommandSourceType@@@Z,,0x00264BC2,249,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateGuardPosition.cpp,matched,vtable slot 63 sibling slot64 guard order ZH donor
 ??0Rva0030BF80@@QAE@PAXPAVBfmeParserRegistryVE@@PBVAsciiString@@@Z,,0x0030BF80,104,Code/GameEngine/Source/Common/Rva0030BF80.cpp,matched,RiverAreas parser binding ctor sibling of Rva0030C97E
+??0Rva0040B707@@QAE@ABV0@@Z,,0x0040B707,119,Code/Libraries/Source/WWVegas/WWLib/Rva0040B707Copy.cpp,matched,copy ctor via caller 0x0040B9BB vector plus strings
