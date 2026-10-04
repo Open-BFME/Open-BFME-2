@@ -52473,3 +52473,4 @@ _Rva0088E190TimerTick@16,,0x0003D870,9,Code/Libraries/Source/WWVegas/WWDebug/Rva
 ??0Rva000AEF42@@QAE@PAXPAVBfmeParserRegistryVE@@PBVAsciiString@@@Z,,0x000AEF42,104,Code/GameEngine/Source/Common/Rva000AEFAA.cpp,matched,unlock HeightMapData binding ctor via base pin
 ?rva00267D65@AIUpdateInterface@@QAEXPBUCoord3D@@W4CommandSourceType@@@Z,,0x00267D65,72,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateCommands.cpp,matched,slot 70 vtable state 0x25 rva002907A1 guard
 ?addRequest@GameSpyBuddyMessageQueue@@UAEXABVBuddyRequest@@@Z,,0x00551B5A,77,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/BuddyThread.cpp,matched,GameSpy addRequest via donor BuddyThread plus slot 6
+?rva00106A5C@BfmeB996Range@@QAEDXZ,,0x00106A5C,109,Code/GameEngine/Source/Common/BfmeB996Range06A5C.cpp,matched,donor Rva007E34C0 while-break shape caller 0x00106B56

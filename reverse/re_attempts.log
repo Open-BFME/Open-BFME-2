@@ -7440,3 +7440,5 @@ FUN_008f7883	0x004F7883	168	blocked	EH prolog push ecx plus frame plus copy_back
 ?rva0010F49A@Rva0010EEF1@@UAEXXZ	0x0010F49A	96	partial	pop esi hoisted before final je instead of after unlock call t=10 model=muse-17 score=0.97 stash=reverse/attempts/0x0010f49a.cpp
 ??0BezierProjectileBehavior@@QAE@PAVThing@@PBVModuleData@@@Z	0x0045C850	265	blocked	vtables exact via implicit bases; missing EH state2 before erase plus setWakeFrame pushes hoisted above zero group and global float load late t=15 model=muse-06 (stash 0.92 kept)
 ?rva004B68B6@Rva004B68B6@@QAEXPBX@Z	0x004B68B6	212	blocked	complex partition forward with x87 float and EOF loop t=12 model=muse-06
+?rva000911F6@Rva007E3C20Vp6Stream@@UAEHH@Z	0x000911F6	301	partial	vtable fixed via same-class thiscall for 0x90FE0; remain ebx-edi swap plus stack slots and missing early mov ebp-8 ebx t=22 model=muse-08 score=0.93 stash=reverse/attempts/0x000911f6.cpp
+?rva00091763@Rva007E3C20Vp6Stream@@UAEHABVAsciiString@@@Z	0x00091763	345	blocked	EH audio slot20 needs donor for m_b52 plus ebx1 esi0 regalloc and stack slots t=25 model=muse-08

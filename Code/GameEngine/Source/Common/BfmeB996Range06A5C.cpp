@@ -1,5 +1,3 @@
-// ?rva00106A5C@BfmeB996Range@@QAEDXZ
-// partial score=0.95 date=2026-10-04
 // cl: /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHs-c-
 //
 // Bodies ported from Open-BFME-1's
@@ -89,7 +87,6 @@ public:
 	void invokeForMode();
 };
 
-// ?rva00106A5C@BfmeB996Range@@QAEDXZ present-unmatched
 // 0x00106A5C 109B: loop over rva001068D1 with advance rva0010690D and mode invokes.
 // Donor Open-BFME-1 Rva007E34C0BfmeB996RangeLoop.cpp rva007e34c0 (same layout,
 // (int)&probe pattern, success+flag tail). invokeForMode row 0x00106A06 shares
@@ -101,16 +98,12 @@ char BfmeB996Range::rva00106A5C()
 	( (Rva007E3410Object *)this )->invokeForMode();
 	int probe;
 	unsigned int arg;
-	if ( !rva001068D1( (int)&probe, &arg, &flag ) )
-		return 0;
-loop:
-	if ( flag != 0 )
-		goto check;
-	rva0010690D();
-	done = 1;
-	if ( rva001068D1( (int)&probe, &arg, &flag ) )
-		goto loop;
-check:
+	while ( rva001068D1( (int)&probe, &arg, &flag ) ) {
+		if ( flag != 0 )
+			break;
+		rva0010690D();
+		done = 1;
+	}
 	if ( done == 0 || flag != 0 )
 		return 0;
 	( (Rva007E3410Object *)this )->invokeForMode();
