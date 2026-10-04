@@ -23,7 +23,6 @@ class GameState
     _STL::list<SnapshotBlock> m_snapshotBlockList[5];
     void addSnapshotBlock(AsciiString blockName, Snapshot *snapshot, SnapshotType which);
 };
-// ?addSnapshotBlock@GameState@@AAEXVAsciiString@@PAVSnapshot@@W4SnapshotType@@@Z present-unmatched
 void GameState::addSnapshotBlock(AsciiString blockName, Snapshot *snapshot, SnapshotType which)
 {
     if (blockName.isEmpty() || snapshot == 0)
