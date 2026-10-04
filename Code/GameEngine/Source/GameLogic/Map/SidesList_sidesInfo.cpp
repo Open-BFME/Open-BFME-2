@@ -27,6 +27,7 @@ private:
 class Dict
 {
 public:
+	Dict(int prealloc = 0);
 	Dict(const Dict &src) : m_data(src.m_data)
 	{
 		if (m_data)
@@ -50,6 +51,7 @@ private:
 class ScriptList
 {
 public:
+	ScriptList();
 	ScriptList(const ScriptList &that);
 	virtual ~ScriptList();
 	void clear();
@@ -61,24 +63,39 @@ private:
 
 class AsciiString;
 
-class SidesInfoStringVector
+namespace _STL
+{
+template <class T> class allocator { public: allocator() {} };
+template <class T, class Alloc> class _Vector_base
 {
 public:
+	// The target's folded 29-byte empty-vector constructor only initializes
+	// its three pointers; it cannot throw and adds no cleanup state here.
+	_Vector_base(const Alloc &) throw();
+protected:
+	T *m_start;
+	T *m_finish;
+	T *m_endOfStorage;
+};
+}
+
+class SidesInfoStringVector : private _STL::_Vector_base<AsciiString, _STL::allocator<AsciiString> >
+{
+public:
+	__forceinline SidesInfoStringVector() :
+		_STL::_Vector_base<AsciiString, _STL::allocator<AsciiString> >(
+			_STL::allocator<AsciiString>()) {}
 	SidesInfoStringVector(const SidesInfoStringVector &that);
 	~SidesInfoStringVector();
 	void swap(SidesInfoStringVector &other);
 	AsciiString *erase(AsciiString *first, AsciiString *last);
 	void clear() { erase(m_start, m_finish); }
-
-private:
-	AsciiString *m_start;
-	AsciiString *m_finish;
-	AsciiString *m_endOfStorage;
 };
 
 class SidesInfo
 {
 public:
+	SidesInfo();
 	SidesInfo(const SidesInfo &that);
 	~SidesInfo();
 	SidesInfo &operator=(const SidesInfo &that);
@@ -92,6 +109,12 @@ private:
 	ScriptList m_scripts;            // +0x08
 	SidesInfoStringVector m_strings; // +0x54
 };
+
+// Target 0x0032C667..0x0032C6AD: same members as the verified copy ctor,
+// with Dict(0), ScriptList(), and the folded empty AsciiString vector base.
+// ZH SidesList.cpp (BFME1 6583b3c1) supplies the null build-list initialization; BFME2's
+// by-value ScriptList and trailing vector are established by target calls.
+SidesInfo::SidesInfo() : m_pBuildList(0) {}
 
 void SidesInfo::init(const Dict *d)
 {
