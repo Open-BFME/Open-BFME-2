@@ -7851,3 +7851,5 @@ FUN_007b7836	0x003B7836	260	blocked	no callers prove 3-arg free-function types p
 ?rva003F42F7@Rva003F42F7@@QAEXXZ	0x003F42F7	59	blocked	edi ebx swapped plus lea vs add plus push order stable across 6 variants t=20 model=muse-12
 ?rva002B3A48@Rva002B3A48@@QAEHXZ	0x002B3A48	84	partial	ebx edi mirror plus 1B extra begin end load t=20 model=muse-08 score=0.93 stash=reverse/attempts/0x002b3a48.cpp
 ?Rva00391AA1Has@@YG_NPAX0@Z	0x00391AA1	103	partial	pushes delayed not hoisted plus esi edi pop swap t=25 model=muse-08 score=0.9 stash=reverse/attempts/0x00391aa1.cpp
+?rva00286EC8@Rva00286EC8@@QAEXXZ	0x00286EC8	185	blocked	FireLogicSystem ctor needs two vptrs array 4x0x18 ctor 0x286297 vs CameraMarker dtor mismatch plus map ModuleData t=20 model=muse-06
+??1BfmeAptScreenSkirmish@@UAE@XZ	0x00521977	315	blocked	BfmeAptScreenSkirmish dtor needs 3 vptrs second base at 0x218 plus 6 member dtors no donor t=12 model=muse-06
