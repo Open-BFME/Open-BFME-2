@@ -37,3 +37,28 @@ public:
 };
 
 void __cdecl bfmeMarkDirty(int bits);
+
+// Native 222435/11 and its adjacent 222440/13 use the same 32-bit storage.
+// The preceding body ends with ret4 at222432; these leaves end at22243F and
+// 22244C, immediately before the next Ghidra start22244D. Original function
+// and global names are unknown. The unsigned words preserve only their bits.
+// VA E02FC0 is in .data's loader-zero tail: section RVA9A4000, relative5EFC0
+// exceeds raw_size3A008. This is its actual zero-initialized storage provider.
+unsigned int g_rva00E02FC0Bits = 0;
+
+// Semantic lead: complete BFME1 Bfme5SmallTests.cpp blob1b4b62701b06e1ef5ea774e495711a32f8a688c8
+// at5cc75ddda6455c338a5068307e587a793f96d6b3, compiled /O1 /Ob1. Its dirty
+// label is donor evidence only. Keep the existing push body's compiler flags.
+#pragma optimize("s", on)
+void __cdecl rva00222435(unsigned int bits)
+{
+    g_rva00E02FC0Bits |= bits;
+}
+
+// The native adjacent leaf complements its stack word, then ANDs this same
+// storage; no original enum, registration, or caller identity is asserted.
+void __cdecl rva00222440(unsigned int bits)
+{
+    g_rva00E02FC0Bits &= ~bits;
+}
+#pragma optimize("", on)

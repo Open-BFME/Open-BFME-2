@@ -55478,3 +55478,5 @@ uw_0076765b,,0x0076765B,8,Code/Libraries/Source/WWVegas/WW3D2/meshgeometry.cpp,m
 ??_GRva004D060B@@QAEPAXI@Z,,0x004D064D,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_Rva004D060B.cpp,matched,scalar deleting dtor via rowed dtor 0x004D060B plus delete
 ??1Rva005F18C1@@QAE@XZ,,0x005F18C1,93,Code/GameEngine/Source/Common/Rva005F18C1Dtor.cpp,matched,dtor via AsciiString plus rowed Rva dtors plus UnicodeStrings plus callers
 ?rva005F1B90@Rva005F1B90@@QAEXXZ,,0x005F1B90,26,Code/GameEngine/Source/Common/Rva005F1B90Clear.cpp,matched,clear holder via rowed dtor 0x005F18C1 plus delete plus caller
+?rva00222435@@YAXI@Z,,0x00222435,11,Code/GameEngine/Source/Common/Bfme5SmallTests.cpp,matched,BFME1 5cc75ddda6455c338a5068307e587a793f96d6b3 Bfme5SmallTests whole-unit O1 lead; native complete OR leaf and loader-zero 32-bit global storage independently proved; original identities unknown
+?rva00222440@@YAXI@Z,,0x00222440,13,Code/GameEngine/Source/Common/Bfme5SmallTests.cpp,matched,Native adjacent complemented-mask AND leaf on same E02FC0 loader-zero 32-bit storage; proven prior/next return boundaries and next Ghidra start22244D; original identities unknown
