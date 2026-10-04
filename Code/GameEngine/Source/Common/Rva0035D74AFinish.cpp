@@ -11,10 +11,14 @@
 // Two levers place the vtable store, which /O1 otherwise sinks into the
 // constant-store group at +0x1F:
 //   __declspec(novtable) stops the compiler emitting its own vptr store, so
-//     the explicit one is the only one and keeps its literal 0x00C16530;
+//     the explicit one is the only one; its alias names the existing vtable
+//     proven at retail VA 0x00C16530, so it also follows the linked table;
 //   writing the FIRST member (+0x10) through a pointer pins the whole store
 //     run behind that one node and the vtable store lands at slot 3, right
 //     after xor eax,eax exactly as retail does.
+extern "C" const void *const vtbl_00C16530[];  // ??_7Rva0035D74A@@6B@
+#pragma comment(linker, "/alternatename:_vtbl_00C16530=??_7Rva0035D74A@@6B@")
+
 class Rva001DBAA4
 {
 public:
@@ -49,7 +53,7 @@ private:
 };
 Rva0035D74A::Rva0035D74A()
 {
-	*(unsigned int *)this = 0x00C16530;
+	*(unsigned int *)this = ((unsigned int)vtbl_00C16530);
 	int *p30 = &m_30;
 	int *p10 = &m_10;
 	*p10 = 0;

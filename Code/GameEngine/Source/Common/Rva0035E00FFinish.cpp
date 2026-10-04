@@ -10,12 +10,16 @@
 // Three levers, each independently pinned by measurement, reproduce retail's
 // store order:
 //   __declspec(novtable) stops the compiler emitting its own vptr store so the
-//     explicit one keeps its literal 0x00C16594;
+//     explicit one names the existing vtable proven at retail VA 0x00C16594
+//     through a linker alias, so it follows the linked table;
 //   writing m_18 through a pointer splits the +0x10..+0x24 eax run into two
 //     nodes, which is what lets m_14 and the vtable store land in between
 //     rather than the whole run hoisting above the literal 5;
 //   reading m_14 back right after m_48 (not at the end) makes the reload use
 //     ecx, matching retail's 8b 4e 14 / 89 4e 04 instead of an eax CSE.
+extern "C" const void *const vtbl_00C16594[];  // ??_7Rva0035E00F@@6B@
+#pragma comment(linker, "/alternatename:_vtbl_00C16594=??_7Rva0035E00F@@6B@")
+
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 class Rva001DBAA4
@@ -57,7 +61,7 @@ Rva0035E00F::Rva0035E00F()
 	int *p14 = &m_14;
 	m_10 = 0;
 	m_14 = 5;
-	*(unsigned int *)this = 0x00C16594;
+	*(unsigned int *)this = ((unsigned int)vtbl_00C16594);
 	int *p18 = &m_18;
 	*p18 = 0;
 	m_1C = 0;
