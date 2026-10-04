@@ -52748,3 +52748,4 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ??0Rva001E125D@@QAE@XZ,,0x001E1221,32,Code/GameEngine/Source/Common/Rva001E125DCtor.cpp,matched,unlock ctor vtable base Rva001DFEAABase member AsciiString at 0x148
 ?Rva0073F833Cb@@YGIPAX@Z,,0x0073F833,12,Code/GameEngine/Source/Common/Rva0073F778Thread.cpp,matched,thread-start thunk calls slot 3 LINK BONUS gap
 ??0Rva003B11AD@@QAE@XZ,,0x003B11AD,37,Code/GameEngine/Source/Common/Rva003B11ADCtor.cpp,matched,leaf vtable baseConstruct Vector_base plus0xC clear plus0x18 caller 0x0022EC4B
+?copyTo@Offset140IntegerTripleCopyThunk@@QAEPAHPAH@Z,,0x0008BBE0,22,Code/GameEngine/Source/Common/VirtualSlot5CallThunk_Rva0008BBE0.cpp,matched,BFME1 donor game/GameEngine/Source/Common/VirtualSlot5CallThunk.cpp (6d943426) recompiled /Os; unique masked placement on unclaimed .text
