@@ -1,13 +1,16 @@
 // ?VerifyDelayedFreeFill@GeneralAllocatorDebug@@QAE_NPAX@Z
-// partial score=0.97 date=2026-10-04
+// partial score=0.98 date=2026-10-05
+// ?VerifyDelayedFreeFill@GeneralAllocatorDebug@@QAE_NPAX@Z
+// partial score=0.98 date=2026-10-04
 // ?VerifyDelayedFreeFill@GeneralAllocatorDebug@@QAE_NPAX@Z
 // cl: /O2 /DNDEBUG /MD
 // The delayed-free guard verifier of GeneralAllocatorDebug, at retail
 // 0x006C30C0 (155 bytes). The sibling of VerifyGuardFill at 0x006C3020.
 //
 // Class and method names are retail's own: this body carries its own failure
-// string "GeneralAllocatorDebug::VerifyDelayedFreeFill failure." at 0x00CE7C3C,
-// and the sibling carries the matching VerifyGuardFill string at 0x00CE7C0C.
+// string "GeneralAllocatorDebug::VerifyDelayedFreeFill failure." at 0x008E7C3C
+// (0x00CE7C3C with the image base), and the sibling carries the matching
+// VerifyGuardFill string at 0x008E7C0C.
 //
 // The run layout is the one the rowed reader Rva006C1FE0 establishes: a two
 // byte length word sits in the last two bytes of the run and the body begins
@@ -30,6 +33,26 @@
 // the dword test a pointer declaration produces.
 unsigned char __cdecl rva00030E20Fill(void *dst, unsigned int count, unsigned char c);
 
+// 0x006C2FB0: cdecl, two stack arguments (block, message), both cleaned by the
+// CALLER. The shared verify-guard report helper, also reached from
+// VerifyGuardFill at 0x006C3020.
+//
+// It is a FREE function, not a member of the allocator, and that is the fact
+// this body's epilogue turns on. Retail's own 97-byte body at 0x006C2FB0
+// opens `mov edx,[esp+8]` -- it reads its first argument off the stack and
+// never touches ecx -- copies the message into a 0x300 frame and ends
+// `add esp,0x300; ret` with a PLAIN ret, so it does not clean its arguments.
+// Its caller therefore stages the message first and never emits an add:
+// `push 0x008E7C3C / push ebx / mov ecx,edi / call`. A thiscall member spelling
+// reverses the two pushes -- cdecl pushes the last argument first, and for a
+// thiscall member the message is the second stack argument -- which is what put
+// a `push ebx` ahead of the string immediate in the earlier bank.
+//
+// Note the caller still loads ecx from the allocator immediately before the
+// call. That is an ordinary use of `this` in the caller, not evidence that the
+// callee is a member: 0x006C2FB0's own body disproves it.
+void __cdecl rva006C2FB0Report(void *block, const char *msg);
+
 class GeneralAllocatorDebug
 {
 public:
@@ -39,16 +62,6 @@ public:
 	// debug allocator object itself in ecx, so it is declared as a member of
 	// this class rather than of the EA allocator it was recovered under.
 	unsigned int GetBlockSize(const void *block);
-
-	// 0x006C2FB0: thiscall, two stack arguments (message, block) cleaned by the
-	// callee. The shared verify-guard report helper, also reached from
-	// VerifyGuardFill at 0x006C3020. Body unrowed, pinned under an
-	// address-derived name.
-	//
-	// It is a member rather than a free function because retail materializes
-	// ecx from the allocator object immediately before the call, and no free
-	// function declaration makes MSVC spend that instruction.
-	void rva006C2FB0Report(const char *what, void *block);
 
 	bool VerifyDelayedFreeFill(void *block);
 
@@ -108,7 +121,10 @@ bool GeneralAllocatorDebug::VerifyDelayedFreeFill(void *block)
 
 		if (rva00030E20Fill(run, (unsigned int)end - (unsigned int)run,
 		                   (unsigned char)m_fillByte) == 0) {
-			rva006C2FB0Report("GeneralAllocatorDebug::VerifyDelayedFreeFill failure.", block);
+			// Block first and message second, so the message is the LAST declared
+			// argument and cdecl pushes it first -- which is retail's order.
+			rva006C2FB0Report(block,
+			                  "GeneralAllocatorDebug::VerifyDelayedFreeFill failure.");
 			return false;
 		}
 	}
