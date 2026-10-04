@@ -52623,3 +52623,4 @@ _Rva0088E190TimerTick@16,,0x0003D870,9,Code/Libraries/Source/WWVegas/WWDebug/Rva
 ?rva00479ADA@HordeGarrisonContain@@UAEXPAVObject@@@Z,,0x00479ADA,48,Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContainRva00479ADA.cpp,matched,chain via 0x00588D24 plus pin rva00588BF3 plus slots
 ?rva0006ACBD@BaseHeightMapRenderObjClass@@QAEXVAsciiString@@@Z,,0x0006ACBD,173,Code/GameEngine/Source/Common/Rva0006ACBDMethod.cpp,matched,same-this caller 0x0006B804 plus slot caller 0x000926AC plus prev next
 ?push_back@?$vector@UTreeKey00242F5E@@V?$allocator@UTreeKey00242F5E@@@_STL@@@_STL@@QAEXABUTreeKey00242F5E@@@Z,,0x0052480E,55,Code/Libraries/Source/WWVegas/WWLib/TreeKey00242F5EPushBack.cpp,matched,STLport push_back via dup Construct and overflow
+?rva004DF3F8@Rva004DF3F8@@QAEXPAX@Z,,0x004DF3F8,32,Code/GameEngine/Source/Common/Rva004DF3F8.cpp,matched,list BfmePod12 remove by int at 0x74 caller jmp 0x0028BC21
