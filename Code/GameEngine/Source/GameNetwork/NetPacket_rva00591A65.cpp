@@ -1,15 +1,14 @@
-// ?rva00591A65@NetPacket@@QAEEPAVNetCommandRef@@@Z
-// partial score=0.97 date=2026-09-30
-// ?rva00591A65@NetPacket@@QAEEPAVNetCommandRef@@@Z
-// partial score=0.97 date=2026-09-30
-// cl: /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /O1 /arch:SSE /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // ?rva00591A65@NetPacket@@QAEEPAVNetCommandRef@@@Z @0x00591A65 (182B).
-// NetPacket room check with Unicode-string term: charges type 2 timestamp 5
-// frame 5 relay 2 player 2 ID 3 plus fixed 2, adds wide length from the
-// +0x24 RVO getter (rowed Rva0023E928 0x0023E928) as base + slen*2+8 against
-// MAX 0x1DC. Evidence: NetPacket tail +0x1E0/+0x1F4/+0x1F8/+0x1FC/+0x1FE/
-// +0x1FF/+0x200 and NetCommandMsg +0x04/+0x08/+0x0C/+0x10/+0x14 as siblings
-// NetPacket_rva0059188C/NetPacket_rva00591D0D; caller 0x005936F4; callees rowed.
+// NetPacket room check with a wide-string term: charges type 2, timestamp 5,
+// frame 5, relay 2, player 2 and command ID 3 when they differ from the
+// packet's last values, a fixed 2, the UnicodeString length*2 from the +0x24
+// getter (rowed Rva0023E928 0x0023E928) and a fixed 8, against MAX 0x1DC.
+// Target facts: NetPacket tail +0x1E0/+0x1F4/+0x1F8/+0x1FC/+0x1FE/+0x1FF/
+// +0x200 and NetCommandMsg +0x04/+0x08/+0x0C/+0x10/+0x14; caller 0x005936F4.
+// Donor lead: same shape as Zero Hour's isRoomForChatMessage with eight
+// trailing bytes instead of the four-byte player mask. Retail selects the
+// type charge with cmovne, which MSVC 7.1 emits only under /arch:SSE.
 typedef int Int;
 typedef unsigned int UnsignedInt;
 typedef unsigned short UnsignedShort;
@@ -17,41 +16,7 @@ typedef unsigned char UnsignedByte;
 typedef bool Bool;
 enum { MAX_PACKET_SIZE = 0x1DC };
 
-template <typename T> class StringBase
-{
-	friend class AsciiString;
-	friend class UnicodeString;
-public:
-	int getLength() const
-	{
-		return m_data ? m_data->length : 0;
-	}
-private:
-	~StringBase()
-	{
-		releaseBuffer();
-	}
-	void releaseBuffer();
-	struct Header {
-		Int ref_count;
-		UnsignedShort length;
-		UnsignedShort capacity;
-		T data[1];
-	};
-	Header *m_data;
-};
-
-class AsciiString : public StringBase<char>
-{
-public:
-	~AsciiString() {}
-};
-
-class UnicodeString : public StringBase<unsigned short>
-{
-public:
-	~UnicodeString() {}
-};
+#include "unicode_string.h"
 
 class Rva0023E928
 {
@@ -59,11 +24,6 @@ public:
 	UnicodeString rva0023E928() const;
 };
 
-class CDDrive
-{
-public:
-	virtual AsciiString getPath();
-};
 
 class NetCommandMsg
 {
@@ -116,7 +76,6 @@ public:
 	UnsignedByte m_lastRelay;
 };
 
-// ?rva00591A65@NetPacket@@QAEEPAVNetCommandRef@@@Z present-unmatched
 UnsignedByte NetPacket::rva00591A65(NetCommandRef *msg)
 {
 	Int len = 0;
@@ -147,6 +106,10 @@ UnsignedByte NetPacket::rva00591A65(NetCommandRef *msg)
 	++len;
 	++len;
 	UnsignedByte slen = ((Rva0023E928 *)cmdMsg)->rva0023E928().getLength() & 0xFF;
-	Int total = m_packetLen + slen * 2 + 8 + len;
-	return total <= MAX_PACKET_SIZE;
+	len += slen * sizeof(UnsignedShort);
+	len += sizeof(Int) + sizeof(Int);
+	if ((len + m_packetLen) > MAX_PACKET_SIZE) {
+		return false;
+	}
+	return true;
 }
