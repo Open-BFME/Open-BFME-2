@@ -6,7 +6,11 @@
 // (??_V@YAXPAX@Z, 0x00881EF0), not the scalar operator delete at
 // 0x00881EB0 -- a different 21-byte body.
 void __cdecl operator delete[](void *block);
+// The base deleting destructor must call its complete destructor (retail EFAD2/28).
+// Keep the base thunk out of line while preserving this owner's inline reset.
+#pragma inline_depth(0)
 #include "BfmeShadowPrefix.h"
+#pragma inline_depth(255)
 
 class BfmeShadowRefCount
 {
