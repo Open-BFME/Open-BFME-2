@@ -53053,3 +53053,4 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ??_GRva00135E35@@UAEPAXI@Z,,0x00135F19,28,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB02.cpp,matched,opaque scalar deleting dtor (vtable 0x00BD28F0#9); calls pinned dtor 0x00135E35 then operator delete
 ?onEnter@TurretAIIdleScanState@@UAE?AW4StateReturnType@@XZ,,0x004D8448,138,Code/GameEngine/Source/GameLogic/AI/TurretAIIdleStates.cpp,matched,ZH TurretAIIdleScanState::onEnter; scan angles turret data +0x50/+0x54; desired angle +0x20
 ?friend_isSweepEnabled@TurretAI@@QBE_NXZ,,0x004D8365,24,Code/GameEngine/Source/GameLogic/AI/TurretAIIdleStates.cpp,matched,ZH TurretAI::friend_isSweepEnabled; m_enableSweepUntil +0x24
+?friend_turnTowardsPitch@TurretAI@@QAE_NMM@Z,,0x004D80EE,200,Code/GameEngine/Source/GameLogic/AI/TurretAITurnTowardsPitch.cpp,matched,ZH TurretAI::friend_turnTowardsPitch; pitch +0x1C play-pitch-sound +0x39; data pitch rate +4 allows pitch +0x66
