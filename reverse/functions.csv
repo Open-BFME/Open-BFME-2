@@ -55064,3 +55064,4 @@ rva007916E1_constructor_unwind,,0x007916E1,11,Code/GameEngine/Source/Common/INI/
 ??1Rva001ED41B@@UAE@XZ,,0x001ED41B,91,Code/GameEngine/Source/Common/Rva001ED41BDtor.cpp,matched,pin plus caller 0x001ED530 deleting dtor plus vector 0x001ED363 plus clear 0x000AD6F4 plus base 0x001B4E74
 ??_GRva005E0DC0@@QAEPAXI@Z,,0x005E11E8,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_Rva005E0DC0.cpp,matched,chain from 0x005E0DC0 landing via rowed dtor plus delete
 ?rva002AD1FD@Player@@QAEXXZ,,0x002AD1FD,94,Code/GameEngine/Source/Common/RTS/PlayerRva002AD1FD.cpp,matched,Player this via ecx passthrough with rowed callees and global g_bfmeWorldRV
+?rva0028DA67@Object@@QAEXXZ,,0x0028DA67,82,Code/GameEngine/Source/GameLogic/Object/ObjectRva0028DA67.cpp,matched,Object flag plus template extents with testStatus and Player notify
