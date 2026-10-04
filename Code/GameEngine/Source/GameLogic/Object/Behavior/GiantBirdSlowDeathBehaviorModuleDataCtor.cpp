@@ -15,6 +15,8 @@
 // 0x1C helper pinned at 0x24C7B3 and then explicitly memcoded again, exactly
 // as retail does; memset resolves to the rowed CRT import.
 
+extern "C" const void *const vtbl_00C42E98[];  // defined with its slots elsewhere (data, retail bytes)
+
 #include <string.h>
 
 class SlowDeathBehaviorModuleData
@@ -49,7 +51,7 @@ private:
 
 // ??0GiantBirdSlowDeathBehaviorModuleData@@QAE@XZ @0x461F7F
 GiantBirdSlowDeathBehaviorModuleData::GiantBirdSlowDeathBehaviorModuleData()
-	: m_vtable(reinterpret_cast<const void *>(0x00C42E98))
+	: m_vtable(reinterpret_cast<const void *>(((unsigned int)vtbl_00C42E98)))
 {
 	m_unk190 = 0;
 	m_unk194 = 0;
