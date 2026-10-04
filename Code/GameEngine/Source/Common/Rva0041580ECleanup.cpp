@@ -33,12 +33,30 @@ struct Rva0041580EHead
 	Rva0041580EHead *m_child0C;
 };
 
+// ABI return views only: native insertion136 writes one pointer to its first
+// stack slot and returns that slot's address in EAX. Unique-insert134 receives
+// it there, then writes a pointer plus bool at +4 to its own hidden output.
+// No original iterator/result class, constness or lifetime is claimed.
+struct Rva004158AFSlot {
+    // ?Rva004158AFSlot::Rva004158AFSlot present-unmatched
+    __forceinline Rva004158AFSlot(Rva0041580ENode *node):m_node(node) {}
+    Rva0041580ENode *m_node;
+};
+struct Rva00415A55Result {
+    // ?Rva00415A55Result::Rva00415A55Result present-unmatched
+    __forceinline Rva00415A55Result(Rva0041580ENode *node,bool inserted):m_node(node),m_inserted(inserted) {}
+    Rva0041580ENode *m_node;
+    bool m_inserted;
+};
+
 struct Rva0041580E
 {
 	Rva0041580EHead *m_head00;
 	int m_flag04;
 	void rva0041580E(Rva0041580ENode *node);
 	void rva00415886();
+	Rva00415A55Result rva00415A55(const Rva0041579E &value);
+	Rva004158AFSlot rva004158AFReturnView(Rva0041580ENode *x,Rva0041580ENode *parent,const Rva0041579E &value,Rva0041580ENode *w);
 	char *rva00415843CallView(const Rva0041579E &source);
 	void rva004158AF(Rva0041580ENode *&out,Rva0041580ENode *x,Rva0041580ENode *parent,const Rva0041579E &value,Rva0041580ENode *w);
 	Rva0041580E *rva004159E2(const Rva0041580E &other);
@@ -191,6 +209,7 @@ struct _Rb_tree_node_base;
 template<class Dummy> class _Rb_global {
 public:
     static void _Rebalance(_Rb_tree_node_base *,_Rb_tree_node_base *&);
+    static _Rb_tree_node_base *_M_decrement(_Rb_tree_node_base *);
 };
 }
 #pragma comment(linker, "/alternatename:?rva00415843CallView@Rva0041580E@@QAEPADABVRva0041579E@@@Z=?Rva00415843Create@@YGPADABVRva0041579E@@@Z")
@@ -218,3 +237,26 @@ void Rva0041580E::rva004158AF(Rva0041580ENode *&out,Rva0041580ENode *x,Rva004158
     ++m_flag04;
     out=node;
 }
+
+// STLport 4.5.3 insert_unique primary guide, including the target-backed
+// BFME_RETAIL_TREE_INSERT_LAYOUT begin case (x and parent are both y).
+Rva00415A55Result Rva0041580E::rva00415A55(const Rva0041579E &value)
+{
+    Rva0041580ENode *parent=(Rva0041580ENode *)m_head00;
+    Rva0041580ENode *cur=m_head00->m_first04;
+    bool less=true;
+    while(cur) {
+        parent=cur;
+        less=value.m_key00<cur->m_item10.m_key00;
+        cur=less?cur->m_next08:cur->m_child0C;
+    }
+    Rva0041580ENode *candidate=parent;
+    if(less && candidate==(Rva0041580ENode *)m_head00->m_next08)
+        return Rva00415A55Result(rva004158AFReturnView(parent,parent,value,0).m_node,true);
+    if(less) candidate=(Rva0041580ENode *)_STL::_Rb_global<bool>::_M_decrement((_STL::_Rb_tree_node_base *)candidate);
+    if(candidate->m_item10.m_key00<value.m_key00)
+        return Rva00415A55Result(rva004158AFReturnView(cur,parent,value,0).m_node,true);
+    return Rva00415A55Result(candidate,false);
+}
+
+#pragma comment(linker, "/alternatename:?rva004158AFReturnView@Rva0041580E@@QAE?AURva004158AFSlot@@PAURva0041580ENode@@0ABVRva0041579E@@0@Z=?rva004158AF@Rva0041580E@@QAEXAAPAURva0041580ENode@@PAU2@1ABVRva0041579E@@1@Z")
