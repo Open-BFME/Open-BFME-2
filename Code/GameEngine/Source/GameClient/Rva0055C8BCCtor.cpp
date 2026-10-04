@@ -53,7 +53,6 @@ Rva0055C8BC::Rva0055C8BC()
 // cleanup7B7ECB -> dtor55C45F establish this publisher lifecycle.
 // The empty receiver view is retained from the already rowed constructor;
 // original publisher identity and complete application layout remain unknown.
-// ?Rva003A8314Init@@YAXXZ present-unmatched
 void __cdecl Rva003A8314Init()
 {
     static Rva0055C8BC publisher;
