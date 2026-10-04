@@ -52842,3 +52842,4 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ?rva00357EAD@ScriptEngine@@QAEXHABVAsciiString@@H@Z,,0x00357EAD,50,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva00357EAD.cpp,matched,ScriptEngine timer push via CRC 0x3ECA13 and push_back 0x4DE74D siblings 0x357E7B 0x357EDF
 ?rva00357D86@ScriptEngine@@QAEXABVAsciiString@@@Z,,0x00357D86,38,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva00357D86.cpp,matched,ScriptEngine crc push to list 0x1A254 via 0x3ECA13 and 0x5548F sibling 0x57DAC
 ??1Rva004333C0@@UAE@XZ,,0x004333C0,62,Code/GameEngine/Source/Common/Rva004333C0Dtor.cpp,matched,vtable 0x0083CB1C plus AsciiString at C8 plus rowed base 0x001DA2D5 plus caller deleting dtor
+?rva0023C7D2@Rva0023C7D2@@QAEXXZ,,0x0023C7D2,35,Code/GameEngine/Source/Common/Rva0023C7D2Cleanup.cpp,matched,leaf lane unfolded vf0 free idiom via CDownload precedent
