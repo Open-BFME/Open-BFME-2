@@ -21,3 +21,14 @@ void Rva005EFD39::rva005EFD39()
 	if (tmp != 0)
 		delete tmp;
 }
+class Rva005EFDDB
+{
+public:
+	virtual ~Rva005EFDDB();
+private:
+	Rva005EFD39 m_04;
+};
+Rva005EFDDB::~Rva005EFDDB()
+{
+	m_04.rva005EFD39();
+}
