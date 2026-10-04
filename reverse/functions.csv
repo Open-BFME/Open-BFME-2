@@ -32607,11 +32607,11 @@ uw_007a6e50,,0x007A6E50,8,Code/gen_small/uw_gen_000.cpp,matched,gen-funclet;obje
 uw_007a6e70,,0x007A6E70,8,Code/gen_small/uw_gen_000.cpp,matched,gen-funclet;object-symbol=$L4270
 uw_007a6e90,,0x007A6E90,8,Code/gen_small/uw_gen_006.cpp,matched,gen-funclet;object-symbol=$L4011
 uw_007a6f10,,0x007A6F10,8,Code/Libraries/Source/WWVegas/WWLib/ffactory.cpp,matched,gen-funclet;object-symbol=$L9524;parent=??0SimpleFileFactoryClass@@QAE@XZ;unwind state 0 of FuncInfo 0x009607EC read from the parent prolog handler stub; emitted by the parent C++ in this TU
-uw_007a6f50,,0x007A6F50,11,Code/gen_small/uw_gen_008.cpp,matched,gen-funclet;object-symbol=$L3007
-uw_007a6fa0,,0x007A6FA0,8,Code/gen_small/uw_gen_006.cpp,matched,gen-funclet;object-symbol=$L3339
+uw_007a6f50,,0x007A6F50,11,Code/Libraries/Source/WWVegas/WWLib/ffactory.cpp,matched,gen-funclet;object-symbol=$L9160;parent=?Get_File@RawFileFactoryClass@@QAEPAVRawFileClass@@PBD@Z;unwind state 0 of FuncInfo 0x009607C0 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_007a6fa0,,0x007A6FA0,8,Code/Libraries/Source/WWVegas/WWLib/ffactory.cpp,matched,gen-funclet;object-symbol=$L9542;parent=?Get_Sub_Directory@SimpleFileFactoryClass@@QBEXAAVStringClass@@@Z;unwind state 0 of FuncInfo 0x0096083C read from the parent prolog handler stub; emitted by the parent C++ in this TU
 uw_007a6fc0,,0x007A6FC0,11,Code/gen_small/uw_gen_006.cpp,matched,gen-funclet;object-symbol=$L3366
 uw_007a6fe0,,0x007A6FE0,11,Code/gen_small/uw_gen_006.cpp,matched,gen-funclet;object-symbol=$L3357
-uw_007a701b,,0x007A701B,8,Code/gen_small/uw_gen_006.cpp,matched,gen-funclet;object-symbol=$L3339
+uw_007a701b,,0x007A701B,8,Code/Libraries/Source/WWVegas/WWLib/ffactory.cpp,matched,gen-funclet;object-symbol=$L9621;parent=?Get_File@SimpleFileFactoryClass@@UAEPAVFileClass@@PBD@Z;unwind state 3 of FuncInfo 0x009608D0 read from the parent prolog handler stub; emitted by the parent C++ in this TU
 uw_007a7040,,0x007A7040,8,Code/Libraries/Source/WWVegas/WWLib/xstraw.cpp,matched,gen-funclet;object-symbol=$L7667;parent=??1FileStraw@@UAE@XZ;unwind state 0 of FuncInfo 0x009608F4 read from the parent prolog handler stub; emitted by the parent C++ in this TU
 uw_007a7060,,0x007A7060,8,Code/gen_small/uw_gen_014.cpp,matched,gen-funclet;object-symbol=$L5174
 uw_007a7080,,0x007A7080,8,Code/gen_small/uw_gen_014.cpp,matched,gen-funclet;object-symbol=$L5224
