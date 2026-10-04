@@ -44,3 +44,16 @@ bool Rva0073F778::rva0073F83F(int resume, unsigned stackSize, int priority, void
 {
     return rva0073F778((unsigned (__stdcall *)(void *))Rva0073F833Cb, this, resume, stackSize, priority, security);
 }
+
+// ?Rva0073F833Cb@@YGIPAX@Z @0x0073F833 12B. Thread-start thunk calling virtual slot 3 on its arg.
+// Evidence: LINK BONUS 159B in this file; gap between 0x0073F778 and 0x0073F83F; same /O1 /MD TU; indirect call needs no callee row.
+struct Rva0073F833If {
+    virtual void v0();
+    virtual void v1();
+    virtual void v2();
+    virtual unsigned v3();
+};
+unsigned __stdcall Rva0073F833Cb(void *arg)
+{
+    return ((Rva0073F833If *)arg)->v3();
+}
