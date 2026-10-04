@@ -9020,3 +9020,5 @@ _Rva0030CAF8CursorEqual,0x0007E394,twin of dup_0007e394 29B exact cursor equalit
 ??_ERva003ABA36@@UAEPAXI@Z,0x003AE8D5,"vector deleting destructor name the class's this-adjusting thunks jump to; the linker resolves it to the scalar deleting destructor at this address (weak external)"
 ??_ERva003AE358@@UAEPAXI@Z,0x003AE33C,"vector deleting destructor name the class's this-adjusting thunks jump to; the linker resolves it to the scalar deleting destructor at this address (weak external)"
 ??_ERva003AB9FF@@UAEPAXI@Z,0x003AE720,"vector deleting destructor name the class's this-adjusting thunks jump to; the linker resolves it to the scalar deleting destructor at this address (weak external)"
+?rva0039AE04@ExperienceTracker@@QBE_NXZ,0x0039AE04,"bool member of the tracker at Object +0x264 (+0x34 owner kind test 0x3E; beside ExperienceTracker xfer 0x0039AFC8); REL32 in LevelGrantSpecialPower 0x004C2B8A"
+?rva0039B315@ExperienceTracker@@QAEXM_N00H@Z,0x0039B315,"grant member of the tracker at Object +0x264: float amount then 1 1 1 0 (beside ExperienceTracker xfer 0x0039AFC8); REL32 in LevelGrantSpecialPower 0x004C2BA3"
