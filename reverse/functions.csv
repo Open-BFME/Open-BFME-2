@@ -35217,7 +35217,6 @@ _Rva001CA000Vp6WideAccum,,0x001CA000,4240,Code/GameEngine/Source/Common/Rva001CA
 ?get@Rva0004CACDOneGetter@@QBEHXZ,,0x0004CACD,4,Code/GameEngine/Source/Common/IntOneGetters.cpp,matched,Trivial int-one getter ret-delimited shared true-tail
 ?get@Rva0007246EOneGetter@@QBEHXZ,,0x0007246E,4,Code/GameEngine/Source/Common/IntOneGetters.cpp,matched,Trivial int-one getter ret-delimited shared true-tail
 ?get@Rva000782DDOneGetter@@QBEHXZ,,0x000782DD,4,Code/GameEngine/Source/Common/IntOneGetters.cpp,matched,Trivial int-one getter ret-delimited shared true-tail
-?get@Rva000B22C7OneGetter@@QBEHXZ,,0x000B22C7,4,Code/GameEngine/Source/Common/IntOneGetters.cpp,matched,Trivial int-one getter ret-delimited shared true-tail
 ?get@Rva00262126OneGetter@@QBEHXZ,,0x00262126,4,Code/GameEngine/Source/Common/IntOneGetters.cpp,matched,Trivial int-one getter ret-delimited shared true-tail sibling of 0x262117
 ?get@Rva000B2BDDOneGetter@@QBEHXZ,,0x000B2BDD,4,Code/GameEngine/Source/Common/IntOneGetters.cpp,matched,Trivial int-one getter ret-delimited shared true-tail
 ?get@Rva000B4975OneGetter@@QBEHXZ,,0x000B4975,4,Code/GameEngine/Source/Common/IntOneGetters.cpp,matched,Trivial int-one getter ret-delimited shared true-tail
@@ -55762,3 +55761,4 @@ ___Extract_locale_name,,0x000216A0,153,Code/Libraries/Source/WWVegas/WWLib/Local
 ?rva0042D81D@Rva0042D81D@@QAEXPAVRva0057AD6E@@@Z,,0x0042D81D,35,Code/GameEngine/Source/Common/Rva0042D81DSet.cpp,matched,set holder via rowed dtor 0x0057AD6E plus delete
 ?rva0042D840@Rva0042D81D@@QAEXXZ,,0x0042D840,26,Code/GameEngine/Source/Common/Rva0042D81DSet.cpp,matched,clear holder via rowed dtor 0x0057AD6E plus delete
 ?rva0057A7CE@Rva0057A7CE@@QAEXXZ,,0x0057A7CE,55,Code/GameEngine/Source/Common/Rva0057A7CEApt.cpp,matched,vslot slot 2 of 0x0086F118 class Rva0057AD6E rowed AptCall FadeOut globals sibling Rva0057A92DApt
+?rva000B22B3@Rva000B22B3StateView@@QBEHXZ,,0x000B22B3,24,Code/GameEngine/Source/Common/Bfme5SmallTests.cpp,matched,Whole BF1 S2TwoValueStateTests at5cc75ddd; raw word+34 equals400/800; two genuine entry calls; complete body replaces false4B true arm; original owner unknown

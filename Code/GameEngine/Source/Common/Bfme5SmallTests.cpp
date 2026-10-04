@@ -213,3 +213,30 @@ int rva001542A0(unsigned short bits)
     return 1;
 }
 #pragma optimize("", on)
+
+// Whole BFME1 donor game/GameEngine/Source/Common/S2TwoValueStateTests.cpp
+// revision5cc75ddda6455c338a5068307e587a793f96d6b3,
+// blob3dda9b640894e4a4ee3a0db926a761b419a74c3f; no headers.
+// Discovery /O1 /Ob1; donor size optimization is applied only to this body.
+// Target raw facts: receiver word+0x34 equals0x400 or0x800; EAX returns0/1.
+// Complete entry0x000B22B3/24 is called at0x000C5860 and0x000C5A1C;
+// both pass their receiver+0x58 object inECX and consumeAL. Internal
+// branches reach the former false standalone claim0x000B22C7/4.
+// This minimum raw ABI view establishes no original class identity,
+// enum/flag meaning, full object extent, construction or lifetime.
+class Rva000B22B3StateView
+{
+public:
+	int rva000B22B3() const;
+private:
+	unsigned char head[0x34];
+	unsigned int word;
+};
+
+#pragma optimize("s", on)
+// ?rva000B22B3@Rva000B22B3StateView@@QBEHXZ
+int Rva000B22B3StateView::rva000B22B3() const
+{
+	return word == 0x400 || word == 0x800;
+}
+#pragma optimize("", on)
