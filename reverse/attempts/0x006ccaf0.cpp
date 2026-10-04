@@ -1,5 +1,7 @@
 // ?rva006ccaf0@@YAXPBD@Z
-// partial score=0.93 date=2026-10-04
+// partial score=0.95 date=2026-10-05
+// ?rva006ccaf0@@YAXPBD@Z
+// partial score=0.95 date=2026-10-04
 // ?rva006ccaf0@@YAXPBD@Z
 // cl: /O2 /MD /EHsc
 // ?rva006ccaf0@@YAXPBD@Z @ 0x006CCAF0 (139B).
@@ -43,7 +45,16 @@ class Rva006DCD20
 public:
 	// 0x006DE870: thiscall, one stack argument; appends the run into the entry's
 	// key buffer. Unnamed body; address-derived here.
-	void rva006DE870(const char *key);
+	//
+	// The key is taken BY REFERENCE, and that is what decides the register
+	// tuple. Retail keeps the caller's name in esi across the EAStringC ctor
+	// (`push esi / mov eax,[esp+0x14] / push eax / lea ecx,[esp+8] / call`) and
+	// reloads it off its own argument slot only at the key call
+	// (`mov eax,[esp+0x1c] / push eax`). Spelled by value, MSVC instead sinks a
+	// `push edi / mov edi,[esp+0x1c]` to the head of the frame, which adds four
+	// bytes ahead of everything and shifts every later displacement. A
+	// reference parameter is the one spelling that makes MSVC spend esi here.
+	void rva006DE870(const char *&key);
 
 	virtual void slot0();
 	virtual void release();
