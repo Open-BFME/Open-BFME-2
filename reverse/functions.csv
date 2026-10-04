@@ -54735,3 +54735,4 @@ rva007916E1_constructor_unwind,,0x007916E1,11,Code/GameEngine/Source/Common/INI/
 ?loadProfile@LadderPreferences@@QAE_NH@Z,,0x005E0201,501,Code/GameEngine/Source/GameNetwork/GameSpy/OnlinePreferences.cpp,matched,ZH loadProfile via Online Files plus QP decoders and LadderPrefMap callers 0x005BC3B1
 ?parse@LibraryMapsParser@@QAE_NAAVDataChunkInput@@PAVDataChunkInfo@@@Z,,0x0032D742,153,Code/GameEngine/Source/GameLogic/Map/LibraryMapsParserParse.cpp,matched,vslot slot 1 LibraryMapsParser donor parse
 ?rva0035A1D8@Rva0035A1D8@@QAEXXZ,,0x0035A1D8,96,Code/GameEngine/Source/Common/Rva0035A1D8Clear.cpp,matched,unlock via 0x002442A4 list clear floats array-delete forEach
+?rva00579435@Rva005794ED@@UAEX_N@Z,,0x00579435,86,Code/GameEngine/Source/Common/Rva005794EDDtor.cpp,matched,vslot1 via rowed AptCall plus strings plus TheRva plus empty plus Ascii prefix

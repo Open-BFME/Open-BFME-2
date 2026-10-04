@@ -43,14 +43,37 @@ class __declspec(novtable) Rva005794ED : public Rva005794EDBase
 {
 public:
 	virtual ~Rva005794ED();
+	virtual void rva00579435(bool newState);
 private:
 	int m_04;
 	AsciiString m_08;
 	Rva0052413E m_0C;
 	Rva005794EDHolder18 m_18;
+	bool m_1C;
 };
 
 Rva005794ED::~Rva005794ED()
 {
 	*(const void **)this = g_00C6ECBC;
+}
+
+class Rva00222A8BTarget;
+extern Rva00222A8BTarget *TheRva00222A8BTarget;
+extern const char g_Rva0107301CEmptyString[];
+int __cdecl Rva0050E9FEAptCall(Rva00222A8BTarget *target, void *level, const char *prefix, const char *function, const char **a0ptr);
+
+static __forceinline const char *Rva005794EDGetStr(const AsciiString &s)
+{
+	char *t = *(char **)(void *)&s;
+	return t ? t + 8 : g_Rva0107301CEmptyString;
+}
+
+void Rva005794ED::rva00579435(bool newState)
+{
+	if (newState == m_1C)
+		return;
+	const char *state = newState ? "_up" : "_disabled";
+	const char *prefix = Rva005794EDGetStr(m_08);
+	Rva0050E9FEAptCall(TheRva00222A8BTarget, (void *)m_04, prefix, "SetState", &state);
+	m_1C = newState;
 }
