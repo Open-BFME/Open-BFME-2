@@ -151,3 +151,23 @@ void Rva00330CD3ByteView::setBits(unsigned char bits)
     m_bits64 = bits;
 }
 #pragma optimize("", on)
+
+// The same whole SmallLeafBodies donor labels this shape a constructor.
+// Target preceding Ghidra360BB8/70 endsret360BFD, this body360BFE/8 ends
+// ret4 at360C03, and the distinct next body begins360C06. Native stores all
+// one bits to receiverword0, returns the receiver inEAX, and ignores one
+// cleanup word. No target lifetime evidence establishes a constructor or
+// argument type; use a plain address-qualified raw-word reset ABI view.
+class Rva00360BFEWordView
+{
+public:
+    unsigned int m_bits00;
+    Rva00360BFEWordView *resetBits(unsigned int ignored);
+};
+#pragma optimize("s", on)
+Rva00360BFEWordView *Rva00360BFEWordView::resetBits(unsigned int)
+{
+    m_bits00 = ~0u;
+    return this;
+}
+#pragma optimize("", on)
