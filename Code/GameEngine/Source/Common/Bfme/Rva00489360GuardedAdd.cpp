@@ -43,6 +43,7 @@ public:
 	void rva001DBB33();
 	int get() const;
 	void rva001DBACA(int value);
+	bool rva001DBD24();
 
 	char            m_pad00[ 0x4 ];
 	int             m_baseVal;
@@ -105,6 +106,7 @@ public:
 	void rva001DBE17();
 	void rva001DBE34();
 	void rva001DBE51();
+	void rva001DC164();
 
 	Node001DBDA4 *m_head;
 	int m_04;
@@ -175,4 +177,29 @@ void Rva001DBDA4::rva001DBD5D()
 	m_08 += m_04;
 	for( Node001DBDA4 *n = m_head->m_next; n != m_head; n = n->m_next )
 		n->m_value->rva001DBACA(m_08);
+}
+
+// The 0x00DFDC14 singleton (theBfmeDfdc14, defined in WinMain.cpp); only its
+// +0x64 frame count is used here.
+class AudioManager
+{
+public:
+	char m_pad00[0x64];
+	int m_64;
+};
+extern AudioManager *theBfmeDfdc14;
+
+// ?rva001DC164@Rva001DBDA4@@QAEXXZ @0x001DC164 59B: Zero Hour's
+// TransitionGroup::init shape (frame 0 at +0x08, direction 1 at +0x04, init
+// every element through the rowed rva001DBD24), then BFME 2 stores this
+// group's largest total (rva001DBDA4, compiled earlier in this TU) plus 3 at
+// +0x64 of the 0x00DFDC14 singleton. Callers 0x001DC2EB (setGroup 0x001DC252)
+// and 0x001DC3F3 (0x001DC345).
+void Rva001DBDA4::rva001DC164()
+{
+	m_08 = 0;
+	m_04 = 1;
+	for( Node001DBDA4 *n = m_head->m_next; n != m_head; n = n->m_next )
+		n->m_value->rva001DBD24();
+	theBfmeDfdc14->m_64 = rva001DBDA4() + 3;
 }
