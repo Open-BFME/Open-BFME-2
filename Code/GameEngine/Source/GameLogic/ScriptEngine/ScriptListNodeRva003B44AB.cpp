@@ -14,6 +14,7 @@ class Rva003B44AB
 {
 public:
 	Rva003B44AB *rva003B44AB(const Rva003B44AB *other);
+	Rva003B44AB *rva003B44C7(const Rva003529B0 *other);
 private:
 	int m_00;			// +0x00
 	Rva003529B0 m_04;		// +0x04
@@ -23,5 +24,11 @@ Rva003B44AB *Rva003B44AB::rva003B44AB(const Rva003B44AB *other)
 {
 	m_00 = 0;
 	m_04.Rva003529B0::Rva003529B0(&other->m_04);
+	return this;
+}
+
+Rva003B44AB *Rva003B44AB::rva003B44C7(const Rva003529B0 *other)
+{
+	m_04.Rva003529B0::Rva003529B0(other);
 	return this;
 }
