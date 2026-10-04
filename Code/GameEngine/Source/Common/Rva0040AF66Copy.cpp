@@ -34,6 +34,14 @@ private:
 
 enum ScienceType { SCIENCE_NONE = 0 };
 
+namespace _STL
+{
+// Suppress the duplicate vector<ScienceType> copy COMDAT; retail's copy is
+// rowed at 0x0054878E in ProductionPrerequisiteCopyCtor.cpp. The row below
+// keeps calling it (member-inits), so its bytes are unchanged.
+template <> vector<ScienceType, allocator<ScienceType> >::vector(const vector<ScienceType, allocator<ScienceType> > &);
+}
+
 class BfmeFixedStorage0004543D
 {
 public:
