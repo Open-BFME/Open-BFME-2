@@ -54443,3 +54443,4 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ?rva0045F21C@StancesBehavior@@QAEXXZ,,0x0045F21C,25,Code/GameEngine/Source/GameLogic/Object/Behavior/StancesBehaviorUpdate.cpp,matched,StancesBehavior stance selector via rva0045F084
 ?rva003F4538@Rva003F498A@@QAE_NXZ,,0x003F4538,82,Code/Libraries/Source/WWVegas/WWLib/Rva003F498ALoops.cpp,matched,leaf two outers nonempty inners via size loops same TU flags caller 0x002BDFB5
 ?rva003F458A@Rva003F498A@@QAEHH@Z,,0x003F458A,16,Code/Libraries/Source/WWVegas/WWLib/Rva003F498ALoops.cpp,matched,unlock outer unk0 getter via 0x1C imul same TU flags callers 0x002BAFDB 0x002BC222
+??0Rva0006F373@@QAE@PAXHH000@Z,,0x0006FAEC,67,Code/Libraries/Source/WWVegas/WWLib/Rva0006F373Set.cpp,matched,pool ctor via setter chain from 0x0006F373
