@@ -9,7 +9,7 @@ struct BfmeStringRecord003B3F78 {
     unsigned short short0;
     unsigned int word2;
     BfmeStringRecord003B3F78();
-    BfmeStringRecord003B3F78(const BfmeStringRecord003B3F78 &o) : word0(o.word0), word1(o.word1), text(o.text), flag(o.flag), short0(o.short0), word2(o.word2) {}
+    BfmeStringRecord003B3F78(const BfmeStringRecord003B3F78 &o);
 };
 #include <memory>
 template void _STL::_Construct<BfmeStringRecord003B3F78,BfmeStringRecord003B3F78>(BfmeStringRecord003B3F78*,const BfmeStringRecord003B3F78&);
