@@ -30,6 +30,13 @@
 //    .?AW4__unnamed@XferException@@); a copy of the Int at +0x04, 4 raw
 //    bytes (+0x08), a Real (+0x0C), a Bool (+0x44), a Coord3D (+0x48) and a
 //    Real (+0x54).
+//  - Rva0039AE75::xfer, retail 0x0039AD0B (58 bytes): slot 2 of the
+//    three-slot ??_7Rva0039AE75 0x00C1AD60 (destructor, empty crc, xfer: the
+//    bare Snapshot layout); version, a Real (+0x08) and an Int (+0x0C).
+//  - BuffManager::xfer, retail 0x00362702 (109 bytes; vftable 0x00C17088):
+//    version; unless CRC-ing, a count of 9 and the snapshot (own slot 3) of
+//    each 0x44-byte entry from +0x08, with +0x04 published in the global at
+//    VA 0x00E01E74 (.bss) for the duration.
 
 #include "ascii_string.h"
 
@@ -150,6 +157,40 @@ protected:
 	virtual void v01();
 	virtual void v02();
 	virtual void xfer( Xfer *xfer );
+};
+
+class Rva0039AE75
+{
+protected:
+	virtual ~Rva0039AE75();
+	virtual void crc( Xfer *xfer );
+	virtual void xfer( Xfer *xfer );
+private:
+	char m_unrecovered04[ 0x08 - 0x04 ];
+	Real m_bfmeReal08;																												///< 0x08
+	Int m_bfmeValue0C;																												///< 0x0C
+};
+
+// The 0x44-byte BuffManager entries: only the slot-3 xfer is used.
+class Rva00362702Entry : public SnapshotBase
+{
+protected:
+	virtual void xfer( Xfer *xfer );
+	friend class BuffManager;
+private:
+	char m_unrecovered04[ 0x44 - 0x04 ];
+};
+
+// g_Va00E01E74: VA 0x00E01E74 (.bss); retail initial bytes 00 00 00 00.
+void *g_Va00E01E74;
+
+class BuffManager : public SnapshotBase
+{
+protected:
+	virtual void xfer( Xfer *xfer );
+private:
+	void *m_bfmeOwner04;																											///< 0x04
+	Rva00362702Entry m_entries[ 9 ];																					///< 0x08
 };
 
 class GlowMaterial : public SnapshotBase
@@ -368,4 +409,35 @@ void TBuff::xfer( Xfer *xfer )
 	*xfer == m_bfmeFlag44;
 	*xfer == m_bfmePosition48;
 	*xfer == m_bfmeReal54;
+}  // end xfer
+
+// ------------------------------------------------------------------------------------------------
+/** Xfer method */
+// ------------------------------------------------------------------------------------------------
+void Rva0039AE75::xfer( Xfer *xfer )
+{
+	Xfer::Version version( 1, 1 );
+	*xfer == version;
+	*xfer == m_bfmeReal08;
+	*xfer == m_bfmeValue0C;
+}  // end xfer
+
+// ------------------------------------------------------------------------------------------------
+/** Xfer method */
+// ------------------------------------------------------------------------------------------------
+void BuffManager::xfer( Xfer *xfer )
+{
+	Xfer::Version version( 1, 1 );
+	*xfer == version;
+	if( xfer->IsCRC() )
+		return;
+	Int count = 9;
+	*xfer == count;
+	g_Va00E01E74 = m_bfmeOwner04;
+	for( Int i = 0; i < count; ++i )
+	{
+		Rva00362702Entry *entry = &m_entries[ i ];
+		entry->xfer( xfer );
+	}
+	g_Va00E01E74 = 0;
 }  // end xfer
