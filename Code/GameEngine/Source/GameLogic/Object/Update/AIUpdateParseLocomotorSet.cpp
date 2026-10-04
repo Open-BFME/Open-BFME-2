@@ -43,6 +43,11 @@ typedef _STL::vector<const LocomotorTemplate *> BfmeLocomotorTemplateVector;
 
 typedef _STL::map<LocomotorSetType, BfmeLocomotorTemplateVector, _STL::less<LocomotorSetType>, _STL::allocator<_STL::pair<const LocomotorSetType, BfmeLocomotorTemplateVector> > > BfmeLocomotorSetMap;
 
+// Reuse the verified retail container providers. Native callers use the
+// out-of-line map subscript and folded pointer-vector erase/append bodies;
+// suppress local default copies that the census proves differ from them.
+namespace _STL { template<> BfmeLocomotorTemplateVector& BfmeLocomotorSetMap::operator[](const LocomotorSetType&); }
+
 enum INILoadType
 {
 	INI_LOAD_INVALID = 0,

@@ -80,6 +80,16 @@
 #include "GameLogic/Weapon.h"
 #include "Common/Radar.h"									// For TheRadar
 
+// Reuse the verified retail container providers. Native callers use the
+// out-of-line map subscript and folded pointer-vector erase/append bodies;
+// suppress local default copies that the census proves differ from them.
+typedef _STL::vector<const LocomotorTemplate *> BfmeRetailLocomotorVector;
+typedef _STL::map<LocomotorSetType, BfmeRetailLocomotorVector, _STL::less<LocomotorSetType>, _STL::allocator<_STL::pair<const LocomotorSetType, BfmeRetailLocomotorVector> > > BfmeRetailLocomotorMap;
+namespace _STL { template<> BfmeRetailLocomotorVector& BfmeRetailLocomotorMap::operator[](const LocomotorSetType&);
+template<> BfmeRetailLocomotorVector::iterator BfmeRetailLocomotorVector::erase(iterator, iterator);
+template<> void BfmeRetailLocomotorVector::push_back(const value_type&);
+template<> void BfmeRetailLocomotorVector::clear(); }
+
 #define SLEEPY_AI
 
 #ifdef _INTERNAL
