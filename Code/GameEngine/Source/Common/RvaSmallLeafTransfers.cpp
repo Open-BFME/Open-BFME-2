@@ -28,3 +28,19 @@ void Rva007588E0::set( int value )
 	}
 }
 
+// Target 0x00674E70, 19 bytes; preceding int3 padding; terminal ret and int3 padding.
+// Donor b1 RVA 0x00808F50; target instructions corroborate these accesses.
+class Rva00674E70
+{
+public:
+	int isRecent( unsigned int now ) const;
+
+	char m_lead[ 0x1C ];
+	unsigned int m_1c;
+};
+
+int Rva00674E70::isRecent( unsigned int now ) const
+{
+	return now - m_1c < 3000;
+}
+
