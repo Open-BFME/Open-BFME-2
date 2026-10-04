@@ -8896,3 +8896,5 @@ _Rva0030CAF8CursorEqual,0x0007E394,twin of dup_0007e394 29B exact cursor equalit
 ??1Rva003A8B51Vec@@UAE@XZ,0x003A9397,"destructor the vector deleting destructor 0x003A8B51 calls and hands to the eh vector destructor iterator (DIR32 at 0x003A8B60); opaque address name"
 ??1Rva003A8D6DVec@@UAE@XZ,0x003A9397,"destructor the vector deleting destructor 0x003A8D6D calls and hands to the eh vector destructor iterator (DIR32 at 0x003A8D7C); opaque address name"
 ??1Rva003A9329Vec@@UAE@XZ,0x003A9397,"destructor the vector deleting destructor 0x003A9329 calls and hands to the eh vector destructor iterator (DIR32 at 0x003A9338); opaque address name"
+??1Rva003AB86E@@UAE@XZ,0x003AB86E,"destructor the vector deleting destructor 0x003AB899 calls and hands to the eh vector destructor iterator (DIR32 at 0x003AB8A8); opaque address name"
+??1Rva003AB946Vec@@UAE@XZ,0x003AB86E,"destructor the vector deleting destructor 0x003AB946 calls and hands to the eh vector destructor iterator (DIR32 at 0x003AB955); opaque address name"

@@ -53415,3 +53415,5 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ??_ERva003A8B51Vec@@UAEPAXI@Z,,0x003A8B51,78,Code/GameEngine/Source/Common/VectorDeletingDtorsV05.cpp,matched,vector deleting dtor (element 0x98; vtable 0x00C1BF40#0); calls pinned dtor 0x003A9397
 ??_ERva003A8D6DVec@@UAEPAXI@Z,,0x003A8D6D,78,Code/GameEngine/Source/Common/VectorDeletingDtorsV05.cpp,matched,vector deleting dtor (element 0xA0; vtable 0x00C1BFD8#0); calls pinned dtor 0x003A9397
 ??_ERva003A9329Vec@@UAEPAXI@Z,,0x003A9329,78,Code/GameEngine/Source/Common/VectorDeletingDtorsV05.cpp,matched,vector deleting dtor (element 0x94; vtable 0x00C1C154#0); calls pinned dtor 0x003A9397
+??_ERva003AB86E@@UAEPAXI@Z,,0x003AB899,75,Code/GameEngine/Source/Common/VectorDeletingDtorsV06.cpp,matched,vector deleting dtor (element 0x24; vtable 0x00C1C2F4#0); calls pinned dtor 0x003AB86E
+??_ERva003AB946Vec@@UAEPAXI@Z,,0x003AB946,75,Code/GameEngine/Source/Common/VectorDeletingDtorsV06.cpp,matched,vector deleting dtor (element 0x28; vtable 0x00C1C314#0); calls pinned dtor 0x003AB86E
