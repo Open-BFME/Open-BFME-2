@@ -55708,3 +55708,4 @@ __Locale_ctype_create,,0x00022360,1316,Code/Libraries/Source/WWVegas/WWLib/stlpo
 ?Rva003BCA68Set@@YGX_N@Z,,0x003BCA68,19,Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003BCA68Set.cpp,matched,mov al esp+4 mov ecx TheGameLogic mov ecx+0x99 al ret 4; caller 0x003CD731
 ??0Rva005EA922@@QAE@ABU0@@Z,,0x005EA922,68,Code/Libraries/Source/WWVegas/WWLib/GeometryShapeCopy005EA922.cpp,matched,copy ctor 8 dwords plus refcounted ptr unblocks 005EA9A9
 ?rva0057C236@Rva0057C236@@QAEXXZ,,0x0057C236,54,Code/GameEngine/Source/Common/Rva0057C236UnloadContent.cpp,matched,UnloadContent Apt setter via rowed AptCall team-plus-8 or empty
+??0Rva0044BD34@@QAE@PBURva004C5DD0Pair@@@Z,,0x0044BD34,31,Code/GameEngine/Source/Common/Rva0044BD34Ctor.cpp,matched,Ctor forwards Pair to rowed set 0x0044BD00 after vtable g_00C3EDEC and zero plus4
