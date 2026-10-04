@@ -84,6 +84,7 @@ public:
 };
 
 extern char *g_Rva012C3A18;
+extern char g_00A60FD0[];
 
 void Rva007F4440Runner::run( int mode, int, int )
 {
@@ -105,6 +106,6 @@ void Rva007F4440Runner::run( int mode, int, int )
 		( (Gen_007ea670 *)owner )->bfmePlatform(),
 		clientType );
 	// BFME2 retail passes 0x00A60FD0 here (BFME1 0x00BF4520 drifted).
-	primary->getService()->send( &message, (void *)0x00A60FD0, primary, 10000 );
+	primary->getService()->send( &message, (void *)g_00A60FD0, primary, 10000 );
 	message.clear();
 }
