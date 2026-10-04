@@ -606,3 +606,17 @@ template StringBase<wchar_t>::StringBase(const CharSource<wchar_t> &source);
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
 #pragma comment(linker, "/alternatename:?init@CustomAsciiStringShim@@QAEXPBD@Z=??0?$StringBase@D@@AAE@PBD@Z")
 #pragma comment(linker, "/alternatename:??0StringBaseNarrowAR@@IAE@PBD@Z=??0?$StringBase@D@@AAE@PBD@Z")
+
+// BFME1 donor: 1281192f682ce6f29b8f06b7daea4b5e8fdfbb24,
+// game/Libraries/Source/string/StringBase.cpp, compiled under BFME2 /O2.
+// The donor spells this operator!=<char>(text, string); that original template
+// identity is not asserted for the target. Native 0x006BEF60 is a complete
+// 21-byte cdecl body between INT3 padding runs. It passes its second argument
+// as receiver and its first as the text argument to the already-rowed narrow
+// StringBase compare worker at 0x000069B1, then converts the result to 0 or 1.
+// Those operand roles and the nonzero test are target facts; this view uses
+// the existing string declaration and introduces no private string layout.
+bool Rva006BEF60NotEqual(const char *left, const StringBase<char> &right)
+{
+    return right.compare(left) != 0;
+}
