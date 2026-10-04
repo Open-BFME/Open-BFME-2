@@ -24,13 +24,8 @@ private:
 	BfmeItemDC *m_bfmeItem;			// 0x0
 };
 
-BfmeThingDC::BfmeThingDC(BfmeItemDC *item)
-{
-	m_bfmeItem = item;
-
-	if (item != 0)
-		item->m_bfmeOps->m_bfmeDo(item);
-}
+// The constructor's matched definition lives in BfmeOneHundredEightySix.cpp.
+// Keep it out of this donor unit so the two units have one strong definition.
 
 class BfmeThingDD
 {
