@@ -54700,3 +54700,19 @@ _Rva00669500@8,,0x00669500,13,Code/GameEngine/Source/Common/RvaSmallLeafTransfer
 ??1Rva004DD206TreeView@@QAE@XZ,,0x004638EC,5,Code/GameEngine/Source/Common/INI/Rva004DD206TwoTreeConstructor.cpp,matched,Native constructor EH943814 -> unwind7916E1 receiver+14 -> complete5B cleanup -> exact56B4636FE tree destructor; donor1281192; original tree types unknown; declared12B address view; correct selected provider retained by narrow erase-unit repair; /O1 /MD /EHsc
 ??0Rva004DD206Owner@@QAE@II@Z,,0x004DD206,84,Code/GameEngine/Source/Common/INI/Rva004DD206TwoTreeConstructor.cpp,matched,Whole clean BFME1 Rva0037BF60TwoTreeCtor.cpp donor1281192 compiled/O1; native caller426361 allocates52B and passes two stack words with ECX receiver; native RET8 and two12B trees at+14/+20; full EH action7916E1 independently destroys first completed tree through cleanup4638EC and proper4636FE provider; original owner and value names remain unknown; declared native address views preserve observed ABI only
 rva007916E1_constructor_unwind,,0x007916E1,11,Code/GameEngine/Source/Common/INI/Rva004DD206TwoTreeConstructor.cpp,matched,object-symbol=$L323; parent=??0Rva004DD206Owner@@QAE@II@Z; genuine MSVC-generated unwind action from real C++ constructor; native Ghidra11B boundary and explicit funcinfo943814 -> map94380C prove parent ownership independently; mov ECX savedreceiver[EBP-10] plus14 then tail to full5B4638EC tree cleanup; not inferred from adjacency; /O1 /MD /EHsc
+?rva007B8679@@YAXXZ,,0x007B8679,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva007B8683@@YAXXZ,,0x007B8683,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva007B868D@@YAXXZ,,0x007B868D,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva007B86A1@@YAXXZ,,0x007B86A1,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva007B86AB@@YAXXZ,,0x007B86AB,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva007B86B5@@YAXXZ,,0x007B86B5,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva007B86BF@@YAXXZ,,0x007B86BF,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva007B86C9@@YAXXZ,,0x007B86C9,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva007B86D3@@YAXXZ,,0x007B86D3,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva007B86DD@@YAXXZ,,0x007B86DD,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva007B86E7@@YAXXZ,,0x007B86E7,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva007B86F1@@YAXXZ,,0x007B86F1,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva007B86FB@@YAXXZ,,0x007B86FB,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva007B8705@@YAXXZ,,0x007B8705,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva007B870F@@YAXXZ,,0x007B870F,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva007B8719@@YAXXZ,,0x007B8719,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,

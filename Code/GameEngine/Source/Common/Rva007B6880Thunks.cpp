@@ -2819,3 +2819,115 @@ void __cdecl rva007B866F()
 	p->rva001EAF7B();
 }
 
+// ?rva007B8679@@YAXXZ @ 0x007B8679 (10B). Global Rva001EAF7B thunk: ecx=&g_Va00DA60E8 then tail-jmp to rowed ?rva001EAF7B@Rva001EAF7B@@QAE_NXZ (0x001EAF7B).
+void __cdecl rva007B8679()
+{
+	Rva001EAF7B *p = (Rva001EAF7B *)&g_Va00DA60E8;
+	p->rva001EAF7B();
+}
+
+// ?rva007B8683@@YAXXZ @ 0x007B8683 (10B). Global Rva001EAF7B thunk: ecx=&g_Va00DA60E8 then tail-jmp to rowed ?rva001EAF7B@Rva001EAF7B@@QAE_NXZ (0x001EAF7B).
+void __cdecl rva007B8683()
+{
+	Rva001EAF7B *p = (Rva001EAF7B *)&g_Va00DA60E8;
+	p->rva001EAF7B();
+}
+
+// ?rva007B868D@@YAXXZ @ 0x007B868D (10B). Global Rva001EAF7B thunk: ecx=&g_Va00DA60E8 then tail-jmp to rowed ?rva001EAF7B@Rva001EAF7B@@QAE_NXZ (0x001EAF7B).
+void __cdecl rva007B868D()
+{
+	Rva001EAF7B *p = (Rva001EAF7B *)&g_Va00DA60E8;
+	p->rva001EAF7B();
+}
+
+// ?rva007B86A1@@YAXXZ @ 0x007B86A1 (10B). Global Rva001EAF7B thunk: ecx=&g_Va00DA60E8 then tail-jmp to rowed ?rva001EAF7B@Rva001EAF7B@@QAE_NXZ (0x001EAF7B).
+void __cdecl rva007B86A1()
+{
+	Rva001EAF7B *p = (Rva001EAF7B *)&g_Va00DA60E8;
+	p->rva001EAF7B();
+}
+
+// ?rva007B86AB@@YAXXZ @ 0x007B86AB (10B). Global Rva001EAF7B thunk: ecx=&g_Va00DA60E8 then tail-jmp to rowed ?rva001EAF7B@Rva001EAF7B@@QAE_NXZ (0x001EAF7B).
+void __cdecl rva007B86AB()
+{
+	Rva001EAF7B *p = (Rva001EAF7B *)&g_Va00DA60E8;
+	p->rva001EAF7B();
+}
+
+// ?rva007B86B5@@YAXXZ @ 0x007B86B5 (10B). Global Rva001EAF7B thunk: ecx=&g_Va00DA60E8 then tail-jmp to rowed ?rva001EAF7B@Rva001EAF7B@@QAE_NXZ (0x001EAF7B).
+void __cdecl rva007B86B5()
+{
+	Rva001EAF7B *p = (Rva001EAF7B *)&g_Va00DA60E8;
+	p->rva001EAF7B();
+}
+
+// ?rva007B86BF@@YAXXZ @ 0x007B86BF (10B). Global Rva001EAF7B thunk: ecx=&g_Va00DA60E8 then tail-jmp to rowed ?rva001EAF7B@Rva001EAF7B@@QAE_NXZ (0x001EAF7B).
+void __cdecl rva007B86BF()
+{
+	Rva001EAF7B *p = (Rva001EAF7B *)&g_Va00DA60E8;
+	p->rva001EAF7B();
+}
+
+// ?rva007B86C9@@YAXXZ @ 0x007B86C9 (10B). Global Rva001EAF7B thunk: ecx=&g_Va00DA60E8 then tail-jmp to rowed ?rva001EAF7B@Rva001EAF7B@@QAE_NXZ (0x001EAF7B).
+void __cdecl rva007B86C9()
+{
+	Rva001EAF7B *p = (Rva001EAF7B *)&g_Va00DA60E8;
+	p->rva001EAF7B();
+}
+
+// ?rva007B86D3@@YAXXZ @ 0x007B86D3 (10B). Global Rva001EAF7B thunk: ecx=&g_Va00DA60E8 then tail-jmp to rowed ?rva001EAF7B@Rva001EAF7B@@QAE_NXZ (0x001EAF7B).
+void __cdecl rva007B86D3()
+{
+	Rva001EAF7B *p = (Rva001EAF7B *)&g_Va00DA60E8;
+	p->rva001EAF7B();
+}
+
+// ?rva007B86DD@@YAXXZ @ 0x007B86DD (10B). Global Rva001EAF7B thunk: ecx=&g_Va00DA60E8 then tail-jmp to rowed ?rva001EAF7B@Rva001EAF7B@@QAE_NXZ (0x001EAF7B).
+void __cdecl rva007B86DD()
+{
+	Rva001EAF7B *p = (Rva001EAF7B *)&g_Va00DA60E8;
+	p->rva001EAF7B();
+}
+
+// ?rva007B86E7@@YAXXZ @ 0x007B86E7 (10B). Global Rva001EAF7B thunk: ecx=&g_Va00DA60E8 then tail-jmp to rowed ?rva001EAF7B@Rva001EAF7B@@QAE_NXZ (0x001EAF7B).
+void __cdecl rva007B86E7()
+{
+	Rva001EAF7B *p = (Rva001EAF7B *)&g_Va00DA60E8;
+	p->rva001EAF7B();
+}
+
+// ?rva007B86F1@@YAXXZ @ 0x007B86F1 (10B). Global Rva001EAF7B thunk: ecx=&g_Va00DA60E8 then tail-jmp to rowed ?rva001EAF7B@Rva001EAF7B@@QAE_NXZ (0x001EAF7B).
+void __cdecl rva007B86F1()
+{
+	Rva001EAF7B *p = (Rva001EAF7B *)&g_Va00DA60E8;
+	p->rva001EAF7B();
+}
+
+// ?rva007B86FB@@YAXXZ @ 0x007B86FB (10B). Global Rva001EAF7B thunk: ecx=&g_Va00DA60E8 then tail-jmp to rowed ?rva001EAF7B@Rva001EAF7B@@QAE_NXZ (0x001EAF7B).
+void __cdecl rva007B86FB()
+{
+	Rva001EAF7B *p = (Rva001EAF7B *)&g_Va00DA60E8;
+	p->rva001EAF7B();
+}
+
+// ?rva007B8705@@YAXXZ @ 0x007B8705 (10B). Global Rva001EAF7B thunk: ecx=&g_Va00DA60E8 then tail-jmp to rowed ?rva001EAF7B@Rva001EAF7B@@QAE_NXZ (0x001EAF7B).
+void __cdecl rva007B8705()
+{
+	Rva001EAF7B *p = (Rva001EAF7B *)&g_Va00DA60E8;
+	p->rva001EAF7B();
+}
+
+// ?rva007B870F@@YAXXZ @ 0x007B870F (10B). Global Rva001EAF7B thunk: ecx=&g_Va00DA60E8 then tail-jmp to rowed ?rva001EAF7B@Rva001EAF7B@@QAE_NXZ (0x001EAF7B).
+void __cdecl rva007B870F()
+{
+	Rva001EAF7B *p = (Rva001EAF7B *)&g_Va00DA60E8;
+	p->rva001EAF7B();
+}
+
+// ?rva007B8719@@YAXXZ @ 0x007B8719 (10B). Global Rva001EAF7B thunk: ecx=&g_Va00DA60E8 then tail-jmp to rowed ?rva001EAF7B@Rva001EAF7B@@QAE_NXZ (0x001EAF7B).
+void __cdecl rva007B8719()
+{
+	Rva001EAF7B *p = (Rva001EAF7B *)&g_Va00DA60E8;
+	p->rva001EAF7B();
+}
+
