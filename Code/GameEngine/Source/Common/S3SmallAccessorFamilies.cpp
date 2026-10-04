@@ -51,3 +51,26 @@ unsigned int __stdcall rva00665440(const Gen_007f8dc0Bits *view)
 {
 	return view->m_bfmeFlags & 0xFFFFFF;
 }
+
+// Same whole donor/revision/blob as the additional read above; donor
+// bfmeText at 0x007F52D0 supplies the source expression, not a target name.
+// Target facts: INT3-delimited entry 0x00661C70/15, receiver+0x1B0 byte
+// tested and its address returned for nonzero, or null. The following
+// independent entry 0x00661C80 follows RET and INT3. No original class,
+// string meaning, full object extent, construction or lifetime is asserted.
+// This declaration is only the minimum raw receiver view for that access.
+class Rva00661C70ByteView
+{
+public:
+	unsigned char *rva00661C70();
+private:
+	unsigned char head[0x1B0];
+	unsigned char first;
+};
+
+// ?rva00661C70@Rva00661C70ByteView@@QAEPAEXZ
+unsigned char *Rva00661C70ByteView::rva00661C70()
+{
+	unsigned char *p = &first;
+	return *p ? p : 0;
+}
