@@ -55532,3 +55532,4 @@ uw_00767228,,0x00767228,11,Code/Libraries/Source/WWVegas/WW3D2/ShareBufferClassT
 ?rva00341891@Rva00341796@@QAEXXZ,,0x00341891,89,Code/GameEngine/Source/Common/Rva00341796Slot4.cpp,matched,vtable slot 4 new 0x3c ctor setGoalPosition virtual 0x1c
 ?_M_insert_overflow@?$vector@VAssetReference@@V?$allocator@VAssetReference@@@_STL@@@_STL@@IAEXPAVAssetReference@@ABV3@ABU__false_type@2@I_N@Z,,0x000C9C17,178,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_assetreference_overflow.cpp,matched,stlport-4.5.3 vector AssetReference overflow via noexc O1
 ?push_back@?$vector@VAssetReference@@V?$allocator@VAssetReference@@@_STL@@@_STL@@QAEXABVAssetReference@@@Z,,0x000C9D01,55,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_assetreference_overflow.cpp,matched,vector AssetReference pushback via overflow chain
+?rva00539281@Rva00539281@@QAEXHH@Z,,0x00539281,65,Code/GameEngine/Source/Common/Rva00539281.cpp,matched,virtual loop with byte at 0x28 and two int args
