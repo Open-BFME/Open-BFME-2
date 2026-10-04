@@ -27,6 +27,9 @@
 // dropped gets the rowed rva001DBE17 after (or instead of) its skip; reverse
 // returns early on an unknown group and only clears the pending group when
 // one was set. /EHsc: retail stores no EH state around the C imports.
+// INI::parseWindowTransitions (0x001DC66F, 112B) is the "WindowTransition"
+// block parser (retail table entry at 0x009B8CF0); the handler singleton is
+// read from 0x00DFDC14 and the field table is the static at 0x00BDBBCC.
 #include <list>
 
 template <typename T> class StringBase
@@ -34,8 +37,10 @@ template <typename T> class StringBase
 public:
 	int compareNoCase(const StringBase<T> &other) const throw();
 	bool isEmpty() const { return m_data == 0 || m_data->length == 0; }
+	void set(const T *s);
 	~StringBase();
 private:
+	StringBase() : m_data(0) {}
 	friend class AsciiString;
 	StringBase(const StringBase<T> &src);
 	void releaseBuffer();
@@ -52,6 +57,7 @@ private:
 class AsciiString : public StringBase<char>
 {
 public:
+	AsciiString() {}
 	AsciiString(const AsciiString &src) : StringBase<char>(src) {}
 };
 
@@ -126,14 +132,26 @@ public:
 };
 typedef _STL::list<TransitionGroup *> TransitionGroupList;
 
+struct FieldParse;
+
+class INI
+{
+public:
+	const char *getNextToken(const char *seps = 0);
+	void initFromINI(void *what, const FieldParse *parseTable);
+	static void parseWindowTransitions( INI* ini );
+};
+
 class GameWindowTransitionsHandler
 {
 public:
+	const FieldParse *getFieldParse() const { return m_gameWindowTransitionsFieldParseTable; }
 	void setGroup( AsciiString groupName, Bool immidiate );
 	void reverse( AsciiString groupName );
 	int rva001DC1FD( AsciiString groupName );
 	TransitionGroup *getNewGroup( AsciiString name );
 private:
+	static const FieldParse m_gameWindowTransitionsFieldParseTable[];
 	TransitionGroup *findGroup( AsciiString groupName );
 	char m_pad[0x20];
 	TransitionGroupList m_transitionGroupList; // +0x20
@@ -265,4 +283,25 @@ void GameWindowTransitionsHandler::reverse( AsciiString groupName )
 	m_currentGroup->init();
 	m_currentGroup->skip();
 	m_currentGroup->reverse();
+}
+
+// TheTransitionHandler is the singleton at 0x00DFDC14 (defined in WinMain.cpp
+// under its older address name).
+extern GameWindowTransitionsHandler *TheTransitionHandler;
+#pragma comment(linker, "/alternatename:?TheTransitionHandler@@3PAVGameWindowTransitionsHandler@@A=?theBfmeDfdc14@@3PAVAudioManager@@A")
+
+void INI::parseWindowTransitions( INI* ini )
+{
+	AsciiString name;
+	TransitionGroup *g;
+
+	// read the name
+	const char* c = ini->getNextToken();
+	name.set( c );
+
+	if( !TheTransitionHandler )
+		return;
+	g = TheTransitionHandler->getNewGroup( name );
+
+	ini->initFromINI(g, TheTransitionHandler->getFieldParse() );
 }
