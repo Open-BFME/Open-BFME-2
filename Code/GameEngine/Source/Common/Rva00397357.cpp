@@ -1,14 +1,7 @@
-// ?rva00397357@Rva003972D3@@QAEXPBVUpgradeTemplate@@@Z
-// partial score=0.9 date=2026-10-04
 // cl: /O1 /DNDEBUG /MD
-//
-// ?rva003972D3@Rva003972D3@@QAEXPAURva003972D3Range@@PBVUpgradeTemplate@@@Z, retail 0x003972D3, 132 bytes.
-// Iterates an ObjectID range and re-applies an UpgradeTemplate to qualifying objects.
-// Evidence: callers at 0x0039738F 0x0039739B pass [esi+0x50]/[esi+0x74] ranges with ebp upgrade;
-// rowed ?findObjectByID@GameLogic@@QAEPAVObject@@W4ObjectID@@@Z via TheGameLogic,
-// rowed ?rva00293003@Object@@QAEXPBX@Z, rowed ?rva0028BCF4@Object@@QBEPAXXZ with
-// virtual slot 3 (+0x0C) and slot 6 (+0x18), rowed ?rva00290D2B@Object@@QBE_NPBVUpgradeTemplate@@@Z,
-// pin-only ?bfmeHas985C@BfmeArg985@@QAEDH@Z; prev/next share /O1 /DNDEBUG /MD.
+// ?rva00397357@Rva003972D3@@QAEXPBVUpgradeTemplate@@@Z RVA 0x00397357 148B
+// Evidence: finish from stash 0.9 ebp-ebx mirror; callers none; rowed findObjectByID via TheGameLogic;
+//   rowed rva00290D2B rva00293003 rva003972D3; pin bfmeHas985C; prev/next share /O1 /DNDEBUG /MD.
 
 enum ObjectID
 {
@@ -48,6 +41,11 @@ public:
 
 extern GameLogic *TheGameLogic;
 
+static __forceinline Object *findByID(ObjectID id)
+{
+	return TheGameLogic->findObjectByID(id);
+}
+
 class MidHelper003972D3
 {
 public:
@@ -78,34 +76,9 @@ private:
 	Rva003972D3Range m_range74;
 };
 
-void Rva003972D3::rva003972D3(Rva003972D3Range *range, const UpgradeTemplate *upgrade)
-{
-	for (ObjectID *p = range->m_begin; p != range->m_end; ++p)
-	{
-		Object *obj = TheGameLogic->findObjectByID(*p);
-		if (obj == 0)
-			continue;
-		obj->rva00293003(upgrade);
-		MidHelper003972D3 *mid = (MidHelper003972D3 *)obj->rva0028BCF4();
-		if (mid == 0)
-			continue;
-		if (!mid->s03())
-			continue;
-		Object *obj2 = mid->s06();
-		if (obj2 == 0)
-			continue;
-		if (obj2->rva00290D2B(upgrade))
-			continue;
-		if (!((BfmeArg985 *)obj2)->bfmeHas985C((int)upgrade))
-			continue;
-		obj2->rva00293003(upgrade);
-	}
-}
-
-// ?rva00397357@Rva003972D3@@QAEXPBVUpgradeTemplate@@@Z present-unmatched
 void Rva003972D3::rva00397357(const UpgradeTemplate *upgrade)
 {
-	Object *obj = TheGameLogic->findObjectByID(m_id38);
+	Object *obj = findByID(m_id38);
 	if (obj != 0)
 	{
 		if (!obj->rva00290D2B(upgrade))
@@ -115,7 +88,7 @@ void Rva003972D3::rva00397357(const UpgradeTemplate *upgrade)
 	rva003972D3(&m_range74, upgrade);
 	for (ObjectID *p = m_begin5C; p != m_end60; ++p)
 	{
-		Object *obj2 = TheGameLogic->findObjectByID(*p);
+		Object *obj2 = findByID(*p);
 		if (obj2 == 0)
 			continue;
 		if (obj2->rva00290D2B(upgrade))
