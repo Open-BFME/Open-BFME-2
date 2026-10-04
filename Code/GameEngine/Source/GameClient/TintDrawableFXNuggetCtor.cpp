@@ -10,6 +10,27 @@
 // default to 1.0f.
 // Base 0x001DFEAA is a shared FXNugget-family base ctor; pinned opaquely.
 
+// Retail VA 0x00BDD8E0 (.rdata): a 5-slot vftable no unit emits. Defined here as
+// data with retail's slot pointers, each bound to the ledger name at its
+// target (tools/vftable_map.py); its installers store this table.
+extern "C" void vfn_001DFF5D();
+extern "C" void vfn_001E09D8();
+extern "C" void vfn_001E0A3B();
+extern "C" void vfn_001F01E8();
+extern "C" void vfn_0050B238();
+#pragma comment(linker, "/alternatename:_vfn_001DFF5D=?rva001DFF5D@Rva001DFEAABase@@UAE_NPAVObject@@0@Z")
+#pragma comment(linker, "/alternatename:_vfn_001E09D8=?doFXObj@TintDrawableFXNugget@@UBEXPBVObject@@0@Z")
+#pragma comment(linker, "/alternatename:_vfn_001E0A3B=??_GRva001E009E@@UAEPAXI@Z")
+#pragma comment(linker, "/alternatename:_vfn_001F01E8=?rva001F01E8@Rva001F01E8@@QAEXHHHH@Z")
+#pragma comment(linker, "/alternatename:_vfn_0050B238=?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z")
+extern "C" const void *const vtbl_00BDD8E0[] = {
+	(const void *)&vfn_001E0A3B,
+	(const void *)&vfn_001F01E8,
+	(const void *)&vfn_001E09D8,
+	(const void *)&vfn_0050B238,
+	(const void *)&vfn_001DFF5D
+};
+
 class Rva001DFEAABase
 {
 public:
@@ -44,7 +65,7 @@ private:
 // ??0TintDrawableFXNugget@@QAE@XZ
 TintDrawableFXNugget::TintDrawableFXNugget()
 {
-	*(unsigned int *)this = 0x00BDD8E0;
+	*(unsigned int *)this = ((unsigned int)vtbl_00BDD8E0);
 	m_color.setFromInt(-1);
 	m_preColorTime = 2000;
 	m_postColorTime = 2000;
