@@ -8343,3 +8343,4 @@ _Rva0030CAF8CursorEqual,0x0007E394,twin of dup_0007e394 29B exact cursor equalit
 ??0BfmeScopeCN@@QAE@PAXPAVBfmeTargetCN@@0@Z,0x0030D849,callee of ?bfmeGuardedCN@BfmeOwnCN@@QAEDPAVBfmeTargetCN@@PAX@Z at retail 0x0030D938 read from its REL32 displacement; donor-reconstruction name; body unrowed
 ?bfmeStepCN@BfmeTargetCN@@QAEDH@Z,0x00307AC0,callee of ?bfmeGuardedCN@BfmeOwnCN@@QAEDPAVBfmeTargetCN@@PAX@Z at retail 0x0030D946 read from its REL32 displacement; donor-reconstruction name; body unrowed
 ?bfmeCloseCN@BfmeInnerCN@@QAEXPAX@Z,0x00306D7B,callee of ?bfmeGuardedCN@BfmeOwnCN@@QAEDPAVBfmeTargetCN@@PAX@Z at retail 0x0030D95E read from its REL32 displacement; donor-named alias of the rowed body at 0x00306D7B
+??0BfmeScopeCO@@QAE@PAXPAVBfmeTargetCN@@0@Z,0x00300359,callee of ?bfmeGuardedCO@BfmeOwnCO@@QAEDPAVBfmeTargetCN@@PAX@Z at retail 0x003003DA read from its REL32 displacement; donor-reconstruction name for the ctor body at 0x00300359
