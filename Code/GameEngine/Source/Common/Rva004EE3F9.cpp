@@ -61,3 +61,37 @@ int Rva004EE3F9::rva004EE3F9(const BitFlags<116> &mustBeSet, const BitFlags<116>
 	}
 	return sum;
 }
+
+class Rva00261C89
+{
+public:
+	bool rva00261C89();
+};
+
+struct Rva004EE485Node : _STL::_Rb_tree_node_base
+{
+	Rva00261C89 *m_10;
+	int m_14;
+};
+
+class Rva004EE485
+{
+public:
+	int rva004EE485();
+private:
+	char m_pad[0xC0];
+	_STL::_Rb_tree_node_base *m_C0;
+};
+
+int Rva004EE485::rva004EE485()
+{
+	_STL::_Rb_tree_node_base *node = m_C0->_M_left;
+	int sum = 0;
+	while (node != m_C0) {
+		Rva004EE485Node *n = (Rva004EE485Node *)node;
+		if (n->m_10 && n->m_10->rva00261C89())
+			sum += n->m_14;
+		node = _STL::_Rb_global<bool>::_M_increment(node);
+	}
+	return sum;
+}
