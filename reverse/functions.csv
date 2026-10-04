@@ -52817,3 +52817,4 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ??1Rva0051CBC6@@UAE@XZ,,0x0051CBC6,188,Code/GameEngine/Source/GameClient/GUI/BfmeAptScreenScoreDestructor.cpp,matched,AptScoreScreen dtor vtable InitGadgets base 0x005126F5
 ??_GRva0051CBC6@@UAEPAXI@Z,,0x0051CE56,28,Code/GameEngine/Source/GameClient/GUI/BfmeAptScreenScoreDestructor.cpp,matched,deleting dtor for Rva0051CBC6 via own TU
 ??1Rva0056B126@@UAE@XZ,,0x0056B126,90,Code/GameEngine/Source/Common/Rva0056B126Dtor.cpp,matched,dtor three vptrs erase 0x002B7250 base 0x0056AC26
+??_GRva0056B126@@UAEPAXI@Z,,0x0056B3D9,28,Code/GameEngine/Source/Common/Rva0056B126Dtor.cpp,matched,deleting dtor for Rva0056B126 via own TU
