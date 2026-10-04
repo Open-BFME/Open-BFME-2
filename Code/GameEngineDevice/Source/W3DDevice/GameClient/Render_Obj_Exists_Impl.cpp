@@ -21,6 +21,7 @@ extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(
 	CRITICAL_SECTION *lock);
 
+#pragma optimize("s", on)
 class CriticalSectionLock
 {
 public:
@@ -35,6 +36,7 @@ public:
 
 	int m_lock;
 };
+#pragma optimize("", on)
 
 enum NameKeyType
 {
