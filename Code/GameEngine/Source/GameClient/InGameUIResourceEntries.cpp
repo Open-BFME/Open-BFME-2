@@ -170,10 +170,17 @@ void ResourceEntryOwner::rva004E7CEF()
 class Rva004E7B0CHolder
 {
 public:
+    void rva004E7D16(const AsciiString &value);
     void rva004E7D1D();
 private:
     ResourceEntryOwner *owner;
 };
+
+// Native 4E7D16/7B forwards the same stack argument through holder+0.
+void Rva004E7B0CHolder::rva004E7D16(const AsciiString &value)
+{
+    owner->rva004E7CBA(value);
+}
 
 // TheInGameUI+0x58C is a pointer holder; retail forwards through its +0.
 void Rva004E7B0CHolder::rva004E7D1D()
