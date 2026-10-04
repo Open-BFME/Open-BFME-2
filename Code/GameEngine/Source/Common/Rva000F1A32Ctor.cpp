@@ -35,6 +35,9 @@ extern int g_00DEBE2C;
 int g_00DEBE2C;
 extern DynamicVectorClass<TCBSpline3DClass::TCBClass> g_00DEBE0C;
 extern DynamicVectorClass<TCBSpline3DClass::TCBClass> g_00DEBE24;
+// g_00DEBE0C/g_00DEBE24: defined here (neighboring g_00DEBE14/2C pattern); Resize resolves to rowed 0x000F0CF9.
+DynamicVectorClass<TCBSpline3DClass::TCBClass> g_00DEBE0C;
+DynamicVectorClass<TCBSpline3DClass::TCBClass> g_00DEBE24;
 class Rva000F1A32 {
 public:
     Rva000F1A32();
