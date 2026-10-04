@@ -8594,3 +8594,5 @@ _Rva0030CAF8CursorEqual,0x0007E394,twin of dup_0007e394 29B exact cursor equalit
 ?update@Player@@QAEXXZ,0x002AE770,"Player member PlayerList slot 10 (SubsystemInterface::update's slot) calls on each of the twenty players; REL32 at 0x002A7AC0; ZH Player::update by that pairing (inferred)"
 ?rva002A99FA@Player@@QAEXXZ,0x002A99FA,"Player member PlayerList slot 16 calls on each of the twenty players; REL32 at 0x002A7AD8; identity not recovered"
 ?rva002B0D00@Player@@QAEXXZ,0x002B0D00,"Player member PlayerList slot 15 calls on each of the twenty players; REL32 at 0x002A7AF0; identity not recovered"
+?init@Player@@QAEXPBVPlayerTemplate@@@Z,0x002AF729,"Player member PlayerList::init (0x002A7EF1) calls with null on each of the twenty players; REL32 at 0x002A7F02 and 0x002A7F11; ZH Player::init by PlayerList::init's verbatim shape"
+?setLocalPlayer@PlayerList@@QAEXPAVPlayer@@@Z,0x002A7B34,"PlayerList member swapping the local player at +0x10 with becomingLocalPlayer calls (ret 4); REL32 in PlayerList::init 0x002A7F21; ZH name by shape"
