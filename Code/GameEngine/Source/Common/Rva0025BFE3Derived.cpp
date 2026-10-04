@@ -46,6 +46,7 @@ public:
 	int rva00596394() const;
 	void rva0059640C(void *holder);
 	void rva005963C8(int amount);
+	void rva005963A1(int amount);
 private:
 	char m_pad08[8];
 	int m_arg10;
@@ -54,10 +55,12 @@ private:
 };
 
 class Rva0039B7AD;
+class Rva0039B795;
 class Rva003B0D7C
 {
 public:
 	void rva003B0D7C(int amount, Rva0039B7AD *arg2, bool flag);
+	unsigned int rva003B0CB3(unsigned int amount, Rva0039B795 *arg2, bool flag);
 };
 
 // ??0Rva00596389@@QAE@H@Z, retail 0x00596366, 35 bytes. Derived ctor taking int:
@@ -161,4 +164,19 @@ void Rva00596389::rva005963C8(int amount)
 		money->rva003B0D7C(amount, 0, true);
 		m_zero14 -= amount;
 	}
+}
+
+// ?rva005963A1@Rva00596389@@QAEXH@Z @0x005963A1 39B
+// __thiscall credit-if-nonzero: if (amount != 0) route (amount,0,true) into
+// Money at Player+0x90 via rowed rva003B0CB3 and add to balance. Gap between
+// 0x00596394 and 0x005963C8 in same TU; mirrors spend sibling rva005963C8
+// but adds. Evidence: neighbours prove Rva00596389 owner (+0x10/+0x14);
+// callee row rva003B0CB3 0x003B0CB3 takes (uint,ptr,bool); caller 0x004EC14A.
+void Rva00596389::rva005963A1(int amount)
+{
+	if ((unsigned int)amount <= 0u)
+		return;
+	Rva003B0D7C *money = (Rva003B0D7C *)((char *)m_arg10 + 0x90);
+	money->rva003B0CB3((unsigned int)amount, 0, true);
+	m_zero14 += amount;
 }
