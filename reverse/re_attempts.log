@@ -7675,3 +7675,4 @@ FUN_007b7836	0x003B7836	260	blocked	no callers prove 3-arg free-function types p
 ?rva003F5EC4@Rva003F5EC4@@QAEXPAX0@Z	0x003F5EC4	51	blocked	Gen copy pin plus Rva destroy row mix unclear whether Gen or Rva vector plus 2-arg thiscall not standard assign t=10 model=muse-04
 ??1Rva0050FDDC@@UAE@XZ	0x0050FDDC	248	partial	missing base vtable store mov [esi],0x00865518 before base dtor 0x005248D0; ours 242B single 6B insert plus derived vtable reloc t=25 model=muse-04 score=0.95 stash=reverse/attempts/0x0050fddc.cpp
 ?rva00589297@WeaponModeSpecialPowerUpdateBase@@QAE_NXZ	0x00589297	95	partial	94 vs 95B true path exact via frame before call else byte vs dword for bool return plus branch layout t=30 model=muse-08 score=0.95 stash=reverse/attempts/0x00589297.cpp
+?rva00201412@Rva00201412@@QAEXZ	0x00201412	345	blocked	neighbours SnowManager size 0x74 but body copies Streak Audio String to 0xB0 class unknown no donor t=12 model=muse-12
