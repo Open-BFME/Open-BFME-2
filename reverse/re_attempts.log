@@ -7502,3 +7502,4 @@ FUN_006dd6d2	0x002DD6D2	147	blocked	Ghidra Catch147B extent confirmed; native bo
 ?rva0021933E@Rva00219309@@QAEPBVCommandButton@@H@Z	0x0021933E	50	partial	branch layout inverted jb-vs-jae shared return early-vs-late t=15 model=muse-06 score=0.92 stash=reverse/attempts/0x0021933e.cpp
 ?rva005B32D5@Rva005B32D5@@QAEHPAURva005B2E09Cell@@@Z	0x005B32D5	137	blocked	complex 6-return branching keeps m_50 in mem not ebx and tail branchless setl-lea vs jl-jge t=12 model=muse-06
 ?rva004DFB7E@Rva004DFB7E@@QAE_NPAX@Z	0x004DFB7E	111	partial	esi edi swapped xor edi early vs xor esi late t=25 model=muse-04 score=0.92 stash=reverse/attempts/0x004dfb7e.cpp
+?rva00056FD9@Rva00056FD9@@QAEXH@Z	0x00056FD9	239	blocked	MilesAudioManager cleanup with list plus 3 hashtables and 6 callees no donor layout for +0x98 +0x9c unproven t=8 model=muse-09
