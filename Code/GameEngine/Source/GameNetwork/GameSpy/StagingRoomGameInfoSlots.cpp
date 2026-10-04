@@ -1,15 +1,19 @@
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
 //
 // GameSpyStagingRoom::amIHost, retail 0x004FDBAA (75 bytes), and
-// GameSpyStagingRoom::getLocalSlotNum, retail 0x004FDBF5 (126 bytes): slots
-// 12 and 13 of vtable 0x00C19440, whose unique slot-2 name getter returns
+// GameSpyStagingRoom::getLocalSlotNum, retail 0x004FDBF5 (126 bytes), and
+// GameSpyStagingRoom::resetAccepted, retail 0x004FDA62 (16 bytes): slots 12,
+// 13 and 14 of vtable 0x00C19440, whose unique slot-2 name getter returns
 // "GameSpyStagingRoom"; in the GameInfo vtable the same slots hold the
-// rowed GameInfo amIHost/getLocalSlotNum bodies, which Zero Hour's
+// rowed GameInfo amIHost/getLocalSlotNum/resetAccepted bodies, which Zero Hour's
 // GameSpyStagingRoom overrides. Ported verbatim from Zero Hour's
 // GameEngine/Source/GameNetwork/GameSpy/StagingRoomGameInfo.cpp (GeneralsMD
 // tree vendored under reference/open-bfme-1/inputs/reference).
 // Callees: the rowed GameInfo::getConstSlot and GameSlot::isPlayer (an
 // AsciiString by value); TheGameSpyInfo's getLocalName is its vslot 29.
+// The base GameInfo::resetAccepted (rowed 0x003FF9B4 under a non-virtual
+// name) is slot 14 of the GameInfo vtable; it is pinned under its virtual
+// name for the qualified base call.
 // Layout: m_inGame +0x10, m_localName +0xFE8.
 typedef bool Bool;
 typedef int Int;
@@ -44,8 +48,14 @@ public:
 class GameInfo
 {
 public:
+	virtual ~GameInfo();
+	virtual void slot01(); virtual void slot02(); virtual void slot03();
+	virtual void slot04(); virtual void slot05(); virtual void slot06();
+	virtual void slot07(); virtual void slot08(); virtual void slot09();
+	virtual void slot10(); virtual void slot11();
 	virtual Bool amIHost(void) const;
 	virtual Int getLocalSlotNum(void) const;
+	virtual void resetAccepted(void);
 	const GameSlot *getConstSlot(Int slotNum) const;
 protected:
 	unsigned char m_pad04[0x10 - 0x04];
@@ -57,6 +67,7 @@ class GameSpyStagingRoom : public GameInfo
 public:
 	virtual Bool amIHost(void) const;
 	virtual Int getLocalSlotNum(void) const;
+	virtual void resetAccepted(void);
 private:
 	unsigned char m_pad14[0xFE8 - 0x14];
 	AsciiString m_localName; // +0xFE8
@@ -87,4 +98,18 @@ Int GameSpyStagingRoom::getLocalSlotNum( void ) const
 			return i;
 	}
 	return -1;
+}
+
+void GameSpyStagingRoom::resetAccepted( void )
+{
+	GameInfo::resetAccepted();
+
+	if (amIHost())
+	{
+		/*
+		peerStateChanged(TheGameSpyChat->getPeer());
+		m_hasBeenQueried = false;
+		DEBUG_LOG(("resetAccepted() called peerStateChange()\n"));
+		*/
+	}
 }
