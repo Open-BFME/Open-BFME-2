@@ -52926,3 +52926,8 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ?rva003BDE5D@ScriptActions@@QAEXABVAsciiString@@0@Z,,0x003BDE5D,328,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_commandButtonOnNearest.cpp,matched,named unit uses a command button on the nearest enemy kind 7; filter chain; address name
 ?rva003BDFA5@ScriptActions@@QAEXABVAsciiString@@0H@Z,,0x003BDFA5,375,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_commandButtonOnNearest.cpp,matched,named unit uses a command button on the nearest enemy kind 7 of the given kind; filter chain; address name
 ?rva00352a00@Rva003529B0@@QBEPAV1@XZ,,0x003B4147,55,Code/GameEngine/Source/Common/Rva003529B0Clone.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?rva00041D97@Win32GameEngine@@UAEPAXXZ,,0x00041D97,50,Code/GameEngine/Source/Main/Win32GameEngineFactories.cpp,matched,Win32GameEngine vtable 0x00BC2530 slot 32 factory: new plus pinned ctor
+?rva00041E30@Win32GameEngine@@UAEPAXXZ,,0x00041E30,53,Code/GameEngine/Source/Main/Win32GameEngineFactories.cpp,matched,Win32GameEngine vtable 0x00BC2530 slot 34 factory: new plus pinned ctor
+?rva0005E959@Win32GameEngine@@UAEPAXXZ,,0x0005E959,53,Code/GameEngine/Source/Main/Win32GameEngineFactories.cpp,matched,Win32GameEngine vtable 0x00BC2530 slot 36 factory: new plus pinned ctor
+?rva00041E6A@Win32GameEngine@@UAEPAXXZ,,0x00041E6A,53,Code/GameEngine/Source/Main/Win32GameEngineFactories.cpp,matched,Win32GameEngine vtable 0x00BC2530 slot 37 factory: new plus pinned ctor
+?rva00041D62@Win32GameEngine@@UAEPAXXZ,,0x00041D62,53,Code/GameEngine/Source/Main/Win32GameEngineFactories.cpp,matched,Win32GameEngine vtable 0x00BC2530 slot 29 factory: new plus pinned ctor
