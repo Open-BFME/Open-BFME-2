@@ -9358,3 +9358,4 @@ _Rva0030CAF8CursorEqual,0x0007E394,twin of dup_0007e394 29B exact cursor equalit
 ?ConstructNetCommandMsgFromRawData@NetPacket@@SAPAVNetCommandRef@@PAEG@Z,0x00592607,donor_sweep: call target read from retail at the unique placement of the BFME 1 donor getReadyCommands (0x0058C2AD)
 ??1Rva005E2C70StringView@@UAE@XZ,0x003A9F8A,"callee of ??1Rva005E2D20@@UAE@XZ at retail 0x003ABC21 read from its REL32 displacement; ICF alias onto ??1LifeEventModuleInfo@FXParticleSystem@@UAE@XZ (matched)"
 ??1Rva005DDD60@@UAE@XZ,0x003A5817,"callee of ??1Rva005E2D20@@UAE@XZ at retail 0x003ABC21 read from its REL32 displacement; ICF alias onto ??1Rva003AEEB3@@UAE@XZ (matched)"
+??0Rva005EDF60@@QAE@ABV0@@Z,0x003AF89A,"copy constructor called by ?clone@Rva005EDF60@@QBEPAV1@XZ at retail 0x003AF860 read from its REL32 displacement; donor-carried name; body unrowed"
