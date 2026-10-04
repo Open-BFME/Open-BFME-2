@@ -150,3 +150,16 @@ ios_base::Init::~Init() {
     if (_S_count>0) ios_base::_S_uninitialize();
 }
 }
+
+// A distinct retained locale cleanup copy lives at native 007B68A0/27.
+// The existing ledger previously described it through the 7670 symbol; give
+// the retained copy its own real C++ definition so its native startup callback
+// has one symbol and one address. Both bodies use the same established globals.
+void dup_007b68a0()
+{
+    if (_STL::ios_base::_Loc_init::_S_count > 0)
+    {
+        _STL::_Stl_classic_locale_impl->_M_decr();
+        --_STL::ios_base::_Loc_init::_S_count;
+    }
+}
