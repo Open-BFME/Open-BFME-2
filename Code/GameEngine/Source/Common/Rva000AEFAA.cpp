@@ -64,3 +64,17 @@ Rva000AF0E4::Rva000AF0E4(BfmeParserRegistryVE *registry, const AsciiString *pare
 	: BfmeParserBindingBaseVE(registry, (void *)&AsciiString("PostEffectsChunk"), (void *)(parentLabel ? parentLabel : &AsciiString::TheEmptyString))
 {
 }
+
+// ??0Rva000AF082@@QAE@PAVBfmeParserRegistryVE@@PBVAsciiString@@@Z @0x000AF082 98B
+// GlobalLighting binding, 2-arg (registry, parentLabel), no owner member.
+// Evidence: same base pin 0x000ABB87 and caller 0x000AF238 as siblings; literal "GlobalLighting"; vtable g_00BC95F8; ret 8.
+class Rva000AF082 : public BfmeParserBindingBaseVE
+{
+public:
+	Rva000AF082(BfmeParserRegistryVE *registry, const AsciiString *parentLabel);
+};
+
+Rva000AF082::Rva000AF082(BfmeParserRegistryVE *registry, const AsciiString *parentLabel)
+	: BfmeParserBindingBaseVE(registry, (void *)&AsciiString("GlobalLighting"), (void *)(parentLabel ? parentLabel : &AsciiString::TheEmptyString))
+{
+}

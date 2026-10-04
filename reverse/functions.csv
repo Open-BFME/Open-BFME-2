@@ -52670,3 +52670,4 @@ _Rva0088E190TimerTick@16,,0x0003D870,9,Code/Libraries/Source/WWVegas/WWDebug/Rva
 ?rva003B779C@ScriptList@@QAEXPAXPAURva003B31DF@@@Z,,0x003B779C,118,Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003B779CMethod.cpp,matched,recursive group teardown via capture plus drains plus unlink remove
 ?rva0028BBE1@Rva0028BBE1@@QAEXPAX@Z,,0x0028BBE1,18,Code/GameEngine/Source/Common/Rva0028BBE1.cpp,matched,chain via 0x004DF3B0 holder at 0x23C caller 0x003512D2
 ??0Rva00328B9A@@QAE@PAVBfmeParserRegistryVE@@PBVAsciiString@@@Z,,0x00328B9A,98,Code/GameEngine/Source/Common/Rva00328B9ACtor.cpp,matched,PolygonTriggers literal plus WaterAreas sibling recipe plus caller 0x00328C76 plus base pin plus StringBase plus releaseBuffer
+??0Rva000AF082@@QAE@PAVBfmeParserRegistryVE@@PBVAsciiString@@@Z,,0x000AF082,98,Code/GameEngine/Source/Common/Rva000AEFAA.cpp,matched,GlobalLighting binding via base pin caller 0x000AF238 vtable g_00BC95F8 ret 8
