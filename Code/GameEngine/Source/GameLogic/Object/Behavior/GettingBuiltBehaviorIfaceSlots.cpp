@@ -51,12 +51,24 @@ public:
 	int rva0033A69A(Object *obj, int a2, int a3) const;
 };
 
-// Object +0x254: slot 8 a state.
-class Rva0045342FBody : public Rva00454430Slots<8>
+// Object +0x254: slot 5 a fraction, slot 8 a state.
+class Rva0045342FBody : public Rva00454430Slots<5>
 {
 public:
+	virtual float rva004533B2Slot5() = 0;
+	virtual void gap6() = 0;
+	virtual void gap7() = 0;
 	virtual int rva0045342FSlot8() = 0;
 };
+
+class GlobalData
+{
+public:
+	unsigned char m_pad000[0xA88];
+	int m_A88; // +0xA88
+};
+
+extern GlobalData *TheGlobalData;
 
 // What Object::rva0028BCF4 hands back: slot 5 runs on it.
 class Rva00454501Peer : public Rva00454430Slots<5>
@@ -68,6 +80,7 @@ public:
 class Object
 {
 public:
+	bool rva0028C264(int *out, int value);
 	void *rva0028BCF4() const;
 	void rva0028AE6D();
 	void *rva0028BD17() const;
@@ -223,8 +236,10 @@ public:
 	virtual void rva00453F31(int a1);
 	virtual float rva0045342F(Object *obj);
 	virtual void rva00454501();
+	virtual bool rva004533B2();
 private:
 	void rva004541AB();
+	bool rva00453124();
 	static GettingBuiltBehaviorInterface *interfaceOf(Object *obj)
 	{
 		return (GettingBuiltBehaviorInterface *)obj->rva0028BD17();
@@ -425,4 +440,29 @@ void GettingBuiltBehavior::rva00454501()
 		TheAudio->rva004535B7Slot27(m_24);
 		m_24 = 1;
 	}
+}
+
+// ?rva004533B2@GettingBuiltBehavior@@UAE_NXZ, retail 0x004533B2, 125 bytes:
+// slot 8 of the +0x20 vtable; false while slot 6 answers. Otherwise, with a
+// negative module-data +0x20, the owner's rowed 0x0028C264 test against
+// TheGlobalData +0xA88 must fail and the +0x254 slot 5 fraction be under 1;
+// else the +0x254 slot 8 state must be 3. Then true unless the owner's
+// 0x00453124 test (rowed under the address name BfmeThingE63::isValid)
+// passes. Retail returns the verdict as one boolean expression (eax 0/1).
+bool GettingBuiltBehavior::rva004533B2()
+{
+	if (!rva004535B7Slot6())
+	{
+		Rva0045342FBody *body = m_object->m_254;
+		bool ready;
+		if (data()->m_20 < 0.0f)
+		{
+			int out = 0;
+			ready = !m_object->rva0028C264(&out, TheGlobalData->m_A88) && body->rva004533B2Slot5() < 1.0f;
+		}
+		else
+			ready = body->rva0045342FSlot8() == 3;
+		return ready && !rva00453124();
+	}
+	return false;
 }
