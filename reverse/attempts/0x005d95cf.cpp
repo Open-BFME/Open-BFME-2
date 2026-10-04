@@ -1,5 +1,5 @@
 // ?rva005D95CF@Rva005EE816@@QAE_NPAVObject@@@Z
-// partial score=0.85 date=2026-10-04
+// partial score=0.9 date=2026-10-04
 // cl: /O1 /MD /GX /arch:SSE
 //
 // A skirmish-AI special-power member of the AoE target picker's class (the
@@ -96,15 +96,17 @@ private:
 
 bool Rva005EE816::rva005D95CF(Object *target)
 {
-	const Coord3D *pos = target->getPosition();
-	BfmeWideResult hits = ThePartitionManager->iterateObjectsInRange(pos, getRadius(), 0,
+	BfmeWideResult hits = ThePartitionManager->iterateObjectsInRange(target->getPosition(), getRadius(), 0,
 		Rva0026119DFilter().link(&Rva00261409Filter(target->getControllingPlayer(), true, 4)), 1);
 	Object *other = hits.next();
 	if (other != 0) {
+		const Coord3D *pos = target->getPosition();
 		const Coord3D *otherPos = other->getPosition();
-		Rva005D95CFVec d(otherPos->x - pos->x, otherPos->y - pos->y, otherPos->z - pos->z);
 		float r = getRadius() * 0.8f;
-		if (d.lengthSqr() >= r * r)
+		float dx = otherPos->x - pos->x;
+		float dy = otherPos->y - pos->y;
+		float dz = otherPos->z - pos->z;
+		if (dx * dx + dy * dy + dz * dz >= r * r)
 			return rva005EE8DD(otherPos, target);
 	}
 	return false;
