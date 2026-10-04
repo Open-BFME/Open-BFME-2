@@ -56613,3 +56613,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?Rva003E4E6AGet@@YG_NPAVParameter@@@Z,,0x003E4E6A,59,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_Rva003E4E6A.cpp,matched,leaf single-param unit-mesh check via rowed getUnitNamed and get_polys
 ?Rva0050DE39Init@@YAXXZ,,0x0050DE39,597,Code/GameEngine/Source/GameClient/GUI/Rva0050DE39Observer.cpp,matched,observer ControlBar cache init via winGet slot F0
 ?rva00279677@Rva00279677@@QAEXXZ,,0x00279677,65,Code/GameEngine/Source/Common/Rva00279677Clear.cpp,matched,vector clear at 0x36c via first virtual then erase with rowed callees
+?Rva00360C1FEqual@@YAHPBX0@Z,,0x00360C1F,24,Code/GameEngine/Source/Common/Rva00360C1FEqual.cpp,matched,unlock memcmp 28B equality int compare
