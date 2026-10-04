@@ -8175,3 +8175,4 @@ Rva00415B91	0x00415B91	197	blocked	Native Ghidra197 is a separate EH-framed pars
 ?rva00218787@Rva00218787@@QAEAAMABH@Z	0x00218787	124	partial	frame 0xc vs 0x10 zero in arg slot vs local tmp at -0x18 vs -0x1c state -1 vs 0 cmp vs test t=28 model=muse-06 score=0.9 stash=reverse/attempts/0x00218787.cpp
 ?rva005424C4@Rva005424C4@@QAEHXZ	0x005424C4	535	blocked	complex XML tag lexer 32 structural regions plus 34B delta first variant t=15 model=muse-01
 ?Rva002BEF4BGet@@YGXPAVRva002BEF4BObj@@@Z	0x002BEF4B	154	blocked	inc eax push eax spill vs inc mem push mem plus tmp-cur slots swapped t=10 model=muse-01 (stash 0.93 kept)
+?rva005105D7@Rva005105D7@@QAEXXZ	0x005105D7	86	blocked	vector dtor func 0x0050EAB9 unclaimed plus EH handler 0x00794A57 unclaimed plus pin-only base 0x005248D0 t=10 model=muse-04

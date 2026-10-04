@@ -35,6 +35,7 @@ class Waypoint;
 
 class AIPlayer
 {
+	friend class Player;
 public:
 	virtual void slot00();
 	virtual void slot01();
@@ -52,6 +53,8 @@ public:
 	virtual Bool checkBridges(Object *unit, Waypoint *way);
 	virtual void repairStructure(ObjectID structure);
 	Bool getBaseCenter(Coord3D *pos) const {*pos = m_baseCenter; return m_baseCenterSet;}
+protected:
+	Bool rva004F2BEE(Int minimumCash);
 private:
 	unsigned char m_pad04[0x34 - 0x04];
 	Coord3D m_baseCenter; // +0x34
@@ -65,6 +68,7 @@ public:
 	virtual Bool checkBridges(Object *unit, Waypoint *way);
 	virtual Bool getAiBaseCenter(Coord3D *pos);
 	virtual void repairStructure(ObjectID structureID);
+	Bool rva002A9CA4(Int minimumCash);
 private:
 	unsigned char m_pad04[0x2DC - 0x04];
 	AIPlayer *m_ai; // +0x2DC
@@ -106,4 +110,13 @@ void Player::repairStructure(ObjectID structureID)
 	{
 		m_ai->repairStructure(structureID); 
 	}
+}
+
+// ?rva002A9CA4@Player@@QAE_NH@Z @ 0x002A9CA4 20B: Player AI delegate defaulting
+// to true. Evidence: ecx is Player* from getEachPlayerFromMask in caller
+// 0x003E4A63 which pushes [param+8] as int and tests al; m_ai at +0x2DC like
+// siblings; tail-jmps to rowed ?rva004F2BEE@AIPlayer@@IAE_NH@Z when present.
+Bool Player::rva002A9CA4(Int minimumCash)
+{
+	return m_ai ? m_ai->rva004F2BEE(minimumCash) : true;
 }
