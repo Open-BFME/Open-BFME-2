@@ -7442,3 +7442,4 @@ FUN_008f7883	0x004F7883	168	blocked	EH prolog push ecx plus frame plus copy_back
 ?rva004B68B6@Rva004B68B6@@QAEXPBX@Z	0x004B68B6	212	blocked	complex partition forward with x87 float and EOF loop t=12 model=muse-06
 ?rva000911F6@Rva007E3C20Vp6Stream@@UAEHH@Z	0x000911F6	301	partial	vtable fixed via same-class thiscall for 0x90FE0; remain ebx-edi swap plus stack slots and missing early mov ebp-8 ebx t=22 model=muse-08 score=0.93 stash=reverse/attempts/0x000911f6.cpp
 ?rva00091763@Rva007E3C20Vp6Stream@@UAEHABVAsciiString@@@Z	0x00091763	345	blocked	EH audio slot20 needs donor for m_b52 plus ebx1 esi0 regalloc and stack slots t=25 model=muse-08
+?rva003596AD@Rva003596AD@@QAEPAMPBH@Z	0x003596AD	124	blocked	dual map int-int lower_bound plus int-float insert with Rva set and TreeHintRelease EH-SSE2 wall t=12 model=muse-07

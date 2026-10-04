@@ -52476,3 +52476,4 @@ _Rva0088E190TimerTick@16,,0x0003D870,9,Code/Libraries/Source/WWVegas/WWDebug/Rva
 ?rva00106A5C@BfmeB996Range@@QAEDXZ,,0x00106A5C,109,Code/GameEngine/Source/Common/BfmeB996Range06A5C.cpp,matched,donor Rva007E34C0 while-break shape caller 0x00106B56
 ?rva002BF75A@Rva002BF75A@@QAEXPAX@Z,,0x002BF75A,28,Code/GameEngine/Source/GameClient/Rva002BF75AFree.cpp,matched,unlock lane plus callers 0x002BF7DF 0x002BFAC9 plus same shape as rowed 0x00223591 and 0x00223898
 ?rva005D796F@Rva005D791C@@UAE_NPAVObject@@@Z,,0x005D796F,154,Code/GameEngine/Source/Common/Rva005D796F.cpp,matched,slot 6 vtable 0x875DFC with map find set insert and pin call
+?rva002754E3@Drawable@@QAEXXZ,,0x002754E3,98,Code/GameEngine/Source/GameClient/Drawable_rva00275545.cpp,matched,unlock Drawable gate via Object plus slots
