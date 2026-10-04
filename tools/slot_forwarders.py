@@ -14,10 +14,10 @@ and C++ that reproduces them:
     mov ecx,[ecx+K]; jmp T                        m_ptr->T(args)
 
 Sizing: decode from the slot address to the first unconditional `ret`/`jmp`
-of a branch-free body, then require the next byte to be a known boundary
-(int3 padding, a ledger or Ghidra start, or another slot body). A body that
-fails that check is reported, never generated. row_extent and the byte gate
-still decide every row.
+of a branch-free body; nothing can reach past that end, so it is the extent.
+scan.csv also says what follows (int3 padding, a known ledger/Ghidra/slot
+start, or "open" when the next start is not inventoried yet). row_extent and
+the byte gate still decide every row.
 
 Identity: every class and method generated here is address-derived; the bytes
 prove the hop, the slot and (for a direct callee) the argument count read
@@ -253,12 +253,11 @@ def scan(args):
                 continue
             size, ins = body
             nxt = a + size
-            boundary = "int3" if img.byte(nxt) == 0xCC else ("start" if nxt in known else "unproven")
+            boundary = "int3" if img.byte(nxt) == 0xCC else ("start" if nxt in known else "open")
             (fam, _), shape = classify(ins)
             fam = fam or "-"
             w.writerow([f"0x{a:08X}", size, boundary, fam, table, slot, tname, shape])
-            if boundary != "unproven":
-                fams[fam] = fams.get(fam, 0) + 1
+            fams[fam] = fams.get(fam, 0) + 1
     for fam, n in sorted(fams.items(), key=lambda kv: -kv[1]):
         print(f"{n:5d}  {fam}")
     print(f"slot_forwarders: wrote {OUT / 'scan.csv'}")
@@ -323,7 +322,10 @@ def gen_items(args):
     items, refused = [], []
     with open(OUT / "scan.csv", newline="") as fh:
         for r in csv.DictReader(fh):
-            if r["family"] != args.family or r["boundary"] == "unproven":
+            # A branch-free body that ends in an unconditional jmp/ret owns no
+            # byte past it, so its extent stands even when the next start is
+            # not yet inventoried ("open"); only the family shape is required.
+            if r["family"] != args.family:
                 continue
             a = int(r["rva"], 16)
             if a in skip or covered(rows, a):
