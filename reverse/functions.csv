@@ -55721,3 +55721,4 @@ __Locale_ctype_create,,0x00022360,1316,Code/Libraries/Source/WWVegas/WWLib/stlpo
 ?Rva002AA3D4Closest@@YAHPAVObject@@PAX@Z,,0x002AA3D4,70,Code/GameEngine/Source/Common/RTS/PlayerRva002AA3D4Closest.cpp,matched,nearest KindOf-matching object iteration callback; fcompi needs /arch:SSE
 ?rva0053B914@Rva0053B914@@QAEXXZ,,0x0053B914,50,Code/GameEngine/Source/Common/Rva0053B914.cpp,matched,hide-all via rowed winHide 0x00313C64 and callers 0x0031EAAE 0x0053D375 0x0053E7AC
 ?rva0044BF40@Rva0044BF40@@QAEPAU1@URva0044BA4E@@@Z,,0x0044BF40,55,Code/GameEngine/Source/Common/Rva0044BF40.cpp,matched,EH setter twin via rowed 0x0044BEB9 and dtor 0x0044BA4E
+?rva004D0E06@ConnectionManager@@QAEXPAVGameMessage@@@Z,,0x004D0E06,133,Code/GameEngine/Source/GameNetwork/ConnectionManager_rva004D0E06.cpp,matched,ConnectionManager send GameMessage via TheGameLogic frame and local slot then sendLocalCommand relay ff and detach
