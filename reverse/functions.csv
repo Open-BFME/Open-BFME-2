@@ -55706,3 +55706,4 @@ __Locale_ctype_create,,0x00022360,1316,Code/Libraries/Source/WWVegas/WWLib/stlpo
 ?rva00088D0A@Rva000869CF@@QAEXMHM@Z,,0x00088D0A,91,Code/GameEngine/Source/GameClient/Rva000869CFReset.cpp,matched,reset via same-TU 0x869CF then rescale +0x24C8 member slots; fcompi needs /arch:SSE
 ?rva0005121F@Rva0005121F@@QAEMXZ,,0x0005121F,157,Code/GameEngine/Source/GameClient/Rva0005121FElapsed.cpp,matched,elapsed seconds since frame stamp +0x94 via TheGameClient frame; fcompi needs /arch:SSE
 ?rva000511C3@Rva0005121F@@QAEXPAUCoord3D@@@Z,,0x000511C3,92,Code/GameEngine/Source/GameClient/Rva0005121FElapsed.cpp,matched,mode-selected position copy from TheTacticalView or 0xDFEF18 slot 32 else zero; /Oy- frame
+?rva0005117B@Rva0005117B@@QAEMM@Z,,0x0005117B,72,Code/GameEngine/Source/GameClient/Rva0005117BFraction.cpp,matched,one minus v over count at m_10+0x78 clamped to [0 1]; SSE comiss shape
