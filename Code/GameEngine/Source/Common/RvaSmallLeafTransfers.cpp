@@ -456,3 +456,29 @@ unsigned int Rva00421A4B::readSlotBits(unsigned int index) const
 {
     return m_slots00[index];
 }
+
+// Incidental compiled lead: Rva00415A55Result's ABI-view constructor after
+// the STLport insertion transfer. Target 0x5D5816/18 independently follows
+// a terminal ret at 0x5D5815 and precedes a new prologue at 0x5D5828.
+// It copies one full stack word to +0 and the low stack byte to +4, returning
+// the receiver and ret8. No callers or address references establish original
+// constructor/lifetime, word pointee, bool type or complete receiver layout.
+// This minimum word/byte bit view therefore claims only those native stores.
+// Local size optimization follows the emitting /O1 tree-result sibling.
+#pragma optimize("s",on)
+class Rva005D5816
+{
+public:
+    Rva005D5816 *writeBits(unsigned int word,unsigned char byte);
+private:
+    unsigned int m_word00;
+    unsigned char m_byte04;
+};
+Rva005D5816 *Rva005D5816::writeBits(unsigned int word,unsigned char byte)
+{
+    m_word00=word;
+    m_byte04=byte;
+    return this;
+}
+
+#pragma optimize("",on)
