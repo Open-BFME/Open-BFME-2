@@ -24,24 +24,9 @@ public:
 
 void bfmeGo936C(void);
 
-class BfmeThing936G
-{
-public:
-	BfmeThing936G *bfmeGo936G(void);
-	void bfmeInit936G(void);
-};
-
-// ?g_bfme936GlobG@@3PAXA: the global at this VA is ?_S_count@Init@ios_base@_STL@@0JA; this name is an alias for it.
-extern void * g_bfme936GlobG;
-#pragma comment(linker, "/alternatename:?g_bfme936GlobG@@3PAXA=?_S_count@Init@ios_base@_STL@@0JA")
-
-// ?bfmeGo936G@BfmeThing936G@@QAEPAV1@XZ, retail 0x00016AA0 (21B).
-BfmeThing936G *BfmeThing936G::bfmeGo936G(void)
-{
-	if (!g_bfme936GlobG)
-		bfmeInit936G();
-	return this;
-}
+// The former936G view was the stream Init constructor at16AA0. It now
+// shares the STLport ios_base::Init view in stlport_loc_init.cpp, beside the
+// matching Init lifetime protocol; no duplicate guessed owner remains here.
 
 // Retail's call sites in this unit's matched rows land on bodies rowed under
 // other spellings at the same addresses (same ABI). Bind the spellings used here.

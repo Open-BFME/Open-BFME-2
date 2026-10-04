@@ -10632,7 +10632,6 @@ _lua_strlibopen,,0x0074A0B0,21,Code/Libraries/Source/Lua/lstrlib.c,matched,BFME1
 ??0ShellMenuSchemeLine@@QAE@XZ,,0x002004A5,30,Code/GameEngine/Source/GameClient/GUI/Shell/ShellMenuScheme.cpp,matched,BFME1 byte-identical donor; b1 0x00580400
 ?bfmeGoEMEa@@YA_NPAX@Z,,0x0061F170,24,Code/GameEngine/Source/Common/BfmeConv819.cpp,matched,BFME1 byte-identical donor; b1 0x009EBC20
 ?bfmeGoEMEb@@YAPAXPAX@Z,,0x0061F600,24,Code/GameEngine/Source/Common/BfmeConv819.cpp,matched,BFME1 byte-identical donor; b1 0x009EC0B0
-?bfmeGo936G@BfmeThing936G@@QAEPAV1@XZ,,0x00016AA0,21,Code/GameEngine/Source/Common/BfmeConv936.cpp,matched,BFME1 byte-identical donor; b1 0x00843D70
 ?aptHasAll@Rva008981E0Value@@QAEHXZ,,0x006E6CD0,17,Code/GameEngine/Source/Common/SmallGaps/Rva008981E0AptTypeChecks.cpp,matched,BFME1 byte-identical donor; b1 0x00898240
 ?clearStatus@Image@@QAEII@Z,,0x002D8E72,17,Code/GameEngine/Source/GameClient/System/Image.cpp,matched,BFME1 byte-identical donor; b1 0x005D1C30
 ?get@Rva004C1160@@QAEHXZ,,0x004059BE,17,Code/GameEngine/Source/Common/R2GuardedFieldGetters.cpp,matched,BFME1 byte-identical donor; b1 0x004C1160
