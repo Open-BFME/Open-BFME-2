@@ -8366,3 +8366,4 @@ _Rva0030CAF8CursorEqual,0x0007E394,twin of dup_0007e394 29B exact cursor equalit
 ?setLowControlBarConfig@ControlBar@@IAEXXZ,0x0031B134,callee of ?switchControlBarStage@ControlBar@@QAEXW4ControlBarStages@@@Z at retail 0x0031B99A read from its REL32 displacement; body unrowed
 ?setDefaultControlBarConfig@ControlBar@@IAEXXZ,0x0031B0CE,callee of ?switchControlBarStage@ControlBar@@QAEXW4ControlBarStages@@@Z at retail 0x0031B99A read from its REL32 displacement; body unrowed
 ?bfmeShowDN@ControlBar@@QAEXPAUBfmeMsgDN@@@Z,0x00405C04,callee of ?rva004C1B60@ControlBar@@QAEXPAVGameWindow@@PAX@Z at retail 0x00405DBC read from its REL32 displacement; body unrowed
+?bfmeGoD540@BfmeObjD540@@QAEXVAsciiString@@@Z,0x005B7E02,"callee of ?bfmeParseD780@@YAXPAVINI@@PAX1PBX@Z at retail 0x005B7F8C read from its REL32 displacement; donor-reconstruction name for the function at that address (Ghidra FUN_009b7e02, 343B); body unrowed"
