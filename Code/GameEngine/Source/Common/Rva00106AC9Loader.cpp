@@ -1,5 +1,4 @@
 // ?rva00106AC9@Rva00106AC9@@QAE_NPBDH_N@Z
-// partial score=0.98 date=2026-10-04
 // cl: /Ireference/shims/bfme2_ascii /Os /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHs-c-
 #include "ascii_string.h"
 
@@ -33,7 +32,6 @@ public:
 };
 
 extern FileSystem *TheFileSystem;
-extern const char g_Rva0107301CEmptyString[];
 
 class Rva007E3410Object
 {
@@ -67,10 +65,14 @@ private:
 __forceinline const char *GetStr00106AC9(const AsciiString &s)
 {
 	char *t = *(char * *)(const void *)&s;
-	return t ? t + 8 : g_Rva0107301CEmptyString;
+	return t ? t + 8 : "";
 }
 
-// ?rva00106AC9@Rva00106AC9@@QAE_NPBDH_N@Z present-unmatched
+// Native full extent 0x00106AC9..0x00106BC9; RET12.
+// The original owner name is unknown. Offsets and modes below are target facts.
+// Native branch at 106B52 skips the probe when flag is false; its success
+// branch and false-flag branch share the invokeForMode call at 106B71.
+// Combining the predicate preserves that join and its ECX reload under /Os.
 bool Rva00106AC9::rva00106AC9(const char *path, int mode, bool flag)
 {
 	bool done = false;
@@ -87,18 +89,13 @@ bool Rva00106AC9::rva00106AC9(const char *path, int mode, bool flag)
 			m_size = sz;
 			m_mode = 6;
 			if (sz >= 8) {
-				if (flag != false) {
-					if (!((BfmeB996Range *)this)->rva00106A5C()) {
-						m_mode = 3;
-						((Rva00106874Host *)this)->rva00106874();
-					} else {
-						((Rva007E3410Object *)this)->invokeForMode();
-						done = true;
-					}
-				} else {
-					((Rva007E3410Object *)this)->invokeForMode();
-					done = true;
-				}
+                if (flag && !((BfmeB996Range *)this)->rva00106A5C()) {
+                    m_mode = 3;
+                    ((Rva00106874Host *)this)->rva00106874();
+                } else {
+                    ((Rva007E3410Object *)this)->invokeForMode();
+                    done = true;
+                }
 			} else {
 				m_mode = 3;
 			}
