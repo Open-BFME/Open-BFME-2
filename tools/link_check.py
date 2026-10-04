@@ -243,12 +243,15 @@ def check_object(obj, index, truth, source=None):
                 or link_census.excused(name, excuses["runtime"], excuses["imported"], excuses["stubs"]))
 
     # An undefined alias resolves to an /alternatename target of this object's
-    # or any other's when that target resolves (one level, as link.exe applies
-    # the directive).
-    def aliased(name):
+    # or any other's when that target resolves, or is itself an alias that
+    # does: link.exe follows the chain (census 2026-10-04: ShellTop.cpp links
+    # through ?TheGlobalData@@3PAUGlobalData@@A -> its own V spelling ->
+    # ScriptEngine_init.cpp's alias of that to TheWritableGlobalData).
+    def aliased(name, seen=frozenset()):
         targets = [alternates[name]] if name in alternates else []
         targets += [target for i, target in sorted(index["alternates"].get(name, ())) if i != own]
-        return any(resolves(target) for target in targets)
+        seen = seen | {name}
+        return any(resolves(target) or (target not in seen and aliased(target, seen)) for target in targets)
 
     unresolved = sorted(name for name in set(undefined) - mine - set(common)
                         if not resolves(name) and not aliased(name))
