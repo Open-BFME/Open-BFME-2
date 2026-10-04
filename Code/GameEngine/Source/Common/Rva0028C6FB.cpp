@@ -3,7 +3,9 @@
 // Bit-present table lookup: if bit (idx&31) of word (idx>>5) at +0 is set return table[idx] else 0.
 // Evidence: test [this+word*4] mask plus mov eax [idx*4+VA 0x00DC828C]; sole caller 0x00292414;
 // neighbours V3PolyCopyCtors and ConstIntGetters5 give TU and flags.
-#define BfmeTable0028C6FB ((void **)0x00DC828C)
+// DisabilityTypeNames: the retail string table at VA 0x00DC828C (defined in
+// Code/GameEngine/Source/GameLogic/Object/Update/Rva0049D67F.cpp).
+extern const char *DisabilityTypeNames[11]; ///< retail [0x00DC828C]
 
 class Rva0028C6FB
 {
@@ -16,7 +18,7 @@ private:
 
 void *Rva0028C6FB::rva0028C6FB(unsigned int idx)
 {
-	return (m_bits[idx >> 5] & (1u << (idx & 31))) ? BfmeTable0028C6FB[idx] : 0;
+	return (m_bits[idx >> 5] & (1u << (idx & 31))) ? (void *)DisabilityTypeNames[idx] : 0;
 }
 
 // Five more copies of this lookup, each over a named BitFlags name table (the
