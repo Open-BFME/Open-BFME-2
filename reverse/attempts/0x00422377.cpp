@@ -1,4 +1,6 @@
 // ?Rva00422377Get@@YAXPAURva00422377Out@@PAURva00422377In@@@Z
+// partial score=0.88 date=2026-10-04
+// ?Rva00422377Get@@YAXPAURva00422377Out@@PAURva00422377In@@@Z
 // partial score=0.9 date=2026-10-03
 // cl: /Ireference/shims/bfme2_ascii /O1 /G7 /EHsc /arch:SSE /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // ?Rva00422377Get@@YAXPAURva00422377Out@@PAURva00422377In@@@Z retail 0x00422377 232 bytes.
@@ -31,6 +33,7 @@ struct GeometryShape
 	AsciiString m_name;
 	bool m_enabled;
 	char m_21[3];
+	int m_2C;
 };
 
 class GeometryInfo
@@ -82,16 +85,18 @@ void Rva00422377Get(Rva00422377Out *out, Rva00422377In *in)
 	if ((flag->m_11F & 4) != 0)
 	{
 		GeometryShape shape;
+		shape.m_type = 0;
 		shape.m_height = g_Va00BBB8D8;
 		shape.m_majorRadius = g_Va00BBB8D8;
 		shape.m_minorRadius = g_Va00BBB8D8;
-		shape.m_type = 0;
 		shape.m_offset.x = 0.0f;
 		shape.m_offset.y = 0.0f;
 		shape.m_offset.z = 0.0f;
 		shape.m_enabled = true;
 		shape.m_21[0] = 1;
 		in->m_a8.rva006BD9C0(shape);
+		shape.m_2C = -1;
+		shape.m_name.~AsciiString();
 		float majorScaled = shape.m_majorRadius * g_Va00BC28F4 + g_00BC2918;
 		y = (int)majorScaled;
 		float minorScaled = shape.m_minorRadius * g_Va00BC28F4 + g_00BC2918;
