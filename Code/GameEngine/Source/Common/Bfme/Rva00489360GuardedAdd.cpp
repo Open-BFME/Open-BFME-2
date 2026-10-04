@@ -107,6 +107,7 @@ public:
 	void rva001DBE34();
 	void rva001DBE51();
 	void rva001DC164();
+	void rva001DBDC6();
 
 	Node001DBDA4 *m_head;
 	int m_04;
@@ -177,6 +178,33 @@ void Rva001DBDA4::rva001DBD5D()
 	m_08 += m_04;
 	for( Node001DBDA4 *n = m_head->m_next; n != m_head; n = n->m_next )
 		n->m_value->rva001DBACA(m_08);
+}
+
+// ?rva001DBDC6@Rva001DBDA4@@QAEXXZ @0x001DBDC6 81B: Zero Hour's
+// TransitionGroup::reverse: direction -1 at +0x04, the largest element get()
+// (TransitionWindow::getTotalFrames) over the list, rva001DBB04 (the
+// element's reverse(totalFrames)) on every element, then that total as the
+// current frame at +0x08. Callers setGroup 0x001DC325 and 0x001DC403.
+void Rva001DBDA4::rva001DBDC6()
+{
+	int totalFrames = 0;
+	m_04 = -1;
+
+	Node001DBDA4 *it = m_head->m_next;
+	while( it != m_head )
+	{
+		int winFrames = it->m_value->get();
+		if( winFrames > totalFrames )
+			totalFrames = winFrames;
+		it = it->m_next;
+	}
+	it = m_head->m_next;
+	while( it != m_head )
+	{
+		it->m_value->rva001DBB04( totalFrames );
+		it = it->m_next;
+	}
+	m_08 = totalFrames;
 }
 
 // The 0x00DFDC14 singleton (theBfmeDfdc14, defined in WinMain.cpp); only its
