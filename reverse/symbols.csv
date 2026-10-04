@@ -8297,3 +8297,5 @@ _Rva0030CAF8CursorEqual,0x0007E394,twin of dup_0007e394 29B exact cursor equalit
 ?findSomething@BfmeMgrF07@@QAEHPAXH@Z,0x00357475,callee of ?bfmeLinkObjectsA70@@YGXPAX0@Z at retail 0x003BB675 and 0x003BB688 read from its REL32 displacements; ICF alias onto ?rva00357475@ScriptEngine@@QAEHABVAsciiString@@PA_N@Z (matched)
 ?findObj@BfmeMgrD74_Linked@@QAEPAVBfmeLinkedObj@@H@Z,0x002A7B91,callee of ?bfmeLinkObjectsA70@@YGXPAX0@Z at retail 0x003BB696 and 0x003BB6A4 read from its REL32 displacements; ICF alias onto ?getPlayerFromMask@PlayerList@@QAEPAVPlayer@@H@Z (matched)
 ?link@BfmeLinkedObj@@QAEXPAV1@H@Z,0x002AEA9F,callee of ?bfmeLinkObjectsA70@@YGXPAX0@Z at retail 0x003BB6B6 read from its REL32 displacement; body unrowed
+?bfmeRunDGH@BfmeSubDGH@@QAEXPAX@Z,0x003FD690,callee of ?bfmeGoDGH@@YGXPAX0@Z at retail 0x00212183 read from its REL32 displacement; ICF alias onto ?rva003FD690@Rva003FD690@@QAEXPBUCoord@@@Z (matched)
+?rva002120C2@@YGPAVBfmeSubDGH@@PAX@Z,0x002120C2,callee of ?bfmeGoDGH@@YGXPAX0@Z at retail 0x00212183 read from its REL32 displacement; walks this+0x24C pointer array testing each +0x1C via 0x004069D6; body unrowed
