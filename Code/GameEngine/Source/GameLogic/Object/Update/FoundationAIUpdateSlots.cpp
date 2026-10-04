@@ -31,6 +31,13 @@
 // slot 5; clears the +0x28 ID through the setter.
 // ?rva00455B33@FoundationAIUpdate@@UAEPAVObject@@XZ, retail 0x00455B33, 15
 // bytes: slot 6; the object the +0x28 ID names.
+//
+// ?rva0045527A@FoundationAIUpdate@@AAEXW4ObjectID@@@Z, retail 0x0045527A, 250
+// bytes: the +0x28 setter slot 5 calls. A new ID hides the owner (status 3,
+// unselectable, fade out over 10 frames) unless its template has KindOf bit
+// 54; with that bit, and the owner the local player's, it posts message
+// 0x3ED with the owner's ID and passes the drawable to TheInGameUI slot 67.
+// Clearing the ID reverses the hiding (fade in over 30 frames).
 
 class ModuleData;
 class Team;
@@ -42,16 +49,110 @@ enum ObjectID
 	INVALID_ID = 0
 };
 
-class Object
+class Drawable
+{
+public:
+	void setSelectable(bool selectable);
+	void fadeOut(unsigned int frames);
+	void fadeIn(unsigned int frames);
+};
+
+class ThingTemplate
+{
+public:
+	unsigned char m_pad000[0x114];
+	unsigned int m_kindOf[4]; // +0x114
+};
+
+enum ObjectStatusTypes
+{
+	OBJECT_STATUS_3 = 3
+};
+
+class Thing
+{
+public:
+	Drawable *getDrawable() const;
+};
+
+class Player;
+
+class Object : public Thing
 {
 public:
 	ObjectID getID() const { return m_id; }
+	__forceinline unsigned int isKindOf(int kind) const
+	{
+		return m_template->m_kindOf[kind >> 5] & (1U << (kind & 0x1f));
+	}
+	void setStatus(ObjectStatusTypes status, bool set);
+	Player *getControllingPlayer() const;
 	void rva0028BAAE(int value);
 	void rva00298AE4(Team *team);
 private:
-	unsigned char m_pad000[0x74];
+	void *m_vptr;
+	const ThingTemplate *m_template; // +0x04
+	unsigned char m_pad008[0x74 - 0x08];
 	ObjectID m_id; // +0x74
 };
+
+class PlayerList
+{
+public:
+	Player *getLocalPlayer() const { return m_local; }
+private:
+	unsigned char m_pad00[0x10];
+	Player *m_local; // +0x10
+};
+extern PlayerList *ThePlayerList;
+
+class GameMessage
+{
+public:
+	void appendObjectIDArgument(ObjectID id);
+};
+
+class MessageStream
+{
+public:
+	virtual void v00();
+	virtual void v01();
+	virtual void v02();
+	virtual void v03();
+	virtual void v04();
+	virtual void v05();
+	virtual void v06();
+	virtual void v07();
+	virtual void v08();
+	virtual void v09();
+	virtual void v10();
+	virtual void v11();
+	virtual void v12();
+	virtual void v13();
+	virtual void v14();
+	virtual void v15();
+	virtual void v16();
+	virtual void v17();
+	virtual GameMessage *appendMessage(int type);
+};
+extern MessageStream *MessageStreamSubsystem;
+
+template <int N> class Rva0045527AUISlots : public Rva0045527AUISlots<N - 1>
+{
+public:
+	virtual void gap(char (*)[N]) = 0;
+};
+template <> class Rva0045527AUISlots<1>
+{
+public:
+	virtual void gap(char (*)[1]) = 0;
+};
+class InGameUI : public Rva0045527AUISlots<67>
+{
+public:
+	virtual void slot67(Drawable *draw) = 0;
+};
+extern InGameUI *TheInGameUI;
 
 class Player
 {
@@ -210,4 +311,44 @@ void FoundationAIUpdate::rva00455374()
 Object *FoundationAIUpdate::rva00455B33()
 {
 	return TheGameLogic->findObjectByID(m_28);
+}
+
+// ?rva0045527A@FoundationAIUpdate@@AAEXW4ObjectID@@@Z @0x0045527A
+void FoundationAIUpdate::rva0045527A(ObjectID id)
+{
+	if (m_28 == id)
+		return;
+	m_28 = id;
+	if (id != INVALID_ID)
+	{
+		Drawable *draw = m_object->getDrawable();
+		if (m_object->isKindOf(54) == 0)
+		{
+			m_object->setStatus(OBJECT_STATUS_3, true);
+			if (draw)
+			{
+				draw->setSelectable(false);
+				draw->fadeOut(10);
+			}
+		}
+		else if (draw && m_object)
+		{
+			if (m_object->getControllingPlayer() == ThePlayerList->getLocalPlayer())
+			{
+				GameMessage *msg = MessageStreamSubsystem->appendMessage(0x3ED);
+				msg->appendObjectIDArgument(m_object->getID());
+				TheInGameUI->slot67(draw);
+			}
+		}
+	}
+	else if (m_object->isKindOf(54) == 0)
+	{
+		m_object->setStatus(OBJECT_STATUS_3, false);
+		Drawable *draw = m_object->getDrawable();
+		if (draw && m_object->isKindOf(54) == 0)
+		{
+			draw->setSelectable(true);
+			draw->fadeIn(30);
+		}
+	}
 }
