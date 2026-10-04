@@ -351,6 +351,7 @@ public:
 	Coord3D getPosition() const;
 	const WeaponSetFlags &getWeaponSetFlags() const;
 	Weapon *getCurrentWeapon(WeaponSlotType *wslot);
+	Bool rva002907A1();
 
 	unsigned char m_unmodelled_08[0x74 - 8];
 	UnsignedInt m_id;							// +0x74
@@ -413,6 +414,12 @@ public:
 	void prepare(void *first, void *second);
 };
 
+class Rva00263910
+{
+public:
+	void rva00265667(const Coord3D *pos, int flag);
+};
+
 class Rva0016AD50
 {
 public:
@@ -449,6 +456,7 @@ public:
 	virtual Bool bfmeCurrentWeaponTemplateFlag4() const;
 
 	void setGoalPositionClipped(const Coord3D *position, CommandSourceType commandSource);
+	void rva00267D65(const Coord3D *pos, CommandSourceType commandSource);
 
 protected:
 	virtual void privateExitInstantly(Object *objectToExit, CommandSourceType commandSource);
@@ -541,6 +549,22 @@ void AIUpdateInterface::privateMoveToObject(Object *obj, CommandSourceType comma
 	m_stateMachine->setGoalObject(obj);
 	m_lastCommandSource = commandSource;
 	m_stateMachine->setState((StateID)0x3c);
+}
+
+
+// Retail 0x00267D65 72B slot 70. Guarded by Object::rva002907A1 then clear
+// plus Rva00263910 goal helper with commandSource as flag plus blocked
+// counters plus state 0x25. Layout matches Rva00263910 at +8/+0x30.
+void AIUpdateInterface::rva00267D65(const Coord3D *pos, CommandSourceType commandSource)
+{
+	if (!m_object->rva002907A1())
+		return;
+	m_stateMachine->clear();
+	reinterpret_cast<Rva00263910 *>(this)->rva00265667(pos, (int)commandSource);
+	m_blockedFrames = 0;
+	m_bfmeByte3B8 = 0;
+	m_lastCommandSource = commandSource;
+	m_stateMachine->setState(BFME_AI_STATE_25);
 }
 
 
