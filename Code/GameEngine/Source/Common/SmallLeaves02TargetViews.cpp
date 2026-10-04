@@ -75,7 +75,6 @@ private:
 // Native: Ghidra34B predecessor170B70 endsRET4 at170B8F; complete10B
 // from170B92 throughRET170B9B, then next stack-argument body170B9C.
 // Copies word+8 through receiver pointer+8 to receiver word+14.
-// ?sync@Rva00170B92@@QAEXXZ present-unmatched
 void Rva00170B92::sync()
 {
     m_word14 = m_inner->m_word08;
