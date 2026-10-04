@@ -55668,3 +55668,4 @@ __Locale_ctype_create,,0x00022360,1316,Code/Libraries/Source/WWVegas/WWLib/stlpo
 ?rva0055ADE2@Rva0055ADE2@@QAEXPAVPlayer@@@Z,,0x0055ADE2,147,Code/GameEngine/Source/Common/Rva0055ADE2Spend.cpp,matched,player store spend gate; fcomi needs /arch:SSE
 ?rva0058ADD0@Rva0058ADD0@@QAE_NPAX_N1@Z,,0x0058ADD0,78,Code/GameEngine/Source/GameLogic/SkirmishAI/AISpecialPowers/AISPecialPower.cpp,matched,coin flip before vslot 6; AISPecialPower.cpp line 94 by retail __FILE__ literal; fcompi needs /arch:SSE
 ?rva00306C15@Rva00306C49@@QAEHPAXH@Z,,0x00306C15,45,Code/GameEngine/Source/Common/System/Rva00306C15MemoryChunkRead.cpp,matched,memory chunk stream read as slot 0 of VA 0xBEDAA8; cmovg needs /arch:SSE
+?rva005D4118@Rva005D4118@@QAEXXZ,,0x005D4118,41,Code/GameEngine/Source/Common/Rva005D40A6Dtor.cpp,matched,flash apt call via EmptyString fallback and rowed AptCall caller 0x0057A37D

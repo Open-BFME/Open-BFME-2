@@ -66,3 +66,24 @@ Rva005D40A6::~Rva005D40A6()
 	if (TheDisplayStringManager != 0 && m_24 != 0)
 		TheDisplayStringManager->freeDisplayString(m_24);
 }
+
+class Rva00222A8BTarget;
+extern Rva00222A8BTarget *TheRva00222A8BTarget;
+extern const char g_Rva0107301CEmptyString[];
+
+int __cdecl Rva00524EF4AptCall(Rva00222A8BTarget *t, void *a1, const char *a2, const char *a3);
+
+class Rva005D4118
+{
+public:
+	void rva005D4118();
+private:
+	int m_00;
+	void *m_04;
+	const char *m_08;
+};
+void Rva005D4118::rva005D4118()
+{
+	const char *s = m_08 ? m_08 + 8 : g_Rva0107301CEmptyString;
+	Rva00524EF4AptCall(TheRva00222A8BTarget, m_04, s, "Flash");
+}
