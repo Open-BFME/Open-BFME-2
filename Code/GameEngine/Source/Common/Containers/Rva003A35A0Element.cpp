@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /Ireference/shims/bfme2_ascii
+// cl: /O1 /MD /EHsc /Ireference/shims/bfme2_ascii /DWIN32 /DNDEBUG /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc/stl
 // Reference lead: Open-BFME-1 1281192f682ce6f29b8f06b7daea4b5e8fdfbb24,
 // game/GameEngine/Source/Common/Containers/Rva003A3A90.cpp. Its whole /O1
 // unit places the 214B STLport insert at target312E04, whose native calls
@@ -12,6 +12,20 @@
 // Original element/owner names and the A4 scalar types remain unknown;
 // unsigned words model the target's integer copies, not a semantic claim.
 // The donor-qualified element spelling preserves existing caller symbols.
+// stlport
+// Include only the existing BFME allocator override. Its directory root
+// also contains force-inline algorithm overrides, which change insert214.
+#define _STLP_NO_EXCEPTIONS 1
+#include <cstddef>
+#include "_alloc.h"
+#include <vector>
+// The existing retail max<unsigned int> body uses speed scheduling. Keep its
+// 17-byte COMDAT identical while the native insert family retains /O1.
+#pragma optimize("t", on)
+namespace _STL {
+template <> inline const unsigned int& max<unsigned int>(const unsigned int& a, const unsigned int& b) { return a < b ? b : a; }
+}
+#pragma optimize("", on)
 #include "ascii_string.h"
 #include <new>
 struct Coord3DBase {float x,y,z;};
@@ -43,5 +57,15 @@ void emitRva00311FE2Copy(Rva003A35A0Element* p,const Rva003A35A0Element* s)
 {
     new(p) Rva003A35A0Element(*s);
 }
-// Assignment remains present-unmatched until the second per-body commit.
+// Emit the independently verified compiler-generated memberwise assignment.
 Rva003A35A0Element& (Rva003A35A0Element::*emitRva00311537Assign)(const Rva003A35A0Element&)=&Rva003A35A0Element::operator=;
+// Native STLport4.5.3 insert214 and its overflow191 use this same184B
+// element. Actual full native call maps tie copy/assignment above to their
+// Construct45,uninitialized-copy47,fill40 and backward-copy helpers.
+template Rva003A35A0Element* _STL::vector<Rva003A35A0Element>::insert(Rva003A35A0Element*,const Rva003A35A0Element&);
+
+// Native insert312EA4/destroy8AFFD both call89851. The existing ledgered
+// 67B destructor destroys AsciiString+B0 and10Coord3D objects+2C, agreeing
+// independently with the120B native copy above. Bind that same destructor
+// ABI; its donor-carried RunwayInfo spelling does not name this target owner.
+#pragma comment(linker, "/alternatename:??1Rva003A35A0Element@@QAE@XZ=??1RunwayInfo@FlightDeckBehavior@@QAE@XZ")

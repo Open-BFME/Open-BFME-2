@@ -1,8 +1,17 @@
-// cl: -DNDEBUG -DWIN32 -MD -EHsc -D_STLP_USE_STATIC_LIB /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common/Containers
+// cl: /D_CRTIMP= /Ireference/shims/bfmealloc/stl -DNDEBUG -DWIN32 -MD -EHsc -D_STLP_USE_STATIC_LIB /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common/Containers
 // stlport
 
 #define _STLP_NO_EXCEPTIONS 1
+#include <cstddef>
+#include "_alloc.h"
 #include <vector>
+// Match the existing retail 17-byte unsigned max COMDAT without changing
+// the /O1 insert family or selecting a conflicting library definition.
+#pragma optimize("t", on)
+namespace _STL {
+template <> inline const unsigned int& max<unsigned int>(const unsigned int& a, const unsigned int& b) { return a < b ? b : a; }
+}
+#pragma optimize("", on)
 
 struct Rva003A3B50Input
 {

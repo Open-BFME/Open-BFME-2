@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -DWIN32 -MD -EHsc -D_STLP_USE_STATIC_LIB -D_STLP_NO_EXCEPTIONS /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common/Containers
+// cl: /D_CRTIMP= /Ireference/shims/bfmealloc/stl -DNDEBUG -DWIN32 -MD -EHsc -D_STLP_USE_STATIC_LIB -D_STLP_NO_EXCEPTIONS /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common/Containers
 // stlport
 
 // retail RVA 0x003A39C0. A temporary Rva003A35A0Element (the same 184-byte
@@ -9,7 +9,16 @@
 // vector at this+0x2C. No named caller, owner class or field identity is
 // available, so the owner and fields are address-derived.
 
+#include <cstddef>
+#include "_alloc.h"
 #include <vector>
+// Match the existing retail 17-byte unsigned max COMDAT without changing
+// the /O1 insert family or selecting a conflicting library definition.
+#pragma optimize("t", on)
+namespace _STL {
+template <> inline const unsigned int& max<unsigned int>(const unsigned int& a, const unsigned int& b) { return a < b ? b : a; }
+}
+#pragma optimize("", on)
 
 struct Rva003A39C0Words { int word00, word04, word08; };
 struct Rva003A35A0Element
