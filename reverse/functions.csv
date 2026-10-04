@@ -55663,3 +55663,4 @@ __Locale_ctype_create,,0x00022360,1316,Code/Libraries/Source/WWVegas/WWLib/stlpo
 ?rva00591A65@NetPacket@@QAEEPAVNetCommandRef@@@Z,,0x00591A65,182,Code/GameEngine/Source/GameNetwork/NetPacket_rva00591A65.cpp,matched,NetPacket wide-string room check with trailing 8; ZH isRoomForChatMessage shape; cmovne needs /arch:SSE
 ?Rva002AADB6Compare@@YAHPAVRva002AADB6Reader@@0H@Z,,0x002AADB6,135,Code/GameEngine/Source/Common/Rva002AADB6Compare.cpp,matched,chunked compare over two reader adaptors; cmovl needs /arch:SSE
 ?rva00421A16@Rva00421A16@@QAE_NPBM0@Z,,0x00421A16,53,Code/Libraries/Source/WWVegas/WWLib/Rva00421A16DistCompare.cpp,matched,nearer-point comparator over squared distance 0x4219F4; fcompi needs /arch:SSE
+?rva005490AE@Rva005490D2@@QBEHXZ,,0x005490AE,36,Code/GameEngine/Source/Common/Rva005490D2Sum.cpp,matched,max sibling of 0x5490D2 sum over +0x564; cmovg needs /arch:SSE
