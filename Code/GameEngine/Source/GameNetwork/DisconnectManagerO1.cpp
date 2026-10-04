@@ -36,6 +36,10 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 
+// BFME 2's NetDisconnectPlayerCommandMsg is four bytes longer than Zero
+// Hour's: the ZH declaration is renamed out of the way while the headers are
+// read and the BFME 2 layout is declared after them (see below).
+#define NetDisconnectPlayerCommandMsg NetDisconnectPlayerCommandMsgZH
 #include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
 
 // BFME de-pooled this glue: retail's per-class `operator delete(void*, MagicEnum)`
@@ -86,6 +90,34 @@ public:
 #include "GameNetwork/NetworkUtil.h"
 #include "GameNetwork/GameSpy/PingThread.h"
 #include "GameNetwork/GameSpy/GSConfig.h"
+
+#undef NetDisconnectPlayerCommandMsg
+
+// BFME 2 layout of NetDisconnectPlayerCommandMsg. Target facts:
+// sendDisconnectCommand (0x004D3D5C) allocates it with `push 0x28`; its
+// constructor (0x004D57F1) writes the command type 0x1A at +0x14, clears the
+// slot byte at +0x1C and the frame dword at +0x24; setDisconnectSlot
+// (0x0006EDE3, folded) stores a byte at +0x1C and setDisconnectFrame
+// (0x005739F6, folded) a dword at +0x24. Zero Hour packs the frame directly
+// after the slot at +0x20, so BFME 2 holds a further dword at +0x20 that none
+// of these touch; its meaning is unknown.
+class NetDisconnectPlayerCommandMsg : public NetCommandMsg
+{
+	MEMORY_POOL_GLUE_WITH_USERLOOKUP_CREATE(NetDisconnectPlayerCommandMsg, "NetDisconnectPlayerCommandMsg")
+public:
+	NetDisconnectPlayerCommandMsg();
+
+	UnsignedByte getDisconnectSlot();
+	void setDisconnectSlot(UnsignedByte slot);
+
+	UnsignedInt getDisconnectFrame();
+	void setDisconnectFrame(UnsignedInt frame);
+
+protected:
+	UnsignedByte m_disconnectSlot;		// +0x1C
+	UnsignedInt m_unknown20;			// +0x20, not touched by the constructor
+	UnsignedInt m_disconnectFrame;		// +0x24
+};
 
 // BFME adds this connection-state query; the published ZH class declaration does not expose it.
 class BFMEConnectionManager : public ConnectionManager
@@ -315,6 +347,32 @@ UnsignedInt DisconnectManager::getMaxDisconnectFrame() {
 		}
 	}
 	return retval;
+}
+
+
+void DisconnectManager::sendDisconnectCommand(Int slot, ConnectionManager *conMgr) {
+	DEBUG_LOG(("DisconnectManager::sendDisconnectCommand - Sending disconnect command for slot number %d\n", slot));
+	DEBUG_ASSERTCRASH((slot >= 0) && (slot < MAX_SLOTS), ("Attempting to send a disconnect command for an invalid slot number"));
+	if ((slot < 0) || (slot >= (MAX_SLOTS))) {
+		return;
+	}
+
+	UnsignedInt disconnectFrame = getMaxDisconnectFrame();
+
+	// Need to do the NetDisconnectPlayerCommandMsg creation and sending here.
+	NetDisconnectPlayerCommandMsg *msg = newInstance(NetDisconnectPlayerCommandMsg);
+	msg->setDisconnectSlot(slot);
+	msg->setDisconnectFrame(disconnectFrame);
+	msg->setPlayerID(conMgr->getLocalPlayerID());
+	if (DoesCommandRequireACommandID(msg->getNetCommandType())) {
+		msg->setID(GenerateNextCommandID());
+	}
+
+	conMgr->sendLocalCommand(msg);
+
+	DEBUG_LOG(("DisconnectManager::sendDisconnectCommand - Sending disconnect command for slot number %d for frame %d\n", slot, disconnectFrame));
+
+	msg->detach();
 }
 
 
