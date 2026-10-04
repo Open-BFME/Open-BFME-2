@@ -1,5 +1,5 @@
 // ?rva00106AC9@Rva00106AC9@@QAE_NPBDH_N@Z
-// cl: /Ireference/shims/bfme2_ascii /Os /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHs-c-
+// cl: /Ireference/shims/bfme2_ascii /Os /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 #include "ascii_string.h"
 
 // ?rva00106AC9@Rva00106AC9@@QAE_NPBDH_N@Z
@@ -54,6 +54,7 @@ public:
 class Rva00106AC9
 {
 public:
+	Rva00106AC9(const char *path, int mode, bool flag);
 	bool rva00106AC9(const char *path, int mode, bool flag);
 private:
 	AsciiString m_path;
@@ -111,4 +112,14 @@ bool Rva00106AC9::rva00106AC9(const char *path, int mode, bool flag)
 		}
 	}
 	return done;
+}
+
+// Native 0x00106C9E..0x00106CEC RET12 constructs the same 16-byte owner.
+// Its calls prove the StringBase(path, 1) initialization and loader binding;
+// target stores establish file=0, mode=4, size=0 before the load.
+// /EHsc preserves the native member-cleanup region on constructor failure.
+Rva00106AC9::Rva00106AC9(const char *path, int mode, bool flag)
+    : m_path(path, 1), m_file(0), m_mode(4), m_size(0)
+{
+    rva00106AC9(path, mode, flag);
 }

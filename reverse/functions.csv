@@ -55046,3 +55046,4 @@ rva007916E1_constructor_unwind,,0x007916E1,11,Code/GameEngine/Source/Common/INI/
 ?rva007B9518@@YAXXZ,,0x007B9518,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
 ?rva007B9522@@YAXXZ,,0x007B9522,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
 ?rva00106AC9@Rva00106AC9@@QAE_NPBDH_N@Z,,0x00106AC9,256,Code/GameEngine/Source/Common/Rva00106AC9Loader.cpp,matched,Native 106AC9..106BC9 RET12; file loader modes 1/2; path at0 file at4 mode at8 size at12; calls rowed filesystem and range helpers. Original owner unknown. Combined flag/probe predicate restores target ECX reload; full256 exact.
+??0Rva00106AC9@@QAE@PBDH_N@Z,,0x00106C9E,78,Code/GameEngine/Source/Common/Rva00106AC9Loader.cpp,matched,Native 106C9E..106CEC RET12; StringBase path+length1 ctor and rowed106AC9 establish owner relationship; members at4/8/12 initialized 0/4/0. Original class name unknown. Full78 bytes and constructor EH region verified.
