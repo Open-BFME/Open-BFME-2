@@ -8745,3 +8745,4 @@ _Rva0030CAF8CursorEqual,0x0007E394,twin of dup_0007e394 29B exact cursor equalit
 ??1Rva003F8E20@@UAE@XZ,0x003F8E20,"destructor the scalar deleting destructor 0x003F901B calls (REL32 at 0x003F901E; vtable 0x00C3731C#0); opaque address name"
 ??1Rva003F9D08@@UAE@XZ,0x003F9D08,"destructor the scalar deleting destructor 0x003F9DBE calls (REL32 at 0x003F9DC1; vtable 0x00C375F0#0); opaque address name"
 ??1Rva003FE58A@@UAE@XZ,0x003FE58A,"destructor the scalar deleting destructor 0x003FE5F3 calls (REL32 at 0x003FE5F6; vtable 0x00C37E48#0); opaque address name"
+?reactToTurretChange@Object@@QAEXW4WhichTurretType@@MM@Z,0x0028B141,Zero Hour Object::reactToTurretChange(turret / old rotation / old pitch): TurretAI::friend_turnTowardsAngle 0x004D8990 calls it at 0x004D8B14 when the angle changed with (m_whichTurret +0xC / the original angle / m_pitch +0x1C) all pushed as floats after the id
