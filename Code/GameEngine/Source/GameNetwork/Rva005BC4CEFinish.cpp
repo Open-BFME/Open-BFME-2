@@ -8,16 +8,20 @@
 
 extern "C" __declspec(dllimport) void *__stdcall CreateThread(void *attrs, unsigned long stack, unsigned long (__stdcall *start)(void *), void *param, unsigned long flags, unsigned long *tid);
 extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long ms);
+extern "C" __declspec(dllimport) void *__stdcall gethostbyname(const char *name);
 
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 
-extern int g_00E06584;
-extern unsigned long g_00E06580;
-extern unsigned char g_00DD3C7C;
-extern void *g_00E06578;
-extern unsigned char g_00E06575;
-extern unsigned char g_00E06576;
+// Native accesses establish these widths and addresses; the loaded retail
+// initial values are zero except the one-byte completion flag at DD3C7C.
+// Their application names follow the BFME 1 donor, not recovered target names.
+int g_00E06584;
+unsigned long g_00E06580;
+unsigned char g_00DD3C7C = 1;
+void *g_00E06578;
+unsigned char g_00E06575;
+unsigned char g_00E06576;
 
 unsigned long __stdcall Rva005BC4AEThread(void *param);
 
@@ -42,4 +46,15 @@ int __cdecl Rva005BC4CEStart(int param)
     g_00E06576 = 0;
     g_00E06578 = 0;
     return result + 1;
+}
+
+// BFME 1 MainMenuUtils.cpp at 1281192f682ce6f29b8f06b7daea4b5e8fdfbb24
+// supplies asyncGethostbynameThreadFunc's semantics. Native 005BC4CE passes
+// this callback to CreateThread; 005BC4AE's full 32-byte boundary proves the
+// stdcall argument, gethostbyname IAT BBA978, and the two one-byte flag stores.
+unsigned long __stdcall Rva005BC4AEThread(void *param)
+{
+    g_00E06575 = gethostbyname((const char *)param) != 0;
+    g_00DD3C7C = 1;
+    return 0;
 }
