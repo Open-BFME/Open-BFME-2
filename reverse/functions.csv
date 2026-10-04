@@ -35268,7 +35268,6 @@ _Rva001CA000Vp6WideAccum,,0x001CA000,4240,Code/GameEngine/Source/Common/Rva001CA
 __Addition,,0x0067BC30,146,Code/Libraries/Source/DirtySock/cryptrsa.c,matched,EA DirtySDK donor 03db25634fe8696ee060e1c01bff8fa0911fcba8; original private C body; target bytes and internal call cluster corroborate identity; see docs/reconstruction/dirtysdk-crypto.md; existing span unchanged
 ?get@Rva0008BBDDZeroGetter@@QBEHXZ,,0x0008BBDD,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
 ?get@Rva00094BEFZeroGetter@@QBEHXZ,,0x00094BEF,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
-?get@Rva0009FD8AZeroGetter@@QBEHXZ,,0x0009FD8A,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
 ?get@Rva000B19F8ZeroGetter@@QBEHXZ,,0x000B19F8,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
 ?get@Rva000B2CE2ZeroGetter@@QBEHXZ,,0x000B2CE2,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
 ?get@Rva000B3148ZeroGetter@@QBEHXZ,,0x000B3148,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
