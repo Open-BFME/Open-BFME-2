@@ -7968,3 +7968,5 @@ _CurDrawableShowModule	0x0033373B	25	partial	Retail registration335E7E pushes ex
 ?Rva00392AD7Check@@YA_NPAXPAXH@Z	0x00392AD7	469	blocked	vslot slot25 expects thiscall but body never reads ecx and takes 3 stack args with ret 0xC plus 0 callers so slot-to-method unproven plus 469B multi-loop predicate without donor method t=12 model=muse-04
 ?onDie@SpawnBehavior@@UAEXPBVDamageInfo@@@Z	0x0045F7B5	199	blocked	this-home EBX retail vs EDI mine plus cursor swapped tried EHsc- and explicit-self no flip t=12 model=muse-07 (stash 0.9 kept)
 ?rva0034BF20@Rva0034BF20@@QAE_NXZ	0x0034BF20	223	blocked	SSE float predicate weapon-road-angle needs donor and stack layout t=10 model=muse-07
+?rva004DD018@Emotion@@QAE_NHHPAURva004DD018Arg@@@Z	0x004DD018	494	partial	Emotion predicate sibling of 0x004DD2C0; frame/bonus slot reuse plus m08-m09 order and esi-ebx regalloc remain; 488B t=30 model=muse-03 score=0.89 stash=reverse/attempts/0x004dd018.cpp
+?rva0028CE7B@Object@@QAEHXZ	0x0028CE7B	84	partial	pool-0x19 plus template-5FA-5FC and bit22; esi-edi mirror plus push-ebx-vs-0 and test-mem-vs-shr remain; 81B t=22 model=muse-03 score=0.91 stash=reverse/attempts/0x0028ce7b.cpp
