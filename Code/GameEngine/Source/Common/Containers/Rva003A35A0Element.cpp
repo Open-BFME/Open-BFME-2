@@ -44,5 +44,4 @@ void emitRva00311FE2Copy(Rva003A35A0Element* p,const Rva003A35A0Element* s)
     new(p) Rva003A35A0Element(*s);
 }
 // Assignment remains present-unmatched until the second per-body commit.
-// ??4Rva003A35A0Element@@QAEAAU0@ABU0@@Z present-unmatched
 Rva003A35A0Element& (Rva003A35A0Element::*emitRva00311537Assign)(const Rva003A35A0Element&)=&Rva003A35A0Element::operator=;
