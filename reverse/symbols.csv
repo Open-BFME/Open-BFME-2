@@ -8310,3 +8310,5 @@ _Rva0030CAF8CursorEqual,0x0007E394,twin of dup_0007e394 29B exact cursor equalit
 ?bfmeTwoGE@BfmeThingGE@@QAEXPAUBfmeSubGE@@PAH1@Z,0x003B84C9,callee of ?bfmeGoGE@BfmeThingGE@@QAEXPAUBfmeSubGE@@@Z at retail 0x003B897C read from its REL32 displacement; second member helper on the +8 fields; body unrowed
 ?checkValid@BfmeItemE63@@QAE_NXZ,0x00397B89,callee of ?isValid@BfmeThingE63@@QAE_NXZ at retail 0x00453124 read from its REL32 displacement; member predicate on the item returned at +0x14/+0x24; body unrowed
 ?bfmeFindItemE63@@YAPAUBfmeItemE63@@H@Z,0x00395708,callee of ?isValid@BfmeThingE63@@QAE_NXZ at retail 0x00453124 read from its REL32 displacement; ICF alias onto ?rva000395708@CastleBehavior@@SAPAVModule@@PAVObject@@@Z (matched)
+?bfmeHas985C@BfmeArg985@@QAEDH@Z,0x002940B9,callee of ?bfmeGo985C@BfmeC985@@QAEDPAVBfmeArg985@@@Z at retail 0x00261130 read from its REL32 displacement; member predicate on the arg object; body unrowed
+?bfmeBlocked985C@BfmeArg985@@QAEDH@Z,0x00290D2B,callee of ?bfmeGo985C@BfmeC985@@QAEDPAVBfmeArg985@@@Z at retail 0x00261130 read from its REL32 displacement; ICF alias onto ?rva00290D2B@Object@@QBE_NPBVUpgradeTemplate@@@Z (matched)
