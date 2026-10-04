@@ -37,3 +37,17 @@ void d_00891fa0(void)
     record.kind = 3;
     Rva00891FA0SendRecord(&record, 5);
 }
+
+// BFME1 lead: 6583b3c1ff21db4a561285717028fdafc780b7db,
+// game/GameEngine/Source/Common/Rva00891FA0Diagnostics.cpp,
+// Rva00892150SetReady; the original target name remains unproven.
+// Native 0x006CD010 reads one stack word, stores it to the same Ready cell
+// used by the rowed diagnostics consumer, and zeroes that consumer's Value
+// cell. The complete 20-byte entry follows RET/padding and ends with RET.
+// No entry references were found. int/cdecl here is a word-transport view;
+// original formal count, parameter type and ABI spelling remain unknown.
+void rva006CD010SetDiagnosticWord(int word)
+{
+    g_rva00891FA0Ready = word;
+    g_rva00891FA0Value = 0;
+}
