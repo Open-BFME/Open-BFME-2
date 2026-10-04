@@ -485,3 +485,63 @@ WindowMsgHandledType Rva000A26DFWindow::input(UnsignedInt msg, WindowMsgData mDa
 {
 	return Rva00324E92Input(this, msg, mData1, mData2);
 }
+
+// Image variants that keep their text sibling's input and system slots and
+// override only the draw (vtables 0x00BC8CD8, 0x00BC9020 and 0x00BC90D0/
+// 0x00BC90A4, slot 3), so they are modelled as subclasses of those classes.
+void W3DGadgetStaticTextImageDraw(GameWindow *window, WinInstanceData *instData);
+void W3DGadgetComboBoxImageDraw(GameWindow *window, WinInstanceData *instData);
+void W3DGadgetListBoxImageDraw(GameWindow *window, WinInstanceData *instData);
+
+class Rva000A0C54Window : public Rva000A0C42Window
+{
+public:
+	virtual Int draw(WinInstanceData *instData);
+};
+
+Int Rva000A0C54Window::draw(WinInstanceData *instData)
+{
+	W3DGadgetStaticTextImageDraw(this, instData);
+	return 1;
+}
+
+class Rva000A261CWindow : public Rva000A260AWindow
+{
+public:
+	virtual Int draw(WinInstanceData *instData);
+};
+
+Int Rva000A261CWindow::draw(WinInstanceData *instData)
+{
+	W3DGadgetComboBoxImageDraw(this, instData);
+	return 1;
+}
+
+class Rva000A3143Window : public Rva000A26DFWindow
+{
+public:
+	virtual Int draw(WinInstanceData *instData);
+};
+
+Int Rva000A3143Window::draw(WinInstanceData *instData)
+{
+	W3DGadgetListBoxImageDraw(this, instData);
+	return 1;
+}
+
+// Slot 5 of the push-button tables 0x00BC9204, 0x00BC9230 and 0x00BC7DC8
+// (0x000A495E): hands the window to 0x00328700 and answers 1 instead of
+// calling the +0x1F0 callback. Modelled on the class of the first two.
+int Rva00328700(GameWindow *window);
+
+class Rva000A495EWindow : public Rva000A6007Window
+{
+public:
+	virtual Int rva0009FD78();
+};
+
+Int Rva000A495EWindow::rva0009FD78()
+{
+	Rva00328700(this);
+	return 1;
+}
