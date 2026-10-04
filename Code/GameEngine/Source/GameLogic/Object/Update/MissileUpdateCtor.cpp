@@ -61,7 +61,7 @@ class Thing
 {
 public:
 	unsigned char m_pad[0xCC];
-	int m_unkCC; // +0xCC
+	float m_unkCC; // +0xCC
 	unsigned char m_padD0[8]; // +0xD0..+0xD7
 	unsigned char m_D8; // +0xD8
 };
@@ -129,6 +129,7 @@ public:
 	void Rva004A75A3Init();
 	void rva004A7580();
 	void rva004A7AF6();
+	void rva004A7A86(int);
 
 private:
 	int m_88; // +0x88
@@ -136,7 +137,7 @@ private:
 	int m_90; // +0x90
 	int m_94; // +0x94
 	int m_98; // +0x98
-	int m_9C; // +0x9C (Thing+0xCC)
+	float m_9C; // +0x9C (Thing+0xCC)
 	Coord3D m_velA; // +0xA0
 	TriInt m_flight; // +0xAC (ModuleData+0x38 block)
 	Coord3D m_velB; // +0xB8
@@ -221,4 +222,27 @@ void MissileUpdate::rva004A7AF6()
 		if (TheGameLogic->findObjectByID((ObjectID)m_94) == 0)
 			Rva004A75A3Init();
 	}
+}
+void MissileUpdate::rva004A7A86(int)
+{
+	unsigned int curFrame = TheGameLogic->getFrame();
+	if (curFrame >= (unsigned int)m_98)
+	{
+		if (m_thing->m_D8 != 0)
+		{
+			rva004A7580();
+			return;
+		}
+		Rva004A7512Clear();
+	}
+	if (m_9C <= 0.0f)
+	{
+		Rva004A7530Set(4);
+		m_CC = 1;
+	}
+	if (m_CC == 0)
+		return;
+	if (TheGameLogic->findObjectByID((ObjectID)m_94) != 0)
+		return;
+	Rva004A75A3Init();
 }
