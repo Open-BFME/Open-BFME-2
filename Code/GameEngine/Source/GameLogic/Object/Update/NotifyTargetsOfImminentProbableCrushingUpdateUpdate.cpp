@@ -17,7 +17,7 @@ enum UpdateSleepTime
 class Rva004CE700Notifier
 {
 public:
-	void rva004CE700(Object *obj, const int *rate, UpdateSleepTime *sleep);
+	bool rva004CE700(Object *obj, const int *rate, UpdateSleepTime *sleep);
 };
 struct NotifyTargetsOfImminentProbableCrushingUpdateModuleData
 {
