@@ -1,5 +1,3 @@
-// ?rva003E6A2B@ScriptConditions@@IAE_NPAVParameter@@0@Z
-// partial score=0.9 date=2026-10-04
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /GX /arch:SSE /G7
 // ?rva003E6A2B@ScriptConditions@@IAE_NPAVParameter@@0@Z @0x003E6A2B 126B
 // Chain via 0x0028D2A2; neighbours Rva003E6835 and evaluateTeamOwnedByPlayer.
@@ -45,7 +43,6 @@ class ScriptConditions
 protected:
 	bool rva003E6A2B(Parameter *pUnitParm, Parameter *pPlayerParm);
 };
-// ?rva003E6A2B@ScriptConditions@@IAE_NPAVParameter@@0@Z present-unmatched
 bool ScriptConditions::rva003E6A2B(Parameter *pUnitParm, Parameter *pPlayerParm)
 {
 	Object *obj = g_Va009FE16C->getUnitNamed(pUnitParm);
@@ -53,17 +50,14 @@ bool ScriptConditions::rva003E6A2B(Parameter *pUnitParm, Parameter *pPlayerParm)
 		return false;
 	if ((obj->m_1C8 & 8) != 0)
 		return false;
-	Player *player = 0;
 	int mask = g_Va009FE16C->rva00357B82(pPlayerParm);
-	if (!mask)
-		return false;
-	do {
-		player = ThePlayerList->getEachPlayerFromMask(mask);
+	while (mask) {
+		Player *player = ThePlayerList->getEachPlayerFromMask(mask);
 		if (!obj->rva002943B2(player)) {
 			CellShroudStatus status = obj->getShroudStatusForPlayer(player->m_54);
 			if (status == CELLSHROUD_FOGGED || status == CELLSHROUD_SHROUDED)
 				return true;
 		}
-	} while (mask);
+	}
 	return false;
 }
