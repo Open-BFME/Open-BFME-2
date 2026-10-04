@@ -13,6 +13,7 @@ class Rva009A2960
 {
 public:
 	void markState();
+    void markState3();
 };
 
 struct Rva009A29A0Window;
@@ -72,4 +73,20 @@ private:
 void Rva00758240::rva00758240(Rva009A36F0Param *param)
 {
 	return m_ptr->apply(param);
+}
+
+// Whole clean BF1 UnclaimedMemberTailForwarders.cpp supplies the pattern;
+// donor revision6583b3c1ff21db4a561285717028fdafc780b7db.
+// Native758220 uses owner+10 (BF1 counterpart owner+C); original owner identity
+// is unproven. Complete8B boundary ends758228 before8CC; target758920 is the
+// independently verified state3 update. No entry xrefs were observed.
+class Rva00758220 {
+public:
+    void rva00758220();
+private:
+    char m_pad[0x10];
+    Rva009A2960 *m_ptr;
+};
+void Rva00758220::rva00758220() {
+    return m_ptr->markState3();
 }
