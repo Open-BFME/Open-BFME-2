@@ -53212,3 +53212,6 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ?rva0045B4E2@BezierProjectileBehavior@@UAEXH@Z,,0x0045B4E2,15,Code/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehaviorSlots.cpp,matched,BezierProjectileBehavior interface slot (vtables 0x00C41DE0 +0x20 / 0x00C41DC8 +0x24; see source header)
 ?rva0045BF06@BezierProjectileBehavior@@W3AE_NPAVObject@@@Z,,0x0045C01E,8,Code/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehaviorDtor.cpp,matched,this-4 adjustor thunk in slot 1 of the +0x24 vtable 0x00C41DC8 to +0x20 slot 4 0x0045BF06
 ?rva0045BF06@BezierProjectileBehavior@@UAE_NPAVObject@@@Z,,0x0045BF06,104,Code/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehaviorSlots.cpp,matched,BezierProjectileBehavior interface slot (vtables 0x00C41DE0 +0x20 / 0x00C41DC8 +0x24; see source header)
+??_EPlayer@@W7AEPAXI@Z,,0x002B1182,8,Code/GameEngine/Source/Common/RTS/PlayerDeleter.cpp,matched,this-adjusting (-0x8) deleting-dtor thunk to ??_GPlayer 0x002B14CF
+??_ETeam@@O3AEPAXI@Z,,0x003A370F,8,Code/GameEngine/Source/Common/RTS/TeamDeleter.cpp,matched,this-adjusting (-0x4) deleting-dtor thunk to ??_GTeam 0x003A38CD
+??_ETerrainLogic@@W3AEPAXI@Z,,0x00284182,8,Code/GameEngine/Source/GameLogic/Map/TerrainLogicDeleter.cpp,matched,this-adjusting (-0x4) deleting-dtor thunk to ??_GTerrainLogic 0x00285177

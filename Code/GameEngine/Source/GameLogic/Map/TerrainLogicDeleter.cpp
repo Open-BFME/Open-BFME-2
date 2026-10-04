@@ -15,7 +15,22 @@
 
 struct EmitVtableTag;
 
-class TerrainLogic
+// The this-adjusting deleting-destructor thunk (sub ecx, 0x4) in the
+// secondary vtable proves a second base with a virtual destructor at +0x4;
+// these two bases model only that.
+class TerrainLogicBase0
+{
+public:
+	virtual ~TerrainLogicBase0();
+};
+
+class TerrainLogicBase4
+{
+public:
+	virtual ~TerrainLogicBase4();
+};
+
+class TerrainLogic : public TerrainLogicBase0, public TerrainLogicBase4
 {
 public:
 	TerrainLogic(EmitVtableTag *);

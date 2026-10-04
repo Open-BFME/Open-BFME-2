@@ -16,7 +16,22 @@
 
 struct EmitVtableTag;
 
-class Team
+// The this-adjusting deleting-destructor thunk (sub ecx, 0x4) in the
+// secondary vtable proves a second base with a virtual destructor at +0x4;
+// these two bases model only that.
+class TeamBase0
+{
+public:
+	virtual ~TeamBase0();
+};
+
+class TeamBase4
+{
+public:
+	virtual ~TeamBase4();
+};
+
+class Team : public TeamBase0, public TeamBase4
 {
 public:
 	Team(EmitVtableTag *);
