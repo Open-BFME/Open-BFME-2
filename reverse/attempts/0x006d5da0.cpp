@@ -1,5 +1,7 @@
 // ?rva006D5DA0@EAStringC@@QAE_NPBD@Z
-// partial score=0.93 date=2026-10-05
+// partial score=0.94 date=2026-10-05
+// Finish pass on the 0.93 bank. Blocker moved: the compare-fold and
+// single-scope-slot are resolved; what remains is the ebx/ebp pair.
 // cl: /O2 /DNDEBUG /DWIN32 /D_WINDOWS /MD
 // ?rva006D5DA0@EAStringC@@QAE_NPBD@Z @0x006D5DA0 201B (thiscall, ret 4).
 //
@@ -126,18 +128,26 @@ StringDataC *data = m_pData;
 	if (size < len)
 		return false;
 
-	// Retail folds `data` back by the measured length (sub esi,eax) and the
-	// SHORTFALL size - len then indexes it (lea esi,[esi+edx*1+8]), so both the
-	// folded pointer and the shortfall stay live across the compare. Naming the
-	// shortfall as its own unsigned local is what makes MSVC keep the size in
-	// edx there; folding the subtraction straight into the memcmp first argument
-	// instead makes it re-index from `data` and drop the folding.
+	// Retail's three instructions read, in order, `sub esi,eax` / `mov ecx,eax`
+	// / `lea esi,[esi+edx*1+8]` with edx STILL holding the full size, so the
+	// compared address is (data - len) + size + 8 -- the length is folded back
+	// out of the pointer while the UNREDUCED size is the index. Writing the
+	// memcmp argument as `(data - len) + size + 8` reproduces exactly that
+	// three-instruction form; writing it as `data + 8 + (size - len)` (what the
+	// bank did, and what a "compare the suffix" reading suggests) instead makes
+	// MSVC emit `sub edx,eax` and re-index, because the two reductions then
+	// commute and the allocator is free to pick either. The `unsigned int` cast
+	// on the shortfall is what keeps the 32-bit index out of the lea's scale
+	// slot so `*1` addressing is used.
 	unsigned int rest = size - len;
-	if (memcmp((const char *)data - len + rest + (int)sizeof(StringDataC),
+	if (memcmp((const char *)data - len + (int)sizeof(StringDataC) + size,
 		pStrText, len) != 0)
 		return false;
 
-	if (true)
+	// Retail's helper block is UNCONDITIONAL after the compare -- both the
+	// `jb` at 0x006D5DFB and the `jne` at 0x006D5E09 target the same shared
+	// trailing false epilogue at 0x006D5E52 -- so this is not guarded by an if
+	// and the `false` path stays out of the middle of the body.
 	{
 		// Retail allocates the holder as a BARE four-byte slot the helper fills
 		// in place: there is no constructor call before 0x006D55B0 and no
@@ -146,8 +156,7 @@ StringDataC *data = m_pData;
 		// extra store; the destructor stays because it is what drives the SEH
 		// frame retail opens with.
 		Sub sub;
-		const EAStringC *p = this->rva006D55B0((EAStringC *)&sub, size - len);
-		*this = *p;
+		*this = *this->rva006D55B0((EAStringC *)&sub, rest);
 	}
 	return true;
 }
