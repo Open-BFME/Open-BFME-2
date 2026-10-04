@@ -8,7 +8,6 @@ class Parameter
 {
 public:
     const AsciiString &getString() const { return m_string; }
-    int getInt() const { return m_int; }
     unsigned char m_beforeInt[8]; int m_int; float m_real; AsciiString m_string;
     unsigned char m_afterString[8];
 };
@@ -28,7 +27,7 @@ bool ScriptConditions::evaluateTeamInsideAreaPartially(Parameter *teamParm, Para
     Team *team = TheScriptEngine->getTeamNamed(teamParm->getString(), false);
     PolygonTrigger *trigger = TheScriptEngine->getQualifiedTriggerAreaByName(triggerParm->getString());
     if (trigger == 0) return false;
-    if (team) return (team->someInsideSomeOutside(trigger, (unsigned int)typeParm->getInt()) ||
-                      team->allInside(trigger, (unsigned int)typeParm->getInt()));
+    if (team) return (team->someInsideSomeOutside(trigger, (unsigned int)typeParm->m_int) ||
+                      team->allInside(trigger, (unsigned int)typeParm->m_int));
     return false;
 }
