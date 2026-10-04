@@ -32882,7 +32882,7 @@ uw_007a9aa0,,0x007A9AA0,8,Code/gen_small/uw_gen_006.cpp,matched,gen-funclet;obje
 uw_007a9ae0,,0x007A9AE0,8,Code/gen_small/uw_gen_008.cpp,matched,gen-funclet;object-symbol=$L2992
 uw_007a9ae8,,0x007A9AE8,8,Code/gen_small/uw_gen_008.cpp,matched,gen-funclet;object-symbol=$L2994
 uw_007a9b1e,,0x007A9B1E,8,Code/gen_small/uw_gen_008.cpp,matched,gen-funclet;object-symbol=$L2994
-uw_007a9bf0,,0x007A9BF0,8,Code/gen_small/uw_gen_014.cpp,matched,gen-funclet;object-symbol=$L5408
+uw_007a9bf0,,0x007A9BF0,8,Code/GameEngine/Source/Common/Rva006F1E70Cluster.cpp,matched,gen-funclet;object-symbol=$L419;parent=??0Rva006F1E70@@QAE@PAVBfmeAptValue006DCD20@@@Z;unwind state 0 of FuncInfo 0x0096348C read from the parent prolog handler stub; emitted by the parent C++ in this TU
 uw_007a9c10,,0x007A9C10,8,Code/gen_small/uw_gen_008.cpp,matched,gen-funclet;object-symbol=$L2993
 uw_007a9c88,,0x007A9C88,8,Code/gen_small/uw_gen_014.cpp,matched,gen-funclet;object-symbol=$L5388
 uw_007a9d20,,0x007A9D20,8,Code/gen_small/uw_gen_006.cpp,matched,gen-funclet;object-symbol=$L3638
@@ -32906,8 +32906,8 @@ uw_007aa1e0,,0x007AA1E0,8,Code/gen_small/uw_gen_014.cpp,matched,gen-funclet;obje
 uw_007aa200,,0x007AA200,8,Code/gen_small/uw_gen_008.cpp,matched,gen-funclet;object-symbol=$L2994
 uw_007aa208,,0x007AA208,8,Code/gen_small/uw_gen_014.cpp,matched,gen-funclet;object-symbol=$L5344
 uw_007aa258,,0x007AA258,8,Code/gen_small/uw_gen_014.cpp,matched,gen-funclet;object-symbol=$L5388
-uw_007aa298,,0x007AA298,8,Code/gen_small/uw_gen_014.cpp,matched,gen-funclet;object-symbol=$L5388
-uw_007aa2a0,,0x007AA2A0,11,Code/gen_small/uw_gen_014.cpp,matched,gen-funclet;object-symbol=$L5348
+uw_007aa298,,0x007AA298,8,Code/Libraries/Source/Apt/Rva006FC1D0Ctor.cpp,matched,gen-funclet;object-symbol=$L478;parent=??0Rva006FC240@@QAE@XZ;unwind state 1 of FuncInfo 0x00963A58 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_007aa2a0,,0x007AA2A0,11,Code/Libraries/Source/Apt/Rva006FC1D0Ctor.cpp,matched,gen-funclet;object-symbol=$L479;parent=??0Rva006FC240@@QAE@XZ;unwind state 2 of FuncInfo 0x00963A58 read from the parent prolog handler stub; emitted by the parent C++ in this TU
 uw_007aa2c0,,0x007AA2C0,8,Code/gen_small/uw_gen_008.cpp,matched,gen-funclet;object-symbol=$L2994
 uw_007aa2d0,,0x007AA2D0,8,Code/gen_small/uw_gen_014.cpp,matched,gen-funclet;object-symbol=$L5388
 uw_007aa2d8,,0x007AA2D8,11,Code/gen_small/uw_gen_014.cpp,matched,gen-funclet;object-symbol=$L5348
@@ -33205,8 +33205,8 @@ uw_007ab6e8,,0x007AB6E8,11,Code/GameEngine/Source/Common/System/CollisionManager
 uw_007ab6f3,,0x007AB6F3,11,Code/GameEngine/Source/Common/System/CollisionManagerConstructor.cpp,matched,gen-funclet;object-symbol=$L393;parent=??0CollisionManager@@QAE@XZ;unwind state 2 of FuncInfo 0x0096506C read from the parent prolog handler stub; emitted by the parent C++ in this TU
 uw_007ab710,,0x007AB710,8,Code/GameEngine/Source/GameClient/Open2Twins006.cpp,matched,gen-funclet;object-symbol=$L6074;parent=??1Open2Store9A2680@@UAE@XZ;unwind state 0 of FuncInfo 0x00965098 read from the parent prolog handler stub; emitted by the parent C++ in this TU
 uw_007ab770,,0x007AB770,8,Code/gen_small/uw_gen_010.cpp,matched,gen-funclet;object-symbol=$L5836
-uw_007ab790,,0x007AB790,11,Code/gen_small/uw_gen_014.cpp,matched,gen-funclet;object-symbol=$L5478
-uw_007ab79b,,0x007AB79B,14,Code/gen_small/uw_gen_014.cpp,matched,gen-funclet;object-symbol=$L5488
+uw_007ab790,,0x007AB790,11,Code/GameEngine/Source/Common/System/Rva009A4620Destructor.cpp,matched,gen-funclet;object-symbol=$L401;parent=??1Rva009A4620CollisionData@@QAE@XZ;unwind state 0 of FuncInfo 0x0096510C read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_007ab79b,,0x007AB79B,14,Code/GameEngine/Source/Common/System/Rva009A4620Destructor.cpp,matched,gen-funclet;object-symbol=$L402;parent=??1Rva009A4620CollisionData@@QAE@XZ;unwind state 1 of FuncInfo 0x0096510C read from the parent prolog handler stub; emitted by the parent C++ in this TU
 uw_007ab7d2,,0x007AB7D2,8,Code/gen_small/uw_gen_006.cpp,matched,gen-funclet;object-symbol=$L3510
 ??0CitadelSlaughterHordeContainModuleData@@QAE@XZ,,0x0048112F,155,Code/GameEngine/Source/GameLogic/Object/Contain/CitadelSlaughterHordeContainModuleDataCtor.cpp,matched,
 ??0OCLSpecialPowerModuleData@@QAE@XZ,,0x004C32BC,169,Code/GameEngine/Source/GameLogic/Object/SpecialPower/OCLSpecialPowerModuleDataCtor.cpp,matched,
