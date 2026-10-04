@@ -7723,3 +7723,4 @@ FUN_007b7836	0x003B7836	260	blocked	no callers prove 3-arg free-function types p
 ?rva004EA1A5@Rva004EA1A5@@QAEXPAX@Z	0x004EA1A5	191	partial	exact size 191B only ebx-edi swap for obj-vs-this plus globals t=25 model=muse-08 score=0.95 stash=reverse/attempts/0x004ea1a5.cpp
 ?rva004EAFBD@Rva004EAFBD@@QAEXPAUVector3@@@Z	0x004EAFBD	213	blocked	x87 SSE virtual slot 0x34 plus random string plus global float needs donor t=15 model=muse-08
 ?rva004EA046@Rva004EA046@@QAE_NPAH@Z	0x004EA046	222	blocked	x87 unsigned float plus pointer-chase plus branch polarities need donor t=20 model=muse-08
+?rva0043DC40@Rva0043DC40@@QAEXH@Z	0x0043DC40	53	blocked	O1 inc plus address-cache lea eax vs retail lea esi direct stores plus O2 epilogue dup 58B plus hoisted-next 2-push 49B t=20 model=muse-06

@@ -53,6 +53,7 @@ class Rva0043DFE0
 public:
 	bool rva0043DFE0(int index);
 	void rva0043DBA3();
+	bool rva0043DBCA();
 private:
 	char m_pad0[0x58];
 	Rva0043DF58 *m_target;
@@ -91,4 +92,11 @@ void Rva0043DFE0::rva0043DBA3()
 	Rva00511730(0);
 	m_target->v16(1);
 	m_2c4 = true;
+}
+
+// ?rva0043DBCA@Rva0043DFE0@@QAE_NXZ @0x0043DBCA 22B
+// Evidence: leaf flags +0x2C3 +0x2C4 caller 0x0059EF4C prev 0x0043DBA3 next 0x0043DBE0.
+bool Rva0043DFE0::rva0043DBCA()
+{
+	return m_2c4 || m_flag;
 }
