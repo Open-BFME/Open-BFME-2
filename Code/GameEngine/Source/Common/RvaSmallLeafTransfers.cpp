@@ -322,3 +322,23 @@ int Rva00665A30::increment()
 {
 	return ++m_c;
 }
+
+// BF1 donor revision 775a0370b7, game/GameEngine/Source/Common/Rva007F90B0.cpp.
+// Whole donor TU compiled; its independent first-word getter has no unique
+// target placement. This unit adds only the supported copy body.
+// Target-native ABI view only: ECX receiver, one four-byte stack argument,
+// reads the other word at +4, writes only receiver +4, returns receiver,
+// and pops 4 bytes. Original class/prototype and complete layout are unknown.
+class Rva00665660
+{
+public:
+    Rva00665660 *copyWord4(const Rva00665660 *other);
+private:
+    char m_unmodelled0[4];
+    unsigned int m_word4;
+};
+Rva00665660 *Rva00665660::copyWord4(const Rva00665660 *other)
+{
+    m_word4 = other->m_word4;
+    return this;
+}
