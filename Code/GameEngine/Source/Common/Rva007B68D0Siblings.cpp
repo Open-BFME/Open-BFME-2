@@ -39,6 +39,7 @@ template <class _CharT, class _Traits>
 class basic_ios
 {
 public:
+	basic_ios();
 	virtual ~basic_ios();
 };
 
