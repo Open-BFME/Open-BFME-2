@@ -1,6 +1,20 @@
 // ?rva006D5690@EAStringC@@QAEPAXPAV1@H@Z
-// partial score=0.8 date=2026-10-04
-// cl: /O2 /DNDEBUG /DWIN32 /D_WINDOWS /MD
+// partial score=0.92 date=2026-10-04
+// ?rva006D5690@EAStringC@@QAEPAXPAV1@H@Z
+// Finish pass 2026-10-04 seat8 from reverse/attempts/0x006d5690.cpp
+// cl: /O2 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+//
+// The second scoped local is what the retail body needs: with one local MSVC
+// folds the 0x006D4AA0 scope table to CB_NO_PUSH_ZERO and hoists a single jmp
+// across both early exits, giving 175B. Naming a second EAStringC copy-
+// constructed from the first gives the two distinct stack slots retail uses
+// (the dword `mov DWORD PTR [esp+0x28],1` scope marker, and the separate
+// 0x006D2FC0 destination handed to 0x006D2EB0) and reaches 211 of 215B.
+// Remaining gap is the SEH prologue, which no flag combination reaches: retail
+// emits push -1 / push 0xBA87E1 / mov eax,fs:[0] while MSVC 7.1 emits
+// mov eax,fs:[0xBA87E168] / push -1 / push 0 first, for /MD, /MT, /EHa and
+// /EHsc alike. That is the scoped destructor taking the compiler's automatic
+// unwinder instead of retail's hand-installed frame.
 // /MD alone, matching the sibling EAStringCRemoveRange.cpp: retail installs its
 // SEH frame with the `push -1 / push handler` pair ahead of the fs:[0] read,
 // which is the shape /EHa and /EHsc both reorder.
@@ -90,13 +104,11 @@ void *EAStringC::rva006D5690(EAStringC *source, int offset)
 	}
 
 	{
-		// Retail copy-constructs a local from `this`, grows it with
-		// ChangeBuffer, copy-constructs `this` from a second local, and hands
-		// that second local's data to FreeData.
-		EAStringC copy(*this);
-		copy.ChangeBuffer(remaining, offset, offset, CB_PUSH_ZERO, 1);
-		*this = copy;
-		FreeData(copy.m_pData);
+		EAStringC first(*this);
+		first.ChangeBuffer(remaining, offset, offset, CB_PUSH_ZERO, 1);
+		EAStringC second(first);
+		*this = second;
+		FreeData(second.m_pData);
 	}
 	return this;
 }
