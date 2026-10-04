@@ -7751,3 +7751,5 @@ FUN_007b7836	0x003B7836	260	blocked	no callers prove 3-arg free-function types p
 ?Rva0045D7E0Notify@@YAXPAXHH@Z	0x0045D7E0	121	partial	frame slot reuse [ebp+8] vs [ebp-4] missing push ecx leave-vs-pop t=22 model=muse-01 score=0.98 stash=reverse/attempts/0x0045d7e0.cpp
 ?Rva0045D636Get@@YAXMMMMPAX@Z	0x0045D636	426	blocked	SSE-x87 sin-cos-thunk ABI no precedent need SlowDeathBehavior donor t=12 model=muse-01
 ?rva004C4582@Rva004C4582@@QAEXXZ	0x004C4582	77	partial	register swap this-holder ebx-edi ebp matches t=25 model=muse-01 score=0.93 stash=reverse/attempts/0x004c4582.cpp
+?Rva00332613Loop@@YAXPAUS4SortElem12@@00HUS4Cmp002E1690@@@Z	0x00332613	136	blocked	needs S4 median identity: row 0x331716 is int median but body needs S4 median plus Tp null plus accumulation; introsort donor is 259B vs 136B t=10 model=muse-07
+?rva004A0547@QueueProductionExitUpdate@@QAEXXZ	0x004A0547	297	partial	coord copy via integer movs vs retail movss plus g_ immediates; size 296 vs 297 branches match t=20 model=muse-07 score=0.98 stash=reverse/attempts/0x004a0547.cpp
