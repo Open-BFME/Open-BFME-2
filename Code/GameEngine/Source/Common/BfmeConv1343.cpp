@@ -38,3 +38,7 @@ void BfmeThingUUA::bfmeGoUUA()
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
 #pragma comment(linker, "/alternatename:??1Gen008030A0@@UAE@XZ=?bfmeGoUUA@BfmeThingUUA@@QAEXXZ")
+// The vtable this body installs is Gen008030A0's (same 0x14-byte class; the
+// dtor binding above names it). Y2ScalarDeleters emits that vtable; bind this
+// unit's invented global spelling to it so the reference links.
+#pragma comment(linker, "/alternatename:?g_bfmeVftUUA@@3PAPAXA=??_7Gen008030A0@@6B@")
