@@ -566,7 +566,8 @@ typename TAG::TemplateType *ConcreteModuleClass<TAG>::createTemplate(INI *ini) c
 // The emission-volume wrappers' INI createTemplate (0x003AB3D5 and the four
 // FX_WRAPPER_NOTHROW_CTOR ones after it) open no unwind state around the new
 // and the wrapper constructor call - only around parse - which is what VC7.1
-// emits when the constructor is declared not to throw.
+// emits when the constructor is declared not to throw. The throw() is chosen
+// to reproduce that codegen; no reference source shows it.
 #define FX_WRAPPER_NOTHROW_CTOR(CATEGORY, KEY, MOD, TMPL)                                                      \
     extern const char *const KEY##_MODULE_KEY;                                                    \
     extern const char *const KEY##_MODULE_NAME;                                                   \
