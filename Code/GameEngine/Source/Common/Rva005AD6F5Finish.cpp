@@ -1,5 +1,5 @@
 // ?rva005AD6F5@Rva005AD6C3@@QAEXXZ
-// partial score=0.94 date=2026-10-04
+// Finish pass 2026-10-04 seat6 from reverse/attempts/0x005ad6f5.cpp
 // cl: /O1 /MD /GX /DNDEBUG /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 //
@@ -189,7 +189,8 @@ void Rva005AD6C3::rva005AD6F5()
 	if (!ship->m_ai->isIdle())
 		return;
 	Player *player = (Player *)g_00DFEEF8->rva002A8AB1(ship->getControllingPlayer())->rva002C6ACB();
-	Rva005C4AD1LeaField *units = ((Rva005AD6C3Holder *)g_00DFEEF8->rva002A8F24(player))->m_08;
+	Rva005AD6C3Holder *holder = (Rva005AD6C3Holder *)g_00DFEEF8->rva002A8F24(player);
+	Rva005C4AD1LeaField *units = holder->m_08;
 	bool attacked = false;
 	unsigned int count = ((IntMap *)units)->bucket_count();
 	if (count > 0) {
@@ -212,37 +213,5 @@ void Rva005AD6C3::rva005AD6F5()
 			ship->m_ai->m_commands.rva003C7653(obj, CMD_FROM_PLAYER);
 			return;
 		}
-	}
-}
-
-void Rva005AD6C3::update()
-{
-	GameLogic *logic = TheGameLogic;
-	Object *ship = logic->findObjectByID((ObjectID)m_field04);
-	if (!ship)
-		return;
-	if (m_field08) {
-		Object *target = logic->findObjectByID((ObjectID)m_field08);
-		if (target) {
-			if (logic->m_frame == (unsigned int)m_field0C) {
-				ship->m_ai->m_commands.rva003C7653(target, CMD_FROM_PLAYER);
-				m_field0C = TheGameLogic->m_frame + 25;
-			}
-		} else {
-			m_field08 = 0;
-		}
-		return;
-	}
-	Player *player = (Player *)g_00DFEEF8->rva002A8AB1(ship->getControllingPlayer())->rva002C6ACB();
-	if (!player)
-		return;
-	_STL::vector<ObjectID> targets(*(const _STL::vector<ObjectID> *)((Rva005AD6C3Holder *)g_00DFEEF8->rva002A8F24(player))->m_04->get());
-	if (!targets.empty()) {
-		m_field08 = targets[GetGameLogicRandomValue(0, targets.size() - 1,
-			"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\SkirmishAI\\AITacticalAI\\AITacticalNavy\\AINavyUnitBattleShip.cpp",
-			65)];
-		ship->m_ai->m_commands.rva003C7653(TheGameLogic->findObjectByID((ObjectID)m_field08), CMD_FROM_PLAYER);
-	} else {
-		rva005AD6F5();
 	}
 }
