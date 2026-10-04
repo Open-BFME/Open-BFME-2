@@ -9253,3 +9253,8 @@ _Rva0030CAF8CursorEqual,0x0007E394,twin of dup_0007e394 29B exact cursor equalit
 ?rva0028CCB9@Object@@QAEPAV1@PAV1@HH@Z,0x0028CCB9,"Object method (ret 0xC) returning an Object; doSpecialPowerAtObject 0x0049495B calls it on the target with (owner 1 0) when the owner has status 0x26 and module data +0x68 is set and uses the result as the new target; identity unknown"
 ?rva0044FC52@SpecialAbilityUpdate@@UAE_NXZ,0x0044FC52,"SpecialAbilityUpdate slot 16 of 0x00C3FBA8 (bool, no args; /EH frame); WeaponFireSpecialAbilityUpdate 0x004927D0 tail-jumps to it; body unrowed"
 ?rva00450635@SpecialAbilityUpdate@@UAEX_N@Z,0x00450635,"SpecialAbilityUpdate slot 21 of 0x00C3FBA8 (ret 4, byte flag; /EH frame); WeaponFireSpecialAbilityUpdate 0x004925DB calls it with true; body unrowed"
+?Rva00339235@@YAXPBDPAX@Z,0x00339235,cdecl audio-event token parser (NoSound / EVA: / dynamic: prefixes) called with (token; store) by the 24-byte FieldParse proc 0x003393DF; returns with plain ret
+?Rva0033939F@@YAXPBDPAX@Z,0x0033939F,cdecl audio-event token parser that runs 0x00339235 then throws when the result is an EVA sound; called with (token; store) by the FieldParse proc 0x003393F7
+?Rva00339184@@YAXPBDPAX@Z,0x00339184,cdecl audio-event token parser (NoSound clears the event) called with (token; store) by the FieldParse proc 0x00339900
+?rva001DE9C4@Eva@@QAEHPBD@Z,0x001DE9C4,Eva (the global at 0x00DFDC30) member: event index for a name; returns -1 for None (_strcmpi against 0x00BDBFE8); ret 4; called on TheEva by the FieldParse proc 0x001DEE74
+?rva00256499@Rva00256499@@QAEXPAVINI@@PAX@Z,0x00256499,thiscall (ini; 0) self-parse with an SEH frame; ret 8; called on the store by the 16-byte FieldParse proc 0x002567EA

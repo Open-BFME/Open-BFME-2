@@ -54195,3 +54195,8 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ?doSpecialPowerAtLocation@SpecialPowerModule@@UAEXPBUCoord3D@@I@Z,,0x004949D8,82,Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDo.cpp,matched,ZH doSpecialPowerAtLocation without the angle; script-fired bypass
 ?rva00450635@WeaponFireSpecialAbilityUpdate@@UAEX_N@Z,,0x004925DB,10,Code/GameEngine/Source/GameLogic/Object/Update/WeaponFireSpecialAbilityUpdateForwarders.cpp,matched,slot 21 of 0x00C4E090: the base 0x00450635 with true
 ?rva0044FC52@WeaponFireSpecialAbilityUpdate@@UAE_NXZ,,0x004927D0,26,Code/GameEngine/Source/GameLogic/Object/Update/WeaponFireSpecialAbilityUpdateForwarders.cpp,matched,slot 16 of 0x00C4E090: false while data +0xD0 and state +0x24 is 2 else the base 0x0044FC52
+?Rva003393DFParse@@YAXPAVINI@@PAX1PBX@Z,,0x003393DF,24,Code/GameEngine/Source/Common/INI/INIAudioTokenParsers.cpp,matched,FieldParse proc; next token to the cdecl audio-event token parser
+?Rva003393F7Parse@@YAXPAVINI@@PAX1PBX@Z,,0x003393F7,24,Code/GameEngine/Source/Common/INI/INIAudioTokenParsers.cpp,matched,FieldParse proc; next token to the cdecl audio-event token parser
+?Rva00339900Parse@@YAXPAVINI@@PAX1PBX@Z,,0x00339900,24,Code/GameEngine/Source/Common/INI/INIAudioTokenParsers.cpp,matched,FieldParse proc; next token to the cdecl audio-event token parser
+?Rva001DEE74Parse@@YAXPAVINI@@PAX1PBX@Z,,0x001DEE74,30,Code/GameEngine/Source/Common/INI/INIThinFieldParsers.cpp,matched,FieldParse proc; Eva event index for the next token
+?Rva002567EAParse@@YAXPAVINI@@PAX1PBX@Z,,0x002567EA,16,Code/GameEngine/Source/Common/INI/INIThinFieldParsers.cpp,matched,FieldParse proc; store parses itself via 0x00256499
