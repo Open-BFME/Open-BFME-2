@@ -55056,3 +55056,4 @@ rva007916E1_constructor_unwind,,0x007916E1,11,Code/GameEngine/Source/Common/INI/
 ?rva005D2B2F@Rva005D25F2@@QAEXHM@Z,,0x005D2B2F,165,Code/GameEngine/Source/Common/Rva005D2B2FMethod.cpp,matched,vslot 4 of 0x00875800 plus timeGetTime plus floor plus Fire Show Hide
 ?Rva003BCA12Do@@YGXABVAsciiString@@00@Z,,0x003BCA12,49,Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003BCA12Do.cpp,matched,rva00358853 with 0.0 and 1 then doNamedMapReveal via g_Va009FE16C
 ?Rva003BC903Do@@YGXPAVParameter@@H@Z,,0x003BC903,57,Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003BC903Do.cpp,matched,getUnitNamed then ExperienceTracker rva0039B315 via g_Va009FE16C
+?rva0042D7C6@Rva0042D7A3@@QAEXXZ,,0x0042D7C6,26,Code/GameEngine/Source/Common/Rva0042D7A3Set.cpp,matched,chain clear via rowed dtor 0x005794ED plus delete plus callers
