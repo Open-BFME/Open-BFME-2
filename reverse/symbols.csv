@@ -8444,3 +8444,6 @@ _Rva0030CAF8CursorEqual,0x0007E394,twin of dup_0007e394 29B exact cursor equalit
 ?step@Gen0035F050@@QAEHXZ,0x00542890,"Gen0035F050::step, read off the REL32 displacement of ?poll@Gen0035F050@@QAE_NHHHHH@Z at 0x0054297E"
 ?rva006F83F0@Rva006F8700Owner@@QAEHPAXH00@Z,0x000E5406,"tail-jump target of ?rva006F8700@Rva006F8700Owner@@QAEHPAXH00@Z at 0x000E56AA read from its REL32 displacement; 618-byte helper"
 ?ParseBlendTileData@WorldHeightMap@@IAE_NAAVDataChunkInput@@PAUDataChunkInfo@@PAX@Z,0x0027FFF3,"callee of ?ParseBlendTileDataChunk@WorldHeightMap@@KA_NAAVDataChunkInput@@PAUDataChunkInfo@@PAX@Z at retail 0x002811D7 read from its REL32 displacement; body unrowed"
+?isEmpty@Rva00329EE9StringValue@@QBE_NXZ,0x00001E2F,retail Rva00329EE9 call at +0x37; nonthrowing one-pointer string emptiness worker matches StringBase<char>::isEmpty; linker alias binds the matched definition
+??1Rva00329EE9StringValue@@QAE@XZ,0x00036410,retail Rva00329EE9 call at +0x4b; one-pointer returned string cleanup uses matched StringBase<char>::releaseBuffer; linker alias binds the matched definition
+?getAsciiString@Rva00329EE9Dict@@QBE?AVRva00329EE9StringValue@@HPA_N@Z,0x0031359F,retail Rva00329EE9 call at +0x30; same returned one-pointer ABI as matched Dict::getAsciiString; TU-scoped spelling avoids conflicting private definitions
