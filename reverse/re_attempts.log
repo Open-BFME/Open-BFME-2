@@ -7625,3 +7625,5 @@ FUN_007b7836	0x003B7836	260	blocked	no callers prove 3-arg free-function types p
 ?Rva00331E28MakeHeap@@YAXPAUS4SortElem12@@0US4Cmp002E0CD0@@@Z	0x00331E28	88	partial	missing EH saved-esp mov [ebp+0xc],esp only; /O1 /G7 /EHsc /MD /Oy- fixed imul and edi-esi swap t=20 model=muse-07 score=0.97 stash=reverse/attempts/0x00331e28.cpp
 ?rva0049AC5F@Rva0049A64B@@UAEXPAXH@Z	0x0049AC5F	53	blocked	ours 75B vs retail 53B extra EH frame and push/mov shape wall t=5 model=muse-15
 ?tossEmitters@W3DTankDraw@@IAEXXZ	0x000CE7B4	131	blocked	ebx-edi mirror persists after zero-self reorder t=15 model=muse-01 (stash 0.95 kept)
+?rva004DCC84@Rva004DCC84@@QAEXPAXH@Z	0x004DCC84	461	blocked	large 461B EH Lua dispatch unknown class no donor t=15 model=muse-spark
+?rva0042B038@Rva0042B038@@QAEXPAX000@Z	0x0042B038	48	partial	edi holds end not this pos cached in ebx not reloaded missing dummy push and mov ecx edi -2B t=25 model=muse-14 score=0.93 stash=reverse/attempts/0x0042b038.cpp
