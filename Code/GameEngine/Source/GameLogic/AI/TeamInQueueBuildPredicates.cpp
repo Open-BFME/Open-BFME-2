@@ -90,3 +90,21 @@ void TeamInQueue::dlink_removeFrom_TeamReadyQueue(TeamInQueue **head)
     m_previousReady = 0;
     m_nextReady = 0;
 }
+
+// Whole BFME1 AIPlayerQueueTeardown.cpp and actual AIPlayer.cpp@1281192
+// supply the queue-delete protocol. BFME2 native4F05D8 explicitly loads
+// callback4F05C0 for both drain loops. Previous getter RET4F05BF, full
+// callback RET4F05D5 and next Ghidra entry4F05D6/26 prove this22B
+// address-taken boundary omitted by the function inventory.
+// Known target vtable C62B78 slot0 is rowed deleting destructor4EF606:
+// calls4F05F0, frees only when flags&1, then returns its receiver.
+// Global-qualified delete reproduces native flags0 followed by global
+// operator delete2FD60; ordinary delete uses flags1 and is not exact.
+// That global provider independently byte-verifies and links in mem_ops.
+// Reuse the existing TeamInQueue view and virtual destructor declaration;
+// the original callback spelling and complete class layout remain unknown.
+void rva004F05C0(TeamInQueue *entry)
+{
+    if (entry)
+        ::delete entry;
+}
