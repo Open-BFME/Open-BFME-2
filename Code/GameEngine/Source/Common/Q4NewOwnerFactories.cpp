@@ -64,9 +64,16 @@
 	}
 
 //
-// retail 0x003AF012, 55 bytes. Dedicated TU ported from the Open-BFME-1
-// donor game/GameEngine/Source/Common/Q4NewOwnerFactories.cpp
-// (reference/open-bfme-1 @ 6d943426), recompiled /Os; the emitted body is
-// byte-identical to retail once relocations are masked. Only the placed body
-// is defined here; the donor's other definitions are omitted.
+// retail 0x003AF012 and 0x003AF60E, 55 bytes each. Dedicated TU ported from the
+// Open-BFME-1 donor game/GameEngine/Source/Common/Q4NewOwnerFactories.cpp
+// (reference/open-bfme-1 @ 6d943426), recompiled /Os; the emitted bodies are
+// byte-identical to retail once relocations are masked. Only the placed bodies
+// are defined here; the donor's other definitions are omitted.
+//
+// Both constructed classes are named for their retail constructor address and
+// both hosts for the member's own RVA. Retail confirms each callee is a
+// one-pointer-argument constructor (pushes [esp+8], installs a vtable, calls a
+// base constructor, `ret 4`), which is the shape this macro declares; the real
+// types of host and constructed class remain unrecovered.
 Q4_NEW_OWNER_FACTORY( Host005ED050, Gen005ED0D0, 0x44 )
+Q4_NEW_OWNER_FACTORY( Host005EDA90, Gen005EDB10, 0x30 )
