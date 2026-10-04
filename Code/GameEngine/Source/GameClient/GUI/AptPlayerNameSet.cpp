@@ -35,6 +35,7 @@ public:
     void rva005FB872(int color);
     void rva005FB961(float v);
     void rva005FB9C6(float v);
+    void rva005FB8B4(float v);
 private:
     char m_pad[4];
     unsigned int m_level;
@@ -91,6 +92,7 @@ public:
     void rva005FBB68(int count);
     void rva005FBB70(float v);
     void rva005FBB83(float v);
+    void rva005FBB55(float v);
 private:
     char m_pad[4];
     Rva005FB770 *m_member;
@@ -110,4 +112,8 @@ void Rva005FBB68::rva005FBB70(float v)
 void Rva005FBB68::rva005FBB83(float v)
 {
     m_member->rva005FB9C6(v);
+}
+void Rva005FBB68::rva005FBB55(float v)
+{
+    m_member->rva005FB8B4(v);
 }
