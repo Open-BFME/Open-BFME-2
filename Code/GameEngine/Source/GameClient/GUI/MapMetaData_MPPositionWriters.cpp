@@ -13,7 +13,9 @@
 // add-esi-0x14 loop); the class keeps the retail address token because no
 // caller names it (parser-registration precedent).
 
+#pragma optimize("t", on)
 #include <map>
+#pragma optimize("", on)
 
 #include "ascii_string.h"
 
