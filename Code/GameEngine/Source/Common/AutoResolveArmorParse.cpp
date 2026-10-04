@@ -90,3 +90,14 @@ void __cdecl Rva00542997Parse(INI *ini, void *a2, void *instance, void *a4)
 		_CxxThrowException(&e, (const _s__ThrowInfo *)&rva00542B61ThrowInfoAnchor);
 	}
 }
+
+// Retail 0x00542B24 61B. Append-then-parse twin of 0x00542BA1: clear stack 0x104
+// record via rowed 0x005429D7, push_back rowed 0x00542AEA into vector at a3,
+// then parse the new tail element (finish-0x104) via rowed 0x00542997.
+// Evidence: chain packet (calls landed 0x00542997), callees all rowed.
+void __cdecl Rva00542B24Parse(INI *ini, void *a2, void *vecPtr, void *a4)
+{
+	Rva005429D7 tmp;
+	((_STL::vector<BfmeFixedObject260, _STL::allocator<BfmeFixedObject260> > *)vecPtr)->push_back(*(const BfmeFixedObject260 *)(const void *)tmp.rva005429D7());
+	Rva00542997Parse(ini, a2, (char *)*(void **)((char *)vecPtr + 4) - 0x104, a4);
+}
