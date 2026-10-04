@@ -37,6 +37,7 @@ struct Rva0041580E
 	int m_flag04;
 	void rva0041580E(Rva0041580ENode *node);
 	void rva00415886();
+	Rva0041580ENode *rva00415937(Rva0041580ENode *source,Rva0041580ENode *parent);
 	Rva0041580ENode *rva00415868(const Rva0041580ENode *source);
 };
 
@@ -101,4 +102,24 @@ Rva0041580ENode *Rva0041580E::rva00415868(const Rva0041580ENode *source)
     node->m_next08=0;
     node->m_child0C=0;
     return node;
+}
+
+// STLport 4.5.3 _tree.c _M_copy: clone right subtrees recursively and the
+// left spine iteratively. Native 0x415937/115 has no local unwind frame.
+Rva0041580ENode *Rva0041580E::rva00415937(Rva0041580ENode *source,Rva0041580ENode *parent)
+{
+    Rva0041580ENode *top=rva00415868(source);
+    top->m_parent04=parent;
+    if(source->m_child0C) top->m_child0C=rva00415937(source->m_child0C,top);
+    parent=top;
+    source=source->m_next08;
+    while(source) {
+        Rva0041580ENode *node=rva00415868(source);
+        parent->m_next08=node;
+        node->m_parent04=parent;
+        if(source->m_child0C) node->m_child0C=rva00415937(source->m_child0C,node);
+        parent=node;
+        source=source->m_next08;
+    }
+    return top;
 }
