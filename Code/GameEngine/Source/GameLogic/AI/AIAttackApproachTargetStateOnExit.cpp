@@ -21,6 +21,16 @@
 // turret (rowed getWhichTurretForCurWeapon and setTurretTargetObject, pinned
 // getNextMoodTarget) at a mood target. BFME 2 drops the owner null test and
 // sets the AI byte +0x3C7 after aiming.
+//
+// AIAttackApproachTargetState00C12678: the class of vtable 0x00C12678, which
+// shares the approach name getter 0x00342972 ("AIAttackApproachTargetState")
+// but has its own xfer (0x00340623), onEnter and smaller layout, so it is a
+// BFME 2 variant of the approach state, not a subclass (its name is
+// address-derived; the relation is inference). Its onExit (slot 5,
+// 0x00348AFE, 166 bytes) is the approach onExit with the initial-approach flag
+// at +0x61; its update (slot 6, 0x00348AAB, 83 bytes) is Zero Hour's pursue
+// shape (no follow block) over its own private updateInternal (pinned,
+// 0x003489F2), aiming without force-attack and setting +0x3C7.
 
 typedef bool Bool;
 typedef float Real;
@@ -244,6 +254,68 @@ StateReturnType AIAttackApproachTargetState::update()
 			if (temporaryTarget)
 			{
 				ai->setTurretTargetObject(tur, temporaryTarget, m_isForceAttacking);
+				ai->m_bfmeFlag3C7 = true;
+			}
+		}
+	}
+
+	return code;
+}
+
+class AIAttackApproachTargetState00C12678 : public AIInternalMoveToState
+{
+public:
+	virtual void onExit(StateExitType status);
+	virtual StateReturnType update();
+private:
+	StateReturnType updateInternal( void );
+	unsigned char m_pad2C[0x61 - 0x2C];
+	Bool m_isInitialApproach; // +0x61
+};
+
+void AIAttackApproachTargetState00C12678::onExit( StateExitType status )
+{
+	AIInternalMoveToState::onExit( status );
+
+	AIUpdateInterface *ai = getMachineOwner()->getAI();
+	Object *obj = getMachineOwner();
+	if (ai) {
+		ai->ignoreObstacle(0);
+
+		if (getMachineOwner()->isKindOfProjectile())
+		{
+			if (ai && ai->getCurLocomotor())
+				ai->getCurLocomotor()->setUsePreciseZPos(false);
+		}
+		if (ai->isDoingGroundMovement()) {
+			Real dx = m_goalPosition.x-obj->getPosition()->x;
+			Real dy = m_goalPosition.y-obj->getPosition()->y;
+			if (dy*dy+dx*dx<PATHFIND_CELL_SIZE_F*PATHFIND_CELL_SIZE_F*0.125f)
+			{
+				obj->setPosition(&m_goalPosition);
+			}
+		}
+		ai->rva003489E2Slot136();
+	}
+
+	m_isInitialApproach = false;
+}
+
+StateReturnType AIAttackApproachTargetState00C12678::update()
+{
+	StateReturnType code = updateInternal();
+	Object* source = getMachineOwner();
+	AIUpdateInterface *ai = source->getAI();
+
+	if (m_isInitialApproach)
+	{
+		WhichTurretType tur = ai->getWhichTurretForCurWeapon();
+		if (tur != TURRET_INVALID)
+		{
+			Object *temporaryTarget = ai->getNextMoodTarget( true, false );
+			if (temporaryTarget)
+			{
+				ai->setTurretTargetObject(tur, temporaryTarget, false);
 				ai->m_bfmeFlag3C7 = true;
 			}
 		}
