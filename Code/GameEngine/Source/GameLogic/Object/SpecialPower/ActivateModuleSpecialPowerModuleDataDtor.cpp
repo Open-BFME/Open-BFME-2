@@ -38,10 +38,15 @@ private:
 	Rva002571A7Elem *m_end;
 };
 
+class Xfer;
+
 class Rva0044ECCE
 {
 public:
 	virtual ~Rva0044ECCE();
+	virtual void crc(Xfer *xfer) = 0;
+	virtual void xfer(Xfer *xfer) = 0;
+	virtual void loadPostProcess() = 0;
 
 private:
 	unsigned char m_tail[0xC8 - 4];
