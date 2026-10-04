@@ -8,8 +8,10 @@
 // C61A20 is the already-defined Rva004E156B vtable: its only entry routes
 // through rowed scalar deleter4E1BC4 and string-record destructor4E156B.
 // This novtable view restores that proven table explicitly and owns cleanup
-// through the canonical string interface; no new vtable or type identity is
-// asserted. The member is opaque storage to preserve the native constructor
+// through the verified canonical releaseBuffer provider; no new vtable or type identity is
+// asserted. The address-named cleanup view is only its one-pointer call ABI.
+// It avoids emitting an AsciiString deleting COMDAT that native bytes refute.
+// The member is opaque storage to preserve the native constructor
 // and destructor store order. Inline helper copies claim no recovery bytes.
 // Native4E15B8 calls the rowed8B helper566527 with this record by reference;
 // that helper adds8 to the owner and tails to rowed vector append56225E.
@@ -18,7 +20,8 @@
 // for its Region record. Owner/type names retain their target addresses.
 // Ghidra confirms129B; next byte is int3 padding before start4E15FB. MSVC's
 // emitted130th byte is that same padding, not extra function code.
-#include "ascii_string.h"
+class Rva004E1579StringCleanup { void *data; public: void release(); };
+#pragma comment(linker, "/alternatename:?release@Rva004E1579StringCleanup@@QAEXXZ=?releaseBuffer@?$StringBase@D@@AAEXXZ")
 class INI;
 typedef void (__cdecl *ParseFunc)(INI *, void *, void *, const void *);
 struct FieldParse { const char *token; ParseFunc parse; const void *data; int offset; };
@@ -31,7 +34,7 @@ public:
  // ??0Rva004E1579RegionRecord@@QAE@XZ present-unmatched
  Rva004E1579RegionRecord() { *(const void *const **)this=vtbl_00C61A20; regionData=0; }
  // ??1Rva004E1579RegionRecord@@UAE@XZ present-unmatched
- virtual ~Rva004E1579RegionRecord() { *(const void *const **)this=vtbl_00C61A20; ((AsciiString *)&regionData)->~AsciiString(); }
+ virtual ~Rva004E1579RegionRecord() { *(const void *const **)this=vtbl_00C61A20; ((Rva004E1579StringCleanup *)&regionData)->release(); }
 private: void *regionData;
 };
 static const FieldParse regionFields[]={{"Region", INI::parseAsciiString,0,4},{0,0,0,0}};
