@@ -55164,3 +55164,4 @@ rva007916E1_constructor_unwind,,0x007916E1,11,Code/GameEngine/Source/Common/INI/
 ??1Rva005FE7FA@@UAE@XZ,,0x005FE7FA,59,Code/Libraries/Source/WWVegas/WWLib/Rva005FE7FA.cpp,matched,derived vtable plus wide string plus base Rva005FE750 dtor
 ??_GRva005FE750@@UAEPAXI@Z,,0x005FE937,28,Code/Libraries/Source/WWVegas/WWLib/Rva005FE750.cpp,matched,deleting dtor from own dtor unit via base dtor plus delete
 ??_GRva005FE7FA@@UAEPAXI@Z,,0x005FE953,28,Code/Libraries/Source/WWVegas/WWLib/Rva005FE7FA.cpp,matched,deleting dtor from own dtor unit via base dtor plus delete
+?rva0050F6AD@Rva0050F6AD@@QAEXXZ,,0x0050F6AD,26,Code/GameEngine/Source/Common/System/Rva0050F6AD.cpp,matched,holder clear nulls then deletes Rva0050ED58 via rowed dtor
