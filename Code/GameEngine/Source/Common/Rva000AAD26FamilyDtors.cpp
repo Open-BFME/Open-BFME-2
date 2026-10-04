@@ -11,6 +11,9 @@
 // ??1Rva00AB15D@@UAE@XZ @0x000AB15D 54B: same at +0x0C; base vtable 0x00BC93DC.
 // ??1Rva00B6971@@UAE@XZ @0x000B6971 48B: string at +0x10 (0x00036410);
 //   base is Snapshot (0x00BBB554).
+extern "C" const void *const vtbl_00BC93DC[];  // ??_7Rva000A8EF6@@6B@
+#pragma comment(linker, "/alternatename:_vtbl_00BC93DC=??_7Rva000A8EF6@@6B@")
+
 #include <vector>
 #include "Common/Snapshot.h"
 
@@ -23,7 +26,7 @@ public:
 // ?Rva000BC93DCBase::~Rva000BC93DCBase present-unmatched
 inline Rva000BC93DCBase::~Rva000BC93DCBase()
 {
-	*(const void **)this = reinterpret_cast<const void *>(0x00BC93DC);
+	*(const void **)this = reinterpret_cast<const void *>(((unsigned int)vtbl_00BC93DC));
 }
 
 #include "ascii_string.h"

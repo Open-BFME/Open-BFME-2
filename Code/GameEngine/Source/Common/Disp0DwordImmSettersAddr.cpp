@@ -15,6 +15,57 @@
 // unrecoverable from 7 bytes). Retail cleans none (`ret`, not `ret 4`), so
 // the members take no parameters.
 // No // cl: line (defaults match the frameless 7-byte shape).
+extern "C" const void *const vtbl_00C6AB10[];  // ??_7Rva006609D0Base@@6B@
+#pragma comment(linker, "/alternatename:_vtbl_00C6AB10=??_7Rva006609D0Base@@6B@")
+
+extern "C" const void *const vtbl_00C1A074[];  // ??_7Rva003919D9@@6B@
+#pragma comment(linker, "/alternatename:_vtbl_00C1A074=??_7Rva003919D9@@6B@")
+
+extern "C" const void *const vtbl_00C19230[];  // ??_7Rva00381D78@@6B@
+#pragma comment(linker, "/alternatename:_vtbl_00C19230=??_7Rva00381D78@@6B@")
+
+extern "C" const void *const vtbl_00C18DFC[];  // ??_7Rva0037F57E@@6B@
+#pragma comment(linker, "/alternatename:_vtbl_00C18DFC=??_7Rva0037F57E@@6B@")
+
+extern "C" const void *const vtbl_00C02A84[];  // ??_7Rva002D3556@@6B@
+#pragma comment(linker, "/alternatename:_vtbl_00C02A84=??_7Rva002D3556@@6B@")
+
+extern "C" const void *const vtbl_00BFE4EC[];  // ??_7Rva002BED74@@6B@
+#pragma comment(linker, "/alternatename:_vtbl_00BFE4EC=??_7Rva002BED74@@6B@")
+
+extern "C" const void *const vtbl_00BE5838[];  // ??_7Rva00215E42@@6B@
+#pragma comment(linker, "/alternatename:_vtbl_00BE5838=??_7Rva00215E42@@6B@")
+
+extern "C" const void *const vtbl_00BE4318[];  // ??_7Rva0020E20C@@6B@
+#pragma comment(linker, "/alternatename:_vtbl_00BE4318=??_7Rva0020E20C@@6B@")
+
+extern "C" const void *const vtbl_00BD3338[];  // ??_7Rva00140C00@@6B@
+#pragma comment(linker, "/alternatename:_vtbl_00BD3338=??_7Rva00140C00@@6B@")
+
+extern "C" const void *const vtbl_00BCFB24[];  // ??_7Rva001164B6@@6B@
+#pragma comment(linker, "/alternatename:_vtbl_00BCFB24=??_7Rva001164B6@@6B@")
+
+extern "C" const void *const vtbl_00BCF994[];  // ??_7Rva00108475@@6B@
+#pragma comment(linker, "/alternatename:_vtbl_00BCF994=??_7Rva00108475@@6B@")
+
+extern "C" const void *const vtbl_00BCEF9C[];  // ??_7Rva000EFA0E@@6B@
+#pragma comment(linker, "/alternatename:_vtbl_00BCEF9C=??_7Rva000EFA0E@@6B@")
+
+extern "C" const void *const vtbl_00BC93DC[];  // ??_7Rva000A8EF6@@6B@
+#pragma comment(linker, "/alternatename:_vtbl_00BC93DC=??_7Rva000A8EF6@@6B@")
+
+extern "C" const void *const vtbl_00BC93BC[];  // ??_7Rva000A8E9C@@6B@
+#pragma comment(linker, "/alternatename:_vtbl_00BC93BC=??_7Rva000A8E9C@@6B@")
+
+extern "C" const void *const vtbl_00BC7E94[];  // ??_7Rva000906DE@@6B@
+#pragma comment(linker, "/alternatename:_vtbl_00BC7E94=??_7Rva000906DE@@6B@")
+
+extern "C" const void *const vtbl_00BC65A8[];  // ??_7Rva00074626@@6B@
+#pragma comment(linker, "/alternatename:_vtbl_00BC65A8=??_7Rva00074626@@6B@")
+
+extern "C" const void *const vtbl_00BC64B0[];  // folded, 2 classes; via ??_7BfmeBaseCC@@6B@
+#pragma comment(linker, "/alternatename:_vtbl_00BC64B0=??_7BfmeBaseCC@@6B@")
+
 extern "C" const void *const vtbl_00C601DC[];  // ??_7Rva004D376A@@6B@
 #pragma comment(linker, "/alternatename:_vtbl_00C601DC=??_7Rva004D376A@@6B@")
 
@@ -325,7 +376,7 @@ public:
 
 void Rva000723C0DwordImmSetter::apply()
 {
-	m_value = 0x00BC64B0;
+	m_value = ((unsigned int)vtbl_00BC64B0);
 }
 
 class Rva0011647BDwordImmSetter
@@ -338,7 +389,7 @@ public:
 
 void Rva0011647BDwordImmSetter::apply()
 {
-	m_value = 0x00BCFB24;
+	m_value = ((unsigned int)vtbl_00BCFB24);
 }
 
 class Rva0020E205DwordImmSetter
@@ -351,7 +402,7 @@ public:
 
 void Rva0020E205DwordImmSetter::apply()
 {
-	m_value = 0x00BE4318;
+	m_value = ((unsigned int)vtbl_00BE4318);
 }
 
 class Rva00210CC5DwordImmSetter
@@ -377,7 +428,7 @@ public:
 
 void Rva002BEDA4DwordImmSetter::apply()
 {
-	m_value = 0x00BFE4EC;
+	m_value = ((unsigned int)vtbl_00BFE4EC);
 }
 
 class Rva002D3354DwordImmSetter
@@ -390,7 +441,7 @@ public:
 
 void Rva002D3354DwordImmSetter::apply()
 {
-	m_value = 0x00C02A84;
+	m_value = ((unsigned int)vtbl_00C02A84);
 }
 
 class Rva00330440DwordImmSetter
@@ -416,7 +467,7 @@ public:
 
 void Rva0037F4C9DwordImmSetter::apply()
 {
-	m_value = 0x00C18DFC;
+	m_value = ((unsigned int)vtbl_00C18DFC);
 }
 
 class Rva00381D71DwordImmSetter
@@ -429,7 +480,7 @@ public:
 
 void Rva00381D71DwordImmSetter::apply()
 {
-	m_value = 0x00C19230;
+	m_value = ((unsigned int)vtbl_00C19230);
 }
 
 class Rva003916A4DwordImmSetter
@@ -442,7 +493,7 @@ public:
 
 void Rva003916A4DwordImmSetter::apply()
 {
-	m_value = 0x00C1A074;
+	m_value = ((unsigned int)vtbl_00C1A074);
 }
 
 class Rva004059ACDwordImmSetter
@@ -455,7 +506,7 @@ public:
 
 void Rva004059ACDwordImmSetter::apply()
 {
-	m_value = 0x00BE5838;
+	m_value = ((unsigned int)vtbl_00BE5838);
 }
 
 class Rva00468A3FDwordImmSetter
@@ -507,7 +558,7 @@ public:
 
 void Rva000A8EEFDwordImmSetter::apply()
 {
-	m_value = 0x00BC93DC;
+	m_value = ((unsigned int)vtbl_00BC93DC);
 }
 
 class Rva0052AF77DwordImmSetter
@@ -559,7 +610,7 @@ public:
 
 void Rva000141C30DwordImmSetter::apply()
 {
-	m_value = 0x00BD3338;
+	m_value = ((unsigned int)vtbl_00BD3338);
 }
 
 class Rva0005CF81FDwordImmSetter
@@ -676,7 +727,7 @@ public:
 
 void Rva00054F91BDwordImmSetter::apply()
 {
-	m_value = 0x00C6AB10;
+	m_value = ((unsigned int)vtbl_00C6AB10);
 }
 
 class Rva000549C6DDwordImmSetter
@@ -754,7 +805,7 @@ public:
 
 void Rva0007461FDwordImmSetter::apply()
 {
-	m_value = 0x00BC65A8;
+	m_value = ((unsigned int)vtbl_00BC65A8);
 }
 
 class Rva0005CE8EEDwordImmSetter
@@ -804,7 +855,7 @@ public:
 
 void Rva00090771DwordImmSetter::apply()
 {
-	m_value = 0x00BC7E94;
+	m_value = ((unsigned int)vtbl_00BC7E94);
 }
 class Rva0002B221ADwordImmSetter
 {
@@ -828,7 +879,7 @@ public:
 
 void Rva000A8E95DwordImmSetter::apply()
 {
-	m_value = 0x00BC93BC;
+	m_value = ((unsigned int)vtbl_00BC93BC);
 }
 
 class Rva0010846EDwordImmSetter
@@ -841,7 +892,7 @@ public:
 
 void Rva0010846EDwordImmSetter::apply()
 {
-	m_value = 0x00BCF994;
+	m_value = ((unsigned int)vtbl_00BCF994);
 }
 
 class Rva00108650DwordImmSetter
@@ -854,7 +905,7 @@ public:
 
 void Rva00108650DwordImmSetter::apply()
 {
-	m_value = 0x00BCEF9C;
+	m_value = ((unsigned int)vtbl_00BCEF9C);
 }
 
 class Rva005753E2DwordImmSetter
