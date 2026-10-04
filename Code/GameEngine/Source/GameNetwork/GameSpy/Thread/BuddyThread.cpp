@@ -167,6 +167,15 @@ Bool GameSpyBuddyMessageQueue::getRequest( BuddyRequest& req )
 	return true;
 }
 
+void GameSpyBuddyMessageQueue::addRequest( const BuddyRequest& req )
+{
+	MutexClass::LockClass m(m_requestMutex);
+	if (m.Failed())
+		return;
+
+	m_requests.push(req);
+}
+
 
 Bool GameSpyBuddyMessageQueue::getResponse( BuddyResponse& resp )
 {
