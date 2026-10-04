@@ -1,9 +1,10 @@
-// ??0Rva004A7010@@QAE@PAVObject@@@Z
-// partial score=0.96 date=2026-09-30
-// ??0Rva004A7010@@QAE@PAVObject@@@Z
-// partial score=0.96 date=2026-09-30
+// ??0SupplyTruckStateMachine@@QAE@PAVObject@@@Z
+// partial score=0.97 date=2026-10-04
 // cl: /O1 /MD /EHsc
-// ??0Rva004A7010@@QAE@PAVObject@@@Z @0x004A7010 373B
+// class-gate: allow AsciiString 4-byte trivial view to pass VAsciiString by value to rowed base 0x004D79E1 with no copy-ctor call like the base TU's own view
+// ??0SupplyTruckStateMachine@@QAE@PAVObject@@@Z
+// partial score=0.96 date=2026-09-30
+// ??0SupplyTruckStateMachine@@QAE@PAVObject@@@Z @0x004A7010 373B
 // StateMachine-derived ctor: base Rva004D759C(owner, hash F95C8C34, false),
 // vtable 0x008532A8, then six 0x20 State news with defineState ids
 // 1,0,2,3,4,5 and conds C53330/C53390/C53360/C53330/C53300/C53300.
@@ -14,13 +15,13 @@ class Object;
 class AsciiString
 {
 public:
-	AsciiString(unsigned int h) : m_hash(h) {}
-	unsigned int m_hash;
+	AsciiString(unsigned int h) : m_data((void *)h) {}
+	void *m_data;
 };
 class Rva004D759C
 {
 public:
-	Rva004D759C(Object *owner, AsciiString name, bool flag);
+	Rva004D759C(Object *owner, unsigned int nameHash, bool flag);
 	virtual ~Rva004D759C();
 };
 struct State;
@@ -78,20 +79,22 @@ public:
 	char m_pad[0x20 - 4];
 };
 void *__cdecl operator new(unsigned int size) throw();
+extern const void *const g_00C532A8[];
 extern const StateConditionInfo g_00C53330[];
 extern const StateConditionInfo g_00C53390[];
 extern const StateConditionInfo g_00C53360[];
 extern const StateConditionInfo g_00C53300[];
-class Rva004A7010 : public Rva004D759C
+class __declspec(novtable) SupplyTruckStateMachine : public Rva004D759C
 {
 public:
-	Rva004A7010(Object *owner);
-	virtual ~Rva004A7010();
+	SupplyTruckStateMachine(Object *owner);
+	virtual ~SupplyTruckStateMachine();
 	char m_pad[0x3C - 4];
 };
-// ??0Rva004A7010@@QAE@PAVObject@@@Z present-unmatched
-Rva004A7010::Rva004A7010(Object *owner) : Rva004D759C(owner, AsciiString(0xF95C8C34u), false)
+// ??0SupplyTruckStateMachine@@QAE@PAVObject@@@Z present-unmatched
+SupplyTruckStateMachine::SupplyTruckStateMachine(Object *owner) : Rva004D759C(owner, 0xF95C8C34u, false)
 {
+	*(const void **)this = g_00C532A8;
 	StateMachine *machine = (StateMachine *)this;
 	machine->defineState(1, (State *)new Rva004A6BCA(machine), 1, 1, g_00C53330);
 	machine->defineState(0, (State *)new Rva004A6C13(machine), 1, 1, g_00C53390);
