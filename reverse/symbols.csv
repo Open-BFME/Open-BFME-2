@@ -8322,3 +8322,5 @@ _Rva0030CAF8CursorEqual,0x0007E394,twin of dup_0007e394 29B exact cursor equalit
 ?bfmeGetLOSVictimPos@Weapon@@QBE?AUCoord3D@@PBVObject@@0H@Z,0x002CB65B,callee of ?bfmeFireAAE@BfmeAimAAE@@QAEXPAVWeapon@@PAVBfmeHolderNS@@@Z at retail 0x00509307 read from its REL32 displacement; fills the victim position at ebp-0xC from shooter weapon victim mode 1; body unrowed
 ?bfmeQueryNS@BfmeHolderNS@@QAEHXZ,0x0028B511,callee of ?bfmeFireAAE@BfmeAimAAE@@QAEXPAVWeapon@@PAVBfmeHolderNS@@@Z at retail 0x00509307 read from its REL32 displacement; ICF alias onto ?rva0028B511@Object@@QBEHXZ (matched)
 ??1Gen0002AB5D@@QAE@XZ,0x000AAE59,callee of ?Rva007889D0@@YAXPAVGen0002AB5D@@@Z at retail 0x000AB450 read from its REL32 displacement; body unrowed
+??0S4SortElem20@@QAE@ABU0@@Z,0x003371B1,ICF alias onto ??0Rva003371B1@@QAE@ABV0@@Z (matched); called by ?gen002EADF0@@YAXPAX0H0@Z at retail 0x003377BC read from its REL32 displacement
+??$__pop_heap@PAUS4SortElem20@@U1@US4Cmp002EB8E0@@H@_STL@@YAXPAUS4SortElem20@@00U1@US4Cmp002EB8E0@@PAH@Z,0x003376EA,callee of ?gen002EADF0@@YAXPAX0H0@Z at retail 0x003377BC read from its REL32 displacement; body unrowed
