@@ -1,7 +1,14 @@
-// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /O1 /EHsc /MD /DNDEBUG
+// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /O1 /arch:SSE /EHsc /MD /DNDEBUG
 // ?rva003B0D7C@Rva003B0D7C@@QAEXHPAVRva0039B7AD@@_N@Z @0x003B0D7C 188B
 // Unlock lane: Money at Player+0x90 subobject, (amt,0,1) thiscall from script 0x003BC048; audio via TheAudio slots 0x138/0x64 with BfmeAudioEventPrefix136(ref+0x38,0)+set(+8)+addAudioEvent; then +4+=amt, g_00E032F8+8 cond, arg2 cond add.
 // Evidence: caller 0x003BC048 pushes (amt,0,1) with this=Player+0x90; callees ctor 0x002D97D6 dtor 0x002D9A43 set 0x0033F15D rva0039B7AD 0x0039B7AD rowed; TheAudio 0x009FE6E8 ThePlayerList 0x009FEEE8; neighbours HackInternetAIUpdate/Rva003B0E38Xfer.
+// ?rva003B0CB3@Rva003B0D7C@@QAEIIPAVRva0039B795@@_N@Z @0x003B0CB3 201B
+// The withdraw twin directly before it, shaped like Zero Hour's
+// Money::withdraw: clamp the request to the balance (+4, unsigned, cmova),
+// bail on zero, play the misc-audio sound at +0x3C (deposit uses +0x38) when
+// asked, subtract, credit the +4 counter of g_00E032F8 for the local
+// player's index, report to the optional tracker 0x0039B795, return the
+// amount. cmova needs /arch:SSE; the deposit body is unchanged by it.
 #include "Common/BfmeAudioEventPrefix136.h"
 
 class AudioManager;
@@ -11,7 +18,7 @@ extern void *g_00E032F8;
 
 class Rva0033F15DDwordSlot { public: void set(int); };
 
-struct Rva003B0D7CMisc { char pad[0x38]; OpaqueRefElement4 ref38; };
+struct Rva003B0D7CMisc { char pad[0x38]; OpaqueRefElement4 ref38; OpaqueRefElement4 ref3C; };
 
 class Rva003B0D7CAudioView
 {
@@ -111,7 +118,7 @@ public:
 	Player *m_localPlayer;
 };
 
-struct G00E032F8Wrap { char m_pad00[8]; int m_val08; };
+struct G00E032F8Wrap { char m_pad00[4]; int m_val04; int m_val08; };
 
 class Rva0039B7AD
 {
@@ -119,15 +126,52 @@ public:
 	void rva0039B7AD(int delta);
 };
 
+class Rva0039B795
+{
+public:
+	void rva0039B795(int delta);
+};
+
 class Rva003B0D7C
 {
 public:
+	unsigned int rva003B0CB3(unsigned int amount, Rva0039B795 *arg2, bool flag);
 	void rva003B0D7C(int amount, Rva0039B7AD *arg2, bool flag);
 private:
 	char m_pad00[4];
 	int m_val04;
 	int m_val08;
 };
+
+unsigned int Rva003B0D7C::rva003B0CB3(unsigned int amount, Rva0039B795 *arg2, bool flag)
+{
+	if (amount > (unsigned int)m_val04)
+		amount = m_val04;
+	if (amount == 0)
+		return amount;
+	if (flag != false) {
+		BfmeAudioEventPrefix136 evt(reinterpret_cast<Rva003B0D7CAudioView *>(TheAudio)->getMiscAudio()->ref3C, 0);
+		reinterpret_cast<Rva0033F15DDwordSlot *>(&evt)->set(m_val08);
+		reinterpret_cast<Rva003B0D7CAudioView *>(TheAudio)->addAudioEvent(&evt);
+	}
+	m_val04 -= amount;
+	G00E032F8Wrap *g = (G00E032F8Wrap *)g_00E032F8;
+	if (g != 0) {
+		PlayerList *pl = ThePlayerList;
+		if (pl != 0) {
+			Player *local = pl->m_localPlayer;
+			if (local != 0) {
+				if (local->m_playerIndex == m_val08) {
+					g->m_val04 += amount;
+				}
+			}
+		}
+	}
+	if (arg2 != 0) {
+		arg2->rva0039B795(amount);
+	}
+	return amount;
+}
 
 void Rva003B0D7C::rva003B0D7C(int amount, Rva0039B7AD *arg2, bool flag)
 {
