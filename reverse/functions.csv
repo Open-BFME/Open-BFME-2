@@ -54584,3 +54584,8 @@ _Rva00669500@8,,0x00669500,13,Code/GameEngine/Source/Common/RvaSmallLeafTransfer
 ?rva0052C036@Rva0052C036@@QAE_NXZ,,0x0052C036,54,Code/GameEngine/Source/Common/System/Rva0052C036Step.cpp,matched,chain via rowed 0x003EF2FF plus pin bfmeEnter plus g_009FE1C8 plus callers 0x003B8CAC 0x0052C9F9
 ??0Rva000A0D3A@@QAE@PAX@Z,,0x000A0D3A,24,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/Gadget/Rva000A0D3ACtor.cpp,matched,Gadget ctor via Rva000A0CE7 base plus vtable 0x00BC8D30
 ?storeWord@Rva0023425D@@QAEPAV1@G@Z,,0x0023425D,13,Code/GameEngine/Source/Common/RvaSmallLeafTransfers.cpp,matched,BFME1 5cc75ddd whole BfmeConv1047.cpp compiled; target-address ABI word-store view only; constructor and owner identity unproven
+?d_0001b3e0@@YAXXZ,,0x0001B3E0,254,Code/gen_asm/d_0001b3e0.asm,matched,gen-dump;ghidra=FUN_0041b3e0
+?d_0001c090@@YAXXZ,,0x0001C090,132,Code/gen_asm/d_0001b3e0.asm,matched,gen-dump;ghidra=FUN_0041c090
+?d_0002a420@@YAXXZ,,0x0002A420,254,Code/gen_asm/d_0001b3e0.asm,matched,gen-dump;ghidra=FUN_0042a420
+?d_0002ad50@@YAXXZ,,0x0002AD50,251,Code/gen_asm/d_0001b3e0.asm,matched,gen-dump;ghidra=FUN_0042ad50
+?d_0002c7fd@@YAXXZ,,0x0002C7FD,214,Code/gen_asm/d_0001b3e0.asm,matched,gen-dump;ghidra=FUN_0042c7fd
