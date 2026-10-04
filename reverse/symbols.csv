@@ -8603,3 +8603,5 @@ _Rva0030CAF8CursorEqual,0x0007E394,twin of dup_0007e394 29B exact cursor equalit
 ?rva00444EC8@Rva004469D1Receiver@@QAEXXZ,0x00444EC8,"member of the LAN menu at VA 0x00E03354; REL32 (tail jmp) in LANAPI::OnHostLeave 0x00248E6A; identity not recovered"
 ?rva0044446D@Rva004469D1Receiver@@QAEX_N@Z,0x0044446D,"member of the LAN menu at VA 0x00E03354 taking a byte (cmp byte [esp+4]); REL32 (tail jmp) in LANAPI slot 61 0x00248E39; identity not recovered"
 ?Rva00381900@@YAXH@Z,0x00381900,"cdecl helper forwarding its int to the object at VA 0x00E02310 (0x003818E3); LANAPI slot 33 0x00248E87 calls it with 1 then 0; identity not recovered"
+?initKeyNames@Keyboard@@IAEXXZ,0x002306B8,"Keyboard member Keyboard::init (0x0023260F) calls before zeroing the input frame; it clears the key-name table at +0x81C; ZH initKeyNames by that init (inferred)"
+?rva00232A42@Keyboard@@AAEXXZ,0x00232A42,"Keyboard member Keyboard::update (0x00232BC7) tail-jumps to after 0x00232B7B; copies key states from the key vector (+0x10/+0x14) into the status table stamped with the input frame; identity not recovered"
