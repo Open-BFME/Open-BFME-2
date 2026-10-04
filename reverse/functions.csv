@@ -53904,3 +53904,4 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ?rva0043DBA3@Rva0043DFE0@@QAEXXZ,,0x0043DBA3,39,Code/GameEngine/Source/Common/Rva0043DFE0.cpp,matched,leaf flag 0x2C4 save 0x00511730 target 0x58 slot 0x40
 ?Rva0033254DPartial@@YAXPAUS4SortElem12@@00US4Cmp002E1690@@@Z,,0x0033254D,27,Code/GameEngine/Source/Common/Rva0033254DPartial.cpp,matched,5-arg partial_sort forwarder over rowed 0x0033234F
 ?rva001B4F8B@Rva001B4F8B@@QAEPAXABV?$StringBase@D@@@Z,,0x001B4F8B,45,Code/GameEngine/Source/Common/Rva001B4F8B.cpp,matched,unlock lane 8-byte-entry StringBase compare via rowed 0x69D6
+?rva001B4FE9@SubsystemInterfaceList@@QAEXXZ,,0x001B4FE9,47,Code/GameEngine/Source/Common/SubsystemInterfaceListRva001B4FE9.cpp,matched,leaf pin notify slot 0x20 then rowed vector erase
