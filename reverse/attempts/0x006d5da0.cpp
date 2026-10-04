@@ -1,7 +1,5 @@
 // ?rva006D5DA0@EAStringC@@QAE_NPBD@Z
-// partial score=0.9 date=2026-10-04
-// ?rva006D5DA0@EAStringC@@QAE_NPBD@Z
-// partial score=0.9 date=2026-10-04
+// partial score=0.93 date=2026-10-05
 // cl: /O2 /DNDEBUG /DWIN32 /D_WINDOWS /MD
 // ?rva006D5DA0@EAStringC@@QAE_NPBD@Z @0x006D5DA0 201B (thiscall, ret 4).
 //
@@ -69,7 +67,10 @@ public:
 	// The scoped substring holder. Retail allocates it as a bare four-byte
 	// slot the helper fills in place -- there is no constructor call before the
 	// helper -- but it does carry a destructor, and that destructor is what
-	// installs the SEH frame this body opens with.
+	// installs the SEH frame this body opens with. Its body is empty because the
+	// release is written explicitly below: MSVC only emits the frame when the
+	// destructor has code, and the release itself is what retail reads out of the
+	// holder (mov edx,[esp+0x20]) rather than out of `this`.
 	class Sub
 	{
 	public:
@@ -78,8 +79,13 @@ public:
 		~Sub() { FreeData(m_pData); }
 	};
 
-	// 0x006D55B0: the substring helper, (this, count) returning the storage.
-	EAStringC *rva006D55B0(unsigned int count);
+	// 0x006D55B0: the substring helper. Retail enters it with ecx = this and
+	// TWO stack arguments -- lea eax,[esp+0x24]; push eax; push edx -- and it
+	// ends in `ret 8`, so the signature is (this, EAStringC *out, unsigned
+	// count) with both stack arguments caller-cleaned. Its own body reads the
+	// second stack slot as the holder address (mov [eax],0xddc020 on the
+	// count<=0 path) and the third as the count, which fixes the order.
+	EAStringC *rva006D55B0(EAStringC *out, unsigned int count);
 
 public:
 	bool rva006D5DA0(const char *pStrText);
@@ -120,11 +126,19 @@ StringDataC *data = m_pData;
 	if (size < len)
 		return false;
 
-	if (memcmp((const char *)data + sizeof(StringDataC) + (size - len),
+	// Retail folds `data` back by the measured length (sub esi,eax) and the
+	// SHORTFALL size - len then indexes it (lea esi,[esi+edx*1+8]), so both the
+	// folded pointer and the shortfall stay live across the compare. Naming the
+	// shortfall as its own unsigned local is what makes MSVC keep the size in
+	// edx there; folding the subtraction straight into the memcmp first argument
+	// instead makes it re-index from `data` and drop the folding.
+	unsigned int rest = size - len;
+	if (memcmp((const char *)data - len + rest + (int)sizeof(StringDataC),
 		pStrText, len) != 0)
 		return false;
 
-{
+	if (true)
+	{
 		// Retail allocates the holder as a BARE four-byte slot the helper fills
 		// in place: there is no constructor call before 0x006D55B0 and no
 		// `mov dword ptr [esp+0x20],0` initialiser either. A class member with a
@@ -132,8 +146,8 @@ StringDataC *data = m_pData;
 		// extra store; the destructor stays because it is what drives the SEH
 		// frame retail opens with.
 		Sub sub;
-		((EAStringC *)&sub)->rva006D55B0(size - len);
-		*this = *(const EAStringC *)&sub;
+		const EAStringC *p = this->rva006D55B0((EAStringC *)&sub, size - len);
+		*this = *p;
 	}
 	return true;
 }
