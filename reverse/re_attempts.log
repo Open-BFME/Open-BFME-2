@@ -7724,3 +7724,6 @@ FUN_007b7836	0x003B7836	260	blocked	no callers prove 3-arg free-function types p
 ?rva004EAFBD@Rva004EAFBD@@QAEXPAUVector3@@@Z	0x004EAFBD	213	blocked	x87 SSE virtual slot 0x34 plus random string plus global float needs donor t=15 model=muse-08
 ?rva004EA046@Rva004EA046@@QAE_NPAH@Z	0x004EA046	222	blocked	x87 unsigned float plus pointer-chase plus branch polarities need donor t=20 model=muse-08
 ?rva0043DC40@Rva0043DC40@@QAEXH@Z	0x0043DC40	53	blocked	O1 inc plus address-cache lea eax vs retail lea esi direct stores plus O2 epilogue dup 58B plus hoisted-next 2-push 49B t=20 model=muse-06
+?rva0050F306@Rva0050F0AB@@QAEXXZ	0x0050F306	154	blocked	ecx-eax swap for m64/p plus push consequence t=15 model=muse-04 (stash 0.93 kept)
+??4?$vector@URva003F610FElement@@V?$allocator@URva003F610FElement@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z	0x003F5FD0	206	blocked	extra push 0 plus esp cleanup 0x1c vs 0x18 and 0x24 vs 0x20 t=15 model=muse-04 (stash 0.95 kept)
+??1Rva0050FDDC@@UAE@XZ	0x0050FDDC	248	blocked	missing base vtable store mov [esi],0x00865518 before base dtor 0x005248D0 t=10 model=muse-04 (stash 0.95 kept)
