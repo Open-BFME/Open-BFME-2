@@ -55825,3 +55825,4 @@ ___Extract_locale_name,,0x000216A0,153,Code/Libraries/Source/WWVegas/WWLib/Local
 ?Rva0006E5C8Set@@YGXPAVVector3@@@Z,,0x0006E5C8,61,Code/GameEngine/Source/Common/Rva0006E5C8Set.cpp,matched,shadow global 0x00DE5DFC with null guard plus pin 0x9A587 plus row 0xF0912
 ?rva00050D6C@Rva00050D6C@@QAEHXZ,,0x00050D6C,26,Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp,matched,leaf disp8 4-byte OR int return sibling 50D86
 ?rva00050FE3@Rva00050FE3@@QAEXXZ,,0x00050FE3,26,Code/GameEngineDevice/Source/MilesAudioDevice/Rva00050FE3.cpp,matched,leaf miles stop 3D vs plain dllimport IAT
+?rva0039ACBD@Rva0039ACBD@@QAEHPBVObject@@_N@Z,,0x0039ACBD,38,Code/GameEngine/Source/Common/Rva0039ACBDMethod.cpp,matched,ALLIES-gated int field via pinned getRelationship
