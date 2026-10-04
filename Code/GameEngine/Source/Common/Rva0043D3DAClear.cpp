@@ -16,12 +16,21 @@ class Rva0043D3A8
 {
 public:
 	void rva0043D3A8();
+	void rva0043D5CB(ScienceType science);
 
 private:
 	char m_unk0[8];
 	_STL::vector<ScienceType> m_sciences;
 	int m_unk14;
 };
+
+class ScienceStore
+{
+public:
+	int getSciencePurchaseCost(ScienceType science) const;
+};
+
+extern ScienceStore *TheScienceStore;
 
 extern int g_Va009FE78C;
 extern int g_Va009FEDF0;
@@ -51,6 +60,14 @@ void Rva0043D3DA::rva0043D3DA(int unused)
 	m_sub.rva0043D3A8();
 	_STL::vector<void *> &slot = m_ptrs;
 	slot.erase(slot.begin(), slot.end());
+}
+// ?rva0043D5CB@Rva0043D3A8@@QAEXW4ScienceType@@@Z @0x0043D5CB 42B
+// Evidence: unlock lane, TheScienceStore getSciencePurchaseCost 0x001FF3DC, vector<ScienceType> push_back 0x002E01C6 at +8, add cost to +0x14, caller 0x0043D67A.
+void Rva0043D3A8::rva0043D5CB(ScienceType science)
+{
+	int cost = TheScienceStore->getSciencePurchaseCost(science);
+	m_sciences.push_back(science);
+	m_unk14 += cost;
 }
 // ?g_Va009FEDF0@@3HA: the global at VA 0xdfedf0 is ?TheInGameUI@@3PAVInGameUI@@A.
 #pragma comment(linker, "/alternatename:?g_Va009FEDF0@@3HA=?TheInGameUI@@3PAVInGameUI@@A")
