@@ -20,15 +20,19 @@ public:
 };
 
 void operator delete(void *p);
+void __cdecl operator delete[](void *p);
 
 class Rva00131BE5
 {
 public:
 	void rva00133380();
+	void rva001333AA();
 
 private:
 	char m_pad[0x14];
 	Rva00131BE5M14 *m_14;
+	char m_pad18[0x50 - 0x18];
+	void *m_50;
 };
 
 void Rva00131BE5::rva00133380()
@@ -41,4 +45,15 @@ void Rva00131BE5::rva00133380()
 		p = 0;
 	::operator delete(p);
 	m_14 = 0;
+}
+
+// ?rva001333AA@Rva00131BE5@@QAEXXZ @0x001333AA 28B evidence: chain via rowed 0x00133380 plus rowed delete-array 0x0002FD80 plus member +0x50 plus prev-next /O1 /MD
+void Rva00131BE5::rva001333AA()
+{
+	rva00133380();
+	void *p = m_50;
+	if (p) {
+		::operator delete[](p);
+		m_50 = 0;
+	}
 }
