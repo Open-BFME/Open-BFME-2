@@ -311,7 +311,8 @@ template void StringBase<wchar_t>::swap(StringBase<wchar_t> &other);
 template void StringBase<wchar_t>::set(wchar_t c);
 template void StringBase<wchar_t>::concat(wchar_t c);
 template const wchar_t *StringBase<wchar_t>::str() const;
-template bool StringBase<wchar_t>::isEmpty() const;
+// No isEmpty<wchar_t> here: retail's copy is string_base_inline.cpp's /O2 body
+// (0x00035740), and this unit's /O1 instantiation came first in link order.
 
 // compareNoCase is a header inline in retail: another unit emits a select-any
 // copy of it, so a strong definition here was a duplicate symbol in the
