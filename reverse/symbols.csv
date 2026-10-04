@@ -8524,3 +8524,4 @@ _Rva0030CAF8CursorEqual,0x0007E394,twin of dup_0007e394 29B exact cursor equalit
 ??0Rva003525E0Pair@@QAE@ABV0@@Z,0x003B3FCD,Rva003525E0Pair copy ctor called by Rva003529B0 clone ctor 0x003B410E; donor Rva003529B0Clone.cpp member-without-body
 ?rva002B37B4@Rva002B37B4@@QAEXPAVRefresh0023FA80AI@@PAVRefresh0023FA80Object@@@Z,0x002B37B4,out-of-line schedule tail-jumped by Refresh0023FA80Primary::scheduleNullable 0x002B388D; identity unproven so named from the address
 ?rva004F0479@Rva004F0479@@QAEXPAVTeamInQueue@@@Z,0x004F0479,out-of-line unlink helper called by AIPlayer::removeAll_TeamBuildQueue 0x004F0499 with ecx=this; identity unproven so named from the address
+?getPart@Rva0018B8B0Arg@@QAEPAUBfmePartCDF@@XZ,0x0036F710,callee of ?apply@Rva0018B8B0Holder@@QAEXPAVRva0018B8B0Arg@@_N@Z at retail 0x004D6C48 read from its REL32 displacement; body unrowed
