@@ -1,26 +1,21 @@
 // cl: -DNDEBUG -MD -EHs-c- -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Os -Ireference/open-bfme-1/game/GameEngine/Source/GameClient
-// Band colour tables for the drawable region bars at retail 0x00411110 and
-// 0x00411270.
+// BFME1 donor: game/GameEngine/Source/GameClient/DrawableRegionBandColors.cpp
+// at 1281192f682ce6f29b8f06b7daea4b5e8fdfbb24, compiled with the flags above.
+// Original owner and source-level function/type names are not established.
+// bfmeColorLookup00411220 and table address tokens below are donor labels.
 //
-// bfmeRegionRenderB (DrawableRegionRenderA.cpp, retail 0x004129B0) calls
-// bfmeColorLookup00411270 through ILT 0x00017256 with its raw fill ratio and a
-// four-entry Color array, then paints one bar row per entry. The lookup is a
-// five-band threshold table (0.8 / 0.6 / 0.4 / 0.2): the three solid bands
-// store the packed colours of the three RGBAColorInt tables below, and the two
-// transition bands lerp between neighbouring tables with t = (value - low) * 5.
-//
-// lerpColor00411110 is the retail body at 0x00411110. It is a TU-local static
-// helper: MSVC gives it a custom register convention (from in EDI, to in ESI,
-// t on the stack, caller-cleaned), which is why retail's call sites preload
-// ESI/EDI with the two table entries. A scan of retail .text finds exactly
-// five direct calls to it (0x00411220 x1, 0x00411270 x2, 0x00411400 x2) and no
-// ILT thunk, as expected of a static function; 0x00411220 and 0x00411400 are
-// sibling band lookups over further tables and belong in this TU.
-//
-// No owning class or source-level names are proven: the function names keep
-// their retail address tokens, and the tables are named by the colour they
-// hold and their retail .rdata address (VA 0x010F1270 / 0x010F12C0 /
-// 0x010F1310; initialisers read from the image).
+// BFME2 evidence: Ghidra starts 0x00270BD9/205 and 0x00270CA6/62. Five direct
+// calls from 0x00270CC8, 0x00270D67, 0x00270DFA, 0x00270ECB, 0x00270F5E reach
+// the helper; callers provide from in EDI, to in ESI and a stack float, then
+// clean the stack. The native helper has no absolute entry references.
+// The TU-local donor function lets MSVC naturally emit that private ABI.
+// Target data access observes four unsigned 32-bit channels at +0/+4/+8/+12,
+// then narrows each interpolated channel to a byte and packs A8R8G8B8.
+// RGBAColorInt and channel-role names come from the verified donor header;
+// this layout/packing and the related caller family have independent target
+// evidence. __ftol2 reaches the existing native CRT body 0x00629228/117.
+// The whole four-function donor was mined. The two additional 356-byte
+// band lookups are banked with their SSE2/runtime-palette-loop adaptations.
 
 #include "basetype.h"
 
@@ -74,7 +69,7 @@ static const RGBAColorInt s_greenColors00CF13D4[3] =
 // from * (1 - t) + to * t per channel, packed as A8R8G8B8.  Each channel is
 // widened to Real before the blend; retail schedules the second channel's
 // sign test ahead of the first product only in that form.
-static Color lerpColor00411110( const RGBAColorInt &from, const RGBAColorInt &to, Real t )
+static Color rva00270BD9Blend( const RGBAColorInt &from, const RGBAColorInt &to, Real t )
 {
 	Real inv = 1.0f - t;
 
@@ -101,5 +96,5 @@ static Color lerpColor00411110( const RGBAColorInt &from, const RGBAColorInt &to
 void bfmeColorLookup00411220( Real value, Color *colors )
 {
 	for( Int i = 0; i < 4; ++i )
-		colors[i] = lerpColor00411110( s_colors00CF11D0[i], s_colors00CF1220[i], value );
+		colors[i] = rva00270BD9Blend( s_colors00CF11D0[i], s_colors00CF1220[i], value );
 }
