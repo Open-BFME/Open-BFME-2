@@ -55775,3 +55775,4 @@ ___Extract_locale_name,,0x000216A0,153,Code/Libraries/Source/WWVegas/WWLib/Local
 ?Rva003BC048Set@@YGXABVAsciiString@@H@Z,,0x003BC048,95,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsRva003BC048.cpp,matched,leaf via ScriptEngine mask and Money withdraw deposit at Player+0x90
 ?Rva003BC0A7Set@@YGXABVAsciiString@@H@Z,,0x003BC0A7,96,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsRva003BC0A7.cpp,matched,leaf via mask loop money deposit or withdraw neg
 ?Rva0053E754Get@@YGPAVObject@@H@Z,,0x0053E754,47,Code/GameEngine/Source/GameClient/GUI/ControlBar/Rva0053E754Get.cpp,matched,unlock table g_00E05E20 to TheGameLogic findObjectByID caller 0x00328700
+?Rva002D0BB8Copy@@YAPADPAD00@Z,,0x002D0BB8,50,Code/GameEngine/Source/Common/Rva002D0BB8Copy.cpp,matched,counted copy stride 92 via bfmeAssign
