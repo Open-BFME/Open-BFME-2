@@ -53726,3 +53726,4 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ?reverse@GameWindowTransitionsHandler@@QAEXVAsciiString@@@Z,,0x001DC345,231,Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsHandlerGroups.cpp,matched,ZH reverse plus BFME 2 critical section and display fields; calls TransitionGroup init 0x001DC164 and reverse 0x001DBDC6
 ?rva001DC1FD@GameWindowTransitionsHandler@@QAEHVAsciiString@@@Z,,0x001DC1FD,85,Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsHandlerGroups.cpp,matched,BFME 2 handler query: findGroup then TransitionGroup total frames 0x001DBDA4 or 0; caller 0x0025C97E
 ??_EPlayerList@@WM@AEPAXI@Z,,0x002A7ECD,8,Code/GameEngine/Source/Common/RTS/PlayerListDtor.cpp,matched,this-adjusting (-0xC) deleting-dtor thunk of PlayerList in its Snapshot table
+??1Rva0050FAEC@@UAE@XZ,,0x0050FAEC,11,Code/GameEngine/Source/Common/System/Rva0050FAECDtor.cpp,matched,trivial dtor store plus tail-jmp to pinned base 0x005248D0
