@@ -39,7 +39,11 @@
 
 struct EmitVtableTag;
 
-class Rva00243BA0
+class Rva00243BA0Base0 { public: virtual ~Rva00243BA0Base0(); private: char m_unmodelled[0x8]; };
+// Secondary base at +0xC: the this-adjusting deleting-destructor thunk
+// (sub ecx, 0xC) at 0x00243EDF in its vtable is target evidence for it.
+class Rva00243BA0BaseC { public: virtual ~Rva00243BA0BaseC(); };
+class Rva00243BA0 : public Rva00243BA0Base0, public Rva00243BA0BaseC
 {
 public:
 	Rva00243BA0(EmitVtableTag *);

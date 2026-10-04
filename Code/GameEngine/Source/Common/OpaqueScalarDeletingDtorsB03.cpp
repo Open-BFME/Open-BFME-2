@@ -153,7 +153,11 @@ Rva001D92C0::Rva001D92C0(EmitVtableTag *)
 {
 }
 
-class Rva001DF057
+class Rva001DF057Base0 { public: virtual ~Rva001DF057Base0(); private: char m_unmodelled[0x8]; };
+// Secondary base at +0xC: the this-adjusting deleting-destructor thunk
+// (sub ecx, 0xC) at 0x001DF0F1 in its vtable is target evidence for it.
+class Rva001DF057BaseC { public: virtual ~Rva001DF057BaseC(); };
+class Rva001DF057 : public Rva001DF057Base0, public Rva001DF057BaseC
 {
 public:
 	Rva001DF057(EmitVtableTag *);
@@ -298,7 +302,11 @@ Rva001F4D22::Rva001F4D22(EmitVtableTag *)
 {
 }
 
-class Rva001F9D98
+class Rva001F9D98Base0 { public: virtual ~Rva001F9D98Base0(); private: char m_unmodelled[0x8]; };
+// Secondary base at +0xC: the this-adjusting deleting-destructor thunk
+// (sub ecx, 0xC) at 0x001F9EA7 in its vtable is target evidence for it.
+class Rva001F9D98BaseC { public: virtual ~Rva001F9D98BaseC(); };
+class Rva001F9D98 : public Rva001F9D98Base0, public Rva001F9D98BaseC
 {
 public:
 	Rva001F9D98(EmitVtableTag *);

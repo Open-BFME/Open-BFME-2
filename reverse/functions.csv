@@ -53709,3 +53709,11 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ??_EHCompressedAnimClass@@W7AEPAXI@Z,,0x0018FAA0,8,Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp,matched,this-adjusting (-0x8) deleting-dtor thunk of HCompressedAnimClass already emitted by its unit
 ??_EParticleEmitterClass@@W7AEPAXI@Z,,0x001A22C0,8,Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp,matched,this-adjusting (-0x8) deleting-dtor thunk of ParticleEmitterClass already emitted by its unit
 ??_ETeamFactory@@WM@AEPAXI@Z,,0x003A2624,8,Code/GameEngine/Source/Common/RTS/TeamFactoryDtor.cpp,matched,this-adjusting (-0xC) deleting-dtor thunk of TeamFactory already emitted by its unit
+??_ERva000E3B41@@W7AEPAXI@Z,,0x000E3BD9,8,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB01.cpp,matched,this-adjusting (-0x8) deleting-dtor thunk of opaque class Rva000E3B41
+??_ERva000E3B41@@WMI@AEPAXI@Z,,0x000E3BE1,11,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB01.cpp,matched,this-adjusting (-0xC8) deleting-dtor thunk of opaque class Rva000E3B41
+??_ERva001041D8@@WM@AEPAXI@Z,,0x001042C7,8,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB01.cpp,matched,this-adjusting (-0xC) deleting-dtor thunk of opaque class Rva001041D8
+??_ERva001DF057@@WM@AEPAXI@Z,,0x001DF0F1,8,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB03.cpp,matched,this-adjusting (-0xC) deleting-dtor thunk of opaque class Rva001DF057
+??_ERva001F9D98@@WM@AEPAXI@Z,,0x001F9EA7,8,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB03.cpp,matched,this-adjusting (-0xC) deleting-dtor thunk of opaque class Rva001F9D98
+??_ERva0020DF0B@@WM@AEPAXI@Z,,0x0020DDFB,8,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB04.cpp,matched,this-adjusting (-0xC) deleting-dtor thunk of opaque class Rva0020DF0B
+??_ERva0023AE08@@WM@AEPAXI@Z,,0x0023B270,8,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB04.cpp,matched,this-adjusting (-0xC) deleting-dtor thunk of opaque class Rva0023AE08
+??_ERva00243BA0@@WM@AEPAXI@Z,,0x00243EDF,8,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB05.cpp,matched,this-adjusting (-0xC) deleting-dtor thunk of opaque class Rva00243BA0

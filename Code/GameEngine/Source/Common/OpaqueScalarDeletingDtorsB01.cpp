@@ -45,7 +45,14 @@ Rva00142FE0::~Rva00142FE0() {}
 void Rva00142FE0_Delete(Rva00142FE0 *p) { delete p; }
 
 // ??_GRva000E3B41@@UAEPAXI@Z @0x000E3CC5 28B; calls pinned ??1 at 0x000E3B41
-class Rva000E3B41 { public: __declspec(noinline) virtual ~Rva000E3B41(); };
+class Rva000E3B41Base0 { public: virtual ~Rva000E3B41Base0(); private: char m_unmodelled[0x4]; };
+// Secondary base at +0x8: the this-adjusting deleting-destructor thunk
+// (sub ecx, 0x8) at 0x000E3BD9 in its vtable is target evidence for it.
+class Rva000E3B41Base8 { public: virtual ~Rva000E3B41Base8(); private: char m_unmodelled[0xBC]; };
+// Secondary base at +0xC8: the this-adjusting deleting-destructor thunk
+// (sub ecx, 0xC8) at 0x000E3BE1 in its vtable is target evidence for it.
+class Rva000E3B41BaseC8 { public: virtual ~Rva000E3B41BaseC8(); };
+class Rva000E3B41 : public Rva000E3B41Base0, public Rva000E3B41Base8, public Rva000E3B41BaseC8 { public: __declspec(noinline) virtual ~Rva000E3B41(); };
 // ??1Rva000E3B41@@UAE@XZ present-unmatched
 Rva000E3B41::~Rva000E3B41() {}
 void Rva000E3B41_Delete(Rva000E3B41 *p) { delete p; }
@@ -123,7 +130,11 @@ Rva00102188::~Rva00102188() {}
 void Rva00102188_Delete(Rva00102188 *p) { delete p; }
 
 // ??_GRva001041D8@@UAEPAXI@Z @0x00104723 28B; calls pinned ??1 at 0x001041D8
-class Rva001041D8 { public: __declspec(noinline) virtual ~Rva001041D8(); };
+class Rva001041D8Base0 { public: virtual ~Rva001041D8Base0(); private: char m_unmodelled[0x8]; };
+// Secondary base at +0xC: the this-adjusting deleting-destructor thunk
+// (sub ecx, 0xC) at 0x001042C7 in its vtable is target evidence for it.
+class Rva001041D8BaseC { public: virtual ~Rva001041D8BaseC(); };
+class Rva001041D8 : public Rva001041D8Base0, public Rva001041D8BaseC { public: __declspec(noinline) virtual ~Rva001041D8(); };
 // ??1Rva001041D8@@UAE@XZ present-unmatched
 Rva001041D8::~Rva001041D8() {}
 void Rva001041D8_Delete(Rva001041D8 *p) { delete p; }
