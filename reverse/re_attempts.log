@@ -8393,3 +8393,4 @@ __Locale_ctype_create	0x22360	1316	converted	Clean whole Open-BFME1 LocaleFacets
 ?rva0050A4A2@Made002CC8A4@@QAEXPAXPAUCoord3D@@@Z	0x0050A4A2	751	blocked	751B vslot skeletal 45/751B far needs full rewrite t=10 model=muse-03
 ?rva004F0819@Rva004F040F@@QAEXH@Z	0x004F0819	143	blocked	indirect-call-via-ebp plus ebx-ebp-fnaddr-save needs honest model t=20 model=muse-03
 ?rva004F0C85@Rva004F07E6@@QAEPAXPAX@Z	0x004F0C85	345	blocked	vslot slot20 needs 95-slot esi vtable plus 22-slot own vtable plus Object offsets t=10 model=muse-03
+?rva004D0A0A@ConnectionManager@@QAEXXZ	0x004D0A0A	154	partial	extra xor eax eax before mov al byte load from 0x12028 t=25 model=muse-02 score=0.97 stash=reverse/attempts/0x004d0a0a.cpp
