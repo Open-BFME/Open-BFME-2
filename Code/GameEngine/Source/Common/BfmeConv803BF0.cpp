@@ -24,8 +24,15 @@ class BfmeOwner803BF0
 {
 public:
 	void go(BfmeSrc803BF0 *src);
-	void send(BfmeMsg803BF0 *m) throw();
 	void bfmeGoVJH(int a) throw();
+};
+
+// Ledger row at 0x0066F930 owns the send body (?send@Rva008038F0Sender); call it by that name.
+class BfmeC994;
+class Rva008038F0Sender
+{
+public:
+	void send(BfmeC994 *m) throw();
 };
 
 
@@ -38,6 +45,6 @@ void BfmeOwner803BF0::go(BfmeSrc803BF0 *src)
 	int tid = src->getInt((char *)"TID", -1);
 	if (tid != -1)
 		msg.addInt((char *)"TID", tid);
-	send(&msg);
+	((Rva008038F0Sender *)this)->send((BfmeC994 *)&msg);
 	bfmeGoVJH(src->getInt((char *)"TID", 0));
 }
