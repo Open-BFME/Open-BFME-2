@@ -163,3 +163,21 @@ void dup_007b68a0()
         --_STL::ios_base::_Loc_init::_S_count;
     }
 }
+
+extern "C" int __cdecl atexit(void (__cdecl *callback)());
+#pragma comment(linker, "/alternatename:_atexit=__atexit")
+
+// Whole BFME1 Rva00C6D830Init.cpp at 6583b3c1ff21db4a561285717028fdafc780b7db
+// supplies the two-call startup lead. Native 007AB870/40 is INT3 delimited
+// and calls the independently rowed facet-id initializer 6F80 and classic
+// locale builder B730; it writes the established DDEB18 locale pointer and
+// increments DDEB20, then registers the separately retained 7B68A0 cleanup
+// through the rowed CRT atexit6291F8. The original startup symbol is unknown.
+// Its VA also occurs in the native initializer-pointer sequence at 9A4038.
+void Rva007AB870InitializeClassicLocale()
+{
+    _STL::_Stl_loc_init_facets();
+    _STL::_Stl_classic_locale_impl = _STL::_Locale_impl::make_classic_locale();
+    ++_STL::ios_base::_Loc_init::_S_count;
+    atexit(dup_007b68a0);
+}
