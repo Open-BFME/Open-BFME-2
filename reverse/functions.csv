@@ -54347,3 +54347,4 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ??1Rva00420110@@UAE@XZ,,0x004201FA,62,Code/GameEngine/Source/Common/Rva004201FADtor.cpp,matched,derived dtor via inlined base plus rowed method same this plusDeletingDtor caller
 ??_GRva00420110@@UAEPAXI@Z,,0x00420238,28,Code/GameEngine/Source/Common/Rva004201FADtor.cpp,matched,deleting dtor via own TU plus rowed dtor plus delete
 ?rva004F0656@Rva004F0656@@QAEEXZ,,0x004F0656,43,Code/GameEngine/Source/GameLogic/AI/Rva004F0656Predicate.cpp,matched,TeamInQueue-area list sum predicate goto shared false
+?rva004F040F@Rva004F040F@@QAEXPAX@Z,,0x004F040F,32,Code/GameEngine/Source/Common/Rva004F040FList.cpp,matched,list check-then-remove with this-plus-4 head
