@@ -9325,3 +9325,4 @@ _Rva0030CAF8CursorEqual,0x0007E394,twin of dup_0007e394 29B exact cursor equalit
 ??0Rva005E76E0Object@@QAE@PAXPAVV3HostRva005E76E0@@@Z,0x003ACE8B,callee of ?create@V3HostRva005E76E0@@QAEPAVRva005E76E0Object@@PAX@Z at retail 0x003AD84A read from its REL32 displacement; donor-carried name; body unrowed
 ??0Rva005E7AD0Object@@QAE@PAXPAVV3HostRva005E7AD0@@@Z,0x003AD136,callee of ?create@V3HostRva005E7AD0@@QAEPAVRva005E7AD0Object@@PAX@Z at retail 0x003ADA36 read from its REL32 displacement; donor-carried name; body unrowed
 ??0Rva005EBCC0Object@@QAE@ABV0@@Z,0x003AE792,callee of ?clone@Rva005EBCC0Object@@QBEPAV1@XZ at retail 0x003AE758 read from its REL32 displacement; donor-carried name; body unrowed
+?setMap@GameInfo@@QAEXVAsciiString@@@Z,0x00400126,callee of ?setMapForwarder@GameInfo@@QAEXVAsciiString@@@Z at retail 0x00447B9D read from its REL32 displacement at call 0x00447BC0; body unrowed
