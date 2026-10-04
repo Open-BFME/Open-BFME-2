@@ -1201,7 +1201,7 @@ def main():
 
     ledger = check_ledger()  # exit 2 happens in there; nothing below matters if red
     drifts = (drift_quick_wins()
-              if args.tier not in ("named", "structural", "ghidra") else [])
+              if args.tier not in ("packet", "named", "structural", "ghidra") else [])
     # Every tier below asks "is this address still open work?", and a gen-dump
     # row answers yes: it pins retail's bytes and holds no source. That rule
     # lives in build.load_claim_rows and nowhere else -- deriving it here a
@@ -1216,7 +1216,7 @@ def main():
                 claimed_ranges.append((start, start + int(row["target_size"])))
     structural = (structural_candidates(claimed, claimed_names, claimed_ranges,
                                         big=args.big)
-                  if args.tier not in ("named", "harvest", "ghidra", "anchored")
+                  if args.tier not in ("packet", "named", "harvest", "ghidra", "anchored")
                   else [])
     if args.tier in (None, "named"):
         named, named_note = reloc_named_candidates(claimed, claimed_ranges)
@@ -1227,7 +1227,7 @@ def main():
             claimed, claimed_names, claimed_ranges)
     else:
         anchored, anchored_note = [], "anchored tier not requested"
-    if args.tier not in ("named", "harvest", "structural", "anchored"):
+    if args.tier not in ("packet", "named", "harvest", "structural", "anchored"):
         ghidra_absent, ghidra_meta = ghidra_absent_candidates(
             claimed, claimed_names)
     else:
