@@ -7803,3 +7803,4 @@ FUN_007b7836	0x003B7836	260	blocked	no callers prove 3-arg free-function types p
 ?scanClosestTarget@CommandButtonHuntUpdate@@IAEPAVObject@@XZ	0x00495489	721	partial	t=20min model=claude-opus-5-5 size exact 721B; only stack-slot allocation differs (data spill -0x38 vs -0x48, player filter/range/getPriority temp slots) plus fstp dist scheduled before the info compare; ZH donor shape; pins canDoSpecialPowerAtObject 0x41CFCC and AttackPriorityInfo::getPriority 0x357CDE added score=0.97 stash=reverse/attempts/0x00495489.cpp
 ?Rva003B7FE0Do@@YAXPAX0@Z	0x003B7FE0	171	blocked	needs STL deque EH donor 171B cdecl 2ptr no precedent t=10 model=muse-01
 ?rva0056D76B@Rva0056D76B@@QAEXXZ	0x0056D76B	57	blocked	needs EH unwind AsciiString TreeHint 57B no donor t=12 model=muse-01
+?rva00421292@Rva00421292@@QAEXPAVGen_0039BE00@@PBV?$StringBase@D@@@Z	0x00421292	82	blocked	extra ebx spill and cmp vs mov-test for null check t=25 model=muse-spark
