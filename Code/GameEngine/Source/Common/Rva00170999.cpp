@@ -87,6 +87,7 @@ class Rva00151DAB
 public:
 	Rva00151DAB(const Rva00151DAB &that);
 	Rva00151DAB(const unsigned int &key, const AssetReference &ref);
+	~Rva00151DAB();
 private:
 	unsigned int _key;
 	AssetReference _ref;
