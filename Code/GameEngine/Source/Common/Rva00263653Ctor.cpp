@@ -79,3 +79,7 @@ Rva00263653::Rva00263653()
 }
 // _kF7C: the global at VA 0xbc292c is ?g_objectSpacingDefault@@3MA.
 #pragma comment(linker, "/alternatename:_kF7C=?g_objectSpacingDefault@@3MA")
+// ?rva00263653_dummy@Rva00263653@@UAEXXZ present-unmatched
+void Rva00263653::rva00263653_dummy()
+{
+}
