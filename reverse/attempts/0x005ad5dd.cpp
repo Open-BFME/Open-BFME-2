@@ -1,5 +1,7 @@
 // ?v7@Rva005ACCE4@@UAEXXZ
 // partial score=0.85 date=2026-10-04
+// ?v7@Rva005ACCE4@@UAEXXZ
+// partial score=0.85 date=2026-10-04
 // cl: /O1 /G7 /MD /GX /DNDEBUG /arch:SSE /Ireference/shims/bfme2_ascii
 //
 // The "FarmKillSquad" skirmish-AI tactic (vtable 0x00872474; ctor 0x005ACF38
