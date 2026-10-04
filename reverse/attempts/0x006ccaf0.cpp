@@ -1,6 +1,7 @@
 // ?rva006ccaf0@@YAXPBD@Z
-// partial score=0.9 date=2026-10-04
-// cl: /O2 /MD
+// partial score=0.93 date=2026-10-04
+// ?rva006ccaf0@@YAXPBD@Z
+// cl: /O2 /MD /EHsc
 // ?rva006ccaf0@@YAXPBD@Z @ 0x006CCAF0 (139B).
 //
 // Address-derived recovery of the Apt value-name registration that names a
@@ -65,15 +66,13 @@ extern Rva006DCD20Cache g_bfmeAptNameCacheAtE182E0;
 // ?rva006ccaf0@@YAXPBD@Z @ 0x006CCAF0 (139B)
 void rva006ccaf0(const char *name)
 {
-	// The temporary is at function scope, not in a nested block: that is what
-	// makes the SEH scope slot sit at [esp+0x28] and the teardown run after
-	// the release, exactly as retail lays it out.
-	EAStringC wanted(name);
+	{
+		EAStringC wanted(name);
+		const char *canonical = rva006CC530(0, 0, wanted, 1, 1, 0);
 
-	const char *canonical = rva006CC530(0, 0, wanted, 1, 1, 0);
-
-	Rva006DCD20 *entry = g_bfmeAptNameCacheAtE182E0.rva006FFD80(canonical);
-	entry->slot0();
-	entry->rva006DE870(name);
-	entry->release();
+		Rva006DCD20 *entry = g_bfmeAptNameCacheAtE182E0.rva006FFD80(canonical);
+		entry->slot0();
+		entry->rva006DE870(name);
+		entry->release();
+	}
 }
