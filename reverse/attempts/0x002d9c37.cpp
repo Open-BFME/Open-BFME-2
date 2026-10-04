@@ -1,77 +1,85 @@
-// ?rva002D9C37@AudioEventRTS@@QBE_NXZ
-// partial score=0.98 date=2026-09-28
-// ?rva002D9C37@AudioEventRTS@@QBE_NXZ
-// partial score=0.98 date=2026-09-28
-// cl: /O1
-// ?rva002D9C37@AudioEventRTS@@QBE_NXZ @ 0x002D9C37 67B (ours 66B, 1B diff: retail has extra dec edx before jmp false)
-// AudioEventRTS::isPositionalAudio shape via getSoundClass caller at 0x002D9D39 (case 2 calls this, neg/sbb/and/inc/inc to 4/2).
-// Donor: BFME1 AudioEventRTS::isPositionalAudio (AudioEventRTS.cpp:729, BitTest m_type ST_WORLD, ownerType/ID check) and
-// AudioEventRTSClassification.cpp getSoundClass mapping. Callers in MilesAudioManager (0x0005160F, 0x00054839, 0x00060869 etc.).
-// Layout: this+8 eventInfo, this+0x34 ownerID, this+0x38 ownerType (0 true, 1-5 ID!=0, else false);
-// eventInfo+0x48 typeFlags bit2 (ST_WORLD), +0xB0 field (2 flagcheck, 3 owner, else false). Duplicated owner cases force
-// dec-chain + push esi/xor esi/cmp/sub esi idioms; per-case if(ID!=0) return true + shared false gives branch tail.
-// Near miss: only retail extra dec edx at +0x17 (dec,dec,je,dec,je,dec,jmp vs ours dec,dec,je,dec,je,jmp).
+// ?isPositionalAudio@AudioEventRTS@@QBE_NXZ
+// partial score=0.95 date=2026-10-04
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /GX
+typedef bool Bool;
+typedef unsigned int UnsignedInt;
 
-struct AudioEventInfoRva002D9C37
+struct AudioEventInfo
 {
-    char m_pad00[0x48];
-    unsigned char m_typeFlags;
-    char m_pad49[0xB0 - 0x49];
-    int m_fieldB0;
+	char m_pad00[0x48];
+	UnsignedInt m_type;      // +0x48, ST_WORLD is bit 1
+	char m_pad4C[0xB0 - 0x4C];
+	int m_soundType;         // +0xB0
 };
 
 class AudioEventRTS
 {
 public:
-    bool rva002D9C37() const;
-
+	Bool isPositionalAudio() const;
+	UnsignedInt getSoundClass() const;
 private:
-    char m_pad00[8];
-    const AudioEventInfoRva002D9C37 *m_eventInfo;
-    char m_pad0C[0x34 - 0x0C];
-    int m_ownerID;
-    int m_ownerType;
+	char m_pad00[8];
+	const AudioEventInfo *m_eventInfo; // +0x08
+	char m_pad0C[0x34 - 0x0C];
+	int m_ownerID;                     // +0x34
+	int m_ownerType;                   // +0x38
 };
 
-bool AudioEventRTS::rva002D9C37() const
+Bool AudioEventRTS::isPositionalAudio() const
 {
-    if (m_eventInfo) {
-        switch (m_eventInfo->m_fieldB0) {
-        case 2:
-            if ((m_eventInfo->m_typeFlags & 2) == 0)
-                return false;
-            break;
-        case 3:
-            break;
-        default:
-            return false;
-        }
-    }
-    switch (m_ownerType) {
-    case 0:
-        return true;
-    case 1:
-        if (m_ownerID != 0)
-            return true;
-        break;
-    case 2:
-        if (m_ownerID != 0)
-            return true;
-        break;
-    case 3:
-        if (m_ownerID != 0)
-            return true;
-        break;
-    case 4:
-        if (m_ownerID != 0)
-            return true;
-        break;
-    case 5:
-        if (m_ownerID != 0)
-            return true;
-        break;
-    default:
-        break;
-    }
-    return false;
+	if( m_eventInfo )
+	{
+		switch( m_eventInfo->m_soundType )
+		{
+			case 2:
+				if( !(m_eventInfo->m_type & 2) )
+					return false;
+				break;
+			case 3:
+				break;
+			case 4:
+				return false;
+		}
+	}
+	switch( m_ownerType )
+	{
+		case 0:
+			return true;
+		case 1:
+			if( m_ownerID != 0 )
+				return true;
+			break;
+		case 2:
+			if( m_ownerID != 0 )
+				return true;
+			break;
+		case 3:
+			if( m_ownerID != 0 )
+				return true;
+			break;
+		case 4:
+			if( m_ownerID != 0 )
+				return true;
+			break;
+		case 5:
+			if( m_ownerID != 0 )
+				return true;
+			break;
+	}
+	return false;
+}
+UnsignedInt AudioEventRTS::getSoundClass() const
+{
+	if( !m_eventInfo )
+		return 0;
+	switch( m_eventInfo->m_soundType )
+	{
+			case 0: return 1;
+			case 2: return isPositionalAudio() ? 4 : 2;
+			case 3: return 16;
+			case 1: return 8;
+			case 4: return 2;
+			case 5: return 0;
+			default: return 0;
+	}
 }
