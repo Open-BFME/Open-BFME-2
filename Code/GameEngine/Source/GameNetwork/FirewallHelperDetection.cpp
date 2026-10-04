@@ -489,3 +489,49 @@ Bool FirewallHelperClass::detectionTest4Stage2Update() {
 	m_currentState = DETECTIONSTATE_DONE;
 	return TRUE;
 }
+
+Bool FirewallHelperClass::behaviorDetectionUpdate()
+{
+	if (m_currentState == DETECTIONSTATE_IDLE) {
+		return FALSE;
+	}
+
+	if (m_currentState == DETECTIONSTATE_DONE) {
+		return TRUE;
+	}
+
+	if (m_currentState == DETECTIONSTATE_BEGIN) {
+		return detectionBeginUpdate();
+	}
+
+	if (m_currentState == DETECTIONSTATE_TEST1) {
+		return detectionTest1Update();
+	}
+
+	if (m_currentState == DETECTIONSTATE_TEST2) {
+		return detectionTest2Update();
+	}
+
+	if (m_currentState == DETECTIONSTATE_TEST3) {
+		return detectionTest3Update();
+	}
+
+	if (m_currentState == DETECTIONSTATE_TEST3_WAITFORRESPONSES) {
+		return detectionTest3WaitForResponsesUpdate();
+	}
+
+	if (m_currentState == DETECTIONSTATE_TEST4_1) {
+		return detectionTest4Stage1Update();
+	}
+
+	if (m_currentState == DETECTIONSTATE_TEST4_2) {
+		return detectionTest4Stage2Update();
+	}
+
+	if (m_currentState == DETECTIONSTATE_TEST5) {
+		// BFME 2 has no fifth test (target evidence): it just finishes.
+		m_currentState = DETECTIONSTATE_DONE;
+	}
+
+	return TRUE;
+}
