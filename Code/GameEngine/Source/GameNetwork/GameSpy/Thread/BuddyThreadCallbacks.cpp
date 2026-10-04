@@ -14,7 +14,7 @@
 
 namespace _STL
 {
-template <class T> struct char_traits {};
+template <class T> class char_traits {};
 template <class T> class allocator {};
 
 // The node allocator's pool entry points are private STLport members
@@ -37,14 +37,7 @@ public:
 	~basic_string()
 	{
 		if (m_start)
-		{
-			const unsigned int bytes =
-				(unsigned int)(m_storageEnd - m_start) * sizeof(Character);
-			if (bytes > 128)
-				::operator delete(m_start);
-			else
-				_STL::nodePoolDeallocate(m_start, bytes);
-		}
+			free(m_start);
 	}
 
 	const Character *c_str() const { return m_start; }
@@ -60,6 +53,8 @@ typedef basic_string<wchar_t, char_traits<wchar_t>, allocator<wchar_t> > wstring
 
 typedef int GPProfile;
 typedef int GPEnum;
+
+void __cdecl free(void *);
 
 class GPConnection;
 
@@ -192,6 +187,23 @@ void BuddyThreadClass::statusCallback(GPConnection *connection,
 	strcpy(response.arg.status.location, status.locationString);
 	strcpy(response.arg.status.statusString, status.statusString);
 	response.arg.status.status = status.status;
+
+	TheGameSpyBuddyMessageQueue->addResponse(response);
+}
+
+void BuddyThreadClass::requestCallback(GPConnection *connection,
+	GPRecvBuddyRequestArg *arg)
+{
+	BuddyResponse response;
+	response.buddyResponseType = BuddyResponse::BUDDYRESPONSE_REQUEST;
+	response.profile = arg->profile;
+
+	gpGetInfo(connection, arg->profile, 1, 1,
+		(GPCallback)getInfoResponseForRequest, &response);
+
+	_STL::wstring text = MultiByteToWideCharSingleLine(arg->reason);
+	wcsncpy(response.arg.request.text, text.c_str(), 1025);
+	response.arg.request.text[1024] = 0;
 
 	TheGameSpyBuddyMessageQueue->addResponse(response);
 }
