@@ -264,3 +264,19 @@ unsigned int Rva0019B080::flag() const
 	return m_10 & 0x100000;
 }
 
+// Target 0x00614D60, 9 bytes; preceding int3 padding; terminal ret and int3 padding.
+// Donor b1 RVA 0x009E1250; target instructions corroborate these accesses.
+class Rva00614D60
+{
+public:
+	unsigned int flag() const;
+
+	char m_lead[ 0x4 ];
+	unsigned int m_4;
+};
+
+unsigned int Rva00614D60::flag() const
+{
+	return m_4 & 0x80000000;
+}
+
