@@ -27,6 +27,7 @@ public:
 	DLINK_ITERATOR<Object> iterate_TeamMemberList() const;
 	Object *rva0039E8EB();
 	Object *rva0039E968(int bit);
+	bool rva0039E8FF(int val);
 };
 
 Object *Team::rva0039E8EB()
@@ -61,4 +62,62 @@ Object *Team::rva0039E968(int bit)
 		((Rva001705A0DlinkIterator<Object> *)&iter)->advance();
 	}
 	return 0;
+}
+
+// ?rva0039E8FF@Team@@QAE_NH@Z @0x0039E8FF 105B unlock Team method iterating members via rowed iterate plus rowed Rva001705A0 advance plus virtual 0x7c and 0xac plus pinned bfmeHas985C; caller 0x003C4A28
+struct Rva0039E8FFMid
+{
+	virtual void f00(); virtual void f01(); virtual void f02(); virtual void f03();
+	virtual void f04(); virtual void f05(); virtual void f06(); virtual void f07();
+	virtual void f08(); virtual void f09(); virtual void f10(); virtual void f11();
+	virtual void f12(); virtual void f13(); virtual void f14(); virtual void f15();
+	virtual void f16(); virtual void f17(); virtual void f18(); virtual void f19();
+	virtual void f20(); virtual void f21(); virtual void f22(); virtual void f23();
+	virtual void f24(); virtual void f25(); virtual void f26(); virtual void f27();
+	virtual void f28(); virtual void f29(); virtual void f30(); virtual void *f31();
+};
+struct Rva0039E8FFTarget
+{
+	virtual void g00(); virtual void g01(); virtual void g02(); virtual void g03();
+	virtual void g04(); virtual void g05(); virtual void g06(); virtual void g07();
+	virtual void g08(); virtual void g09(); virtual void g10(); virtual void g11();
+	virtual void g12(); virtual void g13(); virtual void g14(); virtual void g15();
+	virtual void g16(); virtual void g17(); virtual void g18(); virtual void g19();
+	virtual void g20(); virtual void g21(); virtual void g22(); virtual void g23();
+	virtual void g24(); virtual void g25(); virtual void g26(); virtual void g27();
+	virtual void g28(); virtual void g29(); virtual void g30(); virtual void g31();
+	virtual void g32(); virtual void g33(); virtual void g34(); virtual void g35();
+	virtual void g36(); virtual void g37(); virtual void g38(); virtual void g39();
+	virtual void g40(); virtual void g41(); virtual void g42(); virtual bool g43(int val);
+};
+class BfmeArg985
+{
+public:
+	char bfmeHas985C(int v);
+};
+class Object
+{
+public:
+	char m_pad[0x250];
+	Rva0039E8FFMid *m_mid;
+};
+bool Team::rva0039E8FF(int val)
+{
+	if (val == 0)
+		return false;
+	DLINK_ITERATOR<Object> iter = iterate_TeamMemberList();
+	while (!iter.done()) {
+		Object *cur = iter.cur();
+		Rva0039E8FFMid *mid = cur->m_mid;
+		void *res = mid ? mid->f31() : 0;
+		if (res != 0) {
+			if (((Rva0039E8FFTarget *)res)->g43(val))
+				return true;
+		} else {
+			if ((char)((BfmeArg985 *)cur)->bfmeHas985C(val) == 1)
+				return true;
+		}
+		((Rva001705A0DlinkIterator<Object> *)&iter)->advance();
+	}
+	return false;
 }
