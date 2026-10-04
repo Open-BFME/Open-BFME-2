@@ -55769,3 +55769,4 @@ ___Extract_locale_name,,0x000216A0,153,Code/Libraries/Source/WWVegas/WWLib/Local
 ?rva004CC829@Rva004CC829@@QAE_NXZ,,0x004CC829,89,Code/GameEngine/Source/Common/Rva004CC829Check.cpp,matched,ObjectID validity via findObjectByID and player and frame
 ?Rva000B2CBDGet@@YAHXZ,,0x000B2CBD,40,Code/GameEngine/Source/Common/Rva000B2CBDGet.cpp,matched,GameLogic GameState flag check via globals
 ??0Rva00560A1B@@QAE@PAX0@Z,,0x00560A1B,49,Code/GameEngine/Source/GameClient/Rva003AE50BCtor.cpp,matched,Ctor forwards 2 args to pinned base plus vtable and slots twin of 0x005600F8
+?rva0057A805@Rva0057A7CE@@QAEXXZ,,0x0057A805,55,Code/GameEngine/Source/Common/Rva0057A7CEApt.cpp,matched,vslot slot 3 of 0x0086F118 class Rva0057AD6E rowed AptCall FadeIn globals chain of 0x0057A7CE
