@@ -22,7 +22,7 @@ struct Rva0040F9DBase
 class Rva0040F9D : public Rva0040F9DBase
 {
 public:
-	virtual ~Rva0040F9D();
+    virtual ~Rva0040F9D() = 0;
 	bool set();
 	bool reset();
 	Rva0040F9D(int a1, int a2, char const *a3, void *a4);
