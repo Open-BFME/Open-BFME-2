@@ -2,7 +2,7 @@
 // stlport
 // ?rva0035A1D8@Rva0035A1D8@@QAEXXZ @0x0035A1D8 96B
 // Unlock via 0x002442A4; neighbours Rva0035A18DVectorDeletingDtor and OpaqueScalarDeletingDtorsB06.
-// Evidence: thiscall reads ecx first; list clear 0x0023DAA5 at +0x14; 8 float zeros; array delete 0x0035A18D x3 at +0x40; forEach 0x00359BE8 with vcall thunk plus owner; callers 0x002443AA and thunk 0x0035AA3E.
+// Evidence: thiscall reads ecx first; list clear 0x0023DAA5 at +0x14; 8 float zeros; array delete 0x0035A18D x3 at +0x40; forEach 0x00359BE8 with callback 0x5CB26A (receiver virtual slot +0x10) plus owner; callers 0x002443AA and thunk 0x0035AA3E.
 #include <string>
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
@@ -34,6 +34,7 @@ public:
 	virtual void notify04(Rva00359E04Owner *owner);
 	virtual void notify08(Rva00359E04Owner *owner);
 	virtual void notify0C(Rva00359E04Owner *owner);
+	virtual void notify10(Rva00359E04Owner *owner);
 };
 class Rva00359BE8List
 {
@@ -86,5 +87,5 @@ void Rva0035A1D8::rva0035A1D8()
 	if (arr)
 		delete[] arr;
 	m_arr40 = 0;
-	((Rva00359BE8List *)((char *)this + 0x04))->forEach(&Rva00359E04Listener::notify0C, (Rva00359E04Owner *)this);
+	((Rva00359BE8List *)((char *)this + 0x04))->forEach(&Rva00359E04Listener::notify10, (Rva00359E04Owner *)this);
 }

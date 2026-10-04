@@ -1,7 +1,7 @@
 // cl: /O1 /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc /arch:SSE
 // stlport
 // ??1Rva0035A9C1@@UAE@XZ @0x0035A9C1 125B
-// Evidence: vtable 0x00C153E0#0 via deleting dtor 0x0035ABA4; Snapshot base vtable g_00BBB554; forEach 0x00359BE8 with listener; list clear/dtor 0x0023DAA5/0x004EC395 at +0x14; array delete 0x0035A18D at +0x40; free 0x00030830 of +0x04 buffer.
+// Evidence: vtable 0x00C153E0#0 via deleting dtor 0x0035ABA4; Snapshot base vtable g_00BBB554; forEach 0x00359BE8 with callback 0x1FF3A9 (receiver virtual slot zero); list clear/dtor 0x0023DAA5/0x004EC395 at +0x14; array delete 0x0035A18D at +0x40; free 0x00030830 of +0x04 buffer.
 #include <string>
 
 namespace _STL
@@ -75,7 +75,7 @@ private:
 
 Rva0035A9C1::~Rva0035A9C1()
 {
-	m_list04.forEach(&Rva00359E04Listener::notify0C, (Rva00359E04Owner *)this);
+	m_list04.forEach(&Rva00359E04Listener::notify00, (Rva00359E04Owner *)this);
 	(((_STL::_List_base<int, _STL::allocator<int> > *)((char *)this + 0x14)))->clear();
 	Rva0035A18D *arr = m_arr40;
 	if (arr)
