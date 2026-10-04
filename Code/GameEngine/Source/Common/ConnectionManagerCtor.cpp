@@ -1,5 +1,3 @@
-// ??0ConnectionManager@@QAE@XZ
-// partial score=0.98 date=2026-10-04
 // cl: /Ireference/shims/bfme2_ascii /O1 /G7 /Og /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
 // stlport
 // ??0ConnectionManager@@QAE@XZ @ 0x004D274B 263B
@@ -22,6 +20,14 @@ class FrameDataManager;
 class NetCommandList;
 class NetCommandWrapperList;
 
+struct Unknown12050
+{
+	unsigned int m_12050;
+	unsigned short m_12054;
+	char m_pad[2];
+	Unknown12050() : m_12050(0), m_12054(0) {}
+};
+
 class ConnectionManager
 {
 public:
@@ -35,9 +41,7 @@ public:
 	int m_localSlot;
 	int m_packetRouterSlot;
 	int m_packetRouterFallback[8];
-	unsigned int m_12050;
-	unsigned short m_12054;
-	char m_12056pad[2];
+	Unknown12050 m_12050wrap;
 	AsciiString m_12058;
 	unsigned int m_1205c;
 	unsigned int m_12060[8];
@@ -59,10 +63,9 @@ public:
 	_STL::map<int, void *> m_12150[8];
 };
 
-// ??0ConnectionManager@@QAE@XZ present-unmatched
 ConnectionManager::ConnectionManager()
 	: m_transport(0), m_localSlot(-1), m_packetRouterSlot(0),
-	  m_12050(0), m_12054(0), m_1205c(0),
+	  m_12050wrap(), m_1205c(0),
 	  m_12100(0), m_12124(0), m_12128(0), m_1212c(0), m_12130(0),
 	  m_12134(false), m_12135(true)
 {
