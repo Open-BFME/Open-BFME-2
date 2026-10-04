@@ -435,3 +435,24 @@ Rva0023425D *Rva0023425D::storeWord(unsigned short bits)
     m_word=bits;
     return this;
 }
+
+// Whole donor lead: official BFME 1 5cc75ddda6455c338a5068307e587a793f96d6b3,
+// game/GameEngine/Source/Common/Bfme5ClearsWithTails.cpp, original settings.
+// Native 0x421A4B is a separate 12-byte body between the ret 8 ending at
+// 0x421A4A and Ghidra's next function at 0x421A57. It loads receiver word 0,
+// indexes four-byte slots with the stack word, and returns the slot bits.
+// No calls or address references found. Donor vector/owned-element identities,
+// pointee type, index signedness, original constness and full layout are unknown.
+// This address-qualified read-only view models only those native bit accesses.
+class Rva00421A4B
+{
+public:
+    unsigned int readSlotBits(unsigned int index) const;
+private:
+    const unsigned int *m_slots00;
+};
+
+unsigned int Rva00421A4B::readSlotBits(unsigned int index) const
+{
+    return m_slots00[index];
+}
