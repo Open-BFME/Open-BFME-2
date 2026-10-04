@@ -19,8 +19,7 @@ public:
 	friend void StringBaseWideDeleteArray(StringBase<wchar_t> *array);
 
 private:
-	~StringBase() { releaseBuffer(); }
-	void releaseBuffer();
+	~StringBase();
 	T *m_data;
 };
 
