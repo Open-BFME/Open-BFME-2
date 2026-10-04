@@ -53908,3 +53908,4 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ??0Rva001B4FB8@@QAE@XZ,,0x001B4FB8,49,Code/GameEngine/Source/Common/Rva001B4FB8.cpp,matched,leaf ctor three vector BfmeE16 via rowed Vector_base
 ?rva001B4CD8@Rva001B4CD8@@QAEXXZ,,0x001B4CD8,23,Code/GameEngine/Source/Common/Rva001B4CD8.cpp,matched,leaf pinned 0x1B4C7A call then rowed free
 ?rva0044AA84@LANAPI@@UAEXVAsciiString@@@Z,,0x0044AA84,77,Code/GameEngine/Source/GameNetwork/LANAPIRva0044AA84.cpp,matched,vslot slot52 ResolveIP pin calls slot53 class from FillInLANMessage
+?rva0033C8B5@ModuleInfo@@QAE_NXZ,,0x0033C8B5,51,Code/GameEngine/Source/Common/Thing/ModuleInfoRva0033C8B5.cpp,matched,vector Nugget filter via slot7 calls rowed erase
