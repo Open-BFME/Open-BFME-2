@@ -55846,3 +55846,4 @@ ___Extract_locale_name,,0x000216A0,153,Code/Libraries/Source/WWVegas/WWLib/Local
 ??0Rva0030E7D0@@QAE@XZ,,0x0030E7D0,46,Code/Libraries/Source/WWVegas/WWLib/Rva0030E7D0Ctor.cpp,matched,ctor vector BfmeE16 via rowed Vector_base float from g_Va00BBB8D8
 ??0Rva000A3DE3@@QAE@PAX@Z,,0x000A3DE3,24,Code/GameEngine/Source/GameClient/GUI/Rva000A3DE3Ctor.cpp,matched,ctor forwards void arg to rowed base stores vtable
 ??0Rva000A3E2B@@QAE@PAX@Z,,0x000A3E2B,24,Code/GameEngine/Source/GameClient/GUI/Rva000A3E2BCtor.cpp,matched,ctor forwards void arg to rowed base stores vtable
+?Rva002ACFC1Equal@@YA_NHH@Z,,0x002ACFC1,21,Code/GameEngine/Source/Common/Rva002ACFC1Equal.cpp,matched,chain via rowed 0x002AC271 returns compare ==0
