@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ??0Rva005AEB2C@@QAE@XZ RVA 0x005AEB2C size 167 evidence TheGameSpyInfo virtuals 0x60/0x64 map iteration to vector push_back callers 0x005AEBD3 0x005AED3C
 #include <vector>

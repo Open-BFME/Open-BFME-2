@@ -7623,3 +7623,4 @@ FUN_007b7836	0x003B7836	260	blocked	no callers prove 3-arg free-function types p
 ?getDayOfWeek@AptDate@@QAEHHHH@Z	0x006F4290	450	partial	tail stack slots swapped nCentury-remainder and mov ecx-eax vs mov ecx-mem t=25 model=muse-18 score=0.97 stash=reverse/attempts/0x006f4290.cpp
 ?rva004C7167@Rva004C7167@@QAEXPAX@Z	0x004C7167	108	blocked	this-save dead ecx restore unexplained 102 vs 108B t=15 model=muse-01
 ?Rva00331E28MakeHeap@@YAXPAUS4SortElem12@@0US4Cmp002E0CD0@@@Z	0x00331E28	88	partial	missing EH saved-esp mov [ebp+0xc],esp only; /O1 /G7 /EHsc /MD /Oy- fixed imul and edi-esi swap t=20 model=muse-07 score=0.97 stash=reverse/attempts/0x00331e28.cpp
+?rva0049AC5F@Rva0049A64B@@UAEXPAXH@Z	0x0049AC5F	53	blocked	ours 75B vs retail 53B extra EH frame and push/mov shape wall t=5 model=muse-15
