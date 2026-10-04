@@ -16,9 +16,15 @@
 // ThePartitionManager's; fabs is the CRT import, declared here with a float
 // result: retail compares its x87 result directly with the float threshold
 // (fld dword), which the double declaration turns into a double constant.
+// AIFaceState::onExit, retail 0x003423A6 (34 bytes): slot 5 of the same
+// vtable. Zero Hour's is empty; BFME 2 stops the mode-2 turner (its vslot 133).
 // Layout: machine goal position +0x24, m_canTurnInPlace +0x2C.
 typedef bool Bool;
 typedef float Real;
+enum StateExitType
+{
+	EXIT_NORMAL = 0
+};
 enum StateReturnType
 {
 	STATE_CONTINUE = 0,
@@ -42,6 +48,7 @@ class Rva0029439DTarget : public VSlots<132>
 {
 public:
 	virtual void setLocomotorGoalPositionExplicit(const Coord3D &newPos) = 0;
+	virtual void bfmeStopTurn() = 0;
 };
 class AIUpdateInterface : public VSlots<132>
 {
@@ -86,7 +93,7 @@ public:
 	virtual void slot02();
 	virtual void slot03();
 	virtual StateReturnType onEnter();
-	virtual void onExit(int status);
+	virtual void onExit(StateExitType status);
 	virtual StateReturnType update();
 protected:
 	Object *getMachineOwner() const { return m_machine->getOwner(); }
@@ -103,6 +110,7 @@ public:
 class AIFaceState : public AIIdleState
 {
 public:
+	virtual void onExit(StateExitType status);
 	virtual StateReturnType update();
 private:
 	unsigned char m_pad1C[0x28 - 0x1C];
@@ -153,4 +161,15 @@ StateReturnType AIFaceState::update()
 	if (m_obj == 2)
 		return AIIdleState::update();
 	return STATE_CONTINUE;
+}
+
+//----------------------------------------------------------------------------------------------------------
+void AIFaceState::onExit( StateExitType status )
+{
+	if (m_obj == 2)
+	{
+		Rva0029439DTarget *turner = (Rva0029439DTarget *)getMachineOwner()->rva0029439D();
+		if (turner)
+			turner->bfmeStopTurn();
+	}
 }
