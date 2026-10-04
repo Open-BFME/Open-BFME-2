@@ -32598,8 +32598,8 @@ uw_007a6da9,,0x007A6DA9,8,Code/gen_small/uw_gen_004.cpp,matched,gen-funclet;obje
 uw_007a6db1,,0x007A6DB1,11,Code/gen_small/uw_gen_000.cpp,matched,gen-funclet;object-symbol=$L6516
 uw_007a6dbc,,0x007A6DBC,11,Code/gen_small/uw_gen_000.cpp,matched,gen-funclet;object-symbol=$L6525
 uw_007a6dc7,,0x007A6DC7,8,Code/gen_small/uw_gen_006.cpp,matched,gen-funclet;object-symbol=$L2359
-uw_007a6de0,,0x007A6DE0,8,Code/gen_small/uw_gen_006.cpp,matched,gen-funclet;object-symbol=$L3465
-uw_007a6de8,,0x007A6DE8,8,Code/gen_small/uw_gen_006.cpp,matched,gen-funclet;object-symbol=$L3438
+uw_007a6de0,,0x007A6DE0,8,Code/Libraries/Source/WWVegas/WWLib/registry.cpp,matched,gen-funclet;object-symbol=$L7108;parent=?Save_Registry@RegistryClass@@SAXPBDPAD@Z;unwind state 0 of FuncInfo 0x00960640 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_007a6de8,,0x007A6DE8,8,Code/Libraries/Source/WWVegas/WWLib/registry.cpp,matched,gen-funclet;object-symbol=$L7109;parent=?Save_Registry@RegistryClass@@SAXPBDPAD@Z;unwind state 1 of FuncInfo 0x00960640 read from the parent prolog handler stub; emitted by the parent C++ in this TU
 uw_007a6e00,,0x007A6E00,11,Code/gen_small/uw_gen_006.cpp,matched,gen-funclet;object-symbol=$L3474
 uw_007a6e0b,,0x007A6E0B,11,Code/gen_small/uw_gen_006.cpp,matched,gen-funclet;object-symbol=$L3456
 uw_007a6e16,,0x007A6E16,11,Code/gen_small/uw_gen_006.cpp,matched,gen-funclet;object-symbol=$L3228
