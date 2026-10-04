@@ -19,7 +19,6 @@
 #include "GameNetwork/NetCommandMsg.h"
 #include "GameNetwork/ConnectionManager.h"
 
-template class std::map<UnsignedShort, UnsignedByte>;
 
 
 // BFME's version bears no resemblance to the reference's, which loops
