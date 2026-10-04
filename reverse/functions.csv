@@ -55196,3 +55196,4 @@ _Rva003B8B44CopyDispatch,,0x003B8B44,29,Code/Libraries/Source/WWVegas/WWLib/Stlp
 ?rva005DCAE5@Rva005DC87B@@QAEPAVObject@@XZ,,0x005DCAE5,15,Code/GameEngine/Source/Common/Rva005DC87BXfer.cpp,matched,Object at +0x58 via TheGameLogic findObjectByID
 ?rva003E6AA9@ScriptConditions@@IAE_NPAVParameter@@0@Z,,0x003E6AA9,174,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_Rva003E6AA9.cpp,matched,ScriptConditions team bool via dispatcher 0x003EAE15 getTeamNamed flag mask loop
 ?rva00290DBB@Object@@QAEXPAURva002A9B58@@0@Z,,0x00290DBB,103,Code/GameEngine/Source/GameLogic/Object/ObjectRva00290DBB.cpp,matched,Object dual-dict plus 250-list self recursion unlocks 3 callers
+??0Rva00469D50@@QAE@XZ,,0x00469D50,54,Code/GameEngine/Source/Common/Rva00469D50Ctor.cpp,matched,caller 0x0046F39E news 0x10 Target at plus0 Result at plus4 InitiateVoice at plus8 via row 0x004CEE6E
