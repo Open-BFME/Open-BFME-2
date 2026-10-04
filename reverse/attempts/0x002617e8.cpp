@@ -1,5 +1,5 @@
 // ?allow@Rva002617E8Filter@@QAE_NPAVObject@@@Z
-// partial score=0.9 date=2026-10-04
+// partial score=0.95 date=2026-10-04
 // cl: /O1 /arch:SSE /DNDEBUG /MD
 struct Coord3D
 {
@@ -31,12 +31,12 @@ private:
 bool Rva002617E8Filter::allow(Object *obj)
 {
 	float radius = obj->getShroudClearingRange();
-	if (0.0f < radius) {
-		float dx = obj->getPosition()->x - m_pos.x;
-		float dy = obj->getPosition()->y - m_pos.y;
-		float range = m_range + radius + obj->getB8();
-		if (range * range > dx * dx + dy * dy)
-			return m_inside;
-	}
+	if (radius <= 0.0f)
+		return !m_inside;
+	float dx = obj->getPosition()->x - m_pos.x;
+	float dy = obj->getPosition()->y - m_pos.y;
+	float range = m_range + radius + obj->getB8();
+	if (range * range > dx * dx + dy * dy)
+		return m_inside;
 	return !m_inside;
 }
