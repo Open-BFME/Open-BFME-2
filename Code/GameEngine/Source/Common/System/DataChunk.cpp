@@ -47,7 +47,37 @@ public:
 
 	Mapping *m_next;			// +0x04
 	AsciiString m_name;			// +0x08
+	unsigned int m_id;			// +0x0C
 };
+
+// The concrete 0x10-byte mapping object retail news in read(): its vtable
+// 0x00C07EAC is the one rowed for the address-named Rva0030714F (virtual
+// destructor 0x0030714F, deleting destructor 0x00307133).
+class Rva0030714F
+{
+public:
+	Rva0030714F() {}
+	virtual ~Rva0030714F();
+private:
+	char m_pad04[4];
+	AsciiString m_name;			// +0x08
+	unsigned int m_id;			// +0x0C
+};
+
+// Zero Hour's ChunkInputStream: read is vslot 0, eof vslot 3.
+class ChunkInputStream
+{
+public:
+	virtual int read(void *buf, int numBytes) = 0;
+	virtual unsigned int tell(void) = 0;
+	virtual bool absoluteSeek(unsigned int pos) = 0;
+	virtual bool eof(void) = 0;
+};
+
+// A by-reference max: retail selects between the member and a spilled
+// maxID+1 by address (ZH's BaseType.h macro and WWLib's by-value template
+// both compare in registers).
+template <class T> inline T const & max(T const & a, T const & b) { return (a > b) ? a : b; }
 
 void operator delete(void *ptr);
 
@@ -56,6 +86,8 @@ class DataChunkTableOfContents
 public:
 	DataChunkTableOfContents();
 	~DataChunkTableOfContents();
+
+	void read( ChunkInputStream &s);
 
 	Mapping *m_list;			// +0x00
 	int m_listLength;			// +0x04
@@ -121,4 +153,58 @@ Mapping *DataChunkTableOfContents::findMapping( const AsciiString& name )
 			return m;
 
 	return 0;
+}
+
+// ?read@DataChunkTableOfContents@@QAEXAAVChunkInputStream@@@Z
+// Retail 0x003071E9 (301B): Zero Hour's DataChunk.cpp table-of-contents
+// reader ('CkMp' tag, count, then length-prefixed names and ids prepended
+// to the list); BFME 2 news the 0x10-byte mapping directly.
+void DataChunkTableOfContents::read( ChunkInputStream &s)
+{
+	int count, i;
+	unsigned int maxID = 0;
+	unsigned char len;
+	Mapping *m;
+
+	char tag[4]={'x','x', 'x', 'x'};	// Chunky height map. jba.
+	s.read(tag,sizeof(tag));
+	if (tag[0] != 'C' || tag[1] != 'k' || tag[2] != 'M' || tag[3] != 'p') {
+		return;	 // Don't throw, may happen with legacy files.
+	}
+
+	// get number of symbols in table
+	s.read( (char *)&count, sizeof(int) );
+
+	for( i=0; i<count; i++ )
+	{
+		// allocate new id mapping
+		m = (Mapping *)new Rva0030714F;
+
+		// read string length
+		s.read( (char *)&len, sizeof(unsigned char) );
+
+		// allocate and read in string
+		if (len>0) {
+			char *str = ((StringBase<char> *)&m->m_name)->getBufferForRead(len);
+			s.read( str, len );
+			str[len] = '\000';
+		}
+
+		// read id
+		s.read( (char *)&m->m_id, sizeof(unsigned int) );
+
+		// prepend to list
+		m->m_next = this->m_list;
+		this->m_list = m;
+
+		this->m_listLength++;
+
+		// track max ID used
+		if (m->m_id > maxID)
+			maxID = m->m_id;
+	}
+	m_headerOpened = count > 0 && !s.eof();
+
+	// adjust next ID so no ID's are reused
+	this->m_nextID = max( this->m_nextID, maxID+1 );
 }
