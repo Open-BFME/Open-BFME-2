@@ -1,5 +1,5 @@
 // ?xfer@Rva004DD489@@UAEXPAVXfer@@@Z
-// partial score=0.97 date=2026-10-04
+// partial score=0.99 date=2026-10-04
 // cl: /O1 /DNDEBUG /MD /EHs-c- /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS
 // stlport
 // ?xfer@Rva004DD489@@UAEXPAVXfer@@@Z @ 0x004DD489 400B
@@ -113,9 +113,9 @@ void Rva004DD489::xfer(Xfer *xfer)
 	int count = (int)m_14.size();
 	*xfer == count;
 	if (xfer->IsLoading()) {
+		int key = 0;
+		unsigned int val = 0;
 		for (int i = 0; i < count; ++i) {
-			int key = i;
-			unsigned int val = (unsigned int)i;
 			XferObjectID(xfer, (ObjectID*)&key);
 			*xfer == val;
 			m_14[key] = (int)val;
@@ -131,9 +131,9 @@ void Rva004DD489::xfer(Xfer *xfer)
 	count = (int)m_20.size();
 	*xfer == count;
 	if (xfer->IsLoading()) {
+		unsigned short key2 = 0;
+		unsigned int val2 = 0;
 		for (int j = 0; j < count; ++j) {
-			unsigned short key2 = (unsigned short)j;
-			unsigned int val2 = (unsigned int)j;
 			*xfer == key2;
 			*xfer == val2;
 			m_20[key2] = (int)val2;

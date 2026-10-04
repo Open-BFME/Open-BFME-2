@@ -1,5 +1,5 @@
 // ?rva004DD2C0@Emotion@@QAEXXZ
-// partial score=0.92 date=2026-10-04
+// partial score=0.93 date=2026-10-04
 // cl: /Ireference/shims/bfme2_ascii /O1 /G7 /EHs /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
 // stlport
 //
@@ -149,6 +149,7 @@ void Emotion::rva004DD2C0()
 		m_map20[m_key0C] = m_entry->m_18 + TheGameLogic->m_frame;
 	if (m_entry->m_fx38)
 	{
+		const FXList *fx = m_entry->m_fx38;
 		Object *obj = m_object;
 		void *iface = obj->rva0029439D();
 		Object *who = obj;
@@ -160,7 +161,7 @@ void Emotion::rva004DD2C0()
 		{
 			if (!who)
 				who = m_object;
-			FXList::doFXObj(m_entry->m_fx38, who, found);
+			FXList::doFXObj(fx, who, found);
 		}
 	}
 	AIUpdateInterface *ai = m_object->m_ai258;
@@ -181,10 +182,10 @@ void Emotion::rva004DD2C0()
 			obj->rva00293C77(&m_entry->m_a0, &m_entry->m_138);
 		else
 			obj->rva0028CFB2(&m_entry->m_a0, &m_entry->m_138);
-		if (obj->m_byte125 & 1)
+		if (m_object->m_byte125 & 1)
 		{
-			obj->m_byte125 &= ~1;
-			obj->rva0028AE6D();
+			m_object->m_byte125 &= ~1;
+			m_object->rva0028AE6D();
 		}
 	}
 	AsciiString name = m_entry->get();
