@@ -55476,3 +55476,4 @@ uw_0076765b,,0x0076765B,8,Code/Libraries/Source/WWVegas/WW3D2/meshgeometry.cpp,m
 ?Rva0008F6E1Create@@YGPAVRva000A0891@@PAX@Z,,0x0008F6E1,58,Code/GameEngine/Source/Common/Rva0008F6E1Create.cpp,matched,chain factory via Rva000A0891 ctor plus new
 ?rva004D04E0@Rva004D04C9@@QAEPAXH@Z,,0x004D04E0,31,Code/GameEngine/Source/Common/Rva004D04C9Clear.cpp,matched,memset 0x2000 store arg at plus0 return this via ji plus callers
 ??_GRva004D060B@@QAEPAXI@Z,,0x004D064D,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_Rva004D060B.cpp,matched,scalar deleting dtor via rowed dtor 0x004D060B plus delete
+??1Rva005F18C1@@QAE@XZ,,0x005F18C1,93,Code/GameEngine/Source/Common/Rva005F18C1Dtor.cpp,matched,dtor via AsciiString plus rowed Rva dtors plus UnicodeStrings plus callers

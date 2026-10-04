@@ -8194,3 +8194,4 @@ Rva00415B91	0x00415B91	197	blocked	Native Ghidra197 is a separate EH-framed pars
 ?Rva003E422BGet@@YG_NPAVParameter@@00@Z	0x003E422B	118	blocked	prologue push esi xor esi and early-return shape plus idx load-push differ; 4 variants no exact t=15 model=muse-04
 ??0W3DBridge@@QAE@XZ	0x000DD97F	239	partial	integer mov eax/mov for m_length from m_scale vs single movss from xmm0 t=25 model=muse-17 score=0.99 stash=reverse/attempts/0x000dd97f.cpp
 ?rva004D0381@Rva004D0381@@QAEXIII@Z	0x004D0381	291	blocked	complex EH 291B ConnectionManager-like needs full layout plus donor beyond quick box t=12 model=muse-02
+?rva004D0669@Rva004D0669@@QAEXXZ	0x004D0669	428	blocked	428B EH ConnectionManager vslot with multiple loops plus new delete beyond quick box t=10 model=muse-02
