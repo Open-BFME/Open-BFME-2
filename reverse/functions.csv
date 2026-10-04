@@ -55751,3 +55751,4 @@ ___Extract_locale_name,,0x000216A0,153,Code/Libraries/Source/WWVegas/WWLib/Local
 ?rva00050D86@Rva00050D86@@QAE_NE@Z,,0x00050D86,55,Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp,matched,Mask-covered set-field check unlocks 0x00053448
 ?rva00271745@Drawable@@QBEHXZ,,0x00271745,26,Code/GameEngine/Source/GameClient/Drawable_setSelectable.cpp,matched,Drawable Object wrapper null plus isSelectable then 1 else 0
 ??1?$vector@UBfmePod216@@V?$allocator@UBfmePod216@@@_STL@@@_STL@@QAE@XZ,,0x0021F7A7,63,Code/Libraries/Source/WWVegas/WWLib/StlportVectorDtorFamily.cpp,matched,Destroy via rowed 0x0021F466 frees via 0x00030830 caller 0x0021F90E
+?Rva00217F96Aux@@YAXPAURva004748F0Element@@0URva004748F0Compare@@@Z,,0x00217F96,23,Code/GameEngine/Source/Common/RvaPopHeapWrapper00217F96.cpp,matched,unlock wrapper forwards to rowed PopHeapAux with null
