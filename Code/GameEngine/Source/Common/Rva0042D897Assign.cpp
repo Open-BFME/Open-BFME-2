@@ -13,6 +13,7 @@ class Rva0042D897
 {
 public:
 	void rva0042D897(Rva0057C04F *newPtr);
+	void rva0042D8BA();
 private:
 	Rva0057C04F *m_00;
 };
@@ -23,6 +24,16 @@ void Rva0042D897::rva0042D897(Rva0057C04F *newPtr)
 	if (newPtr == old)
 		return;
 	m_00 = newPtr;
+	if (old == 0)
+		return;
+	old->Rva0057C04F::~Rva0057C04F();
+	operator delete(old);
+}
+
+void Rva0042D897::rva0042D8BA()
+{
+	Rva0057C04F *old = m_00;
+	m_00 = 0;
 	if (old == 0)
 		return;
 	old->Rva0057C04F::~Rva0057C04F();

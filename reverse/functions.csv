@@ -55465,3 +55465,4 @@ uw_0076765b,,0x0076765B,8,Code/Libraries/Source/WWVegas/WW3D2/meshgeometry.cpp,m
 ?rva00318807@Rva00318333@@QAEXHPAHPAXPBV?$StringBase@D@@0H@Z,,0x00318807,106,Code/GameEngine/Source/GameNetwork/Rva00318333.cpp,matched,chain init m18 m1C m20 m58 m24 m2C via GameLogic
 ?rva002972B1@Object@@QAEMM@Z,,0x002972B1,45,Code/GameEngine/Source/GameLogic/Object/ObjectRva002972B1.cpp,matched,callee row 0x00295844 TheGameLogic offsets 0x444 0x448 0x40
 ?rva0042D897@Rva0042D897@@QAEXPAVRva0057C04F@@@Z,,0x0042D897,35,Code/GameEngine/Source/Common/Rva0042D897Assign.cpp,matched,set holder via rowed dtor 0x0057C04F plus delete plus caller 0x0042DD06
+?rva0042D8BA@Rva0042D897@@QAEXXZ,,0x0042D8BA,26,Code/GameEngine/Source/Common/Rva0042D897Assign.cpp,matched,clear holder via rowed dtor 0x0057C04F plus delete plus callers
