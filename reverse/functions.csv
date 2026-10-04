@@ -54339,3 +54339,4 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ?bfmeCbBZC@Rva007F4740@@SAXPAXPAVRva007F4740Context@@@Z,,0x006611F0,35,Code/GameEngine/Source/Common/Rva007F4740.cpp,matched,BFME1 byte-identical donor; b1 0x007F4740
 ?rva00032920@GeneralAllocator@Allocator@EA@@QAE_NPBX@Z,,0x00032920,190,Code/GameEngine/Source/Common/System/Rva00032920Finish.cpp,matched,owns-address test split out of memory_pool.cpp; two release blocks so the small-list je reaches the intrusive block
 ?rva005EEAC6@Rva005EEAC6@@QAE_NPAVPlayer@@0PAUCoord3D@@@Z,,0x005EEAC6,181,Code/GameEngine/Source/Common/Rva005EEAC6Find.cpp,matched,caller 005D7D93 shroud best visible table
+?rva005D0602@Rva005D0602@@QAEHPAG@Z,,0x005D0602,28,Code/GameEngine/Source/Common/System/Rva005D0602.cpp,matched,caller 005D061E ref plus char copy
