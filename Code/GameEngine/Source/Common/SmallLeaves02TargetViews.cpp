@@ -33,7 +33,6 @@ private:
 
 // Native: predecessorRET4 at167E19, complete14B at167E1C throughRET4,
 // then next body167E2A; stack word is tested against0, SETNE stored at+20.
-// ?set@Rva00167E1C@@QAEXH@Z present-unmatched
 void Rva00167E1C::set(int on)
 {
     m_flag20 = on != 0;
