@@ -24,6 +24,7 @@ class Rva00160530
 
 public:
 	void rva004F0372(Rva00160530 **p);
+	void set(Rva00160530 **p);
 };
 
 class Rva004F040F
@@ -31,6 +32,7 @@ class Rva004F040F
 public:
 	void rva004F040F(void *arg);
 	void rva004F0479(void *arg);
+	void rva004F03EF(void *arg);
 
 private:
 	char m_pad00[4];
@@ -62,4 +64,11 @@ void Rva004F040F::rva004F0479(void *arg)
     void **head = &m_08;
     if (((BfmeNode_00161220 *)arg)->isInList0C((BfmeNode_00161220 **)head))
         ((BfmeNode_00161220 *)arg)->rva004F03AF((BfmeNode_00161220 **)head);
+}
+
+void Rva004F040F::rva004F03EF(void *arg)
+{
+    void **head = &m_04;
+    if (!((BfmeNode_00161220 *)arg)->isInList04((BfmeNode_00161220 **)head))
+        ((Rva00160530 *)arg)->set((Rva00160530 **)head);
 }
