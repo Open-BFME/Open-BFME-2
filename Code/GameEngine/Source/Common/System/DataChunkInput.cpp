@@ -82,6 +82,7 @@ class StringBase
 {
 public:
 	StringBase(void) : m_data(0) {}
+	StringBase(const T *text);
 	T *getBufferForRead(Int len);
 	// ?set@?$StringBase@D@@QAEXABV1@@Z aliases the retail
 	// ?set@UnicodeString@@QAEXABV1@@Z pin (see symbols.csv) -- both types
@@ -113,7 +114,10 @@ public:
 	// encodes the base copy ctor at 0x00887B60 directly, so the delegation has
 	// to be visible here.
 	AsciiString(const AsciiString &other) : StringBase<char>(other) {}
-	AsciiString(const char *text);
+	// Retail's openDataChunk builds AsciiString("") by calling the
+	// StringBase<char> C-string ctor 0x00037BA0 directly; AsciiString's own
+	// out-of-line const char * ctor (0x0000654A) only forwards to it.
+	AsciiString(const char *text) : StringBase<char>(text) {}
 	~AsciiString();
 
 	AsciiString &operator=(const AsciiString &other)

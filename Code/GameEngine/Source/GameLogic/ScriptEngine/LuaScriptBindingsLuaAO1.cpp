@@ -140,12 +140,22 @@ public:
 };
 
 
-// class-gate: allow AsciiString the donor's out-of-line ctor/dtor/op= view; retail calls them at 0x00037BA0, 0x00036410 and 0x000366F0 and both placed bodies are byte-exact under it
-class AsciiString
+// class-gate: allow AsciiString the donor's out-of-line dtor/op= view over a StringBase<char> base whose C-string ctor retail calls at 0x00037BA0 (AsciiString's own const char * ctor, 0x0000654A, only forwards to it); dtor and op= are called at 0x00036410 and 0x000366F0, and both placed bodies are byte-exact under it
+template <typename T>
+class StringBase
 {
 public:
-	AsciiString() { m_data = 0; }
-	AsciiString( const char *text );
+	StringBase() { m_data = 0; }
+	StringBase( const T *text );
+
+	void *m_data;
+};
+
+class AsciiString : public StringBase<char>
+{
+public:
+	AsciiString() {}
+	AsciiString( const char *text ) : StringBase<char>( text ) {}
 	~AsciiString();
 	AsciiString &operator=( const AsciiString &text );
 	const char *str() const
@@ -153,7 +163,6 @@ public:
 		return m_data ? (const char *)m_data + 8 : g_bfmeEmptyAscii;
 	}
 
-	void *m_data;
 };
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/Overridable.h
