@@ -1,6 +1,6 @@
 // ?rva000550A0@Rva00699180Owner@@QAEXH@Z
 // partial score=0.90 date=2026-09-30
-// cl: /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /arch:SSE2 /Oi /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /Ireference/shims/bfmealloc
+// cl: /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /arch:SSE2 /Oi /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP=
 // stlport
 // ?rva000550A0@Rva00699180Owner@@QAEXH@Z @0x000550A0 87B.
 // Chain from 0x52098: drops entries matching key from all six channel
