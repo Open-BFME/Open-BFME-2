@@ -54130,3 +54130,4 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ?rva002A8B59@Rva002A8F24@@QAEPAURva002A8B59Data@@PAX@Z,,0x002A8B59,26,Code/GameEngine/Source/Common/Rva002A8AE4.cpp,matched,lookup field 0x160 via pin-only 0x002A8AB1
 ?rva005C884D@Rva005C884D@@QAEXG@Z,,0x005C884D,41,Code/Libraries/Source/WWVegas/WWLib/Rva005C884D.cpp,matched,unlock saturating word add caller 0x005697DA prev Rva005C87F8
 ??0Rva00243177@@QAE@XZ,,0x00243177,50,Code/Libraries/Source/WWVegas/WWLib/Rva00243177.cpp,matched,vtable plus rowed map long LadderPref ctor base forces EH
+?onDestroy@Object@@QAEXXZ,,0x0028FC1D,98,Code/GameEngine/Source/GameLogic/Object/ObjectOnDestroy.cpp,matched,ZH onDestroy with BFME removeFromContain(this FALSE) plus 0x28DAB9 plus slots 1..8 via 0x271BCC on +0x84 then behaviors onDelete
