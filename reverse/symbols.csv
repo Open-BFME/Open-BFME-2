@@ -8356,3 +8356,4 @@ _Rva0030CAF8CursorEqual,0x0007E394,twin of dup_0007e394 29B exact cursor equalit
 ??1Rva004255F0Record@@QAE@XZ,0x001DD1FF,callee of ?parseRecordIntoMap@Rva004255F0@@SAXPAVINI@@PAX1PBX@Z at retail 0x001DE9B3 read from its REL32 displacement; donor-named alias of the rowed record dtor at 0x001DD1FF
 ?bfmeAfterFCB@BfmeOwnFCB@@QAEXXZ,0x004C0C52,callee of ?bfmeGoFCB@BfmeThingFCB@@QAEXPAX@Z at retail 0x004C121B read from its REL32 displacement; body unrowed
 ?j_00043135@@YAXXZ,0x0028FCD9,callee of ?bfmeGoFCB@BfmeThingFCB@@QAEXPAX@Z at retail 0x004C121B read from its REL32 displacement; ICF alias onto ?bfmeCallFCB@BfmeSubFCB@@QAEXPAXH@Z
+?find@PreferenceMap@@QBEPAUPreferenceNode@@ABVAsciiString@@@Z,0x001F8437,callee of ?isMapSelected@QuickMatchPreferences@@QAE_NABVAsciiString@@@Z at retail 0x005DF458 read from its REL32 displacement; ICF alias onto the matched _Rb_tree<AsciiString> _M_find
