@@ -1,5 +1,3 @@
-// ?rva00344598@Rva00344598@@QAEHXZ
-// partial score=0.93 date=2026-10-04
 // cl: /O1 /DNDEBUG /MD
 // ?rva00344598@Rva00344598@@QAEHXZ @0x00344598 157B
 // Evidence: unlock lane, caller 0x00347EA8 tail-jmp same this, callees rowed getGoalObject 0x004D7726 plus setOrientation 0x0030AB9D plus winPrevTab 0x000D43D0 plus pin rva000B4542, virtuals 0x244 0x7c 0x19c 0x1a0 0x1d0
@@ -155,16 +153,15 @@ int Rva00344598::rva00344598()
 	c258->t258();
 	C250Holder *c250 = ol->m250;
 	CEdi *edi = c250 ? (CEdi *)c250->t250() : 0;
-	if (edi == 0) {
+	if (edi != 0) {
+		edi->t19c(ebx);
+		edi->t1a0(1);
+		edi->t1d0();
+	} else {
 		const Coord3D *pos = (const Coord3D *)((char *)ebx + 0x38);
 		float ang = esi->rva000B4542(pos) + ol->m44;
 		((Thing *)esi)->setOrientation(ang);
-		((GameWindow *)this)->winPrevTab();
-		return 0;
 	}
-	edi->t19c(ebx);
-	edi->t1a0(1);
-	edi->t1d0();
 	((GameWindow *)this)->winPrevTab();
 	return 0;
 }
