@@ -55816,3 +55816,4 @@ ___Extract_locale_name,,0x000216A0,153,Code/Libraries/Source/WWVegas/WWLib/Local
 ?rva0042D729@Rva0042D729@@QAEXPAVRva00577DE1OwningCell@@@Z,,0x0042D729,35,Code/GameEngine/Source/Common/Rva0042D729Set.cpp,matched,setter via ForwardClear 0x00577E3E plus delete 0x0002FD60 caller 0x0042DD37 sibling Rva0042D7A3Set pattern
 ?rva0042D74C@Rva0042D729@@QAEXXZ,,0x0042D74C,26,Code/GameEngine/Source/Common/Rva0042D729Set.cpp,matched,clearer via ForwardClear 0x00577E3E plus delete 0x0002FD60 sibling Rva0042D7A3 clearer
 ?rva00050F29@Rva00050F29@@QAEHHH@Z,,0x00050F29,24,Code/Libraries/Source/WWVegas/WWLib/Rva00050F29.cpp,matched,leaf thiscall virtual slot88 neg sbb inc honest Rva name
+?rva002E7482@Rva002E7482@@QAEMH@Z,,0x002E7482,42,Code/GameEngine/Source/GameLogic/Object/Rva002E7482.cpp,matched,float getter via rowed predicate 0x001E3679 and BfmeZeroRange with 64B stride at plus9C
