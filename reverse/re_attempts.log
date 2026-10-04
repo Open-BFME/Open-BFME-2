@@ -7753,3 +7753,5 @@ FUN_007b7836	0x003B7836	260	blocked	no callers prove 3-arg free-function types p
 ?rva004C4582@Rva004C4582@@QAEXXZ	0x004C4582	77	partial	register swap this-holder ebx-edi ebp matches t=25 model=muse-01 score=0.93 stash=reverse/attempts/0x004c4582.cpp
 ?Rva00332613Loop@@YAXPAUS4SortElem12@@00HUS4Cmp002E1690@@@Z	0x00332613	136	blocked	needs S4 median identity: row 0x331716 is int median but body needs S4 median plus Tp null plus accumulation; introsort donor is 259B vs 136B t=10 model=muse-07
 ?rva004A0547@QueueProductionExitUpdate@@QAEXXZ	0x004A0547	297	partial	coord copy via integer movs vs retail movss plus g_ immediates; size 296 vs 297 branches match t=20 model=muse-07 score=0.98 stash=reverse/attempts/0x004a0547.cpp
+?rva0033CD02@Rva0033CD02@@QAEXXZ	0x0033CD02	63	blocked	EH vector teardown destroy+free needs class identity t=10 model=muse-05
+?Rva0033CBADInsert@@YAXXZ	0x0033CBAD	29	blocked	STL set hint-insert wrapper ICF key type ambiguous t=10 model=muse-05
