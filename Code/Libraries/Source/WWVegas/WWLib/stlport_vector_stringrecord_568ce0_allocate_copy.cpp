@@ -7,9 +7,15 @@ struct BfmeStringRecord00568CE0 {
     unsigned int word0, word1;
     unsigned char flag;
     BfmeStringRecord00568CE0();
-    BfmeStringRecord00568CE0(const BfmeStringRecord00568CE0 &o) : text0(o.text0), text1(o.text1), word0(o.word0), word1(o.word1), flag(o.flag) {}
+    BfmeStringRecord00568CE0(const BfmeStringRecord00568CE0 &o);
 };
 #include <memory>
-template void _STL::_Construct<BfmeStringRecord00568CE0,BfmeStringRecord00568CE0>(BfmeStringRecord00568CE0*,const BfmeStringRecord00568CE0&);
+namespace _STL {
+template <> void _Construct<BfmeStringRecord00568CE0, BfmeStringRecord00568CE0>(
+	BfmeStringRecord00568CE0 *, const BfmeStringRecord00568CE0 &);
+}
 #include <vector>
+namespace _STL {
+template <> BfmeStringRecord00568CE0 *allocator<BfmeStringRecord00568CE0>::allocate(unsigned int, const void *) const;
+}
 template class _STL::vector<BfmeStringRecord00568CE0, _STL::allocator<BfmeStringRecord00568CE0> >;
