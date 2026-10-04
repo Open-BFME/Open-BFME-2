@@ -40,7 +40,7 @@
 // same bytes.
 
 void *__cdecl operator new[](unsigned int);
-void __cdecl operator delete[](void *);
+void __cdecl operator delete[](void *) throw();
 inline void *__cdecl operator new[](unsigned int, void *p) { return p; }
 
 template <class T>
@@ -155,3 +155,43 @@ template class VectorClass<int>;
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
 #pragma comment(linker, "/alternatename:?bfmeDtorUD@BfmeThingUD@@QAEXXZ=?Clear@?$VectorClass@H@@UAEXXZ")
+
+// Donor: Open-BFME-1 1281192f682ce6f29b8f06b7daea4b5e8fdfbb24
+// game/Libraries/Source/WWVegas/WW3D2/Rva00941700TextSurfaceMethod.cpp.
+// Native PendingSurfaceStruct Resize157780 constructs/destroys arrays with
+// callbacks156A10/290D and stride1C. The ctor and assignment independently
+// establish surface+0 and renderer vector+4 (counts+14/+18). Native290D
+// resets the member to shared vector tableBBB5AC, calls ClearF0CD4, and
+// tailcalls surface destructor176CB0. The renderer pointer type is donor
+// provenance; the native four-byte vector operations are shared scalar ABI.
+class Render2DClass;
+class W3DRadarResetSurface
+{
+public:
+    ~W3DRadarResetSurface();
+protected:
+    void *surface;
+};
+
+// A native layout view: the constructor proves the two counters following
+// the shared sixteen-byte vector base. It does not establish the donor's
+// DynamicVectorClass specialization identity; no such destructor is defined.
+class Render2DSentenceClass
+{
+public:
+    struct PendingSurfaceStruct : public W3DRadarResetSurface
+    {
+        ~PendingSurfaceStruct() {}
+        VectorClass<Render2DClass *> rendererBase;
+        int rendererActiveCount;
+        int rendererGrowthStep;
+    };
+};
+
+#pragma inline_depth(0)
+// ?EmitPendingSurfaceDestructor present-unmatched
+void EmitPendingSurfaceDestructor(Render2DSentenceClass::PendingSurfaceStruct *record)
+{
+    record->~PendingSurfaceStruct();
+}
+#pragma inline_depth(255)
