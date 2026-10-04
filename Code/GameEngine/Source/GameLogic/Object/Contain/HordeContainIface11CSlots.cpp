@@ -225,7 +225,7 @@ public:
 class Rva0046BB38Iface11C : public Rva0046BB38Iface6
 {
 public:
-	virtual int rva0046979B() = 0; virtual void gap11() = 0; virtual void gap12() = 0; virtual void gap13() = 0;
+	virtual int rva0046979B() = 0; virtual void rva00470D09(Object *obj) = 0; virtual void gap12() = 0; virtual void gap13() = 0;
 	virtual void gap14() = 0; virtual void gap15() = 0; virtual void gap16() = 0; virtual void gap17() = 0;
 	virtual void gap18() = 0; virtual void gap19() = 0; virtual void gap20() = 0; virtual void gap21() = 0;
 	virtual void *rva004696CD() = 0; virtual void gap23() = 0; virtual void rva004696E5() = 0; virtual void gap25() = 0;
@@ -270,9 +270,12 @@ public:
 };
 // Primary vtable 0x00C45050: 37 gap slots, the dtor and slot 38, the matched
 // HordeContainRva004725D5.cpp override (indices only matter for the calls).
-class UpdateModule : public Rva00468D11Slots<37>
+class UpdateModule : public Rva00468D11Slots<34>
 {
 public:
+	virtual void rva0046AF85() = 0;
+	virtual void gap35() = 0;
+	virtual void gap36() = 0;
 	virtual ~UpdateModule();
 protected:
 	void setWakeFrame(Object *obj, UpdateSleepTime wakeDelay);
@@ -325,6 +328,7 @@ public:
 	virtual void rva0046981C();
 	virtual void rva00469851();
 	virtual void rva00468BDC(int on);
+	virtual void rva0046AF85();
 private:
 	__forceinline const _STL::list<Object *> *containedItems()
 	{
@@ -337,7 +341,8 @@ private:
 	bool m_121; // +0x121
 	unsigned char m_pad122[0x170 - 0x122];
 	_STL::map<int, int> m_170; // +0x170
-	unsigned char m_pad17C[0x264 - 0x17C];
+	_STL::map<int, int> m_17C; // +0x17C
+	unsigned char m_pad188[0x264 - 0x188];
 	void *m_264; // +0x264
 	unsigned char m_pad268[0x26C - 0x268];
 	ObjectID m_26C; // +0x26C
@@ -719,4 +724,18 @@ void HordeContain::rva00468BDC(int on)
 		obj->rva00293955((ModelConditionFlagType)0x1BB);
 	}
 	m_2F0 = on;
+}
+
+// ?rva0046AF85@HordeContain@@UAEXXZ @0x0046AF85: slot 34 of the primary vtable
+// 0x00C45050; hands every contained Object whose ID is not a key of the
+// +0x17C tree to +0x11C interface slot 11.
+void HordeContain::rva0046AF85()
+{
+	const _STL::list<Object *> *items = containedItems();
+	for (_STL::list<Object *>::const_iterator it = items->begin(); it != items->end(); ++it)
+	{
+		Object *obj = *it;
+		if (m_17C.find(obj->getID()) == m_17C.end())
+			rva00470D09(obj);
+	}
 }
