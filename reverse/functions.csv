@@ -53737,3 +53737,4 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ??_GRva0057F2DE@@UAEPAXI@Z,,0x0057F51C,28,Code/GameEngine/Source/Common/Rva0057F2DE.cpp,matched,chain from 0x0057F2DE deleting dtor same TU vtable 0x0086F584
 ??1Rva0043DAE0@@UAE@XZ,,0x0043DAE0,11,Code/GameEngine/Source/Common/Rva0043DAE0.cpp,matched,chain from 0x0057F2DE vtable 0x00C3D95C jmp base dtor
 ?rva00303DA4@Rva00303DA4@@QAEXPAURva00303DA4Node@@@Z,,0x00303DA4,59,Code/Libraries/Source/WWVegas/WWLib/Rva00303DA4Erase.cpp,matched,Rb erase-one via rowed Rebalance_for_erase plus value dtor and free
+?Rva003C0849Do@@YGXABVAsciiString@@00@Z,,0x003C0849,131,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C0849.cpp,matched,team waypoint command-button order via precedent Rva003BF813Do
