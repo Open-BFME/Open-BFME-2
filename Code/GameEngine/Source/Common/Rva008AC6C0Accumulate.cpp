@@ -9,6 +9,8 @@ struct BfmeQ1206
 };
 
 extern "C" BfmeQ1206 g_bfmeD1206;
+BfmeQ1206 g_bfmeD1206;
+
 
 struct BfmeM1208
 {
