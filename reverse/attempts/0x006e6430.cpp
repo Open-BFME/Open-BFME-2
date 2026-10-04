@@ -1,4 +1,6 @@
 // ??1Rva006E6430@@QAE@XZ
+// partial score=0.9 date=2026-10-04
+// ??1Rva006E6430@@QAE@XZ
 // partial score=0.85 date=2026-10-04
 // cl: /O2 /EHa /MD
 // ??1Rva006E6430@@UAE@XZ @0x006E6430 259B.
@@ -54,9 +56,10 @@ void Rva006CD460Free(void *p) throw(...);
 void __cdecl bfmeDebugDelete(unsigned int size, void *block, unsigned int header,
 	void (*dealloc)(void *));
 
-// The pool teardown routines this dtor drives, pinned by address.
-void Rva006E3BF0Teardown(void *pool);
-void Rva006F84F0Teardown(void *pool);
+// The pool teardown routines this dtor drives, pinned by address. Retail reaches
+// each with the pool itself in ecx (lea ecx,[esi+off]; mov byte [esp+0x14],N;
+// call), so they are declared as undefined instance members of the pool types
+// below: Pool::teardown (0x006E3BF0) and ~WrapperPool (0x006F84F0).
 
 // The base carries the first dword. It has no virtual destructor of its own:
 // retail's body stores no vtable pointer on entry, so the complete destructor
@@ -74,25 +77,26 @@ public:
 	~Rva006E6430();
 
 private:
-	// A member pool. The pools are trivial for the compiler -- each carries no
-	// destructor of its own -- and are torn down from the single destructor body
-	// below. Retail writes one unwind-state byte at a constant [esp+0x14] before
-	// each teardown; a per-member destructor would instead give each pool its own
-	// record and walk the slot upward, which is what retail does not do.
+	// A member pool. Each of the five pools carries a destructor that calls the
+	// undefined instance teardown (body at the pinned address 0x006E3BF0), so the
+	// compiler's automatic unwinder drives all five in reverse-declaration order as
+	// `lea ecx,[esi+off]; mov byte [esp+0x14],N; call` -- the pool in ecx and one
+	// constant state slot, exactly as retail's tail.
 	struct Pool
 	{
 		unsigned short m_count;    // +0x00, word count
 		unsigned short m_capacity; // +0x02, word capacity
 		void *m_arr;               // +0x04, dword element array
+
+		void teardown();            // 0x006E3BF0
+		~Pool() { teardown(); }
 	};
 
-	// The +0x30 member is torn down through a different routine. Unlike the
-	// other pools it carries a destructor, and that destructor is what installs
-	// the SEH frame retail's body opens with.
+	// The +0x30 member is torn down through a different routine (0x006F84F0).
 	struct WrapperPool
 	{
 		unsigned char m_pad[4];    // +0x30..0x33
-		~WrapperPool() { Rva006F84F0Teardown(this); }
+		~WrapperPool();            // 0x006F84F0
 	};
 
 	Pool m_pool08;               // +0x08
@@ -115,11 +119,10 @@ private:
 
 Rva006E6430::~Rva006E6430()
 {
-	// Retail writes a single unwind-state byte at a constant [esp+0x14] before
-	// each teardown, counting 3, 2, 1, 0, -1 down the five members. It is one
-	// char local live across every call rather than five separate per-member
-	// destructor records, which is why the slot does not walk upward.
-	char state = 3;
+	// The five member pools are torn down by the compiler's automatic unwinder as
+	// this body returns, in reverse-declaration order (+0x30, +0x28, +0x20, +0x18,
+	// +0x08), each as `lea ecx,[esi+off]; mov byte [esp+0x14],N; call` at the one
+	// constant state slot. Only the five pointer blocks below are released here.
 	g_pChainBlockAllocator->freeBlock(m_p40, m_nAC * 4);
 	if (m_p34)
 	{
@@ -131,21 +134,17 @@ Rva006E6430::~Rva006E6430()
 	if (m_p14)
 		Rva006CD460Free(m_p14);
 	g_pChainBlockAllocator->freeBlock(m_p00, m_nA4 * 4);
-	if (m_pA0)
+	// Retail keeps this block in edi across the release call
+	// (mov edi,[esi+0xa0]; ... call 0x006CD460; ... push edi; call freeBlock).
+	// Naming it in a local is what makes the allocator save edi in the prologue,
+	// and that extra callee-saved push is what places the unwind-state slot at
+	// retail's constant [esp+0x14] rather than [esp+0x10].
+	void *blockA0 = m_pA0;
+	if (blockA0)
 	{
-		Rva006CD460Free(*(void **)m_pA0);
-		g_pChainBlockAllocator->freeBlock(m_pA0, 0x14);
+		Rva006CD460Free(*(void **)blockA0);
+		g_pChainBlockAllocator->freeBlock(blockA0, 0x14);
 	}
-	// m_pool30 is torn down by its own destructor as the body returns; the
-	// remaining four follow here, each preceded by a decrement of `state`.
-	state = 2;
-	Rva006E3BF0Teardown(&m_pool28);
-	state = 1;
-	Rva006E3BF0Teardown(&m_pool20);
-	state = 0;
-	Rva006E3BF0Teardown(&m_pool18);
-	state = -1;
-	Rva006E3BF0Teardown(&m_pool08);
 }
 
 typedef char Rva006E6430Size[(sizeof(Rva006E6430) >= 0xA4) ? 1 : -1];
