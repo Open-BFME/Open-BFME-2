@@ -1,6 +1,4 @@
 // ?rva002E53FA@OptionPreferences@@QAEXH@Z
-// partial score=1.0 date=2026-10-04
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
 // stlport
 //
 // ?rva002E53FA@OptionPreferences@@QAEXH@Z, retail 0x002E53FA,
@@ -8,6 +6,8 @@
 // for val through base-map subscript 0x002031FB plus StringBase::set
 // 0x000055F5; level name from rowed indexed getter 0x00202678; key
 // "AudioLOD" at 0x804CB8; manager at 0x9FE144.
+
+// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
 
 #include <map>
 #include <stdlib.h>
@@ -38,6 +38,12 @@ namespace _STL
 template <> AsciiString &map<AsciiString, AsciiString, less<AsciiString>, allocator<pair<const AsciiString, AsciiString> > >::operator[](const AsciiString &key);
 }
 
+// The rowed indexed getter at 0x00202678 is a __stdcall free function
+// (?Rva00202678Get@@YGPBDH@Z), but the retail caller sets ecx to
+// TheGameLODManager immediately before the call, i.e. it was compiled
+// against a GameLODManager thiscall method at the same address. Model that
+// call shape here and bind this spelling to the rowed address so the linker
+// emits the same REL32 the retail caller uses.
 class GameLODManager
 {
 public:
@@ -46,6 +52,8 @@ public:
 
 extern GameLODManager *TheGameLODManager;
 
+extern "C" const char *__stdcall Rva00202678Get(int);
+
 class OptionPreferences : public AsciiPreferenceMap
 {
 public:
@@ -53,7 +61,6 @@ public:
 	void rva002E53FA(Int val);
 };
 
-// ?rva002E53FA@OptionPreferences@@QAEXH@Z present-unmatched
 void OptionPreferences::rva002E53FA(Int val)
 {
 	AsciiString key("AudioLOD");
