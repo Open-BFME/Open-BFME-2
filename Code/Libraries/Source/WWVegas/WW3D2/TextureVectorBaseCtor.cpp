@@ -22,7 +22,7 @@ template <class T>
 class RefCountPtr
 {
 public:
-	RefCountPtr() : Referent(0) {}
+	RefCountPtr();
 	~RefCountPtr();
 
 private:
