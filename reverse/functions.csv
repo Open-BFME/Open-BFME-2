@@ -54578,3 +54578,4 @@ _Rva00669500@8,,0x00669500,13,Code/GameEngine/Source/Common/RvaSmallLeafTransfer
 ??1Rva0050ED58@@QAE@XZ,,0x0050ED58,91,Code/Libraries/Source/WWVegas/WWLib/Rva0050ED58Dtor.cpp,matched,dtor with 7x8B array plus member dtors plus EH states
 ?rva002A7500@Rva002A7500@@QAEXPAX@Z,,0x002A7500,19,Code/GameEngine/Source/GameLogic/Object/Rva002A7500.cpp,matched,chain from 0x002A74C3 plus rowed Rva002A74C3Get adds to plus0xC
 ??0Rva000A0CE7@@QAE@PAX@Z,,0x000A0CE7,24,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/Gadget/Rva000A0CE7Ctor.cpp,matched,Gadget ctor via Host base plus vtable 0x00BC8D04
+?step@Rva006CFD30@@QAEHXZ,,0x006CFD30,6,Code/GameEngine/Source/Common/SmallLeaves04TargetViews.cpp,matched,Clean whole BF1 SmallLeaves04@1281192/O2; native INT3-delimited6B preincrements receiver firstword and returns it; partial address-qualified view with original class and size and signedness unknown
