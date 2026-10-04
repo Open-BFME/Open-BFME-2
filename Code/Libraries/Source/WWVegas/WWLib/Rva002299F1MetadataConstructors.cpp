@@ -54,3 +54,10 @@ Rva0022C68CMetadataTree::Rva0022C68CMetadataTree(const RvaMapCacheEmptyAllocator
  base00.header00.pointer00->left08=base00.header00.pointer00;
  base00.header00.pointer00->right0C=base00.header00.pointer00;
 }
+class Rva0022E272MetadataMap {
+public:
+ __declspec(noinline) Rva0022E272MetadataMap();
+ Rva0022C68CMetadataTree tree00;
+};
+Rva0022E272MetadataMap::Rva0022E272MetadataMap()
+ :tree00(RvaMapCacheEmptyAllocator(),RvaMapCacheEmptyAllocator()) {}
