@@ -122,6 +122,10 @@ bool processShroudRevealCircle008F9A70(Int cellX, Int cellY, Int cellRadius,
 bool processShroudRevealCircle008F9B10(Int cellX, Int cellY, Int cellRadius,
 	ShroudManagerImpl008FBA40 *manager, Int playerMask);
 
+// Native configure (0x73DBF0) destroys 0xA8-byte elements through the
+// empty ret at 0x69E440, not the 0x68-byte Snapshot-derived owner at 0x3A795A.
+// Bind the proven empty ICF destructor to the existing empty-body provider.
+#pragma comment(linker, "/alternatename:??1ShroudManagerImpl008FBA40Element@@QAE@XZ=?DX8_Assert@@YAXXZ")
 class ShroudManagerImpl008FBA40Element;
 
 struct ShroudManagerImpl008FBA40CellObject
