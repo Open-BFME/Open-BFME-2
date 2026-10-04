@@ -55484,3 +55484,4 @@ uw_0076765b,,0x0076765B,8,Code/Libraries/Source/WWVegas/WW3D2/meshgeometry.cpp,m
 ??1Rva005F1CE8@@UAE@XZ,,0x005F1CE8,14,Code/GameEngine/Source/Common/Rva005F1CE8Dtor.cpp,matched,virtual dtor sets vtable then tailjmps to rowed holder clear
 ??_GRva005F1CE8@@UAEPAXI@Z,,0x005F1D2B,28,Code/GameEngine/Source/Common/Rva005F1CE8Dtor.cpp,matched,deleting dtor from own dtor TU via rowed dtor plus delete
 ?Rva004E7B6EErase@@YGXPAPAXPAURva004E7B6ENode@@@Z,,0x004E7B6E,42,Code/Libraries/Source/WWVegas/WWLib/stlport_list_rva004e7b6e_erase.cpp,matched,list unlink destroy free via rowed 0x004E7A76 and free
+?rva006FB910@Rva006FB860@@QAEXXZ,,0x006FB910,70,Code/Libraries/Source/Apt/Rva006FB910Cluster.cpp,matched,Apt pool member behind global 0x00E176D0; loop over count+0x3C list+0x40 gated by isUndefined at +0x44; callees 0x006F9EF0 and 0x006FB860 unnamed vtable-referenced siblings
