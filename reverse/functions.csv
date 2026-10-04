@@ -54662,3 +54662,4 @@ _Rva00669500@8,,0x00669500,13,Code/GameEngine/Source/Common/RvaSmallLeafTransfer
 ?rva002AA00C@Player@@QAEEPAVThingTemplate@@H@Z,,0x002AA00C,37,Code/GameEngine/Source/Common/PlayerRva002AA00C.cpp,matched,unlock lane caller 0x003BCF2F Player method via ThingTemplate pin
 ?rva002E0C68@Rva002E0C68@@QAEHXZ,,0x002E0C68,68,Code/GameEngine/Source/Common/Rva002E0C68.cpp,matched,unlock sum via rowed Rva00318FBE barrier prevents hoist reloads each iter
 ?Rva005745D8Get@@YIXPAX@Z,,0x005745D8,187,Code/GameEngine/Source/Common/Rva005745D8.cpp,matched,chain via 0x002E0C68 plus rowed gets plus virtuals plus floor scale
+??1Rva005E0DC0@@QAE@XZ,,0x005E0DC0,93,Code/GameEngine/Source/Common/Rva005E0DC0Dtor.cpp,matched,nonvirtual dtor via rowed 0x005C3209 plus 3 vectors and AsciiString callers 0x005E11EB 0x005E1252
