@@ -53961,3 +53961,4 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ?rva00499D18@OneRingPenaltyUpdate@@UAEXPAX@Z,,0x00499D18,11,Code/GameEngine/Source/GameLogic/Object/Update/OneRingPenaltyUpdateSlot0.cpp,matched,+0x20 slot 0 of 0x00C50250: 0x00499C46 on the primary this
 ?rva005BA6EE@Rva005BA6EE@@QAE_NXZ,,0x005BA6EE,277,Code/GameEngine/Source/Common/Rva005BA6EEPopulate.cpp,matched,BFME1 maxping donor slot44 format ANY fetch via rows
 ??0ConnectionManager@@QAE@XZ,,0x004D274B,263,Code/GameEngine/Source/Common/ConnectionManagerCtor.cpp,matched,vslot finish stash 0.98 via substruct lea donor ConnectionManagerConstructor
+?rva004EA176@Rva004EA176@@QAE?AVAsciiString@@XZ,,0x004EA176,47,Code/GameEngine/Source/Common/Rva004EA176.cpp,matched,ascii getter via global g_00DFEEF8 and rowed StringBase copy

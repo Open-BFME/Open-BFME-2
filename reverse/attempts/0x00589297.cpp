@@ -1,5 +1,5 @@
 // ?rva00589297@WeaponModeSpecialPowerUpdateBase@@QAE_NXZ
-// partial score=0.95 date=2026-10-04
+// partial score=0.96 date=2026-10-04
 // cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
 // ?rva00589297@WeaponModeSpecialPowerUpdateBase@@QAE_NXZ retail 0x00589297 95B vslot 1 of 0x00870108 via rowed BitFlags plus slot6 virtual plus TheGameLogic
 template<int N>
@@ -81,12 +81,10 @@ bool WeaponModeSpecialPowerUpdateBase::rva00589297()
 			}
 		}
 	}
-	if (m_08 != 0)
-		return false;
-	{
+	if (m_08 == 0) {
 		unsigned int frame2 = (unsigned int)TheGameLogic->m_frame40;
-		if (frame2 < (unsigned int)m_04)
-			return false;
-		return true;
+		if (frame2 >= (unsigned int)m_04)
+			return true;
 	}
+	return false;
 }

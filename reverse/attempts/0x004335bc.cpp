@@ -1,5 +1,5 @@
 // ??0Rva001DA2D5@@QAE@ABV0@@Z
-// partial score=0.97 date=2026-10-04
+// partial score=0.98 date=2026-10-04
 // cl: /Ireference/shims/bfme2_ascii /G7 /O1 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ??0Rva001DA2D5@@QAE@ABV0@@Z retail 0x004335BC 422B: copy ctor stores vtable 0x00BDA270 then copies 2 StringBase plus ints plus 5 vectors; evidence vtable plus callees rowed plus caller 0x00433762 derived ctor
@@ -13,11 +13,9 @@ struct BfmeE8 { int m_a; int m_b; };
 class Rva001DA2D5Base
 {
 public:
-	virtual ~Rva001DA2D5Base() {}
-	Rva001DA2D5Base() : m_unk04(0) {}
-	Rva001DA2D5Base(const Rva001DA2D5Base &other) : m_unk04(0) { (void)other; }
-private:
-	int m_unk04;
+	virtual ~Rva001DA2D5Base();
+	Rva001DA2D5Base() {}
+	Rva001DA2D5Base(const Rva001DA2D5Base &other) { (void)other; }
 };
 
 class Rva001DA2D5 : public Rva001DA2D5Base
@@ -26,6 +24,7 @@ public:
 	virtual ~Rva001DA2D5();
 	Rva001DA2D5(const Rva001DA2D5 &other);
 private:
+	int m_unk04;
 	AsciiString m_str08;
 	AsciiString m_str0C;
 	int m_unk10; int m_unk14; int m_unk18; int m_unk1C;
@@ -48,6 +47,7 @@ private:
 // ??0Rva001DA2D5@@QAE@ABV0@@Z present-unmatched
 Rva001DA2D5::Rva001DA2D5(const Rva001DA2D5 &other)
 	: Rva001DA2D5Base(other)
+	, m_unk04(0)
 	, m_str08(other.m_str08)
 	, m_str0C(other.m_str0C)
 	, m_unk10(other.m_unk10) , m_unk14(other.m_unk14) , m_unk18(other.m_unk18) , m_unk1C(other.m_unk1C)

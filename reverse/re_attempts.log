@@ -7718,3 +7718,8 @@ FUN_007b7836	0x003B7836	260	blocked	no callers prove 3-arg free-function types p
 ?rva005BA31F@Rva005BA31F@@QAEHXZ	0x005BA31F	31	partial	sbb-neg vs branches xor-inc t=12 model=muse-09 score=0.93 stash=reverse/attempts/0x005ba31f.cpp
 ?Rva005BAA83Find@@YAXXZ	0x005BAA83	32	blocked	5-push lea-plus-args vs 4-arg Find with AsciiString wall t=8 model=muse-09
 ?rva002C5AE6@Rva002C589B@@QAEMXZ	0x002C5AE6	96	partial	ja offset 05 vs 0a redundant store scheduling t=20 model=muse-09 score=0.99 stash=reverse/attempts/0x002c5ae6.cpp
+?rva00589297@WeaponModeSpecialPowerUpdateBase@@QAE_NXZ	0x00589297	95	partial	true mov-al-1 vs xor-inc plus false byte-vs-dword for bool return t=20 model=muse-08 score=0.96 stash=reverse/attempts/0x00589297.cpp
+??0Rva001DA2D5@@QAE@ABV0@@Z	0x004335BC	422	partial	early zero order plus and-vs-mov for esi+4 zero empty-base moves zero later t=25 model=muse-08 score=0.98 stash=reverse/attempts/0x004335bc.cpp
+?rva004EA1A5@Rva004EA1A5@@QAEXPAX@Z	0x004EA1A5	191	partial	exact size 191B only ebx-edi swap for obj-vs-this plus globals t=25 model=muse-08 score=0.95 stash=reverse/attempts/0x004ea1a5.cpp
+?rva004EAFBD@Rva004EAFBD@@QAEXPAUVector3@@@Z	0x004EAFBD	213	blocked	x87 SSE virtual slot 0x34 plus random string plus global float needs donor t=15 model=muse-08
+?rva004EA046@Rva004EA046@@QAE_NPAH@Z	0x004EA046	222	blocked	x87 unsigned float plus pointer-chase plus branch polarities need donor t=20 model=muse-08
