@@ -482,3 +482,27 @@ Rva005D5816 *Rva005D5816::writeBits(unsigned int word,unsigned char byte)
 }
 
 #pragma optimize("",on)
+
+// Whole clean BFME 1 donor Rva00872950.cpp, GameNetwork/GameSpy,
+// at 1281192f682ce6f29b8f06b7daea4b5e8fdfbb24 supplies the counter pattern.
+// Native 006B2150/29 has preceding INT3s, two terminal RETs and trailing INT3;
+// every absolute operand names VA E0C0EC. Target data xrefs witness exactly
+// four bytes with two- and four-byte accesses; its loaded initial value is 0.
+// The union records those access widths. Native EAX retains the old dword on
+// both exits; original function name, declared return type and owner are unknown.
+union Rva00A0C0ECStorage
+{
+    unsigned int m_dword;
+    unsigned short m_word;
+};
+Rva00A0C0ECStorage g_00E0C0EC;
+
+unsigned int Rva006B2150()
+{
+    unsigned int value = g_00E0C0EC.m_dword;
+    if ((unsigned short)value == 0xffff)
+        g_00E0C0EC.m_word = 1;
+    else
+        ++g_00E0C0EC.m_word;
+    return value;
+}
