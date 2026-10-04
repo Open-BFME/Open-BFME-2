@@ -55173,3 +55173,4 @@ rva007916E1_constructor_unwind,,0x007916E1,11,Code/GameEngine/Source/Common/INI/
 ?rva003E6A2B@ScriptConditions@@IAE_NPAVParameter@@0@Z,,0x003E6A2B,126,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_Rva003E6A2B.cpp,matched,ScriptConditions 2-param bool via dispatcher 0x003EADEF getUnitNamed flag mask loop
 ?Rva0033939F@@YAXPBDPAX@Z,,0x0033939F,64,Code/GameEngine/Source/Common/INI/Rva0033939F.cpp,matched,audio token EVA gate via 0x00339235 and INIException throw
 ??1Rva0014DC9E@@UAE@XZ,,0x0014DC9E,14,Code/GameEngine/Source/Common/Rva0014DC9EDtor.cpp,matched,triple vtable store dtor like Init sibling
+?rva0057866D@Rva0057866D@@QAEXPAVRva005D25F2@@@Z,,0x0057866D,35,Code/GameEngine/Source/Common/Rva0057866DSet.cpp,matched,setter via rowed dtor 0x005D25F2 and delete caller 0x00578761
