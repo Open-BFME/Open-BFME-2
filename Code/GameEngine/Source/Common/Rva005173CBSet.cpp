@@ -112,3 +112,31 @@ Rva0044BEB9 *Rva0044BEB9::rva0044BEB9(const Rva004C5DD0Pair &arg)
 		++p->m_04;
 	return this;
 }
+
+// ?rva0044BF13@Rva0044BF13@@QAEPAU1@ABURva004C5DD0Pair@@@Z @0x0044BF13 45B
+// Allocating setter twin of rowed rva0044BEB9 (0x0044BEB9 45B) over the rowed
+// Rva0044BDD8 ctor (0x0044BDD8 31B): new 16B, forward the holder as pointer,
+// store into +0, AddRef at +4, return this. Same /O1 /MD /GX- recipe.
+// Caller 0x0044BFC7; landing unblocks 0x0044BFB2.
+struct Rva0044BDD8
+{
+	void *m_vtbl;
+	int m_04;
+	Rva004C5DD0 m_08;
+	Rva0044BDD8(const Rva004C5DD0Pair *p);
+};
+
+struct Rva0044BF13
+{
+	Rva0044BDD8 *m_ptr;
+	Rva0044BF13 *rva0044BF13(const Rva004C5DD0Pair &arg);
+};
+
+Rva0044BF13 *Rva0044BF13::rva0044BF13(const Rva004C5DD0Pair &arg)
+{
+	Rva0044BDD8 *p = new Rva0044BDD8(&arg);
+	m_ptr = p;
+	if (p)
+		++p->m_04;
+	return this;
+}
