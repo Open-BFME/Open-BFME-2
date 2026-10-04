@@ -9,8 +9,11 @@
 // via the matched callback17098D. Scalar deletion at15D120 calls this dtor.
 class RefCountClass {
 public:
-    void Add_Ref() { ++NumRefs; }
-    void Release_Ref() { --NumRefs; if (NumRefs == 0) Delete_This(); }
+    // Retail copies are the /O1 inc/dec pair kept elsewhere (Release at
+    // 0x5D1A7D); dllimport+forceinline keeps this TU's inlined add
+    // (matched dtor/assign) while suppressing our differing copies.
+    __declspec(dllimport) __forceinline void Add_Ref() { ++NumRefs; }
+    __declspec(dllimport) __forceinline void Release_Ref() { --NumRefs; if (NumRefs == 0) Delete_This(); }
     virtual void Delete_This();
 private:
     int NumRefs;
@@ -25,11 +28,14 @@ protected:
 };
 class TextureClass : public TextureBaseClass {
 public:
-    void Add_Ref() { ++NumRefs; }
+    // Retail Add_Ref is the /O1 inc copy kept by BfmeMapPictureTextureCtor;
+    // dllimport+forceinline keeps this TU's inlined add (matched assign)
+    // while suppressing our differing out-of-line copy.
+    __declspec(dllimport) __forceinline void Add_Ref() { ++NumRefs; }
 };
 template <class T> class RefCountPtr {
 public:
-    RefCountPtr() : Referent(0) {}
+    RefCountPtr();
     RefCountPtr &operator=(const RefCountPtr &that) {
         if (that.Referent) that.Referent->Add_Ref();
         if (Referent) Referent->Release_Ref();
