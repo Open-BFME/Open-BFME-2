@@ -53734,3 +53734,4 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ?Rva003320B0PopHeap@@YAXPAUS4SortElem12@@0US4Cmp002E0CD0@@@Z,,0x003320B0,23,Code/GameEngine/Source/Common/Rva003320B0PopHeap.cpp,matched,S4 pop_heap 3-arg forwarder over rowed 0x00331E80
 ??_GRva0057FE6B@@UAEPAXI@Z,,0x0057FF9D,28,Code/GameEngine/Source/Common/Rva0057FE6BDtor.cpp,matched,chain from 0057FE6B deleting dtor same unit vtable 0086F64C
 ??1Rva0057F2DE@@UAE@XZ,,0x0057F2DE,111,Code/GameEngine/Source/Common/Rva0057F2DE.cpp,matched,unlock vtable 0x00C6F584 GameSpy at 0x58 TreeHint at 0x9C ascii at 0xAC unicode at 0xB0 base pin 0x005248D0
+??_GRva0057F2DE@@UAEPAXI@Z,,0x0057F51C,28,Code/GameEngine/Source/Common/Rva0057F2DE.cpp,matched,chain from 0x0057F2DE deleting dtor same TU vtable 0x0086F584
