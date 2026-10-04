@@ -226,3 +226,5 @@ template void _STL::vector<BfmeNarrowRecord00427F75>::push_back(const BfmeNarrow
 template _STL::vector<Rva0007BB16Record>::vector(const _STL::vector<Rva0007BB16Record> &);
 // Retail 0x000C8B83.
 template _STL::vector<BfmePod248>::~vector();
+// Retail 0x000C8216.
+template _STL::vector<BfmePod252>::~vector();
