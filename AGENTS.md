@@ -301,11 +301,11 @@ otherwise reassess the batch.
 
 7. This step governs when to run #5. Keep each change verified; batch publication under these rules:
 
- Prefer accumulating verified commits until the unpublished batch recovers **300 retail bytes total or more**, then push them together. Keep substantive changes as separate verified commits. This is a preference, not a requirement to invent more work: publish a smaller final batch when the work or session ends, after the cooldown.
+ Prefer accumulating verified commits until the unpublished batch recovers **500 retail bytes total or more**, then push them together. Keep substantive changes as separate verified commits. This is a preference, not a requirement to invent more work: publish a smaller final batch when the work or session ends, after the cooldown.
 
 Header, vendored-reference and shared-shim edits — and a resolved merge — trigger the full gate in the hook; poll it, don't relaunch, and never filter a gate through a pipeline that hides its exit code.
 
-Additionally, internally note the time of your last successful push and allow at least a 3-minute cooldown until the next push by the same GitHub account to this repository. Share that clock across workers using the account and continue useful work during the cooldown.
+Additionally, internally note the time of your last successful push and allow at least a 5-minute cooldown until the next push by the same GitHub account to this repository. Share that clock across workers using the account and continue useful work during the cooldown.
 
 ## Frozen files: check before you plan an edit
 
