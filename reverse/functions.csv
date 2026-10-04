@@ -54252,3 +54252,18 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ?clone@Rva003ADC32View@@QBEPAV1@XZ,,0x003ADC32,29,Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003ADC32Clone.cpp,matched,BF1 donor1281192f682ce6f29b8f06b7daea4b5e8fdfbb24 Q2HeapCopyClones.cpp /O1 /MD EH off; native vtable81C90C references complete29B clone; allocation92 and matched copyctor3ADC4F; address-only receiver identity and opaque target-sized storage; proper existing copy linker binding
 ?rva004CB3F8@UpgradeSoundSelectorClientBehavior@@UAE_NHPAURva002C99FB@@@Z,,0x004CB3F8,146,Code/GameEngine/Source/GameClient/Drawable/Update/UpgradeSoundSelectorClientBehaviorSlots01.cpp,matched,slot 0 of the +0x0C vtable 0x00BEFEA4: first accepting entry whose record for the index has a reference
 ?rva004CB48A@UpgradeSoundSelectorClientBehavior@@UAE_NABVAsciiString@@PAURva002C99FB@@@Z,,0x004CB48A,146,Code/GameEngine/Source/GameClient/Drawable/Update/UpgradeSoundSelectorClientBehaviorSlots01.cpp,matched,slot 1 of the +0x0C vtable 0x00BEFEA4: first accepting entry whose record for the name has a reference
+?rva0004E3A6@Rva0004E3A6@@QAEXH@Z,,0x0004E3A6,12,Code/GameEngine/Source/Common/VslotSmallBodiesB.cpp,matched,vtable 0x00BC4E34 slot 6; address-named slot body
+?rva000B7C18@Rva000B7C18@@QAEXXZ,,0x000B7C18,12,Code/GameEngine/Source/Common/VslotSmallBodiesB.cpp,matched,vtable 0x00BCBC40 slot 7 (+6 more tables); address-named slot body
+?rva001524BE@Rva001524BE@@QAEXVRva00087A93@@@Z,,0x001524BE,12,Code/GameEngine/Source/Common/VslotSmallBodiesB.cpp,matched,vtable 0x00BD3B1C slot 7; address-named slot body
+?rva00239982@Rva00239982@@QAEXVAsciiString@@@Z,,0x00239982,12,Code/GameEngine/Source/Common/VslotSmallBodiesB.cpp,matched,vtable 0x00BC4738 slot 24 (+1 more tables); address-named slot body
+?rva003EF13E@Rva003EF13E@@QAEXHHH@Z,,0x003EF13E,12,Code/GameEngine/Source/Common/VslotSmallBodiesB.cpp,matched,vtable 0x00C363C8 slot 0; address-named slot body
+?rva00062A1C@Rva00062A1C@@QAEXH@Z,,0x00062A1C,13,Code/GameEngine/Source/Common/VslotSmallBodiesB.cpp,matched,vtable 0x00BC57E0 slot 18; address-named slot body
+?rva00062A29@Rva00062A1C@@QAEX_N@Z,,0x00062A29,13,Code/GameEngine/Source/Common/VslotSmallBodiesB.cpp,matched,vtable 0x00BC57E0 slot 19; address-named slot body
+?rva00072559@Rva00072559@@QAEXXZ,,0x00072559,13,Code/GameEngine/Source/Common/VslotSmallBodiesB.cpp,matched,vtable 0x00BC64D8 slot 4; address-named slot body
+?rva000910E1@Rva000910E1@@QAEPAXIH@Z,,0x000910E1,13,Code/GameEngine/Source/Common/VslotSmallBodiesB.cpp,matched,vtable 0x00BC7F74 slot 0; address-named slot body
+?rva000910EE@Rva000910E1@@QAEXPAXH@Z,,0x000910EE,13,Code/GameEngine/Source/Common/VslotSmallBodiesB.cpp,matched,vtable 0x00BC7F74 slot 1; address-named slot body
+?rva00261D01@Rva00261D01@@QAEXPAURva00261D01Holder@@@Z,,0x00261D01,15,Code/GameEngine/Source/Common/VslotSmallBodiesB.cpp,matched,vtable 0x00C35B28 slot 1; address-named slot body
+?rva00330484@Rva00330484@@QAEXH@Z,,0x00330484,16,Code/GameEngine/Source/Common/VslotSmallBodiesB.cpp,matched,vtable 0x00C0DB34 slot 2; address-named slot body
+?rva00330494@Rva00330484@@QAEXH@Z,,0x00330494,16,Code/GameEngine/Source/Common/VslotSmallBodiesB.cpp,matched,vtable 0x00C0DB34 slot 0; address-named slot body
+?rva00314C93@Rva00314C93@@QAEXHVUnicodeString@@HHHHH@Z,,0x00314C93,12,Code/GameEngine/Source/Common/VslotSmallBodiesB.cpp,matched,vtable 0x00BC7C90 slot 73 (+1 more tables); address-named slot body
+?rva001FF8FB@Rva001FF8FB@@QAEXXZ,,0x001FF8FB,14,Code/GameEngine/Source/Common/VslotSmallBodiesB.cpp,matched,vtable 0x00BE2704 slot 1 (+4 more tables); address-named slot body
