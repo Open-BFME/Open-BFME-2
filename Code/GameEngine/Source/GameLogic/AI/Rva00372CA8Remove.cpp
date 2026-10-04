@@ -12,6 +12,7 @@ class Rva00372CA8
 {
 public:
 	void rva00372CA8(int val);
+	bool rva00372CEC(int val);
 private:
 	char m_pad00[0x20];
 	int m_slots[8];
@@ -36,4 +37,13 @@ void Rva00372CA8::rva00372CA8(int val)
 	}
 	m_slots[7] = 0;
 	--m_count;
+}
+bool Rva00372CA8::rva00372CEC(int val)
+{
+	unsigned int n = (unsigned int)m_count;
+	for (unsigned int i = 0; i < n; ++i) {
+		if (m_slots[i] == val)
+			return true;
+	}
+	return false;
 }
