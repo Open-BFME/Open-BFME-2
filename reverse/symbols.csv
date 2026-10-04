@@ -8834,3 +8834,4 @@ _Rva0030CAF8CursorEqual,0x0007E394,twin of dup_0007e394 29B exact cursor equalit
 ??0Rva001684D6@@QAE@ABV0@@Z,0x00168527,"copy constructor (starts with the RenderObjClass copy 0x0013BF00) the Clone slot 2 of vtable 0x00BD41C8 (0x001686EB) calls after new 0x108; REL32 at 0x0016870D"
 ??0Rva00062A7EProduct@@QAE@XZ,0x00062A7E,"constructor storing vtable 0x00BC5890; REL32 in factory slot 14 of vtable 0x00BC25E0 (0x00041FF3) after new 0x1924"
 ??0Rva0008B7CFProduct@@QAE@XZ,0x0008B7CF,"constructor storing vtable 0x00BC7530; REL32 in factory slot 118 of vtable 0x00BC7A88 (0x0008EFFC) after new 0x2508"
+?push_back@Rva0029FB3BMember@@QAEXABW4ObjectID@@@Z,0x002A1B6F,ObjectID list push_back (the pinned ?push_back@BridgeBehaviorObjectIDList@@QAEXABW4ObjectID@@@Z) on GloriousChargeUpdate +0x88: REL32 at 0x004AD864 in 0x004AD7B6 with ECX this+0x88 and the pushed ID address
