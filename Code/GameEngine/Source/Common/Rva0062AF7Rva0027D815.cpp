@@ -304,7 +304,7 @@ void Rva0062AF7::Rva0027D960(void *water, float *out)
 		return;
 	Rva0027D5E0Box tmp;
 	slot08(&tmp);
-	const float c = *(const float *)0x00BFB1C8;
+	const float c = 99999.9f;
 	out[0] = tmp.hiX + c;
 	out[1] = tmp.hiY + c;
 	out[3] = tmp.loX - c;
