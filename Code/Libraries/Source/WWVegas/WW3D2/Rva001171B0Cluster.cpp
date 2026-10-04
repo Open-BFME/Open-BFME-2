@@ -96,7 +96,7 @@ public:
 	static void _Invalidate_Textures();
 };
 
-void WW3D::_Invalidate_Textures()
+inline void WW3D::_Invalidate_Textures()
 {
 	BFMEDX8DeviceLock lock;
 	bfmeBeginResourceEnumeration('TEX');
@@ -110,6 +110,11 @@ void WW3D::_Invalidate_Textures()
 			break;
 	}
 }
+
+#pragma inline_depth(0)
+// ?_bfmeRva001171B0Anchor present-unmatched
+void _bfmeRva001171B0Anchor() { WW3D::_Invalidate_Textures(); }
+#pragma inline_depth()
 
 // Other units call this body (pinned at its address) under the spelling(s)
 // below, with the same calling convention and stack arguments; bind them.
