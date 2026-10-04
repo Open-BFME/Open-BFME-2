@@ -8301,3 +8301,5 @@ _Rva0030CAF8CursorEqual,0x0007E394,twin of dup_0007e394 29B exact cursor equalit
 ?rva002120C2@@YGPAVBfmeSubDGH@@PAX@Z,0x002120C2,callee of ?bfmeGoDGH@@YGXPAX0@Z at retail 0x00212183 read from its REL32 displacement; walks this+0x24C pointer array testing each +0x1C via 0x004069D6; body unrowed
 ?bfmeFind1034@@YGPAUBfmeX1034@@HH@Z,0x0040DAA0,callee of ?bfmeGo1034A@@YGXHH@Z at retail 0x0040DAF0 read from its REL32 displacement; member walk over this+0x40 entries of 8 bytes testing element+4 via 0x004069D6; body unrowed
 ?bfmeAdd1034@BfmeSubA1034@@QAEXH@Z,0x000366F0,callee of ?bfmeGo1034A@@YGXHH@Z at retail 0x0040DAF0 read from its REL32 displacement; ICF alias onto ?set@?$StringBase@D@@QAEXABV1@@Z (matched)
+?bfmeFind1037F@@YGPAVBfmeG1037@@H@Z,0x00468E26,callee of ?bfmeGo1037F@@YGXHHH@Z at retail 0x00468E79 read from its REL32 displacement; ICF alias onto ?Rva00468E26Get@@YGPAVModule@@PAVObject@@@Z (matched)
+?bfmeDo1037@BfmeG1037@@QAEXHH@Z,0x00496E05,callee of ?bfmeGo1037F@@YGXHHH@Z at retail 0x00468E79 read from its REL32 displacement; opens an SEH frame and reads this+8; body unrowed
