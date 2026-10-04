@@ -59,3 +59,49 @@ void Rva002A9ACC::rva002A9ACC(const Dict *dict)
 		m_color2 = v2;
 	}
 }
+
+// ?rva002A9B58@Rva002A9B58@@QAEXPAURva002A7588In@@@Z 35B @0x002A9B58: thiscall with one arg ret4 void.
+// Evidence: add ecx 0x60 once then cmp [edx+0x61c] jle to choose rowed 0x002A7513 void vs rowed 0x002A75C9 int.
+// Callers at 0x0028DB00 0x0028EB0E 0x0028EBB7 0x00290DD3. LINK BONUS via 0x0028EB42.
+struct Rva002A7588In
+{
+	char m_pad[4];
+	void *m_p4;
+};
+
+struct Rva002A9B58Mid
+{
+	char _pad[0x61c];
+	int _61c;
+};
+
+class Rva002A7513
+{
+public:
+	void rva002A7513(void *a);
+};
+
+class Rva002A75C9
+{
+public:
+	int rva002A75C9(Rva002A7588In *p);
+};
+
+class Rva002A9B58
+{
+public:
+	void rva002A9B58(Rva002A7588In *p);
+private:
+	char m_pad00[0x60];
+};
+
+void Rva002A9B58::rva002A9B58(Rva002A7588In *p)
+{
+	Rva002A7513 *a = (Rva002A7513 *)((char *)this + 0x60);
+	Rva002A75C9 *b = (Rva002A75C9 *)((char *)this + 0x60);
+	Rva002A9B58Mid *mid = (Rva002A9B58Mid *)p->m_p4;
+	if (mid->_61c > 0)
+		a->rva002A7513(p);
+	else
+		b->rva002A75C9(p);
+}
