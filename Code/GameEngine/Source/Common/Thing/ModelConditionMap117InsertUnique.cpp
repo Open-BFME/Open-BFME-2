@@ -1,5 +1,3 @@
-// ?insert_unique@?$_Rb_tree@$$CBV?$BitFlags@$0HF@@@U?$pair@$$CBV?$BitFlags@$0HF@@@PBUModelConditionInfo@@@_STL@@U?$_Select1st@U?$pair@$$CBV?$BitFlags@$0HF@@@PBUModelConditionInfo@@@_STL@@@3@UMapHelper@?$SparseMatchFinder@UModelConditionInfo@@V?$BitFlags@$0HF@@@@@V?$allocator@U?$pair@$$CBV?$BitFlags@$0HF@@@PBUModelConditionInfo@@@_STL@@@3@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBV?$BitFlags@$0HF@@@PBUModelConditionInfo@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBV?$BitFlags@$0HF@@@PBUModelConditionInfo@@@_STL@@@2@@_STL@@_N@2@ABU?$pair@$$CBV?$BitFlags@$0HF@@@PBUModelConditionInfo@@@2@@Z
-// partial score=1.0 date=2026-10-03
 // cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
 // stlport
 #define _STLP_NO_EXCEPTIONS
