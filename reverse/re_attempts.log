@@ -8262,3 +8262,5 @@ Rva00415B91	0x00415B91	197	blocked	Native Ghidra197 is a separate EH-framed pars
 ?Rva00554A4AGet@@YAXXZ	0x00554A4A	168	blocked	needs 35-virtual iface donor for slots 0x8 0x78 0x88 plus RB map loop t=8 model=muse-08
 ?Rva0055499AGet@@YAXXZ	0x0055499A	176	blocked	same 35-virtual iface dependency as 0x00554A4A slots 0x8 0x70 0x78 0x88 t=3 model=muse-08
 ?addMessage@NetCommandList@@QAEPAVNetCommandRef@@PAVNetCommandMsg@@@Z	0x0058B2C6	540	partial	traversal sort call order temp-first vs incoming-first with early spill and jge vs jle t=25 model=muse-07 score=0.95 stash=reverse/attempts/0x0058b2c6.cpp
+?rva000ADF90@Rva000ADF90@@QAEXXZ	0x000ADF90	430	blocked	mixed x87 SSE floor ceil INV markBit TerrainRender 0x220 plus cmov comiss t=10 model=muse-17
+?Rva002C98E2Get@@YGMPAVObject@@@Z	0x002C98E2	123	partial	addss mulss operand order swapped mov v8 add g vs mov g add v8 t=20 model=muse-17 score=0.93 stash=reverse/attempts/0x002c98e2.cpp
