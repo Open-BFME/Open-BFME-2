@@ -54478,3 +54478,5 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ?rva00392129@Rva0039205C@@QAEXIM@Z,,0x00392129,54,Code/GameEngine/Source/Common/Rva0039205CFloat.cpp,matched,float setter via GlobalData count stride 0x1C
 ?rva0039215F@Rva0039205C@@QAEXIABVAsciiString@@@Z,,0x0039215F,55,Code/GameEngine/Source/Common/Rva0039205CString.cpp,matched,string setter via GlobalData count stride 0x1C
 ?rva004EE485@Rva004EE485@@QAEHXZ,,0x004EE485,62,Code/GameEngine/Source/Common/Rva004EE3F9.cpp,matched,RB sum bool filter tree C0 sibling EE3F9 no commas
+?rva004EE447@Rva004EE447@@QAEHXZ,,0x004EE447,62,Code/GameEngine/Source/Common/Rva004EE3F9.cpp,matched,RB sum bool filter tree B4 sibling EE485 no commas
+?rva004EE4C3@Rva004EE4C3@@QAEHXZ,,0x004EE4C3,62,Code/GameEngine/Source/Common/Rva004EE3F9.cpp,matched,RB sum bool filter tree CC sibling EE485 no commas

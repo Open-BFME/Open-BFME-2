@@ -95,3 +95,47 @@ int Rva004EE485::rva004EE485()
 	}
 	return sum;
 }
+
+class Rva004EE447
+{
+public:
+	int rva004EE447();
+private:
+	char m_pad[0xB4];
+	_STL::_Rb_tree_node_base *m_B4;
+};
+
+int Rva004EE447::rva004EE447()
+{
+	_STL::_Rb_tree_node_base *node = m_B4->_M_left;
+	int sum = 0;
+	while (node != m_B4) {
+		Rva004EE485Node *n = (Rva004EE485Node *)node;
+		if (n->m_10 && n->m_10->rva00261C89())
+			sum += n->m_14;
+		node = _STL::_Rb_global<bool>::_M_increment(node);
+	}
+	return sum;
+}
+
+class Rva004EE4C3
+{
+public:
+	int rva004EE4C3();
+private:
+	char m_pad[0xCC];
+	_STL::_Rb_tree_node_base *m_CC2;
+};
+
+int Rva004EE4C3::rva004EE4C3()
+{
+	_STL::_Rb_tree_node_base *node = m_CC2->_M_left;
+	int sum = 0;
+	while (node != m_CC2) {
+		Rva004EE485Node *n = (Rva004EE485Node *)node;
+		if (n->m_10 && n->m_10->rva00261C89())
+			sum += n->m_14;
+		node = _STL::_Rb_global<bool>::_M_increment(node);
+	}
+	return sum;
+}
