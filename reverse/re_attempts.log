@@ -7664,3 +7664,4 @@ FUN_007b7836	0x003B7836	260	blocked	no callers prove 3-arg free-function types p
 ?Rva00302B7DGet@@YAXXZ	0x00302B7D	260	blocked	260B MapUtil WaypointTree STL map plus StringBase plus Player_Start literal needs donor layout t=8 model=muse-10
 ??0Rva00596F18@@QAE@PAX@Z	0x00596EEF	41	partial	retail ecx held across zeros plus vtable before m70 vs eax early store plus vtable after t=18 model=muse-10 score=0.93 stash=reverse/attempts/0x00596eef.cpp
 ?rva004D2852@ConnectionManager@@QAEXPAVNetWrapperCommandMsg@@@Z	0x004D2852	116	blocked	imul0xc-vs-lea12 plus v1-len slot swap plus second lookup after selection t=25 model=muse-10
+?getCRC@GameLogic@@QAEIH@Z	0x0023CB2C	542	blocked	extra xor eax before mov al for BFMECRCWriter bool arg t=12 model=muse-06 (stash 0.99 kept)

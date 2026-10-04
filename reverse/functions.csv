@@ -53666,3 +53666,4 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ?getFileTransferProgress@ConnectionManager@@QAEHHVAsciiString@@@Z,,0x004D28C6,123,Code/GameEngine/Source/Common/ConnectionManagerRva004D28C6.cpp,matched,donor ConnectionManager getFileTransferProgress same logic rowed callees caller 0x25E3E2
 ?rva0028A8B5@Rva0028A8B5@@QBEXPAM@Z,,0x0028A8B5,45,Code/GameEngine/Source/Common/Rva0028A8B5Clamp.cpp,matched,float clamp via getVisionRange caller and SSE shape
 ??$__uninitialized_fill_n@PAURva002B72C9@@IU1@@_STL@@YAPAURva002B72C9@@PAU1@IABU1@ABU__false_type@0@@Z,,0x002B8253,37,Code/Libraries/Source/WWVegas/WWLib/Rva002B8253FillN.cpp,matched,fill_n Rva002B72C9 stride 0x14 via Construct 0x2B8226 caller 0x2BC434
+??1Rva0057FE6B@@UAE@XZ,,0x0057FE6B,99,Code/GameEngine/Source/Common/Rva0057FE6BDtor.cpp,matched,unlock lane vtable 0086F64C holder64 f2 delete holder58 Release base 005248D0
