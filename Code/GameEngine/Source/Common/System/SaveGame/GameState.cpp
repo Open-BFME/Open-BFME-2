@@ -317,40 +317,8 @@ GameState::~GameState( void )
 // ------------------------------------------------------------------------------------------------
 /** Init the game state subsystem */
 // ------------------------------------------------------------------------------------------------
-// ?init@GameState@@ present-unmatched
-void GameState::init( void )
-{
+// init is provided by the verified GameStateInit.cpp unit.
 
-	// add all the snapshot objects to our list of data blocks for save game files
-	addSnapshotBlock( GAME_STATE_BLOCK_STRING,				TheGameState,							SNAPSHOT_SAVELOAD );
-	addSnapshotBlock( CAMPAIGN_BLOCK_STRING,					TheCampaignManager,				SNAPSHOT_SAVELOAD );
-	addSnapshotBlock( "CHUNK_GameStateMap",						TheGameStateMap,					SNAPSHOT_SAVELOAD );
-	addSnapshotBlock( "CHUNK_TerrainLogic",						TheTerrainLogic,					SNAPSHOT_SAVELOAD );
-	addSnapshotBlock( "CHUNK_TeamFactory",						TheTeamFactory,						SNAPSHOT_SAVELOAD );
-	addSnapshotBlock( "CHUNK_Players",								ThePlayerList,						SNAPSHOT_SAVELOAD );
-	addSnapshotBlock( "CHUNK_GameLogic",							TheGameLogic,							SNAPSHOT_SAVELOAD );
-	addSnapshotBlock( "CHUNK_Radar",									TheRadar,									SNAPSHOT_SAVELOAD );
-	addSnapshotBlock( "CHUNK_ScriptEngine",						TheScriptEngine,					SNAPSHOT_SAVELOAD );
-	addSnapshotBlock( "CHUNK_SidesList",							TheSidesList,							SNAPSHOT_SAVELOAD );
-	addSnapshotBlock( "CHUNK_TacticalView",						TheTacticalView,					SNAPSHOT_SAVELOAD );
-	addSnapshotBlock( "CHUNK_GameClient",							TheGameClient,						SNAPSHOT_SAVELOAD );
-	addSnapshotBlock( "CHUNK_InGameUI",								TheInGameUI,							SNAPSHOT_SAVELOAD );
-	addSnapshotBlock( "CHUNK_Partition",							ThePartitionManager,			SNAPSHOT_SAVELOAD );
-	addSnapshotBlock( "CHUNK_ParticleSystem",					TheParticleSystemManager,	SNAPSHOT_SAVELOAD );
-	addSnapshotBlock( "CHUNK_TerrainVisual",					TheTerrainVisual,					SNAPSHOT_SAVELOAD );
-	addSnapshotBlock( "CHUNK_GhostObject",						TheGhostObjectManager,		SNAPSHOT_SAVELOAD );
-
-	// add all the snapshot objects to our list of data blocks for deep CRCs of logic
-	addSnapshotBlock( "CHUNK_TeamFactory",						TheTeamFactory,						SNAPSHOT_DEEPCRC_LOGICONLY );
-	addSnapshotBlock( "CHUNK_Players",								ThePlayerList,						SNAPSHOT_DEEPCRC_LOGICONLY );
-	addSnapshotBlock( "CHUNK_GameLogic",							TheGameLogic,							SNAPSHOT_DEEPCRC_LOGICONLY );
-	addSnapshotBlock( "CHUNK_ScriptEngine",						TheScriptEngine,					SNAPSHOT_DEEPCRC_LOGICONLY );
-	addSnapshotBlock( "CHUNK_SidesList",							TheSidesList,							SNAPSHOT_DEEPCRC_LOGICONLY );
-	addSnapshotBlock( "CHUNK_Partition",							ThePartitionManager,			SNAPSHOT_DEEPCRC_LOGICONLY );
-
-	m_isInLoadGame = FALSE;
-
-}  // end init
 
 // ------------------------------------------------------------------------------------------------
 /** Reset */
@@ -391,26 +359,8 @@ void GameState::clearAvailableGames( void )
 // ------------------------------------------------------------------------------------------------
 /** Add a snapshot and block name pair to the systems used to load and save */
 // ------------------------------------------------------------------------------------------------
-// ?addSnapshotBlock@GameState@@ present-unmatched
-void GameState::addSnapshotBlock( AsciiString blockName, Snapshot *snapshot, SnapshotType which )
-{
+// addSnapshotBlock is provided by the verified GameStateAddSnapshotBlock.cpp unit.
 
-	// sanity
-	if( blockName.isEmpty() || snapshot == NULL )
-	{
-
-		DEBUG_CRASH(( "addSnapshotBlock: Invalid parameters\n" ));
-		return;
-
-	}  // end if
-
-	// add to the list
-	SnapshotBlock blockInfo;
-	blockInfo.snapshot = snapshot;
-	blockInfo.blockName = blockName;
-	m_snapshotBlockList[which].push_back( blockInfo );
-
-}  // end addSnapshotBlock
 
 // ------------------------------------------------------------------------------------------------
 /** Given the filename of a save file, find the highest filename number */
