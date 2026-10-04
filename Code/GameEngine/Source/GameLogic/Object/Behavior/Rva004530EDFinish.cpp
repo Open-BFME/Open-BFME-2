@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /O1 /MD /arch:SSE
 // ??0Rva004530ED@@QAE@ABV0@@Z @0x004530ED 32B.
 // Copy constructor of a 20-byte record (int, 12-byte middle block, int) in the
 // Object/Behavior region. Callers 0x00453248, 0x00453BD6, 0x00453C50,
@@ -15,12 +15,23 @@
 class Rva004530ED
 {
 public:
+	Rva004530ED();
 	Rva004530ED(const Rva004530ED &rhs);
 private:
 	int m_00;
-	int m_04[3];
-	int m_10;
+	float m_04[3];
+	float m_10;
 };
+
+// ??0Rva004530ED@@QAE@XZ, retail 0x004530D0, 29 bytes.
+Rva004530ED::Rva004530ED()
+{
+	m_00 = 0;
+	m_04[0] = 0.0f;
+	m_04[1] = 0.0f;
+	m_04[2] = 0.0f;
+	m_10 = 0.0f;
+}
 
 Rva004530ED::Rva004530ED(const Rva004530ED &rhs)
 {
