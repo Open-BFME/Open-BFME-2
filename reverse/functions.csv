@@ -54520,3 +54520,4 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ??1Rva005FFBCB@@QAE@XZ,,0x005FFBCB,91,Code/GameEngine/Source/Common/Rva005FFBCBDtor.cpp,matched,Ghidra91B; native destructor callback005FFBC6 stride12 count3 at+24; rowed holder dtor005FFB89 at+1C; rowed vector owner0052413E at+C; AsciiString at+8; ZH SkirmishGameInfo identity refuted
 ?rva0059F950@Rva0059F950@@QAEXXZ,,0x0059F950,135,Code/GameEngine/Source/Common/Rva0059F950.cpp,matched,save prefs from spy slot via GameModePreferences no commas
 ?rva0059FC45@Rva0059FC45@@QAEXH@Z,,0x0059FC45,90,Code/GameEngine/Source/Common/Rva0059F950.cpp,matched,chain after 59F950 same class TheGameSpyInfo no commas
+?rva00392CC5@Rva0039205C@@QAEPAXI@Z,,0x00392CC5,52,Code/GameEngine/Source/Common/Rva0039205CString.cpp,matched,string-keyed pointer lookup via global and count

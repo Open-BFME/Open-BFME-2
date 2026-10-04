@@ -28,10 +28,19 @@ public:
 	int m_int18;
 };
 
+class Rva002D06CA
+{
+public:
+	void *rva002D06CA(const AsciiString *value);
+};
+
+extern class Rva002D06CA *g_009FF000;
+
 class Rva0039205C
 {
 public:
 	void rva0039215F(unsigned int index, const AsciiString &value);
+	void *rva00392CC5(unsigned int index);
 private:
 	int m_count00;
 	int m_pad04;
@@ -45,4 +54,13 @@ void Rva0039205C::rva0039215F(unsigned int index, const AsciiString &value)
 	if (index >= TheWritableGlobalData->m_count)
 		return;
 	((StringBase<char> *)&m_array08[index].m_str14)->set(*(const StringBase<char> *)&value);
+}
+
+void *Rva0039205C::rva00392CC5(unsigned int index)
+{
+	if (m_array08 == 0)
+		((Rva00392092Target *)this)->rva00392092();
+	if (index < (unsigned int)m_count00)
+		return g_009FF000->rva002D06CA(&m_array08[index].m_str14);
+	return 0;
 }
