@@ -49,3 +49,9 @@ void Rva004E5086::rva004E4E76()
     }
     objects.clear();
 }
+
+// This-only tail alias immediately after rva004E4E76; next entry is 4E4EA3.
+void Rva004E5086::rva004E4E9E()
+{
+    rva004E4E76();
+}
