@@ -29,7 +29,7 @@ class __declspec(novtable) GenBase009EB7D0
 public:
 	__declspec(noinline) GenBase009EB7D0();
 	virtual ~GenBase009EB7D0() { _ReadWriteBarrier(); }
-	virtual void handle();
+	virtual void handle() {}
 private:
 	unsigned int m_flags;
 	unsigned int m_zero08;
