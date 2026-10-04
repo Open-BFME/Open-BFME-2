@@ -54658,3 +54658,4 @@ _Rva00669500@8,,0x00669500,13,Code/GameEngine/Source/Common/RvaSmallLeafTransfer
 ?readNestedUserData@Rva000A2128@@QAEPAXXZ,,0x000A2128,15,Code/GameEngine/Source/Common/BfmeConv812.cpp,matched,BFME1 5cc75ddd full BfmeConv433 source lead; two native5C4ACD calls use existing pointer-return accessor ABI; original wrapper owner/prototype unknown
 ?rva00050E62@BfmeThingDWH@@QAEXXZ,,0x00050E62,12,Code/GameEngine/Source/Common/BfmeConv792.cpp,matched,BFME1 5cc75ddd whole BfmeConv829 lead; native named mss32 AIL_unlock_mutex import replaces false donor freeStr identity; existing byte-guard ABI view
 ??0Rva000A4916@@QAE@PAX@Z,,0x000A4916,24,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/Gadget/Rva000A4916Ctor.cpp,matched,Gadget ctor via Host base plus vtable 0x00BC9204
+??0Rva000A4969@@QAE@PAX@Z,,0x000A4969,24,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/Gadget/Rva000A4969Ctor.cpp,matched,Gadget ctor via Rva000A4916 base plus vtable 0x00BC9230
