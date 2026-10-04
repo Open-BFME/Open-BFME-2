@@ -15,6 +15,7 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #include "rendobj.h"
 #include "matrix3d.h"
 #include "vector3.h"
+#include "quat.h"
 
 #include <math.h>
 
@@ -242,4 +243,51 @@ bool Matrix3D::Solve_Linear_System(Matrix3D & system)
 	system[0] -= system[0][1] * system[1];
 
 	return true;
+}
+
+void Matrix3D::Set_Rotation(const Quaternion & q)
+{
+	Row[0][0] = (float)(1.0 - 2.0 * (q[1] * q[1] + q[2] * q[2]));
+	Row[0][1] = (float)(2.0 * (q[0] * q[1] - q[2] * q[3]));
+	Row[0][2] = (float)(2.0 * (q[2] * q[0] + q[1] * q[3]));
+
+	Row[1][0] = (float)(2.0 * (q[0] * q[1] + q[2] * q[3]));
+	Row[1][1] = (float)(1.0 - 2.0f * (q[2] * q[2] + q[0] * q[0]));
+	Row[1][2] = (float)(2.0 * (q[1] * q[2] - q[0] * q[3]));
+
+	Row[2][0] = (float)(2.0 * (q[2] * q[0] - q[1] * q[3]));
+	Row[2][1] = (float)(2.0 * (q[1] * q[2] + q[0] * q[3]));
+	Row[2][2] =(float)(1.0 - 2.0 * (q[1] * q[1] + q[0] * q[0]));
+}
+
+void Matrix3D::Set(const Quaternion & rot,const Vector3 & pos)
+{
+   Set_Rotation(rot);
+   Set_Translation(pos);
+}
+
+void Matrix3D::Lerp(const Matrix3D &A, const Matrix3D &B, float factor, Matrix3D& result)
+{
+	// Lerp position
+	Vector3 pos;
+	Vector3::Lerp(A.Get_Translation(), B.Get_Translation(), factor, &pos);
+
+	float scale = WWMath::Sqrt(A[2].X * A[2].X + A[2].Y * A[2].Y + A[2].Z * A[2].Z);
+	if (fabs(scale - 1.0f) > 0.000001f) {
+		Matrix3D a = A;
+		Matrix3D b = B;
+		a.Scale(1.0f / scale);
+		b.Scale(1.0f / scale);
+
+		Quaternion rot;
+		Slerp(rot, Build_Quaternion(a), Build_Quaternion(b), factor);
+		result.Set_Rotation(rot);
+		result.Set_Translation(pos);
+		result.Scale(scale);
+	} else {
+		Quaternion rot;
+		Slerp(rot, Build_Quaternion(A), Build_Quaternion(B), factor);
+		result.Set_Rotation(rot);
+		result.Set_Translation(pos);
+	}
 }
