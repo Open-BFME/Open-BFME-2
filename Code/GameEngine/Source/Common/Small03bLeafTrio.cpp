@@ -24,3 +24,23 @@ short *Rva009339F0Box::at(int i)
 		return m_data;
 	return m_data + i;
 }
+
+struct Rva0092D430Inner
+{
+	char m_pad[0x1C];
+	signed char m_value;
+};
+
+class Rva0092D430Box
+{
+public:
+	int get() const;
+	char m_pad[0xC4];
+	Rva0092D430Inner *m_ptr;
+};
+
+// mov eax,[ecx+0xC8] / test / movsx eax,byte ptr [eax+0x1C] / null on miss.
+int Rva0092D430Box::get() const
+{
+	return m_ptr ? m_ptr->m_value : 0;
+}
