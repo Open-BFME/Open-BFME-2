@@ -41,6 +41,40 @@ inline void *__cdecl operator new(unsigned int, void *__p)
 
 typedef unsigned int ProxyUInt;
 
+class Rva004C9D93Cmp
+{
+public:
+	bool rva004C9D93Compare(void *a, void *b) const;
+};
+
+namespace _STL
+{
+struct _Rb_tree_node_base
+{
+};
+template <class _Dummy> class _Rb_global
+{
+public:
+	static void _Rebalance(_Rb_tree_node_base *__x, _Rb_tree_node_base *&__root);
+};
+}
+
+struct AnimationSoundTreeNode
+{
+	int m_color;
+	AnimationSoundTreeNode *m_parent;
+	AnimationSoundTreeNode *m_left;
+	AnimationSoundTreeNode *m_right;
+};
+
+struct AnimationSoundTreeHead
+{
+	int m_color;
+	AnimationSoundTreeNode *m_parent;
+	AnimationSoundTreeHead *m_left;
+	AnimationSoundTreeHead *m_right;
+};
+
 class AnimationSoundTreeHeaderHandle
 {
 public:
@@ -62,10 +96,17 @@ public:
 	AnimationSoundTree *rva004CA018(void const *dummy);
 	AnimationSoundTree *rva004CA13D(void const *d1, void const *d2);
 	void *rva004CA19C(void const *v);
+	void rva004CA293(
+		AnimationSoundTreeNode *&out,
+		AnimationSoundTreeNode *a,
+		AnimationSoundTreeNode *b,
+		void const *v,
+		AnimationSoundTreeNode *c);
 
 private:
 	AnimationSoundTreeHeaderHandle m_handle;
 	unsigned int m_count;
+	Rva004C9D93Cmp m_compare;
 };
 
 void AnimationSoundTree::rva004CA167(void *nodeIn)
@@ -177,4 +218,54 @@ void *AnimationSoundTree::rva004CA19C(void const *v)
 	char *node = _STL::allocator<char>::allocate(0xb8, 0);
 	Rva004CA048Construct(node + 0x10, *(Rva004C9E94 const *)v);
 	return node;
+}
+
+// ?rva004CA293@AnimationSoundTree@@QAEXAAPAUAnimationSoundTreeNode@@PAU2@1PBX1@Z, retail 0x004CA293, 149 bytes.
+// RB insert worker for the AnimationSoundTree: picks right vs left child via
+// the member twin compare at +8 (lea ecx) against node+0x10, creates the 0xB8
+// node through the rowed rva004CA19C factory above, threads it (rightmost at
+// header+0xC vs leftmost at +8, root at +4), rebalances via rowed 0x00025490,
+// bumps the count and returns the node through out. Called from 0x004CA6C6.
+// Evidence: callees rowed/twinned 0x004C9D93 plus 0x004CA19C plus 0x00025490;
+// caller at 0x004CA6C6; prev/next same // cl: line.
+void AnimationSoundTree::rva004CA293(
+	AnimationSoundTreeNode *&out,
+	AnimationSoundTreeNode *a,
+	AnimationSoundTreeNode *b,
+	void const *v,
+	AnimationSoundTreeNode *c)
+{
+	AnimationSoundTreeNode *node;
+	if (b != (AnimationSoundTreeNode *)m_handle.m_header
+		&& (c != 0
+			|| (a == 0
+				&& !m_compare.rva004C9D93Compare((void *)v, (char *)b + 0x10))))
+	{
+		node = (AnimationSoundTreeNode *)rva004CA19C(v);
+		b->m_right = node;
+		AnimationSoundTreeHead *root = (AnimationSoundTreeHead *)m_handle.m_header;
+		if (b == (AnimationSoundTreeNode *)root->m_right)
+			root->m_right = (AnimationSoundTreeHead *)node;
+	}
+	else
+	{
+		node = (AnimationSoundTreeNode *)rva004CA19C(v);
+		b->m_left = node;
+		AnimationSoundTreeHead *root = (AnimationSoundTreeHead *)m_handle.m_header;
+		if (b == (AnimationSoundTreeNode *)root)
+		{
+			root->m_parent = node;
+			((AnimationSoundTreeHead *)m_handle.m_header)->m_right = (AnimationSoundTreeHead *)node;
+		}
+		else if (b == (AnimationSoundTreeNode *)root->m_left)
+			root->m_left = (AnimationSoundTreeHead *)node;
+	}
+	node->m_left = 0;
+	node->m_right = 0;
+	node->m_parent = b;
+	_STL::_Rb_global<bool>::_Rebalance(
+		(_STL::_Rb_tree_node_base *)node,
+		(_STL::_Rb_tree_node_base *&)((AnimationSoundTreeHead *)m_handle.m_header)->m_parent);
+	++m_count;
+	out = node;
 }

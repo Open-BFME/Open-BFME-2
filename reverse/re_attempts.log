@@ -7523,3 +7523,4 @@ FUN_007b7836	0x003B7836	260	blocked	no callers prove 3-arg free-function types p
 ?rva002BFA86@Rva002BF75A@@QAEXPAX@Z	0x002BFA86	80	blocked	65vs80B merged head and loop unlink into one block plus prev-cur register swap persists after prev-cur order and star-prev tries t=15 model=muse-19
 ?rva004DFB7E@Rva004DFB7E@@QAE_NPAX@Z	0x004DFB7E	111	blocked	esi edi swapped rec in esi vs edi xor edi early vs xor esi late definition-order swap tried t=10 model=muse-04 (stash 0.92 kept)
 ?rva003511E3@Rva0033F6DA@@QAEHXZ	0x003511E3	378	partial	fucompi+lahf vs fcompi+jae and lea-vs-add t=35 model=muse-spark score=0.93 stash=reverse/attempts/0x003511e3.cpp
+?rva00344598@Rva00344598@@QAEHXZ	0x00344598	157	partial	ebx ebp mirror and je vs jne trig edi order t=25 model=muse-02 score=0.93 stash=reverse/attempts/0x00344598.cpp

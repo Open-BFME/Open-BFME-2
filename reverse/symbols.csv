@@ -8488,3 +8488,4 @@ _Rva0030CAF8CursorEqual,0x0007E394,twin of dup_0007e394 29B exact cursor equalit
 ??1Rva00660610Deque@@QAE@XZ,0x0054FF17,callee of ??1Rva006609D0@@UAE@XZ at retail 0x0054FFA5 read from its REL32 displacement; the deque at +0x1C reaches the same body as the one at +0x44 (see the Rva00660470Deque pin) so this is an ICF alias at the same address; body unrowed
 ?clearAllRoads@W3DRoadBuffer@@QAEXXZ,0x000D7942,loadRoads REL32 at 0x000DD725; body loops m_roads (this+0x04) up to m_numRoads (this+0x08)
 ?addMapObjects@W3DRoadBuffer@@IAEXXZ,0x000DD47D,loadRoads REL32 at 0x000DD72C; body walks the global object list 0x00E00940 and compares m_numRoads with m_maxRoadSegments at this+0x34
+?rva004C9D93Compare@Rva004C9D93Cmp@@QBE_NPAX0@Z,0x004C9D93,twin of Less row empty this
