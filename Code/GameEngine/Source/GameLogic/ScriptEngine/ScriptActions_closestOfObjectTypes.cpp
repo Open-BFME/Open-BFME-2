@@ -12,6 +12,9 @@
 //               same search from the team's centre for each player of the
 //               named player mask in turn; the first hit goes to the named
 //               apply 0x003C420A
+//   0x003C56D6  (called from the dispatcher at 0x003CC7B3): the closest
+//               object of the types or template to the team's centre, any
+//               owner, goes to the named apply 0x003C420A
 //
 // The filters are BFME2's partition filter chain (the view
 // AIStructureCreepTactic.cpp documents): a vptr, the +0x04 link to the next
@@ -146,6 +149,8 @@ public:
 	Object *rva003C24F0(const Coord3D *pos, ObjectTypes *types, Player *player, bool flag);
 	void rva003C4625(const AsciiString &objectType, Parameter *teamParm, const AsciiString &unitName);
 	void rva003C420A(void *what, const AsciiString &name, Object *obj);	// 0x003C420A
+	void rva003C56D6(void *what, const AsciiString &name, const AsciiString &objectType,
+		const AsciiString &teamName);
 	void rva003C55A6(void *what, const AsciiString &name, const AsciiString &objectType,
 		const AsciiString &teamName, const AsciiString &playerName);
 };
@@ -203,4 +208,26 @@ void ScriptActions::rva003C55A6(void *what, const AsciiString &name, const Ascii
 			return;
 		}
 	} while (mask);
+}
+
+void ScriptActions::rva003C56D6(void *what, const AsciiString &name, const AsciiString &objectType,
+	const AsciiString &teamName)
+{
+	Team *team = TheScriptEngine->getTeamNamed(teamName, false);
+	if (!team)
+		return;
+	Coord3D pos;
+	team->rva0039E5B9(&pos);
+	Object *obj;
+	ObjectTypes *types = TheScriptEngine->getObjectTypes(objectType);
+	if (types) {
+		obj = rva003C24F0(&pos, types, 0, false);
+	} else {
+		const ThingTemplate *templ = TheThingFactory->findTemplate(objectType);
+		if (!templ)
+			return;
+		obj = ThePartitionManager->getClosestObject(&pos, REALLY_FAR, 0, &Rva00261750Filter(templ, true));
+	}
+	if (obj)
+		rva003C420A(what, name, obj);
 }
