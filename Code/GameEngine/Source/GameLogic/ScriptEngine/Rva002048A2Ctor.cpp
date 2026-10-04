@@ -23,3 +23,14 @@ Rva002048A2::Rva002048A2(AsciiString *a1, const AsciiString &a2)
     m_str = *a1;
     *a1 = a2;
 }
+
+// BFME1 donor1281192f68 BfmeConv1764.cpp supplies the restore-on-destruction
+// operation. Target RVA 002048EC (63B) proves the alias at +8, string at +4,
+// shared set worker366F0 and releaseBuffer36410. The existing ctor and slot-0
+// deleting destructor independently establish this class's one-slot table.
+// ??1Rva002048A2@@UAE@XZ
+Rva002048A2::~Rva002048A2()
+{
+    AsciiString *target = m_alias;
+    *target = m_str;
+}
