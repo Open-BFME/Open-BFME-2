@@ -52931,3 +52931,4 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ?rva0005E959@Win32GameEngine@@UAEPAXXZ,,0x0005E959,53,Code/GameEngine/Source/Main/Win32GameEngineFactories.cpp,matched,Win32GameEngine vtable 0x00BC2530 slot 36 factory: new plus pinned ctor
 ?rva00041E6A@Win32GameEngine@@UAEPAXXZ,,0x00041E6A,53,Code/GameEngine/Source/Main/Win32GameEngineFactories.cpp,matched,Win32GameEngine vtable 0x00BC2530 slot 37 factory: new plus pinned ctor
 ?rva00041D62@Win32GameEngine@@UAEPAXXZ,,0x00041D62,53,Code/GameEngine/Source/Main/Win32GameEngineFactories.cpp,matched,Win32GameEngine vtable 0x00BC2530 slot 29 factory: new plus pinned ctor
+?destroyParticleSystemByID@ParticleSystemManager@@QAEXW4ParticleSystemID@@@Z,,0x001F5B79,69,Code/GameEngine/Source/Common/ParticleSystemManagerDestroyByID.cpp,matched,ZH ParticleSystemManager::destroyParticleSystemByID over the handle-returning find 0x001F5B0A; destroy 0x001F462C
