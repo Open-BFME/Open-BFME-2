@@ -33,6 +33,7 @@ public:
 	void rva004F040F(void *arg);
 	void rva004F0479(void *arg);
 	void rva004F03EF(void *arg);
+	void rva004EF383(void *arg);
 
 private:
 	char m_pad00[4];
@@ -59,6 +60,16 @@ void Rva004F040F::rva004F040F(void *arg)
 // is only that call ABI, bound to its proper TeamInQueue home.
 #pragma comment(linker, "/alternatename:?rva004F03AF@BfmeNode_00161220@@QAEXPAPAU1@@Z=?dlink_removeFrom_TeamReadyQueue@TeamInQueue@@QAEXPAPAV1@@Z")
 
+// Native4EF39A calls the independently byte-verified/link-clean23-byte
+// second-list prepend4EF35C with its node receiver and supplied head.
+// This declaration adds no receiver layout or original type claim.
+class Rva004EF35CAppendABI
+{
+public:
+    void prepend(void **head);
+};
+#pragma comment(linker, "/alternatename:?prepend@Rva004EF35CAppendABI@@QAEXPAPAX@Z=?set@Rva00160620@@QAEXPAPAV1@@Z")
+
 void Rva004F040F::rva004F0479(void *arg)
 {
     void **head = &m_08;
@@ -71,4 +82,11 @@ void Rva004F040F::rva004F03EF(void *arg)
     void **head = &m_04;
     if (!((BfmeNode_00161220 *)arg)->isInList04((BfmeNode_00161220 **)head))
         ((Rva00160530 *)arg)->set((Rva00160530 **)head);
+}
+
+void Rva004F040F::rva004EF383(void *arg)
+{
+    void **head = &m_08;
+    if (!((BfmeNode_00161220 *)arg)->isInList0C((BfmeNode_00161220 **)head))
+        ((Rva004EF35CAppendABI *)arg)->prepend(head);
 }
