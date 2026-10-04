@@ -61,3 +61,21 @@ ServiceHubImpl *createServiceHubImpl(void *a, void *b, void *c, void *d, void *e
 }
 // ?g_Va0130A588@@3PAVServiceHubImpl@@A: the global at VA 0xe09fa4 is ?g_Va0130A588@@3PAVT_007ea120@@A.
 #pragma comment(linker, "/alternatename:?g_Va0130A588@@3PAVServiceHubImpl@@A=?g_Va0130A588@@3PAVT_007ea120@@A")
+
+// Primary semantic guide: whole BFME1 createServiceHubImpl.cpp, revision
+// 5cc75ddda6455c338a5068307e587a793f96d6b3, blob
+// 31ac73344d164781f380891d0a70736bd7cc605c, compiled /O2 without headers.
+// Target 658110/58 is bounded by INT3 padding before/after its two returns.
+// Native requests 0x2B0 bytes from the established 65D010 allocator, forwards
+// six raw argument words unchanged to the rowed 657DD0 ServiceHubImpl
+// constructor, and returns either that constructor's receiver or null.
+// The known neighboring named factory at 658160 uses the same allocator,
+// constructor and allocation size; the wrapper's own original name remains
+// unknown. The existing constructor declaration/throw specification is
+// retained; no new member layout or assertion of runtime nonthrowing behavior
+// is inferred from the wrapper's lack of local exception machinery.
+ServiceHubImpl *rva00658110(void *a, void *b, void *c, void *d, void *e, void *f)
+{
+    void *raw = Gen007F0130(0x2B0);
+    return raw ? new (raw) ServiceHubImpl(a, b, c, d, e, f) : 0;
+}

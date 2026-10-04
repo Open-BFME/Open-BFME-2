@@ -35283,7 +35283,6 @@ __Addition,,0x0067BC30,146,Code/Libraries/Source/DirtySock/cryptrsa.c,matched,EA
 ?get@Rva006026D0ZeroGetter@@QBEHXZ,,0x006026D0,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
 ?get@Rva00602820ZeroGetter@@QBEHXZ,,0x00602820,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
 ?get@Rva00602860ZeroGetter@@QBEHXZ,,0x00602860,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
-?get@Rva00658147ZeroGetter@@QBEHXZ,,0x00658147,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
 ?get@Rva0065E7CAZeroGetter@@QBEHXZ,,0x0065E7CA,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
 ?get@Rva0065EC9AZeroGetter@@QBEHXZ,,0x0065EC9A,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
 ?get@Rva00104076ZeroGetter@@QBEHXZ,,0x00104076,3,Code/GameEngine/Source/Common/IntZeroGetters.cpp,matched,Trivial int-zero getter ret-delimited
@@ -55722,3 +55721,4 @@ __Locale_ctype_create,,0x00022360,1316,Code/Libraries/Source/WWVegas/WWLib/stlpo
 ?rva0053B914@Rva0053B914@@QAEXXZ,,0x0053B914,50,Code/GameEngine/Source/Common/Rva0053B914.cpp,matched,hide-all via rowed winHide 0x00313C64 and callers 0x0031EAAE 0x0053D375 0x0053E7AC
 ?rva0044BF40@Rva0044BF40@@QAEPAU1@URva0044BA4E@@@Z,,0x0044BF40,55,Code/GameEngine/Source/Common/Rva0044BF40.cpp,matched,EH setter twin via rowed 0x0044BEB9 and dtor 0x0044BA4E
 ?rva004D0E06@ConnectionManager@@QAEXPAVGameMessage@@@Z,,0x004D0E06,133,Code/GameEngine/Source/GameNetwork/ConnectionManager_rva004D0E06.cpp,matched,ConnectionManager send GameMessage via TheGameLogic frame and local slot then sendLocalCommand relay ff and detach
+?rva00658110@@YAPAVServiceHubImpl@@PAX00000@Z,,0x00658110,58,Code/GameEngine/Source/GameNetwork/createServiceHubImpl.cpp,matched,Whole BFME1 donor5cc75ddd blob31ac7334 O2 primary guide; native padding-bounded wrapper calls established allocator65D010 with2B0 and rowed ServiceHubImpl ctor657DD0 forwarding six raw words; wrapper original name unknown
