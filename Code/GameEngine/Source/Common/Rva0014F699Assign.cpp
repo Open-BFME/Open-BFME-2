@@ -36,7 +36,7 @@ extern const void *const g_00BC6F24[];
 class Snapshot
 {
 public:
-	virtual ~Snapshot();
+  virtual ~Snapshot();
 };
 
 inline Snapshot::~Snapshot()
@@ -93,6 +93,11 @@ Rva0014F699 &Rva0014F699::operator=(const Rva0014F699 &other)
 	return *this;
 }
 
-Rva0014F699::~Rva0014F699()
+inline Rva0014F699::~Rva0014F699()
 {
 }
+
+#pragma inline_depth(0)
+// ?_bfmeRva0014F699Anchor present-unmatched
+void _bfmeRva0014F699Anchor(Rva0014F699 *p) { p->Rva0014F699::~Rva0014F699(); }
+#pragma inline_depth()
