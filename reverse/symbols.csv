@@ -8964,3 +8964,4 @@ _Rva0030CAF8CursorEqual,0x0007E394,twin of dup_0007e394 29B exact cursor equalit
 ?rva004CEF58@Rva004CEF58NullTarget@@QAE_NH@Z,0x004CEF58,"method a null-checked vtable-slot forwarder tail-jumps to (ret 4); opaque address name"
 ?rva004D00BB@Rva004D00BBNullTarget@@QAEXH@Z,0x004D00BB,"method a null-checked vtable-slot forwarder tail-jumps to (ret 4); opaque address name"
 ?rva000B3FD0@Rva000B3FD0NullTarget@@QAEXXZ,0x000B3FD0,"method a null-checked vtable-slot forwarder tail-jumps to (ret 0); opaque address name"
+?rva003F81B0@Rva003F81FDProxy@@QAEPAVRva003F7D86Inner@@XZ,0x003F81B0,"proxy (vtable 0x00C3731C) member returning the inner interface its slots 3-13 forward to; REL32 in each slot (e.g. 0x003F81FD); identity not recovered"
