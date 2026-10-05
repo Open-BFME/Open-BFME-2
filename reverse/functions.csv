@@ -60448,3 +60448,17 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva005BA621@Rva005BA621@@QAEXXZ,,0x005BA621,5,Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp,matched,vtable slot; tail jump to pinned 0x005BA440 on this object; no Ghidra entry
 ?rva005F97AC@Rva005F97AC@@QAEXH@Z,,0x005F97AC,8,Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp,matched,vtable slot; tail jump to pinned 0x005F963A on the +0x3C object; no Ghidra entry
 ?rva005F97B4@Rva005F97B4@@QAEXH@Z,,0x005F97B4,8,Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp,matched,vtable slot; tail jump to pinned 0x005F9687 on the +0x38 object; no Ghidra entry
+?rva00661480@Rva00661480@@QAEHH@Z,,0x00661480,5,Code/GameEngine/Source/Common/VslotSmallBodiesAK.cpp,matched,vtable slot in four tables; answers 0 for one arg; no Ghidra entry
+?rva006680D0@Rva00661480@@QAEHHHH@Z,,0x006680D0,5,Code/GameEngine/Source/Common/VslotSmallBodiesAK.cpp,matched,vtable slot in two tables; answers 0 for three args; no Ghidra entry
+?rva0066E4C0@Rva0066E4C0@@QBE_JXZ,,0x0066E4C0,7,Code/GameEngine/Source/Common/VslotSmallBodiesAK.cpp,matched,vtable slot; the 64-bit value at +0x10; no Ghidra entry
+?rva0066E560@Rva0066E4C0@@QBE_JXZ,,0x0066E560,7,Code/GameEngine/Source/Common/VslotSmallBodiesAK.cpp,matched,vtable slot; the 64-bit value at +0x18; no Ghidra entry
+?rva00709BC0@Rva00709BC0@@QBEHXZ,,0x00709BC0,6,Code/GameEngine/Source/Common/VslotSmallBodiesAK.cpp,matched,vtable slot in two tables; leading word of the +0x30 object; no Ghidra entry
+?rva0061EF80@Rva0061EF80@@QAEXXZ,,0x0061EF80,8,Code/GameEngine/Source/Common/VslotSmallBodiesAK.cpp,matched,vtable slot; tail jump to pinned 0x00624130 on the +0x0C object; no Ghidra entry
+?rva0006EE46@Rva0006EE46@@UAEXXZ,,0x0006EE46,23,Code/GameEngine/Source/Common/VslotSmallBodiesAL.cpp,matched,secondary-base slot (interface at +0x108); pinned cdecl 0x00118660 with the complete object and the +0x10 interface member when set; no Ghidra entry
+?rva00330AF6@Rva00330AF6@@QAEXHABUBfmeE8@@@Z,,0x00330AF6,30,Code/GameEngine/Source/Common/VslotSmallBodiesAL.cpp,matched,vtable slot; pinned setter 0x0030BAD8 (index; pair) on +0x08 then virtual slot 12; no Ghidra entry
+?rva00330BA3@Rva00330BA3@@QAEXH@Z,,0x00330BA3,26,Code/GameEngine/Source/Common/VslotSmallBodiesAL.cpp,matched,vtable slot; pinned 0x0030B232 (arg) on +0x08 then virtual slot 12; no Ghidra entry
+?rva00526342@Rva00526342@@QAE_NH@Z,,0x00526342,13,Code/GameEngine/Source/Common/VslotSmallBodiesAL.cpp,matched,vtable slot; pinned 0x00525E55 of the +0x08 object; true; no Ghidra entry
+?rva00527111@Rva00526342@@QAE_NH@Z,,0x00527111,17,Code/GameEngine/Source/Common/VslotSmallBodiesAL.cpp,matched,vtable slot; pinned 0x00526F85 (arg) of the +0x08 object; true; no Ghidra entry
+?rva00567D96@Rva00526342@@QAE_NH@Z,,0x00567D96,16,Code/GameEngine/Source/Common/VslotSmallBodiesAL.cpp,matched,vtable slot; pinned 0x00567A6E (+0x0C) of the +0x08 object; true; no Ghidra entry
+?rva00588A9D@Rva00588A9D@@QAEXI@Z,,0x00588A9D,30,Code/GameEngine/Source/Common/VslotSmallBodiesAL.cpp,matched,vtable slot; pinned 0x00588A72 on the +0x08 vector (0x3C entries) when it holds fewer than the count; no Ghidra entry
+?rva005E1B41@Rva005E1B41@@UAEXH@Z,,0x005E1B41,13,Code/GameEngine/Source/Common/VslotSmallBodiesAL.cpp,matched,secondary-base slot (interface at +0x0C); pinned 0x005E1AB6(0) of the complete object; no Ghidra entry
