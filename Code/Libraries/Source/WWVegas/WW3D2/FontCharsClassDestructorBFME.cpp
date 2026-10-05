@@ -58,7 +58,11 @@ typedef _STL::_Rb_tree<int, FontCharsTree00940010Pair, _STL::_Select1st<FontChar
 	_STL::less<int>, _STL::allocator<FontCharsTree00940010Pair> > FontCharsTree00940010;
 
 struct FontCharsClassCharDataStruct;
-class FontCharsBuffer;
+// Native destructor installs vector vtable BD3B98, whose deleting
+// destructor155940 and four-byte Resize1A3720 already identify this opaque
+// pointer-vector specialization. ZH FontCharsBuffer has a different target
+// vtable BD0D68; the original element class name remains unresolved.
+class Rva00155940Element;
 
 // A BufferList entry as this body reads it: the array at +0 is deleted with
 // delete[], then the entry itself with delete.
@@ -107,7 +111,7 @@ private:
 
 	void *m_dword08;
 	StringClass m_name;
-	DynamicVectorClass<FontCharsBuffer *> m_bufferList;
+	DynamicVectorClass<Rva00155940Element *> m_bufferList;
 	int m_dword28[7];
 	StringClass m_gdiFontName;
 	HFONT m_gdiFont;
