@@ -56133,3 +56133,5 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ??0Rva0007EBFB@@QAE@XZ,,0x0007EBFB,73,Code/GameEngine/Source/Common/Rva0007EBFBWaterDraw.cpp,matched,ctor registers WaterDraw via rowed Register with empty base and two members
 ??1Rva00518769@@UAE@XZ,,0x00518769,297,Code/GameEngine/Source/Common/Rva00518769Dtor.cpp,matched,AptOptions InitGadgets literal base AptGameWindow caller deleting dtor
 ??_GRva00518769@@UAEPAXI@Z,,0x00518AE9,28,Code/GameEngine/Source/Common/Rva00518769Dtor.cpp,matched,deleting dtor calls 0x00518769 via base AptGameWindow
+?Rva0008F803Create@@YGPAVRva000A3E2B@@PAX@Z,,0x0008F803,58,Code/GameEngine/Source/Common/Rva0008F803Create.cpp,matched,neighbors same 58B shape caller new 0x0002FDA0 ctor 0x000A3E2B
+?Rva0008F8B1Create@@YGPAVRva000A3307@@PAX@Z,,0x0008F8B1,58,Code/GameEngine/Source/Common/Rva0008F8B1Create.cpp,matched,neighbors same 58B shape caller new 0x0002FDA0 ctor 0x000A3307
