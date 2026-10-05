@@ -1,5 +1,5 @@
 // ?rva006C2510@Rva006C1F60@@QAEIPADHPAPAD@Z
-// partial score=0.985 date=2026-10-05
+// partial score=0.99 date=2026-10-05
 // cl: /O2 /MD /EHsc
 // ?rva006C2510@Rva006C1F60@@QAEIPADHPAPAD@Z @ 0x006C2510 (215B)
 // Unlock lane: landing it makes 0x006C26F0 and 0x006C4730 ready.
@@ -100,7 +100,8 @@ private:
 // ?rva006C2510@Rva006C1F60@@QAEIPADHPAPAD@Z present-unmatched
 // Both arms return trail+2. The store happens only when out!=0; retail tests
 // the out pointer (test esi,esi) and the je skips the body store, not the
-// result. `off` is what keeps size live in a register.
+// result. `bp = base - 10` is what forces the trailing-word load to index off
+// `size` rather than fold into one SIB displacement, giving retail's 215B.
 unsigned int Rva006C1F60::rva006C2510(char *base, int type, char **out)
 {
 	Rva00030DD0Lock *lock = m_lock;
@@ -117,10 +118,10 @@ unsigned int Rva006C1F60::rva006C2510(char *base, int type, char **out)
 			size = (h & 0x7ffffff8) + 4;
 		else
 			size = h & 0x7ffffff8;
-		unsigned int off = size - 10;
-		unsigned short trail = *(const unsigned short *)(base + off);
+		char *bp = (char *)base - 10;
+		unsigned short trail = *(const unsigned short *)(bp + size);
 		if (out != 0) {
-			*out = (char *)(base - trail) + off;
+			*out = (bp - trail) + size;
 			result = trail + 2;
 		}
 		else
