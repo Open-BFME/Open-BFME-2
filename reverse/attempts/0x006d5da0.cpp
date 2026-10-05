@@ -1,4 +1,6 @@
 // ?rva006D5DA0@EAStringC@@QAE_NPBD@Z
+// partial score=0.96 date=2026-10-05
+// ?rva006D5DA0@EAStringC@@QAE_NPBD@Z
 // partial score=0.94 date=2026-10-05
 // Finish pass on the 0.93 bank. Blocker moved: the compare-fold and
 // single-scope-slot are resolved; what remains is the ebx/ebp pair.
@@ -141,22 +143,20 @@ StringDataC *data = m_pData;
 	// slot so `*1` addressing is used.
 	unsigned int rest = size - len;
 	if (memcmp((const char *)data - len + (int)sizeof(StringDataC) + size,
-		pStrText, len) != 0)
-		return false;
+		pStrText, len) == 0)
+		goto matched;
+	return false;
+
+matched:
 
 	// Retail's helper block is UNCONDITIONAL after the compare -- both the
 	// `jb` at 0x006D5DFB and the `jne` at 0x006D5E09 target the same shared
 	// trailing false epilogue at 0x006D5E52 -- so this is not guarded by an if
 	// and the `false` path stays out of the middle of the body.
 	{
-		// Retail allocates the holder as a BARE four-byte slot the helper fills
-		// in place: there is no constructor call before 0x006D55B0 and no
-		// `mov dword ptr [esp+0x20],0` initialiser either. A class member with a
-		// user-declared destructor is POD-initialised by MSVC here, which is the
-		// extra store; the destructor stays because it is what drives the SEH
-		// frame retail opens with.
 		Sub sub;
-		*this = *this->rva006D55B0((EAStringC *)&sub, rest);
+		unsigned int n = rest;
+		*this = *this->rva006D55B0((EAStringC *)&sub, n);
 	}
 	return true;
 }
