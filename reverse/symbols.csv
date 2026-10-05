@@ -12889,3 +12889,5 @@ _Rva00337999Forward,0x00337999,REL32 callee decoded from target call bytes of wr
 ?rva0039AEBC@Rva0039B0C9@@QAEXH@Z,0x0039AEBC,thiscall worker on this taking the +4 dword; read from REL32 at 0x0039B0D4 in rva0039B0C9 0x0039B0C9; 158B free body; identity unproven
 ?rva003AFFBE@@YAXHHHHH@Z,0x003AFFBE,50B idiv+rep-movsd helper calling 0x003AFE48; 5 int args assumed; read from REL32 at 0x003B016D in rva003B015D 0x003B015D
 ?rva003B0176@@YAXHHHH@Z,0x003B0176,42B movsd-copy helper calling 0x003AFFF0; 4 int args assumed (p2 used as pointer); read from REL32 at 0x003B02AF in rva003B02A1 0x003B02A1
+?rva003B5EA5@@YAHHHPAURva003B65Header@@@Z,0x003B5EA5,real prolog at unlisted address inside Ghidra 1818B blob; 3rd arg is the caller header; int args assumed; read from REL32 at 0x003B65CD/0x003B6607
+?rva003B7448@Rva003B7448@@QAEXH@Z,0x003B7448,member method on +4 taking arg+4; read from REL32 at 0x003B7700 in rva003B76EF 0x003B76EF; int arg assumed
