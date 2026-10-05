@@ -1,5 +1,3 @@
-// ?rva00100362@?$SimpleDynVecClass@VVector3@@@@QBEXABVPlaneClass@@AAV1@@Z
-// partial score=0.99 date=2026-10-02
 // cl: /O1 /G7 /arch:SSE /MD
 //
 // ?rva00100362@?$SimpleDynVecClass@VVector3@@@@QBEXABVPlaneClass@@AAV1@@Z, retail 0x00100362, 518 bytes.
@@ -10,6 +8,9 @@
 // D at +0xc); arg12 dest cleared then Add calls; callers at 0x00100731 etc pass
 // frustum planes at +0x30..+0x80 ping-ponging two temps; callees rowed
 // Compute_Intersection 0x00069168 Add 0x001002C5 single-arg 0x00100354.
+// The loop names the current vertex as a reference before testing it: passed
+// straight to In_Front, MSVC 7.1 loads point.X rather than N.X for the last
+// product, against retail.
 
 class Vector3
 {
@@ -56,7 +57,6 @@ public:
 	int ActiveCount;
 };
 
-// ?rva00100362@?$SimpleDynVecClass@VVector3@@@@QBEXABVPlaneClass@@AAV1@@Z present-unmatched
 void SimpleDynVecClass<Vector3>::rva00100362(const PlaneClass &plane, SimpleDynVecClass<Vector3> &dest) const
 {
 	dest.Delete_All(false);
@@ -71,7 +71,8 @@ void SimpleDynVecClass<Vector3>::rva00100362(const PlaneClass &plane, SimpleDynV
 		return;
 	prev_point_in_front = !plane.In_Front((*this)[iprev]);
 	for (int j = 0; j < vcount; j++) {
-		cur_point_in_front = !plane.In_Front((*this)[i]);
+		const Vector3 &cur = (*this)[i];
+		cur_point_in_front = !plane.In_Front(cur);
 		if (prev_point_in_front) {
 			if (cur_point_in_front) {
 				dest.rva00100354((*this)[i]);
