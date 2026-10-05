@@ -55903,3 +55903,4 @@ ___Extract_locale_name,,0x000216A0,153,Code/Libraries/Source/WWVegas/WWLib/Local
 ?rva0036DF92@AIGroup@@QAEXXZ,,0x0036DF92,223,Code/GameEngine/Source/GameLogic/AI/AIGroupRva0036DF92.cpp,matched,caller 0x00372C05 same this as isIdle plus list head plus4 plus rowed callees plus pinned worker
 ?rva002C9424@Rva002C9424@@QAEPAV1@XZ,,0x002C9424,23,Code/GameEngine/Source/Common/Rva002C9424.cpp,matched,init zeroes plus 6 via return this neighbours 0x002C941C 0x002C943B caller 0x002C8CE2
 ?Rva00547245Xfer@@YAPAVXfer@@PAV1@PAURva00547245Pair@@@Z,,0x00547245,30,Code/GameEngine/Source/Common/Rva00547245Xfer.cpp,matched,free xfer helper ObjectID plus Coord via eax reuse callers 0x005475CB 0x00547625
+?rva003F9004@Rva003F9004@@QAEXPBVModuleData@@@Z,,0x003F9004,23,Code/GameEngine/Source/Common/Rva003F9004.cpp,matched,null-checked vector ModuleData push_back at this plus 0xC callers 0x003F90B9 0x003F9162
