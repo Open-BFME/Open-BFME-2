@@ -9327,3 +9327,5 @@ FUN_0047ffed	0x0007FFED	233	blocked	anonymous water-setting dispatch (thiscall +
 ??1Rva003F6A91@@UAE@XZ	0x003F6A91	136	blocked	dual-vptr EH dtor with list forEach plus vector plus callback plus manual free needs layout and base identities t=18 model=muse-05
 ?Rva0040F077@@YAXPAVINI@@PAVRva0040ECCF@@@Z	0x0040F077	121	blocked	esi vs eax regalloc wall p stays live but keeps eax t=12 model=muse-08
 ?Rva0040F10F@@YGXPAVRva0037EB1D@@@Z	0x0040F10F	142	partial	ebx esi edi regalloc and arg slot reuse for new-holder t=15 model=muse-08 score=0.91 stash=reverse/attempts/0x0040f10f.cpp
+?_M_new_elements_at_back@?$deque@UBfmeOpaque40@@V?$allocator@UBfmeOpaque40@@@_STL@@@_STL@@IAEXI@Z	0x005AE90F	129	blocked	name refuted: retail 129B SEH body gated on global 0xE02320 with calls 0x211E58 etc; not a deque helper. t=4 model=muse-spark-1.3-contributor
+?_M_new_elements_at_back@?$deque@UGen_t_00089ce0_p4pod@@V?$allocator@UGen_t_00089ce0_p4pod@@@_STL@@@_STL@@IAEXI@Z	0x00057408	138	blocked	name refuted: retail 138B SEH body with ebp frame calling 0x4120E 0x2888D4 0x562CF 0x41E832 over +0x9D4/+0x104 members; not a deque aux. t=6 model=muse-spark-1.3-contributor
