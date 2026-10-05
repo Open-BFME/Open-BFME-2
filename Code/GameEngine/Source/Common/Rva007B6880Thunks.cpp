@@ -6879,5 +6879,38 @@ void __cdecl rva007B6A50()
 	return p->rva00007670();
 }
 
+class Rva00422CE9Tree
+{
+public:
+	~Rva00422CE9Tree();
+};
+
+extern unsigned g_Va00E03168;
+unsigned int g_Va00E03168;
+
+// ?rva007B82D3@@YAXXZ @ 0x007B82D3 (10B). Tree teardown: ecx=&g_Va00E03168 then tail-jmp to the 0x00422CE9 stub for tree dtor ??1Rva00421BF7@@QAE@XZ (0x0042263D). No callers. Honest address name.
+void __cdecl rva007B82D3()
+{
+	Rva00422CE9Tree *p = (Rva00422CE9Tree *)&g_Va00E03168;
+	return p->~Rva00422CE9Tree();
+}
+
+class Rva00422CEETree
+{
+public:
+	~Rva00422CEETree();
+};
+
+extern unsigned g_Va00E0319C;
+unsigned int g_Va00E0319C;
+
+// ?rva007B82DD@@YAXXZ @ 0x007B82DD (10B). Tree teardown: ecx=&g_Va00E0319C then tail-jmp to the 0x00422CEE stub for tree dtor ??1Rva00421C24@@QAE@XZ (0x00422675). No callers. Honest address name.
+void __cdecl rva007B82DD()
+{
+	Rva00422CEETree *p = (Rva00422CEETree *)&g_Va00E0319C;
+	return p->~Rva00422CEETree();
+}
+
+
 
 
