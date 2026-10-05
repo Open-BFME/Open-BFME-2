@@ -55886,3 +55886,4 @@ ___Extract_locale_name,,0x000216A0,153,Code/Libraries/Source/WWVegas/WWLib/Local
 ?rva0040DAA0@Rva0040DAA0@@QBEPAXABV?$StringBase@D@@PAH@Z,,0x0040DAA0,80,Code/GameEngine/Source/Common/Rva0040DAA0Finish.cpp,matched,thiscall linear find over _STL vector Rva0040DAA0Entry at +0x40; StringBase char compare 0x69D6; stlport marker; exact80
 ?rva004932DC@Rva004932DC@@QAEEXZ,,0x004932DC,19,Code/GameEngine/Source/Common/Rva004932DCPredicate.cpp,matched,caller 0x0049466D ptr+4 byte+0x74 nested-if uchar
 ??0Rva0009FD78@@QAE@PAX@Z,,0x0009FD60,24,Code/GameEngine/Source/Common/Rva0009FD78Ctor.cpp,matched,ctor via base 0x00104F8F vtable 0x007C8C54 slot5 dispatch
+??0Rva0009FDBD@@QAE@PAX@Z,,0x0009FDBD,24,Code/GameEngine/Source/Common/Rva0009FDBDCtor.cpp,matched,ctor via base 0x0009FD60 vtable 0x007C8C80 caller 0x0008F986
