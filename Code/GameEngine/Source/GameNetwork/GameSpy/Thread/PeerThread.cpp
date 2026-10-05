@@ -2836,7 +2836,7 @@ void playerLeftCallback(PEER peer, RoomType roomType, const char * nick, const c
 //	DEBUG_ASSERTCRASH(t, ("No Peer thread!"));
 	if (t->getQMStatus() != QM_IDLE && t->getQMStatus() != QM_STOPPED)
 	{
-		if (!stricmp(t->getQMBotName().c_str(), nick))
+		if (!_strcmpi(t->getQMBotName().c_str(), nick))
 		{
 			// matchbot left - bail
 			PeerResponse resp;
