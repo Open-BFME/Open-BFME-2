@@ -1,5 +1,7 @@
 // ?rva006D5690@EAStringC@@QAEPAXPAV1@H@Z
-// partial score=0.96 date=2026-10-05
+// partial score=0.9 date=2026-10-05
+// ?rva006D5690@EAStringC@@QAEPAXPAV1@H@Z
+// finish attempt for ?rva006D5690@EAStringC@@QAEPAXPAV1@H@Z @0x006D5690, 215B.
 // cl: /O2 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // ?rva006D5690@EAStringC@@QAEPAXPAV1@H@Z @0x006D5690 215B (thiscall, ret 8).
 // Writes the tail of *this from `offset` into `source`, returning `source`.
