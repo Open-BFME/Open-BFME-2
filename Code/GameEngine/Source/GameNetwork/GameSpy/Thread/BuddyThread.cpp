@@ -190,6 +190,17 @@ void GameSpyBuddyMessageQueue::addRequest( const BuddyRequest& req )
 }
 
 
+// Retail 0x00551BA7, 77 bytes: vtable 0x00C6B020 slot 5, between addRequest
+// (slot 3) and getResponse (slot 6); the response mutex and queue push.
+void GameSpyBuddyMessageQueue::addResponse( const BuddyResponse& resp )
+{
+	MutexClass::LockClass m(m_responseMutex);
+	if (m.Failed())
+		return;
+
+	m_responses.push(resp);
+}
+
 Bool GameSpyBuddyMessageQueue::getResponse( BuddyResponse& resp )
 {
 	MutexClass::LockClass m(m_responseMutex, 0);

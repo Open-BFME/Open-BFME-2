@@ -41,3 +41,21 @@ void __cdecl Rva000D06C6Parse(INI *ini, void *instance, void *store, const void 
 	INI::parseAsciiString(ini, instance, &marker.m_name, 0);
 	((_STL::vector<CameraMarker> *)store)->push_back(marker);
 }
+
+// ?Rva000CF873Parse@@YAXPAVINI@@PAX1PBX@Z @0x000CF873 96B: the same parse for the
+// other WeatherTexture field (FieldParse entry at VA 0x00BCD6F0, beside
+// FloorFadeRateOnObjectDeath and HideIfModelConditions; 0x000D06C6 fills the
+// entry at 0x00BCDBC0). Its vector's rowed push_back 0x000CF83C carries the
+// element name Rva000CF83CElement, laid out as the same index plus name.
+struct Rva000CF83CElement
+{
+	int m_index;
+	AsciiString m_name;
+};
+void __cdecl Rva000CF873Parse(INI *ini, void *instance, void *store, const void * /*userData*/)
+{
+	Rva000CF83CElement marker;
+	INI::parseIndexList(ini, instance, &marker.m_index, g_00DBE974);
+	INI::parseAsciiString(ini, instance, &marker.m_name, 0);
+	((_STL::vector<Rva000CF83CElement> *)store)->push_back(marker);
+}
