@@ -64303,3 +64303,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?rva000AAD88@@YAPAXPAURva000AAD88Arg@@@Z,,0x000AAD88,57,Code/GameEngine/Source/Common/Rva000AAD88Clone.cpp,matched,
 ?rva000A9211@@YAPAXPAX@Z,,0x000A9211,45,Code/GameEngine/Source/Common/Rva000A9211Format.cpp,matched,
 ?rva000AF1C2@@YAXHHH@Z,,0x000AF1C2,27,Code/GameEngine/Source/Common/Rva000AF1C2Forward.cpp,matched,
+?rva000B4653@Rva000B4653@@QAEPAXH@Z,,0x000B4653,29,Code/GameEngine/Source/Common/Rva000B4653Lookup.cpp,matched,
