@@ -56765,3 +56765,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva005C47C4@Rva005C47C4@@QAEXH@Z,,0x005C47C4,24,Code/GameEngine/Source/Common/Rva005C47C4VirtInc.cpp,matched,gap dtor to getter virtual slot0 cur plus14 inc
 ?rva0026249D@Rva00262453@@QAEXXZ,,0x0026249D,118,Code/GameEngine/Source/Common/Rva00262453.cpp,matched,Same flag layout plus AI group via createGroup plus Team plus isIdle
 ?Rva0041C9C4Check@@YG_NPAVObject@@PBUCoord3D@@PBVOverridable@@@Z,,0x0041C9C4,52,Code/GameEngine/Source/Common/Rva0041C9C4.cpp,matched,free stdcall via Overridable friend_getFinalOverride bit6 plus AI Pathfinder check
+?rva002035AD@Rva002035ADZeroView@@QAEPAV1@XZ,,0x002035AD,13,Code/GameEngine/Source/Common/Rva002035ADZero.cpp,matched,abuts prev 0x002035A9 and next 0x002035BA thiscall ret no callees
