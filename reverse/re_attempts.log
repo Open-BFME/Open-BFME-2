@@ -8813,3 +8813,10 @@ $L62091	0x007AB0D0	25	blocked	Native FuncInfo VA D6490C state0 prior-1 owns acti
 ?bfmeUse1035@BfmeT1035@@QAEXPAVBfmeX1035@@H@Z	0x002842CD	434	blocked	donor BfmeT1035Use 557B vs 434B divergent virtual slots 0x70 vs 40 and 0x4c vs 31 plus BitSet FixedStorage helpers t=10 model=muse-03
 ?rva006d7670@@YAPAVAptString@@PAVBfmeAptValue006DCD20@@HH@Z	0x006D7670	318	blocked	chain Apt builder 298vs1250 EH hidden-pointer Mid Create layout wall t=12 model=muse-03
 ??0Rva006FBF90@@QAE@HHHHHHH@Z	0x006FBF90	337	partial	ebx zero reuse vs immediates plus timezone jge shape t=25 model=muse-03 score=0.93 stash=reverse/attempts/0x006fbf90.cpp
+?Rva003BAF95@@YGXMMMM@Z	0x003BAF95	83	partial	movaps+mulss-mem vs movss+mulss-reg same SSE wall as 0x003BAB7A 77B vs 83B t=10 model=muse-09 score=0.88 stash=reverse/attempts/0x003baf95.cpp
+?Rva003BAC6D@@YGXMMMM@Z	0x003BAC6D	93	partial	movaps+mulss-mem vs movss+mulss-reg same SSE wall as 0x003BAB7A 87B vs 93B t=15 model=muse-09 score=0.88 stash=reverse/attempts/0x003bac6d.cpp
+?Rva003BAFE8@@YGXPAVParameter@@MMMMM@Z	0x003BAFE8	119	partial	movaps+mulss-mem vs movss+mulss-reg same SSE wall as 0x003BAB7A 112B vs 119B t=12 model=muse-09 score=0.88 stash=reverse/attempts/0x003bafe8.cpp
+?Rva003BAF1D@@YGXMMMM@Z	0x003BAF1D	120	partial	x87 fld-RADS vs fld-arg plus movaps+mulss-mem vs movss+mulss-reg same SSE wall 118B vs 120B t=20 model=muse-09 score=0.93 stash=reverse/attempts/0x003baf1d.cpp
+?Rva003BAA46@@YGXPAVParameter@@_NM@Z	0x003BAA46	144	partial	TV vtable cached in edi vs reload plus cmp offset 137B vs 144B t=18 model=muse-09 score=0.9 stash=reverse/attempts/0x003baa46.cpp
+?Rva003BAAE4@@YGXABVAsciiString@@MMMM@Z	0x003BAAE4	150	partial	branch fixed via early-and only movaps+mulss-mem vs movss+mulss-reg SSE wall remains 144B vs 150B t=15 model=muse-09 score=0.9 stash=reverse/attempts/0x003baae4.cpp
+?Rva003BAE04@@YAXXZ	0x003BAE04	198	partial	loop sum kept in regs vs mem plus xor placement 210B vs 198B t=20 model=muse-09 score=0.85 stash=reverse/attempts/0x003bae04.cpp
