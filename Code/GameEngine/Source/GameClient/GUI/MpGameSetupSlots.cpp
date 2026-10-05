@@ -2048,3 +2048,78 @@ void MpGameSetup::rva0043F8B3(int slot)
 	}
 	Rva00322E19Add(heroBox, text, 0);
 }
+
+// Retail 0x0044127C, 544 bytes. Name unknown. The host's game start
+// countdown: fewer seated humans than +0x3A8 ("LAN:HostCanceledGameBecause
+// PlayerLeave") or fewer accepted ones ("LAN:CountdownStoppedGeneric")
+// cancel it; a cancelled countdown that had begun says "LAN:Host
+// CanceledGame" and resets. Otherwise each whole second still to go is
+// announced once ("LAN:GameStartTimerSingular"/"Plural"); when the time
+// is up the first pass stores the text entry, tells the owner (vslot 16)
+// and arms a final five seconds, the second starts the game (0x00440BDF).
+// Callers 0x004411BD, the LAN screen's update 0x004465A8 and 0x005A6542.
+bool MpGameSetup::rva0044127C()
+{
+	GameInfo *game = (GameInfo *)m_game->rva0043DA65();
+	if (!game)
+		return false;
+
+	int humans = 0;
+	for (int i = 0; i < 8; ++i)
+	{
+		GameSlot *slot = game->getSlot(i);
+		if (slot && slot->isOccupied() && !slot->isObserver() && slot->isHuman())
+			++humans;
+	}
+	if (humans < m_3a8)
+	{
+		m_owner->v17(TheGameText->fetch("LAN:HostCanceledGameBecausePlayerLeave"), 2);
+		m_pending = false;
+		m_startTime = 0;
+	}
+	else if (rva0043DF22() < (unsigned int)m_3a8)
+	{
+		m_owner->v17(TheGameText->fetch("LAN:CountdownStoppedGeneric"), 2);
+		m_pending = false;
+		m_startTime = 0;
+	}
+
+	if (!m_pending)
+	{
+		if (m_startTime)
+			m_owner->v17(TheGameText->fetch("LAN:HostCanceledGame"), 2);
+		if (m_2c4)
+			rva0043DC0F();
+		m_shownSeconds = 0;
+		m_startTime = 0;
+		return false;
+	}
+
+	int remaining = m_startTime - timeGetTime();
+	if (remaining > 0)
+	{
+		if (m_2c4)
+			return true;
+		int seconds = remaining / 1000;
+		if (seconds >= m_shownSeconds)
+			return true;
+		if (seconds > 0)
+		{
+			UnicodeString message;
+			message.format(TheGameText->slot44(seconds == 1 ? "LAN:GameStartTimerSingular" : "LAN:GameStartTimerPlural", 0), seconds);
+			m_owner->v17(message, 2);
+		}
+		m_shownSeconds = seconds;
+		return true;
+	}
+	if (!m_2c4)
+	{
+		Rva00511730(0);
+		m_owner->v16(true);
+		m_2c4 = true;
+		m_startTime = timeGetTime() + 5000;
+		return true;
+	}
+	m_pending = false;
+	return rva00440BDF(0);
+}
