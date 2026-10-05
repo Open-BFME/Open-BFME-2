@@ -1,121 +1,164 @@
-// ??1Rva0033DDA1@@UAE@XZ
-// partial score=0.99 date=2026-10-05
 // cl: /O1 /EHs /MD
+// ??1Rva0033DDA1@@UAE@XZ @0x0033DDA1 713B.
+// Virtual scalar destructor of the large ThingTemplate-side record holder:
+// vptr store, 20 member-dtor calls in reverse order, three ehvec array
+// teardowns, inline free-holder tails, then the rowed base dtor 0x001E3624.
+// All member dtors are declared-only TU-local spellings so each call site
+// resolves to its rowed body or symbols.csv pin; only the PtrHolder tails
+// inline (free 0x00030830). Member order and sizes mirror the banked 0.99
+// layout (+0x364 is the Rva0033BD50 holder, not a CD02Vec).
 extern "C" void free(void *block);
-
-class Rva0033B84ETok
-{
-public:
-	Rva0033B84ETok(const char *s);
-	~Rva0033B84ETok();
-	Rva0033B84ETok() : m_data(0) {}
-
-private:
-	void *m_data;
-};
 
 struct PtrHolder
 {
 	void *m_p;
-	~PtrHolder() { if (m_p != 0) free(m_p); }
+	~PtrHolder()
+	{
+		if (m_p != 0)
+			free(m_p);
+	}
 };
 
-struct Rva0033DDA1E14
-{
-	char m[0x14];
-	~Rva0033DDA1E14();
-};
-
-struct Rva0033DDA1E8
-{
-	char m[8];
-	~Rva0033DDA1E8();
-};
-
-struct Rva0033DDA1E4
-{
-	char m[4];
-	~Rva0033DDA1E4();
-};
-
-class Rva0026E1A6
+class Rva0033B84ETok
 {
 public:
-	~Rva0026E1A6();
-	char m_pad[11];
-};
+	~Rva0033B84ETok();
 
-class Rva0033BDC0
-{
-public:
-	~Rva0033BDC0();
-};
-
-class Rva0033D00ATree
-{
-public:
-	~Rva0033D00ATree();
-};
-
-class Rva0025742CTree
-{
-public:
-	~Rva0025742CTree();
-};
-
-class Rva0033BD88
-{
-public:
-	~Rva0033BD88();
-};
-
-class Rva0033D4ABVec
-{
-public:
-	~Rva0033D4ABVec();
-};
-
-class Rva0033BD50
-{
-public:
-	~Rva0033BD50();
-};
-
-class RvaVecAscii
-{
-public:
-	~RvaVecAscii();
-};
-
-class Rva0033CA81Vec
-{
-public:
-	~Rva0033CA81Vec();
-};
-
-class Rva0033CD02Vec
-{
-public:
-	~Rva0033CD02Vec();
-};
-
-class Rva0033C3F3
-{
-public:
-	~Rva0033C3F3();
-};
-
-class GeometryInfo
-{
-public:
-	virtual ~GeometryInfo();
+private:
+	void *m_data;
 };
 
 class Rva0033B352Record
 {
 public:
 	~Rva0033B352Record();
+
+private:
 	char m_wide_narrow[8];
+};
+
+class Rva0033DDA1E4
+{
+public:
+	~Rva0033DDA1E4();
+
+private:
+	char m[4];
+};
+
+class Rva0033DDA1E8
+{
+public:
+	~Rva0033DDA1E8();
+
+private:
+	char m[8];
+};
+
+class Rva0033DDA1E14
+{
+public:
+	~Rva0033DDA1E14();
+
+private:
+	char m[0x14];
+};
+
+class GeometryInfo
+{
+public:
+	virtual ~GeometryInfo();
+}; // 4B: vptr only; the +0xa4..0xfc span is dtor-silent POD
+
+struct Rva0033C3F3
+{
+	void *m_a;
+	void *m_b;
+	~Rva0033C3F3();
+};
+
+class Rva0033CD02Vec
+{
+public:
+	~Rva0033CD02Vec();
+
+private:
+	void *m_v[3];
+};
+
+class Rva0033CA81Vec
+{
+public:
+	~Rva0033CA81Vec();
+
+private:
+	void *m_v[3];
+};
+
+class RvaVecAscii
+{
+public:
+	~RvaVecAscii();
+
+private:
+	void *m_v[3];
+};
+
+struct Rva0033BD50
+{
+	void *m_begin;
+	void *m_end;
+	~Rva0033BD50();
+};
+
+class Rva0033D4ABVec
+{
+public:
+	~Rva0033D4ABVec();
+
+private:
+	void *m_v[3];
+};
+
+struct Rva0033BD88
+{
+	void *m_begin;
+	void *m_end;
+	~Rva0033BD88();
+};
+
+class Rva0025742CTree
+{
+public:
+	~Rva0025742CTree();
+
+private:
+	void *m_t[3];
+};
+
+class Rva0033D00ATree
+{
+public:
+	~Rva0033D00ATree();
+
+private:
+	void *m_t[3];
+};
+
+struct Rva0033BDC0
+{
+	void *m_begin;
+	void *m_end;
+	~Rva0033BDC0();
+};
+
+class Rva0026E1A6
+{
+public:
+	~Rva0026E1A6();
+
+private:
+	char m_pad[12];
 };
 
 class Rva001E3624
@@ -124,7 +167,7 @@ public:
 	virtual ~Rva001E3624();
 
 private:
-	char m_pad04[0x14 - 4];
+	char m_pad[0x14 - 4];
 };
 
 class Rva0033DDA1 : public Rva001E3624
@@ -159,38 +202,32 @@ private:
 	GeometryInfo m_gA0; // +0xa0
 	char m_padA4[0xfc - 0xa4];
 	Rva0033C3F3 m_cFC; // +0xfc
-	char m_padFD[0x124 - 0xfd];
-	Rva0033DDA1E8 m_e124[0x38]; // +0x124
+	char m_pad104[0x124 - 0x104];
+	struct Rva0033DDA1E124
+	{
+		Rva0033DDA1E8 e[0x38];
+	} m_e124; // +0x124
 	Rva0033CD02Vec m_v2e4; // +0x2e4
-	char m_pad2E5[0x2f0 - 0x2e5];
 	Rva0033CD02Vec m_v2f0; // +0x2f0
-	char m_pad2F1[0x2fc - 0x2f1];
 	Rva0033CD02Vec m_v2fc; // +0x2fc
-	char m_pad2FD[0x308 - 0x2fd];
 	Rva0033CD02Vec m_v308; // +0x308
-	char m_pad309[0x324 - 0x309];
+	char m_pad314[0x324 - 0x314];
 	Rva0033CA81Vec m_v324; // +0x324
-	char m_pad325[0x330 - 0x325];
 	RvaVecAscii m_a330; // +0x330
-	char m_pad331[0x33c - 0x331];
 	RvaVecAscii m_a33c; // +0x33c
-	char m_pad33D[0x348 - 0x33d];
 	RvaVecAscii m_a348; // +0x348
-	char m_pad349[0x358 - 0x349];
+	char m_pad354[0x358 - 0x354];
 	PtrHolder m_h358; // +0x358
 	char m_pad35C[0x364 - 0x35c];
 	Rva0033BD50 m_d364; // +0x364
-	char m_pad365[0x370 - 0x365];
+	char m_pad36C[0x370 - 0x36c];
 	Rva0033D4ABVec m_v370; // +0x370
-	char m_pad371[0x37c - 0x371];
 	Rva0033BD88 m_d37c; // +0x37c
-	char m_pad37D[0x388 - 0x37d];
+	char m_pad384[0x388 - 0x384];
 	Rva0025742CTree m_t388; // +0x388
-	char m_pad389[0x394 - 0x389];
 	Rva0033D00ATree m_t394; // +0x394
-	char m_pad395[0x3a0 - 0x395];
 	Rva0033BDC0 m_d3a0; // +0x3a0
-	char m_pad3A1[0x3ac - 0x3a1];
+	char m_pad3A8[0x3ac - 0x3a8];
 	Rva0026E1A6 m_m3ac; // +0x3ac
 	PtrHolder m_h3b8; // +0x3b8
 	char m_pad3BC[0x3c4 - 0x3bc];
