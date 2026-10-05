@@ -19,6 +19,9 @@
 // Native Modulo spills its second conversion to a float slot before the call.
 extern "C" double __cdecl fmod(double,double);
 #pragma intrinsic(fmod)
+// Native equality threshold is double0.001 at VA BC6E68, not the later float macro.
+extern "C" double __cdecl fabs(double);
+#pragma intrinsic(fabs)
 static __forceinline float bfme_fmodf(float x,float y) { return (float)fmod(x,y); }
 class AptString;
 class AptInteger;
@@ -32,6 +35,7 @@ public:
     bool isUndefined() const;
     bool isInteger() const;
     float toFloat() const;
+    bool toBool() const;
     int toInteger() const;
 };
 class AptCIH;
@@ -126,6 +130,7 @@ private:
     HANDLER(PushDuplicate); HANDLER(StackSwap); HANDLER(StoreRegister);
     HANDLER(Add); HANDLER(Subtract); HANDLER(Multiply);
     HANDLER(Divide); HANDLER(Modulo); HANDLER(Increment); HANDLER(Decrement);
+    HANDLER(Equals); HANDLER(LessThan); HANDLER(And); HANDLER(Or); HANDLER(Not);
     HANDLER(SetVariable); HANDLER(GetMember); HANDLER(SetMember);
     HANDLER(PushStringGetVar); HANDLER(PushStringGetMember); HANDLER(PushStringSetVar); HANDLER(PushStringSetMember);
 #undef HANDLER
@@ -459,3 +464,103 @@ void AptActionInterpreter::_FunctionAptActionDecrement(AptActionInterpreter *con
 }
 
 #pragma comment(linker, "/alternatename:?toInteger@AptValue@@QBEHXZ=?toInteger@BfmeAptValue006DCD20@@QBEHXZ")
+
+void AptActionInterpreter::_FunctionAptActionEquals(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    AptValue *aValue=p->stack.At(0);
+    AptValue *bValue=p->stack.At(1);
+    AptValue *result=0;
+    if (Rva006CD220Get()==7) {
+        if (aValue->isUndefined() || bValue->isUndefined()) result=gpUndefinedValue;
+    }
+    if (!result) {
+        if (aValue->isInteger() && bValue->isInteger()) {
+            int a=aValue->c_integer()->GetInt();
+            int b=bValue->c_integer()->GetInt();
+            result=AptBoolean::Create(a==b);
+        } else {
+            float a=aValue->toFloat();
+            float b=bValue->toFloat();
+            result=AptBoolean::Create(fabs(a-b)<0.001);
+        }
+    }
+    p->stack.Pop(2);
+    p->stack.Push(result);
+}
+
+void AptActionInterpreter::_FunctionAptActionLessThan(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    AptValue *aValue=p->stack.At(0);
+    AptValue *bValue=p->stack.At(1);
+    AptValue *result=0;
+    if (Rva006CD220Get()==7) {
+        if (aValue->isUndefined() || bValue->isUndefined()) result=gpUndefinedValue;
+    }
+    if (!result) {
+        if (aValue->isInteger() && bValue->isInteger()) {
+            int a=aValue->c_integer()->GetInt();
+            int b=bValue->c_integer()->GetInt();
+            result=AptBoolean::Create(b<a);
+        } else {
+            float a=aValue->toFloat();
+            float b=bValue->toFloat();
+            result=AptBoolean::Create(b<a);
+        }
+    }
+    p->stack.Pop(2);
+    p->stack.Push(result);
+}
+
+void AptActionInterpreter::_FunctionAptActionAnd(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    AptValue *aValue=p->stack.At(0);
+    AptValue *bValue=p->stack.At(1);
+    AptValue *result=0;
+    if (Rva006CD220Get()==7) {
+        if (aValue->isUndefined() || bValue->isUndefined()) result=gpUndefinedValue;
+    }
+    if (!result) {
+        if (aValue->isInteger() && bValue->isInteger()) {
+            int a=aValue->c_integer()->GetInt();
+            int b=bValue->c_integer()->GetInt();
+            result=AptBoolean::Create(a && b);
+        } else {
+            float a=aValue->toFloat();
+            float b=bValue->toFloat();
+            result=AptBoolean::Create((a!=0.f && b!=0.f) ? true : false);
+        }
+    }
+    p->stack.Pop(2);
+    p->stack.Push(result);
+}
+
+void AptActionInterpreter::_FunctionAptActionOr(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    AptValue *aValue=p->stack.At(0);
+    AptValue *bValue=p->stack.At(1);
+    AptValue *result=0;
+    if (Rva006CD220Get()==7) {
+        if (aValue->isUndefined() || bValue->isUndefined()) result=gpUndefinedValue;
+    }
+    if (!result) {
+        if (aValue->isInteger() && bValue->isInteger()) {
+            int a=aValue->c_integer()->GetInt();
+            int b=bValue->c_integer()->GetInt();
+            result=AptBoolean::Create(a || b);
+        } else {
+            float a=aValue->toFloat();
+            float b=bValue->toFloat();
+            result=AptBoolean::Create((a!=0.f || b!=0.f) ? true : false);
+        }
+    }
+    p->stack.Pop(2);
+    p->stack.Push(result);
+}
+
+void AptActionInterpreter::_FunctionAptActionNot(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    AptValue *value=p->stack.At(0);
+    AptValue *result=AptBoolean::Create(!value->toBool());
+    p->stack.Pop();
+    p->stack.Push(result);
+}
