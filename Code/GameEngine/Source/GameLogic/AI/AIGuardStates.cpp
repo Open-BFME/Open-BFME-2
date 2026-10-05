@@ -21,6 +21,10 @@
 //    0x00C696D0 (AIGuardIdleState); BFME 2 also checks a guarded team's
 //    centre. AI crate id +0x238, AI_GUARD_GET_CRATE 5004 through the machine's
 //    setState (vslot 8), m_nextEnemyScanTime +0x20, m_guardeePos +0x24.
+//  - Rva0036A979GuardIdleState::update, retail 0x0036A979 (251 bytes): slot 6
+//    of 0x00C17648. Byte-for-byte AIGuardIdleState::update except the inner
+//    scan, which is the second guard machine's 0x00369FDF; class and machine
+//    are address-named, the scan's role is read from the parallel call site.
 //  - AIGuardIdleState::onEnter, retail 0x00542D88 (53 bytes): slot 4 of
 //    0x00C696D0; ZH's randomised first scan (GameLogicRandomValue at AIGuard.cpp
 //    line 1013 in BFME 2's tree).
@@ -396,6 +400,24 @@ private:
 	ExitConditions m_exitConditions; // +0x20
 	AIAttackState *m_attackState; // +0x3C
 };
+// A second BFME 2 guard machine keeps AIGuardMachine's layout but its own inner
+// scan (0x00369FDF, called where AIGuardIdleState::update calls 0x005433FA).
+class Rva00369FDFGuardMachine : public AIGuardMachine
+{
+public:
+	Bool lookForInnerTarget(void);
+};
+// Its idle state: vtable VA 0x00C17648 (slot 4 onEnter 0x0036803F, slot 6 update).
+class Rva0036A979GuardIdleState : public State
+{
+public:
+	virtual StateReturnType update();
+private:
+	Rva00369FDFGuardMachine *getGuardMachine() { return (Rva00369FDFGuardMachine *)getMachine(); }
+	unsigned char m_pad1C[0x20 - 0x1C];
+	UnsignedInt m_nextEnemyScanTime; // +0x20
+	Coord3D m_guardeePos; // +0x24
+};
 
 StateReturnType AIGuardAttackAggressorState::onEnter( void )
 {
@@ -679,6 +701,54 @@ StateReturnType AIGuardIdleState::update( void )
 	m_nextEnemyScanTime = now + TheAI->getAiData()->m_guardEnemyScanRate;
 
 	AIGuardMachine *guard = getGuardMachine();
+	Object *owner = guard->getOwner();
+	AIUpdateInterface *ai = owner->getAI();
+	// Check to see if we have created a crate we need to pick up.
+	if (ai->getCrateID() != INVALID_ID)
+	{
+		guard->setState(AI_GUARD_GET_CRATE);
+		return STATE_SLEEP(m_nextEnemyScanTime - now);
+	}
+
+	// if anyone is in the inner area, return success.
+	if (guard->lookForInnerTarget())
+	{
+		return STATE_SUCCESS;	// Transitions to AIGuardInnerState.
+	}
+
+	// See if the object (or team) we are guarding moved.
+	Object* targetToGuard = guard->findTargetToGuardByID();
+	Team* teamToGuard = guard->findTeamToGuardByID();
+	if (targetToGuard || teamToGuard)
+	{
+		Coord3D pos;
+		if (targetToGuard)
+			pos = *targetToGuard->getPosition();
+		else
+			teamToGuard->rva0039E5B9(&pos);
+		Real delta = m_guardeePos.x-pos.x;
+		if (delta*delta > 4*PATHFIND_CELL_SIZE_F*PATHFIND_CELL_SIZE_F) {
+			m_guardeePos = pos;
+			return STATE_FAILURE; // goes to AIGuardReturnState.
+		}
+		delta = m_guardeePos.y-pos.y;
+		if (delta*delta > 4*PATHFIND_CELL_SIZE_F*PATHFIND_CELL_SIZE_F) {
+			m_guardeePos = pos;
+			return STATE_FAILURE; // goes to AIGuardReturnState.
+		}
+	}
+	return STATE_SLEEP(m_nextEnemyScanTime - now);
+}
+
+StateReturnType Rva0036A979GuardIdleState::update( void )
+{
+	UnsignedInt now = TheGameLogic->getFrame();
+	if (now < m_nextEnemyScanTime)
+		return STATE_SLEEP(m_nextEnemyScanTime - now);
+
+	m_nextEnemyScanTime = now + TheAI->getAiData()->m_guardEnemyScanRate;
+
+	Rva00369FDFGuardMachine *guard = getGuardMachine();
 	Object *owner = guard->getOwner();
 	AIUpdateInterface *ai = owner->getAI();
 	// Check to see if we have created a crate we need to pick up.

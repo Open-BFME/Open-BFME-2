@@ -1,5 +1,10 @@
 // cl: /O1 /DNDEBUG /MD /EHsc
 // ?privateAttackPosition@TransportAIUpdate@@MAEXPBUCoord3D@@HW4CommandSourceType@@@Z @0x004A9279 153B: TransportAIUpdate slot 40 override fanning attack-position to passengers then base.
+// ?privateAttackObject@TransportAIUpdate@@MAEXPAVObject@@HW4CommandSourceType@@@Z @0x004A9147 153B and
+// ?privateForceAttackObject@TransportAIUpdate@@MAEXPAVObject@@HW4CommandSourceType@@@Z @0x004A91E0 153B: the same
+// passenger fan-out for slots 34 and 38 (vtable VA 0x00C53B30/0x00C53B40). Slot 38's passenger call is the rowed
+// aiForceAttackObject 0x0036F05A; the base calls 0x0026BCD2/0x0026BEE6 are slots 34/38 of every non-overriding
+// AIUpdateInterface vtable (aiDoCommand commands 0x0B/0x0C per re_attempts); names from the ZH TransportAIUpdate donor.
 // Evidence: vtable 0x00853AA8 slot 40 off 0xA0; ret 0xc three args; contain +0x250 isPassengerAllowedToFire +0xb4 CMD 0 or 1 getContainedItemsList +0x118 Bfme ring; kindof byte +0x10f bit1 disabled mask +0x1c8 0x14 ai +0x258 +0x20 aiAttackPosition 0x29599A base privateAttackPosition 0x26DB1A; ZH TransportAIUpdate::privateAttackPosition donor.
 typedef int Int;
 typedef unsigned int UnsignedInt;
@@ -100,6 +105,9 @@ public:
 class AICommandInterface
 {
 public:
+	// 0x0026C2D9 keeps its address name in the ledger; Zero Hour calls aiAttackObject here.
+	void rva0026C2D9(Object *victim, Int maxShotsToFire, CommandSourceType cmdSource);
+	void aiForceAttackObject(Object *victim, Int maxShotsToFire, CommandSourceType cmdSource);
 	void aiAttackPosition(const Coord3D *pos, Int maxShotsToFire, CommandSourceType cmdSource);
 };
 
@@ -114,8 +122,15 @@ public:
 	virtual void slot20(); virtual void slot21(); virtual void slot22(); virtual void slot23();
 	virtual void slot24(); virtual void slot25(); virtual void slot26(); virtual void slot27();
 	virtual void slot28(); virtual void slot29(); virtual void slot30(); virtual void slot31();
-	virtual void slot32(); virtual void slot33(); virtual void slot34(); virtual void slot35();
-	virtual void slot36(); virtual void slot37(); virtual void slot38(); virtual void slot39();
+	virtual void slot32(); virtual void slot33();
+protected:
+	virtual void privateAttackObject(Object *victim, Int maxShotsToFire, CommandSourceType cmdSource);
+public:
+	virtual void slot35(); virtual void slot36(); virtual void slot37();
+protected:
+	virtual void privateForceAttackObject(Object *victim, Int maxShotsToFire, CommandSourceType cmdSource);
+public:
+	virtual void slot39();
 protected:
 	virtual void privateAttackPosition(const Coord3D *pos, Int maxShotsToFire, CommandSourceType commandSource);
 public:
@@ -144,8 +159,62 @@ public:
 class TransportAIUpdate : public AIUpdateInterface
 {
 protected:
+	virtual void privateAttackObject(Object *victim, Int maxShotsToFire, CommandSourceType cmdSource);
+	virtual void privateForceAttackObject(Object *victim, Int maxShotsToFire, CommandSourceType cmdSource);
 	virtual void privateAttackPosition(const Coord3D *pos, Int maxShotsToFire, CommandSourceType commandSource);
 };
+
+void TransportAIUpdate::privateAttackObject(Object *victim, Int maxShotsToFire, CommandSourceType cmdSource)
+{
+	ContainModuleInterface *contain = getObject()->getContain();
+	if (contain != 0 && contain->isPassengerAllowedToFire())
+	{
+		if (cmdSource == CMD_FROM_PLAYER || cmdSource == CMD_FROM_SCRIPT)
+		{
+			BfmeContainedRange items = contain->getContainedItemsList();
+			for (BfmeContainedNode *node = items.m_list->m_head->m_next; node != items.m_list->m_head;)
+			{
+				Object *passenger = node->m_object;
+				node = node->m_next;
+				if (passenger->isKindOf(KINDOF_39))
+				{
+					if (passenger->isDisabledByType(2) || passenger->isDisabledByType(4))
+						continue;
+				}
+				AIUpdateInterface *passengerAI = passenger->getAI();
+				if (passengerAI)
+					((AICommandInterface *)((char *)passengerAI + 0x20))->rva0026C2D9(victim, maxShotsToFire, cmdSource);
+			}
+		}
+	}
+	AIUpdateInterface::privateAttackObject(victim, maxShotsToFire, cmdSource);
+}
+
+void TransportAIUpdate::privateForceAttackObject(Object *victim, Int maxShotsToFire, CommandSourceType cmdSource)
+{
+	ContainModuleInterface *contain = getObject()->getContain();
+	if (contain != 0 && contain->isPassengerAllowedToFire())
+	{
+		if (cmdSource == CMD_FROM_PLAYER || cmdSource == CMD_FROM_SCRIPT)
+		{
+			BfmeContainedRange items = contain->getContainedItemsList();
+			for (BfmeContainedNode *node = items.m_list->m_head->m_next; node != items.m_list->m_head;)
+			{
+				Object *passenger = node->m_object;
+				node = node->m_next;
+				if (passenger->isKindOf(KINDOF_39))
+				{
+					if (passenger->isDisabledByType(2) || passenger->isDisabledByType(4))
+						continue;
+				}
+				AIUpdateInterface *passengerAI = passenger->getAI();
+				if (passengerAI)
+					((AICommandInterface *)((char *)passengerAI + 0x20))->aiForceAttackObject(victim, maxShotsToFire, cmdSource);
+			}
+		}
+	}
+	AIUpdateInterface::privateForceAttackObject(victim, maxShotsToFire, cmdSource);
+}
 
 void TransportAIUpdate::privateAttackPosition(const Coord3D *pos, Int maxShotsToFire, CommandSourceType commandSource)
 {
