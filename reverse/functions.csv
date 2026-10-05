@@ -63043,3 +63043,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?Rva0005160FGet@@YG?AUBfmeEventPositionView@@PAVAudioEventRTS@@AA_N@Z,,0x0005160F,64,Code/GameEngine/Source/Common/Rva0005160F.cpp,matched,positional view or zeros via rowed callees
 ?rva005CAE04@GameSpyLoginPreferences@@QAE_NABVAsciiString@@0@Z,,0x005CAE04,110,Code/GameEngine/Source/Common/GameSpyLoginPreferences.cpp,matched,gap between nick remove and clan remove same flags four operators plus find
 ??1Rva000E9BAC@@UAE@XZ,,0x000E9BAC,99,Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E9BACDtor.cpp,matched,virtual dtor array 0x40x0x5C member base pins Reset base
+?rva004B7ED9@AudioLoopUpgrade@@QAEPAVBfmeFixedStorage002CF0F0@@PAV2@@Z,,0x004B7ED9,40,Code/GameEngine/Source/GameLogic/Object/Upgrade/AudioLoopUpgradeRva004B7ED9.cpp,matched,slot 19 mask init via rowed BitFlags and FixedStorage copy
