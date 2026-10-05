@@ -37,10 +37,9 @@ public:
 };
 struct Pivot24 : BfmeNarrowRecord00427F75
 {
+	Pivot24(const Pivot24 &other);
 	~Pivot24();
 };
-// ??1Pivot24@@QAE@XZ absent-from-retail
-inline Pivot24::~Pivot24() { ((VersionBlockEntry *)this)->~VersionBlockEntry(); }
 void __cdecl Rva004281DAInsert(VersionBlockEntry *last, Pivot24 val, VersionBlockKeyCompare comp);
 VersionBlockEntry *__cdecl Rva00428512Partition(VersionBlockEntry *first, VersionBlockEntry *last, Pivot24 pivot, VersionBlockKeyCompare comp);
 namespace _STL
