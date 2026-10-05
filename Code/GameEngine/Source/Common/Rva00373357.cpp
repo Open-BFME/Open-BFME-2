@@ -18,6 +18,7 @@ class Rva00373357
 {
 public:
 	void rva00373357();
+	void *rva0037341F(bool b);
 private:
 	_STL::vector<ScienceType> m_vec;
 };
@@ -29,4 +30,12 @@ void Rva00373357::rva00373357()
 	ScienceType *p = &*m_vec.begin();
 	if (p != 0)
 		free(p);
+}
+
+void *Rva00373357::rva0037341F(bool b)
+{
+	rva00373357();
+	if (b & 1)
+		::operator delete((void *)this);
+	return (void *)this;
 }

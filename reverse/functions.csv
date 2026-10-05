@@ -55871,3 +55871,4 @@ ___Extract_locale_name,,0x000216A0,153,Code/Libraries/Source/WWVegas/WWLib/Local
 ?rva00373357@Rva00373357@@QAEXXZ,,0x00373357,28,Code/GameEngine/Source/Common/Rva00373357.cpp,matched,vector erase then free callers unblock 2
 ?rva003734C0@Rva003734C0@@QAEXXZ,,0x003734C0,61,Code/GameEngine/Source/Common/Rva003734C0.cpp,matched,map values delete then clear caller dtor 37381C
 ??1Rva0037381C@@UAE@XZ,,0x0037381C,85,Code/GameEngine/Source/Common/Rva0037381CDtor.cpp,matched,MI dtor calls values-delete then map and base dtors
+?rva0037341F@Rva00373357@@QAEPAX_N@Z,,0x0037341F,28,Code/GameEngine/Source/Common/Rva00373357.cpp,matched,calls rva00373357 then conditional delete returns this
