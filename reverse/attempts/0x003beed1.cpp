@@ -1,8 +1,7 @@
 // ?doTeamSetRepulsor@ScriptActions@@IAEXABVAsciiString@@_N@Z
-// partial score=0.9 date=2026-10-05
-// ?doTeamSetRepulsor@ScriptActions@@IAEXABVAsciiString@@_N@Z
+// partial score=0.95 date=2026-10-05
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
-//
+// ?doTeamSetRepulsor@ScriptActions@@IAEXABVAsciiString@@_N@Z
 // ScriptActions::doTeamSetRepulsor, retail 0x003BEED1, 79 bytes.
 // Target identity: initActionTemplates names action index 0xEC (236)
 // TEAM_SET_REPULSOR; executeAction's case 0xEC calls VA 0x007BEED1.
@@ -16,11 +15,9 @@
 // and iterates Team::iterate_TeamMemberList() to set OBJECT_STATUS_REPULSOR.
 // The iteration idiom and the iterator shape are taken from the matched
 // doTeamGuard body in ScriptActions_doUnitGuardForFramecount.cpp.
-// Remaining delta: retail encodes the bottom test as
-//   mov ecx,[ebp-0x1c] ; test ecx,ecx ; jne
-// where MSVC 7.1 /O1 folds the same loop to
-//   cmp dword ptr [ebp-0x1c],0 ; jne
-// Every other instruction in the 79-byte body is byte-identical.
+// This do-while form is what reproduces retail's exact 79-byte extent; the
+// for/while-with-cached-local forms spill the cur() result to a stack slot and
+// emit 81 bytes with an extra reload in the body.
 
 #include "ascii_string.h"
 
@@ -70,14 +67,16 @@ protected:
     void doTeamSetRepulsor(const AsciiString &, Bool);
 };
 
+// ?doTeamSetRepulsor@ScriptActions@@IAEXABVAsciiString@@_N@Z present-unmatched
 void ScriptActions::doTeamSetRepulsor(const AsciiString &teamName, Bool repulsor)
 {
     Team *theSrcTeam = TheScriptEngine->getTeamNamed(teamName, false);
     if (!theSrcTeam) {
         return;
     }
-    for (DLINK_ITERATOR<Object> iter = theSrcTeam->iterate_TeamMemberList();
-         iter.cur(); iter.advance()) {
+    DLINK_ITERATOR<Object> iter = theSrcTeam->iterate_TeamMemberList();
+    do {
         iter.cur()->setStatus(OBJECT_STATUS_REPULSOR, repulsor);
-    }
+        iter.advance();
+    } while (iter.cur());
 }
