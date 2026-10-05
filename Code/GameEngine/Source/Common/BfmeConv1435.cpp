@@ -12,9 +12,11 @@ extern "C" __declspec(dllimport) void *__stdcall CreateMutexA(void *attrs, int o
 extern "C" __declspec(dllimport) void *__stdcall CreateThread(void *attrs, unsigned long stack, unsigned long (__stdcall *start)(void *), void *param, unsigned long flags, unsigned long *tid);
 extern "C" __declspec(dllimport) unsigned long __stdcall WaitForSingleObject(void *handle, unsigned long timeout);
 extern "C" __declspec(dllimport) int __stdcall ReleaseMutex(void *handle);
+extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long ms);
 
-// Watcher thread armed by bfmeGoVM0 (pinned at its pushed start address).
-unsigned long __stdcall bfmeVM0WorkerThread(void *param);
+// Watcher thread armed by bfmeGoVM0. Retail's body returns with a plain
+// ret: it is cdecl, cast to CreateThread's stdcall start type.
+unsigned long __cdecl bfmeVM0WorkerThread(void *param);
 
 extern __int64 g_bfmeVM0Total;
 extern __int64 g_bfmeVM0Quotient;
@@ -120,11 +122,16 @@ public:
 	virtual int v67();
 	virtual int v68();
 	virtual bool bfmePredVM0();
+	virtual bool bfmeProbeVM0();
+	virtual int v71();
+	virtual int v72();
+	virtual void bfmeKickVM0(int value);
 	void bfmeGoVM0(int);
 	void bfmeTickVM0();
 	void rva0025C46E();
 	void rva0025D9CB(bool flag);
 	void rva0025D10F();
+	int rva0025C4A4(int value);
 	char m_pad04[0x34];
 	BfmeVM0Timer *m_timer;
 	char m_pad3C[0x4];
@@ -135,6 +142,37 @@ public:
 	char m_pad64[0xD8];
 	volatile int m_armed;
 };
+
+// ?bfmeVM0WorkerThread@@YAKPAX@Z retail 0x0025D128 (118B), the CreateThread
+// start bfmeGoVM0 pushes. It holds the first mutex while it runs and
+// polls the second, which the arming thread owns, at the mode's period:
+// mode 5 drives rva0025C4A4(1) every 33ms; any other mode probes through
+// slot +0x118 until it succeeds (kicking slot +0x124 and retrying after 1ms)
+// and then idles at 100ms.
+unsigned long __cdecl bfmeVM0WorkerThread(void *param)
+{
+	BfmeStrVM0 *self = (BfmeStrVM0 *)param;
+	bool probing = true;
+	WaitForSingleObject(self->m_firstMutex, (unsigned long)-1);
+	do {
+		if (self->m_mode == 5) {
+			self->rva0025C4A4(1);
+			Sleep(33);
+		} else if (probing) {
+			if (!self->bfmeProbeVM0()) {
+				self->bfmeKickVM0(1);
+				Sleep(1);
+			} else {
+				probing = false;
+				Sleep(100);
+			}
+		} else {
+			Sleep(100);
+		}
+	} while (WaitForSingleObject(self->m_secondMutex, 0) == 0x102);
+	ReleaseMutex(self->m_firstMutex);
+	return 0;
+}
 
 void BfmeStrVM0::bfmeTickVM0()
 {
@@ -158,7 +196,7 @@ void BfmeStrVM0::bfmeGoVM0(int mode)
 		m_armed = 0;
 		if (m_secondMutex != 0 && m_firstMutex != 0) {
 			m_mode = mode;
-			CreateThread(0, 0, bfmeVM0WorkerThread, this, 0, 0);
+			CreateThread(0, 0, (unsigned long (__stdcall *)(void *))bfmeVM0WorkerThread, this, 0, 0);
 			unsigned long status;
 			do {
 				status = WaitForSingleObject(m_firstMutex, 1);
