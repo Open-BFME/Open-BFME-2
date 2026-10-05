@@ -10387,3 +10387,6 @@ _xferThreeInts,0x0060BC53,donor_sweep: call target read from retail at a unique 
 ?reset@SimpleObjectIterator@@AAEXXZ,0x00291C20,address read from the REL32 displacement at a placed body
 ??1AIPlayer@@MAE@XZ,0x00232976,callee of 1AISkirmishPlayer (0x00098B8B) at the site its BFME1 donor calls it; may be an ICF alias
 ??0?$hashtable@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@W4NameKeyType@@U?$hash@W4NameKeyType@@@rts@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@2@U?$equal_to@W4NameKeyType@@@5@V?$allocator@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@2@@_STL@@QAE@IABU?$hash@W4NameKeyType@@@rts@@ABU?$equal_to@W4NameKeyType@@@3@ABV?$allocator@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@1@@Z,0x001DCB64,twin of 0x002896AA proven by caller 0x001DCBA4 31B identical pushes
+??4Rva0054000B@@QAEAAV0@ABV0@@Z,0x00540053,callee of vector insert 0x00540731 read from REL32 ICF alias onto Bfme assign
+??$__copy_backward_ptrs@PAVRva0054000B@@PAV1@@_STL@@YAPAVRva0054000B@@PAV1@00ABU__false_type@0@@Z,0x00540197,callee of vector insert 0x00540731 read from REL32 ICF alias onto Bfme row
+??$__copy_backward@PAVRva0054000B@@PAV1@H@_STL@@YAPAVRva0054000B@@PAV1@00ABUrandom_access_iterator_tag@0@PAH@Z,0x005400FF,callee of vector insert 0x00540731 via wrapper ICF alias onto Bfme row
