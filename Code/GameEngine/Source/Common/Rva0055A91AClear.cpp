@@ -8,12 +8,23 @@ class Rva0039BCF8
 {
 public:
 	void **rva0039BCF8(void *val);
+	char m_pad00[0x100];
+	int m_100; // +0x100
+};
+
+class ModuleData;
+
+class Rva0039C7A5Holder
+{
+public:
+	void add(const ModuleData *data);
 };
 
 class Rva0055A91A
 {
 public:
 	void rva0055A91A();
+	void rva0055A93C(Rva0039BCF8 *p);
 private:
 	char m_pad00[0x10];
 	Rva0039BCF8 *m_10; // +0x10
@@ -30,4 +41,14 @@ void Rva0055A91A::rva0055A91A()
 	m_14 = -1;
 	m_list.clear();
 	m_1c = 0;
+}
+
+void Rva0055A91A::rva0055A93C(Rva0039BCF8 *p)
+{
+	rva0055A91A();
+	if (p == 0)
+		return;
+	m_10 = p;
+	m_14 = p->m_100;
+	((Rva0039C7A5Holder *)p)->add((const ModuleData *)this);
 }

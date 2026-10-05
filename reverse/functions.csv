@@ -60983,3 +60983,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?Rva003C2121Grant@@YGXABVAsciiString@@0@Z,,0x003C2121,69,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C2121.cpp,matched,team upgrade via rowed getTeamNamed findUpgrade rva0039DB31
 ?rva0048873F@Rva004886C7@@QAEXH@Z,,0x0048873F,44,Code/GameEngine/Source/Common/VslotSmallBodiesE.cpp,matched,vslot5 of Rva004886C7 via TheInGameUI vslot106
 ??0GameInfo@@QAE@XZ,,0x00400A07,120,Code/GameEngine/Source/GameNetwork/GameInfoReset.cpp,matched,ctor vtable 008193C8 calls reset Version memset slots
+?rva0055A93C@Rva0055A91A@@QAEXPAVRva0039BCF8@@@Z,,0x0055A93C,38,Code/GameEngine/Source/Common/Rva0055A91AClear.cpp,matched,chain from 0x0055A91A same class plus10 plus100 plus14 add ModuleData callers 5
