@@ -26,8 +26,22 @@
 // ?rva005FB666@Rva005FB666@@QAEXPBVImage@@@Z  @0x005FB666 124B  _PlayerIcon
 // ?rva005FF2AC@Rva005FF2AC@@QAEXPBVImage@@@Z  @0x005FF2AC 124B  _Portrait
 #include "ascii_string.h"
+#include "unicode_string.h"
 
 class Image;
+
+class BfmeAptWindowManager
+{
+public:
+	void bfmeSetText(const AsciiString &key, const UnicodeString &value, bool b);
+};
+
+class Rva00222A8BTarget;
+extern Rva00222A8BTarget *TheRva00222A8BTarget;
+
+UnicodeString __cdecl Rva005F6B74Format(int quantity);
+UnicodeString __cdecl Rva005F6BD4Format(int turns);
+UnicodeString __cdecl Rva005F6C8EFormat(int unused, int turns);
 
 class Rva00524306
 {
@@ -188,12 +202,16 @@ class Rva005F191E
 {
 public:
 	void rva005F191E(const Image *image);
+	void rva005F1BDC(const UnicodeString &text);
+	void rva005F1C62(const UnicodeString &text);
 private:
 	unsigned int m_level;		// +0x00
 	StringBase<char> m_name;	// +0x04
 	char m_pad08[0x0C];
 	Rva00524306 m_images;		// +0x14
-	char m_pad15[0x13];
+	char m_pad15[0x0B];
+	UnicodeString m_territoryName;	// +0x20
+	UnicodeString m_description;	// +0x24
 	const Image *m_image;		// +0x28
 };
 
@@ -302,6 +320,8 @@ class Rva005F6CA8
 public:
 	void rva005F6CA8(const Image *image);
 	void rva005F6D2C(const Image *image);
+	void rva005F6E01(int quantity);
+	void rva005F6E85(int unused, int turns);
 private:
 	char m_pad00[8];
 	const Image *m_portrait;	// +0x08
@@ -332,6 +352,8 @@ class Rva005F6FCC
 {
 public:
 	void rva005F6FCC(const Image *image);
+	void rva005F7053(int quantity);
+	void rva005F70DA(int turns);
 private:
 	char m_pad00[0x0C];
 	const Image *m_image;		// +0x0C
@@ -352,4 +374,76 @@ void Rva005F6FCC::rva005F6FCC(const Image *image)
 	else
 		m_owner->m_images.rva00524306(*(const StringBase<char> *)&key);
 	m_image = image;
+}
+
+// The text half of the same panels: "APT:"-prefixed keys handed to the Apt
+// window manager's rowed bfmeSetText (0x00225301), either with the caller's
+// text (kept in a UnicodeString field and skipped when unchanged) or with a
+// number formatted by 0x005F6B74 (rowed below), 0x005F6BD4 or 0x005F6C8E.
+//
+// ?rva005F1BDC@Rva005F191E@@QAEXABVUnicodeString@@@Z @0x005F1BDC 134B  _TerritoryName
+// ?rva005F1C62@Rva005F191E@@QAEXABVUnicodeString@@@Z @0x005F1C62 134B  _TerritoryDescription
+// ?rva005F6E01@Rva005F6CA8@@QAEXH@Z   @0x005F6E01 132B  _InProgressIconSlotQuantity
+// ?rva005F6E85@Rva005F6CA8@@QAEXHH@Z  @0x005F6E85 135B  _InProgressIconSlotTurnsRemaining
+// ?rva005F7053@Rva005F6FCC@@QAEXH@Z   @0x005F7053 135B  _QueuedIconSlotQuantity%d
+// ?rva005F70DA@Rva005F6FCC@@QAEXH@Z   @0x005F70DA 135B  _QueuedIconSlotTurnsRemaining%d
+// ?Rva005F6B74Format@@YA?AVUnicodeString@@H@Z @0x005F6B74 96B, the
+// Rva005FF207Format shape with a strictly positive test.
+
+#define APT_TEXT_KEY_SET( CLASS, METHOD, FORMAT, FIELD )                  \
+	void CLASS::METHOD(const UnicodeString &text)                         \
+	{                                                                     \
+		if (text.compare(FIELD) == 0)                                     \
+			return;                                                       \
+		AsciiString key;                                                  \
+		key.format(FORMAT, m_level, m_name.str());                        \
+		((BfmeAptWindowManager *)TheRva00222A8BTarget)->bfmeSetText(key, text, false); \
+		FIELD = text;                                                     \
+	}
+
+APT_TEXT_KEY_SET( Rva005F191E, rva005F1BDC, "APT:_level%u.%s_TerritoryName", m_territoryName )
+APT_TEXT_KEY_SET( Rva005F191E, rva005F1C62, "APT:_level%u.%s_TerritoryDescription", m_description )
+
+UnicodeString __cdecl Rva005F6B74Format(int quantity)
+{
+	UnicodeString tmp;
+	if (quantity > 0)
+		tmp.format(L"%d", quantity);
+	return tmp;
+}
+
+void Rva005F6CA8::rva005F6E01(int quantity)
+{
+	AsciiString key;
+	key.format("APT:_level%u.%s_InProgressIconSlotQuantity", m_owner->m_level, m_owner->m_name.str());
+	((BfmeAptWindowManager *)TheRva00222A8BTarget)->bfmeSetText(key, Rva005F6B74Format(quantity), true);
+}
+
+void Rva005F6CA8::rva005F6E85(int unused, int turns)
+{
+	AsciiString key;
+	key.format("APT:_level%u.%s_InProgressIconSlotTurnsRemaining", m_owner->m_level, m_owner->m_name.str());
+	((BfmeAptWindowManager *)TheRva00222A8BTarget)->bfmeSetText(key, Rva005F6C8EFormat(unused, turns), true);
+}
+
+void Rva005F6FCC::rva005F7053(int quantity)
+{
+	AsciiString key;
+	key.format("APT:_level%u.%s_QueuedIconSlotQuantity%d", m_owner->m_level, m_owner->m_name.str(), m_index);
+	((BfmeAptWindowManager *)TheRva00222A8BTarget)->bfmeSetText(key, Rva005F6B74Format(quantity), true);
+}
+
+void Rva005F6FCC::rva005F70DA(int turns)
+{
+	AsciiString key;
+	key.format("APT:_level%u.%s_QueuedIconSlotTurnsRemaining%d", m_owner->m_level, m_owner->m_name.str(), m_index);
+	((BfmeAptWindowManager *)TheRva00222A8BTarget)->bfmeSetText(key, Rva005F6BD4Format(turns), true);
+}
+
+// ?Rva005F6C8EFormat@@YA?AVUnicodeString@@HH@Z @0x005F6C8E 26B: forwards the
+// second argument to 0x005F6BD4 (pinned) and returns its string.
+UnicodeString __cdecl Rva005F6C8EFormat(int unused, int turns)
+{
+	(void)unused;
+	return Rva005F6BD4Format(turns);
 }
