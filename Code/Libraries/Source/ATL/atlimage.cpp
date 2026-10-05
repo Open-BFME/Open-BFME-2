@@ -87,7 +87,7 @@ extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(CRITICAL_SE
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(CRITICAL_SECTION *section);
 extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(CRITICAL_SECTION *section);
 extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(CRITICAL_SECTION *section);
-extern "C" __declspec(dllimport) __declspec(noreturn) void __stdcall RaiseException(
+extern "C" __declspec(dllimport) void __stdcall RaiseException(
     DWORD code, DWORD flags, DWORD argumentCount, const DWORD *arguments);
 extern "C" __declspec(dllimport) HBITMAP __stdcall CreateDIBSection(
     HDC dc, const BITMAPINFO *info, UINT usage, void **bits, HANDLE section, DWORD offset);
@@ -861,3 +861,4 @@ void bfmeEmitatlimage(ATL::CImage *p)
 // other spellings at the same addresses (same ABI). Bind the spellings used here.
 #pragma comment(linker, "/alternatename:?GdiplusShutdown@Gdiplus@@YGXK@Z=?ji_00628f6e@@YAXXZ")
 #pragma comment(linker, "/alternatename:?GdiplusStartup@Gdiplus@@YG?AW4Status@1@PAKPBUGdiplusStartupInput@1@PAUGdiplusStartupOutput@1@@Z=?ji_00628f68@@YAXXZ")
+#pragma comment(linker, "/alternatename:??1Bitmap@Gdiplus@@UAE@XZ=??1Image@Gdiplus@@UAE@XZ")
