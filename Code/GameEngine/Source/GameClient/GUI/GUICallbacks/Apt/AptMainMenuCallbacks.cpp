@@ -336,6 +336,10 @@ public:
 	void rva00514BA1();
 	void rva00514BB5();
 	void rva00514DC0(int button);
+	void rva005158A7();
+	// 0x00515633 (rowed as the free Rva00515633Delete; it ignores ECX but
+	// is called with the menu in it), pinned under this name.
+	void rva00515633();
 
 private:
 	unsigned char m_pad000[0x27C];
@@ -500,6 +504,15 @@ void AptMainMenu::Credits(const char *unused)
 	m_state = 4;
 	TheShell->m_5d = true;
 	((GameEngineRate *)TheGameEngine)->v18(100);
+}
+
+// Retail 0x005158A7, 27 bytes. Name unknown: picks the credits menu
+// (+0x2A4 = "CreditsMenu") and runs 0x00515633; the time line's continue
+// 0x0051ED7E calls it on the main menu.
+void AptMainMenu::rva005158A7()
+{
+	m_2a4 = "CreditsMenu";
+	rva00515633();
 }
 
 // Retail 0x00515231, 182 bytes: "AptMainMenu::CreditsExit" stops and frees
