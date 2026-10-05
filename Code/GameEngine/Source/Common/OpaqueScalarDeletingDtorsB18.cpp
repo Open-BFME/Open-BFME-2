@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /O1 /Ob2 /EHsc /DNDEBUG /MD
 //
 // Opaque scalar deleting destructors, batch B18: 28-byte wrappers that
 // call the destructor, test bit 0 of the flags, conditionally free through
@@ -10,6 +10,8 @@
 // only make this TU emit each vtable and with it the deleting destructor.
 // Owner identities are not recovered, and these declarations model no layout
 // (docs/reconstruction/deleting-destructor-identity-audit.md).
+// Rva005FCF0E now models the consumed prefix established by its native
+// destructor; the other owner views remain layout-free.
 //
 //   wrapper     dtor        vtable#slot
 //   0x005F6530  0x005F64F5  0x00C796D0#0
@@ -139,18 +141,53 @@ Rva005FBBEE::Rva005FBBEE(EmitVtableTag *)
 {
 }
 
-class Rva005FCF0E
+// Native5FCF0E..5FCF59 is a75B destructor tied independently to this
+// existing opaque owner by its rowed deleting wrapper5FCF59/vtableC7A1BC.
+// It calls full26B owning-pointer reset5FCB2D on receiver+18 then releases
+// storage+8 through free30830 and restores the folded base tableBC6F20.
+// Only consumed offsets and teardown are target facts. The storage view's
+// words+C/+10 and word14 are unknown; no vector payload or full retail
+// allocation size is inferred. EH states distinguish both cleanup steps.
+// The call-only member destructor view uses the rowed reset's complete ABI.
+void free(void*);
+extern "C" const void *const vtbl_00BC6F20[];
+#pragma comment(linker, "/alternatename:_vtbl_00BC6F20=??_7Rva0007DF07@@6B@")
+class __declspec(novtable) Rva005FCF0EBase {
+public:
+ // ?<Rva005FCF0EBase::~Rva005FCF0EBase> present-unmatched
+ __forceinline virtual ~Rva005FCF0EBase() {*(const void**)this=vtbl_00BC6F20;}
+protected: int word04;
+};
+class Rva005FCF0EStorage {
+public:
+ // ?<Rva005FCF0EStorage::~Rva005FCF0EStorage> present-unmatched
+ __forceinline ~Rva005FCF0EStorage() {if(begin)free(begin);}
+private: void *begin,*unknown0C,*unknown10;
+};
+class Rva005FCB2DReleaseView {
+public: ~Rva005FCB2DReleaseView();
+private: void *owned;
+};
+#pragma comment(linker, "/alternatename:??1Rva005FCB2DReleaseView@@QAE@XZ=?clear@Rva005FCB2D@@QAEXXZ")
+
+class Rva005FCF0E : public Rva005FCF0EBase
 {
 public:
 	Rva005FCF0E(EmitVtableTag *);
 public:
 	virtual ~Rva005FCF0E();
+private:
+	Rva005FCF0EStorage storage08;
+	int unknown14;
+	Rva005FCB2DReleaseView member18;
 };
 
 // ?<Rva005FCF0E::Rva005FCF0E> absent-from-retail
 Rva005FCF0E::Rva005FCF0E(EmitVtableTag *)
 {
 }
+
+Rva005FCF0E::~Rva005FCF0E() {}
 
 class Rva005FCFE5
 {
