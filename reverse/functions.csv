@@ -56523,3 +56523,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?Rva0008FA0DCreate@@YGPAVRva000A26F7@@PAX@Z,,0x0008FA0D,58,Code/GameEngine/Source/Common/Rva0008FA0DCreate.cpp,matched,chain via rowed ctor 0x000A26F7 same 58B shape as siblings
 ?Rva0008FA47Create@@YGPAVRva000A270F@@PAX@Z,,0x0008FA47,58,Code/GameEngine/Source/Common/Rva0008FA47Create.cpp,matched,chain via rowed ctor 0x000A270F same 58B shape as siblings
 ?Rva003C4245Do@@YGXPAVParameter@@ABVAsciiString@@1@Z,,0x003C4245,116,Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003C4245Do.cpp,matched,Script apply power via getUnitNamed lookupUnitByValue findSpecialPowerTemplate BEC 0x40000
+?Rva00437EDCGet@@YA_NXZ,,0x00437EDC,18,Code/GameEngine/Source/Common/Rva00437EDCFinish.cpp,matched,null-check g_Va00E032FC then tail-jump to rva0054C88A returning its bool
