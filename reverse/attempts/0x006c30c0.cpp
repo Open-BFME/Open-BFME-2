@@ -1,7 +1,5 @@
 // ?VerifyDelayedFreeFill@GeneralAllocatorDebug@@QAE_NPAX@Z
-// partial score=0.98 date=2026-10-05
-// ?VerifyDelayedFreeFill@GeneralAllocatorDebug@@QAE_NPAX@Z
-// ?VerifyDelayedFreeFill@GeneralAllocatorDebug@@QAE_NPAX@Z
+// partial score=0.99 date=2026-10-05
 // cl: /O2 /DNDEBUG /MD
 // The delayed-free guard verifier of GeneralAllocatorDebug, at retail
 // 0x006C30C0 (155 bytes). The sibling of VerifyGuardFill at 0x006C3020.
@@ -23,6 +21,26 @@
 // The fill start is run+8, or run+12 when the run kind at this+0x540 is 3, and
 // the fill byte is the delayed-free fill at this+0x509. The run is capped at
 // 0x100 bytes, and anything of 8 bytes or less needs no check.
+//
+// Two branch OPCAODES, not just their displacements, are source-visible:
+//
+//   * The header test must be spelled as a sign-bit test on the raw dword
+//     (`!(header & (int)0x80000000)`) rather than as `header >= 0`. Both are
+//     the same predicate, but MSVC7 lowers `header >= 0` on a SIGNED int to
+//     `jl` (7c) while retail branches on the sign, `js` (78). Only the explicit
+//     sign-bit spelling produces 78.
+//   * The body-start compare must be a plain pointer compare
+//     (`bodyStart >= run`), not the cast-to-int form `((int)bodyStart >=
+//     (int)run)`. The casts make the comparison signed and MSVC7 emits `jl`
+//     (7c) where retail compares the two addresses as UNSIGNED and emits `jb`
+//     (72). The same header-and-flag reading rules out the other two
+//     possibilities: a sub eax,esi / jae form would compare run against bodyStart
+//     and fail on the equal case, and `test`/`sbb`-based forms are longer.
+//
+// Both fixes were isolated in a scratch TU under build/ with fourteen source
+// shapes and eleven flag sets (/O1 /O2 /Ob0 /Ob1 /Ob2 /Od /Gr /Gs999999); none of
+// those flag sets touches either branch, and neither does any of the shapes.
+// Only the two predicate spellings move them.
 
 // 0x00030E20: the CRT's internal aligned-fill memset, cdecl, three stack
 // arguments, returns the destination or null. It is not the CRT import thunk
@@ -88,7 +106,12 @@ bool GeneralAllocatorDebug::VerifyDelayedFreeFill(void *block)
 	int header = *(int *)((char *)block + 4);
 	unsigned int length;
 
-	if (header >= 0) {
+	// Spelled as an explicit sign-bit test rather than as `header >= 0`.
+	// MSVC7 folds `header >= 0` into a `jl` because the value is SIGNED, but
+	// retail branches on the SIGN (`78`, js). Reading the header as unsigned and
+	// testing bit 31 directly keeps the same predicate while letting the
+	// compiler emit the sign branch.
+	if (!(header & (int)0x80000000)) {
 		unsigned int span;
 		// Spelled as a negated test rather than as `header & 2 ? a : b`:
 		// retail jumps OVER the header+4 arm and falls into the masked value
@@ -101,7 +124,10 @@ bool GeneralAllocatorDebug::VerifyDelayedFreeFill(void *block)
 		unsigned char *word = run + span - 10;
 		unsigned char *bodyStart = word - *(unsigned short *)word;
 		length = (unsigned int)bodyStart;
-		if ((int)bodyStart >= (int)run)
+		// Likewise a plain pointer compare, not the cast-to-int form: the cast
+		// makes MSVC branch on `jl`, while retail branches on `rb` (72, jb)
+		// because it compares the addresses as unsigned.
+		if (bodyStart >= run)
 			length -= (unsigned int)run;
 		else
 			length = GetBlockSize(run);
@@ -142,3 +168,38 @@ bool GeneralAllocatorDebug::VerifyDelayedFreeFill(void *block)
 
 	return true;
 }
+
+// STILL OPEN, and measured again this round in the scratch TU: the +0x0B
+// prologue order. Retail reserves THREE callee-saves -- ebx for the caller
+// block, esi for the run, edi for `this` -- and emits the lea between the two
+// saves. This body needs the same three registers but MSVC7 always sinks the
+// `push edi / mov edi,ecx` pair to the head of the save group, ahead of the
+// lea.
+//
+// Swept and rejected, all still `push esi / push edi / mov edi,ecx / lea`:
+//
+//   * Declaration order of the prologue locals: run first, header first, run
+//     defined only inside the arms, and a const pointer alias. All four keep
+//     the same order; none of them moves the lea.
+//   * Every flag set: -O1 (drops the frame, 146B), -O1 -Ob0, -O1 -Ob2,
+//     -O2 -Ob0, -O2 -Ob1, -O2 -Od, -O2 -Gr, -O1 -Gr, and -Gs999999 at both
+//     levels. None touches the save order.
+//   * Giving the two callees real bodies so they can be inlined, versus leaving
+//     them extern: no change, so the ordering is not an artefact of the probe.
+//   * A local `saved` for the run kind written before the branch and consumed
+//     after the fill, and the same local read into the fill's third argument:
+//     no change.
+//
+// One shape DOES change the allocation, and it points at what retail actually
+// did: spelling the report call as a MEMBER of the allocator (`reportHere(block)`
+// rather than the free cdecl helper) drops edi entirely and puts `this` on
+// ebp instead -- `push ebx / push ebp / mov ebp,[esp+0xc] / mov eax,[esp+4]`.
+// That is the 0x006C3020 sibling's prologue, not this body's: it costs an extra
+// saved register, pushes `block` to [esp+0xc], and makes the header load read
+// [esp+4] instead of [ebx+4]. So the member spelling trades this body's
+// prologue for the sibling's and is not the answer here.
+//
+// What retail must therefore have been doing is keeping `this` live across
+// exactly two side-effecting calls while never folding it into an argument --
+// which is why its frame is ebx/esi/edi rather than ebp/esi. Nothing in the
+// source that keeps those three registers reproduces that schedule.
