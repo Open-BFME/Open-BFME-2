@@ -60921,3 +60921,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva0039B2C7@Rva003BD306Target@@QAEXHH@Z,,0x0039B2C7,31,Code/GameEngine/Source/Common/Rva0039B548Method.cpp,matched,loop calling rva0039B28F pin same owner unblocks
 ?rva004BDA67@Rva004BDA67@@QAEXXZ,,0x004BDA67,66,Code/GameEngine/Source/GameLogic/Object/Body/ActiveBodyDamageState.cpp,matched,chain via landed rva0039B548 plus Object calls tail
 ??4?$vector@VRva000BB491@@V?$allocator@VRva000BB491@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z,,0x000C20C1,206,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva000bb491_assign.cpp,matched,vector Rva000BB491 operator= via allocate plus dtor plus copy plus destroy plus uninit same 206B shape
+?rva0040450E@Rva0040450E@@QAEXH@Z,,0x0040450E,111,Code/Libraries/Source/WWVegas/WWLib/Rva0040450EClear.cpp,matched,caller 0x00214B61 builds vector and members then calls with 0 via erase 0x004043AE and memset
