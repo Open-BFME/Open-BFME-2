@@ -16,7 +16,7 @@
 // game-options string, vslot 26 asks the host for serialized game info.
 // LANGameInfo vslot 14 is resetAccepted, and the non-virtual
 // LANGameInfo::rva004477C7 0x004477C7 is the host test (slot 0 is local).
-// GameSlot keeps the team number at +0x1C.
+// GameSlot keeps the team number at +0x1C and the handicap at +0x20.
 
 #include "ascii_string.h"
 
@@ -24,9 +24,11 @@ class GameSlot
 {
 public:
 	int getTeamNumber() const { return m_teamNumber; }
+	int getHandicap() const { return m_handicap; }
 
 	unsigned char m_pad00[0x1C];
 	int m_teamNumber; // +0x1C
+	int m_handicap; // +0x20
 };
 
 class LANGameInfo
@@ -129,6 +131,7 @@ class BfmeAptScreenLanLobby
 {
 public:
 	bool applySlotTeam(GameSlot *slot, int team);
+	bool applySlotHandicap(GameSlot *slot, int handicap);
 };
 
 // Retail 0x004449FD, 198 bytes. BFME2 drops the donor's second
@@ -152,6 +155,35 @@ bool BfmeAptScreenLanLobby::applySlotTeam(GameSlot *slot, int team)
 	{
 		AsciiString options;
 		options.format("Team=%d", slot->getTeamNumber());
+		TheLAN->RequestGameOptions(options, true);
+	}
+	return true;
+}
+
+// Retail 0x00444AC3, 205 bytes: vftable 0x00C3E098 slot 5, "Handicap=%d".
+// BFME1 has no handicap option; the body is applySlotTeam's donor shape
+// (including its second resetAccepted on the host path) over +0x20, and the
+// name follows that family.
+bool BfmeAptScreenLanLobby::applySlotHandicap(GameSlot *slot, int handicap)
+{
+	if (!TheLAN)
+		return false;
+	LANGameInfo *game = TheLAN->GetMyGame();
+	if (!game)
+		return false;
+
+	slot->m_handicap = handicap;
+	game->resetAccepted();
+	if (game->rva004477C7())
+	{
+		game->resetAccepted();
+		TransportAddress address;
+		TheLAN->requestSerializedGameInfo(true, &address);
+	}
+	else
+	{
+		AsciiString options;
+		options.format("Handicap=%d", slot->getHandicap());
 		TheLAN->RequestGameOptions(options, true);
 	}
 	return true;
