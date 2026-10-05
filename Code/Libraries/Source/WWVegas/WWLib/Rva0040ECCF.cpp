@@ -201,3 +201,40 @@ void Rva0040ECCF::parseArmyEntry(INI *ini, void *instance, void *store, const vo
 	((Rva0040ECCF *)instance)->rva0040ECCF(holder);
 }
 
+class Rva0037EB1D
+{
+public:
+	void rva0037EB1D(void *dest);
+
+private:
+	char m_pad00[0xA8];
+
+public:
+	int m_a8;
+};
+
+class BfmeY1038;
+BfmeY1038 * __stdcall bfmeFind1038(int a);
+
+// ?rva0040F10F@Rva002E2903Player@@QAEXPAVRva0037EB1D@@@Z @0x0040F10F 142B:
+// called with ECX = the player found by 0x002B51F8 (caller 0x0037EBBA) but never
+// reads it. Looks up the list by the source's +0xA8 id via bfmeFind1038, copies
+// the source into a new Rva0040C351 (0x0037EB1D), bumps its +0x94 and adds it.
+class Rva002E2903Player
+{
+public:
+	void rva0040F10F(Rva0037EB1D *source);
+};
+
+void Rva002E2903Player::rva0040F10F(Rva0037EB1D *source)
+{
+	Rva0040ECCF *list = (Rva0040ECCF *)bfmeFind1038(source->m_a8);
+	if (list != 0)
+	{
+		Rva0040C351 *army = new Rva0040C351;
+		Rva004F6093Holder holder(army);
+		source->rva0037EB1D(army);
+		++army->m_94;
+		list->rva0040ECCF(holder);
+	}
+}
