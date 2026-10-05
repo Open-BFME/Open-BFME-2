@@ -63210,3 +63210,9 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva0046D738@HordeContain@@QAEXXZ,,0x0046D738,119,Code/GameEngine/Source/GameLogic/Object/Contain/Rva0046D738.cpp,matched,HordeContain 0x11C iface plus 0x2A0 ID via TheGameLogic findObjectByID row and Thing orientation row
 ?rva00355141@Rva00355B61@@QAEXXZ,,0x00355141,20,Code/GameEngine/Source/GameLogic/Object/Rva00355141Clear.cpp,matched,clears maps at 0x10 and 0x24 via rowed hashtable clear 0x1DBCDC slot 9 vtable 0x814E14
 ?rva005E5884@Rva005E5884@@QAEHPAXH@Z,,0x005E5884,26,Code/GameEngine/Source/Common/Rva005E5884Method.cpp,matched,helper then member forwarder tail called from 0x005E5920 when write fails
+?rva001EB72F@Rva001EB72FNullForwarder@@QAEXXZ,,0x001EB72F,13,Code/GameEngine/Source/Common/VslotNullCheckedForwarders2.cpp,matched,Null-checked member tail forwarder by REL32
+?rva001EB75C@Rva001EB75CNullForwarder@@QAEXXZ,,0x001EB75C,13,Code/GameEngine/Source/Common/VslotNullCheckedForwarders2.cpp,matched,Null-checked member tail forwarder by REL32
+?rva0020EB41@Rva0020EB41NullForwarder@@QAEXXZ,,0x0020EB41,13,Code/GameEngine/Source/Common/VslotNullCheckedForwarders2.cpp,matched,Null-checked member tail forwarder by REL32
+?rva005CCB16@Rva005CCB16NullForwarder@@QAEXXZ,,0x005CCB16,13,Code/GameEngine/Source/Common/VslotNullCheckedForwarders2.cpp,matched,Null-checked member tail forwarder by REL32
+?rva005CCB23@Rva005CCB23NullForwarder@@QAEXXZ,,0x005CCB23,13,Code/GameEngine/Source/Common/VslotNullCheckedForwarders2.cpp,matched,Null-checked member tail forwarder by REL32
+?rva005D13D5@Rva005D13D5NullForwarder@@QAEXXZ,,0x005D13D5,13,Code/GameEngine/Source/Common/VslotNullCheckedForwarders2.cpp,matched,Null-checked member tail forwarder by REL32

@@ -12587,3 +12587,8 @@ _ceil,0x00629934,CRT ceil thunk identified by native PE import slot 0x00BBA578 a
 ?rva005016C3@Rva005016C3@@QAEXXZ,0x005016C3,tail jmp target of 8B forwarder 0x0050174A (ret 0); original name unknown
 ?rva00380459@Rva00380459@@QAEXH@Z,0x00380459,tail jmp target of 8B forwarder 0x002A9ECA (ret 4); original name unknown
 ?rva004E37CF@Rva004E37CF@@QAEXAAVAsciiString@@PAVRva003BB730Record@@@Z,0x004E37CF,tail jmp target of 8B forwarder 0x003EE7C2 (ret 8); original name unknown
+?rva001EB68A@Rva001EB68ANullTarget@@QAEXXZ,0x001EB68A,null-checked tail jmp target of 13B forwarder 0x001EB72F; original name unknown
+?rva001EB6FE@Rva001EB6FENullTarget@@QAEXXZ,0x001EB6FE,null-checked tail jmp target of 13B forwarder 0x001EB75C; original name unknown
+?rva0020E9A1@Rva0020E9A1NullTarget@@QAEXXZ,0x0020E9A1,null-checked tail jmp target of 13B forwarder 0x0020EB41; original name unknown
+?rva005CB283@Rva005CB283NullTarget@@QAEXXZ,0x005CB283,null-checked tail jmp target of 13B forwarder 0x005CCB16; original name unknown
+?rva0004232F@Rva0004232FNullTarget@@QAEXXZ,0x0004232F,null-checked tail jmp target of 13B forwarder 0x005CCB23; original name unknown
