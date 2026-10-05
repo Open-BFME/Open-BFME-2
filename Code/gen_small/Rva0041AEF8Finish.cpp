@@ -64,8 +64,14 @@ void __stdcall _CxxThrowException(void *a, void *b);
 void *__cdecl operator new[](unsigned int size);
 void __cdecl operator delete[](void *p);
 
-// ?Rva0041AEF8Read@@YAXVAsciiString@@PAVFile@@@Z present-unmatched
-void __cdecl Rva0041AEF8Read(AsciiString path, File *ctx)
+// Static with a TU-local caller, for the private register convention the rowed
+// sibling ?Rva0041AD08Read@@YAXVAsciiString@@PAVFile@@@Z (0x0041AD08, matched)
+// uses: with a single non-static definition in the unit VC7 keeps the by-value
+// AsciiString's pointer live in ecx across entry and reloads ctx from the frame
+// late, pushing esi. Retail holds ctx in esi from the first use and pushes only
+// ebx and edi. Giving the body internal linkage plus one TU-local caller is the
+// shape lever that produced the sibling's match (lever 462).
+static void __cdecl Rva0041AEF8Read(AsciiString path, File *ctx)
 {
 	char *t = *(char **)(void *)&path;
 	const char *name = t ? t + 8 : g_Rva0107301CEmptyString;
@@ -101,4 +107,10 @@ void __cdecl Rva0041AEF8Read(AsciiString path, File *ctx)
 	f->f2();
 	ctx->f_close2();
 	delete[] buf;
+}
+
+// ?Rva0041AEF8Caller@@YAXVAsciiString@@PAVFile@@@Z present-unmatched
+void __cdecl Rva0041AEF8Caller(AsciiString p, File *c)
+{
+	Rva0041AEF8Read(p, c);
 }
