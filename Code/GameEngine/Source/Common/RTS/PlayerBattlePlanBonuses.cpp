@@ -202,3 +202,18 @@ void Player::applyBattlePlanBonusesForObject(Object *obj) const
 {
 	localApplyBattlePlanBonusesToObject(obj, m_battlePlanBonuses);
 }
+
+void Player::removeBattlePlanBonusesForObject(Object *obj) const
+{
+	BattlePlanBonuses *bonus = new BattlePlanBonuses;
+	*bonus = *m_battlePlanBonuses;
+	bonus->m_armorScalar = 1.0f / __max(bonus->m_armorScalar, 0.01f);
+	bonus->m_sightRangeScalar = 1.0f / __max(bonus->m_sightRangeScalar, 0.01f);
+	bonus->m_bombardment = -ALL_PLANS;
+	bonus->m_searchAndDestroy = -ALL_PLANS;
+	bonus->m_holdTheLine = -ALL_PLANS;
+
+	localApplyBattlePlanBonusesToObject(obj, bonus);
+
+	delete bonus;
+}
