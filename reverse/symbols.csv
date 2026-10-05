@@ -13412,3 +13412,7 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 ?rva003F076D@Rva003F076D@@QAEXXZ,0x003F076D,thiscall void(); loop over [ecx+0x170,+0x174) with byte+0x34/+0x20 checks; called after clear flags from 0x003F20E5
 ?rva002ACEDF@Rva002ACEDF@@QAEXPAX@Z,0x002ACEDF,thiscall void(void*); add-side twin of rowed 0x002ABFA0 list-short-remove: reads the same +0x5D8 key through the same this+0x700 list via 0x002AC00C; sole unrowed callee of dump-range-18 0x003BD062 flag==0 path
 ?rva0023C924@GameLogic@@QAEXPAXHHH@Z,0x0023C924,thiscall (obj,1,1<<index,0) on TheGameLogic; sole tail callee of dump-range-18 0x003BD19C mask loop; sibling mask-loop body with the same PlayerList walk
+?rva002871A4@Rva002871A4@@QAEXPAXMHH@Z,0x002871A4,thiscall (ptr,float,int,int) on the 0x00DFEC68 manager; SSE comiss body; sole tail callee of dump-range-18 0x003BD3CB with (result+0x0C,float,int,0)
+?rva00376D49@GameLogic@@QAEXXZ,0x00376D49,thiscall void() on TheGameLogic; 329B Ghidra body; head callee of dump-range-18 0x003BD598
+?rva003BBAD3@Rva003BBAD3@@QAEXXZ,0x003BBAD3,thiscall spelling of the body rowed as free ?Rva003BBAD3Set@@YAXXZ; retail mov ecx,esi proves this-pass although the callee only reads globals
+?rva0021A54A@Rva0021A54A@@QAEXXZ,0x0021A54A,thiscall void(); tail target of dump-range-18 0x003BD598 on the hero-manager global
