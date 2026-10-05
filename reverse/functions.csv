@@ -63515,3 +63515,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?get@Rva00389DF1Field@@QBE?AVRva00389DF1Member@@XZ,,0x00389DF1,30,Code/GameEngine/Source/Common/System/CompositeRvoGetters.cpp,matched,
 ?get@Rva00389E0FField@@QBE?AVRva00389E0FMember@@XZ,,0x00389E0F,30,Code/GameEngine/Source/Common/System/CompositeRvoGetters.cpp,matched,
 ?get@Rva00394173Field@@QBE?AVRva00394173Member@@XZ,,0x00394173,30,Code/GameEngine/Source/Common/System/CompositeRvoGetters.cpp,matched,
+?rva0036A75C@Rva00368004@@QAEHXZ,,0x0036A75C,127,Code/GameEngine/Source/Common/Rva00368004Getter.cpp,matched,
