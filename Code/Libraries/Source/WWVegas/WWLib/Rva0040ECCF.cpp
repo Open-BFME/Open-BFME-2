@@ -41,13 +41,20 @@ struct Rva0040F454Target
 {
 	char m_pad00[8];
 	float m_value;
-	char m_pad0C[0xAC - 0xC];
+	char m_pad0C[0x94 - 0xC];
+	int m_94;
+	char m_pad98[0xAC - 0x98];
 	TargetRef00217D4C m_ac;
 };
 
 class Rva004F6093Holder
 {
 public:
+	explicit Rva004F6093Holder(Rva0040F454Target *ptr) : m_ptr(ptr)
+	{
+		if (m_ptr)
+			++m_ptr->m_ac.references;
+	}
 	Rva004F6093Holder(const Rva004F6093Holder &other) : m_ptr(other.m_ptr)
 	{
 		if (m_ptr)
@@ -116,11 +123,24 @@ private:
 	unsigned int m_index;
 };
 
+class INI;
+
+class Rva0040C351 : public Rva0040F454Target
+{
+public:
+	Rva0040C351();
+	void rva0040C5FA(INI *ini);
+
+private:
+	char m_padB4[0xC8 - 0xB4];
+};
+
 class Rva0040ECCF
 {
 public:
 	int rva0040ECCF(const Rva004F6093Holder &holder);
 	void rva0040ED4F(Rva0040ECCF &other);
+	static void parseArmyEntry(INI *ini, void *instance, void *store, const void *userData);
 
 private:
 	char m_pad00[4];
@@ -167,3 +187,17 @@ void Rva0040ECCF::rva0040ED4F(Rva0040ECCF &other)
 		rva0040ECCF(holder);
 	}
 }
+
+// ?parseArmyEntry@Rva0040ECCF@@SAXPAVINI@@PAX1PBX@Z @0x0040F077 121B: the
+// "ArmyEntry" field parser (FieldParse row at 0x0083957C beside DisplayNameTag,
+// Color, NightColor and SurvivalThreshhold; offset 0, so it reads the instance):
+// news a 0xC8-byte Rva0040C351 (ctor 0x0040C351), parses it with 0x0040C5FA and
+// adds the holder here. The method name follows the INI field name.
+void Rva0040ECCF::parseArmyEntry(INI *ini, void *instance, void *store, const void *userData)
+{
+	Rva0040C351 *army = new Rva0040C351;
+	Rva004F6093Holder holder(army);
+	army->rva0040C5FA(ini);
+	((Rva0040ECCF *)instance)->rva0040ECCF(holder);
+}
+

@@ -62980,3 +62980,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva0028ABFC@Object@@QAEXM@Z,,0x0028ABFC,56,Code/GameEngine/Source/GameLogic/Object/ObjectRva0028ABFC.cpp,matched,rowed init and loop plus pinned float CNG per retail fld fstp
 ??0Rva002DA5D3@@QAE@ABUOpaqueRefElement4@@H@Z,,0x002DA5D3,126,Code/GameEngine/Source/Common/Audio/BfmeAudioEventOwnerCtorTag4.cpp,matched,owner tag4 ctor vtable 00803908 m30 1 m38 4 via rva002D96D3 and rva002DA1CC
 ?rva0040ED4F@Rva0040ECCF@@QAEXAAV1@@Z,,0x0040ED4F,314,Code/Libraries/Source/WWVegas/WWLib/Rva0040ECCF.cpp,matched,drains other instance entries into holder vector then re-adds via rva0040ECCF; visible noinline entry ctor keeps holder in ESI; callee alias pins
+?parseArmyEntry@Rva0040ECCF@@SAXPAVINI@@PAX1PBX@Z,,0x0040F077,121,Code/Libraries/Source/WWVegas/WWLib/Rva0040ECCF.cpp,matched,ArmyEntry field parser from FieldParse row 0x0083957C: new Rva0040C351 then parse 0x40C5FA then rva0040ECCF add
