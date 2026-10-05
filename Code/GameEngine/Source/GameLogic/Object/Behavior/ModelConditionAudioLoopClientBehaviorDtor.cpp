@@ -55,13 +55,13 @@ public:
 class Secondary0C
 {
 public:
-	virtual void secondary0CAnchor();
+	virtual void secondary0CAnchor() = 0;
 };
 
 class Secondary10
 {
 public:
-	virtual void secondary10Anchor();
+	virtual void secondary10Anchor() = 0;
 };
 
 class Holder18
