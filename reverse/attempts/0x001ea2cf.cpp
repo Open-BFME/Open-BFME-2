@@ -1,4 +1,6 @@
 // ?rva001EA2CF@Rva001EA2CFLocomotorDefinition@@QAEXPAVINI@@PAVThingTemplate@@@Z
+// partial score=0.991 date=2026-10-05
+// ?rva001EA2CF@Rva001EA2CFLocomotorDefinition@@QAEXPAVINI@@PAVThingTemplate@@@Z
 // partial score=0.6637 date=2026-10-05
 // ?rva001EA2CF@Rva001EA2CFLocomotorDefinition@@QAEXPAVINI@@PAVThingTemplate@@@Z
 // partial score=0.6637 date=2026-10-04
@@ -63,13 +65,7 @@ public: LocomotorTemplate *findLocomotorTemplate(const AsciiString &);
 };
 extern LocomotorStore *TheLocomotorStore;
 extern const char *TheLocomotorSetNames[];
-class INIException {
-public:
- char *mFailureMessage; int m_argCount;
- INIException(int,const char*,...);
- INIException(const INIException&);
- ~INIException();
-};
+#include "../reference/shims/iniexception/Common/INIException.h"
 class Rva001EA2CFLocomotorDefinition {
 public: void rva001EA2CF(INI *ini, ThingTemplate *instance);
 private: char unknown00[0x18]; AsciiString name; AsciiString setName; float speed;
@@ -77,11 +73,14 @@ private: char unknown00[0x18]; AsciiString name; AsciiString setName; float spee
 void Rva001EA2CFLocomotorDefinition::rva001EA2CF(INI *ini, ThingTemplate *instance) {
  AIUpdateModuleData *self=instance->friend_getAIModuleInfo();
  if (!self) throw INIException(3,"Attempted to specify a locomotor for object %s without an AIUpdate block.",instance->getName().str());
- const LocomotorTemplate *loco;
- LocomotorSetType set=(LocomotorSetType)ini->scanIndexList(setName.str(),TheLocomotorSetNames);
- loco=TheLocomotorStore->findLocomotorTemplate(name);
+ const char *token=setName.str();
+ INI *current=ini;
+ LocomotorSetType &set=reinterpret_cast<LocomotorSetType &>(ini);
+ set=(LocomotorSetType)current->scanIndexList(token,TheLocomotorSetNames);
+ const LocomotorTemplate *volatile loco=TheLocomotorStore->findLocomotorTemplate(name);
  if (!self->templates[set].empty()) {
-  if (ini->getLoadType()!=2 && ini->getLoadType()!=4)
+  current=reinterpret_cast<INI *>(current->getLoadType());
+  if ((int)current!=2 && (int)current!=4)
    throw INIException(3,"re-specifying a LocomotorSet	is no longer allowed");
  }
  instance->rva0033E17D(set,loco);
