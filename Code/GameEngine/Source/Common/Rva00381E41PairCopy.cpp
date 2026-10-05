@@ -1,5 +1,3 @@
-// ??0?$pair@$$CBEF@_STL@@QAE@ABU01@@Z
-// partial score=1.0 date=2026-10-05
 // cl: /O1 /arch:SSE /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
 // stlport
 //
