@@ -198,7 +198,26 @@ void CameraShakeSystemClass::CameraShakerClass::Compute_Rotations(const Vector3 
 
 
 
+void CameraShakeSystemClass::Add_Camera_Shake
+(
+	const Vector3 & position,
+	float radius,
+	float duration,
+	float power
+)
+{
+	//WWMEMLOG(MEM_PHYSICSDATA);
+	/*
+	** Allocate a new camera shaker object.  Note that these are mem-pooled so the allocation
+	** is very cheap.
+	*/
 
+	//Power is in degrees of amplitude.
+	power = power * PI/180.0f;
+
+	CameraShakerClass * shaker = new CameraShakerClass(position,radius,duration,power);
+	CameraShakerList.Add(shaker);
+}
 
 
 
