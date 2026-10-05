@@ -9,7 +9,7 @@ struct TargetRef00217D4C
 };
 struct Visitor005CCCD0
 {
-	virtual bool visit(TargetRef00217D4C *p);
+	virtual bool visit(TargetRef00217D4C *p) = 0;
 	virtual ~Visitor005CCCD0() {}
 };
 class Rva005CCD36
