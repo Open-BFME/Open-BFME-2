@@ -123,6 +123,27 @@ public:
 
 BfmeY1038 * __stdcall bfmeFind1038(int a);
 
+struct Rva002B488EResult
+{
+	char m_pad[0x78];
+	BfmeY1038 *m_78;
+};
+
+class Rva002BA8F1Logic
+{
+public:
+	Rva002B488EResult *rva002B488E(int a);
+};
+
+extern Rva002BA8F1Logic *g_009FEF10;
+
+// ?bfmeFind1038@@YGPAVBfmeY1038@@H@Z @0x0040D008 29B: forward int arg to rowed-adjacent Rva002BA8F1Logic::rva002B488E via g_009FEF10 then return +0x78 slot or null. Evidence: LINK BONUS 2 files 81B; pin name; callers at 0x0040D029 and 0x0040D280 set.
+BfmeY1038 * __stdcall bfmeFind1038(int a)
+{
+	Rva002B488EResult *r = g_009FEF10->rva002B488E(a);
+	return r != 0 ? r->m_78 : 0;
+}
+
 int __stdcall bfmeGo1038E(int a)
 {
 	BfmeY1038 *y = bfmeFind1038(a);
