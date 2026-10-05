@@ -1845,3 +1845,70 @@ bool MpGameSetup::rva00443C6E(GameInfo *game, int value)
 	m_2bf = true;
 	return true;
 }
+
+// Retail 0x0043E750, 417 bytes. Name unknown. Restores a saved game: a
+// client looks the save up by the game's digest (+0xCC) and keeps it at
+// +0x2B0; the host copies the saved slots onto the game's (every slot but
+// the host's gets its saved state again, a saved human seat reopening),
+// then the digest, rules and +0xDE8 value, and marks +0x2BA and +0x2BD.
+// Called from the LAN screen (0x00446874, 0x004468E0).
+bool MpGameSetup::rva0043E750(GameInfo *game)
+{
+	if (m_owner->v01())
+	{
+		if (!m_saved || !game)
+			return false;
+		((Rva00401FAF *)game)->rva00401FAF(m_saved);
+		for (int i = 0; i < 8; ++i)
+		{
+			GameSlot *slot = game->getSlot(i);
+			if (!slot)
+				continue;
+			GameSlot *saved = &m_saved->m_slots[i];
+			if (i != 0)
+			{
+				if (i > 0 && saved->m_state == SLOT_PLAYER)
+				{
+					GameSlotConnectInfo info;
+					info.m_nat = 0;
+					info.m_port = 0;
+					slot->setState(SLOT_OPEN, UnicodeString::TheEmptyString, &info);
+				}
+				else
+				{
+					GameSlotConnectInfo info;
+					info.m_nat = 0;
+					info.m_port = 0;
+					slot->setState((SlotState)saved->m_state, UnicodeString::TheEmptyString, &info);
+				}
+			}
+			slot->m_color = saved->m_color;
+			slot->m_10 = saved->m_14;
+			slot->m_14 = saved->m_14;
+			slot->setPlayerTemplate(saved->m_playerTemplate);
+			slot->m_team = saved->m_team;
+			slot->m_20 = saved->m_20;
+			slot->m_heroKind = saved->m_heroKind;
+			slot->m_hero0c = saved->m_hero0c;
+			slot->m_hero10 = saved->m_hero10;
+			((Rva003FF0E7DwordSlot *)slot)->set(saved->m_hero);
+			slot->m_40 = 1;
+		}
+		((Rva00381CED *)game)->rva00381CED(m_saved->m_rules);
+		((Rva00381D02 *)game)->rva00381D02(m_saved->m_digest);
+		game->m_58 = m_saved->m_de8;
+		m_2ba = true;
+		m_2bd = true;
+	}
+	else
+	{
+		unsigned char digest[16];
+		memcpy(digest, game->m_digest, 16);
+		m_saved = Rva004361B3(digest);
+		if (m_saved)
+			((Rva00401FAF *)game)->rva00401FAF(m_saved);
+		else
+			return false;
+	}
+	return true;
+}
