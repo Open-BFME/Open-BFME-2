@@ -148,3 +148,17 @@ AptValue *aptMathCeil(void *self, int argc)
     float value = g_aptDateInterpreter.stack.At(0)->rva006DD460();
     return Rva008A4EA0MakeFloat((float)ceil(value));
 }
+
+// Native 6E85D0..6E861E: two checked values, numeric conversion, fpatan.
+// BFME1 aptMathAtan2 supplies the operation; target passes the second value
+// as x and the top value as y, storing x in the unused self argument slot.
+AptValue *aptMathAtan2(void *self, int argc)
+{
+    if (argc < 2)
+        return reinterpret_cast<AptValue *>(g_aptUndefinedAtE18078);
+    BfmeAptValue006DCD20 *top = g_aptDateInterpreter.stack.At(0);
+    BfmeAptValue006DCD20 *second = g_aptDateInterpreter.stack.At(1);
+    float x = second->rva006DD460();
+    float y = top->rva006DD460();
+    return Rva008A4EA0MakeFloat((float)atan2(y, x));
+}
