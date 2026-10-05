@@ -66,7 +66,7 @@ public:
 	HDC m_dc;
 };
 
-FontCharsClassGdiState::~FontCharsClassGdiState()
+inline FontCharsClassGdiState::~FontCharsClassGdiState()
 {
 	if (m_bitmap != 0)
 	{
@@ -92,3 +92,13 @@ void FontCharsClassGdiState_Anchor(FontCharsClassGdiState *p)
 {
 	delete p;
 }
+
+// Rowed dtor above is now a select-any inline copy (other TUs carry the same
+// in-class body); this anchor forces this unit to emit its copy for the row.
+#pragma inline_depth(0)
+// ?bfmeEmitFontCharsClassGdiStateDtor@@YAXPAVFontCharsClassGdiState@@@Z present-unmatched
+void bfmeEmitFontCharsClassGdiStateDtor(FontCharsClassGdiState *p)
+{
+	p->~FontCharsClassGdiState();
+}
+#pragma inline_depth()
