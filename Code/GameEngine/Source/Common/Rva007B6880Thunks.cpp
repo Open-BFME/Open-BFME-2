@@ -1513,6 +1513,36 @@ void __cdecl rva007B79F1()
 	p->rva001EAF7B();
 }
 
+extern unsigned g_Va00DB9440;
+unsigned int g_Va00DB9440;
+
+// ?rva007B75C4@@YAXXZ @ 0x007B75C4 (10B). Global Rva001EAF7B thunk: ecx=&g_Va00DB9440 then tail-jmp to rowed ?rva001EAF7B@Rva001EAF7B@@QAE_NXZ (0x001EAF7B). No callers. Honest address name.
+void __cdecl rva007B75C4()
+{
+	Rva001EAF7B *p = (Rva001EAF7B *)&g_Va00DB9440;
+	p->rva001EAF7B();
+}
+
+extern unsigned g_Va00DBD4C8;
+unsigned int g_Va00DBD4C8;
+
+// ?rva007B7A37@@YAXXZ @ 0x007B7A37 (10B). Global Rva001EAF7B thunk: ecx=&g_Va00DBD4C8 then tail-jmp to rowed ?rva001EAF7B@Rva001EAF7B@@QAE_NXZ (0x001EAF7B). No callers. Honest address name.
+void __cdecl rva007B7A37()
+{
+	Rva001EAF7B *p = (Rva001EAF7B *)&g_Va00DBD4C8;
+	p->rva001EAF7B();
+}
+
+extern unsigned g_Va00DBD4B0;
+unsigned int g_Va00DBD4B0;
+
+// ?rva007B7A41@@YAXXZ @ 0x007B7A41 (10B). Global Rva001EAF7B thunk: ecx=&g_Va00DBD4B0 then tail-jmp to rowed ?rva001EAF7B@Rva001EAF7B@@QAE_NXZ (0x001EAF7B). No callers. Honest address name.
+void __cdecl rva007B7A41()
+{
+	Rva001EAF7B *p = (Rva001EAF7B *)&g_Va00DBD4B0;
+	p->rva001EAF7B();
+}
+
 // ?rva007B7A0F@@YAXXZ @ 0x007B7A0F (10B). Global Rva001EAF7B thunk: ecx=&g_Va00DA60E8 then tail-jmp to rowed ?rva001EAF7B@Rva001EAF7B@@QAE_NXZ (0x001EAF7B).
 void __cdecl rva007B7A0F()
 {
@@ -6103,4 +6133,53 @@ void __cdecl rva007B91E4()
 {
 	StlNarrowString *p = (StlNarrowString *)&g_Va00E04920;
 	return p->~basic_string();
+}
+
+// Opaque-class views for the global teardown thunks below. The destructors
+// are declared only; symbols.csv pins them to 0x001F4B01, 0x001FBD17 and
+// 0x001FBF4D (see OpaqueScalarDeletingDtorsB03.cpp and VectorDeletingDtorsV05.cpp).
+class Rva001F4B01
+{
+public:
+	virtual ~Rva001F4B01();
+};
+class Rva001FBD17
+{
+public:
+	virtual ~Rva001FBD17();
+};
+class Rva001FBF4D
+{
+public:
+	virtual ~Rva001FBF4D();
+};
+
+extern unsigned g_Va00DFDD0C;
+unsigned int g_Va00DFDD0C;
+
+// ?rva007B7588@@YAXXZ @ 0x007B7588 (10B). Global Rva001F4B01 dtor thunk: ecx=&g_Va00DFDD0C then tail-jmp to pinned ??1Rva001F4B01@@UAE@XZ (0x001F4B01; scalar deleting dtor 0x001F4B47, vtable 0x00BE171C#0). No callers. Honest address name.
+void __cdecl rva007B7588()
+{
+	Rva001F4B01 *p = (Rva001F4B01 *)&g_Va00DFDD0C;
+	return p->Rva001F4B01::~Rva001F4B01();
+}
+
+extern unsigned g_Va00DFDD60;
+unsigned int g_Va00DFDD60;
+
+// ?rva007B759C@@YAXXZ @ 0x007B759C (10B). Global Rva001FBD17 dtor thunk: ecx=&g_Va00DFDD60 then tail-jmp to pinned ??1Rva001FBD17@@UAE@XZ (0x001FBD17; scalar deleting dtor 0x001FC17F, vtable 0x00BE1A10#0). No callers. Honest address name.
+void __cdecl rva007B759C()
+{
+	Rva001FBD17 *p = (Rva001FBD17 *)&g_Va00DFDD60;
+	return p->Rva001FBD17::~Rva001FBD17();
+}
+
+extern unsigned g_Va00DFDF40;
+unsigned int g_Va00DFDF40;
+
+// ?rva007B75A6@@YAXXZ @ 0x007B75A6 (10B). Global Rva001FBF4D dtor thunk: ecx=&g_Va00DFDF40 then tail-jmp to pinned ??1Rva001FBF4D@@UAE@XZ (0x001FBF4D; vector deleting dtor 0x001FC052, element 0xD4, vtable 0x00BE1A28#0). No callers. Honest address name.
+void __cdecl rva007B75A6()
+{
+	Rva001FBF4D *p = (Rva001FBF4D *)&g_Va00DFDF40;
+	return p->Rva001FBF4D::~Rva001FBF4D();
 }
