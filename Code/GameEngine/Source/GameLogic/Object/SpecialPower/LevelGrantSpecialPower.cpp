@@ -2,9 +2,9 @@
 // stlport
 //
 // LevelGrantSpecialPower (vftable 0x0085C920, deleting dtor 0x004C2C5A) helpers
-// behind its slot 17 (0x004C2D9D, banked: it scans the objects within the
-// module data's +0xCC radius of +0x44 over the partition filter chain and
-// hands each to 0x004C2D2B with a vector of the IDs already granted):
+// and slot 17 (0x004C2D9D): it scans the objects within the module data's
+// +0xCC radius of +0x44 over the partition filter chain and hands each hit to
+// 0x004C2D2B with a vector of IDs already granted:
 //
 //   0x004C2B57  the per-object grant: through the source's slot 48 when one is
 //               given, else the object's experience tracker (+0x264) when
@@ -36,8 +36,99 @@ enum ObjectID
 	INVALID_ID = 0
 };
 
-class Object;
+// This TU's vector<ObjectID> frees through the game allocator wrapper at 0x30830.
+void Rva00030830FreeAllocation(void *);
+#pragma comment(linker, "/alternatename:?Rva00030830FreeAllocation@@YAXPAX@Z=_free")
+namespace _STL {
+template <> inline void allocator<ObjectID>::deallocate(pointer p, size_type) const
+{
+	if (p)
+		::Rva00030830FreeAllocation(p);
+}
+}
 
+class Object;
+class Player;
+
+class Rva000421C8
+{
+public:
+	Rva000421C8() : m_next(0) {}
+	virtual ~Rva000421C8() {}
+	virtual bool allow(Object *obj) = 0;
+	virtual int getPlayerMask();
+	Rva000421C8 *link(Rva000421C8 *next);	// 0x00625790
+	Rva000421C8 *m_next;
+};
+
+class Rva0026119DFilter : public Rva000421C8
+{
+public:
+	virtual bool allow(Object *obj);
+};
+
+class Rva002611BFFilter : public Rva000421C8
+{
+public:
+	Rva002611BFFilter(const Object *obj) : m_obj(obj) {}
+	virtual bool allow(Object *obj);
+	const Object *m_obj;
+};
+
+class Rva002614DFFilter : public Rva000421C8
+{
+public:
+	Rva002614DFFilter(const Object *obj) : m_obj(obj) {}
+	virtual bool allow(Object *obj);
+	const Object *m_obj;
+};
+
+class Rva002614ECFilter : public Rva000421C8
+{
+public:
+	Rva002614ECFilter(const void *what, Player *player, bool match)
+		: m_what(what), m_player(player), m_match(match) {}
+	virtual bool allow(Object *obj);
+	const void *m_what;
+	Player *m_player;
+	bool m_match;
+};
+
+class Rva00260EB1Filter : public Rva000421C8
+{
+public:
+	Rva00260EB1Filter(const Object *obj, int flags, bool match)
+		: m_obj(obj), m_flags(flags), m_match(match) {}
+	virtual bool allow(Object *obj);
+	virtual int getPlayerMask();
+	const Object *m_obj;
+	int m_flags;
+	bool m_match;
+};
+
+#pragma comment(linker, "/alternatename:?getPlayerMask@Rva000421C8@@UAEHXZ=?Get_File_Handle@FileClass@@UAEPAXXZ")
+
+struct Coord3D
+{
+	float x;
+	float y;
+	float z;
+};
+
+struct BfmeWideResult
+{
+	Object *next() throw();	// 0x00045623
+	~BfmeWideResult();	// 0x0004AA28
+	void *m_value;
+};
+
+class PartitionManager
+{
+public:
+	BfmeWideResult iterateObjectsInRange(const Coord3D *pos, float radius, int distCalc,
+		Rva000421C8 *filters, int order);	// 0x00625610
+};
+extern PartitionManager *ThePartitionManager;
 
 class ThingTemplate
 {
@@ -244,6 +335,7 @@ class Object
 {
 public:
 	void *rva0029439D();	// 0x0029439D
+	Player *getControllingPlayer() const;	// 0x0028AFA9
 	unsigned rva004C2D2BBit13() const { return m_template->m_114 & 0x2000; }
 	ObjectID getID() const { return m_74; }
 	char m_pad000[0x04];
@@ -286,6 +378,7 @@ protected:
 class LevelGrantSpecialPower : public SpecialAbilityUpdate
 {
 public:
+	virtual void rva0045108D();
 	void rva004C2C7B(Object *obj);
 	void rva004C2D2B(Object *obj, std::vector<ObjectID> &seen);
 private:
@@ -293,7 +386,15 @@ private:
 	{
 		return (const LevelGrantSpecialPowerModuleData *)m_moduleData;
 	}
+	char m_pad0C[0x44 - 0x0C];
+	Coord3D m_44;		// +0x44
 };
+
+template <class T>
+__forceinline T *rva004C2D9DAddress(const T &object)
+{
+	return (T *)&object;
+}
 
 // What 0x004C2B57 is handed for each object.
 struct Rva004C2B57Args
@@ -355,4 +456,21 @@ void LevelGrantSpecialPower::rva004C2D2B(Object *obj, std::vector<ObjectID> &see
 		seen.push_back(obj->getID());
 	}
 	rva004C2C7B(obj);
+}
+
+void LevelGrantSpecialPower::rva0045108D()
+{
+	SpecialAbilityUpdate::rva0045108D();
+	Object *obj = m_object;
+	const LevelGrantSpecialPowerModuleData *data = getLevelGrantSpecialPowerModuleData();
+	std::vector<ObjectID> seen;
+	BfmeWideResult hits = ThePartitionManager->iterateObjectsInRange(
+		&m_44, data->m_CC, 0,
+		Rva002614DFFilter(obj).link(rva004C2D9DAddress(Rva00260EB1Filter(obj, 4, false)))
+			->link(rva004C2D9DAddress(Rva0026119DFilter()))
+			->link(rva004C2D9DAddress(Rva002611BFFilter(obj)))
+			->link(rva004C2D9DAddress(Rva002614ECFilter(data->m_D0, obj->getControllingPlayer(), true))), 1);
+	Object *other;
+	while ((other = hits.next()) != 0)
+		rva004C2D2B(other, seen);
 }
