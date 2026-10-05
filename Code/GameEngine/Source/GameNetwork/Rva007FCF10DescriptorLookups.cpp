@@ -23,7 +23,7 @@ struct Rva007FCF10Message
     int m_id;
 };
 
-extern Rva007FCF10Entry *g_rva007FBAB0Entries[];
+extern Rva007FCF10Entry *g_00DD8298[];
 
 class Rva007FBAB0Codec
 {
@@ -38,7 +38,7 @@ Rva007FCF10Entry *Rva007FBAB0Codec::findEntry(Rva007FCF10Message *message)
     int id = message->m_id;
     if (id == -1)
         return 0;
-    for (Rva007FCF10Entry **entry = g_rva007FBAB0Entries; *entry; ++entry)
+    for (Rva007FCF10Entry **entry = g_00DD8298; *entry; ++entry)
         if ((*entry)->m_id == id)
             return *entry;
     return 0;
