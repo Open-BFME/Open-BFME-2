@@ -22,7 +22,8 @@ float WWMath::Random_Float(float min, float max)
 // ??1CameraShakeSystemClass@@QAE@XZ retail 0x00065D52 (91B): the reference
 // destructor verbatim, over the WWLib multilist layout (Zero Hour multilist.h:
 // vptr, then the Head node whose Next is +8). The list member's destructor
-// 0x00065CA4 is pinned. Internal_Remove_List_Head and Internal_Remove are the
+// 0x00065CA4 (68B) is multilist.h's inline ~MultiListClass, emitted out of line
+// here as retail calls it. Internal_Remove_List_Head and Internal_Remove are the
 // rowed multilist.cpp bodies. Placed by compiling the Open-BFME-1 donor at /O1.
 class MultiListObjectClass
 {
@@ -59,7 +60,7 @@ template <class ObjectType>
 class MultiListClass : public GenericMultiListClass
 {
 public:
-	virtual ~MultiListClass(void);
+	virtual ~MultiListClass(void) { while (!Is_Empty()) { Remove_Head(); } }
 	ObjectType *Remove_Head(void) { return (ObjectType *)Internal_Remove_List_Head(); }
 	bool Remove(ObjectType *obj) { return Internal_Remove(obj); }
 };
