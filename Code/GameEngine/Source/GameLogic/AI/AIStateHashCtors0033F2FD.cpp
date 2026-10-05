@@ -509,3 +509,20 @@ Rva0033F6C0::Rva0033F6C0(StateMachine *machine)
 	: Rva0033F64E(machine, false)
 {
 }
+
+// Rva00340391: retail 0x00340391 (28B), derived from Rva0033F7C8, vtable
+// 0xc12048; sets its own +0x20 byte to true.
+class Rva00340391 : public Rva0033F7C8
+{
+public:
+	Rva00340391(StateMachine *machine);
+
+private:
+	bool m_20; // +0x20
+};
+
+Rva00340391::Rva00340391(StateMachine *machine)
+	: Rva0033F7C8(machine)
+	, m_20(true)
+{
+}

@@ -65,3 +65,22 @@ Rva0034005D::Rva0034005D(StateMachine *machine)
 	, m_unk4C(true)
 {
 }
+
+// ??0Rva003400CE@@QAE@PAVStateMachine@@@Z @ 0x003400CE (37B): another
+// AIInternalMoveToState-derived state (pinned base 0x0033F279, hash
+// 0xf0a7ff17), vtable 0x00811F00; zeroes a dword at +0x4C and a byte at
+// +0x50, ret 4.
+class Rva003400CE : public AIInternalMoveToState
+{
+public:
+	Rva003400CE(StateMachine *machine);
+private:
+	int m_4C; // +0x4C
+	Bool m_50; // +0x50
+};
+Rva003400CE::Rva003400CE(StateMachine *machine)
+	: AIInternalMoveToState(machine, 0xf0a7ff17u)
+	, m_4C(0)
+	, m_50(false)
+{
+}
