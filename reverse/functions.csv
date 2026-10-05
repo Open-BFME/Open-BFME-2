@@ -65757,3 +65757,5 @@ _Rva00438083,,0x00438083,172,Code/GameEngine/Source/Common/Rva00437EDCFinish.cpp
 ?rva004B327F@Rva004B327F@@QAEHXZ,,0x004B327F,211,Code/GameEngine/Source/GameLogic/Object/Update/AISpecialPowerRva004B327F.cpp,matched,AISpecialPowerUpdate+0x10 arms the power object and tail-calls virtual slot 3 or returns 0x3fffffff
 ?rva004ABB4B@Rva004ABB4B@@QAEHXZ,,0x004ABB4B,273,Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioRva004ABB4B.cpp,matched,LargeGroupAudioUpdate+0x10 refreshes the slot when the object state changes and returns the module delay
 ?rva00109D64@Rva007B1380@@QAEXXZ,,0x00109D64,40,Code/GameEngine/Source/Common/Rva007B1380Ctor.cpp,matched,float reset abutting ctor via rowed base initialize plus 20.0f literal
+?rva0014F674@@YAPAXPAXI0H@Z,,0x0014F674,37,Code/GameEngine/Source/Common/Rva0014F674Loop.cpp,matched,cdecl stride loop via pinned helper
+?rva0014FA47@@YAPAXPAXI0@Z,,0x0014FA47,27,Code/GameEngine/Source/Common/Rva0014F674Loop.cpp,matched,forward via rowed stride loop
