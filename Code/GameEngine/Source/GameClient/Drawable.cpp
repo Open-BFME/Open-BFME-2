@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -DWIN32 -MD -EHsc -Ireference/open-bfme-1/inputs/reference/shims/sweep -Ireference/open-bfme-1/inputs/reference/shims/locomotor -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Os -Ireference/open-bfme-1/game/GameEngine/Source/GameClient
+// cl: /O1 /arch:SSE -DNDEBUG -DWIN32 -MD -EHsc -Ireference/open-bfme-1/inputs/reference/shims/sweep -Ireference/open-bfme-1/inputs/reference/shims/locomotor -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Os -Ireference/open-bfme-1/game/GameEngine/Source/GameClient
 // stlport
 #define Matrix4x4 Matrix4  // BFME renamed it
 /*
@@ -180,8 +180,7 @@ static const char *TheDrawableIconNames[] =
  * OK, so it's a bit of a hack, but it saves memory in every Drawable
  */
 
-// Dedicated TU: only the three placed bodies are defined; the donor's other
-// ninety-eight definitions are omitted.
+// Dedicated TU: only verified bodies from the donor are defined here.
 
 // BFME's TintEnvelope carries ONE vtable pointer where the reference class
 // derives from both MemoryPoolObject and Snapshot and carries two, so every
@@ -253,5 +252,42 @@ void TintEnvelope::setDecayFrames( UnsignedInt frames )
 	Real recipFrames = ( -1.0f ) / (Real)MAX(1,frames);
 	self->m_decayRate.Set( self->m_peakColor );
 	self->m_decayRate.Scale( Vector3(recipFrames, recipFrames, recipFrames) );
+}
+
+
+// BFME1 donor 6583b3c1ff21db4a561285717028fdafc780b7db; native
+// TintEnvelope call chain and field accesses independently match these bodies.
+const Real FADE_RATE_EPSILON = 0.001f;
+
+void TintEnvelope::play(const RGBColor *peak, UnsignedInt atackFrames, UnsignedInt decayFrames, UnsignedInt sustainAtPeak )    
+{
+	BfmeTintEnvelopeRates *self = (BfmeTintEnvelopeRates *)this;
+
+	self->m_peakColor = Vector3( peak->red, peak->green, peak->blue );
+
+	setAttackFrames( atackFrames );
+	setDecayFrames( decayFrames );
+
+	self->m_envState = ENVELOPE_STATE_ATTACK;
+	self->m_sustainCounter = sustainAtPeak;
+	self->m_affect = TRUE;
+
+	Vector3 delta;
+	Vector3::Subtract(self->m_currentColor, self->m_peakColor, &delta);
+
+	if ( delta.Length() <= FADE_RATE_EPSILON ) // we are practically already at this color
+		self->m_envState = ENVELOPE_STATE_SUSTAIN;
+
+}
+
+// ?setAttackFrames@TintEnvelope@@AAEXI@Z
+void TintEnvelope::setAttackFrames(UnsignedInt frames) 
+{
+	BfmeTintEnvelopeRates *self = (BfmeTintEnvelopeRates *)this;
+
+	Real recipFrames = 1.0f / (Real)MAX(1,frames);
+	self->m_attackRate.Set( self->m_currentColor );
+	Vector3::Subtract( self->m_peakColor, self->m_attackRate, &self->m_attackRate);
+	self->m_attackRate.Scale( Vector3(recipFrames, recipFrames, recipFrames) );
 }
 
