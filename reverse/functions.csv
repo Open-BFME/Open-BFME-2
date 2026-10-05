@@ -62993,3 +62993,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?Rva00416A5DPush@@YAXABUBfmeStringRecord00415F34@@@Z,,0x00416A5D,57,Code/Libraries/Source/WWVegas/WWLib/stlport_list_00416a5d_bounded.cpp,matched,bounded queue pushback size check via GameSpyInfo vslot26
 ?setControlBarScheme@ControlBar@@QAEXABVAsciiString@@@Z,,0x0031BA80,49,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_setControlBarScheme.cpp,matched,ControlBar set scheme via manager donor pattern
 ?rva0055CFF0@Rva0055CFF0@@QAEXMMM@Z,,0x0055CFF0,229,Code/GameEngine/Source/GameClient/Rva0055CFF0Draw.cpp,matched,vslot4 BoxEmissionVolumeModule 4 vertical edges via TheTacticalView color 0xCCAAFFFF
+?setGeometryName@Rva003BB680Owner@@QAEXAAVAsciiString@@@Z,,0x004E3E91,78,Code/GameEngine/Source/GameClient/Rva003BB680OwnerSetGeometry.cpp,matched,temp Rva004E2382 set AsciiString then vector push_back pin names method
