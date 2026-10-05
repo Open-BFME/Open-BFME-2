@@ -56720,3 +56720,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva005170CD@Rva005170CD@@QAEXXZ,,0x005170CD,36,Code/GameEngine/Source/Common/Rva005170CDReset.cpp,matched,unlock reset conditional call plus flag clear plus tail clear rowed
 ?Rva00590D19Add@@YAXHPAVNetGameCommandMsg@@PBXPAH@Z,,0x00590D19,506,Code/GameEngine/Source/GameNetwork/Rva00590D19Add.cpp,matched,ifchain memcpy sizes then addArgument via rowed 6291A8 and 4D5A7A
 ??0Rva002CC20E@@QAE@XZ,,0x002CC20E,47,Code/GameEngine/Source/Common/Rva002CC20ECtor.cpp,matched,baseConstruct plus vtable C02114 plus 2x Vector_base same as Rva00426402
+?rva003B241A@Rva003B241A@@QAEXXZ,,0x003B241A,18,Code/GameEngine/Source/Common/Rva003B241AForwarder.cpp,matched,forwarder vtable plus handle rowed
