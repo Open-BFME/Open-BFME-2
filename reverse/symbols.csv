@@ -15534,3 +15534,29 @@ _rva00286E33@8,0x00286E33,stdcall out-param 5B writer called from 0x287B2A with 
 ?rva002ADAC3@Player@@QAEXPBVUpgradeTemplate@@H@Z,0x002ADAC3,"Player member (ret 8): (upgrade template, int); REL32 callee of UpgradeDie::onDie 0x00486C00 m_04==0 player path with hoisted pushes; list-unlink plus bit-clear body in the ZH Player::removeUpgrade family with a BFME2 m_04==1 bypass to 0x2AD9FD; address-named"
 ?rva000347A0@GeneralAllocator@Allocator@EA@@QAEPAXPAXIH@Z,0x000347A0,address-derived thiscall GeneralAllocator realloc-engine member taking block size flags and returning void pointer; called from wrapper 0x00035190; identity unproven
 ?rva00034A60@GeneralAllocator@Allocator@EA@@QAEPAXIIH@Z,0x00034A60,address-derived thiscall GeneralAllocator calloc-engine member taking count size flags and returning void pointer; called from wrapper 0x00035210; identity unproven
+?helper@Rva002BFCF5@@AAEXPBUTwoInts002BFCF5@@@Z,0x002BFA86,unrowed member callee of two-int pack wrapper 0x002BFCF5 read from its REL32
+?helper@Rva003A37DC@@AAEXPBUTwoInts003A37DC@@@Z,0x002ADCE1,unrowed member callee of two-int pack wrapper 0x003A37DC read from its REL32
+?helper@Rva005258F8@@AAEXPBUTwoInts005258F8@@@Z,0x00525407,unrowed member callee of two-int pack wrapper 0x005258F8 read from its REL32
+?helper@Rva002F1C5F@@AAEXH@Z,0x002F0C32,unrowed member callee of self-link init 0x002F1C5F read from its REL32
+?helper@Rva002F1CB3@@AAEXH@Z,0x002F0C55,unrowed member callee of self-link init 0x002F1CB3 read from its REL32
+?helper@Rva004152BC@@AAEXH@Z,0x004151C4,unrowed member callee of self-link init 0x004152BC read from its REL32
+?helper@Rva001F6492Helper@@QAEXHH@Z,0x001F6492,same-shape predecessor of chain root 0x001F8213 read from its REL32
+?helper00109D64@Rva0010BA61@@AAEXXZ,0x00109D64,unrowed no-arg helper called by wrapper 0x0010BA61 read from its REL32
+?helper004E5372@Rva004E54B8@@AAEXXZ,0x004E5372,unrowed no-arg helper called by wrapper 0x004E54B8 read from its REL32
+?tail004E52DC@Rva004E52DCForwarder@@QAEXXZ,0x004E52DC,unrowed no-arg tail target of wrapper 0x004E54B8 read from its REL32
+?tail00596269@Rva00596269Forwarder@@QAEXXZ,0x00596269,unrowed no-arg tail target of wrapper 0x005962E7 read from its REL32
+?tail005D13C2@Rva005D13C2Forwarder@@QAEXXZ,0x005D13C2,unrowed no-arg tail target of wrapper 0x005D1516 read from its REL32
+?tail005E18D0@Rva005E18D0Forwarder@@QAEXXZ,0x005E18D0,unrowed no-arg tail target of wrapper 0x005E1906 read from its REL32
+?tail005E18DC@Rva005E18DCForwarder@@QAEXXZ,0x005E18DC,unrowed no-arg tail target of wrapper 0x005E1917 read from its REL32
+?tail005E1B9A@Rva005E1B9AForwarder@@QAEXXZ,0x005E1B9A,unrowed no-arg tail target of wrapper 0x005E1BC4 read from its REL32
+?tail005E254C@Rva005E254CForwarder@@QAEXXZ,0x005E254C,unrowed no-arg tail target of wrapper 0x005E25DE read from its REL32
+?tail005E589E@Rva005E589EForwarder@@QAEXXZ,0x005E589E,unrowed no-arg tail target of wrapper 0x005E590F read from its REL32
+?tail005E6A9D@Rva005E6A9DForwarder@@QAEXXZ,0x005E6A9D,unrowed no-arg tail target of wrapper 0x005E6BA3 read from its REL32
+?tail005E6AD8@Rva005E6AD8Forwarder@@QAEXXZ,0x005E6AD8,unrowed no-arg tail target of wrapper 0x005E6BB4 read from its REL32
+??$__insertion_sort@PAUS4SortElem12@@US4Cmp002E1690@@@_STL@@YAXPAUS4SortElem12@@0US4Cmp002E1690@@@Z,0x0033215E,S4SortElem12 guarded insertion sort called by final_insertion_sort 0x00332308 read from its REL32
+??$__unguarded_insertion_sort@PAUS4SortElem12@@US4Cmp002E1690@@@_STL@@YAXPAUS4SortElem12@@0US4Cmp002E1690@@@Z,0x00331D67,S4SortElem12 unguarded insertion forwarder called by final_insertion_sort 0x00332308 read from its REL32
+??$__insertion_sort@PAURva004F6352@@URva004F6352Cmp@@@_STL@@YAXPAURva004F6352@@0URva004F6352Cmp@@@Z,0x004F8651,Rva004F6352 guarded insertion sort called by final_insertion_sort 0x004F8C99 read from its REL32
+??$__unguarded_insertion_sort@PAURva004F6352@@URva004F6352Cmp@@@_STL@@YAXPAURva004F6352@@0URva004F6352Cmp@@@Z,0x004F786C,Rva004F6352 unguarded insertion forwarder called by final_insertion_sort 0x004F8C99 read from its REL32
+?helper001DA770@@YAXPAVINI@@HPAVAsciiString@@PBD@Z,0x001DA770,shared cdecl audio-block parser called by the five Default-name wrappers 0x001DA980..0x001DAAA8 read from their REL32
+??1H1F8167@@QAE@XZ,0x001F8167,unrowed same-lane body called by chain root 0x001F9025 read from its REL32
+?m001F9B69@H1F9B69@@QAEXXZ,0x001F9B69,unrowed same-shape body called by chain members 0x001FA5BB and 0x001FA5F6 read from their REL32
