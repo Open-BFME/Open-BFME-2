@@ -24,6 +24,15 @@ private:
 	unsigned short m_refCount;
 };
 
+struct IDirect3DBaseTexture8;
+class DummyPtrType;
+
+class TextureBaseClass
+{
+public:
+	IDirect3DBaseTexture8 *Peek_D3D_Base_Texture() const;
+};
+
 template <class T> class RefCountPtr
 {
 public:
@@ -36,6 +45,14 @@ public:
 	{
 		if (m_ptr)
 			m_ptr->Release_Ref();
+	}
+	operator const DummyPtrType *() const { return (const DummyPtrType *)m_ptr; }
+	// BFME 2's TextureBaseClass is the one-word texture handle itself
+	// (texture.cpp): Peek_D3D_Base_Texture takes the handle's address, and
+	// retail passes the address of the RefCountPtr.
+	IDirect3DBaseTexture8 *Peek_D3D_Base_Texture() const
+	{
+		return ((const TextureBaseClass *)this)->Peek_D3D_Base_Texture();
 	}
 
 private:
@@ -59,6 +76,14 @@ private:
 	RefCountPtr<TextureClass> m_3838;
 	char m_pad383c[0x3844 - 0x383c];
 	RefCountPtr<TextureClass> m_3844;
+	char m_pad3848[0x3878 - 0x3848];
+
+public:
+	class Rva00072B3A *get3878() const { return m_3878; }
+	class Rva000E28A7 *get387c() const { return m_387c; }
+
+	class Rva00072B3A *m_3878;
+	class Rva000E28A7 *m_387c;
 };
 
 RefCountPtr<TextureClass> BaseHeightMapRenderObjClass::rva000E234E()
@@ -94,4 +119,123 @@ private:
 RefCountPtr<TextureClass> Rva000E28A7::rva000E28A7()
 {
 	return m_1c;
+}
+
+// Effect-parameter texture callbacks of the BFME 2 terrain FX binding (the
+// scalar and vector ones are in W3DTerrainFXVectorParams.cpp). Each is a
+// cdecl (effect, handle) function ending in ID3DXEffect::SetTexture (vtable
+// slot 52, +0xD0) on a by-value texture handle; retail places each beside
+// the getter above that it calls. Target facts: the dispatchers store
+// 0x004E222F for "ResourceTexture" and 0x004E227F for "MacroTexture"
+// (0x000E1F42), 0x004E24C5 for "Texture" (0x000E236D), 0x004E27D9,
+// 0x004E28C3 and 0x004E29A2 for "MaskTexture", "LowTexture" and
+// "HighTexture" (0x000E25DE) and 0x004E2B00 for "Texture" (0x000E2A81).
+// The fallbacks 0x00132E76 and 0x00132F30 return a lazily created 1x1
+// A8R8G8B8 texture filled with 0xFFFFFFFF and 0 respectively; their names,
+// like the field names, are address-derived.
+
+typedef const char *D3DXHANDLE;
+
+struct ID3DXEffect
+{
+	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
+	virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07();
+	virtual void v08(); virtual void v09(); virtual void v10(); virtual void v11();
+	virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15();
+	virtual void v16(); virtual void v17(); virtual void v18(); virtual void v19();
+	virtual void v20(); virtual void v21(); virtual void v22(); virtual void v23();
+	virtual void v24(); virtual void v25(); virtual void v26(); virtual void v27();
+	virtual void v28(); virtual void v29(); virtual void v30(); virtual void v31();
+	virtual void v32(); virtual void v33(); virtual void v34(); virtual void v35();
+	virtual void v36(); virtual void v37(); virtual void v38(); virtual void v39();
+	virtual void v40(); virtual void v41(); virtual void v42(); virtual void v43();
+	virtual void v44(); virtual void v45(); virtual void v46(); virtual void v47();
+	virtual void v48(); virtual void v49(); virtual void v50(); virtual void v51();
+	virtual long __stdcall SetTexture(D3DXHANDLE parameter, IDirect3DBaseTexture8 *texture);
+};
+
+RefCountPtr<TextureClass> Rva00132E76WhiteTexture();
+RefCountPtr<TextureClass> Rva00132F30BlackTexture();
+
+class Rva00072B3A
+{
+public:
+	RefCountPtr<TextureClass> rva00072B3A() const;
+};
+
+class GlobalData
+{
+public:
+	char m_pad00[0x3c];
+	bool m_3c;
+	char m_pad3d[0x48 - 0x3d];
+	bool m_48;
+};
+
+extern GlobalData *TheWritableGlobalData;
+extern BaseHeightMapRenderObjClass *TheTerrainRenderObject;
+
+class Rva002BA8F1Logic
+{
+public:
+	char m_pad00[0xb4];
+	bool m_b4;
+	bool m_b5;
+};
+
+extern Rva002BA8F1Logic *g_009FEF10;
+
+void Rva000E222FResourceTexture(ID3DXEffect *effect, D3DXHANDLE handle)
+{
+	effect->SetTexture(handle, Rva00132F30BlackTexture().Peek_D3D_Base_Texture());
+}
+
+void Rva000E227FMacroTexture(ID3DXEffect *effect, D3DXHANDLE handle)
+{
+	if (TheTerrainRenderObject && TheTerrainRenderObject->rva000E234E() && TheWritableGlobalData && TheWritableGlobalData->m_48)
+		effect->SetTexture(handle, TheTerrainRenderObject->rva000E234E().Peek_D3D_Base_Texture());
+	else
+		effect->SetTexture(handle, Rva00132E76WhiteTexture().Peek_D3D_Base_Texture());
+}
+
+void Rva000E24C5ShroudTexture(ID3DXEffect *effect, D3DXHANDLE handle)
+{
+	if (g_009FEF10 && g_009FEF10->m_b4 && g_009FEF10->m_b5)
+		effect->SetTexture(handle, Rva00132E76WhiteTexture().Peek_D3D_Base_Texture());
+	else if (TheTerrainRenderObject && TheTerrainRenderObject->m_3878 && TheTerrainRenderObject->m_3878->rva00072B3A())
+		effect->SetTexture(handle, TheTerrainRenderObject->get3878()->rva00072B3A().Peek_D3D_Base_Texture());
+	else
+		effect->SetTexture(handle, Rva00132E76WhiteTexture().Peek_D3D_Base_Texture());
+}
+
+void Rva000E27D9MaskTexture(ID3DXEffect *effect, D3DXHANDLE handle)
+{
+	if (TheTerrainRenderObject && TheTerrainRenderObject->m_387c && TheTerrainRenderObject->m_387c->rva000E28A7())
+		effect->SetTexture(handle, TheTerrainRenderObject->get387c()->rva000E28A7().Peek_D3D_Base_Texture());
+	else
+		effect->SetTexture(handle, Rva00132E76WhiteTexture().Peek_D3D_Base_Texture());
+}
+
+void Rva000E28C3LowTexture(ID3DXEffect *effect, D3DXHANDLE handle)
+{
+	if (TheTerrainRenderObject && TheTerrainRenderObject->rva000E2983())
+		effect->SetTexture(handle, TheTerrainRenderObject->rva000E2983().Peek_D3D_Base_Texture());
+	else
+		effect->SetTexture(handle, Rva00132E76WhiteTexture().Peek_D3D_Base_Texture());
+}
+
+void Rva000E29A2HighTexture(ID3DXEffect *effect, D3DXHANDLE handle)
+{
+	if (TheTerrainRenderObject && TheTerrainRenderObject->rva000E2A62())
+		effect->SetTexture(handle, TheTerrainRenderObject->rva000E2A62().Peek_D3D_Base_Texture());
+	else
+		effect->SetTexture(handle, Rva00132E76WhiteTexture().Peek_D3D_Base_Texture());
+}
+
+void Rva000E2B00CloudTexture(ID3DXEffect *effect, D3DXHANDLE handle)
+{
+	if (TheTerrainRenderObject && TheTerrainRenderObject->rva000E2BCF() && TheWritableGlobalData && TheWritableGlobalData->m_3c)
+		effect->SetTexture(handle, TheTerrainRenderObject->rva000E2BCF().Peek_D3D_Base_Texture());
+	else
+		effect->SetTexture(handle, Rva00132E76WhiteTexture().Peek_D3D_Base_Texture());
 }
