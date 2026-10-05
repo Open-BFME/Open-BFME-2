@@ -22,3 +22,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 struct Rva000BDBFARecord { Rva000BDBFARecord(); Rva000BDBFARecord(const Rva000BDBFARecord&); ~Rva000BDBFARecord(); Rva000BDBFARecord&operator=(const Rva000BDBFARecord&); char bytes[1]; bool operator==(const Rva000BDBFARecord&) const; bool operator<(const Rva000BDBFARecord&) const; };
 namespace _STL {template<> void _Construct<Rva000BDBFARecord,Rva000BDBFARecord>(Rva000BDBFARecord*,const Rva000BDBFARecord&);}
 template class _STL::list<Rva000BDBFARecord>;
+
+// This caller's native REL32 already names the kept provider at 0x000B419E.
+// Both declarations use thiscall with one object-pointer/reference argument; binding is address-proven.
+#pragma comment(linker, "/alternatename:??4Rva000BDBFARecord@@QAEAAU0@ABU0@@Z=??4Rva000B419E@@QAEAAU0@ABU0@@Z")

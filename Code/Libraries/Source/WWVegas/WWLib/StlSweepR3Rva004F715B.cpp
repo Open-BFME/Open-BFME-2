@@ -30,3 +30,7 @@ template void _STL::pop_heap(Rva004F715BRecord*,Rva004F715BRecord*,Rva004F715BRe
 template void _STL::sort_heap(Rva004F715BRecord*,Rva004F715BRecord*,Rva004F715BRecordCompare);
 template void _STL::partial_sort(Rva004F715BRecord*,Rva004F715BRecord*,Rva004F715BRecord*,Rva004F715BRecordCompare);
 template void _STL::nth_element(Rva004F715BRecord*,Rva004F715BRecord*,Rva004F715BRecord*,Rva004F715BRecordCompare);
+
+// This caller's native REL32 already names the kept provider at 0x004F6966.
+// Both declarations use thiscall with one object-pointer/reference argument; binding is address-proven.
+#pragma comment(linker, "/alternatename:??0Rva004F715BRecord@@QAE@ABU0@@Z=??0Rva004F6966@@QAE@ABU0@@Z")

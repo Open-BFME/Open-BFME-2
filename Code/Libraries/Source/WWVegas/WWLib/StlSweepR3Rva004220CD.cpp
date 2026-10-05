@@ -20,4 +20,4 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 
 
 struct Rva004220CDRecord { ~Rva004220CDRecord(); char bytes[16]; };
-template class _STL::vector<Rva004220CDRecord>;
+template _STL::vector<Rva004220CDRecord>::vector(const _STL::vector<Rva004220CDRecord>&);
