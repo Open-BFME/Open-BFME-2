@@ -67,10 +67,36 @@ BFME_CONST_ARG_CALL(Rva0034A871Host, rva0034A871, rva0034A570, 0)	// vtable 0x00
 BFME_CONST_ARG_CALL(Rva00351949Host, rva00351949, rva003508C5, 0)	// vtable 0x00C11008 slot 6
 
 // --- Hand `this` to a manager singleton's member.
+// Callee evidence (retail bytes): 0x000F0A75 walks the manager head at
+// +0x0 with node next at +0x68, unlinks the matching owner, then deletes
+// owner->slot0(0) via rowed operator delete; 0x0010713A null-checks its
+// owner and performs the same virtual-then-delete tail with `this` unused.
+// ZH/BFME1 removeShadow (plain `delete shadow`, projected type checks)
+// does not match either tail, so the virtual-then-delete shape below is
+// modeled on the byte-proven neighbor 0x00107152 (`delete p->rvaFoo(0)`)
+// with honest address-derived node names; manager/owner identities beyond
+// the caller ABI (thiscall void*(owner), ret 4) remain unclaimed.
+void __cdecl operator delete(void *p);
+class Rva000F0A75Node
+{
+public:
+	virtual void *rvaFoo(int x);
+private:
+	char m_pad[0x64];
+public:
+	Rva000F0A75Node *m_next;
+};
+class Rva0010713ANode
+{
+public:
+	virtual void *rvaFoo(int x);
+};
 class W3DVolumetricShadowManager
 {
 public:
 	void rva000F0A75(void *owner);
+private:
+	Rva000F0A75Node *m_head;
 };
 class W3DProjectedShadowManager
 {
@@ -96,6 +122,28 @@ void Rva000F168BHost::rva000F168B() { TheW3DVolumetricShadowManager->rva000F0A75
 void Rva001074C8Host::rva001074C8() { TheW3DProjectedShadowManager->rva0010713A(this); }
 void Rva00109DA6Host::rva00109DA6() { Rva00DEC2D8Manager->rva001091A8(this); }
 void Rva0010BB04Host::rva0010BB04() { Rva00DEC2D8Manager->rva0010B9E5(this); }
+
+void W3DProjectedShadowManager::rva0010713A(void *owner)
+{
+	if (owner)
+		delete ((Rva0010713ANode *)owner)->rvaFoo(0);
+}
+
+void W3DVolumetricShadowManager::rva000F0A75(void *owner_)
+{
+	Rva000F0A75Node *owner = (Rva000F0A75Node *)owner_;
+	Rva000F0A75Node *prev = 0;
+	for (Rva000F0A75Node *cur = m_head; cur != 0; prev = cur, cur = cur->m_next) {
+		if (cur == owner) {
+			if (prev != 0)
+				prev->m_next = owner->m_next;
+			else
+				m_head = owner->m_next;
+			delete owner->rvaFoo(0);
+			break;
+		}
+	}
+}
 
 // --- Call this object's own vtable slot 2 with a constant.
 class Rva0035D781Self
