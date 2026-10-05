@@ -387,3 +387,8 @@ void FiringTracker::loadPostProcess( void )
 	UpdateModule::loadPostProcess();
 
 }  // end loadPostProcess
+
+// ?_Unchecked_test@?$bitset@$0CN@@_STL@@QBE_NI@Z (row 0x001E37E8) was emitted here only through
+// the inline Object::testStatus. That is out of line now (reference/shims/sweep/GameLogic/Object.h),
+// so instantiate it explicitly.
+template bool _STL::bitset<45>::_Unchecked_test(size_t) const;

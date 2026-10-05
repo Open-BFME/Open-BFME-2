@@ -27,6 +27,10 @@
 // Author: Michael S. Booth, October 2000
 
 #pragma once
+
+// BFME shim (TU-scoped): Open-BFME-1's reference/shims/sweep/GameLogic/Object.h, verbatim
+// except that testStatus is declared, not defined (see below). For units that read the
+// Open-BFME-1 copy of the sweep shim rather than this repository's.
 #ifndef _OBJECT_H_
 #define _OBJECT_H_
 
@@ -285,17 +289,25 @@ public:
 	//yet, and there's stuff being done inside of setTeam() that cares.
 	Bool areModulesReady() const { return m_modulesReady; }
 
-	BehaviorModule** getBehaviorModules() const { return m_behaviors; }
+	// Retail's Object::getBehaviorModules is `mov eax,[ecx+0x1F0]` (bfme_layout m_behaviors zh +0x18c -> bfme +0x1f0, 15/16 votes;
+	// 7-byte getters at 0x18C0F0/0x0C3BF0); m_behaviors sits at +0x18c here, so only the accessor reads retail's offset.
+	BehaviorModule** getBehaviorModules() const { return (BehaviorModule**)*(void* const*)((const char*)this + 0x1F0); }
 
-	BodyModuleInterface* getBodyModule() const { return m_body; }
-	ContainModuleInterface* getContain() const { return m_contain; }
+	// Retail's Object::getBodyModule inlines `mov eax,[ecx+0x200]` (matched localApplyBattlePlanBonusesToObject;
+	// ledger pins m_contain@+0x1FC, m_ai@+0x204); m_body sits at +0x194 here, so only the accessor reads retail's offset.
+	BodyModuleInterface* getBodyModule() const { return *(BodyModuleInterface* const*)((const char*)this + 0x200); }
+	// Retail's inline COMDATs (0x4C3C10, 0x56A700) are `mov eax,[ecx+0x1FC]`; m_contain sits at +0x190
+	// here, pinned by matched bodies, so only the accessor reads retail's offset.
+	ContainModuleInterface* getContain() const { return *(ContainModuleInterface* const*)((const char*)this + 0x1FC); }
   StealthUpdate*          getStealth() const { return m_stealth; }
 	SpawnBehaviorInterface* getSpawnBehaviorInterface() const;
 	ProjectileUpdateInterface* getProjectileUpdateInterface() const;
 
 
 	// special case for the AIUpdateInterface, since it will be referred to a great deal
-	inline AIUpdateInterface *getAIUpdateInterface() { return m_ai; }
+	// Retail's inline COMDAT reads [ecx+0x204] (AIGroup_getMinMaxAndCenter_Thunk.cpp byte-matches it);
+	// m_ai sits at +0x19C here, pinned by matched bodies, so only the accessor reads retail's offset.
+	inline AIUpdateInterface *getAIUpdateInterface() { return *(AIUpdateInterface**)((char*)this + 0x204); }
 	inline const AIUpdateInterface* getAIUpdateInterface() const { return m_ai; }
 
 	inline AIUpdateInterface *getAI() { return m_ai; }
@@ -546,7 +558,7 @@ public:
 	void clearWeaponSetFlag(WeaponSetType wst);
 	inline Bool testWeaponSetFlag(WeaponSetType wst) const { return m_curWeaponSetFlags.test(wst); }
 	inline const WeaponSetFlags& getWeaponSetFlags() const { return m_curWeaponSetFlags; }
-	Bool setWeaponLock( WeaponSlotType weaponSlot, WeaponLockType lockType );	// out of line: one retail body
+	Bool setWeaponLock( WeaponSlotType weaponSlot, WeaponLockType lockType ){ return m_weaponSet.setWeaponLock( weaponSlot, lockType ); }
 	void releaseWeaponLock(WeaponLockType lockType){ m_weaponSet.releaseWeaponLock(lockType); }
 	Bool isCurWeaponLocked() const { return m_weaponSet.isCurWeaponLocked(); }
 
@@ -582,7 +594,9 @@ public:
 	ObjectShroudStatus getShroudedStatus(Int playerIndex) const;
 
 	DisabledMaskType getDisabledFlags() const { return m_disabledMask; }
-	Bool isDisabled() const { return m_disabledMask.any(); }
+	// Retail's inline COMDAT (0x161D70) is `mov edx,[ecx+0x1A4]; test edx,edx; setne al`; m_disabledMask sits at
+	// +0x130 here, so only the accessor reads retail's offset.
+	Bool isDisabled() const { return ((const DisabledMaskType*)((const char*)this + 0x1A4))->any(); }
 	Bool clearDisabled( DisabledType type );
 
 	void setDisabled( DisabledType type );
