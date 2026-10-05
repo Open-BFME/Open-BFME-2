@@ -63479,3 +63479,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva000B22E4@Rva000B22E4NullForwarder@@QAEXH@Z,,0x000B22E4,15,Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp,matched,Null-checked member tail forwarder by REL32
 ?rva004FC176@Rva004FC176NullForwarder@@QAEXH@Z,,0x004FC176,15,Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp,matched,Null-checked member tail forwarder by REL32
 ?rva003A2BD4@TeamPrototype@@QAEXXZ,,0x003A2BD4,57,Code/GameEngine/Source/Common/RTS/TeamFactoryAddPrototype003A2B78.cpp,matched,TeamPrototype factory owner via callers 0x003A2C9B 0x003A338A rows 0x003A2B78 0x002AE228 pin 0x002A8AB1 row 0x004EC072
+?Rva0040FAFEAdvance@@YGXH@Z,,0x0040FAFE,23,Code/GameEngine/Source/Common/Rva0040F7E5Advance.cpp,matched,chain via 0x0040D008 find and 0x0040F7E5 advance caller jmp 0x0023D091

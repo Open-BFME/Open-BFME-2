@@ -13,6 +13,7 @@ private:
 };
 
 void __stdcall rva0040F497(int a, int b, int c); // pinned retail 0x0040F497
+BfmeY1038 *__stdcall bfmeFind1038(int key);
 
 void BfmeY1038::rva0040F7E5()
 {
@@ -20,4 +21,12 @@ void BfmeY1038::rva0040F7E5()
 		m_2C = 4;
 		rva0040F497(0, 0, 0);
 	}
+}
+
+void __stdcall Rva0040FAFEAdvance(int key)
+{
+	BfmeY1038 *p = bfmeFind1038(key);
+	if (!p)
+		return;
+	p->rva0040F7E5();
 }
