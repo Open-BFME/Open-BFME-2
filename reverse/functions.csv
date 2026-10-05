@@ -60784,3 +60784,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva005E5942@Rva005E5942@@QAEXXZ,,0x005E5942,33,Code/GameEngine/Source/Common/Rva005E5942Chain.cpp,matched,chain after 0x00319B0A via Owner at +0x18 and wide validate
 ?rva005F62EE@Rva005F62EE@@QAEXPBVImage@@@Z,,0x005F62EE,8,Code/GameEngine/Source/Common/Rva005F62EEForward.cpp,matched,tail forward to rowed 0x005F6096 on member 8
 ?Rva005E5A24Init@@YAPAV?$BitFlags@$0L@@@PAV1@@Z,,0x005E5A24,20,Code/GameEngine/Source/Common/Rva005E5A24Init.cpp,matched,unlock for 0x005E5A38 via BitFlags 0 3 ctor
+?rva002A7557@Rva002A7461@@QAE_NPAURva002A7557In@@H@Z,,0x002A7557,49,Code/GameEngine/Source/GameLogic/Object/Rva002A7557.cpp,matched,chain from 0x002A7461 rowed caller 0x0049CF25 pushes eax 1
