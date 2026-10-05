@@ -161,6 +161,29 @@ public:
 };
 
 class AptObject;
+class Rva006DB160 { public: void *allocBlock(int); };
+class Rva006DB270 { public: void freeBlock(void *,int); };
+extern Rva006DB270 *g_pChainBlockAllocator;
+class Rva006FBDB0 : public EAStringC {
+public:
+    Rva006FBDB0(EAStringC,int,int);
+    ~Rva006FBDB0() { context=0; }
+    static void *operator new(unsigned int n) { return ((Rva006DB160 *)g_pChainBlockAllocator)->allocBlock(n); }
+    static void operator delete(void *v) { g_pChainBlockAllocator->freeBlock(v,12); }
+    int context,action;
+};
+struct AptCallDebugStack {
+    int count,capacity; Rva006FBDB0 **items;
+    __forceinline void Push(Rva006FBDB0 *v) {
+        if(count>=capacity) {
+            g_bfmeAptAssertAtE17734("m_nElements < m_nCapacity","c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\_AptDebugStack.h",0x6a);
+            if(g_bfmeAptBreakOnAssertAtDDC01C) { __asm int 3 }
+        }
+        items[count++]=v;
+    }
+    __forceinline void Pop() { --count; delete items[count]; items[count]=0; }
+};
+
 struct AptActionInterpreter
 {
     struct LocalContextT {
@@ -177,12 +200,13 @@ struct AptActionInterpreter
     AptBasePtrStack stack;
     unsigned char m_otherStacksAndDebugData[0x30-12];
     AptScriptFunctionBase *mpCurrentFunction;
-    unsigned char m_afterCurrentFunction[0x40-0x34];
+    AptCallDebugStack debugCallStack;
     AptConstantPool constantPool;
     unsigned char m_betweenPoolAndFrameBase[0x60-0x48];
     AptValue *mpThrownValue; // PC Throw reads/writes+60; donor supplies semantic role.
     // Original Godfather debug/release field100; native Pop reads +0x64.
     int mnStackFrameBase;
+    void callFunction(AptValue *,AptValue *,int);
     bool setVariable(AptValue *, AptValue *, const EAStringC *, AptValue *, int=1, int=1, int=0);
     AptValue *getVariable(AptValue *, AptValue *, const EAStringC *, int=1, int=1, int=0);
     const unsigned char *runStream(const unsigned char *,AptCIH *,int,AptCharacterInst *);
@@ -2246,3 +2270,28 @@ void AptActionInterpreter::_FunctionAptActionGetUrl2(AptActionInterpreter *const
 
 #pragma comment(linker, "/alternatename:?c_cih@AptValue@@QBEPAVAptCIH@@_N@Z=?rva006DCF60@BfmeAptValue006DCD20@@QAEPAV1@_N@Z")
 #pragma comment(linker, "/alternatename:?getName@AptActionInterpreter@@SAXPAVAptCIH@@AAVEAStringC@@@Z=?rva006ffce0@@YAXPAVAptValue@@AAVEAStringC@@@Z")
+
+// CallFunction: original dispatch slot and native 707910..707B77 (615 bytes).
+// Same-TU parser definitions above prove its output pointers do not escape,
+// allowing the original argument-slot reuse in this handler.
+void AptActionInterpreter::_FunctionAptActionCallFunction(AptActionInterpreter *const p,LocalContextT *const c)
+{
+    AptValue *name=p->stack.At(0);
+    AptValue *params=p->stack.At(1);
+    EAStringC sVar;
+    int nParams=params->toInteger();
+    AptValue *function=0;
+    AptValue *context=0;
+    if(name->isArray()) name=name->c_array()->get(0);
+    if(name->isString()) {
+        rva006FEC00((int)c->pCurrentContext,(int)c->pCurWith,name->c_string()->GetInternalString(),(int *)&context,&sVar);
+        function=p->getVariable(context,c->pCurWith,&sVar,1);
+    } else function=name;
+    function->AddRef();
+    name=0; params=0;
+    p->stack.Pop(2);
+    p->debugCallStack.Push(new Rva006FBDB0(sVar.rva00620090(),(int)(context?context:(AptValue *)c->pCurrentContext),0x4000000));
+    p->callFunction(context?context:(AptValue *)c->pCurrentContext,function,nParams);
+    p->debugCallStack.Pop();
+    function->Release();
+}
