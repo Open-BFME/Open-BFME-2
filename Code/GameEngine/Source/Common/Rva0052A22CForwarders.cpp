@@ -1,5 +1,5 @@
 // cl: /O1 /MD
-// Two null-guarded 24B forwarders from range 27.
+// Three tiny range-27 forwarders (24-30B).
 // ?rva0052A22C@Holder0052A22C@@QAEXPAVObj0052A22C@@@Z @0x0052A22C 24B
 // Thiscall through-call: forwards o->m_74 (or 0) to the pinned 0x529DA9
 // on the same this.
@@ -40,4 +40,23 @@ int Rva0052B225(Obj0052B225 *obj)
 {
 	Rec0052B225 *rec = Rva0052B1EF(obj);
 	return rec ? rec->m_BC : 0;
+}
+
+// ?Rva005258F8@@YGXHH@Z @0x005258F8 30B
+// Stack-pair forwarder: packs two ints into an 8-byte struct and passes
+// it to pinned 0x00525407.
+struct Pair005258F8
+{
+	int m_0;
+	int m_4;
+};
+
+void __stdcall Rva00525407(Pair005258F8 *pair);
+
+void __stdcall Rva005258F8(int a, int b)
+{
+	Pair005258F8 pair;
+	pair.m_0 = a;
+	pair.m_4 = b;
+	Rva00525407(&pair);
 }
