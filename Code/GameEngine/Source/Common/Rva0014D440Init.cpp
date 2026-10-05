@@ -32,7 +32,11 @@ public:
 	virtual void h01();
 	virtual void slot02(void *p);
 	void rva0014D440(Rva0014D440Outer *o, void *b);
+	void rva0014D474(Rva0014D440Outer *o, void *b);
 };
+
+extern "C" void *__stdcall D3DXMatrixInverse(void *out, void *det, void *in);
+extern "C" void *__stdcall D3DXMatrixTranspose(void *out, void *in);
 
 void Rva0014D440Holder::rva0014D440(Rva0014D440Outer *o, void *b)
 {
@@ -41,4 +45,20 @@ void Rva0014D440Holder::rva0014D440(Rva0014D440Outer *o, void *b)
 	slot02(buf);
 	Rva0014D440Inner *inner = o->m_body00;
 	inner->m_fnB0(o, b, buf);
+}
+
+// ?rva0014D474@Rva0014D440Holder@@QAEXPAVRva0014D440Outer@@PAX@Z @0x0014D474
+// 87B abutting 0x0014D440 (same TU prologue/pin/slot02/Inner). Retail:
+// same buf40 init, then D3DXMatrixInverse(&buf80,0,&buf40) via import;
+// if NULL D3DXMatrixTranspose(&buf80,&buf40); then inner->m_fnB0(o,b,&buf80).
+void Rva0014D440Holder::rva0014D474(Rva0014D440Outer *o, void *b)
+{
+	char buf40[0x40];
+	char buf80[0x40];
+	((Rva0007671F *)buf40)->rva0007671F();
+	slot02(buf40);
+	if (D3DXMatrixInverse(buf80, 0, buf40) == 0)
+		D3DXMatrixTranspose(buf80, buf40);
+	Rva0014D440Inner *inner = o->m_body00;
+	inner->m_fnB0(o, b, buf80);
 }
