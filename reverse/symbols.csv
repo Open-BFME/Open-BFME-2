@@ -15413,3 +15413,185 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?rva002711C6@Drawable@@QAEXPBVMatrix3D@@_N@Z,0x002711C6,ZH setInstanceMatrix call site in FloatUpdate::update 0x0048D813 (REL32 at 0x0048DBB8); body saves +0x1A0 to +0x170 and takes a trailing byte flag (ret 8)
 ?rva002803F9@TerrainLogic@@QAE?AW4PathfindLayerEnum@@PBUCoord3D@@_N@Z,0x002803F9,ZH getHighestLayerForDestination(pos; onlyHealthyBridges=false): REL32 at 0x0048FDBB in HeightDieUpdate::update 0x0048FD1B on the TargetHeightIncludesStructures path; the body starts with getGroundHeight(pos->x; pos->y; 0)
 ?rva001F5BBE@ParticleSystemManager@@QAEXPAVObject@@@Z,0x001F5BBE,ZH destroyAttachedSystems(Object*) on TheParticleSystemManager (0x00DFDD04): REL32 at 0x0048FF56 in HeightDieUpdate::update 0x0048FD1B; the rowed body destroys every system whose +0xB4 attached ID is the object's +0x74 ID
+?allocate@?$allocator@URva005334A4Element@@@_STL@@QBEPAURva005334A4Element@@IPBX@Z,0x00068E15,ICF fold; for allocate_and_copy 0x00532303
+??$__uninitialized_copy@PAURva005334A4Element@@PAU1@@_STL@@YAPAURva005334A4Element@@PAU1@00ABU__false_type@0@@Z,0x005322B8,REL32 at allocate_and_copy 0x00532303+30
+_ceil,0x00629934,CRT ceil thunk identified by native PE import slot 0x00BBA578 and target Math.ceil call at 0x006E88A6
+??1Rva00254024@@QAE@XZ,0x00254024,destructor called by the thunk-reached scalar deleting dtor 0x00254008 (REL32 at +4 of its 28B delete-flag wrapper; body is a 5B tail jmp to 0x00498798); identity unproven; address-derived name
+??1Rva002F213F@@QAE@XZ,0x002F213F,destructor called by the thunk-reached scalar deleting dtor 0x002F312E (REL32 at +4 of its 28B delete-flag wrapper); identity unproven; address-derived name
+??1Rva005E7ED7View@@QAE@XZ,0x005E7ED7,non-virtual view of rowed ??1Rva005E7ED7@@UAE@XZ called by the thunk-reached scalar deleting dtor 0x005E7EBB (REL32 at +4 of its 28B delete-flag wrapper); identity unproven; address-derived name
+??1Rva005F0584@@QAE@XZ,0x005F0584,destructor called by the thunk-reached scalar deleting dtor 0x005F06D3 (REL32 at +4 of its 28B delete-flag wrapper); identity unproven; address-derived name
+??1Rva006DE320@@UAE@XZ,0x006DE350,"implicit destructor of the view class whose scalar deleting dtor is 0x006DE320; the REL32 at 0x006DE323 calls the base dtor 0x006DE350 directly: an implicit dtor has no vptr reset, inlines the AptValue.inl:145 base dtor and is identical to it; identity unproven; address-derived name"
+?allocate@?$allocator@URva0018C705Element@@@_STL@@QBEPAURva0018C705Element@@IPBX@Z,0x000AD722,ICF short allocate for allocate_and_copy 0x0018C705
+??$__uninitialized_copy@PAURva0018C705Element@@PAU1@@_STL@@YAPAURva0018C705Element@@PAU1@00ABU__false_type@0@@Z,0x0018C3C9,REL32 at allocate_and_copy 0x0018C705; body matched as Rva0018C3C9Copy
+?erase@?$list@PAVTeamPrototype@@V?$allocator@PAVTeamPrototype@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVTeamPrototype@@U?$_Nonconst_traits@PAVTeamPrototype@@@_STL@@@2@U32@@Z,0x002ABAC0,callee REL32 read at 0x002ABD7D in Player::removeTeamFromList 0x002ABD48; body unlinks the node and returns its successor through the hidden iterator (ret 8) - list<T*>::erase shape; rowed under the pool-free placeholder name Rva002ABAC0Free
+?prepFile@INI@@IAE_NABVAsciiString@@W4INILoadType@@@Z,0x0002D2C1,thiscall (&filename loadType) called once at the head of each INI load variant 0x0002DA4B/0x0002DC75/0x0002DD38 before the readLine loop; name and signature carried from BFME1 ini.cpp prepFile (donor); body unrowed
+?unPrepFile@INI@@IAEXXZ,0x0002BF4A,alias of rowed 0x0002BF4A (Rva0002BF4AClear.cpp) called on normal and catch(...) exits of INI load variants 0x0002DA4B/0x0002DC75/0x0002DD38 after prepFile 0x0002D2C1; name carried from BFME1 ini.cpp unPrepFile (donor)
+?rva0002C0F5@INI@@QAEXAAVAsciiString@@@Z,0x0002C0F5,thiscall (AsciiString &filename) ret 4 called by INI single-block load 0x0002DD38 once 0x0002C2C7 accepts the line; structural name (original not recovered); body unrowed (re_attempts blocked)
+?_M_clear@?$vector@VSaveMapPreview@@V?$allocator@VSaveMapPreview@@@_STL@@@_STL@@IAEXXZ,0x00565A42,REL32 at insert_overflow 0x002DDD48; ICF with rowed clear at this address
+?Rva004EE1E2UninitCopy@@YAPAUElem003AF8C0@@PAU1@00ABU__false_type@_STL@@@Z,0x004EE1E2,hand insert 0x004EE6D0 uninit-copy helper
+?Rva004EE20BFillN@@YAPAUElem003AF8C0@@PAU1@IABU1@ABU__false_type@_STL@@@Z,0x004EE20B,hand insert 0x004EE6D0 fill_n helper
+?rva004EE540@Rva004EE540@@QAEXXZ,0x004EE540,already rowed tidy for hand insert 0x004EE6D0
+?Rva002DBEFFUninitCopy@@YAPAVSaveMapPreview@@PAV1@00ABU__false_type@_STL@@@Z,0x002DBEFF,hand insert 0x002DDD48 uninit-copy helper
+?Rva002DBF28FillN@@YAPAVSaveMapPreview@@PAV1@IABV1@ABU__false_type@_STL@@@Z,0x002DBF28,hand insert 0x002DDD48 fill_n helper
+?rva00565A42@Rva00565A42@@QAEXXZ,0x00565A42,already rowed tidy
+??0SaveMapPreview@@QAE@ABV0@@Z,0x002262E7,already rowed
+?allocate@?$allocator@URva00287F76Element@@@_STL@@QBEPAURva00287F76Element@@IPBX@Z,0x00523D6C,ICF fold with BfmeE8 allocate for overflow 0x00287B4D
+??$$__uninitialized_copy@PAURva00287F76Element@@PAU1@@_STL@@YAPAURva00287F76Element@@PAU1@00ABU__false_type@0@@Z,0x002861C9,overflow 0x00287B4D copy helper
+??$$__uninitialized_fill_n@PAURva00287F76Element@@IU1@@_STL@@YAPAURva00287F76Element@@PAU1@IABU1@ABU__false_type@0@@Z,0x002861EF,overflow 0x00287B4D fill helper
+?allocate@?$allocator@URva00504755Record@@@_STL@@QBEPAURva00504755Record@@IPBX@Z,0x002226BE,ICF fold with BfmeE16 allocate for overflow 0x005049E8
+??$$__uninitialized_copy@PAURva00504755Record@@PAU1@@_STL@@YAPAURva00504755Record@@PAU1@00ABU__false_type@0@@Z,0x00504755,already rowed
+??$$__uninitialized_fill_n@PAURva00504755Record@@IU1@@_STL@@YAPAURva00504755Record@@PAU1@IABU1@ABU__false_type@0@@Z,0x0050477B,already rowed under Record name variant
+??$__uninitialized_copy@PAURva00287F76Element@@PAU1@@_STL@@YAPAURva00287F76Element@@PAU1@00ABU__false_type@0@@Z,0x002861C9,overflow 0x00287B4D copy helper
+??$__uninitialized_fill_n@PAURva00287F76Element@@IU1@@_STL@@YAPAURva00287F76Element@@PAU1@IABU1@ABU__false_type@0@@Z,0x002861EF,overflow 0x00287B4D fill helper
+??$__uninitialized_copy@PAURva00504755Record@@PAU1@@_STL@@YAPAURva00504755Record@@PAU1@00ABU__false_type@0@@Z,0x00504755,overflow 0x005049E8 copy
+??$__uninitialized_fill_n@PAURva00504755Record@@IU1@@_STL@@YAPAURva00504755Record@@PAU1@IABU1@ABU__false_type@0@@Z,0x0050477B,overflow 0x005049E8 fill
+??$__uninitialized_fill_n@PAURva005334A4Element@@IU1@@_STL@@YAPAURva005334A4Element@@PAU1@IABU1@ABU__false_type@0@@Z,0x005322DE,overflow 0x00532ED9 fill
+?allocate@?$allocator@URva00336AECElement@@@_STL@@QBEPAURva00336AECElement@@IPBX@Z,0x005DFB2C,ICF allocate for overflow 0x003361C6
+??$__uninitialized_copy@PAURva00336AECElement@@PAU1@@_STL@@YAPAURva00336AECElement@@PAU1@00ABU__false_type@0@@Z,0x0033331B,overflow 0x003361C6 copy
+??$__uninitialized_fill_n@PAURva00336AECElement@@IU1@@_STL@@YAPAURva00336AECElement@@PAU1@IABU1@ABU__false_type@0@@Z,0x00333341,overflow 0x003361C6 fill
+?allocate@?$allocator@VRva00587375@@@_STL@@QBEPAVRva00587375@@IPBX@Z,0x0029B27B,ICF allocate for overflow 0x00587C40
+??$__uninitialized_copy@PAVRva00587375@@PAV1@@_STL@@YAPAVRva00587375@@PAV1@00ABU__false_type@0@@Z,0x00587599,overflow 0x00587C40 copy
+??$_Construct@VRva00587375@@V1@@_STL@@YAXPAVRva00587375@@ABV1@@Z,0x00587410,overflow 0x00587C40 construct
+??$__uninitialized_fill_n@PAVRva00587375@@IV1@@_STL@@YAPAVRva00587375@@PAV1@IABV1@ABU__false_type@0@@Z,0x00587422,overflow 0x00587C40 fill
+?_M_insert_overflow@?$vector@VRva00587375@@V?$allocator@VRva00587375@@@_STL@@@_STL@@IAEXPAVRva00587375@@ABV3@ABU__false_type@2@I_N@Z,0x00587C40,pin for landing
+?allocate@?$allocator@URva00587375@@@_STL@@QBEPAURva00587375@@IPBX@Z,0x0029B27B,ICF allocate for overflow 0x00587C40
+??$__uninitialized_copy@PAURva00587375@@PAU1@@_STL@@YAPAURva00587375@@PAU1@00ABU__false_type@0@@Z,0x00587599,overflow 0x00587C40 copy
+??$_Construct@URva00587375@@U1@@_STL@@YAXPAURva00587375@@ABU1@@Z,0x00587410,overflow 0x00587C40 construct
+??$__uninitialized_fill_n@PAURva00587375@@IU1@@_STL@@YAPAURva00587375@@PAU1@IABU1@ABU__false_type@0@@Z,0x00587422,overflow 0x00587C40 fill
+?rva005659CA@Rva005659CA@@QAEXXZ,0x005659CA,shared clear for 8B virtual overflows
+?allocate@?$allocator@VRva0014F480@@@_STL@@QBEPAVRva0014F480@@IPBX@Z,0x00523D6C,ICF E8 allocate
+?allocate@?$allocator@VRva0014F4A1@@@_STL@@QBEPAVRva0014F4A1@@IPBX@Z,0x00523D6C,ICF E8 allocate
+?allocate@?$allocator@VRva0014F4C2@@@_STL@@QBEPAVRva0014F4C2@@IPBX@Z,0x00523D6C,ICF E8 allocate
+??0Rva0014F480@@QAE@ABV0@@Z,0x0014F480,copy ctor
+??0Rva0014F4A1@@QAE@ABV0@@Z,0x0014F4A1,copy ctor
+??0Rva0014F4C2@@QAE@ABV0@@Z,0x0014F4C2,copy ctor
+?Rva0014F8E4UninitCopy@@YAPAVRva0014F480@@PAV1@00ABU__false_type@_STL@@@Z,0x0014F8E4,overflow copy helper
+?Rva0014F928Copy@@YAPAVRva0014F4A1@@PAV1@00@Z,0x0014F928,already named
+?Rva0014F96CUninitCopy@@YAPAVRva0014F4C2@@PAV1@00ABU__false_type@_STL@@@Z,0x0014F96C,overflow copy helper
+?Rva0014F5ABFillN@@YAPAVRva0014F480@@PAV1@IABV1@ABUTag@@@Z,0x0014F5AB,fill
+?Rva0014F5E5FillN@@YAPAVRva0014F4A1@@PAV1@IABV1@ABUTag@@@Z,0x0014F5E5,fill
+?Rva0014F61FFillN@@YAPAVRva0014F4C2@@PAV1@IABV1@ABUTag@@@Z,0x0014F61F,fill
+??$__uninitialized_copy@PAVRva0014F480@@PAV1@@_STL@@YAPAVRva0014F480@@PAV1@00ABU__false_type@0@@Z,0x0014F8E4,stlport spelling
+??$__uninitialized_copy@PAVRva0014F4A1@@PAV1@@_STL@@YAPAVRva0014F4A1@@PAV1@00ABU__false_type@0@@Z,0x0014F928,stlport spelling
+??$__uninitialized_copy@PAVRva0014F4C2@@PAV1@@_STL@@YAPAVRva0014F4C2@@PAV1@00ABU__false_type@0@@Z,0x0014F96C,stlport spelling
+??$__uninitialized_fill_n@PAVRva0014F480@@IV1@@_STL@@YAPAVRva0014F480@@PAV1@IABV1@ABU__false_type@0@@Z,0x0014F5AB,stlport fill
+??$__uninitialized_fill_n@PAVRva0014F4A1@@IV1@@_STL@@YAPAVRva0014F4A1@@PAV1@IABV1@ABU__false_type@0@@Z,0x0014F5E5,stlport fill
+??$__uninitialized_fill_n@PAVRva0014F4C2@@IV1@@_STL@@YAPAVRva0014F4C2@@PAV1@IABV1@ABU__false_type@0@@Z,0x0014F61F,stlport fill
+??$_Construct@VRva0014F480@@V1@@_STL@@YAXPAVRva0014F480@@ABV1@@Z,0x0014F480,construct may alias ctor for this shape
+?_M_clear@?$vector@VRva0014F480@@V?$allocator@VRva0014F480@@@_STL@@@_STL@@IAEXXZ,0x005659CA,ICF shared clear for overflow 0x00150282
+?_M_clear@?$vector@VRva0014F4A1@@V?$allocator@VRva0014F4A1@@@_STL@@@_STL@@IAEXXZ,0x005659CA,ICF shared clear for overflow 0x00150337
+?_M_clear@?$vector@VRva0014F4C2@@V?$allocator@VRva0014F4C2@@@_STL@@@_STL@@IAEXXZ,0x005659CA,ICF shared clear for overflow 0x001503EC
+?allocate@?$allocator@URva002A76A0Element@@@_STL@@QBEPAURva002A76A0Element@@IPBX@Z,0x00395928,ICF E12 allocate
+??$__uninitialized_copy@PAURva002A76A0Element@@PAU1@@_STL@@YAPAURva002A76A0Element@@PAU1@00ABU__false_type@0@@Z,0x000766F5,ICF E12 copy
+??$__uninitialized_fill_n@PAURva002A76A0Element@@IU1@@_STL@@YAPAURva002A76A0Element@@PAU1@IABU1@ABU__false_type@0@@Z,0x002A73C0,ICF E12 fill
+?_M_clear@?$vector@URva002A76A0Element@@V?$allocator@URva002A76A0Element@@@_STL@@@_STL@@IAEXXZ,0x002A7677,rowed vector clear
+?rva002A7677@Rva002A7677@@QAEXXZ,0x002A7677,already matched clear
+??0AptScriptFunctionBase@@IAE@W4AptVirtualFunctionTable_Indices@@PAV0@PAVAptCIH@@_N@Z,0x00709870,PC constructor70A2C0 calls this four-argument base; original Redwood6 PDB protected signature and native argument use agree; replaces refuted opaque ABI pin
+??0ParticleSystemTemplateTail@FXParticleSystem@@QAE@XZ,0x001FBF37,PC exported template constructor1FC1E0 calls tail+A4 here;22B body zeroes two words then initializes nested tail; original member identity unasserted
+??4ParticleSystemTemplateTail@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x001FC404,PC exported template assignment1FCED1 calls tail+A4 here after verified base and string assignments; original member identity unasserted
+??0AptPseudoCIH_t@@QAE@PAUAptControl@@HHPAUAptCharacter@@@Z,0x006F6A50,Original Redwood6 PDB prototype; PC pseudo-display-list ctor6E00E0 supplies four zero arguments; existing101B provider has same native member layout and machine ABI; linker alias binds it
+?findChild@AptValue@@QAEPAV1@PBVEAStringC@@PAV1@@Z,0x006DF9A0
+?getIsDefined@AptValue@@QBE_NXZ,0x006DBB60
+??0AptValueWithHash@@QAE@W4AptVirtualFunctionTable_Indices@@H@Z,0x006D6360,Original APT ABI and native709870 call or unwind target; existing providers aliased where recovered
+??0AptPrototype@@QAE@XZ,0x006DE1A0,Original APT ABI and native709870 call or unwind target; existing providers aliased where recovered
+?isCIH@AptValue@@QBE_N_N@Z,0x006DC580,Original APT ABI and native709870 call or unwind target; existing providers aliased where recovered
+?GetRootAnimation@AptCIH@@QAEPAV1@XZ,0x006E0CB0,Original APT ABI and native709870 call or unwind target; existing providers aliased where recovered
+?_AptGetAnimationAtLevel@@YAPAVAptCIH@@H@Z,0x006CC530,Original APT ABI and native709870 call or unwind target; existing providers aliased where recovered
+??1AptObject@@MAE@XZ,0x006D6470,Original APT ABI and native709870 call or unwind target; existing providers aliased where recovered
+??3AptPrototype@@SAXPAXI@Z,0x006F12F0,Original APT ABI and native709870 call or unwind target; existing providers aliased where recovered
+?rva0057DFFB@Rva0057E3DB@@QAE_NH@Z,0x0057DFFB,finish 0x0043A0C1 uses al return for m_D0
+??$__copy_trivial@_STL@@YAPAXPBX0PAX@Z,0x000179B0,already rowed
+??$__copy_trivial_backward@_STL@@YAPAXPBX0PAX@Z,0x00620840,already rowed
+??$fill_n@PAFIF@_STL@@YAPAFPAFIABF@Z,0x000AD8C9,already rowed short fill_n
+?insert@?$list@PAVRva002ADCC7Obj@@V?$allocator@PAVRva002ADCC7Obj@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVRva002ADCC7Obj@@U?$_Nonconst_traits@PAVRva002ADCC7Obj@@@_STL@@@2@U32@ABQAVRva002ADCC7Obj@@@Z,0x002ACF9C,ICF freelist insert for list push_back 0x002ADCC7
+?insert@?$list@PAVRva00207B32Obj@@V?$allocator@PAVRva00207B32Obj@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVRva00207B32Obj@@U?$_Nonconst_traits@PAVRva00207B32Obj@@@_STL@@@2@U32@ABQAVRva00207B32Obj@@@Z,0x00207162,list insert for push_back 0x00207B32
+?insert@?$list@PAVRva00242EE7Obj@@V?$allocator@PAVRva00242EE7Obj@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVRva00242EE7Obj@@U?$_Nonconst_traits@PAVRva00242EE7Obj@@@_STL@@@2@U32@ABQAVRva00242EE7Obj@@@Z,0x00241955,list insert for push_back 0x00242EE7
+?insert@?$list@PAVRva00248211Obj@@V?$allocator@PAVRva00248211Obj@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVRva00248211Obj@@U?$_Nonconst_traits@PAVRva00248211Obj@@@_STL@@@2@U32@ABQAVRva00248211Obj@@@Z,0x00247089,list insert for push_back 0x00248211
+?insert@?$list@PAVRva00295969Obj@@V?$allocator@PAVRva00295969Obj@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVRva00295969Obj@@U?$_Nonconst_traits@PAVRva00295969Obj@@@_STL@@@2@U32@ABQAVRva00295969Obj@@@Z,0x002947F0,list insert for push_back 0x00295969
+?insert@?$list@PAVRva004246BDObj@@V?$allocator@PAVRva004246BDObj@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVRva004246BDObj@@U?$_Nonconst_traits@PAVRva004246BDObj@@@_STL@@@2@U32@ABQAVRva004246BDObj@@@Z,0x0042433E,list insert for push_back 0x004246BD
+?insert@?$list@PAVRva00453B06Obj@@V?$allocator@PAVRva00453B06Obj@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVRva00453B06Obj@@U?$_Nonconst_traits@PAVRva00453B06Obj@@@_STL@@@2@U32@ABQAVRva00453B06Obj@@@Z,0x00453AB8,list insert for push_back 0x00453B06
+?insert@?$list@PAVRva00467DB3Obj@@V?$allocator@PAVRva00467DB3Obj@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVRva00467DB3Obj@@U?$_Nonconst_traits@PAVRva00467DB3Obj@@@_STL@@@2@U32@ABQAVRva00467DB3Obj@@@Z,0x00467D8E,list insert for push_back 0x00467DB3
+?insert@?$list@PAVRva005CD018Obj@@V?$allocator@PAVRva005CD018Obj@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVRva005CD018Obj@@U?$_Nonconst_traits@PAVRva005CD018Obj@@@_STL@@@2@U32@ABQAVRva005CD018Obj@@@Z,0x005CCED5,list insert for push_back 0x005CD018
+??$fill_n@PAEIABE@_STL@@YAPAEPAEIABE@Z,0x000AD829,uchar fill_n for overflow 0x000AFB2E
+?allocate@?$allocator@E@_STL@@SAPAEIPBX@Z,0x000307F0,ICF char allocate
+?_M_erase@?$list@URva00416939Pod@@V?$allocator@URva00416939Pod@@@_STL@@@_STL@@QAEXU?$_List_iterator@URva00416939Pod@@U?$_Nonconst_traits@URva00416939Pod@@@2@@2@@Z,0x004168D3,erase for pop_front 0x00416939
+?_M_erase@?$list@URva0073F026Pod@@V?$allocator@URva0073F026Pod@@@_STL@@@_STL@@QAEXU?$_List_iterator@URva0073F026Pod@@U?$_Nonconst_traits@URva0073F026Pod@@@2@@2@@Z,0x0073EFFC,erase for pop_front 0x0073F026
+?erase@?$list@URva00416939Pod@@V?$allocator@URva00416939Pod@@@_STL@@@_STL@@QAE?AU?$_List_iterator@URva00416939Pod@@U?$_Nonconst_traits@URva00416939Pod@@@_STL@@@2@U32@@Z,0x004168D3,erase for pop_front 0x00416939
+?erase@?$list@URva0073F026Pod@@V?$allocator@URva0073F026Pod@@@_STL@@@_STL@@QAE?AU?$_List_iterator@URva0073F026Pod@@U?$_Nonconst_traits@URva0073F026Pod@@@_STL@@@2@U32@@Z,0x0073EFFC,erase for pop_front 0x0073F026
+??$__copy_ptrs@PAURva0054107FRecord@@PAU1@@_STL@@YAPAURva0054107FRecord@@PAU1@00ABU__false_type@0@@Z,0x00541214,ICF fold with copy row at same address called by erase 0x0054152D
+??1Rva00240831Dtor@@QAE@XZ,0x00240831,ICF alias of WorkerAIUpdateModuleData dtor for list clear 0x00243119
+??0Anim2D@@QAE@PAURva002D752DNode@@PAVRva002D752D@@@Z,0x002D6D63,thiscall ctor sets Anim2D vtable 0x00803358 and calls Anim2D methods; call site 0x0027370A passes template and collection with new 0x34
+??0Rva000795C1Record@@QAE@ABV0@@Z,0x000795C1,Sort5810B6 record copy alias; independently emitted29B matches existing key-plus-vector copy; layout16 and caller sites5810DC/58110D
+?Rva00580D38FinishSort@@YAXPAPAX0VRva000795C1Record@@@Z,0x00580D38,Address-named callee read at581114; caller-cleaned two4-byte iterators and16-byte copied record; native splits insertion at16 elements
+?Rva00580FD1IntroSort@@YAXPAPAX00HVRva000795C1Record@@@Z,0x00580FD1,Address-named callee read at5810FC; four4-byte arguments and16-byte copied record; native introsort threshold16 with supplied depth counter
+?Rva00580B5CInsertionSort@@YAXPAPAX0VRva000795C1Record@@@Z,0x00580B5C,Address-named insertion callee at580D6D/580D96; native EH frame takes two4-byte iterator endpoints plus same16-byte record
+?Rva00580BBFUnguardedSort@@YAXPAPAX0VRva000795C1Record@@@Z,0x00580BBF,Address-named unguarded insertion callee at580D86; native takes two4-byte iterator endpoints plus same16-byte record
+?Rva00580646Median@@YAPAPAXABQAX00VRva000795C1Record@@@Z,0x00580646,Address-named median callee read at58103B; three element addresses plus same16B copied record; return reference loaded by caller before partition
+?Rva00580705Partition@@YAPAPAXPAPAX0PAXVRva000795C1Record@@@Z,0x00580705,Address-named partition callee read at58104B; two4-byte iterators and4-byte median value plus same16B record; iterator result feeds recursive range
+?Rva00580F7FPartialSort@@YAXPAPAX00VRva000795C1Record@@@Z,0x00580F7F,Address-named depth-exhaustion partial sort callee read at58108C; first and duplicated last plus16B copied record; caller-cleaned ABI
+?compareRva005803C0@Rva000795C1Record@@QBE_NPAX0@Z,0x005803C0,Address-named comparator read at580664/580677/580687/5806BC/5806D2; native5803C0/619 RET8 takes ecx record and two4B elements; application semantics unknown
+??$__copy_ptrs@PBVRva000C4657Elem@@PAV1@@_STL@@YAPAVRva000C4657Elem@@PBV1@0PAV1@ABU__false_type@0@@Z,0x0007A401,erase 0x000C4657 copy
+??1Rva00142D70@@QAE@XZ,0x00142D70,ICF basic_string dtor for erase 0x000C4657
+??$__copy_ptrs@PBURva000C4657Elem@@PAU1@@_STL@@YAPAURva000C4657Elem@@PBU1@0PAU1@ABU__false_type@0@@Z,0x0007A401,struct spelling for erase 0x000C4657
+??$__copy_ptrs@PBURva002606AFElem@@PAU1@@_STL@@YAPAURva002606AFElem@@PBU1@0PAU1@ABU__false_type@0@@Z,0x00260647,erase copy
+??1Rva002606AFDtor@@QAE@XZ,0x005B804E,UnicodeString dtor alias
+??$__copy_ptrs@PBURva002821CFElem@@PAU1@@_STL@@YAPAURva002821CFElem@@PBU1@0PAU1@ABU__false_type@0@@Z,0x00281AB7,erase copy
+??1Rva002821CFDtor@@QAE@XZ,0x0027EA49,dtor for erase 0x002821CF
+??C?$OVERRIDE@VWeatherSetting@@@@QBEPBVWeatherSetting@@XZ,0x0035C95F,ICF-folded OVERRIDE<T>::operator-> (rowed as the LocomotorTemplate instantiation); terrain FX ScaleUV_OffsetPerSecondUV callback 0x000E2BEE calls it 5x with ECX=TheWeatherSetting VA 0x00DFE118
+?Rva00132E76WhiteTexture@@YA?AV?$RefCountPtr@VTextureClass@@@@XZ,0x00132E76,cdecl hidden-return texture-handle getter: lazily creates one static 1x1 A8R8G8B8 texture (0x00131DFC on VA 0x00DF2974) and DrawPixel(0;0;0xFFFFFFFF); terrain FX texture callbacks fall back to it; name address-derived
+?Rva00132F30BlackTexture@@YA?AV?$RefCountPtr@VTextureClass@@@@XZ,0x00132F30,cdecl hidden-return texture-handle getter: lazily creates one static 1x1 A8R8G8B8 texture (0x00131DFC on VA 0x00DF297C) and DrawPixel(0;0;0); terrain FX ResourceTexture/BaseTexture callbacks fall back to it; name address-derived
+?rva00072B3A@Rva00072B3A@@QBE?AV?$RefCountPtr@VTextureClass@@@@XZ,0x00072B3A,same getter as the RvaTextureHandleView pin under the RefCountPtr<TextureClass> return type; terrain FX shroud Texture callback 0x000E24C5 calls it twice on TheTerrainRenderObject+0x3878
+?_M_create_node@?$list@PAVRva00207B32Obj@@V?$allocator@PAVRva00207B32Obj@@@_STL@@@_STL@@IAEPAU?$_List_node@PAVRva00207B32Obj@@@2@ABQAVRva00207B32Obj@@@Z,0x00206AE0,address read from the retail REL32 in list<Rva00207B32Obj*>::insert at 0x00207162
+?_M_create_node@?$list@PAVRva00248211Obj@@V?$allocator@PAVRva00248211Obj@@@_STL@@@_STL@@IAEPAU?$_List_node@PAVRva00248211Obj@@@2@ABQAVRva00248211Obj@@@Z,0x002461F1,address read from the retail REL32 in list<Rva00248211Obj*>::insert at 0x00247089
+?_M_create_node@?$list@PAVRva00295969Obj@@V?$allocator@PAVRva00295969Obj@@@_STL@@@_STL@@IAEPAU?$_List_node@PAVRva00295969Obj@@@2@ABQAVRva00295969Obj@@@Z,0x00293486,address read from the retail REL32 in list<Rva00295969Obj*>::insert at 0x002947F0
+?_M_create_node@?$list@PAVRva004246BDObj@@V?$allocator@PAVRva004246BDObj@@@_STL@@@_STL@@IAEPAU?$_List_node@PAVRva004246BDObj@@@2@ABQAVRva004246BDObj@@@Z,0x00423D0D,address read from the retail REL32 in list<Rva004246BDObj*>::insert at 0x0042433E
+?_M_create_node@?$list@PAVRva00467DB3Obj@@V?$allocator@PAVRva00467DB3Obj@@@_STL@@@_STL@@IAEPAU?$_List_node@PAVRva00467DB3Obj@@@2@ABQAVRva00467DB3Obj@@@Z,0x004677FD,address read from the retail REL32 in list<Rva00467DB3Obj*>::insert at 0x00467D8E
+?Push@AptBasePtrStack@@QAEXPAVAptValue@@@Z,0x006FE6E0,All13 constant-push handlers call existing Push provider198B; alias binds its BfmeAptValue repository spelling
+?call@Rva001E19E8CallView@@QBEXPBUCoord3D@@PBVMatrix3D@@PBVObject@@2@Z,0x001E19E8,address-derived thiscall ABI view for Ghidra function 0x001E19E8 size 2804; reverse evidence records ECX field reads +0x148 and +0x150 and manager 0x00DFDD04; 0x001E24DC carries four-pointer stack args and ECX receiver; helper identity remains unresolved
+??1Rva009D8630BlockWriter@@UAE@XZ,0x0060D0B3,"auto-pin (permute --pins): REL32 call target read from retail in 0x0023cb2c, whose banked body is byte-exact once this call resolves"
+?isCliffCell@BaseHeightMapRenderObjClass@@QAE_NMM@Z,0x000671B2,retail REL32 at 0x00062DAB in W3DTerrainLogic vtable slot 0x007C58E0 (after isUnderwater; ZH order isUnderwater then isCliffCell); body 115B null m_map check then border-adjusted clamped cell query 0x000AE13E bit plane like ZH BaseHeightMapRenderObjClass::isCliffCell
+?rva0006B187@BaseHeightMapRenderObjClass@@QAEEMM@Z,0x0006B187,retail REL32 at 0x00062DCA in W3DTerrainLogic vtable slot 0x007C58E4 forwarder with ECX=TheTerrainRenderObject; 115B m_map+0x37C0 clamped cell query calling 0x0006AB98 byte getter; isCliffCell twin shape; name address-derived
+?rva00067225@BaseHeightMapRenderObjClass@@QAEEMM@Z,0x00067225,retail REL32 at 0x00062DE9 in W3DTerrainLogic vtable slot 0x007C58E8 forwarder with ECX=TheTerrainRenderObject; 115B m_map+0x37C0 clamped cell query calling 0x000AE18D byte getter; isCliffCell twin shape; name address-derived
+?rva00067298@BaseHeightMapRenderObjClass@@QAE_NMM@Z,0x00067298,retail REL32 at 0x00062E08 in W3DTerrainLogic vtable slot 0x007C58EC forwarder with ECX=TheTerrainRenderObject; 115B m_map+0x37C0 clamped cell query calling 0x000AE1DC bit plane; isCliffCell twin shape; name address-derived
+?rva0006730B@BaseHeightMapRenderObjClass@@QAEEMM@Z,0x0006730B,retail REL32 at 0x00062E27 in W3DTerrainLogic vtable slot 0x007C58F0 forwarder with ECX=TheTerrainRenderObject; 115B m_map+0x37C0 clamped cell query calling 0x000AE234 byte getter; isCliffCell twin shape; name address-derived
+?rva000AE234@WorldHeightMap@@QAEEHH@Z,0x000AE234,retail REL32 at 0x00067375 in BaseHeightMapRenderObjClass cell query 0x0006730B with ECX=m_map (WorldHeightMap); 65B bounds-checked byte getter of a byte vector at +0x8C; name address-derived
+?getCliffState@WorldHeightMap@@QBE_NHH@Z,0x000AE13E,retail REL32 at 0x0006721C in BaseHeightMapRenderObjClass::isCliffCell with ECX=m_map; same body rowed as ?bfmeBitA@Gen_0074BA50@@QBE_NHH@Z (bounds-checked bit plane); ZH isCliffCell asks m_map->getCliffState
+?rva000AE18D@WorldHeightMap@@QAEEHH@Z,0x000AE18D,retail REL32 at 0x0006728F in BaseHeightMapRenderObjClass cell query 0x00067225 with ECX=m_map; same body rowed as ?rva000AE18D@BfmeGridWM@@QAEEHH@Z
+?rva0006AB49@WorldHeightMap@@QBE_NHH@Z,0x0006AB49,retail REL32 at 0x0006B17E in BaseHeightMapRenderObjClass cell query 0x0006B114 with ECX=m_map; same body rowed as ?test@Rva0006AB49BitPlane@@QBE_NHH@Z
+?rva0006AB98@WorldHeightMap@@QAEEHH@Z,0x0006AB98,retail REL32 at 0x0006B1F1 in BaseHeightMapRenderObjClass cell query 0x0006B187 with ECX=m_map; same body rowed as ?rva0006AB98@Rva0006AB98@@QAEEHH@Z
+??$__introsort_loop@PAPAURva003C3AB0Item@@PAU1@HURva003C3AB0Cmp@@@_STL@@YAXPAPAURva003C3AB0Item@@00HURva003C3AB0Cmp@@@Z,0x003CA2A7,address read from the retail REL32 in sort 0x003CA3D5; rowed under another name (Rva003CA2A7IntrosortLoop)
+??1DebugCmdInterface@@UAE@XZ,0x006C5930,twin spelling of the MAE pin at the same 7B base-dtor body for the public link-canonical base view used by DebugCmdInterfaceDebugCtor.cpp
+??$copy_backward@PAW4Rva0021B68DKey@@PAW41@@_STL@@YAPAW4Rva0021B68DKey@@PAW41@00@Z,0x005E42D3,address read from the retail REL32 in __linear_insert 0x0021C736; rowed under another name (ICF copy_backward<ObjectID*>)
+??$sort_heap@PAW4Rva0021B68DKey@@URva0021B68DCmp@@@_STL@@YAXPAW4Rva0021B68DKey@@0URva0021B68DCmp@@@Z,0x0021DDFC,address read from the retail REL32 in __partial_sort 0x0021E44B; rowed under another name (ICF Rva00204BB8 int sort_heap)
+??RRva0021B68DCmp@@QBE_NABW4Rva0021B68DKey@@0@Z,0x0021B68D,out-of-line comparator read from the retail REL32 in __unguarded_linear_insert 0x0021BA58; body unrowed
+?_M_create_node@?$_Rb_tree@HURva003F75ECValue@@URva003F75ECKey@@U?$greater@H@_STL@@V?$allocator@URva003F75ECValue@@@4@@_STL@@IAEPAU?$_Rb_tree_node@URva003F75ECValue@@@2@ABURva003F75ECValue@@@Z,0x003F753F,Rva003F75EC insertion target calls; isolated creator 34B and _Construct 21B verified against rowed providers; value type is a stand-in
+?getVariable@AptActionInterpreter@@QAEPAVAptValue@@PAV2@0PBVEAStringC@@HHH@Z,0x006FFD80,Native dispatch handlers705330 and7056D0 call six-arg interpreter lookup; original PDB public method plus later header defaults1/1/0; replaces unused false one-arg cache pin
+?c_string@AptValue@@QBEPAVAptString@@XZ,0x006DCE50,Native7056D0 calls existing checkedString68B; both donor AptValue headers declare const c_string returning AptString; alias binds rowed provider
+?_FunctionAptActionSetVariable@AptActionInterpreter@@CAXQAU1@QAULocalContextT@1@@Z,0x007019B0,Native opcode1D dispatch pointer and PushZeroSetVar705380 direct call; original PDB private static signature
+?_FunctionAptActionGetMember@AptActionInterpreter@@CAXQAU1@QAULocalContextT@1@@Z,0x00703AE0,Native opcode4E dispatch pointer and StringDictByteGetMember705720 direct call; original PDB private static signature
+?_FunctionAptActionSetMember@AptActionInterpreter@@CAXQAU1@QAULocalContextT@1@@Z,0x00703CE0,Native opcode4F dispatch pointer and PushStringSetMember705640 direct call; original PDB private static signature
+?PushNoInc@AptBasePtrStack@@QAEXPAVAptValue@@@Z,0x006FE7B0,Native StackSwap7039F0 calls existing nonowning push195B; later source PushNoInc performs exactly this append without AddRef; alias binds existing provider
+?isUndefined@AptValue@@QBE_NXZ,0x006DC010,Native Add/Subtract/Multiply direct calls match later source role and header signature; alias existing rowed provider ?isUndefined@BfmeAptValue006DCD20@@QBE_NXZ; bool predicate consumed through AL; GetInt reads native payload+8
+?isInteger@AptValue@@QBE_NXZ,0x006DC170,Native Add/Subtract/Multiply direct calls match later source role and header signature; alias existing rowed provider ?isInteger@BfmeAptValue006DCD20@@QBEHXZ; bool predicate consumed through AL; GetInt reads native payload+8
+?c_integer@AptValue@@QBEPAVAptInteger@@XZ,0x006DCD90,Native Add/Subtract/Multiply direct calls match later source role and header signature; alias existing rowed provider ?checkedInteger@BfmeAptValue006DCD20@@QAEPAV1@XZ; bool predicate consumed through AL; GetInt reads native payload+8
+?toFloat@AptValue@@QBEMXZ,0x006DD460,Native Add/Subtract/Multiply direct calls match later source role and header signature; alias existing rowed provider ?rva006DD460@BfmeAptValue006DCD20@@QAEMXZ; bool predicate consumed through AL; GetInt reads native payload+8
+?GetInt@AptInteger@@QBEHXZ,0x00144010,Native Add/Subtract/Multiply direct calls match later source role and header signature; alias existing rowed provider ?Length@?$SimpleVecClass@K@@QBEHXZ; bool predicate consumed through AL; GetInt reads native payload+8
+?toInteger@AptValue@@QBEHXZ,0x006DD360,Native Increment703F40 and Decrement704020 call existing conversion186B; later source and AptValue header name const toInteger; alias binds rowed provider
+?toBool@AptValue@@QBE_NXZ,0x006DD550,Native Not701260 directly calls this type-dispatch conversion and consumes AL; both AptValue headers declare const bool toBool; native string/SWF branches corroborate source role; body unrowed
+??4Rva004F6093Holder@@QAEAAV0@ABV0@@Z,0x002B2F97,address read from the retail REL32 in sort-family bodies of 0x002BBC1C; rowed under another name (Rva002B2F97 operator=)
+??RRva002BBC1CCmp@@QBE_NABVRva004F6093Holder@@0@Z,0x002B367C,out-of-line comparator read from the retail REL32 in __unguarded_linear_insert 0x002B453B; rowed under another name (Rva002B367CLess)
+??$__linear_insert@PAVRva004F6093Holder@@V1@URva002BBC1CCmp@@@_STL@@YAXPAVRva004F6093Holder@@0V1@URva002BBC1CCmp@@@Z,0x002B73AD,address read from the retail REL32 in __insertion_sort 0x002B833C; body unrowed (codegen differs)
+??$__pop_heap@PAVRva004F6093Holder@@V1@URva002BBC1CCmp@@H@_STL@@YAXPAVRva004F6093Holder@@00V1@URva002BBC1CCmp@@PAH@Z,0x002B6368,address read from the retail REL32 in __pop_heap_aux 0x002B641F; body unrowed (codegen differs)
+??$__adjust_heap@PAVRva004F6093Holder@@HV1@URva002BBC1CCmp@@@_STL@@YAXPAVRva004F6093Holder@@HHV1@URva002BBC1CCmp@@@Z,0x002B589F,address read from the retail REL32 in __make_heap 0x002B63D1; body unrowed
+??$swap@VRva004F6093Holder@@@_STL@@YAXAAVRva004F6093Holder@@0@Z,0x002B2FF4,address read from the retail REL32 in sort-family bodies of 0x002BBC1C; rowed under another name (Rva002B2FF4Swap)
+??0Rva005E16DA@@QAE@ABVAsciiString@@@Z,0x005E16DA,retail REL32 at 0x007B49D8/0x007B50BF/0x007B510C in three __xc_a initializers that pass the address of a temporary AsciiString; the body forwards that one stack argument to base 0x00221635 pinned with the same const AsciiString & signature; same body rowed as ??0Rva005E16DA@@QAE@H@Z
+??$__introsort_loop@PAUS4SortElem12@@U1@HUS4Cmp002E1690@@@_STL@@YAXPAUS4SortElem12@@00HUS4Cmp002E1690@@@Z,0x00332613,callee read from retail REL32 in sort<S4SortElem12* S4Cmp002E1690> 0x003327C5; body unrowed (codegen differs)
+??$__unguarded_linear_insert@PAUS4SortElem12@@U1@US4Cmp002E1690@@@_STL@@YAXPAUS4SortElem12@@U1@US4Cmp002E1690@@@Z,0x00331A46,callee read from retail REL32 in __unguarded_insertion_sort_aux 0x00331BD7; body unrowed (codegen differs)
+??$__linear_insert@PAUS4SortElem12@@U1@US4Cmp002E1690@@@_STL@@YAXPAUS4SortElem12@@0U1@US4Cmp002E1690@@@Z,0x00332028,callee read from retail REL32 in __insertion_sort 0x0033215E; body unrowed (codegen differs)
+??$__unguarded_linear_insert@PAURva004F6352@@U1@URva004F6352Cmp@@@_STL@@YAXPAURva004F6352@@U1@URva004F6352Cmp@@@Z,0x004F6EB1,callee read from retail REL32 in __unguarded_insertion_sort_aux 0x004F73B3; body unrowed (keeps value pointer in a register)
+?bind@Rva00153664@@UAEXPBD0PAVRva0015354E@@@Z,0x00153664,retail REL32 at 0x000E2381/0x000E25F2/0x000E2A91/0x000E2CB7/0x000E2E11: each terrain FX sub-binder calls its base bind (vtable 0x00BC6F2C slot 1 = 0x00553664) with ECX=this and its own three arguments; same body rowed as ?rva00153664@Rva00153664@@QAEXHPBDPAVRva0015354E@@@Z
+??0TreeHintRef00217D4C@@QAE@PBQ6AXPAUID3DXEffect@@PBD@Z@Z,0x00080221,retail REL32 at 0x000E2AEE/0x000E2D14/0x000E23F6: the terrain FX sub-binders construct the by-value handle argument of 0x00153ACA in its stack slot (ECX=esp) from the address of the static callback; same body rowed as ??0Rva00080221@@QAE@PBH@Z
+??4Rva004F6966@@QAEAAU0@ABU0@@Z,0x004F64FC,assignment called by retail __adjust_heap 0x004F6D81 and __pop_heap 0x004F728A; ICF alias of the rowed ??4Rva004F64FC body at this address
+??0?$hashtable@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@W4NameKeyType@@U?$hash@W4NameKeyType@@@rts@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@2@U?$equal_to@W4NameKeyType@@@Rva004121B2Twin@@V?$allocator@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@2@@_STL@@QAE@IABU?$hash@W4NameKeyType@@@rts@@ABU?$equal_to@W4NameKeyType@@@Rva004121B2Twin@@ABV?$allocator@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@1@@Z,0x00411AC7,twin of 0x00360B59 proven by caller 0x004121B2 31B identical pushes; 0x00411AC7 is the rowed gen-alias of the Armor hashtable ctor with its own EH handler operand
+??1Rva004F6966@@QAE@XZ,0x005F8F96,tail-jump target of retail pop_back in Rva004F81DBQueue::pop 0x004F81DB; ICF alias of the rowed ??1Rva005F8F96 holder dtor at this address
+??0BfmePairEL@@QAE@ABVBfmeWordEL@@0@Z,0x0002C4FD,BfmePairEL two-word ctor; BfmeWordEL is the rowed 4-byte StringBase<char> view so this is the same bytes as the matched ??0Rva0002C4FD@@QAE@ABV?$StringBase@D@@0@Z body (cf existing pair@VAsciiString ICF-alias pin); called by the bfmeMakePairEL factory at 0x0002C621

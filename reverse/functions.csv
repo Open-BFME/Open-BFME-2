@@ -67462,3 +67462,4 @@ _Rva00817230,,0x00683130,5,Code/Libraries/Source/DirtySock/commudp.cpp,matched,e
 ?Rva00023A60@@YAHXZ,,0x00023A60,10,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_voidptr.cpp,matched,address-derived name; framed cdecl int return of 8
 ?Rva00023990@@YA_NXZ,,0x00023990,7,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_voidptr.cpp,matched,address-derived name; framed cdecl bool return of false
 ?Rva00023A30@@YAII@Z,,0x00023A30,14,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_voidptr.cpp,matched,address-derived name; round up to multiple of 8
+?bfmeMakePairEL@@YA?AUBfmePairEL@@ABVBfmeWordEL@@0@Z,,0x0002C621,27,Code/GameEngine/Source/Common/Bfme5TwoWordPairFactory_Rva0002C621.cpp,matched,BFME1 reference-guided two-word factory; target hidden return buffer ABI and shared pair ctor2C4FD verified; donor6583b3c1
