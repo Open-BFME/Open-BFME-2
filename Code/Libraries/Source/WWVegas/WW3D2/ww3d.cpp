@@ -676,11 +676,8 @@ void WW3D::Get_Render_Target_Resolution(int & set_w,int & set_h,int & set_bits,b
  *   3/24/98    GTH : Created.                                                                 *
  *   1/25/2001  gth : converted to dx8                                                         *
  *=============================================================================================*/
-// ?Get_Device_Resolution@WW3D@@ present-unmatched
-void WW3D::Get_Device_Resolution(int & set_w,int & set_h,int & set_bits,bool & set_windowed)
-{
-	DX8Wrapper::Get_Device_Resolution(set_w,set_h,set_bits,set_windowed);
-}
+// Byte-exact device query is in WW3DDeviceQueries.cpp.
+
 
 
 /***********************************************************************************************

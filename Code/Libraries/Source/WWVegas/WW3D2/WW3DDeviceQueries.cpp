@@ -21,3 +21,7 @@ const RenderDeviceDescClass &WW3D::Get_Render_Device_Desc(int index)
 {
     return DX8Wrapper::Get_Render_Device_Desc(index);
 }
+void WW3D::Get_Device_Resolution(int &width,int &height,int &bits,bool &windowed)
+{
+    DX8Wrapper::Get_Device_Resolution(width,height,bits,windowed);
+}
