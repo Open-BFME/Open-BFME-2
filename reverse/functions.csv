@@ -63387,3 +63387,12 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ??1Rva004E58ED@@QAE@XZ,,0x004E58ED,8,Code/GameEngine/Source/Common/Rva004E58EDStrRelease.cpp,matched,Address-derived string-release dtor: +0x10 member into releaseBuffer alias; 8B shape
 ?cleanup@Rva00330BDBMid@@QAEXXZ,,0x00330BDB,8,Code/GameEngine/Source/Common/RvaNegativeAdjustFwds.cpp,matched,Address-derived negative-adjust explicit-dtor forward; 8B shape
 ?cleanup@Rva005CEC55Mid@@QAEXXZ,,0x005CEC55,8,Code/GameEngine/Source/Common/RvaNegativeAdjustFwds.cpp,matched,Address-derived negative-adjust explicit-dtor forward; 8B shape
+?rva0028BC4D@Object@@QAEXXZ,,0x0028BC4D,11,Code/GameEngine/Source/Common/RvaWideAdjustFwds.cpp,matched,Object WeaponSet forward at +0x330 to rowed rva002C7474; 11B adjust tail-jmp shape
+?rva0023D075@GameLogic@@QAEHH@Z,,0x0023D075,11,Code/GameEngine/Source/Common/RvaWideAdjustFwds.cpp,matched,Address-derived wide-adjust forward: +0x184 int(int); 11B shape
+?rva0023D080@GameLogic@@QAEHH@Z,,0x0023D080,11,Code/GameEngine/Source/Common/RvaWideAdjustFwds.cpp,matched,Address-derived wide-adjust forward: +0x184 int(int); 11B shape
+?rva0023D08B@GameLogic@@QAEHH@Z,,0x0023D08B,11,Code/GameEngine/Source/Common/RvaWideAdjustFwds.cpp,matched,Address-derived wide-adjust forward: +0x184 int(int); 11B shape
+?rva0023D0AC@GameLogic@@QAEHH@Z,,0x0023D0AC,11,Code/GameEngine/Source/Common/RvaWideAdjustFwds.cpp,matched,Address-derived wide-adjust forward: +0x184 int(int); 11B shape
+?rva0023D0B7@GameLogic@@QAEHXZ,,0x0023D0B7,11,Code/GameEngine/Source/Common/RvaWideAdjustFwds.cpp,matched,Address-derived wide-adjust forward: peer pin name int(void); 11B shape
+?rva0023D0C2@GameLogic@@QAEXPAVObject@@H@Z,,0x0023D0C2,11,Code/GameEngine/Source/Common/RvaWideAdjustFwds.cpp,matched,Address-derived wide-adjust forward: peer pin name void(Object*;int); 11B shape
+?fwd@Rva002E2F39Owner@@QAEHH@Z,,0x002E2F39,11,Code/GameEngine/Source/Common/RvaWideAdjustFwds.cpp,matched,Address-derived wide-adjust forward: +0x1A8 int(int); 11B shape
+?fwd@Rva004EC072Owner@@QAEXPAX@Z,,0x004EC072,11,Code/GameEngine/Source/Common/RvaWideAdjustFwds.cpp,matched,Address-derived wide-adjust forward: +0x90 void(void*); 11B shape

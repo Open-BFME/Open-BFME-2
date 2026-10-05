@@ -12710,3 +12710,11 @@ _g_pRva00437E9C,0x00E032FC,global pointer read by wrapper 0x00437E9C (peer notes
 ?release@Rva00036E70Releaser@@QAEXXZ,0x00036E70,opaque alias: same body as rowed StringBase wide releaseBuffer; callee of string-release dtor 0x004E58ED
 ??1Rva0030B706Obj@@QAE@XZ,0x0030B706,REL32 callee decoded from target call bytes of negative-adjust body 0x00330BDB; identity unproven
 ??1Rva005CC788Obj@@QAE@XZ,0x005CC788,REL32 callee decoded from target call bytes of negative-adjust body 0x005CEC55; identity unproven
+?method@Rva0040D380Sub@@QAEHH@Z,0x0040D380,REL32 callee decoded from target call bytes of same-shape wide-adjust wrapper; identity unproven
+?method@Rva0040D396Sub@@QAEHH@Z,0x0040D396,REL32 callee decoded from target call bytes of same-shape wide-adjust wrapper; identity unproven
+?method@Rva0040FAFESub@@QAEHH@Z,0x0040FAFE,REL32 callee decoded from target call bytes of same-shape wide-adjust wrapper; identity unproven
+?method@Rva0040D3E8Sub@@QAEHH@Z,0x0040D3E8,REL32 callee decoded from target call bytes of same-shape wide-adjust wrapper; identity unproven
+?method@Rva0040D3FFSub@@QAEHXZ,0x0040D3FF,REL32 callee decoded from target call bytes of same-shape wide-adjust wrapper; identity unproven
+?method@Rva0040D280Sub@@QAEXPAVObject@@H@Z,0x0040D280,opaque thiscall-view alias; same body as rowed stdcall Rva0040D280Set; identity unproven
+?method@Rva002E2D10Sub@@QAEHH@Z,0x002E2D10,REL32 callee decoded from target call bytes of same-shape wide-adjust wrapper; identity unproven
+?method@Rva0059A71CSub@@QAEXPAX@Z,0x0059A71C,opaque thiscall-view alias; same body as rowed Rva0059A71C::rva; identity unproven

@@ -1,0 +1,148 @@
+// Nine wide-adjust forwarders (11B each): add ecx, IMM32 then tail-jump a
+// callee with the adjusted this; stack args (if any) pass through to the
+// callee, which cleans them (thiscall). Spelled as explicit
+// adjust-and-forward casts so no member layout is asserted.
+// 0x0023D075 (+0x184 -> 0x0040D380, opaque pin), 0x0023D080 (+0x184 ->
+// 0x0040D396, opaque pin), 0x0023D08B (+0x184 -> 0x0040FAFE, opaque pin),
+// 0x0023D0AC (+0x184 -> 0x0040D3E8, opaque pin), 0x0023D0B7 (+0x184 ->
+// 0x0040D3FF, opaque pin; row keeps the peer GameLogic int(void) pin),
+// 0x0023D0C2 (+0x184 -> 0x0040D280, opaque thiscall-view alias pin; same
+// body as the rowed stdcall Rva0040D280Set; row keeps the peer GameLogic
+// void(Object*,int) pin), 0x0028BC4D (+0x330 -> rowed rva002C7474, no pin;
+// row keeps the peer Object pin), 0x002E2F39 (+0x1A8 -> 0x002E2D10, opaque
+// pin), 0x004EC072 (+0x90 -> 0x0059A71C, opaque thiscall-view alias pin;
+// same body as the rowed Rva0059A71C::rva).
+// Wrapper arities follow the peer pins where present, else the callee body
+// evidence (all five 0x40Dxxx callees read one stack arg; 0x40D3FF and the
+// pins show the rest). New names are address-derived.
+// One ledger row per forwarder.
+
+class Object;
+
+class Rva0040D380Sub
+{
+public:
+	int method(int value);
+};
+
+class Rva0040D396Sub
+{
+public:
+	int method(int value);
+};
+
+class Rva0040FAFESub
+{
+public:
+	int method(int value);
+};
+
+class Rva0040D3E8Sub
+{
+public:
+	int method(int value);
+};
+
+class Rva0040D3FFSub
+{
+public:
+	int method();
+};
+
+class Rva0040D280Sub
+{
+public:
+	void method(Object *obj, int value);
+};
+
+class Rva002C7474
+{
+public:
+	void rva002C7474();
+};
+
+class Rva002E2D10Sub
+{
+public:
+	int method(int value);
+};
+
+class Rva0059A71CSub
+{
+public:
+	void method(void *arg);
+};
+
+class GameLogic
+{
+public:
+	int rva0023D075(int value);
+	int rva0023D080(int value);
+	int rva0023D08B(int value);
+	int rva0023D0AC(int value);
+	int rva0023D0B7();
+	void rva0023D0C2(Object *obj, int value);
+};
+
+class Object
+{
+public:
+	void rva0028BC4D();
+};
+
+class Rva002E2F39Owner
+{
+public:
+	int fwd(int value);
+};
+
+class Rva004EC072Owner
+{
+public:
+	void fwd(void *arg);
+};
+
+int GameLogic::rva0023D075(int value)
+{
+	return ((Rva0040D380Sub *)((char *)this + 0x184))->method(value);
+}
+
+int GameLogic::rva0023D080(int value)
+{
+	return ((Rva0040D396Sub *)((char *)this + 0x184))->method(value);
+}
+
+int GameLogic::rva0023D08B(int value)
+{
+	return ((Rva0040FAFESub *)((char *)this + 0x184))->method(value);
+}
+
+int GameLogic::rva0023D0AC(int value)
+{
+	return ((Rva0040D3E8Sub *)((char *)this + 0x184))->method(value);
+}
+
+int GameLogic::rva0023D0B7()
+{
+	return ((Rva0040D3FFSub *)((char *)this + 0x184))->method();
+}
+
+void GameLogic::rva0023D0C2(Object *obj, int value)
+{
+	((Rva0040D280Sub *)((char *)this + 0x184))->method(obj, value);
+}
+
+void Object::rva0028BC4D()
+{
+	((Rva002C7474 *)((char *)this + 0x330))->rva002C7474();
+}
+
+int Rva002E2F39Owner::fwd(int value)
+{
+	return ((Rva002E2D10Sub *)((char *)this + 0x1A8))->method(value);
+}
+
+void Rva004EC072Owner::fwd(void *arg)
+{
+	((Rva0059A71CSub *)((char *)this + 0x90))->method(arg);
+}
