@@ -62240,3 +62240,5 @@ _Rva007F5790Callback,,0x00661F40,15,Code/GameEngine/Source/GameNetwork/Rva007F70
 ?rva0021937D@Rva0021937D@@QAEXPAVRva0021937DTarget@@@Z,,0x0021937D,46,Code/GameEngine/Source/Common/Rva0021937DTriple.cpp,matched,46B null-guarded triple forward using member +0x198; callees pinned; identities unproven
 ?rva002193AB@Rva0021937D@@QAEXPAVRva0021937DTarget@@@Z,,0x002193AB,46,Code/GameEngine/Source/Common/Rva0021937DTriple.cpp,matched,46B null-guarded triple forward using member +0x194; twin of 0x0021937D
 ?rva002193D9@Rva0021937D@@QAEXPAVRva0021937DTarget@@@Z,,0x002193D9,46,Code/GameEngine/Source/Common/Rva0021937DTriple.cpp,matched,46B null-guarded triple forward using member +0x1A0; twin of 0x0021937D
+?rva000A8AD8@Rva000A8AD8@@QAEXM@Z,,0x000A8AD8,22,Code/GameEngine/Source/Common/Rva000A8AD8FloatForward.cpp,matched,22B null-guarded float forward through member pointer to pinned 0x0010FC58; identities unproven
+?rva000A8AEE@Rva000A8AEE@@QAEXM@Z,,0x000A8AEE,22,Code/GameEngine/Source/Common/Rva000A8AD8FloatForward.cpp,matched,22B null-guarded float forward through member pointer to pinned 0x0010FCDB; twin of 0x000A8AD8
