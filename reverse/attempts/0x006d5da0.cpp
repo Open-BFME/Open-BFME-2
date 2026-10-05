@@ -1,9 +1,49 @@
 // ?rva006D5DA0@EAStringC@@QAE_NPBD@Z
-// partial score=0.96 date=2026-10-05
+// partial score=0.99 date=2026-10-05
+// ?rva006D5DA0@EAStringC@@QAE_NPBD@Z
+// partial score=0.99 date=2026-10-05
 // ?rva006D5DA0@EAStringC@@QAE_NPBD@Z
 // partial score=0.94 date=2026-10-05
 // Finish pass on the 0.93 bank. Blocker moved: the compare-fold and
 // single-scope-slot are resolved; what remains is the ebx/ebp pair.
+//
+// SEAT-7 PASS (2026-10-05): the ebx/ebp inversion that four earlier passes
+// recorded as unreachable from source is REACHED and RESOLVED, by two changes
+// that only work together.  Measured nd=117 -> nd=13, first diff +0x20 -> +0x4E,
+// size 200B -> 201B, verified through tools/explain_mismatch on the Finish TU.
+//
+//  (1) The memcmp base must be a NAMED pointer local that has already been
+//      reduced by the length:
+//          const char *folded = (const char *)data - len;
+//          memcmp(folded + size + (int)sizeof(StringDataC), pStrText, len)
+//      Written inline the two reductions commute and the allocator picks freely.
+//      Naming the reduced pointer pins esi as the fold register, which is what
+//      produces retail's exact three-instruction form
+//          sub esi,eax / mov ecx,eax / lea esi,[esi+edx*1+8]
+//      instead of the mov ebp,edx / sub ebp,eax / lea esi,[esi+ebp+8] that the
+//      inline spelling emits.  Naming it as a char* (v11) reaches nd=13; naming
+//      it as a StringDataC* or folding through an unsigned size (v01/v02) does
+//      not, and only coincidentally hits 202B with nd=119/122.
+//
+//  (2) The shortfall passed to the substring helper must be recomputed inside
+//      the matched block from `data->m_uSize`, NOT carried across the compare
+//      in a named local.  Carrying it keeps one more value live across the
+//      branch, which is exactly the pressure that makes the allocator put
+//      `this` in ebp.  Recomputing is what makes `this` land in ebx, so the
+//      prologue matches retail from `mov ebx,ecx` onward, the xor that clears
+//      the memcmp direction register lands in ebp as retail has it, and BOTH
+//      epilogues match byte for byte.  Alone this measures nd=98 at exactly
+//      202B; combined with (1) it is nd=13 at 201B.
+//
+// Remaining, and now only a one-instruction scheduler difference: retail forms
+// the scan base as `mov eax,edi / lea ebp,[eax+1]` where this build emits
+// `lea ebp,[edi+1]`, and retail stores the Sub's scope state with
+// `mov [esp+0x1c],ebp` interleaved between the operator= argument push and the
+// release where this build emits `mov [esp+0x20],ebp` before the helper call.
+// Those two account for all 13 remaining differing bytes.  Measured, no effect:
+// a separate loop cursor (nd=113), inline versus named helper count (identical),
+// a named cmpLen (nd=98), recomputing size as well as the shortfall (nd=13),
+// and an explicit (void)sub (nd=13).
 // cl: /O2 /DNDEBUG /DWIN32 /D_WINDOWS /MD
 // ?rva006D5DA0@EAStringC@@QAE_NPBD@Z @0x006D5DA0 201B (thiscall, ret 4).
 //
@@ -141,9 +181,8 @@ StringDataC *data = m_pData;
 	// commute and the allocator is free to pick either. The `unsigned int` cast
 	// on the shortfall is what keeps the 32-bit index out of the lea's scale
 	// slot so `*1` addressing is used.
-	unsigned int rest = size - len;
-	if (memcmp((const char *)data - len + (int)sizeof(StringDataC) + size,
-		pStrText, len) == 0)
+	const char *folded = (const char *)data - len;
+	if (memcmp(folded + size + (int)sizeof(StringDataC), pStrText, len) == 0)
 		goto matched;
 	return false;
 
@@ -155,7 +194,7 @@ matched:
 	// and the `false` path stays out of the middle of the body.
 	{
 		Sub sub;
-		unsigned int n = rest;
+		unsigned int n = data->m_uSize - len;
 		*this = *this->rva006D55B0((EAStringC *)&sub, n);
 	}
 	return true;
