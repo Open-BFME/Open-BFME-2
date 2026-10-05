@@ -63539,3 +63539,5 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ??0Rva005D2F1D@@QAE@ABURvaS16@@ABURvaS08@@@Z,,0x005D2F1D,34,Code/GameEngine/Source/Common/Rva005D2F1DConcat.cpp,matched,
 ??0Rva005D2F3F@@QAE@ABURvaS24@@ABURvaS08@@@Z,,0x005D2F3F,35,Code/GameEngine/Source/Common/Rva005D2F1DConcat.cpp,matched,
 ?rva005D3F93@Rva005D3F93@@QAEX_N@Z,,0x005D3F93,33,Code/GameEngine/Source/Common/Rva005D3F93BitSetter.cpp,matched,
+?rva005D3CA6@Rva005D3CA6@@QAEXPAX@Z,,0x005D3CA6,39,Code/GameEngine/Source/Common/Rva005D3CA6Setters.cpp,matched,
+?rva005D3DD5@Rva005D3CA6@@QAEXABUTreeHintRef00217D4C@@@Z,,0x005D3DD5,49,Code/GameEngine/Source/Common/Rva005D3CA6Setters.cpp,matched,
