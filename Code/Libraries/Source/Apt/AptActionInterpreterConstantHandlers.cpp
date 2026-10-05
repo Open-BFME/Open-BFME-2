@@ -213,6 +213,8 @@ private:
     HANDLER(Equals2);
     HANDLER(Add2);
     HANDLER(TargetPath);
+    HANDLER(CastOp);
+    HANDLER(InstanceOf);
     HANDLER(TypeOf);
     HANDLER(Greater); HANDLER(LessThan2);
     HANDLER(SubString); HANDLER(AsciiToChar);
@@ -225,7 +227,6 @@ private:
     HANDLER(Push);
     HANDLER(Throw);
     HANDLER(Extends);
-    HANDLER(CastOp);
 #undef HANDLER
 };
 void AptActionInterpreter::_FunctionAptActionPushFloat(AptActionInterpreter *const p, LocalContextT *const c)
@@ -2118,3 +2119,21 @@ void AptActionInterpreter::_FunctionAptActionCastOp(AptActionInterpreter *const 
     else { p->stack.Pop(2); p->stack.PushNoInc(gpUndefinedValue); }
 }
 #pragma comment(linker, "/alternatename:?getVtblIndex@AptValue@@QBE?AW4AptVirtualFunctionTable_Indices@@XZ=?get@Rva006DBB30SarDwordField@@QBEHXZ")
+
+
+void AptActionInterpreter::_FunctionAptActionInstanceOf(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    if(!(p->stack.count>=2)) {
+        g_bfmeAptAssertAtE17734("pInterpreter->stack.GetSize() >= 2","C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptActionInterpreter.cpp",0x248d);
+        if(g_bfmeAptBreakOnAssertAtDDC01C) { __asm int 3 }
+    }
+    if(p->stack.count<2) {
+        g_bfmeAptAssertAtE17734("false && \"[APT] Actionscript InstanceOf Op did not find enough parameters. Check Script code.\"","C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptActionInterpreter.cpp",0x2491);
+        if(g_bfmeAptBreakOnAssertAtDDC01C) { __asm int 3 }
+        p->stack.PopAndPush(p->stack.count,gpUndefinedValue);return;
+    }
+    AptValue *obj=p->stack.At(0);
+    AptValue *type=p->stack.At(1);
+    bool result=isObjectOfType(obj,type);
+    p->stack.PopAndPush(2,AptBoolean::Create(result));
+}
