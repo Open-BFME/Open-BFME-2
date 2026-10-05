@@ -64170,3 +64170,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?rva006d4280@@YAPBDPBDPAH@Z,,0x006D4280,868,Code/Libraries/Source/EA/Apt/AptString/Rva006D4280Decode.cpp,matched,EAString.inl UTF-8 decoder with sibling assert triple and three barrier-kept tails
 ?rva005A7974@Rva005A8666Box@@QAEXGPAX@Z,,0x005A7974,290,Code/GameEngine/Source/Common/Rva005A8666BoxNat.cpp,matched,NAT PORT builder via format translate empty-fallback queue-slot-6
 ??1Rva0023FD06@@UAE@XZ,,0x0023FD06,48,Code/GameEngine/Source/Common/Rva0023FD06Dtor.cpp,matched,implicit virtual dtor destroys AsciiString +0x08 then base vtable 0x7C6F20
+?bfmeMakePairEL@@YA?AUBfmePairEL@@ABVBfmeWordEL@@0@Z,,0x0002C621,27,Code/GameEngine/Source/Common/Bfme5TwoWordPairFactory_Rva0002C621.cpp,matched,BFME1 reference-guided two-word factory; target hidden return buffer ABI and shared pair ctor2C4FD verified; donor6583b3c1
