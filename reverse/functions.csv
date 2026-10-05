@@ -63641,3 +63641,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?Rva001DAA14Parse@@YAXPAVINI@@@Z,,0x001DAA14,74,Code/GameEngine/Source/Common/INI/Rva001DA980AudioParsers.cpp,matched,INI audio-block parse DefaultDialog DialogEvent kind 1 via shared parser 0x001DA770
 ?Rva001DAA5EParse@@YAXPAVINI@@@Z,,0x001DAA5E,74,Code/GameEngine/Source/Common/INI/Rva001DA980AudioParsers.cpp,matched,INI audio-block parse DefaultAmbientStream AmbientStream kind 3 via shared parser 0x001DA770
 ?Rva001DAAA8Parse@@YAXPAVINI@@@Z,,0x001DAAA8,74,Code/GameEngine/Source/Common/INI/Rva001DA980AudioParsers.cpp,matched,INI audio-block parse DefaultStreamedSound StreamedSound kind 4 via shared parser 0x001DA770
+?rva004E04D9@Rva004E04D9@@QAEXXZ,,0x004E04D9,36,Code/GameEngine/Source/Common/Rva004E04D9Clear.cpp,matched,reset of Rva004E04FD layout: zero 0/8/4 then release strings at C/10 then clear byte 14; full byte gate
