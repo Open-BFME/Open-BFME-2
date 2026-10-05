@@ -105,7 +105,7 @@ public:
 
 	void setUserName(UnicodeString name);
 
-	unsigned char m_pad04[0x1C - 0x04];
+	unsigned char m_pad04[0x14 - 0x04];
 };
 
 // Other units' views of this same screen object, called by address name.
@@ -200,6 +200,8 @@ public:
 	// bytes), likewise unrowed and pinned.
 	int rva00442CB3(int msg, unsigned int data1, unsigned int data2);
 	void rva0043FA68(int game);
+	// MpGameSetupSlots.cpp's rva004422B4 (the game mode), pinned by address.
+	void rva004422B4(int mode);
 };
 
 // The screen's base class (destroyed by 0x005126F5); its message handler
@@ -252,6 +254,7 @@ void __cdecl Rva005118F3Show(int mode, bool show);
 void __cdecl Rva00434160Init(int a, int b, bool c);
 void __cdecl Rva003B3371Call(int value);
 void Rva00444040Enable();
+void __cdecl Rva005185D8Init(bool a, bool b, bool c, bool d);
 void GadgetListBoxGetSelected(GameWindow *listbox, int *selected);
 
 // Unrowed 0x0044C0A8 (message box with title, text and callback), pinned.
@@ -390,6 +393,15 @@ public:
 	// address.
 	void rva004457BC();
 
+	// Apt callbacks the constructor 0x00445EE3 binds by these names
+	// ("AptLanLobby::OnOptionsBttn" ...).
+	void OnOptionsBttn(const char *unused);
+	void OnExitBttn(const char *unused);
+	void OnStartGameBttn(const char *unused);
+	void OnLoadGameBttn(const char *unused);
+	void OnLoadScreen(const char *mode);
+	void OnCreateGameBttn(const char *unused);
+
 private:
 	unsigned char m_pad000[0x274];
 	void *m_owner; // +0x274
@@ -402,6 +414,8 @@ private:
 	unsigned char m_pad53c[0x668 - 0x53C];
 	Rva00580316 m_668; // +0x668
 	LanLobbyUserNamePrefs m_prefs; // +0x684
+	int m_gameMode; // +0x698 (0 LanOpenPlay, 1 LanStrategic, else -1)
+	unsigned char m_pad69c[0x6A0 - 0x69C];
 	UnicodeString m_userName; // +0x6A0
 	int m_6a4; // +0x6A4
 	GameWindow *m_customGamesList; // +0x6A8
@@ -767,4 +781,64 @@ int BfmeAptScreenLanLobby::rva00444826(int msg, unsigned int data1, unsigned int
 		return result;
 	}
 	return 1;
+}
+
+// Retail 0x0044432B, 23 bytes: "AptLanLobby::OnOptionsBttn". Leaves the
+// lobby (0x004442FD) and opens the options screen through 0x005185D8.
+void BfmeAptScreenLanLobby::OnOptionsBttn(const char *unused)
+{
+	reinterpret_cast<Rva004442FD *>(this)->rva004442FD();
+	Rva005185D8Init(false, false, true, false);
+}
+
+// Retail 0x00444342, 8 bytes: "AptLanLobby::OnExitBttn".
+void BfmeAptScreenLanLobby::OnExitBttn(const char *unused)
+{
+	Rva00444040Enable();
+}
+
+// Retail 0x0044434A, 13 bytes: "AptLanLobby::OnStartGameBttn" moves the
+// update's state machine (+0x6A4) to 5.
+void BfmeAptScreenLanLobby::OnStartGameBttn(const char *unused)
+{
+	m_6a4 = 5;
+}
+
+// Retail 0x00444376, 20 bytes: "AptLanLobby::OnLoadGameBttn", state 1 to 11.
+void BfmeAptScreenLanLobby::OnLoadGameBttn(const char *unused)
+{
+	if (m_6a4 == 1)
+		m_6a4 = 11;
+}
+
+// Retail 0x0044438A, 93 bytes: "AptLanLobby::OnLoadScreen" resets the
+// state and hands the panel (0x004422B4) the game mode named by the screen.
+void BfmeAptScreenLanLobby::OnLoadScreen(const char *mode)
+{
+	m_6a4 = 0;
+	if (strcmp(mode, "LanOpenPlay") == 0)
+	{
+		m_gameMode = 0;
+		m_panel.rva004422B4(0);
+	}
+	else if (strcmp(mode, "LanStrategic") == 0)
+	{
+		m_gameMode = 1;
+		m_panel.rva004422B4(1);
+	}
+	else
+	{
+		m_gameMode = -1;
+		m_panel.rva004422B4(-1);
+	}
+}
+
+// Retail 0x00444F5D, 63 bytes: "AptLanLobby::OnCreateGameBttn", state 1
+// to 2, and the name entry's text saved as the user name.
+void BfmeAptScreenLanLobby::OnCreateGameBttn(const char *unused)
+{
+	if (m_6a4 == 1)
+		m_6a4 = 2;
+	if (m_nameEntry.m_owner)
+		m_prefs.setUserName(GadgetTextEntryGetText(m_nameEntry.m_owner));
 }
