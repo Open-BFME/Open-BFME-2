@@ -74,7 +74,11 @@ public:
 
 class Object
 {
-	char m_pad0[0xA4];				// +0x000..+0x0A4 unknown
+	char m_pad0[0x38];				// +0x000..+0x038 unknown
+	int m_38;						// +0x038
+	char m_pad3C[0x44 - 0x3C];		// +0x03C..+0x044 unknown
+	float m_44;						// +0x044
+	char m_pad48[0xA4 - 0x48];		// +0x048..+0x0A4 unknown
 	Rva004DD843 *m_sub;				// +0x0A4
 	char m_pad1[0x240 - 0xA4 - 4];	// +0x0A8..+0x240 unknown
 	Rva0028AF76Sub *m_sub240;		// +0x240
@@ -110,6 +114,7 @@ public:
 	int rva0028AF86() const;
 	int rva0028AF97();
 	int rva0028B511() const;
+	void rva0028CDB6();
 	void rva0028B95F();
 	bool isOutOfAmmo() const;
 };
@@ -264,6 +269,24 @@ int Object::rva0028B511() const
 	if (m_flag48C != 0)
 		return 1;
 	return m_value40C;
+}
+
+// ?rva0028CDB6@Object@@QAEXXZ, retail 0x0028CDB6, 53 bytes.
+// Null-checked forwarder through Object+0xA4 (Rva004DD843): int from
+// Object::rva0028B511 plus float at +0x44 and address of +0x38 into
+// 0x004DE109, then address of +0x38 into 0x004DE24B. Evidence: callees all
+// rowed or pinned; callers at 0x00295C62 0x0034F681 0x00587289 0x0058808F;
+// offsets +0x38 +0x44 +0xA4 from ObjectRvaSmallGetters neighbours; same-TU
+// rva0028B511 keeps sub in edx with no extra push.
+void Object::rva0028CDB6()
+{
+	Rva004DD843 *sub = m_sub;
+	if (sub != 0) {
+		int *p = &m_38;
+		int v = rva0028B511();
+		sub->rva004DE109((int)p, m_44, v);
+		m_sub->rva004DE24B((int)p);
+	}
 }
 
 // ?rva0028B95F@Object@@QAEXXZ, retail 0x0028B95F, 22 bytes.
