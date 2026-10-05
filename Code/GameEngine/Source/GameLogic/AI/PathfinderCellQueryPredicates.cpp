@@ -17,7 +17,7 @@ public:
 	bool rva002E9897(int a, int b);
 	bool rva002E98C6(int a, int b);
 	int rva002E98EA(int a, int b);
-	bool rva002E9919(int a, int b);
+	int rva002E9919(int a, int b);
 	bool rva002E940F(int a, bool b);
 	bool rva002E9948(int a, int b);
 	bool rva002E996E(int a, bool b, bool c, int d);
@@ -121,17 +121,24 @@ int Pathfinder::rva002E98EA(int a, int b)
 	}
 	return 0;
 }
-// ?rva002E9919@Pathfinder@@QAE_NHH@Z @0x002E9919 47B: tag==2 && !bit16.
-// ?Pathfinder::rva002E9919 present-unmatched
-bool Pathfinder::rva002E9919(int a, int b)
+// ?rva002E9919@Pathfinder@@QAEHHH@Z @0x002E9919 47B: tag==2 && !bit16.
+int Pathfinder::rva002E9919(int a, int b)
 {
 	Rva001E3647Result *rec = (Rva001E3647Result *)rva001E3647(b, a);
 	if (rec != 0)
 	{
 		int val = rec->m_flags;
-		return (val & 0x0F) == 2 && !((val >> 16) & 1);
+		if ((val & 0x0F) == 2)
+		{
+			unsigned sh = (unsigned)val;
+			int r = 0;
+			sh >>= 16;
+			r = 1;
+			if ((r & (char)sh) == 0)
+				return r;
+		}
 	}
-	return false;
+	return 0;
 }
 // ?rva002E9948@Pathfinder@@QAE_NHH@Z @0x002E9948 38B: null->true else tag==5.
 bool Pathfinder::rva002E9948(int a, int b)
