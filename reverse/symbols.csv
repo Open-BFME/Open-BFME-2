@@ -12135,3 +12135,10 @@ _rva00286E33@8,0x00286E33,stdcall out-param 5B writer called from 0x287B2A with 
 ?rva003705C2@AIGroup@@QAEXXZ,0x003705C2,tail-callee of AIGroup 0x00372C05 on the same this (REL32 jmp at 0x372C1B); void-void thiscall; identity not recovered
 ??0?$_Rb_tree@VAsciiString@@V1@U?$_Identity@VAsciiString@@@_STL@@UBfmeStringNoCaseLess@@V?$allocator@VAsciiString@@@3@@_STL@@QAE@ABUBfmeStringNoCaseLess@@ABV?$allocator@VAsciiString@@@1@@Z,0x002F0BF4,BfmeStringNoCaseLess tree constructor for the target NoCase AsciiString set at 0x000D3A71; explicitly instantiated 42B body compiles byte-exact at this address; target caller destructor confirms this comparator
 ??0?$set@VAsciiString@@UBfmeStringNoCaseLess@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAE@XZ,0x000D3A71,callee of Rva006042B6 at 0x006042CA; NoCase set constructor compiled byte-exact 25B at this address after the 0x002F0BF4 tree-ctor pin; target 0x0002CC38 dtor establishes BfmeStringNoCaseLess
+?allocate@?$allocator@D@_STL@@SAPADIPBX@Z,0x000307F0
+??$_Construct@URva00119D80Record@@U1@@_STL@@YAXPAURva00119D80Record@@ABU1@@Z,0x00119B30
+??1Rva00119D80Record@@QAE@XZ,0x00118800
+??$_M_allocate_and_copy@PAURva005C84F1Record@@@?$vector@URva005C84F1Record@@V?$allocator@URva005C84F1Record@@@_STL@@@_STL@@IAEPAURva005C84F1Record@@IPAU2@0@Z,0x005C8445
+?_M_clear@?$vector@URva005C84F1Record@@V?$allocator@URva005C84F1Record@@@_STL@@@_STL@@IAEXXZ,0x005C84D3
+?allocate@?$allocator@URva005C84F1Record@@@_STL@@QBEPAURva005C84F1Record@@IPBX@Z,0x000B4106
+??0?$_STLP_alloc_proxy@PAURva00162800Record@@U1@V?$allocator@URva00162800Record@@@_STL@@@_STL@@QAE@ABV?$allocator@URva00162800Record@@@1@PAURva00162800Record@@@Z,0x00007410
