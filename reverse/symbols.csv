@@ -13422,3 +13422,5 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 ?rva00399C6C@Rva00399C6C@@QAEXHH@Z,0x00399C6C,thiscall void(int,int); module writer callee of dump-range-18 0x003BE2DB with (flag,0)
 ?rva003980BF@Rva003980BF@@QAEPAXPAXHH@Z,0x003980BF,thiscall (ptr,-2,0) returning pointer; module callee of dump-range-18 0x003BE38B feeding the 0x00208968/0x0020A5FF emits
 ?rva0021A4E6@Rva0021A4E6@@QAEXXZ,0x0021A4E6,thiscall void() on the hero-manager global; tail callee of dump-range-18 0x003BE6CB
+?rva0039E76C@Team@@QAEXM@Z,0x0039E76C,thiscall (float) on the getTeamNamed team; stack-float callee of dump-range-18 0x003BE9DB
+?rva003A38E9@Team@@QAEXHH@Z,0x003A38E9,thiscall (int,int) on the getTeamNamed team; callee of dump-range-18 0x003BECCD
