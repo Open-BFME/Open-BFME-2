@@ -15,5 +15,8 @@ template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, 
 #pragma optimize("", on)
 
 #include "Object156.h"
-template class _STL::vector<BfmeOpaqueRecord156,
-	_STL::allocator<BfmeOpaqueRecord156> >;
+template BfmeOpaqueRecord156 *_STL::__uninitialized_copy<BfmeOpaqueRecord156 *, BfmeOpaqueRecord156 *>(BfmeOpaqueRecord156 *, BfmeOpaqueRecord156 *, BfmeOpaqueRecord156 *, const _STL::__false_type &);
+template BfmeOpaqueRecord156 *_STL::__uninitialized_fill_n<BfmeOpaqueRecord156 *, unsigned int, BfmeOpaqueRecord156>(BfmeOpaqueRecord156 *, unsigned int, const BfmeOpaqueRecord156 &, const _STL::__false_type &);
+template void _STL::vector<BfmeOpaqueRecord156>::_M_insert_overflow(BfmeOpaqueRecord156 *, const BfmeOpaqueRecord156 &, const _STL::__false_type &, unsigned int, bool);
+template BfmeOpaqueRecord156 *_STL::__copy<BfmeOpaqueRecord156 *, BfmeOpaqueRecord156 *, int>(BfmeOpaqueRecord156 *, BfmeOpaqueRecord156 *, BfmeOpaqueRecord156 *, const _STL::random_access_iterator_tag &, int *);
+template void _STL::vector<BfmeOpaqueRecord156>::push_back(const BfmeOpaqueRecord156 &);
