@@ -59,11 +59,10 @@ private:
 class Object
 {
 public:
-	AIUpdateInterface *getAI() { return m_ai; }
+	AIUpdateInterface *getAI();
 	const ThingTemplate *getTemplate() const { return m_template; }
 	void setStatus(ObjectStatusTypes bit, bool set);
 	void clearStatus(ObjectStatusTypes bit) { setStatus(bit, false); }
-private:
 	unsigned char m_pad00[0x04];
 	const ThingTemplate *m_template; // +0x04
 	unsigned char m_pad08[0x258 - 0x08];
@@ -104,7 +103,7 @@ private:
 
 void AIAttackAimAtTargetState::onExit( StateExitType status )
 {
-	AIUpdateInterface* sourceAI = getMachineOwner()->getAI();
+	AIUpdateInterface* sourceAI = getMachineOwner()->m_ai;
 	// contained by AIAttackState, so no separate timer
 	if (m_canTurnInPlace)
 	{
