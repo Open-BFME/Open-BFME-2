@@ -55915,3 +55915,4 @@ ___Extract_locale_name,,0x000216A0,153,Code/Libraries/Source/WWVegas/WWLib/Local
 ?Rva00421E1CMerge@@YAXAAUMiniList00421E1C@@0VRva00421A16@@@Z,,0x00421E1C,98,Code/Libraries/Source/WWVegas/WWLib/Rva00421E1CMerge.cpp,matched,merge via 0x00421A16 and _Transfer rows caller 0x004236F5
 ?rva005D4F0E@Rva005D4F0E@@QAEXXZ,,0x005D4F0E,25,Code/GameEngine/Source/Common/Rva005D4F0EClear.cpp,matched,triple clear via rowed 57C2CC 5D4E8B and 2BED91
 ?rva005D4F7D@Rva005D4F7D@@QAEXXZ,,0x005D4F7D,7,Code/GameEngine/Source/Common/Rva005D4F0EClear.cpp,matched,forwarder via ptr at 0 tail to 0x005D4F0E
+?winGetText@GameWindow@@QAE?AVUnicodeString@@XZ,,0x00314942,26,Code/GameEngine/Source/GameClient/GUI/GameWindowWinSetInstanceData_Rva0031495c.cpp,matched,donor winGetText via m_instData at +0x30 pin getText at 0x003148F1

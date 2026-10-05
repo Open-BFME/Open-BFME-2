@@ -8652,3 +8652,5 @@ FUN_0046eb6d	0x0006EB6D	444	blocked	WW3D render 444B many DX8 states plus unclea
 FUN_008e5559	0x004E5559	96	blocked	ctor 0x4E4F82 and dtor 0x4E5086 on same ebp-0x48 local with SSE movss and STL push_front BfmePod60 at this+4 needs unified class and float layout t=12 model=muse-09
 ?rva0039ACE3@Rva0039ACBD@@QAEHPBVObject@@@Z	0x0039ACE3	40	blocked	lea eax,[ecx+1] vs mov eax,ecx plus inc eax; rest exact t=10 model=muse-12 (stash 0.97 kept)
 ?Rva00354EB9Check@@YAHPBURva00354EB9Point@@0@Z	0x00354EB9	61	partial	y-first vs x-first load order plus addss-xor order swapped size exact t=15 model=muse-12 score=0.9 stash=reverse/attempts/0x00354eb9.cpp
+?Rva00354EB9Check@@YAHPBURva00354EB9Point@@0@Z	0x00354EB9	61	partial	xmm0-xmm1 swapped plus addss-xor order swapped y-first offsets fixed via barrier size exact t=20 model=muse-12 score=0.92 stash=reverse/attempts/0x00354eb9.cpp
+?Rva004236F5Sort@@YAXXZ	0x004236F5	411	blocked	411B STL EH sort needs array element ctor 0x002A1575 and dtor 0x005EB940 unclaimed plus holder layout unknown no donor t=10 model=muse-12

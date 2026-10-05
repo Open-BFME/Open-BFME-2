@@ -72,6 +72,7 @@ class GameWindow
 {
 public:
 	Int winSetInstanceData(WinInstanceData *data);
+	UnicodeString winGetText(void);
 
 	unsigned char m_bfmePrefix[0x30];
 	WinInstanceData m_instData;
@@ -96,4 +97,9 @@ Int GameWindow::winSetInstanceData(WinInstanceData *data)
 		m_instData.setTooltipText(data->getTooltipText());
 
 	return 0;
+}
+
+UnicodeString GameWindow::winGetText(void)
+{
+	return m_instData.getText();
 }
