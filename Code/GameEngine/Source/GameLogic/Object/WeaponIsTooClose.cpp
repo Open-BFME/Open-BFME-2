@@ -56,11 +56,16 @@ public:
 	void rva002C95DE(int offset);
 	void rva002C959E();
 	bool rva002C969D(const void *a, int b);
+	bool rva002C9586();
 
 private:
 	char m_pad00[4];
 	const WeaponTemplate *m_template; // +4
-	char m_pad08[0x50 - 8]; // +8..0x50
+	char m_pad08[0x1C - 8]; // +8..0x1C
+	unsigned int m_whenPreAttackFinished; // +0x1C (layout from WeaponDtor TU)
+	unsigned int m_whenLastReloadStarted; // +0x20
+	unsigned int m_lastFireFrame; // +0x24
+	char m_pad28[0x50 - 0x28]; // +0x28..0x50
 	volatile unsigned int m_50; // +0x50 volatile forces m_50-first load order (retail 17B vs 16B A1 size opt)
 	int m_54; // +0x54
 	int m_58; // +0x58
@@ -153,4 +158,15 @@ bool Weapon::rva002C969D(const void *a, int b)
     if (v)
         return v->v38((const void *)b, 1, 0);
     return false;
+}
+
+// ?rva002C9586@Weapon@@QAE_NXZ @0x002C9586 24B
+// Weapon frame-window check: TheGameLogic frame+0x40 in [m_whenPreAttackFinished+0x1C, m_lastFireFrame+0x24).
+// Evidence: neighbours WeaponIsTooClose TU same flags; layout +0x1C/+0x24 from WeaponDtor TU; callers 0x0028DBFC 0x003538BF 0x0045B2F4; TheGameLogic rowed use.
+bool Weapon::rva002C9586()
+{
+	unsigned int frame = TheGameLogic->m_frame;
+	if (frame < m_whenPreAttackFinished || frame >= m_lastFireFrame)
+		return false;
+	return true;
 }
