@@ -70,3 +70,21 @@ template void _STL::_Construct<Rva00414BA4Element, Rva00414BA4Element>(Rva00414B
 template void _STL::_Construct<Rva004E3E5AElement, Rva004E3E5AElement>(Rva004E3E5AElement *, const Rva004E3E5AElement &);
 template void _STL::_Construct<Rva00501E3FElement, Rva00501E3FElement>(Rva00501E3FElement *, const Rva00501E3FElement &);
 template void _STL::_Construct<Rva005C8624Element, Rva005C8624Element>(Rva005C8624Element *, const Rva005C8624Element &);
+
+// ??0Rva00500856@@QAE@ABU0@@Z @0x00500856 29B copy ctor of 0x18 struct with
+// int at +0 and Rva00501E3FElement at +4. Retail copies the first dword with
+// mov then tail-copies the subobject via the pinned Rva00501E3FElement copy
+// ctor 0x005007AA. Callers 0x00500CD1 (45B _Construct twin) and 0x0050366B.
+// _Construct at 0x00500873 proves the callee spelling.
+struct Rva00500856
+{
+	int m_00;
+	Rva00501E3FElement m_04;
+	Rva00500856(const Rva00500856 &that);
+};
+
+Rva00500856::Rva00500856(const Rva00500856 &that)
+	: m_00(that.m_00)
+	, m_04(that.m_04)
+{
+}
