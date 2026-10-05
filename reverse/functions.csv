@@ -63935,3 +63935,7 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?method@Rva005747F9@@QAE?AURvaF6Ret@@XZ,,0x005747F9,28,Code/GameEngine/Source/Common/RvaFamily6Forwarders.cpp,matched,value-return forwarder of field +0x10 through helper 0x0056BCE5 under /EHsc /Oy- /O1
 ?method@Rva005773C0@@QAE?AURvaF6Ret@@XZ,,0x005773C0,27,Code/GameEngine/Source/Common/RvaFamily6Forwarders.cpp,matched,value-return forwarder of field +0x0 through helper 0x0056BABF under /EHsc /Oy- /O1
 ?method@Rva005CE3DE@@QAE?AURvaF6Ret@@XZ,,0x005CE3DE,27,Code/GameEngine/Source/Common/RvaFamily6Forwarders.cpp,matched,value-return forwarder of field +0x0 through helper 0x0056BB8C under /EHsc /Oy- /O1
+?method@Rva0004378D@@QAEXXZ,,0x0004378D,20,Code/GameEngine/Source/Common/RvaFamily7TailPairs.cpp,matched,tail pair: first 0x0025C4F3 then tail-call member second 0x0004353C at +0x280
+?method@Rva0033B1CD@@QAEXXZ,,0x0033B1CD,17,Code/GameEngine/Source/Common/RvaFamily7TailPairs.cpp,matched,tail pair: first 0x00036410 then tail-call member second 0x00036E70 at +4
+?method@Rva005CDDF0@@QAEXXZ,,0x005CDDF0,17,Code/GameEngine/Source/Common/RvaFamily7TailPairs.cpp,matched,tail pair: first 0x005E590F then tail-call member second 0x000B3FD0 at +0xC
+?method@Rva005E5554@@QAEXXZ,,0x005E5554,17,Code/GameEngine/Source/Common/RvaFamily7TailPairs.cpp,matched,tail pair: first 0x005E549E then tail-call member second 0x005F327A at this-8
