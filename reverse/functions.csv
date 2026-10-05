@@ -62175,3 +62175,4 @@ _Rva007F5790Callback,,0x00661F40,15,Code/GameEngine/Source/GameNetwork/Rva007F70
 ?rva0014FA47@@YAPAXPAXI0@Z,,0x0014FA47,27,Code/GameEngine/Source/Common/Rva0014F674Loop.cpp,matched,forward via rowed stride loop
 ?rva00106C79@Rva00106C79Holder@@QAE_NHH@Z,,0x00106C79,37,Code/GameEngine/Source/Common/Rva00106C79Check.cpp,matched,bool via rowed helper plus pinned helper
 ?rva0014D440@Rva0014D440Holder@@QAEXPAVRva0014D440Outer@@PAX@Z,,0x0014D440,52,Code/GameEngine/Source/Common/Rva0014D440Init.cpp,matched,init via pin plus virtual slot plus member fnptr
+?rva0020FB41@Rva0020FB41@@QAEXHH@Z,,0x0020FB41,74,Code/Libraries/Source/WWVegas/WWLib/Rva0020EE29Clear.cpp,matched,Dump range 7: reset +0x8/+0xC then run the +0x4 inner vector through entry method rva003F20E5; enclosing this-4 entry via rva0020F685 (both pinned from retail REL32); bounds-pointer traversal reproduces the once-advanced [esi]/[esi+4] indexing

@@ -12034,3 +12034,5 @@ _floor,0x00629940,call site 0x006F4403 in AptDate::getDayOfWeek (0x006F4290) enc
 ?rva0014F647@@YAXPAX0@Z,0x0014F647,"retail REL32 in 0x0014F674/0x0014F9E7 targets 0x0014F647 (cdecl 2 stack args no this; 45B Ghidra EH body); opaque candidate not identity"
 ?rva00106970@Rva00106C79Holder@@QAE_NHH@Z,0x00106970,"retail REL32 at 0x00106C91 in 0x00106C79 targets 0x00106970 (ecx=esi Holder thiscall 2 stack args a1 a2; 150B Ghidra FUN); opaque candidate not identity"
 ?rva0007671F@Rva0007671F@@QAEXXZ,0x0007671F,"retail REL32 at 0x0014D44C in 0x0014D440 targets 0x0007671F (ecx=ebp-0x40 local thiscall no args; 22B Ghidra FUN); opaque candidate not identity"
+?rva0020F685@Rva0020FB41Outer@@QAEXXZ,0x0020F685,call-site 0x0020FB48 in Rva0020FB41::rva0020FB41 (0x0020FB41) via lea ecx,[esi-4] with no stack args; Ghidra FUN_0060f685 141B
+?rva003F20E5@Rva003F209C@@QAEXHH@Z,0x003F20E5,call-site 0x0020FB72 in Rva0020FB41::rva0020FB41 (0x0020FB41); thiscall entry method with two stack args over the +0x2c vector
