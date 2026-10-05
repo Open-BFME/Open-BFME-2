@@ -7,6 +7,11 @@
 // followed by copying a pointer and incrementing its non-null pointee at +4.
 // Comparison reaches the established AsciiString operator< at 0x5598C.
 // Semantic donor: BFME1 RvaTreeInsertUniqueHint.cpp and STLport pair/tree.
+#include <stl/_prolog.h>
+#include <stl/type_traits.h>
+#undef _STLP_DEFAULT_CONSTRUCTOR_BUG
+#undef _STLP_DEFAULT_CONSTRUCTED
+#define _STLP_DEFAULT_CONSTRUCTED(_TTp) _TTp()
 #include <map>
 class AsciiString { public: AsciiString(const AsciiString &); ~AsciiString(); protected: void releaseBuffer(); private: void *m_data; };
 bool operator<(const AsciiString &, const AsciiString &);
@@ -18,6 +23,7 @@ struct TargetRef00217D4C { virtual void *destroy(unsigned flags); int references
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
 struct TreeHintRef0051030C {
     TargetRef00217D4C *m_ptr;
+    TreeHintRef0051030C() : m_ptr(0) {}
     TreeHintRef0051030C(const TreeHintRef0051030C &other) : m_ptr(other.m_ptr) {
         if (m_ptr) ++m_ptr->references;
     }
@@ -48,6 +54,11 @@ template TreeHint0051030C::iterator TreeHint0051030C::insert_unique(TreeHint0051
 // The map wrapper directly calls this tree's verified hinted insertion.
 typedef _STL::map<AsciiString,TreeHintRef0051030C,_STL::less<AsciiString >,_STL::allocator<TreeHintPair0051030C> > MapInsert005109b7;
 template MapInsert005109b7::iterator MapInsert005109b7::insert(MapInsert005109b7::iterator, const TreeHintPair0051030C &);
+
+// Retail 0x00511087: subscript over this map. The key-only lower_bound and the
+// pair temporary reach the shared 00217D4C rows at 0x00221B8D/0x0050EDB3 (see
+// pins); insert 0x00510FBE and pair dtor 0x0050ED1F are this tree's.
+template TreeHintRef0051030C &MapInsert005109b7::operator[](const AsciiString &);
 
 template void _STL::_Destroy<TreeHintPair0051030C>(TreeHintPair0051030C *);
 
