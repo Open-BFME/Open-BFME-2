@@ -56203,3 +56203,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?_M_insert_overflow@?$vector@VRva0054000B@@V?$allocator@VRva0054000B@@@_STL@@@_STL@@IAEXPAVRva0054000B@@ABV3@ABU__false_type@2@I_N@Z,,0x00540412,189,Code/Libraries/Source/WWVegas/WWLib/stlport_overflow_rva0054000b.cpp,matched,growth path via rowed copy fill Construct allocate free callers 0x5406FA 0x540731
 ?Rva003BD011Forward@@YAXXZ,,0x003BD011,14,Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003BD011Forward.cpp,matched,sibling Rva003BD003Forward slot 0x254 same shape caller 0x003CE6B6
 ?Rva003BD116Set@@YGXPAVParameter@@PAX@Z,,0x003BD116,61,Code/GameEngine/Source/GameLogic/Object/PartitionManagerRva003BD116.cpp,matched,getUnitNamed plus TerrainLogic slot88 plus rva0029660C caller 0x003CE7AC
+?Rva003BD01FSet@@YGXE@Z,,0x003BD01F,19,Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003BD01FSetter.cpp,matched,TheGameClient plus 0xC1 byte setter caller 0x003CE64A
