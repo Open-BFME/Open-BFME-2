@@ -62443,3 +62443,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva0052D83B@Rva0052D83B@@QAEXABURva0052D801Record@@@Z,,0x0052D83B,8,Code/GameEngine/Source/Common/Rva0052D83B.cpp,matched,unlock tail-jmp to rowed push_back via vector at plus 0xC
 ?rva007B7C72@@YAXXZ,,0x007B7C72,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_00E01E41 tail-jmp pinned locale uninit 0x00007670
 ?rva002E3954@PolygonTrigger@@QAEXPAUFloatRect0073CE30@@@Z,,0x002E3954,36,Code/GameEngine/Source/Common/PolygonTriggerRegionRva0007E03A.cpp,matched,link rect copy via rowed region 0x0007E03A
+??$copy@PAURva0054107FRecord@@PAU1@@_STL@@YAPAURva0054107FRecord@@PAU1@00@Z,,0x00541214,29,Code/Libraries/Source/WWVegas/WWLib/StlHelperRva0054107F.cpp,matched,STLport copy wrapper over rowed __copy 0x0054107F called by 0x005412E2 and 0x0054152D
