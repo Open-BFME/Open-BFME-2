@@ -41,7 +41,7 @@
 #include "GameNetwork/IPEnumeration.h"
 #include "GameNetwork/GameSpy/BuddyThread.h"
 #include "GameNetwork/GameSpy/PeerDefs.h"
-#include "GameNetwork/GameSpy/PeerThread.h"
+#include "PeerThreadRetail.h"
 #include "GameNetwork/GameSpy/PersistentStorageThread.h"
 #include "GameNetwork/GameSpy/ThreadUtils.h"
 
@@ -50,6 +50,11 @@
 #include "thread.h"
 
 #include "Common/MiniLog.h"
+
+// Native callback uses the already recovered GameSpy C API entry.
+extern "C" void peerGetPlayerProfileIDA(PEER, const char *, void *, void *, PEERBool);
+#pragma comment(linker, "/alternatename:??0PeerResponse@@QAE@XZ=??0BfmeOpaqueOwnedRecord840@@QAE@XZ")
+#pragma comment(linker, "/alternatename:??1PeerResponse@@QAE@XZ=??1BfmeOpaqueOwnedRecord840@@QAE@XZ")
 
 #ifdef _INTERNAL
 // for occasional debugging...
@@ -255,6 +260,10 @@ GameSpyPeerMessageQueueInterface *TheGameSpyPeerMessageQueue;
 
 //-------------------------------------------------------------------------
 
+// Native enum callback at 38B5DB stores the completion flag at +48C.
+// Preserve this measured view without shifting the donor thread fields.
+struct BfmePeerEnumState { unsigned char unknown[0x48c]; Bool sawEnd; };
+
 class PeerThreadClass : public ThreadClass
 {
 
@@ -339,7 +348,7 @@ public:
 
 	void roomJoined( Bool val ) { m_roomJoined = val; }
 	void setQMGroupRoom( Int groupID ) { m_qmGroupRoom = groupID; }
-	void sawEndOfEnumPlayers( void ) { m_sawEndOfEnumPlayers = true; }
+	void sawEndOfEnumPlayers( void ) { reinterpret_cast<BfmePeerEnumState *>(this)->sawEnd = true; }
 	void sawMatchbot(std::string bot); // Target body lives in PeerThreadMatchbot.cpp.
 	QMStatus getQMStatus( void ) { return m_qmStatus; }
 	void handleQMMatch(PEER peer, Int mapIndex, Int seed, char *playerName[MAX_SLOTS], char *playerIP[MAX_SLOTS], char *playerSide[MAX_SLOTS], char *playerColor[MAX_SLOTS], char *playerNAT[MAX_SLOTS]);
@@ -1907,7 +1916,7 @@ void quickmatchEnumPlayersCallback( PEER peer, PEERBool success, RoomType roomTy
 	}
 
 	Int id = 0;
-	peerGetPlayerProfileID(peer, nick, qmProfileIDCallback, &id, PEERTrue);
+	peerGetPlayerProfileIDA(peer, nick, reinterpret_cast<void *>(qmProfileIDCallback), &id, PEERTrue);
 	DEBUG_LOG(("Saw player %s with id %d (looking for %d)\n", nick, id, matchbotProfileID));
 	if (id == matchbotProfileID)
 	{
