@@ -1,8 +1,4 @@
 // ?rva006D9500@Rva006D9500@@QAEXH@Z
-// partial score=0.95 date=2026-09-30
-// ?rva006D9500@Rva006D9500@@QAEXH@Z
-// partial score=0.95 date=2026-09-30
-// ?rva006D9500@Rva006D9500@@QAEXH@Z
 // cl: /O2 /DNDEBUG /DWIN32 /D_WINDOWS /MD
 // Apt array reserve: grow 4-byte elements to next pow2 >= requested (min 8)
 // via ChainBlockAllocator, memset new, memcpy old, free old.
@@ -43,14 +39,13 @@ private:
     int m_count24;
 };
 
-// ?rva006D9500@Rva006D9500@@QAEXH@Z present-unmatched
 void Rva006D9500::rva006D9500(int requested)
 {
     int cmpCap = m_count24;
+    int shift = 0;
     if (cmpCap >= requested)
         return;
     int n = requested - 1;
-    int shift = 0;
     if (n != 0)
     {
         do
