@@ -61848,9 +61848,9 @@ _Rva007F5790Callback,,0x00661F40,15,Code/GameEngine/Source/GameNetwork/Rva007F70
 ?rva002F370D@Pathfinder@@QAEHXZ,,0x002F370D,43,Code/GameEngine/Source/GameLogic/AI/PathfinderRva002F36E5.cpp,matched,unlock lane queue 0x1D1F0 clear all via 0x0052DAE9 0x002F301F sibling of 0x002F36E5
 ?rva002F40E7@Pathfinder@@QAEHXZ,,0x002F40E7,46,Code/GameEngine/Source/GameLogic/AI/PathfinderRva002F36E5.cpp,matched,chain from 0x002F370D plus release 0x0052DE9B stats 0x34 0x3C 0x40 0x44
 ?rva002C717E@Rva002A8AB1Record@@QAEXABVAsciiString@@H@Z,,0x002C717E,24,Code/GameEngine/Source/Common/Rva002C717EMethod.cpp,matched,map store via rowed operator[] 14 tactic callers
-?Rva00528C30Get@@YA_NPBDAAVAsciiString@@@Z,,0x00528C30,27,Code/GameEngine/Source/Common/Rva00528C30.cpp,matched,GetParam wrapper with literal name plus uchar local bool normalize
 ??1Rva00577838@@UAE@XZ,,0x00577838,14,Code/GameEngine/Source/Common/Rva00577838Dtor.cpp,matched,vptr plus member at plus4 tail-jmp to pinned 0x577010
 ??1Rva00414520@@UAE@XZ,,0x00414520,78,Code/GameEngine/Source/Common/Rva00414520Dtor.cpp,matched,chain via Clear 0x0055A91A vptr C3A08C to BBB554 members +08 +18
 ?rva005D26B2@Rva005D2664@@QAEXPBD@Z,,0x005D26B2,268,Code/GameEngine/Source/Common/Rva005D26B2Method.cpp,matched,parse idx/name alloc Rva005D2462 Set via 0x00575674 siblings Rva005D2664Method
 ?Rva0051BF47Run@@YAXXZ,,0x0051BF47,46,Code/GameEngine/Source/Common/Rva0051BF47.cpp,matched,unlock caller 0x0051C160 rowed enable plus vslot plus free tail pin
 ?rva0043BE7C@SkirmishPreferences@@QAEXXZ,,0x0043BE7C,77,Code/GameEngine/Source/Common/SkirmishPreferences.cpp,matched,SkirmishPreferences helper (AptSkirmish::OnChangeProfile calls it before saving): with TheSkirmishGameInfo set keeps its getMap via rowed Rva0043BE36 then pinned 0x0043BD36; replaces the address pin of the same name
+??0Rva0057709A@@QAE@H@Z,,0x0057709A,49,Code/GameEngine/Source/Common/VslotSmallBodiesAI.cpp,matched,derived ctor of Rva005CBA04 via global plus outer arg plus vtable overwrite
