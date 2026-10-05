@@ -1,7 +1,7 @@
 // ?parseSubtitleLineTable@@YAXPAVINI@@PAX1PBX@Z
-// partial score=0.98 date=2026-09-29
-// ?parseSubtitleLineTable@@YAXPAVINI@@PAX1PBX@Z
-// partial score=0.98 date=2026-09-24
+// The x87 operand order is a compiler-side rewrite, not a source spelling: declaring
+// the running previous value volatile stops MSVC folding the load through the add,
+// which is what turns retail fld [previous] / fadd [step] into fadd [step] / fld [previous].
 // Retail 0x006883F0, 340 bytes. The BFME2 beta debug string and the
 // SubtitleManager field table identify this as the LineTable parser.
 // The field table at data VA 0x00CE4410 stores it under "LineTable" at
@@ -10,21 +10,12 @@
 // Target behavior reconstructed from the retail body. The 15-point cap,
 // [0,1] range and 0.01875 minimum step are data/branch evidence, not donor
 // assumptions.
-// cl: /O2 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /O2 /DNDEBUG /MD /EHsc
+
+#include "ascii_string.h"
 
 typedef int Int;
 typedef float Real;
-
-class AsciiString
-{
-public:
-	AsciiString();
-	AsciiString(const AsciiString &);
-	~AsciiString();
-
-private:
-	void *m_data;
-};
 
 class INI
 {
@@ -95,7 +86,7 @@ void parseSubtitleLineTable(INI *ini, void *instance, void *store, const void *u
 	if (manager != 0 && values != 0)
 	{
 		*((unsigned char *)manager + 0x60) = 1;
-		Real previous = -3.402823466e+38F;
+		volatile Real previous = -3.402823466e+38F;
 		for (Int index = 0; index < 15; ++index)
 		{
 			Real value = ini->scanReal(ini->getNextToken(0));
