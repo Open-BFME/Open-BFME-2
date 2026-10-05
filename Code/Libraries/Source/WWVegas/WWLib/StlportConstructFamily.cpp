@@ -90,3 +90,58 @@ Rva00500856::Rva00500856(const Rva00500856 &that)
 }
 
 template void _STL::_Construct<Rva00500856, Rva00500856>(Rva00500856 *, const Rva00500856 &);
+
+// More _Construct<T, T> bodies of the same 45-byte shape, each named by the
+// rows that call it (push_back / _M_insert_overflow / uninitialized helpers or
+// a list node factory for the same element view) and pinned there already:
+//
+//   _Construct  element                 copy ctor
+//   0x003B8AD8  BfmePod104              0x0040E96D
+//   0x0040B99F  Rva0040C0C7Element      0x0040B707
+//   0x004140D0  Rva00414258Element      0x00414093
+//   0x0052D355  Rva005668E9Element      0x004334D7
+//   0x000C3717  BfmePod252              0x000C254B
+//   0x000C78F3  BfmePod248              0x000C6B17
+//   0x00289E69  BfmePod264              0x00289CEB
+struct BfmePod104
+{
+	int a;
+	BfmePod104(const BfmePod104 &that);
+};
+struct Rva0040C0C7Element
+{
+	int a;
+	Rva0040C0C7Element(const Rva0040C0C7Element &that);
+};
+struct Rva00414258Element
+{
+	int a;
+	Rva00414258Element(const Rva00414258Element &that);
+};
+struct Rva005668E9Element
+{
+	int a;
+	Rva005668E9Element(const Rva005668E9Element &that);
+};
+struct BfmePod252
+{
+	int a;
+	BfmePod252(const BfmePod252 &that);
+};
+struct BfmePod248
+{
+	int a;
+	BfmePod248(const BfmePod248 &that);
+};
+struct BfmePod264
+{
+	int a;
+	BfmePod264(const BfmePod264 &that);
+};
+template void _STL::_Construct<BfmePod104, BfmePod104>(BfmePod104 *, const BfmePod104 &);
+template void _STL::_Construct<Rva0040C0C7Element, Rva0040C0C7Element>(Rva0040C0C7Element *, const Rva0040C0C7Element &);
+template void _STL::_Construct<Rva00414258Element, Rva00414258Element>(Rva00414258Element *, const Rva00414258Element &);
+template void _STL::_Construct<Rva005668E9Element, Rva005668E9Element>(Rva005668E9Element *, const Rva005668E9Element &);
+template void _STL::_Construct<BfmePod252, BfmePod252>(BfmePod252 *, const BfmePod252 &);
+template void _STL::_Construct<BfmePod248, BfmePod248>(BfmePod248 *, const BfmePod248 &);
+template void _STL::_Construct<BfmePod264, BfmePod264>(BfmePod264 *, const BfmePod264 &);
