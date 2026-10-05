@@ -1,7 +1,3 @@
-// ?rva0039BCF8@Rva0039BCF8@@QAEPAPAXPAX@Z
-// partial score=0.96 date=2026-10-05
-// ?rva0039BCF8@Rva0039BCF8@@QAEPAPAXPAX@Z
-// partial score=0.96 date=2026-10-05
 // cl: /O1 /DNDEBUG /MD /EHsc
 // ?rva0039BCF8@Rva0039BCF8@@QAEPAPAXPAX@Z @0x0039BCF8 48B vector erase-first helper over +0x304 via rowed voidptr erase.
 // Linear search for val then rowed erase; returns erase iterator or end.
@@ -40,14 +36,15 @@ public:
 	_STL::vector<void *> m_vec;
 };
 
-// ?rva0039BCF8@Rva0039BCF8@@QAEPAPAXPAX@Z present-unmatched
 void **Rva0039BCF8::rva0039BCF8(void *val)
 {
-	void **last = m_vec.m_end;
 	void **it = m_vec.m_begin;
-	while (it != last && *it != val)
+	if (it == m_vec.m_end)
+		return it;
+	while (it != m_vec.m_end) {
+		if (*it == val)
+			return m_vec.erase(it);
 		++it;
-	if (it != last)
-		return m_vec.erase(it);
-	return last;
+	}
+	return it;
 }
