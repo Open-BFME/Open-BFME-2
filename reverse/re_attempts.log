@@ -10126,3 +10126,4 @@ FUN_005182a0	0x001182A0	399	blocked	big WW3D render 399B with x87 FPU cw plus SS
 ?rva00429007@Rva00429007@@QAEHPAUArg@@H@Z	0x00429007	140	partial	same wall as 0x00429093 early push esi plus mov esi 0x42c plus extra append t=10 model=muse-06 score=0.93 stash=reverse/attempts/0x00429007.cpp
 ?rva004292F6@Rva004292F6@@QAEHPAUArg@@H@Z	0x004292F6	248	blocked	needs 0x432-0x431-0x42f type select plus movsd Coord3D copy plus dual append plus g_00E032F8 t=10 model=muse-06
 ?Rva00429CBBEval@@YGHPAVDrawable@@PBUCoord3D@@H@Z	0x00429CBB	342	blocked	2-push call vs 3-arg canAnyForceAttack row plus pop-pop vs add-12 plus8B t=15 model=muse-06
+?Get_Current_UV_Offset@LinearOffsetTextureMapperClass@@QAEXAAVVector2@@@Z	0x00709D33	18	refuted	Interior suffix of PC AptScriptFunction2 GetConstantPool709D30; vtable8EE9F0 points to full21B and original decorated donor method raw bytes agree; no standalone texture-mapper identity; t=5 model=GPT-6
