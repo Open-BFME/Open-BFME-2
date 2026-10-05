@@ -65,3 +65,6 @@ template _STL::map<int, Rva00502861Mapped>::iterator _STL::map<int, Rva00502861M
 template _STL::map<int, Rva00502BCDMapped>::iterator _STL::map<int, Rva00502BCDMapped>::insert(_STL::map<int, Rva00502BCDMapped>::iterator, const _STL::map<int, Rva00502BCDMapped>::value_type &);
 // multimap::insert(hint) forwarder @0x00501A0B (29B) over the insert_equal row above.
 template _STL::multimap<int, Rva00501130Mapped>::iterator _STL::multimap<int, Rva00501130Mapped>::insert(_STL::multimap<int, Rva00501130Mapped>::iterator, const _STL::multimap<int, Rva00501130Mapped>::value_type &);
+// map::insert(hint) @0x004F9ED6 and multimap::insert(hint) @0x0050364E (29B each).
+template _STL::map<int, Rva004F90FFMapped>::iterator _STL::map<int, Rva004F90FFMapped>::insert(_STL::map<int, Rva004F90FFMapped>::iterator, const _STL::map<int, Rva004F90FFMapped>::value_type &);
+template _STL::multimap<int, Rva00502FAEMapped>::iterator _STL::multimap<int, Rva00502FAEMapped>::insert(_STL::multimap<int, Rva00502FAEMapped>::iterator, const _STL::multimap<int, Rva00502FAEMapped>::value_type &);
