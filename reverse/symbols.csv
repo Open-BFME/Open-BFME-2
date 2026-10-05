@@ -12856,3 +12856,5 @@ _Rva00337999Forward,0x00337999,REL32 callee decoded from target call bytes of wr
 ?TheGameLogic@@3PAVGameLogic@@A,0x00DFE78C,TheGameLogic global; +0x1b4 count read by 0x341C54
 ?g_00DFEFF0@@3PAXA,0x00DFEFF0,log-file global tested non-null by 0x341C54
 ?g_00DFF0F8@@3PAXA,0x00DFF0F8,dispatch-table global whose +0x10 member receives the 0x341C54 five-arg call
+?rva00343DD8@@YAXPAVRva00343F8A@@PAX@Z,0x00343DD8,TU-local goal-path callee (cdecl state plus opaque); RETAIL REL32 in 0x343F8A targets 0x343DD8 when getGoalObject is non-null
+?rva0033FD98@@YAXPAVRva00343F8A@@PAX@Z,0x0033FD98,TU-local no-goal callee (cdecl state plus opaque); RETAIL REL32 in 0x343F8A targets 0x33FD98 when getGoalObject is null
