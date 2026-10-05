@@ -8601,3 +8601,4 @@ STILL OPEN, and now the ONLY thing between this body and a landing: the je DISPL
 ?rva00604AD3@Rva00604AD3@@QAEPAXPBGHPAPAX@Z	0x00604AD3	388	blocked	388B EH Unicode factory with path loop and 4 virtual families needs full vtable and TheNullChr linkage work t=25 model=muse-spark
 ?rva00280ADF@Rva00280ADF@@QAEHH@Z	0x00280ADF	59	blocked	vector pair search by second field 6 variants unsigned ptr-index and Og- tried retail reloads end-begin each iteration for count ours hoists to 49B vs 59B needs shared-delta or donor t=30 model=muse-spark
 ?rva00396B25@Rva00396B25@@QAEXXZ	0x00396B25	160	partial	159B Money receiver lea ecx late vs mov ecx early plus pop order t=40 model=muse-spark score=0.95 stash=reverse/attempts/0x00396b25.cpp
+?rva0030E67C@Rva0030E7D0@@QBEMMM@Z	0x0030E67C	340	partial	353B bilinear two-order branch with extra moves vs retail 340B scheduling and cmovg clamp t=50 model=muse-spark score=0.92 stash=reverse/attempts/0x0030e67c.cpp
