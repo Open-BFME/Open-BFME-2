@@ -61705,3 +61705,4 @@ _Rva00023540,,0x00023540,271,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleF
 ?resize@BfmePod36Vector@@QAEXI@Z,,0x000B0899,94,Code/Libraries/Source/WWVegas/WWLib/stlport_pod36_resize_byvalue.cpp,matched,Pod36 one-arg zero forward by-value chain
 ?rva000B08F7@Rva000B08F7@@QAEXXZ,,0x000B08F7,147,Code/GameEngine/Source/Common/Rva000B08F7.cpp,matched,large clear two 0x1000 blocks plus E16 Pod36 resizes
 ?rva005D28F4@Rva005D2664@@QAEXPBD@Z,,0x005D28F4,44,Code/GameEngine/Source/Common/Rva005D27BEMethod.cpp,matched,chain from rowed 005D2505Get plus rowed clear
+?rva005D2A27@Rva005D2664@@QAEXPBD@Z,,0x005D2A27,44,Code/GameEngine/Source/Common/Rva005D27BEMethod.cpp,matched,chain from rowed 005D2505Get plus sibling 005D28F4 shape plus rowed 00529009 at offset 0x24
