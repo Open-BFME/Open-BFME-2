@@ -9357,3 +9357,4 @@ FUN_0047ffed	0x0007FFED	233	blocked	anonymous water-setting dispatch (thiscall +
 ?forward3@Rva0066F5F0ForwardView@@QAEXXZ	0x0066F620	12	blocked	tail-jump forwarder void ABI unproven with no callers no vtable slot proof needs class reconciliation t=4 model=muse-03
 ?forward2@Rva0066F5F0ForwardView@@QAEXXZ	0x0066F610	28	blocked	2 INT3-bounded tail jumps 12 12 not one function and void ABI unproven with no callers t=3 model=muse-03
 ??1StancesBehavior@@UAE@XZ	0x0045F001	103	blocked	vptr stores 0 vs retail 3 vtables plus EH state and dword [ebp-4] 0 vs mov 1 then byte 0 then or -1 size 96 vs 103 t=5 model=muse-03
+?rva005FEC0C@Rva005FEC0C@@QAEXXZ	0x005FEC0C	240	blocked	timer format cmovs idiv edi vs eax wall t=12 model=muse-08
