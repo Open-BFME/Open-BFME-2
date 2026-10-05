@@ -55820,3 +55820,4 @@ ___Extract_locale_name,,0x000216A0,153,Code/Libraries/Source/WWVegas/WWLib/Local
 ?Rva0032AF02Compare@@YAHHHH@Z,,0x0032AF02,84,Code/GameEngine/Source/Common/Rva0032AF02Compare.cpp,matched,same 84B shape as Rva002ABC22Compare via Compare callers and vtables
 ?Rva0032B610Compare@@YAHHH@Z,,0x0032B610,31,Code/GameEngine/Source/Common/Rva0032B610Compare.cpp,matched,chain via 0x0032AF02 memset1 stosb pattern per Rva002AC271Compare
 ?rva0057C2CC@Rva0057C2CC@@QAEXXZ,,0x0057C2CC,8,Code/GameEngine/Source/Common/Rva0057C236UnloadContent.cpp,matched,UnloadContent forwarder via +4 tail-jmp to rowed 0x0057C236
+??1Rva0057C2D4Elem@@QAE@XZ,,0x0057C2D4,73,Code/GameEngine/Source/Common/Rva0057C2D4ElemDtor.cpp,matched,Elem dtor holder +14 Rva +8 AsciiString +4 per retail calls
