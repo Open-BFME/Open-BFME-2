@@ -8,8 +8,47 @@
 // destructor at 0x15D040 calls this body at 0x15B300.
 #include "always.h"
 #include <string.h>
-#include <sharebuf.h>
 extern void __cdecl operator delete[](void *) throw();
+
+// Retail's out-of-line RefCountClass copies (Release_Ref, deleting dtor) are the
+// small form; this TU builds /G7 which emits add/esp forms instead. Compile just
+// the base class for size so our COMDATs match the kept copies. Code this TU's
+// rows inline keeps this TU's flags.
+#pragma optimize("s", on)
+class RefCountClass
+{
+public:
+	RefCountClass() : NumRefs(1) {}
+	RefCountClass(const RefCountClass &) : NumRefs(1) {}
+
+	void Release_Ref()
+	{
+		if (--NumRefs == 0)
+			Delete_This();
+	}
+
+	virtual void Delete_This() { delete this; }
+
+protected:
+	virtual ~RefCountClass() {}
+
+private:
+	int NumRefs;
+};
+#pragma optimize("", on)
+
+template <class T>
+class ShareBufferClass : public RefCountClass
+{
+public:
+	~ShareBufferClass();
+
+protected:
+	T *RawBuffer; // +0x08
+	T *Array; // +0x0C
+	int Count; // +0x10
+	int Alignment; // +0x14
+};
 
 // Target buffer destructors free the raw array without clearing the base fields.
 // Only the established RefCountClass prefix is used here.
