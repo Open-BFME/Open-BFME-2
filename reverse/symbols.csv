@@ -12069,3 +12069,6 @@ _rva00286E33@8,0x00286E33,stdcall out-param 5B writer called from 0x287B2A with 
 ?rva00278440@Rva00278440Host@@QAEXH@Z,0x00278440,thiscall with int from 0x2784AF
 ?rva0020D8F1@Rva0020D8F1Host@@QAEXPAVRva002856CFHost@@@Z,0x0020D8F1,thiscall on global 0xDFE1A8 with this from 0x2856CF
 ?rva002197A6@Rva002197A6Host@@QAEPAXH@Z,0x002197A6,thiscall with int from 0x28F2F8 returns bool
+?assign@Rva000C4D89AssignView@@QAEXPBUBfmeNarrowRecord00079C23@@0@Z,0x000C4D89,Seat-12 r16 throwing range-assign view for W3DModelDrawModuleData m_70 vector<BfmeNarrowRecord 0x2C>; body calls rowed copy 0xC47B2 (stride 0x2C via C379B) plus destroy 0xBD2A6 (stride 0x2C); thiscall (this,first,last) ret 8; matches retail call at 0xC9098 with [vec+4]/[vec] loads
+?assign@Rva000C690CAssignView@@QAEXPBURva000BEDF0Record@@0@Z,0x000C690C,Seat-12 r16 throwing range-assign view for m_7C vector<0x14>; body calls C2483 (via rowed 0x14 copy C0CE1) plus rowed destroy C37E6 (stride 0x14 via BEDF0); thiscall ret 8; matches retail call at 0xC90A7
+??0Rva000C6A4D@@QAE@XZ,0x00C6A4D,Seat-12 r17 address-derived ctor candidate for W3DModelDrawModuleData 0xF8 temp; consumer C8EEF calls it at 0xC90E3 with ecx=ebp-0x10C (sub-esp-0x100 frame); body SEH prolog mov eax 0xB61F24 call 0x629188 plus [esi]=0 plus [esi+4] via 0x42526 plus vectors via 0x211E58; identity unproven, pins candidate only
