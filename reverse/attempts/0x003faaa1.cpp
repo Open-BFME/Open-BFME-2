@@ -1,9 +1,17 @@
 // ?rva003FAAA1@Rva003FAAA1@@QAE_NPAX@Z
-// partial score=0.98 date=2026-10-05
+// partial score=0.99 date=2026-10-05
+// ?rva003FAAA1@Rva003FAAA1@@QAE_NPAX@Z
 // cl: /O1 /arch:SSE /MD
 // ?rva003FAAA1@Rva003FAAA1@@QAE_NPAX@Z @0x003FAAA1, 236B.
 // Overlap test via rowed Region3D copy 0x0009AC04 LineSeg ctor 0x000927F9 and Overlap_Test 0x00723870.
 // Evidence: retail calls 0x0009AC04 0x000927F9 0x00723870 plus virtuals at +0x108 and +0x34, data g_00DFEF18 g_00BC7000, caller 0x002BFE80.
+//
+// The field write ORDER is load-bearing and is not the natural spelling. Writing
+// p0 as Y,Z,X (not X,Y,Z) is what fixes the register assignment: it makes
+// xmm4=[ebp-0x14] and xmm5=[ebp-0x10] load in retail's order rather than
+// swapped, which in turn fixes the addss operands. Restoring p0.X from the
+// captured sink BEFORE the p1 field writes (rather than after) is what moves the
+// final nine-store block to its retail order. Both are codegen devices.
 class Vector3
 {
 public:
@@ -109,8 +117,8 @@ bool Rva003FAAA1::rva003FAAA1(void *arg)
 	TheGlobal003FAAA1->GetVectors(arg, &b1, &b2);
 	float scale = g_00BC7000;
 	Vector3 p0;
-	p0.Z = b1.Z;
 	p0.Y = b1.Y;
+	p0.Z = b1.Z;
 	p0.X = b1.X;
 	b2.X *= scale;
 	b2.Y *= scale;
@@ -119,11 +127,11 @@ bool Rva003FAAA1::rva003FAAA1(void *arg)
 	b1.X += b2.X;
 	b1.Y += b2.Y;
 	b1.Z += b2.Z;
+	p0.X = sink;
 	Vector3 p1;
 	p1.X = b1.X;
 	p1.Y = b1.Y;
 	p1.Z = b1.Z;
-	p0.X = sink;
 	LineSegClass seg(p0, p1);
 	if (CollisionMath::Overlap_Test(box, seg) == 1)
 		return false;
