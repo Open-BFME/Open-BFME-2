@@ -542,3 +542,43 @@ void Rva005C7BE1::rva005C7AE1(int count)
 	((BfmeAptWindowManager *)TheRva00222A8BTarget)->bfmeSetText(key, text, false);
 	m_count = count;
 }
+
+// ?rva005C7B96@Rva005C7B96@@QAEXH@Z @0x005C7B96 75B gap indexed Apt SetState setter via rowed Rva0050E9FEAptCall
+// Evidence: flag at +0x4c plus cached index at +0x50 plus team ptr at +0x0c with +8 name or empty plus level at +0x08 plus table g_00C74A98 indexed by arg plus SetState plus TheRva00222A8BTarget; same shape as rowed Rva005FB6E2 eliminated/survived setters; caller jmp at 0x005C7C78.
+class Rva00222A8BTarget;
+extern Rva00222A8BTarget *TheRva00222A8BTarget;
+extern const char g_Rva0107301CEmptyString[];
+extern const char *g_00C74A98[];
+int __cdecl Rva0050E9FEAptCall(Rva00222A8BTarget *target, void *level, const char *prefix, const char *function, const char **a0);
+struct Rva005C7B96Team
+{
+    char m_pad[8];
+    char m_name[1];
+};
+class Rva005C7B96
+{
+public:
+    void rva005C7B96(int index);
+private:
+    char m_pad00[8];
+    void *m_level08;
+    Rva005C7B96Team *m_team0C;
+    char m_pad10[0x4C - 0x10];
+    unsigned char m_flag4C;
+    char m_pad4D[3];
+    int m_cached50;
+};
+void Rva005C7B96::rva005C7B96(int index)
+{
+    if (!m_flag4C)
+        return;
+    if (index == m_cached50)
+        return;
+    const char *teamName;
+    if (m_team0C)
+        teamName = m_team0C->m_name;
+    else
+        teamName = g_Rva0107301CEmptyString;
+    Rva0050E9FEAptCall(TheRva00222A8BTarget, m_level08, teamName, "SetState", &g_00C74A98[index]);
+    m_cached50 = index;
+}
