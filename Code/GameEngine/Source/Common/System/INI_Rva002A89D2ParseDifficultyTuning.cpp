@@ -13,6 +13,7 @@
 // struct is BFME2-new (no BFME1 donor).
 
 struct FieldParse;
+extern const FieldParse g_00BFD768[];
 
 class Rva002A8823Tuning
 {
@@ -39,6 +40,6 @@ public:
 void INI::Rva002A89D2_ParseDifficultyTuning(INI *ini, void *instance, void *store, const void *userData)
 {
 	Rva002A8823Tuning tuning;
-	ini->initFromINI(&tuning, reinterpret_cast<const FieldParse *>(0x00BFD768));
+	ini->initFromINI(&tuning, g_00BFD768);
 	((Rva002A8823Tuning *)((char *)instance + 0x878))[tuning.difficulty] = tuning;
 }
