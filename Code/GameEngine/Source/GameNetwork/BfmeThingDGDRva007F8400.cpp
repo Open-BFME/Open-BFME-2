@@ -28,17 +28,98 @@ extern char g_00E0A518[];
 extern char g_00E0A53C[];
 extern char g_00E0A4A0[];
 extern char g_00E0A494[];
-extern char g_00A63690[];
-extern char g_00A636A0[];
 extern char g_00A636B0[];
-extern char g_00A636D0[];
-extern char g_00A636E0[];
-extern char g_00A636F0[];
-extern char g_00A64A60[];
-extern char g_00A63FF0[];
-extern char g_00A63700[];
-extern char g_00A63710[];
-extern char g_00A64A70[];
+
+class Rva007E8810Message;
+class BfmeDictESI;
+
+class Rva007F7980Browser
+{
+public:
+	void onRegion( Rva007E8810Message * value );
+	void onLobby( Rva007E8810Message * value );
+	void onGame( Rva007E8810Message * value );
+	void onPlayer( Rva007E8810Message * value );
+	void rva007f63f0( void * value );
+};
+
+class BfmeHostESI
+{
+public:
+	void bfmeApplyESI( BfmeDictESI * value );
+};
+
+class BfmeThingVJK
+{
+public:
+	void bfmeGoVJK( int value );
+};
+
+class BfmeThingZI
+{
+public:
+	void rva007F7640( Rva007E8810Message * value );
+	void rva007F7DA0( Rva007E8810Message * value );
+};
+
+class BfmeHostBT
+{
+public:
+	void Rva007F7C70( Rva007E8810Message * value );
+};
+
+// The reply handlers registered below: each is handed the reply and the owner
+// registered with it and forwards the reply to one owner method. All ten
+// callees are already matched; the handler names carry their own addresses.
+void Rva00663690Handler( Rva007E8810Message * value, Rva007F7980Browser *owner )
+{
+	owner->onRegion( value );
+}
+
+void Rva006636A0Handler( Rva007E8810Message * value, Rva007F7980Browser *owner )
+{
+	owner->onLobby( value );
+}
+
+void Rva006636D0Handler( Rva007E8810Message * value, Rva007F7980Browser *owner )
+{
+	owner->onGame( value );
+}
+
+void Rva006636E0Handler( Rva007E8810Message * value, Rva007F7980Browser *owner )
+{
+	owner->onPlayer( value );
+}
+
+void Rva006636F0Handler( void * value, Rva007F7980Browser *owner )
+{
+	owner->rva007f63f0( value );
+}
+
+void Rva00663700Handler( BfmeDictESI * value, BfmeHostESI *owner )
+{
+	owner->bfmeApplyESI( value );
+}
+
+void Rva00663710Handler( int value, BfmeThingVJK *owner )
+{
+	owner->bfmeGoVJK( value );
+}
+
+void Rva00663FF0Handler( Rva007E8810Message * value, BfmeThingZI *owner )
+{
+	owner->rva007F7640( value );
+}
+
+void Rva00664A60Handler( Rva007E8810Message * value, BfmeThingZI *owner )
+{
+	owner->rva007F7DA0( value );
+}
+
+void Rva00664A70Handler( Rva007E8810Message * value, BfmeHostBT *owner )
+{
+	owner->Rva007F7C70( value );
+}
 
 class Rva0112B800Base
 {
@@ -158,17 +239,17 @@ void BfmeThingDGD::rva007F8400( unsigned char arg34, int arg35, void *forwarded 
 	((BfmeThingRE *)m_0c)->bfmeRunRE( forwarded );
 	m_14 = m_10->v1();
 	m_14->m_6a8->v3( static_cast< Rva0112B7F8Base * >( this ), 0 );
-	m_14->v4( (void *)g_00E0A3EC, (void *)g_00A63690, this );
-	m_14->v4( (void *)g_00E0A410, (void *)g_00A636A0, this );
+	m_14->v4( (void *)g_00E0A3EC, (void *)Rva00663690Handler, this );
+	m_14->v4( (void *)g_00E0A410, (void *)Rva006636A0Handler, this );
 	m_14->v4( (void *)g_00E0A4C4, (void *)g_00A636B0, this );
-	m_14->v4( (void *)g_00E0A4B8, (void *)g_00A636D0, this );
-	m_14->v4( (void *)g_00E0A470, (void *)g_00A636E0, this );
-	m_14->v4( (void *)g_00E0A530, (void *)g_00A636F0, this );
-	m_14->v4( (void *)g_00E0A548, (void *)g_00A64A60, this );
-	m_14->v4( (void *)g_00E0A518, (void *)g_00A63FF0, this );
-	m_14->v4( (void *)g_00E0A53C, (void *)g_00A63700, this );
-	m_14->v4( (void *)g_00E0A4A0, (void *)g_00A63710, this );
-	m_14->v4( (void *)g_00E0A494, (void *)g_00A64A70, this );
+	m_14->v4( (void *)g_00E0A4B8, (void *)Rva006636D0Handler, this );
+	m_14->v4( (void *)g_00E0A470, (void *)Rva006636E0Handler, this );
+	m_14->v4( (void *)g_00E0A530, (void *)Rva006636F0Handler, this );
+	m_14->v4( (void *)g_00E0A548, (void *)Rva00664A60Handler, this );
+	m_14->v4( (void *)g_00E0A518, (void *)Rva00663FF0Handler, this );
+	m_14->v4( (void *)g_00E0A53C, (void *)Rva00663700Handler, this );
+	m_14->v4( (void *)g_00E0A4A0, (void *)Rva00663710Handler, this );
+	m_14->v4( (void *)g_00E0A494, (void *)Rva00664A70Handler, this );
 
 	if( byte35 != 0 )
 	{
