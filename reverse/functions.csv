@@ -62454,3 +62454,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?Rva0040D380Get@@YGHH@Z,,0x0040D380,22,Code/GameEngine/Source/Common/Rva0040D380Get.cpp,matched,chain via bfmeFind1038 returns 2c or 1
 ?rva002736BA@Drawable@@QAEXABV?$StringBase@D@@H@Z,,0x002736BA,155,Code/GameEngine/Source/GameClient/Drawable_rva002736BA.cpp,matched,Drawable find-or-create Anim2D slot10 via g_00DFF068 and TheGameLogic frame
 ?rva0036E1C3@AIGroup@@QAEXABV?$StringBase@D@@H@Z,,0x0036E1C3,52,Code/GameEngine/Source/GameLogic/AI/AIGroupRva0036E1C3.cpp,matched,AIGroup walk members via Thing getDrawable to Drawable slot10
+?Rva00204386Get@@YGPAVParticleSystemTemplate@@PBD@Z,,0x00204386,111,Code/GameEngine/Source/GameClient/System/Rva00204386Get.cpp,matched,clone helper findTemplate plus new copy
