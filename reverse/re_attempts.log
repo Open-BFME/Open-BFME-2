@@ -10120,3 +10120,8 @@ FUN_005182a0	0x001182A0	399	blocked	big WW3D render 399B with x87 FPU cw plus SS
 ?rva0060D269@Rva0060D269@@QAEAAIABV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@Z	0x0060D269	128	blocked	frame 4B shift plus missing flag and shared cleanup t=18 model=muse-04
 ?rva0060DE23@BfmeRva00C7B388@@QAEXXZ	0x0060DE23	142	partial	empty check reuses finish load vs retail reloads extra mov 3B short no reg diffs t=15 model=muse-04 score=0.96 stash=reverse/attempts/0x0060de23.cpp
 ?rva002784EB@Drawable@@QAEXXZ	0x002784EB	235	blocked	frame 0x98 vs 0x94 event size wall plus missing Release mid-function and add-eax-4 vs lea t=22 model=muse-05
+?Rva004293EEGet@@YGHPAUArg@@0H@Z	0x004293EE	131	blocked	free stdcall 3-arg message 0x425 with drawable check needs cmp-pushmem idioms plus shared epilogue t=30 model=muse-06
+?rva00429093@Rva00429093@@QAEHPAUArg@@H@Z	0x00429093	127	partial	early push esi plus mov esi 0x420 plus shared epilogue t=30 model=muse-06 score=0.93 stash=reverse/attempts/0x00429093.cpp
+?rva00429112@Rva00429112@@QAEHPAUArg@@H@Z	0x00429112	127	partial	same wall as 0x00429093 early push esi plus mov esi 0x42d plus shared epilogue t=5 model=muse-06 score=0.93 stash=reverse/attempts/0x00429112.cpp
+?rva00429007@Rva00429007@@QAEHPAUArg@@H@Z	0x00429007	140	partial	same wall as 0x00429093 early push esi plus mov esi 0x42c plus extra append t=10 model=muse-06 score=0.93 stash=reverse/attempts/0x00429007.cpp
+?rva004292F6@Rva004292F6@@QAEHPAUArg@@H@Z	0x004292F6	248	blocked	needs 0x432-0x431-0x42f type select plus movsd Coord3D copy plus dual append plus g_00E032F8 t=10 model=muse-06

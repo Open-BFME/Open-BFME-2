@@ -62391,3 +62391,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva000E055A@Rva000E0536@@QAEXPAXI@Z,,0x000E055A,42,Code/GameEngine/Source/Common/Rva00057B27ReserveSet.cpp,matched,same this rowed 0x000E0536 fills 9B temp then copies to dst ret 8
 ?rva00278644@Drawable@@QAEXXZ,,0x00278644,69,Code/GameEngine/Source/Common/DrawableRva00278644.cpp,matched,Drawable one-shot flag 0x44A via rowed callees and vslot table walk
 ?rva002785FB@Drawable@@QAEX_N@Z,,0x002785FB,49,Code/GameEngine/Source/Common/DrawableRva002785FB.cpp,matched,Drawable bool setter 0x448 true via host and 784EB false via 743D7 and 714CA
+?Rva00429471IssueFireWeapon@@YGHPBVCommandButton@@HPAVDrawable@@PBUCoord3D@@@Z,,0x00429471,593,Code/GameEngine/Source/Common/Rva00429471IssueFireWeapon.cpp,matched,BFME1 donor issueFireWeaponCommand options-7 isValid slot75 0x1000-0x20 arms weaponSlot-maxShots PickAndPlayInfo
