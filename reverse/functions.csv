@@ -55818,3 +55818,4 @@ ___Extract_locale_name,,0x000216A0,153,Code/Libraries/Source/WWVegas/WWLib/Local
 ?rva00050F29@Rva00050F29@@QAEHHH@Z,,0x00050F29,24,Code/Libraries/Source/WWVegas/WWLib/Rva00050F29.cpp,matched,leaf thiscall virtual slot88 neg sbb inc honest Rva name
 ?rva002E7482@Rva002E7482@@QAEMH@Z,,0x002E7482,42,Code/GameEngine/Source/GameLogic/Object/Rva002E7482.cpp,matched,float getter via rowed predicate 0x001E3679 and BfmeZeroRange with 64B stride at plus9C
 ?Rva0032AF02Compare@@YAHHHH@Z,,0x0032AF02,84,Code/GameEngine/Source/Common/Rva0032AF02Compare.cpp,matched,same 84B shape as Rva002ABC22Compare via Compare callers and vtables
+?Rva0032B610Compare@@YAHHH@Z,,0x0032B610,31,Code/GameEngine/Source/Common/Rva0032B610Compare.cpp,matched,chain via 0x0032AF02 memset1 stosb pattern per Rva002AC271Compare
