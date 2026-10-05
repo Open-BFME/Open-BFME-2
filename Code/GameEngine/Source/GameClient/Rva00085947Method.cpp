@@ -14,6 +14,11 @@ class BfmeThingBFG { public: void rva0025F3F3(); };
 class Rva0030E8DF { public: void rva0030E8DF(); };
 struct RvaFloatPair { float a; float b; };
 struct RvaLoc12 { int a; int b; int c; };
+class Vector3 { public: float x; float y; float z; };
+class RenderObjClass {
+public:
+	Vector3 Get_Position() const;
+};
 class Rva00BCF670CameraSettings {
 public:
 	virtual void camSlot00();
@@ -154,10 +159,13 @@ public:
 	virtual void vslot111(RvaFloatPair *p);
 	void rva00085947();
 	bool rva000879A9(int v);
+	Vector3 *rva00087D42();
 private:
 	unsigned char m_pad004[0x8];
 	RvaLoc12 m_00C;
-	unsigned char m_pad018[0x138 - 4 - 0x8 - 12];
+	unsigned char m_pad018[0x104 - 4 - 0x8 - 12];
+	RenderObjClass *m_p104;
+	unsigned char m_pad108[0x138 - 0x108];
 	float m_138;
 	unsigned char m_pad13C[0x2408 - 0x13C];
 	float m_2408;
@@ -206,3 +214,25 @@ bool Rva00085947::rva000879A9(int v)
 		m_00C = loc;
 	return ok;
 }
+
+// ?rva00087D42@Rva00085947@@QAE?AVector3@@XZ @0x00087D42 94B: slot 94 of
+// vtable 0xBC7514. Caches the +0x104 RenderObjClass position into .data
+// floats on first call (atexit-guarded) and returns their address.
+static Vector3 g_00DE2068;
+static int g_00DE2074;
+extern "C" void rva00BB6C15Cleanup();
+extern "C" int __cdecl atexit(void (__cdecl *)());
+#pragma comment(linker, "/alternatename:_atexit=__atexit")
+Vector3 *Rva00085947::rva00087D42()
+{
+	Vector3 pos = m_p104->Get_Position();
+	if (!(g_00DE2074 & 1)) {
+		g_00DE2074 |= 1;
+		atexit(rva00BB6C15Cleanup);
+	}
+	g_00DE2068.x = pos.x;
+	g_00DE2068.y = pos.y;
+	g_00DE2068.z = pos.z;
+	return &g_00DE2068;
+}
+extern "C" void rva00BB6C15Cleanup() {}
