@@ -230,7 +230,10 @@ template <> class Rva0047C07FAISlots<0>
 class Rva0047C07FAI : public Rva0047C07FAISlots<142>
 {
 public:
-	virtual void rva0047C07FSlot142(int arg) = 0;
+	// AIUpdateInterface's slot 142 is chooseLocomotorSet(Int), returning Bool.
+	// The table at VA 0x00C47B98 selects 0x00268B20; the admitted rider's
+	// caller ignores the result, but the interface still returns bool.
+	virtual bool rva0047C07FSlot142(int arg) = 0;
 };
 class Rva0047C07FContain : public TransportContain
 {
