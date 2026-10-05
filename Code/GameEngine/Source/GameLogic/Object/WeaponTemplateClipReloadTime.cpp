@@ -34,10 +34,13 @@ class WeaponTemplate
 {
 public:
 	Int getClipReloadTime(const WeaponBonus &bonus) const;
+	Int rva002C9322(const WeaponBonus &bonus, Real factor) const;
 private:
 	char m_pad00[0xE8];
 	Int m_minClipReloadTime;
 	Int m_maxClipReloadTime;
+	Int m_minDelayBetweenShots;
+	Int m_maxDelayBetweenShots;
 };
 Int GetGameLogicRandomValue(Int lo, Int hi, char *file, Int line);
 // Upstream basetype.h x87 conversion. Cast/floor, roundf, and SSE intrinsic
@@ -61,4 +64,20 @@ Int WeaponTemplate::getClipReloadTime(const WeaponBonus &bonus) const
 			"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Weapon.cpp", 1006);
 	reloadTime -= reloadTime % 3;
 	return fast_float2long_round((Real)floor((double)((Real)reloadTime / bonus.getField(WeaponBonus::RATE_OF_FIRE))));
+}
+
+// ?rva002C9322@WeaponTemplate@@QBEHABVWeaponBonus@@M@Z @0x002C9322 90B
+// Delay-between-shots getter: min/max at F0/F4 (twins prove offsets), rate
+// bonus at +0x0C with extra Real factor (ret8), random diagnostic line 988
+// in Weapon.cpp, no modulo-3 tail. Provisional address-derived name; bonus
+// RATE_OF_FIRE slot and floor import match rowed clip sibling 0x002C937C.
+Int WeaponTemplate::rva002C9322(const WeaponBonus &bonus, Real factor) const
+{
+	Int delayToUse;
+	if (m_minDelayBetweenShots == m_maxDelayBetweenShots)
+		delayToUse = m_minDelayBetweenShots;
+	else
+		delayToUse = GetGameLogicRandomValue(m_minDelayBetweenShots, m_maxDelayBetweenShots,
+			"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Weapon.cpp", 988);
+	return fast_float2long_round((Real)floor((double)((Real)delayToUse / (bonus.getField(WeaponBonus::RATE_OF_FIRE) * factor))));
 }
