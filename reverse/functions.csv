@@ -60815,3 +60815,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?reset@Rva0042D766@@QAEXPAVRva00578C43@@@Z,,0x0042D766,35,Code/GameEngine/Source/Common/OwnedPointerResets.cpp,matched,owning-pointer reset same pointee as clear 0x0042D789 via pin 0x00578C43 plus delete
 ?rva005E57DB@Rva005E57DB@@QAEXPAX@Z,,0x005E57DB,72,Code/GameEngine/Source/Common/Rva005E57DBMethod.cpp,matched,slot15 vtable 0x00877D90 class 0x005E5A38 vpred slot2 new12 ctor set
 ??0Rva005E56C8@@QAE@HPAX@Z,,0x005E56C8,31,Code/GameEngine/Source/Common/Rva005E56C8Ctor.cpp,matched,vtable 0x00877D58 arg2 plus 0x12c sibling 0x005E569A shape
+??1Rva005C9B76@@UAE@XZ,,0x005C9B9C,71,Code/GameEngine/Source/GameLogic/Object/Rva005C9B76Dtor.cpp,matched,vtable 0x00874B9C rowed forEach 0x005C9A46 forwarder 0x001FF3A9 free 0x00030830 caller 0x005C9CC2
