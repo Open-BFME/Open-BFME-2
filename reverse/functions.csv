@@ -56536,3 +56536,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?parseReplaceModule@ThingTemplate@@KAXPAVINI@@PAX1PBX@Z,,0x0033CE18,279,Code/GameEngine/Source/Common/Thing/ThingTemplateParseReplaceModule.cpp,matched,BFME1 6583b3c1 ModuleRemovalParsers clean donor; target field entry DBF4F8 ReplaceModule; verified target offsets and rowed removal chain
 ?Rva0058AEBCCheck@@YG_NPAVRva002A9BF2@@@Z,,0x0058AEBC,139,Code/GameEngine/Source/GameLogic/SkirmishAI/AIDifficulty.cpp,matched,difficulty ratio chance test via g_00DFEEF8 table plus record gate
 ?rva003C4070@BfmeApplierBH@@QAEXABVAsciiString@@0@Z,,0x003C4070,213,Code/GameEngine/Source/Common/BfmeApplierBHRva003C4070.cpp,matched,BfmeApplierBH skirmish sweep via enemy player power range mask loop apply
+?Rva003C8C6EDo@@YGXABVAsciiString@@@Z,,0x003C8C6E,95,Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003C8C6EDo.cpp,matched,unit evacuate via lookup plus kind plus contain
