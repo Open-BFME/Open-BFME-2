@@ -770,30 +770,34 @@ void MessageStream::update( void )
  * to this message stream.  Return the message such that any data
  * associated with this message can be attached to it.
  */
-// ?appendMessage@MessageStream@@ present-unmatched
+#pragma optimize("t", off)
+#pragma optimize("s", on)
 GameMessage *MessageStream::appendMessage( GameMessage::Type type )
 {
-	GameMessage *msg = newInstance(GameMessage)( type );
+	GameMessage *msg = ::new GameMessage( type );
 
 	// add message to list
 	GameMessageList::appendMessage( msg );
 
 	return msg;
 }
+#pragma optimize("", on)
 
 /**
  * Create a new message of the given message type and insert it
  * in the stream after messageToInsertAfter, which must not be NULL.
  */
-// ?insertMessage@MessageStream@@ present-unmatched
+#pragma optimize("t", off)
+#pragma optimize("s", on)
 GameMessage *MessageStream::insertMessage( GameMessage::Type type, GameMessage *messageToInsertAfter )
 {
-	GameMessage *msg = newInstance(GameMessage)(type);
+	GameMessage *msg = ::new GameMessage(type);
 
 	GameMessageList::insertMessage(msg, messageToInsertAfter);
 
 	return msg;
 }
+#pragma optimize("", on)
 
 /**
  * Attach the given Translator to the message stream, and return a
