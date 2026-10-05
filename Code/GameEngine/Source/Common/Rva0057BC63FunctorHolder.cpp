@@ -29,6 +29,9 @@ public:
 	unsigned int m_refCount;
 };
 
+// ?anchor@FunctorWrapperHead@@UAEXXZ absent-from-retail
+void FunctorWrapperHead::anchor() {}
+
 class Rva0057BC63FunctorWrapper : public FunctorWrapperHead
 {
 public:
