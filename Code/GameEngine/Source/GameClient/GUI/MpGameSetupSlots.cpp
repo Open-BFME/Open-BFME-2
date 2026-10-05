@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB
+// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB
 // stlport
 //
 // Small MpGameSetup members of BFME2's LAN lobby panel (the screen's +0x288
@@ -28,9 +28,24 @@ public:
 	int rva0031475A();
 };
 
-// Unrowed 0x0043E8F1 (427 bytes; cdecl), the map list box tooltip set by
-// 0x00443BF3, pinned by address.
+// The map list box tooltip set by 0x00443BF3 (defined below).
 void Rva0043E8F1Tooltip(GameWindow *window, WinInstanceData *instData, unsigned int mouse);
+
+// Zero Hour's GadgetListBoxGetEntryBasedOnXY (GadgetListBox.cpp): the
+// 0x00323F6F wrapper forwarding to getListboxEntryBasedOnCoord 0x00323E95,
+// pinned by address.
+int GadgetListBoxGetEntryBasedOnXY(GameWindow *listBox, int x, int y, int &row, int &column);
+
+struct RGBColor;
+
+class Mouse
+{
+public:
+	// Rowed 0x001EEA6D (sets the cursor tooltip).
+	void rva001EEA6D(UnicodeString tooltip, int delay, const RGBColor *color, float width);
+};
+
+extern Mouse *TheMouse;
 
 void *bfmeGo925A(BfmeKeyLC *comboBox);
 
@@ -2410,4 +2425,50 @@ void MpGameSetup::rva0043DE19()
 		AsciiString key(name);
 		((Rva00223A94 *)TheRva00222A8BTarget)->rva00223A94(&key);
 	}
+}
+
+// Retail 0x0043E8F1, 427 bytes (cdecl). Name unknown. Zero Hour's
+// mapListTooltipFunc (SkirmishMapSelectMenu.cpp, which BFME1 keeps) moved
+// to this panel: the item data in column 1 of the row under the mouse, less
+// a 0x8000 flag, picks "TOOLTIP:MapNoSuccess" (1), the Easy (2), Medium
+// (3), Hard (4) or HardMax (6) success text, and any other value leaves the
+// tooltip alone; off any entry it is cleared.
+void Rva0043E8F1Tooltip(GameWindow *window, WinInstanceData *instData, unsigned int mouse)
+{
+	int x, y, row, col;
+	x = mouse & 0x0000FFFF;
+	y = (mouse & 0xFFFF0000) >> 16;
+
+	GadgetListBoxGetEntryBasedOnXY(window, x, y, row, col);
+
+	if (row == -1 || col == -1)
+	{
+		TheMouse->rva001EEA6D(UnicodeString::TheEmptyString, -1, 0, 1.0f);
+		return;
+	}
+
+	int imageItemData = Rva003253BEGet(window, row, 1);
+	UnicodeString tooltip;
+	switch (imageItemData & ~0x8000)
+	{
+	case 1:
+		tooltip = TheGameText->fetch("TOOLTIP:MapNoSuccess");
+		break;
+	case 2:
+		tooltip = TheGameText->fetch("TOOLTIP:MapEasySuccess");
+		break;
+	case 3:
+		tooltip = TheGameText->fetch("TOOLTIP:MapMediumSuccess");
+		break;
+	case 4:
+		tooltip = TheGameText->fetch("TOOLTIP:MapHardSuccess");
+		break;
+	case 6:
+		tooltip = TheGameText->fetch("TOOLTIP:MapHardMaxSuccess");
+		break;
+	default:
+		return;
+	}
+
+	TheMouse->rva001EEA6D(tooltip, -1, 0, 1.0f);
 }
