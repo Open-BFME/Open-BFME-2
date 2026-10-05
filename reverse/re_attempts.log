@@ -10328,3 +10328,6 @@ AptActionInterpreter_runtime_assertion_batch	0x6fd850	315	landed	Nine independen
 ?rva004AF79C@Rva004AF79C@@QAEXPAUArg38@@@Z	0x004AF79C	403	blocked	complex UpdateModule SSE STL FX leaf needs class donor t=10 model=muse-01
 FUN_008b7d53	0x004B7D53	141	blocked	vslot10 negative this-adjustment plus EH plus 5 calls needs MI donor t=12 model=muse-06
 ??0Rva00510FDB@@QAE@PAX@Z	0x00510FDB	86	blocked	MI two-vptr plus EH prolog plus map needs donor t=15 model=muse-06
+??$__linear_insert@PAVRva004F6093Holder@@V1@URva002BBC1CCmp@@@_STL@@YAXPAVRva004F6093Holder@@0V1@URva002BBC1CCmp@@@Z	0x002B73AD	135	blocked	sort TU emits 130B vs 135B; Holder value-param refcount temp esi vs ecx-eax; pin already notes codegen differs; no new lever t=10 model=muse-07
+?rva003EFDB3@Rva003EFDB3@@QAEHPAX@Z	0x003EFDB3	36	blocked	same dead mov ecx g_009FEF10 before stdcall Find wall as 0x005E575E; natural model 26B vs 36B; no new lever t=8 model=muse-07
+?aptHelper008AE3A0@@YAPAVAptValue@@PAXHH@Z	0x006ED390	186	blocked	Apt helper 186B; all callees now rowed-pinned but bfmeGo1034F rowed QAEHH takes int yet retail pushes no arg before it (mov ecx mem plus add 8 only); plus branchless flag bitops; needs callee clarification first t=12 model=muse-07
