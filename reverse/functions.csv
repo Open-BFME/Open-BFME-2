@@ -55933,3 +55933,4 @@ ___Extract_locale_name,,0x000216A0,153,Code/Libraries/Source/WWVegas/WWLib/Local
 ?rva000B9DD9@Rva000B9DD9@@QAEXABVAsciiString@@@Z,,0x000B9DD9,233,Code/GameEngine/Source/Common/System/Rva000B9DD9.cpp,matched,slot19 draw leaf AudioEventRTS via global dispatch
 ??1Rva005D1846@@QAE@XZ,,0x005D1846,75,Code/GameEngine/Source/Common/Rva005D1846Dtor.cpp,matched,nonvirtual dtor user forwarder plus two EH members free and clear
 ?rva005D18C8@Rva005D18C8@@QAEXXZ,,0x005D18C8,26,Code/GameEngine/Source/Common/Rva005D18C8.cpp,matched,owning-pointer clear via rowed dtor and delete
+??1Rva005D1A42@@UAE@XZ,,0x005D1A42,14,Code/GameEngine/Source/Common/Rva005D1A42Dtor.cpp,matched,virtual dtor tail-jmp to rowed member clear
