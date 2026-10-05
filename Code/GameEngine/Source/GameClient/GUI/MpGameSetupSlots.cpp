@@ -82,3 +82,15 @@ void MpGameSetup::rva0043E49C(int value)
 	rva0043DC0F();
 	m_owner->v17(value, true);
 }
+
+// Retail 0x0043DDF8, 33 bytes: the larger of 8 - count and 4, through
+// references like the STL max.
+template <class T> static inline const T &rva0043DDF8Max(const T &a, const T &b)
+{
+	return a > b ? a : b;
+}
+
+int Rva0043DDF8(int count)
+{
+	return rva0043DDF8Max(8 - count, 4);
+}
