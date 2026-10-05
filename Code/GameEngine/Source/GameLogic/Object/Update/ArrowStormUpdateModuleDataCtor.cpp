@@ -14,6 +14,9 @@
 class MultiIniFieldParse;
 struct FieldParse;
 
+extern "C" const void *const vtbl_00C4D5A0[];  // ??_7ArrowStormUpdateModuleData@@6B@
+#pragma comment(linker, "/alternatename:_vtbl_00C4D5A0=??_7ArrowStormUpdateModuleData@@6B@")
+
 class MultiIniFieldParse
 {
 public:
@@ -61,7 +64,7 @@ ArrowStormUpdateModuleData::ArrowStormUpdateModuleData()
 	: Rva0044EB54()
 {
 	int *weaponTemplate = &m_weaponTemplate;
-	*(unsigned int *)this = 0x00C4D5A0;
+	*(unsigned int *)this = ((unsigned int)vtbl_00C4D5A0);
 	*weaponTemplate &= 0;
 	m_shotsPerTarget = 1;
 	m_shotsPerBurst = 1;
