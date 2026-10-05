@@ -4,7 +4,7 @@
 // Dedicated TU with TU-scoped views only; no shared-header edits.
 //
 // Identity (target evidence, not bytes alone):
-// - Code-pointer tables at 0x7C6960 et al: 7 parallel Draw vtables share
+// - Code-pointer tables at 0x7C6960/0x7CA100/0x7CBCB0/0x7CC030/0x7CDCD0: five Draw vtables share
 //   consecutive slots [0xB3266,0xB3271,0xB32C2,0xB32D7,0xB32EF,0xB330C,0xB333D,
 //   0xB6FFE]. Matched neighbors prove the subsystem: 0xB3271 RadiusDecalTemplate
 //   at +0x228, 0xB333D +0x218.clear (RadiusDecal), 0xB6FFE W3DModelDraw
@@ -29,10 +29,10 @@
 //   mov eax,[esp+4]; mov eax,[eax]; test; je; mov ecx,[ecx+0x21C]; test; je;
 //   push eax; call 0x330995; ret 4. Forwards *color to Shadow setter on
 //   +0x218 decal's shadow. Arg is int* (pointed-to type beyond int unproven).
-// ?rva000B32C2@Rva000B32EF@@QAEXPBVCoord3D@@@Z, retail 0x000B32C2, 21 bytes:
+// ?rva000B32C2@Rva000B32EF@@QAEXPBUCoord3D@@@Z, retail 0x000B32C2, 21 bytes:
 //   cmp [esp+4],0; je; add ecx,0x218; jmp 0x330DFD; ret 4. Null-checked
 //   forwarder of +0x218 RadiusDecal::setPosition.
-// ?rva000B3198@Rva000B32EF@@QAEXABVCoord3D@@0@Z, retail 0x000B3198, 33 bytes:
+// ?rva000B3198@Rva000B32EF@@QAEXABUCoord3D@@0@Z, retail 0x000B3198, 33 bytes:
 //   push esi; push [esp+8]; lea esi,[ecx+0x1D0]; mov ecx,esi; call 0x330DFD;
 //   push [esp+0xC]; mov ecx,esi; call 0x330E15; pop esi; ret 8. Double setter
 //   on +0x1D0 RadiusDecal (setPosition then second Coord slot).
