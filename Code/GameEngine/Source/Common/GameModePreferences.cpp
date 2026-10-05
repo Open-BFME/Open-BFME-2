@@ -80,6 +80,8 @@ protected:
 	UnicodeString m_filename;
 };
 
+class GameSlot;
+
 class GameModePreferences : public UserPreferences
 {
 public:
@@ -104,6 +106,7 @@ public:
 	AsciiString rva0044DAA8(const AsciiString &def);
 	AsciiString rva0044DBA5(void);
 	Bool rva0044DB54(int *vals);
+	Bool rva0044D774(GameSlot *slot);
 	void rva0044DC54(Int val);
 	void rva0044DCB9(Int val);
 	void rva0044DD1E(Int val);
@@ -115,6 +118,49 @@ private:
 	Int m_mode;
 	mutable AsciiString m_key;
 };
+
+// Target-backed GameSlot fields: MpGameSetup::rva0043DD34 reads/writes
+// +0x50 through +0x5C; the +0x5C dword setter is rowed at 0x003FF0E7.
+class GameSlot
+{
+public:
+	unsigned char m_pad00[0x50];
+	int m_heroKind;
+	int m_hero0c;
+	int m_hero10;
+	int m_hero;
+};
+
+class Rva003FF0E7DwordSlot
+{
+public:
+	void set(int value);
+};
+
+// Create-A-Hero data offsets are also read by rowed lobby slot code.
+class CreateAHeroData
+{
+public:
+	unsigned char m_pad00[0x0C];
+	int m_0c;
+	int m_10;
+	unsigned char m_pad14[0x48 - 0x14];
+	bool m_48;
+};
+
+class Rva0040A3F9
+{
+public:
+	CreateAHeroData *rva0040A32F(int index);
+};
+
+class Rva00219B9E
+{
+public:
+	Rva0040A3F9 *rva0021F797();
+};
+
+extern Rva00219B9E *g_00DFE344;
 
 // ?write@GameModePreferences@@UAE_NXZ @0x44D50D
 Bool GameModePreferences::write(void)
@@ -191,6 +237,44 @@ Real GameModePreferences::getReal(const AsciiString &key, Real defaultValue) con
 Int GameModePreferences::getInt(const AsciiString &key, Int defaultValue) const
 {
 	return UserPreferences::getInt(makeKey(key.str()), defaultValue);
+}
+
+// ?rva0044D774@GameModePreferences@@QAE_NPAVGameSlot@@@Z @0x0044D774 194B.
+// Retail callers 0x00249E75 and 0x00446875 use this Hero preference loader.
+// GameSlot +0x50..+0x5C and CreateAHeroData +0x0C/+0x10/+0x48 are supported
+// by target reads in the rowed 0x0043DD34 lobby slot handler; the hero list
+// helpers are pinned from target call sites at 0x0021F797 and 0x0040A32F.
+// The source shape follows the exact permute result for this whole unit.
+Bool GameModePreferences::rva0044D774(GameSlot *slot)
+{
+	if (!slot)
+		return false;
+	if (!g_00DFE344)
+		return false;
+	slot->m_heroKind = 0;
+	slot->m_hero0c = 0;
+	slot->m_hero10 = 0;
+	((Rva003FF0E7DwordSlot *)slot)->set(-1);
+	PreferenceMap::const_iterator it = find(makeKey("Hero"));
+	if (it == end())
+		return false;
+	int hero = atoi(it->second.str());
+	if (hero == -1)
+		return true;
+	if (hero == -2) {
+		slot->m_heroKind = 1;
+		((Rva003FF0E7DwordSlot *)slot)->set(hero);
+		return true;
+	}
+	Rva0040A3F9 *heroes = g_00DFE344->rva0021F797();
+	CreateAHeroData *entry = heroes->rva0040A32F(hero);
+	if (!entry)
+		return true;
+	slot->m_heroKind = entry->m_48 ? 2 : 3;
+	((Rva003FF0E7DwordSlot *)slot)->set(hero);
+	slot->m_hero0c = entry->m_0c;
+	slot->m_hero10 = entry->m_10;
+	return true;
 }
 
 // ?rva0054F5A4@GameModePreferences@@QAEHXZ retail 0x0054F5A4 58B.
