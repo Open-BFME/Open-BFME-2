@@ -11,3 +11,11 @@ unsigned char Rva00446A71Get(void)
 {
 	return g_Va00A0335C;
 }
+
+// ?Rva00446A67Set@@YAXE@Z @0x00446A67 10B
+// Byte setter for the same global, directly before the getter.
+// Evidence: retail mov al,[esp+4]; mov [0x00A0335C],al; ret (cdecl).
+void Rva00446A67Set(unsigned char value)
+{
+	g_Va00A0335C = value;
+}
