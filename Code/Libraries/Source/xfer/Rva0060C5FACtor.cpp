@@ -8,6 +8,8 @@
 // 0x00409A0C destroys the object via ??1Xfer, so the class dtor is
 // implicit. Eight ctor callers. Honest-address name.
 
+extern const void *const g_00C7AF18[];
+
 class Rva0060C5FA
 {
 public:
@@ -31,7 +33,7 @@ Rva0060C5FA::Rva0060C5FA(void *a1, void *a2, void *a3)
 	m_04 = a1;
 	m_08 = a3;
 	m_0c = a2;
-	m_vtable = (void *)0x00C7AF18;
+	m_vtable = (void *)g_00C7AF18;
 	m_isLoading = false;
 	m_stream = 0;
 	m_blockCount = 0;
