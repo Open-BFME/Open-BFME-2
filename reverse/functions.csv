@@ -61939,3 +61939,4 @@ _Rva007F5790Callback,,0x00661F40,15,Code/GameEngine/Source/GameNetwork/Rva007F70
 ?rva005F7490@Rva005F7490@@QAEXXZ,,0x005F7490,8,Code/GameEngine/Source/Common/Rva005F7670Apt.cpp,matched,Member forwarder to rowed Rva005F7670 0x005F7412; honest address name
 ?rva005F7498@Rva005F7498@@QAEXXZ,,0x005F7498,8,Code/GameEngine/Source/Common/Rva005F7670Apt.cpp,matched,Member forwarder to rowed Rva005F7670 0x005F744E; honest address name
 ??1Rva0040D8B0@@QAE@XZ,,0x0040D8B0,8,Code/GameEngine/Source/Common/Rva004F69C3Dtor.cpp,matched,Holder dtor forwarder to rowed Rva004F69C3 dtor 0x004F69C3; honest address name
+?parseIntMathExpression@INI@@QAEHPBDP81@AEH0@Z@Z,,0x0002E0C9,463,Code/GameEngine/Source/Common/System/INI_parseMathExpression.cpp,matched,
