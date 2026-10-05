@@ -453,26 +453,7 @@ const char* PeerThreadClass::s_values[NumKeys] = { s_valueBuffers[0], s_valueBuf
 
 // Stat-key concatenation is recovered in PeerThreadStats.cpp.
 
-// ?lookupStatForPlayer@PeerThreadClass@@ present-unmatched
-int PeerThreadClass::lookupStatForPlayer(RoomType roomType, const char *nick, const char *key)
-{
-	std::string fullKey = packStatKey(nick, key);
-	PlayerStatMap::const_iterator it;
-	switch (roomType)
-	{
-		case GroupRoom:
-			it = m_groupRoomStats.find(fullKey);
-			if (it != m_groupRoomStats.end())
-				return it->second;
-			break;
-		case StagingRoom:
-			it = m_stagingRoomStats.find(fullKey);
-			if (it != m_stagingRoomStats.end())
-				return it->second;
-			break;
-	}
-	return 0;
-}
+// Stat lookup is recovered in PeerThreadLookupStat.cpp.
 
 // byte-exact reconstruction: Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadClearPlayerStats.cpp
 void PeerThreadClass::clearPlayerStats(RoomType roomType)
