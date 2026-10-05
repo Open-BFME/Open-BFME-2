@@ -12919,3 +12919,5 @@ _Rva00337999Forward,0x00337999,REL32 callee decoded from target call bytes of wr
 ?rva00066E69@Rva00062C23Host@@QAEMMM@Z,0x00066E69,tail-call target of guard wrapper 0x00062C23; address-view alias (body blocked 591B)
 ?subMethod@Rva0007D9B5Sub@@QAEXH@Z,0x00135010,pin for 0x7D9B5 sub call
 ?other@Rva0007D9B5Host@@QAEXXZ,0x0007C8AE,pin for 0x7D9B5/0x7D9CF other call
+?subA@Rva000680B3Sub@@QAEXXZ,0x000EB3D1,pin for 0x680B3 first guard call
+?subB@Rva000680B3Sub@@QAEXXZ,0x000E7B04,pin for 0x680B3 tail jmp

@@ -63581,3 +63581,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva0007F92A@Rva0007F92AHost@@QAEXHH@Z,,0x0007F92A,26,Code/GameEngine/Source/Common/Rva0007F92AGuard.cpp,matched,guard wrapper tail-jumping to pinned 0x7F87C; dual null checks on global plus 37C0; return-void-callee emits jmp; address names
 ?rva0007D9B5@Rva0007D9B5Host@@QAEXH@Z,,0x0007D9B5,26,Code/GameEngine/Source/Common/Rva0007D9B5Bodies.cpp,matched,address name; wrapper via +0x04 with int arg plus pinned other
 ?rva0007D9CF@Rva0007D9B5Host@@QAEXPBH@Z,,0x0007D9CF,29,Code/GameEngine/Source/Common/Rva0007D9B5Bodies.cpp,matched,address name; 12B copy to +0x08 plus pinned other
+?rva000680B3@Rva000680B3Host@@QAEXXZ,,0x000680B3,35,Code/GameEngine/Source/Common/Rva000680B3Body.cpp,matched,address name; dual guards via +0x3850 call +0x3854 tail
