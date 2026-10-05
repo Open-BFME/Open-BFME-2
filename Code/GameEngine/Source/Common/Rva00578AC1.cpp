@@ -1,7 +1,7 @@
 // cl: /O1 /DNDEBUG /MD /EHsc
 // ?rva00578AC1@Rva00578AC1@@QAEXPAX@Z, retail 0x00578AC1, 24 bytes.
 // Clears byte at +0x54 then broadcasts callback 0x005CB265 with arg this+4 over list at +8 via forEach 0x00578A60.
-// Evidence: packet disassembly, prev forEach row, reverseAnimateWindow row, sibling 0x00578B4C pattern, caller 0x00578B7F.
+// Evidence: packet disassembly, prev forEach row, slot-3 update dispatch thunk, sibling 0x00578B4C pattern, caller 0x00578B7F.
 class Rva00578A60Listener
 {
 public:
@@ -23,10 +23,13 @@ class AnimateWindow;
 class ProcessAnimateWindowSlideFromBottomTimed
 {
 public:
+	virtual ~ProcessAnimateWindowSlideFromBottomTimed();
+	virtual void initAnimateWindow(AnimateWindow *);
+	virtual void initReverseAnimateWindow(AnimateWindow *, unsigned int);
+	virtual bool updateAnimateWindow(AnimateWindow *);
 	virtual bool reverseAnimateWindow(AnimateWindow *);
 };
 
-void Rva005CB26A();
 
 class Rva00578AC1
 {
@@ -49,20 +52,23 @@ void Rva00578AC1::rva00578AC1(void *unused)
 {
 	(void)unused;
 	m_flag54 = false;
-	m_list08.forEach(reinterpret_cast<void (Rva00578A60Listener::*)(void *)>(&ProcessAnimateWindowSlideFromBottomTimed::reverseAnimateWindow), &m_04);
+	m_list08.forEach(reinterpret_cast<void (Rva00578A60Listener::*)(void *)>(&ProcessAnimateWindowSlideFromBottomTimed::updateAnimateWindow), &m_04);
 }
 
 // ?rva00578B4C@Rva00578AC1@@QAEXPAX@Z, retail 0x00578B4C, 24 bytes.
 // Sets byte at +0x56 then broadcasts callback 0x005CB26A with arg this+0x18 over list at +0x1C via forEach 0x00578A60.
-// Evidence: packet disassembly, sibling 0x00578AC1 pattern, pin Rva005CB26A, caller 0x00578BD4.
+// Evidence: packet disassembly, sibling 0x00578AC1 pattern, target slot-4 dispatch thunk, caller 0x00578BD4.
 void Rva00578AC1::rva00578B4C(void *unused)
 {
 	(void)unused;
 	m_flag56 = true;
-	union {
-		void (*freeCb)();
-		void (Rva00578A60Listener::*memCb)(void *);
-	} u;
-	u.freeCb = &Rva005CB26A;
-	m_list1C.forEach(u.memCb, &m_18);
+	m_list1C.forEach(reinterpret_cast<void (Rva00578A60Listener::*)(void *)>(&ProcessAnimateWindowSlideFromBottomTimed::reverseAnimateWindow), &m_18);
 }
+
+// RVA 0x005CB265 is the 5-byte slot-3 dispatch (jmp [vptr+0x0C]);
+// taking updateAnimateWindow emits ??_9@$BM@AE rather than slot-0 BA.
+// The interface order comes from the reference ProcessAnimateWindow.h and
+// the target BottomTimed ctor-installed table at VA 0x00C7481C.
+// The adjacent RVA 0x005CB26A dispatches slot 4 (jmp [vptr+0x10]);
+// taking reverseAnimateWindow emits its real compiler thunk as well,
+// replacing the undefined free-function placeholder and union bit-pun.
