@@ -1,66 +1,62 @@
 // ?rva004CA6F3@AnimationSoundTree@@QAEXAAPAUAnimationSoundTreeNode@@PBX@Z
-// partial score=0.88 date=2026-10-03
-// cl: /O1 /DNDEBUG /MD /EHsc
-// ?rva004CA167@AnimationSoundTree@@QAEXPAX@Z, retail 0x004CA167, 53 bytes.
-// AnimationSoundTree node free helper: if the node is null returns; otherwise
-// recurses on the child at +0x0C with the same tree, saves the sibling at +8,
-// runs the rowed ??1Rva002390CB at 0x004C9F38 on the payload at +0x10, frees
-// the node through the rowed _free at 0x00030830, then advances to the saved
-// sibling until null. The tree itself (header at +0 plus count at +4) is only
-// threaded through for the recursion, matching retail's preserved ebx.
-// Evidence: callees all rowed (plus self); callers at 0x004CA179 (self) and
-// 0x004CA278 in FUN_008CA26A (tree clear checking count at +4); prev/next
-// after ??0Rva004C9FBF / ??0Rva004CA125 with the same // cl: line.
-
-class Rva002390CB
-{
-public:
-	~Rva002390CB();
-};
-
-extern "C" void free(void *);
-
-namespace _STL
-{
-extern "C" void __cdecl free(void *block) throw(...);
-template <class _Tp> class allocator
-{
-public:
-	static _Tp *allocate(unsigned int __n, void const *__hint);
-};
-template <class _P, class _T, class _A> class _STLP_alloc_proxy
-{
-public:
-	_STLP_alloc_proxy(const _A &__a, _P __p);
-	_P _M_data;
-};
-}
-
-inline void *__cdecl operator new(unsigned int, void *__p)
-{
-	return __p;
-}
-
-typedef unsigned int ProxyUInt;
-
-class Rva004C9D93Cmp
-{
-public:
-	bool rva004C9D93Compare(void *a, void *b) const;
-};
-
-namespace _STL
-{
-struct _Rb_tree_node_base
-{
-};
-template <class _Dummy> class _Rb_global
-{
-public:
-	static void _Rebalance(_Rb_tree_node_base *__x, _Rb_tree_node_base *&__root);
-};
-}
-
+// partial score=0.9 date=2026-10-05
+// ?rva004CA6F3@AnimationSoundTree@@QAEXAAPAUAnimationSoundTreeNode@@PBX@Z
+// partial score=0.9 date=2026-10-05
+// cl: /O1 /Oy- /DNDEBUG /MD /EHsc
+// stlport
+// ?rva004CA6F3@AnimationSoundTree@@QAEXAAPAUAnimationSoundTreeNode@@PBX@Z
+// retail 0x004CA6F3, 26 bytes:
+//   push ebp / mov ebp,esp / push [ebp+0xc] / lea eax,[ebp+0xc] / push eax
+//   call 0x4ca68b / mov ecx,[eax] / mov eax,[ebp+8] / mov [eax],ecx
+//   pop ebp / ret 8
+//
+// LEVER FOUND THIS SESSION, and it is the real one: MSVC 7.1 /Oy (bare) OMITS
+// frame pointers; /Oy- KEEPS them. The backslash-free reading of the flag is the
+// opposite of the intuitive one, and the previous row's "0.88 with no source
+// form found" was measuring /O1 without it. A/B on the identical body:
+//   /O1            25B / 8 insns, 8 diffs   no frame, no `ret 8`
+//   /O1 /Oy-       26B / 11 insns, 4 diffs  frame + `ret 8` correct
+// Both the prolog (push ebp / mov ebp,esp / pop ebp) and the callee-cleanup
+// `ret 8` appear only with /Oy-, taking this from 8 to 11 matching instructions.
+// This is a general lever, not specific to this body: it is what fixes frame
+// pointer presence generally, and it helps when retail HAS a frame.
+//
+// What still differs is the final 3 moves, which are MIRRORED:
+//   ours    8b00  mov eax,[eax]        value into eax
+//           8b4d08 mov ecx,[ebp+8]      dest  into ecx
+//           8901  mov [ecx],eax
+//   retail  8b08  mov ecx,[eax]        value into ecx
+//           8b4508 mov eax,[ebp+8]     dest  into eax
+//           8908  mov [eax],ecx
+// Both are the same mistake: /O1 loads the STORE DESTINATION before the VALUE,
+// so the value is forced into the register that is about to die.
+//
+// Measured this session and all rejected, none closing it:
+//   * /O2 has retail's ORDER (value load first, destination second) but elides
+//     the frame: 27B/12 insns, 9 diffs.
+//   * /O2 /Oy- keeps the frame and has the right order: 28B/12 insns, still 9
+//     diffs, and the value lands in edx rather than ecx.
+//   * a VOLATILE key slot is the one thing that puts the value in ecx -- it
+//     breaks the destination-first fold of the whole assignment. At /O2 that
+//     yields `mov ecx,[eax]` exactly as retail, but the volatile also forces a
+//     `mov [esp+0x10],eax` spill and drops the frame: 32B/14 insns.
+//   * forceinline helpers taking the destination and the value as ARGUMENTS
+//     (the natural way to make the destination live before the value is read) do
+//     not help: at /O1 and /O2 alike the bodies are ICF-folded identical, and
+//     the folded shape still loads the destination first.
+//   * naming the destination address, the value, both, a second indirection, a
+//     plain-pointer destination parameter, and an early return: all ICF-fold to
+//     the same body.
+//
+// The reason is that retail's pair needs the destination in eax WHILE the value
+// comes out of the call in eax. MSVC will not hold a by-reference parameter in
+// eax across the callee, and both operands competing for that register is the
+// whole 3-move difference. That is a register-allocation constraint, not a
+// source-shape problem, so no spelling of `dest = tmp[0]` closes it.
+//
+// Evidence: callee rowed ?rva004CA68B@AnimationSoundTree@@QAEPAPAUAnimationSoundTreeNode@@PAPAU2@PBX@Z
+// at 0x004CA68B (74B); the wrapper reuses the by-value key slot as the callee's
+// out parameter, which is retail's `lea eax,[ebp+0xc]` / `push eax` pair.
 struct AnimationSoundTreeNode
 {
 	int m_color;
@@ -69,244 +65,16 @@ struct AnimationSoundTreeNode
 	AnimationSoundTreeNode *m_right;
 };
 
-struct AnimationSoundTreeHead
-{
-	int m_color;
-	AnimationSoundTreeNode *m_parent;
-	AnimationSoundTreeHead *m_left;
-	AnimationSoundTreeHead *m_right;
-};
-
-class AnimationSoundTreeHeaderHandle
-{
-public:
-	~AnimationSoundTreeHeaderHandle()
-	{
-		if (m_header)
-			_STL::free(m_header);
-	}
-
-	void *m_header;
-};
-
 class AnimationSoundTree
 {
 public:
-	~AnimationSoundTree();
-	void rva004CA167(void *node);
-	void rva004CA26A();
-	AnimationSoundTree *rva004CA018(void const *dummy);
-	AnimationSoundTree *rva004CA13D(void const *d1, void const *d2);
-	void *rva004CA19C(void const *v);
-	void rva004CA293(
-		AnimationSoundTreeNode *&out,
-		AnimationSoundTreeNode *a,
-		AnimationSoundTreeNode *b,
-		void const *v,
-		AnimationSoundTreeNode *c);
 	AnimationSoundTreeNode **rva004CA68B(AnimationSoundTreeNode **out, void const *v);
 	void rva004CA6F3(AnimationSoundTreeNode *&dest, void const *v);
-
-private:
-	AnimationSoundTreeHeaderHandle m_handle;
-	unsigned int m_count;
-	Rva004C9D93Cmp m_compare;
 };
 
-void AnimationSoundTree::rva004CA167(void *nodeIn)
-{
-	if (!nodeIn)
-		return;
-	char *cur = (char *)nodeIn;
-	do
-	{
-		char *child = *(char **)(cur + 0x0C);
-		rva004CA167(child);
-		char *next = *(char **)(cur + 8);
-		((Rva002390CB *)(cur + 0x10))->~Rva002390CB();
-		free(cur);
-		cur = next;
-	} while (cur);
-}
-
-// ?rva004CA26A@AnimationSoundTree@@QAEXXZ, retail 0x004CA26A, 41 bytes.
-// AnimationSoundTree clear: returns when the count at +4 is zero; otherwise
-// frees the list at header+4 through the rowed rva004CA167 helper above,
-// then repairs the 0xB8 header sentinel (self at +8 and +0x0C, zero at +4)
-// and zeroes the count. Prev is the helper itself with the same // cl: line.
-// Evidence: callees all rowed after 0x004CA167 landed; sole caller at
-// 0x004CA668 in FUN_008CA653.
-
-void AnimationSoundTree::rva004CA26A()
-{
-	if (m_count == 0)
-		return;
-	void *first = *(void **)((char *)m_handle.m_header + 4);
-	rva004CA167(first);
-	*(void **)((char *)m_handle.m_header + 8) = m_handle.m_header;
-	*(unsigned int *)((char *)m_handle.m_header + 4) = 0;
-	*(void **)((char *)m_handle.m_header + 0x0C) = m_handle.m_header;
-	m_count = 0;
-}
-
-// ??1AnimationSoundTree@@QAE@XZ, retail 0x004CA653, 56 bytes.
-// AnimationSoundTree dtor: clears via rowed rva004CA26A then frees header.
-// Evidence: caller at 0x004CA780 in pinned ??1AnimationSoundClientBehaviorModuleData 0x004CA768 with ECX=this+8; layout header+0 count+4 from ctor 0x004CA6DA.
-AnimationSoundTree::~AnimationSoundTree()
-{
-	rva004CA26A();
-}
-
-// ?rva004CA018@AnimationSoundTree@@QAEPAV1@PBX@Z, retail 0x004CA018, 39 bytes.
-// Header-handle alloc helper: proxy at this with a stack uint allocator temp
-// and null, then the 0xB8 header via the rowed byte allocator stored at +0,
-// returning this. Called once from 0x004CA13D. Evidence: callees rowed
-// 0x0014F3C4 proxy and 0x000307F0 allocate; caller at 0x004CA144;
-// prev/next with the same // cl: line.
-AnimationSoundTree *AnimationSoundTree::rva004CA018(void const *dummy)
-{
-	(void)dummy;
-	_STL::allocator<ProxyUInt> tmp;
-	_STL::_STLP_alloc_proxy<ProxyUInt *, ProxyUInt, _STL::allocator<ProxyUInt> > *proxy =
-		(_STL::_STLP_alloc_proxy<ProxyUInt *, ProxyUInt, _STL::allocator<ProxyUInt> > *)this;
-	__assume(proxy != 0);
-	new (proxy) _STL::_STLP_alloc_proxy<ProxyUInt *, ProxyUInt, _STL::allocator<ProxyUInt> >(tmp, (ProxyUInt *)0);
-	*(char **)this = _STL::allocator<char>::allocate(0xb8, 0);
-	return this;
-}
-
-// ?rva004CA13D@AnimationSoundTree@@QAEPAV1@PBX0@Z, retail 0x004CA13D, 42 bytes.
-// Header init: runs the rowed rva004CA018 alloc with the second dummy, then
-// zeroes count at +4 and repairs the 0xB8 header sentinel (zero at +0/+4,
-// self at +8/+0xC), returning this. Called once from the pinned ctor 0x004CA6DA.
-// Evidence: callee rowed 0x004CA018; caller at 0x004CA6E9; prev/next same // cl:.
-AnimationSoundTree *AnimationSoundTree::rva004CA13D(void const *d1, void const *d2)
-{
-	(void)d1;
-	rva004CA018(d2);
-	m_count = 0;
-	*(char *)m_handle.m_header = 0;
-	*(unsigned int *)((char *)m_handle.m_header + 4) = 0;
-	*(void **)((char *)m_handle.m_header + 8) = m_handle.m_header;
-	*(void **)((char *)m_handle.m_header + 0x0C) = m_handle.m_header;
-	return this;
-}
-
-// ?Rva004CA048Construct@@YAXPAXABVRva004C9E94@@@Z, retail 0x004CA048, 18 bytes.
-// Value copy helper for the AnimationSoundTree RB nodes: null-checks dest,
-// then placement-constructs a Rva004C9E94 via its rowed copy ctor 0x004C9F76.
-// Called from the node factory 0x004CA19C with dest node+0x10 and the pair.
-// Evidence: callee rowed 0x004C9F76; caller at 0x004CA1B3; prev 0x004CA018
-// same // cl: line.
-class Rva004C9E94
-{
-public:
-	Rva004C9E94(const Rva004C9E94 &that);
-};
-void __cdecl Rva004CA048Construct(void *dest, const Rva004C9E94 &src)
-{
-	if (!dest)
-		return;
-	new (dest) Rva004C9E94(src);
-}
-
-// ?rva004CA19C@AnimationSoundTree@@QAEPAXPBX@Z, retail 0x004CA19C, 37 bytes.
-// Node factory for the AnimationSoundTree RB: allocates the 0xB8 node via the
-// rowed byte allocator 0x000307F0, then copy-constructs the Rva004C9E94 value
-// at node+0x10 through the rowed 0x004CA048 helper above, returning the node.
-// Called twice from the insert helper 0x004CA293. Evidence: callees rowed
-// 0x000307F0 plus 0x004CA048; callers at 0x004CA2C6 and 0x004CA2E1; prev
-// 0x004CA167 same // cl: line.
-void *AnimationSoundTree::rva004CA19C(void const *v)
-{
-	char *node = _STL::allocator<char>::allocate(0xb8, 0);
-	Rva004CA048Construct(node + 0x10, *(Rva004C9E94 const *)v);
-	return node;
-}
-
-// ?rva004CA293@AnimationSoundTree@@QAEXAAPAUAnimationSoundTreeNode@@PAU2@1PBX1@Z, retail 0x004CA293, 149 bytes.
-// RB insert worker for the AnimationSoundTree: picks right vs left child via
-// the member twin compare at +8 (lea ecx) against node+0x10, creates the 0xB8
-// node through the rowed rva004CA19C factory above, threads it (rightmost at
-// header+0xC vs leftmost at +8, root at +4), rebalances via rowed 0x00025490,
-// bumps the count and returns the node through out. Called from 0x004CA6C6.
-// Evidence: callees rowed/twinned 0x004C9D93 plus 0x004CA19C plus 0x00025490;
-// caller at 0x004CA6C6; prev/next same // cl: line.
-void AnimationSoundTree::rva004CA293(
-	AnimationSoundTreeNode *&out,
-	AnimationSoundTreeNode *a,
-	AnimationSoundTreeNode *b,
-	void const *v,
-	AnimationSoundTreeNode *c)
-{
-	AnimationSoundTreeNode *node;
-	if (b != (AnimationSoundTreeNode *)m_handle.m_header
-		&& (c != 0
-			|| (a == 0
-				&& !m_compare.rva004C9D93Compare((void *)v, (char *)b + 0x10))))
-	{
-		node = (AnimationSoundTreeNode *)rva004CA19C(v);
-		b->m_right = node;
-		AnimationSoundTreeHead *root = (AnimationSoundTreeHead *)m_handle.m_header;
-		if (b == (AnimationSoundTreeNode *)root->m_right)
-			root->m_right = (AnimationSoundTreeHead *)node;
-	}
-	else
-	{
-		node = (AnimationSoundTreeNode *)rva004CA19C(v);
-		b->m_left = node;
-		AnimationSoundTreeHead *root = (AnimationSoundTreeHead *)m_handle.m_header;
-		if (b == (AnimationSoundTreeNode *)root)
-		{
-			root->m_parent = node;
-			((AnimationSoundTreeHead *)m_handle.m_header)->m_right = (AnimationSoundTreeHead *)node;
-		}
-		else if (b == (AnimationSoundTreeNode *)root->m_left)
-			root->m_left = (AnimationSoundTreeHead *)node;
-	}
-	node->m_left = 0;
-	node->m_right = 0;
-	node->m_parent = b;
-	_STL::_Rb_global<bool>::_Rebalance(
-		(_STL::_Rb_tree_node_base *)node,
-		(_STL::_Rb_tree_node_base *&)((AnimationSoundTreeHead *)m_handle.m_header)->m_parent);
-	++m_count;
-	out = node;
-}
-
-// ?rva004CA68B@AnimationSoundTree@@QAEPAPAUAnimationSoundTreeNode@@PAPAU2@PBX@Z, retail 0x004CA68B, 74 bytes.
-// AnimationSoundTree insert-find: walks from root at header+4 using the member
-// twin compare at +8 (key vs node+0x10) left on true else right tracking parent
-// in edi then inserts via rowed rva004CA293 with out and null neighbours and
-// returns out. Called from 0x004CA6F3 and 0x004CAA78.
-// Evidence: callees all rowed 0x004C9D93 plus 0x004CA293; callers at 0x004CA6FD
-// and 0x004CAA78; prev 0x004CA653 same // cl: line.
-AnimationSoundTreeNode **AnimationSoundTree::rva004CA68B(AnimationSoundTreeNode **out, void const *v)
-{
-	AnimationSoundTreeNode *parent = (AnimationSoundTreeNode *)m_handle.m_header;
-	AnimationSoundTreeNode *cur = parent->m_parent;
-	while (cur != 0)
-	{
-		parent = cur;
-		if (m_compare.rva004C9D93Compare((void *)v, (char *)cur + 0x10))
-			cur = cur->m_left;
-		else
-			cur = cur->m_right;
-	}
-	rva004CA293(*out, 0, parent, v, 0);
-	return out;
-}
-
-// ?rva004CA6F3@AnimationSoundTree@@QAEXAAPAUAnimationSoundTreeNode@@PBX@Z, retail 0x004CA6F3, 26 bytes.
-// AnimationSoundTree insert wrapper: reuses the key slot as out temp for the
-// rowed rva004CA68B find-insert then stores the node into dest. Called from
-// the 0x004CA6F3 site with dest and key.
-// Evidence: callee rowed 0x004CA68B; caller none; prev 0x004CA68B same // cl:.
 // ?rva004CA6F3@AnimationSoundTree@@QAEXAAPAUAnimationSoundTreeNode@@PBX@Z present-unmatched
-#pragma optimize("y", off)
 void AnimationSoundTree::rva004CA6F3(AnimationSoundTreeNode *&dest, void const *v)
 {
-	AnimationSoundTreeNode **tmp = rva004CA68B((AnimationSoundTreeNode **)&v, v);
+	AnimationSoundTreeNode **tmp = this->rva004CA68B((AnimationSoundTreeNode **)&v, v);
 	dest = tmp[0];
 }
-#pragma optimize("", on)
