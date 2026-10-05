@@ -10974,3 +10974,5 @@ _Rva001118ECResampleRgb555,0x001118EC,"RETAIL REL32 at 0x00111A1A and six siblin
 ??1Rva0060263EBase@@UAE@XZ,0x0060263E,Call-only base-destructor view aliases full7B rowed vptr reset C7A84C; target604465 cleanup calls it after tree teardown; original base identity unknown
 ??1Rva00604396TreeView@@QAE@XZ,0x00604396,Call-only12B tree-prefix destructor view aliases full56B rowed RB tree cleanup; receiver604465+4; payload type not asserted by this view
 ??0ShroudManagerImpl008FBA40CtorView@@QAE@XZ,0x0073E310,Call-only70B allocation view of the fully rowed214B ShroudManagerImpl constructor; native7398D0 allocates70B then calls73E310; linker alias preserves the existing provider
+?Rva000C4795Copy4@@YAPAVRva000C24EA@@PBV1@0PAV1@PBX@Z,0x000C4795,Native erases push four cdecl arguments; full29B rowed copy wrapper reads only first three and ignores the unused tag pointer
+?Rva000BDCEFDestroy32@@YAXPAVRva000C24EA@@0@Z,0x000BDCEF,Call-only record32 cleanup ABI; full25B provider walks stride32 and calls full15B storage release at4; no pair payload name asserted
