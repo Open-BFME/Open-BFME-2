@@ -1,5 +1,4 @@
-// ?rva002C96D8@Weapon@@QAE_NXZ
-// partial score=0.93 date=2026-10-05
+// ?rva002C96D8@Weapon@@QAE_NXZ @0x002C96D8 31B
 // cl: /O1 /arch:SSE /DNDEBUG /MD /EHs-c-
 // ?isTooClose@Weapon@@QBE_NPBVObject@@PBUCoord3D@@@Z @0x002C9B3D (67B).
 // Weapon::isTooClose(source, pos): minRange==0 -> false; else shrunkenDistSqr
@@ -183,12 +182,12 @@ bool Weapon::rva002C9586()
 // Evidence: same Weapon TU and flags; [ecx+4] template like siblings; offsets +0x82/+0x155 on template.
 bool Weapon::rva002C96D8()
 {
-	if (!m_template->m_82)
+	if (m_template->m_82)
+		return true;
+	if (m_template)
 	{
-		if (!m_template)
-			return false;
-		if (!m_template->m_155)
-			return false;
+		if (m_template->m_155)
+			return true;
 	}
-	return true;
+	return false;
 }
