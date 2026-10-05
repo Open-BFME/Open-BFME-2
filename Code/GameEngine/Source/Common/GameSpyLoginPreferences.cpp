@@ -132,6 +132,9 @@ public:
 	void rva005CAE72(const AsciiString &email, const AsciiString &nick);
 	// Nick-map twin of rva005CAE72 at +0x2c (retail 0x005CADD3).
 	void rva005CADD3(const AsciiString &email, const AsciiString &nick);
+	// Adds one nick to one email's clan list at +0x38 when absent (retail
+	// 0x005CAE04, 110B); returns true when appended.
+	bool rva005CAE04(const AsciiString &email, const AsciiString &nick);
 	// Erases one email key from nick/pass/date maps at +0x2c/+0x14/+0x20 (retail 0x005CABF9).
 	void rva005CABF9(AsciiString email);
 	AsciiString rva005C9FC4(void);
@@ -296,6 +299,20 @@ void GameSpyLoginPreferences::rva005CAE72(const AsciiString &email, const AsciiS
 {
 	if (m_emailClanMap.find(email) != m_emailClanMap.end())
 		m_emailClanMap[email].remove(nick);
+}
+
+// ?rva005CAE04@GameSpyLoginPreferences@@QAE_NABVAsciiString@@0@Z 0x005CAE04 110B
+// Evidence: gap between 0x005CADD3 and 0x005CAE72 in same TU with same flags;
+// four list-map operator[] 0x005CAC49 plus list find 0x001FD9C5 and push_back
+// rowed; map at +0x38 is m_emailClanMap; caller 0x0057FA6D; unblocks 0x0057FA1C.
+bool GameSpyLoginPreferences::rva005CAE04(const AsciiString &email, const AsciiString &nick)
+{
+	if (_STL::find(m_emailClanMap[email].begin(), m_emailClanMap[email].end(), nick) == m_emailClanMap[email].end())
+	{
+		m_emailClanMap[email].push_back(nick);
+		return true;
+	}
+	return false;
 }
 
 void GameSpyLoginPreferences::rva005CABF9(AsciiString email)
