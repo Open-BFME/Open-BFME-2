@@ -14,6 +14,7 @@ class Rva0053FDE6
 {
 public:
 	Rva0053FDE6();
+	Rva0053FDE6(const Rva0053FDE6 &o);
 	int m_00;
 	float m_04;
 	float m_08;
@@ -37,10 +38,15 @@ class Rva0054000B
 {
 public:
 	Rva0054000B();
+	Rva0054000B(int v, const Rva0053FDE6 &o);
 	int m_00;
 	Rva0053FDE6 m_04;
 };
 
 Rva0054000B::Rva0054000B() : m_00(0)
+{
+}
+
+Rva0054000B::Rva0054000B(int v, const Rva0053FDE6 &o) : m_00(v), m_04(o)
 {
 }

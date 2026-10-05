@@ -8744,3 +8744,5 @@ FUN_00863191	0x00463191	56	blocked	vslot104 needs 104-virt class plus this slot7
 ?rva000671B2@BaseHeightMapRenderObjClass@@QAE_NMM@Z	0x000671B2	115	partial	size 110vs115 missing one movss plus mulss uses reg-mem not reg-reg plus cvtt uses xmm0 not xmm1 t=22 model=muse-03 score=0.92 stash=reverse/attempts/0x000671b2.cpp
 ?rva00067EA3@Rva00067EA3@@QAEXMMMMH@Z	0x00067EA3	298	partial	fabs fcomip+fxch vs fcompi 3 sites plus evict count-in-eax vs ecx and add e-load hoist t=25 model=muse-03 score=0.9 stash=reverse/attempts/0x00067ea3.cpp
 ?rva00067298@Rva00067298@@QAE_NMM@Z	0x00067298	115	partial	lea double-load plus movaps-mulss-mem vs movss-mulss-reg and cvtt-movss-mulss interleave t=20 model=muse-03 score=0.9 stash=reverse/attempts/0x00067298.cpp
+??0Rva000E4F20@@QAE@XZ	0x000E4F20	275	blocked	ctor push-interleave plus edi-retained identity stores need shared delta t=30 model=muse-10
+?rva000E49B8@Rva000E48BC@@QAE_NH@Z	0x000E49B8	541	partial	ebx-held-1 plus shr-test plus mgr-end-return plus y-add order plus tail fold t=30 model=muse-10 score=0.93 stash=reverse/attempts/0x000e49b8.cpp
