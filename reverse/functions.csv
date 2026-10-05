@@ -62613,3 +62613,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva0059E2AB@Rva0059E2AB@@QAEPAXPAX@Z,,0x0059E2AB,44,Code/GameEngine/Source/Common/Rva0059E2ABFind.cpp,matched,Find-or-default via +0x28 name through Logic+b0 manager
 ?Rva0040D3B6Get@@YGMH@Z,,0x0040D3B6,31,Code/GameEngine/Source/Common/Rva0040D3B6Get.cpp,matched,chain from bfmeFind1038 then rva0040C9A4 returns BfmeZeroRange when null
 ?Rva0040D396Set@@YGXH@Z,,0x0040D396,32,Code/GameEngine/Source/Common/Rva0040D396Set.cpp,matched,chain from bfmeFind1038 then rva0040C985 with TheGameLogic frame
+??4?$vector@VRva000BB4AC@@V?$allocator@VRva000BB4AC@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z,,0x000C218F,206,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva000bb4ac_assign.cpp,matched,same 3-path 206B shape as BB491 assign with BB4AC callees
