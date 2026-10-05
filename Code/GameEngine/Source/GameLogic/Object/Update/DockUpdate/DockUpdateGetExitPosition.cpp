@@ -137,3 +137,56 @@ void DockUpdate::getEnterPosition( Object* docker, Coord3D *position )
 
 }
 
+
+// Interface slot 1 at 0xC51D18: native RVA 0x0058A1A1, 239 bytes.
+Bool DockUpdate::reserveApproachPosition( Object* docker, Coord3D *position, Int *index )
+{
+
+	// load dock positions if not loaded yet
+	if( m_positionsLoaded == FALSE )
+		loadDockPositions();
+
+	// sanity
+	if( position == NULL )
+		return FALSE;
+
+	ObjectID dockerID = docker->getID();
+
+	for( Int positionIndex = 0; positionIndex < m_approachPositionOwners.size(); ++positionIndex )
+	{
+		if( m_approachPositionOwners[positionIndex] == dockerID )
+		{
+			*position = computeApproachPosition( positionIndex, docker );
+			*index = positionIndex;
+			return TRUE;
+		}
+		if( m_approachPositionOwners[positionIndex] == INVALID_ID )
+		{
+			m_approachPositionOwners[positionIndex] = dockerID;
+			*position = computeApproachPosition( positionIndex, docker );
+			*index = positionIndex;
+			return TRUE;
+		}
+	}
+
+	// If I make it out of the loop, I am full, so dynamic approach buildings should make a new entry instead of saying no
+	if( m_numberApproachPositions == DYNAMIC_APPROACH_VECTOR_FLAG )
+	{
+		Coord3D zero;
+		zero.zero();
+		m_approachPositions.push_back( zero );
+		m_approachPositionOwners.push_back( INVALID_ID );
+		m_approachPositionReached.push_back( FALSE );
+
+		loadDockPositions();// refresh this new one
+
+		positionIndex = m_approachPositionOwners.size() - 1;// The new last spot
+		m_approachPositionOwners[positionIndex] = dockerID;
+		*position = computeApproachPosition( positionIndex, docker );
+		*index = positionIndex;
+		return TRUE;
+	}
+
+	return FALSE;
+}
+
