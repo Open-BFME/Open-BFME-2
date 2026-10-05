@@ -1,5 +1,6 @@
 // ?VerifyDelayedFreeFill@GeneralAllocatorDebug@@QAE_NPAX@Z
 // partial score=0.995 date=2026-10-05
+// partial score=0.995 date=2026-10-05
 // cl: /O2 /DNDEBUG /MD
 // The delayed-free guard verifier of GeneralAllocatorDebug, at retail
 // 0x006C30C0 (155 bytes). The sibling of VerifyGuardFill at 0x006C3020.

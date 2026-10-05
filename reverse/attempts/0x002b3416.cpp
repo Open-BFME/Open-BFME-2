@@ -1,4 +1,5 @@
 // ?rva002B3416@Rva002B3416@@QAEEPAX@Z
+// partial score=0.97 date=2026-10-05
 // partial score=0.97 date=2026-10-04
 // cl: /O1 /MD /EHsc /DNDEBUG
 // ?rva002B3416@Rva002B3416@@QAEEPAX@Z 110B @0x002B3416: this +0x98/+0xF4 guards then Rva002B254F guard then global Rva003B8BAA virtual slot 0x18 then arg +0x20/+0x1C plus Rva002B2B66 via g_009FEF10 and Rva003F07E5 check.
