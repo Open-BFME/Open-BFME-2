@@ -1,5 +1,3 @@
-// ?rva002E0699@Rva002E0699@@QAEHXZ
-// partial score=0.97 date=2026-10-05
 // cl: /O1
 // ?rva002E0699@Rva002E0699@@QAEHXZ @0x002E0699 31B switch over +0x44 with tail to Encoding0 slot2
 // Returns +0x2B4 when 0, tails to BFME2Encoding0MotionChannel::UnknownSlot2 at +0x4C
@@ -26,7 +24,6 @@ private:
 	int m_2B4;
 };
 
-// ?rva002E0699@Rva002E0699@@QAEHXZ present-unmatched
 int Rva002E0699::rva002E0699()
 {
 	switch (m_44) {
@@ -34,6 +31,8 @@ int Rva002E0699::rva002E0699()
 		return m_2B4;
 	case 1:
 		return m_4C.BFME2Encoding0MotionChannel::UnknownSlot2();
+	case 2:
+		return 3;
 	default:
 		return 3;
 	}
