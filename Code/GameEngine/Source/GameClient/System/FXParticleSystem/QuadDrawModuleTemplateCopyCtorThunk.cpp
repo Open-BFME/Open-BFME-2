@@ -19,7 +19,7 @@ public:
 	virtual void dummy();
 };
 
-extern "C" char QuadDrawModuleTemplate_cvtbl0;
+extern "C" char DefaultModuleTemplate05_vtbl0;
 extern "C" char QuadDrawModuleTemplate_cvtbl4;
 // QuadDrawModuleTemplate_csub_vtbl: matched references place it at VA 0xc1bd40 (retail .rdata value 109).
 extern "C" char QuadDrawModuleTemplate_csub_vtbl = 109;
@@ -47,7 +47,7 @@ QuadDrawModuleTemplate::QuadDrawModuleTemplate(
 	sub->construct_from(sub_src);
 	// Sub vtbl then outer dual vtbls (retail store order).
 	*(void **)sub = &QuadDrawModuleTemplate_csub_vtbl;
-	m_v0 = &QuadDrawModuleTemplate_cvtbl0;
+	m_v0 = &DefaultModuleTemplate05_vtbl0;
 	m_v4 = &QuadDrawModuleTemplate_cvtbl4;
 }
 }
