@@ -8787,3 +8787,5 @@ $L62091	0x007AB0D0	25	blocked	Native FuncInfo VA D6490C state0 prior-1 owns acti
 ?rva00053448@Rva00053448@@QAE_NPAX@Z	0x00053448	350	blocked	SSE float Z-adjust 26 regions first variant 332B vs 350B frame spill mismatch needs donor t=12 model=muse-06
 ?rva0034405D@Rva0034405D@@QAEXXZ	0x0034405D	219	blocked	object layout off by 0x38 across AI and position loads plus extra lea and cmp-vs-mov-test shape t=10 model=muse-06
 ?rva00740AB4@Rva00740AB4@@QAE_NABVAsciiString@@PAVNotifyTarget@@H@Z	0x00740AB4	281	blocked	complex AsciiString EH set asset needs shared header work t=10 model=muse-05
+?rva004D2164@Rva004D2164@@QAE_NGH@Z	0x004D2164	75	partial	prologue shrink-wrap early load forces push esi not push mem plus 3B size delta t=25 model=muse-12 score=0.92 stash=reverse/attempts/0x004d2164.cpp
+?update@AIEnterState@@UAE?AW4StateReturnType@@XZ	0x0035455A	419	partial	zero esi vs edi contain2 edi vs esi float xmm order code reg vs stack t=28 model=muse-12 score=0.93 stash=reverse/attempts/0x0035455a.cpp
