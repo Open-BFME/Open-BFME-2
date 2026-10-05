@@ -19,3 +19,8 @@ Rva003A6F70::Rva003A6F70(const Rva003A6F70 &o)
 	m_18 = o.m_18;
 	m_1C = o.m_1C;
 }
+
+// ?dummy@Rva003A6F70@@UAEXXZ present-unmatched
+void Rva003A6F70::dummy()
+{
+}
