@@ -8739,3 +8739,8 @@ FUN_00863191	0x00463191	56	blocked	vslot104 needs 104-virt class plus this slot7
 ?rva0033B217@Rva0033B217@@QAEXXZ	0x0033B217	315	partial	lea-push order swapped in six fetch-set blocks t=20 model=muse-01 score=0.92 stash=reverse/attempts/0x0033b217.cpp
 ?Rva00045213Get@@YGXPAXH@Z	0x00045213	377	blocked	needs DX8 COM donor for front-buffer LockRect UnlockRect plus GlobalData Sleep loop caller unclaimed t=10 model=muse-01
 ??1Rva000C7720@@QAE@XZ	0x000C7720	63	blocked	needs unwind-only EH for dup Destroy plus free without catch handler tried method dtor EHsc try-catch t=12 model=muse-01
+?rva002D8395@Radar@@QAEXPBUCoord3D@@HMABUVec16@@1@Z	0x002D8395	353	partial	size exact 353B float bias dword and fild-fmul fixed plus mov order swapped pos-vs-tmpx plus SIB base uses add eax ebx not eax-plus-ebx t=25 model=muse-03 score=0.96 stash=reverse/attempts/0x002d8395.cpp
+??0Rva004FA1F@@QAE@XZ	0x0004F8EA	295	blocked	chain Radar-derived ctor needs Region3D array vs float overlap plus list plus memset thunk plus MI vptr layout first compile 276vs295 rep-stosd not movss t=18 model=muse-03
+?rva000671B2@BaseHeightMapRenderObjClass@@QAE_NMM@Z	0x000671B2	115	partial	size 110vs115 missing one movss plus mulss uses reg-mem not reg-reg plus cvtt uses xmm0 not xmm1 t=22 model=muse-03 score=0.92 stash=reverse/attempts/0x000671b2.cpp
+?rva00067EA3@Rva00067EA3@@QAEXMMMMH@Z	0x00067EA3	298	partial	fabs fcomip+fxch vs fcompi 3 sites plus evict count-in-eax vs ecx and add e-load hoist t=25 model=muse-03 score=0.9 stash=reverse/attempts/0x00067ea3.cpp
+?rva00067298@Rva00067298@@QAE_NMM@Z	0x00067298	115	partial	lea double-load plus movaps-mulss-mem vs movss-mulss-reg and cvtt-movss-mulss interleave t=20 model=muse-03 score=0.9 stash=reverse/attempts/0x00067298.cpp

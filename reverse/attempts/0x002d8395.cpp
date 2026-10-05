@@ -1,5 +1,5 @@
 // ?rva002D8395@Radar@@QAEXPBUCoord3D@@HMABUVec16@@1@Z
-// partial score=0.93 date=2026-10-05
+// partial score=0.96 date=2026-10-05
 // cl: /O1 /G7 /DNDEBUG /MD
 // ?rva002D8395@Radar@@QAEXPBUCoord3D@@HMABUVec16@@1@Z @0x002D8395 353B: Radar add-event with worldToRadar and client frame scaling. Evidence: caller pair 0x002D893B 0x002D88A4; callees worldToRadar 0x002D77C9 clearRef 0x002D7CC6 ftol2; member offsets match Radar_reset event layout stride 0x50 trailer +0x142C.
 #include <math.h>
@@ -117,13 +117,15 @@ void Radar::rva002D8395(const Coord3D *pos, int tag, float scale, const Vec16 &a
 	m_events[m_eventCount].m_tag = tag;
 	m_events[m_eventCount].m_body.m_state = 1;
 	m_events[m_eventCount].m_body.m_04 = TheGameClient->getFrame();
-	m_events[m_eventCount].m_body.m_08 = (int)((double)(unsigned)TheGameClient->getFrame() + (double)g_00DBA4E8 * scale);
-	m_events[m_eventCount].m_body.m_0C = (int)((double)(unsigned)m_events[m_eventCount].m_body.m_08 - (double)g_00DBA4E8 * g_00DBCEB8);
+	m_events[m_eventCount].m_body.m_08 = (int)((float)(unsigned)TheGameClient->getFrame() + (float)g_00DBA4E8 * scale);
+	m_events[m_eventCount].m_body.m_0C = (int)((float)(unsigned)m_events[m_eventCount].m_body.m_08 - (float)g_00DBA4E8 * g_00DBCEB8);
 	*(Vec16 *)&m_events[m_eventCount].m_body.m_10 = a;
 	*(Vec16 *)&m_events[m_eventCount].m_body.m_20 = b;
+	int tx = tmp.x;
 	*(Coord3D *)&m_events[m_eventCount].m_body.m_30 = *pos;
-	m_events[m_eventCount].m_body.m_3C = tmp.x;
-	m_events[m_eventCount].m_body.m_40 = tmp.y;
+	const int idx = m_eventCount;
+	m_events[idx].m_body.m_3C = tx;
+	m_events[idx].m_body.m_40 = tmp.y;
 	m_events[m_eventCount].m_body.m_44 = 0;
 	m_events[m_eventCount].m_body.m_ref.clearRef();
 	if (++m_eventCount >= 0x40)
