@@ -59606,3 +59606,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ??1Rva004F9378@@QAE@XZ,,0x004F9378,56,Code/GameEngine/Source/Common/Rva004F9378Dtor.cpp,matched,Rb-tree dtor via outline clear 0x004F8DD4 plus base free
 ?allow@Rva002619C1Filter@@UAE_NPAVObject@@@Z,,0x002619C1,250,Code/GameEngine/Source/GameLogic/AI/Rva002619C1FilterAllow.cpp,matched,vftable 0x00C07150 slot1 stack filter callers 0x343106 0x44F4D8
 ?Rva0041CE27Check@@YG_NPAVObject@@0H@Z,,0x0041CE27,114,Code/GameEngine/Source/Common/Rva0041CE27Check.cpp,matched,enemy plus upgrade-template gated check via SpecialPowerStore
+?rva002E8BF8@Pathfinder@@QAEPAVPathfindCell@@W4PathfindLayerEnum@@PBUCoord3D@@@Z,,0x002E8BF8,43,Code/GameEngine/Source/Common/Rva002E8BF8.cpp,matched,world-pos to cell lookup via clamp wrapper then getCell
