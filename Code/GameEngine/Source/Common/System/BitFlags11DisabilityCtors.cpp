@@ -26,6 +26,7 @@ public:
 	};
 
 	BitFlags(BogusInitType init, Int bit);
+	BitFlags(BogusInitType init, Int b0, Int b1);
 	BitFlags(BogusInitType init, Int b0, Int b1, Int b2, Int b3);
 	BitFlags();
 
@@ -38,6 +39,14 @@ BitFlags<NUM_BITS>::BitFlags(BogusInitType, Int bit)
 {
 	memset(m_words, 0, sizeof(m_words));
 	m_words[(UnsignedInt)bit >> 5] |= (1u << (bit & 31));
+}
+
+template <int NUM_BITS>
+BitFlags<NUM_BITS>::BitFlags(BogusInitType, Int b0, Int b1)
+{
+	memset(m_words, 0, sizeof(m_words));
+	m_words[(UnsignedInt)b0 >> 5] |= (1u << (b0 & 31));
+	m_words[(UnsignedInt)b1 >> 5] |= (1u << (b1 & 31));
 }
 
 template <int NUM_BITS>
@@ -58,6 +67,11 @@ BitFlags<NUM_BITS>::BitFlags()
 
 // ??0?$BitFlags@$0L@@@QAE@W4BogusInitType@0@H@Z
 template BitFlags<11>::BitFlags(BitFlags<11>::BogusInitType, Int);
+
+// ??0?$BitFlags@$0L@@@QAE@W4BogusInitType@0@HH@Z: the two-bit form at
+// 0x005E5963 (five callers, among them the disabled-mask slots 0x004AE972
+// and 0x004DF8C2 and the dynamic initializer at 0x007AF7F8).
+template BitFlags<11>::BitFlags(BitFlags<11>::BogusInitType, Int, Int);
 
 // ??0?$BitFlags@$0L@@@QAE@W4BogusInitType@0@HHHH@Z
 template BitFlags<11>::BitFlags(BitFlags<11>::BogusInitType, Int, Int, Int, Int);
