@@ -5,7 +5,7 @@
 // null-preserving source+4 conversion proves the second base). Second-base
 // callees by REL32: 001F9CCA -> 001F8CC2 (unrowed vector-holder assign, pinned);
 // 001FA676 -> 001F9CCA; 001FB8BB -> 001FA676; 001FBA5B -> 001FB8BB; 001FBBF6
-// -> 001FBA5B; 001FBF9D -> 001FBBF6; 001FC231 -> 001FBF9D. These mirror the
+// -> 001FBA5B; 001FBF9D -> 001FBBF6; 001FC231 -> 001FBF9D; 001FC404 -> 001FC231. These mirror the
 // Rva001F8BE8DtorChain.cpp destructor chain; original class names are unknown
 // so address-derived Rva names are used.
 struct Rva001F41CDHelper;
@@ -86,5 +86,15 @@ Rva001FC231 &Rva001FC231::operator=(const Rva001FC231 &other)
 {
     Rva001F41CD::operator=(other);
     Rva001FBF9D::operator=(other);
+    return *this;
+}
+class Rva001FC404 : public Rva001F41CD, public Rva001FC231 {
+public:
+    Rva001FC404 &operator=(const Rva001FC404 &other);
+};
+Rva001FC404 &Rva001FC404::operator=(const Rva001FC404 &other)
+{
+    Rva001F41CD::operator=(other);
+    Rva001FC231::operator=(other);
     return *this;
 }
