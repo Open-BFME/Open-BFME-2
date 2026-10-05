@@ -270,7 +270,6 @@ AptOnlineSubScreen *__cdecl Rva00516D09(AptOnline *shell)
 }
 
 // Retail 0x00516D4D, 68 bytes: the shell table's factory for a new "OnlineLogin" sub-screen unless one is up (0x00E062EC).
-// ?Rva00516D4D@@YAPAUAptOnlineSubScreen@@PAVAptOnline@@@Z present-unmatched
 AptOnlineSubScreen *__cdecl Rva00516D4D(AptOnline *shell)
 {
 	if (g_Va00E062EC)
