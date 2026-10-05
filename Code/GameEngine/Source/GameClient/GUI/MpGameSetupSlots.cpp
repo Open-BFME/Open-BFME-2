@@ -59,14 +59,17 @@ public:
 	unsigned char m_pad00[0x04];
 	int m_state; // +0x04
 	bool m_accepted; // +0x08
-	unsigned char m_pad09[0x0C - 0x09];
+	bool m_hasMap; // +0x09
+	unsigned char m_pad0a[0x0C - 0x0A];
 	int m_color; // +0x0C
 	int m_10; // +0x10
 	int m_14; // +0x14
 	int m_playerTemplate; // +0x18
 	int m_team; // +0x1C
-	int m_20; // +0x20
-	unsigned char m_pad24[0x40 - 0x24];
+	int m_20; // +0x20 (the handicap)
+	unsigned char m_pad24[0x30 - 0x24];
+	UnicodeString m_name; // +0x30
+	unsigned char m_pad34[0x40 - 0x34];
 	int m_40; // +0x40
 	unsigned char m_pad44[0x50 - 0x44];
 	int m_heroKind; // +0x50 (1 random, 2 or 3 by the hero's +0x48 flag)
@@ -77,6 +80,11 @@ public:
 
 	void setPlayerTemplate(int playerTemplate);
 	void setState(SlotState state, UnicodeString name, const GameSlotConnectInfo *connectInfo);
+	int getTeamNumber() const { return m_team; }
+	int getState() const { return m_state; }
+	int getHeroKey0c() const { return m_hero0c; }
+	int getHeroKey10() const { return m_hero10; }
+
 };
 
 // The slot's +0x1A8 name getter (rowed as an AsciiString RVO getter).
@@ -105,6 +113,7 @@ public:
 	virtual void v15();
 
 	GameSlot *getSlot(int index);
+	const GameSlot *getConstSlot(int index) const;
 	AsciiString getMap() const;
 	void setMap(AsciiString map);
 
@@ -114,7 +123,14 @@ public:
 	bool m_8c; // +0x8C
 	unsigned char m_pad8d[0xCC - 0x8D];
 	unsigned char m_digest[16]; // +0xCC
+
+	bool isLocked() const { return m_8c; }
 };
+
+// Unrowed 0x00300E42 (cdecl; whether the game's map starts with the map
+// cache's 0x00300D7A folder name, through startsWithNoCase), pinned by
+// address.
+bool Rva00300E42(GameInfo *game);
 
 // A saved game (the panel's +0x2B0): eight GameSlot copies at +0x4C, the
 // digest it is filed under at +0xDAC, the rules at +0xDBC and the +0xDE8
@@ -265,6 +281,13 @@ public:
 	bool m_48; // +0x48
 };
 
+// The display name at +0x08 of a CreateAHeroData (0x0043F8B3 shows it).
+struct CreateAHeroName
+{
+	unsigned char m_pad00[0x08];
+	UnicodeString m_name; // +0x08
+};
+
 // The hero list at the hero manager's +0x174 (Rva0040A3F9Find.cpp's
 // vector of CreateAHeroData pointers).
 class Rva0040A3F9
@@ -304,12 +327,16 @@ public:
 	// Unrowed 0x0021A6C8 (a hero for a side, scanning the +0x174 list),
 	// pinned by address.
 	CreateAHeroData *rva0021A6C8(int side);
+	// Unrowed 0x0021B13A (122 bytes; ret 8; the label for a hero key, a
+	// static default when unknown), pinned by address.
+	const AsciiString &rva0021B13A(int key0c, int key10);
 };
 
 class PlayerTemplate
 {
 public:
 	int rva001FD234() const;
+	UnicodeString getDisplayName() const;
 };
 
 class PlayerTemplateStore
@@ -325,10 +352,20 @@ void Rva0043DB23(Rva00222A8BTarget *target, void *owner, const char *name);
 int Rva0043F1A4(Rva00222A8BTarget *target, void *owner, const char *name, const int &value, const char *const &text);
 AsciiString Rva00222834Get(int value);
 
+// What 0x0057C71F returns for a slot: its forced team at +0x04.
+struct Rva0057C71FEntry
+{
+	int m_00;
+	int m_team; // +0x04
+};
+
 // The member at +0x60 (0x70 bytes, destroyed through ??1Rva0057E3DB).
 class Rva0057E3DB
 {
 public:
+	// Unrowed 0x0057C71F (155 bytes; the scenario's entry for a slot, or
+	// 0), pinned by address.
+	Rva0057C71FEntry *rva0057C71F(int slot);
 	// Unrowed 0x0057C7BA (216 bytes; stores the mode at +0x1C), pinned.
 	void rva0057C7BA(int mode);
 	// Unrowed 0x0057E058 (499 bytes) and 0x0057DFFB (65 bytes; switches on
@@ -396,7 +433,7 @@ void Rva00446A67Set(unsigned char value);
 // 0x0057F002 hands +0x8C to 0x00559FAC); 0x00381CED copies it into the game.
 struct MpGameSetupRules
 {
-	int m_00;
+	int m_00; // +0x00 (the panel's +0x15C)
 	int m_04; // +0x04 (the panel's +0x160)
 	int m_08;
 	int m_commandPointFactor; // +0x0C (the panel's +0x168)
@@ -427,11 +464,18 @@ public:
 	virtual void slot11() = 0;
 	virtual void slot12() = 0;
 	virtual void slot13() = 0;
-	virtual void slot14() = 0;
+	virtual UnicodeString fetchLabel(const AsciiString &label, bool *exists = 0) = 0;
 	virtual UnicodeString fetch(const char *label, bool *exists = 0) = 0;
+	virtual void slot16() = 0;
+	virtual const UnicodeString *slot44(const char *label, bool *exists) = 0;
 };
 
 extern GameTextInterface *TheGameText;
+
+extern "C" __declspec(dllimport) unsigned long __stdcall timeGetTime(void);
+
+// Rva00511730Save.cpp's text entry helper.
+void Rva00511730(int value);
 
 // StringBase<char>::isEmpty (0x00001E2F) called out of line and nothrow:
 // OnReadyPress keeps no unwind state around it while the slot's tag
@@ -492,6 +536,10 @@ public:
 	MpGameSetupComboRef(const MpGameSetupComboRef &other);
 	~MpGameSetupComboRef();
 
+	// Unrowed 0x00323736 (308 bytes; ret 4, a byte flag), pinned by
+	// address.
+	void rva00323736(bool flag);
+
 	GameWindow *m_window;
 };
 
@@ -506,6 +554,31 @@ class Rva003236C4
 public:
 	int rva003236C4(int index);
 };
+
+class Rva003236E8
+{
+public:
+	int rva003236E8();
+};
+
+class BfmeThing925D
+{
+public:
+	void bfmeGo925D(void *value);
+};
+
+// The +0x60 member is the map preview (AptMapPreviewSetMapDescription.cpp's
+// class; its rowed 0x0057C597 enables the preview windows).
+class AptMapPreview
+{
+public:
+	void rva0057C597(bool enable);
+};
+
+int Rva00322910(GameWindow *comboBox);
+int Rva00322E19Add(GameWindow *comboBox, UnicodeString text, int color);
+void GadgetComboBoxSetText(GameWindow *comboBox, UnicodeString text);
+void GadgetComboBoxHideList(GameWindow *comboBox);
 
 // The S5 encoded small integer of S5HandleHashCompares.cpp: a four-byte
 // head and the encoded value at +0x04 (0x003F2330 compares two). The
@@ -554,9 +627,17 @@ public:
 	bool rva0043ECC1(int index);
 	bool rva00443C6E(GameInfo *game, int value);
 	bool rva0043E750(GameInfo *game);
+	bool rva0044127C();
+	void rva00441693(int slot);
 
-	// Unrowed 0x0044009D (1039 bytes; ret 4, the slot), pinned by address.
-	void rva0044009D(int slot);
+	// Unrowed 0x0043DF22 (the number of accepted seated humans; banked) and
+	// 0x00440BDF (1693 bytes; ret 4), pinned by address.
+	unsigned int rva0043DF22();
+	bool rva00440BDF(int value);
+
+	// Unrowed 0x0044009D (1039 bytes; ret 4, the slot; returns al), pinned
+	// by address.
+	bool rva0044009D(int slot);
 
 	// Unrowed 0x0043DC40 (53 bytes; picks the games list sort column, the
 	// same column again toggling to the next value), pinned by address.
@@ -573,16 +654,15 @@ public:
 	void rva00440017(const AsciiString &map);
 
 	// Unrowed per-slot refreshers called by 0x004427C5, pinned by address:
-	// 0x0043F483 (1072 bytes), 0x0043F244 (575 bytes; ret 8, its second
-	// argument a byte flag), 0x004424E7 (734 bytes) and 0x004406BA (792
+	// 0x0043F483 (1072 bytes), 0x004424E7 (734 bytes) and 0x004406BA (792
 	// bytes).
 	void rva0043F483(int slot);
-	void rva0043F244(int slot, bool flag);
+	void rva0043F244(int slot, bool reset);
 	void rva004424E7(int slot);
 	void rva004406BA(int slot);
 
-	// Unrowed 0x004422DD (522 bytes) and the per-slot 0x00441B15 (607
-	// bytes), called by 0x00442A19, pinned by address.
+	// Unrowed 0x004422DD (522 bytes), called by 0x00442A19, pinned by
+	// address.
 	void rva004422DD();
 	void rva00441B15(int slot);
 
@@ -595,9 +675,9 @@ public:
 	// and shows "APT:JoinGame" or "APT:Continue"), pinned by address.
 	void rva0043FA68(GameInfo *game);
 
-	// Unrowed 0x004404AC (526 bytes; ret 8, a byte flag then an int),
-	// pinned by address.
-	void rva004404AC(bool flag, int value);
+	void rva004404AC(bool enable, int slot);
+
+	void rva0043F8B3(int slot);
 
 	void rva004419FA();
 
@@ -630,7 +710,7 @@ private:
 	Rva0057FD6E m_244; // +0x244
 	unsigned char m_pad245[0x2B0 - 0x245];
 	TreeHintOpaque0043671B *m_saved; // +0x2B0
-	unsigned char m_pad2b4[0x2B8 - 0x2B4];
+	int m_pendingHero; // +0x2B4 (-3 for none)
 	bool m_2b8; // +0x2B8
 	bool m_2b9; // +0x2B9
 	bool m_2ba; // +0x2BA
@@ -643,8 +723,10 @@ private:
 	bool m_2c1; // +0x2C1
 	bool m_refreshing; // +0x2C2 (guards the all-slot refreshes)
 	bool m_pending; // +0x2C3
-	bool m_2c4; // +0x2C4
-	unsigned char m_pad2c5[0x2D0 - 0x2C5];
+	bool m_2c4; // +0x2C4 (the start countdown is running)
+	unsigned char m_pad2c5[0x2C8 - 0x2C5];
+	int m_startTime; // +0x2C8
+	int m_shownSeconds; // +0x2CC
 	int m_2d0; // +0x2D0
 	GameWindow *m_player[8]; // +0x2D4
 	MpGameSetupComboRef m_colorCombo[8]; // +0x2F4
@@ -1911,4 +1993,58 @@ bool MpGameSetup::rva0043E750(GameInfo *game)
 			return false;
 	}
 	return true;
+}
+
+// Retail 0x0043F8B3, 437 bytes. Name unknown. Adds the text of a slot's hero
+// to its hero combo box (+0x374): "-", or for a slot that is neither the
+// local one nor an AI run by this host, by hero kind (+0x50) "GUI:Random"
+// (1), a listed hero's name plus "VALUE:Default" (2, heroes with +0x48) or
+// the manager's label for the hero key (3). Nothing while a saved game is
+// pending (+0x2B0). Callers 0x004405CD, 0x004409AA, 0x00441D5E.
+void MpGameSetup::rva0043F8B3(int slot)
+{
+	if (m_saved)
+		return;
+	GameInfo *game = (GameInfo *)m_game->rva0043DA65();
+	if (!game)
+		return;
+	GameSlot *gameSlot = game->getSlot(slot);
+	if (!gameSlot)
+		return;
+	GameWindow *heroBox = m_hero[slot];
+	if (!heroBox)
+		return;
+
+	UnicodeString text(L"-");
+	bool local = slot == game->v13();
+	bool hostAI = gameSlot->isAI() && m_owner->v01();
+	if (!local && !hostAI)
+	{
+		switch (gameSlot->m_heroKind)
+		{
+		case 1:
+			text = TheGameText->fetch("GUI:Random");
+			break;
+		case 2:
+			{
+				int heroIndex = gameSlot->m_hero;
+				Rva0040A3F9 *heroes = g_00DFE344->rva0021F797();
+				CreateAHeroData *hero = heroes->rva0040A32F(heroIndex);
+				if (hero && hero->m_48)
+				{
+					text = ((CreateAHeroName *)hero)->m_name;
+					text += TheGameText->fetch("VALUE:Default");
+				}
+			}
+			break;
+		case 3:
+			{
+				int key0c = gameSlot->getHeroKey0c();
+				int key10 = gameSlot->getHeroKey10();
+				text = TheGameText->fetchLabel(g_00DFE344->rva0021B13A(key0c, key10));
+			}
+			break;
+		}
+	}
+	Rva00322E19Add(heroBox, text, 0);
 }
