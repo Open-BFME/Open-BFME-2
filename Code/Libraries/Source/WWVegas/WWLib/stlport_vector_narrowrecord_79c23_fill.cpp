@@ -4,6 +4,19 @@
 // ??$__uninitialized_fill_n@PAUBfmeNarrowRecord00079C23@@IU1@@_STL@@YAPAUBfmeNarrowRecord00079C23@@PAU1@IABU1@ABU__false_type@0@@Z, retail 0x000C0B15, 37 bytes.
 // Fill loop over 0x2c-byte narrow records through the rowed _Construct at
 // 0x000C0A70. Same 37B shape as the rowed BDF17 fill at 0x000C0ACA.
+// The emitted unsigned max copy must match retail RVA 0x00013740.
+// Define it for speed, then restore this unit's flags for its own bodies.
+#include <stl/_algobase.h>
+#pragma optimize("s", off)
+#pragma optimize("t", on)
+namespace _STL {
+template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+#pragma optimize("", on)
+
 #include <vector>
 #include <string>
 

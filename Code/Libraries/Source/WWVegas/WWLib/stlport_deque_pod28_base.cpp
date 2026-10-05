@@ -5,6 +5,19 @@
 // Pod492/Pod840/BuddyRequest and BfmeE12 Deque_base ctors; calls rowed
 // _M_initialize_map for BfmePod28 at 0x00419E3D and ICF alloc_proxy bodies
 // at 0x0014F3C4; unlocks 0x0041A6D0.
+// The emitted unsigned max copy must match retail RVA 0x00013740.
+// Define it for speed, then restore this unit's flags for its own bodies.
+#include <stl/_algobase.h>
+#pragma optimize("s", off)
+#pragma optimize("t", on)
+namespace _STL {
+template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+#pragma optimize("", on)
+
 #include <deque>
 #include <queue>
 struct BfmePod28 { int a[7]; };

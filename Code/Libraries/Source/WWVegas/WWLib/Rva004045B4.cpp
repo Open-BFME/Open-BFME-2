@@ -4,6 +4,19 @@
 // Search vector for id then update or append 20B record with float and
 // vector<AsciiString>. Callers unclaimed. Evidence: rowed ctor 0x0040394A
 // plus rowed push_back 0x0040457D plus vector assign/dtor rows.
+// The emitted unsigned max copy must match retail RVA 0x00013740.
+// Define it for speed, then restore this unit's flags for its own bodies.
+#include <stl/_algobase.h>
+#pragma optimize("s", off)
+#pragma optimize("t", on)
+namespace _STL {
+template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+#pragma optimize("", on)
+
 #include <vector>
 
 #include "ascii_string.h"

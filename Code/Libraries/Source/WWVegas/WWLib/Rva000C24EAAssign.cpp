@@ -5,6 +5,19 @@
 // ?assign@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAEAAV12@ABV12@@Z
 // @0x000120C0, 12B triple at +0x10 (3x movsd), dword at +0x1C.
 // Evidence: ret 4 with this in eax; caller @0x000C3785.
+// The emitted unsigned max copy must match retail RVA 0x00013740.
+// Define it for speed, then restore this unit's flags for its own bodies.
+#include <stl/_algobase.h>
+#pragma optimize("s", off)
+#pragma optimize("t", on)
+namespace _STL {
+template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+#pragma optimize("", on)
+
 #include <string>
 
 struct DwordTriple

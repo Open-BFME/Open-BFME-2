@@ -3,6 +3,19 @@
 // ?rva005504F9@Rva0055011A@@QAEXABUBfmeNarrowRecord0054FEF1@@@Z @0x005504F9 125B.
 // Rva0055011A slot-6 method: lock m_14, map[text]=word0, lock m_0C, m_70++, m_44.push_back.
 // Evidence: vtable slot 6 of 0x0086AB90; callees rowed 0x00613A70 0x0038E041 0x00613AC0 0x00550384; offsets match landed ctor layout.
+// The emitted unsigned max copy must match retail RVA 0x00013740.
+// Define it for speed, then restore this unit's flags for its own bodies.
+#include <stl/_algobase.h>
+#pragma optimize("s", off)
+#pragma optimize("t", on)
+namespace _STL {
+template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+#pragma optimize("", on)
+
 #include <deque>
 #include <map>
 #include <string>

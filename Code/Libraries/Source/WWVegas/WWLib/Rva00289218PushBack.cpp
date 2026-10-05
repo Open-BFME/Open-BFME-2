@@ -8,6 +8,19 @@
 // lea-push-add-call shape as the rowed list/vector push_back twins. Identity:
 // unlock lane, thiscall (reads ecx), callers at 0x002892CF and 0x0052D0F8;
 // owner class unproven so honest Rva address name.
+// The emitted unsigned max copy must match retail RVA 0x00013740.
+// Define it for speed, then restore this unit's flags for its own bodies.
+#include <stl/_algobase.h>
+#pragma optimize("s", off)
+#pragma optimize("t", on)
+namespace _STL {
+template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+#pragma optimize("", on)
+
 #include <vector>
 class ModuleData;
 typedef _STL::vector<const ModuleData *, _STL::allocator<const ModuleData *> > ModuleDataVec;

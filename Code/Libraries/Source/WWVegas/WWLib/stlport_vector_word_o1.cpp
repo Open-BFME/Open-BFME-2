@@ -21,6 +21,19 @@
 // locate.py pin, but the stride-2 arithmetic disproves a char element;
 // the erase/fill callees (0x31BD55 vector erase, 0x7FF18 fill-insert) are
 // the vector family.
+// The emitted unsigned max copy must match retail RVA 0x00013740.
+// Define it for speed, then restore this unit's flags for its own bodies.
+#include <stl/_algobase.h>
+#pragma optimize("s", off)
+#pragma optimize("t", on)
+namespace _STL {
+template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+#pragma optimize("", on)
+
 #include <vector>
 struct BfmeWordVec : _STL::vector<unsigned short, _STL::allocator<unsigned short> >
 {

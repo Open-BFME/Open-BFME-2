@@ -1,6 +1,19 @@
 // cl: /Ireference/shims/bfme2_ascii /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ??$__uninitialized_fill_n@PAUBfmeStringRecord005ED5F3@@IU1@@_STL@@YAPAUBfmeStringRecord005ED5F3@@PAU1@IABU1@ABU__false_type@0@@Z @0x005ED8AC 37B: vector fill helper for 20-byte BfmeStringRecord005ED5F3 (UnicodeString plus 4 words). Evidence: calls rowed _Construct 0x005ED68C; stride 0x14; callers are vector insert paths 0x005ED99F 0x005EDB2B.
+// The emitted unsigned max copy must match retail RVA 0x00013740.
+// Define it for speed, then restore this unit's flags for its own bodies.
+#include <stl/_algobase.h>
+#pragma optimize("s", off)
+#pragma optimize("t", on)
+namespace _STL {
+template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+#pragma optimize("", on)
+
 #include <vector>
 #include "unicode_string.h"
 struct BfmeStringRecord005ED5F3

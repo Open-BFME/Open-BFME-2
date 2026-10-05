@@ -5,6 +5,19 @@
 // virtual slot 0x64 with the key then push_back into vector at this+0x2CC
 // via rowed 0x004DFCB0. Reuses arg slot for fetched pointer. Caller
 // 0x003FD476 in 0x003FD43B. Flags from next.
+// The emitted unsigned max copy must match retail RVA 0x00013740.
+// Define it for speed, then restore this unit's flags for its own bodies.
+#include <stl/_algobase.h>
+#pragma optimize("s", off)
+#pragma optimize("t", on)
+namespace _STL {
+template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+#pragma optimize("", on)
+
 #include <vector>
 
 class ModuleData

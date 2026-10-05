@@ -6,6 +6,19 @@
 // N-byte mapped type and int for any 4-byte key/value that folds with it; the
 // placed bodies' node sizes and copy lengths fix those sizes. No retail caller
 // is claimed.
+// The emitted unsigned max copy must match retail RVA 0x00013740.
+// Define it for speed, then restore this unit's flags for its own bodies.
+#include <stl/_algobase.h>
+#pragma optimize("s", off)
+#pragma optimize("t", on)
+namespace _STL {
+template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+#pragma optimize("", on)
+
 #include <hash_map>
 #include <hash_set>
 struct BfmePod16 { int a[4]; };

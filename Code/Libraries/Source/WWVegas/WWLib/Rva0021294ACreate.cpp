@@ -8,6 +8,19 @@
 // this+0x24C through the rowed push_back 0x004DFCB0, returning the new
 // pointer. Same ModuleData EH recipe as Rva003FD789Ctor plus the
 // Rva002129A1 push_back shape at +0x258. Caller at 0x003FD7FF.
+// The emitted unsigned max copy must match retail RVA 0x00013740.
+// Define it for speed, then restore this unit's flags for its own bodies.
+#include <stl/_algobase.h>
+#pragma optimize("s", off)
+#pragma optimize("t", on)
+namespace _STL {
+template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+#pragma optimize("", on)
+
 #include <vector>
 
 template <typename T> class StringBase

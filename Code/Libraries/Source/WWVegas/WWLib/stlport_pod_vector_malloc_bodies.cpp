@@ -9,6 +9,19 @@
 // call-site address, not compiled here. No retail caller is claimed. The
 // 8/12/16-byte callees resolve to the existing BfmeE8/E12/E16 rows, the same
 // placeholder sizes under their older names.
+// The emitted unsigned max copy must match retail RVA 0x00013740.
+// Define it for speed, then restore this unit's flags for its own bodies.
+#include <stl/_algobase.h>
+#pragma optimize("s", off)
+#pragma optimize("t", on)
+namespace _STL {
+template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+#pragma optimize("", on)
+
 #include <vector>
 struct BfmePod8 { int a[2]; };
 struct BfmePod12 { int a[3]; };
