@@ -20,6 +20,8 @@ enum AptVirtualFunctionTable_Indices { AptVFT_ScriptFunctionByteCodeBlock = 45 }
 
 struct AptNativeHash
 {
+    AptNativeHash(int);
+    ~AptNativeHash();
     AptValue *Lookup(const EAStringC *const) const;
     __forceinline AptValue *Get__Proto__() const { return mp__proto__; }
     void SetPrototype(AptValue *);
@@ -55,6 +57,7 @@ public:
     virtual bool IsGarbageCollected() const = 0;
     virtual void RegisterReferences() const = 0;
 protected:
+    AptValue(AptVirtualFunctionTable_Indices);
     virtual ~AptValue();
     unsigned int mnValueData;
 };
@@ -63,6 +66,7 @@ class AptValueGC : public AptValue
 public:
     virtual bool IsGarbageCollected() const;
 protected:
+    AptValueGC(AptVirtualFunctionTable_Indices);
     virtual ~AptValueGC();
 };
 class AptValueWithHash : public AptValueGC
