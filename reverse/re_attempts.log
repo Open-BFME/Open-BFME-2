@@ -10416,3 +10416,4 @@ FUN_008b7d53	0x004B7D53	141	blocked	vslot10 negative this-adjustment plus EH plu
 ?rva003FDF8B@Rva003FDF8B@@QAEXXZ	0x003FDF8B	112	blocked	same Rva-Bfme double-dtor wall as 0x3FDD41 t=2 model=muse-08
 ?rva001DA05E@Rva001DA05E@@QAEAAV0@ABV0@@Z	0x001DA05E	180	blocked	vector operator= calls two element types needs retype t=5 model=muse-08
 ?rva001DA112@Rva001DA112@@QAEHHH@Z	0x001DA112	140	blocked	same conflicting vector types as 0x1DA05E t=2 model=muse-08
+?rva004FB382@Rva004FB382@@QAE_NXZ	0x004FB382	112	blocked	push [eax+0x14] vs mov eax+push eax 1B scheduling t=25 model=muse-06 (stash 0.97 kept)
