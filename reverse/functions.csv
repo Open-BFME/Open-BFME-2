@@ -56216,3 +56216,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?Rva003C3EC5Apply@@YGXPAVParameter@@ABVAsciiString@@H@Z,,0x003C3EC5,97,Code/GameEngine/Source/Common/Rva003C3EC5Apply.cpp,matched,sibling Rva003C3E75Apply pattern with scaled GameLogic frame via rowed callees
 ?rva002726C3@Drawable@@QAE_NHHHH@Z,,0x002726C3,70,Code/GameEngine/Source/GameClient/Drawable_rva002726C3.cpp,matched,same 0x14C slotA8 walk as 0x0027267D second slot 0xAC bool 4-arg
 ?rva00272C1E@Drawable@@QAE_NXZ,,0x00272C1E,36,Code/GameEngine/Source/GameClient/Drawable_rva00272C1E.cpp,matched,same 0x14C walk as 0x00272BE7 OR-accumulate slotDC
+?rva0027264D@Drawable@@QAEHXZ,,0x0027264D,48,Code/GameEngine/Source/GameClient/Drawable_rva0027264D.cpp,matched,same 0x14C slotA8 walk as 0x0027261D second slot 0xA4
