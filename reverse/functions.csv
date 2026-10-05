@@ -63656,3 +63656,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva004F06E5@Rva004F06E5@@QAEXXZ,,0x004F06E5,49,Code/GameEngine/Source/Common/Rva004F06E5Teardown.cpp,matched,holder teardown: unless flag bit set free slot-0 result else pinned fallback; always clear holder; full byte gate
 ?rva004E9F6E@Rva004E9F6E@@QAEXXZ,,0x004E9F6E,68,Code/GameEngine/Source/Common/Rva004E9F6EGate.cpp,matched,empty-name gate via world probe plus TheEmptyString compare then bounds-gated tail-call; full byte gate
 ?rva004F4927@Rva004F4927@@QAEXXZ,,0x004F4927,59,Code/GameEngine/Source/Common/Rva004F4927Dispatch.cpp,matched,probe-gated quad slot dispatch then pinned tail worker; full byte gate
+?rva004F9EF3@@YAXPAURva004F6352@@0URva004F6352Cmp@@@Z,,0x004F9EF3,70,Code/Libraries/Source/WWVegas/WWLib/Rva004F9EF3Sort.cpp,matched,sort driver: element count plus halving depth plus pinned phase plus rowed final insertion; full byte gate
