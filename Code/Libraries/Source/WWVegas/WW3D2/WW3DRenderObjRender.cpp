@@ -1,14 +1,20 @@
-// ?Render@WW3D@@SA?AW4WW3DErrorType@@AAVRenderObjClass@@AAVRenderInfoClass@@@Z
-// partial score=0.97 date=2026-10-05
+// ?Render@WW3D@@SA_NAAVRenderObjClass@@AAVRenderInfoClass@@@Z
 // cl: /O2 /G7 /DNDEBUG /MD /EHsc
-
-// Semantic donor: BFME1 6583b3c1 WW3DRenderObjectBfme.cpp.
-// Target118430..1184CC Ghidra156 returns bool; RenderInfo light pointer+28,
-// camera vslot13, object vslot12 and mesh camera+4 are target facts.
-// All instructions match except unresolved SortingRendererClass::Flush call
-// at+88 to12F190 (Ghidra2824). Additional cache reset174BA6 (113) is pinned
-// opaque but still unrowed. Neither dependency is claimed recovered here.
-// WW3D/class spellings are donor-carried; cache-reset identity is unknown.
+//
+// WW3D::Render 0x00118430, 156 bytes, retail boundary 0x118430..0x1184CC.
+// Semantic donor: BFME1 6583b3c1 WW3DRenderObjectBfme.cpp. Target facts read off
+// retail: the return is a bool AL (b0 01 / c3), RenderInfoClass's light
+// environment sits at +0x28 (not the donor's +0x1C), the camera vcall is
+// slot 0x34 and the object vcall slot 0x30, and the mesh flush goes through
+// TheDX8MeshRenderer (0x00DF363C) at +4 as the camera.
+// Dependencies: 0x00135A70 (camera Apply), 0x0006615F (Set_DX8_Render_State),
+// 0x000122EA0 (Set_Light_Environment), 0x00148030 (mesh Flush),
+// 0x000174BA6 (gap-filler cache reset) and 0x00144580 (Clear_Pending_Delete_Lists)
+// are all unrowed; they are declared here and called through the addresses the
+// REL32s in retail name, and none is claimed recovered by this body. The +0x87
+// static flush is the pinned ?rva0012F190@@YAXXZ. WW3D/RenderObjClass/StaticSortList
+// spellings are donor-carried; the static-sort enable byte is 0x00DEC3D9 and the
+// init flag 0x00DEC3D4.
 
 class CameraClass;
 class RenderInfoClass;
@@ -84,11 +90,9 @@ extern DX8MeshRendererClass *TheDX8MeshRenderer;
 class Rva00DF6F94GapFillerContext { public: void rva174ba6(); };
 extern Rva00DF6F94GapFillerContext *TheMeshGapFillerContext;
 
-class SortingRendererClass
-{
-public:
-	static void Flush(void);
-};
+// The +0x87 static flush: the callee reads only the global 0x00DEC4F4 and an
+// SSE constant, so it takes no this and is __cdecl. Pinned address name.
+extern void __cdecl rva0012F190(void);
 
 class StaticSortListClass
 {
@@ -131,7 +135,7 @@ bool WW3D::Render(RenderObjClass &obj, RenderInfoClass &rinfo)
 	CurrentStaticSortLists->Render_And_Clear(rinfo);
 	AreStaticSortListsEnabled = old_enable;
 
-	SortingRendererClass::Flush();
+	rva0012F190();
 	TheDX8MeshRenderer->Clear_Pending_Delete_Lists();
 	return true;
 }
