@@ -12800,3 +12800,6 @@ _Rva00337999Forward,0x00337999,REL32 callee decoded from target call bytes of wr
 ?run@Rva0021BDABSub@@QAEHH@Z,0x0021BDAB,REL32 callee decoded from target call bytes of find-or-minus-one 0x0021BE42; identity unproven
 ?run@Rva0021BDD3Sub@@QAEHH@Z,0x0021BDD3,REL32 callee decoded from target call bytes of find-or-minus-one 0x0021BE62; identity unproven
 ?run@Rva0021BDFBSub@@QAEHH@Z,0x0021BDFB,REL32 callee decoded from target call bytes of find-or-minus-one 0x0021BE82; identity unproven
+?Rva002BFA86Worker@@YGXPAUVideoPair@@@Z,0x002BFA86,REL32 worker decoded from target call bytes of pair-copy-call 0x002BFCF5; identity unproven
+?Rva002ADCE1Worker@@YGXPAUVideoPair@@@Z,0x002ADCE1,REL32 worker decoded from target call bytes of pair-copy-call 0x003A37DC; identity unproven
+?Rva00525407Worker@@YGXPAUVideoPair@@@Z,0x00525407,REL32 worker decoded from target call bytes of pair-copy-call 0x005258F8; identity unproven

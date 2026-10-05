@@ -63477,3 +63477,6 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?fwd@Rva0021BE42@@QAEHHH@Z,,0x0021BE42,32,Code/GameEngine/Source/Common/RvaFindOrMinusOneFamily.cpp,matched,Address-derived find-or-minus-one via rowed finder; 32B shape
 ?fwd@Rva0021BE62@@QAEHHH@Z,,0x0021BE62,32,Code/GameEngine/Source/Common/RvaFindOrMinusOneFamily.cpp,matched,Address-derived find-or-minus-one via rowed finder; 32B ternary shape
 ?fwd@Rva0021BE82@@QAEHHH@Z,,0x0021BE82,32,Code/GameEngine/Source/Common/RvaFindOrMinusOneFamily.cpp,matched,Address-derived find-or-minus-one via rowed finder; 32B ternary shape
+?Rva002BFCF5@@YGXUVideoPair@@@Z,,0x002BFCF5,30,Code/GameEngine/Source/Common/RvaPairCopyCallFamily.cpp,matched,Address-derived pair-copy-call; 30B shape
+?rva003A37DC@Rva000427195@@QAEXUVideoPair@@@Z,,0x003A37DC,30,Code/GameEngine/Source/Common/RvaPairCopyCallFamily.cpp,matched,Address-derived pair-copy-call to stdcall worker; 30B ebp-frame shape
+?Rva005258F8@@YGXUVideoPair@@@Z,,0x005258F8,30,Code/GameEngine/Source/Common/RvaPairCopyCallFamily.cpp,matched,Address-derived pair-copy-call to stdcall worker; 30B ebp-frame shape
