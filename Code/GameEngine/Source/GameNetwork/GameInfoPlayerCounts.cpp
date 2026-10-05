@@ -41,6 +41,9 @@ enum
 	PLAYERTEMPLATE_OBSERVER = -2
 };
 
+unsigned char Rva0056BD91Pack(unsigned char a, unsigned char b,
+	unsigned char c, unsigned char d);
+
 struct BfmeNetAddress
 {
 	bool Rva00248CBF(const BfmeNetAddress *other) const;
@@ -56,6 +59,7 @@ public:
 	bool isAI() const;
 	Int rva003FF145(const BfmeNetAddress *other) const;
 	bool isObserver() const;
+	unsigned char rva003FF16F() const;
 	bool isOpen() const { return m_state == SLOT_OPEN; }
 	Int getPlayerTemplate() const { return m_playerTemplate; }
 
@@ -68,9 +72,15 @@ private:
 	char m_pad40[0x10];             // +0x40
 public:
 	Int m_50;                       // +0x50
-private:
-	char m_pad54[0x0C];             // +0x54
+	Int m_54;                       // +0x54
+	Int m_58;                       // +0x58
+	Int m_5c;                       // +0x5C
 public:
+	// Retail loads these whole and narrows at the byte-wide call; reading
+	// the fields directly lets the compiler narrow the loads instead.
+	Int rva54() const { return m_54; }
+	Int rva58() const { return m_58; }
+	Int rva5C() const { return m_5c; }
 	unsigned char m_60;             // +0x60
 	char m_pad61[3];
 	Int m_64;                       // +0x64
@@ -120,6 +130,27 @@ Int GameSlot::rva003FF145(const BfmeNetAddress *other) const
 bool GameSlot::isObserver() const
 {
 	return m_playerTemplate == PLAYERTEMPLATE_OBSERVER;
+}
+
+// ?rva003FF16F@GameSlot@@QBEEXZ
+// No donor: the byte the LAN lobby's hero setter 0x004456B8 sends as
+// "Hero=%d". Kind 1 is a plain yes, kinds 2 and 3 pack the +0x5C or the
+// +0x54/+0x58 pair through the rowed Rva0056BD91Pack 0x0056BD91; the kind
+// field +0x50 and the packed fields are unidentified, hence the address name.
+unsigned char GameSlot::rva003FF16F() const
+{
+	switch (m_50)
+	{
+	case 0:
+		return 0;
+	case 1:
+		return 1;
+	case 3:
+		return Rva0056BD91Pack(rva54() + 2, rva58(), 0, 0);
+	case 2:
+		return Rva0056BD91Pack(1, rva5C(), 0, 0);
+	}
+	return 0;
 }
 
 // ?getNumPlayers@GameInfo@@QBEHXZ
