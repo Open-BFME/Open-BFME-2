@@ -13275,3 +13275,4 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 ?rva00540A26@Rva00540B03@@QAEXXZ,0x00540A26,no-arg thiscall member init called at the end of ctor 0x00540B03; identity unproven; address-derived owner
 ?rva00542067@Rva00542225@@QAEXXZ,0x00542067,no-arg thiscall member init called at the end of ctor 0x00542225; identity unproven; address-derived owner
 ?rva00542148@Rva005422CF@@QAEXXZ,0x00542148,no-arg thiscall member init called at the end of ctor 0x005422CF; identity unproven; address-derived owner
+??1Rva0056D76B@@QAE@XZ,0x0056D76B,opaque member dtor called on the +0x258 member by dtor 0x005C9659; identity unproven; address-derived name
