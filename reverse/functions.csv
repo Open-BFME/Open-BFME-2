@@ -62269,3 +62269,5 @@ _Rva007F5790Callback,,0x00661F40,15,Code/GameEngine/Source/GameNetwork/Rva007F70
 ?rva00318CA4@Rva00318CA4Owner@@QAEEXZ,,0x00318CA4,41,Code/GameEngine/Source/Common/Rva00318CA4Pred.cpp,matched,global-gated negated helper predicate; w3-g26
 ?rva00318C79@Rva00318C79Owner@@QAEHXZ,,0x00318C79,20,Code/GameEngine/Source/Common/Rva00318C79Wrap.cpp,matched,null-checked +0x12C wrapper over pinned 0x318c32; w3-g26
 ?initPolygonAssets@W3DMouse@@AAEXXZ,,0x0009921F,145,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouse.cpp,matched,ZH W3DMouse donor at /O1; TU-local view with cursor records at +0x38 stride 0x54 and live cursors +0x4FA4/+0x60A4 and redraw mode +0x12DC
+?rva003908A7@@YGPAXPAX@Z,,0x003908A7,27,Code/GameEngine/Source/Common/Rva003908A7Memset.cpp,matched,dump range 16; memset 4B via import thunk 0x6291AE then or dword flag 0x10 and return input; stdcall
+?rva003956E8@Rva003956E8@@QAEXXZ,,0x003956E8,32,Code/GameEngine/Source/Common/Rva003956E8Update.cpp,matched,dump range 16; module update chains rowed Rva00497805 loadPostProcess then forwards +0x08 object to pathfinder shim via TheAI +0x10 when +0x34 set
