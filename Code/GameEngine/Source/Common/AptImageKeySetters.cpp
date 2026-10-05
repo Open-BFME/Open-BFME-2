@@ -151,3 +151,205 @@ private:
 };
 
 APT_IMAGE_KEY_SET( Rva005FF2AC, rva005FF2AC, "_level%u.%s_Portrait", m_portrait )
+
+// Nine more members of the same family, by layout:
+//   direct      level/name/list/image all in this (0x005D3776, 0x005F191E,
+//               0x005FC7DE, which stores the image before the set/clear)
+//   owner       level and name read through an owner pointer, plus the
+//               slot's own index for the %d (0x005EF181, 0x005EF202,
+//               0x005F07AD, 0x005F6CA8, 0x005F6D2C, 0x005F6FCC); in the
+//               last four the list is the owner's too, re-read after format
+//
+// ?rva005D3776@Rva005D3776@@QAEXPBVImage@@@Z  @0x005D3776 123B  _RegionImage
+// ?rva005F191E@Rva005F191E@@QAEXPBVImage@@@Z  @0x005F191E 123B  _MapPreview
+// ?rva005FC7DE@Rva005FC7DE@@QAEXPBVImage@@@Z  @0x005FC7DE 124B  _TypeImage
+// ?rva005EF181@Rva005EF181@@QAEXPBVImage@@@Z  @0x005EF181 129B  _IconSlotPortrait%d
+// ?rva005EF202@Rva005EF181@@QAEXPBVImage@@@Z  @0x005EF202 129B  _IconSlotTypeImage%d
+// ?rva005F07AD@Rva005F07AD@@QAEXPBVImage@@@Z  @0x005F07AD 133B  _IconSlotTypeImage%d
+// ?rva005F6CA8@Rva005F6CA8@@QAEXPBVImage@@@Z  @0x005F6CA8 132B  _InProgressIconSlotPortrait
+// ?rva005F6D2C@Rva005F6CA8@@QAEXPBVImage@@@Z  @0x005F6D2C 132B  _InProgressIconSlotTypeImage
+// ?rva005F6FCC@Rva005F6FCC@@QAEXPBVImage@@@Z  @0x005F6FCC 135B  _QueuedIconSlotTypeImage%d
+
+class Rva005D3776
+{
+public:
+	void rva005D3776(const Image *image);
+private:
+	unsigned int m_level;		// +0x00
+	StringBase<char> m_name;	// +0x04
+	Rva00524306 m_images;		// +0x08
+	char m_pad09[0x0B];
+	const Image *m_image;		// +0x14
+};
+
+APT_IMAGE_KEY_SET( Rva005D3776, rva005D3776, "_level%u.%s_RegionImage", m_image )
+
+class Rva005F191E
+{
+public:
+	void rva005F191E(const Image *image);
+private:
+	unsigned int m_level;		// +0x00
+	StringBase<char> m_name;	// +0x04
+	char m_pad08[0x0C];
+	Rva00524306 m_images;		// +0x14
+	char m_pad15[0x13];
+	const Image *m_image;		// +0x28
+};
+
+APT_IMAGE_KEY_SET( Rva005F191E, rva005F191E, "_level%u.%s_MapPreview", m_image )
+
+class Rva005FC7DE
+{
+public:
+	void rva005FC7DE(const Image *image);
+private:
+	char m_pad00[8];
+	unsigned int m_level;		// +0x08
+	StringBase<char> m_name;	// +0x0C
+	char m_pad10[0x0C];
+	Rva00524306 m_images;		// +0x1C
+	char m_pad1D[0x0F];
+	const Image *m_image;		// +0x2C
+};
+
+void Rva005FC7DE::rva005FC7DE(const Image *image)
+{
+	if (image == m_image)
+		return;
+	AsciiString key;
+	key.format("_level%u.%s_TypeImage", m_level, m_name.str());
+	m_image = image;
+	if (image)
+		m_images.rva00524725(key, image);
+	else
+		m_images.rva00524306(*(const StringBase<char> *)&key);
+}
+
+struct Rva005EF181Owner
+{
+	unsigned int m_level;		// +0x00
+	StringBase<char> m_name;	// +0x04
+};
+
+class Rva005EF181
+{
+public:
+	void rva005EF181(const Image *image);
+	void rva005EF202(const Image *image);
+private:
+	char m_pad00[0x0C];
+	Rva005EF181Owner *m_owner;	// +0x0C
+	int m_index;				// +0x10
+	char m_pad14[0x0C];
+	Rva00524306 m_images;		// +0x20
+	char m_pad21[0x17];
+	const Image *m_portrait;	// +0x38
+	const Image *m_typeImage;	// +0x3C
+};
+
+#define APT_SLOT_IMAGE_KEY_SET( CLASS, METHOD, FORMAT, IMAGE, IMAGES )    \
+	void CLASS::METHOD(const Image *image)                                \
+	{                                                                     \
+		if (image == IMAGE)                                               \
+			return;                                                       \
+		AsciiString key;                                                  \
+		key.format(FORMAT, m_owner->m_level, m_owner->m_name.str(), m_index); \
+		if (image)                                                        \
+			IMAGES.rva00524725(key, image);                               \
+		else                                                              \
+			IMAGES.rva00524306(*(const StringBase<char> *)&key);          \
+		IMAGE = image;                                                    \
+	}
+
+APT_SLOT_IMAGE_KEY_SET( Rva005EF181, rva005EF181, "_level%u.%s_IconSlotPortrait%d", m_portrait, m_images )
+APT_SLOT_IMAGE_KEY_SET( Rva005EF181, rva005EF202, "_level%u.%s_IconSlotTypeImage%d", m_typeImage, m_images )
+
+struct Rva005F07ADOwner
+{
+	char m_pad00[4];
+	unsigned int m_level;		// +0x04
+	StringBase<char> m_name;	// +0x08
+	char m_pad0C[0x10];
+	Rva00524306 m_images;		// +0x1C
+};
+
+class Rva005F07AD
+{
+public:
+	void rva005F07AD(const Image *image);
+private:
+	char m_pad00[0x0C];
+	Rva005F07ADOwner *m_owner;	// +0x0C
+	int m_index;				// +0x10
+	char m_pad14[0x0C];
+	const Image *m_image;		// +0x20
+};
+
+APT_SLOT_IMAGE_KEY_SET( Rva005F07AD, rva005F07AD, "_level%u.%s_IconSlotTypeImage%d", m_image, m_owner->m_images )
+
+struct Rva005F6CA8Owner
+{
+	char m_pad00[4];
+	unsigned int m_level;		// +0x04
+	StringBase<char> m_name;	// +0x08
+	char m_pad0C[0x14];
+	Rva00524306 m_images;		// +0x20
+};
+
+class Rva005F6CA8
+{
+public:
+	void rva005F6CA8(const Image *image);
+	void rva005F6D2C(const Image *image);
+private:
+	char m_pad00[8];
+	const Image *m_portrait;	// +0x08
+	const Image *m_typeImage;	// +0x0C
+	char m_pad10[0x0C];
+	Rva005F6CA8Owner *m_owner;	// +0x1C
+};
+
+#define APT_OWNER_IMAGE_KEY_SET( CLASS, METHOD, FORMAT, IMAGE )           \
+	void CLASS::METHOD(const Image *image)                                \
+	{                                                                     \
+		const Image *current = IMAGE;                                     \
+		if (image == current)                                             \
+			return;                                                       \
+		AsciiString key;                                                  \
+		key.format(FORMAT, m_owner->m_level, m_owner->m_name.str());      \
+		if (image)                                                        \
+			m_owner->m_images.rva00524725(key, image);                    \
+		else                                                              \
+			m_owner->m_images.rva00524306(*(const StringBase<char> *)&key); \
+		IMAGE = image;                                                    \
+	}
+
+APT_OWNER_IMAGE_KEY_SET( Rva005F6CA8, rva005F6CA8, "_level%u.%s_InProgressIconSlotPortrait", m_portrait )
+APT_OWNER_IMAGE_KEY_SET( Rva005F6CA8, rva005F6D2C, "_level%u.%s_InProgressIconSlotTypeImage", m_typeImage )
+
+class Rva005F6FCC
+{
+public:
+	void rva005F6FCC(const Image *image);
+private:
+	char m_pad00[0x0C];
+	const Image *m_image;		// +0x0C
+	char m_pad10[0x0C];
+	Rva005F6CA8Owner *m_owner;	// +0x1C
+	int m_index;				// +0x20
+};
+
+void Rva005F6FCC::rva005F6FCC(const Image *image)
+{
+	const Image *current = m_image;
+	if (image == current)
+		return;
+	AsciiString key;
+	key.format("_level%u.%s_QueuedIconSlotTypeImage%d", m_owner->m_level, m_owner->m_name.str(), m_index);
+	if (image)
+		m_owner->m_images.rva00524725(key, image);
+	else
+		m_owner->m_images.rva00524306(*(const StringBase<char> *)&key);
+	m_image = image;
+}
