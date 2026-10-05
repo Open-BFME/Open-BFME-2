@@ -62397,3 +62397,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva00429007@Rva00429007@@QAEHPAUArg@@H@Z,,0x00429007,140,Code/GameEngine/Source/Common/Rva00429007Voice.cpp,matched,finish from stash combined nulls single return enum type shared epilogue
 ?rva002B35F7@Rva002BA8F1Logic@@QAEXXZ,,0x002B35F7,42,Code/GameEngine/Source/Common/Rva002B35F7Method.cpp,matched,caller 0x002B4D6B passes this in ecx rowed 0x002D3772 pin 0x002B2B2D
 ?rva002B3669@Rva002BA8F1Logic@@QAE_NXZ,,0x002B3669,19,Code/GameEngine/Source/Common/Rva002B3669Method.cpp,matched,same shape as sibling rva002B3740 callee pin 0x002B2B2D caller 0x0023DA5B
+?rva002B3A48@Rva002B3A48@@QAEHXZ,,0x002B3A48,84,Code/GameEngine/Source/Common/Rva002B3A48.cpp,matched,sum over ptr array +8/+C via rowed 0x00318FBE and 0x00319159 plus 0x618 when non-null
