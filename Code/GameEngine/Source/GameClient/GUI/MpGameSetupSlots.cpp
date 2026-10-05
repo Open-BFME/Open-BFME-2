@@ -47,6 +47,8 @@ public:
 
 void GadgetComboBoxGetSelectedPos(GameWindow *comboBox, int *selected);
 void *GadgetComboBoxGetItemData(GameWindow *comboBox, int index);
+int GadgetComboBoxGetLength(GameWindow *comboBox);
+void GadgetComboBoxSetSelectedPos(GameWindow *comboBox, int index, bool silent);
 
 class Rva00222A8BTarget
 {
@@ -64,7 +66,9 @@ public:
 	virtual bool applySlotHero(GameSlot *slot);
 	virtual void v07(); virtual void v08(); virtual void v09();
 	virtual bool applySlotPlayerTemplate(GameSlot *slot, int playerTemplate);
-	virtual void v11(); virtual void v12(); virtual void v13();
+	virtual void v11();
+	virtual bool applySlotTeam(GameSlot *slot, int team);
+	virtual void v13();
 	virtual void v14();
 	virtual void v15();
 	virtual void v16(bool value);
@@ -99,6 +103,7 @@ public:
 	void rva0043DB6E();
 	bool handlePlayerTemplateSelection(int index);
 	bool rva0043E04D(int index);
+	void rva0043E3E2(int index, int team);
 
 	// Unrowed 0x0043DD34 (138 bytes; stores a hero choice on the slot when
 	// the hero manager accepts it), pinned.
@@ -114,12 +119,15 @@ private:
 	unsigned char m_pad000[0x58];
 	MpGameSetupOwner *m_owner; // +0x58
 	Rva0043DA65 *m_game; // +0x5C
-	unsigned char m_pad060[0xD0 - 0x60];
+	unsigned char m_pad060[0x7C - 0x60];
+	int m_mode; // +0x7C (MpGameSetupOnInitGadget.cpp's m_hideFlag)
+	unsigned char m_pad080[0xD0 - 0x80];
 	Rva0057EE5C m_d0; // +0xD0
 	unsigned char m_pad0d1[0x2C3 - 0xD1];
 	bool m_pending; // +0x2C3
 	bool m_2c4; // +0x2C4
-	unsigned char m_pad2c5[0x334 - 0x2C5];
+	unsigned char m_pad2c5[0x314 - 0x2C5];
+	GameWindow *m_team[8]; // +0x314
 	GameWindow *m_playerTemplate[8]; // +0x334
 	GameWindow *m_handicap[8]; // +0x354
 	GameWindow *m_hero[8]; // +0x374
@@ -248,4 +256,41 @@ bool MpGameSetup::rva0043E04D(int index)
 	if (!rva0043DD34(slot, (int)GadgetComboBoxGetItemData(comboBox, selected)))
 		return false;
 	return m_owner->applySlotHero(slot);
+}
+
+// Retail 0x0043E3E2, 186 bytes. Name unknown. Shows a slot's team in its
+// team combo box (+0x314); in mode 1 an unset team (-1) on a slot that is not
+// closed becomes 1 for slot 1 and 0 otherwise, and the host (game vslot 12)
+// applies it through the owner's applySlotTeam (vslot 12).
+void MpGameSetup::rva0043E3E2(int index, int team)
+{
+	GameInfo *game = (GameInfo *)m_game->rva0043DA65();
+	if (!game)
+		return;
+	GameWindow *comboBox = m_team[index];
+	if (!comboBox)
+		return;
+
+	int mode = m_mode;
+	GameSlot *slot = game->getSlot(index);
+	if (mode == 1 && team == -1 && slot->m_state != 1)
+	{
+		team = index == 1;
+		if (game->v12())
+		{
+			slot = game->getSlot(index);
+			if (slot)
+				m_owner->applySlotTeam(slot, team);
+		}
+	}
+
+	int count = GadgetComboBoxGetLength(comboBox);
+	for (int i = 0; i < count; ++i)
+	{
+		if (team == (int)GadgetComboBoxGetItemData(comboBox, i))
+		{
+			GadgetComboBoxSetSelectedPos(comboBox, i, true);
+			return;
+		}
+	}
 }
