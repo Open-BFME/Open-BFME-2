@@ -11920,3 +11920,8 @@ _floor,0x00629940,call site 0x006F4403 in AptDate::getDayOfWeek (0x006F4290) enc
 ?Rva004C73A0Fill@@YAPAURva004C77C4Pair@@PAU1@IABU1@ABURva004C77C4Tag@@@Z,0x004C73A0,address-derived ABI view; REL32 decoded from reference-guided overflow 0x004C77C4; empty tag in final argument padding
 ?allocate@Rva004C77C4Storage@@QAEPAURva004C77C4Pair@@IPBX@Z,0x002226BE,address-derived ABI view; REL32 decoded from reference-guided overflow 0x004C77C4; empty tag in final argument padding
 ?clear@Rva004C77C4@@QAEXXZ,0x004C77A6,address-derived ABI view; REL32 decoded from reference-guided overflow 0x004C77C4; empty tag in final argument padding
+??0Rva00565FC1Pair@@QAE@ABU0@@Z,0x0052BB9A,address-derived ABI view; REL32 decoded from reference-guided overflow 0x00565FC1; tag uses final argument padding
+?Rva0052C2CACopy@@YAPAURva00565FC1Pair@@PAU1@00ABURva00565FC1Tag@@@Z,0x0052C2CA,address-derived ABI view; REL32 decoded from reference-guided overflow 0x00565FC1; tag uses final argument padding
+?Rva00564C7DFill@@YAPAURva00565FC1Pair@@PAU1@IABU1@ABURva00565FC1Tag@@@Z,0x00564C7D,address-derived ABI view; REL32 decoded from reference-guided overflow 0x00565FC1; tag uses final argument padding
+?allocate@Rva00565FC1Storage@@QAEPAURva00565FC1Pair@@IPBX@Z,0x002226BE,address-derived ABI view; REL32 decoded from reference-guided overflow 0x00565FC1; tag uses final argument padding
+?clear@Rva00565FC1@@QAEXXZ,0x00565A60,address-derived ABI view; REL32 decoded from reference-guided overflow 0x00565FC1; tag uses final argument padding
