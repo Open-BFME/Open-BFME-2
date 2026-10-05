@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /O1 /DNDEBUG /MD /EHsc
 //
 // Six broadcast slots of the vtable around 0x00C07F88, the same pattern as
 // the 0x00C088D8 slots in Rva0030C1FCNotifiers.cpp over a listener list at
@@ -53,15 +53,46 @@ struct Rva003086F5Call
 	int value;
 };
 
+// Zero Hour's Common/LatchRestore.h: overrides a variable for a scope and puts
+// the old value back in the (virtual) destructor.  Retail's copy for a 4-byte
+// type is the ctor 0x0027EA63, dtor 0x0027EA82 and vtable 0x00BFB1CC.
+template <typename T>
+class LatchRestore
+{
+protected:
+	T valueToRestore;
+	T &whereToRestore;
+
+public:
+	LatchRestore(T &dest, const T &src) : whereToRestore(dest)
+	{
+		valueToRestore = dest;
+		dest = src;
+	}
+
+	virtual ~LatchRestore()
+	{
+		whereToRestore = valueToRestore;
+	}
+};
+
+// A vector of listener pointers plus the index of the listener being called.
+// The walk latches the index to 0 for its own pass and restores it afterwards,
+// so a nested broadcast neither skips nor repeats listeners of the outer one.
 class Rva003089CFList
 {
 public:
 	void forEach(void (Rva00308AA4Listener::*notify)(Rva00308AA4Owner *), Rva00308AA4Owner *owner);
 	void forEach(void (Rva00308AA4Listener::*notify)(Rva00308AA4Owner *, int), Rva00308AA4Owner *owner, int value);
 
-	// The EH-guarded walks (0x00308688, 0x003086F5) stay unmodelled.
 	void apply(const Rva00308688Call &call);
 	void apply(const Rva003086F5Call &call);
+
+private:
+	Rva00308AA4Listener **m_begin;		// +0x00
+	Rva00308AA4Listener **m_end;		// +0x04
+	Rva00308AA4Listener **m_capacity;	// +0x08
+	unsigned int m_index;				// +0x0C
 };
 
 // The primary base runs the same broadcast over its own listener list at +0x08
@@ -94,8 +125,13 @@ class Rva00537F56List
 public:
 	void forEach(void (Rva0053805DListener::*notify)(Rva0053805DBase *), Rva0053805DBase *owner);
 
-	// The EH-guarded walk (0x00537EE9) stays unmodelled.
 	void apply(const Rva00537EE9Call &call);
+
+private:
+	Rva0053805DListener **m_begin;		// +0x00
+	Rva0053805DListener **m_end;		// +0x04
+	Rva0053805DListener **m_capacity;	// +0x08
+	unsigned int m_index;				// +0x0C
 };
 
 class Rva0053805DBase
@@ -111,7 +147,7 @@ public:
 private:
 	char m_unmodelled_04[0x08 - 0x04];
 	Rva00537F56List m_listeners;		// +0x08
-	char m_unmodelled_09[0x30 - 0x09];
+	char m_unmodelled_18[0x30 - 0x18];
 };
 
 // Secondary base at +0x30, which introduces the virtual 0x00308B04 overrides.
@@ -222,3 +258,45 @@ void Rva0053805DBase::rva00538099()
 {
 	m_listeners.forEach(&Rva0053805DListener::notify0C, this);
 }
+
+// 0x00308688 and 0x003086F5: call every listener through the record's slot.
+// The index is published before each call and re-read after it, so a listener
+// that broadcasts again (and latches the index to 0 for its own pass) leaves
+// this pass to resume where it was.
+void Rva003089CFList::apply(const Rva00308688Call &call)
+{
+	unsigned int i = 0;
+	LatchRestore<unsigned int> latch(m_index, i);
+	while (i < (unsigned int)(m_end - m_begin))
+	{
+		m_index++;
+		(m_begin[i]->*call.notify)(call.owner);
+		i = m_index;
+	}
+}
+
+void Rva003089CFList::apply(const Rva003086F5Call &call)
+{
+	unsigned int i = 0;
+	LatchRestore<unsigned int> latch(m_index, i);
+	while (i < (unsigned int)(m_end - m_begin))
+	{
+		m_index++;
+		(m_begin[i]->*call.notify)(call.owner, call.value);
+		i = m_index;
+	}
+}
+
+// 0x00537EE9: the same walk over the base's own listener list.
+void Rva00537F56List::apply(const Rva00537EE9Call &call)
+{
+	unsigned int i = 0;
+	LatchRestore<unsigned int> latch(m_index, i);
+	while (i < (unsigned int)(m_end - m_begin))
+	{
+		m_index++;
+		(m_begin[i]->*call.notify)(call.owner);
+		i = m_index;
+	}
+}
+template class LatchRestore<unsigned int>;

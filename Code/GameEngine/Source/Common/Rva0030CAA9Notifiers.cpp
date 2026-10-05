@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /O1 /DNDEBUG /MD /EHsc
 //
 // Three broadcast slots of the vtables around 0x00C089A4, the pattern of
 // Rva00308AA4Notifiers.cpp over a listener list at +0x68 (forEach
@@ -29,6 +29,28 @@ public:
 	virtual void notify0C(Rva0030CAA9Owner *owner);
 };
 
+// Zero Hour's Common/LatchRestore.h, as in Rva00308AA4Notifiers.cpp (retail
+// ctor 0x0027EA63, dtor 0x0027EA82, vtable 0x00BFB1CC for a 4-byte type).
+template <typename T>
+class LatchRestore
+{
+protected:
+	T valueToRestore;
+	T &whereToRestore;
+
+public:
+	LatchRestore(T &dest, const T &src) : whereToRestore(dest)
+	{
+		valueToRestore = dest;
+		dest = src;
+	}
+
+	virtual ~LatchRestore()
+	{
+		whereToRestore = valueToRestore;
+	}
+};
+
 // The by-reference call record forEach builds on its stack.
 struct Rva0030C9E6Call
 {
@@ -41,8 +63,13 @@ class Rva0030CA8BList
 public:
 	void forEach(void (Rva0030CAA9Listener::*notify)(Rva0030CAA9Owner *), Rva0030CAA9Owner *owner);
 
-	// The EH-guarded walk (0x0030C9E6) stays unmodelled.
 	void apply(const Rva0030C9E6Call &call);
+
+private:
+	Rva0030CAA9Listener **m_begin;		// +0x00
+	Rva0030CAA9Listener **m_end;		// +0x04
+	Rva0030CAA9Listener **m_capacity;	// +0x08
+	unsigned int m_index;				// +0x0C
 };
 
 // The primary base: its broadcasts are called non-virtually here.
@@ -103,4 +130,17 @@ void Rva0030CA8BList::forEach(void (Rva0030CAA9Listener::*notify)(Rva0030CAA9Own
 	call.notify = notify;
 	call.owner = owner;
 	apply(call);
+}
+
+// The walks: the same index latch and re-entrant loop as 0x00308688.
+void Rva0030CA8BList::apply(const Rva0030C9E6Call &call)
+{
+	unsigned int i = 0;
+	LatchRestore<unsigned int> latch(m_index, i);
+	while (i < (unsigned int)(m_end - m_begin))
+	{
+		m_index++;
+		(m_begin[i]->*call.notify)(call.owner);
+		i = m_index;
+	}
 }

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /O1 /DNDEBUG /MD /EHsc
 //
 // Ten broadcast slots of the class whose vtable is 0x00C088D8 (slots 11-21;
 // slots 2-8 are vtordisp thunks, so the class has a virtual base). Each one
@@ -46,6 +46,28 @@ public:
 	virtual void notify28(Rva0030C1FCOwner *owner);
 };
 
+// Zero Hour's Common/LatchRestore.h, as in Rva00308AA4Notifiers.cpp (retail
+// ctor 0x0027EA63, dtor 0x0027EA82, vtable 0x00BFB1CC for a 4-byte type).
+template <typename T>
+class LatchRestore
+{
+protected:
+	T valueToRestore;
+	T &whereToRestore;
+
+public:
+	LatchRestore(T &dest, const T &src) : whereToRestore(dest)
+	{
+		valueToRestore = dest;
+		dest = src;
+	}
+
+	virtual ~LatchRestore()
+	{
+		whereToRestore = valueToRestore;
+	}
+};
+
 // The by-reference call records forEach builds on its stack: the member-function
 // pointer first, then the arguments the listener slot takes.
 struct Rva0030C032Call
@@ -67,9 +89,14 @@ public:
 	void forEach(void (Rva0030C1FCListener::*notify)(Rva0030C1FCOwner *), Rva0030C1FCOwner *owner);
 	void forEach(void (Rva0030C1FCListener::*notify)(Rva0030C1FCOwner *, int), Rva0030C1FCOwner *owner, int value);
 
-	// The EH-guarded walks (0x0030C032, 0x0030C09F) stay unmodelled.
 	void apply(const Rva0030C032Call &call);
 	void apply(const Rva0030C09FCall &call);
+
+private:
+	Rva0030C1FCListener **m_begin;		// +0x00
+	Rva0030C1FCListener **m_end;		// +0x04
+	Rva0030C1FCListener **m_capacity;	// +0x08
+	unsigned int m_index;				// +0x0C
 };
 
 class Rva0053805DBase
@@ -174,4 +201,29 @@ void Rva0030C185List::forEach(void (Rva0030C1FCListener::*notify)(Rva0030C1FCOwn
 	call.owner = owner;
 	call.value = value;
 	apply(call);
+}
+
+// The walks: the same index latch and re-entrant loop as 0x00308688.
+void Rva0030C185List::apply(const Rva0030C032Call &call)
+{
+	unsigned int i = 0;
+	LatchRestore<unsigned int> latch(m_index, i);
+	while (i < (unsigned int)(m_end - m_begin))
+	{
+		m_index++;
+		(m_begin[i]->*call.notify)(call.owner);
+		i = m_index;
+	}
+}
+
+void Rva0030C185List::apply(const Rva0030C09FCall &call)
+{
+	unsigned int i = 0;
+	LatchRestore<unsigned int> latch(m_index, i);
+	while (i < (unsigned int)(m_end - m_begin))
+	{
+		m_index++;
+		(m_begin[i]->*call.notify)(call.owner, call.value);
+		i = m_index;
+	}
 }

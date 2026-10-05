@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /O1 /DNDEBUG /MD /EHsc
 //
 // Nine broadcast methods of the registry the Rva0056AC26 destructor reaches
 // through its +0x10 owner (0x003F88A7 is the call it makes there): each hands
@@ -42,6 +42,28 @@ public:
 
 typedef void (Rva003F87FFListener::*Rva003F87FFNotify)(Rva0056AC26Owner *, Rva0056AC26 *);
 
+// Zero Hour's Common/LatchRestore.h, as in Rva00308AA4Notifiers.cpp (retail
+// ctor 0x0027EA63, dtor 0x0027EA82, vtable 0x00BFB1CC for a 4-byte type).
+template <typename T>
+class LatchRestore
+{
+protected:
+	T valueToRestore;
+	T &whereToRestore;
+
+public:
+	LatchRestore(T &dest, const T &src) : whereToRestore(dest)
+	{
+		valueToRestore = dest;
+		dest = src;
+	}
+
+	virtual ~LatchRestore()
+	{
+		whereToRestore = valueToRestore;
+	}
+};
+
 // The by-reference call record forEach builds on its stack.
 struct Rva003F8646Call
 {
@@ -55,8 +77,13 @@ class Rva003F86D4List
 public:
 	void forEach(Rva003F87FFNotify notify, Rva0056AC26Owner *owner, Rva0056AC26 *entry);
 
-	// The EH-guarded walk (0x003F8646) stays unmodelled.
 	void apply(const Rva003F8646Call &call);
+
+private:
+	Rva003F87FFListener **m_begin;		// +0x00
+	Rva003F87FFListener **m_end;		// +0x04
+	Rva003F87FFListener **m_capacity;	// +0x08
+	unsigned int m_index;				// +0x0C
 };
 
 class Rva0056AC26Owner
@@ -131,4 +158,17 @@ void Rva003F86D4List::forEach(Rva003F87FFNotify notify, Rva0056AC26Owner *owner,
 	call.owner = owner;
 	call.entry = entry;
 	apply(call);
+}
+
+// The walks: the same index latch and re-entrant loop as 0x00308688.
+void Rva003F86D4List::apply(const Rva003F8646Call &call)
+{
+	unsigned int i = 0;
+	LatchRestore<unsigned int> latch(m_index, i);
+	while (i < (unsigned int)(m_end - m_begin))
+	{
+		m_index++;
+		(m_begin[i]->*call.notify)(call.owner, call.entry);
+		i = m_index;
+	}
 }
