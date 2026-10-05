@@ -12,6 +12,23 @@
 
 class Object;
 class ModuleData;
+class Player;
+class Rva0039B795;
+class Rva0039B7AD;
+class Rva003B0D7C
+{
+public:
+	unsigned int rva003B0CB3(unsigned int amount, Rva0039B795 *arg2, bool flag);
+	void rva003B0D7C(int amount, Rva0039B7AD *arg2, bool flag);
+};
+
+struct Iface20Slots
+{
+	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
+	virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07();
+	virtual void v08(); virtual void v09(); virtual void v10(); virtual void v11();
+	virtual float v12(Player *p);
+};
 
 enum ObjectStatusTypes
 {
@@ -85,6 +102,7 @@ public:
 	void rva0028AE6D();
 	void *rva0028BD17() const;
 	void setStatus(ObjectStatusTypes bit, bool set);
+	Player *getControllingPlayer() const;
 
 	unsigned char m_pad000[0x04];
 	const ThingTemplate *m_template; // +0x04
@@ -237,6 +255,7 @@ public:
 	virtual float rva0045342F(Object *obj);
 	virtual void rva00454501();
 	virtual bool rva004533B2();
+	void rva0045318B();
 private:
 	void rva004541AB();
 	bool rva00453124();
@@ -465,4 +484,27 @@ bool GettingBuiltBehavior::rva004533B2()
 		return ready && !rva00453124();
 	}
 	return false;
+}
+
+// ?rva0045318B@GettingBuiltBehavior@@QAEXXZ @0x0045318B 89B
+// __thiscall ceil-and-credit: if m_object and its controlling player exist,
+// REAL_TO_INT_CEIL slot 12 (+0x30) of the +0x20 subobject for the player into
+// Money at Player+0x90 via rowed rva003B0CB3 and store to m_38. Gap between
+// slot 7 0x0045314E and slot 22 0x004531E4; mirrors their ceil shape.
+// Evidence: neighbours prove GettingBuiltBehavior owner (+0x08/+0x38/+0x20);
+// callee rows getControllingPlayer 0x0028AFA9 plus rva003B0CB3 0x003B0CB3
+// plus ceil import; caller 0x004536B5.
+void GettingBuiltBehavior::rva0045318B()
+{
+	Object *obj = m_object;
+	if (!obj)
+		return;
+	Player *player = obj->getControllingPlayer();
+	if (!player)
+		return;
+	Iface20Slots *iface = (Iface20Slots *)((char *)this + 0x20);
+	int count = REAL_TO_INT_CEIL(iface->v12(player));
+	m_38 = count;
+	Rva003B0D7C *money = (Rva003B0D7C *)((char *)player + 0x90);
+	money->rva003B0CB3((unsigned int)count, (Rva0039B795 *)((char *)player + 0x3BC), true);
 }
