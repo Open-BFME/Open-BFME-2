@@ -1,3 +1,4 @@
+#include "AptObject/AptScriptFunction.h"
 // cl: /O2 /MD
 // May 2006 Xbox APT0.19.03 PDB supplies member names and class identity.
 // Target startup 7B67A0 constructs global VA E182E0 with 6FE980, then registers
@@ -34,11 +35,6 @@ class AptBasePtrStack
 public:
     void rva006FDDB0(int nCapacity);
     void rva006FE0B0(int nSize);
-};
-class AptScriptFunctionBase
-{
-public:
-    static void InitializeStaticData(const AptInitParmsT &parms);
 };
 struct AptActionInterpreter {
     struct DebugCallStackInfo_t;

@@ -1,3 +1,4 @@
+#include "AptObject/AptScriptFunction.h"
 // ?rva006FEB50@AptActionInterpreter@@QAEXXZ
 // partial score=0.95 date=2026-09-30
 // cl: /O2 /MD
@@ -43,11 +44,6 @@ template<class T> class AptDebugStack
     T **m_aElements;
 public:
     void Shutdown();
-};
-class AptScriptFunctionBase
-{
-public:
-    static void ShutdownStaticData();
 };
 struct AptActionInterpreter {
     struct DebugCallStackInfo_t;

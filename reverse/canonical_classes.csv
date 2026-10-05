@@ -23,3 +23,6 @@ BfmeShadowVectorPrefix,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/
 BfmeShadowPrefixFields,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/BfmeShadowPrefix.h,native initializer stores4..54; observed prefix only
 Rva000EFA4E,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/BfmeShadowPrefix.h,nonvirtual initializer ABI view; original class and full size unknown
 BfmeShadowBufferOwnerBase,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/BfmeShadowPrefix.h,existing destructor view reconciled with observed prefix; only first dispatch slot modeled; full table extent unknown
+AptScriptFunctionBase,Code/Libraries/Source/Apt/AptObject/AptScriptFunction.h,original Redwood6 PDB declarations reconciled with native constructor layout and25-slot PC vtable; static consumers share the header
+AptScriptFunctionByteCodeBlock,Code/Libraries/Source/Apt/AptObject/AptScriptFunction.h,original Redwood6 PDB declarations reconciled with native constructor layout and25-slot PC vtable; static consumers share the header
+AptScriptFunction2,Code/Libraries/Source/Apt/AptObject/AptScriptFunction.h,original Redwood6 PDB declarations reconciled with native constructor layout and25-slot PC vtable; static consumers share the header

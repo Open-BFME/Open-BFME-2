@@ -5309,6 +5309,7 @@ void __cdecl rva007B96B2()
 class QueuedDownload;
 namespace _STL { template <class T, class A = allocator<T> > class list { public: ~list(); }; }
 extern unsigned g_Va00E0657C;
+unsigned int g_Va00E0657C;
 
 // ?rva007B96BC@@YAXXZ @ 0x007B96BC (10B). Global list dtor thunk: ecx=&g_Va00E0657C then tail-jmp to rowed ??1?$list@VQueuedDownload@@V?$allocator@VQueuedDownload@@@_STL@@@_STL@@QAE@XZ (0x005BD5EE). No callers. Between 0x007B96B2 and 0x007B96C6. Honest address name.
 void __cdecl rva007B96BC()
@@ -6514,13 +6515,13 @@ void __cdecl rva007B9702()
 	return p->Rva005C47A3::~Rva005C47A3();
 }
 
-extern unsigned g_Va00E0657C;
-unsigned int g_Va00E0657C;
+extern unsigned g_Va00E062D8;
+unsigned int g_Va00E062D8;
 
-// ?rva007B945A@@YAXXZ @ 0x007B945A (10B). Global Rva00200667 dtor thunk: ecx=&g_Va00E0657C then tail-jmp to pinned ??1Rva00200667@@QAE@XZ (0x00200667; deleting dtor 0x002821B3). No callers. Honest address name.
+// ?rva007B945A@@YAXXZ @ 0x007B945A (10B). Global Rva00200667 dtor thunk: ecx=&g_Va00E062D8 then tail-jmp to pinned ??1Rva00200667@@QAE@XZ (0x00200667; deleting dtor 0x002821B3). No callers. Honest address name.
 void __cdecl rva007B945A()
 {
-	Rva00200667 *p = (Rva00200667 *)&g_Va00E0657C;
+	Rva00200667 *p = (Rva00200667 *)&g_Va00E062D8;
 	return p->~Rva00200667();
 }
 

@@ -1,3 +1,4 @@
+#include "AptScriptFunction.h"
 // cl: /O2 /MD
 // APT0.19.03 May2006 Xbox release donor supplies class and method spellings.
 // Target assertions name AptObject/AptScriptFunction.cpp and independently name
@@ -18,22 +19,7 @@ struct AptInitParmsT { unsigned char unaccessed[48]; int iRegArraySize; };
 void *__cdecl operator new(unsigned int);
 extern AptValue *gpUndefinedValue;
 void __cdecl operator delete(void *);
-class AptScriptFunctionBase {
-public:
-    static AptValue **spRegBlockBase, **spRegBlockCurrentFrameBase;
-    static int snRegBlockCurrentFrameCount, snRegisterBlockSize;
-public:
-    static void InitializeStaticData(const AptInitParmsT &);
-    static void ShutdownStaticData();
-    static void *PushStaticData();
-};
 
-class AptValue
-{
-public:
-    virtual void slot0();
-    virtual void slot1();
-};
 // These four class statics occupy consecutive zero-filled .data slots.
 // VA 0x00E1834C (.data, zero-filled tail).
 AptValue **AptScriptFunctionBase::spRegBlockBase;
@@ -85,6 +71,6 @@ void __cdecl Rva00709F70Set(int nIndex, AptValue *pNewValue)
     AptValue **base = AptScriptFunctionBase::spRegBlockCurrentFrameBase;
     AptValue *old = base[nIndex];
     base[nIndex] = pNewValue;
-    pNewValue->slot0();
-    old->slot1();
+    pNewValue->AddRef();
+    old->Release();
 }
