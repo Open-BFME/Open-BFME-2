@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/open-bfme-1/inputs/reference/shims/sweep /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main
+// cl: /O1 /arch:SSE /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/open-bfme-1/inputs/reference/shims/sweep /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main
 // stlport
 //
 // Bodies ported from Open-BFME-1's
@@ -10,6 +10,15 @@
 // ScreenMotionBlurFilter::setZoomToPos 0x0008553B (24B). Callee addresses are
 // read off retail's call sites (reverse/symbols.csv). Only the placed bodies
 // are carried; the donor's other definitions are omitted.
+//
+// The viewport setters (setHeight 0x00087AF4, setWidth 0x00087B81, setOrigin
+// 0x00087C55) are the donor bodies as written, placed by retail's W3DView
+// vftable: they sit 3, 5 and 1 slots before the View::getOrigin entry, and
+// their own calls reach setWidth and setHeight at slots 0x38 and 0x40.
+// Retail differs from the BFME 1 donor in two places: TheDisplay's getWidth and
+// getHeight are vtable slots 0x40 and 0x44, not 0x2C and 0x30, and the unit is
+// built /arch:SSE, which the int-to-float conversions in setHeight and
+// setWidth show (cvtsi2ss/divss) while the unsigned display sizes stay x87.
 #define Matrix4x4 Matrix4  // BFME renamed it
 /*
 **	Command & Conquer Generals Zero Hour(tm)
@@ -153,6 +162,11 @@ public:
 	virtual void slot08();
 	virtual void slot09();
 	virtual void slot10();
+	virtual void slot11();
+	virtual void slot12();
+	virtual void slot13();
+	virtual void slot14();
+	virtual void slot15();
 	virtual UnsignedInt getWidth();
 	virtual UnsignedInt getHeight();
 };
@@ -320,6 +334,27 @@ void drawAudioLocations( Drawable *draw, void *userData );
 
 #endif
 
+
+//-------------------------------------------------------------------------------------------------
+/** Sets location of top-left view corner on display */
+//-------------------------------------------------------------------------------------------------
+void W3DView::setOrigin( Int x, Int y)
+{
+	BfmeW3DViewViewportFields *fields = (BfmeW3DViewViewportFields *)this;
+	BfmeW3DViewViewportVtable *view = (BfmeW3DViewViewportVtable *)this;
+	fields->m_originX = x;
+	fields->m_originY = y;
+
+	Vector2 vMin,vMax;
+
+	fields->m_3DCamera->Get_Viewport(vMin,vMax);
+	vMin.X=(Real)x/(Real)((BfmeDisplayViewportVtable *)TheDisplay)->getWidth();
+	vMin.Y=(Real)y/(Real)((BfmeDisplayViewportVtable *)TheDisplay)->getHeight();
+	fields->m_3DCamera->Set_Viewport(vMin,vMax);
+
+	view->setWidth(fields->m_width);
+	view->setHeight(fields->m_height);
+}
 
 //-------------------------------------------------------------------------------------------------
 /** Sets the view filter mode. */
