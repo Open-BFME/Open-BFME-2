@@ -63721,3 +63721,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva0044D986@GameModePreferences@@QAE?AVAsciiString@@XZ,,0x0044D986,290,Code/GameEngine/Source/Common/GameModePreferences.cpp,matched,
 ??0Rva004E2C66@@QAE@ABV0@@Z,,0x004E2C66,83,Code/GameEngine/Source/Common/Rva004E2382Ctor.cpp,matched,
 ?onEnter@AIMoveToAndEvacuateState@@UAE?AW4StateReturnType@@XZ,,0x003500E6,103,Code/GameEngine/Source/GameLogic/AI/AIMoveToAndEvacuateStateOnEnter.cpp,matched,Retail slot-4 body loads goal x/y/z before position subtraction; compiler barriers retain that grouped evaluation/store order. Target calls rowed Rva0033FA64Do and AIMoveToState::onEnter after INV comparison.
+?bfmeMakePairEL@@YA?AUBfmePairEL@@ABVBfmeWordEL@@0@Z,,0x0002C621,27,Code/GameEngine/Source/Common/Bfme5TwoWordPairFactory_Rva0002C621.cpp,matched,BFME1 reference-guided two-word factory; target hidden return buffer ABI and shared pair ctor2C4FD verified; donor6583b3c1
