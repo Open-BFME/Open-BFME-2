@@ -12,6 +12,7 @@ class Rva005E971F
 {
 public:
 	void rva005E971F(Rva005E9625 *p);
+	void rva005E9705();
 private:
 	Rva005E9625 *m_ptr; // +0
 };
@@ -24,5 +25,14 @@ void Rva005E971F::rva005E971F(Rva005E9625 *p)
 			old->Rva005E9625::~Rva005E9625();
 			operator delete(old);
 		}
+	}
+}
+void Rva005E971F::rva005E9705()
+{
+	Rva005E9625 *old = m_ptr;
+	m_ptr = 0;
+	if (old) {
+		old->Rva005E9625::~Rva005E9625();
+		operator delete(old);
 	}
 }
