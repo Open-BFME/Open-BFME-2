@@ -121,6 +121,8 @@ class BfmeThingUBB { char m_pad[16]; public: BfmeThingUBB(const BfmeThingUBB &);
 struct Rva005E71C6Ref { char m_pad[4]; public: Rva005E71C6Ref(const Rva005E71C6Ref &); ~Rva005E71C6Ref(); };
 // 8-byte element; push_back 0x004F93B0.
 struct Rva004F93B0Element { char m_pad[8]; public: Rva004F93B0Element(const Rva004F93B0Element &); ~Rva004F93B0Element(); };
+// 156-byte element; push_back 0x004CC337 (stlport_asciistring_record_bodies.cpp).
+struct BfmeStringTailRecord156 { char m_pad[156]; public: BfmeStringTailRecord156(const BfmeStringTailRecord156 &); ~BfmeStringTailRecord156(); };
 namespace _STL
 {
 template <> void _Construct<RvaSmartPtr12, RvaSmartPtr12>(RvaSmartPtr12 *, const RvaSmartPtr12 &);
@@ -172,6 +174,7 @@ template <> void _Construct<BfmePod104, BfmePod104>(BfmePod104 *, const BfmePod1
 template <> void _Construct<BfmeThingUBB, BfmeThingUBB>(BfmeThingUBB *, const BfmeThingUBB &);
 template <> void _Construct<Rva005E71C6Ref, Rva005E71C6Ref>(Rva005E71C6Ref *, const Rva005E71C6Ref &);
 template <> void _Construct<Rva004F93B0Element, Rva004F93B0Element>(Rva004F93B0Element *, const Rva004F93B0Element &);
+template <> void _Construct<BfmeStringTailRecord156, BfmeStringTailRecord156>(BfmeStringTailRecord156 *, const BfmeStringTailRecord156 &);
 }
 
 // Retail 0x0004CE90.
@@ -323,6 +326,10 @@ template void _STL::vector<Rva005E71C6Ref>::_M_insert_overflow(
 template void _STL::vector<Rva004F93B0Element>::_M_insert_overflow(
     Rva004F93B0Element *, const Rva004F93B0Element &, const _STL::__false_type &, unsigned int, bool);
 
+// Retail 0x004CC25C (push_back 0x004CC337 is its caller).
+template void _STL::vector<BfmeStringTailRecord156>::_M_insert_overflow(
+    BfmeStringTailRecord156 *, const BfmeStringTailRecord156 &, const _STL::__false_type &, unsigned int, bool);
+
 // Also landed from the instances above (sole growth-path callers):
 //   0x0004CDAF 30B ?_M_clear@?$vector@VRvaSmartPtr12@@V?$allocator@VRvaSmartPtr12@@@_STL@@@_STL@@IAEXXZ
 //   0x0021FE2B 30B ?_M_clear@?$vector@VRva0021F876@@V?$allocator@VRva0021F876@@@_STL@@@_STL@@IAEXXZ
@@ -331,3 +338,5 @@ template void _STL::vector<Rva004F93B0Element>::_M_insert_overflow(
 //   0x004F7E78 25B ??$_Destroy@PAURva004F9018Element@@@_STL@@YAXPAURva004F9018Element@@0@Z
 //   0x004F82ED 30B ?_M_clear@?$vector@URva004F9018Element@@V?$allocator@URva004F9018Element@@@_STL@@@_STL@@IAEXXZ
 //   0x005EB2C9 30B ?_M_clear@?$vector@UGeometryShape@@V?$allocator@UGeometryShape@@@_STL@@@_STL@@IAEXXZ
+//   0x004CC0A7 47B ??$__uninitialized_copy@PAUBfmeStringTailRecord156@@PAU1@@_STL@@YAPAUBfmeStringTailRecord156@@PAU1@00ABU__false_type@0@@Z
+//   0x004CC0D6 40B ??$__uninitialized_fill_n@PAUBfmeStringTailRecord156@@IU1@@_STL@@YAPAUBfmeStringTailRecord156@@PAU1@IABU1@ABU__false_type@0@@Z
