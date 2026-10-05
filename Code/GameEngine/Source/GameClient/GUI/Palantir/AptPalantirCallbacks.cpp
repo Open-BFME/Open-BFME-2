@@ -390,7 +390,6 @@ void AptPalantir::rva002D4DD0(const char *unused)
 // "PalantirButtons/Buttons/Objectives/ButtonClip/", so it keeps its
 // address. Runs the objectives command button when TheGameLogic's
 // 0x00200084 holds or the game mode is 6, else the player status one.
-// ?rva002D4E71@AptPalantir@@QAEXPBD@Z present-unmatched
 void AptPalantir::rva002D4E71(const char *unused)
 {
 	const AsciiString *name;
