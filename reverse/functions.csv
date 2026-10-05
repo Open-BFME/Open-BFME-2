@@ -62908,3 +62908,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva007B6E18@@YAXXZ,,0x007B6E18,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00DEBC98 tail-jmp pinned Rva000E6387 dtor 0x000E6387
 ?rva007B7E3F@@YAXXZ,,0x007B7E3F,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00E02838 tail-jmp pinned Gen_uwm_00357cd9 dtor 0x00357CD9
 ??$copy@PAUBfmeAssignRecord172@@PAU1@@_STL@@YAPAUBfmeAssignRecord172@@PAU1@00@Z,,0x001EBACF,27,Code/Libraries/Source/WWVegas/WWLib/StlportCopyWrapperPairsFamily.cpp,matched,STLport copy wrapper over pinned by-ref __copy_ptrs 0x1EBA13
+?rva0037F38F@Rva0037F38F@@QAEXABURva002E2D10Record@@H@Z,,0x0037F38F,15,Code/GameEngine/Source/Common/Rva0037F38F.cpp,matched,unlock lane vec push_back forwarder via caller 0x001EC8C0
