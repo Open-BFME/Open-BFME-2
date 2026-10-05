@@ -33,6 +33,8 @@ private:
 	unsigned char m_pad[0x4C];
 };
 
+extern const void *const g_00C4DA50[];
+
 class MonitorConditionUpdateModuleData
 {
 public:
@@ -49,7 +51,7 @@ private:
 
 // ??0MonitorConditionUpdateModuleData@@QAE@XZ @0x4915FD
 MonitorConditionUpdateModuleData::MonitorConditionUpdateModuleData()
-	: m_vtable(reinterpret_cast<const void *>(0x00C4DA50))
+	: m_vtable(g_00C4DA50)
 	, m_modelConditionFlags()
 {
 	m_modelConditionCommandSet = 0;
