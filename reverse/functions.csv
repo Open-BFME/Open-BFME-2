@@ -63366,3 +63366,6 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?setupBC@Rva005CDMorph@@QAEPAV1@HHHHH@Z,,0x005CD2EF,45,Code/GameEngine/Source/Common/RvaMorphInitFamily.cpp,matched,Address-derived morph-init installing 0x00C74FBC; 45B sharedInit/last-store/placement-new shape
 ?setupD8@Rva005CDMorph@@QAEPAV1@HHHHH@Z,,0x005CD34B,45,Code/GameEngine/Source/Common/RvaMorphInitFamily.cpp,matched,Address-derived morph-init installing 0x00C74FD8; 45B sharedInit/last-store/placement-new shape
 ??1Rva004FF2C0@@UAE@XZ,,0x004FF2C0,18,Code/GameEngine/Source/Common/Rva004FF2C0Dtor.cpp,matched,Opaque derived dtor: vtable install plus +0x2C literal store then tail-jmp opaque base 0x004FBCBE; chain idiom
+?fwd@Rva005E681EMid@@QAEXXZ,,0x005E681E,8,Code/GameEngine/Source/Common/RvaVirtualFwdThunks.cpp,matched,Address-derived virtual-forward thunk: owned ptr at +4 slot6 tail-jmp; 8B shape
+?fwd@Rva005E6836Mid@@QAEXXZ,,0x005E6836,8,Code/GameEngine/Source/Common/RvaVirtualFwdThunks.cpp,matched,Address-derived virtual-forward thunk: adj +4 slot 0x08 tail-jmp; 8B shape
+?fwd@Rva005E3AA2Mid@@QAEXXZ,,0x005E3AA2,8,Code/GameEngine/Source/Common/RvaVirtualFwdThunks.cpp,matched,Address-derived virtual-forward thunk: adj -8 slot 0x0C tail-jmp; 8B shape
