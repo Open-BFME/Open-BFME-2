@@ -12096,3 +12096,13 @@ _rva00286E33@8,0x00286E33,stdcall out-param 5B writer called from 0x287B2A with 
 ?rva0021BDAB@Rva0021BDAccess@@QAEHI@Z,0x0021BDAB,middle entry of the 0x0021BE42 chain: REL32 read at the forward call site in 0x0021BE42; two-level forward via 0x0021BD22/0x0021BD41 with +4 element offset; owner class identity unproven
 ?rva0021BDD3@Rva0021BDAccess@@QAEHI@Z,0x0021BDD3,middle entry of the 0x0021BE62 chain: REL32 read at the forward call site in 0x0021BE62; two-level forward via 0x0021BD22/0x0021BD41 with +8 element offset; owner class identity unproven
 ?rva0021BDFB@Rva0021BDAccess@@QAEHI@Z,0x0021BDFB,middle entry of the 0x0021BE82 chain: REL32 read at the forward call site in 0x0021BE82; two-level forward via 0x0021BD22/0x0021BD41 with +0xC element offset; owner class identity unproven
+?rva00056BFE@Rva00057B27@@QAEHI@Z,0x00056BFE,reserve-like grower: REL32 read at the count+1 call site in 0x00057B27; owner identity unproven
+?rva00054BC3@Rva00057B27@@QAEXII@Z,0x00054BC3,indexed set: REL32 read at the two-arg call site in 0x00057B27; owner identity unproven
+?rva0053F1EC@Rva00057D38@@QAEHI@Z,0x0053F1EC,reserve-like grower: REL32 read at the count+1 call site in 0x00057D38; owner identity unproven
+?rva000556AB@Rva00057D38@@QAEXII@Z,0x000556AB,indexed set: REL32 read at the two-arg call site in 0x00057D38; owner identity unproven
+?rva000E0322@Rva000E0536@@QAEHI@Z,0x000E0322,reserve-like grower: REL32 read at the count+1 call site in 0x000E0536; owner identity unproven
+?rva000E0298@Rva000E0536@@QAEXII@Z,0x000E0298,indexed set: REL32 read at the two-arg call site in 0x000E0536; owner identity unproven
+?rva00212858@Rva003EF34A@@QAEHI@Z,0x00212858,reserve-like grower reading an int-vector count at this+4: REL32 read at the count+1 call site in 0x003EF34A; shared with 0x0052B7F8 which pins its own owner spelling; owner identity unproven
+?rva003EF264@Rva003EF34A@@QAEXII@Z,0x003EF264,indexed set through a pointer table at this+4: REL32 read at the two-arg call site in 0x003EF34A; owner identity unproven
+?rva00212858@Rva0052B7F8@@QAEHI@Z,0x00212858,reserve-like grower: REL32 read at the count+1 call site in 0x0052B7F8; alias pin sharing bytes with the Rva003EF34A spelling; owner identity unproven
+?rva0052B737@Rva0052B7F8@@QAEXII@Z,0x0052B737,indexed set: REL32 read at the two-arg call site in 0x0052B7F8; owner identity unproven
