@@ -1,8 +1,8 @@
 // Three global-this forwards (11B each): mov ecx, [global], jmp <run>.
 // Each loads a singleton pointer into this and tail-jumps its parameterless
 // run method.
-// 0x003BBEDE (global 0x00DFE16C -> 0x002034D5),
-// 0x003BBEE9 (global 0x00DFE16C -> 0x002034DD),
+// 0x003BBEDE (global 0x00DFE16C -> 0x00203AD5),
+// 0x003BBEE9 (global 0x00DFE16C -> 0x00203ADD),
 // 0x003BD424 (global 0x00DFF028 -> 0x002D37BD).
 // Global/callee identities unproven (opaque pins); the wrapper names are
 // address-derived. One ledger row per forward.
