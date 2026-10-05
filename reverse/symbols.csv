@@ -13536,3 +13536,4 @@ _peerJoinStagingRoomA,0x0069A130,GameSpy SDK C export peerJoinStagingRoomA (ANSI
 _peerStateChanged,0x00699460,GameSpy SDK C export peerStateChanged: PeerThread.cpp declares the sweep Peer.h with C linkage, and Thread_Function 0x0038EDD7 / doQuickMatch 0x0038E684 call this body where the Zero Hour source calls peerStateChanged
 ?rva000053EE@Rva002DBCCAArg@@QAEXXZ,0x000053EE,pin for 0x2DBCCA thiscall void () on arg
 ?rva004FFB00@Rva0059CFAACallee@@QAGXPAXHH@Z,0x004FFB00,address-derived __stdcall callee of 0x0059CFAA (3 stack args, callee cleanup); target REL32 from retail call at 0x0059D019
+??0BfmePairEL@@QAE@ABVBfmeWordEL@@0@Z,0x0002C4FD,BfmePairEL two-word ctor; BfmeWordEL is the rowed 4-byte StringBase<char> view so this is the same bytes as the matched ??0Rva0002C4FD@@QAE@ABV?$StringBase@D@@0@Z body (cf existing pair@VAsciiString ICF-alias pin); called by the bfmeMakePairEL factory at 0x0002C621
