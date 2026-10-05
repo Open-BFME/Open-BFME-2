@@ -13505,3 +13505,4 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 ?lower_bound@Rva0046A9ABMapLowerBound@@QBEPAU?$_Rb_tree_node@U?$pair@$$CBGVAsciiString@@@_STL@@@_STL@@ABG@Z,0x0046A9AB,structural adapter for operator[] at 0x004D2941; target performs the required map lower_bound search and matches the established ushort AsciiString map lower_bound body at 0x00156680
 
 ?erase@Rva00082XXHintVec@@QAEPAUTreeHintRef00217D4C@@PAU2@0@Z,0x000819EC,address-view alias for rowed vector TreeHintRef00217D4C range erase at same address
+?erase@Rva0005E322TreeView@@QAEIABVAsciiString@@@Z,0x0005B5EA,address-view alias for rowed Rb-tree AsciiString single erase at same address
