@@ -16,6 +16,7 @@ public:
 // g_registryAtE02E88: matched references place it at VA 0xe02e88 (zero-filled; a plain-data view).
 Rva002B7250 g_registryAtE02E88;
 extern const void *const g_vtableAtBFDF68[];
+const void *const g_vtableAtBFDF68[1] = { 0 };
 
 class Rva003EF14ABase {
 public:
@@ -80,6 +81,9 @@ public:
     // ?Rva003EF14ASecondary::~Rva003EF14ASecondary present-unmatched
     ~Rva003EF14ASecondary() {}
 };
+
+// ?slot0@Rva003EF14ASecondary@@UAEXXZ present-unmatched
+void Rva003EF14ASecondary::slot0() { }
 
 // Only the two called vslots and reference word are recovered. The names
 // and signatures of unused slots remain opaque in this local call view.
@@ -156,6 +160,9 @@ public:
     void rva003EE9F1();
     void rva003EF1B8();
 };
+
+// ?slot0@Rva003EF14A@@UAEXXZ present-unmatched
+void Rva003EF14A::slot0() { }
 
 Rva003EF14A::~Rva003EF14A()
 {
