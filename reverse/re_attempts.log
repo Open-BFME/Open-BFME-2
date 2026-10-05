@@ -9124,3 +9124,5 @@ _VP6_ConfigureMvEntropyDecoder	0x001C6EF0	331	partial	third-loop pre-increment p
 ?rva0044E1B9@BloodthirstyUpdate@@UAE_NPAVObject@@@Z	0x0044E1B9	105	blocked	register allocation only candidate spilled data in ebx not ebp iface in local not arg slot plus frame t=18 model=muse-12 (stash 0.9 kept)
 ?rva005DDBAB@Rva005DDBAB@@QAEXPAVGameWindow@@PAPAH@Z	0x005DDBAB	192	blocked	191B same 69 insns esi-eax ebx-esi swap sub-mem vs sub-reg lea CSE remains t=8 model=muse-12 (stash 0.93 kept)
 ?Rva003E5B11Check@@YG_NPAVParameter@@0@Z	0x003E5B11	243	blocked	setne vs je-mov for rva003971BF and neg-sbb-inc vs je for Foundation v03 remains explicit compare no change t=12 model=muse-12 (stash 0.95 kept)
+?rva003C1E69@Rva003C1E69@@QAEPAVTeam@@ABVAsciiString@@0@Z	0x003C1E69	35	partial	one extra push ecx at +0x3 36 vs 35B 13 vs 14 insns rest exact t=15 model=muse-spark score=0.97 stash=reverse/attempts/0x003c1e69.cpp
+?Rva003C1EC2Do@@YGXPBX00@Z	0x003C1EC2	72	blocked	needs predicates 0x002886E9 0x00288726 unproven boundary plus unclaimed callees 0x39B3D1 0x39B28F t=5 model=muse-spark
