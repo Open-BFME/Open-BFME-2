@@ -9325,3 +9325,5 @@ FUN_0047ffed	0x0007FFED	233	blocked	anonymous water-setting dispatch (thiscall +
 ?_M_insert_overflow@?$vector@UBfmeAssignRecord28@@V?$allocator@UBfmeAssignRecord28@@@_STL@@@_STL@@IAEXPAUBfmeAssignRecord28@@ABU3@ABU__false_type@2@I_N@Z	0x000B059B	183	blocked	overflow calls PB shared copy 101ECF and Eva clear B0298 but stock 4.5.3 vector overflow emits PA copy 3F62F5 and own clear 3F69A8 t=25 model=muse-05
 ?rva00170BFF@Rva00170BFF@@QAEXPAPAXPAURva00170BFFNode@@1ABVRva00170999@@1@Z	0x00170BFF	136	blocked	finish stash 0.99 needs maintainer retraction of YG buy row 0x170B4E to member spelling plus queued writer t=10 model=muse-05
 ??1Rva003F6A91@@UAE@XZ	0x003F6A91	136	blocked	dual-vptr EH dtor with list forEach plus vector plus callback plus manual free needs layout and base identities t=18 model=muse-05
+?Rva0040F077@@YAXPAVINI@@PAVRva0040ECCF@@@Z	0x0040F077	121	blocked	esi vs eax regalloc wall p stays live but keeps eax t=12 model=muse-08
+?Rva0040F10F@@YGXPAVRva0037EB1D@@@Z	0x0040F10F	142	partial	ebx esi edi regalloc and arg slot reuse for new-holder t=15 model=muse-08 score=0.91 stash=reverse/attempts/0x0040f10f.cpp
