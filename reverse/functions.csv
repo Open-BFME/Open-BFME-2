@@ -60051,3 +60051,28 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva004EF2FA@Rva004EF2FA@@UAEXHH@Z,,0x004EF2FA,15,Code/GameEngine/Source/Common/VslotSmallBodiesAD.cpp,matched,secondary-base slot (interface at +0x04); pinned 0x004EEE38 of the complete object with arg1; no Ghidra entry
 ?rva00508925@Rva00508925@@QAE_NHH@Z,,0x00508925,21,Code/GameEngine/Source/Common/VslotSmallBodiesAD.cpp,matched,vtable slot; pinned 0x005075D6 verdict for both args as bool; no Ghidra entry
 ?onEnter@AIGuardReturnState@@UAE?AW4StateReturnType@@XZ,,0x00543CC4,301,Code/GameEngine/Source/GameLogic/AI/AIGuardReturnStateOnEnter.cpp,matched,slot 4 of vtable 0x00C69830; ZH return scan with BFME2 guard-centre getter 0x00543326; early STATE_SUCCESS laid out last per retail ja/jmp
+?rva0027675F@Drawable@@QAE?AVRva002390CB@@H@Z,,0x0027675F,166,Code/GameEngine/Source/GameClient/DrawableKeyedLookup.cpp,matched,keyed Drawable lookup listeners plus154 slot13 slot0 else template plus4 rva00239435; default record for key -1
+?rva00276805@Drawable@@QAE_NH@Z,,0x00276805,42,Code/GameEngine/Source/GameClient/DrawableKeyedLookup.cpp,matched,keyed Drawable lookup record carries a reference
+?rva00346C79@Drawable@@QAE?AVRva002390CB@@XZ,,0x00346C79,25,Code/GameEngine/Source/GameClient/DrawableKeyedLookups.cpp,matched,keyed Drawable lookup key 0x21 via rowed 0x0027675F
+?rva00346C92@Drawable@@QAE?AVRva002390CB@@XZ,,0x00346C92,25,Code/GameEngine/Source/GameClient/DrawableKeyedLookups.cpp,matched,keyed Drawable lookup key 0x22 via rowed 0x0027675F
+?rva00346CAB@Drawable@@QAE?AVRva002390CB@@XZ,,0x00346CAB,25,Code/GameEngine/Source/GameClient/DrawableKeyedLookups.cpp,matched,keyed Drawable lookup key 0x23 via rowed 0x0027675F
+?rva00346CC4@Drawable@@QAE?AVRva002390CB@@XZ,,0x00346CC4,25,Code/GameEngine/Source/GameClient/DrawableKeyedLookups.cpp,matched,keyed Drawable lookup key 0x24 via rowed 0x0027675F
+?rva0027682F@Drawable@@QAE?AVRva002390CB@@XZ,,0x0027682F,25,Code/GameEngine/Source/GameClient/DrawableKeyedLookups.cpp,matched,keyed Drawable lookup key 0x25 via rowed 0x0027675F
+?rva00276848@Drawable@@QAE?AVRva002390CB@@XZ,,0x00276848,25,Code/GameEngine/Source/GameClient/DrawableKeyedLookups.cpp,matched,keyed Drawable lookup key 0x26 via rowed 0x0027675F
+?rva00276861@Drawable@@QAE?AVRva002390CB@@XZ,,0x00276861,25,Code/GameEngine/Source/GameClient/DrawableKeyedLookups.cpp,matched,keyed Drawable lookup key 0x27 via rowed 0x0027675F
+?rva0027687A@Drawable@@QAE?AVRva002390CB@@XZ,,0x0027687A,25,Code/GameEngine/Source/GameClient/DrawableKeyedLookups.cpp,matched,keyed Drawable lookup key 0x28 via rowed 0x0027675F
+?rva00276893@Drawable@@QAE?AVRva002390CB@@XZ,,0x00276893,25,Code/GameEngine/Source/GameClient/DrawableKeyedLookups.cpp,matched,keyed Drawable lookup key 0x29 via rowed 0x0027675F
+?rva00374389@Drawable@@QAE?AVRva002390CB@@XZ,,0x00374389,25,Code/GameEngine/Source/GameClient/DrawableKeyedLookups.cpp,matched,keyed Drawable lookup key 0x2A via rowed 0x0027675F
+?rva003743A2@Drawable@@QAE?AVRva002390CB@@XZ,,0x003743A2,25,Code/GameEngine/Source/GameClient/DrawableKeyedLookups.cpp,matched,keyed Drawable lookup key 0x2B via rowed 0x0027675F
+?rva0049D114@Drawable@@QAE?AVRva002390CB@@XZ,,0x0049D114,25,Code/GameEngine/Source/GameClient/DrawableKeyedLookups.cpp,matched,keyed Drawable lookup key 0x2C via rowed 0x0027675F
+?rva004BE120@Drawable@@QAE?AVRva002390CB@@XZ,,0x004BE120,25,Code/GameEngine/Source/GameClient/DrawableKeyedLookups.cpp,matched,keyed Drawable lookup key 0x2D via rowed 0x0027675F
+?rva004BE139@Drawable@@QAE?AVRva002390CB@@XZ,,0x004BE139,25,Code/GameEngine/Source/GameClient/DrawableKeyedLookups.cpp,matched,keyed Drawable lookup key 0x2E via rowed 0x0027675F
+?rva00462D95@Drawable@@QAE?AVRva002390CB@@XZ,,0x00462D95,25,Code/GameEngine/Source/GameClient/DrawableKeyedLookups.cpp,matched,keyed Drawable lookup key 0x2F via rowed 0x0027675F
+?rva00462DAE@Drawable@@QAE?AVRva002390CB@@XZ,,0x00462DAE,25,Code/GameEngine/Source/GameClient/DrawableKeyedLookups.cpp,matched,keyed Drawable lookup key 0x30 via rowed 0x0027675F
+?rva004BE152@Drawable@@QAE?AVRva002390CB@@XZ,,0x004BE152,25,Code/GameEngine/Source/GameClient/DrawableKeyedLookups.cpp,matched,keyed Drawable lookup key 0x31 via rowed 0x0027675F
+?rva004BE16B@Drawable@@QAE?AVRva002390CB@@XZ,,0x004BE16B,25,Code/GameEngine/Source/GameClient/DrawableKeyedLookups.cpp,matched,keyed Drawable lookup key 0x32 via rowed 0x0027675F
+?rva004BE184@Drawable@@QAE?AVRva002390CB@@XZ,,0x004BE184,25,Code/GameEngine/Source/GameClient/DrawableKeyedLookups.cpp,matched,keyed Drawable lookup key 0x33 via rowed 0x0027675F
+?rva00462DC7@Drawable@@QAE?AVRva002390CB@@XZ,,0x00462DC7,25,Code/GameEngine/Source/GameClient/DrawableKeyedLookups.cpp,matched,keyed Drawable lookup key 0x34 via rowed 0x0027675F
+?rva0028F8E0@Drawable@@QAE?AVRva002390CB@@XZ,,0x0028F8E0,25,Code/GameEngine/Source/GameClient/DrawableKeyedLookups.cpp,matched,keyed Drawable lookup key 0x35 via rowed 0x0027675F
+?rva0028F8F9@Drawable@@QAE?AVRva002390CB@@XZ,,0x0028F8F9,25,Code/GameEngine/Source/GameClient/DrawableKeyedLookups.cpp,matched,keyed Drawable lookup key 0x36 via rowed 0x0027675F
+?rva0028F912@Drawable@@QAE?AVRva002390CB@@XZ,,0x0028F912,25,Code/GameEngine/Source/GameClient/DrawableKeyedLookups.cpp,matched,keyed Drawable lookup key 0x37 via rowed 0x0027675F
