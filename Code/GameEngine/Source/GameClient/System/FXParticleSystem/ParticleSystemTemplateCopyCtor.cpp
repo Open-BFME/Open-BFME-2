@@ -29,29 +29,24 @@
 
 class Xfer;
 
-// Snapshot shape mirrors the rowed ParticleSystemInfo destructor TU so the
-// derived vtable extends the same four-slot layout; the vtable itself is
-// emitted with this TU's derived class (no other TU defines it).
-// class-gate: allow Snapshot rowed-ParticleSystemInfo-TU-order-crc-loadPostProcess-xfer-matching-siblings-byte-exact
-class Snapshot
-{
-public:
-	virtual ~Snapshot() {}
-	virtual void crc(Xfer *xfer) = 0;
-	virtual void loadPostProcess() = 0;
-	virtual void xfer(Xfer *xfer) = 0;
-};
-
+// Native vtableBE1A28: deleting destructor1FC052, empty LoadPostProcessB3FD0,
+// GetSnapshotName1272 and DoXfer1F4F5A. Use the verified particle interface;
+// the earlier crc/loadPostProcess Snapshot view placed different names here.
 namespace FXParticleSystem
 {
 
 // Base subobject: vtable + pad = 0x9c so m_name lands at retail +0x9c.
 // Copy/dtor are the rowed 0x2459/0x240E COMDATs (same decorated names).
-class __declspec(novtable) ParticleSystemInfo : public Snapshot
+class ParticleSystemInfo
 {
 public:
+	ParticleSystemInfo();
 	ParticleSystemInfo(const ParticleSystemInfo &other);
+	ParticleSystemInfo &operator=(const ParticleSystemInfo &);
 	virtual ~ParticleSystemInfo();
+	virtual void LoadPostProcess();
+	virtual const char *GetSnapshotName();
+	virtual void DoXfer(Xfer &);
 
 private:
 	unsigned char m_pad[0x98];
@@ -63,7 +58,9 @@ private:
 class ParticleSystemTemplateTail
 {
 public:
+	ParticleSystemTemplateTail() throw();
 	ParticleSystemTemplateTail(const ParticleSystemTemplateTail &other);
+	ParticleSystemTemplateTail &operator=(const ParticleSystemTemplateTail &);
 	~ParticleSystemTemplateTail();
 
 private:
@@ -73,7 +70,9 @@ private:
 class ParticleSystemTemplate : public ParticleSystemInfo
 {
 public:
+	ParticleSystemTemplate(const AsciiString &);
 	ParticleSystemTemplate(const ParticleSystemTemplate &other);
+	ParticleSystemTemplate &operator=(const ParticleSystemTemplate &);
 	virtual ~ParticleSystemTemplate();
 
 private:
@@ -95,5 +94,22 @@ ParticleSystemTemplate::ParticleSystemTemplate(const ParticleSystemTemplate &oth
 ParticleSystemTemplate::~ParticleSystemTemplate()
 {
 }
+
+// PC export1FC1E0; name+9C, zero slave+A0, tail+A4. The tail ctor cannot throw:
+// target has no extra unwind-state transition after copying the string.
+ParticleSystemTemplate::ParticleSystemTemplate(const AsciiString &name) : m_name(name)
+{
+    m_slaveTemplate = 0;
+}
+// PC export1FCED1; assignment copies the same base/name/tail and resets slave.
+ParticleSystemTemplate &ParticleSystemTemplate::operator=(const ParticleSystemTemplate &other)
+{
+    ParticleSystemInfo::operator=(other);
+    m_name = other.m_name;
+    m_slaveTemplate = 0;
+    m_tail = other.m_tail;
+    return *this;
+}
+typedef char ParticleTemplateSize[sizeof(ParticleSystemTemplate) == 0xD4 ? 1 : -1];
 
 }
