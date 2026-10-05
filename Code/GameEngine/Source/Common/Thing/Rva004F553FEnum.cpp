@@ -16,7 +16,12 @@ public:
     void rva004F553F(Rva004F553FCb cb, void *user, bool forward);
     void rva004F558C(int value);
 };
-void __cdecl Rva004F53C3Cb(void *data, void *user);
+class Object;
+class TunnelTracker
+{
+public:
+	static void healObject(Object *obj, void *user);
+};
 void Rva004F553F::rva004F553F(Rva004F553FCb cb, void *user, bool forward)
 {
     if (forward) {
@@ -44,5 +49,5 @@ void Rva004F553F::rva004F553F(Rva004F553FCb cb, void *user, bool forward)
 // Evidence: chain lane packet; same this as rva004F553F; ret 4.
 void Rva004F553F::rva004F558C(int value)
 {
-    rva004F553F((Rva004F553FCb)Rva004F53C3Cb, &value, false);
+    rva004F553F((Rva004F553FCb)TunnelTracker::healObject, &value, false);
 }
