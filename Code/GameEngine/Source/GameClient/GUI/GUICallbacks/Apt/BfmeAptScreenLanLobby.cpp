@@ -46,6 +46,7 @@ public:
 	virtual LANGameSlot *getLANSlot();
 
 	void setPlayerTemplate(int playerTemplate);
+	void setMapAvailability(bool available);
 	unsigned char rva003FF16F() const;
 	int getColor() const { return m_color; }
 	int getPlayerTemplate() const { return m_playerTemplate; }
@@ -90,8 +91,16 @@ public:
 	virtual void v12();
 	virtual int getLocalSlotNum() const;
 	virtual void resetAccepted();
+	virtual void resetStartSpots();
+	virtual void adjustSlotsForMap();
 
 	GameSlot *getSlot(int index);
+	void setMapForwarder(AsciiString mapName);
+	void setMapCRC(unsigned int mapCRC);
+	void setMapSize(unsigned int mapSize);
+
+	unsigned char m_pad04[0x60 - 0x04];
+	int m_rules[10]; // +0x60
 };
 
 class LANGameInfo : public GameInfo
@@ -174,6 +183,22 @@ public:
 extern LANAPI *g_00DFE958;
 #define TheLAN g_00DFE958
 
+class MapMetaData
+{
+public:
+	unsigned char m_pad00[0x28];
+	unsigned int m_filesize; // +0x28
+	unsigned int m_CRC; // +0x2C
+};
+
+class MapCache
+{
+public:
+	const MapMetaData *findMap(AsciiString mapName);
+};
+
+extern MapCache *TheMapCache;
+
 class Rva0043DB47DoubleSetter
 {
 public:
@@ -188,6 +213,8 @@ public:
 	virtual void v02();
 	virtual bool write();
 
+	void setStrategicScenario(int scenario);
+	void rva0044DDFB(int *rules);
 	void rva0044DC54(int hero);
 	void rva0044DCB9(int color);
 	void rva0044DD1E(int playerTemplate);
@@ -203,6 +230,9 @@ public:
 	bool applySlotColor(GameSlot *slot, int color);
 	bool applySlotHero(GameSlot *slot);
 	void copyLanNameRva00444D7B(UnicodeString &dest);
+	void saveRulesRva00444279();
+	bool setScenarioRva0044440C(int scenario);
+	bool bfmeMapChanged(const AsciiString *mapName);
 
 private:
 	unsigned char m_pad00[0x0C];
@@ -411,4 +441,22 @@ void BfmeAptScreenLanLobby::copyLanNameRva00444D7B(UnicodeString &dest)
 {
 	if (TheLAN)
 		dest = TheLAN->GetMyName();
+}
+
+// Retail 0x00444279, 98 bytes: vftable 0x00C3E098 slot 2. No BFME1
+// counterpart; the name is unknown. It asks for the serialized game info
+// and, on the host, stores the game's ten rule ints (+0x60) through the
+// rowed GameModePreferences::rva0044DDFB ("Rules") before writing.
+void BfmeAptScreenLanLobby::saveRulesRva00444279()
+{
+	if (!TheLAN)
+		return;
+	TransportAddress address;
+	TheLAN->requestSerializedGameInfo(true, &address);
+	LANGameInfo *game = TheLAN->GetMyGame();
+	if (game && game->rva004477C7())
+	{
+		m_prefs.rva0044DDFB(game->m_rules);
+		m_prefs.write();
+	}
 }
