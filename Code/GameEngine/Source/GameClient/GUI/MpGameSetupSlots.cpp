@@ -1654,6 +1654,50 @@ void MpGameSetup::rva004419FA()
 	}
 }
 
+// Retail 0x0043EFD3, 304 bytes: the "MpGameSetup::OnReadyPress" Apt callback
+// (bound by 0x0044303D). An empty argument only marks +0x2B9; otherwise the
+// slot given by number (1..7) asks to toggle its ready state, which in
+// rules mode 1 needs a clan tag ("CLAN:ErrorMissingClanAffiliation") and
+// team 0 or 1 ("CLAN:ErrorOnlyTwoClans"); the answer goes to owner vslot 3.
+void MpGameSetup::OnReadyPress(const char *slotText)
+{
+	if (!*slotText)
+	{
+		m_2b9 = true;
+		return;
+	}
+	int index = atoi(slotText);
+	if (index <= 0 || index >= 8)
+		return;
+	GameInfo *game = (GameInfo *)m_game->rva0043DA65();
+	if (!game)
+		return;
+	GameSlot *slot = game->getSlot(index);
+	if (!slot)
+		return;
+
+	bool ready = !slot->m_accepted;
+	if (ready)
+	{
+		int mode = m_rules.m_04;
+		if (mode == 1)
+		{
+			bool noTag = tagIsEmpty(((Rva003821B9AsciiField *)slot)->get());
+			if (noTag)
+			{
+				MessageBoxOk(TheGameText->fetch("GUI:Error"), TheGameText->fetch("CLAN:ErrorMissingClanAffiliation"), 0);
+				ready = false;
+			}
+			else if ((unsigned int)slot->m_team >= 2)
+			{
+				MessageBoxOk(TheGameText->fetch("GUI:Error"), TheGameText->fetch("CLAN:ErrorOnlyTwoClans"), 0);
+				ready = false;
+			}
+		}
+	}
+	m_owner->v03(ready);
+}
+
 // Retail 0x0043ECC1, 243 bytes. Name unknown. A slot's color combo box
 // (+0x2F4) selection: a color from -1 up to MultiplayerSettings'
 // getNumColors that differs from the slot's (+0x0C) and, unless -1, from
