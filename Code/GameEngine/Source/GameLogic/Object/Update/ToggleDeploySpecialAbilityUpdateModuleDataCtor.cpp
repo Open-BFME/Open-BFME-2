@@ -63,10 +63,11 @@ private:
 };
 
 // ??0ToggleDeploySpecialAbilityUpdateModuleData@@QAE@XZ @0x004AE547
+extern const void *const g_00C553D8[];
 ToggleDeploySpecialAbilityUpdateModuleData::ToggleDeploySpecialAbilityUpdateModuleData()
 	: Rva0044EB54()
 {
-	*(unsigned int *)this = 0x00C553D8;
+	*(const void **)this = g_00C553D8;
 	_ReadWriteBarrier();
 	m_wordC8 &= 0;
 	m_wordCC &= 0;
