@@ -107,7 +107,6 @@ void __cdecl OnClickThroughPress(const char *unused)
 }
 
 // Retail 0x004127DE, 11 bytes: "OnClickThroughRelease".
-// ?OnClickThroughRelease@@YAXPBD@Z present-unmatched
 void __cdecl OnClickThroughRelease(const char *unused)
 {
 	((Rva0043283C *)g_Va00E032C8)->rva00432AC5();
