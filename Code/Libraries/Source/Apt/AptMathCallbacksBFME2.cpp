@@ -177,3 +177,16 @@ AptValue *aptMathAbs(void *self, int argc)
         return AptInteger::Create(abs(value->toInteger()));
     return Rva008A4EA0MakeFloat((float)fabs(value->rva006DD460()));
 }
+
+// Native 6E8680..6E86E5: compare two numeric values, select the lesser,
+// then convert the selected value again. The BFME1 aptMin donor supplies
+// this structure; its selection direction is not treated as target proof.
+AptValue *aptMathMin(void *self, int argc)
+{
+    if (argc < 2) return reinterpret_cast<AptValue *>(g_aptUndefinedAtE18078);
+    BfmeAptValue006DCD20 *first = g_aptDateInterpreter.stack.At(0);
+    BfmeAptValue006DCD20 *second = g_aptDateInterpreter.stack.At(1);
+    BfmeAptValue006DCD20 *selected = first->rva006DD460() < second->rva006DD460() ? first : second;
+    float result = selected->rva006DD460();
+    return Rva008A4EA0MakeFloat(result);
+}
