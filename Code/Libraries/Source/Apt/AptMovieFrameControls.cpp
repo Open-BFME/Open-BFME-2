@@ -26,8 +26,9 @@ struct AptFrame; class AptDisplayList; class AptPseudoDisplayList;
 class AptMovie {public:int nFrames;AptFrame *frames; void doFrameControls(AptDisplayList *,AptCIH *,int); void DoTemporaryFrameControls(AptPseudoDisplayList *,int);};
 struct AptCharacter;
 struct AptImportFile {char pad[0x14]; AptCharacter *mainCharacter;};
+struct AptExport {const char *name; int id;};
 struct AptImport {int a,b,id; AptImportFile *file;};
-struct AptCharacterAnimation { AptMovie movie; char pad[8]; AptCharacter **characters; char rest[12];int importCount;AptImport *imports;
+struct AptCharacterAnimation { AptMovie movie; char pad[8]; AptCharacter **characters; char rest[12];int importCount;AptImport *imports;int exportCount;AptExport *exports;
  int IsImport(int id) {for(int i=0;i<importCount;++i)if(imports[i].id==id)return i;return -1;}
  int GetIDFromImportFile(int); void ExecuteInitActions(AptCIH *,int);void ExecuteInitAction(AptCIH *,int);void ExportClassDefinitionAssets(AptCIH *);
 };
@@ -245,6 +246,30 @@ void AptCharacterAnimation::ExecuteInitAction(AptCIH *inst,int id) {
    ((Rva00706950 *)&g_aptDateInterpreter)->rva00706950(saved,&setup);
    control->init.sprite=-control->init.sprite;
    break;
+  }
+ }
+}
+
+extern "C" char *__cdecl strstr(const char *,const char *);
+// Donor456a41a94fdaff0f export initialization; target __Packages. literal
+// and export-table28/2C references independently support semantic identity.
+void AptCharacterAnimation::ExportClassDefinitionAssets(AptCIH *inst) {
+ for(int j=0;j<exportCount;++j){
+  if(exports[j].id<0)return;
+  if(strstr(exports[j].name,"__Packages.")){
+   int id=exports[j].id;
+   for(int k=0;k<movie.frames->count;++k){
+    AptControl *control=movie.frames->controls[k];
+    if(control->type==8 && control->init.sprite==id){
+     Rva00700090Info setup={inst,0,"AptImported_Init_Actions",0x100000};
+     void *saved=((Rva00700090 *)&g_aptDateInterpreter)->rva00700090(&setup);
+     void *character=inst ? ((Rva006CD650 *)inst->rva006E0CB0())->rva006CD650() : 0;
+     ((Rva007002C0 *)&g_aptDateInterpreter)->rva007002C0(movie.frames->controls[k]->init.stream,inst,-1,character);
+     ((Rva00706950 *)&g_aptDateInterpreter)->rva00706950(saved,&setup);
+     break;
+    }
+   }
+   exports[j].id=-exports[j].id;
   }
  }
 }

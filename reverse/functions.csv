@@ -63191,3 +63191,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?ExecuteInitActions@AptCharacterAnimation@@QAEXPAVAptCIH@@H@Z,,0x006E6B40,187,Code/Libraries/Source/Apt/AptMovieFrameControls.cpp,matched,
 ?rva008A1CF0@Rva008A1CF0@@QAEHH@Z,,0x006E4610,135,Code/Libraries/Source/Apt/AptMovieFrameControls.cpp,matched,BFME1 donor Rva008A1CF0.cpp paired by BSim; owner group field moved +0x10 to +0x14; same public135B provider rehomed for native caller read-only visibility
 ?ExecuteInitAction@AptCharacterAnimation@@QAEXPAVAptCIH@@H@Z,,0x006E6A30,209,Code/Libraries/Source/Apt/AptMovieFrameControls.cpp,matched,
+?ExportClassDefinitionAssets@AptCharacterAnimation@@QAEXPAVAptCIH@@@Z,,0x006E46A0,278,Code/Libraries/Source/Apt/AptMovieFrameControls.cpp,matched,
