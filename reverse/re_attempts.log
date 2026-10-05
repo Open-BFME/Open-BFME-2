@@ -9440,3 +9440,7 @@ FUN_0047ffed	0x0007FFED	233	blocked	anonymous water-setting dispatch (thiscall +
 ??1Rva005CE4FA@@UAE@XZ	0x005CE4FA	185	blocked	sibling of blocked 0x005CEE07 same EH frame plus layout refs t=3 model=muse-03
 ?rva000C7699@Rva000C7699@@QAEXXZ	0x000C7699	135	blocked	draw slot36 EH loop frame plus regs plus release shape t=12 model=muse-03
 ??1Rva0057BD01@@QAE@XZ	0x0057BD01	120	blocked	non-virtual model misses vtable 0xc6f26c vs 0 plus EH state 2 vs 4 missing byte stores 3 and 2 implicit member dtors do not arm EH t=10 model=muse-01
+?rva0028CE7B@Object@@QBECXZ	0x0028CE7B	84	blocked	esi-edi mirror plus push-ebx-vs-0 and test-mem-vs-shr remain; const-char return proven by movsx-al t=15 model=muse-05 (stash 0.91 kept)
+?rva0028CECF@Object@@QAE_NXZ	0x0028CECF	104	blocked	loop rotation extra jmp plus duplicated mov 6B larger top-load vs peeled persists after goto while-assign O2 Os barrier-removal t=12 model=muse-05 (stash 0.93 kept)
+??1Rva005F54DA@@QAE@XZ	0x005F54DA	93	partial	EH states 2-1-0 vs base-only 0 plus extra base call 4B short 0 reg-mem t=18 model=muse-05 score=0.95 stash=reverse/attempts/0x005f54da.cpp
+??1Rva005F5819@@UAE@XZ	0x005F5819	97	partial	vtable immediates only, gate-filled relocs, 0 structural regions t=5 model=muse-spark score=0.95 stash=reverse/attempts/0x005f5819.cpp
