@@ -144,7 +144,65 @@ class Rva00222A8BTarget
 public:
 	// Unrowed 0x0022277D (98 bytes; ret 4), pinned by address.
 	void rva0022277D(void *movie);
+
+	unsigned char m_pad000[0x318];
+	int m_318; // +0x318, 2 for the right mouse button
 };
+
+// Zero Hour's NameKeyGenerator, TheWindowManager (winGetWindowFromId is
+// vslot 60, winSendSystemMsg vslot 58) and the window's instance data,
+// reached through the rowed getters 0x00314046 (+0x30) and 0x005C4AE9 (the
+// id at +0x34).
+enum NameKeyType
+{
+	NAMEKEY_INVALID = 0
+};
+
+class NameKeyGenerator
+{
+public:
+	NameKeyType nameToKey(const char *name);
+};
+
+extern NameKeyGenerator *TheNameKeyGenerator;
+
+struct WinInstanceData
+{
+	unsigned char m_pad00[0x14];
+	GameWindow *m_owner; // +0x14
+};
+
+class Rva00314046LeaField
+{
+public:
+	void *get() const;
+};
+
+class Rva005C4AE9DwordField
+{
+public:
+	int get() const;
+};
+
+class GameWindowManager
+{
+public:
+#define V(n) virtual void pad##n() = 0;
+	V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7)
+	V(8) V(9) V(10) V(11) V(12) V(13) V(14) V(15)
+	V(16) V(17) V(18) V(19) V(20) V(21) V(22) V(23)
+	V(24) V(25) V(26) V(27) V(28) V(29) V(30) V(31)
+	V(32) V(33) V(34) V(35) V(36) V(37) V(38) V(39)
+	V(40) V(41) V(42) V(43) V(44) V(45) V(46) V(47)
+	V(48) V(49) V(50) V(51) V(52) V(53) V(54) V(55)
+	V(56) V(57)
+#undef V
+	virtual int winSendSystemMsg(GameWindow *window, unsigned int message, int data1, int data2) = 0;
+	virtual void pad59() = 0;
+	virtual GameWindow *winGetWindowFromId(GameWindow *window, int id) = 0;
+};
+
+extern GameWindowManager *TheWindowManager;
 
 extern class Rva00222A8BTarget *TheRva00222A8BTarget;
 
@@ -187,6 +245,7 @@ public:
 	void OnBttnObservePriorPlayer(const char *unused);
 	void OnBttnMessenger(const char *value);
 	void OnBttnMovie(const char *unused);
+	void OnBttnSpellStore(const char *unused);
 	void OnHelpBoxUnloaded(const char *unused);
 	void OnHeroSelectUnloaded(const char *unused);
 	void OnPlanningModeUIUnloaded(const char *unused);
@@ -213,7 +272,8 @@ private:
 	Rva002D3894 m_heroSelect; // +0xC4
 	Rva002D38D1 m_helpBox; // +0xC8
 	Rva002D3931 m_planningModeUI; // +0xCC
-	unsigned char m_pad0d0[0xE5 - 0xD0];
+	unsigned char m_pad0d0[0xE4 - 0xD0];
+	bool m_e4; // +0xE4
 	bool m_e5; // +0xE5
 	unsigned char m_pad0e6[0xF8 - 0xE6];
 	int m_f8; // +0xF8
@@ -265,6 +325,25 @@ void AptPalantir::OnBttnObservePriorPlayer(const char *unused)
 void AptPalantir::OnBttnMessenger(const char *value)
 {
 	Rva005117DF(value);
+}
+
+// Retail 0x002D3002, 197 bytes: "AptPalantir::OnBttnSpellStore" clicks the
+// control bar's general button for the player: the button's owner gets
+// the selected message (0x4008, or 0x4009 for the right mouse button), as
+// Zero Hour's push buttons send GBM_SELECTED.
+void AptPalantir::OnBttnSpellStore(const char *unused)
+{
+	static NameKeyType buttonID = TheNameKeyGenerator->nameToKey("ControlBar.wnd:ButtonGeneral");
+	GameWindow *button = TheWindowManager->winGetWindowFromId(0, buttonID);
+	if (!button)
+		return;
+	WinInstanceData *instData = (WinInstanceData *)((Rva00314046LeaField *)button)->get();
+	if (!instData)
+		return;
+	int mouse = TheRva00222A8BTarget->m_318;
+	GameWindow *owner = instData->m_owner;
+	TheWindowManager->winSendSystemMsg(owner, 0x4008 + (mouse == 2), (int)button, ((Rva005C4AE9DwordField *)button)->get());
+	m_e4 = false;
 }
 
 // Retail 0x002D3EDF, 11 bytes: "AptPalantir::OnBttnMovie".
