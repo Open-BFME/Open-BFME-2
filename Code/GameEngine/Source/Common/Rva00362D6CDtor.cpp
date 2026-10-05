@@ -23,7 +23,13 @@ public:
 	void rva00419BA5();
 };
 
-class Rva00362CF2
+class Rva0040AD80ReferenceState : public Snapshot
+{
+public:
+	void releaseReferences();
+};
+
+class Rva00362CF2 : public Rva0040AD80ReferenceState
 {
 public:
 	virtual ~Rva00362CF2();
@@ -48,4 +54,9 @@ Rva00362D6C::~Rva00362D6C()
 		m_18 = 0;
 	}
 	m_1C = 0;
+}
+
+Rva00362CF2::~Rva00362CF2()
+{
+	releaseReferences();
 }
