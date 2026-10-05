@@ -1,6 +1,6 @@
 // ?VerifyDelayedFreeFill@GeneralAllocatorDebug@@QAE_NPAX@Z
-// partial score=0.995 date=2026-10-05
-// partial score=0.995 date=2026-10-05
+// partial score=0.980645 date=2026-10-05
+// ?VerifyDelayedFreeFill@GeneralAllocatorDebug@@QAE_NPAX@Z
 // cl: /O2 /DNDEBUG /MD
 // The delayed-free guard verifier of GeneralAllocatorDebug, at retail
 // 0x006C30C0 (155 bytes). The sibling of VerifyGuardFill at 0x006C3020.
@@ -264,11 +264,25 @@ public:
 	unsigned int m_runKind;          // +0x540
 };
 
-// ?VerifyDelayedFreeFill@GeneralAllocatorDebug@@QAE_NPAX@Z @ 0x006C30C0 (155B)
 bool GeneralAllocatorDebug::VerifyDelayedFreeFill(void *block)
 {
 	unsigned char *run = (unsigned char *)block + 8;
-	int header = *(int *)((char *)block + 4);
+	// The `run2` alias is what makes retail's prologue reachable. The prior bank
+	// (and its twenty-one rejected shapes) concluded the residue was unreachable
+	// because every shape that interposed the ebx-rooted `lea esi,[ebx+8]`
+	// displaced the header's own `test eax,eax` out of retail's +0x08 slot.
+	// Both are reachable at once if the header is read through a COPY of the run
+	// pointer rather than through `block`: `run2` is a second ebx-rooted value, so
+	// it is what makes the scheduler interpose the `lea`, while the header load
+	// it feeds is a plain `mov eax,[eax+esi-4]`-shaped read of the already-copied
+	// pointer rather than a fresh ebx-rooted load. The bank conflated "the
+	// header read" with "an ebx-rooted address computation": they are separable,
+	// and separating them reproduces retail's
+	//     push esi / lea esi,[ebx+8] / push edi / mov edi,ecx
+	// exactly, with the header test still at +0x08. Bytes +0x00..+0x38 now match
+	// retail; the residue is the 3-byte call-setup run at +0x39 alone.
+	unsigned char *run2 = run;
+	int header = *(int *)((char *)run2 - 4);
 	unsigned int length;
 
 	// Spelled as an explicit sign-bit test rather than as `header >= 0`.
