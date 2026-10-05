@@ -88,3 +88,5 @@ Rva00500856::Rva00500856(const Rva00500856 &that)
 	, m_04(that.m_04)
 {
 }
+
+template void _STL::_Construct<Rva00500856, Rva00500856>(Rva00500856 *, const Rva00500856 &);
