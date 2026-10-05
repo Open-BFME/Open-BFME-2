@@ -13008,3 +13008,4 @@ _Rva00337999Forward,0x00337999,REL32 callee decoded from target call bytes of wr
 ??0Rva001408C0Target@@QAE@ABU0@@Z,0x004ABCE6,polymorphic base copy constructor REL32 callee at 0x004ABF5D in Rva004ABFD9 copy 0x004ABF47 (base at offset 0 is the key that object registers in 0x00E03CE0); identity unproven
 ??_7Rva004ABFD9@@6B@,0x00C549F8,Rva004ABFD9 vtable installed by copy ctor 0x004ABF47 (mov [esi] imm at 0x004ABF6D); slot0 is rowed ??_GRva004ABFD9 0x004AC021
 ?forward@Rva0040E6D6Sub@@QAEXPAH@Z,0x002E01C6,thiscall 1-arg subobject forwarder called by Rva0040E6D6Host::forwardFrom 0x0040E6D6; read from its REL32
+??1Rva0042D4B3@@UAE@XZ,0x00577E3E,virtual dtor called by the scalar deleting dtor 0x0042D4B3; thiscall read from its REL32
