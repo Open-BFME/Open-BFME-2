@@ -130,3 +130,6 @@ _io_writeto
 
 # GameClient donor audit 2026-10-05: Donor ViewLocation init name unsupported: inventory 80B seven-float initializer plus valid byte has no E8/E9 or absolute pointer reference in retail. Donor semantic field names remain unproven.
 ?init@ViewLocation@@QAEXMMMMMMM@Z
+
+# Audit audio parser sweep 2026-10-05: 1D99E7 exact reference-plus-int ctor has no native E8/E9 or absolute-pointer reference; generic record identity uncorroborated.
+??0BfmeStringTailRecord156@@QAE@ABVRva0036CA00Str@@H@Z
