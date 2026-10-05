@@ -89,7 +89,6 @@ void __cdecl CloseWindow(const char *unused)
 }
 
 // Retail 0x00412A51, 162 bytes: "PlaySound" plays the named audio event.
-// ?PlaySound@@YAXPBD@Z present-unmatched
 void __cdecl PlaySound(const char *eventName)
 {
 	if (!TheAudio)
