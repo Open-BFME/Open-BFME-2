@@ -56617,3 +56617,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva00462F75@OpenContain@@UAEXPAVObject@@@Z,,0x00462F75,62,Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainRva00462F75.cpp,matched,vtable slot13 OpenContain list erase via rowed erase
 ?Rva003C91D1Idle@@YGXPAVParameter@@@Z,,0x003C91D1,53,Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003C91D1Idle.cpp,matched,getUnitNamed releaseWeaponLock aiIdle via g_Va009FE16C
 ?Rva002EF216Push@@YAXPAPAU_Rva002EBB53Wrap@@0PAXHH@Z,,0x002EF216,35,Code/Libraries/Source/WWVegas/WWLib/Rva002EF216Push.cpp,matched,leaf heap push via rowed SiftUp
+?rva0004B1D2@Rva0004B1D2@@QAEPAUBfmeContainerRecord00048139@@PAU2@PBD@Z,,0x0004B1D2,51,Code/GameEngine/Source/Common/StringContainerRecordAssign.cpp,matched,leaf range assign via rowed copy and Destroy
