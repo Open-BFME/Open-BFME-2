@@ -56681,3 +56681,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?Rva00590FD4Get@@YAHPAVCDDrive@@@Z,,0x00590FD4,54,Code/GameEngine/Source/Common/Rva00590FD4Get.cpp,matched,CDDrive getPath len plus NetWrapper dataOffset plus 0x14 via sibling Rva0059100AGet pattern
 ?Rva0058CD6AWrite@@YAXPADPAVNetCommandRef@@@Z,,0x0058CD6A,185,Code/GameEngine/Source/GameNetwork/Rva0058CD6AWrite.cpp,matched,sibling CE23 layout plus import 0x006291A8
 ??1Rva00090360@@UAE@XZ,,0x0009045E,108,Code/GameEngine/Source/Common/Rva00090360Dtor.cpp,matched,vtable plus rowed callees plus caller 0x000905D4
+??0Render2DClass@@QAE@XZ,,0x0011C0F0,202,Code/Libraries/Source/WWVegas/WW3D2/Rva0011C0F0Finish.cpp,matched,Render2DClass ctor; SEH cleanup state byte 3 pins three cleanup-relevant members: two raw arrays batch vector head texture ref
