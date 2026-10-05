@@ -49,15 +49,15 @@ public:
 
 extern Rva002BA8F1Logic *g_009FEF10;
 
-// &rva005CC208 compiles to MSVC's vcall thunk for its vtable slot, and retail's DIR32 at
-// +0x6A is 0x009CC208 = mov eax,[ecx]; jmp [eax+8]: the slot at +8 (??_9@$B7AE). As the
-// only virtual (slot 0) it named the +0 thunk 0x005FF3A9 and failed DIR32 consistency.
-class Rva005CC208
+// Target callback VA 0x009CC208 is the slot-two thunk 8B01FF6008.
+// Rowed forEach/walk prove a receiver and three dword arguments;
+// the listener's original class and method names remain unknown.
+class Rva002E1FC2Slot2Callback
 {
 public:
-	virtual void slot00();
-	virtual void slot04();
-	virtual void rva005CC208();
+	virtual void slot0();
+	virtual void slot1();
+	virtual void notify(void *, int, int);
 };
 
 class Rva002E1FC2
@@ -80,7 +80,7 @@ void Rva002E1FC2::rva002E1FC2()
 		if (it1 == m_map1.end() || (*it1).first > (*it2).first) {
 			Rva0020E8DBEntry *entry = g_009FEF10->m_holder->m_db->rva0020E8DB((*it2).first);
 			if (entry != 0) {
-				m_list.forEach((void (Rva002E1E6FListener::*)(void *, int, int))&Rva005CC208::rva005CC208, this, (int)entry, (int)&entry->m_extra);
+				m_list.forEach((void (Rva002E1E6FListener::*)(void *, int, int))&Rva002E1FC2Slot2Callback::notify, this, (int)entry, (int)&entry->m_extra);
 			}
 			++it2;
 		} else if ((*it1).first == (*it2).first) {
