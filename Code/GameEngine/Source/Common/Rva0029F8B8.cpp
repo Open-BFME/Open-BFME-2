@@ -41,7 +41,7 @@ Rva0043FC20 Rva0029F8B8::rva0029F8B8()
 	Rva0043FC20 *e = &TheGlobalLanguageData->m_104;
 	if (!e->m_00.isEmpty())
 	{
-		tmp.m_00.set(e->m_00);
+		((StringBase<char> *)&tmp.m_00)->set(*(const StringBase<char> *)&e->m_00);
 		tmp.m_04 = e->m_04;
 		tmp.m_08 = e->m_08;
 	}

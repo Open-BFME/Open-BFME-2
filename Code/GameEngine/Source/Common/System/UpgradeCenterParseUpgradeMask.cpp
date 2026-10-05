@@ -69,7 +69,7 @@ void Rva0026F28BParse(INI *ini, void *instance, unsigned int *mask)
 		if (substituted) {
 			fetchNext = !expanded.nextToken(&token, 0);
 		} else {
-			token.set(expanded);
+			((StringBase<char> *)&token)->set(*(const StringBase<char> *)&expanded);
 			fetchNext = 1;
 		}
 		if (!token.isEmpty()) {

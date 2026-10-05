@@ -19,6 +19,6 @@ void Object::rva00291298(AsciiString a1, int a2)
 {
 	AsciiString *pm = &m_str494;
 	const AsciiString *pa = &a1;
-	pm->set(*pa);
+	((StringBase<char> *)pm)->set(*(const StringBase<char> *)pa);
 	m_int498 = a2;
 }

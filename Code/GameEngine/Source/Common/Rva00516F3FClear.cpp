@@ -32,8 +32,8 @@ Rva00516F3F *Rva00516F3F::rva00516F63(const Rva00516F3F &other)
 	m_0 = other.m_0;
 	m_8 = other.m_8;
 	m_4 = other.m_4;
-	m_10.set(other.m_10);
-	m_C.set(other.m_C);
+	((StringBase<char> *)&m_10)->set(*(const StringBase<char> *)&other.m_10);
+	((StringBase<char> *)&m_C)->set(*(const StringBase<char> *)&other.m_C);
 	m_14 = other.m_14;
 	return this;
 }

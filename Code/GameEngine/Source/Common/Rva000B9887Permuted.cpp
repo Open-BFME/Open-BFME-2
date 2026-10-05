@@ -1,7 +1,7 @@
-// ?Rva000B9887Init@@YAXPAXPAUBfmePod32@@@Z
-// partial score=0.95 date=2026-10-05
 // cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
-// ?Rva000B9887Init@@YAXPAXPAUBfmePod32@@@Z 0x000B9887 165B
+//
+// ?Rva000B9887Init@@YAXPAXPAUBfmePod32@@@Z, retail 0x000b9887, 165 bytes. Banked partial (score 0.95) closed by tools/permute.py;
+// the body is the banked one up to statement/operand order and local types.
 // Evidence: unlock lane; callees bfmeInitVKE set StringBase-PBD findTemplate releaseBuffer rowed; callers 0x000BD6C2 0x000C48DB push (edx, BfmePod32*) __cdecl; BfmePod32 size 32 from list push_back; tmp BfmeThingVKE with char block at +0x18.
 
 #include "ascii_string.h"
@@ -55,7 +55,6 @@ struct BfmePod32
 	char m_1c;
 };
 
-// ?Rva000B9887Init@@YAXPAXPAUBfmePod32@@@Z present-unmatched
 void __cdecl Rva000B9887Init(void *a, struct BfmePod32 *b)
 {
 	BfmeThingVKE tmp(*(const BfmeThingVKE *)((const char *)a + 0x148));

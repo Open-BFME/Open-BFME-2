@@ -15,6 +15,6 @@ private:
 
 void Rva003B0FAC::rva003B0FAC(const AsciiString &s, int v)
 {
-	m_str.set(s);
+	((StringBase<char> *)&m_str)->set(*(const StringBase<char> *)&s);
 	m_val = v;
 }

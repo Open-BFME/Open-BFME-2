@@ -26,8 +26,8 @@ public:
 
 Rva0030ADED &Rva0030ADED::operator=(const Rva0030ADED &other)
 {
-    m_00.set(other.m_00);
-    m_04.set(other.m_04);
+	((StringBase<char> *)&m_00)->set(*(const StringBase<char> *)&other.m_00);
+	((StringBase<char> *)&m_04)->set(*(const StringBase<char> *)&other.m_04);
     m_08 = other.m_08;
     m_14 = other.m_14;
     m_20 = other.m_20;

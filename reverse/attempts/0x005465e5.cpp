@@ -1,4 +1,6 @@
 // ?onEnter@AITNGuardReturnState@@UAE?AW4StateReturnType@@XZ
+// partial score=0.9728 date=2026-10-05
+// ?onEnter@AITNGuardReturnState@@UAE?AW4StateReturnType@@XZ
 // partial score=0.9 date=2026-10-04
 // cl: /O1 /DNDEBUG /MD /arch:SSE
 //

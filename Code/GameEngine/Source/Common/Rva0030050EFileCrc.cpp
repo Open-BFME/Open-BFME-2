@@ -37,7 +37,7 @@ unsigned int __cdecl Rva0030050EGet(AsciiString a, AsciiString b)
 		memset(buf2, 0, 260);
 		strncpy(buf2, buf1, len - 4);
 	}
-	path.set(b);
+	((StringBase<char> *)&path)->set(*(const StringBase<char> *)&b);
 	char *pt = *(char * const *)&path;
 	const char *ps = pt ? pt + 8 : g_Rva0107301CEmptyString;
 	unsigned int crc = 0;

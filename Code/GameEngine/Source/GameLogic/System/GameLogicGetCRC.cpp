@@ -1,16 +1,12 @@
-// ?getCRC@GameLogic@@QAEIH@Z
-// partial score=0.99 date=2026-10-04
-// cl: /Os /DNDEBUG /MD /EHsc
+// cl: /Os /DNDEBUG /MD /EHsc /G7 -Ireference/shims/moduledata
+//
 // ?getCRC@GameLogic@@QAEIH@Z @0x0023CB2C 542B
 // Evidence: LINK BONUS 1 file 51B; donor BFME1 GameLogicCRC.cpp getCRC plus BFME2 BFMECRCWriter ctor 0x00225A2D; callers 0x0024583A 0x00245861 0x002CEA44 0x002CEA8D; neighbours 0x0023CAD2 0x0023CD97 same class GameLogic first at +0xAC.
+
 void setFPMode();
 unsigned int GetGameLogicRandomSeedCRC();
 
-class Snapshot
-{
-public:
-	virtual ~Snapshot();
-};
+#include "Common/Snapshot.h"
 
 class SystemBase
 {
@@ -184,7 +180,6 @@ private:
 	Object *m_first;
 };
 
-// ?getCRC@GameLogic@@QAEIH@Z present-unmatched
 unsigned int GameLogic::getCRC(int mode)
 {
 	setFPMode();

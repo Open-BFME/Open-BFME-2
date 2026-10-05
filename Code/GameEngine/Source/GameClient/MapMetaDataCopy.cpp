@@ -82,7 +82,7 @@ inline MapMetaData &MapMetaData::operator=(const MapMetaData &o)
     waypoints = o.waypoints;
     supplyPositions = o.supplyPositions;
     techPositions = o.techPositions;
-    fileName.set(o.fileName);
+    ((StringBase<char> *)&fileName)->set(*(const StringBase<char> *)&o.fileName);
     players = o.players;
     wordF4 = o.wordF4;
     cachedDisplayName.set(o.cachedDisplayName);

@@ -89,7 +89,7 @@ void ScriptEngine::rva0020A5FF(Object *pNewObject, const AsciiString &name)
 		}
 	}
 	Rva0020A227Element tmp;
-	tmp.key.set(objName);
+	((StringBase<char> *)&tmp.key)->set(*(const StringBase<char> *)&objName);
 	tmp.obj = pNewObject;
 	m_vec1A120.push_back(tmp);
 }

@@ -44,7 +44,7 @@ void GameLogic::setPlayerLeaveStatus(int slotIndex, const AsciiString &playerNam
 	if (slotIndex < 0 || slotIndex >= 8)
 		return;
 	m_playerLeaveStatus[slotIndex].m_notPresent = false;
-	m_playerLeaveStatus[slotIndex].m_playerName.set(playerName);
+	((StringBase<char> *)&m_playerLeaveStatus[slotIndex].m_playerName)->set(*(const StringBase<char> *)&playerName);
 	m_playerLeaveStatus[slotIndex].m_isHuman = isHuman;
 }
 

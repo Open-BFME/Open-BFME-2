@@ -15,6 +15,12 @@
 // unrecoverable from 7 bytes). Retail cleans none (`ret`, not `ret 4`), so
 // the members take no parameters.
 // No // cl: line (defaults match the frameless 7-byte shape).
+extern "C" const void *const vtbl_00C67E3C[];  // ??_7Rva0052634F_Base@@6B@
+#pragma comment(linker, "/alternatename:_vtbl_00C67E3C=??_7Rva0052634F_Base@@6B@")
+
+extern "C" const void *const vtbl_00BC6EEC[];  // ??_7Rva00082EF5Second@@6B@
+#pragma comment(linker, "/alternatename:_vtbl_00BC6EEC=??_7Rva00082EF5Second@@6B@")
+
 extern "C" const void *const vtbl_00CE3B38[];  // ??_7Rva0066D950@@6B@
 #pragma comment(linker, "/alternatename:_vtbl_00CE3B38=??_7Rva0066D950@@6B@")
 
@@ -302,7 +308,7 @@ public:
 
 void Rva0007DEA1DwordImmSetter::apply()
 {
-	m_value = 0x00BC6EEC;
+	m_value = ((unsigned int)vtbl_00BC6EEC);
 }
 
 class Rva0007DEA8DwordImmSetter
@@ -835,7 +841,7 @@ public:
 
 void Rva000524F5ADwordImmSetter::apply()
 {
-	m_value = 0x00C67E3C;
+	m_value = ((unsigned int)vtbl_00C67E3C);
 }
 
 class Rva0005D387BDwordImmSetter

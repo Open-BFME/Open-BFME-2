@@ -22,7 +22,7 @@ private:
 bool Drawable::rva00274C62(AsciiString *dst)
 {
 	if (!m_s348.isEmpty()) {
-		dst->set(m_s348);
+		((StringBase<char> *)dst)->set(*(const StringBase<char> *)&m_s348);
 		return true;
 	}
 	return false;
@@ -31,7 +31,7 @@ bool Drawable::rva00274C62(AsciiString *dst)
 bool Drawable::rva00274CB2(AsciiString *dst)
 {
 	if (!m_s34C.isEmpty()) {
-		dst->set(m_s34C);
+		((StringBase<char> *)dst)->set(*(const StringBase<char> *)&m_s34C);
 		return true;
 	}
 	return false;
@@ -42,5 +42,5 @@ void Drawable::rva00274C88(AsciiString *src)
 	if (src->isEmpty())
 		m_s34C.clear();
 	else
-		m_s34C.set(*src);
+		((StringBase<char> *)&m_s34C)->set(*(const StringBase<char> *)src);
 }

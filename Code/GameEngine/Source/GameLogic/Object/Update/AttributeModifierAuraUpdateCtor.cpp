@@ -16,6 +16,15 @@
 // data flag at +0x138 (rowed giveSelfUpgrade 0x45230C). Row supersedes the
 // ctor pin.
 
+extern "C" const void *const vtbl_00C50D2C[];  // ??_7AttributeModifierAuraUpdate@@6BModule@@@
+#pragma comment(linker, "/alternatename:_vtbl_00C50D2C=??_7AttributeModifierAuraUpdate@@6BModule@@@")
+
+extern "C" const void *const vtbl_00C50D20[];  // ??_7AttributeModifierAuraUpdate@@6BUpdateModuleInterface@@@
+#pragma comment(linker, "/alternatename:_vtbl_00C50D20=??_7AttributeModifierAuraUpdate@@6BUpdateModuleInterface@@@")
+
+extern "C" const void *const vtbl_00C50CD8[];  // ??_7AttributeModifierAuraUpdate@@6B@
+#pragma comment(linker, "/alternatename:_vtbl_00C50CD8=??_7AttributeModifierAuraUpdate@@6B@")
+
 extern "C" const void *const vtbl_00C49F78[];  // folded, 3 classes; via ??_7BroadcastStealthUpdate@@6BMiBase1@@@
 #pragma comment(linker, "/alternatename:_vtbl_00C49F78=??_7BroadcastStealthUpdate@@6BMiBase1@@@")
 
@@ -78,10 +87,10 @@ private:
 AttributeModifierAuraUpdate::AttributeModifierAuraUpdate(Thing *thing, const ModuleData *moduleData)
 	: UpdateModule(thing, moduleData), m_20()
 {
-	m_vtable = (const void *)0x00C50D2C;
+	m_vtable = (const void *)((unsigned int)vtbl_00C50D2C);
 	m_secondary0C = (const void *)((unsigned int)vtbl_00C49F78);
-	m_secondary10 = (const void *)0x00C50D20;
-	*(void **)&m_20 = (void *)0x00C50CD8;
+	m_secondary10 = (const void *)((unsigned int)vtbl_00C50D20);
+	*(void **)&m_20 = (void *)((unsigned int)vtbl_00C50CD8);
 	setWakeFrame(m_object, UPDATE_SLEEP_NONE);
 	const AttributeModifierAuraUpdateModuleData *data = (const AttributeModifierAuraUpdateModuleData *)m_moduleData;
 	if (data->m_138)

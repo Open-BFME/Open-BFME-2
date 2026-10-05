@@ -1,15 +1,18 @@
 // ?rva00225DA9@GameEngine@@QAEXXZ
-// partial score=0.96 date=2026-10-05
-// ?rva00225DA9@GameEngine@@QAEXXZ @0x00225DA9 361B
-
+// partial score=0.97 date=2026-10-05
 // cl: /O1 /DNDEBUG /DWIN32 /MD /EHsc /arch:SSE /G7
 //
-// ?rva00225DA9@GameEngine@@QAEXXZ at retail 0x00225DA9 (361B).
-// GameEngine vtable slot 10 (0x28) of 0x007E7188; chain lane via 0x00203B08.
-// Target evidence: EBP frame with local; g_00E099F8->s10; ScriptEngine
-// updateClientDebugFrame + rva00203B08 into bl; s39; TheGameClient+0xC8;
-// theDebug s37 early-out; m_34==6 && m_40 path with idiv; Rva00225A0C;
-// _bfme_updateClientFrameRatio; m_34>6 timeGetTime/fild/SSE path; s38.
+// The GameEngine stores the client-frame period at +0x34, the derived
+// client-frame counter at +0x38, and the interpolation ratio at +0x3c.  These timing
+// helpers are the small pieces used by the main frame loop around the
+// network/logic update path.
+
+extern int g_009BA4E8;
+extern int g_Va00DBA4E4;
+
+extern int g_00DBA4E8;
+extern float g_00BC26EC;
+extern double g_bfmeFactorBW;
 
 class Host10
 {
@@ -65,14 +68,12 @@ public:
 };
 extern GameLogic *TheGameLogic;
 
-extern int g_00DBA4E8;
-extern int g_Va00DBA4E4;
-extern float g_00BC26EC;
-extern double g_bfmeFactorBW;
-
 void __cdecl Rva00225A0C(int v);
 
 extern "C" __declspec(dllimport) unsigned long __stdcall timeGetTime(void);
+
+#define FramesPerSecond g_009BA4E8
+#define LogicFramesPerSecond g_Va00DBA4E4
 
 class GameEngine
 {
@@ -87,13 +88,15 @@ public:
 	virtual void s28(); virtual void s29(); virtual void s30(); virtual void s31();
 	virtual void s32(); virtual void s33(); virtual void s34(); virtual void s35();
 	virtual void s36(); virtual void s37(); virtual void s38(int v); virtual void s39();
-	void rva00225DA9();
+	void rva00225DA9(void);
+
 private:
-	void _bfme_updateClientFrameRatio();
-	char m_pad04[0x34 - 4];
-	int m_34;
-	int m_38;
-	char m_pad3C[0x40 - 0x3C];
+	void _bfme_updateClientFrameCounter(void);
+	void _bfme_updateClientFrameRatio(void);
+	char m_gap04[0x34 - 4];
+	int m_clientFramePeriod;
+	int m_clientFrameCounter;
+	float m_clientFrameRatio;
 	unsigned char m_40;
 	char m_pad41[0x50 - 0x41];
 	int m_50;
@@ -102,8 +105,23 @@ private:
 	int m_5c;
 };
 
-// ?rva00225DA9@GameEngine@@QAEXXZ present-unmatched
-void GameEngine::rva00225DA9()
+void GameEngine::_bfme_updateClientFrameCounter(void)
+{
+	m_clientFrameCounter = FramesPerSecond / LogicFramesPerSecond;
+}
+
+void GameEngine::_bfme_updateClientFrameRatio(void)
+{
+	float ratio = (float)m_clientFramePeriod / (float)m_clientFrameCounter;
+	m_clientFrameRatio = ratio;
+	if (ratio < 0.0f)
+		ratio = 0.0f;
+	else if (ratio > 1.0f)
+		ratio = 1.0f;
+	m_clientFrameRatio = ratio;
+}
+
+void GameEngine::rva00225DA9(void)
 {
 	g_00E099F8->s10();
 	g_Va009FE16C->_bfme_updateClientDebugFrame();
@@ -115,19 +133,19 @@ void GameEngine::rva00225DA9()
 		return;
 	}
 	TheGameClient->m_c8 = 1;
-	int period = m_34;
+	int period = m_clientFramePeriod;
 	if (period == 6 && m_40 != 0) {
-		m_38 = g_00DBA4E8 / g_Va00DBA4E4;
+		m_clientFrameCounter = g_00DBA4E8 / g_Va00DBA4E4;
 		m_40 = 0;
 	}
 	int next = period + 1;
-	m_34 = next;
+	m_clientFramePeriod = next;
 	int logicFrame = (int)TheGameLogic->m_frame;
 	int scaled = logicFrame * 10 + next - 1;
 	Rva00225A0C(scaled);
 	_bfme_updateClientFrameRatio();
-	int cur34 = m_34;
-	if (cur34 > 6) {
+	int currentPeriod = m_clientFramePeriod;
+	if (currentPeriod > 6) {
 		if (m_50 % 25 == 0) {
 			unsigned int t = timeGetTime();
 			unsigned int dt = t - m_54;
@@ -139,22 +157,20 @@ void GameEngine::rva00225DA9()
 			m_5c = 0;
 			m_54 = timeGetTime();
 		}
-		m_5c += m_38;
-		int saved = m_34;
+		m_5c += m_clientFrameCounter;
+		int savedPeriod = m_clientFramePeriod;
 		m_50++;
-		m_34 = 1;
+		m_clientFramePeriod = 1;
 		_bfme_updateClientFrameRatio();
 		s38(1);
 		if (TheGameClient->m_c8 != 0) {
 			m_40 = 1;
-		}
-		else {
-			m_34 = saved;
+		} else {
+			m_clientFramePeriod = savedPeriod;
 			_bfme_updateClientFrameRatio();
 		}
-	}
-	else {
-		s38(cur34);
+	} else {
+		s38(currentPeriod);
 	}
 	theDebug->d37();
 }

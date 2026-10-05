@@ -70,7 +70,7 @@ void Rva00377064::rva00377064(int a, int b, int c)
 	TheGameLogic->m_a4 = b;
 	TheGameLogic->m_110 = a;
 	if (!TheWritableGlobalData->m_ac0.isEmpty()) {
-		TheWritableGlobalData->m_0c.set(TheWritableGlobalData->m_ac0);
+		((StringBase<char> *)&TheWritableGlobalData->m_0c)->set(*(const StringBase<char> *)&TheWritableGlobalData->m_ac0);
 		TheWritableGlobalData->m_ac0.clear();
 	}
 	m_94 = c;

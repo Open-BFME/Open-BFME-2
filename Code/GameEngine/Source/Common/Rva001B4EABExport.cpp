@@ -61,7 +61,7 @@ void Rva001B4EAB::rva001B4EAB()
 	for (Rva001B4EABEntry *p = m_begin; p != m_end; ++p) {
 		AsciiString name;
 		AsciiString base;
-		base.set(*(AsciiString *)((char *)p->m_obj + 8));
+		((StringBase<char> *)&base)->set(*(const StringBase<char> *)((char *)p->m_obj + 8));
 		name.format("%s_%02d.csv", GetStr001B4EAB(base), index);
 		++index;
 		((Rva001B4EABTarget *)p->m_obj)->vf11(GetStr001B4EAB(name));

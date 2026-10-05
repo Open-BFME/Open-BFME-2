@@ -1,4 +1,6 @@
 // ?onEnter@AIFollowWaypointPathState@@UAE?AW4StateReturnType@@XZ
+// partial score=0.9938 date=2026-10-05
+// ?onEnter@AIFollowWaypointPathState@@UAE?AW4StateReturnType@@XZ
 // partial score=0.989 date=2026-10-05
 // ?onEnter@AIFollowWaypointPathState@@UAE?AW4StateReturnType@@XZ
 // partial score=0.989214175654854 date=2026-10-05

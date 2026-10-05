@@ -33,6 +33,9 @@
 //   0x0051265C  0x005125ED  0x00C659A0#0
 //   0x0051342D  0x00512E49  0x00C65B6C#0
 
+extern "C" const void *const vtbl_00C65518[];  // ??_7Rva0050FAEC@@6B@
+#pragma comment(linker, "/alternatename:_vtbl_00C65518=??_7Rva0050FAEC@@6B@")
+
 struct EmitVtableTag;
 
 class Rva00488D5C
@@ -230,17 +233,79 @@ Rva005105D7::Rva005105D7(EmitVtableTag *)
 {
 }
 
-class Rva0050FDDC
+#include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
+
+extern const char g_Rva0107301CEmptyString[];
+
+__forceinline const char *GetStr0050FDDC(const AsciiString &s)
+{
+	char *t = *(char **)(const void *)&s;
+	return t ? t + 8 : g_Rva0107301CEmptyString;
+}
+
+class Rva000B3F84Pair
+{
+public:
+	const char *m_ptr;
+	int m_len;
+};
+
+struct AsciiStringRef
+{
+	const AsciiString *m_string;
+};
+
+struct AsciiStringPlusText : AsciiStringRef
+{
+	operator AsciiString();
+	Rva000B3F84Pair m_right;
+};
+
+struct AsciiStringPlusText __cdecl operator+(const AsciiString &lhs, const char *rhs);
+
+void _bfme_closeAptScreen(const AsciiString &name);
+
+class Rva005248D0
+{
+public:
+	virtual ~Rva005248D0();
+};
+
+// Source-only bridge for the target's observed base-vtable transition; this
+// helper name does not assert an original intermediate class identity. Retail
+// stores VA 0x00C65518 (RVA 0x00865518) immediately before the pinned base dtor.
+class Rva0050FDDCRestore : public Rva005248D0
+{
+public:
+	__forceinline virtual ~Rva0050FDDCRestore() { *(unsigned int *)this = ((unsigned int)vtbl_00C65518); }
+};
+
+class Rva0050FDDC : public Rva0050FDDCRestore
 {
 public:
 	Rva0050FDDC(EmitVtableTag *);
-public:
 	virtual ~Rva0050FDDC();
+private:
+	char m_pad04[0x5c - 4];
+	unsigned int m_5c;
+	AsciiString m_60;
 };
 
 // ?<Rva0050FDDC::Rva0050FDDC> absent-from-retail
 Rva0050FDDC::Rva0050FDDC(EmitVtableTag *)
 {
+}
+
+// Target 0x0050FDDC: formats the level/name screen identifiers, releases the
+// temporary and member strings, then transitions through vtable RVA 0x00865518
+// before calling the byte-pinned base destructor at 0x005248D0.
+// Original class and complete parent layout remain unproven.
+Rva0050FDDC::~Rva0050FDDC()
+{
+	AsciiString tmp;
+	tmp.format("_level%u.%s", m_5c, GetStr0050FDDC(m_60));
+	_bfme_closeAptScreen(tmp + "_InitTextEntry");
+	_bfme_closeAptScreen(tmp + "_InitSlider");
 }
 
 class Rva00510665

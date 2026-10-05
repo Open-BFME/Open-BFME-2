@@ -1,6 +1,8 @@
 // ?rva005FE27A@Rva005FE750@@QAEXHHHABVUnicodeString@@@Z
+// partial score=0.9684 date=2026-10-05
+// ?rva005FE27A@Rva005FE750@@QAEXHHHABVUnicodeString@@@Z
 // partial score=0.95 date=2026-10-05
-// cl: /Ireference/shims/bfme2_ascii /G7 /O1 /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /G7 /O1 /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /Oy- /Op
 // stlport
 // ??1Rva005FE750@@UAE@XZ @0x005FE750 87B via vtable plus StringBase plus Rva members plus wide vector
 // Evidence: prev 0x005FE589 and next 0x005FE835 same vector family same flags; callees rowed vector 0x005FE4A3 Rva 0x005242D7 Rva 0x0052413E releaseBuffer 0x00036410; vtable 0x0087A3F4.
@@ -91,8 +93,8 @@ void Rva005FE750::rva005FE27A(int idx, int w0, int w1, const UnicodeString &text
 	if (w1 != rec.word1)
 	{
 		const char *mid2 = GetStr005FE27A(m_08);
-		Rva00525235Fire(TheRva00222A8BTarget, (void *)m_04, mid2, "SetTabColor", &idx, &w1);
 		rec.word1 = (unsigned int)w1;
+		Rva00525235Fire(TheRva00222A8BTarget, (void *)m_04, mid2, "SetTabColor", &idx, &w1);
 	}
 	if (text.compare(rec.text) != 0)
 	{

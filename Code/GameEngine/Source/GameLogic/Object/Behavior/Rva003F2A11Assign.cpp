@@ -37,7 +37,7 @@ private:
 
 Rva003F2A11 &Rva003F2A11::rva003F2A11(const Rva003F2A11 &other)
 {
-	m_str.set(other.m_str);
+	((StringBase<char> *)&m_str)->set(*(const StringBase<char> *)&other.m_str);
 	m_08 = other.m_08;
 	m_vec = other.m_vec;
 	return *this;

@@ -1,4 +1,5 @@
 // cl: /O1 /Ob2 /EHsc /DNDEBUG /MD
+#include "../../Include/Common/Rva00041004Lock.h"
 //
 // Opaque scalar deleting destructors, batch B18: 28-byte wrappers that
 // call the destructor, test bit 0 of the flags, conditionally free through
@@ -319,7 +320,23 @@ Rva00604465::Rva00604465(EmitVtableTag *)
 {
 }
 
-class Rva0073EF24
+// The 0x00BC6F20 table is folded across seven classes. Reuse the rowed
+// Rva0007DF07 vftable symbol only to name that address; the secondary-base
+// identity at 0x0073EF24 remains unknown.
+struct RvaSmallVtableZeroBase
+{
+	void *m_04;
+	RvaSmallVtableZeroBase() : m_04(0) {}
+};
+
+class Rva0007DF07 : public RvaSmallVtableZeroBase
+{
+public:
+	Rva0007DF07();
+	virtual ~Rva0007DF07() {}
+};
+
+class Rva0073EF24 : public Rva0040EDB, public Rva0007DF07
 {
 public:
 	Rva0073EF24(EmitVtableTag *);

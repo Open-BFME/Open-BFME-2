@@ -1,13 +1,8 @@
-// ?xfer@Weapon@@UAEXPAVXfer@@@Z
-// partial score=0.93 date=2026-10-01
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /arch:SSE /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
-// ?xfer@Weapon@@UAEXPAVXfer@@@Z @0x002CDD47 579B
-// Slot 3 (offset 0x0C) of vtable 0x0080214C (class of ??0Weapon@@IAE@PBVWeaponTemplate@@W4WeaponSlotType@@@Z).
-// Donor: ZH Weapon.h (class Weapon) plus BFME1 Weapon xfer pattern; target evidence vtable 0x0080214C,
-// callers none, neighbours WeaponReloadWithBonus 0x002CDB99 and stlport insert_overflow 0x002CDF8A.
-// Recipe: xfer slot-3 pattern (PoisonedBehaviorXfer) with Version(1,3), template-name StringBase,
-// WeaponStore resolve with throw, ObjectID/SlotType/uints/ints, vector, bool/uint/int, status, tail.
+// Target: 0x002CDD47, 579B; Weapon vtable 0x0080214C slot 3.
+// Field offsets and Xfer virtual slots follow the target body; template lookup
+// signature is corroborated by the matched WeaponStore callee.
 #include <vector>
 #include "ascii_string.h"
 
@@ -175,7 +170,6 @@ private:
 	ObjectID m_extra5C; // +0x5C
 };
 
-// ?xfer@Weapon@@UAEXPAVXfer@@@Z present-unmatched
 void Weapon::xfer(Xfer *xfer)
 {
 	Xfer::Version ver(1, 3);
@@ -204,29 +198,30 @@ void Weapon::xfer(Xfer *xfer)
 	*xfer == m_maxShotCount;
 	*xfer == m_curBarrel;
 	*xfer == m_numShotsForCurBarrel;
-	UnsignedShort count = (UnsignedShort)(m_scatterTargets.end() - m_scatterTargets.begin());
+	UnsignedShort count = (UnsignedShort)m_scatterTargets.size();
 	*xfer == count;
+	const ModuleData *tmp;
 	if (xfer->IsStoring()) {
 		for (const ModuleData **it = (const ModuleData **)m_scatterTargets.begin(); it != (const ModuleData **)m_scatterTargets.end(); ++it) {
-			int tmp = *(int *)it;
-			*xfer == tmp;
+			tmp = *it;
+			*xfer == *(int *)&tmp;
 		}
 	} else {
-		((_STL::vector<void *> *)&m_scatterTargets)->erase((void **)m_scatterTargets.begin(), (void **)m_scatterTargets.end());
+		_STL::vector<void *> *targets = (_STL::vector<void *> *)&m_scatterTargets;
+		targets->clear();
 		UnsignedShort idx = 0;
 		for (; idx < count; ++idx) {
-			int tmp;
-			*xfer == tmp;
-			m_scatterTargets.push_back((const ModuleData *)tmp);
+			*xfer == *(int *)&tmp;
+			m_scatterTargets.push_back(tmp);
 		}
 	}
 	*xfer == m_pitchLimited;
 	*xfer == m_leechWeaponRangeActive;
 	*xfer == m_unknown54;
-	if (xfer->IsLightCRC())
-		return;
-	XferWeaponStatus(xfer, &m_status);
-	*xfer == m_suspendFXFrame;
+	if (!xfer->IsLightCRC()) {
+		XferWeaponStatus(xfer, &m_status);
+		*xfer == m_suspendFXFrame;
+	}
 	if (ver.m_b >= 2)
 		*xfer == m_tailState;
 	if (ver.m_b >= 3)

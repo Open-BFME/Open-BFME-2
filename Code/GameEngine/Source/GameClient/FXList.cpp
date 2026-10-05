@@ -506,6 +506,14 @@ private:
 };  
 EMPTY_DTOR(TerrainScorchFXNugget)
 
+// Address-derived ABI view for the Ghidra function at 0x001E19E8.
+// Its original helper identity is unresolved.
+class Rva001E19E8CallView
+{
+public:
+	void call(const Coord3D*, const Matrix3D*, const Object*, const Object*) const;
+};
+
 //-------------------------------------------------------------------------------------------------
 class ParticleSystemFXNugget : public FXNugget
 {
@@ -544,8 +552,7 @@ public:
 	{
 		if (primary)
 		{
-
-			if (m_ricochet && secondary)
+			if (*(const Bool *)((const char *)this + 0x195) && secondary)
 			{
 				// HERE WE MUST BUILD A MATRIX WHICH WILL ORIENT THE NEW PARTICLE SYSTEM TO FACE AWAY FROM THE SECONDARY OBJECT
 				// THE RESULT SHOULD LOOK LIKE THE DIRECTION OF THE "ATTACK" IS CARRIED THROUGH LIKE A RICOCHET
@@ -555,12 +562,14 @@ public:
 				Matrix3D aimingMatrix(1);
 				aimingMatrix.Rotate_Z( aimingAngle );
 
-				reallyDoFX(primary->getPosition(), &aimingMatrix, primary, 0.0f);
+				reinterpret_cast<const Rva001E19E8CallView *>(this)->call(
+					primary->getPosition(), &aimingMatrix, primary, secondary);
 			}
 			else
 				// if we have an object, then adjust the offset and direction by the object's transformation
 				// matrix, so that (say) an offset of +10 in the z axis "follows" the orientation of the object.
-				reallyDoFX(primary->getPosition(), primary->getTransformMatrix(), primary, 0.0f);
+				reinterpret_cast<const Rva001E19E8CallView *>(this)->call(
+					primary->getPosition(), primary->getTransformMatrix(), primary, secondary);
 		}
 		else
 		{

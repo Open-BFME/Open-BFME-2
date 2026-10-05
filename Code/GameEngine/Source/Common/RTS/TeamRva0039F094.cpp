@@ -27,6 +27,6 @@ void Team::rva0039F094(AsciiString name)
 	TeamRvaInner *inner = m_ptr30;
 	if (inner) {
 		AsciiString &slot = inner->m_str318;
-		slot.set(name);
+		((StringBase<char> *)&slot)->set(*(const StringBase<char> *)&name);
 	}
 }

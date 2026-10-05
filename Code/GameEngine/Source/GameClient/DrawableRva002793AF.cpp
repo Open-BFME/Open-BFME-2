@@ -17,5 +17,5 @@ void Rva002793AF::rva002793AF(const AsciiString &name)
 	if (name.compare("ReferenceDisplayName") == 0)
 		m_str348.clear();
 	else if (!((const StringBase<char> *)&name)->isEmpty())
-		m_str348.set(name);
+		((StringBase<char> *)&m_str348)->set(*(const StringBase<char> *)&name);
 }

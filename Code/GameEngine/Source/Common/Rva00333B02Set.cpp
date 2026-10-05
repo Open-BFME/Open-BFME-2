@@ -14,5 +14,5 @@ private:
 void Rva00333B02::rva00333B02(AsciiString s)
 {
 	AsciiString &dst = m_10;
-	dst.set(s);
+	((StringBase<char> *)&dst)->set(*(const StringBase<char> *)&s);
 }

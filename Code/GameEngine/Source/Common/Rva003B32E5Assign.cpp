@@ -26,7 +26,7 @@ Rva003B32E5 &Rva003B32E5::operator=(const Rva003B32E5 &other)
 {
 	m_a = other.m_a;
 	m_b = other.m_b;
-	m_str.set(other.m_str);
+	((StringBase<char> *)&m_str)->set(*(const StringBase<char> *)&other.m_str);
 	m_c = other.m_c;
 	m_d = other.m_d;
 	m_e = other.m_e;

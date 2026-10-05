@@ -81,5 +81,5 @@ void OptionPreferences::setVolume(Int index, Real value)
 	index += (Int)volumeNames;
 	AsciiString key((const char *)index);
 	AsciiString &slot = (*this)[key];
-	slot.set(text);
+	((StringBase<char> *)&slot)->set(*(const StringBase<char> *)&text);
 }

@@ -259,7 +259,7 @@ void BezierProjectileBehavior::xfer(Xfer *xfer)
 		*xfer == m_float84;
 	AsciiString name(AsciiString::TheEmptyString);
 	if (m_weapon40)
-		name.set(m_weapon40->getName());
+		((StringBase<char> *)&name)->set(*(const StringBase<char> *)&m_weapon40->getName());
 	*xfer == name;
 	if (xfer->IsLoading()) {
 		if (name.compare(AsciiString::TheEmptyString) == 0)
@@ -274,9 +274,9 @@ void BezierProjectileBehavior::xfer(Xfer *xfer)
 			}
 		}
 	}
-	name.set(AsciiString::TheEmptyString);
+	((StringBase<char> *)&name)->set(*(const StringBase<char> *)&AsciiString::TheEmptyString);
 	if (m_weapon3C)
-		name.set(m_weapon3C->getName());
+		((StringBase<char> *)&name)->set(*(const StringBase<char> *)&m_weapon3C->getName());
 	*xfer == name;
 	if (xfer->IsLoading()) {
 		if (name.compare(AsciiString::TheEmptyString) == 0)

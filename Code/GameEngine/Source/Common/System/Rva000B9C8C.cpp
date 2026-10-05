@@ -40,7 +40,7 @@ const Image *Rva000B9C8C::rva000B9C8C()
 		const AsciiString &a = d->m_a;
 		if (m_name.compareNoCase(a) != 0)
 		{
-			m_name.set(a);
+			((StringBase<char> *)&m_name)->set(*(const StringBase<char> *)&a);
 			if (!d->m_b.isEmpty())
 				m_img = g_00DFF078->findImageByName(a);
 			else

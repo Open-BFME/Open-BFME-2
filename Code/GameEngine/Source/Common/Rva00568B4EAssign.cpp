@@ -21,8 +21,8 @@ private:
 
 Rva00568B4E &Rva00568B4E::operator=(const Rva00568B4E &other)
 {
-	m00.set(other.m00);
-	m04.set(other.m04);
+	((StringBase<char> *)&m00)->set(*(const StringBase<char> *)&other.m00);
+	((StringBase<char> *)&m04)->set(*(const StringBase<char> *)&other.m04);
 	m08 = other.m08;
 	m0C = other.m0C;
 	m10 = other.m10;
