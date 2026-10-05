@@ -60799,3 +60799,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ??1Rva005E1C9D@@QAE@XZ,,0x005E1C9D,63,Code/GameEngine/Source/Common/Rva005E1C9DDtor.cpp,matched,vector dtor via rowed Destroy and free with null guard
 ??1Rva005E1D07@@QAE@XZ,,0x005E1D07,58,Code/GameEngine/Source/Common/Rva005E1D07Dtor.cpp,matched,outer dtor zeroes 0x24 then members 0x14 and 0x0C
 ?Rva005D7860Check@@YG_NPAVObject@@@Z,,0x005D7860,101,Code/GameEngine/Source/Common/Rva005D7860.cpp,matched,vtable slot 6 class Rva005D7855 gap dtor chain rowed callees floats
+??0Rva000F0F2B@@QAE@XZ,,0x000F0F2B,48,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/Rva000F0F2BFinish.cpp,matched,native 48B boundary; byte-exact; reuses rowed void initializer 0x000EFA4E and installs the BCEFA0 dispatch table; address-derived name class extent unproven
