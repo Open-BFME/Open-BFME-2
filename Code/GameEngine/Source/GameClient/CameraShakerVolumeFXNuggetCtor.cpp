@@ -56,7 +56,7 @@ private:
 // ??0CameraShakerVolumeFXNugget@@QAE@XZ
 CameraShakerVolumeFXNugget::CameraShakerVolumeFXNugget()
 {
-	*(unsigned int *)this = ((unsigned int)vtbl_00BDD7CC);
+	*(const void **)this = vtbl_00BDD7CC;
 	m_radius = 0.0f;
 	m_durationSeconds = 0.0f;
 	m_amplitudeDegrees = 0.0f;
