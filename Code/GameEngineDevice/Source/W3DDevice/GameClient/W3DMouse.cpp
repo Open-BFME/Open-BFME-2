@@ -153,7 +153,26 @@ W3DMouse::~W3DMouse( void )
 
 }  // end Win32Mouse
 
-// ?initPolygonAssets@W3DMouse@@AAEXXZ present-unmatched
+// Retail W3DMouse layout (proven by matched freeW3DAssets/initPolygonAssets
+// bodies): cursor records start at this+0x38 with a 0x54 stride and the
+// image name at record+0 (56 records: 0x38+56*0x54 = 0xF98); the live
+// cursors ride at +0x4FA4/+0x60A4 and the redraw mode at +0x12DC. The
+// shared view is shorter on all three, so this body goes through a
+// TU-local view that keeps member-access codegen with retail constants.
+struct BfmeInitPolygonCursorRec
+{
+	AsciiString imageName;
+	char pad[0x54 - sizeof(AsciiString)];
+};
+struct BfmeInitPolygonMouseView
+{
+	char pad0[0x38];
+	BfmeInitPolygonCursorRec cursorInfo[56];
+	char pad1[0x4FA4 - (0x38 + 56*0x54)];
+	Mouse::MouseCursor currentCursor;
+	char pad2[0x60A4 - (0x4FA4 + 4)];
+	Mouse::MouseCursor currentPolygonCursor;
+};
 void W3DMouse::initPolygonAssets(void)
 {
 	CriticalSectionClass::LockClass m(mutex);
@@ -163,14 +182,16 @@ void W3DMouse::initPolygonAssets(void)
 	if (isThread)
 		return;
 
+	BfmeInitPolygonMouseView *v = reinterpret_cast<BfmeInitPolygonMouseView *>(this);
+
 	//Check if texture assets already loaded
-	if (m_currentRedrawMode == RM_POLYGON && cursorImages[1] == NULL)
+	if (*reinterpret_cast<RedrawMode *>(reinterpret_cast<char *>(this)+0x12DC) == RM_POLYGON && cursorImages[1] == NULL)
 	{
 		for (Int i=0; i<NUM_MOUSE_CURSORS; i++)
 		{
-			m_currentPolygonCursor = m_currentCursor;
-			if (!m_cursorInfo[i].imageName.isEmpty())
-				cursorImages[i]=TheMappedImageCollection->findImageByName(m_cursorInfo[i].imageName);
+			v->currentPolygonCursor = v->currentCursor;
+			if (!v->cursorInfo[i].imageName.isEmpty())
+				cursorImages[i]=TheMappedImageCollection->findImageByName(v->cursorInfo[i].imageName);
 		}
 	}
 }
