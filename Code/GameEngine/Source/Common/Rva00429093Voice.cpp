@@ -1,9 +1,6 @@
-// ?rva00429093@Rva00429093@@QAEHPAUArg@@H@Z
-// partial score=0.93 date=2026-10-05
 // cl: /O1 /MD
 // ?rva00429093@Rva00429093@@QAEHPAUArg@@H@Z @0x00429093 127B
 // Evidence: caller 0x0042A398 plus TheInGameUI slot73 plus Rva004D92FE ctor 0x004D92FE plus pickAndPlayUnitVoiceResponse pin plus MessageStreamSubsystem slot 0x48 with 0x420 plus appendObjectIDArgument 0x0030F979
-// ?rva00429093@Rva00429093@@QAEHPAUArg@@H@Z present-unmatched
 struct ICoord2D
 {
 	int m_x;
@@ -128,18 +125,18 @@ int Rva00429093::rva00429093(Arg *a, int b)
 {
 	if (b == 2)
 		return 0x420;
-	if (a == 0)
-		return 0;
-	if (a->m_innerFC == 0)
-		return 0;
-	int type = 0x420;
-	if (m_flag08 != 0) {
-		Rva004D92FE info;
-		info.m_04 = (int)a;
-		pickAndPlayUnitVoiceResponse(TheInGameUI->slot73(), (GameMessage::Type)type, (PickAndPlayInfo *)&info);
-		GameMessage *msg = MessageStreamSubsystem->createMessage(type);
-		msg->appendObjectIDArgument(a->m_innerFC->m_id74);
+	GameMessage::Type type = GameMessage::TYPE_420;
+	if (a != 0 && a->m_innerFC != 0)
+	{
+		if (m_flag08 != 0)
+		{
+			Rva004D92FE info;
+			info.m_04 = (int)a;
+			pickAndPlayUnitVoiceResponse(TheInGameUI->slot73(), type, (PickAndPlayInfo *)&info);
+			GameMessage *msg = MessageStreamSubsystem->createMessage((int)type);
+			msg->appendObjectIDArgument(a->m_innerFC->m_id74);
+		}
 		return type;
 	}
-	return type;
+	return 0;
 }
