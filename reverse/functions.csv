@@ -63321,3 +63321,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva00068D43@Rva00068D43NullForwarder@@QAEXXZ,,0x00068D43,16,Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp,matched,Null-checked member tail forwarder by REL32
 ?rva0007E17B@Rva0007E17BNullForwarder@@QAEXH@Z,,0x0007E17B,18,Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp,matched,Null-checked member tail forwarder by REL32
 ?rva003EE91A@Rva003EE91A@@QAEXH@Z,,0x003EE91A,76,Code/GameEngine/Source/Common/Rva003EE900Forward.cpp,matched,chain via 0x003EE7CA owner+8 three-call forward
+??$__linear_insert@PAUS4SortElem12@@U1@US4Cmp002E1690@@@_STL@@YAXPAUS4SortElem12@@0U1@US4Cmp002E1690@@@Z,,0x00332028,111,Code/Libraries/Source/WWVegas/WWLib/stlport_linear_insert_s4sortelem12.cpp,matched,pin name LINK BONUS via 0x0033215E caller insertion_sort 0x00332183 callees rowed Rva loop plus ctor plus Bfme copy plus releaseBuffer plus pinned unguarded
