@@ -1,73 +1,50 @@
 // _bfmeReload1221
-// partial score=0.9 date=2026-10-01
-// _bfmeReload1221 @0x0070F710 275B
-// Mersenne-twister reload over g_bfmeStateFA: reseeds via bfmeSeed(0x1105)
-// when the shared index reads below -1 (first use after bfmeNext1221's
-// pre-decrement), twists 227 + 396 + 1 words with MATRIX_A 0x9908b0df,
-// publishes g_bfmeNext1221 at &state[1], then tempers state[0] and returns it.
-// Evidence: LINK BONUS caller ?bfmeNext1221@@YAIXZ in BfmeConv1221.cpp names
-// exactly _bfmeReload1221; callee ?bfmeSeed@@YAXH@Z rowed in
-// Bfme5SeventyFour.cpp; twist constants and 0xe3/0x18c trip counts.
+// partial score=0.9857 date=2026-10-06
+// cl: /O2 /MD
+// Audit4ccdc5494ece2fad-AptRand.cpp semantic source, exact first two loops.
+// Native full281B through RET70F828 followed by INT3; old Ghidra275 truncates
+// the final return sequence. Existing next/seed provider and state storage
+// establish this C ABI. Trial279B: raw last state uses EDX instead of native
+// ESI plus a copy to EDX; no exact claim. Original provider spelling retained.
 
-extern int g_bfmeLeft1221;
-extern int g_bfmeStateFA[];
+extern int g_bfmeIndexFA;
+extern int g_bfmeStateFA[625];
 extern unsigned int *g_bfmeNext1221;
+void bfmeSeed(int);
+#define state ((unsigned int *)g_bfmeStateFA)
+#define SO_RAND_STATE_VECTOR_LENGTH     (624)
+#define SO_RAND_PERIOD                  (397)
+#define SO_RAND_MAGIC                   (0x9908B0DFU)
 
-void __cdecl bfmeSeed(int seed);
+#define SO_RAND_HI_BIT(u)       ((u) & 0x80000000U)
+#define SO_RAND_LO_BIT(u)       ((u) & 0x00000001U)
+#define SO_RAND_LO_BITS(u)      ((u) & 0x7FFFFFFFU)
+#define SO_RAND_MIX_BITS(u, v)  (SO_RAND_HI_BIT(u)|SO_RAND_LO_BITS(v))
 
-extern "C" unsigned int bfmeReload1221(void)
+extern "C" unsigned int bfmeReload1221( void )
 {
-	unsigned int *dest = (unsigned int *)g_bfmeStateFA;
-	unsigned int *src = (unsigned int *)&g_bfmeStateFA[2];
-	unsigned int prev;
-	unsigned int curr;
-	int left;
-	unsigned int other;
-	unsigned int y;
-	unsigned int mag;
+    unsigned int *p0=state, *p2=state+2, *pM=state+SO_RAND_PERIOD, s0, s1;
+    int j;
 
-	if (g_bfmeLeft1221 < -1)
-		bfmeSeed(0x1105);
+    if( g_bfmeIndexFA < -1 ) bfmeSeed( 4357 );
 
-	prev = (unsigned int)g_bfmeStateFA[0];
-	curr = (unsigned int)g_bfmeStateFA[1];
-	g_bfmeLeft1221 = 0x26f;
-	g_bfmeNext1221 = (unsigned int *)&g_bfmeStateFA[1];
+    g_bfmeIndexFA = SO_RAND_STATE_VECTOR_LENGTH - 1;
+    g_bfmeNext1221 = state + 1;
 
-	left = 0xe3;
-	do {
-		other = *(src + 395);
-		y = (curr ^ prev) & 0x7ffffffe ^ prev;
-		mag = (curr & 1) ? 0x9908b0df : 0;
-		*dest = ((y >> 1) ^ mag) ^ other;
-		prev = curr;
-		curr = *src;
-		++dest;
-		++src;
-	} while (--left != 0);
+    for( s0 = state[0], s1 = state[1], j = SO_RAND_STATE_VECTOR_LENGTH - SO_RAND_PERIOD + 1; --j; s0 = s1, s1 = *p2++ )
+    {
+        *p0++ = *pM++ ^ (SO_RAND_MIX_BITS(s0, s1) >> 1) ^ (SO_RAND_LO_BIT(s1) ? SO_RAND_MAGIC : 0U);
+    }
 
-	unsigned int *low = (unsigned int *)g_bfmeStateFA;
-	left = 0x18c;
-	do {
-		y = (curr ^ prev) & 0x7ffffffe ^ prev;
-		mag = (curr & 1) ? 0x9908b0df : 0;
-		*dest = ((y >> 1) ^ mag) ^ *low;
-		prev = curr;
-		curr = *src;
-		++dest;
-		++low;
-		++src;
-	} while (--left != 0);
+    for( pM = state, j = SO_RAND_PERIOD; --j; s0 = s1, s1 = *p2++ )
+    {
+        *p0++ = *pM++ ^ (SO_RAND_MIX_BITS(s0, s1) >> 1) ^ (SO_RAND_LO_BIT(s1) ? SO_RAND_MAGIC : 0U);
+    }
 
-	curr = (unsigned int)g_bfmeStateFA[0];
-	y = (curr ^ prev) & 0x7ffffffe ^ prev;
-	mag = (curr & 1) ? 0x9908b0df : 0;
-	*dest = ((y >> 1) ^ mag) ^ *low;
+    s1=state[0], *p0 = *pM ^ (SO_RAND_MIX_BITS(s0, s1) >> 1) ^ (SO_RAND_LO_BIT(s1) ? SO_RAND_MAGIC : 0U);
+    s1 ^= (s1 >> 11);
+    s1 ^= (s1 <<  7) & 0x9D2C5680U;
+    s1 ^= (s1 << 15) & 0xEFC60000U;
 
-	y = curr;
-	y ^= y >> 11;
-	y ^= (y << 7) & 0x9d2c5680;
-	y ^= (y << 15) & 0xefc60000;
-	y ^= y >> 18;
-	return y;
+    return(s1 ^ (s1 >> 18));
 }
