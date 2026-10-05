@@ -62170,3 +62170,4 @@ _Rva007F5790Callback,,0x00661F40,15,Code/GameEngine/Source/GameNetwork/Rva007F70
 ?ObjectDoSpecialPower@@YAHPAUlua_State@@@Z,,0x003352F7,178,Code/GameEngine/Source/GameLogic/ScriptEngine/ObjectDoSpecialPower_Rva003352F7.cpp,matched,Lua ObjectDoSpecialPower via BFME1 donor at O1 with target type via final-override plus 0x1C and slots 1 and 10
 ?Rva000E2F24@@YAXPAUID3DXEffect@@PBD@Z,,0x000E2F24,58,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainFXVectorParams.cpp,matched,Terrain FX SetVector callback with global BC2428 for x y; slot 34
 ?Rva000E2F77@@YAXPAUID3DXEffect@@PBD@Z,,0x000E2F77,70,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainFXVectorParams.cpp,matched,Terrain FX SetFloat callback via slot 30 with 37C0 plus 0x10 scaled by BC2428
+?rva00109D64@Rva007B1380@@QAEXXZ,,0x00109D64,40,Code/GameEngine/Source/Common/Rva007B1380Ctor.cpp,matched,float reset abutting ctor via rowed base initialize plus 20.0f literal
