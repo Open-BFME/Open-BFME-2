@@ -30,6 +30,7 @@ public:
     Team *rva004ECECD(int id);
     Rva004ECECDNode *rva004ECF05(int id);
     bool rva004ECF41();
+    void rva004ED08A();
 
 private:
     char m_pad00[0x14];
@@ -63,7 +64,22 @@ class Team
 {
 public:
     DLINK_ITERATOR<Object> iterate_TeamMemberList() const;
+    void getTeamAsAIGroup(class AIGroup *grp);
 };
+
+class AIGroup
+{
+public:
+    void rva00372C05();
+};
+
+class AI
+{
+public:
+    AIGroup *createGroup();
+    void rva002FE712(AIGroup *grp);
+};
+extern AI *g_Va009FF0F8;
 
 class AIUpdateInterface
 {
@@ -119,4 +135,22 @@ bool Rva004ECECD::rva004ECF41()
         }
     }
     return false;
+}
+
+// ?createGroup@AI@@QAEPAVAIGroup@@XZ present-unmatched
+// ?findInstance@Rva0039F761Owner@@QAEPAVTeam@@PAX@Z present-unmatched
+// ?getTeamAsAIGroup@Team@@QAEXPAVAIGroup@@@Z present-unmatched
+// ?rva00372C05@AIGroup@@QAEXXZ present-unmatched
+// ?rva002FE712@AI@@QAEXPAVAIGroup@@@Z present-unmatched
+void Rva004ECECD::rva004ED08A()
+{
+    Rva004ECECDNode *begin = m_begin;
+    Rva004ECECDNode *end = m_end;
+    for (Rva004ECECDNode *it = begin; it != end; ++it) {
+        AIGroup *grp = g_Va009FF0F8->createGroup();
+        Team *t = ((Rva0039F761Owner *)TheTeamFactory)->findInstance(it->m_model);
+        t->getTeamAsAIGroup(grp);
+        grp->rva00372C05();
+        g_Va009FF0F8->rva002FE712(grp);
+    }
 }
