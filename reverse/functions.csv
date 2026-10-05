@@ -55879,3 +55879,4 @@ ___Extract_locale_name,,0x000216A0,153,Code/Libraries/Source/WWVegas/WWLib/Local
 ?rva00514B66@Rva00514B66@@QAEEXZ,,0x00514B66,39,Code/GameEngine/Source/Common/Rva00514B66Check.cpp,matched,unlock guard via BfmeThingTTD init added not enabled
 ?Rva0012641FClear@@YAXXZ,,0x0012641F,20,Code/Libraries/Source/WWVegas/WW3D2/Rva0012641FClear.cpp,matched,unlock free clear two holders via release
 ?rva0040334B@Rva0040334B@@QAEXPAVObject@@@Z,,0x0040334B,55,Code/GameEngine/Source/Common/Rva0040334BLoop.cpp,matched,unlock loop via Object pin TheGameLogic age
+?rva005FA874@Rva005FA874@@QAEXXZ,,0x005FA874,30,Code/GameEngine/Source/Common/Rva005FA874Clear.cpp,matched,guarded delete via rowed dtor 0x005FEBC8 plus rowed delete plus callers 0x005E9625

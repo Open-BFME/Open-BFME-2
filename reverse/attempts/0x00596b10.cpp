@@ -1,5 +1,5 @@
 // ?rva00596B10@Rva00596B10@@QAEXXZ
-// partial score=0.9 date=2026-10-04
+// partial score=0.93 date=2026-10-05
 // cl: /O1 /MD
 // ?rva00596B10@Rva00596B10@@QAEXXZ @0x00596B10 146B unlock from 0x004E9446
 // Evidence: caller 0x004E9490; rowed getNthPlayer plus rowed rva003B0CB3
@@ -61,12 +61,11 @@ void Rva00596B10::rva00596B10()
 	}
 	unsigned int a = (unsigned int)*(int *)((char *)p1 + 0x94);
 	unsigned int b = (unsigned int)m_val38;
-	unsigned int m = (a > b) ? b : a;
+	unsigned int m = a; if (m > b) m = b;
 	if ((unsigned int)m <= 0u)
 		return;
 	unsigned int c = (unsigned int)m_val34;
-	if (m > c)
-		m = c;
+	if (m > c) m = c;
 	Rva003B0D7C *money1 = (Rva003B0D7C *)((char *)p1 + 0x90);
 	money1->rva003B0CB3(m, (Rva0039B795 *)((char *)p1 + 0x3BC), true);
 	Rva003B0D7C *money2 = (Rva003B0D7C *)((char *)p2 + 0x90);
