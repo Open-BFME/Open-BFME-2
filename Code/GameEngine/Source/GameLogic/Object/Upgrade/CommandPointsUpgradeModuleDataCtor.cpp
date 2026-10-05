@@ -1,7 +1,7 @@
 // cl: /O1 /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
 //
 // ??0CommandPointsUpgradeModuleData@@QAE@XZ, retail 0x00254891, 65 bytes.
-// EH ctor over the rowed OpenContainModuleData base (0x253487, frameless and
+// EH ctor over the rowed Rva00253487Base base (0x253487, frameless and
 // therefore not unwindable): base call, single state-0 store, the compact
 // and-zero of CommandPoints at +0x118, the lea of RequiredObject at +0x11C,
 // the distinctive vtable literal 0x00BF2658, then the filter construction
@@ -18,11 +18,11 @@
 // precedent), and the derived owns the vtable slot at +0 over the base
 // extent, overwriting the base-installed vtable exactly as retail.
 
-class OpenContainModuleData
+class Rva00253487Base
 {
 public:
-	OpenContainModuleData();
-	~OpenContainModuleData();
+	Rva00253487Base();
+	~Rva00253487Base();
 };
 
 class Rva003623E5Member
@@ -34,7 +34,7 @@ public:
 	unsigned char m_data[4];
 };
 
-class CommandPointsUpgradeModuleData : public OpenContainModuleData
+class CommandPointsUpgradeModuleData : public Rva00253487Base
 {
 public:
 	CommandPointsUpgradeModuleData();

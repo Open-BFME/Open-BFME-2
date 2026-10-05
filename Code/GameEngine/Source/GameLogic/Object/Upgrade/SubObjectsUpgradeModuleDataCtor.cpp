@@ -2,7 +2,7 @@
 // stlport
 //
 // ??0SubObjectsUpgradeModuleData@@QAE@XZ, retail 0x00257768, 136 bytes.
-// Framed Upgrade ctor over the rowed OpenContainModuleData base (0x253487):
+// Framed Upgrade ctor over the rowed Rva00253487Base base (0x253487):
 // folded vtable 0x00BF41A8, four AsciiString vectors at +0x118/+0x124/
 // +0x130/+0x13C through the rowed Vector_base (0x211E58, AsciiString
 // spelling alias pin), float from 0.5f at +0x148, zero bytes at
@@ -29,14 +29,14 @@ extern "C" const void *const vtbl_00BF41A8[];  // ??_7SubObjectsUpgradeModuleDat
 
 #include "ascii_string.h"
 
-class OpenContainModuleData
+class Rva00253487Base
 {
 public:
-	OpenContainModuleData();
+	Rva00253487Base();
 };
 
 
-class SubObjectsUpgradeModuleData : public OpenContainModuleData
+class SubObjectsUpgradeModuleData : public Rva00253487Base
 {
 public:
 	SubObjectsUpgradeModuleData();

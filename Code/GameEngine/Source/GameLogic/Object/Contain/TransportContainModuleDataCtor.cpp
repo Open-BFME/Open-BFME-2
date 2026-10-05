@@ -11,7 +11,7 @@
 // FadeEnter at +0x16C, FadeExit at +0x16D, EnterFade at +0x170, ExitFade at
 // +0x174, FadeReverse at +0x178, ReleaseSnappyness at +0x17C (0.7f)).
 // Donor is ZH TransportContain.cpp (slot 0, pitch 0, exit-bone empty,
-// health 0, delay 0, INFANTRY mask). Base is the pinned Rva00465124Base
+// health 0, delay 0, INFANTRY mask). Base is the pinned OpenContainModuleData
 // ctor at 0x00465124 (0x98 bytes, vtable 0x00C43658); derived installs
 // vtable 0x00C442F8. Callers are the TransportContain data factory plus
 // derived base-calls from HordeTransport 0x00477D64 and SiegeEngine
@@ -69,11 +69,11 @@ private:
 	int m_x;
 };
 
-class Rva00465124Base
+class OpenContainModuleData
 {
 public:
-	Rva00465124Base();
-	virtual ~Rva00465124Base();
+	OpenContainModuleData();
+	virtual ~OpenContainModuleData();
 
 protected:
 	unsigned char m_pad04[0x40 - 4];
@@ -90,7 +90,7 @@ struct ThrowOutVelocity
 	float m_z;
 };
 
-class TransportContainModuleData : public Rva00465124Base
+class TransportContainModuleData : public OpenContainModuleData
 {
 public:
 	TransportContainModuleData();
@@ -133,7 +133,7 @@ private:
 };
 
 TransportContainModuleData::TransportContainModuleData()
-	: Rva00465124Base()
+	: OpenContainModuleData()
 	, m_slotCapacity(0)
 	, m_exitPitchRate(0.0f)
 	, m_healthRegen(0.0f)

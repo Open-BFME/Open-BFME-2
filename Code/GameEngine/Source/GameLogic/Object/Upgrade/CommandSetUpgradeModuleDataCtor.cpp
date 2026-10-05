@@ -1,7 +1,7 @@
 // cl: /Ireference/shims/bfme2_ascii /O1 /MD /GX /DNDEBUG
 //
 // ??0CommandSetUpgradeModuleData@@QAE@XZ, retail 0x00255652, 70 bytes.
-// EH ctor over the rowed OpenContainModuleData base (0x253487): the
+// EH ctor over the rowed Rva00253487Base base (0x253487): the
 // compiler-emitted vtable store lands mid-init (after the hoisted member
 // lea, before the member zero and the string call), so the classes are
 // virtual with declared-only dtors and no source store (Devastate
@@ -14,11 +14,11 @@
 // proc begins; the EH factory at 0x255698 news 0x11C and is the only raw
 // caller.
 
-class OpenContainModuleData
+class Rva00253487Base
 {
 public:
-	OpenContainModuleData();
-	virtual ~OpenContainModuleData();
+	Rva00253487Base();
+	virtual ~Rva00253487Base();
 
 private:
 	unsigned char m_pad[0x118 - 4];
@@ -28,7 +28,7 @@ private:
 
 extern AsciiString g_emptyAsciiString;
 
-class CommandSetUpgradeModuleData : public OpenContainModuleData
+class CommandSetUpgradeModuleData : public Rva00253487Base
 {
 public:
 	CommandSetUpgradeModuleData();

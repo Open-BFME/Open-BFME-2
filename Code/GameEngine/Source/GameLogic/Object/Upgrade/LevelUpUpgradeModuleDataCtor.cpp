@@ -1,7 +1,7 @@
 // cl: /O1 /DNDEBUG /MD
 //
 // ??0LevelUpUpgradeModuleData@@QAE@XZ, retail 0x0025467E, 32 bytes.
-// Frameless ctor over the rowed OpenContainModuleData base (0x253487):
+// Frameless ctor over the rowed Rva00253487Base base (0x253487):
 // vtable literal 0x00BF24A0 installed last (overwriting the base folded
 // vtable), LevelsToGain zero at +0x118 plus LevelCap zero at +0x11C
 // matching the own table at 0x00C574AC. Identity is the LevelUpUpgrade pool
@@ -65,16 +65,16 @@ extern "C" const void *const vtbl_00BF24A0[] = {
 	(const void *)&vfn_0050B5C6
 };
 
-class OpenContainModuleData
+class Rva00253487Base
 {
 public:
-	OpenContainModuleData();
+	Rva00253487Base();
 
 private:
 	unsigned char m_pad[0x118];
 };
 
-class LevelUpUpgradeModuleData : public OpenContainModuleData
+class LevelUpUpgradeModuleData : public Rva00253487Base
 {
 public:
 	LevelUpUpgradeModuleData();

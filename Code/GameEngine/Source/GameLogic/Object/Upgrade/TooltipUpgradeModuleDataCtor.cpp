@@ -1,7 +1,7 @@
 // cl: /Ireference/shims/bfme2_ascii /O1 /MD /GX /DNDEBUG /Oy-
 //
 // ??0TooltipUpgradeModuleData@@QAE@XZ, retail 0x0025588E, 91 bytes.
-// EH ctor over the rowed OpenContainModuleData base (0x253487): the
+// EH ctor over the rowed Rva00253487Base base (0x253487): the
 // compiler-emitted vtable store lands mid-init, so the classes are virtual
 // with declared-only dtors and no source store (Devastate precedent).
 // DisplayName at +0x118 and Description at +0x11C are AsciiStrings: implicit
@@ -12,11 +12,11 @@
 // key tail at 0x4B7A13 ends where the rowed proc begins; the EH factory at
 // 0x2558E9 news 0x120 and is the only raw caller.
 
-class OpenContainModuleData
+class Rva00253487Base
 {
 public:
-	OpenContainModuleData();
-	virtual ~OpenContainModuleData();
+	Rva00253487Base();
+	virtual ~Rva00253487Base();
 
 private:
 	unsigned char m_pad[0x118 - 4];
@@ -26,7 +26,7 @@ private:
 
 extern AsciiString g_emptyAsciiString;
 
-class TooltipUpgradeModuleData : public OpenContainModuleData
+class TooltipUpgradeModuleData : public Rva00253487Base
 {
 public:
 	TooltipUpgradeModuleData();

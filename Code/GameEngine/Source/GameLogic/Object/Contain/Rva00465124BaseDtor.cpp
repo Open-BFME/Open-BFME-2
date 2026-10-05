@@ -1,6 +1,6 @@
 // cl: /O1 /MD /EHsc /DNDEBUG /Ireference/shims/moduledata
 //
-// ??1Rva00465124Base@@UAE@XZ, retail 0x00257481, 134 bytes.
+// ??1OpenContainModuleData@@UAE@XZ, retail 0x00257481, 134 bytes.
 // Target evidence: the base ctor 0x00465124 installs vtable 0x00C43658, whose
 // slot 0 is the scalar deleting dtor 0x00465221 calling this body. The
 // TransportContainModuleData dtor 0x004684F1 and CaveContainModuleData's dtor
@@ -75,10 +75,10 @@ private:
 	int m_x[3];
 };
 
-class __declspec(novtable) Rva00465124Base : public Snapshot
+class __declspec(novtable) OpenContainModuleData : public Snapshot
 {
 public:
-	virtual ~Rva00465124Base();
+	virtual ~OpenContainModuleData();
 
 private:
 	unsigned char m_pad04[0x38 - 4];
@@ -93,6 +93,6 @@ private:
 	unsigned char m_pad94[0x98 - 0x94];
 };
 
-Rva00465124Base::~Rva00465124Base()
+OpenContainModuleData::~OpenContainModuleData()
 {
 }

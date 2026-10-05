@@ -2,7 +2,7 @@
 // stlport
 //
 // ??0DynamicPortalBehaviourModuleData@@QAE@XZ, retail 0x0046142A (261 bytes).
-// DynamicPortal wall-portal data over the rowed OpenContainModuleData base
+// DynamicPortal wall-portal data over the rowed Rva00253487Base base
 // ctor (0x253487, 0x118 base): NumberOfBones at +0x118 is zero,
 // BonePrefix at +0x11C is an inline-null AsciiString cleared through the
 // folded clear at 0x00036410 (Image clear-after-null precedent),
@@ -26,11 +26,11 @@
 // pointer local, which is what emits retail's lea-plus-indirect zero stores.
 #include <vector>
 
-class OpenContainModuleData
+class Rva00253487Base
 {
 public:
-	OpenContainModuleData();
-	virtual ~OpenContainModuleData();
+	Rva00253487Base();
+	virtual ~Rva00253487Base();
 
 private:
 	unsigned char m_pad[0x118 - 4]; // +0x04..+0x117
@@ -88,7 +88,7 @@ struct Coord3D
 
 static int s_vtable;
 
-class DynamicPortalBehaviourModuleData : public OpenContainModuleData
+class DynamicPortalBehaviourModuleData : public Rva00253487Base
 {
 public:
 	DynamicPortalBehaviourModuleData();
@@ -112,7 +112,7 @@ private:
 
 // ??0DynamicPortalBehaviourModuleData@@QAE@XZ @0x0046142A
 DynamicPortalBehaviourModuleData::DynamicPortalBehaviourModuleData() :
-	OpenContainModuleData(),
+	Rva00253487Base(),
 	m_numberOfBones(0),
 	m_generateNow(false),
 	m_allowEnemies(false),

@@ -16,11 +16,11 @@
 // retail order, and calls set last (AsciiString spelling resolves through the
 // alias pin at 0x55F5).
 
-class Rva0045B4F1Base
+class BezierProjectileBehaviorModuleData
 {
 public:
-	Rva0045B4F1Base();
-	~Rva0045B4F1Base();
+	BezierProjectileBehaviorModuleData();
+	~BezierProjectileBehaviorModuleData();
 };
 
 class Rva0024C7B3Member
@@ -41,7 +41,7 @@ public:
 	void *m_data;
 };
 
-class MissileUpdateModuleData : public Rva0045B4F1Base
+class MissileUpdateModuleData : public BezierProjectileBehaviorModuleData
 {
 public:
 	MissileUpdateModuleData();

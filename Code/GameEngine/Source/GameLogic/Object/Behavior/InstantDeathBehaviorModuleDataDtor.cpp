@@ -5,11 +5,11 @@
 
 extern const void *const g_00BBB554[];
 
-class Rva00253510
+class DestroyDieModuleData
 {
 public:
-	virtual ~Rva00253510() { *(const void **)this = g_00BBB554; }
-	virtual void Rva00253510_virt00();
+	virtual ~DestroyDieModuleData() { *(const void **)this = g_00BBB554; }
+	virtual void DestroyDieModuleData_virt00();
 private:
 	unsigned char m_pad[0x38 - 4];
 };
@@ -22,7 +22,7 @@ struct Rva0045D137
 	~Rva0045D137();
 };
 
-class __declspec(novtable) InstantDeathBehaviorModuleData : public Rva00253510
+class __declspec(novtable) InstantDeathBehaviorModuleData : public DestroyDieModuleData
 {
 public:
 	virtual ~InstantDeathBehaviorModuleData();

@@ -2,7 +2,7 @@
 // stlport
 //
 // ??0StatusBitsUpgradeModuleData@@QAE@XZ, retail 0x00254775, 40 bytes.
-// Frameless store-only ctor over the rowed OpenContainModuleData base
+// Frameless store-only ctor over the rowed Rva00253487Base base
 // (0x253487): folded vtable 0x00BF2558, StatusToSet reset at +0x118 and
 // StatusToClear reset at +0x128 through the rowed bitset<128>::reset
 // (0x24CA24; own table 0x00857984 holds exactly those two fields; the
@@ -21,10 +21,10 @@ namespace _STL {
 template<> bitset<128> &bitset<128>::reset();
 }
 
-class OpenContainModuleData
+class Rva00253487Base
 {
 public:
-	OpenContainModuleData();
+	Rva00253487Base();
 
 protected:
 	void *m_vtable; // +0
@@ -33,7 +33,7 @@ private:
 	unsigned char m_pad[0x118 - 4];
 };
 
-class StatusBitsUpgradeModuleData : public OpenContainModuleData
+class StatusBitsUpgradeModuleData : public Rva00253487Base
 {
 public:
 	StatusBitsUpgradeModuleData();

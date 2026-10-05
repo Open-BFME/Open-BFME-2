@@ -406,7 +406,7 @@ name,address,notes
 ??0ObbCollisionStruct@@QAE@ABVOBBoxClass@@ABVVector3@@01@Z,0x00728810,address read from the REL32 displacement at a placed body
 ??0ObjectModule@@QAE@PAVThing@@PBVModuleData@@@Z,0x00306AA7,address read from the retail REL32 displacement at the sole call site inside the BehaviorModule constructor at 0x00253330 - that body byte-verifies against this address so retail itself encodes it
 ??0OneRingPenaltyUpdateModuleData@@QAE@XZ,0x004999F1,sole caller is the 0x24E42C factory pushing the rowed OneRingPenaltyUpdateModuleData proc; installs vtable 0xC50298 and fits the 0x24 news size
-??0OpenContainModuleData@@QAE@XZ,0x00253487,call site in HealContainModuleData ctor (0x4B57AA) bare thiscall with this=esi matching OpenContainModuleData base ctor per ZH HealContain.h hierarchy; retail 0x253487 (21B) stores folded vtable 0xBF2558 and constructs member at +8
+??0Rva00253487Base@@QAE@XZ,0x00253487,call site in HealContainModuleData ctor (0x4B57AA) bare thiscall with this=esi matching OpenContainModuleData base ctor per ZH HealContain.h hierarchy; retail 0x253487 (21B) stores folded vtable 0xBF2558 and constructs member at +8; OpenContain identity withdrawn: actual registered ctor is0x465124; this remains an address-derived upgrade base
 ??0OrthoEmissionVelocityModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A7173,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
 ??0OrthoEmissionVelocityModuleTemplate@FXParticleSystem@@QAE@XZ,0x003A711C,BFME2 export; the module template constructor the ConcreteModuleTemplate wrapper calls
 ??0OutputStream@DebugIOFlat@@AAE@PBDI@Z,0x0003F840,address read from the REL32 displacement at a placed body; stlport 4.5.3
@@ -824,7 +824,7 @@ name,address,notes
 ??1Transport@@QAE@XZ,0x004494BA,BFME2 transport destructor used before replacing the connection-manager transport pointer
 ??1TransportContainModuleData@@UAE@XZ,0x004684F1,called by ??_G 0x004684D5 in slot 0 of vtable 0x00C442F8 installed by ctor 0x00468301; HordeTransport dtor 0x00477D8F jmps here
 ??1Rva001DFA48Owner@@UAE@XZ,0x001DFA48,address read from the REL32 displacement at a placed body (was misnamed ~TransportContainModuleData)
-??1Rva00465124Base@@UAE@XZ,0x00257481,called by ??_G 0x00465221 in slot 0 of vtable 0x00C43658 installed by ctor 0x00465124
+??1OpenContainModuleData@@UAE@XZ,0x00257481,called by ??_G 0x00465221 in slot 0 of vtable 0x00C43658 installed by ctor 0x00465124; corrected by native ModuleFactory registration 2026-10-05
 ??1UpdateModule@@UAE@XZ,0x0024A797,tail target of rowed BoredUpdate dtor 0x49669A which reinstalls BoredUpdate vptrs before the tail jump so it is the direct UpdateModule base dtor
 ??1UpgradeModuleData@@UAE@XZ,0x00255A42
 ??1WriteLock@BfmeSortingIBAccess@@QAE@XZ,0x00138D80,Recovered dynamic index write-lock view; 120-byte destructor unlocks and releases the reference-counted index buffer then its device guard
@@ -3652,7 +3652,7 @@ dup_7e86b0,0x00655770
 ??0SubObjectsUpgradeModuleData@@QAE@XZ,0x00257768
 ??0?$_List_base@UFloodMember@@V?$allocator@UFloodMember@@@_STL@@@_STL@@QAE@ABV?$allocator@UFloodMember@@@1@@Z,0x004EC36C
 ??0StancesBehaviorModuleData@@QAE@XZ,0x00254C8E,12B alias of ICF-folded trivial ctor installing vtable 0x00C4ED70 plus zero at +8; same body as pinned ??0SlotToLockUpdateModuleData@@QAE@XZ; used by StanceTemplate factory 0x24B3B4
-??0Rva0045B4F1Base@@QAE@XZ,0x0045B4F1,EBO-empty base of MissileUpdateModuleData ctor 0x4A77B8 (2 raw callers 0x24B1A7 plus 0x4A77CA shared-fold like SlotToLock); sole-caller factory 0x24EFA0 news 0x120
+??0BezierProjectileBehaviorModuleData@@QAE@XZ,0x0045B4F1,EBO-empty base of MissileUpdateModuleData ctor 0x4A77B8 (2 raw callers 0x24B1A7 plus 0x4A77CA shared-fold like SlotToLock); sole-caller factory 0x24EFA0 news 0x120; corrected by native ModuleFactory registration 2026-10-05
 ??0WallHubBehaviorModuleData@@QAE@XZ,0x00453020,sole raw E8 caller is factory 0x24A94C (0x24A96D inside); vtable 0xC3FF98; table 0xC3FED8 WallHub 11-field; news 0x3C fits
 ??0BridgeBehaviorModuleData@@QAE@XZ,0x00457FF1,sole raw E8 caller is factory 0x24AC3B (0x24AC5C inside); vtable 0xC40A10; table 0xC40B20 BridgeScaffold 4-field; news 0x18 fits; member 0x280A8D rowed List_base
 __setjmp3,0x0075AC7A,address read from the REL32 displacement at a placed body
@@ -3844,7 +3844,7 @@ _lua_setlocal,0x0074CC40,address read from the REL32 displacement at a placed bo
 ?push_back@?$vector@UPrereqUnitRec@ProductionPrerequisite@@V?$allocator@UPrereqUnitRec@ProductionPrerequisite@@@_STL@@@_STL@@QAEXABUPrereqUnitRec@ProductionPrerequisite@@@Z,0x004F5243,Rec vector pushback called once from addUnitPrereq 0x004F52CB; 0xC stride with element copy 0x002CF99D plus insert_aux 0x004F5165
 ?unlinkChain@Rva009A36F0Owner@@QAEXPAVRva009A36F0Thing@@@Z,0x00759220,BFME1 Rva009A36F0Owner donor unlinker; sole E8 caller is apply at 0x007592E0
 ??_7AssaultTransportAIUpdateModuleData@@6B@,0x00C4B6C8,AssaultTransportAIUpdateModuleData vtable installed by ctor 0x24D221; ICF-folded with the Worker and Wander vtables at the same address (identical trivial-hierarchy layout); TU spelling alias of their ??_7 pins
-??0Rva00465124Base@@QAE@XZ,0x00465124,Big-EH ModuleData base ctor with DieMuxData init plus filters called at base position by 4 derived ctors (CaveContain 0x466D37 plus GarrisonContain 0x4797A2 plus 2); semantic identity unproven so Rva-addressed
+??0OpenContainModuleData@@QAE@XZ,0x00465124,Big-EH ModuleData base ctor with DieMuxData init plus filters called at base position by 4 derived ctors (CaveContain 0x466D37 plus GarrisonContain 0x4797A2 plus 2); semantic identity unproven so Rva-addressed; corrected by native ModuleFactory registration 2026-10-05
 ??_7GeometryInfo@@6B@,0x00BC4E94,GeometryInfo vtable installed by ctor 0x50B74; slot0 is the deleting wrapper at 0x450C31 per the dtor pin note
 ?set@GeometryInfo@@QAEXW4GeometryType@@_NMMM@Z,0x006BFF50,Five-argument GeometryInfo extent setter called once with x87 float args by the 0x50B74 ctor; ret 0x14 callee-clean
 ??0?$_Vector_base@UGeometryShape@@V?$allocator@UGeometryShape@@@_STL@@@_STL@@QAE@ABV?$allocator@UGeometryShape@@@1@@Z,0x00211E58,ICF-folded empty vector base ctor (same 29B as matched BfmeE16 row); GeometryInfoCtor TU vector<GeometryShape> member
@@ -5985,7 +5985,6 @@ _ConvertBoolTrees,0x001BBD60
 ??$__copy_ptrs@PAUBfmePod44@@PAU1@@_STL@@YAPAUBfmePod44@@PAU1@00ABU__false_type@0@@Z,0x0007EA02,address read from the REL32 displacement at 0x81A62 in the pinned vector<BfmePod44>::erase 0x81A4F; Ghidra boundary 0x7EA02/29
 ??$_Destroy@PAURva00414BDBElement@@@_STL@@YAXPAURva00414BDBElement@@0@Z,0x00414508,address read from the REL32 displacement at 0x4147B9 in the pinned _M_clear 0x4147B1; Ghidra boundary 0x414508/24
 ??$__partial_sort@PAHHU?$greater@H@_STL@@@_STL@@YAXPAH000U?$greater@H@0@@Z,0x005E5177,address read from the REL32 displacement at 0x5E522E in the pinned partial_sort<int*,greater<int>> 0x5E521C; Ghidra boundary 0x5E5177/92
-??1OpenContainModuleData@@UAE@XZ,0x00257481,address read from the JMP displacement at 0x25770F in the pinned ??1CaveContainModuleData; the body there is held under ??1Rva00465124Base@@UAE@XZ and is also the base dtor the matched Transport and Garrison ContainModuleData dtors call - all three derive from OpenContainModuleData in ZH
 ?IsReleaseAtEnd@AptValue@@QBEHXZ,0x006DBDD0,AptValueVector.inl asserts pValue->IsReleaseAtEnd at 0x006E6C00; bit2 matches ClearReleaseAtEnd at 0x006DBDC0; target call at 0x006E6C0A
 ??1BfmeOpaqueOwnedRecord1408Member@@QAE@XZ,0x00385371,address read from the JMP displacement at 0x555AE2 in the pinned implicit ~BfmeOpaqueOwnedRecord1408 (add ecx 8 then jmp) and the inlined temp destruction at 0x558E88 in _M_push_back_aux_v; Ghidra boundary 0x385371/75
 ?_M_reserve_map_at_back@?$deque@UBfmeOpaqueOwnedRecord1408@@V?$allocator@UBfmeOpaqueOwnedRecord1408@@@_STL@@@_STL@@IAEXI@Z,0x00554344,address read from the REL32 displacement at 0x558E39 in the pinned _M_push_back_aux_v 0x558E10; Ghidra boundary 0x554344/38
@@ -12024,3 +12023,5 @@ _floor,0x00629940,call site 0x006F4403 in AptDate::getDayOfWeek (0x006F4290) enc
 ?rva006DD460@BfmeAptValue006DCD20@@QAEMXZ,0x006DD460,Apt numeric conversion; both REL32 sites in native Math.pow callback 0x6E8990 read this target; original member name unproved
 ?Rva001DABB6Parse@@YAXPAVINI@@PAXPAH1@Z,0x001DABB6,Native Sounds and Subsounds callbacks both call this weighted-token parser with INI vector optional total and event name; existing bank at same RVA independently reconstructs semantics
 ??0?$_Vector_base@URvaPair001D9F62@@V?$allocator@URvaPair001D9F62@@@_STL@@@_STL@@QAE@ABV?$allocator@URvaPair001D9F62@@@1@@Z,0x00211E58,Subsounds parser1DAD68 constructs its 12-byte name-weight vector; emitted STLport base ctor independently matches all29 bytes of rowed folded provider
+?rva002DA1CC@BfmeAudioEventPrefix136@@QAE?AUBfmeEventPositionView@@AA_N@Z,0x002DA1CC,Native owner ctors2DA461 and2DA4DB pass hidden12-byte result and bool out-param; worker resolves owner by tag38 updates position3C and writes validity plus three result floats; original name unasserted
+?Rva000B3FD0BuildFieldParse@@YAXAAVMultiIniFieldParse@@@Z,0x000B3FD0,SquishCollide factory0x254AAB pushes VA0x4B3FD0; empty folded proc distinct from DelayedLuaEventUpdate parser0x4A8D06

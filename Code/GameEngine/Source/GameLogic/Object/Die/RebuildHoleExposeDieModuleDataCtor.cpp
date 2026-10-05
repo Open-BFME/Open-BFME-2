@@ -2,7 +2,7 @@
 //
 // ??0RebuildHoleExposeDieModuleData@@QAE@XZ,
 // retail 0x0048671F, 38 bytes. Frameless ctor over the pinned SEH base
-// (??0Rva00253510@@QAE@XZ at 0x253510 shared with the UpgradeDie family):
+// (??0DestroyDieModuleData@@QAE@XZ at 0x253510 shared with the UpgradeDie family):
 // base call then the distinctive vtable literal 0x00C4AD40 then the
 // and-zero of the HoleName word at +0x38 then the float zeros of
 // HoleMaxHealth at +0x3C and FadeInTimeSeconds at +0x40 (/arch:SSE keeps
@@ -66,13 +66,13 @@ extern "C" const void *const vtbl_00C4AD40[] = {
 	(const void *)&vfn_0050B5C6
 };
 
-class Rva00253510
+class DestroyDieModuleData
 {
 public:
-	Rva00253510();
+	DestroyDieModuleData();
 };
 
-class RebuildHoleExposeDieModuleData : public Rva00253510
+class RebuildHoleExposeDieModuleData : public DestroyDieModuleData
 {
 public:
 	RebuildHoleExposeDieModuleData();

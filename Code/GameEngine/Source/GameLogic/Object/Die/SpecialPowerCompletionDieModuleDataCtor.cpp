@@ -2,7 +2,7 @@
 //
 // ??0SpecialPowerCompletionDieModuleData@@QAE@XZ, retail 0x004C230E,
 // 22 bytes. Frameless ctor over the pinned SEH base
-// (??0Rva00253510@@QAE@XZ at 0x253510, shared with the UpgradeDie ctor):
+// (??0DestroyDieModuleData@@QAE@XZ at 0x253510, shared with the UpgradeDie ctor):
 // base call, then the compact and-zero of the SpecialPowerTemplate word
 // at +0x38, then the folded-trivial vtable literal 0x00C4ED70 (shared by
 // DeletionUpdate plus SlotToLock plus ReflectDamage, so the install alone
@@ -16,13 +16,13 @@
 extern "C" const void *const vtbl_00C4ED70[];  // folded, 9 classes; via ??_7BeaconClientUpdateModuleData@@6B@
 #pragma comment(linker, "/alternatename:_vtbl_00C4ED70=??_7BeaconClientUpdateModuleData@@6B@")
 
-class Rva00253510
+class DestroyDieModuleData
 {
 public:
-	Rva00253510();
+	DestroyDieModuleData();
 };
 
-class SpecialPowerCompletionDieModuleData : public Rva00253510
+class SpecialPowerCompletionDieModuleData : public DestroyDieModuleData
 {
 public:
 	SpecialPowerCompletionDieModuleData();

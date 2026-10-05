@@ -1,7 +1,7 @@
 // cl: /O1 /MD /GX- /DNDEBUG /arch:SSE
 //
 // ??0MaxHealthUpgradeModuleData@@QAE@XZ, retail 0x004B62C4, 36 bytes.
-// Frameless store-only ctor over the rowed OpenContainModuleData base
+// Frameless store-only ctor over the rowed Rva00253487Base base
 // (0x253487): folded vtable 0x00BF2558, ChangeType zero at +0x11C (compact
 // and form, hoisted above the vtable store) and AddMaxHealth float-zero at
 // +0x118 (xorps plus movss; own table 0x008585DC holds exactly AddMaxHealth
@@ -14,10 +14,10 @@
 extern "C" const void *const vtbl_00BF2558[];  // ??_7WeaponSetUpgradeModuleData@@6B@
 #pragma comment(linker, "/alternatename:_vtbl_00BF2558=??_7WeaponSetUpgradeModuleData@@6B@")
 
-class OpenContainModuleData
+class Rva00253487Base
 {
 public:
-	OpenContainModuleData();
+	Rva00253487Base();
 
 protected:
 	void *m_vtable; // +0
@@ -26,7 +26,7 @@ private:
 	unsigned char m_pad[0x118 - 4];
 };
 
-class MaxHealthUpgradeModuleData : public OpenContainModuleData
+class MaxHealthUpgradeModuleData : public Rva00253487Base
 {
 public:
 	MaxHealthUpgradeModuleData();

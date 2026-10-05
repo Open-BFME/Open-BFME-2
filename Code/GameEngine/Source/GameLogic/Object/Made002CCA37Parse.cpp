@@ -3,7 +3,7 @@
 // ?q4Notify002CCA37@@YAXPAXPAVMade002CCA37@@HH@Z @0x0050B13A (53B).
 // DOTNugget field parser: builds a 0x84-byte MultiIniFieldParse on the stack
 // through the rowed ??0MultiIniFieldParse@@QAE@XZ, runs the rowed static
-// ?buildFieldParse@FXListDieModuleData@@SAXAAVMultiIniFieldParse@@@Z, then
+// ?buildFieldParse@Rva0050B107@@SAXAAVMultiIniFieldParse@@@Z, then
 // forwards the Made (as void*) plus the table through the pin-only
 // ?initFromINIMulti@INI@@QAEXPAXABVMultiIniFieldParse@@@Z. Caller is
 // ?parseDOTNugget@@YAXPAVINI@@PAVWeaponTemplate@@@Z at 0x002CCA7C
@@ -22,7 +22,7 @@ public:
 	char m_pad[0x84];
 };
 
-class FXListDieModuleData
+class Rva0050B107
 {
 public:
 	static void buildFieldParse(MultiIniFieldParse &m);
@@ -37,6 +37,6 @@ public:
 void q4Notify002CCA37(void *ini, Made002CCA37 *m, int c, int d)
 {
 	MultiIniFieldParse tmp;
-	FXListDieModuleData::buildFieldParse(tmp);
+	Rva0050B107::buildFieldParse(tmp);
 	((INI *)ini)->initFromINIMulti(m, tmp);
 }

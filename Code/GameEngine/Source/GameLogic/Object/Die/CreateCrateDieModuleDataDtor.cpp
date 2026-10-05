@@ -17,16 +17,16 @@
 
 // The Die-family intermediate adds no destructible members; its dtor is
 // trivial here and stores no vptr of its own in retail.
-class __declspec(novtable) Rva00253510 : public Snapshot
+class __declspec(novtable) DestroyDieModuleData : public Snapshot
 {
 public:
-	virtual ~Rva00253510() {}
+	virtual ~DestroyDieModuleData() {}
 
 private:
 	unsigned char m_pad[0x38 - 4];
 };
 
-class CreateCrateDieModuleData : public Rva00253510
+class CreateCrateDieModuleData : public DestroyDieModuleData
 {
 public:
 	virtual ~CreateCrateDieModuleData();

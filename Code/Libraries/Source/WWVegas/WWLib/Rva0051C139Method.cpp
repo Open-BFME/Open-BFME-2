@@ -26,7 +26,9 @@ public:
 };
 extern MessageStream *MessageStreamSubsystem;
 
-class AudioManager
+// PC operand 0x00DFDC14 is the window transition handler; the AudioManager
+// singleton is at 0x00DFE6E8. Slot 9 is retained without a guessed method name.
+class GameWindowTransitionsHandler
 {
 public:
     virtual void v00();
@@ -40,7 +42,7 @@ public:
     virtual void v08();
     virtual void v09();
 };
-extern AudioManager *TheAudio;
+extern GameWindowTransitionsHandler *TheTransitionHandler;
 
 bool _bfme_showCampaignReview();
 void Rva0051BF47Run();
@@ -75,7 +77,7 @@ int Rva0051CBC6::rva0051C139()
     }
     else
     {
-        TheAudio->v09();
+        TheTransitionHandler->v09();
     }
     m_27c = 0;
     return 1;

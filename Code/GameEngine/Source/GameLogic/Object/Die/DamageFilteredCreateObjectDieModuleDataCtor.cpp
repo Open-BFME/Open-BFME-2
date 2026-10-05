@@ -2,7 +2,7 @@
 //
 // ??0DamageFilteredCreateObjectDieModuleData@@QAE@XZ, retail 0x00485F42,
 // 35 bytes. Frameless ctor over the pinned SEH base
-// (??0Rva00253510@@QAE@XZ at 0x253510, shared with the Die family): base
+// (??0DestroyDieModuleData@@QAE@XZ at 0x253510, shared with the Die family): base
 // call, then the and-zeros of the CreationList word at +0x38 and the
 // PostFilterTriggeredDuration word at +0x44, the DamageType trigger words
 // at +0x3C/+0x40 set to 3 through the shared-constant idiom, and the
@@ -16,13 +16,13 @@
 extern "C" const void *const vtbl_00C4ED70[];  // folded, 9 classes; via ??_7BeaconClientUpdateModuleData@@6B@
 #pragma comment(linker, "/alternatename:_vtbl_00C4ED70=??_7BeaconClientUpdateModuleData@@6B@")
 
-class Rva00253510
+class DestroyDieModuleData
 {
 public:
-	Rva00253510();
+	DestroyDieModuleData();
 };
 
-class DamageFilteredCreateObjectDieModuleData : public Rva00253510
+class DamageFilteredCreateObjectDieModuleData : public DestroyDieModuleData
 {
 public:
 	DamageFilteredCreateObjectDieModuleData();

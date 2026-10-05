@@ -2,7 +2,7 @@
 //
 // ??0CrushDieModuleData@@QAE@XZ, retail 0x002539B3, 82 bytes.
 // CrushDie ModuleData default ctor over the pinned SEH intermediate base
-// (??0Rva00253510@@QAE@XZ at 0x253510, shared with the Die family). The
+// (??0DestroyDieModuleData@@QAE@XZ at 0x253510, shared with the Die family). The
 // virtual base (KeepObjectDie/CreateObjectDieModuleDataCtor precedent)
 // carries the vptr the compiler installs itself right after the base call;
 // the DIR32 slot is patched from retail like any other vtable install, so
@@ -32,11 +32,11 @@ private:
 	int m_data; // 4 bytes (retail element size); real layout unrecovered
 };
 
-class Rva00253510
+class DestroyDieModuleData
 {
 public:
-	Rva00253510();
-	virtual ~Rva00253510();
+	DestroyDieModuleData();
+	virtual ~DestroyDieModuleData();
 
 private:
 	unsigned char m_pad[0x38 - 4];
@@ -47,7 +47,7 @@ enum
 	CRUSH_COUNT = 4,
 };
 
-class CrushDieModuleData : public Rva00253510
+class CrushDieModuleData : public DestroyDieModuleData
 {
 public:
 	CrushDieModuleData();
@@ -64,8 +64,8 @@ inline CrushDieModuleData::CrushDieModuleData()
 		m_crushSoundPercent[i] = 100;
 }
 
-// ??1Rva00253510@@UAE@XZ present-unmatched
-Rva00253510::~Rva00253510()
+// ??1DestroyDieModuleData@@UAE@XZ present-unmatched
+DestroyDieModuleData::~DestroyDieModuleData()
 {
 }
 

@@ -16,17 +16,17 @@
 
 #include "ascii_string.h"
 
-class OpenContainModuleData
+class Rva00253487Base
 {
 public:
-	OpenContainModuleData();
-	virtual ~OpenContainModuleData() {}
+	Rva00253487Base();
+	virtual ~Rva00253487Base() {}
 
 private:
 	char m_pad[0x118 - 4];
 };
 
-class ReplaceSelfUpgradeModuleData : public OpenContainModuleData
+class ReplaceSelfUpgradeModuleData : public Rva00253487Base
 {
 public:
 	ReplaceSelfUpgradeModuleData();

@@ -1,7 +1,7 @@
 // cl: /O1 /MD /GX /DNDEBUG
 //
 // ??0AttributeModifierUpgradeModuleData@@QAE@XZ, retail 0x002557E9, 25 bytes.
-// Frameless store-only ctor over the rowed OpenContainModuleData base
+// Frameless store-only ctor over the rowed Rva00253487Base base
 // (0x253487): folded vtable 0x00BF38C0, AttributeModifier zero at +0x118
 // (compact and form; own table 0x00858818 holds exactly AttributeModifier at
 // +0x118; the AttributeModifierUpgrade pool key at 0x4B6703 ends where the
@@ -62,10 +62,10 @@ extern "C" const void *const vtbl_00BF38C0[] = {
 	(const void *)&vfn_0050B5C6
 };
 
-class OpenContainModuleData
+class Rva00253487Base
 {
 public:
-	OpenContainModuleData();
+	Rva00253487Base();
 
 protected:
 	void *m_vtable; // +0
@@ -74,7 +74,7 @@ private:
 	unsigned char m_pad[0x118 - 4];
 };
 
-class AttributeModifierUpgradeModuleData : public OpenContainModuleData
+class AttributeModifierUpgradeModuleData : public Rva00253487Base
 {
 public:
 	AttributeModifierUpgradeModuleData();

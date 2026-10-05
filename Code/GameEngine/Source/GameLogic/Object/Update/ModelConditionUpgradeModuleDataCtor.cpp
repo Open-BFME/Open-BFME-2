@@ -1,7 +1,7 @@
 // cl: /O1 /MD /DNDEBUG /arch:SSE /EHs-c-
 //
 // ??0ModelConditionUpgradeModuleData@@QAE@XZ, retail 0x004B6428, 89 bytes
-// (frameless, no EH at all): base call into the rowed OpenContainModuleData
+// (frameless, no EH at all): base call into the rowed Rva00253487Base
 // 0x253487, explicit vtable store at +0 (folded 0xBF2558, DIR32-masked),
 // explicit init calls into 0x42526 for the two 0x4C condition members at
 // +0x118/+0x164 (TU-spelling alias pin; the call order must follow the
@@ -13,10 +13,10 @@ extern "C" const void *const vtbl_00BF2558[];  // ??_7WeaponSetUpgradeModuleData
 
 #include <cstring>
 
-class OpenContainModuleData
+class Rva00253487Base
 {
 public:
-	OpenContainModuleData();
+	Rva00253487Base();
 
 protected:
 	unsigned char m_pad[0x118];
@@ -29,7 +29,7 @@ struct CondStore
 	unsigned char m_data[0x4C];
 };
 
-class ModelConditionUpgradeModuleData : public OpenContainModuleData
+class ModelConditionUpgradeModuleData : public Rva00253487Base
 {
 public:
 	ModelConditionUpgradeModuleData();
@@ -41,7 +41,7 @@ public:
 };
 
 ModelConditionUpgradeModuleData::ModelConditionUpgradeModuleData()
-	: OpenContainModuleData()
+	: Rva00253487Base()
 {
 	CondStore *stor118 = &m_118;
 	*(unsigned int *)this = ((unsigned int)vtbl_00BF2558);

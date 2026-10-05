@@ -1,7 +1,7 @@
 // cl: /O1 /MD /GX- /DNDEBUG /arch:SSE
 //
 // ??0ExperienceScalarUpgradeModuleData@@QAE@XZ, retail 0x004B6187, 29 bytes.
-// Frameless store-only ctor over the rowed OpenContainModuleData base
+// Frameless store-only ctor over the rowed Rva00253487Base base
 // (0x253487): folded vtable 0x00BF2558 and AddXPScalar float-zero at +0x118
 // (xorps plus movss; own table 0x00858524 holds exactly AddXPScalar at
 // +0x118; the rowed ExperienceScalarUpgrade pool key at 0x4B6142 ends where
@@ -13,10 +13,10 @@
 extern "C" const void *const vtbl_00BF2558[];  // ??_7WeaponSetUpgradeModuleData@@6B@
 #pragma comment(linker, "/alternatename:_vtbl_00BF2558=??_7WeaponSetUpgradeModuleData@@6B@")
 
-class OpenContainModuleData
+class Rva00253487Base
 {
 public:
-	OpenContainModuleData();
+	Rva00253487Base();
 
 protected:
 	void *m_vtable; // +0
@@ -25,7 +25,7 @@ private:
 	unsigned char m_pad[0x118 - 4];
 };
 
-class ExperienceScalarUpgradeModuleData : public OpenContainModuleData
+class ExperienceScalarUpgradeModuleData : public Rva00253487Base
 {
 public:
 	ExperienceScalarUpgradeModuleData();

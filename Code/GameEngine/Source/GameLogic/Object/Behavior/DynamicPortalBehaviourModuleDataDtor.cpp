@@ -24,10 +24,10 @@
 // retail does not have; UpgradeModuleDataDtor precedent) forced out by the
 // delete helper, which also emits the vtable and scalar-deleting dtor.
 
-class OpenContainModuleData
+class Rva00253487Base
 {
 public:
-	virtual ~OpenContainModuleData() {}
+	virtual ~Rva00253487Base() {}
 
 private:
 	unsigned char m_pad[0x118 - 4]; // +0x04..+0x117
@@ -92,7 +92,7 @@ struct Coord3D
 	float m_z;
 };
 
-class DynamicPortalBehaviourModuleData : public OpenContainModuleData
+class DynamicPortalBehaviourModuleData : public Rva00253487Base
 {
 public:
 	DynamicPortalBehaviourModuleData();

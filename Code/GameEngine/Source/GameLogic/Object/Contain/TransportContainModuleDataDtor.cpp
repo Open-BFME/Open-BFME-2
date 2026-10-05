@@ -7,7 +7,7 @@
 // body; HordeTransportContainModuleData's dtor 0x00477D8F is a 5-byte jmp
 // here. Teardown order +0x180 vector, +0x168 fade filter (0x00360D26), +0xA4
 // list, +0xA0 exit bone (0x00036410), then base dtor 0x00257481, which the
-// Rva00465124Base vtable 0x00C43658 deleting dtor 0x00465221 also calls.
+// OpenContainModuleData vtable 0x00C43658 deleting dtor 0x00465221 also calls.
 // Layout copied from TransportContainModuleDataCtor.cpp (ctor-derived; member
 // names there are ZH-donor spellings). novtable: retail stores no vptr here.
 #include <list>
@@ -59,11 +59,11 @@ private:
 	int m_x;
 };
 
-class Rva00465124Base
+class OpenContainModuleData
 {
 public:
-	Rva00465124Base();
-	virtual ~Rva00465124Base();
+	OpenContainModuleData();
+	virtual ~OpenContainModuleData();
 
 protected:
 	unsigned char m_pad04[0x40 - 4];
@@ -80,7 +80,7 @@ struct ThrowOutVelocity
 	float m_z;
 };
 
-class __declspec(novtable) TransportContainModuleData : public Rva00465124Base
+class __declspec(novtable) TransportContainModuleData : public OpenContainModuleData
 {
 public:
 	TransportContainModuleData();

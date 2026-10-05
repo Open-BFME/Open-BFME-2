@@ -1,9 +1,9 @@
 // cl: /O1 /MD -D_STLP_NO_EXCEPTIONS /EHs-c-
 //
 // ??0MineshaftPortalBehaviourModuleData@@QAE@XZ, retail 0x00372DB8,
-// 32 bytes. ModuleData ctor over the rowed OpenContainModuleData base
+// 32 bytes. ModuleData ctor over the rowed Rva00253487Base base
 // (0x253487, 21B, folded vtable 0x00BF2558): installs the same folded vtable
-// explicitly (novtable, mirroring OpenContainModuleDataCtor.cpp) and zeroes
+// explicitly (novtable, mirroring Rva00253487BaseCtor.cpp) and zeroes
 // the two trailing flags at +0x118/+0x119. Class size 0x11C proven by both
 // instance factories (FakePathfind 0x24B545 and Mineshaft 0x24B65D news
 // 0x11C and both call this address): the two ModuleData ctors are ICF-folded
@@ -15,11 +15,11 @@
 extern "C" const void *const vtbl_00BF2558[];  // ??_7WeaponSetUpgradeModuleData@@6B@
 #pragma comment(linker, "/alternatename:_vtbl_00BF2558=??_7WeaponSetUpgradeModuleData@@6B@")
 
-class __declspec(novtable) OpenContainModuleData
+class __declspec(novtable) Rva00253487Base
 {
 public:
-	OpenContainModuleData();
-	virtual ~OpenContainModuleData();
+	Rva00253487Base();
+	virtual ~Rva00253487Base();
 
 private:
 	// +0x00 vptr (novtable: installed explicitly by each ctor).
@@ -56,7 +56,7 @@ public:
 
 int __cdecl Rva004CE29DGet();
 
-class __declspec(novtable) MineshaftPortalBehaviourModuleData : public OpenContainModuleData
+class __declspec(novtable) MineshaftPortalBehaviourModuleData : public Rva00253487Base
 {
 public:
 	MineshaftPortalBehaviourModuleData();
@@ -71,7 +71,7 @@ private:
 
 // ??0MineshaftPortalBehaviourModuleData@@QAE@XZ @0x00372DB8
 MineshaftPortalBehaviourModuleData::MineshaftPortalBehaviourModuleData()
-	: OpenContainModuleData()
+	: Rva00253487Base()
 {
 	*(unsigned int *)this = ((unsigned int)vtbl_00BF2558);
 	m_trailingFlag0 = false;

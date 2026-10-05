@@ -4,7 +4,7 @@
 // StructureCollapse ModuleData default ctor: trivial virtual base (vptr
 // 0x00BF3E30 installs automatically) plus DieMuxData member at +0x08 built
 // through the rowed 0x004CE534 body (spelled here as its default ctor via
-// an alias pin; Rva00253510 precedent), two five-element 0xC member arrays
+// an alias pin; DestroyDieModuleData precedent), two five-element 0xC member arrays
 // (OCL/FX vectors) built through the rowed ehvec iterator at 0x00629512
 // (CrushDie precedent: opaque element ctor/dtor keep the frame while the
 // element addresses stay DIR32 slots the patcher copies from retail), the

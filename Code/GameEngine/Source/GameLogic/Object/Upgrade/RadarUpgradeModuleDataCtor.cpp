@@ -1,7 +1,7 @@
 // cl: /O1 /MD /GX /DNDEBUG
 //
 // ??0RadarUpgradeModuleData@@QAE@XZ, retail 0x002546D2, 25 bytes.
-// Frameless store-only ctor over the rowed OpenContainModuleData base
+// Frameless store-only ctor over the rowed Rva00253487Base base
 // (0x253487): folded vtable 0x00BF2558, DisableProof false at +0x118 (own
 // table 0x008578D0 holds exactly DisableProof at +0x118; the RadarUpgrade
 // pool key at 0x4B4727 ends where the rowed proc begins; the ModuleData
@@ -16,10 +16,10 @@
 extern "C" const void *const vtbl_00BF2558[];  // ??_7WeaponSetUpgradeModuleData@@6B@
 #pragma comment(linker, "/alternatename:_vtbl_00BF2558=??_7WeaponSetUpgradeModuleData@@6B@")
 
-class OpenContainModuleData
+class Rva00253487Base
 {
 public:
-	OpenContainModuleData();
+	Rva00253487Base();
 
 protected:
 	void *m_vtable; // +0
@@ -28,7 +28,7 @@ private:
 	unsigned char m_pad[0x118 - 4];
 };
 
-class RadarUpgradeModuleData : public OpenContainModuleData
+class RadarUpgradeModuleData : public Rva00253487Base
 {
 public:
 	RadarUpgradeModuleData();

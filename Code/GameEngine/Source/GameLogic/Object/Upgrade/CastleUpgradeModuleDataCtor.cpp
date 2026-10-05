@@ -66,13 +66,13 @@ extern "C" const void *const vtbl_00BF3940[] = {
 	(const void *)&vfn_0050B5C6
 };
 
-class OpenContainModuleData
+class Rva00253487Base
 {
 public:
-	OpenContainModuleData();
+	Rva00253487Base();
 };
 
-class CastleUpgradeModuleData : public OpenContainModuleData
+class CastleUpgradeModuleData : public Rva00253487Base
 {
 public:
 	CastleUpgradeModuleData();

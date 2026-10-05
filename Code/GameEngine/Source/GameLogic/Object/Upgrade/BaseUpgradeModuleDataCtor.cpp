@@ -1,7 +1,7 @@
 // cl: /O1 /MD /GX /DNDEBUG /Oy-
 //
 // ??0BaseUpgradeModuleData@@QAE@XZ, retail 0x004B3698, 98 bytes. EH ctor
-// over the rowed OpenContainModuleData base (0x253487, frameless and
+// over the rowed Rva00253487Base base (0x253487, frameless and
 // therefore not unwindable): base call, xor-zero, lea of
 // BuildingTemplateName at +0x118, the distinctive vtable literal 0x00C57150
 // (via ??_7 pin: slot0 is the scalar-deleting dtor shape at 0x4B3769, slot1
@@ -17,11 +17,11 @@
 // (its 94B size under-claimed the true 98B body; the full emission matches).
 
 #pragma optimize("sy", on)
-class OpenContainModuleData
+class Rva00253487Base
 {
 public:
-	OpenContainModuleData();
-	virtual ~OpenContainModuleData() {}
+	Rva00253487Base();
+	virtual ~Rva00253487Base() {}
 
 private:
 	unsigned char m_pad[0x118 - 4];
@@ -41,7 +41,7 @@ private:
 
 typedef StringBase<char> AsciiString;
 
-class BaseUpgradeModuleData : public OpenContainModuleData
+class BaseUpgradeModuleData : public Rva00253487Base
 {
 public:
 	BaseUpgradeModuleData();

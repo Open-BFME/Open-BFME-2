@@ -2,7 +2,7 @@
 // stlport
 //
 // ??0InstantDeathBehaviorModuleData@@QAE@XZ, retail 0x0045D176 (71 bytes).
-// Frameless derived ctor over the pinned Rva00253510 intermediate base
+// Frameless derived ctor over the pinned DestroyDieModuleData intermediate base
 // (0x00253510, size 0x38): the base holds the vptr (a placeholder virtual;
 // the +0x38 member offset proves it, identity unknown) so the derived
 // shares it without shifting, the compiler installs vtable 0x00C41F28
@@ -18,17 +18,17 @@
 
 #include <vector>
 
-class Rva00253510
+class DestroyDieModuleData
 {
 public:
-	Rva00253510();
-	virtual void Rva00253510_virt00();
+	DestroyDieModuleData();
+	virtual void DestroyDieModuleData_virt00();
 
 private:
 	unsigned char m_opaque[0x38 - 4];
 };
 
-class InstantDeathBehaviorModuleData : public Rva00253510
+class InstantDeathBehaviorModuleData : public DestroyDieModuleData
 {
 public:
 	InstantDeathBehaviorModuleData();
@@ -41,11 +41,11 @@ private:
 };
 
 InstantDeathBehaviorModuleData::InstantDeathBehaviorModuleData()
-	: Rva00253510()
+	: DestroyDieModuleData()
 {
 }
 
 // Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
 // each one has the same function in that slot (vftable addresses from matched vptr
 // stores). Bind them to the rows at those functions.
-#pragma comment(linker, "/alternatename:?Rva00253510_virt00@Rva00253510@@UAEXXZ=??_GInstantDeathBehaviorModuleData@@UAEPAXI@Z")
+#pragma comment(linker, "/alternatename:?DestroyDieModuleData_virt00@DestroyDieModuleData@@UAEXXZ=??_GInstantDeathBehaviorModuleData@@UAEPAXI@Z")

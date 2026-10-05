@@ -18,16 +18,16 @@ private:
 	void *m_data;
 };
 
-class __declspec(novtable) Rva00465124Base
+class __declspec(novtable) OpenContainModuleData
 {
 public:
-	virtual ~Rva00465124Base();
+	virtual ~OpenContainModuleData();
 
 private:
 	unsigned char m_pad[0x98 - 4];
 };
 
-class __declspec(novtable) GarrisonContainModuleData : public Rva00465124Base
+class __declspec(novtable) GarrisonContainModuleData : public OpenContainModuleData
 {
 public:
 	virtual ~GarrisonContainModuleData();

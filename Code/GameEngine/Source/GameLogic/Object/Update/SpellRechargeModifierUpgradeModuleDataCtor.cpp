@@ -2,7 +2,7 @@
 // stlport
 //
 // ??0SpellRechargeModifierUpgradeModuleData@@QAE@XZ, retail 0x004B6011
-// (93 bytes). EH derived ctor over the rowed OpenContainModuleData base
+// (93 bytes). EH derived ctor over the rowed Rva00253487Base base
 // (0x00253487, size 0x118): the +0x118 vector<AsciiString> member constructs
 // through the ICF-folded Vector_base at 0x00211E58 (explicit allocator in
 // init, CreateCrateDie precedent), the compiler installs vtable 0x00C583E0
@@ -27,17 +27,17 @@ public:
 	void *m_data;	// public so the body zeroes it explicitly (retail and-idiom)
 };
 
-class OpenContainModuleData
+class Rva00253487Base
 {
 public:
-	OpenContainModuleData();
-	virtual ~OpenContainModuleData();
+	Rva00253487Base();
+	virtual ~Rva00253487Base();
 
 private:
 	unsigned char m_opaque[0x118 - 4];
 };
 
-class SpellRechargeModifierUpgradeModuleData : public OpenContainModuleData
+class SpellRechargeModifierUpgradeModuleData : public Rva00253487Base
 {
 public:
 	SpellRechargeModifierUpgradeModuleData();
@@ -50,7 +50,7 @@ private:
 };
 
 SpellRechargeModifierUpgradeModuleData::SpellRechargeModifierUpgradeModuleData()
-	: OpenContainModuleData()
+	: Rva00253487Base()
 	, m_vec118(_STL::allocator<AsciiString>())
 {
 	m_str128.m_data = 0;

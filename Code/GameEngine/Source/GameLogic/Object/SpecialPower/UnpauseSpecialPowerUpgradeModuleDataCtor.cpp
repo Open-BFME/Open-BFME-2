@@ -13,10 +13,10 @@
 extern "C" const void *const vtbl_00BF2558[];  // ??_7WeaponSetUpgradeModuleData@@6B@
 #pragma comment(linker, "/alternatename:_vtbl_00BF2558=??_7WeaponSetUpgradeModuleData@@6B@")
 
-class OpenContainModuleData
+class Rva00253487Base
 {
 public:
-	OpenContainModuleData();
+	Rva00253487Base();
 
 protected:
 	void *m_vtable; // +0
@@ -25,7 +25,7 @@ private:
 	unsigned char m_pad[0x118 - 4];
 };
 
-class UnpauseSpecialPowerUpgradeModuleData : public OpenContainModuleData
+class UnpauseSpecialPowerUpgradeModuleData : public Rva00253487Base
 {
 public:
 	UnpauseSpecialPowerUpgradeModuleData();

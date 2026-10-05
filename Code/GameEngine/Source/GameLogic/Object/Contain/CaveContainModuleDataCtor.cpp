@@ -12,13 +12,13 @@
 // 0x00257714 which news 0x9C; the TimeForFullHeal factory shares this body
 // (fold) and that name stays unclaimed.
 
-class Rva00465124Base
+class OpenContainModuleData
 {
 public:
-	Rva00465124Base();
+	OpenContainModuleData();
 };
 
-class CaveContainModuleData : public Rva00465124Base
+class CaveContainModuleData : public OpenContainModuleData
 {
 public:
 	CaveContainModuleData();

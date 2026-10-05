@@ -14,7 +14,7 @@
 // UnitCrateCollideModuleDataCtor: the derived vtable store is
 // compiler-emitted through the ??_7 pin at the true vtable 0x008589F0 (slot0
 // is the scalar-deleting dtor at 0x4B6F65), which places it right after the
-// rowed OpenContainModuleData base call; the two vectors construct from the
+// rowed Rva00253487Base base call; the two vectors construct from the
 // one-byte stack allocator temporary, the three strings null through their
 // inline default ctors and clear through the rowed 0x36410 fold in the body
 // (BFME1 donor calls clear() the same way). /Oy- forces the ebp frame with
@@ -22,11 +22,11 @@
 
 #include <vector>
 
-class OpenContainModuleData
+class Rva00253487Base
 {
 public:
-	OpenContainModuleData();
-	virtual ~OpenContainModuleData();
+	Rva00253487Base();
+	virtual ~Rva00253487Base();
 
 private:
 	unsigned char m_pad[0x118 - 4];
@@ -34,7 +34,7 @@ private:
 
 #include "ascii_string.h"
 
-class GeometryUpgradeModuleData : public OpenContainModuleData
+class GeometryUpgradeModuleData : public Rva00253487Base
 {
 public:
 	GeometryUpgradeModuleData();

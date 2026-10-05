@@ -1,7 +1,7 @@
 // cl: /O1 /MD /GX /DNDEBUG
 //
 // ??0DoCommandUpgradeModuleData@@QAE@XZ, retail 0x00255795, 30 bytes.
-// Frameless store-only ctor over the rowed OpenContainModuleData base
+// Frameless store-only ctor over the rowed Rva00253487Base base
 // (0x253487): folded vtable 0x00BF3840, GetUpgradeCommandButtonName zero at
 // +0x118 plus RemoveUpgradeCommandButtonName zero at +0x11C (compact and
 // forms; own table 0x00857BC4 holds exactly those two fields; the
@@ -14,10 +14,10 @@
 extern "C" const void *const vtbl_00BF3840[];  // ??_7TooltipUpgradeModuleData@@6B@
 #pragma comment(linker, "/alternatename:_vtbl_00BF3840=??_7TooltipUpgradeModuleData@@6B@")
 
-class OpenContainModuleData
+class Rva00253487Base
 {
 public:
-	OpenContainModuleData();
+	Rva00253487Base();
 
 protected:
 	void *m_vtable; // +0
@@ -26,7 +26,7 @@ private:
 	unsigned char m_pad[0x118 - 4];
 };
 
-class DoCommandUpgradeModuleData : public OpenContainModuleData
+class DoCommandUpgradeModuleData : public Rva00253487Base
 {
 public:
 	DoCommandUpgradeModuleData();

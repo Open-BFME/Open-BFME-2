@@ -50,9 +50,16 @@ struct BfmeEventPositionView {
     // ?BfmeEventPositionView::zero present-unmatched
     __forceinline void zero() { x=0.0f; y=0.0f; z=0.0f; }
 };
+enum ObjectID;
+enum DrawableID;
 struct BfmeAudioEventPrefix136
 {
     BfmeAudioEventPrefix136(const OpaqueRefElement4 &, int);
+    BfmeAudioEventPrefix136(const OpaqueRefElement4 &, const BfmeEventPositionView &, int);
+    // Native owner overloads2DA461/2DA4DB; Lua ObjectPlaySound and
+    // CurDrawablePlaySound prove the corresponding ID domains.
+    BfmeAudioEventPrefix136(const OpaqueRefElement4 &, ObjectID);
+    BfmeAudioEventPrefix136(const OpaqueRefElement4 &, DrawableID);
     virtual ~BfmeAudioEventPrefix136();
     AsciiString m_string04;
     BfmePoolRef08 m_pool08;
@@ -97,6 +104,7 @@ struct BfmeAudioEventPrefix136
     void rva002D96D3(const OpaqueRefElement4 &);
     // Non-virtual xfer 0x002D9FD9 (W3DTruckDraw::xfer calls it on both events).
     void rva002D9FD9(Xfer *xfer);
+    BfmeEventPositionView rva002DA1CC(bool &valid);
 };
 
 #pragma comment(linker, "/alternatename:??1BfmeAudioEventPrefix136@@UAE@XZ=??1BfmeStringTailRecord144@@UAE@XZ")

@@ -42,17 +42,17 @@ private:
 	void *m_data;
 };
 
-class Rva00465124Base
+class OpenContainModuleData
 {
 public:
-	Rva00465124Base();
-	virtual ~Rva00465124Base();
+	OpenContainModuleData();
+	virtual ~OpenContainModuleData();
 protected:
 	unsigned char m_pad04[0x3C];
 	Rva003623E5Member m_filter40;
 };
 
-class HordeGarrisonContainModuleData : public Rva00465124Base
+class HordeGarrisonContainModuleData : public OpenContainModuleData
 {
 public:
 	HordeGarrisonContainModuleData();

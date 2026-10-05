@@ -662,7 +662,7 @@ void ModelConditionUpgradeModuleData::buildFieldParse(MultiIniFieldParse &parse)
 	parse.add(reinterpret_cast<const FieldParse *>(0x00C58730), 0);
 }
 
-class Rva0045B5E3Base
+class BezierProjectileBehaviorModuleData
 {
 public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
@@ -676,7 +676,7 @@ public:
 
 void MissileUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
-	Rva0045B5E3Base::buildFieldParse(parse);
+	BezierProjectileBehaviorModuleData::buildFieldParse(parse);
 	parse.add(reinterpret_cast<const FieldParse *>(0x00C53470), 0);
 }
 

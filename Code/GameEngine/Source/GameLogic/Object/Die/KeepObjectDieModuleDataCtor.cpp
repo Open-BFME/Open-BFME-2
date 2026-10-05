@@ -3,7 +3,7 @@
 //
 // ??0KeepObjectDieModuleData@@QAE@XZ at retail 0x00253B78 (29B).
 // KeepObjectDie ModuleData default ctor over the unidentified SEH
-// intermediate base 0x00253510 (pinned opaque as Rva00253510): base call,
+// intermediate base 0x00253510 (pinned opaque as DestroyDieModuleData): base call,
 // vtable 0x00C4ED70 (slot0 is ??_GObjectModule, slot1 the ret-stub -- the
 // ObjectModule vtable family), CollapsingTime +0x38 = 0x19, StayOnRadar byte
 // +0x3C = 0, matching the class parse table at 0x00BF0994 (rowed proc
@@ -20,17 +20,17 @@ class ModuleData;
 
 // Opaque 0x38-byte intermediate; default ctor resolves to the opaque pin at
 // 0x00253510. Do NOT declare an explicit vptr member: the hidden one is +0.
-class Rva00253510
+class DestroyDieModuleData
 {
 public:
-	Rva00253510();
-	virtual ~Rva00253510();
+	DestroyDieModuleData();
+	virtual ~DestroyDieModuleData();
 
 protected:
 	unsigned char m_pad[0x38 - 4];
 };
 
-class KeepObjectDieModuleData : public Rva00253510
+class KeepObjectDieModuleData : public DestroyDieModuleData
 {
 public:
 	KeepObjectDieModuleData();
@@ -42,7 +42,7 @@ protected:
 };
 
 KeepObjectDieModuleData::KeepObjectDieModuleData()
-	: Rva00253510()
+	: DestroyDieModuleData()
 {
 	m_collapsingTime = 0x19;
 	m_stayOnRadar = 0;

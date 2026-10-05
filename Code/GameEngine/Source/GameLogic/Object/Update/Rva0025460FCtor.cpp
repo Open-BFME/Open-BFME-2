@@ -1,7 +1,7 @@
 // cl: /O1 /MD /GX /DNDEBUG
 //
 // ??0Rva0025460F@@QAE@XZ, retail 0x0025460F, 25 bytes.
-// Frameless store-only ctor over the rowed OpenContainModuleData base
+// Frameless store-only ctor over the rowed Rva00253487Base base
 // (0x253487): folded vtable 0x00BF2558, int 0 at +0x118 via and dword.
 // Evidence: caller at 0x0025465C; neighbours AutoDeposit friend_new and
 // LevelUpUpgrade ctor; same 25B pattern as RadarUpgradeModuleDataCtor
@@ -10,10 +10,10 @@
 extern "C" const void *const vtbl_00BF2558[];  // ??_7WeaponSetUpgradeModuleData@@6B@
 #pragma comment(linker, "/alternatename:_vtbl_00BF2558=??_7WeaponSetUpgradeModuleData@@6B@")
 
-class OpenContainModuleData
+class Rva00253487Base
 {
 public:
-	OpenContainModuleData();
+	Rva00253487Base();
 
 protected:
 	void *m_vtable; // +0
@@ -22,7 +22,7 @@ private:
 	unsigned char m_pad[0x118 - 4];
 };
 
-class Rva0025460F : public OpenContainModuleData
+class Rva0025460F : public Rva00253487Base
 {
 public:
 	Rva0025460F();

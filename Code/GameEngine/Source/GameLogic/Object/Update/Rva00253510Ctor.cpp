@@ -1,6 +1,8 @@
+// PC identity update: the registered DestroyDie data factory 0x254E7D calls
+// this constructor. Derived callers share this data base at offset zero.
 // cl: /O1 /GX /MD /DNDEBUG
 //
-// ??0Rva00253510@@QAE@XZ at retail 0x00253510 (50B). Opaque intermediate
+// ??0DestroyDieModuleData@@QAE@XZ at retail 0x00253510 (50B). Opaque intermediate
 // base ctor (EH leaf: explicit vtable 0x00C4ED70 plus DieMuxData member at
 // +8 through the rowed init at 0x004CE534); called this-direct with no
 // adjustment by 12 derived ctors (0x2538EC/0x2539C5/0x253A7B/0x253B7B/
@@ -23,10 +25,10 @@ private:
 	unsigned char m_bytes[0x30];
 };
 
-class __declspec(novtable) Rva00253510
+class __declspec(novtable) DestroyDieModuleData
 {
 public:
-	Rva00253510();
+	DestroyDieModuleData();
 
 private:
 	unsigned int m_vtable; // +0, explicit install (fold 0x00C4ED70)
@@ -34,8 +36,8 @@ private:
 	DieMuxData m_dieMux; // +8
 };
 
-// ??0Rva00253510@@QAE@XZ @0x253510
-Rva00253510::Rva00253510()
+// ??0DestroyDieModuleData@@QAE@XZ @0x253510
+DestroyDieModuleData::DestroyDieModuleData()
 {
 	*(unsigned int *)this = ((unsigned int)vtbl_00C4ED70);
 	m_dieMux.init();

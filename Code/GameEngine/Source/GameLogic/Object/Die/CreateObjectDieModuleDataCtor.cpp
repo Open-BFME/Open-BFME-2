@@ -3,7 +3,7 @@
 //
 // ??0CreateObjectDieModuleData@@QAE@XZ, retail 0x00485D88, 82 bytes.
 // CreateObjectDie ModuleData default ctor over the pinned SEH intermediate
-// base (??0Rva00253510@@QAE@XZ at 0x253510, shared with the Die family:
+// base (??0DestroyDieModuleData@@QAE@XZ at 0x253510, shared with the Die family:
 // DamageFiltered/KeepObjectDie/UpgradeDie precedent). Unlike the frameless
 // DamageFiltered sibling this class carries destructible members, so the
 // base and the derived both declare virtual dtors (KeepObjectDie/
@@ -35,17 +35,17 @@
 
 class ObjectCreationNugget;
 
-class Rva00253510
+class DestroyDieModuleData
 {
 public:
-	Rva00253510();
-	virtual ~Rva00253510();
+	DestroyDieModuleData();
+	virtual ~DestroyDieModuleData();
 
 private:
 	unsigned char m_pad[0x38 - 4];
 };
 
-class CreateObjectDieModuleData : public Rva00253510
+class CreateObjectDieModuleData : public DestroyDieModuleData
 {
 public:
 	CreateObjectDieModuleData();

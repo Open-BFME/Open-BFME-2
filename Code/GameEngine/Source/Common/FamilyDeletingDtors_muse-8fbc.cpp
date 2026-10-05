@@ -18,10 +18,10 @@ void famgenDelete(FXParticleSystem::GpuDrawModuleInfo *p) { delete p; }
 class Rva004DC9EDEntry { public: ~Rva004DC9EDEntry(); };
 void famgenDelete(Rva004DC9EDEntry *p) { delete p; }
 
-// ??_GRva00465124Base@@UAEPAXI@Z @0x00465221 28B; calls rowed ??1Rva00465124Base@@UAE@XZ @0x00257481 then delete. Slot0 of vtable 0x00C43658 per ledger.
-class Rva00465124Base { public: __declspec(noinline) virtual ~Rva00465124Base(); private: int m_famgen; };
-Rva00465124Base::~Rva00465124Base() { m_famgen = 0; }
-void famgenDelete(Rva00465124Base *p) { delete p; }
+// ??_GOpenContainModuleData@@UAEPAXI@Z @0x00465221 28B; calls rowed ??1OpenContainModuleData@@UAE@XZ @0x00257481 then delete. Slot0 of vtable 0x00C43658 per ledger.
+class OpenContainModuleData { public: __declspec(noinline) virtual ~OpenContainModuleData(); private: int m_famgen; };
+OpenContainModuleData::~OpenContainModuleData() { m_famgen = 0; }
+void famgenDelete(OpenContainModuleData *p) { delete p; }
 
 // ??_GSpecialPowerModuleData@@UAEPAXI@Z @0x00493333 28B; calls rowed ??1SpecialPowerModuleData@@UAE@XZ @0x0049334F then delete.
 class SpecialPowerModuleData { public: __declspec(noinline) virtual ~SpecialPowerModuleData(); private: int m_famgen; };

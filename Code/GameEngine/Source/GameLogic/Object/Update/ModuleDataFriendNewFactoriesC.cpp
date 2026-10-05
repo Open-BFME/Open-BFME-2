@@ -1,3 +1,6 @@
+// Identity reconciliation: PC ModuleFactory registrations establish the data
+// owners used here. Constructors/parsers and their callers now use those names.
+// Prior address-derived names below describe the earlier state of recovery.
 // cl: /O1 /GX /DNDEBUG /MD
 // ?friend_newModuleData@FXListDie@@SAPAVModuleData@@PAVINI@@@Z @0x00253AB4 81B
 // ?friend_newModuleData@DestroyDie@@SAPAVModuleData@@PAVINI@@@Z @0x00254E7D 81B
@@ -5,8 +8,8 @@
 // ?friend_newModuleData@BezierProjectileBehavior@@SAPAVModuleData@@PAVINI@@@Z @0x0024B183 84B
 // ?friend_newModuleData@OpenContain@@SAPAVModuleData@@PAVINI@@@Z @0x0024B724 84B
 // ?friend_newModuleData@HorseHordeContain@@SAPAVModuleData@@PAVINI@@@Z @0x002535C4 90B
-// ?buildFieldParse@Rva00253510@@SAXAAVMultiIniFieldParse@@@Z @0x002534FE 18B
-// ?buildFieldParse@Rva00253A78@@SAXAAVMultiIniFieldParse@@@Z @0x00253A92 34B
+// ?buildFieldParse@DestroyDieModuleData@@SAXAAVMultiIniFieldParse@@@Z @0x002534FE 18B
+// ?buildFieldParse@FXListDieModuleData@@SAXAAVMultiIniFieldParse@@@Z @0x00253A92 34B
 //
 // More ModuleFactory data factories of the ModuleDataFriendNewFactories*.cpp
 // shape: new the data class, and when an INI is given feed it to
@@ -54,11 +57,11 @@ extern const FieldParse g_00BF08E0[];	// FXListDie's own table
 
 // ---- the DieModuleData-shaped pair ------------------------------------------
 
-class Rva00253510
+class DestroyDieModuleData
 {
 public:
-	Rva00253510();
-	virtual ~Rva00253510();
+	DestroyDieModuleData();
+	virtual ~DestroyDieModuleData();
 
 	static void buildFieldParse(MultiIniFieldParse &parse)
 	{
@@ -69,11 +72,11 @@ private:
 	unsigned char m_pad[0x38 - 4];
 };
 
-class Rva00253A78 : public Rva00253510
+class FXListDieModuleData : public DestroyDieModuleData
 {
 public:
-	Rva00253A78();
-	virtual ~Rva00253A78();
+	FXListDieModuleData();
+	virtual ~FXListDieModuleData();
 
 	static void buildFieldParse(MultiIniFieldParse &parse);
 
@@ -81,9 +84,9 @@ private:
 	unsigned char m_pad[0x40 - 0x38];
 };
 
-void Rva00253A78::buildFieldParse(MultiIniFieldParse &parse)
+void FXListDieModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
-	Rva00253510::buildFieldParse(parse);
+	DestroyDieModuleData::buildFieldParse(parse);
 	parse.add(g_00BF08E0, 0);
 }
 
@@ -95,9 +98,9 @@ public:
 
 ModuleData *FXListDie::friend_newModuleData(INI *ini)
 {
-	Rva00253A78 *data = new Rva00253A78;
+	FXListDieModuleData *data = new FXListDieModuleData;
 	if (ini)
-		ini->initFromINIMultiProc(data, Rva00253A78::buildFieldParse);
+		ini->initFromINIMultiProc(data, FXListDieModuleData::buildFieldParse);
 	return reinterpret_cast<ModuleData *>(data);
 }
 
@@ -109,9 +112,9 @@ public:
 
 ModuleData *DestroyDie::friend_newModuleData(INI *ini)
 {
-	Rva00253510 *data = new Rva00253510;
+	DestroyDieModuleData *data = new DestroyDieModuleData;
 	if (ini)
-		ini->initFromINIMultiProc(data, Rva00253510::buildFieldParse);
+		ini->initFromINIMultiProc(data, DestroyDieModuleData::buildFieldParse);
 	return reinterpret_cast<ModuleData *>(data);
 }
 
@@ -130,6 +133,10 @@ private:
 	int m_04;
 };
 
+// The shared empty proc at 0x000B3FD0 is distinct from DelayedLuaEventUpdate's
+// nonempty proc at 0x004A8D06. Folding does not establish its class identity.
+void Rva000B3FD0BuildFieldParse(MultiIniFieldParse &);
+
 class SquishCollide
 {
 public:
@@ -140,27 +147,23 @@ ModuleData *SquishCollide::friend_newModuleData(INI *ini)
 {
 	DelayedLuaEventUpdateModuleData *data = new DelayedLuaEventUpdateModuleData;
 	if (ini)
-		ini->initFromINIMultiProc(data, DelayedLuaEventUpdateModuleData::buildFieldParse);
+		ini->initFromINIMultiProc(data, Rva000B3FD0BuildFieldParse);
 	return reinterpret_cast<ModuleData *>(data);
 }
 
 // ---- data classes known by their pinned constructors ---------------------------
 
-class Rva0045B4F1Base
+class BezierProjectileBehaviorModuleData
 {
 public:
-	Rva0045B4F1Base();
-	virtual ~Rva0045B4F1Base();
+	BezierProjectileBehaviorModuleData();
+	static void buildFieldParse(MultiIniFieldParse &parse);
+	virtual ~BezierProjectileBehaviorModuleData();
 
 private:
 	unsigned char m_pad[0xC4 - 4];
 };
 
-class Rva0045B5E3Base
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
 
 class BezierProjectileBehavior
 {
@@ -170,27 +173,23 @@ public:
 
 ModuleData *BezierProjectileBehavior::friend_newModuleData(INI *ini)
 {
-	Rva0045B4F1Base *data = new Rva0045B4F1Base;
+	BezierProjectileBehaviorModuleData *data = new BezierProjectileBehaviorModuleData;
 	if (ini)
-		ini->initFromINIMultiProc(data, Rva0045B5E3Base::buildFieldParse);
+		ini->initFromINIMultiProc(data, BezierProjectileBehaviorModuleData::buildFieldParse);
 	return reinterpret_cast<ModuleData *>(data);
 }
 
-class Rva00465124Base
+class OpenContainModuleData
 {
 public:
-	Rva00465124Base();
-	virtual ~Rva00465124Base();
+	OpenContainModuleData();
+	static void buildFieldParse(MultiIniFieldParse &parse);
+	virtual ~OpenContainModuleData();
 
 private:
 	unsigned char m_pad[0x98 - 4];
 };
 
-class OpenContainModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
 
 class OpenContain
 {
@@ -200,7 +199,7 @@ public:
 
 ModuleData *OpenContain::friend_newModuleData(INI *ini)
 {
-	Rva00465124Base *data = new Rva00465124Base;
+	OpenContainModuleData *data = new OpenContainModuleData;
 	if (ini)
 		ini->initFromINIMultiProc(data, OpenContainModuleData::buildFieldParse);
 	return reinterpret_cast<ModuleData *>(data);

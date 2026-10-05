@@ -13,7 +13,7 @@
 // Own table 0x00C582D8 proves every field; the ModuleData factory at
 // 0x00250316 news the 0x13C span and calls this ctor as sole caller.
 // Shape follows AutoPickUpUpdateModuleDataCtor (filter plus vector plus
-// temps) over SubObjectsUpgradeModuleDataCtor (rowed OpenContainModuleData
+// temps) over SubObjectsUpgradeModuleDataCtor (rowed Rva00253487Base
 // base). Levers: (1) the base is virtual-but-empty (rowed TU is novtable
 // with a virtual dtor), so it shares the derived vptr at +0 and the base
 // call stays this-direct while the pad covers +4..+0x117. (2) The derived
@@ -51,17 +51,17 @@ private:
 	int m_x;
 };
 
-class __declspec(novtable) OpenContainModuleData
+class __declspec(novtable) Rva00253487Base
 {
 public:
-	OpenContainModuleData();
-	virtual ~OpenContainModuleData();
+	Rva00253487Base();
+	virtual ~Rva00253487Base();
 }; // Virtual (shares the derived vptr at +0, so the base call stays
 	// this-direct) but empty: the rowed folded 0x253487 body runs against
 	// this (its vtable store is overwritten by the derived install below
 	// and its +8 member setup lands in the pad).
 
-class CostModifierUpgradeModuleData : public OpenContainModuleData
+class CostModifierUpgradeModuleData : public Rva00253487Base
 {
 public:
 	CostModifierUpgradeModuleData();
