@@ -8,6 +8,7 @@
 // ptr, [ebp+0xc] = const value ref. Declarations spell the rowed callee name
 // exactly (copied from stlport_rb_tree_float_00372ff4.cpp); BfmeE-size opaque
 // stand-in kept consistent with that TU.
+#define _BFME_RETAIL_TREE_INSERT_LAYOUT
 #include <map>
 struct TreeOpaqueMapped00372FF4 { unsigned int m_bits; };
 typedef _STL::pair<const float, TreeOpaqueMapped00372FF4> TreeValue00372FF4;
