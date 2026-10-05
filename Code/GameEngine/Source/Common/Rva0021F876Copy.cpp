@@ -14,6 +14,16 @@
 
 struct BfmePod216 { int a[54]; };
 
+namespace _STL
+{
+// Suppress duplicate vector<BfmePod216> copy/dtor COMDATs; retail's copy is
+// rowed at 0x0021F404 and dtor at 0x0021F7A7. The row below keeps calling
+// them, so its bytes are unchanged. This also drops the transitive
+// _Construct/_Destroy/__destroy_aux wrong copies this file emitted.
+template <> vector<BfmePod216, allocator<BfmePod216> >::vector(const vector<BfmePod216, allocator<BfmePod216> > &);
+template <> vector<BfmePod216, allocator<BfmePod216> >::~vector();
+}
+
 class Rva0021F876
 {
 public:
