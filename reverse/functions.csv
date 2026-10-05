@@ -64728,3 +64728,4 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ?rva0049C5D9@Rva0049C5D9@@QAEXHH@Z,,0x0049C5D9,27,Code/GameEngine/Source/Common/Rva0049C5D9Exit.cpp,matched,clears the id at +0x40 then forwards both args to 0x4502CE
 ?rva004AB9A2@Rva004AB9A2@@QAEXXZ,,0x004AB9A2,51,Code/GameEngine/Source/Common/Rva004AB9A2Wake.cpp,matched,flag +0x8D registers +0x24 with g_00DFE1A8 then setWakeFrame
 ?rva00488AC9@Rva00488AC9@@QAEXPAVObject@@W4CommandSourceType@@@Z,,0x00488AC9,81,Code/GameEngine/Source/Common/Rva00488AC9Repair.cpp,matched,repair gate slot 20 then slot 12
+?rva0048AEC6@Rva0048AEC6@@QAEXH@Z,,0x0048AEC6,69,Code/GameEngine/Source/Common/Rva0048AEC6Clear.cpp,matched,slot 0x40 clears index stride then aiIdle
