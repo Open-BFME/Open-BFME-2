@@ -30,3 +30,10 @@ template <> _Rb_tree_node<Rva004D971D> *Rva004DA0B7Tree::_M_create_node(const Rv
 }
 
 template _STL::_Rb_tree_node<Rva004D971D> *Rva004DA0B7Tree::_M_create_node(const Rva004D971D &);
+
+// Retail unsigned compare at +0x23 distinguishes this from the served
+// map<int,bool> source. Both create-node calls reach the row above.
+// ?_M_insert@?$_Rb_tree@IVRva004D971D@@URva004DA0B7OrderKey@@U?$less@I@_STL@@V?$allocator@VRva004D971D@@@4@@_STL@@AAE?AU?$_Rb_tree_iterator@VRva004D971D@@U?$_Nonconst_traits@VRva004D971D@@@_STL@@@2@PAU_Rb_tree_node_base@2@0ABVRva004D971D@@0@Z
+template Rva004DA0B7Tree::iterator Rva004DA0B7Tree::_M_insert(
+    _STL::_Rb_tree_node_base *, _STL::_Rb_tree_node_base *, const Rva004D971D &,
+    _STL::_Rb_tree_node_base *);
