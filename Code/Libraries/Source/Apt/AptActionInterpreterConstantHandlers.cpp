@@ -186,6 +186,9 @@ struct AptCallDebugStack {
     __forceinline void Pop() { --count; delete items[count]; items[count]=0; }
 };
 
+// Original MAP names AptActionSetup; native cleanup reads function name at+8.
+struct AptActionSetup { AptValue *context,*value; const char *name; };
+void rva007097B0(void *);
 struct AptActionInterpreter
 {
     struct LocalContextT {
@@ -216,6 +219,7 @@ public:
     AptValue *mpThrownValue; // PC Throw reads/writes+60; donor supplies semantic role.
     // Original Godfather debug/release field100; native Pop reads +0x64.
     int mnStackFrameBase;
+    void CleanupAfterExecution(void *,AptActionSetup *);
     void callFunction(AptValue *,AptValue *,int);
     bool setVariable(AptValue *, AptValue *, const EAStringC *, AptValue *, int=1, int=1, int=0);
     AptValue *getVariable(AptValue *, AptValue *, const EAStringC *, int=1, int=1, int=0);
@@ -2612,3 +2616,18 @@ AptActionInterpreter::FunctionTable AptActionInterpreter::sGlobalTable[185] = {
     {184,&_FunctionAptActionBranchIfFalse},
 };
 #pragma comment(linker, "/alternatename:?rva006FE580@AptBasePtrStack@@QAEPAVAptValue@@H@Z=?At@AptBasePtrStack@@QAEPAVBfmeAptValue006DCD20@@H@Z")
+
+// Original MAP overload and later interpreter source identify this234B body.
+// PC706950..706A3A verifies pending value+60 and debug stack+34/38/3C.
+void AptActionInterpreter::CleanupAfterExecution(void *saved,AptActionSetup *setup) {
+ AptValue *pending=mpThrownValue;
+ if(pending) {
+  EAStringC name;pending->toString(name);
+  Rva006CC110Log(3,"<WARNING> Actionscript un-caught exception encountered during \"%s\"\n",setup->name);
+  Rva006CC110Log(3,"<WARNING> Actionscript error message: \"%s\"\n",name.rva00620090());
+  mpThrownValue->Release();mpThrownValue=0;
+ }
+ rva007097B0(saved);
+ debugCallStack.Pop();
+}
+

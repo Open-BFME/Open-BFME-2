@@ -63179,3 +63179,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?DoTemporaryFrameControls@AptMovie@@QAEXPAVAptPseudoDisplayList@@H@Z,,0x0070F040,776,Code/Libraries/Source/Apt/AptMovieFrameControls.cpp,matched,
 ?Insert@AptPseudoDisplayList@@QAEXPAUAptPseudoCIH_t@@@Z,,0x006F8380,101,Code/Libraries/Source/Apt/AptMovieFrameControls.cpp,matched,
 ?Insert@AptPseudoDisplayList@@QAEXPAUAptPseudoCIH_t@@0@Z,,0x006F6B80,44,Code/Libraries/Source/Apt/AptMovieFrameControls.cpp,matched,
+?CleanupAfterExecution@AptActionInterpreter@@QAEXPAXPAUAptActionSetup@@@Z,,0x00706950,234,Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp,matched,Original Godfather MAP overload and later APT interpreter source identify cleanup; native706950..706A3A verifies exception warnings pending-value+60 and debug stack+34; full234 bytes verified
