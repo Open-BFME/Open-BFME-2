@@ -9768,3 +9768,4 @@ FUN_0084f6d0	0x0044F6D0	94	blocked	Ghidra inventory provides only a placeholder 
 ?rva005B00C8@Rva005AFE86@@QAE_NHHH@Z	0x005B00C8	267	blocked	EH listbox hit-test needs full Gadget virtual AsciiString reconstruction t=10 model=muse-12
 ?rva006EBFF0@Rva006EBFF0@@QAEXXZ	0x006EBFF0	377	blocked	Apt EAStringC 377B needs donor transfer t=10 model=muse-12
 ?rva005DE84E@Rva005DE7D1Vector@@QAEXI@Z	0x005DE84E	34	blocked	vector resize temp needs trivial-dtor proof t=12 model=muse-12
+?rva005DC586@Rva005DB98E@@QAEXPAV?$vector@UElem003AF7A0@@V?$allocator@UElem003AF7A0@@@_STL@@@_STL@@@Z	0x005DC586	412	blocked	412B needs 9x9 layout plus dual vector types plus time 2 variants no progress t=20 model=muse-03
