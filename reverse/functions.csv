@@ -61822,3 +61822,4 @@ _Rva007F5790Callback,,0x00661F40,15,Code/GameEngine/Source/GameNetwork/Rva007F70
 ?Rva001F8751Parse@@YAXPAVINI@@PAX@Z,,0x001F8751,110,Code/Libraries/Source/WWVegas/WWLib/Rva001F8751Parse.cpp,matched,FXParticleSystem CategoryModuleClass<7> INI parse installed by matched Rva001FB912Init family; demo-reloc start; owned pointer at +0xC0 via rowed rva001F43BD
 ?rva003413B2@Rva003413B2@@QAE_NXZ,,0x003413B2,75,Code/GameEngine/Source/Common/Rva003413B2Unlock.cpp,matched,unlock lane this+0x18 TurretStateMachine owner +0x14 flag +0x41 slot 0x23c
 ?Rva000C2B23_ParseModelName@INI@@SAXPAV1@PAX1PBX@Z,,0x000C2B23,174,Code/GameEngine/Source/Common/Rva000C2B23ParseModelName.cpp,matched,W3DModelDraw Model row 0x00BCAB20 via ExtraMesh keep plus rowed erase push_back
+?rva001E67BF@Rva001E4DB0@@QAE?AV1@XZ,,0x001E67BF,94,Code/GameEngine/Source/Common/Rva001E67BFClone.cpp,matched,by-value copy via temp plus flag clear at +0x150 caller 0x004DA49E
