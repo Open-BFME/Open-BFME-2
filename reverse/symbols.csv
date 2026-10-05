@@ -12128,3 +12128,5 @@ _rva00286E33@8,0x00286E33,stdcall out-param 5B writer called from 0x287B2A with 
 ?Init@Rva00355A09Val@@QAEPAU1@HH@Z,0x00546C26,address-derived thiscall two-int factory-init returning pointer; RETAIL REL32 in try-new wrapper 0x00355A09 targets this Ghidra body; identity unproven
 ?Init@Rva00355A5DVal@@QAEPAU1@HH@Z,0x00546AD0,address-derived thiscall two-int factory-init returning pointer; RETAIL REL32 in try-new wrapper 0x00355A5D targets this Ghidra body; identity unproven
 ?Attach@Rva003559B5Host@@QAEXHPAURva003559B5Val@@@Z,0x003558A3,address-derived thiscall attach of built value; RETAIL REL32 shared by all three F3 try-new wrappers; identity unproven
+?erase@?$vector@URva003A35A0Element@@V?$allocator@URva003A35A0Element@@@_STL@@@_STL@@QAEPAURva003A35A0Element@@PAU3@0@Z,0x00312C44,callee of filterAppend 0x00312EDA read from its REL32 displacement; w3-g26
+?rva003FDE1A@Rva003FDE1AHelper@@QAEXH@Z,0x003FDE1A,callee of setter 0x00318BC6 read from its REL32 displacement; w3-g26
