@@ -62612,3 +62612,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ??0Made002CC9D4@@QAE@XZ,,0x0050AEAB,57,Code/GameEngine/Source/GameLogic/Object/Made002CC9D4Ctor.cpp,matched,rowed base 0x0050775B plus two 0x1C members via 0x0024C7B3 plus vtable
 ?rva0059E2AB@Rva0059E2AB@@QAEPAXPAX@Z,,0x0059E2AB,44,Code/GameEngine/Source/Common/Rva0059E2ABFind.cpp,matched,Find-or-default via +0x28 name through Logic+b0 manager
 ?Rva0040D3B6Get@@YGMH@Z,,0x0040D3B6,31,Code/GameEngine/Source/Common/Rva0040D3B6Get.cpp,matched,chain from bfmeFind1038 then rva0040C9A4 returns BfmeZeroRange when null
+?Rva0040D396Set@@YGXH@Z,,0x0040D396,32,Code/GameEngine/Source/Common/Rva0040D396Set.cpp,matched,chain from bfmeFind1038 then rva0040C985 with TheGameLogic frame
