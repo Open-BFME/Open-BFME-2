@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /O1 /MD /EHsc /D_STLP_NO_EXCEPTIONS /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // STLport4.5.3 range constructor and initializer from BFME1 reference
 // 6583b3c1ff21db4a561285717028fdafc780b7db inputs/vendor/stlport/stl/_vector.h.
@@ -21,6 +21,7 @@ struct Rva005E59FCKeyIterator {
  _STL::_Rb_tree_node_base *node;
  int &operator*() const {return *(int*)((char*)node+16);}
  Rva005E59FCKeyIterator &operator++(){node=_STL::_Rb_global<bool>::_M_increment(node);return *this;}
+ Rva005E59FCKeyIterator &operator--(){node=_STL::_Rb_global<bool>::_M_decrement(node);return *this;}
  bool operator==(const Rva005E59FCKeyIterator&b)const{return node==b.node;}
  bool operator!=(const Rva005E59FCKeyIterator&b)const{return node!=b.node;}
 };
@@ -34,7 +35,21 @@ template<> __declspec(noinline) int *__uninitialized_copy(Rva005E59FCKeyIterator
 }
 #pragma optimize("", on)
 }
+// The non-owning key copy is already supplied by Rva005F4F59Copy (27B),
+// whose copy_aux29B and tree traversal37B providers are fully rowed.
+// Both interfaces pass the same two4B node addresses and int destination;
+// the opaque cursor has no ctor/dtor or hidden state. No template owner or
+// application payload identity is inferred from this ABI-compatible view.
+namespace _STL {
+template<> int *copy(Rva005E59FCKeyIterator,Rva005E59FCKeyIterator,int *);
+}
+#pragma comment(linker, "/alternatename:??$copy@URva005E59FCKeyIterator@@PAH@_STL@@YAPAHURva005E59FCKeyIterator@@0PAH@Z=?Rva005F4F59Copy@@YAPAHPAU_Rb_tree_node_base@_STL@@0PAH@Z")
 // ?rvaKeyRangeAnchor absent-from-retail
 void rvaKeyRangeAnchor(void *memory, Rva005E59FCKeyIterator first, Rva005E59FCKeyIterator last,const _STL::allocator<int>& a) {
  new(memory) _STL::vector<int>(first,last,a);
+}
+
+// ?rvaKeyAssignAnchor absent-from-retail
+void rvaKeyAssignAnchor(_STL::vector<int> *v, Rva005E59FCKeyIterator first,Rva005E59FCKeyIterator last,const _STL::forward_iterator_tag&t) {
+ v->_M_assign_aux(first,last,t);
 }
