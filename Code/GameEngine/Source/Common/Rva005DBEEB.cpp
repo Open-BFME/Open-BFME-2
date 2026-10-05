@@ -33,6 +33,7 @@ struct Elem005DB98E
 {
 public:
 	void rva005DB885(int a);
+	void rva005DB8F7(float a, float b, float c);
 };
 
 class Rva005DB98E
@@ -40,6 +41,7 @@ class Rva005DB98E
 public:
 	void *rva005DB98E(unsigned short x, unsigned short y);
 	bool rva005DBEEB(unsigned short x, unsigned short y, int a);
+	bool rva005DBE95(unsigned short x, unsigned short y, float a, float b, float c);
 private:
 	char m_pad00[4];
 	Rva005DBE6AList m_list;
@@ -51,6 +53,18 @@ bool Rva005DB98E::rva005DBEEB(unsigned short x, unsigned short y, int a)
 	if (!elem)
 		return false;
 	((Elem005DB98E *)elem)->rva005DB885(a);
+	m_list.forEach((void (Rva005DBE6AListener::*)(void *, int, int))&Rva005CB260::rva005CB260, this, x, y);
+	return true;
+}
+
+// ?rva005DBE95@Rva005DB98E@@QAE_NGGMMM@Z @0x005DBE95 86B: float triple setter
+// sibling of 0x005DBEEB with rowed 0x005DB8F7 plus same forEach.
+bool Rva005DB98E::rva005DBE95(unsigned short x, unsigned short y, float a, float b, float c)
+{
+	void *elem = rva005DB98E(x, y);
+	if (!elem)
+		return false;
+	((Elem005DB98E *)elem)->rva005DB8F7(a, b, c);
 	m_list.forEach((void (Rva005DBE6AListener::*)(void *, int, int))&Rva005CB260::rva005CB260, this, x, y);
 	return true;
 }
