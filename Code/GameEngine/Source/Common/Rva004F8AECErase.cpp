@@ -60,3 +60,51 @@ void Rva004F8DD4::rva004F8DD4()
 		m_count = 0;
 	}
 }
+
+namespace _STL
+{
+typedef bool _Rb_tree_Color_type;
+struct _Rb_tree_node_base
+{
+	typedef _Rb_tree_Color_type _Color_type;
+	typedef _Rb_tree_node_base* _Base_ptr;
+	_Color_type _M_color;
+	_Base_ptr _M_parent;
+	_Base_ptr _M_left;
+	_Base_ptr _M_right;
+};
+template <class _Dummy> class _Rb_global
+{
+public:
+	static _Rb_tree_node_base* __cdecl _Rebalance_for_erase(
+		_Rb_tree_node_base* __z, _Rb_tree_node_base*& __root,
+		_Rb_tree_node_base*& __leftmost, _Rb_tree_node_base*& __rightmost);
+};
+}
+
+struct Rva004F88BBNode : public _STL::_Rb_tree_node_base
+{
+};
+
+// ?rva004F88BB@Rva004F88BB@@QAEXPAURva004F88BBNode@@@Z retail 0x004F88BB 59B
+// Rb erase-one: rebalance-for-erase then destroy Rva004F7DD4 value at +16 and free.
+// Evidence: calls 0x00025620 rebalance-erase plus 0x004F7DD4 pin plus free
+// 0x00030830; callers at 0x004F8D8A 0x004F927F; same 59B shape as 0x00383380
+// in Rva003833BBErase.cpp.
+class Rva004F88BB
+{
+	_STL::_Rb_tree_node_base* m_header;
+	int m_count;
+public:
+	void rva004F88BB(Rva004F88BBNode* pos);
+};
+
+void Rva004F88BB::rva004F88BB(Rva004F88BBNode* pos)
+{
+	_STL::_Rb_tree_node_base* toDelete = _STL::_Rb_global<bool>::_Rebalance_for_erase(
+		pos, m_header->_M_parent, m_header->_M_left, m_header->_M_right);
+	((Rva004F7DD4*)(toDelete + 1))->~Rva004F7DD4();
+	if (toDelete)
+		free(toDelete);
+	--m_count;
+}
