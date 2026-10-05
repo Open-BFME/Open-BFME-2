@@ -64,8 +64,10 @@ public:
     // ?GDIFileStream::read present-unmatched
     virtual int read(void *p,int n) { return m_file->read(p,n); }
 };
-class GameLogic { public: char unknown00[0x49]; bool normalMaps49; };
-extern GameLogic *TheGameLogic;
+// Retail loads the writable GlobalData slot at VA 0x00DFE758 here,
+// distinct from TheGameLogic at 0x00DFE78C. The +0x49 access is unchanged.
+class GlobalData { public: char unknown00[0x49]; bool normalMaps49; };
+extern GlobalData *TheWritableGlobalData;
 struct TXTextureClass {
     int globalTextureClass,firstTile,numTiles,width,isBlendEdgeTile;
     AsciiString name;
@@ -88,7 +90,7 @@ void WorldHeightMap::readTexClass(TXTextureClass *texClass,TileData **tileData)
     char texturePath[260];
     sprintf(texturePath,"%s%s","Art/Terrain/",terrain->getTexture().str());
     File *file=TheFileSystem->openFile(texturePath,0x41,0);
-    if (TheGameLogic->normalMaps49) {
+    if (TheWritableGlobalData->normalMaps49) {
         sprintf(texturePath,"%s%s","Art/Terrain/",terrain->getNrmTexture().str());
         normalFile=TheFileSystem->openFile(texturePath,0x41,0);
     }
