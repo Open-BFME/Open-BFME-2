@@ -1,4 +1,4 @@
-// cl: /MD /O1 /GX /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS
+// cl: /MD /O1 /GX /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /Ireference/shims/moduledata
 // stlport
 
 // ?getControllingPlayer@Team@@QBEPAVPlayer@@XZ, retail 0x0039D7CF (12 bytes).
@@ -21,7 +21,22 @@
 // that callee was compiled earlier in the same TU, so it joins this file; the
 // TU takes the STLport flags its hash_map needs (the two earlier bodies are
 // unchanged by them).
+//
+// ?updateState@TeamPrototype@@QAEXXZ, retail 0x003A34AC (158 bytes), pinned
+// from the byte-verified Player::updateTeamStates. Zero Hour's
+// TeamPrototype::updateState over the +0x334 team list with Zero Hour's
+// DLINK_ITERATOR shape (TeamPrototypeTeamIterators.cpp: the advance calls
+// through &Team::dlink_next_TeamInstanceList with Team's two-base zero
+// this-adjustment): each team's updateState (0x0039F0E3, pinned from this
+// call), then the empty-team sweep -- singleton bit 0 of +0x18, the
+// controlling player's default team at +0x2EC, the team's active flag at
+// +0x5D -- deleting through TheTeamFactory's teamAboutToBeDeleted
+// (0x003A3048) and BFME 2's deleteInstance shape. Retail reuses ecx for the
+// second getControllingPlayer call, so it joins this file too; Team gains
+// its two polymorphic bases here (MemoryPoolObject, Snapshot), which
+// leaves every offset above unchanged.
 #include <hash_map>
+#include "Common/Snapshot.h"
 
 enum Relationship
 {
@@ -52,7 +67,11 @@ public:
 	int m_playerIndex; // +0x54
 	char m_pad58[0x5c - 0x58];
 	int m_playerType; // +0x5C
-	char m_pad60[0x330 - 0x60];
+	Team *getDefaultTeam() { return m_defaultTeam; }
+
+	char m_pad60[0x2EC - 0x60];
+	Team *m_defaultTeam; // +0x2EC
+	char m_pad2F0[0x330 - 0x2F0];
 	RetailPlayerRelationMap *m_playerRelations; // +0x330
 	RetailPlayerRelationMap *m_teamRelations; // +0x334
 };
@@ -61,6 +80,39 @@ struct TeamPrototypeOwner
 {
 	unsigned char m_pad00[ 0x08 ];
 	Player *m_owningPlayer;
+};
+
+class MemoryPoolObject
+{
+public:
+	virtual void *deleteInstance(int flags);
+};
+
+template <class OBJCLASS>
+class TeamInstanceIterator
+{
+public:
+	typedef OBJCLASS* (OBJCLASS::*GetNextFunc)() const;
+private:
+	OBJCLASS* m_cur;
+	GetNextFunc m_getNextFunc;
+public:
+	TeamInstanceIterator(OBJCLASS* cur, GetNextFunc getNextFunc) : m_cur(cur), m_getNextFunc(getNextFunc)
+	{
+	}
+	void advance()
+	{
+		if (m_cur)
+			m_cur = ((*m_cur).*(m_getNextFunc))();
+	}
+	bool done() const
+	{
+		return m_cur == 0;
+	}
+	OBJCLASS* cur() const
+	{
+		return m_cur;
+	}
 };
 
 class Rva002A9BF2
@@ -112,9 +164,13 @@ public:
 	unsigned char m_dead;
 };
 
-class Team
+class Team : public MemoryPoolObject, public Snapshot
 {
 public:
+	Team *dlink_next_TeamInstanceList() const;
+	void updateState();
+	Object *getFirstItemIn_TeamMemberList() const { return m_dlinkhead_TeamMemberList; }
+	bool isActive() const { return m_active; }
 	Player *getControllingPlayer() const;
 	DLINK_ITERATOR<Object> iterate_TeamMemberList() const;
 	void rva0039D84A(Object *obj);
@@ -123,10 +179,13 @@ public:
 	Relationship getRelationship(const Team *that) const;
 
 private:
-	unsigned char m_pad00[ 0x30 ];
+	unsigned char m_pad08[ 0x30 - 0x08 ];
 	TeamPrototypeOwner *m_proto; // +0x30
 	int m_key34; // +0x34
-	unsigned char m_pad38[ 0x114 - 0x38 ];
+	Object *m_dlinkhead_TeamMemberList; // +0x38
+	unsigned char m_pad3C[ 0x5D - 0x3C ];
+	bool m_active; // +0x5D
+	unsigned char m_pad5E[ 0x114 - 0x5E ];
 	unsigned int m_target; // +0x114
 	RetailPlayerRelationMap *m_teamRelations; // +0x118
 	RetailPlayerRelationMap *m_playerRelations; // +0x11C
@@ -209,4 +268,74 @@ bool Team::rva0039DF87(BfmeTab1026 *tab)
 			return true;
 	}
 	return false;
+}
+
+class TeamFactory
+{
+public:
+	void teamAboutToBeDeleted(Team *team);
+};
+
+extern TeamFactory *TheTeamFactory;
+
+enum { TEAM_SINGLETON = 0x01 };
+
+class TeamPrototype
+{
+public:
+	TeamInstanceIterator<Team> iterate_TeamInstanceList() const
+	{
+		return TeamInstanceIterator<Team>(m_dlinkhead_TeamInstanceList, &Team::dlink_next_TeamInstanceList);
+	}
+	bool getIsSingleton() const { return (m_flags & TEAM_SINGLETON) != 0; }
+	void updateState();
+
+private:
+	unsigned char m_pad00[0x18];
+	int m_flags; // +0x18
+	unsigned char m_pad1C[0x334 - 0x1C];
+	Team *m_dlinkhead_TeamInstanceList; // +0x334
+};
+
+void TeamPrototype::updateState()
+{
+	for (TeamInstanceIterator<Team> iter = iterate_TeamInstanceList(); !iter.done(); iter.advance())
+	{
+		iter.cur()->updateState();
+	}
+	/* remove empty teams. */
+	bool done = false;
+	while (!done) {
+		done = true;
+		for (TeamInstanceIterator<Team> iter = iterate_TeamInstanceList(); !iter.done(); iter.advance())
+		{
+			if (iter.cur()->getFirstItemIn_TeamMemberList() == 0)
+			{
+				// Team has no members.
+				if (this->getIsSingleton())
+				{
+					continue; // Don't delete singleton teams, even if they are empty.
+				}
+
+				if (iter.cur()->getControllingPlayer() && iter.cur()->getControllingPlayer()->getDefaultTeam() == iter.cur())
+				{
+					// This is the player's default team, so don't remove it.
+					continue;
+				}
+
+				// don't delete inactive teams - they are under construction
+				if (iter.cur()->isActive() == false)
+				{
+					continue;
+				}
+
+				// So remove it
+				TheTeamFactory->teamAboutToBeDeleted(iter.cur());
+				::operator delete(iter.cur()->deleteInstance(0));
+
+				done = false;
+				break;
+			}
+		}
+	}
 }
