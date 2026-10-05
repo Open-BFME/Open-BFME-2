@@ -810,68 +810,8 @@ void positionStartSpots( GameInfo *myGame, GameWindow *buttonMapStartPositions[]
 	positionStartSpots(localMapFname, buttonMapStartPositions, mapWindow);	
 }
 
-void updateMapStartSpots( GameInfo *myGame, GameWindow *buttonMapStartPositions[], Bool onLoadScreen )
-{
-	AsciiString lowerMap = myGame->getMap();
-	lowerMap.toLower();
-	std::map<AsciiString, MapMetaData>::iterator it = TheMapCache->find(lowerMap);
-	if (it == TheMapCache->end())
-	{
-		for (Int i = 0; i < MAX_SLOTS; ++i)
-    {
-      if ( buttonMapStartPositions[i] != NULL )
-      {
-  			buttonMapStartPositions[i]->winHide(TRUE);
-      }
-    }
-		return;
-	}
-	MapMetaData mmd = it->second;
-
-	for(Int i = 0; i < MAX_SLOTS; ++i)
-	{
-    if ( buttonMapStartPositions[i] != NULL )
-    {
-		  GadgetButtonSetText(buttonMapStartPositions[i], UnicodeString::TheEmptyString);
-		  if (!onLoadScreen)
-		  {
-			  buttonMapStartPositions[i]->winSetTooltip(TheGameText->fetch("TOOLTIP:StartPosition"));
-		  }
-    }
-	}
-	for( i = 0; i < MAX_SLOTS; ++i)
-	{
-    if ( buttonMapStartPositions[i] == NULL )
-      continue;
-
-		GameSlot *gs =myGame->getSlot(i);
-		if(onLoadScreen)
-		{
-			if(gs->getApparentStartPos() >=0 && gs->getApparentStartPos() < mmd.m_numPlayers && gs->getPlayerTemplate() > PLAYERTEMPLATE_MIN )
-			{
-				AsciiString displayNumber;
-				displayNumber.format("NUMBER:%d",i + 1);
-				GadgetButtonSetText(buttonMapStartPositions[gs->getApparentStartPos()], TheGameText->fetch(displayNumber));
-			}
-		}
-		else
-		{
-			if(gs->getStartPos() >=0 && gs->getStartPos() < mmd.m_numPlayers && gs->getPlayerTemplate() > PLAYERTEMPLATE_MIN )
-			{
-				AsciiString displayNumber;
-				displayNumber.format("NUMBER:%d",i + 1);
-				GadgetButtonSetText(buttonMapStartPositions[gs->getStartPos()], TheGameText->fetch(displayNumber));
-				//Added By Sadullah Nader
-				//Fix for no tooltips at start positions
-				//added start position tooltip
-				//Fixed again to show the right number , ie "i + 1"
-				UnicodeString temp;
-				temp.format(TheGameText->fetch("TOOLTIP:StartPositionN"), i + 1);
-				buttonMapStartPositions[gs->getStartPos()]->winSetTooltip(temp);
-			}
-		}
-	}
-}
+// BFME2 implementation is verified in SkirmishMapStartSpots.cpp.
+void updateMapStartSpots(GameInfo *, GameWindow *[], Bool);
 
 static void handlePlayerSelection(int index)
 {
