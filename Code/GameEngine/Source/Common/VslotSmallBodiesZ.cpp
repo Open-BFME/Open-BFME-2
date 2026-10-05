@@ -40,3 +40,29 @@ void Rva00525886::rva00525886(Int key)
 		}
 	}
 }
+
+// 0x003F468D (nineteen callers): word [b] of the 0x30-byte records that
+// entry [a] (0x1C bytes each) of the +0x18 table points at from its +0x04.
+struct Rva003F468DRecord
+{
+	Int m_00;
+	char m_pad04[0x2C];
+};
+struct Rva003F468DEntry
+{
+	Int m_00;
+	Rva003F468DRecord *m_04;
+	char m_pad08[0x14];
+};
+class Rva003F468D
+{
+public:
+	Int rva003F468D(Int a, Int b);
+private:
+	char m_pad00[0x18];
+	Rva003F468DEntry *m_18;
+};
+Int Rva003F468D::rva003F468D(Int a, Int b)
+{
+	return m_18[a].m_04[b].m_00;
+}
