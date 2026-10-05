@@ -14,7 +14,11 @@
 // ?rva005EF327@Rva005EF2BE@@QAEXXZ   @0x005EF327 63B  SetCommandPointsState _hide
 #include "ascii_string.h"
 
-class Rva00222A8BTarget;
+class Rva00222A8BTarget
+{
+public:
+	void rva0022277D(void *owner);
+};
 extern Rva00222A8BTarget *TheRva00222A8BTarget;
 
 int __cdecl Rva005FB5E6AptCall(Rva00222A8BTarget *target, void *level, const char *prefix, const char *function, const char *a0);
@@ -197,4 +201,86 @@ void Rva00525783::rva00525783()
 	}
 	Rva005FB5E6AptCall(TheRva00222A8BTarget, (void *)m_level, m_name.str(), "SetSelectAllHeroesButtonState", "_unused");
 	m_active = false;
+}
+
+// Apt window close requests: in the open states 2 and 3, run the window's
+// Apt "Close" callback through the rowed Rva0043DB23 and move to state 4.
+// ?rva004E67D0@Rva004E67D0@@QAEXH@Z @0x004E67D0 49B (argument unused)
+// ?rva004E6B9B@Rva004E67D0@@QAEXXZ  @0x004E6B9B 55B (first clears the owned
+//   pointer at +0x40 through the rowed Rva004E6A1D::clear)
+void Rva0043DB23(Rva00222A8BTarget *target, void *owner, const char *name);
+
+class Rva004E6A1D
+{
+public:
+	void clear();
+	void *m_ptr;
+};
+
+class Rva004E67D0
+{
+public:
+	void rva004E67D0(int unused);
+	void rva004E6B9B();
+private:
+	char m_pad00[4];
+	void *m_owner;				// +0x04
+	int m_state;				// +0x08
+	char m_pad0C[0x34];
+	Rva004E6A1D m_child;		// +0x40
+};
+
+void Rva004E67D0::rva004E67D0(int unused)
+{
+	(void)unused;
+	if (m_state == 2 || m_state == 3)
+	{
+		Rva0043DB23(TheRva00222A8BTarget, m_owner, "Close");
+		m_state = 4;
+	}
+}
+
+void Rva004E67D0::rva004E6B9B()
+{
+	m_child.clear();
+	if (m_state == 2 || m_state == 3)
+	{
+		Rva0043DB23(TheRva00222A8BTarget, m_owner, "Close");
+		m_state = 4;
+	}
+}
+
+// ?rva005EC23E@Rva005EC23E@@QAEXXZ @0x005EC23E 74B: close the window record
+// this points at. In state 1 it is released through the Apt target's
+// 0x0022277D (pinned) and goes to state 0. In states 2 and 5 it runs
+// "CloseWindow" and goes to state 3.
+struct Rva005EC23EWindow
+{
+	char m_pad00[4];
+	void *m_owner;				// +0x04
+	int m_state;				// +0x08
+};
+
+class Rva005EC23E
+{
+public:
+	void rva005EC23E();
+private:
+	Rva005EC23EWindow *m_window;	// +0x00
+};
+
+void Rva005EC23E::rva005EC23E()
+{
+	switch (m_window->m_state)
+	{
+	case 1:
+		TheRva00222A8BTarget->rva0022277D(m_window->m_owner);
+		m_window->m_state = 0;
+		break;
+	case 2:
+	case 5:
+		Rva0043DB23(TheRva00222A8BTarget, m_window->m_owner, "CloseWindow");
+		m_window->m_state = 3;
+		break;
+	}
 }
