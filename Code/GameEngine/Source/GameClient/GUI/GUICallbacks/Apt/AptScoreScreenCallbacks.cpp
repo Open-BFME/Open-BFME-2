@@ -21,6 +21,7 @@ struct AptScoreListData
 class GameWindow
 {
 public:
+	int winEnable(bool enable);
 	void *winGetUserData();
 	void winSetUserData(void *data);
 };
@@ -73,6 +74,7 @@ public:
 	void RestartGame(const char *unused);
 	void Continue(const char *unused);
 	void InitGadgets(const char *name, void *argument, GameWindow *window);
+	void RenameCancel(const char *unused);
 
 private:
 	unsigned char m_pad000[0x27C];
@@ -80,6 +82,8 @@ private:
 	unsigned char m_pad280[0x2A0 - 0x280];
 	GameWindow *m_units; // +0x2A0
 	GameWindow *m_rename; // +0x2A4
+	int m_renaming; // +0x2A8
+	int m_renameIndex; // +0x2AC
 };
 
 // Retail 0x0051BF75, 38 bytes: "AptScoreScreen::OnInitialized" focuses
@@ -132,4 +136,14 @@ void AptScoreScreen::InitGadgets(const char *name, void *argument, GameWindow *w
 		GadgetTextEntrySetText(window, UnicodeString::TheEmptyString);
 		bfmeGo924F((BfmeKeyLC *)window, 20);
 	}
+}
+
+// Retail 0x0051BFD2, 34 bytes: "AptScoreScreen::RenameCancel" drops the
+// rename and enables the units list again.
+void AptScoreScreen::RenameCancel(const char *unused)
+{
+	m_renaming = 0;
+	m_renameIndex = -1;
+	if (m_units)
+		m_units->winEnable(true);
 }

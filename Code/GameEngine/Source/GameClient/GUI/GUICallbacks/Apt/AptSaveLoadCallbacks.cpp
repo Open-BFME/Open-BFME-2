@@ -1,9 +1,20 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
 //
 // BFME2's save/load screen Apt callbacks, 0x00433DB1 onward, bound by these
 // names ("AptSaveLoad::OnClosed" ...) as member pointers by the screen's
 // registration; that binding is their only reference. The class is named
 // for the strings' prefix. +0x27C is the screen's state.
+
+#include "unicode_string.h"
+
+extern "C" int __cdecl strcmp(const char *left, const char *right);
+
+class GameWindow;
+class BfmeKeyLC;
+
+void GadgetTextEntrySetText(GameWindow *textEntry, UnicodeString text);
+void bfmeGo924F(BfmeKeyLC *textEntry, unsigned short maxLength);
+void Rva0032060D(GameWindow *textEntry, int value);
 
 // Rva00433D27Enable.cpp's 0x00433D27.
 void Rva00433D27Enable();
@@ -34,6 +45,10 @@ public:
 	void Delete(const char *unused);
 	void Load(const char *unused);
 	void ConfirmationOk(const char *unused);
+	void InitGadgets(const char *name, void *argument, GameWindow *window);
+
+	// Unrowed 0x00434AAE (220 bytes; fills the lists), pinned by address.
+	void rva00434AAE();
 
 	// Unrowed 0x0043448C, 0x00435224 and 0x00434B8A, pinned by address.
 	void rva0043448C();
@@ -47,7 +62,11 @@ private:
 	unsigned char m_pad000[0x27C];
 	int m_state; // +0x27C
 	AptSaveLoadPending *m_pending; // +0x280
-	unsigned char m_pad284[0x29C - 0x284];
+	unsigned char m_pad284[0x288 - 0x284];
+	GameWindow *m_gameList; // +0x288
+	GameWindow *m_autoSaveList; // +0x28C
+	GameWindow *m_fileName; // +0x290
+	unsigned char m_pad294[0x29C - 0x294];
 	bool m_29c; // +0x29C
 	unsigned char m_pad29d[0x2A0 - 0x29D];
 	int m_mode; // +0x2A0
@@ -120,4 +139,33 @@ void AptSaveLoad::ConfirmationOk(const char *unused)
 		rva00434B8A();
 	else if (m_state == 0x15)
 		((Rva00433FDD *)this)->rva00433FDD();
+}
+
+// Retail 0x00435172, 178 bytes: "AptSaveLoad::InitGadgets" keeps the
+// "GameList" and "AutoSaveList" boxes (state 2) and sets up the emptied
+// "FileNameTextEntry" (40 characters), then fills the lists.
+void AptSaveLoad::InitGadgets(const char *name, void *argument, GameWindow *window)
+{
+	if (!window)
+		return;
+	if (strcmp(name, "GameList") == 0)
+	{
+		m_gameList = window;
+		m_state = 2;
+	}
+	else if (strcmp(name, "AutoSaveList") == 0)
+	{
+		m_autoSaveList = window;
+		m_state = 2;
+	}
+	else if (strcmp(name, "FileNameTextEntry") == 0)
+	{
+		m_fileName = window;
+		GadgetTextEntrySetText(window, UnicodeString(L""));
+		bfmeGo924F((BfmeKeyLC *)window, 40);
+		Rva0032060D(window, 8);
+		rva00434AAE();
+		if (m_state == 0)
+			m_state = 1;
+	}
 }
