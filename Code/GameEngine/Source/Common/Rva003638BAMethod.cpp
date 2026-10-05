@@ -12,6 +12,20 @@ public:
 	int get() const;
 };
 
+struct Coord3D
+{
+	float x;
+	float y;
+	float z;
+};
+
+enum PathfindLayerEnum
+{
+	PATHFIND_LAYER_GROUND = 0
+};
+
+class Object;
+
 class TerrainLogic
 {
 public:
@@ -51,6 +65,7 @@ public:
 	virtual void slot33();
 	virtual void slot34();
 	virtual Rva002E6ECA *slot35(int val);
+	PathfindLayerEnum getLayerForDestination(Object *obj, const Coord3D *pos);
 };
 extern TerrainLogic *TheTerrainLogic;
 
@@ -65,15 +80,24 @@ public:
 	int m_val20;
 };
 
+struct Rva003638FDData
+{
+	char m_pad0[0xC];
+	Coord3D m_posC;
+	PathfindLayerEnum m_layer18;
+};
+
 class Rva003638BA
 {
 public:
 	bool rva003638BA();
 	bool rva00363AD7();
+	void rva003638FD(const Coord3D *pos);
 private:
 	char m_pad0[4];
 	Rva003638BANode *m_ptr4;
-	char m_pad8[8];
+	Rva003638FDData *m_ptr8;
+	char m_padC[4];
 	int m_flag10;
 	char m_pad14[0x10];
 	int m_state24;
@@ -116,4 +140,14 @@ bool Rva003638BA::rva00363AD7()
 			return true;
 	}
 	return false;
+}
+// ?rva003638FD@Rva003638BA@@QAEXPBUCoord3D@@@Z, retail 0x003638FD, 51 bytes.
+// Copies 12B Coord3D to +8/+0xC then stores pinned getLayerForDestination(NULL,pos) to +8/+0x18.
+// Evidence: same this as neighbours 0x003638BA 0x00363AD7; global TheTerrainLogic 0x00DFEC50; pinned 0x002802FE; callers 0x002667E6 0x00266C83.
+void Rva003638BA::rva003638FD(const Coord3D *pos)
+{
+	if (m_ptr8 == 0)
+		return;
+	m_ptr8->m_posC = *pos;
+	m_ptr8->m_layer18 = TheTerrainLogic->getLayerForDestination(0, pos);
 }
