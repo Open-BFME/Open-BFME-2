@@ -17,3 +17,4 @@ namespace _STL {
 template<> void _Construct<Rva004E3E5AElement,Rva004E3E5AElement>(Rva004E3E5AElement*,const Rva004E3E5AElement&);
 }
 template Rva004E3E5AElement *_STL::__uninitialized_copy<Rva004E3E5AElement*,Rva004E3E5AElement*>(Rva004E3E5AElement*,Rva004E3E5AElement*,Rva004E3E5AElement*,const _STL::__false_type&);
+template Rva004E3E5AElement *_STL::__uninitialized_fill_n<Rva004E3E5AElement*,unsigned int,Rva004E3E5AElement>(Rva004E3E5AElement*,unsigned int,const Rva004E3E5AElement&,const _STL::__false_type&);
