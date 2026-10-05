@@ -6632,3 +6632,22 @@ void __cdecl rva007B477E()
 	Rva00552F2EInit *p = (Rva00552F2EInit *)&g_Va00E06524;
 	return p->init();
 }
+
+// CPUDetectInitClass construction view for the thunk below. The rowed ctor
+// (0x006130C0, cpudetect.cpp) is defined in its own TU, so this thunk
+// reproduces the compiler-generated dynamic-initializer shape through an
+// init alias pinned in symbols.csv. The global holds a CPUDetectInitClass.
+struct CPUDetectInitThunk
+{
+	void init();
+};
+
+extern unsigned g_Va00E08D38;
+unsigned int g_Va00E08D38;
+
+// ?rva007B54E0@@YAXXZ @ 0x007B54E0 (10B). CPUDetectInitClass construction thunk: ecx=&g_Va00E08D38 then tail-jmp to rowed ??0CPUDetectInitClass@@QAE@XZ (0x006130C0) via init alias. No callers. Honest address name.
+void __cdecl rva007B54E0()
+{
+	CPUDetectInitThunk *p = (CPUDetectInitThunk *)&g_Va00E08D38;
+	return p->init();
+}
