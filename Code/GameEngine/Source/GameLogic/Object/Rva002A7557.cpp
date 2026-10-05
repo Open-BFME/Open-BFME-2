@@ -17,6 +17,7 @@ class Rva002A7461
 public:
 	int rva002A7461();
 	bool rva002A7557(Rva002A7557In *p, int unused);
+	int rva002A7548(int unused);
 
 private:
 	int m_pad0;
@@ -36,4 +37,12 @@ bool Rva002A7461::rva002A7557(Rva002A7557In *p, int unused)
 	if (p->m_flags11A & 0x80)
 		return true;
 	return ok;
+}
+
+int Rva002A7461::rva002A7548(int unused)
+{
+	(void)unused;
+	int base = m_base8;
+	int total = rva002A7461();
+	return total - base;
 }
