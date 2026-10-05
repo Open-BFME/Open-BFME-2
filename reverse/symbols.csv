@@ -12467,3 +12467,14 @@ _ceil,0x00629934,CRT ceil thunk identified by native PE import slot 0x00BBA578 a
 ?removeObject@AptDisplayList@@QAEXPAVAptCIH@@@Z,0x006F7230,alias rowed bfmeProcess1279; native removeClonedObject passes query result; donor removeObject role; alternatename provider
 ?rva006FBED0@AptScriptFunctionBase@@QAEXXZ,0x006FBED0,Native DefineLocal and DefineLocal2 receiver currentFunction+30; existing150B Rva8D0D80Result provider reads canonical creatorScope+28 reserve+2C and installs spFrameStackE1835C; linker alias binds same provider
 ??0AptValue@@IAE@W4AptVirtualFunctionTable_Indices@@@Z,0x006DCCC0,Original AptValue header504032fc6593aab6 protected enum ctor; native array ctor6D91B0 pushes type22 to existing87B value constructor; alias existing int-ABI provider
+?rva005D13C2@Rva005D13C2@@QAEXXZ,0x005D13C2,jump target of 17B forwarder 0x005D1516; original name unknown
+?rva005E18D0@Rva005E18D0@@QAEXXZ,0x005E18D0,jump target of 17B forwarder 0x005E1906; original name unknown
+?rva005E18DC@Rva005E18DC@@QAEXXZ,0x005E18DC,jump target of 17B forwarder 0x005E1917; original name unknown
+?rva005E1B9A@Rva005E1B9A@@QAEXXZ,0x005E1B9A,jump target of 17B forwarder 0x005E1BC4; original name unknown
+?rva005E2180@Rva005E2180@@QAEXXZ,0x005E2180,jump target of 17B forwarder 0x005E2226; original name unknown
+?rva005E254C@Rva005E254C@@QAEXXZ,0x005E254C,jump target of 17B forwarder 0x005E25DE; original name unknown
+?rva005F1B51@Rva005F1B51@@QAEXXZ,0x005F1B51,jump target of 17B forwarder 0x005E35C9; original name unknown
+?rva005E589E@Rva005E589E@@QAEXXZ,0x005E589E,jump target of 17B forwarder 0x005E590F; original name unknown
+?rva005E69AC@Rva005E69AC@@QAEXXZ,0x005E69AC,jump target of 17B forwarder 0x005E6A00; original name unknown
+?rva005E6A9D@Rva005E6A9D@@QAEXXZ,0x005E6A9D,jump target of 17B forwarder 0x005E6BA3; original name unknown
+?rva005E6AD8@Rva005E6AD8@@QAEXXZ,0x005E6AD8,jump target of 17B forwarder 0x005E6BB4; original name unknown

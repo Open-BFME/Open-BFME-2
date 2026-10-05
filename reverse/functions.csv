@@ -63070,3 +63070,14 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva002E0AEA@Rva002E0AEA@@QAE_NXZ,,0x002E0AEA,70,Code/GameEngine/Source/Common/Rva002B4B3D.cpp,matched,Rva any-of loop over pointer vector by REL32 graph
 ??1Rva005011B4@@QAE@XZ,,0x005011B4,8,Code/GameEngine/Source/Common/RvaMemberDtorForwarders.cpp,matched,Member dtor tail at plus4 into rowed dtor
 ??1Rva0023863E@@QAE@XZ,,0x0023863E,8,Code/GameEngine/Source/Common/RvaMemberDtorForwarders.cpp,matched,Member dtor tail at plus4 into rowed dtor
+?rva005D1516@Rva005D1516@@QAEXXZ,,0x005D1516,17,Code/GameEngine/Source/Common/RvaHelperThenMemberForwarders.cpp,matched,Helper call on this then tail member call on held pointer by REL32
+?rva005E1906@Rva005E1906@@QAEXXZ,,0x005E1906,17,Code/GameEngine/Source/Common/RvaHelperThenMemberForwarders.cpp,matched,Helper call on this then tail member call on held pointer by REL32
+?rva005E1917@Rva005E1917@@QAEXXZ,,0x005E1917,17,Code/GameEngine/Source/Common/RvaHelperThenMemberForwarders.cpp,matched,Helper call on this then tail member call on held pointer by REL32
+?rva005E1BC4@Rva005E1BC4@@QAEXXZ,,0x005E1BC4,17,Code/GameEngine/Source/Common/RvaHelperThenMemberForwarders.cpp,matched,Helper call on this then tail member call on held pointer by REL32
+?rva005E2226@Rva005E2226@@QAEXXZ,,0x005E2226,17,Code/GameEngine/Source/Common/RvaHelperThenMemberForwarders.cpp,matched,Helper call on this then tail member call on held pointer by REL32
+?rva005E25DE@Rva005E25DE@@QAEXXZ,,0x005E25DE,17,Code/GameEngine/Source/Common/RvaHelperThenMemberForwarders.cpp,matched,Helper call on this then tail member call on held pointer by REL32
+?rva005E35C9@Rva005E35C9@@QAEXXZ,,0x005E35C9,17,Code/GameEngine/Source/Common/RvaHelperThenMemberForwarders.cpp,matched,Helper call on this then tail member call on held pointer by REL32
+?rva005E590F@Rva005E590F@@QAEXXZ,,0x005E590F,17,Code/GameEngine/Source/Common/RvaHelperThenMemberForwarders.cpp,matched,Helper call on this then tail member call on held pointer by REL32
+?rva005E6A00@Rva005E6A00@@QAEXXZ,,0x005E6A00,17,Code/GameEngine/Source/Common/RvaHelperThenMemberForwarders.cpp,matched,Helper call on this then tail member call on held pointer by REL32
+?rva005E6BA3@Rva005E6BA3@@QAEXXZ,,0x005E6BA3,17,Code/GameEngine/Source/Common/RvaHelperThenMemberForwarders.cpp,matched,Helper call on this then tail member call on held pointer by REL32
+?rva005E6BB4@Rva005E6BB4@@QAEXXZ,,0x005E6BB4,17,Code/GameEngine/Source/Common/RvaHelperThenMemberForwarders.cpp,matched,Helper call on this then tail member call on held pointer by REL32
