@@ -105,3 +105,35 @@ void DockUpdate::getDockPosition( Object* docker, Coord3D *position )
 
 }
 
+
+// Interface slot 5 at 0xC51D18: native RVA 0x00589972, 121 bytes.
+void DockUpdate::getEnterPosition( Object* docker, Coord3D *position )
+{
+
+	// load dock positions if not loaded yet
+	if( m_positionsLoaded == FALSE )
+		loadDockPositions();
+
+	// sanity
+	if( position == NULL )
+		return;
+
+	// If I don't have a bone, you are fine where you are, unless you fly, in which case I should recenter you
+	Coord3D zero;
+	zero.zero();
+	if( m_enterPosition == zero )
+	{
+		if( docker->isUsingAirborneLocomotor() )
+		{
+			*position = *getObject()->getPosition();
+			return;
+		}
+		*position = *docker->getPosition();
+		return;
+	}
+
+	// take local space position and convert to world space
+	getObject()->convertBonePosToWorldPos( &m_enterPosition, NULL, position, NULL );
+
+}
+
