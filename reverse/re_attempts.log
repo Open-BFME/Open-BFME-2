@@ -8953,3 +8953,9 @@ FUN_00588760	0x00188760	389	blocked	WW3D mesh chunk x87 SST plus SSE plus RGB sc
 ?rva0011319A@Rva0011319A@@QAEXPAUVector3@@HHHHABU2@11@Z	0x0011319A	511	blocked	complex terrain ray grid sampler needs donor CastResult layout t=12 model=muse-03
 ?Rva004292A6Get@@YAPAVObject@@PAV1@@Z	0x004292A6	80	blocked	custom ebx register arg from caller 0x42B5F7 needs same-TU static t=15 model=muse-03
 ?Rva0042970AGet@@YGPBVCommandButton@@H@Z	0x0042970A	103	partial	push-pop order ebx esi edi early vs late t=18 model=muse-03 score=0.95 stash=reverse/attempts/0x0042970a.cpp
+?rva006C65F0@Rva006C65F0@@QAEHHHH@Z	0x006C65F0	503	blocked	profile Block dot-split plus dual AddProfile with msec-calls and rdtsc needs full donor remodel t=12 model=muse-08
+?rva003532BF@@YAXPAVObject@@PAVStateMachine@@_N@Z	0x003532BF	256	blocked	evacuate helper loop needs exact contain-AI-template-float ordering plus pathfinder hoist t=20 model=muse-08
+?bfmePrivateCommand20@AIUpdateInterface@@MAEXPBURva00264D81Arg@@W4GuardMode@@W4CommandSourceType@@@Z	0x00264D81	119	blocked	/O1 CSEs constant 2 into eax push-pop vs immediates t=20 model=muse-08 (stash 0.9 kept)
+?computeApproachPosition@DockUpdate@@IAE?AUCoord3D@@HPAVObject@@@Z	0x00589B7D	449	blocked	named donor exists but BFME2 needs substantial remodel 12-region SSE-x87-layout divergence t=15 model=muse-08
+?Rva006C50D0Get@@YAHXZ	0x006C50D0	546	blocked	large 546B dbghelp sprintf free function needs caller context t=5 model=muse-08
+?Rva0061FCE0Get@@YAHXZ	0x0061FCE0	505	blocked	large 505B timing with QPC rdtsc allmul alldiv needs caller context t=5 model=muse-08

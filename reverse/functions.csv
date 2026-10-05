@@ -56490,3 +56490,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva00368433@Rva00368344@@QAEXPBUCoord3D@@H@Z,,0x00368433,83,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/Rva00368344.cpp,matched,leaf plus sibling layout plus rowed callees
 ?rva00368486@Rva00368344@@QAEXPBUCoord3D@@PBVWaypoint@@_N@Z,,0x00368486,94,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/Rva00368344.cpp,matched,leaf plus sibling layout plus rowed callees
 ?rva004906CD@Rva004906CD@@QAE_NPBUCoord3D@@@Z,,0x004906CD,213,Code/GameEngine/Source/GameLogic/Object/Update/ArrowStormUpdateRva004906CD.cpp,matched,slot 39 of 0x0084D5A0 ArrowStorm range check via TheWeaponStore donor WeaponFireSlot8
+?rva0061FFA0@Rva0061FFA0@@QAEXIH@Z,,0x0061FFA0,42,Code/Libraries/Source/assetmanager/Rva0061FFA0.cpp,matched,assetmanager setter clamp to 1 0 via unclaimed caller
