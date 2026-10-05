@@ -11408,3 +11408,4 @@ _floor,0x00629940,call site 0x006F4403 in AptDate::getDayOfWeek (0x006F4290) enc
 ?rva0058113D@Rva0058113D@@QAEPAVLANGameInfo@@I@Z,0x0058113D,address read from the REL32 displacement at 0x004458A2 in the games list box rebuild 0x004457BC (unrowed; games list index getter, unrowed sibling of rva0057D922)
 ?rva0057D922@Rva0057D922@@QAEPAVMapMetaData@@ABVAsciiString@@@Z,0x0057D922,address read from the REL32 displacement at 0x004459D0 in the games list box rebuild 0x004457BC (unrowed; map lookup by map name)
 ?rva00237E63@Version@@QAEHPBX_N@Z,0x00237E63,address read from the REL32 displacement at 0x00445944 in the games list box rebuild 0x004457BC (unrowed; TheVersion text colour for a version block)
+??1Rva00059068Tree@@QAE@XZ,0x00059068,faction-set tree teardown dtor for the Rva007B6880Thunks.cpp thunks (0x007B6B41/0x007B6D1D/0x007B6D27/0x007B6E72/0x007B6E7C); jmp stub to the rowed FactionSetTree dtor 0x000589BE

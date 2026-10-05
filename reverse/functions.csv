@@ -60805,3 +60805,8 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva007B7588@@YAXXZ,,0x007B7588,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,Global Rva001F4B01 dtor thunk: ecx=&g_Va00DFDD0C then tail-jmp to pinned dtor 0x001F4B01; honest address name
 ?rva007B759C@@YAXXZ,,0x007B759C,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,Global Rva001FBD17 dtor thunk: ecx=&g_Va00DFDD60 then tail-jmp to pinned dtor 0x001FBD17; honest address name
 ?rva007B75A6@@YAXXZ,,0x007B75A6,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,Global Rva001FBF4D dtor thunk: ecx=&g_Va00DFDF40 then tail-jmp to pinned dtor 0x001FBF4D; honest address name
+?rva007B6B41@@YAXXZ,,0x007B6B41,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,Faction-set tree teardown: ecx=&g_Va00DE1E78 then tail-jmp to 0x00059068 stub; honest address name
+?rva007B6D1D@@YAXXZ,,0x007B6D1D,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,Faction-set tree teardown: ecx=&g_Va00DEAF30 then tail-jmp to 0x00059068 stub; honest address name
+?rva007B6D27@@YAXXZ,,0x007B6D27,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,Faction-set tree teardown: ecx=&g_Va00DEAF3C then tail-jmp to 0x00059068 stub; honest address name
+?rva007B6E72@@YAXXZ,,0x007B6E72,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,Faction-set tree teardown: ecx=&g_Va00DEBFD8 then tail-jmp to 0x00059068 stub; honest address name
+?rva007B6E7C@@YAXXZ,,0x007B6E7C,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,Faction-set tree teardown: ecx=&g_Va00DEBFE4 then tail-jmp to 0x00059068 stub; honest address name

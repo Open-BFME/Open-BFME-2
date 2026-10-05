@@ -6183,3 +6183,62 @@ void __cdecl rva007B75A6()
 	Rva001FBF4D *p = (Rva001FBF4D *)&g_Va00DFDF40;
 	return p->Rva001FBF4D::~Rva001FBF4D();
 }
+
+// Faction-set tree teardown view for the thunks below. The destructor is
+// declared only; symbols.csv pins it to the jmp stub 0x00059068, which jumps
+// to the rowed FactionSetTree dtor (0x000589BE, MapMetaDataCopy.cpp).
+class Rva00059068Tree
+{
+public:
+	~Rva00059068Tree();
+};
+
+extern unsigned g_Va00DE1E78;
+unsigned int g_Va00DE1E78;
+
+// ?rva007B6B41@@YAXXZ @ 0x007B6B41 (10B). Faction-set tree teardown: ecx=&g_Va00DE1E78 then tail-jmp to the 0x00059068 stub for the rowed FactionSetTree dtor (0x000589BE). No callers. Honest address name.
+void __cdecl rva007B6B41()
+{
+	Rva00059068Tree *p = (Rva00059068Tree *)&g_Va00DE1E78;
+	return p->~Rva00059068Tree();
+}
+
+extern unsigned g_Va00DEAF30;
+unsigned int g_Va00DEAF30;
+
+// ?rva007B6D1D@@YAXXZ @ 0x007B6D1D (10B). Faction-set tree teardown: ecx=&g_Va00DEAF30 then tail-jmp to the 0x00059068 stub for the rowed FactionSetTree dtor (0x000589BE). No callers. Honest address name.
+void __cdecl rva007B6D1D()
+{
+	Rva00059068Tree *p = (Rva00059068Tree *)&g_Va00DEAF30;
+	return p->~Rva00059068Tree();
+}
+
+extern unsigned g_Va00DEAF3C;
+unsigned int g_Va00DEAF3C;
+
+// ?rva007B6D27@@YAXXZ @ 0x007B6D27 (10B). Faction-set tree teardown: ecx=&g_Va00DEAF3C then tail-jmp to the 0x00059068 stub for the rowed FactionSetTree dtor (0x000589BE). No callers. Honest address name.
+void __cdecl rva007B6D27()
+{
+	Rva00059068Tree *p = (Rva00059068Tree *)&g_Va00DEAF3C;
+	return p->~Rva00059068Tree();
+}
+
+extern unsigned g_Va00DEBFD8;
+unsigned int g_Va00DEBFD8;
+
+// ?rva007B6E72@@YAXXZ @ 0x007B6E72 (10B). Faction-set tree teardown: ecx=&g_Va00DEBFD8 then tail-jmp to the 0x00059068 stub for the rowed FactionSetTree dtor (0x000589BE). No callers. Honest address name.
+void __cdecl rva007B6E72()
+{
+	Rva00059068Tree *p = (Rva00059068Tree *)&g_Va00DEBFD8;
+	return p->~Rva00059068Tree();
+}
+
+extern unsigned g_Va00DEBFE4;
+unsigned int g_Va00DEBFE4;
+
+// ?rva007B6E7C@@YAXXZ @ 0x007B6E7C (10B). Faction-set tree teardown: ecx=&g_Va00DEBFE4 then tail-jmp to the 0x00059068 stub for the rowed FactionSetTree dtor (0x000589BE). No callers. Honest address name.
+void __cdecl rva007B6E7C()
+{
+	Rva00059068Tree *p = (Rva00059068Tree *)&g_Va00DEBFE4;
+	return p->~Rva00059068Tree();
+}
