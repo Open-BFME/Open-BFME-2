@@ -105,6 +105,7 @@ public:
 	Int rva0044D88C(void);
 	AsciiString rva0044DAA8(const AsciiString &def);
 	AsciiString rva0044DBA5(void);
+	AsciiString rva0044D986(void);
 	Bool rva0044DB54(int *vals);
 	Bool rva0044D774(GameSlot *slot);
 	void rva0044DC54(Int val);
@@ -386,6 +387,33 @@ Int GameModePreferences::rva0044D88C(void)
 	if (v == -1 && (TheWritableGlobalData->m_flag9D4 & 3) != 0)
 		return ThePlayerTemplateStore->m_map.begin()->first;
 	return v;
+}
+
+// ?rva0044D986@GameModePreferences@@QAE?AVAsciiString@@XZ @0x0044D986 290B.
+// Target evidence: this entry uses the matched mode-key builder at 0x0044D512
+// and MapUtil providers at 0x0030582D / 0x003057AB; the direct helper identities
+// and signatures are established by their matched target rows. The surrounding
+// GameModePreferences class label is descriptive, so the method stays address-named.
+// Donor guidance: ZH SkirmishPreferences::getPreferredMap supplies the map lookup,
+// decode, trim, validate and fallback flow; target-specific helpers are retained.
+AsciiString getDefaultMap(Bool isMultiplayer);
+Bool isValidMap(AsciiString mapName, Bool isMultiplayer);
+AsciiString QuotedPrintableToAsciiString(AsciiString original);
+AsciiString GameModePreferences::rva0044D986(void)
+{
+	AsciiString ret;
+	PreferenceMap::const_iterator it = find(makeKey("Map"));
+	if (it == end()) {
+		ret = getDefaultMap(true);
+		return ret;
+	}
+	ret = QuotedPrintableToAsciiString(it->second);
+	ret.trim();
+	if (ret.isEmpty() || !isValidMap(ret, true)) {
+		ret = getDefaultMap(true);
+		return ret;
+	}
+	return ret;
 }
 
 // ?rva0044DAA8@GameModePreferences@@QAE?AVAsciiString@@ABV2@@Z @0x0044DAA8 172B:
