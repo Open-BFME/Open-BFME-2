@@ -1,5 +1,6 @@
 // cl: /O1 /MD /EHsc
-// Eleven 17B member forwarders of one shape (see Rva005E21EBDtor.cpp's
+// class-gate: allow StringBase private validate for row ?validate@?$StringBase@G@@ABEXXZ at 0x000B3FD0
+// Twelve 17B member forwarders of one shape (see Rva005E21EBDtor.cpp's
 // rva005E25CD): call a folded base helper on this then tail-jump into a
 // member call on the object pointer held at +8 or +0xC. Base helpers by REL32:
 // 0x000B3FD0 ?init@SmudgeManager@@UAEXXZ and 0x00248D08
@@ -219,4 +220,19 @@ void Rva005E6BB4::rva005E6BB4()
 {
     ((SmudgeManager *)this)->SmudgeManager::init();
     m_20->rva005E6AD8();
+}
+template <typename T> class StringBase
+{
+	friend class Rva005CDDF0;
+	void validate() const;
+};
+class Rva005CDDF0
+{
+public:
+	void rva005CDDF0();
+};
+void Rva005CDDF0::rva005CDDF0()
+{
+	((Rva005E590F *)this)->rva005E590F();
+	((StringBase<unsigned short> *)((char *)this + 0xc))->validate();
 }

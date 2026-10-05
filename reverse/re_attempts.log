@@ -10579,3 +10579,4 @@ FUN_009d401e	0x005D401E	136	void	Correction: retract the prior boundary refusal;
 ??1Rva000EEEF4@@UAE@XZ	0x000EEEF4	242	blocked	complex EH dtor with refcount loops and 200KB layout and no donor t=12 model=muse-10
 ?rva004F92E3@Rva004F92E3@@QAEXPAX@Z	0x004F92E3	149	blocked	edi esi swapped dest src with sub edi esi offset opt and indexed src loads ours 152B vs 149B t=15 model=muse-10 (stash 0.92 kept)
 ?rva0060CE41@XferSave@@QAEXH@Z	0x0060CE41	281	blocked	vslot 11 XferSave 281B with throw format hashmap and stream slots no BFME2 donor ZH Xfer differs t=10 model=muse-10
+?rva005E5920@Rva005E5920@@QAEHPAXH@Z	0x005E5920	34	blocked	tail jmp vs call plus pushes 41B vs 34B minimal tail jmps but full with write call does not t=12 model=muse-07
