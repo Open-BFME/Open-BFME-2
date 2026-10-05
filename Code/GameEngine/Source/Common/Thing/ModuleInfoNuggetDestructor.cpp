@@ -1,5 +1,6 @@
-// Ported from BFME1; the body is independently byte-verified in BFME2 at
-// RVA 0x006CFA30.
+// Retail 0x006CFA30, 76 bytes. Original class identity is unknown.
+// This is not ModuleInfo::Nugget: its member destructors at 0x006CEAD0
+// and 0x006CE7F0 contradict the two AsciiStrings at 0x002CF51B.
 //
 // BFME1's first member is an AsciiString, but BFME2 tears the +0 member down
 // through 0x006CEAD0 (matched opaquely as Rva006CEAD0::drainChain in
@@ -24,13 +25,13 @@ private:
 	unsigned char m_pad[4];
 };
 
-class ModuleInfo
+class Rva006CFA30
 {
 public:
-	class Nugget
+	class Members
 	{
 	public:
-		~Nugget();
+		~Members();
 
 	private:
 		Rva006CEAD0 first;
@@ -38,6 +39,6 @@ public:
 	};
 };
 
-ModuleInfo::Nugget::~Nugget()
+Rva006CFA30::Members::~Members()
 {
 }
