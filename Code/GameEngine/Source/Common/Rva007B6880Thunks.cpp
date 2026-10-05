@@ -5803,3 +5803,95 @@ void __cdecl rva007B9810()
 	return p->~Init();
 }
 
+class LightEnvironmentClass
+{
+public:
+	~LightEnvironmentClass();
+};
+
+extern unsigned g_Va00A1F2B8;
+unsigned int g_Va00A1F2B8;
+
+// ?rva007B9CB2@@YAXXZ @ 0x007B9CB2 (10B). Global dtor thunk: ecx=&g_Va00A1F2B8 then tail-jmp to rowed 0x0069E440.
+void __cdecl rva007B9CB2()
+{
+	LightEnvironmentClass *p = (LightEnvironmentClass *)&g_Va00A1F2B8;
+	return p->~LightEnvironmentClass();
+}
+
+extern unsigned g_Va00A1F4E8;
+unsigned int g_Va00A1F4E8;
+
+// ?rva007B9CC0@@YAXXZ @ 0x007B9CC0 (10B). Global SegLineRendererClass dtor thunk: ecx=&g_Va00A1F4E8 then tail-jmp to rowed ??1SegLineRendererClass@@QAE@XZ (0x001911C0).
+#pragma optimize("t", on)
+void __cdecl rva007B9CC0()
+{
+	SegLineRendererClass *p = (SegLineRendererClass *)&g_Va00A1F4E8;
+	return p->~SegLineRendererClass();
+}
+#pragma optimize("", on)
+
+extern unsigned g_Va00DE1CCC;
+unsigned int g_Va00DE1CCC;
+
+// ?rva007B6ADC@@YAXXZ @ 0x007B6ADC (10B). Global ios_base::Init dtor thunk: ecx=&g_Va00DE1CCC then tail-jmp to rowed ??1Init@ios_base@_STL@@QAE@XZ (0x00015E70).
+void __cdecl rva007B6ADC()
+{
+	_STL::ios_base::Init *p = (_STL::ios_base::Init *)&g_Va00DE1CCC;
+	return p->~Init();
+}
+
+extern unsigned g_Va00E01E40;
+unsigned int g_Va00E01E40;
+
+// ?rva007B7C7C@@YAXXZ @ 0x007B7C7C (10B). Global ios_base::Init dtor thunk: ecx=&g_Va00E01E40 then tail-jmp to rowed ??1Init@ios_base@_STL@@QAE@XZ (0x00015E70).
+void __cdecl rva007B7C7C()
+{
+	_STL::ios_base::Init *p = (_STL::ios_base::Init *)&g_Va00E01E40;
+	return p->~Init();
+}
+
+struct BfmeContainerRecord00048139;
+extern unsigned g_Va00DE1CAC;
+unsigned int g_Va00DE1CAC;
+
+// ?rva007B6AC8@@YAXXZ @ 0x007B6AC8 (10B). Global vector<BfmeContainerRecord00048139> dtor thunk: ecx=&g_Va00DE1CAC then tail-jmp to rowed ??1?$vector@UBfmeContainerRecord00048139@@V?$allocator@UBfmeContainerRecord00048139@@@_STL@@@_STL@@QAE@XZ (0x0004B193).
+void __cdecl rva007B6AC8()
+{
+	_STL::vector<BfmeContainerRecord00048139, _STL::allocator<BfmeContainerRecord00048139> > *p = (_STL::vector<BfmeContainerRecord00048139, _STL::allocator<BfmeContainerRecord00048139> > *)&g_Va00DE1CAC;
+	return p->_STL::vector<BfmeContainerRecord00048139, _STL::allocator<BfmeContainerRecord00048139> >::~vector();
+}
+
+extern unsigned g_Va00E09DBC;
+unsigned int g_Va00E09DBC;
+
+// ?rva007B9AD0@@YAXXZ @ 0x007B9AD0 (10B). Global string dtor thunk: ecx=&g_Va00E09DBC then tail-jmp to rowed ??1?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE@XZ (0x00142D70).
+void __cdecl rva007B9AD0()
+{
+	StlNarrowString *p = (StlNarrowString *)&g_Va00E09DBC;
+	return p->~basic_string();
+}
+
+struct Rva001D28F0Element;
+extern unsigned g_Va00E0ABB4;
+unsigned int g_Va00E0ABB4;
+
+// ?rva007B9BC0@@YAXXZ @ 0x007B9BC0 (10B). Global vector<Rva001D28F0Element> dtor thunk: ecx=&g_Va00E0ABB4 then tail-jmp to rowed ??1?$vector@URva001D28F0Element@@V?$allocator@URva001D28F0Element@@@_STL@@@_STL@@QAE@XZ (0x00689DB0).
+void __cdecl rva007B9BC0()
+{
+	_STL::vector<Rva001D28F0Element, _STL::allocator<Rva001D28F0Element> > *p = (_STL::vector<Rva001D28F0Element, _STL::allocator<Rva001D28F0Element> > *)&g_Va00E0ABB4;
+	return p->_STL::vector<Rva001D28F0Element, _STL::allocator<Rva001D28F0Element> >::~vector();
+}
+
+extern unsigned g_Va00DDC00C;
+unsigned int g_Va00DDC00C;
+
+// ?rva007B9BE0@@YAXXZ @ 0x007B9BE0 (10B). Global StringBase<char> releaseBuffer thunk: ecx=&g_Va00DDC00C then tail-jmp to rowed ?releaseBuffer@?$StringBase@D@@AAEXXZ (0x00036410).
+void __cdecl rva007B9BE0()
+{
+	AsciiString *p = (AsciiString *)&g_Va00DDC00C;
+	return p->~AsciiString();
+}
+
+
+
