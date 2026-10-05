@@ -1,14 +1,6 @@
 // ?rva0024A0C7@LANAPI@@UAEXVUnicodeString@@@Z
-// partial score=0.99 date=2026-10-04
+// partial score=0.99 date=2026-10-05
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
-// 172/177: body byte-exact. Sole remaining delta is register-allocation shape -
-// retail saves edi in the prologue (push edi at 0x24A0D5, pop edi at 0x24A16A)
-// yet first defines it at 0x24A0E2, after the inLobby guard; this build
-// shrink-wraps edi and saves it at 0x24A0E1 instead. Every source shape tried
-// couples the two: hoisting the edi load to entry (to force the prologue save)
-// also hoists the load, and sinking the load moves the save. /G7, /O2, /Gw,
-// /Gr, /EHsc-, const param and block-scoped game all leave +0xE.
-//
 // Retail 0x0024A0C7, 177 bytes. LANAPI vtable slot 37 (vtable 0x0083E680,
 // class of ??1LANAPI@@UAE@XZ).
 // ?rva0024A0C7@LANAPI@@UAEXVUnicodeString@@@Z
@@ -187,13 +179,8 @@ protected:
 // ?rva0024A0C7@LANAPI@@UAEXVUnicodeString@@@Z present-unmatched
 void LANAPI::rva0024A0C7(UnicodeString arg)
 {
-	LANGameInfo *game;
-	if (m_inLobby)
-		goto done;
-	game = m_currentGame;
-	if (game == 0)
-		goto done;
-	if (game->m_11 != 0)
+	LANGameInfo *game = m_currentGame;
+	if (m_inLobby || game == 0 || game->m_11 != 0)
 		goto done;
 	if (m_name.compare(arg) == 0)
 	{
