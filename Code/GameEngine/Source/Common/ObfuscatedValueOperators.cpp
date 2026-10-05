@@ -30,6 +30,7 @@ public:
 	Rva00077710Value operator+(const Rva00077710Value &other) const;
 	Rva00077710Value &operator+=(const Rva00077710Value &other);
 	Rva00077710Value *rva0022D89D(Rva00077710Value &other);
+	Rva00077710Value *rva0022D99A(Rva00077710Value &dst, int unused);
 
 private:
 	Rva00077710Value() {}
@@ -68,4 +69,13 @@ Rva00077710Value *Rva00077710Value::rva0022D89D(Rva00077710Value &other)
 	*this += tmp;
 	other.m_value = m_value;
 	return &other;
+}
+
+Rva00077710Value *Rva00077710Value::rva0022D99A(Rva00077710Value &dst, int unused)
+{
+	Int old = m_value;
+	Rva00077710Value tmp;
+	rva0022D89D(tmp);
+	dst.m_value = old;
+	return &dst;
 }
