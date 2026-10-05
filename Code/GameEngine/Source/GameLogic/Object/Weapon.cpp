@@ -2925,6 +2925,7 @@ void Weapon::processRequestAssistance( const Object *requestingObject, Object *v
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
+#pragma auto_inline(off)
 void Weapon::getFiringLineOfSightOrigin(const Object* source, Coord3D& origin) const
 {
 	//GS 1-6-03
@@ -2954,10 +2955,10 @@ void Weapon::getFiringLineOfSightOrigin(const Object* source, Coord3D& origin) c
 	}
 */
 }
+#pragma auto_inline(on)
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
-// ?isClearFiringLineOfSightTerrain@Weapon@@ present-unmatched
 Bool Weapon::isClearFiringLineOfSightTerrain(const Object* source, const Object* victim) const
 {
 	Coord3D origin;
@@ -2975,7 +2976,27 @@ Bool Weapon::isClearFiringLineOfSightTerrain(const Object* source, const Object*
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
-// ?isClearFiringLineOfSightTerrain@Weapon@@ present-unmatched
+// BFME 2's TerrainLogic declares two more virtuals ahead of isClearLineOfSight
+// than Zero Hour's header: retail calls it through slot 15 (0x3C) of
+// TheTerrainLogic, and slot 15 of the W3DTerrainLogic vftable 0x00BC5890 is the
+// rowed W3DTerrainLogic::isClearLineOfSight (0x00062C0F).
+class BfmeTerrainLogicLOSView
+{
+public:
+	virtual void s00(); virtual void s01(); virtual void s02(); virtual void s03();
+	virtual void s04(); virtual void s05(); virtual void s06(); virtual void s07();
+	virtual void s08(); virtual void s09(); virtual void s10(); virtual void s11();
+	virtual void s12(); virtual void s13(); virtual void s14();
+	virtual Bool isClearLineOfSight( const Coord3D& pos, const Coord3D& posOther ) const;
+};
+
+// BFME 2 dropped the victim-centre and NULL-object arguments: both Coord3D
+// variants below ask the terrain directly. Retail builds them for size (frame
+// pointer, rep-style copies, an out-of-line getFiringLineOfSightOrigin) inside
+// this otherwise /O2 unit, and the goal variant copies goalPos through SSE
+// registers, which is what /Op ("p") produces.
+#pragma optimize("t", off)
+#pragma optimize("s", on)
 Bool Weapon::isClearFiringLineOfSightTerrain(const Object* source, const Coord3D& victimPos) const
 {
 	Coord3D origin;
@@ -2983,13 +3004,13 @@ Bool Weapon::isClearFiringLineOfSightTerrain(const Object* source, const Coord3D
 	//CRCDEBUG_LOG(("Weapon::isClearFiringLineOfSightTerrain(Coord3D) for %s\n", DescribeObject(source).str()));
 	//DUMPCOORD3D(&origin);
 	getFiringLineOfSightOrigin(source, origin);
-	return ThePartitionManager->isClearLineOfSightTerrain(NULL, origin, NULL, victimPos);
+	return ((const BfmeTerrainLogicLOSView *)TheTerrainLogic)->isClearLineOfSight(origin, victimPos);
 }
+#pragma optimize("", on)
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
 /** Determine whether if source was at goalPos whether it would have clear line of sight. */
-// ?isClearGoalFiringLineOfSightTerrain@Weapon@@ present-unmatched
 Bool Weapon::isClearGoalFiringLineOfSightTerrain(const Object* source, const Coord3D& goalPos, const Object* victim) const
 {
 	Coord3D origin=goalPos;
@@ -3004,18 +3025,23 @@ Bool Weapon::isClearGoalFiringLineOfSightTerrain(const Object* source, const Coo
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
 /** Determine whether if source was at goalPos whether it would have clear line of sight. */
-// ?isClearGoalFiringLineOfSightTerrain@Weapon@@ present-unmatched
+#pragma optimize("t", off)
+#pragma optimize("sp", on)
 Bool Weapon::isClearGoalFiringLineOfSightTerrain(const Object* source, const Coord3D& goalPos, const Coord3D& victimPos) const
 {
-	Coord3D origin=goalPos;
+	Coord3D origin;
+	origin.x = goalPos.x;
+	origin.y = goalPos.y;
+	origin.z = goalPos.z;
 	//CRCDEBUG_LOG(("Weapon::isClearGoalFiringLineOfSightTerrain(Coord3D) for %s\n", DescribeObject(source).str()));
 	//DUMPCOORD3D(&origin);
 	getFiringLineOfSightOrigin(source, origin);
 	//CRCDEBUG_LOG(("Weapon::isClearFiringLineOfSightTerrain() - victimPos is (%g,%g,%g) (%X,%X,%X)\n",
 	//	victimPos.x, victimPos.y, victimPos.z,
 	//	AS_INT(victimPos.x),AS_INT(victimPos.y),AS_INT(victimPos.z)));
-	return ThePartitionManager->isClearLineOfSightTerrain(NULL, origin, NULL, victimPos);
+	return ((const BfmeTerrainLogicLOSView *)TheTerrainLogic)->isClearLineOfSight(origin, victimPos);
 }
+#pragma optimize("", on)
 
 //-------------------------------------------------------------------------------------------------
 //Kris: Patch 1.01 - November 10, 2003
