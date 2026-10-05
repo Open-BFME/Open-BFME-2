@@ -57387,3 +57387,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ??1Rva004E6A37@@QAE@XZ,,0x004E6A37,23,Code/GameEngine/Source/Common/OwnedPointerResets.cpp,matched,holder dtor via pointee 0x004E6935 and delete abutting clear
 ??$__uninitialized_fill_n@PAURva005EFD53Element@@IU1@@_STL@@YAPAURva005EFD53Element@@PAU1@IABU1@ABU__false_type@0@@Z,,0x005EF424,37,Code/GameEngine/Source/Common/Rva005EF424FillN.cpp,matched,unlock fill_n stride 4 via pin 0x005F09FF unblocks 0x005EF4A5
 ??$uninitialized_fill_n@PAURva005EFD53Element@@IU1@@_STL@@YAPAURva005EFD53Element@@PAU1@IABU1@@Z,,0x005EF4A5,27,Code/GameEngine/Source/Common/Rva005EF424FillN.cpp,matched,chain wrapper via rowed 0x005EF424 unblocks 0x005EFC30
+?Rva0022C8FBDestroy@@YGXPAURva0022C8FBElem@@@Z,,0x0022C8FB,28,Code/GameEngine/Source/Common/System/Rva0022C8FBDestroy.cpp,matched,unlock destroy at +4 via pin 0x0022630F then game free
