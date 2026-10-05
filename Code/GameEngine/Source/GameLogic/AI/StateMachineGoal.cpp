@@ -141,11 +141,12 @@ public:
 	void halt();
 	State *internalGetState(StateID id);
 	Bool hasState(StateID id);
-	StateReturnType internalSetState(StateID newStateID);
-	StateReturnType initDefaultState();
-	StateReturnType resetToDefaultState();
-	StateReturnType setState(StateID newStateID);
-	void clear();
+ 	StateReturnType internalSetState(StateID newStateID);
+ 	StateReturnType initDefaultState();
+ 	StateReturnType resetToDefaultState();
+ 	StateReturnType setState(StateID newStateID);
+ 	void rva004D7627(StateID id);
+ 	void clear();
 	StateReturnType updateStateMachine();
 	Bool isInBusyState() const;
 };
@@ -297,6 +298,13 @@ StateReturnType StateMachine::initDefaultState()
 Bool StateMachine::hasState(StateID id)
 {
 	return m_stateMap.find(id) != m_stateMap.end();
+}
+
+// ?rva004D7627@StateMachine@@QAEXH@Z @0x004D7627 37B
+// Evidence: leaf with 1 unclaimed caller; layout from StateMachine (map at +0x08 via rowed _M_find 0x00357180, default at +0x1C); branchless neg/sbb/and sets default to id when found else 0.
+void StateMachine::rva004D7627(StateID id)
+{
+	m_defaultStateID = (m_stateMap.find(id) != m_stateMap.end()) ? id : 0;
 }
 
 // ?setState@StateMachine@@QAE?AW4StateReturnType@@H@Z @0x004D7ACD 16B
