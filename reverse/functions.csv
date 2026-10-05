@@ -64296,3 +64296,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?rva0009D9FD@Rva0009D9BD@@QAEXXZ,,0x0009D9FD,43,Code/Libraries/Source/STLport/Rva0009D9BDFinish.cpp,matched,dump range 2 single-slot prologue with tail jump to rowed vector version; honest address-derived name
 ??0Rva00098667Product@@QAE@XZ,,0x00098667,41,Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00098667Product.cpp,matched,
 ??0Rva0009AA0F@@QAE@H@Z,,0x0009AA0F,30,Code/GameEngine/Source/Common/Rva0009AA0FCtor.cpp,matched,
+?rva0009AACF@@YGXHM@Z,,0x0009AACF,44,Code/GameEngine/Source/Common/Rva0009AACFFunc.cpp,matched,

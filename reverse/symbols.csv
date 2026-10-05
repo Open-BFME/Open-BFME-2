@@ -13506,3 +13506,4 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 
 ??0Rva0030AFC4Base@@QAE@XZ,0x0030AFC4,base ctor called from derived ctor 0x00098667 (Rva00098667Product 0x68); vtable 0x00BC8318 family; original name unknown
 ??0Rva00142960Base@@QAE@XZ,0x00142960,base ctor called from derived ctor 0x0009AA0F (vtable 0x00BC8900 family, 563B EH body); original name unknown
+?rva0010E87A@@YAXHM@Z,0x0010E87A,463B callee of 0x0009AACF (int plus float on stack, caller-popped); frameless shared-frame body; original name unknown
