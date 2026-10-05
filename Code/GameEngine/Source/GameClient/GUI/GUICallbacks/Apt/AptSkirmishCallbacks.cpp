@@ -393,7 +393,6 @@ static inline bool unicodeIsEmpty(const UnicodeString &text)
 // Retail 0x00521B56, 260 bytes: "AptSkirmish::OnAddProfileAccept" adds the
 // trimmed name typed in the profile entry as a new user and makes it the
 // current one, unless it is empty or already known.
-// ?OnAddProfileAccept@AptSkirmish@@QAEXPBD@Z present-unmatched
 void AptSkirmish::OnAddProfileAccept(const char *unused)
 {
 	if (m_state != 2)
