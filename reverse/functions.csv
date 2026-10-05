@@ -55949,3 +55949,4 @@ ___Extract_locale_name,,0x000216A0,153,Code/Libraries/Source/WWVegas/WWLib/Local
 ?Rva0030AEA6Copy@@YAXXZ,,0x0030AEA6,16,Code/GameEngine/Source/Common/Rva0030AEA6Copy.cpp,matched,calls rowed Rva0030ADED operator= to copy globals
 ?rva0059CE80@Rva0059CE80@@QAEXPBX@Z,,0x0059CE80,30,Code/GameEngine/Source/Common/Rva0059CE80Copy.cpp,matched,sibling Rva0059BD2D pattern caller 0x004FB255 lea ecx esi+0xEC
 ?Rva0008F925Create@@YGPAVRva0009FD78@@PAX@Z,,0x0008F925,58,Code/GameEngine/Source/Common/Rva0008F925Create.cpp,matched,chain lane same 58B shape as 0x0008F877 caller new 0x0002FDA0 ctor 0x0009FD60
+?rva004D1EB1@Rva004D1EB1@@QAEXG@Z,,0x004D1EB1,64,Code/GameEngine/Source/Common/Rva004D1EB1ClearRange.cpp,matched,STL bitset version of Gen00667F30ClearRange window; callee rowed 0x004D0F63; caller 0x004D217A
