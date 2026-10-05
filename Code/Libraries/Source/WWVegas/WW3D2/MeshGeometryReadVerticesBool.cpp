@@ -20,12 +20,22 @@
 // from the Read/compare products (Get_Vertex_Count() twice, 16AF40 pattern)
 // so the compiler cannot merge them into one kept byte_count.
 #include "always.h"
+// Retail's out-of-line RefCountClass deleting-dtor copy is the /O1 form
+// (pop ecx after the delete call); this TU builds /G7 which emits add esp,4
+// instead. Compile just the base class for size so our COMDAT matches the
+// first copy in link order. Code this TU's rows inline keeps this TU's flags.
+#pragma optimize("s", on)
 #include "refcount.h"
+#pragma optimize("", on)
 #include "vector3.h"
 #include "w3d_file.h"
 #include "sharebuf.h"
 #include "chunkio.h"
 #include <string.h>
+
+// Their byte-matched specializations live in MeshGeometryShareBufferInstantiations.cpp.
+// Do not implicitly re-emit their virtual destructors in this TU.
+template <> ShareBufferClass<Vector3>::~ShareBufferClass();
 
 class MeshGeometryClass {
 protected:
