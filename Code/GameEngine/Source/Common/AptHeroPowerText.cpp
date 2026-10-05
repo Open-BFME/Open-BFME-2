@@ -264,3 +264,50 @@ void Rva0057E3DB::rva0057C7BA(int type)
 		break;
 	}
 }
+
+// ?rva0043C8E4@Rva0043C8E4@@QAEXHH@Z @0x0043C8E4 79B: one spell button's
+// state. SetSpellButtonState receives the 1-based button number as "%d" and
+// the state's name from the table at VA 0x00C3D700. It goes through the
+// rowed invoke on the owner the rowed Rva00222547Get resolves for this
+// window. The number buffer reuses the index parameter's slot, as in retail.
+class GameWindow;
+GameWindow *Rva00222547Get(GameWindow *window);
+extern const char *g_00C3D700[];
+
+class Rva0043C8E4
+{
+public:
+	void rva0043C8E4(int index, int state);
+};
+
+void Rva0043C8E4::rva0043C8E4(int index, int state)
+{
+	char number[4];
+	sprintf(number, "%d", index + 1);
+	TheRva00222A8BTarget->invoke(Rva00222547Get((GameWindow *)this), "SetSpellButtonState", 2, number, (void *)g_00C3D700[state], 0, 0, 0);
+}
+
+// ??1Rva00582FC1@@UAE@XZ @0x00582FC1 84B (the existing pin's name): the file
+// transfer popup's destructor. It closes the popup through the rowed invoke
+// (owner 13, FileTransferPopUpClose, no arguments), clears the instance
+// global at VA 0x00E06398, then the rowed base destructor 0x005248D0 runs.
+class Rva005248D0
+{
+public:
+	virtual ~Rva005248D0();
+};
+
+class Rva00582FC1 : public Rva005248D0
+{
+public:
+	virtual ~Rva00582FC1();
+};
+
+// The ledger's name for VA 0x00E06398 (ColdGlobalDwordGetters.cpp).
+extern int g_Va00E06398;
+
+Rva00582FC1::~Rva00582FC1()
+{
+	TheRva00222A8BTarget->invoke((void *)13, "FileTransferPopUpClose", 0, 0, 0, 0, 0, 0);
+	g_Va00E06398 = 0;
+}
