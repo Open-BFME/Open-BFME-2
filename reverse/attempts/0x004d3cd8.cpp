@@ -1,3 +1,5 @@
+// ?applyDisconnectVote@DisconnectManager@@IAEXHIHPAVConnectionManager@@@Z
+// partial score=0.95 date=2026-10-05
 // cl: /O1 /arch:SSE /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/open-bfme-1/inputs/reference/shims/disconnectmanager /Ireference/open-bfme-1/inputs/reference/shims/sweep /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad
 // stlport
 //
@@ -123,7 +125,7 @@ protected:
 class BFMEConnectionManager : public ConnectionManager
 {
 public:
-	Int isPlayerInGame(Int slot);
+	Bool isPlayerInGame(Int slot);
 	Int isPlayerSlotActive(Int slot);
 	void sendDisconnectFrameCommand();
 	void resendFrameRangeToPlayer(Int playerID, UnsignedInt startFrame, UnsignedInt endFrame);
@@ -134,7 +136,6 @@ class BFMEDisconnectManager : public DisconnectManager
 public:
 	Bool hasPingSuccessRatioAtLeast(Real ratio);
 	Bool hasPlayerConnectionTimedOut(Int slot, void *connectionManager);
-	Int rva004D3E93(Int slot, ConnectionManager *conMgr);
 };
 
 // BFME keeps the packet-router fallback plan at this address in its expanded
@@ -407,21 +408,23 @@ Int DisconnectManager::countVotesForPlayer(Int slot, ConnectionManager *conMgr) 
 	return count;
 }
 
-// ?rva004D3E93@BFMEDisconnectManager@@QAEHHPAVConnectionManager@@@Z @ 0x004D3E93 (60B). Counts eligible voter slots excluding one.
-// Evidence: callees hasPlayerConnectionTimedOut 0x004D3B7E isPlayerInGame 0x004CF0A6 rowed; caller 1 unclaimed; unlocks 1.
-Int BFMEDisconnectManager::rva004D3E93(Int excludedSlot, ConnectionManager *conMgr) {
-	Int count = 0;
-	BFMEConnectionManager *bfmeMgr = (BFMEConnectionManager *)conMgr;
-	for (Int slot = 0; slot < MAX_SLOTS; ++slot) {
-		if (slot == excludedSlot)
-			continue;
-		if (hasPlayerConnectionTimedOut(slot, conMgr))
-			continue;
-		if ((unsigned char)bfmeMgr->isPlayerInGame(slot) != 0)
-			continue;
-		++count;
+// ?applyDisconnectVote@DisconnectManager@@IAEXHIHPAVConnectionManager@@@Z @ 0x004D3CD8 (83B). Records a disconnect vote then refreshes voter-dependent state.
+// Evidence: callees countVotesForPlayer 0x004D3BD7 getLocalPlayerID Rva004D39DEGet Rva0051318ESet rowed; vote table BfmeDisconnectVoteTable; callers 2 unclaimed.
+// ?applyDisconnectVote@DisconnectManager@@IAEXHIHPAVConnectionManager@@@Z present-unmatched
+int __cdecl Rva004D39DEGet(int a, int b);
+void __stdcall Rva0051318ESet(int a, int b);
+extern int g_Va00E048D0;
+void DisconnectManager::applyDisconnectVote(Int slot, UnsignedInt frame, Int fromSlot, ConnectionManager *conMgr) {
+	BfmeDisconnectVoteTable *votes = (BfmeDisconnectVoteTable *)this;
+	votes->m_playerVotes[slot][fromSlot].vote = TRUE;
+	votes->m_playerVotes[slot][fromSlot].frame = frame;
+	Int voters = countVotesForPlayer(slot, conMgr);
+	Int localSlot = conMgr->getLocalPlayerID();
+	Int other = Rva004D39DEGet(slot, localSlot);
+	if (other != -1) {
+		if (g_Va00E048D0)
+			Rva0051318ESet(other, voters);
 	}
-	return count;
 }
 
 
