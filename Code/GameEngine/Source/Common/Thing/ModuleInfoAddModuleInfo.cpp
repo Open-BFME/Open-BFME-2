@@ -1,14 +1,10 @@
 // ?addModuleInfo@ModuleInfo@@QAEXPAVThingTemplate@@ABVAsciiString@@1PBVModuleData@@H_N3@Z
-// partial score=0.99 date=2026-10-05
 // cl: /O1 /EHsc /DNDEBUG /MD /Ireference/shims/bfme2_ascii /Ireference/shims/iniexception
 // Semantic donor BFME1 6583b3c1ff21db4a561285717028fdafc780b7db
 // game/GameEngine/Source/Common/Thing/ThingTemplate.cpp addModuleInfo.
 // Target diagnostics spell addModuleInfo; parser33D865 passes this7-arg ABI.
-// DO NOT LAND: destructor reference resolves to the existing incorrect pin
-// ??1BfmeStringRecord002CF4C6 ->214ADC (8B, destroys a member+8).
-// Actual native calls2CF51B (53B, releases strings+4 then+0 under EH).
-// Existing Nugget dtor's kept76-byte6CFA30 body also contradicts this53 body.
-// Class/provider reconciliation is required; additive pins cannot prove it.
+// Native temporary teardown is the two-string destructor at 0x002CF51B;
+// its opaque BfmeStringRecord spelling now links to the verified Nugget dtor.
 // Native33D553..33D864 785B; four ModuleInfo offsets2E4..308, name64.
 #include "ascii_string.h"
 #include "Common/INIException.h"
@@ -34,9 +30,6 @@ class ModuleInfo {public:
  const Nugget *getNuggetWithTag(const AsciiString &) const;
  void addModuleInfo(ThingTemplate *,const AsciiString &,const AsciiString &,const ModuleData *,int,bool,bool);
 };
-// The existing constructor row33B13B and vector append33D433 establish this
-// opaque record spelling; target teardown is the rowed two-string Nugget dtor.
-#pragma comment(linker, "/alternatename:??1BfmeStringRecord002CF4C6@@QAE@XZ=??1Nugget@ModuleInfo@@QAE@XZ")
 void ModuleInfo::addModuleInfo(ThingTemplate *thingTemplate, 
 																	 const AsciiString& name,
 															 const AsciiString& moduleTag, 
