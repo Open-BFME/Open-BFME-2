@@ -1,4 +1,4 @@
-// cl: /O1 /D_STLP_USE_STATIC_LIB /D_BFME_RETAIL_TREE_INSERT_LAYOUT /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/open-bfme-1/reference/shims/nat /Ireference/open-bfme-1/reference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main
+// cl: /D_CRTIMP= /Ireference/shims/bfmealloc /O1 /D_STLP_USE_STATIC_LIB /D_BFME_RETAIL_TREE_INSERT_LAYOUT /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/open-bfme-1/reference/shims/nat /Ireference/open-bfme-1/reference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main
 // stlport
 #define Matrix4x4 Matrix4  // BFME renamed it
 /*
@@ -32,6 +32,15 @@
 // the game.
 // Author: Matthew D. Campbell, June 2002
 
+// Retail imports character tests and string comparisons but uses game free
+// for STL storage. Load those CRT declarations with imports before the local
+// allocator headers inherit /D_CRTIMP=.
+#undef _CRTIMP
+#define _CRTIMP __declspec(dllimport)
+#include <ctype.h>
+#include <string.h>
+#undef _CRTIMP
+#define _CRTIMP
 #include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
 
 #include "Common/Registry.h"
@@ -50,6 +59,8 @@
 #include "thread.h"
 
 #include "Common/MiniLog.h"
+extern "C" __declspec(dllimport) int __cdecl isdigit(int);
+extern "C" __declspec(dllimport) int __cdecl _stricmp(const char *, const char *);
 
 // Native callback uses the already recovered GameSpy C API entry.
 extern "C" void peerGetPlayerProfileIDA(PEER, const char *, void *, void *, PEERBool);
@@ -262,6 +273,8 @@ GameSpyPeerMessageQueueInterface *TheGameSpyPeerMessageQueue;
 
 // Native enum callback at 38B5DB stores the completion flag at +48C.
 // Preserve this measured view without shifting the donor thread fields.
+// Native player-left callback reads the quickmatch status at +294.
+struct BfmePeerQMState { unsigned char unknown[0x294]; QMStatus status; };
 struct BfmePeerEnumState { unsigned char unknown[0x48c]; Bool sawEnd; };
 
 class PeerThreadClass : public ThreadClass
@@ -350,9 +363,9 @@ public:
 	void setQMGroupRoom( Int groupID ) { m_qmGroupRoom = groupID; }
 	void sawEndOfEnumPlayers( void ) { reinterpret_cast<BfmePeerEnumState *>(this)->sawEnd = true; }
 	void sawMatchbot(std::string bot); // Target body lives in PeerThreadMatchbot.cpp.
-	QMStatus getQMStatus( void ) { return m_qmStatus; }
+	QMStatus getQMStatus( void ) { return reinterpret_cast<BfmePeerQMState *>(this)->status; }
 	void handleQMMatch(PEER peer, Int mapIndex, Int seed, char *playerName[MAX_SLOTS], char *playerIP[MAX_SLOTS], char *playerSide[MAX_SLOTS], char *playerColor[MAX_SLOTS], char *playerNAT[MAX_SLOTS]);
-	std::string getQMBotName( void ) { return m_matchbotName; }
+	std::string getQMBotName(void);
 	Int getQMGroupRoom( void ) { return m_qmGroupRoom; }
 	Int getQMLadder( void ) { return m_qmInfo.QM.ladderID; }
 
@@ -2809,10 +2822,14 @@ void playerLeftCallback(PEER peer, RoomType roomType, const char * nick, const c
 	if (!t)
 		return;
 
+	// Native passes these three outputs at response offsets 33C/340/344.
 	getPlayerInfo(t, peer, nick, resp.player.profileID, resp.player.IP,
 		resp.locale, resp.player.wins, resp.player.losses,
 		resp.player.rankPoints, resp.player.side, resp.player.preorder,
-		roomType, resp.player.flags);
+		roomType, resp.player.flags,
+		reinterpret_cast<Int &>(resp.unknown_payload[140]),
+		reinterpret_cast<Int &>(resp.unknown_payload[141]),
+		reinterpret_cast<Int &>(resp.unknown_payload[142]));
 	TheGameSpyPeerMessageQueue->addResponse(resp);
 
 //	PeerThreadClass *t = (PeerThreadClass *)param;
@@ -3110,3 +3127,7 @@ static void listingGamesCallback(PEER peer, PEERBool success, const char * name,
 // Retail's call sites in this unit's matched rows land on bodies rowed under
 // other spellings at the same addresses (same ABI). Bind the spellings used here.
 #pragma comment(linker, "/alternatename:_strcpy=?ji_00629176@@YAXXZ")
+
+#pragma comment(linker, "/alternatename:??0PeerRequest@@QAE@XZ=??0BfmeOpaqueOwnedRecord492@@QAE@XZ")
+#pragma comment(linker, "/alternatename:??1PeerRequest@@QAE@XZ=??1BfmeOpaqueOwnedRecord492@@QAE@XZ")
+#pragma comment(linker, "/alternatename:?getQMBotName@PeerThreadClass@@QAE?AV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@XZ=?get@Rva00389F2CNarrowField@@QBE?AV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@XZ")

@@ -1,4 +1,7 @@
-// TU-scoped BFME2 PeerResponse view; BFME1 donor revision 6583b3c1.
+// TU-scoped BFME2 GameSpy request/response views; BFME1 donor revision6583b3c1.
+// Request ownership and extent1EC come from native389AAA/1EF661/1EF723 and
+// player-left callback38C788. Its anonymous union retains212 opaque bytes;
+// unused donor payload fields do not establish target names or offsets.
 // Target copy/dtor/default-ctor 389C14/38A063/389F77 establish string members
 // through F4 plus vector100 and total extent348. Native callback38B5DB stores
 // room type at118 and IP at120. Other payload names remain donor leads; the
@@ -56,6 +59,8 @@ enum SerialAuthResult
 class PeerRequest
 {
 public:
+	PeerRequest();
+	~PeerRequest();
 	enum
 	{
 		PEERREQUEST_LOGIN,				// attempt to login
@@ -103,10 +108,14 @@ public:
 	std::string gameOptsMapName;
 	std::string gameOptsPlayerNames[MAX_SLOTS];
 
+// Native owning copy389AAA and cleanup1EF723 witness raw wordsD0 and stringF8.
+	unsigned int unknown_d0[10];
+	std::string unknown_f8;
 	std::vector<bool> qmMaps;
 
 	union
 	{
+		unsigned int unknown_payload[53];
 		struct
 		{
 			Int profileID;
@@ -154,6 +163,8 @@ public:
 			Int numPlayers;
 			Int maxPlayers;
 			Int numObservers;
+			// Inherited BFME1 shim note (this BFME2 view instead has verified492B extent):
+
 			// BFME's PeerRequest is four bytes larger than the reference's, and
 			// the extra dword is somewhere at or after the union: retail puts
 			// `id` at +0x34 and the UTM union at +0xE4, both exactly where the
