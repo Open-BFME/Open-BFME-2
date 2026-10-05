@@ -63206,3 +63206,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva0050174A@Rva0050174A@@QAEXXZ,,0x0050174A,8,Code/GameEngine/Source/Common/RvaPlus4MemberForwarders.cpp,matched,Plus-N member forwarder tail jmp by REL32
 ?rva002A9ECA@Rva002A9ECA@@QAEXH@Z,,0x002A9ECA,8,Code/GameEngine/Source/Common/RvaPlus4MemberForwarders.cpp,matched,Plus-N member forwarder tail jmp by REL32
 ?addEffect@Rva003BB730Owner@@QAEXAAVAsciiString@@PAVRva003BB730Record@@@Z,,0x003EE7C2,8,Code/GameEngine/Source/Common/RvaPlus4MemberForwarders.cpp,matched,Plus-N member forwarder tail jmp by REL32
+?Rva0006297CClamp@@YGXPBM0PAM1@Z,,0x0006297C,160,Code/GameEngine/Source/Common/VslotSmallBodiesAT.cpp,matched,vslot 17 of Rva00628FD single callee GetRes neighbours VslotSmall
