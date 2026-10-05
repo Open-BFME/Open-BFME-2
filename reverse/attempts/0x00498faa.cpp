@@ -1,5 +1,5 @@
 // ?rva00498FAA@GateOpenAndCloseBehavior@@AAEXXZ
-// partial score=0.96 date=2026-10-04
+// partial score=0.97 date=2026-10-05
 // cl: /O1 /DNDEBUG /MD /arch:SSE /GX
 //
 // ?rva00498FAA@GateOpenAndCloseBehavior@@AAEXXZ, retail 0x00498FAA: the
@@ -170,10 +170,15 @@ struct ThingTemplate
 	float m_B0;	// +0xB0
 };
 
-class Object
+class Thing
 {
 public:
 	void getUnitDirectionVector2D(Coord3D &dir) const;	// 0x0030A2A2
+};
+
+class Object : public Thing
+{
+public:
 	const Coord3D *getPosition() const { return &m_pos; }
 	float getOrientation() const { return m_angle; }
 	const ThingTemplate *getTemplate() const { return m_template; }
@@ -201,11 +206,17 @@ protected:
 	Object *m_object;
 };
 
+struct Rva00498DF3Arg;
+class Rva00498DF3
+{
+public:
+	void rva00498DF3(Rva00498DF3Arg *obj, float offset);	// 0x00498DF3
+};
+
 class GateOpenAndCloseBehavior : public GatePrimary, public BehaviorModule
 {
 private:
 	void rva00498FAA();
-	void rva00498DF3(Object *obj, float offset);	// 0x00498DF3
 };
 
 void GateOpenAndCloseBehavior::rva00498FAA()
@@ -232,5 +243,5 @@ void GateOpenAndCloseBehavior::rva00498FAA()
 			->link(&Rva003685CF(ObjectStatusMaskNone(), *ObjectStatusMask().Rva0023DA79(0, OBJECT_STATUS_26)))
 			->link(&Rva0027C2C9(&pos, &geom, us->getOrientation(), true)), 0);
 	for (Object *obj = hits.next(); obj; obj = hits.next())
-		rva00498DF3(obj, offset);
+		((Rva00498DF3 *)this)->rva00498DF3((Rva00498DF3Arg *)obj, offset);
 }
