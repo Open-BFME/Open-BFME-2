@@ -78,8 +78,7 @@ void Rva004BDB37::rva004BDB37()
 	for (int n = 3; n != 0; --n) {
 		edi->v21(1);
 		((BfmeSubFCB *)(*(Thing **)((char *)this - 8)))->bfmeCallFCB(m_20, m_24);
-		Drawable *d = (*(Thing **)((char *)this - 8))->getDrawable();
-		d->rva00274176(f);
+		(*(Thing **)((char *)this - 8))->getDrawable()->rva00274176(f);
 	}
 	v10();
 }
