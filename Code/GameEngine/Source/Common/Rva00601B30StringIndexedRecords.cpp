@@ -19,6 +19,8 @@
 inline bool operator==(const AsciiString& a,const char* b){return reinterpret_cast<const StringBase<char>*>(&a)->compare(b)==0;}
 struct Rva00601A3AElement {unsigned int word0,word4;int stringIndex;};
 namespace _STL {
+template<> Rva00601A3AElement* vector<Rva00601A3AElement>::erase(Rva00601A3AElement*,Rva00601A3AElement*);
+template<> AsciiString* vector<AsciiString>::erase(AsciiString*,AsciiString*);
 template<> void vector<Rva00601A3AElement>::push_back(const Rva00601A3AElement&);
 template<> void vector<AsciiString>::push_back(const AsciiString&);
 
@@ -26,7 +28,7 @@ template<> void vector<AsciiString>::push_back(const AsciiString&);
 class Rva00601B30 {
  _STL::vector<Rva00601A3AElement> records;
  _STL::vector<AsciiString> names;
-public: void add(unsigned int word0,unsigned int word4,const char* name);
+public: void clear();void add(unsigned int word0,unsigned int word4,const char* name);
 };
 void Rva00601B30::add(unsigned int word0,unsigned int word4,const char* name) {
  AsciiString* found=_STL::find(names.begin(),names.end(),name);
@@ -36,3 +38,9 @@ void Rva00601B30::add(unsigned int word0,unsigned int word4,const char* name) {
  Rva00601A3AElement item={word0,word4,index};
  records.push_back(item);
 }
+
+// Native601A71/28B erases both complete ranges while retaining capacity.
+// A local reference to the string vector reproduces native receiver order.
+void Rva00601B30::clear(){records.erase(records.begin(),records.end());_STL::vector<AsciiString>& second=names;second.erase(second.begin(),second.end());}
+
+#pragma comment(linker, "/alternatename:?erase@?$vector@URva00601A3AElement@@V?$allocator@URva00601A3AElement@@@_STL@@@_STL@@QAEPAURva00601A3AElement@@PAU3@0@Z=?eraseRange@Rva00601A3AVectorView@@QAEPAURva00601A3AElement@@PAU2@0@Z")
