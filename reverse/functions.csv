@@ -62932,3 +62932,5 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva00576B99@Rva00576B5E@@QAEXH@Z,,0x00576B99,40,Code/GameEngine/Source/Common/MemberBaseDtorsB01.cpp,matched,vtable slot 2 of 0x0086E7D4 vslot
 ?addTeamToList@Player@@QAEXPAVTeamPrototype@@@Z,,0x002AE228,42,Code/GameEngine/Source/Common/RTS/PlayerAddTeamToList.cpp,matched,ZH Player::addTeamToList verbatim over the +0x32C team-prototype list then push_back 0x002ADCC7
 ??RRva004F81DBGreater@@QBE_NABURva004F6966@@0@Z,,0x004F603F,24,Code/Libraries/Source/WWVegas/WWLib/stlport_pop_heap_rva004f7e61.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+??$__push_heap@PAVRva004F6093Holder@@HV1@URva002BBC1CCmp@@@_STL@@YAXPAVRva004F6093Holder@@HHV1@URva002BBC1CCmp@@@Z,,0x002B459E,133,Code/Libraries/Source/WWVegas/WWLib/stlport_sort_rva002bbc1c.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+??RRva003C3AB0Cmp@@QBE_NPBURva003C3AB0Item@@0@Z,,0x003BD3B3,24,Code/Libraries/Source/WWVegas/WWLib/stlport_sort_rva003c3ab0.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
