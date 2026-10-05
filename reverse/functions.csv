@@ -56550,3 +56550,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?Rva003C2BC0Do@@YGXPAVParameter@@0@Z,,0x003C2BC0,104,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C2BC0.cpp,matched,rowed mask eachplayer field94 bfmeCounter ret8
 ?Rva003C2DEADo@@YGXPAVParameter@@0@Z,,0x003C2DEA,119,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C2DEA.cpp,matched,rowed team iterate advance field618 bfmeCounter ret8
 ?Rva003E803DGet@@YG_NPAVParameter@@0@Z,,0x003E803D,157,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditionsRva003E803D.cpp,matched,free stdcall team contains unit test via getTeamNamed getUnitNamed iterate AI sub
+?Rva001F86E3Parse@@YAXPAVINI@@PAX@Z,,0x001F86E3,110,Code/Libraries/Source/WWVegas/WWLib/Rva001F86E3Parse.cpp,matched,INI token lookup FX CategoryModuleClass 05 list store at BC via rva001F43BD
