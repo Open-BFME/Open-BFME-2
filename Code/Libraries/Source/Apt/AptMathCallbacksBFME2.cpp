@@ -190,3 +190,16 @@ AptValue *aptMathMin(void *self, int argc)
     float result = selected->rva006DD460();
     return Rva008A4EA0MakeFloat(result);
 }
+
+// Native 6E86F0..6E8755: select the greater of two checked numeric values,
+// then reconvert it. BFME1 aptMax is the structural donor; retail's x87
+// comparison establishes the selection direction, including unordered cases.
+AptValue *aptMathMax(void *self, int argc)
+{
+    if (argc < 2) return reinterpret_cast<AptValue *>(g_aptUndefinedAtE18078);
+    BfmeAptValue006DCD20 *first = g_aptDateInterpreter.stack.At(0);
+    BfmeAptValue006DCD20 *second = g_aptDateInterpreter.stack.At(1);
+    BfmeAptValue006DCD20 *selected = first->rva006DD460() > second->rva006DD460() ? first : second;
+    float result = selected->rva006DD460();
+    return Rva008A4EA0MakeFloat(result);
+}
