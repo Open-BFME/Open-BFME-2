@@ -172,7 +172,7 @@ struct AptActionInterpreter
     void stackPushIndirect(AptValue *const);
 private:
 #define HANDLER(n) static void _FunctionAptAction##n(AptActionInterpreter *const,LocalContextT *const)
-    HANDLER(GotoFrame); HANDLER(StopDragMovie); HANDLER(Play); HANDLER(Stop); HANDLER(NextFrame); HANDLER(PrevFrame);
+    HANDLER(GotoLabel); HANDLER(GotoFrame); HANDLER(StopDragMovie); HANDLER(Play); HANDLER(Stop); HANDLER(NextFrame); HANDLER(PrevFrame);
     HANDLER(PushFloat); HANDLER(PushByte); HANDLER(PushWord); HANDLER(PushDWord);
     HANDLER(Return); HANDLER(DefineDictionary); HANDLER(PushStringDictByte); HANDLER(PushStringDictWord);
     HANDLER(PushThis); HANDLER(PushGlobal); HANDLER(Push0); HANDLER(Push1);
@@ -1159,7 +1159,9 @@ void AptActionInterpreter::_FunctionAptActionWith(AptActionInterpreter *const p,
 // Play/Stop: opcode6/7 dispatch and original PDB establish handler identity.
 // Later source supplies semantics; PC proves CIH+4C and sprite playing bit25+1C.
 // Keep direct accessor-expression bitfield assignment: a temporary changes MSVC codegen.
-struct AptSpriteInstBase { unsigned char prefix[0x18]; int mnFrame; int mnObjectClipActions:24; unsigned int mbJustLoaded:1; unsigned int mbIsPlaying:1; unsigned int mnIsCustomControl:2; };
+class AptMovie { public: int labelToFrame(const EAStringC *) const; };
+struct AptCharacter { unsigned char prefix[8]; AptMovie movie; };
+struct AptSpriteInstBase { unsigned char prefix[0xC]; AptCharacter *character; unsigned char middle[8]; int mnFrame; int mnObjectClipActions:24; unsigned int mbJustLoaded:1; unsigned int mbIsPlaying:1; unsigned int mnIsCustomControl:2; };
 class AptCIH : public AptValue {
 public:
     unsigned char prefix[0x4C-8];
@@ -1370,3 +1372,20 @@ void AptActionInterpreter::_FunctionAptActionTypeOf(AptActionInterpreter *const 
 
 #pragma comment(linker, "/alternatename:?IsAnimationInst@AptCIH@@QBE_N_N@Z=?rva006CBEE0@BfmeAptValue006DCD20@@QBEH_N@Z")
 
+
+void AptActionInterpreter::_FunctionAptActionGotoLabel(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    c->pInstruction=(const unsigned char *)(((unsigned int)c->pInstruction+3)&~3U);
+    const char *const *data=(const char *const *)c->pInstruction;
+    c->pInstruction+=4;
+    EAStringC label=*data;
+    AptCIH *target;
+    if(c->pCurWith && c->pCurWith->isCIH()) target=c->pCurWith->c_cih();
+    else target=c->pCurrentContext;
+    int frame=target->SpriteBaseInline()->character->movie.labelToFrame(&label)+1;
+    if(frame-1>=0) {
+        target->jumpToFrame(frame-1);
+        target->SpriteBaseInline()->mbIsPlaying=0;
+    }
+}
+#pragma comment(linker, "/alternatename:?labelToFrame@AptMovie@@QBEHPBVEAStringC@@@Z=?bfmeGo1034F@BfmeF1034@@QAEHH@Z")
