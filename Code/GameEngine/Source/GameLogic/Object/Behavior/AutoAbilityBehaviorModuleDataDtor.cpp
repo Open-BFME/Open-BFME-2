@@ -25,13 +25,22 @@ private:
 	void *m_data;
 };
 
+class Rva00360D26Member
+{
+public:
+	~Rva00360D26Member();
+private:
+	unsigned m_unknown;
+};
+
 class AutoAbilityQueryEntry
 {
 public:
 	~AutoAbilityQueryEntry();
 
 private:
-	unsigned char m_data[8];
+	int m_state;
+	Rva00360D26Member m_filter;
 };
 
 class __declspec(novtable) AutoAbilityBehaviorModuleData : public Snapshot
@@ -55,5 +64,12 @@ private:
 };
 
 AutoAbilityBehaviorModuleData::~AutoAbilityBehaviorModuleData()
+{
+}
+
+// Retail 0x0045A226, 8 bytes. The parent's six-element teardown names
+// this destructor; the element ctor independently establishes the filter
+// at +4. Its destructor forwards to the matched pool member destructor.
+AutoAbilityQueryEntry::~AutoAbilityQueryEntry()
 {
 }

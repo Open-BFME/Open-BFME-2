@@ -89,6 +89,14 @@ private:
 	Rva003743CF250 *m_250;
 };
 
+// Retail 0x00438166, 16 bytes. The matched parent passes this callback
+// through f68 with &val. Retail loads *param and calls the already-rowed
+// Object method, with a plain ret establishing __cdecl.
+void __cdecl Rva00438166Callback(Object *obj, const int *param)
+{
+	obj->rva0029130C(*param);
+}
+
 void __stdcall Rva004384F2Free(Object *obj, int val)
 {
 	obj->rva0029130C(val);
@@ -98,5 +106,5 @@ void __stdcall Rva004384F2Free(Object *obj, int val)
 	}
 	Rva003743CF250 *target = *(Rva003743CF250 **)((char *)obj + 0x250);
 	Rva003743CFParam *param = (Rva003743CFParam *)&val;
-	target->f68(0x838166, param, 1);
+	target->f68(reinterpret_cast<int>(&Rva00438166Callback), param, 1);
 }
