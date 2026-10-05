@@ -45,7 +45,7 @@ public:
 };
 class AptCIH;
 struct AptCharacterInst;
-class EAStringC { void *mpData; public: const char *rva00620090() const; int rva006d6070(const char *,int=0); EAStringC(); unsigned int rva006D3750() const; EAStringC(const char *); ~EAStringC(); EAStringC &operator=(const EAStringC &); };
+class EAStringC { void *mpData; public: bool IsEqualTo(const EAStringC *) const; const char *rva00620090() const; int rva006d6070(const char *,int=0); EAStringC(); unsigned int rva006D3750() const; EAStringC(const char *); ~EAStringC(); EAStringC &operator=(const EAStringC &); };
 class AptString : public AptValue { public: static AptString *Create(); EAStringC str; };
 class AptInteger : public AptValue { public: static AptValue *Create(int); int GetInt() const; };
 int Rva006CD220Get();
@@ -149,6 +149,7 @@ private:
     HANDLER(CallFunction); HANDLER(CallMethod);
     HANDLER(CallFuncAndPop); HANDLER(CallFuncSetVar); HANDLER(CallMethodPop); HANDLER(CallMethodSetVar); HANDLER(DictCallFuncPop); HANDLER(DictCallFuncSetVar); HANDLER(DictCallMethodPop); HANDLER(DictCallMethodSetVar);
     HANDLER(ToInteger); HANDLER(StringLength); HANDLER(GetVariable);
+    HANDLER(StringEquals);
     HANDLER(ToNumber); HANDLER(ToString);
     HANDLER(SetVariable); HANDLER(GetMember); HANDLER(SetMember);
     HANDLER(PushStringGetVar); HANDLER(PushStringGetMember); HANDLER(PushStringSetVar); HANDLER(PushStringSetMember);
@@ -802,3 +803,30 @@ void AptActionInterpreter::_FunctionAptActionSetVariable(AptActionInterpreter *c
 
 #pragma comment(linker, "/alternatename:?isFloat@AptValue@@QBE_NXZ=?isFloat@BfmeAptValue006DCD20@@QBEHXZ")
 #pragma comment(linker, "/alternatename:?isString@AptValue@@QBE_NXZ=?isString@BfmeAptValue006DCD20@@QBEHXZ")
+
+// PC equality uses two scoped native strings and retains nResult until the
+// Boolean factory; IsEqualTo is the existing provider for the source equality.
+void AptActionInterpreter::_FunctionAptActionStringEquals(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    AptValue *a=p->stack.At(0);
+    AptValue *b=p->stack.At(1);
+    AptValue *result=0;
+    int nResult=0;
+    if (Rva006CD220Get()==7) {
+        if(a->isUndefined()) ++nResult;
+        if(b->isUndefined()) ++nResult;
+        switch(nResult) {
+        case 1: result=gpUndefinedValue; break;
+        case 2: result=AptBoolean::Create(true); break;
+        }
+    }
+    if(!result) {
+        EAStringC as,bs;
+        a->toString(as);
+        b->toString(bs);
+        if(as.IsEqualTo(&bs)) nResult=1;
+        result=AptBoolean::Create(nResult!=0);
+    }
+    p->stack.Pop(2);
+    p->stack.Push(result);
+}
