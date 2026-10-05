@@ -106,3 +106,27 @@ _io_writeto
 # 0x00176D60/12, but add_match rejects the overlapping matched zero-return tail
 # at 0x00176D69/3 in IntZeroGetters.cpp. Preserve that row; do not re-offer it.
 ?get@Rva00958A20@@QBEHXZ
+
+# GameClient donor audit 2026-10-05: Donor EvaCheckInfo destructor placement rejected: target calls matched deque<8-byte record> destructor 0x54B41C at this+14 whereas donor owns vector<EvaSideSounds>. Two vtable stores and EH are shape matches only; do not pin vector destructor onto deque. Native 54B body remains recoverable.
+??1EvaCheckInfo@@MAE@XZ
+
+# GameClient donor audit 2026-10-05: Donor PhysicsXformInfo constructor name unsupported: native 25B zero-four-floats initializer has no E8/E9 or absolute pointer reference in retail. Exact stores do not prove Drawable nested type.
+??0PhysicsXformInfo@Drawable@@QAE@XZ
+
+# GameClient donor audit 2026-10-05: Donor Rva00593440Record constructor name unsupported: native 21B three-field initializer has no E8/E9 or absolute pointer reference in retail. Exact initializer constants do not tie it to AptPalantir.
+??0Rva00593440Record@@QAE@XZ
+
+# GameClient donor audit 2026-10-05: Donor STL void-pointer uninitialized-fill name unsupported: call-free 21B trivial word fill has no E8/E9 reference; generic word stores do not establish pointer element type.
+??$__uninitialized_fill_n@PAPAXIPAX@_STL@@YAPAPAXPAPAXIABQAXABU__true_type@0@@Z
+
+# GameClient donor audit 2026-10-05: Donor ShellMenuSchemeLine deleting-destructor name unsupported: native 23B conditional delete wrapper has no E8/E9 or absolute pointer reference in retail and no member work identifying its class.
+??_GShellMenuSchemeLine@@QAEPAXI@Z
+
+# GameClient donor audit 2026-10-05: Donor Rva0046CA40Result constructor name unsupported: native 22B float/int initializer has no E8/E9 or absolute pointer reference in retail. No target evidence connects it to WindowManager callback result.
+??0Rva0046CA40Result@@QAE@MH@Z
+
+# GameClient donor audit 2026-10-05: Donor STL void-pointer copy-backward name unsupported: call-free 21B word-copy helper has no E8/E9 reference; generic copying does not establish pointer element type.
+??$__copy_backward_ptrs@PAPAXPAPAX@_STL@@YAPAPAXPAPAX00ABU__true_type@0@@Z
+
+# GameClient donor audit 2026-10-05: Donor ViewLocation init name unsupported: inventory 80B seven-float initializer plus valid byte has no E8/E9 or absolute pointer reference in retail. Donor semantic field names remain unproven.
+?init@ViewLocation@@QAEXMMMMMMM@Z
