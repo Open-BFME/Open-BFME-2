@@ -60882,3 +60882,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva0040CB79@Rva0040CB3AIndexedField@@QBEHPAVRva0040C351@@@Z,,0x0040CB79,63,Code/GameEngine/Source/Common/Rva0040CB3ABinarySearch.cpp,matched,linear index search by Rva0040C351 equality via rowed 0x0040C3BB shares +0x40/+0x44 layout with neighbours
 ?rva00283426@Rva00283426@@QAEXXZ,,0x00283426,23,Code/GameEngine/Source/Common/Rva00283401Insert.cpp,matched,list teardown via just-landed clear plus free abutting Insert
 ?rva0039BCF8@Rva0039BCF8@@QAEPAPAXPAX@Z,,0x0039BCF8,48,Code/GameEngine/Source/Common/Rva0039BCF8Finish.cpp,matched,erase-first vector helper banked 0.96 attempt finished with early-return guard plus while loop
+?rva00363AA8@Path@@QAEHXZ,,0x00363AA8,47,Code/GameEngine/Source/GameLogic/AI/PathRva00363AA8.cpp,matched,Path waypoint scan finished from 0.89 bank with two sequential guard returns
