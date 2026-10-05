@@ -34,6 +34,9 @@ Rva00263895Member::Rva00263895Member() throw()
 {
 }
 
+// ?rva00263895_dummy@Rva00263895Member@@UAEXXZ present-unmatched
+void Rva00263895Member::rva00263895_dummy() {}
+
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
 #pragma comment(linker, "/alternatename:??0AICommandParmsTail@@QAE@XZ=??0Rva00263895Member@@QAE@XZ")
