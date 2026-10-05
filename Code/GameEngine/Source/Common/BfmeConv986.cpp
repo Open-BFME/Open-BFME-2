@@ -1,5 +1,38 @@
 // cl: /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // Open-BFME5 conversions.
+// ?rva003724B8@BfmeC986@@QAEDHHHHH@Z, retail 0x003724B8, 137 bytes.
+// BfmeC986-family guarded dispatch (same callee trio as rowed bfmeGo986C
+// at 0x00372541: bfmeReady986C 0x36E357, bfmePrep986C 0x36D6B4,
+// bfmeSend986C 0x371166): after the ready check, walk the member list at
+// +4 for any entry whose +4 field has +0x78 set (via pinned
+// Object::rva0028AC4E), then prep, a two-arg check (pinned 0x36D3A3), a
+// two-arg step (pinned 0x5494A0) and the five-arg send. Identity of the two
+// middle callees not recovered; address-derived BfmeC986 pins.
+
+struct Rva0028AC4EField
+{
+	char m_pad[0x78];
+	int m_78;
+};
+
+struct Rva0028AC4EEntry
+{
+	char m_pad00[4];
+	Rva0028AC4EField *m_04;
+};
+
+class Object
+{
+public:
+	const Rva0028AC4EEntry *rva0028AC4E() const;
+};
+
+struct ListNode
+{
+	ListNode *m_next;
+	char m_pad04[4];
+	Object *m_obj;
+};
 
 class BfmeC986
 {
@@ -7,7 +40,14 @@ public:
 	void bfmeGo986C(int a, int b, int c, int d);
 	char bfmeReady986C();
 	void bfmePrep986C();
+	char rva0036D3A3(int a, int b);
+	void rva005494A0(int a, int b);
 	void bfmeSend986C(int a, int b, int c, int d, int e);
+	char rva003724B8(int a, int b, int c, int, int e);
+
+private:
+	char m_pad00[4];
+	ListNode *m_head;
 };
 
 void BfmeC986::bfmeGo986C(int a, int b, int c, int d)
@@ -17,4 +57,30 @@ void BfmeC986::bfmeGo986C(int a, int b, int c, int d)
 
 	bfmePrep986C();
 	bfmeSend986C(a, b, 0, c, d);
+}
+
+char BfmeC986::rva003724B8(int a, int b, int c, int, int e)
+{
+	if (bfmeReady986C()) {
+		char any = 0;
+		for (ListNode *node = m_head->m_next; node != m_head; node = node->m_next) {
+			Object *obj = node->m_obj;
+			if (obj == 0)
+				continue;
+			const Rva0028AC4EEntry *entry = obj->rva0028AC4E();
+			if (entry == 0)
+				continue;
+			if (entry->m_04->m_78 == 0)
+				continue;
+			any = 1;
+		}
+		if (!any)
+			return 0;
+		bfmePrep986C();
+		if (!rva0036D3A3(a, b))
+			return 0;
+		rva005494A0(b, c);
+		bfmeSend986C(a, b, c, e, 0);
+	}
+	return 1;
 }
