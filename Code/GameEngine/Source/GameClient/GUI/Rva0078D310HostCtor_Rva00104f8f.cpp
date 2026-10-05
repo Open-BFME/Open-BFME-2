@@ -50,3 +50,12 @@ public:
 Rva000A2670::Rva000A2670(void *context) : Rva0078D310Host(context)
 {
 }
+// ??0Rva000A2137@@QAE@PAX@Z @0x000A2137 24B evidence: base ctor row 0x00104F8F plus vtable g_00BC8FF4; callers 0x0008FAA8 in Rva0008FA81Create and 0x000A2186; LINK BONUS 232B for Rva0008F8EBFactories
+class Rva000A2137 : public Rva0078D310Host
+{
+public:
+	Rva000A2137(void *context);
+};
+Rva000A2137::Rva000A2137(void *context) : Rva0078D310Host(context)
+{
+}
