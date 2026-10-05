@@ -63,3 +63,15 @@ int MpGameSetup::rva0043DD02(int slot)
 	GadgetComboBoxGetSelectedPos(comboBox, &selected);
 	return (int)GadgetComboBoxGetItemData(comboBox, selected);
 }
+
+// Retail 0x0043DC0F, 49 bytes.
+void MpGameSetup::rva0043DC0F()
+{
+	if (m_2c4)
+	{
+		m_2c4 = false;
+		m_owner->v16(false);
+		if (m_owner->v01())
+			m_owner->v15();
+	}
+}
