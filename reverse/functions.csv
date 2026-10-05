@@ -56091,3 +56091,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva006D9500@Rva006D9500@@QAEXH@Z,,0x006D9500,210,Code/Libraries/Source/Apt/AptValue/Rva006D9500Finish.cpp,matched,Apt array reserve: pow2 grow min8 via ChainBlockAllocator; shift zero declared before the early-return count check reproduces retail regalloc (this ebx mem ebp) exact 210B
 ?rva00210EBF@Rva00210EBF@@QAEXXZ,,0x00210EBF,16,Code/GameEngine/Source/Common/Rva00210EBFMethod.cpp,matched,caller 0x00565554 same shape as sibling 0x00210EE1 callee row Rva003F9DB0Erase
 ?rva003F8385@Rva003F81FDProxy@@QAEXXZ,,0x003F8385,17,Code/GameEngine/Source/Common/VslotProxyForwarders.cpp,matched,leaf proxy getter 0x003F81B0 tail-jmp rowed 0x003F8083
+??0Rva000A3307@@QAE@PAX@Z,,0x000A3307,24,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/Gadget/Rva000A3307Ctor.cpp,matched,ctor via base 0x00104F8F vtable 0x00BC90FC callers 0x0008F8D8 0x000A3356

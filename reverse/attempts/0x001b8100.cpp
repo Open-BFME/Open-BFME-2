@@ -1,6 +1,8 @@
 // ?bfmeGo76A0@@YAXHPAHPAXHHH1@Z
-// partial score=0.95 date=2026-09-22
+// partial score=0.97 date=2026-10-05
 // cl: /DNDEBUG /MD /O2
+// ?bfmeGo76A0@@YAXHPAHPAXHHH1@Z
+// ?bfmeGo76A0@@YAXHPAHPAXHHH1@Z present-unmatched
 void __cdecl bfmeGo76A0(
 	int delta, int *table, void *p2, int a, int rows, int columns, void *weights)
 {
@@ -8,6 +10,7 @@ void __cdecl bfmeGo76A0(
 	{
 		const int *coefficient = (const int *)weights;
 		unsigned char *sourcePointer = (unsigned char *)delta;
+		int rowCount = rows;
 		do
 		{
 			int column = 0;
@@ -35,6 +38,6 @@ void __cdecl bfmeGo76A0(
 			sourcePointer = sourcePointer + ((int)p2 - columns);
 			table = table + columns;
 		}
-		while (--rows != 0);
+		while (--rowCount != 0);
 	}
 }
