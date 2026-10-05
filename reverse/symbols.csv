@@ -12608,3 +12608,4 @@ _ceil,0x00629934,CRT ceil thunk identified by native PE import slot 0x00BBA578 a
 ?c_date@AptValue@@QBEPAVAptDate@@XZ,0x006DD160,Native value converter6DD6C0 direct call; original AptValue header504032fc6593aab6 checked-cast signatures and source230e7c503b5dbf7e scalar/name roles; existing byte-verified provider bound by alias; no new layout or virtual slots
 ?GetFloat@AptFloat@@QBEMXZ,0x00723490,Native value converter6DD6C0 direct call; original AptValue header504032fc6593aab6 checked-cast signatures and source230e7c503b5dbf7e scalar/name roles; existing byte-verified provider bound by alias; no new layout or virtual slots
 ?forward@Rva0040E6D6Sub@@QAEXPAH@Z,0x002E01C6,thiscall 1-arg subobject forwarder called by Rva0040E6D6Host::forwardFrom 0x0040E6D6; read from its REL32
+??1Rva0042D4B3@@UAE@XZ,0x00577E3E,virtual dtor called by the scalar deleting dtor 0x0042D4B3; thiscall read from its REL32
