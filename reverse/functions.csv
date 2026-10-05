@@ -61582,3 +61582,4 @@ _Rva00023540,,0x00023540,271,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleF
 ?setOrigin@W3DView@@UAEXHH@Z,,0x00087C55,162,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,matched,BFME1 donor W3DView.cpp setOrigin; vftable slot 1 before View::getOrigin; TheDisplay getWidth/getHeight at vtable 0x40/0x44
 ?setWidth@W3DView@@UAEXH@Z,,0x00087B81,212,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,matched,BFME1 donor W3DView.cpp setWidth; vftable slot 0x38 called by setOrigin; /arch:SSE aspect-ratio divide
 ?setHeight@W3DView@@UAEXH@Z,,0x00087AF4,141,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,matched,BFME1 donor W3DView.cpp setHeight; vftable slot 0x40 called by setOrigin; /arch:SSE aspect-ratio divide
+?setPitch@W3DView@@UAEXM@Z,,0x0008D1DD,59,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,matched,BFME1 donor W3DView.cpp setPitch compiled /O1 /arch:SSE; single masked hit at a W3DView vftable entry

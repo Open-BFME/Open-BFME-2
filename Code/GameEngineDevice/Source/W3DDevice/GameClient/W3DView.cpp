@@ -19,6 +19,12 @@
 // getHeight are vtable slots 0x40 and 0x44, not 0x2C and 0x30, and the unit is
 // built /arch:SSE, which the int-to-float conversions in setHeight and
 // setWidth show (cvtsi2ss/divss) while the unsigned display sizes stay x87.
+//
+// setPitch (0x0008D1DD), screenToWorldAtZ (0x0008A0E5) and Add_Camera_Shake
+// (0x000875F2) were found by compiling the whole donor unit with these flags
+// and searching its bodies in game.dat: each places once, at a W3DView vftable
+// entry. Their callees setCameraTransform, getPickRay and
+// CameraShakeSystemClass::Add_Camera_Shake are pinned from those call sites.
 #define Matrix4x4 Matrix4  // BFME renamed it
 /*
 **	Command & Conquer Generals Zero Hour(tm)
@@ -387,6 +393,22 @@ void W3DView::setOrigin( Int x, Int y)
 
 	view->setWidth(fields->m_width);
 	view->setHeight(fields->m_height);
+}
+
+//-------------------------------------------------------------------------------------------------
+/** Rotate the view around the horizontal (X) axis to the given angle. */
+//-------------------------------------------------------------------------------------------------
+void W3DView::setPitch( Real angle )
+{
+	View::setPitch( angle );
+
+	unsigned char *view_bytes = reinterpret_cast<unsigned char *>(this);
+	view_bytes[0x1DC] = 0;
+	view_bytes[0x204] = 0;
+	view_bytes[0x27C] = 0;
+	view_bytes[0x228] = 0;
+	view_bytes[0x27D] = 0;
+	setCameraTransform();
 }
 
 //-------------------------------------------------------------------------------------------------
