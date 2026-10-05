@@ -575,11 +575,8 @@ int WW3D::Get_Render_Device(void)
  *   3/26/98    GTH : Created.                                                                 *
  *   1/25/2001  gth : converted to dx8                                                         *
  *=============================================================================================*/
-// ?Get_Render_Device_Desc@WW3D@@ present-unmatched
-const RenderDeviceDescClass & WW3D::Get_Render_Device_Desc(int deviceidx)
-{
-	return DX8Wrapper::Get_Render_Device_Desc(deviceidx);
-}
+// Byte-exact device query is in WW3DDeviceQueries.cpp.
+
 
 
 
