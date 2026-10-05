@@ -9790,3 +9790,4 @@ FUN_004e1f42	0x000E1F42	413	blocked	same esp wall as 0x000E67E3 family plus func
 ?rva004F31B6@AIPlayer@@QAEHXZ	0x004F31B6	519	blocked	519B AIPlayer science purchase needs full SkillSet plus EH string concat plus random shape t=30 model=muse-03
 ??0Rva00573E7C@@QAE@XZ	0x00573E7C	60	partial	ands at 58-5C hoisted before vptr-movss vs retail late after 48 plus vtable DIR32 0 vs C6E2C8 t=18 model=muse-04 score=0.9 stash=reverse/attempts/0x00573e7c.cpp
 ?Rva00573512Check@@YGHPAUThing@@PAX@Z	0x00573512	180	partial	ecx-vs-eax for 0x10000000 ors (2 ModRM bytes) plus g DIR32 gate-filled t=25 model=muse-04 score=0.98 stash=reverse/attempts/0x00573512.cpp
+?rva0057F5ED@AptMpClans@@QAEXXZ	0x0057F5ED	447	blocked	register wall game-this swap plus color sbb shape and EH temps t=30 model=muse-10
