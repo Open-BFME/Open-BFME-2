@@ -1,5 +1,5 @@
 // _VP6_ConfigureMvEntropyDecoder
-// partial score=0.852 date=2026-10-05
+// partial score=0.8727 date=2026-10-05
 // _VP6_ConfigureMvEntropyDecoder
 // cl: /O2 /MD
 // VP6 motion-model updates: target 0x001C6EF0..0x001C703A (331 bytes).
@@ -47,9 +47,9 @@ extern "C" void VP6_ConfigureMvEntropyDecoder(MvPB *pbi,unsigned char frameType)
         }
     }
     for(i=0;i<2;++i) {
-        p=VP6_MvUpdateProbs[i]+9;
+        p=VP6_MvUpdateProbs[i]+8;
         for(j=0;j<8;++j) {
-            if(Rva009B4600DecodeBool(pbi->br,*p++)) {
+            if(Rva009B4600DecodeBool(pbi->br,*++p)) {
                 pbi->MvSizeProbs[i][j]=(unsigned char)(bfmeGoUSC(pbi->br,7)<<1);
                 if(!pbi->MvSizeProbs[i][j]) pbi->MvSizeProbs[i][j]=1;
             }
