@@ -16,7 +16,7 @@
 struct Rva003F64B2Input {char pad[0x34];int key;};
 struct Rva003F64B2Element {
  char consumed[48];
- Rva003F64B2Element(int);
+ Rva003F64B2Element(int); Rva003F64B2Element(int,const void*);
  ~Rva003F64B2Element();
 };
 namespace _STL {
@@ -27,7 +27,7 @@ struct Rva003F64B2Outer {
  int key;
  _STL::vector<Rva003F64B2Element> elements;
  _STL::vector<int> words;
- Rva003F64B2Outer(Rva003F64B2Input*);
+ Rva003F64B2Outer(Rva003F64B2Input*); Rva003F64B2Outer(Rva003F64B2Input*,const void*);
 };
 Rva003F64B2Outer::Rva003F64B2Outer(Rva003F64B2Input *p)
  :key(p->key),elements(_STL::allocator<Rva003F64B2Element>()),words(_STL::allocator<int>()) {
@@ -44,3 +44,16 @@ Rva003F64B2Outer::Rva003F64B2Outer(Rva003F64B2Input *p)
 #pragma comment(linker, "/alternatename:?push_back@?$vector@URva003F64B2Element@@V?$allocator@URva003F64B2Element@@@_STL@@@_STL@@QAEXABURva003F64B2Element@@@Z=?push_back@?$vector@UBfmePod48@@V?$allocator@UBfmePod48@@@_STL@@@_STL@@QAEXABUBfmePod48@@@Z")
 
 #pragma comment(linker, "/alternatename:?reserve@?$vector@URva003F64B2Element@@V?$allocator@URva003F64B2Element@@@_STL@@@_STL@@QAEXI@Z=?reserve@?$vector@URva003F610FElement@@V?$allocator@URva003F610FElement@@@_STL@@@_STL@@QAEXI@Z")
+
+// Target Ghidra [3F652E,3F65AD),127B; RET8. Same target outer28B
+// construction as3F64B2 but forwards the second argument unchanged to
+// full142B inner constructor3F5970. That provider is separately verified;
+// its ModuleData spelling is a linker identity rather than an assertion
+// about the original application payload type at this caller.
+Rva003F64B2Outer::Rva003F64B2Outer(Rva003F64B2Input *p,const void *payload)
+ :key(p->key),elements(_STL::allocator<Rva003F64B2Element>()),words(_STL::allocator<int>()) {
+ elements.reserve(6);
+ elements.push_back(Rva003F64B2Element(reinterpret_cast<int>(p),payload));
+}
+
+#pragma comment(linker, "/alternatename:??0Rva003F64B2Element@@QAE@HPBX@Z=??0Rva003F5970@@QAE@HPBVModuleData@@@Z")
