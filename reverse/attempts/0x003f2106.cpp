@@ -1,6 +1,8 @@
 // ?rva003F2106@Rva003F2106@@QAEXXZ
 // partial score=0.82 date=2026-10-05
 // ?rva003F2106@Rva003F2106@@QAEXXZ
+// partial score=0.82 date=2026-10-05
+// ?rva003F2106@Rva003F2106@@QAEXXZ
 // cl: /O1 /DNDEBUG /MD /GX-
 // ?rva003F2106@Rva003F2106@@QAEXXZ @0x003F2106 74B:
 // __thiscall clearer over the void* vector at +0x170: for each element,
