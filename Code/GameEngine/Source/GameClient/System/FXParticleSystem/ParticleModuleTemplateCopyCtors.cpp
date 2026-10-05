@@ -36,7 +36,8 @@ public:
 
 }
 
-extern "C" char Rva003AF184_v0a;
+// Rva003AF184_v0a: matched references place it at VA 0xc1c84c (retail .rdata value 60).
+extern "C" char Rva003AF184_v0a = 60;
 extern "C" char Rva003AF184_v14a;
 // Rva003AF184_vsub: matched references place it at VA 0xc1c874 (retail .rdata value -17).
 extern "C" char Rva003AF184_vsub = -17;
@@ -44,7 +45,6 @@ extern "C" char Rva003AF184_vsub = -17;
 extern "C" char Rva003AF184_v0b = -43;
 extern "C" char Rva003AF184_v14b;
 
-extern "C" char Rva003AF22E_v0a;
 extern "C" char Rva003AF22E_v14a;
 // Rva003AF22E_vsub: matched references place it at VA 0xc1c898 (retail .rdata value -17).
 extern "C" char Rva003AF22E_vsub = -17;
@@ -52,16 +52,14 @@ extern "C" char Rva003AF22E_vsub = -17;
 extern "C" char Rva003AF22E_v0b = -43;
 extern "C" char Rva003AF22E_v14b;
 
-extern "C" char Rva003AF34F_v0a;
 extern "C" char Rva003AF34F_v14a;
-extern "C" char Rva003AF34F_vsub;
+// Rva003AF34F_vsub: matched references place it at VA 0xc1c8cc (retail .rdata value -17).
+extern "C" char Rva003AF34F_vsub = -17;
 // Rva003AF34F_v0b: matched references place it at VA 0xc1c8b8 (retail .rdata value -43).
 extern "C" char Rva003AF34F_v0b = -43;
 extern "C" char Rva003AF34F_v14b;
 
-extern "C" char Rva003AF3F9_v0a;
 extern "C" char Rva003AF3F9_v14a;
-extern "C" char Rva003AF3F9_vsub;
 // Rva003AF3F9_v0b: matched references place it at VA 0xc1c8dc (retail .rdata value -43).
 extern "C" char Rva003AF3F9_v0b = -43;
 extern "C" char Rva003AF3F9_v14b;
@@ -115,7 +113,7 @@ Rva003AF22E::Rva003AF22E(const Rva003AF22E &that)
 	const void *sub_src = src ? (const char *)src + 0x18 : 0;
 	FXParticleSystem::SphericalEmissionVelocityInfo *sub =
 		(FXParticleSystem::SphericalEmissionVelocityInfo *)((char *)this + 0x18);
-	*(void **)this = &Rva003AF22E_v0a;
+	*(void **)this = &Rva003AF184_v0a;
 	*(void **)((char *)this + 0x14) = &Rva003AF22E_v14a;
 	sub->SphericalEmissionVelocityInfo::SphericalEmissionVelocityInfo(
 		*(const FXParticleSystem::SphericalEmissionVelocityInfo *)sub_src);
@@ -144,7 +142,7 @@ Rva003AF34F::Rva003AF34F(const Rva003AF34F &that)
 	const void *sub_src = src ? (const char *)src + 0x18 : 0;
 	FXParticleSystem::CylindricalEmissionVelocityInfo *sub =
 		(FXParticleSystem::CylindricalEmissionVelocityInfo *)((char *)this + 0x18);
-	*(void **)this = &Rva003AF34F_v0a;
+	*(void **)this = &Rva003AF184_v0a;
 	*(void **)((char *)this + 0x14) = &Rva003AF34F_v14a;
 	sub->CylindricalEmissionVelocityInfo::CylindricalEmissionVelocityInfo(
 		*(const FXParticleSystem::CylindricalEmissionVelocityInfo *)sub_src);
@@ -173,11 +171,11 @@ Rva003AF3F9::Rva003AF3F9(const Rva003AF3F9 &that)
 	const void *sub_src = src ? (const char *)src + 0x18 : 0;
 	FXParticleSystem::CylindricalEmissionVelocityInfo *sub =
 		(FXParticleSystem::CylindricalEmissionVelocityInfo *)((char *)this + 0x18);
-	*(void **)this = &Rva003AF3F9_v0a;
+	*(void **)this = &Rva003AF184_v0a;
 	*(void **)((char *)this + 0x14) = &Rva003AF3F9_v14a;
 	sub->CylindricalEmissionVelocityInfo::CylindricalEmissionVelocityInfo(
 		*(const FXParticleSystem::CylindricalEmissionVelocityInfo *)sub_src);
-	*(void **)sub = &Rva003AF3F9_vsub;
+	*(void **)sub = &Rva003AF34F_vsub;
 	*(void **)this = &Rva003AF3F9_v0b;
 	*(void **)((char *)this + 0x14) = &Rva003AF3F9_v14b;
 }
@@ -207,7 +205,8 @@ Rva003AF15E::Rva003AF15E(const Rva003AF15E &that)
 extern "C" char Rva003AF208_v0 = 87;
 // Rva003AF208_v14: matched references place it at VA 0xc1c01c (retail .rdata value -59).
 extern "C" char Rva003AF208_v14 = -59;
-extern "C" char Rva003AF208_v18;
+// Rva003AF208_v18: matched references place it at VA 0xc1c8a8 (retail .rdata value 67).
+extern "C" char Rva003AF208_v18 = 67;
 
 class Rva003AF208 : public Rva003AF22E
 {
@@ -226,7 +225,6 @@ Rva003AF208::Rva003AF208(const Rva003AF208 &that)
 // Rva003AF2CC_v0: matched references place it at VA 0xc1cae8 (retail .rdata value 87).
 extern "C" char Rva003AF2CC_v0 = 87;
 extern "C" char Rva003AF2CC_v14;
-extern "C" char Rva003AF2CC_v18;
 
 class Rva003AF2CC : public Rva003AF22E
 {
@@ -239,7 +237,7 @@ Rva003AF2CC::Rva003AF2CC(const Rva003AF2CC &that)
 {
 	*(void **)this = &Rva003AF2CC_v0;
 	*(void **)((char *)this + 0x14) = &Rva003AF2CC_v14;
-	*(void **)((char *)this + 0x18) = &Rva003AF2CC_v18;
+	*(void **)((char *)this + 0x18) = &Rva003AF208_v18;
 }
 
 // g_00C1CFD4: matched references place it at VA 0xc1cfd4 (retail .rdata value 87).
