@@ -28,6 +28,7 @@ class Rva00077710Value
 public:
 	bool operator!=(const Rva00077710Value &other) const;
 	Rva00077710Value operator+(const Rva00077710Value &other) const;
+	Rva00077710Value &operator+=(const Rva00077710Value &other);
 
 private:
 	Rva00077710Value(Int value) { m_value = value; }
@@ -50,4 +51,10 @@ Rva00077710Value Rva00077710Value::operator+(const Rva00077710Value &other) cons
 	Int lhs = m_value;
 
 	return Rva00077710Value(Rva0022CBB5Hook(lhs, rhs));
+}
+
+Rva00077710Value &Rva00077710Value::operator+=(const Rva00077710Value &other)
+{
+	m_value = (*this + other).m_value;
+	return *this;
 }
