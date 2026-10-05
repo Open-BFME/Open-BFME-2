@@ -55888,3 +55888,4 @@ ___Extract_locale_name,,0x000216A0,153,Code/Libraries/Source/WWVegas/WWLib/Local
 ??0Rva0009FD78@@QAE@PAX@Z,,0x0009FD60,24,Code/GameEngine/Source/Common/Rva0009FD78Ctor.cpp,matched,ctor via base 0x00104F8F vtable 0x007C8C54 slot5 dispatch
 ??0Rva0009FDBD@@QAE@PAX@Z,,0x0009FDBD,24,Code/GameEngine/Source/Common/Rva0009FDBDCtor.cpp,matched,ctor via base 0x0009FD60 vtable 0x007C8C80 caller 0x0008F986
 ?rva005EB87A@Rva005EB87A@@QAE_NXZ,,0x005EB87A,21,Code/GameEngine/Source/Common/Rva005EB87APred.cpp,matched,predicate field08 neither 0 nor 4 via callers 0x005CFFE8 0x005CFF0F 0x005D1129
+?rva002627E8@Rva002627E8@@QBEMXZ,,0x002627E8,28,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_rva002627E8.cpp,matched,float getter via 0x001E46E1 pinned plus BfmeZeroRange null path
