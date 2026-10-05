@@ -14,10 +14,10 @@
 //
 // Independently established anchors (read from game.dat + primary ledger):
 // - List +0x74 is NOT AsciiString. Native ctor 0xC6A4D leas ecx=[esi+0x74] and
-//   calls 0xB92D2; primary row 14601 proves 0xB92D2 is
+//   calls 0xB92D2; the primary ledger at RVA 0xB92D2 proves it is
 //   ??0?$_List_base@UBfmePod32@@... (List_base<Pod32> 41B, node 0x28 = 8B links
 //   + 32B payload). Native copy 0xC6B17 leas ecx=[esi+0x74] and calls 0xBDA52;
-//   primary row 38377 proves 0xBDA52 is list<Pod32> copy 88B. A 4B AsciiString
+//   the primary ledger at RVA 0xBDA52 proves it is list<Pod32> copy 88B. A 4B AsciiString
 //   node would be 12B, not 40B. Retail dtor calls 0x239D49 (E8 at 0xC6D61) and
 //   0x2FECBC (E8 at 0xC6DE3); those rowed AsciiString clear/dtor bodies are a
 //   compatible opaque-proxy ABI (node-front cleanup + header free), not proof
@@ -26,8 +26,8 @@
 // - Array +0xAC is NOT basic_string. Native copy 0xC6B17 builds six 12B slots
 //   (ehvec ctor 0x629512 size 0xC count 6 ctor-cb 0x656646 dtor-cb 0x47FAB3)
 //   then loops 6 times: ecx=current slot (ebx from esi+0xAC step 0xC),
-//   arg=corresponding source slot (edi+ebx), calls 0xBC3C4, dec 6. Primary row
-//   16894 proves 0xBC3C4 is vector<BfmeFixedObject60>::operator= 209B (divides
+//   arg=corresponding source slot (edi+ebx), calls 0xBC3C4, dec 6. The primary ledger
+//   at RVA 0xBC3C4 proves it is vector<BfmeFixedObject60>::operator= 209B (divides
 //   ranges/capacity by 0x3C). Each 12B slot is therefore a three-pointer
 //   vector-like object, original element name unknown. Retail dtor ehvec
 //   0x629110 (size 0xC count 6 callback VA 0x47FAB3) is modelled as six opaque
