@@ -14521,3 +14521,17 @@ _rva006F98C0Call,0x006F98C0,retail call at 0x006F9B84 supplies EAX ECX and two s
 ?resize@?$vector@URva00150CD0Entry@@V?$allocator@URva00150CD0Entry@@@_STL@@@_STL@@QAEXI@Z,0x00150C22,address-scoped resize wrapper; target REL32 from grow 0x00150CD0; no application identity inferred
 ?resize@?$vector@URva00150D09Entry@@V?$allocator@URva00150D09Entry@@@_STL@@@_STL@@QAEXI@Z,0x00150C4B,address-scoped resize wrapper; target REL32 from grow 0x00150D09; no application identity inferred
 ?resize@?$vector@URva00150D42Entry@@V?$allocator@URva00150D42Entry@@@_STL@@@_STL@@QAEXI@Z,0x00150C74,address-scoped resize wrapper; target REL32 from grow 0x00150D42; no application identity inferred
+?resize@Rva00150BF9Vector@@QAEXIURva00150C97Entry@@@Z,0x00150A8B,by-value resize callee decoded from native wrapper 0x00150BF9; entry index+4 set by adjacent grow
+?resize@Rva00150C22Vector@@QAEXIURva00150CD0Entry@@@Z,0x00150AE1,by-value resize callee decoded from native wrapper 0x00150C22; entry index+4 set by adjacent grow
+?resize@Rva00150C4BVector@@QAEXIURva00150D09Entry@@@Z,0x00150B37,by-value resize callee decoded from native wrapper 0x00150C4B; entry index+4 set by adjacent grow
+??0Rva00150D42Entry@@QAE@XZ,0x0014DB9F,native REL32 in resize wrapper 00150C74 or body 00150B8D; opaque 76B ABI view
+??1Rva00150D42Entry@@QAE@XZ,0x0014D1E3,native REL32 in resize wrapper 00150C74 or body 00150B8D; opaque 76B ABI view
+?resize@Rva00150C74Vector@@QAEXIURva00150D42Entry@@@Z,0x00150B8D,native REL32 in resize wrapper 00150C74 or body 00150B8D; opaque 76B ABI view
+?erase@?$vector@URva00150D42Entry@@V?$allocator@URva00150D42Entry@@@_STL@@@_STL@@QAEPAURva00150D42Entry@@PAU3@0@Z,0x0015068C,native REL32 in resize wrapper 00150C74 or body 00150B8D; opaque 76B ABI view
+?_M_fill_insert@?$vector@URva00150D42Entry@@V?$allocator@URva00150D42Entry@@@_STL@@@_STL@@QAEXPAURva00150D42Entry@@IABU3@@Z,0x00150959,native REL32 in resize wrapper 00150C74 or body 00150B8D; opaque 76B ABI view
+?erase@?$vector@URva00150C97Entry@@V?$allocator@URva00150C97Entry@@@_STL@@@_STL@@QAEPAURva00150C97Entry@@PAU3@0@Z,0x00150659,native REL32 in resize 00150A8B; 8B opaque indexed entry ABI
+?_M_fill_insert@?$vector@URva00150C97Entry@@V?$allocator@URva00150C97Entry@@@_STL@@@_STL@@QAEXPAURva00150C97Entry@@IABU3@@Z,0x001506BF,native REL32 in resize 00150A8B; 8B opaque indexed entry ABI
+?erase@?$vector@URva00150CD0Entry@@V?$allocator@URva00150CD0Entry@@@_STL@@@_STL@@QAEPAURva00150CD0Entry@@PAU3@0@Z,0x00150659,native REL32 in resize 00150AE1; 8B opaque indexed entry ABI
+?_M_fill_insert@?$vector@URva00150CD0Entry@@V?$allocator@URva00150CD0Entry@@@_STL@@@_STL@@QAEXPAURva00150CD0Entry@@IABU3@@Z,0x0015079D,native REL32 in resize 00150AE1; 8B opaque indexed entry ABI
+?erase@?$vector@URva00150D09Entry@@V?$allocator@URva00150D09Entry@@@_STL@@@_STL@@QAEPAURva00150D09Entry@@PAU3@0@Z,0x00150659,native REL32 in resize 00150B37; 8B opaque indexed entry ABI
+?_M_fill_insert@?$vector@URva00150D09Entry@@V?$allocator@URva00150D09Entry@@@_STL@@@_STL@@QAEXPAURva00150D09Entry@@IABU3@@Z,0x0015087B,native REL32 in resize 00150B37; 8B opaque indexed entry ABI
