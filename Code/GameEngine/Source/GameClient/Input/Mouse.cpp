@@ -710,15 +710,58 @@ void Mouse::mouseNotifyResolutionChange( void )
 //-------------------------------------------------------------------------------------------------
 /** Reset mouse system */
 //-------------------------------------------------------------------------------------------------
-// ?reset@Mouse@@ present-unmatched
+// TU-local DisplayStringManager view: retail reaches newDisplayString through
+// slot 0x38 (see rowed Rva0029B816Ctor), not the shared header's slot 0x18.
+class MouseResetDisplayStringManager
+{
+public:
+	virtual void mrs00(); virtual void mrs01(); virtual void mrs02(); virtual void mrs03();
+	virtual void mrs04(); virtual void mrs05(); virtual void mrs06(); virtual void mrs07();
+	virtual void mrs08(); virtual void mrs09(); virtual void mrs10(); virtual void mrs11();
+	virtual void mrs12(); virtual void mrs13();
+	virtual DisplayString *newDisplayString();
+};
 void Mouse::reset( void )
 {
-
-	///@ todo Write Mouse::reset() if there needs to be anything here
-
-	// reset the text of the cursor text
-  if ( m_cursorTextDisplayString )
-  	m_cursorTextDisplayString->reset();
+	// Retail 0x001EE4DC, 226 bytes: BFME2-specific reset, far beyond ZH's
+	// cursor-text stub. Target facts: TheGlobalData (0xDFE758) +0x9C6 gate
+	// zeroes +0x12DC; StringBase<G> releaseBuffer 0x00036E70 on the wide
+	// strings at +0x12FC and +0x1300 (UnicodeString::clear, public inline);
+	// flag bytes +0x12F4/5 = 2, +0x12F6/+0x1308 = 0; timeGetTime (winmm IAT
+	// 0xBBA918) into +0x4FD8; memset +0x130C/0x3C00, +0x4F0C/0x3C,
+	// +0x4F48/0x3C; limit words +0x4F84 = 0, +0x4F88 = 799, +0x4F8C = 0,
+	// +0x4F90 = 599 (setMouseLimits precedent); +0x4F94/98/9C/FC = 0,
+	// +0x4FA4 = 2; DisplayStringManager slot 0x38 newDisplayString into
+	// +0x4FA8 (same expression as init). Raw members below the mouselayout
+	// shim's view, punned per setMouseLimits/resetTooltipDelay precedent.
+	char *self = reinterpret_cast<char *>(this);
+	if (TheGlobalData && *(reinterpret_cast<Bool *>(reinterpret_cast<char *>(const_cast<GlobalData *>(TheGlobalData)) + 0x9C6)))
+		*reinterpret_cast<Int *>(self + 0x12DC) = 0;
+	UnicodeString *strA = reinterpret_cast<UnicodeString *>(self + 0x12FC);
+	*(self + 0x12F4) = 2;
+	*(self + 0x12F5) = 2;
+	*(self + 0x12F6) = 0;
+	*(self + 0x1308) = 0;
+	strA->clear();
+	reinterpret_cast<UnicodeString *>(self + 0x1300)->clear();
+	*reinterpret_cast<UnsignedInt *>(self + 0x4FD8) = timeGetTime();
+	memset(self + 0x130C, 0, 0x3C00);
+	memset(self + 0x4F0C, 0, 0x3C);
+	memset(self + 0x4F48, 0, 0x3C);
+	*reinterpret_cast<Int *>(self + 0x4F84) = 0;
+	*reinterpret_cast<Int *>(self + 0x4F88) = 799;
+	*reinterpret_cast<Int *>(self + 0x4F8C) = 0;
+	*reinterpret_cast<Int *>(self + 0x4F90) = 599;
+	*reinterpret_cast<Int *>(self + 0x4F94) = 0;
+	*reinterpret_cast<Int *>(self + 0x4F98) = 0;
+	*(self + 0x4F9C) = 0;
+	*reinterpret_cast<Int *>(self + 0x4FFC) = 0;
+	*reinterpret_cast<Int *>(self + 0x4FA4) = 2;
+	// The shared DisplayStringManager header places newDisplayString at slot
+	// 0x18, but retail calls slot 0x38 here (and in rowed Rva0029B816Ctor).
+	// TU-local view with the proven 14-stub prefix; same pattern as that TU.
+	*reinterpret_cast<DisplayString **>(self + 0x4FA8) =
+		reinterpret_cast<MouseResetDisplayStringManager *>(TheDisplayStringManager)->newDisplayString();
 
 }  // end reset
 
