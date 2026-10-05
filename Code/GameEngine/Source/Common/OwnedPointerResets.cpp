@@ -1511,3 +1511,24 @@ void Rva0042D766::reset(Rva00578C43 *p)
 		}
 	}
 }
+
+class Rva002D38EB
+{
+public:
+	Rva00527CCE *m_ptr;
+	void reset(Rva00527CCE *p);
+};
+
+void Rva002D38EB::reset(Rva00527CCE *p)
+{
+	if (p != m_ptr)
+	{
+		Rva00527CCE *old = m_ptr;
+		m_ptr = p;
+		if (old)
+		{
+			old->Rva00527CCE::~Rva00527CCE();
+			::operator delete(old);
+		}
+	}
+}
