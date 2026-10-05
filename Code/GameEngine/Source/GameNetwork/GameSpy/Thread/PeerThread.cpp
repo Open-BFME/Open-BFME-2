@@ -2691,7 +2691,10 @@ void getRoomKeysCallback(PEER peer, PEERBool success, RoomType roomType, const c
 	getPlayerInfo(t, peer, nick, resp.player.profileID, resp.player.IP,
 		resp.locale, resp.player.wins, resp.player.losses,
 		resp.player.rankPoints, resp.player.side, resp.player.preorder,
-		resp.player.roomType, resp.player.flags);
+		resp.player.roomType, resp.player.flags,
+		reinterpret_cast<Int &>(resp.unknown_payload[140]),
+		reinterpret_cast<Int &>(resp.unknown_payload[141]),
+		reinterpret_cast<Int &>(resp.unknown_payload[142]));
 	TheGameSpyPeerMessageQueue->addResponse(resp);
 }
 #endif // USE_BROADCAST_KEYS
