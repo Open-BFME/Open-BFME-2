@@ -12610,3 +12610,5 @@ _ceil,0x00629934,CRT ceil thunk identified by native PE import slot 0x00BBA578 a
 ?forward@Rva0040E6D6Sub@@QAEXPAH@Z,0x002E01C6,thiscall 1-arg subobject forwarder called by Rva0040E6D6Host::forwardFrom 0x0040E6D6; read from its REL32
 ??1Rva0042D4B3@@UAE@XZ,0x00577E3E,virtual dtor called by the scalar deleting dtor 0x0042D4B3; thiscall read from its REL32
 ?rva0040F497@@YGXHHH@Z,0x0040F497,3-zero-arg helper called by BfmeY1038::rva0040F7E5 0x0040F7E5; retail callee cleans 12 (stdcall) but the caller bytes only need the address
+?rva0060E873@@YAHHHPAH@Z,0x0020E873,3-arg cdecl compare helper forwarding to 0x009250A5; callee of Rva0040D82FHost::setFrom 0x0040D82F
+?set@Rva0040D82FSub@@QAEHH@Z,0x0025BF5D,thiscall setter on the +0x14 subobject; callee of Rva0040D82FHost::setFrom 0x0040D82F read from its REL32
