@@ -6,7 +6,7 @@ class Rva00507823
 {
 public:
 	Rva00507823();
-	virtual void __pad();
+	virtual ~Rva00507823();
 private:
 	char m_pad[0x128 - 4];
 };
