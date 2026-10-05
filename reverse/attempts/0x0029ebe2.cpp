@@ -1,4 +1,6 @@
 // ?createMouseoverHint@InGameUI@@UAEXPBVGameMessage@@@Z
+// partial score=0.99 date=2026-10-05
+// ?createMouseoverHint@InGameUI@@UAEXPBVGameMessage@@@Z
 // partial score=0.98 date=2026-10-02
 // cl: /O1 /arch:SSE /EHsc /MD /DNDEBUG /DWIN32 /D_WINDOWS
 // Unmatched reconstruction; 1899 compiled bytes versus 1901 retail bytes.
@@ -16,14 +18,14 @@
 // hypotheses: they remove extra exception states and a Boolean spill.
 // They do not establish the original source spelling or declaration.
 //
-// Remaining mismatch: before UTF16 format at native VA 0x0069F003, retail
-// selects the player-name pointer in EAX using add/jump; this body selects
-// it in EDX using LEA and an inverted branch. The body is two bytes shorter,
-// shifting later instruction addresses and branch displacements. After
-// branch-destination normalization the other instruction regions align;
-// that comparison is diagnostic and is not a byte-match claim.
-// Local diagnostic resolved the relocation sites using the addresses below.
-// These are observed destinations with candidate names, not repository pins.
+// Remaining verification gap (wave3 l12, 2026-10-05): this body compiles to
+// the 1901-byte target extent, and the player-name fallback at native VA
+// 0x0069F003 now emits the target add/jump sequence in EAX. The side-by-side
+// disassembly has no non-relocation instruction differences. Sixteen direct
+// REL32 callees remain unresolved by the current symbol map, so their exact
+// call operands are unproved. Names below are donor-semantic or structural
+// leads, not target identity facts; check callee identity and placement before
+// adding any pins or landing this body.
 // The SEH handler and record vtable addresses are diagnostic mappings; their
 // generated metadata and whole-program linkage have not been verified.
 // Score 0.98 estimates reconstruction readiness, not byte equality.
@@ -146,7 +148,7 @@ class UnicodeString {
  ~UnicodeString() { ((StringBase<wchar_t>*)this)->releaseBuffer(); }
  UnicodeString& operator=(const UnicodeString& that) { ((StringBase<wchar_t>*)this)->set(*(const StringBase<wchar_t>*)&that); return *this; }
  bool isEmpty() const { return !m_buffer || m_buffer->length==0; }
- const wchar_t* str() const { static const wchar_t TheNullChr=0;return m_buffer?m_buffer->data:&TheNullChr; }
+ const wchar_t* str() const { static const wchar_t TheNullChr=0; const wchar_t *result=(const wchar_t*)m_buffer; if (result) result=(const wchar_t*)((const char*)result+8); else result=&TheNullChr; return result; }
  void concat(const UnicodeString& that) { ((StringBase<wchar_t>*)this)->concat(*(const StringBase<wchar_t>*)&that); }
  int compare(const UnicodeString& that) const { return ((const StringBase<wchar_t>*)this)->compare(*(const StringBase<wchar_t>*)&that); }
  void __cdecl format(const wchar_t*,...);

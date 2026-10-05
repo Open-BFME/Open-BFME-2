@@ -1,4 +1,6 @@
 // ?rva005A6DAC@Rva005A6DAC@@QAE_NIGPAH@Z
+// partial score=0.97 date=2026-10-05
+// ?rva005A6DAC@Rva005A6DAC@@QAE_NIGPAH@Z
 // partial score=0.97 date=2026-10-04
 // cl: /O1 /DNDEBUG /MD /EHsc
 // ?rva005A6DAC@Rva005A6DAC@@QAE_NIGPAH@Z @0x005A6DAC 206B: Transport slot binder with 1s UDP Bind retry

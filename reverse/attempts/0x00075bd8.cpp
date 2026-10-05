@@ -1,6 +1,8 @@
 // ?startRenderToTexture@W3DShaderManager@@SAXXZ
 // partial score=0.99 date=2026-10-05
 // ?startRenderToTexture@W3DShaderManager@@SAXXZ
+// partial score=0.99 date=2026-10-05
+// ?startRenderToTexture@W3DShaderManager@@SAXXZ
 // cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /O1 /arch:SSE /G7
 // ?startRenderToTexture@W3DShaderManager@@SAXXZ retail 0x00075BD8 (378B).
 // Ported from Open-BFME-1 Code/GameEngineDevice/Source/W3DDevice/GameClient/
@@ -119,7 +121,7 @@ public:
 	static void Set_DX8_Render_State(unsigned long state, unsigned value);
 	static void Set_Shader(const ShaderClass &shader);
 	static void Clear(bool clearColor, bool clearDepth, bool clearStencil, const Vector3 &color, float alpha, float z, unsigned stencil);
-	static bool m_inSetMaterial;
+	static unsigned char m_inSetMaterial;
 	static IDirect3DDevice8 *D3DDevice;
 	static VertexMaterialClass *m_material;
 };
@@ -134,9 +136,21 @@ public:
 	static FilterTypes m_currentFilter;
 };
 
+union RenderTargetTemp
+{
+	Vector2 vector2;
+	Vector3 vector3;
+	struct
+	{
+		char m_pad[8];
+		ShaderClass shader;
+	} shaderHome;
+};
+
 // ?startRenderToTexture@W3DShaderManager@@SAXXZ present-unmatched
 void W3DShaderManager::startRenderToTexture()
 {
+	RenderTargetTemp temp;
 	if (m_renderingToTexture || m_newRenderSurface == 0 || m_oldDepthSurface == 0)
 		return;
 	IDirect3DDevice8 *device = DX8Wrapper::_Get_D3D_Device8();
@@ -149,10 +163,10 @@ void W3DShaderManager::startRenderToTexture()
 		if (m_currentFilter == FT_VIEW_MOTION_BLUR_FILTER || m_currentFilter == FT_VIEW_CROSSFADE)
 		{
 			DX8Wrapper::Set_DX8_Render_State(168, 8);
-			ShaderClass shader = ShaderClass::_PresetOpaqueSolidShader;
-			shader.Set_Depth_Compare(ShaderClass::PASS_ALWAYS);
-			shader.Set_Depth_Mask(ShaderClass::DEPTH_WRITE_DISABLE);
-			DX8Wrapper::Set_Shader(shader);
+			temp.shaderHome.shader = ShaderClass::_PresetOpaqueSolidShader;
+			temp.shaderHome.shader.Set_Depth_Compare(ShaderClass::PASS_ALWAYS);
+			temp.shaderHome.shader.Set_Depth_Mask(ShaderClass::DEPTH_WRITE_DISABLE);
+			DX8Wrapper::Set_Shader(temp.shaderHome.shader);
 			VertexMaterialClass *vmat = VertexMaterialClass::Get_Preset(VertexMaterialClass::PRELIT_DIFFUSE);
 			if (vmat)
 				++vmat->m_refs;
@@ -160,32 +174,37 @@ void W3DShaderManager::startRenderToTexture()
 			if (old)
 			{
 				--old->m_refs;
-				if (old->m_refs == 0)
+				if (*(volatile int *)&old->m_refs == 0)
 					old->Delete_This();
 			}
-			DX8Wrapper::m_inSetMaterial = true;
+			DX8Wrapper::m_inSetMaterial |= 0x40;
 			DX8Wrapper::m_material = vmat;
 			if (vmat)
 			{
 				--vmat->m_refs;
-				if (vmat->m_refs == 0)
+				if (*(volatile int *)&vmat->m_refs == 0)
 					vmat->Delete_This();
 			}
-			Vector2 one = { 1.0f, 1.0f };
-			drawViewport(0x00ffffff | (((int)(TheWaterTransparency->m_minWaterOpacity * 255.0f)) << 24), false, &one);
+			temp.vector2.m_x = 1.0f;
+			temp.vector2.m_y = 1.0f;
+			drawViewport(0x00ffffff | (((int)(TheWaterTransparency->m_minWaterOpacity * 255.0f)) << 24), false, &temp.vector2);
 			DX8Wrapper::Set_DX8_Render_State(168, 7);
 		}
 		else
 		{
 			float opacity1 = TheWaterTransparency->m_minWaterOpacity;
-			Vector3 zeroA = { 0.0f, 0.0f, 0.0f };
-			DX8Wrapper::Clear(true, false, false, zeroA, opacity1, 1.0f, 0);
+			temp.vector3.m_x = 0.0f;
+			temp.vector3.m_y = 0.0f;
+			temp.vector3.m_z = 0.0f;
+			DX8Wrapper::Clear(true, false, false, temp.vector3, opacity1, 1.0f, 0);
 		}
 	}
 	else if (m_currentFilter == FT_VIEW_DEFAULT)
 	{
 		float opacity2 = TheWaterTransparency->m_minWaterOpacity;
-		Vector3 zeroB = { 0.0f, 0.0f, 0.0f };
-		DX8Wrapper::Clear(true, false, false, zeroB, opacity2, 1.0f, 0);
+		temp.vector3.m_x = 0.0f;
+		temp.vector3.m_y = 0.0f;
+		temp.vector3.m_z = 0.0f;
+		DX8Wrapper::Clear(true, false, false, temp.vector3, opacity2, 1.0f, 0);
 	}
 }

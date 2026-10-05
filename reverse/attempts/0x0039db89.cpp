@@ -1,4 +1,6 @@
 // ?rva0039DB89@Team@@QAEXHPAPAVThingTemplate@@_NPAH1@Z
+// partial score=0.98 date=2026-10-05
+// ?rva0039DB89@Team@@QAEXHPAPAVThingTemplate@@_NPAH1@Z
 // partial score=0.98 date=2026-10-03
 // cl: /O1 /DNDEBUG /MD
 // ?rva0039DB89@Team@@QAEXHPAPAVThingTemplate@@_NPAH1@Z, retail 0x0039DB89, 124 bytes.
