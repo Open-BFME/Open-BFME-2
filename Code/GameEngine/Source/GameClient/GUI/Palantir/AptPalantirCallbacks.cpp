@@ -1,11 +1,92 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
 //
 // BFME2's palantir (in-game command bar) Apt callbacks, 0x002D2FD4 onward,
 // bound by these names ("AptPalantir::OnInitialized" ...) as member
 // pointers by the screen's registration; that binding is their only
 // reference. The class is named for the strings' prefix.
 
+#include "ascii_string.h"
+
 extern "C" char *__cdecl strcpy(char *destination, const char *source);
+
+// BfmePathLeafAfterMarker.cpp's path helpers.
+const char *__cdecl Rva00412845AfterLevel(const char *path);
+int __cdecl Rva004128BBGetLevel(const char *path);
+
+// The three sub-movie panels; their unrowed constructors take the movie's
+// level and name, pinned by address. The sizes are the allocations'.
+class Rva0052710C
+{
+public:
+	// It also takes the screen's +0xC0 and +0xF8 members (types unknown).
+	Rva0052710C(int level, const AsciiString &name, void *c0, void *f8);
+
+private:
+	void *m_0;
+};
+
+class Rva00527CCE
+{
+public:
+	Rva00527CCE(int level, const AsciiString &name);
+
+private:
+	unsigned char m_pad00[0x20];
+};
+
+class Rva00527FA2
+{
+public:
+	Rva00527FA2(int level, const AsciiString &name);
+
+private:
+	void *m_0;
+};
+
+// The holders' rowed resets (OwnedPointerResets.cpp's views; the same
+// holders' clears are rowed under other names below).
+class Rva002D38AE
+{
+public:
+	void reset(Rva0052710C *panel);
+};
+
+class Rva002D38EB
+{
+public:
+	void reset(Rva00527CCE *panel);
+};
+
+class Rva002D390E
+{
+public:
+	void reset(Rva00527FA2 *panel);
+};
+
+// TheControlBar's rowed findCommandButton 0x0031BE3C and the rowed
+// 0x00405DBC that executes a command button.
+class GameWindow;
+class CommandButton;
+
+class ControlBar
+{
+public:
+	const CommandButton *findCommandButton(const AsciiString &name);
+	void rva004C1B60(GameWindow *window, void *button);
+};
+
+extern ControlBar *TheControlBar;
+
+// TheLivingWorldCampaignManager (Rva002B256EThunk.cpp's g_00E02D6C); +0x2C
+// is set for the evil side.
+class Rva003B8BAA;
+extern Rva003B8BAA *g_00E02D6C;
+
+struct AptPalantirCampaign
+{
+	unsigned char m_pad00[0x2C];
+	bool m_evil; // +0x2C
+};
 
 // The global at 0x00DFE144 (Rva00202BB2Parse.cpp's TheRva00DFE144); its
 // +0x1778 level picks the palantir's minimum LOD.
@@ -109,19 +190,33 @@ public:
 	void OnHelpBoxUnloaded(const char *unused);
 	void OnHeroSelectUnloaded(const char *unused);
 	void OnPlanningModeUIUnloaded(const char *unused);
+	void OnHelpBoxLoaded(const char *path);
+	void OnHeroSelectLoaded(const char *path);
+	void OnPlanningModeUILoaded(const char *path);
 	void PalantirMinLOD(int query, char *result, bool skip);
+
+	// Bound under the button clips' paths
+	// ("PalantirButtons/Buttons/PlayerPowerCap/",
+	// "ObserverStuff/PriorPlayerBttn", "messengerButton/") rather than
+	// method names, so they keep their addresses.
+	void rva002D3D61(const char *unused);
+	void rva002D3E29(const char *unused);
+	void rva002D3E84(const char *unused);
 
 private:
 	unsigned char m_pad000[0x58];
 	RadarWindowOverrideSource *m_radar; // +0x58
 	void *m_movie; // +0x5C
 	unsigned char m_flags; // +0x60
-	unsigned char m_pad061[0xC4 - 0x61];
+	unsigned char m_pad061[0xC0 - 0x61];
+	int m_c0; // +0xC0
 	Rva002D3894 m_heroSelect; // +0xC4
 	Rva002D38D1 m_helpBox; // +0xC8
 	Rva002D3931 m_planningModeUI; // +0xCC
 	unsigned char m_pad0d0[0xE5 - 0xD0];
 	bool m_e5; // +0xE5
+	unsigned char m_pad0e6[0xF8 - 0xE6];
+	int m_f8; // +0xF8
 };
 
 // Retail 0x002D2FD4, 15 bytes: "AptPalantir::OnInitialized".
@@ -202,6 +297,54 @@ void AptPalantir::PalantirMinLOD(int query, char *result, bool skip)
 {
 	if (query == 0 && !skip)
 		strcpy(result, ((AptPalantirLODView *)TheRva00DFE144)->m_level <= 1 ? "1" : "0");
+}
+
+// Retail 0x002D3D61, 109 bytes. Name unknown. Executes the side's ring or
+// Evenstar power-cap command button.
+void AptPalantir::rva002D3D61(const char *unused)
+{
+	bool evil = ((AptPalantirCampaign *)g_00E02D6C)->m_evil;
+	const CommandButton *button = TheControlBar->findCommandButton(
+		AsciiString(evil ? "NonCommand_MaxRingPower" : "NonCommand_MaxEvenstarPower"));
+	if (button)
+		TheControlBar->rva004C1B60(0, (void *)button);
+}
+
+// Retail 0x002D3E29, 91 bytes. Name unknown. Executes the observe prior
+// player command button.
+void AptPalantir::rva002D3E29(const char *unused)
+{
+	const CommandButton *button = TheControlBar->findCommandButton(AsciiString("NonCommand_ObservePriorPlayer"));
+	if (button)
+		TheControlBar->rva004C1B60(0, (void *)button);
+}
+
+// Retail 0x002D3E84, 91 bytes. Name unknown. Executes the messenger
+// command button.
+void AptPalantir::rva002D3E84(const char *unused)
+{
+	const CommandButton *button = TheControlBar->findCommandButton(AsciiString("NonCommand_Messenger"));
+	if (button)
+		TheControlBar->rva004C1B60(0, (void *)button);
+}
+
+// Retail 0x002D3EEA, 146 bytes: "AptPalantir::OnHelpBoxLoaded" builds the
+// help box panel for the loaded movie.
+void AptPalantir::OnHelpBoxLoaded(const char *path)
+{
+	((Rva002D38EB *)&m_helpBox)->reset(new Rva00527CCE(Rva004128BBGetLevel(path), AsciiString(Rva00412845AfterLevel(path))));
+}
+
+// Retail 0x002D3F8A, 160 bytes: "AptPalantir::OnHeroSelectLoaded".
+void AptPalantir::OnHeroSelectLoaded(const char *path)
+{
+	((Rva002D38AE *)&m_heroSelect)->reset(new Rva0052710C(Rva004128BBGetLevel(path), AsciiString(Rva00412845AfterLevel(path)), &m_c0, &m_f8));
+}
+
+// Retail 0x002D4038, 146 bytes: "AptPalantir::OnPlanningModeUILoaded".
+void AptPalantir::OnPlanningModeUILoaded(const char *path)
+{
+	((Rva002D390E *)&m_planningModeUI)->reset(new Rva00527FA2(Rva004128BBGetLevel(path), AsciiString(Rva00412845AfterLevel(path))));
 }
 
 // Retail's strcpy call lands on the import thunk rowed as ji_00629176.
