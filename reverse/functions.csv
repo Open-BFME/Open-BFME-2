@@ -64648,3 +64648,5 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ?rva003552C2@Rva00355B61@@QAE_NW4NameKeyType@@@Z,,0x003552C2,77,Code/GameEngine/Source/GameLogic/Object/Rva003552C2.cpp,matched,this Rva00355B61 via rowed find global g_00E01E18 Armor check virtual slot 0x10
 ?rva00372BB9@AIGroup@@QAEXPBXH@Z,,0x00372BB9,76,Code/GameEngine/Source/GameLogic/AI/AIGroupRva00372BB9.cpp,matched,calls pin 0x00372571 via vtable 0x158 unblocks 0x004ED2ED
 ?rva00109D64@Rva007B1380@@QAEXXZ,,0x00109D64,40,Code/GameEngine/Source/Common/Rva007B1380Ctor.cpp,matched,float reset abutting ctor via rowed base initialize plus 20.0f literal
+?rva0014F674@@YAPAXPAXI0H@Z,,0x0014F674,37,Code/GameEngine/Source/Common/Rva0014F674Loop.cpp,matched,cdecl stride loop via pinned helper
+?rva0014FA47@@YAPAXPAXI0@Z,,0x0014FA47,27,Code/GameEngine/Source/Common/Rva0014F674Loop.cpp,matched,forward via rowed stride loop
