@@ -14,7 +14,7 @@
 class AudioManager;
 extern AudioManager *TheAudio;
 extern class PlayerList *ThePlayerList;
-extern void *g_00E032F8;
+void *g_00E032F8;
 
 class Rva0033F15DDwordSlot { public: void set(int); };
 
