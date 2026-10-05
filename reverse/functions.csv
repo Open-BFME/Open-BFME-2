@@ -63160,3 +63160,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ??0Rva001FBBE4@@QAE@XZ,,0x001FBBE4,18,Code/GameEngine/Source/GameLogic/Object/Rva001FA5A5Ctor.cpp,matched,Rva ctor chain zeroed ints then member ctor by REL32 graph
 ??0Rva001FB8A9@@QAE@XZ,,0x001FB8A9,18,Code/GameEngine/Source/GameLogic/Object/Rva001FA5A5Ctor.cpp,matched,Rva ctor chain zeroed ints then member ctor by REL32 graph
 ??0Rva001F9B52@@QAE@XZ,,0x001F9B52,18,Code/GameEngine/Source/GameLogic/Object/Rva001FA5A5Ctor.cpp,matched,Rva ctor chain zeroed ints then member ctor by REL32 graph
+?rva00056670@MilesAudioManager@@QAE_NW4ObjectID@@@Z,,0x00056670,70,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva00056670.cpp,matched,chain via TheGameLogic findObjectByID drawable field to rva00054899
