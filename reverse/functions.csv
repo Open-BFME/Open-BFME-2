@@ -63560,3 +63560,5 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?method_005C839B@HostClass005C815B@@QAEXHH@Z,,0x005C839B,37,Code/GameEngine/Source/Common/HostClass005C815B.cpp,matched,HostClass005C815B vector iteration: calls method_005C90F1 on each Rva005C847BRecord
 ?method_005C8E0A@HostClass005C8E0A@@QAEXXZ,,0x005C8E0A,34,Code/GameEngine/Source/Common/HostClass005C8E0A.cpp,matched,HostClass005C8E0A vector iteration: calls method_005C8DBF on each element obj with float val
 ?method_005C9069@HostClass005C8E0A@@QAEXXZ,,0x005C9069,34,Code/GameEngine/Source/Common/HostClass005C8E0A.cpp,matched,HostClass005C8E0A vector iteration: calls method_005C902A on each element obj with float val
+?Rva0045878Count@@YAHXZ,,0x00045878,106,Code/Libraries/Source/WWVegas/WW3D2/Rva0045878Video.cpp,matched,
+?Rva00458E2Get@@YGXHPAH00@Z,,0x000458E2,162,Code/Libraries/Source/WWVegas/WW3D2/Rva0045878Video.cpp,matched,
