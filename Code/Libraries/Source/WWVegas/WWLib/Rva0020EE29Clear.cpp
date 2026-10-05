@@ -255,3 +255,107 @@ found:
 end:
 	;
 }
+
+// ?rva002104C7@Rva002104C7@@QAE_NPAX0@Z @0x002104C7 38B
+// Looks up the second handle through the rowed-pending free 0x002104B6 and,
+// when found, runs the rowed-pending member 0x0020E374 on this with the
+// first handle and the lookup result. Answers false on a null lookup and
+// true otherwise (the member result is discarded). Evidence: retail pushes
+// the lookup arg with no ecx setup (free call) but passes this to the
+// member; the (p, a2) push order puts the lookup result first.
+class Rva002104C7
+{
+public:
+	bool rva002104C7(void *a1, void *a2);
+	void rva0020E374(void *a1, void *a2);
+};
+
+void *__stdcall rva002104B6(void *a1);
+
+bool Rva002104C7::rva002104C7(void *a1, void *a2)
+{
+	void *p = rva002104B6(a1);
+	if (!p)
+		return false;
+	rva0020E374(p, a2);
+	return true;
+}
+
+// ?rva00210390@Rva00210390@@QAEPAXPBVAsciiString@@@Z @0x00210390 38B
+// Looks up the AsciiString key in the bucket table at this+0x38 through the
+// rowed Rva00056F61::rva0041534B and answers the found node's payload at
+// +0x8, or null when the lookup misses. Evidence: retail add ecx,0x38 into
+// the rowed call with the key and a hidden 8-byte out-iterator; the test/je
+// on the returned node plus the [node+8] load (the payload slot the rowed
+// TU documents). Iterator and key types mirror the rowed TU (receive-only;
+// no construction here, so no user ctor).
+class AsciiString;
+class Rva00056F61;
+struct Rva0041534BIter
+{
+	void *m_node;
+	Rva00056F61 *m_table;
+};
+struct Rva00210390Node
+{
+	char m_pad[8];
+	void *m_payload;
+};
+
+class Rva00210390
+{
+public:
+	void *rva00210390(const AsciiString *key);
+};
+
+class Rva00056F61
+{
+public:
+	Rva0041534BIter rva0041534B(const AsciiString *key);
+};
+
+void *Rva00210390::rva00210390(const AsciiString *key)
+{
+	Rva0041534BIter it = ((Rva00056F61 *)((char *)this + 0x38))->rva0041534B(key);
+	if (it.m_node)
+		return ((Rva00210390Node *)it.m_node)->m_payload;
+	return 0;
+}
+
+// ?rva002104B6@Rva002104B6@@QAEPAXPAX@Z @0x002104B6 12B
+// Forwards to the rowed 0x00210390 bucket lookup on the embedded object at
+// +0x8 with the same key, or answers null when it is absent. Evidence:
+// retail tests [ecx+8] then tail-jumps (no frame, args already in place) to
+// the rowed body; the null path zeroes eax and callee-cleans the one arg.
+class Rva002104B6
+{
+public:
+	void *rva002104B6(void *a1);
+
+private:
+	char m_pad[8];
+	Rva00210390 *m_08;
+};
+
+void *Rva002104B6::rva002104B6(void *a1)
+{
+	if (!m_08)
+		return 0;
+	return m_08->rva00210390((const AsciiString *)a1);
+}
+
+// ?rva0020E374@Rva002104C7@@QAEXPAX0@Z @0x0020E374 13B
+// This-retargeting forward: runs the rowed-pending 0x003EFDF5 with the
+// first stack slot as its object and the second as its argument, discarding
+// this. Evidence: retail pushes [esp+8] then moves the other [esp+8] to ecx
+// (the slot shift after the push); callee-clean ret 8.
+class Rva003EFDF5Host
+{
+public:
+	void rva003EFDF5(void *a);
+};
+
+void Rva002104C7::rva0020E374(void *a1, void *a2)
+{
+	((Rva003EFDF5Host *)a1)->rva003EFDF5(a2);
+}
