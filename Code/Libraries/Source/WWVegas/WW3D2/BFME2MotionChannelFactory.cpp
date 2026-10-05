@@ -55,6 +55,7 @@ public:
     BFME2Encoding0MotionChannel();
     virtual bool Load(ChunkLoadClass &);
     virtual ~BFME2Encoding0MotionChannel();
+    virtual int UnknownSlot2();
     virtual int UnknownSlot6();
     unsigned short *TimeCodes;
     float *Samples;
@@ -117,6 +118,13 @@ bool BFME2Encoding0MotionChannel::Load(ChunkLoadClass &chunk)
 int BFME2StreamMotionChannel::UnknownSlot2()
 {
     return Components * 8 + 4;
+}
+
+// Encoding 0 keeps only a four-byte record per channel: its table
+// 0x007D7648 holds this at slot 2, a body the linker shares at 0x004FB350.
+int BFME2Encoding0MotionChannel::UnknownSlot2()
+{
+    return 4;
 }
 
 int BFME2Encoding1MotionChannel::UnknownSlot6()
