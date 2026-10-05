@@ -62080,3 +62080,4 @@ _Rva007F5790Callback,,0x00661F40,15,Code/GameEngine/Source/GameNetwork/Rva007F70
 ??$__copy_backward@PAUBfmePod248@@PAU1@H@_STL@@YAPAUBfmePod248@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z,,0x000C7977,54,Code/Libraries/Source/WWVegas/WWLib/StlportPod248CopyBackward.cpp,matched,STLport copy-backward for 248B Pod248 via native operator 0xC6C54; stride 0xF8 idiv loop; BfmePod248 size-derived opaque not original name
 ??$__copy_backward_ptrs@PAUBfmePod248@@PAU1@@_STL@@YAPAUBfmePod248@@PAU1@00ABU__false_type@0@@Z,,0x000C8369,29,Code/Libraries/Source/WWVegas/WWLib/StlportPod248CopyBackward.cpp,matched,STLport ptrs wrapper via in-batch copy-backward 0xC7977; exact 29B; BfmePod248 size-derived opaque not original name
 ?rva002C7474@Rva002C7474@@QAEXXZ,,0x002C7474,30,Code/Libraries/Source/WWVegas/WW3D2/Rva002C7474Loop.cpp,matched,
+?rva002CF1E2@Rva002CF1E2@@QAEXXZ,,0x002CF1E2,25,Code/GameEngine/Source/Common/Rva002CF1E2Walk.cpp,matched,
