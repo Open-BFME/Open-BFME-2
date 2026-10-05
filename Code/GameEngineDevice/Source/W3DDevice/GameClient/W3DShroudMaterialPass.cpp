@@ -93,3 +93,23 @@ void W3DShroudMaterialPassClass::Install_Materials() const
 		Rva00075655::setShader(1, 0);
 	}
 }
+
+// ?setTexture@W3DShaderManager@@SAXHABVTextureHandle@@@Z, retail 0x00072B25,
+// 21 bytes: Zero Hour's inline W3DShaderManager::setTexture, emitted out of
+// line. It assigns into the stage slot of the same 0x00DE1F8C array through
+// the rowed RefCountPtr assignment 0x000424D0. Placed by compiling the
+// Open-BFME-1 donor W3DShroudMaterialPassClass_Install_Materials.cpp at /O1.
+class TextureHandle : public RefCountPtr<TextureClass>
+{
+};
+
+class W3DShaderManager
+{
+public:
+	static void setTexture(int stage, const TextureHandle &texture);
+};
+
+void W3DShaderManager::setTexture(int stage, const TextureHandle &texture)
+{
+	Rva00075655::m_Textures[stage] = texture;
+}
