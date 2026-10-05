@@ -61855,3 +61855,4 @@ _Rva007F5790Callback,,0x00661F40,15,Code/GameEngine/Source/GameNetwork/Rva007F70
 ??$__uninitialized_fill_n@PAUCameraMarker@@IU1@@_STL@@YAPAUCameraMarker@@PAU1@IABU1@ABU__false_type@0@@Z,,0x00424D8C,37,Code/Libraries/Source/WWVegas/WWLib/CameraMarkerFillN.cpp,matched,caller 0x0042537B in wrapper 0x0042536A callee rowed 0x00424BF4 stride 0x18
 ?rva0051C139@Rva0051CBC6@@QAEHXZ,,0x0051C139,69,Code/Libraries/Source/WWVegas/WWLib/Rva0051C139Method.cpp,matched,chain from 0x0051BF47 vtable slot5 plus rowed callees
 ?rva005F1B18@Rva005F1AF5@@QAEXPBD@Z,,0x005F1B18,41,Code/GameEngine/Source/Common/Rva005F1A5F.cpp,matched,chain from 0x005F1A5F same +0x44 layout as 0x005F1AF5 with rowed callee
+?rva002D368E@Rva002D368E@@QAEXXZ,,0x002D368E,32,Code/GameEngine/Source/Common/System/Rva002D368E.cpp,matched,dual-subobject reset via mid pointer rowed callees
