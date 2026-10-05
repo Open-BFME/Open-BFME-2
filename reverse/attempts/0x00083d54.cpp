@@ -1,22 +1,29 @@
 // ?rva00083D54@Rva00083D54@@QAEXXZ
-// partial score=0.92 date=2026-10-05
-// cl: /O1 /G7 /Ireference/shims/bfmeterraintracks /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/sweep
-// ?rva00083D54@Rva00083D54@@QAEXXZ @0x00083D54 264B.
+// partial score=0.94 date=2026-10-05
+// cl: /O1 /G7 /Ireference/shims/bfmeterraintracks /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/sweep
+// stlport
 //
-// Rebuilds the renderer's index buffers and vertex buffer for one terrain
-// snapshot: it releases the two existing buffers, allocates a 0x18-byte
-// DX8IndexBufferClass sized (m_1C-1)*6, fills it with 6 indices per triangle
-// through a scoped WriteLockClass, then allocates a 0x20-byte
-// BfmeDynamicNativeVB whose second argument is (WORD)m_1C * (WORD)m_10C * 2.
-// Both allocations go through the test allocator 0x0002FDA0, which retail
-// calls directly (push 0x18 / call / pop ecx / mov ecx,eax) with the
-// null-result branch inline -- an `operator new` spelling emits its own
-// throwing new-handler tail instead, which is what the previous bank did.
+// ?rva00083D54@Rva00083D54@@QAEXXZ @ 0x00083D54 264B, retail rebuild of the
+// renderer's index buffer and vertex buffer for one terrain snapshot: release
+// the two existing buffers, allocate a 0x18-byte DX8IndexBufferClass sized
+// (m_1C-1)*6, fill it with 6 indices per triangle through a scoped
+// WriteLockClass, then allocate a 0x20-byte BfmeDynamicNativeVB whose second
+// argument is (WORD)m_1C * (WORD)m_10C * 2. Both allocations go through the test
+// allocator 0x0002FDA0, which retail calls directly (push size / call / pop
+// ecx / mov ecx,eax) with the null-result branch inline -- an `operator new`
+// spelling emits its own throwing new-handler tail instead, which is what an
+// earlier bank did and why it compiled 322B against a 264B target.
 //
 // The frame is retail's 0x00629188 EH prolog (mov eax,0xB5FA6E; call
-// __EH_prolog) over sub esp,0x14, so the function unwinds: the scoped
-// WriteLockClass and the two RefCountClass releases are what install it.
-// t=30min model=space-bunny-alpha.
+// __EH_prolog) over sub esp,0x14; the scoped WriteLockClass and the two
+// RefCountClass releases are what install it.
+//
+// The index-fill loop is written the way retail folds it: the loop counter i
+// lives in edi and the doubled base is recomputed each iteration as
+// `lea ecx,[edi+edi]`, with v+1 and v+3 both materialised in edx and v+2
+// produced by `add ecx,2`. The store pointer is biased one element so that
+// `p[-1]` is the first index and the six stores land at p[-1], p[2], p[0], p[4],
+// p[1], p[3] -- retail's exact order and offsets.
 typedef unsigned int Uint;
 typedef int Int;
 // The test allocator, called directly rather than through `operator new`.
@@ -97,19 +104,19 @@ void Rva00083D54::rva00083D54()
 	m_4 = ib;
 	{
 		IndexBufferClass::WriteLockClass lock((IndexBufferClass *)ib, 0);
-		UShort *dst = lock.Get_Index_Array();
-		int n = m_1C - 1;
-		int v = 0;
-		for (int i = 0; i < n; i++)
+		UShort *p = lock.Get_Index_Array() + 1;
+		for (Int i = 0; i < m_1C - 1; i++)
 		{
-			dst[0] = (UShort)v;
-			dst[3] = (UShort)v;
-			dst[1] = (UShort)(v + 1);
-			dst[5] = (UShort)(v + 2);
-			dst[2] = (UShort)(v + 3);
-			dst[4] = (UShort)(v + 3);
-			dst += 6;
-			v += 2;
+			UShort v = (UShort)(i + i);
+			UShort v1 = (UShort)(v + 1);
+			UShort v3 = (UShort)(v + 3);
+			p[-1] = v;
+			p[2] = v;
+			p[0] = v1;
+			p[4] = (UShort)(v + 2);
+			p[1] = v3;
+			p[3] = v3;
+			p += 6;
 		}
 	}
 	void *raw = bfmeTestOperatorNew(0x20);
