@@ -12885,3 +12885,6 @@ _Rva00337999Forward,0x00337999,REL32 callee decoded from target call bytes of wr
 ?Add@Rva005C3A37Elem@@QAEXUTreeHintRef00217D4C@@@Z,0x005C3A86,Rva005C3A37Elem::Add called by 0x005C3E31
 ??0Rva004FA830@@QAE@ABVAsciiString@@@Z,0x004FA815,Rva004FA830::Rva004FA830(AsciiString const&) alias for 0x004FA815
 ??_7Rva005C4A91@@6B@,0x00C747A8,Rva005C4A91 vtable installed by ctor 0x005C49EF
+?g_00DFEF18@@3PAVRva002D3627Host@@A,0x00DFEF18,global singleton pointer at 0x00DFEF18
+?rva002C004F@Rva002D3627Host@@QAEXPBD@Z,0x002C004F,member function on 0xDFEF18 taking const char*
+??_7Rva005C4230@@6B@,0x00C744E8,Rva005C4230 vtable installed by dtor 0x005C4230

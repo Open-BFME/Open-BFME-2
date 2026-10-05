@@ -63541,3 +63541,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?erase@?$vector@UBfmeStringRecord002CF4C6@@V?$allocator@UBfmeStringRecord002CF4C6@@@_STL@@@_STL@@QAEPAUBfmeStringRecord002CF4C6@@PAU3@0@Z,,0x005B129F,38,Code/Libraries/Source/WWVegas/WWLib/StlportVectorErase38Family.cpp,matched,STLport vector<BfmeStringRecord002CF4C6>::erase trivial destructor range erase
 ?rva005C3E31@Rva005C3F02@@QAEXUTreeHintRef00217D4C@@@Z,,0x005C3E31,72,Code/GameEngine/Source/Common/Rva005C3E31Add.cpp,matched,TreeHintRef forwarder to member element Add
 ??0Rva005C4A91@@QAE@ABVAsciiString@@@Z,,0x005C49EF,46,Code/GameEngine/Source/Common/Rva005C4A91Ctor.cpp,matched,Rva005C4A91 constructor over Rva004FA830 base
+??1Rva005C4230@@UAE@XZ,,0x005C4230,80,Code/GameEngine/Source/Common/Rva005C4230Dtor.cpp,matched,Rva005C4230 destructor: passes m_str.str() to 0xDFEF18 then calls base dtor 0x5C4B1B
