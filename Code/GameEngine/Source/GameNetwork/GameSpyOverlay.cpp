@@ -219,3 +219,26 @@ void GameSpyUpdateOverlays( void )
 			((BFMEOverlayLayoutCloseView *)overlayLayouts[i])->runUpdate( NULL );
 	}
 }
+
+void GameSpyOpenOverlay( GSOverlayType overlay );
+void GameSpyCloseOverlay( GSOverlayType overlay );
+
+// Zero Hour GameSpyOverlay.cpp bodies; built /O1 they place uniquely at
+// 0x00548F76 and 0x00548F93, calling the pinned open/close helpers. Retail
+// inlines GameSpyIsOverlayOpen, so the toggle tests the layout slot directly.
+void GameSpyToggleOverlay( GSOverlayType overlay )
+{
+	if (overlayLayouts[overlay] != NULL)
+		GameSpyCloseOverlay(overlay);
+	else
+		GameSpyOpenOverlay(overlay);
+}
+
+void CheckReOpenPlayerInfo(void )
+{
+	if(!reOpenPlayerInfoFlag)
+		return;
+
+	GameSpyOpenOverlay(GSOVERLAY_PLAYERINFO);
+	reOpenPlayerInfoFlag = FALSE;
+}
