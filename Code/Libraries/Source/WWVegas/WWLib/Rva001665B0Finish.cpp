@@ -1,7 +1,4 @@
 // ?insert@?$vector@UElem36@@V?$allocator@UElem36@@@_STL@@@_STL@@QAEPAUElem36@@PAU3@ABU3@@Z
-// partial score=0.96 date=2026-10-05
-// ?insert@?$vector@UElem36@@V?$allocator@UElem36@@@_STL@@@_STL@@QAEPAUElem36@@PAU3@ABU3@@Z
-// partial score=0.95 date=2026-10-04
 // cl: /G7 /arch:SSE /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 //
@@ -23,6 +20,18 @@ struct Elem36Tail
 	float m_word14;
 	float m_word18;
 	float m_word1C;
+
+	Elem36Tail &operator=(const Elem36Tail &other)
+	{
+		m_block.m_words[0] = other.m_block.m_words[0];
+		m_block.m_words[1] = other.m_block.m_words[1];
+		m_block.m_words[2] = other.m_block.m_words[2];
+		m_block.m_words[3] = other.m_block.m_words[3];
+		m_word14 = other.m_word14;
+		m_word18 = other.m_word18;
+		m_word1C = other.m_word1C;
+		return *this;
+	}
 };
 
 struct Elem36
@@ -35,13 +44,7 @@ struct Elem36
 	Elem36 &operator=(const Elem36 &other)
 	{
 		m_word00 = other.m_word00;
-		m_tail.m_block.m_words[0] = other.m_tail.m_block.m_words[0];
-		m_tail.m_block.m_words[1] = other.m_tail.m_block.m_words[1];
-		m_tail.m_block.m_words[2] = other.m_tail.m_block.m_words[2];
-		m_tail.m_block.m_words[3] = other.m_tail.m_block.m_words[3];
-		m_tail.m_word14 = other.m_tail.m_word14;
-		m_tail.m_word18 = other.m_tail.m_word18;
-		m_tail.m_word1C = other.m_tail.m_word1C;
+		m_tail = other.m_tail;
 		m_flag20 = other.m_flag20;
 		return *this;
 	}
