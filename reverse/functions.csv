@@ -56130,3 +56130,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?setCurrentlySelectedAIGroup@Player@@QAEXPAVAIGroup@@@Z,,0x002ACC53,80,Code/GameEngine/Source/Common/RTS/PlayerSetCurrentlySelectedAIGroup.cpp,matched,BFME1 donor PlayerSetCurrentlySelectedAIGroup offset 0x730 Squad 0x1c
 ??0Rva004A9947@@QAE@PAVStateMachine@@@Z,,0x004A9947,29,Code/GameEngine/Source/Common/Rva004A9947Ctor.cpp,matched,unlock lane State hash ctor 0x83242288 rowed 0x004D73FC caller 0x004A9DF2 vtable 0x00854010
 ??1Rva005C7792@@QAE@XZ,,0x005C7715,125,Code/GameEngine/Source/Common/Rva005C7715Dtor.cpp,matched,FX draw buffers dtor via inlined Release_Ref plus nulling
+??0Rva0007EBFB@@QAE@XZ,,0x0007EBFB,73,Code/GameEngine/Source/Common/Rva0007EBFBWaterDraw.cpp,matched,ctor registers WaterDraw via rowed Register with empty base and two members
