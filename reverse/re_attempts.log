@@ -10337,3 +10337,4 @@ FUN_008b7d53	0x004B7D53	141	blocked	vslot10 negative this-adjustment plus EH plu
 ?rva003F08EE@Rva003F012F@@QAEXXZ	0x003F08EE	24	blocked	mov al wall per shape guide row 11 byte push always movzx t=5 model=muse-09
 ?Rva0039C4F7Xfer@@YAPAVXfer@@PAV1@PAV?$vector@URva0039C028Record@@V?$allocator@URva0039C028Record@@@_STL@@@_STL@@@Z	0x0039C4F7	234	blocked	extra tmp dtor or-disarm-call plus ecx-eax and sub-add wall t=20 model=muse-09
 ?_FunctionAptActionStrictEquals@AptActionInterpreter@@CAXQAU1@QAULocalContextT@1@@Z	0x7044c0	586	converted	PC opcode66 and full extent including switch tables verified7044C0-70470A; target typeIDs and float comparison; donor semantics only; t=8 model=gpt-6-astra
+?_FunctionAptActionEquals2@AptActionInterpreter@@CAXQAU1@QAULocalContextT@1@@Z	0x7031e0	1345	converted	PC opcode49 and native extent7031E0-703721 verified; source semantic lead; native float equality and Boolean-A fallback differ; full operand gates72/72; t=7 model=gpt-6-astra

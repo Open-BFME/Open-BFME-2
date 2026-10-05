@@ -69,7 +69,7 @@ public:
     void toString(EAStringC &) const;
 };
 struct AptCharacterInst;
-class EAStringC { void *mpData; public: EAStringC &TrimRight(const char *); EAStringC &Rva006D4F00Append(const EAStringC &); EAStringC &Rva006D50A0Append(const char *); EAStringC(unsigned int,unsigned int); EAStringC rva006D5ED0(int) const; EAStringC rva006d5f30(int,int) const; void rva006D3470(); bool IsEqualTo(const EAStringC *) const; bool rva006D3560(const EAStringC *) const; const char *rva00620090() const; int rva006d6070(const char *,int=0); EAStringC(); unsigned int rva006D3750() const; EAStringC(const char *); ~EAStringC(); EAStringC &operator=(const EAStringC &); };
+class EAStringC { void *mpData; public: EAStringC &TrimRight(const char *); EAStringC &Rva006D4F00Append(const EAStringC &); EAStringC &Rva006D50A0Append(const char *); EAStringC(unsigned int,unsigned int); EAStringC rva006D5ED0(int) const; EAStringC rva006d5f30(int,int) const; void rva006D3470(); int Find(char,int=0); bool IsEqualTo(const EAStringC *) const; bool rva006D3560(const EAStringC *) const; const char *rva00620090() const; int rva006d6070(const char *,int=0); EAStringC(); unsigned int rva006D3750() const; EAStringC(const char *); ~EAStringC(); EAStringC &operator=(const EAStringC &); };
 class Rva006D2A60 { public: void *allocBlock(int); void freeBlock(void *,int); };
 extern Rva006D2A60 *g_pChainBlockAllocatorF4;
 // Native InitArray allocates44B; ctor6D91B0 builds type0x16, hash+8,
@@ -196,6 +196,7 @@ private:
     HANDLER(GetTimer);
     HANDLER(Trace);
     HANDLER(StrictEquals);
+    HANDLER(Equals2);
     HANDLER(TypeOf);
     HANDLER(Greater); HANDLER(LessThan2);
     HANDLER(SubString); HANDLER(AsciiToChar);
@@ -1534,3 +1535,160 @@ void AptActionInterpreter::_FunctionAptActionStrictEquals(AptActionInterpreter *
 }
 
 #pragma comment(linker, "/alternatename:?getVtblIndex@AptValue@@QBEHXZ=?get@Rva006DBB30SarDwordField@@QBEHXZ")
+
+// Native Equals2 uses exact float equality for two floats; the mixed numeric
+// branches use float tolerance. The Boolean fallback tests only operand A.
+void    AptActionInterpreter::_FunctionAptActionEquals2(AptActionInterpreter * const pInterpreter, LocalContextT * const pLocalContext)
+{
+
+    AptValue *pA = pInterpreter->stack.At(0);
+    AptValue *pB = pInterpreter->stack.At(1);
+    int nResult = 0;
+
+
+
+    if(pA->getVtblIndex()==19)
+    {
+        pA = gpUndefinedValue;
+    }
+    if(pB->getVtblIndex()==19)
+    {
+        pB = gpUndefinedValue;
+    }
+
+    
+    
+    
+    
+    if(Rva006CD220Get()==7)
+    {
+        
+        if( pA->isUndefined() )
+        {
+            nResult++;
+        }
+        if( pB->isUndefined() )
+        {
+            nResult++;
+        }
+        if( nResult > 0 )
+        {
+            
+            
+            pInterpreter->stack.Pop(2);
+            pInterpreter->stack.Push(AptBoolean::Create(nResult==2));
+            return;
+        }
+    }
+    
+
+
+    if( ((pA->isInteger() || pA->isFloat() || pA->isBoolean() || pA->isString()) &&
+        (pB->isInteger() || pB->isFloat()|| pB->isBoolean() || pB->isString())) ||
+        (pA->getVtblIndex() == pB->getVtblIndex()) )
+    {
+        if(pA->isUndefined())                                   
+        {
+            nResult = 1;
+        }
+        else if(pA->isInteger() && pB->isInteger())             
+        {
+            nResult = (pA->toInteger() == pB->toInteger());
+        }
+        else if(pA->isFloat() && pB->isFloat())                 
+        {
+            nResult = pA->toFloat()==pB->toFloat();
+        }
+        else if(pA->isString() && pB->isString())               
+        {
+            if (pB->c_string()->GetInternalString()->IsEqualTo(pA->c_string()->GetInternalString()))
+            {
+                nResult = 1;
+            }
+        }
+        else if(((pA->isInteger() || pA->isFloat()) && !rva006fc370(pB)) || ((pB->isInteger() || pB->isFloat()) && !rva006fc370(pA)))
+        {
+            
+            bool fStrAIsFloat = false;
+            bool fStrBIsFloat = false;
+            if  (pA->isString() || pA->isFloat())       
+            {
+                if  (pA->isFloat() || (pA->c_string()->GetInternalString()->Find('.') != -1))
+                {
+                    fStrAIsFloat = true;
+                }
+            }
+            if(pB->isString() || pB->isFloat())     
+            {
+                if  (pB->isFloat() || (pB->c_string()->GetInternalString()->Find('.') != -1))
+                {
+                    fStrBIsFloat = true;
+                }
+            }
+            if(pA->isInteger())
+            {
+                int nA = pA->toInteger();
+                if(fStrBIsFloat)
+                {
+                    float fB = pB->toFloat();
+                    nResult = (float)fabs(nA - fB) < 0.001f;
+                }
+                else
+                {
+                    int nB = pB->toInteger();
+                    nResult = (nA == nB);
+                }
+            }
+            else if(pB->isInteger())
+            {
+                int nB = pB->toInteger();
+                if(fStrAIsFloat)
+                {
+                    float fA = pA->toFloat();
+                    nResult = (float)fabs(fA - nB) < 0.001f;
+                }
+                else
+                {
+                    int nA = pA->toInteger();
+                    nResult = (nA == nB);
+                }
+            }
+            else
+            {
+                float fA = pA->toFloat();
+                float fB = pB->toFloat();
+                nResult = (float)fabs(fA - fB) < 0.001f;
+            }
+        }
+        else                                            
+        {
+            if(pA->isString() && !pB->isBoolean())
+            {
+                EAStringC sa,sb;
+                pA->toString(sa);pB->toString(sb);
+
+                nResult = sa.IsEqualTo(&sb) ? 1 : 0;
+            }
+            
+            else if (pA->isBoolean() && !pB->isString())
+            {
+                nResult = pA->toInteger() == pB->toInteger() ? 1 : 0;
+            }
+            else
+            {
+                nResult = (pA == pB);                   
+            }
+        }
+    }
+    else
+    {
+        if (pA->isUndefined() && pB->isUndefined()) 
+        {
+            nResult = 1;
+        }
+    }
+
+    pInterpreter->stack.Pop(2);
+    pInterpreter->stack.Push(AptBoolean::Create(nResult != 0));
+}
+
