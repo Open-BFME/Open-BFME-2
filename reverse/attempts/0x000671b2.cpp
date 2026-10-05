@@ -1,11 +1,10 @@
 // ?rva000671B2@BaseHeightMapRenderObjClass@@QAE_NMM@Z
-// partial score=0.92 date=2026-10-05
+// partial score=0.93 date=2026-10-05
 // cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE2
-// ?rva000671B2@BaseHeightMapRenderObjClass@@QAE_NMM@Z @0x000671B2 115B: bit-plane passability check via Gen_0074BA50. Evidence: member +0x37C0 fits BaseHeightMapRenderObjClass 0x386C pad; next loadRoadsAndBridges same class; callee bfmeBitA 0xAE13E; float scale g_00BC5CD0.
 #include <math.h>
-
+extern "C" void _ReadWriteBarrier(void);
+#pragma intrinsic(_ReadWriteBarrier)
 extern float g_00BC5CD0;
-
 class Gen_0074BA50
 {
 public:
@@ -19,7 +18,6 @@ private:
 	int m_stride;
 	unsigned char m_pad38[8];
 };
-
 class BaseHeightMapRenderObjClass
 {
 public:
@@ -29,7 +27,6 @@ private:
 	Gen_0074BA50 * volatile m_gen;
 	unsigned char m_pad37C4[0x3874 - 0x37C4];
 };
-
 // ?rva000671B2@BaseHeightMapRenderObjClass@@QAE_NMM@Z present-unmatched
 bool BaseHeightMapRenderObjClass::rva000671B2(float x, float y)
 {
@@ -38,12 +35,11 @@ bool BaseHeightMapRenderObjClass::rva000671B2(float x, float y)
 	if (gen == 0)
 		return false;
 	int base = *(int *)((char *)*pp + 0x10);
-	float fx = x;
-	float fy = y;
 	float fg = g_00BC5CD0;
-	int ix = (int)(fx * fg);
-	int iy = (int)(fy * fg);
+	int ix = (int)(x * fg);
 	int dx = base - ix;
+	_ReadWriteBarrier();
+	int iy = (int)(y * fg);
 	int dy = base - iy;
 	if (dx < 0)
 		dx = 0;

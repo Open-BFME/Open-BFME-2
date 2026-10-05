@@ -56436,3 +56436,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva0029C096@Rva0029C096@@QAEHXZ,,0x0029C096,19,Code/GameEngine/Source/Common/VslotSmallBodiesC.cpp,matched,vtable 0x00BC7A88 slot 75 (+1 more tables); address-named slot body
 ?rva002AAD89@Rva002AAD89@@QAEHXZ,,0x002AAD89,19,Code/GameEngine/Source/Common/VslotSmallBodiesC.cpp,matched,vtable 0x00BFDC60 slot 0; address-named slot body
 ?rva004051BC@Rva004051BC@@QAEXHPBUCoord3D@@@Z,,0x004051BC,156,Code/GameEngine/Source/Common/Rva004051BC.cpp,matched,unlock via PlayerList PartitionManager ExperienceTracker pin
+?rva004D4F7A@Transport@@QBEMXZ,,0x004D4F7A,68,Code/GameEngine/Source/GameNetwork/TransportRva004D5046.cpp,matched,transport stats0 average skipping 40E6C sibling 004D5046

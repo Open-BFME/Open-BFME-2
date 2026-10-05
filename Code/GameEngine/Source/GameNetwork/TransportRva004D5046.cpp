@@ -23,6 +23,7 @@ public:
 	float rva004D5002() const;
 	float rva004D508A() const;
 	float rva004D4FBE() const;
+	float rva004D4F7A() const;
 };
 
 float Transport::rva004D5046() const
@@ -69,6 +70,18 @@ float Transport::rva004D4FBE() const
 		if (i == m_skip40E6C)
 			continue;
 		sum += (float)m_dummy[90 + i];
+	}
+	return sum * g_008601E0;
+}
+
+float Transport::rva004D4F7A() const
+{
+	float sum = 0.0f;
+	for (int i = 0; i < 30; ++i)
+	{
+		if (i == m_skip40E6C)
+			continue;
+		sum += (float)m_dummy[i];
 	}
 	return sum * g_008601E0;
 }

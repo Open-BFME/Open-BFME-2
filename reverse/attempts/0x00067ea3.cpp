@@ -1,5 +1,5 @@
 // ?rva00067EA3@Rva00067EA3@@QAEXMMMMH@Z
-// partial score=0.9 date=2026-10-05
+// partial score=0.95 date=2026-10-05
 // cl: /O1 /DNDEBUG /MD /Oi- /arch:SSE
 // ?rva00067EA3@Rva00067EA3@@QAEXMMMMH@Z, retail 0x00067EA3, 298 bytes.
 // Unlock lane: searches 500-entry array at +0xE0 (28B entries) for an entry
@@ -42,11 +42,11 @@ void Rva00067EA3::rva00067EA3(float a, float b, float c, float d, int e)
 	for (int i = 0; i < m_count; ++i)
 	{
 		Entry00067EA3 *en = &m_entries[i];
-		if (fabs(a - en->x) >= estimate)
+		if (!(fabs(a - en->x) < estimate))
 			continue;
-		if (fabs(b - en->y) >= estimate)
+		if (!(fabs(b - en->y) < estimate))
 			continue;
-		if (fabs(d - en->w) >= estimate)
+		if (!(fabs(d - en->w) < estimate))
 			continue;
 		if (en->kind != e)
 			continue;
