@@ -36,19 +36,43 @@ class Rva0057EE5C : public Rva005248D0
 {
 public:
 	virtual ~Rva0057EE5C();
+	virtual void vslot1(int a, int b);
+	void rva0057F002(int arg);
 private:
 	char m_pad04[0x58 - 4];
 	ReleaseHolder0057EE5C m_58;
-	char m_pad5C[0x64 - 0x5C];
+	char m_pad5C[0x60 - 0x5C];
+	int m_60;
 	FreeHolder0057EE5C m_64;
 	char m_pad68[0x70 - 0x68];
 	FreeHolder0057EE5C m_70;
 	char m_pad74[0x7C - 0x74];
 	FreeHolder0057EE5C m_7C;
-	char m_pad80[0xB4 - 0x80];
+	char m_pad80[0x8C - 0x80];
+	int m_8C;
+	char m_pad90[0xB4 - 0x90];
 	FreeHolder0057EE5C m_B4;
 };
 
 Rva0057EE5C::~Rva0057EE5C()
 {
+}
+
+void __cdecl Rva00559FAC(int arg, void *ctx);
+
+class AptMpGameRules
+{
+public:
+	void rva0057EF18();
+};
+
+void Rva0057EE5C::rva0057F002(int arg)
+{
+	if (m_60 == arg) {
+		return;
+	}
+	m_60 = arg;
+	Rva00559FAC(arg, &m_8C);
+	vslot1(10, 0);
+	reinterpret_cast<AptMpGameRules *>(this)->rva0057EF18();
 }
