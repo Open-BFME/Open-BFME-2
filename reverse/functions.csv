@@ -62466,3 +62466,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?erase@Rva002821CF@@QAEPAURva002821CFElem@@PAU2@@Z,,0x002821CF,55,Code/GameEngine/Source/Common/Rva002821CFErase.cpp,matched,8B erase twin of 0x0040DC1F
 ?rva00290095@Object@@QAEXXZ,,0x00290095,75,Code/GameEngine/Source/GameLogic/Object/Object_rva0029004B.cpp,matched,sibling 0x0029004B same TU same walk Drawable 0x00278644 slot1
 ?Rva0040D3E8Get@@YGHH@Z,,0x0040D3E8,23,Code/GameEngine/Source/Common/Rva0040D3E8Get.cpp,matched,chain from bfmeFind1038 then rva0040C9F4 returns 0 when null
+?erase@?$vector@URva0054107FRecord@@V?$allocator@URva0054107FRecord@@@_STL@@@_STL@@QAEPAURva0054107FRecord@@PAU3@@Z,,0x005412E2,47,Code/Libraries/Source/WWVegas/WWLib/Rva005412E2Erase.cpp,matched,chain single erase via copy-ptrs pin precedent 0x00216267 sibling range 0x0054152D
