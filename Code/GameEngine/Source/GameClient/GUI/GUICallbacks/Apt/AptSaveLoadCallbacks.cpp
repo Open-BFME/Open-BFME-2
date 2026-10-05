@@ -154,7 +154,6 @@ void __cdecl Rva00433D4D(int button)
 // (0x00240BC9). With a game and a kept save name, button 2 passes
 // (5, 0, name) and button 3 (2, 2, name) to TheGameLogic's 0x0023D30F; the
 // name is then dropped.
-// ?Rva004341D8@@YAXH@Z present-unmatched
 void __cdecl Rva004341D8(int button)
 {
 	if (!TheGameLogic || unicodeIsEmpty(g_Va00E032E8))
