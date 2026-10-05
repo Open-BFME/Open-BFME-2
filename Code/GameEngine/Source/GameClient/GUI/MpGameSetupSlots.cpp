@@ -375,6 +375,9 @@ public:
 	// Unrowed 0x0057C621 (40 bytes; a value read through its +0x68 member
 	// when +0x50 is set), pinned by address.
 	int rva0057C621();
+	// Unrowed 0x0057D5E5 (292 bytes; called by the panel's 0x0043DE19
+	// shutdown), pinned by address.
+	void rva0057D5E5();
 
 	unsigned char m_pad00[0x1C];
 	int m_mode; // +0x1C (the panel's +0x7C, MpGameSetupOnInitGadget.cpp's m_hideFlag)
@@ -394,6 +397,9 @@ public:
 	// Unrowed 0x0057F002 (52 bytes; stores the mode at +0x60 when it
 	// changes), pinned.
 	void rva0057F002(int mode);
+	// Unrowed 0x0057EF87 (123 bytes; called by the panel's 0x0043DE19
+	// shutdown), pinned.
+	void rva0057EF87();
 };
 
 // The member at +0x190's base (Rva004421E1Dtor.cpp's Rva0057F2DE).
@@ -536,6 +542,11 @@ public:
 	MpGameSetupComboRef(const MpGameSetupComboRef &other);
 	~MpGameSetupComboRef();
 
+	// Rebinds the wrapped window; 0x0043DE19 clears each one through the
+	// one-pointer store returning this at 0x0007B719 (an ICF-folded body),
+	// pinned by address.
+	MpGameSetupComboRef &operator=(GameWindow *window);
+
 	// Unrowed 0x00323736 (308 bytes; ret 4, a byte flag), pinned by
 	// address.
 	void rva00323736(bool flag);
@@ -623,6 +634,38 @@ public:
 	void bfmeSetText(const AsciiString &key, const UnicodeString &text, bool flag);
 };
 
+// The rowed clears 0x0057F34D (the +0x190 member, "AptMpClans") and
+// 0x0057FECE (the +0x244 member, "AptMpChat"), each under its own address
+// class.
+class Rva0057F34D
+{
+public:
+	void rva0057F34D();
+};
+
+class Rva0057FECE
+{
+public:
+	void rva0057FECE();
+};
+
+// The panel's own clear at +0x00 (rowed 0x0052493F, six Rva00524021
+// clears).
+class Rva0052493F
+{
+public:
+	void rva0052493F();
+};
+
+// TheRva00222A8BTarget's erase by name (rowed 0x00223A94).
+class Rva00223A94
+{
+public:
+	int rva00223A94(const AsciiString *key);
+};
+
+void _bfme_closeAptScreen(const AsciiString &name);
+
 class MpGameSetup
 {
 public:
@@ -698,6 +741,7 @@ public:
 	bool rva00442BCC();
 
 	void rva0043FA68(GameInfo *game);
+	void rva0043DE19();
 
 	void rva004404AC(bool enable, int slot);
 
@@ -2330,5 +2374,40 @@ void MpGameSetup::rva0043FA68(GameInfo *game)
 	{
 		AsciiString key("APT:JoinGame");
 		((BfmeAptWindowManager *)TheRva00222A8BTarget)->bfmeSetText(key, TheGameText->fetch("APT:JoinGame"), false);
+	}
+}
+
+// Retail 0x0043DE19, 265 bytes. Name unknown; it extends BFME1's
+// MpGameSetup::shutdown (Open-BFME-1 MpGameSetup.cpp: the background
+// block, then closing "MpGameSetup::GadgetInit"). Shuts the panel down:
+// its members, the six widget arrays, the map list and saved game, the
+// "MpGameSetup::InitGadgets" screen, the panel's own state and the eight
+// "ConnectionIcon~<slot>" Apt names.
+void MpGameSetup::rva0043DE19()
+{
+	rva0043DC0F();
+	m_60.rva0057D5E5();
+	m_d0.rva0057EF87();
+	((Rva0057F34D *)&m_190)->rva0057F34D();
+	((Rva0057FECE *)&m_244)->rva0057FECE();
+	for (int i = 0; i < 8; ++i)
+	{
+		m_player[i] = 0;
+		m_colorCombo[i] = 0;
+		m_team[i] = 0;
+		m_playerTemplate[i] = 0;
+		m_handicap[i] = 0;
+		m_hero[i] = 0;
+	}
+	m_mapList = 0;
+	m_saved = 0;
+	_bfme_closeAptScreen(AsciiString("MpGameSetup::InitGadgets"));
+	((Rva0052493F *)this)->rva0052493F();
+	for (int slot = 0; slot < 8; ++slot)
+	{
+		char name[128];
+		sprintf(name, "ConnectionIcon~%d", slot);
+		AsciiString key(name);
+		((Rva00223A94 *)TheRva00222A8BTarget)->rva00223A94(&key);
 	}
 }
