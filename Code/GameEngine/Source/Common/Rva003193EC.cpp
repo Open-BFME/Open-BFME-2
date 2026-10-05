@@ -5,6 +5,13 @@
 // rowed free helper 0x003192B9 result. Evidence: packet disasm with pinned
 // bfmeVal1038 0x0040CF91 plus rowed Rva003192B9Get plus ret-4 single int arg
 // plus setle bool return, callers 0x002B6CD6 0x002B6D6F 0x00319422.
+// class-gate: allow StringBase private validate for row ?validate@?$StringBase@G@@ABEXXZ at 0x000B3FD0
+
+template <typename T> class StringBase
+{
+	friend class Rva003193EC;
+	void validate() const;
+};
 
 class BfmeY1038
 {
@@ -39,6 +46,29 @@ public:
 	void rva00318BC6(int v);
 };
 
+class Rva0031980CListener
+{
+public:
+	virtual void notify(void *, int);
+};
+
+class Rva0031980CList
+{
+public:
+	void forEach(void (Rva0031980CListener::*notify)(void *, int), void *arg, int value);
+private:
+	Rva0031980CListener **m_begin;
+	Rva0031980CListener **m_end;
+	Rva0031980CListener **m_capacity;
+	unsigned int m_index;
+};
+
+class Rva005CB260
+{
+public:
+	void rva005CB260();
+};
+
 void *Rva003192B9Get(void *key);
 
 class Rva003193EC
@@ -47,9 +77,14 @@ public:
 	bool rva003193EC(int x);
 	bool rva00319413(Rva0037DCA5 *p);
 	void rva003190E7(bool flag);
+	void rva003198B8(Rva003193EC *other);
 private:
-	char m_pad00[0x78];
+	char m_pad00[8];
+	Rva0031980CList m_list08;
+	char m_pad18[0x78 - 0x18];
 	BfmeY1038 *m_78;
+	char m_pad7C[0x88 - 0x7C];
+	StringBase<unsigned short> *m_88;
 };
 
 bool Rva003193EC::rva003193EC(int x)
@@ -77,4 +112,15 @@ void Rva003193EC::rva003190E7(bool flag)
 		return;
 	int w = ((Rva002B2B5B *)g_009FEF10)->rva002B2B5B(v);
 	((Rva00318BC6Owner *)this)->rva00318BC6(w);
+}
+
+void Rva003193EC::rva003198B8(Rva003193EC *other)
+{
+	if (other->m_88 != 0)
+		other->m_88->validate();
+	if (m_88 != 0)
+		m_88->validate();
+	other->rva003190E7(false);
+	rva003190E7(false);
+	m_list08.forEach((void (Rva0031980CListener::*)(void *, int))&Rva005CB260::rva005CB260, this, (int)other);
 }

@@ -62830,3 +62830,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ??0Rva000A2137@@QAE@PAX@Z,,0x000A2137,24,Code/GameEngine/Source/GameClient/GUI/Rva0078D310HostCtor_Rva00104f8f.cpp,matched,base ctor row 0x00104F8F plus vtable g_00BC8FF4 callers 0x0008FAA8 0x000A2186 LINK BONUS 232B
 ?rva004FBDCC@Rva004FBDCC@@QAEXXZ,,0x004FBDCC,19,Code/GameEngine/Source/Common/System/Rva004FBC02Copy.cpp,matched,pin 0x00212655 plus caller 0x002BAF01 and neighbours
 ?rva003190E7@Rva003193EC@@QAEX_N@Z,,0x003190E7,56,Code/GameEngine/Source/Common/Rva003193EC.cpp,matched,unlock via pred plus BfmeY1038 forward setter per packet
+?rva003198B8@Rva003193EC@@QAEXPAV1@@Z,,0x003198B8,76,Code/GameEngine/Source/Common/Rva003193EC.cpp,matched,chain on 0x3190E7 via validates plus forEach per packet
