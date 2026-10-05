@@ -62901,3 +62901,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?getFilename@AudioEventRTS@@QAE?AVAsciiString@@XZ,,0x002DA838,47,Code/GameEngine/Source/Common/Audio/AudioEventRTSClassification.cpp,matched,ZH/BFME1 donor AudioEventRTS::getFilename; target: dirty +0x4D and eventInfo guard calls generateFilename 0x2DA6CF then copies +0x04
 ?rva004E08A9@Rva004E08A9@@QAE_N_N@Z,,0x004E08A9,77,Code/GameEngine/Source/Common/Rva004E08A9.cpp,matched,rowed find plus get plus pin helper and callers
 ??0Rva005765D1@@QAE@PAXHH@Z,,0x005765D1,90,Code/GameEngine/Source/Common/Rva005765D1Ctor.cpp,matched,ctor over base Rva005D19F8 with ptr-chase getters and direct virtual call
+?reserve@?$vector@URva0008DE1CElement@@V?$allocator@URva0008DE1CElement@@@_STL@@@_STL@@QAEXI@Z,,0x0008B5B5,125,Code/Libraries/Source/WWVegas/WWLib/StlportVectorReserve0008B5B5.cpp,matched,unlock lane 24B reserve via G7 and copy-only element
