@@ -15,7 +15,7 @@ class Made002CC5E1
 {
 public:
 	Made002CC5E1();
-	virtual void v0();
+	virtual ~Made002CC5E1();
 
 private:
 	char m_pad[0x1A4 - 4];

@@ -1,4 +1,5 @@
-// cl: /O1 /G7 /MD /GX /DNDEBUG /arch:SSE /Ireference/shims/bfme2_ascii
+// cl: /O1 /G7 /MD /GX /DNDEBUG /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /arch:SSE /Ireference/shims/bfme2_ascii
+// stlport
 //
 // The "StructureCreep" skirmish-AI tactic (vtable 0x008722EC; ctor 0x005AB91D
 // in Rva004ECECDTacticCtors.cpp, slot 9 0x005AB9AF in
@@ -17,15 +18,22 @@
 //   0x005AB843  slot 5: xfer: the AITactic's, the id, the counters, whether
 //               there is an order and the order itself (restarted on load
 //               when it had not begun)
-//   0x005AB9EE  (not here yet) whether the object's template name is one of the owner's
+//   0x005AB9EE  whether the object's template name is one of the owner's
 //               creep structure names (record +0x160, +0x98 vector)
 //   0x005ABA59  the next creep structure name: a random one first, then
 //               round-robin
+//   0x005AC0B5  whether a structure of this name may go up at the +0x68
+//               site: true when no alive allied kind-7 object is within
+//               twice its radius, or fewer than three of them are creep
+//               structures and the name is a kind-8 template or not yet
+//               among theirs
 //   0x005ABEA2  last to first over the owner record's +0x164 sites below
 //               state 2: a site with more than 15 live allied objects of
 //               kind 3 or 90 that are not kind 7 within its radius becomes
 //               the creep target (+0x68)
 #include <string.h>
+#include <set>
+#include <vector>
 #include "ascii_string.h"
 
 extern int g_Va00DBA4E4;
@@ -295,6 +303,17 @@ public:
 	BfmeFixedStorage0004543D m_24;
 };
 
+// vftable 0x00BC2908, allow 0x002610DE: accept what has every kind of the
+// first mask and none of the second (ZH's PartitionFilterAcceptByKindOf).
+class Rva0004584D : public Rva000421C8
+{
+public:
+	Rva0004584D(const BfmeFixedStorage0004543D &a, const BfmeFixedStorage0004543D &b);
+	virtual bool allow(Object *obj);
+	BfmeFixedStorage0004543D m_08;
+	BfmeFixedStorage0004543D m_24;
+};
+
 // vftable 0x00C1A25C, allow 0x002610F2: accept what has any of the mask's kinds.
 class Rva003959FA : public Rva000421C8
 {
@@ -341,6 +360,19 @@ struct Rva005ABEA2Payload
 	Rva005ABEA2Hit *m_current;
 	int m_references;
 };
+
+struct Rva005AC0B5Template
+{
+	char m_pad000[0x108];
+	unsigned int m_108;	// +0x108
+};
+
+class Rva002D06CA
+{
+public:
+	void *rva002D06CA(const AsciiString *key);	// the thing template by name
+};
+extern Rva002D06CA *TheThingFactory;
 
 struct BfmeWideResult
 {
@@ -476,6 +508,7 @@ public:
 	AsciiString rva005ABA59();
 	bool rva005ABCFE(Coord3DBase *out, const AsciiString &name);
 	bool rva005AC0B5(const AsciiString &name);
+	bool rva005AB9EE(Object *obj);
 	bool rva005AC294();
 	void rva005AC40C();
 	virtual void v7();
@@ -521,6 +554,17 @@ void Rva005AB7E5::xfer(Xfer *xfer)
 				m_order->start(m_owner, 1);
 		}
 	}
+}
+
+bool Rva005AB7E5::rva005AB9EE(Object *obj)
+{
+	Rva002A8AB1Record *record = g_00DFEEF8->rva002A8AB1(m_owner);
+	for (unsigned int i = 0; i < record->m_160->m_names.size(); ++i) {
+		const AsciiString &name = obj->m_04->m_name;
+		if (record->m_160->m_names[i].compare(name) == 0)
+			return true;
+	}
+	return false;
 }
 
 AsciiString Rva005AB7E5::rva005ABA59()
@@ -584,4 +628,37 @@ Rva005ABEA2Site *rva005AB7C4(Player *owner, int id)
 {
 	Rva002C5FE8 *sites = g_00DFEEF8->rva002A8AB1(owner)->m_164;
 	return (Rva005ABEA2Site *)sites->rva002C5FE8(id);
+}
+bool Rva005AB7E5::rva005AC0B5(const AsciiString &name)
+{
+	Player *owner = m_owner;
+	Rva005ABEA2Site *site = rva005AB7C4(owner, m_68);
+	Rva005ABEA2Mask mustBeSet;
+	Rva005ABEA2Mask mustBeClear;
+	mustBeSet.set(7);
+	BfmeWideResult hits = ThePartitionManager->iterateObjectsInRange(&site->m_pos,
+		site->m_radius * 2.0f, 0,
+		Rva0026119DFilter().link(&Rva00261409Filter(m_owner, true, 2))
+			->link(&Rva0004584D(*(BfmeFixedStorage0004543D *)&mustBeSet,
+				*(BfmeFixedStorage0004543D *)&mustBeClear)), 0);
+	if (hits.m_value->m_end - hits.m_value->m_begin == 0)
+		return true;
+	_STL::vector<Object *> objects;
+	_STL::set<AsciiString> names;
+	Object *obj;
+	while ((obj = hits.next()) != 0) {
+		if (rva005AB9EE(obj)) {
+			objects.push_back(obj);
+			Rva005AB7E5Template *tmpl = obj->m_04;
+			names.insert(tmpl->m_name);
+		}
+	}
+	if (objects.size() < 3) {
+		Rva005AC0B5Template *tmpl = (Rva005AC0B5Template *)TheThingFactory->rva002D06CA(&name);
+		if (tmpl->m_108 & 8)
+			return true;
+		if (names.find(name) == names.end())
+			return true;
+	}
+	return false;
 }

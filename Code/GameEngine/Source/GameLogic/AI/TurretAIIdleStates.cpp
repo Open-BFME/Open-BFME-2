@@ -22,6 +22,11 @@
 //    desired angle +0x20; TurretAI.cpp lines 1381 and 1382).
 //  - TurretAI::friend_isSweepEnabled, retail 0x004D8365 (24 bytes): Zero
 //    Hour's body (m_enableSweepUntil +0x24).
+//  - TurretAIRecenterTurretState::update, retail 0x004D8D25 (90 bytes), and
+//    TurretAIIdleScanState::update, retail 0x004D8D7F (107 bytes): Zero
+//    Hour's bodies without the under-construction early-out; natural angle
+//    and pitch are the turret data's +0x08 / +0x0C; friend_turnTowardsAngle
+//    is 0x004D8990 and friend_turnTowardsPitch the rowed 0x004D80EE.
 // BFME 2 layout (target evidence): the state machine's turret +0x3C; the
 // turret's which-turret +0x0C and data +0x08 (recenter time +0x60); the AI's
 // turret sync +0x210 (resetNextMoodCheckTime is the rowed 0x00263025); the
@@ -80,7 +85,10 @@ public:
 
 struct TurretAIData
 {
-	unsigned char m_pad00[0x50];
+	unsigned char m_pad00[0x08];
+	Real m_naturalTurretAngle; // +0x08
+	Real m_naturalTurretPitch; // +0x0C
+	unsigned char m_pad10[0x50 - 0x10];
 	Real m_minIdleScanAngle; // +0x50
 	Real m_maxIdleScanAngle; // +0x54
 	unsigned char m_pad58[0x60 - 0x58];
@@ -97,6 +105,10 @@ public:
 	Real getMinIdleScanAngle() const { return m_data->m_minIdleScanAngle; }
 	Real getMaxIdleScanAngle() const { return m_data->m_maxIdleScanAngle; }
 	Bool friend_isSweepEnabled() const;
+	Bool friend_turnTowardsAngle(Real desiredAngle, Real rateModifier, Real relThresh);
+	Bool friend_turnTowardsPitch(Real desiredPitch, Real rateModifier);
+	Real getNaturalTurretAngle() const { return m_data->m_naturalTurretAngle; }
+	Real getNaturalTurretPitch() const { return m_data->m_naturalTurretPitch; }
 private:
 	unsigned char m_pad00[0x08];
 	const TurretAIData *m_data; // +0x08
@@ -155,10 +167,17 @@ private:
 	UnsignedInt m_nextIdleScan; // +0x20
 };
 
+class TurretAIRecenterTurretState : public TurretState
+{
+public:
+	virtual StateReturnType update();
+};
+
 class TurretAIIdleScanState : public TurretState
 {
 public:
 	virtual StateReturnType onEnter();
+	virtual StateReturnType update();
 private:
 	unsigned char m_pad1C[0x20 - 0x1C];
 	Real m_desiredAngle; // +0x20
@@ -244,6 +263,37 @@ StateReturnType TurretAIIdleScanState::onEnter()
 	m_desiredAngle = minA + GetGameLogicRandomValueReal(0, maxA - minA, TURRETAI_FILE, 1381);
 	if (GetGameLogicRandomValue( 0, 1, TURRETAI_FILE, 1382 ) == 0)
 		m_desiredAngle = -m_desiredAngle;
+
+	return STATE_CONTINUE;
+}
+
+//----------------------------------------------------------------------------------------------------------
+/**
+ * Rotate the owner's turret to its home orientation.
+ */
+StateReturnType TurretAIRecenterTurretState::update()
+{
+	TurretAI* turret = getTurretAI();
+	Bool angleAligned = turret->friend_turnTowardsAngle(turret->getNaturalTurretAngle(), 0.5f, 0.0f);
+	Bool pitchAligned = turret->friend_turnTowardsPitch(turret->getNaturalTurretPitch(), 0.5f);
+
+	if( angleAligned && pitchAligned )
+		return STATE_SUCCESS;
+
+	return STATE_CONTINUE;
+}
+
+//-------------------------------------------------------------------------------------------------
+/**
+ * Rotate the owner's turret to its scan orientation.
+ */
+StateReturnType TurretAIIdleScanState::update()
+{
+	Bool angleAligned = getTurretAI()->friend_turnTowardsAngle(getTurretAI()->getNaturalTurretAngle() + m_desiredAngle, 0.5f, 0.0f);
+	Bool pitchAligned = getTurretAI()->friend_turnTowardsPitch(getTurretAI()->getNaturalTurretPitch(), 0.5f);
+
+	if( angleAligned && pitchAligned )
+		return STATE_SUCCESS;
 
 	return STATE_CONTINUE;
 }

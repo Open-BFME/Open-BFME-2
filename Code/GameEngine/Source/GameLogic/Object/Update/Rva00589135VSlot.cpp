@@ -64,6 +64,7 @@ public:
 	void rva005891A3(int arg1, int arg2);
 	void rva005891DB(int arg1, int arg2, int arg3);
 	int rva005893AD();
+	bool rva005778AD();
 private:
 	unsigned char m_pad00[4];
 	int m_04;
@@ -150,4 +151,13 @@ int WeaponModeSpecialPowerUpdateBase::rva005893AD()
 	}
 gameLogic:
 	return TheGameLogic->m_frame40 - m_0C + m_04;
+}
+
+// ?rva005778AD@WeaponModeSpecialPowerUpdateBase@@QAE_NXZ, retail 0x005778AD 9B.
+// Vslot 3 of 0x00870108 (and of DeflectSpecialPower's 0x00C4E900 and
+// SiegeDeploySpecialPower's 0x00C5DC68, the same +0x24 interface): whether
+// the +8 count the slots above test is positive.
+bool WeaponModeSpecialPowerUpdateBase::rva005778AD()
+{
+	return m_08 > 0;
 }

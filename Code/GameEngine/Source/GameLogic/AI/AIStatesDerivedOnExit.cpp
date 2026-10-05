@@ -28,7 +28,12 @@
 // bytes) and 0x0034A105 (28 bytes): slots 4/5 of vtable 0x00C12998 (name getter
 // AIFollowWaypointPathStateAndEvacuate); onEnter calls Rva0033FA64Do(owner)
 // before base onEnter (0x0034ED7B); onExit calls base onExit (0x0034A0D7)
-// before Rva0033FA79Do(owner).
+// before Rva0033FA79Do(owner). Its update, retail 0x003541F4 (119 bytes,
+// slot 6), runs the base update (pinned 0x00353F13) and then succeeds once
+// the point of the AI's path (+0x140) at the owner's +0xB8 distance fails
+// the pinned pathfinder cell test 0x002E996E, handing the owner and machine
+// to the pinned evacuate helper 0x003532BF (with false) on success, as the
+// AIMoveToAndEvacuateState update in AIStatesEvacuate.cpp does.
 enum StateExitType
 {
 	EXIT_NORMAL = 0
@@ -73,6 +78,38 @@ template <> class AIDeadStateAISlots<0>
 {
 };
 class Object;
+struct Coord3D
+{
+	float x, y, z;
+};
+// What the path's 0x003642DF returns by value (16 bytes): a node and a
+// position (as in AIUpdateInterfacePrivateCommands.cpp). Unnamed.
+struct Rva003642DFNode;
+struct Rva003642DFResult
+{
+	Rva003642DFResult();
+	Rva003642DFNode *m_node; // +0x00
+	Coord3D m_pos; // +0x04
+};
+class Path
+{
+public:
+	Rva003642DFResult rva003642DF(float dist);
+};
+class Pathfinder
+{
+public:
+	bool rva002E996E(const Coord3D *pos, bool flagA, bool flagB, int layer);
+};
+class AI
+{
+public:
+	Pathfinder *pathfinder() { return m_pathfinder; }
+private:
+	unsigned char m_pad00[0x10];
+	Pathfinder *m_pathfinder; // +0x10
+};
+extern AI *TheAI;
 class AIUpdateInterface : public AIDeadStateAISlots<136>
 {
 public:
@@ -80,8 +117,11 @@ public:
 	Locomotor *getCurLocomotor() { return m_curLocomotor; }
 	Object *checkForCrateToPickup();
 	Object *getNextMoodTarget(Bool calm, Bool alwaysAttack);
+	Path *getPath() const { return m_path; }
 private:
-	unsigned char m_pad000[0x1F0 - 4];
+	unsigned char m_pad004[0x140 - 4];
+	Path *m_path; // +0x140
+	unsigned char m_pad144[0x1F0 - 0x144];
 	Locomotor *m_curLocomotor; // +0x1F0
 	unsigned char m_pad1F4[0x3C7 - (0x1F0 + sizeof(Locomotor *))];
 public:
@@ -106,7 +146,10 @@ class Object
 public:
 	AIUpdateInterface *getAI() { return m_ai; }
 	void rva0028AE6D();
-	unsigned char m_pad000[0x10C];
+	float getBfmeRealB8() const { return m_bfmeRealB8; }
+	unsigned char m_pad000[0xB8];
+	float m_bfmeRealB8; // +0xB8
+	unsigned char m_pad0BC[0x10C - 0xBC];
 	Rva0010CBits m_conditionBits; // +0x10C
 	unsigned char m_pad158[0x258 - (0x10C + sizeof(Rva0010CBits))];
 	AIUpdateInterface *m_ai; // +0x258
@@ -123,6 +166,8 @@ class Object0033FA64;
 void Rva0033FA64Do(const Object0033FA64 *obj);
 class Object0033FA79;
 void Rva0033FA79Do(const Object0033FA79 *obj);
+class StateMachine;
+void rva003532BF(Object *owner, StateMachine *machine, bool flag);
 class State;
 class StateMachine
 {
@@ -162,6 +207,7 @@ public:
 	virtual void computePath();
 protected:
 	Object *getMachineOwner() const { return m_machine->getOwner(); }
+	StateMachine *getMachine() const { return m_machine; }
 	unsigned char m_pad04[0x18 - 0x04];
 	StateMachine *m_machine; // +0x18
 };
@@ -312,6 +358,7 @@ class AIFollowWaypointPathStateAndEvacuate : public AIFollowWaypointPathState
 public:
 	virtual StateReturnType onEnter();
 	virtual void onExit(StateExitType status);
+	virtual StateReturnType update();
 };
 StateReturnType AIFollowWaypointPathStateAndEvacuate::onEnter()
 {
@@ -322,4 +369,18 @@ void AIFollowWaypointPathStateAndEvacuate::onExit(StateExitType status)
 {
 	AIFollowWaypointPathState::onExit(status);
 	Rva0033FA79Do((const Object0033FA79 *)getMachineOwner());
+}
+StateReturnType AIFollowWaypointPathStateAndEvacuate::update()
+{
+	StateReturnType status = AIFollowWaypointPathState::update();
+	Object *owner = getMachineOwner();
+	if (owner->getAI()->getPath() != 0)
+	{
+		Rva003642DFResult end = owner->getAI()->getPath()->rva003642DF(owner->getBfmeRealB8());
+		if (!TheAI->pathfinder()->rva002E996E(&end.m_pos, false, false, 1))
+			status = STATE_SUCCESS;
+	}
+	if (status == STATE_SUCCESS)
+		rva003532BF(owner, getMachine(), false);
+	return status;
 }
