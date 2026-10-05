@@ -63814,3 +63814,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva005B0416@@YGXH@Z,,0x005B0416,48,Code/GameEngine/Source/Common/Rva005B0416Calls.cpp,matched,global stdcall threading one arg through three cdecl callees with batched cleanup
 ?rva005B129F@Rva005B129FClass@@QAEHHH@Z,,0x005B129F,38,Code/GameEngine/Source/Common/Rva005B129FForward.cpp,matched,thiscall member forwarding to pinned callee and storing result
 ?rva0059E2DC@@YA_NPAPAVFileClass@@0URva0059E2DCBox@@@Z,,0x0059E2DC,33,Code/GameEngine/Source/Common/Rva0059E2DCBox.cpp,matched,box-method loop over pointer range calling pinned thiscall 0x4FC957 per element; returns box low byte
+?Run@Rva0059EB6FBox@@QAE_NH@Z,,0x0059EB6F,64,Code/GameEngine/Source/Common/Rva0059EB6FBox.cpp,matched,gated notify-set-go on info singleton and +0x40C sub-object via pinned 0x44D5EE
