@@ -1,8 +1,20 @@
 // ??0Rva003B417E@@QAE@XZ
-// partial score=0.96 date=2026-10-03
+// partial score=0.97 date=2026-10-05
+// ??0Rva003B417E@@QAE@XZ
+// partial score=0.97 date=2026-10-05
 // cl: /O1 /MD /arch:SSE /Oi
 // ??0Rva003B417E@@QAE@XZ @0x003B417E (122B): Ctor storing vtable 0x0081F424 plus int and flag inits plus float zeros plus 8-byte stosd pair plus BfmeFixedStorage002CF0F0 copy from 0x00E02D64. Evidence: vtable 0x0081F424; rowed copy ctor 0x002CF0F0; callers 0x003B44E5 0x003B47A1 0x003B818C unblock 0x003B44DC 0x003B4716 0x003B8141.
+//
+// Two deltas remain and are recorded in reverse/re_attempts.log. Both are the
+// placement of the two RELOCATABLE immediates, not the statement order:
+// __declspec(novtable) plus an explicit `*(const void **)this = g_0081F424`
+// store is required, because with only a pure virtual and no explicit store cl
+// emits its OWN vtable and writes 0. The class keeps `virtual void _pure() = 0;`
+// so the member offsets stay where retail puts them.
 typedef unsigned int UnsignedInt;
+
+extern "C" const void *const g_0081F424[];  // ??_7Rva003B417E@@6B@
+#pragma comment(linker, "/alternatename:_g_0081F424=??_7Rva003B417E@@6B@")
 
 class BfmeFixedStorage002CF0F0
 {
@@ -15,6 +27,8 @@ extern const BfmeFixedStorage002CF0F0 g_00E02D64;
 
 class Rva003B417E
 {
+public:
+	Rva003B417E();
 	virtual void _pure() = 0;
 	int m_04;
 	int m_08;
@@ -41,13 +55,12 @@ class Rva003B417E
 	float m_48;
 	float m_4c;
 	int m_50;
-public:
-	Rva003B417E();
 };
 
 // ??0Rva003B417E@@QAE@XZ present-unmatched
 Rva003B417E::Rva003B417E()
 {
+	*(const void **)this = g_0081F424;
 	m_04 = 0;
 	m_08 = 0;
 	m_0c = 0;
