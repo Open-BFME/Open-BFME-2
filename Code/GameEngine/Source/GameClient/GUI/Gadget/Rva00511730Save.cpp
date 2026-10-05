@@ -17,6 +17,7 @@
 typedef unsigned short wchar_t;
 
 #include "unicode_string.h"
+#include "ascii_string.h"
 
 
 class GameWindow
@@ -38,6 +39,57 @@ struct Rva00511730State
 };
 
 extern Rva00511730State *g_Va00E046B8;
+
+class GameSpyInfoInterface;
+extern GameSpyInfoInterface *TheGameSpyInfo;
+
+class LANAPI;
+extern LANAPI *TheLAN;
+
+// TheGameLogic (0x00DFE78C): the game mode at +0x110.
+class GameLogic
+{
+public:
+	bool isInMultiplayerGame();
+
+	unsigned char m_pad000[0x110];
+	int m_110; // +0x110
+};
+
+extern GameLogic *TheGameLogic;
+
+// TheWritableGlobalData (0x00DFE758): a flag at +0xA44 that must be set for
+// the messenger to open in a multiplayer game.
+class GlobalData
+{
+public:
+	unsigned char m_pad000[0xA44];
+	int m_A44; // +0xA44
+};
+
+extern GlobalData *TheWritableGlobalData;
+
+// What TheWindowManager's slot 32 makes of an Apt file; slot 0 is run on it
+// with 0. Names stay slot placeholders.
+class Rva005116C2Screen
+{
+public:
+	virtual void v00(int value) = 0;
+};
+
+class GameWindowManager
+{
+public:
+#define V(n) virtual void pad##n() = 0;
+	V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7)
+	V(8) V(9) V(10) V(11) V(12) V(13) V(14) V(15)
+	V(16) V(17) V(18) V(19) V(20) V(21) V(22) V(23)
+	V(24) V(25) V(26) V(27) V(28) V(29) V(30) V(31)
+#undef V
+	virtual Rva005116C2Screen *v32(AsciiString filename) = 0;
+};
+
+extern GameWindowManager *TheWindowManager;
 UnicodeString g_Va00E048C0;
 
 void __cdecl Rva00511730(int unused)
@@ -57,5 +109,31 @@ void __cdecl Rva00511730(int unused)
 		g_Va00E048C0.set(UnicodeString::TheEmptyString);
 	}
 }
+// Retail 0x005116C2, 110 bytes: opens "Messenger.apt" when online (or on
+// a LAN) and no messenger is up, except in a multiplayer game of mode 3 or
+// with the global flag at +0xA44 clear.
+void Rva005116C2()
+{
+	if ((TheGameSpyInfo || TheLAN) && !g_Va00E046B8)
+	{
+		GameLogic *logic = TheGameLogic;
+		if (logic->isInMultiplayerGame()
+			&& (logic->m_110 == 3 || !TheWritableGlobalData->m_A44))
+			return;
+		TheWindowManager->v32(AsciiString("Messenger.apt"))->v00(0);
+	}
+}
+
+// Retail 0x005117DF, 23 bytes: toggles the messenger, closing it when up
+// and opening it otherwise.
+// ?Rva005117DF@@YAXXZ present-unmatched
+void Rva005117DF()
+{
+	if (g_Va00E046B8)
+		Rva00511730(0);
+	else
+		Rva005116C2();
+}
+
 // ?g_Va00E046B8@@3PAURva00511730State@@A: the global at VA 0xe046b8 is ?g_Va00E046B8@@3HA.
 #pragma comment(linker, "/alternatename:?g_Va00E046B8@@3PAURva00511730State@@A=?g_Va00E046B8@@3HA")
