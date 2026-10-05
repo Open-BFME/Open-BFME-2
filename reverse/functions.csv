@@ -60464,3 +60464,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva005E1B41@Rva005E1B41@@UAEXH@Z,,0x005E1B41,13,Code/GameEngine/Source/Common/VslotSmallBodiesAL.cpp,matched,secondary-base slot (interface at +0x0C); pinned 0x005E1AB6(0) of the complete object; no Ghidra entry
 ??0Rva0006AB90FunctionCurve@@QAE@PAVRva0006AB10Curve@@@Z,,0x00504682,46,Code/GameEngine/Source/Rva00504682Finish.cpp,matched,banked 0.93 member-function spelling was an identity error: retail mov eax/ecx plus ret 4 is the VC7 constructor register pair; body byte-exact 46B at the banked flags; claimed address follows the existing donor pin at this RVA
 ?rva0033B677@@YAXPAVINI@@PAX1PBX@Z,,0x0033B677,197,Code/GameEngine/Source/Common/Thing/ThingTemplateFuelFactorProvider.cpp,matched,
+?read_vertex_colors@MeshModelClass@@IAE_NAAVChunkLoadClass@@PAVMeshLoadContextClass@@@Z,,0x00188760,392,Code/Libraries/Source/WWVegas/WW3D2/MeshModelReadVertexColors.cpp,matched,
