@@ -22,6 +22,13 @@
 // 0x00BBAB2C, 0x00BBAB28, 0x00BBAAC8 and 0x00BBAB24, the rowed lock pair,
 // and the 0.5f .rdata literal at 0x00BC26F0. Honest address names: the
 // owning command classes are not recovered.
+//
+// The unlock call is duplicated into both arms of the stream test rather
+// than emitted once after it. That keeps MSVC from hoisting `pop edi` /
+// `pop esi` / `pop ebx` above the guard test at /O1; retail schedules the
+// pops after the unlock call, so the call must be in the same block as the
+// pop's epilogue. Same shape as the matched siblings 0x0010F4FA / 0x0010F557
+// and 0x0010F5A8.
 
 extern "C" __declspec(dllimport) void __stdcall AIL_close_stream(void *stream);
 extern "C" __declspec(dllimport) int __stdcall AIL_service_stream(void *stream, int fillup);

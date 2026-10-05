@@ -60827,3 +60827,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva007B823D@@YAXXZ,,0x007B823D,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,Tree teardown: ecx=&g_Va00E03020 then tail-jmp to 0x004110BE stub; honest address name
 ?rva007B8247@@YAXXZ,,0x007B8247,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,Tree teardown: ecx=&g_Va00E02FD0 then tail-jmp to 0x00411453 stub; honest address name
 ?rva0010F42A@Rva0010F42A@@QAEXXZ,,0x0010F42A,112,Code/GameEngine/Source/Common/Rva0010F42AFinish.cpp,matched,Miles stream playback rate; both-arms unlock lands the pop schedule
+?rva0010F5A8@Rva0010F5A8@@QAEXXZ,,0x0010F5A8,134,Code/GameEngine/Source/Common/Rva0010F5A8Finish.cpp,matched,Miles ms position; both-arms unlock lands the pop schedule

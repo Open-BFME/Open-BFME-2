@@ -1,5 +1,4 @@
 // ?rva0010F5A8@Rva0010F5A8@@QAEXXZ
-// partial score=0.95 date=2026-10-04
 // cl: /O1 /arch:SSE /MD
 #include "../../Include/Common/Rva00041004Lock.h"
 // Guarded Miles stream operations, each the only slot (slot 1) of its own
@@ -23,6 +22,13 @@
 // 0x00BBAB2C, 0x00BBAB28, 0x00BBAAC8 and 0x00BBAB24, the rowed lock pair,
 // and the 0.5f .rdata literal at 0x00BC26F0. Honest address names: the
 // owning command classes are not recovered.
+//
+// The unlock call is duplicated into both arms of the stream test rather
+// than emitted once after it. That keeps MSVC from hoisting `pop edi` /
+// `pop esi` above the guard test at /O1; retail schedules the pops after
+// the unlock call, so the call must be in the same block as the pop's
+// epilogue. Same shape as the matched siblings 0x0010F42A / 0x0010F4FA
+// and 0x0010F557.
 
 extern "C" __declspec(dllimport) void __stdcall AIL_close_stream(void *stream);
 extern "C" __declspec(dllimport) int __stdcall AIL_service_stream(void *stream, int fillup);
@@ -85,124 +91,6 @@ struct Rva0010F28DGuard
     if (g.m_locked != 0) \
         ((Rva0010F26E *)&g)->rva0010F26E()
 
-class Rva0010F28D
-{
-public:
-    void rva0010F28D();
-private:
-    char m_pad0[8]; // +0..+7
-    Rva0010F28DInner *m_inner; // +8
-};
-
-void Rva0010F28D::rva0010F28D()
-{
-    RVA0010F28D_LOCK(g);
-    void *s = m_inner->m_stream;
-    if (s != 0) {
-        AIL_close_stream(s);
-        m_inner->m_stream = 0;
-    }
-    RVA0010F28D_UNLOCK(g);
-}
-
-class Rva0010F2E5
-{
-public:
-    void rva0010F2E5();
-private:
-    char m_pad0[8]; // +0..+7
-    Rva0010F28DInner *m_inner; // +8
-    int m_arg0C; // +0x0C
-};
-
-void Rva0010F2E5::rva0010F2E5()
-{
-    RVA0010F28D_LOCK(g);
-    void *s = m_inner->m_stream;
-    if (s != 0)
-        AIL_service_stream(s, m_arg0C == 0);
-    RVA0010F28D_UNLOCK(g);
-}
-
-class Rva0010F42A
-{
-public:
-    void rva0010F42A();
-private:
-    char m_pad0[8]; // +0..+7
-    Rva0010F28DInner *m_inner; // +8
-    float m_scale0C; // +0x0C
-};
-
-void Rva0010F42A::rva0010F42A()
-{
-    RVA0010F28D_LOCK(g);
-    void *s = m_inner->m_stream;
-    if (s != 0) {
-        int rate;
-        AIL_stream_info(s, &rate, 0, 0, 0);
-        AIL_set_stream_playback_rate(s, (int)(rate * m_scale0C));
-    }
-    RVA0010F28D_UNLOCK(g);
-}
-
-class Rva0010F49A
-{
-public:
-    void rva0010F49A();
-private:
-    char m_pad0[8]; // +0..+7
-    Rva0010F28DInner *m_inner; // +8
-    float m_volume0C; // +0x0C
-};
-
-void Rva0010F49A::rva0010F49A()
-{
-    RVA0010F28D_LOCK(g);
-    void *s = m_inner->m_stream;
-    if (s != 0)
-        AIL_set_stream_volume_pan(s, m_volume0C, 0.5f);
-    RVA0010F28D_UNLOCK(g);
-}
-
-class Rva0010F4FA
-{
-public:
-    void rva0010F4FA();
-private:
-    char m_pad0[8]; // +0..+7
-    Rva0010F28DInner *m_inner; // +8
-    float m_dry0C; // +0x0C
-    float m_wet10; // +0x10
-};
-
-void Rva0010F4FA::rva0010F4FA()
-{
-    RVA0010F28D_LOCK(g);
-    void *s = m_inner->m_stream;
-    if (s != 0)
-        AIL_set_stream_reverb_levels(s, m_dry0C, m_wet10);
-    RVA0010F28D_UNLOCK(g);
-}
-
-class Rva0010F557
-{
-public:
-    void rva0010F557();
-private:
-    char m_pad0[8]; // +0..+7
-    Rva0010F28DInner *m_inner; // +8
-    int m_count0C; // +0x0C
-};
-
-void Rva0010F557::rva0010F557()
-{
-    RVA0010F28D_LOCK(g);
-    if (m_inner->m_stream != 0)
-        AIL_set_stream_loop_count(m_inner->m_stream, m_count0C);
-    RVA0010F28D_UNLOCK(g);
-}
-
 class Rva0010F5A8
 {
 public:
@@ -228,6 +116,8 @@ void Rva0010F5A8::rva0010F5A8()
                 ms = 0;
         }
         AIL_set_stream_ms_position(s, ms);
-    }
-    RVA0010F28D_UNLOCK(g);
+        if (g.m_locked != 0)
+            ((Rva0010F26E *)&g)->rva0010F26E();
+    } else if (g.m_locked != 0)
+        ((Rva0010F26E *)&g)->rva0010F26E();
 }
