@@ -38,7 +38,7 @@ class StringBase
 {
 public:
 	StringBase(void) : m_data(0) {}
-	~StringBase(void) { releaseBuffer(); }
+	~StringBase(void);
 
 	void clear(void);					// retail 0x00887940
 
