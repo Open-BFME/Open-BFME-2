@@ -63923,3 +63923,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva005E3E41@Rva005E3E41@@QAEXXZ,,0x005E3E41,31,Code/GameEngine/Source/Common/Rva005E3E41Twins.cpp,matched,Twin lea-call-push-call via rowed 0x005F3F6B and pinned 0x005E3AAA; address-derived
 ?rva005E4389@Rva005E4389@@QAEXXZ,,0x005E4389,31,Code/GameEngine/Source/Common/Rva005E3E41Twins.cpp,matched,Twin lea-call-push-call via rowed 0x005F3FF4 and pinned 0x005E4087; address-derived
 ?rva005E51D3@Rva005E51D3@@QAEXXZ,,0x005E51D3,31,Code/GameEngine/Source/Common/Rva005E51D3Wrap.cpp,matched,Lea-call-push-call via empty 0x00B3FD0 and pinned 0x005E50E1; same shape as twins; address-derived
+?rva005E58ED@Rva005E58ED@@QAEXXZ,,0x005E58ED,34,Code/GameEngine/Source/Common/Rva005E58EDWrap.cpp,matched,If +8->+0x18 getter 0x00318C32 nonzero calls pinned 0x005E6836 with reload; address-derived
