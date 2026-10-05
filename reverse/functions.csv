@@ -62452,3 +62452,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?clear@?$_List_base@UBfmeVectorRecord001B4A39@@V?$allocator@UBfmeVectorRecord001B4A39@@@_STL@@@_STL@@QAEXXZ,,0x001B4C7A,49,Code/Libraries/Source/WWVegas/WWLib/stlport_list_rva001b4c7a_clear.cpp,matched,list clear twin; nodealloc+bfmelist
 ?clear@?$_List_base@URva00240831Dtor@@V?$allocator@URva00240831Dtor@@@_STL@@@_STL@@QAEXXZ,,0x00243119,49,Code/Libraries/Source/WWVegas/WWLib/stlport_list_rva00243119_clear.cpp,matched,list clear twin of AsciiString @0x00239D49
 ?Rva0040D380Get@@YGHH@Z,,0x0040D380,22,Code/GameEngine/Source/Common/Rva0040D380Get.cpp,matched,chain via bfmeFind1038 returns 2c or 1
+?rva002736BA@Drawable@@QAEXABV?$StringBase@D@@H@Z,,0x002736BA,155,Code/GameEngine/Source/GameClient/Drawable_rva002736BA.cpp,matched,Drawable find-or-create Anim2D slot10 via g_00DFF068 and TheGameLogic frame
