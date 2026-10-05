@@ -69,12 +69,13 @@ void __debugbreak();
 // Later APT source supplies the preload algorithm; its override-this/super
 // arguments were added after this version and are absent in the PC body.
 // Native+0A flag tests and constant-string IDs A4/A0 establish the target data.
+__forceinline AptValue **advanceRegisters(AptValue **p,int n) { return p+n; }
 void AptScriptFunction2::SetupBeforeExecution(_AptScriptFunctionState *pState, AptValue *pContext)
 {
     pState->mpFrameStack=spFrameStack;
     spFrameStack=0;
     pState->mpRegBlockPreviousFrameBase=spRegBlockCurrentFrameBase;
-    spRegBlockCurrentFrameBase=snRegBlockCurrentFrameCount+spRegBlockCurrentFrameBase;
+    spRegBlockCurrentFrameBase=advanceRegisters(spRegBlockCurrentFrameBase,snRegBlockCurrentFrameCount);
     snRegBlockCurrentFrameCount=0;
     AptValue *pTemp=0;
     int nStartReg=1;

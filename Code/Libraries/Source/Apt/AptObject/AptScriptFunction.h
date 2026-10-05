@@ -8,6 +8,8 @@
 // Original donor PDB SHA256 ab2b0b616a430aebf85f5cb81d0a0ab73f83bc044d8befa2eb46755543c90d03.
 // Audit: docs/audits/2026-10-05-openbfme2 under the analysis-materials repository.
 class AptCIH;
+class AptString;
+class AptArray;
 class AptFrameStack;
 class EAStringC;
 class AptValue;
@@ -18,6 +20,8 @@ enum AptVirtualFunctionTable_Indices { AptVFT_ScriptFunctionByteCodeBlock = 45 }
 
 struct AptNativeHash
 {
+    AptValue *Lookup(const EAStringC *const) const;
+    __forceinline AptValue *Get__Proto__() const { return mp__proto__; }
     void SetPrototype(AptValue *);
     void Set__Proto__(AptValue *);
     int mnTotalSize;
@@ -30,6 +34,9 @@ struct AptNativeHash
 class AptValue
 {
 public:
+    AptArray *c_array() const;
+    AptString *c_string() const;
+    bool isUndefined() const;
     AptValue *findChild(const EAStringC *, AptValue *);
     bool getIsDefined() const;
     bool isCIH(bool = false) const;
@@ -83,6 +90,7 @@ struct _AptScriptFunctionState
 class AptObject : public AptValueWithHash
 {
 public:
+    bool DoesImplementObject(AptValue *) const;
     AptObject(AptVirtualFunctionTable_Indices, int = 8);
     virtual void setHasClass(int);
     virtual int getHasClass() const;
@@ -100,7 +108,9 @@ protected:
 
 class AptScriptFunctionBase : public AptObject
 {
+    friend struct AptActionInterpreter;
 public:
+    void rva006FBED0();
     virtual AptScriptFunctionBase *Duplicate(AptCIH *) = 0;
     virtual void RegisterReferences() const;
     virtual void DestroyGCPointers();
@@ -149,6 +159,32 @@ protected:
     AptConstantPool mConstantPool;
 };
 
+// Original Redwood6 PDB gives24-byte DefineFunction record and52-byte
+// function objects; PC704B50/704C60 access the same offsets and allocate0x34.
+struct AptAction_DefineFunction {
+    const char *szName;
+    int nParams;
+    const char **aszParams;
+    int nCodeSize;
+    mutable AptConstantPool constantPool;
+};
+class AptScriptFunction1 : public AptScriptFunctionBase {
+public:
+    AptScriptFunction1(AptScriptFunctionBase *,const AptAction_DefineFunction *,AptCIH *);
+    static void *operator new(unsigned int);
+    static void operator delete(void *);
+    virtual const char *GetName() const;
+    virtual unsigned int GetNumArguments();
+    virtual const unsigned char *GetByteCodeBase();
+    virtual unsigned int GetByteCodeSize();
+    virtual AptConstantPool GetConstantPool();
+    virtual void SetArgument(AptValue *,int);
+    virtual AptScriptFunctionBase *Duplicate(AptCIH *);
+protected:
+    virtual ~AptScriptFunction1();
+    const AptAction_DefineFunction *mpFunction;
+};
+
 struct AptAction_DefineFunction2
 {
     const char *szName;
@@ -158,11 +194,20 @@ struct AptAction_DefineFunction2
     int getDF2Flag(unsigned short f) const { return nFlags & f; }
     const void *aszParams; // Parameter-record pointer; no record access here.
     int nCodeSize;
-    AptConstantPool constantPool;
+    mutable AptConstantPool constantPool;
 };
 class AptScriptFunction2 : public AptScriptFunctionBase
 {
 public:
+    AptScriptFunction2(AptScriptFunctionBase *,const AptAction_DefineFunction2 *,AptCIH *);
+    static void *operator new(unsigned int);
+    static void operator delete(void *);
+    virtual const char *GetName() const;
+    virtual unsigned int GetNumArguments();
+    virtual const unsigned char *GetByteCodeBase();
+    virtual unsigned int GetByteCodeSize();
+    virtual void SetArgument(AptValue *,int);
+    virtual AptScriptFunctionBase *Duplicate(AptCIH *);
     virtual void SetupBeforeExecution(_AptScriptFunctionState *, AptValue *);
     virtual void CleanupAfterExecution(_AptScriptFunctionState *);
     virtual AptConstantPool GetConstantPool();
@@ -172,3 +217,5 @@ protected:
 typedef char AptScriptFunctionBaseSize[sizeof(AptScriptFunctionBase) == 0x30 ? 1 : -1];
 typedef char AptScriptFunctionByteCodeBlockSize[sizeof(AptScriptFunctionByteCodeBlock) == 0x44 ? 1 : -1];
 typedef char AptScriptFunction2Size[sizeof(AptScriptFunction2) == 0x34 ? 1 : -1];
+
+typedef char AptScriptFunction1Size[sizeof(AptScriptFunction1) == 0x34 ? 1 : -1];
