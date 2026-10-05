@@ -3,6 +3,8 @@
 // Target evidence: Target/Priority subtokens; eight AutoResolveUnit names at
 // VA 0x00DC85C4; availability word array beginning at store+0x10; map at +4.
 // Known callees and the INIException ThrowInfo establish the parser's behavior.
+// The Target FieldParse entry at VA 0x00C3A9A8 identifies the standard four-
+// argument callback ABI; instance and userData are unused by this body.
 // The original parser and receiver names are unknown; the RVA names preserve
 // that uncertainty. The saved attempt at reverse/attempts/0x00418f7d.cpp was
 // the structural starting point, independently checked against retail.
@@ -81,8 +83,9 @@ struct Rva00418F7DStore
 	Rva00418F7DFlags m_bits;
 };
 
-void __cdecl Rva00418F7DParse(INI *ini, void * /*instance*/, Rva00418F7DStore *store)
+void __cdecl Rva00418F7DParse(INI *ini, void * /*instance*/, void *storePtr, const void * /*userData*/)
 {
+	Rva00418F7DStore *store = static_cast<Rva00418F7DStore *>(storePtr);
 	const char *targetTok = ini->getNextSubToken("Target");
 	unsigned int index = (unsigned int)ini->scanIndexList(targetTok, g_Va00DC85C4Names);
 	const char *priTok = ini->getNextSubToken("Priority");
