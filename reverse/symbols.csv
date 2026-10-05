@@ -12052,3 +12052,6 @@ _floor,0x00629940,call site 0x006F4403 in AptDate::getDayOfWeek (0x006F4290) enc
 ?pushBack@DrawableList@@QAEXAAPBVDrawable@@@Z,0x00239E0B,TU-local DrawableList pushBack pinned to rowed list Drawable push_back 0x239E0B decoded from retail call at 0x239FDC for 0x239FCC
 ?thru@Rva00239105A@@QAEXXZ,0x0042C5BC,TU-local thru pinned to 7B thunk 0x42C5BC for 0x239105 (range 0 owned elsewhere)
 ?tail@Rva00239105B@@QAEXXZ,0x0042CADD,TU-local tail pinned to 7B thunk 0x42CADD for 0x239105 tail-jmp
+?thru@Rva0023D6D5Callee@@QAEXXZ,0x001EC98E,TU-local thru pinned to 0x1EC98E for 0x23D6D5
+?dtor@Rva002698E6Dtor@@QAEXXZ,0x00268B04,TU-local dtor pinned to rowed 0x268B04 for 0x2698E6 deleting shape
+?dtor@Rva00254008Dtor@@QAEXXZ,0x00254024,TU-local dtor pinned to thunk 0x254024 (ILT to rowed GateOpenAndClose dtor) for 0x254008
