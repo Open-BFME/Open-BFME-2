@@ -1,4 +1,6 @@
 // ?Rva002B3E7ECheck@@YIEPAX@Z
+// partial score=0.95 date=2026-10-05
+// ?Rva002B3E7ECheck@@YIEPAX@Z
 // partial score=0.95 date=2026-10-04
 // cl: /O1 /MD
 // ?Rva002B3E7ECheck@@YIEPAX@Z 88B @0x002B3E7E: global Rva002B254F guard via g_009FEF10 then virtual slot 8 check then +0xC4 flag then Rva002D06CA lookup via g_009FF000 and bit 26 test.
