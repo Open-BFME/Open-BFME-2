@@ -5767,3 +5767,13 @@ void __cdecl rva007B6864()
 	return p->~Init();
 }
 
+extern unsigned g_00E06665;
+// g_00E06665: packet annotates VA 0x00E06665 (data RVA 0x00A06665), no name yet.
+
+// ?rva007B9806@@YAXXZ @ 0x007B9806 (10B). Global locale uninitialize thunk: ecx=&g_00E06665 then tail-jmp to pinned ?rva00007670@Rva00007670@@QAEXXZ (0x00007670 twin of rowed ?_S_uninitialize@locale@_STL@@SAXXZ). No callers. Between 0x007B97FC and 0x007B981B. Honest address name.
+void __cdecl rva007B9806()
+{
+	Rva00007670 *p = (Rva00007670 *)&g_00E06665;
+	return p->rva00007670();
+}
+
