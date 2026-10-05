@@ -29,6 +29,25 @@ extern GameWindowManager *TheWindowManager;
 
 void GadgetTextEntrySetText(GameWindow *textEntry, UnicodeString text);
 
+extern "C" int __cdecl strcmp(const char *left, const char *right);
+
+class BfmeKeyLC;
+class BfmeObjENK;
+void bfmeGo924F(BfmeKeyLC *textEntry, unsigned short maxLength);
+void bfmeGoENK(BfmeObjENK *listBox, char flag);
+
+// The name entry link at +0x6C8 (as the LAN lobby's +0x6AC one): vslot 1
+// attaches the window, kept at its +0x08.
+class AptSkirmishEntryLink
+{
+public:
+	virtual void v0();
+	virtual void attach(GameWindow *window);
+
+	void *m_04;
+	GameWindow *m_window; // +0x08
+};
+
 // The skirmish screen instance (Rva0052192DInit.cpp's g_00E04930).
 extern int g_00E04930;
 
@@ -56,6 +75,7 @@ public:
 	void OnNewProfileMenu(const char *unused);
 	void OnDeleteProfileMenu(const char *unused);
 	void OnChangeProfileMenu(const char *unused);
+	void InitGadgets(const char *name, void *argument, GameWindow *window);
 
 	// Unrowed 0x00521CFF (358 bytes) and 0x00522556 (277 bytes), pinned by
 	// address.
@@ -68,8 +88,9 @@ private:
 	unsigned char m_pad6bc[0x6C1 - 0x6BC];
 	bool m_6c1; // +0x6C1
 	bool m_6c2; // +0x6C2
-	unsigned char m_pad6c3[0x6D0 - 0x6C3];
-	GameWindow *m_nameEntry; // +0x6D0
+	unsigned char m_pad6c3[0x6C4 - 0x6C3];
+	GameWindow *m_profiles; // +0x6C4
+	AptSkirmishEntryLink m_nameEntry; // +0x6C8 (the window at +0x6D0)
 };
 
 // Retail 0x00521643, 21 bytes. Name unknown. With the skirmish screen up,
@@ -189,8 +210,8 @@ void AptSkirmish::OnClosed(const char *unused)
 void AptSkirmish::OnNewProfileMenu(const char *unused)
 {
 	m_state = 2;
-	TheWindowManager->winSetFocus(m_nameEntry);
-	GadgetTextEntrySetText(m_nameEntry, UnicodeString::TheEmptyString);
+	TheWindowManager->winSetFocus(m_nameEntry.m_window);
+	GadgetTextEntrySetText(m_nameEntry.m_window, UnicodeString::TheEmptyString);
 	m_6c2 = true;
 }
 
@@ -206,4 +227,27 @@ void AptSkirmish::OnChangeProfileMenu(const char *unused)
 {
 	rva00522556();
 	m_state = 4;
+}
+
+// Retail 0x00522918, 187 bytes: "AptSkirmish::InitGadgets" links the
+// emptied "Skirmish::CreatePersonaEntry" (11 characters) and keeps the
+// "Skirmish::SelectProfile" list, refilling it (0x00522556).
+void AptSkirmish::InitGadgets(const char *name, void *argument, GameWindow *window)
+{
+	if (!window)
+		return;
+	if (strcmp(name, "Skirmish::CreatePersonaEntry") == 0)
+	{
+		m_nameEntry.attach(window);
+		UnicodeString text = UnicodeString::TheEmptyString;
+		GameWindow *entry = m_nameEntry.m_window;
+		bfmeGo924F((BfmeKeyLC *)entry, 11);
+		GadgetTextEntrySetText(m_nameEntry.m_window, text);
+	}
+	else if (strcmp(name, "Skirmish::SelectProfile") == 0)
+	{
+		bfmeGoENK((BfmeObjENK *)window, 1);
+		m_profiles = window;
+		rva00522556();
+	}
 }
