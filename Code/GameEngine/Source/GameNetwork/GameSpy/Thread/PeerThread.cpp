@@ -2842,10 +2842,14 @@ static void playerInfoCallback(PEER peer, RoomType roomType, const char * nick, 
 	if (!t)
 		return;
 
+	// Native outputs at response33C/340/344 occupy the top frame slots.
 	getPlayerInfo(t, peer, nick, resp.player.profileID, resp.player.IP,
 		resp.locale, resp.player.wins, resp.player.losses,
 		resp.player.rankPoints, resp.player.side, resp.player.preorder,
-		roomType, resp.player.flags);
+		roomType, resp.player.flags,
+		reinterpret_cast<Int &>(resp.unknown_payload[140]),
+		reinterpret_cast<Int &>(resp.unknown_payload[141]),
+		reinterpret_cast<Int &>(resp.unknown_payload[142]));
 DEBUG_LOG(("**GS playerInfoCallback name=%s, local=%s\n", nick, resp.locale.c_str() ));
 	TheGameSpyPeerMessageQueue->addResponse(resp);
 }
