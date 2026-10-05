@@ -64116,3 +64116,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?rva003BE5C9@Rva003BE5C9@@QAEXXZ,,0x003BE5C9,258,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptGlueRva003BE5C9.cpp,matched,dump range 18 victory-screen emit with pinned 0x00376D49 and 0x003BBAD3 and rowed StringBase ctor releaseBuffer and 0x003BA8F3 plus slot23
 ?Rva003BE9DBSet@@YGXABVAsciiString@@M@Z,,0x003BE9DB,53,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptGlueRva003BE9DB.cpp,matched,dump range 18 team float setter via doSetTeamState idiom and pinned 0x0039E76C
 ?Rva003BECCDSet@@YGXABVAsciiString@@HH@Z,,0x003BECCD,52,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptGlueRva003BECCD.cpp,matched,dump range 18 team pair setter via doSetTeamState idiom and pinned 0x003A38E9
+?rva003EDC16@Rva003EDC16@@QAEXXZ,,0x003EDC16,27,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptGlueRva003EDC16.cpp,matched,dump range 18 pointer-array walk with pinned 0x00569AA8 element
