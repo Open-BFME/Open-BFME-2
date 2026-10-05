@@ -1,4 +1,6 @@
 // ?rva002C8B9B@WeaponSet@@QAEXH@Z
+// partial score=0.97 date=2026-10-05
+// ?rva002C8B9B@WeaponSet@@QAEXH@Z
 // partial score=0.97 date=2026-10-04
 // ?rva002C8B9B@WeaponSet@@QAEXH@Z
 // cl: /O1 /DNDEBUG /MD
