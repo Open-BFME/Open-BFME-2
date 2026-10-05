@@ -29,8 +29,10 @@ public:
 	bool operator!=(const Rva00077710Value &other) const;
 	Rva00077710Value operator+(const Rva00077710Value &other) const;
 	Rva00077710Value &operator+=(const Rva00077710Value &other);
+	Rva00077710Value *rva0022D89D(Rva00077710Value &other);
 
 private:
+	Rva00077710Value() {}
 	Rva00077710Value(Int value) { m_value = value; }
 
 	Int m_unreconstructed_00;							///< retail this+0x00
@@ -57,4 +59,13 @@ Rva00077710Value &Rva00077710Value::operator+=(const Rva00077710Value &other)
 {
 	m_value = (*this + other).m_value;
 	return *this;
+}
+
+Rva00077710Value *Rva00077710Value::rva0022D89D(Rva00077710Value &other)
+{
+	Rva00077710Value tmp;
+	tmp.m_value = 0x0790A442;
+	*this += tmp;
+	other.m_value = m_value;
+	return &other;
 }
