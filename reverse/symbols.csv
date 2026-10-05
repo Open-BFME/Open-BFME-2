@@ -12906,3 +12906,4 @@ _Rva00337999Forward,0x00337999,REL32 callee decoded from target call bytes of wr
 ??0Helper005C4D4B@@QAE@PAX@Z,0x005C4D4B,Helper005C4D4B constructor from pointer
 ??0Rva005C4B56@@QAE@ABUHelper005C4D4B@@HH@Z,0x005C4DE0,Rva005C4B56 constructor from Helper005C4D4B
 ?method_002BFFD4@Rva002D3627Host@@QAEXPAXH0@Z,0x002BFFD4,Rva002D3627Host method called by Rva005C4230 ctor
+??$_Destroy@PAURva005C847BRecord@@@_STL@@YAXPAURva005C847BRecord@@0@Z,0x005C847B,Destroy range helper for Rva005C847BRecord
