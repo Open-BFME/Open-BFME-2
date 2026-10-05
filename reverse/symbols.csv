@@ -13686,3 +13686,4 @@ _rva006F98C0Call,0x006F98C0,retail call at 0x006F9B84 supplies EAX ECX and two s
 ??0Rva0010461F@@QAE@XZ,0x0010461F,callee of ?rva0008F32C@@YAXXZ
 ??0Rva0030F404@@QAE@H@Z,0x0030F404,callee of ?rva00086BC5@Rva00086BC5@@QAEXH@Z
 ?rva0030F36B@Rva0030F36B@@QAEXXZ,0x0030F36B,callee of ?rva00086BC5@Rva00086BC5@@QAEXH@Z
+?rva00112898@Rva00113110Holder@@QAEXHHPAX@Z,0x00112898,"retail REL32 at 0x00113148 in 0x00113110 targets 0x00112898 (ecx=esi Holder thiscall 3 stack args [esi+0x58] plus 0 plus 0; 569B Ghidra body sharing +0x5C holder); opaque candidate not identity"
