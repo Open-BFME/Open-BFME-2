@@ -58,13 +58,13 @@ public:
 const Video *VideoPlayer::getVideo(AsciiString movieTitle)
 {
 	AsciiString title(movieTitle);
-	title.trim();
+	((StringBase<char> *)&title)->trim();
 
 	Video *it = g_bfmeVideoTableBegin;
 	for (; it != g_bfmeVideoTableEnd; ++it)
 	{
 		AsciiString name(it->m_internalName);
-		name.trim();
+		((StringBase<char> *)&name)->trim();
 		if (compareVideoNames(name, title) == 0)
 			return it;
 	}
