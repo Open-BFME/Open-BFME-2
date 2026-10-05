@@ -1,15 +1,14 @@
-// ?reset@ControlBar@@QAEXXZ
-// partial score=0.9 date=2026-10-05
-// ?reset@ControlBar@@QAEXXZ
-// partial score=0.9 date=2026-10-05
-// cl: /Ireference/shims/bfme2_ascii /O2 /Oy- /DNDEBUG /MD /G7 /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /O1 /Oy- /DNDEBUG /MD /G7 /arch:SSE
 #include "ascii_string.h"
 
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 
+
 // ?reset@ControlBar@@QAEXXZ @0x0031E09E 448B: ControlBar reset.
-// Ported from the Zero Hour donor ControlBar::reset in
+// Target boundary: Ghidra FUN_0071e09e ends at 0x0031E25E (ret at E25D).
+// Donor algorithm: Zero Hour ControlBar::reset as vendored by BFME1
+// 6583b3c1ff21db4a561285717028fdafc780b7db in
 // reference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp,
 // with BFME2 deltas read off retail: the window/video map teardown at
 // +0x30 (Rva first/next helpers plus the pair erase), the +0xDC window
@@ -68,11 +67,8 @@ struct BfmeResetNode
 	int m_resetCleared;			///< +0xF8
 };
 
-// Same layout as Rva000411084 (two pointer homes at the same offsets)
-// but volatile-qualified: retail's loop redundantly re-stores both pair
-// homes every iteration, which MSVC would otherwise elide as dead.
-// The first()/next() calls go through casts (zero code) so the established
-// Rva pins still spell the callees.
+// Retail restores both iterator homes before next(). Volatile homes and the
+// compiler barrier preserve those stores across the captured pair values.
 struct VolIter
 {
 	volatile void *m_current;
@@ -88,7 +84,9 @@ public:
 	void *m_owner;
 };
 
-union VideoPair
+// An explicit copy constructor makes the by-value erase argument reserve
+// its stack space and copy its two words through the argument address.
+struct VideoPair
 {
 	struct
 	{
@@ -96,6 +94,7 @@ union VideoPair
 		void *second;
 	} s;
 	inline VideoPair(void *a, void *b) { s.first = a; s.second = b; }
+	inline VideoPair(const VideoPair &other) { s.first = other.s.first; s.second = other.s.second; }
 };
 
 class Rva000427195
@@ -250,12 +249,12 @@ void ControlBar::reset()
 	// go back to default context
 	rva0031BF64(0, 0);
 	GameWindow **ppAnimateDown = &m_animateDownWindow;
-	if (*ppAnimateDown != 0)
+	GameWindow *animateDown = *ppAnimateDown;
+	if ((m_sideSelectAnimateDown = false, animateDown) != 0)
 	{
-		TheWindowManager->winDestroy(*ppAnimateDown);
+		TheWindowManager->winDestroy(animateDown);
 		*ppAnimateDown = 0;
 	}
-	m_sideSelectAnimateDown = false;
 
 	// Teardown of the window/video map at +0x30.
 	VolIter iter;
@@ -296,22 +295,22 @@ void ControlBar::reset()
 
 	// Remove any overridden command buttons.
 	BfmeResetNode *button = (BfmeResetNode *)m_commandSets;
-	if (button != 0) {
-		do {
+	{
+		while (button != 0) {
 			button->m_resetCleared = 0;
 			button = button->m_next;
-		} while (button != 0);
+		}
 	}
 
 	// Clear the disjoint windows.
 	GameWindow **slot = m_disjointWindows;
 	int remaining = 0x20;
-	(void)&remaining;
 	do {
 		if (*slot != 0)
 			Rva00328518(*slot, 0);
 		slot++;
-		remaining--;
+		--remaining;
+		_ReadWriteBarrier();
 	} while (remaining != 0);
 
 	if (TheTransitionHandler != 0)
