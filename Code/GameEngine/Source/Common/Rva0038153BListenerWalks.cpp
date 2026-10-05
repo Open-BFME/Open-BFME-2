@@ -151,7 +151,8 @@ void Rva003818B0List::rva003818E3(void *arg)
 // Chain from 0x003818E3: free helper that forwards window/index to the
 // list wrapper on g_00E02310. Evidence: pin, callers in
 // LANAPILobbyMenuForwarders.cpp.
-extern Rva003818B0List g_00E02310;
+// g_00E02310: matched references place it at VA 0x00e02310 (zero-filled .bss).
+Rva003818B0List g_00E02310;
 
 void Rva00381900(int arg)
 {
