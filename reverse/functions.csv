@@ -63567,3 +63567,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva00043073@Rva00043073@@QAEXMMM_N@Z,,0x00043073,85,Code/Libraries/Source/WWVegas/WW3D2/Rva00043073Gamma.cpp,matched,
 ?Rva000527FB@@YGEPAVBfmeAudioEventPrefix136@@@Z,,0x000527FB,92,Code/GameEngine/Source/Common/Audio/Rva000527FB.cpp,matched,
 ?rva00033A80@GeneralAllocator@Allocator@EA@@QAEI_N@Z,,0x00033A80,269,Code/GameEngine/Source/Common/System/Rva00033A80Query.cpp,matched,GeneralAllocator largest-block query via bins at +0x428/+0x3C/+0x2C; pinned 0x33930 reused; SEH stub 0xB5CC48 via RAII idiom; Ghidra extent to 0x33B8D
+?rva00043BF9@W3DDisplay@@QAEXXZ,,0x00043BF9,240,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva00043BF9.cpp,matched,W3DDisplay 25-string color pass; BfmeDrawString006e interface and flags from rowed sibling 0x4387E; sparse index switch; unblocks 0x4A3C4 arm1
