@@ -55935,3 +55935,4 @@ ___Extract_locale_name,,0x000216A0,153,Code/Libraries/Source/WWVegas/WWLib/Local
 ?rva005D18C8@Rva005D18C8@@QAEXXZ,,0x005D18C8,26,Code/GameEngine/Source/Common/Rva005D18C8.cpp,matched,owning-pointer clear via rowed dtor and delete
 ??1Rva005D1A42@@UAE@XZ,,0x005D1A42,14,Code/GameEngine/Source/Common/Rva005D1A42Dtor.cpp,matched,virtual dtor tail-jmp to rowed member clear
 ??_GRva005D1A42@@UAEPAXI@Z,,0x005D1A50,28,Code/GameEngine/Source/Common/Rva005D1A42Dtor.cpp,matched,deleting dtor emitted by dtor unit vtable slot 0
+??_GRva005D1846@@QAEPAXI@Z,,0x005D1891,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_Rva005D1846.cpp,matched,deleting dtor via placeholder scalar dtor plus delete
