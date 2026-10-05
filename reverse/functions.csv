@@ -63483,3 +63483,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva005CDDF0@Rva005CDDF0@@QAEXXZ,,0x005CDDF0,17,Code/GameEngine/Source/Common/RvaHelperThenMemberForwarders.cpp,matched,helper rva005E590F then wide validate at plus 0xC slot 1
 ??1Rva004ABFD9@@UAE@XZ,,0x004ABFD9,72,Code/GameEngine/Source/Common/Rva004ABFD9Dtor.cpp,matched,dtor removes from global registry then member then Snapshot base
 ?rva00574851@Rva00574815@@QAEXH@Z,,0x00574851,83,Code/GameEngine/Source/Common/Rva00574851Vslot.cpp,matched,slot16 vtable 0x0086E3E8 plus rowed clear new ctor set
+?rva00355358@AiOrdersManager@@QAEXHPAX@Z,,0x00355358,52,Code/GameEngine/Source/GameLogic/Object/Rva00355358Broadcast.cpp,matched,walks list at holder+4 calling AiOrdersManager 0x355183 with arg and content+0x74
