@@ -13537,3 +13537,4 @@ _peerStateChanged,0x00699460,GameSpy SDK C export peerStateChanged: PeerThread.c
 ?rva000053EE@Rva002DBCCAArg@@QAEXXZ,0x000053EE,pin for 0x2DBCCA thiscall void () on arg
 ?rva004FFB00@Rva0059CFAACallee@@QAGXPAXHH@Z,0x004FFB00,address-derived __stdcall callee of 0x0059CFAA (3 stack args, callee cleanup); target REL32 from retail call at 0x0059D019
 ?rva000BEE25@Rva000B8F5AOuter@@QAEXPAXMHHH@Z,0x000BEE25,rva000BFB51 refill: address read from the REL32 at 0x000BFB6E in 0x000BFB51; fresh address-derived Outer-method name (entry, float, 0, 1, 1) for the 2499B body
+?rva00112898@Rva00113110Holder@@QAEXHHPAX@Z,0x00112898,"retail REL32 at 0x00113148 in 0x00113110 targets 0x00112898 (ecx=esi Holder thiscall 3 stack args [esi+0x58] plus 0 plus 0; 569B Ghidra body sharing +0x5C holder); opaque candidate not identity"
