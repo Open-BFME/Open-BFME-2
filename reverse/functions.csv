@@ -60602,3 +60602,5 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva003E4AE4@ScriptConditions@@IAE_NPAVParameter@@@Z,,0x003E4AE4,70,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_rva003E4AE4.cpp,matched,player-mask condition via Player 0x002A9CB8 AI forwarder
 ?rva003E586B@ScriptConditions@@IAE_NPAVParameter@@0@Z,,0x003E586B,133,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_rva003E586B.cpp,matched,player-mask countObjects kinds 7 and 37 at most count parameter
 ?rva003E58F0@ScriptConditions@@IAE_NPAVParameter@@0@Z,,0x003E58F0,192,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_rva003E586B.cpp,matched,player-mask countObjects kind 177 after start delay
+?rva00291080@Object@@QAEX_N@Z,,0x00291080,55,Code/GameEngine/Source/GameLogic/Object/ObjectRva00291080.cpp,matched,
+?ObjectSetChanting@@YAHPAUlua_State@@@Z,,0x003357E0,113,Code/GameEngine/Source/GameLogic/ScriptEngine/LuaObjectSetChantingRva003357E0.cpp,matched,
