@@ -129,3 +129,22 @@ void Rva005FFC8B::rva005FFC8B(const TreeHintRef00217D4C &ref)
 	m_ref = ref;
 	Rva005FB5E6AptCall(TheRva00222A8BTarget, (void *)m_level, m_name.str(), "CreateArmyPanel", "garrison");
 }
+
+// ?rva005779A0@Rva005779A0@@QBE?AVAsciiString@@XZ @0x005779A0 110B: the
+// panel's Apt path "_level%d.%s" from level +4 and name +8, returned by value.
+class Rva005779A0
+{
+public:
+	AsciiString rva005779A0() const;
+private:
+	char m_pad00[4];
+	unsigned int m_level;		// +0x04
+	StringBase<char> m_name;	// +0x08
+};
+
+AsciiString Rva005779A0::rva005779A0() const
+{
+	AsciiString path;
+	path.format("_level%d.%s", m_level, m_name.str());
+	return path;
+}
