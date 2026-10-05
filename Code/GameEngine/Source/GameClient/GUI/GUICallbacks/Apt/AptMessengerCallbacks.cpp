@@ -449,7 +449,6 @@ int AptMessenger::rva00511990(int message, unsigned int wParam, unsigned int lPa
 
 // Retail 0x00511826, 140 bytes: vftable 0x00C659A0 slot 12 makes both
 // tabs; in a multiplayer game the second is the game's chat.
-// ?rva00511826@AptMessenger@@QAEXXZ present-unmatched
 void AptMessenger::rva00511826()
 {
 	bool multiplayer = TheGameLogic && TheGameLogic->isInMultiplayerGame();
