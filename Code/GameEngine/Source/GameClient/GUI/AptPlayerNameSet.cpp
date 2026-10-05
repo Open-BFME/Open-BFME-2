@@ -117,3 +117,24 @@ void Rva005FBB68::rva005FBB55(float v)
 {
     m_member->rva005FB8B4(v);
 }
+
+// ?rva005FB83E@Rva005FB83E@@QAEXPBVImage@@@Z @0x005FB83E 8B unlock tail-jmp forwarder to rowed _PlayerIcon 0x005FB666
+// Evidence: prev 0x005FB7D7 ends here; mov ecx,[ecx+4] plus jmp callee; same shape as Rva005FBB68 forwarders above.
+class Image;
+class Rva005FB666
+{
+public:
+    void rva005FB666(const Image *image);
+};
+class Rva005FB83E
+{
+public:
+    void rva005FB83E(const Image *image);
+private:
+    char m_pad[4];
+    Rva005FB666 *m_member;
+};
+void Rva005FB83E::rva005FB83E(const Image *image)
+{
+    return m_member->rva005FB666(image);
+}

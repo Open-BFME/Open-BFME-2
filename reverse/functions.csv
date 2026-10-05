@@ -61746,3 +61746,4 @@ _Rva00023540,,0x00023540,271,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleF
 ?rva005E1AB6@Rva005E1B41Primary@@QAEXH@Z,,0x005E1AB6,139,Code/GameEngine/Source/Common/VslotSmallBodiesAL.cpp,matched,setter interface +0x18 via v00/v04 and v04/v0c plus two Image lookups
 ?Rva00528C30Get@@YA_NPBDAAVAsciiString@@@Z,,0x00528C30,27,Code/GameEngine/Source/Common/Rva00528C30.cpp,matched,GetParam wrapper with literal name plus uchar local bool normalize
 ??0Rva00541A6E@@QAE@ABV0@@Z,,0x00541A6E,66,Code/GameEngine/Source/GameLogic/Object/Behavior/Rva00541A6ECopyCtor.cpp,matched,same shape as neighbour Rva00541913 copy with Rva0054103E vector
+?rva005FB83E@Rva005FB83E@@QAEXPBVImage@@@Z,,0x005FB83E,8,Code/GameEngine/Source/GameClient/GUI/AptPlayerNameSet.cpp,matched,tail-jmp forwarder via member at plus4 to rowed PlayerIcon 0x005FB666

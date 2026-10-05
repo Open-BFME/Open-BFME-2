@@ -9832,3 +9832,4 @@ FUN_00607c02	0x00207C02	498	blocked	huge 0x1A500 object init chain needs ScriptE
 ?rva00596F23@Rva00596F18@@QAEXXZ	0x00596F23	210	partial	K-mul spill movaps-movss vs mulss-mem plus nv addss-mem vs movss-addss-reg t=25 model=muse-01 score=0.91 stash=reverse/attempts/0x00596f23.cpp
 ?rva00596F23@Rva00596F18@@QAEXXZ	0x00596F23	210	partial	K-mul second mul spill movaps-movss vs mulss-mem plus nv addss-mem vs movss-addss-reg t=18 model=muse-01 score=0.93 stash=reverse/attempts/0x00596f23.cpp
 ?rva004B886F@Rva004B886F@@UAEHXZ	0x004B886F	341	blocked	MI B10-this with AsciiString temp flag and shift-test bit idioms unmatched; 310B vs 341B register/stack/temp-flag differ t=15 model=muse-01
+?rva0045C975@BezierProjectileBehavior@@QAEXH@Z	0x0045C975	281	partial	esi-edi mirror plus flags test-or mem-vs-reg with extra lea-mov 8B; vector lea-first fixed via ref t=22 model=muse-04 score=0.92 stash=reverse/attempts/0x0045c975.cpp

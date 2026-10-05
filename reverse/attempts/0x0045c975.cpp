@@ -1,5 +1,5 @@
 // ?rva0045C975@BezierProjectileBehavior@@QAEXH@Z
-// partial score=0.9 date=2026-10-05
+// partial score=0.92 date=2026-10-05
 // cl: /O1 /GX /DNDEBUG /MD /arch:SSE
 //
 // ?rva0045C975@BezierProjectileBehavior@@QAEXH@Z @0x0045C975 (281B).
@@ -224,8 +224,7 @@ private:
 // ?rva0045C975@BezierProjectileBehavior@@QAEXH@Z present-unmatched
 void BezierProjectileBehavior::rva0045C975(int unused)
 {
-	BezierProjectileBehavior *self = this;
-	Object *obj = self->m_object;
+	Object *obj = *(Object **)((char *)this + 8);
 	Coord3D pos;
 	pos.x = obj->m_pos38.x;
 	pos.y = obj->m_pos38.y;
@@ -235,14 +234,15 @@ void BezierProjectileBehavior::rva0045C975(int unused)
 	float h = TheTerrainLogic->getLayerHeight(pos.x, pos.y, layer, 0, true);
 	pos.z = h;
 	((Thing *)obj)->setPosition(&pos);
-	self->m_vec44.erase(self->m_vec44.begin(), self->m_vec44.end());
-	self->m_int70 = 0;
-	self->m_int78 = 0;
-	self->m_id28 = 0;
-	self->m_list7C.reset();
+	_STL::vector<Gen_p12pod> &vec = this->m_vec44;
+	vec.erase(vec.begin(), vec.end());
+	this->m_int70 = 0;
+	this->m_int78 = 0;
+	this->m_id28 = 0;
+	this->m_list7C.reset();
 	Rva001E4912 bits;
 	((Rva001E42F2 *)obj)->rva001E42F2((const int *)bits.rva001E4912(0, 0x9a, 0x9b));
-	const BezierModuleData *d = (const BezierModuleData *)self->m_moduleData;
+	const BezierModuleData *d = (const BezierModuleData *)this->m_moduleData;
 	if (d->m_flag19 != 0) {
 		if ((obj->m_flags118 & 0x4000000) == 0) {
 			obj->m_flags118 |= 0x4000000;
