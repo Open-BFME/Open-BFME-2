@@ -59,8 +59,49 @@ extern AudioManager *TheAudio;
 class Shell
 {
 public:
-	// Rowed 0x0035BEC7.
+	// Rowed 0x0035BEC7; unrowed 0x0035BD5D (a byte query) and 0x0035C2B9,
+	// pinned by address.
 	void rva0035BEC7();
+	bool rva0035BD5D();
+	void rva0035C2B9();
+
+	unsigned char m_pad00[0x5D];
+	bool m_5d; // +0x5D
+};
+
+// The shell's rowed 0x0035BD3F (its own address class).
+class Rva0035BD3F
+{
+public:
+	void rva0035BD3F();
+};
+
+class GameWindowTransitionsHandler
+{
+public:
+	void setGroup(AsciiString groupName, bool immediate);
+	void reverse(AsciiString groupName);
+};
+
+extern GameWindowTransitionsHandler *TheTransitionHandler;
+
+class UserPreferences
+{
+public:
+	virtual ~UserPreferences();
+	virtual void setBool(const AsciiString &key, bool value);
+	virtual bool write();
+};
+
+// The options file (its destructor is rowed as ??1Rva002E4272, pinned
+// here under this name).
+class OptionPreferences : public UserPreferences
+{
+public:
+	OptionPreferences();
+	virtual ~OptionPreferences();
+
+	unsigned char m_rest[0x14 - 0x04];
 };
 
 extern Shell *TheShell;
@@ -78,6 +119,40 @@ public:
 };
 
 extern GameEngine *TheGameEngine;
+
+// TheGlobalData's +0x28 (the frame rate TheGameEngine vslot 18 takes back).
+class GlobalData;
+extern GlobalData *TheGlobalData;
+
+struct AptMainMenuGlobalData
+{
+	unsigned char m_pad00[0x28];
+	int m_28; // +0x28
+};
+
+class GameEngineRate
+{
+public:
+	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
+	virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07();
+	virtual void v08(); virtual void v09(); virtual void v10(); virtual void v11();
+	virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15();
+	virtual void v16(); virtual void v17();
+	virtual void v18(int value);
+};
+
+// The credits roll (0x00E06474): vslot 9 stops it; deleted through vslot 0
+// and a separate operator delete.
+class AptMainMenuCredits
+{
+public:
+	virtual void *deleteInstance(int flags);
+	virtual void v01(); virtual void v02(); virtual void v03(); virtual void v04();
+	virtual void v05(); virtual void v06(); virtual void v07(); virtual void v08();
+	virtual void v09();
+};
+
+extern AptMainMenuCredits *g_Va00E06474;
 
 class GameMessage;
 
@@ -122,6 +197,8 @@ public:
 	void ContinueCampaign(const char *unused);
 	void OnInitialized(const char *unused);
 	void ExitGame(const char *unused);
+	void BattleSchool(const char *unused);
+	void CreditsExit(const char *unused);
 
 	// "AptMainMenu::ResetResolution" (0x00514C15, 214 bytes), unrowed and
 	// pinned by address.
@@ -132,10 +209,14 @@ private:
 	bool m_initialized; // +0x27C
 	bool m_pendingRestart; // +0x27D
 	bool m_restart; // +0x27E
-	unsigned char m_pad27f[0x288 - 0x27F];
+	bool m_27f;
+	bool m_280;
+	bool m_tutorialPending; // +0x281
+	unsigned char m_pad282[0x288 - 0x282];
 	int m_state; // +0x288
 	int m_next; // +0x28C
-	unsigned char m_pad290[0x2A8 - 0x290];
+	unsigned char m_pad290[0x2A4 - 0x290];
+	AsciiString m_2a4; // +0x2A4
 	char m_side; // +0x2A8
 };
 
@@ -247,4 +328,43 @@ void AptMainMenu::ExitGame(const char *unused)
 	TheAudio->v35(2, 1, 0);
 	TheShell->rva0035BEC7();
 	TheGameEngine->v20(true);
+}
+
+// Retail 0x00515074, 169 bytes: "AptMainMenu::BattleSchool" runs the
+// "MainMenuToBattleSchool" transition and clears the options file's
+// "FlashTutorial" flag.
+void AptMainMenu::BattleSchool(const char *unused)
+{
+	if (TheShell)
+		TheShell->m_5d = true;
+	TheTransitionHandler->setGroup(AsciiString("MainMenuToBattleSchool"), false);
+	if (TheShell)
+		((Rva0035BD3F *)TheShell)->rva0035BD3F();
+	OptionPreferences prefs;
+	prefs.setBool(AsciiString("FlashTutorial"), false);
+	prefs.write();
+	m_tutorialPending = false;
+}
+
+// Retail 0x00515231, 182 bytes: "AptMainMenu::CreditsExit" stops and frees
+// the credits, restores the shell's audio unless 0x0035BD5D holds, reverses
+// the "MainMenuToCreditsScreen" transition and resets the menu.
+void AptMainMenu::CreditsExit(const char *unused)
+{
+	if (g_Va00E06474)
+	{
+		g_Va00E06474->v09();
+		::operator delete(g_Va00E06474 ? g_Va00E06474->deleteInstance(0) : 0);
+		g_Va00E06474 = 0;
+	}
+	if (!TheShell || !TheShell->rva0035BD5D())
+	{
+		TheAudio->v35(2, 1, 0);
+		TheShell->rva0035C2B9();
+	}
+	TheTransitionHandler->reverse(AsciiString("MainMenuToCreditsScreen"));
+	m_state = 0;
+	m_2a4.clear();
+	TheShell->m_5d = false;
+	((GameEngineRate *)TheGameEngine)->v18(((AptMainMenuGlobalData *)TheGlobalData)->m_28);
 }
