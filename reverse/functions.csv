@@ -59908,3 +59908,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva007B903F@@YAXXZ,,0x007B903F,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00E044F0 tail-jmp pinned string dtor 0x0007FAB3
 ?rva007B91E4@@YAXXZ,,0x007B91E4,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00E04920 tail-jmp pinned string dtor 0x0007FAB3
 ??0Rva00500856@@QAE@ABU0@@Z,,0x00500856,29,Code/Libraries/Source/WWVegas/WWLib/StlportConstructFamily.cpp,matched,copy int plus Rva00501E3FElement via pinned 0x005007AA callers 0x00500CD1 0x0050366B
+??HRva00077710Value@@QBE?AV0@ABV0@@Z,,0x0022CF80,31,Code/GameEngine/Source/Common/ObfuscatedValueOperators.cpp,matched,BFME1 donor operator+ with combine hook 0x0022CBB5 both operands named locals

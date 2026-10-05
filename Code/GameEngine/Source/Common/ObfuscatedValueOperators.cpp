@@ -20,14 +20,18 @@ typedef int Int;
 extern "C++"
 {
 	Int Rva00077140(Int a, Int b);
+	Int Rva0022CBB5Hook(Int a, Int b);
 }
 
 class Rva00077710Value
 {
 public:
 	bool operator!=(const Rva00077710Value &other) const;
+	Rva00077710Value operator+(const Rva00077710Value &other) const;
 
 private:
+	Rva00077710Value(Int value) { m_value = value; }
+
 	Int m_unreconstructed_00;							///< retail this+0x00
 	Int m_value;										///< retail this+0x04
 };
@@ -38,4 +42,12 @@ bool Rva00077710Value::operator!=(const Rva00077710Value &other) const
 	Int lhs = m_value;
 
 	return Rva00077140(lhs, rhs) != (Int)0xA590217B;
+}
+
+Rva00077710Value Rva00077710Value::operator+(const Rva00077710Value &other) const
+{
+	Int rhs = other.m_value;
+	Int lhs = m_value;
+
+	return Rva00077710Value(Rva0022CBB5Hook(lhs, rhs));
 }
