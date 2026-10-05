@@ -55841,3 +55841,4 @@ ___Extract_locale_name,,0x000216A0,153,Code/Libraries/Source/WWVegas/WWLib/Local
 ?Rva002EBCD6Split@@YAXPAXPAH1@Z,,0x002EBCD6,32,Code/GameEngine/Source/Common/Rva002EBCD6Split.cpp,matched,unlock 9 callers sibling Split rowed Get div2 store
 ?rva0055E969@OrthoEmissionVelocityModuleTemplate@FXParticleSystem@@QAEXPAVFile@@I@Z,,0x0055E969,275,Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva0055E969Write.cpp,matched,vslot3 Ortho template writeINI via header three fields
 ?rva0055E39E@LightningEmissionModuleTemplate@FXParticleSystem@@QAEXPAVFile@@I@Z,,0x0055E39E,582,Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva0055E39EWrite.cpp,matched,vslot3 Lightning template writeINI via header start end amplitudes
+??0Rva005613B2@@QAE@XZ,,0x005613B2,71,Code/GameEngine/Source/GameClient/Rva005613B2Ctor.cpp,matched,finish BUTTERFLY_DRAW publisher ctor via getInstance init new
