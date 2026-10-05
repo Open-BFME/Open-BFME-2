@@ -64749,3 +64749,4 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ?rva00499C6C@Rva00499C6C@@QAEXXZ,,0x00499C6C,172,Code/GameEngine/Source/Common/Rva00499C6CWake.cpp,matched,frame stamp then dock wake audio
 ?rva004A1A69@Rva004A1A69@@QAEXPAVBuildListInfo@@@Z,,0x004A1A69,174,Code/GameEngine/Source/Common/Rva004A1A69Offset.cpp,matched,random angle then cos and sin times the info int
 ?rva0049DC50@Rva0049DC50@@QAEXH@Z,,0x0049DC50,187,Code/GameEngine/Source/Common/Rva0049DC50Walk.cpp,matched,list walk refund comiss flag then slot0 delete
+?rva004A3E3E@Rva004A3E3E@@QAEXPAVObject@@H@Z,,0x004A3E3E,198,Code/GameEngine/Source/Common/Rva004A3E3EExit.cpp,matched,spawn exit door fieldwise coord then pathfinder
