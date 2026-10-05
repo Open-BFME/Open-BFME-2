@@ -63499,3 +63499,5 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ??0Rva003428CC@@QAE@PAVStateMachine@@@Z,,0x003428CC,37,Code/GameEngine/Source/Common/AIStateMoveTightenCtors.cpp,matched,leaf ctor hash 0xE4366E82 vtable 0x008125C8 int58 bool54
 ?rva003427A9@Rva003427A9@@QAEXPAVXfer@@@Z,,0x003427A9,42,Code/GameEngine/Source/Common/Rva003427A9Transfer.cpp,matched,xfer-family virtual Version1 plus stream slots 30 24 over plus-0x4C 0x50
 ?rva0033D3B8@Rva0033D3B8@@QAEPBDABVAsciiString@@@Z,,0x0033D3B8,48,Code/GameEngine/Source/Common/Rva0033D3B8Lookup.cpp,matched,string-map lookup empty-gated find worker plus header-miss null
+??0Rva00342C47@@QAE@PAVStateMachine@@_N@Z,,0x00342C47,28,Code/GameEngine/Source/Common/AIStateEvacLeafCtors.cpp,matched,leaf ctor forwards machine flag no new members
+??0Rva00342D19@@QAE@PAVStateMachine@@@Z,,0x00342D19,34,Code/GameEngine/Source/Common/AIStateEvacLeafCtors.cpp,matched,leaf ctor false flag init-list ints plus-0x68 0x6c
