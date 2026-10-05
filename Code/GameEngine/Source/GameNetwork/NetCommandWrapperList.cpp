@@ -99,7 +99,6 @@ NetCommandWrapperListNode::~NetCommandWrapperListNode() {
 	}
 }
 
-// ?isComplete@NetCommandWrapperListNode@@QAE_NXZ present-unmatched
 Bool NetCommandWrapperListNode::isComplete() {
 	return m_numChunksPresent == m_numChunks;
 }
