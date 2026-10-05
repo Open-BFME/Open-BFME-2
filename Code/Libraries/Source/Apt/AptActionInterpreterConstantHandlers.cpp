@@ -21,6 +21,8 @@
 extern "C" double __cdecl fmod(double,double);
 #pragma intrinsic(fmod)
 // Native equality threshold is double0.001 at VA BC6E68, not the later float macro.
+extern "C" int __cdecl strcmp(const char *,const char *);
+#pragma intrinsic(strcmp)
 extern "C" double __cdecl fabs(double);
 #pragma intrinsic(fabs)
 static __forceinline float bfme_fmodf(float x,float y) { return (float)fmod(x,y); }
@@ -168,6 +170,7 @@ private:
     HANDLER(CallFunction); HANDLER(CallMethod);
     HANDLER(CallFuncAndPop); HANDLER(CallFuncSetVar); HANDLER(CallMethodPop); HANDLER(CallMethodSetVar); HANDLER(DictCallFuncPop); HANDLER(DictCallFuncSetVar); HANDLER(DictCallMethodPop); HANDLER(DictCallMethodSetVar);
     HANDLER(ToInteger); HANDLER(StringLength); HANDLER(GetVariable);
+    HANDLER(Greater);
     HANDLER(SubString); HANDLER(AsciiToChar);
     HANDLER(Delete); HANDLER(Delete2);
     HANDLER(StringEquals);
@@ -969,4 +972,26 @@ void AptActionInterpreter::_FunctionAptActionAsciiToChar(AptActionInterpreter *c
         p->stack.Pop();
         p->stack.Push(gpUndefinedValue);
     }
+}
+
+void AptActionInterpreter::_FunctionAptActionGreater(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    AptValue *a=p->stack.At(0);
+    AptValue *b=p->stack.At(1);
+    if(Rva006CD220Get()==7) {
+        if(a->isUndefined() || b->isUndefined()) {
+            p->stack.Pop(2);
+            p->stack.Push(gpUndefinedValue);
+            return;
+        }
+    }
+    int result=0;
+    if(a->isString() && b->isString()) {
+        result=strcmp(a->c_string()->GetInternalString()->rva00620090(),b->c_string()->GetInternalString()->rva00620090())<0;
+    } else if(a->isFloat() || b->isFloat()) {
+        result=b->toFloat()>a->toFloat();
+    } else {
+        result=b->toInteger()>a->toInteger();
+    }
+    p->stack.PopAndPush(2,AptBoolean::Create(result!=0));
 }
