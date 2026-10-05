@@ -450,3 +450,6 @@ void    AptNativeHash::HashSet(const EAStringC * const pKey, AptValue * const pV
 // first-fit test !=-1. All probe bounds, assertion lines and full extents checked.
 #pragma comment(linker, "/alternatename:??1AptNativeHash@@QAE@XZ=??1Rva0070A840@@QAE@XZ")
 #pragma comment(linker, "/alternatename:?Unset@AptNativeHash@@QAEXQBVEAStringC@@@Z=?bfmeErase1279@BfmeLookup1279@@QAEXAAUBfmeKey1279@@@Z")
+
+// Bind the existing addIfAbsent consumer to this now-recovered Set provider.
+#pragma comment(linker, "/alternatename:?add@Rva8D0D80Table@@QAEXPAVRva8D0D80String@@PAVRva8D0D80Value@@@Z=?Set@AptNativeHash@@QAEXQBVEAStringC@@QAVAptValue@@@Z")
