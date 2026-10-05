@@ -5,6 +5,9 @@
 // player+0x60 with 1, counter via pin bfmeCounter 0x0020874B from second arg by value.
 // Evidence: callers 0x003CE1CE; neighbours Rva003C2C8F 0x003C2C8F Rva003C2E61 0x003C2E61;
 // globals g_Va009FE16C ThePlayerList; StringBase copy 0x000365F0 temporary.
+// ?Rva003C2D34Do@@YGXPAVParameter@@0@Z @0x003C2D34 92B (caller 0x003CE1ED): the same
+// body reading the player+0x60 member through its unrowed 0x002A7548 (returns
+// 0x002A7461's value less the member's +8), pinned by address.
 #include "ascii_string.h"
 
 class Parameter
@@ -18,6 +21,7 @@ class Rva002A7389
 {
 public:
 	int get(int x);
+	int rva002A7548(int x);
 };
 
 class Player
@@ -45,6 +49,7 @@ public:
 protected:
 	ScriptCounter *bfmeCounter(AsciiString name);
 	friend void __stdcall Rva003C2CD8Do(Parameter *a, Parameter *b);
+	friend void __stdcall Rva003C2D34Do(Parameter *a, Parameter *b);
 };
 
 extern ScriptEngine *g_Va009FE16C;
@@ -59,6 +64,19 @@ void __stdcall Rva003C2CD8Do(Parameter *a, Parameter *b)
 	if (player == 0)
 		return;
 	int v = player->m_60.get(1);
+	ScriptCounter *c = g_Va009FE16C->bfmeCounter(b->m_string);
+	c->m_value = v;
+}
+
+void __stdcall Rva003C2D34Do(Parameter *a, Parameter *b)
+{
+	int mask = g_Va009FE16C->rva00357475(a->m_string, (bool *)0);
+	if (mask == 0)
+		return;
+	Player *player = ThePlayerList->getPlayerFromMask(mask);
+	if (player == 0)
+		return;
+	int v = player->m_60.rva002A7548(1);
 	ScriptCounter *c = g_Va009FE16C->bfmeCounter(b->m_string);
 	c->m_value = v;
 }
