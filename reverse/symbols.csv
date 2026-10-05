@@ -12727,3 +12727,12 @@ _g_pRva00437E9C,0x00E032FC,global pointer read by wrapper 0x00437E9C (peer notes
 ?run@Rva0010FDE9Run@@QAEXI@Z,0x0010FDE9,REL32 callee decoded from target call bytes of null-guarded forward 0x000A8B23; identity unproven
 ?run@Rva0010FEF3Run@@QAEXI@Z,0x0010FEF3,REL32 callee decoded from target call bytes of null-guarded forward 0x000A8B4B; identity unproven
 ?run@Rva0010FFA2Run@@QAEXI@Z,0x0010FFA2,REL32 callee decoded from target call bytes of null-guarded forward 0x000A8C6E; identity unproven
+?run@Rva005E18D0Run@@QAEXXZ,0x005E18D0,REL32 callee decoded from target call bytes of helper-member step 0x005E1906; identity unproven
+?noop@Rva000B3FD0Nop@@QAEXXZ,0x000B3FD0,opaque alias: the known folded empty body shared by many rows; identity unproven
+?run@Rva005D13C2Run@@QAEXXZ,0x005D13C2,REL32 callee decoded from target call bytes of same-shape helper-member step; identity unproven
+?run@Rva005E18DCRun@@QAEXXZ,0x005E18DC,REL32 callee decoded from target call bytes of same-shape helper-member step; identity unproven
+?run@Rva005E1B9ARun@@QAEXXZ,0x005E1B9A,REL32 callee decoded from target call bytes of same-shape helper-member step; identity unproven
+?run@Rva005E254CRun@@QAEXXZ,0x005E254C,REL32 callee decoded from target call bytes of same-shape helper-member step; identity unproven
+?run@Rva005E589ERun@@QAEXXZ,0x005E589E,REL32 callee decoded from target call bytes of same-shape helper-member step; identity unproven
+?run@Rva005E6A9DRun@@QAEXXZ,0x005E6A9D,REL32 callee decoded from target call bytes of same-shape helper-member step; identity unproven
+?run@Rva005E6AD8Run@@QAEXXZ,0x005E6AD8,REL32 callee decoded from target call bytes of same-shape helper-member step; identity unproven

@@ -63405,3 +63405,11 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?fwd@Rva000A8B23Owner@@QAEXI@Z,,0x000A8B23,14,Code/GameEngine/Source/Common/RvaNullGuardArgFwds.cpp,matched,Null-guarded first-member forward of one dword; 14B load/test/jmp/ret4 shape
 ?rva000A8B4B@MilesStreamRef@@QAEXI@Z,,0x000A8B4B,14,Code/GameEngine/Source/Common/RvaNullGuardArgFwds.cpp,matched,Null-guarded first-member forward of one dword; 14B load/test/jmp/ret4 shape
 ?fwd@Rva000A8C6EOwner@@QAEXI@Z,,0x000A8C6E,14,Code/GameEngine/Source/Common/RvaNullGuardArgFwds.cpp,matched,Null-guarded first-member forward of one dword; 14B load/test/jmp/ret4 shape
+?step@Rva005E1906@@QAEXXZ,,0x005E1906,17,Code/GameEngine/Source/Common/RvaHelperMemberSteps.cpp,matched,Address-derived helper-then-member step via rowed markAsOverride; 17B shape
+?step@Rva005D1516@@QAEXXZ,,0x005D1516,17,Code/GameEngine/Source/Common/RvaHelperMemberSteps.cpp,matched,Address-derived helper-then-member step: +0x08 fold-nop; 17B shape
+?step@Rva005E1917@@QAEXXZ,,0x005E1917,17,Code/GameEngine/Source/Common/RvaHelperMemberSteps.cpp,matched,Address-derived helper-then-member step: +0x0C rowed disable; 17B shape
+?step@Rva005E1BC4@@QAEXXZ,,0x005E1BC4,17,Code/GameEngine/Source/Common/RvaHelperMemberSteps.cpp,matched,Address-derived helper-then-member step: +0x0C fold-nop; 17B shape
+?step@Rva005E25DE@@QAEXXZ,,0x005E25DE,17,Code/GameEngine/Source/Common/RvaHelperMemberSteps.cpp,matched,Address-derived helper-then-member step: +0x0C fold-nop; 17B shape
+?step@Rva005E590F@@QAEXXZ,,0x005E590F,17,Code/GameEngine/Source/Common/RvaHelperMemberSteps.cpp,matched,Address-derived helper-then-member step: +0x08 fold-nop; 17B shape
+?step@Rva005E6BA3@@QAEXXZ,,0x005E6BA3,17,Code/GameEngine/Source/Common/RvaHelperMemberSteps.cpp,matched,Address-derived helper-then-member step: +0x20 fold-nop; 17B shape
+?step@Rva005E6BB4@@QAEXXZ,,0x005E6BB4,17,Code/GameEngine/Source/Common/RvaHelperMemberSteps.cpp,matched,Address-derived helper-then-member step: +0x20 fold-nop; 17B shape
