@@ -189,3 +189,16 @@ void GameEngine::rva004469D1()
 	else
 		m_6A4 = 1;
 }
+
+void GameEngine::rva00446A1C()
+{
+	if (m_6A4 != 8)
+		return;
+	if (rva004467AC())
+	{
+		TheInvoke00444E8ATarget->invoke(m_274Owner, "DoJoinGame", 0, 0, 0, 0, 0, 0);
+		m_6A4 = 9;
+	}
+	else
+		m_6A4 = 1;
+}
