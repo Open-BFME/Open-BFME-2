@@ -2634,6 +2634,9 @@ static __forceinline void getPlayerInfo(PeerThreadClass *t, PEER peer, const cha
 	getPlayerInfo(t, peer, nick, id, IP, locale, wins, losses, rankPoints, side, preorder, roomType, flags, rank1v1, rank2v2, bSide);
 }
 
+// ?setPeerResponseCode absent-from-retail
+template <class Code> static __forceinline void setPeerResponseCode(Code &code, Int value) { code = static_cast<Code>(value); }
+
 static void roomKeyChangedCallback(PEER peer, RoomType roomType, const char *nick, const char *key, const char *val, void *param)
 {
 #ifdef USE_BROADCAST_KEYS
@@ -2641,28 +2644,31 @@ static void roomKeyChangedCallback(PEER peer, RoomType roomType, const char *nic
 	DEBUG_ASSERTCRASH(t, ("No Peer thread!"));
 	if (!t || !nick || !key || !val)
 	{
-		DEBUG_ASSERTCRASH(nick && strcmp(nick,"(END)")==0, ("roomKeyChangedCallback bad values = nick:%X:%s, key:%X:%s, val:%X:%s\n", nick, nick, key, key, val, val));
+		// Retail retains this comparison when the callback arguments are invalid.
+		(void)strcmp(nick, "(END)");
 		return;
 	}
 
-#ifdef DEBUG_LOGGING
 	if (strcmp(key, "username") && strcmp(key, "b_flags"))
 	{
 		DEBUG_LOG(("roomKeyChangedCallback() - %s set %s=%s\n", nick, key, val));
 	}
-#endif
 
 	t->trackStatsForPlayer(roomType, nick, key, val);
 
 	PeerResponse resp;
-	resp.peerResponseType = PeerResponse::PEERRESPONSE_PLAYERINFO;
+	// Retail queues code22 here; its original enumerator spelling is unknown.
+	setPeerResponseCode(resp.peerResponseType, 22);
 	resp.nick = nick;
 	resp.player.roomType = roomType;
 
 	getPlayerInfo(t, peer, nick, resp.player.profileID, resp.player.IP,
 		resp.locale, resp.player.wins, resp.player.losses,
 		resp.player.rankPoints, resp.player.side, resp.player.preorder,
-		resp.player.roomType, resp.player.flags);
+		resp.player.roomType, resp.player.flags,
+		reinterpret_cast<Int &>(resp.unknown_payload[140]),
+		reinterpret_cast<Int &>(resp.unknown_payload[141]),
+		reinterpret_cast<Int &>(resp.unknown_payload[142]));
 	TheGameSpyPeerMessageQueue->addResponse(resp);
 #endif // USE_BROADCAST_KEYS
 }
