@@ -62160,7 +62160,6 @@ _Rva007F5790Callback,,0x00661F40,15,Code/GameEngine/Source/GameNetwork/Rva007F70
 ?Rva000E2F24@@YAXPAUID3DXEffect@@PBD@Z,,0x000E2F24,58,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainFXVectorParams.cpp,matched,Terrain FX SetVector callback with global BC2428 for x y; slot 34
 ?Rva000E2F77@@YAXPAUID3DXEffect@@PBD@Z,,0x000E2F77,70,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainFXVectorParams.cpp,matched,Terrain FX SetFloat callback via slot 30 with 37C0 plus 0x10 scaled by BC2428
 ?rva00109D64@Rva007B1380@@QAEXXZ,,0x00109D64,40,Code/GameEngine/Source/Common/Rva007B1380Ctor.cpp,matched,float reset abutting ctor via rowed base initialize plus 20.0f literal
-?rva0014F674@@YAPAXPAXI0H@Z,,0x0014F674,37,Code/GameEngine/Source/Common/Rva0014F674Loop.cpp,matched,cdecl stride loop via pinned helper
 ?rva0014FA47@@YAPAXPAXI0@Z,,0x0014FA47,27,Code/GameEngine/Source/Common/Rva0014F674Loop.cpp,matched,forward via rowed stride loop
 ?rva00106C79@Rva00106C79Holder@@QAE_NHH@Z,,0x00106C79,37,Code/GameEngine/Source/Common/Rva00106C79Check.cpp,matched,bool via rowed helper plus pinned helper
 ?rva0014D440@Rva0014D440Holder@@QAEXPAVRva0014D440Outer@@PAX@Z,,0x0014D440,52,Code/GameEngine/Source/Common/Rva0014D440Init.cpp,matched,init via pin plus virtual slot plus member fnptr
