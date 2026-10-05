@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /O1 /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
 // ZH InGameUI::showIdleWorkerLayout, also recovered in BFME 1 donor
 // 847fc2a5406da49baed14adf987ff6830204b9d0, InGameUI.cpp.
 // Target 0x0029AFA6-0x0029AFFC has independently identified InGameUI table
@@ -7,6 +7,8 @@
 // Retail establishes idleWorkerWin +0x978 and currentIdleWorkerDisplay +0x97C.
 // The count query is an opaque virtual call at +0x1C0; its semantic purpose
 // comes from ZH, while that slot and ABI come from the target instructions.
+
+#include "unicode_string.h"
 
 enum NameKeyType { NAMEKEY_INVALID = 0 };
 class NameKeyGenerator {
@@ -19,6 +21,7 @@ class GameWindow {
 public:
     int winEnable(bool);
 };
+void GadgetButtonSetText(GameWindow *, UnicodeString);
 class GameWindowManager;
 extern GameWindowManager *TheWindowManager;
 
@@ -71,6 +74,7 @@ class InGameUI {
 public:
     virtual void showIdleWorkerLayout();
     virtual void updateIdleWorker();
+    virtual void hideIdleWorkerLayout();
 };
 
 void InGameUI::showIdleWorkerLayout()
@@ -95,4 +99,15 @@ void InGameUI::updateIdleWorker()
         reinterpret_cast<Rva0029AFA6CountView *>(this)->show();
     if ((idleCount <= 0 && idleWorkerWin) || !(engineInputEnabled && inputEnabled))
         reinterpret_cast<Rva0029AFA6CountView *>(this)->hide();
+}
+
+// ZH hideIdleWorkerLayout; target 0x0029D735-0x0029D777. The native
+// UnicodeString copy and GadgetButtonSetText targets already have providers.
+void InGameUI::hideIdleWorkerLayout()
+{
+    if (!idleWorkerWin)
+        return;
+    GadgetButtonSetText(idleWorkerWin, UnicodeString::TheEmptyString);
+    idleWorkerWin->winEnable(false);
+    currentIdleWorkerDisplay = -1;
 }
