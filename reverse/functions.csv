@@ -63303,3 +63303,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva003EE7CA@Rva003EE7CA@@QAEHHH@Z,,0x003EE7CA,23,Code/GameEngine/Source/Common/Rva003EE7CAForward.cpp,matched,virtual forward via this+0x48 slot1 then return first arg
 ?Rva00580B5CInsertionSort@@YAXPAPAX0VRva000795C1Record@@@Z,,0x00580B5C,99,Code/Libraries/Source/WWVegas/WWLib/Rva00580776LinearInsert.cpp,matched,insertion sort via guarded linear insert with 16B record teardown
 ?rva003193D1@Rva003193D1@@QAEXXZ,,0x003193D1,27,Code/GameEngine/Source/Common/Rva003193D1.cpp,matched,thiscall sync via 0x00318F64 then forward 0 via 0x003FDE8C
+?rva00355155@Rva00355B61@@QBEPBVArmorTemplate@@W4NameKeyType@@@Z,,0x00355155,23,Code/GameEngine/Source/GameLogic/Object/Rva00355155Find.cpp,matched,finds ArmorTemplate in map at 0x10 via rowed _M_find 0x2888D4 twin of 0x35516C
