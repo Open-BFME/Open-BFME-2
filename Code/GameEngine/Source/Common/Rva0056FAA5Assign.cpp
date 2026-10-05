@@ -10,6 +10,7 @@ public:
 	Rva0056FAA5 *rva0056FCF3(Rva0056FAA5 *src);
 	void rva0056FD46(short v);
 	void rva0056FD14(int v);
+	void rva0056FD2D(int v);
 private:
 	char m_head[4];
 	int m_04;
@@ -49,4 +50,14 @@ int Rva0056F742Hook(int left, int right);
 void Rva0056FAA5::rva0056FD14(int v)
 {
 	m_04 = Rva0056F742Hook(v, v);
+}
+
+// ?rva0056FD2D@Rva0056FAA5@@QAEXH@Z @0x0056FD2D 25B
+// Evidence: unlock lane; dword arg pushed twice to rowed Rva0056F79BHook stores to +0x04
+// esi holds this; callers 0x0056FDF8 0x0057045E 0x0057081F
+int Rva0056F79BHook(int left, int right);
+
+void Rva0056FAA5::rva0056FD2D(int v)
+{
+	m_04 = Rva0056F79BHook(v, v);
 }
