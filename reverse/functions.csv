@@ -63677,3 +63677,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?Rva0040D041Get@@YGPBVAsciiString@@H@Z,,0x0040D041,26,Code/GameEngine/Source/Common/Rva0040D041Get.cpp,matched,second string member at +0x64 with TheEmptyString fallback
 ?Rva0040D3D5Get@@YGHH@Z,,0x0040D3D5,18,Code/GameEngine/Source/Common/Rva0040D3D5Get.cpp,matched,dword member at +0x30 with 0 fallback
 ?rva0040F7E5@BfmeY1038@@QAEXXZ,,0x0040F7E5,24,Code/GameEngine/Source/Common/Rva0040F7E5Advance.cpp,matched,state advance 3 to 4 through the 3-zero helper 0x0040F497
+?rva00423D0DCreate@@YGPAXH@Z,,0x00423D0D,34,Code/GameEngine/Source/Common/Rva00423D0DCreate.cpp,matched,free allocator test
