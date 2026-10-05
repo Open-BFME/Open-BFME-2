@@ -1,19 +1,17 @@
 target_rva,target_size,zh_source,alternates,confidence,ghidra_name,anchor
 0x0019DB50,2501,hlod.cpp,0,high,FUN_0059db50,BOUNDINGBOX
-0x002DE641,2137,GameState.cpp,0,high,FUN_006de641,CHUNK_MineshaftPortalNetworkManager
 0x0007846F,712,FileSystem.h,0,high,FUN_0047846f,Art/CompiledTextures/
+0x0031E09E,448,ControlBar.cpp,0,high,FUN_0071e09e,ControlBarArrow
 0x0014FAC2,390,presetexportoptionsdialog.cpp,0,high,FUN_0054fac2,NumDirectionalLights
 0x00230215,390,GameEngine.cpp,0,high,Catch@00630215,ERROR:D3DFailureMessage
 0x000AF917,379,FileSystem.h,0,high,FUN_004af917,Art/Terrain/
 0x003C4C07,341,Scripts.cpp,0,high,FUN_007c4c07,Player Targetable
 0x0005BA08,330,MilesAudioManager.cpp,0,high,FUN_0045ba08,Mono Delay Time
 0x0007FFED,233,Water.cpp,0,high,FUN_0047ffed,BlendUsingTerrainAlpha
-0x002054FF,224,ScriptEngine.cpp,0,high,FUN_006054ff,AdjustVariableAndPause
 0x001EA2CF,223,AIUpdate.cpp,0,high,FUN_005ea2cf,Attempted to specify a locomotor for object %s without an AIUpdate block.
 0x006213B0,197,ini.cpp,0,high,FUN_00a213b0,<unknown>
 0x0016AE70,194,meshgeometry.cpp,0,high,FUN_0056ae70,MeshGeometryClass::Vertex
 0x0044A9E6,158,NetworkUtil.cpp,0,high,FUN_0084a9e6,127.0.0.1
-0x0051569F,155,GameState.cpp,0,high,FUN_0091569f,00000000.sav
 0x002DD6D2,147,GameState.cpp,0,high,Catch@006dd6d2,GUI:ErrorSavingGame
 0x00239539,82,GameClient.cpp,0,high,FUN_00639539,EALogoMovie
 0x0022D53F,67,GameEngine.cpp,0,high,FUN_0062d53f,Uncaught Exception in GameEngine::update
