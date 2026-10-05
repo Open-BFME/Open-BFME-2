@@ -63548,3 +63548,5 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ??0Rva005C3F02@@QAE@PAX0@Z,,0x005C40E7,74,Code/GameEngine/Source/Common/Rva005C40E7Ctor.cpp,matched,Rva005C3F02 constructor: allocates and constructs Rva005C3A37Elem at +0x04
 ?v17@Rva005C41C9@@UAEEXZ,,0x005C414F,49,Code/GameEngine/Source/Common/Rva005C4180Refresh.cpp,matched,Rva005C41C9 vtable slot 17 predicate
 ?rva005C4180@Rva005C41C9@@QAEXE@Z,,0x005C4180,73,Code/GameEngine/Source/Common/Rva005C4180Refresh.cpp,matched,Rva005C41C9 m_c4 refresh setter
+?rva005C4C69@Rva005C4B56@@QAEXXZ,,0x005C4C69,44,Code/GameEngine/Source/Common/Rva005C4C69.cpp,matched,Rva005C4B56 notify 0x00DFE1C8 and set flag 1 with subAC 0x34
+?rva005C4C95@Rva005C4B56@@QAEXXZ,,0x005C4C95,44,Code/GameEngine/Source/Common/Rva005C4C69.cpp,matched,Rva005C4B56 notify 0x00DFE1C8 and clear flag 1 with subAC 0x38
