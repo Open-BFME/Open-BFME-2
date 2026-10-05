@@ -160,60 +160,9 @@ Bool ProjectileStreamUpdate::considerDying()
 	return FALSE;
 }
 
-// ?ProjectileStreamUpdate::getAllPoints present-unmatched
-void ProjectileStreamUpdate::getAllPoints( Vector3 *points, Int *count )
-{
-	Int pointCount = 0;
-	Int pointIndex = m_firstValidIndex;
-
-
-	Object *obj = TheGameLogic->findObjectByID(m_owningObject);
-
-
-	while( pointIndex != m_nextFreeIndex )
-	{
-		// Go through the array I think of as good.  Holes in the middle get 0,0,0.  I write
-		// to pointCount because I am unrolling a circular array into the same sized flat one
-		// since I am writing anyway.
-		Object *projectile = TheGameLogic->findObjectByID( m_projectileIDs[pointIndex] );
-
-		if( projectile )
-		{
-			Coord3D thisPoint = *projectile->getPosition();
-			points[pointCount].X = thisPoint.x;
-			points[pointCount].Y = thisPoint.y;
-			points[pointCount].Z = thisPoint.z;
-
-
-			if ( obj && obj->isKindOf( KINDOF_VEHICLE ) )				// this makes the stream skim along my roof, if I have a roof
-			{
-				const Coord3D *pos = obj->getPosition();
-				Real myTop = obj->getGeometryInfo().getMaxHeightAbovePosition() + pos->z + 0.5f;
-				Coord3D delta;
-				delta.x = pos->x - points[pointCount].X;
-				delta.y = pos->y - points[pointCount].Y;
-				delta.z = 0.0f;
-				if( delta.length() <= obj->getGeometryInfo().getMajorRadius() * 1.5f )
-					points[pointCount].Z = MAX( points[pointCount].Z, myTop );
-			}
-
-
-
-
-		}
-		else
-		{
-			points[pointCount].X = 0;
-			points[pointCount].Y = 0;
-			points[pointCount].Z = 0;
-		}
-
-		pointIndex = (pointIndex + 1) % MAX_PROJECTILE_STREAM;
-		pointCount++;
-	}
-
-	*count = pointCount;
-}
+// ProjectileStreamUpdate::getAllPoints: BFME 2 rewrote Zero Hour's body (no
+// owner roof skim; positions come from each projectile's Drawable); the
+// matched version lives in ProjectileStreamUpdateGetAllPoints.cpp.
 
 // ?ProjectileStreamUpdate::setPosition present-unmatched
 void ProjectileStreamUpdate::setPosition( const Coord3D *newPosition )
