@@ -1,5 +1,3 @@
-// ?rva004B901D@SupplyWarehouseCreate@@UAEXXZ
-// partial score=0.93 date=2026-10-05
 // cl: /Ireference/shims/bfme2_ascii /O1 /MD
 // stlport
 // ?rva004B901D@SupplyWarehouseCreate@@UAEXXZ @0x004B901D 118B
@@ -36,6 +34,9 @@ public:
 };
 extern "C" UpgradeCenter *TheUpgradeCenter;
 #pragma comment(linker, "/alternatename:_TheUpgradeCenter=?TheUpgradeCenter@@3PAVUpgradeCenter@@A")
+
+extern "C" void _ReadWriteBarrier(void);
+#pragma intrinsic(_ReadWriteBarrier)
 
 class Player
 {
@@ -91,7 +92,6 @@ private:
 	bool m_granted14;
 };
 
-// ?rva004B901D@SupplyWarehouseCreate@@UAEXXZ present-unmatched
 void SupplyWarehouseCreate::rva004B901D()
 {
 	void *data = m_data04;
@@ -100,10 +100,12 @@ void SupplyWarehouseCreate::rva004B901D()
 	BfmeObject872Header tmp(*(BfmeObject872Header *)((char *)m_object08 + 0x94));
 	unsigned int f = *(unsigned int *)((char *)data + 0x0C);
 	f >>= 2;
+	_ReadWriteBarrier();
 	if ((f & 1) == 0)
 		return;
 	unsigned int t = *(unsigned int *)&tmp;
 	t >>= 2;
+	_ReadWriteBarrier();
 	if ((t & 1) != 0)
 		return;
 	const UpgradeTemplate *tmpl = TheUpgradeCenter->findUpgrade(*(AsciiString *)((char *)m_data04 + 8));
