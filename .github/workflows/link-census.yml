@@ -1,0 +1,52 @@
+name: Retail link census
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: retail-link-census-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  census:
+    runs-on: windows-latest
+    timeout-minutes: 180
+    env:
+      BUILD_POOL: '4'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          submodules: recursive
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install verification dependencies
+        run: python -m pip install -r reference/open-bfme-1/tools/requirements.txt
+      - name: Check ledger integrity
+        run: python tools/check_csv.py
+      - name: Verify all retail bodies
+        run: python tools/build.py
+      - name: Measure current link providers with witnessed inputs
+        run: python tools/link_census.py --build --history
+      - name: Report selected definitions
+        run: python tools/link_census.py --selected
+      - name: Upload census evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: link-census-${{ github.sha }}
+          retention-days: 14
+          if-no-files-found: warn
+          path: |
+            build/link_census/*.json
+            build/link_census/*.log
+            build/link_census/*.map
+            build/link_census/*.csv
+            build/link_census/*.pkl
+            build/link_census/*.rsp
+            reverse/link_status.csv
+            reverse/link_census_history.csv
