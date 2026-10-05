@@ -12979,3 +12979,4 @@ _Rva00337999Forward,0x00337999,REL32 callee decoded from target call bytes of wr
 ?rva0052B003@Rva0052B278@@QAEX_N@Z,0x0052B003,thiscall bool callee of 0x004E063F read from its REL32 displacement; body unrowed
 ?rva004E0918@Rva004E0918@@QAEXPAX@Z,0x004E0918,EH packet callee of 0x004E0ADB read from its REL32 displacement; Ghidra range body 112B; body unrowed
 ?rva004E0988@Rva004E0918@@QAEXPAX@Z,0x004E0988,EH packet callee of 0x004E0B02 read from its REL32 displacement; Ghidra range body 115B; body unrowed
+?rva003B8E89@Rva003B8E89@@QAEPAXPAX@Z,0x003B8E89,thiscall lookup callee of 0x004E1755 and 0x004E23C1 read from REL32 (host plus key); body unrowed

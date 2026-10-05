@@ -63673,3 +63673,6 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva004E0C49@Rva004E0B60@@QAEXXZ,,0x004E0C49,90,Code/GameEngine/Source/Common/Rva004E0ADBFamily.cpp,matched,vslot-6 sweep plus world-FC store plus packet forward; full byte gate
 ?rva004E0CCB@Rva004E0B60@@QAE_NXZ,,0x004E0CCB,78,Code/GameEngine/Source/Common/Rva004E0ADBFamily.cpp,matched,packet forward plus rowed gate plus rowed flush; full byte gate
 ?rva004E0D19@Rva004E0B60@@QAEXH@Z,,0x004E0D19,53,Code/GameEngine/Source/Common/Rva004E0ADBFamily.cpp,matched,packet forward with this plus arg tails; full byte gate
+?rva004E1755@Rva00319CED@@QAEHXZ,,0x004E1755,43,Code/Libraries/Source/WWVegas/WWLib/Rva004E1755Lookup.cpp,matched,non-empty key lookup to pinned int getter; full byte gate
+?rva004E23C1@Rva00319CED@@QAEPAXXZ,,0x004E23C1,33,Code/Libraries/Source/WWVegas/WWLib/Rva004E1755Lookup.cpp,matched,gated key lookup hit return; full byte gate
+?rva004E23E2@Rva00319CED@@QAEPAXXZ,,0x004E23E2,42,Code/Libraries/Source/WWVegas/WWLib/Rva004E1755Lookup.cpp,matched,wide span map through rowed indexed get plus rowed tail; full byte gate
