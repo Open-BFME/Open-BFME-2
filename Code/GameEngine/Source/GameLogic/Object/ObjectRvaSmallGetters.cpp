@@ -33,15 +33,25 @@ public:
 	int m_value;					// +0x028
 };
 
+// The object at Object+0x240: Object's constructor stores the
+// FiringTracker built by ??0FiringTracker (call 0x00299898) there. Offsets
+// follow the rowed FiringTracker::xfer 0x004DEBC1 (+0x24 and +0x38 ObjectIDs,
+// +0x3C..+0x44 frames, +0x48 position); the address-derived class name is
+// kept because rowed methods already carry it.
 struct Rva0028AF76Sub
 {
-	char m_pad[0x44];				// +0x000..+0x044 unknown
+	char m_pad[0x24];				// +0x000..+0x024 unknown
+	int m_id24;						// +0x024 ObjectID
+	char m_pad28[0x38 - 0x28];		// +0x028..+0x038
+	int m_id38;						// +0x038 ObjectID
+	char m_pad3C[0x44 - 0x3C];		// +0x03C..+0x044
 	int m_value;					// +0x044
 	float m_float48;				// +0x048
 	int m_int4C;					// +0x04C
 	int m_int50;					// +0x050
 
 	void rva0028A82A(void *dst) const;
+	int rva004DEA68();
 };
 
 class GameLogic
@@ -97,6 +107,8 @@ public:
 	bool rva0028ADE0() const;
 	int rva0028ADF7(int slot) const;
 	int rva0028AF76() const;
+	int rva0028AF86() const;
+	int rva0028AF97();
 	int rva0028B511() const;
 	void rva0028B95F();
 	bool isOutOfAmmo() const;
@@ -222,6 +234,29 @@ int Object::rva0028AF76() const
 	if (sub != 0)
 		result = sub->m_value;
 	return result;
+}
+
+// ?rva0028AF86@Object@@QBEHXZ, retail 0x0028AF86 (17B): the +0x24 ObjectID
+// of the firing tracker, 0 without one. Same shape and Zero Hour position
+// (after the frame getter, before getControllingPlayer 0x0028AFA9) as
+// Object::getLastVictimID; no retail caller or pointer reaches it, so the
+// name stays address-derived.
+int Object::rva0028AF86() const
+{
+	const Rva0028AF76Sub *sub = m_sub240;
+	return sub ? sub->m_id24 : 0;
+}
+
+// ?rva0028AF97@Object@@QAEHXZ, retail 0x0028AF97 (18B): takes the tracker's
+// +0x38 ObjectID through 0x004DEA68 (FiringTrackerRva004DEA68.cpp; retail
+// tail-jumps, so it is not inlined here), 0 without a tracker. The caller at
+// 0x0026935C passes the result to GameLogic::findObjectByID.
+int Object::rva0028AF97()
+{
+	Rva0028AF76Sub *sub = m_sub240;
+	if (sub)
+		return sub->rva004DEA68();
+	return 0;
 }
 
 int Object::rva0028B511() const

@@ -59739,3 +59739,6 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva0028ADB0@Object@@QBE_NXZ,,0x0028ADB0,18,Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp,matched,Object plusA4 bool forward to pinned 0x004DD637
 ?reloadAllAmmo@Object@@QAEX_N@Z,,0x0028ADC2,19,Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp,matched,ZH Object::reloadAllAmmo via WeaponSet at plus330 before isOutOfAmmo
 ?chooseBestWeaponForTarget@Object@@QAE_NPBV1@W4WeaponChoiceCriteria@@W4CommandSourceType@@@Z,,0x0028AF4A,27,Code/GameEngine/Source/GameLogic/Object/ObjectGetAbleToUseWeaponAgainstTarget.cpp,matched,ZH Object::chooseBestWeaponForTarget forward to WeaponSet plus330
+?rva004DEA68@Rva0028AF76Sub@@QAEHXZ,,0x004DEA68,8,Code/GameEngine/Source/GameLogic/Object/FiringTrackerRva004DEA68.cpp,matched,firing tracker plus38 ObjectID take-and-clear; caller 0x0028AF97
+?rva0028AF86@Object@@QBEHXZ,,0x0028AF86,17,Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp,matched,Object plus240 firing tracker plus24 ObjectID or 0
+?rva0028AF97@Object@@QAEHXZ,,0x0028AF97,18,Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp,matched,Object plus240 firing tracker null-checked tail to 0x004DEA68
