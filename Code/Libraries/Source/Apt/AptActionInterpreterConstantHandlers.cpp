@@ -202,6 +202,7 @@ private:
     HANDLER(Trace);
     HANDLER(StrictEquals);
     HANDLER(Equals2);
+    HANDLER(Add2);
     HANDLER(TypeOf);
     HANDLER(Greater); HANDLER(LessThan2);
     HANDLER(SubString); HANDLER(AsciiToChar);
@@ -1744,4 +1745,26 @@ void AptActionInterpreter::_FunctionAptActionStringAdd(AptActionInterpreter *con
     AptValue *result=_concatAsStrings(a,b);
     p->stack.Pop(2);
     p->stack.Push(result);
+}
+
+void AptActionInterpreter::_FunctionAptActionAdd2(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    AptValue *a=p->stack.At(0),*b=p->stack.At(1);
+    int version=Rva006CD220Get();
+    if(a->isString() || b->isString()) {
+        if(version==7) {
+            if(a->isUndefined()) {a=AptString::Create();a->c_string()->SetString(Rva0070B4F0GetString(0xa9)->rva00620090());}
+            if(b->isUndefined()) {b=AptString::Create();b->c_string()->SetString(Rva0070B4F0GetString(0xa9)->rva00620090());}
+        }
+        AptString *s=_concatAsStrings(a,b);
+        p->stack.Pop(2);p->stack.Push(s);
+    } else if((a->isInteger() || b->isInteger()) && !a->isFloat() && !b->isFloat()) {
+        if(version==7 && (a->isUndefined() || b->isUndefined())) {p->stack.Pop(2);p->stack.Push(gpUndefinedValue);return;}
+        int na=a->toInteger(),nb=b->toInteger();
+        p->stack.Pop(2);p->stack.Push(AptInteger::Create(na+nb));
+    } else {
+        if(version==7 && (a->isUndefined() || b->isUndefined())) {p->stack.Pop(2);p->stack.Push(gpUndefinedValue);return;}
+        float fa=a->toFloat(),fb=b->toFloat();
+        p->stack.Pop(2);p->stack.Push(Rva008A4EA0MakeFloat(fa+fb));
+    }
 }
