@@ -13536,3 +13536,22 @@ _peerJoinStagingRoomA,0x0069A130,GameSpy SDK C export peerJoinStagingRoomA (ANSI
 _peerStateChanged,0x00699460,GameSpy SDK C export peerStateChanged: PeerThread.cpp declares the sweep Peer.h with C linkage, and Thread_Function 0x0038EDD7 / doQuickMatch 0x0038E684 call this body where the Zero Hour source calls peerStateChanged
 ?rva000053EE@Rva002DBCCAArg@@QAEXXZ,0x000053EE,pin for 0x2DBCCA thiscall void () on arg
 ?rva004FFB00@Rva0059CFAACallee@@QAGXPAXHH@Z,0x004FFB00,address-derived __stdcall callee of 0x0059CFAA (3 stack args, callee cleanup); target REL32 from retail call at 0x0059D019
+?_M_create_node@?$list@PAVDrawable@@V?$allocator@PAVDrawable@@@_STL@@@_STL@@IAEPAU?$_List_node@PAVDrawable@@@2@ABQAVDrawable@@@Z,0x00239BD8,selectDrawable target0x002A3805; same28B as matched Rva00239BD8Alloc; native pool+payload store and same stack ABI; template specialization verified
+??1Rva002BEDA4@@QAE@XZ,0x002BEDA4,destructor called by the vtable-referenced scalar deleting dtor 0x005CBAEE (REL32 at +4 of its 28B delete-flag wrapper); identity unproven; address-derived name
+??1Rva00419B8D@@QAE@XZ,0x00419B8D,destructor called by the vtable-referenced scalar deleting dtor 0x00419B71 (REL32 at +4 of its 28B delete-flag wrapper); identity unproven; address-derived name
+??1Rva004318D8@@QAE@XZ,0x004318D8,destructor called by the vtable-referenced scalar deleting dtor 0x00431A64 (REL32 at +4 of its 28B delete-flag wrapper); identity unproven; address-derived name
+??1Rva0057571C@@QAE@XZ,0x0057571C,destructor called by the vtable-referenced scalar deleting dtor 0x00575700 (REL32 at +4 of its 28B delete-flag wrapper); identity unproven; address-derived name
+??1Rva005CF86B@@QAE@XZ,0x005CF86B,destructor called by the vtable-referenced scalar deleting dtor 0x005CFCD1 (REL32 at +4 of its 28B delete-flag wrapper); identity unproven; address-derived name
+??1Rva005E57C9@@QAE@XZ,0x005E57C9,destructor called by the vtable-referenced scalar deleting dtor 0x005E57AD (REL32 at +4 of its 28B delete-flag wrapper); identity unproven; address-derived name
+??1Rva005EA2AB@@QAE@XZ,0x005EA2AB,destructor called by the vtable-referenced scalar deleting dtor 0x005EA28F (REL32 at +4 of its 28B delete-flag wrapper); identity unproven; address-derived name
+??1Rva00604A68@@QAE@XZ,0x00604A68,destructor called by the vtable-referenced scalar deleting dtor 0x00604A6F (REL32 at +4 of its 28B delete-flag wrapper); identity unproven; address-derived name
+??1Rva004102A4@@QAE@XZ,0x004102A4,destructor called by the vtable-referenced scalar deleting dtor 0x00740E85 (REL32 at +4 of its 28B delete-flag wrapper); identity unproven; address-derived name
+??1Rva004E84A4@@QAE@XZ,0x004E84A4,destructor called by the vtable-referenced scalar deleting dtor 0x005FAA31 (REL32 at +4 of its 28B delete-flag wrapper); identity unproven; address-derived name
+??1Rva0040C39E@@QAE@XZ,0x0040C39E,destructor called by the vtable-referenced scalar deleting dtor 0x0040C5DE (REL32 at +4 of its 28B delete-flag wrapper); identity unproven; address-derived name
+??1Rva0040FB4A@@QAE@XZ,0x0040FB4A,destructor called by the vtable-referenced scalar deleting dtor 0x0040FD1C (REL32 at +4 of its 28B delete-flag wrapper); identity unproven; address-derived name
+??1Rva0044455C@@QAE@XZ,0x0044455C,destructor called by the vtable-referenced scalar deleting dtor 0x00445211 (REL32 at +4 of its 28B delete-flag wrapper); identity unproven; address-derived name
+??1Rva004AF17D@@QAE@XZ,0x004AF17D,destructor called by the vtable-referenced scalar deleting dtor 0x004AF161 (REL32 at +4 of its 28B delete-flag wrapper); identity unproven; address-derived name
+??1Rva004BAEC8@@QAE@XZ,0x004BAEC8,destructor called by the vtable-referenced scalar deleting dtor 0x004BAF11 (REL32 at +4 of its 28B delete-flag wrapper); identity unproven; address-derived name
+??1Rva00557CCC@@QAE@XZ,0x00557CCC,destructor called by the vtable-referenced scalar deleting dtor 0x00558F6E (REL32 at +4 of its 28B delete-flag wrapper); identity unproven; address-derived name
+??1Rva006022CA@@QAE@XZ,0x006022CA,destructor called by the vtable-referenced scalar deleting dtor 0x006022AE (REL32 at +4 of its 28B delete-flag wrapper); identity unproven; address-derived name
+??0BfmePairEL@@QAE@ABVBfmeWordEL@@0@Z,0x0002C4FD,BfmePairEL two-word ctor; BfmeWordEL is the rowed 4-byte StringBase<char> view so this is the same bytes as the matched ??0Rva0002C4FD@@QAE@ABV?$StringBase@D@@0@Z body (cf existing pair@VAsciiString ICF-alias pin); called by the bfmeMakePairEL factory at 0x0002C621
