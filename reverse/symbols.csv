@@ -11421,3 +11421,5 @@ _floor,0x00629940,call site 0x006F4403 in AptDate::getDayOfWeek (0x006F4290) enc
 ??1Rva003F6EA1Record@@QAE@XZ,0x003F60C8,native108 by-value cleanup; full60B destructor verified; opaque28B record and address-derived ABI view
 ?erase@Rva003F6EA1Vector@@AAEPAURva003F6EA1Record@@PAU2@0@Z,0x003F6975,native108 shrink; full51B range erase verified; opaque28B record and address-derived ABI view
 ?fill@Rva003F6EA1Vector@@AAEXPAURva003F6EA1Record@@IABU2@@Z,0x003F6BDB,native108 grow; full258B fill insert verified; opaque28B record and address-derived ABI view
+?erase@Rva005DE7D1Vector@@AAEPAURva005DE7D1Record@@PAU2@0@Z,0x00381B1F,Native98B resize scoped8B record ABI view; fullrowedprovider51B verified; consumedcallsite5DE7F9
+?fill@Rva005DE7D1Vector@@AAEXPAURva005DE7D1Record@@IABU2@@Z,0x005DE651,Native98B resize scoped8B record ABI view; fullrowedprovider260B verified; consumedcallsite5DE812
