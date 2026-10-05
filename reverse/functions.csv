@@ -62368,3 +62368,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva00330C0F@Rva00330C0F@@QAE?AURegion2D@@XZ,,0x00330C0F,19,Code/GameEngine/Source/Common/Rva00330C0FForwarder.cpp,matched,this-0x3C Region2D forwarder to PolygonTrigger 0x0007E03A
 ??$uninitialized_fill_n@PAURva002BBC7ARecord@@IU1@@_STL@@YAPAURva002BBC7ARecord@@PAU1@IABU1@@Z,,0x002BADD8,27,Code/Libraries/Source/WWVegas/WWLib/VectorOverflowRva002BBC7A.cpp,matched,STLport 4.5.3 wrapper over rowed 0x002B921A called by 0x002BC47D
 ?rva0021C9A6@Rva0021BCA7@@QAEPAXHI@Z,,0x0021C9A6,49,Code/GameEngine/Source/Common/System/Rva0021C970Find.cpp,matched,unlock twin of 0x21C970 void return
+?rva001E0AA5@Rva001E125D@@UAEXHH@Z,,0x001E0AA5,74,Code/GameEngine/Source/Common/Rva001E125DCtor.cpp,matched,vslot slot3 char array plus findTemplate

@@ -17,11 +17,31 @@ class Rva001E125D : public Rva001DFEAABase
 {
 public:
 	Rva001E125D();
+	virtual void dummy1();
+	virtual void dummy2();
+	virtual void rva001E0AA5(int a1, int a2);
 private:
 	AsciiString m_str148;
+	char m_pad14C[0x160 - 0x14C];
+	char m_str160[4];
 };
 
 Rva001E125D::Rva001E125D()
 {
 	m04 = 9;
+}
+class ParticleSystemManager;
+extern ParticleSystemManager *TheParticleSystemManager;
+class ParticleSystemTemplate;
+class ParticleSystemManager
+{
+public:
+	ParticleSystemTemplate *rva001F9343(const AsciiString &s, int i) const;
+};
+void Rva001E125D::rva001E0AA5(int a1, int a2)
+{
+	AsciiString tmp(m_str160);
+	ParticleSystemTemplate *t = TheParticleSystemManager->rva001F9343(tmp, a1);
+	(void)t;
+	(void)a2;
 }

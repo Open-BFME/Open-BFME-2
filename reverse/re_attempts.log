@@ -10111,3 +10111,8 @@ FUN_005182a0	0x001182A0	399	blocked	big WW3D render 399B with x87 FPU cw plus SS
 ?rva00529698@Rva0052936C@@QAEXPBD@Z	0x00529698	264	partial	early new fixed via single new-Set stmt but stack 0x10 vs 0xc and idx-alloc reuse missing and early-return dup vs shared and ctorLea vs push t=30 model=muse-01 score=0.91 stash=reverse/attempts/0x00529698.cpp
 ?parse@VersionBlockParser@@AAE_NPBD@Z	0x004289B8	367	partial	early mov-al plus cmp-je missing minus8B and EH mov-byte minus3B ours356B 0reg sscanf-reloc-only PAD-matches stack-matches t=25 model=muse-01 score=0.93 stash=reverse/attempts/0x004289b8.cpp
 ?rva0021CA96@Rva00219B9E@@QAEPBVAsciiString@@HIII@Z	0x0021CA96	137	blocked	static err guard data plus outer vector lea and branch layout wall t=15 model=muse-08
+?rva0021CA0D@Rva00219B9E@@QAEPAXHIII@Z	0x0021CA0D	137	blocked	same wall as 0x21CA96 static err outer vector branch t=8 model=muse-08
+?rva004A732B@Rva004A6956@@QAEXXZ	0x004A732B	452	blocked	complex AIUpdate vslot 452B with pin-only PartitionManager plus BfmeFixedStorage needs donor t=10 model=muse-08
+?rva00345BCF@Rva00340D1F@@QAEXXZ	0x00345BCF	220	blocked	AI vslot 220B with pin-only computeQuickPath plus TerrainLogic extent needs donor t=8 model=muse-08
+?rva00588ABB@Rva00587D9C@@QAEXI@Z	0x00588ABB	207	blocked	vslot 207B idiv vector pin-only grow needs donor t=5 model=muse-08
+?doFXPos@LaserFXNugget@@UBEXPBUCoord3D@@PBVMatrix3D@@M0@Z	0x001E04FE	251	blocked	LaserFXNugget doFXPos donor layout plus dual desync logs needs repair t=15 model=muse-08
