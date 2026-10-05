@@ -806,14 +806,25 @@ FXList::~FXList()
 	clear();
 }
 
+// Retail 0x001E11A6 calls vtable slot 0 with a zero flag, then passes its
+// returned allocation to operator delete. This is only that call-site ABI
+// view; target bytes do not establish the slot's C++ class name.
+class Rva001E11A6DeleteSlot0
+{
+public:
+	virtual void *deleteInstance(int flags);
+};
+
 //-------------------------------------------------------------------------------------------------
-// ?clear@FXList@@ present-unmatched
+// The unique BFME1 donor placement supplies the clear name. Retail bytes at
+// 0x001E11A6 independently show the sentinel walk and the list-base tailcall.
 void FXList::clear()
 {
 	for (FXNuggetList::iterator it = m_nuggets.begin(); it != m_nuggets.end(); ++it)
 	{
-		if (*it)
-			(*it)->deleteInstance();
+		Rva001E11A6DeleteSlot0 *nugget = (Rva001E11A6DeleteSlot0 *)*it;
+		if (nugget)
+			::operator delete(nugget->deleteInstance(0));
 	}
 	m_nuggets.clear();
 }
