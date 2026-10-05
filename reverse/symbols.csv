@@ -11671,3 +11671,6 @@ _floor,0x00629940,call site 0x006F4403 in AptDate::getDayOfWeek (0x006F4290) enc
 ??0BfmePod252@@QAE@ABU0@@Z,0x000C254B,element copy constructor: REL32 read at 0x000C3733 in the byte-verified _Construct 0x000C3717; ledger spelling there: none
 ??0BfmePod248@@QAE@ABU0@@Z,0x000C6B17,element copy constructor: REL32 read at 0x000C790F in the byte-verified _Construct 0x000C78F3; ledger spelling there: none
 ??0BfmePod264@@QAE@ABU0@@Z,0x00289CEB,element copy constructor: REL32 read at 0x00289E85 in the byte-verified _Construct 0x00289E69; ledger spelling there: none
+?push_back@?$vector@UCoord2D@@V?$allocator@UCoord2D@@@_STL@@@_STL@@QAEXABUCoord2D@@@Z,0x00539A2E,Coord2D spelling of the ICF-folded 8-byte-element vector push_back (rowed BfmeE8 instance at this address); REL32 at WeaponTemplate::parseScatterTarget 0x002CE842
+?erase@?$vector@MV?$allocator@M@_STL@@@_STL@@QAEPAMPAM0@Z,0x0031BD55,ICF twin of the rowed vector-voidptr range erase (4-byte float elements fold to identical pointer moves); REL32 at the Scalars FieldParse proc 0x00289236
+?rva001FDE3F@Rva001FDE3F@@QAEAAMABVAsciiString@@@Z,0x001FDE3F,unrowed 125B thiscall name-keyed lookup returning the stored float by reference (EH frame; ret 4); REL32 read at PlayerTemplate::parseProductionTimeChange 0x001FDFB9 on the map at PlayerTemplate +0x100; address-named class

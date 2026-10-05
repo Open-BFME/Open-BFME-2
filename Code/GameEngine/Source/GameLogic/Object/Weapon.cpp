@@ -116,42 +116,12 @@ static void parseAllVetLevelsAsciiString( INI* ini, void* /*instance*/, void * s
 }
 
 //-------------------------------------------------------------------------------------------------
-static void parsePerVetLevelFXList( INI* ini, void* /*instance*/, void * store, const void* /*userData*/ )
-{
-	typedef const FXList* ConstFXListPtr;
-	ConstFXListPtr* s = (ConstFXListPtr*)store;
-	VeterancyLevel v = (VeterancyLevel)INI::scanIndexList(ini->getNextToken(), TheVeterancyNames);
-	const FXList* fx = NULL;
-	INI::parseFXList(ini, NULL, &fx, NULL);
-	s[v] = fx;
-}
-
-//-------------------------------------------------------------------------------------------------
-static void parseAllVetLevelsFXList( INI* ini, void* /*instance*/, void * store, const void* /*userData*/ )
-{
-	typedef const FXList* ConstFXListPtr;
-	ConstFXListPtr* s = (ConstFXListPtr*)store;
-	const FXList* fx = NULL;
-	INI::parseFXList(ini, NULL, &fx, NULL);
-	for (Int i = LEVEL_FIRST; i <= LEVEL_LAST; ++i)
-		s[i] = fx;
-}
-
-//-------------------------------------------------------------------------------------------------
-// parsePerVetLevelPSys lives in WeaponParseVetLevels.cpp (member scanIndexList
-// form); declared here for the field table below.
+// The FXList and PSys vet-level parsers live in WeaponParseVetLevels.cpp (member
+// scanIndexList form); declared here for the field table below.
+void parsePerVetLevelFXList( INI* ini, void* /*instance*/, void * store, const void* /*userData*/ );
+void parseAllVetLevelsFXList( INI* ini, void* /*instance*/, void * store, const void* /*userData*/ );
 void parsePerVetLevelPSys( INI* ini, void* /*instance*/, void * store, const void* /*userData*/ );
-
-//-------------------------------------------------------------------------------------------------
-static void parseAllVetLevelsPSys( INI* ini, void* /*instance*/, void * store, const void* /*userData*/ )
-{
-	typedef const ParticleSystemTemplate* ConstParticleSystemTemplatePtr;
-	ConstParticleSystemTemplatePtr* s = (ConstParticleSystemTemplatePtr*)store;
-	ConstParticleSystemTemplatePtr pst = NULL;
-	INI::parseParticleSystemTemplate(ini, NULL, &pst, NULL);
-	for (Int i = LEVEL_FIRST; i <= LEVEL_LAST; ++i)
-		s[i] = pst;
-}
+void parseAllVetLevelsPSys( INI* ini, void* /*instance*/, void * store, const void* /*userData*/ );
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // PUBLIC DATA ////////////////////////////////////////////////////////////////////////////////////
@@ -360,18 +330,8 @@ void WeaponTemplate::reset( void )
 }
 
 //-------------------------------------------------------------------------------------------------
-/*static*/ void WeaponTemplate::parseScatterTarget( INI* ini, void *instance, void * /*store*/, const void* /*userData*/ )
-{
-	// Accept multiple listings of Coord2D's.
-	WeaponTemplate* self = (WeaponTemplate*)instance;
-
-	Coord2D target;
-	target.x = 0;
-	target.y = 0;
-	INI::parseCoord2D( ini, NULL, &target, NULL );
-
-	self->m_scatterTargets.push_back(target);
-}
+// WeaponTemplate::parseScatterTarget: defined in WeaponTemplateParseScatterTarget.cpp
+// (its row's unit, BFME 2 layout).
 
 //-------------------------------------------------------------------------------------------------
 // WeaponTemplate::parseShotDelay is defined in WeaponParseShotDelayClip.cpp.
