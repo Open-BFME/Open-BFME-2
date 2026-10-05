@@ -1,5 +1,7 @@
 // ?rva00225DA9@GameEngine@@QAEXXZ
-// partial score=0.89 date=2026-10-03
+// partial score=0.96 date=2026-10-05
+// ?rva00225DA9@GameEngine@@QAEXXZ @0x00225DA9 361B
+
 // cl: /O1 /DNDEBUG /DWIN32 /MD /EHsc /arch:SSE /G7
 //
 // ?rva00225DA9@GameEngine@@QAEXXZ at retail 0x00225DA9 (361B).
@@ -129,16 +131,12 @@ void GameEngine::rva00225DA9()
 		if (m_50 % 25 == 0) {
 			unsigned int t = timeGetTime();
 			unsigned int dt = t - m_54;
-			float fdt = (float)dt;
-			double d = (double)fdt * g_bfmeFactorBW;
-			float f = (float)d;
+			float den = (float)((double)(float)dt * g_bfmeFactorBW);
 			float a = (float)m_50;
-			float b = (float)m_5c;
 			m_50 = 0;
+			float b = (float)m_5c;
+			m_58 = (b / a) * (a / den);
 			m_5c = 0;
-			float inv = b / a;
-			float w = a / f;
-			m_58 = inv * w;
 			m_54 = timeGetTime();
 		}
 		m_5c += m_38;
