@@ -1,5 +1,7 @@
 // ?rva00083D54@Rva00083D54@@QAEXXZ
-// partial score=0.97 date=2026-10-05
+// partial score=0.93 date=2026-10-05
+// ?rva00083D54@Rva00083D54@@QAEXXZ
+// finish attempt for ?rva00083D54@Rva00083D54@@QAEXXZ @0x00083D54, 264B.
 // cl: /O1 /G7 /Ireference/shims/bfmeterraintracks /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // ?rva00083D54@Rva00083D54@@QAEXXZ @ 0x00083D54 264B.
 //
@@ -106,17 +108,18 @@ void Rva00083D54::rva00083D54()
 	REF_PTR_RELEASE(m_0);
 
 	{
-		Uint ibCount = 0;
 		void *ibRaw = ::operator new(0x18);
+		DX8IndexBufferClass *ib = (DX8IndexBufferClass *)ibRaw;
 		if (ibRaw)
-			ibCount = (Uint)(new (ibRaw) DX8IndexBufferClass(
-				(Uint)((m_1C - 1) * 6), DX8IndexBufferClass::USAGE_DEFAULT) != 0);
+			ib = new (ibRaw) DX8IndexBufferClass(
+				(Uint)((m_1C - 1) * 6), DX8IndexBufferClass::USAGE_DEFAULT);
 
-		IndexBufferClass::WriteLockClass lock(m_4, 0);
-		m_4 = (DX8IndexBufferClass *)ibRaw;
-		unsigned short *p = lock.Get_Index_Array() + 1;
-		for (Int i = 0; i < m_1C - 1; i++)
+		IndexBufferClass::WriteLockClass lock(ib, 0);
+		m_4 = ib;
+		Int trip = m_1C - 1;
+		for (Int i = 0; i < trip; i++)
 		{
+			unsigned short *p = lock.Get_Index_Array() + i * 6 + 1;
 			unsigned short v = (unsigned short)(i + i);
 			unsigned short v1 = (unsigned short)(v + 1);
 			unsigned short v3 = (unsigned short)(v + 3);
@@ -126,7 +129,6 @@ void Rva00083D54::rva00083D54()
 			p[4] = (unsigned short)(v + 2);
 			p[1] = v3;
 			p[3] = v3;
-			p += 6;
 		}
 	}
 
