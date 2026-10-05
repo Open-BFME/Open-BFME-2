@@ -9491,3 +9491,5 @@ FUN_0047ffed	0x0007FFED	233	blocked	anonymous water-setting dispatch (thiscall +
 ?Rva001EF552Chat@@YGXVUnicodeString@@H@Z	0x001EF552	107	blocked	xor-ecx cmp-eax-ecx mov-ebp4-ecx vs and-ebp4-0 test-eax-eax and cmp-byte-cl vs cmp-byte-0; tried /O1 /O2 /Os bool-uchar &&-nested no change t=15 model=muse-spark (stash 0.97 kept)
 FUN_00731d7e	0x00331D7E	48	blocked	loop over Store needs thiscall twin at 0x002A1316 to explain mov ecx edi plus reserve-fill; stdcall row gives 37B vs 48B; second pin forbidden by link t=10 model=muse-spark
 ?rva002E7296@Pathfinder@@QAEEW4PathfindLayerEnum@@PBXPBM@Z	0x002E7296	158	partial	fld-INV-first vs fld-pos-first and eax-ecx swap for flags-low and branch layout true-inline vs shared t=30 model=muse-spark score=0.9 stash=reverse/attempts/0x002e7296.cpp
+?rva002B43E7@Rva002B4349@@QAEPAVRva004FA2E2@@PAV1@@Z	0x002B43E7	29	blocked	steal p then holder-dtor on nulled stack slot exact via fresh=p p=0 m_ptr=fresh plus dtor-and-call t=15 model=muse-03
+?rva002B54BB@Rva002B4349@@QAEPAV1@PAV1@@Z	0x002B54BB	62	blocked	transfer this-ptr to other with null temp plus holder-dtor needs EH_prolog t=14 model=muse-03
