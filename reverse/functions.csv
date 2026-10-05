@@ -63441,3 +63441,7 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?fwd@Rva000E0536Owner@@QAEHHH@Z,,0x000E0536,36,Code/GameEngine/Source/Common/RvaCountNoteRunFamily.cpp,matched,Address-derived count-note-run (m+1 then two calls then return arg); 36B shape
 ?fwd@Rva003EF34AOwner@@QAEHHH@Z,,0x003EF34A,36,Code/GameEngine/Source/Common/RvaCountNoteRunFamily.cpp,matched,Address-derived count-note-run (m+1 then two calls then return arg); 36B shape
 ?fwd@Rva0052B7F8Owner@@QAEHHH@Z,,0x0052B7F8,36,Code/GameEngine/Source/Common/RvaCountNoteRunFamily.cpp,matched,Address-derived count-note-run (m+1 then two calls then return arg); 36B shape
+?fwd@Rva001FBC43@@QAEHHH@Z,,0x001FBC43,38,Code/GameEngine/Source/Common/RvaChainedFindFamily.cpp,matched,Address-derived chained find head-store plus sub-tail; 38B shape
+?fwd@Rva001FBFEA@@QAEHHH@Z,,0x001FBFEA,38,Code/GameEngine/Source/Common/RvaChainedFindFamily.cpp,matched,Address-derived chained find head-store plus sub-tail; 38B shape
+?fwd@Rva001FC357@@QAEHHH@Z,,0x001FC357,38,Code/GameEngine/Source/Common/RvaChainedFindFamily.cpp,matched,Address-derived chained find head-store plus sub-tail; 38B shape
+?fwd@Rva001FC451@@QAEHHH@Z,,0x001FC451,38,Code/GameEngine/Source/Common/RvaChainedFindFamily.cpp,matched,Address-derived chained find head-store plus sub-tail; 38B shape
