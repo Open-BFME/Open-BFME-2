@@ -9787,3 +9787,4 @@ FUN_004806f3	0x000806F3	357	blocked	shares esp wall with 0x000E67E3 plus this fo
 FUN_005f69b1	0x001F69B1	328	blocked	same esp wall as 0x000E67E3 and 0x000806F3 9-arm Texture dispatch t=5 model=muse-06
 FUN_004e1f42	0x000E1F42	413	blocked	same esp wall as 0x000E67E3 family plus functor tail t=5 model=muse-06
 ?rva00401015@Rva00382FA7@@QAEPBVImage@@H@Z	0x00401015	342	blocked	complex STL EH lobby image switch needs shared MapCache plus single-return edi layout t=25 model=muse-03
+?rva004F31B6@AIPlayer@@QAEHXZ	0x004F31B6	519	blocked	519B AIPlayer science purchase needs full SkillSet plus EH string concat plus random shape t=30 model=muse-03
