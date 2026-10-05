@@ -57442,3 +57442,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ??1Rva0022CC67@@QAE@XZ,,0x0022CF13,57,Code/GameEngine/Source/Common/Rva0022CC67Dtor.cpp,matched,chain dtor via rowed clear plus free
 ??0Rva004333C0@@QAE@ABVRva001DA2D5@@H@Z,,0x00433762,52,Code/Libraries/Source/WWVegas/WWLib/Rva00433762Ctor.cpp,matched,vtable 0x0083CB1C plus rowed base 0x004335BC plus rowed BitFlags11 0x003B31AD
 ??_GRva005F86C3@@UAEPAXI@Z,,0x005F8804,28,Code/GameEngine/Source/Common/MemberBaseDtorsB01.cpp,matched,dtor lane deleting dtor from own ??1 unit
+?rva004DD9E3@Rva004DD9E3@@QAEHHHH@Z,,0x004DD9E3,183,Code/GameEngine/Source/Common/Rva004DD9E3.cpp,matched,getCell row plus pool alloc row plus MixFileInfo rows plus globals g_Va009FF0F8 TheMixFileInfoPool g_00E049D8
