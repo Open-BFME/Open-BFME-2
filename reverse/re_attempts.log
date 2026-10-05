@@ -10326,3 +10326,5 @@ AptActionInterpreter_runtime_assertion_batch	0x6fd850	315	landed	Nine independen
 ?rva0046CC09@HordeContain@@UAEPAVObject@@XZ	0x0046CC09	230	blocked	exact 230B align_diff gate needs central retype rva002C9B80 void to float t=25 model=muse-01
 ?Rva00428EEBIssueFireWeapon@@YGHPBVCommandButton@@HPAVDrawable@@PBUCoord3D@@@Z	0x00428EEB	284	partial	return0 shared at start not end minus1B t=25 model=muse-01 score=0.98 stash=reverse/attempts/0x00428eeb.cpp
 ?rva004AF79C@Rva004AF79C@@QAEXPAUArg38@@@Z	0x004AF79C	403	blocked	complex UpdateModule SSE STL FX leaf needs class donor t=10 model=muse-01
+FUN_008b7d53	0x004B7D53	141	blocked	vslot10 negative this-adjustment plus EH plus 5 calls needs MI donor t=12 model=muse-06
+??0Rva00510FDB@@QAE@PAX@Z	0x00510FDB	86	blocked	MI two-vptr plus EH prolog plus map needs donor t=15 model=muse-06

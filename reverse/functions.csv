@@ -62986,3 +62986,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ??0ParticleModule005F2CA0@@QAE@PAX0@Z,,0x0055C86D,67,Code/GameEngine/Source/GameClient/ParticleModule005F2CA0Ctor.cpp,matched,BFME1 donor ParticleModuleCtor005F2CA0 base row 0x3AA228 Init row 0x5C7889 pin names class 5 callers
 ??0Rva002DA651@@QAE@ABUOpaqueRefElement4@@H@Z,,0x002DA651,126,Code/GameEngine/Source/Common/Audio/BfmeAudioEventOwnerCtorTag5.cpp,matched,owner tag5 ctor vtable 00803908 m30 1 m38 5 via rva002D96D3 and rva002DA1CC
 ?rva003F83FE@Rva003F83FE@@QAEPAXH@Z,,0x003F83FE,31,Code/GameEngine/Source/Common/Rva003F83FE.cpp,matched,AsciiString array forward via rowed Rva002104B6
+?rva0039ABFF@ExperienceTracker@@QBE_NXZ,,0x0039ABFF,13,Code/GameEngine/Source/Common/Rva0039ABFF.cpp,matched,pin helper plus matched caller and global
