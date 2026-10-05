@@ -12858,3 +12858,9 @@ _Rva00337999Forward,0x00337999,REL32 callee decoded from target call bytes of wr
 ?g_00DFF0F8@@3PAXA,0x00DFF0F8,dispatch-table global whose +0x10 member receives the 0x341C54 five-arg call
 ?rva00343DD8@@YAXPAVRva00343F8A@@PAX@Z,0x00343DD8,TU-local goal-path callee (cdecl state plus opaque); RETAIL REL32 in 0x343F8A targets 0x343DD8 when getGoalObject is non-null
 ?rva0033FD98@@YAXPAVRva00343F8A@@PAX@Z,0x0033FD98,TU-local no-goal callee (cdecl state plus opaque); RETAIL REL32 in 0x343F8A targets 0x33FD98 when getGoalObject is null
+
+?rva00409F1B@Rva00409F1B@@QAEXHH@Z,0x00409F1B,thiscall (mov esi plus ecx prolog) reached from 0x33C965 with two int args after the 0x31D5F8 lookup hit; RETAIL REL32 at 0x0033CA6B; address-named
+?g_00DFE758@@3PAXA,0x00DFE758,flag-holder global tested at +0x1110 by 0x33C965 before the 0x31D5F8 lookup
+?g_00E01CFC@@3PAXA,0x00E01CFC,lookup-table global receiving the 0x31D5F8 call in 0x33C965
+?Rva003430A3Check@@YA_NPAXPAVObject@@H@Z,0x003430A3,free goal check called from 0x343DD8 with (esi plus ebp plus edi); RETAIL REL32 at 0x00343E9B; recovery is blocked so this spelling only serves the call
+?rva0047A699@Rva002C9400ByteField@@QBE_NXZ,0x0047A699,const predicate on the Weapon +4 byte-field reached from 0x343DD8; RETAIL REL32 at 0x00343E72; address-named
