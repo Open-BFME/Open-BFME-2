@@ -5,7 +5,9 @@
 // returns null or whose Object byte at +0x438 bit0 is set via rowed Rb increment
 // and map erase. Evidence: leaf lane 1 caller 0x0046410E TheGameLogic extern
 // unblocks 0x004640BE; same shape as Rva0025C010 vector prune but map erase-void.
+#pragma optimize("t", on)
 #include <map>
+#pragma optimize("", on)
 
 enum ObjectID
 {
