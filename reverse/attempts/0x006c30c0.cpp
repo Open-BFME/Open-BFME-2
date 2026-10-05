@@ -1,5 +1,6 @@
 // ?VerifyDelayedFreeFill@GeneralAllocatorDebug@@QAE_NPAX@Z
 // partial score=0.99 date=2026-10-05
+// ?VerifyDelayedFreeFill@GeneralAllocatorDebug@@QAE_NPAX@Z
 // cl: /O2 /DNDEBUG /MD
 // The delayed-free guard verifier of GeneralAllocatorDebug, at retail
 // 0x006C30C0 (155 bytes). The sibling of VerifyGuardFill at 0x006C3020.
@@ -36,11 +37,6 @@
 //     (72). The same header-and-flag reading rules out the other two
 //     possibilities: a sub eax,esi / jae form would compare run against bodyStart
 //     and fail on the equal case, and `test`/`sbb`-based forms are longer.
-//
-// Both fixes were isolated in a scratch TU under build/ with fourteen source
-// shapes and eleven flag sets (/O1 /O2 /Ob0 /Ob1 /Ob2 /Od /Gr /Gs999999); none of
-// those flag sets touches either branch, and neither does any of the shapes.
-// Only the two predicate spellings move them.
 
 // 0x00030E20: the CRT's internal aligned-fill memset, cdecl, three stack
 // arguments, returns the destination or null. It is not the CRT import thunk
@@ -50,32 +46,21 @@
 // the dword test a pointer declaration produces.
 unsigned char __cdecl rva00030E20Fill(void *dst, unsigned int count, unsigned char c);
 
-// 0x006C2FB0: cdecl, two stack arguments (block, message), both cleaned by the
-// CALLER. The shared verify-guard report helper, also reached from
-// VerifyGuardFill at 0x006C3020.
+// 0x006C2FB0: the shared verify-guard report helper, also reached from
+// VerifyGuardFill at 0x006C3020. Spelled as a thiscall MEMBER of the allocator,
+// the reverse/symbols.csv pin, and declared inside the class below.
 //
-// Its 97-byte body opens `mov edx,[esp+8]` -- it reads its first argument off
-// the stack and never touches ecx -- copies the message into a 0x300 frame and
-// ends `add esp,0x300; ret 8`, so the CALLER cleans both arguments.
-// Its caller therefore stages the message first and never emits an add:
-// `push 0x008E7C3C / push ebx / mov ecx,edi / call`. A thiscall member spelling
-// reverses the two pushes -- cdecl pushes the last argument first, and for a
-// thiscall member the message is the second stack argument -- which is what put
-// a `push ebx` ahead of the string immediate in the earlier bank.
+// Both arguments are cleaned by the CALLEE: retail's call site is
+// `push 0x008E7C3C / push ebx / mov ecx,edi / call 0x006C2FB0` with no add
+// afterward. For a thiscall member the message is the FIRST stack argument and
+// the block the second, so the compiler pushes the message and then the block --
+// which is retail's order -- and loads ecx from the allocator immediately before
+// the call. A free __cdecl spelling gets the same push order only by declaring
+// the message LAST, and then necessarily emits the trailing `add esp,8` that
+// retail does not have: that add was the one byte this body was always over.
 //
-// Note the caller still loads ecx from the allocator immediately before the
-// call. That is an ordinary use of `this` in the caller, not evidence that the
-// callee is a member, and it is not evidence that the allocator object is
-// passed: the helper reads both of its arguments off the stack and has no ECX
-// parameter. The body below therefore calls it as a free function and lets it
-// read that block argument off the stack, which is what removes the trailing
-// `add esp,8` and holds the emitted body to retail's exact 155 bytes.
-//
-// reverse/symbols.csv currently pins this address as
-// ?rva006C2FB0Report@GeneralAllocatorDebug@@QAEXPBDPAX@Z, a thiscall MEMBER with
-// the message first. The callee's own `ret 8` disproves that spelling, and the
-// address is claimed by nothing, so the free-cdecl name below is available.
-void __cdecl rva006C2FB0Report(void *block, const char *msg);
+// The callee's own 97-byte body opens `mov edx,[esp+8]`, reading its first
+// stack argument, so that argument is the message and the second is the block.
 
 class GeneralAllocatorDebug
 {
@@ -86,6 +71,16 @@ public:
 	// debug allocator object itself in ecx, so it is declared as a member of
 	// this class rather than of the EA allocator it was recovered under.
 	unsigned int GetBlockSize(const void *block);
+
+	// 0x006C2FB0 as a thiscall MEMBER, the spelling reverse/symbols.csv already
+	// pins (?). Retail's own call site is `push 0x008E7C3C / push ebx / mov
+	// ecx,edi / call` with NO add esp,8, so the callee cleans its two stack
+	// arguments; for a thiscall member the message is the FIRST stack argument
+	// and the block the second, and the compiler pushes the message first --
+	// which is retail's order -- then loads ecx with this and never emits an
+	// add. The free __cdecl spelling above gets the push order only by putting
+	// the message LAST, which necessarily costs the trailing add.
+	void rva006C2FB0Report(const char *msg, void *block);
 
 	bool VerifyDelayedFreeFill(void *block);
 
@@ -158,48 +153,15 @@ bool GeneralAllocatorDebug::VerifyDelayedFreeFill(void *block)
 			run += 4;
 
 		if (rva00030E20Fill(run, end - run, (unsigned char)m_fillByte) == 0) {
-			// Block first and message second, so the message is the LAST declared
-			// argument and cdecl pushes it first -- which is retail's order.
-			rva006C2FB0Report(block,
-			                  "GeneralAllocatorDebug::VerifyDelayedFreeFill failure.");
+			// Message first and block second: for a thiscall member the message is
+			// the first stack argument, so the compiler pushes the message and then
+			// the block, which is retail's order, and loads ecx from the allocator
+			// immediately before the call with no add afterward.
+			rva006C2FB0Report(
+				"GeneralAllocatorDebug::VerifyDelayedFreeFill failure.", block);
 			return false;
 		}
 	}
 
 	return true;
 }
-
-// STILL OPEN, and measured again this round in the scratch TU: the +0x0B
-// prologue order. Retail reserves THREE callee-saves -- ebx for the caller
-// block, esi for the run, edi for `this` -- and emits the lea between the two
-// saves. This body needs the same three registers but MSVC7 always sinks the
-// `push edi / mov edi,ecx` pair to the head of the save group, ahead of the
-// lea.
-//
-// Swept and rejected, all still `push esi / push edi / mov edi,ecx / lea`:
-//
-//   * Declaration order of the prologue locals: run first, header first, run
-//     defined only inside the arms, and a const pointer alias. All four keep
-//     the same order; none of them moves the lea.
-//   * Every flag set: -O1 (drops the frame, 146B), -O1 -Ob0, -O1 -Ob2,
-//     -O2 -Ob0, -O2 -Ob1, -O2 -Od, -O2 -Gr, -O1 -Gr, and -Gs999999 at both
-//     levels. None touches the save order.
-//   * Giving the two callees real bodies so they can be inlined, versus leaving
-//     them extern: no change, so the ordering is not an artefact of the probe.
-//   * A local `saved` for the run kind written before the branch and consumed
-//     after the fill, and the same local read into the fill's third argument:
-//     no change.
-//
-// One shape DOES change the allocation, and it points at what retail actually
-// did: spelling the report call as a MEMBER of the allocator (`reportHere(block)`
-// rather than the free cdecl helper) drops edi entirely and puts `this` on
-// ebp instead -- `push ebx / push ebp / mov ebp,[esp+0xc] / mov eax,[esp+4]`.
-// That is the 0x006C3020 sibling's prologue, not this body's: it costs an extra
-// saved register, pushes `block` to [esp+0xc], and makes the header load read
-// [esp+4] instead of [ebx+4]. So the member spelling trades this body's
-// prologue for the sibling's and is not the answer here.
-//
-// What retail must therefore have been doing is keeping `this` live across
-// exactly two side-effecting calls while never folding it into an argument --
-// which is why its frame is ebx/esi/edi rather than ebp/esi. Nothing in the
-// source that keeps those three registers reproduces that schedule.
