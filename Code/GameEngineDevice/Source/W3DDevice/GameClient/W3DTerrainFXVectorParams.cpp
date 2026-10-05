@@ -14,6 +14,16 @@
 // ?Rva000E2763Scale@@YAXPAUID3DXEffect@@PBD@Z       @0x000E2763 118B
 // ?Rva000E2D26Vector@@YAXPAUID3DXEffect@@PBD@Z      @0x000E2D26 126B
 // ?Rva000E2DA4Level@@YAXPAUID3DXEffect@@PBD@Z       @0x000E2DA4  89B
+//
+// The SetBool/SetInt/SetFloat callbacks below are named by the parameter
+// string each dispatcher compares before storing the address (target fact):
+// 0x000E1F42 stores 0x004E20DF for "IsMacroTextureStrechedToMapSize" and
+// 0x004E213C for "IsResourceTextureEnabled"; 0x000E236D stores 0x004E249D
+// for "ObjectShroudStatus"; 0x000E25DE stores 0x004E26CF for "IsEnabled";
+// 0x000E2A81 stores 0x004E2BEE for "ScaleUV_OffsetPerSecondUV"; 0x000E2DFD
+// stores 0x004E2F5E for "HeightScale". TheWritableGlobalData is VA
+// 0x00DFE758 and TheWeatherSetting VA 0x00DFE118; the +0x3834/+0xC6A/+0xA4..
+// field names are address-derived.
 
 typedef const char *D3DXHANDLE;
 
@@ -29,8 +39,10 @@ struct ID3DXEffect
 	virtual void v08(); virtual void v09(); virtual void v10(); virtual void v11();
 	virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15();
 	virtual void v16(); virtual void v17(); virtual void v18(); virtual void v19();
-	virtual void v20(); virtual void v21(); virtual void v22(); virtual void v23();
-	virtual void v24(); virtual void v25(); virtual void v26(); virtual void v27();
+	virtual void v20(); virtual void v21();
+	virtual long __stdcall SetBool(D3DXHANDLE parameter, int value); virtual void v23();
+	virtual void v24(); virtual void v25();
+	virtual long __stdcall SetInt(D3DXHANDLE parameter, int value); virtual void v27();
 	virtual void v28(); virtual void v29(); virtual long __stdcall SetFloat(D3DXHANDLE parameter, float value); virtual void v31();
 	virtual void v32(); virtual void v33();
 	virtual long __stdcall SetVector(D3DXHANDLE parameter, const Rva000E2409Vector4 *vector);
@@ -47,6 +59,8 @@ struct Rva000E2409Map
 	char m_pad28[4];
 	float m_2c;
 	float m_30;
+	char m_pad34[0x44 - 0x34];
+	int m_44;
 };
 
 class BaseHeightMapRenderObjClass
@@ -54,7 +68,9 @@ class BaseHeightMapRenderObjClass
 public:
 	char m_pad0000[0x37C0];
 	struct BfmeTerrain37C0Target *m_37C0;
-	char m_pad37C4[0x3878 - 0x37C4];
+	char m_pad37C4[0x3834 - 0x37C4];
+	bool m_3834;
+	char m_pad3835[0x3878 - 0x3835];
 	Rva000E2409Map *m_3878;
 	Rva000E2409Map *m_387c;
 };
@@ -231,4 +247,89 @@ void Rva000E2EB7(ID3DXEffect *effect, D3DXHANDLE handle)
 		}
 	}
 	effect->SetVector(handle, &value);
+}
+
+class GlobalData
+{
+public:
+	char m_pad000[0xC6A];
+	bool m_C6A;
+};
+
+extern GlobalData *TheWritableGlobalData;
+
+class WeatherSetting
+{
+public:
+	char m_pad00[0xA4];
+	float m_a4;
+	float m_a8;
+	float m_ac;
+	float m_b0;
+};
+
+template <class T> class OVERRIDE
+{
+public:
+	const T *operator->() const;
+
+private:
+	const T *m_overridable;
+};
+
+extern OVERRIDE<WeatherSetting> TheWeatherSetting;
+
+void Rva000E20DFIsMacroTextureStrechedToMapSize(ID3DXEffect *effect, D3DXHANDLE handle)
+{
+	if (TheTerrainRenderObject)
+		effect->SetBool(handle, TheTerrainRenderObject->m_3834);
+	else
+		effect->SetBool(handle, 0);
+}
+
+void Rva000E213CIsResourceTextureEnabled(ID3DXEffect *effect, D3DXHANDLE handle)
+{
+	effect->SetBool(handle, 0);
+}
+
+void Rva000E249DObjectShroudStatus(ID3DXEffect *effect, D3DXHANDLE handle)
+{
+	int status = 0;
+	if (TheTerrainRenderObject)
+	{
+		Rva000E2409Map *map = TheTerrainRenderObject->m_3878;
+		if (map)
+			status = map->m_44;
+	}
+	effect->SetInt(handle, status);
+}
+
+void Rva000E26CFIsEnabled(ID3DXEffect *effect, D3DXHANDLE handle)
+{
+	if (TheWritableGlobalData)
+		effect->SetBool(handle, TheWritableGlobalData->m_C6A);
+	else
+		effect->SetBool(handle, 0);
+}
+
+void Rva000E2BEEScaleUVOffsetPerSecondUV(ID3DXEffect *effect, D3DXHANDLE handle)
+{
+	Rva000E2409Vector4 value;
+	value.x = 0.0015151515f;
+	value.y = 0.0015151515f;
+	value.z = -0.012f;
+	value.w = -0.018f;
+	if (TheWeatherSetting.operator->())
+	{
+		value.x = 1.0f / TheWeatherSetting->m_a4;
+		value.y = 1.0f / TheWeatherSetting->m_a8;
+		value.z = TheWeatherSetting->m_ac;
+		value.w = TheWeatherSetting->m_b0;
+	}
+	effect->SetVector(handle, &value);
+}
+
+void Rva000E2F5EHeightScale(ID3DXEffect *effect, D3DXHANDLE handle)
+{
+	effect->SetFloat(handle, 0.0390625f);
 }

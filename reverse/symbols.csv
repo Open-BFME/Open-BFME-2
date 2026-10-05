@@ -12334,3 +12334,4 @@ _ceil,0x00629934,CRT ceil thunk identified by native PE import slot 0x00BBA578 a
 ??1Rva002606AFDtor@@QAE@XZ,0x005B804E,UnicodeString dtor alias
 ??$__copy_ptrs@PBURva002821CFElem@@PAU1@@_STL@@YAPAURva002821CFElem@@PBU1@0PAU1@ABU__false_type@0@@Z,0x00281AB7,erase copy
 ??1Rva002821CFDtor@@QAE@XZ,0x0027EA49,dtor for erase 0x002821CF
+??C?$OVERRIDE@VWeatherSetting@@@@QBEPBVWeatherSetting@@XZ,0x0035C95F,ICF-folded OVERRIDE<T>::operator-> (rowed as the LocomotorTemplate instantiation); terrain FX ScaleUV_OffsetPerSecondUV callback 0x000E2BEE calls it 5x with ECX=TheWeatherSetting VA 0x00DFE118
