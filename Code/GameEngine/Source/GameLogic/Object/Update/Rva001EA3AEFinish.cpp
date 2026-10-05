@@ -1,5 +1,3 @@
-// ?rva001EA3AE@Rva001EA2CFLocomotorDefinition@@QAEXPAVINI@@PAVThingTemplate@@@Z
-// partial score=1.0 date=2026-10-04
 // cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /arch:SSE /DNDEBUG /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
 // stlport
 #include <map>
@@ -48,6 +46,8 @@ public: void initFromINI(void *, const FieldParse *);
  int getLoadType() const { return loadType; }
 private: char unknown00[8]; int loadType;
 };
+// FieldParse table for the LocomotorDefinition parse, read from retail at 0x00BDEA60.
+extern const FieldParse g_00BDEA60[];
 class AIUpdateModuleData {
 public: char unknown00[8]; BfmeLocomotorSetMap templates;
 };
@@ -81,6 +81,6 @@ void Rva001EA2CFLocomotorDefinition::rva001EA3AE(INI *ini, ThingTemplate *instan
  name.set("");
  setName.set("");
  speed=0.0f;
- ini->initFromINI(this,reinterpret_cast<const FieldParse *>(0x00BDEA60));
+ ini->initFromINI(this, g_00BDEA60);
  rva001EA2CF(ini,instance);
 }
