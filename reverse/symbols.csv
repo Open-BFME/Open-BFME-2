@@ -12442,3 +12442,4 @@ _ceil,0x00629934,CRT ceil thunk identified by native PE import slot 0x00BBA578 a
 ?IsAnimationInst@AptCIH@@QBE_N_N@Z,0x006CBEE0,Native TypeOf7029A0 direct call target; source headers and existing byte-verified provider confirm predicate ABI; alternatename binds provider
 ??1Rva00422CE9Tree@@QAE@XZ,0x00422CE9,tree teardown dtor for Rva007B6880Thunks.cpp 0x007B82D3; jmp stub to tree dtor 0x0042263D
 ??1Rva00422CEETree@@QAE@XZ,0x00422CEE,tree teardown dtor for Rva007B6880Thunks.cpp 0x007B82DD; jmp stub to tree dtor 0x00422675
+?rva006012ED@Rva0060126D@@QAEPAPAXPAPAXPAX1PBX1@Z,0x006012ED,twin of rowed void 0x006012ED returning result ptr in eax per caller 0x006013B7 byte-exact
