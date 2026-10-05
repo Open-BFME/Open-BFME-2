@@ -60,21 +60,25 @@ void Rva002A9ECA::rva002A9ECA(int a)
 {
     m_08.rva00380459(a);
 }
+// 0x003EE7C2 follows its existing pin spelling (the SplineEffectParseINIBlock
+// caller at 0x004E3F48 reaches it as Rva003BB730Owner::addEffect).
+class AsciiString;
+class Rva003BB730Record;
 class Rva004E37CF
 {
 public:
-    void rva004E37CF(int a, int b);
+    void rva004E37CF(AsciiString &name, Rva003BB730Record *record);
 };
-class Rva003EE7C2
+class Rva003BB730Owner
 {
 public:
-    void rva003EE7C2(int a, int b);
+    void addEffect(AsciiString &name, Rva003BB730Record *record);
 private:
     int m_00;
     int m_04;
     Rva004E37CF m_08;
 };
-void Rva003EE7C2::rva003EE7C2(int a, int b)
+void Rva003BB730Owner::addEffect(AsciiString &name, Rva003BB730Record *record)
 {
-    m_08.rva004E37CF(a, b);
+    m_08.rva004E37CF(name, record);
 }
