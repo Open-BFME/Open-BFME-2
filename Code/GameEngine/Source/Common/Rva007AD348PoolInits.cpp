@@ -31,6 +31,9 @@ public:
 extern FreelistPool g_freelistPool009BBD2C;
 extern FreelistPool g_freelistPool00DB8FEC;
 extern FreelistPool g_freelistPool00DBA5E0;
+FreelistPool g_freelistPool009BBD2C;
+FreelistPool g_freelistPool00DB8FEC;
+FreelistPool g_freelistPool00DBA5E0;
 
 struct Rva007AD348PoolInits
 {
