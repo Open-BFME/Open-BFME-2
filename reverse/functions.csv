@@ -63091,3 +63091,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ??4Rva001FBBF6@@QAEAAV0@ABV0@@Z,,0x001FBBF6,41,Code/GameEngine/Source/Common/Rva001F9CCAAssignChain.cpp,matched,Rva assign chain first base 001F41CD then second base plus4 by REL32 graph
 ??4Rva001FBF9D@@QAEAAV0@ABV0@@Z,,0x001FBF9D,41,Code/GameEngine/Source/Common/Rva001F9CCAAssignChain.cpp,matched,Rva assign chain first base 001F41CD then second base plus4 by REL32 graph
 ??4Rva001FC231@@QAEAAV0@ABV0@@Z,,0x001FC231,41,Code/GameEngine/Source/Common/Rva001F9CCAAssignChain.cpp,matched,Rva assign chain first base 001F41CD then second base plus4 by REL32 graph
+?rva00054839@MilesAudioManager@@QAE_NPAVAudioEventRTS@@@Z,,0x00054839,96,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva00054839.cpp,matched,two-list search by event id via isPositional branch
