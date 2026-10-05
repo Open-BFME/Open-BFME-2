@@ -25,10 +25,15 @@ struct Rva00500BF5Node
 class Rva00500BF5Tree
 {
 public:
+    typedef _STL::_Rb_tree_iterator<Rva00500500,
+        _STL::_Nonconst_traits<Rva00500500> > Iterator;
     void insert(Rva00500BF5Node *&result, Rva00500BF5Node *x,
                 Rva00500BF5Node *y, const Rva00500500 &value,
                 Rva00500BF5Node *known_order);
     void *createNode(const Rva00500500 &value);
+    Iterator insertWorker(Rva00500BF5Node *x, Rva00500BF5Node *y,
+                          const Rva00500500 &value, Rva00500BF5Node *known_order);
+    Iterator insertEqual(const Rva00500500 &value);
 private:
     Rva00500BF5Node *m_header;
     unsigned m_count;
@@ -71,3 +76,22 @@ void Rva00500BF5Tree::insert(Rva00500BF5Node *&result, Rva00500BF5Node *x,
     ++m_count;
     result = node;
 }
+
+// Target 0x00500C7D/59B, called by the hint worker at 0x00500F6E.
+// STLport _tree.c::insert_equal(value) traverses the same unsigned-key tree
+// then returns the iterator constructed by the rowed insertion worker.
+Rva00500BF5Tree::Iterator Rva00500BF5Tree::insertEqual(const Rva00500500 &value)
+{
+    Rva00500BF5Node *y = m_header;
+    Rva00500BF5Node *x = m_header->parent;
+    while (x != 0) {
+        y = x;
+        x = *reinterpret_cast<const unsigned *>(&value) < x->key ? x->left : x->right;
+    }
+    return insertWorker(x, y, value, 0);
+}
+
+// Iterator return and explicit output-reference spellings have the same
+// hidden-result ABI. The declaration keeps MSVC from inspecting the worker
+// when it compiles callers in this unit.
+#pragma comment(linker, "/alternatename:?insertWorker@Rva00500BF5Tree@@QAE?AU?$_Rb_tree_iterator@VRva00500500@@U?$_Nonconst_traits@VRva00500500@@@_STL@@@_STL@@PAURva00500BF5Node@@0ABVRva00500500@@0@Z=?insert@Rva00500BF5Tree@@QAEXAAPAURva00500BF5Node@@PAU2@1ABVRva00500500@@1@Z")
