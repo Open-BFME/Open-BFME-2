@@ -1912,55 +1912,7 @@ void quickmatchEnumPlayersCallback( PEER peer, PEERBool success, RoomType roomTy
 	TheGameSpyPeerMessageQueue->addResponse(resp);
 }
 
-// byte-exact reconstruction: Code/GameEngine/Source/Common/PeerThreadClass_handleQMMatchMethodThunk.cpp
-// ?handleQMMatch@PeerThreadClass@@ present-unmatched
-void PeerThreadClass::handleQMMatch(PEER peer, Int mapIndex, Int seed,
-																		char *playerName[MAX_SLOTS],
-																		char *playerIP[MAX_SLOTS],
-																		char *playerSide[MAX_SLOTS],
-																		char *playerColor[MAX_SLOTS],
-																		char *playerNAT[MAX_SLOTS])
-{
-	if (m_qmStatus == QM_WORKING)
-	{
-		m_qmStatus = QM_MATCHED;
-		peerLeaveRoom(peer, GroupRoom, "");
-
-		for (Int i=0; i<MAX_SLOTS; ++i)
-		{
-			if (playerName[i] && stricmp(playerName[i], m_loginName.c_str()))
-			{
-				peerMessagePlayer( peer, playerName[i], "We're matched!", NormalMessage );
-			}
-		}
-
-		PeerResponse resp;
-		resp.peerResponseType = PeerResponse::PEERRESPONSE_QUICKMATCHSTATUS;
-		resp.qmStatus.status = QM_MATCHED;
-		for (i=0; i<MAX_SLOTS; ++i)
-		{
-			if (playerName[i])
-			{
-				resp.stagingRoomPlayerNames[i] = playerName[i];
-				resp.qmStatus.IP[i] = atoi(playerIP[i]);
-				resp.qmStatus.side[i] = atoi(playerSide[i]);
-				resp.qmStatus.color[i] = atoi(playerColor[i]);
-				resp.qmStatus.nat[i] = atoi(playerNAT[i]);
-			}
-			else
-			{
-				resp.stagingRoomPlayerNames[i] = "";
-				resp.qmStatus.IP[i] = 0;
-				resp.qmStatus.side[i] = 0;
-				resp.qmStatus.color[i] = 0;
-				resp.qmStatus.nat[i] = 0;
-			}
-		}
-		resp.qmStatus.seed = seed;
-		resp.qmStatus.mapIdx = mapIndex;
-		TheGameSpyPeerMessageQueue->addResponse(resp);
-	}
-}
+// Six-array retail handler lives in PeerThreadQMMatch.cpp.
 
 // ?doQuickMatch@PeerThreadClass@@ present-unmatched
 void PeerThreadClass::doQuickMatch( PEER peer )

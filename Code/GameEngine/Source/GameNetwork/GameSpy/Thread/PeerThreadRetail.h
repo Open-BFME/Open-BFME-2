@@ -399,9 +399,12 @@ public:
 			Int mapIdx; // when matched
 			Int seed; // when matched
 			UnsignedInt IP[MAX_SLOTS]; // when matched
+			// Native handleQMMatch38B6C1 witnesses port13C and the final array1AC.
+			UnsignedShort port[MAX_SLOTS];
 			Int side[MAX_SLOTS]; // when matched
 			Int color[MAX_SLOTS]; // when matched
 			Int nat[MAX_SLOTS];
+			Int extra[MAX_SLOTS]; // sixth token purpose remains unknown
 		} qmStatus;
 	};
 };
