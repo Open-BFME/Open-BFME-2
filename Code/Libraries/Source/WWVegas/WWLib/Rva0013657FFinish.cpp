@@ -1,5 +1,5 @@
 // cl: /O1 /DNDEBUG /MD /EHsc
-// ?rva0013657F@Rva0013657F@@QAEXPAURvaOut13657F@@PBUTreeKey00242F5E@@@Z @0x0013657F 134B
+// ?rva0013657F@Rva001364F7@@QAEPAURvaOut13657F@@PAU2@PBUTreeKey00242F5E@@@Z @0x0013657F 134B
 //
 // Finish draft for the banked near miss reverse/attempts/0x0013657f.cpp.
 // Same hidden-return wall as the sibling landed at 0x003992B0 (see
@@ -40,21 +40,15 @@ struct Rva001364F7Iter {
 struct Rva001364F7 {
 	RvaNode1364F7 *m_root;
 	unsigned m_count;
-	void rva001364F7(RvaNode1364F7 *&out, RvaNode1364F7 *a, RvaNode1364F7 *b, const TreeKey00242F5E *v, RvaNode1364F7 *c);
+	Rva001364F7Iter rva001364F7(RvaNode1364F7 *a, RvaNode1364F7 *b, const TreeKey00242F5E *v, RvaNode1364F7 *c);
+	RvaOut13657F *rva0013657F(RvaOut13657F *out, const TreeKey00242F5E *v);
+	Rva001364F7Iter rva00136642(Rva001364F7Iter position, const TreeKey00242F5E &value);
 };
 typedef Rva001364F7Iter (Rva001364F7::*Rva001364F7IterFn)(RvaNode1364F7 *, RvaNode1364F7 *, const TreeKey00242F5E *, RvaNode1364F7 *);
 
-class Rva0013657F {
-public:
-	RvaOut13657F *rva0013657F(RvaOut13657F *out, const TreeKey00242F5E *v);
-private:
-	RvaNode1364F7 *m_header;
-	unsigned m_count;
-};
-
-RvaOut13657F *Rva0013657F::rva0013657F(RvaOut13657F *out, const TreeKey00242F5E *v)
+RvaOut13657F *Rva001364F7::rva0013657F(RvaOut13657F *out, const TreeKey00242F5E *v)
 {
-	RvaNode1364F7 *header = m_header;
+	RvaNode1364F7 *header = m_root;
 	RvaNode1364F7 *x = header->_parent;
 	RvaNode1364F7 *y = header;
 	bool comp = true;

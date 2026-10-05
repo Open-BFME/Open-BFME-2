@@ -8,6 +8,7 @@ class Rva0046267A
 {
 public:
 	unsigned int m_key;
+	char _opaque[0x4C];
 };
 
 struct Rva004634BANode;
@@ -18,15 +19,26 @@ struct Rva0046383FOut
 	bool inserted;
 };
 
+struct Rva00463782Iter
+{
+	_STL::_Rb_tree_node_base *_M_node;
+	Rva00463782Iter(_STL::_Rb_tree_node_base *node) : _M_node(node) {}
+};
+
 class Rva00463782
 {
 	_STL::_Rb_tree_node_base *m_header;
 	unsigned int m_count;
 public:
 	struct Rva004634BANode *rva004634BA(const class Rva0046267A &x);
-	_STL::_Rb_tree_node_base **rva004637B7(_STL::_Rb_tree_node_base **out, _STL::_Rb_tree_node_base *x, _STL::_Rb_tree_node_base *pos, const class Rva0046267A *val, int flag);
+	Rva00463782Iter rva004637B7(_STL::_Rb_tree_node_base *x, _STL::_Rb_tree_node_base *pos, const class Rva0046267A *val, int flag);
 	_STL::_Rb_tree_node_base *rva0046383F(struct Rva0046383FOut *out, const class Rva0046267A *val);
+	Rva00463782Iter rva00463E4D(Rva00463782Iter position, const class Rva0046267A &value);
 };
+
+typedef _STL::_Rb_tree_node_base **(Rva00463782::*Rva004637B7OutFn)(
+	_STL::_Rb_tree_node_base **out, _STL::_Rb_tree_node_base *x,
+	_STL::_Rb_tree_node_base *pos, const Rva0046267A *val, int flag);
 
 _STL::_Rb_tree_node_base *Rva00463782::rva0046383F(struct Rva0046383FOut *out, const Rva0046267A *v)
 {
@@ -40,16 +52,17 @@ _STL::_Rb_tree_node_base *Rva00463782::rva0046383F(struct Rva0046383FOut *out, c
 		x = comp ? x->_M_left : x->_M_right;
 	}
 	_STL::_Rb_tree_node_base *j = y;
+	Rva004637B7OutFn insert = (Rva004637B7OutFn)&Rva00463782::rva004637B7;
 	if (comp) {
 		if (y == header->_M_left) {
-			out->node = *rva004637B7((_STL::_Rb_tree_node_base **)&v, y, y, v, 0);
+			out->node = *((this->*insert)((_STL::_Rb_tree_node_base **)&v, y, y, v, 0));
 			out->inserted = true;
 			return (_STL::_Rb_tree_node_base *)out;
 		}
 		j = _STL::_Rb_global<bool>::_M_decrement(j);
 	}
 	if (*(const unsigned int *)((const char *)j + 0x10) < v->m_key) {
-		out->node = *rva004637B7((_STL::_Rb_tree_node_base **)&v, x, y, v, 0);
+		out->node = *((this->*insert)((_STL::_Rb_tree_node_base **)&v, x, y, v, 0));
 		out->inserted = true;
 		return (_STL::_Rb_tree_node_base *)out;
 	}

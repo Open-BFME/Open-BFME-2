@@ -1,5 +1,5 @@
 // cl: /O1 /DNDEBUG /MD /EHsc
-// ?rva001364F7@Rva001364F7@@QAEXAAPAURvaNode1364F7@@PAU2@1PBUTreeKey00242F5E@@1@Z @0x001364F7 136B.
+// ?rva001364F7@Rva001364F7@@QAE?AURva001364F7Iter@@PAURvaNode1364F7@@0PBUTreeKey00242F5E@@0@Z @0x001364F7 136B.
 // Tree insert worker over set<TreeKey00242F5E> nodes (base 0x10 plus 8-byte
 // key at +0x10): picks the right-child path unless y is the root, the
 // sibling is empty with no hint, or the unsigned key id compares below;
@@ -18,6 +18,14 @@ struct RvaNode1364F7 {
 	RvaNode1364F7 *_right;
 	TreeKey00242F5E _key;
 };
+struct RvaOut13657F {
+	RvaNode1364F7 *node;
+	bool inserted;
+};
+struct Rva001364F7Iter {
+	RvaNode1364F7 *m_node;
+	Rva001364F7Iter(RvaNode1364F7 *node) : m_node(node) {}
+};
 class Rva001364AC { public: void *rva001364AC(const TreeKey00242F5E *src); };
 namespace _STL {
 struct _Rb_tree_node_base {};
@@ -29,10 +37,12 @@ public:
 struct Rva001364F7 {
 	RvaNode1364F7 *m_root;
 	unsigned m_count;
-	void rva001364F7(RvaNode1364F7 *&out, RvaNode1364F7 *a, RvaNode1364F7 *b, const TreeKey00242F5E *v, RvaNode1364F7 *c);
+	Rva001364F7Iter rva001364F7(RvaNode1364F7 *a, RvaNode1364F7 *b, const TreeKey00242F5E *v, RvaNode1364F7 *c);
+	RvaOut13657F *rva0013657F(RvaOut13657F *out, const TreeKey00242F5E *v);
+	Rva001364F7Iter rva00136642(Rva001364F7Iter position, const TreeKey00242F5E &value);
 };
 
-void Rva001364F7::rva001364F7(RvaNode1364F7 *&out, RvaNode1364F7 *a, RvaNode1364F7 *b, const TreeKey00242F5E *v, RvaNode1364F7 *c)
+Rva001364F7Iter Rva001364F7::rva001364F7(RvaNode1364F7 *a, RvaNode1364F7 *b, const TreeKey00242F5E *v, RvaNode1364F7 *c)
 {
 	RvaNode1364F7 *node;
 	if (b != m_root && (c != 0 || (a == 0 && v->m_id >= b->_key.m_id))) {
@@ -57,5 +67,5 @@ void Rva001364F7::rva001364F7(RvaNode1364F7 *&out, RvaNode1364F7 *a, RvaNode1364
 	node->_parent = b;
 	_STL::_Rb_global<bool>::_Rebalance((_STL::_Rb_tree_node_base *)node, (_STL::_Rb_tree_node_base *&)m_root->_parent);
 	++m_count;
-	out = node;
+	return Rva001364F7Iter(node);
 }
