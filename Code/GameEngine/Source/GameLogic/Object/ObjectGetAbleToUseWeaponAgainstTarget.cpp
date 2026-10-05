@@ -28,6 +28,12 @@ enum CommandSourceType
 	CMD_FROM_AI = 2
 };
 
+enum WeaponChoiceCriteria
+{
+	PREFER_MOST_DAMAGE = 0,
+	PREFER_LONGEST_RANGE = 1
+};
+
 class Object;
 struct Coord3D;
 
@@ -35,12 +41,14 @@ class WeaponSet
 {
 public:
 	CanAttackResult getAbleToUseWeaponAgainstTarget(AbleToAttackType attackType, const Object *source, const Object *victim, const Coord3D *pos, CommandSourceType commandSource) const;
+	bool chooseBestWeaponForTarget(const Object *obj, const Object *victim, WeaponChoiceCriteria criteria, CommandSourceType cmdSource);
 };
 
 class Object
 {
 public:
 	CanAttackResult getAbleToUseWeaponAgainstTarget(AbleToAttackType attackType, const Object *victim, const Coord3D *pos, CommandSourceType commandSource) const;
+	bool chooseBestWeaponForTarget(const Object *target, WeaponChoiceCriteria criteria, CommandSourceType cmdSource);
 
 private:
 	char m_pad[0x330];
@@ -51,4 +59,14 @@ private:
 CanAttackResult Object::getAbleToUseWeaponAgainstTarget(AbleToAttackType attackType, const Object *victim, const Coord3D *pos, CommandSourceType commandSource) const
 {
 	return m_weaponSet.getAbleToUseWeaponAgainstTarget(attackType, this, victim, pos, commandSource);
+}
+
+// ?chooseBestWeaponForTarget@Object@@QAE_NPBV1@W4WeaponChoiceCriteria@@W4CommandSourceType@@@Z
+// @0x0028AF4A 27B, the next function in Zero Hour's Object.cpp: forwards
+// this and its three arguments to the +0x330 WeaponSet. The callee
+// 0x002C7D03 opens with Zero Hour's locked-weapon early return (a nonzero
+// +0x24 status answers true).
+bool Object::chooseBestWeaponForTarget(const Object *target, WeaponChoiceCriteria criteria, CommandSourceType cmdSource)
+{
+	return m_weaponSet.chooseBestWeaponForTarget(this, target, criteria, cmdSource);
 }

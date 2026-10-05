@@ -59738,3 +59738,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva0028AD9C@Object@@QBE_NPAUCoord3D@@@Z,,0x0028AD9C,20,Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp,matched,Object plusA4 bool forward to pinned 0x004DD84D
 ?rva0028ADB0@Object@@QBE_NXZ,,0x0028ADB0,18,Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp,matched,Object plusA4 bool forward to pinned 0x004DD637
 ?reloadAllAmmo@Object@@QAEX_N@Z,,0x0028ADC2,19,Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp,matched,ZH Object::reloadAllAmmo via WeaponSet at plus330 before isOutOfAmmo
+?chooseBestWeaponForTarget@Object@@QAE_NPBV1@W4WeaponChoiceCriteria@@W4CommandSourceType@@@Z,,0x0028AF4A,27,Code/GameEngine/Source/GameLogic/Object/ObjectGetAbleToUseWeaponAgainstTarget.cpp,matched,ZH Object::chooseBestWeaponForTarget forward to WeaponSet plus330
