@@ -59251,3 +59251,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?findScreenByFilename@Shell@@QAEPAVWindowLayout@@VAsciiString@@@Z,,0x0035C6B4,150,Code/GameEngine/Source/GameClient/GUI/Shell/ShellTop.cpp,matched,ZH Shell.cpp body over the unit Shell view (stack at +0x0C x16); getFilename pinned 0x00564DF2 from its call site; compareNoCase 0x00006A00 declared throw() since retail keeps no unwind state across it
 ?rva002E9042@Rva002E9042@@QAEXPAX@Z,,0x002E9042,93,Code/GameEngine/Source/Common/Rva002E9042.cpp,matched,LINK 2 files 103B via 0x0046094C; WorldToCell 0x002E7875 and getCell 0x002E6D62
 ?rva003F7BB4@Rva003F7BB4@@QAEXABURva003F7B22Element@@@Z,,0x003F7BB4,8,Code/GameEngine/Source/GameClient/EvaBucketPushBack.cpp,matched,tail-jmp forwarder add 0x2c to rowed push_back
+??1Rva005F5EA6@@UAE@XZ,,0x005F5EA6,97,Code/GameEngine/Source/Common/Rva005F5EA6Dtor.cpp,matched,dtor via rowed erase plus pinned base caller deleting dtor
