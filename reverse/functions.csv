@@ -63952,3 +63952,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ??0Rva005685EE@@QAE@PAX00@Z,,0x0056858C,98,Code/GameEngine/Source/Common/Rva005685EECtor.cpp,matched,ctor via base 0x005C3697 plus new Rva0056833F into +0xC; sibling shape of 0x005C3697
 ?rva005686F5@@YGPAXPBURva005686F5Elem@@@Z,,0x005686F5,44,Code/GameEngine/Source/Common/Rva005686F5Lookup.cpp,matched,null-guarded two-stage AsciiString lookup via rowed 0x0020DB91 plus pinned 0x003EE083
 ?rva00568C1A@Rva00568C1A@@QAEXXZ,,0x00568C1A,28,Code/GameEngine/Source/Common/Rva00568C1AFanout.cpp,matched,fan-out of banked 0x00568939 notify over +0x58 range
+?rva00568991@Rva005688D2@@QAEHXZ,,0x00568991,116,Code/GameEngine/Source/Common/Rva005688D2Method.cpp,matched,slot-weighted sum with pinned 0x005C80D1 helper; same TU as 0x005688D2
