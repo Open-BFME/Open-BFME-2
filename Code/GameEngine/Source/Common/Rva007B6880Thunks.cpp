@@ -5777,3 +5777,13 @@ void __cdecl rva007B9806()
 	return p->rva00007670();
 }
 
+extern unsigned g_00E06664;
+// g_00E06664: packet annotates VA 0x00E06664 (data RVA 0x00A06664), no name yet.
+
+// ?rva007B9810@@YAXXZ @ 0x007B9810 (10B). Global ios_base Init dtor thunk: ecx=&g_00E06664 then tail-jmp to rowed ??1Init@ios_base@_STL@@QAE@XZ (0x00015E70). No callers. Between 0x007B9806 and 0x007B981B. Honest address name.
+void __cdecl rva007B9810()
+{
+	_STL::ios_base::Init *p = (_STL::ios_base::Init *)&g_00E06664;
+	return p->~Init();
+}
+
