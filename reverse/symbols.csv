@@ -11103,3 +11103,4 @@ _floor,0x00629940,call site 0x006F4403 in AptDate::getDayOfWeek (0x006F4290) enc
 ?Rva0056E40CFallback@@YAHHH@Z,0x0056E40C,__cdecl obfuscated fallback callee of ?Rva0056F79BHook@@YAHHH@Z (BigObfHookWrappers.cpp) at retail 0x0056F7EB read from its REL32 displacement; body unrowed
 ?Rva0056E4E2Fallback@@YAHHH@Z,0x0056E4E2,__cdecl obfuscated fallback callee of ?Rva0056F7F4Hook@@YAHHH@Z (BigObfHookWrappers.cpp) at retail 0x0056F844 read from its REL32 displacement; body unrowed
 ?Rva0056E5BCFallback@@YAHHH@Z,0x0056E5BC,__cdecl obfuscated fallback callee of ?Rva0056F84DHook@@YAHHH@Z (BigObfHookWrappers.cpp) at retail 0x0056F89D read from its REL32 displacement; body unrowed
+?get_deformed_vertices@MeshModelClass@@QAEXPAVVector3@@PBVHTreeClass@@@Z,0x0016B680,read from the REL32s at 0x00149A31/0x00149A48 in the placed MeshClass::Get_Deformed_Vertices(Vector3*) (0x00149A10) - Zero Hour calls Model->get_deformed_vertices(dst_vert, htree) there

@@ -16,6 +16,7 @@ class MeshModelClass
 {
 public:
 	void get_deformed_vertices(Vector3 *dst_vert, Vector3 *dst_norm, const HTreeClass *htree);
+	void get_deformed_vertices(Vector3 *dst_vert, const HTreeClass *htree);
 };
 
 class Rva001499D0RenderObj
@@ -86,6 +87,7 @@ class MeshClass
 {
 public:
 	void Get_Deformed_Vertices(Vector3 *dst_vert, Vector3 *dst_norm);
+	void Get_Deformed_Vertices(Vector3 *dst_vert);
 	void rva00149bb0();
 
 private:
@@ -98,6 +100,17 @@ private:
 void MeshClass::Get_Deformed_Vertices(Vector3 *dst_vert, Vector3 *dst_norm)
 {
 	Model->get_deformed_vertices(dst_vert, dst_norm,
+		(m_container != 0) ? m_container->Get_HTree() : 0);
+}
+
+// MeshClass::Get_Deformed_Vertices(Vector3*) at 0x00149A10 (64 bytes), right
+// after the two-array overload as in Zero Hour mesh.cpp, with the same
+// container guard; the compiler duplicates the short call tail into both arms.
+// The single-array MeshModelClass::get_deformed_vertices (0x0016B680) is
+// pinned from this body.
+void MeshClass::Get_Deformed_Vertices(Vector3 *dst_vert)
+{
+	Model->get_deformed_vertices(dst_vert,
 		(m_container != 0) ? m_container->Get_HTree() : 0);
 }
 
