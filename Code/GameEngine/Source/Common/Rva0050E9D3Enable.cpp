@@ -67,6 +67,8 @@ void __stdcall Rva004E40A6Enable(int unused)
 // 0x004E4312; caller 0x004E432A uses +4 as flag byte.
 extern "C" int __cdecl atexit(void (__cdecl *routine)(void));
 extern void *g_Va00A0445C;
+extern const void *const g_00C621F0[];
+extern void __cdecl g_00BB8F26(void);
 // g_Va00A0445C: matched references place it at VA 0xe0445c (zero-filled .bss).
 void * g_Va00A0445C;
 extern unsigned char g_Va00A04460;
@@ -80,9 +82,9 @@ void *Rva004E4179Get(void)
 	if ((g_Va00A04464 & 1) == 0)
 	{
 		g_Va00A04464 |= 1;
-		g_Va00A0445C = (void *)0x00C621F0;
+		g_Va00A0445C = (void *)g_00C621F0;
 		g_Va00A04460 = 1;
-		atexit((void (__cdecl *)(void))0x00BB8F26);
+		atexit((void (__cdecl *)(void))g_00BB8F26);
 	}
 	return &g_Va00A0445C;
 }
@@ -160,7 +162,7 @@ void Rva0043C96FEnable(void)
 // ?Rva0043C9B3Get@@YAPAXXZ @0x0043C9B3 50B.
 // One-shot guarded singleton getter, twin of 0x004E4179 above: unless guard
 // byte at 0x00A03320 is set, set it, point 0x00A03318 at 0x0083D690
-// (encoded 0x00C3D690) and set byte at 0x00A0331C, registering cleanup RVA
+// (encoded 0x00C621F0-style 0x00C3D690) and set byte at 0x00A0331C, registering cleanup RVA
 // 0x007B83E1 (encoded 0x00BB83E1) via rowed _atexit, then return address of
 // 0x00A03318. Caller 0x0043CCD1 uses +4 as flag byte. Unlock lane.
 extern void *g_Va00A03318;
@@ -172,14 +174,16 @@ unsigned char g_Va00A0331C;
 extern int g_Va00A03320;
 // g_Va00A03320: matched references place it at VA 0xe03320 (zero-filled .bss).
 int g_Va00A03320;
+extern const void *const g_00C3D690[];
+extern void __cdecl g_00BB83E1(void);
 void *Rva0043C9B3Get(void)
 {
 	if ((g_Va00A03320 & 1) == 0)
 	{
 		g_Va00A03320 |= 1;
-		g_Va00A03318 = (void *)0x00C3D690;
+		g_Va00A03318 = (void *)g_00C3D690;
 		g_Va00A0331C = 1;
-		atexit((void (__cdecl *)(void))0x00BB83E1);
+		atexit((void (__cdecl *)(void))g_00BB83E1);
 	}
 	return &g_Va00A03318;
 }
