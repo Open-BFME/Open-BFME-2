@@ -63899,3 +63899,10 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ??0Rva003428AF@@QAE@PAVStateMachine@@@Z,,0x003428AF,29,Code/GameEngine/Source/Common/Rva00342892Ctors.cpp,matched,AIInternalMoveToState-derived ctor hash 0xE3F474A1 vtable 0x00812580 via intermediate base 0x0034286E
 ??0Rva005DC73C@@QAE@ABVAsciiString@@@Z,,0x005DC722,26,Code/GameEngine/Source/Common/Rva005DC73CTacticBaseCtors.cpp,matched,tactic base ctor taking the tactic name: AITactic base 0x004ED3D1 with 1 then vtable 0x00C767DC
 ??0Rva005DCB27@@QAE@ABVAsciiString@@@Z,,0x005DCB0D,26,Code/GameEngine/Source/Common/Rva005DC73CTacticBaseCtors.cpp,matched,tactic base ctor taking the tactic name: AITactic base 0x004ED3D1 with 1 then vtable 0x00C76834
+?setup@Rva001FA836@@QAEXPAX0@Z,,0x001FA836,38,Code/GameEngine/Source/Common/Rva001FA836HolderChain.cpp,matched,holder-fetch chain bottom: slot 0x001F5E10 then rowed root 0x001FA54D
+?setup@Rva001FB8EC@@QAEXPAX0@Z,,0x001FB8EC,38,Code/GameEngine/Source/Common/Rva001FA836HolderChain.cpp,matched,holder-fetch chain: slot 0x001F5DFC then 0x001FA836
+?setup@Rva001FBA8C@@QAEXPAX0@Z,,0x001FBA8C,38,Code/GameEngine/Source/Common/Rva001FA836HolderChain.cpp,matched,holder-fetch chain: slot 0x001F5DE8 then 0x001FB8EC
+?setup@Rva001FBC43@@QAEXPAX0@Z,,0x001FBC43,38,Code/GameEngine/Source/Common/Rva001FA836HolderChain.cpp,matched,holder-fetch chain: slot 0x001F5DD4 then 0x001FBA8C
+?setup@Rva001FBFEA@@QAEXPAX0@Z,,0x001FBFEA,38,Code/GameEngine/Source/Common/Rva001FA836HolderChain.cpp,matched,holder-fetch chain: slot 0x001F5DC0 then 0x001FBC43
+?setup@Rva001FC357@@QAEXPAX0@Z,,0x001FC357,38,Code/GameEngine/Source/Common/Rva001FA836HolderChain.cpp,matched,holder-fetch chain: slot 0x001F5DAC then 0x001FBFEA
+?setup@Rva001FC451@@QAEXPAX0@Z,,0x001FC451,38,Code/GameEngine/Source/Common/Rva001FA836HolderChain.cpp,matched,holder-fetch chain: slot 0x001F5D98 then 0x001FC357
