@@ -59746,3 +59746,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?getNightIndicatorColor@Object@@QBEHXZ,,0x0028B050,42,Code/GameEngine/Source/GameLogic/Object/ObjectSetProducer.cpp,matched,ZH Object::getNightIndicatorColor team player plus284 else FF000000
 ?setIndicatorColor@Drawable@@QAEXH@Z,,0x002741DE,98,Code/GameEngine/Source/GameClient/Drawable_rva00274176.cpp,matched,BFME Drawable::setIndicatorColor plus454 then 0x00270FAC gated by GameLogic plus11C or kind mask
 ?changedTeam@Drawable@@QAEXXZ,,0x002742AC,57,Code/GameEngine/Source/GameClient/Drawable_rva00274176.cpp,matched,ZH Drawable::changedTeam night or day object indicator color then vslot13
+?reset@ShroudManager@@QAEXXZ,,0x0073DFD0,234,Code/GameEngine/Source/Common/RTS/Rva0073DFD0Finish.cpp,matched,BFME1 ShroudManagerImpl008FBA40::reset donor; declaring operator new[]/delete[] binds the array alloc to the game ??_U/??_V at 0x2FDE0/0x2FD80 instead of scalar ??2/??3

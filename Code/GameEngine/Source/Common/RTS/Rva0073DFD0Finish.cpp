@@ -1,8 +1,6 @@
 // ?reset@ShroudManager@@QAEXXZ
-// partial score=0.97 date=2026-10-03
 // cl: /O2 /DNDEBUG /MD /EHsc
 //
-// ShroudManager::reset at 0x0073DFD0 (234 bytes). BFME1 donor
 // ShroudManagerImpl008FBA40::reset (221B @0x008FBB50): zero a Region3D,
 // setRegion(&empty, 0.0f), delete[] elements, elements = new Element[1].
 // BFME2's class layout is the one in ShroudManagerImpl008FBA40.cpp
@@ -88,6 +86,9 @@ private:
 	int unknown64;
 	bool enabled;
 };
+
+void *operator new[](unsigned int bytes);
+void operator delete[](void *pointer);
 
 // ?reset@ShroudManager@@QAEXXZ
 void ShroudManager::reset()
