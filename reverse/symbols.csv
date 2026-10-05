@@ -12900,3 +12900,6 @@ _Rva00337999Forward,0x00337999,REL32 callee decoded from target call bytes of wr
 ??_7Rva005C6C7B@@6B@,0x00C74918,vftable of Rva005C6C7B
 ??0SubTree005C6B83@@QAE@XZ,0x0033C432,SubTree005C6B83 constructor called by Rva005C6C7B::Rva005C6C7B
 ?clear@SubTree005C6B83@@QAEXXZ,0x005C6B83,SubTree005C6B83 clear method called by Rva005C6C7B::reset
+?_M_lower_bound@?$_Rb_tree@HU?$pair@$$CBHUTreeHintRef00217D4C@@@_STL@@U?$_Select1st@U?$pair@$$CBHUTreeHintRef00217D4C@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUTreeHintRef00217D4C@@@_STL@@@2@@_STL@@ABEPAU?$_Rb_tree_node@U?$pair@$$CBHUTreeHintRef00217D4C@@@_STL@@@2@ABH@Z,0x00382A92,lower bound for int TreeHintRef00217D4C map
+??0?$pair@$$CBHUTreeHintRef00217D4C@@@_STL@@QAE@ABHABUTreeHintRef00217D4C@@@Z,0x00217607,pair ctor for int TreeHintRef00217D4C
+?insert@?$map@HUTreeHintRef00217D4C@@U?$less@H@_STL@@V?$allocator@U?$pair@$$CBHUTreeHintRef00217D4C@@@_STL@@@3@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHUTreeHintRef00217D4C@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHUTreeHintRef00217D4C@@@_STL@@@2@@2@U32@ABU?$pair@$$CBHUTreeHintRef00217D4C@@@2@@Z,0x0035926E,hinted map insert for int TreeHintRef00217D4C
