@@ -81,8 +81,7 @@ enum ObjectID
 class Object
 {
 public:
-	AIUpdateInterface *getAI() { return m_ai; }
-private:
+	AIUpdateInterface *getAI();
 	unsigned char m_pad000[0x258];
 	AIUpdateInterface *m_ai;	// +0x258
 };
@@ -124,7 +123,7 @@ void AICommandInterface::rva004C6D9A(const Coord3D *pos, CommandSourceType cmdSo
 
 void FellBeastSwoopPower::rva004C6E06()
 {
-	AIUpdateInterface *ai = m_object->getAI();
+	AIUpdateInterface *ai = m_object->m_ai;
 	if (ai == 0)
 		return;
 	const Coord3D *pos = &m_targetPos;
