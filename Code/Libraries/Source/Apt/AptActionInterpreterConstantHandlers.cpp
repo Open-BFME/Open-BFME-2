@@ -1246,7 +1246,9 @@ void AptActionInterpreter::_FunctionAptActionPrevFrame(AptActionInterpreter *con
 }
 #pragma comment(linker, "/alternatename:?IsSpriteInstBase@AptCIH@@QBE_NXZ=?isSpriteInstBase@Rva006CFCD0@@QBE_NXZ")
 
-class Rva006E34D0 { public: unsigned char prefix[0x44]; AptValue *mpDragMC; };
+struct AptContextRootState { unsigned char prefix[0x54]; AptValue *head; };
+struct AptContextRootDisplay { AptContextRootState *state; };
+class Rva006E34D0 { public: unsigned char prefix[0x30]; AptContextRootDisplay *display; unsigned char middle[0x10]; AptValue *mpDragMC; };
 extern Rva006E34D0 *g_bfmeAptPtrAtE176D0;
 void AptActionInterpreter::_FunctionAptActionStopDragMovie(AptActionInterpreter *const p, LocalContextT *const c)
 {
@@ -1956,4 +1958,53 @@ void AptActionInterpreter::_FunctionAptActionRemoveSprite(AptActionInterpreter *
         }
     }
     p->stack.Pop();
+}
+
+extern "C" char *__cdecl strcpy(char *,const char *);
+#pragma intrinsic(strcpy)
+__declspec(noinline) unsigned char rva006FD100(int current,int with,EAStringC *var,int *out,char *name)
+{
+    const char *cur;
+    AptValue *context=(AptValue *)current;
+    AptValue *next;
+    bool id=false;
+    const char *text=var->rva00620090();
+    name[0]=0;
+    if(text[0]=='/') {
+        context=g_bfmeAptPtrAtE176D0->display->state->head;
+        cur=text+1;
+        *out=(int)context;
+        id=true;
+    } else {
+        *out=current;
+        cur=text;
+    }
+    char dir[256];
+    char *dest=dir;
+    for(;;) {
+        switch(*cur) {
+        case '.':
+            if(cur[1]=='.') {
+                *dest++=*cur++;
+                *dest++=*cur++;
+                continue;
+            }
+            *dest=0;
+            {EAStringC part(dir);context=context->findChild(&part,(AptValue *)with);}
+            with=0;
+            if(!context) {*out=0;return id;}
+            ++cur;dest=dir;break;
+        case ':':
+            *dest=0;
+            {EAStringC part(dir);next=context->findChild(&part,(AptValue *)with);}
+            with=0;
+            if(next) {*out=(int)next;strcpy(name,cur+1);return id;}
+            ++cur;dest=dir;break;
+        case 0:
+            *dest=0;
+            *out=with ? with : (int)context;
+            strcpy(name,dir);return id;
+        default: *dest++=*cur++;break;
+        }
+    }
 }
