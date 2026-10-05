@@ -9,12 +9,20 @@
 
 extern "C" int __cdecl strcmp(const char *left, const char *right);
 
-class GameWindow;
+class GameWindow
+{
+public:
+	int winEnable(bool enable);
+};
 class BfmeKeyLC;
 
 void GadgetTextEntrySetText(GameWindow *textEntry, UnicodeString text);
 void bfmeGo924F(BfmeKeyLC *textEntry, unsigned short maxLength);
 void Rva0032060D(GameWindow *textEntry, int value);
+
+// Rowed callees for 0x00434432 (declared only; definitions live in their rows).
+class BfmeObjENK;
+void bfmeGoENK(BfmeObjENK *o, char v);
 
 // Rva00433D27Enable.cpp's 0x00433D27.
 void Rva00433D27Enable();
@@ -65,6 +73,12 @@ public:
 
 	// Unrowed 0x00433F7F (94 bytes; banked), pinned by address.
 	int rva00433F7F();
+
+	// Rowed 0x004340AC (Rva004340ACMethod.cpp's view of this screen).
+	void rva004340AC();
+
+	// 0x00434432 (90 bytes; chain from 0x004340AC).
+	void rva00434432();
 
 private:
 	unsigned char m_pad000[0x27C];
@@ -195,4 +209,23 @@ void AptSaveLoad::InitGadgets(const char *name, void *argument, GameWindow *wind
 		if (m_state == 0)
 			m_state = 1;
 	}
+}
+
+// ?rva00434432@AptSaveLoad@@QAEXXZ @ 0x00434432 90B: enable the three list boxes then refresh buttons
+// Evidence: rowed winEnable 0x00313BEC and bfmeGoENK 0x00324992 on m_gameList +0x288 and m_autoSaveList +0x28C; winEnable on m_fileName +0x290; tail-jmp to rowed 0x004340AC; caller set 0x00435CA8 0x00437072 0x00437031.
+void AptSaveLoad::rva00434432()
+{
+	if (m_gameList)
+	{
+		m_gameList->winEnable(true);
+		bfmeGoENK((BfmeObjENK *)m_gameList, 1);
+	}
+	if (m_autoSaveList)
+	{
+		m_autoSaveList->winEnable(true);
+		bfmeGoENK((BfmeObjENK *)m_autoSaveList, 1);
+	}
+	if (m_fileName)
+		m_fileName->winEnable(true);
+	return rva004340AC();
 }
