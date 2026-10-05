@@ -1,7 +1,5 @@
 // ?v7@Rva005ACCE4@@UAEXXZ
-// partial score=0.85 date=2026-10-04
-// ?v7@Rva005ACCE4@@UAEXXZ
-// partial score=0.85 date=2026-10-04
+// partial score=0.88 date=2026-10-05
 // cl: /O1 /G7 /MD /GX /DNDEBUG /arch:SSE /Ireference/shims/bfme2_ascii
 //
 // The "FarmKillSquad" skirmish-AI tactic (vtable 0x00872474; ctor 0x005ACF38
@@ -232,6 +230,9 @@ public:
 	virtual void v8();
 	virtual Rva004ECECD *create();
 	Team *rva004ECECD(int index);
+	// Retail 0x005ACDA9 is recovered at 0x005ACDA9 under the rowed int-returning
+	// name ?rva005ACDA9@Rva004ECECD@@QAEHXZ; v7 reads it with test al,al, so this
+	// unit calls the bool-returning spelling and binds it to that row.
 	bool rva005ACDA9();
 	unsigned char rva004ED169();
 	void rva004ED1A1(int a, Object *target);
@@ -337,17 +338,22 @@ Object *Rva005ACCE4::rva005AD0E6()
 
 void Rva005ACCE4::v7()
 {
+	// base and pick are both declared (and zero-initialised) above the first
+	// guard and stay register-live across the early return; that is what buys
+	// the retail prologue (push ebx / push esi / mov esi,ecx) and the single
+	// shared epilogue. Deferring either initialiser measured 227B and loses
+	// the push ebx.
+	void *base = 0;
+	Object *pick = 0;
 	if (rva005ACDA9()) {
 		rva004ED748(1, 0);
 		return;
 	}
-	Object *pick = 0;
 	if (m_58 && !rva004ED169()) {
 		if (!TheGameLogic->findObjectByID(m_58))
 			m_58 = INVALID_ID;
 		return;
 	}
-	void *base;
 	if (rva005AD0E6() && (base = g_00DFEEF8->rva002A8AB1(m_owner)->rva002C6ACB()) != 0) {
 		Object *near = rva005AD404(base);
 		Object *far = rva005AD243(base);
