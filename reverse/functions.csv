@@ -55862,3 +55862,4 @@ ___Extract_locale_name,,0x000216A0,153,Code/Libraries/Source/WWVegas/WWLib/Local
 ?rva005B7010@Rva005B7010@@QAEXXZ,,0x005B7010,34,Code/Libraries/Source/WWVegas/WWLib/Rva005B6F1EComInit.cpp,matched,COM release plus CoUninitialize if hr ge 0 adjacent to ComInit
 ?rva002ACECC@Rva002ACECC@@QAEXH@Z,,0x002ACECC,19,Code/GameEngine/Source/Common/RTS/Rva002ACECCRemove.cpp,matched,unlock list Pod12 remove via this plus 0x754 callers 0x00489DC1 0x00489E52
 ?rva00559AC1@Rva00559AC1@@QAEHH@Z,,0x00559AC1,27,Code/GameEngine/Source/Common/Rva00559AC1.cpp,matched,unlock table search 2 callers ready no callees
+?rva00559C25@Rva00559AC1@@QAEPBVImage@@HH@Z,,0x00559C25,24,Code/GameEngine/Source/Common/Rva00559AC1.cpp,matched,chain via landed 0x00559AC1 search plus rowed GetImage 0x00559B64 ret 8
