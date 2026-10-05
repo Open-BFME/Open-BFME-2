@@ -56,3 +56,18 @@ template <> bool _STL::operator==<int, Rva003F75ECValue, Rva003F75ECKey, _STL::g
             return false;
     return true;
 }
+
+// Native wrapper 0x003F775C/35 forwards to exact insertion 0x003F76B1.
+// Its caller 0x003F777F parses Living World auto-resolve battle bonuses.
+// Keep the wrapper's class name address-derived until its ownership is proved.
+class Rva003F775C {
+public:
+    _STL::pair<Rva003F75ECTree::const_iterator, bool> insert(const Rva003F75ECValue &);
+private:
+    Rva003F75ECTree m_tree;
+};
+_STL::pair<Rva003F75ECTree::const_iterator, bool> Rva003F775C::insert(const Rva003F75ECValue &value)
+{
+    const _STL::pair<Rva003F75ECTree::iterator, bool> result = m_tree.insert_unique(value);
+    return _STL::pair<Rva003F75ECTree::const_iterator, bool>(result.first, result.second);
+}
