@@ -60982,3 +60982,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?setSize@Shadow@@QAEXMM@Z,,0x000B22CB,25,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDrawTerrainDecal.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 ?Rva003C2121Grant@@YGXABVAsciiString@@0@Z,,0x003C2121,69,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C2121.cpp,matched,team upgrade via rowed getTeamNamed findUpgrade rva0039DB31
 ?rva0048873F@Rva004886C7@@QAEXH@Z,,0x0048873F,44,Code/GameEngine/Source/Common/VslotSmallBodiesE.cpp,matched,vslot5 of Rva004886C7 via TheInGameUI vslot106
+??0GameInfo@@QAE@XZ,,0x00400A07,120,Code/GameEngine/Source/GameNetwork/GameInfoReset.cpp,matched,ctor vtable 008193C8 calls reset Version memset slots

@@ -27,6 +27,8 @@ void *__cdecl ji_006291ae(void *dest, int val, unsigned int count);
 class Version
 {
 public:
+	Version();
+	~Version();
 	void initializeBuildMetadata();
 private:
 	char m_pad[0x30];
@@ -48,9 +50,17 @@ public:
 	~TreeHintOpaque0043671B();
 };
 
-class GameInfo
+class EmptyBase
 {
 public:
+	EmptyBase() {}
+	~EmptyBase();
+};
+
+class GameInfo : public EmptyBase
+{
+public:
+	GameInfo();
 	virtual void reset();
 private:
 	UnicodeString m_04;
@@ -83,6 +93,15 @@ private:
 	TreeHintOpaque0043671B *m_C8;
 	Int m_CC[4];
 };
+
+GameInfo::GameInfo() : m_38(0), m_3C(0)
+{
+	ji_006291ae(m_CC, 0, 0x10);
+	for (Int i = 0; i < 8; ++i)
+		m_slot[i] = 0;
+	m_C8 = 0;
+	reset();
+}
 
 void GameInfo::reset()
 {
