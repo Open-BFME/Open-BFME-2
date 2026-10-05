@@ -8725,3 +8725,4 @@ FUN_00a22290	0x00622290	299	blocked	identity unprovable STL EH critsec hashtable
 FUN_007941fd	0x003941FD	341	blocked	vslot 341B EBP SSE float list traversal too big for session t=2 model=muse-16
 FUN_00863191	0x00463191	56	blocked	vslot104 needs 104-virt class plus this slot70 virtual call modeling beyond session t=8 model=muse-16
 ?Simple_Evaluate_Bone@Animatable3DObjClass@@UBE_NHPAVMatrix3D@@@Z	0x001A5A60	457	blocked	vslot133 likely 2-arg Simple_Evaluate_Bone but retail 457B has SSE blend block and different HAnim stride and vtable slot vs ZH donor needs new layouts t=15 model=muse-08
+?rva00262E24@AIUpdateInterface@@QAEXPAUCoord3D@@@Z	0x00262E24	219	partial	else-branch xmm allocation differs and 0x200 copy uses offset not add t=25 model=muse-02 score=0.93 stash=reverse/attempts/0x00262e24.cpp

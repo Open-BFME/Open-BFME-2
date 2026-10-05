@@ -56139,3 +56139,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva0030E09A@Rva0030E09A@@QAEXXZ,,0x0030E09A,16,Code/GameEngine/Source/Common/Rva0030E09AMethod.cpp,matched,wrapper calls rowed 0x0030D606 then tail-jmps pinned 0x0030DEAE caller 0x0030E266
 ?rva004638F1@OpenContain@@UAEXPAVObject@@@Z,,0x004638F1,42,Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainRva004638F1.cpp,matched,vslot78 SlaughterHordeContain pin OpenContain callers 0x0047C155 0x0047D17E list-int slot40
 ?q4Notify002CCC2D@@YAXPAXPAVMade002CCC2D@@HH@Z,,0x0050B8DB,77,Code/GameEngine/Source/GameLogic/Object/Made002CCC2DParse.cpp,matched,leaf SpawnAndFade parser two-add MultiIni via q4Notify002CCBCA precedent caller 0x002CCC72
+?rva0036DF14@AIGroup@@QAEXPBVUpgradeTemplate@@@Z,,0x0036DF14,57,Code/GameEngine/Source/GameLogic/AI/AIGroupRva0036DF14.cpp,matched,same list walk as queueUpgrade same prod pin slot 0x10 caller 0x3782E9
