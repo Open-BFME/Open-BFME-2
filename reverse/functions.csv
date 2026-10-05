@@ -12663,7 +12663,6 @@ _luaX_lex,,0x00757C90,1324,Code/Libraries/Source/Lua/llex.c,matched,BFME1 byte-i
 ?Rva00534B22Get@@YAHXZ,,0x00534B22,6,Code/GameEngine/Source/Common/ConstIntGetters5Addr.cpp,matched,B8-6 returner ret c68ae8; prev C2-04-00 with no vtable and no callers; opaque name
 ?Resize@?$DynamicVectorClass@VModelNodeClass@HLodClass@@@@UAE_NHPBVModelNodeClass@HLodClass@@@Z,,0x0019E9F0,47,Code/Libraries/Source/WWVegas/WW3D2/hlod.cpp,matched,located by masked whole-text search of the compiled body - single hit
 ?Rva0028D4DDGet@@YAHXZ,,0x0028D4DD,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva002B3635Get@@YAHXZ,,0x002B3635,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
 ?Rva002B3EF7Get@@YAHXZ,,0x002B3EF7,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
 ?Rva003E46B1Get@@YAHXZ,,0x003E46B1,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
 ?Rva003FE25AGet@@YAHXZ,,0x003FE25A,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
@@ -13131,7 +13130,6 @@ _luaB_tostring,,0x0074BFA0,284,Code/Libraries/Source/Lua/luaB_tostring.c,matched
 ?unAccept@GameSlot@@QAEXXZ,,0x003FF895,11,Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp,matched,BFME1 GameInfo.cpp unAccept with inlined isHuman
 ?setMapAvailability@GameSlot@@QAEX_N@Z,,0x003FF8A0,16,Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp,matched,BFME1 GameInfo.cpp setMapAvailability with inlined isHuman
 ?Get_Shininess@VertexMaterialClass@@QBEMXZ,,0x0013CD20,7,Code/Libraries/Source/WWVegas/WW3D2/vertmaterial.cpp,matched,MaterialOld Power float getter; twin shape at 0x4D7C73 already rowed elsewhere; CC-padded isolated 7B
-?Rva002B4C32Get@@YA_NXZ,,0x002B4C32,3,Code/GameEngine/Source/Common/ConstBoolFalseGetters.cpp,matched,Bool-false getter without vtable carriage; prev C3 next prologue; no callers branches or vtable refs
 ?isSlotLocalAlly@@YA_NPBVGameSlot@@@Z,,0x003FF7B7,92,Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp,matched,GameSlot apparent family ally helper with BFME1 GameInfo.cpp shape and getSlotIndex inlined and slot in EDI
 ?getApparentPlayerTemplate@GameSlot@@QBEHXZ,,0x003FF813,37,Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp,matched,GameSlot apparent template with BFME1 GameInfo.cpp shape and orig fallback for hidden random
 ?getApparentColor@GameSlot@@QBEHXZ,,0x003FF838,56,Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp,matched,GameSlot apparent color with BFME1 GameInfo.cpp shape and observer color path
@@ -64186,3 +64184,5 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?rva002B4BC9@Rva002B4BC9@@QAE_NPAURva002B4BC9Arg@@@Z,,0x002B4BC9,64,Code/GameEngine/Source/Common/Rva002B4BC9.cpp,matched,thiscall bool fetch through rowed isEmpty and cdecl 0x20E873 worker returning difference to +0x110
 ?rva002B52CE@Rva002B52CE@@QAEXXZ,,0x002B52CE,102,Code/GameEngine/Source/Common/Rva002B52CE.cpp,matched,thiscall void sweep with rowed lookup and state pins and 0x4FBB25 worker and per-pass recount
 ?rva002B5CFB@Rva002B5CFB@@QAE_NHH@Z,,0x002B5CFB,59,Code/GameEngine/Source/Common/Rva002B5CFB.cpp,matched,thiscall bool probe with rowed find and rowed 0x2104B6 check and +0x12C compare
+?rva002B3621@Rva002B4C09@@QAE_NXZ,,0x002B3621,23,Code/GameEngine/Source/Common/Rva002B4C09.cpp,matched,thiscall bool probe on +0x160 target flag; absorbs former 3B tail row at 0x2B3635
+?rva002B4C09@Rva002B4C09@@QAE_NXZ,,0x002B4C09,44,Code/GameEngine/Source/Common/Rva002B4C09.cpp,matched,thiscall bool gate on +0xF4 with probe and +0x154 empty check; absorbs former 3B tail row at 0x2B4C32
