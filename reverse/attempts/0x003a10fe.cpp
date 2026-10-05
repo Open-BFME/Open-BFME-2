@@ -1,10 +1,7 @@
 // ?rva003A10FE@Team@@QAEX_N@Z
-// partial score=0.94 date=2026-10-05
-// ?rva003A10FE@Team@@QAEX_N@Z
-// ?rva003A10FE@Team@@QAEX_N@Z
+// partial score=0.95 date=2026-10-05
 // cl: /O1 /DNDEBUG /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
-//
 // ?rva003A10FE@Team@@QAEX_N@Z, retail 0x003A10FE (259 bytes).
 // Team::rva003A10FE(bool): if this is the controlling player's current team
 // (Player+0x2EC) builds a local list<int> of member Objects whose +0x250
