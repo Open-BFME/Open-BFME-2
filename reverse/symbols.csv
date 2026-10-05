@@ -13479,3 +13479,121 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 ?rva002BED91@Rva002BED91Holder@@QAEXXZ,0x002BED91,thiscall with 0 stack args on the +0x160 slot seen at 0x2B6875 site; head undecoded
 ?rva002B5BBA@Rva002B5BBA@@QAEXXZ,0x002B5BBA,EH funclet entered by tail-jmp from 0x2B6875 with ecx=this; shares caller frame; not standalone
 ?rva002B6BCF@Rva002B6BCF@@QAEDHHHPAH@Z,0x002B6BCF,thiscall char with 4 stack args seen at 0x2B6C9F and 0x2B6CE5 sites; head undecoded; char return normalizes to test plus setne on bool use
+??1Rva0030AF8FAudioEventRTS@@QAE@XZ,0x0030AF8F,AudioEventRTS dtor stub at 0x0030AF8F (target of thunks 0x007B7AF5 and 0x007B7AFF)
+??1Rva004ABE53Dtor@@QAE@XZ,0x004ABE53,dtor stub at 0x004ABE53 (target of thunk 0x007B89C1)
+??1AptActionInterpreter@@QAE@XZ,0x006FE9C0,AptActionInterpreter dtor at 0x006FE9C0 (target of thunk 0x007B9C50)
+??1Rva000FC5AADtor@@QAE@XZ,0x000FC5AA,dtor helper at 0x000FC5AA (target of thunks 0x007B6F08 and 0x007B6F12)
+??1Rva000F82F5Dtor@@QAE@XZ,0x000F82F5,dtor at 0x000F82F5 (target of thunk 0x007B6EAE)
+??1Rva000F9BD7Dtor@@QAE@XZ,0x000F9BD7,dtor at 0x000F9BD7 (target of thunk 0x007B6EC2)
+??1Rva000FA7E8Dtor@@QAE@XZ,0x000FA7E8,dtor at 0x000FA7E8 (target of thunk 0x007B6ED6)
+??1Rva000FB85DDtor@@QAE@XZ,0x000FB85D,dtor at 0x000FB85D (target of thunk 0x007B6EEA)
+??1Rva00136768Dtor@@QAE@XZ,0x00136768,dtor thunk stub at 0x00136768 to 0x0013660A (target of thunk 0x007B70D3)
+??1Rva0007C632Dtor@@QAE@XZ,0x0007C632,dtor thunk stub at 0x0007C632 to 0x0007C5D5 (target of thunk 0x007B71AA)
+??1Rva002213C0Dtor@@QAE@XZ,0x002213C0,dtor thunk stub at 0x002213C0 to 0x002212F1 (target of thunk 0x007B7704)
+??1Rva003ED94FDtor@@QAE@XZ,0x003ED94F,dtor at 0x003ED94F (target of thunk 0x007B7810)
+??1Rva00301621Dtor@@QAE@XZ,0x00301621,dtor at 0x00301621 (target of thunk 0x007B7A9B)
+??1Rva0030A0FCDtor@@QAE@XZ,0x0030A0FC,dtor thunk stub at 0x0030A0FC to 0x0030A083 (target of thunk 0x007B7AE1)
+??1Rva002B905DDtor@@QAE@XZ,0x002B905D,dtor thunk stub at 0x002B905D to 0x00433BD7 (target of thunk 0x007B839B)
+??1Rva00435CDBDtor@@QAE@XZ,0x00435CDB,dtor thunk stub at 0x00435CDB to 0x00435B00 (target of thunk 0x007B83B9)
+??1Rva00502D03Dtor@@QAE@XZ,0x00502D03,dtor at 0x00502D03 (target of thunk 0x007B9049)
+??1Rva005011AADtor@@QAE@XZ,0x005011AA,dtor thunk stub at 0x005011AA to 0x00500D68 (target of thunk 0x007B9071)
+??1Rva00524CC1Dtor@@QAE@XZ,0x00524CC1,dtor thunk stub at 0x00524CC1 to 0x00524C88 (target of thunk 0x007B91F8)
+??1Rva0052B7B3Dtor@@QAE@XZ,0x0052B7B3,dtor thunk stub at 0x0052B7B3 to 0x0052B6FE (target of thunk 0x007B9298)
+??1Rva00207F08Dtor@@QAE@XZ,0x00207F08,dtor thunk stub at 0x00207F08 to 0x002FECBC (target of thunk 0x007B9720)
+??1Rva002859EADtor@@QAE@XZ,0x002859EA,dtor at 0x002859EA (target of thunks 0x007B6B73 0x007B781A 0x007B7824 0x007B7CD7 0x007B92A2)
+??1Rva003615E5Dtor@@QAE@XZ,0x003615E5,dtor at 0x003615E5 (target of thunk 0x007B7CAF)
+??1Rva00362B5ADtor@@QAE@XZ,0x00362B5A,dtor thunk stub at 0x00362B5A to 0x00362B22 (target of thunk 0x007B7CC3)
+??1Rva003ED94ADtor@@QAE@XZ,0x003ED94A,dtor thunk stub at 0x003ED94A to 0x003ED879 (target of thunk 0x007B80F1)
+??1Rva003B55F9Dtor@@QAE@XZ,0x003B55F9,dtor thunk stub at 0x003B55F9 to 0x0054FAAC (target of thunks 0x007B82C9 and 0x007B9A37)
+?GetBool@AptBoolean@@QBE_NXZ,0x006D89D0,Native toBool6DD550 boolean branch tail-jumps byte getter; later AptBoolean.inl d8bdfcd7e1b3059a confirms const bool GetBool; alias existing rowed Rva006D89D0ByteField getter
+?ExecuteInitActions@AptCharacterAnimation@@QAEXPAVAptCIH@@H@Z,0x006E6B40,Native70F370 parent animation+8 receiver and CIH-characterID pair; donor ExecuteInitActions semantics; provider unrowed
+?removeObject@AptDisplayList@@QAEXPAH@Z,0x006F72C0,Native70F370 remove-control depth pointer; alias rowed bfmeForward1279 provider
+?FindInst@AptPseudoDisplayList@@QAEXHPAPAUAptPseudoCIH_t@@0@Z,0x006F6AC0,Native70F040 depth and prev-item outputs; alias rowed depth lookup; original node20B reused
+?Insert@AptPseudoDisplayList@@QAEXPAUAptPseudoCIH_t@@@Z,0x006F8380,Native70F040 pseudo-node insertion; donor Insert and original PDB node; native101B supplier pending
+??3AptPseudoCIH_t@@SAXPAXI@Z,0x006D8680,Native throwing20B new unwind free; alias rowed sized pool free provider
+?Remove@AptPseudoDisplayList@@QAEXPAUAptPseudoCIH_t@@@Z,0x006F7C70,Native6F8380 remove old pseudo-node; rowed stdcall provider ignores ECX and ret4 matches thiscall stack ABI; direct alias
+?_reserve@AptArray@@QAEXH@Z,0x006D9500,Canonical array setter and push/concat native growth call; bound to verified210B resize provider
+?SetAt@AptArray@@QAEXHPAVAptValue@@@Z,0x006D8AD0,Canonical array setter native index/value write with refcounts; bound to verified140B provider
+?rva0070A8B0@Rva0070A840@@QAEXXZ,0x0070A8B0,Address-labelled thiscall bridge for native hash shutdown; bound through alternatename to matched AptNativeHash::DestroyGCPointers; full canonical20B hash object and no args
+?AptPushStaticData@@YAPAXXZ,0x00709730,TU alias bound to rowed AptScriptFunctionBase::PushStaticData; same cdecl no-argument pointer-return ABI; PrepareForExecution native call700156 target709730
+?ExecuteInitAction@AptCharacterAnimation@@QAEXPAVAptCIH@@H@Z,0x006E6A30,Native6E6B40 CIH-characterID calls; donor ExecuteInitAction semantics;209B supplier owned pending
+?ExportClassDefinitionAssets@AptCharacterAnimation@@QAEXPAVAptCIH@@@Z,0x006E46A0,Native6E6A30 receiver animation and CIH argument; donor AptAnimation.cpp export init action worker; target278B provider pending
+??0Rva001F41AF@@QAE@ABV0@@Z,0x001F41AF,copy-ctor spelling of the rowed clone-assign body; called on raw storage by copy ctor chain 0x001F9C73..0x001FC3BF and returns this
+?rva005016C3@Rva005016C3@@QAEXXZ,0x005016C3,tail jmp target of 8B forwarder 0x0050174A (ret 0); original name unknown
+?rva00380459@Rva00380459@@QAEXH@Z,0x00380459,tail jmp target of 8B forwarder 0x002A9ECA (ret 4); original name unknown
+?rva004E37CF@Rva004E37CF@@QAEXAAVAsciiString@@PAVRva003BB730Record@@@Z,0x004E37CF,tail jmp target of 8B forwarder 0x003EE7C2 (ret 8); original name unknown
+?rva001EB68A@Rva001EB68ANullTarget@@QAEXXZ,0x001EB68A,null-checked tail jmp target of 13B forwarder 0x001EB72F; original name unknown
+?rva001EB6FE@Rva001EB6FENullTarget@@QAEXXZ,0x001EB6FE,null-checked tail jmp target of 13B forwarder 0x001EB75C; original name unknown
+?rva0020E9A1@Rva0020E9A1NullTarget@@QAEXXZ,0x0020E9A1,null-checked tail jmp target of 13B forwarder 0x0020EB41; original name unknown
+?rva005CB283@Rva005CB283NullTarget@@QAEXXZ,0x005CB283,null-checked tail jmp target of 13B forwarder 0x005CCB16; original name unknown
+?rva0004232F@Rva0004232FNullTarget@@QAEXXZ,0x0004232F,null-checked tail jmp target of 13B forwarder 0x005CCB23; original name unknown
+?rva003626AD@Rva003626ADNullTarget@@QAEXHH@Z,0x003626AD,null-checked tail jmp target of 18B forwarder; original name unknown
+?rva004E5EBE@Rva004E5EBENullTarget@@QAEXHH@Z,0x004E5EBE,null-checked tail jmp target of 18B forwarder; original name unknown
+?rva004F2ABC@Rva004F2ABCNullTarget@@QAEXHH@Z,0x004F2ABC,null-checked tail jmp target of 18B forwarder; original name unknown
+?rva004F0819@Rva004F0819NullTarget@@QAEXH@Z,0x004F0819,null-checked tail jmp target of 18B forwarder; original name unknown
+?rva004F2C14@Rva004F2C14NullTarget@@QAEXH@Z,0x004F2C14,null-checked tail jmp target of 18B forwarder; original name unknown
+?rva0059A153@Rva0059A153@@QAEXPAVTeamPrototype@@@Z,0x0059A153,tail jmp target of 11B forwarder 0x004EC07D at +0x90; original name unknown
+?rva0040D3FF@Rva0040D3FF@@QAEHXZ,0x0040D3FF,tail jmp target of 11B forwarder 0x0023D0B7 at GameLogic+0x184; original name unknown
+??_7AptSound@@6B@,0x008ECF18,Native6F38B0 stores this final vtable after canonical AptObject base; factory branch and original PDB/MAP establish class identity and virtual overrides
+??_7AptStringObject@@6B@,0x008EDE4C,Native6FE380 stores this final vtable after canonical AptObject base; factory branch and original PDB/MAP establish class identity and virtual overrides
+??_7AptError@@6B@,0x008EC85C,Native6FC2D0 stores this final vtable after canonical AptObject base; factory branch and original PDB/MAP establish class identity and virtual overrides
+??_7AptScriptColour@@6B@,0x008ECE50,Native6F24E0 stores final vtable after canonical AptObject base; factory Color branch plus original PDB/MAP identify class and overrides
+?placeObject@AptDisplayList@@QAEPAVAptCIH@@PAUAptControlPlaceObject2@@PAV2@@Z,0x006F8EC0,Native full801B explicitly preserves returned CIH across name destruction; donor same PlaceObject2 signature; replaces earlier conservative void caller view
+?placeObjectNCXForm@AptDisplayList@@QAEPAVAptCIH@@PAV2@HPAUAptCharacter@@PAVEAStringC@@0HHPBIPBMPAXM@Z,0x006F8E10,Native6F8EC0 eleven-word thiscall with packed colors and float ratio; existing167B provider preserves core EAX; direct alias machine ABI
+?c_nativefunction@AptValue@@QBEPAVAptNativeFunction@@XZ,0x006DCF20,Native value converter6DD6C0 direct call; original AptValue header504032fc6593aab6 checked-cast signatures and source230e7c503b5dbf7e scalar/name roles; existing byte-verified provider bound by alias; no new layout or virtual slots
+?c_date@AptValue@@QBEPAVAptDate@@XZ,0x006DD160,Native value converter6DD6C0 direct call; original AptValue header504032fc6593aab6 checked-cast signatures and source230e7c503b5dbf7e scalar/name roles; existing byte-verified provider bound by alias; no new layout or virtual slots
+?GetFloat@AptFloat@@QBEMXZ,0x00723490,Native value converter6DD6C0 direct call; original AptValue header504032fc6593aab6 checked-cast signatures and source230e7c503b5dbf7e scalar/name roles; existing byte-verified provider bound by alias; no new layout or virtual slots
+?forward@Rva0040E6D6Sub@@QAEXPAH@Z,0x002E01C6,thiscall 1-arg subobject forwarder called by Rva0040E6D6Host::forwardFrom 0x0040E6D6; read from its REL32
+??1Rva0042D4B3@@UAE@XZ,0x00577E3E,virtual dtor called by the scalar deleting dtor 0x0042D4B3; thiscall read from its REL32
+?rva0040F497@@YGXHHH@Z,0x0040F497,3-zero-arg helper called by BfmeY1038::rva0040F7E5 0x0040F7E5; retail callee cleans 12 (stdcall) but the caller bytes only need the address
+?rva0060E873@@YAHHHPAH@Z,0x0020E873,3-arg cdecl compare helper forwarding to 0x009250A5; callee of Rva0040D82FHost::setFrom 0x0040D82F
+?set@Rva0040D82FSub@@QAEHH@Z,0x0025BF5D,thiscall setter on the +0x14 subobject; callee of Rva0040D82FHost::setFrom 0x0040D82F read from its REL32
+?setup@Rva004152BCHost@@QAEXH@Z,0x004151C4,thiscall 1-arg setup allocating +0x0 via new 0x1E0; callee of Rva004152BCHost::init 0x004152BC read from REL32
+?apply@Rva00418A8EHost@@QAEXHH@Z,0x00418A12,thiscall 2-arg applier called by Rva00418A8EHost::outer 0x00418A8E read from REL32
+?clear@?$_List_base@PAVFXNugget@@V?$allocator@PAVFXNugget@@@_STL@@@_STL@@QAEXXZ,0x0023DAA5,tail-jump target read at 0x001E11D1 from FXList::clear after the m_nuggets loop
+??1Rva005D1129Pointer@@QAE@XZ,0x005EC4AF,REL32 at +0x0A in 0x005D1129 with ECX=this+8; 7B Ghidra body loads [ecx] then tail-jumps to 0x005EC46F; address-derived member-dtor view; exact wrapper identity remains unknown
+?rva005ED849@Rva005ED976@@QAEXHH@Z,0x005ED849,address-derived two-int delegate; Ghidra 8-byte thunk loads this+4 then jumps to 0x005ED6B9; caller 0x005D13E2 passes row index and packed RGBColor; original owner and label unknown
+?rva005ED851@Rva005ED976@@QAEXHH@Z,0x005ED851,address-derived region-count delegate; target 8-byte thunk loads this+4 then jumps to rowed NumRegions setter 0x005ED708; caller 0x005D13E2 passes the row index and Rva002E1001 result; original owner name unknown
+?rva005ED859@Rva005ED976@@QAEXHH@Z,0x005ED859,address-derived unit-count delegate; target 8-byte thunk loads this+4 then jumps to rowed NumUnits setter 0x005ED76A; caller 0x005D13E2 passes the row index and Rva002E0D02Get result; original owner name unknown
+?rva005ED861@Rva005ED976@@QAEXH@Z,0x005ED861,address-derived row-state delegate; Ghidra 8-byte thunk loads this+4 then jumps to rowed state setter 0x005ED7CC; caller 0x005D13E2 passes 0 after the update loop; original owner name unknown
+?rva005ED986@Rva005ED976@@QAEXHABVUnicodeString@@@Z,0x005ED986,address-derived player-name delegate; caller 0x005D13E2 passes row index and UnicodeString at entry+0x1C; target bytes load this+4 then jump to rowed PlayerName setter 0x005ED937; original owner name unknown
+?rva005ED5BB@Rva005ED976@@QAEXHPBVImage@@@Z,0x005ED5BB,address-derived image delegate; Ghidra 8-byte thunk loads this+4 then jumps to 0x005ED385; caller 0x005D13E2 passes row index and ImageCollection result; original owner and setter label unknown
+?rva0020E90F@Rva0020E90FView@@QAEPAVRva0020E89C@@H@Z,0x0020E90F,address-derived tail target of the conditional wrapper at 0x0020EAF6; Ghidra FUN_0060e90f is 146B; the wrapper passes this and one dword argument through and uses the pointer result; original owner and lookup semantics remain unproven
+?rva005D137D@Rva005D13E2@@QAEPAVRva0020E89C@@XZ,0x005D137D,address-derived thiscall wrapper on the same object as 0x005D17B2; Ghidra FUN_009d137d is 26B and reads this+8 then nested +4 before calling 0x0020EAF6; direct callers 0x005D17FC and 0x005D1539 pass ECX=this; returned object view and original name remain unproven
+?rva005D1527@Rva005D13E2@@QAEXXZ,0x005D1527,address-derived thiscall helper on the same object as 0x005D17B2; Ghidra FUN_009d1527 is 651B and ends at 0x005D17B2; call at 0x005D182A passes ECX=this with no stack arguments; original identity unknown
+??0Rva005EE014BaseView@@QAE@HH@Z,0x005EE014,direct target of the two-argument call at 0x005D1340 from the 35-byte constructor at 0x005D1335; target begins its own EH prologue, allocates 0x54 bytes, calls 0x005EDB74 and returns at 0x005EE05B (the next Ghidra FUN begins 0x005EE05E); +0 vtable and +4 delegate pointer support an eight-byte base view; original type identity unknown
+?get_allocator@?$vector@URva00540295Element@@V?$allocator@URva00540295Element@@@_STL@@@_STL@@QBE?AV?$allocator@URva00540295Element@@@2@XZ,0x0021983A,REL32 in the 0x00540295 vector copy constructor targets the rowed 7-byte allocator getter body
+??0?$_Vector_base@URva00540295Element@@V?$allocator@URva00540295Element@@@_STL@@@_STL@@QAE@IABV?$allocator@URva00540295Element@@@1@@Z,0x0053FF92,REL32 in the 0x00540295 vector copy constructor targets the rowed 60-byte vector base constructor
+??$__uninitialized_copy@PBURva00540295Element@@PAU1@@_STL@@YAPAURva00540295Element@@PBU1@0PAU1@ABU__false_type@0@@Z,0x005400B4,REL32 in the 0x00540295 vector copy constructor targets the rowed 40-byte copy worker; the element's C++ identity remains unresolved
+??$_M_allocate_and_copy@PAURva0032C0E3Element@@@?$vector@URva0032C0E3Element@@V?$allocator@URva0032C0E3Element@@@_STL@@@_STL@@IAEPAURva0032C0E3Element@@IPAU2@0@Z,0x0032A3E1,REL32 in operator= at 0x0032C0E3 targets the rowed 45-byte allocate-copy body for the 128-byte view
+?_M_clear@?$vector@URva0032C0E3Element@@V?$allocator@URva0032C0E3Element@@@_STL@@@_STL@@IAEXXZ,0x0032BF1B,REL32 in operator= at 0x0032C0E3 targets the rowed 30-byte vector clear body for the 128-byte view
+??$__copy_ptrs@PAURva0032C0E3Element@@PAU1@@_STL@@YAPAURva0032C0E3Element@@PAU1@00ABU__false_type@0@@Z,0x0032A40E,REL32s in operator= at 0x0032C0E3 target the rowed 29-byte copy worker also named for BuildListInfo and the Rva0032A3A9Element view
+??$_Destroy@PAURva0032C0E3Element@@@_STL@@YAXPAURva0032C0E3Element@@0@Z,0x0032B580,REL32 in operator= at 0x0032C0E3 targets the rowed 24-byte destroy loop for the Rva0032A3A9Element view
+??$__uninitialized_copy@PAURva0032C0E3Element@@PAU1@@_STL@@YAPAURva0032C0E3Element@@PAU1@00ABU__false_type@0@@Z,0x0032A37A,REL32 in operator= at 0x0032C0E3 targets the rowed 47-byte copy helper for BfmePod128
+?erase@?$vector@URva005EFDE9Element@@V?$allocator@URva005EFDE9Element@@@_STL@@@_STL@@QAEPAURva005EFDE9Element@@PAU3@0@Z,0x005EF8FA,candidate helper target decoded from vector resize 0x005EFDE9; address-derived four-byte element view
+?_M_fill_insert@?$vector@URva005EFDE9Element@@V?$allocator@URva005EFDE9Element@@@_STL@@@_STL@@QAEXPAURva005EFDE9Element@@IABU3@@Z,0x005EFC30,candidate helper target decoded from vector resize 0x005EFDE9; address-derived four-byte element view
+?rva00ca1ee@?$vector@UCoord3D@@V?$allocator@UCoord3D@@@_STL@@@_STL@@QAEXPAUCoord3D@@IABU3@@Z,0x000CA1EE,REL32 from 0x000CA2F3 fill branch decodes 0x000CA1EE; address-derived same-ABI vector helper; full identity unresolved
+?rva00170BFF@Rva00170BFF@@QAE?AURva00170EFEIter@@PAURva00170EFENode@@0ABVRva00170999@@0@Z,0x00170BFF,Direct calls from 0x00170EFE pass the hidden iterator result slot plus x y value and w to this 136-byte insertion worker; its observed ret 0x14 agrees with that ABI. Address-derived class view; original type identity unknown
+?rva00079AB9@Rva00079D14Tree@@QAE?AURva00079D14Iter@@PAURva00079D14Node@@0ABVRva00079D14Value@@0@Z,0x00079AB9,Direct calls from 0x00079D14 pass the hidden iterator result slot plus x y value and w to this 136-byte insertion worker; its observed ret 0x14 agrees with that ABI. Address-derived class view; original type identity unknown
+?rva002F0DD6@Rva002F1DDCTree@@QAE?AURva002F1DDCIter@@PAURva002F1DDCNode@@0ABVRva002F1DDCValue@@0@Z,0x002F0DD6,Direct calls from 0x002F1DDC pass the hidden iterator result slot plus x y value and w to this 136-byte insertion worker; its observed ret 0x14 agrees with that ABI. Address-derived class view; original type identity unknown
+?rva0007989C@Rva00079AB9Tree@@QAEPAXABVRva00079AB9Value@@@Z,0x0007989C,"Direct call target in both allocator branches of 0x00079AB9; caller passes the value reference and uses thiscall register setup, while target extent 34 ends ret 4 and returns the allocated node pointer; address-derived spelling and type identity remain unknown"
+?rva002EF25B@Rva002F0DD6Tree@@QAEPAXABVRva002F0DD6Value@@@Z,0x002EF25B,"Direct call target in both allocator branches of 0x002F0DD6; caller passes the value reference and uses thiscall register setup, while target extent 34 ends ret 4 and returns the allocated node pointer; address-derived spelling and type identity remain unknown"
+?TheControlBar@@3PAVControlBar@@A,0x00E01CFC,Target RVA 0x004B3B88 loads this global and writes the pointed ControlBar +0x28 dirty flag; address confirmed by retail absolute operand and existing BFME2 ControlBar references.
+?setCommandSetStringOverride@Object@@QAEXABVAsciiString@@@Z,0x0029336F,BFME 1 declares a same-purpose setter by value; BFME 2 caller at RVA 0x004B3B88 passes an existing AsciiString directly and target body 0x0029336F updates Object+0x420; const-reference ABI and method-name correspondence are inferred.
+??0Rva004885DE@@QAE@PAVObject@@H@Z,0x004885DE,target REL32 at 0x004888CF in the Rva00488D5C constructor passes StateMachine owner +0x14 and the stored int; same constructor identity as banked 227-byte body at the Ghidra boundary
+??$_Construct@V?$vector@URva002BC339Value@@V?$allocator@URva002BC339Value@@@_STL@@@_STL@@V12@@_STL@@YAXPAV?$vector@URva002BC339Value@@V?$allocator@URva002BC339Value@@@_STL@@@0@ABV10@@Z,0x002BAE2A,callee of the vector fill helper 0x002BB785 at its REL32 call site; STLport _Construct constructs a 12-byte inner vector from the fill value
+??$__adjust_heap@PAUS4SortElem20@@HU1@US4Cmp002EB8E0@@@_STL@@YAXPAUS4SortElem20@@HHU1@US4Cmp002EB8E0@@@Z,0x0033758C,callee of __pop_heap at 0x003376EA: target call at +0x3F and 20-byte element span; BFME1 donor names the corresponding S4SortElem20 specialization; Ghidra boundary 172B
+??$__push_heap@PAUS4SortElem20@@HU1@US4Cmp002EB8E0@@@_STL@@YAXPAUS4SortElem20@@HHU1@US4Cmp002EB8E0@@@Z,0x00337479,callee of target __adjust_heap at 0x0033758C+0x89; target passes the 20-byte record and comparator; BFME1 STLport source names the corresponding helper; Ghidra boundary 136B; address-derived prior attempt remains unverified
+?set@BfmeSortElem20Tail@@QAEXABV1@@Z,0x00332217,REL32 from the retail 39-byte assignment at 0x003372EC calls with ecx at S4SortElem20+8; BFME1 donor assigns the three-pointer tail here, target type identity remains donor-derived
+??0BfmePairEL@@QAE@ABVBfmeWordEL@@0@Z,0x0002C4FD,BfmePairEL two-word ctor; BfmeWordEL is the rowed 4-byte StringBase<char> view so this is the same bytes as the matched ??0Rva0002C4FD@@QAE@ABV?$StringBase@D@@0@Z body (cf existing pair@VAsciiString ICF-alias pin); called by the bfmeMakePairEL factory at 0x0002C621
+?rva002ADAC3@Player@@QAEXPBVUpgradeTemplate@@H@Z,0x002ADAC3,"Player member (ret 8): (upgrade template, int); REL32 callee of UpgradeDie::onDie 0x00486C00 m_04==0 player path with hoisted pushes; list-unlink plus bit-clear body in the ZH Player::removeUpgrade family with a BFME2 m_04==1 bypass to 0x2AD9FD; address-named"
+?rva000347A0@GeneralAllocator@Allocator@EA@@QAEPAXPAXIH@Z,0x000347A0,address-derived thiscall GeneralAllocator realloc-engine member taking block size flags and returning void pointer; called from wrapper 0x00035190; identity unproven
+?rva00034A60@GeneralAllocator@Allocator@EA@@QAEPAXIIH@Z,0x00034A60,address-derived thiscall GeneralAllocator calloc-engine member taking count size flags and returning void pointer; called from wrapper 0x00035210; identity unproven
+?rva000F1018@W3DShadowGeometry@@QAEHPAVMeshModelClass@@HPAV1@@Z,0x000F1018,retail REL32 inside 0x000F1F60 resolves to this address; Ghidra bounds the callee at 424 bytes; method uses W3DShadowGeometry this and MeshModelClass index parent arguments; address-derived name and helper purpose remains inferred from BFME1 donor
+?rva000055F5@Rva000055F5StringView@@QAEAAV1@PBD@Z,0x000055F5,retail direct call from W3DShadowGeometryManager Load_Geom; this is the AsciiString field at W3DShadowGeometry plus 0x10; address-derived setter name
+?Peek_Geom@W3DShadowGeometryManager@@QAEPAVW3DShadowGeometry@@PBD@Z,0x000F0B81,retail direct call from W3DShadowGeometryManager Load_Geom; same byte address is already rowed as HAnimManager Peek_Anim; manager identity follows donor source
+?Add_Geom@W3DShadowGeometryManager@@QAEHPAVW3DShadowGeometry@@@Z,0x000F0BAB,retail direct call from W3DShadowGeometryManager Load_Geom; same byte address is already rowed as HAnimManager Add_Anim; manager identity follows donor source
+??0BfmePairEL@@QAE@ABVBfmeWordEL@@0@Z,0x0002C4FD,BfmePairEL two-word ctor; BfmeWordEL is the rowed 4-byte StringBase<char> view so this is the same bytes as the matched ??0Rva0002C4FD@@QAE@ABV?$StringBase@D@@0@Z body (cf existing pair@VAsciiString ICF-alias pin); called by the bfmeMakePairEL factory at 0x0002C621
+?rva002ADAC3@Player@@QAEXPBVUpgradeTemplate@@H@Z,0x002ADAC3,"Player member (ret 8): (upgrade template, int); REL32 callee of UpgradeDie::onDie 0x00486C00 m_04==0 player path with hoisted pushes; list-unlink plus bit-clear body in the ZH Player::removeUpgrade family with a BFME2 m_04==1 bypass to 0x2AD9FD; address-named"
+?rva000347A0@GeneralAllocator@Allocator@EA@@QAEPAXPAXIH@Z,0x000347A0,address-derived thiscall GeneralAllocator realloc-engine member taking block size flags and returning void pointer; called from wrapper 0x00035190; identity unproven
+?rva00034A60@GeneralAllocator@Allocator@EA@@QAEPAXIIH@Z,0x00034A60,address-derived thiscall GeneralAllocator calloc-engine member taking count size flags and returning void pointer; called from wrapper 0x00035210; identity unproven
