@@ -460,3 +460,20 @@ void BfmeAptScreenLanLobby::saveRulesRva00444279()
 		m_prefs.write();
 	}
 }
+
+// Retail 0x0044440C, 86 bytes: vftable 0x00C3E098 slot 8. No BFME1
+// counterpart; the name is unknown. Stores the strategic scenario through
+// the rowed GameModePreferences::setStrategicScenario, writes the
+// preferences and refreshes the serialized game info.
+bool BfmeAptScreenLanLobby::setScenarioRva0044440C(int scenario)
+{
+	LANGameInfo *game = TheLAN->GetMyGame();
+	if (!game)
+		return false;
+
+	m_prefs.setStrategicScenario(scenario);
+	m_prefs.write();
+	TransportAddress address;
+	TheLAN->requestSerializedGameInfo(true, &address);
+	return true;
+}
