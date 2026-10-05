@@ -62363,3 +62363,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva005D498B@Rva005D498B@@QAEX_N@Z,,0x005D498B,66,Code/GameEngine/Source/Common/Rva005D498BVisible.cpp,matched,guarded SetVisible fire via rowed Fire 0x005277D9 with prefix from +8 else empty
 ?rva0030B6E3@Rva0030B719Shape@@QAE?AURegion2D@@XZ,,0x0030B6E3,35,Code/GameEngine/Source/Common/PinnedForwarders1830.cpp,matched,shape region getter refresh via 0x0030B3D1 then Region2D copy unblocks 3 callers
 ?rva0030B706@Rva0030B719Shape@@QBEMXZ,,0x0030B706,19,Code/GameEngine/Source/Common/PinnedForwarders1830.cpp,matched,shape float at +0x1C getter refresh via 0x0030B3D1 sibling of getRadius
+?rva0007E03A@PolygonTrigger@@QAE?AURegion2D@@XZ,,0x0007E03A,19,Code/GameEngine/Source/Common/PolygonTriggerRegionRva0007E03A.cpp,matched,PolygonTrigger region forwarder to shape 0x0030B6E3 via caller 0x002E3954
