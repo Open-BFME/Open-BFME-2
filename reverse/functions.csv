@@ -59608,3 +59608,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?Rva0041CE27Check@@YG_NPAVObject@@0H@Z,,0x0041CE27,114,Code/GameEngine/Source/Common/Rva0041CE27Check.cpp,matched,enemy plus upgrade-template gated check via SpecialPowerStore
 ?rva002E8BF8@Pathfinder@@QAEPAVPathfindCell@@W4PathfindLayerEnum@@PBUCoord3D@@@Z,,0x002E8BF8,43,Code/GameEngine/Source/Common/Rva002E8BF8.cpp,matched,world-pos to cell lookup via clamp wrapper then getCell
 ?doesWideFileExist@BFME2FileSystemFacade@@QAE_NPBG@Z,,0x0060068A,11,Code/GameEngine/Source/Common/System/SaveGame/Rva002DC267Get.cpp,matched,facade forwards via TheArchiveFileSystem slot10 tail jmp under O1
+?rva00395686@Rva00395686@@QAE_NPAVPlayer@@PAVThingTemplate@@@Z,,0x00395686,61,Code/GameEngine/Source/Common/Rva00395686Finish.cpp,matched,bool return type gives retail xor al al in the shared fail block and byte-width sbb/inc tail
