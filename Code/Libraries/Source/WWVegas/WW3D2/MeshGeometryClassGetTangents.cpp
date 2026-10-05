@@ -33,6 +33,7 @@ public:
 	virtual void onPlanes(Vector4 *planes);
 public:
 	Vector3 *rva0016ABC0();
+	Vector3 *rva0016ABE0();
 	char m_pad[0x18 - 4];
 	unsigned int m_flags;			// +0x18
 	char m_pad1C[0x24 - 0x1C];
@@ -46,6 +47,15 @@ public:
 Vector3 *MeshGeometryClass::rva0016ABC0()
 {
 	ShareBufferClass<Vector3> *buf = VertexTangents;
+	if (buf != 0 && buf->Count > 0) {
+		return buf->Array;
+	}
+	return 0;
+}
+
+Vector3 *MeshGeometryClass::rva0016ABE0()
+{
+	ShareBufferClass<Vector3> *buf = VertexBinormals;
 	if (buf != 0 && buf->Count > 0) {
 		return buf->Array;
 	}
