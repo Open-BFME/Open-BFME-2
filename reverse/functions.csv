@@ -63436,3 +63436,8 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?read@Rva005020AFOwner@@QAEPAV1@PAH@Z,,0x005020AF,29,Code/GameEngine/Source/Common/RvaReadThroughFamily.cpp,matched,Address-derived read-through first-deref plus sub-read-rest; 29B shape
 ?read@Rva00502909Owner@@QAEPAV1@PAH@Z,,0x00502909,29,Code/GameEngine/Source/Common/RvaReadThroughFamily.cpp,matched,Address-derived read-through first-deref plus sub-read-rest; 29B shape
 ?read@Rva005564EBOwner@@QAEPAV1@PAH@Z,,0x005564EB,29,Code/GameEngine/Source/Common/RvaReadThroughFamily.cpp,matched,Address-derived read-through first-deref plus sub-read-rest; 29B shape
+?fwd@Rva00057B27Owner@@QAEHHH@Z,,0x00057B27,36,Code/GameEngine/Source/Common/RvaCountNoteRunFamily.cpp,matched,Address-derived count-note-run; 36B shape
+?fwd@Rva00057D38Owner@@QAEHHH@Z,,0x00057D38,36,Code/GameEngine/Source/Common/RvaCountNoteRunFamily.cpp,matched,Address-derived count-note-run (m+1 then two calls then return arg); 36B shape
+?fwd@Rva000E0536Owner@@QAEHHH@Z,,0x000E0536,36,Code/GameEngine/Source/Common/RvaCountNoteRunFamily.cpp,matched,Address-derived count-note-run (m+1 then two calls then return arg); 36B shape
+?fwd@Rva003EF34AOwner@@QAEHHH@Z,,0x003EF34A,36,Code/GameEngine/Source/Common/RvaCountNoteRunFamily.cpp,matched,Address-derived count-note-run (m+1 then two calls then return arg); 36B shape
+?fwd@Rva0052B7F8Owner@@QAEHHH@Z,,0x0052B7F8,36,Code/GameEngine/Source/Common/RvaCountNoteRunFamily.cpp,matched,Address-derived count-note-run (m+1 then two calls then return arg); 36B shape

@@ -12756,3 +12756,12 @@ _g_pRva00437E9C,0x00E032FC,global pointer read by wrapper 0x00437E9C (peer notes
 ?read@Rva00501B33Sub@@QAEXPAH@Z,0x00501B33,REL32 callee decoded from target call bytes of read-through 0x005020AF; identity unproven
 ?read@Rva005026EESub@@QAEXPAH@Z,0x005026EE,REL32 callee decoded from target call bytes of read-through 0x00502909; identity unproven
 ?read@Rva0038630BSub@@QAEXPAH@Z,0x0038630B,REL32 callee decoded from target call bytes of read-through 0x005564EB; identity unproven
+?note@Rva00056BFESub@@QAEXH@Z,0x00056BFE,REL32 callee decoded from target call bytes of same-shape count-note-run member; identity unproven
+?run@Rva00054BC3Sub@@QAEXHH@Z,0x00054BC3,REL32 callee decoded from target call bytes of same-shape count-note-run member; identity unproven
+?note@Rva0053F1ECSub@@QAEXH@Z,0x0053F1EC,opaque alias of the rowed Armor hashtable resize at the same address; identity unproven
+?run@Rva000556ABSub@@QAEXHH@Z,0x000556AB,REL32 callee decoded from target call bytes of same-shape count-note-run member; identity unproven
+?note@Rva000E0322Sub@@QAEXH@Z,0x000E0322,REL32 callee decoded from target call bytes of same-shape count-note-run member; identity unproven
+?run@Rva000E0298Sub@@QAEXHH@Z,0x000E0298,REL32 callee decoded from target call bytes of same-shape count-note-run member; identity unproven
+?note@Rva00212858Sub@@QAEXH@Z,0x00212858,REL32 callee decoded from target call bytes of same-shape count-note-run member; identity unproven
+?run@Rva003EF264Sub@@QAEXHH@Z,0x003EF264,REL32 callee decoded from target call bytes of same-shape count-note-run member; identity unproven
+?run@Rva0052B737Sub@@QAEXHH@Z,0x0052B737,REL32 callee decoded from target call bytes of same-shape count-note-run member; identity unproven
