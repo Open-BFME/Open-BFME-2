@@ -12887,3 +12887,5 @@ _Rva00337999Forward,0x00337999,REL32 callee decoded from target call bytes of wr
 ?rva0039BB0A@Rva0039BD28@@QAEHXZ,0x0039BB0A,thiscall returning int stored to +0x314; read from REL32 at 0x0039BD4A in rva0039BD28 0x0039BD28; identity unproven
 ?rva0039BC85@Rva0039BD28@@QAEHXZ,0x0039BC85,thiscall returning int stored to +0x318; read from REL32 at 0x0039BD57 in rva0039BD28 0x0039BD28; identity unproven
 ?rva0039AEBC@Rva0039B0C9@@QAEXH@Z,0x0039AEBC,thiscall worker on this taking the +4 dword; read from REL32 at 0x0039B0D4 in rva0039B0C9 0x0039B0C9; 158B free body; identity unproven
+?rva003AFFBE@@YAXHHHHH@Z,0x003AFFBE,50B idiv+rep-movsd helper calling 0x003AFE48; 5 int args assumed; read from REL32 at 0x003B016D in rva003B015D 0x003B015D
+?rva003B0176@@YAXHHHH@Z,0x003B0176,42B movsd-copy helper calling 0x003AFFF0; 4 int args assumed (p2 used as pointer); read from REL32 at 0x003B02AF in rva003B02A1 0x003B02A1
