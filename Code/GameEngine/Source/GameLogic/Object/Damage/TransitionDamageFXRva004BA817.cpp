@@ -64,10 +64,6 @@ private:
 	int m_argCount;
 };
 
-extern const char g_00BBE3C8[];
-extern const char g_00BBE3C4[];
-extern const char g_00BBE3C0[];
-
 class Rva004BA1B2
 {
 public:
@@ -114,15 +110,15 @@ void TransitionDamageFXModuleData::NeighborIDSubobjectNameDataAppend(INI *ini, v
 		{
 			if (_strcmpi(token, "NeighborOffset") == 0)
 			{
-				neighbor.m_neighborOffset.x = ini->scanReal(ini->getNextSubToken(g_00BBE3C8));
-				neighbor.m_neighborOffset.y = ini->scanReal(ini->getNextSubToken(g_00BBE3C4));
-				neighbor.m_neighborOffset.z = ini->scanReal(ini->getNextSubToken(g_00BBE3C0));
+				neighbor.m_neighborOffset.x = ini->scanReal(ini->getNextSubToken("X"));
+				neighbor.m_neighborOffset.y = ini->scanReal(ini->getNextSubToken("Y"));
+				neighbor.m_neighborOffset.z = ini->scanReal(ini->getNextSubToken("Z"));
 			}
 			else if (_strcmpi(token, "OCLOffset") == 0)
 			{
-				neighbor.m_oclOffset.x = ini->scanReal(ini->getNextSubToken(g_00BBE3C8));
-				neighbor.m_oclOffset.y = ini->scanReal(ini->getNextSubToken(g_00BBE3C4));
-				neighbor.m_oclOffset.z = ini->scanReal(ini->getNextSubToken(g_00BBE3C0));
+				neighbor.m_oclOffset.x = ini->scanReal(ini->getNextSubToken("X"));
+				neighbor.m_oclOffset.y = ini->scanReal(ini->getNextSubToken("Y"));
+				neighbor.m_oclOffset.z = ini->scanReal(ini->getNextSubToken("Z"));
 			}
 			else if (_strcmpi(token, "OCL") == 0)
 				INI::parseObjectCreationList(ini, instance, (void *)&neighbor.m_ocl, 0);
