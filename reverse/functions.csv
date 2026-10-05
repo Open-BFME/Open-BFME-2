@@ -56583,3 +56583,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva003BEDD1@ScriptActions@@IAEXABVAsciiString@@0@Z,,0x003BEDD1,141,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsRva003BEDD1.cpp,matched,neighbours same flags callees rowed caller unclaimed
 ?rva003BED01@ScriptActions@@IAEXPAVParameter@@ABVAsciiString@@@Z,,0x003BED01,88,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsRva003BED01.cpp,matched,chain neighbours same flags callees rowed
 ??0Rva002553F6@@QAE@XZ,,0x002553F6,74,Code/GameEngine/Source/GameLogic/Object/Update/Rva002553F6Ctor.cpp,matched,ModuleData ctor via CrateTemplate double-zero plus barrier
+?updateAndDrawWorldAnimations@InGameUI@@IAEXXZ,,0x0029D44E,452,Code/GameEngine/Source/GameClient/InGameUIUpdateAndDrawWorldAnimations.cpp,matched,pinned name donor InGameUI caller preDraw rowed callees
