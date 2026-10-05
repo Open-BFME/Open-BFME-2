@@ -1,5 +1,6 @@
 // ?privateGuardAreaFromPosition@AIUpdateInterface@@MAEXPBVPolygonTrigger@@W4GuardMode@@W4CommandSourceType@@PBUCoord3D@@@Z
-// partial score=0.95 date=2026-10-04
+// partial score=0.96 date=2026-10-05
+// ?privateGuardAreaFromPosition@AIUpdateInterface@@MAEXPBVPolygonTrigger@@W4GuardMode@@W4CommandSourceType@@PBUCoord3D@@@Z
 // cl: /O1 /DNDEBUG /MD
 //
 // AIUpdateInterface's private command handlers: the bodies BFME2's
@@ -978,7 +979,7 @@ void AIUpdateInterface::privateGuardAreaFromPosition(const PolygonTrigger *area,
 		return;
 	if (!obj->isMobile())
 		return;
-	if (getObject()->isKindOf(KINDOF_PROJECTILE))
+	if (m_object->isKindOf(KINDOF_PROJECTILE))
 		return;
 
 	if (m_guardTargetType[1] == GUARDTARGET_NONE)
