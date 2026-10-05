@@ -104,12 +104,19 @@ class Rva003818B0List
 public:
 	void forEach(void (Rva003818B0Listener::*notify)(void *), void *arg);
 	void apply(const Rva003815ABCall &call);
+	void rva003818E3(void *arg);
 
 private:
 	Rva003818B0Listener **m_begin;		// +0x00
 	Rva003818B0Listener **m_end;		// +0x04
 	Rva003818B0Listener **m_capacity;	// +0x08
 	unsigned int m_index;	// +0x0C
+};
+
+class Rva005CB260
+{
+public:
+	void rva005CB260();
 };
 
 void Rva003818B0List::forEach(void (Rva003818B0Listener::*notify)(void *), void *arg)
@@ -130,4 +137,12 @@ void Rva003818B0List::apply(const Rva003815ABCall &call)
 		(m_begin[i]->*call.notify)(call.arg);
 		i = m_index;
 	}
+}
+
+// ?rva003818E3@Rva003818B0List@@QAEXPAX@Z, retail 0x003818E3, 17 bytes.
+// Thin wrapper over forEach 0x003818B0 with fixed notify 0x005CB260.
+// Evidence: unlock lane, caller 0x00381900 loads g_00E02310 as this.
+void Rva003818B0List::rva003818E3(void *arg)
+{
+	forEach((void (Rva003818B0Listener::*)(void *))&Rva005CB260::rva005CB260, arg);
 }
