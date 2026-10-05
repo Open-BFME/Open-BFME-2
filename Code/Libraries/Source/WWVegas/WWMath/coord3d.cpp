@@ -391,7 +391,7 @@ inline float Coord3D::lengthSqr() const
     return (float)((double)x * x + (double)y * y + (double)z * z);
 }
 
-void Coord3D::set(const Coord3DBase *that)
+inline void Coord3D::set(const Coord3DBase *that)
 {
     x = that->x;
     y = that->y;
@@ -663,6 +663,7 @@ void _bfmeCoord3DInlineAnchor(Coord3D *c)
     c->Coord3D::Coord3D(0.0f, 0.0f, 0.0f);
     c->zero();
     c->set(c->length(), c->lengthSqr(), 0.0f);
+    c->set((const Coord3DBase *)0);
     c->normalize();
     c->Coord3D::~Coord3D();
 }
