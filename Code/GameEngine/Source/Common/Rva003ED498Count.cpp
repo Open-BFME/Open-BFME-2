@@ -28,7 +28,10 @@ struct BitRange
 {
 	unsigned const *m_begin;
 	unsigned const *m_end;
+	unsigned char m_pad08[8];
+	AsciiString m_str10;
 	AsciiString rva003ED4E5();
+	AsciiString rva00568BE2();
 };
 struct TreeNode
 {
@@ -107,4 +110,12 @@ AsciiString BitRange::rva003ED4E5()
 	}
 
 	return result;
+}
+
+// ?rva00568BE2@BitRange@@QAE?AVAsciiString@@XZ 0x00568BE2 56B AsciiString getter at +0x10 with rva003ED4E5 fallback through rowed StringBase copy ctor. Callers in 0x005691DB 0x003EE23C 0x0056913D 0x003EE576.
+AsciiString BitRange::rva00568BE2()
+{
+	if (m_str10.isEmpty())
+		return rva003ED4E5();
+	return m_str10;
 }
