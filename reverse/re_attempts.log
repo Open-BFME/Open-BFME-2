@@ -9760,3 +9760,4 @@ FUN_0084f6d0	0x0044F6D0	94	blocked	Ghidra inventory provides only a placeholder 
 ?Rva003C239FDo@@YGXABVAsciiString@@HPAVParameter@@@Z	0x003C239F	337	blocked	same wall as 0x003C2A9F rva002AB1DE BitFlags row vs FixedStorage plus BitSet retailNeeds central retype t=3 model=muse-01
 ?rva005DACC0@Rva005DAC85@@QAEXXZ	0x005DACC0	273	partial	ebx-edi swapped rec-sub plus x87 fcompi max vs SSE comiss plus comiss order t=25 model=muse-01 score=0.92 stash=reverse/attempts/0x005dacc0.cpp
 ??0Rva005DAC85@@QAE@PAX@Z	0x005DAC38	53	partial	store order only: ints plus arg early vs floats then ints then arg late; 53B exact t=20 model=muse-01 score=0.93 stash=reverse/attempts/0x005dac38.cpp
+?Rva003E81E8Get@@YG_NPAVParameter@@0@Z	0x003E81E8	250	blocked	esi-edi swapped types-count plus found spilled to stack not ebx plus prologue sub-esp vs push-ecx plus extra reloads t=22 model=muse-01
