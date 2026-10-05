@@ -78,3 +78,64 @@ RVA_TREE_VALUE_FAMILY( Rva00206632, rva00206632, rva00206F42 )
 RVA_TREE_VALUE_FAMILY( Rva0020669C, rva0020669C, rva00206F94 )
 // erase 0x002066D1, clear 0x00206FBD
 RVA_TREE_VALUE_FAMILY( Rva002066D1, rva002066D1, rva00206FBD )
+
+// Three more trees with the same shapes over other value types, whose
+// destructors are already pinned under these address names.
+#define RVA_TREE_VALUE_FAMILY_T( VALUE, OWNER, ERASE, CLEAR )               \
+	struct VALUE                                                          \
+	{                                                                     \
+		~VALUE();                                                         \
+		int m_00;                                                         \
+	};                                                                    \
+	struct OWNER##Node                                                    \
+	{                                                                     \
+		char m_pad[8];                                                    \
+		OWNER##Node *m_left;                                              \
+		OWNER##Node *m_right;                                             \
+		VALUE m_value;                                                    \
+	};                                                                    \
+	struct OWNER##Head                                                    \
+	{                                                                     \
+		char m_pad00[4];                                                  \
+		OWNER##Node *m_root;                                              \
+		OWNER##Head *m_left;                                              \
+		OWNER##Head *m_right;                                             \
+	};                                                                    \
+	class OWNER                                                           \
+	{                                                                     \
+	public:                                                               \
+		void ERASE(OWNER##Node *node);                                    \
+		void CLEAR();                                                     \
+	private:                                                              \
+		OWNER##Head *m_head;                                              \
+		int m_count;                                                      \
+	};                                                                    \
+	void OWNER::ERASE(OWNER##Node *node)                                  \
+	{                                                                     \
+		while (node)                                                      \
+		{                                                                 \
+			ERASE(node->m_right);                                         \
+			OWNER##Node *next = node->m_left;                             \
+			node->m_value.~VALUE();                                       \
+			free(node);                                                   \
+			node = next;                                                  \
+		}                                                                 \
+	}                                                                     \
+	void OWNER::CLEAR()                                                   \
+	{                                                                     \
+		if (m_count != 0)                                                 \
+		{                                                                 \
+			ERASE(m_head->m_root);                                        \
+			m_head->m_left = m_head;                                      \
+			m_head->m_root = 0;                                           \
+			m_head->m_right = m_head;                                     \
+			m_count = 0;                                                  \
+		}                                                                 \
+	}
+
+// erase 0x004D9B4B, clear 0x004D9FF2, value dtor 0x004D960C
+RVA_TREE_VALUE_FAMILY_T( Rva004D960C, Rva004D9B4B, rva004D9B4B, rva004D9FF2 )
+// erase 0x00501F2D, clear 0x0050247A, value dtor 0x005011B4
+RVA_TREE_VALUE_FAMILY_T( Rva005011B4, Rva00501F2D, rva00501F2D, rva0050247A )
+// erase 0x0060421C, clear 0x0060434B, value dtor 0x00603C57
+RVA_TREE_VALUE_FAMILY_T( Rva00603C57, Rva0060421C, rva0060421C, rva0060434B )
