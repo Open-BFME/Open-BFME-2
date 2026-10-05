@@ -1,20 +1,21 @@
 // cl: /O1 /DNDEBUG /MD /Ireference/shims/bfme2_ascii
 //
-// "Reload INI file" notifications (slot 4) of nine INI-backed stores, each
+// "Reload INI file" notifications (slot 4) of ten INI-backed stores, each
 // in the vftable of the class its rowed deleting destructor names. When the
 // store's slot 2 (the shared 0x001B5384 body) reports a reload, each puts a
 // "RIF: ... reloaded" line on screen through TheInGameUI's varargs message
 // (its slot 16, cdecl; the UnicodeString argument is built in place):
 //
 //   FXList (0x001E0DB9) and ObjectCreationList (0x001F04D9) then return
-//   true; Armor, PlayerTemplate, Sciences, AttributeModifier, Upgrades and
-//   Weapon (0x001D8FAD, 0x001FD57A, 0x001FF625, 0x0021494B, 0x0026F16D,
-//   0x002CAE34) latch a static "reloaded" byte (.bss) and return it; GameData
+//   true; Armor, PlayerTemplate, Sciences, AttributeModifier, Upgrades,
+//   Weapon and Emotions (0x001D8FAD, 0x001FD57A, 0x001FF625, 0x0021494B,
+//   0x0026F16D, 0x002CAE34, 0x004263CA) latch a static "reloaded" byte
+//   (.bss/.data) and return it; GameData
 //   (0x0023624A) skips the message without TheInGameUI.
 //
 // The store names come from the literals; the classes keep their
 // address-derived ledger names, and the slot-2 and message meanings are
-// inferred from the calls. The nine bodies above never touch their stack
+// inferred from the calls. The ten bodies above never touch their stack
 // argument (typed int here; the banked Locomotor slot 4 0x001E51AC writes a
 // "needs restart" Bool through it). The Weapon store's slot 5 (0x002CAE6C)
 // reports "RIF: Weapons reloaded" once after a reload latched its byte,
@@ -278,4 +279,32 @@ bool Rva001FDB55::rva001FD5B2()
 		return true;
 	}
 	return false;
+}
+
+// g_rva00426378Pending: VA 0x00E031E0 (retail .data tail init 00, zero-filled); retail latch for Emotions slot-4.
+// Explicit =false documents retail init; MSVC 7.1 still emits all 7 latches in .bss
+// (objdump sec 3, 7 bytes); DIR32 consistent, patcher copies retail slot, code unaffected.
+bool g_rva00426378Pending = false;
+
+class Rva004263CA : public RifStore
+{
+public:
+	bool rva004263CA(int reason);
+};
+
+// ?rva004263CA@Rva004263CA@@QAE_NH@Z @0x004263CA 56B.
+// 10th RIF slot-4 reload notice (Emotions store by RIF literal
+// L"RIF: Emotions reloaded" at VA 0xC3C320). Same family as 9 matched rows
+// in this TU. Address-derived owner/name only; exact bytes do not prove
+// store class. Reuses target literal, provider StringBase G ctor 0x37E30,
+// TheInGameUI message slot16, RifStore slot2, latch bool VA 0xE031E0,
+// canonical types/flags/source provenance of this TU.
+bool Rva004263CA::rva004263CA(int reason)
+{
+	if (rva001B5384Slot2())
+	{
+		g_rva00426378Pending = true;
+		TheInGameUI->message(UnicodeString(L"RIF: Emotions reloaded"));
+	}
+	return g_rva00426378Pending;
 }
