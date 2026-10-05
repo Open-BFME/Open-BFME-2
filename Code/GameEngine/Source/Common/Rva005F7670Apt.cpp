@@ -194,3 +194,80 @@ void Rva005F7670::rva005F744E()
 	for (int i = 0; i < 7; i++)
 		m_tips3C[i]->rva005F6F0C();
 }
+
+// ?rva005F7478@Rva005F7478@@QAEXH@Z @0x005F7478 8B member forwarder to rowed
+// ?rva005F719D@Rva005F7670@@QAEXH@Z (int arg passes through the shared stack
+// slot). No callers. Honest address name.
+class Rva005F7478
+{
+public:
+	void rva005F7478(int val);
+private:
+	char m_pad[4];
+	Rva005F7670 *m_member;
+};
+void Rva005F7478::rva005F7478(int val)
+{
+	return m_member->rva005F719D(val);
+}
+
+// ?rva005F7480@Rva005F7480@@QAEXXZ @0x005F7480 8B member forwarder to rowed
+// ?rva005F72C8@Rva005F7670@@QAEXXZ. No callers. Honest address name.
+class Rva005F7480
+{
+public:
+	void rva005F7480();
+private:
+	char m_pad[4];
+	Rva005F7670 *m_member;
+};
+void Rva005F7480::rva005F7480()
+{
+	return m_member->rva005F72C8();
+}
+
+// ?rva005F7488@Rva005F7488@@QAEXH@Z @0x005F7488 8B member forwarder to rowed
+// ?rva005F7304@Rva005F7670@@QAEXH@Z (int arg passes through the shared stack
+// slot). No callers. Honest address name.
+class Rva005F7488
+{
+public:
+	void rva005F7488(int val);
+private:
+	char m_pad[4];
+	Rva005F7670 *m_member;
+};
+void Rva005F7488::rva005F7488(int val)
+{
+	return m_member->rva005F7304(val);
+}
+
+// ?rva005F7490@Rva005F7490@@QAEXXZ @0x005F7490 8B member forwarder to rowed
+// ?rva005F7412@Rva005F7670@@QAEXXZ. No callers. Honest address name.
+class Rva005F7490
+{
+public:
+	void rva005F7490();
+private:
+	char m_pad[4];
+	Rva005F7670 *m_member;
+};
+void Rva005F7490::rva005F7490()
+{
+	return m_member->rva005F7412();
+}
+
+// ?rva005F7498@Rva005F7498@@QAEXXZ @0x005F7498 8B member forwarder to rowed
+// ?rva005F744E@Rva005F7670@@QAEXXZ. No callers. Honest address name.
+class Rva005F7498
+{
+public:
+	void rva005F7498();
+private:
+	char m_pad[4];
+	Rva005F7670 *m_member;
+};
+void Rva005F7498::rva005F7498()
+{
+	return m_member->rva005F744E();
+}

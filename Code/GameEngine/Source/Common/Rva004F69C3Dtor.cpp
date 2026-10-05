@@ -31,3 +31,18 @@ Rva004F69C3::~Rva004F69C3()
 	if (m_04)
 		ReleaseTreeHintRef00217D4C(&m_04->m_ac);
 }
+
+// ??1Rva0040D8B0@@QAE@XZ @0x0040D8B0 8B holder dtor forwarder to
+// rowed ??1Rva004F69C3@@QAE@XZ (0x004F69C3). No callers. Honest address name.
+class Rva0040D8B0
+{
+public:
+	~Rva0040D8B0();
+private:
+	char m_pad[4];
+	Rva004F69C3 *m_member;
+};
+Rva0040D8B0::~Rva0040D8B0()
+{
+	m_member->~Rva004F69C3();
+}
