@@ -12892,3 +12892,4 @@ _Rva00337999Forward,0x00337999,REL32 callee decoded from target call bytes of wr
 ?check@Rva0040C804Target@@QAE_NXZ,0x0040C804,check method called by Rva005C4A91::rva005C4952
 ??_7Rva005C3F02@@6B@,0x00C744AC,vftable of Rva005C3F02
 ??0Rva005C3A37Elem@@QAE@PAVRva005C3F02@@PAX1@Z,0x005C3F2C,Rva005C3A37Elem constructor called by Rva005C3F02::Rva005C3F02
+?rva005C4B26@Rva005C41C9@@QAEEXZ,0x005C4B26,tail callee of Rva005C41C9::v17

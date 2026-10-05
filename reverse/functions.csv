@@ -63546,3 +63546,5 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva005C4952@Rva005C4A91@@QBEEPAVRva0040C804Target@@@Z,,0x005C4952,52,Code/GameEngine/Source/Common/Rva005C4952Find.cpp,matched,Rva005C4A91 vector find and target check
 ?rva005C49D4@Rva005C49D4Host@@UAEEPAVRva0040C804Target@@@Z,,0x005C49D4,27,Code/GameEngine/Source/Common/Rva005C4952Find.cpp,matched,Rva005C49D4Host slot-0 comparison and tail dispatch to rva005C4952
 ??0Rva005C3F02@@QAE@PAX0@Z,,0x005C40E7,74,Code/GameEngine/Source/Common/Rva005C40E7Ctor.cpp,matched,Rva005C3F02 constructor: allocates and constructs Rva005C3A37Elem at +0x04
+?v17@Rva005C41C9@@UAEEXZ,,0x005C414F,49,Code/GameEngine/Source/Common/Rva005C4180Refresh.cpp,matched,Rva005C41C9 vtable slot 17 predicate
+?rva005C4180@Rva005C41C9@@QAEXE@Z,,0x005C4180,73,Code/GameEngine/Source/Common/Rva005C4180Refresh.cpp,matched,Rva005C41C9 m_c4 refresh setter
