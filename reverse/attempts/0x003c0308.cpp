@@ -2,6 +2,8 @@
 // partial score=0.97 date=2026-10-05
 // ?Rva003C0308Do@@YGXHH_NHABVAsciiString@@H@Z
 // partial score=0.97 date=2026-10-05
+// ?Rva003C0308Do@@YGXHH_NHABVAsciiString@@H@Z
+// partial score=0.97 date=2026-10-05
 // cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /DNDEBUG /MD /EHsc /O1 /G7
 // ?Rva003C0308Do@@YGXHH_NHABVAsciiString@@H@Z @0x003C0308 285B via audio-event stack recreate with TheAudio Weapon PlayerList ScriptEngine callers
 //
