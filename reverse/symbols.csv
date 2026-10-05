@@ -13137,3 +13137,4 @@ _Rva00438083,0x00438083,Address-derived bool prompt helper directly called by 0x
 ?SetScenario@Rva0059EB6FSub@@QAEXH@Z,0x0044D5EE,wrapper-call spelling for the 0x59EB6F +0x40C sub-object call (thiscall 1 int arg; true callee matched as GameModePreferences::setStrategicScenario); target REL32 from retail call at 0x0059EB9D
 ?g_rva0059EB6FInfo@@3PAURva0059EB6FInfo@@A,0x00E02320,info singleton tested and slot-0xDC-called by 0x59EB6F
 ?g_rva0059EB6FFlag@@3HA,0x00E02324,flag word gated by 0x59EB6F
+?DoRefresh@Rva005A5B38Box@@QAEXHPAX@Z,0x005A51B9,wrapper-call spelling for the 0x5A5B38 helper refresh (thiscall 2 args callee cleanup ret 8 verified; true callee unrowed 325B SEH body); target REL32 from retail call at 0x005A5B82
