@@ -162,6 +162,8 @@ public:
     static bool m_bInitFailed;
 };
 
+bool CAtlBaseModule::m_bInitFailed;
+
 class CAtlWinModule : public _ATL_WIN_MODULE70
 {
 public:
@@ -169,7 +171,7 @@ public:
     void Term();
 };
 
-extern HINSTANCE g_00E09E64;
+HINSTANCE g_00E09E64;
 
 CAtlWinModule::CAtlWinModule()
 {
