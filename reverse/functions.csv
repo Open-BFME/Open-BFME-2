@@ -62321,3 +62321,6 @@ _Rva007F5790Callback,,0x00661F40,15,Code/GameEngine/Source/GameNetwork/Rva007F70
 ??0Rva004ABDC3@@QAE@XZ,,0x004ABDC3,25,Code/GameEngine/Source/Common/Rva004ABDC3Ctor.cpp,matched,vtable plus set<AsciiString> at +4 and a cleared flag
 ?rva004A6FBF@Rva004A6FBF@@QAEMXZ,,0x004A6FBF,38,Code/GameEngine/Source/Common/Rva004A6FBFScan.cpp,matched,computer players get the module float doubled
 ?rva004A9715@Rva004A9715@@QAEMXZ,,0x004A9715,38,Code/GameEngine/Source/Common/Rva004A9715Scan.cpp,matched,worker-side computer scan float doubled at module+0x7C
+?rva005CD3AA@@YAXPAVRva005CD1A9@@PAX111@Z,,0x005CD3AA,147,Code/GameEngine/Source/Common/Rva005CD3AAFamily.cpp,matched,Refcounted Rva005CD257 factory helper
+?rva005CD43D@@YAXPAVRva005CD1A9@@PAX111@Z,,0x005CD43D,147,Code/GameEngine/Source/Common/Rva005CD3AAFamily.cpp,matched,Refcounted Rva005CD2A3 factory helper
+?rva005CD4D0@@YAXPAVRva005CD1A9@@PAX111@Z,,0x005CD4D0,147,Code/GameEngine/Source/Common/Rva005CD3AAFamily.cpp,matched,Refcounted Rva005CD2EF factory helper
