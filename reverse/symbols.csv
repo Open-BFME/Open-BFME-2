@@ -12309,3 +12309,9 @@ _ceil,0x00629934,CRT ceil thunk identified by native PE import slot 0x00BBA578 a
 ?insert@?$list@PAVRva00453B06Obj@@V?$allocator@PAVRva00453B06Obj@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVRva00453B06Obj@@U?$_Nonconst_traits@PAVRva00453B06Obj@@@_STL@@@2@U32@ABQAVRva00453B06Obj@@@Z,0x00453AB8,list insert for push_back 0x00453B06
 ?insert@?$list@PAVRva00467DB3Obj@@V?$allocator@PAVRva00467DB3Obj@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVRva00467DB3Obj@@U?$_Nonconst_traits@PAVRva00467DB3Obj@@@_STL@@@2@U32@ABQAVRva00467DB3Obj@@@Z,0x00467D8E,list insert for push_back 0x00467DB3
 ?insert@?$list@PAVRva005CD018Obj@@V?$allocator@PAVRva005CD018Obj@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVRva005CD018Obj@@U?$_Nonconst_traits@PAVRva005CD018Obj@@@_STL@@@2@U32@ABQAVRva005CD018Obj@@@Z,0x005CCED5,list insert for push_back 0x005CD018
+??$fill_n@PAEIABE@_STL@@YAPAEPAEIABE@Z,0x000AD829,uchar fill_n for overflow 0x000AFB2E
+?allocate@?$allocator@E@_STL@@SAPAEIPBX@Z,0x000307F0,ICF char allocate
+?_M_erase@?$list@URva00416939Pod@@V?$allocator@URva00416939Pod@@@_STL@@@_STL@@QAEXU?$_List_iterator@URva00416939Pod@@U?$_Nonconst_traits@URva00416939Pod@@@2@@2@@Z,0x004168D3,erase for pop_front 0x00416939
+?_M_erase@?$list@URva0073F026Pod@@V?$allocator@URva0073F026Pod@@@_STL@@@_STL@@QAEXU?$_List_iterator@URva0073F026Pod@@U?$_Nonconst_traits@URva0073F026Pod@@@2@@2@@Z,0x0073EFFC,erase for pop_front 0x0073F026
+?erase@?$list@URva00416939Pod@@V?$allocator@URva00416939Pod@@@_STL@@@_STL@@QAE?AU?$_List_iterator@URva00416939Pod@@U?$_Nonconst_traits@URva00416939Pod@@@_STL@@@2@U32@@Z,0x004168D3,erase for pop_front 0x00416939
+?erase@?$list@URva0073F026Pod@@V?$allocator@URva0073F026Pod@@@_STL@@@_STL@@QAE?AU?$_List_iterator@URva0073F026Pod@@U?$_Nonconst_traits@URva0073F026Pod@@@_STL@@@2@U32@@Z,0x0073EFFC,erase for pop_front 0x0073F026
