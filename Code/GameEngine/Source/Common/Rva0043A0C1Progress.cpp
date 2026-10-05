@@ -1,5 +1,3 @@
-// ?rva0043A0C1@Rva0043A0C1@@QAEXH@Z
-// partial score=0.97 date=2026-10-05
 // cl: /O1 /DNDEBUG /MD
 // ?rva0043A0C1@Rva0043A0C1@@QAEXH@Z @0x0043A0C1 156B
 // LoadScreen progress refresh: inits +0x18 panel once via rowed 0x0057E24B
@@ -130,8 +128,7 @@ void Rva0043A0C1::rva0043A0C1(int percent)
 				TheNetwork->s35(percent);
 			TheNetwork->s15(0);
 		} else if (percent <= 100) {
-			int v = m_88->getValue();
-			TheGameLogic->processProgress(percent, v);
+			TheGameLogic->processProgress(m_88->getValue(), percent);
 		}
 	}
 	((LoadScreen *)this)->LoadScreen::update(percent);

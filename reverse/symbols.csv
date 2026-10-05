@@ -12296,3 +12296,4 @@ _ceil,0x00629934,CRT ceil thunk identified by native PE import slot 0x00BBA578 a
 ?_AptGetAnimationAtLevel@@YAPAVAptCIH@@H@Z,0x006CC530,Original APT ABI and native709870 call or unwind target; existing providers aliased where recovered
 ??1AptObject@@MAE@XZ,0x006D6470,Original APT ABI and native709870 call or unwind target; existing providers aliased where recovered
 ??3AptPrototype@@SAXPAXI@Z,0x006F12F0,Original APT ABI and native709870 call or unwind target; existing providers aliased where recovered
+?rva0057DFFB@Rva0057E3DB@@QAE_NH@Z,0x0057DFFB,finish 0x0043A0C1 uses al return for m_D0
