@@ -1710,55 +1710,8 @@ bool WW3D::Is_Movie_Ready()
  *   5/19/99    GTH : Created.                                                                 *
  *   2/26/2001  hy : Updated to dx8                                                            *
  *=============================================================================================*/
-// ?Update_Movie_Capture@WW3D@@ present-unmatched
-void WW3D::Update_Movie_Capture( void )
-{
-#ifdef _WINDOWS
-	WWASSERT( IsCapturing);
-	WWPROFILE("WW3D::Update_Movie_Capture");
-	WWDEBUG_SAY(( "Updating\n"));
+// Byte-exact capture copy lives in WW3DUpdateMovieCapture.cpp.
 
-		// Lock front buffer and copy
-
-	IDirect3DSurface8 *fb;
-	fb=DX8Wrapper::_Get_DX8_Front_Buffer();
-	D3DSURFACE_DESC desc;
-	fb->GetDesc(&desc);
-
-	RECT bounds;
-	GetWindowRect(_Hwnd,&bounds);
-
-	D3DLOCKED_RECT lrect;
-
-	DX8_ErrorCode(fb->LockRect(&lrect,&bounds,D3DLOCK_READONLY));
-
-	unsigned int x,y,index,index2,width,height;
-
-	width=bounds.right-bounds.left;
-	height=bounds.bottom-bounds.top;
-
-	char *image=(char *)Movie->GetBuffer();
-
-	for (y=0; y<height; y++)
-	{
-		for (x=0; x<width; x++)
-		{
-			// index for image
-			index=3*(x+(height-y-1)*width);
-			// index for fb
-			index2=y*lrect.Pitch+4*x;
-
-			image[index]=*((char *) lrect.pBits + index2+0);
-			image[index+1]=*((char *) lrect.pBits + index2+1);
-			image[index+2]=*((char *) lrect.pBits + index2+2);
-		}
-	}
-
-	fb->Release();
-
-	Movie->Grab(image);
-#endif
-}
 
 
 /***********************************************************************************************
