@@ -12929,3 +12929,5 @@ _Rva00337999Forward,0x00337999,REL32 callee decoded from target call bytes of wr
 ?headB@Rva00066A9ASub@@QAEXXZ,0x0007E89C,pin for 0x66A9A global call
 ?tailA@Rva00066A9ASub@@QAEXXZ,0x000EA1F3,pin for 0x66A9A tail call
 ?tailB@Rva00066A9ASub@@QAEXXZ,0x000E6FC8,pin for 0x66A9A tail jmp
+?eraseAux@Rva00082C98Vec@@QAEXPAX0@Z,0x00081A24,pin for 0x82C98 erase
+?helperAux@Rva00082C98Vec@@QAEXPAHIPAX@Z,0x00082719,pin for 0x82C98 helper
