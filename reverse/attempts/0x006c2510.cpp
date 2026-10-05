@@ -1,12 +1,53 @@
 // ?rva006C2510@Rva006C1F60@@QAEIPADHPAPAD@Z
-// partial score=0.98 date=2026-10-05
+// partial score=0.985 date=2026-10-05
 // cl: /O2 /MD /EHsc
+// ?rva006C2510@Rva006C1F60@@QAEIPADHPAPAD@Z @ 0x006C2510 (215B)
 // Unlock lane: landing it makes 0x006C26F0 and 0x006C4730 ready.
 // Evidence: lock at +0x4e4 with AddRef 0x00030DD0 / Release 0x00030DF0 (same
 // layout as Rva006C1F60::rva006C1EB0); hash find at +0x684 via 0x006C1850
 // (key>>3)%bucketCount row; trailing-length helper 0x006C1FE0 stdcall row;
 // ret 0xC three args; thiscall (reads ecx first). Retail 0x006C2510 (215B).
 // Same class as Rva006C1F60 (lock at +0x4E4), extended to +0x684 hash.
+//
+// THE SHAPE THAT IS EXACT, and why the previous banks could not see it.
+// Retail materialises base and size as two SEPARATE registers across the
+// out!=0 arm:
+//
+//   8b 74 24 18   mov  esi,[esp+0x18]   ; out
+//   85 f6         test esi,esi
+//   8b c8         mov  ecx,eax          ; size
+//   8b c2         mov  eax,edx          ; base
+//   66 8b 54 08 f6 mov dx,[eax+ecx-0xa] ; trail, INDEXED by the 32-bit size
+//   74 0b         je   0x6c2573
+//   0f b7 fa      movzx edi,dx
+//   2b c7         sub  eax,edi
+//   8d 44 08 f6   lea  eax,[eax+ecx-0xa]
+//   89 06         mov  [esi],eax
+//   0f b7 f2      movzx esi,dx
+//   83 c6 02      add  esi,2
+//
+// Every earlier attempt (three passes, 4x4 load/store spellings crossed with
+// forceinline helper splits) emitted 213B: VC7 folds the trailing-word load
+// into ONE SIB displacement `mov cx,[eax+edx-0xa]` with the word zero-extended
+// into ecx, because the ONLY use of `size` is that displacement and a
+// displacement never needs a register. That saves the two `mov`s and the
+// `movzx`, which is exactly why it is two bytes short.
+//
+// What changes the decision is giving `size` a second, LONGER-LIVED use: the
+// named `off = size - 10` below is consumed by BOTH the trail load and the body
+// store, so it is live ACROSS the load and the allocator must give it a
+// register. VC7 then keeps size in ecx, reloads base into eax and emits the
+// indexed form; it still folds `off` into the -0xa displacement, so the `off`
+// local costs nothing.
+//
+// The store is spelled `(base - trail) + off`, which is retail's own
+// reassociation -- `sub eax,edi` then `lea eax,[eax+ecx-0xa]`. The
+// `base + off - trail` spelling gives the same bytes.
+//
+// Both arms return trail+2; only the store is conditional, and retail
+// duplicates the `movzx/add 2` per arm while sharing one jmp. Do not collapse
+// the two arms into a single `result = trail + 2` after a guarded store -- that
+// is 208B (verified): it drops the je target's block and shortens both arms.
 struct Rva00030DD0Lock;
 int Rva00030DD0AddRef(Rva00030DD0Lock *lock);
 int Rva00030DF0Release(Rva00030DD0Lock *lock);
@@ -56,24 +97,10 @@ private:
 	Rva006C1850 m_hash;
 };
 
-
-// Forceinline helpers: retail materialises base and size as separate operands
-// at 0x006C255D, which an inlined call expression reproduces where a folded
-// pointer expression does not.
-static __forceinline char *rva006C2510Field(char *base, unsigned int size)
-{
-	return base + size - 10;
-}
-
-static __forceinline unsigned short rva006C2510Trail(char *base, unsigned int size)
-{
-	return *(unsigned short *)(base + size - 10);
-}
-
 // ?rva006C2510@Rva006C1F60@@QAEIPADHPAPAD@Z present-unmatched
 // Both arms return trail+2. The store happens only when out!=0; retail tests
 // the out pointer (test esi,esi) and the je skips the body store, not the
-// result. retail form for the body is (base - trail) + (size - 10).
+// result. `off` is what keeps size live in a register.
 unsigned int Rva006C1F60::rva006C2510(char *base, int type, char **out)
 {
 	Rva00030DD0Lock *lock = m_lock;
@@ -90,9 +117,10 @@ unsigned int Rva006C1F60::rva006C2510(char *base, int type, char **out)
 			size = (h & 0x7ffffff8) + 4;
 		else
 			size = h & 0x7ffffff8;
-		unsigned short trail = rva006C2510Trail(base, size);
+		unsigned int off = size - 10;
+		unsigned short trail = *(const unsigned short *)(base + off);
 		if (out != 0) {
-			*out = rva006C2510Field(base, size) - trail;
+			*out = (char *)(base - trail) + off;
 			result = trail + 2;
 		}
 		else
