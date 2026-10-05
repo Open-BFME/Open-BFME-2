@@ -1,0 +1,25 @@
+// cl: /O1 /MD /DNDEBUG
+// The already-covered29B copy wrapper at3F6619 is rehomed here.
+// Its legacy ledger name is a code-generation alias; object-symbol names
+// the address-derived C++ definition below. Native29 ignores the fourth
+// argument and delegates to the rowed50B3F6477 copy loop with a tag and
+// null distance pointer. The declaration consumes only that proven ABI.
+// Record width28 follows the copy loop; full application layout/name and
+// the original empty-tag parameter spelling are unproved. This view passes
+// a const-reference tag as the range-erase caller3F6975 visibly does.
+// Existing STLport donor source still emits an exact copy of the old wrapper;
+// the row moves once and does not claim a second retail range.
+struct Rva003F6975Record {~Rva003F6975Record();unsigned char consumed[28];};
+struct Rva003F6975Empty {};
+// ?Rva003F6477Tag::Rva003F6477Tag absent-from-retail
+// Empty dispatch-tag constructor is inlined; there is no retail body.
+struct Rva003F6477Tag {Rva003F6477Tag(){}};
+Rva003F6975Record* rva003F6477Copy(Rva003F6975Record*,Rva003F6975Record*,Rva003F6975Record*,const Rva003F6477Tag&,int*);
+// ??$__copy_ptrs@PAUBfmeAssignRecord28@@PAU1@@_STL@@YAPAUBfmeAssignRecord28@@PAU1@00U__false_type@0@@Z
+__declspec(noinline) Rva003F6975Record* rva003F6619Copy(Rva003F6975Record*first,Rva003F6975Record*last,Rva003F6975Record*out,const Rva003F6975Empty&) {
+ return rva003F6477Copy(first,last,out,Rva003F6477Tag(),0);
+}
+
+#pragma comment(linker, "/alternatename:?rva003F6477Copy@@YAPAURva003F6975Record@@PAU1@00ABURva003F6477Tag@@PAH@Z=??$__copy@PAUBfmeAssignRecord28@@PAU1@H@_STL@@YAPAUBfmeAssignRecord28@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z")
+
+#pragma comment(linker, "/alternatename:??$__copy_ptrs@PAUBfmeAssignRecord28@@PAU1@@_STL@@YAPAUBfmeAssignRecord28@@PAU1@00U__false_type@0@@Z=?rva003F6619Copy@@YAPAURva003F6975Record@@PAU1@00ABURva003F6975Empty@@@Z")
