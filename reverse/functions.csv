@@ -56579,3 +56579,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva0002BF4A@Rva0002BF4A@@QAEXXZ,,0x0002BF4A,66,Code/GameEngine/Source/Common/System/Rva0002BF4AClear.cpp,matched,thiscall clear with None plus empty plus globals
 ??$__unguarded_insertion_sort@PAUS4SortElem20@@US4Cmp002EB8E0@@@_STL@@YAXPAUS4SortElem20@@0US4Cmp002EB8E0@@@Z,,0x003376BA,23,Code/Libraries/Source/WWVegas/WWLib/stlport_unguarded_insertion_sort_s4sortelem20b.cpp,matched,pin callee 0x00337555 rowed caller matched
 ?Rva00417FF0Parse@@YAXPAVINI@@PAX1PBX@Z,,0x00417FF0,112,Code/GameEngine/Source/Common/Rva00417FF0Finish.cpp,matched,BonusForLevel parse; throws via rowed INIException filler 0x2F681 and pinned _CxxThrowException 0x629094
+??4Rva0051F6DF@@QAEAAV0@ABV0@@Z,,0x0051F6DF,206,Code/GameEngine/Source/Common/Rva0051F6DFFinish.cpp,matched,vector operator= 20-byte element; copy tag is its own local not derived from another local's address

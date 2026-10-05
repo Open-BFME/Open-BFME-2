@@ -1,5 +1,5 @@
 // ??4Rva0051F6DF@@QAEAAV0@ABV0@@Z
-// partial score=0.96 date=2026-10-01
+// Seat-4 finish pass from the 0.96 bank
 // ??4Rva0051F6DF@@QAEAAV0@ABV0@@Z
 // partial score=0.9 date=2026-09-29
 // cl: /O1 /G7
@@ -56,7 +56,6 @@ private:
 
 typedef Rva0039B893 *(__cdecl *Copy4Fn)(Rva0039B893 *first, Rva0039B893 *last, Rva0039B893 *result, void *tag);
 
-// ??4Rva0051F6DF@@QAEAAV0@ABV0@@Z present-unmatched
 Rva0051F6DF &Rva0051F6DF::operator=(const Rva0051F6DF &other)
 {
 	if (&other == this)
@@ -64,6 +63,11 @@ Rva0051F6DF &Rva0051F6DF::operator=(const Rva0051F6DF &other)
 	Rva0039B893 *otherFinish = other.m_finish;
 	unsigned otherSize = otherFinish - other.m_start;
 	unsigned cap = m_end - m_start;
+	// The copy tag is its own stack object. Deriving it from another local's
+	// address (the banked attempt used (char *)&otherFinish + 15) ties its
+	// frame slot to that local's, so the compiler places the two adjacently and
+	// the lea displacements move together; retail keeps them independent.
+	const _STL::__false_type tag;
 	if (otherSize > cap) {
 		Rva0039B893 *newStart = ((Rva0051ED51Holder *)this)->rva0051ED51(otherSize, other.m_start, otherFinish);
 		((Rva00565A42 *)this)->rva00565A42();
@@ -72,14 +76,17 @@ Rva0051F6DF &Rva0051F6DF::operator=(const Rva0051F6DF &other)
 	} else {
 		unsigned thisSize = m_finish - m_start;
 		if (thisSize >= otherSize) {
-			Rva0039B893 *newEnd = (Rva0039B893 *)((Copy4Fn)Rva0039BD9BCopy)(other.m_start, otherFinish, m_start, (void *)((char *)&otherFinish + 15));
+			Rva0039B893 *newEnd = (Rva0039B893 *)((Copy4Fn)Rva0039BD9BCopy)(other.m_start, otherFinish, m_start, (void *)&tag);
 			Rva0022C8E3DestroyRange((Rva0052BF9BElem *)newEnd, (Rva0052BF9BElem *)m_finish);
 		} else {
 			Rva0039B893 *mid = other.m_start + thisSize;
-			((Copy4Fn)Rva0039BD9BCopy)(other.m_start, mid, m_start, (void *)((char *)&otherFinish + 15));
+			((Copy4Fn)Rva0039BD9BCopy)(other.m_start, mid, m_start, (void *)&tag);
 			unsigned thisSize2 = m_finish - m_start;
 			Rva0039B893 *mid2 = other.m_start + thisSize2;
-			Rva0039BA22UninitCopy(mid2, otherFinish, m_finish, *(const _STL::__false_type *)((char *)&otherFinish + 15));
+			// Re-read other.m_finish at the call site rather than reusing the
+			// spilled otherFinish local: retail pushes [edi+0x4] here, which is
+			// the field itself, not the frame slot holding a copy of it.
+			Rva0039BA22UninitCopy(mid2, other.m_finish, m_finish, tag);
 		}
 	}
 	m_finish = m_start + otherSize;
