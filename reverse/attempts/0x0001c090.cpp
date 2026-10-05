@@ -1,4 +1,6 @@
 // ?register_callback@ios_base@_STL@@QAEXP6AXW4event@12@AAV12@H@ZH@Z
+// partial score=0.97 date=2026-10-05
+// ?register_callback@ios_base@_STL@@QAEXP6AXW4event@12@AAV12@H@ZH@Z
 // partial score=0.97 date=2026-10-03
 // ?register_callback@ios_base@_STL@@QAEXP6AXW4event@12@AAV12@H@ZH@Z
 // cl: /O2 /Ob0 /MD

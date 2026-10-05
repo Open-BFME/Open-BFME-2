@@ -1,4 +1,6 @@
 // ?Create_GDI_Font@FontCharsClass@@AAEXPBD@Z
+// partial score=0.9 date=2026-10-05
+// ?Create_GDI_Font@FontCharsClass@@AAEXPBD@Z
 // partial score=0.9 date=2026-09-21
 // ?Create_GDI_Font@FontCharsClass@@AAEXPBD@Z
 // cl: /arch:SSE /G7 /DNDEBUG /MD /EHsc /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/shims/sweep
