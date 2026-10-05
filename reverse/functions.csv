@@ -62026,3 +62026,4 @@ _Rva007F5790Callback,,0x00661F40,15,Code/GameEngine/Source/GameNetwork/Rva007F70
 ?rva002628C3@Rva002628C3@@QAEXPAXHH@Z,,0x002628C3,29,Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003328EDChain.cpp,matched,ScriptEngine event-spy adapter to pinned 0x3328ED via Object+0x258 module and this+0x224 plus object+0x74
 ?ObjectSpy@@YAHPAUlua_State@@@Z,,0x00335B88,218,Code/GameEngine/Source/GameLogic/ScriptEngine/ObjectSpy.cpp,matched,BFME2 Lua ObjectSpy via rowed lookup-findObject-tostring-nameToKey-invoke-bfmeFind-io_debug plus adapter 0x2628C3; module +0x258
 ?rva0002CBCC@INI@@QAEXABVAsciiString@@D@Z,,0x0002CBCC,108,Code/GameEngine/Source/Common/System/INI_pushBackToken.cpp,matched,
+?Rva0002CEB5ApplyFields@@YA_NPAXPBUFieldParse@@PAURva0002CF86View@@@Z,,0x0002CEB5,169,Code/GameEngine/Source/Common/System/INI_mixerFieldEdit.cpp,matched,
