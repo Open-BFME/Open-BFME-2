@@ -62839,3 +62839,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva007B7A91@@YAXXZ,,0x007B7A91,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00DFF148 tail-jmp pinned Rva00200667 dtor 0x00200667
 ?rva007B6EF4@@YAXXZ,,0x007B6EF4,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00DEC174 tail-jmp pinned Rva004E5A24 dtor 0x000FB86C
 ??$__copy_backward_ptrs@PAURva002B3049Record@@PAU1@@_STL@@YAPAURva002B3049Record@@PAU1@00ABU__false_type@0@@Z,,0x002B4623,29,Code/Libraries/Source/WWVegas/WWLib/StlHelperRva002B3049.cpp,matched,STLport4.5.3 ptrs wrapper via rowed 0x002B3049; exact 29B
+?setControlBarScheme@ControlBarSchemeManager@@QAEXVAsciiString@@@Z,,0x0031FC6A,163,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarScheme_setControlBarScheme.cpp,matched,BFME1 donor setControlBarScheme via find TheDisplay init AsciiString inline
