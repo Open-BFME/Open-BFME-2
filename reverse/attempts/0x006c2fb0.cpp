@@ -3,18 +3,17 @@
 // ?rva006C2FB0@Rva006C2D20Sink@@QAEXPBD0@Z
 // cl: /O2 /DNDEBUG /MD
 //
-// Retail body 0x006C2FB0, 100 bytes. Log/chat line formatter: it copies the
-// second stack argument into a 0x300-byte stack buffer, appends a newline after
-// it, then hands the REMAINDER of the buffer plus the first stack argument and
-// the remaining room to a thiscall sink on `this`.
+// Log/chat line formatter, 0x006C2FB0, 100 bytes. Copies the second stack
+// argument into a 0x300-byte stack buffer, appends a newline after it, then
+// hands the REMAINDER of the buffer plus the first stack argument and the
+// remaining room to a thiscall sink on `this`.
 //
 // Two decisions carry this body to retail's bytes:
 //
 //  - The sink's arguments are declared (text, tail, room), not (dst, src, room).
 //    Retail's tail is `lea eax,[esp+eax+0xd]` / `push eax` / `push edx`, and the
 //    pushed register is the reloaded FIRST stack argument, so the buffer pointer
-//    is the sink's SECOND parameter and `text` is its FIRST. The bank had this
-//    reversed, which is what emitted the `push edx / push eax` pair.
+//    is the sink's SECOND parameter and `text` is its FIRST.
 //
 //  - The length is `sub eax,esi` against a base taken BEFORE the walk from the
 //    walk's own pointer, so the base register is the walk cursor and the
@@ -30,7 +29,7 @@ void Rva006C2D20Sink::rva006C2FB0(const char *text, const char *extra)
 {
 	char buffer[0x300];
 	const char *copy = extra;
-	const char *base = copy + 1;
+	const char *base = (copy = extra, copy + 1);
 	char c;
 	do
 	{
