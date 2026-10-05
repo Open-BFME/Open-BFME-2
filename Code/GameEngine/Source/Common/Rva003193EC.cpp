@@ -91,6 +91,7 @@ public:
 	void rva003190E7(bool flag);
 	void rva003198B8(Rva003193EC *other);
 	void rva003191B1();
+	void rva003192B1();
 private:
 	char m_pad00[8];
 	Rva0031980CList m_list08;
@@ -144,5 +145,10 @@ void Rva003193EC::rva003191B1()
 		return;
 	if (((Rva003FDEAD *)m_88) != 0)
 		((Rva003FDEAD *)m_88)->rva003FDEAD();
+	rva003190E7(false);
+}
+
+void Rva003193EC::rva003192B1()
+{
 	rva003190E7(false);
 }
