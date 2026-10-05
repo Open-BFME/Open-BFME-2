@@ -16,3 +16,7 @@ struct Rva0008B5B5Record { unsigned int unknown[6]; Rva0008B5B5Record(const Rva0
 namespace _STL {template<> __declspec(nothrow) void _Construct<Rva0008B5B5Record,Rva0008B5B5Record>(Rva0008B5B5Record*,const Rva0008B5B5Record&);}
 template Rva0008B5B5Record* _STL::vector<Rva0008B5B5Record>::_M_allocate_and_copy<Rva0008B5B5Record*>(unsigned int,Rva0008B5B5Record*,Rva0008B5B5Record*);
 #pragma comment(linker, "/alternatename:??$_Construct@URva0008B5B5Record@@U1@@_STL@@YAXPAURva0008B5B5Record@@ABU1@@Z=?Rva0008A173Copy@@YAXPAVRva00089822@@ABV1@@Z")
+
+// Retail reserve [8B5B5,8B630),125B RET4 preserves size at stride24;
+// growth uses the full45B helper above then frees old storage at30830.
+template void _STL::vector<Rva0008B5B5Record>::reserve(unsigned int);
