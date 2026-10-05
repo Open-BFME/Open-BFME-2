@@ -462,13 +462,7 @@ void PeerThreadClass::trackStatsForPlayer(RoomType roomType, const char *nick, c
 	}
 }
 
-// ?packStatKey@PeerThreadClass@@ present-unmatched
-std::string PeerThreadClass::packStatKey(const char *nick, const char *key)
-{
-	std::string s = nick;
-	s.append(key);
-	return s;
-}
+// Stat-key concatenation is recovered in PeerThreadStats.cpp.
 
 // ?lookupStatForPlayer@PeerThreadClass@@ present-unmatched
 int PeerThreadClass::lookupStatForPlayer(RoomType roomType, const char *nick, const char *key)
