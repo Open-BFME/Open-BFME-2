@@ -62091,3 +62091,4 @@ _Rva007F5790Callback,,0x00661F40,15,Code/GameEngine/Source/GameNetwork/Rva007F70
 ?rva0021BCA7@Rva0021BCA7@@QAEPAXHI@Z,,0x0021BCA7,67,Code/GameEngine/Source/Common/System/Rva0021BCA7Find.cpp,matched,chain of 0x0021BC0D via vector map plus global g_00DFE344
 ?rva002EBD65@Pathfinder@@QAE_NW4ObjectID@@@Z,,0x002EBD65,52,Code/GameEngine/Source/GameLogic/AI/PathfinderQueueForPath.cpp,matched,second request ring at Pathfinder+0x1C9E8 same shape as queueForPath
 ?rva005FE9E0@Rva005FE974Vector@@QAEXI@Z,,0x005FE9E0,34,Code/Libraries/Source/WWVegas/WWLib/VectorResizeRva005FE974.cpp,matched,unlock via resize plus zeroed record
+?rva0057EA0F@Rva0057EE5C@@QAEXXZ,,0x0057EA0F,158,Code/GameEngine/Source/Common/Rva0057EA0F.cpp,matched,refresh via rowed getter and copy compare with vslot
