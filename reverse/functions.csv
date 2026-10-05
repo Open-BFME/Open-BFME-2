@@ -63426,3 +63426,7 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?fwd@Rva002A9CDEOwner@@QAEXHH@Z,,0x002A9CDE,18,Code/GameEngine/Source/Common/RvaNullCheckArgFwds2.cpp,matched,Address-derived null-checked member forward 2-arg; 18B/retN shape
 ?fwd@Rva002A9CF0Owner@@QAEXH@Z,,0x002A9CF0,18,Code/GameEngine/Source/Common/RvaNullCheckArgFwds2.cpp,matched,Address-derived null-checked member forward 1-arg; 18B/retN shape
 ?rva002A9DEC@Rva002A9BF2@@QAEXH@Z,,0x002A9DEC,18,Code/GameEngine/Source/Common/RvaNullCheckArgFwds2.cpp,matched,Address-derived null-checked member forward peer pin 1-arg; 18B/retN shape
+?Rva001ECB78@@YGXHHHH@Z,,0x001ECB78,25,Code/GameEngine/Source/Common/RvaTopByteFwds.cpp,matched,Address-derived top-byte forward: (a;b;c;&c+3) to stdcall worker; 25B shape
+?Rva001ECD19@@YGXHHH@Z,,0x001ECD19,25,Code/GameEngine/Source/Common/RvaTopByteFwds.cpp,matched,Address-derived top-byte forward (a;b;c;&c+3); 25B ebp-frame shape
+?Rva004F83F2@@YGXHHHH@Z,,0x004F83F2,25,Code/GameEngine/Source/Common/RvaTopByteFwds.cpp,matched,Address-derived top-byte forward (a;b;c;&c+3); 25B ebp-frame shape
+?Rva004F8B89@@YGXHHH@Z,,0x004F8B89,25,Code/GameEngine/Source/Common/RvaTopByteFwds.cpp,matched,Address-derived top-byte forward (a;b;c;&c+3); 25B ebp-frame shape
