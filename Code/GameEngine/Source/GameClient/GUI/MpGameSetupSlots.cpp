@@ -1185,6 +1185,100 @@ bool MpGameSetup::rva0043DD34(GameSlot *slot, int hero)
 	return true;
 }
 
+// Retail 0x004409D2, 206 bytes. Name unknown. When the +0x190 member's text
+// differs from the local slot's (game vslot 13) translated +0x1A8 name, sets
+// +0x2BB and hands the slot and text to owner vslot 13. Reached only
+// through 0x00440AA0 below.
+bool MpGameSetup::rva004409D2()
+{
+	GameInfo *game = (GameInfo *)m_game->rva0043DA65();
+	if (!game)
+		return false;
+	GameSlot *slot = game->getSlot(game->v13());
+	if (!slot)
+		return false;
+
+	UnicodeString text = m_190.rva0057F3A9();
+	UnicodeString name;
+	name.translate(((Rva003821B9AsciiField *)slot)->get());
+	bool result;
+	if (text.compare(name) == 0)
+		result = false;
+	else
+	{
+		m_2bb = true;
+		result = m_owner->v13(slot, text);
+	}
+	return result;
+}
+
+// The +0x190 member's own class (vftable 0x00C3D95C after
+// ??_GRva0043DAE0; base Rva0057F2DE).
+class Rva0043DAE0
+{
+public:
+	virtual ~Rva0043DAE0();
+	virtual void rva00440AA0();
+};
+
+// Retail 0x00440AA0, 16 bytes: Rva0043DAE0's vslot 1 hands the change to
+// the panel instance's 0x004409D2 (a tail jump).
+void Rva0043DAE0::rva00440AA0()
+{
+	MpGameSetup *setup = (MpGameSetup *)g_Va00E0333C;
+	if (setup)
+		setup->rva004409D2();
+}
+
+// Retail 0x00442A68, 266 bytes. Name unknown. A slot's player combo box
+// (+0x2D4) selection: for another than the local slot, a new state other
+// than 6 goes with the combo text to the owner's slot-state setter (vslot
+// 9); then 0x004424E7 refreshes the slot, +0x2B9 is set and, in mode 1,
+// opening or leaving an open slot (state 0) refreshes slots 1..7 through
+// 0x0043F483. Called from 0x00442DFF.
+bool MpGameSetup::rva00442A68(int index)
+{
+	GameInfo *game = (GameInfo *)m_game->rva0043DA65();
+	if (!game)
+		return false;
+	m_pending = false;
+	if (index == game->v13())
+		return false;
+
+	GameWindow *comboBox = m_player[index];
+	int selected;
+	GadgetComboBoxGetSelectedPos(comboBox, &selected);
+	if (selected < 0)
+		return false;
+	GameSlot *slot = game->getSlot(index);
+	if (!slot)
+		return false;
+	int oldState = slot->m_state;
+	int state = (int)GadgetComboBoxGetItemData(comboBox, selected);
+	if (state == oldState)
+		return false;
+	if (state == 6)
+		return false;
+
+	UnicodeString name = GadgetComboBoxGetText(comboBox);
+	bool result;
+	if (m_owner->setSlotState(slot, state, name))
+	{
+		rva004424E7(index);
+		result = true;
+		m_2b9 = true;
+		bool mode1 = m_60.m_mode == 1;
+		if (mode1 && (state == 0 || oldState == 0))
+		{
+			for (int i = 1; i < 8; ++i)
+				rva0043F483(i);
+		}
+	}
+	else
+		result = false;
+	return result;
+}
+
 // Retail 0x0044149C, 313 bytes. Name unknown. Checks a slot's hero against
 // its player template's side (7 without a template): template -2 clears the
 // hero (-1); otherwise a missing hero (when flag is set), a hero with the
