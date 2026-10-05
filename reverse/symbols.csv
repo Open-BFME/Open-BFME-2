@@ -12321,3 +12321,5 @@ _ceil,0x00629934,CRT ceil thunk identified by native PE import slot 0x00BBA578 a
 ??0Rva000795C1Record@@QAE@ABV0@@Z,0x000795C1,Sort5810B6 record copy alias; independently emitted29B matches existing key-plus-vector copy; layout16 and caller sites5810DC/58110D
 ?Rva00580D38FinishSort@@YAXPAPAX0VRva000795C1Record@@@Z,0x00580D38,Address-named callee read at581114; caller-cleaned two4-byte iterators and16-byte copied record; native splits insertion at16 elements
 ?Rva00580FD1IntroSort@@YAXPAPAX00HVRva000795C1Record@@@Z,0x00580FD1,Address-named callee read at5810FC; four4-byte arguments and16-byte copied record; native introsort threshold16 with supplied depth counter
+?Rva00580B5CInsertionSort@@YAXPAPAX0VRva000795C1Record@@@Z,0x00580B5C,Address-named insertion callee at580D6D/580D96; native EH frame takes two4-byte iterator endpoints plus same16-byte record
+?Rva00580BBFUnguardedSort@@YAXPAPAX0VRva000795C1Record@@@Z,0x00580BBF,Address-named unguarded insertion callee at580D86; native takes two4-byte iterator endpoints plus same16-byte record

@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /O1 /G7 /EHsc /MD
 // Native Ghidra5810B6..58113D RET0: two four-byte iterator endpoints and a
 // sixteen-byte by-value record. The original element/comparator names and
 // key meaning are unknown. A dword followed by a twelve-byte owned vector
@@ -30,5 +30,19 @@ void __cdecl Rva005810B6Sort(void **first, void **last, Rva000795C1Record compar
     if (first != last) {
         Rva00580FD1IntroSort(first,last,(void **)0,sort_depth(last-first)*2,compare);
         Rva00580D38FinishSort(first,last,compare);
+    }
+}
+
+void __cdecl Rva00580B5CInsertionSort(void **, void **, Rva000795C1Record);
+void __cdecl Rva00580BBFUnguardedSort(void **, void **, Rva000795C1Record);
+// Native580D38..580DBF/135B; STLport final insertion pass at threshold16.
+// /G7 reproduces the byte-sized alignment mask and schedules the record copy.
+// ?Rva00580D38FinishSort@@YAXPAPAX0VRva000795C1Record@@@Z
+void __cdecl Rva00580D38FinishSort(void **first, void **last, Rva000795C1Record compare) {
+    if (last-first > 16) {
+        Rva00580B5CInsertionSort(first,first+16,compare);
+        Rva00580BBFUnguardedSort(first+16,last,compare);
+    } else {
+        Rva00580B5CInsertionSort(first,last,compare);
     }
 }
