@@ -129,3 +129,67 @@ void Rva003F86B6List::apply(const Rva003F85D9Call &call)
 		i = m_index;
 	}
 }
+
+// ---- forEach 0x003F5224, walk 0x003F4C56: five-argument slots.  The record is
+// the six-dword Rva005E957C, filled by its rowed init 0x005E957C (which returns
+// the record), and its call 0x003F41A4 is not inlined, so the walk hands it
+// each listener.
+class Rva003F41A4Elem
+{
+public:
+	void Method(int a, int b, int c, int d, int e);
+};
+
+typedef void (Rva003F41A4Elem::*Rva003F41A4Fn)(int, int, int, int, int);
+
+class Rva005E957C
+{
+public:
+	Rva005E957C *rva005E957C(int a1, int a2, int a3, int a4, int a5, int a6);
+	void rva003F41A4(void *elem);
+
+private:
+	Rva003F41A4Fn m_fn;	// +0x00
+	int m_4;
+	int m_8;
+	int m_c;
+	int m_10;
+	int m_14;
+};
+
+void Rva005E957C::rva003F41A4(void *elem)
+{
+	Rva003F41A4Elem *e = (Rva003F41A4Elem *)elem;
+	(e->*m_fn)(m_4, m_8, m_c, m_10, m_14);
+}
+
+class Rva003F5224List
+{
+public:
+	void forEach(Rva003F41A4Fn fn, int a, int b, int c, int d, int e);
+	void apply(Rva005E957C &call);
+
+private:
+	Rva003F41A4Elem **m_begin;		// +0x00
+	Rva003F41A4Elem **m_end;		// +0x04
+	Rva003F41A4Elem **m_capacity;	// +0x08
+	unsigned int m_index;	// +0x0C
+};
+
+void Rva003F5224List::forEach(Rva003F41A4Fn fn, int a, int b, int c, int d, int e)
+{
+	Rva005E957C call;
+	apply(*call.rva005E957C(*(int *)&fn, a, b, c, d, e));
+}
+
+void Rva003F5224List::apply(Rva005E957C &call)
+{
+	unsigned int i = 0;
+	LatchRestore<unsigned int> latch(m_index, i);
+	while (i < (unsigned int)(m_end - m_begin))
+	{
+		m_index++;
+		call.rva003F41A4(m_begin[i]);
+		i = m_index;
+	}
+}
