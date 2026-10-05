@@ -11,6 +11,7 @@
 // Rva00308AA4Notifiers.cpp.
 //
 //   forEach     walk        arguments
+//   0x00359BE8  0x00359AEC  1
 //   0x00359C06  0x00359B59  3
 //
 // Identity is not recovered: lists and listeners are named after their
@@ -83,6 +84,56 @@ void Rva00359C06List::apply(const Rva00359B59Call &call)
 	{
 		m_index++;
 		(m_begin[i]->*call.notify)(call.arg, call.value, call.extra);
+		i = m_index;
+	}
+}
+
+// ---- forEach 0x00359BE8, walk 0x00359AEC: the list the rowed callers in
+// Rva0035A1D8Clear.cpp and Rva0035A9C1Dtor.cpp broadcast through, under the
+// names they declare (slots at +0x10 and others with the owner as argument).
+class Rva00359E04Owner;
+
+class Rva00359E04Listener
+{
+public:
+	virtual void notify00(Rva00359E04Owner *owner);
+};
+
+struct Rva00359AECCall
+{
+	void (Rva00359E04Listener::*notify)(Rva00359E04Owner *);
+	Rva00359E04Owner *owner;
+};
+
+class Rva00359BE8List
+{
+public:
+	void forEach(void (Rva00359E04Listener::*notify)(Rva00359E04Owner *), Rva00359E04Owner *owner);
+	void apply(const Rva00359AECCall &call);
+
+private:
+	Rva00359E04Listener **m_begin;		// +0x00
+	Rva00359E04Listener **m_end;		// +0x04
+	Rva00359E04Listener **m_capacity;	// +0x08
+	unsigned int m_index;	// +0x0C
+};
+
+void Rva00359BE8List::forEach(void (Rva00359E04Listener::*notify)(Rva00359E04Owner *), Rva00359E04Owner *owner)
+{
+	Rva00359AECCall call;
+	call.notify = notify;
+	call.owner = owner;
+	apply(call);
+}
+
+void Rva00359BE8List::apply(const Rva00359AECCall &call)
+{
+	unsigned int i = 0;
+	LatchRestore<unsigned int> latch(m_index, i);
+	while (i < (unsigned int)(m_end - m_begin))
+	{
+		m_index++;
+		(m_begin[i]->*call.notify)(call.owner);
 		i = m_index;
 	}
 }
