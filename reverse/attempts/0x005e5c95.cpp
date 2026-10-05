@@ -1,50 +1,29 @@
 // ?rva005E5C95@@YAPAPAVRva005E59C2@@PAPAV1@PBUPayload@1@@Z
-// partial score=0.9 date=2026-10-05
-// ?rva005E5C95@@YAPAPAVRva005E59C2@@PAPAV1@PBUPayload@1@@Z
-// partial score=0.9 date=2026-10-05
-// ?rva005E5C95@@YAPAPAVRva005E59C2@@PAPAV1@PBUPayload@1@@Z @0x005E5C95 50B
-// nothrow-style factory for rowed Rva005E59C2 (0x14B, payload ctor at
-// 0x005E59C2): explicit operator new (pinned ??2 0x0002FDA0) with null check,
-// placement construction, store-or-null to out, AddRef when non-null, return
-// out. Plain new never null-checks and std::nothrow has no operator-new pin,
-// so the check is spelled explicitly; it emits the same head. The rowed class
-// carries a virtual dtor; here the vtable slot is plain data (no virtuals
-// declared, nothing emitted) purely to hold sizeof at 0x14. Honest free
-// function name; the true factory identity is unproven.
-#include <new>
-
-// Forward nothrow-new to the game operator new so the TU can spell the
-// retail null-checked allocation without referencing an unpinned nothrow
-// overload. Static (like TU-local anchors elsewhere); inlines away.
-static inline void *operator new(unsigned int s, const std::nothrow_t &)
-{
-	return operator new(s);
-}
-
+// partial score=0.95 date=2026-10-05
+// cl: /O1 /GX- /MD /DNDEBUG
+// ?rva005E5C95@@YAPAPAVRva005E59C2@@PAPAV1@PBUPayload@1@@Z @0x005E5C95 50B factory news 0x14 Rva005E59C2 and stores with refcount inc.
+// Evidence: calls rowed new 0x0002FDA0 and rowed ctor 0x005E59C2; twin of 0x005E5C63 shape; unblocks 0x005E62F1.
 class Rva005E59C2
 {
 public:
 	struct Payload { int v[3]; };
-	Rva005E59C2(const Payload *src) throw();
-	void AddRef() { ++m_ref; }
-private:
-	void *m_vtbl; // +0 (rowed class has a virtual dtor; kept as data)
-	int m_ref; // +4
-	Payload m_data; // +8
+	Rva005E59C2(const Payload *src);
+	virtual ~Rva005E59C2();
+	int m_ref;
+	Payload m_data;
 };
 
-void *__cdecl operator new(unsigned int size);
+extern "C" void _ReadWriteBarrier();
+#pragma intrinsic(_ReadWriteBarrier)
 
-#pragma optimize("y", off)
-Rva005E59C2 **rva005E5C95(Rva005E59C2 **out, const Rva005E59C2::Payload *src)
+// ?rva005E5C95@@YAPAPAVRva005E59C2@@PAPAV1@PBUPayload@1@@Z present-unmatched
+Rva005E59C2 **__cdecl rva005E5C95(Rva005E59C2 **holder, const Rva005E59C2::Payload *src)
 {
-	volatile int eh_state = 0;
-	(void)eh_state;
-	Rva005E59C2 *obj = NULL;
-	obj = new (std::nothrow) Rva005E59C2(src);
-	*out = obj;
-	if (obj != NULL)
-		obj->AddRef();
-	return out;
+	volatile int _keep = 0;
+	_ReadWriteBarrier();
+	Rva005E59C2 *obj = new Rva005E59C2(src);
+	*holder = obj;
+	if (obj)
+		++obj->m_ref;
+	return holder;
 }
-#pragma optimize("", on)
