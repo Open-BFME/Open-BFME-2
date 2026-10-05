@@ -68,7 +68,7 @@ void __stdcall Rva004E40A6Enable(int unused)
 extern "C" int __cdecl atexit(void (__cdecl *routine)(void));
 extern void *g_Va00A0445C;
 extern const void *const g_00C621F0[];
-extern void __cdecl g_00BB8F26(void);
+void __cdecl rva007B8F26();
 // g_Va00A0445C: matched references place it at VA 0xe0445c (zero-filled .bss).
 void * g_Va00A0445C;
 extern unsigned char g_Va00A04460;
@@ -84,7 +84,7 @@ void *Rva004E4179Get(void)
 		g_Va00A04464 |= 1;
 		g_Va00A0445C = (void *)g_00C621F0;
 		g_Va00A04460 = 1;
-		atexit((void (__cdecl *)(void))g_00BB8F26);
+		atexit(rva007B8F26);
 	}
 	return &g_Va00A0445C;
 }
@@ -175,7 +175,7 @@ extern int g_Va00A03320;
 // g_Va00A03320: matched references place it at VA 0xe03320 (zero-filled .bss).
 int g_Va00A03320;
 extern const void *const g_00C3D690[];
-extern void __cdecl g_00BB83E1(void);
+void __cdecl rva007B83E1();
 void *Rva0043C9B3Get(void)
 {
 	if ((g_Va00A03320 & 1) == 0)
@@ -183,7 +183,7 @@ void *Rva0043C9B3Get(void)
 		g_Va00A03320 |= 1;
 		g_Va00A03318 = (void *)g_00C3D690;
 		g_Va00A0331C = 1;
-		atexit((void (__cdecl *)(void))g_00BB83E1);
+		atexit(rva007B83E1);
 	}
 	return &g_Va00A03318;
 }
