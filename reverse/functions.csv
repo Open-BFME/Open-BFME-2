@@ -63178,3 +63178,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?doFrameControls@AptMovie@@QAEXPAVAptDisplayList@@PAVAptCIH@@H@Z,,0x0070F370,559,Code/Libraries/Source/Apt/AptMovieFrameControls.cpp,matched,
 ?DoTemporaryFrameControls@AptMovie@@QAEXPAVAptPseudoDisplayList@@H@Z,,0x0070F040,776,Code/Libraries/Source/Apt/AptMovieFrameControls.cpp,matched,
 ?Insert@AptPseudoDisplayList@@QAEXPAUAptPseudoCIH_t@@@Z,,0x006F8380,101,Code/Libraries/Source/Apt/AptMovieFrameControls.cpp,matched,
+?Insert@AptPseudoDisplayList@@QAEXPAUAptPseudoCIH_t@@0@Z,,0x006F6B80,44,Code/Libraries/Source/Apt/AptMovieFrameControls.cpp,matched,
