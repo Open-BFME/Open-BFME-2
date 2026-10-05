@@ -12118,3 +12118,5 @@ _rva00286E33@8,0x00286E33,stdcall out-param 5B writer called from 0x287B2A with 
 ?Set@Rva000A9DF8ObjA@@QAEXH@Z,0x000A9851,address-derived thiscall single-int method; RETAIL REL32 at 0x000A9E04 in null-guarded forwarder 0x000A9DF8 targets this 44B Ghidra body; identity unproven
 ?Set@Rva000A9DF8ObjB@@QAEXH@Z,0x000A987D,address-derived thiscall single-int method; RETAIL REL32 at 0x000A9E16 in null-guarded forwarder 0x000A9E0A targets this 44B Ghidra body; identity unproven
 ?Set@Rva000A9DF8ObjC@@QAEXH@Z,0x004D971D,address-derived thiscall single-int method; RETAIL REL32 at 0x004D9ADA in null-guarded forwarder 0x004D9ACE targets this 33B Ghidra body; identity unproven
+??$_Destroy@PAURva0008B4AFElement@@@_STL@@YAXPAURva0008B4AFElement@@0@Z,0x0008AFDC,address-derived STLport _Destroy for this element view; RETAIL REL32 in vector clear 0x0008B4AF targets this 24B Ghidra body; identity unproven
+??$_Destroy@PAURva005C84D3Element@@@_STL@@YAXPAURva005C84D3Element@@0@Z,0x005C847B,address-derived STLport _Destroy for this element view; RETAIL REL32 in vector clear 0x005C84D3 targets this 25B Ghidra body; identity unproven
