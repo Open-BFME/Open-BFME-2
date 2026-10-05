@@ -29,7 +29,7 @@ struct AptImportFile {char pad[0x14]; AptCharacter *mainCharacter;};
 struct AptImport {int a,b,id; AptImportFile *file;};
 struct AptCharacterAnimation { AptMovie movie; char pad[8]; AptCharacter **characters; char rest[12];int importCount;AptImport *imports;
  int IsImport(int id) {for(int i=0;i<importCount;++i)if(imports[i].id==id)return i;return -1;}
- int GetIDFromImportFile(int); void ExecuteInitActions(AptCIH *,int);void ExecuteInitAction(AptCIH *,int);
+ int GetIDFromImportFile(int); void ExecuteInitActions(AptCIH *,int);void ExecuteInitAction(AptCIH *,int);void ExportClassDefinitionAssets(AptCIH *);
 };
 struct AptCharacter { int type; AptCharacter *parent; union { AptCharacterAnimation animation; void *sound; }; };
 struct AptCharacterInst { char pad[12]; AptCharacter *character; int hash,unknown,frame; };
@@ -231,3 +231,20 @@ void AptCharacterAnimation::ExecuteInitActions(AptCIH *inst,int id) {
 }
 
 #pragma comment(linker, "/alternatename:?rva00700090@Rva00700090@@QAEPAXPAURva00700090Info@@@Z=?PrepareForExecution@AptActionInterpreter@@QAEPAXPAUAptActionSetup@@@Z")
+
+// Donor456a41a94fdaff0f init-clip body; native omits later zombie-cleanup flag.
+void AptCharacterAnimation::ExecuteInitAction(AptCIH *inst,int id) {
+ for(int i=0;i<movie.frames->count;++i) {
+  AptControl *control=movie.frames->controls[i];
+  if(control->type==8 && control->init.sprite==id) {
+   ExportClassDefinitionAssets(inst);
+   Rva00700090Info setup={inst,0,"AptImported_Init_Actions",0x100000};
+   void *saved=((Rva00700090 *)&g_aptDateInterpreter)->rva00700090(&setup);
+   void *character=inst ? ((Rva006CD650 *)inst->rva006E0CB0())->rva006CD650() : 0;
+   ((Rva007002C0 *)&g_aptDateInterpreter)->rva007002C0(movie.frames->controls[i]->init.stream,inst,-1,character);
+   ((Rva00706950 *)&g_aptDateInterpreter)->rva00706950(saved,&setup);
+   control->init.sprite=-control->init.sprite;
+   break;
+  }
+ }
+}
