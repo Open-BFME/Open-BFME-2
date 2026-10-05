@@ -62210,3 +62210,4 @@ _Rva007F5790Callback,,0x00661F40,15,Code/GameEngine/Source/GameNetwork/Rva007F70
 ?rva002C9BC3@Rva002C9BC3Owner@@QAEXPAX0@Z,,0x002C9BC3,33,Code/GameEngine/Source/Common/Rva002C9BC3Forward.cpp,matched,
 ?rva002C9B80@Rva002C9B80Owner@@QAEXPAXM@Z,,0x002C9B80,67,Code/GameEngine/Source/Common/Rva002C9B80Array.cpp,matched,
 ?getDynamicGameLODLevelName@GameLODManager@@QAEPBDW4DynamicGameLODLevel@@@Z,,0x00202605,14,Code/GameEngine/Source/Common/GameLOD.cpp,matched,
+?buildFieldParse@ArmorUpgradeModuleData@@SAXAAVMultiIniFieldParse@@@Z,,0x00254580,91,Code/GameEngine/Source/GameLogic/Object/Upgrade/UpgradeModuleDataGetterBuildFieldParse.cpp,matched,Getter-head over rowed 0x4CE29D at extraOffset 8 via rowed add 0x2BC6E with one-time bit-guarded patch of own table 0xDBA870 and own-table add at 0; factory 0x2545DB pushes this proc; target-derived shape with no donor

@@ -15,8 +15,8 @@ typedef bool Bool;
 typedef const char *ConstCharPtr;
 typedef const ConstCharPtr *ConstCharPtrArray;
 
-// VeterancyLevelNames: the retail string table at VA 0xdbaa40.
-const char *VeterancyLevelNames[21] = {
+// VeterancyLevelNames: the retail string table at VA 0xdbaa40 (88B: 21 string pointers + NULL).
+const char *VeterancyLevelNames[22] = {
 	"VETERAN",
 	"ELITE",
 	"HERO",
@@ -38,6 +38,7 @@ const char *VeterancyLevelNames[21] = {
 	"CREATE_A_HERO_08",
 	"CREATE_A_HERO_09",
 	"CREATE_A_HERO_10",
+	0,
 };
 
 class INIException
