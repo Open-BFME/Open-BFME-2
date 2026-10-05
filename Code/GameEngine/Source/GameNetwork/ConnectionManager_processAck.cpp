@@ -76,7 +76,6 @@ protected:
 // Called from both the ACKBOTH and ACKSTAGE1 paths of processAck below. Kept
 // as a definition (not rowed) because removing it would change the caller's
 // inlining and therefore its bytes.
-// ?processAckStage1@BFMEConnectionManager@@IAEXPAVNetCommandMsg@@@Z present-unmatched
 void BFMEConnectionManager::processAckStage1(NetCommandMsg *msg) {
 	UnsignedByte playerID = msg->getPlayerID();
 	NetCommandRef *ref = 0;
