@@ -9142,3 +9142,7 @@ _VP6_ConfigureMvEntropyDecoder	0x001C6EF0	331	partial	third-loop pre-increment p
 ?Rva003C7A30Do@@YGXPAVParameter@@H@Z	0x003C7A30	195	partial	true-path store-load ordering movss vs mov t=25 model=muse-09 score=0.97 stash=reverse/attempts/0x003c7a30.cpp
 ?Rva003C7AF3Do@@YGXPAVParameter@@H@Z	0x003C7AF3	200	partial	true-path movss load-store ordering same wall as sibling 0x003C7A30 t=12 model=muse-09 score=0.97 stash=reverse/attempts/0x003c7af3.cpp
 ?Rva003C7276Get@@YAHXZ	0x003C7276	295	blocked	ScriptActions 295B EH_prolog plus AsciiString plus STL vector plus Team iteration plus ceil import plus 3 pin-only callees; needs full Team/ControlBar/vector models t=8 model=muse-09
+?rva004A1FDC@SlavedUpdate@@QAEXXZ	0x004A1FDC	360	blocked	complex 360B SlavedUpdate repair 15 callees float SSE x87 needs donor t=12 model=muse-12
+?rva004A1C77@SlavedUpdate@@QAEXXZ	0x004A1C77	452	blocked	complex 452B SlavedUpdate repair 20 callees SSE x87 same family as 0x004A1FDC t=5 model=muse-12
+?rva002821CF@Rva002821CF@@QAEPAU01@PAU01@@Z	0x002821CF	55	blocked	STL vector erase Payload copy vs Rva0027EA49 dtor type mismatch needs donor t=10 model=muse-12
+?rva000D6ABB@Rva000D6ABB@@QAEXXZ	0x000D6ABB	378	blocked	complex 378B W3D road buffer RefCountPtr VB IB EH states needs donor t=5 model=muse-12
