@@ -173,7 +173,37 @@ public:
 // ??0ClosestKindOfData@@QAE@XZ present-unmatched
 
 // iterateObjects callbacks defined static in Player.cpp (DIR32 operands, masked)
-void doPowerDisable( Object *obj, void *userData );
+// BFME tests KINDOF_POWERED inline on the template's KindOf bits: the template
+// pointer at Object+0x04, byte +0x110, bit 0x80.
+struct BfmePowerDisableTemplateView
+{
+	unsigned char m_padding[0x110];
+	unsigned char m_kindOf110;
+};
+
+struct BfmePowerDisableObjectView
+{
+	void *m_vtbl;
+	const BfmePowerDisableTemplateView *m_template;
+};
+
+// Player.cpp's doPowerDisable (0x002AAB8D, 47B): powered objects follow the
+// player's brown-out state; BFME's object iterator expects a nonzero return to
+// keep walking.
+int doPowerDisable( Object *obj, void *userData )
+{
+	Bool *brownOut = (Bool*)userData;
+
+	// Only do things that need power
+	if( obj && (((const BfmePowerDisableObjectView *)obj)->m_template->m_kindOf110 & 0x80) )
+	{
+		if( *brownOut )
+			obj->setDisabled( DISABLED_UNDERPOWERED );
+		else
+			obj->clearDisabled( DISABLED_UNDERPOWERED );
+	}
+	return 1;
+}
 void doFindCommandCenter(Object* obj, void* userData);
 
 // ?onPowerBrownOutChange@Player@@QAEX_N@Z @0x002AB8D0
@@ -185,7 +215,7 @@ void Player::onPowerBrownOutChange( Bool brownOut )
 	else
 		enableRadar(); //This doesn't give radar necessarily, it just removes the restriction
 
-	iterateObjects( doPowerDisable, &brownOut );// This function is so cool.
+	iterateObjects( (ObjectIterateFunc)doPowerDisable, &brownOut );// This function is so cool.
 }
 
 // ?grantScience@Player@@QAE_NW4ScienceType@@@Z @0x002AD85E
