@@ -47,6 +47,8 @@ unsigned char Rva0056BD91Pack(unsigned char a, unsigned char b,
 void Rva0056BDA5Split(unsigned char a, unsigned char b, unsigned char c,
 	unsigned char *out1, unsigned char *out2);
 
+void __cdecl Rva00559FAC(int mode, void *rules);
+
 class CreateAHeroData
 {
 public:
@@ -103,6 +105,7 @@ public:
 	bool isObserver() const;
 	unsigned char rva003FF16F() const;
 	bool rva003FF8B0(unsigned char v);
+	void rva003FF1A7(int v);
 	bool isOpen() const { return m_state == SLOT_OPEN; }
 	Int getPlayerTemplate() const { return m_playerTemplate; }
 
@@ -310,4 +313,16 @@ bool GameSlot::rva003FF8B0(unsigned char v)
 	m_54 = (int)hi2;
 	m_58 = (int)lo2;
 	return true;
+}
+
+// ?rva003FF1A7@GameSlot@@QAEXH@Z @0x003FF1A7 27B: mode setter at +0x5C with
+// rules reset at +0x60 via pinned Rva00559FAC 0x00559FAC. Early-out when the
+// stored mode already equals the new value. Evidence: +0x5C/+0x60 layout
+// matches GameSlot m_5c/m_60, pin-only callee YAXHPAX, 8 callers.
+void GameSlot::rva003FF1A7(int v)
+{
+	if (m_5c == v)
+		return;
+	m_5c = v;
+	Rva00559FAC(v, &m_60);
 }

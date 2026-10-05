@@ -60873,3 +60873,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva00529A7B@Rva00529A7B@@QAEXM@Z,,0x00529A7B,185,Code/GameEngine/Source/Common/Rva00529A7BRankProgress.cpp,matched,Rank progress Apt updater via literal and else-if
 ??1?$vector@URva0040DC56Element@@V?$allocator@URva0040DC56Element@@@_STL@@@_STL@@QAE@XZ,,0x002B703F,63,Code/GameEngine/Source/GameLogic/Object/Update/Rva002B703FDtor.cpp,matched,EH vector dtor Rva0040DC56Element via explicit instantiation beside Member44
 ??1BfmeAssignRecord52@@QAE@XZ,,0x002B707E,53,Code/GameEngine/Source/GameLogic/Object/Update/BfmeAssignRecord52Dtor.cpp,matched,pin plus chain vector dtor and Rva002B5558
+?rva003FF1A7@GameSlot@@QAEXH@Z,,0x003FF1A7,27,Code/GameEngine/Source/GameNetwork/GameInfoPlayerCounts.cpp,matched,GameSlot m_5c setter with Rva00559FAC reset at m_60 early-out on equal
