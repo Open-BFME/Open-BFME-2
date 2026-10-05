@@ -8719,3 +8719,8 @@ FUN_008e5559	0x004E5559	96	blocked	ctor 0x4E4F82 and dtor 0x4E5086 on same ebp-0
 ?rva00218468@FontLibrary@@QAEXPAVAsciiString@@PAMPAE@Z	0x00218468	278	blocked	first spilled to ebp-4 with size in edi vs ours t=5 model=muse-spark (stash 0.92 kept)
 ??0Render2DSentenceClass@@QAE@XZ	0x00157E80	368	partial	scheduling only: 1.0 load at +0xC8 vs +0x138; bytes 80 88 AC AD AE B0 order; +8B 376 vs 368; vtables gate-filled t=25 model=muse-06 score=0.95 stash=reverse/attempts/0x00157e80.cpp
 ?Rva00604251Construct@@YAPAVRva00603FD2@@PAV1@PBIABV?$_Rb_tree@IU?$pair@$$CBIPAX@_STL@@U?$_Select1st@U?$pair@$$CBIPAX@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@$$CBIPAX@_STL@@@2@@_STL@@@Z	0x00604251	27	blocked	v6 Oy- direct-call-plus-return 22/27 sole walls push-ecx-plus-and-ebp-4-zero local plus leave-vs-pop-ebp refuted new-placement plus direct-void plus dummy-local plus Oy- t=25 model=muse-14
+?rva006E3530@Rva006E34D0@@QAEXHHH@Z	0x006E3530	77	blocked	size-exact 77B O2 b7-hoist prefix exact but OR dest stays edx-esi not eax pop-misplaced t=18 model=muse-16
+FUN_00a22680	0x00622680	337	blocked	identity unprovable STL hashtable deque rbtree div no donor no vtable callers unclaimed 2742B 1347B t=5 model=muse-16
+FUN_00a22290	0x00622290	299	blocked	identity unprovable STL EH critsec hashtable rbtree div caller unclaimed t=3 model=muse-16
+FUN_007941fd	0x003941FD	341	blocked	vslot 341B EBP SSE float list traversal too big for session t=2 model=muse-16
+FUN_00863191	0x00463191	56	blocked	vslot104 needs 104-virt class plus this slot70 virtual call modeling beyond session t=8 model=muse-16
