@@ -26,7 +26,17 @@
 // anything source-visible. Measured by instruction-level comparison: 60 emitted
 // instructions against retail's 60, 57 of them identical, the three at [42]
 // [46] [49] identical once the obj's relocations are resolved against the
-// externs they name.
+// externs they name. With the relocations masked the residue is NINE bytes in
+// exactly two runs, and both are pure instruction order -- no opcode, operand,
+// displacement or branch target differs anywhere else in the body:
+//
+//   +0x0B-+0x10   retail  8d 73 08 57 8b f9   (lea / push edi / mov edi,ecx)
+//                 ours    57 8b f9 8d 73 08   (push edi / mov edi,ecx / lea)
+//   +0x39-+0x3B   retail  56 8b cf            (push esi / mov ecx,edi)
+//                 ours    8b cf 56            (mov ecx,edi / push esi)
+//
+// Both runs are the same length on both sides, which is what makes the body
+// size-exact at 155 and the score 0.995.
 //
 // 1. Prologue (+0x0B). Retail saves esi, computes the run, THEN saves edi and
 //    copies this:
@@ -84,6 +94,51 @@
 //    second lea of the same and of a different width. All either sink the copy,
 //    or emit a real instruction retail does not have.
 //
+//    WHAT IS NOW PROVEN is narrower than "the scheduler will not interpose": it
+//    will, and the order is a fixed PHASE rule rather than a competition between
+//    two competing instructions. Measured this round, full body, one variant per
+//    compile:
+//
+//    * The allocator emits the `this` copy with the callee-save group and the
+//      ebx-rooted `lea` after it, ALWAYS, in all sixteen shapes tried: a plain
+//      initialiser, the header load declared first, `register` on the run
+//      pointer, `register` on a `GeneralAllocatorDebug *me = this` alias,
+//      `register` on both, the address of either local taken into a named
+//      frame slot, both taken, a second ebx-rooted `lea` through a live second
+//      pointer, an explicit alias with a pointer-identity use, the header word
+//      read twice through two named loads, a volatile alias, and the alias
+//      spelling for the header. Every one emits
+//      `push esi / push edi / mov edi,ecx / lea esi,[ebx+8] / test eax,eax`,
+//      byte for byte the same 155-byte body. Nothing an explicit `this` local
+//      can say changes it: MSVC7 folds the alias straight back to the implicit
+//      `this`, so the copy is re-formed by the allocator and placed in phase 1
+//      whatever the source did. An alias that is NOT folded does move the
+//      allocation -- reading the header through `me` drops ebx and yields retail's
+//      five prologue instructions in retail's order with `run` in edi instead of
+//      `this` -- but it changes WHICH object the header is read from, so it is a
+//      wrong-object spelling rather than a candidate.
+//
+//    * The interposed-lea shapes put a REAL extra instruction in retail's +0x0B
+//      slot and displace retail's own `test eax,eax`, exactly as recorded above.
+//      The best of them is new and worth the detail: `run != 0 && !(header &
+//      (int)0x80000000)` emits
+//
+//          push ebx / mov ebx,[esp+8] / mov eax,[ebx+4] / push esi /
+//          lea esi,[ebx+8] / test esi,esi / push edi / mov edi,ecx /
+//          je +0x2a / test eax,eax / js
+//
+//      which is retail's exact +0x0B..+0x0F -- `push esi / lea esi,[ebx+8] /
+//      push edi / mov edi,ecx` -- with the lea genuinely in retail's slot. It
+//      fails because the `test esi,esi` it needs to justify the lea is a real
+//      six-byte test and a real `je` that retail does not have, and because
+//      MSVC7 moves retail's own `test eax,eax` down to +0x0D, giving 159B.
+//      The two artefacts trade against each other exactly once, so the prologue
+//      cannot be right by getting the lea alone.
+//
+//    * Net: the body needs retail's single prologue-rooted test in retail's slot
+//      AND an interposed address computation, and MSVC7 has no phase in which it
+//      emits an address computation between two callee-saves.
+//
 //    The sibling VerifyGuardFill 0x006C3020 is NOT the control it was taken
 //    for. Its file compiles byte-exact at /O2, but under a different shape: it
 //    opens `push ebp / mov ebp,[esp+8] / test BYTE PTR [ebp+4],4 / push edi`
@@ -125,6 +180,17 @@
 //    MSVC7 defaults a member typedef to __cdecl and rejects __thiscall in a
 //    typedef (error C4234). Every path trades this site for a worse one, and
 //    the body is left at its recorded 0.99.
+//
+//    Retails single-copy structure is what closes this site. Retail emits
+//    EXACTLY ONE `mov ecx,edi` in the body, the prologue copy: the call at +0xFC
+//    uses it directly with no reload, and the report at +0xFA has its own. So
+//    any spelling that reloads ecx at this call site must emit an instruction
+//    retail does not have, and any ecx trick that avoids the reload is a no-op
+//    MSVC7 deletes. Measured: a free-standing no-argument forwarding helper
+//    reached through a one-argument thiscall emits `mov ecx,edx / push esi /
+//    call`, the same ecx-first order, because the ecx copy for the OUTER call is
+//    the argument and is sunk with it. Site 2 is a consequence of site 1: it is
+//    retail's single allocator copy being reused rather than re-derived.
 
 // 0x00030E20: the CRT's internal aligned-fill memset, cdecl, three stack
 // arguments, returns the destination or null. It is not the CRT import thunk
