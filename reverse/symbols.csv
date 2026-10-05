@@ -14551,3 +14551,5 @@ _rva006F98C0Call,0x006F98C0,retail call at 0x006F9B84 supplies EAX ECX and two s
 ??1Rva001DF88CEntry@@QAE@XZ,0x001DDEC3,native REL32 from by-value resize 001DF88C or default wrapper 001DF8F8; opaque48B ABI
 ??0Rva001DF88CEntry@@QAE@XZ,0x001DE6E1,native REL32 from by-value resize 001DF88C or default wrapper 001DF8F8; opaque48B ABI
 ??0Rva0017480CRecord@@QAE@XZ,0x001736D6,native ctor call from default wrapper174A8A; canonical 32B provider alias
+?g_Rva007BAC1CEmpty@@3DA,0x007BAC1C,Native empty character VA00BBAC1C; alias canonical StringBase null character
+?apply@Rva00152CDA@@QAEXPAXPBDPBXI@Z,0x0015288F,Native four-argument thiscall REL32 from assignment152CDA; semantic identity unknown
