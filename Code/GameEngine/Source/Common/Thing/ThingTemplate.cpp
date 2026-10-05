@@ -827,21 +827,8 @@ void ThingTemplate::parseReplaceModule(INI *ini, void *instance, void *store, co
 //-------------------------------------------------------------------------------------------------
 /** mark the module(s) as being "Inheritable". */
 //-------------------------------------------------------------------------------------------------
-// ?ThingTemplate::parseInheritableModule present-unmatched
-void ThingTemplate::parseInheritableModule(INI *ini, void *instance, void *store, const void *userData)
-{
-	ThingTemplate* self = (ThingTemplate*)instance;	
+// Native inheritable-module parser lives in ThingTemplateParseInheritable.cpp.
 
-	ModuleParseMode oldMode = (ModuleParseMode)self->m_moduleParsingMode;
-	if (oldMode != MODULEPARSE_NORMAL)
-		throw INI_INVALID_DATA;
-
-	self->m_moduleParsingMode = MODULEPARSE_INHERITABLE;
-
-	ini->initFromINI(self, self->getFieldParse());
-
-	self->m_moduleParsingMode = oldMode;
-}
 
 
 //-------------------------------------------------------------------------------------------------

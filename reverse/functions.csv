@@ -56530,3 +56530,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?Rva003C8B62Do@@YGXABVAsciiString@@@Z,,0x003C8B62,105,Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003C8B62Do.cpp,matched,team wander via getTeamNamed plus locomotor plus aiWander
 ?rva004F48D8@Rva004F07E6@@QAEXXZ,,0x004F48D8,79,Code/GameEngine/Source/GameLogic/AI/Rva004F48D8.cpp,matched,vtable slot 18 class Rva004F07E6 pin bfmeTailDTK vslot 0x68 global g_Va00DBA4E4
 ?rva003C4145@BfmeApplierBH@@QAEXPAXABVAsciiString@@1@Z,,0x003C4145,117,Code/GameEngine/Source/Common/BfmeApplierBHRva003C4145.cpp,matched,BfmeApplierBH team power apply via getTeamNamed hasAnyObjects findSpecialPowerTemplate bfmeApplyBH
+?parseInheritableModule@ThingTemplate@@KAXPAVINI@@PAX1PBX@Z,,0x0033A561,84,Code/GameEngine/Source/Common/Thing/ThingTemplateParseInheritable.cpp,matched,ZH donor via BFME1 6583b3c1; native field entry DBF508 InheritableModule proves handler identity; mode5F8 and target exception
