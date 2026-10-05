@@ -12482,3 +12482,9 @@ _ceil,0x00629934,CRT ceil thunk identified by native PE import slot 0x00BBA578 a
 ?getVtblIndex@AptValue@@QBE?AW4AptVirtualFunctionTable_Indices@@XZ,0x006DBB30,Native isObjectOfType or DoesImplementObject call; original source and Godfather MAP signature; verified provider alias
 ?Lookup@AptNativeHash@@QBEPAVAptValue@@QBVEAStringC@@@Z,0x0070B380,Native isObjectOfType or DoesImplementObject call; original source and Godfather MAP signature; verified provider alias
 ?GetAt@AptArray@@QBEPAVAptValue@@H@Z,0x006D8A50,Native isObjectOfType or DoesImplementObject call; original source and Godfather MAP signature; verified provider alias
+?doFrameControls@AptMovie@@QAEXPAVAptDisplayList@@PAVAptCIH@@H@Z,0x0070F370,native jumpToFrame fast path REL32; donor frame controls with display-CIH-frame arguments; native559B supplier unrowed
+?DoTemporaryFrameControls@AptMovie@@QAEXPAVAptPseudoDisplayList@@H@Z,0x0070F040,native jumpToFrame frame walk REL32; donor temporary controls pseudo-list and frame; native776B supplier unrowed
+?mergeState@AptDisplayList@@QAEXPAVAptPseudoDisplayList@@PAVAptNativeHash@@_N@Z,0x006F9410,native jumpToFrame REL32 display24 receiver and pseudo-oldHash-forward args; donor mergeState; native921B supplier unrowed
+?queueFrameActions@AptMovie@@QAEXPAVAptCIH@@H@Z,0x0070F680,alias rowed rva0070F680 frame action queue; native jumpToFrame final REL32 and donor semantic role; alternatename provider
+?Destroy@AptPseudoDisplayList@@QAEPAV1@H@Z,0x006E2A00,alias rowed scalar deleting destructor body; native jumpToFrame conditional destroy flag1; alternatename provider
+??3AptPseudoDisplayList@@SAXPAXI@Z,0x006D8680,sized pool delete unwind counterpart to native8B allocation and ctor; existing node delete provider; alternatename provider
