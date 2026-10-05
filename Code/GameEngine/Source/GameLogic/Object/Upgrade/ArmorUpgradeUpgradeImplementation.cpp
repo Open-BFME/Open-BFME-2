@@ -63,15 +63,8 @@ class Object
 {
 public:
 	void rva0028AE6D();
-	BodyModuleInterface *getBodyModule() const { return m_body; }
-	__forceinline void setModelConditionState(unsigned int mc)
-	{
-		if (m_modelConditionFlags.test(mc) == 0)
-		{
-			m_modelConditionFlags.set(mc);
-			rva0028AE6D();
-		}
-	}
+	BodyModuleInterface *getBodyModule() const;
+	void setModelConditionState(unsigned int mc);
 	__forceinline void clearModelConditionState(unsigned int mc)
 	{
 		if (m_modelConditionFlags.test(mc) != 0)
@@ -80,13 +73,13 @@ public:
 			rva0028AE6D();
 		}
 	}
-private:
+public:
 	unsigned char m_pad000[0x10C];
 	ModelConditionFlags m_modelConditionFlags; // +0x10C
 	unsigned char m_pad158[0x254 - 0x158];
 	BodyModuleInterface *m_body; // +0x254
 };
-extern const unsigned int g_Va00DCC7C8[];
+extern const unsigned int g_00DCC7C8[];
 class ArmorUpgradeModuleData
 {
 public:
@@ -148,18 +141,23 @@ void ArmorUpgrade::upgradeImplementation()
 	if (!data || data->m_ignoreArmorUpgrade)
 		return;
 	rva004CE4A0();
-	BodyModuleInterface *body = object->getBodyModule();
+	BodyModuleInterface *body = object->m_body;
 	if (!body)
 		return;
 	if (data->m_killArmorUpgrade)
 	{
 		body->clearArmorSetFlag(data->m_armorSetFlag);
-		object->clearModelConditionState(g_Va00DCC7C8[data->m_armorSetFlag]);
+		object->clearModelConditionState(g_00DCC7C8[data->m_armorSetFlag]);
 	}
 	else
 	{
 		body->setArmorSetFlag(data->m_armorSetFlag);
-		object->setModelConditionState(g_Va00DCC7C8[data->m_armorSetFlag]);
+		unsigned int mc = g_00DCC7C8[data->m_armorSetFlag];
+		if (object->m_modelConditionFlags.test(mc) == 0)
+		{
+			object->m_modelConditionFlags.set(mc);
+			object->rva0028AE6D();
+		}
 	}
 }
 void ArmorUpgrade::upgradeRemovalImplementation()
@@ -170,18 +168,23 @@ void ArmorUpgrade::upgradeRemovalImplementation()
 	const ArmorUpgradeModuleData *data = (const ArmorUpgradeModuleData *)m_moduleData;
 	if (!data || data->m_ignoreArmorUpgrade)
 		return;
-	BodyModuleInterface *body = object->getBodyModule();
+	BodyModuleInterface *body = object->m_body;
 	if (body)
 	{
 		if (!data->m_killArmorUpgrade)
 		{
 			body->clearArmorSetFlag(data->m_armorSetFlag);
-			object->clearModelConditionState(g_Va00DCC7C8[data->m_armorSetFlag]);
+			object->clearModelConditionState(g_00DCC7C8[data->m_armorSetFlag]);
 		}
 		else
 		{
 			body->setArmorSetFlag(data->m_armorSetFlag);
-			object->setModelConditionState(g_Va00DCC7C8[data->m_armorSetFlag]);
+			unsigned int mc = g_00DCC7C8[data->m_armorSetFlag];
+			if (object->m_modelConditionFlags.test(mc) == 0)
+			{
+				object->m_modelConditionFlags.set(mc);
+				object->rva0028AE6D();
+			}
 		}
 	}
 	rva004CE4A8();
