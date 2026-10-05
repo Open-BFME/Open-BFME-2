@@ -18,6 +18,10 @@
 
 void Rva006016C9Init() throw();
 
+// ?rva00601C53@@YAXPAXH000@Z @0x00601C53 1027B worker (unrowed): __cdecl 5-param
+// (outer, flag, m_1C, m_28, &m_04); address-derived ABI from the native call; semantic identity remains unknown.
+void __cdecl rva00601C53(void *outer, int flag, void *vec1, void *vec2, void *member);
+
 struct Rva00524415
 {
 	Rva00524415();
@@ -29,9 +33,11 @@ class Rva00601BBCHelper
 {
 public:
 	Rva00601BBCHelper();
+	Rva00601BBCHelper(void *outer);
 	virtual ~Rva00601BBCHelper();
 
 	void rva00601A8D();
+	bool rva00602072(void *outer);
 
 private:
 	Rva00524415 m_04;            // +0x04
@@ -47,4 +53,25 @@ Rva00601BBCHelper::Rva00601BBCHelper()
 Rva00601BBCHelper::~Rva00601BBCHelper()
 {
 	rva00601A8D();
+}
+
+// ?rva00602072@Rva00601BBCHelper@@QAE_NPAX@Z @0x00602072 31B wrapper: forwards
+// outer/1/m_1C/m_28/&m_04 into worker 0x00601C53, returns true. Retail:
+// 8d4104 push &m_04, 8d4128 push m_28, 83c11c push m_1C, 6a01 push 1,
+// ff742414 push outer, e8 -> 0x00601C53, 83c414, b001, c20400.
+bool Rva00601BBCHelper::rva00602072(void *outer)
+{
+	rva00601C53(outer, 1, &m_1C, &m_28, &m_04);
+	return true;
+}
+
+// ??0Rva00601BBCHelper@@QAE@PAX@Z @0x00602091 95B: same member init
+// as the void ctor (vtable + m_04 + two vectors + once-only init) then tail
+// forwards the incoming outer pointer through the rowed 0x00602072 wrapper.
+// __thiscall 1-arg ret4; wrapper result discarded. EH unwinds members if the
+// worker throws (init itself is throw()).
+Rva00601BBCHelper::Rva00601BBCHelper(void *outer)
+{
+	Rva006016C9Init();
+	rva00602072(outer);
 }
