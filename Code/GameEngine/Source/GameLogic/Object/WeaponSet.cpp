@@ -141,31 +141,8 @@ Bool WeaponTemplateSet::hasAnyWeapons() const
 }
 
 //-------------------------------------------------------------------------------------------------
-// ?WeaponTemplateSet::parseWeapon present-unmatched
-void WeaponTemplateSet::parseWeapon(INI* ini, void *instance, void * /*store*/, const void* userData)
-{
-	WeaponTemplateSet* self = (WeaponTemplateSet*)instance;
-	WeaponSlotType wslot = (WeaponSlotType)INI::scanIndexList(ini->getNextToken(), TheWeaponSlotTypeNames);
-	INI::parseWeaponTemplate(ini, instance, &self->m_template[wslot], NULL);
-}
-
-//-------------------------------------------------------------------------------------------------
-// ?WeaponTemplateSet::parseAutoChoose present-unmatched
-void WeaponTemplateSet::parseAutoChoose(INI* ini, void *instance, void * /*store*/, const void* userData)
-{
-	WeaponTemplateSet* self = (WeaponTemplateSet*)instance;
-	WeaponSlotType wslot = (WeaponSlotType)INI::scanIndexList(ini->getNextToken(), TheWeaponSlotTypeNames);
-	INI::parseBitString32(ini, instance, &self->m_autoChooseMask[wslot], TheCommandSourceMaskNames);
-}
-
-//-------------------------------------------------------------------------------------------------
-// ?WeaponTemplateSet::parsePreferredAgainst present-unmatched
-void WeaponTemplateSet::parsePreferredAgainst(INI* ini, void *instance, void * /*store*/, const void* userData)
-{
-	WeaponTemplateSet* self = (WeaponTemplateSet*)instance;
-	WeaponSlotType wslot = (WeaponSlotType)INI::scanIndexList(ini->getNextToken(), TheWeaponSlotTypeNames);
-	KindOfMaskType::parseFromINI(ini, instance, &self->m_preferredAgainst[wslot], NULL);
-}
+// WeaponTemplateSet::parseWeapon, parseAutoChoose and parsePreferredAgainst:
+// defined in WeaponTemplateSetParse.cpp (their rows' unit, BFME 2 slot layout).
 
 //-------------------------------------------------------------------------------------------------
 void WeaponTemplateSet::parseWeaponTemplateSet( INI* ini, const ThingTemplate* tt )
