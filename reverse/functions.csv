@@ -62420,3 +62420,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ??0Rva00136001@@QAE@ABVHierarchyPrototypeRef@@@Z,,0x00136001,49,Code/Libraries/Source/WWVegas/WW3D2/Rva00136001Ctor.cpp,matched,SEH copy ctor via rowed rva00135E86 same shape as HTree 0x0017FBED
 ?rva002B8D06@Rva002BA8F1Logic@@QAEXPAVXfer@@PAV?$vector@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@@Z,,0x002B8D06,216,Code/Libraries/Source/WWVegas/WWLib/Rva002B8D06Xfer.cpp,matched,via Rva003F2394Xfer donor shape with erase reserve pushback and armyID lookup
 ?rva0010BA61@Rva0010BA61@@QAEXXZ,,0x0010BA61,16,Code/GameEngine/Source/Common/Rva0010BA61.cpp,matched,rowed 0x00109D64 pin 0x00108895 caller 0x0010BB4F
+??0Rva005FED2A@@QAE@HHH@Z,,0x005FED2A,35,Code/GameEngine/Source/Common/Rva005FED2ACtor.cpp,matched,ctor base 0x005FF912 plus int vtable 0x0087A448 caller 0x005FEFF9
