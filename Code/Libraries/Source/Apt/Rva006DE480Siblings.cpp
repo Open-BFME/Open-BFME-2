@@ -76,7 +76,6 @@ class AptNativeHash
 	unsigned int nEventHandlers;
 public:
 	AptNativeHash(int size);
-	~AptNativeHash();
 };
 
 class Rva006D6360Base : public RvaAptValueBase
