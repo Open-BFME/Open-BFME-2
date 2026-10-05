@@ -61707,3 +61707,4 @@ _Rva00023540,,0x00023540,271,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleF
 ?rva005D28F4@Rva005D2664@@QAEXPBD@Z,,0x005D28F4,44,Code/GameEngine/Source/Common/Rva005D27BEMethod.cpp,matched,chain from rowed 005D2505Get plus rowed clear
 ?rva005D2A27@Rva005D2664@@QAEXPBD@Z,,0x005D2A27,44,Code/GameEngine/Source/Common/Rva005D27BEMethod.cpp,matched,chain from rowed 005D2505Get plus sibling 005D28F4 shape plus rowed 00529009 at offset 0x24
 ??1Rva005F329E@@QAE@XZ,,0x005F329E,23,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtors.cpp,matched,unlock lane opaque dtor pinned 0x005F2B22 rowed delete
+??0Rva0032E81D@@QAE@PAX0@Z,,0x0032E81D,29,Code/GameEngine/Source/GameLogic/Object/Behavior/Rva0032E81DMethod.cpp,matched,unlock lane ctor meminit order copyctor
