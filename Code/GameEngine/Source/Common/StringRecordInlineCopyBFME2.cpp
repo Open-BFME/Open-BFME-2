@@ -186,7 +186,7 @@ struct BfmeStringRecord005DDD40 {
     BfmeStringRecord005DDD40(const BfmeStringRecord005DDD40 &o);
     BfmeStringRecord005DDD40 &operator=(const BfmeStringRecord005DDD40 &o);
 };
-BfmeStringRecord005DDD40::BfmeStringRecord005DDD40(const BfmeStringRecord005DDD40 &o) : text(o.text), word(o.word) {}
+inline BfmeStringRecord005DDD40::BfmeStringRecord005DDD40(const BfmeStringRecord005DDD40 &o) : text(o.text), word(o.word) {}
 // ??4BfmeStringRecord005DDD40@@QAEAAU0@ABU0@@Z retail 0x005DD6B6 31B.
 // Same layout as the 0x005DDD40 copy above (UnicodeString text + word).
 // Callee is StringBase<ushort>::set at 0x00037150 (pin-only); self-check plus word copy.
@@ -321,5 +321,17 @@ void bfmeEmitStringRecordInlineCopyBFME2(BfmeStringRecord002CF550 *p0, const Bfm
 {
 	p0->BfmeStringRecord002CF550::BfmeStringRecord002CF550(*q0);
 	p1->BfmeStringRecord005ED5F3::operator=(*q1);
+}
+#pragma inline_depth()
+
+// BfmeStringRecord005DDD40 copy is a header inline elsewhere: other units emit
+// select-any copies, so a strong definition here was a duplicate in the linked
+// build. This anchor only makes this unit emit its copy for the ledger row; it
+// is not retail code.
+#pragma inline_depth(0)
+// ?bfmeEmitStringRecord005DDD40Copy@@YAXPAUBfmeStringRecord005DDD40@@PBU1@@Z present-unmatched
+void bfmeEmitStringRecord005DDD40Copy(BfmeStringRecord005DDD40 *p, const BfmeStringRecord005DDD40 *q)
+{
+	p->BfmeStringRecord005DDD40::BfmeStringRecord005DDD40(*q);
 }
 #pragma inline_depth()
