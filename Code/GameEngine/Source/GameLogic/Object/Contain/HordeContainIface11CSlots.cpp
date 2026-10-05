@@ -671,6 +671,7 @@ public:
 	virtual void rva0046C20B();
 	virtual ObjectID rva0046DEA1(ObjectID want);
 	virtual void rva0046A78F(const Matrix3D *mtx);
+	virtual void rva00472329(const Coord3D *pos, int unused);
 	virtual void rva00472A24(const Coord3D *pos, CommandSourceType cmdSource, int a3);
 	virtual void slot42(const Object *obj);
 	virtual void rva00470D09(Object *obj);
@@ -2092,6 +2093,35 @@ void HordeContain::rva0046A5EF(Object *target)
 	if (fabs(angle) > 0.5235f)
 		slot16();
 	m_2C8->slot3(target);
+}
+
+// ?rva00472329@HordeContain@@UAEXPBUCoord3D@@H@Z @0x00472329: slot 0 (second
+// argument unread); unless the pinned 0x004695DA holds, every contained Object
+// with an AI whose +0x17C entry names a +0x188 record whose key is in the
+// module data's +0x1B8 map is ordered to attack the position (CMD_FROM_AI).
+void HordeContain::rva00472329(const Coord3D *pos, int)
+{
+	if (((Rva004695DA *)(UpdateModule *)this)->rva004695DA())
+		return;
+	Rva0046247DPair p;
+	((Rva0046247D *)(UpdateModule *)this)->rva0046247D(p);
+	const _STL::map<int, int> *keys = &fields()->m_1B8;
+	_STL::list<Object *>::const_iterator it = p.m04->begin();
+	while (it != p.m04->end())
+	{
+		const unsigned int id = (*it)->getID();
+		if (m_17C.find(id) != m_17C.end())
+		{
+			AIUpdateInterface *ai = (*it)->m_ai;
+			if (ai)
+			{
+				unsigned int key = m_188Begin[m_17C.find(id)->second].m_key;
+				if (keys->find(key) != keys->end())
+					ai->m_command.aiAttackPosition(pos, 0x7FFFFFFF, CMD_FROM_AI);
+			}
+		}
+		++it;
+	}
 }
 
 // ?rva0046970D@HordeContain@@UAE_NPAVObject@@HPBURva00469851Names@@_N@Z @0x0046970D:
