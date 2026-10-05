@@ -59803,3 +59803,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ??1Rva005F75C9@@QAE@XZ,,0x005F75C9,139,Code/GameEngine/Source/Common/Rva005F75C9Dtor.cpp,matched,nonvirtual dtor plus narrow wide strings plus rowed dtors plus clear plus 7x rowed array
 ??$__uninitialized_copy@PAURva00413B16Element@@PAU1@@_STL@@YAPAURva00413B16Element@@PAU1@00ABU__false_type@0@@Z,,0x004139BB,38,Code/Libraries/Source/WWVegas/WWLib/StlportUninitCopy413B16.cpp,matched,loop via rowed _Construct 0x0041398E stride 0x18 sibling Rva004E32F2UninitCopy
 ?rva0053FA0A@Rva0053FA0A@@QAEXXZ,,0x0053FA0A,40,Code/GameEngine/Source/Common/Rva0053FA0ADelete.cpp,matched,forEach row plus virtual slot 6 plus delete row
+?friend_bindToObject@Drawable@@QAEXPAVObject@@@Z,,0x00274240,108,Code/GameEngine/Source/GameClient/Drawable_rva00274176.cpp,matched,BFME1 donor friend_bindToObject GameLogic plus190 override else night or day color then modules slot6 and vslot13

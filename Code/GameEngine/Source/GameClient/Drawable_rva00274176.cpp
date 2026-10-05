@@ -171,8 +171,19 @@ class GameLogic
 public:
 	unsigned char m_pad000[0x11C];
 	bool m_11C; // +0x11C
+	unsigned char m_pad11D[0x190 - 0x11D];
+	unsigned char m_indicatorOverride; // +0x190
+	Color m_indicatorColor; // +0x194
 };
 extern GameLogic *TheGameLogic;
+
+class DrawModule
+{
+public:
+	virtual void vslot00(); virtual void vslot01(); virtual void vslot02(); virtual void vslot03();
+	virtual void vslot04(); virtual void vslot05();
+	virtual void onDrawableBoundToObject();
+};
 
 class Drawable
 {
@@ -187,6 +198,7 @@ public:
 	void rva00274445(float f);
 	int rva0027434D(int x);
 	void setIndicatorColor(Color color);
+	void friend_bindToObject(Object *obj);
 	void changedTeam();
 	void rva00270FAC(bool show);
 
@@ -194,7 +206,9 @@ public:
 private:
 	unsigned char m_pad0[0xFC - 4];
 	Object *m_object; // +0xFC
-	unsigned char m_padFC[0x158 - 0x100];
+	unsigned char m_padFC[0x14C - 0x100];
+	DrawModule **m_drawModules; // +0x14C
+	unsigned char m_pad150[0x158 - 0x150];
 	BfmeDrawableClientIface **m_ifaceBegin;
 	BfmeDrawableClientIface **m_ifaceEnd;
 	unsigned char m_pad1[0x258 - 0x160];
@@ -293,3 +307,36 @@ void Drawable::changedTeam()
 		vslot13();
 	}
 }
+
+// ?friend_bindToObject@Drawable@@QAEXPAVObject@@@Z, retail 0x00274240 (108B):
+// BFME's binding, transferred from Open-BFME-1's matched body (6583b3c1,
+// game/GameEngine/Source/GameClient/Drawable.cpp friend_bindToObject)
+// (GameLogic indicator override, else Zero Hour's night/day choice, then the
+// draw modules' onDrawableBoundToObject and the drawable's slot 13). BFME2
+// keeps the override flag and color at GameLogic +0x190/+0x194 and the time
+// of day at GlobalData +0x134. Callers 0x00239F7E and 0x0023CD52.
+#pragma optimize("y", on)
+void Drawable::friend_bindToObject(Object *obj)
+{
+	m_object = obj;
+	if (obj)
+	{
+		if (TheGameLogic->m_indicatorOverride == 1)
+		{
+			setIndicatorColor(TheGameLogic->m_indicatorColor);
+		}
+		else if (TheGlobalData->m_timeOfDay == TIME_OF_DAY_NIGHT)
+		{
+			setIndicatorColor(obj->getNightIndicatorColor());
+		}
+		else
+		{
+			setIndicatorColor(obj->getIndicatorColor());
+		}
+
+		for (DrawModule **dm = m_drawModules; *dm; ++dm)
+			(*dm)->onDrawableBoundToObject();
+		vslot13();
+	}
+}
+#pragma optimize("", on)
