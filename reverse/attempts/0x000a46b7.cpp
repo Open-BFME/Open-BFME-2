@@ -1,4 +1,6 @@
 // ?W3DGadgetCheckBoxImageDraw@@YAXPAVGameWindow@@PAVWinInstanceData@@@Z
+// partial score=0.98 date=2026-10-05
+// ?W3DGadgetCheckBoxImageDraw@@YAXPAVGameWindow@@PAVWinInstanceData@@@Z
 // partial score=0.97 date=2026-10-01
 // ?W3DGadgetCheckBoxImageDraw@@YAXPAVGameWindow@@PAVWinInstanceData@@@Z
 // partial score=0.97 date=2026-10-01
@@ -328,8 +330,19 @@ void W3DGadgetCheckBoxImageDraw( GameWindow *window, WinInstanceData *instData )
 
 		start.x = origin.x + instData->m_imageOffset.x + checkOffsetFromLeft;
 		start.y = origin.y +  3;
-		end.x = start.x + size.y - 6;
-		end.y = start.y + size.y - 6;
+		// Named once so both leas share one value. Measured this session: sharing
+		// `size.y - 6` is the ONLY switch found that moves the operand rank, and it
+		// fixes end.x (retail `lea edi,[ecx+eax-6]`, ours previously
+		// `lea edi,[eax+ecx-6]`) while moving the flip to end.y (retail
+		// `lea edi,[edx+ecx-6]`, ours `lea edi,[ecx+edx-6]`). Sharing is therefore
+		// per-statement in retail: the two leas cannot both come from one shared
+		// local, because retail needs the shared operand ecx to be the BASE in
+		// end.x and the INDEX in end.y. This form is the best of 22 measured
+		// spellings (204B, one differing instruction, at +0x96); all others leave
+		// the diff at +0x8A.
+		Int box = size.y - 6;
+		end.x = start.x + box;
+		end.y = start.y + box;
 		TheWindowManager->winDrawImage( boxImage, start.x, start.y, 
 																	  end.x, end.y );
 
