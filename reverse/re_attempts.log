@@ -9007,3 +9007,6 @@ _VP6_ConfigureMvEntropyDecoder	0x001C6EF0	331	partial	third-loop pre-increment p
 ??0Rva0031A257@@QAE@XZ	0x0031A257	283	blocked	triple-base wall novtable gives call-first but misses c62a20 store and EH off by 1 and xorps-or-m74 scheduling t=25 model=muse-01
 ?rva004D3ECF@BFMEDisconnectManager@@QAEEHPAVConnectionManager@@@Z	0x004D3ECF	76	blocked	cdecl cleanup pop ecx x2 vs add esp8 t=30 model=muse-01 (stash 0.97 kept)
 ?applyDisconnectVote@DisconnectManager@@IAEXHIHPAVConnectionManager@@@Z	0x004D3CD8	83	blocked	pop ecx x2 vs add esp8 plus cmp global vs mov-test ecx t=20 model=muse-01 (stash 0.95 kept)
+?rva00349E74@Rva00349E74@@QAE_NXZ	0x00349E74	348	blocked	348B complex AI state with loops plus globals needs donor t=5 model=muse-05
+?rva0004A1B8@Rva0004A1B8@@QAEXXZ	0x0004A1B8	524	blocked	outer i-player stack swapped plus inner add-eax-0x20 shape plus second-loop reload and DrawParams offsets remain t=20 model=muse-05
+?rva002D7DD5@Radar@@UAEXXZ	0x002D7DD5	147	partial	mov-byte-state vs cmp-slot order swapped cmp-at-0x31-vs-0x34 rest exact t=30 model=muse-05 score=0.99 stash=reverse/attempts/0x002d7dd5.cpp
