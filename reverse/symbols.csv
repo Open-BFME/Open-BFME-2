@@ -12455,3 +12455,4 @@ _ceil,0x00629934,CRT ceil thunk identified by native PE import slot 0x00BBA578 a
 ?getContext@AptActionInterpreter@@CA_NPAVAptValue@@0PBVEAStringC@@PAPAV2@AAV3@@Z,0x006FEC00,alias rowed rva006FEC00; CallFrame native five pushes current-with-string-out-name; donor getContext semantic identity and byte return; alternatename provider
 ?IsCharacterInst@AptCIH@@QBE_NXZ,0x006E0200,alias rowed isCharacterInst predicate; CallFrame native REL32 and checked accessor assertion; alternatename provider
 ?runFrameActions@AptMovie@@QAEXPAVAptCIH@@H@Z,0x0070F5C0,alias rowed frame-action runner; CallFrame native REL32 movie-this currentCIH frame arguments; donor role and target iteration; alternatename provider
+?getObject@AptActionInterpreter@@CAPAVAptValue@@PAV2@0PBVEAStringC@@@Z,0x007064F0,SetTarget2 native REL32 with current-with-name; existing address-derived7064F0 pin; donor getObject and target string/context/child resolution; unrowed helper

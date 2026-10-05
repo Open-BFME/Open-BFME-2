@@ -171,9 +171,10 @@ struct AptActionInterpreter
     AptValue *getVariable(AptValue *, AptValue *, const EAStringC *, int=1, int=1, int=0);
     void stackPushIndirect(AptValue *const);
 private:
+    static AptValue *getObject(AptValue *,AptValue *,const EAStringC *);
     static bool getContext(AptValue *,AptValue *,const EAStringC *,AptValue **,EAStringC &);
 #define HANDLER(n) static void _FunctionAptAction##n(AptActionInterpreter *const,LocalContextT *const)
-    HANDLER(CallFrame); HANDLER(GotoLabel); HANDLER(GotoFrame); HANDLER(StopDragMovie); HANDLER(Play); HANDLER(Stop); HANDLER(NextFrame); HANDLER(PrevFrame);
+    HANDLER(SetTarget2); HANDLER(CallFrame); HANDLER(GotoLabel); HANDLER(GotoFrame); HANDLER(StopDragMovie); HANDLER(Play); HANDLER(Stop); HANDLER(NextFrame); HANDLER(PrevFrame);
     HANDLER(PushFloat); HANDLER(PushByte); HANDLER(PushWord); HANDLER(PushDWord);
     HANDLER(Return); HANDLER(DefineDictionary); HANDLER(PushStringDictByte); HANDLER(PushStringDictWord);
     HANDLER(PushThis); HANDLER(PushGlobal); HANDLER(Push0); HANDLER(Push1);
@@ -1419,3 +1420,28 @@ void AptActionInterpreter::_FunctionAptActionCallFrame(AptActionInterpreter *con
 #pragma comment(linker, "/alternatename:?IsCharacterInst@AptCIH@@QBE_NXZ=?isCharacterInst@BfmeAptValue006DCD20@@QBEHXZ")
 #pragma comment(linker, "/alternatename:?runFrameActions@AptMovie@@QAEXPAVAptCIH@@H@Z=?rva0070F5C0@Rva0070F5C0@@QAEXPAVAptCIH@@H@Z")
 #pragma comment(linker, "/alternatename:?getContext@AptActionInterpreter@@CA_NPAVAptValue@@0PBVEAStringC@@PAPAV2@AAV3@@Z=?rva006FEC00@@YAEHHPAVEAStringC@@PAH0@Z")
+
+void AptActionInterpreter::_FunctionAptActionSetTarget2(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    AptValue *object=p->stack.At(0);
+    EAStringC name;
+    object->toString(name);
+    if(name.rva006D3750()==0) {
+        if(c->pCurWith) c->pCurWith->Release();
+        c->pCurWith=0;
+    } else {
+        if(c->pCurWith) {
+            g_bfmeAptAssertAtE17734("!pLocalContext->pCurWith", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptActionInterpreter.cpp", 0x1087);
+            if(g_bfmeAptBreakOnAssertAtDDC01C) { __asm int 3 }
+        }
+        AptValue *target=getObject(c->pCurrentContext,c->pCurWith,&name);
+        if(!target) {
+            g_bfmeAptAssertAtE17734("pTarget", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptActionInterpreter.cpp", 0x1089);
+            if(g_bfmeAptBreakOnAssertAtDDC01C) { __asm int 3 }
+        }
+        c->pRemoveWithAt=0;
+        c->pCurWith=target;
+        c->pCurWith->AddRef();
+    }
+    p->stack.Pop();
+}
