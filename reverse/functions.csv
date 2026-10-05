@@ -63818,3 +63818,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?Run@Rva005A5B38Box@@QAE_NXZ,,0x005A5B38,119,Code/GameEngine/Source/Common/Rva005A5B38Box.cpp,matched,flag-gated refresh toggle with AptCall and pinned 0x5A51B9 helper plus timeGetTime stamp
 ?Run@Rva005A6903Box@@QAEXH@Z,,0x005A6903,92,Code/GameEngine/Source/Common/Rva005A6903Box.cpp,matched,bounds-checked slot refresh with pinned index consumer gate and free-function counter
 ?Run@Rva005A69C0Box@@QAEXHHH@Z,,0x005A69C0,140,Code/GameEngine/Source/Common/Rva005A69C0Box.cpp,matched,two-slot validated prep with pinned presence checks and triple consumer
+?Scan@Rva005A69C0Box@@QAEXXZ,,0x005A6CA5,162,Code/GameEngine/Source/Common/Rva005A69C0Box.cpp,matched,pair scan over 8 slots driving sibling Run via pinned sub-object queries

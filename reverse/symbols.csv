@@ -13144,3 +13144,5 @@ _Rva00438083,0x00438083,Address-derived bool prompt helper directly called by 0x
 ?Check@Rva005A69C0Box@@QAE_NXZ,0x005A6709,wrapper-call spelling for the 0x5A69C0 gate (thiscall 0 args al result; true callee matched as const predicate rva005A6709); target REL32 from retail call at 0x005A69C6
 ?IsHuman@Rva005A69C0Obj@@QAE_NXZ,0x003FF0F1,wrapper-call spelling for the 0x5A69C0 slot presence checks (thiscall 0 args al result; true callee matched as GameSlot::isHuman); targets REL32 from retail calls at 0x005A69FE and 0x005A6A0D
 ?Do3@Rva005A69C0Sub@@QAEXHHH@Z,0x005DC187,wrapper-call spelling for the 0x5A69C0 +0x28 sub-object triple consumer (thiscall 3 args callee cleanup); target REL32 from retail call at 0x005A6A22
+?Q1@Rva005A69C0Sub@@QAE_NHH@Z,0x005DBBC1,wrapper-call spelling for the 0x5A6CA5 pair pre-query (thiscall 2 args al result callee cleanup); target REL32 from retail call at 0x005A6CFD
+?Q2@Rva005A69C0Sub@@QAEPAXHH@Z,0x005DB98E,wrapper-call spelling for the 0x5A6CA5 pair response query (thiscall 2 args pointer result; true callee matched as rva005DB98E); target REL32 from retail call at 0x005A6D0A
