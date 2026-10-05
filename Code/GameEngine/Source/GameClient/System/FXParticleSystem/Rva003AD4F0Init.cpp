@@ -27,7 +27,6 @@ private:
 }
 struct Holder003AD4F0
 {
-// ??0Holder003AD4F0@@QAE@XZ present-unmatched
 	Holder003AD4F0() { FXParticleSystem::ConcreteModuleClass<FXParticleSystem::LifeEventTag>::getInstance(); }
 	~Holder003AD4F0();
 };

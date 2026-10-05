@@ -37,7 +37,6 @@ inline bool BitFlags<116>::testSetAndClear(const BitFlags &mustBeSet, const BitF
 // This anchor only makes this unit emit its copy for the ledger row; it is
 // not retail code.
 #pragma inline_depth(0)
-// ?bfmeEmitBitFlags116TestSetAndClear@@YAXPAV?$BitFlags@$0HE@@@ABV1@1@Z present-unmatched
 void bfmeEmitBitFlags116TestSetAndClear(BitFlags<116> *p, const BitFlags<116> &a, const BitFlags<116> &b)
 {
 	p->testSetAndClear(a, b);

@@ -15,7 +15,6 @@ public:
 }
 struct Holder003AD44B
 {
-// ??0Holder003AD44B@@QAE@XZ present-unmatched
 	Holder003AD44B() { FXParticleSystem::ConcreteModuleClass<FXParticleSystem::Tag1>::getInstance(); }
 	~Holder003AD44B();
 };

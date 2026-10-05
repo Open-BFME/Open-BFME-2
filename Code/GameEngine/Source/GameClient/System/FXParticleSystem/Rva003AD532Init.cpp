@@ -25,7 +25,6 @@ private:
 }
 struct Holder003AD532
 {
-// ??0Holder003AD532@@QAE@XZ present-unmatched
 	Holder003AD532() { FXParticleSystem::ConcreteModuleClass<FXParticleSystem::TerrainCollisionTag>::getInstance(); }
 	~Holder003AD532();
 };

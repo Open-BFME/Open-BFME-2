@@ -27,7 +27,6 @@ private:
 }
 struct Holder003AD511
 {
-// ??0Holder003AD511@@QAE@XZ present-unmatched
 	Holder003AD511() { FXParticleSystem::ConcreteModuleClass<FXParticleSystem::RenderObjectUpdateTag>::getInstance(); }
 	~Holder003AD511();
 };
