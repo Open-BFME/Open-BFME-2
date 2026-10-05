@@ -60924,3 +60924,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva0040450E@Rva0040450E@@QAEXH@Z,,0x0040450E,111,Code/Libraries/Source/WWVegas/WWLib/Rva0040450EClear.cpp,matched,caller 0x00214B61 builds vector and members then calls with 0 via erase 0x004043AE and memset
 ?Rva003C2D90Do@@YGXPAVParameter@@0@Z,,0x003C2D90,90,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C2D90.cpp,matched,script counter from player field via rowed mask player rva002A7461 and pin bfmeCounter
 ?rva00488573@Rva00488545@@QAEHXZ,,0x00488573,69,Code/GameEngine/Source/Common/VslotSmallBodiesE.cpp,matched,vslot4 of Rva00488545 via AI vslot93 and TheGameLogic frame
+?rva0055A91A@Rva0055A91A@@QAEXXZ,,0x0055A91A,34,Code/GameEngine/Source/Common/Rva0055A91AClear.cpp,matched,LINK BONUS via 0x0039C09C inner 0x10 flag 14 list 18 count 1C callers 5
