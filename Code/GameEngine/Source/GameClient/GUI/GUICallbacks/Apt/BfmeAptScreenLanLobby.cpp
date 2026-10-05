@@ -665,3 +665,17 @@ void BfmeAptScreenLanLobby::rva0044421C()
 	if (TheLAN && TheLAN->v54())
 		TheLAN->v22(1);
 }
+
+// Retail 0x004441C5, 67 bytes: vftable 0x00C3E098 slot 18. Name unknown;
+// it sets +0x428 to 12, then passes either (+0x88 == 1) to LANAPI vslot 23
+// or 1 to vslot 19.
+void BfmeAptScreenLanLobby::rva004441C5(bool flag, int unused)
+{
+	if (!TheLAN)
+		return;
+	m_428 = 12;
+	if (flag)
+		TheLAN->v23(m_88 == 1);
+	else
+		TheLAN->v19(1);
+}
