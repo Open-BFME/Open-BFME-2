@@ -14,3 +14,17 @@ Rva00601A3AElement *__cdecl Rva0060186FCopy4(const Rva00601A3AElement* first,con
 }
 
 #pragma comment(linker, "/alternatename:?Rva00601797Copy5@@YAPAURva00601A3AElement@@PBU1@0PAU1@ABUrandom_access_iterator_tag@_STL@@PAH@Z=?Rva00601797Copy@@YAPAVCoord3D@@PBV1@0PAV1@@Z")
+
+// Native60194C shifts the tail through60186F and stores the new finish.
+// Its fourth argument is ignored by the complete29B dispatcher. The pointer
+// into the first parameter preserves this unused native argument without
+// reading it or asserting an object there. No tail destruction is emitted.
+class Rva00601A3AVectorView {
+ Rva00601A3AElement *start,*finish,*end;
+public:
+ Rva00601A3AElement* eraseRange(Rva00601A3AElement* first,Rva00601A3AElement* last);
+};
+Rva00601A3AElement* Rva00601A3AVectorView::eraseRange(Rva00601A3AElement* first,Rva00601A3AElement* last) {
+ finish=Rva0060186FCopy4(last,finish,first,reinterpret_cast<const unsigned char*>(&first)+3);
+ return first;
+}
