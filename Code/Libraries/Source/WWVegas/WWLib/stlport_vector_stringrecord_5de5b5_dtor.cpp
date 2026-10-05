@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /EHsc
+// cl: /Ireference/shims/bfme2_ascii /O1 /arch:SSE /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /EHsc
 // stlport
 
 // ??1Rva005DE5B5@@QAE@XZ, RVA 0x005DE5B5, 53B.
@@ -11,31 +11,9 @@
 // TU's (stlport_vector_stringrecord_5ddd40_allocate_copy.cpp) verbatim
 // so the member dtor calls land on the rowed bodies.
 
-class UnicodeString;
-class Rva005DE5B5;
-
-typedef unsigned short wchar_t;
-
-template <typename T>
-class StringBase
-{
-public:
-	__forceinline ~StringBase() { releaseBuffer(); }
-private:
-	void releaseBuffer();
-private:
-	StringBase(const StringBase &);
-	friend class Rva005DE5B5;
-	friend class UnicodeString;
-	void *m_data;
-};
-
-class UnicodeString : public StringBase<wchar_t>
-{
-public:
-	UnicodeString(const UnicodeString &);
-	~UnicodeString();
-};
+#include <float.h>
+#include "ascii_string.h"
+#include "unicode_string.h"
 #include <vector>
 struct BfmeStringRecord005DDD40 {
     UnicodeString text;
@@ -54,12 +32,13 @@ class Rva005DE5B5
 public:
 	~Rva005DE5B5();
 	Rva005DE5B5(const Rva005DE5B5 &other);
+	Rva005DE5B5();
 	void *rva005DE782(unsigned int flags);
 
 private:
-	StringBase<wchar_t> m_00;
+	UnicodeString m_00;
 	_STL::vector<BfmeStringRecord005DDD40, _STL::allocator<BfmeStringRecord005DDD40> > m_04;
-	unsigned int m_10;
+	float m_10;
 	unsigned char m_14;
 };
 
@@ -111,3 +90,15 @@ void *Rva005DE5B5::rva005DE782(unsigned int flags)
 // fill loop through the rowed _Construct 0x005DE755.
 template Rva005DE5B5 *_STL::__uninitialized_fill_n<Rva005DE5B5 *, unsigned int, Rva005DE5B5>(
 	Rva005DE5B5 *, unsigned int, const Rva005DE5B5 &, const _STL::__false_type &);
+
+// Native constructor [5DE5EA,5DE651),103B belongs to the same24B
+// owner as full73B copy5DE56C and53B destructor5DE5B5. Initialize
+// UnicodeString from narrow "-" via full91B conversion6CB6D0;
+// construct empty vector at4 via full29B base211E58; initialize
+// nativefloat10=-FLT_MAX and byte14=false. Native69B updater5DDB66
+// independently proves float10 and dirty14 roles. Original owner name
+// remains unknown. Shared canonical string headers reconcile the prior
+// per-unit views; all existing rows must still pass after that change.
+Rva005DE5B5::Rva005DE5B5() : m_00(AsciiString("-")),m_04(),m_10(-FLT_MAX),m_14(false) {}
+
+#pragma comment(linker, "/alternatename:??0?$_Vector_base@UBfmeStringRecord005DDD40@@V?$allocator@UBfmeStringRecord005DDD40@@@_STL@@@_STL@@QAE@ABV?$allocator@UBfmeStringRecord005DDD40@@@1@@Z=??0?$_Vector_base@UBfmeE16@@V?$allocator@UBfmeE16@@@_STL@@@_STL@@QAE@ABV?$allocator@UBfmeE16@@@1@@Z")
