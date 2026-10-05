@@ -12680,3 +12680,11 @@ _ceil,0x00629934,CRT ceil thunk identified by native PE import slot 0x00BBA578 a
 ?rva002ADAC3@Player@@QAEXPBVUpgradeTemplate@@H@Z,0x002ADAC3,"Player member (ret 8): (upgrade template, int); REL32 callee of UpgradeDie::onDie 0x00486C00 m_04==0 player path with hoisted pushes; list-unlink plus bit-clear body in the ZH Player::removeUpgrade family with a BFME2 m_04==1 bypass to 0x2AD9FD; address-named"
 ?rva000347A0@GeneralAllocator@Allocator@EA@@QAEPAXPAXIH@Z,0x000347A0,address-derived thiscall GeneralAllocator realloc-engine member taking block size flags and returning void pointer; called from wrapper 0x00035190; identity unproven
 ?rva00034A60@GeneralAllocator@Allocator@EA@@QAEPAXIIH@Z,0x00034A60,address-derived thiscall GeneralAllocator calloc-engine member taking count size flags and returning void pointer; called from wrapper 0x00035210; identity unproven
+_Rva0021C777Apply,0x0021C777,REL32 callee of wrapper 0x0021D2B6 decoded from target call bytes; identity unproven
+_Rva002B5873Apply,0x002B5873,REL32 callee decoded from target call bytes of same-family wrapper; identity unproven
+_Rva002B641FApply,0x002B641F,REL32 callee decoded from target call bytes of same-family wrapper; identity unproven
+_Rva00331BD7Apply,0x00331BD7,REL32 callee decoded from target call bytes of same-family wrapper; identity unproven
+_Rva003B0176Apply,0x003B0176,REL32 callee decoded from target call bytes of same-family wrapper; identity unproven
+_Rva003BE532Apply,0x003BE532,REL32 callee decoded from target call bytes of same-family wrapper; identity unproven
+_Rva004F73B3Apply,0x004F73B3,REL32 callee decoded from target call bytes of same-family wrapper; identity unproven
+_Rva004F7780Apply,0x004F7780,REL32 callee decoded from target call bytes of same-family wrapper; identity unproven
