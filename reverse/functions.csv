@@ -61477,3 +61477,4 @@ _Rva00023540,,0x00023540,271,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleF
 ?Rva001DEE59Fill@@YAPAURva001DF3F1Element@@PAU1@IABU1@@Z,,0x001DEE59,27,Code/Libraries/Source/WWVegas/WWLib/Rva001DEE59Fill.cpp,matched,free wrapper fill_n 0x001DEDFA caller 0x001DF36C unblocks 0x001DF2D3
 ?rva005CC9CB@Rva005CC9CB@@QAEPAV1@PAV1@@Z,,0x005CC9CB,45,Code/GameEngine/Source/Common/Rva005CC9CBAssign.cpp,matched,refcount assign inc plus Release caller 0x005CCA18 unblocks 0x005CCA0B
 ?rva0021A6C8@Rva00219B9E@@QAEPAVCreateAHeroData@@H@Z,,0x0021A6C8,96,Code/GameEngine/Source/Common/Rva00219B9EFindHero.cpp,matched,pin plus callers MpGameSetup plus neighbours prove TU plus hero-list plus 48-flag
+??1Rva005CDDA4@@UAE@XZ,,0x005CDDA4,76,Code/GameEngine/Source/Common/Rva005CDDA4Dtor.cpp,matched,deleting-dtor caller plus two vptrs plus 20-ptr 24-clear
