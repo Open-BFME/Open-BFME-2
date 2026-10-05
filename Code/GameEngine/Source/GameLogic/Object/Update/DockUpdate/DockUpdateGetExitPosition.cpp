@@ -78,3 +78,30 @@ void DockUpdate::getExitPosition( Object* docker, Coord3D *position )
 // Header view differs only in struct/class decoration and const qualification.
 // Native call is the existing 57-byte coordinate equality at RVA 0x3702.
 #pragma comment(linker, "/alternatename:??8Coord3D@@QAE_NABU0@@Z=??8Coord3D@@QBE_NABV0@@Z")
+
+// Interface slot 6 at 0xC51D18: native RVA 0x005899EB, 99 bytes.
+void DockUpdate::getDockPosition( Object* docker, Coord3D *position )
+{
+
+	// load dock positions if not loaded yet
+	if( m_positionsLoaded == FALSE )
+		loadDockPositions();
+
+	// sanity
+	if( position == NULL )
+		return;
+
+	// If I don't have a bone, you are fine where you are.
+	Coord3D zero;
+	zero.zero();
+	if( m_enterPosition == zero )
+	{
+		*position = *docker->getPosition();
+		return;
+	}
+
+	// take local space position and convert to world space
+	getObject()->convertBonePosToWorldPos( &m_dockPosition, NULL, position, NULL );
+
+}
+
