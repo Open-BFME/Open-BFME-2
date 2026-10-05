@@ -138,6 +138,8 @@ private:
     HANDLER(Divide); HANDLER(Modulo); HANDLER(Increment); HANDLER(Decrement);
     HANDLER(Equals); HANDLER(LessThan); HANDLER(And); HANDLER(Or); HANDLER(Not);
     HANDLER(BranchAlways); HANDLER(BranchIfTrue); HANDLER(BranchIfFalse); HANDLER(Pop);
+    HANDLER(CallFunction); HANDLER(CallMethod);
+    HANDLER(CallFuncAndPop); HANDLER(CallFuncSetVar); HANDLER(CallMethodPop); HANDLER(CallMethodSetVar); HANDLER(DictCallFuncPop); HANDLER(DictCallFuncSetVar); HANDLER(DictCallMethodPop); HANDLER(DictCallMethodSetVar);
     HANDLER(SetVariable); HANDLER(GetMember); HANDLER(SetMember);
     HANDLER(PushStringGetVar); HANDLER(PushStringGetMember); HANDLER(PushStringSetVar); HANDLER(PushStringSetMember);
 #undef HANDLER
@@ -621,3 +623,77 @@ void AptActionInterpreter::_FunctionAptActionPop(AptActionInterpreter *const p, 
 // GetNumValues shares retail's four-byte +4 getter; the target count field
 // is independently established by AptValueVector::ReleaseValues and PopValue.
 #pragma comment(linker, "/alternatename:?GetNumValues@AptValueVector@@QBEHXZ=?Get_First_Collected_Object_Internal@CullSystemClass@@IAEPAVCullableClass@@XZ")
+
+void AptActionInterpreter::_FunctionAptActionCallFuncAndPop(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    _FunctionAptActionCallFunction(p,c);
+    p->stack.Pop();
+    if (g_releaseVectorAtE17710->GetNumValues()!=0 && p->stack.count==0)
+        g_releaseVectorAtE17710->ReleaseValues();
+}
+
+void AptActionInterpreter::_FunctionAptActionCallFuncSetVar(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    _FunctionAptActionCallFunction(p,c);
+    _FunctionAptActionSetVariable(p,c);
+    if (g_releaseVectorAtE17710->GetNumValues()!=0 && p->stack.count==0)
+        g_releaseVectorAtE17710->ReleaseValues();
+}
+
+void AptActionInterpreter::_FunctionAptActionCallMethodPop(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    _FunctionAptActionCallMethod(p,c);
+    p->stack.Pop();
+    if (g_releaseVectorAtE17710->GetNumValues()!=0 && p->stack.count==0)
+        g_releaseVectorAtE17710->ReleaseValues();
+}
+
+void AptActionInterpreter::_FunctionAptActionCallMethodSetVar(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    _FunctionAptActionCallMethod(p,c);
+    _FunctionAptActionSetVariable(p,c);
+    if (g_releaseVectorAtE17710->GetNumValues()!=0 && p->stack.count==0)
+        g_releaseVectorAtE17710->ReleaseValues();
+}
+
+// Native dictionary-call handlers advance the instruction pointer before the
+// call. Later source advances afterward; keep the independently verified order.
+void AptActionInterpreter::_FunctionAptActionDictCallFuncPop(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    unsigned char index=*c->pInstruction++;
+    p->stack.Push(p->constantPool.apItems[index]);
+    _FunctionAptActionCallFunction(p,c);
+    p->stack.Pop();
+    if (g_releaseVectorAtE17710->GetNumValues()!=0 && p->stack.count==0)
+        g_releaseVectorAtE17710->ReleaseValues();
+}
+
+void AptActionInterpreter::_FunctionAptActionDictCallFuncSetVar(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    unsigned char index=*c->pInstruction++;
+    p->stack.Push(p->constantPool.apItems[index]);
+    _FunctionAptActionCallFunction(p,c);
+    _FunctionAptActionSetVariable(p,c);
+    if (g_releaseVectorAtE17710->GetNumValues()!=0 && p->stack.count==0)
+        g_releaseVectorAtE17710->ReleaseValues();
+}
+
+void AptActionInterpreter::_FunctionAptActionDictCallMethodPop(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    unsigned char index=*c->pInstruction++;
+    p->stack.Push(p->constantPool.apItems[index]);
+    _FunctionAptActionCallMethod(p,c);
+    p->stack.Pop();
+    if (g_releaseVectorAtE17710->GetNumValues()!=0 && p->stack.count==0)
+        g_releaseVectorAtE17710->ReleaseValues();
+}
+
+void AptActionInterpreter::_FunctionAptActionDictCallMethodSetVar(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    unsigned char index=*c->pInstruction++;
+    p->stack.Push(p->constantPool.apItems[index]);
+    _FunctionAptActionCallMethod(p,c);
+    _FunctionAptActionSetVariable(p,c);
+    if (g_releaseVectorAtE17710->GetNumValues()!=0 && p->stack.count==0)
+        g_releaseVectorAtE17710->ReleaseValues();
+}
