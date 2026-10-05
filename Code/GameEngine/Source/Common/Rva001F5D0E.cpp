@@ -26,3 +26,18 @@ void Rva001F5D0E::rva001F5D0E(int a, int b)
         p->m3(a, b);
     m_next.call(a, b);
 }
+
+class Rva001F6492 {
+public:
+    void rva001F6492(int a, int b);
+private:
+    Helper001F5D0E *m_ptr;
+    Rva001F5D0E m_next;
+};
+void Rva001F6492::rva001F6492(int a, int b)
+{
+    Helper001F5D0E *p = m_ptr;
+    if (p)
+        p->m3(a, b);
+    m_next.rva001F5D0E(a, b);
+}
