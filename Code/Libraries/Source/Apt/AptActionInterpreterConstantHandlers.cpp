@@ -2631,3 +2631,11 @@ void AptActionInterpreter::CleanupAfterExecution(void *saved,AptActionSetup *set
  debugCallStack.Pop();
 }
 
+
+// Later _AptActions.h debug-record constructor assigns name/context/type.
+// Native6FBD40..6FBDAE uses the older by-value EAStringC ABI and12B record.
+Rva006FBDB0::Rva006FBDB0(EAStringC name,int value,int type) {
+    *(EAStringC *)this=name;
+    context=value;
+    action=type;
+}
