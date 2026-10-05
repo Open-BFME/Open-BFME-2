@@ -8,7 +8,40 @@
 #include <utility>
 
 class AsciiString;
-struct TeamMapNode;
+class ScriptEngine;
+
+typedef _STL::pair<AsciiString, AsciiString> TeamKey002086C5;
+
+namespace _STL
+{
+template <class P> struct _Select1st
+{
+};
+template <class T> struct less
+{
+};
+template <class T> class allocator
+{
+};
+template <class V> struct _Rb_tree_node
+{
+};
+template <class Key, class Value, class ExK, class Cmp, class Alloc> class _Rb_tree
+{
+	friend class ::ScriptEngine;
+	typedef _Rb_tree_node<Value> _Node;
+private:
+	template <class KT> _Node *_M_find(const KT &) const throw();
+};
+}
+
+struct TeamLess0019B850 : _STL::less<TeamKey002086C5>
+{
+};
+
+typedef _STL::pair<const TeamKey002086C5, int> TeamValue002086C5;
+typedef _STL::_Rb_tree<TeamKey002086C5, TeamValue002086C5, _STL::_Select1st<TeamValue002086C5>, TeamLess0019B850, _STL::allocator<TeamValue002086C5> > TeamTree002086C5;
+typedef _STL::_Rb_tree_node<TeamValue002086C5> TeamNode002086C5;
 
 class Rva002046C0Owner
 {
@@ -21,37 +54,22 @@ struct Rva0002C4FD : public _STL::pair<const AsciiString, AsciiString>
 	Rva0002C4FD(const StringBase<char> &a, const StringBase<char> &b);
 };
 
-struct TeamMapNode
-{
-	char m_pad[0x18];
-	char m_data[1];
-};
-
-class Rva0032C07COwner
-{
-public:
-	TeamMapNode *find(Rva0002C4FD &key) throw();
-};
-
 class ScriptEngine : public Rva002046C0Owner
 {
 public:
 	void *rva002086C5(AsciiString name);
 private:
 	char m_pad[0x190A0];
-	Rva0032C07COwner m_owner;
+	TeamTree002086C5 m_owner;
 };
 
 void *ScriptEngine::rva002086C5(AsciiString name)
 {
 	AsciiString resolved = resolveName(name);
 	Rva0002C4FD key(*(const StringBase<char> *)&resolved, *(const StringBase<char> *)&name);
-	Rva0032C07COwner *owner = (Rva0032C07COwner *)((char *)this + 0x190A0);
-	TeamMapNode *found = owner->find(key);
-	if (found != *(TeamMapNode **)owner)
+	TeamTree002086C5 *owner = (TeamTree002086C5 *)((char *)this + 0x190A0);
+	TeamNode002086C5 *found = owner->_M_find(*(const TeamKey002086C5 *)&key);
+	if (found != *(TeamNode002086C5 **)owner)
 		return (void *)((char *)found + 0x18);
 	return 0;
 }
-
-// Bind pin spelling to the rowed STL body at 0x0032C07C; only the name moves.
-#pragma comment(linker, "/alternatename:?find@Rva0032C07COwner@@QAEPAUTeamMapNode@@AAURva0002C4FD@@@Z=??$_M_find@U?$pair@VAsciiString@@V1@@_STL@@@?$_Rb_tree@U?$pair@VAsciiString@@V1@@_STL@@U?$pair@$$CBU?$pair@VAsciiString@@V1@@_STL@@H@2@U?$_Select1st@U?$pair@$$CBU?$pair@VAsciiString@@V1@@_STL@@H@_STL@@@2@UTeamLess0019B850@@V?$allocator@U?$pair@$$CBU?$pair@VAsciiString@@V1@@_STL@@H@_STL@@@2@@_STL@@ABEPAU?$_Rb_tree_node@U?$pair@$$CBU?$pair@VAsciiString@@V1@@_STL@@H@_STL@@@1@ABU?$pair@VAsciiString@@V1@@1@@Z")
