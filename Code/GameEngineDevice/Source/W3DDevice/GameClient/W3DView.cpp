@@ -412,6 +412,22 @@ void W3DView::setPitch( Real angle )
 }
 
 //-------------------------------------------------------------------------------------------------
+/** Transformt he screen pixel coord passed in, to a world coordinate at the specified
+	* z value */
+//-------------------------------------------------------------------------------------------------
+void W3DView::screenToWorldAtZ( const ICoord2D *s, Coord3D *w, Real z )
+{
+	Vector3 rayStart, rayEnd;
+
+	getPickRay(s, &rayStart, &rayEnd);
+	if (rayStart.Z - z < 120.0f)
+		z = rayStart.Z - 120.0f;
+	w->x = Vector3::Find_X_At_Z(z, rayStart, rayEnd);
+	w->y = Vector3::Find_Y_At_Z(z, rayStart, rayEnd);
+	w->z = z;
+}
+
+//-------------------------------------------------------------------------------------------------
 /** Sets the view filter mode. */
 //-------------------------------------------------------------------------------------------------
 void W3DView::setViewFilterPos(const Coord3D *pos)
