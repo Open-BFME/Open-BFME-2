@@ -13317,3 +13317,14 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 ?second@Mbr005CDDF0@@QAEXXZ,0x000B3FD0,opaque member target of tail-pair 0x005CDDF0 at +0xC; identity unproven; address-derived name
 ?first@Rva005E5554@@QAEXXZ,0x005E549E,opaque first call of tail-pair 0x005E5554; identity unproven; address-derived name
 ?second@Mbr005E5554@@QAEXXZ,0x005F327A,opaque member target of tail-pair 0x005E5554 at this-8; identity unproven; address-derived name
+?g@Elem0021BF42@@QAEHHH@Z,0x0021BE42,opaque element method called by dispatcher 0x0021BF42; identity unproven; address-derived name
+?g@Elem0021BF74@@QAEHHH@Z,0x0021BE62,opaque element method called by dispatcher 0x0021BF74; identity unproven; address-derived name
+?g@Elem0021BFA6@@QAEHHH@Z,0x0021BE82,opaque element method called by dispatcher 0x0021BFA6; identity unproven; address-derived name
+?pred@Mbr002E0B30@@QAEEXZ,0x00318F42,opaque leaf predicate called by search 0x002E0B30; identity unproven; address-derived name
+??_7Rva005CE46F@@6B@,0x00C75130,holder vtable installed by clone 0x005CE46F; identity unproven; address-derived name
+??_7Rva005CED6C@@6B@,0x00C751DC,holder vtable installed by clone 0x005CED6C; identity unproven; address-derived name
+??_7Rva005E5E7A@@6B@,0x00C77D6C,holder vtable installed by clone 0x005E5E7A; identity unproven; address-derived name
+??_7Rva005E5EBD@@6B@,0x00C77D78,holder vtable installed by clone 0x005E5EBD; identity unproven; address-derived name
+??_7Rva005E5F00@@6B@,0x00C77D84,holder vtable installed by clone 0x005E5F00; identity unproven; address-derived name
+??_7Rva005E99D8@@6B@,0x00C78044,holder vtable installed by clone 0x005E99D8; identity unproven; address-derived name
+??_7Rva005E9A1B@@6B@,0x00C78050,holder vtable installed by clone 0x005E9A1B; identity unproven; address-derived name
