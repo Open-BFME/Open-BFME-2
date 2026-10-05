@@ -60209,3 +60209,5 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?countBuildings@Player@@QAEHXZ,,0x002AB10F,41,Code/GameEngine/Source/Common/RTS/PlayerTeamPrototypeQueries.cpp,matched,ZH Player::countBuildings sum over team prototypes
 ?countObjects@Player@@QAEHV?$BitFlags@$0HE@@@0@Z,,0x002AB138,77,Code/GameEngine/Source/Common/RTS/PlayerTeamPrototypeQueries.cpp,matched,ZH Player::countObjects sum over team prototypes
 ?updateTeamStates@Player@@QAEXXZ,,0x002AB429,33,Code/GameEngine/Source/Common/RTS/PlayerTeamPrototypeQueries.cpp,matched,ZH Player::updateTeamStates over team prototype list
+?findClosestByKindOf@Player@@QAEPAVObject@@PAV2@V?$BitFlags@$0HE@@@1@Z,,0x002AB185,89,Code/GameEngine/Source/Common/RTS/PlayerTeamPrototypeQueries.cpp,matched,ZH Player::findClosestByKindOf search record plus rowed callback via iterateObjects
+?rva002AB1DE@Player@@QAEPAVObject@@PBUCoord3D@@V?$BitFlags@$0HE@@@1@Z,,0x002AB1DE,76,Code/GameEngine/Source/Common/RTS/PlayerTeamPrototypeQueries.cpp,matched,findClosestByKindOf twin from a position

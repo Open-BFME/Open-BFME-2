@@ -22,19 +22,48 @@ struct Rva0039DF1CFilter
 };
 
 class BfmeTab1026;
-class Object;
 class ThingTemplate;
+class Object;
 typedef Int (*ObjectIterateFunc)(Object *obj, void *userData);
 
 template <int N>
 class BitFlags
 {
 public:
+	BitFlags();
 	BitFlags(const BitFlags &other);
 private:
 	unsigned int m_bits[7];
 };
 typedef BitFlags<116> KindOfMaskType;
+
+struct Coord3D
+{
+	float x, y, z;
+};
+
+class Object
+{
+public:
+	const Coord3D *getPosition() const { return &m_pos; }
+private:
+	unsigned char m_pad[0x38];
+	Coord3D m_pos; // +0x38
+};
+
+// The 0x4C-byte search record of the rowed callback Rva002AA3D4Closest
+// (PlayerRva002AA3D4Closest.cpp); its constructor 0x002A991D is pinned.
+struct Rva002AA3D4Search
+{
+	Rva002AA3D4Search();
+	KindOfMaskType m_mustBeSet;	// +0x00
+	KindOfMaskType m_mustBeClear;	// +0x1C
+	Coord3D m_pos;			// +0x38
+	Object *m_closest;		// +0x44
+	float m_closestDistSq;		// +0x48
+};
+
+Int __cdecl Rva002AA3D4Closest(Object *obj, void *userData);
 
 class TeamPrototype
 {
@@ -71,6 +100,8 @@ public:
 	void countObjectsByThingTemplate(Int numTmplates, const ThingTemplate* const* things, Bool ignoreDead, Int *counts, Bool ignoreUnderConstruction) const;
 	Int countBuildings();
 	Int countObjects(KindOfMaskType setMask, KindOfMaskType clearMask);
+	Object *findClosestByKindOf(Object *queryObject, KindOfMaskType setMask, KindOfMaskType clearMask);
+	Object *rva002AB1DE(const Coord3D *pos, KindOfMaskType setMask, KindOfMaskType clearMask);
 	void updateTeamStates();
 	Bool rva002AB260(Bool flag) const;
 	Bool rva002AB295(Rva0039DDC2Filter filter, Bool flag) const;
@@ -210,7 +241,7 @@ Bool Player::rva002AB3FA() const
 	return false;
 }
 
-// ?updateTeamStates@Player@@QAEXXZ, retail 0x002AB429 (33B): Zero Hour's
+// Player::updateTeamStates, retail 0x002AB429 (33B): Zero Hour's
 // Player::updateTeamStates, stepping past each node before the call (the
 // prototype's updateState may delete teams); TeamPrototype::updateState
 // 0x003A34AC is pinned from this call.
@@ -222,4 +253,31 @@ void Player::updateTeamStates()
 		it = it->m_next;
 		proto->updateState();
 	}
+}
+
+// Player::findClosestByKindOf, retail 0x002AB185 (89B), next after
+// countObjects as in Zero Hour: fills
+// the search record with the two masks and the query object's position and
+// lets iterateObjects run the rowed nearest-match callback over it.
+// 0x002AB1DE (74B) is BFME's twin taking a position instead of an object.
+Object *Player::findClosestByKindOf(Object *queryObject, KindOfMaskType setMask, KindOfMaskType clearMask)
+{
+	if (queryObject == 0)
+		return 0;
+	Rva002AA3D4Search data;
+	data.m_mustBeSet = setMask;
+	data.m_mustBeClear = clearMask;
+	data.m_pos = *queryObject->getPosition();
+	iterateObjects(Rva002AA3D4Closest, &data);
+	return data.m_closest;
+}
+
+Object *Player::rva002AB1DE(const Coord3D *pos, KindOfMaskType setMask, KindOfMaskType clearMask)
+{
+	Rva002AA3D4Search data;
+	data.m_mustBeSet = setMask;
+	data.m_mustBeClear = clearMask;
+	data.m_pos = *pos;
+	iterateObjects(Rva002AA3D4Closest, &data);
+	return data.m_closest;
 }
