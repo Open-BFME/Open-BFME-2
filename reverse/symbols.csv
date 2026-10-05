@@ -13190,3 +13190,4 @@ _Rva00438083,0x00438083,Address-derived bool prompt helper directly called by 0x
 ??_7Rva00540845@@6B@,0x00C694F8,Rva00540845 vtable installed by its copy ctor 0x00540845 (mov [esi] imm at 0x0054086B) after the Rva0053FADE base copy
 ??_7Rva0055B0CC@@6B@,0x00C6B900,Rva0055B0CC vtable installed by its copy ctor 0x0055B182 (mov [esi] imm at 0x0055B195)
 ??_7Rva00573B23@@6B@,0x00C6E270,Rva00573B23 vtable: slot 0 rowed ??_GRva00573B23 0x00573C60; installed by ctor 0x00573A9B and copy ctor 0x00573AC8; 0x00C6E2A0 is the same table from slot 12
+?rva000BBDDF@@YGPAXHH@Z,0xBBDDF,rva000BBE29 probe: address read from the REL32 at 0x000BBE34 in 0x000BBE29; fresh address-derived stdcall name (int selector, int key) for the 74B map-find wrapper calling stlport _M_find at 0x00388F63

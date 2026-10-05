@@ -63853,3 +63853,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva000E473F@Rva000E473F@@QAEXXZ,,0x000E473F,93,Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E473F.cpp,matched,
 ?rva000E479C@Rva000E473F@@QAEXXZ,,0x000E479C,234,Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E473F.cpp,matched,
 ?rva000B8F5A@Rva000B8F5A@@QAEXPADVAsciiString@@@Z,,0x000B8F5A,71,Code/GameEngine/Source/Common/Rva000B8F5A.cpp,matched,
+?rva000BBE29@@YG_NHPAUVector3@@@Z,,0x000BBE29,93,Code/GameEngine/Source/Common/Rva000BBE29.cpp,matched,
