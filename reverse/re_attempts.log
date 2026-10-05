@@ -13995,3 +13995,4 @@ FUN_0063e3ce	0x0023E3CE	602	blocked	EH-prolog large-frame MapCache body t=1 mode
 ??0Rva0027C2C9@@QAE@PBHHME@Z	0x0027C2C9	61	blocked	and-vs-mov zero plus movss-vs-mov float plus src-load hoisted above plus4 t=15 model=muse-02
 ??4Rva00210F3D@@QAEAAV0@ABV0@@Z	0x00210F3D	39	partial	scratch eax reused vs rot ecx edx t=12 model=muse-02 score=0.93 stash=reverse/attempts/0x00210f3d.cpp
 ?rva005C7CC9@Rva005C7CC9@@QAEXH@Z	0x005C7CC9	129	blocked	two bodies merged 110 plus 19 plus WARN FF before start plus EH strings t=5 model=muse-02
+?rva00112230@Rva00112230@@QAEXPAPAX@Z	0x00112230	41	partial	frameless-to-frame via /Oy- (28B to 34B); residual is push-ecx plus and-[ebp-4]-0 EH-state slot (7B) plus ecx-vs-eax homes for p/out with knock-on inc/test/mov order; needs EH-state lever or reg-scheduling lever, not tried within slot bound score=0.8 stash=reverse/attempts/0x00112230.cpp
