@@ -12,13 +12,13 @@ int bfmeMakeOX(void *text);
 class Rva00028B90Thing
 {
 public:
-	void bfmeDoPF(char *at, void *what, int many);
+	int bfmeDoPF(char *at, int pos, int many);
 	void rva00028bc0(void *at, void *what);
 };
 
 void Rva00028B90Thing::rva00028bc0(void *at, void *what)
 {
-	bfmeDoPF((char *)at, what, bfmeMakeOX(at));
+	bfmeDoPF((char *)at, (int)what, bfmeMakeOX(at));
 }
 
 class BfmeThingPG
