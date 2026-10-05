@@ -56545,3 +56545,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?Rva003E50B4Check@@YG_NPAVParameter@@0@Z,,0x003E50B4,81,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_Rva003E50B4.cpp,matched,rowed getUnitNamed via g_Va009FE16C plus TerrainLogic slot 0x88 plus pin pathfinder
 ?Rva003E84C5Get@@YG_NPAVParameter@@0@Z,,0x003E84C5,112,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditionsRva003E84C5.cpp,matched,free stdcall team waypoint path test via getTeamNamed TerrainLogic slot88 Pathfinder
 ?Rva003C2C8FDo@@YGXPAVParameter@@0@Z,,0x003C2C8F,73,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C2C8F.cpp,matched,rowed getUnitNamed via g_Va009FE16C pin bfmeCounter by value cvttss2si ret8
+?Rva003C2CD8Do@@YGXPAVParameter@@0@Z,,0x003C2CD8,92,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C2CD8.cpp,matched,rowed mask player get bfmeCounter by value ret8
