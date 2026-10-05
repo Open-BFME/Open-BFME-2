@@ -536,7 +536,6 @@ void Rva005114BD::rva00511620(int tab, int unused)
 
 // Retail 0x005118B2, 65 bytes: vftable 0x00C659A0 slot 13 frees both tabs
 // and forgets the chat entry window.
-// ?rva005118B2@AptMessenger@@QAEXXZ present-unmatched
 void AptMessenger::rva005118B2()
 {
 	for (int i = 0; i < 2; ++i)
