@@ -55867,3 +55867,4 @@ ___Extract_locale_name,,0x000216A0,153,Code/Libraries/Source/WWVegas/WWLib/Local
 ?rva00559A11@Rva00559A11@@QAEPAV1@H@Z,,0x00559A11,101,Code/GameEngine/Source/Common/Rva00559A11.cpp,matched,leaf table init with two floats returning this ret 4
 ??$_Construct@UGeometryShape@@U1@@_STL@@YAXPAUGeometryShape@@ABU1@@Z,,0x005EA9A9,18,Code/Libraries/Source/WWVegas/WWLib/GeometryShapeConstruct005EA9A9.cpp,matched,stlport _Construct null-guarded placement copy via rowed copy ctor 0x005EA922
 ?rva003360D2@BfmeObjectEventDispatch@@QAEXHPAXPAUBfmeDelayedLuaEventList@@@Z,,0x003360D2,25,Code/GameEngine/Source/GameLogic/ScriptEngine/BfmeObjectEventDispatchRva003360D2.cpp,matched,same this as sibling dispatch invoke pin 0x00334634
+?setCompletedWaypoint@AIUpdateInterface@@QAEXPBVWaypoint@@@Z,,0x00268AAA,85,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfaceSetCompletedWaypoint.cpp,matched,pin name and signature callers onExit AIWander AIPanic chain via rva003360D2
