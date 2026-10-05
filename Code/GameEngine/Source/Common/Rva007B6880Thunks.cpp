@@ -5317,6 +5317,22 @@ void __cdecl rva007B973E()
 	p->rva001EAF7B();
 }
 
+class Rva005E9F7B
+{
+public:
+	virtual ~Rva005E9F7B();
+};
+
+extern unsigned g_00E06634;
+// g_00E06634: packet annotates VA 0x00E06634 (data), no name yet.
+
+// ?rva007B9748@@YAXXZ @ 0x007B9748 (10B). Global Rva005E9F7B dtor thunk: ecx=&g_00E06634 then tail-jmp to pinned ??1Rva005E9F7B@@UAE@XZ (0x005E9F7B). No callers. Between 0x007B973E and 0x007B9752. Honest address name.
+void __cdecl rva007B9748()
+{
+	Rva005E9F7B *p = (Rva005E9F7B *)&g_00E06634;
+	return p->Rva005E9F7B::~Rva005E9F7B();
+}
+
 // ?rva007B9752@@YAXXZ @ 0x007B9752 (10B). Global Rva001EAF7B thunk: ecx=&g_Va00DA60E8 then tail-jmp to rowed ?rva001EAF7B@Rva001EAF7B@@QAE_NXZ (0x001EAF7B).
 void __cdecl rva007B9752()
 {
