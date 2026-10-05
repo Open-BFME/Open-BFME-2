@@ -57318,3 +57318,8 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ??_GRva002109F8@@QAEPAXI@Z,,0x002109F8,28,Code/GameEngine/Source/Common/RvaDeletingDtorBatch02.cpp,matched,scalar deleting dtor via delete anchor; dtor pinned at 0x00210830; honest address name
 ??_GRva00210CF1@@QAEPAXI@Z,,0x00210CF1,28,Code/GameEngine/Source/Common/RvaDeletingDtorBatch02.cpp,matched,scalar deleting dtor via delete anchor; dtor pinned at 0x003FA14B; honest address name
 ??_GRva002146F7@@QAEPAXI@Z,,0x002146F7,28,Code/GameEngine/Source/Common/RvaDeletingDtorBatch02.cpp,matched,scalar deleting dtor via delete anchor; dtor pinned at 0x004043FF; honest address name
+??_GRva002189C5@@QAEPAXI@Z,,0x002189C5,28,Code/GameEngine/Source/Common/RvaDeletingDtorBatch03.cpp,matched,scalar deleting dtor via delete anchor; dtor pinned at 0x00218803; honest address name
+??_GRva00225B63@@QAEPAXI@Z,,0x00225B63,28,Code/GameEngine/Source/Common/RvaDeletingDtorBatch03.cpp,matched,scalar deleting dtor via delete anchor; dtor pinned at 0x001B5207; honest address name
+??_GRva00229487@@QAEPAXI@Z,,0x00229487,28,Code/GameEngine/Source/Common/RvaDeletingDtorBatch03.cpp,matched,scalar deleting dtor via delete anchor; dtor pinned at 0x0022630F; honest address name
+??_GRva0023903B@@QAEPAXI@Z,,0x0023903B,28,Code/GameEngine/Source/Common/RvaDeletingDtorBatch03.cpp,matched,scalar deleting dtor via delete anchor; dtor pinned at 0x0042C1B7; honest address name
+??_GRva00239E64@@QAEPAXI@Z,,0x00239E64,28,Code/GameEngine/Source/Common/RvaDeletingDtorBatch03.cpp,matched,scalar deleting dtor via delete anchor; dtor pinned at 0x00239D7A; honest address name
