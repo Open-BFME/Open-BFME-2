@@ -13272,3 +13272,6 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 ?rva00034A60@GeneralAllocator@Allocator@EA@@QAEPAXIIH@Z,0x00034A60,address-derived thiscall GeneralAllocator calloc-engine member taking count size flags and returning void pointer; called from wrapper 0x00035210; identity unproven
 ??0Rva004ECECD@@QAE@ABVAsciiString@@H@Z,0x004ED3D1,AITactic base ctor (name, flags): SEH ctor installing vtable 0x00C629E4; retail REL32 at the tactic base ctors 0x005DC730 and 0x005DCB1B targets this address
 ??0Rva0034286E@@QAE@PAVStateMachine@@I@Z,0x0034286E,intermediate StateMachine ctor (machine, hash): base 0x0033F279 then and-zero +0x4C, vtable 0x00C124D8, byte-zero +0x50; retail REL32 at 0x0034289E and 0x003428BB targets this address
+?rva00540A26@Rva00540B03@@QAEXXZ,0x00540A26,no-arg thiscall member init called at the end of ctor 0x00540B03; identity unproven; address-derived owner
+?rva00542067@Rva00542225@@QAEXXZ,0x00542067,no-arg thiscall member init called at the end of ctor 0x00542225; identity unproven; address-derived owner
+?rva00542148@Rva005422CF@@QAEXXZ,0x00542148,no-arg thiscall member init called at the end of ctor 0x005422CF; identity unproven; address-derived owner
