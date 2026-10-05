@@ -26,6 +26,7 @@ public:
     AptArray();
     void set(int,AptValue*);
     void _reserve(int);
+    void toString(EAStringC &,const char * = ",");
     void SetAt(int,AptValue*);
     static void *operator new(unsigned int n) { return g_pChainBlockAllocatorF4->allocBlock(n); }
     static AptValue *sMethod_concat(AptValue *,int);
@@ -98,7 +99,7 @@ inline void AptArray::set(int nIndex,AptValue *value) {
  mnLength=newLength>mnLength?newLength:mnLength;
 }
 
-class EAStringC { void *mpData; public: unsigned int rva006D3750() const; const char *rva00620090() const; bool rva006D3510(const char *) const; };
+class EAStringC { void *mpData; public: EAStringC(const char *); EAStringC &Rva006D4F00Append(const EAStringC &); EAStringC &Rva006D50A0Append(const char *); EAStringC(); ~EAStringC(); EAStringC &operator=(const EAStringC &); unsigned int rva006D3750() const; const char *rva00620090() const; bool rva006D3510(const char *) const; };
 class AptInteger { public: static AptValue *Create(int); };
 struct R4Word { const char *name; int nIndex; };
 const R4Word *Rva008B8AD0(const char *,unsigned int);
@@ -250,3 +251,31 @@ AptValue *AptArray::sMethod_concat(AptValue *pThis,int nParams) {
 
 #pragma comment(linker, "/alternatename:?_reserve@AptArray@@QAEXH@Z=?rva006D9500@Rva006D9500@@QAEXH@Z")
 #pragma comment(linker, "/alternatename:?SetAt@AptArray@@QAEXHPAVAptValue@@@Z=?rva006D8AD0@BfmeAptValue006DCD20@@QAEXHPAV1@@Z")
+
+class AptString : public AptValue { public: static AptString *Create(); EAStringC str; };
+AptValue *AptArray::sMethod_join(AptValue *pThis,int nParams) {
+ if(pThis->isArray()) {
+  AptArray *array=pThis->c_array();
+  EAStringC buffer;
+  EAStringC separator;
+  if(nParams>0) {g_aptValueStackAtE182E0.At(0)->toString(separator);array->toString(buffer,separator.rva00620090());}
+  else array->toString(buffer);
+  AptString *result=AptString::Create();
+  result->str=buffer;
+  return result;
+ }
+ return gpUndefinedValue;
+}
+
+void AptArray::toString(EAStringC &buffer,const char *separator) {
+ if(!separator) {
+  g_bfmeAptAssertAtE17734("szSeparator","C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptArray.cpp",0x16b);
+  if(g_bfmeAptBreakOnAssertAtDDC01C) { __asm int 3 }
+ }
+ buffer="";
+ for(int i=0;i<mnLength;i++) {
+  AptValue *value=At(i);
+  if(value) {EAStringC text;value->toString(text);buffer.Rva006D4F00Append(text);}
+  if(i<mnLength-1)buffer.Rva006D50A0Append(separator);
+ }
+}
