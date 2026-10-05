@@ -94,3 +94,7 @@ typedef char ScriptColourSize[sizeof(AptScriptColour)==36?1:-1];
 
 // Native vtable scalar6F2C70 calls complete destructor6F25D0.
 #pragma comment(linker, "/alternatename:??1AptScriptColour@@MAE@XZ=??1Rva006F25D0@@UAE@XZ")
+
+// Native ScriptColour vtable slots13/11 are these existing GC providers.
+#pragma comment(linker, "/alternatename:?RegisterReferences@AptScriptColour@@UBEXXZ=?rva006F2C20@Rva006F2C20@@UAEXXZ")
+#pragma comment(linker, "/alternatename:?DestroyGCPointers@AptScriptColour@@UAEXXZ=?rva006F2C50@Rva006F2C50@@UAEXXZ")
