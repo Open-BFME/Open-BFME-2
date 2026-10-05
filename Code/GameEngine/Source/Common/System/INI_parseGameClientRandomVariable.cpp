@@ -12,10 +12,9 @@ class GameClientRandomVariable
 {
 public:
 	enum DistributionType { CONSTANT, UNIFORM, GAUSSIAN, TRIANGULAR, LOW_BIAS, HIGH_BIAS };
+	static const char *DistributionTypeNames[];
 	void setRange(float low, float high, DistributionType type);
 };
-
-extern const char *g_Rva009BA3E8DistributionTypeNames[];
 
 class INI
 {
@@ -36,6 +35,6 @@ void INI::parseGameClientRandomVariable(INI *ini, void *, void *store, const voi
 	GameClientRandomVariable::DistributionType type = GameClientRandomVariable::UNIFORM;
 	const char *token = ini->getNextTokenOrNull();
 	if (token)
-		type = (GameClientRandomVariable::DistributionType)ini->scanIndexList(token, g_Rva009BA3E8DistributionTypeNames);
+		type = (GameClientRandomVariable::DistributionType)ini->scanIndexList(token, GameClientRandomVariable::DistributionTypeNames);
 	var->setRange(low, high, type);
 }
