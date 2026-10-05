@@ -56184,3 +56184,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva006E9580@Rva006E9580@@QAE_NHPAVEAStringC@@PAVBfmeAptValue006DCD20@@@Z,,0x006E9580,333,Code/GameEngine/Source/Common/Rva006E9580Vslot.cpp,matched,vslot slot 8 of vtable 0x008EC85C via EAStringC message name pattern
 ?rva007B9680@@YAXXZ,,0x007B9680,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk StringBase clear global g_00E06444
 ?rva0046D946@Rva0046D946@@QAEPAVObject@@PAV2@@Z,,0x0046D946,293,Code/GameEngine/Source/GameLogic/Object/Contain/Rva0046D946Closest.cpp,matched,closest excluding self via slot70 list and map findObjectByID
+?handleQMMatch@PeerThreadClass@@QAEXPAXHHQAPAD11111@Z,,0x0038B6C1,502,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadHandleQMMatch.cpp,matched,BFME1 PeerThread handleQMMatch donor with 6-field plus port 8088 and QM 4 to 7
