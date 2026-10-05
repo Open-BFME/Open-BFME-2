@@ -22,8 +22,15 @@ void (__cdecl *g_aptBackgroundCallback)(int) = 0;
 extern void (__cdecl *g_bfmeAptFreeAtE17784)(void *,int);
 void AptDebuggerPrint(int,const char *,...);
 #define CHECK(c,l,s) if(!(c)){g_bfmeAptAssertAtE17734(s,"C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptMovie.cpp",l);if(g_bfmeAptBreakOnAssertAtDDC01C){__asm int 3}}
+struct AptFrame; class AptDisplayList; class AptPseudoDisplayList;
+class AptMovie {public:int nFrames;AptFrame *frames; void doFrameControls(AptDisplayList *,AptCIH *,int); void DoTemporaryFrameControls(AptPseudoDisplayList *,int);};
 struct AptCharacter;
-struct AptCharacterAnimation { char pad[16]; AptCharacter **characters; void ExecuteInitActions(AptCIH *,int); };
+struct AptImportFile {char pad[0x14]; AptCharacter *mainCharacter;};
+struct AptImport {int a,b,id; AptImportFile *file;};
+struct AptCharacterAnimation { AptMovie movie; char pad[8]; AptCharacter **characters; char rest[12];int importCount;AptImport *imports;
+ int IsImport(int id) {for(int i=0;i<importCount;++i)if(imports[i].id==id)return i;return -1;}
+ int GetIDFromImportFile(int); void ExecuteInitActions(AptCIH *,int);void ExecuteInitAction(AptCIH *,int);
+};
 struct AptCharacter { int type; AptCharacter *parent; union { AptCharacterAnimation animation; void *sound; }; };
 struct AptCharacterInst { char pad[12]; AptCharacter *character; int hash,unknown,frame; };
 class AptCIH { public: char pad[0x4c]; AptCharacterInst *inst; const AptCIH *rva006E0CB0() const; bool IsSpriteInstBase() const;
@@ -33,7 +40,7 @@ struct AptControl {int type; union {struct {int sprite,stream;} init; AptPlaceCo
 struct AptFrame {int count; AptControl **controls;};
 class AptDisplayList {public:void placeObject(AptPlaceControl *,AptCIH *); void removeObject(int *);};
 class AptPseudoDisplayList;
-class AptMovie {public:int nFrames;AptFrame *frames; void doFrameControls(AptDisplayList *,AptCIH *,int); void DoTemporaryFrameControls(AptPseudoDisplayList *,int);};
+
 void AptMovie::doFrameControls(AptDisplayList *display,AptCIH *inst,int frame) {
  CHECK(frame>=0 && frame<nFrames,0x110,"nFrame >= 0 && nFrame < (int)nFrames");
  for(int i=0;i<frames[frame].count;++i) {
@@ -128,3 +135,99 @@ void AptPseudoDisplayList::Insert(AptPseudoCIH_t *item) {
 }
 
 #pragma comment(linker, "/alternatename:?Remove@AptPseudoDisplayList@@QAEXPAUAptPseudoCIH_t@@@Z=?Rva006F7C70Free@@YGXPAURva006F7C70Item@@@Z")
+
+// Address-derived identity: the only caller is anonymous ?d_008d3860 and
+// there is no named caller, vtable slot, string literal, or witnessed class
+// layout for this body.  The offsets below are taken from retail disassembly.
+// The body is a thiscall int(int) lookup with inline strcmp and no direct
+// retail REL32 callees; the reviewed source probes exact at 135 bytes.
+// Existing import-ID provider moved here intact; same native symbol and135B.
+extern "C" int strcmp(const char *a, const char *b);
+
+#pragma intrinsic(strcmp)
+
+class Rva008A1CF0Item
+{
+public:
+	const char *m_ptr00;
+	int m_value04;
+};
+
+class Rva008A1CF0Group
+{
+public:
+	unsigned char m_pad00[0x30];
+	int m_count30;
+	Rva008A1CF0Item *m_items34;
+};
+
+class Rva008A1CF0Owner
+{
+public:
+	unsigned char m_pad00[0x14];
+	Rva008A1CF0Group *m_group14;		// BFME1 +0x10; BFME2 retail reads +0x14
+};
+
+class Rva008A1CF0Slot
+{
+public:
+	void *m_ptr00;
+	const char *m_ptr04;
+	unsigned char m_pad08[4];
+	Rva008A1CF0Owner *m_owner0c;
+};
+
+class Rva008A1CF0
+{
+public:
+	int rva008A1CF0(int idx);
+
+	unsigned char m_pad00[0x24];
+	Rva008A1CF0Slot *m_table24;
+};
+
+__declspec(noinline) int Rva008A1CF0::rva008A1CF0(int idx)
+{
+	Rva008A1CF0Group *g = m_table24[idx].m_owner0c->m_group14;
+	int n = g->m_count30;
+	int i = 0;
+
+	if (n > 0)
+	{
+		Rva008A1CF0Slot *s = &m_table24[idx];
+		Rva008A1CF0Item *items = g->m_items34;
+		const char *name = s->m_ptr04;
+		Rva008A1CF0Item *item = items;
+
+		do
+		{
+			if (strcmp(name, item->m_ptr00) == 0)
+				return items[i].m_value04;
+
+			++i;
+			++item;
+		}
+		while (i < n);
+	}
+
+	return -1;
+}
+
+void AptCharacterAnimation::ExecuteInitActions(AptCIH *inst,int id) {
+ AptCharacterAnimation *animation=this;
+ const AptMovie *movie=&inst->inst->character->animation.movie;
+ int imported=animation->IsImport(id);
+ if(imported!=-1) {
+  id=((Rva008A1CF0 *)animation)->rva008A1CF0(imported);
+  if(id!=-1){animation=&animation->imports[imported].file->mainCharacter->animation;movie=&animation->characters[id]->animation.movie;}
+ }
+ if(movie->nFrames>0){
+  for(int i=0;i<movie->frames[0].count;++i){
+   const AptControl *control=movie->frames[0].controls[i];
+   if(control->type==3 && control->place.character!=-1) animation->ExecuteInitAction(inst,control->place.character);
+  }
+ }
+ if(id!=-1)animation->ExecuteInitAction(inst,id);
+}
+
+#pragma comment(linker, "/alternatename:?rva00700090@Rva00700090@@QAEPAXPAURva00700090Info@@@Z=?PrepareForExecution@AptActionInterpreter@@QAEPAXPAUAptActionSetup@@@Z")
