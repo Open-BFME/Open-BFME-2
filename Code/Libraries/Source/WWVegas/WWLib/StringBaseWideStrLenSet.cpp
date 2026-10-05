@@ -28,7 +28,7 @@ template <typename T>
 class CharSource {
 public:
     virtual int getLength() const = 0;
-    virtual void _gap() const = 0;
+    virtual void getCharRange(T *dest, int start, int count) const = 0;
     virtual int getChars(T *dest) const = 0;
 };
 
@@ -56,7 +56,9 @@ public:
     WideStrLenSource(const wchar_t *s, int l) : m_str(s), m_len(l) {}
     ~WideStrLenSource() {}
     virtual int getLength() const { return m_len; }
-    virtual void _gap() const {}
+    virtual void getCharRange(wchar_t *dest, int start, int count) const {
+        memcpy(dest, m_str + start, count * 2);
+    }
     virtual int getChars(wchar_t *dest) const {
         memcpy(dest, m_str, m_len * 2);
         return m_len;
@@ -64,7 +66,6 @@ public:
 };
 
 // ?getLength@WideStrLenSource@@UBEHXZ present-unmatched
-// ?_gap@WideStrLenSource@@UBEXXZ present-unmatched
 // ??0WideStrLenSource@@QAE@PBGH@Z present-unmatched
 // ??1WideStrLenSource@@QAE@XZ present-unmatched
 template <>
