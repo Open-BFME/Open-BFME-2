@@ -61942,3 +61942,4 @@ _Rva007F5790Callback,,0x00661F40,15,Code/GameEngine/Source/GameNetwork/Rva007F70
 ?parseIntMathExpression@INI@@QAEHPBDP81@AEH0@Z@Z,,0x0002E0C9,463,Code/GameEngine/Source/Common/System/INI_parseMathExpression.cpp,matched,
 ?parseUnsignedIntMathExpression@INI@@QAEIPBDP81@AEI0@Z@Z,,0x0002E299,464,Code/GameEngine/Source/Common/System/INI_parseMathExpression.cpp,matched,
 ?parseMathExpression@INI@@QAEMPBDP81@AEM0@Z@Z,,0x0002E46A,464,Code/GameEngine/Source/Common/System/INI_parseMathExpression.cpp,matched,
+??1TeamRelationMap@@MAE@XZ,,0x003A2563,72,Code/GameEngine/Source/Common/RTS/TeamRelationMapDtor_Rva003A2563.cpp,matched,Zero Hour m_map.clear() over the BFME 2 relation hash map at +4 then the member dtor and the inlined Snapshot base; same shape as ~PlayerRelationMap 0x002AD078
