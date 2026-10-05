@@ -1,4 +1,6 @@
 // ?onEnter@AIAttackMeleeHordeWaitPathState@@UAE?AW4StateReturnType@@XZ
+// partial score=0.98 date=2026-10-05
+// ?onEnter@AIAttackMeleeHordeWaitPathState@@UAE?AW4StateReturnType@@XZ
 // partial score=0.98 date=2026-10-04
 // cl: /O1 /DNDEBUG /MD /arch:SSE
 //
@@ -220,6 +222,8 @@ private:
 	AIUpdateInterface *m_ai; // +0x258
 };
 
+class TurretStateMachine;
+
 class StateMachine
 {
 public:
@@ -230,13 +234,18 @@ public:
 	virtual StateReturnType setState(StateID newStateID);
 	Object *getOwner() const { return m_owner; }
 	Object *getGoalObject();
-	Bool isGoalObjectDestroyed() const;
-	void rva0034BF11ClearByte3A() { m_bfmeFlag3A = false; }
+		void rva0034BF11ClearByte3A() { m_bfmeFlag3A = false; }
 private:
 	unsigned char m_pad04[0x14 - 0x04];
 	Object *m_owner; // +0x14
 	unsigned char m_pad18[0x3A - 0x18];
 	Bool m_bfmeFlag3A; // +0x3A
+};
+
+class TurretStateMachine : public StateMachine
+{
+public:
+	bool rva004D7ADD();
 };
 
 class State
@@ -250,6 +259,7 @@ public:
 	virtual void onExit(StateExitType status);
 protected:
 	StateMachine *getMachine() const { return m_machine; }
+	TurretStateMachine *getTurretMachine() const { return (TurretStateMachine *)m_machine; }
 	Object *getMachineOwner() const { return m_machine->getOwner(); }
 	unsigned char m_pad04[0x18 - 0x04];
 	StateMachine *m_machine; // +0x18
@@ -430,7 +440,7 @@ private:
 StateReturnType AIAttackMeleeHordeWaitPathState::onEnter()
 {
 	m_bfmeValue24 = 0;
-	if (getMachine()->isGoalObjectDestroyed())
+	if (getTurretMachine()->rva004D7ADD())
 		return (StateReturnType)STATE_SUCCESS;
 	if (!getMachine()->getGoalObject())
 		return (StateReturnType)STATE_SUCCESS;
