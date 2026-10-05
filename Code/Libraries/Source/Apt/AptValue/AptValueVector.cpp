@@ -4,8 +4,10 @@
 // and its mCurrentNum member. Element entries pair a shared EAStringC
 // name with an integer value; the vector adds the element pointer array.
 // EAStringC here is the minimal TU-local view the original needs: the
-// copy and clear operations resolve via ledger rows while the trivial
-// default constructor emits no retail body of its own.
+// copy, assign and clear operations resolve via ledger rows while the
+// default constructor re-roots to the shared empty singleton (retail
+// 0x006D2F90, ICF-shared with clear) so this unit stops emitting a stray
+// empty copy.
 extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *, const char *, int);
 extern int g_bfmeAptBreakOnAssertAtDDC01C;
 extern "C" void *__cdecl memmove(void *, const void *, unsigned int);
@@ -37,12 +39,19 @@ public:
 	StringDataC *m_pData;
 
 public:
-// ??0EAStringC@@QAE@XZ absent-from-retail
-	EAStringC() {}
+	EAStringC();
 	EAStringC(const EAStringC &other);
 	EAStringC &operator=(const EAStringC &other);
 	EAStringC &clear();
 };
+
+extern EAStringC::StringDataC g_eaEmptyStringData;
+
+__declspec(noinline) inline EAStringC::EAStringC()
+{
+	m_pData = &g_eaEmptyStringData;
+	++g_eaEmptyStringData.m_uRefCount;
+}
 
 class AptValue;
 
@@ -80,14 +89,12 @@ AptValueNameEntry::AptValueNameEntry(const EAStringC &name, int value) :
 }
 
 // ??0AptValueNameEntry@@QAE@XZ, retail 0x006CC000 (19B). Default entry
-// constructor: resets the name through the rowed EAStringC clear and
-// zeroes the value. Retail leaves the owning vector's array pointer to
-// the caller; array construction drives this body per element through
-// the 0x00629512 helper, which is why it also serves as the element
-// initializer callback.
+// constructor: the implicit EAStringC default (empty re-root at 0x006D2F90,
+// ICF-shared with clear) initializes the name, then zeroes the value.
+// Retail leaves the owning vector's array pointer to the caller; array
+// construction drives this body per element through the 0x00629512 helper.
 inline AptValueNameEntry::AptValueNameEntry()
 {
-	m_name.clear();
 	m_value = 0;
 }
 
