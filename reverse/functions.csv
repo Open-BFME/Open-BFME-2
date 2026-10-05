@@ -64659,3 +64659,4 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ?rva0014F674@@YAPAXPAXI0H@Z,,0x0014F674,37,Code/GameEngine/Source/Common/Rva0014F674Loop.cpp,matched,cdecl stride loop via pinned helper
 ?rva0014FA47@@YAPAXPAXI0@Z,,0x0014FA47,27,Code/GameEngine/Source/Common/Rva0014F674Loop.cpp,matched,forward via rowed stride loop
 ?rva002DBCCA@Rva002DBCCAOwner@@QAEXPAX@Z,,0x002DBCCA,31,Code/GameEngine/Source/Common/Rva002DBCCAForward.cpp,matched,
+?notifyAll@Rva0041E717Broadcast@@QAEXXZ,,0x0041E717,27,Code/GameEngine/Source/Common/Rva0041E717Broadcast.cpp,matched,vtable-slot-1 broadcast over the +0x1C/+0x20 pointer range
