@@ -19,7 +19,7 @@ public:
 	Object *m_ptr;
 };
 
-extern Rva00575674 g_00DFE4C4;
+Rva00575674 g_00DFE4C4;
 
 class Rva00222061
 {
@@ -38,5 +38,3 @@ void Rva002220DCInit()
 		g_00DFE4C4.m_ptr->v02();
 	}
 }
-// ?g_00DFE4C4@@3VRva00575674@@A: the global at VA 0xdfe4c4 is ?g_00DFE4C4@@3PAXA.
-#pragma comment(linker, "/alternatename:?g_00DFE4C4@@3VRva00575674@@A=?g_00DFE4C4@@3PAXA")
