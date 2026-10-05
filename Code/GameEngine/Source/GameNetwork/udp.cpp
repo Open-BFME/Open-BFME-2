@@ -131,8 +131,8 @@ Int UDP::Bind(UnsignedInt IP,UnsignedShort Port)
   int namelen=sizeof(addr);
   getsockname(fd, (struct sockaddr *)&addr, &namelen); 
 
-  myIP=ntohl(addr.sin_addr.s_addr);
-  myPort=ntohs(addr.sin_port);
+  myIP=htonl(addr.sin_addr.s_addr);
+  myPort=htons(addr.sin_port);
 
   // Retail inlines this (/Ob2) and keeps only the ioctlsocket -- no test of the
   // result, so the reference's fprintf is not in the shipped source.
