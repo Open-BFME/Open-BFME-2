@@ -1,6 +1,6 @@
 // ?rva006C3180@GeneralAllocatorDebug@@QAEXPAUGeneralAllocatorDebugBlock@@@Z
 // partial score=0.88 date=2026-10-05
-// cl: /O2 /DNDEBUG /MD
+// ?rva006C3180@GeneralAllocatorDebug@@QAEXPAUGeneralAllocatorDebugBlock@@@Z @ 0x006C3180 (150B)
 //
 // 0x006C3180, 150B: GeneralAllocatorDebug::VerifyGuardFill. The body is
 // frameless (no SEH handler, no EH state), so the near file's /O2 /DNDEBUG /MD
