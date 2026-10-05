@@ -1,5 +1,3 @@
-// ?Rva000C2B23_ParseModelName@INI@@SAXPAV1@PAX1PBX@Z
-// partial score=0.95 date=2026-10-05
 // cl: /Ireference/shims/bfme2_ascii /O1 /GX /DNDEBUG /MD
 //
 // ?Rva000C2B23_ParseModelName@INI@@SAXPAV1@PAX1PBX@Z, retail 0x000C2B23
@@ -54,7 +52,6 @@ struct Rva000C2B23Condition
 	_STL::vector<AsciiString, _STL::allocator<AsciiString> > m_modelNames;	// +0x4C
 };
 
-// ?Rva000C2B23_ParseModelName@INI@@SAXPAV1@PAX1PBX@Z
 void INI::Rva000C2B23_ParseModelName(INI *ini, void *instance, void *, const void *)
 {
 	Rva000C2B23Condition *self = (Rva000C2B23Condition *)instance;
@@ -71,5 +68,6 @@ void INI::Rva000C2B23_ParseModelName(INI *ini, void *instance, void *, const voi
 	{
 		self->m_modelNames.clear();
 	}
-	self->m_modelNames.push_back(AsciiString(name));
+	AsciiString tmp(name);
+	self->m_modelNames.push_back(tmp);
 }
