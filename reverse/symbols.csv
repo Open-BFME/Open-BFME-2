@@ -11969,3 +11969,4 @@ _floor,0x00629940,call site 0x006F4403 in AptDate::getDayOfWeek (0x006F4290) enc
 ?insertWorker@Rva00500BF5Tree@@QAE?AU?$_Rb_tree_iterator@VRva00500500@@U?$_Nonconst_traits@VRva00500500@@@_STL@@@_STL@@PAURva00500BF5Node@@0ABVRva00500500@@0@Z,0x00500BF5,iterator hidden-return ABI twin of rowed explicit output worker; caller 500CAB reproduces traversal and correct factory family
 ?insertEqualWorker@Rva00500BF5Tree@@QAE?AU?$_Rb_tree_iterator@VRva00500500@@U?$_Nonconst_traits@VRva00500500@@@_STL@@@_STL@@ABVRva00500500@@@Z,0x00500C7D,declaration-only ABI twin of rowed insertEqual(value); target hinted insertion call501049
 ?Rva00500BA6Opaque@@YGPAXABVRva00500500@@@Z,0x00500BA6,opaque-pointer ABI twin of rowed108B node factory; native clone call501071; same92B value at node+10
+?cloneNode@Rva00500BF5Tree@@QAEPAURva00500BF5Node@@PAU2@@Z,0x00501068,member ABI twin of rowed node clone; unused ECX and ret4; native recursive-copy calls50147B/5014AB

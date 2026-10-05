@@ -37,6 +37,8 @@ public:
     Iterator insertEqual(const Rva00500500 &value);
     Iterator insertEqualWorker(const Rva00500500 &value);
     Iterator insertEqual(Iterator position, const Rva00500500 &value);
+    Rva00500BF5Node *cloneNode(Rva00500BF5Node *source);
+    Rva00500BF5Node *copy(Rva00500BF5Node *source, Rva00500BF5Node *parent);
 private:
     Rva00500BF5Node *m_header;
     unsigned m_count;
@@ -167,3 +169,29 @@ Rva00500BF5Tree::Iterator Rva00500BF5Tree::insertEqual(
         return insertEqualWorker(value);
     }
 }
+
+// Target 0x0050146E/115B. Its two clone calls reach 0x00501068;
+// the two right-subtree calls recurse here. STLport _tree.c::_M_copy is
+// the structural guide. Retail has no exception cleanup in this copy.
+Rva00500BF5Node *Rva00500BF5Tree::copy(Rva00500BF5Node *source,
+                                    Rva00500BF5Node *parent)
+{
+    Rva00500BF5Node *top = cloneNode(source);
+    top->parent = parent;
+    if (source->right != 0)
+        top->right = copy(source->right, top);
+    parent = top;
+    source = source->left;
+    while (source != 0) {
+        Rva00500BF5Node *node = cloneNode(source);
+        parent->left = node;
+        node->parent = parent;
+        if (source->right != 0)
+            node->right = copy(source->right, node);
+        parent = node;
+        source = source->left;
+    }
+    return top;
+}
+
+#pragma comment(linker, "/alternatename:?cloneNode@Rva00500BF5Tree@@QAEPAURva00500BF5Node@@PAU2@@Z=?Rva00501068Clone@@YGPAURva00500BF5Node@@PAU1@@Z")
