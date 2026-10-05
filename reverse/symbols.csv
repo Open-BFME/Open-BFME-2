@@ -12866,3 +12866,7 @@ _Rva00337999Forward,0x00337999,REL32 callee decoded from target call bytes of wr
 ?rva0036D3A3@BfmeC986@@QAEDHH@Z,0x0036D3A3,two-arg check on same this in rva003724B8 at 0x372509 (REL32); returns byte tested; identity not recovered
 ?rva005494A0@BfmeC986@@QAEXHH@Z,0x005494A0,two-arg step on same this in rva003724B8 at 0x37251E (REL32); return ignored; identity not recovered
 ?rva00372B09@BfmeC986@@QAEXHHH@Z,0x00372B09,three-arg fallback on same this in rva00372C74 at 0x372C9E (REL32); range-16 target, name will be reused by its row; identity not recovered
+??0Rva003862EDMember@@QAE@ABV0@@Z,0x0038630B,address read from the retail REL32 at 0x003862ED in CompositeRvoGetters::get; member copy ctor for the +0x84 RVO getter
+??0Rva00389DF1Member@@QAE@ABV0@@Z,0x005559FC,address read from the retail REL32 at 0x00389DF1 in CompositeRvoGetters::get; member copy ctor for the +0x1B0 RVO getter
+??0Rva00389E0FMember@@QAE@ABV0@@Z,0x00555616,address read from the retail REL32 at 0x00389E0F in CompositeRvoGetters::get; member copy ctor for the +0x340 RVO getter
+??0Rva00394173Member@@QAE@ABV0@@Z,0x00332106,address read from the retail REL32 at 0x00394173 in CompositeRvoGetters::get; member copy ctor for the +0x754 RVO getter

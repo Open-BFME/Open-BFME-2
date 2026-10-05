@@ -63511,3 +63511,7 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva003724B8@BfmeC986@@QAEDHHHHH@Z,,0x003724B8,137,Code/GameEngine/Source/Common/BfmeConv986.cpp,matched,dump range 16; BfmeC986 guarded dispatch with member-list scan; pinned 0x36D3A3 0x5494A0 plus family bfmeReady/bfmePrep/bfmeSend
 ?rva00372C22@BfmeC986@@QAEXHHHH@Z,,0x00372C22,82,Code/GameEngine/Source/Common/BfmeConv986.cpp,matched,dump range 16; dispatch caller gating on rva003724B8 then inline 0x20B params block plus pinned AIGroup 0x372571
 ?rva00372C74@BfmeC986@@QAEXHHHH@Z,,0x00372C74,52,Code/GameEngine/Source/Common/BfmeConv986.cpp,matched,dump range 16; dispatch caller gating on rva003724B8 then pinned 0x372B09 fallback
+?get@Rva003862EDField@@QBE?AVRva003862EDMember@@XZ,,0x003862ED,30,Code/GameEngine/Source/Common/System/CompositeRvoGetters.cpp,matched,
+?get@Rva00389DF1Field@@QBE?AVRva00389DF1Member@@XZ,,0x00389DF1,30,Code/GameEngine/Source/Common/System/CompositeRvoGetters.cpp,matched,
+?get@Rva00389E0FField@@QBE?AVRva00389E0FMember@@XZ,,0x00389E0F,30,Code/GameEngine/Source/Common/System/CompositeRvoGetters.cpp,matched,
+?get@Rva00394173Field@@QBE?AVRva00394173Member@@XZ,,0x00394173,30,Code/GameEngine/Source/Common/System/CompositeRvoGetters.cpp,matched,
