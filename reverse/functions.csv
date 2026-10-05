@@ -63864,3 +63864,6 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva00151248@Rva00151248@@QAEXXZ,,0x00151248,64,Code/GameEngine/Source/Common/Rva00151248Init.cpp,matched,
 ?rva001514B2@Rva001514B2@@QAEPAXHH@Z,,0x001514B2,30,Code/GameEngine/Source/Common/Rva001514B2Chain.cpp,matched,
 ?rva00151D1A@Rva00151D1A@@QAEXH@Z,,0x00151D1A,69,Code/GameEngine/Source/Common/Rva00151D1AApply.cpp,matched,
+?rva00150C97@Rva00150C97@@QAEXH@Z,,0x00150C97,57,Code/GameEngine/Source/Common/Rva00150B8DFamily.cpp,matched,dump range 5 resize over 8B elems via 0x150BF9 grow wrapper
+?rva00150CD0@Rva00150CD0@@QAEXH@Z,,0x00150CD0,57,Code/GameEngine/Source/Common/Rva00150B8DFamily.cpp,matched,dump range 5 resize over 8B elems via 0x150C22 grow wrapper
+?rva00150D09@Rva00150D09@@QAEXH@Z,,0x00150D09,57,Code/GameEngine/Source/Common/Rva00150B8DFamily.cpp,matched,dump range 5 resize over 8B elems via 0x150C4B grow wrapper
