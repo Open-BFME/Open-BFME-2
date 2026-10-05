@@ -27,6 +27,7 @@ struct Rva000427195BucketHandle
 
 struct Rva000427195
 {
+	Rva000427195 &operator=(const Rva000427195 &other);
 	void rva003A2A41();
 	~Rva000427195();
 	void *m_unused00;
@@ -37,4 +38,24 @@ struct Rva000427195
 Rva000427195::~Rva000427195()
 {
 	rva003A2A41();
+}
+
+// Pinned unrowed copy worker at 0x001FDC0F (Ghidra FUN_005fdc0f, 192B):
+// thiscall taking one pointer (proven by the push-arg plus ecx call site
+// below). Identity beyond the address is unrecovered, so the honest
+// address-derived class keeps the pin target stable.
+class Rva001FDC0F
+{
+public:
+	void rva001FDC0F(void *other);
+};
+
+// ??4Rva000427195@@QAEAAV0@ABV0@Z present-unmatched
+Rva000427195 &Rva000427195::operator=(const Rva000427195 &other)
+{
+	if (&other != this) {
+		rva003A2A41();
+		reinterpret_cast<Rva001FDC0F *>(this)->rva001FDC0F(const_cast<Rva000427195 *>(&other));
+	}
+	return *this;
 }
