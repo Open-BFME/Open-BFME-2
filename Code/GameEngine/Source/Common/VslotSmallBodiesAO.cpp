@@ -1,0 +1,20 @@
+// cl: /O1 /G7 /DNDEBUG /MD
+//
+// Small vtable-slot bodies with no ledger owner and no Ghidra entry whose
+// shape needs /O1 /G7 (imul by a constant), batch AO. Classes and methods
+// are address-derived and model only what each body touches.
+
+typedef int Int;
+
+// 0x0058AD9F (42 tables): five times the Int at VA 0x00DBA4E4.
+extern Int g_rva0058AD9FBase;
+class Rva0058AD9F
+{
+public:
+	Int rva0058AD9F();
+};
+Int Rva0058AD9F::rva0058AD9F()
+{
+	return g_rva0058AD9FBase * 5;
+}
+
