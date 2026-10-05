@@ -92,6 +92,19 @@ struct S4SortElem20
 	AsciiString m_bfmeName;
 	char m_bfmeFlag;
 	BfmeSortElem20Tail m_bfmeTail;
+
+	// Retail 0x3372EC is a 39-byte assignment body whose calls go to the
+	// StringBase setter at 0x366F0 and tail setter at 0x332217. The call target
+	// is pinned from the BFME1 donor's placed caller; the Ghidra boundary and
+	// those callees are target evidence. Preserve the donor's field-wise copy:
+	// compiler-generated whole-tail copying emits a different 38-byte body.
+	S4SortElem20 &operator=(const S4SortElem20 &other)
+	{
+		m_bfmeName = other.m_bfmeName;
+		m_bfmeFlag = other.m_bfmeFlag;
+		m_bfmeTail.set(other.m_bfmeTail);
+		return *this;
+	}
 };
 
 struct S4Cmp002EB8E0
