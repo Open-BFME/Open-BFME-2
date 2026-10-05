@@ -14,6 +14,7 @@ class Rva00222A8BTarget
 {
 public:
 	int invoke(void *owner, const char *name, int argc, const char *a0, void *a1, void *a2, void *a3, void *a4);
+	int rva00222B19(void *level, const char *prefix, const char *function, int argc, const char *a0, void *a1, void *a2, void *a3, void *a4);
 };
 
 // StringBase<char>::str() (TheNullChr for an empty string) of a temporary.
@@ -123,4 +124,18 @@ void Rva00522A91::rva00521841()
 		Rva00521643Enable();
 		break;
 	}
+}
+
+static inline const char *Rva005252CDPass(const char *s)
+{
+	return s;
+}
+
+// ?Rva005252CDInvoke@@YAHPAVRva00222A8BTarget@@PAXPBD2ABHABQBD@Z @0x005252CD
+// 107B: a two-argument call through the level-scoped rva00222B19 (level,
+// prefix, name), an int via the rowed Rva00222834Get and a string held by
+// reference.
+int __cdecl Rva005252CDInvoke(Rva00222A8BTarget *target, void *level, const char *prefix, const char *name, const int &a, const char *const &b)
+{
+	return target->rva00222B19(level, prefix, name, 2, Rva002162CFStr(Rva00222834Get(a)), (void *)Rva005252CDPass(b), 0, 0, 0);
 }
