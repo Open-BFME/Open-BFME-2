@@ -8980,3 +8980,6 @@ FUN_00588760	0x00188760	389	blocked	WW3D mesh chunk x87 SST plus SSE plus RGB sc
 ?rva001FB201@Rva001FB201@@QAEXPAVXfer@@@Z	0x001FB201	535	blocked	large 535B version-gated xfer owner unknown no vtable no caller no ctor 30 members needs layout t=8 model=muse-09
 ?rva003F3708@Rva003F3708@@QAEPAUElem003B2540@@H@Z	0x003F3708	49	partial	size exact 49B only lea-mov reg wall plus erase this reload t=20 model=muse-09 score=0.95 stash=reverse/attempts/0x003f3708.cpp
 ?Rva002E76D3Get@@YAHXZ	0x002E76D3	118	blocked	uses edi as this without save odd ABI pin-only callee needs caller context t=5 model=muse-09
+?rva004CD51B@Rva004CD51B@@QAEXXZ	0x004CD51B	370	blocked	370B Update loop with findObjectByID plus findPositionAround plus atan2 plus orientation no donor t=8 model=muse-10
+?rva0045108D@StoreObjectsSpecialPower@@UAEXXZ	0x004CDA49	408	blocked	frame slots retail data at -0x10 reused for push_back temp above hits at -0x14 vs ours hits at -0x10 data at -0x18 t=12 model=muse-10 (stash 0.97 kept)
+?rva001E70C2@Rva001E70C2@@QAEXXZ	0x001E70C2	312	blocked	312B Xfer Version1 plus Locomotor template AsciiString plus vector loop plus throw no donor EH wall t=6 model=muse-10
