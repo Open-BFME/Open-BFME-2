@@ -1,7 +1,10 @@
 // ?rva00032DF0@GeneralAllocator@Allocator@EA@@QAEPAXI@Z
-// partial score=0.92 date=2026-09-30
+// partial score=0.94 date=2026-10-05
 // ?rva00032DF0@GeneralAllocator@Allocator@EA@@QAEPAXI@Z
-// partial score=0.92 date=2026-09-30
+// partial score=0.94 date=2026-10-05
+// ?rva00032DF0@GeneralAllocator@Allocator@EA@@QAEPAXI@Z
+// partial score=0.94 date=2026-10-05
+// 0.94 residue (194/194B, ~11B in one window 0x32E30..0x32E5E + SIB): counter chain emits bytes-first (loadB,loadC,addB,storeB,incC) vs retail count-first regardless of source statement order or usable/misalign declaration order in this context; usable init emits lea esi,[esi-16] (misalign-first ctx) or add esi,-16 (usable-first ctx) vs retail sub esi,0x10; misaligned lea emits [ecx+eax] for base+adjust AND adjust+base source orders vs retail [eax+ecx] (reg-driven, survivor-theory refuted by retail). Prologue through VirtualAlloc call + full tail 0x32E5F..end incl. sentinel [esi+0xC] store and both epilogues are byte-exact. Next: new structural lever needed (e.g. temp-split counter store or different usable derivation), not another reorder.
 // BFME 2's memory-pool entry points. `namespace MemoryPool` is retail's own
 // name: every `_`-prefixed function here is exported under it
 // (reverse/exports.csv), and 0x00030730 resolves each export back out of the
@@ -250,13 +253,14 @@ void *GeneralAllocator::rva00032DF0(unsigned int size)
 		{
 			m_coreCount++;
 			m_coreBytes += rounded;
-			unsigned int usable = rounded - 0x10;
 			unsigned int misalign = (unsigned int)base & 7;
+			unsigned int usable = rounded - 0x10;
 			void *aligned;
 			if (misalign)
 			{
 				unsigned int adjust = 8 - misalign;
-				aligned = (char *)base + adjust;
+				// Commuted and still [ecx+eax]: SIB order is reg-driven here, not source order.
+				aligned = adjust + (char *)base;
 				usable -= adjust;
 				((unsigned int *)aligned)[0] = adjust;
 				((unsigned int *)aligned)[1] = (usable - adjust) | 2;
@@ -271,9 +275,10 @@ void *GeneralAllocator::rva00032DF0(unsigned int size)
 			((unsigned int *)footer)[0] = usable;
 			((unsigned int *)footer)[1] = 0x13;
 			void *oldTail = m_coreList.m_prev;
-			((void **)footer)[2] = &m_coreList;
+			CoreLink *coreSentinel = &m_coreList;
+			((void **)footer)[2] = coreSentinel;
 			((void **)footer)[3] = oldTail;
-			m_coreList.m_prev = footer;
+			coreSentinel->m_prev = footer;
 			*(void **)((char *)oldTail + 8) = footer;
 			return (char *)aligned + 8;
 		}
