@@ -46,11 +46,30 @@ public:
 	virtual void notify28(Rva0030C1FCOwner *owner);
 };
 
+// The by-reference call records forEach builds on its stack: the member-function
+// pointer first, then the arguments the listener slot takes.
+struct Rva0030C032Call
+{
+	void (Rva0030C1FCListener::*notify)(Rva0030C1FCOwner *);
+	Rva0030C1FCOwner *owner;
+};
+
+struct Rva0030C09FCall
+{
+	void (Rva0030C1FCListener::*notify)(Rva0030C1FCOwner *, int);
+	Rva0030C1FCOwner *owner;
+	int value;
+};
+
 class Rva0030C185List
 {
 public:
 	void forEach(void (Rva0030C1FCListener::*notify)(Rva0030C1FCOwner *), Rva0030C1FCOwner *owner);
 	void forEach(void (Rva0030C1FCListener::*notify)(Rva0030C1FCOwner *, int), Rva0030C1FCOwner *owner, int value);
+
+	// The EH-guarded walks (0x0030C032, 0x0030C09F) stay unmodelled.
+	void apply(const Rva0030C032Call &call);
+	void apply(const Rva0030C09FCall &call);
 };
 
 class Rva0053805DBase
@@ -136,4 +155,23 @@ void Rva0030C1FCOwner::rva0030C2B6()
 {
 	rva00538099();
 	m_listeners.forEach(&Rva0030C1FCListener::notify28, this);
+}
+
+// 0x0030C185 and 0x0030C1A3: pack the slot and its arguments into a call record
+// and hand it to the list walk.
+void Rva0030C185List::forEach(void (Rva0030C1FCListener::*notify)(Rva0030C1FCOwner *), Rva0030C1FCOwner *owner)
+{
+	Rva0030C032Call call;
+	call.notify = notify;
+	call.owner = owner;
+	apply(call);
+}
+
+void Rva0030C185List::forEach(void (Rva0030C1FCListener::*notify)(Rva0030C1FCOwner *, int), Rva0030C1FCOwner *owner, int value)
+{
+	Rva0030C09FCall call;
+	call.notify = notify;
+	call.owner = owner;
+	call.value = value;
+	apply(call);
 }

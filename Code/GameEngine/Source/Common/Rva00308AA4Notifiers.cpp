@@ -38,14 +38,66 @@ public:
 	virtual void notify18(Rva00308AA4Owner *owner, int value);
 };
 
+// The by-reference call records forEach builds on its stack: the member-function
+// pointer first, then the arguments the listener slot takes.
+struct Rva00308688Call
+{
+	void (Rva00308AA4Listener::*notify)(Rva00308AA4Owner *);
+	Rva00308AA4Owner *owner;
+};
+
+struct Rva003086F5Call
+{
+	void (Rva00308AA4Listener::*notify)(Rva00308AA4Owner *, int);
+	Rva00308AA4Owner *owner;
+	int value;
+};
+
 class Rva003089CFList
 {
 public:
 	void forEach(void (Rva00308AA4Listener::*notify)(Rva00308AA4Owner *), Rva00308AA4Owner *owner);
 	void forEach(void (Rva00308AA4Listener::*notify)(Rva00308AA4Owner *, int), Rva00308AA4Owner *owner, int value);
+
+	// The EH-guarded walks (0x00308688, 0x003086F5) stay unmodelled.
+	void apply(const Rva00308688Call &call);
+	void apply(const Rva003086F5Call &call);
 };
 
-// The primary base: its broadcasts are called non-virtually here.
+// The primary base runs the same broadcast over its own listener list at +0x08
+// (forEach 0x00537F56 over the walk 0x00537EE9), with the same slot mapping as
+// the owner: 0x0053805D +0x04, 0x0053806C +0x08, 0x0053807B +0x10,
+// 0x0053808A +0x14, 0x00538099 +0x0C.  Each body is push this / push thunk /
+// lea ecx,[this+8] / call; the Rva00308AA4Notifiers, Rva0030C1FCNotifiers and
+// Rva003F87FFNotifiers owners all call them non-virtually.
+class Rva0053805DBase;
+
+class Rva0053805DListener
+{
+public:
+	virtual void notify00(Rva0053805DBase *owner);
+	virtual void notify04(Rva0053805DBase *owner);
+	virtual void notify08(Rva0053805DBase *owner);
+	virtual void notify0C(Rva0053805DBase *owner);
+	virtual void notify10(Rva0053805DBase *owner);
+	virtual void notify14(Rva0053805DBase *owner);
+};
+
+struct Rva00537EE9Call
+{
+	void (Rva0053805DListener::*notify)(Rva0053805DBase *);
+	Rva0053805DBase *owner;
+};
+
+class Rva00537F56List
+{
+public:
+	void forEach(void (Rva0053805DListener::*notify)(Rva0053805DBase *), Rva0053805DBase *owner);
+
+	// The EH-guarded walk (0x00537EE9) stays unmodelled.
+	void apply(const Rva00537EE9Call &call);
+};
+
 class Rva0053805DBase
 {
 public:
@@ -57,7 +109,9 @@ public:
 	void rva00538099();
 
 private:
-	char m_unmodelled_04[0x30 - 0x04];
+	char m_unmodelled_04[0x08 - 0x04];
+	Rva00537F56List m_listeners;		// +0x08
+	char m_unmodelled_09[0x30 - 0x09];
 };
 
 // Secondary base at +0x30, which introduces the virtual 0x00308B04 overrides.
@@ -115,4 +169,56 @@ void Rva00308AA4Owner::rva00308B04()
 void Rva00308AA4Owner::rva00308B23(int value)
 {
 	m_listeners.forEach(&Rva00308AA4Listener::notify18, this, value);
+}
+
+// 0x003089CF and 0x003089ED: pack the slot and its arguments into a call record
+// and hand it to the list walk.
+void Rva003089CFList::forEach(void (Rva00308AA4Listener::*notify)(Rva00308AA4Owner *), Rva00308AA4Owner *owner)
+{
+	Rva00308688Call call;
+	call.notify = notify;
+	call.owner = owner;
+	apply(call);
+}
+
+void Rva003089CFList::forEach(void (Rva00308AA4Listener::*notify)(Rva00308AA4Owner *, int), Rva00308AA4Owner *owner, int value)
+{
+	Rva003086F5Call call;
+	call.notify = notify;
+	call.owner = owner;
+	call.value = value;
+	apply(call);
+}
+
+void Rva00537F56List::forEach(void (Rva0053805DListener::*notify)(Rva0053805DBase *), Rva0053805DBase *owner)
+{
+	Rva00537EE9Call call;
+	call.notify = notify;
+	call.owner = owner;
+	apply(call);
+}
+
+void Rva0053805DBase::rva0053805D()
+{
+	m_listeners.forEach(&Rva0053805DListener::notify04, this);
+}
+
+void Rva0053805DBase::rva0053806C()
+{
+	m_listeners.forEach(&Rva0053805DListener::notify08, this);
+}
+
+void Rva0053805DBase::rva0053807B()
+{
+	m_listeners.forEach(&Rva0053805DListener::notify10, this);
+}
+
+void Rva0053805DBase::rva0053808A()
+{
+	m_listeners.forEach(&Rva0053805DListener::notify14, this);
+}
+
+void Rva0053805DBase::rva00538099()
+{
+	m_listeners.forEach(&Rva0053805DListener::notify0C, this);
 }

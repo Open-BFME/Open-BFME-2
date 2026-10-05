@@ -29,10 +29,20 @@ public:
 	virtual void notify0C(Rva0030CAA9Owner *owner);
 };
 
+// The by-reference call record forEach builds on its stack.
+struct Rva0030C9E6Call
+{
+	void (Rva0030CAA9Listener::*notify)(Rva0030CAA9Owner *);
+	Rva0030CAA9Owner *owner;
+};
+
 class Rva0030CA8BList
 {
 public:
 	void forEach(void (Rva0030CAA9Listener::*notify)(Rva0030CAA9Owner *), Rva0030CAA9Owner *owner);
+
+	// The EH-guarded walk (0x0030C9E6) stays unmodelled.
+	void apply(const Rva0030C9E6Call &call);
 };
 
 // The primary base: its broadcasts are called non-virtually here.
@@ -83,4 +93,14 @@ void Rva0030CAA9Owner::rva0030CAD9()
 {
 	rva00538099();
 	m_listeners.forEach(&Rva0030CAA9Listener::notify0C, this);
+}
+
+// 0x0030CA8B: pack the slot and the owner into a call record and hand it to
+// the list walk.
+void Rva0030CA8BList::forEach(void (Rva0030CAA9Listener::*notify)(Rva0030CAA9Owner *), Rva0030CAA9Owner *owner)
+{
+	Rva0030C9E6Call call;
+	call.notify = notify;
+	call.owner = owner;
+	apply(call);
 }

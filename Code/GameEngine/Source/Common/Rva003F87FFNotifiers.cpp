@@ -42,10 +42,21 @@ public:
 
 typedef void (Rva003F87FFListener::*Rva003F87FFNotify)(Rva0056AC26Owner *, Rva0056AC26 *);
 
+// The by-reference call record forEach builds on its stack.
+struct Rva003F8646Call
+{
+	Rva003F87FFNotify notify;
+	Rva0056AC26Owner *owner;
+	Rva0056AC26 *entry;
+};
+
 class Rva003F86D4List
 {
 public:
 	void forEach(Rva003F87FFNotify notify, Rva0056AC26Owner *owner, Rva0056AC26 *entry);
+
+	// The EH-guarded walk (0x003F8646) stays unmodelled.
+	void apply(const Rva003F8646Call &call);
 };
 
 class Rva0056AC26Owner
@@ -109,4 +120,15 @@ void Rva0056AC26Owner::rva003F8892(Rva0056AC26 *entry)
 void Rva0056AC26Owner::rva003F88A7(Rva0056AC26 *entry)
 {
 	m_listeners.forEach(&Rva003F87FFListener::notify24, this, entry);
+}
+
+// 0x003F86D4: pack the slot, the owner and the entry into a call record and
+// hand it to the list walk.
+void Rva003F86D4List::forEach(Rva003F87FFNotify notify, Rva0056AC26Owner *owner, Rva0056AC26 *entry)
+{
+	Rva003F8646Call call;
+	call.notify = notify;
+	call.owner = owner;
+	call.entry = entry;
+	apply(call);
 }
