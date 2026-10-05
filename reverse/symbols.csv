@@ -12571,7 +12571,6 @@ _ceil,0x00629934,CRT ceil thunk identified by native PE import slot 0x00BBA578 a
 ??1Rva003B55F9Dtor@@QAE@XZ,0x003B55F9,dtor thunk stub at 0x003B55F9 to 0x0054FAAC (target of thunks 0x007B82C9 and 0x007B9A37)
 ?GetBool@AptBoolean@@QBE_NXZ,0x006D89D0,Native toBool6DD550 boolean branch tail-jumps byte getter; later AptBoolean.inl d8bdfcd7e1b3059a confirms const bool GetBool; alias existing rowed Rva006D89D0ByteField getter
 ?ExecuteInitActions@AptCharacterAnimation@@QAEXPAVAptCIH@@H@Z,0x006E6B40,Native70F370 parent animation+8 receiver and CIH-characterID pair; donor ExecuteInitActions semantics; provider unrowed
-?placeObject@AptDisplayList@@QAEXPAUAptPlaceControl@@PAVAptCIH@@@Z,0x006F8EC0,Native70F370 control+4 and CIH args; donor old PlaceObject2 semantic match; provider unrowed
 ?removeObject@AptDisplayList@@QAEXPAH@Z,0x006F72C0,Native70F370 remove-control depth pointer; alias rowed bfmeForward1279 provider
 ?FindInst@AptPseudoDisplayList@@QAEXHPAPAUAptPseudoCIH_t@@0@Z,0x006F6AC0,Native70F040 depth and prev-item outputs; alias rowed depth lookup; original node20B reused
 ?Insert@AptPseudoDisplayList@@QAEXPAUAptPseudoCIH_t@@@Z,0x006F8380,Native70F040 pseudo-node insertion; donor Insert and original PDB node; native101B supplier pending
@@ -12603,3 +12602,5 @@ _ceil,0x00629934,CRT ceil thunk identified by native PE import slot 0x00BBA578 a
 ??_7AptStringObject@@6B@,0x008EDE4C,Native6FE380 stores this final vtable after canonical AptObject base; factory branch and original PDB/MAP establish class identity and virtual overrides
 ??_7AptError@@6B@,0x008EC85C,Native6FC2D0 stores this final vtable after canonical AptObject base; factory branch and original PDB/MAP establish class identity and virtual overrides
 ??_7AptScriptColour@@6B@,0x008ECE50,Native6F24E0 stores final vtable after canonical AptObject base; factory Color branch plus original PDB/MAP identify class and overrides
+?placeObject@AptDisplayList@@QAEPAVAptCIH@@PAUAptControlPlaceObject2@@PAV2@@Z,0x006F8EC0,Native full801B explicitly preserves returned CIH across name destruction; donor same PlaceObject2 signature; replaces earlier conservative void caller view
+?placeObjectNCXForm@AptDisplayList@@QAEPAVAptCIH@@PAV2@HPAUAptCharacter@@PAVEAStringC@@0HHPBIPBMPAXM@Z,0x006F8E10,Native6F8EC0 eleven-word thiscall with packed colors and float ratio; existing167B provider preserves core EAX; direct alias machine ABI

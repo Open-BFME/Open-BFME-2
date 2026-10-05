@@ -69,52 +69,7 @@ private:
 	BfmeQueryNode1279 *m_root;
 };
 
-// ?bfmeQuery1279@BfmeQuery1279@@QAEXHHPAPAXPAPAX@Z
-// ?BfmeQuery1279::bfmeQuery1279 present-unmatched
-void BfmeQuery1279::bfmeQuery1279(int nDepth, int name, void **ppPrev, void **ppItem)
-{
-	if (ppPrev == 0) {
-		g_bfmeAptAssertAtE17734("ppPrev", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptDisplayList.cpp", 0x17D);
-		if (g_bfmeAptBreakOnAssertAtDDC01C) __debugbreak();
-	}
-	if (ppItem == 0) {
-		g_bfmeAptAssertAtE17734("ppItem", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptDisplayList.cpp", 0x17E);
-		if (g_bfmeAptBreakOnAssertAtDDC01C) __debugbreak();
-	}
-	if (!(nDepth >= 0)) {
-		g_bfmeAptAssertAtE17734("nDepth >= 0", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptDisplayList.cpp", 0x17F);
-		if (g_bfmeAptBreakOnAssertAtDDC01C) __debugbreak();
-	}
-	BfmeQuery1279 *self = this;
-	BfmeQueryNode1279 *node = self->m_root->m_next;
-	BfmeQueryNode1279 *namePrevious = self->m_root;
-
-	if (name != 0 && node != 0) {
-		do {
-			if (((BfmeAptValue006DCD20 *)node)->isUndefined()) {
-				if (((EAStringC *)name)->IsEqualTo((EAStringC *)&node->m_nameHandle)) {
-					*ppItem = node;
-					*ppPrev = namePrevious;
-					return;
-				}
-			}
-			namePrevious = node;
-			node = node->m_next;
-		} while (node != 0);
-	}
-
-	node = self->m_root->m_next;
-	BfmeQueryNode1279 *keyPrevious = self->m_root;
-	while (node != 0 && ((node->m_key << 15) >> 15) < nDepth) {
-		keyPrevious = node;
-		node = node->m_next;
-	}
-	if (node != 0 && ((node->m_key << 15) >> 15) == nDepth)
-		*ppItem = node;
-	else
-		*ppItem = 0;
-	*ppPrev = keyPrevious;
-}
+// Query provider rehomed to AptMovieFrameControls.cpp; public symbol preserved.
 
 // ?bfmeUnlinkNestedBE@@YAPAVBfmeNestedBE@@PAV1@@Z, retail 0x006F7090
 // (75 bytes). Unlinks a nested bounding-entry node from its pPrev/pNext

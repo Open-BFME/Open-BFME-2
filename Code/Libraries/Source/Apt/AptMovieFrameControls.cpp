@@ -6,7 +6,8 @@
 // E176FC and E17738 are native zero-initialized background guard/callback slots.
 // E17784 reuses the existing two-word cdecl external ABI; donor StartSound role
 // conflicts with that older external's Free name, so no new semantic pin is made.
-// Link backlog:700090/706950 setup cleanup;6E6B40 init;6F8EC0 place; existing globals.
+// Setup/cleanup bind cohort named providers; recovered init/place suppliers below.
+// Existing unresolved globals and deeper core-place dependencies still need census closure.
 class AptCIH;
 struct Rva00700090Info { void *m_0; int m_4; const char *m_8; int m_c; };
 class Rva00700090 {public:void *rva00700090(Rva00700090Info *);};
@@ -28,7 +29,7 @@ struct AptCharacter;
 struct AptImportFile {char pad[0x14]; AptCharacter *mainCharacter;};
 struct AptExport {const char *name; int id;};
 struct AptImport {int a,b,id; AptImportFile *file;};
-struct AptCharacterAnimation { AptMovie movie; char pad[8]; AptCharacter **characters; char rest[12];int importCount;AptImport *imports;int exportCount;AptExport *exports;
+struct AptCharacterAnimation { AptMovie movie; int unknown8,nCharacters; AptCharacter **characters; char rest[12];int importCount;AptImport *imports;int exportCount;AptExport *exports;
  int IsImport(int id) {for(int i=0;i<importCount;++i)if(imports[i].id==id)return i;return -1;}
  int GetIDFromImportFile(int); void ExecuteInitActions(AptCIH *,int);void ExecuteInitAction(AptCIH *,int);void ExportClassDefinitionAssets(AptCIH *);
 };
@@ -36,10 +37,14 @@ struct AptCharacter { int type; AptCharacter *parent; union { AptCharacterAnimat
 struct AptCharacterInst { char pad[12]; AptCharacter *character; int hash,unknown,frame; };
 class AptCIH { public: char pad[0x4c]; AptCharacterInst *inst; const AptCIH *rva006E0CB0() const; bool IsSpriteInstBase() const;
  AptCharacterInst *Sprite() const {if(!IsSpriteInstBase()){g_bfmeAptAssertAtE17734("isSpriteInstBase()","c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\AptCIH.h",0x7d);if(g_bfmeAptBreakOnAssertAtDDC01C){__asm int 3}}return inst;} };
-struct AptPlaceControl {int flags,depth,character; float matrix[6]; int cxform[2]; float ratio; int unknown[2]; void *actions;};
-struct AptControl {int type; union {struct {int sprite,stream;} init; AptPlaceControl place; int value;};};
+struct AptControlPlaceObject2 {int flags,depth,character; float matrix[6]; int cxform[2]; float ratio; const char *name;int clip;void *actions;};
+struct AptControl {int type; union {struct {int sprite,stream;} init; AptControlPlaceObject2 place; int value;};};
 struct AptFrame {int count; AptControl **controls;};
-class AptDisplayList {public:void placeObject(AptPlaceControl *,AptCIH *); void removeObject(int *);};
+class EAStringC {void *data; public:bool IsEqualTo(const EAStringC *) const;EAStringC();EAStringC(const char *);~EAStringC();EAStringC &operator=(const EAStringC &);};
+class AptDisplayListState {public:void findInst(int,const EAStringC *,AptCIH **,AptCIH **);};
+class AptDisplayList {public:AptDisplayListState *state; AptCIH *placeObject(AptControlPlaceObject2 *,AptCIH *); void removeObject(int *);
+ AptCIH *placeObjectNCXForm(AptCIH *,int,AptCharacter *,EAStringC *,AptCIH *,int,int,const unsigned int *,const float *,void *,float);
+};
 class AptPseudoDisplayList;
 
 void AptMovie::doFrameControls(AptDisplayList *display,AptCIH *inst,int frame) {
@@ -98,7 +103,7 @@ void AptMovie::DoTemporaryFrameControls(AptPseudoDisplayList *display,int frame)
    case 3: {
     AptCharacter *character=0;
     AptPseudoCIH_t *prev,*item;
-    AptPlaceControl *place=&control->place;
+    AptControlPlaceObject2 *place=&control->place;
     display->FindInst(place->depth,&prev,&item);
     if(place->character!=-1)character=sprite->inst->character->parent->animation.characters[place->character];
     if(item && place->character==-1 && (place->flags & 1 | 0x98)) {
@@ -273,3 +278,107 @@ void AptCharacterAnimation::ExportClassDefinitionAssets(AptCIH *inst) {
   }
  }
 }
+
+#define DL_CHECK(c,l,s) if(!(c)){g_bfmeAptAssertAtE17734(s,"C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptDisplayList.cpp",l);if(g_bfmeAptBreakOnAssertAtDDC01C){__asm int 3}}
+void __debugbreak();
+#pragma intrinsic(__debugbreak)
+class BfmeAptValue006DCD20
+{
+public:
+	bool isUndefined() const;
+};
+
+struct BfmeQueryNode1279
+{
+	void *m_bfme00;
+	void *m_bfme04;
+	void *m_nameHandle;
+	char m_pad0C[0x54 - 0x0C];
+	BfmeQueryNode1279 *m_next;
+	int m_key;
+};
+
+class BfmeQuery1279
+{
+public:
+	void bfmeQuery1279(int nDepth, int name, void **ppPrev, void **ppItem);
+
+private:
+	BfmeQueryNode1279 *m_root;
+};
+
+// ?bfmeQuery1279@BfmeQuery1279@@QAEXHHPAPAXPAPAX@Z
+__declspec(noinline) void BfmeQuery1279::bfmeQuery1279(int nDepth, int name, void **ppPrev, void **ppItem)
+{
+	if (ppPrev == 0) {
+		g_bfmeAptAssertAtE17734("ppPrev", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptDisplayList.cpp", 0x17D);
+		if (g_bfmeAptBreakOnAssertAtDDC01C) __debugbreak();
+	}
+	if (ppItem == 0) {
+		g_bfmeAptAssertAtE17734("ppItem", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptDisplayList.cpp", 0x17E);
+		if (g_bfmeAptBreakOnAssertAtDDC01C) __debugbreak();
+	}
+	if (!(nDepth >= 0)) {
+		g_bfmeAptAssertAtE17734("nDepth >= 0", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptDisplayList.cpp", 0x17F);
+		if (g_bfmeAptBreakOnAssertAtDDC01C) __debugbreak();
+	}
+	BfmeQuery1279 *self = this;
+	BfmeQueryNode1279 *node = self->m_root->m_next;
+	BfmeQueryNode1279 *namePrevious = self->m_root;
+
+	if (name != 0 && node != 0) {
+		do {
+			if (((BfmeAptValue006DCD20 *)node)->isUndefined()) {
+				if (((EAStringC *)name)->IsEqualTo((EAStringC *)&node->m_nameHandle)) {
+					*ppItem = node;
+					*ppPrev = namePrevious;
+					return;
+				}
+			}
+			namePrevious = node;
+			node = node->m_next;
+		} while (node != 0);
+	}
+
+	node = self->m_root->m_next;
+	BfmeQueryNode1279 *keyPrevious = self->m_root;
+	while (node != 0 && ((node->m_key << 15) >> 15) < nDepth) {
+		keyPrevious = node;
+		node = node->m_next;
+	}
+	if (node != 0 && ((node->m_key << 15) >> 15) == nDepth)
+		*ppItem = node;
+	else
+		*ppItem = 0;
+	*ppPrev = keyPrevious;
+}
+
+
+// ?placeObject@AptDisplayList@@QAEPAVAptCIH@@PAUAptControlPlaceObject2@@PAV2@@Z
+AptCIH *AptDisplayList::placeObject(AptControlPlaceObject2 *place,AptCIH *parent){
+ if(place->flags&2){
+  DL_CHECK(place->character>=0 && place->character<parent->inst->character->parent->animation.nCharacters,0x3c1,"pPlaceObject2->nCharacterID >= 0 && pPlaceObject2->nCharacterID < pParent->pData->pCharacter->pParentAnim->animation.nCharacters");
+  AptCharacter *character=parent->inst->character->parent->animation.characters[place->character];
+  DL_CHECK(character,0x3c3,"pCharacter");if(!character)return 0;
+  EAStringC name;EAStringC *pName=0;
+  if(place->flags&0x20){name=place->name;pName=&name;}
+  return placeObjectNCXForm(0,place->depth,character,pName,parent,0,place->clip,place->flags&8 ? (unsigned *)place->cxform : 0,place->flags&4 ? place->matrix : 0,place->flags&0x80 ? place->actions : 0,place->ratio);
+ }else if(place->flags&1){
+  AptCIH *cur,*prev;((BfmeQuery1279 *)state)->bfmeQuery1279(place->depth,0,(void **)&prev,(void **)&cur);
+  if(cur==0){
+   DL_CHECK(place->character>=0 && place->character<parent->inst->character->parent->animation.nCharacters,0x3e8,"pPlaceObject2->nCharacterID >= 0 && pPlaceObject2->nCharacterID < pParent->pData->pCharacter->pParentAnim->animation.nCharacters");
+   AptCharacter *character=parent->inst->character->parent->animation.characters[place->character];
+   DL_CHECK(character,0x3ea,"pCharacter");
+   EAStringC name;EAStringC *pName=0;
+   if(place->flags&0x20){name=place->name;pName=&name;}
+   return placeObjectNCXForm(0,place->depth,character,pName,parent,0,place->clip,place->flags&8 ? (unsigned *)place->cxform : 0,place->flags&4 ? place->matrix : 0,place->flags&0x80 ? place->actions : 0,place->ratio);
+  }else return placeObjectNCXForm(cur,0,0,0,parent,0,-1,place->flags&8 ? (unsigned *)place->cxform : 0,place->flags&4 ? place->matrix : 0,place->flags&0x80 ? place->actions : 0,place->ratio);
+ }
+ return 0;
+}
+
+// Existing provider's machine code preserves EAX from core place operation;
+// native caller saves that AptCIH* across its name destructor. The old provider
+// uses an opaque void spelling; this direct alias retains its verified ABI.
+#pragma comment(linker, "/alternatename:?placeObjectNCXForm@AptDisplayList@@QAEPAVAptCIH@@PAV2@HPAUAptCharacter@@PAVEAStringC@@0HHPBIPBMPAXM@Z=?bfmeSubmitColors1283@BfmeSubmitter1283@@QAEXHHHHHHHPBIHHH@Z")
+#pragma comment(linker, "/alternatename:??0EAStringC@@QAE@XZ=?clear@EAStringC@@QAEAAV1@XZ")
