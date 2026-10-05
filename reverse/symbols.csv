@@ -13202,3 +13202,4 @@ _Rva00438083,0x00438083,Address-derived bool prompt helper directly called by 0x
 _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d3dx9_27.dll D3DXMatrixTranspose; two pointer arguments stdcall8 per retail pushes in 0x0014D474
 ?rva000717B40@Rva0014D247Holder@@QAEPAXPAX0@Z,0x00717B40,"retail REL32 at 0x0014D259 in 0x0014D247 targets 0x00717B40 (ecx=Holder thiscall 2 ptr args; Ghidra? check); opaque candidate not identity"
 ?rva0014F674@@YAPAXPAXI0H@Z,0x0014F674,"alias of rowed STL __uninitialized_fill_n at same address (duplicate identity yielded; stride-loop spelling emits identical 37B calling 0x0014F647); retains caller 0x0014FA47 resolution"
+?rva000F1D24@Rva000F28C3Holder@@QAEXHPAURva000F28C3Poly@@@Z,0x000F1D24,retail REL32 at 0x000F2940 in 0x000F28C3 targets 0x000F1D24 (thiscall 2 stack args int plus ptr void return per call site; single caller; opaque address name pin candidate-not-proof)
