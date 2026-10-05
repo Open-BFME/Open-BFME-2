@@ -39,3 +39,12 @@ AptValue *aptMathPow(void *self, int argc)
     BfmeAptValue006DCD20 *exponent = g_aptDateInterpreter.stack.At(1);
     return Rva008A4EA0MakeFloat((float)pow(base->rva006DD460(), exponent->rva006DD460()));
 }
+
+// Native 6E8A20..6E8A4F: checked top value followed by x87 fsqrt.
+AptValue *aptMathSqrt(void *self, int argc)
+{
+    if (argc < 1)
+        return reinterpret_cast<AptValue *>(g_aptUndefinedAtE18078);
+    float value = g_aptDateInterpreter.stack.At(0)->rva006DD460();
+    return Rva008A4EA0MakeFloat((float)sqrt(value));
+}
