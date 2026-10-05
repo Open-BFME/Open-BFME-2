@@ -8,11 +8,25 @@
 // (0x00C60C10) -> 0x004D7F69 and ControlledWeaponSlots (0x00C60C20, store
 // +0x4C) -> 0x004D7EF9. The slot index goes through the member scanIndexList
 // (explicit null seps) over the VA 0x00DBC284 slot-name table.
+//
+// TurretAIData::buildFieldParse 0x004D7F9C (17B) adds the TurretAIData table
+// at VA 0x00C60B90; AIUpdateModuleData::parseTurret hands it to
+// initFromINIMultiProc.
 
 #define NULL 0
 
 typedef float Real;
 typedef unsigned int UnsignedInt;
+
+struct FieldParse;
+
+class MultiIniFieldParse
+{
+public:
+	void add(const FieldParse *parseTable, unsigned int extraOffset);
+};
+
+extern const FieldParse g_00C60B90[];
 
 class INI
 {
@@ -37,6 +51,7 @@ class TurretAIData
 public:
 	static void parseTurretSweep(INI *ini, void *instance, void *store, const void *userData);
 	static void parseTurretSweepSpeed(INI *ini, void *instance, void *store, const void *userData);
+	static void buildFieldParse(MultiIniFieldParse &p);
 
 	unsigned char m_unreconstructed_00[0x10];
 	Real m_turretFireAngleSweep[WEAPONSLOT_COUNT];		// +0x10
@@ -70,4 +85,10 @@ void TurretAIData::parseTurretSweepSpeed(INI *ini, void *instance, void * /*stor
 	TurretAIData *self = (TurretAIData *)instance;
 	WeaponSlotType wslot = (WeaponSlotType)ini->scanIndexList(ini->getNextToken(NULL), TheWeaponSlotTypeNames);
 	INI::parseReal(ini, instance, &self->m_turretSweepSpeedModifier[wslot], NULL);
+}
+
+// ?buildFieldParse@TurretAIData@@SAXAAVMultiIniFieldParse@@@Z
+void TurretAIData::buildFieldParse(MultiIniFieldParse &p)
+{
+	p.add(g_00C60B90, 0);
 }

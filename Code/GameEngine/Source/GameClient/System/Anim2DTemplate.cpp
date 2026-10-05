@@ -36,7 +36,6 @@ Anim2DTemplate::Anim2DTemplate( AsciiString name )
 }  // end Anim2DTemplate
 
 // ?parseNumImages@Anim2DTemplate@@KAXPAVINI@@PAX1PBX@Z
-// ?parseNumImages@Anim2DTemplate@@KAXPAVINI@@PAX1PBX@Z present-unmatched
 void Anim2DTemplate::parseNumImages(INI *ini, void *instance, void *store, const void *userData)
 {
 	UnsignedInt numFrames;
@@ -46,7 +45,7 @@ void Anim2DTemplate::parseNumImages(INI *ini, void *instance, void *store, const
 	Int minimumFrames = 1;
 	if (numFrames < minimumFrames) {
 		throw INIException(3, "Anim2DTemplate::parseNumImages - Invalid animation '%s', animations must have '%d' or more frames defined\n",
-			animTemplate->getName().str(), minimumFrames);
+			animTemplate->m_name.str(), minimumFrames);
 	}
 
 	animTemplate->allocateImages((UnsignedShort)numFrames);

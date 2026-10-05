@@ -156,18 +156,8 @@ const LocomotorTemplateVector* AIUpdateModuleData::findLocomotorTemplateVector(L
 }
 
 //-------------------------------------------------------------------------------------------------
-/*static*/ void AIUpdateModuleData::parseTurret(INI* ini, void *instance, void * store, const void* /*userData*/)
-{
-	if (*(TurretAIData**)store)
-	{
-		DEBUG_CRASH(("Only one turret to a customer, for now"));
-		throw INI_INVALID_DATA;
-	}
-
-	TurretAIData* td = newInstance(TurretAIData);
-	ini->initFromINIMultiProc(td, td->buildFieldParse);
-	*(TurretAIData**)store = td;
-}
+// AIUpdateModuleData::parseTurret: defined in AIUpdateModuleDataParseTurret.cpp
+// (its row's unit; BFME 2 throws INIException and uses plain new).
 
 //-------------------------------------------------------------------------------------------------
 /*static*/ void AIUpdateModuleData::parseLocomotorSet(INI* ini, void *instance, void * /*store*/, const void* /*userData*/)
