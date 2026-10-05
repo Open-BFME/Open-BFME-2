@@ -1253,3 +1253,24 @@ Rva004E6A37::~Rva004E6A37()
 		::operator delete(p);
 	}
 }
+
+class Rva0023A053
+{
+public:
+	Rva00239D7A *m_ptr;
+	void reset(Rva00239D7A *p);
+};
+
+void Rva0023A053::reset(Rva00239D7A *p)
+{
+	if (p != m_ptr)
+	{
+		Rva00239D7A *old = m_ptr;
+		m_ptr = p;
+		if (old)
+		{
+			old->Rva00239D7A::~Rva00239D7A();
+			::operator delete(old);
+		}
+	}
+}
