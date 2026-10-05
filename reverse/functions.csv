@@ -62387,3 +62387,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ??1Rva005AE66B@@UAE@XZ,,0x005AE66B,36,Code/GameEngine/Source/Common/Rva005AE66BDtor.cpp,matched,two vtable stores plus singleton clear plus tail-jmp to pinned base 0x005125ED
 ?xfer@Rva003AE928@@UAEXPAVXfer@@@Z,,0x00563965,28,Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AE928Xfer.cpp,matched,slot 3 xfer Version1 plus GpuDrawModuleInfo DoXfer at plus 0x18
 ?xfer@Rva003AE94E@@UAEXPAVXfer@@@Z,,0x00563965,28,Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AE928Xfer.cpp,matched,ICF twin of 928 xfer same slot 3 body
+?rva001E4461@Pathfinder@@QAEPAXHH@Z,,0x001E4461,44,Code/GameEngine/Source/Common/Rva001E4461Func.cpp,matched,forwards this to pinned lookup then tag 4 plus 0x28 return
