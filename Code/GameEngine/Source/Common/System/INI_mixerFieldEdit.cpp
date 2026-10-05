@@ -154,7 +154,6 @@ public:
 class SubsystemInterfaceList;
 extern SubsystemInterfaceList *TheSubsystemList;
 
-// ?Rva0002CF86MixerFieldEdit present-unmatched
 void Rva0002CF86MixerFieldEdit()
 {
 	HANDLE mapping = CreateFileMappingA((HANDLE)-1, 0, 4, 0, sizeof(Rva0002CF86View), "_mappedMixerFile");
