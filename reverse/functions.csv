@@ -61065,3 +61065,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva0048876B@Rva004886C7@@QAEHXZ,,0x0048876B,280,Code/GameEngine/Source/Common/VslotSmallBodiesE.cpp,matched,vslot6 of Rva004886C7 via isIdle plus InGameUI plus frame delta
 ??4BfmeAssignRecord44@@QAEAAU0@ABU0@@Z,,0x0055AC1F,88,Code/GameEngine/Source/Common/Rva0055A91AClear.cpp,matched,chain copy assign via 0x0055A91A 0x0055A93C list assign movsd caller 0x004143C0
 ?rva0055A962@Rva0055A91A@@QAEXXZ,,0x0055A962,54,Code/GameEngine/Source/Common/Rva0055A91AClear.cpp,matched,chain player index rebind or clear via 0x0055A91A 0x0055A93C getNthPlayer
+?rva0030F388@Rva0030F388@@QAEXXZ,,0x0030F388,29,Code/GameEngine/Source/Common/Rva0030F388Method.cpp,matched,guarded broadcast via rowed forEach plus slot0 forwarder with flag at 1c
