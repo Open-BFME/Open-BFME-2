@@ -55946,3 +55946,4 @@ ___Extract_locale_name,,0x000216A0,153,Code/Libraries/Source/WWVegas/WWLib/Local
 ?rva004A99F6@Rva004A99F6@@QAEXXZ,,0x004A99F6,28,Code/GameEngine/Source/GameLogic/Module/Rva004A99F6.cpp,matched,unlock lane TheAudio slot 0x6C virtual caller 0x004A9A12 member plus 0xE8 set to 1
 ?rva004B0FA0@Gen_0028EF10@@QAE_NXZ,,0x004B0FA0,25,Code/GameEngine/Source/Common/Gen0028EF10Rva004B0FA0.cpp,matched,same 0x9C link as bfmeValue 0x004B0E1F; tail-calls rowed Rva004B0E34Get; callers 0x0046E783 0x004975FA
 ?Rva0008F95FCreate@@YGPAVRva0009FDBD@@PAX@Z,,0x0008F95F,58,Code/GameEngine/Source/Common/Rva0008F95FCreate.cpp,matched,chain lane same 58B shape as 0x0008F877 caller new 0x0002FDA0 ctor 0x0009FDBD
+?Rva0030AEA6Copy@@YAXXZ,,0x0030AEA6,16,Code/GameEngine/Source/Common/Rva0030AEA6Copy.cpp,matched,calls rowed Rva0030ADED operator= to copy globals
