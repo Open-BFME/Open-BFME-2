@@ -56522,3 +56522,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?Rva003C2E61Do@@YGXPBX00@Z,,0x003C2E61,104,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C2E61.cpp,matched,leaf player counter via rowed mask sum and bfmeCounter pin
 ?Rva0008FA0DCreate@@YGPAVRva000A26F7@@PAX@Z,,0x0008FA0D,58,Code/GameEngine/Source/Common/Rva0008FA0DCreate.cpp,matched,chain via rowed ctor 0x000A26F7 same 58B shape as siblings
 ?Rva0008FA47Create@@YGPAVRva000A270F@@PAX@Z,,0x0008FA47,58,Code/GameEngine/Source/Common/Rva0008FA47Create.cpp,matched,chain via rowed ctor 0x000A270F same 58B shape as siblings
+?Rva003C4245Do@@YGXPAVParameter@@ABVAsciiString@@1@Z,,0x003C4245,116,Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003C4245Do.cpp,matched,Script apply power via getUnitNamed lookupUnitByValue findSpecialPowerTemplate BEC 0x40000
