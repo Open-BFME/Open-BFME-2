@@ -92,7 +92,9 @@ Rva00381F04 &Rva00381F04::operator=(const Rva00381F04 &other)
 		m_18[i] = other.m_18[i];
 	m_38 = other.m_38;
 	m_3C = other.m_3C;
-	m_40 = other.m_40;
+	// rowed narrow copy-set 0x000366F0 (?set@?$StringBase@D@@QAEXABV1@@Z),
+	// not the pin-only ??4AsciiString alias at the same address.
+	((StringBase<char> &)m_40).set((const StringBase<char> &)other.m_40);
 	m_44 = other.m_44;
 	m_48 = other.m_48;
 	m_4C = other.m_4C;
