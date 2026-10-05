@@ -107,3 +107,58 @@ void Rva0070A310::rva0070A310(Rva0070A310Pair *out)
 	out->m_00 = m_3C;
 	out->m_04 = m_40;
 }
+
+// slots at VA 0x00CEEB40 and 0x00CEEB24 (beside the two above): Apt script
+// function stubs that only assert false through the shared Apt assert triple
+// (AptValuePtrStackTop.cpp), naming AptScriptFunction.h lines 0x1CA and 0x1D2.
+extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *, const char *, int);
+extern int g_bfmeAptBreakOnAssertAtDDC01C;
+void __debugbreak();
+#pragma intrinsic(__debugbreak)
+class Rva0070A330
+{
+public:
+	void rva0070A330(Int a, Int b);
+	Int rva0070A360(Int a);
+};
+void Rva0070A330::rva0070A330(Int, Int)
+{
+	g_bfmeAptAssertAtE17734("false", "c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\AptObject/AptScriptFunction.h", 0x1CA);
+	if (g_bfmeAptBreakOnAssertAtDDC01C)
+		__debugbreak();
+}
+Int Rva0070A330::rva0070A360(Int)
+{
+	g_bfmeAptAssertAtE17734("false", "c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\AptObject/AptScriptFunction.h", 0x1D2);
+	if (g_bfmeAptBreakOnAssertAtDDC01C)
+		__debugbreak();
+	return 0;
+}
+
+// slot at 0x007581E0: the rowed 0x0075A490 on the +0x10 object inside a "collision"
+// profile range.
+class Profile
+{
+public:
+	static void StartRange(const char *range);
+	static void StopRange(const char *range);
+};
+class BfmeThingCGD
+{
+public:
+	void bfmeGoCGD();
+};
+class Rva007581E0
+{
+public:
+	void rva007581E0();
+private:
+	char m_pad00[0x10];
+	BfmeThingCGD *m_10;
+};
+void Rva007581E0::rva007581E0()
+{
+	Profile::StartRange("collision");
+	m_10->bfmeGoCGD();
+	Profile::StopRange("collision");
+}
