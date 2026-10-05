@@ -118,3 +118,24 @@ void Player::processSelectTeamGameMessage(int hotkeyNum, GameMessage *msg)
 		createNewSelection = false;
 	}
 }
+
+void Player::processAddTeamGameMessage(int hotkeyNum, GameMessage *msg)
+{
+	if (hotkeyNum < 0 || hotkeyNum >= NUM_HOTKEY_SQUADS)
+		return;
+
+	if (m_squads[hotkeyNum] == 0)
+		return;
+
+	if (m_currentSelection == 0)
+		m_currentSelection = new Squad;
+
+	const BfmeVecAK &objectList = m_squads[hotkeyNum]->getLiveObjects(true);
+	int numObjs = objectList.size();
+	for (int i = 0; i < numObjs; ++i)
+	{
+		Object *obj = objectList[i];
+		m_currentSelection->addObject(obj);
+		TheGameLogic->selectObject(obj, false, getPlayerMask(), false);
+	}
+}
