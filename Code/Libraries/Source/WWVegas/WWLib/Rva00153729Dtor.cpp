@@ -11,6 +11,7 @@ struct Rva005F8F96
 	TargetRef00217D4C *m_00;
 	int m_04;
 };
+namespace _STL { template<> vector<Rva005F8F96>::vector(const vector<Rva005F8F96>&); }
 struct Rva00153729
 {
 	~Rva00153729();
@@ -24,3 +25,17 @@ Rva00153729::~Rva00153729()
 Rva00153729::Rva00153729() : m_00(0)
 {
 }
+
+#include <new>
+#pragma inline_depth(0)
+// ?SolArrayCopyAnchor absent-from-retail
+void* SolArrayCopyAnchor(void*p,const Rva00153729&s) {return new(p) Rva00153729(s);}
+#pragma inline_depth()
+
+// Implicit record copy constructor: native 0015375A..00153786, ret4,
+// 44B. Copies key at+0 then EH array-copy helper for six 12B vectors.
+// Both callback addresses are target ABS32 operands: vector destructor
+// 001536EA and vector copy constructor0015350A. Use that kept provider
+// rather than emitting the differing93B container copy from this TU.
+// The anchor only emits the compiler-generated constructor; not retail.
+#pragma comment(linker, "/alternatename:??0?$vector@URva005F8F96@@V?$allocator@URva005F8F96@@@_STL@@@_STL@@QAE@ABV01@@Z=??0?$vector@URva00153A27Element@@V?$allocator@URva00153A27Element@@@_STL@@@_STL@@QAE@ABV01@@Z")
