@@ -76,7 +76,6 @@ class ResourceOwnedEntryList
 public:
     void rva004E54ED();
     void rva004E5542();
-    // ??1ResourceOwnedEntryList@@QAE@XZ present-unmatched
     ~ResourceOwnedEntryList() { rva004E5542(); }
     ResourceOwnedEntryNode *head;
 };

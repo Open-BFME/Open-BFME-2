@@ -33,7 +33,6 @@ private:
 struct Holder38
 {
 	Rva00528B98 m_inner;
-// ??1Holder38@@QAE@XZ present-unmatched
 	~Holder38() { m_inner.rva00528B98(); }
 };
 

@@ -613,7 +613,6 @@ const int WW3D::Get_Render_Device_Count(void)
  *   5/19/99    GTH : Created.                                                                 *
  *   1/25/2001  gth : converted to dx8                                                         *
  *=============================================================================================*/
-// ?Get_Render_Device_Name@WW3D@@ present-unmatched
 const char * WW3D::Get_Render_Device_Name(int device_index)
 {
 	return DX8Wrapper::Get_Render_Device_Name(device_index);
@@ -740,7 +739,6 @@ WW3DErrorType WW3D::Registry_Save_Render_Device( const char *sub_key, int device
  * HISTORY:                                                                                    *
  *   12/3/98    BMG : Created.                                                                 *
  *=============================================================================================*/
-// ?Registry_Load_Render_Device@WW3D@@ present-unmatched
 WW3DErrorType WW3D::Registry_Load_Render_Device( const char * sub_key, bool resize_window )
 {
 	bool success = DX8Wrapper::Registry_Load_Render_Device(sub_key,resize_window);
@@ -751,7 +749,6 @@ WW3DErrorType WW3D::Registry_Load_Render_Device( const char * sub_key, bool resi
 	}
 }
 
-// ?Registry_Load_Render_Device@WW3D@@ present-unmatched
 bool WW3D::Registry_Load_Render_Device( const char * sub_key, char *device, int device_len, int &width, int &height, int &depth, int &windowed, int &texture_depth)
 {
 	return DX8Wrapper::Registry_Load_Render_Device(sub_key,device,device_len,width,height,depth,windowed,texture_depth);
@@ -1152,7 +1149,6 @@ WW3DErrorType WW3D::End_Render(bool flip_frame)
  * HISTORY:                                                                                    *
  *   6/20/01    DEL : Created.                                                                 *
  *=============================================================================================*/
-// ?Flip_To_Primary@WW3D@@ present-unmatched
 void WW3D::Flip_To_Primary(void)
 {
 	DX8Wrapper::Flip_To_Primary();
@@ -1171,13 +1167,11 @@ void WW3D::Flip_To_Primary(void)
  * HISTORY:                                                                                    *
  *   7/28/99    GTH : Created.                                                                 *
  *=============================================================================================*/
-// ?Get_Last_Frame_Poly_Count@WW3D@@ present-unmatched
 unsigned int WW3D::Get_Last_Frame_Poly_Count(void)
 {
 	return Debug_Statistics::Get_DX8_Polygons();
 }
 
-// ?Get_Last_Frame_Vertex_Count@WW3D@@ present-unmatched
 unsigned int WW3D::Get_Last_Frame_Vertex_Count(void)
 {
 	return Debug_Statistics::Get_DX8_Vertices();
