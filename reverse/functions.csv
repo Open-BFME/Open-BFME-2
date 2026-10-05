@@ -60868,3 +60868,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva003FF8B0@GameSlot@@QAE_NE@Z,,0x003FF8B0,215,Code/GameEngine/Source/GameNetwork/GameInfoPlayerCounts.cpp,matched,hero-kind setter inverse of rva003FF16F via Split and hero manager
 ?rva0040C3BB@Rva0040C351@@QAE_NPBV1@@Z,,0x0040C3BB,117,Code/GameEngine/Source/Common/Rva0040C351Equality.cpp,matched,Rva0040C351 equality via rowed Equal and tail fields
 ?Rva0048F472IsEqual@@YG_NPAX@Z,,0x0048F472,58,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/Rva0048F472Check.cpp,matched,arg plus254 slave slots 0x10 0x18 float equality caller 0x0048FAB5 unblocks 0x0048F828
+?rva0002DE3C@INI@@SAXPAV1@PAX1PBX@Z,,0x0002DE3C,60,Code/GameEngine/Source/Common/System/INI_rva0002DE3C.cpp,matched,static INI parse via rowed 0x0002D6F8 plus set plus dtor
