@@ -71,6 +71,7 @@ public:
 	void setTooltipText(UnicodeString tip);
 	void setText(UnicodeString text);
 	UnicodeString getTooltipText();
+	UnicodeString getText();
 
 private:
 	char m_pad[0x19C];
@@ -107,6 +108,17 @@ inline UnicodeString WinInstanceData::getTooltipText()
 	return UnicodeString::TheEmptyString;
 }
 
+// ?getText@WinInstanceData@@QAE?AVUnicodeString@@XZ, retail 0x003148F1, 53 bytes:
+// the text twin of getTooltipText (m_text at +0x19C). Placed by compiling the
+// Open-BFME-1 donor WinInstanceData_getText.cpp at /O1; the pin from
+// winSetInstanceData's call site already names this address.
+inline UnicodeString WinInstanceData::getText()
+{
+	if (m_text)
+		return m_text->getText();
+	return UnicodeString::TheEmptyString;
+}
+
 // Header inlines that the units including the header emit as select-any
 // copies, which plain definitions here collided with. The anchor keeps this
 // unit's copies for the rows; it is not retail code.
@@ -115,5 +127,6 @@ inline UnicodeString WinInstanceData::getTooltipText()
 void _bfmeWinInstanceDataInlineAnchorWinInstanceDataDisplayStrings(WinInstanceData *p)
 {
     p->getTooltipText();
+    p->getText();
 }
 #pragma inline_depth()
