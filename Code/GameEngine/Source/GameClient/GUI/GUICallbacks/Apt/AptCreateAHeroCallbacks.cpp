@@ -40,8 +40,8 @@ public:
 	unsigned char m_pad[4];
 };
 
-// Unrowed 0x005B23D7 (cdecl), pinned by address.
-void Rva005B23D7(int value, const AsciiString &first, const AsciiString &second);
+// Rowed 0x005B23D7 in Code/GameEngine/Source/Common/AptHeroPowerText.cpp.
+void __cdecl Rva005B23D7HeroPowersDescription(void *power, int unused, const AsciiString &fallback);
 
 class AptCreateAHero
 {
@@ -174,7 +174,7 @@ void AptCreateAHero::OnShowScreen(const char *screen)
 		if (m_page)
 			m_page->show();
 		m_27c.rva005B1288();
-		Rva005B23D7(0, AsciiString::TheEmptyString, AsciiString::TheEmptyString);
+		Rva005B23D7HeroPowersDescription((void *)0, (int)&AsciiString::TheEmptyString, AsciiString::TheEmptyString);
 	}
 }
 
