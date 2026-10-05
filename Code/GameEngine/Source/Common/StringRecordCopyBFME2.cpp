@@ -10,6 +10,7 @@ template <typename T> class StringBase
 {
 public:
 	~StringBase();
+	void set(const StringBase<T> &that);
 private:
 	StringBase(const StringBase<T> &);
 	friend class AsciiString;
@@ -150,8 +151,8 @@ struct BfmeStringRecord00426A5B {
     BfmeStringRecord00426A5B &operator=(const BfmeStringRecord00426A5B &o);
 };
 BfmeStringRecord00426A5B::BfmeStringRecord00426A5B() : text(AsciiString::TheEmptyString), flag0(0), flag1(1), flag2(0) {}
-BfmeStringRecord00426A5B &BfmeStringRecord00426A5B::operator=(const BfmeStringRecord00426A5B &o) {
-    text = o.text;
+inline BfmeStringRecord00426A5B &BfmeStringRecord00426A5B::operator=(const BfmeStringRecord00426A5B &o) {
+    ((StringBase<char> &)text).set((const StringBase<char> &)o.text);
     flag0 = o.flag0;
     flag1 = o.flag1;
     flag2 = o.flag2;
@@ -294,3 +295,10 @@ template void _STL::_Construct<Rva00568A20, Rva00568A20>(Rva00568A20 *, const Rv
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
 #pragma comment(linker, "/alternatename:??$_Construct@VRva00297360Element@@V1@@_STL@@YAXPAVRva00297360Element@@ABV1@@Z=??$_Construct@UBfmeStringRecord0040360E@@U1@@_STL@@YAXPAUBfmeStringRecord0040360E@@ABU1@@Z")
+#pragma inline_depth(0)
+// ?bfmeEmitBfmeStringRecord00426A5BAssign@@YAXPAUBfmeStringRecord00426A5B@@ABU1@@Z present-unmatched
+void bfmeEmitBfmeStringRecord00426A5BAssign(BfmeStringRecord00426A5B *p, const BfmeStringRecord00426A5B &o)
+{
+	p->operator=(o);
+}
+#pragma inline_depth()
