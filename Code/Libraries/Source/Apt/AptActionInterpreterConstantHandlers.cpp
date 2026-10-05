@@ -185,7 +185,7 @@ private:
     static bool getContext(AptValue *,AptValue *,const EAStringC *,AptValue **,EAStringC &);
     AptObject *_createObject(AptValue *,AptValue *,const EAStringC *,int,bool);
 #define HANDLER(n) static void _FunctionAptAction##n(AptActionInterpreter *const,LocalContextT *const)
-    HANDLER(CloneSprite); HANDLER(SetTarget); HANDLER(SetTarget2); HANDLER(CallFrame); HANDLER(GotoLabel); HANDLER(GotoFrame); HANDLER(StopDragMovie); HANDLER(Play); HANDLER(Stop); HANDLER(NextFrame); HANDLER(PrevFrame);
+    HANDLER(GotoFrame2); HANDLER(CloneSprite); HANDLER(SetTarget); HANDLER(SetTarget2); HANDLER(CallFrame); HANDLER(GotoLabel); HANDLER(GotoFrame); HANDLER(StopDragMovie); HANDLER(Play); HANDLER(Stop); HANDLER(NextFrame); HANDLER(PrevFrame);
     HANDLER(PushFloat); HANDLER(PushByte); HANDLER(PushWord); HANDLER(PushDWord);
     HANDLER(Return); HANDLER(DefineDictionary); HANDLER(PushStringDictByte); HANDLER(PushStringDictWord);
     HANDLER(PushThis); HANDLER(PushGlobal); HANDLER(Push0); HANDLER(Push1);
@@ -1879,4 +1879,30 @@ AptValue *AptActionInterpreter::getObject(AptValue *current,AptValue *with,const
         if(value && value->ContainsNativeHashVirtual()) return value;
     }
     return 0;
+}
+
+// Volatile out slot plus stable snapshot preserves native context load scheduling.
+void AptActionInterpreter::_FunctionAptActionGotoFrame2(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    c->pInstruction=(const unsigned char *)(((unsigned int)c->pInstruction+3)&~3U);
+    const int *data=(const int *)c->pInstruction;
+    c->pInstruction+=4;
+    AptValue *value=p->stack.At(0);
+    AptCIH *cih=0;
+    if(c->pCurWith && c->pCurWith->isCIH()) cih=c->pCurWith->c_cih();
+    else if(c->pCurrentContext->isCIH()) cih=c->pCurrentContext->c_cih();
+    int frame=-1;
+    if(value->isString()) {
+        AptValue *volatile labelContext;
+        EAStringC name;
+        getContext(c->pCurrentContext,c->pCurWith,value->c_string()->GetInternalString(),(AptValue **)&labelContext,name);
+        AptValue *resolved=labelContext;
+        if(resolved->isCIH() && resolved->c_cih()->IsSpriteInstBase())
+            frame=resolved->c_cih()->GetSpriteInstBase()->character->movie.labelToFrame(&name);
+    } else if(value->isInteger()) frame=value->toInteger();
+    if(frame!=-1) {
+        cih->jumpToFrame(frame);
+        cih->SpriteBaseInline()->mbIsPlaying=(*data!=0) ? 1 : 0;
+    }
+    p->stack.Pop();
 }
