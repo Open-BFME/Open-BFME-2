@@ -10966,3 +10966,5 @@ _Rva001118ECResampleRgb555,0x001118EC,"RETAIL REL32 at 0x00111A1A and six siblin
 ??0Rva000A217F@@QAE@PAX@Z,0x000A217F,constructor called by the factory 0x0008FABB (byte-exact modulo relocs in Rva0008F8EBFactories.cpp) on a 0x2F0-byte allocation; identity unproven; address-derived name
 ?rva0043DC40@MpGameSetup@@QAEXH@Z,0x0043DC40,unrowed 53B thiscall (ret 4) on the MpGameSetup panel picking the games list sort column (+0x3AC; same column again moves to the next value and the old one is kept at +0x3B0); called by the OnSortName/OnSortPlayers/OnSortIcons callbacks 0x0043DC77/81/8B with 0/2/4; address name
 ?rva0057E6D8@Rva0057EE5C@@QAEXXZ,0x0057E6D8,unrowed 5B jump to 0x0057E6C1 on the MpGameSetup panel +0xD0 member; called from OnTabSelect 0x0043DCD0 for the rules tab; address name
+?allocate@?$allocator@URva0040C0C7Element@@@_STL@@QBEPAURva0040C0C7Element@@IPBX@Z,0x000B4039,Pod40 imul-0x28 same 40B size ICF twin call site 0x0040C023
+?_M_clear@?$vector@URva0040C0C7Element@@V?$allocator@URva0040C0C7Element@@@_STL@@@_STL@@IAEXXZ,0x0040BEF9,same thiscall no-args destroy-plus-free 30B ICF twin call site 0x0040C08D
