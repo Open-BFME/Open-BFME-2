@@ -41,7 +41,7 @@ enum ModuleParseMode
 class ThingTemplate
 {
 public:
-	const AsciiString &getName(void) const { return m_nameString; }
+	const AsciiString &getName(void) const;
 
 protected:
 	static void __cdecl parseRemoveModule(INI *ini, void *instance, void *store, const void *userData);
@@ -82,7 +82,7 @@ void ThingTemplate::parseReplaceModule(INI *ini, void *instance, void *store, co
 	AsciiString removedModuleName;
 	Bool removed = ((Rva0033C8E8 *)self)->rva0033C8E8(modToRemove, removedModuleName);
 	if (!removed)
-		throw INIException(3, "ReplaceModule %s was not found for %s, cannot continue.", modToRemove, self->getName().str());
+		throw INIException(3, "ReplaceModule %s was not found for %s, cannot continue.", modToRemove, self->m_nameString.str());
 
 	self->m_moduleBeingReplacedName = removedModuleName;
 	self->m_moduleBeingReplacedTag = modToRemove;
