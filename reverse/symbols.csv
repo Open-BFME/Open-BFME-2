@@ -12602,3 +12602,4 @@ _ceil,0x00629934,CRT ceil thunk identified by native PE import slot 0x00BBA578 a
 ??_7AptSound@@6B@,0x008ECF18,Native6F38B0 stores this final vtable after canonical AptObject base; factory branch and original PDB/MAP establish class identity and virtual overrides
 ??_7AptStringObject@@6B@,0x008EDE4C,Native6FE380 stores this final vtable after canonical AptObject base; factory branch and original PDB/MAP establish class identity and virtual overrides
 ??_7AptError@@6B@,0x008EC85C,Native6FC2D0 stores this final vtable after canonical AptObject base; factory branch and original PDB/MAP establish class identity and virtual overrides
+??_7AptScriptColour@@6B@,0x008ECE50,Native6F24E0 stores final vtable after canonical AptObject base; factory Color branch plus original PDB/MAP identify class and overrides

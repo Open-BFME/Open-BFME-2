@@ -65,3 +65,32 @@ typedef char ErrorSize[sizeof(AptError)==40?1:-1];
 #pragma comment(linker, "/alternatename:??1AptError@@MAE@XZ=??1S4Dtor00587B30@@UAE@XZ")
 #pragma comment(linker, "/alternatename:?objectMemberLookup@AptStringObject@@UBEPAVAptValue@@QAV2@QBVEAStringC@@@Z=?rva006FE400@Rva006FE400@@QAEHPAXPAURva008A4570Owner@@@Z")
 #pragma comment(linker, "/alternatename:?objectMemberSet@AptError@@UAE_NQAVAptValue@@QBVEAStringC@@0@Z=?rva006E9580@Rva006E9580@@QAE_NHPAVEAStringC@@PAVBfmeAptValue006DCD20@@@Z")
+
+// Original PDB ScriptColour is36B with pSprite+20; MAP supplies const-pointer
+// parameter. Donor f1e86798adbb054c supplies semantics. Native6F24E0..6F25C5
+// asserts non-null and only clears pSprite when isCIH fails (later code differs).
+class BfmeAptValue006DCD20 {public: BfmeAptValue006DCD20 *rva006DCF60(bool);int rva006E02B0() const;};
+class AptScriptColour : public AptObject {
+public:
+ AptScriptColour(AptValue *const);
+ static void operator delete(void *p,unsigned int n){g_pChainBlockAllocatorF4->freeBlock(p,n);}
+ virtual AptValue *objectMemberLookup(AptValue *const,const EAStringC *const) const;
+ virtual void RegisterReferences() const;
+ virtual void DestroyGCPointers();
+ AptCIH *pSprite;
+protected: virtual ~AptScriptColour();
+};
+AptScriptColour::AptScriptColour(AptValue *const pMovie) : AptObject((AptVirtualFunctionTable_Indices)26) {
+ if(!pMovie){g_bfmeAptAssertAtE17734("pMovie != NULL","C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptObject\\AptScriptColour.cpp",0x30);if(g_bfmeAptBreakOnAssertAtDDC01C){__asm int 3}}
+ if(pMovie->isCIH()) {
+  AptCIH *cih=(AptCIH *)((BfmeAptValue006DCD20 *)pMovie)->rva006DCF60(false);
+  if(cih->rva006CFCD0() || (unsigned char)((BfmeAptValue006DCD20 *)cih)->rva006E02B0()) {
+   pSprite=cih;((AptValue *)cih)->AddRef();
+  }
+ } else pSprite=0;
+}
+
+typedef char ScriptColourSize[sizeof(AptScriptColour)==36?1:-1];
+
+// Native vtable scalar6F2C70 calls complete destructor6F25D0.
+#pragma comment(linker, "/alternatename:??1AptScriptColour@@MAE@XZ=??1Rva006F25D0@@UAE@XZ")
