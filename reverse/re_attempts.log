@@ -10372,3 +10372,7 @@ FUN_008b7d53	0x004B7D53	141	blocked	vslot10 negative this-adjustment plus EH plu
 ?rva003EF5FB@Rva003EF5FB@@QAEEH@Z	0x003EF5FB	57	blocked	natural early-return model 51B vs 57B; retail pre-pushes int arg before Logic find for later pinned rva002E0BC0 plus shared mov-al-1 epilogue and id in ecx; needs push-order lever t=15 model=muse-07
 ?rva0056B7A0@Rva003F9FE6@@QAEEH@Z	0x0056B7A0	62	partial	early rets vs shared mov-xor-ret epilogue plus test on getter result; 60B vs 62B no register diffs t=20 model=muse-07 score=0.96 stash=reverse/attempts/0x0056b7a0.cpp
 ?Rva004EE9E9Xfer@@YAPAVXfer@@PAV1@PAVRva004EE6D0@@@Z	0x004EE9E9	245	partial	Xfer vector-load skeleton via Rva00426F17Xfer 225B vs 245B; needs non-POD temp Elem dtor for __EH_prolog plus EH states plus scopetable plus stack layout; no register wall t=20 model=muse-07 score=0.92 stash=reverse/attempts/0x004ee9e9.cpp
+?showRallyPoint@ControlBar@@QAEXPBUCoord3D@@@Z	0x0031B892	264	blocked	esi-edi swap plus edx vtable temp plus push edi late plus epilogue order t=10 model=muse-03 (stash 0.93 kept)
+?Rva002ADB4FHandler@Player@@QAEXPAXHH@Z	0x002ADB4F	180	blocked	switch dec-je vs cmp plus SSE frame and xmm order t=15 model=muse-03
+?rva003F65AD@Rva003F65AD@@QAEHXU?$pair@HH@_STL@@@Z	0x003F65AD	108	blocked	STL resize Element vs Record mismatch needs donor layout t=10 model=muse-03
+?rva000575CE@Rva000575CE@@QAE_NPAX@Z	0x000575CE	385	blocked	complex 385B hashtable audio video no donor owner unknown t=5 model=muse-03

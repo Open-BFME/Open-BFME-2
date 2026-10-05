@@ -63081,3 +63081,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva005E6A00@Rva005E6A00@@QAEXXZ,,0x005E6A00,17,Code/GameEngine/Source/Common/RvaHelperThenMemberForwarders.cpp,matched,Helper call on this then tail member call on held pointer by REL32
 ?rva005E6BA3@Rva005E6BA3@@QAEXXZ,,0x005E6BA3,17,Code/GameEngine/Source/Common/RvaHelperThenMemberForwarders.cpp,matched,Helper call on this then tail member call on held pointer by REL32
 ?rva005E6BB4@Rva005E6BB4@@QAEXXZ,,0x005E6BB4,17,Code/GameEngine/Source/Common/RvaHelperThenMemberForwarders.cpp,matched,Helper call on this then tail member call on held pointer by REL32
+?rva002461DA@Rva002461DA@@QAEXXZ,,0x002461DA,23,Code/Libraries/Source/WWVegas/WWLib/StlportListRva002461DA.cpp,matched,list clear plus free via base at zero
