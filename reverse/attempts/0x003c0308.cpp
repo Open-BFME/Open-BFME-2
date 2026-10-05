@@ -1,7 +1,31 @@
 // ?Rva003C0308Do@@YGXHH_NHABVAsciiString@@H@Z
-// partial score=0.96 date=2026-10-04
+// partial score=0.97 date=2026-10-05
+// ?Rva003C0308Do@@YGXHH_NHABVAsciiString@@H@Z
+// partial score=0.97 date=2026-10-05
 // cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /DNDEBUG /MD /EHsc /O1 /G7
 // ?Rva003C0308Do@@YGXHH_NHABVAsciiString@@H@Z @0x003C0308 285B via audio-event stack recreate with TheAudio Weapon PlayerList ScriptEngine callers
+//
+// SEAT-7 PASS (2026-10-05): two levers moved this from nd=224/first=+0x17/275B
+// to nd=148/first=+0x0C/281B, and both are load-bearing:
+//  (1) `volatile bool noActive` for the v8c third argument.  Without volatile
+//      MSVC folds the test into the call sequence and loads TheAudio's vtable
+//      into EAX, so the bool must also live in AL and the call becomes
+//      [eax+0x8c].  Retail loads the vtable into EDX and materialises the bool
+//      with `sete dl`, so the two must be separate values; volatile is what
+//      forces a stack round-trip that keeps them apart.
+//  (2) The pointer must be read from TheAudio afresh for EACH virtual call.
+//      Hoisting it into a named `AudioManager *audio` lets the compiler keep
+//      one vtable in a register and reuses it, which drops 281B->271B and
+//      moves the first diff back to +0x10.  Retail reloads 0xDFE6E8 before the
+//      v12c and again before playBfme, so only the v8c call uses the local.
+// Measured, no effect: volatile on the audio pointer alone (nd=244), dropping
+// volatile from the bool (nd=224), an explicit inner scope for the event
+// object and a flat no-scope form (nd=155 each), inline Release_Ref vs the
+// named rc local (identical), and the ternary form of the p4 sentinel clamp
+// (exact 285B but nd=238, so the size match is coincidental, not progress).
+// Remaining: retail emits `mov byte ptr [ebp-4], bl` before the event dtor
+// call at +0x118 and this build omits it, so the tail is 4 bytes short; the
+// remaining body also still needs the EDX vtable for the FIRST call.
 // ?Rva003C0308Do@@YGXHH_NHABVAsciiString@@H@Z present-unmatched
 #include "ascii_string.h"
 #include "Common/BfmeAudioEventPrefix136.h"
@@ -70,7 +94,9 @@ extern ScriptEngine *g_Va009FE16C;
 
 void __stdcall Rva003C0308Do(int p1, int p2, bool p3, int p4, const AsciiString &p5, int p6)
 {
-    TheAudio->v8c(0, p6, (*(unsigned char *)&p2 == 0));
+    AudioManager *audio = TheAudio;
+    volatile bool noActive = (*(unsigned char *)&p2 == 0);
+    audio->v8c(0, p6, noActive);
     int esi = p4;
     if (esi < 1) {
         if (esi != -12345)
