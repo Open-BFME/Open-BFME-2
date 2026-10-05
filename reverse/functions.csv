@@ -62197,3 +62197,6 @@ _Rva007F5790Callback,,0x00661F40,15,Code/GameEngine/Source/GameNetwork/Rva007F70
 ?rva00260F9E@Rva00260F9E@@QAE_NH@Z,,0x00260F9E,50,Code/GameEngine/Source/Common/Rva00260F9EPredicate.cpp,matched,bool byte-direct return; address-derived
 ?rva00287C21@Rva00287C21Host@@QAEXPAURva00287C21Other@@@Z,,0x00287C21,24,Code/GameEngine/Source/Common/Rva00287C21Twins.cpp,matched,honest Rva twins calling rowed setter 0x287552 on sign of +0x49C
 ?rva00287C39@Rva00287C21Host@@QAEXPAURva00287C21Other@@@Z,,0x00287C39,24,Code/GameEngine/Source/Common/Rva00287C21Twins.cpp,matched,honest Rva twin of 0x287C21 with inverted sign and 0 value
+?rva0028572A@Rva0028572AHost@@QAEXXZ,,0x0028572A,27,Code/GameEngine/Source/Common/Rva0028572A.cpp,matched,guarded refresh via global 0xDFE1A8 callee 0x20D959 then stamp -1
+?rva00291198@Rva00291198Host@@QAEXPAURva00291198Dest@@@Z,,0x00291198,31,Code/GameEngine/Source/Common/Rva00291198.cpp,matched,forward to 0x2910B7 then copy +0x460 to dest +0xC0
+?rva00287B2A@@YGXPAX0@Z,,0x00287B2A,35,Code/GameEngine/Source/Common/Rva00287B2A.cpp,matched,stdcall 5B out-param forward to 0x286E33 then copy dword plus byte

@@ -12058,3 +12058,6 @@ _floor,0x00629940,call site 0x006F4403 in AptDate::getDayOfWeek (0x006F4290) enc
 _rva002D6D63@8,0x002D6D63,stdcall factory reached through the sole REL32 at 0x00275FAD in 0x00275F3F; two pushed args and no caller cleanup
 ?rva00239099@Rva00239099Slot@@QAEXPAX@Z,0x00239099,thiscall slot method called from 0x002766F8 with pushed arg; 1 stack arg
 ?rva00287552@Rva00287C21Host@@QAEXPAURva00287C21Other@@H@Z,0x00287552,thiscall setter called from twins 0x287C21/39 with obj+0-or-1
+?rva0020D959@Rva0020D959Host@@QAEXPAVRva0028572AHost@@@Z,0x0020D959,thiscall on global 0xDFE1A8 with this as arg from 0x28572A
+?rva002910B7@Rva00291198Host@@QAEXPAURva00291198Dest@@@Z,0x002910B7,thiscall with dest arg from 0x291198
+_rva00286E33@8,0x00286E33,stdcall out-param 5B writer called from 0x287B2A with out plus arg
