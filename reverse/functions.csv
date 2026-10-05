@@ -63192,3 +63192,11 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva008A1CF0@Rva008A1CF0@@QAEHH@Z,,0x006E4610,135,Code/Libraries/Source/Apt/AptMovieFrameControls.cpp,matched,BFME1 donor Rva008A1CF0.cpp paired by BSim; owner group field moved +0x10 to +0x14; same public135B provider rehomed for native caller read-only visibility
 ?ExecuteInitAction@AptCharacterAnimation@@QAEXPAVAptCIH@@H@Z,,0x006E6A30,209,Code/Libraries/Source/Apt/AptMovieFrameControls.cpp,matched,
 ?ExportClassDefinitionAssets@AptCharacterAnimation@@QAEXPAVAptCIH@@@Z,,0x006E46A0,278,Code/Libraries/Source/Apt/AptMovieFrameControls.cpp,matched,
+??0Rva001F9C73@@QAE@ABV0@@Z,,0x001F9C73,69,Code/GameEngine/Source/Common/Thing/Rva001F9C73CopyChain.cpp,matched,Rva copy ctor chain holder clone then second base plus4 by REL32 graph
+??0Rva001FA631@@QAE@ABV0@@Z,,0x001FA631,69,Code/GameEngine/Source/Common/Thing/Rva001F9C73CopyChain.cpp,matched,Rva copy ctor chain holder clone then second base plus4 by REL32 graph
+??0Rva001FB864@@QAE@ABV0@@Z,,0x001FB864,69,Code/GameEngine/Source/Common/Thing/Rva001F9C73CopyChain.cpp,matched,Rva copy ctor chain holder clone then second base plus4 by REL32 graph
+??0Rva001FBA00@@QAE@ABV0@@Z,,0x001FBA00,69,Code/GameEngine/Source/Common/Thing/Rva001F9C73CopyChain.cpp,matched,Rva copy ctor chain holder clone then second base plus4 by REL32 graph
+??0Rva001FBB9F@@QAE@ABV0@@Z,,0x001FBB9F,69,Code/GameEngine/Source/Common/Thing/Rva001F9C73CopyChain.cpp,matched,Rva copy ctor chain holder clone then second base plus4 by REL32 graph
+??0Rva001FBEF2@@QAE@ABV0@@Z,,0x001FBEF2,69,Code/GameEngine/Source/Common/Thing/Rva001F9C73CopyChain.cpp,matched,Rva copy ctor chain holder clone then second base plus4 by REL32 graph
+??0Rva001FC19B@@QAE@ABV0@@Z,,0x001FC19B,69,Code/GameEngine/Source/Common/Thing/Rva001F9C73CopyChain.cpp,matched,Rva copy ctor chain holder clone then second base plus4 by REL32 graph
+??0Rva001FC3BF@@QAE@ABV0@@Z,,0x001FC3BF,69,Code/GameEngine/Source/Common/Thing/Rva001F9C73CopyChain.cpp,matched,Rva copy ctor chain holder clone then second base plus4 by REL32 graph

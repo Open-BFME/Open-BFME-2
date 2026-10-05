@@ -12583,3 +12583,4 @@ _ceil,0x00629934,CRT ceil thunk identified by native PE import slot 0x00BBA578 a
 ?AptPushStaticData@@YAPAXXZ,0x00709730,TU alias bound to rowed AptScriptFunctionBase::PushStaticData; same cdecl no-argument pointer-return ABI; PrepareForExecution native call700156 target709730
 ?ExecuteInitAction@AptCharacterAnimation@@QAEXPAVAptCIH@@H@Z,0x006E6A30,Native6E6B40 CIH-characterID calls; donor ExecuteInitAction semantics;209B supplier owned pending
 ?ExportClassDefinitionAssets@AptCharacterAnimation@@QAEXPAVAptCIH@@@Z,0x006E46A0,Native6E6A30 receiver animation and CIH argument; donor AptAnimation.cpp export init action worker; target278B provider pending
+??0Rva001F41AF@@QAE@ABV0@@Z,0x001F41AF,copy-ctor spelling of the rowed clone-assign body; called on raw storage by copy ctor chain 0x001F9C73..0x001FC3BF and returns this
