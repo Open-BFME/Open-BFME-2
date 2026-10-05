@@ -8746,3 +8746,5 @@ FUN_00863191	0x00463191	56	blocked	vslot104 needs 104-virt class plus this slot7
 ?rva00067298@Rva00067298@@QAE_NMM@Z	0x00067298	115	partial	lea double-load plus movaps-mulss-mem vs movss-mulss-reg and cvtt-movss-mulss interleave t=20 model=muse-03 score=0.9 stash=reverse/attempts/0x00067298.cpp
 ??0Rva000E4F20@@QAE@XZ	0x000E4F20	275	blocked	ctor push-interleave plus edi-retained identity stores need shared delta t=30 model=muse-10
 ?rva000E49B8@Rva000E48BC@@QAE_NH@Z	0x000E49B8	541	partial	ebx-held-1 plus shr-test plus mgr-end-return plus y-add order plus tail fold t=30 model=muse-10 score=0.93 stash=reverse/attempts/0x000e49b8.cpp
+?rva000D6A57@Rva000D6A57@@QAEPAVAssetReference@@PAV2@@Z	0x000D6A57	27	blocked	v2 explicit-ctor-plus-return 20/27 sole walls ebp-frame-plus-push-ecx-plus-and-ebp-4-zero vs esp-form refuted new-placement plus volatile-dummy-plus-Oy- t=15 model=muse-14
+?Rva000D6A3FGet@@YAHXZ	0x000D6A3F	24	blocked	shared wall with 0x000D6A57 same TU same callee same flags same push-ecx-plus-and-ebp-4-zero frame plus direct-vs-new plus Oy- already refuted no new idea t=5 model=muse-14

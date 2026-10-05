@@ -22,7 +22,8 @@ public:
 // CylindricalEmissionVelocityModuleTemplate_cvtbl0: matched references place it at VA 0xc1bc70 (retail .rdata value 20).
 extern "C" char CylindricalEmissionVelocityModuleTemplate_cvtbl0 = 20;
 extern "C" char CylindricalEmissionVelocityModuleTemplate_cvtbl4;
-extern "C" char CylindricalEmissionVelocityModuleTemplate_csub_vtbl;
+// CylindricalEmissionVelocityModuleTemplate_csub_vtbl: VA 0xc1bc80 (retail 6B vtable at 0x0081BC80, shared with Outward; local link placeholder).
+extern "C" char CylindricalEmissionVelocityModuleTemplate_csub_vtbl = 0;
 
 class CylindricalEmissionVelocityModuleTemplate
 {
