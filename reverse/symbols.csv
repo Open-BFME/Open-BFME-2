@@ -13044,3 +13044,4 @@ _Rva00438083,0x00438083,Address-derived bool prompt helper directly called by 0x
 ?rva002E7BF0@Rva002EC3CEProbes@@QAE_NHH_NHHHPAX0@Z,0x002E7BF0,thiscall bool 8-stack-arg probe called at 0x002EC3F2/0x002EC420; signature shape-inferred from push sequence, identity unproven
 ?rva002EAA41@Rva002EC3CEProbes@@QAE_NHHHHH_N@Z,0x002EAA41,thiscall bool 6-stack-arg probe called at 0x002EC45E; signature shape-inferred from push sequence, identity unproven
 ?rva002CB35C@Rva002CB35CObj@@QAE_NHPAX00MH@Z,0x002CB35C,thiscall bool probe called at 0x002EC440 with float 0.0 fifth; signature shape-inferred from push sequence, identity unproven
+??0BfmePairEL@@QAE@ABVBfmeWordEL@@0@Z,0x0002C4FD,BfmePairEL two-word ctor; BfmeWordEL is the rowed 4-byte StringBase<char> view so this is the same bytes as the matched ??0Rva0002C4FD@@QAE@ABV?$StringBase@D@@0@Z body (cf existing pair@VAsciiString ICF-alias pin); called by the bfmeMakePairEL factory at 0x0002C621
