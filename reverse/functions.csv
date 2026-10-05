@@ -59896,3 +59896,14 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?reset@Rva005E7FE2@@QAEXPAVRva005E7D72@@@Z,,0x005E7FE2,35,Code/GameEngine/Source/Common/OwnedPointerResets.cpp,matched,reset same pointee as clear 0x005E7FC8 via callers 0x005E8447 0x005E86FA
 ??1Rva004DDF3A@@QAE@XZ,,0x004DDF3A,23,Code/GameEngine/Source/Common/Rva004DDF3ADtor.cpp,matched,deleting-dtor caller 0x0028AB32 via three Rva004DD843 pins
 ??0?$vector@URva00500DA0Element@@V?$allocator@URva00500DA0Element@@@_STL@@@_STL@@QAE@ABV01@@Z,,0x00500DA0,96,Code/GameEngine/Source/Common/Rva00500DA0VectorCopy.cpp,matched,vector 0x14 copy idiv 0x14 like rowed PrereqUnitRec 0x002CFE45 callers 0x005017B4 0x0059B8FD
+?rva007B6B37@@YAXXZ,,0x007B6B37,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00DE1E54 tail-jmp pinned string dtor 0x0007FAB3
+?rva007B70C9@@YAXXZ,,0x007B70C9,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00DF29A8 tail-jmp pinned string dtor 0x0007FAB3
+?rva007B782E@@YAXXZ,,0x007B782E,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00DFEC84 tail-jmp pinned string dtor 0x0007FAB3
+?rva007B7A7D@@YAXXZ,,0x007B7A7D,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00DFF134 tail-jmp pinned string dtor 0x0007FAB3
+?rva007B7DC7@@YAXXZ,,0x007B7DC7,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00E02310 tail-jmp pinned string dtor 0x0007FAB3
+?rva007B8155@@YAXXZ,,0x007B8155,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00E02E88 tail-jmp pinned string dtor 0x0007FAB3
+?rva007B8F08@@YAXXZ,,0x007B8F08,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00E04424 tail-jmp pinned string dtor 0x0007FAB3
+?rva007B8F9F@@YAXXZ,,0x007B8F9F,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00E04484 tail-jmp pinned string dtor 0x0007FAB3
+?rva007B8FBD@@YAXXZ,,0x007B8FBD,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00E04494 tail-jmp pinned string dtor 0x0007FAB3
+?rva007B903F@@YAXXZ,,0x007B903F,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00E044F0 tail-jmp pinned string dtor 0x0007FAB3
+?rva007B91E4@@YAXXZ,,0x007B91E4,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00E04920 tail-jmp pinned string dtor 0x0007FAB3

@@ -6005,3 +6005,102 @@ void __cdecl rva007B93E2()
 	GenericConcreteModuleClass *p = (GenericConcreteModuleClass *)&g_Va00E060A4;
 	return p->~ConcreteModuleClass();
 }
+
+extern unsigned g_Va00DE1E54;
+unsigned int g_Va00DE1E54;
+
+void __cdecl rva007B6B37()
+{
+	StlNarrowString *p = (StlNarrowString *)&g_Va00DE1E54;
+	return p->~basic_string();
+}
+
+extern unsigned g_Va00DF29A8;
+unsigned int g_Va00DF29A8;
+
+void __cdecl rva007B70C9()
+{
+	StlNarrowString *p = (StlNarrowString *)&g_Va00DF29A8;
+	return p->~basic_string();
+}
+
+extern unsigned g_Va00DFEC84;
+unsigned int g_Va00DFEC84;
+
+void __cdecl rva007B782E()
+{
+	StlNarrowString *p = (StlNarrowString *)&g_Va00DFEC84;
+	return p->~basic_string();
+}
+
+extern unsigned g_Va00DFF134;
+unsigned int g_Va00DFF134;
+
+void __cdecl rva007B7A7D()
+{
+	StlNarrowString *p = (StlNarrowString *)&g_Va00DFF134;
+	return p->~basic_string();
+}
+
+extern unsigned g_Va00E02310;
+unsigned int g_Va00E02310;
+
+void __cdecl rva007B7DC7()
+{
+	StlNarrowString *p = (StlNarrowString *)&g_Va00E02310;
+	return p->~basic_string();
+}
+
+extern unsigned g_Va00E02E88;
+unsigned int g_Va00E02E88;
+
+void __cdecl rva007B8155()
+{
+	StlNarrowString *p = (StlNarrowString *)&g_Va00E02E88;
+	return p->~basic_string();
+}
+
+extern unsigned g_Va00E04424;
+unsigned int g_Va00E04424;
+
+void __cdecl rva007B8F08()
+{
+	StlNarrowString *p = (StlNarrowString *)&g_Va00E04424;
+	return p->~basic_string();
+}
+
+extern unsigned g_Va00E04484;
+unsigned int g_Va00E04484;
+
+void __cdecl rva007B8F9F()
+{
+	StlNarrowString *p = (StlNarrowString *)&g_Va00E04484;
+	return p->~basic_string();
+}
+
+extern unsigned g_Va00E04494;
+unsigned int g_Va00E04494;
+
+void __cdecl rva007B8FBD()
+{
+	StlNarrowString *p = (StlNarrowString *)&g_Va00E04494;
+	return p->~basic_string();
+}
+
+extern unsigned g_Va00E044F0;
+unsigned int g_Va00E044F0;
+
+void __cdecl rva007B903F()
+{
+	StlNarrowString *p = (StlNarrowString *)&g_Va00E044F0;
+	return p->~basic_string();
+}
+
+extern unsigned g_Va00E04920;
+unsigned int g_Va00E04920;
+
+void __cdecl rva007B91E4()
+{
+	StlNarrowString *p = (StlNarrowString *)&g_Va00E04920;
+	return p->~basic_string();
+}
