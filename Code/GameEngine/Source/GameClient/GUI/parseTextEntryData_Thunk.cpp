@@ -28,6 +28,7 @@ static Int scanBool(const char *source, Bool &val)
 	return ret;
 }
 
+// ?scanShort@@YAHPBDAAF@Z
 static Int scanShort(const char *source, Short &val)
 {
 	Int temp = 0;
@@ -36,8 +37,12 @@ static Int scanShort(const char *source, Short &val)
 	return ret;
 }
 
-// ?parseTextEntryData@@YA_NPADPAVWinInstanceData@@0PAX@Z
-bool __cdecl parseTextEntryData(char *, WinInstanceData *, char *buffer, void *data)
+// ?parseTextEntryData@@YA_NPADPAVWinInstanceData@@0PAX@Z rowed in
+// GameWindowManagerScript_parseTextEntryData.cpp. This TU keeps a static
+// (internal-linkage) copy so the scanShort/scanBool calls above still emit
+// exactly as verified; the anchor forces its emission. It contributes no
+// global symbol, so the link picks the row owner's copy.
+static bool __cdecl parseTextEntryData(char *, WinInstanceData *, char *buffer, void *data)
 {
 	EntryData *entryData = (EntryData *)data;
 	char *c;
@@ -75,3 +80,5 @@ bool __cdecl parseTextEntryData(char *, WinInstanceData *, char *buffer, void *d
 
 	return true;
 }
+
+static const void *s_parseTextEntryDataAnchor = (const void *)parseTextEntryData;
