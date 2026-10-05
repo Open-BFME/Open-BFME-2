@@ -62237,3 +62237,6 @@ _Rva007F5790Callback,,0x00661F40,15,Code/GameEngine/Source/GameNetwork/Rva007F70
 ?rva000E0536@Rva000E0536@@QAEHII@Z,,0x000E0536,36,Code/GameEngine/Source/Common/Rva00057B27ReserveSet.cpp,matched,36B reserve-then-set returning first arg; pinned growers/setters; owner identity unproven
 ?rva003EF34A@Rva003EF34A@@QAEHII@Z,,0x003EF34A,36,Code/GameEngine/Source/Common/Rva00057B27ReserveSet.cpp,matched,36B reserve-then-set returning first arg; shares grower 0x00212858 with 0x0052B7F8; owner identity unproven
 ?rva0052B7F8@Rva0052B7F8@@QAEHII@Z,,0x0052B7F8,36,Code/GameEngine/Source/Common/Rva00057B27ReserveSet.cpp,matched,36B reserve-then-set returning first arg; shares grower 0x00212858 with 0x003EF34A; owner identity unproven
+?rva0021937D@Rva0021937D@@QAEXPAVRva0021937DTarget@@@Z,,0x0021937D,46,Code/GameEngine/Source/Common/Rva0021937DTriple.cpp,matched,46B null-guarded triple forward using member +0x198; callees pinned; identities unproven
+?rva002193AB@Rva0021937D@@QAEXPAVRva0021937DTarget@@@Z,,0x002193AB,46,Code/GameEngine/Source/Common/Rva0021937DTriple.cpp,matched,46B null-guarded triple forward using member +0x194; twin of 0x0021937D
+?rva002193D9@Rva0021937D@@QAEXPAVRva0021937DTarget@@@Z,,0x002193D9,46,Code/GameEngine/Source/Common/Rva0021937DTriple.cpp,matched,46B null-guarded triple forward using member +0x1A0; twin of 0x0021937D

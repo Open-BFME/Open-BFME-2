@@ -12106,3 +12106,6 @@ _rva00286E33@8,0x00286E33,stdcall out-param 5B writer called from 0x287B2A with 
 ?rva003EF264@Rva003EF34A@@QAEXII@Z,0x003EF264,indexed set through a pointer table at this+4: REL32 read at the two-arg call site in 0x003EF34A; owner identity unproven
 ?rva00212858@Rva0052B7F8@@QAEHI@Z,0x00212858,reserve-like grower: REL32 read at the count+1 call site in 0x0052B7F8; alias pin sharing bytes with the Rva003EF34A spelling; owner identity unproven
 ?rva0052B737@Rva0052B7F8@@QAEXII@Z,0x0052B737,indexed set: REL32 read at the two-arg call site in 0x0052B7F8; owner identity unproven
+?rva00407E94@Rva0021937DTarget@@QAEXXZ,0x00407E94,first call of the 0x0021937D triple forward: REL32 read there; owner identity unproven
+?rva004089C7@Rva0021937DTarget@@QAEXHH@Z,0x004089C7,middle call of the 0x0021937D triple forward taking the owner member and 1: REL32 read there; owner identity unproven
+?rva004074CF@Rva0021937DTarget@@QAEXXZ,0x004074CF,final call of the 0x0021937D triple forward: REL32 read there; address already pins a CreateAHeroData file writer name which is not adopted here; owner identity unproven
