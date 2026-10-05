@@ -10,9 +10,6 @@ class DieModule { protected: __declspec(noinline) virtual ~DieModule(); private:
 DieModule::~DieModule() { m_famgen = 0; }
 void famgenDelete(DieModule *p) { delete p; }
 
-// ??_GFireWeaponWhenDeadBehavior@@MAEPAXI@Z @0x460b50
-class FireWeaponWhenDeadBehavior { protected: __declspec(noinline) virtual ~FireWeaponWhenDeadBehavior(); private: int m_famgen;
-  friend void famgenDelete(FireWeaponWhenDeadBehavior *p); };
-FireWeaponWhenDeadBehavior::~FireWeaponWhenDeadBehavior() { m_famgen = 0; }
-void famgenDelete(FireWeaponWhenDeadBehavior *p) { delete p; }
+// FireWeaponWhenDeadBehavior's deleting wrapper is owned by its native TU.
+// Its former local placeholder destructor defined a competing wrong body.
 
