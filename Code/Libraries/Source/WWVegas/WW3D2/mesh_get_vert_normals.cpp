@@ -1,9 +1,20 @@
 // cl: /Ireference/shims/bfmerendobj /G7 /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep
 
 #include <string.h>
+// Retail's out-of-line RefCountClass deleting-dtor copy is the /O1 form
+// (pop ecx after the delete call); this TU builds /G7 which emits add esp,4
+// instead. Compile just the base class for size so our COMDAT matches the
+// first copy in link order. Code this TU's rows inline keeps this TU's flags.
+#pragma optimize("s", on)
+#include "refcount.h"
+#pragma optimize("", on)
 #include "rendobj.h"
 #include "sharebuf.h"
 #include "vector3.h"
+
+// Their byte-matched specializations live in MeshGeometryShareBufferInstantiations.cpp.
+// Do not implicitly re-emit their virtual destructors in this TU.
+template <> ShareBufferClass<Vector3>::~ShareBufferClass();
 
 // MeshGeometryClass::get_vert_normals(bool), retail 0x0016AAE0, 170 bytes.
 // VertexCount is at +0x28, VertexNorm at +0x38, AlternateVertexNorm at +0x3C.
