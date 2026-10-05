@@ -8,6 +8,7 @@
 typedef int HMODULE;
 extern HMODULE g_00DFE158;
 extern unsigned char g_00DFE15C;
+extern unsigned char g_00DFE15D;
 
 class Rva00203B08
 {
@@ -15,6 +16,7 @@ class Rva00203B08
 	bool m_flag;
 public:
 	bool rva00203B08();
+	bool rva00203AE5();
 };
 
 bool Rva00203B08::rva00203B08()
@@ -23,6 +25,16 @@ bool Rva00203B08::rva00203B08()
 	{
 		if (g_00DFE158 != 0)
 			return g_00DFE15C == 0;
+	}
+	return false;
+}
+
+bool Rva00203B08::rva00203AE5()
+{
+	if (m_flag)
+	{
+		if (g_00DFE158 != 0)
+			return g_00DFE15D == 0;
 	}
 	return false;
 }
