@@ -13677,3 +13677,4 @@ _rva006F98C0Call,0x006F98C0,retail call at 0x006F9B84 supplies EAX ECX and two s
 ?Rva004360B3@@YAPAUTreeHintOpaque0043671B@@VAsciiString@@@Z,0x004360B3,callee of ?Rva004361B3@@YAPAUTreeHintOpaque0043671B@@PBE@Z
 ?rva0043684C@AptSaveLoad@@QAEXXZ,0x0043684C,callee of ?rva00436FF6@AptSaveLoad@@QAEXXZ
 ?rva002DF3B0@GameState@@QAEXPAVGameWindow@@0_NH@Z,0x002DF3B0,callee of ?rva00436FF6@AptSaveLoad@@QAEXXZ
+?rva00112898@Rva00113110Holder@@QAEXHHPAX@Z,0x00112898,"retail REL32 at 0x00113148 in 0x00113110 targets 0x00112898 (ecx=esi Holder thiscall 3 stack args [esi+0x58] plus 0 plus 0; 569B Ghidra body sharing +0x5C holder); opaque candidate not identity"
