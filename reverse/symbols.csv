@@ -12677,3 +12677,4 @@ _ceil,0x00629934,CRT ceil thunk identified by native PE import slot 0x00BBA578 a
 ?factorySetProperty@AptCIH@@QAEXHM_N@Z,0x006E0930,Native Colour setRGB pushes index8/9/10 float and bool0; helper reads this+44 float-array and bool flag16 at5C and returns ret12; later AptCIH SetProceduralProperty establishes semantic role
 ?factoryGetProperty@AptCIH@@QBEMH@Z,0x006E0920,Native Colour getRGB float-return getter indices8/9/10; alias to existing exact float-array getter with same const thiscall int ABI
 ?Lookup@AptNativeHash@@QBEPAVAptValue@@QBVEAStringC@@@Z,0x0070B380,Original Godfather MAP signature; native Colour transform calls hash+8 with pointer key; existing lookup@Rva0070B380 provider same thiscall pointer ABI
+?g_rva00DB81B0Weights@@3QAY0BA@$$CBGA,0x009B81B0,Native codec1D7200 six DIR32 refs with32B row stride; independently verified288 readonly bytes nine16-short rows and16B base alignment; address-qualified identity only
