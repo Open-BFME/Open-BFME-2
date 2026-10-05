@@ -59841,3 +59841,6 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ??0Rva0033F67C@@QAE@PAVStateMachine@@_N@Z,,0x0033F67C,28,Code/GameEngine/Source/GameLogic/AI/AIStateHashCtors0033F2FD.cpp,matched,derived State ctor forwarding to 0x0033F64E
 ??0Rva0033F69E@@QAE@PAVStateMachine@@_N@Z,,0x0033F69E,28,Code/GameEngine/Source/GameLogic/AI/AIStateHashCtors0033F2FD.cpp,matched,derived State ctor forwarding to 0x0033F64E
 ??0Rva0033F6C0@@QAE@PAVStateMachine@@@Z,,0x0033F6C0,26,Code/GameEngine/Source/GameLogic/AI/AIStateHashCtors0033F2FD.cpp,matched,derived State ctor forwarding false to 0x0033F64E
+?rva007B6CAF@@YAXXZ,,0x007B6CAF,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00DE5E50 tail-jmp pinned RenderObjClass Update_Sub_Object_Transforms 0x0069E440
+?rva007B916C@@YAXXZ,,0x007B916C,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00E048C4 tail-jmp pinned ConcreteModuleClass dtor 0x0057C03B
+?rva007B93E2@@YAXXZ,,0x007B93E2,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00E060A4 tail-jmp pinned ConcreteModuleClass dtor 0x0057C03B

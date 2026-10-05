@@ -5842,6 +5842,24 @@ void __cdecl rva007B6ADC()
 	return p->~Init();
 }
 
+
+
+class RenderObjClass
+{
+public:
+	virtual void Update_Sub_Object_Transforms();
+};
+
+extern unsigned g_Va00DE5E50;
+unsigned int g_Va00DE5E50;
+
+// ?rva007B6CAF@@YAXXZ @ 0x007B6CAF (10B). Global RenderObjClass dtor thunk: ecx=&g_Va00DE5E50 then tail-jmp to rowed 0x0069E440.
+void __cdecl rva007B6CAF()
+{
+	RenderObjClass *p = (RenderObjClass *)&g_Va00DE5E50;
+	return p->RenderObjClass::Update_Sub_Object_Transforms();
+}
+
 extern unsigned g_Va00E01E40;
 unsigned int g_Va00E01E40;
 
@@ -5851,6 +5869,7 @@ void __cdecl rva007B7C7C()
 	_STL::ios_base::Init *p = (_STL::ios_base::Init *)&g_Va00E01E40;
 	return p->~Init();
 }
+
 
 struct BfmeContainerRecord00048139;
 extern unsigned g_Va00DE1CAC;
@@ -5951,3 +5970,38 @@ void __cdecl rva007B82E7()
 
 
 
+
+namespace FXParticleSystem
+{
+template <int CATEGORY>
+class DefaultModuleTag;
+
+template <class TAG>
+class ConcreteModuleClass
+{
+public:
+	~ConcreteModuleClass();
+};
+}
+
+extern unsigned g_Va00E048C4;
+unsigned int g_Va00E048C4;
+
+extern unsigned g_Va00E060A4;
+unsigned int g_Va00E060A4;
+
+typedef FXParticleSystem::ConcreteModuleClass<FXParticleSystem::DefaultModuleTag<0> > GenericConcreteModuleClass;
+
+// ?rva007B916C@@YAXXZ @ 0x007B916C (10B). Global ConcreteModuleClass dtor thunk: ecx=&g_Va00E048C4 then tail-jmp to rowed ??1?@V?@@FXParticleSystem@@@FXParticleSystem@@QAE@XZ (0x0057C03B).
+void __cdecl rva007B916C()
+{
+	GenericConcreteModuleClass *p = (GenericConcreteModuleClass *)&g_Va00E048C4;
+	return p->~ConcreteModuleClass();
+}
+
+// ?rva007B93E2@@YAXXZ @ 0x007B93E2 (10B). Global ConcreteModuleClass dtor thunk: ecx=&g_Va00E060A4 then tail-jmp to rowed ??1?@V?@@FXParticleSystem@@@FXParticleSystem@@QAE@XZ (0x0057C03B).
+void __cdecl rva007B93E2()
+{
+	GenericConcreteModuleClass *p = (GenericConcreteModuleClass *)&g_Va00E060A4;
+	return p->~ConcreteModuleClass();
+}
