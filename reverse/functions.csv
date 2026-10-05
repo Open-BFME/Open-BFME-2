@@ -63430,3 +63430,9 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?Rva001ECD19@@YGXHHH@Z,,0x001ECD19,25,Code/GameEngine/Source/Common/RvaTopByteFwds.cpp,matched,Address-derived top-byte forward (a;b;c;&c+3); 25B ebp-frame shape
 ?Rva004F83F2@@YGXHHHH@Z,,0x004F83F2,25,Code/GameEngine/Source/Common/RvaTopByteFwds.cpp,matched,Address-derived top-byte forward (a;b;c;&c+3); 25B ebp-frame shape
 ?Rva004F8B89@@YGXHHH@Z,,0x004F8B89,25,Code/GameEngine/Source/Common/RvaTopByteFwds.cpp,matched,Address-derived top-byte forward (a;b;c;&c+3); 25B ebp-frame shape
+?read@Rva004C7330Owner@@QAEPAV1@PAH@Z,,0x004C7330,29,Code/GameEngine/Source/Common/RvaReadThroughFamily.cpp,matched,Address-derived read-through: first-deref plus sub-read-rest; 29B shape
+?read@Rva004F802COwner@@QAEPAV1@PAH@Z,,0x004F802C,29,Code/GameEngine/Source/Common/RvaReadThroughFamily.cpp,matched,Address-derived read-through first-deref plus sub-read-rest; 29B shape
+?read@Rva00501DD4Owner@@QAEPAV1@PAH@Z,,0x00501DD4,29,Code/GameEngine/Source/Common/RvaReadThroughFamily.cpp,matched,Address-derived read-through first-deref plus sub-read-rest; 29B shape
+?read@Rva005020AFOwner@@QAEPAV1@PAH@Z,,0x005020AF,29,Code/GameEngine/Source/Common/RvaReadThroughFamily.cpp,matched,Address-derived read-through first-deref plus sub-read-rest; 29B shape
+?read@Rva00502909Owner@@QAEPAV1@PAH@Z,,0x00502909,29,Code/GameEngine/Source/Common/RvaReadThroughFamily.cpp,matched,Address-derived read-through first-deref plus sub-read-rest; 29B shape
+?read@Rva005564EBOwner@@QAEPAV1@PAH@Z,,0x005564EB,29,Code/GameEngine/Source/Common/RvaReadThroughFamily.cpp,matched,Address-derived read-through first-deref plus sub-read-rest; 29B shape
