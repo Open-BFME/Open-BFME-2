@@ -232,3 +232,35 @@ Int Rva00488545::rva00488573()
 		target->vslot18(0);
 	return 0;
 }
+
+// slot at VA 0x00C4B568 slot 5 (offset 0x14) of Rva004886C7 (vtable 0x0084B568,
+// class of ??0Rva004886C7@@QAE@PAVStateMachine@@@Z from AIStateHashCtorsMisc):
+// when +0x28 is set runs InGameUI vslot106 with owner and +0x24 then stamps
+// +0x24 to -1 and clears +0x28. Evidence: ret 4 with unused arg, TheInGameUI
+// at VA 0x009FEDF0, or -1 and bool clear, same machine/owner path as above.
+class InGameUI : public Rva004885B8Slots<106>
+{
+public:
+	virtual void vslot106(Rva004885B8Owner *owner, Int val);
+};
+extern InGameUI *TheInGameUI;
+class Rva004886C7
+{
+public:
+	void rva0048873F(Int arg);
+private:
+	char m_pad00[0x18];
+	Rva004885B8Machine *m_machine;
+	char m_pad1C[0x24 - 0x1C];
+	Int m_24;
+	Bool m_28;
+};
+
+void Rva004886C7::rva0048873F(Int arg)
+{
+	if (!m_28)
+		return;
+	TheInGameUI->vslot106(m_machine->m_owner, m_24);
+	m_24 |= -1;
+	m_28 = false;
+}
