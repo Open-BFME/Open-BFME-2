@@ -14536,3 +14536,5 @@ _rva006F98C0Call,0x006F98C0,retail call at 0x006F9B84 supplies EAX ECX and two s
 ?erase@?$vector@URva00150D09Entry@@V?$allocator@URva00150D09Entry@@@_STL@@@_STL@@QAEPAURva00150D09Entry@@PAU3@0@Z,0x00150659,native REL32 in resize 00150B37; 8B opaque indexed entry ABI
 ?_M_fill_insert@?$vector@URva00150D09Entry@@V?$allocator@URva00150D09Entry@@@_STL@@@_STL@@QAEXPAURva00150D09Entry@@IABU3@@Z,0x0015087B,native REL32 in resize 00150B37; 8B opaque indexed entry ABI
 ?_M_fill_insert@?$vector@URva00153729@@V?$allocator@URva00153729@@@_STL@@@_STL@@QAEXPAURva00153729@@IABU3@@Z,0x00153D5E,native REL32 at resize 00153E6F plus4A; canonical 76B entry ABI
+??$__copy_backward_ptrs@PAURva00153729@@PAU1@@_STL@@YAPAURva00153729@@PAU1@00ABU__false_type@0@@Z,0x00153A5E,native REL32 from array-entry fill_insert 00153D5E; 76B canonical ABI
+??$fill@PAURva00153729@@U1@@_STL@@YAXPAURva00153729@@0ABU1@@Z,0x00153A7B,native REL32 from array-entry fill_insert 00153D5E; 76B canonical ABI
