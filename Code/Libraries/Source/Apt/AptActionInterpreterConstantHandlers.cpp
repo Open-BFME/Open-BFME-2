@@ -1,3 +1,4 @@
+class AptCIH;
 // cl: /O2 /MD /EHsc
 // Active PC interpreter handlers, identified by explicit opcode fields in the
 // 185-entry table at RVA9DC980. Every slot/pointer and complete native extent
@@ -60,6 +61,7 @@ public:
     AptLookup *c_lookup() const;
     AptRegister *c_register() const;
     bool isExtern() const;
+    AptCIH *c_cih(bool=false) const;
     bool isCIH(bool=false) const;
     bool isObject() const;
     AptString *c_string() const;
@@ -75,7 +77,7 @@ public:
     void toString(EAStringC &) const;
 };
 struct AptCharacterInst;
-class EAStringC { void *mpData; public: EAStringC &TrimRight(const char *); EAStringC &Rva006D4F00Append(const EAStringC &); EAStringC &Rva006D50A0Append(const char *); EAStringC(unsigned int,unsigned int); EAStringC rva006D5ED0(int) const; EAStringC rva006d5f30(int,int) const; void rva006D3470(); int Find(char,int=0); bool IsEqualTo(const EAStringC *) const; bool rva006D3560(const EAStringC *) const; const char *rva00620090() const; int rva006d6070(const char *,int=0); EAStringC(); unsigned int rva006D3750() const; EAStringC(const char *); EAStringC(const EAStringC &); ~EAStringC(); EAStringC &operator=(const EAStringC &); };
+class EAStringC { void *mpData; public: EAStringC &TrimRight(const char *); EAStringC &Rva006D4F00Append(const EAStringC &); EAStringC &Rva006D50A0Append(const char *); EAStringC(unsigned int,unsigned int); EAStringC rva006D5ED0(int) const; EAStringC rva006d5f30(int,int) const; void rva006D3470(); int Find(char,int=0); bool IsEqualTo(const EAStringC *) const; bool rva006D3560(const EAStringC *) const; const char *rva00620090() const; int rva006d6070(const char *,int=0); EAStringC(); unsigned int rva006D3750() const; EAStringC(const char *); EAStringC(const EAStringC &); int GetAt(int) const; int rva006D54B0(int,int); ~EAStringC(); EAStringC &operator=(const EAStringC &); };
 class Rva006D2A60 { public: void *allocBlock(int); void freeBlock(void *,int); };
 extern Rva006D2A60 *g_pChainBlockAllocatorF4;
 // Native InitArray allocates44B; ctor6D91B0 builds type0x16, hash+8,
@@ -170,6 +172,8 @@ struct AptActionInterpreter
         bool bEncounteredReturn;
         AptCharacterInst *pParentCharacter;
     };
+    void loadVariables(AptValue *,AptValue *,const EAStringC *);
+    static void getName(AptCIH *,EAStringC &);
     AptBasePtrStack stack;
     unsigned char m_otherStacksAndDebugData[0x30-12];
     AptScriptFunctionBase *mpCurrentFunction;
@@ -231,7 +235,7 @@ private:
     HANDLER(Push);
     HANDLER(Throw);
     HANDLER(Extends);
-    HANDLER(GetUrl); HANDLER(Try);
+    HANDLER(GetUrl2); HANDLER(GetUrl); HANDLER(Try);
 #undef HANDLER
 };
 void AptActionInterpreter::_FunctionAptActionPushFloat(AptActionInterpreter *const p, LocalContextT *const c)
@@ -2214,3 +2218,31 @@ void AptActionInterpreter::_FunctionAptActionGetUrl(AptActionInterpreter *const 
         else Rva006CC110Log(4,"not loading non-swf file: '%s'\n",buffer);
     }
 }
+
+// Native877B through708FAC. Retail tests uppercase W/S at n-1 as written;
+// later donor fixed this suffix bug. loadVariables706370 remains unrowed.
+void AptActionInterpreter::_FunctionAptActionGetUrl2(AptActionInterpreter *const p,LocalContextT *const c)
+{
+    AptValue *a=p->stack.At(0),*b=p->stack.At(1);
+    EAStringC sa,sb;
+    b->toString(sb);
+    if(bfmeIsFSCommand(sb.rva00620090())) { a->toString(sa);p->doFSCommand(sb.rva00620090(),sa.rva00620090()); }
+    else {
+        int n=sb.rva006D3750();EAStringC buf;AptValue *context=0;
+        if(n==0 || ((sb.GetAt(n-1)=='f'||sb.GetAt(n-1)=='F') && (sb.GetAt(n-2)=='w'||sb.GetAt(n-1)=='W') && (sb.GetAt(n-3)=='s'||sb.GetAt(n-1)=='S') && sb.GetAt(n-4)=='.')) {
+            a->toString(sa);buf=sb;
+            if((int)buf.rva006D3750()>=4) buf.rva006D54B0(buf.rva006D3750()-4,4);
+            AptValue *v=p->getVariable((AptValue *)c->pCurrentContext,c->pCurWith,&sa);
+            if(v->isCIH()) getName(v->c_cih(),sa);
+            p->stack.Pop(2);g_bfmeAptLinkerAtE176F8->Load(buf,sa);return;
+        } else {
+            if(a->isString()) context=p->getVariable((AptValue *)c->pCurrentContext,c->pCurWith,a->c_string()->GetInternalString(),1);
+            else context=a;
+            p->loadVariables(context,c->pCurWith,&sb);
+        }
+    }
+    p->stack.Pop(2);
+}
+
+#pragma comment(linker, "/alternatename:?c_cih@AptValue@@QBEPAVAptCIH@@_N@Z=?rva006DCF60@BfmeAptValue006DCD20@@QAEPAV1@_N@Z")
+#pragma comment(linker, "/alternatename:?getName@AptActionInterpreter@@SAXPAVAptCIH@@AAVEAStringC@@@Z=?rva006ffce0@@YAXPAVAptValue@@AAVEAStringC@@@Z")
