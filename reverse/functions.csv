@@ -62068,3 +62068,4 @@ _Rva007F5790Callback,,0x00661F40,15,Code/GameEngine/Source/GameNetwork/Rva007F70
 ?Rva0052D6EBCopy@@YAPAVRva0056616B@@PAV1@00@Z,,0x0052D6EB,47,Code/GameEngine/Source/Common/System/Rva0052D6EB.cpp,matched,chain copy via rowed 0x0052D6BE stride 0xB8
 ?rva0057EF87@Rva0057EE5C@@QAEXXZ,,0x0057EF87,123,Code/GameEngine/Source/Common/Rva0057EF87.cpp,matched,shutdown via caller 0x0043DE41 and rowed resize erase close
 ?rva00283262@TerrainLogic@@QAEXPBUCoord3D@@M@Z,,0x00283262,221,Code/GameEngine/Source/Common/TerrainLogicRva00283262.cpp,matched,TerrainLogic same-this rva00282CFB plus PartitionManager iterateObjectsInRange with float radius plus BitSet and holder plus GameLogic destroyObject
+?rva0032C84F@Rva0032C84F@@QAEXXZ,,0x0032C84F,64,Code/GameEngine/Source/GameLogic/Map/Rva0032C84FMethod.cpp,matched,unlock caller 0x0032D554 rowed nameToKey plus erase

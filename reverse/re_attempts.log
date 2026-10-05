@@ -9900,3 +9900,5 @@ FUN_005182a0	0x001182A0	399	blocked	big WW3D render 399B with x87 FPU cw plus SS
 ??0Rva0057E3DB@@QAE@PAX@Z	0x0057CF43	460	blocked	MI ctor extra base vtable stores and TheNullChr/float layout diverge t=25 model=muse-06
 ?rva00457577@BridgeBehavior@@QAEXXZ	0x00457577	448	blocked	448B BridgeBehavior EH-SSE bridge kill loop needs full Bridge plus Rva0027C36A layout with 4 Region3D and PartitionManager query donor. Current TU only 55B. t=15 model=muse-06
 ?rva00283262@TerrainLogic@@QAEXPBUCoord3D@@M@Z	0x00283262	221	partial	push DFEFA4 reuse across BitSet ret8 plus EH state0 before ForwardC and state2 after plus dead store g_00BC26E0 to holder slot t=25 model=muse-06 score=0.95 stash=reverse/attempts/0x00283262.cpp
+?rva000DFCD5@Rva000DFCD5@@QAEPAV1@XZ	0x000DFCD5	260	blocked	EH ctor with 12 callees plus shader by-value plus 5 globals needs donor sweep t=12 model=muse-07
+??0Rva0056616B@@QAE@ABV0@@Z	0x00566BF6	389	blocked	14-vector copy ctor plus StringBase plus 10 erases needs full class donor t=10 model=muse-07
