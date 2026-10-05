@@ -9711,7 +9711,6 @@ _Rva003F417EConstructRecords,0x003F417E,"Native003F5254 calls existing verified 
 ??0S4Made00912580@@QAE@XZ,0x00178E50,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ??0ScriptGroup@@QAE@XZ,0x003B761E,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ??0UpgradeModuleDataSub@@QAE@XZ,0x0025342C,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
-??0VictoryConditionsInterface@@QAE@XZ,0x000F0F2B,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ??0W3DAnimationInfo@@QAE@ABV0@@Z,0x0004254E,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ??1?$MultiListClass@VCameraShakerClass@CameraShakeSystemClass@@@@UAE@XZ,0x00065CA4,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ??1?$_List_base@PAVControlBarScheme@@V?$allocator@PAVControlBarScheme@@@_STL@@@_STL@@QAE@XZ,0x004EC395,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
@@ -10127,7 +10126,6 @@ _Rva003F417EConstructRecords,0x003F417E,"Native003F5254 calls existing verified 
 ?removeNamedMapReveal@ScriptEngine@@QAEXABVAsciiString@@@Z,0x00357D52,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?reserve@?$vector@PAVChainVictim005C92F0@@V?$allocator@PAVChainVictim005C92F0@@@_STL@@@_STL@@QAEXI@Z,0x002B712E,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?reset@ScriptActions@@UAEXXZ,0x000D1743,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
-?reset@VictoryConditions@@UAEXXZ,0x00108895,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?resize@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEXIPAX@Z,0x000E6D39,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?resolve@RvaC4390Second@@QAEPAURvaC4390First@@H@Z,0x002931F5,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?reverseFind@AsciiString@@QBEPBDD@Z,0x00035930,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
