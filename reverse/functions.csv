@@ -60467,3 +60467,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?read_vertex_colors@MeshModelClass@@IAE_NAAVChunkLoadClass@@PAVMeshLoadContextClass@@@Z,,0x00188760,392,Code/Libraries/Source/WWVegas/WW3D2/MeshModelReadVertexColors.cpp,matched,
 ?readLine@INI@@IAEXXZ,,0x0002D669,143,Code/GameEngine/Source/Common/System/INI_readLine.cpp,matched,
 ?rva0027756D@Drawable@@QAE?AVRva002390CB@@H@Z,,0x0027756D,92,Code/GameEngine/Source/GameClient/DrawableRva0027756D.cpp,matched,LINK 3 files via rowed Get and keyed lookups
+?rva005CB26A@Rva005CB26A@@QAEXXZ,,0x005CB26A,5,Code/GameEngine/Source/Common/Rva005CB26AForwarder.cpp,matched,slot4 forwarder LINK BONUS YAXXZ via listener dispatch
