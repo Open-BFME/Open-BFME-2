@@ -62156,3 +62156,5 @@ _Rva007F5790Callback,,0x00661F40,15,Code/GameEngine/Source/GameNetwork/Rva007F70
 ?rva0020424FF@Rva00203B08@@QAE_NXZ,,0x000424FF,32,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_rva0020424FF.cpp,matched,OR form
 ?f@Rva004488C@@QAEXM@Z,,0x0004488C,45,Code/GameEngine/Source/GameClient/Rva004488C.cpp,matched,frame plus float stash via TheGameClient slot1F
 ?f@Rva0044325@@QAEXXZ,,0x00044325,59,Code/GameEngine/Source/GameLogic/Rva0044325.cpp,matched,flag toggle plus timestamp plus tactical view notify
+?rva00068441@Rva00068441@@QAEXH@Z,,0x00068441,41,Code/GameEngine/Source/Common/Rva00068119Bodies.cpp,matched,body-ordered stores plus rowed W3DRoadBuffer::updateLighting through +0x386C member; ignored int arg; address name
+?rva0007B851@@YAMPBURva0007B851Point@@0@Z,,0x0007B851,63,Code/GameEngine/Source/Common/Rva00068119Bodies.cpp,matched,SSE 2D distance with dead-arg-slot spill plus x87 fsqrt via proven inline-asm Sqrt helper; address name
