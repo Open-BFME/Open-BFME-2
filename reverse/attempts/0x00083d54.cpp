@@ -1,4 +1,6 @@
 // ?rva00083D54@Rva00083D54@@QAEXXZ
+// partial score=0.96 date=2026-10-05
+// ?rva00083D54@Rva00083D54@@QAEXXZ
 // partial score=0.94 date=2026-10-05
 // cl: /O1 /G7 /Ireference/shims/bfmeterraintracks /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/sweep
 // stlport
@@ -29,6 +31,7 @@ typedef int Int;
 // The test allocator, called directly rather than through `operator new`.
 void *__cdecl bfmeTestOperatorNew(Uint s);
 typedef unsigned short UShort;
+#include <new.h>
 
 class RefCountClass
 {
@@ -74,7 +77,7 @@ private:
 class BfmeDynamicNativeVB : public RefCountClass
 {
 public:
-	void rva00083D54Ctor(Uint a, UShort b, Uint c, Uint d);
+	BfmeDynamicNativeVB(Uint a, UShort b, Uint c, Uint d);
 private:
 	char _t[0x18];
 };
@@ -100,10 +103,11 @@ void Rva00083D54::rva00083D54()
 	Int save10C = TheTestGlobal->m_10C;
 	REF_PTR_RELEASE(m_4);
 	REF_PTR_RELEASE(m_0);
-	DX8IndexBufferClass *ib = new DX8IndexBufferClass((m_1C - 1) * 6, DX8IndexBufferClass::USAGE_DEFAULT);
-	m_4 = ib;
+	void *ibRaw = bfmeTestOperatorNew(0x18);
+	if (ibRaw)
+		m_4 = (RefCountClass *)new (ibRaw) DX8IndexBufferClass((Uint)((m_1C - 1) * 6), DX8IndexBufferClass::USAGE_DEFAULT);
 	{
-		IndexBufferClass::WriteLockClass lock((IndexBufferClass *)ib, 0);
+		IndexBufferClass::WriteLockClass lock((IndexBufferClass *)ibRaw, 0);
 		UShort *p = lock.Get_Index_Array() + 1;
 		for (Int i = 0; i < m_1C - 1; i++)
 		{
@@ -121,9 +125,6 @@ void Rva00083D54::rva00083D54()
 	}
 	void *raw = bfmeTestOperatorNew(0x20);
 	if (raw)
-	{
-		BfmeDynamicNativeVB *vb = (BfmeDynamicNativeVB *)raw;
-		vb->rva00083D54Ctor(0x142, (UShort)((UShort)m_1C * (UShort)save10C * 2), 1, 0);
-		m_0 = vb;
-	}
+		m_0 = (RefCountClass *)new (raw) BfmeDynamicNativeVB(0x142,
+			(UShort)((UShort)m_1C * (UShort)save10C * 2), 1, 0);
 }
