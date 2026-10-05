@@ -10,6 +10,20 @@
 // Evidence: same 0x14 layout list at +4 uints at +8 +0x10; caller 0x003551F9; tail-jmp to rowed pop_back 0x00053D4F.
 #define _STLP_NO_EXCEPTIONS 1
 #include <list>
+// Retail's list<int> iterator prefix-- copy is the speed form (edx: mov edx,
+// [ecx+4]); this TU builds /O1 which emits the size form (ecx). Define the
+// explicit specialization for speed so our COMDAT matches retail; code this
+// TU's rows inline keeps this TU's flags.
+#pragma optimize("s", off)
+#pragma optimize("t", on)
+namespace _STL {
+template <> inline _List_iterator<int, _Nonconst_traits<int> > &_List_iterator<int, _Nonconst_traits<int> >::operator--()
+{
+	this->_M_decr();
+	return *this;
+}
+}
+#pragma optimize("", on)
 
 typedef unsigned char UnsignedByte;
 typedef unsigned int UnsignedInt;
