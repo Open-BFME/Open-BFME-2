@@ -63730,3 +63730,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva002E9919@Pathfinder@@QAEHHH@Z,,0x002E9919,47,Code/GameEngine/Source/GameLogic/AI/PathfinderCellQueryPredicates.cpp,matched,
 ?rva002E996E@Pathfinder@@QAE_NH_N0H@Z,,0x002E996E,79,Code/GameEngine/Source/GameLogic/AI/PathfinderCellQueryPredicates.cpp,matched,
 ?rva002E99F9@Pathfinder@@QAEHPAURva002E99F9Arg1@@RBUCoord3D@@PBU3@@Z,,0x002E99F9,211,Code/GameEngine/Source/GameLogic/AI/PathfinderRva002E99F9.cpp,matched,
+?rva002EADE1@Pathfinder@@QAEHPBUCoord3D@@0W4PathfindLayerEnum@@PAURva002E7ED6Info@@@Z,,0x002EADE1,63,Code/GameEngine/Source/GameLogic/AI/PathfinderRva002EADE1.cpp,matched,
