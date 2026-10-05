@@ -1,89 +1,14 @@
 // ?startRenderToTexture@W3DShaderManager@@SAXXZ
 // partial score=0.98 date=2026-10-05
-// ?startRenderToTexture@W3DShaderManager@@SAXXZ
-// partial score=0.97 date=2026-09-22
-// ?startRenderToTexture@W3DShaderManager@@SAXXZ
-// partial score=0.97 date=2026-09-22
 // cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /O1 /arch:SSE /G7
-// ?preRender@ScreenMotionBlurFilter@@UAE_NAA_NAAW4CustomScenePassModes@@@Z retail 0x000FD4CE (19B).
-// Ported from Open-BFME-1 Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShaderManager.cpp
-// (BFME1 0x007D8790, donor-verbatim): copies m_skipRender into skipRender,
-// calls startRenderToTexture and returns true. Only the placed body is defined
-// here.
-
-enum CustomScenePassModes
-{
-	CUSTOM_SCENE_PASS_DUMMY = 0
-};
-
-enum FilterTypes
-{
-	FT_NULL_FILTER = 0,
-	FT_VIEW_BW_FILTER,
-	FT_VIEW_MOTION_BLUR_FILTER,
-	FT_VIEW_CROSSFADE,
-	FT_VIEW_DEFAULT
-};
-
-struct Vector2
-{
-	float m_x;
-	float m_y;
-};
-
-struct Vector3
-{
-	float m_x;
-	float m_y;
-	float m_z;
-};
-
-struct IDirect3DSurface8;
-
-class W3DShaderManager
-{
-public:
-	static void startRenderToTexture();
-	static void drawViewport(int color, bool useScale, const Vector2 *scale);
-
-	static bool m_renderingToTexture;
-	static IDirect3DSurface8 *m_newRenderSurface;
-	static IDirect3DSurface8 *m_oldDepthSurface;
-	static FilterTypes m_currentFilter;
-};
-
-class ScreenMotionBlurFilter
-{
-public:
-	virtual bool preRender(bool &skipRender, CustomScenePassModes &scenePassMode);
-
-	char m_pad[0x09];
-	bool m_skipRender;
-};
-
-bool ScreenMotionBlurFilter::preRender(bool &skipRender, CustomScenePassModes &scenePassMode)
-{
-	skipRender = m_skipRender;
-	W3DShaderManager::startRenderToTexture();
-	return true;
-}
-
 // ?startRenderToTexture@W3DShaderManager@@SAXXZ retail 0x00075BD8 (378B).
-// Ported from Open-BFME-1 Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShaderManager.cpp
-// (BFME1 0x007D8790 donor): BFME2 routes the target switch through
-// DX8Wrapper::Set_Render_Target after a device-lost guard, splits Clear into a
-// 7-arg form and extends drawViewport with a scale flag. Only the placed body
-// is defined here.
-// BFME2 repair: both Clear sites bind the opacity to a named float local
-// instead of reading TheWaterTransparency inline. That load-first ordering is
-// what makes retail emit `mov eax,ds:TheWaterTransparency; fld [eax+0x37e8]`
-// before the zero stores; with the inline read the compiler sinks the
-// xorps/movss pair into the push sequence and the whole Clear block misaligns.
-
+// Ported from Open-BFME-1 Code/GameEngineDevice/Source/W3DDevice/GameClient/
+// W3DShaderManager.cpp (BFME1 0x007D8790 donor): BFME2 routes the target switch
+// through DX8Wrapper::Set_Render_Target after a device-lost guard, splits Clear
+// into a 7-arg form and extends drawViewport with a scale flag. Only the placed
+// body is defined here.
 struct IDirect3DSurface8;
-
 struct IDirect3DDevice8;
-
 struct IDirect3DDevice8Vtbl
 {
 	void *m_queryInterface;
@@ -91,12 +16,10 @@ struct IDirect3DDevice8Vtbl
 	void *m_release;
 	long (__stdcall *m_testCooperativeLevel)(IDirect3DDevice8 *device);
 };
-
 struct IDirect3DDevice8
 {
 	IDirect3DDevice8Vtbl *m_vtable;
 };
-
 class ShaderClass
 {
 public:
@@ -111,50 +34,40 @@ public:
 		PASS_GEQUAL,
 		PASS_ALWAYS
 	};
-
 	enum DepthMaskType
 	{
 		DEPTH_WRITE_DISABLE = 0,
 		DEPTH_WRITE_ENABLE
 	};
-
 	void Set_Depth_Compare(DepthCompareType mode)
 	{
 		m_bits &= ~7u;
 		m_bits |= (unsigned)mode;
 	}
-
 	void Set_Depth_Mask(DepthMaskType mode)
 	{
 		m_bits &= ~8u;
 		m_bits |= ((unsigned)mode << 3);
 	}
-
 	static ShaderClass _PresetOpaqueSolidShader;
-
 	unsigned m_bits;
 };
-
 class RefCountClass
 {
 public:
 	virtual void Delete_This() = 0;
-
 	void Add_Ref()
 	{
 		++m_refs;
 	}
-
 	void Release_Ref()
 	{
 		--m_refs;
 		if (m_refs == 0)
 			Delete_This();
 	}
-
 	int m_refs;
 };
-
 class VertexMaterialClass : public RefCountClass
 {
 public:
@@ -162,26 +75,43 @@ public:
 	{
 		PRELIT_DIFFUSE = 0
 	};
-
 	static VertexMaterialClass *Get_Preset(PresetType preset);
 };
-
 struct GlobalData
 {
 	char m_pad[0x84];
 	bool m_showSoftWaterEdge;
 };
-
 extern GlobalData *TheGlobalData;
-
 struct WaterTransparency
 {
 	char m_pad[0x37E8];
 	float m_minWaterOpacity;
 };
-
 extern WaterTransparency *TheWaterTransparency;
-
+struct Vector2
+{
+	float m_x;
+	float m_y;
+};
+struct Vector3
+{
+	float m_x;
+	float m_y;
+	float m_z;
+};
+enum FilterTypes
+{
+	FT_NULL_FILTER = 0,
+	FT_VIEW_BW_FILTER,
+	FT_VIEW_MOTION_BLUR_FILTER,
+	FT_VIEW_CROSSFADE,
+	FT_VIEW_DEFAULT
+};
+enum CustomScenePassModes
+{
+	CUSTOM_SCENE_PASS_DUMMY = 0
+};
 class DX8Wrapper
 {
 public:
@@ -189,21 +119,28 @@ public:
 	static void Set_Render_Target(IDirect3DSurface8 *target, bool useDefaultDepth);
 	static void Set_DX8_Render_State(unsigned long state, unsigned value);
 	static void Set_Shader(const ShaderClass &shader);
-	static __forceinline void Set_Material(const VertexMaterialClass *material)
-	{
-		if (material)
-			const_cast<VertexMaterialClass *>(material)->Add_Ref();
-		if (m_material)
-			m_material->Release_Ref();
-		m_material = const_cast<VertexMaterialClass *>(material);
-		m_changed |= 0x40;
-	}
+	static void Set_Material(const VertexMaterialClass *material);
 	static void Clear(bool clearColor, bool clearDepth, bool clearStencil, const Vector3 &color, float alpha, float z, unsigned stencil);
-
 private:
 	static IDirect3DDevice8 *D3DDevice;
 	static VertexMaterialClass *m_material;
-	static unsigned char m_changed;
+};
+class W3DShaderManager
+{
+public:
+	static void startRenderToTexture();
+	static void drawViewport(int color, bool useScale, const Vector2 *scale);
+	static bool m_renderingToTexture;
+	static IDirect3DSurface8 *m_newRenderSurface;
+	static IDirect3DSurface8 *m_oldDepthSurface;
+	static FilterTypes m_currentFilter;
+};
+class ScreenMotionBlurFilter
+{
+public:
+	virtual bool preRender(bool &skipRender, CustomScenePassModes &scenePassMode);
+	char m_pad[0x09];
+	bool m_skipRender;
 };
 
 void W3DShaderManager::startRenderToTexture()
@@ -245,4 +182,11 @@ void W3DShaderManager::startRenderToTexture()
 		Vector3 zeroB = { 0.0f, 0.0f, 0.0f };
 		DX8Wrapper::Clear(true, false, false, zeroB, opacity2, 1.0f, 0);
 	}
+}
+
+bool ScreenMotionBlurFilter::preRender(bool &skipRender, CustomScenePassModes &scenePassMode)
+{
+	skipRender = m_skipRender;
+	W3DShaderManager::startRenderToTexture();
+	return true;
 }
