@@ -230,3 +230,37 @@ void Rva00583121::rva00583121(int player, int percent, UnicodeString text)
 	sprintf(percentText, "%d", percent);
 	TheRva00222A8BTarget->invoke((void *)13, "SetBarTo", 2, slotText, percentText, 0, 0, 0);
 }
+
+// ?rva0057C7BA@Rva0057E3DB@@QAEXH@Z @0x0057C7BA 216B: the lobby map title
+// (the existing pin's class, the MpGameSetup panel's +0x60 member). It keeps
+// the game type at +0x1C and sets APT:LobbyMapTiltle (the retail spelling)
+// to that label's own game text for type 0 and GUI:GameTypeScenario for
+// type 1.
+class Rva0057E3DB
+{
+public:
+	void rva0057C7BA(int type);
+private:
+	char m_pad00[0x1C];
+	int m_type;					// +0x1C
+};
+
+void Rva0057E3DB::rva0057C7BA(int type)
+{
+	m_type = type;
+	switch (type)
+	{
+	case 0:
+		{
+			AsciiString key("APT:LobbyMapTiltle");
+			((BfmeAptWindowManager *)TheRva00222A8BTarget)->bfmeSetText(key, TheGameText->fetch("APT:LobbyMapTiltle", 0), false);
+		}
+		break;
+	case 1:
+		{
+			AsciiString key("APT:LobbyMapTiltle");
+			((BfmeAptWindowManager *)TheRva00222A8BTarget)->bfmeSetText(key, TheGameText->fetch("GUI:GameTypeScenario", 0), false);
+		}
+		break;
+	}
+}
