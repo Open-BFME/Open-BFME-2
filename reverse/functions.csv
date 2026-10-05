@@ -57912,3 +57912,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva005DBE95@Rva005DB98E@@QAE_NGGMMM@Z,,0x005DBE95,86,Code/GameEngine/Source/Common/Rva005DBEEB.cpp,matched,Rva005DB98E float setter via forEach precedent
 ?rva005D3B26@Rva005D3B26@@QAEXXZ,,0x005D3B26,116,Code/GameEngine/Source/Common/Rva005D3B26Portrait.cpp,matched,twin of rowed 0x005D3B9A portrait via format and release plus pinned 0x002239E2
 ?reset@Rva005CE236@@QAEXPAVRva005E893E@@@Z,,0x005CE236,35,Code/GameEngine/Source/Common/OwnedPointerResets.cpp,matched,reset same pointee as clear 0x005CE21C via callers 0x005CE690 0x005CF1CD
+?iterateCellsAlongLine@Pathfinder@@QAEHPBUCoord3D@@0W4PathfindLayerEnum@@PAURva002ED01EInfo@@@Z,,0x002F0CB7,63,Code/GameEngine/Source/GameLogic/AI/PathfinderCoordLineWalk.cpp,matched,Coord3D overload via WorldToCell and rowed walk

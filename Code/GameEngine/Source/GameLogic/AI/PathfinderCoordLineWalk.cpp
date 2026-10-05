@@ -31,6 +31,11 @@ struct Rva002ECE6AInfo
 	Int cellCallback(void *previousCell, void *currentCell, Int cellX, Int cellY);
 };
 
+struct Rva002ED01EInfo
+{
+	Int cellCallback(void *previousCell, void *currentCell, Int cellX, Int cellY);
+};
+
 ICoord2D *__cdecl Rva002E7875WorldToCell(ICoord2D *out, bool center, const Coord3D *pos);
 
 class Pathfinder
@@ -38,9 +43,11 @@ class Pathfinder
 public:
 	Int iterateCellsAlongLine(const Coord3D *start, const Coord3D *destination, PathfindLayerEnum layer, Rva002ED15AInfo *callbackInfo);
 	Int iterateCellsAlongLine(const Coord3D *start, const Coord3D *destination, PathfindLayerEnum layer, Rva002ECE6AInfo *callbackInfo);
+	Int iterateCellsAlongLine(const Coord3D *start, const Coord3D *destination, PathfindLayerEnum layer, Rva002ED01EInfo *callbackInfo);
 private:
 	Int iterateCellsAlongLine(const ICoord2D *startCell, const ICoord2D *destinationCell, PathfindLayerEnum layer, Rva002ED15AInfo *callbackInfo);
 	Int iterateCellsAlongLine(const ICoord2D *startCell, const ICoord2D *destinationCell, PathfindLayerEnum layer, Rva002ECE6AInfo *callbackInfo);
+	Int iterateCellsAlongLine(const ICoord2D *startCell, const ICoord2D *destinationCell, PathfindLayerEnum layer, Rva002ED01EInfo *callbackInfo);
 };
 
 Int Pathfinder::iterateCellsAlongLine(const Coord3D *start, const Coord3D *destination, PathfindLayerEnum layer, Rva002ED15AInfo *callbackInfo)
@@ -51,6 +58,13 @@ Int Pathfinder::iterateCellsAlongLine(const Coord3D *start, const Coord3D *desti
 }
 
 Int Pathfinder::iterateCellsAlongLine(const Coord3D *start, const Coord3D *destination, PathfindLayerEnum layer, Rva002ECE6AInfo *callbackInfo)
+{
+	ICoord2D tmpDest;
+	ICoord2D tmpStart;
+	return iterateCellsAlongLine(Rva002E7875WorldToCell(&tmpStart, true, start), Rva002E7875WorldToCell(&tmpDest, true, destination), layer, callbackInfo);
+}
+
+Int Pathfinder::iterateCellsAlongLine(const Coord3D *start, const Coord3D *destination, PathfindLayerEnum layer, Rva002ED01EInfo *callbackInfo)
 {
 	ICoord2D tmpDest;
 	ICoord2D tmpStart;
