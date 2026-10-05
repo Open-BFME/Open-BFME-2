@@ -252,3 +252,5 @@ template Rva00586E86Element *_STL::vector<Rva00586E86Element >::erase(Rva00586E8
 template Rva005DC408Element *_STL::vector<Rva005DC408Element >::erase(Rva005DC408Element *, Rva005DC408Element *);
 template Rva005EF8FAElement *_STL::vector<Rva005EF8FAElement >::erase(Rva005EF8FAElement *, Rva005EF8FAElement *);
 template Rva005F8620Element *_STL::vector<Rva005F8620Element >::erase(Rva005F8620Element *, Rva005F8620Element *);
+struct Rva000B690BRecord;
+template Rva000B690BRecord *_STL::__copy_ptrs<Rva000B690BRecord *, Rva000B690BRecord *>(Rva000B690BRecord *, Rva000B690BRecord *, Rva000B690BRecord *, const _STL::__false_type &);
