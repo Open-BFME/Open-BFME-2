@@ -66,8 +66,10 @@ struct BfmeAssignRecord104 { int a[25]; AsciiString s; };
 inline bool operator==(const BfmeAssignRecord104 &x, const BfmeAssignRecord104 &y) { return x.s == y.s; }
 struct BfmeAssignRecord172 { int a[42]; AsciiString s; BfmeAssignRecord172 &operator=(const BfmeAssignRecord172 &); };
 inline bool operator==(const BfmeAssignRecord172 &x, const BfmeAssignRecord172 &y) { return x.s == y.s; }
-struct BfmeStringTailRecord144 { int a[35]; AsciiString s; };
-inline bool operator==(const BfmeStringTailRecord144 &x, const BfmeStringTailRecord144 &y) { return x.s == y.s; }
+// Only the native0x90 stride is used by these algorithm instantiations.
+// Native destruction and assignment are provided by their verified owners.
+struct BfmeStringTailRecord144 { unsigned char body[0x90]; ~BfmeStringTailRecord144(); BfmeStringTailRecord144 &operator=(const BfmeStringTailRecord144 &); };
+bool operator==(const BfmeStringTailRecord144 &x, const BfmeStringTailRecord144 &y);
 // Native __destroy_aux at 0x4CC15D strides 156 bytes but calls the rowed
 // owner-at-offset-zero destructor 0x10F149. Do not emit the implicit trailing
 // AsciiString destructor from this historical copy/code-generation view.
@@ -105,10 +107,18 @@ template class _STL::vector<BfmeAssignRecord40, _STL::allocator<BfmeAssignRecord
 template class _STL::vector<BfmeAssignRecord80, _STL::allocator<BfmeAssignRecord80> >;
 template class _STL::vector<BfmeAssignRecord104, _STL::allocator<BfmeAssignRecord104> >;
 template class _STL::vector<BfmeAssignRecord172, _STL::allocator<BfmeAssignRecord172> >;
-template class _STL::vector<BfmeStringTailRecord144, _STL::allocator<BfmeStringTailRecord144> >;
+namespace _STL {
+template void __destroy_aux<BfmeStringTailRecord144 *>(BfmeStringTailRecord144 *, BfmeStringTailRecord144 *, const __false_type &);
+template void _Destroy<BfmeStringTailRecord144 *>(BfmeStringTailRecord144 *, BfmeStringTailRecord144 *);
+template BfmeStringTailRecord144 *__copy<BfmeStringTailRecord144 *, BfmeStringTailRecord144 *, int>(BfmeStringTailRecord144 *, BfmeStringTailRecord144 *, BfmeStringTailRecord144 *, const random_access_iterator_tag &, int *);
+template void _Destroy<BfmeStringTailRecord144>(BfmeStringTailRecord144 *);
+}
 template class _STL::vector<BfmeStringTailRecord156, _STL::allocator<BfmeStringTailRecord156> >;
 template class _STL::vector<BfmeStringTailRecord180, _STL::allocator<BfmeStringTailRecord180> >;
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
 #pragma comment(linker, "/alternatename:??$_Destroy@PAVRva0036105B@@@_STL@@YAXPAVRva0036105B@@0@Z=??$_Destroy@PAUBfmeStringHeadRecord148@@@_STL@@YAXPAUBfmeStringHeadRecord148@@0@Z")
+
+// Both assignment spellings designate the existing45B native body51C3F.
+#pragma comment(linker, "/alternatename:??4BfmeStringTailRecord144@@QAEAAU0@ABU0@@Z=??4Rva00051C3F@@QAEAAV0@ABV0@@Z")
