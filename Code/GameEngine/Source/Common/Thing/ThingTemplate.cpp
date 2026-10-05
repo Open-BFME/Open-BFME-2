@@ -760,35 +760,8 @@ void ThingTemplate::parsePerUnitSounds( INI* ini, void *instance, void *store, c
 //-------------------------------------------------------------------------------------------------
 /** Replace the existing tagged modules with the new modules. */
 //-------------------------------------------------------------------------------------------------
-// ?ThingTemplate::parseReplaceModule present-unmatched
-void ThingTemplate::parseReplaceModule(INI *ini, void *instance, void *store, const void *userData)
-{
-	ThingTemplate* self = (ThingTemplate*)instance;	
+// Native ReplaceModule parser lives in ThingTemplateParseReplaceModule.cpp.
 
-	ModuleParseMode oldMode = (ModuleParseMode)self->m_moduleParsingMode;
-	if (oldMode != MODULEPARSE_NORMAL)
-		throw INI_INVALID_DATA;
-
-	self->m_moduleParsingMode = MODULEPARSE_ADD_REMOVE_REPLACE;
-
-	const char *modToRemove = ini->getNextToken();
-	AsciiString removedModuleName;
-	Bool removed = self->removeModuleInfo(modToRemove, removedModuleName);
-	if (!removed)
-	{
-		DEBUG_CRASH(("[LINE: %d - FILE: '%s'] ReplaceModule %s was not found for %s; cannot continue.\n",
-															ini->getLineNum(), ini->getFilename().str(), modToRemove, self->getName().str()));
-		throw INI_INVALID_DATA;
-	}
-
-	self->m_moduleBeingReplacedName = removedModuleName;
-	self->m_moduleBeingReplacedTag = modToRemove;
-	ini->initFromINI(self, self->getFieldParse());
-	self->m_moduleBeingReplacedName.clear();
-	self->m_moduleBeingReplacedTag.clear();
-
-	self->m_moduleParsingMode = oldMode;
-}
 
 //-------------------------------------------------------------------------------------------------
 /** mark the module(s) as being "Inheritable". */
