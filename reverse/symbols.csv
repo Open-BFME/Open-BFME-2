@@ -13420,3 +13420,4 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 ?rva00397F45@Rva00397F45@@QAE_NPAVPlayer@@H@Z,0x00397F45,thiscall bool(Player*,int); module-gate callee of dump-range-18 0x003BE2DB on the pool-key module with the controlling player
 ?rva0039718B@Rva0039718B@@QAE_NPAVPlayer@@@Z,0x0039718B,thiscall bool(Player*); conditional module-gate callee of dump-range-18 0x003BE2DB flag==0 path
 ?rva00399C6C@Rva00399C6C@@QAEXHH@Z,0x00399C6C,thiscall void(int,int); module writer callee of dump-range-18 0x003BE2DB with (flag,0)
+?rva003980BF@Rva003980BF@@QAEPAXPAXHH@Z,0x003980BF,thiscall (ptr,-2,0) returning pointer; module callee of dump-range-18 0x003BE38B feeding the 0x00208968/0x0020A5FF emits
