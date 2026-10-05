@@ -10884,3 +10884,7 @@ G00DB5FC4,0x00DB5FC4,Render2DClass ctor 0x0011C0F0 stores 5; donor Render2DClass
 ??1Rva0040E3EE@@UAE@XZ,0x0040E499,twin of Rva0040E499 dtor same vtable 0x00C394F0 same 0x68 temp in 0x003B93BC ctor 0x40E3EE dtor 0x40E499
 ?updateCache@MapCache@@QAEXXZ,0x00305749,"MapCache::updateCache: 98-byte /O1 body called from isValidMap at 0x003057D2 where ZH calls TheMapCache->updateCache(); runs setFPMode then FileSystem createDirectory(getUserMapDir()) then loadUserMaps/writeCacheINI(TRUE)/loadStandardMaps as the ZH source"
 ??1Rva005EB2E7@@QAE@XZ,0x005EB2E7,non-virtual dtor (118B body); called directly by scalar deleting dtor 0x005EB35D; owning class unproven
+??1Rva0009A200@@QAE@XZ,0x001076E9,non-virtual dtor called directly by scalar deleting dtor 0x0009A200; owning class unproven
+??1Rva000FE9C7@@QAE@XZ,0x000FE290,non-virtual dtor called directly by scalar deleting dtor 0x000FE9C7; owning class unproven (address also carries bfmeResetSH row)
+??1Rva001732C6@@QAE@XZ,0x0018C57C,non-virtual dtor called directly by scalar deleting dtor 0x001732C6; owning class unproven
+??1Rva001F097A@@QAE@XZ,0x001F077D,non-virtual dtor called directly by scalar deleting dtor 0x001F097A; owning class unproven
