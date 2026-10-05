@@ -9,6 +9,7 @@
 #include "unicode_string.h"
 
 extern "C" int __cdecl strcmp(const char *left, const char *right);
+extern "C" char *__cdecl strcpy(char *destination, const char *source);
 
 class GameWindow;
 
@@ -35,12 +36,23 @@ class AptMpChat
 public:
 	void Send(const char *unused);
 	void InitGadgets(const char *name, void *argument, GameWindow *window);
+	// Bound as "MpChat::Initialized" and "MpClans::Initialized": one body
+	// or two folded, so it keeps its address.
+	void rva0057FDBF(int query, char *result, bool skip);
 
 private:
 	unsigned char m_pad00[0x64];
 	Rva005B000C *m_entry; // +0x64
 	bool m_initialized; // +0x68
 };
+
+// Retail 0x0057FDBF, 33 bytes: bound as "MpChat::Initialized" and
+// "MpClans::Initialized", an Apt query answering "1".
+void AptMpChat::rva0057FDBF(int query, char *result, bool skip)
+{
+	if (query == 0 && !skip)
+		strcpy(result, "1");
+}
 
 // Retail 0x0057FDE0, 15 bytes: "AptMpChat::Send".
 void AptMpChat::Send(const char *unused)
@@ -64,3 +76,6 @@ void AptMpChat::InitGadgets(const char *name, void *argument, GameWindow *window
 		((Rva005AFD43 *)m_entry)->rva005AFD43(window, UnicodeString::TheEmptyString);
 	m_initialized = true;
 }
+
+// Retail's strcpy call lands on the import thunk rowed as ji_00629176.
+#pragma comment(linker, "/alternatename:_strcpy=?ji_00629176@@YAXXZ")

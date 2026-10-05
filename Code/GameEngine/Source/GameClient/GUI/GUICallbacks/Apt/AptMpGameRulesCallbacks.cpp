@@ -7,6 +7,11 @@
 
 extern "C" __declspec(dllimport) char *__cdecl strchr(const char *text, int c);
 extern "C" __declspec(dllimport) char *__cdecl strstr(const char *text, const char *pattern);
+extern "C" __declspec(dllimport) int __cdecl sprintf(char *buffer, const char *format, ...);
+
+// Rva00559F7ESwitchGetters.cpp's per-mode counts.
+int Rva00559F7EGet(int mode);
+int Rva00559F95Get(int mode);
 
 class GameWindow;
 
@@ -33,6 +38,9 @@ public:
 	void Reset(const char *unused);
 	void InitGadgets(const char *name, void *argument, GameWindow *window);
 	void rva0057E6C1();
+	// Bound as "MpGameRules::NumComboBoxes" (query 0) and
+	// "MpGameRules::NumCheckBoxes" (query 1), so it keeps its address.
+	void rva0057E55A(int query, char *result, bool skip);
 
 	// Unrowed 0x0057E5B5 (refreshes one rule's widget), pinned by address.
 	void rva0057E5B5(int rule);
@@ -52,6 +60,23 @@ private:
 	unsigned char m_pad08a[0x8C - 0x8A];
 	unsigned char m_rules[0x28]; // +0x8C
 };
+
+// Retail 0x0057E55A, 65 bytes: bound as "MpGameRules::NumComboBoxes" and
+// "MpGameRules::NumCheckBoxes", an Apt query answering the mode's counts.
+void AptMpGameRules::rva0057E55A(int query, char *result, bool skip)
+{
+	switch (query)
+	{
+	case 0:
+		if (!skip)
+			sprintf(result, "%d", Rva00559F7EGet(m_mode));
+		break;
+	case 1:
+		if (!skip)
+			sprintf(result, "%d", Rva00559F95Get(m_mode));
+		break;
+	}
+}
 
 // Retail 0x0057E6C1, 23 bytes. Name unknown. Refreshes the ten rule
 // widgets (0x0057E5B5 each); the pinned 0x0057E6D8 jumps here.
