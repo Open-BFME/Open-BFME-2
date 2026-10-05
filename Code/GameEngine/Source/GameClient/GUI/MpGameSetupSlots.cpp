@@ -35,6 +35,7 @@ class GameSlot
 public:
 	bool isHuman() const;
 	bool isObserver() const;
+	bool isOccupied() const;
 
 	unsigned char m_pad00[0x04];
 	int m_state; // +0x04
@@ -50,6 +51,7 @@ public:
 	virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07();
 	virtual void v08(); virtual void v09(); virtual void v10(); virtual void v11();
 	virtual bool v12();
+	virtual int v13();
 
 	GameSlot *getSlot(int index);
 	AsciiString getMap() const;
@@ -150,6 +152,8 @@ class Rva00219B9E;
 extern Rva00219B9E *g_00DFE344;
 
 void Rva0043DB23(Rva00222A8BTarget *target, void *owner, const char *name);
+int Rva0043F1A4(Rva00222A8BTarget *target, void *owner, const char *name, const int &value, const char *const &text);
+AsciiString Rva00222834Get(int value);
 
 // The member at +0x60 (0x70 bytes, destroyed through ??1Rva0057E3DB).
 class Rva0057E3DB
@@ -188,6 +192,23 @@ public:
 
 // Rva00446A71Get.cpp's byte setter for g_Va00A0335C.
 void Rva00446A67Set(unsigned char value);
+
+// The S5 encoded small integer of S5HandleHashCompares.cpp: a four-byte
+// head and the encoded value at +0x04 (0x003F2330 compares two). The
+// unrowed 0x00442BCC walks the slots with one.
+class Gen_00528EC0
+{
+public:
+	Gen_00528EC0() {}
+	Gen_00528EC0(const Gen_00528EC0 &other) { m_value = other.m_value; }
+	// Unrowed 0x003F3133 (36 bytes; adds the encoded 1 and returns the new
+	// value by hidden pointer), pinned.
+	Gen_00528EC0 rva003F3133();
+	Gen_00528EC0 operator++(int);
+
+	unsigned char m_head[4];
+	unsigned int m_value; // +0x04
+};
 
 class MpGameSetup
 {
@@ -263,6 +284,7 @@ public:
 	void rva004419FA();
 
 	void rva004415D5(const AsciiString &map);
+	void rva0043FB5C(int index);
 	void rva00443BF3();
 
 	// Unrowed 0x00443538 (1723 bytes; ret 4, its argument a flag mask),
@@ -355,6 +377,20 @@ int Rva0043DDF8(int count)
 void Rva0043DB23(Rva00222A8BTarget *target, void *owner, const char *name)
 {
 	target->invoke(owner, name, 0, 0, 0, 0, 0, 0);
+}
+
+// Retail 0x0043F1A4, 104 bytes: invoke an Apt callback with two
+// arguments, a number (as text through Rva00222834Get) and a string. The
+// string goes through an inline identity conversion; written directly,
+// cl loads it after the number's null test instead of before.
+static inline const char *aptArg(const char *const &text)
+{
+	return text;
+}
+
+int Rva0043F1A4(Rva00222A8BTarget *target, void *owner, const char *name, const int &value, const char *const &text)
+{
+	return target->invoke(owner, name, 2, Rva00222834Get(value).str(), (void *)aptArg(text), 0, 0, 0);
 }
 
 // Retail 0x0043E4B6, 92 bytes: when game vslot 12 holds, a slot given by
@@ -803,4 +839,53 @@ void MpGameSetup::rva00443BF3()
 	m_2bd = true;
 	if (m_mapList && (m_flags & 1))
 		m_mapList->winSetTooltipFunc(Rva0043E8F1Tooltip);
+}
+
+
+// Retail 0x0043FB5C, 195 bytes. Name unknown. Tells the owner's Apt movie
+// "SetReadyState" for a slot: "_none" unless flag 0x20 is set at +0x3A4;
+// the host slot 0 and occupied non-human slots show "_disabledChecked";
+// a human slot is checked once accepted and enabled only for the local
+// slot (game vslot 13). Callers 0x0043FCAE and 0x00441B55.
+void MpGameSetup::rva0043FB5C(int index)
+{
+	GameInfo *game = (GameInfo *)m_game->rva0043DA65();
+	if (!game)
+		return;
+	GameSlot *slot = game->getSlot(index);
+	if (!slot)
+		return;
+
+	const char *state = "_none";
+	if (m_flags & 0x20)
+	{
+		if (index == 0)
+			state = "_disabledChecked";
+		else if (slot->isOccupied())
+		{
+			if (slot->isHuman())
+			{
+				bool isLocal = game->v13() == index;
+				if (slot->m_accepted)
+					state = isLocal ? "_enabledChecked" : "_disabledChecked";
+				else
+					state = isLocal ? "_enabledUnchecked" : "_disabledUnchecked";
+			}
+			else
+				state = "_disabledChecked";
+		}
+	}
+	Rva0043F1A4(TheRva00222A8BTarget, m_owner->v21(), "SetReadyState", index, state);
+}
+
+// Retail 0x00442B72, 29 bytes: the encoded index's postfix increment
+// (only +0x04 is copied), around 0x003F3133. Nothing in retail calls it;
+// it sits among this panel's COMDATs (between 0x00442A68 and the rowed
+// sort helper 0x00442B8F). The operator name is inferred from the shape:
+// ret 8 is the hidden result and the unused postfix int.
+Gen_00528EC0 Gen_00528EC0::operator++(int)
+{
+	Gen_00528EC0 old(*this);
+	rva003F3133();
+	return old;
 }

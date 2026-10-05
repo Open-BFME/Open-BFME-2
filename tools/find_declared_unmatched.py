@@ -49,6 +49,8 @@ OPERATOR_CODES = {
     "operator>>": "??5",
     "operator[]": "??A",
     "operator()": "??R",
+    "operator++": "??E",
+    "operator--": "??F",
     "operator~": "??1",  # destructor is also ??1; handled separately
 }
 
