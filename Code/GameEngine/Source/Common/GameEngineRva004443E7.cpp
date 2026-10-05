@@ -70,6 +70,14 @@ public:
 	void rva00444E69(int unused);
 	void rva00444E8A();
 	int rva0044522D(int msg, unsigned char key, int flags);
+	void rva004469D1();
+	void rva00446A1C();
+
+private:
+	// Unrowed 0x004467AC (549 bytes): prepares the LAN game info for a
+	// create or join and reports success; pinned by address.
+	bool rva004467AC();
+public:
 
 private:
 	void _bfme_terminateChildProcesses();
@@ -162,4 +170,22 @@ int GameEngine::rva0044522D(int msg, unsigned char key, int flags)
 		}
 	}
 	return 0;
+}
+
+// Retail 0x004469D1, 75 bytes, and 0x00446A1C, 75 bytes: the lobby screen's
+// create and join continuations. From state 3 (create) or 8 (join) they run
+// 0x004467AC and on success invoke "DoCreateGame" / "DoJoinGame" on the
+// screen owner (+0x274) and advance to 4 / 9; on failure they fall back to
+// state 1. Names unknown.
+void GameEngine::rva004469D1()
+{
+	if (m_6A4 != 3)
+		return;
+	if (rva004467AC())
+	{
+		TheInvoke00444E8ATarget->invoke(m_274Owner, "DoCreateGame", 0, 0, 0, 0, 0, 0);
+		m_6A4 = 4;
+	}
+	else
+		m_6A4 = 1;
 }
