@@ -53,12 +53,23 @@ public:
 #define TheGameEngine004443E7 (*(class GameEngine **)&TheGameEngine)
 #define TheInvoke00444E8ATarget (*(Rva00222A8BTarget **)&g_bfmeAptWindowManager)
 
+// Free helpers the key handler below calls: 0x00444040 is rowed; 0x005116C2
+// (110 bytes, no arguments, opens "Messenger.apt" when no messenger state
+// exists) is unrowed and pinned by address; 0x00511730 is rowed.
+void Rva00444040Enable();
+void Rva005116C2();
+void __cdecl Rva00511730(int unused);
+
+struct Rva00511730State;
+extern Rva00511730State *g_Va00E046B8;
+
 class GameEngine
 {
 public:
 	void rva004443E7();
 	void rva00444E69(int unused);
 	void rva00444E8A();
+	int rva0044522D(int msg, unsigned char key, int flags);
 
 private:
 	void _bfme_terminateChildProcesses();
@@ -70,6 +81,8 @@ private:
 	unsigned char m_54B; // +0x54B
 	char m_pad54C[0x6A4 - 0x54C];
 	int m_6A4; // +0x6A4
+	char m_pad6A8[0x6C0 - 0x6A8];
+	unsigned char m_6C0; // +0x6C0
 };
 
 void GameEngine::rva004443E7()
@@ -103,4 +116,50 @@ void GameEngine::rva00444E8A()
 	rva004443E7();
 	Rva00222A8BTarget *t = TheInvoke00444E8ATarget;
 	t->invoke(m_274Owner, "CancelGame", 0, 0, 0, 0, 0, 0);
+}
+
+// Retail 0x0044522D, 123 bytes: slot 1 of the LAN lobby screen's own vftable
+// 0x00C3E0F8 (the object this view describes; the GameEngine label is the
+// ledger's). Name unknown. Message 0x15 with +0x6C0 clear: key 0x1C/0x9C
+// with flag 0x4 or 0x8 handles (and on flag 0x1 opens the messenger or saves
+// its text); key 1 on flag 0x1 dispatches on +0x6A4 (1, or 4 and 9). Key 1
+// is written first: retail shares the second case's return block.
+int GameEngine::rva0044522D(int msg, unsigned char key, int flags)
+{
+	if (!m_6C0 && msg == 0x15)
+	{
+		switch (key)
+		{
+		case 1:
+			if (flags & 1)
+			{
+				switch (m_6A4)
+				{
+				case 1:
+					Rva00444040Enable();
+					return 1;
+				case 4:
+				case 9:
+					rva00444E69(0);
+					return 1;
+				}
+			}
+			break;
+		case 0x1C:
+		case 0x9C:
+			if (flags & 0xC)
+			{
+				if (flags & 1)
+				{
+					if (!g_Va00E046B8)
+						Rva005116C2();
+					else
+						Rva00511730(0);
+				}
+				return 1;
+			}
+			break;
+		}
+	}
+	return 0;
 }

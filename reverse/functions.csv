@@ -56733,3 +56733,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva00222597@Rva00222597@@QAEXPAH@Z,,0x00222597,121,Code/GameEngine/Source/Common/System/Rva00222597.cpp,matched,Window point to mouse via WindowManager bfmeGet SetMousePos scale
 ?rva003638FD@Rva003638BA@@QAEXPBUCoord3D@@@Z,,0x003638FD,51,Code/GameEngine/Source/Common/Rva003638BAMethod.cpp,matched,same this as neighbours via TheTerrainLogic and pinned 0x002802FE
 ?rva00561D31@Rva00561D3D@@QAEPAV1@XZ,,0x00561D31,12,Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva00561D3D.cpp,matched,gap before rowed ctor 0x00561D3D same TU same flags getInstance then return this
+?rva0044522D@GameEngine@@QAEHHEH@Z,,0x0044522D,123,Code/GameEngine/Source/Common/GameEngineRva004443E7.cpp,matched,LAN lobby screen vftable 0x00C3E0F8 slot1 (GameEngine label is this view's); msg 0x15 key handler; calls rowed 0x00444040/0x00511730/0x00444E69 and pinned 0x005116C2; name unknown

@@ -10462,3 +10462,4 @@ G00DB5FC4,0x00DB5FC4,Render2DClass ctor 0x0011C0F0 stores 5; donor Render2DClass
 ?rva003A37DC@Rva000427195@@QAEXUVideoPair@@@Z,0x003A37DC,video-map pair erase callee of reset at 0x0031E09E; honest address-derived name
 ?rva001DC42C@GameWindowTransitionsHandler@@QAEXVAsciiString@@_N@Z,0x001DC42C,transition remove callee of reset at 0x0031E09E; honest address-derived name
 ?rva003618B9@Rva2225E0Filter@@QAE_NPBVThingTemplate@@PAVPlayer@@1@Z,0x003618B9,Address identity from native362457 call: unchanged filter receiver plus Object template at4 and controlling/context players; full3618B9..361B12 RET12 returns AL; original method name unknown
+?Rva005116C2@@YAXXZ,0x005116C2,unrowed 110B free function (Ghidra FUN_009116c2) directly before rowed Rva00511730; no ECX use and no arguments; caller 0x00445267 calls it when g_Va00E046B8 is null; address name
