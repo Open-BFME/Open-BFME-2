@@ -28,6 +28,8 @@ struct Rva004D4A80Slot
 // ?clearBuffer_Rva004D4A59@Transport@@QAEXXZ present-unmatched
 // (declared-only; resolves through the pin at 0x004D4A59)
 
+class UDP {public:int AllowBroadcasts(bool);};
+
 class Transport
 {
 public:
@@ -35,6 +37,7 @@ public:
 	~Transport(void);
 	void clearSlot_Rva004D5133(unsigned short index);
 	void Rva004D5496(void);
+	bool allowBroadcasts(bool);
 	void clearBuffer_Rva004D4A59(void);
 
 private:
@@ -93,4 +96,17 @@ void Transport::Rva004D5496(void)
 Transport::~Transport(void)
 {
 	Rva004D5496();
+}
+
+// Target Ghidra [4D5112,4D5133),33B; native socket at40E0C and int-return
+// UDP AllowBroadcasts40B594B2E. Donor Transport.h inline allowBroadcasts
+// semantics retained with measured target slot layout. Reference BFME1
+// 6583b3c1 and ZH Transport.h supply the semantic guide; native158B
+// port probe44A9E6 calls this with0/1 and the complete40B UDP provider
+// verifies independently. The shared slot begins with the UDP pointer;
+// no otherwise unconsumed UDP fields are asserted. Logical conjunction
+// preserves native shared false-return control flow (early returns31B).
+bool Transport::allowBroadcasts(bool val) {
+ UDP* socket=static_cast<UDP*>(m_slots[0].m_object);
+ return socket && socket->AllowBroadcasts(val);
 }
