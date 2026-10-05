@@ -28,7 +28,7 @@ BfmeAptWindowManager *g_bfmeAptWindowManager = 0;
 
 void __stdcall Rva005832D0Set(const AsciiString &path)
 {
-	const char *slash = path.reverseFind('\\');
+	const char *slash = ((const StringBase<char> &)path).reverseFind('\\');
 	const char *fname;
 	if (slash)
 		fname = slash + 1;
