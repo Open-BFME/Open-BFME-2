@@ -63783,3 +63783,12 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva004FC176@Rva004FC176@@QAEXH@Z,,0x004FC176,15,Code/GameEngine/Source/Common/PinnedForwarders1830.cpp,matched,guarded one-callee forward at its pinned address; see the source comment
 ?rva005CCB16@Rva005CCB16@@QAEXXZ,,0x005CCB16,13,Code/GameEngine/Source/Common/PinnedForwarders1830.cpp,matched,guarded one-callee forward at its pinned address; see the source comment
 ?rva005D13D5@Rva005D13D5@@QAEXXZ,,0x005D13D5,13,Code/GameEngine/Source/Common/PinnedForwarders1830.cpp,matched,guarded one-callee forward at its pinned address; see the source comment
+?rva001EFC42@Rva001EFC42@@QAEXHHH@Z,,0x001EFC42,22,Code/GameEngine/Source/Common/EbpParamForwarders.cpp,matched,F22 ebp-frame forwarder: forwards first two args plus (char*)&b+3 to pinned thiscall callee
+?rva0018C822@Rva0018C822@@QAEXHHH@Z,,0x0018C822,22,Code/GameEngine/Source/Common/EbpParamForwarders.cpp,matched,F22 ebp-frame forwarder: forwards first two args plus (char*)&b+3 to pinned thiscall callee
+?rva0018C838@Rva0018C838@@QAEXHH@Z,,0x0018C838,22,Code/GameEngine/Source/Common/EbpParamForwarders.cpp,matched,F22 ebp-frame forwarder: forwards first two args plus (char*)&b+3 to pinned thiscall callee
+?rva001DA73E@Rva001DA73E@@QAEXHHH@Z,,0x001DA73E,22,Code/GameEngine/Source/Common/EbpParamForwarders.cpp,matched,F22 ebp-frame forwarder: forwards first two args plus (char*)&b+3 to pinned thiscall callee
+?rva001DAB29@Rva001DAB29@@QAEXHH@Z,,0x001DAB29,22,Code/GameEngine/Source/Common/EbpParamForwarders.cpp,matched,F22 ebp-frame forwarder: forwards first two args plus (char*)&b+3 to pinned thiscall callee
+?rva0056A2DE@Rva0056A2DE@@QAEXHHH@Z,,0x0056A2DE,22,Code/GameEngine/Source/Common/EbpParamForwarders.cpp,matched,F22 ebp-frame forwarder: forwards first two args plus (char*)&b+3 to pinned thiscall callee
+?rva0056A362@Rva0056A362@@QAEXHH@Z,,0x0056A362,22,Code/GameEngine/Source/Common/EbpParamForwarders.cpp,matched,F22 ebp-frame forwarder: forwards first two args plus (char*)&b+3 to pinned thiscall callee
+?rva005F50A3@Rva005F50A3@@QAEXHHH@Z,,0x005F50A3,22,Code/GameEngine/Source/Common/EbpParamForwarders.cpp,matched,F22 ebp-frame forwarder: forwards first two args plus (char*)&b+3 to pinned thiscall callee
+?rva005F50D3@Rva005F50D3@@QAEXHH@Z,,0x005F50D3,22,Code/GameEngine/Source/Common/EbpParamForwarders.cpp,matched,F22 ebp-frame forwarder: forwards first two args plus (char*)&b+3 to pinned thiscall callee

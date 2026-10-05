@@ -13096,3 +13096,8 @@ _Rva00438083,0x00438083,Address-derived bool prompt helper directly called by 0x
 ?rva004E0D19@Rva004E0D19@@QAEXH@Z,0x004E0D19,tail-call target of the byte-verified Rva004FC176::rva004FC176 0x004FC176 on its +0x20 member read from its REL32 displacement; name unknown
 ?rva005CB283@Rva005CB283@@QAEXXZ,0x005CB283,tail-call target of the byte-verified Rva005CCB16::rva005CCB16 0x005CCB16 on its +0x4 member read from its REL32 displacement; name unknown
 ?rva000B3FD0@Rva000B3FD0@@QAEXXZ,0x000B3FD0,tail-call target of the byte-verified Rva005D13D5::rva005D13D5 0x005D13D5 on its +0xC member read from its REL32 displacement; name unknown
+?rva001EF83A@Rva001EF83A@@QAEXHHPAD@Z,0x001EF83A,thiscall callee of the F22 ebp-frame forwarder 0x001EFC42; takes the wrapper's first two args plus (char*)&arg2+3 in a vestigial third slot; name unknown
+?rva0018C73C@Rva0018C73C@@QAEXHHPAD@Z,0x0018C73C,thiscall callee of the F22 ebp-frame forwarders; takes the wrapper's first two args plus (char*)&arg2+3 in a vestigial third slot; name unknown
+?rva001DA112@Rva001DA112@@QAEXHHPAD@Z,0x001DA112,thiscall callee of the F22 ebp-frame forwarders; takes the wrapper's first two args plus (char*)&arg2+3 in a vestigial third slot; name unknown
+?rva00569F0C@Rva00569F0C@@QAEXHHPAD@Z,0x00569F0C,thiscall callee of the F22 ebp-frame forwarders; takes the wrapper's first two args plus (char*)&arg2+3 in a vestigial third slot; name unknown
+?rva005F4F74@Rva005F4F74@@QAEXHHPAD@Z,0x005F4F74,thiscall callee of the F22 ebp-frame forwarders; takes the wrapper's first two args plus (char*)&arg2+3 in a vestigial third slot; name unknown
