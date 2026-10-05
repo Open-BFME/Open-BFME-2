@@ -39,7 +39,9 @@ struct BfmeAssignRecord24 { AsciiString s; int a[5]; };
 inline bool operator==(const BfmeAssignRecord24 &x, const BfmeAssignRecord24 &y) { return x.s == y.s; }
 struct BfmeAssignRecord28 { AsciiString s; int a[6]; };
 inline bool operator==(const BfmeAssignRecord28 &x, const BfmeAssignRecord28 &y) { return x.s == y.s; }
-struct BfmeAssignRecord32 { AsciiString s; int a[7]; BfmeAssignRecord32 &operator=(const BfmeAssignRecord32 &); };
+// This shape view supplies assignment helpers; the independently verified
+// 71B destructor at0x0017330A owns destruction of the complete native record.
+struct BfmeAssignRecord32 { AsciiString s; int a[7]; ~BfmeAssignRecord32(); BfmeAssignRecord32 &operator=(const BfmeAssignRecord32 &); };
 inline bool operator==(const BfmeAssignRecord32 &x, const BfmeAssignRecord32 &y) { return x.s == y.s; }
 struct BfmeAssignRecord36 { AsciiString s; int a[8]; BfmeAssignRecord36 &operator=(const BfmeAssignRecord36 &); };
 inline bool operator==(const BfmeAssignRecord36 &x, const BfmeAssignRecord36 &y) { return x.s == y.s; }
@@ -83,7 +85,14 @@ template <> BfmeAssignRecord172 *vector<BfmeAssignRecord172, allocator<BfmeAssig
 }
 template class _STL::vector<BfmeAssignRecord24, _STL::allocator<BfmeAssignRecord24> >;
 template class _STL::vector<BfmeAssignRecord28, _STL::allocator<BfmeAssignRecord28> >;
-template class _STL::vector<BfmeAssignRecord32, _STL::allocator<BfmeAssignRecord32> >;
+// Emit the recovered record32 algorithms without unrelated vector APIs.
+namespace _STL {
+template BfmeAssignRecord32 *__copy_backward<BfmeAssignRecord32 *, BfmeAssignRecord32 *, int>(BfmeAssignRecord32 *, BfmeAssignRecord32 *, BfmeAssignRecord32 *, const random_access_iterator_tag &, int *);
+template void fill<BfmeAssignRecord32 *, BfmeAssignRecord32>(BfmeAssignRecord32 *, BfmeAssignRecord32 *, const BfmeAssignRecord32 &);
+template BfmeAssignRecord32 *__copy_backward_ptrs<BfmeAssignRecord32 *, BfmeAssignRecord32 *>(BfmeAssignRecord32 *, BfmeAssignRecord32 *, BfmeAssignRecord32 *, const __false_type &);
+template BfmeAssignRecord32 *__copy<BfmeAssignRecord32 *, BfmeAssignRecord32 *, int>(BfmeAssignRecord32 *, BfmeAssignRecord32 *, BfmeAssignRecord32 *, const random_access_iterator_tag &, int *);
+template BfmeAssignRecord32 *__copy_ptrs<BfmeAssignRecord32 *, BfmeAssignRecord32 *>(BfmeAssignRecord32 *, BfmeAssignRecord32 *, BfmeAssignRecord32 *, __false_type);
+}
 template class _STL::vector<BfmeAssignRecord36, _STL::allocator<BfmeAssignRecord36> >;
 template class _STL::vector<BfmeAssignRecord44, _STL::allocator<BfmeAssignRecord44> >;
 template class _STL::vector<BfmeAssignRecord52, _STL::allocator<BfmeAssignRecord52> >;
