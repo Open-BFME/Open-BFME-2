@@ -8727,3 +8727,4 @@ FUN_00863191	0x00463191	56	blocked	vslot104 needs 104-virt class plus this slot7
 ?Simple_Evaluate_Bone@Animatable3DObjClass@@UBE_NHPAVMatrix3D@@@Z	0x001A5A60	457	blocked	vslot133 likely 2-arg Simple_Evaluate_Bone but retail 457B has SSE blend block and different HAnim stride and vtable slot vs ZH donor needs new layouts t=15 model=muse-08
 ?rva00262E24@AIUpdateInterface@@QAEXPAUCoord3D@@@Z	0x00262E24	219	partial	else-branch xmm allocation differs and 0x200 copy uses offset not add t=25 model=muse-02 score=0.93 stash=reverse/attempts/0x00262e24.cpp
 ??0Render2DSentenceClass@@QAE@XZ	0x00157E80	368	blocked	scheduling only 1.0 load early vs late bytes order +8B t=12 model=muse-06 (stash 0.95 kept)
+?Rva00323F9C@@YIHPAU_ListboxData@@@Z	0x00323F9C	61	blocked	prolog-save wall plus sum-esi rows-edx swap t=12 model=muse-13

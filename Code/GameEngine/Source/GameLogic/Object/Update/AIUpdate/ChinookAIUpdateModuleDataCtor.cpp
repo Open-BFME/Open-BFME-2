@@ -31,6 +31,8 @@ private:
 	unsigned char m_pad[0x110];
 };
 
+extern const void *const g_00BF4028[];
+
 class DetachableRiderBodyModuleData : public ActiveBodyModuleData
 {
 public:
@@ -48,7 +50,7 @@ private:
 
 // ??0DetachableRiderBodyModuleData@@QAE@XZ
 DetachableRiderBodyModuleData::DetachableRiderBodyModuleData()
-	: m_vtable( reinterpret_cast<const void *>(0x00BF4028) )
+	: m_vtable(g_00BF4028)
 {
 	m_ropes.construct();
 	m_17C = 0.0f;
