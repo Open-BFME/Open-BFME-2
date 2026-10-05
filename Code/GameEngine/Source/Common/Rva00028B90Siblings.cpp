@@ -48,3 +48,10 @@ void Rva0002ACF0Thing::bfmeGoPF(const BfmeRangePF *span, void *what)
 {
 	bfmeDoPF(span->m_bfmeAt, what, span->m_bfmeEnd - span->m_bfmeAt);
 }
+
+// The callees below are thiscall spellings of bodies the ledger holds under
+// other (free-function/rowed) names at the same addresses (census owners of
+// those DIR32 targets); bind this unit's spellings.
+#pragma comment(linker, "/alternatename:?bfmeDoPF@Rva00028B90Thing@@QAEXPADPAXH@Z=?bfmeDoPF@Rva00028B90Thing@@QAEHPADHH@Z")
+#pragma comment(linker, "/alternatename:?bfmeDoPF@Rva0002A270Thing@@QAEXPADPAXH@Z=?bfmeFindV39@@YGHPADII@Z")
+#pragma comment(linker, "/alternatename:?bfmeDoPF@Rva0002ACF0Thing@@QAEXPADPAXH@Z=?find_last_not_of@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QBEIPBDII@Z")
