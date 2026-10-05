@@ -214,6 +214,15 @@ public:
 	static Bool deleteStatsFile(const UnicodeString &profilePath);
 };
 
+// TheSkirmishGameInfo (0x00E02EF0) and its rowed getMap.
+class GameInfo
+{
+public:
+	AsciiString getMap() const;
+};
+
+extern GameInfo *TheSkirmishGameInfo;
+
 class SkirmishPreferences : public UserPreferences
 {
 public:
@@ -230,6 +239,10 @@ public:
 	Bool Rva0043B9E8(void);
 	UnicodeString Rva0043BB88(void);
 	void Rva0043BE36(const AsciiString &mapName);
+	void rva0043BE7C(void);
+	// Unrowed 0x0043BD36 (256 bytes; reads TheSkirmishGameInfo's slots into
+	// the preferences), pinned by address.
+	void rva0043BD36(void);
 	int Rva0043BBB6(UnicodeString user);
 	void Rva0043C2EB(const UnicodeString &user);
 	void rva0043C612(const UnicodeString &user);
@@ -428,3 +441,13 @@ void SkirmishPreferences::rva0043C612(const UnicodeString &user)
 }
 // ?g_emptyProfilePath@@3VUnicodeString@@A: the global at VA 0xe0c898 is ?TheEmptyString@UnicodeString@@2V1@A.
 #pragma comment(linker, "/alternatename:?g_emptyProfilePath@@3VUnicodeString@@A=?TheEmptyString@UnicodeString@@2V1@A")
+
+// Retail 0x0043BE7C, 77 bytes. Name unknown: with a skirmish game set up,
+// keeps its map and then its slots (0x0043BD36) in the preferences.
+void SkirmishPreferences::rva0043BE7C(void)
+{
+	if (!TheSkirmishGameInfo)
+		return;
+	Rva0043BE36(TheSkirmishGameInfo->getMap());
+	rva0043BD36();
+}
