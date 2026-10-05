@@ -70,6 +70,8 @@ private:
 
 public:
 	EAStringC(const EAStringC &other);
+	EAStringC();
+	EAStringC Left(int count) const;
 	EAStringC(const char *text);
 	EAStringC(unsigned int nSize);
 	EAStringC &operator=(const EAStringC &other);
@@ -607,3 +609,24 @@ void bfmeEmitEAStringCRefCount(EAStringC *p)
 // Other units name this global (at the same address) with the spelling(s)
 // below; bind them to this definition.
 #pragma comment(linker, "/alternatename:?g_pChainBlockAllocator@@3PAVRva006DB160@@A=?g_aptPoolAllocator@@3PAVRva006DB160@@A")
+
+// Inline empty construction is shared by the native Left return path.
+// ?EAStringC::EAStringC present-unmatched
+inline EAStringC::EAStringC()
+{
+	m_pData = &g_eaEmptyStringData;
+	++m_pData->m_uRefCount;
+}
+
+// ?Left@EAStringC@@QBE?AV1@H@Z
+// EAString.cpp donor Left semantics; native 0x006D55B0 independently proves
+// signed count, hidden value-result argument, shared copies and ChangeBuffer.
+// The donor name is supported by that complete operation and sibling usage.
+EAStringC EAStringC::Left(int count) const
+{
+	if (count <= 0) return EAStringC();
+	if ((unsigned)count >= m_pData->m_uSize) return *this;
+	EAStringC text(*this);
+	text.ChangeBuffer(count, 0, count, CB_PUSH_ZERO, count);
+	return text;
+}
