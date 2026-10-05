@@ -1,7 +1,20 @@
 // ?rva004320B1@Rva004320B1@@QAEHPAVGameMessage@@@Z
-// partial score=0.95 date=2026-10-05
+// partial score=0.96 date=2026-10-05
+// ?rva004320B1@Rva004320B1@@QAEHPAVGameMessage@@@Z
+// finish attempt for ?rva004320B1@Rva004320B1@@QAEHPAVGameMessage@@@Z @0x004320B1, 160B.
 // cl: /O1 /MD
 // ?rva004320B1@Rva004320B1@@QAEHPAVGameMessage@@@Z @0x004320B1 160B.
+//
+// The global at 0xDFEA3C is a View*: matched sibling Rva0029B4F9Init.cpp
+// declares that global as View *TheTacticalView and calls its slots 0x170 and
+// 0xC8. Retail's call DWORD PTR [eax+0x168] is therefore View slot 90, which
+// is why screenToTerrain sits behind 90 declarations here. The previous bank
+// modelled this class as a `TacticalView` with screenToTerrain at slot 0 and
+// so emitted call DWORD PTR [eax], which desynchronised the whole tail.
+//
+// InGameUI is unchanged and was already right: the matched sibling
+// Rva004319F2.cpp fixes slot51 at 0xCC, slot54 at 0xD8 and the byte at 0x9B4,
+// which is exactly retail's [eax+0xcc], [eax+0xc8] and cmp byte [ecx+0x9b4].
 #include <stddef.h>
 
 struct ICoord2D { int m_x; int m_y; };
@@ -36,44 +49,169 @@ public:
 	int rva00431E95(void *p);
 };
 
-class TacticalView
+class View
 {
 public:
+	virtual void s000();
+	virtual void s001();
+	virtual void s002();
+	virtual void s003();
+	virtual void s004();
+	virtual void s005();
+	virtual void s006();
+	virtual void s007();
+	virtual void s008();
+	virtual void s009();
+	virtual void s010();
+	virtual void s011();
+	virtual void s012();
+	virtual void s013();
+	virtual void s014();
+	virtual void s015();
+	virtual void s016();
+	virtual void s017();
+	virtual void s018();
+	virtual void s019();
+	virtual void s020();
+	virtual void s021();
+	virtual void s022();
+	virtual void s023();
+	virtual void s024();
+	virtual void s025();
+	virtual void s026();
+	virtual void s027();
+	virtual void s028();
+	virtual void s029();
+	virtual void s030();
+	virtual void s031();
+	virtual void s032();
+	virtual void s033();
+	virtual void s034();
+	virtual void s035();
+	virtual void s036();
+	virtual void s037();
+	virtual void s038();
+	virtual void s039();
+	virtual void s040();
+	virtual void s041();
+	virtual void s042();
+	virtual void s043();
+	virtual void s044();
+	virtual void s045();
+	virtual void s046();
+	virtual void s047();
+	virtual void s048();
+	virtual void s049();
+	virtual void s050();
+	virtual void s051();
+	virtual void s052();
+	virtual void s053();
+	virtual void s054();
+	virtual void s055();
+	virtual void s056();
+	virtual void s057();
+	virtual void s058();
+	virtual void s059();
+	virtual void s060();
+	virtual void s061();
+	virtual void s062();
+	virtual void s063();
+	virtual void s064();
+	virtual void s065();
+	virtual void s066();
+	virtual void s067();
+	virtual void s068();
+	virtual void s069();
+	virtual void s070();
+	virtual void s071();
+	virtual void s072();
+	virtual void s073();
+	virtual void s074();
+	virtual void s075();
+	virtual void s076();
+	virtual void s077();
+	virtual void s078();
+	virtual void s079();
+	virtual void s080();
+	virtual void s081();
+	virtual void s082();
+	virtual void s083();
+	virtual void s084();
+	virtual void s085();
+	virtual void s086();
+	virtual void s087();
+	virtual void s088();
+	virtual void s089();
 	virtual void screenToTerrain(const ICoord2D *pixel, Coord3D *world, bool clamp);
-	virtual void f02(); virtual void f03(); virtual void f04(); virtual void f05();
-	virtual void f06(); virtual void f07(); virtual void f08(); virtual void f09();
-	virtual void f0a(); virtual void f0b(); virtual void f0c(); virtual void f0d();
-	virtual void f0e(); virtual void f0f(); virtual void f10(); virtual void f11();
-	virtual void f12(); virtual void f13(); virtual void f14(); virtual void f15();
-	virtual void f16(); virtual void f17(); virtual void f18(); virtual void f19();
-	virtual void f1a(); virtual void f1b(); virtual void f1c(); virtual void f1d();
-	virtual void f1e(); virtual void f1f(); virtual void f20(); virtual void f21();
-	virtual void f22(); virtual void f23(); virtual void f24(); virtual void f25();
-	virtual void f26(); virtual void f27(); virtual void f28(); virtual void f29();
-	virtual void f2a(); virtual void f2b(); virtual void f2c(); virtual void f2d();
-	virtual void f2e(); virtual void f2f(); virtual void f30(); virtual void f31();
-	virtual void f32(); virtual void f33(); virtual void f34(); virtual void f35();
-	virtual void f36(); virtual void f37(); virtual void f38(); virtual void f39();
-	virtual void f3a(); virtual void f3b(); virtual void f3c(); virtual void f3d();
-	virtual void f3e(); virtual void f3f(); virtual void f40(); virtual void f41();
-	virtual void f42(); virtual void f43(); virtual void f44(); virtual void f45();
-	virtual void f46(); virtual void f47(); virtual void f48(); virtual void f49();
-	virtual void f4a(); virtual void f4b(); virtual void f4c(); virtual void f4d();
-	virtual void f4e(); virtual void f4f(); virtual void f50(); virtual void f51();
-	virtual void f52(); virtual void f53(); virtual void f54(); virtual void f55();
-	virtual void f56(); virtual void f57(); virtual void f58(); virtual void f59();
-	virtual void f5a(); virtual void f5b(); virtual void f5c(); virtual void f5d();
-	virtual void f5e(); virtual void f5f(); virtual void f60(); virtual void f61();
-	virtual void f62(); virtual void f63(); virtual void f64(); virtual void f65();
-	virtual void f66(); virtual void f67(); virtual void f68(); virtual void f69();
-	virtual void f6a(); virtual void f6b(); virtual void f6c(); virtual void f6d();
-	virtual void f6e(); virtual void f6f(); virtual void f70(); virtual void f71();
-	virtual void f72(); virtual void f73(); virtual void f74(); virtual void f75();
-	virtual void f76(); virtual void f77(); virtual void f78(); virtual void f79();
-	virtual void f7a(); virtual void f7b(); virtual void f7c(); virtual void f7d();
-	virtual void f7e(); virtual void f7f(); virtual void f80(); virtual void f81();
-	virtual void f82(); virtual void f83(); virtual void f84(); virtual void f85();
-	virtual void f86(); virtual void f87(); virtual void f88(); virtual void f89();
+	virtual void s091();
+	virtual void s092();
+	virtual void s093();
+	virtual void s094();
+	virtual void s095();
+	virtual void s096();
+	virtual void s097();
+	virtual void s098();
+	virtual void s099();
+	virtual void s100();
+	virtual void s101();
+	virtual void s102();
+	virtual void s103();
+	virtual void s104();
+	virtual void s105();
+	virtual void s106();
+	virtual void s107();
+	virtual void s108();
+	virtual void s109();
+	virtual void s110();
+	virtual void s111();
+	virtual void s112();
+	virtual void s113();
+	virtual void s114();
+	virtual void s115();
+	virtual void s116();
+	virtual void s117();
+	virtual void s118();
+	virtual void s119();
+	virtual void s120();
+	virtual void s121();
+	virtual void s122();
+	virtual void s123();
+	virtual void s124();
+	virtual void s125();
+	virtual void s126();
+	virtual void s127();
+	virtual void s128();
+	virtual void s129();
+	virtual void s130();
+	virtual void s131();
+	virtual void s132();
+	virtual void s133();
+	virtual void s134();
+	virtual void s135();
+	virtual void s136();
+	virtual void s137();
+	virtual void s138();
+	virtual void s139();
+	virtual void s140();
+	virtual void s141();
+	virtual void s142();
+	virtual void s143();
+	virtual void s144();
+	virtual void s145();
+	virtual void s146();
+	virtual void s147();
+	virtual void s148();
+	virtual void s149();
+	virtual void s150();
+	virtual void s151();
+	virtual void s152();
+	virtual void s153();
+	virtual void s154();
+	virtual void s155();
+	virtual void s156();
+	virtual void s157();
+	virtual void s158();
+	virtual void s159();
 };
 
 class InGameUI
@@ -105,12 +243,12 @@ public:
 	void rva0029AA27(const S12_0029AA27 *src);
 };
 
-extern TacticalView *TheTacticalView;
+extern View *TheTacticalView;
 extern InGameUI *TheInGameUI;
 extern Rva0029AA27 *TheRva0029AA27;
 extern void *g_ks_30f4ea;
 
-TacticalView *TheTacticalView;
+View *TheTacticalView;
 InGameUI *TheInGameUI;
 Rva0029AA27 *TheRva0029AA27;
 void *g_ks_30f4ea;
