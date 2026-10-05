@@ -1,27 +1,24 @@
 // ?rva006F1530@@YAXPAVBfmeAptValue006DCD20@@@Z
-// partial score=0.86 date=2026-10-04
+// partial score=0.92 date=2026-10-05
+// ?rva006F1530@@YAXPAVBfmeAptValue006DCD20@@@Z
+// partial score=0.92 date=2026-10-05
 // cl: /O2 /DNDEBUG /MD
-// ?rva006F1530@@YAXPAVBfmeAptValue006DCD20@@@Z @0x006F1530 63B
+// 0x006F1530 (63B) Apt predicate-to-bool: if the value is an XmlNode and its
+// checked cast target carries a non-null inner at +0x20, publish
+// (inner->slot9() != 0) through the MakeBool helper; otherwise publish false.
 //
-// Apt predicate-to-bool: if the value is an XmlNode and its checked cast target
-// carries a non-null inner at +0x20, publish (inner->slot9() != 0) through the
-// MakeBool helper; otherwise publish false.
+// Improvement over the prior banked body: binding the cast result to its own
+// pointer (`p`) before reading m_inner20 reproduces retail's register
+// allocation exactly -- inner in ecx, vtable in eax, `setne cl` -- which the
+// single-expression form got wrong (inner in eax, vtable in edx). The body now
+// matches retail byte-for-byte through 0x6F1557 (64B compiled vs 63B target).
 //
-// Improvement over the previous banked body: retail's first call tests `al`
-// (84 c0), so the predicate is declared to RETURN bool here -- an int return
-// emits `test eax` (85 c0). The predicate's real definition is the matched
-// ?isXmlNode@BfmeAptValue006DCD20@@QBEHXZ at 0x006DBDE0; a bool-returning TU
-// view is ?isXmlNode@BfmeAptValue006DCD20@@QBE_NXZ, which needs a symbols.csv
-// alias pin at 0x006DBDE0 before this body can resolve its first call.
-//
-// Remaining wall (unchanged): retail does NOT tail-call either MakeBool site
-// (it emits push arg / call / add esp,4 / pop esi / ret at both 0x6F1559 and
-// 0x6F1565), while /O2 in this toolchain tail-calls both (`pop esi; mov
-// [esp+4],arg; jmp MakeBool`). `_ReadWriteBarrier()` after a call suppresses
-// the tail call but makes MSVC merge the two sites into one shared call and
-// epilogue (57B), which retail also does not do. No /O1 //O2 //Oy- //Ob1 or
-// statement-order variant produced two separate non-tail calls.
-
+// Remaining wall (unchanged): retail does NOT tail-call either MakeBool site;
+// both end `push arg / call 0x6D88C0 / add esp,4 / pop esi / ret`, while /O2
+// tail-calls both (`pop esi / mov [esp+4],arg / jmp 0x6D88C0`). /Oy- restores
+// the two separate non-tail calls but adds an ebp frame retail never builds
+// (67B). No /O1 //O2 //Ox /Oy- //Ob1 or pragma shape reaches two separate
+// non-tail calls without the frame.
 class Rva006F1530Inner
 {
 public:
@@ -54,11 +51,11 @@ public:
 class AptValue;
 AptValue *Rva006D88C0MakeBool(bool b);
 
-// ?rva006F1530@@YAXPAVBfmeAptValue006DCD20@@@Z present-unmatched
 void rva006F1530(BfmeAptValue006DCD20 *obj)
 {
 	if (obj->isXmlNode()) {
-		Rva006F1530Inner *inner = obj->rva006DD220()->m_inner20;
+		BfmeAptValue006DCD20 *p = obj->rva006DD220();
+		Rva006F1530Inner *inner = p->m_inner20;
 		if (inner) {
 			Rva006D88C0MakeBool(inner->slot9() != 0);
 			return;
