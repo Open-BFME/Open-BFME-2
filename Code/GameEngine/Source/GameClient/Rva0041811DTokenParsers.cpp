@@ -45,10 +45,14 @@ public:
 	void *rva0041811D(const AsciiString *name);
 };
 
-extern Rva0041811D *g_Va00E030A8;
 extern Rva0041811D *g_Va00E030B0;
-extern Rva0041811D *g_Va00E030B8;
-extern Rva0041811D *g_Va00E030C0;
+
+// g_Va00E030A8/B8/C0: VA 0x00E030A8/0x00E030B8/0x00E030C0 (.data/bss);
+// zero-filled pointers to the Rva0041811D tables. Defined here like
+// Rva0033A65EGetter defines g_Va00E030B0, so these names resolve.
+Rva0041811D *g_Va00E030A8;
+Rva0041811D *g_Va00E030B8;
+Rva0041811D *g_Va00E030C0;
 
 // ?Rva00418143Parse@@YAXPAVINI@@PAX1PBX@Z
 void Rva00418143Parse(INI *ini, void *, void *store, const void *)
