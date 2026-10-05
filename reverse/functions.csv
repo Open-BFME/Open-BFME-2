@@ -63058,3 +63058,10 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ??1Rva001FBB64@@QAE@XZ,,0x001FBB64,59,Code/GameEngine/Source/Common/Rva001F8BE8DtorChain.cpp,matched,Rva dtor chain second base plus4 then rva001F4206 holder by REL32 graph
 ?Rva00580776Insert@@YAXPAPAXPAXVRva000795C1Record@@@Z,,0x00580776,88,Code/Libraries/Source/WWVegas/WWLib/Rva00580776LinearInsert.cpp,matched,unguarded linear insert with record teardown
 ?rva0040C45C@Rva0040C351@@QAEXXZ,,0x0040C45C,57,Code/GameEngine/Source/Common/Rva0040C351Ctor.cpp,matched,clear-on-null lookup-notify over m_bc via pin 0x002B2579 and rowed getter; exact 57B
+?rva001F6492@Rva001F6492@@QAEXHH@Z,,0x001F6492,42,Code/GameEngine/Source/Common/Rva001F6492Chain.cpp,matched,Rva forwarding chain null-checked slot 0xc then next link plus4 by REL32 graph
+?rva001F8213@Rva001F8213@@QAEXHH@Z,,0x001F8213,42,Code/GameEngine/Source/Common/Rva001F6492Chain.cpp,matched,Rva forwarding chain null-checked slot 0xc then next link plus4 by REL32 graph
+?rva001F8960@Rva001F8960@@QAEXHH@Z,,0x001F8960,42,Code/GameEngine/Source/Common/Rva001F6492Chain.cpp,matched,Rva forwarding chain null-checked slot 0xc then next link plus4 by REL32 graph
+?rva001F8DE2@Rva001F8DE2@@QAEXHH@Z,,0x001F8DE2,42,Code/GameEngine/Source/Common/Rva001F6492Chain.cpp,matched,Rva forwarding chain null-checked slot 0xc then next link plus4 by REL32 graph
+?rva001F9424@Rva001F9424@@QAEXHH@Z,,0x001F9424,42,Code/GameEngine/Source/Common/Rva001F6492Chain.cpp,matched,Rva forwarding chain null-checked slot 0xc then next link plus4 by REL32 graph
+?rva001FA4C6@Rva001FA4C6@@QAEXHH@Z,,0x001FA4C6,42,Code/GameEngine/Source/Common/Rva001F6492Chain.cpp,matched,Rva forwarding chain null-checked slot 0xc then next link plus4 by REL32 graph
+?rva001FA7CE@Rva001FA7CE@@QAEXHH@Z,,0x001FA7CE,42,Code/GameEngine/Source/Common/Rva001F6492Chain.cpp,matched,Rva forwarding chain null-checked slot 0xc then next link plus4 by REL32 graph
