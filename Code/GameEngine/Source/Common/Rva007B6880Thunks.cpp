@@ -6242,3 +6242,60 @@ void __cdecl rva007B6E7C()
 	Rva00059068Tree *p = (Rva00059068Tree *)&g_Va00DEBFE4;
 	return p->~Rva00059068Tree();
 }
+
+// Minimal Dict view for the teardown below. releaseData stays private so the
+// call mangles as the rowed ?releaseData@Dict@@AAEXXZ (0x0031339C); the thunk
+// is friended. Layout follows Rva00329D0EDtor.cpp.
+class Dict
+{
+	struct DictPairData
+	{
+		unsigned short m_refCount;
+		unsigned short m_numPairsAllocated;
+		unsigned short m_numPairsUsed;
+	};
+
+	void releaseData();
+	friend void __cdecl rva007B7B14();
+
+	DictPairData *m_data;
+};
+
+extern unsigned g_Va00E00944;
+unsigned int g_Va00E00944;
+
+// ?rva007B7B14@@YAXXZ @ 0x007B7B14 (10B). Global Dict teardown: ecx=&g_Va00E00944 then tail-jmp to rowed ?releaseData@Dict@@AAEXXZ (0x0031339C). No callers. Honest address name.
+void __cdecl rva007B7B14()
+{
+	Dict *p = (Dict *)&g_Va00E00944;
+	return p->releaseData();
+}
+
+// Minimal Rva00200667 view for the two teardowns below. The destructor is
+// declared only; symbols.csv pins ??1Rva00200667@@QAE@XZ to 0x00200667
+// (see FamilyDeletingDtors11.cpp).
+class Rva00200667
+{
+public:
+	~Rva00200667();
+};
+
+extern unsigned g_Va00DE6194;
+unsigned int g_Va00DE6194;
+
+// ?rva007B6CE1@@YAXXZ @ 0x007B6CE1 (10B). Global Rva00200667 dtor thunk: ecx=&g_Va00DE6194 then tail-jmp to pinned ??1Rva00200667@@QAE@XZ (0x00200667; deleting dtor 0x002821B3). No callers. Honest address name.
+void __cdecl rva007B6CE1()
+{
+	Rva00200667 *p = (Rva00200667 *)&g_Va00DE6194;
+	return p->~Rva00200667();
+}
+
+extern unsigned g_Va00E03CE0;
+unsigned int g_Va00E03CE0;
+
+// ?rva007B8590@@YAXXZ @ 0x007B8590 (10B). Global Rva00200667 dtor thunk: ecx=&g_Va00E03CE0 then tail-jmp to pinned ??1Rva00200667@@QAE@XZ (0x00200667; deleting dtor 0x002821B3). No callers. Honest address name.
+void __cdecl rva007B8590()
+{
+	Rva00200667 *p = (Rva00200667 *)&g_Va00E03CE0;
+	return p->~Rva00200667();
+}
