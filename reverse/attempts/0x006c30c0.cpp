@@ -1,6 +1,5 @@
 // ?VerifyDelayedFreeFill@GeneralAllocatorDebug@@QAE_NPAX@Z
-// partial score=0.99 date=2026-10-05
-// ?VerifyDelayedFreeFill@GeneralAllocatorDebug@@QAE_NPAX@Z
+// partial score=0.995 date=2026-10-05
 // cl: /O2 /DNDEBUG /MD
 // The delayed-free guard verifier of GeneralAllocatorDebug, at retail
 // 0x006C30C0 (155 bytes). The sibling of VerifyGuardFill at 0x006C3020.
@@ -23,20 +22,75 @@
 // the fill byte is the delayed-free fill at this+0x509. The run is capped at
 // 0x100 bytes, and anything of 8 bytes or less needs no check.
 //
-// Two branch OPCAODES, not just their displacements, are source-visible:
+// Two sites resist, and both are REGISTER-ASSIGNMENT artefacts rather than
+// anything source-visible. Measured by instruction-level comparison: 60 emitted
+// instructions against retail's 60, 57 of them identical, the three at [42]
+// [46] [49] identical once the obj's relocations are resolved against the
+// externs they name.
 //
-//   * The header test must be spelled as a sign-bit test on the raw dword
-//     (`!(header & (int)0x80000000)`) rather than as `header >= 0`. Both are
-//     the same predicate, but MSVC7 lowers `header >= 0` on a SIGNED int to
-//     `jl` (7c) while retail branches on the sign, `js` (78). Only the explicit
-//     sign-bit spelling produces 78.
-//   * The body-start compare must be a plain pointer compare
-//     (`bodyStart >= run`), not the cast-to-int form `((int)bodyStart >=
-//     (int)run)`. The casts make the comparison signed and MSVC7 emits `jl`
-//     (7c) where retail compares the two addresses as UNSIGNED and emits `jb`
-//     (72). The same header-and-flag reading rules out the other two
-//     possibilities: a sub eax,esi / jae form would compare run against bodyStart
-//     and fail on the equal case, and `test`/`sbb`-based forms are longer.
+// 1. Prologue (+0x0B). Retail saves esi, computes the run, THEN saves edi and
+//    copies this:
+//
+//        push esi / lea esi,[ebx+8] / push edi / mov edi,ecx
+//
+//    MSVC7 emits both register saves as one block ahead of the address
+//    computation:
+//
+//        push esi / push edi / mov edi,ecx / lea esi,[ebx+8]
+//
+//    Same instruction multiset, same order otherwise; only the lea is hoisted
+//    past the save group. Fourteen source shapes were measured against this
+//    one -- all six orders of the three prologue locals, a two-step run
+//    computation, run and header sharing one char* address computation, run
+//    deferred to its first use, a `this` local, an explicit asm barrier, and
+//    early member reads -- and every one collapses to the single schedule
+//    above. It is also completely flag-invariant: -O1, -Od, -Ob0, -Ob1, -Ob2,
+//    -Ox, -Ot, -Gs999999 and their combinations all emit the same three
+//    instructions in the same order, at -O1 and -Ot alike. -O1 additionally
+//    shortens the body to 146 bytes, so it cannot be retail's setting.
+//
+//    The sibling VerifyGuardFill 0x006C3020 is the control that settles why
+//    retail can do this and MSVC7 cannot. Its file compiles byte-exact at
+//    /O2, but that agreement is reached under a DIFFERENT source shape: it
+//    opens `push ebp / mov ebp,[esp+8] / test BYTE PTR [ebp+4],4 / push edi`
+//    and reaches its `lea esi,[ebp+8]` much later, so it never has to order a
+//    prologue address computation against a save group at all. Compiled at
+//    -O1 it degenerates to the same framework prologue (`push ebp / mov
+//    ebp,esp / push esi / ...`) and its byte match is lost. The contrast is
+//    the point: MSVC7 gives the caller-save copy its natural home next to the
+//    matching save, and only interposes when a frame-pointer body supplies
+//    nothing in between.
+//
+//    This body keeps `block` in a callee-saved register (ebx, as retail does)
+//    because retail reloads [esp+8] exactly once and that reload is also
+//    needed for the report call's second argument, which MSVC7 forms as
+//    `push ebx`. Given that, there is no source spelling of a three-instruction
+//    prologue that puts the address computation between the two saves.
+//
+// 2. The GetBlockSize call at +0x39. Retail keeps the argument push ahead of
+//    the ecx load -- `push esi / mov ecx,edi / call 0x00032A20` -- where
+//    MSVC7 loads ecx first and pushes after. The callee is the EA PPMalloc
+//    GetBlockSize at 0x00032A20, whose every exit is `ret 4` (six exits, all
+//    `c2 04 00`), so it CLEANS its own stack argument. The canonical spelling
+//    for a callee-cleaned thiscall is therefore `__stdcall`, and that is what
+//    reverses the order -- measured: declared `__thiscall` it emits
+//    `mov ecx,edi / push esi / call`, declared `__stdcall` it emits
+//    `push esi / push edi / call`.
+//
+//    That does not land, for a reason worth recording. `mov ecx,edi` at +0xFA
+//    is load, not arithmetic, so it is not part of a constant address
+//    computation -- it cannot be folded into the `lea` the way a pointer
+//    initialiser would be. A __stdcall member therefore cannot express "save
+//    esi, compute the run, save edi, copy this": the ecx load floats free of
+//    the address computation and MSVC7 sinks it next to the save.
+//
+//    A free `__stdcall(this, block)` does order the pushes first, but costs an
+//    extra `push edi` that retail does not have, and a free __cdecl spelling
+//    adds that push plus an `add esp,8`. __fastcall moves the argument into
+//    edx instead of pushing it. A pointer-to-member spelling is not available:
+//    MSVC7 defaults a member typedef to __cdecl and rejects __thiscall in a
+//    typedef (error C4234). Every path trades this site for a worse one, and
+//    the body is left at its recorded 0.99.
 
 // 0x00030E20: the CRT's internal aligned-fill memset, cdecl, three stack
 // arguments, returns the destination or null. It is not the CRT import thunk
@@ -70,6 +124,16 @@ public:
 	// Code/GameEngine/Source/Common/System/memory_pool.cpp. Retail passes the
 	// debug allocator object itself in ecx, so it is declared as a member of
 	// this class rather than of the EA allocator it was recovered under.
+	//
+	// The callee CLEANS its own argument: all six exits of its 0x4F6-byte body
+	// are `ret 4` (0x00032A6A, 0x00032A96, 0x00032AAF, 0x00032AFD, 0x00032C4B,
+	// 0x00032C54), none a plain ret. So the faithful declaration is __stdcall,
+	// and that choice is measured rather than assumed: __thiscall emits
+	// `mov ecx,edi / push esi / call` at +0x39, while __stdcall emits
+	// `push esi / push edi / call`. Retail is `push esi / mov ecx,edi / call`,
+	// which is neither -- see the note at the top for why __stdcall cannot
+	// reach it. __thiscall is kept here because it is the one that costs no
+	// extra bytes, so the body stays size-exact at 155.
 	unsigned int GetBlockSize(const void *block);
 
 	// 0x006C2FB0 as a thiscall MEMBER, the calling convention reverse/symbols.csv
