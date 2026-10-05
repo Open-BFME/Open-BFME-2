@@ -158,30 +158,6 @@ private:
 	PortionToPlay m_portionToPlayNext;	// +0x74
 };
 
-// ?rva002D9686@@YAHIPBUWeightedSoundRange@@@Z
-// Weighted random pick; -1 when the list carries no weight. Static, so MSVC
-// passes the weight in EAX and the list in ECX as retail does.
-static __declspec(noinline) int rva002D9686(unsigned int totalWeight, const WeightedSoundRange *sounds)
-{
-	if (!(totalWeight > 0))
-		return -1;
-
-	unsigned int remainingWeight = GetGameAudioRandomValue(0, totalWeight - 1, AUDIO_EVENT_RTS_FILE, 58);
-	const WeightedSound *soundEntry = sounds->m_begin;
-	const WeightedSound *end = sounds->m_end;
-	while (soundEntry != end)
-	{
-		if (remainingWeight < soundEntry->m_weight)
-			break;
-		remainingWeight -= soundEntry->m_weight;
-		++soundEntry;
-	}
-
-	if (soundEntry == end)
-		return 0;
-	return soundEntry - sounds->m_begin;
-}
-
 // ?getObjectID@AudioEventRTS@@QAE?AW4ObjectID@@XZ
 ObjectID AudioEventRTS::getObjectID(void)
 {
@@ -297,5 +273,24 @@ void AudioEventRTS::advanceNextPlayPortion(void)
 	case PP_Decay:
 		m_portionToPlayNext = PP_Done;
 		break;
+	}
+}
+
+// ?rva002D9ADC@AudioEventRTS@@QAEXXZ
+void AudioEventRTS::rva002D9ADC(void)
+{
+	if (!m_eventInfo)
+		return;
+
+	int maximumDelay = m_eventInfo->m_delayMax;
+	int minimumDelay = m_eventInfo->m_delayMin;
+	m_delay = GetGameAudioRandomValueReal((float)minimumDelay, (float)maximumDelay, AUDIO_EVENT_RTS_FILE, 413);
+	m_pitchShift2 = GetGameAudioRandomValueReal(m_eventInfo->m_pitchShift2Min * 0.01f + 1.0f, m_eventInfo->m_pitchShift2Max * 0.01f + 1.0f, AUDIO_EVENT_RTS_FILE, 415);
+	m_volumeShift2 = GetGameAudioRandomValueReal(m_eventInfo->m_volumeShift2 + 1.0f, 1.0f, AUDIO_EVENT_RTS_FILE, 418);
+
+	if (m_regenerateFilename)
+	{
+		m_filenameDirty = true;
+		m_regenerateFilename = false;
 	}
 }
