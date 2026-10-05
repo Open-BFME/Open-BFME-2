@@ -55891,3 +55891,4 @@ ___Extract_locale_name,,0x000216A0,153,Code/Libraries/Source/WWVegas/WWLib/Local
 ?rva002627E8@Rva002627E8@@QBEMXZ,,0x002627E8,28,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_rva002627E8.cpp,matched,float getter via 0x001E46E1 pinned plus BfmeZeroRange null path
 ?recompute@AIGroup@@AAEXXZ,,0x0036D2C5,222,Code/GameEngine/Source/GameLogic/AI/Rva0036CE87Finish.cpp,matched,AIGroup recompute via BFME1 donor plus retail offsets plus rowed Finish
 ??0Rva004CA13@@QAE@XZ,,0x0004CA01,18,Code/GameEngine/Source/Common/Rva004CA13Ctor.cpp,matched,caller 0x00041DB8 Win32GameEngine factory after new 0x28 base row 0x002D0E14 vtable 0x00BC4858
+??0Rva001FA440@@QAE@XZ,,0x001FA440,31,Code/GameEngine/Source/Common/Thing/Rva001FA440Ctor.cpp,matched,caller 0x001FA69F Armor hashtable 100 buckets three empty args share ebp-1 returns this
