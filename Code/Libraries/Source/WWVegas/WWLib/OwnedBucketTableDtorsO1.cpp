@@ -32,3 +32,16 @@ Rva0041EA88::~Rva0041EA88()
 {
     rva0041EA88();
 }
+
+// Native 0x00057AEE: clear 0x00056DA2 and release the bucket allocation.
+class Rva00056DA2
+{
+public:
+    void rva00056DA2();
+    ~Rva00056DA2();
+private:
+    int m_functors;
+    OwnedBucketStorage m_buckets;
+    unsigned int m_count;
+};
+Rva00056DA2::~Rva00056DA2() { rva00056DA2(); }
