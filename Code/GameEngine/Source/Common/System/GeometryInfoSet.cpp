@@ -101,7 +101,7 @@ struct GeometryShape
 	float m_majorRadius;
 	float m_minorRadius;
 	Coord3D m_offset;
-	AsciiString m_name;
+	char *m_name_data;
 	unsigned char m_enabled;
 	unsigned char m_byte21;
 	unsigned char m_pad[2];
@@ -119,6 +119,11 @@ private:
 	BfmeVec60 m_shapes;
 };
 
+#pragma optimize("t", off)
+#pragma optimize("s", on)
+static __forceinline void DestroyTmpName(AsciiString *p) { p->~AsciiString(); }
+#pragma optimize("", on)
+
 void GeometryInfo::set(GeometryType type, bool isSmall, float height, float majorRadius, float minorRadius)
 {
 	GeometryShape tmp;
@@ -131,11 +136,12 @@ void GeometryInfo::set(GeometryType type, bool isSmall, float height, float majo
 	tmp.m_offset.x = 0.0f;
 	tmp.m_offset.y = 0.0f;
 	tmp.m_offset.z = 0.0f;
-	tmp.m_name.m_data = 0;
+	tmp.m_name_data = 0;
 	tmp.m_enabled = 1;
 	tmp.m_byte21 = 1;
 	if (shapes.m_end - shapes.m_begin != 1)
 		shapes.resize(1, BfmeElem60());
 	((GeometryShape *)shapes.m_begin)[0] = tmp;
 	calcBoundingStuff();
+	DestroyTmpName((AsciiString *)&tmp.m_name_data);
 }
