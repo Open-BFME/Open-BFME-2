@@ -176,6 +176,7 @@ struct AptActionInterpreter
     int mnStackFrameBase;
     bool setVariable(AptValue *, AptValue *, const EAStringC *, AptValue *, int=1, int=1, int=0);
     AptValue *getVariable(AptValue *, AptValue *, const EAStringC *, int=1, int=1, int=0);
+    int doFSCommand(const char *,const char *);
     void stackPushIndirect(AptValue *const);
 private:
     AptValue *_doCloneSprite(AptCIH *,AptValue *,AptValue *,AptValue *,int,AptValue *);
@@ -1847,3 +1848,21 @@ void AptActionInterpreter::_FunctionAptActionExtends(AptActionInterpreter *const
 #pragma comment(linker, "/alternatename:??3AptPrototype@@SAXPAXI@Z=?Rva006F12F0Free@@YAXPAXH@Z")
 #pragma comment(linker, "/alternatename:?isPrototype@AptValue@@QBE_NXZ=?isPrototype@BfmeAptValue006DCD20@@QBEHXZ")
 #pragma comment(linker, "/alternatename:?c_prototype@AptValue@@QBEPAVAptPrototype@@XZ=?rva006DD120@BfmeAptValue006DCD20@@QAEPAV1@XZ")
+
+// PC prefix slotDDC920 points to FSCommand:; callback E17758 is zero-initialized.
+// Original Apt.h callback declaration and native caller establish void cdecl ABI.
+extern "C" unsigned int __cdecl strlen(const char *);
+#pragma intrinsic(strlen)
+extern "C" int __cdecl strncmp(const char *,const char *,unsigned int);
+const char *g_bfmeAptFSCommandAtDDC920="FSCommand:";
+void (__cdecl *g_bfmeAptCommandAtE17758)(const char *,const char *)=0;
+int AptActionInterpreter::doFSCommand(const char *szCommand,const char *szParams)
+{
+    if (strncmp(szCommand,g_bfmeAptFSCommandAtDDC920,strlen(g_bfmeAptFSCommandAtDDC920))!=0) {
+        g_bfmeAptAssertAtE17734("isFSCommand(szCommand)", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptActionInterpreter.cpp", 0xC4B);
+        if (g_bfmeAptBreakOnAssertAtDDC01C) { __asm int 3 }
+    }
+    szCommand=&szCommand[strlen(g_bfmeAptFSCommandAtDDC920)];
+    g_bfmeAptCommandAtE17758(szCommand,szParams);
+    return 1;
+}

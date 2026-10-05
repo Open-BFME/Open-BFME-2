@@ -63015,3 +63015,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?_FunctionAptActionNewObject@AptActionInterpreter@@CAXQAU1@QAULocalContextT@1@@Z,,0x00707B80,331,Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp,matched,
 ?_FunctionAptActionNewMethod@AptActionInterpreter@@CAXQAU1@QAULocalContextT@1@@Z,,0x007087F0,474,Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp,matched,
 ?_FunctionAptActionExtends@AptActionInterpreter@@CAXQAU1@QAULocalContextT@1@@Z,,0x007058F0,656,Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp,matched,
+?doFSCommand@AptActionInterpreter@@QAEHPBD0@Z,,0x006FD7D0,121,Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp,matched,
