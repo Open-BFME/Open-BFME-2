@@ -12233,3 +12233,26 @@ _ceil,0x00629934,CRT ceil thunk identified by native PE import slot 0x00BBA578 a
 ?Rva002DBF28FillN@@YAPAVSaveMapPreview@@PAV1@IABV1@ABU__false_type@_STL@@@Z,0x002DBF28,hand insert 0x002DDD48 fill_n helper
 ?rva00565A42@Rva00565A42@@QAEXXZ,0x00565A42,already rowed tidy
 ??0SaveMapPreview@@QAE@ABV0@@Z,0x002262E7,already rowed
+?allocate@?$allocator@URva00287F76Element@@@_STL@@QBEPAURva00287F76Element@@IPBX@Z,0x00523D6C,ICF fold with BfmeE8 allocate for overflow 0x00287B4D
+??$$__uninitialized_copy@PAURva00287F76Element@@PAU1@@_STL@@YAPAURva00287F76Element@@PAU1@00ABU__false_type@0@@Z,0x002861C9,overflow 0x00287B4D copy helper
+??$$__uninitialized_fill_n@PAURva00287F76Element@@IU1@@_STL@@YAPAURva00287F76Element@@PAU1@IABU1@ABU__false_type@0@@Z,0x002861EF,overflow 0x00287B4D fill helper
+?allocate@?$allocator@URva00504755Record@@@_STL@@QBEPAURva00504755Record@@IPBX@Z,0x002226BE,ICF fold with BfmeE16 allocate for overflow 0x005049E8
+??$$__uninitialized_copy@PAURva00504755Record@@PAU1@@_STL@@YAPAURva00504755Record@@PAU1@00ABU__false_type@0@@Z,0x00504755,already rowed
+??$$__uninitialized_fill_n@PAURva00504755Record@@IU1@@_STL@@YAPAURva00504755Record@@PAU1@IABU1@ABU__false_type@0@@Z,0x0050477B,already rowed under Record name variant
+??$__uninitialized_copy@PAURva00287F76Element@@PAU1@@_STL@@YAPAURva00287F76Element@@PAU1@00ABU__false_type@0@@Z,0x002861C9,overflow 0x00287B4D copy helper
+??$__uninitialized_fill_n@PAURva00287F76Element@@IU1@@_STL@@YAPAURva00287F76Element@@PAU1@IABU1@ABU__false_type@0@@Z,0x002861EF,overflow 0x00287B4D fill helper
+??$__uninitialized_copy@PAURva00504755Record@@PAU1@@_STL@@YAPAURva00504755Record@@PAU1@00ABU__false_type@0@@Z,0x00504755,overflow 0x005049E8 copy
+??$__uninitialized_fill_n@PAURva00504755Record@@IU1@@_STL@@YAPAURva00504755Record@@PAU1@IABU1@ABU__false_type@0@@Z,0x0050477B,overflow 0x005049E8 fill
+??$__uninitialized_fill_n@PAURva005334A4Element@@IU1@@_STL@@YAPAURva005334A4Element@@PAU1@IABU1@ABU__false_type@0@@Z,0x005322DE,overflow 0x00532ED9 fill
+?allocate@?$allocator@URva00336AECElement@@@_STL@@QBEPAURva00336AECElement@@IPBX@Z,0x005DFB2C,ICF allocate for overflow 0x003361C6
+??$__uninitialized_copy@PAURva00336AECElement@@PAU1@@_STL@@YAPAURva00336AECElement@@PAU1@00ABU__false_type@0@@Z,0x0033331B,overflow 0x003361C6 copy
+??$__uninitialized_fill_n@PAURva00336AECElement@@IU1@@_STL@@YAPAURva00336AECElement@@PAU1@IABU1@ABU__false_type@0@@Z,0x00333341,overflow 0x003361C6 fill
+?allocate@?$allocator@VRva00587375@@@_STL@@QBEPAVRva00587375@@IPBX@Z,0x0029B27B,ICF allocate for overflow 0x00587C40
+??$__uninitialized_copy@PAVRva00587375@@PAV1@@_STL@@YAPAVRva00587375@@PAV1@00ABU__false_type@0@@Z,0x00587599,overflow 0x00587C40 copy
+??$_Construct@VRva00587375@@V1@@_STL@@YAXPAVRva00587375@@ABV1@@Z,0x00587410,overflow 0x00587C40 construct
+??$__uninitialized_fill_n@PAVRva00587375@@IV1@@_STL@@YAPAVRva00587375@@PAV1@IABV1@ABU__false_type@0@@Z,0x00587422,overflow 0x00587C40 fill
+?_M_insert_overflow@?$vector@VRva00587375@@V?$allocator@VRva00587375@@@_STL@@@_STL@@IAEXPAVRva00587375@@ABV3@ABU__false_type@2@I_N@Z,0x00587C40,pin for landing
+?allocate@?$allocator@URva00587375@@@_STL@@QBEPAURva00587375@@IPBX@Z,0x0029B27B,ICF allocate for overflow 0x00587C40
+??$__uninitialized_copy@PAURva00587375@@PAU1@@_STL@@YAPAURva00587375@@PAU1@00ABU__false_type@0@@Z,0x00587599,overflow 0x00587C40 copy
+??$_Construct@URva00587375@@U1@@_STL@@YAXPAURva00587375@@ABU1@@Z,0x00587410,overflow 0x00587C40 construct
+??$__uninitialized_fill_n@PAURva00587375@@IU1@@_STL@@YAPAURva00587375@@PAU1@IABU1@ABU__false_type@0@@Z,0x00587422,overflow 0x00587C40 fill
