@@ -33,3 +33,9 @@ void __cdecl Rva00580776Insert(void **last, void *val, Rva000795C1Record compare
 	}
 	*cur = val;
 }
+
+void __cdecl Rva00580A54Sort(void **first, void **last, void **, Rva000795C1Record compare)
+{
+	for (void **i = first; i != last; ++i)
+		Rva00580776Insert(i, *i, compare);
+}
