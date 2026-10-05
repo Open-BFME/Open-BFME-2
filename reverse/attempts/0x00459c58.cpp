@@ -1,7 +1,6 @@
 // ?rva00459C58@SiegeDockingBehavior@@UAE_NW4ObjectID@@@Z
-// partial score=0.96 date=2026-10-05
-// ?rva00459C58@SiegeDockingBehavior@@UAE_NW4ObjectID@@@Z
-// finish round from the 0.9 bank
+// partial score=0.97 date=2026-10-05
+// finish round: two structural corrections and one lever no earlier bank used
 // cl: /O1 /DNDEBUG /MD
 //
 // ?rva00459C58@SiegeDockingBehavior@@UAE_NW4ObjectID@@@Z, retail 0x00459C58,
@@ -64,15 +63,14 @@ public:
 	virtual void slot2() = 0;
 	virtual bool rva00459C58(ObjectID id) = 0;
 protected:
-	// +0x04 is this interface's own first data member, an Object* the +0x20
-	// subobject methods pass on; the dock vector follows it at +0x08. Retail
-	// confirms the gap: the two vtables this class has slots on, 0x00C414DC
-	// (+0x00) and 0x00C41404 (+0x20), leave the interval [this+0x0C, this+0x10)
-	// unassigned, and the ctor 0x00459DAF fills only those two words.
-	unsigned char m_pad04[0x08 - 0x04];
-	Rva00459C58Dock **m_docks; // +0x08
-	Rva00459C58Dock **m_docksEnd; // +0x0C
-	mutable unsigned int m_padSink; // +0x10
+	// The dock vector is this interface's own first data member at +0x04, end
+	// at +0x08: retail computes the count as mov eax,[esi+8] / sub eax,[esi+4]
+	// / sar eax,2 and reloads [esi+4] as the walking pointer at 0x00459C8F.
+	// There is no gap and no Object* here; the 0.96 bank read a four-byte one
+	// from an unrelated 0x00459B68 read at a different base.
+	Rva00459C58Dock **volatile m_docks; // +0x04
+	Rva00459C58Dock **m_docksEnd; // +0x08
+	mutable unsigned int m_padSink; // +0x0C
 };
 
 class SiegeDockingBehavior : public BehaviorModule, public Rva00459C58Interface
@@ -109,10 +107,12 @@ bool SiegeDockingBehavior::rva00459C58(ObjectID id)
 	if (obj == 0)
 		return false;
 	rva00459B68();
-	int count = (int)(m_docksEnd - m_docks);
+	// unsigned: retail's bound test is jbe at 0x00459C8D and jb at 0x00459CB2,
+	// and it reloads m_docks for the walk instead of carrying the cursor.
+	unsigned int count = (unsigned int)(m_docksEnd - m_docks);
 	if (count == 0)
 		return false;
-	for (int i = 0; i < count; ++i)
+	for (unsigned int i = 0; i < count; ++i)
 	{
 		Rva00459C58Dock *dock = m_docks[i];
 		if (dock->m_20 == 0)
