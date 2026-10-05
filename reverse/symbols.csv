@@ -12000,3 +12000,19 @@ _floor,0x00629940,call site 0x006F4403 in AptDate::getDayOfWeek (0x006F4290) enc
 ??$__uninitialized_fill_n@PAURva002E2BBARecord@@IU1@@_STL@@YAPAURva002E2BBARecord@@PAU1@IABU1@ABU__false_type@0@@Z,0x002E166B,REL32 decoded at 0x002E2BBA; address-derived opaque 216B record ABI view from reference-shaped overflow
 ?_M_clear@?$vector@URva002E2BBARecord@@V?$allocator@URva002E2BBARecord@@@_STL@@@_STL@@IAEXXZ,0x002E26C3,REL32 decoded at 0x002E2BBA; address-derived opaque 216B record ABI view from reference-shaped overflow
 ?allocate@?$allocator@URva002E2BBARecord@@@_STL@@QBEPAURva002E2BBARecord@@IPBX@Z,0x002194AD,REL32 decoded at 0x002E2BBA; address-derived opaque 216B record ABI view from reference-shaped overflow
+??$_Construct@URva003F3277Record@@U1@@_STL@@YAXPAURva003F3277Record@@ABU1@@Z,0x003F1A5F,REL32 decoded at 0x003F3277; reference overflow stride12; address-derived opaque record ABI view
+??$__uninitialized_copy@PAURva003F3277Record@@PAU1@@_STL@@YAPAURva003F3277Record@@PAU1@00ABU__false_type@0@@Z,0x003F1EA8,REL32 decoded at 0x003F3277; reference overflow stride12; address-derived opaque record ABI view
+??$__uninitialized_fill_n@PAURva003F3277Record@@IU1@@_STL@@YAPAURva003F3277Record@@PAU1@IABU1@ABU__false_type@0@@Z,0x003F1A8C,REL32 decoded at 0x003F3277; reference overflow stride12; address-derived opaque record ABI view
+?_M_clear@?$vector@URva003F3277Record@@V?$allocator@URva003F3277Record@@@_STL@@@_STL@@IAEXXZ,0x0032E7E2,REL32 decoded at 0x003F3277; reference overflow stride12; address-derived opaque record ABI view
+?allocate@?$allocator@URva003F3277Record@@@_STL@@QBEPAURva003F3277Record@@IPBX@Z,0x00395928,REL32 decoded at 0x003F3277; reference overflow stride12; address-derived opaque record ABI view
+??$_Construct@URva0050129FRecord@@U1@@_STL@@YAXPAURva0050129FRecord@@ABU1@@Z,0x00500B11,REL32 decoded at 0x0050129F; reference overflow stride12; address-derived opaque record ABI view
+??$__uninitialized_copy@PAURva0050129FRecord@@PAU1@@_STL@@YAPAURva0050129FRecord@@PAU1@00ABU__false_type@0@@Z,0x00500B5B,REL32 decoded at 0x0050129F; reference overflow stride12; address-derived opaque record ABI view
+??$__uninitialized_fill_n@PAURva0050129FRecord@@IU1@@_STL@@YAPAURva0050129FRecord@@PAU1@IABU1@ABU__false_type@0@@Z,0x00500B81,REL32 decoded at 0x0050129F; reference overflow stride12; address-derived opaque record ABI view
+?_M_clear@?$vector@URva0050129FRecord@@V?$allocator@URva0050129FRecord@@@_STL@@@_STL@@IAEXXZ,0x00500EDC,REL32 decoded at 0x0050129F; reference overflow stride12; address-derived opaque record ABI view
+?allocate@?$allocator@URva0050129FRecord@@@_STL@@QBEPAURva0050129FRecord@@IPBX@Z,0x00395928,REL32 decoded at 0x0050129F; reference overflow stride12; address-derived opaque record ABI view
+??$_Construct@URva005C856DRecord@@U1@@_STL@@YAXPAURva005C856DRecord@@ABU1@@Z,0x005C83CD,REL32 decoded at 0x005C856D; reference overflow stride72; address-derived opaque record ABI view
+??$__uninitialized_copy@PAURva005C856DRecord@@PAU1@@_STL@@YAPAURva005C856DRecord@@PAU1@00ABU__false_type@0@@Z,0x005C83FA,REL32 decoded at 0x005C856D; reference overflow stride72; address-derived opaque record ABI view
+??$__uninitialized_fill_n@PAURva005C856DRecord@@IU1@@_STL@@YAPAURva005C856DRecord@@PAU1@IABU1@ABU__false_type@0@@Z,0x005C8420,REL32 decoded at 0x005C856D; reference overflow stride72; address-derived opaque record ABI view
+?_M_clear@?$vector@URva005C856DRecord@@V?$allocator@URva005C856DRecord@@@_STL@@@_STL@@IAEXXZ,0x005C84D3,REL32 decoded at 0x005C856D; reference overflow stride72; address-derived opaque record ABI view
+?allocate@?$allocator@URva005C856DRecord@@@_STL@@QBEPAURva005C856DRecord@@IPBX@Z,0x000B4106,REL32 decoded at 0x005C856D; reference overflow stride72; address-derived opaque record ABI view
+??1Rva00119CC0Record@@QAE@XZ,0x00118800,REL32 at119CD2 in49B vector clear; 116B opaque ABI view; destructor folded with rowed TextureStatisticsStruct
