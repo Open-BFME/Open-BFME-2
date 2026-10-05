@@ -62985,3 +62985,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?setControlBarSchemeByPlayerTemplate@ControlBar@@QAEXPBVPlayerTemplate@@@Z,,0x0031C5C8,469,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_setControlBarSchemeByPlayerTemplate.cpp,matched,ControlBar observer bar via donor BFME1 setControlBarSchemeByPlayerTemplate
 ??0ParticleModule005F2CA0@@QAE@PAX0@Z,,0x0055C86D,67,Code/GameEngine/Source/GameClient/ParticleModule005F2CA0Ctor.cpp,matched,BFME1 donor ParticleModuleCtor005F2CA0 base row 0x3AA228 Init row 0x5C7889 pin names class 5 callers
 ??0Rva002DA651@@QAE@ABUOpaqueRefElement4@@H@Z,,0x002DA651,126,Code/GameEngine/Source/Common/Audio/BfmeAudioEventOwnerCtorTag5.cpp,matched,owner tag5 ctor vtable 00803908 m30 1 m38 5 via rva002D96D3 and rva002DA1CC
+?rva003F83FE@Rva003F83FE@@QAEPAXH@Z,,0x003F83FE,31,Code/GameEngine/Source/Common/Rva003F83FE.cpp,matched,AsciiString array forward via rowed Rva002104B6
