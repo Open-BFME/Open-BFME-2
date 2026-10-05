@@ -63465,3 +63465,9 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?Rva003BBEDE@@YAXXZ,,0x003BBEDE,11,Code/GameEngine/Source/Common/RvaGlobalThisFwds.cpp,matched,Address-derived global-this forward; 11B mov-ecx-global tail-jmp shape
 ?Rva003BBEE9@@YAXXZ,,0x003BBEE9,11,Code/GameEngine/Source/Common/RvaGlobalThisFwds.cpp,matched,Address-derived global-this forward; 11B mov-ecx-global tail-jmp shape
 ?Rva003BD424@@YAXXZ,,0x003BD424,11,Code/GameEngine/Source/Common/RvaGlobalThisFwds.cpp,matched,Address-derived global-this forward; 11B mov-ecx-global tail-jmp shape
+??0Rva001FA5A5@@QAE@XZ,,0x001FA5A5,22,Code/GameEngine/Source/Common/RvaChainedCtorFamily.cpp,matched,Address-derived chained default ctor via rowed Rva001F9060 member; 22B shape
+??0Rva001FBA45@@QAE@XZ,,0x001FBA45,22,Code/GameEngine/Source/Common/RvaChainedCtorFamily.cpp,matched,Address-derived chained default ctor with member-initializer zeroes; 22B shape
+??0Rva001FBF37@@QAE@XZ,,0x001FBF37,22,Code/GameEngine/Source/Common/RvaChainedCtorFamily.cpp,matched,Address-derived chained default ctor with member-initializer zeroes; 22B shape
+??0Rva001FB8A9@@QAE@XZ,,0x001FB8A9,18,Code/GameEngine/Source/Common/RvaChainedCtorFamily.cpp,matched,Address-derived chained default ctor with member-initializer zeroes; 18B shape
+??0Rva001FBBE4@@QAE@XZ,,0x001FBBE4,18,Code/GameEngine/Source/Common/RvaChainedCtorFamily.cpp,matched,Address-derived chained default ctor with member-initializer zeroes; 18B shape
+??0Rva003B44DC@@QAE@XZ,,0x003B44DC,18,Code/GameEngine/Source/Common/RvaChainedCtorFamily.cpp,matched,Address-derived chained default ctor with member-initializer zeroes; 18B shape

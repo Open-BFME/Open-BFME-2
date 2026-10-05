@@ -12793,3 +12793,4 @@ _g_pRva00437E9C,0x00E032FC,global pointer read by wrapper 0x00437E9C (peer notes
 ?run@Rva002D37BDRun@@QAEXXZ,0x002D37BD,REL32 callee decoded from target call bytes of global-this forward 0x003BD424; identity unproven
 _g_pRva003BBEDE,0x00DFE16C,global pointer read by global-this forwards 0x003BBEDE/0x003BBEE9; identity unproven
 _g_pRva003BD424,0x00DFF028,global pointer read by global-this forward 0x003BD424; identity unproven
+??0Rva003B417E@@QAE@XZ,0x003B417E,member default ctor decoded from target call bytes of chained ctor 0x003B44DC; identity unproven
