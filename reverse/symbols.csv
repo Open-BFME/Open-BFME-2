@@ -12036,3 +12036,4 @@ _floor,0x00629940,call site 0x006F4403 in AptDate::getDayOfWeek (0x006F4290) enc
 ?rva0007671F@Rva0007671F@@QAEXXZ,0x0007671F,"retail REL32 at 0x0014D44C in 0x0014D440 targets 0x0007671F (ecx=ebp-0x40 local thiscall no args; 22B Ghidra FUN); opaque candidate not identity"
 ?rva0020F685@Rva0020FB41Outer@@QAEXXZ,0x0020F685,call-site 0x0020FB48 in Rva0020FB41::rva0020FB41 (0x0020FB41) via lea ecx,[esi-4] with no stack args; Ghidra FUN_0060f685 141B
 ?rva003F20E5@Rva003F209C@@QAEXHH@Z,0x003F20E5,call-site 0x0020FB72 in Rva0020FB41::rva0020FB41 (0x0020FB41); thiscall entry method with two stack args over the +0x2c vector
+?rva0020F9F6@Rva0020EE29@@QAEPAXPAX00@Z,0x0020F9F6,find-first-vector-entry predicate runner; pinned from the four consistent retail REL32 call sites inside 0x0020F9F6 (own body) and its callers 0x0020FAB4/0x0020FAEA; reconstruction blocked on a save/restore codegen anomaly (see re_attempts.log)

@@ -1,4 +1,4 @@
-// cl: /O1 /Ob1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /O1 /Ob1 /EHsc /MD /arch:SSE /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // ?rva0020EE29@Rva0020EE29@@QAEXXZ @0x0020EE29 51B
 // Clears each entry of the pointer vector at inner+0x2c/+0x30 (inner = *(this+8))
 // by calling rowed ?rva003F209C@Rva003F209C@@QAEXXZ. Evidence: retail
@@ -25,6 +25,8 @@ public:
 	void rva0020EE29();
 	bool rva0020F91D(void *a1, void *a2, void *a3);
 	void *rva0020F9F6(void *a1, void *a2, void *filter);
+	void rva0020FAEA(float *a1, void *a2);
+	void rva0020FAB4(int a1, int a2);
 
 private:
 	char m_pad[8];
@@ -122,4 +124,65 @@ void Rva0020FB41::rva0020FB41(int a1, int a2)
 	Rva003F209C ***bounds = &m_04->m_begin;
 	for (unsigned i = 0; i < (unsigned)(((char *)bounds[1] - (char *)bounds[0]) >> 2); ++i)
 		bounds[0][i]->rva003F20E5(a1, a2);
+}
+
+// ?rva0020FAEA@Rva0020EE29@@QAEXPAMPAX@Z @0x0020FAEA 87B
+// Builds the two search-key blocks on the stack (six floats at B, with A
+// aliasing its tail) and runs the 0x0020F9F6 finder over the inner vector.
+// Evidence: retail movss fills from the [ebp+8] float pair plus the .rdata
+// floats 10000.0f (VA 0x00BC8970) and -1.0f (VA 0x00BBB9AC, both verified by
+// the float gate); the early arg2 push and the A-then-B push order match the
+// (candidate, A, B) finder shape; return discarded by retail.
+void Rva0020EE29::rva0020FAEA(float *a1, void *a2)
+{
+	float data[6];
+	data[0] = a1[0];
+	data[1] = a1[1];
+	data[2] = 10000.0f;
+	data[3] = 0.0f;
+	data[4] = 0.0f;
+	data[5] = -1.0f;
+	rva0020F9F6(data, data + 3, a2);
+}
+
+// ?rva0020FAB4@Rva0020EE29@@QAEXHH@Z @0x0020FAB4 54B
+// Queries the VA 0x00DFEF18 singleton (vtable slot 13) to fill two 12-byte
+// out-blocks on the stack, then runs the 0x0020F9F6 finder (pinned) over the
+// inner vector with those blocks. Evidence: retail lea/push of the two
+// ebp-0x18/ebp-0xc blocks around the indirect slot-13 call, then the same
+// (B, A, arg2) push shape 0x0020FAEA uses for the finder; return discarded.
+// Block contents and the query identity are unproven (out-params).
+class Rva00DFEF18QueryHost
+{
+public:
+	virtual void v00();
+	virtual void v01();
+	virtual void v02();
+	virtual void v03();
+	virtual void v04();
+	virtual void v05();
+	virtual void v06();
+	virtual void v07();
+	virtual void v08();
+	virtual void v09();
+	virtual void v10();
+	virtual void v11();
+	virtual void v12();
+	virtual void v13(int a1, void *bBlock, void *aBlock);
+};
+
+extern Rva00DFEF18QueryHost *g_00DFEF18query;
+#pragma comment(linker, "/alternatename:?g_00DFEF18query@@3PAVRva00DFEF18QueryHost@@A=?g_00DFEF18@@3PAVRva002D3627Host@@A")
+
+struct Rva0020FAB4Block
+{
+	char m_data[12];
+};
+
+void Rva0020EE29::rva0020FAB4(int a1, int a2)
+{
+	Rva0020FAB4Block bBlock;
+	Rva0020FAB4Block aBlock;
+	g_00DFEF18query->v13(a1, &bBlock, &aBlock);
+	rva0020F9F6(&bBlock, &aBlock, (void *)a2);
 }
