@@ -8,16 +8,32 @@
 // Build-specific Godfather original PDBs independently name constantPool+40
 // and LocalContextT(28B); PC instructions confirm instruction+0, return+14,
 // dictionary item pointer+44. Only the accessed interpreter prefix is modeled.
-// AptValue's opaque8-byte prefix is used solely to place AptString::str at+8.
+// AptValue prefix is vptr+flags (8B); the PC stack Release calls use slot1.
+// Only its first two virtual slots are needed here; this is not a full view.
+// Native arithmetic uses SWF version ==7, not the later source's >=7.
+// Native Pop(2) releases items[count-i] before one count decrement; the later
+// container-based implementation pops individually. Preserve PC sequencing.
 // PushThis/PushGlobal push pooled NAME strings, not the context objects.
 // Slots75(NULL) and76(Undefined) share705320; row it only once as Undefined.
 class AptString;
-class AptValue { char m_valuePrefix[8]; public: AptString *c_string() const; };
+class AptInteger;
+class AptValue {
+    unsigned int m_valueFlags;
+public:
+    virtual void AddRef();
+    virtual void Release();
+    AptString *c_string() const;
+    AptInteger *c_integer() const;
+    bool isUndefined() const;
+    bool isInteger() const;
+    float toFloat() const;
+};
 class AptCIH;
 struct AptCharacterInst;
 class EAStringC { void *mpData; public: EAStringC(const char *); ~EAStringC(); EAStringC &operator=(const EAStringC &); };
 class AptString : public AptValue { public: static AptString *Create(); EAStringC str; };
-class AptInteger { public: static AptValue *Create(int); };
+class AptInteger : public AptValue { public: static AptValue *Create(int); int GetInt() const; };
+int Rva006CD220Get();
 class AptBoolean { public: static AptValue *Create(bool); };
 AptValue *Rva008A4EA0MakeFloat(float);
 EAStringC *Rva0070B4F0GetString(int);
@@ -54,6 +70,16 @@ public:
             if (g_bfmeAptBreakOnAssertAtDDC01C) { __asm int 3 }
         } else --count;
     }
+    __forceinline void Pop(int n)
+    {
+        if (count<n) {
+            g_bfmeAptAssertAtE17734("false && \"[APT] Error, Popping more elements than the stack contains. Please contact the Apt Team for Support.\"", "c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\_AptBasePtrStack.h", 0xAA);
+            if (g_bfmeAptBreakOnAssertAtDDC01C) { __asm int 3 }
+        } else {
+            for (int i=1;i<=n;++i) items[count-i]->Release();
+            count-=n;
+        }
+    }
     int count,capacity;
     AptValue **items;
 };
@@ -82,6 +108,7 @@ private:
     HANDLER(PushThisVariable); HANDLER(PushGlobalVariable); HANDLER(PushZeroSetVar);
     HANDLER(PushString); HANDLER(StringDictByteGetVar); HANDLER(StringDictByteGetMember);
     HANDLER(PushDuplicate); HANDLER(StackSwap); HANDLER(StoreRegister);
+    HANDLER(Add); HANDLER(Subtract); HANDLER(Multiply);
     HANDLER(SetVariable); HANDLER(GetMember); HANDLER(SetMember);
     HANDLER(PushStringGetVar); HANDLER(PushStringGetMember); HANDLER(PushStringSetVar); HANDLER(PushStringSetMember);
 #undef HANDLER
@@ -271,3 +298,80 @@ void AptActionInterpreter::_FunctionAptActionStoreRegister(AptActionInterpreter 
 }
 
 #pragma comment(linker, "/alternatename:?PushNoInc@AptBasePtrStack@@QAEXPAVAptValue@@@Z=?rva006FE7B0@AptBasePtrStack@@QAEXPAVBfmeAptValue006DCD20@@@Z")
+
+void AptActionInterpreter::_FunctionAptActionAdd(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    AptValue *aValue=p->stack.At(0);
+    AptValue *bValue=p->stack.At(1);
+    AptValue *result=0;
+    if (Rva006CD220Get()==7) {
+        if (aValue->isUndefined() || bValue->isUndefined()) result=gpUndefinedValue;
+    }
+    if (!result) {
+        if (aValue->isInteger() && bValue->isInteger()) {
+            int a=aValue->c_integer()->GetInt();
+            int b=bValue->c_integer()->GetInt();
+            result=AptInteger::Create(a+b);
+        } else {
+            float a=aValue->toFloat();
+            float b=bValue->toFloat();
+            result=Rva008A4EA0MakeFloat(a+b);
+        }
+    }
+    p->stack.Pop(2);
+    p->stack.Push(result);
+}
+
+void AptActionInterpreter::_FunctionAptActionSubtract(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    AptValue *aValue=p->stack.At(0);
+    AptValue *bValue=p->stack.At(1);
+    AptValue *result=0;
+    if (Rva006CD220Get()==7) {
+        if (aValue->isUndefined() || bValue->isUndefined()) result=gpUndefinedValue;
+    }
+    if (!result) {
+        if (aValue->isInteger() && bValue->isInteger()) {
+            int a=aValue->c_integer()->GetInt();
+            int b=bValue->c_integer()->GetInt();
+            result=AptInteger::Create(b-a);
+        } else {
+            float a=aValue->toFloat();
+            float b=bValue->toFloat();
+            result=Rva008A4EA0MakeFloat(b-a);
+        }
+    }
+    p->stack.Pop(2);
+    p->stack.Push(result);
+}
+
+void AptActionInterpreter::_FunctionAptActionMultiply(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    AptValue *aValue=p->stack.At(0);
+    AptValue *bValue=p->stack.At(1);
+    AptValue *result=0;
+    if (Rva006CD220Get()==7) {
+        if (aValue->isUndefined() || bValue->isUndefined()) result=gpUndefinedValue;
+    }
+    if (!result) {
+        if (aValue->isInteger() && bValue->isInteger()) {
+            int a=aValue->c_integer()->GetInt();
+            int b=bValue->c_integer()->GetInt();
+            result=AptInteger::Create(a*b);
+        } else {
+            float a=aValue->toFloat();
+            float b=bValue->toFloat();
+            result=Rva008A4EA0MakeFloat(a*b);
+        }
+    }
+    p->stack.Pop(2);
+    p->stack.Push(result);
+}
+
+// Each alias binds the independently checked retail provider. GetInt folds
+// with the existing four-byte +8 dword getter; no container identity is inferred.
+#pragma comment(linker, "/alternatename:?isUndefined@AptValue@@QBE_NXZ=?isUndefined@BfmeAptValue006DCD20@@QBE_NXZ")
+#pragma comment(linker, "/alternatename:?isInteger@AptValue@@QBE_NXZ=?isInteger@BfmeAptValue006DCD20@@QBEHXZ")
+#pragma comment(linker, "/alternatename:?c_integer@AptValue@@QBEPAVAptInteger@@XZ=?checkedInteger@BfmeAptValue006DCD20@@QAEPAV1@XZ")
+#pragma comment(linker, "/alternatename:?toFloat@AptValue@@QBEMXZ=?rva006DD460@BfmeAptValue006DCD20@@QAEMXZ")
+#pragma comment(linker, "/alternatename:?GetInt@AptInteger@@QBEHXZ=?Length@?$SimpleVecClass@K@@QBEHXZ")
