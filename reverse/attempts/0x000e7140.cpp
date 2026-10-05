@@ -1,7 +1,7 @@
 // ?rva000E7140@Rva000E7140@@QAE_NHMMMPBX@Z
-// partial score=0.92 date=2026-10-05
+// partial score=0.93 date=2026-10-05
 // ?rva000E7140@Rva000E7140@@QAE_NHMMMPBX@Z
-// partial score=0.92 date=2026-10-03
+// partial score=0.93 date=2026-10-05
 // cl: /O1 /MD /G7 /arch:SSE
 // ?rva000E7140@Rva000E7140@@QAE_NHMMMPBX@Z 0x000E7140 371B
 // Search 0xA0-byte elems at +0x1958 by ID at +0x58 (count +0x4FB58); on hit
@@ -10,6 +10,28 @@
 // m_40, scale region by +0xC and translate by the 3 floats, set dirty.
 // Evidence: stride/count/dirty match Rva000E7016/Rva000E73CE neighbours,
 // Region2D copy row ??0Region2D@@QAE@ABU0@@Z, caller 0x00068017 same 5-arg shape.
+//
+// THIS ROUND (72 -> 79 of 371): the search loop. Retail carries the index in
+// edx (0x000E7146 xor edx,edx / 0x000E714E cmp [eax],edx / 0x000E7160 inc
+// edx / 0x000E7167 cmp edx,[eax]) and RE-LEADS the element pointer every
+// iteration (0x000E7153 lea ecx,[ebx+0x19B0] / 0x000E7159 mov esi,[ecx]);
+// the bank kept the pointer induction variable in ecx and only the counter in
+// edx. Recomputing the pointer from the counter inside the loop body -- and
+// taking the element pointer for the payload from the same counter -- makes
+// cl 13.10 emit retail's bytes verbatim with the two registers swapped:
+// 0x000E7153 lea edx,[ebx+0x19B0], 0x000E7159 mov esi,[edx], 0x000E7160
+// inc ecx, 0x000E7161 add edx,0xA0, 0x000E7167 cmp ecx,[eax].
+//
+// What remains on the loop is the same two-register interleaving at 0x000E7146
+// and 0x000E714E: retail zero-initialises edx and compares the count against
+// it, this body initialises ecx and compares edx against it. Sibling loop
+// spellings measured this round, none better: an extra pid0 base (53/371), a
+// while loop over the counter (18/371, and only 347 bytes), and deriving the
+// element offset from the pointer instead of the counter (38/371).
+//
+// Two further walls characterised, see reverse/re_attempts.log row 0x000e7140:
+// the Region2D copy at 0x000E7222 is a source-shape wall, not a register
+// choice, and the 12-dword source copy is likewise.
 
 struct Region2D
 {
@@ -90,13 +112,12 @@ private:
 bool Rva000E7140::rva000E7140(int id, float x, float y, float z, const void *src)
 {
 	char *base = (char *)this;
-	char *pid = base + 0x19B0;
-	for (int i = 0; i < m_count; ++i, pid += 0xA0)
+	for (int i = 0; i < m_count; ++i)
 	{
+		char *pid = base + 0x19B0 + i * 0xA0;
 		if (*(int *)pid != id)
 			continue;
-		int off = i * 0xA0;
-		char *p = base + off;
+		char *p = base + i * 0xA0;
 		*(float *)(p + 0x1958) = x;
 		*(float *)(p + 0x195C) = y;
 		*(float *)(p + 0x1960) = z;
@@ -114,8 +135,7 @@ bool Rva000E7140::rva000E7140(int id, float x, float y, float z, const void *src
 		*(int *)(p + 0x1990) = b->v10;
 		*(int *)(p + 0x1994) = b->v11;
 		int idx2 = *(int *)(p + 0x1998);
-		i += 0x29;
-		Region2D *dst = (Region2D *)(base + i * 0xA0);
+		Region2D *dst = (Region2D *)(base + (i + 0x29) * 0xA0);
 		Region2D *s = (Region2D *)(base + 0x4FB80 + idx2 * 0x5C);
 		dst->Region2D::Region2D(*s);
 		float sc = *(float *)(p + 0x1964);
