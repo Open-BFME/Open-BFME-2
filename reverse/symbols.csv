@@ -11287,3 +11287,5 @@ _floor,0x00629940,call site 0x006F4403 in AptDate::getDayOfWeek (0x006F4290) enc
 ??1Rva00385B78SavedMap@@QAE@XZ,0x00383EB2,native loadSavedIgnoreList100 56B clear/free dtor at call385BBE; complete rowed provider independently verified; address-derived consumed tree view and hidden-return ABI
 ?rva003B224D@IgnorePreferences@@QAE?AVRva00385B78SavedMap@@XZ,0x003B224D,native loadSavedIgnoreList100 213B ignores getter at call385BA6; complete rowed provider independently verified; address-derived consumed tree view and hidden-return ABI
 ?append@Rva003F309AVector@@QAEXABVLivingWorldRegionConnection@@@Z,0x003F309A,native Connection parser call 0x003F34C0 passes constructed24B local; complete rowed55 vector<LivingWorldRegionConnection> push_back independently verified
+??1Rva001EAD69Entry@@QAE@XZ,0x001EA443,native107 cleanup at1EADB7; full53B string pair destructor verified; target-derived address views; original names unknown
+?push_front@Rva001EAD69List@@QAEXABURva001EAD69Entry@@@Z,0x001EA994,native107 call at1EADAB; full28B push_front verified with eight-byte string record; target-derived address views; original names unknown
