@@ -12614,3 +12614,4 @@ _ceil,0x00629934,CRT ceil thunk identified by native PE import slot 0x00BBA578 a
 ?set@Rva0040D82FSub@@QAEHH@Z,0x0025BF5D,thiscall setter on the +0x14 subobject; callee of Rva0040D82FHost::setFrom 0x0040D82F read from its REL32
 ?setup@Rva004152BCHost@@QAEXH@Z,0x004151C4,thiscall 1-arg setup allocating +0x0 via new 0x1E0; callee of Rva004152BCHost::init 0x004152BC read from REL32
 ?apply@Rva00418A8EHost@@QAEXHH@Z,0x00418A12,thiscall 2-arg applier called by Rva00418A8EHost::outer 0x00418A8E read from REL32
+??0BfmePairEL@@QAE@ABVBfmeWordEL@@0@Z,0x0002C4FD,BfmePairEL two-word ctor; BfmeWordEL is the rowed 4-byte StringBase<char> view so this is the same bytes as the matched ??0Rva0002C4FD@@QAE@ABV?$StringBase@D@@0@Z body (cf existing pair@VAsciiString ICF-alias pin); called by the bfmeMakePairEL factory at 0x0002C621
