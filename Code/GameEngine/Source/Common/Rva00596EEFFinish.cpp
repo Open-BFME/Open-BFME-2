@@ -1,5 +1,4 @@
 // ??0Rva00596F18@@QAE@PAX@Z
-// partial score=0.93 date=2026-10-04
 // cl: /O1 /DNDEBUG /MD /EHsc
 // ??0Rva00596F18@@QAE@PAX@Z @0x00596EEF 41B.
 // Ctor of Rva00596F18 (vtable 0x00870B38): base Rva00573E7C via pin
@@ -28,12 +27,13 @@ struct Rva00596F18 : Rva00573E7C
 	void *m_70;
 };
 
-// ??0Rva00596F18@@QAE@PAX@Z present-unmatched
-Rva00596F18::Rva00596F18(void *arg) : Rva00573E7C()
+// ??0Rva00596F18@@QAE@PAX@Z @0x00596EEF 41B.
+// Retail keeps the argument live in ECX across all four zero stores and
+// writes +0x70 from it last, after the vtable store. Only the initializer
+// list reproduces that register choice; assigning m_70 in the body makes
+// cl park the argument in EAX and store it first.
+Rva00596F18::Rva00596F18(void *arg)
+	: Rva00573E7C(), m_64(0), m_68(0), m_6c(0), m_70(arg)
 {
-	m_70 = arg;
-	m_64 = 0;
-	m_68 = 0;
-	m_6c = 0;
 	m_20 = 0;
 }
