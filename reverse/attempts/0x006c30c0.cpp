@@ -39,33 +39,67 @@
 //        push esi / push edi / mov edi,ecx / lea esi,[ebx+8]
 //
 //    Same instruction multiset, same order otherwise; only the lea is hoisted
-//    past the save group. Fourteen source shapes were measured against this
-//    one -- all six orders of the three prologue locals, a two-step run
-//    computation, run and header sharing one char* address computation, run
-//    deferred to its first use, a `this` local, an explicit asm barrier, and
-//    early member reads -- and every one collapses to the single schedule
-//    above. It is also completely flag-invariant: -O1, -Od, -Ob0, -Ob1, -Ob2,
-//    -Ox, -Ot, -Gs999999 and their combinations all emit the same three
-//    instructions in the same order, at -O1 and -Ot alike. -O1 additionally
-//    shortens the body to 146 bytes, so it cannot be retail's setting.
+//    past the save group. It is completely flag-invariant: -O1, -Od, -Ob0, -Ob1,
+//    -Ob2, -Ox, -Ot, -Gs999999 and their combinations all emit the same three
+//    instructions in the same order. -O1 additionally shortens the body to 146
+//    bytes, so it cannot be retail's setting.
 //
-//    The sibling VerifyGuardFill 0x006C3020 is the control that settles why
-//    retail can do this and MSVC7 cannot. Its file compiles byte-exact at
-//    /O2, but that agreement is reached under a DIFFERENT source shape: it
+//    WHAT MOVES IT (measured in an isolated TU, one variant per compile).
+//    The scheduler is not simply refusing to interpose -- it will interpose.
+//    An ebx-rooted address computation is emitted in retail's slot as soon as
+//    the prologue has a SECOND ebx-rooted address computation or a test or
+//    compare that is not on eax. Six spellings each produce
+//
+//        push esi / lea esi,[ebx+8] / <test|cmp> / push edi / mov edi,ecx
+//
+//    namely `run != 0 &&` (85 f6), `run >= block &&` (3b f3),
+//    `run != 8 &&` (83 fe 08), a second lea from ebx, a second load from ebx,
+//    and `run != 0 && header != 0 &&`. So the lea's position IS reachable.
+//
+//    WHAT THEN FAILS is narrower and is the real reason this is a residue. In
+//    every one of those shapes the header's own `test eax,eax` leaves retail's
+//    +0x08 slot and is re-emitted next to the branch that consumes it, because
+//    MSVC7 materialises a test immediately before its first use as a condition.
+//    With the run test added, that second test lands BETWEEN the two saves --
+//    so the save group is no longer adjacent, and retail's two-save prologue
+//    gains an instruction in the gap that retail does not have.
+//    Retail is therefore not a shape this compiler misses: it has exactly one
+//    prologue-rooted test, and it needs both that single test in retail's slot
+//    AND an address computation interposed between the two saves. MSVC7 emits
+//    one or the other. Every shape that keeps `test eax,eax` at +0x08 sinks the
+//    `this` copy to the head of the save group (A: `header != 0 &&` keeps
+//    retail's test AND its `js`, at 157B), and every shape that interposes the
+//    lea displaces the header test (B: `run != 0 &&`, at 159B). The two are not
+//    simultaneously reachable in one TU.
+//
+//    Twenty-one further shapes were measured this round against the full body
+//    and are rejected: the two-term and three-term short-circuit chains in both
+//    orders, `run` computed from `this` and re-derived from `block`, `block`
+//    aliased through a `char*` or a `this`-typed pointer, a header read through
+//    a pointer alias, the run pointer read twice, the header read twice, an
+//    inline-asm barrier, a `volatile` allocator pointer, an early byte member
+//    read, a member write before the branch, `run` used before the header load,
+//    a run deferred into each arm of the sign test, a null-compare against the
+//    block, a tautological run compare the compiler deletes outright, and a dead
+//    second lea of the same and of a different width. All either sink the copy,
+//    or emit a real instruction retail does not have.
+//
+//    The sibling VerifyGuardFill 0x006C3020 is NOT the control it was taken
+//    for. Its file compiles byte-exact at /O2, but under a different shape: it
 //    opens `push ebp / mov ebp,[esp+8] / test BYTE PTR [ebp+4],4 / push edi`
 //    and reaches its `lea esi,[ebp+8]` much later, so it never has to order a
-//    prologue address computation against a save group at all. Compiled at
-//    -O1 it degenerates to the same framework prologue (`push ebp / mov
-//    ebp,esp / push esi / ...`) and its byte match is lost. The contrast is
-//    the point: MSVC7 gives the caller-save copy its natural home next to the
-//    matching save, and only interposes when a frame-pointer body supplies
-//    nothing in between.
+//    prologue address computation against a save group at all. Compiled at -O1
+//    it degenerates to the framework prologue and loses its match. An earlier
+//    bank also cited the `56 8d 73 08 57 8b f9` pattern as a matched example of
+//    this shape elsewhere; the only two occurrences in the image are this body
+//    and 0x0030ABB3, which is inside the byte-verified ?setOrientation@Thing and
+//    is a frame-pointer body (`push ebp / mov ebp,esp / sub esp,0x58`) where
+//    the bytes are a coincidence of that body's own copy loops, not this
+//    schedule. No matched body in the image exhibits this prologue shape.
 //
-//    This body keeps `block` in a callee-saved register (ebx, as retail does)
-//    because retail reloads [esp+8] exactly once and that reload is also
-//    needed for the report call's second argument, which MSVC7 forms as
-//    `push ebx`. Given that, there is no source spelling of a three-instruction
-//    prologue that puts the address computation between the two saves.
+//    This body keeps `block` in ebx (as retail does) because retail reloads
+//    [esp+8] exactly once and that reload is also the report call's second
+//    argument, which MSVC7 forms as `push ebx`.
 //
 // 2. The GetBlockSize call at +0x39. Retail keeps the argument push ahead of
 //    the ecx load -- `push esi / mov ecx,edi / call 0x00032A20` -- where
