@@ -3,14 +3,44 @@
 // ?rva002706A8@Rva002706A8@@QAEXXZ, retail 0x002706A8, 72 bytes. Unlock lane.
 // Sets byte at +0x445 to 1, then walks null-terminated Elem* array at
 // [ecx+0xFC]+0x244. For each Elem calls virtual at +0xA8 on subobject +0xC,
-// then virtual slot 0 on the result with (0x670689, &flag). Callees are
-// indirect so gate has no direct refs. Neighbour next is DrawableFade.cpp
+// then virtual slot 0 on the result with (callback 0x00270689, &flag).
+// Callees are indirect so gate has no direct refs. Neighbour next is DrawableFade.cpp
 // (/O1 /DNDEBUG /MD /arch:SSE) whose flags are copied here.
+
+class Object;
+class Drawable;
+
+class Object
+{
+public:
+	Drawable *getDrawable() const;
+};
+
+// The byte the parent sets on itself at +0x445; the callback sets it on each
+// visited object's drawable.
+struct Rva00270689Drawable
+{
+	unsigned char m_pad[0x445];
+	bool m_445;
+};
+
+typedef int (__cdecl *Rva00270689Func)(Object *obj, void *userData);
+
+// Callback 0x00270689 (31B) the parent hands to each element's iterator:
+// record that something was visited, mark the object's drawable, continue.
+int __cdecl Rva00270689(Object *obj, void *userData)
+{
+	*(bool *)userData = true;
+	Rva00270689Drawable *drawable = (Rva00270689Drawable *)obj->getDrawable();
+	if (drawable)
+		drawable->m_445 = true;
+	return 1;
+}
 
 class Rva002706A8Ret
 {
 public:
-	virtual void slot00(int a, bool *b);
+	virtual void slot00(Rva00270689Func func, bool *b);
 };
 
 class Rva002706A8Mid
@@ -64,7 +94,7 @@ void Rva002706A8::rva002706A8()
 		Rva002706A8Elem *e = *pp;
 		Rva002706A8Ret *r = e->m_mid.slotA8();
 		if (r)
-			r->slot00(0x670689, &flag);
+			r->slot00(Rva00270689, &flag);
 		++pp;
 	}
 }
