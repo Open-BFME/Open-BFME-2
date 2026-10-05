@@ -54,6 +54,37 @@ public:
 	void *m_ptr;
 };
 
+// The scroll bar built from the loaded movie's level and path by the
+// unrowed constructor 0x005D4DA9 (pinned by address); listeners join its
+// +4 list through the rowed append 0x005A0B4C. The holder sets it through
+// its rowed 0x00575674.
+struct Rva002BA8F1Listener;
+
+class Rva005A0B4CList
+{
+public:
+	void append(Rva002BA8F1Listener *listener);
+
+	unsigned char m_pad[0x14];
+};
+
+class Rva005D4DA9
+{
+public:
+	Rva005D4DA9(int level, const AsciiString &path);
+
+	void *m_0;
+	Rva005A0B4CList m_listeners; // +0x04
+};
+
+class Object;
+
+class Rva00575674
+{
+public:
+	void rva00575674(Object *scrollBar);
+};
+
 // The rowed expand and collapse bodies.
 class Rva0057A8F9
 {
@@ -74,9 +105,15 @@ public:
 	void OnOpen(const char *unused);
 	void OnScrollBarUnloaded(const char *unused);
 	void OnExpandButtonClicked(const char *unused);
+	void OnScrollBarLoaded(const char *name);
+
+	// Unrowed 0x0057B16D (170 bytes), pinned by address.
+	void rva0057B16D();
 
 private:
-	unsigned char m_pad00[0x14];
+	unsigned char m_pad00[0x08];
+	int m_listener; // +0x08, the scroll bar listener
+	unsigned char m_pad0c[0x14 - 0x0C];
 	int m_state; // +0x14
 	unsigned char m_pad18[0x28 - 0x18];
 	Rva000AD6F4 m_scrollBar; // +0x28
@@ -101,6 +138,19 @@ void Rva0057B5AA::OnOpen(const char *unused)
 void Rva0057B5AA::OnScrollBarUnloaded(const char *unused)
 {
 	m_scrollBar.clear();
+}
+
+// Retail 0x0057B4F9, 177 bytes: bound as "<movie>_OnScrollBarLoaded"
+// (0x0057B6A3): builds the scroll bar once, listens to it and refreshes.
+void Rva0057B5AA::OnScrollBarLoaded(const char *name)
+{
+	Rva000AD6F4 *scrollBar = &m_scrollBar;
+	if (scrollBar->m_ptr == 0)
+	{
+		((Rva00575674 *)scrollBar)->rva00575674((Object *)new Rva005D4DA9(Rva004128BBGetLevel(name), AsciiString(Rva00412845AfterLevel(name))));
+		((Rva005D4DA9 *)scrollBar->m_ptr)->m_listeners.append((Rva002BA8F1Listener *)&m_listener);
+		rva0057B16D();
+	}
 }
 
 // Retail 0x0057AC0C, 27 bytes: bound as "<movie>_OnExpandButtonClicked"

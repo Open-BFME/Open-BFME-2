@@ -185,6 +185,80 @@ struct AptMainMenuGameLogic
 	int m_mode; // +0x110
 };
 
+// The window the game runs in and the Win32 calls that size it.
+struct HWND__
+{
+	int unused;
+};
+
+typedef HWND__ *HWND;
+
+struct tagRECT
+{
+	long left;
+	long top;
+	long right;
+	long bottom;
+};
+
+extern "C" __declspec(dllimport) int __stdcall GetClientRect(HWND window, tagRECT *rect);
+extern "C" __declspec(dllimport) long __stdcall GetWindowLongA(HWND window, int index);
+extern "C" __declspec(dllimport) int __stdcall AdjustWindowRect(tagRECT *rect, unsigned long style, int menu);
+extern "C" __declspec(dllimport) int __stdcall SetWindowPos(HWND window, HWND after, int x, int y, int width, int height, unsigned int flags);
+
+extern HWND ApplicationHWnd;
+
+// TheDisplay: windowed (vslot 21), width (16) and height (17).
+class Display
+{
+public:
+	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
+	virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07();
+	virtual void v08(); virtual void v09(); virtual void v10(); virtual void v11();
+	virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15();
+	virtual int getWidth();
+	virtual int getHeight();
+	virtual void v18(); virtual void v19(); virtual void v20();
+	virtual bool getWindowed();
+};
+
+extern Display *TheDisplay;
+
+// TheMouse's call here lands on the shared empty body 0x000B3FD0 (name
+// unknown, pinned by address).
+class Mouse
+{
+public:
+	void rva000B3FD0();
+};
+
+extern Mouse *TheMouse;
+
+// TheInGameUI's vslot 108 refreshes the layout after a resolution change.
+class InGameUI
+{
+public:
+#define V(n) virtual void pad##n();
+	V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7) V(8) V(9)
+	V(10) V(11) V(12) V(13) V(14) V(15) V(16) V(17) V(18) V(19)
+	V(20) V(21) V(22) V(23) V(24) V(25) V(26) V(27) V(28) V(29)
+	V(30) V(31) V(32) V(33) V(34) V(35) V(36) V(37) V(38) V(39)
+	V(40) V(41) V(42) V(43) V(44) V(45) V(46) V(47) V(48) V(49)
+	V(50) V(51) V(52) V(53) V(54) V(55) V(56) V(57) V(58) V(59)
+	V(60) V(61) V(62) V(63) V(64) V(65) V(66) V(67) V(68) V(69)
+	V(70) V(71) V(72) V(73) V(74) V(75) V(76) V(77) V(78) V(79)
+	V(80) V(81) V(82) V(83) V(84) V(85) V(86) V(87) V(88) V(89)
+	V(90) V(91) V(92) V(93) V(94) V(95) V(96) V(97) V(98) V(99)
+	V(100) V(101) V(102) V(103) V(104) V(105) V(106) V(107)
+#undef V
+	virtual void v108();
+};
+
+extern InGameUI *TheInGameUI;
+
+// Unrowed 0x0041267F (10 bytes: two calls), pinned by address.
+void Rva0041267F();
+
 class AptMainMenu
 {
 public:
@@ -204,8 +278,6 @@ public:
 	void BattleSchool(const char *unused);
 	void CreditsExit(const char *unused);
 
-	// "AptMainMenu::ResetResolution" (0x00514C15, 214 bytes), unrowed and
-	// pinned by address.
 	void ResetResolution(const char *unused);
 
 	// Bound without a name by the LAN and online openers (0x00515C64,
@@ -410,4 +482,29 @@ void AptMainMenu::rva00514DC0(int button)
 {
 	if (m_state == 8)
 		m_282 = button == 2;
+}
+
+// Retail 0x00514C15, 214 bytes: "AptMainMenu::ResetResolution" resizes a
+// windowed game's window to the display's resolution when they differ.
+void AptMainMenu::ResetResolution(const char *unused)
+{
+	if (!TheDisplay->getWindowed())
+		return;
+	int width = TheDisplay->getWidth();
+	int height = TheDisplay->getHeight();
+	tagRECT rect = {0};
+	GetClientRect(ApplicationHWnd, &rect);
+	if (rect.right - rect.left != width || rect.bottom - rect.top != height)
+	{
+		rect.left = 0;
+		rect.top = 0;
+		rect.right = width;
+		rect.bottom = height;
+		unsigned long style = GetWindowLongA(ApplicationHWnd, -16);
+		AdjustWindowRect(&rect, style, 0);
+		SetWindowPos(ApplicationHWnd, 0, 0, 0, rect.right - rect.left, rect.bottom - rect.top, 6);
+		TheMouse->rva000B3FD0();
+		Rva0041267F();
+		TheInGameUI->v108();
+	}
 }

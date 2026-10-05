@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /arch:SSE
 //
 // BFME2's messenger screen Apt callbacks "AptMessenger::OnButtonSend",
 // "AptMessenger::OnBttn_0" and "AptMessenger::OnBttn_1", bound by those
@@ -12,7 +12,13 @@
 // The screen object is itself the window: GameWindowSize runs GameWindow's
 // members on its own this.
 
+#include "unicode_string.h"
+
 extern "C" char *__cdecl strcpy(char *destination, const char *source);
+extern "C" int __cdecl strcmp(const char *left, const char *right);
+
+// Rva00511730Save.cpp's g_Va00E048C0, the chat entry's kept text.
+extern UnicodeString g_Va00E048C0;
 
 extern int g_Va00E046BC;
 
@@ -43,12 +49,24 @@ class Rva005B000C
 {
 public:
 	void rva005B000C();
+	// Unrowed 0x005AFC21 and 0x005AFC4C keep the tab's chat and player
+	// list windows, pinned by address.
+	void rva005AFC21(GameWindow *window);
+	void rva005AFC4C(GameWindow *window);
+};
+
+// The rowed 0x005AFD43 keeps a tab's chat entry window and its text.
+class Rva005AFD43
+{
+public:
+	void rva005AFD43(GameWindow *window, const UnicodeString &text);
 };
 
 class AptMessenger : public GameWindow
 {
 public:
 	void OnButtonSend(const char *unused);
+	void InitGadgets(const char *name, void *argument, GameWindow *window);
 	void OnBttn_0(const char *unused);
 	void OnBttn_1(const char *unused);
 	void GameWindowSize(const Coord2D *position, const Coord2D *size, void *unused3, void *unused4);
@@ -67,7 +85,9 @@ private:
 	bool m_closed; // +0x278
 	unsigned char m_pad279[0x280 - 0x279];
 	Rva005B000C **m_entries; // +0x280, one per tab
-	unsigned char m_pad284[0x2A0 - 0x284];
+	unsigned char m_pad284[0x298 - 0x284];
+	GameWindow *m_chatEntry; // +0x298
+	unsigned char m_pad29c[0x2A0 - 0x29C];
 	bool m_2a0; // +0x2A0
 };
 
@@ -140,6 +160,40 @@ void AptMessenger::IsOpen(int query, char *result, bool skip)
 			strcpy(result, "1");
 		else
 			strcpy(result, "0");
+	}
+}
+
+// Retail 0x005119FF, 213 bytes: "AptMessenger::InitGadgets" hands the chat
+// entry (with the kept text) to the active tab and each tab its player and
+// chat lists.
+void AptMessenger::InitGadgets(const char *name, void *argument, GameWindow *window)
+{
+	if (strcmp(name, "Messenger::ChatEntry") == 0)
+	{
+		m_chatEntry = window;
+		Rva005B000C *tab = m_entries[g_Va00E046BC];
+		if (tab)
+			((Rva005AFD43 *)tab)->rva005AFD43(window, g_Va00E048C0);
+	}
+	else if (strcmp(name, "Messenger::PlayersTab_0") == 0)
+	{
+		if (m_entries[0])
+			m_entries[0]->rva005AFC4C(window);
+	}
+	else if (strcmp(name, "Messenger::PlayersTab_1") == 0)
+	{
+		if (m_entries[1])
+			m_entries[1]->rva005AFC4C(window);
+	}
+	else if (strcmp(name, "Messenger::ChatTab_0") == 0)
+	{
+		if (m_entries[0])
+			m_entries[0]->rva005AFC21(window);
+	}
+	else if (strcmp(name, "Messenger::ChatTab_1") == 0)
+	{
+		if (m_entries[1])
+			m_entries[1]->rva005AFC21(window);
 	}
 }
 

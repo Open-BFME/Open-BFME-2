@@ -1,9 +1,11 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
 //
 // BFME2's in-game quit menu Apt callbacks, 0x0051AFB9 onward, bound by
 // these names ("AptQuitMenu::RestartMission" ...) as member pointers by the
 // screen's registration; that binding is their only reference. The class
 // is named for the strings' prefix.
+
+#include "unicode_string.h"
 
 void __cdecl Rva00434160Init(int a, int b, bool c);
 void __cdecl Rva00511730(int value);
@@ -31,6 +33,54 @@ public:
 	bool get() const;
 };
 
+// TheGameText's fetch (vslot 15).
+class GameTextInterface
+{
+public:
+	virtual ~GameTextInterface() {}
+	virtual void slot01() = 0;
+	virtual void slot02() = 0;
+	virtual void slot03() = 0;
+	virtual void slot04() = 0;
+	virtual void slot05() = 0;
+	virtual void slot06() = 0;
+	virtual void slot07() = 0;
+	virtual void slot08() = 0;
+	virtual void slot09() = 0;
+	virtual void slot10() = 0;
+	virtual void slot11() = 0;
+	virtual void slot12() = 0;
+	virtual void slot13() = 0;
+	virtual void slot14() = 0;
+	virtual UnicodeString fetch(const char *label, bool *exists = 0) = 0;
+};
+
+extern GameTextInterface *TheGameText;
+
+// TheMouse's rowed tooltip setter 0x001EEA6D (MouseRva001EEA6D.cpp).
+struct RGBColor
+{
+	float red, green, blue;
+};
+
+class Mouse
+{
+public:
+	void rva001EEA6D(UnicodeString tooltip, int delay, const RGBColor *color, float width);
+};
+
+extern Mouse *TheMouse;
+
+// TheLivingWorldLogic (the ledger's g_009FEF10); its rowed
+// isSelectionLocked 0x0004253A tells a war of the ring game apart.
+class BfmeSelectionState
+{
+public:
+	bool isSelectionLocked() const;
+};
+
+extern BfmeSelectionState *g_009FEF10;
+
 class AptQuitMenu
 {
 public:
@@ -40,6 +90,9 @@ public:
 	void ReturnToGame(const char *unused);
 	void SaveMenu(const char *unused);
 	void LoadMenu(const char *unused);
+	// Bound under the button clip "QuitMenu/Restart/TheButton" (0x0051BD98)
+	// rather than a method name, so it keeps its address.
+	void rva0051B50E(const char *unused);
 
 private:
 	unsigned char m_pad000[0x27C];
@@ -107,4 +160,25 @@ void AptQuitMenu::LoadMenu(const char *unused)
 	else
 		kind = (logic->m_110 == 2) + 1;
 	Rva00434160Init(2, kind, true);
+}
+
+// Retail 0x0051B50E, 167 bytes. Name unknown. Shows the restart button's
+// tooltip: restart in a campaign (mode 3) or without a game, else forfeit,
+// or surrender in a war of the ring game.
+void AptQuitMenu::rva0051B50E(const char *unused)
+{
+	const char *label;
+	if (TheGameLogic && TheGameLogic->m_114 != 3)
+	{
+		if (g_009FEF10 && g_009FEF10->isSelectionLocked())
+			label = "TOOLTIP:QuitMenu/Surrender/WOTRSurrender";
+		else
+			label = "TOOLTIP:QuitMenu/Forfeit/WOTRForfeit";
+	}
+	else
+		label = "TOOLTIP:QuitMenu/Restart/TheButton";
+	bool exists = false;
+	UnicodeString tooltip = TheGameText->fetch(label, &exists);
+	if (exists)
+		TheMouse->rva001EEA6D(tooltip, -1, 0, 1.0f);
 }
