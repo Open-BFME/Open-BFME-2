@@ -18,7 +18,15 @@
 // ?operator== present-unmatched
 inline bool operator==(const AsciiString& a,const char* b){return reinterpret_cast<const StringBase<char>*>(&a)->compare(b)==0;}
 struct Rva00601A3AElement {unsigned int word0,word4;int stringIndex;};
+void Rva00030830FreeAllocation(void*);
+#pragma comment(linker, "/alternatename:?Rva00030830FreeAllocation@@YAXPAX@Z=_free")
 namespace _STL {
+template<> vector<AsciiString>::~vector();
+// Native601AE9 frees record storage through complete17B30830 game pool.
+// C++ call linkage retains the native final EH-state transition. Limit this
+// allocator repair to this record specialization; keep shared headers intact.
+// ?allocator<Rva00601A3AElement>::deallocate present-unmatched
+template<> inline void allocator<Rva00601A3AElement>::deallocate(Rva00601A3AElement* p,unsigned int) const {if(p)::Rva00030830FreeAllocation(p);}
 template<> Rva00601A3AElement* vector<Rva00601A3AElement>::erase(Rva00601A3AElement*,Rva00601A3AElement*);
 template<> AsciiString* vector<AsciiString>::erase(AsciiString*,AsciiString*);
 template<> void vector<Rva00601A3AElement>::push_back(const Rva00601A3AElement&);
@@ -28,7 +36,7 @@ template<> void vector<AsciiString>::push_back(const AsciiString&);
 class Rva00601B30 {
  _STL::vector<Rva00601A3AElement> records;
  _STL::vector<AsciiString> names;
-public: void clear();void add(unsigned int word0,unsigned int word4,const char* name);
+public: ~Rva00601B30();void clear();void add(unsigned int word0,unsigned int word4,const char* name);
 };
 void Rva00601B30::add(unsigned int word0,unsigned int word4,const char* name) {
  AsciiString* found=_STL::find(names.begin(),names.end(),name);
@@ -44,3 +52,11 @@ void Rva00601B30::add(unsigned int word0,unsigned int word4,const char* name) {
 void Rva00601B30::clear(){records.erase(records.begin(),records.end());_STL::vector<AsciiString>& second=names;second.erase(second.begin(),second.end());}
 
 #pragma comment(linker, "/alternatename:?erase@?$vector@URva00601A3AElement@@V?$allocator@URva00601A3AElement@@@_STL@@@_STL@@QAEPAURva00601A3AElement@@PAU3@0@Z=?eraseRange@Rva00601A3AVectorView@@QAEPAURva00601A3AElement@@PAU2@0@Z")
+
+// Native601AE9/71B clears both vectors, destroys the string vector through
+// full63B2CC70, then releases record storage. INI helper601BF3 calls this
+// body on its+4 two-vector member. Its legacy Rva00524415 name follows a
+// folded generic constructor; preserve it only as a call-only ABI alias.
+Rva00601B30::~Rva00601B30(){clear();}
+
+#pragma comment(linker, "/alternatename:??1Rva00524415@@QAE@XZ=??1Rva00601B30@@QAE@XZ")
