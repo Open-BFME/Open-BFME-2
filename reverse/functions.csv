@@ -64660,3 +64660,4 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ?rva0014FA47@@YAPAXPAXI0@Z,,0x0014FA47,27,Code/GameEngine/Source/Common/Rva0014F674Loop.cpp,matched,forward via rowed stride loop
 ?rva002DBCCA@Rva002DBCCAOwner@@QAEXPAX@Z,,0x002DBCCA,31,Code/GameEngine/Source/Common/Rva002DBCCAForward.cpp,matched,
 ?notifyAll@Rva0041E717Broadcast@@QAEXXZ,,0x0041E717,27,Code/GameEngine/Source/Common/Rva0041E717Broadcast.cpp,matched,vtable-slot-1 broadcast over the +0x1C/+0x20 pointer range
+?forwardFrom@Rva0040E6D6Host@@QAIXHPAURva0040E6D6Arg@@@Z,,0x0040E6D6,32,Code/GameEngine/Source/Common/Rva0040E6D6Forward.cpp,matched,fastcall member forward with dead EDX param; arg-slot reuse into subobject method 0x002E01C6
