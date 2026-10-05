@@ -63200,3 +63200,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ??0Rva001FBEF2@@QAE@ABV0@@Z,,0x001FBEF2,69,Code/GameEngine/Source/Common/Thing/Rva001F9C73CopyChain.cpp,matched,Rva copy ctor chain holder clone then second base plus4 by REL32 graph
 ??0Rva001FC19B@@QAE@ABV0@@Z,,0x001FC19B,69,Code/GameEngine/Source/Common/Thing/Rva001F9C73CopyChain.cpp,matched,Rva copy ctor chain holder clone then second base plus4 by REL32 graph
 ??0Rva001FC3BF@@QAE@ABV0@@Z,,0x001FC3BF,69,Code/GameEngine/Source/Common/Thing/Rva001F9C73CopyChain.cpp,matched,Rva copy ctor chain holder clone then second base plus4 by REL32 graph
+?rva00544E76@Rva00544C2A@@QAEHXZ,,0x00544E76,59,Code/GameEngine/Source/Common/Rva00544E76.cpp,matched,leaf slot 4 of 0x00869CF8 chains plus18 to slot 0x17C and TheGameLogic plus40 to slot 0x24
