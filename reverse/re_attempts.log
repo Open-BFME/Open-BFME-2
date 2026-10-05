@@ -8983,3 +8983,4 @@ FUN_00588760	0x00188760	389	blocked	WW3D mesh chunk x87 SST plus SSE plus RGB sc
 ?rva004CD51B@Rva004CD51B@@QAEXXZ	0x004CD51B	370	blocked	370B Update loop with findObjectByID plus findPositionAround plus atan2 plus orientation no donor t=8 model=muse-10
 ?rva0045108D@StoreObjectsSpecialPower@@UAEXXZ	0x004CDA49	408	blocked	frame slots retail data at -0x10 reused for push_back temp above hits at -0x14 vs ours hits at -0x10 data at -0x18 t=12 model=muse-10 (stash 0.97 kept)
 ?rva001E70C2@Rva001E70C2@@QAEXXZ	0x001E70C2	312	blocked	312B Xfer Version1 plus Locomotor template AsciiString plus vector loop plus throw no donor EH wall t=6 model=muse-10
+?rva000E56AF@Rva000E56AF@@QAEXXZ	0x000E56AF	118	blocked	118B word imul loop audio mixer no donor needs reconstruction t=5 model=muse-07

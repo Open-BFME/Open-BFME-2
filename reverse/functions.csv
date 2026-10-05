@@ -56527,3 +56527,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva001EA3AE@Rva001EA2CFLocomotorDefinition@@QAEXPAVINI@@PAVThingTemplate@@@Z,,0x001EA3AE,70,Code/GameEngine/Source/GameLogic/Object/Update/Rva001EA3AEFinish.cpp,matched,LocomotorDefinition reset wrapper: clear name and setName strings zero speed then initFromINI then tail validation rva001EA2CF
 ?Rva0008F9D3Create@@YGPAVRva000A26C7@@PAX@Z,,0x0008F9D3,58,Code/GameEngine/Source/Common/Rva0008F9D3Create.cpp,matched,chain via rowed ctor 0x000A26C7 same 58B shape as siblings
 ?Rva0008F999Create@@YGPAVRva000A2670@@PAX@Z,,0x0008F999,58,Code/GameEngine/Source/Common/Rva0008F999Create.cpp,matched,chain via rowed ctor 0x000A2670 same 58B shape as siblings
+?Rva003C8B62Do@@YGXABVAsciiString@@@Z,,0x003C8B62,105,Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003C8B62Do.cpp,matched,team wander via getTeamNamed plus locomotor plus aiWander
