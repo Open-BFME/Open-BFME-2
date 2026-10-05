@@ -34,3 +34,18 @@ void Rva0057C236::rva0057C236()
     Rva00524EF4AptCall(TheRva00222A8BTarget, m_level, name, "UnloadContent");
     m_flag = false;
 }
+// ?rva0057C2CC@Rva0057C2CC@@QAEXXZ @0x0057C2CC 8B
+// UnloadContent forwarder via member at +4 tail-jmp to rowed 0x0057C236.
+// Evidence: retail mov ecx [ecx+4] jmp 0x0057C236; caller 0x005D1857 loads ecx from [esi+4] then calls.
+class Rva0057C2CC
+{
+public:
+    void rva0057C2CC();
+private:
+    char m_pad00[4];
+    Rva0057C236 *m_p;
+};
+void Rva0057C2CC::rva0057C2CC()
+{
+    m_p->rva0057C236();
+}
