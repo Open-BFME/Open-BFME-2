@@ -148,3 +148,53 @@ AsciiString Rva005779A0::rva005779A0() const
 	path.format("_level%d.%s", m_level, m_name.str());
 	return path;
 }
+
+// ?rva00525783@Rva00525783@@QAEXXZ @0x00525783 115B: leave the hero-select
+// button state. When the flag at +0x45 is set, the pending record at +0x1C8 is
+// first handed by value to 0x003591F4 (pinned) on the global at VA 0x00E01E28,
+// if that global exists, and its flag at +0x1D8 is cleared.
+// Then SetSelectAllHeroesButtonState "_unused" goes through the wrapper.
+struct Rva003591F4Arg
+{
+	Rva003591F4Arg(const Rva003591F4Arg &other) : m_id(other.m_id), m_flag(other.m_flag) {}
+	int m_id;
+	bool m_flag;
+};
+
+class Rva00E01E28Owner
+{
+public:
+	void rva003591F4(Rva003591F4Arg arg);
+};
+
+extern Rva00E01E28Owner *g_00E01E28;
+
+class Rva00525783
+{
+public:
+	void rva00525783();
+private:
+	char m_pad00[8];
+	unsigned int m_level;		// +0x08
+	StringBase<char> m_name;	// +0x0C
+	char m_pad10[0x35];
+	bool m_active;				// +0x45
+	char m_pad46[0x182];
+	Rva003591F4Arg m_pending;	// +0x1C8
+	char m_pad1D0[8];
+	bool m_hasPending;			// +0x1D8
+};
+
+void Rva00525783::rva00525783()
+{
+	if (!m_active)
+		return;
+	if (m_hasPending)
+	{
+		if (g_00E01E28)
+			g_00E01E28->rva003591F4(m_pending);
+		m_hasPending = false;
+	}
+	Rva005FB5E6AptCall(TheRva00222A8BTarget, (void *)m_level, m_name.str(), "SetSelectAllHeroesButtonState", "_unused");
+	m_active = false;
+}
