@@ -124,7 +124,9 @@ public:
     void *rva00219D85(unsigned int index);
     int rva00219FE3(unsigned int o, unsigned int i);
     int rva0021BE42(unsigned int o, unsigned int i);
+    int rva0021BE62(unsigned int o, unsigned int i);
     int rva0021BF42(unsigned int o, unsigned int outer, unsigned int i);
+    int rva0021BF74(unsigned int o, unsigned int outer, unsigned int i);
 };
 void *Rva00219B9E::rva00219B9E(unsigned int index)
 {
@@ -647,6 +649,18 @@ int Rva00219B9E::rva0021BF42(unsigned int o, unsigned int outer, unsigned int i)
         _ReadWriteBarrier();
         OuterElem32 *base = v->m_start;
         return ((Rva00219B9E *)&base[outer])->rva0021BE42(o, i);
+    }
+    return -1;
+}
+// ?rva0021BF74@Rva00219B9E@@QAEHIII@Z @0x0021BF74 50B: twin of 0x0021BF42 via rowed 0x0021BE62. Evidence: identical outer 32B middle-index shape; callee rowed 0x0021BE62; caller 0x005B1D22.
+int Rva00219B9E::rva0021BF74(unsigned int o, unsigned int outer, unsigned int i)
+{
+    Vec32 *v = &m_outer;
+    unsigned int count = Vec32Size(v);
+    if (outer < count) {
+        _ReadWriteBarrier();
+        OuterElem32 *base = v->m_start;
+        return ((Rva00219B9E *)&base[outer])->rva0021BE62(o, i);
     }
     return -1;
 }
