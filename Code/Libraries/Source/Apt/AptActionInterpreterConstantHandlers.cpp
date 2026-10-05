@@ -63,7 +63,11 @@ public:
 class AptCIH;
 struct AptCharacterInst;
 class EAStringC { void *mpData; public: EAStringC &Rva006D4F00Append(const EAStringC &); EAStringC &Rva006D50A0Append(const char *); EAStringC(unsigned int,unsigned int); EAStringC rva006D5ED0(int) const; EAStringC rva006d5f30(int,int) const; void rva006D3470(); bool IsEqualTo(const EAStringC *) const; const char *rva00620090() const; int rva006d6070(const char *,int=0); EAStringC(); unsigned int rva006D3750() const; EAStringC(const char *); ~EAStringC(); EAStringC &operator=(const EAStringC &); };
-class AptArray { public: AptValue *get(int); void set(int,AptValue *); };
+class Rva006D2A60 { public: void *allocBlock(int); void freeBlock(void *,int); };
+extern Rva006D2A60 *g_pChainBlockAllocatorF4;
+// Native InitArray allocates44B; ctor6D91B0 builds type0x16, hash+8,
+// AptArray vtableCEA778 and slots+20/+24/+28. Unaccessed state stays opaque.
+class AptArray : public AptValue { char m_arrayState[36]; public: AptArray(); static void *operator new(unsigned int n) { return g_pChainBlockAllocatorF4->allocBlock(n); } static void operator delete(void *p,unsigned int n) { g_pChainBlockAllocatorF4->freeBlock(p,n); } AptValue *get(int); void set(int,AptValue *); };
 // PC callbacks occupy two independently zero-initialized slots in gAptFuncs.
 // Member handlers establish the getter/setter ABI; later source names their role.
 AptValue *(__cdecl *g_bfmeAptGetExternAtE17768)(const char *)=0;
@@ -98,6 +102,7 @@ public:
     void PopAndPush(int,AptValue *);
     void Push(AptValue *);
     void PushNoInc(AptValue *);
+    void rva006FE050(int);
     void rva006FE920();
     __forceinline AptValue *At(int nPos) const
     {
@@ -174,6 +179,7 @@ private:
     HANDLER(CallFunction); HANDLER(CallMethod); HANDLER(With);
     HANDLER(CallFuncAndPop); HANDLER(CallFuncSetVar); HANDLER(CallMethodPop); HANDLER(CallMethodSetVar); HANDLER(DictCallFuncPop); HANDLER(DictCallFuncSetVar); HANDLER(DictCallMethodPop); HANDLER(DictCallMethodSetVar);
     HANDLER(ToInteger); HANDLER(StringLength); HANDLER(GetVariable);
+    HANDLER(InitArray);
     HANDLER(GetTimer);
     HANDLER(Trace);
     HANDLER(Greater); HANDLER(LessThan2);
@@ -1215,4 +1221,15 @@ void AptActionInterpreter::_FunctionAptActionGotoFrame(AptActionInterpreter *con
         cih->SpriteBaseInline()->mbIsPlaying=0;
     }
     if(g_releaseVectorAtE17710->GetNumValues()!=0 && p->stack.count==0) g_releaseVectorAtE17710->ReleaseValues();
+}
+
+void AptActionInterpreter::_FunctionAptActionInitArray(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    int n=p->stack.At(0)->toInteger();
+    p->stack.Pop();
+    AptArray *a=new AptArray;
+    a->AddRef();
+    for(int i=0;i<n;++i) a->set(i,p->stack.At(i));
+    p->stack.rva006FE050(n);
+    p->stack.PushNoInc(a);
 }
