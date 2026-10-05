@@ -59639,3 +59639,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?reset@Rva002D38AE@@QAEXPAVRva0052710C@@@Z,,0x002D38AE,35,Code/GameEngine/Source/Common/OwnedPointerResets.cpp,matched,gap between 0x002D3894 and 0x002D38D1 same pointee
 ?rva002E8FE5@Rva002E9042@@QAEXPAX@Z,,0x002E8FE5,93,Code/GameEngine/Source/Common/Rva002E9042.cpp,matched,set twin of clear via WorldToCell getCell grid fill
 ?rva002E7414@Rva002E7414@@QAEHHH@Z,,0x002E7414,44,Code/GameEngine/Source/GameLogic/Object/Rva002E7414.cpp,matched,Layer-1 cell flag test via rowed Pathfinder getCell
+?_M_insert_overflow@?$vector@URva001741EBElement@@V?$allocator@URva001741EBElement@@@_STL@@@_STL@@IAEXPAURva001741EBElement@@ABU3@ABU__false_type@2@I_N@Z,,0x00173EF9,189,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva001741eb_overflow.cpp,matched,chain from 0x001733D0 rowed callees plus pin 0x00173351 caller 0x00174218
