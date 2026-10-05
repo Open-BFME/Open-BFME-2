@@ -63535,3 +63535,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ??0Rva003B76EF@@QAE@PAH@Z,,0x003B76EF,28,Code/GameEngine/Source/Common/Rva003B76EFCtor.cpp,matched,Zeroes +0 then runs pinned 0x003B7448 on +4 with arg+4; /G7 for the and-zero store
 ?rva003BBD84@@YGXABVAsciiString@@@Z,,0x003BBD84,64,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsRva003BBD84.cpp,matched,Mask sweep with constant 1 through pinned Player 0x002AEEA7; same family as rowed 0x003BB233
 ?rva003BBDC4@@YGXABVAsciiString@@@Z,,0x003BBDC4,64,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsRva003BBD84.cpp,matched,Mask sweep with constant 1 through pinned Player 0x002AF037; same family as rowed 0x003BB233
+?rva003A2BD4@TeamPrototype@@QAEXXZ,,0x003A2BD4,57,Code/GameEngine/Source/Common/RTS/TeamPrototypeRva003A2BD4.cpp,matched,Factory register plus holder chain via rowed 0x003A2B78 and pinned 0x002AE228 0x002A8AB1 0x004EC072; straightline null guards

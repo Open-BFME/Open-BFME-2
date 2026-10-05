@@ -12894,3 +12894,6 @@ _Rva00337999Forward,0x00337999,REL32 callee decoded from target call bytes of wr
 ?rva003B7167@Rva003B761E@@QAEXXZ,0x003B7167,temp cleanup on the 0x20-byte Rva003B761E slot; read from REL32 at 0x003B7663 in rva003B7647 0x003B7647; likely the dtor; identity unproven
 ?rva002AEEA7@Player@@QAEXH@Z,0x002AEEA7,Player method taking int 1 in the 0x003BBD84 mask sweep; read from REL32 at 0x003BBDB5; identity unproven
 ?rva002AF037@Player@@QAEXH@Z,0x002AF037,Player method taking int 1 in the 0x003BBDC4 mask sweep; read from REL32 at 0x003BBDF5; identity unproven
+?rva002AE228@Rva003A2BD4M08@@QAEXPAVTeamPrototype@@@Z,0x002AE228,m08 entry taking this; read from REL32 at 0x003A2BDF in rva003A2BD4 0x003A2BD4
+?rva002A8AB1@PlayerList@@QAEPAVPlayer@@PAVRva003A2BD4M08@@@Z,0x002A8AB1,PlayerList lookup by m08 returning Player; read from REL32 at 0x003A2BFA in rva003A2BD4 0x003A2BD4
+?rva004EC072@Player@@QAEXPAVTeamPrototype@@@Z,0x004EC072,Player entry taking this; read from REL32 at 0x003A2C06 in rva003A2BD4 0x003A2BD4
