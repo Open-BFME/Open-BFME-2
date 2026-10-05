@@ -10899,3 +10899,8 @@ G00DB5FC4,0x00DB5FC4,Render2DClass ctor 0x0011C0F0 stores 5; donor Render2DClass
 ??1Rva00229487@@QAE@XZ,0x0022630F,non-virtual dtor called directly by scalar deleting dtor 0x00229487; owning class unproven
 ??1Rva0023903B@@QAE@XZ,0x0042C1B7,non-virtual dtor called directly by scalar deleting dtor 0x0023903B; owning class unproven
 ??1Rva00239E64@@QAE@XZ,0x00239D7A,non-virtual dtor called directly by scalar deleting dtor 0x00239E64; owning class unproven
+??1Rva002BF17C@@QAE@XZ,0x002BF0D6,non-virtual dtor called directly by scalar deleting dtor 0x002BF17C; owning class unproven
+??1Rva002C5F72@@QAE@XZ,0x00505BBA,non-virtual dtor called directly by scalar deleting dtor 0x002C5F72; owning class unproven
+??1Rva002C5F8E@@QAE@XZ,0x0050549A,non-virtual dtor called directly by scalar deleting dtor 0x002C5F8E; owning class unproven
+??1Rva002D28FF@@QAE@XZ,0x002D284F,non-virtual dtor called directly by scalar deleting dtor 0x002D28FF; owning class unproven
+??1Rva002D339F@@QAE@XZ,0x0052710C,non-virtual dtor called directly by scalar deleting dtor 0x002D339F; owning class unproven
