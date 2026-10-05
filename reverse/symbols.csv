@@ -13334,3 +13334,5 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 ?Copy002B6351@@YAHPAXRAXH@Z,0x002B6351,opaque tail helper called by range proc 0x002B9177; identity unproven; address-derived name
 ?Copy003C6437@@YAHPAXRAXH@Z,0x003C6437,opaque head helper called by range proc 0x003C6973; identity unproven; address-derived name
 ?Copy003C3AB0@@YAHPAXRAXH@Z,0x003C3AB0,opaque tail helper called by range proc 0x003C6973; identity unproven; address-derived name
+??0Rva005C3549@@QAE@PAX00@Z,0x005C3697,base ctor called by Rva005685EE ctor 0x0056858C (byte-exact shape sibling); identity unproven; address-derived signature
+??0Rva0056833F@@QAE@PAX00@Z,0x0056833F,inner ctor called by Rva005685EE ctor 0x0056858C with (outer-this,a,b); identity unproven; address-derived signature
