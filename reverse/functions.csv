@@ -56542,3 +56542,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?Rva003C87F1Do@@YGXPAVParameter@@ABVAsciiString@@@Z,,0x003C87F1,121,Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003C87F1Do.cpp,matched,named follow waypoints via getUnitNamed plus closest waypoint
 ?Rva00030730Init@@YAXXZ,,0x00030730,190,Code/GameEngine/Source/Common/System/Rva00030730Init.cpp,matched,leaf lane caller 0x0002FFA0 memory_pool resolver 13 exports via GetProcAddress
 ?rva0047BA69@Rva0047BA69@@QAE_NPAVObject@@HH@Z,,0x0047BA69,126,Code/GameEngine/Source/GameLogic/Object/Contain/Rva0047BA69Contain.cpp,matched,leaf via testStatus getControllingPlayer bfmeHas1026 slot38 fallback
+?Rva003E50B4Check@@YG_NPAVParameter@@0@Z,,0x003E50B4,81,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_Rva003E50B4.cpp,matched,rowed getUnitNamed via g_Va009FE16C plus TerrainLogic slot 0x88 plus pin pathfinder
