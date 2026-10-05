@@ -63042,3 +63042,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva00318F64@Rva00318F64@@QAEXXZ,,0x00318F64,39,Code/GameEngine/Source/Common/Rva00318F64.cpp,matched,sync 0x34 0x38 via rowed 0x00318C79 unblocks 2 callers
 ?Rva0005160FGet@@YG?AUBfmeEventPositionView@@PAVAudioEventRTS@@AA_N@Z,,0x0005160F,64,Code/GameEngine/Source/Common/Rva0005160F.cpp,matched,positional view or zeros via rowed callees
 ?rva005CAE04@GameSpyLoginPreferences@@QAE_NABVAsciiString@@0@Z,,0x005CAE04,110,Code/GameEngine/Source/Common/GameSpyLoginPreferences.cpp,matched,gap between nick remove and clan remove same flags four operators plus find
+??1Rva000E9BAC@@UAE@XZ,,0x000E9BAC,99,Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E9BACDtor.cpp,matched,virtual dtor array 0x40x0x5C member base pins Reset base
