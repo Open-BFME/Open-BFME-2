@@ -62,9 +62,10 @@ static CriticalSectionClass mutex;
 static MutexClass threadMutex;
 static Bool isThread;
 static TextureClass *cursorTextures[Mouse::NUM_MOUSE_CURSORS][MAX_2D_CURSOR_ANIM_FRAMES];	///<Textures for each cursor type
-static const Image *cursorImages[Mouse::NUM_MOUSE_CURSORS];			///<Images for use with the RM_POLYGON method.
-// Retail freeW3DAssets traverses 0xE0 bytes in each of these tables.
+// Native image table spans DE4A50..DE4B30: 56 pointers, not the donor enum count.
 enum { RETAIL_WORLD_CURSOR_COUNT = 56 };
+static const Image *cursorImages[RETAIL_WORLD_CURSOR_COUNT];			///<Images for use with the RM_POLYGON method.
+// Retail freeW3DAssets traverses 0xE0 bytes in each of these tables.
 static RenderObjClass *cursorModels[RETAIL_WORLD_CURSOR_COUNT];	///< W3D models for each cursor type
 static HAnimClass			*cursorAnims[RETAIL_WORLD_CURSOR_COUNT];		///< W3D animations for each cursor type
 
@@ -187,7 +188,7 @@ void W3DMouse::initPolygonAssets(void)
 	//Check if texture assets already loaded
 	if (*reinterpret_cast<RedrawMode *>(reinterpret_cast<char *>(this)+0x12DC) == RM_POLYGON && cursorImages[1] == NULL)
 	{
-		for (Int i=0; i<NUM_MOUSE_CURSORS; i++)
+		for (Int i=0; i<RETAIL_WORLD_CURSOR_COUNT; i++)
 		{
 			v->currentPolygonCursor = v->currentCursor;
 			if (!v->cursorInfo[i].imageName.isEmpty())
