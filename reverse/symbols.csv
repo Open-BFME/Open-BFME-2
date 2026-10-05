@@ -14744,3 +14744,8 @@ _rva006F98C0Call,0x006F98C0,retail call at 0x006F9B84 supplies EAX ECX and two s
 ??$__uninitialized_fill_n@PAURva0040A34BRecord@@HU1@@_STL@@YAPAURva0040A34BRecord@@PAU1@HABU1@ABU__false_type@0@@Z,0x0040A1D7
 ??$__uninitialized_fill_n@PAURva004E99D6Record@@HU1@@_STL@@YAPAURva004E99D6Record@@PAU1@HABU1@ABU__false_type@0@@Z,0x004E98F7
 ??$__uninitialized_fill_n@PAURva005243FARecord@@HU1@@_STL@@YAPAURva005243FARecord@@PAU1@HABU1@ABU__false_type@0@@Z,0x0052408B
+??$__uninitialized_fill_n@PAURva00569450Record@@HU1@@_STL@@YAPAURva00569450Record@@PAU1@HABU1@ABU__false_type@0@@Z,0x00569109
+??$__uninitialized_fill_n@PAURva005AE78ARecord@@HU1@@_STL@@YAPAURva005AE78ARecord@@PAU1@HABU1@ABU__false_type@0@@Z,0x005AE6F8
+?insert_equal@?$_Rb_tree@HHU?$_Identity@H@_STL@@U?$less@H@2@V?$allocator@H@2@@_STL@@QAE?AU?$_Rb_tree_iterator@HU?$_Nonconst_traits@H@_STL@@@2@ABH@Z,0x004CA68B
+??$__make_heap@PAURva002F0D35Record@@U?$less@URva002F0D35Record@@@_STL@@U1@H@_STL@@YAXPAURva002F0D35Record@@0U?$less@URva002F0D35Record@@@0@0PAH@Z,0x002EF216
+??$insert@PAD@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@AAEXPAD00ABUforward_iterator_tag@1@@Z,0x001EC1B4
