@@ -12777,3 +12777,9 @@ _g_pRva00437E9C,0x00E032FC,global pointer read by wrapper 0x00437E9C (peer notes
 ?run@Rva0010BA61@@AAEXXZ,0x00108895,REL32 callee decoded from target call bytes of helper-member step 0x0010BA61; identity unproven
 ?prepare@Rva005962E7@@AAEXXZ,0x0025C010,opaque alias: same body as rowed Rva0025C010::rva0025C010; helper of step 0x005962E7
 ?run@Rva005962E7@@AAEXXZ,0x00596269,REL32 callee decoded from target call bytes of helper-member step 0x005962E7; identity unproven
+?Rva0007BF5AWorker@@YAHHHHPAD@Z,0x0007BF5A,REL32 callee decoded from target call bytes of tag-combine 0x0007C2F0; identity unproven
+?Rva00173714Worker@@YAHHHHPAD@Z,0x00173714,REL32 worker decoded from target call bytes of same-shape tag-combine member; identity unproven
+?Rva003332FEWorker@@YAHHHHPAD@Z,0x003332FE,REL32 worker decoded from target call bytes of same-shape tag-combine member; identity unproven
+?Rva00541214Worker@@YAHHHHPAD@Z,0x00541214,REL32 worker decoded from target call bytes of same-shape tag-combine member; identity unproven
+?Rva00541231Worker@@YAHHHHPAD@Z,0x00541231,REL32 worker decoded from target call bytes of same-shape tag-combine member; identity unproven
+?Rva005B09D8Worker@@YAHHHHPAD@Z,0x005B09D8,REL32 worker decoded from target call bytes of same-shape tag-combine member; identity unproven

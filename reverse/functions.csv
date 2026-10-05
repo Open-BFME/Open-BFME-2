@@ -63453,3 +63453,9 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?Rva004D9ACE@@YAXPAXABVRva004D971D@@@Z,,0x004D9ACE,18,Code/GameEngine/Source/Common/RvaGuardedConstructTrio.cpp,matched,Address-derived guarded in-place construction; 18B shape
 ?step@Rva0010BA61@@QAEXXZ,,0x0010BA61,16,Code/GameEngine/Source/Common/RvaHelperMemberSteps.cpp,matched,Address-derived helper-then-first-member step; 16B shape
 ?step@Rva005962E7@@QAEXXZ,,0x005962E7,16,Code/GameEngine/Source/Common/RvaHelperMemberSteps.cpp,matched,Address-derived helper-then-first-member step; 16B shape
+?fwd@Rva0007C2F0Owner@@QAEHHH@Z,,0x0007C2F0,38,Code/GameEngine/Source/Common/RvaTagCombineFamily.cpp,matched,Address-derived tag-combine: head=worker(extra;head;tag;&tag+3); 38B shape
+?fwd@Rva00173DF8Owner@@QAEHHH@Z,,0x00173DF8,38,Code/GameEngine/Source/Common/RvaTagCombineFamily.cpp,matched,Address-derived tag-combine head=worker(extra;head;tag;&tag+3); 38B ebp-frame shape
+?fwd@Rva00335C62Owner@@QAEHHH@Z,,0x00335C62,38,Code/GameEngine/Source/Common/RvaTagCombineFamily.cpp,matched,Address-derived tag-combine head=worker(extra;head;tag;&tag+3); 38B ebp-frame shape
+?fwd@Rva0054152DOwner@@QAEHHH@Z,,0x0054152D,38,Code/GameEngine/Source/Common/RvaTagCombineFamily.cpp,matched,Address-derived tag-combine head=worker(extra;head;tag;&tag+3); 38B ebp-frame shape
+?fwd@Rva00541553Owner@@QAEHHH@Z,,0x00541553,38,Code/GameEngine/Source/Common/RvaTagCombineFamily.cpp,matched,Address-derived tag-combine head=worker(extra;head;tag;&tag+3); 38B ebp-frame shape
+?fwd@Rva005B129FOwner@@QAEHHH@Z,,0x005B129F,38,Code/GameEngine/Source/Common/RvaTagCombineFamily.cpp,matched,Address-derived tag-combine head=worker(extra;head;tag;&tag+3); 38B ebp-frame shape
