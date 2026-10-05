@@ -60348,3 +60348,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva002E204D@Rva002E204D@@QAEPAVRva002E0D93@@PAV2@@Z,,0x002E204D,61,Code/GameEngine/Source/Common/Rva002E204DErase.cpp,matched,erase pos from 216B array via rowed copy 0x002E1E9A and pin dtor 0x001EB63C
 ?rva0028CDB6@Object@@QAEXXZ,,0x0028CDB6,53,Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp,matched,same-TU rva0028B511 keeps sub in edx with no extra push
 ?addToBuildList@SidesInfo@@QAEXPAVBuildListInfo@@H@Z,,0x003297FB,68,Code/GameEngine/Source/GameLogic/Map/SidesInfoAddToBuildList.cpp,matched,LINK BONUS SidesInfo list splice via BFME1 donor
+?rva0033073C@Rva003306B0@@QAEXXZ,,0x0033073C,27,Code/GameEngine/Source/Common/Rva0033073CClear.cpp,matched,chain from 0x003306B0 vector at +0x10 clear via remove-first loop
