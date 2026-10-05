@@ -63850,3 +63850,5 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ??0Rva0055B0CC@@QAE@ABV0@@Z,,0x0055B182,166,Code/GameEngine/Source/Common/Rva0055B182Copy.cpp,matched,User copy ctor: scalars and AsciiString copied then both int lists default-constructed then reassigned via rowed list op=
 ??0Rva00573B23@@QAE@ABV0@@Z,,0x00573AC8,91,Code/GameEngine/Source/Common/Rva00573AC8Copy.cpp,matched,Copy ctor: Rva0055B0CC base copy 0x55B182 then vtable 0xC6E270 then AsciiString and four floats
 ??0Rva00573E7C@@QAE@ABV0@@Z,,0x00573EB8,75,Code/GameEngine/Source/Common/Rva00573E7CCopy.cpp,matched,Copy ctor under existing pin: rowed Rva00573B23 copy then vtable 0xC6E2C8 then the +0x40..+0x5C fields
+?rva000E473F@Rva000E473F@@QAEXXZ,,0x000E473F,93,Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E473F.cpp,matched,
+?rva000E479C@Rva000E473F@@QAEXXZ,,0x000E479C,234,Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E473F.cpp,matched,
