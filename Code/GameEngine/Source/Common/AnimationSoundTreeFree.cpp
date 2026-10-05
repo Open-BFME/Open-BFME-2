@@ -9,6 +9,7 @@
 // Evidence: callees all rowed (plus self); callers at 0x004CA179 (self) and
 // 0x004CA278 in FUN_008CA26A (tree clear checking count at +4); prev/next
 // after ??0Rva004C9FBF / ??0Rva004CA125 with the same // cl: line.
+#pragma comment(linker, "/alternatename:?rva004C9D93Compare@Rva004C9D93Cmp@@QBE_NPAX0@Z=?Rva004C9D93Less@@YG_NPAX0@Z")
 
 class Rva002390CB
 {
