@@ -59790,3 +59790,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva007B725D@@YAXXZ,,0x007B725D,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00DF6FB0 tail-jmp pinned DynamicVectorClass Curve3DClass KeyClass dtor 0x000F1D19
 ?rva007B8201@@YAXXZ,,0x007B8201,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00E02FB0 tail-jmp pinned vector AsciiString dtor 0x0002CC70
 ?rva007B82E7@@YAXXZ,,0x007B82E7,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00E031A8 tail-jmp pinned deque BfmeE12 dtor 0x005858F3
+?_M_insert_overflow@?$vector@URva000AB3E2Element@@V?$allocator@URva000AB3E2Element@@@_STL@@@_STL@@IAEXPAURva000AB3E2Element@@ABU3@ABU__false_type@2@I_N@Z,,0x000AAF09,189,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva000ab3e2_overflow.cpp,matched,chain via landed copy 0x000A9E1C caller push_back 0x000AB3E2 stride 0x18
