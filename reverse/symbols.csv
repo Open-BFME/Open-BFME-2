@@ -10671,3 +10671,5 @@ G00DB5FC4,0x00DB5FC4,Render2DClass ctor 0x0011C0F0 stores 5; donor Render2DClass
 ??1Rva00604465@@UAE@XZ,0x00604465,opaque dtor called by the scalar deleting dtor at 0x00604572 (vtable 0x00C7A94C#0); identity unproven; address-derived name
 ??1Rva0073EF24@@UAE@XZ,0x0073EF24,opaque dtor called by the scalar deleting dtor at 0x0073EF08 (vtable 0x00CF1538#2); identity unproven; address-derived name
 ??1Rva0074104C@@UAE@XZ,0x0074104C,opaque dtor called by the scalar deleting dtor at 0x007410D0 (vtable 0x00CF1648#0); identity unproven; address-derived name
+?validateRallyPoint@Rva00478231@@QAEXXZ,0x00478141,address-honest spelling for the rowed protected GarrisonContain method; called on this-0x20 by ?rva00478231 (REL32 at 0x00478245); true protection is inherited-only
+?removeAllContained@OpenContain@@UAEX_N@Z,0x004635C0,base-class non-virtual call from ?rva00478231 (REL32 at 0x00478250); slot38-family delegation idiom
