@@ -75,3 +75,10 @@ void MpGameSetup::rva0043DC0F()
 			m_owner->v15();
 	}
 }
+
+// Retail 0x0043E49C, 26 bytes.
+void MpGameSetup::rva0043E49C(int value)
+{
+	rva0043DC0F();
+	m_owner->v17(value, true);
+}
