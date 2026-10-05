@@ -216,6 +216,20 @@ public:
 	char bfmeCall939D();
 };
 
+// TheGameLogic's rowed bool query 0x00200084 (Rva0023C6A4Check.cpp's
+// class) and its game mode at +0x110.
+class Rva0023C6A4
+{
+public:
+	bool rva00200084();
+};
+
+struct AptPalantirGameLogic
+{
+	unsigned char m_pad000[0x110];
+	int m_mode; // +0x110
+};
+
 class PlayerList
 {
 public:
@@ -259,6 +273,8 @@ public:
 	// "ObserverStuff/PriorPlayerBttn", "messengerButton/") rather than
 	// method names, so they keep their addresses.
 	void rva002D3D61(const char *unused);
+	void rva002D4DD0(const char *unused);
+	void rva002D4E71(const char *unused);
 	void rva002D3E29(const char *unused);
 	void rva002D3E84(const char *unused);
 
@@ -267,7 +283,9 @@ private:
 	RadarWindowOverrideSource *m_radar; // +0x58
 	void *m_movie; // +0x5C
 	unsigned char m_flags; // +0x60
-	unsigned char m_pad061[0xC0 - 0x61];
+	unsigned char m_pad061[0x7E - 0x61];
+	unsigned char m_7e; // +0x7E, 4 for the evil side
+	unsigned char m_pad07f[0xC0 - 0x7F];
 	int m_c0; // +0xC0
 	Rva002D3894 m_heroSelect; // +0xC4
 	Rva002D38D1 m_helpBox; // +0xC8
@@ -344,6 +362,52 @@ void AptPalantir::OnBttnSpellStore(const char *unused)
 	GameWindow *owner = instData->m_owner;
 	TheWindowManager->winSendSystemMsg(owner, 0x4008 + (mouse == 2), (int)button, ((Rva005C4AE9DwordField *)button)->get());
 	m_e4 = false;
+}
+
+// Retail 0x002D4DD0, 161 bytes: bound under the clip path
+// "PalantirButtons/Buttons/PlayerMagic/ButtonClip/", so it keeps its
+// address. Runs the side's player experience command button (evil when
+// +0x7E has 4).
+void AptPalantir::rva002D4DD0(const char *unused)
+{
+	const AsciiString *name;
+	if (m_7e & 4)
+	{
+		static AsciiString evil("NonCommand_EvilPlayerExperience");
+		name = &evil;
+	}
+	else
+	{
+		static AsciiString good("NonCommand_GoodPlayerExperience");
+		name = &good;
+	}
+	const CommandButton *button = TheControlBar->findCommandButton(*name);
+	if (button)
+		TheControlBar->rva004C1B60(0, (void *)button);
+}
+
+// Retail 0x002D4E71, 188 bytes: bound under the clip path
+// "PalantirButtons/Buttons/Objectives/ButtonClip/", so it keeps its
+// address. Runs the objectives command button when TheGameLogic's
+// 0x00200084 holds or the game mode is 6, else the player status one.
+// ?rva002D4E71@AptPalantir@@QAEXPBD@Z present-unmatched
+void AptPalantir::rva002D4E71(const char *unused)
+{
+	const AsciiString *name;
+	if (TheGameLogic && (((Rva0023C6A4 *)TheGameLogic)->rva00200084()
+		|| ((AptPalantirGameLogic *)TheGameLogic)->m_mode == 6))
+	{
+		static AsciiString objectives("NonCommand_Objectives");
+		name = &objectives;
+	}
+	else
+	{
+		static AsciiString status("NonCommand_PlayerStatus");
+		name = &status;
+	}
+	const CommandButton *button = TheControlBar->findCommandButton(*name);
+	if (button)
+		TheControlBar->rva004C1B60(0, (void *)button);
 }
 
 // Retail 0x002D3EDF, 11 bytes: "AptPalantir::OnBttnMovie".
