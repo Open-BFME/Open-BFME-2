@@ -64121,3 +64121,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?rva003EF2E0@Rva003EF2E0@@QAEXXZ,,0x003EF2E0,31,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptGlueRva003EF2E0.cpp,matched,dump range 18 clear-plus-register with rowed 0x003EED9D and rowed list append
 ?Rva003BFAC3Set@@YGXABVAsciiString@@H@Z,,0x003BFAC3,49,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptGlueRva003BFAC3.cpp,matched,dump range 18 team int setter via doSetTeamState idiom and pinned 0x003A10FE
 ?Rva003BFD5ASet@@YGXABVAsciiString@@@Z,,0x003BFD5A,46,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptGlueRva003BFD5A.cpp,matched,dump range 18 team nullary setter via doSetTeamState idiom and pinned 0x003A1D1A
+?Rva003C0C3ESet@@YGXABVAsciiString@@@Z,,0x003C0C3E,51,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptGlueRva003C0C3E.cpp,matched,dump range 18 team forward via doSetTeamState idiom and pinned 0x002064CB
