@@ -197,3 +197,8 @@ Int localApplyBattlePlanBonusesToObject(Object *obj, void *userData)
 	}
 	return 1;
 }
+
+void Player::applyBattlePlanBonusesForObject(Object *obj) const
+{
+	localApplyBattlePlanBonusesToObject(obj, m_battlePlanBonuses);
+}
