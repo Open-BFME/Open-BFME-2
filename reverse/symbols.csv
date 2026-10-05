@@ -13430,3 +13430,4 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 ?rva00529DA9@Holder0052A22C@@QAEXH@Z,0x00529DA9,thiscall callee of null-guarded forwarder 0x0052A22C (REL32 at 0x0052A23C); Ghidra 112B body unrecovered; address name
 ?Rva0052B1EF@@YAPAURec0052B225@@PAUObj0052B225@@@Z,0x0052B1EF,free helper for null-guarded getter 0x0052B225 (REL32 at 0x0052B22A); Ghidra 54B EH body unrecovered; address name
 ?Rva00525407@@YGXPAUPair005258F8@@@Z,0x00525407,stdcall spelling of the 0x005258F8 callee (retail has no caller cleanup); Ghidra 114B unrecovered
+?Rva0052408B@@YAXHHHPAD@Z,0x0052408B,free callee of forwarder 0x005243FA (REL32 at 0x0052440B); Ghidra 179B body unrecovered; address name
