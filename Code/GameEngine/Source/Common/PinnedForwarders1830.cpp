@@ -30,11 +30,12 @@ class Rva0030B719Shape
 public:
 	Real getRadius() const;
 	Region2D rva0030B6E3();
+	Real rva0030B706() const;
 	void rva0030B3D1();
 private:
 	unsigned char m_pad00[0x0C];
 	Region2D m_region; // +0x0C
-	unsigned char m_pad1C[0x04]; // +0x1C
+	Real m_1C; // +0x1C
 	Real m_radius; // +0x20
 	Bool m_dirty; // +0x24
 };
@@ -44,6 +45,13 @@ Real Rva0030B719Shape::getRadius() const
 	if (m_dirty)
 		const_cast<Rva0030B719Shape *>(this)->rva0030B3D1();
 	return m_radius;
+}
+
+Real Rva0030B719Shape::rva0030B706() const
+{
+	if (m_dirty)
+		const_cast<Rva0030B719Shape *>(this)->rva0030B3D1();
+	return m_1C;
 }
 
 Region2D Rva0030B719Shape::rva0030B6E3()
