@@ -25,3 +25,5 @@ private:
 Rva00579731::~Rva00579731()
 {
 }
+// ??1Rva005796FC@@QAE@XZ: rowed in stlport_vector_stringrecord_b94d2_allocate_copy.cpp but that TU emits ??1BfmeStringRecord000B94D2@@QAE@XZ; bind this spelling.
+#pragma comment(linker, "/alternatename:??1Rva005796FC@@QAE@XZ=??1BfmeStringRecord000B94D2@@QAE@XZ")
