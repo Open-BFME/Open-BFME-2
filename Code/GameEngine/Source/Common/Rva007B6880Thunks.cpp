@@ -94,7 +94,6 @@ void __cdecl rva007B7070()
 	return p->Free_String();
 }
 
-// ??1?$VectorClass@UTextureStatisticsStruct@@@@UAE@XZ rowed target for next thunk (67B @0x0012A4D0).
 struct TextureStatisticsStruct;
 template<class T>
 class VectorClass
@@ -102,6 +101,8 @@ class VectorClass
 public:
 	virtual ~VectorClass();
 };
+
+
 
 extern unsigned g_Va009EE920;
 // g_Va009EE920: matched references place it at VA 0xdee920 (zero-filled .bss).
@@ -5892,6 +5893,61 @@ void __cdecl rva007B9BE0()
 	AsciiString *p = (AsciiString *)&g_Va00DDC00C;
 	return p->~AsciiString();
 }
+
+extern unsigned g_Va00DF6F98;
+unsigned int g_Va00DF6F98;
+
+// ?rva007B7253@@YAXXZ @ 0x007B7253 (10B). Global DynamicVectorClass<Curve3DClass::KeyClass> dtor thunk: ecx=&g_Va00DF6F98 then tail-jmp to rowed ??1?$DynamicVectorClass@VKeyClass@Curve3DClass@@@@UAE@XZ (0x000F1D19).
+void __cdecl rva007B7253()
+{
+	DynamicVectorClass<Curve3DClass::KeyClass> *p = (DynamicVectorClass<Curve3DClass::KeyClass> *)&g_Va00DF6F98;
+	return p->DynamicVectorClass<Curve3DClass::KeyClass>::~DynamicVectorClass();
+}
+
+extern unsigned g_Va00DF6FB0;
+unsigned int g_Va00DF6FB0;
+
+// ?rva007B725D@@YAXXZ @ 0x007B725D (10B). Global DynamicVectorClass<Curve3DClass::KeyClass> dtor thunk: ecx=&g_Va00DF6FB0 then tail-jmp to rowed ??1?$DynamicVectorClass@VKeyClass@Curve3DClass@@@@UAE@XZ (0x000F1D19).
+void __cdecl rva007B725D()
+{
+	DynamicVectorClass<Curve3DClass::KeyClass> *p = (DynamicVectorClass<Curve3DClass::KeyClass> *)&g_Va00DF6FB0;
+	return p->DynamicVectorClass<Curve3DClass::KeyClass>::~DynamicVectorClass();
+}
+
+
+
+
+extern unsigned g_Va00E02FB0;
+unsigned int g_Va00E02FB0;
+
+// ?rva007B8201@@YAXXZ @ 0x007B8201 (10B). Global vector<AsciiString> dtor thunk: ecx=&g_Va00E02FB0 then tail-jmp to rowed ??1?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAE@XZ (0x0002CC70).
+void __cdecl rva007B8201()
+{
+	_STL::vector<AsciiString, _STL::allocator<AsciiString> > *p = (_STL::vector<AsciiString, _STL::allocator<AsciiString> > *)&g_Va00E02FB0;
+	return p->_STL::vector<AsciiString, _STL::allocator<AsciiString> >::~vector();
+}
+
+namespace _STL
+{
+template <class T, class Alloc>
+class deque
+{
+public:
+	~deque();
+};
+}
+
+struct BfmeE12;
+extern unsigned g_Va00E031A8;
+unsigned int g_Va00E031A8;
+
+// ?rva007B82E7@@YAXXZ @ 0x007B82E7 (10B). Global deque<BfmeE12> dtor thunk: ecx=&g_Va00E031A8 then tail-jmp to rowed ??1?$deque@UBfmeE12@@V?$allocator@UBfmeE12@@@_STL@@@_STL@@QAE@XZ (0x005858F3).
+void __cdecl rva007B82E7()
+{
+	_STL::deque<BfmeE12, _STL::allocator<BfmeE12> > *p = (_STL::deque<BfmeE12, _STL::allocator<BfmeE12> > *)&g_Va00E031A8;
+	return p->~deque();
+}
+
 
 
 

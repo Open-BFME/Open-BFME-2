@@ -59786,3 +59786,7 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?update@Rva004DF897@@UAE?AW4UpdateSleepTime@@XZ,,0x004DF897,18,Code/GameEngine/Source/Common/VslotSmallBodiesU.cpp,matched,UpdateModuleInterface slot 0 (interface at +0x10) beside rowed 0x00253376/0x0044DF8D; rowed Object::setStatus(8; false) then FOREVER; no Ghidra entry
 ?rva005E1CF8@Rva005E1CF8@@UAEXH@Z,,0x005E1CF8,15,Code/GameEngine/Source/Common/VslotSmallBodiesU.cpp,matched,secondary-base slot (interface at +0x08); rowed 0x005E1C6F of the +0x10 object with the complete object; no Ghidra entry
 ?loadPostProcess@Rva00497805@@MAEXXZ,,0x00497805,5,Code/GameEngine/Source/Common/VslotSmallBodiesU.cpp,matched,slot after the scalar destructor in many module tables; tail call of rowed UpdateModule::loadPostProcess 0x0058B03E; no Ghidra entry
+?rva007B7253@@YAXXZ,,0x007B7253,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00DF6F98 tail-jmp pinned DynamicVectorClass Curve3DClass KeyClass dtor 0x000F1D19
+?rva007B725D@@YAXXZ,,0x007B725D,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00DF6FB0 tail-jmp pinned DynamicVectorClass Curve3DClass KeyClass dtor 0x000F1D19
+?rva007B8201@@YAXXZ,,0x007B8201,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00E02FB0 tail-jmp pinned vector AsciiString dtor 0x0002CC70
+?rva007B82E7@@YAXXZ,,0x007B82E7,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00E031A8 tail-jmp pinned deque BfmeE12 dtor 0x005858F3
