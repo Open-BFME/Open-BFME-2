@@ -61825,3 +61825,4 @@ _Rva007F5790Callback,,0x00661F40,15,Code/GameEngine/Source/GameNetwork/Rva007F70
 ?rva00577A0E@Rva00577A0E@@QBE?AVAsciiString@@XZ,,0x00577A0E,28,Code/GameEngine/Source/Common/AptStateCalls.cpp,matched,forwarder via plus40 plus00 to rowed Apt path by value
 ?rva00577324@Rva005772BF@@QAEXPBXH@Z,,0x00577324,50,Code/GameEngine/Source/Common/MemberBaseDtorsB01.cpp,matched,vslot 3 via plus8 plus14 to rowed 5 minus1 else write
 ??0Rva0032E81D@@QAE@ABV0@@Z,,0x0032E800,29,Code/GameEngine/Source/GameLogic/Object/Behavior/Rva0032E81DMethod.cpp,matched,copy ctor int plus VecVec via rowed vector copyctor caller 0x0032EDD9
+??$_Construct@VRva0032E81D@@V1@@_STL@@YAXPAVRva0032E81D@@ABV1@@Z,,0x0032E94B,45,Code/GameEngine/Source/GameLogic/Object/Behavior/Rva0032E94BConstruct.cpp,matched,STLport Construct via rowed copy ctor 0x0032E800 caller 0x0032EA93
