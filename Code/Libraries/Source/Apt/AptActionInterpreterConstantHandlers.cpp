@@ -35,6 +35,9 @@ public:
     AptInteger *c_integer() const;
     bool isUndefined() const;
     bool isInteger() const;
+    bool isFloat() const;
+    bool isString() const;
+    void SetString(const char *);
     float toFloat() const;
     bool toBool() const;
     int toInteger() const;
@@ -42,10 +45,11 @@ public:
 };
 class AptCIH;
 struct AptCharacterInst;
-class EAStringC { void *mpData; public: EAStringC(); unsigned int rva006D3750() const; EAStringC(const char *); ~EAStringC(); EAStringC &operator=(const EAStringC &); };
+class EAStringC { void *mpData; public: const char *rva00620090() const; int rva006d6070(const char *,int=0); EAStringC(); unsigned int rva006D3750() const; EAStringC(const char *); ~EAStringC(); EAStringC &operator=(const EAStringC &); };
 class AptString : public AptValue { public: static AptString *Create(); EAStringC str; };
 class AptInteger : public AptValue { public: static AptValue *Create(int); int GetInt() const; };
 int Rva006CD220Get();
+bool rva006fc370(AptValue *);
 class AptBoolean { public: static AptValue *Create(bool); };
 AptValue *Rva008A4EA0MakeFloat(float);
 EAStringC *Rva0070B4F0GetString(int);
@@ -70,6 +74,7 @@ class AptBasePtrStack
 public:
     void Push(AptValue *);
     void PushNoInc(AptValue *);
+    void rva006FE920();
     __forceinline AptValue *At(int nPos) const
     {
         if (!(count-nPos>0)) {
@@ -126,6 +131,7 @@ struct AptActionInterpreter
     unsigned char m_betweenPoolAndFrameBase[0x64-0x48];
     // Original Godfather debug/release field100; native Pop reads +0x64.
     int mnStackFrameBase;
+    bool setVariable(AptValue *, AptValue *, const EAStringC *, AptValue *, int=1, int=1, int=0);
     AptValue *getVariable(AptValue *, AptValue *, const EAStringC *, int=1, int=1, int=0);
 private:
 #define HANDLER(n) static void _FunctionAptAction##n(AptActionInterpreter *const,LocalContextT *const)
@@ -143,6 +149,7 @@ private:
     HANDLER(CallFunction); HANDLER(CallMethod);
     HANDLER(CallFuncAndPop); HANDLER(CallFuncSetVar); HANDLER(CallMethodPop); HANDLER(CallMethodSetVar); HANDLER(DictCallFuncPop); HANDLER(DictCallFuncSetVar); HANDLER(DictCallMethodPop); HANDLER(DictCallMethodSetVar);
     HANDLER(ToInteger); HANDLER(StringLength); HANDLER(GetVariable);
+    HANDLER(ToNumber); HANDLER(ToString);
     HANDLER(SetVariable); HANDLER(GetMember); HANDLER(SetMember);
     HANDLER(PushStringGetVar); HANDLER(PushStringGetMember); HANDLER(PushStringSetVar); HANDLER(PushStringSetMember);
 #undef HANDLER
@@ -735,3 +742,63 @@ void AptActionInterpreter::_FunctionAptActionGetVariable(AptActionInterpreter *c
 
 // Default construction folds with the existing empty-string reset provider.
 #pragma comment(linker, "/alternatename:??0EAStringC@@QAE@XZ=?clear@EAStringC@@QAEAAV1@XZ")
+
+// The native ToNumber shares the source's early return for SWF7 undefined;
+// retaining that branch also preserves its final argument-setup scheduling.
+void AptActionInterpreter::_FunctionAptActionToNumber(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    AptValue *value=p->stack.At(0);
+    if (!value->isFloat() && !value->isInteger()) {
+        AptValue *result=gpUndefinedValue;
+        if (!rva006fc370(value)) {
+            if (Rva006CD220Get()==7 && value->isUndefined()) {
+                p->stack.rva006FE920();
+                p->stack.Push(result);
+                return;
+            }
+            EAStringC text;
+            value->toString(text);
+            int place=text.rva006d6070(".");
+            if (place!=-1 && place!=text.rva006D3750()) result=Rva008A4EA0MakeFloat(value->toFloat());
+            else result=AptInteger::Create(value->toInteger());
+        }
+        p->stack.rva006FE920();
+        p->stack.Push(result);
+    }
+}
+// Native ToString handles SWF7 undefined through pooled text ID A9; the later
+// implementation uses Append_ToString. Preserve the native scoped temporary
+// and original SetString path, both independently visible in PC calls.
+void AptActionInterpreter::_FunctionAptActionToString(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    AptValue *value=p->stack.At(0);
+    if (!value->isString()) {
+        if (Rva006CD220Get()==7 && value->isUndefined()) {
+            AptString *str=AptString::Create();
+            str->SetString(Rva0070B4F0GetString(0xA9)->rva00620090());
+            p->stack.rva006FE920();
+            p->stack.Push(str);
+            return;
+        }
+        EAStringC text;
+        value->toString(text);
+        p->stack.Pop();
+        AptString *str=AptString::Create();
+        str->str=text;
+        p->stack.Push(str);
+    }
+}
+void AptActionInterpreter::_FunctionAptActionSetVariable(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    EAStringC text;
+    AptValue *value=p->stack.At(0);
+    AptValue *name=p->stack.At(1);
+    name->toString(text);
+    p->setVariable((AptValue *)c->pCurrentContext,c->pCurWith,&text,value,1);
+    p->stack.Pop(2);
+    if (g_releaseVectorAtE17710->GetNumValues()!=0 && p->stack.count==0)
+        g_releaseVectorAtE17710->ReleaseValues();
+}
+
+#pragma comment(linker, "/alternatename:?isFloat@AptValue@@QBE_NXZ=?isFloat@BfmeAptValue006DCD20@@QBEHXZ")
+#pragma comment(linker, "/alternatename:?isString@AptValue@@QBE_NXZ=?isString@BfmeAptValue006DCD20@@QBEHXZ")
