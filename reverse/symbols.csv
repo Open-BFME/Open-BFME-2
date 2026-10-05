@@ -12080,3 +12080,16 @@ _rva00286E33@8,0x00286E33,stdcall out-param 5B writer called from 0x287B2A with 
 ?rva002C995D@Rva002C9B80Member@@QAEXPAX0M@Z,0x002C995D,"address read from retail REL32 at 0x002C9BB8 in 0x002C9B80 (E8 -> 0x2C995D); thiscall this=[esi+4] (void*,void*,float) void return; Ghidra 103B range target; opaque address name, pin candidate-not-proof"
 ?rva001E3647@Pathfinder@@QAEPAXHH@Z,0x001E3647,thiscall lookup returning the +0x0C-tagged record; pin for dump-range-13 Pathfinder predicates
 ?rva001E3647Pos@Pathfinder@@QAEPAXHPBUCoord3D@@@Z,0x001E3647,thiscall lookup overload taking (int, pos); same address as the (int,int) pin; additive pin for dump-range-13 rva002E9871
+??0Rva0014F647Element@@QAE@ABU0@@Z,0x0014F4E3,element copy constructor: REL32 read at the copy call site in the 45B EH _Construct 0x0014F647; element identity unproven; address-derived name
+??0Rva002B91EDElement@@QAE@ABU0@@Z,0x002B90D6,element copy constructor: REL32 read at the copy call site in the 45B EH _Construct 0x002B91ED; element identity unproven; address-derived name
+??0Rva002E160FElement@@QAE@ABU0@@Z,0x002E134C,element copy constructor: REL32 read at the copy call site in the 45B EH _Construct 0x002E160F; element identity unproven; address-derived name
+??0Rva00423648Element@@QAE@ABU0@@Z,0x004220CD,element copy constructor: REL32 read at the copy call site in the 45B EH _Construct 0x00423648; element identity unproven; address-derived name
+??0Rva004C734DElement@@QAE@ABU0@@Z,0x004C7330,element copy constructor: REL32 read at the copy call site in the 45B EH _Construct 0x004C734D; element identity unproven; address-derived name
+??0Rva004F868AElement@@QAE@ABU0@@Z,0x004F802C,element copy constructor: REL32 read at the copy call site in the 45B EH _Construct 0x004F868A; element identity unproven; address-derived name
+??0Rva00502082Element@@QAE@ABU0@@Z,0x00501DD4,element copy constructor: REL32 read at the copy call site in the 45B EH _Construct 0x00502082; element identity unproven; address-derived name
+??0Rva00502667Element@@QAE@ABU0@@Z,0x005020AF,element copy constructor: REL32 read at the copy call site in the 45B EH _Construct 0x00502667; element identity unproven; address-derived name
+??0Rva00502C53Element@@QAE@ABU0@@Z,0x00502909,element copy constructor: REL32 read at the copy call site in the 45B EH _Construct 0x00502C53; element identity unproven; address-derived name
+??0Rva0052D6BEElement@@QAE@ABU0@@Z,0x0052D555,element copy constructor: REL32 read at the copy call site in the 45B EH _Construct 0x0052D6BE; element identity unproven; address-derived name
+??0Rva00557C90Element@@QAE@ABU0@@Z,0x005564EB,element copy constructor: REL32 read at the copy call site in the 45B EH _Construct 0x00557C90; element identity unproven; address-derived name
+??0Rva00600F9CElement@@QAE@ABU0@@Z,0x00600F76,element copy constructor: REL32 read at the copy call site in the 45B EH _Construct 0x00600F9C; element identity unproven; address-derived name
+??0Rva002BAE2AElement@@QAE@ABU0@@Z,0x002B9247,element copy constructor: REL32 read at the copy call site in the 45B EH _Construct 0x002BAE2A; callee already rowed as the vector<Rva002B72C9> copy ctor so the element is likely that vector; address-derived placeholder name
