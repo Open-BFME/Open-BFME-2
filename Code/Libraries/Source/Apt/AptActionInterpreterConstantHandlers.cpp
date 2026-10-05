@@ -159,7 +159,7 @@ struct AptActionInterpreter
     AptValue *getVariable(AptValue *, AptValue *, const EAStringC *, int=1, int=1, int=0);
 private:
 #define HANDLER(n) static void _FunctionAptAction##n(AptActionInterpreter *const,LocalContextT *const)
-    HANDLER(StopDragMovie); HANDLER(Play); HANDLER(Stop); HANDLER(NextFrame); HANDLER(PrevFrame);
+    HANDLER(GotoFrame); HANDLER(StopDragMovie); HANDLER(Play); HANDLER(Stop); HANDLER(NextFrame); HANDLER(PrevFrame);
     HANDLER(PushFloat); HANDLER(PushByte); HANDLER(PushWord); HANDLER(PushDWord);
     HANDLER(Return); HANDLER(DefineDictionary); HANDLER(PushStringDictByte); HANDLER(PushStringDictWord);
     HANDLER(PushThis); HANDLER(PushGlobal); HANDLER(Push0); HANDLER(Push1);
@@ -1200,4 +1200,19 @@ void AptActionInterpreter::_FunctionAptActionStopDragMovie(AptActionInterpreter 
     AptValue *drag=g_bfmeAptPtrAtE176D0->mpDragMC;
     if (drag) drag->Release();
     g_bfmeAptPtrAtE176D0->mpDragMC=gpUndefinedValue;
+}
+
+void AptActionInterpreter::_FunctionAptActionGotoFrame(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    AptCIH *cih=0;
+    c->pInstruction=(const unsigned char *)(((unsigned int)c->pInstruction+3)&~3U);
+    const int *frame=(const int *)c->pInstruction;
+    c->pInstruction+=4;
+    if(c->pCurWith && c->pCurWith->isCIH()) cih=c->pCurWith->c_cih();
+    else if(c->pCurrentContext->isCIH()) cih=c->pCurrentContext->c_cih();
+    if(cih) {
+        cih->jumpToFrame(*frame);
+        cih->SpriteBaseInline()->mbIsPlaying=0;
+    }
+    if(g_releaseVectorAtE17710->GetNumValues()!=0 && p->stack.count==0) g_releaseVectorAtE17710->ReleaseValues();
 }
