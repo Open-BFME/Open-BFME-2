@@ -10411,3 +10411,4 @@ _xferThreeInts,0x0060BC53,donor_sweep: call target read from retail at a unique 
 ?rva000581FA@MilesAudioManager@@QAEXABURva0005BA08InfoRef@@H@Z,0x000581FA,callee of rva0005BA08 read from its byte-true call at 0x0005BB46; Ghidra start FUN_004581fa (83B; thiscall; ret 8); address-named until rowed
 ?rva00059AD0@MilesAudioManager@@QAEMPAXH@Z,0x00059AD0,callee of rva0005A9F8 read from its byte-true call at 0x0005AA0B; Ghidra start FUN_00459ad0 (534B; thiscall float; event pointer + int); address-named until rowed
 ??0?$BitFlags@$0HE@@@QAE@ABV0@@Z,0x0004543D,ICF twin of rowed BfmeFixedStorage0004543D copy same 28B memcpy caller 0x003C2EC9
+?rva0043B2A4Clear@Rva0043B725@@QAEXW4ObjectID@@H@Z,0x0043B2A4,ICF twin of the matched free stdcall ?Rva0043B2A4Clear@@YGXW4ObjectID@@H@Z: same 44-byte body at the same address. rva0043B73D loads this into ecx before each call, so the call site is thiscall on Rva0043B725.

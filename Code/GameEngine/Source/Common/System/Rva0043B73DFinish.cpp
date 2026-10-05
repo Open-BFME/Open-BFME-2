@@ -1,9 +1,16 @@
 // ?rva0043B73D@Rva0043B725@@QAEXXZ
-// partial score=0.9 date=2026-10-02
 // cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /GX /arch:SSE /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
 // stlport
-// ?rva0043B73D@Rva0043B725@@QAEXXZ @0x0043B73D 295B
-// Evidence: this+4 Rva0043B2E2 tree via rva0043B72D erase; TheGameLogic+0x40 frame; rowed findObjectByID 0x49DC5 push_back ScienceType 0x2E01C6 Clear 0x43B2A4 _M_increment 0x24250 free 0x30830 plus pin attemptDamage 0x29848E; caller 0x245941.
+//
+// Evidence: this+4 Rva0043B2E2 tree via rva0043B72D erase; TheGameLogic+0x40
+// frame; rowed findObjectByID 0x49DC5, push_back ScienceType 0x2E01C6, Clear
+// 0x43B2A4, _M_increment 0x24250, free 0x30830, plus pin attemptDamage
+// 0x29848E; caller 0x245941.
+//
+// Rva0043B2A4Clear (0x0043B2A4) is reached through `this`: retail loads `this`
+// into ecx immediately before each call, so it is a thiscall member of this class
+// rather than the free stdcall that name also carries. `di` is bound inside the
+// obj!=0 arm, which is what defers `lea esi,[ebx+0x14]` past the early exit.
 #include <map>
 #include <vector>
 
@@ -57,7 +64,7 @@ public:
 	unsigned char m_flag438;
 };
 
-void __stdcall Rva0043B2A4Clear(ObjectID id, int value);
+
 
 struct MapNode
 {
@@ -83,12 +90,12 @@ public:
 	void rva0043B725();
 	unsigned int rva0043B72D(int x);
 	void rva0043B73D();
+	void rva0043B2A4Clear(ObjectID id, int value);
 private:
 	char m_pad[4];
 	Rva0043B2E2 m_tree;
 };
 
-// ?rva0043B73D@Rva0043B725@@QAEXXZ present-unmatched
 void Rva0043B725::rva0043B73D()
 {
 	unsigned int curFrame = TheGameLogic->m_frame;
@@ -97,7 +104,6 @@ void Rva0043B725::rva0043B73D()
 	while (node != m_tree.m_head)
 	{
 		ScienceType *keyPtr = &node->m_key;
-		DamageInfo *di = &node->m_data;
 		Object *obj = TheGameLogic->findObjectByID((ObjectID)*keyPtr);
 		if (obj == 0)
 		{
@@ -105,10 +111,11 @@ void Rva0043B725::rva0043B73D()
 		}
 		else
 		{
+			DamageInfo *di = &node->m_data;
 			if (di->m_80 == 0)
 			{
 				((_STL::vector<ScienceType> &)vecRaw).push_back(*keyPtr);
-				Rva0043B2A4Clear((ObjectID)*keyPtr, di->m_10);
+				this->rva0043B2A4Clear((ObjectID)*keyPtr, di->m_10);
 			}
 			else if (di->m_84 != 0 && curFrame >= di->m_84)
 			{
@@ -122,11 +129,12 @@ void Rva0043B725::rva0043B73D()
 			else if (di->m_80 != 0 && curFrame >= di->m_80)
 			{
 				((_STL::vector<ScienceType> &)vecRaw).push_back(*keyPtr);
-				Rva0043B2A4Clear((ObjectID)*keyPtr, di->m_10);
+				this->rva0043B2A4Clear((ObjectID)*keyPtr, di->m_10);
 			}
 		}
 		node = (MapNode *)_STL::_Rb_global<bool>::_M_increment((_STL::_Rb_tree_node_base *)node);
 	}
 	for (ScienceType *p = ((_STL::vector<ScienceType> &)vecRaw).begin(); p != ((_STL::vector<ScienceType> &)vecRaw).end(); ++p)
 		rva0043B72D(*p);
+//</REGION>
 }
