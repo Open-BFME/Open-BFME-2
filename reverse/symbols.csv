@@ -12991,3 +12991,4 @@ _Rva00337999Forward,0x00337999,REL32 callee decoded from target call bytes of wr
 ?peerEnumPlayers@@YAXPAXW4RoomType@@P6AX0H1HPBDH0@Z0@Z,0x00698F10,GameSpy SDK C export peerEnumPlayers at this address; PeerThread.cpp declares the SDK through the sweep Peer.h with C++ linkage, and doQuickMatch at 0x0038E684 calls this body where the Zero Hour source calls peerEnumPlayers
 ?peerGetLocalIP@@YAIPAX@Z,0x00698A20,GameSpy SDK C export peerGetLocalIP at this address; PeerThread.cpp declares the SDK through the sweep Peer.h with C++ linkage, and doQuickMatch at 0x0038E684 calls this body where the Zero Hour source calls peerGetLocalIP
 ?Switch_Thread@ThreadClass@@SAXXZ,0x006105C0,doQuickMatch at 0x0038E684 calls this address where the Zero Hour source calls Switch_Thread(); same body as the BFMEPoolYield row
+?forward@Rva0040E6D6Sub@@QAEXPAH@Z,0x002E01C6,thiscall 1-arg subobject forwarder called by Rva0040E6D6Host::forwardFrom 0x0040E6D6; read from its REL32
