@@ -63623,3 +63623,14 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva001F9424@Rva001F9424@@QAEXHH@Z,,0x001F9424,42,Code/GameEngine/Source/Common/Rva001F8213Chain.cpp,matched,chained conditional forward calling 0x001F8DE2 on member
 ?rva001FA4C6@Rva001FA4C6@@QAEXHH@Z,,0x001FA4C6,42,Code/GameEngine/Source/Common/Rva001F8213Chain.cpp,matched,chained conditional forward calling 0x001F9424 on member
 ?rva001FA7CE@Rva001FA7CE@@QAEXHH@Z,,0x001FA7CE,42,Code/GameEngine/Source/Common/Rva001F8213Chain.cpp,matched,chained conditional forward calling 0x001FA4C6 on member
+?rva0010BA61@Rva0010BA61@@QAEXXZ,,0x0010BA61,16,Code/GameEngine/Source/Common/Rva0010BA61Wrappers.cpp,matched,helper-then-tail wrapper calling 0x00109D64 and rowed-pin tail 0x00108895
+?rva004E54B8@Rva004E54B8@@QAEXXZ,,0x004E54B8,16,Code/GameEngine/Source/Common/Rva0010BA61Wrappers.cpp,matched,helper-then-tail wrapper calling 0x004E5372 with tail 0x004E52DC
+?rva005962E7@Rva005962E7@@QAEXXZ,,0x005962E7,16,Code/GameEngine/Source/Common/Rva0010BA61Wrappers.cpp,matched,helper-then-tail wrapper calling rowed 0x0025C010 with tail 0x00596269
+?rva005D1516@Rva005D1516@@QAEXXZ,,0x005D1516,17,Code/GameEngine/Source/Common/Rva0010BA61Wrappers.cpp,matched,helper-then-member-tail wrapper with +8 member and tail 0x005D13C2
+?rva005E1906@Rva005E1906@@QAEXXZ,,0x005E1906,17,Code/GameEngine/Source/Common/Rva0010BA61Wrappers.cpp,matched,helper-then-member-tail wrapper with +0xC member and tail 0x005E18D0
+?rva005E1917@Rva005E1917@@QAEXXZ,,0x005E1917,17,Code/GameEngine/Source/Common/Rva0010BA61Wrappers.cpp,matched,helper-then-member-tail wrapper with +0xC member and tail 0x005E18DC
+?rva005E1BC4@Rva005E1BC4@@QAEXXZ,,0x005E1BC4,17,Code/GameEngine/Source/Common/Rva0010BA61Wrappers.cpp,matched,helper-then-member-tail wrapper with +0xC member and tail 0x005E1B9A
+?rva005E25DE@Rva005E25DE@@QAEXXZ,,0x005E25DE,17,Code/GameEngine/Source/Common/Rva0010BA61Wrappers.cpp,matched,helper-then-member-tail wrapper with +0xC member and tail 0x005E254C
+?rva005E590F@Rva005E590F@@QAEXXZ,,0x005E590F,17,Code/GameEngine/Source/Common/Rva0010BA61Wrappers.cpp,matched,helper-then-member-tail wrapper with +8 member and tail 0x005E589E
+?rva005E6BA3@Rva005E6BA3@@QAEXXZ,,0x005E6BA3,17,Code/GameEngine/Source/Common/Rva0010BA61Wrappers.cpp,matched,helper-then-member-tail wrapper with +0x20 member and tail 0x005E6A9D
+?rva005E6BB4@Rva005E6BB4@@QAEXXZ,,0x005E6BB4,17,Code/GameEngine/Source/Common/Rva0010BA61Wrappers.cpp,matched,helper-then-member-tail wrapper with +0x20 member and tail 0x005E6AD8
