@@ -203,3 +203,21 @@ AptValue *aptMathMax(void *self, int argc)
     float result = selected->rva006DD460();
     return Rva008A4EA0MakeFloat(result);
 }
+
+// Native 6E8620..6E8678: round away from zero using the shared zero and
+// half literals, then convert through the CRT integer helper. BFME1 6583b3c1
+// aptMathRound supplies the algorithm; checked stack access is target-specific.
+extern const float g_aptNumberZeroAtBBAEAC;
+extern const float g_aptMathHalfAtBC26F0;
+AptValue *aptMathRound(void *self, int argc)
+{
+    if (argc <= 0) return reinterpret_cast<AptValue *>(g_aptUndefinedAtE18078);
+    float value = g_aptDateInterpreter.stack.At(0)->rva006DD460();
+    if (value > g_aptNumberZeroAtBBAEAC) {
+        value += g_aptMathHalfAtBC26F0;
+        return AptInteger::Create((int)value);
+    }
+    value -= g_aptMathHalfAtBC26F0;
+    return AptInteger::Create((int)value);
+}
+extern const float g_aptMathHalfAtBC26F0 = 0.5f;
