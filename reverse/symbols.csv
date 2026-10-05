@@ -12740,3 +12740,6 @@ _g_pRva00437E9C,0x00E032FC,global pointer read by wrapper 0x00437E9C (peer notes
 ?run@Rva00538674Sub@@QAEXH@Z,0x00538674,REL32 callee decoded from target call bytes of adjust-call-echo 0x0030BEF9; identity unproven
 ?run@Rva0007E03ASub@@QAEXH@Z,0x0007E03A,REL32 callee decoded from target call bytes of adjust-call-echo 0x00330C0F; identity unproven
 ?run@Rva002E3876Sub@@QAEXH@Z,0x002E3876,REL32 callee decoded from target call bytes of adjust-call-echo 0x00330C22; identity unproven
+?run@Rva00548527Runner@@QAEXXZ,0x00548527,REL32 callee decoded from target call bytes of find-then-run 0x0035519E; identity unproven
+?run@Rva00548632Runner@@QAEXXZ,0x00548632,REL32 callee decoded from target call bytes of find-then-run 0x003551D3; identity unproven
+?run@Rva0040F7E5Runner@@QAEXXZ,0x0040F7E5,REL32 callee decoded from target call bytes of find-then-run 0x0040FAFE; identity unproven

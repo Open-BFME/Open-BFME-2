@@ -63417,3 +63417,7 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?fwd@Rva0030BEF9Owner@@QAEHH@Z,,0x0030BEF9,19,Code/GameEngine/Source/Common/RvaAdjustCallEchoFamily.cpp,matched,Address-derived adjust-call-echo -0x28; 19B shape
 ?fwd@Rva00330C0FOwner@@QAEHH@Z,,0x00330C0F,19,Code/GameEngine/Source/Common/RvaAdjustCallEchoFamily.cpp,matched,Address-derived adjust-call-echo -0x3C; 19B shape
 ?fwd@Rva00330C22Owner@@QAEHH@Z,,0x00330C22,19,Code/GameEngine/Source/Common/RvaAdjustCallEchoFamily.cpp,matched,Address-derived adjust-call-echo -0x3C; 19B shape
+?rva0035519E@AiOrdersManager@@QAEXH@Z,,0x0035519E,23,Code/GameEngine/Source/Common/RvaFindThenRunFamily.cpp,matched,AiOrdersManager find-then-run via rowed Armor find; 23B shape
+?rva003551D3@AiOrdersManager@@QAEXH@Z,,0x003551D3,23,Code/GameEngine/Source/Common/RvaFindThenRunFamily.cpp,matched,Address-derived find-then-run void(int); 23B push/call/test/mov/call shape
+?fwd@Rva0040D3E8Owner@@QAEXH@Z,,0x0040D3E8,23,Code/GameEngine/Source/Common/RvaFindThenRunFamily.cpp,matched,Address-derived find-then-run void(int); 23B push/call/test/mov/call shape
+?fwd@Rva0040FAFEOwner@@QAEXH@Z,,0x0040FAFE,23,Code/GameEngine/Source/Common/RvaFindThenRunFamily.cpp,matched,Address-derived find-then-run void(int); 23B push/call/test/mov/call shape
