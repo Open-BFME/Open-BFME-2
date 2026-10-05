@@ -35,6 +35,17 @@ public:
 
 extern "C" __declspec(dllimport) int __cdecl sprintf(char *buffer, const char *format, ...);
 extern "C" char *__cdecl strcpy(char *destination, const char *source);
+extern "C" __declspec(dllimport) int __cdecl _strcmpi(const char *left, const char *right);
+extern "C" __declspec(dllimport) int __cdecl atoi(const char *text);
+
+extern const char g_00BBFDE0[];
+extern const char g_00BBFDDC[];
+
+class Rva00518359
+{
+public:
+	void rva00518359();
+};
 
 // OptionPreferences_enumDispatch.cpp's enum table at 0x00DBD120.
 struct BfmeEnumTableEntry
@@ -91,6 +102,7 @@ public:
 	void EnterAdvancedSettings(const char *unused);
 	void rva00518C0D(int query, char *value, bool set);
 	void rva00518FEA(int query, int kind);
+	void rva0051904F(int query, char *value, bool set);
 
 	// Unrowed 0x00518B05 (264 bytes; a warning prompt), pinned by address.
 	void rva00518B05(const AsciiString &text, int kind);
@@ -98,9 +110,12 @@ public:
 private:
 	unsigned char m_pad000[0x27C];
 	int m_state; // +0x27C
-	unsigned char m_pad280[0x283 - 0x280];
+	unsigned char m_pad280[0x281 - 0x280];
+	bool m_281; // +0x281
+	bool m_282; // +0x282
 	bool m_online; // +0x283
-	unsigned char m_pad284[0x308 - 0x284];
+	bool m_284; // +0x284
+	unsigned char m_pad285[0x308 - 0x285];
 	AsciiString m_308; // +0x308
 	unsigned char m_pad30c[0x310 - 0x30C];
 	int m_preset; // +0x310, -1 for custom settings
@@ -203,5 +218,76 @@ void AptOptions::rva00518FEA(int query, int kind)
 	rva00518B05(AsciiString("APT:WarnHighGraphicSettings"), kind);
 }
 
+// Retail 0x0051904F, 280 bytes: Apt queries 0-6 for the graphics preset
+// page. Query 1 writes the preset (Custom or numeric with 0x00518FEA warn)
+// and refreshes via 0x00518359; reads answer counts, preset text, LOD level
+// and 0/1 flags at +0x281/+0x282/+0x283/+0x284. Caller of 0x00518FEA.
+void AptOptions::rva0051904F(int query, char *value, bool set)
+{
+	if (!set)
+	{
+		value[0] = '0';
+		value[1] = 0;
+	}
+	switch (query)
+	{
+	case 0:
+		if (set)
+			return;
+		sprintf(value, "%d", 5);
+		break;
+	case 1:
+		if (set)
+		{
+			if (_strcmpi(value, "Custom") == 0)
+				m_preset = 5;
+			else
+			{
+				int v = atoi(value);
+				rva00518FEA(v, 2);
+				m_preset = v;
+			}
+			((Rva00518359 *)this)->rva00518359();
+		}
+		else
+		{
+			if (m_preset == 5)
+				strcpy(value, "Custom");
+			else
+				sprintf(value, "%d", m_preset);
+		}
+		break;
+	case 2:
+		if (set)
+			return;
+		sprintf(value, "%d", TheGameLODManager->m_17c4);
+		break;
+	case 4:
+		if (set)
+			return;
+		strcpy(value, m_281 ? g_00BBFDE0 : g_00BBFDDC);
+		break;
+	case 5:
+		if (set)
+			return;
+		strcpy(value, m_online ? g_00BBFDE0 : g_00BBFDDC);
+		break;
+	case 6:
+		if (set)
+			return;
+		strcpy(value, m_284 ? g_00BBFDE0 : g_00BBFDDC);
+		break;
+	case 3:
+		if (set)
+			return;
+		strcpy(value, m_282 ? g_00BBFDE0 : g_00BBFDDC);
+		break;
+	}
+}
+
 // Retail's strcpy call lands on the import thunk rowed as ji_00629176.
 #pragma comment(linker, "/alternatename:_strcpy=?ji_00629176@@YAXXZ")
+// Retail's 0/1 flag strings at 0x007BFDE0 ("1") and 0x007BFDDC ("0") are the
+// literals the String-ref gate verifies; bind the g_ spellings to them.
+#pragma comment(linker, "/alternatename:?g_00BBFDDC@@3QBDB=??_C@_01GBGANLPD@0?$AA@")
+#pragma comment(linker, "/alternatename:?g_00BBFDE0@@3QBDB=??_C@_01HIHLOKLC@1?$AA@")
