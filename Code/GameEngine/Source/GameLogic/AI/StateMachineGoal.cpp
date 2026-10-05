@@ -105,6 +105,10 @@ struct State
 	virtual Bool isAttack() const;
 	virtual Bool isGuardIdle() const;
 	virtual Bool isBusy() const;
+	virtual Bool vslot2C() const;
+	virtual Bool vslot30() const;
+	virtual Bool vslot34() const;
+	virtual Bool vslot38() const;
 	StateReturnType friend_checkForTransitions(StateReturnType status);
 	StateReturnType friend_checkForSleepTransitions(StateReturnType status);
 };
@@ -149,6 +153,13 @@ public:
  	void clear();
 	StateReturnType updateStateMachine();
 	Bool isInBusyState() const;
+	Bool isInAttackState() const;
+	Bool isInGuardIdleState() const;
+	Bool rva002621DA() const;
+	Bool rva002621EB() const;
+	Bool rva002621FC() const;
+	Bool rva0026220D() const;
+	void lock(const char *msg);
 };
 
 class TurretStateMachine : public StateMachine
@@ -435,6 +446,48 @@ inline Bool StateMachine::isInBusyState() const
 	return false;
 }
 
+// Out-of-line copies of the current-state queries, retail 0x002621B8..
+// 0x0026221C (17, 17, 17, 17, 17 and 16 bytes) followed by lock (7 bytes,
+// 0x0026221D). Each asks the current state's virtual at the given slot
+// (isAttack 8, isGuardIdle 9, then slots 11-14) and answers true without a
+// state, except the last, which answers false. isInAttackState sits in slot
+// 11 of the StateMachine vtables (e.g. 0x00C11AEC); the others and lock have
+// no reference, like the retail-kept copies of other header inlines.
+inline Bool StateMachine::isInAttackState() const
+{
+	return m_currentState ? ((State *)m_currentState)->isAttack() : true;
+}
+
+inline Bool StateMachine::isInGuardIdleState() const
+{
+	return m_currentState ? ((State *)m_currentState)->isGuardIdle() : true;
+}
+
+inline Bool StateMachine::rva002621DA() const
+{
+	return m_currentState ? ((State *)m_currentState)->vslot2C() : true;
+}
+
+inline Bool StateMachine::rva002621EB() const
+{
+	return m_currentState ? ((State *)m_currentState)->vslot30() : true;
+}
+
+inline Bool StateMachine::rva002621FC() const
+{
+	return m_currentState ? ((State *)m_currentState)->vslot34() : true;
+}
+
+inline Bool StateMachine::rva0026220D() const
+{
+	return m_currentState ? ((State *)m_currentState)->vslot38() : false;
+}
+
+inline void StateMachine::lock(const char *msg)
+{
+	m_locked = true;
+}
+
 // Header inlines that the units including the header emit as select-any
 // copies, which plain definitions here collided with. The anchor keeps this
 // unit's copies for the rows; it is not retail code.
@@ -443,5 +496,12 @@ inline Bool StateMachine::isInBusyState() const
 void _bfmeStateMachineInlineAnchor(StateMachine *p)
 {
     p->isInBusyState();
+    p->isInAttackState();
+    p->isInGuardIdleState();
+    p->rva002621DA();
+    p->rva002621EB();
+    p->rva002621FC();
+    p->rva0026220D();
+    p->lock(0);
 }
 #pragma inline_depth()
