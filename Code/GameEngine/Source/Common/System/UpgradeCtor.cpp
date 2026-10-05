@@ -14,6 +14,12 @@
 // plain Snapshot (no separate MemoryPoolObject base, plain operator new). An
 // earlier AABTreeLinkClass name for this address was retracted (see
 // reverse/re_attempts.log).
+//
+// ??1Upgrade@@UAE@XZ @0x0026EDFF (18B) and the deleting destructor
+// ??_GUpgrade@@UAEPAXI@Z @0x0026EF34 (28B, vtable slot 0, its only caller of
+// 0x0026EDFF): BFME 2's destructor clears prev, next and template (status is
+// left alone; ZH's body is empty) before the inline ~Snapshot reinstalls
+// 0x00BBB554.
 
 #include "Common/Snapshot.h"
 
@@ -50,4 +56,11 @@ Upgrade::Upgrade(const UpgradeTemplate *upgradeTemplate)
 	m_status = UPGRADE_STATUS_INVALID;
 	m_next = 0;
 	m_prev = 0;
+}
+
+Upgrade::~Upgrade()
+{
+	m_prev = 0;
+	m_next = 0;
+	m_template = 0;
 }
