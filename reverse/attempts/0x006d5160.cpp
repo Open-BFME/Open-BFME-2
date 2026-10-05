@@ -1,5 +1,6 @@
 // ?Rva006D5160Plus@@YA?AVEAStringC@@PBDABV1@@Z
 // partial score=0.99 date=2026-10-05
+// ?Rva006D5160Plus@@YA?AVEAStringC@@PBDABV1@@Z
 // cl: /O2 /DNDEBUG /MD /EHsc
 // ?Rva006D5160Plus@@YA?AVEAStringC@@PBDABV1@@Z, retail 0x006D5160 (306B).
 // Free PBD-plus-string concat returning by value: empty string builds via PBD
@@ -10,6 +11,17 @@
 // The SEH frame (push -1 / push 0x00BA87B1 / fs:0 chain) comes from /EHsc
 // unwinding the EAStringC temporaries, the same idiom the Rva006C1F60 bodies
 // prove for a local with a destructor.
+//
+// Writing the concat size INLINE (oldSize + len) instead of through a named
+// local is what selects retail's register plan: with the named local VC7 ties
+// ebx to the strlen cursor and ebp to the total, the transpose of retail's
+// ebp=len/ebx=total, which desynchronises the prologue through the whole tail.
+// Inlining it makes the prologue, both early-return arms, the strlen loop and
+// both memcpys byte-identical (260/306). The residue is the destructor tail:
+// retail keeps the temp's data in edi across the return-slot copy ctor and
+// reuses it for FreeData, VC7 reloads [esp+0x10] instead. Using the data
+// pointer through a named `data` local forces a stack slot (sub esp,0x10) and
+// costs more than it buys; /O1 collapses the body.
 #pragma intrinsic(memcpy)
 #pragma intrinsic(strlen)
 extern "C" void *__cdecl memcpy(void *dst, const void *src, unsigned int count);
@@ -54,20 +66,12 @@ EAStringC Rva006D5160Plus(const char *text, const EAStringC &str)
 	if (len == 0) {
 		return EAStringC(str);
 	}
-	unsigned int total = oldSize + len;
-	EAStringC tmp(total);
-	// Retail holds the temp's data pointer in edi across the copy ctor, so the
-	// hash store comes off the live register with no reload; naming it inside a
-	// scope that spans SetSize is what makes this compiler keep it there. The
-	// hash store itself reads tmp again, which is the register this shape buys.
-	{
-		EAStringC::StringDataC *const data = tmp.m_pData;
-		char *dst = (char *)data + 8;
-		memcpy(dst, text, len);
-		memcpy(dst + len, (char *)str.m_pData + 8, oldSize);
-		dst[total] = 0;
-		tmp.SetSize((int)total);
-		tmp.m_pData->m_uHash = 0;
-	}
+	EAStringC tmp(oldSize + len);
+	char *dst = (char *)tmp.m_pData + 8;
+	memcpy(dst, text, len);
+	memcpy(dst + len, (char *)str.m_pData + 8, oldSize);
+	dst[oldSize + len] = 0;
+	tmp.SetSize((int)(oldSize + len));
+	tmp.m_pData->m_uHash = 0;
 	return tmp;
 }
