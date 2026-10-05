@@ -35,16 +35,28 @@ enum PlayerType
 	PLAYER_COMPUTER
 };
 
+class AIUpdateInterface;
+
+enum ObjectStatusTypes
+{
+	OBJECT_STATUS_0x26 = 0x26
+};
+
 class Object
 {
 public:
 	Player *getControllingPlayer() const;
+	bool testStatus(ObjectStatusTypes bit) const;
+	Object *rva002931F5(bool flag);			// 0x002931F5, identity unknown
+	AIUpdateInterface *getAI() { return m_ai; }
 	bool isKindOf(KindOfType kind) const
 	{
 		return (m_template->m_kindof[(UnsignedInt)kind >> 5] & (1UL << ((UnsignedInt)kind & 31))) != 0;
 	}
 	void *m_vtable;
 	BfmeThingTemplate *m_template;
+	unsigned char m_pad08[0x258 - 0x08];
+	AIUpdateInterface *m_ai;
 };
 
 enum MoodMatrixAction
@@ -128,7 +140,25 @@ public:
 	LocomotorSet m_locomotorSet;
 	unsigned char m_pad1E0[0x20C - 0x1E0];
 	TurretAI *m_turretAI[1];
+	unsigned char m_pad210[0x218 - 0x210];
+	AttitudeType m_attitude;
 };
+
+// ?getAttitude@AIUpdateInterface@@QBE?AW4AttitudeType@@XZ @0x00264EB6 60B
+// (Ghidra FUN_00664eb6), pinned from getMoodMatrixValue's call. BFME 2
+// defers to another object's AI while status 0x26 is set: the tail call
+// back into getAttitude is the loop retail jumps through.
+AttitudeType AIUpdateInterface::getAttitude() const
+{
+	Object *obj = getObject();
+	if (obj && obj->testStatus(OBJECT_STATUS_0x26))
+	{
+		Object *other = obj->rva002931F5(false);
+		if (other && other->getAI())
+			return other->getAI()->getAttitude();
+	}
+	return m_attitude;
+}
 
 UnsignedInt AIUpdateInterface::getMoodMatrixValue() const
 {
