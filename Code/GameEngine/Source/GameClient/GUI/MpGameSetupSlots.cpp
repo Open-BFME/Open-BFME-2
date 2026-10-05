@@ -58,6 +58,27 @@ int GadgetListBoxGetNumEntries(GameWindow *listBox);
 int Rva003253BEGet(GameWindow *listBox, int row, int column);
 void GadgetComboBoxSetSelectedPos(GameWindow *comboBox, int index, bool silent);
 
+class MultiplayerColorDefinition
+{
+public:
+	unsigned char m_pad[0x10];
+	int m_color; // +0x10
+};
+
+class MultiplayerSettings
+{
+public:
+	MultiplayerColorDefinition *getColor(int which);
+};
+
+extern MultiplayerSettings *TheMultiplayerSettings;
+extern const unsigned short g_00C3D9D4[];
+void GadgetComboBoxReset(GameWindow *comboBox);
+int GadgetComboBoxAddEntry(GameWindow *comboBox, UnicodeString text, int color);
+void GadgetComboBoxSetItemData(GameWindow *comboBox, int index, void *data);
+void GadgetComboBoxSetMaxDisplay(GameWindow *comboBox, int maxDisplay);
+int Rva0043DDF8(int count);
+
 class Rva00222A8BTarget
 {
 public:
@@ -122,6 +143,7 @@ public:
 	void rva0044149C(GameSlot *slot, int index, bool flag);
 
 	void rva0043E30F(int slot, int value);
+	void rva0043E253(int slot);
 
 private:
 	unsigned char m_pad000[0x58];
@@ -337,4 +359,28 @@ void MpGameSetup::rva0043E30F(int index, int state)
 			return;
 		}
 	}
+}
+
+// Retail 0x0043E253, 188 bytes. Name unknown. Populates the handicap combo
+// box (+0x354) with 0 down to -95 step -5, each entry formatted through
+// g_00C3D9D4 with the default color's +0x10 value and item data equal to the
+// handicap, then selects 0 and limits display through 0x0043DDF8.
+// Evidence: callers 0x004427E8; callees all rowed; TheMultiplayerSettings
+// getColor(-1) plus GadgetComboBoxReset/AddEntry/SetItemData/SetSelectedPos/
+// SetMaxDisplay and UnicodeString::format; neighbours 0x0043E132/0x0043E30F.
+void MpGameSetup::rva0043E253(int slot)
+{
+	if (!m_handicap[slot])
+		return;
+	MultiplayerColorDefinition *color = TheMultiplayerSettings->getColor(-1);
+	GadgetComboBoxReset(m_handicap[slot]);
+	for (int handicap = 0; handicap >= -0x5F; handicap -= 5)
+	{
+		UnicodeString text;
+		text.format(g_00C3D9D4, handicap);
+		int index = GadgetComboBoxAddEntry(m_handicap[slot], text, color->m_color);
+		GadgetComboBoxSetItemData(m_handicap[slot], index, (void *)handicap);
+	}
+	GadgetComboBoxSetSelectedPos(m_handicap[slot], 0, false);
+	GadgetComboBoxSetMaxDisplay(m_handicap[slot], Rva0043DDF8(slot));
 }
