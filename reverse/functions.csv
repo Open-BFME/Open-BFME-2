@@ -62988,3 +62988,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva003F83FE@Rva003F83FE@@QAEPAXH@Z,,0x003F83FE,31,Code/GameEngine/Source/Common/Rva003F83FE.cpp,matched,AsciiString array forward via rowed Rva002104B6
 ?rva0039ABFF@ExperienceTracker@@QBE_NXZ,,0x0039ABFF,13,Code/GameEngine/Source/Common/Rva0039ABFF.cpp,matched,pin helper plus matched caller and global
 ??0Rva002A1B07@@QAE@XZ,,0x002A1B07,22,Code/Libraries/Source/WWVegas/WWLib/Rva002A1B07Ctor.cpp,matched,default ctor with Drawable list member at +4 via pinned List_base 0x00239BB0; exact 22B
+?rva00279797@Rva00279354Host@@QAEXABUOpaqueRefElement4@@@Z,,0x00279797,38,Code/GameEngine/Source/Common/Rva00279354.cpp,matched,unlock lane thiscall via rowed 0x279354 and opaque 0x239099 plus pin 0x2783F6
