@@ -37,9 +37,22 @@ template void _STL::vector<BfmeStringTailRecord156>::_M_clear();
 template void _STL::vector<Rva002390CB>::_M_clear();
 template void _STL::vector<Rva00297360Element>::_M_clear();
 
-// Whole-class instantiation: its members that are rowed were placed at retail
-// by masked search of this TU's emitted bodies plus REL32 callee agreement.
-template class _STL::vector<Rva002390CB,_STL::allocator<Rva002390CB> >;
+// Preserve the stock STLport max semantics but emit its retail 0x13740 shape
+// with speed optimization; size optimization emits a competing COMDAT.
+// The construction specialization is owned by stlport_construct_throw_spec.cpp.
+#pragma optimize("t", on)
+namespace _STL {
+template <> inline const unsigned int &max<unsigned int>(
+    const unsigned int &x, const unsigned int &y)
+{
+    return x < y ? y : x;
+}
+
+template <> void _Construct<Rva002390CB, Rva002390CB>(Rva002390CB *, const Rva002390CB &);
+}
+#pragma optimize("s", on)
+// Explicit members avoid unrelated incompatible whole-class COMDAT copies.
+template void _STL::vector<Rva002390CB, _STL::allocator<Rva002390CB> >::push_back(const Rva002390CB &);
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.

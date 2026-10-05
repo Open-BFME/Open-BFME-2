@@ -53,7 +53,10 @@ struct BfmeAssignRecord172 { int a[42]; AsciiString s; BfmeAssignRecord172 &oper
 inline bool operator==(const BfmeAssignRecord172 &x, const BfmeAssignRecord172 &y) { return x.s == y.s; }
 struct BfmeStringTailRecord144 { int a[35]; AsciiString s; };
 inline bool operator==(const BfmeStringTailRecord144 &x, const BfmeStringTailRecord144 &y) { return x.s == y.s; }
-struct BfmeStringTailRecord156 { int a[38]; AsciiString s; };
+// Native __destroy_aux at 0x4CC15D strides 156 bytes but calls the rowed
+// owner-at-offset-zero destructor 0x10F149. Do not emit the implicit trailing
+// AsciiString destructor from this historical copy/code-generation view.
+struct BfmeStringTailRecord156 { int a[38]; AsciiString s; ~BfmeStringTailRecord156(); };
 inline bool operator==(const BfmeStringTailRecord156 &x, const BfmeStringTailRecord156 &y) { return x.s == y.s; }
 struct BfmeStringTailRecord180 { int a[44]; AsciiString s; };
 inline bool operator==(const BfmeStringTailRecord180 &x, const BfmeStringTailRecord180 &y) { return x.s == y.s; }
