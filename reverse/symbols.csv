@@ -12916,3 +12916,4 @@ _Rva00337999Forward,0x00337999,REL32 callee decoded from target call bytes of wr
 ?erase@Rva0005E322TreeView@@QAEIABVAsciiString@@@Z,0x0005B5EA,address-view alias for rowed Rb-tree AsciiString single erase at same address
 ?rva0007BF5A_4@@YAPAURegion2D@@PAU1@000@Z,0x0007BF5A,4-push call-site view of rowed 0x0007BF5A (retail pushes 4 and keeps leftover eax); definition ignores 4th
 ?rva0007F87C@Rva0007F92AHost@@QAEXHH@Z,0x0007F87C,tail-call target of guard wrapper 0x0007F92A; address-view alias
+?rva00066E69@Rva00062C23Host@@QAEMMM@Z,0x00066E69,tail-call target of guard wrapper 0x00062C23; address-view alias (body blocked 591B)
