@@ -13,6 +13,7 @@
 //   0x002B5944  0x002B4623   0x002B3049   Rva002B3049Record (copy_backward)
 //   0x0032E8F9  0x0032E51B   0x0032DD81   SidesInfo         (copy)
 //   0x001EBACF  0x001EBA13   0x001EB86E   BfmeAssignRecord172 (copy)
+//   0x001D9BD3  0x00255CFA   0x00254D65   FXBoneInfo        (copy)
 #include <algorithm>
 
 struct Rva002B3049Record {
@@ -25,6 +26,11 @@ struct BfmeAssignRecord172 {
 	BfmeAssignRecord172 &operator=(const BfmeAssignRecord172 &);
 };
 
+struct FXBoneInfo {
+	char m_opaque[8];
+	FXBoneInfo &operator=(const FXBoneInfo &);
+};
+
 class SidesInfo {
 public:
 	SidesInfo &operator=(const SidesInfo &);
@@ -35,3 +41,4 @@ private:
 template Rva002B3049Record *_STL::copy_backward<Rva002B3049Record *, Rva002B3049Record *>(Rva002B3049Record *, Rva002B3049Record *, Rva002B3049Record *);
 template SidesInfo *_STL::copy<SidesInfo *, SidesInfo *>(SidesInfo *, SidesInfo *, SidesInfo *);
 template BfmeAssignRecord172 *_STL::copy<BfmeAssignRecord172 *, BfmeAssignRecord172 *>(BfmeAssignRecord172 *, BfmeAssignRecord172 *, BfmeAssignRecord172 *);
+template FXBoneInfo *_STL::copy<FXBoneInfo *, FXBoneInfo *>(FXBoneInfo *, FXBoneInfo *, FXBoneInfo *);
