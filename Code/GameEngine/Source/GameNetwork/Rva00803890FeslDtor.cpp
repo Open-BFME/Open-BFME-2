@@ -4,7 +4,7 @@
 // clear +0C/+10/+14, tail to base vptr restore (Gen_007fa650). Secondary vptr
 // at +4 is an ordinary member so the primary vfptr stays compiler-owned.
 
-extern void *g_Rva00803890Vt2[];
+static int Rva00803890Vt2Anchor;
 
 class Gen_007f9590
 {
@@ -55,7 +55,7 @@ public:
 
 Rva00803890Owner::~Rva00803890Owner()
 {
-	m_vt2 = g_Rva00803890Vt2;
+	m_vt2 = (void *)&Rva00803890Vt2Anchor;
 	if( m_09 )
 	{
 		m_10->m( (int)m_14 );
