@@ -20,7 +20,7 @@ class BfmeBaseVVE
 public:
 	BfmeBaseVVE() : m_bfmeRefs( 1 ) {}
 	~BfmeBaseVVE() { }
-	virtual void bfmeSlot0VVE();
+	virtual void bfmeSlot0VVE() = 0;
 	int m_bfmeRefs;
 };
 
