@@ -519,3 +519,21 @@ void MpGameSetup::OnSortIcons(const char *)
 {
 	rva0043DC40(4);
 }
+
+// Retail 0x0043DC93, 103 bytes: the "MpGameSetup::OnTabSelect" Apt callback
+// (bound by 0x0044303D; 0x0043E4B6 above is bound the same way as
+// "MpGameSetup::OnKickPlayer"). The chat tab refreshes the +0x244 member and
+// the rules tab the +0xD0 member; the clans and map tabs need nothing.
+void MpGameSetup::OnTabSelect(const char *tab)
+{
+	if (strcmp(tab, "ChatTab") == 0)
+		m_244.rva0057FD94();
+	else if (strcmp(tab, "RulesTab") == 0)
+		m_d0.rva0057E6D8();
+	else if (strcmp(tab, "ClansTab") == 0)
+	{
+	}
+	else if (strcmp(tab, "MapTab") == 0)
+	{
+	}
+}
