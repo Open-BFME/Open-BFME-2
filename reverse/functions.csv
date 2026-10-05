@@ -59325,3 +59325,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva002EAD62@Rva002EAD62@@QAEXXZ,,0x002EAD62,23,Code/Libraries/Source/WWVegas/WWLib/stlport_auto_ptr_rva0053476A.cpp,matched,holder deleting owned Rva0053476A via rowed dtor and operator delete
 ??1Rva005F566A@@UAE@XZ,,0x005F566A,14,Code/GameEngine/Source/Common/Rva005F566ADtor.cpp,matched,dtor sets vptr then tail-jmps to rowed clear
 ?reset@Rva002B4326@@QAEXPAVRva004FA2E2@@@Z,,0x002B4326,35,Code/GameEngine/Source/Common/OwnedPointerResets.cpp,matched,reset same pointee as clear 0x002B430C via caller 0x002BD50C
+??1Rva002B4349@@QAE@XZ,,0x002B4349,23,Code/GameEngine/Source/Common/OwnedPointerResets.cpp,matched,holder dtor via pointee 0x004FA2E2 and delete abutting reset

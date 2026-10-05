@@ -1364,3 +1364,20 @@ void Rva002B4326::reset(Rva004FA2E2 *p)
 		}
 	}
 }
+
+class Rva002B4349
+{
+public:
+	Rva004FA2E2 *m_ptr;
+	~Rva002B4349();
+};
+
+Rva002B4349::~Rva002B4349()
+{
+	Rva004FA2E2 *p = m_ptr;
+	if (p)
+	{
+		p->Rva004FA2E2::~Rva004FA2E2();
+		::operator delete(p);
+	}
+}
