@@ -1,5 +1,3 @@
-// ?rva005D9CE0@Rva005D9CD5@@QAE_NPAVObject@@@Z
-// partial score=0.94 date=2026-10-05
 // cl: /O1 /MD /arch:SSE
 // ?rva005D9CE0@Rva005D9CD5@@QAE_NPAVObject@@@Z @0x005D9CE0 76B
 // Evidence: gap between Rva005D9CD5 dtor 0x005D9CD5 and deleting dtor 0x005D9D2C plus vslot 6 of 0x00876424.
@@ -22,19 +20,17 @@ class Rva005D9CD5 : public Rva005EE30C {
 public:
 	bool rva005D9CE0(Object *other);
 };
-// ?rva005D9CE0@Rva005D9CD5@@QAE_NPAVObject@@@Z present-unmatched
 bool Rva005D9CD5::rva005D9CE0(Object *other)
 {
 	Object *victim = other->getAI()->getCurrentVictim();
-	if (!victim)
-		return false;
-	unsigned v = ((Rva005EE816 *)this)->rva005EE3B0(other, false);
-	if (v > 20)
-		return true;
-	if (v == 0)
-		return false;
-	float f = other->getBody()->getFloat();
-	if (g_00C76420 > f)
-		return true;
+	if (victim) {
+		unsigned v = ((Rva005EE816 *)this)->rva005EE3B0(other, false);
+		if (v > 20)
+			return true;
+		if (v != 0) {
+			if (g_00C76420 > other->getBody()->getFloat())
+				return true;
+		}
+	}
 	return false;
 }
