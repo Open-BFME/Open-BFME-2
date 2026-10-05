@@ -56565,3 +56565,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?Rva003C8A95Do@@YGXPAVParameter@@@Z,,0x003C8A95,42,Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003C8A95Do.cpp,matched,unit hunt via getUnitNamed AI 0x258 aiHunt
 ?rva0059B49E@Rva0059B49E@@QAEXPADHH@Z,,0x0059B49E,97,Code/GameEngine/Source/Common/Rva0059B49E.cpp,matched,leaf bounded copy via length rowed pin rva002AC2CF and memcpy
 ?rva006F1530@@YAXPAVBfmeAptValue006DCD20@@@Z,,0x006F1530,63,Code/Libraries/Source/Apt/AptValue/Rva006F1530Finish.cpp,matched,Apt predicate-to-bool helper; isXmlNode then inner slot9 via rowed MakeBool 0x006D88C0; distinct read/write barriers keep both calls non-tail
+?rva00401FAF@Rva00401FAF@@QAEXPBUTreeHintOpaque0043671B@@@Z,,0x00401FAF,141,Code/GameEngine/Source/GameNetwork/Rva00401FAFSet.cpp,matched,holder +8C flag +C8 ptr TreeHint size DF4 via new ctor assign callers 0x43E787 0x43E8DF
