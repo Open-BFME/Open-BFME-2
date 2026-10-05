@@ -1,8 +1,14 @@
 // ?AddSubInternalFPF@@YAXEPAUInternalFPF@@00@Z
-// partial score=0.99 date=2026-09-27
-// ?AddSubInternalFPF@@YAXEPAUInternalFPF@@00@Z
-// partial score=0.99 date=2026-09-27
 // cl: /O2 /GS /MD /GR- /EHsc- -Ireference/shims/nbench
+// BYTEmark emfloat.c AddSubInternalFPF (838 B @0x006B9190). Previous banked
+// attempt reached 836/838: the only residual was the inlined IsMantissaZero
+// OR-reduction, where retail folds the four mantissa words in the order
+// 0,2,3,1 (edx=m3 before ecx=m1) while the plain ascending loop lets the
+// compiler reassociate to an order that loads m1 before m3. Pinning the
+// iteration order through a constant permutation array reproduces retail's
+// unroll exactly; OR is commutative so the result is unchanged. The whole
+// TU is kept because AddSub inlines RoundInternalFPF and the other static
+// helpers, which must be present to reproduce the call/inline shape.
 /*
 ** emfloat.c
 ** Source for emulated floating-point routines.
@@ -256,10 +262,11 @@ static int IsMantissaZero(u16 *mant)
 {
 int i;          /* Index */
 int n;          /* Return value */
+int order[4] = {0,2,3,1};
 
 n=0;
 for(i=0;i<INTERNAL_FPF_PRECISION;i++)
-        n|=mant[i];
+        n|=mant[order[i]];
 
 return(!n);
 }
