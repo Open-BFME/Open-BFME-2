@@ -27,6 +27,12 @@ template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, 
 
 class ModuleData;
 
+class Rva002E1001
+{
+public:
+	bool rva004FC970(int id);
+};
+
 struct Rva004FCD49Vec {
     void *vtbl;
     _STL::vector<int> m_vec;
@@ -37,6 +43,7 @@ class Rva004FD3E2 {
 public:
     void rva004FD3E2(const ModuleData *p);
     void rva004FD533(int key, int unused, int *out) const;
+    bool rva004FD613(int key) const;
 private:
     char m_pad00[0x5c];
     _STL::multimap<int, int> m_map;
@@ -67,4 +74,14 @@ void Rva004FD3E2::rva004FD533(int key, int unused, int *out) const
         if (*out < v)
             *out = v;
     }
+}
+bool Rva004FD3E2::rva004FD613(int key) const
+{
+    _STL::pair<_STL::multimap<int, int>::const_iterator, _STL::multimap<int, int>::const_iterator> r = m_map.equal_range(key);
+    for (_STL::multimap<int, int>::const_iterator it = r.first; it != r.second; ++it) {
+        Rva002E1001 *cand = (Rva002E1001 *)(*it).second;
+        if (cand->rva004FC970(key))
+            return true;
+    }
+    return false;
 }
