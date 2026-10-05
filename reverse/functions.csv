@@ -55874,3 +55874,4 @@ ___Extract_locale_name,,0x000216A0,153,Code/Libraries/Source/WWVegas/WWLib/Local
 ?rva0037341F@Rva00373357@@QAEPAX_N@Z,,0x0037341F,28,Code/GameEngine/Source/Common/Rva00373357.cpp,matched,calls rva00373357 then conditional delete returns this
 ?rva003734A4@Rva003734A4@@QAEXPAX@Z,,0x003734A4,28,Code/GameEngine/Source/Common/Rva003734A4.cpp,matched,push_back ScienceType at plus74 into vector at plus28
 ?rva0055F368@Rva0055F368@@QAEXPAVFile@@I@Z,,0x0055F368,326,Code/GameEngine/Source/GameClient/Rva0055F368Write.cpp,matched,vslot3 DefaultModule02 writeINI gravity damping drift swirly
+?rva0055FB37@Rva0055FB37@@QAEXPAVFile@@I@Z,,0x0055FB37,504,Code/GameEngine/Source/GameClient/Rva0055FB37Write.cpp,matched,vslot3 DefaultModule01 writeINI size angle rotation
