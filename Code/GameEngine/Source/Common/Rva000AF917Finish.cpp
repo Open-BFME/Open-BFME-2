@@ -1,5 +1,4 @@
 // ?readTexClass@WorldHeightMap@@IAEXPAUTXTextureClass@@PAPAVTileData@@@Z
-// partial score=1.0 date=2026-10-04
 // cl: /Ireference/shims/bfme2_ascii /O1 /Oy- /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS
 // stlport
 
@@ -75,6 +74,7 @@ class TileData;
 class WorldHeightMap {
 public:
     static int countTiles(InputStream *,bool *);
+    // ?readTiles@WorldHeightMap@@SA_NPAVInputStream@@0PAPAVTileData@@H@Z present-unmatched
     static bool readTiles(InputStream *,InputStream *,TileData **,int);
 protected:
     void readTexClass(TXTextureClass *,TileData **);
@@ -102,8 +102,8 @@ void WorldHeightMap::readTexClass(TXTextureClass *texClass,TileData **tileData)
             for (width=16;width>=1;--width) {
                 if(numTiles>=width*width) { numTiles=width*width;break; }
             }
-            WorldHeightMap::readTiles(&stream,normalFile?&normalStream:0,
-                tileData+texClass->firstTile,width);
+            bool ok = WorldHeightMap::readTiles(&stream,normalFile?&normalStream:0,tileData+texClass->firstTile,width);
+            (void)ok;
         }
         file->close();
     }
