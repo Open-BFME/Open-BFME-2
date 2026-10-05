@@ -57147,3 +57147,5 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?Rva001F8607Parse@@YAXPAVINI@@PAX@Z,,0x001F8607,110,Code/Libraries/Source/WWVegas/WWLib/Rva001F8607Parse.cpp,matched,INI token lookup FX CategoryModuleClass 03 list store at B4 via rva001F43BD
 ?rva007B9748@@YAXXZ,,0x007B9748,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_00E06634 tail-jmp pinned dtor 0x005E9F7B
 ??1Rva0053ED1A@@UAE@XZ,,0x0053ED78,90,Code/GameEngine/Source/Common/Rva0053ED1ADtor.cpp,matched,dtor vptr stores vector free secondary base
+??_GRva004E5086@@QAEPAXI@Z,,0x004E5328,28,Code/GameEngine/Source/GameClient/InGameUIResourceEntries.cpp,matched,scalar deleting dtor emitted beside ~Rva004E5086 (0x004E5086) in its unit; no vtable reference so non-virtual
+??_GRva0057EE5C@@UAEPAXI@Z,,0x0057EEEE,28,Code/GameEngine/Source/Common/Rva0057EE5C.cpp,matched,scalar deleting dtor emitted with the vtable in the unit that defines ~Rva0057EE5C (0x0057EE5C); flag test plus operator delete 0x0002FD60
