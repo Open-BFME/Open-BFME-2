@@ -1,0 +1,50 @@
+// cl: /O1 /arch:SSE /DNDEBUG /MD /EHsc
+// ?rva0050B519@Made002CCB04@@QAEXPAX0@Z @0x0050B519 130B
+// Partition query then per-object rva0050B479: max(m_12C global) range via SSE, ForwardWideA with (b  range  3  0), EOF loop calling rowed 0x0050B479. Evidence: vtable slot 6 of 0x00864D10, members 0x12C in Ctor, globals g_Va00BBB8D8 plus ThePartitionManager, callees rowed Forward plus EOF plus rva plus WideResult dtor, chain from 0x0050B479.
+extern float g_Va00BBB8D8;
+class PartitionManager;
+extern PartitionManager *ThePartitionManager;
+
+struct BfmeWideResult
+{
+	void *m_value;
+	BfmeWideResult();
+	BfmeWideResult(const BfmeWideResult &that);
+	~BfmeWideResult();
+};
+
+struct BfmeThingEOF
+{
+	void *bfmeGoEOF();
+};
+
+class BfmeWideForwardA
+{
+	char m_pad00[0x0c];
+	void *m_source;
+public:
+	BfmeWideResult bfmeForwardWideA(int a, float b, int c, int d);
+};
+
+class Object;
+class Made002CCB04
+{
+public:
+	virtual ~Made002CCB04();
+	virtual bool check(void *a, void *b);
+	void rva0050B479(void *a, Object *b);
+	void rva0050B519(void *a, void *b);
+private:
+	char m_pad[0x128 - 4];
+	int m_128;
+	float m_12C;
+	unsigned int m_130;
+};
+
+void Made002CCB04::rva0050B519(void *a, void *b)
+{
+	float range = (m_12C > g_Va00BBB8D8) ? m_12C : g_Va00BBB8D8;
+	BfmeWideResult iterator = ((BfmeWideForwardA *)ThePartitionManager)->bfmeForwardWideA((int)b, range, 3, 0);
+	for (void *other = ((BfmeThingEOF *)&iterator)->bfmeGoEOF(); other; other = ((BfmeThingEOF *)&iterator)->bfmeGoEOF())
+		rva0050B479(a, (Object *)other);
+}
