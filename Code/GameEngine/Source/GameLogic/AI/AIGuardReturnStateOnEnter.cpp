@@ -1,6 +1,20 @@
 // ?onEnter@AIGuardReturnState@@UAE?AW4StateReturnType@@XZ
-// partial score=0.97 date=2026-10-04
 // cl: /O1 /G7 /DNDEBUG /MD /arch:SSE /EHsc
+//
+// The rest of the ZH AIGuard port -- every class below, and the sibling
+// onEnter/update/onExit bodies -- lives in AIGuardStates.cpp, which already
+// carries their ledger rows. Only this body is new, so it has its own TU rather
+// than a second copy of the port.
+//
+// BLOCK LAYOUT (the whole delta the earlier bank could not close): retail puts
+// the early STATE_SUCCESS return LAST. It jumps `ja 0x543DE9` forward over the
+// entire main path, and the main path's own tail `jmp 0x543DEC` skips the
+// success block, which is that jump's fallthrough. Writing
+// `return STATE_SUCCESS` inside the `if (owner)` arm makes VC7 sink it inline as
+// `jbe / or eax,-1 / jmp`, which is one byte short and threads every block
+// differently. Naming the test in a Bool and guarding the main path with
+// `if (!near) { ... return AIInternalMoveToState::onEnter(); }` followed by a
+// trailing `return STATE_SUCCESS;` reproduces retail's shape exactly.
 //
 // AIGuard state bodies ported from Zero Hour's GameEngine/Source/GameLogic/AI/
 // AIGuard.cpp (GeneralsMD tree vendored under reference/open-bfme-1/inputs/
@@ -288,7 +302,7 @@ public:
 	int getGuardMode() const { return m_guardMode; }
 	Bool hasBfmeAreaCenter() const { return m_bfmeAreaCenterValid; }
 	const Coord3D *getBfmeAreaCenter() const { return &m_bfmeAreaCenter; }
-	Coord3D rva00543326();
+	Coord3D rva00543326() const;
 	Real getBfmeGuardRadius() const { return m_bfmeGuardRadius; }
 private:
 	unsigned char m_pad18[0x3C - 0x18];
@@ -445,250 +459,6 @@ private:
 	AIAttackState *m_attackState; // +0x3C
 };
 
-StateReturnType AIGuardAttackAggressorState::onEnter( void )
-{
-	if (m_bfmeRestart)
-	{
-		m_bfmeRestart = false;
-		return onEnter();
-	}
-	Object *obj = getMachineOwner();
-	ObjectID nemID = INVALID_ID;
-
-	if (obj->getBodyModule() && obj->getBodyModule()->getLastDamageInfo()->in.m_sourceID) {
-		nemID = obj->getBodyModule()->getLastDamageInfo()->in.m_sourceID;
-		getGuardMachine()->setNemesisID(nemID);
-	}
-
-	GameLogic *logic = TheGameLogic;
-	Object *nemesis = logic->findObjectByID(getGuardMachine()->getNemesisID());
-	if (nemesis == NULL) 
-	{
-		return STATE_SUCCESS;
-	}
-
-	m_exitConditions.m_attackGiveUpFrame = logic->getFrame() + TheAI->getAiData()->m_guardChaseUnitFrames;
-	m_exitConditions.m_conditionsToConsider = (ExitConditions::ATTACK_ExitIfExpiredDuration | 
-																						 ExitConditions::ATTACK_ExitIfNoUnitFound);
-
-	m_attackState = new AIAttackState(getMachine(), true, true, false, &m_exitConditions);
-	m_attackState->getMachine()->setGoalObject(nemesis);
-
-	StateReturnType returnVal = m_attackState->onEnter();
-	if (returnVal == STATE_CONTINUE) {
-		return STATE_CONTINUE;
-	}
-
-	// if we had no one to attack, we were successful, so go to the next state.
-	return STATE_SUCCESS;
-}
-
-StateReturnType AIGuardInnerState::onEnter( void )
-{
-	AIGuardMachine *guard = getGuardMachine();
-	Object* targetToGuard = guard->findTargetToGuardByID();
-	Team* teamToGuard = guard->findTeamToGuardByID();
-	Coord3D pos;
-	if (targetToGuard)
-		pos = *targetToGuard->getPosition();
-	else if (teamToGuard)
-		teamToGuard->rva0039E5B9(&pos);
-	else
-		pos = *getGuardMachine()->getPositionToGuard();
-	Object* nemesis = TheGameLogic->findObjectByID(getGuardMachine()->getNemesisID()) ;
-	if (nemesis == NULL) 
-	{
-		return STATE_SUCCESS;
-	}
-	m_exitConditions.m_center = pos;
-	Real range = AIGuardMachine::getStdGuardRange(getMachineOwner());
-	m_exitConditions.m_radiusSqr = range * range;
-	m_exitConditions.m_conditionsToConsider = (ExitConditions::ATTACK_ExitIfOutsideRadius | 
-																							ExitConditions::ATTACK_ExitIfNoUnitFound);
-	const PolygonTrigger *area = getGuardMachine()->getAreaToGuard();
-	if (area) 
-	{
-		m_exitConditions.m_radiusSqr = area->getShape()->getRadius() * area->getShape()->getRadius();
-		area->getCenterPoint(&m_exitConditions.m_center);
-	}
-
-	m_attackState = new AIAttackState(getMachine(), false, true, false, &m_exitConditions);
-
-	m_attackState->getMachine()->setGoalObject(nemesis);
-	m_bfmeDeadline = TheGameLogic->getFrame() + 3*LOGICFRAMES_PER_SECOND;
-
-	StateReturnType returnVal = m_attackState->onEnter();
-	if (returnVal == STATE_CONTINUE) {
-		return STATE_CONTINUE;
-	}
-
-	// if we had no one to attack, we were successful, so go to the next state.
-	return STATE_SUCCESS;
-}
-
-StateReturnType AIGuardInnerState::update( void )
-{
-	if (m_bfmeRestart)
-	{
-		m_bfmeRestart = false;
-		return onEnter();
-	}
-	if (m_attackState == NULL)
-		return STATE_SUCCESS;
-
-	// if the position has moved (IE we're guarding an object), move with it.
-	AIGuardMachine *guard = getGuardMachine();
-	Object* targetToGuard = guard->findTargetToGuardByID();
-	Team* teamToGuard = guard->findTeamToGuardByID();
-	if (targetToGuard)
-	{
-		m_exitConditions.m_center = *targetToGuard->getPosition();
-	}
-	else if (teamToGuard)
-	{
-		teamToGuard->rva0039E5B9(&m_exitConditions.m_center);
-	}
-
-	StateReturnType ret = m_attackState->update();
-	Object *goal = m_attackState->getMachine()->getGoalObject();
-	if (goal == NULL || goal->testBfme438Bit0())
-	{
-		if (getGuardMachine()->lookForInnerTarget())
-		{
-			onExit(EXIT_NORMAL);
-			return onEnter();
-		}
-	}
-	if (goal && goal->getTemplate()->isKindOfBfme108Bit7() && TheGameLogic->getFrame() >= m_bfmeDeadline)
-	{
-		const Weapon *weapon = getMachine()->getOwner()->getCurrentWeapon();
-		if (weapon && weapon->computeStatus() != WEAPON_STATUS_BFME_4)
-		{
-			m_bfmeDeadline = TheGameLogic->getFrame() + LOGICFRAMES_PER_SECOND;
-			if (getGuardMachine()->lookForInnerTarget())
-			{
-				onExit(EXIT_NORMAL);
-				return onEnter();
-			}
-		}
-	}
-	return ret;
-}
-
-StateReturnType AIGuardOuterState::onEnter( void )
-{
-	if (getGuardMachine()->getGuardMode() == GUARDMODE_GUARD_WITHOUT_PURSUIT)
-	{
-		// "patrol" mode does not follow targets outside the guard area.
-		return STATE_SUCCESS;
-	}
-
-	AIGuardMachine *guard = getGuardMachine();
-	Object* targetToGuard = guard->findTargetToGuardByID();
-	Team* teamToGuard = guard->findTeamToGuardByID();
-	Coord3D pos;
-	if (targetToGuard)
-		pos = *targetToGuard->getPosition();
-	else if (teamToGuard)
-		teamToGuard->rva0039E5B9(&pos);
-	else
-		pos = *getGuardMachine()->getPositionToGuard();
-
-	AIGuardMachine *machine = getGuardMachine();
-	Object* nemesis = TheGameLogic->findObjectByID(machine->getNemesisID()) ;
-	if (nemesis == NULL) 
-	{
-		return STATE_SUCCESS;
-	}
-	Object *obj = machine->getOwner();
-	if (obj->rva0028B511() != 1 && !AI::rva002FE193(obj, nemesis))
-	{
-		return STATE_SUCCESS;
-	}
-
-	Real range = TheAI->getAdjustedVisionRangeForObject(obj, AI_VISIONFACTOR_OWNERTYPE | AI_VISIONFACTOR_MOOD);
-
-	const PolygonTrigger *area = getGuardMachine()->getAreaToGuard();
-	if (area) 
-	{
-		if (getGuardMachine()->hasBfmeAreaCenter())
-			pos = *getGuardMachine()->getBfmeAreaCenter();
-		else
-			area->getCenterPoint(&pos);
-	}
-	m_exitConditions.m_center = pos;
-	m_exitConditions.m_radiusSqr = range * range;
-	m_exitConditions.m_attackGiveUpFrame = TheGameLogic->getFrame() + TheAI->getAiData()->m_guardChaseUnitFrames;
-	m_exitConditions.m_conditionsToConsider = (ExitConditions::ATTACK_ExitIfExpiredDuration | 
-																								ExitConditions::ATTACK_ExitIfOutsideRadius | 
-																								ExitConditions::ATTACK_ExitIfNoUnitFound);
-
-	m_attackState = new AIAttackState(getMachine(), false, true, false, &m_exitConditions);
-
-	m_attackState->getMachine()->setGoalObject(nemesis);
-
-	StateReturnType returnVal = m_attackState->onEnter();
-	if (returnVal == STATE_CONTINUE) {
-		return STATE_CONTINUE;
-	}
-
-	// if we had no one to attack, we were successful, so go to the next state.
-	return STATE_SUCCESS;
-}
-
-StateReturnType AIGuardAttackAggressorState::update( void )
-{
-	if (m_attackState==NULL) return STATE_SUCCESS;
-	// if the position has moved (IE we're guarding an object), move with it.
-	AIGuardMachine *guard = getGuardMachine();
-	Object* targetToGuard = guard->findTargetToGuardByID();
-	Team* teamToGuard = guard->findTeamToGuardByID();
-	if (targetToGuard)
-	{
-		m_exitConditions.m_center = *targetToGuard->getPosition();
-	}
-	else if (teamToGuard)
-	{
-		teamToGuard->rva0039E5B9(&m_exitConditions.m_center);
-	}
-
-	return m_attackState->update();
-}
-
-void AIGuardAttackAggressorState::onExit( StateExitType status )
-{
-	Object *obj = getMachineOwner();
-	if (m_attackState)
-	{
-		m_attackState->onExit(status);
-		::delete m_attackState;
-		m_attackState = NULL;
-	}
-
-	if (obj->getTeam())
-	{
-		obj->getTeam()->setTeamTargetObject(NULL); // clear the target.
-	}
-}
-
-void AIGuardOuterState::onExit( StateExitType status )
-{
-	if (m_attackState)
-	{
-		m_attackState->onExit(status);
-		::delete m_attackState;
-		m_attackState = NULL;
-	}
-}
-
-/*static*/ Real AIGuardMachine::getStdGuardRange(const Object* obj)
-{
-	Real visionRange = TheAI->getAdjustedVisionRangeForObject(obj,
-		AI_VISIONFACTOR_OWNERTYPE | AI_VISIONFACTOR_MOOD | AI_VISIONFACTOR_GUARDINNER);
-
-	return visionRange;
-}
-
 StateReturnType AIGuardReturnState::onEnter( void )
 {
 	UnsignedInt now = TheGameLogic->getFrame();
@@ -698,33 +468,36 @@ StateReturnType AIGuardReturnState::onEnter( void )
 	m_bfmeGoalRadius = getGuardMachine()->getBfmeGuardRadius();
 
 	Object *owner = getMachineOwner();
+	Bool near = false;
 	if (owner)
 	{
 		Coord3D delta;
 		delta.set(owner->getPosition());
 		delta.sub(&m_goalPosition);
-		if (delta.GetLengthEstimate() < 5.0f)
-			return STATE_SUCCESS;
+		near = (delta.GetLengthEstimate() < 5.0f);
 	}
-
-	AIUpdateInterface *ai = getMachineOwner()->getAI(); 
-	if (ai)
+	if (!near)
 	{
-		if (ai->isDoingGroundMovement()) 
+		AIUpdateInterface *ai = getMachineOwner()->getAI(); 
+		if (ai)
 		{
-			TheAI->pathfinder()->adjustDestination(getMachineOwner(), ai->getLocomotorSet(), &m_goalPosition);
+			if (ai->isDoingGroundMovement()) 
+			{
+				TheAI->pathfinder()->adjustDestination(getMachineOwner(), ai->getLocomotorSet(), &m_goalPosition);
+			}
+			ai->destroyPath();
 		}
-		ai->destroyPath();
+		getMachine()->setGoalPosition(&m_goalPosition, m_bfmeGoalRadius);
+		if (g_00E03745)
+		{
+			FprintfTarget *log = (FprintfTarget *)g_00DFEFF0;
+			if (log)
+				fprintf(log, "CritterDesync: setAdjustDestination(TRUE) 3");
+		}
+		setAdjustsDestination(true);
+		return AIInternalMoveToState::onEnter();
 	}
-	getMachine()->setGoalPosition(&m_goalPosition, m_bfmeGoalRadius);
-	if (g_00E03745)
-	{
-		FprintfTarget *log = (FprintfTarget *)g_00DFEFF0;
-		if (log)
-			fprintf(log, "CritterDesync: setAdjustDestination(TRUE) 3");
-	}
-	setAdjustsDestination(true);
-	return AIInternalMoveToState::onEnter();
+	return STATE_SUCCESS;
 }
 
 StateReturnType AIGuardReturnState::update( void )

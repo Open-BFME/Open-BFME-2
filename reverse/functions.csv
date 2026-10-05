@@ -60050,3 +60050,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva004CDF1D@Rva004CDF00@@QAEXXZ,,0x004CDF1D,14,Code/GameEngine/Source/Common/VslotSmallBodiesAD.cpp,matched,vtable slot; pinned 0x004CDDBA(1) while +0x08 is set; no Ghidra entry
 ?rva004EF2FA@Rva004EF2FA@@UAEXHH@Z,,0x004EF2FA,15,Code/GameEngine/Source/Common/VslotSmallBodiesAD.cpp,matched,secondary-base slot (interface at +0x04); pinned 0x004EEE38 of the complete object with arg1; no Ghidra entry
 ?rva00508925@Rva00508925@@QAE_NHH@Z,,0x00508925,21,Code/GameEngine/Source/Common/VslotSmallBodiesAD.cpp,matched,vtable slot; pinned 0x005075D6 verdict for both args as bool; no Ghidra entry
+?onEnter@AIGuardReturnState@@UAE?AW4StateReturnType@@XZ,,0x00543CC4,301,Code/GameEngine/Source/GameLogic/AI/AIGuardReturnStateOnEnter.cpp,matched,slot 4 of vtable 0x00C69830; ZH return scan with BFME2 guard-centre getter 0x00543326; early STATE_SUCCESS laid out last per retail ja/jmp
