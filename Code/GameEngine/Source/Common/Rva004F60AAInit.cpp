@@ -8,8 +8,11 @@
 // mov sub sar mov call mov test jle push push push call add mov pop ret 8.
 
 class AsciiString;
+extern "C" __declspec(dllimport) void __cdecl free(void*);
+struct Rva004F77E0Element {char bytes[4];};
 
 namespace _STL {
+	template<class Iter> void _Destroy(Iter,Iter);
 	template <class _ForwardIter, class _Size, class _Tp>
 	_ForwardIter uninitialized_fill_n(_ForwardIter first, _Size n, const _Tp &x);
 }
@@ -18,6 +21,7 @@ class Rva004F60AA
 {
 public:
 	void rva004F60AA();
+ ~Rva004F60AA();
 	Rva004F60AA *rva004F77AD(char *first, char *last);
 private:
 	int m_00;
@@ -33,3 +37,21 @@ Rva004F60AA *Rva004F60AA::rva004F77AD(char *first, char *last)
 		_STL::uninitialized_fill_n((AsciiString *)m_08, m_04, *(const AsciiString *)first);
 	return this;
 }
+
+// Native Ghidra [4F77E0,4F7801),33B. Inplace-merge wrapper131B
+// 4F8C16 constructs this same12B temporary atEBP-18 via full51B
+// initialization4F77AD then destroys it here. Target count4/buffer8
+// and stride4 are established independently from the STLport4.5.3
+// Temporary_buffer semantic guide. Original element identity remains
+// unknown: native full24B Destroy5F97BC calls full27B destroy-aux4F72ED
+// through flags0 element teardown5F8FCC rather than AsciiString release.
+// The scoped4B view asserts no unconsumed fields or original template name.
+// Storage is freed through the native CRT free import after destruction.
+Rva004F60AA::~Rva004F60AA()
+{
+ Rva004F77E0Element *buf=static_cast<Rva004F77E0Element*>(m_08);
+ _STL::_Destroy(buf,buf+m_04);
+ ::free(m_08);
+}
+
+#pragma comment(linker, "/alternatename:??$_Destroy@PAURva004F77E0Element@@@_STL@@YAXPAURva004F77E0Element@@0@Z=??$_Destroy@PAUTreeHintRef00217D4C@@@_STL@@YAXPAUTreeHintRef00217D4C@@0@Z")
