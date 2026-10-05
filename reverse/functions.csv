@@ -62773,3 +62773,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?Rva0040D2FDSet@@YGXHHPAURva0040D2FDVec@@@Z,,0x0040D2FD,79,Code/GameEngine/Source/Common/Rva0040D2FDSet.cpp,matched,chain from bfmeFind1038 clears 2c scales by g to 30 copies vec to 58 5c via float array frame
 ?Rva003192B9Get@@YAPAXPAX@Z,,0x003192B9,75,Code/GameEngine/Source/Common/Rva003192B9.cpp,matched,LivingWorld find via g_009FEF10 plus isEmpty Owner fallback per packet
 ?rva003F012F@Rva003F012F@@QAEXXZ,,0x003F012F,90,Code/GameEngine/Source/Common/Rva003F012F.cpp,matched,vec stride 0x18 via +0x60 plus lookup 0x00210390 via +0x130
+?rva0033B1CD@Rva0033B1CD@@QAEXXZ,,0x0033B1CD,17,Code/GameEngine/Source/Common/Thing/Rva0033B1CDDtor.cpp,matched,clear AsciiString plus UnicodeString tail via shared headers

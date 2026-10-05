@@ -10251,3 +10251,6 @@ _M_assign_aux<const BfmeStringRecord00568CE0*>	0x00569F0C	167	blocked	568CE0 TU 
 ?Rva00428DEAFunc@@YGHPAXH00@Z	0x00428DEA	257	blocked	257B InGameUI MessageStream 0x421 0x422 two-branch voice response needs vtable slot layout t=12 model=muse-01
 ?Rva005F88F4Get@@YAHH@Z	0x005F88F4	44	partial	branch layout jmp-plus-xor after call vs fallthrough t=25 model=muse-13 score=0.91 stash=reverse/attempts/0x005f88f4.cpp
 ?rva00275F3F@Rva00270BA8@@QAEXXZ	0x00275F3F	220	blocked	EH prolog present with /EHs but extra sub esp+C frame plus esp esi spills vs retail push ecx esi ebx edi t=18 model=muse-spark (stash 0.95 kept)
+?rva004AF2DE@RespawnUpdate@@QAEPBVImage@@XZ	0x004AF2DE	223	blocked	vslot slot14 RespawnUpdate image EH strings BuildingNoArt needs ModuleData 0x118 Object layouts t=15 model=muse-01
+?parse@VersionBlockParser@@AAE_NPBD@Z	0x004289B8	367	blocked	early mov-al cmp-je missing 8B plus EH mov-byte 3B ours356B 0reg sscanf-reloc-only t=10 model=muse-01 (stash 0.93 kept)
+?rva00053A1F@Rva00053A1F@@QAEHM@Z	0x00053A1F	219	blocked	audio attenuation SSE x87 Coord3D length needs BfmeAudioEventPrefix136 plus listener layouts t=5 model=muse-01
