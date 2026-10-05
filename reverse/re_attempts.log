@@ -8799,3 +8799,4 @@ $L62091	0x007AB0D0	25	blocked	Native FuncInfo VA D6490C state0 prior-1 owns acti
 ?getMinMaxAndCenter@AIGroup@@QAE_NPAUCoord2D@@0PAUCoord3D@@@Z	0x0036D14F	374	blocked	y-add and mulss operand order plus movaps vs movss tail t=15 model=muse-02 (stash 0.93 kept)
 ?rva002F068F@Rva002F068F@@QAEPAXXZ	0x002F068F	20	blocked	final load folded single mov eax [edx] vs mov eax edx plus mov eax [eax] t=12 model=muse-08 (stash 0.9 kept)
 ?rva005BBDAC@Rva005BBDAC@@QAEXPAX@Z	0x005BBDAC	361	blocked	STL partition/sort not in vendored 4.5.3 plus _cmp undeclared plus missing algorithm include - no obj emitted t=8 model=muse-08
+?rva00460CBA@DynamicPortalBehaviour@@QAEXPAUCoord3D@@@Z	0x00460CBA	288	partial	div via reg not eax-indirect plus len spilled not ST plus 1 movss reg t=20 model=muse-06 score=0.9 stash=reverse/attempts/0x00460cba.cpp
