@@ -57,3 +57,12 @@ AptValue *aptMathTan(void *self, int argc)
     float value = g_aptDateInterpreter.stack.At(0)->rva006DD460();
     return Rva008A4EA0MakeFloat((float)tan(value));
 }
+
+// Native 6E8570..6E859F: checked top value followed by x87 fsin.
+AptValue *aptMathSin(void *self, int argc)
+{
+    if (argc < 1)
+        return reinterpret_cast<AptValue *>(g_aptUndefinedAtE18078);
+    float value = g_aptDateInterpreter.stack.At(0)->rva006DD460();
+    return Rva008A4EA0MakeFloat((float)sin(value));
+}
