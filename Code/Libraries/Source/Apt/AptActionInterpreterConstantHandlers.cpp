@@ -47,6 +47,7 @@ public:
     AptCIH *c_cih(bool=false);
     AptArray *c_array() const;
     bool getIsDefined() const; bool isBoolean() const; bool isNone() const; bool isScriptFunction() const; bool isNativeFunction() const;
+    int getVtblIndex() const;
     bool isArray() const;
     bool isLookup() const;
     bool isRegister() const;
@@ -68,7 +69,7 @@ public:
     void toString(EAStringC &) const;
 };
 struct AptCharacterInst;
-class EAStringC { void *mpData; public: EAStringC &TrimRight(const char *); EAStringC &Rva006D4F00Append(const EAStringC &); EAStringC &Rva006D50A0Append(const char *); EAStringC(unsigned int,unsigned int); EAStringC rva006D5ED0(int) const; EAStringC rva006d5f30(int,int) const; void rva006D3470(); bool IsEqualTo(const EAStringC *) const; const char *rva00620090() const; int rva006d6070(const char *,int=0); EAStringC(); unsigned int rva006D3750() const; EAStringC(const char *); ~EAStringC(); EAStringC &operator=(const EAStringC &); };
+class EAStringC { void *mpData; public: EAStringC &TrimRight(const char *); EAStringC &Rva006D4F00Append(const EAStringC &); EAStringC &Rva006D50A0Append(const char *); EAStringC(unsigned int,unsigned int); EAStringC rva006D5ED0(int) const; EAStringC rva006d5f30(int,int) const; void rva006D3470(); bool IsEqualTo(const EAStringC *) const; bool rva006D3560(const EAStringC *) const; const char *rva00620090() const; int rva006d6070(const char *,int=0); EAStringC(); unsigned int rva006D3750() const; EAStringC(const char *); ~EAStringC(); EAStringC &operator=(const EAStringC &); };
 class Rva006D2A60 { public: void *allocBlock(int); void freeBlock(void *,int); };
 extern Rva006D2A60 *g_pChainBlockAllocatorF4;
 // Native InitArray allocates44B; ctor6D91B0 builds type0x16, hash+8,
@@ -194,6 +195,7 @@ private:
     HANDLER(GetProperty); HANDLER(SetProperty);
     HANDLER(GetTimer);
     HANDLER(Trace);
+    HANDLER(StrictEquals);
     HANDLER(TypeOf);
     HANDLER(Greater); HANDLER(LessThan2);
     HANDLER(SubString); HANDLER(AsciiToChar);
@@ -1494,3 +1496,41 @@ void AptActionInterpreter::_FunctionAptActionCloneSprite(AptActionInterpreter *c
     p->_doCloneSprite(c->pCurrentContext,c->pCurWith,source,target,n,0);
     p->stack.Pop(3);
 }
+
+// Native type IDs19 (level) and1/42 (strings) come from the target branches
+// and switch table; donor enum numbering differs. Native comparison is float.
+void AptActionInterpreter::_FunctionAptActionStrictEquals(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    AptValue *a=p->stack.At(0),*b=p->stack.At(1);
+    int result=0;
+    if(a->getVtblIndex()==19) a=gpUndefinedValue;
+    if(b->getVtblIndex()==19) b=gpUndefinedValue;
+    if(Rva006CD220Get()==7) {
+        if(a->isUndefined()) ++result;
+        if(b->isUndefined()) ++result;
+        if(result>0) { p->stack.PopAndPush(2,AptBoolean::Create(result==2));return; }
+    }
+    if(((a->isInteger() || a->isFloat()) && (b->isInteger() || b->isFloat())) || a->getVtblIndex()==b->getVtblIndex()) {
+        switch(a->getVtblIndex()) {
+        case 1: case 42:
+            if(b->c_string()->GetInternalString()->rva006D3560(a->c_string()->GetInternalString())) result=1;
+            break;
+        case 6: {
+            float fa=a->toFloat();
+            if(b->isInteger()) { int nb=b->toInteger(); result=(float)fabs(fa-nb)<0.001f; }
+            else { float fb=b->toFloat(); result=(float)fabs(fa-fb)<0.001f; }
+            break;
+        }
+        case 5: case 7: {
+            int na=a->toInteger();
+            if(b->isInteger()) { int nb=b->toInteger(); result=na==nb; }
+            else { float fb=b->toFloat(); result=(float)fabs(na-fb)<0.001f; }
+            break;
+        }
+        default: result=a==b;break;
+        }
+    }
+    p->stack.PopAndPush(2,AptBoolean::Create(result!=0));
+}
+
+#pragma comment(linker, "/alternatename:?getVtblIndex@AptValue@@QBEHXZ=?get@Rva006DBB30SarDwordField@@QBEHXZ")
