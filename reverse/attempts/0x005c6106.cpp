@@ -1,5 +1,6 @@
 // ?updateAnimateWindow@ProcessAnimateWindowSlideFromTop@@UAE_NPAVAnimateWindow@@@Z
-// partial score=0.995 date=2026-10-05
+// partial score=0.997 date=2026-10-05
+// ?updateAnimateWindow@ProcessAnimateWindowSlideFromTop@@UAE_NPAVAnimateWindow@@@Z
 // ?updateAnimateWindow@ProcessAnimateWindowSlideFromTop@@UAE_NPAVAnimateWindow@@@Z @0x005C6106 232B.
 // Target identity: the matched ProcessAnimateWindowSlideFromTop constructor at
 // 0x005C55A5 installs vptr 0x00C74884 whose slot +0x0C lands here; the body
@@ -26,6 +27,24 @@
 // other way: it prefers the curPos loads at the first initializer and hoists the
 // endPos pair, retail interleaves them. No /O1 /arch:SSE spelling tried so far
 // satisfies both the frame and the schedule at once.
+// RESIDUE (232B, 2 differing bytes, both the stack-frame size):
+// `sub esp,0x1c` where retail has `sub esp,0x14`, and the curPos.y store
+// lands at [ebp-0x1c] instead of [ebp-0xc].  Retail's 20B frame holds only
+// curPos (x at -0x14, y at -0x10), vel (x at -0xc, y at -0x8) and the
+// this-save at -0x4; endPos never gets a home at all, because retail keeps
+// endPos.y in EDI for the compare and stores endPos.x once, dead, into the
+// slot vel is about to overwrite.  Declaring getCurPos() BEFORE getEndPos()
+// is what reproduces that load schedule (endPos.x, endPos.y, curPos.x, then
+// the vel pushes) and the 232B body; the reverse order hoists the endPos pair
+// at the first initializer and re-diffs three bytes.
+//
+// So the residue is MSVC 7.1's local-slot allocation giving the endPos local
+// its own 8-byte frame home.  MEASURED AND WORSE: endPos as two scalars, as
+// one scalar plus getEndPos().x inlined at each push, endY/endX extracted from
+// the struct, curPos as scalars rebuilt into a Coord2D for setCurPos, the
+// declaration orders vel/endPos/curPos and endPos/vel/curPos, and swapping
+// the winSetPosition arguments (which fixes the frame at 0x14 but grows the
+// body to 0x20 because curPos.x then lives across the call).
 // cl: /FIzh_ascii.h /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /O1 /arch:SSE /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /DBFME_MODULE_NO_MPO /DZH_EMIT_POOL_GLUE /Ireference/shims/bfmerendobj /Ireference/shims/debugvtable /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/bfmeanimobj /Ireference/shims/indexbuffercount /Ireference/shims/bfmecaps /Ireference/shims/bfmehcanim /Ireference/shims/bfmevector /Ireference/shims/bfmemapper /Ireference/shims/meshmatdesclayout /Ireference/shims/bfmeshader /Ireference/shims/bfmecpudetect /Ireference/shims/bfmepool /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWAudio /Ireference/shims/bfmealloc /Ireference/shims/bfmehashtable /Ireference/shims/bfmelist /Ireference/shims/asciistring_downloadmanager /Ireference/shims/stlp_nodealloc /Ireference/shims/asciistring_thin /ICode/GameEngine/Source/Common /Ireference/shims/w3droadbuffer /Ireference/shims/bfmeterraintracks /ICode/Libraries/Include/Lib /Ireference/shims
 // stlport
 // Donor revision 10af19f44a89ab7ecc23195bb9a842ceafbc02c9.
@@ -72,8 +91,8 @@ Bool ProcessAnimateWindowSlideFromTop::updateAnimateWindow( AnimateWindow *animW
 		return TRUE;
 	}
 
-	ICoord2D endPos = animWin->getEndPos();
 	ICoord2D curPos = animWin->getCurPos();
+	ICoord2D endPos = animWin->getEndPos();
 	Coord2D vel = animWin->getVel();
 	curPos.y += (Int)vel.y;
 
