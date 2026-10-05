@@ -279,3 +279,39 @@ void AptArray::toString(EAStringC &buffer,const char *separator) {
   if(i<mnLength-1)buffer.Rva006D50A0Append(separator);
  }
 }
+
+// Native500B predates the later donor splice fixes: it returns the original
+// array, releases removed elements directly, and does not build a deleted-items
+// result or perform the later undefined/negative/bounds checks. Native loops
+// independently establish these differences; keep target behavior unchanged.
+AptValue *AptArray::sMethod_splice(AptValue *pThis,int nParams) {
+ if(pThis->isArray()) {
+  AptArray *array=pThis->c_array();
+  if(nParams>0) {
+   int start=g_aptValueStackAtE182E0.At(0)->toInteger();
+   if(start<0)start=array->mnLength+start;
+   int count=array->mnLength-start;
+   if(nParams>1)count=g_aptValueStackAtE182E0.At(1)->toInteger();
+   if(count>array->mnLength-start)count=array->mnLength-start;
+   if(start>=array->mnLength)count=0;
+   int i;
+   for(i=0;i<count;i++) {AptValue *v=array->At(start+i);if(v)v->Release();}
+   memmove(&array->mpValues[start],&array->mpValues[start+count],sizeof(AptValue*)*(array->mnLength-count-start));
+   for(i=0;i<count;i++)array->mpValues[array->mnLength-count+i]=0;
+   array->mnLength-=count;
+   if(nParams>2) {
+    int added=nParams-2;
+    array->_reserve(array->mnLength+added);
+    memmove(&array->mpValues[start+added],&array->mpValues[start],sizeof(AptValue*)*(array->mnLength-start));
+    array->mnLength+=added;
+    for(i=0;i<added;i++) {
+     array->mpValues[start+i]=0;
+     array->set(start+i,g_aptValueStackAtE182E0.At(i+2));
+    }
+   }
+   return pThis;
+  }
+  return gpUndefinedValue;
+ }
+ return gpUndefinedValue;
+}
