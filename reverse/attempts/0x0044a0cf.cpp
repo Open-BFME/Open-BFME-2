@@ -1,5 +1,7 @@
 // ?RequestGameLeave@LANAPI@@UAEXXZ
 // partial score=0.99 date=2026-10-05
+// ?RequestGameLeave@LANAPI@@UAEXXZ
+// partial score=0.99 date=2026-10-05
 // cl: /O1 /DNDEBUG /MD /EHsc
 // ?RequestGameLeave@LANAPI@@UAEXXZ
 // ?RequestGameLeave@LANAPI@@UAEXXZ
