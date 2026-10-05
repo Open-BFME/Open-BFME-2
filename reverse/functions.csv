@@ -56563,3 +56563,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?Rva003C8A15Do@@YGXPAVParameter@@ABVAsciiString@@1@Z,,0x003C8A15,128,Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003C8A15Do.cpp,matched,unit guard via getQualifiedTriggerAreaByName getUnitNamed waypoint 0x88 rva0036F629 else rva0036F5BB
 ?addTeamPrototypeToList@TeamFactory@@QAEXPAVTeamPrototype@@@Z,,0x003A2B78,92,Code/GameEngine/Source/Common/RTS/TeamFactoryAddPrototype003A2B78.cpp,matched,TeamFactory add prototype via nameToKey lowerbound map insert
 ?Rva003C8A95Do@@YGXPAVParameter@@@Z,,0x003C8A95,42,Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003C8A95Do.cpp,matched,unit hunt via getUnitNamed AI 0x258 aiHunt
+?rva0059B49E@Rva0059B49E@@QAEXPADHH@Z,,0x0059B49E,97,Code/GameEngine/Source/Common/Rva0059B49E.cpp,matched,leaf bounded copy via length rowed pin rva002AC2CF and memcpy
