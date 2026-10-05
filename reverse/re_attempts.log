@@ -9391,3 +9391,4 @@ FUN_0047ffed	0x0007FFED	233	blocked	anonymous water-setting dispatch (thiscall +
 ?rva0058FBCA@NetPacket@@IAE_NPAVNetCommandRef@@@Z	0x0058FBCA	587	blocked	cmp encoding plus id-off stack slots plus frame plus tail jmp t=12 model=muse-01 (stash 0.93 kept)
 ?rva0058F078@NetPacket@@QAE_NPAVNetCommandRef@@@Z	0x0058F078	594	blocked	599B ID load order swapped plus xor-ecx plus word block movzx-vs-push-ebx plus extra push t=8 model=muse-01 (stash 0.96 kept)
 ?rva0023FABE@Rva0023FABE@@QAEXXZ	0x0023FABE	154	blocked	GameLogic EH string Snapshot Rva00B6DD2 ctor-dtor mismatch needs shared layouts t=6 model=muse-04
+?rva002E0699@Rva002E0699@@QAEHXZ	0x002E0699	31	partial	single dec eax between push 3 and pop eax in default return t=18 model=muse-02 score=0.97 stash=reverse/attempts/0x002e0699.cpp
