@@ -56194,3 +56194,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?j_00036124@Glo012F1024Item@@QAEXXZ,,0x0056552C,176,Code/GameEngine/Source/Common/Glo012F1024ItemJ00036124.cpp,matched,BFME1 donor j_00036124 via bfmeEnter caller 0x005669A3 plus Outer at 0x9C plus rowed forwarders
 ?rva00340E5E@Rva00340E5E@@QBEMXZ,,0x00340E5E,18,Code/GameEngine/Source/Common/Rva00340E5EFloat.cpp,matched,chain via rowed 0x002627E8 float getter prev 0x00340D70 next 0x00340E70 caller 0x0034E795
 ??1Rva006FBDB0@@QAE@XZ,,0x006FBDB0,12,Code/Libraries/Source/Apt/Rva006FBDB0Dtor.cpp,matched,nonvirtual dtor zeroes m_4 then base EAStringC dtor
+?getMoodMatrixActionAdjustment@AIUpdateInterface@@QBEIW4MoodMatrixAction@@@Z,,0x00264FF8,331,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_getMoodMatrixActionAdjustment.cpp,matched,BFME1 donor AIUpdateInterface_getMoodMatrixActionAdjustment plus TurretAI caller

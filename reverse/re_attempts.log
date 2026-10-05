@@ -8797,3 +8797,5 @@ $L62091	0x007AB0D0	25	blocked	Native FuncInfo VA D6490C state0 prior-1 owns acti
 ?rva002F301F@Rva002F301F@@QAEXXZ	0x002F301F	26	partial	exact bytes via G7 byte extra but gate needs central retype of 0x002F1F02 int to byte t=25 model=muse-02 score=1.0 stash=reverse/attempts/0x002f301f.cpp
 ?rva000062FD@Region2D@@QBE_NABVCoord2D@@0@Z	0x000062FD	294	blocked	first dir load mem-vs-reg plus min-load before max-select plus false at end needs near jumps not early shorts t=18 model=muse-02 (stash 0.92 kept)
 ?getMinMaxAndCenter@AIGroup@@QAE_NPAUCoord2D@@0PAUCoord3D@@@Z	0x0036D14F	374	blocked	y-add and mulss operand order plus movaps vs movss tail t=15 model=muse-02 (stash 0.93 kept)
+?rva002F068F@Rva002F068F@@QAEPAXXZ	0x002F068F	20	blocked	final load folded single mov eax [edx] vs mov eax edx plus mov eax [eax] t=12 model=muse-08 (stash 0.9 kept)
+?rva005BBDAC@Rva005BBDAC@@QAEXPAX@Z	0x005BBDAC	361	blocked	STL partition/sort not in vendored 4.5.3 plus _cmp undeclared plus missing algorithm include - no obj emitted t=8 model=muse-08
