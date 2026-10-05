@@ -85,8 +85,11 @@ int __cdecl Rva002886A7(Object *obj, void *userData)
 	return 1;
 }
 
-static int __cdecl CbB(Object *, void *)
+// Team iterate callback 0x00288726 (19B): the follow-up call on the same
+// +0x264 object, then continue.
+int __cdecl Rva00288726(Object *obj, void *userData)
 {
+	((Rva0039B20C *)((Rva003C4570Object *)obj)->m_264)->rva0039B246();
 	return 1;
 }
 
@@ -103,5 +106,5 @@ void __stdcall Rva003C4570Do(const AsciiString &teamName, const AsciiString &lev
 	if (!lvl)
 		return;
 	team->rva0039DD12(Rva002886A7, (void *)lvl);
-	team->rva0039DD12(CbB, 0);
+	team->rva0039DD12(Rva00288726, 0);
 }
