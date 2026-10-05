@@ -126,7 +126,6 @@ void Rva005116C2()
 
 // Retail 0x005117DF, 23 bytes: toggles the messenger, closing it when up
 // and opening it otherwise.
-// ?Rva005117DF@@YAXXZ present-unmatched
 void Rva005117DF()
 {
 	if (g_Va00E046B8)
