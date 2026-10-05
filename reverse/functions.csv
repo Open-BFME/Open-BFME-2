@@ -57127,3 +57127,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva005A688C@Rva005A688C@@QAEXHHHH@Z,,0x005A688C,119,Code/GameEngine/Source/Common/Rva005A688CMethod.cpp,matched,unlock via caller 0x5A6C90 and callee row 0x5DC3C1
 ?rva005A6C90@Rva005A688C@@QAEXH@Z,,0x005A6C90,21,Code/GameEngine/Source/Common/Rva005A688CMethod.cpp,matched,chain via landed 0x5A688C same class wrapper
 ?rva00539316@Rva0053947D@@UAEXPBUVector3@@@Z,,0x00539316,112,Code/GameEngine/Source/Common/Rva00539316Slot5.cpp,matched,slot5 vtable 0x00869228 s13 s15 elem 0xB4 f07 Vector3 SSE
+??1Rva005D1ADE@@UAE@XZ,,0x005D1ADE,11,Code/GameEngine/Source/Common/Rva005D1ADEDtor.cpp,matched,dtor tail-jumps to pinned base 0x5CCDDD caller 0x5D1B85
