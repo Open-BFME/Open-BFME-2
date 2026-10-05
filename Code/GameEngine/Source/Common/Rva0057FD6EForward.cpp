@@ -12,12 +12,19 @@ public:
 	bool rva005AFD2E();
 };
 
+class Rva005AFCEC
+{
+public:
+	void rva005AFCB4(int arg);
+};
+
 class Rva0057FD6E
 {
 public:
 	void rva0057FD6E();
 	void rva0057FD94();
 	bool rva0057FDA1();
+	void rva0057FDB0(bool arg);
 private:
 	char m_pad[100];
 	Rva005AFC92 *m_64;
@@ -49,4 +56,11 @@ bool Rva0057FD6E::rva0057FDA1()
 		return false;
 	}
 	return m_64->rva005AFD2E();
+}
+
+void Rva0057FD6E::rva0057FDB0(bool arg)
+{
+	if (m_64 != 0) {
+		reinterpret_cast<Rva005AFCEC *>(m_64)->rva005AFCB4(*reinterpret_cast<int *>(&arg));
+	}
 }
