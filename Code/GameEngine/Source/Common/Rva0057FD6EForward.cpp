@@ -18,6 +18,12 @@ public:
 	void rva005AFCB4(int arg);
 };
 
+class Rva005B000C
+{
+public:
+	bool rva005B00C8(int arg0, unsigned int arg1, unsigned int arg2);
+};
+
 class Rva0057FD6E
 {
 public:
@@ -25,9 +31,11 @@ public:
 	void rva0057FD94();
 	bool rva0057FDA1();
 	void rva0057FDB0(bool arg);
+	bool rva0057FD7B(unsigned int arg0, unsigned int arg1, unsigned int arg2);
 private:
 	char m_pad[100];
 	Rva005AFC92 *m_64;
+	unsigned char m_68;
 };
 
 void Rva0057FD6E::rva0057FD6E()
@@ -63,4 +71,19 @@ void Rva0057FD6E::rva0057FDB0(bool arg)
 	if (m_64 != 0) {
 		reinterpret_cast<Rva005AFCEC *>(m_64)->rva005AFCB4(*reinterpret_cast<int *>(&arg));
 	}
+}
+
+// ?rva0057FD7B@Rva0057FD6E@@QAE_NIII@Z, retail 0x0057FD7B, 25 bytes.
+// Forwards to pinned 0x005B00C8 when +0x64 non-null and +0x68 non-zero,
+// else false. Evidence: gap packet; caller 0x00442CD4 passes three
+// message args; callee pin ?rva005B00C8@Rva005B000C@@QAE_NHII@Z.
+bool Rva0057FD6E::rva0057FD7B(unsigned int arg0, unsigned int arg1, unsigned int arg2)
+{
+	if (m_64 == 0) {
+		return false;
+	}
+	if (m_68 != 0) {
+		return reinterpret_cast<Rva005B000C *>(m_64)->rva005B00C8(arg0, arg1, arg2);
+	}
+	return false;
 }
