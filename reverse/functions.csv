@@ -63164,3 +63164,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva002E940F@Pathfinder@@QAE_NH_N@Z,,0x002E940F,51,Code/GameEngine/Source/GameLogic/AI/PathfinderCellQueryPredicates.cpp,matched,Pathfinder predicate forwards 1 a to 0x001E3647 with ecx passthrough and mid via shr and cl
 ??0ParticleSystemTemplateTail@FXParticleSystem@@QAE@XZ,,0x001FBF37,22,Code/GameEngine/Source/GameLogic/Object/Rva001FA5A5Ctor.cpp,matched,Opaque pinned tail ctor zeroed ints then member ctor by REL32 graph
 ?Rva00580A54Sort@@YAXPAPAX00VRva000795C1Record@@@Z,,0x00580A54,88,Code/Libraries/Source/WWVegas/WWLib/Rva00580776LinearInsert.cpp,matched,unguarded insertion sort aux with Tp-star dummy caller 0x00580BE7 pushes 0 STL _algo
+?Rva0040C94ALookup@@YAPAVPlayer@@H@Z,,0x0040C94A,35,Code/GameEngine/Source/Common/Rva0040C94ALookup.cpp,matched,id to player lookup via pinned Logic and rowed PlayerList caller uses return
