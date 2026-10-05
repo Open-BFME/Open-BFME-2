@@ -35947,8 +35947,6 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ?Rva00285B54Get@@YAHXZ,,0x00285B54,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
 ?Rva00285B5AGet@@YAHXZ,,0x00285B5A,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
 ?Rva00285B60Get@@YAHXZ,,0x00285B60,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
-?Rva0028B04AGet@@YAHXZ,,0x0028B04A,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
-?Rva0028B074Get@@YAHXZ,,0x0028B074,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
 ?Rva002AA2C9Get@@YAHXZ,,0x002AA2C9,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
 ?Rva002C8E5AGet@@YAHXZ,,0x002C8E5A,6,Code/GameEngine/Source/Common/ConstIntGetters5Addr.cpp,matched,B8-6 const-int returner
 ?Rva002D6AEFGet@@YAHXZ,,0x002D6AEF,6,Code/GameEngine/Source/Common/ConstIntGetters5Addr.cpp,matched,B8-6 const-int returner
@@ -59742,3 +59740,7 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva004DEA68@Rva0028AF76Sub@@QAEHXZ,,0x004DEA68,8,Code/GameEngine/Source/GameLogic/Object/FiringTrackerRva004DEA68.cpp,matched,firing tracker plus38 ObjectID take-and-clear; caller 0x0028AF97
 ?rva0028AF86@Object@@QBEHXZ,,0x0028AF86,17,Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp,matched,Object plus240 firing tracker plus24 ObjectID or 0
 ?rva0028AF97@Object@@QAEHXZ,,0x0028AF97,18,Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp,matched,Object plus240 firing tracker null-checked tail to 0x004DEA68
+?setCustomIndicatorColor@Object@@QAEXH@Z,,0x0028AFFC,34,Code/GameEngine/Source/GameLogic/Object/ObjectSetProducer.cpp,matched,ZH Object::setCustomIndicatorColor plus30C then drawable plus84 changedTeam
+?removeCustomIndicatorColor@Object@@QAEXXZ,,0x0028B01E,8,Code/GameEngine/Source/GameLogic/Object/ObjectSetProducer.cpp,matched,ZH Object::removeCustomIndicatorColor setCustomIndicatorColor(0)
+?getIndicatorColor@Object@@QBEHXZ,,0x0028B026,42,Code/GameEngine/Source/GameLogic/Object/ObjectSetProducer.cpp,matched,ZH Object::getIndicatorColor team player plus280 else FF000000
+?getNightIndicatorColor@Object@@QBEHXZ,,0x0028B050,42,Code/GameEngine/Source/GameLogic/Object/ObjectSetProducer.cpp,matched,ZH Object::getNightIndicatorColor team player plus284 else FF000000

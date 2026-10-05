@@ -203,22 +203,6 @@ int Rva00285B60Get(void)
 	return 255;
 }
 
-// ?Rva0028B04AGet@@YAHXZ @ 0x0028b04a (6B): returns -16777216.
-// Follows a conditional mov plus ret tail (its je targets the ret, not
-// this body). No direct callers. Opaque address-derived name.
-int Rva0028B04AGet(void)
-{
-	return (int)0xff000000;
-}
-
-// ?Rva0028B074Get@@YAHXZ @ 0x0028b074 (6B): returns -16777216.
-// Follows a conditional mov plus ret tail (its je targets the ret, not
-// this body). No direct callers. Opaque address-derived name.
-int Rva0028B074Get(void)
-{
-	return (int)0xff000000;
-}
-
 // ?Rva002AA2C9Get@@YAHXZ @ 0x002aa2c9 (6B): returns 218.
 // Follows an idiv helper tail. No direct callers. Opaque
 // address-derived name.
