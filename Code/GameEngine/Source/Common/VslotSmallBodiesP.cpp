@@ -116,3 +116,6 @@ void Rva00709E50::rva00709E50(void **out, Int unused)
 	*out = g_rva00709E50Pending;
 	g_rva00709E50Pending = 0;
 }
+
+// Native E1835C is the script-function current frame root. Bind its shared provider.
+#pragma comment(linker, "/alternatename:?g_rva00709E50Pending@@3PAXA=?spFrameStack@AptScriptFunctionBase@@1PAVAptFrameStack@@A")

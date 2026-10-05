@@ -20,3 +20,32 @@ AptConstantPool AptScriptFunction2::GetConstantPool()
 {
     return mpFunction->constantPool;
 }
+
+// Original donor virtual slots23 and PC full67/130B bodies establish both
+// cleanup methods. The later source retains this frame restoration and register
+// release loop. PC reads frame reserve+2C and saved frame/register pointers+0/+4.
+// The inline base emits its own COMDAT and is inlined in Function2 as in retail.
+extern AptValue *gpUndefinedValue;
+inline void AptScriptFunctionBase::CleanupAfterExecution(_AptScriptFunctionState *pState)
+{
+    if(spFrameStack) {
+        mnFrameStackReserve = (unsigned short)spFrameStack->GetNativeHashVirtual()->mnTotalSize;
+        spFrameStack->Release();
+    }
+    spFrameStack = pState->mpFrameStack;
+}
+void AptScriptFunction2::CleanupAfterExecution(_AptScriptFunctionState *pState)
+{
+    AptScriptFunctionBase::CleanupAfterExecution(pState);
+    for(int i=0; i<snRegBlockCurrentFrameCount; ++i) {
+        AptValue *pValue=spRegBlockCurrentFrameBase[i];
+        spRegBlockCurrentFrameBase[i]=gpUndefinedValue;
+        pValue->Release();
+    }
+    snRegBlockCurrentFrameCount=spRegBlockCurrentFrameBase-pState->mpRegBlockPreviousFrameBase;
+    spRegBlockCurrentFrameBase=pState->mpRegBlockPreviousFrameBase;
+}
+
+// Native E1835C starts at zero. Existing address-derived frame-root users
+// bind this one definition through their linker aliases.
+AptFrameStack *AptScriptFunctionBase::spFrameStack;

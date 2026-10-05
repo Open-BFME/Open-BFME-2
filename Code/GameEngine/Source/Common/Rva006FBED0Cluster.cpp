@@ -98,3 +98,5 @@ void Rva8D0D80Result::rva006FBED0()
 
 	g_rva00A1835C->slot0();
 }
+// Native E1835C is the script-function current frame root. Bind its shared provider.
+#pragma comment(linker, "/alternatename:?g_rva00A1835C@@3PAVRva006FBED0Root@@A=?spFrameStack@AptScriptFunctionBase@@1PAVAptFrameStack@@A")

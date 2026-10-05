@@ -162,3 +162,6 @@ void Rva007581E0::rva007581E0()
 	m_10->bfmeGoCGD();
 	Profile::StopRange("collision");
 }
+
+// Native E1835C is the script-function current frame root. Bind its shared provider.
+#pragma comment(linker, "/alternatename:?g_rva00709A00Pending@@3PAXA=?spFrameStack@AptScriptFunctionBase@@1PAVAptFrameStack@@A")

@@ -35,3 +35,6 @@ bool Rva006FBE60::rva006FBE60(Rva8D0D80String *name, Rva8D0D80Value *value)
 		return false;
 	return list->rva006FBBA0(name, value);
 }
+
+// Native E1835C is the script-function current frame root. Bind its shared provider.
+#pragma comment(linker, "/alternatename:?g_rva00A1835C@@3PAVRva8D0D80Result@@A=?spFrameStack@AptScriptFunctionBase@@1PAVAptFrameStack@@A")

@@ -64,6 +64,16 @@ protected:
     virtual ~AptValueWithHash();
     AptNativeHash mNativeHash;
 };
+class AptFrameStack : public AptValueWithHash
+{
+protected:
+    AptFrameStack *mpParentScope;
+};
+struct _AptScriptFunctionState
+{
+    AptFrameStack *mpFrameStack;
+    AptValue **mpRegBlockPreviousFrameBase;
+};
 class AptObject : public AptValueWithHash
 {
 public:
@@ -101,6 +111,7 @@ public:
     static void *PushStaticData();
 protected:
     AptScriptFunctionBase(AptVirtualFunctionTable_Indices, AptScriptFunctionBase *, AptCIH *, bool);
+    static AptFrameStack *spFrameStack;
     virtual void CreatingNestedFunction();
     virtual ~AptScriptFunctionBase();
     AptCIH *mpCIH;
@@ -142,6 +153,7 @@ struct AptAction_DefineFunction2
 class AptScriptFunction2 : public AptScriptFunctionBase
 {
 public:
+    virtual void CleanupAfterExecution(_AptScriptFunctionState *);
     virtual AptConstantPool GetConstantPool();
 protected:
     const AptAction_DefineFunction2 *mpFunction;
