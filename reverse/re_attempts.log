@@ -8654,3 +8654,8 @@ FUN_008e5559	0x004E5559	96	blocked	ctor 0x4E4F82 and dtor 0x4E5086 on same ebp-0
 ?Rva00354EB9Check@@YAHPBURva00354EB9Point@@0@Z	0x00354EB9	61	partial	y-first vs x-first load order plus addss-xor order swapped size exact t=15 model=muse-12 score=0.9 stash=reverse/attempts/0x00354eb9.cpp
 ?Rva00354EB9Check@@YAHPBURva00354EB9Point@@0@Z	0x00354EB9	61	partial	xmm0-xmm1 swapped plus addss-xor order swapped y-first offsets fixed via barrier size exact t=20 model=muse-12 score=0.92 stash=reverse/attempts/0x00354eb9.cpp
 ?Rva004236F5Sort@@YAXXZ	0x004236F5	411	blocked	411B STL EH sort needs array element ctor 0x002A1575 and dtor 0x005EB940 unclaimed plus holder layout unknown no donor t=10 model=muse-12
+?rva000E28A7@Rva000E28A7@@QAEPAXPAX@Z	0x000E28A7	28	blocked	28B refcount setter needs push-ecx plus and-zero dead local idiom unknown t=15 model=muse-12
+?rva000E234E@Rva000E234E@@QAEPAXPAX@Z	0x000E234E	31	blocked	31B refcount setter same family as 0x000E28A7 needs push-ecx plus and-zero dead local idiom unknown t=12 model=muse-12
+?rva000E2983@Rva000E2983@@QAEPAXPAX@Z	0x000E2983	31	blocked	31B refcount setter same family as 0x000E28A7 needs push-ecx plus and-zero dead local idiom unknown t=2 model=muse-12
+?rva000E2A62@Rva000E2A62@@QAEPAXPAX@Z	0x000E2A62	31	blocked	31B refcount setter same family as 0x000E28A7 needs push-ecx plus and-zero dead local idiom unknown t=1 model=muse-12
+?rva000E2BCF@Rva000E2BCF@@QAEPAXPAX@Z	0x000E2BCF	31	blocked	31B refcount setter same family as 0x000E28A7 needs push-ecx plus and-zero dead local idiom unknown t=1 model=muse-12
