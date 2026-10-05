@@ -13007,3 +13007,4 @@ _Rva00337999Forward,0x00337999,REL32 callee decoded from target call bytes of wr
 ??_7GameSpyStagingRoom@@6B@,0x00C19440,GameSpyStagingRoom vtable installed by copy ctor 0x003835F4 (mov [esi] imm at 0x00383632); slot0 is rowed ??_GGameSpyStagingRoom 0x00383768; slots 12-14 are rowed ZH amIHost/getLocalSlotNum/resetAccepted
 ??0Rva001408C0Target@@QAE@ABU0@@Z,0x004ABCE6,polymorphic base copy constructor REL32 callee at 0x004ABF5D in Rva004ABFD9 copy 0x004ABF47 (base at offset 0 is the key that object registers in 0x00E03CE0); identity unproven
 ??_7Rva004ABFD9@@6B@,0x00C549F8,Rva004ABFD9 vtable installed by copy ctor 0x004ABF47 (mov [esi] imm at 0x004ABF6D); slot0 is rowed ??_GRva004ABFD9 0x004AC021
+?forward@Rva0040E6D6Sub@@QAEXPAH@Z,0x002E01C6,thiscall 1-arg subobject forwarder called by Rva0040E6D6Host::forwardFrom 0x0040E6D6; read from its REL32

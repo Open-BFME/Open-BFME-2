@@ -63709,3 +63709,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ??1Rva004FBCBE@@UAE@XZ,,0x004FBCBE,96,Code/GameEngine/Source/Common/Rva004FBCBEDtor.cpp,matched,dtor with two wide strings plus flag gated pinned call via int global
 ??0Rva004ABFD9@@QAE@ABV0@@Z,,0x004ABF47,102,Code/GameEngine/Source/Common/Rva004ABFD9Copy.cpp,matched,Polymorphic copy ctor: pinned base copy then vtable 0xC549F8 then rowed member copy and fields then registry insert
 ?notifyAll@Rva0041E717Broadcast@@QAEXXZ,,0x0041E717,27,Code/GameEngine/Source/Common/Rva0041E717Broadcast.cpp,matched,vtable-slot-1 broadcast over the +0x1C/+0x20 pointer range
+?forwardFrom@Rva0040E6D6Host@@QAIXHPAURva0040E6D6Arg@@@Z,,0x0040E6D6,32,Code/GameEngine/Source/Common/Rva0040E6D6Forward.cpp,matched,fastcall member forward with dead EDX param; arg-slot reuse into subobject method 0x002E01C6
