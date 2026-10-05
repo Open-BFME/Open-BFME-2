@@ -63343,3 +63343,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva0005922D@Rva0005922D@@QAEXXZ,,0x0005922D,11,Code/GameEngine/Source/Common/RvaEmbeddedMemberForwarders.cpp,matched,Embedded member void forwarder tail jmp by REL32
 ?rva00248D6C@Rva00248D6C@@QAEXXZ,,0x00248D6C,11,Code/GameEngine/Source/Common/RvaEmbeddedMemberForwarders.cpp,matched,Embedded member void forwarder tail jmp by REL32
 ?rva002BFC4E@Rva002BFC4E@@QAEXXZ,,0x002BFC4E,11,Code/GameEngine/Source/Common/RvaEmbeddedMemberForwarders.cpp,matched,Embedded member void forwarder tail jmp by REL32
+?bfmeMakePairEL@@YA?AUBfmePairEL@@ABVBfmeWordEL@@0@Z,,0x0002C621,27,Code/GameEngine/Source/Common/Bfme5TwoWordPairFactory_Rva0002C621.cpp,matched,BFME1 reference-guided two-word factory; target hidden return buffer ABI and shared pair ctor2C4FD verified; donor6583b3c1
