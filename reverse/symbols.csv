@@ -10570,3 +10570,23 @@ G00DB5FC4,0x00DB5FC4,Render2DClass ctor 0x0011C0F0 stores 5; donor Render2DClass
 ??1Rva00597BD4@@UAE@XZ,0x00597BD4,opaque dtor called by the scalar deleting dtor at 0x00597FA9 (vtable 0x00C70C24#2); identity unproven; address-derived name
 ??1Rva005990DF@@UAE@XZ,0x005990DF,opaque dtor called by the scalar deleting dtor at 0x005993B1 (vtable 0x00C70D44#2); identity unproven; address-derived name
 ??1Rva0059E242@@UAE@XZ,0x0059E242,opaque dtor called by the scalar deleting dtor at 0x0059E28F (vtable 0x00C70F88#0); identity unproven; address-derived name
+??1Rva0059E5AE@@UAE@XZ,0x0059E5AE,opaque dtor called by the scalar deleting dtor at 0x0059E736 (vtable 0x00C71094#0); identity unproven; address-derived name
+??1Rva0059EA42@@UAE@XZ,0x0059EA42,opaque dtor called by the scalar deleting dtor at 0x0059EAA3 (vtable 0x00C71138#0); identity unproven; address-derived name
+??1Rva005A0009@@UAE@XZ,0x005A0009,opaque dtor called by the scalar deleting dtor at 0x005A0B62 (vtable 0x00C71414#0); identity unproven; address-derived name
+??1Rva005AE30A@@UAE@XZ,0x005AE30A,opaque dtor called by the scalar deleting dtor at 0x005AE38A (vtable 0x00C726A0#0); identity unproven; address-derived name
+??1Rva005AE66B@@UAE@XZ,0x005AE66B,opaque dtor called by the scalar deleting dtor at 0x005AE76E (vtable 0x00C72760#0); identity unproven; address-derived name
+??1Rva005B190D@@UAE@XZ,0x005B190D,opaque dtor called by the scalar deleting dtor at 0x005B1A50 (vtable 0x00C72A80#0); identity unproven; address-derived name
+??1Rva005B3D94@@UAE@XZ,0x005B3D94,opaque dtor called by the scalar deleting dtor at 0x005B4541 (vtable 0x00C72F3C#0); identity unproven; address-derived name
+??1Rva005B5420@@UAE@XZ,0x005B5420,opaque dtor called by the scalar deleting dtor at 0x005B576B (vtable 0x00C73450#0); identity unproven; address-derived name
+??1Rva005B5CF4@@UAE@XZ,0x005B5CF4,opaque dtor called by the scalar deleting dtor at 0x005B6166 (vtable 0x00C735C0#0); identity unproven; address-derived name
+??1Rva005BA23A@@UAE@XZ,0x005BA23A,opaque dtor called by the scalar deleting dtor at 0x005BA272 (vtable 0x00C73D34#0); identity unproven; address-derived name
+??1Rva005BA2CB@@UAE@XZ,0x005BA2CB,opaque dtor called by the scalar deleting dtor at 0x005BA303 (vtable 0x00C73DCC#0); identity unproven; address-derived name
+??1Rva005BA593@@UAE@XZ,0x005BA593,opaque dtor called by the scalar deleting dtor at 0x005BA92E (vtable 0x00C73E24#0); identity unproven; address-derived name
+??1Rva005C4230@@UAE@XZ,0x005C4230,opaque dtor called by the scalar deleting dtor at 0x005C4336 (vtable 0x00C744E8#0); identity unproven; address-derived name
+??1Rva005C47A3@@UAE@XZ,0x005C47A3,opaque dtor called by the scalar deleting dtor at 0x005C43E7 (vtable 0x00C63398#0 0x00C745A0#0 0x00C74698#0 0x00C7475C#0); identity unproven; address-derived name
+??1Rva005C48E5@@UAE@XZ,0x005C48E5,opaque dtor called by the scalar deleting dtor at 0x005C49B8 (vtable 0x00C7477C#0); identity unproven; address-derived name
+??1Rva005C4A91@@UAE@XZ,0x005C4A91,opaque dtor called by the scalar deleting dtor at 0x005C4A75 (vtable 0x00C747A8#0); identity unproven; address-derived name
+??1Rva005C6C7B@@UAE@XZ,0x005C6C7B,opaque dtor called by the scalar deleting dtor at 0x005C6D80 (vtable 0x00C74918#0); identity unproven; address-derived name
+??1Rva005C9659@@UAE@XZ,0x005C9659,opaque dtor called by the scalar deleting dtor at 0x005C9753 (vtable 0x00C74B70#0); identity unproven; address-derived name
+??1Rva005CC37C@@UAE@XZ,0x005CC37C,opaque dtor called by the scalar deleting dtor at 0x005CC44C (vtable 0x00C74E38#0); identity unproven; address-derived name
+??1Rva005CC656@@UAE@XZ,0x005CC656,opaque dtor called by the scalar deleting dtor at 0x005CC63A (vtable 0x00C74E70#0); identity unproven; address-derived name
