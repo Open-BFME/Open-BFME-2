@@ -13536,3 +13536,4 @@ _peerJoinStagingRoomA,0x0069A130,GameSpy SDK C export peerJoinStagingRoomA (ANSI
 _peerStateChanged,0x00699460,GameSpy SDK C export peerStateChanged: PeerThread.cpp declares the sweep Peer.h with C linkage, and Thread_Function 0x0038EDD7 / doQuickMatch 0x0038E684 call this body where the Zero Hour source calls peerStateChanged
 ?erase@Rva00082XXHintVec@@QAEPAUTreeHintRef00217D4C@@PAU2@0@Z,0x000819EC,address-view alias for rowed vector TreeHintRef00217D4C range erase at same address
 ?erase@Rva0005E322TreeView@@QAEIABVAsciiString@@@Z,0x0005B5EA,address-view alias for rowed Rb-tree AsciiString single erase at same address
+?rva0007BF5A_4@@YAPAURegion2D@@PAU1@000@Z,0x0007BF5A,4-push call-site view of rowed 0x0007BF5A (retail pushes 4 and keeps leftover eax); definition ignores 4th
