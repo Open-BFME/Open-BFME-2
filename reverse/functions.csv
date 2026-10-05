@@ -62449,3 +62449,5 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva0021BF42@Rva00219B9E@@QAEHIII@Z,,0x0021BF42,50,Code/GameEngine/Source/Common/Rva00219B9EAccessor.cpp,matched,outer 32B via middle index then rowed 0x0021BE42 miss minus one
 ?rva0021BF74@Rva00219B9E@@QAEHIII@Z,,0x0021BF74,50,Code/GameEngine/Source/Common/Rva00219B9EAccessor.cpp,matched,outer 32B via middle index then rowed 0x0021BE62 miss minus one
 ?rva0021BFA6@Rva00219B9E@@QAEHIII@Z,,0x0021BFA6,50,Code/GameEngine/Source/Common/Rva00219B9EAccessor.cpp,matched,outer 32B middle-index shape via rowed 0x0021BE82 caller 0x005B1D3A
+?clear@?$_List_base@UBfmeVectorRecord001B4A39@@V?$allocator@UBfmeVectorRecord001B4A39@@@_STL@@@_STL@@QAEXXZ,,0x001B4C7A,49,Code/Libraries/Source/WWVegas/WWLib/stlport_list_rva001b4c7a_clear.cpp,matched,list clear twin; nodealloc+bfmelist
+?clear@?$_List_base@URva00240831Dtor@@V?$allocator@URva00240831Dtor@@@_STL@@@_STL@@QAEXXZ,,0x00243119,49,Code/Libraries/Source/WWVegas/WWLib/stlport_list_rva00243119_clear.cpp,matched,list clear twin of AsciiString @0x00239D49

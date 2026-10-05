@@ -10150,3 +10150,4 @@ AptSavedInputCheckpoints::CanContinueSavedInputs	0x006CE7A0	44	blocked	Raw donor
 ?isAttackViewBlockedByObstacle@Pathfinder@@QAE_NPBVObject@@ABUCoord3D@@01@Z	0x002F314A	544	partial	535B vs 544B regalloc round-robin plus bool neg-sbb vs test plus float stack vs reg t=30 model=muse-03 score=0.93 stash=reverse/attempts/0x002f314a.cpp
 ?_M_fill_insert@?$vector@UBfmeAssignRecord52@@V?$allocator@UBfmeAssignRecord52@@@_STL@@@_STL@@QAEXPAUBfmeAssignRecord52@@IABU3@@Z	0x002BC47D	258	blocked	fill_insert 52B mixed Bfme plus Rva helpers need ICF twin analysis t=22 model=muse-03
 ?rva0045D97A@Rva0045D97A@@QAEXH@Z	0x0045D97A	401	blocked	quad-vector EH die body with stride-12 entry vs 0x58 offsets contradiction plus file literal truncated t=12 model=muse-12
+?_M_fill_insert@?$vector@F@@	0x0018C600	213	blocked	masked twin of short fill_insert @0x0007FF18; unique-mangling POD alias emits false_type path; type_traits specialize not established
