@@ -1,43 +1,39 @@
-// cl: /O1 /EHsc
+// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /D_CRTIMP=
 // Open-BFME5 conversions.
+// Native dump50C69D loads the fprintf IAT at00BBA5C4; use that import
+// instead of an unresolved synthetic global. The ten four-byte handles use
+// BFME2's shared AsciiString: their native destructor calls all target the
+// complete releaseBuffer worker36410. All five home bodies retain exact bytes.
+// Original diagnostic owner names remain address-derived donor views.
 
-extern "C" int (__cdecl *g_bfmeFmt1191)(char *dst, const char *fmt, ...);
+#include "ascii_string.h"
 extern "C" __declspec(dllimport) void * __cdecl fopen(const char *, const char *);
 extern "C" __declspec(dllimport) int __cdecl fclose(void *);
 extern "C" __declspec(dllimport) int __cdecl fprintf(void *, const char *, ...);
 extern "C" __declspec(dllimport) unsigned long __stdcall GetLastError(void);
 
-class Rva0036CA00Str
-{
-public:
-	Rva0036CA00Str() : m_item(0) {}
-	~Rva0036CA00Str();
-	void clear();
-
-	void *m_item;
-};
 
 class Rva0013A820
 {
 public:
-	Rva0036CA00Str m_00;
-	Rva0036CA00Str m_04;
-	Rva0036CA00Str m_08;
-	Rva0036CA00Str m_0C;
-	Rva0036CA00Str m_10;
+	AsciiString m_00;
+	AsciiString m_04;
+	AsciiString m_08;
+	AsciiString m_0C;
+	AsciiString m_10;
 	int m_14;
 	int m_18;
-	Rva0036CA00Str m_1C;
-	Rva0036CA00Str m_20;
+	AsciiString m_1C;
+	AsciiString m_20;
 	int m_24;
-	Rva0036CA00Str m_28;
+	AsciiString m_28;
 	int m_2C;
 	int m_30;
 	int m_34;
 	int m_38;
-	Rva0036CA00Str m_3C;
+	AsciiString m_3C;
 	int m_40;
-	Rva0036CA00Str m_44;
+	AsciiString m_44;
 
 	void reset();
 };
@@ -68,27 +64,27 @@ BfmeD1191::~BfmeD1191()
 
 void BfmeD1191::bfmeDump1191(void)
 {
-	char *s0 = m_00.m_item != 0 ? (char *)m_00.m_item + 8 : (char *)"";
-	int (__cdecl *fn)(char *dst, const char *fmt, ...) = g_bfmeFmt1191;
+	const char *s0 = m_00.str();
+	int (__cdecl *fn)(void *dst, const char *fmt, ...) = fprintf;
 
 	fn(m_bfme48, (char *)"%s,", s0);
-	fn(m_bfme48, (char *)"%s,", m_04.m_item != 0 ? (char *)m_04.m_item + 8 : (char *)"");
-	fn(m_bfme48, (char *)"%s,", m_08.m_item != 0 ? (char *)m_08.m_item + 8 : (char *)"");
-	fn(m_bfme48, (char *)"%s,", m_0C.m_item != 0 ? (char *)m_0C.m_item + 8 : (char *)"");
-	fn(m_bfme48, (char *)"%s,", m_10.m_item != 0 ? (char *)m_10.m_item + 8 : (char *)"");
+	fn(m_bfme48, (char *)"%s,", m_04.str());
+	fn(m_bfme48, (char *)"%s,", m_08.str());
+	fn(m_bfme48, (char *)"%s,", m_0C.str());
+	fn(m_bfme48, (char *)"%s,", m_10.str());
 	fn(m_bfme48, (char *)"%d,", m_14);
 	fn(m_bfme48, (char *)"%d,", m_18);
-	fn(m_bfme48, (char *)"%s,", m_1C.m_item != 0 ? (char *)m_1C.m_item + 8 : (char *)"");
-	fn(m_bfme48, (char *)"%s,", m_20.m_item != 0 ? (char *)m_20.m_item + 8 : (char *)"");
+	fn(m_bfme48, (char *)"%s,", m_1C.str());
+	fn(m_bfme48, (char *)"%s,", m_20.str());
 	fn(m_bfme48, (char *)"%d,", m_24);
-	fn(m_bfme48, (char *)"%s,", m_28.m_item != 0 ? (char *)m_28.m_item + 8 : (char *)"");
+	fn(m_bfme48, (char *)"%s,", m_28.str());
 	fn(m_bfme48, (char *)"%d,", m_2C);
 	fn(m_bfme48, (char *)"%d,", m_30);
 	fn(m_bfme48, (char *)"%d,", m_34);
 	fn(m_bfme48, (char *)"%d,", m_38);
-	fn(m_bfme48, (char *)"%s,", m_3C.m_item != 0 ? (char *)m_3C.m_item + 8 : (char *)"");
+	fn(m_bfme48, (char *)"%s,", m_3C.str());
 	fn(m_bfme48, (char *)"%d,", m_40);
-	fn(m_bfme48, (char *)"%s\n", m_44.m_item != 0 ? (char *)m_44.m_item + 8 : (char *)"");
+	fn(m_bfme48, (char *)"%s\n", m_44.str());
 }
 
 // Native50C90D..50C91D16B calls diagnostic dump50C69D then tailcalls reset50C45A
