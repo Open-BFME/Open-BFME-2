@@ -60515,3 +60515,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?Rva002D3409Invoke@@YAHPAVRva00222A8BTarget@@PAXPBDABQBD@Z,,0x002D3409,33,Code/GameEngine/Source/Common/AptInvokeWrappers.cpp,matched,typed Apt invoke wrapper: one string held by reference through the inline pass-through then rowed int-returning Rva00222A8BTarget::invoke; names address-derived
 ?rva005E4995@Rva005E4995@@QAEXH@Z,,0x005E4995,42,Code/GameEngine/Source/Common/Rva005E4995Clear.cpp,matched,chain via rowed clear 0x005E43A8 notify 0x005F22D2 erase 0x002B7250
 ?reset@Rva0042D85A@@QAEXPAVRva0057BD01@@@Z,,0x0042D85A,35,Code/GameEngine/Source/Common/OwnedPointerResets.cpp,matched,reset same pointee as clear 0x0042D87D via pin 0x0057BD01 plus delete
+?rva003F2968@Gen_00528EC0@@QAEXF@Z,,0x003F2968,24,Code/GameEngine/Source/Common/Gen00528EC0Rva003F2968.cpp,matched,Gen_00528EC0 setter via rowed hook 0x003F1DD5 callers 0x003F3505 0x003F3511
