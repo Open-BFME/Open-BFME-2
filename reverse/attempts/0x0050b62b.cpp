@@ -1,5 +1,5 @@
 // ?rva0050B62B@Made002CCB67@@UAEXPBURva0050B62BArg@@PAVObject@@@Z
-// partial score=0.93 date=2026-10-05
+// partial score=0.94 date=2026-10-05
 // cl: /O1 /DNDEBUG /MD /arch:SSE
 //
 // ?rva0050B62B@Made002CCB67@@UAEXPBURva0050B62BArg@@PAVObject@@@Z retail 0x0050B62B 137B
@@ -102,5 +102,6 @@ void Made002CCB67::rva0050B62B(const Rva0050B62BArg *arg, Object *other)
 	if (!victim)
 		return;
 	unsigned int taken = victim->m_money90.rva003B0CB3((unsigned int)m_128, &victim->m_tracker, true);
-	thief->m_money90.rva003B0D7C((int)(float)taken, (Rva0039B7AD *)&thief->m_tracker, true);
+	int deposit = (int)(float)taken;
+	thief->m_money90.rva003B0D7C(deposit, (Rva0039B7AD *)&thief->m_tracker, true);
 }

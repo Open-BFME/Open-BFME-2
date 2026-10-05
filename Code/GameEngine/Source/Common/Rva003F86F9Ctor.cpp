@@ -1,5 +1,3 @@
-// ??0Rva003F86F9@@QAE@HH@Z
-// partial score=0.93 date=2026-10-04
 // cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 //

@@ -8728,3 +8728,4 @@ FUN_00863191	0x00463191	56	blocked	vslot104 needs 104-virt class plus this slot7
 ?rva00262E24@AIUpdateInterface@@QAEXPAUCoord3D@@@Z	0x00262E24	219	partial	else-branch xmm allocation differs and 0x200 copy uses offset not add t=25 model=muse-02 score=0.93 stash=reverse/attempts/0x00262e24.cpp
 ??0Render2DSentenceClass@@QAE@XZ	0x00157E80	368	blocked	scheduling only 1.0 load early vs late bytes order +8B t=12 model=muse-06 (stash 0.95 kept)
 ?Rva00323F9C@@YIHPAU_ListboxData@@@Z	0x00323F9C	61	blocked	prolog-save wall plus sum-esi rows-edx swap t=12 model=muse-13
+?rva0050B62B@Made002CCB67@@UAEXPBURva0050B62BArg@@PAVObject@@@Z	0x0050B62B	137	partial	deposit lea still ecx with ftol before pushes vs retail lea eax with pushes before ftol t=20 model=muse-08 score=0.94 stash=reverse/attempts/0x0050b62b.cpp
