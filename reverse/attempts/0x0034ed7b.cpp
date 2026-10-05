@@ -418,7 +418,7 @@ StateReturnType AIFollowWaypointPathState::onEnter()
                 Real offsetX = m_groupOffset.x;
                 Real offsetY = m_groupOffset.y;
                 Real length = sqrt(offsetY * offsetY + offsetX * offsetX);
-                if (150.0f < length)
+                if (length > 150.0f)
                 {
                     Real scale = 150.0f / length;
                     m_groupOffset.x = m_groupOffset.x * scale;
