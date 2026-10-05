@@ -41,6 +41,9 @@ public:
 	virtual void bfmeSlot0VVD();
 };
 
+// ?bfmeSlot0VVD@BfmeBaseVVD@@UAEXXZ present-unmatched
+void BfmeBaseVVD::bfmeSlot0VVD() { }
+
 class BfmeOwnVVD : public BfmeBaseVVD
 {
 public:
@@ -353,6 +356,8 @@ public:
 };
 extern StatsCollector *g_00E032F8;
 extern void *g_00DC8874;
+StatsCollector *g_00E032F8;
+void *g_00DC8874;
 
 void BfmeOwnVVD::rva0042E804()
 {
