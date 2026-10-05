@@ -13410,3 +13410,4 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 ?rva003EE7CA@Rva003EE7CA@@QAEHHH@Z,0x003EE7CA,thiscall int(int int): pushes (a1 a2) then virtual slot1 on [this+0x48]; returns its second arg; shared first call of 0x003EEE8E/0x003EEF13/0x003EE8D8; b carries the task-block pointer as int
 ?rva003EEE64@Rva003EEE64@@QAEXH@Z,0x003EEE64,thiscall void(int); home-TU chain lane; called with the 0x003EE7CA return from 0x003EF041
 ?rva003F076D@Rva003F076D@@QAEXXZ,0x003F076D,thiscall void(); loop over [ecx+0x170,+0x174) with byte+0x34/+0x20 checks; called after clear flags from 0x003F20E5
+?rva002ACEDF@Rva002ACEDF@@QAEXPAX@Z,0x002ACEDF,thiscall void(void*); add-side twin of rowed 0x002ABFA0 list-short-remove: reads the same +0x5D8 key through the same this+0x700 list via 0x002AC00C; sole unrowed callee of dump-range-18 0x003BD062 flag==0 path
