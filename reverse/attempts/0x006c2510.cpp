@@ -1,4 +1,6 @@
 // ?rva006C2510@Rva006C1F60@@QAEIPADHPAPAD@Z
+// partial score=0.97 date=2026-10-05
+// ?rva006C2510@Rva006C1F60@@QAEIPADHPAPAD@Z
 // partial score=0.96 date=2026-10-05
 // ?rva006C2510@Rva006C1F60@@QAEIPADHPAPAD@Z
 // retail 0x006C2510 (214B).
@@ -60,6 +62,9 @@ private:
 };
 
 // ?rva006C2510@Rva006C1F60@@QAEIPADHPAPAD@Z present-unmatched
+// Both arms return trail+2. The store happens only when out!=0; retail tests
+// the out pointer (test esi,esi) and the je skips the body store, not the
+// result. retail form for the body is (base - trail) + (size - 10).
 unsigned int Rva006C1F60::rva006C2510(char *base, int type, char **out)
 {
 	Rva00030DD0Lock *lock = m_lock;
@@ -79,19 +84,12 @@ unsigned int Rva006C1F60::rva006C2510(char *base, int type, char **out)
 			size = h & 0x7ffffff8;
 		unsigned short trail = *(unsigned short *)(p + (int)size - 10);
 		if (out != 0) {
-			// Retail reuses the out pointer's register for the result: it tests
-			// esi, writes through esi, and only then overwrites esi with size+2.
-			// It keeps the base in eax and the size in ecx across the block, so
-			// the trailing word is an indexed load off the base rather than a
-			// sum, and the body is the base minus the length before the size is
-			// added back.
-			char *const base = p;
-			char *const body = base - trail;
+			char *const body = p - trail;
 			*out = body + (int)(size - 10);
-			result = size + 2;
-		} else {
 			result = trail + 2;
 		}
+		else
+			result = trail + 2;
 	} else {
 		if (m_680 == 0)
 			goto done;
