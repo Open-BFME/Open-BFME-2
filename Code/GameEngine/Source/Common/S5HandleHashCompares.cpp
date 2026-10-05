@@ -157,3 +157,27 @@ bool Rva0056FA50::rva0056FA50(const Rva0056FA50 &other) const
 
 	return Rva0056F5DEHook(mine, theirs) != (int)0xAA37ACC2;
 }
+
+// ?rva0056FA72@Rva0056FA72@@QBE_NABV1@@Z @0x0056FA72 34B
+// Evidence: unlock lane; contiguous after 0x0056FA50 same 34B hash-compare shape
+// reads +0x04 of other then this hands to rowed Rva0056F637Hook tests != 0xAA37ACC2
+// returns byte via xor/setne/mov al; callers 0x0057086D 0x0056FCD6
+int Rva0056F637Hook(int left, int right);
+
+class Rva0056FA72
+{
+public:
+	bool rva0056FA72(const Rva0056FA72 &other) const;
+
+private:
+	char m_head[4];
+	int m_val; // +0x04
+};
+
+bool Rva0056FA72::rva0056FA72(const Rva0056FA72 &other) const
+{
+	int theirs = other.m_val;
+	int mine = m_val;
+
+	return Rva0056F637Hook(mine, theirs) != (int)0xAA37ACC2;
+}
