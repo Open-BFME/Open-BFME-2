@@ -64091,3 +64091,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?rva0036DC46@Rva0036ListOwner@@QAEXH@Z,,0x0036DC46,41,Code/GameEngine/Source/Common/Rva0036ListWalkers.cpp,matched,
 ?rva0036D6B4@Rva0036ListOwner@@QAEXXZ,,0x0036D6B4,64,Code/GameEngine/Source/Common/Rva0036ListWalkers.cpp,matched,
 ?rva0037DCCC@@YAXPAVObject@@H@Z,,0x0037DCCC,28,Code/GameEngine/Source/Common/Rva0037DCCCForward.cpp,matched,
+?bfmeMakePairEL@@YA?AUBfmePairEL@@ABVBfmeWordEL@@0@Z,,0x0002C621,27,Code/GameEngine/Source/Common/Bfme5TwoWordPairFactory_Rva0002C621.cpp,matched,BFME1 reference-guided two-word factory; target hidden return buffer ABI and shared pair ctor2C4FD verified; donor6583b3c1
