@@ -371,7 +371,6 @@ Real W3DTerrainLogic::getLayerHeight( Real x, Real y, PathfindLayerEnum layer, C
 //-------------------------------------------------------------------------------------------------
 /** W3D isCliffCell for terrain logic */
 //-------------------------------------------------------------------------------------------------
-// ?isCliffCell@W3DTerrainLogic@@ present-unmatched
 Bool W3DTerrainLogic::isCliffCell( Real x, Real y) const
 {
 
