@@ -278,6 +278,50 @@ def source_objects(uni, stats):
     return out
 
 
+def object_variants(spans):
+    """Index every distinct (bytes, relocations) copy, in object order.
+
+    A COFF name can have several compiled definitions. Neither bytes alone nor
+    the symbol alone identifies a copy: relocation offsets, types and callees
+    are part of it. Keep the original relocation order for the consumer.
+    """
+    variants = collections.defaultdict(list)
+    seen = set()
+    for name, span, relocs in spans:
+        key = (name, span, tuple(sorted(relocs)))
+        if key in seen:
+            continue
+        seen.add(key)
+        variants[name].append((span, relocs))
+    return variants
+
+
+def held_variant_matches(span, relocs, obj, row, image, uni, stats):
+    """A copy may inform a held row only if its claimed prefix agrees.
+
+    The row proves the symbol at this address, not every same-named definition
+    in the object. In particular, never derive global bases from a different
+    copy's relocation addends merely because it appeared first.
+    """
+    size = row["size"]
+    body = span.rstrip(b"\xcc")
+    if len(body) < size:
+        return False
+    inside = [(o, t, s) for o, t, s in relocs if o < size]
+    # The held row already supplies identity/boundary evidence. MIN_CONCRETE
+    # filters new placement leads, not these independently verified controls.
+    if any(t not in (DIR32, REL32) or o < 0 or o + 4 > size for o, t, _ in inside):
+        return False
+    holes = [o for o, _, _ in inside]
+    if not masked_equal(body[:size], image.body(row["rva"], size), holes):
+        return False
+    if any(t == REL32 for _, t, _ in inside):
+        if rel32_callees(body[:size], inside, image, row["rva"],
+                        uni.symbol_addresses, stats) is None:
+            return False
+    return not inside or string_refs_agree(obj, body, inside, image, row["rva"], size)
+
+
 def owner_class(source):
     if source.startswith("Code/gen_small/"):
         return "gen_small"
@@ -474,15 +518,20 @@ def sweep(uni, image, objects, exclude_circular=True, stats=None):
             spans = list(locate.object_functions(obj))
         except Exception as exc:
             raise SystemExit(f"obj_sweep: cannot parse {obj} for {source}: {exc}")
-        by_symbol = {}
-        for name, span, relocs in spans:
-            by_symbol.setdefault(name, (span, relocs))
+        by_symbol = object_variants(spans)
+        spans = [(name, span, relocs) for name, entries in by_symbol.items()
+                 for span, relocs in entries]
         for row in uni.held_rows.get(source, ()):
-            entry = by_symbol.get(B.ledger_object_symbol(row))
-            if entry is None:
-                continue
-            for symbol, base in dir32_sites(entry[0], entry[1], image,
-                                            row["rva"], row["size"]):
+            bases = None
+            for span, relocs in by_symbol.get(B.ledger_object_symbol(row), ()):
+                if not held_variant_matches(span, relocs, obj, row, image, uni, stats):
+                    continue
+                sites = set(dir32_sites(span, relocs, image, row["rva"], row["size"]))
+                # If masking leaves several copies compatible with the held
+                # row, only their common facts are proven. Unioning their
+                # different addends would invent multiple bases for one row.
+                bases = sites if bases is None else bases & sites
+            for symbol, base in bases or ():
                 known_base[symbol].add(base)
         for name, span, relocs in spans:
             if exclude_circular and ((source, name) in uni.naked_symbols
@@ -835,10 +884,11 @@ def cmd_extend(args):
                 rows_by_source[row["source"]].append(row)
 
     out_rows = []
+    emitted = set()
     for source, rows in sorted(rows_by_source.items()):
-        spans, normalized = {}, collections.defaultdict(list)
-        for name, span, relocs in locate.object_functions(objects[source]):
-            spans.setdefault(name, (span, relocs))
+        spans = object_variants(locate.object_functions(objects[source]))
+        normalized = collections.defaultdict(list)
+        for name in spans:
             normalized[A0X_RE.sub("?A0xHASH", name)].append(name)
         for row in rows:
             symbol = B.ledger_object_symbol(row)
@@ -861,39 +911,47 @@ def cmd_extend(args):
             if entry is None:
                 stats["symbol_missing"] += 1
                 continue
-            span, relocs = entry
-            body = span.rstrip(b"\xcc")
-            stats["resolved"] += 1
-            if len(body) < row["size"]:
-                stats["object_shorter"] += 1
-                continue
-            if len(body) == row["size"]:
-                stats["exact"] += 1
-                continue
-            stats["longer"] += 1
-            tail, tail_rva = body[row["size"]:], row["rva"] + row["size"]
-            if tail_rva + len(tail) > uni.text_end or uni.overlaps_matched(tail_rva, len(tail)):
-                stats["tail_already_claimed"] += 1
-                continue
-            if any(tail_rva <= start < tail_rva + len(tail) for start in ghidra_starts):
-                # A boundary inside the tail says those bytes are another
-                # function's, however well they compare — the row was not
-                # trimmed short, the object simply laid two bodies out in the
-                # order retail happens to hold them.
-                stats["tail_holds_a_ghidra_start"] += 1
-                continue
-            holes = [o - row["size"] for o, t, _ in relocs
-                     if row["size"] <= o < len(body) and t in (DIR32, REL32)]
-            if not masked_equal(tail, image.body(tail_rva, len(tail)), holes):
-                stats["tail_mismatch"] += 1
-                stats["tail_mismatch_bytes"] += len(tail)
-                continue
-            stats["extendable"] += 1
-            stats["extendable_bytes"] += len(tail)
-            out_rows.append({"name": row["name"], "rva": f"0x{row['rva']:08X}",
-                             "old_size": row["size"], "new_size": len(body),
-                             "tail": len(tail), "source": source,
-                             "symbol": symbol, "notes": row["notes"]})
+            for span, relocs in entry:
+                body = span.rstrip(b"\xcc")
+                if len(body) < row["size"]:
+                    stats["object_shorter"] += 1
+                    continue
+                if not held_variant_matches(span, relocs, objects[source], row,
+                                            image, uni, stats):
+                    stats["held_prefix_mismatch"] += 1
+                    continue
+                stats["resolved"] += 1
+                if len(body) == row["size"]:
+                    stats["exact"] += 1
+                    continue
+                stats["longer"] += 1
+                tail, tail_rva = body[row["size"]:], row["rva"] + row["size"]
+                if tail_rva + len(tail) > uni.text_end or uni.overlaps_matched(tail_rva, len(tail)):
+                    stats["tail_already_claimed"] += 1
+                    continue
+                if any(tail_rva <= start < tail_rva + len(tail) for start in ghidra_starts):
+                    # A boundary inside the tail says those bytes are another
+                    # function's, however well they compare — the row was not
+                    # trimmed short, the object simply laid two bodies out in the
+                    # order retail happens to hold them.
+                    stats["tail_holds_a_ghidra_start"] += 1
+                    continue
+                holes = [o - row["size"] for o, t, _ in relocs
+                         if row["size"] <= o < len(body) and t in (DIR32, REL32)]
+                if not masked_equal(tail, image.body(tail_rva, len(tail)), holes):
+                    stats["tail_mismatch"] += 1
+                    stats["tail_mismatch_bytes"] += len(tail)
+                    continue
+                key = (source, row["name"], row["rva"], len(body), symbol)
+                if key in emitted:
+                    continue
+                emitted.add(key)
+                stats["extendable"] += 1
+                stats["extendable_bytes"] += len(tail)
+                out_rows.append({"name": row["name"], "rva": f"0x{row['rva']:08X}",
+                                 "old_size": row["size"], "new_size": len(body),
+                                 "tail": len(tail), "source": source,
+                                 "symbol": symbol, "notes": row["notes"]})
 
     print(f"obj_sweep extend: {dict(stats)}")
     if not out_rows:
