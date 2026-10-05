@@ -60636,3 +60636,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva005CC24C@Rva005CC24C@@QAEXH@Z,,0x005CC24C,8,Code/GameEngine/Source/Common/VslotSmallBodiesAQ.cpp,matched,vtable slot (table VA 0x00C74E08); pinned 0x005CC23B of this object; arg unused; no Ghidra entry
 ?rva003BC93C@ScriptActions@@IAEXPAVParameter@@H@Z,,0x003BC93C,51,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003BC93C.cpp,matched,named unit plus264 object float value true
 ?rva003BD306@ScriptActions@@IAEXPAVParameter@@H@Z,,0x003BD306,37,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003BC93C.cpp,matched,named unit plus264 object int value
+?rva003BA943@ScriptActions@@IAEXPAVParameter@@_N@Z,,0x003BA943,44,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003BA943.cpp,matched,named unit drawable flag via Drawable 0x002785FB
