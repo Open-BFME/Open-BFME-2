@@ -13431,3 +13431,6 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 ?Rva0052B1EF@@YAPAURec0052B225@@PAUObj0052B225@@@Z,0x0052B1EF,free helper for null-guarded getter 0x0052B225 (REL32 at 0x0052B22A); Ghidra 54B EH body unrecovered; address name
 ?Rva00525407@@YGXPAUPair005258F8@@@Z,0x00525407,stdcall spelling of the 0x005258F8 callee (retail has no caller cleanup); Ghidra 114B unrecovered
 ?Rva0052408B@@YAXHHHPAD@Z,0x0052408B,free callee of forwarder 0x005243FA (REL32 at 0x0052440B); Ghidra 179B body unrecovered; address name
+?Rva00525CC5@@YGXPAUObj00526309@@@Z,0x00525CC5,stdcall callee of flag dispatcher 0x00526309 (REL32 at 0x0052631A); Ghidra 213B unrecovered; address name
+?Rva00525D9A@@YGXPAUObj00526309@@@Z,0x00525D9A,stdcall callee of flag dispatcher 0x00526309 (REL32 at 0x0052632B); Ghidra 102B unrecovered; address name
+?rva005C4180@Obj0052B003@@QAEXH@Z,0x005C4180,thiscall callee of range loop 0x0052B003 (REL32 at 0x0052B013); body unrecovered; address name
