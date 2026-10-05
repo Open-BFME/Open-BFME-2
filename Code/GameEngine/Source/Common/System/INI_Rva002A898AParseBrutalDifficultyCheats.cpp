@@ -25,13 +25,15 @@ public:
 	static void Rva002A898A_ParseBrutalDifficultyCheats(INI *ini, void *instance, void *store, const void *userData);
 };
 
+extern const FieldParse g_00BFD85C[];
+
 // ?Rva002A898A_ParseBrutalDifficultyCheats@INI@@SAXPAV1@PAX1PBX@Z
 void INI::Rva002A898A_ParseBrutalDifficultyCheats(INI *ini, void *instance, void *store, const void *userData)
 {
 	BrutalDifficultyCheats cheats;
 	cheats.buildCostReduction = 0.0f;
 	cheats.buildTimeReduction = 0.1f;
-	ini->initFromINI(&cheats, reinterpret_cast<const FieldParse *>(0x00BFD85C));
+	ini->initFromINI(&cheats, g_00BFD85C);
 	float *slot = (float *)((char *)instance + 0x840);
 	slot[0] = cheats.buildCostReduction;
 	slot[1] = cheats.buildTimeReduction;
