@@ -57676,3 +57676,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ??_GRva005E893E@@QAEPAXI@Z,,0x005CE156,28,Code/GameEngine/Source/Common/FamilyDeletingDtors9.cpp,matched,unreferenced scalar deleting dtor (no vtable/call/jmp xref): calls pinned ~Rva005E893E 0x005E893E then operator delete 0x0002FD60
 ??$__uninitialized_fill_n@PAURva005C8624Element@@IU1@@_STL@@YAPAURva005C8624Element@@PAU1@IABU1@ABU__false_type@0@@Z,,0x005C8420,37,Code/Libraries/Source/WWVegas/WWLib/StlportFillNRva005C8624.cpp,matched,STL fill_n for 72B element via 37B precedent
 ?rva005F2406@Rva005F2406@@QAEXH@Z,,0x005F2406,51,Code/GameEngine/Source/Common/Rva005F2406Method.cpp,matched,leaf set insert 0x000BC15D forEach 0x005F224E forwarder 0x001FF3A9 caller 0x005E4E12
+?Rva00381C82AddChatText@@YAXHABVUnicodeString@@H@Z,,0x00381C82,107,Code/GameEngine/Source/Common/Rva00381C82AddChatText.cpp,matched,chat helper window text color via rowed push_back and forEach
