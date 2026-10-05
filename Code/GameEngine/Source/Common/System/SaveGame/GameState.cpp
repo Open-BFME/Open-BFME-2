@@ -549,7 +549,7 @@ SaveCode GameState::saveGame( AsciiString filename, UnicodeString desc,
 	if( saveType == SAVE_FILE_TYPE_MISSION )
 		gameInfo->missionMapName = TheCampaignManager->getCurrentMap();
 	else
-		gameInfo->missionMapName.clear();
+		((StringBase<char> *)&gameInfo->missionMapName)->clear();
 
 	// set the pristine map to the current campaign map
 	// this is now done during startNewGame()
@@ -725,7 +725,7 @@ SaveCode GameState::loadGame( AvailableGameInfo gameInfo )
 		// remove the mission save data, we've got all we need and have started the load
 		SaveGameInfo *gameInfo = getSaveGameInfo();
 		gameInfo->saveFileType = SAVE_FILE_TYPE_NORMAL;
-		gameInfo->missionMapName.clear();
+		((StringBase<char> *)&gameInfo->missionMapName)->clear();
 
 	}  // end if
 		
@@ -760,7 +760,7 @@ AsciiString GameState::getFilePathInSaveDirectory(const AsciiString& leaf) const
 // ?isInSaveDirectory@GameState@@ present-unmatched
 Bool GameState::isInSaveDirectory(const AsciiString& path) const
 {
-	return path.startsWithNoCase(getSaveDirectory());
+	return ((const StringBase<char> *)&path)->startsWithNoCase(getSaveDirectory().str());
 }
 
 // ------------------------------------------------------------------------------------------------
@@ -851,17 +851,17 @@ const char* PORTABLE_USER_MAPS	= "UserData\\Maps\\";
 AsciiString GameState::realMapPathToPortableMapPath(const AsciiString& in) const
 {
 	AsciiString prefix;
-	if (in.startsWithNoCase(getSaveDirectory()))
+	if (((const StringBase<char> *)&in)->startsWithNoCase(getSaveDirectory().str()))
 	{
 		prefix = PORTABLE_SAVE;
 		concatStringBase(prefix, getMapLeafName(in));
 	}
-	else if (in.startsWithNoCase(TheMapCache->getMapDir()))
+	else if (((const StringBase<char> *)&in)->startsWithNoCase(TheMapCache->getMapDir().str()))
 	{
 		prefix = PORTABLE_MAPS;
 		concatStringBase(prefix, getMapLeafAndDirName(in));
 	}
-	else if (in.startsWithNoCase(TheMapCache->getUserMapDir()))
+	else if (((const StringBase<char> *)&in)->startsWithNoCase(TheMapCache->getUserMapDir().str()))
 	{
 		prefix = PORTABLE_USER_MAPS;
 		concatStringBase(prefix, getMapLeafAndDirName(in));
@@ -873,7 +873,7 @@ AsciiString GameState::realMapPathToPortableMapPath(const AsciiString& in) const
 		// uncaught exceptions crash us. better to just use a bad path.
 		prefix = in;
 	}
-	prefix.toLower();
+	((StringBase<char> *)&prefix)->toLower();
 	return prefix;
 }
 
@@ -882,20 +882,20 @@ AsciiString GameState::realMapPathToPortableMapPath(const AsciiString& in) const
 AsciiString GameState::portableMapPathToRealMapPath(const AsciiString& in) const
 {
 	AsciiString prefix;
-	if (in.startsWithNoCase(PORTABLE_SAVE))
+	if (((const StringBase<char> *)&in)->startsWithNoCase(PORTABLE_SAVE))
 	{
 		// the save dir ends with "\\"
 		prefix = getSaveDirectory();
 		concatStringBase(prefix, getMapLeafName(in));
 	}
-	else if (in.startsWithNoCase(PORTABLE_MAPS))
+	else if (((const StringBase<char> *)&in)->startsWithNoCase(PORTABLE_MAPS))
 	{
 		// the map dir DOES NOT end with "\\", must add it
 		prefix = TheMapCache->getMapDir();
 		((StringBase<char> *)&prefix)->concat("\\");
 		concatStringBase(prefix, getMapLeafAndDirName(in));
 	}
-	else if (in.startsWithNoCase(PORTABLE_USER_MAPS))
+	else if (((const StringBase<char> *)&in)->startsWithNoCase(PORTABLE_USER_MAPS))
 	{
 		// the map dir DOES NOT end with "\\", must add it
 		prefix = TheMapCache->getUserMapDir();
@@ -909,7 +909,7 @@ AsciiString GameState::portableMapPathToRealMapPath(const AsciiString& in) const
 		// uncaught exceptions crash us. better to just use a bad path.
 		prefix = in;
 	}
-	prefix.toLower();
+	((StringBase<char> *)&prefix)->toLower();
 	return prefix;
 }
 
@@ -985,7 +985,7 @@ void GameState::getSaveGameInfoFromFile( AsciiString filename, SaveGameInfo *sav
 		xferLoad.xferAsciiString( &token );
 
 		// check for end of file token
-		if( token.compareNoCase( SAVE_FILE_EOF ) == 0 )
+		if( ((const StringBase<char> *)&token)->compareNoCase( SAVE_FILE_EOF ) == 0 )
 		{
 
 			// we should never get here, if we did, we didn't find block of data we needed
@@ -1277,7 +1277,7 @@ void GameState::iterateSaveFiles( IterateSaveFileCallback callback, void *userDa
 
 				// construction asciistring filename
 				AsciiString filename;
-				filename.set( item.cFileName );
+				((StringBase<char> *)&filename)->set( item.cFileName );
 
 				// call the callback
 				callback( filename, userData );
@@ -1310,8 +1310,8 @@ void GameState::friend_xferSaveDataForCRC( Xfer *xfer, SnapshotType which )
 	SaveGameInfo *gameInfo = getSaveGameInfo();
 	gameInfo->description.clear();
 	gameInfo->saveFileType = SAVE_FILE_TYPE_NORMAL;
-	gameInfo->missionMapName.clear();
-	gameInfo->pristineMapName.clear();
+	((StringBase<char> *)&gameInfo->missionMapName)->clear();
+	((StringBase<char> *)&gameInfo->pristineMapName)->clear();
 
 	xferSaveData(xfer, which);
 }
@@ -1352,8 +1352,8 @@ void GameState::xferSaveData( Xfer *xfer, SnapshotType which )
 			// because anything else is not needed.
 			//
 			if( getSaveGameInfo()->saveFileType != SAVE_FILE_TYPE_MISSION || 
-					(blockName.compareNoCase( GAME_STATE_BLOCK_STRING ) == 0 ||
-					 blockName.compareNoCase( CAMPAIGN_BLOCK_STRING ) == 0) )
+					(((const StringBase<char> *)&blockName)->compareNoCase( GAME_STATE_BLOCK_STRING ) == 0 ||
+					 ((const StringBase<char> *)&blockName)->compareNoCase( CAMPAIGN_BLOCK_STRING ) == 0) )
 			{
 
 				// xfer block name
@@ -1407,7 +1407,7 @@ void GameState::xferSaveData( Xfer *xfer, SnapshotType which )
 			xfer->xferAsciiString( &token );
 
 			// check for end of file token
-			if( token.compareNoCase( SAVE_FILE_EOF ) == 0 )
+			if( ((const StringBase<char> *)&token)->compareNoCase( SAVE_FILE_EOF ) == 0 )
 			{
 
 				// all done
@@ -1615,7 +1615,7 @@ void GameState::xfer( Xfer *xfer )
 		{
 
 			p++;  // skip the '\' we're on
-			saveGameInfo->mapLabel.set( p );
+			((StringBase<char> *)&saveGameInfo->mapLabel)->set( p );
 
 		}  // end else
 

@@ -1,7 +1,7 @@
 // cl: /Ireference/shims/bfme2_ascii /O1 /MD /DNDEBUG /EHsc
 //
 // ??0HeroModeSpecialAbilityUpdateModuleData@@QAE@XZ, retail 0x0049227B
-// (90 bytes). EH ModuleData ctor over the pinned Rva0044EB54 intermediate
+// (90 bytes). EH ModuleData ctor over the pinned SpecialAbilityUpdateModuleData intermediate
 // base (0x0044EB54, size 0xC8): installs vtable 0x00C4DF58, zeroes the
 // +0xC8 string member inline, sets it from the empty literal through the
 // AsciiString set alias pin at 0x000055F5, then clears the +0xCC word and
@@ -13,17 +13,17 @@
 
 #include "ascii_string.h"
 
-class __declspec(novtable) Rva0044EB54
+class __declspec(novtable) SpecialAbilityUpdateModuleData
 {
 public:
-	Rva0044EB54();
-	virtual ~Rva0044EB54();
+	SpecialAbilityUpdateModuleData();
+	virtual ~SpecialAbilityUpdateModuleData();
 
 private:
 	unsigned char m_opaque[0xC4];
 };
 
-class HeroModeSpecialAbilityUpdateModuleData : public Rva0044EB54
+class HeroModeSpecialAbilityUpdateModuleData : public SpecialAbilityUpdateModuleData
 {
 public:
 	HeroModeSpecialAbilityUpdateModuleData();
@@ -37,7 +37,7 @@ private:
 };
 
 HeroModeSpecialAbilityUpdateModuleData::HeroModeSpecialAbilityUpdateModuleData()
-	: Rva0044EB54()
+	: SpecialAbilityUpdateModuleData()
 {
 	m_stringC8.set("");
 	m_intCC = 0;

@@ -116,7 +116,7 @@ void ArchiveFile::addFile(const AsciiString& path, const ArchivedFileInfo *fileI
 {
 	AsciiString temp;
 	temp = path;
-	temp.toLower();
+	((StringBase<char> *)&temp)->toLower();
 	AsciiString token;
 	AsciiString debugpath;
 
@@ -149,7 +149,7 @@ void ArchiveFile::getFileListInDirectory(const AsciiString& currentDirectory, co
 	const DetailedArchivedDirectoryInfo *dirInfo = &m_rootDirectory;
 
 	searchDir = originalDirectory;
-	searchDir.toLower();
+	((StringBase<char> *)&searchDir)->toLower();
 	AsciiString token;
 	
 	searchDir.nextToken(&token, "\\/");
@@ -224,14 +224,15 @@ const ArchivedFileInfo * ArchiveFile::getArchivedFileInfo(const AsciiString& fil
 {
 	AsciiString path;
 	path = filename;
-	path.toLower();
+	((StringBase<char> *)&path)->toLower();
 	AsciiString token;
 
 	const DetailedArchivedDirectoryInfo *dirInfo = &m_rootDirectory;
 
 	path.nextToken(&token, "\\/");
 
-	while ((token.find('.') == NULL) || (path.find('.') != NULL)) {
+	while ((((const StringBase<char> *)&token)->find('.') == NULL) ||
+		((const StringBase<char> *)&path)->find('.') != NULL) {
 
 		DetailedArchivedDirectoryInfoMap::const_iterator it = dirInfo->m_directories.find(token);
 		if (it != dirInfo->m_directories.end())

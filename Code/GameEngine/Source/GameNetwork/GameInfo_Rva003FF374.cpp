@@ -597,7 +597,7 @@ void GameInfo::setMap( AsciiString mapName )
 					{
 						newMapName.concat('/');
 					}
-					newMapName.concat(token);
+					((StringBase<char> *)&newMapName)->concat(*(const StringBase<char> *)&token);
 					mapName.nextToken(&token, "\\/");
 				}
 			}

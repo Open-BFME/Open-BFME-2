@@ -32,7 +32,6 @@ private:
  unsigned char head[12];
  unsigned int a,b;
 };
-// ?rva002B599F@Rva002B599FZeroView@@QAEPAV1@XZ present-unmatched
 Rva002B599FZeroView *Rva002B599FZeroView::rva002B599F()
 {
  a=0; b=0;

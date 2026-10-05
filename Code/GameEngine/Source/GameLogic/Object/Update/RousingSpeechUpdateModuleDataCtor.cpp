@@ -31,17 +31,17 @@ private:
 	int m_x;
 };
 
-class Rva0044EB54
+class SpecialAbilityUpdateModuleData
 {
 public:
-	Rva0044EB54();
-	virtual ~Rva0044EB54();
+	SpecialAbilityUpdateModuleData();
+	virtual ~SpecialAbilityUpdateModuleData();
 
 protected:
 	unsigned char m_pad[0xC8 - 4];
 };
 
-class RousingSpeechUpdateModuleData : public Rva0044EB54
+class RousingSpeechUpdateModuleData : public SpecialAbilityUpdateModuleData
 {
 public:
 	RousingSpeechUpdateModuleData();
@@ -66,7 +66,7 @@ private:
 
 // ??0RousingSpeechUpdateModuleData@@QAE@XZ @0x4AD0EE
 RousingSpeechUpdateModuleData::RousingSpeechUpdateModuleData()
-	: Rva0044EB54()
+	: SpecialAbilityUpdateModuleData()
 	, m_bonusRadius(0.0f)
 	, m_speechDuration(0)
 	, m_updateInterval(0)

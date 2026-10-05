@@ -221,7 +221,6 @@ public:
 };
 
 // byte-exact reconstruction: game/GameEngine/Source/Common/ShellMenuSchemeManager_parseImagePart_Thunk.cpp
-// ?parseImagePart@ShellMenuSchemeManager@@ present-unmatched
 void ShellMenuSchemeManager::parseImagePart(INI *ini, void *instance, void* /*store*/, const void* /*userData*/)
 {
 	static const FieldParse myFieldParse[] = 

@@ -2,7 +2,7 @@
 // stlport
 //
 // ??0GiveUpgradeUpdateModuleData@@QAE@XZ, retail 0x0049C4D2 (72 bytes).
-// Frameless derived ctor over the pinned Rva0044EB54 intermediate base
+// Frameless derived ctor over the pinned SpecialAbilityUpdateModuleData intermediate base
 // (0x0044EB54, size 0xC8): the base holds the vptr (a placeholder virtual;
 // the +0xC8 member offset proves it, identity unknown) so the derived
 // shares it without shifting, the compiler installs vtable 0x00C51280
@@ -20,10 +20,10 @@
 
 #include <vector>
 
-class Rva0044EB54
+class SpecialAbilityUpdateModuleData
 {
 public:
-	Rva0044EB54();
+	SpecialAbilityUpdateModuleData();
 	virtual void Rva0044EB54_virt00();
 
 private:
@@ -34,7 +34,7 @@ extern float g_bfmeGiveUpgrade0025;	// 0.025 at retail 0xC5127C (DIR32-masked)
 // g_bfmeGiveUpgrade0025: matched references place it at VA 0xc5127c (retail .rdata value 0.025f).
 float g_bfmeGiveUpgrade0025 = 0.025f;
 
-class GiveUpgradeUpdateModuleData : public Rva0044EB54
+class GiveUpgradeUpdateModuleData : public SpecialAbilityUpdateModuleData
 {
 public:
 	GiveUpgradeUpdateModuleData();
@@ -48,7 +48,7 @@ private:
 };
 
 GiveUpgradeUpdateModuleData::GiveUpgradeUpdateModuleData()
-	: Rva0044EB54()
+	: SpecialAbilityUpdateModuleData()
 {
 	m_floatDC = g_bfmeGiveUpgrade0025;
 	m_intD4 = 0;
@@ -59,4 +59,4 @@ GiveUpgradeUpdateModuleData::GiveUpgradeUpdateModuleData()
 // Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
 // each one has the same function in that slot (vftable addresses from matched vptr
 // stores). Bind them to the rows at those functions.
-#pragma comment(linker, "/alternatename:?Rva0044EB54_virt00@Rva0044EB54@@UAEXXZ=??_GGiveUpgradeUpdateModuleData@@UAEPAXI@Z")
+#pragma comment(linker, "/alternatename:?Rva0044EB54_virt00@SpecialAbilityUpdateModuleData@@UAEXXZ=??_GGiveUpgradeUpdateModuleData@@UAEPAXI@Z")

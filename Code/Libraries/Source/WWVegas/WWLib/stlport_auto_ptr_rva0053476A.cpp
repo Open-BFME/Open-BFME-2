@@ -19,3 +19,20 @@ void Rva002EAD62::rva002EAD62()
 {
 	delete m_ptr;
 }
+
+class Rva002EAD39
+{
+public:
+	void rva002EAD39(Rva0053476A *replacement);
+
+private:
+	Rva0053476A *m_ptr;
+};
+
+void Rva002EAD39::rva002EAD39(Rva0053476A *replacement)
+{
+	Rva0053476A *old = m_ptr;
+	if (replacement != old && old != 0)
+		delete old;
+	m_ptr = replacement;
+}

@@ -3,7 +3,7 @@
 // stlport
 //
 // ??1ToggleMountedSpecialAbilityUpdateModuleData@@UAE@XZ, retail 0x004AE10B, 74 bytes.
-// Dtor over ctor TU layout (vtable 0x00855220, base Rva0044EB54 0xC8 opaque,
+// Dtor over ctor TU layout (vtable 0x00855220, base SpecialAbilityUpdateModuleData 0xC8 opaque,
 // OpacityTarget@C8 TriggerInstantly@CC CancelDisguise@CD MountedTemplate@D0
 // SynchronizeTimer@D4; factory 0x24F6C5 news 0xE0 table 0x00BEF770). Destroys
 // vector<AsciiString> at +0xD4 via rowed 0x0002CC70 (state 1) then

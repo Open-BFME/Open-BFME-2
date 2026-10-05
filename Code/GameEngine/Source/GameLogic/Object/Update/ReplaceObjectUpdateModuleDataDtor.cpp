@@ -4,7 +4,7 @@
 // ??1ReplaceObjectUpdateModuleData@@UAE@XZ, retail 0x004B2C9A, 142 bytes.
 //
 // Virtual dtor over the ctor TU layout ReplaceObjectUpdateModuleDataCtor.cpp
-// (base Rva0044EB54 0xC8 via pinned 0x44EB54 ctor, vtable 0x00C56C78, vector
+// (base SpecialAbilityUpdateModuleData 0xC8 via pinned 0x44EB54 ctor, vtable 0x00C56C78, vector
 // at +0xC8 via folded Vector_base 0x211E58, float 0.0 at +0xD4, int 0 at
 // +0xD8, bool 0 at +0xDC, factory 0x24FCEA news 0xE0). Destroys the +0xC8
 // entry-pointer vector: null-tested deletes through the rowed entry dtor

@@ -1,6 +1,9 @@
-// ??0Rva0044EB54@@QAE@XZ
+// ??0SpecialAbilityUpdateModuleData@@QAE@XZ
 // cl: /O1 /DNDEBUG /MD /GX /arch:SSE /Ireference/shims/moduledata
-// ??0Rva0044EB54@@QAE@XZ at 0x0044EB54 (378 bytes).
+// ??0SpecialAbilityUpdateModuleData@@QAE@XZ at 0x0044EB54 (378 bytes).
+// Identity: ModuleFactory registers SpecialAbilityUpdate with the data factory
+// at 0x0024A882, which calls this ctor and pushes buildFieldParse 0x0044ED95
+// (tools/check_module_registry.py); it was rowed by address as Rva0044EB54.
 // Address-derived opaque intermediate default ctor. Target evidence: vtable
 // immediate 0x00C3F2A8, 26 this-only module-data ctor callers, a 0xC8 prefix
 // shared by derived factories, and the rowed chained parser at 0x0044ED95.
@@ -73,10 +76,10 @@ private:
 	int m_24;
 };
 
-class Rva0044EB54 : public Snapshot
+class SpecialAbilityUpdateModuleData : public Snapshot
 {
 public:
-	Rva0044EB54();
+	SpecialAbilityUpdateModuleData();
 private:
 	int m_04;
 	OpaqueRefPtr m_08;
@@ -140,7 +143,7 @@ private:
 	unsigned char m_C6;
 };
 
-Rva0044EB54::Rva0044EB54()
+SpecialAbilityUpdateModuleData::SpecialAbilityUpdateModuleData()
 	: m_08()
 	, m_0C()
 	, m_10()

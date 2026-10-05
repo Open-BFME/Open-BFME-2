@@ -2,7 +2,7 @@
 // stlport
 //
 // ??0GiveOrRestoreUpgradeSpecialPowerModuleData@@QAE@XZ, retail 0x004CD0B1,
-// 43 bytes. Frameless ctor over the pinned Rva0044EB54 base (0x44EB54):
+// 43 bytes. Frameless ctor over the pinned SpecialAbilityUpdateModuleData base (0x44EB54):
 // vtable literal 0x00C5F900, CommandButton 0 at +0xC8, UpgradeToGive 0 at
 // +0xCC, FlagsUsedForToggle bitset reset at +0xD0 (own table 0x0085F8C0 all
 // three fields; the GiveOrRestoreUpgradeSpecialPower pool key at 0x4CD14B
@@ -71,10 +71,10 @@ namespace _STL {
 template<> bitset<128> &bitset<128>::reset();
 }
 
-class Rva0044EB54
+class SpecialAbilityUpdateModuleData
 {
 public:
-	Rva0044EB54();
+	SpecialAbilityUpdateModuleData();
 
 protected:
 	void *m_vtable; // +0
@@ -83,7 +83,7 @@ private:
 	unsigned char m_pad[0xC8 - 4];
 };
 
-class GiveOrRestoreUpgradeSpecialPowerModuleData : public Rva0044EB54
+class GiveOrRestoreUpgradeSpecialPowerModuleData : public SpecialAbilityUpdateModuleData
 {
 public:
 	GiveOrRestoreUpgradeSpecialPowerModuleData();

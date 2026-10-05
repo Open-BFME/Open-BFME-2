@@ -2,7 +2,7 @@
 //
 // ?friend_newModuleData@LevelGrantSpecialPowerModuleData@@SAPAVModuleData@@PAVINI@@@Z,
 // retail 0x00251A72, 84 bytes. Dedicated TU: the factory news 0xD8, runs
-// the rowed ctor (0x4C2AA0, EH body over the Rva0044EB54 base with the
+// the rowed ctor (0x4C2AA0, EH body over the SpecialAbilityUpdateModuleData base with the
 // Experience plus RadiusEffect zeros and the AcceptanceFilter member and
 // the LevelFX zero), then feeds the new data plus the class parse proc
 // (rowed chained link at 0x4C2AF3, pushed immediate) to

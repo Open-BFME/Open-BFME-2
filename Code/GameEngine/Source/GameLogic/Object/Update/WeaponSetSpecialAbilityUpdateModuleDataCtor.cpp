@@ -3,7 +3,7 @@
 // ??0WeaponSetSpecialAbilityUpdateModuleData@@QAE@XZ, retail 0x004923E2,
 // 32 bytes. Weapon-set ability data over own INI table 0x00BEF008
 // (WeaponsetEffectDuration at +0xC8, WhichWeaponSet at +0xCC; offsets
-// read from the retail table). Runs the pinned Rva0044EB54 base ctor
+// read from the retail table). Runs the pinned SpecialAbilityUpdateModuleData base ctor
 // (0x44EB54), zeroes both trailing words and installs the explicit
 // vtable 0xC5F778. Flat classes throughout (no declared dtors anywhere)
 // keep the body frameless; /O1 keeps the integer zeros as the compact
@@ -17,16 +17,16 @@
 extern "C" const void *const vtbl_00C5F778[];  // folded, 3 classes; via ??_7EvacuateGarrisonSpecialPowerModuleData@@6B@
 #pragma comment(linker, "/alternatename:_vtbl_00C5F778=??_7EvacuateGarrisonSpecialPowerModuleData@@6B@")
 
-class Rva0044EB54
+class SpecialAbilityUpdateModuleData
 {
 public:
-	Rva0044EB54();
+	SpecialAbilityUpdateModuleData();
 
 private:
 	unsigned char m_pad[0xC8];
 };
 
-class WeaponSetSpecialAbilityUpdateModuleData : public Rva0044EB54
+class WeaponSetSpecialAbilityUpdateModuleData : public SpecialAbilityUpdateModuleData
 {
 public:
 	WeaponSetSpecialAbilityUpdateModuleData();
@@ -38,7 +38,7 @@ private:
 
 // ??0WeaponSetSpecialAbilityUpdateModuleData@@QAE@XZ @0x004923E2
 WeaponSetSpecialAbilityUpdateModuleData::WeaponSetSpecialAbilityUpdateModuleData()
-	: Rva0044EB54()
+	: SpecialAbilityUpdateModuleData()
 {
 	m_weaponsetEffectDuration = 0;
 	m_whichWeaponSet = 0;

@@ -7,17 +7,17 @@
 // PlayWeaponPreFireFX at +0xD9). Identity is the rowed poolkey 0x492685
 // (WeaponFireSpecialAbilityUpdate) which ends exactly where this ctor
 // begins, plus factory 0x24DB56 (sole caller) plus proc 0x24DB00 (same
-// table, chained on the Rva0044EB54 base proc). Shape follows the
-// Devastate-V5 precedent: pinned opaque base Rva0044EB54 (0x44EB54) with
+// table, chained on the SpecialAbilityUpdateModuleData base proc). Shape follows the
+// Devastate-V5 precedent: pinned opaque base SpecialAbilityUpdateModuleData (0x44EB54) with
 // the vtable slot at +0 and the tail byte at +0xC4, derived zeros in
 // table order with the base tail zeroed last. The specialWeapon pointer
 // anchors the first zero below the vtable store (else the store sinks
 // last) while the xor-zero setup still hoists above it.
 
-class Rva0044EB54
+class SpecialAbilityUpdateModuleData
 {
 public:
-	Rva0044EB54();
+	SpecialAbilityUpdateModuleData();
 
 protected:
 	void *m_vtable; // +0
@@ -32,7 +32,7 @@ private:
 	unsigned char m_padC5[3]; // +0xC5..+0xC7
 };
 
-class WeaponFireSpecialAbilityUpdateModuleData : public Rva0044EB54
+class WeaponFireSpecialAbilityUpdateModuleData : public SpecialAbilityUpdateModuleData
 {
 public:
 	WeaponFireSpecialAbilityUpdateModuleData();

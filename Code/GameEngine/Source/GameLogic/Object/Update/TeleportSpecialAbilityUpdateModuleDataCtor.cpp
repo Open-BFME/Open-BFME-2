@@ -1,7 +1,7 @@
 // cl: /O1 /DNDEBUG /MD /arch:SSE
 //
 // ??0TeleportSpecialAbilityUpdateModuleData@@QAE@XZ, retail 0x00492E43, 54 bytes.
-// ModuleData ctor over the pinned Rva0044EB54 base (0x44EB54, 0xC8 bytes
+// ModuleData ctor over the pinned SpecialAbilityUpdateModuleData base (0x44EB54, 0xC8 bytes
 // per the ArrowStorm row): installs vtable 0x00C4E208 explicitly
 // (novtable, no compiler emission), zeroes BusyForDuration at +0xC8,
 // DestinationWeaponName at +0xCC and SourceWeaponName at +0xD0, and sets
@@ -72,11 +72,11 @@ public:
 	void add(const FieldParse *parseTable, unsigned int extraOffset);
 };
 
-class __declspec(novtable) Rva0044EB54
+class __declspec(novtable) SpecialAbilityUpdateModuleData
 {
 public:
-	Rva0044EB54();
-	virtual ~Rva0044EB54();
+	SpecialAbilityUpdateModuleData();
+	virtual ~SpecialAbilityUpdateModuleData();
 	static void buildFieldParse(MultiIniFieldParse &parse);
 
 private:
@@ -85,7 +85,7 @@ private:
 	unsigned char m_opaque[0xC4];
 };
 
-class __declspec(novtable) TeleportSpecialAbilityUpdateModuleData : public Rva0044EB54
+class __declspec(novtable) TeleportSpecialAbilityUpdateModuleData : public SpecialAbilityUpdateModuleData
 {
 public:
 	TeleportSpecialAbilityUpdateModuleData();
@@ -104,7 +104,7 @@ private:
 
 // ??0TeleportSpecialAbilityUpdateModuleData@@QAE@XZ @0x00492E43
 TeleportSpecialAbilityUpdateModuleData::TeleportSpecialAbilityUpdateModuleData()
-	: Rva0044EB54()
+	: SpecialAbilityUpdateModuleData()
 {
 	m_busyForDuration = 0;
 	*(unsigned int *)this = ((unsigned int)vtbl_00C4E208);

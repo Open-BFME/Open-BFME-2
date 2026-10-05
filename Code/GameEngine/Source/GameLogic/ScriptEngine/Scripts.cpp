@@ -793,7 +793,7 @@ ScriptGroup *ScriptGroup::duplicateAndQualify(const AsciiString& qualifier,
 	}
 
 	pNew->m_groupName = this->m_groupName;
-	pNew->m_groupName.concat(qualifier);
+	((StringBase<char> *)&pNew->m_groupName)->concat(*(const StringBase<char> *)&qualifier);
 	pNew->m_isGroupActive = this->m_isGroupActive;
 	pNew->m_isGroupSubroutine = this->m_isGroupSubroutine;
 	pNew->m_nextGroup = NULL;
@@ -1056,7 +1056,7 @@ Script *Script::duplicateAndQualify(const AsciiString& qualifier,
 		pNew->m_action->deleteInstance();
 	}
 	pNew->m_scriptName = m_scriptName;
-	pNew->m_scriptName.concat(qualifier);
+	((StringBase<char> *)&pNew->m_scriptName)->concat(*(const StringBase<char> *)&qualifier);
 	pNew->m_comment = m_comment;
 	pNew->m_conditionComment = m_conditionComment;
 	pNew->m_actionComment = m_actionComment;
@@ -1570,7 +1570,7 @@ AsciiString Condition::getUiText(void)
 
 	for (i=0; i<MAX_PARMS; i++) {
 		if (i<numStrings) {
-			uiText.concat(strings[i]);
+			((StringBase<char> *)&uiText)->concat(*(const StringBase<char> *)&strings[i]);
 		}
 		if (i<m_numParms) {
 			uiText.concat(m_parms[i]->getUiText());
@@ -1700,7 +1700,7 @@ void Parameter::qualify(const AsciiString& qualifier,
 	switch (m_paramType) {
 		case SIDE:
 			tmpString = m_string;
-			tmpString.concat(qualifier);
+			((StringBase<char> *)&tmpString)->concat(*(const StringBase<char> *)&qualifier);
 			if (tmpString==playerTemplateName) {
 				m_string = newPlayerName;
 			}
@@ -1713,7 +1713,9 @@ void Parameter::qualify(const AsciiString& qualifier,
 		case SCRIPT:
 		case COUNTER:
 		case FLAG:
-		case SCRIPT_SUBROUTINE: m_string.concat(qualifier); break;
+		case SCRIPT_SUBROUTINE:
+			((StringBase<char> *)&m_string)->concat(*(const StringBase<char> *)&qualifier);
+			break;
 		default: break;
 	}
 }

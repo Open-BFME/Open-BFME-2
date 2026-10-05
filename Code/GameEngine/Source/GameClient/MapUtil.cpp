@@ -435,13 +435,13 @@ void MapCache::writeCacheINI( Bool userDir )
 	fprintf(fp, "; FILE: %s /////////////////////////////////////////////////////////////\n", filepath.str());
 	fprintf(fp, "; This INI file is auto-generated - do not modify\n");
 	fprintf(fp, "; /////////////////////////////////////////////////////////////////////////////\n");
-	mapDir.toLower();
+	((StringBase<char> *)&mapDir)->toLower();
 
 	MapCache::iterator it = begin();
 	MapMetaData md;
 	while (it != end())
 	{
-		if (it->first.startsWithNoCase(mapDir.str()))
+		if (((const StringBase<char> *)&it->first)->startsWithNoCase(mapDir.str()))
 		{
 			md = it->second;
 			fprintf(fp, "\nMapCache %s\n", AsciiStringToQuotedPrintable(it->first.str()).str());
@@ -524,7 +524,7 @@ void MapCache::updateCache( void )
 // ?clearUnseenMaps@MapCache@@ present-unmatched
 Bool MapCache::clearUnseenMaps( AsciiString dirName )
 {
-	dirName.toLower();
+	((StringBase<char> *)&dirName)->toLower();
 	Bool erasedSomething = FALSE;
 
 	std::map<AsciiString, Bool>::iterator it = m_seen.begin();
@@ -532,7 +532,7 @@ Bool MapCache::clearUnseenMaps( AsciiString dirName )
 	while (it != m_seen.end())
 	{
 		AsciiString mapName = it->first;
-		if (it->second == FALSE && mapName.startsWithNoCase(dirName.str()))
+		if (it->second == FALSE && ((const StringBase<char> *)&mapName)->startsWithNoCase(dirName.str()))
 		{
 			// not seen in the dir - clear it out.
 			erase(mapName);
@@ -612,9 +612,9 @@ Bool MapCache::loadUserMaps()
 		FileInfo fileInfo;
 		AsciiString tempfilename;
 		tempfilename = (*iter);
-		tempfilename.toLower();
+		((StringBase<char> *)&tempfilename)->toLower();
 
-		const char *s = tempfilename.reverseFind('\\');
+		const char *s = ((const StringBase<char> *)&tempfilename)->reverseFind('\\');
 		if (!s)
 		{
 			DEBUG_CRASH(("Couldn't find \\ in map name!"));
@@ -691,7 +691,7 @@ Bool MapCache::addMap( AsciiString dirName, AsciiString fname, FileInfo *fileInf
 
 	AsciiString lowerFname;
 	lowerFname = fname;
-	lowerFname.toLower();
+	((StringBase<char> *)&lowerFname)->toLower();
 	MapCache::iterator it = find(lowerFname);
 
 	MapMetaData md;
@@ -710,7 +710,7 @@ Bool MapCache::addMap( AsciiString dirName, AsciiString fname, FileInfo *fileInf
 			{
 				// unofficial maps or maps without names
 				AsciiString tempdisplayname;
-				tempdisplayname = fname.reverseFind('\\') + 1;
+				tempdisplayname = ((const StringBase<char> *)&fname)->reverseFind('\\') + 1;
 				(*this)[lowerFname].m_displayName.translate(tempdisplayname);
 				if (md.m_numPlayers >= 2)
 				{
@@ -766,7 +766,7 @@ Bool MapCache::addMap( AsciiString dirName, AsciiString fname, FileInfo *fileInf
 	{
 		DEBUG_LOG(("Missing TheKey_mapName!\n"));
 		AsciiString tempdisplayname;
-		tempdisplayname = fname.reverseFind('\\') + 1;
+		tempdisplayname = ((const StringBase<char> *)&fname)->reverseFind('\\') + 1;
 		md.m_displayName.translate(tempdisplayname);
 		if (md.m_numPlayers >= 2)
 		{
@@ -832,7 +832,8 @@ MapCache *TheMapCache = NULL;
 
 Bool WouldMapTransfer( const AsciiString& mapName )
 {
-	return mapName.startsWithNoCase(TheMapCache->getUserMapDir());
+	return ((const StringBase<char> *)&mapName)->startsWithNoCase(
+		TheMapCache->getUserMapDir().str());
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -885,7 +886,7 @@ Int populateMapListboxNoReset( GameWindow *listbox, Bool useSystemMaps, Bool isM
 		mapDir = TheGlobalData->getPath_UserData();
 		concatStringBase(mapDir, TheMapCache->getMapDir());
 	}
-	mapDir.toLower();
+	((StringBase<char> *)&mapDir)->toLower();
 
 typedef std::set<UnicodeString, rts::less_than_nocase<UnicodeString> > MapNameList;
 typedef MapNameList::iterator MapNameListIter;
@@ -941,7 +942,7 @@ typedef MapDisplayToFileNameList::iterator MapDisplayToFileNameListIter;
 			}
 
 			DEBUG_ASSERTCRASH(it != TheMapCache->end(), ("Map %s not found in map cache.", *tempit));
-			if (it->first.startsWithNoCase(mapDir.str()) && isMultiplayer == it->second.m_isMultiplayer && !it->second.m_displayName.isEmpty())
+			if (((const StringBase<char> *)&it->first)->startsWithNoCase(mapDir.str()) && isMultiplayer == it->second.m_isMultiplayer && !it->second.m_displayName.isEmpty())
 			{
 				/// @todo: mapDisplayName = TheGameText->fetch(it->second.m_displayName.str());
 				mapDisplayName = it->second.m_displayName;
@@ -1060,7 +1061,7 @@ Bool isValidMap( AsciiString mapName, Bool isMultiplayer )
 		return FALSE;
 	TheMapCache->updateCache();
 
-	mapName.toLower();
+	((StringBase<char> *)&mapName)->toLower();
 	MapCache::iterator it = TheMapCache->find(mapName);
 	if (it != TheMapCache->end())
 	{
@@ -1073,29 +1074,6 @@ Bool isValidMap( AsciiString mapName, Bool isMultiplayer )
 	return FALSE;
 }  // end isValidMap
 #pragma optimize("", on)
-
-//-------------------------------------------------------------------------------------------------
-/** Find a valid map */
-//-------------------------------------------------------------------------------------------------
-AsciiString getDefaultMap( Bool isMultiplayer )
-{
-	if(!TheMapCache)
-		return AsciiString::TheEmptyString;
-	TheMapCache->updateCache();
-
-	MapCache::iterator it = TheMapCache->begin();
-	while (it != TheMapCache->end())
-	{
-		if (isMultiplayer == it->second.m_isMultiplayer)
-		{
-			return it->first;
-		}
-		++it;
-	}
-
-	return AsciiString::TheEmptyString;
-}
-
 
 AsciiString getDefaultOfficialMap()
 {
@@ -1121,7 +1099,7 @@ Bool isOfficialMap( AsciiString mapName )
 	if(!TheMapCache || mapName.isEmpty())
 		return FALSE;
 	TheMapCache->updateCache();
-	mapName.toLower();
+	((StringBase<char> *)&mapName)->toLower();
 	MapCache::iterator it = TheMapCache->find(mapName);
 	if (it != TheMapCache->end())
 		return it->second.m_isOfficial;
@@ -1197,13 +1175,14 @@ Image *getMapPreviewImage( AsciiString mapName )
 	tgaName.removeLastChar(); // m
 	tgaName.removeLastChar(); // .
 	name = tgaName;//.reverseFind('\\') + 1;
-	filename = tgaName.reverseFind('\\') + 1;
+	filename = ((const StringBase<char> *)&tgaName)->reverseFind('\\') + 1;
 	//tgaName = name;
 	((StringBase<char> *)&filename)->concat(".tga");
 	((StringBase<char> *)&tgaName)->concat(".tga");
 
 	AsciiString portableName = TheGameState->realMapPathToPortableMapPath(name);
-	tempName.set(AsciiString::TheEmptyString);
+	((StringBase<char> *)&tempName)->set(
+		*(const StringBase<char> *)&AsciiString::TheEmptyString);
 	for(Int i = 0; i < portableName.getLength(); ++i)
 	{
 		char c = portableName.getCharAt(i);

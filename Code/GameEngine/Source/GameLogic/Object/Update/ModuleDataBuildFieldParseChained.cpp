@@ -3,9 +3,9 @@
 // Chained ModuleData::buildFieldParse procs: each calls its base-class
 // buildFieldParse, then registers its own FieldParse table with
 // MultiIniFieldParse::add (pinned at 0x2BC6E). Bodies:
-// ?buildFieldParse@Rva0044EB54@@SAXAAVMultiIniFieldParse@@@Z, retail
+// ?buildFieldParse@SpecialAbilityUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z, retail
 // 0x0044ED95, 11 bytes (field SpecialPowerTemplate; base shared by the
-// SpecialAbility family below; attached to the already-pinned Rva0044EB54
+// SpecialAbility family below; attached to the already-pinned SpecialAbilityUpdateModuleData
 // entity, no new class invented);
 // ?buildFieldParse@DockUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z
 // retail 0x005896C1, 11 bytes (field NumberApproachPositions; adjacent to
@@ -26,13 +26,13 @@
 // DoHealthCheck at +0x78 plus DelayedDeathPrerequisiteUpgrade at +0x7C,
 // matching the ctor stores; factory at 0x251622 pushes this proc).
 // ?buildFieldParse@DominateEnemySpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z
-// retail 0x004CC96D, 27 bytes (chained on the rowed Rva0044EB54 base proc at
+// retail 0x004CC96D, 27 bytes (chained on the rowed SpecialAbilityUpdateModuleData base proc at
 // 0x44ED95, then table 0x00C5F638 holding DominateRadius at +0xC8 plus
 // TriggerFX at +0xCC plus DominatedFX at +0xD0 plus PermanentlyConvert at
 // +0xD4 plus AttributeModifierAffects at +0xD8, matching the ctor stores;
 // factory at 0x252EE5 pushes this proc; pool key at 0x4CC9DF names the class).
 // ?buildFieldParse@GiveUpgradeUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z,
-// retail 0x0049C391, 27 bytes (chained on the rowed Rva0044EB54 base proc at
+// retail 0x0049C391, 27 bytes (chained on the rowed SpecialAbilityUpdateModuleData base proc at
 // 0x44ED95, then table 0x00C511A0 holding GiveUpgradeEffect at +0xD4 plus
 // SpawnOutFX at +0xD8 plus FadeOutSpeed at +0xDC plus DeliverUpgrade at +0xE0;
 // factory at 0x24E800 pushes this proc; pool key at 0x49C471 names the class).
@@ -157,7 +157,7 @@ public:
 	void add(const FieldParse *parse, unsigned int extraOffset);
 };
 
-class Rva0044EB54
+class SpecialAbilityUpdateModuleData
 {
 public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
@@ -211,8 +211,8 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
-// ?buildFieldParse@Rva0044EB54@@SAXAAVMultiIniFieldParse@@@Z
-void Rva0044EB54::buildFieldParse(MultiIniFieldParse &parse)
+// ?buildFieldParse@SpecialAbilityUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z
+void SpecialAbilityUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
 	parse.add(reinterpret_cast<const FieldParse *>(0x00C3F7F8), 0);
 }
@@ -224,19 +224,19 @@ void DockUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
 
 void TeleportToCasterSpecialPowerModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
-	Rva0044EB54::buildFieldParse(parse);
+	SpecialAbilityUpdateModuleData::buildFieldParse(parse);
 	parse.add(reinterpret_cast<const FieldParse *>(0x00C5FAE0), 0);
 }
 
 void StoreObjectsSpecialPowerModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
-	Rva0044EB54::buildFieldParse(parse);
+	SpecialAbilityUpdateModuleData::buildFieldParse(parse);
 	parse.add(g_00C5FB9CStoreObjectsFieldParse, 0);
 }
 
 void CurseSpecialPowerModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
-	Rva0044EB54::buildFieldParse(parse);
+	SpecialAbilityUpdateModuleData::buildFieldParse(parse);
 	parse.add(g_00C5F810CurseSpecialPowerFieldParse, 0);
 }
 
@@ -266,7 +266,7 @@ public:
 
 void GloriousChargeUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
-	Rva0044EB54::buildFieldParse(parse);
+	SpecialAbilityUpdateModuleData::buildFieldParse(parse);
 	parse.add(g_00C550C8GloriousChargeFieldParse, 0);
 }
 
@@ -278,7 +278,7 @@ public:
 
 void GiveOrRestoreUpgradeSpecialPowerModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
-	Rva0044EB54::buildFieldParse(parse);
+	SpecialAbilityUpdateModuleData::buildFieldParse(parse);
 	parse.add(reinterpret_cast<const FieldParse *>(0x00C5F8C0), 0);
 }
 
@@ -340,7 +340,7 @@ public:
 
 void LevelGrantSpecialPowerModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
-	Rva0044EB54::buildFieldParse(parse);
+	SpecialAbilityUpdateModuleData::buildFieldParse(parse);
 	parse.add(reinterpret_cast<const FieldParse *>(0x00C5C8D0), 0);
 }
 
@@ -586,7 +586,7 @@ public:
 
 void WeaponFireSpecialAbilityUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
-	Rva0044EB54::buildFieldParse(parse);
+	SpecialAbilityUpdateModuleData::buildFieldParse(parse);
 	parse.add(g_00BEF0A8WeaponFireSpecialAbilityFieldParse, 0);
 }
 
@@ -610,7 +610,7 @@ public:
 
 void DominateEnemySpecialPowerModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
-	Rva0044EB54::buildFieldParse(parse);
+	SpecialAbilityUpdateModuleData::buildFieldParse(parse);
 	parse.add(reinterpret_cast<const FieldParse *>(0x00C5F638), 0);
 }
 
@@ -622,7 +622,7 @@ public:
 
 void RousingSpeechUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
-	Rva0044EB54::buildFieldParse(parse);
+	SpecialAbilityUpdateModuleData::buildFieldParse(parse);
 	parse.add(reinterpret_cast<const FieldParse *>(0x00C54F28), 0);
 }
 
@@ -739,7 +739,7 @@ public:
 
 void GiveUpgradeUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
-	Rva0044EB54::buildFieldParse(parse);
+	SpecialAbilityUpdateModuleData::buildFieldParse(parse);
 	parse.add(reinterpret_cast<const FieldParse *>(0x00C511A0), 0);
 }
 
@@ -858,7 +858,7 @@ public:
 };
 
 // ?buildFieldParse@ReplaceObjectUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z
-// retail 0x0024FC94 (27 bytes): chained on the rowed Rva0044EB54 base proc
+// retail 0x0024FC94 (27 bytes): chained on the rowed SpecialAbilityUpdateModuleData base proc
 // at 0x44ED95, then table 0x00BEF960 holding ReplaceObject at +0x18 plus
 // ReplaceRadius at +0x1C plus ReplaceFX at +0x20 plus Scatter at +0x24.
 // The rowed factory at 0x0024FCEA calls the rowed ctor at 0x4B2AC4 and
@@ -866,7 +866,7 @@ public:
 // the class. Row supersedes the pin.
 void ReplaceObjectUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
-	Rva0044EB54::buildFieldParse(parse);
+	SpecialAbilityUpdateModuleData::buildFieldParse(parse);
 	parse.add(reinterpret_cast<const FieldParse *>(0x00BEF960), 0);
 }
 
@@ -943,12 +943,12 @@ public:
 };
 
 // ?buildFieldParse@ArrowStormUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z
-// retail 0x0024D5AB (27 bytes): chained on the rowed Rva0044EB54 base proc at
+// retail 0x0024D5AB (27 bytes): chained on the rowed SpecialAbilityUpdateModuleData base proc at
 // 0x44ED95, then table 0x00BEEE08. The owning factory pushes this proc VA
 // (unique image-wide); ModuleFactory registers it under "ArrowStormUpdate".
 void ArrowStormUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
-	Rva0044EB54::buildFieldParse(parse);
+	SpecialAbilityUpdateModuleData::buildFieldParse(parse);
 	parse.add(reinterpret_cast<const FieldParse *>(0x00BEEE08), 0);
 }
 
@@ -959,13 +959,13 @@ public:
 };
 
 // ?buildFieldParse@ModelConditionSpecialAbilityUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z
-// retail 0x0024D655 (27 bytes): chained on the rowed Rva0044EB54 base proc at
+// retail 0x0024D655 (27 bytes): chained on the rowed SpecialAbilityUpdateModuleData base proc at
 // 0x44ED95, then table 0x00BEEED0. The owning factory pushes this proc VA
 // (unique image-wide); ModuleFactory registers it under
 // "ModelConditionSpecialAbilityUpdate".
 void ModelConditionSpecialAbilityUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
-	Rva0044EB54::buildFieldParse(parse);
+	SpecialAbilityUpdateModuleData::buildFieldParse(parse);
 	parse.add(reinterpret_cast<const FieldParse *>(0x00BEEED0), 0);
 }
 
@@ -976,13 +976,13 @@ public:
 };
 
 // ?buildFieldParse@HeroModeSpecialAbilityUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z
-// retail 0x0024D9AC (27 bytes): chained on the rowed Rva0044EB54 base proc at
+// retail 0x0024D9AC (27 bytes): chained on the rowed SpecialAbilityUpdateModuleData base proc at
 // 0x44ED95, then table 0x00BEEF90. The owning factory pushes this proc VA
 // (unique image-wide); ModuleFactory registers it under
 // "HeroModeSpecialAbilityUpdate".
 void HeroModeSpecialAbilityUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
-	Rva0044EB54::buildFieldParse(parse);
+	SpecialAbilityUpdateModuleData::buildFieldParse(parse);
 	parse.add(reinterpret_cast<const FieldParse *>(0x00BEEF90), 0);
 }
 
@@ -993,13 +993,13 @@ public:
 };
 
 // ?buildFieldParse@WeaponSetSpecialAbilityUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z
-// retail 0x0024DA56 (27 bytes): chained on the rowed Rva0044EB54 base proc at
+// retail 0x0024DA56 (27 bytes): chained on the rowed SpecialAbilityUpdateModuleData base proc at
 // 0x44ED95, then table 0x00BEF008. The owning factory pushes this proc VA
 // (unique image-wide); ModuleFactory registers it under
 // "WeaponSetSpecialAbilityUpdate".
 void WeaponSetSpecialAbilityUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
-	Rva0044EB54::buildFieldParse(parse);
+	SpecialAbilityUpdateModuleData::buildFieldParse(parse);
 	parse.add(reinterpret_cast<const FieldParse *>(0x00BEF008), 0);
 }
 
@@ -1010,13 +1010,13 @@ public:
 };
 
 // ?buildFieldParse@TeleportSpecialAbilityUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z
-// retail 0x0024DBAA (27 bytes): chained on the rowed Rva0044EB54 base proc at
+// retail 0x0024DBAA (27 bytes): chained on the rowed SpecialAbilityUpdateModuleData base proc at
 // 0x44ED95, then table 0x00BEF150. The owning factory pushes this proc VA
 // (unique image-wide); ModuleFactory registers it under
 // "TeleportSpecialAbilityUpdate".
 void TeleportSpecialAbilityUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
-	Rva0044EB54::buildFieldParse(parse);
+	SpecialAbilityUpdateModuleData::buildFieldParse(parse);
 	parse.add(g_00BEF150TeleportSpecialAbilityFieldParse, 0);
 }
 
@@ -1027,13 +1027,13 @@ public:
 };
 
 // ?buildFieldParse@ToggleMountedSpecialAbilityUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z
-// retail 0x0024F66F (27 bytes): chained on the rowed Rva0044EB54 base proc at
+// retail 0x0024F66F (27 bytes): chained on the rowed SpecialAbilityUpdateModuleData base proc at
 // 0x44ED95, then table 0x00BEF770. The owning factory pushes this proc VA
 // (unique image-wide); ModuleFactory registers it under
 // "ToggleMountedSpecialAbilityUpdate".
 void ToggleMountedSpecialAbilityUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
-	Rva0044EB54::buildFieldParse(parse);
+	SpecialAbilityUpdateModuleData::buildFieldParse(parse);
 	parse.add(reinterpret_cast<const FieldParse *>(0x00BEF770), 0);
 }
 
@@ -1044,12 +1044,12 @@ public:
 };
 
 // ?buildFieldParse@SpecialDisguiseUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z
-// retail 0x0024F982 (27 bytes): chained on the rowed Rva0044EB54 base proc at
+// retail 0x0024F982 (27 bytes): chained on the rowed SpecialAbilityUpdateModuleData base proc at
 // 0x44ED95, then table 0x00BEF8B8. The owning factory pushes this proc VA
 // (unique image-wide); ModuleFactory registers it under "SpecialDisguiseUpdate".
 void SpecialDisguiseUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
-	Rva0044EB54::buildFieldParse(parse);
+	SpecialAbilityUpdateModuleData::buildFieldParse(parse);
 	parse.add(reinterpret_cast<const FieldParse *>(0x00BEF8B8), 0);
 }
 
@@ -1060,12 +1060,12 @@ public:
 };
 
 // ?buildFieldParse@FellBeastSwoopPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z
-// retail 0x00252398 (27 bytes): chained on the rowed Rva0044EB54 base proc at
+// retail 0x00252398 (27 bytes): chained on the rowed SpecialAbilityUpdateModuleData base proc at
 // 0x44ED95, then table 0x00BEFE14. The owning factory pushes this proc VA
 // (unique image-wide); ModuleFactory registers it under "FellBeastSwoopPower".
 void FellBeastSwoopPowerModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
-	Rva0044EB54::buildFieldParse(parse);
+	SpecialAbilityUpdateModuleData::buildFieldParse(parse);
 	parse.add(reinterpret_cast<const FieldParse *>(0x00BEFE14), 0);
 }
 

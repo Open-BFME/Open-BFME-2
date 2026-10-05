@@ -4,7 +4,7 @@
 // ??1ToggleDeploySpecialAbilityUpdateModuleData@@UAE@XZ, retail 0x004AE685,
 // 82 bytes. ToggleDeploySpecialAbilityUpdate ModuleData dtor over the ctor TU
 // layout ToggleDeploySpecialAbilityUpdateModuleDataCtor.cpp (pinned
-// Rva0044EB54 base 0xC8 plus cleared words at +0xC8/+0xCC, factory news 0xD0,
+// SpecialAbilityUpdateModuleData base 0xC8 plus cleared words at +0xC8/+0xCC, factory news 0xD0,
 // vtable 0x00C553D8 with slot 0 deleting dtor at 0x004AE669 calling here).
 // Destroys +0xCC then +0xC8 through the rowed Release_Ref at 0x00050ED3 when
 // non-null (states 1/0), then the Rva0044ECCE base through the pinned

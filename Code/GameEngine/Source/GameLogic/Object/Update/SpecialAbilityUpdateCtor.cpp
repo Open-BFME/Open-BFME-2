@@ -3,19 +3,19 @@
 // pairs the name with this factory); formerly misnamed SpecialAbilityUpdate/SpecialAbilityUpdateModuleData.
 // ??0TeleportToCasterSpecialPowerModuleData@@QAE@XZ at 0x004CD34E.
 // Default ctor over the second intermediate base 0x0044EB54 (pinned opaque
-// as Rva0044EB54, 0xC8 bytes). Trailing floats zeroed plus two trailing ints
+// as SpecialAbilityUpdateModuleData, 0xC8 bytes). Trailing floats zeroed plus two trailing ints
 // (factory size 0xDC).
-class Rva0044EB54
+class SpecialAbilityUpdateModuleData
 {
 public:
-	Rva0044EB54();
-	virtual ~Rva0044EB54();
+	SpecialAbilityUpdateModuleData();
+	virtual ~SpecialAbilityUpdateModuleData();
 
 protected:
 	unsigned char m_pad[0xC8 - 4];
 };
 
-class TeleportToCasterSpecialPowerModuleData : public Rva0044EB54
+class TeleportToCasterSpecialPowerModuleData : public SpecialAbilityUpdateModuleData
 {
 public:
 	TeleportToCasterSpecialPowerModuleData();
@@ -30,7 +30,7 @@ private:
 };
 
 TeleportToCasterSpecialPowerModuleData::TeleportToCasterSpecialPowerModuleData()
-	: Rva0044EB54()
+	: SpecialAbilityUpdateModuleData()
 {
 	m_iD4 = 0;
 	m_iD8 = 0;

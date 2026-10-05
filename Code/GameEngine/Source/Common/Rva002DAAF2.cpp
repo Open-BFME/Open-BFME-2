@@ -22,6 +22,6 @@ bool Rva002DAAF2::rva002DAAF2(const AsciiString &s, int a, int b, int c, int d)
 {
 	if (s.isEmpty())
 		return false;
-	m_str10.set(s);
+	((StringBase<char> *)&m_str10)->set(*(const StringBase<char> *)&s);
 	return true;
 }

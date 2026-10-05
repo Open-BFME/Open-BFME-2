@@ -2,7 +2,7 @@
 //
 // ??0DominateEnemySpecialPowerModuleData@@QAE@XZ, retail 0x004CCA24, 122 bytes.
 // SpecialPower-side ModuleData for the DominateEnemy power. The class runs
-// 0xDC bytes: the pinned Rva0044EB54 SpecialPower base (0xC8) plus a float
+// 0xDC bytes: the pinned SpecialAbilityUpdateModuleData SpecialPower base (0xC8) plus a float
 // DominateRadius at +0xC8 plus TriggerFX at +0xCC plus DominatedFX at +0xD0
 // plus PermanentlyConvert at +0xD4 plus a 4-byte filter member at +0xD8.
 // The table at 0x00C5F638 (DominateRadius plus TriggerFX plus DominatedFX
@@ -20,11 +20,11 @@
 // store compiler-emitted mid-init; /Oy- forces the ebp frame with the
 // __EH_prolog prologue; /arch:SSE keeps the float zero as xorps plus movss.
 
-class Rva0044EB54
+class SpecialAbilityUpdateModuleData
 {
 public:
-	Rva0044EB54();
-	virtual ~Rva0044EB54();
+	SpecialAbilityUpdateModuleData();
+	virtual ~SpecialAbilityUpdateModuleData();
 
 private:
 	unsigned char m_pad[0xC8 - 4];
@@ -50,7 +50,7 @@ private:
 	int m_handle;
 };
 
-class DominateEnemySpecialPowerModuleData : public Rva0044EB54
+class DominateEnemySpecialPowerModuleData : public SpecialAbilityUpdateModuleData
 {
 public:
 	DominateEnemySpecialPowerModuleData();

@@ -2,7 +2,7 @@
 //
 // ?friend_newModuleData@GiveOrRestoreUpgradeSpecialPowerModuleData@@SAPAVModuleData@@PAVINI@@@Z,
 // retail 0x00253003, 84 bytes. Dedicated TU: the factory news 0xE0, runs
-// the rowed ctor (0x4CD0B1, frameless body over the Rva0044EB54 base with
+// the rowed ctor (0x4CD0B1, frameless body over the SpecialAbilityUpdateModuleData base with
 // the CommandButton plus UpgradeToGive zeros and the FlagsUsedForToggle
 // bitset reset), then feeds the new data plus the class parse proc (rowed
 // chained link at 0x4CD061, pushed immediate) to INI::initFromINIMultiProc

@@ -3,20 +3,20 @@
 // pairs the name with this factory); formerly misnamed SupplyCenterProductionExitUpdate/SupplyCenterProductionExitUpdateModuleData.
 // ??0StoreObjectsSpecialPowerModuleData@@QAE@XZ at 0x004CD8FB.
 // Default ctor over the second intermediate base 0x0044EB54 (pinned opaque
-// as Rva0044EB54, 0xC8 bytes, default ctor). Single trailing float at +0xC8
+// as SpecialAbilityUpdateModuleData, 0xC8 bytes, default ctor). Single trailing float at +0xC8
 // zeroed in the body (factory size 0xCC). Do NOT declare an explicit vptr
 // member on the base.
-class Rva0044EB54
+class SpecialAbilityUpdateModuleData
 {
 public:
-	Rva0044EB54();
-	virtual ~Rva0044EB54();
+	SpecialAbilityUpdateModuleData();
+	virtual ~SpecialAbilityUpdateModuleData();
 
 protected:
 	unsigned char m_pad[0xC8 - 4];
 };
 
-class StoreObjectsSpecialPowerModuleData : public Rva0044EB54
+class StoreObjectsSpecialPowerModuleData : public SpecialAbilityUpdateModuleData
 {
 public:
 	StoreObjectsSpecialPowerModuleData();
@@ -27,7 +27,7 @@ private:
 };
 
 StoreObjectsSpecialPowerModuleData::StoreObjectsSpecialPowerModuleData()
-	: Rva0044EB54()
+	: SpecialAbilityUpdateModuleData()
 {
 	m_fC8 = 0.0f;
 }

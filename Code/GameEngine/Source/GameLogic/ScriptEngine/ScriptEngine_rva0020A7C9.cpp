@@ -1,14 +1,10 @@
-// ?rva0020A7C9@ScriptEngine@@QAEXXZ
-// partial score=0.98 date=2026-10-05
 // cl: /Ireference/shims/bfme2_ascii /O1 /EHs
 // stlport
 //
-// ?rva0020A7C9@ScriptEngine@@QAEXXZ @0x0020A7C9 144B.
-// ScriptEngine method clearing the +0x1A120 vector then rebuilding one
-// 8-byte entry per world object whose +0x88 name is non-empty. Evidence:
-// +0x1A120 is ScriptEngine::m_vector1A120 in ScriptEngine_dtor.cpp; walk is
-// GameLogic::getFirstObject plus Object+0x8C next like getObjectCount;
-// callees rowed erase push_back StringBase set isEmpty releaseBuffer.
+// Retail 0x0020A7C9 (144 bytes): ScriptEngine clears the +0x1A120 vector,
+// then records each world object's non-empty name and pointer. Target calls
+// the already-matched vector erase at 0x00207F0D, GameLogic::getFirstObject
+// at 0x0023CAD2, and the rowed string/vector helpers used by the loop.
 #include "ascii_string.h"
 #include <vector>
 
@@ -18,14 +14,41 @@ struct FXBoneInfo
 	const void *m_template;
 };
 
+// This TU only calls the erase implementation owned by FXBoneInfoVectorErase.cpp.
+// Keep this view declaration-only so STLport does not emit a second
+// __copy_ptrs<FXBoneInfo *> COMDAT here.
+namespace _STL
+{
+template <> class vector<FXBoneInfo, allocator<FXBoneInfo> >
+{
+public:
+	typedef FXBoneInfo *iterator;
+	iterator begin() { return m_start; }
+	iterator end() { return m_finish; }
+	iterator erase(iterator first, iterator last);
+
+private:
+	iterator m_start;
+	iterator m_finish;
+	iterator m_endOfStorage;
+};
+}
+
+class Object;
+
+struct Rva0020A227Element
+{
+	AsciiString key;
+	Object *obj;
+	Rva0020A227Element() : obj(0) {}
+};
+
 class Object
 {
 public:
 	Object *getNextObject() { return m_next; }
 
-private:
 	char m_pad[0x88];
-public:
 	AsciiString m_name88;
 	Object *m_next;
 };
@@ -36,13 +59,6 @@ public:
 	Object *getFirstObject();
 };
 extern GameLogic *TheGameLogic;
-
-struct Rva0020A227Element
-{
-	AsciiString key;
-	Object *obj;
-	Rva0020A227Element() : obj(0) {}
-};
 
 class ScriptEngine
 {

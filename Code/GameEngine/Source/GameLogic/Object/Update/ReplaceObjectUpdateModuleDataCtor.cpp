@@ -16,13 +16,13 @@ extern "C" const void *const vtbl_00C56C78[];  // ??_7ReplaceObjectUpdateModuleD
 
 typedef int Int;
 
-class Rva0044EB54
+class SpecialAbilityUpdateModuleData
 {
 public:
-	Rva0044EB54() throw();
+	SpecialAbilityUpdateModuleData() throw();
 };
 
-class ReplaceObjectUpdateModuleData : public Rva0044EB54
+class ReplaceObjectUpdateModuleData : public SpecialAbilityUpdateModuleData
 {
 public:
 	ReplaceObjectUpdateModuleData();

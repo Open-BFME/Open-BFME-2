@@ -460,15 +460,83 @@ Rva005248D0::Rva005248D0(EmitVtableTag *)
 {
 }
 
-class Rva002D5333
+extern "C" const void *const vtbl_00C02A84[];
+#pragma comment(linker, "/alternatename:_vtbl_00C02A84=??_7Rva002D3556@@6B@")
+
+class __declspec(novtable) Rva002D5333Base
+{
+public:
+	virtual __forceinline ~Rva002D5333Base() { *(const void **)this = vtbl_00C02A84; }
+
+protected:
+	unsigned char m_pad04[4];
+	void *m_ptr08;
+	unsigned char m_pad0C[4];
+};
+
+template <class T> class StringBase
+{
+public:
+	~StringBase();
+
+private:
+	void *m_data;
+};
+
+#pragma comment(linker, "/alternatename:??1?$StringBase@D@@QAE@XZ=?releaseBuffer@?$StringBase@D@@AAEXXZ")
+
+class Rva00222A8BTarget;
+extern Rva00222A8BTarget *TheRva00222A8BTarget;
+#pragma comment(linker, "/alternatename:?TheRva00222A8BTarget@@3PAVRva00222A8BTarget@@A=?g_bfmeAptWindowManager@@3PAVBfmeAptWindowManager@@A")
+extern const char g_00C02CF8[];
+int __cdecl Rva002D4531Invoke(Rva00222A8BTarget *target, void *owner, const char *name, const int &arg);
+
+struct Rva002D5333ObjectRef
+{
+	unsigned char m_pad00[0x5C];
+	void *m_owner;
+};
+
+class Rva002D5333 : public Rva002D5333Base
 {
 public:
 	Rva002D5333(EmitVtableTag *);
-public:
 	virtual ~Rva002D5333();
+	void rva002D4BA5();
+
+private:
+	StringBase<char> m_str10;
+	unsigned char m_flag14;
+	bool m_done15;
+	int m_arg18;
 };
 
 // ?<Rva002D5333::Rva002D5333> absent-from-retail
 Rva002D5333::Rva002D5333(EmitVtableTag *)
 {
+}
+
+void Rva002D5333::rva002D4BA5()
+{
+	if (m_done15)
+		return;
+
+	if (m_flag14 != 0)
+	{
+		if (m_ptr08 != 0)
+		{
+			Rva002D4531Invoke(TheRva00222A8BTarget,
+				((Rva002D5333ObjectRef *)m_ptr08)->m_owner,
+				g_00C02CF8,
+				m_arg18);
+		}
+	}
+
+	m_done15 = true;
+}
+
+Rva002D5333::~Rva002D5333()
+{
+	if (!m_done15)
+		rva002D4BA5();
 }

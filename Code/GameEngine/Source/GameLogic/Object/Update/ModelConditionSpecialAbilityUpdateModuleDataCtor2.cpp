@@ -2,7 +2,7 @@
 // stlport
 //
 // ??0ModelConditionSpecialAbilityUpdateModuleData@@QAE@XZ, retail 0x00490DDB,
-// 132 bytes. ModelCondition data ctor over the pinned Rva0044EB54 base
+// 132 bytes. ModelCondition data ctor over the pinned SpecialAbilityUpdateModuleData base
 // (0x44EB54, 0xC8 bytes): installs vtable 0x00C4D828 via the ??_7 pin,
 // constructs the ObjectFilter member at +0xD4 through the pinned 0x3623E5
 // nullary, sets WhichSpecialPower at +0xC8 to 1, clears GenerateTerror at
@@ -16,11 +16,11 @@
 // declared-only dtor plus virtual derived, init-list base, body stores
 // plus by-value applyFilter through a file-local defaults global).
 
-class Rva0044EB54
+class SpecialAbilityUpdateModuleData
 {
 public:
-	Rva0044EB54();
-	virtual ~Rva0044EB54();
+	SpecialAbilityUpdateModuleData();
+	virtual ~SpecialAbilityUpdateModuleData();
 
 private:
 	unsigned char m_pad[0xC8 - 4];
@@ -48,7 +48,7 @@ private:
 
 const float c_emotionPulseRadiusDefault = 50.0f;
 
-class ModelConditionSpecialAbilityUpdateModuleData : public Rva0044EB54
+class ModelConditionSpecialAbilityUpdateModuleData : public SpecialAbilityUpdateModuleData
 {
 public:
 	ModelConditionSpecialAbilityUpdateModuleData();
@@ -64,7 +64,7 @@ private:
 
 // ??0ModelConditionSpecialAbilityUpdateModuleData@@QAE@XZ @0x490DDB
 ModelConditionSpecialAbilityUpdateModuleData::ModelConditionSpecialAbilityUpdateModuleData()
-	: Rva0044EB54()
+	: SpecialAbilityUpdateModuleData()
 {
 	m_whichSpecialPower = 1;
 	m_generateTerror = false;

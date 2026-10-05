@@ -2,7 +2,7 @@
 //
 // ??0GloriousChargeUpdateModuleData@@QAE@XZ, retail 0x004AD4F2 (43 bytes).
 // Frameless Update-side ModuleData for the glorious charge: runs the pinned
-// Rva0044EB54 base ctor (0x44EB54), installs the explicit vtable 0xC5F778,
+// SpecialAbilityUpdateModuleData base ctor (0x44EB54), installs the explicit vtable 0xC5F778,
 // zeroes the SpeechDuration and UpdateInterval words and sets the
 // BonusRadius float matching the rowed chained proc's table 0x008550C8
 // (BonusRadius at +0xC8, SpeechDuration at +0xCC, UpdateInterval at +0xD0).
@@ -17,16 +17,16 @@
 extern "C" const void *const vtbl_00C5F778[];  // folded, 3 classes; via ??_7EvacuateGarrisonSpecialPowerModuleData@@6B@
 #pragma comment(linker, "/alternatename:_vtbl_00C5F778=??_7EvacuateGarrisonSpecialPowerModuleData@@6B@")
 
-class Rva0044EB54
+class SpecialAbilityUpdateModuleData
 {
 public:
-	Rva0044EB54();
+	SpecialAbilityUpdateModuleData();
 
 private:
 	unsigned char m_pad[0xC8];
 };
 
-class GloriousChargeUpdateModuleData : public Rva0044EB54
+class GloriousChargeUpdateModuleData : public SpecialAbilityUpdateModuleData
 {
 public:
 	GloriousChargeUpdateModuleData();
@@ -39,7 +39,7 @@ private:
 
 // ??0GloriousChargeUpdateModuleData@@QAE@XZ @0x4AD4F2
 GloriousChargeUpdateModuleData::GloriousChargeUpdateModuleData()
-	: Rva0044EB54()
+	: SpecialAbilityUpdateModuleData()
 {
 	*(unsigned int *)this = ((unsigned int)vtbl_00C5F778);
 	m_bonusRadius = 0.0f;

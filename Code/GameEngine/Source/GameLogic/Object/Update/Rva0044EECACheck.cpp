@@ -2,7 +2,7 @@
 // ?rva0044EECA@Rva0044EECA@@QAE_NPAURva0044EECAParam@@@Z @0x0044EECA 98B
 // Vtable slot 37 (offset 0x94) of 0x0084D5A0 (ArrowStormUpdateModuleData),
 // 0x0084DF58 (HeroModeSpecialAbilityUpdateModuleData) and 0x0084E108
-// (WeaponFireSpecialAbilityUpdateModuleData); base Rva0044EB54 family.
+// (WeaponFireSpecialAbilityUpdateModuleData); base SpecialAbilityUpdateModuleData family.
 // Retail is a bool predicate over this+0x10/+0x48/+0x60 and param+0x44
 // (Overridable) plus param flag+0x1D bit 1, calling rowed
 // Overridable::friend_getFinalOverride at 0x00288609 and testing

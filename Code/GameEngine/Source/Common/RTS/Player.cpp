@@ -860,7 +860,7 @@ void Player::setPlayerType(PlayerType t, Bool skirmish)
 void Player::setDefaultTeam(void) {
 	AsciiString tname;
 	tname.set("team");
-	tname.concat(m_playerName);
+	((StringBase<char> *)&tname)->concat(*(const StringBase<char> *)&m_playerName);
 	Team *dt = TheTeamFactory->findTeam(tname);
 	DEBUG_ASSERTCRASH(dt, ("no team"));
 	if (dt) {

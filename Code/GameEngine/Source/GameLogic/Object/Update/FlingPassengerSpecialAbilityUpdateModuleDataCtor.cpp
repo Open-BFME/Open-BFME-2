@@ -1,7 +1,7 @@
 // cl: /O1 /DNDEBUG /MD /arch:SSE
 //
 // ??0FlingPassengerSpecialAbilityUpdateModuleData@@QAE@XZ, retail 0x00494F80,
-// 48 bytes. ModuleData ctor over the pinned Rva0044EB54 base (0x44EB54,
+// 48 bytes. ModuleData ctor over the pinned SpecialAbilityUpdateModuleData base (0x44EB54,
 // 0xC8 bytes per the ToggleHidden row): zeroes three floats at
 // +0xC8/+0xCC/+0xD0 via an xmm0-homed fzero local through an address-taken
 // float pointer (/arch:SSE emits retail lea+movss; the pointer CSEs the
@@ -44,11 +44,11 @@ public:
 	void add(const FieldParse *parseTable, unsigned int extraOffset);
 };
 
-class __declspec(novtable) Rva0044EB54
+class __declspec(novtable) SpecialAbilityUpdateModuleData
 {
 public:
-	Rva0044EB54();
-	virtual ~Rva0044EB54();
+	SpecialAbilityUpdateModuleData();
+	virtual ~SpecialAbilityUpdateModuleData();
 	static void buildFieldParse(MultiIniFieldParse &parse);
 
 private:
@@ -57,7 +57,7 @@ private:
 	unsigned char m_opaque[0xC4];
 };
 
-class __declspec(novtable) FlingPassengerSpecialAbilityUpdateModuleData : public Rva0044EB54
+class __declspec(novtable) FlingPassengerSpecialAbilityUpdateModuleData : public SpecialAbilityUpdateModuleData
 {
 public:
 	FlingPassengerSpecialAbilityUpdateModuleData();
@@ -72,7 +72,7 @@ private:
 
 // ??0FlingPassengerSpecialAbilityUpdateModuleData@@QAE@XZ @0x00494F80
 FlingPassengerSpecialAbilityUpdateModuleData::FlingPassengerSpecialAbilityUpdateModuleData()
-	: Rva0044EB54()
+	: SpecialAbilityUpdateModuleData()
 {
 	float fzero = 0.0f;
 	float *floats = m_floatC8;
@@ -86,6 +86,6 @@ FlingPassengerSpecialAbilityUpdateModuleData::FlingPassengerSpecialAbilityUpdate
 // ?buildFieldParse@FlingPassengerSpecialAbilityUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z @0x0024DE1C
 void FlingPassengerSpecialAbilityUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
-	Rva0044EB54::buildFieldParse(parse);
+	SpecialAbilityUpdateModuleData::buildFieldParse(parse);
 	parse.add(g_00BEF20C, 0);
 }

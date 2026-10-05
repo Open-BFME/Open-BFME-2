@@ -1,7 +1,7 @@
 // cl: /O1 /DNDEBUG /MD
 //
 // ??0ScaleWallSpecialAbilityUpdateModuleData@@QAE@XZ, retail 0x00494DB1,
-// 25 bytes. ModuleData ctor over the pinned Rva0044EB54 base (0x44EB54):
+// 25 bytes. ModuleData ctor over the pinned SpecialAbilityUpdateModuleData base (0x44EB54):
 // clears the +0xC8 word (and-RMW) and installs vtable 0x00C5F778
 // explicitly (novtable; shares the ToggleHidden vtable). Class size 0xCC
 // proven by the ScaleWallSpecialAbilityUpdate data factory (news 0xCC, sole
@@ -40,11 +40,11 @@ public:
 	void add(const FieldParse *parseTable, unsigned int extraOffset);
 };
 
-class __declspec(novtable) Rva0044EB54
+class __declspec(novtable) SpecialAbilityUpdateModuleData
 {
 public:
-	Rva0044EB54();
-	virtual ~Rva0044EB54();
+	SpecialAbilityUpdateModuleData();
+	virtual ~SpecialAbilityUpdateModuleData();
 	static void buildFieldParse(MultiIniFieldParse &parse);
 
 private:
@@ -53,7 +53,7 @@ private:
 	unsigned char m_opaque[0xC4];
 };
 
-class __declspec(novtable) ScaleWallSpecialAbilityUpdateModuleData : public Rva0044EB54
+class __declspec(novtable) ScaleWallSpecialAbilityUpdateModuleData : public SpecialAbilityUpdateModuleData
 {
 public:
 	ScaleWallSpecialAbilityUpdateModuleData();
@@ -66,7 +66,7 @@ private:
 
 // ??0ScaleWallSpecialAbilityUpdateModuleData@@QAE@XZ @0x00494DB1
 ScaleWallSpecialAbilityUpdateModuleData::ScaleWallSpecialAbilityUpdateModuleData()
-	: Rva0044EB54()
+	: SpecialAbilityUpdateModuleData()
 {
 	m_wordC8 &= 0;
 	*(unsigned int *)this = ((unsigned int)vtbl_00C5F778);
@@ -75,6 +75,6 @@ ScaleWallSpecialAbilityUpdateModuleData::ScaleWallSpecialAbilityUpdateModuleData
 // ?buildFieldParse@ScaleWallSpecialAbilityUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z @0x0024DD72
 void ScaleWallSpecialAbilityUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
-	Rva0044EB54::buildFieldParse(parse);
+	SpecialAbilityUpdateModuleData::buildFieldParse(parse);
 	parse.add(g_00BEF1B4, 0);
 }

@@ -1,7 +1,7 @@
 // cl: /O1 /DNDEBUG /MD /arch:SSE
 //
 // ??0SpecialDisguiseUpdateModuleData@@QAE@XZ, retail 0x004B0255, 61 bytes.
-// Disguise module data ctor over the pinned Rva0044EB54 base (0x44EB54,
+// Disguise module data ctor over the pinned SpecialAbilityUpdateModuleData base (0x44EB54,
 // 0xC8 bytes): installs vtable 0x00C563F8 explicitly (novtable, no compiler
 // emission), clears DisguiseAsTemplate/EnemyPerspective/DisguiseFX at
 // +0xD0/+0xD4/+0xD8, clears TriggerInstantlyOnCreate at +0xC8 and
@@ -19,11 +19,11 @@ public:
 	void add(const FieldParse *parseTable, unsigned int extraOffset);
 };
 
-class __declspec(novtable) Rva0044EB54
+class __declspec(novtable) SpecialAbilityUpdateModuleData
 {
 public:
-	Rva0044EB54();
-	virtual ~Rva0044EB54();
+	SpecialAbilityUpdateModuleData();
+	virtual ~SpecialAbilityUpdateModuleData();
 	static void buildFieldParse(MultiIniFieldParse &parse);
 
 private:
@@ -32,7 +32,7 @@ private:
 	unsigned char m_opaque[0xC4];
 };
 
-class __declspec(novtable) SpecialDisguiseUpdateModuleData : public Rva0044EB54
+class __declspec(novtable) SpecialDisguiseUpdateModuleData : public SpecialAbilityUpdateModuleData
 {
 public:
 	SpecialDisguiseUpdateModuleData();
@@ -60,7 +60,7 @@ private:
 // ??0SpecialDisguiseUpdateModuleData@@QAE@XZ @0x004B0255
 extern const void *const g_00C563F8[];
 SpecialDisguiseUpdateModuleData::SpecialDisguiseUpdateModuleData()
-	: Rva0044EB54()
+	: SpecialAbilityUpdateModuleData()
 {
 	int *disguiseAsTemplate = &m_disguiseAsTemplate;
 	*(const void **)this = g_00C563F8;

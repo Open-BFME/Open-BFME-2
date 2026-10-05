@@ -9,7 +9,7 @@
 // keeps only size and virtuality (vptr plus 0xD8 pad). Recipe:
 // ToppleUpdateModuleDataFriendNew.cpp. Class identity is the rowed
 // WeaponFireSpecialAbilityUpdateModuleData::buildFieldParse proc (chained on
-// the Rva0044EB54 base plus SpecialWeapon table 0xBEF0A8) pushed as the
+// the SpecialAbilityUpdateModuleData base plus SpecialWeapon table 0xBEF0A8) pushed as the
 // factory's proc immediate; the pinned ctor fits the 0xDC news size; the
 // rowed poolkey 0x492685 (WeaponFireSpecialAbilityUpdate) ends where the
 // ctor begins. The ctor row supersedes its pin when its xor/vtable wall falls.

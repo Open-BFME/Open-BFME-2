@@ -406,7 +406,7 @@ void __cdecl Rva0055A087Format(int *vals, AsciiString *out)
 	AsciiString tmp;
 	for (int i = 0; i < 10; ++i) {
 		tmp.format("%d ", vals[i]);
-		out->concat(tmp);
+		((StringBase<char> *)out)->concat(*(const StringBase<char> *)&tmp);
 	}
 }
 

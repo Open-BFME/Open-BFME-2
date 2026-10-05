@@ -4,7 +4,7 @@
 // SpecialPower-side ModuleData for the level-grant power. The rowed chained
 // proc's table at 0x00C5C8D0 (Experience at +0xC8, RadiusEffect at +0xCC,
 // AcceptanceFilter at +0xD0, LevelFX at +0xD4) sizes the members over the
-// pinned Rva0044EB54 base (0x44EB54, 0xC8 bytes); the AcceptanceFilter word
+// pinned SpecialAbilityUpdateModuleData base (0x44EB54, 0xC8 bytes); the AcceptanceFilter word
 // constructs through the pinned 0x3623E5 member ctor and the LevelGrant
 // pool key at 0x4C2BC1 sits in the same cluster. Devastate V5 recipe: the
 // base (declared-only virtual dtor, no code) is the TU's sole unwindable,
@@ -18,11 +18,11 @@
 // /arch:SSE keeps the float zero as xorps plus movss. The ModuleData
 // factory at 0x251A72 (news 0xD8) is the only raw caller.
 
-class Rva0044EB54
+class SpecialAbilityUpdateModuleData
 {
 public:
-	Rva0044EB54();
-	virtual ~Rva0044EB54();
+	SpecialAbilityUpdateModuleData();
+	virtual ~SpecialAbilityUpdateModuleData();
 
 private:
 	unsigned char m_pad[0xC8 - 4];
@@ -37,7 +37,7 @@ private:
 	unsigned char m_data[4];
 };
 
-class LevelGrantSpecialPowerModuleData : public Rva0044EB54
+class LevelGrantSpecialPowerModuleData : public SpecialAbilityUpdateModuleData
 {
 public:
 	LevelGrantSpecialPowerModuleData();
@@ -52,7 +52,7 @@ private:
 
 // ??0LevelGrantSpecialPowerModuleData@@QAE@XZ @0x4C2AA0
 LevelGrantSpecialPowerModuleData::LevelGrantSpecialPowerModuleData()
-	: Rva0044EB54()
+	: SpecialAbilityUpdateModuleData()
 	, m_experience(0)
 	, m_acceptanceFilter()
 	, m_radiusEffect(0.0f)

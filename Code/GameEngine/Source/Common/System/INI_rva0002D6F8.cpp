@@ -39,7 +39,7 @@ AsciiString INI::rva0002D6F8()
 			if (_strcmpi(m_blockEndToken, tok) == 0)
 				break;
 		}
-		acc.concat(line);
+		((StringBase<char> *)&acc)->concat((const StringBase<char> &)line);
 	}
 	return acc;
 }

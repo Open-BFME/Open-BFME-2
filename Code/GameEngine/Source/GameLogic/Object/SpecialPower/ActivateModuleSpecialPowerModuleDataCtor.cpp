@@ -2,7 +2,7 @@
 // stlport
 //
 // ??0ActivateModuleSpecialPowerModuleData@@QAE@XZ, retail 0x00256DA1,
-// 36 bytes. ModuleData ctor over the pinned Rva0044EB54 base (0x44EB54,
+// 36 bytes. ModuleData ctor over the pinned SpecialAbilityUpdateModuleData base (0x44EB54,
 // 0xC8 bytes per the ToggleHidden row): the implicit _STL::vector<int>
 // member at +0xC8 builds through the folded Vector_base at 0x211E58 (int
 // spelling reuses the existing pin), and the compiler installs the derived
@@ -22,10 +22,10 @@ public:
 	void add(const FieldParse *parseTable, unsigned int extraOffset);
 };
 
-class Rva0044EB54
+class SpecialAbilityUpdateModuleData
 {
 public:
-	Rva0044EB54();
+	SpecialAbilityUpdateModuleData();
 	virtual void unused();
 	static void buildFieldParse(MultiIniFieldParse &parse);
 
@@ -34,7 +34,7 @@ protected:
 	unsigned char m_opaque[0xC4];
 };
 
-class ActivateModuleSpecialPowerModuleData : public Rva0044EB54
+class ActivateModuleSpecialPowerModuleData : public SpecialAbilityUpdateModuleData
 {
 public:
 	ActivateModuleSpecialPowerModuleData();
@@ -47,18 +47,18 @@ private:
 
 // ??0ActivateModuleSpecialPowerModuleData@@QAE@XZ @0x00256DA1
 ActivateModuleSpecialPowerModuleData::ActivateModuleSpecialPowerModuleData()
-	: Rva0044EB54()
+	: SpecialAbilityUpdateModuleData()
 {
 }
 
 // ?buildFieldParse@ActivateModuleSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z @0x004CDFBE
 void ActivateModuleSpecialPowerModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
-	Rva0044EB54::buildFieldParse(parse);
+	SpecialAbilityUpdateModuleData::buildFieldParse(parse);
 	parse.add(reinterpret_cast<const FieldParse *>(0x00C5FD70), 0);
 }
 
 // Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
 // each one has the same function in that slot (vftable addresses from matched vptr
 // stores). Bind them to the rows at those functions.
-#pragma comment(linker, "/alternatename:?unused@Rva0044EB54@@UAEXXZ=??_GActivateModuleSpecialPowerModuleData@@UAEPAXI@Z")
+#pragma comment(linker, "/alternatename:?unused@SpecialAbilityUpdateModuleData@@UAEXXZ=??_GActivateModuleSpecialPowerModuleData@@UAEPAXI@Z")

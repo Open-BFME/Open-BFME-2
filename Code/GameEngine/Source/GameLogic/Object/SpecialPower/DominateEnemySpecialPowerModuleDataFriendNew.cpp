@@ -6,7 +6,7 @@
 // with DominateRadius plus TriggerFX plus DominatedFX plus PermanentlyConvert
 // plus the 0x3623E5 filter member fed from the 0xDFEFA4 global), then feeds
 // the new data plus the class parse proc (rowed base-call link at 0x4CC96D,
-// pushed immediate, Rva0044EB54 base proc plus table 0x00C5F638 holding the
+// pushed immediate, SpecialAbilityUpdateModuleData base proc plus table 0x00C5F638 holding the
 // Dominate fields, the sole image-wide pusher) to INI::initFromINIMultiProc
 // (rowed at 0x2DEB5) when ini is non-null. Operator new and __EH_prolog
 // resolve via their rows. The TU-local class keeps only size and virtuality

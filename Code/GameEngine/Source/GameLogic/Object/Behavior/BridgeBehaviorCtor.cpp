@@ -10,6 +10,30 @@
 // Evidence: base-ctor call 0x00253390, Rva0029FB3BMember::init 0x0029FB3B
 // and reset 0x0026549E, six explicit secondary vtable installs, memset zero
 // cluster at +0x2C, nested 4x3 loops over +0xA3C/+0xA6C/+0xA9C/+0xACC.
+extern "C" const void *const vtbl_00C409DC[];  // ??_7BridgeBehavior@@6BRva0024A797@@@
+#pragma comment(linker, "/alternatename:_vtbl_00C409DC=??_7BridgeBehavior@@6BRva0024A797@@@")
+
+extern "C" const void *const vtbl_00C40920[];  // ??_7BridgeBehavior@@6BMiBase1@@@
+#pragma comment(linker, "/alternatename:_vtbl_00C40920=??_7BridgeBehavior@@6BMiBase1@@@")
+
+extern "C" const void *const vtbl_00C40914[];  // ??_7BridgeBehavior@@6BUpdateModuleInterfaceData@@@
+#pragma comment(linker, "/alternatename:_vtbl_00C40914=??_7BridgeBehavior@@6BUpdateModuleInterfaceData@@@")
+
+extern "C" const void *const vtbl_00C408FC[];  // ??_7BridgeBehavior@@6BBridgeBehaviorInterface@@@
+#pragma comment(linker, "/alternatename:_vtbl_00C408FC=??_7BridgeBehavior@@6BBridgeBehaviorInterface@@@")
+
+extern "C" const void *const vtbl_00C408F0[];  // ??_7BridgeBehavior@@6BDamageModuleInterface@@@
+#pragma comment(linker, "/alternatename:_vtbl_00C408F0=??_7BridgeBehavior@@6BDamageModuleInterface@@@")
+
+extern "C" const void *const vtbl_00C408EC[];  // ??_7BridgeBehavior@@6BDieModuleInterface@@@
+#pragma comment(linker, "/alternatename:_vtbl_00C408EC=??_7BridgeBehavior@@6BDieModuleInterface@@@")
+
+extern "C" const void *const vtbl_00C40818[];  // folded, 7 classes; via ??_7BfmeCtor001B3A20@@6BBfmeCtorFirstBase001B3A20@@@
+#pragma comment(linker, "/alternatename:_vtbl_00C40818=??_7BfmeCtor001B3A20@@6BBfmeCtorFirstBase001B3A20@@@")
+
+extern "C" const void *const vtbl_00BE2B78[];  // folded, 10 classes; via ??_7ClearanceTestingSlowDeathBehaviorIface5@@6B@
+#pragma comment(linker, "/alternatename:_vtbl_00BE2B78=??_7ClearanceTestingSlowDeathBehaviorIface5@@6B@")
+
 class Thing;
 class ModuleData;
 
@@ -87,18 +111,18 @@ public:
 BridgeBehavior::BridgeBehavior(Thing *thing, const ModuleData *moduleData)
 	: UpdateModule(thing, moduleData)
 {
-	*(volatile unsigned int *)((char *)this + 0x20) = 0x00C40818;
-	*(volatile unsigned int *)((char *)this + 0x24) = 0x00BE2B78;
+	*(volatile unsigned int *)((char *)this + 0x20) = ((unsigned int)vtbl_00C40818);
+	*(volatile unsigned int *)((char *)this + 0x24) = ((unsigned int)vtbl_00BE2B78);
 	int *p28 = (int *)((char *)this + 0x28);
 	*p28 = 0x00C1C780;
 	void *context = (void *)((char *)&moduleData + 3);
 	Rva0029FB3BMember *free = &m_free;
-	*(unsigned int *)this = 0x00C409DC;
-	*(unsigned int *)((char *)this + 0x0C) = 0x00C40920;
-	*(unsigned int *)((char *)this + 0x10) = 0x00C40914;
-	*(unsigned int *)((char *)this + 0x20) = 0x00C408FC;
-	*(unsigned int *)((char *)this + 0x24) = 0x00C408F0;
-	*(unsigned int *)((char *)this + 0x28) = 0x00C408EC;
+	*(unsigned int *)this = ((unsigned int)vtbl_00C409DC);
+	*(unsigned int *)((char *)this + 0x0C) = ((unsigned int)vtbl_00C40920);
+	*(unsigned int *)((char *)this + 0x10) = ((unsigned int)vtbl_00C40914);
+	*(unsigned int *)((char *)this + 0x20) = ((unsigned int)vtbl_00C408FC);
+	*(unsigned int *)((char *)this + 0x24) = ((unsigned int)vtbl_00C408F0);
+	*(unsigned int *)((char *)this + 0x28) = ((unsigned int)vtbl_00C408EC);
 	free->init(context);
 	free->reset();
 	m_FD = false;

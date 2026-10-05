@@ -1,7 +1,7 @@
 // cl: /O1 /DNDEBUG /MD
 //
 // ??0ToggleDeploySpecialAbilityUpdateModuleData@@QAE@XZ, retail 0x004AE547,
-// 32 bytes. ModuleData ctor over the pinned Rva0044EB54 base (0x44EB54):
+// 32 bytes. ModuleData ctor over the pinned SpecialAbilityUpdateModuleData base (0x44EB54):
 // installs vtable 0x00C553D8 explicitly (novtable) and clears the +0xC8 and
 // +0xCC words (and-RMW, barrier-pinned below the vtable install per the
 // BuffDraw precedent). Class size 0xD0 proven by the
@@ -37,11 +37,11 @@ public:
 	void add(const FieldParse *parseTable, unsigned int extraOffset);
 };
 
-class __declspec(novtable) Rva0044EB54
+class __declspec(novtable) SpecialAbilityUpdateModuleData
 {
 public:
-	Rva0044EB54();
-	virtual ~Rva0044EB54();
+	SpecialAbilityUpdateModuleData();
+	virtual ~SpecialAbilityUpdateModuleData();
 	static void buildFieldParse(MultiIniFieldParse &parse);
 
 private:
@@ -50,7 +50,7 @@ private:
 	unsigned char m_opaque[0xC4];
 };
 
-class __declspec(novtable) ToggleDeploySpecialAbilityUpdateModuleData : public Rva0044EB54
+class __declspec(novtable) ToggleDeploySpecialAbilityUpdateModuleData : public SpecialAbilityUpdateModuleData
 {
 public:
 	ToggleDeploySpecialAbilityUpdateModuleData();
@@ -65,7 +65,7 @@ private:
 // ??0ToggleDeploySpecialAbilityUpdateModuleData@@QAE@XZ @0x004AE547
 extern const void *const g_00C553D8[];
 ToggleDeploySpecialAbilityUpdateModuleData::ToggleDeploySpecialAbilityUpdateModuleData()
-	: Rva0044EB54()
+	: SpecialAbilityUpdateModuleData()
 {
 	*(const void **)this = g_00C553D8;
 	_ReadWriteBarrier();
@@ -76,6 +76,6 @@ ToggleDeploySpecialAbilityUpdateModuleData::ToggleDeploySpecialAbilityUpdateModu
 // ?buildFieldParse@ToggleDeploySpecialAbilityUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z @0x0024F7C3
 void ToggleDeploySpecialAbilityUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
-	Rva0044EB54::buildFieldParse(parse);
+	SpecialAbilityUpdateModuleData::buildFieldParse(parse);
 	parse.add(g_00BEF820, 0);
 }
