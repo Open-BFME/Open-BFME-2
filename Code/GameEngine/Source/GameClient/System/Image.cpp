@@ -35,7 +35,7 @@ public:
 
 // Zero Hour's file-static imageStatusNames table ("ROTATED_90_CLOCKWISE",
 // "RAW_TEXTURE", NULL) lives at retail 0x00DBCEDC; only its address is used.
-extern const char *imageStatusNames[];
+const char *imageStatusNames[] = { "ROTATED_90_CLOCKWISE", "RAW_TEXTURE", 0 };
 
 enum
 {
@@ -48,7 +48,7 @@ public:
 	virtual ~Image();
 	unsigned int clearStatus(unsigned int bit);
 	void setImageSize(ICoord2D *size);
-	void setUV(Region2D *uv) { m_UVCoords = *uv; }
+  void setUV(Region2D *uv) { if (uv) m_UVCoords = *uv; }
 	const ICoord2D *getTextureSize(void) const { return &m_textureSize; }
 
 	int getImageWidth(void) const { return m_imageSize.x; }
