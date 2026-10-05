@@ -48,10 +48,29 @@ public:
     int rva00357B82(Parameter *playerParm);
 };
 extern ScriptEngine *TheScriptEngine;
+class GameLogic
+{
+public:
+    unsigned int getFrame() const { return m_frame; }
+private:
+    unsigned char m_pad[0x40];
+    unsigned int m_frame; // +0x40
+};
+extern GameLogic *TheGameLogic;
+class GlobalData
+{
+public:
+    unsigned char m_pad[0x110C];
+    float m_110C; // +0x110C
+};
+extern GlobalData *TheGlobalData;
+extern int g_Va00DBA4E4; // logic frames per second
+#define LogicFramesPerSecond g_Va00DBA4E4
 class ScriptConditions
 {
 protected:
     bool rva003E586B(Parameter *pBuildingCountParm, Parameter *pPlayerParm);
+    bool rva003E58F0(Parameter *pBuildingCountParm, Parameter *pPlayerParm);
 };
 bool ScriptConditions::rva003E586B(Parameter *pBuildingCountParm, Parameter *pPlayerParm)
 {
@@ -59,6 +78,31 @@ bool ScriptConditions::rva003E586B(Parameter *pBuildingCountParm, Parameter *pPl
     KindOfMaskType mask;
     mask.set(37);
     mask.set(7);
+    int count = 0;
+    while (playerMask) {
+        Player *pPlayer = ThePlayerList->getEachPlayerFromMask(playerMask);
+        if (pPlayer) {
+            count += pPlayer->countObjects(mask, KINDOFMASK_NONE);
+        }
+    }
+    if (pBuildingCountParm->getInt() >= count) {
+        return true;
+    }
+    return false;
+}
+
+// ScriptConditions::rva003E58F0, retail 0x003E58F0 (192B; dispatcher call
+// 0x003EAFB3): the same count for kind 177 alone, held off like the rowed
+// evaluateAllDestroyed until frames-per-second times TheGlobalData +0x110C
+// seconds (25 frames without global data) have passed.
+bool ScriptConditions::rva003E58F0(Parameter *pBuildingCountParm, Parameter *pPlayerParm)
+{
+    float delay = TheGlobalData ? LogicFramesPerSecond * TheGlobalData->m_110C : 25.0f;
+    if (TheGameLogic->getFrame() < (unsigned int)(int)delay)
+        return false;
+    PlayerMaskType playerMask = TheScriptEngine->rva00357B82(pPlayerParm);
+    KindOfMaskType mask;
+    mask.set(177);
     int count = 0;
     while (playerMask) {
         Player *pPlayer = ThePlayerList->getEachPlayerFromMask(playerMask);
