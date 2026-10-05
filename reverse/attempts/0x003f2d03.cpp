@@ -1,5 +1,5 @@
 // ??1Rva003F2D03@@QAE@XZ
-// partial score=0.95 date=2026-10-04
+// partial score=0.98 date=2026-10-05
 // cl: /Ireference/shims/bfme2_ascii /O1 /EHs /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
 // stlport
 // ??1Rva003F2D03@@QAE@XZ @0x003F2D03 545B
@@ -140,10 +140,17 @@ private:
 // ??1Rva003F2D03@@QAE@XZ present-unmatched
 Rva003F2D03::~Rva003F2D03()
 {
-	Rva003F1E87Holder h = Rva003F1E87Holder();
-	Rva003F2BEBDeleteRange(
-		(_STL::basic_string<char, _STL::char_traits<char>, _STL::allocator<char> > **)mfc.start,
-		(_STL::basic_string<char, _STL::char_traits<char>, _STL::allocator<char> > **)mfc.finish,
-		h.flag);
-	Rva003F1E87DeleteRange((Rva003F0C6C **)m08.start, (Rva003F0C6C **)m08.finish, h);
+	{
+		void *first = mfc.start;
+		Rva003F1E87Holder h1 = Rva003F1E87Holder();
+		Rva003F2BEBDeleteRange(
+			(_STL::basic_string<char, _STL::char_traits<char>, _STL::allocator<char> > **)first,
+			(_STL::basic_string<char, _STL::char_traits<char>, _STL::allocator<char> > **)mfc.finish,
+			h1.flag);
+	}
+	{
+		void *first = m08.start;
+		Rva003F1E87Holder h2 = Rva003F1E87Holder();
+		Rva003F1E87DeleteRange((Rva003F0C6C **)first, (Rva003F0C6C **)m08.finish, h2);
+	}
 }

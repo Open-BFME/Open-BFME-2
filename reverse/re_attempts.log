@@ -9627,3 +9627,6 @@ $L36270	0x796558	8	blocked	Refreshed ZH packet still compares32B compilerlocal a
 ?rva004852A8@AnnounceBirthAndDeathBehavior@@QAEXPBVDamageInfo@@@Z	0x004852A8	368	blocked	vslot class mismatch: body is cash-refund with Money-GameText-InGameUI like RefundDie-Salvage not Announce which only announces; vtable 0x0084A61C owner unproven donor none t=25 model=muse-09
 ??1Rva005E80FD@@UAE@XZ	0x005E80FD	134	partial	dtor 132of134 only push4-pop-eax reuse for add-plus-EH-state-4 vs add-ecx-4 left; vtable-member-base shape now matches t=30 model=muse-09 score=0.9 stash=reverse/attempts/0x005e80fd.cpp
 ??1Rva005E8D71@@UAE@XZ	0x005E8D71	60	blocked	dtor 54of60 empty novtable-removed gives vptrs but misses early lea-ecx-reuse plus unwind-save; member 0x005E12D1 pin-only base layout unproven t=20 model=muse-09
+??1Rva003F2D03@@QAE@XZ	0x003F2D03	545	partial	prolog lasts push from mem not via eax and state before pushes t=15 model=muse-01 score=0.98 stash=reverse/attempts/0x003f2d03.cpp
+?rva003F34DD@Rva003F34DD@@QAEXPAVRva003F498A@@@Z	0x003F34DD	155	blocked	loop global reloc and prolog scheduling t=12 model=muse-01
+?rva00529A7B@Rva00529A7B@@QAEXM@Z	0x00529A7B	185	partial	float load order swapped and iv1 via eax not imm t=18 model=muse-01 score=0.96 stash=reverse/attempts/0x00529a7b.cpp
