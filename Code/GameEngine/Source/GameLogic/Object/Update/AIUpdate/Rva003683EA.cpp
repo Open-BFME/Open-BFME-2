@@ -34,10 +34,12 @@ public:
 	void rva00265667(const Coord3D *pos, int flag);
 };
 
-class DupHolder
+class Waypoint;
+
+class AIStateMachine
 {
 public:
-	void dup(int v);
+	void setGoalWaypoint(const Waypoint *p);
 };
 
 class Rva003683EA : public Rva00263910
@@ -59,7 +61,7 @@ void Rva003683EA::rva003683EA(const Coord3D *pos, int flag)
 		return;
 	m_machine->s5();
 	rva00265667(pos, flag);
-	((DupHolder *)this)->dup(flag);
+	((AIStateMachine *)this)->setGoalWaypoint((const Waypoint *)flag);
 	m_machine->s8(0x3FB);
 	m_done = 1;
 }
