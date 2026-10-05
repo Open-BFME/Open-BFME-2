@@ -69,6 +69,17 @@ struct Rva00DFE144Globals
 
 extern Rva00DFE144Globals *TheRva00DFE144;
 
+// The global at 0x009FE144: the LOD manager; +0x17C4 is the integer the
+// 0x00518FEA warning gate compares against.
+class GameLODManager
+{
+public:
+	unsigned char m_pad[0x17c4];
+	int m_17c4; // +0x17C4
+};
+
+extern GameLODManager *TheGameLODManager;
+
 // Rva005186E1Format.cpp's 0x005186E1 formats the options into a string.
 void Rva005186E1Format(OptionPreferences *prefs, AsciiString *text);
 
@@ -79,6 +90,7 @@ public:
 	void AdvancedOptionNum(int option, char *result, bool skip);
 	void EnterAdvancedSettings(const char *unused);
 	void rva00518C0D(int query, char *value, bool set);
+	void rva00518FEA(int query, int kind);
 
 	// Unrowed 0x00518B05 (264 bytes; a warning prompt), pinned by address.
 	void rva00518B05(const AsciiString &text, int kind);
@@ -173,6 +185,22 @@ void AptOptions::rva00518C0D(int query, char *value, bool set)
 	AsciiString text;
 	Rva005186E1Format(&prefs, &text);
 	strcpy(value, text.str());
+}
+
+// Retail 0x00518FEA, 101 bytes: warns via 0x00518B05 with
+// "APT:WarnHighGraphicSettings" unless the query is the custom preset (5)
+// or sorts at/below the current preset (+0x310) or the LOD manager level
+// (+0x17C4). Callers at 0x0051904F/0x00519167; callee 0x00518B05 pinned.
+void AptOptions::rva00518FEA(int query, int kind)
+{
+	if (query != 5)
+	{
+		if (query <= m_preset)
+			return;
+		if (query <= TheGameLODManager->m_17c4)
+			return;
+	}
+	rva00518B05(AsciiString("APT:WarnHighGraphicSettings"), kind);
 }
 
 // Retail's strcpy call lands on the import thunk rowed as ji_00629176.
