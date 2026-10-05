@@ -9,6 +9,9 @@ struct Rva009B64A0Coef
 extern Rva009B64A0Coef g_bfmeToneCoef[15];		// retail 0x011432D0
 extern void (__cdecl *g_bfmeToneReady)();			// retail 0x01356B48
 
+// g_bfmeToneCoef: sole definition so this file links (no other TU defines it).
+Rva009B64A0Coef g_bfmeToneCoef[15];
+
 #define BFME_TONE(dstIndex, srcIndex, tap)						\
 	{															\
 		int v = ((src[srcIndex] * g_bfmeToneCoef[tap * 3 + j].m_scale	\
