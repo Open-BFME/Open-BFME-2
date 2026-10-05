@@ -286,7 +286,6 @@ AptOnlineSubScreen *__cdecl Rva00516D91(AptOnline *shell)
 }
 
 // Retail 0x00516DD2, 56 bytes: the shell table's factory for a new "OnlineOpenPlay" sub-screen.
-// ?Rva00516DD2@@YAPAUAptOnlineSubScreen@@PAVAptOnline@@@Z present-unmatched
 AptOnlineSubScreen *__cdecl Rva00516DD2(AptOnline *shell)
 {
 	return (AptOnlineSubScreen *)new Rva005BA1FD(shell);
