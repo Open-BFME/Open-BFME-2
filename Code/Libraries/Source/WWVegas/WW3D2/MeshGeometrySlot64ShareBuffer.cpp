@@ -2,7 +2,9 @@
 // Combined scratch TU for the two MeshGeometry Slot64 ShareBuffer members
 // emitted from the same local class definition.
 #include "always.h"
+#pragma optimize("s", on)
 #include "refcount.h"
+#pragma optimize("", on)
 #include "bittype.h"
 #include <string.h>
 
