@@ -12,12 +12,9 @@
 // The noinline empty destructor is an unmatched compilation scaffold; the
 // verified wrapper call resolves to the retail destructor through its pin.
 
-// ??_GTerrainResourceClientBehavior@@UAEPAXI@Z @0x00252E56 28B: slot 0 of vtable 0x00BEFF20; calls ??1 at 0x004CC5AA.
-// Owner evidence (audited 2026-09-26): retail slot 4 -> RVA 0x00252E0B uses class-name string "TerrainResourceClientBehavior".
-class TerrainResourceClientBehavior { public: __declspec(noinline) virtual ~TerrainResourceClientBehavior(); };
-// ??1TerrainResourceClientBehavior@@UAE@XZ present-unmatched
-TerrainResourceClientBehavior::~TerrainResourceClientBehavior() {}
-void TerrainResourceClientBehavior_Delete(TerrainResourceClientBehavior *p) { delete p; }
+// TerrainResourceClientBehavior's verified deleting wrapper now comes from
+// TerrainResourceClientBehaviorSlots.cpp, alongside its real destructor.
+// Removing the empty scaffold also removes its conflicting vtable copy.
 
 // ??_GCastleBehavior@@UAEPAXI@Z @0x00399354 28B: slot 0 of vtable 0x00C1A780; calls ??1 at 0x0039857D.
 // Owner evidence (audited 2026-09-26): retail slot 4 -> RVA 0x00398538 uses class-name string "CastleBehavior".
