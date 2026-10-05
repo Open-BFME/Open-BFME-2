@@ -56,8 +56,32 @@ public:
 	int rva0039DD12(TeamPredicate pred, void *userData) const;
 };
 
-static int __cdecl CbA(Object *, void *)
+// The object's member at +0x264 receives both per-object calls.
+struct Rva003C4570Object
 {
+	char m_pad[0x264];
+	void *m_264;
+};
+
+struct Rva0039B24FInput;
+
+class Rva0039B24F
+{
+public:
+	void rva0039B24F(Rva0039B24FInput *input, int a, bool b);
+};
+
+class Rva0039B20C
+{
+public:
+	void rva0039B246();
+};
+
+// Team iterate callback 0x002886A7 (27B): hand the experience level found
+// above to each member's +0x264 object, then continue.
+int __cdecl Rva002886A7(Object *obj, void *userData)
+{
+	((Rva0039B24F *)((Rva003C4570Object *)obj)->m_264)->rva0039B24F((Rva0039B24FInput *)userData, 1, false);
 	return 1;
 }
 
@@ -78,6 +102,6 @@ void __stdcall Rva003C4570Do(const AsciiString &teamName, const AsciiString &lev
 	const Overridable *lvl = TheLevelSys->rva0028951F(key);
 	if (!lvl)
 		return;
-	team->rva0039DD12(CbA, (void *)lvl);
+	team->rva0039DD12(Rva002886A7, (void *)lvl);
 	team->rva0039DD12(CbB, 0);
 }
