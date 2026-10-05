@@ -63663,3 +63663,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva004EE15B@Rva004EE15B@@QAEXPAVRva004EE15BObj@@@Z,,0x004EE15B,78,Code/GameEngine/Source/Common/Rva004EE15BFwd.cpp,matched,triple slot forward with paired-byte scratch array; full byte gate
 ?rva004EF4C1@Rva004EF4C1@@QAEXXZ,,0x004EF4C1,95,Code/GameEngine/Source/Common/Rva004EF4C1Pace.cpp,matched,frame pacer with dual budget clamps; pinned tail plus slot call; G7 selects imul for x3; full byte gate
 ?rva004EBF93@Rva004EBF93@@QAEXXZ,,0x004EBF93,177,Code/GameEngine/Source/Common/Rva004EBF93Refresh.cpp,matched,subsystem refresh via six rowed sweeps plus world flag latches; full byte gate
+?rva004F9E59@Rva004F9E59@@QAEXXZ,,0x004F9E59,29,Code/Libraries/Source/WWVegas/WWLib/Rva004F9E59Sort.cpp,matched,dual-range sort via thiscall alias of rowed sorter; full byte gate
