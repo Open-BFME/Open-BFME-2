@@ -1,7 +1,5 @@
 // ?rva006C39F0@Rva006C39F0Owner@@QAE_NIIIPAX@Z
-// partial score=0.96 date=2026-10-05
-// ?rva006C39F0@Rva006C39F0Owner@@QAE_NIIIPAX@Z
-// finish attempt for ?rva006C39F0@Rva006C39F0Owner@@QAE_NIIIPAX@Z @0x006C39F0, 191B.
+// partial score=0.97 date=2026-10-05
 // cl: /O2 /DNDEBUG /MD
 // ?rva006C39F0@Rva006C39F0Owner@@QAE_NIIIPAX@Z @ 0x006C39F0 (191B, ret 0x10).
 //
@@ -30,8 +28,13 @@
 //     0x006C3940 in which case the trailing two-byte length word is written
 //     at BOTH ends (mov word ptr [esi],di / mov word ptr [edi+esi-2],0) only
 //     once the allocation pointer is known non-null. The insert length
-//     differs per path: altLen on the direct path, allocSize on the
-//     allocated path.
+//     differs per path, and this is the load-bearing asymmetry: arg1 -- which
+//     doubles as the hash key and is loaded once into edi at 0x6C3A13 and
+//     still live for the chain compare at 0x6C3A30 -- is the length the
+//     direct-buffer path inserts under, because the buffer!=0 branch at
+//     0x6C3A46 reaches the shared insert at 0x6C3A70 without reloading edi.
+//     Only the allocated path reloads edi, with arg2 at 0x6C3A6A. arg3 is
+//     allocSize and is what sizes the run and both length words.
 //   - a failed insert releases the run through 0x006C1A50, but only when
 //     this body allocated it (test bl,bl / je skips the release).
 //
@@ -97,8 +100,15 @@ bool Rva006C39F0Owner::rva006C39F0(unsigned int key, unsigned int altLen,
 	}
 
 	void *run = buffer;
-	owned = run == 0;
-	unsigned int insertLen = altLen;
+	owned = 0;
+	// Retail reuses arg1 (edi, loaded once at 0x6C3A13 and still live for the
+	// chain compare at 0x6C3A30) as the insert length on the direct-buffer
+	// path: the buffer!=0 branch at 0x6C3A46 goes straight to the shared
+	// insert at 0x6C3A70 without reloading edi. Only the allocated path
+	// reloads edi, with arg2 from 0x6C3A18, before the same insert. The
+	// allocSize that sizes the run is arg3, and it is what both trailing
+	// length words carry.
+	unsigned int insertLen = key;
 	if (!run)
 	{
 		if (!allocSize)
@@ -110,7 +120,7 @@ bool Rva006C39F0Owner::rva006C39F0(unsigned int key, unsigned int altLen,
 
 		*(unsigned short *)run = (unsigned short)allocSize;
 		*(unsigned short *)((unsigned char *)run + allocSize - 2) = 0;
-		insertLen = allocSize;
+		insertLen = altLen;
 		owned = 1;
 	}
 
