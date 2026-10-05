@@ -29,6 +29,7 @@ static __forceinline float bfme_fmodf(float x,float y) { return (float)fmod(x,y)
 class EAStringC;
 class AptString;
 class AptInteger;
+class AptScriptFunctionBase;
 class AptPrototype;
 class AptLookup;
 class AptRegister;
@@ -170,7 +171,9 @@ struct AptActionInterpreter
         AptCharacterInst *pParentCharacter;
     };
     AptBasePtrStack stack;
-    unsigned char m_otherStacksAndDebugData[0x40-12];
+    unsigned char m_otherStacksAndDebugData[0x30-12];
+    AptScriptFunctionBase *mpCurrentFunction;
+    unsigned char m_afterCurrentFunction[0x40-0x34];
     AptConstantPool constantPool;
     unsigned char m_betweenPoolAndFrameBase[0x60-0x48];
     AptValue *mpThrownValue; // PC Throw reads/writes+60; donor supplies semantic role.
@@ -178,6 +181,7 @@ struct AptActionInterpreter
     int mnStackFrameBase;
     bool setVariable(AptValue *, AptValue *, const EAStringC *, AptValue *, int=1, int=1, int=0);
     AptValue *getVariable(AptValue *, AptValue *, const EAStringC *, int=1, int=1, int=0);
+    const unsigned char *runStream(const unsigned char *,AptCIH *,int,AptCharacterInst *);
     int doFSCommand(const char *,const char *);
     void stackPushIndirect(AptValue *const);
     static bool isObjectOfType(AptValue *,AptValue *);
@@ -227,6 +231,7 @@ private:
     HANDLER(Push);
     HANDLER(Throw);
     HANDLER(Extends);
+    HANDLER(Try);
 #undef HANDLER
 };
 void AptActionInterpreter::_FunctionAptActionPushFloat(AptActionInterpreter *const p, LocalContextT *const c)
@@ -1817,7 +1822,7 @@ void AptActionInterpreter::_FunctionAptActionNewMethod(AptActionInterpreter *con
     else p->stack.Push(gpUndefinedValue);
 }
 
-class AptNativeHash { public: int mnTotalSize; void *mpData; AptValue *mp__proto__; AptValue *mpPrototype; unsigned int nEventHandlers; __forceinline AptValue *Get__Proto__() const { return mp__proto__; } __forceinline AptValue *GetPrototype() const { return mpPrototype; } __forceinline void SetPrototype(AptValue *p) { if(p) p->AddRef(); if(mpPrototype) mpPrototype->Release(); mpPrototype=p; } __forceinline void Set__Proto__(AptValue *p) { if(p) p->AddRef(); if(mp__proto__) mp__proto__->Release(); mp__proto__=p; } };
+class AptNativeHash { public: void Set(const EAStringC *const,AptValue *const); int mnTotalSize; void *mpData; AptValue *mp__proto__; AptValue *mpPrototype; unsigned int nEventHandlers; __forceinline AptValue *Get__Proto__() const { return mp__proto__; } __forceinline AptValue *GetPrototype() const { return mpPrototype; } __forceinline void SetPrototype(AptValue *p) { if(p) p->AddRef(); if(mpPrototype) mpPrototype->Release(); mpPrototype=p; } __forceinline void Set__Proto__(AptValue *p) { if(p) p->AddRef(); if(mp__proto__) mp__proto__->Release(); mp__proto__=p; } };
 extern Rva006D2A60 *g_pChainBlockAllocatorF4;
 // Accessed AptPrototype prefix: AptValue8 + native hash20 + constructor pointer.
 class AptPrototype : public AptValue {
@@ -2137,3 +2142,46 @@ void AptActionInterpreter::_FunctionAptActionInstanceOf(AptActionInterpreter *co
     bool result=isObjectOfType(obj,type);
     p->stack.PopAndPush(2,AptBoolean::Create(result));
 }
+
+class Rva8D0D80Result { public: void rva006FBED0(); };
+class AptFrameStack;
+extern AptFrameStack *g_bfmeFrameStackAtE1835C;
+// Target 706070..706234; donor supplies semantics; native proves +30 function,
+// +8 frame hash and this 20-byte action header. runStream 7002C0 remains unrowed.
+struct RuntimeTryBlock { unsigned int trySize,catchSize,finallySize; unsigned char flags; unsigned char unused[2]; unsigned char caughtReg; const char *caughtName; };
+void AptActionInterpreter::_FunctionAptActionTry(AptActionInterpreter *const p,LocalContextT *const c)
+{
+    unsigned int nPreStackSize=p->stack.GetSize();
+    c->pInstruction=(const unsigned char *)(((unsigned int)c->pInstruction+3)&~3U);
+    const RuntimeTryBlock *data=(const RuntimeTryBlock *)c->pInstruction;
+    c->pInstruction+=sizeof(RuntimeTryBlock);
+    c->pInstruction+=data->trySize;c->pInstruction+=data->catchSize;c->pInstruction+=data->finallySize;
+    p->runStream((const unsigned char *)(data+1),c->pCurrentContext,data->trySize,c->pParentCharacter);
+    if (p->mpThrownValue && (data->flags&1)) {
+        AptValue *thrown=p->mpThrownValue;
+        if (data->flags&4) Rva00709F70Set(data->caughtReg,thrown);
+        else {
+            EAStringC param(data->caughtName);
+            if(p->mpCurrentFunction) {
+                if(!g_bfmeFrameStackAtE1835C) ((Rva8D0D80Result *)p->mpCurrentFunction)->rva006FBED0();
+                ((AptNativeHash *)((unsigned char *)g_bfmeFrameStackAtE1835C+8))->Set(&param,thrown);
+            } else p->setVariable((AptValue *)c->pCurrentContext,0,&param,thrown);
+        }
+        p->mpThrownValue->Release();p->mpThrownValue=0;
+        p->runStream((const unsigned char *)(data+1)+data->trySize,c->pCurrentContext,data->catchSize,c->pParentCharacter);
+    }
+    if(data->flags&2) {
+        AptValue *thrown=p->mpThrownValue;
+        if(thrown) { thrown->AddRef();p->mpThrownValue->Release();p->mpThrownValue=0; }
+        p->runStream((const unsigned char *)(data+1)+data->trySize+data->catchSize,c->pCurrentContext,data->finallySize,c->pParentCharacter);
+        if(thrown && !p->mpThrownValue) { thrown->AddRef();p->mpThrownValue=thrown;thrown->Release(); }
+    }
+    unsigned int nPostStackSize=p->stack.GetSize();
+    if (nPostStackSize>nPreStackSize) p->stack.rva006E3AA0(nPostStackSize-nPreStackSize);
+    if((unsigned int)p->stack.GetSize()!=nPreStackSize) {
+        g_bfmeAptAssertAtE17734("(uint32_t)pInterpreter->stack.GetSize() == nPreStackSize","C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptActionInterpreter.cpp",0x2599);
+        if(g_bfmeAptBreakOnAssertAtDDC01C) { __asm int 3 }
+    }
+}
+
+#pragma comment(linker, "/alternatename:?g_bfmeFrameStackAtE1835C@@3PAVAptFrameStack@@A=?spFrameStack@AptScriptFunctionBase@@2PAVAptFrameStack@@A")
