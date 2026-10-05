@@ -56204,3 +56204,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?Rva003BD011Forward@@YAXXZ,,0x003BD011,14,Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003BD011Forward.cpp,matched,sibling Rva003BD003Forward slot 0x254 same shape caller 0x003CE6B6
 ?Rva003BD116Set@@YGXPAVParameter@@PAX@Z,,0x003BD116,61,Code/GameEngine/Source/GameLogic/Object/PartitionManagerRva003BD116.cpp,matched,getUnitNamed plus TerrainLogic slot88 plus rva0029660C caller 0x003CE7AC
 ?Rva003BD01FSet@@YGXE@Z,,0x003BD01F,19,Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003BD01FSetter.cpp,matched,TheGameClient plus 0xC1 byte setter caller 0x003CE64A
+?rva0027261D@Drawable@@QAEHXZ,,0x0027261D,48,Code/GameEngine/Source/GameClient/Drawable_rva0027261D.cpp,matched,Drawable array scan slotA8 slotA0 caller 0x0010D049
