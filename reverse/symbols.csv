@@ -13535,3 +13535,4 @@ _chatSetLocalIP,0x0069BD40,Thread_Function 0x0038EDD7 passes the chosen IP here 
 _peerJoinStagingRoomA,0x0069A130,GameSpy SDK C export peerJoinStagingRoomA (ANSI; PeerThread.cpp maps peerJoinStagingRoom to it as the BFME 2 SDK header does): PeerThread.cpp declares the sweep Peer.h with C linkage, and Thread_Function 0x0038EDD7 / doQuickMatch 0x0038E684 call this body where the Zero Hour source calls peerJoinStagingRoom
 _peerStateChanged,0x00699460,GameSpy SDK C export peerStateChanged: PeerThread.cpp declares the sweep Peer.h with C linkage, and Thread_Function 0x0038EDD7 / doQuickMatch 0x0038E684 call this body where the Zero Hour source calls peerStateChanged
 ?forward@Rva0040E6D6Sub@@QAEXPAH@Z,0x002E01C6,thiscall 1-arg subobject forwarder called by Rva0040E6D6Host::forwardFrom 0x0040E6D6; read from its REL32
+??1Rva0042D4B3@@UAE@XZ,0x00577E3E,virtual dtor called by the scalar deleting dtor 0x0042D4B3; thiscall read from its REL32
