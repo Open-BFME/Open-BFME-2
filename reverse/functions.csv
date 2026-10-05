@@ -63657,3 +63657,5 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva004E9F6E@Rva004E9F6E@@QAEXXZ,,0x004E9F6E,68,Code/GameEngine/Source/Common/Rva004E9F6EGate.cpp,matched,empty-name gate via world probe plus TheEmptyString compare then bounds-gated tail-call; full byte gate
 ?rva004F4927@Rva004F4927@@QAEXXZ,,0x004F4927,59,Code/GameEngine/Source/Common/Rva004F4927Dispatch.cpp,matched,probe-gated quad slot dispatch then pinned tail worker; full byte gate
 ?rva004F9EF3@@YAXPAURva004F6352@@0URva004F6352Cmp@@@Z,,0x004F9EF3,70,Code/Libraries/Source/WWVegas/WWLib/Rva004F9EF3Sort.cpp,matched,sort driver: element count plus halving depth plus pinned phase plus rowed final insertion; full byte gate
+?rva004ED08A@Rva004ED08A@@QAEXXZ,,0x004ED08A,77,Code/GameEngine/Source/Common/Rva004ED08ASweep.cpp,matched,AI group sweep over 0x14 entries via five rowed callees; full byte gate
+?rva004EE79E@Rva004EE79E@@QAEXPAVRva004E06FBPtrChase32Field@@@Z,,0x004EE79E,79,Code/GameEngine/Source/Common/Rva004EE79ESelect.cpp,matched,counted selection via key plus link tag plus world push plus tag-indexed counter; full byte gate
