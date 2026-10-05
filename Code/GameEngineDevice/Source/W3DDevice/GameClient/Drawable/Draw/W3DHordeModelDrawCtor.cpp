@@ -21,6 +21,7 @@ extern "C" const void *const vtbl_00BCA08C[];  // folded, 5 classes; via ??_7Rva
 #pragma comment(linker, "/alternatename:_vtbl_00BCA08C=??_7Rva000CA119@@6BRva000CA119_B2@@@")
 extern "C" const void *const vtbl_00BCC588[];  // folded, 3 classes; via ??_7W3DTankDraw@@6BDrawInterfaceA@@@
 #pragma comment(linker, "/alternatename:_vtbl_00BCC588=??_7W3DTankDraw@@6BDrawInterfaceA@@@")
+extern const void *const g_00BC68F0[];
 
 class Thing;
 class ModuleData;
@@ -59,7 +60,7 @@ W3DHordeModelDraw::W3DHordeModelDraw(Thing *thing, const ModuleData *moduleData)
 	W3DScriptedModelDraw(thing, moduleData),
 	m_unmodelled2E8(0), m_unmodelled2EC(0), m_unmodelled2F0(0)
 {
-	*(unsigned int *)this = 0x00BC68F0;
+	*(unsigned int *)this = ((unsigned int)g_00BC68F0);
 	*(unsigned int *)((char *)this + 0x0C) = ((unsigned int)vtbl_00BCC588);
 	*(unsigned int *)((char *)this + 0x10) = ((unsigned int)vtbl_00BCA08C);
 	++TheW3DHordeModelDrawCount;
