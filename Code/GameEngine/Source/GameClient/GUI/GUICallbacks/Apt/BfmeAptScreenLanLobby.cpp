@@ -157,7 +157,7 @@ public:
 	virtual void v19() = 0;
 	virtual void v20() = 0;
 	virtual void v21() = 0;
-	virtual void v22() = 0;
+	virtual void v22(int value) = 0;
 	virtual void v23() = 0;
 	virtual void v24() = 0;
 	virtual void RequestGameOptions(AsciiString options, bool isPublic,
@@ -190,7 +190,7 @@ public:
 	virtual void v51() = 0;
 	virtual void v52() = 0;
 	virtual void v53() = 0;
-	virtual void v54() = 0;
+	virtual bool v54() = 0;
 	virtual UnicodeString GetMyName() = 0;
 	virtual LANGameInfo *GetMyGame() = 0;
 };
@@ -213,6 +213,35 @@ public:
 };
 
 extern MapCache *TheMapCache;
+
+class GameTextInterface
+{
+public:
+	virtual ~GameTextInterface() {}
+	virtual void slot01() = 0;
+	virtual void slot02() = 0;
+	virtual void slot03() = 0;
+	virtual void slot04() = 0;
+	virtual void slot05() = 0;
+	virtual void slot06() = 0;
+	virtual void slot07() = 0;
+	virtual void slot08() = 0;
+	virtual void slot09() = 0;
+	virtual void slot10() = 0;
+	virtual void slot11() = 0;
+	virtual void slot12() = 0;
+	virtual void slot13() = 0;
+	virtual void slot14() = 0;
+	virtual UnicodeString fetch(const char *label, bool *exists = 0) = 0;
+};
+
+extern GameTextInterface *TheGameText;
+
+// Unrowed cdecl forwarders onto the object at g_Va00E032FC, pinned by
+// address: 0x00437E84 passes (type, text, title) to its method 0x0054D2DD
+// and 0x00437E9C passes one int to 0x0054CBEF.
+void Rva00437E84(int type, const UnicodeString &text, const UnicodeString &title);
+void Rva00437E9C(int value);
 
 class Rva0043DB47DoubleSetter
 {
@@ -249,6 +278,7 @@ public:
 	bool setScenarioRva0044440C(int scenario);
 	bool bfmeMapChanged(const AsciiString *mapName);
 	bool rva00444B90(GameSlot *slot, SlotState state, int unused);
+	void rva00444DC3(bool starting);
 
 private:
 	unsigned char m_pad00[0x0C];
@@ -558,4 +588,24 @@ bool BfmeAptScreenLanLobby::rva00444B90(GameSlot *slot, SlotState state, int unu
 		TheLAN->requestSerializedGameInfo(true, &address);
 	}
 	return true;
+}
+
+// Retail 0x00444DC3, 166 bytes: vftable 0x00C3E098 slot 16. BFME1's
+// counterpart is the dump d_00517220 (its slot 14), so the name is unknown.
+// When starting it shows "QM:STARTINGGAME" over "APT:None" through
+// 0x00437E84 (type 4) and, if LANAPI vslot 54 holds, calls vslot 22 with 0;
+// BFME2 drops BFME1's vslot 14 call on the other path. Otherwise it passes 1
+// to 0x00437E9C.
+void BfmeAptScreenLanLobby::rva00444DC3(bool starting)
+{
+	if (starting)
+	{
+		Rva00437E84(4, TheGameText->fetch("APT:None"), TheGameText->fetch("QM:STARTINGGAME"));
+		if (TheLAN && TheLAN->v54())
+			TheLAN->v22(0);
+	}
+	else
+	{
+		Rva00437E9C(1);
+	}
 }
