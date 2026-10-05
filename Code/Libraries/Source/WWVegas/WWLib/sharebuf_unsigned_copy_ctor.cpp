@@ -17,6 +17,11 @@ void *operator new[](unsigned int size);
 inline void *operator new(unsigned int, void *place) { return place; }
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib/refcount.h
+// Retail's out-of-line RefCountClass deleting-dtor copy is the /O1 form
+// (pop ecx after the delete call); this TU builds /G7 which emits add esp,4
+// instead. Compile just the base class for size so our COMDAT matches the
+// first copy in link order. Code this TU's rows inline keeps this TU's flags.
+#pragma optimize("s", on)
 class RefCountClass
 {
 public:
@@ -30,6 +35,7 @@ protected:
 private:
 	int NumRefs;
 };
+#pragma optimize("", on)
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib/sharebuf.h,
 // with BFME's RawBuffer/Alignment pair around Zero Hour's Array and Count.
