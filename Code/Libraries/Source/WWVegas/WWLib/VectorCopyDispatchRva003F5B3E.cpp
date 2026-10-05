@@ -19,3 +19,13 @@ Rva003F5B3ERecord *backwardDeep(Rva003F5B3ERecord*,Rva003F5B3ERecord*,Rva003F5B3
 __declspec(noinline) Rva003F5B3ERecord *copyDispatchRva003F5B3E(Rva003F5B3ERecord *first,Rva003F5B3ERecord *last,Rva003F5B3ERecord *out,const Rva003F5B3EEmpty&){return copyDeep(first,last,out,Rva003F5B3ETag(),0);}
 
 #pragma comment(linker, "/alternatename:?copyDeep@@YAPAURva003F5B3ERecord@@PAU1@00ABURva003F5B3ETag@@PAH@Z=?Rva003F58F8Copy@@YAPADPAD00@Z")
+
+// Target Ghidra [3F58A3,3F58C0),29B. Full258B fill-insert3F61C6
+// passes its four dispatch arguments at3F6240. The native wrapper adds
+// a local empty iterator tag and null distance pointer then calls full50B
+// backwardcopy3F5584. Only the pointer prefix is consumed by that provider;
+// STLport dispatch semantics match while original empty tag names stay
+// unproved. Every argument and the complete29B extent have target evidence.
+__declspec(noinline) Rva003F5B3ERecord *backwardDispatchRva003F58A3(Rva003F5B3ERecord *first,Rva003F5B3ERecord *last,Rva003F5B3ERecord *out,const Rva003F5B3EEmpty&){return backwardDeep(first,last,out,Rva003F5B3ETag(),0);}
+
+#pragma comment(linker, "/alternatename:?backwardDeep@@YAPAURva003F5B3ERecord@@PAU1@00ABURva003F5B3ETag@@PAH@Z=?Rva003F5584CopyBackward@@YAPADPAD00@Z")
