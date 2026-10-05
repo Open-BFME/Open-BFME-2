@@ -59,3 +59,9 @@ struct Rva00502FAEMapped { int a; };
 template class _STL::_Rb_tree<int, _STL::pair<const int, Rva002F1DA1Mapped>, _STL::_Select1st<_STL::pair<const int, Rva002F1DA1Mapped> >, _STL::less<int>, _STL::allocator<_STL::pair<const int, Rva002F1DA1Mapped> > >;
 template class _STL::_Rb_tree<int, _STL::pair<const int, Rva00501130Mapped>, _STL::_Select1st<_STL::pair<const int, Rva00501130Mapped> >, _STL::less<int>, _STL::allocator<_STL::pair<const int, Rva00501130Mapped> > >;
 template class _STL::_Rb_tree<int, _STL::pair<const int, Rva00502FAEMapped>, _STL::_Select1st<_STL::pair<const int, Rva00502FAEMapped> >, _STL::less<int>, _STL::allocator<_STL::pair<const int, Rva00502FAEMapped> > >;
+
+// map::insert(hint) forwarders @0x00502D61 and @0x00502F09 (29B) over the insert_unique rows above.
+template _STL::map<int, Rva00502861Mapped>::iterator _STL::map<int, Rva00502861Mapped>::insert(_STL::map<int, Rva00502861Mapped>::iterator, const _STL::map<int, Rva00502861Mapped>::value_type &);
+template _STL::map<int, Rva00502BCDMapped>::iterator _STL::map<int, Rva00502BCDMapped>::insert(_STL::map<int, Rva00502BCDMapped>::iterator, const _STL::map<int, Rva00502BCDMapped>::value_type &);
+// multimap::insert(hint) forwarder @0x00501A0B (29B) over the insert_equal row above.
+template _STL::multimap<int, Rva00501130Mapped>::iterator _STL::multimap<int, Rva00501130Mapped>::insert(_STL::multimap<int, Rva00501130Mapped>::iterator, const _STL::multimap<int, Rva00501130Mapped>::value_type &);
