@@ -12174,7 +12174,6 @@ _rva00286E33@8,0x00286E33,stdcall out-param 5B writer called from 0x287B2A with 
 ?_M_insert_overflow@?$vector@URva0052D801Record@@V?$allocator@URva0052D801Record@@@_STL@@@_STL@@IAEXPAURva0052D801Record@@ABU3@ABU__false_type@2@I_N@Z,0x0052D742
 ??$_Construct@URva002E2D10Record@@U1@@_STL@@YAXPAURva002E2D10Record@@ABU1@@Z,0x002E160F
 ?_M_insert_overflow@?$vector@URva002E2D10Record@@V?$allocator@URva002E2D10Record@@@_STL@@@_STL@@IAEXPAURva002E2D10Record@@ABU3@ABU__false_type@2@I_N@Z,0x002E2BBA
-??$_M_allocate_and_copy@PAURva004EE55ERecord@@@?$vector@URva004EE55ERecord@@V?$allocator@URva004EE55ERecord@@@_STL@@@_STL@@IAEPAURva004EE55ERecord@@IPAU2@0@Z,0x004EE233
 ?_M_clear@?$vector@URva004EE55ERecord@@V?$allocator@URva004EE55ERecord@@@_STL@@@_STL@@IAEXXZ,0x004EE540
 ?allocate@?$allocator@URva004EE55ERecord@@@_STL@@QBEPAURva004EE55ERecord@@IPBX@Z,0x00395928
 ??$_M_allocate_and_copy@PAURva00500EFARecord@@@?$vector@URva00500EFARecord@@V?$allocator@URva00500EFARecord@@@_STL@@@_STL@@IAEPAURva00500EFARecord@@IPAU2@0@Z,0x00500BC8
