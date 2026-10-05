@@ -42,10 +42,12 @@ private:
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 
+extern const void *const g_00C5BC48[];
+
 // ??0FreeLifeBodyModuleData@@QAE@XZ @0x4C1B3B
 FreeLifeBodyModuleData::FreeLifeBodyModuleData()
 {
-	m_vtable = reinterpret_cast<void *>(0x00C5BC48);
+	m_vtable = (void *)g_00C5BC48;
 	int *animSlots = &m_animAndDuration;
 	m_healthPercent = 0.0f;
 	m_lifeTime = 0;
