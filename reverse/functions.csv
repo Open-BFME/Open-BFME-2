@@ -64294,3 +64294,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?rva000ADC41@Rva000AD9AB@@QAEXHHE@Z,,0x000ADC41,64,Code/GameEngine/Source/Common/Rva000AD9ABFinish.cpp,matched,dump range 2 byte setter on +0x8C plane same family; honest address-derived name
 ?rva0009ACB8@Rva0009ACB8@@QAEXPAM@Z,,0x0009ACB8,78,Code/GameEngine/Source/GameClient/Rva0009ACB8Method.cpp,matched,dump range 2 slot 32 position copy; honest address-derived name
 ?rva0009D9FD@Rva0009D9BD@@QAEXXZ,,0x0009D9FD,43,Code/Libraries/Source/STLport/Rva0009D9BDFinish.cpp,matched,dump range 2 single-slot prologue with tail jump to rowed vector version; honest address-derived name
+??0Rva00098667Product@@QAE@XZ,,0x00098667,41,Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00098667Product.cpp,matched,
