@@ -1,5 +1,6 @@
 // ?startRenderToTexture@W3DShaderManager@@SAXXZ
-// partial score=0.98 date=2026-10-05
+// partial score=0.99 date=2026-10-05
+// ?startRenderToTexture@W3DShaderManager@@SAXXZ
 // cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /O1 /arch:SSE /G7
 // ?startRenderToTexture@W3DShaderManager@@SAXXZ retail 0x00075BD8 (378B).
 // Ported from Open-BFME-1 Code/GameEngineDevice/Source/W3DDevice/GameClient/
@@ -7,6 +8,18 @@
 // through DX8Wrapper::Set_Render_Target after a device-lost guard, splits Clear
 // into a 7-arg form and extends drawViewport with a scale flag. Only the placed
 // body is defined here.
+//
+// The Set_Material site is INLINED, and this is the whole gain over the previous
+// bank. Retail does not call Set_Material and does not fold its three steps
+// together: it runs Add_Ref on the new material, then Release_Ref on the old
+// m_material, then the D3D in-material-state flag, then stores the new material,
+// then Release_Ref again on it. m_refs is the DWORD at +4 -- proven by the
+// `dec dword ptr [reg+4]` halves -- so RefCountClass has its vptr at +0 and
+// m_refs at +4.
+//
+// Spelling the three steps out in that order is what produces the separated
+// refcount sequence. Routing it through a single __forceinline Set_Material folds
+// the add and the two releases into one test-and-delete block instead.
 struct IDirect3DSurface8;
 struct IDirect3DDevice8;
 struct IDirect3DDevice8Vtbl
@@ -56,16 +69,6 @@ class RefCountClass
 {
 public:
 	virtual void Delete_This() = 0;
-	void Add_Ref()
-	{
-		++m_refs;
-	}
-	void Release_Ref()
-	{
-		--m_refs;
-		if (m_refs == 0)
-			Delete_This();
-	}
 	int m_refs;
 };
 class VertexMaterialClass : public RefCountClass
@@ -108,10 +111,6 @@ enum FilterTypes
 	FT_VIEW_CROSSFADE,
 	FT_VIEW_DEFAULT
 };
-enum CustomScenePassModes
-{
-	CUSTOM_SCENE_PASS_DUMMY = 0
-};
 class DX8Wrapper
 {
 public:
@@ -119,9 +118,8 @@ public:
 	static void Set_Render_Target(IDirect3DSurface8 *target, bool useDefaultDepth);
 	static void Set_DX8_Render_State(unsigned long state, unsigned value);
 	static void Set_Shader(const ShaderClass &shader);
-	static void Set_Material(const VertexMaterialClass *material);
 	static void Clear(bool clearColor, bool clearDepth, bool clearStencil, const Vector3 &color, float alpha, float z, unsigned stencil);
-private:
+	static bool m_inSetMaterial;
 	static IDirect3DDevice8 *D3DDevice;
 	static VertexMaterialClass *m_material;
 };
@@ -135,14 +133,8 @@ public:
 	static IDirect3DSurface8 *m_oldDepthSurface;
 	static FilterTypes m_currentFilter;
 };
-class ScreenMotionBlurFilter
-{
-public:
-	virtual bool preRender(bool &skipRender, CustomScenePassModes &scenePassMode);
-	char m_pad[0x09];
-	bool m_skipRender;
-};
 
+// ?startRenderToTexture@W3DShaderManager@@SAXXZ present-unmatched
 void W3DShaderManager::startRenderToTexture()
 {
 	if (m_renderingToTexture || m_newRenderSurface == 0 || m_oldDepthSurface == 0)
@@ -162,9 +154,23 @@ void W3DShaderManager::startRenderToTexture()
 			shader.Set_Depth_Mask(ShaderClass::DEPTH_WRITE_DISABLE);
 			DX8Wrapper::Set_Shader(shader);
 			VertexMaterialClass *vmat = VertexMaterialClass::Get_Preset(VertexMaterialClass::PRELIT_DIFFUSE);
-			DX8Wrapper::Set_Material(vmat);
 			if (vmat)
-				vmat->Release_Ref();
+				++vmat->m_refs;
+			VertexMaterialClass *old = DX8Wrapper::m_material;
+			if (old)
+			{
+				--old->m_refs;
+				if (old->m_refs == 0)
+					old->Delete_This();
+			}
+			DX8Wrapper::m_inSetMaterial = true;
+			DX8Wrapper::m_material = vmat;
+			if (vmat)
+			{
+				--vmat->m_refs;
+				if (vmat->m_refs == 0)
+					vmat->Delete_This();
+			}
 			Vector2 one = { 1.0f, 1.0f };
 			drawViewport(0x00ffffff | (((int)(TheWaterTransparency->m_minWaterOpacity * 255.0f)) << 24), false, &one);
 			DX8Wrapper::Set_DX8_Render_State(168, 7);
@@ -182,11 +188,4 @@ void W3DShaderManager::startRenderToTexture()
 		Vector3 zeroB = { 0.0f, 0.0f, 0.0f };
 		DX8Wrapper::Clear(true, false, false, zeroB, opacity2, 1.0f, 0);
 	}
-}
-
-bool ScreenMotionBlurFilter::preRender(bool &skipRender, CustomScenePassModes &scenePassMode)
-{
-	skipRender = m_skipRender;
-	W3DShaderManager::startRenderToTexture();
-	return true;
 }
