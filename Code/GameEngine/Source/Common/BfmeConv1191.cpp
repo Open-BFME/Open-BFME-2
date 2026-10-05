@@ -48,6 +48,7 @@ public:
 	BfmeD1191(const char *filename);
 	~BfmeD1191();
 	void bfmeDump1191(void);
+	void rva0050C90D();
 	char *m_bfme48;
 };
 
@@ -88,4 +89,14 @@ void BfmeD1191::bfmeDump1191(void)
 	fn(m_bfme48, (char *)"%s,", m_3C.m_item != 0 ? (char *)m_3C.m_item + 8 : (char *)"");
 	fn(m_bfme48, (char *)"%d,", m_40);
 	fn(m_bfme48, (char *)"%s\n", m_44.m_item != 0 ? (char *)m_44.m_item + 8 : (char *)"");
+}
+
+// Native50C90D..50C91D16B calls diagnostic dump50C69D then tailcalls reset50C45A
+// on the same receiver. Both complete callees already verify in their homes.
+// This establishes dump/reset behavior and the consumed existing record view;
+// the wrapper's original name is unknown. No adjacency-based type claim.
+void BfmeD1191::rva0050C90D()
+{
+    bfmeDump1191();
+    reset();
 }
