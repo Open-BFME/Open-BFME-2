@@ -58,6 +58,9 @@ public:
 class CountedAsset
 {
 public:
+	// Retail slot 0 (this TU only): the unsigned-key name lookup below returns
+	// whatever this getter yields; miss path returns "<unknown>".
+	virtual const char *rvaSlot0();
 	void Release_Ref();
 };
 
@@ -92,6 +95,7 @@ class AssetRegistry
 {
 public:
 	AssetReference Find_Asset(const char *name);
+	const char *rva006213B0(unsigned int key);
 
 private:
 	unsigned char m_unmodelled_000[0x34];
@@ -115,6 +119,23 @@ AssetReference AssetRegistry::Find_Asset(const char *name)
 		return AssetReference();
 
 	return AssetReference((*it).second);
+}
+
+// ?rva006213B0@AssetRegistry@@QAEPBDI@Z — unsigned-key name lookup on the
+// +0x4C asset map (same lock at +0x34 as Find_Asset). A miss returns the
+// "<unknown>" literal; a hit returns the asset's slot-0 getter. Retail is
+// 197 bytes at 0x006213B0, ret 4, reached by no named caller.
+const char *AssetRegistry::rva006213B0(unsigned int key)
+{
+	CriticalSectionLock lock((int)&m_lock);
+
+	typedef _STL::hash_map<unsigned int, CountedAsset *> AssetRegistryHash;
+	AssetRegistryHash *assets = (AssetRegistryHash *)((char *)this + 0x4C);
+	AssetRegistryHash::iterator it = assets->find(key);
+	if (it == assets->end())
+		return "<unknown>";
+
+	return (*it).second->rvaSlot0();
 }
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
