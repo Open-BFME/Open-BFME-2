@@ -61749,3 +61749,4 @@ _Rva00023540,,0x00023540,271,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleF
 ?rva005FB83E@Rva005FB83E@@QAEXPBVImage@@@Z,,0x005FB83E,8,Code/GameEngine/Source/GameClient/GUI/AptPlayerNameSet.cpp,matched,tail-jmp forwarder via member at plus4 to rowed PlayerIcon 0x005FB666
 ?rva005FB846@Rva005FB846@@QAEXXZ,,0x005FB846,8,Code/GameEngine/Source/GameClient/GUI/AptPlayerNameSet.cpp,matched,tail-jmp forwarder via member at plus4 to rowed 0x005FB6E2
 ?rva005FB84E@Rva005FB84E@@QAEXXZ,,0x005FB84E,8,Code/GameEngine/Source/GameClient/GUI/AptPlayerNameSet.cpp,matched,tail-jmp forwarder via member at plus4 to rowed 0x005FB729
+?rva0040E88B@Rva0040E88B@@QAEXAAV?$vector@URva0040DC56Element@@V?$allocator@URva0040DC56Element@@@_STL@@@_STL@@@Z,,0x0040E88B,70,Code/Libraries/Source/WWVegas/WWLib/Rva0040E88BCopy.cpp,matched,unlock lane erase 0x0040DC56 reserve 0x0040DC89 pushback 0x003F7B22 callers 0x002BBF61 0x004FA26F
