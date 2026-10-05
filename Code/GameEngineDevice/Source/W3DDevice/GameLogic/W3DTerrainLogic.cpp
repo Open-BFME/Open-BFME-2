@@ -428,3 +428,18 @@ AsciiString Rva000DE5B7::rva000DE5B7()
 {
 	return m_str;
 }
+
+// ?rva000DE59C@Rva000DE59C@@QAE?AVAsciiString@@XZ 0x000DE59C 27 callee StringBase copy 0x000365F0 callers 0x000DE870 0x002DB6FD
+// 27B AsciiString getter at +0x34 through the rowed StringBase copy ctor; same shape as
+// Rva000DE5B7 0x000DE5B7 and GameInfo::getMap 0x0023E943 (27B, /O1 /EHsc).
+struct Rva000DE59C
+{
+	char m_pad[0x34];
+	AsciiString m_str;
+	AsciiString rva000DE59C();
+};
+
+AsciiString Rva000DE59C::rva000DE59C()
+{
+	return m_str;
+}
