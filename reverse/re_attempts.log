@@ -9658,3 +9658,5 @@ $L36270	0x796558	8	blocked	Refreshed ZH packet still compares32B compilerlocal a
 ?rva003408C4@Rva003408C4@@QAE_NXZ	0x003408C4	462	blocked	462B computePath gap needs full AI/path reconstruction t=12 model=muse-02
 ?xfer@Rva00340BDC@@MAEXPAVXfer@@@Z	0x00340AE8	244	partial	esi edi swapped throughout plus mov eax push eax vs push mem for machine arg t=20 model=muse-02 score=0.94 stash=reverse/attempts/0x00340ae8.cpp
 ?rva00493251@Rva00493251@@QAE_NXZ	0x00493251	77	partial	pushes after call not before; middle mov1+jmp vs shared end mov1; final setne vs je+mov t=35 model=muse-03 score=0.93 stash=reverse/attempts/0x00493251.cpp
+??1Rva00538133@@UAE@XZ	0x00538133	134	partial	edi preservation only: retail keeps list addr in edi (push edi lea edi mov ecx edi mov edi [edi]) vs reload via eax; offsets EH states and all rowed callees match; 131 vs 134B t=25 model=muse-04 score=0.95 stash=reverse/attempts/0x00538133.cpp
+?rva00345F94@Rva00345F94@@QAEHXZ	0x00345F94	131	blocked	branchless bit ops for frame-bit test and esi-edi swap across 3 variants; no donor; t=20 model=muse-04

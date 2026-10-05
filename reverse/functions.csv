@@ -60793,3 +60793,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ??0Rva005E5A38@@QAE@H@Z,,0x005E5A38,46,Code/GameEngine/Source/Common/Rva005E5A38Ctor.cpp,matched,chain via Init temp derived of 0x005CBA04 vtable 0x00C77D90
 ??0Rva005E569A@@QAE@HPAX@Z,,0x005E569A,28,Code/GameEngine/Source/Common/Rva005E569ACtor.cpp,matched,unlock for 0x005E57DB vtable 0x00877D44 two args
 ??1Rva002E26C3@@QAE@XZ,,0x002E26C3,30,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva002E2690_dtor.cpp,matched,vector-like dtor via rowed Destroy 0x002AF4ED plus free caller 0x002E2729
+?deleteNode@Rva00289371HashTable@@AAEXPAUNode@1@@Z,,0x00289164,28,Code/GameEngine/Source/Common/Rva00289371HashClear.cpp,matched,hash clear caller rowed and value dtor pinned with free rowed

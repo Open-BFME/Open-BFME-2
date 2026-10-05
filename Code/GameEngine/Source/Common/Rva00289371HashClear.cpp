@@ -12,6 +12,14 @@
 
 typedef unsigned int UnsignedInt;
 
+class Rva00288B89
+{
+public:
+	~Rva00288B89() throw();
+};
+
+extern "C" void __cdecl free(void *);
+
 class Rva00289371HashTable
 {
 public:
@@ -20,6 +28,7 @@ private:
 	struct Node
 	{
 		Node *m_next;
+		Rva00288B89 m_value04;
 	};
 	void deleteNode(Node *node);	// 0x00289164
 	char m_functors[4];
@@ -43,4 +52,11 @@ void Rva00289371HashTable::clear()
 		m_bucketsBegin[i] = 0;
 	}
 	m_numElements = 0;
+}
+
+void Rva00289371HashTable::deleteNode(Node *node)
+{
+	node->m_value04.~Rva00288B89();
+	if (node)
+		free(node);
 }
