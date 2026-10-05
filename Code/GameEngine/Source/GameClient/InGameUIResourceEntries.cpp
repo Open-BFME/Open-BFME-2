@@ -76,6 +76,8 @@ class ResourceOwnedEntryList
 public:
     void rva004E54ED();
     void rva004E5542();
+    // ??1ResourceOwnedEntryList@@QAE@XZ present-unmatched
+    ~ResourceOwnedEntryList() { rva004E5542(); }
     ResourceOwnedEntryNode *head;
 };
 extern "C" void __cdecl free(void *);
@@ -223,4 +225,28 @@ void Rva004E7B0CHolder::rva004E7D16(const AsciiString &value)
 void Rva004E7B0CHolder::rva004E7D1D()
 {
     owner->rva004E7CEF();
+}
+
+// Retail 0x004E5654/72B is the +0x1C member dtor of the 0x004E7DC8 owner.
+// Evidence: caller 0x004E7DC8 destroys +0x1C first with EH states 2/1/0, then
+// +0x10 tree, +0x0C list and +8 string; callee stores derived vtable
+// 0x008623C4, clears +4 via ResourceOwnedEntryList::rva004E54ED, then frees
+// via the inlined member dtor (rowed 0x004E5542), and stores base vtable
+// 0x0081C780 (s_slot3E4first). Class and base names remain unknown.
+class Rva004E5654Base
+{
+public:
+    // ??1Rva004E5654Base@@UAE@XZ present-unmatched
+    virtual ~Rva004E5654Base() {}
+};
+class Rva004E5654 : public Rva004E5654Base
+{
+public:
+    ~Rva004E5654();
+private:
+    ResourceOwnedEntryList m_list;
+};
+Rva004E5654::~Rva004E5654()
+{
+    m_list.rva004E54ED();
 }
