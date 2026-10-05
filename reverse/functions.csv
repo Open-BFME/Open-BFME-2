@@ -63950,3 +63950,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?Proc002B9177@@YAHPAXRAXH@Z,,0x002B9177,68,Code/GameEngine/Source/Common/RvaFamily4RangeProc.cpp,matched,split-range proc returning head/tail helper results; helpers 0x002B833C 0x002B6351; volatile b/c plus int returns under /O1 /Oy-
 ?Proc003C6973@@YAHPAXRAXH@Z,,0x003C6973,68,Code/GameEngine/Source/Common/RvaFamily4RangeProc.cpp,matched,split-range proc returning head/tail helper results; helpers 0x003C6437 0x003C3AB0; volatile b/c plus int returns under /O1 /Oy-
 ??0Rva005685EE@@QAE@PAX00@Z,,0x0056858C,98,Code/GameEngine/Source/Common/Rva005685EECtor.cpp,matched,ctor via base 0x005C3697 plus new Rva0056833F into +0xC; sibling shape of 0x005C3697
+?rva005686F5@@YGPAXPBURva005686F5Elem@@@Z,,0x005686F5,44,Code/GameEngine/Source/Common/Rva005686F5Lookup.cpp,matched,null-guarded two-stage AsciiString lookup via rowed 0x0020DB91 plus pinned 0x003EE083
