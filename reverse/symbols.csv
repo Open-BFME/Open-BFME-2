@@ -12736,3 +12736,7 @@ _g_pRva00437E9C,0x00E032FC,global pointer read by wrapper 0x00437E9C (peer notes
 ?run@Rva005E589ERun@@QAEXXZ,0x005E589E,REL32 callee decoded from target call bytes of same-shape helper-member step; identity unproven
 ?run@Rva005E6A9DRun@@QAEXXZ,0x005E6A9D,REL32 callee decoded from target call bytes of same-shape helper-member step; identity unproven
 ?run@Rva005E6AD8Run@@QAEXXZ,0x005E6AD8,REL32 callee decoded from target call bytes of same-shape helper-member step; identity unproven
+?run@Rva0053863ESub@@QAEXH@Z,0x0053863E,REL32 callee decoded from target call bytes of adjust-call-echo 0x0030BEE6; identity unproven
+?run@Rva00538674Sub@@QAEXH@Z,0x00538674,REL32 callee decoded from target call bytes of adjust-call-echo 0x0030BEF9; identity unproven
+?run@Rva0007E03ASub@@QAEXH@Z,0x0007E03A,REL32 callee decoded from target call bytes of adjust-call-echo 0x00330C0F; identity unproven
+?run@Rva002E3876Sub@@QAEXH@Z,0x002E3876,REL32 callee decoded from target call bytes of adjust-call-echo 0x00330C22; identity unproven

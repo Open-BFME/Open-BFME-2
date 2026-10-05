@@ -63413,3 +63413,7 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?step@Rva005E590F@@QAEXXZ,,0x005E590F,17,Code/GameEngine/Source/Common/RvaHelperMemberSteps.cpp,matched,Address-derived helper-then-member step: +0x08 fold-nop; 17B shape
 ?step@Rva005E6BA3@@QAEXXZ,,0x005E6BA3,17,Code/GameEngine/Source/Common/RvaHelperMemberSteps.cpp,matched,Address-derived helper-then-member step: +0x20 fold-nop; 17B shape
 ?step@Rva005E6BB4@@QAEXXZ,,0x005E6BB4,17,Code/GameEngine/Source/Common/RvaHelperMemberSteps.cpp,matched,Address-derived helper-then-member step: +0x20 fold-nop; 17B shape
+?fwd@Rva0030BEE6Owner@@QAEHH@Z,,0x0030BEE6,19,Code/GameEngine/Source/Common/RvaAdjustCallEchoFamily.cpp,matched,Address-derived adjust-call-echo: run arg through this-0x28 then return arg; 19B shape
+?fwd@Rva0030BEF9Owner@@QAEHH@Z,,0x0030BEF9,19,Code/GameEngine/Source/Common/RvaAdjustCallEchoFamily.cpp,matched,Address-derived adjust-call-echo -0x28; 19B shape
+?fwd@Rva00330C0FOwner@@QAEHH@Z,,0x00330C0F,19,Code/GameEngine/Source/Common/RvaAdjustCallEchoFamily.cpp,matched,Address-derived adjust-call-echo -0x3C; 19B shape
+?fwd@Rva00330C22Owner@@QAEHH@Z,,0x00330C22,19,Code/GameEngine/Source/Common/RvaAdjustCallEchoFamily.cpp,matched,Address-derived adjust-call-echo -0x3C; 19B shape
