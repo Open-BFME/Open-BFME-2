@@ -10,7 +10,8 @@ struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
 #pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #pragma optimize("", on)
-#define private public
+void Rva00912CF0(void);
+#define private friend void ::Rva00912CF0(); private
 
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
@@ -21,6 +22,7 @@ extern "C" void _ReadWriteBarrier(void);
 #include "simplevec.h"
 #include "sortingrenderer.h"
 #include "vertmaterial.h"
+#undef private
 
 extern VectorClass<Vector3> VertexLoc;
 extern VectorClass<Vector4> VertexDiffuse;
