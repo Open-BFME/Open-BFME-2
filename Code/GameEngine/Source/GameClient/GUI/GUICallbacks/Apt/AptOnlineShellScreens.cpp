@@ -102,7 +102,6 @@ void AptOnline::ShellUnloadScreen(const char *name)
 // Retail 0x00517724, 197 bytes: "AptOnline::ShellLoadScreen" replaces the
 // current sub-screen with a new one of that name, keeps it, and for the
 // GameSpy modes 3 to 5 tells GameSpy (0x00516F08).
-// ?ShellLoadScreen@AptOnline@@QAEXPBD@Z present-unmatched
 void AptOnline::ShellLoadScreen(const char *name)
 {
 	if (m_current)
