@@ -23,6 +23,8 @@ public:
 	unsigned char m_pad00[0x04];
 	int m_state; // +0x04
 	bool m_accepted; // +0x08
+	unsigned char m_pad09[0x18 - 0x09];
+	int m_playerTemplate; // +0x18
 };
 
 class GameInfo
@@ -60,7 +62,8 @@ public:
 	virtual bool v01();
 	virtual void v02(); virtual void v03(); virtual void v04(); virtual void v05();
 	virtual void v06(); virtual void v07(); virtual void v08(); virtual void v09();
-	virtual void v10(); virtual void v11(); virtual void v12(); virtual void v13();
+	virtual bool applySlotPlayerTemplate(GameSlot *slot, int playerTemplate);
+	virtual void v11(); virtual void v12(); virtual void v13();
 	virtual void v14();
 	virtual void v15();
 	virtual void v16(bool value);
@@ -89,6 +92,10 @@ public:
 	void rva0043E49C(int value);
 	void rva0043E4B6(const char *slotText);
 	void rva0043DB6E();
+	bool handlePlayerTemplateSelection(int index);
+
+	// Unrowed 0x0044149C (313 bytes; refreshes a slot's widgets), pinned.
+	void rva0044149C(GameSlot *slot, int index, bool flag);
 
 	// Unrowed 0x0043E30F (211 bytes), pinned by address.
 	void rva0043E30F(int slot, int value);
@@ -99,7 +106,8 @@ private:
 	Rva0043DA65 *m_game; // +0x5C
 	unsigned char m_pad060[0xD0 - 0x60];
 	Rva0057EE5C m_d0; // +0xD0
-	unsigned char m_pad0d1[0x2C4 - 0xD1];
+	unsigned char m_pad0d1[0x2C3 - 0xD1];
+	bool m_pending; // +0x2C3
 	bool m_2c4; // +0x2C4
 	unsigned char m_pad2c5[0x334 - 0x2C5];
 	GameWindow *m_playerTemplate[8]; // +0x334
@@ -180,4 +188,28 @@ void MpGameSetup::rva0043DB6E()
 	m_d0.rva0057EA0F();
 	if (m_flags & 0x40)
 		Rva0043DB23(TheRva00222A8BTarget, m_owner->v21(), "OnClansFlagChange");
+}
+
+// Retail 0x00441AAA, 107 bytes. Donor Open-BFME-1 MpGameSetup.cpp
+// (handlePlayerTemplateSelection, BFME1 0x00524C30). BFME2 reads the choice
+// through 0x0043DD02, treats an unchanged template as handled, applies a new
+// one through the owner's applySlotPlayerTemplate (vslot 10) and then
+// refreshes the slot (0x0044149C).
+bool MpGameSetup::handlePlayerTemplateSelection(int index)
+{
+	GameInfo *game = (GameInfo *)m_game->rva0043DA65();
+	if (!game)
+		return false;
+
+	m_pending = false;
+	int playerTemplate = rva0043DD02(index);
+	if (playerTemplate < -2)
+		return false;
+	GameSlot *slot = game->getSlot(index);
+	if (!slot)
+		return false;
+	if (playerTemplate != slot->m_playerTemplate && !m_owner->applySlotPlayerTemplate(slot, playerTemplate))
+		return false;
+	rva0044149C(slot, index, true);
+	return true;
 }

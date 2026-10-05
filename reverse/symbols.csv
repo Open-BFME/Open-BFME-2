@@ -10887,3 +10887,4 @@ G00DB5FC4,0x00DB5FC4,Render2DClass ctor 0x0011C0F0 stores 5; donor Render2DClass
 ??1Rva000FE9C7@@QAE@XZ,0x000FE290,non-virtual dtor called directly by scalar deleting dtor 0x000FE9C7; owning class unproven (address also carries bfmeResetSH row)
 ??1Rva001732C6@@QAE@XZ,0x0018C57C,non-virtual dtor called directly by scalar deleting dtor 0x001732C6; owning class unproven
 ??1Rva001F097A@@QAE@XZ,0x001F077D,non-virtual dtor called directly by scalar deleting dtor 0x001F097A; owning class unproven
+?rva0044149C@MpGameSetup@@QAEXPAVGameSlot@@H_N@Z,0x0044149C,unrowed 313B thiscall (Ghidra FUN_0084149c; ret 0xC) on the LAN lobby MpGameSetup panel; handlePlayerTemplateSelection 0x00441B07 calls it with (slot and index and 1) after the template is applied; address name
