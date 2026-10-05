@@ -9,20 +9,23 @@
 // MultiIniFieldParse::add at 0x2BC6E. BFME1 donor is Transport-based; BFME2
 // chains through SiegeEngine. Row supersedes the parse pin.
 
-class INI
-{
-public:
-	static void parseDurationUnsignedInt(void *a, void *b, void *c, const void *d);
-	static void parseIndexList(void *a, void *b, void *c, const void *d);
-	static void parseBool(void *a, void *b, void *c, const void *d);
-};
+class INI;
+typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
 
 struct FieldParse
 {
 	const char *m_name;
-	void (*m_parser)(void *, void *, void *, const void *);
-	void *m_userData;
+	INIFieldParseProc m_parser;
+	const void *m_userData;
 	int m_offset;
+};
+
+class INI
+{
+public:
+	static void parseDurationUnsignedInt(INI *ini, void *instance, void *store, const void *userData);
+	static void parseIndexList(INI *ini, void *instance, void *store, const void *userData);
+	static void parseBool(INI *ini, void *instance, void *store, const void *userData);
 };
 
 class MultiIniFieldParse
@@ -31,20 +34,20 @@ public:
 	void add(const FieldParse *parseTable, unsigned int extraOffset);
 };
 
-class MultiIniFieldParse;
-
 class SiegeEngineContainModuleData
 {
 public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
+extern const char *const ModelConditionNames[];
+
 class ModelConditionFlags
 {
 public:
 	__forceinline static const char **getBitNames()
 	{
-		return (const char **)0x00DBAA98;
+		return (const char **)(unsigned int)ModelConditionNames;
 	}
 };
 
@@ -62,17 +65,17 @@ void RiderChangeContainModuleData::buildFieldParse(MultiIniFieldParse &parse)
 
 	static const FieldParse dataFieldParse[] =
 	{
-		{ "Rider1", (void (*)(void *, void *, void *, const void *))&RiderChangeContainModuleData::parseRiderInfo, 0, 0x1B8 },
-		{ "Rider2", (void (*)(void *, void *, void *, const void *))&RiderChangeContainModuleData::parseRiderInfo, 0, 0x1D0 },
-		{ "Rider3", (void (*)(void *, void *, void *, const void *))&RiderChangeContainModuleData::parseRiderInfo, 0, 0x1E8 },
-		{ "Rider4", (void (*)(void *, void *, void *, const void *))&RiderChangeContainModuleData::parseRiderInfo, 0, 0x200 },
-		{ "Rider5", (void (*)(void *, void *, void *, const void *))&RiderChangeContainModuleData::parseRiderInfo, 0, 0x218 },
-		{ "Rider6", (void (*)(void *, void *, void *, const void *))&RiderChangeContainModuleData::parseRiderInfo, 0, 0x230 },
-		{ "Rider7", (void (*)(void *, void *, void *, const void *))&RiderChangeContainModuleData::parseRiderInfo, 0, 0x248 },
-		{ "Rider8", (void (*)(void *, void *, void *, const void *))&RiderChangeContainModuleData::parseRiderInfo, 0, 0x260 },
-		{ "ScuttleDelay", (void (*)(void *, void *, void *, const void *))&INI::parseDurationUnsignedInt, 0, 0x278 },
-		{ "ScuttleStatus", (void (*)(void *, void *, void *, const void *))&INI::parseIndexList, (void *)ModelConditionFlags::getBitNames(), 0x27C },
-		{ "KillRiderWhenVehicleDies", (void (*)(void *, void *, void *, const void *))&INI::parseBool, 0, 0x280 },
+		{ "Rider1", &RiderChangeContainModuleData::parseRiderInfo, 0, 0x1B8 },
+		{ "Rider2", &RiderChangeContainModuleData::parseRiderInfo, 0, 0x1D0 },
+		{ "Rider3", &RiderChangeContainModuleData::parseRiderInfo, 0, 0x1E8 },
+		{ "Rider4", &RiderChangeContainModuleData::parseRiderInfo, 0, 0x200 },
+		{ "Rider5", &RiderChangeContainModuleData::parseRiderInfo, 0, 0x218 },
+		{ "Rider6", &RiderChangeContainModuleData::parseRiderInfo, 0, 0x230 },
+		{ "Rider7", &RiderChangeContainModuleData::parseRiderInfo, 0, 0x248 },
+		{ "Rider8", &RiderChangeContainModuleData::parseRiderInfo, 0, 0x260 },
+		{ "ScuttleDelay", &INI::parseDurationUnsignedInt, 0, 0x278 },
+		{ "ScuttleStatus", &INI::parseIndexList, (const void *)ModelConditionFlags::getBitNames(), 0x27C },
+		{ "KillRiderWhenVehicleDies", &INI::parseBool, 0, 0x280 },
 		{ 0, 0, 0, 0 }
 	};
 	parse.add(dataFieldParse, 0);
