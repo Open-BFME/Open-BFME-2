@@ -8526,3 +8526,4 @@ __Locale_ctype_create	0x22360	1316	converted	Clean whole Open-BFME1 LocaleFacets
 ??1?$vector@VRva0021F876@@V?$allocator@VRva0021F876@@@_STL@@@_STL@@QAE@XZ	0x0021FDEC	63	blocked	vector Rva0021F876 dtor calls gen-alias dup_0021fdd3 loop not compiler _Destroy name t=20 model=muse-spark
 ?_M_clear@?$vector@VRva0021F876@@V?$allocator@VRva0021F876@@@_STL@@@_STL@@IAEXXZ	0x0021FE2B	30	blocked	M_clear for vector Rva0021F876 calls gen-alias dup_0021fdd3 loop not compiler Destroy name t=12 model=muse-spark
 ?rva00596B10@Rva00596B10@@QAEXXZ	0x00596B10	146	partial	ebx vs edi for p1 vs min plus cmova vs branch for two mins; 146B same size 56 vs 55 insns t=25 model=muse-04 score=0.9 stash=reverse/attempts/0x00596b10.cpp
+?rva0039ACE3@Rva0039ACBD@@QAEHPBVObject@@@Z	0x0039ACE3	40	partial	lea eax,[ecx+1] vs mov eax,ecx plus inc eax; rest exact t=12 model=muse-12 score=0.97 stash=reverse/attempts/0x0039ace3.cpp
