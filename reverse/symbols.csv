@@ -12925,3 +12925,7 @@ _Rva00337999Forward,0x00337999,REL32 callee decoded from target call bytes of wr
 ?rva000E912A@W3DPropBuffer@@QAEXHMH@Z,0x000E912A,pin for 0x68073 first call
 ?rva000EE04A@W3DPropBuffer@@QAEXHM@Z,0x000EE04A,pin for 0x68073 second call
 ?rva000E9D18@W3DPropBuffer@@QAEXPBUCoord3D@@ABVGeometryInfo@@M@Z,0x000E9D18,pin for 0x680D6 first call
+?headA@Rva00066A9AHost@@QAEXXZ,0x00077F80,pin for 0x66A9A head call
+?headB@Rva00066A9ASub@@QAEXXZ,0x0007E89C,pin for 0x66A9A global call
+?tailA@Rva00066A9ASub@@QAEXXZ,0x000EA1F3,pin for 0x66A9A tail call
+?tailB@Rva00066A9ASub@@QAEXXZ,0x000E6FC8,pin for 0x66A9A tail jmp

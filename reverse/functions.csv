@@ -63585,3 +63585,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva0005E13C@Rva0005E13CHost@@QAE_NPBURva0005E13CArg@@@Z,,0x0005E13C,44,Code/GameEngine/Source/Common/Rva0005E13CBody.cpp,matched,address name; two-level null checks plus +0xB0==2 into pinned helper 0x5D425
 ?rva00068073@Rva00068073Host@@QAEXHMH@Z,,0x00068073,64,Code/GameEngine/Source/Common/Rva00068073Bodies.cpp,matched,address name; +0x3854 triple plus +0x3858 pair
 ?rva000680D6@Rva00068073Host@@QAEXPBUCoord3D@@ABVGeometryInfo@@M@Z,,0x000680D6,67,Code/GameEngine/Source/Common/Rva00068073Bodies.cpp,matched,address name; +0x3854 pinned plus +0x3858 rowed EF154
+?rva00066A9A@Rva00066A9AHost@@QAEXXZ,,0x00066A9A,55,Code/GameEngine/Source/Common/Rva00066A9ABody.cpp,matched,address name; head plus global plus +0x3850/+0x3854 tail
