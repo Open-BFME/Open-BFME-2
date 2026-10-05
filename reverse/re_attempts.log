@@ -8828,3 +8828,4 @@ FUN_007f62c8	0x003F62C8	45	blocked	needs EH funclet handler 0x00784023 unclaimed
 FUN_00986083	0x00586083	284	blocked	needs m_held+0x20 slot70 identity plus loop idiv deque modeling beyond session t=10 model=muse-16
 FUN_009c3a37	0x005C3A37	79	blocked	needs EH funclets 0x007A093A and elem dtor 0x005C39EB both unclaimed gen_uw-owned t=5 model=muse-16
 ?Rva00094E2CGet@@YGMMMM@Z	0x00094E2C	147	partial	stdcall exact-size 147 structural-0 but frame 0x14 vs 0x1c and dy spills to [ebp+8] vs [ebp-0x0c] t=15 model=muse-spark score=0.92 stash=reverse/attempts/0x00094e2c.cpp
+?Rva003C36FEDo@@YGXPAVParameter@@_N@Z	0x003C36FE	92	partial	extra mov ecx m_cur before getDrawable and cmp mem 0 vs mov ecx mem plus test ecx ecx for loop cond; body otherwise exact; 94B vs 92B t=20 model=muse-06 score=0.96 stash=reverse/attempts/0x003c36fe.cpp
