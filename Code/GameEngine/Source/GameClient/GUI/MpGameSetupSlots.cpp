@@ -52,6 +52,7 @@ public:
 	virtual void v08(); virtual void v09(); virtual void v10(); virtual void v11();
 	virtual bool v12();
 	virtual int v13();
+	virtual void v14();
 
 	GameSlot *getSlot(int index);
 	AsciiString getMap() const;
@@ -140,7 +141,7 @@ public:
 	virtual void v14();
 	virtual void v15();
 	virtual void v16(bool value);
-	virtual void v17(int value, bool flag);
+	virtual void v17(const UnicodeString &text, int kind);
 	virtual void v18(); virtual void v19(); virtual void v20();
 	virtual void *v21();
 };
@@ -193,6 +194,65 @@ public:
 // Rva00446A71Get.cpp's byte setter for g_Va00A0335C.
 void Rva00446A67Set(unsigned char value);
 
+// The 0x28-byte game rules block at +0x15C (inside the +0xD0 member, whose
+// 0x0057F002 hands +0x8C to 0x00559FAC); 0x00381CED copies it into the game.
+struct MpGameSetupRules
+{
+	int m_00;
+	int m_04; // +0x04 (the panel's +0x160)
+	int m_08;
+	int m_commandPointFactor; // +0x0C (the panel's +0x168)
+	unsigned char m_pad10[0x28 - 0x10];
+};
+
+// The game's rules setter (rowed under its address name).
+class Rva00381CED
+{
+public:
+	void rva00381CED(void *rules);
+};
+
+class GameTextInterface
+{
+public:
+	virtual ~GameTextInterface() {}
+	virtual void slot01() = 0;
+	virtual void slot02() = 0;
+	virtual void slot03() = 0;
+	virtual void slot04() = 0;
+	virtual void slot05() = 0;
+	virtual void slot06() = 0;
+	virtual void slot07() = 0;
+	virtual void slot08() = 0;
+	virtual void slot09() = 0;
+	virtual void slot10() = 0;
+	virtual void slot11() = 0;
+	virtual void slot12() = 0;
+	virtual void slot13() = 0;
+	virtual void slot14() = 0;
+	virtual UnicodeString fetch(const char *label, bool *exists = 0) = 0;
+};
+
+extern GameTextInterface *TheGameText;
+
+// Retail expands UnicodeString::isEmpty inline as the header test
+// (m_data == 0 || m_data->length == 0); the shared shim keeps it out of
+// line (as BfmeAptScreenLanLobbyOnInitGadget.cpp also notes).
+static inline bool unicodeIsEmpty(const UnicodeString &text)
+{
+	const unsigned char *data = *(const unsigned char *const *)&text;
+	return data == 0 || *(const unsigned short *)(data + 4) == 0;
+}
+
+GameWindow *MessageBoxOk(UnicodeString title, UnicodeString body, void (*okCallback)());
+
+// Unrowed 0x0055A04C (59 bytes; a rule's display name, fetched from a
+// table of ten labels), pinned by address.
+UnicodeString Rva0055A04C(int kind);
+
+// The panel instance (g_Va00E0333C, cleared by ??1Rva004421E1).
+extern int g_Va00E0333C;
+
 // The S5 encoded small integer of S5HandleHashCompares.cpp: a four-byte
 // head and the encoded value at +0x04 (0x003F2330 compares two). The
 // unrowed 0x00442BCC walks the slots with one.
@@ -215,7 +275,7 @@ class MpGameSetup
 public:
 	int rva0043DD02(int slot);
 	void rva0043DC0F();
-	void rva0043E49C(int value);
+	void rva0043E49C(const UnicodeString &text);
 	void rva0043E4B6(const char *slotText);
 	void rva0043DB6E();
 	bool handlePlayerTemplateSelection(int index);
@@ -285,6 +345,7 @@ public:
 
 	void rva004415D5(const AsciiString &map);
 	void rva0043FB5C(int index);
+	bool rva0043FC1F(int kind, bool reset);
 	void rva00443BF3();
 
 	// Unrowed 0x00443538 (1723 bytes; ret 4, its argument a flag mask),
@@ -297,20 +358,21 @@ private:
 	Rva0043DA65 *m_game; // +0x5C
 	Rva0057E3DB m_60; // +0x60
 	Rva0057EE5C m_d0; // +0xD0
-	unsigned char m_pad0d1[0x160 - 0xD1];
-	int m_160; // +0x160
-	unsigned char m_pad164[0x244 - 0x164];
+	unsigned char m_pad0d1[0x15C - 0xD1];
+	MpGameSetupRules m_rules; // +0x15C
+	unsigned char m_pad184[0x244 - 0x184];
 	Rva0057FD6E m_244; // +0x244
 	unsigned char m_pad245[0x2B0 - 0x245];
 	int m_2b0; // +0x2B0
 	unsigned char m_pad2b4[0x2B9 - 0x2B4];
 	bool m_2b9; // +0x2B9
-	unsigned char m_pad2ba[0x2BD - 0x2BA];
+	bool m_2ba; // +0x2BA
+	unsigned char m_pad2bb[0x2BD - 0x2BB];
 	bool m_2bd; // +0x2BD
 	bool m_2be; // +0x2BE
 	bool m_2bf; // +0x2BF
 	bool m_2c0; // +0x2C0
-	unsigned char m_pad2c1;
+	bool m_2c1; // +0x2C1
 	bool m_refreshing; // +0x2C2 (guards the all-slot refreshes)
 	bool m_pending; // +0x2C3
 	bool m_2c4; // +0x2C4
@@ -354,11 +416,12 @@ void MpGameSetup::rva0043DC0F()
 	}
 }
 
-// Retail 0x0043E49C, 26 bytes.
-void MpGameSetup::rva0043E49C(int value)
+// Retail 0x0043E49C, 26 bytes: shows a text through the owner's vslot 17
+// (kind 1); its callers in 0x00440BDF pass fetched or built UnicodeStrings.
+void MpGameSetup::rva0043E49C(const UnicodeString &text)
 {
 	rva0043DC0F();
-	m_owner->v17(value, true);
+	m_owner->v17(text, 1);
 }
 
 // Retail 0x0043DDF8, 33 bytes: the larger of 8 - count and 4, through
@@ -580,7 +643,7 @@ void MpGameSetup::rva00442F65(int query, char *result, bool skip)
 		break;
 	case 2:
 		if (!skip)
-			_mbscpy(result, m_160 == 1 && m_game->rva0043DA65() ? "1" : "0");
+			_mbscpy(result, m_rules.m_04 == 1 && m_game->rva0043DA65() ? "1" : "0");
 		break;
 	case 3:
 		if (!skip)
@@ -888,4 +951,82 @@ Gen_00528EC0 Gen_00528EC0::operator++(int)
 	Gen_00528EC0 old(*this);
 	rva003F3133();
 	return old;
+}
+
+// Retail 0x0043FC1F, 482 bytes. Name unknown. A rule changed: marks the
+// widgets of that kind dirty (kind 3 warns through MessageBoxOk once the
+// command point factor passes 100) and, on the host (owner vslot 1), copies
+// the rules into the game, refreshes every slot's ready state and the
+// owner, and posts "GUI:RuleChangeWarning" plus the rule's name, or for
+// kind 10 with reset "GUI:RuleResetWarning", through owner vslot 17.
+// Reached only through 0x0043FE01 below.
+bool MpGameSetup::rva0043FC1F(int kind, bool reset)
+{
+	GameInfo *game = (GameInfo *)m_game->rva0043DA65();
+	if (!game)
+		return false;
+
+	m_2ba = true;
+	switch (kind)
+	{
+	case 10:
+		m_2c1 = true;
+		// fall through
+	case 1:
+		m_2bf = true;
+		// fall through
+	case 0:
+		m_2b9 = true;
+		break;
+	case 3:
+		if (m_rules.m_commandPointFactor > 100)
+			MessageBoxOk(TheGameText->fetch("RULE:CommandPointFactor"), TheGameText->fetch("APT:CommandPointsTooHigh"), 0);
+		break;
+	case 7:
+		m_2c1 = true;
+		break;
+	}
+
+	if (m_owner->v01())
+	{
+		((Rva00381CED *)game)->rva00381CED(&m_rules);
+		game->v14();
+		for (int slot = 0; slot < 8; ++slot)
+			rva0043FB5C(slot);
+		m_owner->v02();
+
+		UnicodeString message;
+		if (kind == 10)
+		{
+			if (reset)
+				message = TheGameText->fetch("GUI:RuleResetWarning");
+		}
+		else
+		{
+			message = TheGameText->fetch("GUI:RuleChangeWarning");
+			message += L" ";
+			message += Rva0055A04C(kind);
+		}
+		if (!unicodeIsEmpty(message))
+			m_owner->v17(message, 2);
+	}
+	return true;
+}
+
+// The +0xD0 member's own class (vftable 0x00C3D954 after
+// ??_GRva0043DABD; base Rva0057EE5C).
+class Rva0043DABD
+{
+public:
+	virtual ~Rva0043DABD();
+	virtual void rva0043FE01(int kind, bool reset);
+};
+
+// Retail 0x0043FE01, 18 bytes: Rva0043DABD's vslot 1 hands a rule change
+// to the panel instance's 0x0043FC1F (a tail jump).
+void Rva0043DABD::rva0043FE01(int kind, bool reset)
+{
+	MpGameSetup *setup = (MpGameSetup *)g_Va00E0333C;
+	if (setup)
+		setup->rva0043FC1F(kind, reset);
 }
