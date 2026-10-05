@@ -62394,3 +62394,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?Rva00429471IssueFireWeapon@@YGHPBVCommandButton@@HPAVDrawable@@PBUCoord3D@@@Z,,0x00429471,593,Code/GameEngine/Source/Common/Rva00429471IssueFireWeapon.cpp,matched,BFME1 donor issueFireWeaponCommand options-7 isValid slot75 0x1000-0x20 arms weaponSlot-maxShots PickAndPlayInfo
 ?rva00429112@Rva00429112@@QAEHPAUArg@@H@Z,,0x00429112,127,Code/GameEngine/Source/Common/Rva00429112Voice.cpp,matched,finish from stash combined nulls single return enum type shared epilogue
 ?rva00429093@Rva00429093@@QAEHPAUArg@@H@Z,,0x00429093,127,Code/GameEngine/Source/Common/Rva00429093Voice.cpp,matched,finish from stash combined nulls single return enum type shared epilogue
+?rva00429007@Rva00429007@@QAEHPAUArg@@H@Z,,0x00429007,140,Code/GameEngine/Source/Common/Rva00429007Voice.cpp,matched,finish from stash combined nulls single return enum type shared epilogue
