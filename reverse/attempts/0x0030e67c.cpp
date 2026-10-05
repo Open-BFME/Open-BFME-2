@@ -1,5 +1,5 @@
 // ?rva0030E67C@Rva0030E7D0@@QBEMMM@Z
-// partial score=0.92 date=2026-10-05
+// partial score=0.94 date=2026-10-05
 // cl: /O1 /G7 /arch:SSE /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source
 // stlport
 // ??0Rva0030E7D0@@QAE@XZ @0x0030E7D0 46B ctor vector BfmeE16 at +0 via rowed Vector_base 0x00211E58 zeroes +0xC +0x10 +0x18 and byte +0x1C float +0x14 from g_Va00BBB8D8 evidence callers 0x0008BA61 neighbours ParabolicEase and StlportVectorFill
@@ -18,6 +18,16 @@ extern const float BfmeZeroRange;
 extern float g_Va00BC2428;
 
 extern "C" __declspec(dllimport) double __cdecl floor(double);
+
+static __forceinline long fast_float2long_round(float f)
+{
+	long i;
+	__asm {
+		fld [f]
+		fistp [i]
+	}
+	return i;
+}
 
 class Rva0030E7D0
 {
@@ -54,16 +64,18 @@ float Rva0030E7D0::rva0030E67C(float x, float y) const
 	y = base + y;
 	x *= scale;
 	y *= scale;
-	int ix = (int)floor((double)x);
-	int iy = (int)floor((double)y);
+	float fx0 = (float)floor((double)x);
+	int ix = fast_float2long_round(fx0);
+	float fy0 = (float)floor((double)y);
+	int iy = fast_float2long_round(fy0);
 	float fx = x - (float)ix;
 	float fy = y - (float)iy;
-	if (fx < 0.0f)
+	if (ix < 0)
 		ix = 0;
-	if (fy < 0.0f)
+	if (iy < 0)
 		iy = 0;
-	int w = m_0C;
 	int h = m_10;
+	int w = m_0C;
 	if (ix > w - 1)
 		ix = w - 1;
 	if (iy > h - 1)
@@ -77,20 +89,15 @@ float Rva0030E7D0::rva0030E67C(float x, float y) const
 	float a00 = data[idx];
 	float abr = data[w + idx + 1];
 	float r;
-	if (fy <= fx)
+	if (fy > fx)
 	{
-		float a10 = data[idx + 1];
 		float a01 = data[idx + w];
-		float u = a10 - a00;
-		float v = abr - a01;
-		float t = a01 - a00;
-		r = a00 + u * fx + (t + (v - u) * fx) * fy;
+		r = a01 + (a00 - a01) * (1.0f - fy) + (abr - a01) * fx;
 	}
 	else
 	{
-		float a01 = data[idx + w];
 		float a10 = data[idx + 1];
-		r = a00 + (a01 - a00) * fy + (a10 - a00 + (abr - a10 - (a01 - a00)) * fy) * fx;
+		r = a10 + (a00 - a10) * (1.0f - fx) + (abr - a10) * fy;
 	}
 	return r;
 }
