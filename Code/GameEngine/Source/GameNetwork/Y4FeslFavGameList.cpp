@@ -36,10 +36,10 @@ public:
 	char m_pad30;
 };
 
-class BfmeThingVJH
+class Rva008038F0Sender
 {
 public:
-	void bfmeSendVJH( BfmeMsgVJH *message );
+	void send( BfmeC994 *message );
 };
 
 class Gen_007e86c0
@@ -63,7 +63,7 @@ public:
 	void process( unsigned int timestamp );
 
 	char m_pad00[ 0x04 ];
-	BfmeThingVJH *m_sender;
+	Rva008038F0Sender *m_sender;
 	char m_pad08[ 0x10 ];
 	Rva00809520Entry *m_entries[ 16 ];
 	int m_pad58;
@@ -105,7 +105,7 @@ void Gen0080AB50::process( unsigned int timestamp )
 	summaryCIB->bfmeGoCIB( (int *)"TID", (void *)m_tid );
 	summaryCIB->bfmeGoCIB( (char *)"LID", (void *)-2 );
 	summaryCIB->bfmeGoCIB( (char *)"NUM-GAMES", (void *)recentCount );
-	m_sender->bfmeSendVJH( reinterpret_cast< BfmeMsgVJH * >( &summary ) );
+	m_sender->send( &summary );
 
 	BfmeMsgVJH message;
 	message.m_category = 0x47444154;
@@ -118,7 +118,7 @@ void Gen0080AB50::process( unsigned int timestamp )
 		{
 			message.m_value10 = item->m_gameId;
 			message.m_value14 = item->m_lobbyId;
-			m_sender->bfmeSendVJH( &message );
+			m_sender->send( reinterpret_cast< BfmeC994 * >( &message ) );
 		}
 		++entry;
 	}
