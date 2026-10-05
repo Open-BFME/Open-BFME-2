@@ -65,6 +65,20 @@ public:
 	virtual void v15();
 	virtual void v16(bool value);
 	virtual void v17(int value, bool flag);
+	virtual void v18(); virtual void v19(); virtual void v20();
+	virtual void *v21();
+};
+
+extern Rva00222A8BTarget *TheRva00222A8BTarget;
+
+void Rva0043DB23(Rva00222A8BTarget *target, void *owner, const char *name);
+
+// The member at +0xD0 (destroyed through ??1Rva0057EE5C); its 0x0057EA0F
+// (158 bytes) is unrowed and pinned.
+class Rva0057EE5C
+{
+public:
+	void rva0057EA0F();
 };
 
 class MpGameSetup
@@ -74,6 +88,7 @@ public:
 	void rva0043DC0F();
 	void rva0043E49C(int value);
 	void rva0043E4B6(const char *slotText);
+	void rva0043DB6E();
 
 	// Unrowed 0x0043E30F (211 bytes), pinned by address.
 	void rva0043E30F(int slot, int value);
@@ -82,10 +97,14 @@ private:
 	unsigned char m_pad000[0x58];
 	MpGameSetupOwner *m_owner; // +0x58
 	Rva0043DA65 *m_game; // +0x5C
-	unsigned char m_pad060[0x2C4 - 0x60];
+	unsigned char m_pad060[0xD0 - 0x60];
+	Rva0057EE5C m_d0; // +0xD0
+	unsigned char m_pad0d1[0x2C4 - 0xD1];
 	bool m_2c4; // +0x2C4
 	unsigned char m_pad2c5[0x334 - 0x2C5];
 	GameWindow *m_playerTemplate[8]; // +0x334
+	unsigned char m_pad354[0x3A4 - 0x354];
+	int m_flags; // +0x3A4
 };
 
 // Retail 0x0043DD02, 50 bytes: the item data of slot's selected player
@@ -152,4 +171,13 @@ void MpGameSetup::rva0043E4B6(const char *slotText)
 				rva0043E30F(slot, 0);
 		}
 	}
+}
+
+// Retail 0x0043DB6E, 53 bytes: refreshes the +0xD0 member and, with flag
+// 0x40 set, tells the owner's Apt movie "OnClansFlagChange".
+void MpGameSetup::rva0043DB6E()
+{
+	m_d0.rva0057EA0F();
+	if (m_flags & 0x40)
+		Rva0043DB23(TheRva00222A8BTarget, m_owner->v21(), "OnClansFlagChange");
 }
