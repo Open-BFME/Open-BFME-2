@@ -14542,3 +14542,12 @@ _rva006F98C0Call,0x006F98C0,retail call at 0x006F9B84 supplies EAX ECX and two s
 ?assign@Rva00151248String@@QAEXPBD@Z,0x000055F5,native REL32 from constructor1512F1; canonical narrow StringBase set; alias binds provider
 ?apply@Rva0015326DTarget@@QAEXIPAX@Z,0x0015326D,native call or tail jump from 001514B2/00151D1A; opaque address-scoped ABI
 ?get@Rva001514B2@@QAEPAXXZ,0x0015148D,native call or tail jump from 001514B2/00151D1A; opaque address-scoped ABI
+?erase@?$vector@URva00152BDBEntry@@V?$allocator@URva00152BDBEntry@@@_STL@@@_STL@@QAEPAURva00152BDBEntry@@PAU3@0@Z,0x0015229C,native REL32 from by-value resize 00152BDB or default wrapper 00152DC6; opaque36B ABI
+?_M_fill_insert@?$vector@URva00152BDBEntry@@V?$allocator@URva00152BDBEntry@@@_STL@@@_STL@@QAEXPAURva00152BDBEntry@@IABU3@@Z,0x001524F9,native REL32 from by-value resize 00152BDB or default wrapper 00152DC6; opaque36B ABI
+??1Rva00152BDBEntry@@QAE@XZ,0x0007BB16,native REL32 from by-value resize 00152BDB or default wrapper 00152DC6; opaque36B ABI
+??0Rva00152BDBEntry@@QAE@XZ,0x00151597,native REL32 from by-value resize 00152BDB or default wrapper 00152DC6; opaque36B ABI
+?erase@?$vector@URva001DF88CEntry@@V?$allocator@URva001DF88CEntry@@@_STL@@@_STL@@QAEPAURva001DF88CEntry@@PAU3@0@Z,0x001DEF38,native REL32 from by-value resize 001DF88C or default wrapper 001DF8F8; opaque48B ABI
+?_M_fill_insert@?$vector@URva001DF88CEntry@@V?$allocator@URva001DF88CEntry@@@_STL@@@_STL@@QAEXPAURva001DF88CEntry@@IABU3@@Z,0x001DF2D3,native REL32 from by-value resize 001DF88C or default wrapper 001DF8F8; opaque48B ABI
+??1Rva001DF88CEntry@@QAE@XZ,0x001DDEC3,native REL32 from by-value resize 001DF88C or default wrapper 001DF8F8; opaque48B ABI
+??0Rva001DF88CEntry@@QAE@XZ,0x001DE6E1,native REL32 from by-value resize 001DF88C or default wrapper 001DF8F8; opaque48B ABI
+??0Rva0017480CRecord@@QAE@XZ,0x001736D6,native ctor call from default wrapper174A8A; canonical 32B provider alias
