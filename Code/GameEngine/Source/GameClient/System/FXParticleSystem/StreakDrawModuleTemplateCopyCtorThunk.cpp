@@ -19,7 +19,7 @@ public:
 	virtual void dummy();
 };
 
-extern "C" char StreakDrawModuleTemplate_cvtbl0;
+extern "C" char DefaultModuleTemplate05_vtbl0;
 extern "C" char StreakDrawModuleTemplate_cvtbl4;
 // StreakDrawModuleTemplate_csub_vtbl: matched references place it at VA 0xc1bd20 (retail .rdata value 109).
 extern "C" char StreakDrawModuleTemplate_csub_vtbl = 109;
@@ -47,7 +47,7 @@ StreakDrawModuleTemplate::StreakDrawModuleTemplate(
 	sub->construct_from(sub_src);
 	// Sub vtbl then outer dual vtbls (retail store order).
 	*(void **)sub = &StreakDrawModuleTemplate_csub_vtbl;
-	m_v0 = &StreakDrawModuleTemplate_cvtbl0;
+	m_v0 = &DefaultModuleTemplate05_vtbl0;
 	m_v4 = &StreakDrawModuleTemplate_cvtbl4;
 }
 }
