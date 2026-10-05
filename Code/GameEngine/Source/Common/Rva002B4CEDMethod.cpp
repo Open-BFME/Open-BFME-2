@@ -4,6 +4,8 @@
 // Evidence: callers 0x002B4E7B 0x002BD9B4; rowed vector voidptr erase 0x001FF51F;
 // pin 0x00212655 Rva00DFE1C8Host::rva00212655; global g_009FE1C8 at VA 0x00DFE1C8.
 #include <vector>
+extern "C" void _ReadWriteBarrier(void);
+#pragma intrinsic(_ReadWriteBarrier)
 
 class Rva0021294A;
 extern Rva0021294A *g_009FE1C8;
@@ -27,6 +29,7 @@ class Rva002B4CED
 	_STL::vector<void *> m_vec;
 public:
 	void rva002B4CED(void *p);
+	void rva002B753B();
 };
 
 void Rva002B4CED::rva002B4CED(void *p)
@@ -38,4 +41,14 @@ void Rva002B4CED::rva002B4CED(void *p)
 		if (m_vec[i] == p)
 			m_vec.erase(m_vec.begin() + i);
 	}
+}
+void Rva002B4CED::rva002B753B()
+{
+	_STL::vector<void *> *vec = &m_vec;
+	for (unsigned int i = 0; i < vec->size(); ++i) {
+		_ReadWriteBarrier();
+		if (g_009FE1C8)
+			((Rva00DFE1C8Host *)g_009FE1C8)->rva00212655(((Rva002B4CEDItem *)(*vec)[i])->m_8);
+	}
+	vec->erase(vec->begin(), vec->end());
 }
