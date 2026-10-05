@@ -12318,3 +12318,6 @@ _ceil,0x00629934,CRT ceil thunk identified by native PE import slot 0x00BBA578 a
 ??$__copy_ptrs@PAURva0054107FRecord@@PAU1@@_STL@@YAPAURva0054107FRecord@@PAU1@00ABU__false_type@0@@Z,0x00541214,ICF fold with copy row at same address called by erase 0x0054152D
 ??1Rva00240831Dtor@@QAE@XZ,0x00240831,ICF alias of WorkerAIUpdateModuleData dtor for list clear 0x00243119
 ??0Anim2D@@QAE@PAURva002D752DNode@@PAVRva002D752D@@@Z,0x002D6D63,thiscall ctor sets Anim2D vtable 0x00803358 and calls Anim2D methods; call site 0x0027370A passes template and collection with new 0x34
+??0Rva000795C1Record@@QAE@ABV0@@Z,0x000795C1,Sort5810B6 record copy alias; independently emitted29B matches existing key-plus-vector copy; layout16 and caller sites5810DC/58110D
+?Rva00580D38FinishSort@@YAXPAPAX0VRva000795C1Record@@@Z,0x00580D38,Address-named callee read at581114; caller-cleaned two4-byte iterators and16-byte copied record; native splits insertion at16 elements
+?Rva00580FD1IntroSort@@YAXPAPAX00HVRva000795C1Record@@@Z,0x00580FD1,Address-named callee read at5810FC; four4-byte arguments and16-byte copied record; native introsort threshold16 with supplied depth counter
