@@ -12870,3 +12870,6 @@ _Rva00337999Forward,0x00337999,REL32 callee decoded from target call bytes of wr
 ??0Rva00389DF1Member@@QAE@ABV0@@Z,0x005559FC,address read from the retail REL32 at 0x00389DF1 in CompositeRvoGetters::get; member copy ctor for the +0x1B0 RVO getter
 ??0Rva00389E0FMember@@QAE@ABV0@@Z,0x00555616,address read from the retail REL32 at 0x00389E0F in CompositeRvoGetters::get; member copy ctor for the +0x340 RVO getter
 ??0Rva00394173Member@@QAE@ABV0@@Z,0x00332106,address read from the retail REL32 at 0x00394173 in CompositeRvoGetters::get; member copy ctor for the +0x754 RVO getter
+?rva00369217@Rva0036A88AOwner@@QAEXH@Z,0x00369217,address read from the retail REL32 at 0x0036A88A+ in Rva0036A88AOwner::rva0036A88A (push 0 same-this call; rowed under GiantBirdNormalFlightState::onExit, same address)
+?rva00369064@Rva0036A88AOwner@@QAEHXZ,0x00369064,address read from the retail REL32 at 0x0036A88A+ in Rva0036A88AOwner::rva0036A88A (same-this no-arg call, result returned)
+?rva0036914D@Rva0036A88AOwner@@QAEHXZ,0x0036914D,address read from the retail REL32 at 0x0036A88A+ in Rva0036A88AOwner::rva0036A88A (same-this no-arg call, result returned)
