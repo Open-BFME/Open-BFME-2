@@ -12062,3 +12062,7 @@ _rva002D6D63@8,0x002D6D63,stdcall factory reached through the sole REL32 at 0x00
 ?rva002910B7@Rva00291198Host@@QAEXPAURva00291198Dest@@@Z,0x002910B7,thiscall with dest arg from 0x291198
 _rva00286E33@8,0x00286E33,stdcall out-param 5B writer called from 0x287B2A with out plus arg
 ?rva002E9897@Rva002E9897Host@@QAE_NPAXH@Z,0x002E9897,thiscall with void plus 1 from 0x28ECDB returns bool
+?rva002743D7@Rva002743D7Host@@QAEXXZ,0x002743D7,thiscall no args from 0x279354
+?rva000A8C9B@Rva000A8C9BHost@@QAEXXZ,0x000A8C9B,thiscall no args on esi+10C from 0x279354
+?rva002783F6@Rva002783F6Host@@QAEXH@Z,0x002783F6,thiscall with int from 0x279354 and 0x278644
+?rva0027824D@Rva0027824DHost@@QAEXHPAURva0027937BArg@@@Z,0x0027824D,thiscall with int plus ptr from 0x27937B
