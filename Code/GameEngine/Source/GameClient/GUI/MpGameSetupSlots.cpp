@@ -13,8 +13,18 @@
 #include "unicode_string.h"
 #include "ascii_string.h"
 
-class GameWindow;
+class WinInstanceData;
 class BfmeKeyLC;
+
+class GameWindow
+{
+public:
+	int winSetTooltipFunc(void (*tooltip)(GameWindow *window, WinInstanceData *instData, unsigned int mouse));
+};
+
+// Unrowed 0x0043E8F1 (427 bytes; cdecl), the map list box tooltip set by
+// 0x00443BF3, pinned by address.
+void Rva0043E8F1Tooltip(GameWindow *window, WinInstanceData *instData, unsigned int mouse);
 
 void *bfmeGo925A(BfmeKeyLC *comboBox);
 
@@ -62,6 +72,8 @@ void *GadgetComboBoxGetItemData(GameWindow *comboBox, int index);
 int GadgetComboBoxGetLength(GameWindow *comboBox);
 UnicodeString GadgetComboBoxGetText(GameWindow *comboBox);
 int GadgetListBoxGetNumEntries(GameWindow *listBox);
+void GadgetListBoxSetSelected(GameWindow *listBox, int index);
+void GadgetListBoxSetSelected(GameWindow *listBox, const int *selectList, int selectCount);
 int Rva003253BEGet(GameWindow *listBox, int row, int column);
 void GadgetComboBoxSetSelectedPos(GameWindow *comboBox, int index, bool silent);
 
@@ -250,6 +262,13 @@ public:
 	// Unrowed 0x004419FA (176 bytes), pinned by address.
 	void rva004419FA();
 
+	void rva004415D5(const AsciiString &map);
+	void rva00443BF3();
+
+	// Unrowed 0x00443538 (1723 bytes; ret 4, its argument a flag mask),
+	// pinned by address.
+	void rva00443538(int flags);
+
 private:
 	unsigned char m_pad000[0x58];
 	MpGameSetupOwner *m_owner; // +0x58
@@ -280,8 +299,11 @@ private:
 	GameWindow *m_playerTemplate[8]; // +0x334
 	GameWindow *m_handicap[8]; // +0x354
 	GameWindow *m_hero[8]; // +0x374
-	int m_394; // +0x394
-	unsigned char m_pad398[0x3A4 - 0x398];
+	GameWindow *m_mapList; // +0x394 (a list box)
+	// +0x398: a vector<AsciiString> (Rva004421E1Dtor.cpp), one map per list
+	// box row; only its begin pointer is read here.
+	AsciiString *m_maps;
+	unsigned char m_pad39c[0x3A4 - 0x39C];
 	int m_flags; // +0x3A4
 	int m_3a8; // +0x3A8
 };
@@ -619,7 +641,7 @@ void MpGameSetup::OnTabSelect(const char *tab)
 // 0x004467C7 and 0x005216AF.
 bool MpGameSetup::rva00442C9C()
 {
-	if (m_60.m_mode == 0 && m_394 == 0)
+	if (m_60.m_mode == 0 && m_mapList == 0)
 		return false;
 	return rva00442BCC();
 }
@@ -727,4 +749,58 @@ void MpGameSetup::rva00440017(const AsciiString &map)
 	m_2b9 = true;
 	m_2bd = true;
 	m_2be = true;
+}
+
+// Retail 0x004415D5, 176 bytes. Name unknown. Selects the map list box
+// (+0x394) row whose map (+0x398) equals the given one, ignoring case;
+// without one it selects nothing (an empty list) or the first row and
+// hands the empty or first map to 0x00440017. Callers 0x00443C2B and
+// 0x00443E28.
+void MpGameSetup::rva004415D5(const AsciiString &map)
+{
+	if (!m_mapList)
+		return;
+
+	int count = GadgetListBoxGetNumEntries(m_mapList);
+	int index = -1;
+	for (int i = 0; i < count; ++i)
+	{
+		if (map.compareNoCase(m_maps[i]) == 0)
+		{
+			index = i;
+			break;
+		}
+	}
+
+	if (index >= 0)
+	{
+		GadgetListBoxSetSelected(m_mapList, index);
+	}
+	else if (GadgetListBoxGetNumEntries(m_mapList) == 0)
+	{
+		GadgetListBoxSetSelected(m_mapList, &index, -1);
+		rva00440017(AsciiString::TheEmptyString);
+	}
+	else
+	{
+		GadgetListBoxSetSelected(m_mapList, 0);
+		rva00440017(m_maps[0]);
+	}
+}
+
+// Retail 0x00443BF3, 123 bytes. Name unknown. With a current game, runs
+// 0x00443538 with 0x1B, selects the game's map (0x004415D5), sets +0x2BD
+// and, with flag 1 at +0x3A4, gives the map list box the 0x0043E8F1
+// tooltip. Callers 0x00443E20 and 0x00443EED.
+void MpGameSetup::rva00443BF3()
+{
+	GameInfo *game = (GameInfo *)m_game->rva0043DA65();
+	if (!game)
+		return;
+
+	rva00443538(0x1B);
+	rva004415D5(game->getMap());
+	m_2bd = true;
+	if (m_mapList && (m_flags & 1))
+		m_mapList->winSetTooltipFunc(Rva0043E8F1Tooltip);
 }
