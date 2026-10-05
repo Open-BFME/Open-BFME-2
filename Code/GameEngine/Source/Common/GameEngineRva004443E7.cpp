@@ -17,6 +17,10 @@ class Member004443E7
 public:
 	virtual void s0();
 	virtual void s1();
+
+	// Unrowed 0x0044303D (1040 bytes; registers the panel's Apt callbacks),
+	// pinned by address.
+	void rva0044303D();
 };
 
 class Global004443E7958View
@@ -47,6 +51,10 @@ class Rva00222A8BTarget
 {
 public:
 	void invoke(void *owner, const char *name, int flag, const char *value, void *a4, void *a5, void *a6, void *a7);
+	void rva002233A6(int mode);
+
+	char m_pad000[0x31C];
+	int m_31C; // +0x31C
 };
 
 #define TheGlobal004443E7958 (*(Global004443E7958View **)&g_Va009FE958)
@@ -71,6 +79,7 @@ public:
 	void rva00444E8A();
 	int rva0044522D(int msg, unsigned char key, int flags);
 	void rva004469D1();
+	void rva004442DB();
 	void rva00446A1C();
 
 private:
@@ -201,4 +210,15 @@ void GameEngine::rva00446A1C()
 	}
 	else
 		m_6A4 = 1;
+}
+
+// Retail 0x004442DB, 34 bytes: slot 12 of the lobby screen's vftable
+// 0x00C3E0F8. Name unknown. Runs the +0x288 panel's 0x0044303D, then puts
+// the Apt window manager into background mode 1 unless it is already there
+// (the rowed rva002233A6, as Rva00444525Init does after pushing the screen).
+void GameEngine::rva004442DB()
+{
+	m_mem288.rva0044303D();
+	if (TheInvoke00444E8ATarget->m_31C != 1)
+		TheInvoke00444E8ATarget->rva002233A6(1);
 }
