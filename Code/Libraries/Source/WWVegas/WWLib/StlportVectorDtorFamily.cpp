@@ -159,3 +159,42 @@ template _STL::vector<Made002CC5E1DamageScalar>::~vector();
 // Element is the 216-byte pod in StlportVectorGrowthFootprints.cpp.
 struct BfmePod216 { public: ~BfmePod216(); };
 template _STL::vector<BfmePod216>::~vector();
+
+// The following ~vector bodies share the 63B Destroy-plus-free shape under
+// /O1 /GX. Each was placed as a masked-byte twin of the rowed instantiations
+// above; its _Destroy REL32 (offset +0x1A) reads the address that the ledger
+// already names as this element type's _Destroy, and no other element type's
+// _Destroy is named there. Element views are the footprints already used for
+// these types elsewhere; only their destructors matter to these bodies.
+
+// ??1?$vector@URva00413B16Element@@V?$allocator@URva00413B16Element@@@_STL@@@_STL@@QAE@XZ @0x0022DC9B (_Destroy at 0x0022D928)
+struct Rva00413B16Element { public: ~Rva00413B16Element(); };
+template _STL::vector<Rva00413B16Element>::~vector();
+
+// ??1?$vector@URva002E2690Element@@V?$allocator@URva002E2690Element@@@_STL@@@_STL@@QAE@XZ @0x002B0B32 (_Destroy at 0x002AF4ED)
+struct Rva002E2690Element { public: ~Rva002E2690Element(); };
+template _STL::vector<Rva002E2690Element>::~vector();
+
+// ??1?$vector@URva002BBB96Element@@V?$allocator@URva002BBB96Element@@@_STL@@@_STL@@QAE@XZ @0x002BBB18 (_Destroy at 0x002BB6A5)
+struct Rva002BBB96Element { public: ~Rva002BBB96Element(); };
+template _STL::vector<Rva002BBB96Element>::~vector();
+
+// ??1?$vector@UGeometryShape@@V?$allocator@UGeometryShape@@@_STL@@@_STL@@QAE@XZ @0x005EB28A (_Destroy at 0x005EAA83)
+struct GeometryShape { public: ~GeometryShape(); };
+template _STL::vector<GeometryShape>::~vector();
+
+// ??1?$vector@URva005F8620Element@@V?$allocator@URva005F8620Element@@@_STL@@@_STL@@QAE@XZ @0x005F85E1 (_Destroy at 0x005F85C8)
+struct Rva005F8620Element { public: ~Rva005F8620Element(); };
+template _STL::vector<Rva005F8620Element>::~vector();
+
+// ??1?$vector@URva000C828CElement@@V?$allocator@URva000C828CElement@@@_STL@@@_STL@@QAE@XZ @0x000C7720 (_Destroy at 0x000C4DEF)
+struct Rva000C828CElement { public: ~Rva000C828CElement(); };
+template _STL::vector<Rva000C828CElement>::~vector();
+
+// ??1?$vector@URva001DEF38Element@@V?$allocator@URva001DEF38Element@@@_STL@@@_STL@@QAE@XZ @0x001DEEF9 (_Destroy at 0x001DEEE0)
+struct Rva001DEF38Element { public: ~Rva001DEF38Element(); };
+template _STL::vector<Rva001DEF38Element>::~vector();
+
+// ??1?$vector@VRva0021F876@@V?$allocator@VRva0021F876@@@_STL@@@_STL@@QAE@XZ @0x0021FDEC (_Destroy at 0x0021FDD3)
+class Rva0021F876 { public: ~Rva0021F876(); };
+template _STL::vector<Rva0021F876>::~vector();
