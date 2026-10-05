@@ -62208,3 +62208,4 @@ _Rva007F5790Callback,,0x00661F40,15,Code/GameEngine/Source/GameNetwork/Rva007F70
 ?Rva00334A3D@@YAHPAUlua_State@@@Z,,0x00334A3D,182,Code/GameEngine/Source/GameLogic/ScriptEngine/LuaObjectHideSubObjectRva00334A3D.cpp,matched,Lua ObjectHideSubObject binding registration 0x33870B via pushcclosure 0x747640 plus setglobal 0x747920 with enum ObjectID find 0x49DC5 plus Range lookups 0x747190 0x747370 plus AsciiString plus getDrawable 0x5508E2 plus hide 0x2724FD
 ?rva002D34FE@Rva002D34FE@@QAEXH@Z,,0x002D34FE,46,Code/GameEngine/Source/Common/Rva002D34FEChain.cpp,matched,
 ?rva002C9BC3@Rva002C9BC3Owner@@QAEXPAX0@Z,,0x002C9BC3,33,Code/GameEngine/Source/Common/Rva002C9BC3Forward.cpp,matched,
+?rva002C9B80@Rva002C9B80Owner@@QAEXPAXM@Z,,0x002C9B80,67,Code/GameEngine/Source/Common/Rva002C9B80Array.cpp,matched,
