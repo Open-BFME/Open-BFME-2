@@ -56,14 +56,21 @@ public:
     SLOT(104) SLOT(105) SLOT(106) SLOT(107) SLOT(108) SLOT(109) SLOT(110) SLOT(111)
 #undef SLOT
     virtual int query() = 0;
+    virtual void slot113() = 0;
+    virtual void show() = 0;
+    virtual void hide() = 0;
 };
 
 class InGameUI {
-    unsigned char opaque[0x978 - 4];
+    unsigned char opaque04[0x15 - 4];
+    bool engineInputEnabled;
+    bool inputEnabled;
+    unsigned char opaque17[0x978 - 0x17];
     GameWindow *idleWorkerWin;
     int currentIdleWorkerDisplay;
 public:
     virtual void showIdleWorkerLayout();
+    virtual void updateIdleWorker();
 };
 
 void InGameUI::showIdleWorkerLayout()
@@ -75,4 +82,17 @@ void InGameUI::showIdleWorkerLayout()
     }
     idleWorkerWin->winEnable(true);
     currentIdleWorkerDisplay = reinterpret_cast<Rva0029AFA6CountView *>(this)->query();
+}
+
+// ZH updateIdleWorker; native 0x0029AFFC-0x0029B04D ends immediately before
+// the already-matched max setter. Retail supplies input flags +0x15/+0x16
+// and the virtual show/hide calls at +0x1C8/+0x1CC.
+void InGameUI::updateIdleWorker()
+{
+    int idleCount = reinterpret_cast<Rva0029AFA6CountView *>(this)->query();
+    if (idleCount > 0 && currentIdleWorkerDisplay != idleCount &&
+        engineInputEnabled && inputEnabled)
+        reinterpret_cast<Rva0029AFA6CountView *>(this)->show();
+    if ((idleCount <= 0 && idleWorkerWin) || !(engineInputEnabled && inputEnabled))
+        reinterpret_cast<Rva0029AFA6CountView *>(this)->hide();
 }
