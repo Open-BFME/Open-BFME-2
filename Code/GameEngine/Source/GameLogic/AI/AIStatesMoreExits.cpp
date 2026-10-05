@@ -27,6 +27,20 @@
 //    BFME 2 then sets owner model conditions 1*32+29 and 7*32+28 (the
 //    Object+0x10C condition words, as in AIAttackStateOnExit.cpp), each
 //    followed by the rowed notifier Object::rva0028AE6D when it changes.
+//  - AIBackAwayAndCowerState::onExit, retail 0x0034025E (31 bytes), and
+//    ::update, retail 0x0034022F (47 bytes): slots 5 and 6 of 0x00C10EE0.
+//    BFME 2 state with a sub-machine at +0x20 (AIAttackState's pattern):
+//    onExit deletes it when present; update fails without it, succeeds once
+//    it reports EXIT_MACHINE_WITH_SUCCESS (999998) and otherwise runs its
+//    updateStateMachine (StateMachine vslot 4).
+//  - AIMoveToPositionAndDieState::onEnter, retail 0x0034FFBE (98 bytes):
+//    slot 4 of 0x00C12CE8. AIMoveAndDeleteState::onEnter's shape (log line
+//    60) without the model conditions, the base onEnter as a tail jump.
+//  - GiantBirdDieState::onEnter, retail 0x00367914 (21 bytes): slot 4 of
+//    0x00C175A8. Destroys the owner through TheGameLogic (rowed
+//    GameLogic::destroyObject) and succeeds.
+// None of these four starts is in the Ghidra inventory; each is reached
+// only from its vtable slot.
 // The sub-machines are deleted with a global-scope delete (vslot 0 with flag
 // 0, then ::operator delete).
 typedef bool Bool;
@@ -41,7 +55,14 @@ enum StateExitType
 };
 enum StateReturnType
 {
-	STATE_CONTINUE = 0
+	STATE_CONTINUE = 0,
+	STATE_SUCCESS = -1,
+	STATE_FAILURE = -2
+};
+enum
+{
+	EXIT_MACHINE_WITH_SUCCESS = 999998,
+	INVALID_STATE_ID = 999999
 };
 enum WeaponLockType
 {
@@ -117,12 +138,19 @@ private:
 	unsigned char m_pad158[0x258 - 0x158];
 	AIUpdateInterface *m_ai; // +0x258
 };
+class State;
+class GameLogic
+{
+public:
+	void destroyObject(Object *obj);
+};
+extern GameLogic *TheGameLogic;
 class StateMachine
 {
 public:
 	virtual ~StateMachine();
 	virtual void slot01(); virtual void slot02(); virtual void slot03();
-	virtual void slot04();
+	virtual StateReturnType updateStateMachine();
 	virtual void clear();
 	virtual void slot06(); virtual void slot07();
 	virtual StateReturnType setState(StateID newStateID);
@@ -131,7 +159,9 @@ public:
 	const Coord3D *getGoalPosition() const { return &m_goalPosition; }
 	void lock(const char *msg) { m_locked = true; }
 	void unlock() { m_locked = false; }
-	UnsignedInt m_pad04[4];
+	StateID getCurrentStateID() const;
+	State *m_currentState; // +0x04
+	UnsignedInt m_pad08[3];
 	Object *m_owner; // +0x14
 	UnsignedInt m_pad18[2];
 	UnsignedInt m_goalObjectID; // +0x20
@@ -149,12 +179,20 @@ public:
 	virtual StateReturnType onEnter();
 	virtual void onExit(StateExitType status);
 	virtual StateReturnType update();
+	StateID getID() const { return m_ID; }
 protected:
 	StateMachine *getMachine() const { return m_machine; }
 	Object *getMachineOwner() const { return m_machine->getOwner(); }
-	unsigned char m_pad04[0x18 - 0x04];
+	StateID m_ID; // +0x04
+	unsigned char m_pad08[0x18 - 0x08];
 	StateMachine *m_machine; // +0x18
 };
+
+// ?StateMachine::getCurrentStateID absent-from-retail
+inline StateID StateMachine::getCurrentStateID() const
+{
+	return m_currentState ? m_currentState->getID() : INVALID_STATE_ID;
+}
 class AIInternalMoveToState : public State
 {
 public:
@@ -168,6 +206,16 @@ protected:
 			FprintfTarget *log = (FprintfTarget *)g_00DFEFF0;
 			if (log)
 				fprintf(log, "CritterDesync: setAdjustDestination(FALSE) 50");
+		}
+		m_adjustsDestination = false;
+	}
+	__forceinline void setAdjustsDestinationFalse60()
+	{
+		if (g_00E03745)
+		{
+			FprintfTarget *log = (FprintfTarget *)g_00DFEFF0;
+			if (log)
+				fprintf(log, "CritterDesync: setAdjustDestination(FALSE) 60");
 		}
 		m_adjustsDestination = false;
 	}
@@ -189,6 +237,18 @@ public:
 private:
 	Bool m_appendGoalPosition; // +0x4C
 };
+class AIMoveToPositionAndDieState : public AIInternalMoveToState
+{
+public:
+	virtual StateReturnType onEnter();
+private:
+	Bool m_appendGoalPosition; // +0x4C
+};
+class GiantBirdDieState : public State
+{
+public:
+	virtual StateReturnType onEnter();
+};
 class AIAttackAreaState : public State
 {
 public:
@@ -204,6 +264,15 @@ public:
 private:
 	unsigned char m_pad1C[0x20 - 0x1C];
 	StateMachine *m_huntMachine; // +0x20
+};
+class AIBackAwayAndCowerState : public State
+{
+public:
+	virtual void onExit(StateExitType status);
+	virtual StateReturnType update();
+private:
+	unsigned char m_pad1C[0x20 - 0x1C];
+	StateMachine *m_backAwayMachine; // +0x20
 };
 class AIAttackPursueTargetState : public AIInternalMoveToState
 {
@@ -303,4 +372,41 @@ StateReturnType AIAttackMoveToState::onEnter()
 		m_bfmeGoalPosition60 = machine->m_goalPosition;
 	}
 	return ret;
+}
+
+void AIBackAwayAndCowerState::onExit( StateExitType status )
+{
+	if (m_backAwayMachine)
+	{
+		::delete m_backAwayMachine;
+		m_backAwayMachine = NULL;
+	}
+}
+
+StateReturnType AIBackAwayAndCowerState::update()
+{
+	if (m_backAwayMachine == NULL)
+		return STATE_FAILURE;
+	if (m_backAwayMachine->getCurrentStateID() == EXIT_MACHINE_WITH_SUCCESS)
+		return STATE_SUCCESS;
+	return m_backAwayMachine->updateStateMachine();
+}
+
+StateReturnType AIMoveToPositionAndDieState::onEnter()
+{
+	setAdjustsDestinationFalse60();
+	getMachine()->lock("AIMoveToPositionAndDieState::onEnter");
+	// if we have a goal object, move to it, otherwise move to goal position
+	if (getMachine()->getGoalObject())
+		m_goalPosition = *getMachine()->getGoalObject()->getPosition();
+	else
+		m_goalPosition = *getMachine()->getGoalPosition();
+	m_appendGoalPosition = true; // We may be moving off the map.
+	return AIInternalMoveToState::onEnter();
+}
+
+StateReturnType GiantBirdDieState::onEnter()
+{
+	TheGameLogic->destroyObject(getMachineOwner());
+	return STATE_SUCCESS;
 }

@@ -46,6 +46,11 @@
 //    goal object (slot 14); fails when a destination was found but the goal
 //    is missing or the pinned path test 0x002F477E from the goal accepts it,
 //    else succeeds.
+//  - AIPrepareForBoarding::update, retail 0x00354C6B (66 bytes): slot 6 of
+//    0x00C123D8 (a start missing from the Ghidra inventory). When the same
+//    pathfinder query finds a destination, idles the AI from CMD_FROM_AI
+//    (rowed AICommandInterface::aiIdle on the AI's +0x20 command interface)
+//    and fails; otherwise succeeds.
 //  - AIMoveAndTightenState::update, retail 0x00347AE8 (85 bytes): slot 6 of
 //    0x00C124D8. While +0x50 is set and the AI has a path (+0x140) and its
 //    +0x3B1 is clear: CritterDesync log line, setAdjustsDestination(true)
@@ -137,7 +142,8 @@ static __forceinline void critterDesyncLog(const char *text)
 
 enum CommandSourceType
 {
-	CMD_FROM_PLAYER = 0
+	CMD_FROM_PLAYER = 0,
+	CMD_FROM_AI = 2
 };
 enum MoodMatrixAction
 {
@@ -207,6 +213,12 @@ public:
 	virtual Bool rva0034FCCESlot136() = 0;
 };
 
+class AICommandInterface
+{
+public:
+	void aiIdle(CommandSourceType cmdSource);
+};
+
 class AIUpdateInterface : public AIStateAISlots<135>
 {
 public:
@@ -228,7 +240,11 @@ public:
 	void *getPath() const { return m_path; }
 	Bool getBfmeFlag3B1() const { return m_bfmeFlag3B1; }
 private:
-	unsigned char m_pad004[0x140 - 0x04];
+	unsigned char m_pad004[0x20 - 0x04];
+public:
+	AICommandInterface m_commands; // +0x20 (rowed aiIdle's this)
+private:
+	unsigned char m_pad021[0x140 - 0x21];
 	void *m_path; // +0x140
 	unsigned char m_pad144[0x194 - 0x144];
 	int m_currentGoalPathIndex; // +0x194
@@ -537,6 +553,7 @@ class AIPrepareForBoarding : public State
 {
 public:
 	virtual StateReturnType onEnter();
+	virtual StateReturnType update();
 };
 
 StateReturnType AIPrepareForBoarding::onEnter()
@@ -552,6 +569,18 @@ StateReturnType AIPrepareForBoarding::onEnter()
 			return (StateReturnType)STATE_FAILURE;
 		if (TheAI->pathfinder()->rva002F477E(goal, goal->getPosition(), &dest, 0))
 			return (StateReturnType)STATE_FAILURE;
+	}
+	return (StateReturnType)STATE_SUCCESS;
+}
+
+StateReturnType AIPrepareForBoarding::update()
+{
+	Object *owner = getMachineOwner();
+	Coord3D dest;
+	if (TheAI->pathfinder()->rva002EE7EE(owner->getPosition(), owner, &dest))
+	{
+		owner->getAI()->m_commands.aiIdle(CMD_FROM_AI);
+		return (StateReturnType)STATE_FAILURE;
 	}
 	return (StateReturnType)STATE_SUCCESS;
 }
