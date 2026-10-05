@@ -63545,3 +63545,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ??1Rva005C48E5@@UAE@XZ,,0x005C48E5,85,Code/GameEngine/Source/Common/Rva005C48E5Dtor.cpp,matched,Rva005C48E5 destructor: broadcasts to listener list then tears down secondary base
 ?rva005C4952@Rva005C4A91@@QBEEPAVRva0040C804Target@@@Z,,0x005C4952,52,Code/GameEngine/Source/Common/Rva005C4952Find.cpp,matched,Rva005C4A91 vector find and target check
 ?rva005C49D4@Rva005C49D4Host@@UAEEPAVRva0040C804Target@@@Z,,0x005C49D4,27,Code/GameEngine/Source/Common/Rva005C4952Find.cpp,matched,Rva005C49D4Host slot-0 comparison and tail dispatch to rva005C4952
+??0Rva005C3F02@@QAE@PAX0@Z,,0x005C40E7,74,Code/GameEngine/Source/Common/Rva005C40E7Ctor.cpp,matched,Rva005C3F02 constructor: allocates and constructs Rva005C3A37Elem at +0x04
