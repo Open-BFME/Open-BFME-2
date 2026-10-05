@@ -1564,20 +1564,7 @@ void WW3D::Start_Movie_Capture( const char * filename_base, float frame_rate )
  * HISTORY:                                                                                    *
  *   5/19/99    GTH : Created.                                                                 *
  *=============================================================================================*/
-// ?Stop_Movie_Capture@WW3D@@ present-unmatched
-void WW3D::Stop_Movie_Capture( void )
-{
-#ifdef _WINDOWS
-	if (IsCapturing) {
-		IsCapturing = false;
-		WWDEBUG_SAY(( "Stoping Movie\n" ));
-
-		WWASSERT( Movie != NULL);
-		delete Movie;
-		Movie = NULL;
-	}
-#endif
-}
+// Byte-exact movie cleanup lives in WW3DStopMovieCapture.cpp.
 
 
 /***********************************************************************************************

@@ -56478,3 +56478,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva005D9CE0@Rva005D9CD5@@QAE_NPAVObject@@@Z,,0x005D9CE0,76,Code/GameEngine/Source/Common/Rva005D9CE0.cpp,matched,gap vslot6 plus AI victim plus AoE picker plus float
 ?rva00368542@Rva00368542@@QAEXHPBVWaypoint@@@Z,,0x00368542,82,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/Rva00368542.cpp,matched,leaf plus sibling layout plus rowed callees
 ?rva00368344@Rva00368344@@QAEXPBUCoord3D@@H@Z,,0x00368344,83,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/Rva00368344.cpp,matched,leaf plus sibling layout plus rowed callees
+?Stop_Movie_Capture@WW3D@@SAXXZ,,0x00117A10,74,Code/Libraries/Source/WWVegas/WW3D2/WW3DStopMovieCapture.cpp,matched,ZH ww3d.cpp via BFME1 6583b3c1; native117A10..117A5A clears capture byte and globally deletes Movie then clears pointer; guarded teardown1180E0 caller confirms subsystem; explicit global delete /O2 /G7 /MD /EHsc
