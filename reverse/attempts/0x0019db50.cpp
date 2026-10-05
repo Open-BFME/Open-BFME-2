@@ -1,22 +1,18 @@
 // ?Update_Obj_Space_Bounding_Volumes@HLodClass@@MAEXXZ
-// partial score=0.9873 date=2026-10-05
-// ?Update_Obj_Space_Bounding_Volumes@HLodClass@@MAEXXZ
-// partial score=0.9760095962 date=2026-10-03
-// ?Update_Obj_Space_Bounding_Volumes@HLodClass@@MAEXXZ
-// partial score=0.976 date=2026-09-29
-// ?Update_Obj_Space_Bounding_Volumes@HLodClass@@MAEXXZ
-// partial score=0.9760095962 date=2026-09-27
+// partial score=0.988 date=2026-10-05
 // cl: /Ireference/shims/bfme2renderobj /Ireference/shims /Ireference/shims/bfmerendobj /G7 /arch:SSE /DNDEBUG /MD /Ireference/shims/bfmevector /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/game/Libraries/Source/Compression /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep
-// Banked HLodClass::Update_Obj_Space_Bounding_Volumes: RVA19DB50,2501B.
-// Identity: recovered HLod definition constructor call19FF2F and its installed
-// table7D6780 slot114. Target searches OBBOX class1B with BOUNDINGBOX name,
-// combines child sphere/box bounds in base pose, then invalidates cached bounds.
-// EA/BFME1 hlod.cpp supplies the semantic source. BFME2 pivot transform uses
-// rotation+translation at30/40 with stride58, corroborated by HTreePivotClass.
-// The exact Add_Lod_Model recovery supplies the inline rotation expansion.
-// This bank emits2501 bytes, no unresolved calls, but differs in 98 byte
-// positions (first+1D9); commutative SSE operands and sphere transform registers
-// remain. Matrix-return temporaries and separate rotation helper did not fix it.
+// HLodClass::Update_Obj_Space_Bounding_Volumes, RVA19DB50, 2501B: near miss.
+// Identity as the bank: HLod definition constructor 19FF2F and installed table
+// 7D6780 slot114; OBBOX class1B / "BOUNDINGBOX" search then child sphere/box
+// combine in base pose. Pivot transform is quaternion+translation at 30/40,
+// stride 58; the rotation expansion is the Add_Lod_Model recovery.
+// What is still wrong (19 instructions): the loop's inlined pivot expansion
+// keeps the xy product in retail's operand order (retail movss [q+30] then
+// mulss [q+34]) where ours loads [q+34] first, and the loop tmpsphere.Transform
+// keeps retail's register allocation. Binding the pivot transform to a local
+// reference before pivotMatrix at the FIRST call site only (treeMatrixB vs the
+// unbound treeMatrixU in the loop) fixed the pre-loop expansion's commutative
+// operand order; binding it at both sites moves the flip into the loop instead.
 // Not byte-verified progress. The similarity score measures byte sequences.
 #define Matrix4x4 Matrix4
 #include <sweep/winbase_shim.h>
@@ -83,6 +79,8 @@ static __forceinline Matrix3D &pivotMatrix(const HlodTransformView &q, Matrix3D 
 }
 
 static __forceinline Matrix3D &treeMatrix(const HTreeClass *tree, int index, Matrix3D &m) { return pivotMatrix(reinterpret_cast<const HlodTreeView *>(tree)->Pivot[index].Transform,m); }
+static __forceinline Matrix3D &treeMatrixB(const HTreeClass *tree, int index, Matrix3D &m) { const HlodTransformView &q = reinterpret_cast<const HlodTreeView *>(tree)->Pivot[index].Transform; return pivotMatrix(q,m); }
+static __forceinline Matrix3D &treeMatrixU(const HTreeClass *tree, int index, Matrix3D &m) { return pivotMatrix(reinterpret_cast<const HlodTreeView *>(tree)->Pivot[index].Transform,m); }
 void HLodClass::Update_Obj_Space_Bounding_Volumes(void)
 {
 	//
@@ -148,7 +146,7 @@ void HLodClass::Update_Obj_Space_Bounding_Volumes(void)
 	robj = Get_Sub_Object(0);
 
 	Matrix3D bonetm;
-	treeMatrix(HTree, Get_Sub_Object_Bone_Index(robj), bonetm);
+	treeMatrixB(HTree, Get_Sub_Object_Bone_Index(robj), bonetm);
 	robj->Get_Obj_Space_Bounding_Sphere(sphere);
 	sphere.Transform(bonetm);
 	robj->Get_Obj_Space_Bounding_Box(obj_aabox);
@@ -163,7 +161,7 @@ void HLodClass::Update_Obj_Space_Bounding_Volumes(void)
 		robj = Get_Sub_Object(i);
 
 		Matrix3D bonetm;
-	treeMatrix(HTree, Get_Sub_Object_Bone_Index(robj), bonetm);
+	treeMatrixU(HTree, Get_Sub_Object_Bone_Index(robj), bonetm);
 
 		SphereClass tmpsphere;
 		robj->Get_Obj_Space_Bounding_Sphere(tmpsphere);
