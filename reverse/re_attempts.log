@@ -9493,3 +9493,4 @@ FUN_00731d7e	0x00331D7E	48	blocked	loop over Store needs thiscall twin at 0x002A
 ?rva002E7296@Pathfinder@@QAEEW4PathfindLayerEnum@@PBXPBM@Z	0x002E7296	158	partial	fld-INV-first vs fld-pos-first and eax-ecx swap for flags-low and branch layout true-inline vs shared t=30 model=muse-spark score=0.9 stash=reverse/attempts/0x002e7296.cpp
 ?rva002B43E7@Rva002B4349@@QAEPAVRva004FA2E2@@PAV1@@Z	0x002B43E7	29	blocked	steal p then holder-dtor on nulled stack slot exact via fresh=p p=0 m_ptr=fresh plus dtor-and-call t=15 model=muse-03
 ?rva002B54BB@Rva002B4349@@QAEPAV1@PAV1@@Z	0x002B54BB	62	blocked	transfer this-ptr to other with null temp plus holder-dtor needs EH_prolog t=14 model=muse-03
+??1Rva005F501E@@QAE@XZ	0x005F501E	105	blocked	MI dtor missing base vptr restores and EH states 2-1 vs 0--1 t=25 model=muse-05
