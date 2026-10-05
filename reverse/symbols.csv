@@ -12912,3 +12912,4 @@ _Rva00337999Forward,0x00337999,REL32 callee decoded from target call bytes of wr
 ?method_005C9311@Rva005C847BRecord@@QAEXHHM@Z,0x005C9311,Rva005C847BRecord method called by HostClass005C815B::method_005C836F
 ?method_005C90F1@Rva005C847BRecord@@QAEXHH@Z,0x005C90F1,Rva005C847BRecord method called by HostClass005C815B::method_005C839B
 ?method_005C8DBF@TargetObj005C8DBF@@QAEXM@Z,0x005C8DBF,TargetObj005C8DBF float method called by HostClass005C8E0A::method_005C8E0A
+?method_005C902A@TargetObj005C8DBF@@QAEXM@Z,0x005C902A,TargetObj005C8DBF float method called by HostClass005C8E0A::method_005C9069
