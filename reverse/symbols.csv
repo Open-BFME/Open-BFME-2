@@ -10868,3 +10868,16 @@ G00DB5FC4,0x00DB5FC4,Render2DClass ctor 0x0011C0F0 stores 5; donor Render2DClass
 ??0Rva00523825@@QAE@PAX@Z,0x00523825,constructor called by the factory entry 0x002D21FB (byte-exact modulo relocs in Rva002D1E55Factories.cpp) on a 0x294-byte allocation; identity unproven; address-derived name
 ??0Rva0043D686@@QAE@PAX@Z,0x0043D686,constructor called by the factory entry 0x0043DA1B (byte-exact modulo relocs in Rva002D1E55Factories.cpp) on a 0x35C-byte allocation; identity unproven; address-derived name
 ??0Rva00510FDB@@QAE@PAX@Z,0x00510FDB,constructor called by the factory entry 0x0051104D (byte-exact modulo relocs in Rva002D1E55Factories.cpp) on a 0x28C-byte allocation; identity unproven; address-derived name
+??1Rva0022DC9B@@QAE@XZ,0x0022DC9B,member destructor at +0xC called by the destructor 0x00413A24 (byte-exact modulo relocs in MemberBaseDtorsB01.cpp); identity unproven; address-derived name
+??1Rva0022DCDA@@QAE@XZ,0x0022DCDA,member destructor at +0xC called by the destructor 0x00414166 (byte-exact modulo relocs in MemberBaseDtorsB01.cpp); identity unproven; address-derived name
+??1Rva0056850D@@QAE@XZ,0x0056850D,member destructor at +0xC called by the destructor 0x005685EE (byte-exact modulo relocs in MemberBaseDtorsB01.cpp); identity unproven; address-derived name
+??1Rva00575395@@UAE@XZ,0x00575395,base destructor called last by the destructor 0x00575D45 (byte-exact modulo relocs in MemberBaseDtorsB01.cpp); identity unproven; address-derived name
+??1Rva00577010@@QAE@XZ,0x00577010,member destructor at +0x8 called by the destructor 0x00575D45 (byte-exact modulo relocs in MemberBaseDtorsB01.cpp); identity unproven; address-derived name
+??1Rva00577EB2@@QAE@XZ,0x00577EB2,member destructor at +0x44 called by the destructor 0x00577FA7 (byte-exact modulo relocs in MemberBaseDtorsB01.cpp); identity unproven; address-derived name
+??1Rva005E6810@@UAE@XZ,0x005E6810,base destructor called last by the destructor 0x005CF7BF (byte-exact modulo relocs in MemberBaseDtorsB01.cpp); identity unproven; address-derived name
+??1Rva005CF363@@QAE@XZ,0x005CF363,member destructor at +0x8 called by the destructor 0x005CF7BF (byte-exact modulo relocs in MemberBaseDtorsB01.cpp); identity unproven; address-derived name
+??1Rva005E1E81@@QAE@XZ,0x005E1E81,member destructor at +0xC called by the destructor 0x005E1FBC (byte-exact modulo relocs in MemberBaseDtorsB01.cpp); identity unproven; address-derived name
+??1Rva005E35DA@@QAE@XZ,0x005E35DA,member destructor at +0xC called by the destructor 0x005E362F (byte-exact modulo relocs in MemberBaseDtorsB01.cpp); identity unproven; address-derived name
+??1Rva005F64DB@@QAE@XZ,0x005F64DB,member destructor at +0x8 called by the destructor 0x005F64F5 (byte-exact modulo relocs in MemberBaseDtorsB01.cpp); identity unproven; address-derived name
+??1Rva005F85E1@@QAE@XZ,0x005F85E1,member destructor at +0x20 called by the destructor 0x005F86C3 (byte-exact modulo relocs in MemberBaseDtorsB01.cpp); identity unproven; address-derived name
+??1Rva005FAFB2@@QAE@XZ,0x005FAFB2,member destructor at +0x20 called by the destructor 0x005FB1AD (byte-exact modulo relocs in MemberBaseDtorsB01.cpp); identity unproven; address-derived name
