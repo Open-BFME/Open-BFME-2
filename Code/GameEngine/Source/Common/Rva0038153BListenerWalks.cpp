@@ -146,3 +146,14 @@ void Rva003818B0List::rva003818E3(void *arg)
 {
 	forEach((void (Rva003818B0Listener::*)(void *))&Rva005CB260::rva005CB260, arg);
 }
+
+// ?Rva00381900@@YAXH@Z, retail 0x00381900, 15 bytes.
+// Chain from 0x003818E3: free helper that forwards window/index to the
+// list wrapper on g_00E02310. Evidence: pin, callers in
+// LANAPILobbyMenuForwarders.cpp.
+extern Rva003818B0List g_00E02310;
+
+void Rva00381900(int arg)
+{
+	g_00E02310.rva003818E3((void *)arg);
+}

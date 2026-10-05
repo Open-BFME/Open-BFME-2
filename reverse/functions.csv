@@ -57981,3 +57981,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?init@Rva001F3FEA@@UAEXXZ,,0x001F3FEA,24,Code/GameEngine/Source/GameClient/System/FXParticleSystem/FXParticleSystemStaticInitModules.cpp,matched,slot 1 of vtables 0x00BC4C74 and 0x00BE18CC: clears two 7-pointer tables at +0x10/+0x2C then tail-jumps into staticInitModules; owner class unrecovered
 ?rva005DBF2D@Rva005DB98E@@QAE_NGG@Z,,0x005DBF2D,95,Code/GameEngine/Source/Common/Rva005DBF2D.cpp,matched,Rva005DB98E float bump notify via forEach precedent
 ?rva005F22D2@Rva005F22D2@@QAEXXZ,,0x005F22D2,60,Code/GameEngine/Source/Common/Rva005F22D2Clear.cpp,matched,list at +0 map<int void*> at +0x10 clears via forEach 0x005F224E and erase begin
+?Rva00381900@@YAXH@Z,,0x00381900,15,Code/GameEngine/Source/Common/Rva0038153BListenerWalks.cpp,matched,chain helper forwarding to list wrapper
