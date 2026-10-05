@@ -76,16 +76,29 @@ protected:
 	float m_34;
 };
 
+enum ObjectStatusTypes
+{
+	BFME_STATUS_40 = 0x40
+};
+class Object
+{
+public:
+	void setStatus(ObjectStatusTypes bit, bool flag);
+};
+
 class SiegeDeploySpecialPower : public WeaponModeSpecialPowerUpdateBase
 {
 public:
 	virtual bool rva004C575F();
 	virtual bool rva004C5751();
 	virtual void rva004C5E41();
+	void rva004C5E62();
 private:
 	void rva004C5BE3(int state);
 	int m_38; // +0x38
-	unsigned char m_pad3C[0x70 - 0x3C];
+	unsigned char m_pad3C[0x40 - 0x3C];
+	int m_40; // +0x40
+	unsigned char m_pad44[0x70 - 0x44];
 	bool m_70; // +0x70
 };
 
@@ -115,4 +128,12 @@ void SiegeDeploySpecialPower::rva004C5E41()
 		m_70 = true;
 		break;
 	}
+}
+
+// ?rva004C5E62@SiegeDeploySpecialPower@@QAEXXZ @0x004C5E62 30B
+void SiegeDeploySpecialPower::rva004C5E62()
+{
+	m_object->setStatus((ObjectStatusTypes)0x40, false);
+	rva004C5BE3(0);
+	m_40 &= 0;
 }
