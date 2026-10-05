@@ -6966,6 +6966,300 @@ void __cdecl rva007B9C50()
 	return p->~AptActionInterpreter();
 }
 
+class Rva000FC5AADtor
+{
+public:
+	~Rva000FC5AADtor();
+};
 
+extern unsigned g_Va00DEC1CC;
+unsigned int g_Va00DEC1CC;
 
+// ?rva007B6F08@@YAXXZ @ 0x007B6F08 (10B). Global dtor thunk: ecx=&g_Va00DEC1CC then tail-jmp to pinned ??1Rva000FC5AADtor@@QAE@XZ (0x000FC5AA). No callers. Honest address name.
+void __cdecl rva007B6F08()
+{
+	Rva000FC5AADtor *p = (Rva000FC5AADtor *)&g_Va00DEC1CC;
+	return p->~Rva000FC5AADtor();
+}
 
+extern unsigned g_Va00DEC1DC;
+unsigned int g_Va00DEC1DC;
+
+// ?rva007B6F12@@YAXXZ @ 0x007B6F12 (10B). Global dtor thunk: ecx=&g_Va00DEC1DC then tail-jmp to pinned ??1Rva000FC5AADtor@@QAE@XZ (0x000FC5AA). No callers. Honest address name.
+void __cdecl rva007B6F12()
+{
+	Rva000FC5AADtor *p = (Rva000FC5AADtor *)&g_Va00DEC1DC;
+	return p->~Rva000FC5AADtor();
+}
+
+class Rva000F82F5Dtor
+{
+public:
+	~Rva000F82F5Dtor();
+};
+
+extern unsigned g_Va00DEC018;
+unsigned int g_Va00DEC018;
+
+// ?rva007B6EAE@@YAXXZ @ 0x007B6EAE (10B). Global dtor thunk: ecx=&g_Va00DEC018 then tail-jmp to pinned ??1Rva000F82F5Dtor@@QAE@XZ (0x000F82F5). No callers. Honest address name.
+void __cdecl rva007B6EAE()
+{
+	Rva000F82F5Dtor *p = (Rva000F82F5Dtor *)&g_Va00DEC018;
+	return p->~Rva000F82F5Dtor();
+}
+
+class Rva000F9BD7Dtor
+{
+public:
+	~Rva000F9BD7Dtor();
+};
+
+extern unsigned g_Va00DEC080;
+unsigned int g_Va00DEC080;
+
+// ?rva007B6EC2@@YAXXZ @ 0x007B6EC2 (10B). Global dtor thunk: ecx=&g_Va00DEC080 then tail-jmp to pinned ??1Rva000F9BD7Dtor@@QAE@XZ (0x000F9BD7). No callers. Honest address name.
+void __cdecl rva007B6EC2()
+{
+	Rva000F9BD7Dtor *p = (Rva000F9BD7Dtor *)&g_Va00DEC080;
+	return p->~Rva000F9BD7Dtor();
+}
+
+class Rva000FA7E8Dtor
+{
+public:
+	~Rva000FA7E8Dtor();
+};
+
+extern unsigned g_Va00DEC0E0;
+unsigned int g_Va00DEC0E0;
+
+// ?rva007B6ED6@@YAXXZ @ 0x007B6ED6 (10B). Global dtor thunk: ecx=&g_Va00DEC0E0 then tail-jmp to pinned ??1Rva000FA7E8Dtor@@QAE@XZ (0x000FA7E8). No callers. Honest address name.
+void __cdecl rva007B6ED6()
+{
+	Rva000FA7E8Dtor *p = (Rva000FA7E8Dtor *)&g_Va00DEC0E0;
+	return p->~Rva000FA7E8Dtor();
+}
+
+class Rva000FB85DDtor
+{
+public:
+	~Rva000FB85DDtor();
+};
+
+extern unsigned g_Va00DEC140;
+unsigned int g_Va00DEC140;
+
+// ?rva007B6EEA@@YAXXZ @ 0x007B6EEA (10B). Global dtor thunk: ecx=&g_Va00DEC140 then tail-jmp to pinned ??1Rva000FB85DDtor@@QAE@XZ (0x000FB85D). No callers. Honest address name.
+void __cdecl rva007B6EEA()
+{
+	Rva000FB85DDtor *p = (Rva000FB85DDtor *)&g_Va00DEC140;
+	return p->~Rva000FB85DDtor();
+}
+
+class Rva00136768Dtor
+{
+public:
+	~Rva00136768Dtor();
+};
+
+extern unsigned g_Va00DF29B4;
+unsigned int g_Va00DF29B4;
+
+// ?rva007B70D3@@YAXXZ @ 0x007B70D3 (10B). Global dtor thunk: ecx=&g_Va00DF29B4 then tail-jmp to pinned ??1Rva00136768Dtor@@QAE@XZ (0x00136768). No callers. Honest address name.
+void __cdecl rva007B70D3()
+{
+	Rva00136768Dtor *p = (Rva00136768Dtor *)&g_Va00DF29B4;
+	return p->~Rva00136768Dtor();
+}
+
+class Rva0007C632Dtor
+{
+public:
+	~Rva0007C632Dtor();
+};
+
+extern unsigned g_Va00DF6F10;
+unsigned int g_Va00DF6F10;
+
+// ?rva007B71AA@@YAXXZ @ 0x007B71AA (10B). Global dtor thunk: ecx=&g_Va00DF6F10 then tail-jmp to pinned ??1Rva0007C632Dtor@@QAE@XZ (0x0007C632). No callers. Honest address name.
+void __cdecl rva007B71AA()
+{
+	Rva0007C632Dtor *p = (Rva0007C632Dtor *)&g_Va00DF6F10;
+	return p->~Rva0007C632Dtor();
+}
+
+class Rva002213C0Dtor
+{
+public:
+	~Rva002213C0Dtor();
+};
+
+extern unsigned g_Va00DFE4AC;
+unsigned int g_Va00DFE4AC;
+
+// ?rva007B7704@@YAXXZ @ 0x007B7704 (10B). Global dtor thunk: ecx=&g_Va00DFE4AC then tail-jmp to pinned ??1Rva002213C0Dtor@@QAE@XZ (0x002213C0). No callers. Honest address name.
+void __cdecl rva007B7704()
+{
+	Rva002213C0Dtor *p = (Rva002213C0Dtor *)&g_Va00DFE4AC;
+	return p->~Rva002213C0Dtor();
+}
+
+class Rva003ED94FDtor
+{
+public:
+	~Rva003ED94FDtor();
+};
+
+extern unsigned g_Va00DFEC74;
+unsigned int g_Va00DFEC74;
+
+// ?rva007B7810@@YAXXZ @ 0x007B7810 (10B). Global dtor thunk: ecx=&g_Va00DFEC74 then tail-jmp to pinned ??1Rva003ED94FDtor@@QAE@XZ (0x003ED94F). No callers. Honest address name.
+void __cdecl rva007B7810()
+{
+	Rva003ED94FDtor *p = (Rva003ED94FDtor *)&g_Va00DFEC74;
+	return p->~Rva003ED94FDtor();
+}
+
+class Rva00301621Dtor
+{
+public:
+	~Rva00301621Dtor();
+};
+
+extern unsigned g_Va00DFF14C;
+unsigned int g_Va00DFF14C;
+
+// ?rva007B7A9B@@YAXXZ @ 0x007B7A9B (10B). Global dtor thunk: ecx=&g_Va00DFF14C then tail-jmp to pinned ??1Rva00301621Dtor@@QAE@XZ (0x00301621). No callers. Honest address name.
+void __cdecl rva007B7A9B()
+{
+	Rva00301621Dtor *p = (Rva00301621Dtor *)&g_Va00DFF14C;
+	return p->~Rva00301621Dtor();
+}
+
+class Rva0030A0FCDtor
+{
+public:
+	~Rva0030A0FCDtor();
+};
+
+extern unsigned g_Va00DFF494;
+unsigned int g_Va00DFF494;
+
+// ?rva007B7AE1@@YAXXZ @ 0x007B7AE1 (10B). Global dtor thunk: ecx=&g_Va00DFF494 then tail-jmp to pinned ??1Rva0030A0FCDtor@@QAE@XZ (0x0030A0FC). No callers. Honest address name.
+void __cdecl rva007B7AE1()
+{
+	Rva0030A0FCDtor *p = (Rva0030A0FCDtor *)&g_Va00DFF494;
+	return p->~Rva0030A0FCDtor();
+}
+
+class Rva002B905DDtor
+{
+public:
+	~Rva002B905DDtor();
+};
+
+extern unsigned g_Va00E032DC;
+unsigned int g_Va00E032DC;
+
+// ?rva007B839B@@YAXXZ @ 0x007B839B (10B). Global dtor thunk: ecx=&g_Va00E032DC then tail-jmp to pinned ??1Rva002B905DDtor@@QAE@XZ (0x002B905D). No callers. Honest address name.
+void __cdecl rva007B839B()
+{
+	Rva002B905DDtor *p = (Rva002B905DDtor *)&g_Va00E032DC;
+	return p->~Rva002B905DDtor();
+}
+
+class Rva00435CDBDtor
+{
+public:
+	~Rva00435CDBDtor();
+};
+
+extern unsigned g_Va00E032EC;
+unsigned int g_Va00E032EC;
+
+// ?rva007B83B9@@YAXXZ @ 0x007B83B9 (10B). Global dtor thunk: ecx=&g_Va00E032EC then tail-jmp to pinned ??1Rva00435CDBDtor@@QAE@XZ (0x00435CDB). No callers. Honest address name.
+void __cdecl rva007B83B9()
+{
+	Rva00435CDBDtor *p = (Rva00435CDBDtor *)&g_Va00E032EC;
+	return p->~Rva00435CDBDtor();
+}
+
+class Rva00502D03Dtor
+{
+public:
+	~Rva00502D03Dtor();
+};
+
+extern unsigned g_Va00E04508;
+unsigned int g_Va00E04508;
+
+// ?rva007B9049@@YAXXZ @ 0x007B9049 (10B). Global dtor thunk: ecx=&g_Va00E04508 then tail-jmp to pinned ??1Rva00502D03Dtor@@QAE@XZ (0x00502D03). No callers. Honest address name.
+void __cdecl rva007B9049()
+{
+	Rva00502D03Dtor *p = (Rva00502D03Dtor *)&g_Va00E04508;
+	return p->~Rva00502D03Dtor();
+}
+
+class Rva005011AADtor
+{
+public:
+	~Rva005011AADtor();
+};
+
+extern unsigned g_Va00E04544;
+unsigned int g_Va00E04544;
+
+// ?rva007B9071@@YAXXZ @ 0x007B9071 (10B). Global dtor thunk: ecx=&g_Va00E04544 then tail-jmp to pinned ??1Rva005011AADtor@@QAE@XZ (0x005011AA). No callers. Honest address name.
+void __cdecl rva007B9071()
+{
+	Rva005011AADtor *p = (Rva005011AADtor *)&g_Va00E04544;
+	return p->~Rva005011AADtor();
+}
+
+class Rva00524CC1Dtor
+{
+public:
+	~Rva00524CC1Dtor();
+};
+
+extern unsigned g_Va00E04938;
+unsigned int g_Va00E04938;
+
+// ?rva007B91F8@@YAXXZ @ 0x007B91F8 (10B). Global dtor thunk: ecx=&g_Va00E04938 then tail-jmp to pinned ??1Rva00524CC1Dtor@@QAE@XZ (0x00524CC1). No callers. Honest address name.
+void __cdecl rva007B91F8()
+{
+	Rva00524CC1Dtor *p = (Rva00524CC1Dtor *)&g_Va00E04938;
+	return p->~Rva00524CC1Dtor();
+}
+
+class Rva0052B7B3Dtor
+{
+public:
+	~Rva0052B7B3Dtor();
+};
+
+extern unsigned g_Va00E049B4;
+unsigned int g_Va00E049B4;
+
+// ?rva007B9298@@YAXXZ @ 0x007B9298 (10B). Global dtor thunk: ecx=&g_Va00E049B4 then tail-jmp to pinned ??1Rva0052B7B3Dtor@@QAE@XZ (0x0052B7B3). No callers. Honest address name.
+void __cdecl rva007B9298()
+{
+	Rva0052B7B3Dtor *p = (Rva0052B7B3Dtor *)&g_Va00E049B4;
+	return p->~Rva0052B7B3Dtor();
+}
+
+class Rva00207F08Dtor
+{
+public:
+	~Rva00207F08Dtor();
+};
+
+extern unsigned g_Va00E065E4;
+unsigned int g_Va00E065E4;
+
+// ?rva007B9720@@YAXXZ @ 0x007B9720 (10B). Global dtor thunk: ecx=&g_Va00E065E4 then tail-jmp to pinned ??1Rva00207F08Dtor@@QAE@XZ (0x00207F08). No callers. Honest address name.
+void __cdecl rva007B9720()
+{
+	Rva00207F08Dtor *p = (Rva00207F08Dtor *)&g_Va00E065E4;
+	return p->~Rva00207F08Dtor();
+}

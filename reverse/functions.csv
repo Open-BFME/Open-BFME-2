@@ -63123,3 +63123,22 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva007B7AFF@@YAXXZ,,0x007B7AFF,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00DFF4B8 tail-jmp pinned AudioEventRTS dtor 0x0030AF8F
 ?rva007B89C1@@YAXXZ,,0x007B89C1,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00E03CE0 tail-jmp pinned dtor 0x004ABE53
 ?rva007B9C50@@YAXXZ,,0x007B9C50,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00E182E0 tail-jmp pinned AptActionInterpreter dtor 0x006FE9C0
+?rva007B6F08@@YAXXZ,,0x007B6F08,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00DEC1CC tail-jmp pinned dtor 0x000FC5AA
+?rva007B6F12@@YAXXZ,,0x007B6F12,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00DEC1DC tail-jmp pinned dtor 0x000FC5AA
+?rva007B6EAE@@YAXXZ,,0x007B6EAE,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00DEC018 tail-jmp pinned dtor 0x000F82F5
+?rva007B6EC2@@YAXXZ,,0x007B6EC2,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00DEC080 tail-jmp pinned dtor 0x000F9BD7
+?rva007B6ED6@@YAXXZ,,0x007B6ED6,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00DEC0E0 tail-jmp pinned dtor 0x000FA7E8
+?rva007B6EEA@@YAXXZ,,0x007B6EEA,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00DEC140 tail-jmp pinned dtor 0x000FB85DDtor 0x000FB85D
+?rva007B70D3@@YAXXZ,,0x007B70D3,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00DF29B4 tail-jmp pinned dtor 0x00136768
+?rva007B71AA@@YAXXZ,,0x007B71AA,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00DF6F10 tail-jmp pinned dtor 0x0007C632
+?rva007B7704@@YAXXZ,,0x007B7704,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00DFE4AC tail-jmp pinned dtor 0x002213C0
+?rva007B7810@@YAXXZ,,0x007B7810,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00DFEC74 tail-jmp pinned dtor 0x003ED94F
+?rva007B7A9B@@YAXXZ,,0x007B7A9B,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00DFF14C tail-jmp pinned dtor 0x00301621
+?rva007B7AE1@@YAXXZ,,0x007B7AE1,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00DFF494 tail-jmp pinned dtor 0x0030A0FC
+?rva007B839B@@YAXXZ,,0x007B839B,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00E032DC tail-jmp pinned dtor 0x002B905D
+?rva007B83B9@@YAXXZ,,0x007B83B9,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00E032EC tail-jmp pinned dtor 0x00435CDB
+?rva007B9049@@YAXXZ,,0x007B9049,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00E04508 tail-jmp pinned dtor 0x00502D03
+?rva007B9071@@YAXXZ,,0x007B9071,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00E04544 tail-jmp pinned dtor 0x005011AA
+?rva007B91F8@@YAXXZ,,0x007B91F8,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00E04938 tail-jmp pinned dtor 0x00524CC1
+?rva007B9298@@YAXXZ,,0x007B9298,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00E049B4 tail-jmp pinned dtor 0x0052B7B3
+?rva007B9720@@YAXXZ,,0x007B9720,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00E065E4 tail-jmp pinned dtor 0x00207F08
