@@ -71,14 +71,53 @@ FILTERS, each of which exists because omitting it cost a run:
 Usage:
   python3 tools/family_scan.py [--exact|--disp|--operand|--mnemonic]
                               [--min-size 8] [--max-size 160] [--out FILE]
+                              [--wide]
+
+SCOPE. By default this scans only Code/gen_asm/ ledger rows, the one pool
+whose boundaries the dump pass cut at int3 padding with a return-or-jump
+terminal. The Ghidra inventory's function starts are a second, weaker source
+of boundary leads -- inventory-derived heuristic leads, not proven boundaries
+-- and the default scan never consults them, which is why a ledger with
+almost no gen_asm rows reports almost no families.
+
+  --wide additionally scans Ghidra-inventory function starts whose whole
+  extent the ledger does not already overlap at any status. This is OPT-IN
+  because an inventory start carries NO identity: the FUN_ address it names
+  holds no source and no name, so a --wide family is a conversion lead, never
+  a row. Do not turn these bodies into functions.csv rows without the normal
+  per-body identity evidence (symbols, xrefs, string anchors) AND per-body
+  extent verification through the byte gate.
+
+  A --wide body must pass everything the default pool passes -- real-pin,
+  Unwind, _atexit, refuted-shape and attempted-member exclusions -- PLUS the
+  heuristic-lead checks on the inventory extent itself: the extent decodes
+  end to end, the FINAL DECODED instruction (not the final byte) is a ret or
+  jmp, no decoded int3 run hides inside the body, and the end has same-source
+  corroboration -- either int3 padding follows (as for dump rows) or the next
+  byte is itself an inventory start, i.e. the inventory abuts the next
+  function against this one with no padding between them. An abutting next
+  start is same-source corroboration, NOT independent proof: it comes from
+  the same inventory that proposed the extent, and Ghidra splits CAN end one
+  extent exactly where the next start sits, so a prefix of a longer function
+  can land on another start and adjacency alone cannot rule that out. The
+  --wide checks are no stricter than the dump-row checks and prove nothing
+  about identity or extent on their own. Measured on 3,000 offered extents,
+  ~98% abutted code (overwhelmingly prologue bytes: 55, B8, 56, 8B) -- an
+  observed same-source rate, not a guarantee, recorded only to explain why
+  requiring padding would blind the path to nearly the whole pool.
+  Raw gaps between inventory starts are never candidates: every --wide body
+  starts where the inventory says a function starts.
 """
 import argparse
+import bisect
 import collections
 import csv
 import io
 import re
 import sys
 from pathlib import Path
+
+from boundary_validator import MIN_PAD_RUN
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
@@ -139,6 +178,57 @@ def mask_mnemonics(body, md):
         names.append(insn.mnemonic)
         covered += insn.size
     return ("\n".join(names)).encode("utf-8") if covered == len(body) else None
+
+
+def ends_in_return_or_jump(body, md):
+    """Check the final decoded instruction, not its last operand byte.
+
+    `ret 4` ends in 0x00, and direct jumps end in their displacement, so the
+    default scan's last-byte test cannot see them; conversely an immediate
+    ending in 0xC3 is not a return. Require complete decoding: padding after
+    a truncated instruction is not proof. Used by the --wide path, where the
+    inventory extent -- not a hand-cut dump row -- is the boundary claim.
+    This is a candidate filter, not a replacement for identity proof.
+    """
+    last = None
+    covered = 0
+    for insn in md.disasm(body, 0):
+        last = insn
+        covered += insn.size
+    return (last is not None and covered == len(body)
+            and last.mnemonic in ("ret", "jmp"))
+
+
+def has_interior_pad_run(body, md, run=MIN_PAD_RUN):
+    """True if a decoded int3 run sits inside the body with code after it.
+
+    Decode-aware: only 0xCC bytes that decode as int3 instructions count, so
+    an immediate or displacement such as mov eax,0xCCCCCCxx is NOT padding.
+    A body spanning padding into a second function is two boundaries, not
+    one, so the inventory extent it was served under is stale and the body is
+    not a candidate. Threshold is boundary_validator.MIN_PAD_RUN.
+
+    Undecodable bodies are refused by the separate terminal check.
+    """
+    try:
+        insns = list(md.disasm(body, 0))
+    except Exception:
+        return False
+    if not insns or sum(i.size for i in insns) != len(body):
+        return False
+    run_len = 0
+    run_end = 0
+    for insn in insns:
+        is_pad = (insn.size == 1 and insn.bytes == b"\xcc"
+                  and insn.mnemonic == "int3")
+        if is_pad:
+            run_len += 1
+            run_end = insn.address + 1
+        else:
+            if run_len >= run and run_end < len(body):
+                return True
+            run_len = 0
+    return run_len >= run and run_end < len(body)
 
 
 def load_real_pins():
@@ -237,6 +327,129 @@ def candidates(min_size, max_size, real_pins):
                 yield name, rva, size
 
 
+def iter_ghidra_rows():
+    """Stream (rva, size, name) for every well-formed inventory row.
+
+    Narrow-filtering generator: retains nothing. Callers apply size/source
+    filters and retain only eligible candidate records (see
+    load_wide_inventory), per the repo rule against loading the inventory
+    wholesale.
+    """
+    with io.open(ROOT / "reverse" / "ghidra_functions.csv", encoding="utf-8",
+                 errors="replace") as fh:
+        for row in csv.DictReader(fh):
+            try:
+                rva, size = int(row["rva"], 16), int(row["size"])
+            except (KeyError, ValueError, TypeError):
+                continue
+            yield rva, size, row.get("name", "") or ""
+
+
+def load_wide_inventory(min_size, max_size):
+    """Two streaming passes; retains only eligible leads + corroboration.
+
+    Pass 1 streams the inventory with the narrow size filter and retains only
+    in-range, positive-size candidate records, counting total rows offered.
+    Pass 2 re-streams and retains only the candidate END addresses that are
+    themselves inventory starts (abutment corroboration). The abutting-start
+    set is same-source corroboration, not independent proof -- see SCOPE.
+    Returns (candidates, total_rows, corroborated_ends).
+    """
+    candidates, total, ends = {}, 0, set()
+    for rva, size, name in iter_ghidra_rows():
+        total += 1
+        if size <= 0 or not (min_size <= size <= max_size):
+            continue
+        candidates[rva] = (size, name)
+        ends.add(rva + size)
+    corroborated = set()
+    if ends:
+        for rva, _size, _name in iter_ghidra_rows():
+            if rva in ends:
+                corroborated.add(rva)
+                if len(corroborated) == len(ends):
+                    break
+    return candidates, total, corroborated
+
+
+def iter_ledger_intervals():
+    """Stream (rva, size) for every ledger row with a parseable target.
+
+    Narrow-filtering generator: retains nothing. Malformed or empty sizes
+    fall back to 1 byte so a start-equality claim still excludes; a zero-size
+    row must never read as covering nothing.
+    """
+    with io.open(ROOT / "reverse" / "functions.csv", encoding="utf-8",
+                 errors="replace") as fh:
+        for row in csv.DictReader(fh):
+            try:
+                rva = int(row["target_rva"], 16)
+            except (KeyError, ValueError, TypeError):
+                continue
+            try:
+                size = int(row["target_size"])
+            except (KeyError, ValueError, TypeError):
+                size = 1
+            if size <= 0:
+                size = 1
+            yield rva, size
+
+
+def ledger_overlapped_starts(candidates):
+    """Candidate starts whose whole extent overlaps a ledger interval.
+
+    Streams the ledger once with narrow filtering to the candidate windows:
+    retains only the sorted candidate windows and the overlapped-start marks,
+    never the whole ledger. Overlap mirrors BoundaryValidator.check_end
+    (spans-function-start): [rva, rva+size) vs [l, l+ls), adjacency allowed.
+    """
+    if not candidates:
+        return set()
+    starts = sorted(candidates)
+    ends = {s: s + candidates[s][0] for s in starts}
+    cmax = max(candidates[s][0] for s in starts)
+    overlapped = set()
+    for lva, lsize in iter_ledger_intervals():
+        lend = lva + lsize
+        # Any overlapping candidate starts inside (lva - cmax, lend);
+        # adjacency (== on either edge) is allowed, hence strict < both ways.
+        lo = bisect.bisect_right(starts, lva - cmax)
+        hi = bisect.bisect_left(starts, lend)
+        for s in starts[lo:hi]:
+            if s not in overlapped and lva < ends[s]:
+                overlapped.add(s)
+        if len(overlapped) == len(starts):
+            break
+    return overlapped
+
+
+def wide_candidates(min_size, max_size, real_pins, claimed, inventory):
+    """Inventory starts free of ledger overlap, in size range.
+
+    `claimed` is the overlapped/excluded start set the caller computed by
+    streaming the ledger against THESE candidate windows (see
+    ledger_overlapped_starts) -- never a wholesale ledger load. A candidate
+    is yielded only when its whole [rva, rva+size) avoids every ledger
+    interval; adjacency (candidate end == ledger start or vice versa) is
+    allowed. Yields (name, rva, size). The name is a provenance label only
+    -- a FUN_ address carries no identity, and several inventory names are
+    guesses -- so grouping must never treat a shared name as a shared
+    function. Real pins stay excluded (tgrid territory) and Unwind residue
+    stays excluded (compiler output, not function bodies), exactly as on the
+    default path. Raw gaps are never yielded: membership requires an
+    inventory start.
+    """
+    excluded = set(claimed or ())
+    for rva, (size, name) in inventory.items():
+        if not (min_size <= size <= max_size):
+            continue
+        if rva in excluded or rva in real_pins:
+            continue
+        if "Unwind" in (name or ""):
+            continue
+        yield name or ("FUN_%08X" % rva), rva, size
+
+
 def main():
     ap = argparse.ArgumentParser(
         description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -250,11 +463,14 @@ def main():
     ap.add_argument("--max-size", type=int, default=160)
     ap.add_argument("--out", type=Path)
     ap.add_argument("--top", type=int, default=30)
+    ap.add_argument("--wide", action="store_true",
+                    help="also scan Ghidra-inventory starts the ledger never "
+                         "claimed: boundaries without identities (see SCOPE)")
     ap.set_defaults(mode="operand")
     args = ap.parse_args()
 
     md = None
-    if args.mode in ("operand", "mnemonic"):
+    if args.mode in ("operand", "mnemonic") or args.wide:
         import capstone
         md = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
         md.detail = True
@@ -262,17 +478,56 @@ def main():
     real_pins = load_real_pins()
     attempted, dead = load_attempted()
 
+    work = [(name, rva, size, False)
+            for name, rva, size
+            in candidates(args.min_size, args.max_size, real_pins)]
+    wide_total = wide_offered = 0
+    corroborated = set()
+    if args.wide:
+        # Two streaming passes retain only in-range leads plus the end
+        # addresses the same inventory corroborates; one ledger pass retains
+        # only candidate starts overlapped by a ledger interval. Nothing here
+        # retains either whole table.
+        inventory, wide_total, corroborated = load_wide_inventory(
+            args.min_size, args.max_size)
+        overlapped = ledger_overlapped_starts(inventory)
+        wide = list(wide_candidates(args.min_size, args.max_size,
+                                    real_pins, overlapped, inventory))
+        wide_offered = len(wide)
+        work.extend((name, rva, size, True) for name, rva, size in wide)
+
     groups = collections.defaultdict(list)
-    scanned = undecoded = local_statics = 0
-    for name, rva, size in candidates(args.min_size, args.max_size, real_pins):
+    scanned = undecoded = local_statics = wide_pad = wide_unproven = 0
+    starts = set(corroborated) if args.wide else set()
+    for name, rva, size, from_wide in work:
         try:
             window = build.read_target_bytes(rva, size + 1)
         except Exception:
             continue
-        if len(window) != size + 1 or window[size] != 0xCC:
+        if len(window) != size + 1:
+            continue
+        if not from_wide and window[size] != 0xCC:
             continue                       # must END at padding
         body = window[:size]
-        if body[-1] not in (0xC3, 0xC2, 0xE9, 0xEB) and body[-2:-1] != b"\xff":
+        if from_wide:
+            # The inventory extent is a heuristic lead, checked no harder
+            # than a hand-cut dump row: a stale extent spanning a decoded
+            # int3 run into the next function, one ending in a byte that
+            # merely LOOKS like a return, or one whose end has same-source
+            # corroboration from NEITHER padding NOR an abutting next start,
+            # is not a candidate. Corroboration is not proof (Ghidra splits
+            # can abut exactly), so per-body extent verification still applies
+            # at conversion time.
+            if window[size] != 0xCC and (rva + size) not in starts:
+                wide_unproven += 1
+                continue
+            if has_interior_pad_run(body, md):
+                wide_pad += 1
+                continue
+            if not ends_in_return_or_jump(body, md):
+                undecoded += 1
+                continue
+        elif body[-1] not in (0xC3, 0xC2, 0xE9, 0xEB) and body[-2:-1] != b"\xff":
             continue                       # must end in a ret or a jmp
         if registers_a_local_static(body, rva):
             local_statics += 1
@@ -310,6 +565,13 @@ def main():
     singletons = sum(1 for m in groups.values()
                      if len(m) == 1 and m[0][0] not in attempted)
 
+    if args.wide:
+        print("wide pool: %d inventory rows scanned, %d heuristic leads "
+              "offered (ledger-overlap-free, pin-free, Unwind-free, in range)"
+              % (wide_total, wide_offered))
+        print("wide extents refused as stale (decoded interior int3 run): %d"
+              % wide_pad)
+        print("wide extents refused as uncorroborated ends: %d" % wide_unproven)
     print("mode=%s  bodies scanned: %d%s" % (
         args.mode, scanned,
         "  (undecodable, skipped: %d)" % undecoded if undecoded else ""))
