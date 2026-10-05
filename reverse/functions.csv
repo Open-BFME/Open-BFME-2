@@ -63714,3 +63714,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?Rva0040D041Get@@YGPBVAsciiString@@H@Z,,0x0040D041,26,Code/GameEngine/Source/Common/Rva0040D041Get.cpp,matched,second string member at +0x64 with TheEmptyString fallback
 ?Rva0040D3D5Get@@YGHH@Z,,0x0040D3D5,18,Code/GameEngine/Source/Common/Rva0040D3D5Get.cpp,matched,dword member at +0x30 with 0 fallback
 ?rva0040F7E5@BfmeY1038@@QAEXXZ,,0x0040F7E5,24,Code/GameEngine/Source/Common/Rva0040F7E5Advance.cpp,matched,state advance 3 to 4 through the 3-zero helper 0x0040F497
+?bfmeMakePairEL@@YA?AUBfmePairEL@@ABVBfmeWordEL@@0@Z,,0x0002C621,27,Code/GameEngine/Source/Common/Bfme5TwoWordPairFactory_Rva0002C621.cpp,matched,BFME1 reference-guided two-word factory; target hidden return buffer ABI and shared pair ctor2C4FD verified; donor6583b3c1
