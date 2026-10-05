@@ -1,6 +1,8 @@
 // ?rva0070ABC0@AptNativeHash@@QAEXXZ
 // partial score=0.99 date=2026-10-05
 // ?rva0070ABC0@AptNativeHash@@QAEXXZ
+// partial score=0.99 date=2026-10-05
+// ?rva0070ABC0@AptNativeHash@@QAEXXZ
 // cl: /O2 /MD
 // Reconstructed from BFME2 and APT 0.19.03 Xbox final donor evidence, matching
 // the layout and flags of Code/Libraries/Source/Apt/AptNativeHashBFME2.cpp.
