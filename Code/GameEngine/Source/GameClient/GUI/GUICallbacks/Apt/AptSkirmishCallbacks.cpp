@@ -365,7 +365,6 @@ void AptSkirmish::rva00522556()
 // Retail 0x00522833, 229 bytes: "AptSkirmish::OnDeleteProfile" deletes the
 // selected profile; deleting the current user switches to the one the
 // preferences answer next. The list is refilled either way.
-// ?OnDeleteProfile@AptSkirmish@@QAEXPBD@Z present-unmatched
 void AptSkirmish::OnDeleteProfile(const char *unused)
 {
 	UnicodeString name = rva00522697();
