@@ -154,11 +154,11 @@ public:
 	virtual void v16() = 0;
 	virtual void v17() = 0;
 	virtual void v18() = 0;
-	virtual void v19() = 0;
+	virtual void v19(int value) = 0;
 	virtual void v20() = 0;
 	virtual void v21(UnicodeString text, int kind, int unused) = 0;
 	virtual void v22(int value) = 0;
-	virtual void v23() = 0;
+	virtual void v23(bool value) = 0;
 	virtual void v24() = 0;
 	virtual void RequestGameOptions(AsciiString options, bool isPublic,
 		const TransportAddress &address = TransportAddress()) = 0;
@@ -295,12 +295,18 @@ public:
 	bool rva00444B90(GameSlot *slot, SlotState state, int unused);
 	void rva00444DC3(bool starting);
 	void rva004448E5(const UnicodeString &text, int kind);
+	void rva0044421C();
+	void rva004441C5(bool flag, int unused);
 
 private:
 	unsigned char m_pad00[0x0C];
 	Rva0043DB47DoubleSetter m_0c; // +0x0C
-	unsigned char m_pad0d[0x408 - 0x0D];
+	unsigned char m_pad0d[0x88 - 0x0D];
+	int m_88; // +0x88
+	unsigned char m_pad8c[0x408 - 0x8C];
 	GameModePreferences m_prefs; // +0x408
+	unsigned char m_pad40c[0x428 - 0x40C];
+	int m_428; // +0x428
 };
 
 // Retail 0x004449FD, 198 bytes. BFME2 drops the donor's second
@@ -650,4 +656,12 @@ void BfmeAptScreenLanLobby::rva004448E5(const UnicodeString &text, int kind)
 		TheLAN->v21(text, 3, 0);
 		break;
 	}
+}
+
+// Retail 0x0044421C, 36 bytes: vftable 0x00C3E098 slot 15. Name unknown;
+// the start notice's LANAPI vslot 54 test and vslot 22 call, with 1.
+void BfmeAptScreenLanLobby::rva0044421C()
+{
+	if (TheLAN && TheLAN->v54())
+		TheLAN->v22(1);
 }
