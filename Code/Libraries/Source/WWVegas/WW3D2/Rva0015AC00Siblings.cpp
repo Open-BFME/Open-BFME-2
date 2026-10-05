@@ -6,6 +6,9 @@
 // vtable pointer and the SEH scope table address differ, and both are DIR32
 // relocation sites. The element type is unknown, so it is address-derived and
 // a 4-byte POD; the *4 scale and the code shape are what the ledger proves.
+#pragma optimize("s", on)
+#include "refcount.h"
+#pragma optimize("", on)
 #include "rendobj.h"
 #include "sharebuf.h"
 
