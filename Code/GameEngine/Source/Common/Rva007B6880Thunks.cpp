@@ -6333,13 +6333,13 @@ void __cdecl rva007B6CE1()
 	return p->~Rva00200667();
 }
 
-extern unsigned g_Va00E03CE0;
-unsigned int g_Va00E03CE0;
+extern unsigned g_Va00E0362C;
+unsigned int g_Va00E0362C;
 
-// ?rva007B8590@@YAXXZ @ 0x007B8590 (10B). Global Rva00200667 dtor thunk: ecx=&g_Va00E03CE0 then tail-jmp to pinned ??1Rva00200667@@QAE@XZ (0x00200667; deleting dtor 0x002821B3). No callers. Honest address name.
+// ?rva007B8590@@YAXXZ @ 0x007B8590 (10B). Global Rva00200667 dtor thunk: ecx=&g_Va00E0362C then tail-jmp to pinned ??1Rva00200667@@QAE@XZ (0x00200667; deleting dtor 0x002821B3). No callers. Honest address name.
 void __cdecl rva007B8590()
 {
-	Rva00200667 *p = (Rva00200667 *)&g_Va00E03CE0;
+	Rva00200667 *p = (Rva00200667 *)&g_Va00E0362C;
 	return p->~Rva00200667();
 }
 
@@ -6936,6 +6936,10 @@ void __cdecl rva007B7AFF()
 	Rva0030AF8FAudioEventRTS *p = (Rva0030AF8FAudioEventRTS *)&g_Va00DFF4B8;
 	return p->~Rva0030AF8FAudioEventRTS();
 }
+
+// Native7B89C1 loads ECX with E03CE0; separate from7B8590's E0362C.
+extern unsigned g_Va00E03CE0;
+unsigned int g_Va00E03CE0;
 
 class Rva004ABE53Dtor
 {
