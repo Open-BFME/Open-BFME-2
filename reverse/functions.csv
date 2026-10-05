@@ -60561,3 +60561,31 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva00743080@Rva00665430@@QAEXHHHHH@Z,,0x00743080,3,Code/GameEngine/Source/Common/VslotSmallBodiesAN.cpp,matched,vtable slot; empty slot taking five args; no Ghidra entry
 ?rva0058AD9F@Rva0058AD9F@@QAEHXZ,,0x0058AD9F,9,Code/GameEngine/Source/Common/VslotSmallBodiesAO.cpp,matched,vtable slot; five times the Int at VA 0x00DBA4E4 (42 tables; /O1 /G7 imul); no Ghidra entry
 ?rva00372DA6@Rva00372DA6@@QAEXXZ,,0x00372DA6,5,Code/GameEngine/Source/Common/VslotSmallBodiesAM.cpp,matched,vtable slot (table VA 0x00C17DB4); clears the +0x15 flag; no Ghidra entry
+?rva00078ADB@Rva00078ADB@@QAEXH@Z,,0x00078ADB,8,Code/GameEngine/Source/Common/VslotSmallBodiesAP.cpp,matched,vtable slot; tail jump to pinned 0x00078AE3 on the +0x1C member; no Ghidra entry
+?rva000B197C@Rva000B197C@@QAEXHH@Z,,0x000B197C,8,Code/GameEngine/Source/Common/VslotSmallBodiesAP.cpp,matched,vtable slot; tail jump to pinned 0x000B0F82 on the +0x0C object; no Ghidra entry
+?rva005259B1@Rva005259B1@@QAEXH@Z,,0x005259B1,8,Code/GameEngine/Source/Common/VslotSmallBodiesAP.cpp,matched,vtable slot; tail jump to pinned 0x005254C5 on the +0x08 member; no Ghidra entry
+?rva00527B9A@Rva00527B9A@@QAEXHHH@Z,,0x00527B9A,8,Code/GameEngine/Source/Common/VslotSmallBodiesAP.cpp,matched,vtable slot; tail jump to pinned 0x00527BA2 on the +0x04 object; no Ghidra entry
+?rva00539611@Rva00539611@@QAEXHH@Z,,0x00539611,8,Code/GameEngine/Source/Common/VslotSmallBodiesAP.cpp,matched,vtable slot; tail jump to pinned 0x005394F0 on the +0x08 object; no Ghidra entry
+?rva005397D3@Rva005397D3@@QAEXH@Z,,0x005397D3,8,Code/GameEngine/Source/Common/VslotSmallBodiesAP.cpp,matched,vtable slot; tail jump to pinned 0x0053973F on the +0x08 object; no Ghidra entry
+?rva0056D2BD@Rva0056D2BD@@QAEXH@Z,,0x0056D2BD,8,Code/GameEngine/Source/Common/VslotSmallBodiesAP.cpp,matched,vtable slot; tail jump to pinned 0x0056CA31 on the +0x08 object; no Ghidra entry
+?rva0056D2C5@Rva0056D2C5@@QAEXHH@Z,,0x0056D2C5,8,Code/GameEngine/Source/Common/VslotSmallBodiesAP.cpp,matched,vtable slot; tail jump to pinned 0x0056CCE2 on the +0x08 object; no Ghidra entry
+?rva00575DBA@Rva00575DBA@@QAEXH@Z,,0x00575DBA,8,Code/GameEngine/Source/Common/VslotSmallBodiesAP.cpp,matched,vtable slot; tail jump to pinned 0x005757F9 on the +0x08 object; no Ghidra entry
+?rva00575DC2@Rva00575DC2@@QAEXH@Z,,0x00575DC2,8,Code/GameEngine/Source/Common/VslotSmallBodiesAP.cpp,matched,vtable slot; tail jump to pinned 0x0057590E on the +0x08 object; no Ghidra entry
+?rva00575DCA@Rva00575DCA@@QAEXH@Z,,0x00575DCA,8,Code/GameEngine/Source/Common/VslotSmallBodiesAP.cpp,matched,vtable slot; tail jump to pinned 0x005759A5 on the +0x08 object; no Ghidra entry
+?rva00575DD2@Rva00575DD2@@QAEXH@Z,,0x00575DD2,8,Code/GameEngine/Source/Common/VslotSmallBodiesAP.cpp,matched,vtable slot; tail jump to pinned 0x00575A3F on the +0x08 object; no Ghidra entry
+?rva00576DCD@Rva00576DCD@@QAEXXZ,,0x00576DCD,8,Code/GameEngine/Source/Common/VslotSmallBodiesAP.cpp,matched,vtable slot; tail jump to pinned 0x00576D0D on the +0x08 object; no Ghidra entry
+?rva005772FA@Rva005772FA@@QAEXXZ,,0x005772FA,8,Code/GameEngine/Source/Common/VslotSmallBodiesAP.cpp,matched,vtable slot; tail jump to pinned 0x0057718D on the +0x08 object; no Ghidra entry
+?rva0057A362@Rva0057A362@@QAEXH@Z,,0x0057A362,8,Code/GameEngine/Source/Common/VslotSmallBodiesAP.cpp,matched,vtable slot; tail jump to pinned 0x005D46E3 on the +0x08 member; no Ghidra entry
+?rva0057A36A@Rva0057A36A@@QAEXXZ,,0x0057A36A,8,Code/GameEngine/Source/Common/VslotSmallBodiesAP.cpp,matched,vtable slot; tail jump to pinned 0x005D3F8D on the +0x08 member; no Ghidra entry
+?rva0057A372@Rva0057A372@@QAEXH@Z,,0x0057A372,8,Code/GameEngine/Source/Common/VslotSmallBodiesAP.cpp,matched,vtable slot; tail jump to pinned 0x005D3F93 on the +0x08 member; no Ghidra entry
+?rva0057AA3D@Rva0057AA3D@@QAEXHHH@Z,,0x0057AA3D,8,Code/GameEngine/Source/Common/VslotSmallBodiesAP.cpp,matched,vtable slot; tail jump to pinned 0x005D4E37 on the +0x08 member; no Ghidra entry
+?rva0059B420@Rva0059B420@@QAEXHHH@Z,,0x0059B420,8,Code/GameEngine/Source/Common/VslotSmallBodiesAP.cpp,matched,vtable slot; tail jump to pinned 0x0059B428 on the +0x04 object; no Ghidra entry
+?rva005C3586@Rva005C3586@@QAEXXZ,,0x005C3586,8,Code/GameEngine/Source/Common/VslotSmallBodiesAP.cpp,matched,vtable slot; tail jump to pinned 0x005C33DD on the +0x08 object; no Ghidra entry
+?rva005C358E@Rva005C358E@@QAEXXZ,,0x005C358E,8,Code/GameEngine/Source/Common/VslotSmallBodiesAP.cpp,matched,vtable slot; tail jump to pinned 0x005C3427 on the +0x08 object; no Ghidra entry
+?rva005C3596@Rva005C3596@@QAEXXZ,,0x005C3596,8,Code/GameEngine/Source/Common/VslotSmallBodiesAP.cpp,matched,vtable slot; tail jump to pinned 0x005C3453 on the +0x08 object; no Ghidra entry
+?rva005C359E@Rva005C359E@@QAEXXZ,,0x005C359E,8,Code/GameEngine/Source/Common/VslotSmallBodiesAP.cpp,matched,vtable slot; tail jump to pinned 0x005C349D on the +0x08 object; no Ghidra entry
+?rva005CBAE6@Rva005CBAE6@@QAEXH@Z,,0x005CBAE6,8,Code/GameEngine/Source/Common/VslotSmallBodiesAP.cpp,matched,vtable slot; tail jump to pinned 0x005CB9D1 on the +0x04 member; no Ghidra entry
+?rva005CEA35@Rva005CEA35@@QAEXXZ,,0x005CEA35,8,Code/GameEngine/Source/Common/VslotSmallBodiesAP.cpp,matched,vtable slot; tail jump to pinned 0x005CEA1C on the +0x08 object; no Ghidra entry
+?rva005CF8DB@Rva005CF8DB@@QAEXXZ,,0x005CF8DB,8,Code/GameEngine/Source/Common/VslotSmallBodiesAP.cpp,matched,vtable slot; tail jump to pinned 0x00574192 on the +0x08 member; no Ghidra entry
+?rva005F3FF4@Rva005F3FF4@@QAEXXZ,,0x005F3FF4,8,Code/GameEngine/Source/Common/VslotSmallBodiesAP.cpp,matched,vtable slot; tail jump to pinned 0x005F3F9A on the +0x08 object; no Ghidra entry
+?rva005F41AF@Rva005F41AF@@QAEXXZ,,0x005F41AF,8,Code/GameEngine/Source/Common/VslotSmallBodiesAP.cpp,matched,vtable slot; tail jump to pinned 0x005F40B0 on the +0x08 object; no Ghidra entry
