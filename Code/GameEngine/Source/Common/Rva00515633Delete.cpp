@@ -15,11 +15,10 @@ public:
 
 class GameState;
 extern GameState *TheGameState;
-extern const WideChar g_00C65EC4[];
 extern "C" __declspec(dllimport) int __stdcall DeleteFileW(const WideChar *lpFileName);
 
 void __cdecl Rva00515633Delete(void)
 {
-	UnicodeString path = ((const Rva002DC74A *)TheGameState)->rva002DC74A(UnicodeString(g_00C65EC4));
+	UnicodeString path = ((const Rva002DC74A *)TheGameState)->rva002DC74A(UnicodeString((const WideChar *)L"000"));
 	DeleteFileW(path.str());
 }
