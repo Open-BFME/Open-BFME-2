@@ -56662,3 +56662,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?Rva0058CB27Write@@YAXPADPAVNetCommandRef@@@Z,,0x0058CB27,178,Code/GameEngine/Source/GameNetwork/Rva0058CB27Write.cpp,matched,sibling serializer layout plus percent and dataOffset rows
 ?Rva0058CBD9Write@@YAXPADPAVNetCommandRef@@@Z,,0x0058CBD9,178,Code/GameEngine/Source/GameNetwork/Rva0058CBD9Write.cpp,matched,sibling Rva0058CB27Write layout plus percent and dataLength rows
 ??1Rva00362CF2@@UAE@XZ,,0x00362CF2,51,Code/GameEngine/Source/Common/Rva00362D6CDtor.cpp,matched,GlowMaterial dtor via releaseReferences plus BBB554 base
+?Rva00206923XferList@@YAPAVXfer@@PAV1@PAV?$list@UBfmeSpecialPowerTimer8@@V?$allocator@UBfmeSpecialPowerTimer8@@@_STL@@@_STL@@@Z,,0x00206923,205,Code/GameEngine/Source/GameLogic/ScriptEngine/Rva00206923XferList.cpp,matched,leaf Xfer list SpecialPowerTimer8 via Chain 0x00203D86 same skeleton as xferListInt
