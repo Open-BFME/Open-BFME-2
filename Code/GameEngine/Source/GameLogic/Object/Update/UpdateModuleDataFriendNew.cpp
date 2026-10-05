@@ -750,3 +750,30 @@ ModuleData *FellBeastSwoopPowerModuleData::friend_newModuleData(INI *ini)
 		ini->initFromINIMultiProc(data, FellBeastSwoopPowerModuleData::buildFieldParse);
 	return reinterpret_cast<ModuleData *>(data);
 }
+
+// Registration SpecialAbilityUpdate (0x00259DD9) pushes this data factory with
+// the rowed SpecialAbilityUpdate::friend_newModuleInstance 0x0024A847. Its
+// 0xC8 data is built by the ctor at 0x0044EB54 alone (it stores the final
+// vtable 0x00C3F2A8; the ledger keeps it as the opaque Rva0044EB54, which 26
+// *SpecialAbilityUpdate / special-power module data ctors call as their base)
+// and parsed by 0x0044ED95; both are pinned under this class as aliases.
+class SpecialAbilityUpdateModuleData
+{
+public:
+	SpecialAbilityUpdateModuleData();
+	virtual ~SpecialAbilityUpdateModuleData();
+	static void buildFieldParse(MultiIniFieldParse &parse);
+	static ModuleData *friend_newModuleData(INI *ini);
+
+private:
+	unsigned char m_pad[0xC8 - 4];
+};
+
+// ?friend_newModuleData@SpecialAbilityUpdateModuleData@@SAPAVModuleData@@PAVINI@@@Z
+ModuleData *SpecialAbilityUpdateModuleData::friend_newModuleData(INI *ini)
+{
+	SpecialAbilityUpdateModuleData *data = new SpecialAbilityUpdateModuleData;
+	if (ini)
+		ini->initFromINIMultiProc(data, SpecialAbilityUpdateModuleData::buildFieldParse);
+	return reinterpret_cast<ModuleData *>(data);
+}

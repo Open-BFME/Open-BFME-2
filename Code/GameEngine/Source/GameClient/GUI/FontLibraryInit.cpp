@@ -96,6 +96,24 @@ void ControlBarResizer::init()
 	ini.loadFile("Data\\INI\\ControlBarResizer.ini", INI_LOAD_OVERWRITE, 0);
 }
 
+// ?parseIni@Mouse@@QAEXXZ, retail 0x001EE483, 89 bytes.
+// Zero Hour's Mouse::parseIni (Mouse.cpp, right after ~Mouse): the same stack
+// INI and one load of "Data\\INI\\Mouse.ini". Retail places it directly after
+// the 165-byte destructor at 0x001EE3DE (ZH's ~Mouse precedes parseIni), and
+// nothing calls or references it; it lands beside ControlBarResizer::init for
+// the same INI ctor, loadFile and dtor names.
+class Mouse
+{
+public:
+	void parseIni();
+};
+
+void Mouse::parseIni()
+{
+	INI ini;
+	ini.loadFile("Data\\INI\\Mouse.ini", INI_LOAD_OVERWRITE, 0);
+}
+
 // ?rva00425F10@Rva00425F10@@UAEXXZ, retail 0x00425F10, 89 bytes.
 // The same body loading "Data\\INI\\Stances.ini", in slot 1 of vtable 0xC3C2AC
 // (the slot FontLibrary::init fills in its vtable).

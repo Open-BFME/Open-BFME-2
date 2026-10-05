@@ -106,6 +106,7 @@ public:
 	void rva0044DCB9(Int val);
 	void rva0044DD1E(Int val);
 	void rva0044DD83(AsciiString val);
+	void rva0044DE5A(const AsciiString &val);
 	void rva0044DEC1(const AsciiString &val);
 
 private:
@@ -115,6 +116,13 @@ private:
 	mutable AsciiString m_key;
 };
 AsciiString AsciiStringToQuotedPrintable(AsciiString original);
+// ?rva0044DE5A@GameModePreferences@@QAEXABVAsciiString@@@Z, retail 0x0044DE5A
+// (103 bytes, directly before the Password setter; caller 0x005A29EA): the
+// same quoted-printable store under the "GameName" key.
+void GameModePreferences::rva0044DE5A(const AsciiString &val)
+{
+	(*this)[makeKey("GameName")].set(AsciiStringToQuotedPrintable(val));
+}
 void GameModePreferences::rva0044DEC1(const AsciiString &val)
 {
 	(*this)[makeKey("Password")].set(AsciiStringToQuotedPrintable(val));

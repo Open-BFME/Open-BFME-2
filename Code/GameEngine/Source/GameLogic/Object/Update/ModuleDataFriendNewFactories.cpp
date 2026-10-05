@@ -198,3 +198,28 @@ ModuleData *ModelConditionSoundSelectorClientBehaviorModuleData::friend_newModul
 		ini->initFromINIMultiProc(data, ModelConditionSoundSelectorClientBehaviorParse_252C13);
 	return reinterpret_cast<ModuleData *>(data);
 }
+
+// 0x0024DC8C: registered by both SpecialPowerModule (0x0025B615, with instance
+// factory 0x0024DC54) and SpecialPowerTimerRefreshSpecialPower (0x0025B79A);
+// news 0x7C, ctor ??0SpecialPowerModuleData (rowed 0x4930A0), parse proc
+// ?buildFieldParse@SpecialPowerModuleData (rowed 0x493207).
+class SpecialPowerModuleData
+{
+public:
+	SpecialPowerModuleData();
+	virtual ~SpecialPowerModuleData();
+	static void buildFieldParse(MultiIniFieldParse &parse);
+	static ModuleData *friend_newModuleData(INI *ini);
+
+private:
+	unsigned char m_pad[0x7C - 4];
+};
+
+// ?friend_newModuleData@SpecialPowerModuleData@@SAPAVModuleData@@PAVINI@@@Z
+ModuleData *SpecialPowerModuleData::friend_newModuleData(INI *ini)
+{
+	SpecialPowerModuleData *data = new SpecialPowerModuleData;
+	if (ini)
+		ini->initFromINIMultiProc(data, SpecialPowerModuleData::buildFieldParse);
+	return reinterpret_cast<ModuleData *>(data);
+}

@@ -118,3 +118,50 @@ void __cdecl Rva0041AD08Caller(AsciiString p, File *c)
 {
 	Rva0041AD08Read(p, c);
 }
+
+// ?Rva0041AE00Read@@YAXVAsciiString@@PAVFile@@@Z, retail 0x0041AE00, 248 bytes:
+// the same read for the "InUseMap" entry (callers 0x0041B3DA, 0x0041B435).
+static void __cdecl Rva0041AE00Read(AsciiString path, File *ctx)
+{
+	char *t = *(char **)(void *)&path;
+	const char *name = t ? t + 8 : g_Rva0107301CEmptyString;
+	OpenedFile *f = (OpenedFile *)TheFileSystem->openFile(name, 0x41, 0);
+	if (!f)
+	{
+		BfmeFormattedText tmp;
+		bfmeFormatText(&tmp, 5, (const char *)0);
+		_CxxThrowException(&tmp, (const _s__ThrowInfo *)&g_guardTargetTypeThrowInfo);
+		__assume(0);
+	}
+	int size = f->f_seek(0, 2);
+	f->f_seek(0, 0);
+	char *buf = new char[size];
+	if (!buf)
+	{
+		BfmeFormattedText tmp;
+		bfmeFormatText(&tmp, 5, (const char *)0);
+		_CxxThrowException(&tmp, (const _s__ThrowInfo *)&g_guardTargetTypeThrowInfo);
+		__assume(0);
+	}
+	int got = f->f_read(buf, size);
+	if (got != size)
+	{
+		delete[] buf;
+		BfmeFormattedText tmp;
+		bfmeFormatText(&tmp, 5, (const char *)0);
+		_CxxThrowException(&tmp, (const _s__ThrowInfo *)&g_guardTargetTypeThrowInfo);
+		__assume(0);
+	}
+	f->f_close();
+	ctx->f_check("InUseMap");
+	ctx->f_getsize(&size);
+	ctx->f_read2(buf, size);
+	ctx->f_close2();
+	delete[] buf;
+}
+
+// ?Rva0041AE00Caller@@YAXVAsciiString@@PAVFile@@@Z present-unmatched
+void __cdecl Rva0041AE00Caller(AsciiString p, File *c)
+{
+	Rva0041AE00Read(p, c);
+}

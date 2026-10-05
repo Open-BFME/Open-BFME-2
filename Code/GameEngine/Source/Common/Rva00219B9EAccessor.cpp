@@ -93,10 +93,12 @@ public:
     void *rva00219CC5(unsigned int index);
     int rva00219BE1(unsigned int index);
     int rva00219C1F(unsigned int index);
+    void *rva0021ADF8(unsigned int index);
     void *rva0021AE56(unsigned int index);
     void *rva0021AEB9(unsigned int index);
     void *rva0021AF7E(unsigned int index);
     void *rva0021AFEA(unsigned int index);
+    void *rva0021B13A(unsigned int o, unsigned int i);
     void *rva0021B1B4(unsigned int o, unsigned int i);
     void *rva0021B2A2(unsigned int o, unsigned int i);
     void *rva0021A134(unsigned int index);
@@ -216,6 +218,16 @@ int Rva00219B9E::rva00219C1F(unsigned int index)
 // Chain of 0x00219B9E; static constructed via rowed StringBase<char> PBD 0x00037BA0
 // with atexit cleanup; null path returns the static, else element+8.
 // Caller 0x0021B215.
+// ?rva0021ADF8@Rva00219B9E@@QAEPAXI@Z @0x0021ADF8 94B
+// The element itself (no member offset), with its own static fallback.
+void *Rva00219B9E::rva0021ADF8(unsigned int index)
+{
+    static AsciiString err("ERROR: Invalid SubCalssIndex");
+    void *p = rva00219B9E(index);
+    if (p)
+        return p;
+    return &err;
+}
 void *Rva00219B9E::rva0021AE56(unsigned int index)
 {
     static AsciiString err("ERROR: Invalid SubCalssIndex");
@@ -303,6 +315,19 @@ void *Rva00219B9E::rva0021B670(const IdxPair *p)
     if (!p)
         return (void *)&AsciiString::TheEmptyString;
     return rva0021B22E(p->m_o, p->m_i);
+}
+// ?rva0021B13A@Rva00219B9E@@QAEPAXII@Z @0x0021B13A 122B
+// Twin of 0x0021B1B4 below resolving through 0x0021ADF8; callers 0x0021CBE1,
+// 0x0043F98C (MpGameSetup), 0x005B2167, 0x005B6885.
+void *Rva00219B9E::rva0021B13A(unsigned int o, unsigned int i)
+{
+    static AsciiString err("ERROR: Invalid CalssIndex");
+    unsigned int count = Vec32Size(&m_outer);
+    if (o < count) {
+        OuterElem32 *base = m_outer.m_start;
+        return ((Rva00219B9E *)&base[o])->rva0021ADF8(i);
+    }
+    return &err;
 }
 // ?rva0021B1B4@Rva00219B9E@@QAEPAXII@Z @0x0021B1B4 122B
 // Two-level lookup: outer 32B vector at +0x14C selects the element, then the

@@ -36,6 +36,7 @@ extern Rva002D06CA *g_009FF000;
 
 class ThingTemplate {
 public:
+    const Image *rva0033B580();
     const Image *rva0033BA46();
 };
 
@@ -46,6 +47,7 @@ struct Rva005D2355In {
     int id54;
 };
 const Image *Rva005D2355Get(Rva005D2355In *in);
+const Image *Rva005F031DGet(Rva005D2355In *in);
 const Image *Rva005D2355Get(Rva005D2355In *in)
 {
     const AsciiString &s = in->str18;
@@ -53,6 +55,28 @@ const Image *Rva005D2355Get(Rva005D2355In *in)
         void *v = g_009FF000->rva002D06CA(&s);
         if (v != 0)
             return ((ThingTemplate *)v)->rva0033BA46();
+    }
+    int id = in->id54;
+    Rva002E2903Player *p = g_009FEF10->find(id, 0);
+    if (p != 0) {
+        Rva005D2355Holder *h = *(Rva005D2355Holder **)((char *)p + 0x40);
+        const AsciiString &s2 = *(const AsciiString *)((char *)h + 0x30);
+        if (!((const StringBase<char> *)&s2)->isEmpty())
+            return g_00DFF078->findImageByName(s2);
+    }
+    return 0;
+}
+
+// ?Rva005F031DGet@@YAPBVImage@@PAURva005D2355In@@@Z @0x005F031D 102B: the same
+// lookup ending in the template's rowed ButtonImage resolver 0x0033B580 instead
+// of the portrait one; called from 0x005E1B09 and 0x005FF04B.
+const Image *Rva005F031DGet(Rva005D2355In *in)
+{
+    const AsciiString &s = in->str18;
+    if (!((const StringBase<char> *)&s)->isEmpty()) {
+        void *v = g_009FF000->rva002D06CA(&s);
+        if (v != 0)
+            return ((ThingTemplate *)v)->rva0033B580();
     }
     int id = in->id54;
     Rva002E2903Player *p = g_009FEF10->find(id, 0);
