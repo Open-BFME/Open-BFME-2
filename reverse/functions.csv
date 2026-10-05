@@ -66367,3 +66367,5 @@ _Rva00850560,,0x000236F0,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ?rva004AABB4@Rva004AABB4@@QAEPAVObject@@PAV2@0PAUCoord3D@@@Z,,0x004AABB4,426,Code/GameEngine/Source/GameLogic/Object/Update/Rva004AABB4BuildPos.cpp,matched,worker build position scan logs the bridge case and keeps the nearest tower
 ?xfer@WorkerAIUpdate@@MAEXPAVXfer@@@Z,,0x004AA1DB,453,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdateXfer.cpp,matched,WorkerAIUpdate xfer: AIUpdateInterface base Version(1 2) three tasks docks machines TheAudio slot 88
 ?rva00109D64@Rva007B1380@@QAEXXZ,,0x00109D64,40,Code/GameEngine/Source/Common/Rva007B1380Ctor.cpp,matched,float reset abutting ctor via rowed base initialize plus 20.0f literal
+?rva0014F674@@YAPAXPAXI0H@Z,,0x0014F674,37,Code/GameEngine/Source/Common/Rva0014F674Loop.cpp,matched,cdecl stride loop via pinned helper
+?rva0014FA47@@YAPAXPAXI0@Z,,0x0014FA47,27,Code/GameEngine/Source/Common/Rva0014F674Loop.cpp,matched,forward via rowed stride loop
