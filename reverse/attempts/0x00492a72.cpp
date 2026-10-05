@@ -1,5 +1,5 @@
 // ?rva0045108D@WeaponFireSpecialAbilityUpdate@@UAEXXZ
-// partial score=0.97 date=2026-10-04
+// partial score=0.98 date=2026-10-05
 // cl: /O1 /DNDEBUG /MD /arch:SSE
 //
 // ?rva0045108D@WeaponFireSpecialAbilityUpdate@@UAEXXZ, retail 0x00492A72,
@@ -97,7 +97,6 @@ public:
 	unsigned char m_pad00[0x08];
 	ObjectID m_08; // +0x08
 };
-static __forceinline ObjectID idOf(const Object *o) { ObjectID id = o ? o->m_74 : INVALID_ID; return id; }
 class GameLogic
 {
 public:
@@ -161,7 +160,7 @@ void WeaponFireSpecialAbilityUpdate::rva0045108D()
 	if (!(obj->m_template->m_115 & 0x20) || !data->m_C4)
 	{
 		Object *target = TheGameLogic->findObjectByID(m_targetID);
-		ObjectID targetID = idOf(target);
+		ObjectID targetID = target ? target->m_74 : INVALID_ID;
 		if (target && (target->m_template->m_115 & 0x20))
 		{
 			Rva00492A72Redirect *redirect = target->rva0028C197();
