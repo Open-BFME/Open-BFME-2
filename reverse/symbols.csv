@@ -11424,3 +11424,4 @@ _floor,0x00629940,call site 0x006F4403 in AptDate::getDayOfWeek (0x006F4290) enc
 ?erase@Rva005DE7D1Vector@@AAEPAURva005DE7D1Record@@PAU2@0@Z,0x00381B1F,Native98B resize scoped8B record ABI view; fullrowedprovider51B verified; consumedcallsite5DE7F9
 ?fill@Rva005DE7D1Vector@@AAEXPAURva005DE7D1Record@@IABU2@@Z,0x005DE651,Native98B resize scoped8B record ABI view; fullrowedprovider260B verified; consumedcallsite5DE812
 ??0?$_Vector_base@UBfmeStringRecord005DDD40@@V?$allocator@UBfmeStringRecord005DDD40@@@_STL@@@_STL@@QAE@ABV?$allocator@UBfmeStringRecord005DDD40@@@1@@Z,0x00211E58,Native owner103Bctor at5DE62C calls fullrowed29B empty vector base; ICF-compatible three-pointer layout and one unused allocator reference; real linker alias
+??1Rva0057C03BModule@@QAE@XZ,0x0057C03B,CategoryModuleClass dtor teardown for the Rva007B6880Thunks.cpp thunks (0x007B9400/0x007B940A/0x007B9414/0x007B941E/0x007B9428/0x007B9432); folded CategoryModuleClass<$N> family at this address

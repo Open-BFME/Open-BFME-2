@@ -6373,3 +6373,132 @@ void __cdecl rva007B8247()
 	Rva00411453Tree *p = (Rva00411453Tree *)&g_Va00E02FD0;
 	return p->~Rva00411453Tree();
 }
+
+// CategoryModuleClass dtor teardown view for the six thunks below. The
+// destructor is declared only; symbols.csv pins it to 0x0057C03B, where the
+// rowed CategoryModuleClass<$N> dtors (FXParticleSystem.cpp) are folded.
+// Which instantiation each global holds is unproven.
+class Rva0057C03BModule
+{
+public:
+	~Rva0057C03BModule();
+};
+
+extern unsigned g_Va00E06228;
+unsigned int g_Va00E06228;
+
+// ?rva007B9400@@YAXXZ @ 0x007B9400 (10B). CategoryModuleClass dtor teardown: ecx=&g_Va00E06228 then tail-jmp to the folded family at 0x0057C03B. No callers. Honest address name.
+void __cdecl rva007B9400()
+{
+	Rva0057C03BModule *p = (Rva0057C03BModule *)&g_Va00E06228;
+	return p->~Rva0057C03BModule();
+}
+
+extern unsigned g_Va00E06240;
+unsigned int g_Va00E06240;
+
+// ?rva007B940A@@YAXXZ @ 0x007B940A (10B). CategoryModuleClass dtor teardown: ecx=&g_Va00E06240 then tail-jmp to the folded family at 0x0057C03B. No callers. Honest address name.
+void __cdecl rva007B940A()
+{
+	Rva0057C03BModule *p = (Rva0057C03BModule *)&g_Va00E06240;
+	return p->~Rva0057C03BModule();
+}
+
+extern unsigned g_Va00E06258;
+unsigned int g_Va00E06258;
+
+// ?rva007B9414@@YAXXZ @ 0x007B9414 (10B). CategoryModuleClass dtor teardown: ecx=&g_Va00E06258 then tail-jmp to the folded family at 0x0057C03B. No callers. Honest address name.
+void __cdecl rva007B9414()
+{
+	Rva0057C03BModule *p = (Rva0057C03BModule *)&g_Va00E06258;
+	return p->~Rva0057C03BModule();
+}
+
+extern unsigned g_Va00E06270;
+unsigned int g_Va00E06270;
+
+// ?rva007B941E@@YAXXZ @ 0x007B941E (10B). CategoryModuleClass dtor teardown: ecx=&g_Va00E06270 then tail-jmp to the folded family at 0x0057C03B. No callers. Honest address name.
+void __cdecl rva007B941E()
+{
+	Rva0057C03BModule *p = (Rva0057C03BModule *)&g_Va00E06270;
+	return p->~Rva0057C03BModule();
+}
+
+extern unsigned g_Va00E06284;
+unsigned int g_Va00E06284;
+
+// ?rva007B9428@@YAXXZ @ 0x007B9428 (10B). CategoryModuleClass dtor teardown: ecx=&g_Va00E06284 then tail-jmp to the folded family at 0x0057C03B. No callers. Honest address name.
+void __cdecl rva007B9428()
+{
+	Rva0057C03BModule *p = (Rva0057C03BModule *)&g_Va00E06284;
+	return p->~Rva0057C03BModule();
+}
+
+extern unsigned g_Va00E06298;
+unsigned int g_Va00E06298;
+
+// ?rva007B9432@@YAXXZ @ 0x007B9432 (10B). CategoryModuleClass dtor teardown: ecx=&g_Va00E06298 then tail-jmp to the folded family at 0x0057C03B. No callers. Honest address name.
+void __cdecl rva007B9432()
+{
+	Rva0057C03BModule *p = (Rva0057C03BModule *)&g_Va00E06298;
+	return p->~Rva0057C03BModule();
+}
+
+// Minimal Rva005C47A3 view for the four thunks below. The destructor is
+// declared only; symbols.csv already pins ??1Rva005C47A3@@UAE@XZ to
+// 0x005C47A3 (scalar deleting dtor 0x005C43E7).
+class Rva005C47A3
+{
+public:
+	virtual ~Rva005C47A3();
+};
+
+extern unsigned g_Va00E04500;
+unsigned int g_Va00E04500;
+
+// ?rva007B9035@@YAXXZ @ 0x007B9035 (10B). Global Rva005C47A3 dtor thunk: ecx=&g_Va00E04500 then tail-jmp to pinned ??1Rva005C47A3@@UAE@XZ (0x005C47A3). No callers. Honest address name.
+void __cdecl rva007B9035()
+{
+	Rva005C47A3 *p = (Rva005C47A3 *)&g_Va00E04500;
+	return p->Rva005C47A3::~Rva005C47A3();
+}
+
+extern unsigned g_Va00E065B4;
+unsigned int g_Va00E065B4;
+
+// ?rva007B96EE@@YAXXZ @ 0x007B96EE (10B). Global Rva005C47A3 dtor thunk: ecx=&g_Va00E065B4 then tail-jmp to pinned ??1Rva005C47A3@@UAE@XZ (0x005C47A3). No callers. Honest address name.
+void __cdecl rva007B96EE()
+{
+	Rva005C47A3 *p = (Rva005C47A3 *)&g_Va00E065B4;
+	return p->Rva005C47A3::~Rva005C47A3();
+}
+
+extern unsigned g_Va00E065B8;
+unsigned int g_Va00E065B8;
+
+// ?rva007B96F8@@YAXXZ @ 0x007B96F8 (10B). Global Rva005C47A3 dtor thunk: ecx=&g_Va00E065B8 then tail-jmp to pinned ??1Rva005C47A3@@UAE@XZ (0x005C47A3). No callers. Honest address name.
+void __cdecl rva007B96F8()
+{
+	Rva005C47A3 *p = (Rva005C47A3 *)&g_Va00E065B8;
+	return p->Rva005C47A3::~Rva005C47A3();
+}
+
+extern unsigned g_Va00E065BC;
+unsigned int g_Va00E065BC;
+
+// ?rva007B9702@@YAXXZ @ 0x007B9702 (10B). Global Rva005C47A3 dtor thunk: ecx=&g_Va00E065BC then tail-jmp to pinned ??1Rva005C47A3@@UAE@XZ (0x005C47A3). No callers. Honest address name.
+void __cdecl rva007B9702()
+{
+	Rva005C47A3 *p = (Rva005C47A3 *)&g_Va00E065BC;
+	return p->Rva005C47A3::~Rva005C47A3();
+}
+
+extern unsigned g_Va00E0657C;
+unsigned int g_Va00E0657C;
+
+// ?rva007B945A@@YAXXZ @ 0x007B945A (10B). Global Rva00200667 dtor thunk: ecx=&g_Va00E0657C then tail-jmp to pinned ??1Rva00200667@@QAE@XZ (0x00200667; deleting dtor 0x002821B3). No callers. Honest address name.
+void __cdecl rva007B945A()
+{
+	Rva00200667 *p = (Rva00200667 *)&g_Va00E0657C;
+	return p->~Rva00200667();
+}
