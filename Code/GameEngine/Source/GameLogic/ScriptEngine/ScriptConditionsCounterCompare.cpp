@@ -42,7 +42,7 @@ struct ScriptCounter
 class ScriptEngine
 {
 public:
-	ScriptCounter *getCounter(AsciiString name);
+	void *rva002086C5(AsciiString name);
 };
 extern ScriptEngine *TheScriptEngine;
 
@@ -55,12 +55,12 @@ protected:
 bool ScriptConditions::evaluateCounterCompareRva003E7CBA(Condition *condition)
 {
 	int left = 0;
-	ScriptCounter *counter = TheScriptEngine->getCounter(condition->getParameter(0)->getString());
+	ScriptCounter *counter = (ScriptCounter *)TheScriptEngine->rva002086C5(condition->getParameter(0)->getString());
 	if (counter)
 		left = counter->m_value;
 
 	int right = 0;
-	counter = TheScriptEngine->getCounter(condition->getParameter(2)->getString());
+	counter = (ScriptCounter *)TheScriptEngine->rva002086C5(condition->getParameter(2)->getString());
 	if (counter)
 		right = counter->m_value;
 
