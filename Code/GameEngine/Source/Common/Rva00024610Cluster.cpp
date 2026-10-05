@@ -1,5 +1,5 @@
 // cl: /Od
-#include <new>
+void *__cdecl operator new(unsigned int, void *p) throw();
 //
 // One-off STLport-shaped helpers from the 0x00024610 neighbourhood, sitting
 // between BfmeTwoHundredEightyTwo's bfmeMakePV and the rowed list/swap bodies.
