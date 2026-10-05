@@ -1,6 +1,7 @@
-// ?update@DelayedLuaEventUpdate@@UAE?AW4UpdateSleepTime@@XZ
-// partial score=0.97 date=2026-10-04
-// cl: /O1 /MD /GX /arch:SSE
+// cl: /O1 /MD /GX /arch:SSE /G7
+// ?update@DelayedLuaEventUpdate@@UAE?AW4UpdateSleepTime@@XZ @0x004A8F52 240B
+// Slot 0 of the +0x10 interface vftable 0x00C53A50 (ctor 0x004A8E7B stores it): relationship flags 2 and 6 when +0x74 plus bit0 when +0x75 via iterateObjectsInRange then Lua event 0x003360D2 then destroyObject; /G7 for or al 1.
+// Evidence: vftable slot plus rowed callees plus ThePartitionManager plus TheGameLogic; finish from stash 0x004a8f52 (0.97) via G7.
 class Object;
 class Player;
 
@@ -99,12 +100,13 @@ private:
 	unsigned char m_data[0x4C];
 };
 
-class Rva003360D2
+struct BfmeDelayedLuaEventList;
+class BfmeObjectEventDispatch
 {
 public:
-	void rva003360D2(int event, Object *obj, DelayedLuaEventList *list);	// 0x003360D2
+	void rva003360D2(int index, void *object, BfmeDelayedLuaEventList *eventList);
 };
-extern Rva003360D2 *g_Va00E01DBC;
+extern BfmeObjectEventDispatch *g_00E01DBC;
 
 enum UpdateSleepTime
 {
@@ -169,10 +171,8 @@ UpdateSleepTime DelayedLuaEventUpdate::update()
 		Rva00260EB1Filter(obj, flags, false).link(Rva0026119DFilter().link(&Rva002611BFFilter(obj))), 1);
 	for (Object *other = hits.next(); other != 0; other = hits.next()) {
 		if (other != obj)
-			g_Va00E01DBC->rva003360D2(m_event, other, &m_events);
+			g_00E01DBC->rva003360D2(m_event, (void *)other, (BfmeDelayedLuaEventList *)&m_events);
 	}
 	TheGameLogic->destroyObject(m_object);
 	return UPDATE_SLEEP_NONE;
 }
-
-

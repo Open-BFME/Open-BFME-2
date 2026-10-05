@@ -1,5 +1,5 @@
 // ?rva002AC2CF@Rva002AC2CFTarget@@QAEXHHH@Z
-// partial score=0.95 date=2026-10-05
+// partial score=0.97 date=2026-10-05
 // cl: /O1 /DNDEBUG /MD
 // ?rva002AC2CF@Rva002AC2CFTarget@@QAEXHHH@Z @0x002AC2CF 113B: two-segment copy via memcpy with empty-string fallback.
 // Evidence: vtable 0x00BFDC6C#1 forwarder tail-jmps with 3 args; callees rowed ji_006291a8 memcpy and data 0x007BAC1C empty string.
@@ -41,6 +41,8 @@ void Rva002AC2CFTarget::rva002AC2CF(Int a0, Int a1, Int a2)
 	}
 	void *d = *m_second;
 	int off2 = a1 - len;
-	const char *base = d ? (const char *)d + 8 : g_Rva0107301CEmptyString;
+	const char *base = (const char *)d + 8;
+	if (!d)
+		base = g_Rva0107301CEmptyString;
 	memcpy((void *)a0, base + off2, a2);
 }
