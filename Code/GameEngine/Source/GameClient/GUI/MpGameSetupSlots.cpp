@@ -99,6 +99,7 @@ public:
 	int getState() const { return m_state; }
 	int getHeroKey0c() const { return m_hero0c; }
 	int getHeroKey10() const { return m_hero10; }
+	int getStartPos() const { return m_10; }
 
 };
 
@@ -393,6 +394,9 @@ public:
 	// Unrowed 0x0057D5E5 (292 bytes; called by the panel's 0x0043DE19
 	// shutdown), pinned by address.
 	void rva0057D5E5();
+	// Unrowed 0x0057CDA1 (34 bytes; ret 0xC: 1 after handling a combo box
+	// selection of its +0x50 window, else 0), pinned by address.
+	int rva0057CDA1(unsigned int msg, unsigned int data1, unsigned int data2);
 
 	unsigned char m_pad00[0x1C];
 	int m_mode; // +0x1C (the panel's +0x7C, MpGameSetupOnInitGadget.cpp's m_hideFlag)
@@ -415,6 +419,8 @@ public:
 	// Unrowed 0x0057EF87 (123 bytes; called by the panel's 0x0043DE19
 	// shutdown), pinned.
 	void rva0057EF87();
+	// Unrowed 0x0057E707 (114 bytes; ret 0xC, its window messages), pinned.
+	bool rva0057E707(unsigned int msg, unsigned int data1, unsigned int data2);
 };
 
 // The member at +0x190's base (Rva004421E1Dtor.cpp's Rva0057F2DE).
@@ -427,6 +433,9 @@ public:
 	// Unrowed 0x0057F5ED (447 bytes; refills its +0xA4 window), pinned by
 	// address.
 	void rva0057F5ED();
+	// Unrowed 0x0057FC75 (234 bytes; ret 0xC, its window messages), pinned
+	// by address.
+	bool rva0057FC75(unsigned int msg, unsigned int data1, unsigned int data2);
 };
 
 // The member at +0x244 (rowed under its address name).
@@ -438,6 +447,9 @@ public:
 	// Unrowed 0x0057FDB0 (15 bytes; hands the flag to its +0x64 member),
 	// pinned by address.
 	void rva0057FDB0(bool changed);
+	// Unrowed 0x0057FD7B (25 bytes; ret 0xC, forwards window messages to its
+	// +0x64 member when +0x68 is set), pinned by address.
+	bool rva0057FD7B(unsigned int msg, unsigned int data1, unsigned int data2);
 };
 
 // A panel member rowed under its own address-named class (0x0043DBE0).
@@ -599,6 +611,31 @@ class AptMapPreview
 {
 public:
 	void rva0057C597(bool enable);
+	// Rowed 0x0057C57B: the start position a button window shows, or -1.
+	int rva0057C57B(int window);
+};
+
+// The +0x60 member's next selectable slot from a start (rowed 0x0057CA78
+// under its address class).
+class Rva0057CA78
+{
+public:
+	int rva0057CA78(int start);
+};
+
+// The panel's team, handicap and start position handlers, rowed under
+// their own address classes (Rva0043DFE0.cpp, Rva0043E0C5.cpp).
+class Rva0043DFE0
+{
+public:
+	bool rva0043DFE0(int slot);
+};
+
+class Rva0043E0C5
+{
+public:
+	bool rva0043E0C5(int slot);
+	bool rva0043E132(int slot, int position);
 };
 
 int Rva00322910(GameWindow *comboBox);
@@ -757,6 +794,7 @@ public:
 
 	void rva0043FA68(GameInfo *game);
 	void rva0043DE19();
+	int rva00442CB3(unsigned int msg, unsigned int data1, unsigned int data2);
 
 	void rva004404AC(bool enable, int slot);
 
@@ -819,9 +857,8 @@ private:
 	GameWindow *m_hero[8]; // +0x374
 	GameWindow *m_mapList; // +0x394 (a list box)
 	// +0x398: a vector<AsciiString> (Rva004421E1Dtor.cpp), one map per list
-	// box row; only its begin pointer is read here.
-	AsciiString *m_maps;
-	unsigned char m_pad39c[0x3A4 - 0x39C];
+	// box row.
+	_STL::vector<AsciiString> m_maps;
 	int m_flags; // +0x3A4
 	int m_3a8; // +0x3A8
 	unsigned char m_pad3ac[0x3C4 - 0x3AC];
@@ -2471,4 +2508,139 @@ void Rva0043E8F1Tooltip(GameWindow *window, WinInstanceData *instData, unsigned 
 	}
 
 	TheMouse->rva001EEA6D(tooltip, -1, 0, 1.0f);
+}
+
+// Retail 0x00442CB3, 690 bytes. Name unknown. The panel's window message
+// handler, shaped like Zero Hour's LanGameOptionsMenuSystem: the +0x244,
+// +0x60, +0xD0 and +0x190 members see each message first; then the input
+// focus, a slot combo box selection (color, template, team, player on the
+// host, handicap, hero; any marks +0x2B9), a map list selection and the
+// start position buttons (0x4008 moves the slot on to the next selectable
+// one, 0x4009 just clears it). Called by the LAN lobby screen 0x00444861.
+int MpGameSetup::rva00442CB3(unsigned int msg, unsigned int data1, unsigned int data2)
+{
+	if (m_244.rva0057FD7B(msg, data1, data2))
+		return 1;
+	if (m_refreshing)
+		return 1;
+	GameInfo *game = (GameInfo *)m_game->rva0043DA65();
+	if (!game)
+		return 0;
+	if (rva0043E1CC(m_60.rva0057CDA1(msg, data1, data2)))
+		return 1;
+	if (m_d0.rva0057E707(msg, data1, data2))
+		return 1;
+	if (m_190.rva0057FC75(msg, data1, data2))
+		return 1;
+
+	UnicodeString txtInput;
+	switch (msg)
+	{
+	case 1:
+		break;
+	case 2:
+		break;
+	case 0x17:
+		if (data1 == 1)
+			*(bool *)data2 = true;
+		break;
+	case 0x4026:
+		{
+			GameWindow *control = (GameWindow *)data1;
+			for (int i = 0; i < 8; ++i)
+			{
+				if (control == m_colorCombo[i].m_window)
+				{
+					rva0043ECC1(i);
+					m_2b9 = true;
+					break;
+				}
+				else if (control == m_playerTemplate[i])
+				{
+					handlePlayerTemplateSelection(i);
+					m_2b9 = true;
+					break;
+				}
+				else if (control == m_team[i])
+				{
+					((Rva0043DFE0 *)this)->rva0043DFE0(i);
+					m_2b9 = true;
+					break;
+				}
+				else if (control == m_player[i] && game->v12())
+				{
+					rva00442A68(i);
+					m_2b9 = true;
+					break;
+				}
+				else if (control == m_handicap[i])
+				{
+					((Rva0043E0C5 *)this)->rva0043E0C5(i);
+					m_2b9 = true;
+					break;
+				}
+				else if (control == m_hero[i])
+				{
+					rva0043E04D(i);
+					m_2b9 = true;
+					break;
+				}
+			}
+		}
+		break;
+	case 0x4014:
+		if ((GameWindow *)data1 == m_mapList)
+		{
+			int index = (int)data2;
+			if (index >= 0 && index < m_maps.size())
+			{
+				AsciiString map = m_maps[index];
+				rva00440017(map);
+			}
+			else
+				rva00440017(AsciiString::TheEmptyString);
+		}
+		break;
+	case 0x4008:
+	case 0x4009:
+		{
+			int position = ((AptMapPreview *)&m_60)->rva0057C57B((int)data1);
+			if (position < 0)
+				break;
+			int playerIdxInPos = -1;
+			for (int j = 0; j < 8; ++j)
+			{
+				GameSlot *slot = game->getSlot(j);
+				if (slot && slot->getStartPos() == position)
+				{
+					playerIdxInPos = j;
+					break;
+				}
+			}
+			if (playerIdxInPos >= 0)
+			{
+				GameSlot *slot = game->getSlot(playerIdxInPos);
+				if (playerIdxInPos == game->v13() || (game->v12() && slot && slot->isAI()))
+				{
+					int nextPlayer;
+					if (msg == 0x4008)
+						nextPlayer = ((Rva0057CA78 *)&m_60)->rva0057CA78(playerIdxInPos + 1);
+					else
+						nextPlayer = -1;
+					((Rva0043E0C5 *)this)->rva0043E132(playerIdxInPos, -1);
+					if (nextPlayer >= 0)
+						((Rva0043E0C5 *)this)->rva0043E132(nextPlayer, position);
+				}
+			}
+			else
+			{
+				int localSlot = ((Rva0057CA78 *)&m_60)->rva0057CA78(0);
+				((Rva0043E0C5 *)this)->rva0043E132(localSlot, position);
+			}
+		}
+		break;
+	default:
+		return 0;
+	}
+	return 1;
 }
