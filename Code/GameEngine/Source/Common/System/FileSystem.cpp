@@ -294,8 +294,8 @@ Bool FileSystem::areMusicFilesOnCD()
 
 		cdRoot = cdi->getPath();
 		if (!cdRoot.endsWith("\\"))
-			cdRoot.concat("\\");
-		cdRoot.concat("genseczh.big");
+			((StringBase<char> *)&cdRoot)->concat("\\");
+		((StringBase<char> *)&cdRoot)->concat("genseczh.big");
 		DEBUG_LOG(("FileSystem::areMusicFilesOnCD() - checking for %s\n", cdRoot.str()));
 		File *musicBig = TheLocalFileSystem->openFile(cdRoot.str());
 		if (musicBig)

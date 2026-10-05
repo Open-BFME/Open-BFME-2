@@ -25,12 +25,12 @@ void __cdecl bfmeLogMsg574(const char *message)
 #pragma inline_depth(0)
     static AsciiString output;
 #pragma inline_depth(8)
-    output.concat(message);
-    if (output.getLength() <= 80 && !output.reverseFind('\n'))
+    ((StringBase<char> *)&output)->concat(message);
+    if (output.getLength() <= 80 && !((const StringBase<char> *)&output)->reverseFind('\n'))
         return;
 
-    if (output.reverseFind('\n'))
+    if (((const StringBase<char> *)&output)->reverseFind('\n'))
         output.removeLastChar();
     TheScriptEngine->AppendDebugMessage(output, false);
-    output.clear();
+    ((StringBase<char> *)&output)->clear();
 }

@@ -42,6 +42,12 @@ private:
     ScriptAction *m_action;
     ScriptAction *m_actionFalse;
 };
+
+static __forceinline void appendUiText(AsciiString &dst, const AsciiString &src)
+{
+	((StringBase<char> *)&dst)->concat(*(const StringBase<char> *)&src);
+}
+
 AsciiString Script::getUiText(void) 
 {
 	AsciiString uiText("*** IF ***\r\n");
@@ -50,38 +56,38 @@ AsciiString Script::getUiText(void)
 
 	while (pOr) {
 		Condition *pCond = pOr->getFirstAndCondition();
-		if (count>0) uiText.concat("  *** OR ***\r\n");
+		if (count>0) ((StringBase<char> *)&uiText)->concat("  *** OR ***\r\n");
 		count = 0;
 		while (pCond) {
 			if (count>0) {
-				uiText.concat("    *AND* ");
+				((StringBase<char> *)&uiText)->concat("    *AND* ");
 			} else {
-				uiText.concat("    ");
+				((StringBase<char> *)&uiText)->concat("    ");
 			}
-			if (!pCond->m_flag4C) uiText.concat(" (DISABLED) ");
-			if (pCond->m_flag4D) uiText.concat(" NOT ");
-			uiText.concat(pCond->getUiText());
-			uiText.concat("\r\n");
+			if (!pCond->m_flag4C) ((StringBase<char> *)&uiText)->concat(" (DISABLED) ");
+			if (pCond->m_flag4D) ((StringBase<char> *)&uiText)->concat(" NOT ");
+			appendUiText(uiText, pCond->getUiText());
+			((StringBase<char> *)&uiText)->concat("\r\n");
 			pCond = pCond->getNext();
 			count++;
 		}
 		pOr = pOr->getNextOrCondition();
 	}
-	uiText.concat("*** THEN ***\r\n");
+	((StringBase<char> *)&uiText)->concat("*** THEN ***\r\n");
 	ScriptAction *pAction = m_action;
 	while (pAction) {
-		uiText.concat("  ");
-		uiText.concat(pAction->getUiText());
-		uiText.concat("\r\n");
+		((StringBase<char> *)&uiText)->concat("  ");
+		appendUiText(uiText, pAction->getUiText());
+		((StringBase<char> *)&uiText)->concat("\r\n");
 		pAction = pAction->getNext();
 	}
 	pAction = m_actionFalse;
 	if (pAction) {
-		uiText.concat("*** ELSE ***\r\n");
+		((StringBase<char> *)&uiText)->concat("*** ELSE ***\r\n");
 		while (pAction) {
-			uiText.concat("  ");
-			uiText.concat(pAction->getUiText());
-			uiText.concat("\r\n");
+			((StringBase<char> *)&uiText)->concat("  ");
+			appendUiText(uiText, pAction->getUiText());
+			((StringBase<char> *)&uiText)->concat("\r\n");
 			pAction = pAction->getNext();
 		}
 	}

@@ -41,7 +41,7 @@ public:
 void UserPreferences::rva005378E9(AsciiString faction, int turns)
 {
 	AsciiString key(faction);
-	key.concat("TurnsPlayed");
+	((StringBase<char> *)&key)->concat("TurnsPlayed");
 	int oldTurns = rva00536815(key);
 	v11(key, oldTurns + turns);
 	int longest = rva005368A6(faction);

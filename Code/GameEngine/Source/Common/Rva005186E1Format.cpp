@@ -14,14 +14,14 @@ public:
 
 void Rva005186E1Format(class OptionPreferences *prefs, class AsciiString *out)
 {
-	out->clear();
+	((StringBase<char> *)out)->clear();
 	AsciiString tmp;
 	for (int i = 0; i < 9; ++i)
 	{
 		int v = prefs->Rva002E42AFDispatch(i);
 		tmp.format((char *)"%d", v);
 		if (i != 0)
-			out->concat((char *)",");
-		out->concat(tmp);
+			((StringBase<char> *)out)->concat((char *)",");
+		((StringBase<char> *)out)->concat(*(const StringBase<char> *)&tmp);
 	}
 }

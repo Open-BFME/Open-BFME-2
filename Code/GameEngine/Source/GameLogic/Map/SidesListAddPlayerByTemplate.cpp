@@ -73,15 +73,15 @@ int SidesList::rva0032DE04(const AsciiString &playerTemplate)
 	bool isHuman;
 
 	if (playerTemplate.isEmpty()) {
-		playerName.set(g_Rva0107301CEmptyString);
+		((StringBase<char> *)&playerName)->set(g_Rva0107301CEmptyString);
 		playerDisplayName.set(g_00C0DA78);
 		isHuman = false;
 	} else {
-		playerName.set("Plyr");
+		((StringBase<char> *)&playerName)->set("Plyr");
 		if (playerTemplate.startsWith("Faction"))
-			playerName.concat(playerTemplate.str() + 7);
+			((StringBase<char> *)&playerName)->concat(playerTemplate.str() + 7);
 		else
-			playerName.concat(playerTemplate);
+			((StringBase<char> *)&playerName)->concat(*(const StringBase<char> *)&playerTemplate);
 		playerDisplayName.translate(playerName);
 		isHuman = true;
 		if (playerName.compare("PlyrCivilian") == 0)
@@ -90,8 +90,8 @@ int SidesList::rva0032DE04(const AsciiString &playerTemplate)
 
 	Dict d(0);
 	AsciiString teamName;
-	teamName.set("team");
-	teamName.concat(playerName);
+	((StringBase<char> *)&teamName)->set("team");
+	((StringBase<char> *)&teamName)->concat(*(const StringBase<char> *)&playerName);
 
 	d.clear();
 	d.setAsciiString(g_00DBD9F4.get(), teamName);

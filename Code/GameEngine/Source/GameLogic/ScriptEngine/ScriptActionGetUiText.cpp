@@ -34,6 +34,11 @@ private:
 	char m_pad[2];
 };
 
+static __forceinline void appendUiText(AsciiString &dst, const AsciiString &src)
+{
+	((StringBase<char> *)&dst)->concat(*(const StringBase<char> *)&src);
+}
+
 AsciiString ScriptAction::getUiText()
 {
 	AsciiString uiText;
@@ -41,20 +46,20 @@ AsciiString ScriptAction::getUiText()
 	int numStrings = getUiStrings(strings);
 	int i;
 
-	uiText.set("");
+	((StringBase<char> *)&uiText)->set("");
 	if (m_hasWarnings) {
-		uiText.concat("[???]");
+		((StringBase<char> *)&uiText)->concat("[???]");
 	}
 	if (m_tailByte == 0) {
-		uiText.concat("(DISABLED) ");
+		((StringBase<char> *)&uiText)->concat("(DISABLED) ");
 	}
 
 	for (i = 0; i < MAX_PARMS; i++) {
 		if (i < numStrings) {
-			uiText.concat(strings[i]);
+			((StringBase<char> *)&uiText)->concat(*(const StringBase<char> *)&strings[i]);
 		}
 		if (i < m_numParms) {
-			uiText.concat(m_parms[i]->getUiText());
+			appendUiText(uiText, m_parms[i]->getUiText());
 		}
 	}
 

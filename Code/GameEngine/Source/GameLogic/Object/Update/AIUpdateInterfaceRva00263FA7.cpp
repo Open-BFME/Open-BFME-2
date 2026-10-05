@@ -1,7 +1,7 @@
-// ?chooseGoodLocomotorFromCurrentSet@AIUpdateInterface@@QAEXXZ
-// partial score=0.98 date=2026-10-05
 // cl: /O1 /DNDEBUG /MD /arch:SSE
-// ?chooseGoodLocomotorFromCurrentSet@AIUpdateInterface@@QAEXXZ @0x00263FA7 194B
+//
+// ?chooseGoodLocomotorFromCurrentSet@AIUpdateInterface@@QAEXXZ, retail 0x00263fa7, 194 bytes. Banked partial (score 0.98) closed by tools/permute.py;
+// the body is the banked one up to statement/operand order and local types.
 // BFME2 AIUpdateInterface::chooseGoodLocomotorFromCurrentSet. Ported from
 // Open-BFME-1 game/GameEngine/Source/GameLogic/Object/Update/AIUpdate.cpp
 // chooseGoodLocomotorFromCurrentSet plus the split donor file
@@ -146,7 +146,6 @@ private:
 	Locomotor *m_curLocomotor; // +0x1F0
 };
 
-// ?chooseGoodLocomotorFromCurrentSet@AIUpdateInterface@@QAEXXZ present-unmatched
 void AIUpdateInterface::chooseGoodLocomotorFromCurrentSet()
 {
 	Locomotor *prevLoco = m_curLocomotor;

@@ -24,13 +24,13 @@ int __stdcall Rva00222B19AptCall(void *level, const char *prefix, const char *fu
 	g_00DFE5D8[0] = 0;
 	AsciiString path;
 	if ((unsigned int)level == 14) {
-		path.concat(prefix);
+		((StringBase<char> *)&path)->concat(prefix);
 	} else if ((unsigned int)level >= 14) {
 		return (int)g_00DFE5D8;
 	} else {
 		path.format("/_level%d", level);
-		path.concat(g_00BBD3EC);
-		path.concat(prefix);
+		((StringBase<char> *)&path)->concat(g_00BBD3EC);
+		((StringBase<char> *)&path)->concat(prefix);
 	}
 	const char *s = path.str();
 	Rva006CCB80AptCall(function, g_00DFE5D8, s, argc, a0, a1, a2, a3, a4);

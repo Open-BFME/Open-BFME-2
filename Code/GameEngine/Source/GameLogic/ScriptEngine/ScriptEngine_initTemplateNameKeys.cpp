@@ -62,13 +62,13 @@ void ScriptEngine::initTemplateNameKeys()
 	for (i = 0; i < 599; i++) {
 		AsciiString str;
 		str.format("[%d]", i);
-		m_actionTemplates[i].m_uiName.concat(str);
+		((StringBase<char> *)&m_actionTemplates[i].m_uiName)->concat(*(const StringBase<char> *)&str);
 		m_actionTemplates[i].m_internalNameKey = NAMEKEY(m_actionTemplates[i].m_internalName);
 	}
 	for (i = 0; i < 202; i++) {
 		AsciiString str;
 		str.format("[%d]", i);
-		m_conditionTemplates[i].m_uiName.concat(str);
+		((StringBase<char> *)&m_conditionTemplates[i].m_uiName)->concat(*(const StringBase<char> *)&str);
 		m_conditionTemplates[i].m_internalNameKey = NAMEKEY(m_conditionTemplates[i].m_internalName);
 	}
 }

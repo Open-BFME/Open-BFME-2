@@ -41,14 +41,19 @@ public:
 	AsciiString rva00300D7A();
 };
 
+static __forceinline void appendStringBase(AsciiString &dst, const AsciiString &src)
+{
+	((StringBase<char> *)&dst)->concat(*(const StringBase<char> *)&src);
+}
+
 AsciiString Rva00300D7A::rva00300D7A()
 {
 	AsciiString path;
 	if (GetRegistryUseLocalUserMaps()) {
 		path.format("%s", "UserData\\Maps");
 	} else {
-		path.set(TheWritableGlobalData->rva002360DE().str());
-		path.concat(Rva00300489::rva00300489());
+		((StringBase<char> *)&path)->set(TheWritableGlobalData->rva002360DE().str());
+		appendStringBase(path, Rva00300489::rva00300489());
 	}
 	return path;
 }

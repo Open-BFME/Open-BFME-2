@@ -1003,3 +1003,151 @@ void *_Locale_ctype_create(const char *name)
 }
 
 }
+
+// BFME1's five category-name extraction wrappers share an ICF body. The
+// BFME2 category-pointer operands identify their distinct target slots:
+// CTYPE, NUMERIC, TIME, COLLATE, MONETARY, respectively.
+extern "C" char *Rva00023100(const char *name, char *out)
+{
+    char lname[256];
+    LCID lcid;
+    char cp[6];
+    lname[0] = 0;
+    if (name[0] == 'L' && name[1] == 'C' && name[2] == '_') {
+        char *p = strstr(name, __category_name[2]);
+        if (p != 0) {
+            char *q = strchr(p, '=');
+            if (q != 0) {
+                unsigned int len;
+                ++q;
+                len = strcspn(q, ";");
+                if (len > 256) len = 256;
+                strncpy(lname, q, len);
+                lname[len] = 0;
+            }
+        }
+    } else {
+        strncpy(lname, name, 256);
+    }
+    if (lname[0] == 'C' && lname[1] == 0)
+        return strcpy(out, lname);
+    if (__GetLCIDFromName(lname, &lcid, cp) != 0)
+        return 0;
+    return __GetLocaleName(lcid, cp, out);
+}
+
+extern "C" char *Rva00023210(const char *name, char *out)
+{
+    char lname[256];
+    LCID lcid;
+    char cp[6];
+    lname[0] = 0;
+    if (name[0] == 'L' && name[1] == 'C' && name[2] == '_') {
+        char *p = strstr(name, __category_name[4]);
+        if (p != 0) {
+            char *q = strchr(p, '=');
+            if (q != 0) {
+                unsigned int len;
+                ++q;
+                len = strcspn(q, ";");
+                if (len > 256) len = 256;
+                strncpy(lname, q, len);
+                lname[len] = 0;
+            }
+        }
+    } else {
+        strncpy(lname, name, 256);
+    }
+    if (lname[0] == 'C' && lname[1] == 0)
+        return strcpy(out, lname);
+    if (__GetLCIDFromName(lname, &lcid, cp) != 0)
+        return 0;
+    return __GetLocaleName(lcid, cp, out);
+}
+
+extern "C" char *Rva00023320(const char *name, char *out)
+{
+    char lname[256];
+    LCID lcid;
+    char cp[6];
+    lname[0] = 0;
+    if (name[0] == 'L' && name[1] == 'C' && name[2] == '_') {
+        char *p = strstr(name, __category_name[5]);
+        if (p != 0) {
+            char *q = strchr(p, '=');
+            if (q != 0) {
+                unsigned int len;
+                ++q;
+                len = strcspn(q, ";");
+                if (len > 256) len = 256;
+                strncpy(lname, q, len);
+                lname[len] = 0;
+            }
+        }
+    } else {
+        strncpy(lname, name, 256);
+    }
+    if (lname[0] == 'C' && lname[1] == 0)
+        return strcpy(out, lname);
+    if (__GetLCIDFromName(lname, &lcid, cp) != 0)
+        return 0;
+    return __GetLocaleName(lcid, cp, out);
+}
+
+extern "C" char *Rva00023430(const char *name, char *out)
+{
+    char lname[256];
+    LCID lcid;
+    char cp[6];
+    lname[0] = 0;
+    if (name[0] == 'L' && name[1] == 'C' && name[2] == '_') {
+        char *p = strstr(name, __category_name[1]);
+        if (p != 0) {
+            char *q = strchr(p, '=');
+            if (q != 0) {
+                unsigned int len;
+                ++q;
+                len = strcspn(q, ";");
+                if (len > 256) len = 256;
+                strncpy(lname, q, len);
+                lname[len] = 0;
+            }
+        }
+    } else {
+        strncpy(lname, name, 256);
+    }
+    if (lname[0] == 'C' && lname[1] == 0)
+        return strcpy(out, lname);
+    if (__GetLCIDFromName(lname, &lcid, cp) != 0)
+        return 0;
+    return __GetLocaleName(lcid, cp, out);
+}
+
+extern "C" char *Rva00023540(const char *name, char *out)
+{
+    char lname[256];
+    LCID lcid;
+    char cp[6];
+    lname[0] = 0;
+    if (name[0] == 'L' && name[1] == 'C' && name[2] == '_') {
+        char *p = strstr(name, __category_name[3]);
+        if (p != 0) {
+            char *q = strchr(p, '=');
+            if (q != 0) {
+                unsigned int len;
+                ++q;
+                len = strcspn(q, ";");
+                if (len > 256) len = 256;
+                strncpy(lname, q, len);
+                lname[len] = 0;
+            }
+        }
+    } else {
+        strncpy(lname, name, 256);
+    }
+    if (lname[0] == 'C' && lname[1] == 0)
+        return strcpy(out, lname);
+    if (__GetLCIDFromName(lname, &lcid, cp) != 0)
+        return 0;
+    return __GetLocaleName(lcid, cp, out);
+}

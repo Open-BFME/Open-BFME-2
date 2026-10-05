@@ -101,8 +101,8 @@ PolygonTrigger *ScriptEngine::getQualifiedTriggerAreaByName(AsciiString name)
 	PolygonTrigger *trig = TheTerrainLogic->getTriggerAreaByName(name);
 	if (trig == 0) {
 		AsciiString msg = "!!!WARNING!!! Trigger area '";
-		msg.concat(name);
-		msg.concat("' not found.");
+		((StringBase<char> *)&msg)->concat(*(const StringBase<char> *)&name);
+		((StringBase<char> *)&msg)->concat("' not found.");
 		AppendDebugMessage(msg, true);
 	}
 

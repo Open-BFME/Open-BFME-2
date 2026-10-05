@@ -30,10 +30,10 @@ private:
 Rva005FEB01::Rva005FEB01(int value_,const AsciiString &prefix,const UnicodeString &title)
 : show(prefix),seconds(prefix),minutes(prefix),word0C(value_),word10(-1),word14(0),flag18(false)
 {
-    show.concat("Show");
-    seconds.concat(":Seconds");
-    minutes.concat(":Minutes");
+    ((StringBase<char> *)&show)->concat("Show");
+    ((StringBase<char> *)&seconds)->concat(":Seconds");
+    ((StringBase<char> *)&minutes)->concat(":Minutes");
     AsciiString titleKey(prefix);
-    titleKey.concat(":Title");
+    ((StringBase<char> *)&titleKey)->concat(":Title");
     g_bfmeAptWindowManager->bfmeSetText(titleKey,title,false);
 }

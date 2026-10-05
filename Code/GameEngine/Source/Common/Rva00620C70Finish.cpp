@@ -29,7 +29,51 @@
 // `mov ecx,[esp+4] / mov [ecx],eax / mov eax,ecx / ret 8` out-parameter thunk;
 // the body is 0x00620C70..0x00620C97 with `ret 4` at 0x00620C96 and 0xCC
 // padding after.
-#include <map>
+// The linked game shares one copy of the signed-key tree's find@H: retail's
+// /O1 thunk at 0x004D7546 (stlport_map_int_ptr_o1.cpp). Through <map>, this
+// /O2 unit emits its own, different instantiations of it, of _M_find@H and of
+// map::find, which every other object would then link against
+// (tools/link_check.py refuses that), and an explicit specialization
+// declaration crashes cl 7.1 (C1001). So the unit declares only what it
+// calls: STLport's names as their mangling records them, with no bodies.
+// map<int, void *> holds just its _Rb_tree, whose header-node pointer is its
+// first word: retail's end() is the `mov ecx,[esi]` after the call.
+namespace _STL
+{
+template <class _Tp> struct less;
+template <class _Tp> class allocator;
+template <class _T1, class _T2> struct pair;
+template <class _Pair> struct _Select1st;
+template <class _Tp> struct _Nonconst_traits;
+struct _Rb_tree_node_base;
+template <class _Value> struct _Rb_tree_node;
+
+struct _Rb_tree_base_iterator
+{
+	_Rb_tree_node_base *_M_node;
+	bool operator!=(const _Rb_tree_base_iterator &__y) const { return _M_node != __y._M_node; }
+};
+
+template <class _Value, class _Traits>
+struct _Rb_tree_iterator : public _Rb_tree_base_iterator
+{
+	_Rb_tree_iterator(_Rb_tree_node<_Value> *__x) { _M_node = (_Rb_tree_node_base *)__x; }
+};
+
+template <class _Key, class _Value, class _KeyOfValue, class _Compare, class _Alloc>
+class _Rb_tree
+{
+public:
+	typedef _Rb_tree_iterator<_Value, _Nonconst_traits<_Value> > iterator;
+	template <class _KT> iterator find(const _KT &__k);
+	iterator end() { return iterator(_M_header); }
+
+private:
+	_Rb_tree_node<_Value> *_M_header;
+};
+}
+
+typedef _STL::pair<const int, void *> BfmeUnsignedKeyTree620C70Value;
 
 class BfmeUnsignedKeyTree620C70
 {
@@ -37,10 +81,13 @@ public:
 	bool contains(unsigned int key);
 
 private:
-	_STL::map<int, void *> m_map;
+	typedef _STL::_Rb_tree<int, BfmeUnsignedKeyTree620C70Value, _STL::_Select1st<BfmeUnsignedKeyTree620C70Value>,
+		_STL::less<int>, _STL::allocator<BfmeUnsignedKeyTree620C70Value> > Tree;
+	Tree m_tree;
 };
 
 bool BfmeUnsignedKeyTree620C70::contains(unsigned int key)
 {
-	return m_map.find(*(const int *)&key) != m_map.end();
+	Tree::iterator it = m_tree.find(*(const int *)&key);
+	return it != m_tree.end();
 }

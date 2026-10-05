@@ -157,8 +157,8 @@ void ScriptActions::rva003C951B(const AsciiString &unitName, const AsciiString &
 				thingFilter.link(&playerFilter));
 		} else {
 			AsciiString msg("WARNING - Player (");
-			msg.concat(playerName);
-			msg.concat(") not found during execution of script.");
+			((StringBase<char> *)&msg)->concat(*(const StringBase<char> *)&playerName);
+			((StringBase<char> *)&msg)->concat(") not found during execution of script.");
 			TheScriptEngine->AppendDebugMessage(msg, false);
 		}
 	}

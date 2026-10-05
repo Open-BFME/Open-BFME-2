@@ -45,7 +45,7 @@ const char *DefaultModuleKey<CATEGORY>::GetValue()
     static AsciiString value("Default");
 
     if (!built) {
-        value.concat(GetKey((ModuleCategory)CATEGORY));
+        ((StringBase<char> *)&value)->concat(GetKey((ModuleCategory)CATEGORY));
         built = true;
     }
 
@@ -73,7 +73,7 @@ const char *DefaultModuleName<CATEGORY>::GetValue()
     static AsciiString value("Default");
 
     if (!built) {
-        value.concat(GetName((ModuleCategory)CATEGORY));
+        ((StringBase<char> *)&value)->concat(GetName((ModuleCategory)CATEGORY));
         built = true;
     }
 

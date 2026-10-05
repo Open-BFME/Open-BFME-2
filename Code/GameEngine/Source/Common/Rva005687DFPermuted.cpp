@@ -1,6 +1,7 @@
-// ?rva005687DF@@YAHABI0@Z
-// partial score=1.0 date=2026-10-05
 // cl: /O1 /Ob1
+//
+// ?rva005687DF@@YAHABI0@Z, retail 0x005687df, 16 bytes. Banked partial (score 1.0) closed by tools/permute.py;
+// the body is the banked one up to statement/operand order and local types.
 // Donor BFME1@6583b3c1ff21db4a561285717028fdafc780b7db,
 // game/GameEngine/Source/Common/BfmeConv881.cpp blob8831c2f9dfa0d0d35893925ba29bca090c78610c.
 // Full source profile /O2 /Ob1 /GX- /GS /G7 /arch:SSE places two tied

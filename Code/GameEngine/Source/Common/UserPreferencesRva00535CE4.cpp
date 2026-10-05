@@ -288,50 +288,50 @@ static const char *kFactions[] = { "Men", "Elves", "Dwarves", "Isengard", "Mordo
 
 int UserPreferences::rva00535CE4(AsciiString arg)
 {
-	arg.concat("Losses");
+	((StringBase<char> *)&arg)->concat("Losses");
 	int ret = v6(arg, 0);
 	return ret;
 }
 
 void UserPreferences::rva0053587C(AsciiString arg, int x)
 {
-	arg.concat("Points");
+	((StringBase<char> *)&arg)->concat("Points");
 	v11(arg, x);
 }
 
 void UserPreferences::rva00535BAF(AsciiString arg, int x)
 {
-	arg.concat("Wins");
+	((StringBase<char> *)&arg)->concat("Wins");
 	v11(arg, x);
 }
 
 void UserPreferences::rva00535C9D(AsciiString arg, int x)
 {
-	arg.concat("Losses");
+	((StringBase<char> *)&arg)->concat("Losses");
 	v11(arg, x);
 }
 
 void UserPreferences::rva00535D2E(AsciiString arg, int x)
 {
-	arg.concat("WinStreak");
+	((StringBase<char> *)&arg)->concat("WinStreak");
 	v11(arg, x);
 }
 
 void UserPreferences::rva00535DBF(AsciiString arg, int x)
 {
-	arg.concat("LossStreak");
+	((StringBase<char> *)&arg)->concat("LossStreak");
 	v11(arg, x);
 }
 
 void UserPreferences::rva00535E50(AsciiString arg, int x)
 {
-	arg.concat("BestWinStreak");
+	((StringBase<char> *)&arg)->concat("BestWinStreak");
 	v11(arg, x);
 }
 
 void UserPreferences::rva00535EE1(AsciiString arg, int x)
 {
-	arg.concat("WorstLossStreak");
+	((StringBase<char> *)&arg)->concat("WorstLossStreak");
 	v11(arg, x);
 }
 
@@ -407,14 +407,14 @@ int UserPreferences::rva00535FBA()
 
 int UserPreferences::rva005358C3(AsciiString arg)
 {
-	arg.concat("Points");
+	((StringBase<char> *)&arg)->concat("Points");
 	int ret = v6(arg, 0);
 	return ret;
 }
 
 int UserPreferences::rva00535BF6(AsciiString arg)
 {
-	arg.concat("Wins");
+	((StringBase<char> *)&arg)->concat("Wins");
 	int ret = v6(arg, 0);
 	return ret;
 }
@@ -453,78 +453,78 @@ int UserPreferences::rva00537C28()
 
 void UserPreferences::rva00536C61(AsciiString arg, int x)
 {
-	arg.concat("BattlesLostRTS");
+	((StringBase<char> *)&arg)->concat("BattlesLostRTS");
 	v11(arg, x);
 }
 
 int UserPreferences::rva00536CA8(AsciiString arg)
 {
-	arg.concat("BattlesLostRTS");
+	((StringBase<char> *)&arg)->concat("BattlesLostRTS");
 	int ret = v6(arg, 0);
 	return ret;
 }
 
 void UserPreferences::rva00536CF2(AsciiString arg, int x)
 {
-	arg.concat("BattlesWonRTS");
+	((StringBase<char> *)&arg)->concat("BattlesWonRTS");
 	v11(arg, x);
 }
 
 int UserPreferences::rva00536D39(AsciiString arg)
 {
-	arg.concat("BattlesWonRTS");
+	((StringBase<char> *)&arg)->concat("BattlesWonRTS");
 	int ret = v6(arg, 0);
 	return ret;
 }
 
 void UserPreferences::rva00536D83(AsciiString arg, int x)
 {
-	arg.concat("BattlesLostAutoResolve");
+	((StringBase<char> *)&arg)->concat("BattlesLostAutoResolve");
 	v11(arg, x);
 }
 
 int UserPreferences::rva00536DCA(AsciiString arg)
 {
-	arg.concat("BattlesLostAutoResolve");
+	((StringBase<char> *)&arg)->concat("BattlesLostAutoResolve");
 	int ret = v6(arg, 0);
 	return ret;
 }
 
 void UserPreferences::rva00536E14(AsciiString arg, int x)
 {
-	arg.concat("BattlesWonAutoResolve");
+	((StringBase<char> *)&arg)->concat("BattlesWonAutoResolve");
 	v11(arg, x);
 }
 
 int UserPreferences::rva00536E5B(AsciiString arg)
 {
-	arg.concat("BattlesWonAutoResolve");
+	((StringBase<char> *)&arg)->concat("BattlesWonAutoResolve");
 	int ret = v6(arg, 0);
 	return ret;
 }
 
 void UserPreferences::rva00536EA5(AsciiString arg, int x)
 {
-	arg.concat("RegionsConquered");
+	((StringBase<char> *)&arg)->concat("RegionsConquered");
 	v11(arg, x);
 }
 
 int UserPreferences::rva00536EEC(AsciiString arg)
 {
-	arg.concat("RegionsConquered");
+	((StringBase<char> *)&arg)->concat("RegionsConquered");
 	int ret = v6(arg, 0);
 	return ret;
 }
 
 void UserPreferences::rva00536F36(AsciiString arg, int x)
 {
-	arg.concat("RegionsLost");
+	((StringBase<char> *)&arg)->concat("RegionsLost");
 	v11(arg, x);
 }
 
 int UserPreferences::rva00536F7D(AsciiString arg)
 {
-	arg.concat("RegionsLost");
+	((StringBase<char> *)&arg)->concat("RegionsLost");
 	int ret = v6(arg, 0);
 	return ret;
 }
@@ -537,75 +537,75 @@ void UserPreferences::rva00536FC7(int x)
 
 int UserPreferences::rva00535D75(AsciiString arg)
 {
-	arg.concat("WinStreak");
+	((StringBase<char> *)&arg)->concat("WinStreak");
 	int ret = v6(arg, 0);
 	return ret;
 }
 
 int UserPreferences::rva00535E06(AsciiString arg)
 {
-	arg.concat("LossStreak");
+	((StringBase<char> *)&arg)->concat("LossStreak");
 	int ret = v6(arg, 0);
 	return ret;
 }
 
 int UserPreferences::rva00535E97(AsciiString arg)
 {
-	arg.concat("BestWinStreak");
+	((StringBase<char> *)&arg)->concat("BestWinStreak");
 	int ret = v6(arg, 0);
 	return ret;
 }
 
 int UserPreferences::rva00535F28(AsciiString arg)
 {
-	arg.concat("WorstLossStreak");
+	((StringBase<char> *)&arg)->concat("WorstLossStreak");
 	int ret = v6(arg, 0);
 	return ret;
 }
 
 void UserPreferences::rva0053595E(AsciiString arg, float x)
 {
-	arg.concat("LongestGameTime");
+	((StringBase<char> *)&arg)->concat("LongestGameTime");
 	v10(arg, x);
 }
 
 float UserPreferences::rva0053590D(AsciiString arg)
 {
-	arg.concat("TimePlayed");
+	((StringBase<char> *)&arg)->concat("TimePlayed");
 	float ret = v5(arg, 0.0f);
 	return ret;
 }
 
 float UserPreferences::rva005359A9(AsciiString arg)
 {
-	arg.concat("LongestGameTime");
+	((StringBase<char> *)&arg)->concat("LongestGameTime");
 	float ret = v5(arg, 0.0f);
 	return ret;
 }
 
 float UserPreferences::rva00535A45(AsciiString arg)
 {
-	arg.concat("ShortestGameTime");
+	((StringBase<char> *)&arg)->concat("ShortestGameTime");
 	float ret = v5(arg, 0.0f);
 	return ret;
 }
 
 float UserPreferences::rva00535AE1(AsciiString arg)
 {
-	arg.concat("AverageGameTime");
+	((StringBase<char> *)&arg)->concat("AverageGameTime");
 	float ret = v5(arg, 0.0f);
 	return ret;
 }
 
 void UserPreferences::rva005359FA(AsciiString arg, float x)
 {
-	arg.concat("ShortestGameTime");
+	((StringBase<char> *)&arg)->concat("ShortestGameTime");
 	v10(arg, x);
 }
 
 void UserPreferences::rva00535A96(AsciiString arg, float x)
 {
-	arg.concat("AverageGameTime");
+	((StringBase<char> *)&arg)->concat("AverageGameTime");
 	v10(arg, x);
 }
 
@@ -654,13 +654,13 @@ void UserPreferences::rva00537208(AsciiString arg)
 // Evidence: concat StructuresCreatedRTS 0x00868F2C slot 0x2C releaseBuffer gap same TU unlock.
 void UserPreferences::rva0053626B(AsciiString arg, int x)
 {
-	arg.concat("StructuresCreatedRTS");
+	((StringBase<char> *)&arg)->concat("StructuresCreatedRTS");
 	v11(arg, x);
 }
 
 int UserPreferences::rva005362B2(AsciiString arg)
 {
-	arg.concat("StructuresCreatedRTS");
+	((StringBase<char> *)&arg)->concat("StructuresCreatedRTS");
 	int ret = v6(arg, 0);
 	return ret;
 }
@@ -670,7 +670,7 @@ int UserPreferences::rva005362B2(AsciiString arg)
 // Evidence: concat StructuresLostRTS 0x00868F44 slot 0x2C releaseBuffer gap same TU unlock.
 void UserPreferences::rva005362FC(AsciiString arg, int x)
 {
-	arg.concat("StructuresLostRTS");
+	((StringBase<char> *)&arg)->concat("StructuresLostRTS");
 	v11(arg, x);
 }
 
@@ -679,7 +679,7 @@ void UserPreferences::rva005362FC(AsciiString arg, int x)
 // Evidence: concat StructuresLostRTS 0x00868F44 slot 0x18 releaseBuffer gap same TU unlock.
 int UserPreferences::rva00536343(AsciiString arg)
 {
-	arg.concat("StructuresLostRTS");
+	((StringBase<char> *)&arg)->concat("StructuresLostRTS");
 	int ret = v6(arg, 0);
 	return ret;
 }
@@ -689,7 +689,7 @@ int UserPreferences::rva00536343(AsciiString arg)
 // Evidence: concat StructuresKilledRTS 0x00868F58 slot 0x2C releaseBuffer gap same TU unlock.
 void UserPreferences::rva0053638D(AsciiString arg, int x)
 {
-	arg.concat("StructuresKilledRTS");
+	((StringBase<char> *)&arg)->concat("StructuresKilledRTS");
 	v11(arg, x);
 }
 
@@ -698,7 +698,7 @@ void UserPreferences::rva0053638D(AsciiString arg, int x)
 // Evidence: concat StructuresKilledRTS 0x00868F58 slot 0x18 releaseBuffer gap same TU unlock.
 int UserPreferences::rva005363D4(AsciiString arg)
 {
-	arg.concat("StructuresKilledRTS");
+	((StringBase<char> *)&arg)->concat("StructuresKilledRTS");
 	int ret = v6(arg, 0);
 	return ret;
 }
@@ -708,7 +708,7 @@ int UserPreferences::rva005363D4(AsciiString arg)
 // Evidence: concat UnitsCreatedRTS 0x00868F6C slot 0x2C releaseBuffer gap same TU unlock.
 void UserPreferences::rva0053641E(AsciiString arg, int x)
 {
-	arg.concat("UnitsCreatedRTS");
+	((StringBase<char> *)&arg)->concat("UnitsCreatedRTS");
 	v11(arg, x);
 }
 
@@ -717,7 +717,7 @@ void UserPreferences::rva0053641E(AsciiString arg, int x)
 // Evidence: concat UnitsCreatedRTS 0x00868F6C slot 0x18 releaseBuffer gap same TU unlock.
 int UserPreferences::rva00536465(AsciiString arg)
 {
-	arg.concat("UnitsCreatedRTS");
+	((StringBase<char> *)&arg)->concat("UnitsCreatedRTS");
 	int ret = v6(arg, 0);
 	return ret;
 }
@@ -727,7 +727,7 @@ int UserPreferences::rva00536465(AsciiString arg)
 // Evidence: concat UnitsLostRTS 0x00868F7C slot 0x2C releaseBuffer gap same TU unlock.
 void UserPreferences::rva005364AF(AsciiString arg, int x)
 {
-	arg.concat("UnitsLostRTS");
+	((StringBase<char> *)&arg)->concat("UnitsLostRTS");
 	v11(arg, x);
 }
 
@@ -736,7 +736,7 @@ void UserPreferences::rva005364AF(AsciiString arg, int x)
 // Evidence: concat UnitsLostRTS 0x00868F7C slot 0x18 releaseBuffer gap same TU unlock.
 int UserPreferences::rva005364F6(AsciiString arg)
 {
-	arg.concat("UnitsLostRTS");
+	((StringBase<char> *)&arg)->concat("UnitsLostRTS");
 	int ret = v6(arg, 0);
 	return ret;
 }
@@ -746,7 +746,7 @@ int UserPreferences::rva005364F6(AsciiString arg)
 // Evidence: concat UnitsKilledRTS 0x00868F8C slot 0x2C releaseBuffer gap same TU unlock.
 void UserPreferences::rva00536540(AsciiString arg, int x)
 {
-	arg.concat("UnitsKilledRTS");
+	((StringBase<char> *)&arg)->concat("UnitsKilledRTS");
 	v11(arg, x);
 }
 
@@ -755,7 +755,7 @@ void UserPreferences::rva00536540(AsciiString arg, int x)
 // Evidence: concat UnitsKilledRTS 0x00868F8C slot 0x18 releaseBuffer gap same TU unlock.
 int UserPreferences::rva00536587(AsciiString arg)
 {
-	arg.concat("UnitsKilledRTS");
+	((StringBase<char> *)&arg)->concat("UnitsKilledRTS");
 	int ret = v6(arg, 0);
 	return ret;
 }
@@ -765,7 +765,7 @@ int UserPreferences::rva00536587(AsciiString arg)
 // Evidence: concat ResourcesGatheredRTS 0x00868F9C slot 0x2C releaseBuffer gap same TU unlock.
 void UserPreferences::rva005365D1(AsciiString arg, int x)
 {
-	arg.concat("ResourcesGatheredRTS");
+	((StringBase<char> *)&arg)->concat("ResourcesGatheredRTS");
 	v11(arg, x);
 }
 
@@ -774,7 +774,7 @@ void UserPreferences::rva005365D1(AsciiString arg, int x)
 // Evidence: concat ResourcesGatheredRTS 0x00868F9C slot 0x18 releaseBuffer gap same TU unlock.
 int UserPreferences::rva00536618(AsciiString arg)
 {
-	arg.concat("ResourcesGatheredRTS");
+	((StringBase<char> *)&arg)->concat("ResourcesGatheredRTS");
 	int ret = v6(arg, 0);
 	return ret;
 }
@@ -784,7 +784,7 @@ int UserPreferences::rva00536618(AsciiString arg)
 // Evidence: concat ResourcesSpentRTS 0x00868FB4 slot 0x2C releaseBuffer gap same TU unlock.
 void UserPreferences::rva00536662(AsciiString arg, int x)
 {
-	arg.concat("ResourcesSpentRTS");
+	((StringBase<char> *)&arg)->concat("ResourcesSpentRTS");
 	v11(arg, x);
 }
 
@@ -793,7 +793,7 @@ void UserPreferences::rva00536662(AsciiString arg, int x)
 // Evidence: concat ResourcesSpentRTS 0x00868FB4 slot 0x18 releaseBuffer gap same TU unlock.
 int UserPreferences::rva005366A9(AsciiString arg)
 {
-	arg.concat("ResourcesSpentRTS");
+	((StringBase<char> *)&arg)->concat("ResourcesSpentRTS");
 	int ret = v6(arg, -1);
 	return ret;
 }
@@ -803,7 +803,7 @@ int UserPreferences::rva005366A9(AsciiString arg)
 // Evidence: concat HeroesBuiltRTS 0x00868FC8 slot 0x2C releaseBuffer gap same TU unlock.
 void UserPreferences::rva005366F3(AsciiString arg, int x)
 {
-	arg.concat("HeroesBuiltRTS");
+	((StringBase<char> *)&arg)->concat("HeroesBuiltRTS");
 	v11(arg, x);
 }
 
@@ -812,7 +812,7 @@ void UserPreferences::rva005366F3(AsciiString arg, int x)
 // Evidence: concat HeroesBuiltRTS 0x00868FC8 slot 0x18 releaseBuffer gap same TU unlock.
 int UserPreferences::rva0053673A(AsciiString arg)
 {
-	arg.concat("HeroesBuiltRTS");
+	((StringBase<char> *)&arg)->concat("HeroesBuiltRTS");
 	int ret = v6(arg, 0);
 	return ret;
 }
@@ -822,7 +822,7 @@ int UserPreferences::rva0053673A(AsciiString arg)
 // Evidence: concat HeroesLostRTS 0x00868FD8 slot 0x2C releaseBuffer gap same TU unlock.
 void UserPreferences::rva00536784(AsciiString arg, int x)
 {
-	arg.concat("HeroesLostRTS");
+	((StringBase<char> *)&arg)->concat("HeroesLostRTS");
 	v11(arg, x);
 }
 
@@ -831,7 +831,7 @@ void UserPreferences::rva00536784(AsciiString arg, int x)
 // Evidence: concat HeroesLostRTS 0x00868FD8 slot 0x18 releaseBuffer gap same TU unlock.
 int UserPreferences::rva005367CB(AsciiString arg)
 {
-	arg.concat("HeroesLostRTS");
+	((StringBase<char> *)&arg)->concat("HeroesLostRTS");
 	int ret = v6(arg, 0);
 	return ret;
 }
@@ -841,7 +841,7 @@ int UserPreferences::rva005367CB(AsciiString arg)
 // Evidence: concat TurnsPlayed 0x00868FE8 slot 0x18 releaseBuffer gap same TU unlock.
 int UserPreferences::rva00536815(AsciiString arg)
 {
-	arg.concat("TurnsPlayed");
+	((StringBase<char> *)&arg)->concat("TurnsPlayed");
 	int ret = v6(arg, 0);
 	return ret;
 }
@@ -851,7 +851,7 @@ int UserPreferences::rva00536815(AsciiString arg)
 // Evidence: concat LongestGameTurns 0x00868FF4 slot 0x2C releaseBuffer gap same TU unlock.
 void UserPreferences::rva0053685F(AsciiString arg, int x)
 {
-	arg.concat("LongestGameTurns");
+	((StringBase<char> *)&arg)->concat("LongestGameTurns");
 	v11(arg, x);
 }
 
@@ -860,7 +860,7 @@ void UserPreferences::rva0053685F(AsciiString arg, int x)
 // Evidence: concat LongestGameTurns 0x00868FF4 slot 0x18 releaseBuffer gap same TU unlock.
 int UserPreferences::rva005368A6(AsciiString arg)
 {
-	arg.concat("LongestGameTurns");
+	((StringBase<char> *)&arg)->concat("LongestGameTurns");
 	int ret = v6(arg, 0);
 	return ret;
 }
@@ -870,7 +870,7 @@ int UserPreferences::rva005368A6(AsciiString arg)
 // Evidence: concat ShortestGameTurns 0x00869008 slot 0x2C releaseBuffer gap same TU unlock.
 void UserPreferences::rva005368F0(AsciiString arg, int x)
 {
-	arg.concat("ShortestGameTurns");
+	((StringBase<char> *)&arg)->concat("ShortestGameTurns");
 	v11(arg, x);
 }
 
@@ -879,7 +879,7 @@ void UserPreferences::rva005368F0(AsciiString arg, int x)
 // Evidence: concat ShortestGameTurns 0x00869008 slot 0x18 releaseBuffer gap same TU unlock.
 int UserPreferences::rva00536937(AsciiString arg)
 {
-	arg.concat("ShortestGameTurns");
+	((StringBase<char> *)&arg)->concat("ShortestGameTurns");
 	int ret = v6(arg, 0);
 	return ret;
 }
@@ -889,7 +889,7 @@ int UserPreferences::rva00536937(AsciiString arg)
 // Evidence: concat AverageGameTurns 0x0086901C slot 0x28 releaseBuffer gap same TU unlock.
 void UserPreferences::rva00536981(AsciiString arg, float x)
 {
-	arg.concat("AverageGameTurns");
+	((StringBase<char> *)&arg)->concat("AverageGameTurns");
 	v10(arg, x);
 }
 
@@ -899,14 +899,14 @@ void UserPreferences::rva00536981(AsciiString arg, float x)
 // 0x005378E9 (turn stats). Same shape as the TimePlayed getter 0x0053590D.
 float UserPreferences::rva005369CC(AsciiString arg)
 {
-	arg.concat("AverageGameTurns");
+	((StringBase<char> *)&arg)->concat("AverageGameTurns");
 	float ret = v5(arg, 0.0f);
 	return ret;
 }
 
 void UserPreferences::rva00536A1D(AsciiString arg, int x)
 {
-	arg.concat("StructuresLostNonRTS");
+	((StringBase<char> *)&arg)->concat("StructuresLostNonRTS");
 	v11(arg, x);
 }
 
@@ -915,14 +915,14 @@ void UserPreferences::rva00536A1D(AsciiString arg, int x)
 // Evidence: concat StructuresLostNonRTS 0x00869030 slot 0x18 releaseBuffer gap same TU unlock.
 int UserPreferences::rva00536A64(AsciiString arg)
 {
-	arg.concat("StructuresLostNonRTS");
+	((StringBase<char> *)&arg)->concat("StructuresLostNonRTS");
 	int ret = v6(arg, 0);
 	return ret;
 }
 
 void UserPreferences::rva00536AAE(AsciiString arg, int x)
 {
-	arg.concat("StructuresKilledNonRTS");
+	((StringBase<char> *)&arg)->concat("StructuresKilledNonRTS");
 	v11(arg, x);
 }
 
@@ -931,7 +931,7 @@ void UserPreferences::rva00536AAE(AsciiString arg, int x)
 // Evidence: concat StructuresKilledNonRTS 0x00869048 slot 0x18 releaseBuffer gap same TU unlock.
 int UserPreferences::rva00536AF5(AsciiString arg)
 {
-	arg.concat("StructuresKilledNonRTS");
+	((StringBase<char> *)&arg)->concat("StructuresKilledNonRTS");
 	int ret = v6(arg, 0);
 	return ret;
 }
@@ -950,7 +950,7 @@ AsciiString UserPreferences::rva00535820()
 // Evidence: concat UnitsLostNonRTS 0x00869060 slot 0x2C releaseBuffer gap same TU.
 void UserPreferences::rva00536B3F(AsciiString arg, int x)
 {
-	arg.concat("UnitsLostNonRTS");
+	((StringBase<char> *)&arg)->concat("UnitsLostNonRTS");
 	v11(arg, x);
 }
 
@@ -959,7 +959,7 @@ void UserPreferences::rva00536B3F(AsciiString arg, int x)
 // Evidence: concat UnitsLostNonRTS 0x00869060 slot 0x18 releaseBuffer gap same TU.
 int UserPreferences::rva00536B86(AsciiString arg)
 {
-	arg.concat("UnitsLostNonRTS");
+	((StringBase<char> *)&arg)->concat("UnitsLostNonRTS");
 	int ret = v6(arg, 0);
 	return ret;
 }
@@ -968,7 +968,7 @@ int UserPreferences::rva00536B86(AsciiString arg)
 // UserPreferences UnitsKilledNonRTS-void path: append UnitsKilledNonRTS slot 0x2C with (arg, x) void ret 8.
 void UserPreferences::rva00536BD0(AsciiString arg, int x)
 {
-	arg.concat("UnitsKilledNonRTS");
+	((StringBase<char> *)&arg)->concat("UnitsKilledNonRTS");
 	v11(arg, x);
 }
 
@@ -976,7 +976,7 @@ void UserPreferences::rva00536BD0(AsciiString arg, int x)
 // UserPreferences UnitsKilledNonRTS-getter path: append UnitsKilledNonRTS to by-value AsciiString slot 0x18 with (arg, 0) int ret 4.
 int UserPreferences::rva00536C17(AsciiString arg)
 {
-	arg.concat("UnitsKilledNonRTS");
+	((StringBase<char> *)&arg)->concat("UnitsKilledNonRTS");
 	int ret = v6(arg, 0);
 	return ret;
 }

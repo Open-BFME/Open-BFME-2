@@ -26,7 +26,7 @@ void Rva000467B2::rva000467B2(AsciiString *out, int maxPerLine)
 {
 	if (!out)
 		return;
-	out->clear();
+	((StringBase<char> *)out)->clear();
 	int count = 0;
 	bool first = true;
 	for (int i = 0; i < 0x24F; ++i)
@@ -35,14 +35,14 @@ void Rva000467B2::rva000467B2(AsciiString *out, int maxPerLine)
 		if (!name)
 			continue;
 		if (!first)
-			out->concat(", ");
+			((StringBase<char> *)out)->concat(", ");
 		if (count >= maxPerLine)
 		{
 			count = 0;
-			out->concat(g_00BBE498);
+			((StringBase<char> *)out)->concat(g_00BBE498);
 		}
 		first = false;
-		out->concat(name);
+		((StringBase<char> *)out)->concat(name);
 		++count;
 	}
 }

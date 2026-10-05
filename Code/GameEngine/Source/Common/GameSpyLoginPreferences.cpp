@@ -165,7 +165,7 @@ void GameSpyLoginPreferences::Write_Rva005C9DA8(NickMap &emails, const char *pre
 		NickMap::mapped_type::iterator listIt = it->second.begin();
 		while (listIt != it->second.end())
 		{
-			nicks.concat(*listIt);
+			((StringBase<char> *)&nicks)->concat(*(const StringBase<char> *)&*listIt);
 			char comma = ',';	// operator+=(char), expanded in place as retail does
 			((StringBase<char> *)&nicks)->concat(&comma, 1);
 			++listIt;

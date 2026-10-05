@@ -68,11 +68,11 @@ void Handicap::readFromDict(const Dict *d)
 	{
 		for (int j = 0; j < 2; ++j)
 		{
-			c.clear();
-			c.set("HANDICAP_");
-			c.concat(htNames[i]);
-			c.concat("_");
-			c.concat(ttNames[j]);
+			((StringBase<char> *)&c)->clear();
+			((StringBase<char> *)&c)->set("HANDICAP_");
+			((StringBase<char> *)&c)->concat(htNames[i]);
+			((StringBase<char> *)&c)->concat("_");
+			((StringBase<char> *)&c)->concat(ttNames[j]);
 			NameKeyType k = TheNameKeyGenerator->nameToKey(c);
 			bool exists;
 			Real r = d->getReal(k, &exists);

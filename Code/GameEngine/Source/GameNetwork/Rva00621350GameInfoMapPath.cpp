@@ -29,6 +29,11 @@ static inline void concatChar(AsciiString &s, char c)
 	((StringBase<char> *)&s)->concat(&c, 1);
 }
 
+static inline void concatStringBase(AsciiString &s, const AsciiString &value)
+{
+	((StringBase<char> *)&s)->concat(*(const StringBase<char> *)&value);
+}
+
 class GameState
 {
 public:
@@ -57,16 +62,16 @@ AsciiString _Rva00621350GameInfoMapPath(const AsciiString &input, Bool option)
 	path.nextToken(&token, "\\/");
 	while (path.getLength() > 0)
 	{
-		actualpath.concat(token);
+		((StringBase<char> *)&actualpath)->concat(*(const StringBase<char> *)&token);
 		concatChar(actualpath, '\\');
 		path.nextToken(&token, "\\/");
 	}
 
-	actualpath.concat(token);
+	((StringBase<char> *)&actualpath)->concat(*(const StringBase<char> *)&token);
 	concatChar(actualpath, '\\');
-	actualpath.concat(token);
+	((StringBase<char> *)&actualpath)->concat(*(const StringBase<char> *)&token);
 	concatChar(actualpath, '.');
-	actualpath.concat(TheMapCache->getMapExtension());
+	concatStringBase(actualpath, TheMapCache->getMapExtension());
 	actualpath = TheGameState->portableMapPathToRealMapPath(actualpath);
 	return actualpath;
 }

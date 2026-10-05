@@ -131,7 +131,7 @@ void ArchiveFile::addFile(const AsciiString& path, const ArchivedFileInfo *fileI
 			dirInfo->m_directories[token].m_directoryName = token;
 		}
 
-		debugpath.concat(token);
+		((StringBase<char> *)&debugpath)->concat(*(const StringBase<char> *)&token);
 		debugpath.concat('\\');
 		dirInfo = &(dirInfo->m_directories[token]);
 		temp.nextToken(&token, "\\/");
@@ -184,7 +184,8 @@ void ArchiveFile::getFileListInDirectory(const DetailedArchivedDirectoryInfo *di
 		if ((tempdirname.getLength() > 0) && (!tempdirname.endsWith("\\"))) {
 			tempdirname.concat('\\');
 		}
-		tempdirname.concat(tempDirInfo->m_directoryName);
+		((StringBase<char> *)&tempdirname)->concat(
+			*(const StringBase<char> *)&tempDirInfo->m_directoryName);
 		getFileListInDirectory(tempDirInfo, tempdirname, searchName, filenameList, searchSubdirectories);
 		diriter++;
 	}
@@ -197,7 +198,8 @@ void ArchiveFile::getFileListInDirectory(const DetailedArchivedDirectoryInfo *di
 			if ((tempfilename.getLength() > 0) && (!tempfilename.endsWith("\\"))) {
 				tempfilename.concat('\\');
 			}
-			tempfilename.concat(fileiter->second.m_filename);
+			((StringBase<char> *)&tempfilename)->concat(
+				*(const StringBase<char> *)&fileiter->second.m_filename);
 			if (filenameList.find(tempfilename) == filenameList.end()) {
 				// only insert into the list if its not already in there.
 				filenameList.insert(tempfilename);

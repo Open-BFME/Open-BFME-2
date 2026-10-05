@@ -10382,15 +10382,6 @@ _xferThreeInts,0x0060BC53,donor_sweep: call target read from retail at a unique 
 ?rva004F0479@Rva004F040F@@QAEXPAX@Z,0x004F0479,second name for the body rowed as ?removeFrom_TeamReadyQueue@AIPlayer@@QAEXPAVTeamInQueue@@@Z; both landed independently and one definition was dropped when the solo fork was squashed onto upstream
 ?test@Rva00729370BitPlane@@QBE_NHH@Z,0x0006AB49,second name for the body rowed as ?test@Rva0006AB49BitPlane@@QBE_NHH@Z; both landed independently and one definition was dropped when the solo fork was squashed onto upstream
 ?isInList0C@BfmeNode_00161220@@QBE_NPAPAU1@@Z,0x004EF342,second name for the body rowed as ?dlink_isInList_TeamReadyQueue@TeamInQueue@@QBE_NPBQAV1@@Z; Rva004F040F::rva004EF383 calls it at that address
-??0CollectionClass@@QAE@ABV0@@Z,0x00130C00,address read from the REL32 displacement at a placed body
-??0Rva004930A0@@QAE@XZ,0x004930A0,opaque intermediate base DEFAULT ctor (SEH body); called this-only by DeliverPayloadAIUpdate and AIUpdateInterface ctors; identity unproven
-??1Rva00638C4@@UAE@XZ,0x00638C4,opaque SEH dtor (mov-eax-cookie prologue, vptr 0xBC59F4); called by scalar-deleting-dtor at 0x638A8; identity unproven, address-derived name
-??1Rva0098B8B@@UAE@XZ,0x0098B8B,opaque SEH dtor (mov-eax-cookie prologue, vptr 0xBC8688); called by scalar-deleting-dtor at 0x98C90; identity unproven, address-derived name
-?bfmeStepBFF@BfmeSubBFF@@QAEXXZ,0x000376E0
-?nextWithNumeric@SimpleObjectIterator@@QAEPAVObject@@PAM@Z,0x0028D412,address read from the REL32 displacement at a placed body
-?reset@SimpleObjectIterator@@AAEXXZ,0x00291C20,address read from the REL32 displacement at a placed body
-??1AIPlayer@@MAE@XZ,0x00232976,callee of 1AISkirmishPlayer (0x00098B8B) at the site its BFME1 donor calls it; may be an ICF alias
-??0?$hashtable@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@W4NameKeyType@@U?$hash@W4NameKeyType@@@rts@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@2@U?$equal_to@W4NameKeyType@@@5@V?$allocator@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@2@@_STL@@QAE@IABU?$hash@W4NameKeyType@@@rts@@ABU?$equal_to@W4NameKeyType@@@3@ABV?$allocator@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@1@@Z,0x001DCB64,twin of 0x002896AA proven by caller 0x001DCBA4 31B identical pushes
 ??4Rva0054000B@@QAEAAV0@ABV0@@Z,0x00540053,callee of vector insert 0x00540731 read from REL32 ICF alias onto Bfme assign
 ??$__copy_backward_ptrs@PAVRva0054000B@@PAV1@@_STL@@YAPAVRva0054000B@@PAV1@00ABU__false_type@0@@Z,0x00540197,callee of vector insert 0x00540731 read from REL32 ICF alias onto Bfme row
 ??$__copy_backward@PAVRva0054000B@@PAV1@H@_STL@@YAPAVRva0054000B@@PAV1@00ABUrandom_access_iterator_tag@0@PAH@Z,0x005400FF,callee of vector insert 0x00540731 via wrapper ICF alias onto Bfme row
@@ -11674,3 +11665,10 @@ _floor,0x00629940,call site 0x006F4403 in AptDate::getDayOfWeek (0x006F4290) enc
 ?push_back@?$vector@UCoord2D@@V?$allocator@UCoord2D@@@_STL@@@_STL@@QAEXABUCoord2D@@@Z,0x00539A2E,Coord2D spelling of the ICF-folded 8-byte-element vector push_back (rowed BfmeE8 instance at this address); REL32 at WeaponTemplate::parseScatterTarget 0x002CE842
 ?erase@?$vector@MV?$allocator@M@_STL@@@_STL@@QAEPAMPAM0@Z,0x0031BD55,ICF twin of the rowed vector-voidptr range erase (4-byte float elements fold to identical pointer moves); REL32 at the Scalars FieldParse proc 0x00289236
 ?rva001FDE3F@Rva001FDE3F@@QAEAAMABVAsciiString@@@Z,0x001FDE3F,unrowed 125B thiscall name-keyed lookup returning the stored float by reference (EH frame; ret 4); REL32 read at PlayerTemplate::parseProductionTimeChange 0x001FDFB9 on the map at PlayerTemplate +0x100; address-named class
+?rva002E74C6@Pathfinder@@QAEPAVLocomotor@@W4PathfindLayerEnum@@PAVRva001E48E8@@PBUCoord3D@@@Z,0x002E74C6,"auto-pin (permute --pins): REL32 call target read from retail in 0x00263fa7, whose banked body is byte-exact once this call resolves"
+?rva004128F0@@YA_NPBD0PAVAsciiString@@@Z,0x004128F0,"auto-pin (permute --pins): REL32 call target read from retail in 0x005c3d5f, whose banked body is byte-exact once this call resolves"
+?Rva000ADE45Copy@@YAPAUBfmeStringRecord00063BE4@@PAU1@000@Z,0x000ADE45,"auto-pin (permute --pins): REL32 call target read from retail in 0x00335c88, whose banked body is byte-exact once this call resolves"
+?Rva002F1F02Wrap@@YAXPAPAU_Rva002EBB53Wrap@@0E@Z,0x002F1F02,"auto-pin (permute --pins): REL32 call target read from retail in 0x002f301f, whose banked body is byte-exact once this call resolves"
+?rva00450AE9CallView@GiveUpgradeUpdate@@QAEXXZ,0x00450AE9,"auto-pin (permute --pins): REL32 call target read from retail in 0x0049c8e9, whose banked body is byte-exact once this call resolves"
+?rva005E509F@Rva005E509FCallView@@QAEXXZ,0x005E509F,"auto-pin (permute --pins): REL32 call target read from retail in 0x005e6894, whose banked body is byte-exact once this call resolves"
+?rva000B3FD0CallView@Rva005E6894@@QAEXXZ,0x000B3FD0,"auto-pin (permute --pins): REL32 call target read from retail in 0x005e6894, whose banked body is byte-exact once this call resolves"

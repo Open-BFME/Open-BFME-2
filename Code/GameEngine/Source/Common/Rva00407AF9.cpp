@@ -32,9 +32,9 @@ bool Rva00407AF9Run(const AsciiString &a, const AsciiString &b)
 	memset(&si, 0, sizeof(si));
 	si.cb = sizeof(si);
 	AsciiString cmd;
-	cmd.concat(a);
-	cmd.concat(g_00BBD40C);
-	cmd.concat(b);
+	((StringBase<char> *)&cmd)->concat(*(const StringBase<char> *)&a);
+	((StringBase<char> *)&cmd)->concat(g_00BBD40C);
+	((StringBase<char> *)&cmd)->concat(*(const StringBase<char> *)&b);
 	char buf[256];
 	_mbscpy(buf, cmd.str());
 	PROCESS_INFORMATION pi;

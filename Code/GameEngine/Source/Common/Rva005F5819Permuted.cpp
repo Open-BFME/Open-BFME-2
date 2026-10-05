@@ -1,7 +1,7 @@
-// ??1Rva005F5819@@UAE@XZ
-// partial score=0.95 date=2026-10-05
 // cl: /O1 /DNDEBUG /EHsc /MD
-// ??1Rva005F5819@@UAE@XZ @0x005F5819 97B: dtor via rowed erase 0x002B7250 plus pinned 0x005E12D1; caller deleting dtor 0x005F5882
+//
+// ??1Rva005F5819@@UAE@XZ, retail 0x005f5819, 97 bytes. Banked partial (score 0.95) closed by tools/permute.py;
+// the body is the banked one up to statement/operand order and local types.
 class CreateAHeroData;
 
 class Rva002B7250 {
@@ -33,7 +33,6 @@ public:
     Rva002B7250 *m_list;
 };
 
-// ??1Rva005F5819@@UAE@XZ present-unmatched
 Rva005F5819::~Rva005F5819()
 {
     m_list->rva002B7250((CreateAHeroData *)((char *)this + 0x1c));

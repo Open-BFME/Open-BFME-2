@@ -107,8 +107,9 @@ AsciiString Rva002DA398Get(int n)
 {
 	AsciiString tmp = AsciiString::TheEmptyString;
 	if (n == 2) {
-		tmp.set(g_00BBD3EC);
-		tmp.concat(TheAudio->rva077()->m_str);
+		((StringBase<char> *)&tmp)->set(g_00BBD3EC);
+		((StringBase<char> *)&tmp)->concat(
+			*(const StringBase<char> *)&TheAudio->rva077()->m_str);
 	}
 	return tmp;
 }

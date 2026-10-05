@@ -383,6 +383,11 @@ void WaypointMap::update( void )
 
 const char * MapCache::m_mapCacheName = "MapCache.ini";
 
+static __forceinline void concatStringBase(AsciiString &dst, const AsciiString &src)
+{
+	((StringBase<char> *)&dst)->concat(*(const StringBase<char> *)&src);
+}
+
 // ?getMapDir@MapCache@@ present-unmatched
 AsciiString MapCache::getMapDir() const 
 { 
@@ -393,7 +398,7 @@ AsciiString MapCache::getMapDir() const
 AsciiString MapCache::getUserMapDir() const
 {
 	AsciiString tmp = TheGlobalData->getPath_UserData();
-	tmp.concat(getMapDir());
+	concatStringBase(tmp, getMapDir());
 	return tmp;
 }
 
@@ -421,7 +426,7 @@ void MapCache::writeCacheINI( Bool userDir )
 
 	TheFileSystem->createDirectory(mapDir);
 
-	filepath.concat(m_mapCacheName);
+	((StringBase<char> *)&filepath)->concat(m_mapCacheName);
 	FILE *fp = fopen(filepath.str(), "w");
 	DEBUG_ASSERTCRASH(fp != NULL, ("Failed to create %s", filepath.str()));
 	if (fp == NULL) {
@@ -777,7 +782,7 @@ Bool MapCache::addMap( AsciiString dirName, AsciiString fname, FileInfo *fileInf
 		stringFileName.format("%s\\%s", dirName.str(), fname.str());
 		for (Int i=0; i<4; ++i)
 			stringFileName.removeLastChar();
-		stringFileName.concat("\\map.str");
+		((StringBase<char> *)&stringFileName)->concat("\\map.str");
 		TheGameText->initMapStringFile(stringFileName);
 		md.m_displayName = TheGameText->fetch(munkee);
 		if (md.m_numPlayers >= 2)
@@ -878,7 +883,7 @@ Int populateMapListboxNoReset( GameWindow *listbox, Bool useSystemMaps, Bool isM
 	else
 	{
 		mapDir = TheGlobalData->getPath_UserData();
-		mapDir.concat(TheMapCache->getMapDir());
+		concatStringBase(mapDir, TheMapCache->getMapDir());
 	}
 	mapDir.toLower();
 
@@ -1194,8 +1199,8 @@ Image *getMapPreviewImage( AsciiString mapName )
 	name = tgaName;//.reverseFind('\\') + 1;
 	filename = tgaName.reverseFind('\\') + 1;
 	//tgaName = name;
-	filename.concat(".tga");
-	tgaName.concat(".tga");
+	((StringBase<char> *)&filename)->concat(".tga");
+	((StringBase<char> *)&tgaName)->concat(".tga");
 
 	AsciiString portableName = TheGameState->realMapPathToPortableMapPath(name);
 	tempName.set(AsciiString::TheEmptyString);
@@ -1209,7 +1214,7 @@ Image *getMapPreviewImage( AsciiString mapName )
 	}
 	
 	name = tempName;
-	name.concat(".tga");
+	((StringBase<char> *)&name)->concat(".tga");
 
 	
 	// copy file over	
@@ -1225,7 +1230,7 @@ Image *getMapPreviewImage( AsciiString mapName )
 		mapPreviewDir.format(MAP_PREVIEW_DIR_PATH, TheGlobalData->getPath_UserData().str());
 		TheFileSystem->createDirectory(mapPreviewDir);
 
-		mapPreviewDir.concat(name);
+		((StringBase<char> *)&mapPreviewDir)->concat(*(const StringBase<char> *)&name);
 
 		Bool success = false;
 		try
@@ -1393,4 +1398,3 @@ void findDrawPositions( Int startX, Int startY, Int width, Int height, Region3D 
 
 }  // end findDrawPositions
 #pragma optimize("", on)
-

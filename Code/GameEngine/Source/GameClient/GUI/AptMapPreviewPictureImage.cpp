@@ -70,7 +70,7 @@ Image *bfmeCreateMapPictureImage(const AsciiString &mapName)
     pictureName.removeLastChar();
     pictureName.removeLastChar();
     pictureName.removeLastChar();
-    pictureName.concat("_pic.tga");
+    ((StringBase<char> *)&pictureName)->concat("_pic.tga");
 
     Image *image = 0;
     if (TheFileSystem->doesFileExist(pictureName.str()))

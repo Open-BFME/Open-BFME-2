@@ -70,6 +70,6 @@ void ScriptEngine::AppendDebugMessage(const AsciiString &strToAdd, Bool forcePau
 		msg.format("%d ", logic->m_frame);
 	else
 		msg.format("%d ", *(Int *)((char *)TheRva00DFEF10 + 0xFC));
-	msg.concat(strToAdd);
+	((StringBase<char> *)&msg)->concat(*(const StringBase<char> *)&strToAdd);
 	((void (__cdecl *)(const char *))proc)(msg.str());
 }

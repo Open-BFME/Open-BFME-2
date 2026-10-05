@@ -1,6 +1,7 @@
-// ?rva00335C88@Rva00335C88@@QAEPAXPAX0@Z
-// partial score=0.99 date=2026-10-04
 // cl: /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Oy-
+//
+// ?rva00335C88@Rva00335C88@@QAEPAXPAX0@Z, retail 0x00335c88, 38 bytes. Banked partial (score 0.99) closed by tools/permute.py;
+// the body is the banked one up to statement/operand order and local types.
 //
 // ?rva00335C88@Rva00335C88@@QAEXXZ @ 0x00335C88 (38B).
 // Unlock: thin wrapper over Rva000ADE45Copy.
@@ -23,7 +24,6 @@ private:
 	BfmeStringRecord00063BE4 *m_04;
 };
 
-// ?rva00335C88@Rva00335C88@@QAEPAXPAX0@Z present-unmatched
 void *Rva00335C88::rva00335C88(void *a, void *b)
 {
 	BfmeStringRecord00063BE4 *r = Rva000ADE45Copy((BfmeStringRecord00063BE4 *)b, m_04, (BfmeStringRecord00063BE4 *)a, (BfmeStringRecord00063BE4 *)((char *)&a + 3));

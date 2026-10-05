@@ -1,7 +1,7 @@
-// ?rva004D3942@Rva004D3942@@QAEXPAVConnectionManager@@@Z
-// partial score=0.98 date=2026-10-04
-// cl: /O1 /DNDEBUG /MD /EHsc
-// ?rva004D3942@Rva004D3942@@QAEXPAVConnectionManager@@@Z @0x004D3942 156B.
+// cl: /O1 /DNDEBUG /MD /EHsc /G7
+//
+// ?rva004D3942@Rva004D3942@@QAEXPAVConnectionManager@@@Z, retail 0x004d3942, 156 bytes. Banked partial (score 0.98) closed by tools/permute.py;
+// the body is the banked one up to statement/operand order and local types.
 // Keepalive sender: if time-last >500 or last==-1 news NetDisconnectKeepAlive
 // stamps playerID via rowed getLocalPlayerID gates commandID via rowed Does
 // then rowed Generate plus pin sendLocalCommandDirect plus rowed detach.
@@ -60,7 +60,6 @@ private:
     unsigned long m_10;
 };
 
-// ?rva004D3942@Rva004D3942@@QAEXPAVConnectionManager@@@Z present-unmatched
 void Rva004D3942::rva004D3942(ConnectionManager *mgr)
 {
     unsigned long now = timeGetTime();

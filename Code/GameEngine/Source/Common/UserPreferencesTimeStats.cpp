@@ -39,7 +39,7 @@ public:
 void UserPreferences::rva00537A9B(AsciiString arg, float gameTime)
 {
 	AsciiString key(arg);
-	key.concat("TimePlayed");
+	((StringBase<char> *)&key)->concat("TimePlayed");
 	float total = rva0053590D(arg) + gameTime;
 	v10(key, total);
 	float longest = rva005359A9(arg);

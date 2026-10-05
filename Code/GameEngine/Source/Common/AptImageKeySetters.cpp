@@ -43,6 +43,29 @@ UnicodeString __cdecl Rva005F6B74Format(int quantity);
 UnicodeString __cdecl Rva005F6BD4Format(int turns);
 UnicodeString __cdecl Rva005F6C8EFormat(int unused, int turns);
 
+class GameTextInterface
+{
+public:
+	virtual ~GameTextInterface() {}
+	virtual void slot00() = 0;
+	virtual void slot04() = 0;
+	virtual void slot08() = 0;
+	virtual void slot0c() = 0;
+	virtual void slot10() = 0;
+	virtual void slot14() = 0;
+	virtual void slot18() = 0;
+	virtual void slot1c() = 0;
+	virtual void slot20() = 0;
+	virtual void slot24() = 0;
+	virtual void slot28() = 0;
+	virtual void slot2c() = 0;
+	virtual void slot30() = 0;
+	virtual void slot34() = 0;
+	virtual UnicodeString fetch(const char *label, bool *exists = 0) = 0;
+};
+
+extern GameTextInterface *TheGameText;
+
 class Rva00524306
 {
 public:
@@ -413,6 +436,20 @@ UnicodeString __cdecl Rva005F6B74Format(int quantity)
 	UnicodeString tmp;
 	if (quantity > 0)
 		tmp.format(L"%d", quantity);
+	return tmp;
+}
+
+UnicodeString __cdecl Rva005F6BD4Format(int turns)
+{
+	UnicodeString tmp;
+	if (turns != 1) {
+		bool exists;
+		UnicodeString format = TheGameText->fetch("STRATEGICHUD:ConstructionTurnsRemaining", &exists);
+		if (exists)
+			tmp.format(format.str(), turns);
+	} else {
+		tmp.set(TheGameText->fetch("STRATEGICHUD:ConstructionOneTurnRemaining", 0));
+	}
 	return tmp;
 }
 

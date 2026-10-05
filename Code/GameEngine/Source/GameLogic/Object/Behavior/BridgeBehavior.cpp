@@ -54,6 +54,10 @@
 #include "GameLogic/PartitionManager.h"
 #include "GameLogic/TerrainLogic.h"
 
+// Retail's shared 8.0f at VA 0x00BC2A10 (RVA 0x007C2A10); name the
+// unowned .rdata value so linked code follows it when the image moves.
+extern const Real g_00BC2A10 = 8.0f;
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1002,66 +1006,8 @@ void BridgeBehavior::handleObjectsOnBridgeOnDie( void )
 // ------------------------------------------------------------------------------------------------
 /** Set all the position, angle, and speed data we need to for a single scaffold object */
 // ------------------------------------------------------------------------------------------------
-// byte-exact reconstruction: Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorOnHealing.cpp
-// ?setScaffoldData@BridgeBehavior@@IAEXPAVObject@@PAM1PBUCoord3D@@22@Z present-unmatched
-void BridgeBehavior::setScaffoldData( Object *obj, 
-																			Real *angle, 
-																			Real *sunkenHeight, 
-																			const Coord3D *riseToPos, 
-																			const Coord3D *buildPos, 
-																			const Coord3D *bridgeCenter )
-{
-
-	// sanity
-	if( obj == NULL || angle == NULL || riseToPos == NULL || buildPos == NULL )
-		return;
-
-	const BridgeBehaviorModuleData *modData = getBridgeBehaviorModuleData();
-
-	// get the scaffold behavior interface
-	BridgeScaffoldBehaviorInterface *scaffoldBehavior;
-	scaffoldBehavior = BridgeScaffoldBehavior::getBridgeScaffoldBehaviorInterfaceFromObject( obj );
-	DEBUG_ASSERTCRASH( scaffoldBehavior, ("Unable to find bridge scaffold behavior interface\n") );
-
-	// compute the sunken position that the object will initially start at
-	Real fudge = 8.0f;
-	Coord3D sunkenPos = *riseToPos;
-	sunkenPos.z = sunkenPos.z - *sunkenHeight - fudge;
-
-	// set object initial position
-	obj->setPosition( &sunkenPos );
-
-	// set all the destination points for all scaffold motion
-	scaffoldBehavior->setPositions( &sunkenPos, riseToPos, buildPos );
-	
-	// set the scaffold object in motion rising up out of the ground
-	scaffoldBehavior->setMotion( STM_RISE );
-
-	// set object angle
-	obj->setOrientation( *angle );
-
-	//
-	// set the speed of the scaffold "animation" which is based on how big of a distance
-	// all the scaffold objects have to traverse in order to meet up and be complete in
-	// the center of the bridge in an interesting way
-	//
-	Real lateralSpeed = modData->m_lateralScaffoldSpeed;
-	Coord3D buildUpPosToBridgeCenter, riseToPosToBridgeCenter;
-	buildUpPosToBridgeCenter.x = buildPos->x - riseToPos->x;
-	buildUpPosToBridgeCenter.y = buildPos->y - riseToPos->y;
-	buildUpPosToBridgeCenter.z = buildPos->z - riseToPos->z;
-	riseToPosToBridgeCenter.x = bridgeCenter->x - riseToPos->x;
-	riseToPosToBridgeCenter.y = bridgeCenter->y - riseToPos->y;
-	riseToPosToBridgeCenter.z = bridgeCenter->z - riseToPos->z;
-	Real distBuildUpPosToBridgeCenter = buildUpPosToBridgeCenter.length();
-	Real distRiseToPosToBridgeCenter = riseToPosToBridgeCenter.length();
-	scaffoldBehavior->setLateralSpeed( lateralSpeed * (distBuildUpPosToBridgeCenter / distRiseToPosToBridgeCenter) );
-
-	// rising speed is always the same for all objects
-	Real verticalSpeed = modData->m_verticalScaffoldSpeed;
-	scaffoldBehavior->setVerticalSpeed( verticalSpeed );
-
-}  // end setScaffoldData
+// Implemented in BridgeBehaviorSetScaffoldData.cpp so Coord3D::length remains
+// an out-of-line call, as in the retail body.
 
 // ------------------------------------------------------------------------------------------------
 /** Start the bridge repair scaffolding.  If we already have scaffolding this call
@@ -1386,37 +1332,8 @@ void BridgeBehavior::removeScaffolding( void )
 // ------------------------------------------------------------------------------------------------
 /** Is any of the scaffolding in motion */
 // ------------------------------------------------------------------------------------------------
-// byte-exact reconstruction: Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorOnHealing.cpp
-// ?isScaffoldInMotion@BridgeBehavior@@UAE_NXZ present-unmatched
-Bool BridgeBehavior::isScaffoldInMotion( void )
-{
-	Object *obj;
-
-	// go through the scaffold objects, if any of them are in motion the scaffold is in motion
-	ObjectIDListIterator it;
-	for( it = m_scaffoldObjectIDList.begin(); it != m_scaffoldObjectIDList.end(); ++it )
-	{
-
-		// get object
-		obj = TheGameLogic->findObjectByID( (*it) );
-		if( obj == NULL )
-			continue;
-
-		// get scaffold interface
-		BridgeScaffoldBehaviorInterface *bsbi = BridgeScaffoldBehavior::getBridgeScaffoldBehaviorInterfaceFromObject( obj );
-		if( bsbi == NULL )
-			continue;
-
-		// check in motion
-		if( bsbi->getCurrentMotion() != STM_STILL )
-			return TRUE;
-
-	}  // end for
-
-	// not in motion
-	return FALSE;
-
-}  // end isScaffoldInMotion
+// Retail-specific layout is isolated in BridgeBehaviorIsScaffoldInMotion.cpp:
+// the ZH donor's list at +0x400 is at +0xE0 in this game's body.
 
 // ------------------------------------------------------------------------------------------------
 /** CRC */

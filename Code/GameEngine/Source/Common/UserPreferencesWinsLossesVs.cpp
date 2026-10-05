@@ -64,29 +64,29 @@ public:
 
 Int UserPreferences::rva00537505(AsciiString a, const AsciiString &b)
 {
-	a.concat("LossesVs");
-	a.concat(b);
+	((StringBase<char> *)&a)->concat("LossesVs");
+	((StringBase<char> *)&a)->concat(*(const StringBase<char> *)&b);
 	return getInt(a, 0);
 }
 
 void UserPreferences::rva005374B3(AsciiString a, const AsciiString &b, Int v)
 {
-	a.concat("LossesVs");
-	a.concat(b);
+	((StringBase<char> *)&a)->concat("LossesVs");
+	((StringBase<char> *)&a)->concat(*(const StringBase<char> *)&b);
 	setInt(a, v);
 }
 
 Int UserPreferences::rva0053745E(AsciiString a, const AsciiString &b)
 {
-	a.concat("WinsVs");
-	a.concat(b);
+	((StringBase<char> *)&a)->concat("WinsVs");
+	((StringBase<char> *)&a)->concat(*(const StringBase<char> *)&b);
 	return getInt(a, 0);
 }
 
 void UserPreferences::rva0053740C(AsciiString a, const AsciiString &b, Int v)
 {
-	a.concat("WinsVs");
-	a.concat(b);
+	((StringBase<char> *)&a)->concat("WinsVs");
+	((StringBase<char> *)&a)->concat(*(const StringBase<char> *)&b);
 	setInt(a, v);
 }
 
@@ -98,7 +98,7 @@ AsciiString UserPreferences::rva0053755A(AsciiString a)
 	AsciiString cur;
 	Int max = 0;
 	for (Int i = 0; i < 6; ++i) {
-		cur.set(kFactions[i]);
+		((StringBase<char> *)&cur)->set(kFactions[i]);
 		Int v = rva0053745E(a, cur);
 		if (v > max) {
 			best = cur;
@@ -114,7 +114,7 @@ AsciiString UserPreferences::rva00537616(AsciiString a)
 	AsciiString cur;
 	Int max = 0;
 	for (Int i = 0; i < 6; ++i) {
-		cur.set(kFactions[i]);
+		((StringBase<char> *)&cur)->set(kFactions[i]);
 		Int v = rva00537505(a, cur);
 		if (v > max) {
 			best = cur;

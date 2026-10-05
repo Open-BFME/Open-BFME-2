@@ -13,10 +13,10 @@ AsciiString Rva000B69EAGet(const AsciiString &src, int mode)
 	AsciiString tmp(src);
 	switch (mode) {
 	case 1:
-		tmp.concat("M");
+		((StringBase<char> *)&tmp)->concat("M");
 		break;
 	case 2:
-		tmp.concat("L");
+		((StringBase<char> *)&tmp)->concat("L");
 		break;
 	}
 	return tmp;

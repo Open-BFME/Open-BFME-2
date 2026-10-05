@@ -50,8 +50,8 @@ void PlayerPosition::rva003023B8(const AsciiString &name)
 {
 	AsciiString tmp(name);
 	if (!name.startsWith("Faction")) {
-		tmp.set("Faction");
-		tmp.concat(name);
+		((StringBase<char> *)&tmp)->set("Faction");
+		((StringBase<char> *)&tmp)->concat(*(const StringBase<char> *)&name);
 	}
 	factions.insert(tmp);
 }

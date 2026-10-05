@@ -734,11 +734,16 @@ SaveCode GameState::loadGame( AvailableGameInfo gameInfo )
 }  // end loadGame
 
 //-------------------------------------------------------------------------------------------------
+static __forceinline void concatStringBase(AsciiString &dst, const AsciiString &src)
+{
+	((StringBase<char> *)&dst)->concat(*(const StringBase<char> *)&src);
+}
+
 // ?getSaveDirectory@GameState@@ present-unmatched
 AsciiString GameState::getSaveDirectory() const
 {
 	AsciiString tmp = TheGlobalData->getPath_UserData();
-	tmp.concat("Save\\");
+	((StringBase<char> *)&tmp)->concat("Save\\");
 	return tmp;
 }
 
@@ -747,7 +752,7 @@ AsciiString GameState::getSaveDirectory() const
 AsciiString GameState::getFilePathInSaveDirectory(const AsciiString& leaf) const
 {
 	AsciiString tmp = getSaveDirectory();
-	tmp.concat(leaf);
+	((StringBase<char> *)&tmp)->concat(*(const StringBase<char> *)&leaf);
 	return tmp;
 }
 
@@ -849,17 +854,17 @@ AsciiString GameState::realMapPathToPortableMapPath(const AsciiString& in) const
 	if (in.startsWithNoCase(getSaveDirectory()))
 	{
 		prefix = PORTABLE_SAVE;
-		prefix.concat(getMapLeafName(in));
+		concatStringBase(prefix, getMapLeafName(in));
 	}
 	else if (in.startsWithNoCase(TheMapCache->getMapDir()))
 	{
 		prefix = PORTABLE_MAPS;
-		prefix.concat(getMapLeafAndDirName(in));
+		concatStringBase(prefix, getMapLeafAndDirName(in));
 	}
 	else if (in.startsWithNoCase(TheMapCache->getUserMapDir()))
 	{
 		prefix = PORTABLE_USER_MAPS;
-		prefix.concat(getMapLeafAndDirName(in));
+		concatStringBase(prefix, getMapLeafAndDirName(in));
 	}
 	else
 	{
@@ -881,21 +886,21 @@ AsciiString GameState::portableMapPathToRealMapPath(const AsciiString& in) const
 	{
 		// the save dir ends with "\\"
 		prefix = getSaveDirectory();
-		prefix.concat(getMapLeafName(in));
+		concatStringBase(prefix, getMapLeafName(in));
 	}
 	else if (in.startsWithNoCase(PORTABLE_MAPS))
 	{
 		// the map dir DOES NOT end with "\\", must add it
 		prefix = TheMapCache->getMapDir();
-		prefix.concat("\\");
-		prefix.concat(getMapLeafAndDirName(in));
+		((StringBase<char> *)&prefix)->concat("\\");
+		concatStringBase(prefix, getMapLeafAndDirName(in));
 	}
 	else if (in.startsWithNoCase(PORTABLE_USER_MAPS))
 	{
 		// the map dir DOES NOT end with "\\", must add it
 		prefix = TheMapCache->getUserMapDir();
-		prefix.concat("\\");
-		prefix.concat(getMapLeafAndDirName(in));
+		((StringBase<char> *)&prefix)->concat("\\");
+		concatStringBase(prefix, getMapLeafAndDirName(in));
 	}
 	else
 	{

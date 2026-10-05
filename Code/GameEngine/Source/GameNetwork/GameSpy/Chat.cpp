@@ -185,7 +185,7 @@ Bool GameSpyInfo::sendChat( UnicodeString message, Bool isAction, GameWindow *pl
 					if (aStr.compareNoCase(TheGameSpyInfo->getLocalName()))
 					{
 						tmp.format(",%s", aStr.str());
-						names.concat(tmp);
+						((StringBase<char> *)&names)->concat(*(const StringBase<char> *)&tmp);
 					}
 				}
 				else
@@ -357,4 +357,3 @@ void GameSpyInfo::unregisterTextWindow( GameWindow *win )
 {
 	m_textWindows.erase(win);
 }
-
