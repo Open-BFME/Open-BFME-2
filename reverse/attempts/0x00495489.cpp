@@ -1,4 +1,6 @@
 // ?scanClosestTarget@CommandButtonHuntUpdate@@IAEPAVObject@@XZ
+// partial score=0.9768 date=2026-10-05
+// ?scanClosestTarget@CommandButtonHuntUpdate@@IAEPAVObject@@XZ
 // partial score=0.97 date=2026-10-04
 // cl: /O1 /DNDEBUG /MD /GX /arch:SSE
 //
