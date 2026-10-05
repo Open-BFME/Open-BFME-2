@@ -2123,3 +2123,167 @@ bool MpGameSetup::rva0044127C()
 	m_pending = false;
 	return rva00440BDF(0);
 }
+
+// Retail 0x00441693, 668 bytes. Name unknown. Refreshes a slot's player
+// template combo box (+0x334). For another player's slot the box only
+// shows text: "-", "GUI:Observer" (template -2, humans), "GUI:Random" (-1)
+// or the template's display name, unless the slot is closed (state 1).
+// The local slot, or an AI run by this host, selects the row holding the
+// template; the local slot then applies a pending hero choice (+0x2B4,
+// -3 for none) and re-checks its hero (0x0044149C). Called from 0x00441D56.
+void MpGameSetup::rva00441693(int slot)
+{
+	GameInfo *game = (GameInfo *)m_game->rva0043DA65();
+	if (!game)
+		return;
+	GameSlot *gameSlot = game->getSlot(slot);
+	if (!gameSlot)
+		return;
+	int playerTemplate = gameSlot->m_playerTemplate;
+	GameWindow *comboBox = m_playerTemplate[slot];
+	if (!comboBox)
+		return;
+
+	bool local = slot == game->v13();
+	bool hostAI = gameSlot->isAI() && m_owner->v01();
+	if (!local && !hostAI)
+	{
+		UnicodeString text(AsciiString("-"));
+		if (gameSlot->getState() != 1)
+		{
+			switch (playerTemplate)
+			{
+			case -2:
+				if (gameSlot->isHuman())
+					text = TheGameText->fetch("GUI:Observer");
+				break;
+			case -1:
+				text = TheGameText->fetch("GUI:Random");
+				break;
+			default:
+				if (ThePlayerTemplateStore)
+				{
+					const PlayerTemplate *pt = ThePlayerTemplateStore->getNthPlayerTemplate(playerTemplate);
+					if (pt)
+						text = pt->getDisplayName();
+				}
+				break;
+			}
+		}
+		UnicodeString current = GadgetComboBoxGetText(comboBox);
+		if (current.compare(text) != 0)
+			Rva00322E19Add(comboBox, text, 0);
+		return;
+	}
+
+	GameWindow *listBox = (GameWindow *)bfmeGo925A((BfmeKeyLC *)comboBox);
+	int count = GadgetListBoxGetNumEntries(listBox);
+	int selected;
+	GadgetComboBoxGetSelectedPos(comboBox, &selected);
+	if (Rva003253BEGet(listBox, selected, 0) != playerTemplate)
+	{
+		for (int i = 0; i < count; ++i)
+		{
+			if (Rva003253BEGet(listBox, i, 0) == playerTemplate)
+			{
+				GadgetComboBoxSetSelectedPos(comboBox, i, false);
+				if (local && m_pendingHero == -3)
+					rva0044149C(gameSlot, slot, false);
+				break;
+			}
+		}
+	}
+	if (local && m_pendingHero != -3 && playerTemplate >= -1)
+	{
+		rva0043DD34(gameSlot, m_pendingHero);
+		if (m_pendingHero == gameSlot->m_hero)
+		{
+			m_pendingHero = -3;
+			rva0044149C(gameSlot, slot, false);
+		}
+	}
+}
+
+// Retail 0x00441B15, 607 bytes. Name unknown. Refreshes one slot's row:
+// its ready state, which of its widgets are enabled (0x004404AC; nothing
+// in a locked game, an AI run by this host fully, the local slot by its
+// accepted/map state), the player name or state, the color, team and
+// handicap selections, the template box and the hero text. Called per slot
+// from 0x00442A45.
+void MpGameSetup::rva00441B15(int slot)
+{
+	GameInfo *game = (GameInfo *)m_game->rva0043DA65();
+	if (!game)
+		return;
+	GameSlot *gameSlot = game->getSlot(slot);
+	if (!gameSlot)
+		return;
+
+	rva0043FB5C(slot);
+	if (game->isLocked())
+		rva004404AC(false, -1);
+	else if (game->v12() && gameSlot->isAI())
+		rva004404AC(true, slot);
+	else if (game->v13() == slot)
+	{
+		if (gameSlot->m_accepted && !game->v12())
+			rva004404AC(false, -1);
+		else if (gameSlot->m_hasMap)
+			rva004404AC(true, -1);
+		else
+			rva00441685(Rva00300E42(game));
+	}
+	else if (game->v12())
+		rva004404AC(false, slot);
+
+	if (gameSlot->isHuman())
+	{
+		UnicodeString name = gameSlot->m_name;
+		GameWindow **player = &m_player[slot];
+		UnicodeString current = GadgetComboBoxGetText(*player);
+		if (*player && name.compare(current) != 0)
+			GadgetComboBoxSetText(*player, name);
+	}
+	else
+		rva0043E30F(slot, gameSlot->m_state);
+	if (!game->v12() && m_player[slot])
+		m_player[slot]->winEnable(false);
+
+	MpGameSetupComboRef *color = &m_colorCombo[slot];
+	if (color->m_window)
+	{
+		bool refresh = rva0044009D(slot);
+		int count = ((Rva003236E8 *)color)->rva003236E8();
+		int index;
+		for (index = 0; index < count; ++index)
+		{
+			if (((Rva003236C4 *)color)->rva003236C4(index) == gameSlot->m_color)
+				break;
+		}
+		if (index == count)
+			index = 0;
+		int selected = ((const Rva00323674 *)color)->rva00323674();
+		if (refresh || selected != index)
+		{
+			color->rva00323736(true);
+			((BfmeThing925D *)color)->bfmeGo925D((void *)index);
+		}
+	}
+
+	rva0043E3E2(slot, gameSlot->m_team);
+	GameWindow **handicap = &m_handicap[slot];
+	if (*handicap)
+	{
+		int count = GadgetComboBoxGetLength(*handicap);
+		for (int i = 0; i < count; ++i)
+		{
+			if ((int)GadgetComboBoxGetItemData(*handicap, i) == gameSlot->m_20)
+			{
+				GadgetComboBoxSetSelectedPos(*handicap, i, true);
+				break;
+			}
+		}
+	}
+	rva00441693(slot);
+	rva0043F8B3(slot);
+}
