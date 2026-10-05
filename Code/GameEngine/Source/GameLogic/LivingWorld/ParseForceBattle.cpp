@@ -43,8 +43,10 @@ private:
 class Rva0056652FOwner
 {
 public:
-	void append( Rva004E16D9Record *record );
+  void append( Rva004E16D9Record *record );
 };
+
+extern const FieldParse g_00C61AE8;
 
 // ?ParseForceBattle@@YAXPAVINI@@PAX1PBX@Z
 void ParseForceBattle( INI *ini, void *instance, void *, const void * )
@@ -52,7 +54,7 @@ void ParseForceBattle( INI *ini, void *instance, void *, const void * )
 	if( ini && instance )
 	{
 		Rva004E16D9Record record;
-		ini->initFromINI( &record, (const FieldParse *)0x00C61AE8 );
+		ini->initFromINI( &record, &g_00C61AE8 );
 		((Rva0056652FOwner *)instance)->append( &record );
 	}
 	else
