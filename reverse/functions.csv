@@ -55918,3 +55918,4 @@ ___Extract_locale_name,,0x000216A0,153,Code/Libraries/Source/WWVegas/WWLib/Local
 ?winGetText@GameWindow@@QAE?AVUnicodeString@@XZ,,0x00314942,26,Code/GameEngine/Source/GameClient/GUI/GameWindowWinSetInstanceData_Rva0031495c.cpp,matched,donor winGetText via m_instData at +0x30 pin getText at 0x003148F1
 ?rva000554A9@Rva000554A9@@QAEPAXPAX@Z,,0x000554A9,61,Code/Libraries/Source/WWVegas/WWLib/Rva000554A9.cpp,matched,copy dispatch with 144B tail record via 0x00054E23 and dtor pin
 ?Rva00496292Destroy@@YAXPAX0@Z,,0x00496292,25,Code/GameEngine/Source/GameLogic/Object/Update/Rva00496292.cpp,matched,destroy range stride 12 via dtor pin at 0x00495C43
+??1Rva004962EA@@QAE@XZ,,0x004962EA,30,Code/GameEngine/Source/GameLogic/Object/Update/Rva004962EA.cpp,matched,vector teardown via destroy 0x00496292 and free

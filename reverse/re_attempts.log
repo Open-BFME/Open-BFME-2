@@ -8659,3 +8659,4 @@ FUN_008e5559	0x004E5559	96	blocked	ctor 0x4E4F82 and dtor 0x4E5086 on same ebp-0
 ?rva000E2983@Rva000E2983@@QAEPAXPAX@Z	0x000E2983	31	blocked	31B refcount setter same family as 0x000E28A7 needs push-ecx plus and-zero dead local idiom unknown t=2 model=muse-12
 ?rva000E2A62@Rva000E2A62@@QAEPAXPAX@Z	0x000E2A62	31	blocked	31B refcount setter same family as 0x000E28A7 needs push-ecx plus and-zero dead local idiom unknown t=1 model=muse-12
 ?rva000E2BCF@Rva000E2BCF@@QAEPAXPAX@Z	0x000E2BCF	31	blocked	31B refcount setter same family as 0x000E28A7 needs push-ecx plus and-zero dead local idiom unknown t=1 model=muse-12
+??1Rva004962AB@@QAE@XZ	0x004962AB	63	blocked	63B vector dtor needs EH prolog with scope table and unwind funclet try idiom unknown t=10 model=muse-12
