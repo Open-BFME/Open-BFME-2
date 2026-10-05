@@ -10576,3 +10576,6 @@ FUN_009d401e	0x005D401E	136	void	Correction: retract the prior boundary refusal;
 ?rva005F5DEE@Rva005F5DEE@@QAEXXZ	0x005F5DEE	123	blocked	same custom-register family: body opens mov eax,[edi+0x78] (object in edi plus one stack arg) and pushes edi as an arg later; no /Gd source form; t=3 model=spark
 ?rva005F5E69@Rva005F5E69@@QAEXXZ	0x005F5E69	26	blocked	normal thiscall shape but calls custom-convention 0x005F5D41 with object in eax (mov eax,[esi+0x24] directly before call); no /Gd source emits an eax-fed direct call; t=3 model=spark
 ?rva005F5E83@Rva005F5E83@@QAEXXZ	0x005F5E83	35	blocked	custom-register family caller: feeds 0x005F5D41 in eax and 0x005F5DEE in edi; no /Gd source form; t=2 model=spark
+??1Rva000EEEF4@@UAE@XZ	0x000EEEF4	242	blocked	complex EH dtor with refcount loops and 200KB layout and no donor t=12 model=muse-10
+?rva004F92E3@Rva004F92E3@@QAEXPAX@Z	0x004F92E3	149	blocked	edi esi swapped dest src with sub edi esi offset opt and indexed src loads ours 152B vs 149B t=15 model=muse-10 (stash 0.92 kept)
+?rva0060CE41@XferSave@@QAEXH@Z	0x0060CE41	281	blocked	vslot 11 XferSave 281B with throw format hashmap and stream slots no BFME2 donor ZH Xfer differs t=10 model=muse-10

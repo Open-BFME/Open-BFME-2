@@ -20,6 +20,7 @@ struct Rva0039D8FBKey
 class TeamPrototype
 {
 public:
+	void rva003A2BD4();
 	void *m_vft;
 	void *m_factory;
 	void *m_owner;
@@ -51,6 +52,25 @@ private:
 	Rva0039EA4E m_tree;
 };
 
+class Player
+{
+public:
+	void addTeamToList(TeamPrototype *team);
+};
+struct Rva002A8AB1Record;
+class Rva002A8F24
+{
+public:
+	struct Rva002A8AB1Record *rva002A8AB1(void *p);
+};
+extern class Rva002A8F24 *g_00DFEEF8;
+struct Arg;
+class Rva004EC072
+{
+public:
+	void rva004EC072(struct Arg *a);
+};
+
 void TeamFactory::addTeamPrototypeToList(TeamPrototype *team)
 {
 	int ownerKey = TheNameKeyGenerator->nameToKey(team->m_ownerName);
@@ -62,4 +82,17 @@ void TeamFactory::addTeamPrototypeToList(TeamPrototype *team)
 		return;
 	std::map<BfmeTeamPrototypeKey, TeamPrototype *> *m = (std::map<BfmeTeamPrototypeKey, TeamPrototype *> *)((char *)this + 0xb0);
 	(*(TeamPrototype **)&(*m)[*(BfmeTeamPrototypeKey *)&key]) = team;
+}
+
+void TeamPrototype::rva003A2BD4()
+{
+	if (m_factory)
+		((TeamFactory *)m_factory)->addTeamPrototypeToList(this);
+	if (!m_owner)
+		return;
+	((Player *)m_owner)->addTeamToList(this);
+	struct Rva002A8AB1Record *rec = g_00DFEEF8->rva002A8AB1(m_owner);
+	if (!rec)
+		return;
+	((Rva004EC072 *)rec)->rva004EC072((struct Arg *)this);
 }

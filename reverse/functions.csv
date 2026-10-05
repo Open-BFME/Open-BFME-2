@@ -63478,3 +63478,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?Rva005F88D6Get@@YAHH@Z,,0x005F88D6,30,Code/GameEngine/Source/Common/Rva005F88D6Get.cpp,matched,null-checked global-logic lookup head; sibling of banked 0x005F88F4; /O1
 ?rva000B22E4@Rva000B22E4NullForwarder@@QAEXH@Z,,0x000B22E4,15,Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp,matched,Null-checked member tail forwarder by REL32
 ?rva004FC176@Rva004FC176NullForwarder@@QAEXH@Z,,0x004FC176,15,Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp,matched,Null-checked member tail forwarder by REL32
+?rva003A2BD4@TeamPrototype@@QAEXXZ,,0x003A2BD4,57,Code/GameEngine/Source/Common/RTS/TeamFactoryAddPrototype003A2B78.cpp,matched,TeamPrototype factory owner via callers 0x003A2C9B 0x003A338A rows 0x003A2B78 0x002AE228 pin 0x002A8AB1 row 0x004EC072
