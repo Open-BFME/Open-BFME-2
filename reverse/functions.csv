@@ -57333,3 +57333,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?Set_Width@StreakLineClass@@QAEXM@Z,,0x007418D0,51,Code/Libraries/Source/WWVegas/WW3D2/streak.cpp,matched,ZH body; masked whole-.text single hit with the BFME2 bounding-volume bit 0x20000
 ?Set_Noise_Amplitude@StreakLineClass@@QAEXM@Z,,0x00741970,38,Code/Libraries/Source/WWVegas/WW3D2/streak.cpp,matched,ZH body; masked whole-.text single hit with the BFME2 bounding-volume bit 0x20000
 ??1Rva005FF13A@@UAE@XZ,,0x005FF13A,11,Code/GameEngine/Source/Common/Rva005FF13ADtor.cpp,matched,vtable 0x00C7A478 tail-jmp rowed base 0x005FEF65 via deleting dtor caller
+?rva005786AA@Rva005786AA@@QAEXPAVRva005D32D4@@@Z,,0x005786AA,35,Code/GameEngine/Source/Common/Rva005786AASet.cpp,matched,setter via pinned dtor 0x005D32D4 and delete shape of Rva0057866DSet
