@@ -5,7 +5,38 @@
 // TheGameSpyInfo vf24/vf31 rows, _M_find map<int,int> row, PlayerInfo::isIgnored row.
 // Vtable slots 0x28/0x60/0x7c read off retail; PlayerInfo +0x14 profileID +0x18 flags.
 // Returns this (retail mov eax,esi).
-#include <map>
+// Link: minimal _STL view (no <map>) emits only the row; the full header also
+// emitted find/end/operator!=/less COMDATs that lost (first copy is the
+// speed-built stlport_map_int_int.obj). Direct _M_find plus header compare
+// reproduces retail's inlined find (!= end) shape (Rva002B6498Find precedent).
+class Rva005D62E8;
+namespace _STL {
+template <class T1, class T2> struct pair
+{
+	T1 first;
+	T2 second;
+};
+template <class P> struct _Select1st
+{
+};
+template <class T> struct less
+{
+};
+template <class T> class allocator
+{
+};
+template <class V> struct _Rb_tree_node;
+template <class K, class V, class KOV, class Cmp, class Alloc> class _Rb_tree
+{
+	friend class ::Rva005D62E8;
+	typedef _Rb_tree_node<V> *_Link_type;
+private:
+	template <class KT> _Link_type _M_find(const KT &) const;
+};
+template <class K, class T, class C = less<K>, class A = allocator<pair<const K, T> > > class map;
+}
+typedef _STL::pair<const int, int> IntIntPair;
+typedef _STL::_Rb_tree<int, IntIntPair, _STL::_Select1st<IntIntPair>, _STL::less<int>, _STL::allocator<IntIntPair> > MapIntIntTree;
 
 class Rva00E05FB4
 {
@@ -91,7 +122,9 @@ Rva005D62E8 *Rva005D62E8::rva005D62E8(PlayerInfo *p)
 	if ((p->m_flags & 0x20) == 0 && !g_00E05FB4->vf10(p->m_profileID))
 	{
 		_STL::map<int, int> *m = TheGameSpyInfo->vf24();
-		if (m->find(m_player->m_profileID) != m->end())
+		MapIntIntTree *t = (MapIntIntTree *)m;
+		_STL::_Rb_tree_node<IntIntPair> *node = t->_M_find(m_player->m_profileID);
+		if ((void *)node != *(void * *)t)
 		{
 			m_state = 1;
 			m_sub = 8;
