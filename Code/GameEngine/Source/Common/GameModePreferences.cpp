@@ -103,6 +103,7 @@ public:
 	Int rva0044D88C(void);
 	AsciiString rva0044DAA8(const AsciiString &def);
 	AsciiString rva0044DBA5(void);
+	Bool rva0044DB54(int *vals);
 	void rva0044DC54(Int val);
 	void rva0044DCB9(Int val);
 	void rva0044DD1E(Int val);
@@ -319,6 +320,26 @@ AsciiString GameModePreferences::rva0044DAA8(const AsciiString &def)
 	ret.set(QuotedPrintableToAsciiString(it->second));
 	ret.trim();
 	return ret;
+}
+
+// ?rva0044DB54@GameModePreferences@@QAE_NPAH@Z @0x0044DB54 81B:
+// Rules getter over the mode-keyed map: find makeKey("Rules"), missing calls
+// pin 0x00559FAC with mode then false, else parse value or empty with
+// 0x00559F11 then true.
+// Evidence: makeKey 0x0044D512; map find 0x001F8437; pin 0x00559FAC;
+// parse 0x00559F11; empty 0x007BAC1C; callers 0x004468A0 0x005A232B;
+// prev 0x0044DAA8 next 0x0044DBA5.
+void __cdecl Rva00559FAC(int a, void *b);
+void __cdecl Rva00559F11Parse(const char *s, int *out);
+Bool GameModePreferences::rva0044DB54(int *vals)
+{
+	PreferenceMap::const_iterator it = find(makeKey("Rules"));
+	if (it == end()) {
+		Rva00559FAC(m_mode, vals);
+		return false;
+	}
+	Rva00559F11Parse(it->second.str(), vals);
+	return true;
 }
 
 // ?rva0044DBA5@GameModePreferences@@QAE?AVAsciiString@@XZ @0x0044DBA5 175B:
