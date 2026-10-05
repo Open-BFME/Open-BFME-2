@@ -17,6 +17,17 @@
 // proves the name and loop; BFME2 deltas are the non-const signature plus the
 // +0x5c/+0x258/+0x1DC/+0x438/+0x04/+0x113 layout and the shift filter above.
 // Callers at 0x003E6E60 and 0x003E700A pass Team ECX with trigger/type args.
+//
+// ?transferUnitsTo@Team@@QAEXPAV1@@Z @0x0039E660 (113B): Zero Hour/BFME1
+// Team::transferUnitsTo (same this==newTeam and NULL guards, sits after the
+// trigger-area tests as in ZH Team.cpp). BFME2 walks a fresh 24-byte member
+// iterator per pass (retail rep movsd 6) instead of getFirstItemIn, moves each
+// member with the pinned Object member 0x00298AE4, then notifies the
+// TheSkirmishAIManager (g_00DFEEF8) record of the controlling player through
+// 0x002C6A76. Sole caller 0x0039E9FD hands units to the owner's +0x2EC team.
+// ?rva0039E6D1@Team@@QAEXPAV1@ABV?$BitFlags@$0EF@@@@Z @0x0039E6D1 (155B): the
+// kind-filtered twin (Thing::isAnyKindOf on each member, advance otherwise),
+// notifying unless the rowed Team::rva0039DEC4 scan is true; caller 0x002C6B6D.
 
 typedef unsigned int UnsignedInt;
 
@@ -50,9 +61,19 @@ struct ThingTemplate
 	unsigned char m_kindByte118;
 };
 
-class Object
+template<int NUMBITS> class BitFlags;
+class Team;
+
+class Thing
 {
 public:
+	bool isAnyKindOf(const BitFlags<69> &kinds) const;
+};
+
+class Object : public Thing
+{
+public:
+	void rva00298AE4(Team *team);
 	bool didEnter(PolygonTrigger *pTrigger);
 	bool didExit(PolygonTrigger *pTrigger);
 	bool isInside(PolygonTrigger *pTrigger);
@@ -66,6 +87,21 @@ public:
 	unsigned char m_dead;
 };
 
+class Player;
+
+struct Rva002A8AB1Record
+{
+	void rva002C6A76(Team *team);
+};
+
+class Rva002A8F24
+{
+public:
+	Rva002A8AB1Record *rva002A8AB1(void *p);
+};
+
+extern Rva002A8F24 *g_00DFEEF8;
+
 class Team
 {
 public:
@@ -77,6 +113,10 @@ public:
 	bool allInside(PolygonTrigger *pTrigger, UnsignedInt whichToConsider);
 	bool noneInside(PolygonTrigger *pTrigger, UnsignedInt whichToConsider);
 	void rva0039E7F2(float a, float b, float c);
+	void transferUnitsTo(Team *newTeam);
+	void rva0039E6D1(Team *newTeam, const BitFlags<69> &kinds);
+	Player *getControllingPlayer() const;
+	bool rva0039DEC4();
 
 private:
 	unsigned char m_pad[0x5c];
@@ -240,3 +280,17 @@ void Team::rva0039E7F2(float a, float b, float c)
 	for (DLINK_ITERATOR<Object> iter = iterate_TeamMemberList(); !iter.done(); iter.advance()) {
 	}
 }
+
+void Team::transferUnitsTo(Team *newTeam)
+{
+	if (this == newTeam)
+		return;
+	if (newTeam == 0)
+		return;
+	for (DLINK_ITERATOR<Object> iter = iterate_TeamMemberList(); !iter.done(); iter = iterate_TeamMemberList())
+		iter.cur()->rva00298AE4(newTeam);
+	Rva002A8AB1Record *rec = g_00DFEEF8->rva002A8AB1(getControllingPlayer());
+	if (rec)
+		rec->rva002C6A76(this);
+}
+
