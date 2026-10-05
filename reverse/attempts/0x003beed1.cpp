@@ -1,8 +1,8 @@
 // ?doTeamSetRepulsor@ScriptActions@@IAEXABVAsciiString@@_N@Z
-// partial score=0.95 date=2026-10-05
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// partial score=0.96 date=2026-10-05
 // ?doTeamSetRepulsor@ScriptActions@@IAEXABVAsciiString@@_N@Z
-// ScriptActions::doTeamSetRepulsor, retail 0x003BEED1, 79 bytes.
+// Retail RVA 0x003BEED1, 79 bytes.
+// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
 // Target identity: initActionTemplates names action index 0xEC (236)
 // TEAM_SET_REPULSOR; executeAction's case 0xEC calls VA 0x007BEED1.
 // Target body: copies the team name onto the stack, calls the matched
@@ -15,9 +15,16 @@
 // and iterates Team::iterate_TeamMemberList() to set OBJECT_STATUS_REPULSOR.
 // The iteration idiom and the iterator shape are taken from the matched
 // doTeamGuard body in ScriptActions_doUnitGuardForFramecount.cpp.
-// This do-while form is what reproduces retail's exact 79-byte extent; the
-// for/while-with-cached-local forms spill the cur() result to a stack slot and
-// emit 81 bytes with an extra reload in the body.
+// Target-layout facts from the retail bytes: iterate_TeamMemberList 0x00263864
+// stores the team member list head at offset 0 of its 24-byte sret temp, and
+// DLINK advance 0x00263526 rewrites that same offset 0 with its result, so the
+// current object is the offset-0 member the shim names m_cur.
+// Loop shape: retail rotates the loop, jumping from just after the iterator
+// factory straight to the bottom test (jmp 0x003BEF15), and its test loads the
+// current object into ecx and reuses that register as the setStatus this-
+// pointer. Reproducing that needs the test's load to stay live into the body;
+// with the iterator addressed through a pointer variable MSVC 7.1 /O1 keeps the
+// exact 79-byte extent but still folds the test to a direct compare.
 
 #include "ascii_string.h"
 
@@ -29,8 +36,6 @@ class Team;
 
 enum ObjectStatusTypes { OBJECT_STATUS_REPULSOR = 8 };
 
-// The 24-byte DLINK_ITERATOR<Object> (head plus the 3-part virtual-inheritance
-// member pointer) that Team::iterate_TeamMemberList returns at 0x00263864.
 template<class OBJ> class DLINK_ITERATOR
 {
 public:
@@ -74,9 +79,11 @@ void ScriptActions::doTeamSetRepulsor(const AsciiString &teamName, Bool repulsor
     if (!theSrcTeam) {
         return;
     }
-    DLINK_ITERATOR<Object> iter = theSrcTeam->iterate_TeamMemberList();
+    DLINK_ITERATOR<Object> local = theSrcTeam->iterate_TeamMemberList();
+    DLINK_ITERATOR<Object> *iter = &local;
     do {
-        iter.cur()->setStatus(OBJECT_STATUS_REPULSOR, repulsor);
-        iter.advance();
-    } while (iter.cur());
+        Object *obj = iter->cur();
+        obj->setStatus(OBJECT_STATUS_REPULSOR, repulsor);
+        iter->advance();
+    } while (iter->cur() != 0);
 }
