@@ -33,3 +33,8 @@ template Rva003F75ECTree::iterator Rva003F75ECTree::_M_insert(
 // verified 21-byte trivial construction at 0x0059CE9E. Resolve the
 // typed declaration to the existing provider when linking.
 #pragma comment(linker, "/alternatename:?_M_create_node@?$_Rb_tree@HURva003F75ECValue@@URva003F75ECKey@@U?$greater@H@_STL@@V?$allocator@URva003F75ECValue@@@4@@_STL@@IAEPAU?$_Rb_tree_node@URva003F75ECValue@@@2@ABURva003F75ECValue@@@Z=?_M_create_node@?$_Rb_tree@UBfmeE16@@U1@U?$_Identity@UBfmeE16@@@_STL@@U?$less@UBfmeE16@@@3@V?$allocator@UBfmeE16@@@3@@_STL@@IAEPAU?$_Rb_tree_node@UBfmeE16@@@2@ABUBfmeE16@@@Z")
+
+// 0x003F76B1/134 is the sole caller of the rowed _M_insert. The
+// target loop compares the signed key in descending order and returns
+// the iterator and insertion flag through the caller's result pointer.
+template _STL::pair<Rva003F75ECTree::iterator, bool> Rva003F75ECTree::insert_unique(const Rva003F75ECTree::value_type &);
