@@ -211,3 +211,33 @@ void Rva00509DF8::rva00509DF8(Int a, Rva00509DF8Arg *b)
 			v06(a, &b->m_38);
 	}
 }
+
+// 0x0055F4CE: steps three value/rate/damping triples (at +0x10, +0x1C and
+// +0x2C): the value advances by the rate, the rate decays by the damping.
+// The operand order of the middle sum differs in retail and is kept.
+struct Rva0055F4CEDrift
+{
+	Real value;
+	Real rate;
+	Real damping;
+};
+class Rva0055F4CE
+{
+public:
+	void rva0055F4CE();
+private:
+	char m_pad00[0x10];
+	Rva0055F4CEDrift m_10;
+	Rva0055F4CEDrift m_1C;
+	Int m_28;
+	Rva0055F4CEDrift m_2C;
+};
+void Rva0055F4CE::rva0055F4CE()
+{
+	m_10.value = m_10.value + m_10.rate;
+	m_10.rate = m_10.damping * m_10.rate;
+	m_1C.value = m_1C.rate + m_1C.value;
+	m_1C.rate = m_1C.damping * m_1C.rate;
+	m_2C.value = m_2C.value + m_2C.rate;
+	m_2C.rate = m_2C.damping * m_2C.rate;
+}
