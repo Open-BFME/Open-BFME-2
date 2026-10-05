@@ -152,7 +152,47 @@ CameraShakeSystemClass::CameraShakerClass::CameraShakerClass
 
 
 
+void CameraShakeSystemClass::CameraShakerClass::Compute_Rotations(const Vector3 & camera_position, Vector3 * set_angles)
+{
+	WWASSERT(set_angles != NULL);
 
+	/*
+	** We want several different sinusiods, each with a different phase shift and 
+	** frequency.  The frequency is a function of time as well, stretching the
+	** sine wave out.  These waves are modulated based on the distance from the
+	** center of the "shake", the intensity of the shake, and based on the axis
+	** being affected.  The vertical axis should have about 3x the amplitude of
+	** the horizontal axis.
+	*/
+
+	float len2 = (camera_position - Position).Length2();
+
+
+	if (len2 > Radius*Radius) {
+		return;
+	}
+
+
+	/*
+	** f(t) = intensity(t,pos) * sin( omega(t) * t + phi );
+	** intensity(t,pos) = intensity * (radius/distance) * timeremaing/totaltime
+	** omega(t) = start_omega + (end_omega - start_omega) * t
+	** phi = random(0..start_omega)
+	*/
+	float intensity = Intensity * (1.0f - WWMath::Sqrt(len2) / Radius) * (1.0f - ElapsedTime / Duration);
+	for (int i=0; i<3; i++) {
+		float omega = Omega[i] + (END_OMEGA - Omega[i]) * ElapsedTime;
+		(*set_angles)[i] += AXIS_ROTATION[i] * intensity * WWMath::Sin(omega * ElapsedTime + Phi[i]);
+
+		//WST 11/14/2002. Add in additional random fudge.  There seems to be a too mathematical pattern of shake with the above
+		Vector3 secondary_angles;
+		float minor_intensity = intensity * 0.5f;
+		secondary_angles.X = WWMath::Random_Float(-minor_intensity,minor_intensity);
+		secondary_angles.Y = WWMath::Random_Float(-minor_intensity,minor_intensity);
+		secondary_angles.Z = WWMath::Random_Float(-minor_intensity,minor_intensity);
+		(*set_angles) += secondary_angles;
+	}
+}
 
 
 
