@@ -56224,3 +56224,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?Rva003BA9FA@@YGXMMMM@Z,,0x003BA9FA,51,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsRva003BA9FA.cpp,matched,free stdcall four floats to Display slot 0xcc via TheDisplay caller 0x003CAB07
 ?Rva003C3175Do@@YGXABVAsciiString@@_N@Z,,0x003C3175,126,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C3175.cpp,matched,lookupUnitByValue DualWeapon static key via rowed callees
 ??1?$vector@UEvaMessageInfo@@V?$allocator@UEvaMessageInfo@@@_STL@@@_STL@@QAE@XZ,,0x000B0254,63,Code/GameEngine/Source/GameClient/EvaMessageVectorDtor.cpp,matched,unlock same 63B EH shape as 0x0002CC70 via Destroy 0x000AFF52 plus free 0x00030830
+?rva00272A38@Drawable@@QAEXXZ,,0x00272A38,25,Code/GameEngine/Source/GameClient/Drawable_rva00272A38.cpp,matched,same 0x14C walk as 0x00272A02 void slot34
