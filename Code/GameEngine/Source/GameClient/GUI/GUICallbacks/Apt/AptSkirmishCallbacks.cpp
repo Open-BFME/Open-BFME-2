@@ -50,6 +50,7 @@ public:
 	void rva0052174E(const char *unused);
 	void StartGame(const char *unused);
 	void OnStatsMenu(const char *unused);
+	void rva00521770(const char *unused);
 	void OnExitStatsScreen(const char *unused);
 	void OnClosed(const char *unused);
 	void OnNewProfileMenu(const char *unused);
@@ -64,7 +65,8 @@ public:
 private:
 	unsigned char m_pad000[0x6B8];
 	int m_state; // +0x6B8
-	unsigned char m_pad6bc[0x6C2 - 0x6BC];
+	unsigned char m_pad6bc[0x6C1 - 0x6BC];
+	bool m_6c1; // +0x6C1
 	bool m_6c2; // +0x6C2
 	unsigned char m_pad6c3[0x6D0 - 0x6C3];
 	GameWindow *m_nameEntry; // +0x6D0
@@ -98,10 +100,74 @@ void AptSkirmish::StartGame(const char *unused)
 	m_state = 10;
 }
 
+class SkirmishPreferences
+{
+public:
+	virtual void v0();
+	virtual void v1();
+	virtual void v2();
+	virtual void v3slotC();
+	bool Rva0043B9E8();
+};
+class GameInfo
+{
+public:
+	virtual void *v0slot0(int v);
+};
+extern GameInfo *TheSkirmishGameInfo;
+extern int g_Va00E0333C;
+void __cdecl operator delete(void *p);
+class Panel00E0333C
+{
+public:
+	virtual void p0();
+	virtual void p1slot4();
+};
+void Rva00521643Enable();
+
 // Retail 0x00521763, 13 bytes: "AptSkirmish::OnStatsMenu".
 void AptSkirmish::OnStatsMenu(const char *unused)
 {
 	m_state = 8;
+}
+
+// Retail 0x00521770, 158 bytes: state machine for stats/profile screens.
+// Cases 2/3/4 on m_state; case 2 checks SkirmishPreferences at +0x698,
+// tears down TheSkirmishGameInfo, notifies g_Va00E0333C panel and re-enables.
+void AptSkirmish::rva00521770(const char *unused)
+{
+	(void)unused;
+	switch (m_state) {
+	case 2: {
+		m_6c1 = true;
+		m_state = 7;
+		SkirmishPreferences *prefs = (SkirmishPreferences *)((char *)this + 0x698);
+		if (prefs->Rva0043B9E8())
+			return;
+		prefs->v3slotC();
+		GameInfo *g = TheSkirmishGameInfo;
+		void *toFree;
+		if (g != 0)
+			toFree = g->v0slot0(0);
+		else
+			toFree = 0;
+		operator delete(toFree);
+		TheSkirmishGameInfo = 0;
+		Panel00E0333C *panel = (Panel00E0333C *)(void *)g_Va00E0333C;
+		if (panel != 0)
+			panel->p1slot4();
+		Rva00521643Enable();
+		break;
+	}
+	case 3:
+		m_6c1 = true;
+		m_state = 5;
+		break;
+	case 4:
+		m_6c1 = true;
+		m_state = 7;
+		break;
+	}
 }
 
 // Retail 0x00521826, 27 bytes: "AptSkirmish::OnExitStatsScreen".
