@@ -63260,3 +63260,7 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva005D13E2@Rva005D13E2@@QAEXXZ,,0x005D13E2,201,Code/GameEngine/Source/GameClient/GUI/AptPlayerListRva005D13E2.cpp,matched,address-derived player list refresh via rowed count name color image and statistics calls; native host and method identity remain unknown
 ?rva005D13C2@Rva005D13C2@@QAEXXZ,,0x005D13C2,19,Code/GameEngine/Source/GameClient/GUI/Rva005D13C2Dispatch.cpp,matched,address-derived fade and virtual-dispatch helper; direct caller 0x005D14C0 confirms entry; host and slot identity remain unknown
 ?rva005D14C0@Rva005D14C0@@QAEXXZ,,0x005D14C0,86,Code/GameEngine/Source/GameClient/GUI/AptPlayerListRva005D14C0.cpp,matched,address-derived row event sends message 0x6B7 with host and selected-entry integers via rowed stream helpers; native class remains unknown
+??0Rva005D13BDStorage@@QAE@PAVRva005D13E2@@HH@Z,,0x005D1335,35,Code/GameEngine/Source/GameClient/GUI/AptPlayerListRva005D13E2.cpp,matched,
+?rva005D17B2@Rva005D13E2@@QAEXHABVAsciiString@@@Z,,0x005D17B2,148,Code/GameEngine/Source/GameClient/GUI/AptPlayerListRva005D13E2.cpp,matched,
+?rva0020EAF6@Rva0020EAF6View@@QAEPAVRva0020E89C@@H@Z,,0x0020EAF6,17,Code/Libraries/Source/WWVegas/WWLib/Rva0020EAF6IndexLookup.cpp,matched,
+?rva005D137D@Rva005D13E2@@QAEPAVRva0020E89C@@XZ,,0x005D137D,26,Code/GameEngine/Source/GameClient/GUI/AptPlayerListRva005D13E2.cpp,matched,
