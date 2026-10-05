@@ -63301,3 +63301,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva001F650B@Rva001F650B@@QAEXPAX0@Z,,0x001F650B,22,Code/GameEngine/Source/Common/Thing/Rva001F63F5SlotStores.cpp,matched,Slot get store leaf by REL32
 ?rva001F6521@Rva001F6521@@QAEXPAX0@Z,,0x001F6521,22,Code/GameEngine/Source/Common/Thing/Rva001F63F5SlotStores.cpp,matched,Slot get store leaf by REL32
 ?rva003EE7CA@Rva003EE7CA@@QAEHHH@Z,,0x003EE7CA,23,Code/GameEngine/Source/Common/Rva003EE7CAForward.cpp,matched,virtual forward via this+0x48 slot1 then return first arg
+?Rva00580B5CInsertionSort@@YAXPAPAX0VRva000795C1Record@@@Z,,0x00580B5C,99,Code/Libraries/Source/WWVegas/WWLib/Rva00580776LinearInsert.cpp,matched,insertion sort via guarded linear insert with 16B record teardown

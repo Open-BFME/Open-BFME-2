@@ -62,3 +62,11 @@ void __cdecl Rva005809DBLinearInsert(void **first, void **last, void *val, Rva00
 		Rva00580776Insert(last, val, compare);
 	}
 }
+
+void __cdecl Rva00580B5CInsertionSort(void **first, void **last, Rva000795C1Record compare)
+{
+	if (first == last)
+		return;
+	for (void **p = first + 1; p != last; ++p)
+		Rva005809DBLinearInsert(first, p, *p, compare);
+}
