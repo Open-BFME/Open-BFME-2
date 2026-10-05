@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /O1 /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
 //
 // Opaque scalar deleting destructors, batch B12: 28-byte wrappers that
 // call the destructor, test bit 0 of the flags, conditionally free through
@@ -48,14 +48,38 @@ Rva00513BAB::Rva00513BAB(EmitVtableTag *)
 {
 }
 
-class Rva00514EAB
-{
-public:
-	Rva00514EAB(EmitVtableTag *);
-public:
-	virtual ~Rva00514EAB();
+// Target514EAB/120B is a destructor, as existing deletingwrapper51588B
+// and the EH teardown prove. It installs primaryC65F10/secondaryC65F0C,
+// closes the20B resource290 when globalE048DC equals this, clears the
+// global, releases string2A4, destroys resource290, and calls APT base5126F5.
+// Resource teardown32B reads only optional pointers0/4; close34B releases
+// COM pointer10 and tests status0C. Both complete providers are verified.
+// Reuse the new base5126F5 consumed-prefix view identically; padding274
+// does not assert which portion belongs to the original base. Full owner
+// size, original name and unused fields remain unknown.
+class GameWindow {
+public: GameWindow(); // call-only default ctor: keep the shared census provider
+protected: virtual ~GameWindow();
+private: unsigned char unknown[0x218-4];
+};
+class Rva005248D0 {
+public: virtual ~Rva005248D0();
+private: unsigned char unknown[0x58-4];
+};
+#include "ascii_string.h"
+class _bfme_AptGameWindow : public GameWindow, public Rva005248D0 {
+public: virtual ~_bfme_AptGameWindow();
+private: AsciiString filename270;
 };
 
+class Rva00514EABResourceView {
+public: ~Rva00514EABResourceView(); void close();
+private: void* first;void* second;unsigned int unknown08;int status0C;void* com10;
+};
+class Rva00514EAB : public _bfme_AptGameWindow {
+public: Rva00514EAB(EmitVtableTag*);virtual ~Rva00514EAB();
+private: unsigned char unknown274[0x1c];Rva00514EABResourceView resource290;AsciiString str2A4;
+};
 // ?<Rva00514EAB::Rva00514EAB> absent-from-retail
 Rva00514EAB::Rva00514EAB(EmitVtableTag *)
 {
@@ -294,3 +318,12 @@ public:
 Rva00574338::Rva00574338(EmitVtableTag *)
 {
 }
+
+extern int g_Va00E048DC;
+Rva00514EAB::~Rva00514EAB() {
+ if(g_Va00E048DC==reinterpret_cast<int>(this)) {resource290.close();g_Va00E048DC=0;}
+}
+
+#pragma comment(linker, "/alternatename:??1Rva00514EABResourceView@@QAE@XZ=??1Rva005B6EFEArrayPair@@QAE@XZ")
+
+#pragma comment(linker, "/alternatename:?close@Rva00514EABResourceView@@QAEXXZ=?rva005B7010@Rva005B7010@@QAEXXZ")

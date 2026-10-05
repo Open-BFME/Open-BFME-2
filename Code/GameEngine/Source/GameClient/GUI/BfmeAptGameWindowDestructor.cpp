@@ -11,6 +11,7 @@
 // All three providers are independently full-byte verified. The shared
 // BFME2 AsciiString header deliberately supplies target36410 teardown.
 class GameWindow {
+public: GameWindow(); // call-only default ctor: keep the shared census provider
 protected: virtual ~GameWindow();
 private: unsigned char unknown[0x218-4];
 };
