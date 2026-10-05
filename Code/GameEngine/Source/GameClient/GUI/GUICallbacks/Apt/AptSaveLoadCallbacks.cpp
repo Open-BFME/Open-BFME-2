@@ -103,6 +103,69 @@ public:
 	void rva00433FDD();
 };
 
+// TheLivingWorldLogic (Rva003F03C9Fetch.cpp's g_00DFEF10); its rowed
+// 0x002B2E77 (rowed as the stdcall Rva002B2E77Append) is called with the
+// logic in ECX, so it is declared as a member and pinned under that name.
+class RvaLogicHolder
+{
+public:
+	void rva002B2E77(int value);
+};
+
+extern RvaLogicHolder *g_00DFEF10;
+
+// TheGameLogic; its rowed 0x0023D30F (rowed as the stdcall
+// Rva0023D30FCall) likewise.
+class GameLogic
+{
+public:
+	void rva0023D30F(int a, int b, UnicodeString *name);
+};
+
+extern GameLogic *TheGameLogic;
+
+// The save name the multiplayer save prompt keeps (0x00E032E8).
+extern UnicodeString g_Va00E032E8;
+
+// Retail expands UnicodeString::isEmpty inline as the header test
+// (m_data == 0 || m_data->length == 0); the shared shim keeps it out of
+// line (as MpGameSetupSlots.cpp notes).
+static inline bool unicodeIsEmpty(const UnicodeString &text)
+{
+	const unsigned char *data = *(const unsigned char *const *)&text;
+	return data == 0 || *(const unsigned short *)(data + 4) == 0;
+}
+
+// Retail 0x00433D4D, 36 bytes. Name unknown: bound without a name as an
+// answer to the "APT:MultiplayerGameSaved" prompt (0x00435090), it hands
+// TheLivingWorldLogic 1 for button 2 and 2 for button 3.
+void __cdecl Rva00433D4D(int button)
+{
+	if (!g_00DFEF10)
+		return;
+	if (button == 2)
+		g_00DFEF10->rva002B2E77(1);
+	else if (button == 3)
+		g_00DFEF10->rva002B2E77(2);
+}
+
+// Retail 0x004341D8, 72 bytes. Name unknown: bound without a name as the
+// answer to the "APT:SaveGameMultiplayerConfirmationTitle" prompt
+// (0x00240BC9). With a game and a kept save name, button 2 passes
+// (5, 0, name) and button 3 (2, 2, name) to TheGameLogic's 0x0023D30F; the
+// name is then dropped.
+// ?Rva004341D8@@YAXH@Z present-unmatched
+void __cdecl Rva004341D8(int button)
+{
+	if (!TheGameLogic || unicodeIsEmpty(g_Va00E032E8))
+		return;
+	if (button == 2)
+		TheGameLogic->rva0023D30F(5, 0, &g_Va00E032E8);
+	else if (button == 3)
+		TheGameLogic->rva0023D30F(2, 2, &g_Va00E032E8);
+	g_Va00E032E8.clear();
+}
+
 // Retail 0x00433D71, 37 bytes. Name unknown. Keeps the answer to the
 // "APT:MultiplayerGameSaved" prompt: button 2 gives 1, button 3 gives 2.
 void AptSaveLoad::rva00433D71(int button)
