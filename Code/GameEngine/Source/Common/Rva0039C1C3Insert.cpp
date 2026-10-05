@@ -32,7 +32,9 @@ public:
 	short m_field10;
 };
 
+#pragma optimize("y", on)
 inline void *__cdecl operator new(unsigned int, void *p) { return p; }
+#pragma optimize("", on)
 
 Rva0039B893 *__cdecl Rva0039BA22UninitCopy(Rva0039B893 *first, Rva0039B893 *last, Rva0039B893 *result, const _STL::__false_type &);
 Rva0039B893 *__cdecl Rva0039B8D8FillN(Rva0039B893 *first, unsigned int n, const Rva0039B893 &value, const _STL::__false_type &);
