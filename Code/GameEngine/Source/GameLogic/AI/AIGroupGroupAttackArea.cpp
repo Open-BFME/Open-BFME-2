@@ -38,10 +38,11 @@ public:
 class Object
 {
 public:
-	AIUpdateInterface *getAIUpdateInterface()
-	{
-		return *(AIUpdateInterface **)((char *)this + 0x258);
-	}
+	// Retail-measured AIUpdate at +0x258; direct member so this TU emits
+	// no COMDAT copy of Object::getAIUpdateInterface, whose kept copy
+	// reads a different offset and differs.
+	unsigned char m_pad[0x258];
+	AIUpdateInterface *m_aiUpdate; // +0x258
 };
 
 class AIGroup
@@ -59,7 +60,7 @@ void AIGroup::groupAttackArea(PolygonTrigger *areaToGuard, CommandSourceType cmd
 	}
 	for (std::list<Object *>::iterator i = m_memberList.begin(); i != m_memberList.end(); ++i) {
 		Object *obj = *i;
-		AIUpdateInterface *ai = obj->getAIUpdateInterface();
+		AIUpdateInterface *ai = obj->m_aiUpdate;
 		if (ai) {
 			ai->m_commandInterface.aiAttackArea(areaToGuard, cmdSource);
 		}
