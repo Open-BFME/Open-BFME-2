@@ -62242,3 +62242,6 @@ _Rva007F5790Callback,,0x00661F40,15,Code/GameEngine/Source/GameNetwork/Rva007F70
 ?rva002193D9@Rva0021937D@@QAEXPAVRva0021937DTarget@@@Z,,0x002193D9,46,Code/GameEngine/Source/Common/Rva0021937DTriple.cpp,matched,46B null-guarded triple forward using member +0x1A0; twin of 0x0021937D
 ?rva000A8AD8@Rva000A8AD8@@QAEXM@Z,,0x000A8AD8,22,Code/GameEngine/Source/Common/Rva000A8AD8FloatForward.cpp,matched,22B null-guarded float forward through member pointer to pinned 0x0010FC58; identities unproven
 ?rva000A8AEE@Rva000A8AEE@@QAEXM@Z,,0x000A8AEE,22,Code/GameEngine/Source/Common/Rva000A8AD8FloatForward.cpp,matched,22B null-guarded float forward through member pointer to pinned 0x0010FCDB; twin of 0x000A8AD8
+??0Rva005C802B@@QAE@HH@Z,,0x005C802B,74,Code/GameEngine/Source/Common/Rva005C802BFactory.cpp,matched,74B factory ctor: vtable 0x00C74ACC plus new 0x60 child guarded init storing return; identities unproven
+??0Rva005D19F8@@QAE@HH@Z,,0x005D19F8,74,Code/GameEngine/Source/Common/Rva005C802BFactory.cpp,matched,74B factory ctor: vtable 0x00C75688 plus new 0x1C child guarded init storing return; twin of 0x005C802B
+??0Rva005FF912@@QAE@HH@Z,,0x005FF912,74,Code/GameEngine/Source/Common/Rva005C802BFactory.cpp,matched,74B factory ctor: vtable 0x00C7A530 plus new 0x40 child guarded init storing return; twin of 0x005C802B

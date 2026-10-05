@@ -12111,3 +12111,9 @@ _rva00286E33@8,0x00286E33,stdcall out-param 5B writer called from 0x287B2A with 
 ?rva004074CF@Rva0021937DTarget@@QAEXXZ,0x004074CF,final call of the 0x0021937D triple forward: REL32 read there; address already pins a CreateAHeroData file writer name which is not adopted here; owner identity unproven
 ?rva0010FC58@Rva000A8AD8Target@@QAEXM@Z,0x0010FC58,float-taking callee: REL32 read at the forward call site in 0x000A8AD8; unrowed EH factory body; owner identity unproven
 ?rva0010FCDB@Rva000A8AEETarget@@QAEXM@Z,0x0010FCDB,float-taking callee: REL32 read at the forward call site in 0x000A8AEE; unrowed EH factory body; owner identity unproven
+??_7Rva005C802B@@6B@,0x00C74ACC,Rva005C802B vtable installed by ctor 0x005C802B (mov [esi] imm); slots unrecovered; address-derived name
+??_7Rva005D19F8@@6B@,0x00C75688,Rva005D19F8 vtable installed by ctor 0x005D19F8 (mov [esi] imm); slots unrecovered; address-derived name
+??_7Rva005FF912@@6B@,0x00C7A530,Rva005FF912 vtable installed by ctor 0x005FF912 (mov [esi] imm); slot0 is the rowed scalar deleting dtor 0x005FF9A9; address-derived name
+??0Rva005C802BChild@@QAE@PAVRva005C802B@@HH@Z,0x005C7D4A,child constructor taking owner and two ints: REL32 read at the new-trap-guarded call site in ctor 0x005C802B; owner identity unproven
+??0Rva005D19F8Child@@QAE@PAVRva005D19F8@@HH@Z,0x005D18E2,child constructor taking owner and two ints: REL32 read at the new-trap-guarded call site in ctor 0x005D19F8; owner identity unproven
+??0Rva005FF912Child@@QAE@PAVRva005FF912@@HH@Z,0x005FF675,child constructor taking owner and two ints: REL32 read at the new-trap-guarded call site in ctor 0x005FF912; owner identity unproven
