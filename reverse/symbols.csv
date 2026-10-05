@@ -12570,3 +12570,6 @@ _ceil,0x00629934,CRT ceil thunk identified by native PE import slot 0x00BBA578 a
 ??1Rva003ED94ADtor@@QAE@XZ,0x003ED94A,dtor thunk stub at 0x003ED94A to 0x003ED879 (target of thunk 0x007B80F1)
 ??1Rva003B55F9Dtor@@QAE@XZ,0x003B55F9,dtor thunk stub at 0x003B55F9 to 0x0054FAAC (target of thunks 0x007B82C9 and 0x007B9A37)
 ?GetBool@AptBoolean@@QBE_NXZ,0x006D89D0,Native toBool6DD550 boolean branch tail-jumps byte getter; later AptBoolean.inl d8bdfcd7e1b3059a confirms const bool GetBool; alias existing rowed Rva006D89D0ByteField getter
+?ExecuteInitActions@AptCharacterAnimation@@QAEXPAVAptCIH@@H@Z,0x006E6B40,Native70F370 parent animation+8 receiver and CIH-characterID pair; donor ExecuteInitActions semantics; provider unrowed
+?placeObject@AptDisplayList@@QAEXPAUAptPlaceControl@@PAVAptCIH@@@Z,0x006F8EC0,Native70F370 control+4 and CIH args; donor old PlaceObject2 semantic match; provider unrowed
+?removeObject@AptDisplayList@@QAEXPAH@Z,0x006F72C0,Native70F370 remove-control depth pointer; alias rowed bfmeForward1279 provider
