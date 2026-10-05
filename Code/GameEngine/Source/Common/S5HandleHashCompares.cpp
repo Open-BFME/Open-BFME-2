@@ -161,6 +161,7 @@ public:
 	Rva00435B82 *rva00435B82(Rva00435B82 *dst, Rva00435B82 *src);
 	Rva00435B82 *rva00435D4F(Rva00435B82 *src);
 	Rva00435B82 *rva0043611F(Rva00435B82 *dst);
+	Rva00435B82 *rva004361F2(Rva00435B82 *dst, int unused);
 
 private:
 	char m_head[4];
@@ -196,6 +197,18 @@ Rva00435B82 *Rva00435B82::rva0043611F(Rva00435B82 *dst)
 	tmp.m_val = (int)0xBA792210;
 	rva00435D4F(&tmp);
 	dst->m_val = m_val;
+	return dst;
+}
+
+// ?rva004361F2@Rva00435B82@@QAEPAV1@PAV1@H@Z 29B @0x004361F2
+// Retail: save this->m_val then this via rva0043611F(&tmp) then dst->m_val = saved; return dst; ret 8 so 2 stack args second never read modeled as int.
+// Evidence: chain calls rowed 0x0043611F with tmp at ebp-8; EBP frame with 8B tmp; no callers; same +4 layout.
+Rva00435B82 *Rva00435B82::rva004361F2(Rva00435B82 *dst, int unused)
+{
+	int saved = m_val;
+	Rva00435B82 tmp;
+	rva0043611F(&tmp);
+	dst->m_val = saved;
 	return dst;
 }
 
