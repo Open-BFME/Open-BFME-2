@@ -56493,3 +56493,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva0061FFA0@Rva0061FFA0@@QAEXIH@Z,,0x0061FFA0,42,Code/Libraries/Source/assetmanager/Rva0061FFA0.cpp,matched,assetmanager setter clamp to 1 0 via unclaimed caller
 ?moveToNewRepairSpot@SlavedUpdate@@QAEXXZ,,0x004A2144,276,Code/GameEngine/Source/GameLogic/Object/Update/SlavedUpdateMoveToNewRepairSpot.cpp,matched,ZH SlavedUpdate moveToNewRepairSpot with BFME2 Real random PANIC locomotor
 ?rva004C5E62@SiegeDeploySpecialPower@@QAEXXZ,,0x004C5E62,30,Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeploySpecialPowerSlots.cpp,matched,SiegeDeploy clear status 0x40 setter 0 plus m40
+?Rva003C36C0Do@@YGXPAVParameter@@_N@Z,,0x003C36C0,62,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C36C0.cpp,matched,ScriptActions drawable flag via neighbor pattern ret 0x8 stdcall
