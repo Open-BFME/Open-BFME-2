@@ -50,6 +50,9 @@ EAStringC *Rva0070B4F0GetString(int);
 extern EAStringC g_eaStringAtE177D4;
 extern AptValue *gpUndefinedValue;
 extern AptValue *gpGlobalGlobalObject;
+class AptValueVector { public: int GetNumValues() const; void ReleaseValues(); };
+extern AptValueVector *g_releaseVectorAtE17710;
+void Rva006CC110Log(int, const char *, ...);
 struct AptConstantPool { int nItems; AptValue **apItems; };
 
 // Native At/PopNoDec inline bodies preserve the original stack semantics.
@@ -118,6 +121,9 @@ struct AptActionInterpreter
     AptBasePtrStack stack;
     unsigned char m_otherStacksAndDebugData[0x40-12];
     AptConstantPool constantPool;
+    unsigned char m_betweenPoolAndFrameBase[0x64-0x48];
+    // Original Godfather debug/release field100; native Pop reads +0x64.
+    int mnStackFrameBase;
     AptValue *getVariable(AptValue *, AptValue *, const EAStringC *, int=1, int=1, int=0);
 private:
 #define HANDLER(n) static void _FunctionAptAction##n(AptActionInterpreter *const,LocalContextT *const)
@@ -131,6 +137,7 @@ private:
     HANDLER(Add); HANDLER(Subtract); HANDLER(Multiply);
     HANDLER(Divide); HANDLER(Modulo); HANDLER(Increment); HANDLER(Decrement);
     HANDLER(Equals); HANDLER(LessThan); HANDLER(And); HANDLER(Or); HANDLER(Not);
+    HANDLER(BranchAlways); HANDLER(BranchIfTrue); HANDLER(BranchIfFalse); HANDLER(Pop);
     HANDLER(SetVariable); HANDLER(GetMember); HANDLER(SetMember);
     HANDLER(PushStringGetVar); HANDLER(PushStringGetMember); HANDLER(PushStringSetVar); HANDLER(PushStringSetMember);
 #undef HANDLER
@@ -564,3 +571,53 @@ void AptActionInterpreter::_FunctionAptActionNot(AptActionInterpreter *const p, 
     p->stack.Pop();
     p->stack.Push(result);
 }
+
+void AptActionInterpreter::_FunctionAptActionBranchAlways(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    c->pInstruction=(const unsigned char *)(((unsigned int)c->pInstruction+3)&~3U);
+    const int *data=(const int *)c->pInstruction;
+    c->pInstruction+=4;
+    c->pInstruction+=*data;
+    if (g_releaseVectorAtE17710->GetNumValues()!=0 && p->stack.count==0)
+        g_releaseVectorAtE17710->ReleaseValues();
+}
+
+void AptActionInterpreter::_FunctionAptActionBranchIfTrue(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    c->pInstruction=(const unsigned char *)(((unsigned int)c->pInstruction+3)&~3U);
+    const int *data=(const int *)c->pInstruction;
+    c->pInstruction+=4;
+    AptValue *condition=p->stack.At(0);
+    if (condition->toBool()==true) c->pInstruction+=*data;
+    p->stack.Pop();
+    if (g_releaseVectorAtE17710->GetNumValues()!=0 && p->stack.count==0)
+        g_releaseVectorAtE17710->ReleaseValues();
+}
+
+void AptActionInterpreter::_FunctionAptActionBranchIfFalse(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    c->pInstruction=(const unsigned char *)(((unsigned int)c->pInstruction+3)&~3U);
+    const int *data=(const int *)c->pInstruction;
+    c->pInstruction+=4;
+    AptValue *condition=p->stack.At(0);
+    if (condition->toBool()==false) c->pInstruction+=*data;
+    p->stack.Pop();
+    if (g_releaseVectorAtE17710->GetNumValues()!=0 && p->stack.count==0)
+        g_releaseVectorAtE17710->ReleaseValues();
+}
+
+void AptActionInterpreter::_FunctionAptActionPop(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    int stackElements=p->stack.count;
+    if (stackElements<=p->mnStackFrameBase)
+        Rva006CC110Log(3,"--Warning-- Actionscript Popping when no items are in stack!\n");
+    if (stackElements>p->mnStackFrameBase) p->stack.Pop();
+    if (stackElements==1) {
+        if (g_releaseVectorAtE17710->GetNumValues()!=0)
+            g_releaseVectorAtE17710->ReleaseValues();
+    }
+}
+
+// GetNumValues shares retail's four-byte +4 getter; the target count field
+// is independently established by AptValueVector::ReleaseValues and PopValue.
+#pragma comment(linker, "/alternatename:?GetNumValues@AptValueVector@@QBEHXZ=?Get_First_Collected_Object_Internal@CullSystemClass@@IAEPAVCullableClass@@XZ")

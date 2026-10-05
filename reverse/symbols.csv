@@ -12392,3 +12392,4 @@ _ceil,0x00629934,CRT ceil thunk identified by native PE import slot 0x00BBA578 a
 ??1Rva004F6966@@QAE@XZ,0x005F8F96,tail-jump target of retail pop_back in Rva004F81DBQueue::pop 0x004F81DB; ICF alias of the rowed ??1Rva005F8F96 holder dtor at this address
 ??$sort_heap@PAVRva003371B1@@URva00337C55Less@@@_STL@@YAXPAVRva003371B1@@0URva00337C55Less@@@Z,0x0033788F,callee read from retail REL32 in __partial_sort 0x00337999; template-name alias of the rowed Rva0033788FSortHeap body
 ??4Rva003371B1@@QAEAAV0@ABV0@@Z,0x003372EC,assignment called by retail __adjust_heap 0x0033758C and __push_heap 0x00337479; ICF alias of the body rowed as ??0Rva002E9E70 at this address
+?GetNumValues@AptValueVector@@QBEHXZ,0x007244B0,Native branch and Pop handlers call folded four-byte +4 dword getter; AptValueVector header0fccceed2b337669 supplies const signature; target ReleaseValues proves count+4; alias uses existing folded provider
