@@ -45,3 +45,16 @@ private:
     unsigned int m_count;
 };
 Rva00056DA2::~Rva00056DA2() { rva00056DA2(); }
+
+// Native 0x002895BF: clear 0x00289371 and release the bucket allocation.
+class Rva00289371HashTable
+{
+public:
+    void clear();
+    ~Rva00289371HashTable();
+private:
+    int m_functors;
+    OwnedBucketStorage m_buckets;
+    unsigned int m_count;
+};
+Rva00289371HashTable::~Rva00289371HashTable() { clear(); }
