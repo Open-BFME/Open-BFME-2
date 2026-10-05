@@ -10455,3 +10455,4 @@ FUN_008b7d53	0x004B7D53	141	blocked	vslot10 negative this-adjustment plus EH plu
 ?rva0052AF95@Rva0052AF95@@QAEXXZ	0x0052AF95	110	partial	add eax hoisted above guards cmp-eax vs eax+10 lea-before-push t=25 model=muse-04 score=0.93 stash=reverse/attempts/0x0052af95.cpp
 ??1Rva003EE1BE@@UAE@XZ	0x003EE1BE	126	partial	missing mov-eax-end-cache and mov-byte-1-before-free t=20 model=muse-04 score=0.9 stash=reverse/attempts/0x003ee1be.cpp
 ??1Rva000EDA94@@UAE@XZ	0x000EDA94	165	blocked	complex dtor 2 arrays 0x4B0x0xE8 via validate plus manual refcount loop t=12 model=muse-spark
+?rva005E575E@Rva005E575E@@QAE_NPAX@Z	0x005E575E	68	blocked	missing redundant mov ecx g_009FEF10 before stdcall 0x002B4948; 62B vs 68B; tried inline fwd O2 keep still 62B t=15 model=muse-07 (stash 0.91 kept)
