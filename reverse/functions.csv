@@ -63544,3 +63544,5 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva005D30EE@Rva005D30EE@@QAEXHH@Z,,0x005D30EE,101,Code/GameEngine/Source/Common/Rva005D30EEAptCounters.cpp,matched,
 ?rva005D3153@Rva005D30EE@@QAEXHH@Z,,0x005D3153,101,Code/GameEngine/Source/Common/Rva005D30EEAptCounters.cpp,matched,
 ?rva005D31B8@Rva005D30EE@@QAEXHH@Z,,0x005D31B8,101,Code/GameEngine/Source/Common/Rva005D30EEAptCounters.cpp,matched,
+?rva005D4E37@Rva005D4E37@@QAEXHPBD_N@Z,,0x005D4E37,44,Code/GameEngine/Source/Common/Rva005D4E37Set.cpp,matched,
+?rva005D4EA8@Rva005D4EA8@@QAEPAXHH@Z,,0x005D4EA8,30,Code/GameEngine/Source/Common/Rva005D4EA8Forward.cpp,matched,
