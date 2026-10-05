@@ -7,6 +7,11 @@
 // followed by a raw 28-byte copy of the mapped value at pair offset +4.
 // Comparison reaches the established AsciiString operator< at 0x5598C.
 // Semantic donor: BFME1 RvaTreeInsertUniqueHint.cpp and STLport pair/tree.
+#include <stl/_prolog.h>
+#include <stl/type_traits.h>
+#undef _STLP_DEFAULT_CONSTRUCTOR_BUG
+#undef _STLP_DEFAULT_CONSTRUCTED
+#define _STLP_DEFAULT_CONSTRUCTED(_TTp) _TTp()
 #include <map>
 template <class T> class StringBase
 {
@@ -27,10 +32,22 @@ private:
 };
 bool operator<(const AsciiString &, const AsciiString &);
 // Retail pair copying transfers this 28-byte mapped value without further calls.
-// Its original application type and any ownership/destruction behavior are unknown.
+// Its original application type and the meanings of these fields are unknown.
+// Native subscript 0x005B4023 initializes exactly these bytes before passing
+// the value to the rowed pair constructor 0x005B2F20. Preserve the untouched
+// three padding bytes at +21..23. Its temporary cleanup at 0x005B40A2 calls
+// only the AsciiString destructor, proving no mapped-value cleanup here.
 struct TreeHintPayload005B3786 {
     unsigned int words[7];
-    ~TreeHintPayload005B3786();
+    TreeHintPayload005B3786() {
+        words[0] = 0;
+        words[1] = ~0u;
+        words[2] = ~0u;
+        words[3] = ~0u;
+        words[4] = ~0u;
+        *(unsigned char *)&words[5] = 0;
+        words[6] = 0;
+    }
 };
 
 typedef _STL::pair<const AsciiString, TreeHintPayload005B3786> TreeHintPair005B3786;
@@ -58,3 +75,10 @@ template MapInsert005b3a2a::iterator MapInsert005b3a2a::insert(MapInsert005b3a2a
 
 // This two-argument pair constructor is reached by the map temporary at 0x005B4023.
 template TreeHintPair005B3786::pair(const AsciiString &, const TreeHintPayload005B3786 &);
+
+// Native [0x005B4023,0x005B40BA), RET4, returns node+20 (mapped value).
+// Calls the key-only lower_bound at 0x00221B8D, established AsciiString
+// comparator 0x0005598C, this pair constructor, and map insertion 0x005B3CC9.
+// These calls establish the existing tree instantiation independently of
+// the OptionPreferences equal_range drift candidate that served this address.
+template TreeHintPayload005B3786 &MapInsert005b3a2a::operator[](const AsciiString &);
