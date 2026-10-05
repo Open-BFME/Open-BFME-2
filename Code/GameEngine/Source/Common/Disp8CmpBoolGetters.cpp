@@ -308,3 +308,18 @@ bool Rva00050D86::rva00050D86(unsigned char mask)
 		return true;
 	return false;
 }
+class Rva00050D6C
+{
+public:
+	int rva00050D6C();
+	char m_lead[0x49];
+	unsigned char m_49;
+	unsigned char m_4A;
+	unsigned char m_4B;
+	unsigned char m_4C;
+};
+
+int Rva00050D6C::rva00050D6C()
+{
+	return m_49 || m_4A || m_4B || m_4C;
+}
