@@ -62064,3 +62064,4 @@ _Rva007F5790Callback,,0x00661F40,15,Code/GameEngine/Source/GameNetwork/Rva007F70
 ?Rva0052D71AFillN@@YAPAVRva0056616B@@PAV1@IABV1@@Z,,0x0052D71A,40,Code/GameEngine/Source/Common/System/Rva0052D71A.cpp,matched,chain fill_n via rowed 0x0052D6BE stride 0xB8
 ??1Rva00577010@@QAE@XZ,,0x00577010,30,Code/GameEngine/Source/Common/Rva00577010Dtor.cpp,matched,holder clear plus virtual slot1 with 0 plus delete via 3 callers
 ?_M_clear@?$vector@URva002B9062Element@@V?$allocator@URva002B9062Element@@@_STL@@@_STL@@IAEXXZ,,0x00577EF1,30,Code/Libraries/Source/WWVegas/WWLib/StlportVectorClearRva00577EF1.cpp,matched,Destroy plus free via overflow caller 0x002B820A plus rowed Destroy 0x005F97BC
+?rva0029EAFA@Rva0029EAFA@@QAEXPBVGameMessage@@@Z,,0x0029EAFA,232,Code/GameEngine/Source/Common/Rva0029EAFA.cpp,matched,chain from 0x0029DE76 rowed shroud plus path test
