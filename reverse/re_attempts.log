@@ -10142,3 +10142,4 @@ AptSavedInputCheckpoints::CanContinueSavedInputs	0x006CE7A0	44	blocked	Raw donor
 ?rva00584A9B@Rva005843DA@@QAEXPAVXfer@@@Z	0x00584A9B	423	partial	vector copy offset in eax with lea vs direct mem add t=22 model=muse-09 score=0.98 stash=reverse/attempts/0x00584a9b.cpp
 ?rva0043A0C1@Rva0043A0C1@@QAEXH@Z	0x0043A0C1	156	partial	push edi early before virtual vs late after for processProgress t=18 model=muse-10 score=0.97 stash=reverse/attempts/0x0043a0c1.cpp
 ??1Rva0043A396@@UAE@XZ	0x0043A396	466	blocked	EH dtor with duplicate TheAudio at two VAs same mangling needs central globals fix plus string EH states t=15 model=muse-10
+?_M_fill_insert@?$vector@UBfmeStringRecord000B94D2@@V?$allocator@UBfmeStringRecord000B94D2@@@_STL@@@_STL@@QAEXPAUBfmeStringRecord000B94D2@@IABU3@@Z	0x000C225D	260	blocked	missing retail call+stack-adjust sequences at +0x6e +0x84 +0xcd and ebp-frame layout delta 0xb-vs-0xf; ours 248B vs retail 260B t=10 model=muse-10
