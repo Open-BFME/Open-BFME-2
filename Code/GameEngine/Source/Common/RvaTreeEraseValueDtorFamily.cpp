@@ -39,6 +39,7 @@ struct RvaTreeValueHead
 	public:                                                               \
 		void ERASE(RvaTreeValueNode *node);                               \
 		void CLEAR();                                                     \
+		RvaTreeValueHead *head() { return m_head; } /* +0 accessor for owner dtors */ \
 	private:                                                              \
 		RvaTreeValueHead *m_head;	/* +0x00 */                          \
 		int m_count;				/* +0x04 */                          \
@@ -139,3 +140,101 @@ RVA_TREE_VALUE_FAMILY_T( Rva004D960C, Rva004D9B4B, rva004D9B4B, rva004D9FF2 )
 RVA_TREE_VALUE_FAMILY_T( Rva005011B4, Rva00501F2D, rva00501F2D, rva0050247A )
 // erase 0x0060421C, clear 0x0060434B, value dtor 0x00603C57
 RVA_TREE_VALUE_FAMILY_T( Rva00603C57, Rva0060421C, rva0060421C, rva0060434B )
+
+// Map-base dtors (56B each, /GX frame): the six 5B novtable jmp stubs in
+// Rva00207BDAMapDtors.cpp (0x00207BDA->0x002075F3, 0x00207BDF->0x00207630,
+// 0x00207BE4->0x0020766D, 0x00207BE9->0x002076AA, 0x00207BF3->0x00207724,
+// 0x00207BF8->0x00207761) target these bodies as their Map bases, so each
+// body below is the owner dtor over the matching tree instantiation:
+// CLEAR() on the +0 tree, then a null-guarded free of the head at +0.
+// The __EH_prolog frame plus the single and/or [ebp-4] state pair is the
+// /GX shape (same as rowed 0x001F077D: or-state--1). A no-member model was
+// refuted: without an unwindable member MSVC emits no frame (22B flat).
+// The frame therefore comes from the inline-dtor holder at +0 whose
+// teardown (null-checked free) the compiler inlines; the +4 count slot is
+// what CLEAR() reads. (An earlier delete-spelling was refuted: retail calls
+// the 0x00030830 free, like ERASE and rowed 0x001F077D.)
+struct RvaTreeHeadHolder
+{
+	RvaTreeValueHead *m_head;
+	~RvaTreeHeadHolder()
+	{
+		if (m_head)
+			free(m_head);
+	}
+};
+class Rva002075F3
+{
+public:
+	~Rva002075F3();
+private:
+	RvaTreeHeadHolder m_holder;	/* +0x00, layout-shared with the tree head */
+	int m_count;				/* +0x04, the slot CLEAR() tests */
+};
+Rva002075F3::~Rva002075F3()
+{
+	reinterpret_cast<Rva00206593 *>(this)->rva00206EC7();
+}
+// Five siblings, byte-identical but for the CLEAR callee (decoded above):
+// 0x00207630->0x00206EF0, 0x0020766D->0x00206F19, 0x002076AA->0x00206F42,
+// 0x00207724->0x00206F94, 0x00207761->0x00206FBD.
+class Rva00207630
+{
+public:
+	~Rva00207630();
+private:
+	RvaTreeHeadHolder m_holder;
+	int m_count;
+};
+Rva00207630::~Rva00207630()
+{
+	reinterpret_cast<Rva002065C8 *>(this)->rva00206EF0();
+}
+class Rva0020766D
+{
+public:
+	~Rva0020766D();
+private:
+	RvaTreeHeadHolder m_holder;
+	int m_count;
+};
+Rva0020766D::~Rva0020766D()
+{
+	reinterpret_cast<Rva002065FD *>(this)->rva00206F19();
+}
+class Rva002076AA
+{
+public:
+	~Rva002076AA();
+private:
+	RvaTreeHeadHolder m_holder;
+	int m_count;
+};
+Rva002076AA::~Rva002076AA()
+{
+	reinterpret_cast<Rva00206632 *>(this)->rva00206F42();
+}
+class Rva00207724
+{
+public:
+	~Rva00207724();
+private:
+	RvaTreeHeadHolder m_holder;
+	int m_count;
+};
+Rva00207724::~Rva00207724()
+{
+	reinterpret_cast<Rva0020669C *>(this)->rva00206F94();
+}
+class Rva00207761
+{
+public:
+	~Rva00207761();
+private:
+	RvaTreeHeadHolder m_holder;
+	int m_count;
+};
+Rva00207761::~Rva00207761()
+{
+	reinterpret_cast<Rva002066D1 *>(this)->rva00206FBD();
+}
