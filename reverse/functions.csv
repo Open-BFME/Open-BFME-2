@@ -62215,3 +62215,4 @@ _Rva007F5790Callback,,0x00661F40,15,Code/GameEngine/Source/GameNetwork/Rva007F70
 ?rva002E98C6@Pathfinder@@QAE_NHH@Z,,0x002E98C6,36,Code/GameEngine/Source/GameLogic/AI/PathfinderCellQueryPredicates.cpp,matched,dump-range-13 tag==2 via lookup 0x1E3647 ternary
 ?rva002E9948@Pathfinder@@QAE_NHH@Z,,0x002E9948,38,Code/GameEngine/Source/GameLogic/AI/PathfinderCellQueryPredicates.cpp,matched,dump-range-13 null-true else tag==5 via lookup 0x1E3647
 ?rva002E99BD@Pathfinder@@QAEXHPAX00H@Z,,0x002E99BD,60,Code/GameEngine/Source/GameLogic/AI/PathfinderCellQueryPredicates.cpp,matched,dump-range-13 ebp-frame split-out: null->*a2=0 else *a2=1 *a4=tag *a3=bit18 via lookup 0x1E3647
+?rva002E9871@Pathfinder@@QAEHPBUCoord3D@@@Z,,0x002E9871,38,Code/GameEngine/Source/GameLogic/AI/PathfinderCellQueryPredicates.cpp,matched,dump-range-13 lead cell-field query; +0x10 guard and null share the 1-tail; converts same-name pin to row

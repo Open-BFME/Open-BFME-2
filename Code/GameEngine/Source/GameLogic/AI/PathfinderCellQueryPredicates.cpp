@@ -4,10 +4,16 @@
 // (forward push order), then tests the low nibble of the dword at +0x0C
 // (plus bit 16/17) of the returned record. thiscall with ecx passthrough;
 // ?rva names: class lead from the 0x002E9871 Pathfinder pin, identities unproven.
+struct Coord3D
+{
+	float x, y, z;
+};
 class Pathfinder
 {
 public:
 	void *rva001E3647(int a, int b);
+	void *rva001E3647Pos(int a, const Coord3D *pos);
+	int rva002E9871(const Coord3D *pos);
 	bool rva002E9897(int a, int b);
 	bool rva002E98C6(int a, int b);
 	bool rva002E98EA(int a, int b);
@@ -15,12 +21,28 @@ public:
 	bool rva002E9948(int a, int b);
 	bool rva002E996E(int a, bool b, bool c, int d);
 	void rva002E99BD(int a1, void *a2, void *a3, void *a4, int a5);
+private:
+	char m_pad000[0x10];
+	int m_unk0010; // +0x10 null-guard read by rva002E9871
 };
 struct Rva001E3647Result
 {
 	char m_pad[0x0C];
 	unsigned int m_flags;
 };
+// ?rva002E9871@Pathfinder@@QAEHPBUCoord3D@@@Z @0x002E9871 38B: +0x10-gated
+// cell-field query: guard or null -> 1, else (flags>>4)&0x3F. Converts the
+// existing same-name pin into a row.
+int Pathfinder::rva002E9871(const Coord3D *pos)
+{
+	if (m_unk0010 != 0)
+	{
+		Rva001E3647Result *rec = (Rva001E3647Result *)rva001E3647Pos(1, pos);
+		if (rec != 0)
+			return (rec->m_flags >> 4) & 0x3F;
+	}
+	return 1;
+}
 // ?rva002E996E@Pathfinder@@QAE_NH_N_NH@Z @0x002E996E 79B: 4-arg combined
 // query: null->true; flag=(tag==2); unless b, flag|=tag in {1,7}; unless c,
 // flag|=tag==5.

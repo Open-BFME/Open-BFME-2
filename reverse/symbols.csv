@@ -12079,3 +12079,4 @@ _rva00286E33@8,0x00286E33,stdcall out-param 5B writer called from 0x287B2A with 
 ?rva002C9A6F@Rva002C9B80Owner@@QAEXPAXH0@Z,0x002C9A6F,"address read from retail REL32 at 0x002C9BA2 in 0x002C9B80 (E8 -> 0x2C9A6F); thiscall (void*,int,void*) void return per pushes; opaque address name, pin candidate-not-proof"
 ?rva002C995D@Rva002C9B80Member@@QAEXPAX0M@Z,0x002C995D,"address read from retail REL32 at 0x002C9BB8 in 0x002C9B80 (E8 -> 0x2C995D); thiscall this=[esi+4] (void*,void*,float) void return; Ghidra 103B range target; opaque address name, pin candidate-not-proof"
 ?rva001E3647@Pathfinder@@QAEPAXHH@Z,0x001E3647,thiscall lookup returning the +0x0C-tagged record; pin for dump-range-13 Pathfinder predicates
+?rva001E3647Pos@Pathfinder@@QAEPAXHPBUCoord3D@@@Z,0x001E3647,thiscall lookup overload taking (int, pos); same address as the (int,int) pin; additive pin for dump-range-13 rva002E9871
