@@ -12542,3 +12542,4 @@ _ceil,0x00629934,CRT ceil thunk identified by native PE import slot 0x00BBA578 a
 ?sGlobalTable@AptActionInterpreter@@0PAUFunctionTable@1@A,0x009DC980,Native185 records opcode+callback each8B; original MAP private static FunctionTable signature; initialized storage definition in handler TU
 ?rva006FE580@AptBasePtrStack@@QAEPAVAptValue@@H@Z,0x006FE580,Native runStream calls established stack At provider; address-labelled ABI alias preserves existing provider
 ?At@AptBasePtrStack@@QAEPAVAptValue@@H@Z,0x006FE580,Native slice6DA3A0 uses global value stackE182E0 and signed argument index; existing At66B provider bound by alias with canonical AptValue return
+??0Rva0014F699@@QAE@ABV0@@Z,0x0014F4E3,twin of Element pin same 76B body callers 0x0014F647 0x00150959

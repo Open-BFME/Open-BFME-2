@@ -63118,3 +63118,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva001FC357@Rva001FC357@@QAEXPAX0@Z,,0x001FC357,38,Code/GameEngine/Source/Common/Thing/Rva001FA836ForwardChain.cpp,matched,Rva slot-get then next-link forward chain by REL32 graph
 ?rva001FC451@Rva001FC451@@QAEXPAX0@Z,,0x001FC451,38,Code/GameEngine/Source/Common/Thing/Rva001FA836ForwardChain.cpp,matched,Rva slot-get then next-link forward chain by REL32 graph
 ??4Rva001FC404@@QAEAAV0@ABV0@@Z,,0x001FC404,41,Code/GameEngine/Source/Common/Rva001F9CCAAssignChain.cpp,matched,Rva assign chain first base 001F41CD then second base plus4 by REL32 graph
+?rva00150959@Rva00150959@@QAEXPAURva001504A1Record@@IABVRva0014F699@@@Z,,0x00150959,258,Code/GameEngine/Source/Common/Rva00150959Insert.cpp,matched,vector fill-insert 76B EH tag callers 0x00150BD7 0x00150A86
