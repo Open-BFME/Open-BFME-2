@@ -44,8 +44,8 @@ extern GameWindowManager *TheWindowManager;
 void GadgetTextEntrySetText(GameWindow *textEntry, UnicodeString text);
 void bfmeGo924F(BfmeKeyLC *textEntry, unsigned short maxLength);
 
-// The in-game chat's kept line (Rva004E855CMethod.cpp's g_00E0447C).
-extern UnicodeString g_00E0447C;
+// g_00E0447C: matched references place it at VA 0x00e0447c (UnicodeString kept line; dynamic init 0x007B3132).
+UnicodeString g_00E0447C;
 
 // TheShell (VA 0x00E01E48, the ledger's g_Va00A01E48).
 struct GlobalA01E48
