@@ -83,8 +83,30 @@ class GridWSEnvironmentMapperClass : public GridWSEnvMapperClass {
 public: virtual void Apply(int uv_array_index);
 };
 
-class ScaleTextureMapperClass : public TextureMapperClass {};
-class LinearOffsetTextureMapperClass : public ScaleTextureMapperClass {};
+class ScaleTextureMapperClass : public TextureMapperClass {
+public: virtual void Apply(int uv_array_index);
+protected:
+    Vector2 Scale;
+};
+class LinearOffsetTextureMapperClass : public ScaleTextureMapperClass {
+protected:
+    Vector2 CurrentUVOffset;
+    Vector2 UVOffsetDeltaPerMS;
+    unsigned int LastUsedSyncTime;
+    Vector2 StartingUVOffset;
+    bool ClampFix;
+};
+// BumpEnvTextureMapperClass: retail Apply 0x00186A90 reads LastUsedSyncTime,
+// CurrentAngle, RadiansPerSecond and ScaleFactor at +0x34/+0x38/+0x3C/+0x40,
+// the donor mapper.h layout above.
+class BumpEnvTextureMapperClass : public LinearOffsetTextureMapperClass {
+public: virtual void Apply(int uv_array_index);
+protected:
+    unsigned int LastUsedSyncTime;
+    float CurrentAngle;
+    float RadiansPerSecond;
+    float ScaleFactor;
+};
 class ScreenMapperClass : public LinearOffsetTextureMapperClass {
 public: virtual void Apply(int uv_array_index);
 };
@@ -119,6 +141,50 @@ struct MapperTransformAccess : DX8Wrapper {
         }
     }
 };
+
+// ScaleTextureMapperClass::Apply: RVA 0x1844A0, 1269 bytes. The Scale vtable
+// (Clone 0x183F10, Calculate_Texture_Matrix 0x182270) and the Rotate and
+// SineLinearOffset tables that inherit it hold it in the Apply slot (+0x14).
+void ScaleTextureMapperClass::Apply(int uv_array_index)
+{
+	// Set up the texture matrix
+	Matrix4x4 m;
+	Calculate_Texture_Matrix(m);
+	MapperTransformAccess::SetTransform((D3DTRANSFORMSTATETYPE) (D3DTS_TEXTURE0+Stage),m);
+
+	// Disable Texgen
+	DX8Wrapper::Set_DX8_Texture_Stage_State(Stage,D3DTSS_TEXCOORDINDEX,D3DTSS_TCI_PASSTHRU | uv_array_index);
+
+	// Tell rasterizer to expect 2D texture coordinates
+	DX8Wrapper::Set_DX8_Texture_Stage_State(Stage,D3DTSS_TEXTURETRANSFORMFLAGS,D3DTTFF_COUNT2);
+}
+
+inline unsigned long F2DW( float f ) { return *((unsigned long*)&f); }
+
+// BumpEnvTextureMapperClass::Apply: RVA 0x186A90, 602 bytes, the Zero Hour
+// mapper.cpp body; its first call is the inherited Scale Apply at 0x1844A0.
+void BumpEnvTextureMapperClass::Apply(int uv_array_index)
+{
+	LinearOffsetTextureMapperClass::Apply(uv_array_index);
+
+	unsigned int now = WW3D::Get_Sync_Time();
+	unsigned int delta =  now - LastUsedSyncTime;
+	LastUsedSyncTime=now;
+
+	CurrentAngle+=RadiansPerSecond * delta * 0.001f;
+	CurrentAngle=fmodf(CurrentAngle,2*WWMATH_PI);
+
+	// Compute the sine and cosine for the bump matrix
+	float c,s;
+	c=ScaleFactor * WWMath::Fast_Cos(CurrentAngle);
+	s=ScaleFactor * WWMath::Fast_Sin(CurrentAngle);
+
+	// Set the Bump Environment Matrix
+	DX8Wrapper::Set_DX8_Texture_Stage_State(Stage,D3DTSS_BUMPENVMAT00, F2DW(c));
+	DX8Wrapper::Set_DX8_Texture_Stage_State(Stage,D3DTSS_BUMPENVMAT01, F2DW(-s));
+	DX8Wrapper::Set_DX8_Texture_Stage_State(Stage,D3DTSS_BUMPENVMAT10, F2DW(s));
+	DX8Wrapper::Set_DX8_Texture_Stage_State(Stage,D3DTSS_BUMPENVMAT11, F2DW(c));
+}
 
 void EdgeMapperClass::Apply(int uv_array_index)
 {
