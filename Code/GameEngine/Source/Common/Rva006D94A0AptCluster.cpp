@@ -227,3 +227,7 @@ void BfmeAptValue006DCD20::rva006D94A0()
 		}
 	}
 }
+
+// The global(s) below are defined elsewhere under another name at the same
+// address (the census owner of that DIR32 target); bind this unit's spelling.
+#pragma comment(linker, "/alternatename:?g_aptValueStackAtE182E0@@3VAptBasePtrStack@@A=?g_aptDateInterpreter@@3UAptActionInterpreter@@A")

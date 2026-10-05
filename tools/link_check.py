@@ -427,6 +427,8 @@ def main(argv=None):
     ap.add_argument("--new-variants", action="store_true",
                     help="with --staged or paths: refuse only a unit adding a second body for a COMDAT "
                          "every census object agrees on (works for units the census has not seen)")
+    ap.add_argument("--staged-peers", action="store_true",
+                    help="with --new-variants: also judge the other staged units by their current objects")
     args = ap.parse_args(argv)
     paths = staged() if args.staged else args.paths
     if args.new_variants:
@@ -437,7 +439,18 @@ def main(argv=None):
             return 0
         index, truth = load_index(), link_census.RetailTruth(link_census.ledger())
         bad = 0
-        for source, obj in (resolve(path, index) for path in paths):
+        resolved = [resolve(path, index) for path in paths]
+        # Units of this same change that the census already holds (the given
+        # paths plus, from the commit gate, every other staged unit) are
+        # judged by their current objects: a body moved from one staged unit
+        # to another is then one copy, not a split against the census's stale
+        # copy of the unit it left. Nothing else changes in the index.
+        given = {obj for _, obj in resolved}
+        others = [resolve(path, index) for path in staged() if path not in paths] if args.staged_peers else []
+        known = [obj for obj in given | {obj for _, obj in others} if obj.name in index["objects"]]
+        if known and index.get("common_schema") == COMMON_SCHEMA and isinstance(index.get("alternates"), dict):
+            refresh(index, known, truth)
+        for source, obj in resolved:
             for name in new_variants(obj, index, truth):
                 print(f"  {source}: emits its own body for {name}, which every census object shares "
                       "one copy of: include the shared header (or keep it out of line)", file=sys.stderr)

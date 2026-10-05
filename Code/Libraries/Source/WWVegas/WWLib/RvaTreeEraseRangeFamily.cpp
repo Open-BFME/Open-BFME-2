@@ -216,3 +216,7 @@ unsigned int Rva00362AB5::rva00362B89(const int &x)
 	rva00362ADE(p.first, p.second);
 	return n;
 }
+
+// Other units call this body (pinned at its address) under the spelling(s)
+// below, with the same calling convention and stack arguments; bind them.
+#pragma comment(linker, "/alternatename:?erase@Rva006DF050Slot@@QAEIABH@Z=?rva000D3BFD@Rva000D20A9@@QAEIABH@Z")

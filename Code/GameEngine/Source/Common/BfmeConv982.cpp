@@ -181,3 +181,6 @@ public:
 	bool m_byte2e;
 };
 
+// The global(s) below are defined elsewhere under another name at the same
+// address (the census owner of that DIR32 target); bind this unit's spelling.
+#pragma comment(linker, "/alternatename:?g_bfmeHub982@@3PAVBfmeHub982@@A=?g_00DE6170@@3PAVRva0011018B@@A")

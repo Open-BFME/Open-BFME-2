@@ -58,10 +58,10 @@ extern "C" const void *const vtbl_00C5D608[] = {
 	(const void *)&vfn_0050B5C6
 };
 
-class Rva004930A0
+class SpecialPowerModuleData
 {
 public:
-	Rva004930A0();
+	SpecialPowerModuleData();
 
 protected:
 	unsigned char m_pad[0x7C];
@@ -70,7 +70,7 @@ protected:
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 
-class TaintSpecialPowerModuleData : public Rva004930A0
+class TaintSpecialPowerModuleData : public SpecialPowerModuleData
 {
 public:
 	TaintSpecialPowerModuleData();
@@ -82,7 +82,7 @@ public:
 };
 
 TaintSpecialPowerModuleData::TaintSpecialPowerModuleData()
-	: Rva004930A0()
+	: SpecialPowerModuleData()
 {
 	int *taintObject = &m_taintObject;
 	*(unsigned int *)this = ((unsigned int)vtbl_00C5D608);

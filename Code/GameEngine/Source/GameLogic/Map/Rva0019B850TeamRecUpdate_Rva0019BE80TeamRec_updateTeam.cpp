@@ -61,3 +61,7 @@ void Rva0019BE80TeamRec::updateTeam(int index) {
 }
 
 typedef char RecordWidth0019B850[(sizeof(TeamRecord0019B850)==16)?1:-1];
+
+// Other units call this body (pinned at its address) under the spelling(s)
+// below, with the same calling convention and stack arguments; bind them.
+#pragma comment(linker, "/alternatename:?find@Rva0032C07COwner@@QAEPAUTeamMapNode@@AAURva0002C4FD@@@Z=??$_M_find@U?$pair@VAsciiString@@V1@@_STL@@@?$_Rb_tree@U?$pair@VAsciiString@@V1@@_STL@@U?$pair@$$CBU?$pair@VAsciiString@@V1@@_STL@@H@2@U?$_Select1st@U?$pair@$$CBU?$pair@VAsciiString@@V1@@_STL@@H@_STL@@@2@UTeamLess0019B850@@V?$allocator@U?$pair@$$CBU?$pair@VAsciiString@@V1@@_STL@@H@_STL@@@2@@_STL@@ABEPAU?$_Rb_tree_node@U?$pair@$$CBU?$pair@VAsciiString@@V1@@_STL@@H@_STL@@@1@ABU?$pair@VAsciiString@@V1@@1@@Z")

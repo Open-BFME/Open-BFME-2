@@ -106,3 +106,8 @@ void StringBase<char>::set(const StringBase<char> &that)
 #pragma comment(linker, "/alternatename:?copyFrom@BfmeTailF5@@QAEXPBU1@@Z=??0?$StringBase@D@@AAE@ABV0@@Z")
 #pragma comment(linker, "/alternatename:??0BfmeSubB@@QAE@ABV0@@Z=??0?$StringBase@D@@AAE@ABV0@@Z")
 #pragma comment(linker, "/alternatename:?bfmeSetBPD@BfmeSubBPD@@QAEXPAX@Z=??0?$StringBase@D@@AAE@ABV0@@Z")
+
+// Other units call this body (pinned at its address) under the spelling(s)
+// below, with the same calling convention and stack arguments; bind them.
+#pragma comment(linker, "/alternatename:?bfmeCopyUVKE@BfmeUniVKE@@QAEXABV1@@Z=??0?$StringBase@D@@AAE@ABV0@@Z")
+#pragma comment(linker, "/alternatename:?bfmeSetBSF@BfmeSubBSF@@QAEXPAX@Z=??0?$StringBase@D@@AAE@ABV0@@Z")

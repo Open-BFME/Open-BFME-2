@@ -19,16 +19,16 @@ private:
 	unsigned char m_data[4];
 };
 
-class Rva004930A0
+class SpecialPowerModuleData
 {
 public:
-	virtual ~Rva004930A0();
+	virtual ~SpecialPowerModuleData();
 
 private:
 	unsigned char m_pad[0x7C - 4];
 };
 
-class __declspec(novtable) InvisibilitySpecialPowerModuleData : public Rva004930A0
+class __declspec(novtable) InvisibilitySpecialPowerModuleData : public SpecialPowerModuleData
 {
 public:
 	virtual ~InvisibilitySpecialPowerModuleData();

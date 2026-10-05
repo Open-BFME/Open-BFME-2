@@ -370,12 +370,17 @@ public:
 	void regainFocus();
 };
 
-// The WM_ACTIVATE singleton at 0x00DFDC14 is not TheAudio (0x00DFE6E8: this
-// body's WM_ACTIVATEAPP focus slots, FlammableUpdate/AudioLoopUpgrade sound
-// calls). Its focus method 0x0035D2F7 restores channel volumes through
-// 0x00DFE6E8's vtable, so the AudioManager spelling here only carries the
-// pinned regainFocus call; the owner is unrecovered.
-AudioManager *theBfmeDfdc14;
+class GameWindowTransitionsHandler;
+
+// The WM_ACTIVATE singleton at 0x00DFDC14 is TheTransitionHandler, not
+// TheAudio (0x00DFE6E8: this body's WM_ACTIVATEAPP focus slots,
+// FlammableUpdate/AudioLoopUpgrade sound calls). INI::parseWindowTransitions
+// (0x001DC66F) reads this same global and calls getNewGroup on it, and the
+// object behind it (ctor 0x001DCBC3, vftable 0x00BDBC30) is the transitions
+// handler. The focus method 0x0035D2F7 does not read its this; it restores
+// channel volumes through 0x00DFE6E8's vtable and carries its pinned
+// AudioManager::regainFocus spelling, so the call keeps that ABI label.
+GameWindowTransitionsHandler *TheTransitionHandler;
 
 class GameEngine
 {
@@ -626,8 +631,8 @@ LRESULT CALLBACK WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam 
 				if( TheMouse )
 					TheMouse->setMouseLimits();
 
-				if( theBfmeDfdc14 )
-					theBfmeDfdc14->regainFocus();
+				if( TheTransitionHandler )
+					((AudioManager *)TheTransitionHandler)->regainFocus();
 			}
 			break;
 		}

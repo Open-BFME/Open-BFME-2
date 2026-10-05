@@ -120,3 +120,7 @@ void __cdecl Rva000685E2Reset()
 	DX8Wrapper::Set_DX8_Render_State(19, 5);
 	DX8Wrapper::Set_DX8_Render_State(20, 6);
 }
+
+// The global(s) below are defined elsewhere under another name at the same
+// address (the census owner of that DIR32 target); bind this unit's spelling.
+#pragma comment(linker, "/alternatename:?g_d3dCallCount@@3IA=?texture_stage_state_changes@DX8Wrapper@@1IA")

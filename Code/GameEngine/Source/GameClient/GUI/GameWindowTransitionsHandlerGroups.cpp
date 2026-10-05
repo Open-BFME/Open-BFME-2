@@ -285,10 +285,8 @@ void GameWindowTransitionsHandler::reverse( AsciiString groupName )
 	m_currentGroup->reverse();
 }
 
-// TheTransitionHandler is the singleton at 0x00DFDC14 (defined in WinMain.cpp
-// under its older address name).
+// TheTransitionHandler is the singleton at 0x00DFDC14 (defined in WinMain.cpp).
 extern GameWindowTransitionsHandler *TheTransitionHandler;
-#pragma comment(linker, "/alternatename:?TheTransitionHandler@@3PAVGameWindowTransitionsHandler@@A=?theBfmeDfdc14@@3PAVAudioManager@@A")
 
 void INI::parseWindowTransitions( INI* ini )
 {

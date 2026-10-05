@@ -160,3 +160,7 @@ void MeshMatDescClass::Install_UV_Array(int pass, int stage, Vector2 *uvs, int c
 		}
 	}
 }
+
+// The global(s) below are defined elsewhere under another name at the same
+// address (the census owner of that DIR32 target); bind this unit's spelling.
+#pragma comment(linker, "/alternatename:?g_007CE338@@3QBQBXB=??_7UVBufferClass@@6B@")

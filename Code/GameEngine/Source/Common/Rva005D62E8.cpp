@@ -119,3 +119,7 @@ Rva005D62E8 *Rva005D62E8::rva005D62E8(PlayerInfo *p)
 	}
 	return this;
 }
+
+// The global(s) below are defined elsewhere under another name at the same
+// address (the census owner of that DIR32 target); bind this unit's spelling.
+#pragma comment(linker, "/alternatename:?g_00E05FB4@@3PAVRva00E05FB4@@A=?TheGameSpyConfig@@3PAVGameSpyConfigInterface@@A")

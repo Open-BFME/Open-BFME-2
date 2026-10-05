@@ -326,7 +326,6 @@ name,address,notes
 ??0ButterflyDrawModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A7CEE,BFME2 export; the module template copy constructor the ConcreteModuleTemplate wrapper calls
 ??0ButterflyDrawModuleTemplate@FXParticleSystem@@QAE@XZ,0x003A7C97,BFME2 export; the module template default constructor the ConcreteModuleTemplate wrapper calls
 ??0Cftp@@QAE@XZ,0x006CA5E0,address read from the REL32 displacement at a placed body
-??0CollectionClass@@QAE@ABV0@@Z,0x00130C00,address read from the REL32 displacement at a placed body
 ??0CreateAHeroData@@QAE@ABV0@@Z,0x00409D4D,Complete339-byte copy;vtableC38D88 getter409353 names CreateAHeroData;Snapshot base and140-byte owning layout independently decoded
 ??0CriticalSectionClass@@QAE@XZ,0x00613AE0,address read from the REL32 displacement at a placed body; stlport 4.5.3
 ??0CullSystemClass@@QAE@XZ,0x00724550,address read from the retail REL32 in ??0GridCullSystemClass at 0x0071CBE0
@@ -443,7 +442,6 @@ name,address,notes
 ??0Rva0036CA00Str@@QAE@ABV0@@Z,0x000A8C7C
 ??0Rva0044EB54@@QAE@XZ,0x0044EB54,opaque intermediate base DEFAULT ctor (889B SEH body, vtable 0xC3F2A8, no args: callers pass this-only and it reads no stack args); 26 module default-ctor callers; identity unproven
 ??0Rva0044EF5E@@QAE@PAVThing@@PBVModuleData@@@Z,0x0044EF5E,opaque UpdateModule-derived intermediate base ctor (243B body: UpdateModule base call plus vtable 0xC3FBA8 plus members to +0x84); 28 module-ctor callers; identity unproven
-??0Rva004930A0@@QAE@XZ,0x004930A0,opaque intermediate base DEFAULT ctor (SEH body); called this-only by DeliverPayloadAIUpdate and AIUpdateInterface ctors; identity unproven
 ??0Rva00493C5A@@QAE@PAVThing@@PBVModuleData@@@Z,0x00493C5A,opaque intermediate base ctor (SEH body); called 2-arg by SupplyTruckAIUpdate ctor; identity unproven
 ??0Rva006DCD20@@QAE@PAVThing@@PBVModuleData@@@Z,0x006DCD20,opaque base of ClientUpdateModule 0x6CBCB0 (38B: vtable 0xCEAED0 folded with ClientUpdateModule own, base 0x6DBBC0, bit-flags +4); NOT DrawableModule (different vtable family from Module block 0xC07E.., donor shape belongs to landed 0x306B19); identity unproven
 ??0Rva007E86B0Base@@QAE@XZ,0x00655770
@@ -637,7 +635,6 @@ name,address,notes
 ??1PointGroupClass@@UAE@XZ,0x00178ED0
 ??1ProductionPrerequisite@@QAE@XZ,0x004F5115,BFME1 dtor mangling; vector teardown via 0x30830; 5 callers incl 3 cluster
 ??1RenderObjectUpdateModuleTemplate@FXParticleSystem@@UAE@XZ,0x003A6201,BFME2 export; the module template destructor every category folds onto - three vtable stores walked back through the bases
-??1RoadType@@QAE@XZ,0x0018E750,address read from the REL32 displacement at a placed body; stlport 4.5.3
 ??1Rva0001AA9BMultiBase@@UAE@XZ,0x001DBAC3
 ??1Rva0001AA9BTailBase@@UAE@XZ,0x001DBAC3
 ??1Rva0007311B@@UAE@XZ,0x0007311B,opaque SEH dtor (mov-eax-cookie prologue); called by scalar-deleting-dtor at 0x66667; identity unproven, address-derived name
@@ -717,7 +714,6 @@ name,address,notes
 ??1Rva0060FE2@@UAE@XZ,0x0060FE2,opaque SEH dtor (mov-eax-cookie prologue, sub esp frame); called by scalar-deleting-dtor at 0x61AA1; identity unproven, address-derived name
 ??1Rva0061ED80@@UAE@XZ,0x0061ED80,opaque vector-destroying dtor (17B: member+0xC via ehvec 0x42FD80 + vptr); tail-called by single-inheritance dtor at 0x180EA0; identity unproven, address-derived name
 ??1Rva00633E5@@UAE@XZ,0x00633E5,opaque member-load 2-vptr dtor (mov eax,[ecx+8] + vptrs +0/+4); called by scalar-deleting-dtor at 0x639B4; identity unproven, address-derived name
-??1Rva00638C4@@UAE@XZ,0x00638C4,opaque SEH dtor (mov-eax-cookie prologue, vptr 0xBC59F4); called by scalar-deleting-dtor at 0x638A8; identity unproven, address-derived name
 ??1Rva006422F@@UAE@XZ,0x006422F,opaque SEH dtor (mov-eax-cookie prologue, vptr 0xBC59B8); called by scalar-deleting-dtor at 0x642D5; identity unproven, address-derived name
 ??1Rva0065288@@UAE@XZ,0x0065288,opaque SEH dtor (mov-eax-cookie prologue); called by scalar-deleting-dtor at 0x6526C; identity unproven, address-derived name
 ??1Rva0065CA4@@UAE@XZ,0x0065CA4,opaque SEH dtor (mov-eax-cookie prologue, vptr 0xBC5C78); called by scalar-deleting-dtor at 0x65CE8; identity unproven, address-derived name
@@ -780,7 +776,6 @@ name,address,notes
 ??1Rva0098477@@UAE@XZ,0x0098477,opaque SEH dtor (mov-eax-cookie prologue, vptr 0xBC8298); called by scalar-deleting-dtor at 0x984B2; identity unproven, address-derived name
 ??1Rva00985E4@@UAE@XZ,0x00985E4,opaque SEH dtor (mov-eax-cookie prologue); called by scalar-deleting-dtor at 0x9864B; identity unproven, address-derived name
 ??1Rva00986E7@@UAE@XZ,0x00986E7,opaque SEH dtor (mov-eax-cookie prologue, vptr 0xBC8358); called by scalar-deleting-dtor at 0x98A53; identity unproven, address-derived name
-??1Rva0098B8B@@UAE@XZ,0x0098B8B,opaque SEH dtor (mov-eax-cookie prologue, vptr 0xBC8688); called by scalar-deleting-dtor at 0x98C90; identity unproven, address-derived name
 ??1Rva0098D9E@@UAE@XZ,0x0098D9E,opaque SEH dtor (mov-eax-cookie prologue, vptr 0xBC86CC); called by scalar-deleting-dtor at 0x98DD6; identity unproven, address-derived name
 ??1Rva0099927@@UAE@XZ,0x0099927,opaque SEH dtor (mov-eax-cookie prologue, vptr 0xBC86D8); called by scalar-deleting-dtor at 0x999B2; identity unproven, address-derived name
 ??1Rva009A500@@UAE@XZ,0x009A500,opaque global-load frameless dtor (mov ecx,[0xDEC2CC] head); called by scalar-deleting-dtor at 0x91ACE; identity unproven, address-derived name
@@ -2227,7 +2222,6 @@ name,address,notes
 ?bfmeSmallVLW@@YAPAXI@Z,0x000279A0
 ?bfmeSortAVJX@@YAXPAUBfmeElemVJX@@0UBfmeCmpVJX@@@Z,0x00626990
 ?bfmeSortBVJX@@YAXPAUBfmeElemVJX@@0UBfmeCmpVJX@@@Z,0x00626940
-?bfmeStepBFF@BfmeSubBFF@@QAEXXZ,0x000376E0
 ?bfmeStepBVA@BfmeThingBVA@@QAEXPAV1@@Z,0x002CF742
 ?bfmeStepJW@@YAXPAX@Z,0x001B9040
 ?bfmeStepTWA@BfmeThingTWA@@QAEXXZ,0x00664FC0
@@ -2840,7 +2834,6 @@ name,address,notes
 ?negative_sign@?$moneypunct@D$0A@@_STL@@QBE?AV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@2@XZ,0x0000EA70,STLport moneypunct getter; emitted full 27-byte body has no relocations and equals retail byte for byte; linker-folded with the same virtual-slot string getter
 ?negative_sign@?$moneypunct@G$00@_STL@@QBE?AV?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@2@XZ,0x0000EA70,STLport wide moneypunct getter; retail money_get<wchar_t>::do_get(string_type) calls this address; ICF-folded with the narrow getter
 ?negative_sign@?$moneypunct@G$0A@@_STL@@QBE?AV?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@2@XZ,0x0000EA70,STLport wide moneypunct getter; retail money_get<wchar_t>::do_get(string_type) calls this address; ICF-folded with the narrow getter
-?nextWithNumeric@SimpleObjectIterator@@QAEPAVObject@@PAM@Z,0x0028D412,address read from the REL32 displacement at a placed body
 ?normalizeAngle@@YAMM@Z,0x00238954,address read from the REL32 displacement at a placed body
 ?notify@Rva00802A90Elem@@QAEXPAURva00802A90Query@@PAXHH@Z,0x0066DF80,address read from the REL32 displacement at placed go 0x66EBC0 twice; same FeslBrowser family; ghidra 523B boundary
 ?notify@T_007ea120@@QAEXPAX@Z,0x00657050
@@ -2961,7 +2954,6 @@ name,address,notes
 ?reset@Rva007E8810Message@@QAEXXZ,0x00655B50
 ?reset@Rva00800290Buffer@@QAEXXZ,0x0066C730
 ?reset@Rva00802290Owner@@QAEXXZ,0x0066E520
-?reset@SimpleObjectIterator@@AAEXXZ,0x00291C20,address read from the REL32 displacement at a placed body
 ?resetHpState@Rva007F5D10HostLookup@@QAEXPAVRva008022A0Owner@@@Z,0x0066D830
 ?resetKeys@Keyboard@@QAEXXZ,0x00232BDD,address read from the REL32 in WndProc's WM_SETFOCUS/WM_KILLFOCUS arms at 0x00001862
 ?resize@?$hashtable@U?$pair@$$CBHH@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@QAEXI@Z,0x00620B70,address read from the retail REL32 in hashtable::_M_insert at 0x00620F60
@@ -4352,7 +4344,6 @@ _bfmeAppend,0x0060D5F2,callee of bfmeEmit (0x0060D7C0) at the site its BFME1 don
 ?destroyAllDrives@CDManager@@UAEXXZ,0x003E3C66,callee of 1CDManager (0x003E5525) at the site its BFME1 donor calls it; may be an ICF alias
 ?bfmeDoPI@BfmeThingPI@@QAEXPADPAXH@Z,0x0002A3A0,callee of bfmeGoPI (0x0002AC90) at the site its BFME1 donor calls it; may be an ICF alias
 ??1ThreadClass@@UAE@XZ,0x00610480,callee of 1MouseThreadClass (0x00098D9E) at the site its BFME1 donor calls it; may be an ICF alias
-??1AIPlayer@@MAE@XZ,0x00232976,callee of 1AISkirmishPlayer (0x00098B8B) at the site its BFME1 donor calls it; may be an ICF alias
 ?bfmeRunZC@BfmeOwnZC@@QAEXVBfmeRoomZC@@PAX@Z,0x00204F3B,callee of bfmeCallZC (0x00357130) at the site its BFME1 donor calls it; may be an ICF alias
 ??0DX8VertexBufferClass@@QAE@IGW4UsageType@0@I@Z,0x0013AC00,callee of allocateSlotStorage (0x0011615B) at the site its BFME1 donor calls it; may be an ICF alias
 ?bfmeSkipPrefixed@Gen009D8C30@@QAEXXZ,0x0060C59D,callee of beginBlock (0x0060C629) at the site its BFME1 donor calls it; may be an ICF alias
@@ -5626,7 +5617,7 @@ __mbscat,0x0062988C,retail REL32 from INI getNextQuotedAsciiString 0x002E93F; IA
 ?Rva0033E17DSetLocomotorSet@@QAEXHABVLocomotorTemplate@@@Z,0x0033E17D,LocomotorSet map clear-plus-push on the map at obj+0x3AC through rowed subscript 0x1EA05B plus folded erase 0x31BD55 plus folded push_back 0x4DFCB0; decoded stack shows key-plus-value double-push idiom; sole structured caller is the AIUpdate locomotor parser at 0x1EA3C4; true class and member names unproven (descriptive Rva vehicle)
 ??$_Construct@UcrateCreationEntry@@U1@@_STL@@YAXPAUcrateCreationEntry@@ABU1@@Z,0x0035CA02,crateCreationEntry _Construct twin of pair dup_ row at same address; identical AsciiString-plus-dword bytes via rowed copy 0x466EA7; callee of crate _M_create_node 0x35CAB4
 ??$_M_find@I@?$_Rb_tree@IU?$pair@$$CBIPAVImage@@@_STL@@U?$_Select1st@U?$pair@$$CBIPAVImage@@@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@$$CBIPAVImage@@@_STL@@@2@@_STL@@ABEPAU?$_Rb_tree_node@U?$pair@$$CBIPAVImage@@@_STL@@@1@ABI@Z,0x00357180,ICF twin of the rowed unsigned-key void-value _M_find; Image star map find emits this spelling and the bytes are identical modulo the value type
-??0GameEngineDeletingBase@@QAE@XZ,0x001B4E63,twin spelling of the rowed baseConstruct ctor at the same address; AIPlayer ctor at 0x232920 calls it as its base constructor
+??0GameEngineDeletingBase@@QAE@XZ,0x001B4E63,twin spelling of the rowed baseConstruct ctor at the same address; Keyboard ctor at 0x232920 (formerly rowed AIPlayer) calls it as its base constructor
 ??AImageSubscriptMap@@QAEAAPAVImage@@ABI@Z,0x002077D6,declaration-only subscript view over the ImageCollection map; retail folds unsigned-key pointer-map operator[] into this shared worker which drives the rowed PAX lower_bound at 0x4FF3B6; sole in-file caller is addImage 0x2D9457
 ??1Rva00297360Element@@QAE@XZ,0x0029D7C2,Rva _Destroy element teardown; stride-0x10 range destroy at 0x297360 calls it per element; address rowed as ??1CameraMarker whose identical bytes serve this teardown (ICF)
 ?rva0028AC4E@Object@@QBEPBURva0028AC4EEntry@@XZ,0x0028AC4E,Object holder-entry getter. Ghidra boundary 0x28AC4E/20. Reads holder at +0x258 with null check then entry at +0x1F0. Called by 0x28AC62 and 0x28AC7D plus 6 more sites. False-path tail is the rowed 3B zero getter at 0x28AC5F so this stays pinned not rowed. Address-derived opaque entry view.
@@ -7375,7 +7366,6 @@ _tolower,0x006298D4,CRT tolower import thunk called directly by the EAStringC ut
 ?isString@BfmeAptValue006DCD20@@QBE_NXZ,0x006DC0D0,bool-return alias of the matched ?isString row at the same address; the 0x7065E0 call site tests al not eax so this spelling is the retail one; alias pin only
 _Rva0030CAF8CursorEqual,0x0007E394,twin of dup_0007e394 29B exact cursor equality
 ?Delete@Rva00423FBDThis@@QAEXPAV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@Z,0x00423FBD,"thiscall shim twin of the matched free delete at this address: body ignores ECX, and retail range delete 0x003F2BEB passes the flag address in ECX with the element on the stack, so only the thiscall convention reproduces the lea ecx,[ebp+0x10] before the call"
-??0?$hashtable@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@W4NameKeyType@@U?$hash@W4NameKeyType@@@rts@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@2@U?$equal_to@W4NameKeyType@@@5@V?$allocator@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@2@@_STL@@QAE@IABU?$hash@W4NameKeyType@@@rts@@ABU?$equal_to@W4NameKeyType@@@3@ABV?$allocator@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@1@@Z,0x001DCB64,twin of 0x002896AA proven by caller 0x001DCBA4 31B identical pushes
 ??$__pop_heap@PAHHHURva005E4300Cmp@@@_STL@@YAXPAH00HURva005E4300Cmp@@0@Z,0x005E4A5F,ICF twin of rowed 5-arg pop heap at same address; 6-arg overload Distance int identical 41B body called by 30B aux 0x005E4AC4
 ?setTeamNumber@GameSlot@@QAEXH@Z,0x002E6A93,twin of dup row via object-symbol in owning TU and matched call at 0x003BC669
 ?rva001FF725@ScienceStore@@QBE?AW4ScienceType@@ABVAsciiString@@@Z,0x001FF725,twin of free row via TheScienceStore thiscall at 0x003BC6DC and identical body
@@ -9587,6 +9577,251 @@ _Rva003F417EConstructRecords,0x003F417E,"Native003F5254 calls existing verified 
 ??E?$_Ht_iterator@U?$pair@$$CBVAsciiString@@UWindowRecord@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVAsciiString@@UWindowRecord@@@_STL@@@2@VAsciiString@@U?$hash@VAsciiString@@@rts@@U?$_Select1st@U?$pair@$$CBVAsciiString@@UWindowRecord@@@_STL@@@2@U?$equal_to@VAsciiString@@@6@V?$allocator@U?$pair@$$CBVAsciiString@@UWindowRecord@@@_STL@@@2@@_STL@@QAEAAU01@XZ,0x00411084,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ??E?$_Ht_iterator@URva0045F0A0Input@@U?$_Nonconst_traits@URva0045F0A0Input@@@_STL@@VAsciiString@@U?$hash@VAsciiString@@@rts@@URva0045F0A0ExtractKey@@U?$equal_to@VAsciiString@@@3@V?$allocator@URva0045F0A0Input@@@3@@_STL@@QAEAAU01@XZ,0x00411084,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ??RNameClearFunctor00462540@@QAEXAAU?$pair@$$CBVAsciiString@@UWindowRecord@@@_STL@@@Z,0x004107AE,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??$?0VAsciiString@@PBVFXList@@@?$pair@$$CBVAsciiString@@URva00142EE0Value@@@_STL@@QAE@ABU?$pair@VAsciiString@@PBVFXList@@@1@@Z,0x00466EA7,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??$?MD@@YA_NABV?$StringBase@D@@0@Z,0x0005598C,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??$_Construct@UMade002CC5E1DamageScalar@@U1@@_STL@@YAXPAUMade002CC5E1DamageScalar@@ABU1@@Z,0x0060C9D9,two-dword copy construct fold; REL32 read from push_back 0x0050882B and insert overflow 0x005085B6
+??$_Construct@URva00365070Element@@U1@@_STL@@YAXPAURva00365070Element@@ABU1@@Z,0x000C2387,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??$_Construct@URva003A35A0Element@@U1@@_STL@@YAXPAURva003A35A0Element@@ABU1@@Z,0x0031205A,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??$_Construct@VGameResultsRequest@@V1@@_STL@@YAXPAVGameResultsRequest@@ABV1@@Z,0x0041A6FA,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??$_Construct@VW3DAnimationInfo@@V1@@_STL@@YAXPAVW3DAnimationInfo@@ABV1@@Z,0x00469C61,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??$_Destroy@PAUMade002CC5E1DamageScalar@@@_STL@@YAXPAUMade002CC5E1DamageScalar@@0@Z,0x00507BB7,range destroy loop fold (element dtor 0x00495C43) read from the REL32 at 0x00507C17 in clear 0x00507C0F and 0x00507BEA in the vector dtor 0x00507BD0
+??$_M_find@I@?$hashtable@U?$pair@$$CBIPAX@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIPAX@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIPAX@_STL@@@2@@_STL@@ABEPAU?$_Hashtable_node@U?$pair@$$CBIPAX@_STL@@@1@ABI@Z,0x002888D4,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??$_M_find@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@?$_Rb_tree@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@U?$pair@$$CBV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@H@2@U?$_Select1st@U?$pair@$$CBV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@H@_STL@@@2@U?$less@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@2@V?$allocator@U?$pair@$$CBV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@H@_STL@@@2@@_STL@@ABEPAU?$_Rb_tree_node@U?$pair@$$CBV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@H@_STL@@@1@ABV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@1@@Z,0x00389291,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??$__adjust_heap@PAUBfmeScoreEntry@@HU1@UBfmeScoreEntryLess@@@_STL@@YAXPAUBfmeScoreEntry@@HHU1@UBfmeScoreEntryLess@@@Z,0x005B2A8C,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??$__copy_backward_ptrs@PAUICoord2D@@PAU1@@_STL@@YAPAUICoord2D@@PAU1@00ABU__false_type@0@@Z,0x0030B378,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??$__copy_backward_ptrs@PAVW3DAnimationInfo@@PAV1@@_STL@@YAPAVW3DAnimationInfo@@PAV1@00ABU__false_type@0@@Z,0x005B2B1E,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??$__copy_ptrs@PAU?$pair@MH@_STL@@PAU12@@_STL@@YAPAU?$pair@MH@0@PAU10@00ABU__false_type@0@@Z,0x005B09BB,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??$__push_heap@PAUBfmeScoreEntry@@HU1@UBfmeScoreEntryLess@@@_STL@@YAXPAUBfmeScoreEntry@@HHU1@UBfmeScoreEntryLess@@@Z,0x005B28F3,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??$__push_heap@PAUS4SortElem8@@HU1@US4Cmp00575AA0@@@_STL@@YAXPAUS4SortElem8@@HHU1@US4Cmp00575AA0@@@Z,0x005EC5F5,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??$__uninitialized_copy@PAUICoord2D@@PAU1@@_STL@@YAPAUICoord2D@@PAU1@00ABU__false_type@0@@Z,0x004C3121,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??$__uninitialized_copy@PAUMade002CC5E1DamageScalar@@PAU1@@_STL@@YAPAUMade002CC5E1DamageScalar@@PAU1@00ABU__false_type@0@@Z,0x004C3121,8-byte construct-loop copy fold; both REL32s in insert overflow 0x005085B6
+??$__uninitialized_copy@PAURva00365070Element@@PAU1@@_STL@@YAPAURva00365070Element@@PAU1@00ABU__false_type@0@@Z,0x000C23E1,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??$__uninitialized_copy@PBUGen00363750@@PAU1@@_STL@@YAPAUGen00363750@@PBU1@0PAU1@ABU__false_type@0@@Z,0x004E3733,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??$__uninitialized_copy@PBUGen003A9A90@@PAU1@@_STL@@YAPAUGen003A9A90@@PBU1@0PAU1@ABU__false_type@0@@Z,0x0052C915,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??$__uninitialized_copy@PBUGen003A9B60@@PAU1@@_STL@@YAPAUGen003A9B60@@PBU1@0PAU1@ABU__false_type@0@@Z,0x003F5858,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??$__uninitialized_fill_n@PAUMade002CC5E1DamageScalar@@IU1@@_STL@@YAPAUMade002CC5E1DamageScalar@@PAU1@IABU1@ABU__false_type@0@@Z,0x00507958,8-byte fill fold; REL32 read from insert overflow 0x005085B6
+??$__uninitialized_fill_n@PAURva00365070Element@@IU1@@_STL@@YAPAURva00365070Element@@PAU1@IABU1@ABU__false_type@0@@Z,0x000C2410,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??$fill@PAUICoord2D@@U1@@_STL@@YAXPAUICoord2D@@0ABU1@@Z,0x000AD7E4,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??$find@PAVAsciiString@@V1@@_STL@@YAPAVAsciiString@@PAV1@0ABV1@@Z,0x000BD22F,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??$find@PAW4ObjectID@@W41@@_STL@@YAPAW4ObjectID@@PAW41@0ABW41@@Z,0x0020E873,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??$find@PBVAsciiString@@V1@@_STL@@YAPBVAsciiString@@PBV1@0ABV1@@Z,0x000BD22F,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??$for_each@U?$_Ht_iterator@U?$pair@$$CBVAsciiString@@UWindowRecord@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVAsciiString@@UWindowRecord@@@_STL@@@2@VAsciiString@@U?$hash@VAsciiString@@@rts@@U?$_Select1st@U?$pair@$$CBVAsciiString@@UWindowRecord@@@_STL@@@2@U?$equal_to@VAsciiString@@@6@V?$allocator@U?$pair@$$CBVAsciiString@@UWindowRecord@@@_STL@@@2@@_STL@@UNameClearFunctor00462540@@@_STL@@YA?AUNameClearFunctor00462540@@U?$_Ht_iterator@U?$pair@$$CBVAsciiString@@UWindowRecord@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVAsciiString@@UWindowRecord@@@_STL@@@2@VAsciiString@@U?$hash@VAsciiString@@@rts@@U?$_Select1st@U?$pair@$$CBVAsciiString@@UWindowRecord@@@_STL@@@2@U?$equal_to@VAsciiString@@@6@V?$allocator@U?$pair@$$CBVAsciiString@@UWindowRecord@@@_STL@@@2@@0@0U1@@Z,0x00411395,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??$iter_swap@PAUBfmeScoreEntry@@PAU1@@_STL@@YAXPAUBfmeScoreEntry@@0@Z,0x005B2893,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??$uninitialized_fill_n@PAUICoord2D@@IU1@@_STL@@YAPAUICoord2D@@PAU1@IABU1@@Z,0x005FF4DD,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??$uninitialized_fill_n@PAVAsciiString@@IV1@@_STL@@YAPAVAsciiString@@PAV1@IABV1@@Z,0x000B9596,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0?$BFMEFactoryModuleData@VBoneFXUpdateModuleData@@$0NJE@@@QAE@XZ,0x00487797,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0?$BFMEFactoryModuleData@VStructureCollapseUpdateModuleData@@$0PI@@@QAE@XZ,0x004AD0EE,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0?$BFMEFactoryModuleData@VTransitionDamageFXModuleData@@$0BAEA@@@QAE@XZ,0x004BA58A,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0?$ConcreteModuleTemplate@V?$ModuleTag@$01$E?RENDEROBJECT_UPDATE_MODULE_KEY@FXParticleSystem@@3QBDB$E?RENDEROBJECT_UPDATE_MODULE_NAME@2@3QBDBVRenderObjectUpdateModule@2@VRenderObjectUpdateModuleTemplate@2@VRenderObjectParticleUpdateModule@2@VRenderObjectParticleUpdateModuleTemplate@2@@FXParticleSystem@@@FXParticleSystem@@QAE@ABV01@@Z,0x003A8D35,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0?$ConcreteModuleTemplate@V?$ModuleTag@$04$E?LIGHTNING_EMISSION_MODULE_KEY@FXParticleSystem@@3QBDB$E?LIGHTNING_EMISSION_MODULE_NAME@2@3QBDBVLightningEmissionModule@2@VLightningEmissionModuleTemplate@2@V?$DefaultParticleModule@$04@2@V?$DefaultParticleModuleTemplate@$04@2@@FXParticleSystem@@@FXParticleSystem@@QAE@ABV01@@Z,0x003A92F1,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0?$_List_base@IV?$allocator@I@_STL@@@_STL@@QAE@ABV?$allocator@I@1@@Z,0x004EC36C,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0?$_List_base@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@_STL@@QAE@ABV?$allocator@PAVGameWindow@@@1@@Z,0x004EC36C,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0?$_List_base@PAVRva002E06C0Target@@V?$allocator@PAVRva002E06C0Target@@@_STL@@@_STL@@QAE@ABV?$allocator@PAVRva002E06C0Target@@@1@@Z,0x0029FB3B,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0?$_List_base@PAVShellMenuScheme@@V?$allocator@PAVShellMenuScheme@@@_STL@@@_STL@@QAE@ABV?$allocator@PAVShellMenuScheme@@@1@@Z,0x004EC36C,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0?$_List_base@URva003C15C0Element@@V?$allocator@URva003C15C0Element@@@_STL@@@_STL@@QAE@ABV?$allocator@URva003C15C0Element@@@1@@Z,0x00280A8D,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0?$_Rb_tree@HU?$pair@$$CBHH@_STL@@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@URva0037BF60Less@@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@QAE@XZ,0x0033C432,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0?$_STLP_alloc_proxy@PAURva003A8DF0Record@@U1@V?$allocator@URva003A8DF0Record@@@_STL@@@_STL@@QAE@ABV?$allocator@URva003A8DF0Record@@@1@PAURva003A8DF0Record@@@Z,0x0014F3C4,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0?$_Vector_base@PAVChainVictim005C92F0@@V?$allocator@PAVChainVictim005C92F0@@@_STL@@@_STL@@QAE@ABV?$allocator@PAVChainVictim005C92F0@@@1@@Z,0x00211E58,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0?$_Vector_base@PAVSubsystemInterface@@V?$allocator@PAVSubsystemInterface@@@_STL@@@_STL@@QAE@ABV?$allocator@PAVSubsystemInterface@@@1@@Z,0x00211E58,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0?$_Vector_base@PBVFXList@@V?$allocator@PBVFXList@@@_STL@@@_STL@@QAE@ABV?$allocator@PBVFXList@@@1@@Z,0x00211E58,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0?$_Vector_base@PBVObjectCreationList@@V?$allocator@PBVObjectCreationList@@@_STL@@@_STL@@QAE@ABV?$allocator@PBVObjectCreationList@@@1@@Z,0x00211E58,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0?$_Vector_base@UGen00363750@@V?$allocator@UGen00363750@@@_STL@@@_STL@@QAE@IABV?$allocator@UGen00363750@@@1@@Z,0x004FF435,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0?$_Vector_base@UGen003A9A90@@V?$allocator@UGen003A9A90@@@_STL@@@_STL@@QAE@IABV?$allocator@UGen003A9A90@@@1@@Z,0x0053FF92,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0?$_Vector_base@UGen003A9B60@@V?$allocator@UGen003A9B60@@@_STL@@@_STL@@QAE@IABV?$allocator@UGen003A9B60@@@1@@Z,0x003F4443,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0?$_Vector_base@UMade002CC5E1DamageScalar@@V?$allocator@UMade002CC5E1DamageScalar@@@_STL@@@_STL@@QAE@ABV?$allocator@UMade002CC5E1DamageScalar@@@1@@Z,0x00211E58,ICF-folded empty vector base ctor (same 29B as matched BfmeE16 row); REL32 at 0x00507CF2 in the Made002CC5E1 ctor for the +0x168 DamageScalar vector
+??0?$map@PBVThingTemplate@@HU?$less@PBVThingTemplate@@@_STL@@V?$allocator@U?$pair@QBVThingTemplate@@H@_STL@@@3@@_STL@@QAE@XZ,0x0033C432,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0?$map@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@HU?$less@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@2@V?$allocator@U?$pair@$$CBV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@H@_STL@@@2@@_STL@@QAE@XZ,0x00413727,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0?$map@VAsciiString@@VMapMetaData@@U?$less@VAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@VMapMetaData@@@_STL@@@4@@_STL@@QAE@XZ,0x0022E272,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0?$map@VAsciiString@@_NU?$less@VAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@_N@_STL@@@3@@_STL@@QAE@XZ,0x0033C432,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0?$pair@$$CBGVAsciiString@@@_STL@@QAE@ABGABVAsciiString@@@Z,0x004D04FF,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0?$pair@$$CBHVBuddyInfo@@@_STL@@QAE@ABHABVBuddyInfo@@@Z,0x00416504,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0?$pair@$$CBVAsciiString@@URva003D3F90Value@@@_STL@@QAE@ABVAsciiString@@ABURva003D3F90Value@@@Z,0x003ED3F0,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0?$queue@VPingRequest@@V?$deque@VPingRequest@@V?$allocator@VPingRequest@@@_STL@@@_STL@@@_STL@@QAE@XZ,0x00550083,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0?$queue@VPingResponse@@V?$deque@VPingResponse@@V?$allocator@VPingResponse@@@_STL@@@_STL@@@_STL@@QAE@XZ,0x00550083,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0?$vector@HV?$BfmeIntAllocator@H@@@_STL@@QAE@ABV01@@Z,0x002CFAB9,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0?$vector@PAVRva00144100Item@@V?$allocator@PAVRva00144100Item@@@_STL@@@_STL@@QAE@ABV01@@Z,0x002CFAB9,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0?$vector@UPrereqUnitRec@ProductionPrerequisite@@V?$allocator@UPrereqUnitRec@ProductionPrerequisite@@@_STL@@@_STL@@QAE@ABV01@@Z,0x002CFE45,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0AsciiStringYI@@QAE@PBD@Z,0x00037BA0,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0BFMENetGameSpyStatsAuthKeyCommandMsg@@QAE@XZ,0x004D65DC,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0BFMENetRequestGameSpyStatsAuthKeyCommandMsg@@QAE@XZ,0x004D64F5,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0BFMENetworkList@@QAE@XZ,0x0033C432,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0BFU_BehaviorBase@@QAE@PAVThing@@PBVModuleData@@@Z,0x00253330,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0BfmeBase0ZL@@QAE@PAV0@@Z,0x003ADDCD,callee read from the retail REL32 in placed BFME1-donor body ??0BfmeDerivedZL@@QAE@PAV0@@Z (0x003ADC75)
+??0BfmeBaseJC@@QAE@PAX@Z,0x001320D0,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0BfmeBinkPlayerMember@@QAE@XZ,0x00326BE6,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0BfmeDX8VertexBuffer@@QAE@IGW4UsageType@0@I@Z,0x0013AC00,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0BfmeErr1043@@QAE@XZ,0x002035E2,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0BfmeErr2_1043@@QAE@XZ,0x00203EA8,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0BfmeHandleCX@@QAE@ABV0@@Z,0x000424BB,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0BfmeHelperYS@@QAE@XZ,0x0007A498,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0BfmeLegendStringVec@@QAE@ABU0@@Z,0x000BC07E,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0BfmeMidZL@@QAE@PAV0@@Z,0x003ADCC7,callee read from the retail REL32 in placed BFME1-donor body ??0BfmeDerivedZL@@QAE@PAV0@@Z (0x003ADC75)
+??0BfmeStrVTZ@@QAE@ABV0@@Z,0x000365F0,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0BfmeWideVY@@QAE@ABV0@@Z,0x00037050,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0ControlBarSchemeImage@@QAE@XZ,0x0031F7AB,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0DefaultModuleTemplate0Allocation@FXParticleSystem@@QAE@XZ,0x003AB7CE,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0DefaultModuleTemplate1Allocation@FXParticleSystem@@QAE@XZ,0x003AB7AE,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0DefaultModuleTemplate3Allocation@FXParticleSystem@@QAE@XZ,0x003AB8E4,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0DefaultModuleTemplate7Allocation@FXParticleSystem@@QAE@XZ,0x003AB82E,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0DistLODClass@@QAE@ABV0@@Z,0x003AEADD,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0File@@QAE@XZ,0x006024FD,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0GameMessageParserArgumentType@@QAE@W4GameMessageArgumentDataType@@H@Z,0x0054D593,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0GameSpyGroupRoom@@QAE@ABV0@@Z,0x000365F0,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0GenX005EBB30@@QAE@PAVHostX005EBB30@@@Z,0x003AE683,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0GeometryUpgradeBase@@QAE@PAVThing@@PBVModuleData@@@Z,0x00460AEC,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0Locomotor@@IAE@PBVLocomotorTemplate@@@Z,0x0040FDD1,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0Mem0001FD66@@QAE@XZ,0x0033C432,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0MonsterDockDataMember@@QAE@XZ,0x003623E5,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0NetFileProgressCommandMsg@@QAE@XZ,0x004D598E,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0NetFrameCommandMsg@@QAE@XZ,0x004CEEC3,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0OCU_GrandBase@@QAE@XZ,0x004CE2A3,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0OCU_MiddleBase@@QAE@PAVThing@@PBVModuleData@@@Z,0x00253390,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0Open2Rec5822D0@@QAE@XZ,0x0022078E,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0PSPlayerStats@@QAE@ABV0@@Z,0x000365F0,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0ParserBase0019B030@@QAE@PAVDataChunkInput@@ABVAsciiString@@1@Z,0x000ABB87,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0QueueProductionExitUpdateModuleData@@QAE@XZ,0x002541FA,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0Rva001A62D0TerrainQueryResult@@QAE@XZ,0x0027D1C6,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0Rva002E9E70Mid@@QAE@ABV0@@Z,0x00332217,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0Rva003529B0@@QAE@PBV0@@Z,0x003B410E,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0Rva003A35A0Element@@QAE@ABU0@@Z,0x00311FE2,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0Rva003B7DC0Record@@QAE@XZ,0x004E15FB,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0Rva003BA5F0Tree@@QAE@XZ,0x005011C1,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0Rva003BA660Record@@QAE@XZ,0x004E32D5,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0Rva003BAE20Record@@QAE@XZ,0x004E364F,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0Rva004C1590Base@@QAE@ABV0@@Z,0x00405A45,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0Rva005E95C0@@QAE@ABV0@@Z,0x003ADD9D,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0Rva005EA190@@QAE@ABV0@@Z,0x003A911A,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0Rva005EA2B0@@QAE@ABV0@@Z,0x003ADC4F,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0Rva005EA6C0@@QAE@ABV0@@Z,0x003ADDCD,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0Rva005EAA50@@QAE@ABV0@@Z,0x003A8B9F,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0Rva005EAF10@@QAE@ABV0@@Z,0x003AE0AF,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0Rva005EB090@@QAE@ABV0@@Z,0x003ADDEC,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0Rva005EB190@@QAE@ABV0@@Z,0x003AE1A7,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0Rva005EC160@@QAE@ABV0@@Z,0x003AEA15,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0Rva005ECF60@@QAE@ABV0@@Z,0x003AEF6E,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0Rva00740AE0Base@@QAE@XZ,0x000851F3,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0Rva007849F0Handle@@QAE@ABV0@@Z,0x000424BB,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0Rva00899560Value@@QAE@H@Z,0x006DCCC0,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0Rva009F69B1Subobject@@QAE@XZ,0x00003227,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0S4Made00912580@@QAE@XZ,0x00178E50,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0ScriptGroup@@QAE@XZ,0x003B761E,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0UpgradeModuleDataSub@@QAE@XZ,0x0025342C,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0VictoryConditionsInterface@@QAE@XZ,0x000F0F2B,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0W3DAnimationInfo@@QAE@ABV0@@Z,0x0004254E,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??1?$MultiListClass@VCameraShakerClass@CameraShakeSystemClass@@@@UAE@XZ,0x00065CA4,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??1?$_List_base@PAVControlBarScheme@@V?$allocator@PAVControlBarScheme@@@_STL@@@_STL@@QAE@XZ,0x004EC395,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??1?$_List_base@PAVControlBarSchemeAnimation@@V?$allocator@PAVControlBarSchemeAnimation@@@_STL@@@_STL@@QAE@XZ,0x004EC395,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??1?$_List_base@PAVFXNugget@@V?$allocator@PAVFXNugget@@@_STL@@@_STL@@QAE@XZ,0x00036E70,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??1?$_List_base@PAVHeaderTemplate@@V?$allocator@PAVHeaderTemplate@@@_STL@@@_STL@@QAE@XZ,0x004EC395,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??1?$_List_base@PAVLadderInfo@@V?$allocator@PAVLadderInfo@@@_STL@@@_STL@@QAE@XZ,0x004EC395,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??1?$_List_base@PAVShellMenuScheme@@V?$allocator@PAVShellMenuScheme@@@_STL@@@_STL@@QAE@XZ,0x004EC395,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??1?$_List_base@PAVShellMenuSchemeImage@@V?$allocator@PAVShellMenuSchemeImage@@@_STL@@@_STL@@QAE@XZ,0x004EC395,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??1?$_List_base@PAVShellMenuSchemeLine@@V?$allocator@PAVShellMenuSchemeLine@@@_STL@@@_STL@@QAE@XZ,0x004EC395,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??1?$_List_base@UBridgeFXInfo@@V?$allocator@UBridgeFXInfo@@@_STL@@@_STL@@QAE@XZ,0x000BD218,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??1?$_List_base@UBridgeOCLInfo@@V?$allocator@UBridgeOCLInfo@@@_STL@@@_STL@@QAE@XZ,0x000BD218,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??1?$_List_base@UGen_t_0014bd80_p8cd@@V?$allocator@UGen_t_0014bd80_p8cd@@@_STL@@@_STL@@QAE@XZ,0x002FECBC,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??1?$_Rb_tree@PBVThingTemplate@@U?$pair@QBVThingTemplate@@H@_STL@@U?$_Select1st@U?$pair@QBVThingTemplate@@H@_STL@@@3@U?$less@PBVThingTemplate@@@3@V?$allocator@U?$pair@QBVThingTemplate@@H@_STL@@@3@@_STL@@QAE@XZ,0x00357C6A,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??1?$_Vector_base@PAVSubsystemInterface@@V?$allocator@PAVSubsystemInterface@@@_STL@@@_STL@@QAE@XZ,0x0002CC70,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??1?$vector@UMem003BB060Element@@V?$allocator@UMem003BB060Element@@@_STL@@@_STL@@QAE@XZ,0x004E3C32,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??1ASCB_RootBase@@UAE@XZ,0x0049B47C,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??1AttributeHandleStandIn@@QAE@XZ,0x00360D26,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??1BfmeDtorBaseL@@QAE@XZ,0x0002CC70,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??1BfmeDtorMemberM@@QAE@XZ,0x00036410,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??1BfmeMemberESG@@QAE@XZ,0x00036410,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??1BfmeRefESG@@QAE@XZ,0x00036410,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??1BfmeShadowGeometry@@QAE@XZ,0x000EFC45,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??1BfmeStringPresenceValue@@QAE@XZ,0x00036410,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??1BfmeThingHT@@QAE@XZ,0x004494BA,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??1ControlBarScheme@@QAE@XZ,0x0032002C,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??1ControlBarSchemeAnimation@@QAE@XZ,0x0031F831,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??1ControlBarSchemeImage@@QAE@XZ,0x002004FD,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??1GameWindow@@UAE@XZ,0x00314A0C,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??1Gen000658A0@@QAE@XZ,0x0002CC70,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??1Gen0078D1C0@@UAE@XZ,0x00104DB0,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??1Gen00887940@@QAE@XZ,0x00036410,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??1Gen_t_001da8b0_p12cd@@QAE@XZ,0x001F0495,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??1GrantStealthBehaviorModuleDataMemberA@@QAE@XZ,0x00360D26,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??1GrantStealthBehaviorModuleDataMemberB@@QAE@XZ,0x0002CC70,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??1GrantStealthBehaviorModuleDataMemberC@@QAE@XZ,0x00036410,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??1HeaderTemplate@@QAE@XZ,0x002019E1,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??1LadderInfo@@QAE@XZ,0x0054D8D8,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??1LaserUpdateModuleDataMember4@@QAE@XZ,0x00036410,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??1LaserUpdateModuleDataMember8@@QAE@XZ,0x00036410,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??1Made002CC711@@UAE@XZ,0x0050B8D6,ICF fold: the implicit paralyze-nugget dtor is the same jmp-to-0x00507823 body as the rowed Made002CCBCA one; REL32 at 0x00508F90 in ??_GMade002CC711 0x00508F8C
+??1Made002CCA37@@UAE@XZ,0x0050BFBF,ICF fold: the implicit DOTNugget dtor is the same jmp-to-0x00508684 body as the rowed FireLogicNugget one; REL32 at 0x0050B220 in ??_GMade002CCA37 0x0050B21C
+??1Mem003AB460@@QAE@XZ,0x002B80CE,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??1Mem00887940@@QAE@XZ,0x00036410,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??1NestedBuffers@@QAE@XZ,0x000B6CF1,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??1NestedInlineBase@@UAE@XZ,0x0049B47C,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??1Open2Rec5822D0@@QAE@XZ,0x002207C4,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??1Overridable@@MAE@XZ,0x00548948,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??1RoadType@@QAE@XZ,0x000D4F4F,element dtor pushed by the RoadType vector deleting dtor 0x000D6988 that W3DRoadBuffer::freeRoadBuffers (0x000D7753) calls for delete[] m_roadTypes; BFME 2 layout not reconstructed
+??1Rva00032691FlatBase@@UAE@XZ,0x0045D39E,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??1Rva002D79B0_inner@@QAE@XZ,0x00255A42,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??1Rva003AB460Tree@@QAE@XZ,0x002B80CE,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??1Rva003B7DC0Record@@QAE@XZ,0x004E1682,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??1Rva003BAE20Record@@QAE@XZ,0x004E366E,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??1Rva0042D170Member04@@QAE@XZ,0x004EC395,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??1Rva0042D170Member18@@QAE@XZ,0x004EC395,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??1Rva0045C9E0CameraMarker@@QAE@XZ,0x0029D7C2,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??1Rva00490350Base@@UAE@XZ,0x00355C77,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??1Rva00490470@@UAE@XZ,0x00355D66,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??1Rva00785FD0Renderer@@QAE@XZ,0x0011018B,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??1Rva00789600Pair@@QAE@XZ,0x0074011F,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??1Rva00789740View@@UAE@XZ,0x007401F6,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??1Rva2D6B80Middle@@UAE@XZ,0x0024A797,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??1SpecialPowerCompletionDie@@UAE@XZ,0x00486B01,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??1T2VBaseA@@UAE@XZ,0x00013420,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??1T2VBaseB@@UAE@XZ,0x00013440,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??1T2Vb0084B3A0@@UAE@XZ,0x0001E6F0,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??1T2Vb0084B410@@UAE@XZ,0x0001E760,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??1T2Vb0084B510@@UAE@XZ,0x0001E860,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??1T2Vb0084B580@@UAE@XZ,0x0001E8D0,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??1TensileFormationUpdateBase@@UAE@XZ,0x004B96CC,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??1U2Vb0084B480@@UAE@XZ,0x0001E7D0,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??1U2Vb0084B5F0@@UAE@XZ,0x0001E940,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??4?$vector@UGen_t_002e13b0_p12cd@@V?$allocator@UGen_t_002e13b0_p12cd@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z,0x00332217,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??4BfmeIntMap@@QAEAAV0@ABV0@@Z,0x00504496,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??4GameWindowList@@QAEAAV0@ABV0@@Z,0x002C54EE,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??4Gen003A9A90@@QAEAAU0@ABU0@@Z,0x00540053,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??4Rva000A8490Mid10@@QAEAAV0@ABV0@@Z,0x0021C21B,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??4Rva000A8490Mid24@@QAEAAV0@ABV0@@Z,0x00317EBB,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??4Rva000C0C60PlayerRecord@@QAEAAU0@ABU0@@Z,0x0030242A,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??4Rva003A35A0Element@@QAEAAU0@ABU0@@Z,0x00311537,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??4Rva005672C0Map@@QAEAAV0@ABV0@@Z,0x0052274D,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??4Rva005D2330TextureRef@@QAEAAU0@ABU0@@Z,0x000424D0,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??4TextureHandle@@QAEABV0@ABV0@@Z,0x000424D0,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??4U5Elem002E3CE0@@QAEAAU0@ABU0@@Z,0x00586BC9,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??A?$map@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@HU?$less@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@2@V?$allocator@U?$pair@$$CBV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@H@_STL@@@2@@_STL@@QAEAAHABV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@1@@Z,0x0038E041,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??APassMap@@QAEAAVAsciiString@@ABV1@@Z,0x002031FB,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??RBfmeScoreEntryLess@@QBE_NPBUBfmeScoreEntry@@0@Z,0x005B26CE,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??_EFrameData@@QAEPAXI@Z,0x0058B5D8,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??_GPlayingAudioRef@@QAEPAXI@Z,0x00051B1E,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?Allocate@?$CAtlSafeAllocBufferManager@VCCRTAllocator@ATL@@@_ATL_SAFE_ALLOCA_IMPL@ATL@@QAEPAXK@Z,0x000021E3,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?AllocateBytes@?$CTempBuffer@D$0IA@VCCRTAllocator@ATL@@@ATL@@QAEPADI@Z,0x00006710,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?AtlWinModuleInit@ATL@@YGJPAU_ATL_WIN_MODULE70@1@@Z,0x00003295,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?AtlWinModuleTerm@ATL@@YGJPAU_ATL_WIN_MODULE70@1@PAUHINSTANCE__@@@Z,0x000058C3,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?BfmeLess00574AA0@S4SortElem8@@QBE_NABU1@@Z,0x005EC52E,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?CreateFromGdiplusBitmap@CImage@ATL@@AAEJAAVBitmap@Gdiplus@@@Z,0x0000295E,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?DeleteButtonFlash@@YAXPBVGenString@@@Z,0x003FED32,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?GadgetListBoxGetItemData@@YAPAXPAVGameWindow@@HH@Z,0x003253BE,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?GadgetListBoxSetItemData@@YAXPAVGameWindow@@PAXHH@Z,0x00325388,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?GameDarkenColor@@YAHHH@Z,0x002D2B9A,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?GameSpyCloseOverlay@@YAXW4GSOverlayType@@@Z,0x00548B97,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?GameSpyOpenOverlay@@YAXW4GSOverlayType@@@Z,0x00548DED,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?GenPush002609A0@@YAXPAUGen8ByteElement@@HHU1@P6A_NABU1@2@Z@Z,0x004C7009,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?Grow@?$SimpleDynVecClass@PAV?$MultiListClass@VDX8FVFCategoryContainer@@@@@@IAE_NH@Z,0x001001D5,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?HideDisconnectWindow@@YAXXZ,0x00512C88,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?Release_Ref@RefCountedThing@@QAEXXZ,0x00050ED3,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?Release_Ref@W3DRoadBufferRef18Target@@QAEXXZ,0x0061ED10,release in the W3DRoadBuffer+0x18 holder dtor (call at 0x000DC557 in ~W3DRoadBuffer); folded generic Release_Ref
+?Rva00570CC0@@YAXPAUBfmeScoreEntry@@U1@UBfmeScoreEntryLess@@@Z,0x005B28BD,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?Rva0085EFA0@@YAXPAVRva0085EFA0Owner@@@Z,0x0069FEA0,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?SetVertexBuffer@RoadSegment@@QAEXPAUVertexFormatXYZDUV1@@H@Z,0x000D6CE2,second per-road call in W3DRoadBuffer::clearAllRoads (0x000D7981) after SetIndexBuffer (0x000D454F)
+?Shrink@?$SimpleDynVecClass@M@@IAE_NXZ,0x00100210,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?_M_clear@?$vector@URva00365070Element@@V?$allocator@URva00365070Element@@@_STL@@@_STL@@IAEXXZ,0x000C78D5,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?_M_decrement@?$_Deque_iterator_base@VPlayingAudioRef@@@_STL@@QAEXXZ,0x003B3EA8,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?_M_fill_insert@?$vector@UICoord2D@@V?$allocator@UICoord2D@@@_STL@@@_STL@@QAEXPAUICoord2D@@IABU3@@Z,0x000B02B6,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?_M_increment@?$_Deque_iterator_base@VPlayingAudioRef@@@_STL@@QAEXXZ,0x0042187F,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?_M_insert@?$hashtable@U?$pair@$$CBVAsciiString@@VRva0045EF90Object@@@_STL@@VAsciiString@@U?$hash@VAsciiString@@@rts@@U?$_Select1st@U?$pair@$$CBVAsciiString@@VRva0045EF90Object@@@_STL@@@2@U?$equal_to@VAsciiString@@@5@V?$allocator@U?$pair@$$CBVAsciiString@@VRva0045EF90Object@@@_STL@@@2@@_STL@@QAEAAU?$pair@$$CBVAsciiString@@VRva0045EF90Object@@@2@ABU32@@Z,0x00410E23,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?_M_insert_overflow@?$vector@UElem003AF8C0@@V?$allocator@UElem003AF8C0@@@_STL@@@_STL@@IAEXPAUElem003AF8C0@@ABU3@ABU__false_type@2@I_N@Z,0x004EE6D0,address read from the REL32 displacement at a placed body
 ?_M_insert_overflow@?$vector@UElem003AF9E0@@V?$allocator@UElem003AF9E0@@@_STL@@@_STL@@IAEXPAUElem003AF9E0@@ABU3@ABU__false_type@2@I_N@Z,0x00565FC1,address read from the REL32 displacement at a placed body
@@ -9618,6 +9853,334 @@ _Rva003F417EConstructRecords,0x003F417E,"Native003F5254 calls existing verified 
 ?unidentified_0034DB40@ScriptEngine@@QAEGPAVParameter@@@Z,0x00357B82,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?unregister@Manager012EF4F0@@QAEXPAVRva006DABB0@@@Z,0x00306769,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?update@LoadScreen@@UAEXH@Z,0x00355FF9,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?_M_insert_overflow@?$vector@URva003A35A0Element@@V?$allocator@URva003A35A0Element@@@_STL@@@_STL@@IAEXPAURva003A35A0Element@@ABU3@ABU__false_type@2@I_N@Z,0x00312CFD,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?_M_insert_overflow@?$vector@VW3DAnimationInfo@@V?$allocator@VW3DAnimationInfo@@@_STL@@@_STL@@IAEXPAVW3DAnimationInfo@@ABV3@ABU__false_type@2@I_N@Z,0x0047008E,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?_M_lower_bound@?$_Rb_tree@GU?$pair@$$CBGH@_STL@@U?$_Select1st@U?$pair@$$CBGH@_STL@@@2@U?$less@G@2@V?$allocator@U?$pair@$$CBGH@_STL@@@2@@_STL@@ABEPAU?$_Rb_tree_node@U?$pair@$$CBGH@_STL@@@2@ABG@Z,0x0046A9AB,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?_M_lower_bound@?$_Rb_tree@HU?$pair@$$CBHVBuddyInfo@@@_STL@@U?$_Select1st@U?$pair@$$CBHVBuddyInfo@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHVBuddyInfo@@@_STL@@@2@@_STL@@ABEPAU?$_Rb_tree_node@U?$pair@$$CBHVBuddyInfo@@@_STL@@@2@ABH@Z,0x00382A92,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?_M_lower_bound@?$_Rb_tree@HU?$pair@$$CBHVModuleTemplate@ModuleFactory@@@_STL@@U?$_Select1st@U?$pair@$$CBHVModuleTemplate@ModuleFactory@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHVModuleTemplate@ModuleFactory@@@_STL@@@2@@_STL@@ABEPAU?$_Rb_tree_node@U?$pair@$$CBHVModuleTemplate@ModuleFactory@@@_STL@@@2@ABH@Z,0x00382A92,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?_M_lower_bound@?$_Rb_tree@HU?$pair@$$CBH_N@_STL@@U?$_Select1st@U?$pair@$$CBH_N@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@ABEPAU?$_Rb_tree_node@U?$pair@$$CBH_N@_STL@@@2@ABH@Z,0x00382A92,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?_M_lower_bound@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@_N@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@_N@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@_N@_STL@@@3@@_STL@@ABEPAU?$_Rb_tree_node@U?$pair@$$CBVAsciiString@@_N@_STL@@@2@ABVAsciiString@@@Z,0x00221B8D,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?_M_next_size@?$hashtable@U?$pair@$$CBHPAVObject@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVObject@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVObject@@@_STL@@@2@@_STL@@ABEII@Z,0x0005571B,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?_M_pop_back_aux@?$deque@VPlayingAudioRef@@V?$allocator@VPlayingAudioRef@@@_STL@@@_STL@@IAEXXZ,0x00054D5A,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?_M_pop_front_aux@?$deque@VBuddyResponse@@V?$allocator@VBuddyResponse@@@_STL@@@_STL@@IAEXXZ,0x00550B06,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?_M_push_back_aux_v@?$deque@VBuddyResponse@@V?$allocator@VBuddyResponse@@@_STL@@@_STL@@IAEXABVBuddyResponse@@@Z,0x00551910,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?_M_push_back_aux_v@?$deque@VGameResultsRequest@@V?$allocator@VGameResultsRequest@@@_STL@@@_STL@@IAEXABVGameResultsRequest@@@Z,0x0041A96D,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?_M_subtract@?$_Deque_iterator_base@VPlayingAudioRef@@@_STL@@QBEHABU12@@Z,0x00051A98,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?_bfme_winSetStatus@GameWindow@@QAEII@Z,0x00313CE3,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?addRoom@Rva000E5930Owner@@QAEXURva000E5930Room@@_N@Z,0x004F52CB,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?afterRelease@GenAlpha@@QAEXXZ,0x000F0912,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?allocArg@GameMessage@@AAEPAUArgument@1@XZ,0x0030F8FF,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?allocate@?$allocator@UMade002CC5E1DamageScalar@@@_STL@@QBEPAUMade002CC5E1DamageScalar@@IPBX@Z,0x00523D6C,8-byte raw allocator fold; REL32 read from insert overflow 0x005085B6
+?allocate@?$allocator@URva00365070Element@@@_STL@@QBEPAURva00365070Element@@IPBX@Z,0x000B407F,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?allocate@?$allocator@URva003A8DF0Record@@@_STL@@QBEPAURva003A8DF0Record@@IPBX@Z,0x002226BE,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?allocateRoadBuffers@Rva006DED60RoadBuffer@@QAEXXZ,0x000D1C83,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?allocateRoadBuffers@W3DRoadBuffer@@IAEXXZ,0x000D77AE,last call of the W3DRoadBuffer ctor (0x000DC5B7) as in Zero Hour
+?allocateSilhouette@W3DVolumetricShadow@@IAE_NHH@Z,0x000F07C3,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?append@Rva003B7BA0Owner@@QAEXPAVRva003B7BA0Record@@@Z,0x00566527,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?append@Rva003B7DC0Owner@@QAEXPAVRva003B7DC0Record@@@Z,0x0056652F,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?append@Rva003BA660Owner@@QAEXPAVRva003BA660Record@@@Z,0x00566D7B,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?append@Rva003BAE20Owner@@QAEXPAVRva003BAE20Record@@@Z,0x005669B7,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?b_000df510@@YAXXZ,0x002A7C0B,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeAccept@BfmeSubAccept_00029DAC@@QAEXPAVBfmeSeedTarget@@@Z,0x004CE6E4,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeAccept@Gen_00250A80@@AAEXPAVBfmeSeedTarget@@@Z,0x004CE56D,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeAdjustHeap00474330@@YAXPAURva004748F0Element@@HHU1@URva004748F0Compare@@@Z,0x00217934,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeAdvance996@BfmeB996@@QAEXXZ,0x0010690D,callee read from the retail REL32 in placed BFME1-donor body ?update@Rva007E4AD0Vp6Stream@@QAEXXZ (0x00091189)
+?bfmeApplyGI@BfmePrimaryGI@@QAEXM@Z,0x000B2F38,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeAsk993B@BfmeAskB993@@QAEDXZ,0x002D3627,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeAskFDH@BfmeOwnFDH@@QAEDH@Z,0x0028D891,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeAttachYS@BfmeHelperYS@@QAEXPAVGen_00755E70@@@Z,0x0007A706,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeBaseCEC@BfmeThingCEC@@QAEXPAX@Z,0x000365F0,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeBaseSJ@BfmeThingSJ@@QAEXH@Z,0x001320D0,callee read from the retail REL32 in placed BFME1-donor body ??0BfmeThingTKB@@QAE@XZ (0x000EF7A1)
+?bfmeCalc919G@BfmeCalc919G@@QAEHXZ,0x0027628E,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeCall925C@@YAXPAX@Z,0x003247E5,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeCall925E@@YAHPAX@Z,0x0032475A,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeCall939E@BfmeSub939E@@QAEXPAHPAD@Z,0x0002DE78,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeCallCCH@@YAHPAX0H@Z,0x003253BE,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeCallEMGa@@YGXPAXH@Z,0x00051ED6,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeCallEMGb@@YGXHPAX@Z,0x00051ED6,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeClear987@BfmeDrop987@@QAEXHH@Z,0x002984D4,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeClear@BfmeWindowManager@@QAEXPAH@Z,0x00758240,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeClearVUP@BfmeStrVUP@@QAEXXZ,0x00036410,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeClose@Gen009D1A40@@QAEXXZ,0x0060259A,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeDestroyRange@@YAXPAVBfmeVecAW@@@Z,0x003ED7A2,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeDo1026@BfmeStore1026@@QAEXH@Z,0x00242C09,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeDoBSD@@YAXPAUBfmeSubBSD@@PAX@Z,0x00412E76,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeDoRY@BfmeItemRY@@QAEXPAX0@Z,0x0028AEB2,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeDtorTRB@BfmeThingTRB@@QAEXXZ,0x00719CC0,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeEnsure005E83F0@@YAXXZ,0x003A8314,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeEnsure005E8420@@YAXXZ,0x003AD48D,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeEnsure005E8450@@YAXXZ,0x003AD4CF,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeEnsure005E8480@@YAXXZ,0x003AD4F0,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeEnsure005E84B0@@YAXXZ,0x003A8354,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeEnsure005E84E0@@YAXXZ,0x003A8394,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeEnsure005E8510@@YAXXZ,0x003AD532,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeEnsure005E8540@@YAXXZ,0x003AD553,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeEnsure005E8570@@YAXXZ,0x003AD574,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeEnsure005E85A0@@YAXXZ,0x003AD595,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeEnsure005E85D0@@YAXXZ,0x003AD5B6,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeEnsure005E8600@@YAXXZ,0x003AD5D7,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeEnsure005E8630@@YAXXZ,0x003AD5F8,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeEnsure005E8660@@YAXXZ,0x003AD619,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeEnsure005E8690@@YAXXZ,0x003AD63A,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeEnsure005E86C0@@YAXXZ,0x003AD65B,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeEnsure005E86F0@@YAXXZ,0x003AD67C,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeEnsure005E8720@@YAXXZ,0x003AD69D,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeEnsure005E8750@@YAXXZ,0x003AD6BE,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeEnsure_005D9AE0@@YAXXZ,0x003AD4AE,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeEnsure_005D9B50@@YAXXZ,0x003A83D4,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeEnsure_005D9BC0@@YAXXZ,0x003A8414,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeEnsure_005D9C30@@YAXXZ,0x003A8454,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeEnsure_005D9CA0@@YAXXZ,0x003A8494,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeEnsure_005D9D10@@YAXXZ,0x003AD511,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeErase@BfmeIntVecG@@QAEXPAH0@Z,0x00532803,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeErase@BfmeSlotVecG@@QAEXPAPAX0@Z,0x0031BD55,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeErase@BfmeVecAW@@QAEXPAH0@Z,0x0031BD55,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeFatal1043@@YGXPAVBfmeErr1043@@PAD@Z,0x00629094,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeFatal2_1043@@YGXPAVBfmeErr2_1043@@PAD@Z,0x00629094,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeFind975D@BfmeFind975D@@QAEPAXH@Z,0x002D06CA,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeFind@MapCache@@QAEPAUMapCacheNode@@ABVAsciiString@@@Z,0x001F8437,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeFindA1001@BfmeLook1001@@QAEPAVBfmeX1001@@H@Z,0x00049DC5,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeFindFGE@BfmeGlobFGE@@QAEPAVBfmeResFGE@@PAX@Z,0x003588E7,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeFindRecord@FontLibraryBFMERetail@@AAEPAUBfmeFontRecord@@PAVAsciiString@@M@Z,0x002186A6,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeFindYI@BfmeRegistryYI@@QAEPAXABVAsciiStringYI@@@Z,0x0031BE3C,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeFinishYS@Gen_00755E70@@QAEXXZ,0x000C1252,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeForward@Gen_006BE210Target@@QAE_NPAX0@Z,0x00066AD1,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeFree1040E@@YGXPAX@Z,0x00628F6E,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeGet1026@BfmeSrc1026@@QAEHXZ,0x0028AFA9,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeGetIH@BfmeThingIH@@QAEHXZ,0x001327D8,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeGetIJ@BfmeThingIJ@@QAEHXZ,0x00132802,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeGo996B@BfmeB996@@QAEDHHPAD@Z,0x001068D1,callee read from the retail REL32 in placed BFME1-donor body ?update@Rva007E4AD0Vp6Stream@@QAEXXZ (0x00091189)
+?bfmeGoQZ@BfmeThingQZ@@QAEXXZ,0x0046094C,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeHelper996070@@YAXPAX00PBD@Z,0x0074DD00,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeInitAEVJ@BfmeHostEVJ@@QAEXPAV1@@Z,0x003AE13C,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeInitAEVK@BfmeHostEVK@@QAEXPAV1@@Z,0x003AE13C,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeInitBEVJ@BfmeSubEVJ@@QAEXPAV1@@Z,0x003AE11B,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeInitBEVK@BfmeSubEVK@@QAEXPAV1@@Z,0x003AE315,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeIsBlocked@FXList@@QAE_NXZ,0x001E2EF1,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeLog1021@BfmeLog1021@@QAEXHPADHHHHHH@Z,0x00222A8B,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeLog993B@BfmeLog993@@QAEXHPADH0HHHH@Z,0x00222A8B,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeLookupQZ@@YAPAVBfmeThingQZ@@PAX@Z,0x004608E0,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeMakeBMD@BfmeSinkBMD@@QAEPAXPAX@Z,0x0026F26D,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeMakeCGE@@YAHPAVBfmeSubCGE@@@Z,0x001A22F0,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeMore1035@BfmeA1035@@QAEXXZ,0x000CE0EA,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeNext1105@@YAPAUBfmeNode1105@@PAU1@@Z,0x00024250,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeOneDWB@BfmeThingDWB@@QAEXXZ,0x000014AE,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeOneTFB@BfmeThingTFB@@QAEXXZ,0x00291C20,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeOpenZO@BfmeChunkZO@@QAEXPADG@Z,0x00307C76,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeOwner1001@BfmeX1001@@QAEPAXXZ,0x0028AFA9,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmePrep911E@BfmeSub911E@@QAEXXZ,0x0013331A,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeQuery1040@@YAXHPAH@Z,0x00324773,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeRegisterC0600@Rva006C0600Registry@@QAEXPAXH@Z,0x002D23ED,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeResetC0600@Rva006C0600Registry@@QAEXXZ,0x002D2457,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeRun1073@BfmeR1073@@QAEXPAVBfmeX1073@@PADH11111@Z,0x00222A8B,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeRunEYE@BfmeNodeEYE@@QAEXXZ,0x0030DEAE,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeRunXT@BfmeHostXT@@QAEXXZ,0x004590C5,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeSendTP@@YAXPAXPAUBfmeBlockTP@@1U1@0H@Z,0x005B306A,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeSet@BfmeWindowManager@@QAEXPAH@Z,0x00758230,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeSetDYF@BfmeGlobDYF@@QAEX_N@Z,0x001EE5BE,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeSetTGB@BfmeSubTGB@@QAEXH@Z,0x00291C9B,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeShowEAC@BfmeUiEAC@@QAEXPAXPBDH0HHHH@Z,0x00222A8B,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeStartCW@BfmeHostCW@@QAEXXZ,0x0020453C,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeStep1035@BfmeA1035@@QAEXD@Z,0x000B6F6D,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeStep1_250@@YAXPAX@Z,0x006A4EC0,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeStep2_250@@YAXPAX@Z,0x006A41C0,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeStep3_250@@YAXPAX@Z,0x006A3710,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeStep4_250@@YAXPAX@Z,0x006A5150,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeStepBQC@BfmeSubBQC@@QAEXXZ,0x002934A8,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeStop1013@BfmeUnit1013@@QAEXD@Z,0x00313BEC,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeStopCW@ParticleSystemManager@@QAEXABVBFMERetailAsciiString@@@Z,0x001F9EAF,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeTailDXC@BfmeThingDXC@@QAEXXZ,0x0050C4E8,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeTry996@BfmeB996@@QAEDHHPAD@Z,0x00106715,callee read from the retail REL32 in placed BFME1-donor body ?movePair@BfmeB996@@QAEDPAH0PAII@Z (0x00106812)
+?bfmeTwoTFB@BfmeThingTFB@@QAEXHH@Z,0x0029660C,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeUse975D@BfmeD975@@QAEDPAX@Z,0x0033BB04,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeUseFGE@BfmeResFGE@@QAEXPAX0@Z,0x0023DB0E,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeUseTGB@BfmeThingTGB@@QAEXH@Z,0x00589DDD,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeUseYI@BfmeRegistryYI@@QAEXHPAX@Z,0x00405DBC,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeVal1025@BfmeH1025@@QAEHXZ,0x002B5C1D,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?bfmeWriteZO@BfmeItemZO@@QAEXPAVBfmeChunkZO@@@Z,0x00300912,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?buildFieldParse@Gen00022584@@SAXAAVWideMulti@@@Z,0x000C9240,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?canonicalFlagName@BFMEScriptEngineFlagLookup@@AAE?AVAsciiString@@ABV2@@Z,0x002046C0,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?check@AssistedTargetingObjectShim@@QAE_NXZ,0x00290B73,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?check@AssistedTargetingResultShim@@QAEHXZ,0x002CCFC7,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?checkState@BfmeSubHelperCAB@@QAEHPAX00@Z,0x0028D051,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?clear@?$_List_base@PAVControlBarScheme@@V?$allocator@PAVControlBarScheme@@@_STL@@@_STL@@QAEXXZ,0x0023DAA5,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?clear@?$_List_base@UBridgeFXInfo@@V?$allocator@UBridgeFXInfo@@@_STL@@@_STL@@QAEXXZ,0x00457441,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?clear@?$_List_base@UBridgeOCLInfo@@V?$allocator@UBridgeOCLInfo@@@_STL@@@_STL@@QAEXXZ,0x00457441,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?clear@?$_Rb_tree@UGen_t_006db690_m4pod@@U1@U?$_Identity@UGen_t_006db690_m4pod@@@_STL@@U?$less@UGen_t_006db690_m4pod@@@3@V?$allocator@UGen_t_006db690_m4pod@@@3@@_STL@@QAEXXZ,0x000D2294,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?clear@GenBase003BB1E0@@QAEXXZ,0x004E2199,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?clear@Rva003BBC20Ref@@QAEXXZ,0x000A8C9B,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?clear@W3DRoadBufferRef18@@QAEXXZ,0x0004D75B,W3DRoadBuffer+0x18 holder cleared in freeRoadBuffers (call at 0x000D778F); folded generic Release-then-zero holder clear
+?closeAllSpareSockets@FirewallHelperClass@@QAEXXZ,0x0059510D,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?compareNoCase@AsciiString@@QBEHABV1@@Z,0x00006A00,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?compareNoCase@UnicodeString@@QBEHABV1@@Z,0x00006AA4,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?construct@AnimalAIUpdateModuleDataBaseShim@@QAEXXZ,0x0026E5D7,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?construct_from@CategoryModuleTemplate07BaseCopyShim@FXParticleSystem@@QAEXPBX@Z,0x001F421B,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?d_003c5270@@YAXXZ,0x003EF648,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?deleteSilhouette@W3DVolumetricShadow@@IAEXH@Z,0x000F0803,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?dlink_removeFrom_TeamBuildQueue@TeamInQueue@@QAEXPAPAV1@@Z,0x004F0372,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?doGameStart@@YAXXZ,0x0050D099,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?erase@?$list@PAVHeaderTemplate@@V?$allocator@PAVHeaderTemplate@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVHeaderTemplate@@U?$_Nonconst_traits@PAVHeaderTemplate@@@_STL@@@2@U32@@Z,0x00438539,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?erase@?$list@PAVShellMenuSchemeImage@@V?$allocator@PAVShellMenuSchemeImage@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVShellMenuSchemeImage@@U?$_Nonconst_traits@PAVShellMenuSchemeImage@@@_STL@@@2@U32@@Z,0x00438539,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?erase@?$list@PAVShellMenuSchemeLine@@V?$allocator@PAVShellMenuSchemeLine@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVShellMenuSchemeLine@@U?$_Nonconst_traits@PAVShellMenuSchemeLine@@@_STL@@@2@U32@@Z,0x00438539,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?erase@?$vector@PAVBfmeSiegeDockEntry@@V?$allocator@PAVBfmeSiegeDockEntry@@@_STL@@@_STL@@QAEPAPAVBfmeSiegeDockEntry@@PAPAV3@0@Z,0x0031BD55,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?erase@?$vector@UICoord2D@@V?$allocator@UICoord2D@@@_STL@@@_STL@@QAEPAUICoord2D@@PAU3@0@Z,0x003FA4DB,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?erase@?$vector@UNugget@Rva001417F0ModuleInfo@@V?$allocator@UNugget@Rva001417F0ModuleInfo@@@_STL@@@_STL@@QAEPAUNugget@Rva001417F0ModuleInfo@@PAU34@@Z,0x0033C3BC,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?erase@?$vector@USegInfo@W3DRopeDraw@@V?$allocator@USegInfo@W3DRopeDraw@@@_STL@@@_STL@@QAEPAUSegInfo@W3DRopeDraw@@PAU34@0@Z,0x002BF70F,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?erase@?$vector@UW3DRopeDrawSegInfo@@V?$allocator@UW3DRopeDrawSegInfo@@@_STL@@@_STL@@QAEPAUW3DRopeDrawSegInfo@@PAU3@0@Z,0x002BF70F,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?erase@BFMEObjectTypesVec@@QAEPAVAsciiString@@PAV2@@Z,0x003769C2,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?fetch@GenKey@@QAEHXZ,0x00148F5E,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?find@AsciiString@@QBEPBDD@Z,0x0002C459,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?find@AssistedTargetingObjectShim@@QAEPAXH@Z,0x0028AEBD,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?find@BfmeFinderD02@@QAEHH@Z,0x0028D2A2,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?find@BfmeMgrF62@@QAEPAVBfmeObjF62@@H@Z,0x00049DC5,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?find@PassMap@@QAEPAUPassMapNode@@ABVAsciiString@@@Z,0x001F8437,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?find@Rva003BAD00Owner@@QAEPAVGen003B9DC0Node@@H@Z,0x001F8437,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?findAnimObject@BfmeLivingWorldManagerIcons@@QAEPAVLivingWorldAnimObject@@ABVAsciiString@@@Z,0x0021294A,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?findBridge@TerrainRoadCollection@@QAEPAVTerrainRoadType@@VAsciiString@@@Z,0x002DB4DA,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?findFirstLeaf@BfmeFindNextLeafLayout@@QAEPAU1@XZ,0x0031396B,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?findNonConstCommandButton@ControlBar@@IAEPAVCommandButton@@ABVAsciiString@@@Z,0x0031BE07,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?findPairByKey@Dict@@ABEPAUDictPair@1@W4NameKeyType@@@Z,0x0031313B,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?findRoad@TerrainRoadCollection@@QAEPAVTerrainRoadType@@VAsciiString@@@Z,0x002DB496,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?findSpecialPowerWithOverridableDestinationActive@Object@@QBEPAVSpecialPowerUpdateInterface@@W4SpecialPowerType@@@Z,0x0028BD5D,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?findTeamPrototype@TeamFactory@@QAEPAVTeamPrototype@@ABVAsciiString@@0@Z,0x0039FE6C,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?findTemplate@Rva003392B0TemplateStore@@QAEPAXABVAsciiString@@@Z,0x001F90DA,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?finish@Rva0019BC00Owner@@QAEXH@Z,0x0032D103,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?freeMapResources@W3DStatusCircle@@QAEHXZ,0x0008E187,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?gen003661E0@@YAXPAUElem88@@PBU1@@Z,0x004E3706,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?getCharAt@UnicodeString@@QBEGH@Z,0x00035760,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?getClosestObject@PartitionManager@@QAEPAVObject@@PBUCoord3D@@MHPAVPartitionFilter@@@Z,0x00625360,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?getFilePathInSaveDirectory@GameState@@QBE?AVAsciiString@@ABV2@@Z,0x002DC74A,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?getInterface@RvaC4390First@@QAEPAURvaC4390Interface@@XZ,0x0028C1A9,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?getName@Rva007409A0@@QBE?AVAsciiString@@XZ,0x00564E0D,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?getNewGroup@GameWindowTransitionsHandler@@QAEPAVTransitionGroup@@VAsciiString@@@Z,0x001DC4D2,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?getObjectIdSlot@BfmeObjectReference@@QAEPAUBfmeObjectIdSlot@@XZ,0x0036F710,callee read from the retail REL32 in placed BFME1-donor body ?resolve@BfmeObjectReference@@QAEPAVObject@@XZ (0x003775F7)
+?getSaveDirectory@GameState@@QBE?AVAsciiString@@XZ,0x002DC267,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?get_allocator@?$vector@UGen00363750@@V?$allocator@UGen00363750@@@_STL@@@_STL@@QBE?AV?$allocator@UGen00363750@@@2@XZ,0x0021983A,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?get_allocator@?$vector@UGen003A9A90@@V?$allocator@UGen003A9A90@@@_STL@@@_STL@@QBE?AV?$allocator@UGen003A9A90@@@2@XZ,0x0021983A,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?get_allocator@?$vector@UGen003A9B60@@V?$allocator@UGen003A9B60@@@_STL@@@_STL@@QBE?AV?$allocator@UGen003A9B60@@@2@XZ,0x0021983A,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?grabHexInt@@YAHPBD@Z,0x005B9024,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?handle@Gen002B2080@@QAEXPAVFlagPairTarget@@@Z,0x0044DF9F,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?init@NetCommandList@@QAEXXZ,0x0058B283,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?insert@?$list@URva003C15C0Element@@V?$allocator@URva003C15C0Element@@@_STL@@@_STL@@QAEXU?$_List_iterator@URva003C15C0Element@@U?$_Nonconst_traits@URva003C15C0Element@@@_STL@@@2@IABURva003C15C0Element@@@Z,0x002B815B,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?insert@?$map@HVModuleTemplate@ModuleFactory@@U?$less@H@_STL@@V?$allocator@U?$pair@$$CBHVModuleTemplate@ModuleFactory@@@_STL@@@4@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHVModuleTemplate@ModuleFactory@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHVModuleTemplate@ModuleFactory@@@_STL@@@2@@2@U32@ABU?$pair@$$CBHVModuleTemplate@ModuleFactory@@@2@@Z,0x00256F67,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?insert@?$map@H_NU?$less@H@_STL@@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBH_N@_STL@@U?$_Nonconst_traits@U?$pair@$$CBH_N@_STL@@@2@@2@U32@ABU?$pair@$$CBH_N@2@@Z,0x0046F0A5,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?insert@?$map@I_NU?$less@I@_STL@@V?$allocator@U?$pair@$$CBI_N@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBI_N@_STL@@U?$_Nonconst_traits@U?$pair@$$CBI_N@_STL@@@2@@2@U32@ABU?$pair@$$CBI_N@2@@Z,0x00407DA5,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?insert@?$map@VAsciiString@@_NU?$less@VAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@_N@_STL@@@3@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@_N@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVAsciiString@@_N@_STL@@@2@@2@U32@ABU?$pair@$$CBVAsciiString@@_N@2@@Z,0x0030264A,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?insert_unique@?$_Rb_tree@PAURva00065050Target@@PAU1@U?$_Identity@PAURva00065050Target@@@_STL@@U?$less@PAURva00065050Target@@@3@V?$allocator@PAURva00065050Target@@@3@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@PAURva00065050Target@@U?$_Nonconst_traits@PAURva00065050Target@@@_STL@@@_STL@@_N@2@ABQAURva00065050Target@@@Z,0x005045A3,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?insert_unique@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@URva00142EE0Value@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@URva00142EE0Value@@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@URva00142EE0Value@@@_STL@@@3@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@URva00142EE0Value@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVAsciiString@@URva00142EE0Value@@@_STL@@@2@@_STL@@_N@2@ABU?$pair@$$CBVAsciiString@@URva00142EE0Value@@@2@@Z,0x0033D28A,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?insert_unique@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@URva003D3F90Value@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@URva003D3F90Value@@@_STL@@@3@UBfmeStringNoCaseLess@@V?$allocator@U?$pair@$$CBVAsciiString@@URva003D3F90Value@@@_STL@@@3@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@URva003D3F90Value@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVAsciiString@@URva003D3F90Value@@@_STL@@@2@@_STL@@_N@2@ABU?$pair@$$CBVAsciiString@@URva003D3F90Value@@@2@@Z,0x003ED8B1,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?isAnimFinished@Shell@@QAE_NXZ,0x0035BE55,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?isAnyKindOf@Thing@@QBE_NABV?$BitFlags@$0HE@@@@Z,0x0030ADC7,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?isAttackViewBlockedByObstacle@Pathfinder@@QAE_NPBVObject@@PBUCoord3D@@01@Z,0x002F314A,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?isDieApplicable@DieModule@@QBE_NPBVDamageInfo@@@Z,0x0045CEA7,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?isEmpty@BfmeStringPresenceValue@@QBE_NXZ,0x00001E2F,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?isEmpty@Utf16StringView@@QBE_NXZ,0x00035740,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?iter_swap@@YAXPAUQ3SortElem16@@0@Z,0x002176A6,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?iterateContained@TunnelTracker@@QAEXP6AXPAVObject@@PAX@Z1_N@Z,0x004F553F,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?iterateObjects@PlayerIterateObjectsShim@@QBEXP6AXPAVObject@@PAX@Z1@Z,0x002AB08B,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?iterate_TeamMemberList@Rva000EDF80@@QBE?AV?$DLINK_ITERATOR@VObject@@@@XZ,0x00263864,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?iterate_TeamMemberList@Rva000F34C0@@QBE?AV?$DLINK_ITERATOR@VObject@@@@XZ,0x00263864,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?j_00006730@@YAXXZ,0x0007A7AA,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?j_0001cdcd@@YAXXZ,0x00357CD9,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?j_00023b14@@YAXXZ,0x000ADCE3,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?j_000272fa@@YAXXZ,0x003251F4,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?j_00045a52@@YAXXZ,0x004E588D,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?j_0004a37c@@YAXXZ,0x002B37B4,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?link@PartitionFilter@@QAEPAV1@PAV1@@Z,0x00625790,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?loadTable@FunctionLexicon@@IAEXPAUTableEntry@1@W4TableIndex@1@@Z,0x002D23ED,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?look@Object@@IAEXXZ,0x0029D44E,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?m@Gen_007f0300@@QAEXXZ,0x0065D180,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?newBenchProfile@RetailGameLODManager@?1??parseBenchProfile@INI@@SAXPAV3@@Z@QAEPAUBenchProfile@@XZ,0x0020200D,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?notifyOther@BfmeLinkedObjBE@@QAEXPAV1@PAX@Z,0x002ADF9C,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?parse@?$DefaultModuleTemplate@$06@FXParticleSystem@@QAEXPAVINI@@@Z,0x003A5560,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?pop_front@?$list@PAVLadderInfo@@V?$allocator@PAVLadderInfo@@@_STL@@@_STL@@QAEXXZ,0x0037BCF9,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?prefMapIncrement@@YAPAUPrefMapNodeShim@@PAU1@@Z,0x00024250,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?prepare@Rva0019BC00Owner@@QAEXH@Z,0x0032C1F7,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?push_back@?$deque@VPingResponse@@V?$allocator@VPingResponse@@@_STL@@@_STL@@QAEXABVPingResponse@@@Z,0x00550384,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?push_back@?$list@PAVControlBarSchemeImage@@V?$allocator@PAVControlBarSchemeImage@@@_STL@@@_STL@@QAEXABQAVControlBarSchemeImage@@@Z,0x0005548F,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?push_back@?$vector@MV?$allocator@M@_STL@@@_STL@@QAEXABM@Z,0x004DFCB0,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?push_back@?$vector@PAVChainVictim005C92F0@@V?$allocator@PAVChainVictim005C92F0@@@_STL@@@_STL@@QAEXABQAVChainVictim005C92F0@@@Z,0x004DFCB0,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?push_back@?$vector@PAVRva003C5890Item@@V?$allocator@PAVRva003C5890Item@@@_STL@@@_STL@@QAEXABQAVRva003C5890Item@@@Z,0x004DFCB0,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?push_back@?$vector@PBVObjectCreationList@@V?$allocator@PBVObjectCreationList@@@_STL@@@_STL@@QAEXABQBVObjectCreationList@@@Z,0x004DFCB0,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?push_back@?$vector@UGen_t_001da8b0_p12cd@@V?$allocator@UGen_t_001da8b0_p12cd@@@_STL@@@_STL@@QAEXABUGen_t_001da8b0_p12cd@@@Z,0x001F3326,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?push_back@?$vector@VOpen2Elem063700@@V?$allocator@VOpen2Elem063700@@@_STL@@@_STL@@QAEXABVOpen2Elem063700@@@Z,0x0002DBE6,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?push_back@?$vector@VOpen2Rec5822D0@@V?$allocator@VOpen2Rec5822D0@@@_STL@@@_STL@@QAEXABVOpen2Rec5822D0@@@Z,0x00220F8D,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?queryPointImplAt001A4630@TerrainLogic@@QAEXPBUCoord3D@@MPAURva001A62D0TerrainQueryResult@@_N2@Z,0x0027DCF2,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?randomValue@@YAIPAI@Z,0x00233EC3,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?registerObj@BfmeMgrF1D@@QAEPAXPAX@Z,0x002D06CA,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?release003BBC20@RefThing003BBC20@@QAEXXZ,0x00050ED3,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?release@Mem00887940@@QAEXXZ,0x00036410,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?releaseBuffer@BFMERetailAsciiString@@AAEXXZ,0x00036410,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?releaseDependentResources@BfmeShaderShutdown@@SAXXZ,0x00076790,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?releaseReferences@Rva007ADB80Owner@@QAEXXZ,0x00115FF1,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?releaseTrack@WaterTracksRenderSystem@@IAEXPAVWaterTracksObj@@@Z,0x000FE001,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?removeAll_TeamBuildQueue@AIPlayer@@IAEXP6AXPAVTeamInQueue@@@Z@Z,0x004F042F,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?removeAll_TeamBuildQueue@AIPlayer@@QAEXP6AXPAVTeamInQueue@@@Z@Z,0x004F042F,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?removeAll_TeamReadyQueue@AIPlayer@@IAEXP6AXPAVTeamInQueue@@@Z@Z,0x004F0499,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?removeAll_TeamReadyQueue@AIPlayer@@QAEXP6AXPAVTeamInQueue@@@Z@Z,0x004F0499,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?removeFromList@NetCommandWrapperList@@IAEXPAVNetCommandWrapperListNode@@@Z,0x0058C1A5,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?removeNamedMapReveal@ScriptEngine@@QAEXABVAsciiString@@@Z,0x00357D52,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?reserve@?$vector@PAVChainVictim005C92F0@@V?$allocator@PAVChainVictim005C92F0@@@_STL@@@_STL@@QAEXI@Z,0x002B712E,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?reset@ScriptActions@@UAEXXZ,0x000D1743,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?reset@VictoryConditions@@UAEXXZ,0x00108895,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?resize@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEXIPAX@Z,0x000E6D39,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?resolve@RvaC4390Second@@QAEPAURvaC4390First@@H@Z,0x002931F5,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?reverseFind@AsciiString@@QBEPBDD@Z,0x00035930,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?run@Rva001BE790@@QAEXXZ,0x0028FF9E,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?rva0010f820MapPathCode@GameState@@QBE?AVAsciiString@@ABV2@@Z,0x002DCB9C,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?rva00127e80@ModuleFactory@@QAEPAXABVAsciiString@@PAXW4ModuleType@@11@Z,0x002567B9,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?rva001FAF60@EnragedBehavior@@QAEXXZ,0x004590E6,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?rva002D9FD9@BfmeAudioEventPrefix136@@QAEXPAVXfer@@@Z,0x002D9FD9,non-virtual xfer of the 0x88-byte audio event; W3DTruckDraw::xfer calls it on +0x374 and +0x3FC; also runs Rva002D9608 audio gate on the same this; other callers 0x5330F 0x5648D 0x5C9192
+?rva002EC770ParseTokenEventList@LuaScriptEngine@@QAEXPAVBfmeLexEAN@@@Z,0x00337EAA,callee read from the retail REL32 in placed BFME1-donor body ?rva002EC770ParseToken@LuaScriptEngine@@QAEXPAVBfmeLexEAN@@@Z (0x003381C4)
+?rva00476C50@FontLibraryBFMERetail@@AAEPAVGameFont@@PAVAsciiString@@MEH@Z,0x0021857E,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?rva006DEB70@Rva006DED60RoadBuffer@@QAEXXZ,0x000D3A17,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?rva008AF650Implementation@@YA_NPAVRva008AF650Object@@PAVBfmeStrVKI@@PAVAptValue@@@Z,0x0062929E,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?rva571c40@@YAXPAVRva572670Record@@HHV1@H@Z,0x005B2A8C,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?s4First005F36D0@@YAXXZ,0x003AA350,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?s4Second@@YAXXZ,0x005C7889,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?sample@Gen00458270@@QAEMI@Z,0x00330D3E,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?send@BfmeMgr089@@QAEXPAX0@Z,0x00246F71,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?set@AsciiStringField@@QAEXPAVAsciiString@@@Z,0x0031375A,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?setAsciiString@Dict@@QAEPAVAsciiString@@V2@@Z,0x00148F5E,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?setButtonImage@BFMERetailCommandButton@@QAEXPBVImage@@@Z,0x0035B750,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?setConnectingPlayerName@@YAXHABVUnicodeString@@@Z,0x0059F20B,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?setFileID@NetFileProgressCommandMsg@@QAEXG@Z,0x004D59AC,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?setGoalPositionClipped@AIUpdateInterface@@QAEXPBUCoord3D@@W4CommandSourceType@@@Z,0x00265667,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?setInputEnabled@BfmeInGameUI_setInputEnabled@@QAEX_N@Z,0x0029AB35,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?setNameAndType@DictPair@Dict@@QAEXW4NameKeyType@@W4DataType@2@@Z,0x00313376,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?setPrep@Dict@@AAEPAUDictPair@1@W4NameKeyType@@W4DataType@1@@Z,0x0031369D,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?setProgress@NetFileProgressCommandMsg@@QAEXH@Z,0x00317B9B,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?setText1C@BFMENetGameSpyStatsAuthKeyCommandMsg@@QAEXVAsciiString@@@Z,0x004D65F9,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?setText1C@BFMENetRequestGameSpyStatsAuthKeyCommandMsg@@QAEXVAsciiString@@@Z,0x004D65F9,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?setText20@BFMENetGameSpyStatsAuthKeyCommandMsg@@QAEXVAsciiString@@@Z,0x004D662D,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?setText@WinInstanceDataShim@@QAEXVUnicodeString@@@Z,0x003223B3,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?setValue@Rva001A1DE0Owner@@QAEXH@Z,0x0027C306,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?setVideoBuffer@GameWindowInstanceData@@QAEXXZ,0x00322167,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?setVisibility@BfmeMouse_setVisibility@@QAEX_N@Z,0x001EE5D6,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?shroud@Object@@IAEXXZ,0x0029D200,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?shutdownAll@SubsystemInterfaceList@@QAEXXZ,0x00523F8C,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?startsWithNoCase@AsciiString@@QBE_NABV1@@Z,0x000362B0,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?startsWithNoCase@AsciiString@@QBE_NPBD@Z,0x00036000,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?step@U1CallReceiver_005C5BD0@@QAEXH@Z,0x001F6537,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?trigger@BfmeObjF62@@QAEXHH@Z,0x002984D4,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?trim@UnicodeString@@QAEXXZ,0x00037F70,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?u1Call_005C7110@@YAXPAX00PAPAX@Z,0x001F82AB,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?u1Do_005C7410@@YAXPAX00PAVU1ByteFlagged@@@Z,0x001F8384,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?undoNamedMapReveal@ScriptEngine@@QAEXABVAsciiString@@@Z,0x0035789D,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?unlook@Object@@IAEXXZ,0x002A21E1,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?unregister@AnimationSoundClientBehaviorGlobal@@QAEXPAVAnimationSoundClientBehavior@@@Z,0x00432F23,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?unshroud@Object@@IAEXXZ,0x0029A661,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?validate@FunctionLexicon@@QAE_NXZ,0x002D22D5,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?walk@Rva00477E60@@QAEPAV1@XZ,0x0031398A,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?walkChild@ScriptEngine@@QAEXPAVRva003558C0Arr@@PAURva003412E0Node@@@Z,0x0020C0E3,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?winGetInstanceData@GameWindow@@QAEPAVGameWindowInstanceData@@H@Z,0x00314046,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?winPointInChild@GameWindow@@QAEPAV1@HH_N0@Z,0x003141BC,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?writeByte@DataChunkOutput@@QAEXD@Z,0x00306D17,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?writeINI_part1@FXParticleSystem@@YAXPBXPAVFile@@PAI@Z,0x0055C9A0,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+?writeINI_part2@FXParticleSystem@@YAXPAVFile@@PAI@Z,0x003AFC6B,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+_GdiplusStartup@12,0x00628F68,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+_log10,0x0062997C,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+_xferThreeInts,0x0060BC53,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ??$_Destroy@PAUEvaMessageInfo@@@_STL@@YAXPAUEvaMessageInfo@@0@Z,0x000AFF52,address read from the REL32 displacement at a placed body
 ??$_M_allocate_and_copy@PBUEvaMessageInfo@@@?$vector@UEvaMessageInfo@@V?$allocator@UEvaMessageInfo@@@_STL@@@_STL@@IAEPAUEvaMessageInfo@@IPBU2@0@Z,0x00101F5C,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
 ??$__copy_ptrs@PBUEvaMessageInfo@@PAU1@@_STL@@YAPAUEvaMessageInfo@@PBU1@0PAU1@ABU__false_type@0@@Z,0x00101F89,address read from the REL32 displacement at a placed body
@@ -9632,14 +10195,109 @@ _Rva003F417EConstructRecords,0x003F417E,"Native003F5254 calls existing verified 
 ?getMoodMatrixValue@AIUpdateInterface@@QBEIXZ,0x00264F5E,address read from the REL32 displacement at 0x00267365 in isAllowedToRespondToAiCommands 0x0026734C (AIUpdate vtable slot 148) with ECX = this; the caller tests the result for 0x02 and 0x100 exactly where Zero Hour tests MM_Controller_AI and MM_Mood_Sleep of getMoodMatrixValue(); the body starts from the owner's player (0x0028AFA9); name donor-carried; body unrowed
 ??0AIStateMachine@@QAE@PAVObject@@I@Z,0x00351C48,address read from the REL32 displacement at 0x00262540 in makeStateMachine 0x00262513 (slot 150 of eight AIUpdate-family vtables) after operator new(0x68); the body runs the StateMachine base constructor (0x004D79E1) with (owner / key / 0) then installs vtable 0x00C14CD0 and builds the goal-path vector at +0x3C and the temporary-state fields (+0x48..+0x64) as Zero Hour's AIStateMachine constructor does; BFME2 passes an integer key (0x4A9A0E38) where Zero Hour passes the name so the second parameter type is an inference
 ?rva0028ACEE@Object@@QAEXPBUCoord3D@@H@Z,0x0028ACEE,"Object member forwarding (position, word) to the helper at +0xA4 (ret 8); REL32 in AIUpdate loadPostProcess 0x00268708; identity not recovered"
+??0InputLightStruct@LightEnvironmentClass@@QAE@ABU01@@Z,0x0013F660,implicit copy ctor compiles (lightenvironment.cpp with the bfme2lightenv shim) to the same 141 bytes as the matched implicit operator= at 0x0013F660; ICF-folded; Calculate_Fill_Light 0x00140010 calls it there
+?getCenterPoint@PolygonTrigger@@QBEXPAUCoord3D@@@Z,0x002E38F3,address read from the REL32 displacement in privateAttackArea 0x0026C1CE (AICMD 0x23 from aiAttackArea); body is ZH getCenterPoint (bounds center then terrain height or layer height)
+?playAttackVoiceResponse@AIUpdateInterface@@IAEXPBUCoord3D@@@Z,0x0026B2FB,address read from the REL32 displacement in privateAttackArea 0x0026C1CE; inference: the position overload beside playAttackVoiceResponse(Object*) 0x0026B25A
+?playMoveVoiceResponse@AIUpdateInterface@@IAEXPBUCoord3D@@@Z,0x0026B403,address read from the REL32 displacement at 0x0026B6A8 in command 0x01 handler 0x0026B637 (and its siblings 0x0026B6B2 0x0026B86A); the body posts voice message 0x7E7
+?rva0028ECDB@Object@@QBE_NPBUCoord3D@@@Z,0x0028ECDB,address read from the REL32 displacement at 0x0026B952 in privateFollowWaypointPath 0x0026B8E5 (aiDoCommand command 0x06); thiscall on the Object with the last waypoint location; body unrowed
+?rva0026B37F@AIUpdateInterface@@IAEXPBUCoord3D@@@Z,0x0026B37F,address read from the REL32 displacement at 0x0026C1C3 in privateAttackFollowWaypointPath 0x0026C150 (aiDoCommand command 0x11) and at 0x0026C145 in command 0x49 0x0026C0D6; posts voice message 0x7E8; body unrowed
+?setGoalTeam@AIStateMachine@@QAEXPBVTeam@@@Z,0x0035042D,address read from the REL32 displacement at 0x0026BFFD in privateAttackTeam 0x0026BFD9 (aiDoCommand command 0x0D passes AICommandParms::m_team); ZH shape: lazily newInstance(Squad) 0x1C bytes at +0x4C then squadFromTeam(team TRUE); body unrowed
+??0?$_Vector_base@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@QAE@ABV?$allocator@PAVObject@@@1@@Z,0x00211E58,"ICF-folded empty vector base ctor (same 29B body the other _Vector_base pins name); REL32 in StructureCreep 0x005AC0B5 for its vector<Object*>"
+?rva002EE7EE@Pathfinder@@QAE_NPBUCoord3D@@PAVObject@@PAU2@@Z,0x002EE7EE,address read from the REL32 displacement at 0x0026B587 in command 0x52 handler 0x0026B567 with ecx = TheAI+0x10 (the pathfinder) and the owner position + owner + an out Coord3D; body unrowed
+?rva002FE193@AI@@SA_NPAVObject@@0@Z,0x002FE193,opaque cdecl Bool(Object *owner, Object *nemesis) beside the AI statics (EH body); REL32 callee of AIGuardOuterState::onEnter 0x00543A8E after the owner check, a false result ends the state
+?rva0028DB3C@Object@@QAEXXZ,0x0028DB3C,address read from the REL32 displacement at 0x0026D756 in privateIdle 0x0026D5FB (aiDoCommand command 0x05) with ECX the owner; called last where BFME1 privateIdle calls adjustModelConditionForWeaponStatus (donor-carried; the body tests status bits 0x16/0x19/0x0D and walks the WeaponSet at +0x330); body unrowed
+?findPositionAround@PartitionManager@@SA_NPBUCoord3D@@PBUFindPositionOptions@@PAU2@@Z,0x00285202,address read from the REL32 displacement at 0x0026DCA1 in privateAttackPosition 0x0026DB1A (aiDoCommand command 0x0E); called with no this and the caller pops 0xC (cdecl: center + Zero Hour FindPositionOptions defaults + out Coord3D) where Zero Hour calls ThePartitionManager->findPositionAround; name and static-ness are inferences; body unrowed
+?isContactWeapon@WeaponTemplate@@QBE_NXZ,0x0047A699,address read from the REL32 displacement at 0x0026DC3F in privateAttackPosition 0x0026DB1A with ECX = Weapon+0x04 (the template) where Zero Hour asks weapon->isContactWeapon(); the body is the shared xor al/al ret stub (ICF fold with the other false predicates pinned here); name donor-carried
+?isPathAvailable@AIUpdateInterface@@QBE_NPBUCoord3D@@@Z,0x00262B53,address read from the REL32 displacement at 0x0026DC4E in privateAttackPosition 0x0026DB1A with ECX = this and the local position where Zero Hour calls isPathAvailable; the body (null check then TheAI+0x10 pathfinder query with the owner and its +0x38 position) fits Zero Hour's; body unrowed
+?isMoving@AIUpdateInterface@@QBE_NXZ,0x00264688,address read from the REL32 displacement at 0x0026E086 in privateFollowPathAppend 0x0026E074 (aiDoCommand command 0x35) with ECX = this where the BFME1 donor privateFollowPathAppend asks isMoving(); the body walks the owner's +0x274 container chain under template KindOf tests; name donor-carried; body unrowed
+?addToGoalPath@AIStateMachine@@QAEXPBUCoord3D@@@Z,0x0035385E,address read from the REL32 displacement at 0x0026E0EC in privateFollowPathAppend 0x0026E074 with ECX = the AIUpdate state machine (+0x30) and the appended position where the BFME1 donor and Zero Hour call addToGoalPath; name donor-carried; body unrowed
+?getMoveAwayFromPath@Pathfinder@@QAEPAVPath@@PAVObject@@0PAV2@01@Z,0x002F9DBA,address read from the REL32 displacement at 0x0026D924 (and 0x0026D953) in privateMoveAwayFromUnit 0x0026D765 (aiDoCommand command 0x34) with ECX = TheAI+0x10 (the pathfinder) and (owner / unit / unit path / second object / its path) where Zero Hour calls getMoveAwayFromPath; name donor-carried; body unrowed
+?moveAllies@Pathfinder@@QAEXPAVObject@@PAVPath@@_N@Z,0x002F3C09,address read from the REL32 displacement at 0x0026DB0E in privateMoveAwayFromUnit 0x0026D765 with ECX = TheAI+0x10 and (owner / new path / a Bool) where Zero Hour calls moveAllies(obj path); the third argument is BFME2's; name donor-carried; body unrowed
+?rva0006F039@Object@@QBE_NH@Z,0x0006F039,TU-local address spelling of the matched 0x0006F039 body (ledger name Object::isKindOf; it tests a bit of the word run at Object+0x10C) for privateMoveAwayFromUnit 0x0026D765 which asks it for bit 0x84 at 0x0026DAE2; same ABI (thiscall one int and ret 4)
+?rva0028CE7B@Object@@QBECXZ,0x0028CE7B,address read from the REL32 displacement at 0x0026DAFA in privateMoveAwayFromUnit 0x0026D765 with ECX = the owner; returns a byte the caller compares signed against 4 (setge) for moveAllies' third argument; body unrowed
+??$_Destroy@PAUGen00141A00@@@_STL@@YAXPAUGen00141A00@@0@Z,0x002CF891,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
+??$_M_allocate_and_copy@PBUGen00141A00@@@?$vector@UGen00141A00@@V?$allocator@UGen00141A00@@@_STL@@@_STL@@IAEPAUGen00141A00@@IPBU2@0@Z,0x002D0EDC,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
+??$__copy_ptrs@PBUGen00141A00@@PAU1@@_STL@@YAPAUGen00141A00@@PBU1@0PAU1@ABU__false_type@0@@Z,0x002D0D5E,address read from the REL32 displacement at a placed body
+??$__uninitialized_copy@PBUGen00141A00@@PAU1@@_STL@@YAPAUGen00141A00@@PBU1@0PAU1@ABU__false_type@0@@Z,0x002D0D7B,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
+?_M_clear@?$vector@UGen00141A00@@V?$allocator@UGen00141A00@@@_STL@@@_STL@@IAEXXZ,0x002CFB90,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
+??_7Rva00260E01Filter@@6B@,0x00C172A8,"partition filter vftable stored inline at AIGuardRetaliateMachine::lookForInnerTarget 0x005455E3 (no members beyond the +0x04 link; built and never linked); slot 0 the shared deleting dtor 0x00395A19, slot 1 allow 0x00260E01, slot 2 0x0036CC7A"
+?chooseLocomotorSetExplicit@AIUpdateInterface@@QAE_NH@Z,0x00268A37,address read from the REL32 displacement at 0x00268B48 in chooseLocomotorSet 0x00268B20 (AIUpdate vtable slot 142) with ECX = this and the set where Zero Hour calls chooseLocomotorSetExplicit(wst); its body starts by asking the owner's template (0x0033C288) for the set; name donor-carried; body unrowed
+?chooseGoodLocomotorFromCurrentSet@AIUpdateInterface@@QAEXXZ,0x00263FA7,address read from the REL32 displacement at 0x00268B53 in chooseLocomotorSet 0x00268B20 with ECX = this where Zero Hour calls chooseGoodLocomotorFromCurrentSet(); name donor-carried; body unrowed
+?rva0033C259@ThingTemplate@@QBEMH@Z,0x0033C259,address read from the REL32 displacement at 0x00268B64 in chooseLocomotorSet 0x00268B20 with ECX = the owner's template and the new locomotor set; returns a float on the x87 stack (0.0 when the template's +0x3A4 is zero) that the caller stores at AIUpdate +0x1F8; body unrowed
+?rva004A39D0@InvisibilityUpdate@@QAEX_N@Z,0x004A39D0,thiscall one-bool member called on the module Object::findModule returns for the cached "InvisibilityUpdate" name key (ToggleHiddenSpecialAbilityUpdate slots 23/24 at 0x004AE381 and 0x004AE497 push 0 and 1; body reads the bool at esp+8 and ret 4); wakes the module through UpdateModule::setWakeFrame and keeps a flag at +0x24
+?rva002943B2@Object@@QAE_NPBVPlayer@@@Z,0x002943B2,thiscall Object query in place of Zero Hour's stealthed/detected/disguised status tests: Team::getTeamTargetObject 0x003A105B passes the team's controlling player (0x003A1087) and TunnelTracker::getCurNemesis 0x004F5684 passes null (0x004F56BE); ret 4; al tested; body checks contain modules and status 0x11/0xF; meaning not established
+?rva002EF2A6@Pathfinder@@QAEXPAVObject@@@Z,0x002EF2A6,"TheAI +0x10 (the pathfinder) member taking the owner; REL32 in AIUpdate slot 139 0x0026413B; identity not recovered"
+?rva002F6075@Pathfinder@@QAEPAVPath@@PAVObject@@PBUCoord3D@@@Z,0x002F6075,"TheAI +0x10 (the pathfinder) member (owner, destination) returning the Path stored at AIUpdate+0x140; REL32 in AIUpdate slot 139 0x00264154; identity not recovered"
+??0Rva003642DFResult@@QAE@XZ,0x00326BE6,"default ctor of the 16-byte node+position value 0x003642DF returns; REL32 in AIUpdate slot 141 0x0026343C; ICF null-first-word body"
+?rva002ECC0D@Pathfinder@@QAE_NPAVObject@@PBUCoord3D@@@Z,0x002ECC0D,"TheAI +0x10 (the pathfinder) member (owner, point) returning a bool; REL32 in AIUpdate slot 141 0x00263484; identity not recovered"
+?rva003642DF@Path@@QAE?AURva003642DFResult@@M@Z,0x003642DF,"AIUpdate+0x140 path member returning a node+position by value for a distance; REL32 in AIUpdate slot 141 0x0026345A; identity not recovered"
+?rva00365DF0@Path@@QAEXPAVRva00263404Product@@@Z,0x00365DF0,"AIUpdate+0x140 path member taking slot 141's product; REL32 in AIUpdate slot 141 0x002634B2; identity not recovered"
+?getAttackInfo@ScriptEngine@@QAEPBVAttackPriorityInfo@@ABVAsciiString@@@Z,0x00205DDD,"TheScriptEngine member taking AIUpdate+0x214 (a name) whose result AIUpdate loadPostProcess stores at +0x70; REL32 at 0x002686C0; ZH getAttackInfo name donor-carried"
+?rva00333E5B@LuaDrawableState@@QAEXPAVObject@@@Z,0x00333E5B,"member of the global at VA 0x00E01DBC taking an Object; REL32 in AIUpdate loadPostProcess 0x00268723; identity not recovered"
+?rva0028AD7C@Object@@QAEXXZ,0x0028AD7C,"Object member forwarding to the helper at +0xA4; REL32 in AIUpdate loadPostProcess 0x0026870F; identity not recovered"
+?rva0028B525@Object@@QAEXH@Z,0x0028B525,"Object setter of the word at +0x40C (ledger body Rva0028B525DwordSlot::set); REL32 in AIUpdate loadPostProcess 0x00268717"
+?getCommandButtonSourceObject@AIGroup@@QAEPAVObject@@W4GUICommandType@@@Z,0x0036E158,"REL32 callee of ScriptActions::doTeamUseCommandButtonOnNearestEnemy 0x003C1160 with ECX the team's group and the button's +0x14 command type on the branch without a special-power template, where Zero Hour calls getCommandButtonSourceObject; follows the matched getSpecialPowerSourceObject 0x0036E111 as in Zero Hour's AIGroup"
+?groupDoCommandButtonAtPosition@AIGroup@@QAEXPBVCommandButton@@PBUCoord3D@@W4CommandSourceType@@@Z,0x0036DCB8,"REL32 callee of ScriptActions::doTeamUseCommandButtonOnNearestEnemy 0x003C1247 with ECX the group, the button, the found object's position and CMD_FROM_SCRIPT; next after the matched AIGroup::groupDoCommandButton 0x0036DC8D in Zero Hour's order"
+?groupDoCommandButtonAtObject@AIGroup@@QAEXPBVCommandButton@@PAVObject@@W4CommandSourceType@@@Z,0x0036DCE7,"REL32 callee of ScriptActions::doTeamUseCommandButtonOnNearestEnemy 0x003C130C with ECX the group, the button, the found object and CMD_FROM_SCRIPT, where Zero Hour calls groupDoCommandButtonAtObject; follows groupDoCommandButtonAtPosition 0x0036DCB8"
 ??0Squad@@QAE@XZ,0x00268CAC,Squad constructor: AIStateMachine::setGoalTeam 0x0035042D and setGoalAIGroup 0x00350462 call it on a fresh 0x1C-byte operator new block (0x00350444 / 0x00350479); body installs vftable 0x00BF9D60 whose slot 3 is the rowed Squad::xfer 0x004D6EC4 and constructs the two vectors at +4 and +0x10
 ?squadFromTeam@Squad@@QAEXPBVTeam@@_N@Z,0x004D6D95,Zero Hour Squad::squadFromTeam spelling of the rowed Rva004D6C9C::rva004D6D95 (team iteration plus push_back after an optional clear): AIStateMachine::setGoalTeam 0x0035042D calls it at 0x00350459 on the goal squad with (team / true)
 ?squadFromAIGroup@Squad@@QAEXPBVAIGroup@@_N@Z,0x004D6C48,Zero Hour Squad::squadFromAIGroup: AIStateMachine::setGoalAIGroup 0x00350462 calls it at 0x0035048E on the goal squad with (group / true); body clears the squad's vector at +4 when the flag is set and appends the group's members (ret 8)
 ??4Squad@@QAEAAV0@ABV0@@Z,0x00351761,Squad copy assignment: AIStateMachine::setGoalSquad 0x00352B9D calls it at 0x00352BC7 on the goal squad with the source squad; body copies the vectors at +4 and +0x10 (the rowed BfmeThingCDF::bfmeGoCDF two-vector copy body)
+?friend_turnTowardsAngle@TurretAI@@QAE_NMMM@Z,0x004D8990,Zero Hour TurretAI::friend_turnTowardsAngle(desiredAngle / rateModifier / relThresh): TurretAIRecenterTurretState::update 0x004D8D25 and TurretAIIdleScanState::update 0x004D8D7F call it on the turret with (natural angle [+ desired scan angle] / 0.5 / 0) at 0x004D8D4B and 0x004D8DB2 before the rowed friend_turnTowardsPitch; ret 0xC
+??_EAnimatable3DObjClass@@UAEPAXI@Z,0x001A5C30,"vector deleting destructor name a this-adjusting thunk jumps to; the linker resolves it to the scalar deleting destructor at this address (weak external)"
+??_ECameraClass@@UAEPAXI@Z,0x00133EF0,"vector deleting destructor name a this-adjusting thunk jumps to; the linker resolves it to the scalar deleting destructor at this address (weak external)"
+??_ECompositeRenderObjClass@@UAEPAXI@Z,0x001A6150,"vector deleting destructor name a this-adjusting thunk jumps to; the linker resolves it to the scalar deleting destructor at this address (weak external)"
+??_EHRawAnimClass@@UAEPAXI@Z,0x0018EC40,"vector deleting destructor name a this-adjusting thunk jumps to; the linker resolves it to the scalar deleting destructor at this address (weak external)"
+??_ELightClass@@UAEPAXI@Z,0x00130FB0,"vector deleting destructor name a this-adjusting thunk jumps to; the linker resolves it to the scalar deleting destructor at this address (weak external)"
+??_EMeshGeometryClass@@UAEPAXI@Z,0x0016D790,"vector deleting destructor name a this-adjusting thunk jumps to; the linker resolves it to the scalar deleting destructor at this address (weak external)"
+??_EMeshModelClass@@UAEPAXI@Z,0x00172E50,"vector deleting destructor name a this-adjusting thunk jumps to; the linker resolves it to the scalar deleting destructor at this address (weak external)"
+??_EParticleBufferClass@@UAEPAXI@Z,0x001AD190,"vector deleting destructor name a this-adjusting thunk jumps to; the linker resolves it to the scalar deleting destructor at this address (weak external)"
+??_EPivotMapClass@@UAEPAXI@Z,0x00197630,"vector deleting destructor name a this-adjusting thunk jumps to; the linker resolves it to the scalar deleting destructor at this address (weak external)"
+??_EProxyArrayClass@@UAEPAXI@Z,0x0019F550,"vector deleting destructor name a this-adjusting thunk jumps to; the linker resolves it to the scalar deleting destructor at this address (weak external)"
+??_ERenderObjClass@@UAEPAXI@Z,0x0013C010,"vector deleting destructor name a this-adjusting thunk jumps to; the linker resolves it to the scalar deleting destructor at this address (weak external)"
+?removeFrom_TeamBuildQueue@AIPlayer@@QAEXPAVTeamInQueue@@@Z,0x004F040F,corrected from 0x004F0479 (the ready-queue twin): removeAll_TeamBuildQueue 0x004F042F calls 0x004F040F at 0x004F0438 and that body tests the build-queue links (+0x04 / +0x08) through 0x004F0341 against the head at AIPlayer +0x04; 0x004F0479 is removeFrom_TeamReadyQueue (head +0x08 / links +0x0C / +0x10 / called by removeAll_TeamReadyQueue 0x004F0499)
+?dlink_prependTo_TeamBuildQueue@TeamInQueue@@QAEXPAPAV1@@Z,0x004F035B,Zero Hour MAKE_DLINK dlink_prependTo_TeamBuildQueue spelling of the rowed byte-identical BFME 1 donor body Rva00160530::set: AIPlayer::prependTo_TeamBuildQueue 0x004F03EF calls it at 0x004F0406 with the build-queue head (AIPlayer +0x04) after dlink_isInList_TeamBuildQueue 0x004F0341
+?slot38@TransportContain@@UAE_NPAVObject@@HH@Z,0x00466EDE,slot 38 of the +0x20 contain vtable 0x00C44030 that the TransportContain ctor installs; the HordeContain override 0x00469647 calls it non-virtually (REL32 at 0x00469664) with the +0x20 this (unrowed)
+?rva002C6AA8@Rva002A8AB1Record@@QAEXHPAVObject@@@Z,0x002C6AA8,callee of ?rva004690D0@HordeContain (0x004690FA; this = the controlling player's skirmish AI record; args value then Object) read from the REL32 displacement; 20B +0x168-gated forwarder (unrowed)
+?clear@?$_List_base@PBVObject@@V?$allocator@PBVObject@@@_STL@@@_STL@@QAEXXZ,0x0023DAA5,ICF twin of list-int base clear: HordeContain +0x11C slot 67 (0x0046D204) clears its out-list through this address
+?push_back@?$list@PBVObject@@V?$allocator@PBVObject@@@_STL@@@_STL@@QAEXABQBVObject@@@Z,0x0005548F,ICF twin of the four-byte list push_back: HordeContain +0x11C slot 67 (0x0046D22D and 0x0046D261) appends Objects through this address
+??0?$_List_base@PBVObject@@V?$allocator@PBVObject@@@_STL@@@_STL@@QAE@ABV?$allocator@PBVObject@@@1@@Z,0x004EC36C,ICF twin of list-int base ctor: HordeContain +0x11C slots 3/23/25 (e.g. 0x0046E274) build their local Object list through this address
+??1?$_List_base@PBVObject@@V?$allocator@PBVObject@@@_STL@@@_STL@@QAE@XZ,0x004EC395,ICF twin of list-int base dtor: HordeContain +0x11C slots 3/23/25 (e.g. 0x0046E2AA) destroy their local Object list through this address
+?setTransformMatrix@Object@@QAEXPBVMatrix3D@@@Z,0x0028D412,Object override of setTransformMatrix: the body opens with the rowed Thing::setTransformMatrix 0x0030A2B7 on its argument then refreshes through TheGameLogic frame calls; called by HordeContain +0x11C slot 109 (0x0046A87E) with the Object as this (a donor-sweep pin as SimpleObjectIterator::nextWithNumeric at this address was retired)
+??0Rva003ACD71Module@@QAE@PAXPAVRva003AD6DFTemplate@@@Z,0x003ACD71,"module constructor (owner, template) the template factory slot 0x003AD6DF calls after new 0x1C (vtable 0x00C1BE20#2); opaque address name"
+??0Rva003ACDA0Module@@QAE@PAXPAVRva003AD71BTemplate@@@Z,0x003ACDA0,"module constructor (owner, template) the template factory slot 0x003AD71B calls after new 0x1C (vtable 0x00C1BE40#2); opaque address name"
+??0Rva003ACDCFModule@@QAE@PAXPAVRva003AD757Template@@@Z,0x003ACDCF,"module constructor (owner, template) the template factory slot 0x003AD757 calls after new 0x1C (vtable 0x00C1BE60#2); opaque address name"
+??0Rva003ACDFEModule@@QAE@PAXPAVRva003AD793Template@@@Z,0x003ACDFE,"module constructor (owner, template) the template factory slot 0x003AD793 calls after new 0x1C (vtable 0x00C1BE80#2); opaque address name"
+??0Rva003ACE5CModule@@QAE@PAXPAVRva003AD80BTemplate@@@Z,0x003ACE5C,"module constructor (owner, template) the template factory slot 0x003AD80B calls after new 0x8E4 (vtable 0x00C1BEA0#2); opaque address name"
+??0Rva003ACEFCModule@@QAE@PAXPAVRva003AD886Template@@@Z,0x003ACEFC,"module constructor (owner, template) the template factory slot 0x003AD886 calls after new 0xA0 (vtable 0x00C1BF20#2); opaque address name"
+??0Rva003ACF32Module@@QAE@PAXPAVRva003AD8C5Template@@@Z,0x003ACF32,"module constructor (owner, template) the template factory slot 0x003AD8C5 calls after new 0xAC (vtable 0x00C1BF40#2); opaque address name"
+??0Rva003ACFCFModule@@QAE@PAXPAVRva003AD904Template@@@Z,0x003ACFCF,"module constructor (owner, template) the template factory slot 0x003AD904 calls after new 0x40 (vtable 0x00C1BF60#2); opaque address name"
+??0Rva003AD005Module@@QAE@PAXPAVRva003AD940Template@@@Z,0x003AD005,"module constructor (owner, template) the template factory slot 0x003AD940 calls after new 0x84 (vtable 0x00C1BF84#2); opaque address name"
+??0Rva003AD094Module@@QAE@PAXPAVRva003AD97FTemplate@@@Z,0x003AD094,"module constructor (owner, template) the template factory slot 0x003AD97F calls after new 0x64 (vtable 0x00C1BFB8#2); opaque address name"
+??0Rva003AD0CAModule@@QAE@PAXPAVRva003AD9BBTemplate@@@Z,0x003AD0CA,"module constructor (owner, template) the template factory slot 0x003AD9BB calls after new 0x40 (vtable 0x00C1C2F4#2); opaque address name"
+??0Rva003AD100Module@@QAE@PAXPAVRva003AD9F7Template@@@Z,0x003AD100,"module constructor (owner, template) the template factory slot 0x003AD9F7 calls after new 0xB4 (vtable 0x00C1BFD8#2); opaque address name"
+??0Rva003AD38BModule@@QAE@PAXPAVRva003ADBD0Template@@@Z,0x003AD38B,"module constructor (owner, template) the template factory slot 0x003ADBD0 calls after new 0xA8 (vtable 0x00C1C154#2); opaque address name"
+??0Rva003AD16CModule@@QAE@PAXPAVRva003ADA72Template@@@Z,0x003AD16C,"module constructor (owner, template) the template factory slot 0x003ADA72 calls after new 0x40 (vtable 0x00C1BFFC#2); opaque address name"
+??0Rva003AD19BModule@@QAE@PAXPAVRva003ADA95Template@@@Z,0x003AD19B,"module constructor (owner, template) the template factory slot 0x003ADA95 calls after new 0x28 (vtable 0x00C1C020#2); opaque address name"
+??0Rva003AD1CAModule@@QAE@PAXPAVRva003ADAB8Template@@@Z,0x003AD1CA,"module constructor (owner, template) the template factory slot 0x003ADAB8 calls after new 0x28 (vtable 0x00C1C034#2); opaque address name"
+??0Rva003AD1F9Module@@QAE@PAXPAVRva003ADADBTemplate@@@Z,0x003AD1F9,"module constructor (owner, template) the template factory slot 0x003ADADB calls after new 0x34 (vtable 0x00C1C058#2); opaque address name"
+??0Rva003AD228Module@@QAE@PAXPAVRva003ADAFETemplate@@@Z,0x003AD228,"module constructor (owner, template) the template factory slot 0x003ADAFE calls after new 0x34 (vtable 0x00C1C07C#2); opaque address name"
+??0Rva003AD278Module@@QAE@PAXPAVRva003ADB21Template@@@Z,0x003AD278,"module constructor (owner, template) the template factory slot 0x003ADB21 calls after new 0x24 (vtable 0x00C1C0A0#2); opaque address name"
+??0Rva003AD2B3Module@@QAE@PAXPAVRva003ADB44Template@@@Z,0x003AD2B3,"module constructor (owner, template) the template factory slot 0x003ADB44 calls after new 0x3C (vtable 0x00C1C0C4#2); opaque address name"
+??0Rva003AD2E9Module@@QAE@PAXPAVRva003ADB67Template@@@Z,0x003AD2E9,"module constructor (owner, template) the template factory slot 0x003ADB67 calls after new 0x30 (vtable 0x00C1C0E8#2); opaque address name"
+??0Rva003AD31FModule@@QAE@PAXPAVRva003ADB8ATemplate@@@Z,0x003AD31F,"module constructor (owner, template) the template factory slot 0x003ADB8A calls after new 0x28 (vtable 0x00C1C10C#2); opaque address name"
+??0Rva003AD355Module@@QAE@PAXPAVRva003ADBADTemplate@@@Z,0x003AD355,"module constructor (owner, template) the template factory slot 0x003ADBAD calls after new 0x3C (vtable 0x00C1C130#2); opaque address name"
+??0Rva003AD3C1Module@@QAE@PAXPAVRva003ADC0FTemplate@@@Z,0x003AD3C1,"module constructor (owner, template) the template factory slot 0x003ADC0F calls after new 0x4C (vtable 0x00C1C178#2); opaque address name"
 ?rva004B959C@InheritUpgradeCreate@@QAEXXZ,0x004B959C,"InheritUpgradeCreate create work on the primary this (EH frame, walks the Object at +0x08): tail-called by its onBuildComplete 0x004B96A9 after the run-on-build-complete flag is cleared; the +0x10 slot-2 thunk 0x004B96C4 jumps to it too"
 ?rva0039B4EC@ExperienceTracker@@QAE_NH_N0@Z,0x0039B4EC,"ExperienceTracker member (ret 0xC, returns bool, false for a non-positive count): ExperienceLevelCreate 0x004B9201 passes its level gap and 0 0; LevelUpUpgrade 0x004B3E15 passes a level count and 1 0"
 ?rva0023C6FD@GameLogic@@QAEDXZ,0x0023C6FD,"GameLogic predicate (rowed as BfmeGlob939D::bfmeCall939D, starts with isInMultiplayerGame) that ExperienceLevelCreate::onBuildComplete 0x004B9231 calls on TheGameLogic"
 ?rva004CE2B0@UpgradeMux@@UAE_NPAVRva00406F9C@@@Z,0x004CE2B0,"UpgradeMux slot 2 base (rowed as Rva004CE2B0::rva004CE2B0): slot 2 of the AttributeModifierUpgrade mux vtable 0x00C587A0; LevelUpUpgrade slot 2 0x004B3E7F tail-jumps to it"
+?clear@?$hashtable@U?$pair@$$CBW4NameKeyType@@P6APAVTransition@@XZ@_STL@@W4NameKeyType@@U?$hash@W4NameKeyType@@@rts@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@P6APAVTransition@@XZ@_STL@@@2@U?$equal_to@W4NameKeyType@@@5@V?$allocator@U?$pair@$$CBW4NameKeyType@@P6APAVTransition@@XZ@_STL@@@2@@_STL@@QAEXXZ,0x001DBCDC,REL32 displacement read from retail at the byte-verified GameWindowTransitionsHandler table/group-list call site (shared STLport body)
+?_M_initialize_buckets@?$hashtable@U?$pair@$$CBW4NameKeyType@@P6APAVTransition@@XZ@_STL@@W4NameKeyType@@U?$hash@W4NameKeyType@@@rts@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@P6APAVTransition@@XZ@_STL@@@2@U?$equal_to@W4NameKeyType@@@5@V?$allocator@U?$pair@$$CBW4NameKeyType@@P6APAVTransition@@XZ@_STL@@@2@@_STL@@AAEXI@Z,0x00148DDF,REL32 displacement read from retail at the byte-verified GameWindowTransitionsHandler table/group-list call site (shared STLport body)
+??0?$_List_base@PAVRva001DC0EC@@V?$allocator@PAVRva001DC0EC@@@_STL@@@_STL@@QAE@ABV?$allocator@PAVRva001DC0EC@@@1@@Z,0x004EC36C,REL32 displacement read from retail at the byte-verified GameWindowTransitionsHandler table/group-list call site (shared STLport body)
+?clear@?$_List_base@PAVRva001DC0EC@@V?$allocator@PAVRva001DC0EC@@@_STL@@@_STL@@QAEXXZ,0x0023DAA5,REL32 displacement read from retail at the byte-verified GameWindowTransitionsHandler table/group-list call site (shared STLport body)
+?erase@?$list@PAVRva001DC0EC@@V?$allocator@PAVRva001DC0EC@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVRva001DC0EC@@U?$_Nonconst_traits@PAVRva001DC0EC@@@_STL@@@2@U32@@Z,0x00438539,REL32 displacement read from retail at the byte-verified GameWindowTransitionsHandler table/group-list call site (shared STLport body)
+??1?$_List_base@PAVRva001DC0EC@@V?$allocator@PAVRva001DC0EC@@@_STL@@@_STL@@QAE@XZ,0x004EC395,REL32 displacement read from retail at the byte-verified GameWindowTransitionsHandler table/group-list call site (shared STLport body)
 ??0MoveToFormationGroupOrder@@QAE@XZ,0x00547FF2,REL32 at the byte-verified GroupOrder factory 0x00354EFC: the ctor it calls after new(0x48) when the key equals the MoveToFormationGroupOrder name cache 0x00DD211C; body installs vftable 0x00C6A4CC over GroupOrder 0x005488C5
 ??0MoveToGroupOrder@@QAE@XZ,0x005479C3,REL32 at the byte-verified GroupOrder factory 0x00354EFC: the ctor it calls after new(0x40) when the key equals the MoveToGroupOrder name cache 0x00DD20D8; body installs vftable 0x00C6A478 over GroupOrder 0x005488C5
 ?isValidToExecute@CrateCollide@@MBE_NPBVObject@@@Z,0x004BC6C2,"CrateCollide::isValidToExecute (ret 4): slot 13 of CrateCollide's vftable 0x00C5A618 (Zero Hour order); called non-virtually with this by SalvageCrateCollide::isValidToExecute 0x004BD314"
@@ -9664,19 +10322,10 @@ _Rva003F417EConstructRecords,0x003F417E,"Native003F5254 calls existing verified 
 ?Rva006053AD@@YAPADPAD@Z,0x006053AD,callee read from retail REL32 at a given-back caller; byte-verified in the solo fork as Code/GameEngine/Source/Common/System/Rva006053AD.cpp (row not yet given back)
 ?isAllowedToRespondToAiCommands@AIUpdateInterface@@UBE_NPBUAICommandParms@@@Z,0x0026734C,callee read from retail REL32 at a given-back caller; byte-verified in the solo fork as Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateCommands.cpp (row not yet given back)
 ?privateMoveToPosition@AIUpdateInterface@@MAEXPBUCoord3D@@MW4CommandSourceType@@@Z,0x0026B487,callee read from retail REL32 at a given-back caller; byte-verified in the solo fork as Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateCommands.cpp (row not yet given back)
-??0?$_Vector_base@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@QAE@ABV?$allocator@PAVObject@@@1@@Z,0x00211E58,"ICF-folded empty vector base ctor (same 29B body the other _Vector_base pins name); REL32 in StructureCreep 0x005AC0B5 for its vector<Object*>"
-??0InputLightStruct@LightEnvironmentClass@@QAE@ABU01@@Z,0x0013F660,implicit copy ctor compiles (lightenvironment.cpp with the bfme2lightenv shim) to the same 141 bytes as the matched implicit operator= at 0x0013F660; ICF-folded; Calculate_Fill_Light 0x00140010 calls it there
 ??1Made002CC5E1@@UAE@XZ,0x00508684,callee read from retail REL32 at a given-back caller; byte-verified in the solo fork as Code/GameEngine/Source/GameLogic/Object/Made002CC5E1Ctor.cpp (row not yet given back)
-??1Made002CC711@@UAE@XZ,0x0050B8D6,ICF fold: the implicit paralyze-nugget dtor is the same jmp-to-0x00507823 body as the rowed Made002CCBCA one; REL32 at 0x00508F90 in ??_GMade002CC711 0x00508F8C
-??1Made002CCA37@@UAE@XZ,0x0050BFBF,ICF fold: the implicit DOTNugget dtor is the same jmp-to-0x00508684 body as the rowed FireLogicNugget one; REL32 at 0x0050B220 in ??_GMade002CCA37 0x0050B21C
 ??4BfmeWideResult@@QAEAAU0@ABU0@@Z,0x0041D5D0,"assignment of the partition iterate result (ref-counted handle: skip self, release the old block through its +0x10 count, take the other): REL32 at 0x005DA2DC in 0x005DA109 where the second iterateObjectsInRange result is assigned over the first before the temporary dtor 0x0004AA28"
-?bfmeBaseSJ@BfmeThingSJ@@QAEXH@Z,0x001320D0,callee read from the retail REL32 in placed BFME1-donor body ??0BfmeThingTKB@@QAE@XZ (0x000EF7A1)
-?bfmeRunEYE@BfmeNodeEYE@@QAEXXZ,0x0030DEAE,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
-?isAnyKindOf@Thing@@QBE_NABV?$BitFlags@$0HE@@@@Z,0x0030ADC7,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?rva002E996E@Pathfinder@@QAE_NPBUCoord3D@@_N1H@Z,0x002E996E,"pathfinder member (ret 0x10: position, Bool, Bool, layer) testing the cell type of the position's cell; REL32 with (&path end position, 0, 0, 1) on TheAI +0x10 from AIMoveForBoarding::update 0x00354CFB, AIMoveToAndEvacuateState::update 0x00354B14 and 0x00354243; address-named"
-?rva002FE193@AI@@SA_NPAVObject@@0@Z,0x002FE193,opaque cdecl Bool(Object *owner, Object *nemesis) beside the AI statics (EH body); REL32 callee of AIGuardOuterState::onEnter 0x00543A8E after the owner check, a false result ends the state
 ?rva003532BF@@YAXPAVObject@@PAVStateMachine@@_N@Z,0x003532BF,"cdecl helper (owner, machine, Bool; add esp 0xC at the callers) starting from the owner's contain (+0x250 slot 69): REL32 from AIMoveToAndEvacuateState::update 0x00354B34 and 0x0035425C once the move succeeds; address-named"
-?rva003642DF@Path@@QAE?AURva003642DFResult@@M@Z,0x003642DF,"AIUpdate+0x140 path member returning a node+position by value for a distance; REL32 in AIUpdate slot 141 0x0026345A; identity not recovered"
 ?update@AIMoveToState@@UAE?AW4StateReturnType@@XZ,0x00353A65,"slot 6 of vtable 0x00C11EB8 (whose slot 4 is the pinned AIMoveToState::onEnter 0x0034C7BD and slot 5 the rowed AIMoveToState::onExit); REL32 base update from AIMoveToAndEvacuateState::update 0x00354AC1 and AIMoveForBoarding::update 0x00354CB7"
 ??1RvaPair00207E26@@QAE@XZ,0x0048BA39,8-byte AsciiString-plus-int RvaPair element dtor folds to 5B AsciiString cleanup at 0x48BA39; retail range Destroy at 0x32C0CA calls same address via key dtor; stride-identical ICF twin of rowed AsciiString dtor; honest address name for link alias
 ??0PeerResponse@@QAE@XZ,0x00389F77,Native enum response callback38B5DB constructs local840B response at this boundary; target owning layout independently recovered as BfmeOpaqueOwnedRecord840; explicit linker alias uses that verified body
@@ -9687,3 +10336,54 @@ _Rva003F417EConstructRecords,0x003F417E,"Native003F5254 calls existing verified 
 ?allocate@?$allocator@VRva0054000B@@@_STL@@QBEPAVRva0054000B@@IPBX@Z,0x000B4039,ICF fold to Pod40 allocate same 28B imul-0x28 via overflow 0x00540412
 ??$__uninitialized_copy@PAVRva0054000B@@PAV1@@_STL@@YAPAVRva0054000B@@PAV1@00ABU__false_type@0@@Z,0x005400B4,non-const twin of const row same 38B via overflow 0x00540412
 ?bfmeForwardWideA@BfmeWideForwardA@@QAE?AUBfmeWideResult@@HMHH@Z,0x006255D0,float radius version same address as HHHH row via exact 360B call site fld-fstp plus iterate precedent
+??_7Rva00260E44Filter@@6B@,0x00C5A99C,"partition filter vftable stored inline at SalvageCrateCollide::executeCrateBehavior 0x004BD442 (no members beyond the +0x04 link; allow 0x00260E44)"
+?onEnter@AICowerState@@UAE?AW4StateReturnType@@XZ,0x00344598,"slot 4 of vtable 0x00C11958 whose slot-2 name getter returns AICowerState; tail-jump target of AIUncontrollableCower::onEnter 0x00347EF5"
+?isTrainable@ExperienceTracker@@QBE_NXZ,0x0039ADAF,"ExperienceTracker byte getter (the matched byte-chase body): REL32 callee of VeterancyCrateCollide::isValidToExecute 0x004BCEF0 at 0x004BCF43 on the picker's +0x264 tracker; Zero Hour isTrainable at that spot"
+?rva0039ABFF@ExperienceTracker@@QBE_NXZ,0x0039ABFF,"ExperienceTracker bool member with no arguments (forwards to a 0x00DFECC4 member); REL32 callee of VeterancyCrateCollide::isValidToExecute 0x004BCEF0 at 0x004BCF4E where Zero Hour asks canGainExpForLevel; address-named"
+?rva00357960@ScriptEngine@@QAEXABVAsciiString@@PAVObject@@@Z,0x00357960,"TheScriptEngine (0x00DFE16C) member (ret 8): (the crate object's +0x88 name, the picker); REL32 callee of VeterancyCrateCollide::executeCrateBehavior 0x004BCFF0 for pilots where Zero Hour calls transferObjectName"
+?rva0034612C@AIInternalMoveToState@@QAE?AW4StateReturnType@@XZ,0x0034612C,"AIInternalMoveToState-derived state member (this +0x18 machine, copies the goal object position into +0x20, returns a StateReturnType tested against 0): REL32 callee at the start of AICombineState::onEnter 0x0034FCAF, which returns its nonzero result; address-named (also pinned as BfmeThing932E::bfmeTest932E)"
+?_M_initialize_buckets@?$hashtable@U?$pair@$$CBW4ObjectID@@UCoord3D@@@_STL@@W4ObjectID@@U?$hash@W4ObjectID@@@rts@@U?$_Select1st@U?$pair@$$CBW4ObjectID@@UCoord3D@@@_STL@@@2@U?$equal_to@W4ObjectID@@@2@V?$allocator@U?$pair@$$CBW4ObjectID@@UCoord3D@@@_STL@@@2@@_STL@@AAEXI@Z,0x00148DDF,REL32 displacement read from retail at the hashtable ctor 0x00547875 (GroupOrder MoveTo map instantiation); ICF-folded STLport body shared with the ArmorTemplate row
+?clear@?$hashtable@U?$pair@$$CBW4ObjectID@@UCoord3D@@@_STL@@W4ObjectID@@U?$hash@W4ObjectID@@@rts@@U?$_Select1st@U?$pair@$$CBW4ObjectID@@UCoord3D@@@_STL@@@2@U?$equal_to@W4ObjectID@@@2@V?$allocator@U?$pair@$$CBW4ObjectID@@UCoord3D@@@_STL@@@2@@_STL@@QAEXXZ,0x001DBCDC,REL32 displacement read from retail at the MoveTo GroupOrder map hashtable dtor 0x005473F7; ICF-folded STLport clear shared with the ArmorTemplate row
+?XferObjectID@@YAAAVXfer@@PAV1@PAW4ObjectID@@@Z,0x003060B2,REL32 read at the byte-verified pair xfer 0x00547245; the body returns the result of its Xfer slot 0x94 call and 0x00547245 dispatches through that returned Xfer; same body as the void-spelled row
+??$?0$$CBW4ObjectID@@UCoord3D@@@?$pair@W4ObjectID@@UCoord3D@@@_STL@@QAE@ABU?$pair@$$CBW4ObjectID@@UCoord3D@@@1@@Z,0x0004254E,REL32 read at the byte-verified MoveTo map xfer 0x0054755B (save-loop converting pair copy); ICF-folded 16-byte memberwise copy
+??$find@W4ObjectID@@@?$hashtable@U?$pair@$$CBW4ObjectID@@UCoord3D@@@_STL@@W4ObjectID@@U?$hash@W4ObjectID@@@rts@@U?$_Select1st@U?$pair@$$CBW4ObjectID@@UCoord3D@@@_STL@@@2@U?$equal_to@W4ObjectID@@@2@V?$allocator@U?$pair@$$CBW4ObjectID@@UCoord3D@@@_STL@@@2@@_STL@@QAE?AU?$_Ht_iterator@U?$pair@$$CBW4ObjectID@@UCoord3D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBW4ObjectID@@UCoord3D@@@_STL@@@2@W4ObjectID@@U?$hash@W4ObjectID@@@rts@@U?$_Select1st@U?$pair@$$CBW4ObjectID@@UCoord3D@@@_STL@@@2@U?$equal_to@W4ObjectID@@@2@V?$allocator@U?$pair@$$CBW4ObjectID@@UCoord3D@@@_STL@@@2@@1@ABW4ObjectID@@@Z,0x00148B27,REL32 read at the MoveTo map operator[] 0x005474E7; ICF-folded STLport hashtable find shared with the Armor dup row
+??0?$pair@$$CBW4ObjectID@@UCoord3D@@@_STL@@QAE@ABW4ObjectID@@ABUCoord3D@@@Z,0x00547223,REL32 read at the MoveTo map operator[] 0x005474E7 (key plus default Coord3D value pair); rowed under the Rva00547223 placeholder
+??0?$pair@W4ObjectID@@UCoord3D@@@_STL@@QAE@XZ,0x00326BE6,REL32 read at the byte-verified MoveTo map xfer 0x0054755B (load-loop default pair); ICF-folded first-dword zeroing ctor
+??E?$_Ht_iterator@U?$pair@$$CBW4ObjectID@@UCoord3D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBW4ObjectID@@UCoord3D@@@_STL@@@2@W4ObjectID@@U?$hash@W4ObjectID@@@rts@@U?$_Select1st@U?$pair@$$CBW4ObjectID@@UCoord3D@@@_STL@@@2@U?$equal_to@W4ObjectID@@@2@V?$allocator@U?$pair@$$CBW4ObjectID@@UCoord3D@@@_STL@@@2@@_STL@@QAEAAU01@XZ,0x0041E832,REL32 read at the byte-verified MoveTo map xfer 0x0054755B (save-loop ++); ICF-folded STLport hash iterator increment
+?_M_insert@?$hashtable@U?$pair@$$CBW4ObjectID@@UCoord3D@@@_STL@@W4ObjectID@@U?$hash@W4ObjectID@@@rts@@U?$_Select1st@U?$pair@$$CBW4ObjectID@@UCoord3D@@@_STL@@@2@U?$equal_to@W4ObjectID@@@2@V?$allocator@U?$pair@$$CBW4ObjectID@@UCoord3D@@@_STL@@@2@@_STL@@QAEAAU?$pair@$$CBW4ObjectID@@UCoord3D@@@2@ABU32@@Z,0x00547430,REL32 read at the MoveTo map operator[] 0x005474E7; body sits in this map unit right after its hashtable dtor 0x005473F7 and is shared by ICF with the rowed WindowVideo spelling
+?begin@?$hashtable@U?$pair@$$CBW4ObjectID@@UCoord3D@@@_STL@@W4ObjectID@@U?$hash@W4ObjectID@@@rts@@U?$_Select1st@U?$pair@$$CBW4ObjectID@@UCoord3D@@@_STL@@@2@U?$equal_to@W4ObjectID@@@2@V?$allocator@U?$pair@$$CBW4ObjectID@@UCoord3D@@@_STL@@@2@@_STL@@QAE?AU?$_Ht_iterator@U?$pair@$$CBW4ObjectID@@UCoord3D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBW4ObjectID@@UCoord3D@@@_STL@@@2@W4ObjectID@@U?$hash@W4ObjectID@@@rts@@U?$_Select1st@U?$pair@$$CBW4ObjectID@@UCoord3D@@@_STL@@@2@U?$equal_to@W4ObjectID@@@2@V?$allocator@U?$pair@$$CBW4ObjectID@@UCoord3D@@@_STL@@@2@@2@XZ,0x00427195,REL32 read at the byte-verified MoveTo map xfer 0x0054755B (save-loop begin); ICF-folded STLport hashtable begin
+??0SpecialPowerModuleData@@QAE@XZ,0x004930A0,SpecialPower module-data base DEFAULT ctor (SEH body): 0x004930A0 ends where the rowed ?buildFieldParse@SpecialPowerModuleData at 0x00493207 begins and its deleting dtor 0x00493333 and dtor 0x0049334F follow; every SpecialPower data ctor calls it (was Rva004930A0)
+?onExit@AICowerState@@UAEXW4StateExitType@@@Z,0x003402FC,"slot 5 of vtable 0x00C11958 whose slot-2 name getter returns AICowerState; tail of AIUncontrollableCower::onExit 0x00347F3E"
+?push_back@?$vector@PAVCrateTemplate@@V?$allocator@PAVCrateTemplate@@@_STL@@@_STL@@QAEXABQAVCrateTemplate@@@Z,0x004DFCB0,REL32 at CrateSystem::newCrateTemplate 0x0035CFC7 appending to the template vector at CrateSystem +0x0C; the folded pointer-vector push_back
+??0?$_Vector_base@PAVCrateTemplate@@V?$allocator@PAVCrateTemplate@@@_STL@@@_STL@@QAE@ABV?$allocator@PAVCrateTemplate@@@1@@Z,0x00211E58,ICF-folded empty vector base ctor called by the CrateSystem ctor 0x0035CAD6 for its template vector at +0x0C
+?erase@?$vector@PAVCrateTemplate@@V?$allocator@PAVCrateTemplate@@@_STL@@@_STL@@QAEPAPAVCrateTemplate@@PAPAV3@0@Z,0x0031BD55,folded pointer-vector range erase: CrateSystem ctor 0x0035CAD6 and dtor 0x0035CB07 clear the template vector through it
+?erase@?$vector@PAVCrateTemplate@@V?$allocator@PAVCrateTemplate@@@_STL@@@_STL@@QAEPAPAVCrateTemplate@@PAPAV3@@Z,0x001FF51F,folded pointer-vector single erase: CrateSystem::reset 0x0035C9CF removes NULL and fully-deleted templates through it
+?push_back@?$list@PAXV?$allocator@PAX@_STL@@@_STL@@QAEXABQAX@Z,0x0005548F,Miles sample-pool callers 0x56735 and 0x567A7; four-byte list element append ICF-shares the verified list<int> body and insert at 0x5925E2
+??0Rva003ADC75@@QAE@ABV0@@Z,0x003ADC75,"copy-ctor callee of Rva003ADC4FCopy.cpp read from its REL32; the body is rowed as ??0BfmeDerivedZL@@QAE@PAV0@@Z (both landed independently, deduplicated after the upstream merge)"
+??0Rva003ADD31@@QAE@ABV0@@Z,0x003ADD31,"copy-ctor callee of Rva003ADD0BCopy.cpp read from its REL32; the body is rowed as ??0Rva005EA590@@QAE@ABV0@@Z (both landed independently, deduplicated after the upstream merge)"
+?clamp_006eab10@@YG_NHH@Z,0x0004538C,second name for the body rowed as ?Rva0004538C@@YG_NHI@Z; both landed independently and this TU was dropped when the solo fork was squashed onto upstream
+?guardedHelper@Rva00971BA0Owner@@QAEHXZ,0x00180AD6,second name for the body rowed as ?guardedHelper@Rva00180AD6HelperOwner@@QAEHXZ; both landed independently and this TU was dropped when the solo fork was squashed onto upstream
+?rva0026D478@AIUpdateInterface@@QAEXXZ,0x0026D478,second name for the body rowed as ?joinTeam@AIUpdateInterface@@UAEXXZ; both landed independently and this TU was dropped when the solo fork was squashed onto upstream
+?bfmeGoTFB@BfmeThingTFB@@QAEXH@Z,0x0029766B,second name for the body rowed as ?rva0029766B@Rva0029766B@@QAEXPBUCoord3D@@@Z; both landed independently and this TU was dropped when the solo fork was squashed onto upstream
+?test@Rva0044F630Owner@@QBE_NPBURva0044F630Arg@@@Z,0x00300021,second name for the body rowed as ?test@Rva00300021Flags@@QBE_NPBURva00300021Argument@@@Z; both landed independently and this TU was dropped when the solo fork was squashed onto upstream
+?rva00341891@Rva00341796@@QAEXXZ,0x00341891,second name for the body rowed as ?onEnter@AIHarvestState@@UAE?AW4StateReturnType@@XZ; both landed independently and this TU was dropped when the solo fork was squashed onto upstream
+?addState@Rva004AC135RainOfFireSecondary20@@QAEXM@Z,0x004AC135,second name for the body rowed as ?rva004AC135@RainOfFireUpdate@@UAEXM@Z; both landed independently and this TU was dropped when the solo fork was squashed onto upstream
+??0Rva0037BF60Owner@@QAE@HH@Z,0x004DD206,second name for the body rowed as ??0Rva004DD206Owner@@QAE@II@Z; both landed independently and this TU was dropped when the solo fork was squashed onto upstream
+?clearTeamsInQueue@AIPlayer@@IAEXXZ,0x004F05D6,second name for the body rowed as ?clearTeamsInQueue@AIPlayer@@QAEXXZ; both landed independently and this TU was dropped when the solo fork was squashed onto upstream
+?Rva00547245Xfer@@YAPAVXfer@@PAV1@PAURva00547245Pair@@@Z,0x00547245,second name for the body rowed as ?Rva00547245Xfer@@YAXPAVXfer@@PAU?$pair@W4ObjectID@@UCoord3D@@@_STL@@@Z; both landed independently and this TU was dropped when the solo fork was squashed onto upstream
+?Rva00872950@@YAIXZ,0x006B2150,second name for the body rowed as ?Rva006B2150@@YAIXZ; both landed independently and this TU was dropped when the solo fork was squashed onto upstream
+?Rva004E1579ParseEnableRegion@@YAXPAVINI@@PAX1PBX@Z,0x004E1579,second name for the body rowed as ?ParseEnableRegion@@YAXPAVINI@@PAX1PBX@Z; both landed independently and one definition was dropped when the solo fork was squashed onto upstream
+?removeObjectType@ObjectTypes@@QAEXABVAsciiString@@@Z,0x00376B1E,second name for the body rowed as ?remove@Rva00376B1EObjectTypesView@@QAEXABVAsciiString@@@Z; both landed independently and one definition was dropped when the solo fork was squashed onto upstream
+?rva004F03EF@Rva004F040F@@QAEXPAX@Z,0x004F03EF,second name for the body rowed as ?prependTo_TeamBuildQueue@AIPlayer@@QAEXPAVTeamInQueue@@@Z; both landed independently and one definition was dropped when the solo fork was squashed onto upstream
+?rva004F0479@Rva004F040F@@QAEXPAX@Z,0x004F0479,second name for the body rowed as ?removeFrom_TeamReadyQueue@AIPlayer@@QAEXPAVTeamInQueue@@@Z; both landed independently and one definition was dropped when the solo fork was squashed onto upstream
+?test@Rva00729370BitPlane@@QBE_NHH@Z,0x0006AB49,second name for the body rowed as ?test@Rva0006AB49BitPlane@@QBE_NHH@Z; both landed independently and one definition was dropped when the solo fork was squashed onto upstream
+?isInList0C@BfmeNode_00161220@@QBE_NPAPAU1@@Z,0x004EF342,second name for the body rowed as ?dlink_isInList_TeamReadyQueue@TeamInQueue@@QBE_NPBQAV1@@Z; Rva004F040F::rva004EF383 calls it at that address
+??0CollectionClass@@QAE@ABV0@@Z,0x00130C00,address read from the REL32 displacement at a placed body
+??0Rva004930A0@@QAE@XZ,0x004930A0,opaque intermediate base DEFAULT ctor (SEH body); called this-only by DeliverPayloadAIUpdate and AIUpdateInterface ctors; identity unproven
+??1Rva00638C4@@UAE@XZ,0x00638C4,opaque SEH dtor (mov-eax-cookie prologue, vptr 0xBC59F4); called by scalar-deleting-dtor at 0x638A8; identity unproven, address-derived name
+??1Rva0098B8B@@UAE@XZ,0x0098B8B,opaque SEH dtor (mov-eax-cookie prologue, vptr 0xBC8688); called by scalar-deleting-dtor at 0x98C90; identity unproven, address-derived name
+?bfmeStepBFF@BfmeSubBFF@@QAEXXZ,0x000376E0
+?nextWithNumeric@SimpleObjectIterator@@QAEPAVObject@@PAM@Z,0x0028D412,address read from the REL32 displacement at a placed body
+?reset@SimpleObjectIterator@@AAEXXZ,0x00291C20,address read from the REL32 displacement at a placed body
+??1AIPlayer@@MAE@XZ,0x00232976,callee of 1AISkirmishPlayer (0x00098B8B) at the site its BFME1 donor calls it; may be an ICF alias
+??0?$hashtable@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@W4NameKeyType@@U?$hash@W4NameKeyType@@@rts@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@2@U?$equal_to@W4NameKeyType@@@5@V?$allocator@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@2@@_STL@@QAE@IABU?$hash@W4NameKeyType@@@rts@@ABU?$equal_to@W4NameKeyType@@@3@ABV?$allocator@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@1@@Z,0x001DCB64,twin of 0x002896AA proven by caller 0x001DCBA4 31B identical pushes

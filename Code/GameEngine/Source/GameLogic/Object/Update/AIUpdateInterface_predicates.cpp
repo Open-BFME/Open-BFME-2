@@ -9,7 +9,9 @@
 // ?rva00262DD3@AIUpdateInterface@@QBE_NPBVObject@@@Z, retail 0x00262DD3, 81 bytes.
 // ?rva00262EFF@AIUpdateInterface@@UAEXPAX00@Z, retail 0x00262EFF, 26 bytes.
 // ?rva002632E1@AIUpdateInterface@@QAEXXZ, retail 0x002632E1, 13 bytes.
-// ?onObjectCreated@AIUpdateInterface@@UAEXXZ, retail 0x002632EE, 46 bytes.
+// ?rva002632EE@AIUpdateInterface@@QAEXXZ, retail 0x002632EE, 46 bytes. Not
+// onObjectCreated (that is vtable slot 5, 0x002625C8): no vtable holds this
+// body; 0x004501CD and 0x00492095 call it directly.
 // ?rva0026336D@AIUpdateInterface@@QAEXXZ, retail 0x0026336D, 73 bytes.
 
 struct Coord3D
@@ -148,7 +150,7 @@ public:
 	bool rva00262DD3(const Object *obj) const;
 	virtual void rva00262EFF(void *a, void *b, void *c);
 	void rva002632E1();
-	virtual void onObjectCreated();
+	void rva002632EE();
 	void rva0026336D();
 };
 
@@ -218,7 +220,7 @@ void AIUpdateInterface::rva002632E1()
 		m_machine->rva0035033F();
 }
 
-void AIUpdateInterface::onObjectCreated()
+void AIUpdateInterface::rva002632EE()
 {
 	if (!m_secondaryMachine)
 	{

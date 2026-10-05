@@ -11,11 +11,11 @@
 // (slot 0) plus table 0x00C5C724 plus factory 0x0025197B news 0x8C.
 #include <vector>
 
-class Rva004930A0
+class SpecialPowerModuleData
 {
 public:
-	Rva004930A0();
-	virtual ~Rva004930A0();
+	SpecialPowerModuleData();
+	virtual ~SpecialPowerModuleData();
 
 private:
 	unsigned char m_pad[0x7C - 4];
@@ -27,7 +27,7 @@ struct CashHackUpgrades
 	int m_amountToSteal;
 };
 
-class __declspec(novtable) CashHackSpecialPowerModuleData : public Rva004930A0
+class __declspec(novtable) CashHackSpecialPowerModuleData : public SpecialPowerModuleData
 {
 public:
 	virtual ~CashHackSpecialPowerModuleData();

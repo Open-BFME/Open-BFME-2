@@ -237,3 +237,7 @@ void bfmeGoELHb(void *a)
 	++g_bfmeCountELH;
 }
 
+// The global(s) below are defined elsewhere under another name at the same
+// address (the census owner of that DIR32 target); bind this unit's spelling.
+#pragma comment(linker, "/alternatename:?g_bfmeCountELH@@3HA=?number_of_DX8_calls@@3IA")
+#pragma comment(linker, "/alternatename:?g_bfmeObjELB@@3PAVBfmeObjELB@@A=?g_Va00E062EC@@3HA")

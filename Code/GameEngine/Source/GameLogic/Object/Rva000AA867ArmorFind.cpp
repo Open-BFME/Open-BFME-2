@@ -45,3 +45,7 @@ const ArmorTemplate *Rva000AA867::rva000AA867(NameKeyType key) const
 		return 0;
 	return (const ArmorTemplate *)it->second.m_ptr;
 }
+
+// Other units call this body (pinned at its address) under the spelling(s)
+// below, with the same calling convention and stack arguments; bind them.
+#pragma comment(linker, "/alternatename:?find@Rva00786BD0Owner@@QAEPAXI@Z=?rva000AA867@Rva000AA867@@QBEPBVArmorTemplate@@W4NameKeyType@@@Z")

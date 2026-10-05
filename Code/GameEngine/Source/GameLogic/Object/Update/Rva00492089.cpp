@@ -1,6 +1,6 @@
 // cl: /O1 /MD
 // ?rva00492089@Rva00492089@@QAEXPAX@Z @0x00492089 44B
-// Evidence: callees rowed onObjectCreated 0x002632EE and rva00352ECA 0x00352ECA; caller 0x00492114 passes factory pointer; [esi+8]+0x258 AI pointer with +0x20 command iface.
+// Evidence: callees rowed rva002632EE 0x002632EE and rva00352ECA 0x00352ECA; caller 0x00492114 passes factory pointer; [esi+8]+0x258 AI pointer with +0x20 command iface.
 // Links: no literals, callees by row names.
 enum CommandSourceType
 {
@@ -18,9 +18,9 @@ public:
 class AIUpdateInterface
 {
 public:
-	virtual void onObjectCreated();
+	void rva002632EE();
 private:
-	char m_pad[0x20 - 4];
+	char m_pad[0x20];
 public:
 	Rva00352ECA m_cmd;
 };
@@ -42,6 +42,6 @@ public:
 
 void Rva00492089::rva00492089(void *arg)
 {
-	m_thing->m_ai->AIUpdateInterface::onObjectCreated();
+	m_thing->m_ai->rva002632EE();
 	m_thing->m_ai->m_cmd.rva00352ECA(arg, CMD_FROM_PLAYER2);
 }

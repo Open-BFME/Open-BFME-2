@@ -103,9 +103,8 @@ public:
 	virtual void update();
 	virtual Bool getCapsState();
 
-	void rva00098BD4();							///< matched 0x00098BD4 (Zero Hour's openKeyboard)
-
 protected:
+	void openKeyboard();							///< matched 0x00098BD4
 	virtual void getKey(KeyboardIO *key);
 
 private:
@@ -116,7 +115,7 @@ private:
 void DirectInputKeyboard::init()
 {
 	Keyboard::init();
-	rva00098BD4();
+	openKeyboard();
 }
 
 void DirectInputKeyboard::update()

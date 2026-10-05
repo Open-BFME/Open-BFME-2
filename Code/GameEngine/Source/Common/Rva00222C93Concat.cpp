@@ -43,3 +43,7 @@ AsciiString &Rva00222C93Append(AsciiString &dst, const char *src)
     dst.concat(tmp);
     return dst;
 }
+
+// The global(s) below are defined elsewhere under another name at the same
+// address (the census owner of that DIR32 target); bind this unit's spelling.
+#pragma comment(linker, "/alternatename:?g_00BE6D5C@@3QBQBXB=??_7Rva00222A19@@6B@")

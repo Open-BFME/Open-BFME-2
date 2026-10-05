@@ -18,17 +18,17 @@
 
 struct BfmeE16 { float x, y, z, w; };
 
-class Rva004930A0
+class SpecialPowerModuleData
 {
 public:
-	Rva004930A0();
-	virtual ~Rva004930A0();
+	SpecialPowerModuleData();
+	virtual ~SpecialPowerModuleData();
 
 protected:
 	unsigned char m_pad[0x7C - 4];
 };
 
-class ElvenWoodSpecialPowerModuleData : public Rva004930A0
+class ElvenWoodSpecialPowerModuleData : public SpecialPowerModuleData
 {
 public:
 	ElvenWoodSpecialPowerModuleData();
@@ -45,7 +45,7 @@ private:
 
 // ??0ElvenWoodSpecialPowerModuleData@@QAE@XZ @0x4C3DA9
 ElvenWoodSpecialPowerModuleData::ElvenWoodSpecialPowerModuleData()
-	: Rva004930A0()
+	: SpecialPowerModuleData()
 	, m_elvenGroveObject(0)
 	, m_elvenNumObjects(0)
 	, m_elvenWoodRadius(10.0f)

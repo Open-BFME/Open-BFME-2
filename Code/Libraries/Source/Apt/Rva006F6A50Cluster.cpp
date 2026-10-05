@@ -549,3 +549,11 @@ void BfmeWrapper1279::rva006F80C0(bool flag)
 		cur = next;
 	} while (cur != 0);
 }
+
+// Other units call this body (pinned at its address) under the spelling(s)
+// below, with the same calling convention and stack arguments; bind them.
+#pragma comment(linker, "/alternatename:?rva006F7AC0@Rva006F7AC0@@QBE_NXZ=?rva006F7AC0@Rva006F7AC0List@@QAE_NXZ")
+
+// The global(s) below are defined elsewhere under another name at the same
+// address (the census owner of that DIR32 target); bind this unit's spelling.
+#pragma comment(linker, "/alternatename:?g_00E182E0@@3PAXA=?g_aptDateInterpreter@@3UAptActionInterpreter@@A")

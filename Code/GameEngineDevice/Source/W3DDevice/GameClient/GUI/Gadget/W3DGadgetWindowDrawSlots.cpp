@@ -95,10 +95,18 @@ Int GameWindow::tooltip(WinInstanceData *instData, UnsignedInt mouse)
 	return 0;
 }
 
-// Slot 5 (0x0009FD78) calls the +0x1F0 callback the same way, but retail's
-// null path jumps into the three bytes after it (0x0009FD8A, xor eax, eax;
-// ret), which the ledger rows as their own zero getter; it is recorded
-// blocked rather than defined here (reverse/re_attempts.log).
+// Slot 5 (0x0009FD78) calls the +0x1F0 callback the same way. Its null path
+// jumps to the three bytes at 0x0009FD8A (xor eax, eax; ret), the body's own
+// tail: nothing else in the image reaches that address.
+Int GameWindow::rva0009FD78()
+{
+	if (m_bfmeFunc1F0)
+	{
+		m_bfmeFunc1F0(this);
+		return 1;
+	}
+	return 0;
+}
 
 WindowMsgHandledType GadgetCheckBoxInput(GameWindow *window, UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2);
 WindowMsgHandledType GadgetCheckBoxSystem(GameWindow *window, UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2);

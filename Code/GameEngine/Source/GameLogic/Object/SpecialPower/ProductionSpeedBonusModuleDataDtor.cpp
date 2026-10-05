@@ -2,7 +2,7 @@
 // stlport
 //
 // ??1ProductionSpeedBonusModuleData@@UAE@XZ, retail 0x004C3064, 56 bytes.
-// ProductionSpeedBonus ModuleData dtor over the pinned Rva004930A0 base
+// ProductionSpeedBonus ModuleData dtor over the pinned SpecialPowerModuleData base
 // (0x4930A0, 0x7C bytes): destroys the Type string list at +0x84 through the
 // rowed vector<AsciiString> dtor at 0x0002CC70 (state 0) then the base through
 // the rowed 0x0049334F dtor. Layout from the matched ctor 0x004C2FE6
@@ -16,16 +16,16 @@
 
 #include "ascii_string.h"
 
-class Rva004930A0
+class SpecialPowerModuleData
 {
 public:
-	virtual ~Rva004930A0();
+	virtual ~SpecialPowerModuleData();
 
 private:
 	unsigned char m_pad[0x7C - 4];
 };
 
-class __declspec(novtable) ProductionSpeedBonusModuleData : public Rva004930A0
+class __declspec(novtable) ProductionSpeedBonusModuleData : public SpecialPowerModuleData
 {
 public:
 	virtual ~ProductionSpeedBonusModuleData();

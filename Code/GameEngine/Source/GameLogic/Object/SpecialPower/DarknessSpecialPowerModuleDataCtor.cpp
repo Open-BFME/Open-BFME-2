@@ -15,17 +15,17 @@
 extern "C" const void *const vtbl_00C5E7A8[];  // folded, 2 classes; via ??_7CombineHordeSpecialPowerModuleData@@6B@
 #pragma comment(linker, "/alternatename:_vtbl_00C5E7A8=??_7CombineHordeSpecialPowerModuleData@@6B@")
 
-class Rva004930A0
+class SpecialPowerModuleData
 {
 public:
-	Rva004930A0();
+	SpecialPowerModuleData();
 
 	void *m_vtable; // +0
 	unsigned char m_pad[0x7C - 4]; // +4..0x7B
 };
 
 
-class DarknessSpecialPowerModuleData : public Rva004930A0
+class DarknessSpecialPowerModuleData : public SpecialPowerModuleData
 {
 public:
 	DarknessSpecialPowerModuleData();
@@ -37,7 +37,7 @@ private:
 
 // ??0DarknessSpecialPowerModuleData@@QAE@XZ @0x4C4F63
 DarknessSpecialPowerModuleData::DarknessSpecialPowerModuleData()
-	: Rva004930A0()
+	: SpecialPowerModuleData()
 {
 	float radius = 10.0f;
 	m_darknessFX = 0;

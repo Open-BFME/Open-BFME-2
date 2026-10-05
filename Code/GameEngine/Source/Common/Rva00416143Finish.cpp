@@ -1,7 +1,7 @@
-// ?rva00416143@Rva00416143@@QAEXABVAsciiString@@@Z
-// partial score=0.96 date=2026-10-03
 // cl: /Ireference/shims/bfme2_ascii /O1 /Og /MD /EHsc
-// ?rva00416143@Rva00416143@@QAEXABVAsciiString@@@Z @0x00416143 (174B): buddy/host address record parse.
+//
+// ?rva00416143@Rva00416143@@QAEXABVAsciiString@@@Z, retail 0x00416143, 174 bytes. Banked partial (score 0.96) closed by tools/permute.py;
+// the body is the banked one up to statement/operand order and local types.
 // sscanf "%d %d %d" into +4/+8/+0x14 then split " PW:"/" #HOST:" substrings into +0x10/+0x0C.
 // Evidence: sscanf IAT strstr IAT x2 strlen thunk x3 via 0x00629170 StringBase set 0x00036780/0x000055F5
 // releaseBuffer 0x00036410 empty string 0x00BBAC1C via g_Rva0107301CEmptyString caller 0x0041775D

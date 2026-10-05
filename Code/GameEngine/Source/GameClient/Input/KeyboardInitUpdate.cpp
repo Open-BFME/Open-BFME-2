@@ -5,8 +5,8 @@
 // slots 14 and 16 are pure (Zero Hour's getCapsState and getKey), the
 // DirectInputKeyboard table 0x00BC8688 fills them (0x00098BC8 is
 // GetKeyState(VK_CAPITAL) & 1), and its own init (0x00098CAC) calls this
-// init before openKeyboard (0x00098BD4). The ledger currently labels the two
-// tables ??_7AIPlayer@@6B@ and ??_7AISkirmishPlayer@@6B@.
+// init before openKeyboard (0x00098BD4). The constructor and destructor are in
+// Keyboard.cpp (formerly rowed as AIPlayer's).
 //
 // Zero Hour's bodies (GameClient/Input/Keyboard.cpp): init names the keys
 // (0x002306B8, Zero Hour's initKeyNames) and zeroes the input frame (+0xE1C);

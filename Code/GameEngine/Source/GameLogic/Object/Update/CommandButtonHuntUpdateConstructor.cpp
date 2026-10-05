@@ -60,3 +60,7 @@ CommandButtonHuntUpdate::CommandButtonHuntUpdate(Thing *thing, const ModuleData 
     setWakeFrame(getObject(), UPDATE_SLEEP_FOREVER);
     m_commandButtonName = AsciiString::TheEmptyString;
 }
+
+// The global(s) below are defined elsewhere under another name at the same
+// address (the census owner of that DIR32 target); bind this unit's spelling.
+#pragma comment(linker, "/alternatename:?TheEmptyString@AsciiString@@2V1@A=?TheEmptyString@AsciiString@@2V1@B")

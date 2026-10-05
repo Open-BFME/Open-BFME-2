@@ -160,13 +160,15 @@ protected:
 	DX8IndexBufferClass			*m_indexRoad;	///<indices defining a triangles for the road drawing.
 	Int			m_numRoadVertices; ///<Number of vertices used in m_vertexRoad.
 	Int			m_numRoadIndices;	///<Number of indices used in b_indexRoad;
-	Int					  m_uniqueID;     ///< ID of the road type in INI.
-	Bool					m_isAutoLoaded;
-	Int						m_stackingOrder; ///< Order in the drawing.  0 drawn first, then 1 and so on.
-
+	// BFME 2 places the 4-byte test payload before the ID: uniqueID at
+	// +0x18, stacking at +0x20 in a 0x24 stride (adjustStacking 0x000D4941,
+	// clearAllRoads 0x000D7942, vector deleting dtor 0x0018E830).
 #ifdef LOAD_TEST_ASSETS
 	AsciiString		m_texturePath;
 #endif
+	Int					  m_uniqueID;     ///< ID of the road type in INI.
+	Bool					m_isAutoLoaded;
+	Int						m_stackingOrder; ///< Order in the drawing.  0 drawn first, then 1 and so on.
 public:
 	void loadTexture(AsciiString path, Int id);
 	void applyTexture(void);
@@ -192,6 +194,27 @@ class WorldHeightMap;
 // W3DRoadBuffer: Draw buffer for the roads.
 //
 //
+// A four-byte reference holder at W3DRoadBuffer+0x18: the ctor (0x000DC568)
+// zeroes it, the dtor (0x000DC51D) releases a non-null pointee through
+// 0x0061ED10, and freeRoadBuffers calls its clear() (release, then zero;
+// 0x0004D75B). The pointee type is not identified, so both keep
+// offset-derived names.
+class W3DRoadBufferRef18Target
+{
+public:
+	void Release_Ref();	// 0x0061ED10
+};
+
+class W3DRoadBufferRef18
+{
+public:
+	W3DRoadBufferRef18() : m_ptr(0) {}
+	~W3DRoadBufferRef18() { if (m_ptr) m_ptr->Release_Ref(); }
+	void clear();
+private:
+	W3DRoadBufferRef18Target *m_ptr;
+};
+
 class W3DRoadBuffer 
 {	
 friend class BaseHeightMapRenderObjClass;
@@ -231,7 +254,7 @@ protected:
 	// m_curUniqueID at target this+0x28. The four dwords before that field
 	// remain opaque; their identities and the intervening capacity layout
 	// are inferred only where the target reads them above.
-	Int m__bfmeUnk0;
+	W3DRoadBufferRef18 m_ref18;	// +0x18: freeRoadBuffers clears it (0x0004D75B)
 	Int m__bfmeUnk1;
 	Int m__bfmeUnk2;
 	Int m__bfmeUnk3;
@@ -248,11 +271,14 @@ protected:
 	Int m_maxRoadTypes;			///< Size of m_roadTypes.
 	Int			m_curNumRoadVertices; ///<Number of vertices used in current road type.
 	Int			m_curNumRoadIndices;	///<Number of indices used in current road type;
+	// BFME 2 keeps the dirty flag directly after the index count: loadRoads
+	// (0x000DD71C) and updateLighting (0x000D4A4B) both end with
+	// `mov byte [esi+0x4C],1`. The donor's test-only slot follows it.
+	Bool m_updateBuffers; ///< If true, update the vertex buffers.
+	Bool m_bool4D;	///< BFME 2 flag at +0x4D, set true by the ctor.
 #ifdef LOAD_TEST_ASSETS
 	Int m_curOpenRoad;  ///< First road type not used.
 #endif
-
-	Bool m_updateBuffers; ///< If true, update the vertex buffers.
 
 	void addMapObjects(void);
 	void addMapObject(RoadSegment *pRoad, Bool updateTheCounts);

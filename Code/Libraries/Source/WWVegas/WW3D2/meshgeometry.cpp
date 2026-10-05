@@ -721,7 +721,6 @@ bool MeshGeometryClass::Cast_OBBox(OBBoxCollisionTestClass & boxtest)
  * HISTORY:                                                                                    *
  *   3/1/2001  NH : Created.                                                                   *
  *=============================================================================================*/
-// ?MeshGeometryClass::Intersect_OBBox present-unmatched
 bool MeshGeometryClass::Intersect_OBBox(OBBoxIntersectionTestClass & boxtest)
 {
 	bool hit = false;

@@ -41,3 +41,8 @@ int __cdecl Rva003FCD04Compare(void *a, void *b, int c)
 	WrapA wa(&pa);
 	return Rva003FC43ACompare((Rva003FC43A*)&wa, (Rva003FC43A*)&wb, c);
 }
+
+// The global(s) below are defined elsewhere under another name at the same
+// address (the census owner of that DIR32 target); bind this unit's spelling.
+#pragma comment(linker, "/alternatename:?g_00837C20@@3QBQBXB=??_7Rva003FC428@@6B@")
+#pragma comment(linker, "/alternatename:?g_007FDC60@@3QBQBXB=??_7Rva002AAD77@@6B@")

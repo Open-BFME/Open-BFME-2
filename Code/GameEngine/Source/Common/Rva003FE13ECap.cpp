@@ -2,9 +2,9 @@
 //
 // ?rva003FE13E@Rva003FE13E@@QAEMXZ @0x003FE13E 129B. __thiscall float method:
 // builds a Coord2D from ([+0x50]-[+0x18], [+0x54]-[+0x1C]), takes its rowed
-// length as dist, loads [+0x58] as cap, gates a scale by the rowed AIPlayer
+// length as dist, loads [+0x58] as cap, gates a scale by the rowed Keyboard
 // check on g_009FE720 plus GlobalData +0x88, and returns min(dist, cap).
-// Evidence: rowed length and AIPlayer callees; extern names from the packet;
+// Evidence: rowed length and Keyboard callees; extern names from the packet;
 // SSE shape needs arch:SSE2; caller 0x003FE2CF.
 // Structural inference: the difference is filled from +0x50/+0x54 before the
 // subtractions, the cap scale is the 10.0f literal at 0x00BC2428 applied as
@@ -18,13 +18,13 @@ public:
 	float length() const;
 };
 
-class AIPlayer
+class Keyboard
 {
 public:
-	bool rva00232683();
+	bool isShift();
 };
 
-class Rva0025CEEFHost : public AIPlayer
+class Rva0025CEEFHost : public Keyboard
 {
 };
 
@@ -69,7 +69,7 @@ float Rva003FE13E::rva003FE13E()
 		dist = d.length();
 	}
 	float cap = m_58;
-	if (g_009FE720->rva00232683()) {
+	if (g_009FE720->isShift()) {
 		if (TheWritableGlobalData->m_88 != 0)
 			cap *= 10.0f;
 	}

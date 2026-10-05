@@ -100,3 +100,7 @@ UpdateSleepTime UpdateModule::getWakeFrame() const
 #pragma comment(linker, "/alternatename:?setWakeFrame@ALU_UpdateModule@@IAEXPAVObject@@W4UpdateSleepTime@@@Z=?setWakeFrame@UpdateModule@@IAEXPAVObject@@W4UpdateSleepTime@@@Z")
 #pragma comment(linker, "/alternatename:?setWakeFrame@FireWeaponUpdate@@IAEXPAVObject@@I@Z=?setWakeFrame@UpdateModule@@IAEXPAVObject@@W4UpdateSleepTime@@@Z")
 #pragma comment(linker, "/alternatename:?setWakeFrame@UpdateModule@@IAEXPAVObject@@I@Z=?setWakeFrame@UpdateModule@@IAEXPAVObject@@W4UpdateSleepTime@@@Z")
+
+// Other units call this body (pinned at its address) under the spelling(s)
+// below, with the same calling convention and stack arguments; bind them.
+#pragma comment(linker, "/alternatename:?bfmeSetWakeBJ@BfmeWakeBJ@@QAEXPAXH@Z=?setWakeFrame@UpdateModule@@IAEXPAVObject@@W4UpdateSleepTime@@@Z")

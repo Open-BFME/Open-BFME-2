@@ -48,7 +48,12 @@ from functools import lru_cache
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-NS = "refs/claims/"
+# Where claims live on origin. A host whose git proxy only accepts branch
+# pushes sets `git config bfme.claimNamespace refs/heads/claims/`.
+NS = (os.environ.get("BFME_CLAIM_NS")
+      or subprocess.run(["git", "-C", str(ROOT), "config", "--get", "bfme.claimNamespace"],
+                        capture_output=True, text=True).stdout.strip()
+      or "refs/claims/")
 SEEN = "refs/claims-seen/"          # local mirror; never pushed
 TTL_HOURS = float(os.environ.get("BFME_CLAIM_TTL_HOURS", "4"))
 REMOTE = os.environ.get("BFME_CLAIM_REMOTE", "origin")
@@ -66,10 +71,14 @@ def _git(*args, cwd=None, input_text=None, timeout=60):
 
 
 def owner():
-    """Who holds a claim: BFME_CLAIM_OWNER, else `<git user.name>@<host>`."""
+    """Who holds a claim: BFME_CLAIM_OWNER, else the agent a `work-<agent>`
+    branch names, else `<git user.name>@<host>`."""
     explicit = os.environ.get("BFME_CLAIM_OWNER")
     if explicit:
         return explicit
+    branch = _git("symbolic-ref", "--short", "-q", "HEAD").stdout.strip()
+    if branch.startswith("work-") and len(branch) > 5:
+        return branch[5:]
     name = _git("config", "user.name").stdout.strip() or "unknown"
     return f"{name}@{socket.gethostname()}"
 
@@ -138,6 +147,10 @@ def _read_local(seen=SEEN):
             info = json.loads(subject)
             key = rest if rest.startswith(("file/", "class/")) else int(rest, 16)
         except ValueError:
+            continue
+        # Two spellings of one address (e.g. a hand-made lowercase ref) must
+        # not let a stale record hide a live one: keep the later expiry.
+        if key in claims and claims[key][1].get("expires", 0) >= info.get("expires", 0):
             continue
         claims[key] = (sha, info)
     return claims
@@ -281,7 +294,13 @@ def release(rvas, who=None, force=False):
 
     def drop(batch):
         leases = [f"--force-with-lease={ref_of(rva)}:{sha}" for rva, sha in batch]
-        refs = [f":{ref_of(rva)}" for rva, _ in batch]
+        if NS.startswith("refs/heads/"):
+            # Branch-only hosts cannot delete a branch: overwrite the claim
+            # with an already-expired record, which every reader ignores.
+            expired = _record(who, -1, "released")
+            refs = [f"+{expired}:{ref_of(rva)}" for rva, _ in batch]
+        else:
+            refs = [f":{ref_of(rva)}" for rva, _ in batch]
         try:
             result = _git("push", "-q", "--atomic", *leases, REMOTE,
                           *refs, timeout=30)

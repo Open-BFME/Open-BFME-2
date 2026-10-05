@@ -14,16 +14,16 @@
 extern "C" const void *const vtbl_00C5E7A8[];  // folded, 2 classes; via ??_7CombineHordeSpecialPowerModuleData@@6B@
 #pragma comment(linker, "/alternatename:_vtbl_00C5E7A8=??_7CombineHordeSpecialPowerModuleData@@6B@")
 
-class Rva004930A0
+class SpecialPowerModuleData
 {
 public:
-	Rva004930A0();
+	SpecialPowerModuleData();
 
 	void *m_vtable; // +0
 	unsigned char m_pad[0x7C - 4]; // +4..0x7B
 };
 
-class GrabPassengerSpecialPowerModuleData : public Rva004930A0
+class GrabPassengerSpecialPowerModuleData : public SpecialPowerModuleData
 {
 public:
 	GrabPassengerSpecialPowerModuleData();
@@ -35,7 +35,7 @@ private:
 
 // ??0GrabPassengerSpecialPowerModuleData@@QAE@XZ @0x4C5421
 GrabPassengerSpecialPowerModuleData::GrabPassengerSpecialPowerModuleData()
-	: Rva004930A0()
+	: SpecialPowerModuleData()
 {
 	m_vtable = reinterpret_cast<void *>(((unsigned int)vtbl_00C5E7A8));
 	m_grabRadius = 0.0f;

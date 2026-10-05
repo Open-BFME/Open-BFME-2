@@ -1,5 +1,5 @@
 // cl: /O1 /MD
-// ?Rva00431241Emit@@YAHPAXPAUICoord2D@@@Z @0x00431241 164B: free Emit building GameMessage 0x413 via InGameUI slot75 TacticalView screenToTerrain MessageStream createMessage plus AIPlayer check. Evidence: unlock lane; globals TheInGameUI TheTacticalView MessageStreamSubsystem g_009FE720; rowed appendObjectIDArgument 0x0030F979 appendLocationArgument 0x0030F9BB rva00232683 0x00232683 appendBooleanArgument 0x0030F963; caller 0x004317BB.
+// ?Rva00431241Emit@@YAHPAXPAUICoord2D@@@Z @0x00431241 164B: free Emit building GameMessage 0x413 via InGameUI slot75 TacticalView screenToTerrain MessageStream createMessage plus Keyboard check. Evidence: unlock lane; globals TheInGameUI TheTacticalView MessageStreamSubsystem g_009FE720; rowed appendObjectIDArgument 0x0030F979 appendLocationArgument 0x0030F9BB isShift 0x00232683 appendBooleanArgument 0x0030F963; caller 0x004317BB.
 struct ICoord2D
 {
 	int m_x;
@@ -112,10 +112,10 @@ extern InGameUI *TheInGameUI;
 class Rva0025CEEFHost;
 extern Rva0025CEEFHost *g_009FE720;
 
-class AIPlayer
+class Keyboard
 {
 public:
-	bool rva00232683();
+	bool isShift();
 };
 
 int __cdecl Rva00431241Emit(void *a, ICoord2D *b)
@@ -132,7 +132,7 @@ int __cdecl Rva00431241Emit(void *a, ICoord2D *b)
 	GameMessage *msg = MessageStreamSubsystem->createMessage(0x413);
 	msg->appendObjectIDArgument(ret->m_fc->m_id);
 	msg->appendLocationArgument(pos);
-	bool active = ((AIPlayer *)g_009FE720)->rva00232683();
+	bool active = ((Keyboard *)g_009FE720)->isShift();
 	msg->appendBooleanArgument(active);
 	msg->appendObjectIDArgument(OBJECTID_NONE);
 	return 1;

@@ -16,19 +16,3 @@ bool Rva000B3EC4Get(void)
 {
 	return true;
 }
-
-// ?Rva004F10E3Get@@YA_NXZ @ 0x004f10e3 (3B): returns true.
-// Follows a ret (prev C3), no .rdata vtable slot, no direct callers,
-// no branch sources. Opaque address-derived name.
-bool Rva004F10E3Get(void)
-{
-	return true;
-}
-
-// ?Rva004F19F3Get@@YA_NXZ @ 0x004f19f3 (3B): returns true.
-// Follows a ret (prev C3), no .rdata vtable slot, no direct callers,
-// no branch sources. Opaque address-derived name.
-bool Rva004F19F3Get(void)
-{
-	return true;
-}

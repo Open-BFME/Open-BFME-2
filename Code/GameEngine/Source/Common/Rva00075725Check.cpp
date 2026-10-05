@@ -19,3 +19,7 @@ bool __cdecl Rva00075725Check(int index, int arg)
 		return (*slot)->Slot4(arg);
 	return false;
 }
+
+// Other units call this body (pinned at its address) under the spelling(s)
+// below, with the same calling convention and stack arguments; bind them.
+#pragma comment(linker, "/alternatename:?filterSetup@W3DShaderManager@@SA_NW4FilterTypes@@W4FilterModes@@@Z=?Rva00075725Check@@YA_NHH@Z")

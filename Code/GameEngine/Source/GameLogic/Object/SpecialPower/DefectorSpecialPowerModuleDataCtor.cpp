@@ -17,16 +17,16 @@
 extern "C" const void *const vtbl_00C5E7A8[];  // folded, 2 classes; via ??_7CombineHordeSpecialPowerModuleData@@6B@
 #pragma comment(linker, "/alternatename:_vtbl_00C5E7A8=??_7CombineHordeSpecialPowerModuleData@@6B@")
 
-class Rva004930A0
+class SpecialPowerModuleData
 {
 public:
-	Rva004930A0();
+	SpecialPowerModuleData();
 
 private:
 	unsigned char m_pad[0x7C];
 };
 
-class DefectorSpecialPowerModuleData : public Rva004930A0
+class DefectorSpecialPowerModuleData : public SpecialPowerModuleData
 {
 public:
 	DefectorSpecialPowerModuleData();
@@ -37,7 +37,7 @@ private:
 
 // ??0DefectorSpecialPowerModuleData@@QAE@XZ @0x4C2A6A
 DefectorSpecialPowerModuleData::DefectorSpecialPowerModuleData()
-	: Rva004930A0()
+	: SpecialPowerModuleData()
 {
 	*(unsigned int *)this = ((unsigned int)vtbl_00C5E7A8);
 	m_fatCursorRadius = 0.0f;

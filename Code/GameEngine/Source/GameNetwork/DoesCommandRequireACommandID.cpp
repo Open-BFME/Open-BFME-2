@@ -179,3 +179,7 @@ Int Rva00581318Get(Rva00581318Msg *msg)
 	}
 	return 0;
 }
+
+// Other units call this body (pinned at its address) under the spelling(s)
+// below, with the same calling convention and stack arguments; bind them.
+#pragma comment(linker, "/alternatename:?CommandRequiresAck@@YAHPAVNetCommandMsg@@@Z=?Rva00581229Get@@YAHPAURva00581229Msg@@@Z")

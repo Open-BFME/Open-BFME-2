@@ -45,3 +45,8 @@ Rva00588FFA::Rva00588FFA(Thing *thing, const ModuleData *data)
 	*(const void **)((char *)this + 0x0C) = g_00870008;
 	*(const void **)((char *)this + 0x10) = g_0084A50C;
 }
+
+// The global(s) below are defined elsewhere under another name at the same
+// address (the census owner of that DIR32 target); bind this unit's spelling.
+#pragma comment(linker, "/alternatename:?g_00870008@@3QBQBXB=??_7Rva00484F5D@@6BMiBase1@@@")
+#pragma comment(linker, "/alternatename:?g_0084A50C@@3QBQBXB=??_7Rva00484EF4@@6B@")

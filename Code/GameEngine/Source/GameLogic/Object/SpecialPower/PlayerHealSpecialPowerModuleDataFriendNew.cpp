@@ -4,7 +4,7 @@
 // retail 0x002525C7, 84 bytes. Dedicated TU: the factory news 0xAC, runs the
 // declared-only ctor (pinned at 0x4C803A; vtable 0x00C5E7A8 plus HealAmount,
 // HealAsPercent, HealRadius, HealAffects, HealFX and HealOCL fields over the
-// pinned 0x7C-byte Rva004930A0 base), then feeds the new data plus the class
+// pinned 0x7C-byte SpecialPowerModuleData base), then feeds the new data plus the class
 // parse proc (rowed at 0x4C7E63, pushed immediate, no pin) to
 // INI::initFromINIMultiProc (rowed at 0x2DEB5) when ini is non-null. Operator
 // new and __EH_prolog resolve via their rows. The TU-local class keeps only

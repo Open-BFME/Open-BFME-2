@@ -57,7 +57,13 @@ private:
 #include "ascii_string.h"
 
 
-struct BfmeE16 { float x, y, z, w; };
+// "DamageScalar" entries (Made002CC5E1DamageScalar.cpp): a filter handle
+// plus a Real; the 8-byte stride is read off push_back 0x0050882B.
+struct Made002CC5E1DamageScalar
+{
+	Rva003623E5Member filter;
+	float scalar;
+};
 
 class Rva00507823
 {
@@ -97,7 +103,7 @@ private:
 	int m_15C;
 	int m_160;
 	int m_164;
-	_STL::vector<BfmeE16> m_vec168;
+	_STL::vector<Made002CC5E1DamageScalar> m_vec168;
 	float m_174;
 	Rva0024C7B3Member m_178;
 	bool m_194;

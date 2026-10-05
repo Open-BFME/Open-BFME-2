@@ -5,7 +5,7 @@
 // table at 0x00C5E3D0 (Radius, FX, TreeValueMultiplier, TreeValueTotalCap,
 // FireWeapon at +0x7C through +0x8C) sizes the class at 0x90 bytes over a
 // 0x7C-byte base built by the out-of-line 0x004930A0 constructor (pinned as
-// Rva004930A0, shared with DeliverPayload/AIUpdateInterface ctors).
+// SpecialPowerModuleData, shared with DeliverPayload/AIUpdateInterface ctors).
 // FireWeapon defaults to the empty string through the rowed StringBase
 // const-char constructor at 0x37BA0. The base (declared-only dtor, no code)
 // is the TU's sole unwindable, which arms retail's EH frame with its single
@@ -19,11 +19,11 @@
 // the __EH_prolog prologue; /arch:SSE keeps the float zeros as xorps plus
 // movss. Supersedes the 0x4C84BD ctor pin (row proves the body).
 
-class Rva004930A0
+class SpecialPowerModuleData
 {
 public:
-	Rva004930A0();
-	virtual ~Rva004930A0();
+	SpecialPowerModuleData();
+	virtual ~SpecialPowerModuleData();
 
 private:
 	unsigned char m_pad[0x7C - 4];
@@ -35,7 +35,7 @@ template<class T> class StringBase {
 	friend class DevastateSpecialPowerModuleData;
 };
 
-class DevastateSpecialPowerModuleData : public Rva004930A0
+class DevastateSpecialPowerModuleData : public SpecialPowerModuleData
 {
 public:
 	DevastateSpecialPowerModuleData();
@@ -51,7 +51,7 @@ private:
 
 // ??0DevastateSpecialPowerModuleData@@QAE@XZ @0x4C84BD
 DevastateSpecialPowerModuleData::DevastateSpecialPowerModuleData()
-	: Rva004930A0()
+	: SpecialPowerModuleData()
 	, m_fx(0)
 	, m_radius(0.0f)
 	, m_treeValueMultiplier(0.0f)

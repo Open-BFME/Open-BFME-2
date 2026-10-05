@@ -347,35 +347,7 @@ void W3DDisplayString::setFont( GameFont *font )
 // W3DDisplayString::setClipRegion ============================================
 /** Set the clipping region for the text */
 //=============================================================================
-// ?setClipRegion@W3DDisplayString@@UAEXPAUIRegion2D@@@Z present-unmatched
-void W3DDisplayString::setClipRegion( IRegion2D *region )
-{
-
-	// extend functionality
-	DisplayString::setClipRegion( region );
-
-	// only consider regions that are actual changes
-	if( region->lo.x != m_clipRegion.lo.x ||
-			region->lo.y != m_clipRegion.lo.y ||
-			region->hi.x != m_clipRegion.hi.x ||
-			region->hi.y != m_clipRegion.hi.y )
-	{
-
-		// assign new region
-		m_clipRegion = *region;
-
-		// set new region in renderer
-		m_textRenderer.Set_Clipping_Rect( RectClass( m_clipRegion.lo.x,
-																								 m_clipRegion.lo.y,
-																								 m_clipRegion.hi.x,
-																								 m_clipRegion.hi.y ) );
-		m_textRendererHotKey.Set_Clipping_Rect( RectClass( m_clipRegion.lo.x,
-																								 m_clipRegion.lo.y,
-																								 m_clipRegion.hi.x,
-																								 m_clipRegion.hi.y ) );
-	}  // end if
-
-}  // end setClipRegion
+// byte-exact reconstruction: Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringWordWrap.cpp
 
 // W3DDisplayString::computeExtents ===========================================
 /** Update the width and height of our string */
@@ -420,8 +392,3 @@ void W3DDisplayString::setWordWrapCentered( Bool isCentered )
 	 if( m_textRenderer.Set_Word_Wrap_Centered(isCentered) )
 		notifyTextChanged();
 }// void setWordWrap( Int wordWrap )
-
-// Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
-// each one has the same function in that slot (vftable addresses from matched vptr
-// stores). Bind them to the rows at those functions.
-#pragma comment(linker, "/alternatename:?removeLastChar@DisplayString@@UAEXXZ=?getWidth@W3DDisplayString@@UAEHH@Z")

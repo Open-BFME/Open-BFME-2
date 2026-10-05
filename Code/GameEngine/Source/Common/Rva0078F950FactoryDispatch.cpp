@@ -1,16 +1,20 @@
-// cl: -DNDEBUG -MD -EHsc /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
-// ?selectFactory@Rva0078F770Owner@@QAEXPAURva0078F950Record@@PAURva0078F770Secondary@@HH@Z
-// retail 0x0008FDC6, 78 bytes. Dedicated TU ported from the Open-BFME-1 donor
-// game/GameEngine/Source/Common/Rva0078F950FactoryDispatch.cpp
-// (reference/open-bfme-1 @ 6d943426). Compiled /Os the donor body is
-// byte-identical to retail once relocations are masked (unique hit on unclaimed
-// .text). Only the placed body is defined here; the donor's other 10 definitions
-// are omitted.
+// cl: /O1 /DNDEBUG /MD /EHsc /Ob0
 //
-// The dispatch is a 2x2 select on two independent flags: the record's kind byte
-// tested against 0x80, and the secondary's flag byte. Each arm stores one of
-// four factory constructors into record->m_factory and then hands off to
-// dispatchFactory, which builds the window from the chosen factory.
+// Bodies ported from Open-BFME-1's
+// GameEngine/Source/Common/Rva0078F950FactoryDispatch.cpp (donor revision
+// 6d9434269164392c5ba62aaa7c15a86b5b020d76, donor flags plus /O1). Compiled
+// that way each body below places uniquely on unclaimed game.dat .text by
+// masked whole-.text search, and ./build.sh reproduces it byte for byte:
+// Rva0078F830Owner::selectFactory 0x0008FE14 (112B),
+// Rva0078F770Owner::selectFactory 0x0008FDC6 (78B). Callee addresses are read
+// off retail's call sites (reverse/symbols.csv). Only the placed bodies are
+// carried; the donor's other definitions are omitted.
+//
+// Retail 0x0078F950.  The caller's object is forwarded unchanged to the
+// shared handler; the explicit one-byte local preserves the retail
+// mov/test branch shape while the argument record selects one of the two
+// already reconstructed 0x2F8-byte object factories.
+
 class Rva007903F0VptrCtor;
 class Rva00790480VptrCtor;
 class Rva00793150VptrCtor;
@@ -117,7 +121,6 @@ void *__stdcall Rva0078F080New(void *argument);
 
 typedef void *(__stdcall *Rva0078F950Factory)(void *argument);
 
-
 class Rva0078F830Predicate
 {
 public:
@@ -144,6 +147,49 @@ struct Rva0078F950Record
 		Rva0078F830Context *m_context;
 		WinInstanceData *m_instanceData;
 	};
+};
+
+class Rva0078F950Owner
+{
+public:
+	void selectFactory(Rva0078F950Record *record);
+	void dispatchFactory(Rva0078F950Record *record);
+};
+
+class Rva0078F8D0Owner
+{
+public:
+	void selectFactory(Rva0078F950Record *record);
+	void dispatchFactory(Rva0078F950Record *record);
+};
+
+class Rva0078F910Owner
+{
+public:
+	void selectFactory(Rva0078F950Record *record);
+	void dispatchFactory(Rva0078F950Record *record);
+};
+
+#define DECLARE_FACTORY_SELECTOR_OWNER(address) \
+	class Rva##address##Owner \
+	{ \
+	public: \
+		void selectFactory(Rva0078F950Record *record); \
+		void dispatchFactory(Rva0078F950Record *record); \
+	}
+
+DECLARE_FACTORY_SELECTOR_OWNER(0078F630);
+DECLARE_FACTORY_SELECTOR_OWNER(0078F670);
+DECLARE_FACTORY_SELECTOR_OWNER(0078F6B0);
+DECLARE_FACTORY_SELECTOR_OWNER(0078F6F0);
+
+class Rva0078F730Owner
+{
+public:
+	void selectFactory(Rva0078F950Record *record, int first, int second,
+		int third);
+	void dispatchFactory(Rva0078F950Record *record, int first, int second,
+		int third);
 };
 
 struct Rva0078F770Secondary
@@ -231,6 +277,28 @@ public:
 		Rva0078F770Secondary *secondary, int ignored, int value);
 };
 
+class Rva0078F830Owner
+{
+public:
+	int selectFactory(Rva0078F950Record *record, int first, int second,
+		int third);
+	int dispatchFactory(Rva0078F950Record *record, int first, int second,
+		int third);
+};
+
+
+#define DEFINE_FACTORY_SELECTOR(address, negativeFactory, nonnegativeFactory) \
+	void Rva##address##Owner::selectFactory(Rva0078F950Record *record) \
+	{ \
+		signed char kind = record->m_kind; \
+		if (kind & 0x80) \
+			record->m_factory = (Rva0078F950Factory)negativeFactory; \
+		else \
+			record->m_factory = (Rva0078F950Factory)nonnegativeFactory; \
+		dispatchFactory(record); \
+	}
+
+
 void Rva0078F770Owner::selectFactory(Rva0078F950Record *record,
 	Rva0078F770Secondary *secondary, int ignored, int value)
 {
@@ -249,4 +317,32 @@ void Rva0078F770Owner::selectFactory(Rva0078F950Record *record,
 		record->m_factory = (Rva0078F950Factory)Rva0078EF00New;
 
 	dispatchFactory(record, secondary, ignored, value);
+}
+
+int Rva0078F830Owner::selectFactory(Rva0078F950Record *record, int first,
+	int second, int third)
+{
+	unsigned int flags = record->m_context->m_flags;
+
+	if (flags & 0x10)
+	{
+		if (record->m_kind & 0x80)
+			record->m_factory = (Rva0078F950Factory)Rva0078F480New;
+		else
+			record->m_factory = (Rva0078F950Factory)Rva0078F400New;
+	}
+	else if (flags & 8)
+	{
+		if ((record->m_kind & 0x80) && (record->m_head == 0 ||
+			!(record->m_head->flags() & 0x20)))
+			record->m_factory = (Rva0078F950Factory)Rva0078F380New;
+		else
+			record->m_factory = (Rva0078F950Factory)Rva0078F300New;
+	}
+	else
+	{
+		return 0;
+	}
+
+	return dispatchFactory(record, first, second, third);
 }

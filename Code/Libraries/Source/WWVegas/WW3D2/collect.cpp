@@ -156,6 +156,7 @@ protected:
  * HISTORY:                                                                                    *
  *   23/8/00    GTH : Created.                                                                 *
  *=============================================================================================*/
+// ?CollectionClass::CollectionClass present-unmatched
 CollectionClass::CollectionClass(void) :
 	SnapPoints(NULL)
 {
@@ -175,6 +176,7 @@ CollectionClass::CollectionClass(void) :
  * HISTORY:                                                                                    *
  *   12/8/98    GTH : Created.                                                                 *
  *=============================================================================================*/
+// ?CollectionClass::CollectionClass present-unmatched
 CollectionClass::CollectionClass(const CollectionDefClass & def) :
 	SubObjects(def.ObjectNames.Count()),	
 	SnapPoints(NULL)
@@ -217,6 +219,16 @@ CollectionClass::CollectionClass(const CollectionDefClass & def) :
  * HISTORY:                                                                                    *
  *   12/8/98    GTH : Created.                                                                 *
  *=============================================================================================*/
+// ?CollectionClass::CollectionClass present-unmatched
+CollectionClass::CollectionClass(const CollectionClass & src) :
+	CompositeRenderObjClass(src),
+	SubObjects(src.SubObjects.Count()),
+	SnapPoints(NULL)
+{
+	*this = src;
+}
+
+
 /***********************************************************************************************
  * CollectionClass::CollectionClass -- assignment operator                                     *
  *                                                                                             *
@@ -268,7 +280,11 @@ CollectionClass & CollectionClass::operator = (const CollectionClass & that)
  * HISTORY:                                                                                    *
  *   12/8/98    GTH : Created.                                                                 *
  *=============================================================================================*/
-// CollectionClass::~CollectionClass: defined in CollectionClassCopyCtor.cpp (its row's unit).
+// ?CollectionClass::~CollectionClass present-unmatched
+CollectionClass::~CollectionClass(void)
+{
+	Free();
+}
 
 
 /***********************************************************************************************
@@ -283,6 +299,7 @@ CollectionClass & CollectionClass::operator = (const CollectionClass & that)
  * HISTORY:                                                                                    *
  *   12/8/98    GTH : Created.                                                                 *
  *=============================================================================================*/
+// ?CollectionClass::Clone present-unmatched
 RenderObjClass * CollectionClass::Clone(void) const
 {
 	return NEW_REF( CollectionClass, (*this));	

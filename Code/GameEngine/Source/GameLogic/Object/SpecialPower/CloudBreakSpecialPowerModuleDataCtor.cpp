@@ -70,10 +70,10 @@ extern "C" const void *const vtbl_00C5D468[] = {
 	(const void *)&vfn_0050B5C6
 };
 
-class Rva004930A0
+class SpecialPowerModuleData
 {
 public:
-	Rva004930A0();
+	SpecialPowerModuleData();
 
 	void *m_vtable; // +0
 	unsigned char m_pad[0x7C - 4]; // +4..0x7B
@@ -85,7 +85,7 @@ extern float g_objectSpacingDefault; // 0x00BC292C, 100.0f
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 
-class CloudBreakSpecialPowerModuleData : public Rva004930A0
+class CloudBreakSpecialPowerModuleData : public SpecialPowerModuleData
 {
 public:
 	CloudBreakSpecialPowerModuleData();
@@ -99,7 +99,7 @@ private:
 
 // ??0CloudBreakSpecialPowerModuleData@@QAE@XZ @0x4C479A
 CloudBreakSpecialPowerModuleData::CloudBreakSpecialPowerModuleData()
-	: Rva004930A0()
+	: SpecialPowerModuleData()
 {
 	float radius = g_cloudBreakRadiusDefault;
 	m_vtable = reinterpret_cast<void *>(((unsigned int)vtbl_00C5D468));

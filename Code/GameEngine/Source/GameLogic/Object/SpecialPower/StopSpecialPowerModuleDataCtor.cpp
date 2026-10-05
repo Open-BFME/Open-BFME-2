@@ -16,16 +16,16 @@
 extern "C" const void *const vtbl_00C5E7A8[];  // folded, 2 classes; via ??_7CombineHordeSpecialPowerModuleData@@6B@
 #pragma comment(linker, "/alternatename:_vtbl_00C5E7A8=??_7CombineHordeSpecialPowerModuleData@@6B@")
 
-class Rva004930A0
+class SpecialPowerModuleData
 {
 public:
-	Rva004930A0();
+	SpecialPowerModuleData();
 
 private:
 	unsigned char m_pad[0x7C];
 };
 
-class StopSpecialPowerModuleData : public Rva004930A0
+class StopSpecialPowerModuleData : public SpecialPowerModuleData
 {
 public:
 	StopSpecialPowerModuleData();
@@ -36,7 +36,7 @@ private:
 
 // ??0StopSpecialPowerModuleData@@QAE@XZ @0x4C68AB
 StopSpecialPowerModuleData::StopSpecialPowerModuleData()
-	: Rva004930A0()
+	: SpecialPowerModuleData()
 {
 	m_stopPowerTemplate = 0;
 	*(unsigned int *)this = ((unsigned int)vtbl_00C5E7A8);

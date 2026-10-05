@@ -11,7 +11,7 @@
 // +0x2C/+0x38) plus snap ints at +0x44/+0x48 from global 0x00DCB4CC.
 // Empty Snapshot base with declared dtor arms EH 0 plus proxy plus four refs
 // plus two vectors arm 1-7 so temps arm 8-9-10 matching retail 7-8-9-10.
-// Recipe is ProductionSpeedBonus plus Rva004930A0 ref-holder idiom.
+// Recipe is ProductionSpeedBonus plus SpecialPowerModuleData ref-holder idiom.
 
 #include <vector>
 

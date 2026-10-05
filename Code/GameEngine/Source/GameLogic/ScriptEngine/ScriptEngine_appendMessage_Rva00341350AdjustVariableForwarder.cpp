@@ -517,3 +517,6 @@ extern TerrainLogic *TheTerrainLogic; // 0x012EF4CC
 extern ThingFactory *TheThingFactory; // 0x012EF1D8
 #define CurrentFrame st_CurrentFrame
 
+// The global(s) below are defined elsewhere under another name at the same
+// address (the census owner of that DIR32 target); bind this unit's spelling.
+#pragma comment(linker, "/alternatename:?g_flag12ED4D8@@3_NA=?BFME2ScriptDebugLiteMode@@3_NA")

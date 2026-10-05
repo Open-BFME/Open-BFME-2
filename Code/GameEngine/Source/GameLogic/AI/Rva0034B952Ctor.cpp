@@ -73,3 +73,7 @@ Rva0034B952::Rva0034B952(Object *owner, AsciiString name)
 	Rva0033FE65 *s2 = new Rva0033FE65((StateMachine *)this, 1);
 	((StateMachine *)this)->defineState(0, (State *)s2, 0, 0, (const StateConditionInfo *)0);
 }
+
+// The global(s) below are defined elsewhere under another name at the same
+// address (the census owner of that DIR32 target); bind this unit's spelling.
+#pragma comment(linker, "/alternatename:?g_00C122A0@@3QBQBXB=??_7Rva0034144B@@6B@")

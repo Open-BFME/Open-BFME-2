@@ -73,14 +73,14 @@ def blob(ref, path):
     return result.stdout if result.returncode == 0 else None
 
 
-def staged():
+def staged(base="HEAD"):
     changes = git("diff", "--cached", "--name-status", "-z", "--no-renames").stdout.split("\0")
     before = after = 0
     grew = []
     for status, path in zip(changes[0::2], changes[1::2]):
         if not path or not watched(path):
             continue
-        old = len(literals(blob("HEAD", path)))
+        old = len(literals(blob(base, path)))
         new = [] if status.startswith("D") else literals(blob("", path))
         before += old
         after += len(new)
@@ -126,8 +126,10 @@ def main(argv=None):
     mode = ap.add_mutually_exclusive_group(required=True)
     mode.add_argument("--staged", action="store_true")
     mode.add_argument("--report", action="store_true")
+    ap.add_argument("--base", default="HEAD",
+                    help="--staged: compare against this commit (MERGE_HEAD during a merge)")
     args = ap.parse_args(argv)
-    return staged() if args.staged else report()
+    return staged(args.base) if args.staged else report()
 
 
 if __name__ == "__main__":

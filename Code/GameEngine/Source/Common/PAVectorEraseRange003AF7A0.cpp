@@ -1,4 +1,4 @@
-// cl: /O1 -GX-
+// cl: /O1 -GX- /Ireference/shims/bfmealloc
 // stlport
 //
 // Bodies ported from Open-BFME-1's
@@ -28,4 +28,6 @@ struct Elem003AF7A0
 	Elem003AF7A0 &operator=( const Elem003AF7A0 & );
 };
 
-template class _STL::vector<Elem003AF7A0>;
+// Only the placed member is instantiated (the donor's whole-class
+// instantiation emitted every other member as a private copy).
+template void _STL::vector<Elem003AF7A0>::push_back( const Elem003AF7A0 & );

@@ -66,3 +66,7 @@ void Rva0090C280::releaseResource0090C2D0()
 		destroy(resource);
 	}
 }
+
+// Other units call this body (pinned at its address) under the spelling(s)
+// below, with the same calling convention and stack arguments; bind them.
+#pragma comment(linker, "/alternatename:??1Rva0013107A@@UAE@XZ=?releaseResource0090C2D0@Rva0090C280@@QAEXXZ")

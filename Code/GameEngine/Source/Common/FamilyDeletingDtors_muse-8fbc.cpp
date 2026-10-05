@@ -23,7 +23,7 @@ class Rva00465124Base { public: __declspec(noinline) virtual ~Rva00465124Base();
 Rva00465124Base::~Rva00465124Base() { m_famgen = 0; }
 void famgenDelete(Rva00465124Base *p) { delete p; }
 
-// ??_GRva004930A0@@UAEPAXI@Z @0x00493333 28B; calls rowed ??1Rva004930A0@@UAE@XZ @0x0049334F then delete.
-class Rva004930A0 { public: __declspec(noinline) virtual ~Rva004930A0(); private: int m_famgen; };
-Rva004930A0::~Rva004930A0() { m_famgen = 0; }
-void famgenDelete(Rva004930A0 *p) { delete p; }
+// ??_GSpecialPowerModuleData@@UAEPAXI@Z @0x00493333 28B; calls rowed ??1SpecialPowerModuleData@@UAE@XZ @0x0049334F then delete.
+class SpecialPowerModuleData { public: __declspec(noinline) virtual ~SpecialPowerModuleData(); private: int m_famgen; };
+SpecialPowerModuleData::~SpecialPowerModuleData() { m_famgen = 0; }
+void famgenDelete(SpecialPowerModuleData *p) { delete p; }

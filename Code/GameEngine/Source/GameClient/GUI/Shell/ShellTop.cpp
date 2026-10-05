@@ -439,3 +439,7 @@ void bfmeEmitShellTop(Shell *p)
 	p->Shell::~Shell();
 }
 #pragma inline_depth()
+
+// Other units call this body (pinned at its address) under the spelling(s)
+// below, with the same calling convention and stack arguments; bind them.
+#pragma comment(linker, "/alternatename:?reverseAnimatewindow@Shell@@QAEXXZ=?rva0035BE8F@Shell@@QAEXXZ")

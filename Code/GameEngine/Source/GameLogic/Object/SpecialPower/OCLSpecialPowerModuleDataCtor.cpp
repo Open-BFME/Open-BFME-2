@@ -2,7 +2,7 @@
 // stlport
 //
 // ??0OCLSpecialPowerModuleData@@QAE@XZ, retail 0x004C32BC (169 bytes).
-// OCL power data over the pinned Rva004930A0 base ctor (0x4930A0, 0x7C
+// OCL power data over the pinned SpecialPowerModuleData base ctor (0x4930A0, 0x7C
 // base): UpgradeOCL at +0x7C is an 8B upgrade-pair vector through the
 // rowed Vector_base at 0x00211E58, cleared through erase at 0x003FA4DB
 // (CashHack clear-lowers-to-erase precedent), m_defaultOCL at +0x88 and
@@ -16,7 +16,7 @@
 // plus virtual derived with declared-only dtors arms the EH states; the
 // compiler installs this TU's vtable through the ??_7 pin at 0x00C5CCB0,
 // whose slot0 is the scalar-deleting dtor at 0x4C37A4) over
-// CashHackSpecialPowerModuleDataCtor (Rva004930A0 base plus vector
+// CashHackSpecialPowerModuleDataCtor (SpecialPowerModuleData base plus vector
 // clear plus int zero). BFME1 OCLSpecialPower.cpp proves the BFME1
 // member names and the m_defaultOCL-clear-m_createLoc body order.
 
@@ -55,11 +55,11 @@ private:
 // Opaque intermediate base (DeliverPayloadAIUpdateCtor precedent: the pin
 // claims only the address): the rowed SpecialPowerModuleData base plus
 // 0x64 of unknown intermediate storage.
-class Rva004930A0
+class SpecialPowerModuleData
 {
 public:
-	Rva004930A0();
-	virtual ~Rva004930A0();
+	SpecialPowerModuleData();
+	virtual ~SpecialPowerModuleData();
 
 private:
 	unsigned char m_pad[0x7C - 4]; // +0x04..+0x7B
@@ -76,7 +76,7 @@ struct OCLUpgradePair
 // the base contributes the vptr at +0 so the base call takes this with no
 // displacement, and the derived vtable store lands mid-init through the
 // ??_7 pin (Citadel precedent).
-class OCLSpecialPowerModuleData : public Rva004930A0
+class OCLSpecialPowerModuleData : public SpecialPowerModuleData
 {
 public:
 	OCLSpecialPowerModuleData();

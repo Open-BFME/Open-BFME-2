@@ -208,25 +208,7 @@ LightClass::LightClass(LightType type) :
  * HISTORY:                                                                                    *
  *   3/21/98    GTH : Created.                                                                 *
  *=============================================================================================*/
-// ??0LightClass@@ present-unmatched
-LightClass::LightClass(const LightClass & src) :
-	Type(src.Type),	
-	Flags(src.Flags),
-	CastShadows(src.CastShadows),
-	Intensity(src.Intensity),
-	Ambient(src.Ambient),
-	Diffuse(src.Diffuse),
-	Specular(src.Specular),
-	NearAttenStart(src.NearAttenStart),
-	NearAttenEnd(src.NearAttenEnd),
-	FarAttenStart(src.FarAttenStart),
-	FarAttenEnd(src.FarAttenEnd),
-	SpotAngle(src.SpotAngle),
-	SpotAngleCos(src.SpotAngleCos),
-	SpotExponent(src.SpotExponent),
-	SpotDirection(src.SpotDirection)
-{
-}
+// LightClass::LightClass(const LightClass &): defined in LightClassCopyCtor.cpp (its row's unit).
 
 
 /***********************************************************************************************
@@ -279,10 +261,7 @@ LightClass & LightClass::operator = (const LightClass & that)
  * HISTORY:                                                                                    *
  *   3/21/98    GTH : Created.                                                                 *
  *=============================================================================================*/
-// ??1LightClass@@UAE@XZ present-unmatched
-LightClass::~LightClass(void)
-{
-}
+// LightClass::~LightClass: defined in LightClassCopyCtor.cpp (its row's unit).
 
 
 /***********************************************************************************************
@@ -297,11 +276,7 @@ LightClass::~LightClass(void)
  * HISTORY:                                                                                    *
  *   3/21/98    GTH : Created.                                                                 *
  *=============================================================================================*/
-// ?Clone@LightClass@@QBEPAVRenderObjClass@@XZ present-unmatched
-RenderObjClass * LightClass::Clone(void) const
-{
-	return W3DNEW LightClass(*this);
-}
+// LightClass::Clone: defined in LightClassCopyCtor.cpp (its row's unit).
 
 
 /* NOTE: LightClass::Notify_Added lives in light_notify.cpp (split TU: direct
@@ -336,12 +311,7 @@ RenderObjClass * LightClass::Clone(void) const
  * HISTORY:                                                                                    *
  *   12/8/98    GTH : Created.                                                                 *
  *=============================================================================================*/
-// ?Get_Obj_Space_Bounding_Sphere@LightClass@@QBEXAAVSphereClass@@@Z present-unmatched
-void LightClass::Get_Obj_Space_Bounding_Sphere(SphereClass & sphere) const
-{
-	sphere.Center.Set(0,0,0);
-	sphere.Radius = Get_Attenuation_Range();
-}
+// LightClass::Get_Obj_Space_Bounding_Sphere: defined in LightClassCopyCtor.cpp (its row's unit).
 
 
 /***********************************************************************************************
@@ -356,13 +326,7 @@ void LightClass::Get_Obj_Space_Bounding_Sphere(SphereClass & sphere) const
  * HISTORY:                                                                                    *
  *   12/8/98    GTH : Created.                                                                 *
  *=============================================================================================*/
-// ?Get_Obj_Space_Bounding_Box@LightClass@@QBEXAAVAABoxClass@@@Z present-unmatched
-void LightClass::Get_Obj_Space_Bounding_Box(AABoxClass & box) const
-{
-	float r = Get_Attenuation_Range();
-	box.Center.Set(0,0,0);
-	box.Extent.Set(r,r,r);
-}
+// LightClass::Get_Obj_Space_Bounding_Box: defined in LightClassCopyCtor.cpp (its row's unit).
 
 
 /***********************************************************************************************

@@ -65,16 +65,62 @@ struct GlobalLanguage
 };
 extern GlobalLanguage *TheGlobalLanguageData;
 
+struct ICoord2D
+{
+	Int x;
+	Int y;
+};
+
+struct IRegion2D
+{
+	ICoord2D lo;
+	ICoord2D hi;
+};
+
+class RectClass
+{
+public:
+	RectClass( float left, float top, float right, float bottom ) : Left( left ), Top( top ), Right( right ), Bottom( bottom ) {}
+	float Left;
+	float Top;
+	float Right;
+	float Bottom;
+	RectClass &operator=( const RectClass &r );
+};
+
+// BFME 2 DisplayString vftable (??_7DisplayString 0x00C15338, W3DDisplayString
+// 0x00BCF900): Zero Hour's order with the six-argument draw dropped, three
+// colour setters and a two-argument draw added after setWordWrapCentered, two
+// float setters after getWidth, and a string append after appendChar.
 class DisplayString
 {
 public:
 	virtual ~DisplayString();
 	virtual void setText( UnicodeString text );
-	virtual UnicodeString getText();
-	virtual Int getTextLength();
-	virtual void notifyTextChanged();
-	virtual void reset();
+	virtual UnicodeString getText( void );
+	virtual Int getTextLength( void );
+	virtual void notifyTextChanged( void );
+	virtual void reset( void );
 	virtual void setFont( GameFont *font ) { m_font = font; }
+	virtual GameFont *getFont( void );
+	virtual void setWordWrap( Int wordWrap ) = 0;
+	virtual void setWordWrapCentered( Bool isCentered ) = 0;
+	virtual void setColors( Color textColor, Color dropColor ) = 0;
+	virtual void setTextColor( Color *colors ) = 0;
+	virtual void setDropColor( Color *colors ) = 0;
+	// MSVC lays out overloaded virtuals in reverse declaration order: the
+	// two-argument draw is slot 13, the four-argument draw slot 14.
+	virtual void draw( Int x, Int y, Color color, Color dropColor ) = 0;
+	virtual void draw( Int x, Int y ) = 0;
+	virtual void getSize( Int *width, Int *height ) = 0;
+	virtual Int getWidth( Int charPos = -1 ) = 0;
+	virtual void bfmeSetFloats17( float a, float b ) = 0;
+	virtual void bfmeSetFloats18( float a, float b ) = 0;
+	virtual void setUseHotkey( Bool useHotkey, Color hotKeyColor ) = 0;
+	virtual void setClipRegion( IRegion2D *region );
+	virtual void removeLastChar( void );
+	virtual void appendChar( wchar_t c );
+	virtual void appendString( const UnicodeString &text );
 protected:
 	UnicodeString m_textString;
 	GameFont *m_font;
@@ -94,10 +140,14 @@ public:
 	void Set_Use_Hard_Word_Wrap( bool onoff ) { UseHardWordWrap = onoff; }
 	void Set_Hot_Key_Parse( bool parseHotKey ) { ParseHotKey = parseHotKey; }
 	void Set_Font( FontCharsClass *font );
+	void	Set_Clipping_Rect( const RectClass &rect )	{ ClipRect = rect; IsClippedEnabled = true; }
 private:
 	char m_unrecovered04[ 0x84 - 0x04 ];
 	float WrapWidth;																		///< 0x84
-	char m_unrecovered88[ 0xAD - 0x88 ];
+	char m_unrecovered88[ 0x8C - 0x88 ];
+	RectClass ClipRect;																	///< 0x8C
+	char m_unrecovered9C[ 0xAC - 0x9C ];
+	bool IsClippedEnabled;															///< 0xAC
 	bool ParseHotKey;																		///< 0xAD
 	bool UseHardWordWrap;																///< 0xAE
 	char m_unrecoveredAF[ 0xC4 - 0xAF ];
@@ -110,8 +160,14 @@ public:
 	virtual void notifyTextChanged();
 	virtual void setWordWrap( Int wordWrap );
 	virtual void setFont( GameFont *font );
+	virtual void setColors( Color textColor, Color dropColor );
+	virtual void setTextColor( Color *colors );
+	virtual void setDropColor( Color *colors );
+	virtual void draw( Int x, Int y );
+	virtual void draw( Int x, Int y, Color color, Color dropColor );
 	virtual void getSize( Int *width, Int *height );
 	virtual void setUseHotkey( Bool useHotkey, Color hotKeyColor );
+	virtual void setClipRegion( IRegion2D *region );
 protected:
 	void computeExtents();
 private:
@@ -124,9 +180,12 @@ private:
 	Bool m_useHotKey;																		///< 0x1A3
 	char m_unrecovered1A4[ 0x1B4 - 0x1A4 ];
 	Color m_hotKeyColor;																///< 0x1B4
-	char m_unrecovered1B8[ 0x1DC - 0x1B8 ];
+	Color m_textColors[ 4 ];														///< 0x1B8
+	Color m_dropColors[ 4 ];														///< 0x1C8
+	char m_unrecovered1D8[ 0x1DC - 0x1D8 ];
 	Int m_sizeX;																				///< 0x1DC
 	Int m_sizeY;																				///< 0x1E0
+	IRegion2D m_clipRegion;															///< 0x1E4
 };
 
 
@@ -230,4 +289,104 @@ void W3DDisplayString::setUseHotkey( Bool useHotkey, Color hotKeyColor )
 	m_hotKeyColor = hotKeyColor;
 	m_textRenderer.Set_Hot_Key_Parse(useHotkey);
 	notifyTextChanged();
+}
+
+//-------------------------------------------------------------------------------------------------
+/** BFME 2: set all four corners of the text and drop-shadow colours (vftable slot 10) */
+//-------------------------------------------------------------------------------------------------
+void W3DDisplayString::setColors( Color textColor, Color dropColor )
+{
+	Int i;
+	for( i = 0; i < 4; i++ )
+	{
+		if( m_textColors[ i ] != textColor )
+		{
+			m_bfmeColorsChanged = TRUE;
+			m_textColors[ i ] = textColor;
+		}
+	}
+	for( i = 0; i < 4; i++ )
+	{
+		if( m_dropColors[ i ] != dropColor )
+		{
+			m_bfmeColorsChanged = TRUE;
+			m_dropColors[ i ] = dropColor;
+		}
+	}
+}
+
+//-------------------------------------------------------------------------------------------------
+/** BFME 2: set the four text corner colours (vftable slot 11) */
+//-------------------------------------------------------------------------------------------------
+void W3DDisplayString::setTextColor( Color *colors )
+{
+	for( Int i = 0; i < 4; i++ )
+	{
+		if( m_textColors[ i ] != colors[ i ] )
+		{
+			m_bfmeColorsChanged = TRUE;
+			m_textColors[ i ] = colors[ i ];
+		}
+	}
+}
+
+//-------------------------------------------------------------------------------------------------
+/** BFME 2: set the four drop-shadow corner colours (vftable slot 12) */
+//-------------------------------------------------------------------------------------------------
+void W3DDisplayString::setDropColor( Color *colors )
+{
+	for( Int i = 0; i < 4; i++ )
+	{
+		if( m_dropColors[ i ] != colors[ i ] )
+		{
+			m_bfmeColorsChanged = TRUE;
+			m_dropColors[ i ] = colors[ i ];
+		}
+	}
+}
+
+//-------------------------------------------------------------------------------------------------
+/** BFME: draw with the stored colours (vftable slot 13) */
+//-------------------------------------------------------------------------------------------------
+void W3DDisplayString::draw( Int x, Int y )
+{
+	draw( x, y, 0, 0 );
+}
+
+//-------------------------------------------------------------------------------------------------
+/** Set the clipping region for the text */
+//-------------------------------------------------------------------------------------------------
+void W3DDisplayString::setClipRegion( IRegion2D *region )
+{
+
+	// only consider regions that are actual changes
+	if( region->lo.x != m_clipRegion.lo.x ||
+			region->lo.y != m_clipRegion.lo.y ||
+			region->hi.x != m_clipRegion.hi.x ||
+			region->hi.y != m_clipRegion.hi.y )
+	{
+
+		// assign new region
+		m_clipRegion = *region;
+
+		// set new region in renderer
+		m_textRenderer.Set_Clipping_Rect( RectClass( m_clipRegion.lo.x,
+																								 m_clipRegion.lo.y,
+																								 m_clipRegion.hi.x,
+																								 m_clipRegion.hi.y ) );
+		m_textRendererHotKey.Set_Clipping_Rect( RectClass( m_clipRegion.lo.x,
+																								 m_clipRegion.lo.y,
+																								 m_clipRegion.hi.x,
+																								 m_clipRegion.hi.y ) );
+		m_bfmeColorsChanged = TRUE;
+	}  // end if
+
+}  // end setClipRegion
+
+//-------------------------------------------------------------------------------------------------
+/** DisplayString.h inline, emitted in this unit (vftable slot 3 of both tables) */
+//-------------------------------------------------------------------------------------------------
+Int DisplayString::getTextLength( void )
+{
+	return m_textString.getLength();
 }

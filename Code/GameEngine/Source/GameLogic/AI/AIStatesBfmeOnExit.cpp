@@ -1,7 +1,7 @@
 // cl: /O1 /DNDEBUG /MD /arch:SSE
 //
-// onEnter/onExit overrides of BFME 2 states, each named by its vtable's
-// slot-2 name getter (the state's own name literal):
+// onEnter/onExit/update overrides of BFME 2 states, each named by its
+// vtable's slot-2 name getter (the state's own name literal):
 //
 //  - AIFollowPathAsTeamState::onExit, retail 0x00349E15 (95 bytes): slot 5
 //    of 0x00C121E8. Sets the team machine at +0x5C (when present) to state 0
@@ -40,6 +40,31 @@
 //    +0x44) it sets the orientation (rowed Thing::setOrientation) and
 //    succeeds; otherwise it turns through AI slot 135
 //    (setLocomotorGoalOrientation) and continues.
+//  - AIPrepareForBoarding::onEnter, retail 0x0034263C (111 bytes): slot 4 of
+//    0x00C123D8. Asks the pathfinder (TheAI +0x10, pinned 0x002EE7EE) for a
+//    destination from the owner's position, takes and clears the machine
+//    goal object (slot 14); fails when a destination was found but the goal
+//    is missing or the pinned path test 0x002F477E from the goal accepts it,
+//    else succeeds.
+//  - AIMoveAndTightenState::update, retail 0x00347AE8 (85 bytes): slot 6 of
+//    0x00C124D8. While +0x50 is set and the AI has a path (+0x140) and its
+//    +0x3B1 is clear: CritterDesync log line, setAdjustsDestination(true)
+//    (+0x48), +0x50 cleared; then the pinned AIInternalMoveToState::update.
+//  - AICombineState::onEnter, retail 0x0034FCAC (97 bytes): slot 4 of
+//    0x00C12EE8. Returns the pinned state helper 0x0034612C's result when
+//    nonzero; else slot 24 of the rowed Object::rva0028C197 interface when
+//    its bool slot 136 holds, a CritterDesync log line,
+//    setAdjustsDestination(false) and the base onEnter.
+//  - AIRotateFiringarc::update, retail 0x0034274A (95 bytes): slot 6 of
+//    0x00C12438. Fails without an AI; copies the owner's orientation to its
+//    +0x1C0 real and succeeds once it is within 0.01 (.rdata 0x00BCF628) of
+//    the machine goal position's x (the rowed normalizeAngle, CRT fabs).
+//  - AIBusyState::onEnter, retail 0x00346017 (76 bytes): slot 4 of
+//    0x00C10E48. Fails when the AI's mood-matrix adjustment for action 2
+//    (pinned 0x00264FF8) has bit 0, there is a goal object and the owner
+//    cannot pick a weapon for it (pinned Object::chooseBestWeaponForTarget
+//    with criteria 5 and the AI's slot-143 last command source); else
+//    succeeds.
 //
 // Layout and callees as in AIFollowPathStateOnExit.cpp and
 // AIStatesDerivedOnExit.cpp; the meaning of the status, condition and kind
@@ -74,6 +99,55 @@ enum
 	STATE_SUCCESS = -1,
 	STATE_FAILURE = -2
 };
+struct Coord3D;
+class Object;
+
+class Pathfinder
+{
+public:
+	Bool rva002EE7EE(const Coord3D *pos, Object *obj, Coord3D *dest);
+	Bool rva002F477E(Object *obj, const Coord3D *from, const Coord3D *to, int flag);
+};
+class AI
+{
+public:
+	Pathfinder *pathfinder() { return m_pathfinder; }
+private:
+	unsigned char m_pad00[0x10];
+	Pathfinder *m_pathfinder; // +0x10
+};
+extern AI *TheAI;
+
+extern unsigned char g_00E03745;
+extern void *g_00DFEFF0;
+struct FprintfTarget
+{
+	char m_pad[4];
+};
+extern "C" void fprintf(FprintfTarget *target, const char *format, ...);
+static __forceinline void critterDesyncLog(const char *text)
+{
+	if (g_00E03745)
+	{
+		FprintfTarget *log = (FprintfTarget *)g_00DFEFF0;
+		if (log != 0)
+			fprintf(log, text);
+	}
+}
+
+enum CommandSourceType
+{
+	CMD_FROM_PLAYER = 0
+};
+enum MoodMatrixAction
+{
+	MM_ACTION_BFME_2 = 2
+};
+enum WeaponChoiceCriteria
+{
+	WEAPON_CHOICE_BFME_5 = 5
+};
+
 enum WeaponLockType
 {
 	NOT_LOCKED,
@@ -111,6 +185,27 @@ public:
 template <> class AIStateAISlots<0>
 {
 };
+template <class Base, int N> class AIStateGapSlots : public AIStateGapSlots<Base, N - 1>
+{
+public:
+	virtual void tailGap(char (*)[N]) = 0;
+};
+template <class Base> class AIStateGapSlots<Base, 0> : public Base
+{
+};
+
+// The interface Object::rva0028C197 returns (opaque): slot 24 and the bool
+// slot 136 are the two AICombineState::onEnter calls.
+class Rva0028C197ResultHead : public AIStateAISlots<24>
+{
+public:
+	virtual void rva0034FCDCSlot24() = 0;
+};
+class Rva0028C197Result : public AIStateGapSlots<Rva0028C197ResultHead, 111>
+{
+public:
+	virtual Bool rva0034FCCESlot136() = 0;
+};
 
 class AIUpdateInterface : public AIStateAISlots<135>
 {
@@ -123,17 +218,25 @@ public:
 	virtual void slot140() = 0;
 	virtual void slot141() = 0;
 	virtual void rva0034BEF9Slot142(int value) = 0;
+	virtual CommandSourceType getLastCommandSource() const = 0;
 	void rva00263EA2(ObjectID id);
+	unsigned int getMoodMatrixActionAdjustment(MoodMatrixAction action) const;
 	void setCanPathThroughUnits(Bool b) { m_canPathThroughUnits = b; }
 	Locomotor *getCurLocomotor() { return m_curLocomotor; }
 	void friend_setCurrentGoalPathIndex(int index) { m_currentGoalPathIndex = index; }
 	void setDesiredSpeed(Real speed);
+	void *getPath() const { return m_path; }
+	Bool getBfmeFlag3B1() const { return m_bfmeFlag3B1; }
 private:
-	unsigned char m_pad004[0x194 - 0x04];
+	unsigned char m_pad004[0x140 - 0x04];
+	void *m_path; // +0x140
+	unsigned char m_pad144[0x194 - 0x144];
 	int m_currentGoalPathIndex; // +0x194
 	unsigned char m_pad198[0x1F0 - 0x198];
 	Locomotor *m_curLocomotor; // +0x1F0
-	unsigned char m_pad1F4[0x3BA - 0x1F4];
+	unsigned char m_pad1F4[0x3B1 - 0x1F4];
+	Bool m_bfmeFlag3B1; // +0x3B1
+	unsigned char m_pad3B2[0x3BA - 0x3B2];
 	Bool m_canPathThroughUnits; // +0x3BA
 };
 
@@ -165,17 +268,25 @@ private:
 };
 
 Real normalizeAngle(Real angle);
+extern "C" float __cdecl fabs(double); // CRT fabs; x87 result compared as float (as in AIFaceStateUpdate.cpp)
+
+struct Coord3D
+{
+	Real x, y, z;
+};
 
 class Thing
 {
 public:
 	const ThingTemplate *getTemplate() const { return m_template; }
+	const Coord3D *getPosition() const { return &m_position; }
 	Real getOrientation() const { return m_orientation; }
 	void setOrientation(Real angle);
 private:
 	unsigned char m_pad00[0x04];
 	const ThingTemplate *m_template; // +0x04
-	unsigned char m_pad08[0x44 - 0x08];
+	unsigned char m_pad08[0x38 - 0x08];
+	Coord3D m_position; // +0x38
 	Real m_orientation; // +0x44
 };
 
@@ -185,11 +296,14 @@ public:
 	AIUpdateInterface *getAI() { return m_ai; }
 	ObjectID getID() const { return m_id; }
 	Bool testBfmeFlag94() const { return (m_bfmeFlags94 & 1) != 0; }
+	void setBfmeAngle1C0(Real angle) { m_bfmeAngle1C0 = angle; }
 	Bool testStatus(ObjectStatusTypes status) const;
 	void setStatus(ObjectStatusTypes status, Bool set);
 	void rva00346C53(ObjectStatusTypes status, Bool set);
 	void releaseWeaponLock(WeaponLockType lockType);
 	void rva0028AE6D();
+	void *rva0028C197() const;
+	Bool chooseBestWeaponForTarget(const Object *target, WeaponChoiceCriteria criteria, CommandSourceType cmdSource);
 	__forceinline void clearModelConditionBit(int bit)
 	{
 		if (m_conditionBits.test(bit) != 0)
@@ -205,7 +319,9 @@ private:
 	unsigned char m_bfmeFlags94; // +0x94
 	unsigned char m_pad095[0x10C - 0x95];
 	Rva0010CBits m_conditionBits; // +0x10C
-	unsigned char m_pad158[0x258 - (0x10C + sizeof(Rva0010CBits))];
+	unsigned char m_pad158[0x1C0 - (0x10C + sizeof(Rva0010CBits))];
+	Real m_bfmeAngle1C0; // +0x1C0
+	unsigned char m_pad1C4[0x258 - 0x1C4];
 	AIUpdateInterface *m_ai; // +0x258
 };
 
@@ -217,13 +333,19 @@ public:
 	virtual void slot04(); virtual void slot05(); virtual void slot06();
 	virtual void slot07();
 	virtual StateReturnType setState(StateID newStateID);
+	virtual void slot09(); virtual void slot10(); virtual void slot11();
+	virtual void slot12(); virtual void slot13();
+	virtual void setGoalObject(const Object *obj);
 	Object *getOwner() const { return m_owner; }
 	Object *getGoalObject();
+	const Coord3D *getGoalPosition() const { return &m_goalPosition; }
 	void rva0034BF11ClearByte3A() { m_bfmeFlag3A = false; }
 private:
 	unsigned char m_pad04[0x14 - 0x04];
 	Object *m_owner; // +0x14
-	unsigned char m_pad18[0x3A - 0x18];
+	unsigned char m_pad18[0x24 - 0x18];
+	Coord3D m_goalPosition; // +0x24
+	unsigned char m_pad30[0x3A - 0x30];
 	Bool m_bfmeFlag3A; // +0x3A
 };
 
@@ -248,6 +370,13 @@ class AIInternalMoveToState : public State
 public:
 	virtual StateReturnType onEnter();
 	virtual void onExit(StateExitType status);
+	virtual StateReturnType update();
+	StateReturnType rva0034612C();
+protected:
+	void setAdjustsDestination(Bool b) { m_adjustDestination = b; }
+	unsigned char m_pad1C[0x48 - 0x1C];
+	Bool m_adjustDestination; // +0x48
+	unsigned char m_pad49[0x4C - 0x49];
 };
 
 class AIFollowPathAsTeamState : public AIInternalMoveToState
@@ -255,7 +384,7 @@ class AIFollowPathAsTeamState : public AIInternalMoveToState
 public:
 	virtual void onExit(StateExitType status);
 private:
-	unsigned char m_pad1C[0x5C - 0x1C];
+	unsigned char m_pad4C[0x5C - 0x4C];
 	StateMachine *m_teamMachine; // +0x5C
 };
 
@@ -364,7 +493,6 @@ class AIMoveAwayAndCowerState : public AIInternalMoveToState
 public:
 	virtual StateReturnType onEnter();
 private:
-	unsigned char m_pad1C[0x4C - 0x1C];
 	int m_bfmeValue4C; // +0x4C
 	Bool m_bfmeFlag50; // +0x50
 };
@@ -403,4 +531,106 @@ StateReturnType AIFaceDirectionState::update()
 	}
 	owner->getAI()->setLocomotorGoalOrientation(m_angle);
 	return STATE_CONTINUE;
+}
+
+class AIPrepareForBoarding : public State
+{
+public:
+	virtual StateReturnType onEnter();
+};
+
+StateReturnType AIPrepareForBoarding::onEnter()
+{
+	Object *owner = getMachineOwner();
+	Coord3D dest;
+	Bool found = TheAI->pathfinder()->rva002EE7EE(owner->getPosition(), owner, &dest);
+	Object *goal = getMachine()->getGoalObject();
+	getMachine()->setGoalObject(0);
+	if (found)
+	{
+		if (!goal)
+			return (StateReturnType)STATE_FAILURE;
+		if (TheAI->pathfinder()->rva002F477E(goal, goal->getPosition(), &dest, 0))
+			return (StateReturnType)STATE_FAILURE;
+	}
+	return (StateReturnType)STATE_SUCCESS;
+}
+
+class AIMoveAndTightenState : public AIInternalMoveToState
+{
+public:
+	virtual StateReturnType update();
+private:
+	unsigned char m_pad4C[0x50 - 0x4C];
+	Bool m_bfmeFlag50; // +0x50
+};
+
+StateReturnType AIMoveAndTightenState::update()
+{
+	if (m_bfmeFlag50)
+	{
+		AIUpdateInterface *ai = getMachineOwner()->getAI();
+		if (ai->getPath() && !ai->getBfmeFlag3B1())
+		{
+			critterDesyncLog("CritterDesync: setAdjustDestination(TRUE) 8");
+			setAdjustsDestination(true);
+			m_bfmeFlag50 = false;
+		}
+	}
+	return AIInternalMoveToState::update();
+}
+
+class AICombineState : public AIInternalMoveToState
+{
+public:
+	virtual StateReturnType onEnter();
+};
+
+StateReturnType AICombineState::onEnter()
+{
+	StateReturnType ret = rva0034612C();
+	if (ret != STATE_CONTINUE)
+		return ret;
+	Rva0028C197Result *result = (Rva0028C197Result *)getMachineOwner()->rva0028C197();
+	if (result && result->rva0034FCCESlot136())
+		result->rva0034FCDCSlot24();
+	critterDesyncLog("CritterDesync: setAdjustDestination(FALSE) 58");
+	setAdjustsDestination(false);
+	return AIInternalMoveToState::onEnter();
+}
+
+class AIRotateFiringarc : public State
+{
+public:
+	virtual StateReturnType update();
+};
+
+StateReturnType AIRotateFiringarc::update()
+{
+	if (!getMachineOwner()->getAI())
+		return (StateReturnType)STATE_FAILURE;
+	getMachineOwner()->setBfmeAngle1C0(getMachineOwner()->getOrientation());
+	Real orientation = getMachineOwner()->getOrientation();
+	Real goalAngle = getMachine()->getGoalPosition()->x;
+	Real delta = normalizeAngle(orientation - goalAngle);
+	if (fabs(delta) < 0.01f)
+		return (StateReturnType)STATE_SUCCESS;
+	return STATE_CONTINUE;
+}
+
+class AIBusyState : public State
+{
+public:
+	virtual StateReturnType onEnter();
+};
+
+StateReturnType AIBusyState::onEnter()
+{
+	Object *owner = getMachineOwner();
+	Object *goal = getMachine()->getGoalObject();
+	AIUpdateInterface *ai = owner->getAI();
+	if ((ai->getMoodMatrixActionAdjustment(MM_ACTION_BFME_2) & 1) && goal
+		&& !owner->chooseBestWeaponForTarget(goal, WEAPON_CHOICE_BFME_5, ai->getLastCommandSource()))
+		return (StateReturnType)STATE_FAILURE;
+	return (StateReturnType)STATE_SUCCESS;
 }

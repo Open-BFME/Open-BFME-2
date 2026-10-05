@@ -55,8 +55,13 @@ def introduced(path, text, canon):
     now = set(class_views.class_bodies(text)) & set(canon)
     if not now:
         return []
-    before = git_text(f"HEAD:{path}")
-    had = set(class_views.class_bodies(before)) if before else set()
+    had = set()
+    # In a merge, a body either parent already carried is not introduced by
+    # this commit: the other side's files are new to HEAD but not new code.
+    for parent in ("HEAD", "MERGE_HEAD"):
+        before = git_text(f"{parent}:{path}")
+        if before:
+            had |= set(class_views.class_bodies(before))
     allowed = set(ALLOW.findall(text))
     return sorted(now - had - allowed)
 

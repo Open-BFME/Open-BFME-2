@@ -49,17 +49,17 @@ public:
 	void applyFilter(BfmeFixedStorage0004543D storage);
 };
 
-class Rva004930A0
+class SpecialPowerModuleData
 {
 public:
-	Rva004930A0();
-	virtual ~Rva004930A0();
+	SpecialPowerModuleData();
+	virtual ~SpecialPowerModuleData();
 
 protected:
 	unsigned char m_pad[0x7C - 4];
 };
 
-class InvisibilitySpecialPowerModuleData : public Rva004930A0
+class InvisibilitySpecialPowerModuleData : public SpecialPowerModuleData
 {
 public:
 	InvisibilitySpecialPowerModuleData();
@@ -75,7 +75,7 @@ private:
 
 // ??0InvisibilitySpecialPowerModuleData@@QAE@XZ @0x4C244D
 InvisibilitySpecialPowerModuleData::InvisibilitySpecialPowerModuleData()
-	: Rva004930A0()
+	: SpecialPowerModuleData()
 	, m_broadcastRadius(0.0f)
 	, m_duration(0)
 {

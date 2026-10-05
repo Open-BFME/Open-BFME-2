@@ -67,4 +67,6 @@ public:
 	BfmeSubEBN *bfmeGetEBN();
 };
 
-
+// The global(s) below are defined elsewhere under another name at the same
+// address (the census owner of that DIR32 target); bind this unit's spelling.
+#pragma comment(linker, "/alternatename:?g_bfmeObjEBL@@3VBfmeObjEBL@@A=?g_validityBegin@@3PAEA")

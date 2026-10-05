@@ -35,3 +35,7 @@ BFME_VTABLE_INSTALL(Rva0037F4C0VTableInstall, reinterpret_cast<void *>(((unsigne
 BFME_VTABLE_INSTALL(Rva005114BDVTableInstall, reinterpret_cast<void *>(0x00C6573C))
 BFME_VTABLE_INSTALL(Rva00600611VTableInstall, reinterpret_cast<void *>(((unsigned int)vtbl_00C7A660)))
 BFME_VTABLE_INSTALL(Rva00602635VTableInstall, reinterpret_cast<void *>(0x00C7A84C))
+
+// Other units call this body (pinned at its address) under the spelling(s)
+// below, with the same calling convention and stack arguments; bind them.
+#pragma comment(linker, "/alternatename:??0BfmeThingVTD@@QAE@XZ=?init@Rva00600611VTableInstall@@QAEPAV1@XZ")

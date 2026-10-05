@@ -391,17 +391,8 @@ const char * MeshClass::Get_User_Text(void) const
  * HISTORY:                                                                                    *
  *   5/20/98    GTH : Created.                                                                 *
  *=============================================================================================*/
-// ?MeshClass::Get_Material_Info present-unmatched
-MaterialInfoClass * MeshClass::Get_Material_Info(void)
-{ 
-	if (Model) {
-		if (Model->MatInfo) {
-			Model->MatInfo->Add_Ref();
-			return Model->MatInfo; 
-		}
-	}
-	return NULL;
-}
+// BFME2's body is in MeshClassCollision.cpp (retail 0x00149980); it needs the BFME2
+// MeshModelClass layout (MatInfo at +0x98), which the shared header does not carry.
 
 
 /***********************************************************************************************
@@ -593,18 +584,8 @@ void MeshClass::Delete_Decal(uint32 decal_id)
  * HISTORY:                                                                                    *
  *   1/6/98     GTH : Created.                                                                 *
  *=============================================================================================*/
-// ?MeshClass::Get_Num_Polys present-unmatched
-int MeshClass::Get_Num_Polys(void) const
-{
-	if (Model) {
-		int num_passes=Model->Get_Pass_Count();
-		WWASSERT(num_passes>0);
-		int poly_count=Model->Get_Polygon_Count();
-		return num_passes*poly_count;
-	} else {
-		return 0;
-	}
-}
+// BFME2's body is in MeshClassCollision.cpp (retail 0x00149A50); it needs the BFME2
+// RenderObjClass view, which the shared header used here does not carry.
 
 
 /***********************************************************************************************
@@ -974,17 +955,8 @@ bool MeshClass::Cast_OBBox(OBBoxCollisionTestClass & boxtest)
  * HISTORY:                                                                                    *
  *   1/19/00    gth : Created.                                                                 *
  *=============================================================================================*/
-// ?MeshClass::Intersect_AABox present-unmatched
-bool MeshClass::Intersect_AABox(AABoxIntersectionTestClass & boxtest)
-{
-	if ((Get_Collision_Type() & boxtest.CollisionType) == 0) return false;
-
-	Matrix3D inv_tm;
-	Get_Transform().Get_Orthogonal_Inverse(inv_tm);
-	OBBoxIntersectionTestClass local_test(boxtest,inv_tm);
-	WWASSERT(Model);
-	return Model->Intersect_OBBox(local_test);
-}
+// BFME2's body is in MeshClassCollision.cpp (retail 0x0014B5E0); it needs the BFME2
+// RenderObjClass vtable, which the shared header used here does not carry.
 
 
 /***********************************************************************************************
@@ -1140,29 +1112,31 @@ void MeshClass::Add_Dependencies_To_List
  * HISTORY:                                                                                    *
  *   5/14/2001    NH : Created.                                                                *
  *=============================================================================================*/
-// ?MeshClass::Update_Cached_Bounding_Volumes present-unmatched
-void MeshClass::Update_Cached_Bounding_Volumes(void) const
+// BFME2's body is in MeshClassCollision.cpp (retail 0x0014B650); it needs the BFME2
+// RenderObjClass view, which the shared header used here does not carry.
+
+namespace BfmeMeshBoundsAnchor
 {
-	Get_Obj_Space_Bounding_Sphere(CachedBoundingSphere);
-
-#ifdef ALLOW_TEMPORARIES
-	CachedBoundingSphere.Center = Get_Transform() * CachedBoundingSphere.Center;
-#else
-	Get_Transform().mulVector3(CachedBoundingSphere.Center);
-#endif
-
-	// If we are camera-aligned or -oriented, we don't know which way we are facing at this point,
-	// so the box we return needs to contain the sphere. Otherewise do the normal computation.
-	if (Model->Get_Flag(MeshModelClass::ALIGNED) || Model->Get_Flag(MeshModelClass::ORIENTED)) {
-		CachedBoundingBox.Center = CachedBoundingSphere.Center;
-		CachedBoundingBox.Extent.Set(CachedBoundingSphere.Radius, CachedBoundingSphere.Radius, CachedBoundingSphere.Radius);
-	} else {
-		Get_Obj_Space_Bounding_Box(CachedBoundingBox);
-		CachedBoundingBox.Transform(Get_Transform());
-	}
-
-	Validate_Cached_Bounding_Volumes();
+class Access : public MeshClass
+{
+public:
+	static void _bfmeMeshBoundsInlineAnchor(void *storage, Vector3 & center);
+};
 }
+
+// The Zero Hour Update_Cached_Bounding_Volumes kept these header inlines out
+// of line in this unit (rows 0x00102559 and 0x0013B180). The anchor retains
+// those bodies here now that the BFME2 caller lives elsewhere; it is not
+// retail code.
+#pragma inline_depth(0)
+// ?_bfmeMeshBoundsInlineAnchor@Access@BfmeMeshBoundsAnchor@@SAXPAXAAVVector3@@@Z absent-from-retail
+void BfmeMeshBoundsAnchor::Access::_bfmeMeshBoundsInlineAnchor(void *storage, Vector3 & center)
+{
+	Access *mesh = (Access *)storage;
+	mesh->Get_Transform().mulVector3(center);
+	mesh->Validate_Cached_Bounding_Volumes();
+}
+#pragma inline_depth()
 
 
 // This utility function recurses throughout the subobjects of a renderobject, and for each
@@ -1190,14 +1164,8 @@ void Set_MeshModel_Flag(RenderObjClass *robj, int flag, int onoff)
 	}
 }
 
-// ?MeshClass::Get_Sort_Level present-unmatched
-int MeshClass::Get_Sort_Level(void) const
-{ 
-	if (Model) {
-		return (Model->Get_Sort_Level());
-	}
-	return(SORT_LEVEL_NONE);
-}	
+// BFME2's body is in MeshClassCollision.cpp (retail 0x0014A070); it needs the BFME2
+// RenderObjClass view, which the shared header used here does not carry.
 
 // ?MeshClass::Set_Sort_Level present-unmatched
 void MeshClass::Set_Sort_Level(int level)

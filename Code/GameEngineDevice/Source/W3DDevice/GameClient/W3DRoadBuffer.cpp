@@ -159,7 +159,9 @@ m_uniqueID(-1)
 //=============================================================================
 /** Frees index & vertex data. */
 //=============================================================================
-// RoadType::~RoadType: defined in RoadTypeDtor.cpp (its row's unit).
+// RoadType::~RoadType (retail 0x000D4F4F) is BFME 2's own layout and is not
+// reconstructed here; the vector deleting form freeRoadBuffers uses calls it
+// through a pin.
 
 //=============================================================================
 // RoadType applyTexture
@@ -2874,11 +2876,16 @@ void W3DRoadBuffer::rotateAbout(Vector2 *ptP, Vector2 center, Real angle)
 //=============================================================================
 /** Destructor. Releases w3d assets. */
 //=============================================================================
-// ??1W3DRoadBuffer@@QAE@XZ present-unmatched
+// Retail 0x000DC51D; the +0x18 holder's destructor runs after the body.
+// The map pointer is cleared only when it was set (REF_PTR_RELEASE clears it
+// unconditionally).
 W3DRoadBuffer::~W3DRoadBuffer(void)
 {
 	freeRoadBuffers();
-	REF_PTR_RELEASE(m_map);
+	if (m_map) {
+		m_map->Release_Ref();
+		m_map = NULL;
+	}
 }
 
 //=============================================================================
@@ -2886,7 +2893,8 @@ W3DRoadBuffer::~W3DRoadBuffer(void)
 //=============================================================================
 /** Constructor.  */
 //=============================================================================
-// ??0W3DRoadBuffer@@QAE@XZ present-unmatched
+// Retail 0x000DC568. BFME 2 drops the m_curRoadType reset and starts with the
+// dirty flag and the new +0x4D flag set.
 W3DRoadBuffer::W3DRoadBuffer(void)	:
 	m_roads(NULL),
 	m_numRoads(0),
@@ -2900,22 +2908,36 @@ W3DRoadBuffer::W3DRoadBuffer(void)	:
 	m_maxRoadTypes(8),
 	m_maxRoadVertex(1000),
 	m_maxRoadIndex(2000),
-	m_curRoadType(0)
-
+	m_updateBuffers(true),
+	m_bool4D(true)
 {
 	allocateRoadBuffers();
 }
 
+
+// BFME 2 holds the DX8 device mutex while it drops the road vertex and index
+// buffers: retail takes it on entry (0x0011F520) and releases it from the
+// unwind-tracked scope exit (0x00120F50).
+void BFME_DX8_Thread_Lock();
+bool BFME_DX8_Thread_Assert();
+
+class BFMEDX8DeviceLock
+{
+public:
+	BFMEDX8DeviceLock() { BFME_DX8_Thread_Lock(); }
+	~BFMEDX8DeviceLock() { BFME_DX8_Thread_Assert(); }
+};
 
 //=============================================================================
 // W3DRoadBuffer::freeRoadBuffers
 //=============================================================================
 /** Frees the index and vertex buffers. */
 //=============================================================================
-// byte-exact reconstruction: Code/GameEngine/Source/Common/W3DRoadBuffer_freeRoadBuffersMethodThunk.cpp
-// ?freeRoadBuffers@W3DRoadBuffer@@IAEXXZ present-unmatched
+// Retail 0x000D7753: under the DX8 device lock, as clearAllRoads; BFME 2 also
+// clears the holder at +0x18 and drops m_initialized here.
 void W3DRoadBuffer::freeRoadBuffers(void)
 {
+	BFMEDX8DeviceLock lock;
 	if (m_roads) {
 		delete[] m_roads;
 		m_roads = NULL;
@@ -2924,6 +2946,8 @@ void W3DRoadBuffer::freeRoadBuffers(void)
 		delete[] m_roadTypes;
 		m_roadTypes = NULL;
 	}
+	m_ref18.clear();
+	m_initialized = false;
 }
 
 //=============================================================================
@@ -2987,9 +3011,13 @@ void W3DRoadBuffer::allocateRoadBuffers(void)
 //=============================================================================
 /** Removes all roads. */
 //=============================================================================
-// ?clearAllRoads@W3DRoadBuffer@@QAEXXZ present-unmatched
+
+// Retail 0x000D7942: the Zero Hour body under the device lock, resetting
+// only each road type's stacking order (BFME drops the vertex and index
+// count resets).
 void W3DRoadBuffer::clearAllRoads(void)
 {
+	BFMEDX8DeviceLock lock;
 	Int i;
 	if (m_roads)
 	for (i=0; i<m_numRoads; i++) {
@@ -3000,8 +3028,6 @@ void W3DRoadBuffer::clearAllRoads(void)
 	if (m_roadTypes)
 	for (i=0; i<m_maxRoadTypes; i++) {
 		m_roadTypes[i].setStacking(0); // Reset stacking orders
-		m_roadTypes[i].setNumVertices(0);
-		m_roadTypes[i].setNumIndices(0);
 	}
 }
 //=============================================================================
@@ -3033,14 +3059,7 @@ void W3DRoadBuffer::loadRoads()
 	insertCurveSegments();
 	insertCrossTypeJoins();
 	preloadRoadsInVertexAndIndexBuffers();
-	// Retail closes this body with c6 46 4c 01 = mov byte [esi+0x4C],1, the
-	// same one-byte store the matched updateLighting body 0x000D4A4B carries:
-	// the LOAD_TEST_ASSETS slot is one byte wide in the image, so
-	// `m_updateBuffers = true` (an Int member at +0x50) misses by address and
-	// store width. The union that gives the slot a byte member is the filed
-	// follow-up card; until then the byte at the member's own address is what
-	// the image does.
-	*(unsigned char *)&m_curOpenRoad = 1;
+	m_updateBuffers = true;
 	//ticks = ::GetTickCount() - ticks;
 	//char buf[256];
 	//sprintf(buf, "%d road segs, %d milisec.\n", m_numRoads, ticks);
@@ -3086,16 +3105,7 @@ void W3DRoadBuffer::updateLighting(void)
 	for (curRoad=0; curRoad<m_numRoads; curRoad++) {
 		m_roads[curRoad].updateSegLighting();
 	}
-	// Retail closes with c6 46 4c 01 = mov byte [esi+0x4C],1: a ONE-byte store
-	// into the LOAD_TEST_ASSETS slot. The donor field is an Int, so
-	// `m_curOpenRoad = 1` emits a dword and misses by the store width; writing
-	// the byte at the member's own address is what the image does. The shim
-	// carries a byte member for this slot (union { Int m_curOpenRoad; unsigned
-	// char m_retailByte4C; }) once the tree's FULL gate is green -- that header
-	// edit is filed as its own card, because a shim edit forces the full gate
-	// and master's full gate is currently red for reasons outside this body
-	// (see reverse/attempts/0x000d4a4b.cpp and the follow-up card).
-	*(unsigned char *)&m_curOpenRoad = 1;
+	m_updateBuffers = true;
 }
 
 //=============================================================================

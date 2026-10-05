@@ -1,4 +1,4 @@
-// cl: /Ob2 /arch:SSE /G7 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/sweep
+// cl: /Ireference/shims/bfme2lightenv /Ob2 /arch:SSE /G7 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/sweep
 // stlport
 // The compiler-generated vector constructor iterator (??_H) takes the
 // optimization state of the first function that needs it. Retail links one
@@ -254,7 +254,6 @@ void LightEnvironmentClass::Reset(const Vector3 & object_center,const Vector3 & 
 }
 
 
-// ?Add_Light@LightEnvironmentClass@@QAEXABVLightClass@@@Z present-unmatched
 void LightEnvironmentClass::Add_Light(const LightClass & light)
 {
 	// Jani: Don't accept lights that are almost black
@@ -316,7 +315,6 @@ void LightEnvironmentClass::Add_Light(const LightClass & light)
 }
 
 // byte-exact reconstruction: Code/Libraries/Source/WWVegas/WW3D2/LightEnvironmentClass_Pre_Render_Update_Thunk.cpp
-// ?Pre_Render_Update@LightEnvironmentClass@@QAEXABVMatrix3D@@@Z present-unmatched
 void LightEnvironmentClass::Pre_Render_Update(const Matrix3D & camera_tm)
 {
 	/*
@@ -357,32 +355,30 @@ float LightEnvironmentClass::Get_Lighting_LOD_Cutoff(void)
 ************************************************************************************************/
 void LightEnvironmentClass::Add_Fill_Light(void)
 {
-	LightEnvironmentClass *bfme = reinterpret_cast<LightEnvironmentClass *>(reinterpret_cast<char *>(this) + 4);
-
 	// Don't add black (or almost black) lights!
-	if (bfme->FillLight.Diffuse[0]<0.05f && bfme->FillLight.Diffuse[1]<0.05f && bfme->FillLight.Diffuse[2]<0.05f) {
-		bfme->OutputAmbient += bfme->FillLight.Ambient;
+	if (FillLight.Diffuse[0]<0.05f && FillLight.Diffuse[1]<0.05f && FillLight.Diffuse[2]<0.05f) {
+		OutputAmbient += FillLight.Ambient;
 		return;
 	}
 
 	// Get the 1st empty light slot or the very last slot regardless of whether the last slot is empty or not
 	int slot = 0;
-	if (bfme->LightCount == MAX_LIGHTS) {
+	if (LightCount == MAX_LIGHTS) {
 		slot = MAX_LIGHTS - 1;
 	} else {
-		slot = bfme->LightCount;
-		++bfme->LightCount;
+		slot = LightCount;
+		++LightCount;
 	}
 
 	/*
 	** Add in the ambient component
 	*/
-	bfme->OutputAmbient += bfme->FillLight.Ambient;
+	OutputAmbient += FillLight.Ambient;
 
 	/*
 	** Insert the fill light into the calculated slot of the InputLights
 	*/
-	bfme->InputLights[slot] = bfme->FillLight;
+	InputLights[slot] = FillLight;
 }
 
 /************************************************************************************************
@@ -396,25 +392,24 @@ void LightEnvironmentClass::Add_Fill_Light(void)
 // ?LightEnvironmentClass::Calculate_Fill_Light present-unmatched
 void LightEnvironmentClass::Calculate_Fill_Light(void)
 {	
-	LightEnvironmentClass *bfme = reinterpret_cast<LightEnvironmentClass *>(reinterpret_cast<char *>(this) + 4);
 
 	// Early exit if we have no lights at all or if the fill light intensity is zero
-	if (bfme->LightCount == 0 || bfme->FillIntensity == 0.0f) return;
+	if (LightCount == 0 || FillIntensity == 0.0f) return;
 
 	// Initialize the averaged light to the primary light source (light with the most contribution)
-	float primary_contribution = bfme->InputLights[0].Contribution();
-	InputLightStruct average_light = bfme->InputLights[0];
+	float primary_contribution = InputLights[0].Contribution();
+	InputLightStruct average_light = InputLights[0];
 
 	// Loop through the remaining lights on the list (up to 2) and add their contributions to the averaged light
-	int num_lights = min(bfme->LightCount, MAX_LIGHTS - 1);
+	int num_lights = min(LightCount, MAX_LIGHTS - 1);
 	for (int i = 1; i < num_lights; ++i) {
 		
 		// The ratio is the percentage of the remaining light's contribution compared to the primary light source
-		float ratio = bfme->InputLights[i].Contribution() / primary_contribution;
+		float ratio = InputLights[i].Contribution() / primary_contribution;
 		
-		average_light.Direction += (bfme->InputLights[i].Direction * ratio);
-		average_light.Ambient	+= (bfme->InputLights[i].Ambient * ratio);
-		average_light.Diffuse	+= (bfme->InputLights[i].Diffuse * ratio);
+		average_light.Direction += (InputLights[i].Direction * ratio);
+		average_light.Ambient	+= (InputLights[i].Ambient * ratio);
+		average_light.Diffuse	+= (InputLights[i].Diffuse * ratio);
 	}
 	
 	// Normalize the averaged light direction
@@ -428,15 +423,15 @@ void LightEnvironmentClass::Calculate_Fill_Light(void)
 	if(temp.X > 360.0f) {
 		temp.X -= 360.0f;
 	}
-	temp.Z *= bfme->FillIntensity;	// fraction of the intensity
-	HSV_To_RGB(bfme->FillLight.Diffuse, temp);
+	temp.Z *= FillIntensity;	// fraction of the intensity
+	HSV_To_RGB(FillLight.Diffuse, temp);
 
 	// Zero out the fill ambient
-	bfme->FillLight.Ambient.Set(0.0f, 0.0f, 0.0f);
+	FillLight.Ambient.Set(0.0f, 0.0f, 0.0f);
 
 	// now we set the fill light direction to be opposite the average light
-	bfme->FillLight.Direction = average_light.Direction * (-1.0f);
-	bfme->FillLight.DiffuseRejected = false;
+	FillLight.Direction = average_light.Direction * (-1.0f);
+	FillLight.DiffuseRejected = false;
 
 	// Add the fill light into the InputLights list
 	Add_Fill_Light();

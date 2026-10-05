@@ -54,3 +54,7 @@ public:
 Rva006CD6C0SizedDeleting::~Rva006CD6C0SizedDeleting()
 {
 }
+
+// The global(s) below are defined elsewhere under another name at the same
+// address (the census owner of that DIR32 target); bind this unit's spelling.
+#pragma comment(linker, "/alternatename:?g_Va00E17730@@3P6AXPAXI@ZA=?g_bfmeAptFreeSizeAtE17730@@3P6AXPAXI@ZA")

@@ -636,24 +636,6 @@ Rva004817F4::Rva004817F4()
 {
 }
 
-// ??0Rva0035897D@@QAE@XZ @0x0035897D 23B, vtable VA 0xc15338
-class Rva0035897D
-{
-public:
-	Rva0035897D();
-	virtual ~Rva0035897D() {}
-private:
-	void *m_04;
-	void *m_08;
-	void *m_0C;
-	void *m_10;
-};
-
-Rva0035897D::Rva0035897D()
-	: m_04(0), m_08(0), m_0C(0), m_10(0)
-{
-}
-
 // ??0Rva003E3C22@@QAE@XZ @0x003E3C22 23B, vtable VA 0xc35b34
 class Rva003E3C22
 {

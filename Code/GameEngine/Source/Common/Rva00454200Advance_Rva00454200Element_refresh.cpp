@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: /Ireference/shims/bfme2_ascii_common /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/GameEngine/Source/Common /Ireference/shims/bfmealloc /D_CRTIMP=
 //
 // ?refresh@Rva00454200Element@@QAE_NAAVDataChunkInput@@PAUDataChunkInfo@@@Z
 // retail 0x00302823, 206 bytes. Dedicated TU ported from the Open-BFME-1

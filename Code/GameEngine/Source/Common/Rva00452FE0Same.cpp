@@ -42,3 +42,7 @@ int __cdecl Rva00452FE0Same( const Rva00452FE0Key &first,
 
 	return 0;
 }
+
+// Other units call this body (pinned at its address) under the spelling(s)
+// below, with the same calling convention and stack arguments; bind them.
+#pragma comment(linker, "/alternatename:?bfmeSameSX@@YA_NABUBfmeInnerSX@@0@Z=?Rva00452FE0Same@@YAHABURva00452FE0Key@@0@Z")

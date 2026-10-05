@@ -137,3 +137,7 @@ void updateBuddyStatus( GameSpyBuddyStatus status, Int groupRoom = 0, std::strin
 	DEBUG_LOG(("updateBuddyStatus %d:%s\n", req.arg.status.status, req.arg.status.statusString));
 	TheGameSpyBuddyMessageQueue->addRequest(req);
 }
+
+// The global(s) below are defined elsewhere under another name at the same
+// address (the census owner of that DIR32 target); bind this unit's spelling.
+#pragma comment(linker, "/alternatename:?TheGameSpyBuddyMessageQueue@@3PAVGameSpyBuddyMessageQueueInterface@@A=?g_rva00627AA0@@3PAURva00627AA0Obj@@A")

@@ -130,3 +130,9 @@ void Rva00075A23Draw(int width, int height)
 	if (++g_quadIndex >= 50)
 		g_quadIndex = 0;
 }
+
+// The global(s) below are defined elsewhere under another name at the same
+// address (the census owner of that DIR32 target); bind this unit's spelling.
+#pragma comment(linker, "/alternatename:?TheGlobalData@@3PAUGlobalDataCheck@@A=?TheWritableGlobalData@@3PAVGlobalData@@A")
+#pragma comment(linker, "/alternatename:?g_deviceObj@@3PAUDeviceObj@@A=?D3DDevice@DX8Wrapper@@1PAUIDirect3DDevice8@@A")
+#pragma comment(linker, "/alternatename:?g_numberOfDX8Calls@@3IA=?number_of_DX8_calls@@3IA")

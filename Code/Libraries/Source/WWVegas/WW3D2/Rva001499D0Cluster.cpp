@@ -140,3 +140,8 @@ void MeshClass::rva00149bb0()
 		g_rva009eda24 = g_rva009f36ac;
 	}
 }
+
+// The global(s) below are defined elsewhere under another name at the same
+// address (the census owner of that DIR32 target); bind this unit's spelling.
+#pragma comment(linker, "/alternatename:?g_rva009eda78@@3HA=?G00DEDA78@@3HA")
+#pragma comment(linker, "/alternatename:?g_rva009eda24@@3HA=?FogColor@DX8Wrapper@@1KA")

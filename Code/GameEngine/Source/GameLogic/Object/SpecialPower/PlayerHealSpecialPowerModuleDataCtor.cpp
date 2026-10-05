@@ -9,7 +9,7 @@
 // SpecialPower base 0x004930A0) owns the six-entry INI table at 0x00C5E298
 // (HealAmount at +0x7C plus HealAsPercent at +0x80 plus HealRadius at +0x84
 // plus HealAffects at +0x88 plus HealFX at +0xA4 plus HealOCL at +0xA8) which
-// sizes the class at 0xAC bytes over the pinned 0x7C-byte Rva004930A0 base.
+// sizes the class at 0xAC bytes over the pinned 0x7C-byte SpecialPowerModuleData base.
 // The rowed PlayerHealSpecialPower pool key at 0x004C7EFB plus the BFME1
 // PlayerHealSpecialPower files prove the name.
 //
@@ -38,10 +38,10 @@ extern "C" const void *const vtbl_00C5E7A8[];  // folded, 2 classes; via ??_7Com
 #include <string.h>
 
 
-class Rva004930A0
+class SpecialPowerModuleData
 {
 public:
-	Rva004930A0();
+	SpecialPowerModuleData();
 };
 
 class Rva0024C7B3Member
@@ -52,7 +52,7 @@ public:
 	unsigned char m_data[0x1C];
 };
 
-class PlayerHealSpecialPowerModuleData : public Rva004930A0
+class PlayerHealSpecialPowerModuleData : public SpecialPowerModuleData
 {
 public:
 	PlayerHealSpecialPowerModuleData();
@@ -71,7 +71,7 @@ private:
 
 // ??0PlayerHealSpecialPowerModuleData@@QAE@XZ @0x4C803A
 PlayerHealSpecialPowerModuleData::PlayerHealSpecialPowerModuleData()
-	: Rva004930A0()
+	: SpecialPowerModuleData()
 	, m_vtable(reinterpret_cast<const void *>(((unsigned int)vtbl_00C5E7A8)))
 	, m_filter()
 {

@@ -4,18 +4,18 @@
 // Trial: ??0CombineHordeSpecialPowerModuleData@@QAE@XZ.
 // Default ctor over opaque intermediate base 0x004930A0 (pinned); vtable
 // plus one trailing float. Factory stub order names it.
-class Rva004930A0
+class SpecialPowerModuleData
 {
 public:
-	Rva004930A0();
-	virtual ~Rva004930A0();
+	SpecialPowerModuleData();
+	virtual ~SpecialPowerModuleData();
 
 protected:
 	unsigned char m_pad0[0x7C - 4];
 	float m_f7C;
 };
 
-class CombineHordeSpecialPowerModuleData : public Rva004930A0
+class CombineHordeSpecialPowerModuleData : public SpecialPowerModuleData
 {
 public:
 	CombineHordeSpecialPowerModuleData();
@@ -26,7 +26,7 @@ public:
 static float kF7C = 0.0f;
 
 CombineHordeSpecialPowerModuleData::CombineHordeSpecialPowerModuleData()
-	: Rva004930A0()
+	: SpecialPowerModuleData()
 {
 	m_f7C = kF7C;
 }

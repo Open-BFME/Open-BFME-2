@@ -3938,11 +3938,7 @@ void W3DModelDraw::preloadAssets( TimeOfDay timeOfDay )
 }
 
 //-------------------------------------------------------------------------------------------------
-// ?isVisible@W3DModelDraw@@ present-unmatched
-Bool W3DModelDraw::isVisible() const
-{
-	return (m_renderObject && m_renderObject->Is_Really_Visible());
-}
+// isVisible lives in W3DModelDrawIsVisible.cpp (retail builds it /O1 on the BFME 2 layout).
 
 //-------------------------------------------------------------------------------------------------
 // ?updateProjectileClipStatus@W3DModelDraw@@ present-unmatched

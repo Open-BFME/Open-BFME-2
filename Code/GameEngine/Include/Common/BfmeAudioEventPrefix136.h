@@ -9,6 +9,7 @@
 // Provider aliases reuse the already verified common-prefix initializer and
 // virtual destructor/scalar destructor; they add no duplicate retail bodies.
 #include "ascii_string.h"
+class Xfer;
 class OpaqueRefCounted
 {
 public:
@@ -94,6 +95,8 @@ struct BfmeAudioEventPrefix136
     int m_int80;
     AsciiString m_string84;
     void rva002D96D3(const OpaqueRefElement4 &);
+    // Non-virtual xfer 0x002D9FD9 (W3DTruckDraw::xfer calls it on both events).
+    void rva002D9FD9(Xfer *xfer);
 };
 
 #pragma comment(linker, "/alternatename:??1BfmeAudioEventPrefix136@@UAE@XZ=??1BfmeStringTailRecord144@@UAE@XZ")

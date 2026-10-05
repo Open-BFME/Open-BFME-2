@@ -93,3 +93,7 @@ NetCommandRef *Connection::rva0058B9CA(UnsignedShort commandID, UnsignedByte pla
 	m_netCommandList->removeMessage(pendingCommandRef);
 	return pendingCommandRef;
 }
+
+// The global(s) below are defined elsewhere under another name at the same
+// address (the census owner of that DIR32 target); bind this unit's spelling.
+#pragma comment(linker, "/alternatename:?g_00C1B4F0@@3MB=?g_00C1B4F0@@3MA")

@@ -67,3 +67,7 @@ Rva004DF418::Rva004DF418(Thing *thing, const ModuleData *moduleData)
 	m_20 = 0;
 	setWakeFrame(m_object, UPDATE_SLEEP_FOREVER);
 }
+
+// The global(s) below are defined elsewhere under another name at the same
+// address (the census owner of that DIR32 target); bind this unit's spelling.
+#pragma comment(linker, "/alternatename:?g_00C61588@@3QBQBXB=??_7Rva004DF324@@6B@")

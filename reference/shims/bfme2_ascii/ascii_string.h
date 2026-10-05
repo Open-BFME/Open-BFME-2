@@ -137,7 +137,7 @@ public:
 	void concat(const AsciiString &s);
 	void toLower() { ((StringBase<char> *)this)->toLower(); }
 	void toUpper() { ((StringBase<char> *)this)->toUpper(); }
-	void trim() { ((StringBase<char> *)this)->trim(); }
+	void trim();
 	void removeLastChar() { ((StringBase<char> *)this)->removeLastChar(); }
 	const char *find(char c) const { return ((const StringBase<char> *)this)->find(c); }
 	bool startsWith(const char *p) const { return ((const StringBase<char> *)this)->startsWith(p); }
@@ -149,7 +149,7 @@ public:
 	bool endsWith(const AsciiString &s) const { return endsWith(s.str()); }
 	bool endsWithNoCase(const char *p) const { return ((const StringBase<char> *)this)->endsWithNoCase(p); }
 	bool endsWithNoCase(const AsciiString &s) const { return endsWithNoCase(s.str()); }
-	int compare(const char *p) const { return ((const StringBase<char> *)this)->compare(p); }
+	int compare(const char *p) const;
 	int compareNoCase(const char *p) const { return ((const StringBase<char> *)this)->compareNoCase(p); }
 	int compare(const AsciiString &s) const throw();
 	int compareNoCase(const AsciiString &s) const { return ((const StringBase<char> *)this)->compareNoCase(*(const StringBase<char> *)&s); }
@@ -182,3 +182,10 @@ inline bool operator<(const AsciiString &a, const AsciiString &b) { return a.com
 // at RVA 0x69D6. Its verified callees read lengths and compare bytes; the
 // nonthrowing declaration preserves ScriptConditions' retail EH scheduling.
 #pragma comment(linker, "/alternatename:?compare@AsciiString@@QBEHABV1@@Z=?compare@?$StringBase@D@@QBEHABV1@@Z")
+
+// Retail has no AsciiString forwarders for these two: each spelling is the
+// StringBase<char> body (trim 0x37CF0, compare(text) 0x69B1). As inline
+// forwarders some units emitted them out of line as 5-byte jmp COMDATs that
+// every other reference then bound to (2026-10-04 census: 6 and 22 copies).
+#pragma comment(linker, "/alternatename:?trim@AsciiString@@QAEXXZ=?trim@?$StringBase@D@@QAEXXZ")
+#pragma comment(linker, "/alternatename:?compare@AsciiString@@QBEHPBD@Z=?compare@?$StringBase@D@@QBEHPBD@Z")

@@ -262,8 +262,12 @@ public:
     FXCoord3D m_unknown1C;
     FXCoord3D m_unknown28;
     FXCoord3D m_unknown34;
-    FXCoord3D m_unknown40;
+    float m_unknown40[2];
 };
+// 72 bytes, as the comment above records: the category-7 default wrapper's
+// createTemplate (0x003AC757 / 0x003AC7A5) allocates 0x50 = two 4-byte bases
+// plus this info.
+typedef char DefaultCategory7ModuleInfo_size[(sizeof(DefaultCategory7ModuleInfo) == 72) ? 1 : -1];
 
 class DefaultUpdateModuleInfo
 {

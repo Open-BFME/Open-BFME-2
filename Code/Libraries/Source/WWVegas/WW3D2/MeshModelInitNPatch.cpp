@@ -219,3 +219,7 @@ void MeshModelClass::Init_For_NPatch_Rendering()
 	DuplicateLocationHash.Remove_All();
 	SideHash.Remove_All();
 }
+
+// The global(s) below are defined elsewhere under another name at the same
+// address (the census owner of that DIR32 target); bind this unit's spelling.
+#pragma comment(linker, "/alternatename:?DuplicateLocationHash@@3V?$HashTemplateClass@VVector3@@I@@A=?g_Va00DB6354@@3PAXA")

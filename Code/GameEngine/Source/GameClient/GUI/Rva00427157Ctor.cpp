@@ -152,7 +152,6 @@ void __cdecl Rva00427294Parse(INI *ini, void *dummy1, void *instance, void *dumm
 	}
 }
 
-
-
-
-
+// The global(s) below are defined elsewhere under another name at the same
+// address (the census owner of that DIR32 target); bind this unit's spelling.
+#pragma comment(linker, "/alternatename:?g_00DC85C4@@3PAPBDA=?g_Va00DC85C4Names@@3PAPBDA")

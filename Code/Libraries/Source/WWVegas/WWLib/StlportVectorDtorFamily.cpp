@@ -147,11 +147,11 @@ struct BfmeStringHeadRecord184 { public: ~BfmeStringHeadRecord184(); };
 template _STL::vector<BfmeStringHeadRecord184>::~vector();
 
 
-// ??1?$vector@URva005088CEDamageScalar@@V?$allocator@URva005088CEDamageScalar@@@_STL@@@_STL@@QAE@XZ @0x507bd0 (_Destroy at 0x507bb7)
-// DamageNugget "DamageScalar" entries (Rva005088CEDamageScalar.cpp); the
+// ??1?$vector@UMade002CC5E1DamageScalar@@V?$allocator@UMade002CC5E1DamageScalar@@@_STL@@@_STL@@QAE@XZ @0x507bd0 (_Destroy at 0x507bb7)
+// DamageNugget "DamageScalar" entries (Made002CC5E1DamageScalar.cpp); the
 // nugget dtor at 0x00508684 calls this for its +0x168 member.
-struct Rva005088CEDamageScalar { public: ~Rva005088CEDamageScalar(); };
-template _STL::vector<Rva005088CEDamageScalar>::~vector();
+struct Made002CC5E1DamageScalar { public: ~Made002CC5E1DamageScalar(); };
+template _STL::vector<Made002CC5E1DamageScalar>::~vector();
 
 // ??1?$vector@UBfmePod216@@V?$allocator@UBfmePod216@@@_STL@@@_STL@@QAE@XZ @0x0021F7A7 63B.
 // Same 63B Destroy-plus-free shape: destroys the range through the rowed

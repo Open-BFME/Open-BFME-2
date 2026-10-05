@@ -2,7 +2,7 @@
 // stlport
 //
 // ??1PlayerUpgradeSpecialPowerModuleData@@UAE@XZ, retail 0x004C7DD4, 53 bytes.
-// PlayerUpgrade data dtor over the rowed Rva004930A0 base (0x0049334F, 0x7C
+// PlayerUpgrade data dtor over the rowed SpecialPowerModuleData base (0x0049334F, 0x7C
 // bytes): destroys the UpgradeName string list at +0x7C through the rowed
 // vector<AsciiString> dtor at 0x0002CC70, then calls the base dtor. Layout
 // follows the verified ctor at 0x004C7D68 in
@@ -17,17 +17,17 @@
 
 #include "ascii_string.h"
 
-class Rva004930A0
+class SpecialPowerModuleData
 {
 public:
-	Rva004930A0();
-	virtual ~Rva004930A0();
+	SpecialPowerModuleData();
+	virtual ~SpecialPowerModuleData();
 
 private:
 	unsigned char m_opaque[0x7C - 4];
 };
 
-class __declspec(novtable) PlayerUpgradeSpecialPowerModuleData : public Rva004930A0
+class __declspec(novtable) PlayerUpgradeSpecialPowerModuleData : public SpecialPowerModuleData
 {
 public:
 	virtual ~PlayerUpgradeSpecialPowerModuleData();

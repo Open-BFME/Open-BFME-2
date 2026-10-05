@@ -454,6 +454,16 @@ W3DRenderObjectSnapshot::W3DRenderObjectSnapshot(RenderObjClass *robj, DrawableI
 	update(robj, drawInfo, cloneParentRobj);
 }
 
+// ------------------------------------------------------------------------------------------------
+// BFME 2 takes the render object out of the scene before releasing it
+// ------------------------------------------------------------------------------------------------
+W3DRenderObjectSnapshot::~W3DRenderObjectSnapshot()
+{
+	if (m_robj)
+		m_robj->Remove();
+	REF_PTR_RELEASE(m_robj);
+}
+
 class W3DGhostObject
 {
 	friend class W3DGhostObjectManager;
@@ -676,3 +686,7 @@ void W3DGhostObjectManager::setLocalPlayerIndex(int index)
 
 	m_localPlayer = index;
 }
+
+// Other units call this body (pinned at its address) under the spelling(s)
+// below, with the same calling convention and stack arguments; bind them.
+#pragma comment(linker, "/alternatename:?handleNode@Rva006BDB00@@QAEXPAVRva006BDB00Node@@@Z=?removeGhostObject@W3DGhostObjectManager@@QAEXPAVGhostObject@@@Z")

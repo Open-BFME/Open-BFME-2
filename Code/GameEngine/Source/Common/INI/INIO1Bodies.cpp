@@ -389,3 +389,7 @@ Bool INI::isEndOfBlock( char *bufferToCheck )
 
 	return retVal;
 }
+
+// The global(s) below are defined elsewhere under another name at the same
+// address (the census owner of that DIR32 target); bind this unit's spelling.
+#pragma comment(linker, "/alternatename:?theBlockParseList@@3PAUBlockParse@@A=?g_Va00DDF578@@3HA")

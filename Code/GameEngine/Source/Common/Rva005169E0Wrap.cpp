@@ -26,3 +26,7 @@ unsigned char Rva005169E0::wrap(int a)
 		return g_Va012F7730->handle(a);
 	return 0;
 }
+
+// The global(s) below are defined elsewhere under another name at the same
+// address (the census owner of that DIR32 target); bind this unit's spelling.
+#pragma comment(linker, "/alternatename:?g_Va012F7730@@3PAVGen00024B7C@@A=?g_Va009FE958@@3PAUGlobal009FE958@@A")

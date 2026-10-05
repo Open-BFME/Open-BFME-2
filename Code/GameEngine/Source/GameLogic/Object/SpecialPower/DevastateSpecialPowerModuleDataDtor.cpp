@@ -4,7 +4,7 @@
 // DevastateSpecialPower ModuleData dtor (ctor rowed at 0x004C84BD in
 // DevastateSpecialPowerModuleDataCtor.cpp, vtable 0x00C5E518 with slot 0
 // ??_G at 0x004C851B). Destroys the AsciiString member at +0x8C through the
-// pinned 0x00036410 body, then the Rva004930A0 base through the rowed
+// pinned 0x00036410 body, then the SpecialPowerModuleData base through the rowed
 // 0x0049334F body. Layout follows the ctor TU (0x7C base plus float at
 // +0x7C plus FX at +0x80 plus floats at +0x84/+0x88 plus FireWeapon string
 // at +0x8C, total 0x90 matching the factory 0x00252653 news). novtable
@@ -21,16 +21,16 @@ private:
 	T *m_data;
 };
 
-class Rva004930A0
+class SpecialPowerModuleData
 {
 public:
-	virtual ~Rva004930A0();
+	virtual ~SpecialPowerModuleData();
 
 private:
 	unsigned char m_pad[0x7C - 4];
 };
 
-class __declspec(novtable) DevastateSpecialPowerModuleData : public Rva004930A0
+class __declspec(novtable) DevastateSpecialPowerModuleData : public SpecialPowerModuleData
 {
 public:
 	virtual ~DevastateSpecialPowerModuleData();

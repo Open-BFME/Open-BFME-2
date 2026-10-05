@@ -7,14 +7,6 @@
 // proven. Kept in a fresh TU to avoid contending with hot getter files.
 // No // cl: line (defaults match the frameless 3-byte shape).
 
-// ?Rva001F53FEGet@@YAHXZ @ 0x001f53fe (3B): returns 0.
-// Follows a ret (prev C3), no .rdata vtable slot, no direct callers,
-// no branch sources. Opaque address-derived name.
-int Rva001F53FEGet(void)
-{
-	return 0;
-}
-
 // ?Rva0028D4DDGet@@YAHXZ @ 0x0028d4dd (3B): returns 0.
 // Follows a ret (prev C3), no .rdata vtable slot, no direct callers,
 // no branch sources. Opaque address-derived name.

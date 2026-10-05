@@ -183,3 +183,8 @@ void Rva001F050B::rva001F050B()
 	m_ptr00->m_prev0c = m_ptr00;
 	m_count04 = 0;
 }
+
+// Other units call this body (pinned at its address) under the spelling(s)
+// below, with the same calling convention and stack arguments; bind them.
+#pragma comment(linker, "/alternatename:?bfmeDoBPB@BfmeSubBPB@@QAEXPAX00@Z=?rva001F08D3@ObjectCreationList@@QAEXPAX00@Z")
+#pragma comment(linker, "/alternatename:?bfmeDoBUC@BfmeSubBUC@@QAEXPAX000@Z=?rva001F0878@ObjectCreationList@@QAEXPAX00H@Z")

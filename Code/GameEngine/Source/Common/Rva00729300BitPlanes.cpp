@@ -1,10 +1,14 @@
-// cl: -DNDEBUG -DWIN32 -D_WINDOWS -MD -EHs-c- /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHs-c-
 //
-// retail 0x001126FD, 79 bytes. The sweep lists this RVA twice: once against
-// game/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundAdvanceLeft.cpp,
-// where test is only an in-class inline the compiler emitted there, and once
-// against this donor, which defines it out-of-line. The out-of-line copy is
-// the one recovered here; the donor's other four bodies are omitted.
+// Bodies ported from Open-BFME-1's
+// GameEngine/Source/Common/Rva00729300BitPlanes.cpp (donor revision
+// 6d9434269164392c5ba62aaa7c15a86b5b020d76, donor flags plus /O1). Compiled
+// that way each body below places uniquely on unclaimed game.dat .text by
+// masked whole-.text search, and ./build.sh reproduces it byte for byte:
+// Rva00729300BitPlane::test 0x001126FD (79B), Rva00729370BitPlane::test
+// 0x0006AB49 (79B). Callee addresses are read off retail's call sites
+// (reverse/symbols.csv). Only the placed bodies are carried; the donor's other
+// definitions are omitted.
 
 typedef unsigned char Byte;
 
@@ -29,6 +33,21 @@ public:
 	Byte m_opaque10[0x24];
 	int m_stride;
 	Byte m_opaque38[0x0c];
+	Rva00729300Bytes m_bits;
+};
+
+class Rva00729370BitPlane
+{
+public:
+	bool test( int x, int y ) const;
+
+public:
+	Byte m_opaque00[0x08];
+	int m_width;
+	int m_height;
+	Byte m_opaque10[0x24];
+	int m_stride;
+	Byte m_opaque38[0x18];
 	Rva00729300Bytes m_bits;
 };
 
@@ -91,3 +110,43 @@ bool Rva0006AB49BitPlane::test(int x, int y) const
     bool result = (value & mask) != 0;
     return result;
 }
+
+class Rva00729D30Terrain
+{
+public:
+	void checkEdges( int xOffset, int yOffset, int width,
+		bool *top, bool *right, bool *bottom, bool *left );
+
+	int rva00729BF0( int xOffset, int yOffset, int width,
+		bool *corner0, bool *corner1, bool *corner2, bool *corner3 );
+
+private:
+	Byte m_opaque00[0x40];
+	int m_xOrigin;
+	int m_yOrigin;
+	int m_width;
+	Rva00729300BitPlane *m_map;
+};
+
+
+struct ICoord2D
+{
+	int x;
+	int y;
+};
+
+class Rva00729570Terrain
+{
+public:
+	bool advanceRight( ICoord2D &right, int xOffset, int yOffset,
+		int width, int height );
+
+private:
+	Byte m_pad00[0x40];
+	int m_xOrigin;
+	int m_yOrigin;
+	int m_width;
+	Rva00729300BitPlane *m_map;
+};
+
+

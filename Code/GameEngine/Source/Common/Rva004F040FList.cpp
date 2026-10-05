@@ -1,6 +1,6 @@
 // cl: /O1 /Ob0
-// ?rva004F040F@Rva004F040F@@QAEXPAX@Z @0x004F040F 32B list check-then-remove.
-// Evidence: calls isInList04 0x004F0341 then rva004F0372 0x004F0372 with this+4 as head; unblocks 0x004F042F/0x004F0819/0x004F1653; prev/next share list-node +4/+8; ret 4 one void* arg.
+// The 32B list check-then-remove at 0x004F040F is rowed as
+// AIPlayer::removeFrom_TeamBuildQueue in AIPlayerTeamQueues.cpp.
 typedef bool Bool;
 
 struct BfmeNode_00161220
@@ -30,9 +30,6 @@ public:
 class Rva004F040F
 {
 public:
-	void rva004F040F(void *arg);
-	void rva004F0479(void *arg);
-	void rva004F03EF(void *arg);
 	void rva004EF383(void *arg);
 
 private:
@@ -40,13 +37,6 @@ private:
 	void *m_04;
 	void *m_08;
 };
-
-void Rva004F040F::rva004F040F(void *arg)
-{
-	void **head = &m_04;
-	if (((BfmeNode_00161220 *)arg)->isInList04((BfmeNode_00161220 **)head))
-		((Rva00160530 *)arg)->rva004F0372((Rva00160530 **)head);
-}
 
 
 // Whole verified BFME1 donor contexts AIPlayerQueueTeardown.cpp,
@@ -69,20 +59,6 @@ public:
     void prepend(void **head);
 };
 #pragma comment(linker, "/alternatename:?prepend@Rva004EF35CAppendABI@@QAEXPAPAX@Z=?set@Rva00160620@@QAEXPAPAV1@@Z")
-
-void Rva004F040F::rva004F0479(void *arg)
-{
-    void **head = &m_08;
-    if (((BfmeNode_00161220 *)arg)->isInList0C((BfmeNode_00161220 **)head))
-        ((BfmeNode_00161220 *)arg)->rva004F03AF((BfmeNode_00161220 **)head);
-}
-
-void Rva004F040F::rva004F03EF(void *arg)
-{
-    void **head = &m_04;
-    if (!((BfmeNode_00161220 *)arg)->isInList04((BfmeNode_00161220 **)head))
-        ((Rva00160530 *)arg)->set((Rva00160530 **)head);
-}
 
 void Rva004F040F::rva004EF383(void *arg)
 {

@@ -19,38 +19,44 @@ private:
 	int m_14;
 	int m_18;
 };
-class AISkirmishPlayer;
+// Keyboard (vtable 0x00BE81F0) and DirectInputKeyboard (0x00BC8688,
+// 0xE28 bytes), formerly modelled here as AIPlayer / AISkirmishPlayer.
+class Keyboard
+{
+public:
+	Keyboard() throw();
+	virtual ~Keyboard() throw();
+protected:
+	char m_pad04[8];
+	unsigned short m_modifiers;
+	char m_pad0E[0xE20 - 0x0E];
+};
+class DirectInputKeyboard : public Keyboard
+{
+public:
+	DirectInputKeyboard();
+	virtual ~DirectInputKeyboard();
+private:
+	void *m_pDirectInput;
+	void *m_pKeyboardDevice;
+};
+// Rva004C743 is W3DGameClient (its vtable 0x00BC4738 holds the matched
+// W3DGameClient::createFontLibrary at slot 40) and slot 44 (0x0004C6D4) is
+// Zero Hour's inline W3DGameClient::createKeyboard, NEW DirectInputKeyboard.
+// The row keeps the address name: W3DGameClient.cpp already emits that inline
+// from Zero Hour's header (unoptimized), so claiming the ZH name here would
+// put a second body behind one COMDAT.
 class Rva004C743
 {
 public:
 	Rva00984EF *rva0004C662();
-	AISkirmishPlayer *rva0004C6D4();
-};
-class AIPlayer
-{
-public:
-	AIPlayer() throw();
-protected:
-	virtual ~AIPlayer() throw();
-protected:
-	char m_pad04[8];
-	unsigned short m_flags0C;
-	char m_pad0E[0xE20 - 0x0E];
-};
-class AISkirmishPlayer : public AIPlayer
-{
-public:
-	AISkirmishPlayer();
-	virtual ~AISkirmishPlayer();
-private:
-	void *m_slotE20;
-	void *m_slotE24;
+	Keyboard *rva0004C6D4();
 };
 Rva00984EF *Rva004C743::rva0004C662()
 {
 	return new Rva00984EF;
 }
-AISkirmishPlayer *Rva004C743::rva0004C6D4()
+Keyboard *Rva004C743::rva0004C6D4()
 {
-	return new AISkirmishPlayer;
+	return new DirectInputKeyboard;
 }

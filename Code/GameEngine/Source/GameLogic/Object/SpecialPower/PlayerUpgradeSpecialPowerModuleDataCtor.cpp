@@ -2,7 +2,7 @@
 // stlport
 //
 // ??0PlayerUpgradeSpecialPowerModuleData@@QAE@XZ, retail 0x004C7D68, 80 bytes.
-// PlayerUpgrade data ctor over the pinned Rva004930A0 base (0x4930A0, 0x7C
+// PlayerUpgrade data ctor over the pinned SpecialPowerModuleData base (0x4930A0, 0x7C
 // bytes): installs vtable 0x00C5E1C0 via the ??_7 pin, constructs the
 // UpgradeName string list at +0x7C through the ICF-folded Vector_base at
 // 0x00211E58, then clears the list through the rowed
@@ -18,17 +18,17 @@
 
 #include "ascii_string.h"
 
-class Rva004930A0
+class SpecialPowerModuleData
 {
 public:
-	Rva004930A0();
-	virtual ~Rva004930A0();
+	SpecialPowerModuleData();
+	virtual ~SpecialPowerModuleData();
 
 private:
 	unsigned char m_opaque[0x7C - 4];
 };
 
-class PlayerUpgradeSpecialPowerModuleData : public Rva004930A0
+class PlayerUpgradeSpecialPowerModuleData : public SpecialPowerModuleData
 {
 public:
 	PlayerUpgradeSpecialPowerModuleData();
@@ -40,7 +40,7 @@ private:
 
 // ??0PlayerUpgradeSpecialPowerModuleData@@QAE@XZ @0x4C7D68
 PlayerUpgradeSpecialPowerModuleData::PlayerUpgradeSpecialPowerModuleData()
-	: Rva004930A0()
+	: SpecialPowerModuleData()
 {
 	_STL::vector<AsciiString> &names = m_upgradeNames;
 	names.erase(names.begin(), names.end());

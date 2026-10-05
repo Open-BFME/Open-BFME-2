@@ -3,20 +3,21 @@
 //
 // ?LookupFocusChannelVolume@@YAMH@Z @0x0035D20C 166B.
 // Per-channel focus volume: start from 1.0f, gate on the WM_ACTIVATE focus
-// singleton at 0x00DFDC14 (theBfmeDfdc14, defined in WinMain.cpp; not TheAudio,
-// which is 0x00DFE6E8), guarded list
-// copy via Rva001DC57C then multiply by each matching factor.
+// singleton at 0x00DFDC14 (TheTransitionHandler, defined in WinMain.cpp; not
+// TheAudio, which is 0x00DFE6E8), guarded list
+// copy via GameWindowTransitionsHandler::rva001DC57C then multiply by each
+// matching factor.
 // Evidence: pin LookupFocusChannelVolume, caller 0x0035D2F7 regainFocus,
 // callee 0x001DC57C rowed, float 1.0f via g_Va00BBB8D8.
 #include <list>
 
-class AudioManager;
-extern AudioManager *theBfmeDfdc14;
+class GameWindowTransitionsHandler;
+extern GameWindowTransitionsHandler *TheTransitionHandler;
 // Matched DIR32 sites place this shared default at VA 0x00BBB8D8; retail
 // stores 00 00 80 3F (1.0f) there.
 float g_Va00BBB8D8 = 1.0f;
 
-class Rva001DC57C
+class GameWindowTransitionsHandler
 {
 public:
 	void rva001DC57C(_STL::list<int> *dest);
@@ -54,10 +55,10 @@ float LookupFocusChannelVolume(int channel)
 {
 	float volume = g_Va00BBB8D8;
 	int mask = 1 << channel;
-	if (theBfmeDfdc14 == 0)
+	if (TheTransitionHandler == 0)
 		return volume;
 	_STL::list<int> ids;
-	((Rva001DC57C *)theBfmeDfdc14)->rva001DC57C(&ids);
+	TheTransitionHandler->rva001DC57C(&ids);
 	for (_STL::list<int>::iterator it = ids.begin(); it != ids.end(); ++it) {
 		FocusHandle *h = (FocusHandle *)(*it);
 		if (h == 0)

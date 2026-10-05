@@ -5,7 +5,7 @@
 // Elven-wood data dtor over the ctor 0x004C3DA9 layout (0x7C base plus vector
 // at +0x7C plus string at +0x88 plus ints/float at +0x8C/+0x90/+0x94/+0x98 for
 // 0x9C total): destroys the string at +0x88 through pinned 0x36410 then the
-// RvaPair vector at +0x7C through rowed 0x4C3D4C then the Rva004930A0 base
+// RvaPair vector at +0x7C through rowed 0x4C3D4C then the SpecialPowerModuleData base
 // through rowed 0x49334F. Identity: vtable 0x00C5CF38 slot 0 caller ??_G at
 // 0x004C3EA6 plus ctor vptr store 0x004C3DBA plus factory 0x00251CB4 plus
 // table 0x00C5D018. Shape reuses OCLSpecialPowerModuleDataDtor (same base
@@ -37,17 +37,17 @@ struct RvaPair004C3D4C
 	~RvaPair004C3D4C();
 };
 
-class Rva004930A0
+class SpecialPowerModuleData
 {
 public:
-	Rva004930A0();
-	virtual ~Rva004930A0();
+	SpecialPowerModuleData();
+	virtual ~SpecialPowerModuleData();
 
 private:
 	unsigned char m_pad[0x7C - 4];
 };
 
-class __declspec(novtable) ElvenWoodSpecialPowerModuleData : public Rva004930A0
+class __declspec(novtable) ElvenWoodSpecialPowerModuleData : public SpecialPowerModuleData
 {
 public:
 	virtual ~ElvenWoodSpecialPowerModuleData();

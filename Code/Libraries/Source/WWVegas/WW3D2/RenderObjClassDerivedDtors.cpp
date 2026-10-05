@@ -40,7 +40,8 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 // destructor stores the derived vptrs and tail-jumps to the base
 // destructor, exactly like the matched CameraClass dtor at 0x00133A00.
 // The former Rva00130E80 entry was retired once a sibling agent proved it
-// is CollectionClass::~CollectionClass (row now in CollectionClassCopyCtor.cpp).
+// a vtable-0x00BD23C0 destructor; that vtable is LightClass's, so the row is
+// LightClass::~LightClass (LightClassCopyCtor.cpp).
 // Owner identity is unproven (opaque Rva name); the vptrs are DIR32
 // auto-patches (0xBD3FA8/0xBD3FA0).
 

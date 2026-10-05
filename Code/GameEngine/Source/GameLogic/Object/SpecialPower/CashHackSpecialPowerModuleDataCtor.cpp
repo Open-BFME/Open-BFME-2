@@ -3,7 +3,7 @@
 //
 // ??0CashHackSpecialPowerModuleData@@QAE@XZ, retail 0x004C2889, 56 bytes.
 // SpecialPower-side ModuleData for the CashHack power: 0x7C-byte base built
-// by the out-of-line 0x004930A0 constructor (pinned as Rva004930A0), vector
+// by the out-of-line 0x004930A0 constructor (pinned as SpecialPowerModuleData), vector
 // of Upgrades at +0x7C built through the folded Vector_base at 0x211E58,
 // cleared through erase at 0x3FA4DB, and default amount at +0x88. Table
 // 0xC5C724 carries UpgradeMoneyAmount at +0x7C and MoneyAmount at +0x88;
@@ -11,11 +11,11 @@
 // the ctor pin.
 #include <vector>
 
-class Rva004930A0
+class SpecialPowerModuleData
 {
 public:
-	Rva004930A0();
-	virtual ~Rva004930A0();
+	SpecialPowerModuleData();
+	virtual ~SpecialPowerModuleData();
 
 private:
 	unsigned char m_pad[0x7C - 4];
@@ -27,7 +27,7 @@ struct CashHackUpgrades
 	int m_amountToSteal;
 };
 
-class CashHackSpecialPowerModuleData : public Rva004930A0
+class CashHackSpecialPowerModuleData : public SpecialPowerModuleData
 {
 public:
 	CashHackSpecialPowerModuleData();
@@ -40,7 +40,7 @@ private:
 
 // ??0CashHackSpecialPowerModuleData@@QAE@XZ @0x4C2889
 CashHackSpecialPowerModuleData::CashHackSpecialPowerModuleData()
-	: Rva004930A0()
+	: SpecialPowerModuleData()
 {
 	m_upgrades.clear();
 	m_defaultAmountToSteal = 0;

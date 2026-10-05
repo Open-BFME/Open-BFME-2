@@ -91,3 +91,7 @@ void Rva0051C241Fill(Rva0051C0E7 *obj)
 		obj->m_04++;
 	}
 }
+
+// The global(s) below are defined elsewhere under another name at the same
+// address (the census owner of that DIR32 target); bind this unit's spelling.
+#pragma comment(linker, "/alternatename:?g_00E031E8@@3PAURva0051C0E7G@@A=?g_00E031E8@@3PAURva0039B95FHolder@@A")
