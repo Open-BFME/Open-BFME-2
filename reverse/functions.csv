@@ -60795,3 +60795,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ??1Rva002E26C3@@QAE@XZ,,0x002E26C3,30,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva002E2690_dtor.cpp,matched,vector-like dtor via rowed Destroy 0x002AF4ED plus free caller 0x002E2729
 ?deleteNode@Rva00289371HashTable@@AAEXPAUNode@1@@Z,,0x00289164,28,Code/GameEngine/Source/Common/Rva00289371HashClear.cpp,matched,hash clear caller rowed and value dtor pinned with free rowed
 ?rva002AE3F4@Rva002AE3F4@@QAEXW4ObjectID@@@Z,,0x002AE3F4,65,Code/Libraries/Source/WWVegas/WWLib/Rva002AE3F4Finish.cpp,matched,seat3 trial
+?rva005E1158@Rva005E1158@@QAEXPBVImage@@@Z,,0x005E1158,8,Code/GameEngine/Source/Common/Rva005E1158Forward.cpp,matched,unlock tail-forward via plus8 to rowed Rva005E0E1D caller 0x005E9473
