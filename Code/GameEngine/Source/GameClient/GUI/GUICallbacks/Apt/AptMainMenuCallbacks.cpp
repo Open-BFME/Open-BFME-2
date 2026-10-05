@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /O1 /DNDEBUG /MD
 //
 // BFME2's main menu screen Apt callbacks, 0x00514A9B onward. The screen's
 // registration binds each by the name it carries here ("AptMainMenu::
@@ -38,6 +38,8 @@ public:
 
 extern ScriptEngine *TheScriptEngine;
 
+#include "Common/BfmeAudioEventPrefix136.h"
+
 // TheAudio: vslot 35 stops the given audio kinds.
 class AudioManager
 {
@@ -55,6 +57,41 @@ public:
 };
 
 extern AudioManager *TheAudio;
+
+// TheAudio's misc audio (vslot 78) and addAudioEvent (vslot 25), as
+// Rva00323E1CMethod.cpp's view; the credits event is the misc audio's
+// +0xA4 reference.
+struct AptMainMenuMiscAudio
+{
+	unsigned char m_pad00[0xA4];
+	OpaqueRefElement4 m_credits; // +0xA4
+};
+
+class AptMainMenuAudioView
+{
+public:
+#define V(n) virtual void pad##n();
+	V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7) V(8) V(9)
+	V(10) V(11) V(12) V(13) V(14) V(15) V(16) V(17) V(18) V(19)
+	V(20) V(21) V(22) V(23) V(24)
+	virtual void addAudioEvent(const BfmeAudioEventPrefix136 *event);
+	V(26) V(27) V(28) V(29)
+	V(30) V(31) V(32) V(33) V(34) V(35) V(36) V(37) V(38) V(39)
+	V(40) V(41) V(42) V(43) V(44) V(45) V(46) V(47) V(48) V(49)
+	V(50) V(51) V(52) V(53) V(54) V(55) V(56) V(57) V(58) V(59)
+	V(60) V(61) V(62) V(63) V(64) V(65) V(66) V(67) V(68) V(69)
+	V(70) V(71) V(72) V(73) V(74) V(75) V(76) V(77)
+#undef V
+	virtual AptMainMenuMiscAudio *getMiscAudio();
+};
+
+// The event's +0x49 flag is set through the rowed Weapon::setLeechRangeActive
+// body it folds with (as Rva0043A278Slot2.cpp's Weapon-cast).
+class Weapon
+{
+public:
+	void setLeechRangeActive(bool value);
+};
 
 class Shell
 {
@@ -157,6 +194,17 @@ public:
 };
 
 extern AptMainMenuCredits *g_Va00E06474;
+
+// The credits roll's class (0x48 bytes; Rva005B77F1Dtor.cpp's rowed
+// constructor 0x005B776E).
+class Rva005B77F1
+{
+public:
+	Rva005B77F1();
+
+private:
+	unsigned char m_pad00[0x48];
+};
 
 class GameMessage;
 
@@ -264,6 +312,7 @@ class AptMainMenu
 public:
 	void LoadGame(const char *unused);
 	void Options(const char *value);
+	void Credits(const char *unused);
 	void GoodCampaign(const char *value);
 	void EvilCampaign(const char *value);
 	void CreateAHero(const char *unused);
@@ -429,6 +478,28 @@ void AptMainMenu::BattleSchool(const char *unused)
 	prefs.setBool(AsciiString("FlashTutorial"), false);
 	prefs.write();
 	m_tutorialPending = false;
+}
+
+// Retail 0x0051511D, 276 bytes: "AptMainMenu::Credits" starts a fresh
+// credits roll, plays the "MainMenuToCreditsScreen" transition and the
+// credits audio, and leaves the menu in state 4 with the engine's frame
+// rate at 100 (CreditsExit undoes it).
+void AptMainMenu::Credits(const char *unused)
+{
+	if (g_Va00E06474)
+		::operator delete(g_Va00E06474->deleteInstance(0));
+	g_Va00E06474 = (AptMainMenuCredits *)new Rva005B77F1;
+	g_Va00E06474->v02();
+	g_Va00E06474->v01();
+	TheTransitionHandler->setGroup(AsciiString("MainMenuToCreditsScreen"), false);
+	if (TheShell)
+		((Rva0035BD3F *)TheShell)->rva0035BD3F();
+	BfmeAudioEventPrefix136 music(((AptMainMenuAudioView *)TheAudio)->getMiscAudio()->m_credits, 2);
+	((Weapon *)&music)->setLeechRangeActive(true);
+	((AptMainMenuAudioView *)TheAudio)->addAudioEvent(&music);
+	m_state = 4;
+	TheShell->m_5d = true;
+	((GameEngineRate *)TheGameEngine)->v18(100);
 }
 
 // Retail 0x00515231, 182 bytes: "AptMainMenu::CreditsExit" stops and frees
