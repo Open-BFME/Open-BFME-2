@@ -7263,3 +7263,134 @@ void __cdecl rva007B9720()
 	Rva00207F08Dtor *p = (Rva00207F08Dtor *)&g_Va00E065E4;
 	return p->~Rva00207F08Dtor();
 }
+
+class Rva002859EADtor
+{
+public:
+	~Rva002859EADtor();
+};
+
+extern unsigned g_Va00DE1E98;
+unsigned int g_Va00DE1E98;
+
+// ?rva007B6B73@@YAXXZ @ 0x007B6B73 (10B). Global dtor thunk: ecx=&g_Va00DE1E98 then tail-jmp to pinned ??1Rva002859EADtor@@QAE@XZ (0x002859EA). No callers. Honest address name.
+void __cdecl rva007B6B73()
+{
+	Rva002859EADtor *p = (Rva002859EADtor *)&g_Va00DE1E98;
+	return p->~Rva002859EADtor();
+}
+
+extern unsigned g_Va00DFEC94;
+unsigned int g_Va00DFEC94;
+
+// ?rva007B781A@@YAXXZ @ 0x007B781A (10B). Global dtor thunk: ecx=&g_Va00DFEC94 then tail-jmp to pinned ??1Rva002859EADtor@@QAE@XZ (0x002859EA). No callers. Honest address name.
+void __cdecl rva007B781A()
+{
+	Rva002859EADtor *p = (Rva002859EADtor *)&g_Va00DFEC94;
+	return p->~Rva002859EADtor();
+}
+
+extern unsigned g_Va00DFECA8;
+unsigned int g_Va00DFECA8;
+
+// ?rva007B7824@@YAXXZ @ 0x007B7824 (10B). Global dtor thunk: ecx=&g_Va00DFECA8 then tail-jmp to pinned ??1Rva002859EADtor@@QAE@XZ (0x002859EA). No callers. Honest address name.
+void __cdecl rva007B7824()
+{
+	Rva002859EADtor *p = (Rva002859EADtor *)&g_Va00DFECA8;
+	return p->~Rva002859EADtor();
+}
+
+class Rva003615E5Dtor
+{
+public:
+	~Rva003615E5Dtor();
+};
+
+extern unsigned g_Va00E01E68;
+unsigned int g_Va00E01E68;
+
+// ?rva007B7CAF@@YAXXZ @ 0x007B7CAF (10B). Global dtor thunk: ecx=&g_Va00E01E68 then tail-jmp to pinned ??1Rva003615E5Dtor@@QAE@XZ (0x003615E5). No callers. Honest address name.
+void __cdecl rva007B7CAF()
+{
+	Rva003615E5Dtor *p = (Rva003615E5Dtor *)&g_Va00E01E68;
+	return p->~Rva003615E5Dtor();
+}
+
+class Rva00362B5ADtor
+{
+public:
+	~Rva00362B5ADtor();
+};
+
+extern unsigned g_Va00E01E7C;
+unsigned int g_Va00E01E7C;
+
+// ?rva007B7CC3@@YAXXZ @ 0x007B7CC3 (10B). Global dtor thunk: ecx=&g_Va00E01E7C then tail-jmp to pinned ??1Rva00362B5ADtor@@QAE@XZ (0x00362B5A). No callers. Honest address name.
+void __cdecl rva007B7CC3()
+{
+	Rva00362B5ADtor *p = (Rva00362B5ADtor *)&g_Va00E01E7C;
+	return p->~Rva00362B5ADtor();
+}
+
+extern unsigned g_Va00E01E94;
+unsigned int g_Va00E01E94;
+
+// ?rva007B7CD7@@YAXXZ @ 0x007B7CD7 (10B). Global dtor thunk: ecx=&g_Va00E01E94 then tail-jmp to pinned ??1Rva002859EADtor@@QAE@XZ (0x002859EA). No callers. Honest address name.
+void __cdecl rva007B7CD7()
+{
+	Rva002859EADtor *p = (Rva002859EADtor *)&g_Va00E01E94;
+	return p->~Rva002859EADtor();
+}
+
+class Rva003ED94ADtor
+{
+public:
+	~Rva003ED94ADtor();
+};
+
+extern unsigned g_Va00E02E50;
+unsigned int g_Va00E02E50;
+
+// ?rva007B80F1@@YAXXZ @ 0x007B80F1 (10B). Global dtor thunk: ecx=&g_Va00E02E50 then tail-jmp to pinned ??1Rva003ED94ADtor@@QAE@XZ (0x003ED94A). No callers. Honest address name.
+void __cdecl rva007B80F1()
+{
+	Rva003ED94ADtor *p = (Rva003ED94ADtor *)&g_Va00E02E50;
+	return p->~Rva003ED94ADtor();
+}
+
+class Rva003B55F9Dtor
+{
+public:
+	~Rva003B55F9Dtor();
+};
+
+extern unsigned g_Va00E03174;
+unsigned int g_Va00E03174;
+
+// ?rva007B82C9@@YAXXZ @ 0x007B82C9 (10B). Global dtor thunk: ecx=&g_Va00E03174 then tail-jmp to pinned ??1Rva003B55F9Dtor@@QAE@XZ (0x003B55F9). No callers. Honest address name.
+void __cdecl rva007B82C9()
+{
+	Rva003B55F9Dtor *p = (Rva003B55F9Dtor *)&g_Va00E03174;
+	return p->~Rva003B55F9Dtor();
+}
+
+extern unsigned g_Va00E049D8;
+unsigned int g_Va00E049D8;
+
+// ?rva007B92A2@@YAXXZ @ 0x007B92A2 (10B). Global dtor thunk: ecx=&g_Va00E049D8 then tail-jmp to pinned ??1Rva002859EADtor@@QAE@XZ (0x002859EA). No callers. Honest address name.
+void __cdecl rva007B92A2()
+{
+	Rva002859EADtor *p = (Rva002859EADtor *)&g_Va00E049D8;
+	return p->~Rva002859EADtor();
+}
+
+extern unsigned g_Va00E06E60;
+unsigned int g_Va00E06E60;
+
+// ?rva007B9A37@@YAXXZ @ 0x007B9A37 (10B). Global dtor thunk: ecx=&g_Va00E06E60 then tail-jmp to pinned ??1Rva003B55F9Dtor@@QAE@XZ (0x003B55F9). No callers. Honest address name.
+void __cdecl rva007B9A37()
+{
+	Rva003B55F9Dtor *p = (Rva003B55F9Dtor *)&g_Va00E06E60;
+	return p->~Rva003B55F9Dtor();
+}
+

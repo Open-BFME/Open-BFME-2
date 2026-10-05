@@ -12564,3 +12564,8 @@ _ceil,0x00629934,CRT ceil thunk identified by native PE import slot 0x00BBA578 a
 ??1Rva00524CC1Dtor@@QAE@XZ,0x00524CC1,dtor thunk stub at 0x00524CC1 to 0x00524C88 (target of thunk 0x007B91F8)
 ??1Rva0052B7B3Dtor@@QAE@XZ,0x0052B7B3,dtor thunk stub at 0x0052B7B3 to 0x0052B6FE (target of thunk 0x007B9298)
 ??1Rva00207F08Dtor@@QAE@XZ,0x00207F08,dtor thunk stub at 0x00207F08 to 0x002FECBC (target of thunk 0x007B9720)
+??1Rva002859EADtor@@QAE@XZ,0x002859EA,dtor at 0x002859EA (target of thunks 0x007B6B73 0x007B781A 0x007B7824 0x007B7CD7 0x007B92A2)
+??1Rva003615E5Dtor@@QAE@XZ,0x003615E5,dtor at 0x003615E5 (target of thunk 0x007B7CAF)
+??1Rva00362B5ADtor@@QAE@XZ,0x00362B5A,dtor thunk stub at 0x00362B5A to 0x00362B22 (target of thunk 0x007B7CC3)
+??1Rva003ED94ADtor@@QAE@XZ,0x003ED94A,dtor thunk stub at 0x003ED94A to 0x003ED879 (target of thunk 0x007B80F1)
+??1Rva003B55F9Dtor@@QAE@XZ,0x003B55F9,dtor thunk stub at 0x003B55F9 to 0x0054FAAC (target of thunks 0x007B82C9 and 0x007B9A37)

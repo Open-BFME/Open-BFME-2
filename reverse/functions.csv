@@ -63142,3 +63142,13 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva007B91F8@@YAXXZ,,0x007B91F8,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00E04938 tail-jmp pinned dtor 0x00524CC1
 ?rva007B9298@@YAXXZ,,0x007B9298,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00E049B4 tail-jmp pinned dtor 0x0052B7B3
 ?rva007B9720@@YAXXZ,,0x007B9720,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00E065E4 tail-jmp pinned dtor 0x00207F08
+?rva007B6B73@@YAXXZ,,0x007B6B73,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00DE1E98 tail-jmp pinned dtor 0x002859EA
+?rva007B781A@@YAXXZ,,0x007B781A,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00DFEC94 tail-jmp pinned dtor 0x002859EA
+?rva007B7824@@YAXXZ,,0x007B7824,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00DFECA8 tail-jmp pinned dtor 0x002859EA
+?rva007B7CAF@@YAXXZ,,0x007B7CAF,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00E01E68 tail-jmp pinned dtor 0x003615E5
+?rva007B7CC3@@YAXXZ,,0x007B7CC3,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00E01E7C tail-jmp pinned dtor 0x00362B5A
+?rva007B7CD7@@YAXXZ,,0x007B7CD7,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00E01E94 tail-jmp pinned dtor 0x002859EA
+?rva007B80F1@@YAXXZ,,0x007B80F1,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00E02E50 tail-jmp pinned dtor 0x003ED94A
+?rva007B82C9@@YAXXZ,,0x007B82C9,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00E03174 tail-jmp pinned dtor 0x003B55F9
+?rva007B92A2@@YAXXZ,,0x007B92A2,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00E049D8 tail-jmp pinned dtor 0x002859EA
+?rva007B9A37@@YAXXZ,,0x007B9A37,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00E06E60 tail-jmp pinned dtor 0x003B55F9
