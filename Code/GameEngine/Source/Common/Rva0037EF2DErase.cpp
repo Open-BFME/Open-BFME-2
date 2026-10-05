@@ -3,6 +3,8 @@
 // this+4 for element with dword +0xA4 == key then erase via rowed 0x002E204D.
 // Evidence: call 0x002E204D rowed in Rva002E204DErase.cpp, ret 4, caller
 // 0x0037EF5D, neighbours Rva0037EB1DCopy.cpp and VTableInstalls.cpp.
+extern "C" void _ReadWriteBarrier(void);
+#pragma intrinsic(_ReadWriteBarrier)
 class Rva002E0D93
 {
 public:
@@ -24,6 +26,7 @@ class Rva0037EF2D
 	Rva002E204D m_vec04;
 public:
 	void rva0037EF2D(unsigned int key);
+	void rva0037EEFC(int index);
 };
 void Rva0037EF2D::rva0037EF2D(unsigned int key)
 {
@@ -33,4 +36,16 @@ void Rva0037EF2D::rva0037EF2D(unsigned int key)
 			break;
 		}
 	}
+}
+void Rva0037EF2D::rva0037EEFC(int index)
+{
+	if (index < 0)
+		return;
+	int finish = *(volatile int *)((char *)this + 8);
+	Rva002E204D &vec = m_vec04;
+	int count = (finish - (int)vec.m_start00) / 0xD8;
+	if ((unsigned int)index >= (unsigned int)count)
+		return;
+	_ReadWriteBarrier();
+	vec.rva002E204D(vec.m_start00 + index);
 }
