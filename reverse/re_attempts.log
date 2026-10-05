@@ -9662,3 +9662,4 @@ $L36270	0x796558	8	blocked	Refreshed ZH packet still compares32B compilerlocal a
 ?rva00345F94@Rva00345F94@@QAEHXZ	0x00345F94	131	blocked	branchless bit ops for frame-bit test and esi-edi swap across 3 variants; no donor; t=20 model=muse-04
 ?rva0057042F@Rva0056FAA5@@QAEXPAV1@@Z	0x0057042F	38	partial	eax-ecx swapped on final copy t=20 model=muse-12 score=0.95 stash=reverse/attempts/0x0057042f.cpp
 ?rva003064CB@@YAXPAVXfer@@PAVRva00291440@@@Z	0x003064CB	350	blocked	edi-ebx swap for Xfer-bits plus ecx-eax for bit plus cmp si vs imm0; 349B vs 350B same 126 insns t=15 model=muse-15 (stash 0.96 kept)
+?rva005476C8@MoveToGroupOrder@@QAEXW4ObjectID@@@Z	0x005476C8	317	blocked	complex 317B MoveTo with TerrainLogic vslot plus SSE float plus ICF Armor insert t=25 model=muse-09
