@@ -63927,3 +63927,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?rva005D20E5@Rva005D20E5@@QAEXXZ,,0x005D20E5,44,Code/GameEngine/Source/Common/Rva005D20E5Wrap.cpp,matched,Empty then guard +0x14 then pinned pair plus virtual slot; address-derived
 ?rva005DB5F2@Rva005DB5F2@@QAEXHHH@Z,,0x005DB5F2,54,Code/GameEngine/Source/Common/Rva005DB5F2Fwd.cpp,matched,Interior this-0x58 forwards abc then acb to pinned 0x005DB512 then b to rowed 0x005DB3B3; address-derived
 ?rva005E24D8@Rva005E24D8@@QAEXH@Z,,0x005E24D8,104,Code/GameEngine/Source/Common/Rva005E24D8Wrap.cpp,matched,Indexed guard with virtual slot plus rowed pair plus indexed bool pair plus pinned 2460; address-derived
+?bfmeMakePairEL@@YA?AUBfmePairEL@@ABVBfmeWordEL@@0@Z,,0x0002C621,27,Code/GameEngine/Source/Common/Bfme5TwoWordPairFactory_Rva0002C621.cpp,matched,BFME1 reference-guided two-word factory; target hidden return buffer ABI and shared pair ctor2C4FD verified; donor6583b3c1
