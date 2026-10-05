@@ -63153,3 +63153,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva007B92A2@@YAXXZ,,0x007B92A2,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00E049D8 tail-jmp pinned dtor 0x002859EA
 ?rva007B9A37@@YAXXZ,,0x007B9A37,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00E06E60 tail-jmp pinned dtor 0x003B55F9
 ??1BfmePod216@@QAE@XZ,,0x0021E50F,164,Code/GameEngine/Source/Common/System/SaveGame/BfmePod216Dtor.cpp,matched,pin BfmePod216 callers 0x0021E77A 0x0021F188 trees rowed free releaseBuffer
+?rva002103B6@Rva002103B6@@QAEXPAVRva00210390@@@Z,,0x002103B6,119,Code/Libraries/Source/WWVegas/WWLib/Rva002103B6Resolve.cpp,matched,clear Science at 0x2C reserve src count resolve via rowed 0x210390
