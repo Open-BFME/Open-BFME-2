@@ -63920,3 +63920,5 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva005E5884@Rva005E5884@@QAEHHH@Z,,0x005E5884,26,Code/GameEngine/Source/Common/Rva005E5884Fwd.cpp,matched,Forwarder checks +0x40 then +0x38 object then virtual +0x0C; ret8 ignores args; address-derived
 ?rva005E0D9C@Rva005E0D9C@@QAEXXZ,,0x005E0D9C,36,Code/GameEngine/Source/Common/Rva005E0D9CFwd.cpp,matched,Checks +0x10 then rowed getter 0x005CB265 via +0x0C then tail-jmps to rowed 0x005CB260; address-derived
 ?rva005E49FD@@YAXHHHH@Z,,0x005E49FD,30,Code/GameEngine/Source/Common/Rva005E49FDFwd.cpp,matched,Cdecl forwarder abcd plus bool tmp-last to pinned 0x005E4817; address-derived
+?rva005E3E41@Rva005E3E41@@QAEXXZ,,0x005E3E41,31,Code/GameEngine/Source/Common/Rva005E3E41Twins.cpp,matched,Twin lea-call-push-call via rowed 0x005F3F6B and pinned 0x005E3AAA; address-derived
+?rva005E4389@Rva005E4389@@QAEXXZ,,0x005E4389,31,Code/GameEngine/Source/Common/Rva005E3E41Twins.cpp,matched,Twin lea-call-push-call via rowed 0x005F3FF4 and pinned 0x005E4087; address-derived
