@@ -22,3 +22,4 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 struct Rva0032CD3BRecord { Rva0032CD3BRecord(); Rva0032CD3BRecord(const Rva0032CD3BRecord&); ~Rva0032CD3BRecord(); Rva0032CD3BRecord&operator=(const Rva0032CD3BRecord&); private: char bytes[28]; };
 namespace _STL {template<> void _Construct<Rva0032CD3BRecord,Rva0032CD3BRecord>(Rva0032CD3BRecord*,const Rva0032CD3BRecord&);}
 template Rva0032CD3BRecord *_STL::__copy(Rva0032CD3BRecord*,Rva0032CD3BRecord*,Rva0032CD3BRecord*,const _STL::random_access_iterator_tag&,int*);
+template Rva0032CD3BRecord *_STL::copy(Rva0032CD3BRecord*,Rva0032CD3BRecord*,Rva0032CD3BRecord*);
