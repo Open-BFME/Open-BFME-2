@@ -13,6 +13,13 @@ struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #pragma optimize("", on)
 #include "rendobj.h"	// the verified BFME2 base object must win the include guard
+// Open-BFME-1's composite.h (donor 6583b3c1ff) must win its guard over Zero
+// Hour's: Zero Hour re-declares Cast_AABox / Cast_OBBox / Intersect_AABox as
+// virtual and Create_Decal without the BFME base's trailing bool, four new
+// CompositeRenderObjClass slots that push Animatable3DObjClass's own virtuals
+// four places down. Retail table 0x007D6D10 has them at 129..133 (the
+// float-frame Simple_Evaluate_Bone 0x001A4F50 at 132, called via +0x210).
+#include "../../../../../reference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2/composite.h"
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
@@ -756,6 +763,61 @@ void Animatable3DObjClass::Update_Sub_Object_Transforms(void)
 }
 
 
+/*
+** BFME 2's pivot keeps its current transform as a rotation quaternion at +0x30
+** and a translation at +0x40, stride 0x58 (HTreePivotClass.cpp's constructor and
+** assignment prove the offsets), where Zero Hour's htree.h, which this unit
+** includes, still has a Matrix3D. Simple_Evaluate_Bone expands it in place
+** through this local view, the same expansion as the matched HLod siblings.
+*/
+struct BfmePivotTransformView
+{
+	float X, Y, Z, W;
+	Vector3 Position;
+};
+
+struct BfmePivotView
+{
+	unsigned char unaccessed[0x30];
+	BfmePivotTransformView Transform;
+	unsigned char rest[0x58 - 0x4C];
+};
+
+struct BfmeTreeView
+{
+	char Name[16];
+	int NumPivots;
+	BfmePivotView * Pivot;
+};
+
+static __forceinline Matrix3D & Bfme_Pivot_Matrix(const BfmePivotTransformView & q, Matrix3D & m)
+{
+	const float xx = q.X * q.X * 2.0f;
+	const float xy = q.X * q.Y * 2.0f;
+	const float xz = q.Z * q.X * 2.0f;
+	const float wx = q.W * q.X * 2.0f;
+	const float yy = q.Y * q.Y * 2.0f;
+	const float yz = q.Z * q.Y * 2.0f;
+	const float wy = q.W * q.Y * 2.0f;
+	const float zz = q.Z * q.Z * 2.0f;
+	const float wz = q.W * q.Z * 2.0f;
+
+	m[0][0] = 1.0f - yy - zz;
+	m[0][1] = xy - wz;
+	m[0][2] = xz + wy;
+	m[1][0] = xy + wz;
+	m[1][1] = 1.0f - zz - xx;
+	m[1][2] = yz - wx;
+	m[2][0] = xz - wy;
+	m[2][1] = yz + wx;
+	m[2][2] = 1.0f - yy - xx;
+	m[0][3] = q.Position.X;
+	m[1][3] = q.Position.Y;
+	m[2][3] = q.Position.Z;
+	return m;
+}
+
+
 /***********************************************************************************************
  * Animatable3DObjClass::Simple_Evaluate_Bone -- If the animation is 'single', evaluate the    *
  *																	given pivot and return its transform.		  *
@@ -789,8 +851,16 @@ bool Animatable3DObjClass::Simple_Evaluate_Bone(int boneindex, Matrix3D *tm) con
 	
 	} else {
 		
-		const_cast <Animatable3DObjClass *>(this)->Update_Sub_Object_Transforms();
-		*tm = HTree->Get_Transform(boneindex);
+		/*
+		** BFME re-evaluates only a stale hierarchy, then expands the pivot's
+		** quaternion and translation straight into *tm. The flag is read
+		** directly: through Is_Hierarchy_Valid() the products below come out
+		** with their operands swapped against retail.
+		*/
+		if (!IsTreeValid) {
+			const_cast <Animatable3DObjClass *>(this)->Update_Sub_Object_Transforms();
+		}
+		Bfme_Pivot_Matrix(reinterpret_cast<const BfmeTreeView *>(HTree)->Pivot[boneindex].Transform,*tm);
 
 	}
 
@@ -919,9 +989,3 @@ void Animatable3DObjClass::Set_HTree(HTreeClass * new_htree)
 
 // EOF - animobj.cpp
 
-// Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
-// each one has the same function in that slot (vftable addresses from matched vptr
-// stores). Bind them to the rows at those functions.
-#pragma comment(linker, "/alternatename:?Cast_AABox@CompositeRenderObjClass@@UAE_NAAVAABoxCollisionTestClass@@@Z=?Set_Animation_Frame_Rate_Multiplier@Animatable3DObjClass@@UAEXM@Z")
-#pragma comment(linker, "/alternatename:?Cast_OBBox@CompositeRenderObjClass@@UAE_NAAVOBBoxCollisionTestClass@@@Z=?Peek_Animation_And_Info@Animatable3DObjClass@@UAEPAVHAnimClass@@AAMAAH10@Z")
-#pragma comment(linker, "/alternatename:?Intersect_AABox@CompositeRenderObjClass@@UAE_NAAVAABoxIntersectionTestClass@@@Z=?Is_Animation_Complete@Animatable3DObjClass@@UBE_NXZ")
