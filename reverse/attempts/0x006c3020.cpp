@@ -1,8 +1,5 @@
 // ?VerifyGuardFill@GeneralAllocatorDebug@@QAE_NPAXHE@Z
 // partial score=0.92 date=2026-10-05
-// ?VerifyGuardFill@GeneralAllocatorDebug@@QAE_NPAXHE@Z
-// partial score=0.92 date=2026-10-04
-// ?VerifyGuardFill@GeneralAllocatorDebug@@QAE_NPAXHE@Z
 // cl: /O2 /DNDEBUG /MD
 // The guard verifier of GeneralAllocatorDebug, at retail 0x006C3020 (156
 // bytes). The sibling of VerifyDelayedFreeFill at 0x006C30C0, and named the
@@ -56,6 +53,15 @@ public:
 
 	unsigned int GetBlockSize(const void *block);
 
+	// 0x006C2FB0 as a MEMBER of the allocator. The callee's own 97-byte body
+	// ends with a plain `ret`, so it cleans nothing itself, but retail's call
+	// site here also carries no `add esp,8` and does pass ecx -- so the member
+	// spelling is the one that reproduces both, at the cost of the push order
+	// (cdecl pushes the last declared argument first, and for thiscall the
+	// message is the second stack argument). The free cdecl spelling gets the
+	// push order right and costs an `add esp,8` plus 16 bytes.
+	void rva006C2FB0Report(void *block, const char *msg);
+
 	bool VerifyGuardFill(void *block, int alsoBeyond, unsigned char mode);
 
 	unsigned char m_unaccessed[0x50b];
@@ -91,7 +97,13 @@ bool GeneralAllocatorDebug::VerifyGuardFill(void *block, int alsoBeyond,
 			span += (unsigned int)built;
 
 			if (alsoBeyond) {
-				unsigned char *beyond = (unsigned char *)callerBlock + 16;
+				// The clamp limit is a field of the ALLOCATOR, not of the
+				// caller's block: retail forms it with `lea edx,[edi+0x10]`
+				// where edi holds `this`, while the caller's block is in ebp
+				// and the run start is ebp+8. Spelling this against
+				// callerBlock+16 (as an earlier bank did) addresses the wrong
+				// object.
+				unsigned char *beyond = (unsigned char *)this + 0x10;
 				if (built >= beyond)
 					built = beyond;
 			}
