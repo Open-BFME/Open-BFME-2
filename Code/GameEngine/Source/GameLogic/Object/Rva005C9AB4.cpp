@@ -28,6 +28,7 @@ class Rva005C9B76
 {
 public:
 	void rva005C9AB4();
+	void rva005C9B56(int v);
 	virtual ~Rva005C9B76();
 private:
 	Rva005C9A64List m_list;
@@ -50,4 +51,15 @@ void Rva005C9B76::rva005C9AB4()
 		}
 	}
 	m_b18 = 0;
+}
+void Rva005C9B76::rva005C9B56(int v)
+{
+	int cur = m_i1C;
+	if (v != cur) {
+		m_i1C = v;
+		m_list.forEach(
+			reinterpret_cast<void (Rva005C9A64Listener::*)(void *, int)>(&Rva005CB260::rva005CB260),
+			this,
+			cur);
+	}
 }
