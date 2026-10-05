@@ -56502,3 +56502,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?validateRallyPoint@GarrisonContain@@IAEXXZ,,0x00478141,240,Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainValidateRallyPoint.cpp,matched,GarrisonContain rally at 0x9D0 valid 0x9DE via PartitionManager pin donor ZH shape
 ?rva004A98D6@Rva004A98D6@@QAEHXZ,,0x004A98D6,62,Code/GameEngine/Source/Common/Rva004A98D6.cpp,matched,thiscall predicate over two machines leaf caller 0x004A99E4 true only when both vals equal 1
 ?rva001F430A@@YA_NPBURva001F430APointerCell@@@Z,,0x001F430A,12,Code/Libraries/Source/WWVegas/WWLib/Rva001F430A.cpp,matched,BF1 donor pointer word zero test leaf no callers
+??0Rva0037381C@@QAE@XZ,,0x003733C8,73,Code/GameEngine/Source/Common/Rva003733C8.cpp,matched,ctor via baseConstruct plus Snapshot secondary plus int-ptr map
