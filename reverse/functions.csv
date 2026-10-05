@@ -63867,3 +63867,5 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva00150C97@Rva00150C97@@QAEXH@Z,,0x00150C97,57,Code/GameEngine/Source/Common/Rva00150B8DFamily.cpp,matched,dump range 5 resize over 8B elems via 0x150BF9 grow wrapper
 ?rva00150CD0@Rva00150CD0@@QAEXH@Z,,0x00150CD0,57,Code/GameEngine/Source/Common/Rva00150B8DFamily.cpp,matched,dump range 5 resize over 8B elems via 0x150C22 grow wrapper
 ?rva00150D09@Rva00150D09@@QAEXH@Z,,0x00150D09,57,Code/GameEngine/Source/Common/Rva00150B8DFamily.cpp,matched,dump range 5 resize over 8B elems via 0x150C4B grow wrapper
+?rva00150C74@Rva00150B8D@@QAEXH@Z,,0x00150C74,35,Code/GameEngine/Source/Common/Rva00150B8DFamily.cpp,matched,dump range 5 grow adapter: in-place by-value scratch element via 0x14DB9F then grower
+?rva00150D42@Rva00150D42@@QAEXH@Z,,0x00150D42,72,Code/GameEngine/Source/Common/Rva00150B8DFamily.cpp,matched,dump range 5 resize over 0x4C elems via 0x150C74 adapter with guarded do-while fill

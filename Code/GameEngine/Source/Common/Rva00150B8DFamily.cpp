@@ -29,6 +29,11 @@ struct Rva00150C97Elem
 	int m_00;
 	int m_index;
 };
+struct Rva00150D42Elem
+{
+	char m_pad[4];
+	int m_index;
+};
 
 // 41B grow wrappers (0x150BF9/0x150C22/0x150C4B): pinned until their bodies
 // land below. thiscall (int), ret 4.
@@ -121,4 +126,67 @@ void Rva00150D09::rva00150D09(int n)
 	m_vec.rva00150C4B(n);
 	for (; oldCount < n; ++oldCount)
 		((Rva00150C97Elem *)m_vec.m_first)[oldCount].m_index = oldCount;
+}
+
+// 0x150C74 adapter and 0x150B8D grower share one {first,last} object: the
+// adapter builds a 76-byte scratch element through 0x14DB9F, then forwards
+// (this, n) to the grower, which reads the scratch in place as its by-value
+// fill element (hence its ret 0x50 against 4 pushed bytes; this frame's leave
+// rescues esp). The grower is declared (int) here to reproduce the retail
+// call shape; its true (int, element) signature lands with its body.
+class Rva0014DB9F
+{
+	char m_bytes[76];
+public:
+	Rva0014DB9F();
+	// Declared, never defined in this TU (same device the matched
+	// Rva00427130Vector::resize uses: its BfmeItemERF declares copy and
+	// dtor without defining them here): the invisible copy forces MSVC to
+	// construct the by-value temporary directly in the outgoing arg slot
+	// instead of building it aside and rep-movs copying it.
+	Rva0014DB9F(const Rva0014DB9F &other);
+	~Rva0014DB9F();
+};
+class Rva00150B8D
+{
+public:
+	void rva00150B8D(int n, Rva0014DB9F fill);
+	void rva00150C74(int n);
+	int size() const { return (m_last - m_first) / 76; }
+	int m_first;
+	int m_last;
+};
+
+// 0x150D42 owner: +0 untouched here, +4 is the grower object above.
+class Rva00150D42
+{
+public:
+	void rva00150D42(int n);
+private:
+	int m_00;
+	Rva00150B8D m_grow;
+};
+
+// ?rva00150C74@Rva00150B8D@@QAEXH@Z
+void Rva00150B8D::rva00150C74(int n)
+{
+	rva00150B8D(n, Rva0014DB9F());
+}
+
+// ?rva00150D42@Rva00150D42@@QAEXH@Z
+void Rva00150D42::rva00150D42(int n)
+{
+	if ((unsigned int)n < (unsigned int)m_grow.size())
+		return;
+	int *pair = (int *)&m_grow;
+	int oldCount = (pair[1] - pair[0]) / 76;
+	m_grow.rva00150C74(n);
+	if (oldCount >= n)
+		return;
+	int off = oldCount * 76;
+	do {
+		((Rva00150D42Elem *)((char *)m_grow.m_first + off))->m_index = oldCount;
+		++oldCount;
+		off += 76;
+	} while (oldCount < n);
 }

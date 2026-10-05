@@ -21837,3 +21837,11 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 _xferThreeInts,0x0060BC53,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 dup_7e86b0,0x00655770
 rva009C7380WeightPairs,0x009B84E0
+?rva00150BF9@Rva00150BF9@@QAEXH@Z,0x00150BF9,"41B grow wrapper variant 1 (RET4 thiscall int); sole caller 0x150C97 family; same-TU body to follow, pin temporary"
+?rva00150C22@Rva00150C22@@QAEXH@Z,0x00150C22,"41B grow wrapper variant 2; caller 0x150CD0"
+?rva00150C4B@Rva00150C4B@@QAEXH@Z,0x00150C4B,"41B grow wrapper variant 3; caller 0x150D09"
+?rva00150A8B@Rva00150A8B@@QAEXH@Z,0x00150A8B,"86B grower variant 1: resize/erase+grow over 8B elems, EH-prolog, ret 0xC; called by 0x150BF9 with (n plus 12B scratch)"
+?rva00150AE1@Rva00150AE1@@QAEXH@Z,0x00150AE1,"86B grower variant 2; called by 0x150C22"
+?rva00150B37@Rva00150B37@@QAEXH@Z,0x00150B37,"86B grower variant 3; called by 0x150C4B"
+??0Rva0014DB9F@@QAE@XZ,0x0014DB9F,"default ctor: EH-prolog, installs vtable 0xBD386C, inits +4/-1 and +8 floats via 0x401423; sole proven caller 0x150C74 builds a 76B scratch element with it"
+?rva00150B8D@Rva00150B8D@@QAEXHVRva0014DB9F@@@Z,0x00150B8D,"108B idiv-0x4C grower true signature (int plus by-value fill element); callers pass the element in place, hence ret 0x50"
