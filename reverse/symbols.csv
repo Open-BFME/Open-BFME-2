@@ -14647,3 +14647,15 @@ _rva006F98C0Call,0x006F98C0,retail call at 0x006F9B84 supplies EAX ECX and two s
 ??$_Destroy@PAURva005C8494Record@@@_STL@@YAXPAURva005C8494Record@@0@Z,0x005C847B
 ??$_Destroy@PAURva005E2857Record@@@_STL@@YAXPAURva005E2857Record@@0@Z,0x005F97BC
 ??$_Destroy@PAURva005F9813Record@@@_STL@@YAXPAURva005F9813Record@@0@Z,0x005F97BC
+??$pop_heap@PAURva005E50A7Record@@U?$less@URva005E50A7Record@@@_STL@@@_STL@@YAXPAURva005E50A7Record@@0U?$less@URva005E50A7Record@@@0@@Z,0x005E4C8C
+?clear@?$_Rb_tree@HU?$pair@$$CBHURva002075F3Record@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva002075F3Record@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva002075F3Record@@@_STL@@@2@@_STL@@QAEXXZ,0x00206EC7
+?clear@?$_Rb_tree@HU?$pair@$$CBHURva00207630Record@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva00207630Record@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva00207630Record@@@_STL@@@2@@_STL@@QAEXXZ,0x00206EF0
+?clear@?$_Rb_tree@HU?$pair@$$CBHURva0020766DRecord@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva0020766DRecord@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva0020766DRecord@@@_STL@@@2@@_STL@@QAEXXZ,0x00206F19
+?clear@?$_Rb_tree@HU?$pair@$$CBHURva002076AARecord@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva002076AARecord@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva002076AARecord@@@_STL@@@2@@_STL@@QAEXXZ,0x00206F42
+?clear@?$_Rb_tree@HU?$pair@$$CBHURva00207724Record@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva00207724Record@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva00207724Record@@@_STL@@@2@@_STL@@QAEXXZ,0x00206F94
+?clear@?$_Rb_tree@HU?$pair@$$CBHURva00207761Record@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva00207761Record@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva00207761Record@@@_STL@@@2@@_STL@@QAEXXZ,0x00206FBD
+?clear@?$_Rb_tree@HU?$pair@$$CBHURva0026E1A6Record@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva0026E1A6Record@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva0026E1A6Record@@@_STL@@@2@@_STL@@QAEXXZ,0x0026DEE4
+?clear@?$_Rb_tree@HU?$pair@$$CBHURva0028681ARecord@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva0028681ARecord@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva0028681ARecord@@@_STL@@@2@@_STL@@QAEXXZ,0x0028662D
+?clear@?$_Rb_tree@HU?$pair@$$CBHURva002A3F5BRecord@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva002A3F5BRecord@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva002A3F5BRecord@@@_STL@@@2@@_STL@@QAEXXZ,0x002A1B9D
+?clear@?$_Rb_tree@HU?$pair@$$CBHURva0040A603Record@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva0040A603Record@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva0040A603Record@@@_STL@@@2@@_STL@@QAEXXZ,0x0040A59B
+?clear@?$_Rb_tree@HU?$pair@$$CBHURva004D755FRecord@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva004D755FRecord@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva004D755FRecord@@@_STL@@@2@@_STL@@QAEXXZ,0x004D751D
