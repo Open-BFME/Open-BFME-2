@@ -63218,3 +63218,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva005D13D5@Rva005D13D5NullForwarder@@QAEXXZ,,0x005D13D5,13,Code/GameEngine/Source/Common/VslotNullCheckedForwarders2.cpp,matched,Null-checked member tail forwarder by REL32
 ?rva0005BDD2@MilesAudioManager@@QAE_NPAVAudioEventRTS@@@Z,,0x0005BDD2,135,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva0005BDD2.cpp,matched,MilesAudioManager positional volume less loop caller 0x0005D54F
 ?Rva005200C5Add@@YAXPAXW4ScienceType@@@Z,,0x005200C5,47,Code/Libraries/Source/WWVegas/WWLib/Rva005200C5.cpp,matched,caller 0x00407FA0 pod 0x0040AAD5 isEmpty 0x00001E2F pushback 0x002E01C6
+?Rva005809DBLinearInsert@@YAXPAPAX0PAXVRva000795C1Record@@@Z,,0x005809DB,121,Code/Libraries/Source/WWVegas/WWLib/Rva00580776LinearInsert.cpp,matched,guarded linear insert with copy backward and 16B record teardown

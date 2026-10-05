@@ -8,6 +8,11 @@
 // rowed callees plus pin, callers 0x00580A2B 0x00580A7C, prev/next rows.
 void __cdecl free(void *);
 
+namespace _STL
+{
+void *__copy_trivial_backward(const void *first, const void *last, void *result);
+}
+
 class Rva000795C1Record
 {
 public:
@@ -43,4 +48,17 @@ void __cdecl Rva00580A54Sort(void **first, void **last, void **, Rva000795C1Reco
 void __cdecl Rva00580BBFUnguardedSort(void **first, void **last, Rva000795C1Record compare)
 {
 	Rva00580A54Sort(first, last, (void **)0, compare);
+}
+
+void __cdecl Rva005809DBLinearInsert(void **first, void **last, void *val, Rva000795C1Record compare)
+{
+	if (compare.compareRva005803C0(val, *first))
+	{
+		_STL::__copy_trivial_backward(first, last, last + 1);
+		*first = val;
+	}
+	else
+	{
+		Rva00580776Insert(last, val, compare);
+	}
 }
