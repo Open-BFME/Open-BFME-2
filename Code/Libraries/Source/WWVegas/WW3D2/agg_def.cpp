@@ -14,6 +14,11 @@ struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #pragma optimize("", on)
 
+// Retail treats array delete as nothrow: ~AggregateDefClass (0x001A3C90) has
+// no EH state store between its body and the member vector's teardown, which
+// the compiler drops only when delete[] cannot throw.
+void __cdecl operator delete[](void *) throw();
+
 // BFME 2 has no W3D memory pools (see Code/Libraries/Source/WWVegas/WWLib/always.h).
 #include "always.h"
 #undef W3DMPO_GLUE
@@ -149,7 +154,6 @@ AggregateDefClass::AggregateDefClass (RenderObjClass &base_model)
 //
 //	~AggregateDefClass
 //
-// ?AggregateDefClass::~AggregateDefClass present-unmatched
 AggregateDefClass::~AggregateDefClass (void)
 {
 	// Free the name buffer if necessary
