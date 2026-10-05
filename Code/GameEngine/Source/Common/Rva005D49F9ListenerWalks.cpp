@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
 //
 // Listener-list walks around 0x005D49F9.  Each list's forEach packs a vcall
 // member-function pointer and its arguments into a stack call record and
@@ -79,6 +79,64 @@ void Rva005D4C01List::apply(const Rva005D49F9Call &call)
 	{
 		m_index++;
 		(m_begin[i]->*call.notify)(call.arg);
+		i = m_index;
+	}
+}
+
+// ---- forEach 0x005D4C1F, walk 0x005D4A66: (int, float) slots.  The record is
+// the functor rowed at 0x005D48DB (Rva005D48DBForward.cpp), whose call is not
+// inlined, so the walk hands it each listener.
+class Rva005D48DBElem
+{
+public:
+	void Method(int a, float b);
+};
+
+typedef void (Rva005D48DBElem::*Rva005D48DBFn)(int, float);
+
+class Rva005D48DB
+{
+	friend class Rva005D4C1FList;
+
+public:
+	void rva005D48DB(void *elem);
+
+private:
+	Rva005D48DBFn m_fn;
+	int m_4;
+	float m_8;
+};
+
+class Rva005D4C1FList
+{
+public:
+	void forEach(Rva005D48DBFn fn, int a, float b);
+	void apply(Rva005D48DB &call);
+
+private:
+	Rva005D48DBElem **m_begin;		// +0x00
+	Rva005D48DBElem **m_end;		// +0x04
+	Rva005D48DBElem **m_capacity;	// +0x08
+	unsigned int m_index;	// +0x0C
+};
+
+void Rva005D4C1FList::forEach(Rva005D48DBFn fn, int a, float b)
+{
+	Rva005D48DB call;
+	call.m_fn = fn;
+	call.m_4 = a;
+	call.m_8 = b;
+	apply(call);
+}
+
+void Rva005D4C1FList::apply(Rva005D48DB &call)
+{
+	unsigned int i = 0;
+	LatchRestore<unsigned int> latch(m_index, i);
+	while (i < (unsigned int)(m_end - m_begin))
+	{
+		m_index++;
+		call.rva005D48DB(m_begin[i]);
 		i = m_index;
 	}
 }

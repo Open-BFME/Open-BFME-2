@@ -182,3 +182,66 @@ void Rva002B6126List::apply(const Rva002B5739Call &call)
 		i = m_index;
 	}
 }
+
+// ---- forEach 0x002B6194, walk 0x002B56CF: four-argument slots.  The record
+// is the functor rowed at 0x002B2FCB (Rva002B2FCBInvoke.cpp), whose call is
+// not inlined, so the walk hands it each listener instead of calling the
+// member pointer itself.
+class Rva002B2FCBElem
+{
+public:
+	void Method(int a, int b, int c, int d);
+};
+
+typedef void (Rva002B2FCBElem::*Rva002B2FCBFn)(int, int, int, int);
+
+class Rva002B2FCB
+{
+	friend class Rva002B6194List;
+
+public:
+	void rva002B2FCB(void *elem);
+
+private:
+	Rva002B2FCBFn m_fn;
+	int m_4;
+	int m_8;
+	int m_c;
+	int m_10;
+};
+
+class Rva002B6194List
+{
+public:
+	void forEach(Rva002B2FCBFn fn, int a, int b, int c, int d);
+	void apply(Rva002B2FCB &call);
+
+private:
+	Rva002B2FCBElem **m_begin;		// +0x00
+	Rva002B2FCBElem **m_end;		// +0x04
+	Rva002B2FCBElem **m_capacity;	// +0x08
+	unsigned int m_index;	// +0x0C
+};
+
+void Rva002B6194List::forEach(Rva002B2FCBFn fn, int a, int b, int c, int d)
+{
+	Rva002B2FCB call;
+	call.m_fn = fn;
+	call.m_4 = a;
+	call.m_8 = b;
+	call.m_c = c;
+	call.m_10 = d;
+	apply(call);
+}
+
+void Rva002B6194List::apply(Rva002B2FCB &call)
+{
+	unsigned int i = 0;
+	LatchRestore<unsigned int> latch(m_index, i);
+	while (i < (unsigned int)(m_end - m_begin))
+	{
+		m_index++;
+		call.rva002B2FCB(m_begin[i]);
+		i = m_index;
+	}
+}
