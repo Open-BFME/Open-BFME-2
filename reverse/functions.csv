@@ -61748,3 +61748,4 @@ _Rva00023540,,0x00023540,271,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleF
 ??0Rva00541A6E@@QAE@ABV0@@Z,,0x00541A6E,66,Code/GameEngine/Source/GameLogic/Object/Behavior/Rva00541A6ECopyCtor.cpp,matched,same shape as neighbour Rva00541913 copy with Rva0054103E vector
 ?rva005FB83E@Rva005FB83E@@QAEXPBVImage@@@Z,,0x005FB83E,8,Code/GameEngine/Source/GameClient/GUI/AptPlayerNameSet.cpp,matched,tail-jmp forwarder via member at plus4 to rowed PlayerIcon 0x005FB666
 ?rva005FB846@Rva005FB846@@QAEXXZ,,0x005FB846,8,Code/GameEngine/Source/GameClient/GUI/AptPlayerNameSet.cpp,matched,tail-jmp forwarder via member at plus4 to rowed 0x005FB6E2
+?rva005FB84E@Rva005FB84E@@QAEXXZ,,0x005FB84E,8,Code/GameEngine/Source/GameClient/GUI/AptPlayerNameSet.cpp,matched,tail-jmp forwarder via member at plus4 to rowed 0x005FB729

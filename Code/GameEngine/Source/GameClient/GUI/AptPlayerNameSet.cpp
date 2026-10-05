@@ -145,6 +145,7 @@ class Rva005FB6E2
 {
 public:
     void rva005FB6E2();
+    void rva005FB729();
 };
 class Rva005FB846
 {
@@ -157,4 +158,19 @@ private:
 void Rva005FB846::rva005FB846()
 {
     return m_member->rva005FB6E2();
+}
+
+// ?rva005FB84E@Rva005FB84E@@QAEXXZ @0x005FB84E 8B unlock tail-jmp forwarder to rowed 0x005FB729
+// Evidence: mov ecx,[ecx+4] plus jmp callee; same shape as Rva005FBB68 forwarders above.
+class Rva005FB84E
+{
+public:
+    void rva005FB84E();
+private:
+    char m_pad[4];
+    Rva005FB6E2 *m_member;
+};
+void Rva005FB84E::rva005FB84E()
+{
+    return m_member->rva005FB729();
 }
