@@ -61,6 +61,7 @@ class Rva00561D3D
 public:
     Rva00561D3D();
     ~Rva00561D3D();
+    Rva00561D3D *rva00561D31();
 };
 // Native ctor and dtor share this zero-filled pointer at E0626C.
 StreakLineClass *g_00E0626C;
@@ -90,4 +91,10 @@ Rva00561D3D::~Rva00561D3D()
         g_00E0626C->Release_Ref();
         g_00E0626C = 0;
     }
+}
+
+Rva00561D3D *Rva00561D3D::rva00561D31()
+{
+    FXParticleSystem::ConcreteModuleClass<FXParticleSystem::LightningDrawTag5>::getInstance();
+    return this;
 }
