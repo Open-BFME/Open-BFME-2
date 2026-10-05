@@ -8613,3 +8613,5 @@ FUN_0046eb6d	0x0006EB6D	444	blocked	WW3D render 444B many DX8 states plus unclea
 ?Rva005B76ACConvert@@YGXPAVUnicodeString@@VAsciiString@@@Z	0x005B76AC	194	blocked	string GameText fetch-translate 198B vs 194B 9 structural ebx-state and null-check diffs need donor flags t=22 model=muse-05
 ?rva002AC2CF@Rva002AC2CFTarget@@QAEXHHH@Z	0x002AC2CF	113	partial	off-chunk-esi-edi-swap plus len-ecx-vs-eax and d-eax-vs-ebx with lea-vs-add-jmp for empty base 115B-vs-113B t=22 model=muse-10 score=0.95 stash=reverse/attempts/0x002ac2cf.cpp
 ?rva00559AF9@Rva00559AC1@@QAEMH@Z	0x00559AF9	82	partial	ja-to-zero vs jbe-to-compute tail placement only; SSE+frame exact 82B t=20 model=muse-10 score=0.95 stash=reverse/attempts/0x00559af9.cpp
+?parseHordeContainComboHorde@@YAXPAVINI@@PAX1PBX@Z	0x0046F39E	420	blocked	420B exact 133 insns frame 0x14 vs 0x10 plus lea push order for second set and add push order for InitiateVoice t=20 model=muse-08 (stash 0.98 kept)
+?rva000B19E5@Thing@@QBE_NXZ	0x000B19E5	22	blocked	x87 fcompi wall t=15 model=muse-08
