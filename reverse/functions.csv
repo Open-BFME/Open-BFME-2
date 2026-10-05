@@ -61547,3 +61547,4 @@ _Rva00023540,,0x00023540,271,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleF
 ?rva004340AC@AptSaveLoad@@QAEXXZ,,0x004340AC,134,Code/GameEngine/Source/Common/Rva004340ACMethod.cpp,matched,Apt button-enable refresh via rowed Get and Invoke with pending checks
 ?rva00434432@AptSaveLoad@@QAEXXZ,,0x00434432,90,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSaveLoadCallbacks.cpp,matched,enable three lists then tail to button refresh
 ?rva0057A382@Rva0057A382@@QAEXXZ,,0x0057A382,39,Code/GameEngine/Source/Common/Rva0057A382Setter.cpp,matched,caller 0x0057A748 sets offsets callee rowed neighbours O1
+??0Gen005EDB10@@QAE@PAVHost005EDA90@@@Z,,0x003AF645,45,Code/GameEngine/Source/GameClient/System/FXParticleSystem/ParticleModuleInfoCopyCtors.cpp,matched,derived copy calling rowed base 0x003AF672 then own 4 vptrs caller 0x003AF60E LINK BONUS 1 file

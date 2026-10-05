@@ -495,3 +495,18 @@ Rva003AF672::Rva003AF672(const Rva003AF672 &other)
 	, FXParticleSystem::BoxEmissionVolumeInfo((const FXParticleSystem::BoxEmissionVolumeInfo &)other)
 {
 }
+
+// ??0Gen005EDB10@@QAE@PAVHost005EDA90@@@Z @0x003AF645 45B: derived copy calling rowed base 0x003AF672 then own 4 vptrs.
+// Evidence: calls 0x003AF672 rowed Box copy then stores at +0/+0x14/+0x18/+0x1c DIR32; same 45B shape as rowed 0x003AF57F; caller 0x003AF60E create; LINK BONUS 1 file 55B.
+class Host005EDA90;
+class Gen005EDB10 : public Rva003AF672
+{
+public:
+	Gen005EDB10(Host005EDA90 *owner);
+	virtual ~Gen005EDB10();
+};
+
+Gen005EDB10::Gen005EDB10(Host005EDA90 *owner)
+	: Rva003AF672(*(const Rva003AF672 *)owner)
+{
+}
