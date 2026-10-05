@@ -60208,3 +60208,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?countObjectsByThingTemplate@Player@@QBEXHPBQBVThingTemplate@@_NPAH1@Z,,0x002AB0C5,74,Code/GameEngine/Source/Common/RTS/PlayerTeamPrototypeQueries.cpp,matched,ZH Player::countObjectsByThingTemplate zero counts then team prototypes
 ?countBuildings@Player@@QAEHXZ,,0x002AB10F,41,Code/GameEngine/Source/Common/RTS/PlayerTeamPrototypeQueries.cpp,matched,ZH Player::countBuildings sum over team prototypes
 ?countObjects@Player@@QAEHV?$BitFlags@$0HE@@@0@Z,,0x002AB138,77,Code/GameEngine/Source/Common/RTS/PlayerTeamPrototypeQueries.cpp,matched,ZH Player::countObjects sum over team prototypes
+?updateTeamStates@Player@@QAEXXZ,,0x002AB429,33,Code/GameEngine/Source/Common/RTS/PlayerTeamPrototypeQueries.cpp,matched,ZH Player::updateTeamStates over team prototype list

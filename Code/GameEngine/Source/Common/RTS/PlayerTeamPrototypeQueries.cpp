@@ -44,6 +44,7 @@ public:
 	Int countObjects(KindOfMaskType setMask, KindOfMaskType clearMask);
 	void healAllObjects();
 	Int rva0039ED9C(ObjectIterateFunc func, void *userData);
+	void updateState();
 	Bool rva0039EDE1(Bool flag);
 	Bool rva0039EE21(Rva0039DDC2Filter filter, Bool flag);
 	Bool rva0039EE70(BfmeTab1026 *tab, Bool flag);
@@ -70,6 +71,7 @@ public:
 	void countObjectsByThingTemplate(Int numTmplates, const ThingTemplate* const* things, Bool ignoreDead, Int *counts, Bool ignoreUnderConstruction) const;
 	Int countBuildings();
 	Int countObjects(KindOfMaskType setMask, KindOfMaskType clearMask);
+	void updateTeamStates();
 	Bool rva002AB260(Bool flag) const;
 	Bool rva002AB295(Rva0039DDC2Filter filter, Bool flag) const;
 	Bool rva002AB2D9(BfmeTab1026 *tab, Bool flag) const;
@@ -206,4 +208,18 @@ Bool Player::rva002AB3FA() const
 			return true;
 	}
 	return false;
+}
+
+// ?updateTeamStates@Player@@QAEXXZ, retail 0x002AB429 (33B): Zero Hour's
+// Player::updateTeamStates, stepping past each node before the call (the
+// prototype's updateState may delete teams); TeamPrototype::updateState
+// 0x003A34AC is pinned from this call.
+void Player::updateTeamStates()
+{
+	for (PlayerTeamNode *it = m_playerTeamPrototypes->m_next; it != m_playerTeamPrototypes; )
+	{
+		TeamPrototype *proto = it->m_value;
+		it = it->m_next;
+		proto->updateState();
+	}
 }
