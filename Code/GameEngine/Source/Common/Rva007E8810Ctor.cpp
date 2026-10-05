@@ -10,7 +10,7 @@ class SnapshotDupReplica
 {
 public:
 	SnapshotDupReplica();
-	virtual void handle();
+	virtual void handle() {}
 };
 
 class Rva007E8810 : public SnapshotDupReplica
