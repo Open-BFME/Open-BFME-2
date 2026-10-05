@@ -9385,3 +9385,4 @@ FUN_0047ffed	0x0007FFED	233	blocked	anonymous water-setting dispatch (thiscall +
 ?rva00502381@Rva00502381@@QAEXHHHPAX@Z	0x00502381	190	blocked	frame 0x1C vs 0x2C tmp map at -0x24 unused push temp 4B vs stride 20 global find arg shape unclear t=25 model=muse-03
 ?rva00502D61@Rva00502D61@@QAEHHURva00502861Mapped@@H@Z	0x00502D61	29	blocked	ret 0xC 3 args calls hint-size insert 0x00502A1F frameless pushes C-this-A plus B via mov non-hint 39B vs 29B frame persists hint 46B worse dead-C vs hint-use unclear t=20 model=muse-03
 ?rva00502F09@Rva00502F09@@QAEHHURva00502BCDMapped@@H@Z	0x00502F09	29	blocked	twin of 0x00502D61 same 29B frameless pushes C-this-A plus B wall non-hint 39B hint 46B dead-C unclear t=5 model=muse-03
+??1Rva00578C43@@QAE@XZ	0x00578C43	205	blocked	205B MI dtor needs Rva-list bases plus QAEX forwarder t=30 model=muse-07
