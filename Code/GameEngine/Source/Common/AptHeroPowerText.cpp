@@ -72,11 +72,13 @@ public:
 
 extern GameTextInterface *TheGameText;
 extern const char *g_00DD3B90[];
+extern const unsigned short g_Va007C9260[];
 
 class Rva005B9378
 {
 public:
 	void rva005B9378(int index, const UnicodeString &value);
+	void rva005B942A(int index, int value);
 };
 
 void Rva005B9378::rva005B9378(int index, const UnicodeString &value)
@@ -88,6 +90,18 @@ void Rva005B9378::rva005B9378(int index, const UnicodeString &value)
 	((BfmeAptWindowManager *)TheRva00222A8BTarget)->bfmeSetText(key, field, false);
 	key.format("APT:TickerValue_%d", index);
 	((BfmeAptWindowManager *)TheRva00222A8BTarget)->bfmeSetText(key, value, false);
+}
+
+// ?rva005B942A@Rva005B9378@@QAEXHH@Z @0x005B942A 83B: one ticker numeric row.
+// Formats the integer value with L"%d" (g_Va007C9260) into a UnicodeString
+// temp, then hands it to rva005B9378 under the same index. Callers
+// (0x005B9591 with index 2 and 0x005B95A4 with index 3, plus 0x005BA0CB/E3)
+// pass this in ecx, which both bodies forward untouched.
+void Rva005B9378::rva005B942A(int index, int value)
+{
+	UnicodeString text;
+	text.format(g_Va007C9260, value);
+	rva005B9378(index, text);
 }
 
 // ?rva00513497@Rva00513497@@QAEXHVUnicodeString@@@Z @0x00513497 193B: the
