@@ -1,6 +1,8 @@
 // ?rva00395686@Rva00395686@@QAEHPAVPlayer@@PAVThingTemplate@@@Z
 // partial score=0.97 date=2026-10-05
 // ?rva00395686@Rva00395686@@QAEHPAVPlayer@@PAVThingTemplate@@@Z
+// partial score=0.97 date=2026-10-05
+// ?rva00395686@Rva00395686@@QAEHPAVPlayer@@PAVThingTemplate@@@Z
 // partial score=0.96 date=2026-10-05
 // cl: /O1
 //
