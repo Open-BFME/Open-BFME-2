@@ -204,8 +204,8 @@ AptValue *aptMathMax(void *self, int argc)
     return Rva008A4EA0MakeFloat(result);
 }
 
-// Native 6E8620..6E8678: round away from zero using the shared zero and
-// half literals, then convert through the CRT integer helper. BFME1 6583b3c1
+// Native 6E8620..6E8678: round to nearest with ties away from zero using
+// shared zero and half literals, then the CRT integer helper. BFME1 6583b3c1
 // aptMathRound supplies the algorithm; checked stack access is target-specific.
 extern const float g_aptNumberZeroAtBBAEAC;
 extern const float g_aptMathHalfAtBC26F0;
