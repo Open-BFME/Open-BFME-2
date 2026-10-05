@@ -12599,3 +12599,6 @@ _ceil,0x00629934,CRT ceil thunk identified by native PE import slot 0x00BBA578 a
 ?rva004F2C14@Rva004F2C14NullTarget@@QAEXH@Z,0x004F2C14,null-checked tail jmp target of 18B forwarder; original name unknown
 ?rva0059A153@Rva0059A153@@QAEXPAVTeamPrototype@@@Z,0x0059A153,tail jmp target of 11B forwarder 0x004EC07D at +0x90; original name unknown
 ?rva0040D3FF@Rva0040D3FF@@QAEHXZ,0x0040D3FF,tail jmp target of 11B forwarder 0x0023D0B7 at GameLogic+0x184; original name unknown
+??_7AptSound@@6B@,0x008ECF18,Native6F38B0 stores this final vtable after canonical AptObject base; factory branch and original PDB/MAP establish class identity and virtual overrides
+??_7AptStringObject@@6B@,0x008EDE4C,Native6FE380 stores this final vtable after canonical AptObject base; factory branch and original PDB/MAP establish class identity and virtual overrides
+??_7AptError@@6B@,0x008EC85C,Native6FC2D0 stores this final vtable after canonical AptObject base; factory branch and original PDB/MAP establish class identity and virtual overrides
