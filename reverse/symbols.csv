@@ -12619,3 +12619,4 @@ _ceil,0x00629934,CRT ceil thunk identified by native PE import slot 0x00BBA578 a
 ?rva000347A0@GeneralAllocator@Allocator@EA@@QAEPAXPAXIH@Z,0x000347A0,address-derived thiscall GeneralAllocator realloc-engine member taking block size flags and returning void pointer; called from wrapper 0x00035190; identity unproven
 ?rva00034A60@GeneralAllocator@Allocator@EA@@QAEPAXIIH@Z,0x00034A60,address-derived thiscall GeneralAllocator calloc-engine member taking count size flags and returning void pointer; called from wrapper 0x00035210; identity unproven
 ?clear@?$_List_base@PAVFXNugget@@V?$allocator@PAVFXNugget@@@_STL@@@_STL@@QAEXXZ,0x0023DAA5,tail-jump target read at 0x001E11D1 from FXList::clear after the m_nuggets loop
+??1Rva005D1129Pointer@@QAE@XZ,0x005EC4AF,REL32 at +0x0A in 0x005D1129 with ECX=this+8; 7B Ghidra body loads [ecx] then tail-jumps to 0x005EC46F; address-derived member-dtor view; exact wrapper identity remains unknown
