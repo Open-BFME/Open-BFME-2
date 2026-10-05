@@ -68,13 +68,15 @@ class Rva005C7BE1
 {
 public:
 	void rva005C7BE1(const Image *image);
+	void rva005C7AE1(int count);
 private:
 	char m_pad00[8];
 	unsigned int m_level;		// +0x08
 	StringBase<char> m_name;	// +0x0C
 	char m_pad10[0x24];
 	Rva00524306 m_images;		// +0x34
-	char m_pad35[0x27];
+	char m_pad35[0x23];
+	int m_count;				// +0x58
 	const Image *m_image;		// +0x5C
 };
 
@@ -221,6 +223,7 @@ class Rva005FC7DE
 {
 public:
 	void rva005FC7DE(const Image *image);
+	void rva005FC85A(int quantity);
 private:
 	char m_pad00[8];
 	unsigned int m_level;		// +0x08
@@ -229,6 +232,7 @@ private:
 	Rva00524306 m_images;		// +0x1C
 	char m_pad1D[0x0F];
 	const Image *m_image;		// +0x2C
+	int m_quantity;				// +0x30
 };
 
 void Rva005FC7DE::rva005FC7DE(const Image *image)
@@ -465,4 +469,39 @@ void Rva00579B17::rva00579B17(int index, const UnicodeString &text)
 	AsciiString key;
 	key.format("APT:_level%u.%s.%d_Text", m_level, m_name.str(), index);
 	((BfmeAptWindowManager *)TheRva00222A8BTarget)->bfmeSetText(key, text, false);
+}
+
+// ?rva005FC85A@Rva005FC7DE@@QAEXH@Z @0x005FC85A 163B: the _TypeImage panel's
+// quantity text. Unchanged counts are skipped, positive ones are formatted
+// as L"%d" (empty otherwise) and set under APT:_level%u.%s_Quantity.
+void Rva005FC7DE::rva005FC85A(int quantity)
+{
+	if (quantity == m_quantity)
+		return;
+	UnicodeString text;
+	if (quantity > 0)
+		text.format(L"%d", quantity);
+	AsciiString key;
+	key.format("APT:_level%u.%s_Quantity", m_level, m_name.str());
+	((BfmeAptWindowManager *)TheRva00222A8BTarget)->bfmeSetText(key, text, true);
+	m_quantity = quantity;
+}
+
+// ?rva005C7AE1@Rva005C7BE1@@QAEXH@Z @0x005C7AE1 181B: the _Image panel's
+// production count text. Unchanged counts are skipped, positive ones are
+// formatted as L"%d", others become L" " (VA 0x00BC26DC), and the text is set
+// under APT:_level%u.%s_ProductionCount.
+void Rva005C7BE1::rva005C7AE1(int count)
+{
+	if (count == m_count)
+		return;
+	UnicodeString text;
+	if (count > 0)
+		text.format(L"%d", count);
+	else
+		text = L" ";
+	AsciiString key;
+	key.format("APT:_level%u.%s_ProductionCount", m_level, m_name.str());
+	((BfmeAptWindowManager *)TheRva00222A8BTarget)->bfmeSetText(key, text, false);
+	m_count = count;
 }
