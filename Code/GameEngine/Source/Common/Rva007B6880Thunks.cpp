@@ -6561,3 +6561,74 @@ void __cdecl rva007B99B5()
 	Rva005F00FB *p = (Rva005F00FB *)&g_Va00E06858;
 	return p->Rva005F00FB::~Rva005F00FB();
 }
+
+// Construction-thunk view for the six thunks below. MSVC emits no dynamic
+// initializer for a global whose constructor is undefined in this TU
+// (verified with a minimal TU), so these thunks reproduce the
+// compiler-generated dynamic-initializer shape (mov ecx,OFFSET + tail-jmp to
+// the rowed ctor) through an init alias pinned in symbols.csv. The six
+// globals hold Rva00552F2E objects (see Rva00552F2EHelpers.cpp).
+struct Rva00552F2EInit
+{
+	void init();
+};
+
+extern unsigned g_Va00E06484;
+unsigned int g_Va00E06484;
+
+// ?rva007B474C@@YAXXZ @ 0x007B474C (10B). Rva00552F2E construction thunk: ecx=&g_Va00E06484 then tail-jmp to rowed ??0Rva00552F2E@@QAE@XZ (0x00552F2E) via init alias. No callers. Honest address name.
+void __cdecl rva007B474C()
+{
+	Rva00552F2EInit *p = (Rva00552F2EInit *)&g_Va00E06484;
+	return p->init();
+}
+
+extern unsigned g_Va00E064A4;
+unsigned int g_Va00E064A4;
+
+// ?rva007B4756@@YAXXZ @ 0x007B4756 (10B). Rva00552F2E construction thunk: ecx=&g_Va00E064A4 then tail-jmp to rowed ??0Rva00552F2E@@QAE@XZ (0x00552F2E) via init alias. No callers. Honest address name.
+void __cdecl rva007B4756()
+{
+	Rva00552F2EInit *p = (Rva00552F2EInit *)&g_Va00E064A4;
+	return p->init();
+}
+
+extern unsigned g_Va00E064C4;
+unsigned int g_Va00E064C4;
+
+// ?rva007B4760@@YAXXZ @ 0x007B4760 (10B). Rva00552F2E construction thunk: ecx=&g_Va00E064C4 then tail-jmp to rowed ??0Rva00552F2E@@QAE@XZ (0x00552F2E) via init alias. No callers. Honest address name.
+void __cdecl rva007B4760()
+{
+	Rva00552F2EInit *p = (Rva00552F2EInit *)&g_Va00E064C4;
+	return p->init();
+}
+
+extern unsigned g_Va00E064E4;
+unsigned int g_Va00E064E4;
+
+// ?rva007B476A@@YAXXZ @ 0x007B476A (10B). Rva00552F2E construction thunk: ecx=&g_Va00E064E4 then tail-jmp to rowed ??0Rva00552F2E@@QAE@XZ (0x00552F2E) via init alias. No callers. Honest address name.
+void __cdecl rva007B476A()
+{
+	Rva00552F2EInit *p = (Rva00552F2EInit *)&g_Va00E064E4;
+	return p->init();
+}
+
+extern unsigned g_Va00E06504;
+unsigned int g_Va00E06504;
+
+// ?rva007B4774@@YAXXZ @ 0x007B4774 (10B). Rva00552F2E construction thunk: ecx=&g_Va00E06504 then tail-jmp to rowed ??0Rva00552F2E@@QAE@XZ (0x00552F2E) via init alias. No callers. Honest address name.
+void __cdecl rva007B4774()
+{
+	Rva00552F2EInit *p = (Rva00552F2EInit *)&g_Va00E06504;
+	return p->init();
+}
+
+extern unsigned g_Va00E06524;
+unsigned int g_Va00E06524;
+
+// ?rva007B477E@@YAXXZ @ 0x007B477E (10B). Rva00552F2E construction thunk: ecx=&g_Va00E06524 then tail-jmp to rowed ??0Rva00552F2E@@QAE@XZ (0x00552F2E) via init alias. No callers. Honest address name.
+void __cdecl rva007B477E()
+{
+	Rva00552F2EInit *p = (Rva00552F2EInit *)&g_Va00E06524;
+	return p->init();
+}
