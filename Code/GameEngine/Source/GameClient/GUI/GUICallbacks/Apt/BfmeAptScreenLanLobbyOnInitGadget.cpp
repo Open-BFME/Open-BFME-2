@@ -98,6 +98,28 @@ public:
 	void rva004442FD();
 };
 
+class Rva00444165
+{
+public:
+	int rva00444165();
+};
+
+// Enables (rva00444083) or disables (rva004440F4) the create (1) and join
+// (2) buttons.
+class Rva00444083
+{
+public:
+	void rva00444083(int flags);
+	void rva004440F4(int flags);
+};
+
+class GameInfo
+{
+public:
+	int getNumPlayers() const;
+	int getNumOpenOrOccupiedSlots() const;
+};
+
 // The +0x288 panel (destroyed by ??1Rva004421E1); 0x0043DE19 (265 bytes) is
 // unrowed and pinned by address.
 class Rva004421E1
@@ -155,6 +177,7 @@ public:
 	void rva00446386(bool enable);
 	void submitNameRva00444760();
 	void rva00446772();
+	void rva0044469C();
 
 private:
 	unsigned char m_pad000[0x288];
@@ -247,4 +270,43 @@ void BfmeAptScreenLanLobby::rva00446772()
 	rva00446386(false);
 	reinterpret_cast<Rva004442FD *>(this)->rva004442FD();
 	m_panel.rva0043DE19();
+}
+
+// Retail 0x0044469C, 196 bytes. Name unknown. In state 1 with a non-blank
+// name entered, the join button follows whether the game from 0x00444165 has
+// a free slot and the create button is enabled; otherwise both are disabled.
+void BfmeAptScreenLanLobby::rva0044469C()
+{
+	bool hasName = false;
+	bool canJoin = false;
+	if (m_6a4 == 1)
+	{
+		bool notBlank = false;
+		if (m_nameEntry.m_owner)
+		{
+			UnicodeString name = GadgetTextEntryGetText(m_nameEntry.m_owner);
+			name.trim();
+			if (!unicodeIsEmpty(name))
+				notBlank = true;
+		}
+		if (notBlank)
+		{
+			hasName = true;
+			GameInfo *game = (GameInfo *)reinterpret_cast<Rva00444165 *>(this)->rva00444165();
+			if (game)
+			{
+				int players = game->getNumPlayers();
+				if (players < game->getNumOpenOrOccupiedSlots())
+					canJoin = true;
+			}
+		}
+	}
+	if (canJoin)
+		reinterpret_cast<Rva00444083 *>(this)->rva00444083(2);
+	else
+		reinterpret_cast<Rva00444083 *>(this)->rva004440F4(2);
+	if (hasName)
+		reinterpret_cast<Rva00444083 *>(this)->rva00444083(1);
+	else
+		reinterpret_cast<Rva00444083 *>(this)->rva004440F4(1);
 }
