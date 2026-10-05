@@ -1,4 +1,6 @@
 // ?read_vertices@MeshGeometryClass@@IAE_NAAVChunkLoadClass@@_N@Z
+// partial score=0.84 date=2026-10-05
+// ?read_vertices@MeshGeometryClass@@IAE_NAAVChunkLoadClass@@_N@Z
 // partial score=0.8402061856 date=2026-10-05
 // ?read_vertices@MeshGeometryClass@@IAE_NAAVChunkLoadClass@@_N@Z
 // partial score=0.8402061856 date=2026-10-03
