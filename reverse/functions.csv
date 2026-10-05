@@ -63966,3 +63966,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ??0Rva007C454@@QAE@ABV0@@Z,,0x0007C404,80,Code/GameEngine/Source/Common/Rva007C454Copy.cpp,matched,Copy ctor: rowed CameraClass copy then both vptrs 0xBC6C58/0xBC6C54 then rowed Rva005386F5 member copy
 ??1Rva007C454@@UAE@XZ,,0x0007C454,75,Code/GameEngine/Source/Common/Rva007C454Dtor.cpp,matched,Dtor under existing pin: both vptrs then vector<BfmeE16> storage free then rowed CameraClass dtor; /EHs keeps the EH state
 ?Clone@Rva007C454@@UBEPAVRenderObjClass@@XZ,,0x0007C4C6,58,Code/GameEngine/Source/Common/Rva007C454Clone.cpp,matched,Clone slot 2: new 0x408 bytes then rowed copy ctor 0x7C404 under EH state
+?notifyAll@Rva0041E717Broadcast@@QAEXXZ,,0x0041E717,27,Code/GameEngine/Source/Common/Rva0041E717Broadcast.cpp,matched,vtable-slot-1 broadcast over the +0x1C/+0x20 pointer range
