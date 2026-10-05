@@ -1,4 +1,6 @@
 // ?RetailCollisionManagerData@@QAE@XZ
+// partial score=0.88 date=2026-10-05
+// ?RetailCollisionManagerData@@QAE@XZ
 // partial score=0.85 date=2026-09-23
 // cl: /DNDEBUG /MD /EHsc
 #include <string.h>
@@ -35,19 +37,18 @@ RetailCollisionManagerData::RetailCollisionManagerData()
 	m_08 = 0;
 	m_AE08 = 0;
 	m_AE0C = 0;
-	_ReadWriteBarrier();
 	int *arrayOne = m_18;
+	_ReadWriteBarrier();
 	memset(arrayOne, 0, sizeof(m_18));
 	arrayOne[0x2B7B] = 0;
 	m_C060 = 0;
 	m_C064 = 0;
-	_ReadWriteBarrier();
 	int *arrayTwo = m_AE10;
+	_ReadWriteBarrier();
 	memset(arrayTwo, 0, sizeof(m_AE10));
 	arrayTwo[0x493] = 0;
 	m_C06C = 0;
 	m_C06D = 0;
-	_ReadWriteBarrier();
 	m_C068 = 3;
 	_ReadWriteBarrier();
 	m_0c = 0;
