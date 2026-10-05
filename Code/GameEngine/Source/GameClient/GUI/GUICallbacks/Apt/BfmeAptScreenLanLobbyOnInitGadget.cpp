@@ -235,3 +235,16 @@ void BfmeAptScreenLanLobby::submitNameRva00444760()
 	TheLAN->RequestSetName(text);
 	m_prefs.setUserName(text);
 }
+
+// Retail 0x00446772, 58 bytes: slot 13 of the screen's vftable 0x00C3E0F8.
+// Name unknown. Hands the preferences to the +0x668 object, writes them,
+// clears the tab list (rva00446386), runs the screen's rowed 0x004442FD and
+// tail-calls the +0x288 panel's 0x0043DE19.
+void BfmeAptScreenLanLobby::rva00446772()
+{
+	m_668.rva00580316(&m_prefs);
+	m_prefs.write();
+	rva00446386(false);
+	reinterpret_cast<Rva004442FD *>(this)->rva004442FD();
+	m_panel.rva0043DE19();
+}
