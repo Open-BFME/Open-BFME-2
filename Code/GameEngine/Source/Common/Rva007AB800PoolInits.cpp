@@ -25,6 +25,7 @@ private:
 };
 
 extern FreelistPool g_freelistPool;
+FreelistPool g_freelistPool;
 
 void __cdecl rva007B6850();
 void __cdecl rva007B6AAA();
