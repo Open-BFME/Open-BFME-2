@@ -1,8 +1,40 @@
 // ?rva00083D54@Rva00083D54@@QAEXXZ
-// partial score=0.97 date=2026-10-05
+// partial score=0.723 date=2026-10-05
+// ?rva00083D54@Rva00083D54@@QAEXXZ
+// partial score=0.72 date=2026-10-05
 // ?rva00083D54@Rva00083D54@@QAEXXZ
 // cl: /O1 /G7 /Ireference/shims/bfmeterraintracks /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // ?rva00083D54@Rva00083D54@@QAEXXZ @ 0x00083D54 264B.
+//
+// IMPROVED over reverse/attempts/0x00083d54.cpp: LCS 187 -> 191 of 264 against
+// the relocation-resolved body, at the 264B retail extent in both cases.
+//
+// THE ALLOCATION NULL TEST IS NOT A BRANCH ON THE PLACEMENT-NEW SOURCE. The bank
+// wrote `if (ibRaw) ib = new (ibRaw) ...`, which makes the constructed pointer
+// live in callee-save edi across the operator new call and costs an extra
+// `push edi` ABOVE `push 0x18` -- the defect the bank itself named as the sole
+// remaining blocker. Retail has no such branch: it allocates unconditionally and
+// lets the constructor's own result flow through, testing the RAW BLOCK against
+// the persistent zero (mov ecx,eax / mov [ebp-0x14],ecx / cmp ecx,ebx /
+// mov [ebp-0x4],ebx / je), with the zero-or-object eax selected by the branch
+// afterwards. Writing the placement new as a single unconditional initialiser
+// is what reproduces that, and it is byte-identical to folding the raw block
+// into the constructor call directly.
+//
+// MEASURED AND REJECTED this pass, all worse or tied at 187-191: naming the
+// lock's flags argument as a local `int flags = 0` rather than a literal (byte
+// identical, kept); an explicit `if (ibRaw != 0) ... else ib = 0;` (184B); the
+// raw block fed straight into the lock constructor with no `ib` local (183B);
+// carrying a running `p` alongside the base (180B); a do/while with the trip
+// test at the bottom (190B); a `static`-qualified operator new overload (245B);
+// and intranitial bodies for DX8IndexBufferClass's constructor (246B) and for
+// WriteLockClass's constructor/destructor (224B). The intranitial attempt is
+// worth recording as a negative: it was the one that worked for 0x004320B1, and
+// here it is strictly worse, because those constructors carry an SEH frame and
+// MSVC 7.1's register allocation for a known-clobbering body is not the one
+// retail used. The unlock question is whether `ib` must stay in edi at the
+// operator new boundary at all.
+// t=25min model=space-bunny-alpha
 //
 // One terrain snapshot rebuild: release the two existing buffers through
 // REF_PTR_RELEASE, allocate a 0x18-byte DX8IndexBufferClass sized
@@ -108,12 +140,11 @@ void Rva00083D54::rva00083D54()
 
 	{
 		char *ibRaw = (char *)::operator new(0x18);
-		DX8IndexBufferClass *ib = 0;
-		if (ibRaw)
-			ib = new (ibRaw) DX8IndexBufferClass(
-				(Uint)((m_1C - 1) * 6), DX8IndexBufferClass::USAGE_DEFAULT);
+		DX8IndexBufferClass *ib = new (ibRaw) DX8IndexBufferClass(
+			(Uint)((m_1C - 1) * 6), DX8IndexBufferClass::USAGE_DEFAULT);
 
-		IndexBufferClass::WriteLockClass lock(ib, 0);
+		int flags = 0;
+		IndexBufferClass::WriteLockClass lock(ib, flags);
 		m_4 = ib;
 		unsigned short *base = lock.Get_Index_Array();
 		for (Int i = 0; i < m_1C - 1; i++, base += 6)
