@@ -10969,3 +10969,4 @@ _Rva001118ECResampleRgb555,0x001118EC,"RETAIL REL32 at 0x00111A1A and six siblin
 ?allocate@?$allocator@URva0040C0C7Element@@@_STL@@QBEPAURva0040C0C7Element@@IPBX@Z,0x000B4039,Pod40 imul-0x28 same 40B size ICF twin call site 0x0040C023
 ?_M_clear@?$vector@URva0040C0C7Element@@V?$allocator@URva0040C0C7Element@@@_STL@@@_STL@@IAEXXZ,0x0040BEF9,same thiscall no-args destroy-plus-free 30B ICF twin call site 0x0040C08D
 ?notifyX@Rva003197EEListener@@QAEXPAX@Z,0x005CC208,forwarder same 5B ICF twin call site 0x00319B22 via forEach 0x003197EE
+?isOpen@GameSlot@@QBE_NXZ,0x0029B257,ICF twin of dup empty via isOpen call sites in 0x0043EDB4 state at +0x04 equals 0

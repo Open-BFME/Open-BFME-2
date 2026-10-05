@@ -57472,3 +57472,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?_M_insert_overflow@?$vector@URva0040C0C7Element@@V?$allocator@URva0040C0C7Element@@@_STL@@@_STL@@IAEXPAURva0040C0C7Element@@ABU3@ABU__false_type@2@I_N@Z,,0x0040BFF4,183,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_Rva0040C0C7_overflow.cpp,matched,stlport overflow stride 40 via copy 0x0040B9CC fill 0x0040B9F2 Construct 0x0040B99F
 ?reset@Rva0057B993@@QAEXPAVRva005D4FFC@@@Z,,0x0057B993,35,Code/GameEngine/Source/Common/OwnedPointerResets.cpp,matched,reset same pointee as clear 0x0057B9B6 via caller 0x0057B9F1
 ?rva00319B0A@Rva00319B0AOwner@@QAEXXZ,,0x00319B0A,39,Code/GameEngine/Source/Common/Rva003196A7ListenerWalks.cpp,matched,broadcast via forEach 0x003197EE and forwarder 0x005CC208 plus vcall slot1 at +0x88
+?rva0043EDB4@MpGameSetup@@QAEXXZ,,0x0043EDB4,543,Code/GameEngine/Source/GameClient/GUI/MpGameSetupAdjustSlots.cpp,matched,MpGameSetup slot balancer via Slots layout
