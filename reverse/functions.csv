@@ -60774,3 +60774,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?onExit@AICowerState@@UAEXW4StateExitType@@@Z,,0x003402FC,70,Code/GameEngine/Source/GameLogic/AI/AICowerStateOnExit.cpp,matched,vslot slot5 of 0x00811958 via donor BFME1 onExit and caller 0x00347F3E
 ?rva002A7461@Rva002A7461@@QAEHXZ,,0x002A7461,98,Code/GameEngine/Source/GameLogic/Object/Rva002A7461.cpp,matched,unlock lane neighbours share O1 cap via arch SSE ThePlayerList rowed
 ?reset@Rva000AF160@@QAEXPAVRva000AD71D@@@Z,,0x000AF160,35,Code/GameEngine/Source/Common/OwnedPointerResets.cpp,matched,reset same pointee as clear 0x000AF146 via caller 0x000AF35E
+?rva0056FA50@Rva0056FA50@@QBE_NABV1@@Z,,0x0056FA50,34,Code/GameEngine/Source/Common/S5HandleHashCompares.cpp,matched,unlock contiguous after 0x0056FA2E same 34B hash-compare reads other then this to rowed Hook tests AA37ACC2
