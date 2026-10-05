@@ -8820,3 +8820,4 @@ $L62091	0x007AB0D0	25	blocked	Native FuncInfo VA D6490C state0 prior-1 owns acti
 ?Rva003BAA46@@YGXPAVParameter@@_NM@Z	0x003BAA46	144	partial	TV vtable cached in edi vs reload plus cmp offset 137B vs 144B t=18 model=muse-09 score=0.9 stash=reverse/attempts/0x003baa46.cpp
 ?Rva003BAAE4@@YGXABVAsciiString@@MMMM@Z	0x003BAAE4	150	partial	branch fixed via early-and only movaps+mulss-mem vs movss+mulss-reg SSE wall remains 144B vs 150B t=15 model=muse-09 score=0.9 stash=reverse/attempts/0x003baae4.cpp
 ?Rva003BAE04@@YAXXZ	0x003BAE04	198	partial	loop sum kept in regs vs mem plus xor placement 210B vs 198B t=20 model=muse-09 score=0.85 stash=reverse/attempts/0x003bae04.cpp
+?rva0039CF73@Rva0039CF73@@QAEXPAVObject@@@Z	0x0039CF73	392	blocked	register wall this-esi-vs-ebx old-reg-vs-stack 359-vs-392 lea-vs-add 1-local-vs-2 t=20 model=muse-spark
