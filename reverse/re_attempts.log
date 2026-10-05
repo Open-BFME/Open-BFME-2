@@ -9063,3 +9063,9 @@ _VP6_ConfigureMvEntropyDecoder	0x001C6EF0	331	partial	third-loop pre-increment p
 ?rva0030E0AA@Rva0030E0AA@@QAEXXZ	0x0030E0AA	420	blocked	420B EH Dict AsciiString Bfme method unknown class needs full layout t=6 model=muse-spark
 ?rva0048740D@Rva0048740D@@QAEXXZ	0x0048740D	115	blocked	BoneFXUpdate virtual slots 0x34 0x3c plus Thing pin needs donor layout t=8 model=muse-spark
 ?rva00487480@Rva00487480@@QAEXXZ	0x00487480	116	blocked	same wall as 0x0048740D BoneFXUpdate virtual 0x34 0x3c Thing pin OCL variant t=3 model=muse-spark
+?Rva0038C5C5Callback@@YAXXZ	0x0038C5C5	231	blocked	231B PeerThread gap callback with OwnedRecord plus getPlayerInfo plus virtual addResponse unclear args and RoomType select t=8 model=muse-02
+?rva0006B114@BaseHeightMapRenderObjClass@@QAE_NMM@Z	0x0006B114	115	blocked	115B BaseHeightMap method with BitPlane plus float scale plus clamp plus test lea plus float order wall t=15 model=muse-02
+?rva0006B187@BaseHeightMapRenderObjClass@@QAE_NMM@Z	0x0006B187	115	blocked	115B twin of 0x0006B114 same lea plus float order wall same BaseHeightMap BitPlane shape t=2 model=muse-02
+?rva0006B3F3@Rva00067878@@QAEXXZ	0x0006B3F3	217	blocked	214B vs 217B 66insns extra push ecx plus missing or -1 after IB new plus push-lea order for assign plus lea ebp-14 vs ebp-10 t=25 model=muse-02 (stash 0.91 kept)
+?Rva0050C9EFDo@@YGXPAXH@Z	0x0050C9EF	435	blocked	435B file IO plus STL plus StringBase plus arg-slot reuse needs shared models plus time t=10 model=muse-02
+?rva0007A7DD@W3DHordeModelDraw@@QAEXXZ	0x0007A7DD	95	blocked	95B vslot6 static guard plus atexit plus unclaimed push plus 3 pins needs header count plus shared models t=8 model=muse-02
