@@ -15,7 +15,8 @@ class Rva00500500;
 
 struct Rva00500BF5Node
 {
-    unsigned color;
+    bool color;
+    unsigned char color_padding[3];
     Rva00500BF5Node *parent;
     Rva00500BF5Node *left;
     Rva00500BF5Node *right;
@@ -77,6 +78,23 @@ void Rva00500BF5Tree::insert(Rva00500BF5Node *&result, Rva00500BF5Node *x,
         reinterpret_cast<_STL::_Rb_tree_node_base *&>(m_header->parent));
     ++m_count;
     result = node;
+}
+
+void *__stdcall Rva00500BA6Opaque(const Rva00500500 &value);
+#pragma comment(linker, "/alternatename:?Rva00500BA6Opaque@@YGPAXABVRva00500500@@@Z=?Rva00500BA6Create@@YGPAU?$_Rb_tree_node@VRva00500500@@@_STL@@ABVRva00500500@@@Z")
+
+// Target 0x00501068/30B. Called twice by the structural copy at 0x0050146E.
+// STLport _M_clone_node: copy the value, retain its byte color and clear links.
+// Retail never reads the tree receiver, so the stdcall spelling preserves
+// both the argument cleanup and the factory call without inventing a class.
+Rva00500BF5Node *__stdcall Rva00501068Clone(Rva00500BF5Node *source)
+{
+    Rva00500BF5Node *node = reinterpret_cast<Rva00500BF5Node *>(
+        Rva00500BA6Opaque(*reinterpret_cast<const Rva00500500 *>(&source->key)));
+    node->color = source->color;
+    node->left = 0;
+    node->right = 0;
+    return node;
 }
 
 // Target 0x00500C7D/59B, called by the hint worker at 0x00500F6E.
