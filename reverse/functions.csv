@@ -59598,3 +59598,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva004F88BB@Rva004F88BB@@QAEXPAURva004F88BBNode@@@Z,,0x004F88BB,59,Code/GameEngine/Source/Common/Rva004F8AECErase.cpp,matched,Rb erase-one via rebalance plus pinned dtor and free
 ?rva002E74C6@Pathfinder@@QAEXW4PathfindLayerEnum@@PAVRva001E48E8@@PBUCoord3D@@@Z,,0x002E74C6,124,Code/GameEngine/Source/GameLogic/Object/Rva002E74C6.cpp,matched,floor world INV to cell via rowed getCell and rva001E48E8 IAT floor
 ?iterateCellsAlongLine@Pathfinder@@QAEHPBUCoord3D@@0W4PathfindLayerEnum@@PAURva002F1BD5Info@@@Z,,0x002F30EF,63,Code/GameEngine/Source/GameLogic/AI/PathfinderCoordLineWalk.cpp,matched,Coord3D overload via WorldToCell and rowed walk 0x002F203F caller 0x002F3401
+?rva004E0860@Rva004E0809@@QAEXPAVRva003F7BB4@@@Z,,0x004E0860,73,Code/GameEngine/Source/Common/Rva004E0809Scan.cpp,matched,chain lane same class Rva004E0809 gated push via rowed 0x003F7BB4
