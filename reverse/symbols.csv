@@ -12883,3 +12883,5 @@ _Rva00337999Forward,0x00337999,REL32 callee decoded from target call bytes of wr
 ??$__copy_ptrs@PAVRva0054103E@@PAV1@@_STL@@YAPAVRva0054103E@@PAV1@00ABU__false_type@0@@Z,0x00541231,STLport __copy_ptrs for Rva0054103E: callee of vector<Rva0054103E>::erase at 0x00541553
 ??$__copy_ptrs@PAUBfmeStringRecord002CF4C6@@PAU1@@_STL@@YAPAUBfmeStringRecord002CF4C6@@PAU1@00ABU__false_type@0@@Z,0x005B09D8,STLport __copy_ptrs for BfmeStringRecord002CF4C6: callee of vector<BfmeStringRecord002CF4C6>::erase at 0x005B129F
 ?Add@Rva005C3A37Elem@@QAEXUTreeHintRef00217D4C@@@Z,0x005C3A86,Rva005C3A37Elem::Add called by 0x005C3E31
+??0Rva004FA830@@QAE@ABVAsciiString@@@Z,0x004FA815,Rva004FA830::Rva004FA830(AsciiString const&) alias for 0x004FA815
+??_7Rva005C4A91@@6B@,0x00C747A8,Rva005C4A91 vtable installed by ctor 0x005C49EF
