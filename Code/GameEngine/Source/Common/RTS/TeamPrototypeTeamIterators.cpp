@@ -5,8 +5,10 @@
 // Zero Hour's DLINK_ITERATOR (the advance is a call through the member
 // pointer &Team::dlink_next_TeamInstanceList, 0x005C4AF5, with its zero
 // this-adjustment for Team's two bases) and forwards to the matching rowed
-// Team member. countBuildings, countObjects and healAllObjects keep their
-// Zero Hour names (same Team callees in the same order); BFME changed the
+// Team member. countObjectsByThingTemplate, countBuildings, countObjects,
+// healAllObjects and damageTeamMembers keep their Zero Hour names (same
+// Team callees in Zero Hour's order; the Team bodies for the first and last
+// are pinned from these calls, their loops match Zero Hour's); BFME changed the
 // signatures of the rest (extra flags, filters by value, an int-returning
 // iterateObjects that stops on 0), so those names stay address-derived,
 // except hasAnyObjects, whose Team callee carries that name. Filters and
@@ -66,6 +68,8 @@ struct Rva0039DF1CFilter
 
 class Object;
 class BfmeTab1026;
+class ThingTemplate;
+typedef float Real;
 typedef Int (*ObjectIterateFunc)(Object *obj, void *userData);
 
 class MemoryPoolObject
@@ -92,6 +96,8 @@ public:
 	Bool rva0039DF87(BfmeTab1026 *tab);
 	Bool hasAnyObjects(Bool flag);
 	Bool rva0039E815();
+	Bool damageTeamMembers(Real amount);
+	void countObjectsByThingTemplate(Int numTmplates, const ThingTemplate* const* things, Bool ignoreDead, Int *counts, Bool ignoreUnderConstruction) const;
 };
 
 class TeamPrototype
@@ -102,6 +108,7 @@ public:
 		return DLINK_ITERATOR<Team>(m_dlinkhead_TeamInstanceList, &Team::dlink_next_TeamInstanceList);
 	}
 
+	void countObjectsByThingTemplate(Int numTmplates, const ThingTemplate* const* things, Bool ignoreDead, Int *counts, Bool ignoreUnderConstruction) const;
 	Int countBuildings();
 	Int countObjects(KindOfMaskType setMask, KindOfMaskType clearMask);
 	void healAllObjects();
@@ -114,11 +121,18 @@ public:
 	Bool rva0039EF46(BfmeTab1026 *tab);
 	Bool hasAnyObjects(Bool flag);
 	Bool rva0039EFC6();
+	void damageTeamMembers(Real amount);
 
 private:
 	unsigned char m_pad[0x334];
 	Team *m_dlinkhead_TeamInstanceList; // +0x334
 };
+
+void TeamPrototype::countObjectsByThingTemplate(Int numTmplates, const ThingTemplate* const* things, Bool ignoreDead, Int *counts, Bool ignoreUnderConstruction) const
+{
+	for (DLINK_ITERATOR<Team> iter = iterate_TeamInstanceList(); !iter.done(); iter.advance())
+		iter.cur()->countObjectsByThingTemplate(numTmplates, things, ignoreDead, counts, ignoreUnderConstruction);
+}
 
 Int TeamPrototype::countBuildings()
 {
@@ -230,4 +244,10 @@ Bool TeamPrototype::rva0039EFC6()
 			return true;
 	}
 	return false;
+}
+
+void TeamPrototype::damageTeamMembers(Real amount)
+{
+	for (DLINK_ITERATOR<Team> iter = iterate_TeamInstanceList(); !iter.done(); iter.advance())
+		iter.cur()->damageTeamMembers(amount);
 }

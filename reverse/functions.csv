@@ -60201,3 +60201,5 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva002AB390@Player@@QBE_NPAVBfmeTab1026@@@Z,,0x002AB390,53,Code/GameEngine/Source/Common/RTS/PlayerTeamPrototypeQueries.cpp,matched,Player team prototype list any 0x0039EF46
 ?hasAnyObjects@Player@@QBE_N_N@Z,,0x002AB3C5,53,Code/GameEngine/Source/Common/RTS/PlayerTeamPrototypeQueries.cpp,matched,Player team prototype list any TeamPrototype::hasAnyObjects
 ?rva002AB3FA@Player@@QBE_NXZ,,0x002AB3FA,47,Code/GameEngine/Source/Common/RTS/PlayerTeamPrototypeQueries.cpp,matched,Player team prototype list any 0x0039EFC6
+?countObjectsByThingTemplate@TeamPrototype@@QBEXHPBQBVThingTemplate@@_NPAH1@Z,,0x0039EBD9,69,Code/GameEngine/Source/Common/RTS/TeamPrototypeTeamIterators.cpp,matched,ZH TeamPrototype::countObjectsByThingTemplate over DLINK team list
+?damageTeamMembers@TeamPrototype@@QAEXM@Z,,0x0039F000,58,Code/GameEngine/Source/Common/RTS/TeamPrototypeTeamIterators.cpp,matched,ZH TeamPrototype::damageTeamMembers over DLINK team list
