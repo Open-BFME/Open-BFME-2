@@ -60479,3 +60479,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?Rva003C36FEDo@@YGXPAVParameter@@_N@Z,,0x003C36FE,92,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C36FE.cpp,matched,named team member drawables rva00270FAC flag
 ?Rva003C353BDo@@YGXPAVParameter@@PAX@Z,,0x003C353B,111,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C353B.cpp,matched,named team members rva0029660C position
 ?doTeamEnableStealth@ScriptActions@@IAEXABVAsciiString@@_N@Z,,0x003C058A,84,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_doTeamEnableStealth.cpp,matched,ZH ScriptActions::doTeamEnableStealth
+?rva003C38EF@ScriptActions@@IAEXPAVParameter@@W4ObjectStatusTypes@@_N@Z,,0x003C38EF,84,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C38EF.cpp,matched,named team members setStatus status flag
