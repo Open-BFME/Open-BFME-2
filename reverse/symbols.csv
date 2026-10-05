@@ -12975,3 +12975,5 @@ _Rva00337999Forward,0x00337999,REL32 callee decoded from target call bytes of wr
 ?rva004F7767@@YAXPAX0_N@Z,0x004F7767,triple callee of 0x004F941E and 0x004F81DB read from REL32 (vec-begin vec-finish flag-byte); Ghidra FUN_008f7767; body unrowed
 ?rva0059614B@Rva0059614B@@QAE_NPAX@Z,0x0059614B,thiscall predicate callee of 0x004E0425 read from its REL32 displacement; Ghidra FUN_0099614b 139B; body unrowed
 ?rva004E02D7@Rva004E02D7@@QAEXPAX@Z,0x004E02D7,thiscall void callee of 0x004E0425 read from its REL32 displacement; Ghidra FUN_008e02d7 52B; body unrowed
+??0Rva0052B278@@QAE@PAX00@Z,0x0052B278,EH-guarded ctor callee of 0x004E063F read from its REL32 displacement (new 0x44 with lookup parent extra); body unrowed
+?rva0052B003@Rva0052B278@@QAEX_N@Z,0x0052B003,thiscall bool callee of 0x004E063F read from its REL32 displacement; body unrowed
