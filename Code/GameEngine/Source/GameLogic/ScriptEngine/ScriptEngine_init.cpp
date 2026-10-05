@@ -108,7 +108,7 @@ private:
 	void *m_target;  // +0x08
 };
 
-extern BfmeDualVtableReleaseDtor TheFXParticleEditor;
+BfmeDualVtableReleaseDtor TheFXParticleEditor(0);
 
 void rva00203C21();
 
