@@ -1,20 +1,23 @@
 // ?rva00493EA7@SpecialPowerModule@@UAEXPAVObject@@HPBV?$BitFlags@$0L@@@@Z
-// partial score=0.98 date=2026-10-05
+// partial score=0.99 date=2026-10-05
+// ?rva00493EA7@SpecialPowerModule@@UAEXPAVObject@@HPBV?$BitFlags@$0L@@@@Z
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
-// model=space-bunny-alpha
 // @0x00493EA7 388B
+// model=space-bunny-alpha
 // Evidence: vslot 13 of 23 special-power vtables; callers 0x004C38BF 0x004C7BD0; sibling dtor 0x00493DEF same flags.
-// Two fixes move the first diff from +0x21 to +0x7F:
-//  1. The experience-tracker loop must be a do-while whose entry and back-edge
-//     both `jmp` to a single `test`/`jg`, with the failed predicate clearing
-//     the counter. Retail emits `mov ebx,[esi+0x58] / jmp test` then
-//     `call; test al,al; je xor ebx,ebx / dec ebx; jmp test`.
-//  2. The AsciiString text must test the data pointer for null FIRST and add 8
-//     in the fall-through, so the `""` literal at 0x00BBAC1C lands after the
-//     `add` exactly as retail places it.
-// Residual: retail materialises the player's +0x1BC byte into AL and tests it,
-// cl strength-reduces to `cmp [eax+0x1bc],bl`. Not source-controllable here;
-// bool locals and explicit byte locals both regress the size.
+// The banked attempt declared five callees with mangled names that do not exist in the ledger, so every
+// one of those call sites was an UNRESOLVED REL32 and the comparison could never mask it:
+//   bank ?findAttributeModifierPoolUpdate@Object@@QBEPBVAttributeModifierPoolUpdate@@XZ
+//        -> real ?findAttributeModifierPoolUpdate@Object@@ABEPAVAttributeModifierPoolUpdate@@XZ (private const,
+//           returns AttributeModifierPoolUpdate*)
+//   bank ?rva00403415@AttributeModifierPoolUpdate@@QBEXPAH0@Z
+//        -> real ?rva00403415@AttributeModifierPoolUpdate@@QAEXPAHH@Z (public, void(int* mask, int value))
+//   bank ?rva0028EA91@Object@@QBE_NABVAsciiString@@H@Z
+//        -> real ?rva0028EA91@Object@@QAE_NABVAsciiString@@H@Z (non-const)
+//   bank ?getRelationship@Object@@QBEHPBV1@@Z
+//        -> real ?getRelationship@Object@@QBE?AW4Relationship@@PBV1@@Z (returns Relationship&)
+//   bank ?doFXObj@FXList@@SAXPBXPBVObject@@1@Z
+//        -> real ?doFXObj@FXList@@SAXPBV1@PBVObject@@1@Z
 #include "ascii_string.h"
 
 template <int N> class BitFlags
@@ -35,14 +38,21 @@ public:
 class Player;
 class AttributeModifierPoolUpdate;
 
+enum Relationship { REL_NEUTRAL = 0, REL_ALLY = 1, REL_ENEMY = 2 };
+
+class SpecialPowerModule;
+
 class Object
 {
 public:
 	Player *getControllingPlayer() const;
-	const class AttributeModifierPoolUpdate *findAttributeModifierPoolUpdate() const;
-	bool rva0028EA91(const AsciiString &s, int v) const;
-	int getRelationship(const Object *other) const;
+	bool rva0028EA91(const AsciiString &s, int v);
+	Relationship getRelationship(const Object *other) const;
 private:
+	// private: the A/B access pair is part of the mangled name, so these must
+	// stay private to reproduce ?findAttributeModifierPoolUpdate@Object@@ABEPAV...
+	AttributeModifierPoolUpdate *findAttributeModifierPoolUpdate() const;
+	friend class SpecialPowerModule;
 	char m_pad00[0x04];
 	void *m_04;
 	char m_pad08[0x264 - 0x08];
@@ -108,13 +118,13 @@ extern const char g_bfmeEmptyF9[];
 class AttributeModifierPoolUpdate
 {
 public:
-	void rva00403415(int *a, int *b) const;
+	void rva00403415(int *mask, int value);
 };
 
 class FXList
 {
 public:
-	static void doFXObj(const void *a, const Object *b, const Object *c);
+	static void doFXObj(const FXList *fx, const Object *primary, const Object *secondary);
 };
 
 class SpecialPowerModule
@@ -139,11 +149,12 @@ protected:
 	Object *m_object;
 };
 
+// ?rva00493EA7@SpecialPowerModule@@UAEXPAVObject@@HPBV?$BitFlags@$0L@@@@Z present-unmatched
 void SpecialPowerModule::rva00493EA7(Object *obj, int value, const BitFlags<11> *disabled)
 {
 	const SpecialPowerModuleData *data = m_moduleData;
 	ExperienceTracker *tracker = *(ExperienceTracker **)((char *)obj + 0x264);
-	// Retail emits a do-while on the counter: one `test/jg` pair, entry and
+	// Retail emits a do-while on the counter: one `test`/`jg` pair, entry and
 	// back-edge both `jmp` to it, and the failed predicate clears the counter.
 	if (tracker != 0) {
 		int count = data->m_58;
@@ -173,7 +184,10 @@ void SpecialPowerModule::rva00493EA7(Object *obj, int value, const BitFlags<11> 
 		return;
 	if (!disabled->any())
 		return;
-	const AttributeModifierPoolUpdate *pool = obj->findAttributeModifierPoolUpdate();
+	// The pool is stored through a volatile-qualified pointer so the returned value
+// is written straight into its stack slot (`mov [ebp+8],eax`); without it cl
+// routes the result through ecx and emits an extra `mov ecx,eax`.
+AttributeModifierPoolUpdate *const volatile pool = obj->findAttributeModifierPoolUpdate();
 	bool flag = false;
 	if (data->m_42 != 0) {
 		if (data->m_5F != 0) {
@@ -202,20 +216,20 @@ void SpecialPowerModule::rva00493EA7(Object *obj, int value, const BitFlags<11> 
 		}
 		if (flag) {
 			int v = TheGameLogic->m_40;
-			pool->rva00403415(&v, (int *)disabled);
+			pool->rva00403415((int *)disabled, v);
 		} else {
-			pool->rva00403415(&value, (int *)disabled);
+			pool->rva00403415((int *)disabled, value);
 		}
 	} else {
-		pool->rva00403415(&value, (int *)disabled);
+		pool->rva00403415((int *)disabled, value);
 	}
-	void *fx = data->m_4C;
+	const FXList *fx = (const FXList *)data->m_4C;
 	if (fx != 0)
-		FXList::doFXObj(fx, obj, 0);
-	void *fx2 = data->m_28;
+		FXList::doFXObj(fx, obj, (const Object *)0);
+	const FXList *fx2 = (const FXList *)data->m_28;
 	if (fx2 != 0) {
 		void *o4 = *(void **)((char *)obj + 4);
 		if ((*((unsigned char *)o4 + 0x115) & 0x20) == 0)
-			FXList::doFXObj(fx2, obj, 0);
+			FXList::doFXObj(fx2, obj, (const Object *)0);
 	}
 }
