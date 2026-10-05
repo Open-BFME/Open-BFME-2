@@ -1,5 +1,3 @@
-// ?rva00396B25@Rva00396B25@@QAEXXZ
-// partial score=0.95 date=2026-10-05
 // cl: /Ireference/shims/bfme2_ascii /O1 /Oy- /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
 // stlport
 // ?rva00396B25@Rva00396B25@@QAEXXZ @0x00396B25 160B update from Object controlling player name via NameKey map find and Money call stores float evidence callers 0x00399CD9 neighbours 0x0039695E construct and 0x00396E4A remove
@@ -27,7 +25,7 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 class Object
 {
 public:
-	Player *getControllingPlayer();
+	Player *getControllingPlayer() const;
 };
 
 class AsciiString;
@@ -37,10 +35,7 @@ class Player
 public:
 	char m_pad00[0x58];
 	AsciiString m_name58;
-	char m_pad5C[0x34];
-	Rva003B0D7C *m_money90;
-	char m_pad94[0x328];
-	Rva0039B795 *m_arg3BC;
+	char m_pad5C[0x360];
 };
 
 class Rva003B0D7C
@@ -74,15 +69,13 @@ private:
 	float m_value4C;
 };
 
-// ?rva00396B25@Rva00396B25@@QAEXXZ present-unmatched
 void Rva00396B25::rva00396B25()
 {
+	MapHolder *holder = m_holder04;
 	Object *obj = m_object08;
 	if (obj == 0)
 		return;
-	Player *player = 0;
-	MapHolder *holder = m_holder04;
-	player = obj->getControllingPlayer();
+	Player *player = obj->getControllingPlayer();
 	if (player == 0)
 		return;
 	AsciiString name(player->m_name58);
@@ -92,6 +85,6 @@ void Rva00396B25::rva00396B25()
 	if (it == ((_STL::map<int, AmountAt18> *)&holder->m_map68)->end())
 		return;
 	int amount = it->second.m_amount;
-	player->m_money90->rva003B0CB3((unsigned int)amount, player->m_arg3BC, true);
+	((Rva003B0D7C *)((char *)player + 0x90))->rva003B0CB3((unsigned int)amount, (Rva0039B795 *)((char *)player + 0x3BC), true);
 	m_value4C = (float)(unsigned int)amount;
 }

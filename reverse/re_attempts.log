@@ -9520,3 +9520,4 @@ FUN_00731d7e	0x00331D7E	48	blocked	loop over Store needs thiscall twin at 0x002A
 ?rva002E7440@Rva002E7440@@QAE_NHH@Z	0x002E7440	66	blocked	bit18 shr+test cl1 vs test eax 0x40000 and jne vs setne-jmp branch shape t=5 model=muse-09
 ?rva002E7296@Pathfinder@@QAEEW4PathfindLayerEnum@@PBXPBM@Z	0x002E7296	158	blocked	fld-INV-first vs fld-pos-first and eax-ecx swap flags-low and branch true-inline vs shared t=20 model=muse-09 (stash 0.9 kept)
 ?rva0010231F@Rva0010231F@@QAEXXZ	0x0010231F	229	blocked	28B record wall EvaMessageInfo vs BfmeAssignRecord28 vs Rva00111AA7-Rva00111B25Record needs central retype; Vector_base BfmeE16 ctor mismatched; class unproven t=12 model=muse-12
+?j_00045c7d@@YAXXZ	0x00396C43	519	blocked	pinned YAXXZ void-void mismatches thiscall ret4 with Object arg; likely CastleBehavior onTriggerEntered per CritterDesync strings but no donor t=12 model=muse-10

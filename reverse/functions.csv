@@ -59892,3 +59892,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ??1Rva005FAD8D@@QAE@XZ,,0x005FAD8D,98,Code/GameEngine/Source/Common/Rva005FAD8DDtor.cpp,matched,chain dtor derived vptr then base vptr via rowed callees 0x002B7250 0x005F23B2
 ?rva00102087@Rva00102087@@QAEPAUEvaMessageInfo@@PAU2@0@Z,,0x00102087,51,Code/GameEngine/Source/GameClient/Rva00102087Method.cpp,matched,unlock via copy_ptrs 0x00101F89 Destroy 0x000AFF52 callers 0x001021F1
 ??$__uninitialized_fill_n@PAURva00413B16Element@@IU1@@_STL@@YAPAURva00413B16Element@@PAU1@IABU1@ABU__false_type@0@@Z,,0x004139E1,37,Code/Libraries/Source/WWVegas/WWLib/StlportUninitFillN413B16.cpp,matched,stride 0x18 via rowed _Construct 0x0041398E sibling Rva00403927FillN
+?rva00396B25@Rva00396B25@@QAEXXZ,,0x00396B25,160,Code/GameEngine/Source/GameLogic/Object/Behavior/Rva00396B25Receiver.cpp,matched,Money receiver via Player+0x90+0x3BC holder early per shape lever
