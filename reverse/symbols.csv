@@ -11238,3 +11238,4 @@ _floor,0x00629940,call site 0x006F4403 in AptDate::getDayOfWeek (0x006F4290) enc
 ?rva00434AAE@AptSaveLoad@@QAEXXZ,0x00434AAE,unrowed 220B thiscall (Ghidra FUN_00834aae) on the save/load screen; REL32 read at AptSaveLoad::InitGadgets 0x00435208 with ECX=this; address name
 ?rva005B1288@Rva005B1288@@QAEXXZ,0x005B1288,unrowed 23B thiscall (Ghidra FUN_009b1288) on the create-a-hero screen +0x27C member; REL32 read at AptCreateAHero::OnShowScreen 0x00513A2D; address name
 ?Rva005B23D7@@YAXHABVAsciiString@@0@Z,0x005B23D7,unrowed 111B cdecl (Ghidra FUN_009b23d7; plain ret; caller pops three args); REL32 read at AptCreateAHero::OnShowScreen 0x00513A3B with 0 and the empty AsciiString twice; address name
+??1AsciiUnicodePair@@QAE@XZ,0x0038240F,ICF twin of BfmeMappedValueEBD dtor same AsciiString plus wide release
