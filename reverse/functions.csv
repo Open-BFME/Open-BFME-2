@@ -63659,3 +63659,6 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva004F9EF3@@YAXPAURva004F6352@@0URva004F6352Cmp@@@Z,,0x004F9EF3,70,Code/Libraries/Source/WWVegas/WWLib/Rva004F9EF3Sort.cpp,matched,sort driver: element count plus halving depth plus pinned phase plus rowed final insertion; full byte gate
 ?rva004ED08A@Rva004ED08A@@QAEXXZ,,0x004ED08A,77,Code/GameEngine/Source/Common/Rva004ED08ASweep.cpp,matched,AI group sweep over 0x14 entries via five rowed callees; full byte gate
 ?rva004EE79E@Rva004EE79E@@QAEXPAVRva004E06FBPtrChase32Field@@@Z,,0x004EE79E,79,Code/GameEngine/Source/Common/Rva004EE79ESelect.cpp,matched,counted selection via key plus link tag plus world push plus tag-indexed counter; full byte gate
+?rva004F9635@@YGXPAURva004F9635Rec@@@Z,,0x004F9635,35,Code/Libraries/Source/WWVegas/WWLib/Rva004F9635Sort.cpp,matched,range sort via rowed STL sort with zeroed comp; full byte gate
+?rva004EE15B@Rva004EE15B@@QAEXPAVRva004EE15BObj@@@Z,,0x004EE15B,78,Code/GameEngine/Source/Common/Rva004EE15BFwd.cpp,matched,triple slot forward with paired-byte scratch array; full byte gate
+?rva004EF4C1@Rva004EF4C1@@QAEXXZ,,0x004EF4C1,95,Code/GameEngine/Source/Common/Rva004EF4C1Pace.cpp,matched,frame pacer with dual budget clamps; pinned tail plus slot call; G7 selects imul for x3; full byte gate
