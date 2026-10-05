@@ -2,6 +2,19 @@
 // stlport
 // ?rva00561DB3@LightningDrawModuleTemplate@FXParticleSystem@@QAEXPAVFile@@I@Z @0x00561DB3 340B chain lane writeINI via WriteHeader.
 // Evidence: vslot 3 of LightningDrawModuleTemplate 0x0081BD90; calls rowed WriteHeader 0x0055C9A0 then ostringstream then rowed IsZero 0x001F3744 gated OffsetX/Y/Z 0x001F8B5F then rowed t4IsZero 0x0055D3D9 gated MultiChance 0x003A5D34 then TileTexture 0x001F89C3 then rowed str plus FileWrite plus free plus footer; same shape as GpuDrawModuleTemplate rva00563D3F.
+// The emitted unsigned max copy must match retail RVA 0x00013740.
+// Define it for speed, then restore this unit's flags for its own bodies.
+#include <stl/_algobase.h>
+#pragma optimize("s", off)
+#pragma optimize("t", on)
+namespace _STL {
+template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+#pragma optimize("", on)
+
 #include <sstream>
 #include "ascii_string.h"
 

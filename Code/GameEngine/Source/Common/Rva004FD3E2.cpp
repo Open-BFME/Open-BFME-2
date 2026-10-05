@@ -9,6 +9,19 @@
 // vector at this+0x80 via rowed push_back 0x004DFCB0; same 0x24 spacing as
 // siblings 0x004FD37F 0x50/0x74 and 0x004FD448 0x68/0x8c; neighbours carry
 // /O1 /GX /MD.
+// The emitted unsigned max copy must match retail RVA 0x00013740.
+// Define it for speed, then restore this unit's flags for its own bodies.
+#include <stl/_algobase.h>
+#pragma optimize("s", off)
+#pragma optimize("t", on)
+namespace _STL {
+template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+#pragma optimize("", on)
+
 #include <vector>
 #include <map>
 

@@ -6,6 +6,19 @@
 // 0x0022078E dtor 0x002207C4) parsed via INI::initFromINI 0x0002DE78 with
 // table g_00BE6AD0 then appended via rowed push_back. No callers. Evidence:
 // annotated disassembly, prev push_back row, LocomotorStore ctor/dtor rows.
+// The emitted unsigned max copy must match retail RVA 0x00013740.
+// Define it for speed, then restore this unit's flags for its own bodies.
+#include <stl/_algobase.h>
+#pragma optimize("s", off)
+#pragma optimize("t", on)
+namespace _STL {
+template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+#pragma optimize("", on)
+
 #include <vector>
 
 class AsciiString

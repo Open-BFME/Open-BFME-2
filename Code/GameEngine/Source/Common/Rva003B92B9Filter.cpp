@@ -8,6 +8,19 @@
 // Rva003B930D filter (Rva003B8BAA +0x14 vector<Rva*>); same check callee
 // 0x003B8B2A with test al al; dest rows are ModuleData-const vector; retail
 // pushes edi (address of source slot) so source and dest element types match.
+// The emitted unsigned max copy must match retail RVA 0x00013740.
+// Define it for speed, then restore this unit's flags for its own bodies.
+#include <stl/_algobase.h>
+#pragma optimize("s", off)
+#pragma optimize("t", on)
+namespace _STL {
+template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+#pragma optimize("", on)
+
 #include <vector>
 
 class Rva003B8B2A

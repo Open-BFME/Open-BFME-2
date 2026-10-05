@@ -8,6 +8,19 @@
 // plus pin _CxxThrowException 0x00629094; strings "std::vector" and
 // "Vector must be empty on load"; callers 0x0005E934 0x002CED3F 0x0049FD94
 // 0x004E3A02.
+// The emitted unsigned max copy must match retail RVA 0x00013740.
+// Define it for speed, then restore this unit's flags for its own bodies.
+#include <stl/_algobase.h>
+#pragma optimize("s", off)
+#pragma optimize("t", on)
+namespace _STL {
+template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+#pragma optimize("", on)
+
 #include <vector>
 
 typedef unsigned char UnsignedByte;

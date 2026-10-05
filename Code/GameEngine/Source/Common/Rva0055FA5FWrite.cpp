@@ -6,6 +6,19 @@
 // name+4, rowed GetKey cat 2, rowed Pad, 3x rowed _M_put_nowiden, rowed
 // _M_put_char, rowed str, rowed Rva001F458BWrite, free, indent+=2.
 // Callers: writeINI bodies at 0x0055FB53 and 0x005625E1.
+// The emitted unsigned max copy must match retail RVA 0x00013740.
+// Define it for speed, then restore this unit's flags for its own bodies.
+#include <stl/_algobase.h>
+#pragma optimize("s", off)
+#pragma optimize("t", on)
+namespace _STL {
+template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+#pragma optimize("", on)
+
 #include <sstream>
 
 class File {

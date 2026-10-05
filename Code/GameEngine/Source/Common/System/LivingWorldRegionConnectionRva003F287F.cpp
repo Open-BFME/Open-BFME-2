@@ -5,6 +5,19 @@
 // Evidence: callees rowed push_back 0x004DFCB0; callers 0x002B7717 0x004EEFBD 0x005037B1; neighbours LivingWorldRegionConnection dtor/construct give TU and flags.
 // ?rva003F28DB@Rva003F287F@@QAEXAAV?$vector@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@@Z, retail 0x003F28DB 103B.
 // Same filter plus rowed const getter 0x004E0632 on entry+0x20; callers 0x002B6E17 0x002B6ECA 0x002E2DB6.
+// The emitted unsigned max copy must match retail RVA 0x00013740.
+// Define it for speed, then restore this unit's flags for its own bodies.
+#include <stl/_algobase.h>
+#pragma optimize("s", off)
+#pragma optimize("t", on)
+namespace _STL {
+template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+#pragma optimize("", on)
+
 #include <vector>
 
 class ModuleData

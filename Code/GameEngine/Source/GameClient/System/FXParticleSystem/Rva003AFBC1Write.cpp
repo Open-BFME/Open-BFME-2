@@ -2,6 +2,19 @@
 // stlport
 // ?Rva003AFBC1Write@@YAXPBDPAVFile@@PAI@Z at 0x003AFBC1 size 170
 // Evidence: chain via rowed Pad 0x001F6951; oss ctor 0x001FA85C push 1 push 0x10 then Pad then single _M_put_nowiden then _M_put_char 0xA then str 0x001FA473 then Write 0x001F458B then free 0x30830 then flags+=2 then oss dtors; precedent Rva0055CB5DWrite.cpp.
+// The emitted unsigned max copy must match retail RVA 0x00013740.
+// Define it for speed, then restore this unit's flags for its own bodies.
+#include <stl/_algobase.h>
+#pragma optimize("s", off)
+#pragma optimize("t", on)
+namespace _STL {
+template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+#pragma optimize("", on)
+
 #include <sstream>
 
 class File {

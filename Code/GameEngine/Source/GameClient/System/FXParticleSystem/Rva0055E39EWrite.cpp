@@ -2,6 +2,19 @@
 // stlport
 // ?rva0055E39E@LightningEmissionModuleTemplate@FXParticleSystem@@QAEXPAVFile@@I@Z @0x0055E39E 582B chain lane writeINI via WriteHeader.
 // Evidence: vslot 3 of LightningEmissionModuleTemplate 0x0081BBB0 and 0x0081C154; calls rowed WriteHeader 0x0055CB5D then ostringstream then rowed RGB IsZero 0x0055CCEF gated StartPoint EndPoint via rowed Vec Write 0x001F89E2 then 9x rowed IsZero 0x001F3744 gated Amplitude Frequency Phase via rowed 0x001F8B5F then rowed str plus FileWrite 0x001F458B plus free plus footer 0x003AFC6B; same shape as Ortho plus RGB head.
+// The emitted unsigned max copy must match retail RVA 0x00013740.
+// Define it for speed, then restore this unit's flags for its own bodies.
+#include <stl/_algobase.h>
+#pragma optimize("s", off)
+#pragma optimize("t", on)
+namespace _STL {
+template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+#pragma optimize("", on)
+
 #include <sstream>
 #include "ascii_string.h"
 

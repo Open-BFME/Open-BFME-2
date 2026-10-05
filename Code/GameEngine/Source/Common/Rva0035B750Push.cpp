@@ -3,6 +3,19 @@
 // ?rva0035B750@Rva0035B750@@QAEXPBVModuleData@@@Z retail 0x0035B750 45B
 // Empty-or-first setter over ModuleData vector at +0xec storing to +0xfc.
 // Evidence: unlock lane, callers 0x0031BE58 0x0053D355, rowed push_back 0x004DFCB0.
+// The emitted unsigned max copy must match retail RVA 0x00013740.
+// Define it for speed, then restore this unit's flags for its own bodies.
+#include <stl/_algobase.h>
+#pragma optimize("s", off)
+#pragma optimize("t", on)
+namespace _STL {
+template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+#pragma optimize("", on)
+
 #include <vector>
 
 #include "ascii_string.h"

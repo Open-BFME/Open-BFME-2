@@ -15,6 +15,19 @@
 //         dtor 0x005ADA40 plus operator delete, then erase 0x0031BD55
 //   +0x18 Coord3D, +0x24 flag, +0x28 Coord3D, both points seeded from the
 //         -1 triple at 0x00DD0870 (Gen00DD0870)
+// The emitted unsigned max copy must match retail RVA 0x00013740.
+// Define it for speed, then restore this unit's flags for its own bodies.
+#include <stl/_algobase.h>
+#pragma optimize("s", off)
+#pragma optimize("t", on)
+namespace _STL {
+template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+#pragma optimize("", on)
+
 #define __PLACEMENT_VEC_NEW_INLINE
 #include <vector>
 #include "ascii_string.h"

@@ -11,6 +11,19 @@
 // rowed); ret with no N proves __thiscall with no stack args; ecx read
 // before write proves thiscall; al return proves bool; neighbours share
 // // cl: /Ireference/shims/bfme2_ascii /O1 /MD.
+// The emitted unsigned max copy must match retail RVA 0x00013740.
+// Define it for speed, then restore this unit's flags for its own bodies.
+#include <stl/_algobase.h>
+#pragma optimize("s", off)
+#pragma optimize("t", on)
+namespace _STL {
+template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+#pragma optimize("", on)
+
 #include <vector>
 
 class ModuleData;

@@ -18,6 +18,19 @@
 // retail relocations there). BFME 2's table has the same shape (100-bucket
 // ctor 0x001DCBA4 -> hashtable ctor 0x001DCB64 -> rts _M_initialize_buckets
 // 0x00148DDF); the value type is carried from the donor, not proven here.
+// The emitted unsigned max copy must match retail RVA 0x00013740.
+// Define it for speed, then restore this unit's flags for its own bodies.
+#include <stl/_algobase.h>
+#pragma optimize("s", off)
+#pragma optimize("t", on)
+namespace _STL {
+template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+#pragma optimize("", on)
+
 #include <hash_map>
 #include <list>
 #include <cstddef>

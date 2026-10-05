@@ -6,6 +6,19 @@
 // via rowed ??1Rva0032D279 dtor (same pattern as matched 0x0032FF48 wrapper).
 // Evidence: __EH_prolog with mov/or [ebp-4] states, xor edi loop over
 // [esi+0x3c], lea/push temp plus index with mov ecx,esi call, tail dtor call.
+// The emitted unsigned max copy must match retail RVA 0x00013740.
+// Define it for speed, then restore this unit's flags for its own bodies.
+#include <stl/_algobase.h>
+#pragma optimize("s", off)
+#pragma optimize("t", on)
+namespace _STL {
+template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+#pragma optimize("", on)
+
 #include <vector>
 
 struct BfmeE16

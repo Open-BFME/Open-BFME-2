@@ -3,6 +3,19 @@
 // ?Rva00564284WriteHeader@@YAXPBXPAVFile@@PAI@Z, retail 0x00564284, 216 bytes.
 // Header writer: Pad(stream,*flags) then key + " = " + class name + newline then Write + *flags+=2.
 // Evidence: push 8 to rowed GetKey@FXParticleSystem; self+4 virtual getClass()->name at [eax+4]; rowed Pad/Put/str/Rva001F458BWrite/_free; callers writeINI at 0x00564377/0x005649B6; same 216B shape as ?Rva0055E891WriteVelocityHeader@@YAXPBXPAVFile@@PAI@Z.
+// The emitted unsigned max copy must match retail RVA 0x00013740.
+// Define it for speed, then restore this unit's flags for its own bodies.
+#include <stl/_algobase.h>
+#pragma optimize("s", off)
+#pragma optimize("t", on)
+namespace _STL {
+template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+#pragma optimize("", on)
+
 #include <sstream>
 
 class File {

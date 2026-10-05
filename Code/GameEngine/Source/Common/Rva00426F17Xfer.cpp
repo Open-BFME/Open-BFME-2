@@ -1,6 +1,19 @@
 // cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ?Rva00426F17Xfer@@YAPAVXfer@@PAV1@PAV?$vector@UBfmeStringRecord00426A5B@@V?$allocator@UBfmeStringRecord00426A5B@@@_STL@@@_STL@@@Z @0x00426F17 248B evidence: version 1 1 via slot 0x28 plus size via slots 0x2C 0x78 plus isSaving via 0x08 plus per-element via rowed 0x4266BC plus reserve 0x426BE5 plus push_back 0x426EE0 plus default ctor 0x4267CC plus releaseBuffer 0x36410 plus FormatText 0x60C36E plus Throw 0x629094 plus strings std-vector Vector-must-be-empty
+// The emitted unsigned max copy must match retail RVA 0x00013740.
+// Define it for speed, then restore this unit's flags for its own bodies.
+#include <stl/_algobase.h>
+#pragma optimize("s", off)
+#pragma optimize("t", on)
+namespace _STL {
+template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+#pragma optimize("", on)
+
 #include <vector>
 typedef unsigned char UnsignedByte;
 typedef unsigned int UnsignedInt;

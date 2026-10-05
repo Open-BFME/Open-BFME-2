@@ -2,6 +2,19 @@
 // stlport
 // ?rva0020FD7F@Rva0020FD7F@@QAEXPAURva0020FD7FFilter@@PAV?$vector@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@@Z @0x0020FD7F 96B via voidptr-erase plus ModuleData filter push
 // Evidence: retail clears out vector via rowed voidptr erase 0x0031BD55 then loops holder vector at (this+8)+0x2c comparing element+0x13c to filter+0x14 and push_back via rowed 0x004DFCB0; caller 0x002B7DE6; neighbours share /O1; Rva002B85ECFilter precedent for filter shape.
+// The emitted unsigned max copy must match retail RVA 0x00013740.
+// Define it for speed, then restore this unit's flags for its own bodies.
+#include <stl/_algobase.h>
+#pragma optimize("s", off)
+#pragma optimize("t", on)
+namespace _STL {
+template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+#pragma optimize("", on)
+
 #include <vector>
 
 class ModuleData

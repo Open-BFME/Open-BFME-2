@@ -15,6 +15,19 @@
 // Open-BFME5: more PA-style vector::erase(first,last) 77B siblings on
 // d_003ad560. Unique strides plus same-size 0x20 twins (distinct __copy callees).
 
+// The emitted unsigned max copy must match retail RVA 0x00013740.
+// Define it for speed, then restore this unit's flags for its own bodies.
+#include <stl/_algobase.h>
+#pragma optimize("s", off)
+#pragma optimize("t", on)
+namespace _STL {
+template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+#pragma optimize("", on)
+
 #include <vector>
 
 #define BFME_PA_ERASE_ELEM( NAME, SIZE ) \

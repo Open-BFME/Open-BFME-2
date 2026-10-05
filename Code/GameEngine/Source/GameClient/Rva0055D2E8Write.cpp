@@ -2,6 +2,19 @@
 // stlport
 // ?rva0055D2E8@BoxEmissionVolumeModuleTemplate@FXParticleSystem@@QAEXPAVFile@@I@Z at 0x0055D2E8 size 223
 // Evidence: chain via 0x003AFC6B; vslot 3 BoxEmissionVolumeModuleTemplate; WriteHeader 0x0055CB5D then IsHollow 0x001F89C3 then IsZero-gated HalfSize Vec 0x001F89E2 then str Write 0x001F458B then 0x003AFC6B; bool at +0xC Vec at +0x10.
+// The emitted unsigned max copy must match retail RVA 0x00013740.
+// Define it for speed, then restore this unit's flags for its own bodies.
+#include <stl/_algobase.h>
+#pragma optimize("s", off)
+#pragma optimize("t", on)
+namespace _STL {
+template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+#pragma optimize("", on)
+
 #include <sstream>
 
 class File {

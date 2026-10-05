@@ -5,6 +5,19 @@
 // filling text0 and text1 via rowed string assign 0x1B790 with empty literal
 // fallback, word1 via rowed scanInt 0x2ECCF, then assigning through rowed
 // operator= 0x7A22A into instance+0x8C and destroying via 0x79554.
+// The emitted unsigned max copy must match retail RVA 0x00013740.
+// Define it for speed, then restore this unit's flags for its own bodies.
+#include <stl/_algobase.h>
+#pragma optimize("s", off)
+#pragma optimize("t", on)
+namespace _STL {
+template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+#pragma optimize("", on)
+
 #include <string>
 
 struct BfmeNarrowRecord00079C23

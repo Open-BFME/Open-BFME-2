@@ -7,6 +7,19 @@
 // caller 0x002898E3 is the 31B hash_map default ctor pushing 0x64 with three empty params; its callers at 0x00289B84/0x00289BA9 sit in ctor 0x00289ABD
 // (vtable 0x007FB8F4, base BFME2NativeNetwork 0x001B4E63, two 0x14B heap hash_maps at +0x0C/+0x10). ZH Armor.h defines this map with rts::equal_to
 // (vs ArmorStoreCtor rts-free _STL::equal_to twin at 0x00360B59); rts::equal_to pattern follows DamageFX_hashtableNewNode.cpp.
+// The emitted unsigned max copy must match retail RVA 0x00013740.
+// Define it for speed, then restore this unit's flags for its own bodies.
+#include <stl/_algobase.h>
+#pragma optimize("s", off)
+#pragma optimize("t", on)
+namespace _STL {
+template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+#pragma optimize("", on)
+
 #include <hash_map>
 
 enum NameKeyType

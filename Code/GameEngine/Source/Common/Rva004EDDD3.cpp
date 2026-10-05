@@ -3,6 +3,19 @@
 // ?rva004EDDD3@Rva00506909Item@@QAEXXZ at 0x004EDDD3 (276B).
 // Item average: if v4()==0 return; else gather Team positions via TheTeamFactory+findInstance into vector<Coord3D> then average into +0x38.
 // Evidence: virtual [eax+0x10] count guard; +0x14/+0x18 stride 0x14 nodes via TheTeamFactory 0x00A028BC and findInstance 0x0039F761; Team::rva0039E5B9 fills Coord3D then push_back 0x002CE7DC; sum into +0x38/+0x3C/+0x40 then 1.0/g_Va00BBB8D8 divide with unsigned fild+fadd g_00BC26EC then free 0x00030830; caller 0x004EDF89 in Item 0x004EDF03; prev/next Rva004EDCE9Dtor.
+// The emitted unsigned max copy must match retail RVA 0x00013740.
+// Define it for speed, then restore this unit's flags for its own bodies.
+#include <stl/_algobase.h>
+#pragma optimize("s", off)
+#pragma optimize("t", on)
+namespace _STL {
+template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+#pragma optimize("", on)
+
 #include <vector>
 
 struct Coord3D

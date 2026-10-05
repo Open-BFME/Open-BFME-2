@@ -8,6 +8,19 @@
 // caller 0x001491AC constructs the member at +0x2bf4c just before the lock at
 // +0x2bf60 (0x14 gap = hashtable size). Same pattern as the rowed rts
 // twin ??0hash_map rts 0x002898E3/31 in ArmorHashtableRtsCtor.cpp.
+// The emitted unsigned max copy must match retail RVA 0x00013740.
+// Define it for speed, then restore this unit's flags for its own bodies.
+#include <stl/_algobase.h>
+#pragma optimize("s", off)
+#pragma optimize("t", on)
+namespace _STL {
+template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+#pragma optimize("", on)
+
 #include <hash_map>
 #include <cstddef>
 

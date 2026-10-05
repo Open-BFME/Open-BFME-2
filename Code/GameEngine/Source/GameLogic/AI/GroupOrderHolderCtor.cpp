@@ -10,6 +10,19 @@
 // Evidence: same vtable-ID-vector layout as copy ctor 0x005488E9;
 // five derived ModuleData ctors (0x00546AD0 0x00546C26 0x00546ECE
 // 0x00547963 0x00547F88) call this base then overwrite the vtable.
+// The emitted unsigned max copy must match retail RVA 0x00013740.
+// Define it for speed, then restore this unit's flags for its own bodies.
+#include <stl/_algobase.h>
+#pragma optimize("s", off)
+#pragma optimize("t", on)
+namespace _STL {
+template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+#pragma optimize("", on)
+
 extern "C" const void *const vtbl_00C6A520[];  // ??_7GroupOrder@@6B@
 #pragma comment(linker, "/alternatename:_vtbl_00C6A520=??_7GroupOrder@@6B@")
 

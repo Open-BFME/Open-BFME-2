@@ -3,6 +3,19 @@
 // ?Rva0055E891WriteVelocityHeader@@YAXPBXPAVFile@@PAI@Z @0x0055E891 216B. Velocity-template INI header writer.
 // Evidence: BFME1 donor Rva005F8FC0WriteVelocityHeader.cpp category 4; retail push 4 to rowed GetKey; rowed Pad then 3x rowed _M_put_nowiden then rowed _M_put_char then rowed str then rowed Rva001F458BWrite then *flags+=2; callers are writeINI bodies.
 // Honest Rva name; /O1 for and/or/push idioms; /EHsc for ostringstream+string unwind; bfmealloc for _free dealloc.
+// The emitted unsigned max copy must match retail RVA 0x00013740.
+// Define it for speed, then restore this unit's flags for its own bodies.
+#include <stl/_algobase.h>
+#pragma optimize("s", off)
+#pragma optimize("t", on)
+namespace _STL {
+template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+#pragma optimize("", on)
+
 #include <sstream>
 
 class File {

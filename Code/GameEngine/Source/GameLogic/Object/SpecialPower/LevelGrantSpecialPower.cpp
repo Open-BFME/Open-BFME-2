@@ -16,6 +16,19 @@
 //               (+0x250 slot 68 with 0x004C2B57); any other gets it all
 //   0x004C2D2B  prefer the object 0x00049DC5 finds for +0x78 when its template
 //               has bit 13; such an object is granted once per ID (+0x74)
+// The emitted unsigned max copy must match retail RVA 0x00013740.
+// Define it for speed, then restore this unit's flags for its own bodies.
+#include <stl/_algobase.h>
+#pragma optimize("s", off)
+#pragma optimize("t", on)
+namespace _STL {
+template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+#pragma optimize("", on)
+
 #include <vector>
 
 enum ObjectID

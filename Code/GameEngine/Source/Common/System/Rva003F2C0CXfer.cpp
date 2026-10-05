@@ -8,6 +8,19 @@
 // reserve 0x0030B876 plus push_back 0x00539A2E. Mirrors landed XferVectorBool
 // 0x0060C253 and XferAsciiStringVector 0x0005A170. Caller 0x003F308C.
 // Evidence: unlock lane, all callees rowed or pinned, unblocks 0x003F3054.
+// The emitted unsigned max copy must match retail RVA 0x00013740.
+// Define it for speed, then restore this unit's flags for its own bodies.
+#include <stl/_algobase.h>
+#pragma optimize("s", off)
+#pragma optimize("t", on)
+namespace _STL {
+template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+#pragma optimize("", on)
+
 #define _STLP_NO_EXCEPTIONS 1
 #include <vector>
 

@@ -4,6 +4,19 @@
 // stlport
 // ?Rva0046EFDBXfer@@YAPAVXfer@@PAV1@PAV?$vector@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@@Z @0x0046EFDB 202B
 // Xfer helper for vector<const ModuleData*> with version {1,1} via slot 0x28 size via slot 0x2C/0x78 isSaving via slot 0x08 per-element via slot 0x70 reserve 0x002B712E push_back 0x004DFCB0 FormatText 0x0060C36E Throw 0x00629094 strings "std::vector" "Vector must be empty on load" caller 0x00475632.
+// The emitted unsigned max copy must match retail RVA 0x00013740.
+// Define it for speed, then restore this unit's flags for its own bodies.
+#include <stl/_algobase.h>
+#pragma optimize("s", off)
+#pragma optimize("t", on)
+namespace _STL {
+template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+#pragma optimize("", on)
+
 #define _STLP_NO_EXCEPTIONS 1
 #include <vector>
 

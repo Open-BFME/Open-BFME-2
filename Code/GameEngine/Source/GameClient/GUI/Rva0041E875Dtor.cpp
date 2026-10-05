@@ -7,6 +7,19 @@
 // Retail calls E7F2, frees [0x1C], frees [0xC], releases +8/+4/+0 with EH
 // states 4>3>2>1>0>-1. Evidence: callees rowed E7F2, _free 0x00030830,
 // releaseBuffer 0x00036410; caller dtor chain via 0x0041E8F6/0x0041EC73.
+// The emitted unsigned max copy must match retail RVA 0x00013740.
+// Define it for speed, then restore this unit's flags for its own bodies.
+#include <stl/_algobase.h>
+#pragma optimize("s", off)
+#pragma optimize("t", on)
+namespace _STL {
+template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+#pragma optimize("", on)
+
 #include "ascii_string.h"
 #include <vector>
 

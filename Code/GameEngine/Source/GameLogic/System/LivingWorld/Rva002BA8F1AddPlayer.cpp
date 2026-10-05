@@ -13,6 +13,19 @@
 // The bytecode proves offsets/operations, not original EA type names or full layouts.
 // cl: /O1 /DNDEBUG /DWIN32 /MD /EHsc
 // stlport
+// The emitted unsigned max copy must match retail RVA 0x00013740.
+// Define it for speed, then restore this unit's flags for its own bodies.
+#include <stl/_algobase.h>
+#pragma optimize("s", off)
+#pragma optimize("t", on)
+namespace _STL {
+template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+#pragma optimize("", on)
+
 #include <vector>
 class AsciiString { public: int compare(const AsciiString &) const; private: void *data; };
 struct Rva002BA8F1Input {

@@ -17,6 +17,20 @@
 // (m_nextOverride +0x04, m_isAllocatedOverride +0x08); the three string
 // literals and the field-table address are retail-measured.
 
+// The emitted unsigned max copy must match retail RVA 0x00013740.
+// Define it for speed without a frame pointer, then restore this unit's flags.
+#include <stl/_algobase.h>
+#pragma optimize("s", off)
+#pragma optimize("t", on)
+#pragma optimize("y", on)
+namespace _STL {
+template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+#pragma optimize("", on)
+
 #include <vector>
 
 typedef int Int;

@@ -2,6 +2,19 @@
 // stlport
 // ?Rva003A5DA0WriteWindHeader@@YAXPBXPAVFile@@PAI@Z @0x003A5DA0 216B: wind header File INI key-string line via oss Pad str Write.
 // Evidence: calls rowed oss ctor 0x001FA85C then virtual ModuleClassView::getClass name+4 then rowed GetKey 0x003AFD16 cat7 WIND then rowed Pad 0x001F6951 then rowed _M_put_nowiden 0x001F5F65 x3 then rowed _M_put_char 0x001F5E51 then rowed str 0x001FA473 then rowed Write 0x001F458B then free 0x30830 via bfmealloc then indent+=2 then rowed oss dtor 0x001F66C6 and ios_base dtor 0x1C220; donor BFME1 Rva005FF160WriteWindHeader cat7; chain via 0x001F6951.
+// The emitted unsigned max copy must match retail RVA 0x00013740.
+// Define it for speed, then restore this unit's flags for its own bodies.
+#include <stl/_algobase.h>
+#pragma optimize("s", off)
+#pragma optimize("t", on)
+namespace _STL {
+template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+#pragma optimize("", on)
+
 #include <sstream>
 
 class File {

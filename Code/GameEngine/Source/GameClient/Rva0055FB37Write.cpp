@@ -2,6 +2,19 @@
 // stlport
 // ?rva0055FB37@Rva0055FB37@@QAEXPAVFile@@I@Z @0x0055FB37 504B chain lane writeINI via WriteHeader.
 // Evidence: vslot 3 of DefaultModuleTemplate $01 0x0081BCF0 and ConcreteModuleTag $01 0x0081BF84; calls rowed WriteHeader 0x0055FA5F then ostringstream then 8x rowed IsZero 0x001F3744 gated SizeRate SizeRateDamping AngleZ AngularRateZ AngularDamping AngleXY AngularRateXY AngularDampingXY via rowed 0x001F8B5F plus Rotation enum via rowed 0x001F82AB with table g_00C1B6D8 then rowed str plus FileWrite 0x001F458B plus free plus footer 0x003AFC6B.
+// The emitted unsigned max copy must match retail RVA 0x00013740.
+// Define it for speed, then restore this unit's flags for its own bodies.
+#include <stl/_algobase.h>
+#pragma optimize("s", off)
+#pragma optimize("t", on)
+namespace _STL {
+template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+#pragma optimize("", on)
+
 #include <sstream>
 #include "ascii_string.h"
 
