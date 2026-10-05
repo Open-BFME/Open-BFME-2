@@ -1,36 +1,7 @@
-// Header shim: reference/open-bfme-1's WW3D2 rendobj.h with ONE change --
-// sizeof(RenderObjClass) is 0xC4, not the 0xC8 the vendored copy pads it to.
-//
-// Read out of retail, three classes agreeing:
-//
-//   ParticleBufferClass  Set_Emitter at 0x001A6E80 stores to [ecx+0x250] where
-//                        this build stored to [ecx+0x254], and every one of the
-//                        135 member offsets its unclaimed bodies touch is four
-//                        lower in retail.
-//   HLodClass            Get_Sub_Object at 0x0019CBC0 reads [ecx+0x120],
-//                        [ecx+0x128] and [ecx+0x13C] against our 0x124, 0x12C
-//                        and 0x140.
-//   CameraClass          Device_To_View_Space at 0x00134650 puts Viewport at
-//                        0xC8 and ViewPlane at 0xD8, which is exactly where they
-//                        land when the base ends at 0xC4 and ProjectionType
-//                        keeps its place as the first member.
-//
-// The last of those is why this replaces the earlier bfmecamera shim: that one
-// moved CameraClass::Projection to the tail to get Viewport down to 0xC8, which
-// fitted camera.cpp and nothing else.  A base four bytes shorter fits camera.cpp
-// AND part_buf AND hlod with no per-class surgery, and the comment it displaces
-// says the 0x28 pad was "validated for Camera FrustumValid@0x100" -- validated
-// against the same body, under the assumption being corrected here.
-//
-// What made this findable: a body whose instruction stream matches retail but
-// whose displacements are all off by one constant.  place_bodies cannot see
-// such a body at all, because its masked search compares the displacements too.
-// Re-encoding them by a candidate delta before searching found 9,267 bytes of
-// ParticleBufferClass sitting in plain view.
-//
-// Opt-in per unit: -Ireference/shims/bfmerendobj FIRST on the `// cl:` line and
-// #include "rendobj.h" before any header that would reach the reference copy
-// out of its own directory.
+// Pinned donor view: Open-BFME-1 6d9434269164392c5ba62aaa7c15a86b5b020d76
+// game/Libraries/Source/WWVegas/WW3D2/rendobj.h. Preserve its layout and declarations.
+// Sphere currently verifies against this view; no new target layout names are claimed.
+// Only BFME_RENDEROBJ_SIZE_LOD moves Get_Current_LOD to a scoped size-optimized inline.
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
@@ -187,7 +158,7 @@ static const char* TheAnimModeNames[] =
 // render object. Applications using WW3D may create concrete classes deriving from this for
 // application-specific pre- and post- render processing. (the return value from Pre_Render
 // determines whether to perform the Render() call - if false, Render() will not be called).
-// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/rendobj.h
+// upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/rendobj.h
 class RenderHookClass
 {
 public:
@@ -233,7 +204,7 @@ public:
  	//mesh renderer so it can override settings which are usually shared across
  	//all instances of a model - typically material settings like alpha, texture
  	//animation, texture uv scrolling, etc.  Added for 'Generals' -MW
- 	// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/rendobj.h
+	// upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/rendobj.h
  	struct Material_Override
  	{	Material_Override(void)	: Struct_ID(USER_DATA_MATERIAL_OVERRIDE),customUVOffset(0,0) {}
 
@@ -564,15 +535,7 @@ public:
    virtual int						Get_Sort_Level(void) const										{ return 0; /* SORT_LEVEL_NONE */ }
    virtual void					Set_Sort_Level(int level)										{ }
 
-// The bit setters below are emitted only by the units that hold their retail rows:
-// BFME_RO_DEFINE_VISIBILITY in RenderObjO1Inlines.cpp, BFME_RO_DEFINE_FLAGS in
-// HeightMap.cpp. Every other unit only declares them, so its vtables reference
-// the one retail copy instead of emitting a differently-compiled COMDAT.
-#ifdef BFME_RO_DEFINE_VISIBILITY
 	virtual int						Is_Really_Visible(void)														{ return ((Bits & IS_NOT_HIDDEN_AT_ALL) == IS_NOT_HIDDEN_AT_ALL) && Is_Visible(); }
-#else
-	virtual int						Is_Really_Visible(void);
-#endif
 	virtual int						Is_Not_Hidden_At_All(void)													{ return ((Bits & IS_NOT_HIDDEN_AT_ALL) == IS_NOT_HIDDEN_AT_ALL); }
 	virtual int						Is_Visible(void) const														{ return (Bits & IS_VISIBLE); }
 	// BFME: retail Set_Visible takes a second parameter (stored at member 0x90);
@@ -584,63 +547,31 @@ public:
 //	virtual void					Set_VisibleWithCheatSpy(int onoff)								{ if (onoff) { Bits |= IS_VISIBLE|0x80; } else { Bits &= ~IS_VISIBLE; } }
 
 	virtual int						Is_Hidden(void) const														{ return !(Bits & IS_NOT_HIDDEN); }
-#ifdef BFME_RO_DEFINE_VISIBILITY
 	virtual void					Set_Hidden(int onoff)														{ if (onoff) { Bits &= ~IS_NOT_HIDDEN; } else { Bits |= IS_NOT_HIDDEN; } }
-#else
-	virtual void					Set_Hidden(int onoff);
-#endif
 	virtual int						Is_Animation_Hidden(void) const											{ return !(Bits & IS_NOT_ANIMATION_HIDDEN); }
-#ifdef BFME_RO_DEFINE_VISIBILITY
 	virtual void					Set_Animation_Hidden(int onoff)											{ if (onoff) { Bits &= ~IS_NOT_ANIMATION_HIDDEN; } else { Bits |= IS_NOT_ANIMATION_HIDDEN; } }
-#else
-	virtual void					Set_Animation_Hidden(int onoff);
-#endif
 	virtual int						Is_Force_Visible(void) const												{ return Bits & IS_FORCE_VISIBLE; }
 	// BFME drift: out-of-line in retail (0x91F890) — callers emit a call instead
 	// of inlining the Bits update (ParticleBufferClass ctor at 0x9897A7).
 	virtual void					Set_Force_Visible(int onoff);
 
 	virtual int						Is_Translucent(void) const													{ return Bits & IS_TRANSLUCENT; }
-#ifdef BFME_RO_DEFINE_VISIBILITY
 	virtual void					Set_Translucent(int onoff)													{ if (onoff) { Bits |= IS_TRANSLUCENT; } else { Bits &= ~IS_TRANSLUCENT; } }
-#else
-	virtual void					Set_Translucent(int onoff);
-#endif
 	virtual int						Is_Alpha(void) const														{ return Bits & IS_ALPHA; }
-#ifdef BFME_RO_DEFINE_FLAGS
 	virtual void					Set_Alpha(int onoff)														{ if (onoff) { Bits |= IS_ALPHA; } else { Bits &= ~IS_ALPHA; } }
-#else
-	virtual void					Set_Alpha(int onoff);
-#endif
 	virtual int						Is_Additive(void) const													{ return Bits & IS_ADDITIVE; }
-	virtual void					Set_Additive(int onoff);	// defined out of line in RenderObjAccessors.cpp (0x0006CF8C)
+	virtual void					Set_Additive(int onoff)														{ if (onoff) { Bits |= IS_ADDITIVE; } else { Bits &= ~IS_ADDITIVE; } }
 	// BFME: four unidentified retail flag get/set pairs between Set_Additive
 	// and Get_Collision_Type (Bits masks 0x02000000, 0x04000000, 0x08000000,
 	// 0x01000000 in retail).
 	virtual int						_bfme_ro_flag109(void) const												{ return Bits & 0x02000000; }
-#ifdef BFME_RO_DEFINE_FLAGS
 	virtual void					_bfme_ro_flag110(int onoff)												{ if (onoff) { Bits |= 0x02000000; } else { Bits &= ~0x02000000; } }
-#else
-	virtual void					_bfme_ro_flag110(int onoff);
-#endif
 	virtual int						_bfme_ro_flag111(void) const												{ return Bits & 0x04000000; }
-#ifdef BFME_RO_DEFINE_FLAGS
 	virtual void					_bfme_ro_flag112(int onoff)												{ if (onoff) { Bits |= 0x04000000; } else { Bits &= ~0x04000000; } }
-#else
-	virtual void					_bfme_ro_flag112(int onoff);
-#endif
 	virtual int						_bfme_ro_flag113(void) const												{ return Bits & 0x08000000; }
-#ifdef BFME_RO_DEFINE_FLAGS
 	virtual void					_bfme_ro_flag114(int onoff)												{ if (onoff) { Bits |= 0x08000000; } else { Bits &= ~0x08000000; } }
-#else
-	virtual void					_bfme_ro_flag114(int onoff);
-#endif
 	virtual int						_bfme_ro_flag115(void) const												{ return Bits & 0x01000000; }
-#ifdef BFME_RO_DEFINE_FLAGS
 	virtual void					_bfme_ro_flag116(int onoff)												{ if (onoff) { Bits |= 0x01000000; } else { Bits &= ~0x01000000; } }
-#else
-	virtual void					_bfme_ro_flag116(int onoff);
-#endif
 	// BFME: retail Get_Collision_Type returns (Bits & 0xFFE) | 1; Set_Collision_Type
 	// is out-of-line with a second recursion parameter (retail @ 0x91FA10).
 	virtual int						Get_Collision_Type(void) const											{ return (Bits & 0xFFE) | 1; }
@@ -757,11 +688,9 @@ protected:
 
 	RenderHookClass *				RenderHook;
 
-	// sizeof(RenderObjClass) is 0xC4 in BFME, not 0xC8.  Every member this class
-	// itself owns is already right -- Bits@0x10, Transform@0x18, Scene@0x80,
-	// User_Data@0x88 are each pinned by a matched accessor -- so the four bytes
-	// are in the TAIL, and they move every derived class's members with them.
-	char								_bfme_base_pad[0x24];
+	// End pad keeps sizeof(RenderObjClass) stable at 0xC8 (validated for Camera
+	// FrustumValid@0x100 on the sweep-shim path).
+	char								_bfme_base_pad[0x28];
 
 	friend class SceneClass;
 	friend class RenderObjProxyClass;

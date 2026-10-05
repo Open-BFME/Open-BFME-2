@@ -101,7 +101,11 @@ public:
 	TCHAR & operator[] (int index);
 	inline operator const TCHAR * (void) const;
 
+#if defined(BFME_WWSTRING_NATIVE_LENGTH)
+	int	Get_Length (void) const;
+#else
 	inline int	Get_Length (void) const;
+#endif
 	bool			Is_Empty (void) const;
 
 	int _cdecl  Format (const TCHAR *format, ...);
@@ -235,6 +239,7 @@ StringClass::operator[] (int index)
 ///////////////////////////////////////////////////////////////////
 //	Get_Length
 ///////////////////////////////////////////////////////////////////
+#if !defined(BFME_WWSTRING_NATIVE_LENGTH)
 inline int
 StringClass::Get_Length (void) const
 {
@@ -260,6 +265,7 @@ StringClass::Get_Length (void) const
 
 	return length;
 }
+#endif
 
 ///////////////////////////////////////////////////////////////////
 //	Get_Buffer
