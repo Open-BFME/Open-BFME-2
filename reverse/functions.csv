@@ -66743,3 +66743,4 @@ _Rva00814770,,0x00680670,1511,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,m
 ?rva00463138@OpenContainActionIface@@UAEXXZ,,0x00463138,89,Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainRva00464EE7.cpp,matched,slot 36 of OpenContain plus 0x20 interface vtable 0x00C433B0; target fields and call targets; method identity address-derived
 ??_ERva00112291@@UAEPAXI@Z,,0x000E1072,78,Code/GameEngine/Source/Common/Rva000E1072.cpp,matched,vector deleting destructor stride 0xD4 calling pinned element dtor 0x00112291
 ?rva000E585F@Rva006F8700Owner@@QAEXPAX0PAH1@Z,,0x000E585F,95,Code/GameEngine/Source/Common/Rva000E585F.cpp,matched,folds rowed 0x000E569A into arg4 and +0x40 and 0x000E56AF into arg3 with quotient 3 at +0x48
+?rva00109D64@Rva007B1380@@QAEXXZ,,0x00109D64,40,Code/GameEngine/Source/Common/Rva007B1380Ctor.cpp,matched,float reset abutting ctor via rowed base initialize plus 20.0f literal
