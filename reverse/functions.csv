@@ -61145,3 +61145,4 @@ _sinf,,0x0008516D,17,Code/GameEngine/Source/GameLogic/Object/Behavior/SlowDeathR
 ?rva0030F36B@Rva0030F388@@QAEXXZ,,0x0030F36B,29,Code/GameEngine/Source/Common/Rva0030F36BMethod.cpp,matched,guarded broadcast setting flag shared with 0x0030F388 slot-2 forwarder
 ?rva002B6066@Rva002B6066@@QAEPAURva0040DC56Element@@PAU2@@Z,,0x002B6066,57,Code/GameEngine/Source/Common/Rva002B6066Erase.cpp,matched,gap erase via rowed copy_ptrs and release
 ??0?$vector@VBfmeThingUBB@@V?$allocator@VBfmeThingUBB@@@_STL@@@_STL@@QAE@ABV01@@Z,,0x0032BE3C,68,Code/GameEngine/Source/GameLogic/Map/SidesListTeamsInfoRecVectorCopy.cpp,matched,caller 0x0032D9A4 copies vector plus rowed callees get_allocator _Vector_base uninitialized_copy
+?rva001DEEB3@Rva001DEEB3@@QAEPAXIPAURva001DF3F1Element@@0@Z,,0x001DEEB3,45,Code/Libraries/Source/WWVegas/WWLib/Rva001DEEB3AllocateCopy.cpp,matched,chain allocate plus uninit 0x001DEDD4 caller 0x001DEFC8 unblocks 0x001DEF89
