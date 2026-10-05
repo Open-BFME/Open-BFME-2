@@ -62392,3 +62392,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva00278644@Drawable@@QAEXXZ,,0x00278644,69,Code/GameEngine/Source/Common/DrawableRva00278644.cpp,matched,Drawable one-shot flag 0x44A via rowed callees and vslot table walk
 ?rva002785FB@Drawable@@QAEX_N@Z,,0x002785FB,49,Code/GameEngine/Source/Common/DrawableRva002785FB.cpp,matched,Drawable bool setter 0x448 true via host and 784EB false via 743D7 and 714CA
 ?Rva00429471IssueFireWeapon@@YGHPBVCommandButton@@HPAVDrawable@@PBUCoord3D@@@Z,,0x00429471,593,Code/GameEngine/Source/Common/Rva00429471IssueFireWeapon.cpp,matched,BFME1 donor issueFireWeaponCommand options-7 isValid slot75 0x1000-0x20 arms weaponSlot-maxShots PickAndPlayInfo
+?rva00429112@Rva00429112@@QAEHPAUArg@@H@Z,,0x00429112,127,Code/GameEngine/Source/Common/Rva00429112Voice.cpp,matched,finish from stash combined nulls single return enum type shared epilogue
