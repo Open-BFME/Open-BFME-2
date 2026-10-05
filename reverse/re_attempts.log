@@ -8634,3 +8634,4 @@ FUN_0046eb6d	0x0006EB6D	444	blocked	WW3D render 444B many DX8 states plus unclea
 ?Rva00173C04Skin@@YGXPAX0@Z	0x00173C04	500	blocked	500B WW3D skinning with 2 static DynamicVector plus 6 globals plus SSE needs donor t=8 model=muse-spark
 ??0Rva005EB2E7@@QAE@XZ	0x005EB2E7	118	blocked	ctor needs vector2 with EH dtor 0x005EB28A plus 2 vtables plus 3 globals plus Erase Unload clears t=25 model=muse-spark
 ?rva002D0469@Rva002D0588@@QAEXXZ	0x002D0469	58	blocked	redundant null-check test-ecx-je kept in retail but folded by MSVC71 O1-Os-GX t=14 model=muse-03
+??0Rva001FA69F@@QAE@XZ	0x001FA69F	218	blocked	MI 218B List at plus4C needs 4B but vendored list is 12B plus SmartPtr assign plus EH plus SSE t=20 model=muse-03
