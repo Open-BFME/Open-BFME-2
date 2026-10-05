@@ -64743,3 +64743,4 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ?rva004A0670@Rva004A0670@@QAEXPAVObject@@0@Z,,0x004A0670,153,Code/GameEngine/Source/Common/Rva004A0670Copy.cpp,matched,copy pose onto object or owner then face position
 ?rva004A82F5@Rva004A82F5@@QAEXPAVObject@@HH@Z,,0x004A82F5,150,Code/GameEngine/Source/Common/Rva004A82F5Topple.cpp,matched,topple owner away from a higher level source
 ?rva004891DE@Rva004891DE@@QAEXPAURva004891DEArg@@H@Z,,0x004891DE,120,Code/GameEngine/Source/Common/Rva004891DEEvent.cpp,matched,audio event from arg ref then slot 0x64
+?rva004AF531@Rva004AF531@@QAEHH@Z,,0x004AF531,123,Code/GameEngine/Source/Common/Rva004AF531Lookup.cpp,matched,map probe of the argument then key 1 else 1000
