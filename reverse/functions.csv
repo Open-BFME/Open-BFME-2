@@ -60821,3 +60821,8 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva007B8590@@YAXXZ,,0x007B8590,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,Global Rva00200667 dtor thunk: ecx=&g_Va00E03CE0 then tail-jmp to pinned dtor 0x00200667; honest address name
 ?rva002A7761@Rva002A7761@@QAEXXZ,,0x002A7761,44,Code/GameEngine/Source/GameLogic/Object/Rva002A7761Clear.cpp,matched,leaf reset clears BfmePod12 vector via rowed erase
 ?rva005E5823@Rva005E5823@@QAEXPAX@Z,,0x005E5823,72,Code/GameEngine/Source/Common/Rva005E5823Method.cpp,matched,slot16 vtable 0x00877D90 virtual pred new12 ctor and Set
+?rva007B821F@@YAXXZ,,0x007B821F,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,Tree teardown: ecx=&g_Va00E02FE4 then tail-jmp to 0x004110B4 stub; honest address name
+?rva007B8229@@YAXXZ,,0x007B8229,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,Tree teardown: ecx=&g_Va00E02FF8 then tail-jmp to 0x004110B9 stub; honest address name
+?rva007B8233@@YAXXZ,,0x007B8233,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,Tree teardown: ecx=&g_Va00E0300C then tail-jmp to 0x004110B9 stub; honest address name
+?rva007B823D@@YAXXZ,,0x007B823D,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,Tree teardown: ecx=&g_Va00E03020 then tail-jmp to 0x004110BE stub; honest address name
+?rva007B8247@@YAXXZ,,0x007B8247,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,Tree teardown: ecx=&g_Va00E02FD0 then tail-jmp to 0x00411453 stub; honest address name

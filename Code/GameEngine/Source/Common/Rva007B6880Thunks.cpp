@@ -6299,3 +6299,77 @@ void __cdecl rva007B8590()
 	Rva00200667 *p = (Rva00200667 *)&g_Va00E03CE0;
 	return p->~Rva00200667();
 }
+
+// Tree-destructor stub teardown views for the thunks below. Each destructor
+// is declared only; symbols.csv pins it to its jmp stub, which jumps to a
+// tree-dtor-family body (rowed: 0x00410C7B dup, 0x00410CB9 tree dtor).
+class Rva004110B4Tree
+{
+public:
+	~Rva004110B4Tree();
+};
+class Rva004110B9Tree
+{
+public:
+	~Rva004110B9Tree();
+};
+class Rva004110BETree
+{
+public:
+	~Rva004110BETree();
+};
+class Rva00411453Tree
+{
+public:
+	~Rva00411453Tree();
+};
+
+extern unsigned g_Va00E02FE4;
+unsigned int g_Va00E02FE4;
+
+// ?rva007B821F@@YAXXZ @ 0x007B821F (10B). Tree teardown: ecx=&g_Va00E02FE4 then tail-jmp to the 0x004110B4 stub for a tree-dtor-family body (0x00410C42, same prologue as the rowed family). No callers. Honest address name.
+void __cdecl rva007B821F()
+{
+	Rva004110B4Tree *p = (Rva004110B4Tree *)&g_Va00E02FE4;
+	return p->~Rva004110B4Tree();
+}
+
+extern unsigned g_Va00E02FF8;
+unsigned int g_Va00E02FF8;
+
+// ?rva007B8229@@YAXXZ @ 0x007B8229 (10B). Tree teardown: ecx=&g_Va00E02FF8 then tail-jmp to the 0x004110B9 stub for the rowed dup_00410c7b body (0x00410C7B). No callers. Honest address name.
+void __cdecl rva007B8229()
+{
+	Rva004110B9Tree *p = (Rva004110B9Tree *)&g_Va00E02FF8;
+	return p->~Rva004110B9Tree();
+}
+
+extern unsigned g_Va00E0300C;
+unsigned int g_Va00E0300C;
+
+// ?rva007B8233@@YAXXZ @ 0x007B8233 (10B). Tree teardown: ecx=&g_Va00E0300C then tail-jmp to the 0x004110B9 stub for the rowed dup_00410c7b body (0x00410C7B). No callers. Honest address name.
+void __cdecl rva007B8233()
+{
+	Rva004110B9Tree *p = (Rva004110B9Tree *)&g_Va00E0300C;
+	return p->~Rva004110B9Tree();
+}
+
+extern unsigned g_Va00E03020;
+unsigned int g_Va00E03020;
+
+// ?rva007B823D@@YAXXZ @ 0x007B823D (10B). Tree teardown: ecx=&g_Va00E03020 then tail-jmp to the 0x004110BE stub for the rowed tree dtor (0x00410CB9). No callers. Honest address name.
+void __cdecl rva007B823D()
+{
+	Rva004110BETree *p = (Rva004110BETree *)&g_Va00E03020;
+	return p->~Rva004110BETree();
+}
+
+extern unsigned g_Va00E02FD0;
+unsigned int g_Va00E02FD0;
+
+// ?rva007B8247@@YAXXZ @ 0x007B8247 (10B). Tree teardown: ecx=&g_Va00E02FD0 then tail-jmp to the 0x00411453 stub for a tree-dtor-family body (0x004111CC, same prologue as the rowed family). No callers. Honest address name.
+void __cdecl rva007B8247()
+{
+	Rva00411453Tree *p = (Rva00411453Tree *)&g_Va00E02FD0;
+	return p->~Rva00411453Tree();
+}
