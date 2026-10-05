@@ -28,4 +28,41 @@ namespace _STL {
 template<> void _Construct<Rva0040CB11Entry, Rva0040CB11Entry>(Rva0040CB11Entry *, const Rva0040CB11Entry &);
 }
 #include <vector>
-template class _STL::vector<Rva0040CB11Entry, _STL::allocator<Rva0040CB11Entry> >;
+template<> void _STL::vector<Rva0040CB11Entry, _STL::allocator<Rva0040CB11Entry> >::_M_clear();
+// STLport 4.5.3 _vector.h at BFME 1 donor 6583b3c1ff21db4a561285717028fdafc780b7db.
+// Retail 0x004F8EAF..0x004F8F61: five arguments / ret 0x14; eight-byte
+// records copied by 0x004F6AD3, constructed by 0x004F6A64, filled by
+// 0x004F6AF9, cleared by 0x004F89F9. Existing entry constructor/copy rows
+// establish the int/Holder view; the original application type remains unknown.
+// Const source ranges select the already verified copy helper's ABI without
+// changing the reference algorithm. The served SubsystemInterface pointer pair
+// cannot account for these nontrivial construction and destruction calls.
+namespace _STL {
+template<> void vector<Rva0040CB11Entry, allocator<Rva0040CB11Entry> >::_M_insert_overflow(
+    pointer __position, const Rva0040CB11Entry &__x, const __false_type &,
+    size_type __fill_len, bool __atend) {
+    const size_type __old_size = size();
+    const size_type __len = __old_size + (max)(__old_size, __fill_len);
+    
+    pointer __new_start = this->_M_end_of_storage.allocate(__len);
+    pointer __new_finish = __new_start;
+    _STLP_TRY {
+      __new_finish = __uninitialized_copy((const_pointer)this->_M_start, (const_pointer)__position, __new_start, __false_type());
+      // handle insertion
+      if (__fill_len == 1) {
+        _Construct(__new_finish, __x);
+        ++__new_finish;
+      } else
+        __new_finish = __uninitialized_fill_n(__new_finish, __fill_len, __x, __false_type());
+      if (!__atend)
+        // copy remainder
+        __new_finish = __uninitialized_copy((const_pointer)__position, (const_pointer)this->_M_finish, __new_finish, __false_type());
+    }
+    _STLP_UNWIND((_Destroy(__new_start,__new_finish), 
+                  this->_M_end_of_storage.deallocate(__new_start,__len)));
+    _M_clear();
+    _M_set(__new_start, __new_finish, __new_start + __len);
+  }
+}
+template Rva0040CB11Entry * _STL::vector<Rva0040CB11Entry, _STL::allocator<Rva0040CB11Entry> >::_M_allocate_and_copy<const Rva0040CB11Entry *>(size_type, const Rva0040CB11Entry *, const Rva0040CB11Entry *);
+template void _STL::vector<Rva0040CB11Entry, _STL::allocator<Rva0040CB11Entry> >::push_back(const Rva0040CB11Entry &);
