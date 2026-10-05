@@ -13058,3 +13058,4 @@ _Rva00438083,0x00438083,Address-derived bool prompt helper directly called by 0x
 ?rva005FF0F6@@YIXPAVRva005FF0F6Obj@@HHHH@Z,0x005FF0F6,fastcall chained init called from 0x005FA89C with fwd-passthrough edx; identity unproven
 ?rva00A00062@@YIXPAURva00A00062Sub@@HHH@Z,0x00A00062,fastcall sub method called from 0x005FA98C with fwd-passthrough edx; identity unproven
 ?rva005FA8F5Find@@YGPAURva005FA8F5Entry@@H@Z,0x005FA8F5,"stdcall-1 view of rowed thiscall body for no-ecx-management callers (ecx is ambient-o, preserved by body which ends ret 4); called from 0x005FA98C"
+??0BfmePairEL@@QAE@ABVBfmeWordEL@@0@Z,0x0002C4FD,BfmePairEL two-word ctor; BfmeWordEL is the rowed 4-byte StringBase<char> view so this is the same bytes as the matched ??0Rva0002C4FD@@QAE@ABV?$StringBase@D@@0@Z body (cf existing pair@VAsciiString ICF-alias pin); called by the bfmeMakePairEL factory at 0x0002C621
