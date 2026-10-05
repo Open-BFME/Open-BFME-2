@@ -61482,3 +61482,4 @@ _Rva00023540,,0x00023540,271,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleF
 ?Rva003E80DAGet@@YG_NPAVParameter@@0@Z,,0x003E80DA,270,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditionsRva003E80DA.cpp,matched,free stdcall bool Parameter pair via sibling 0x003E803D
 ?rva005B947D@Rva005B922F@@QAEXHHH@Z,,0x005B947D,104,Code/GameEngine/Source/Common/Rva005B947DTicker.cpp,matched,member 0x64 str fmt rowed callees callers
 ?rva005EE250@Rva005EE250@@QAEXH@Z,,0x005EE250,8,Code/GameEngine/Source/Common/Rva005EE250.cpp,matched,delegate via plus4 to rowed setPlayerCount caller
+??1Rva005EE05E@@UAE@XZ,,0x005EE05E,14,Code/GameEngine/Source/Common/Rva005EE05EDtor.cpp,matched,vtable store plus member clear tailjmp
