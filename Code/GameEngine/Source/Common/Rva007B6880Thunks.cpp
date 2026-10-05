@@ -5724,3 +5724,26 @@ void __cdecl rva007B685A()
 	return p->rva00007670();
 }
 
+// ?rva007B6864@@YAXXZ @ 0x007B6864 (10B). Global ios_base Init dtor thunk: ecx=&g_00DDE070 then tail-jmp to rowed ??1Init@ios_base@_STL@@QAE@XZ (0x00015E70). Evidence: callees 0x00015E70; same 10B mov ecx jmp shape as neighbours 0x007B685A 0x007B686F. Honest address names.
+namespace _STL
+{
+class ios_base
+{
+public:
+	class Init
+	{
+	public:
+		~Init();
+	};
+};
+}
+
+extern unsigned g_00DDE070;
+unsigned int g_00DDE070;
+
+void __cdecl rva007B6864()
+{
+	_STL::ios_base::Init *p = (_STL::ios_base::Init *)&g_00DDE070;
+	return p->~Init();
+}
+
