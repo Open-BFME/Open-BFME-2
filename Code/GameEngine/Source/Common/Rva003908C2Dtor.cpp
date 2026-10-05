@@ -20,13 +20,13 @@ protected:
 class MiBase1
 {
 public:
-	virtual void f1();
+	virtual void f1() = 0;
 };
 
 class MiBase2
 {
 public:
-	virtual void f2();
+	virtual void f2() = 0;
 };
 
 class Rva003908C2 : public Rva0024A797, public MiBase1, public MiBase2
