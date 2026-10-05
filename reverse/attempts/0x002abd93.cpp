@@ -1,44 +1,59 @@
-// ?rva002ABD93@Rva002ABD93@@QAEXABVAsciiString@@_N@Z
-// partial score=0.9 date=2026-10-01
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
-// ?rva002ABD93@Rva002ABD93@@QAEXABVAsciiString@@_N@Z, RVA 0x002ABD93, size 145.
-// Evidence: callers 0x003BB35B/0x003BB41A pass (string 0,1); outer circular list head at +0x32c
-// with data at node+8 holding Team at +0x334; Team member iteration via rowed iterate/advance;
-// StringBase compare row; Object setScriptStatus row; next-Team via Rva005C4AF5DwordField get (Team+0x40).
+// ?setObjectsEnabled@Player@@QAEXABVAsciiString@@_N@Z
+// partial score=0.8 date=2026-10-05
+// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// stlport
+// ?setObjectsEnabled@Player@@QAEXABVAsciiString@@_N@Z, RVA 0x002ABD93, size 145.
+// Evidence (target): thiscall, ret 8, between Player::removeTeamFromList
+// (0x002ABD48) and the next Player member. Walks the STLport list of team
+// prototypes at Player +0x32C; for each prototype walks its team-instance DLINK
+// list (head +0x334, next through the member pointer {0x005C4AF5, 0}, the
+// Team +0x40 getter, the shape TeamPrototype's rowed iterators use); for each
+// team takes the member iterator from the rowed Team::iterate_TeamMemberList
+// (0x00263864) and advances it with the rowed DLINK_ITERATOR<Object>::advance
+// (0x00263526). Each member's template (Object +4) name (+0x64) is compared
+// with the referenced string by AsciiString::compare (0x000069D6) and a match
+// calls Object::setScriptStatus (0x00292969) with bit 1 and (enable == 0).
+// The string arrives as a pointer with no release at exit, so the parameter
+// is a reference. Name and loop structure carried from Zero Hour's
+// Player::setObjectsEnabled (OBJECT_STATUS_SCRIPT_DISABLED, !enable); BFME
+// passes the template name by reference instead of by value.
 #include "ascii_string.h"
+#include <list>
 
-class Object;
-class Team;
+typedef bool Bool;
 
 template<class OBJCLASS>
 class DLINK_ITERATOR
 {
 public:
-	DLINK_ITERATOR(OBJCLASS *cur, void *f);
+	typedef OBJCLASS *(OBJCLASS::*GetNextFunc)() const;
+
+	DLINK_ITERATOR(OBJCLASS *cur, GetNextFunc getNextFunc)
+		: m_cur(cur), m_getNextFunc(getNextFunc)
+	{
+	}
+
+	void advance()
+	{
+		if (m_cur)
+			m_cur = ((*m_cur).*(m_getNextFunc))();
+	}
+	Bool done() const { return m_cur == 0; }
 	OBJCLASS *cur() const { return m_cur; }
-	bool done() const { return m_cur == 0; }
+
 private:
 	OBJCLASS *m_cur;
-	char m_pad[28];
+	GetNextFunc m_getNextFunc;
 };
 
-template<class OBJCLASS>
-class Rva001705A0DlinkIterator
+class ThingTemplate
 {
 public:
-	void advance();
-	OBJCLASS *cur() const { return m_cur; }
+	const AsciiString &getName() const { return m_name; }
+
 private:
-	OBJCLASS *m_cur;
-	char m_pad[28];
-};
-
-class Rva005C4AF5Base1 { char m_b1; };
-class Rva005C4AF5Base2 { char m_b2; };
-class Rva005C4AF5DwordField : public Rva005C4AF5Base1, public Rva005C4AF5Base2
-{
-public:
-	int get() const;
+	unsigned char m_pad[0x64];
+	AsciiString m_name;	// +0x64
 };
 
 enum ObjectScriptStatusBit
@@ -47,77 +62,101 @@ enum ObjectScriptStatusBit
 	OBJECT_STATUS_SCRIPT_UNPOWERED = 0x02
 };
 
-class ObjectHolder
+class Object;
+
+class BfmeObjectVirtualTail { public: unsigned char m_vt[4]; };
+
+// Introduces the vbptr at its own +0; lands at +0x68 inside Object.
+class BfmeObjectVbptrCarrier : public virtual BfmeObjectVirtualTail
 {
 public:
-	char m_pad[0x64];
-	AsciiString m_name;
+	unsigned char m_carrier[4];
 };
 
-class Object
+class BfmeObjectVtbl { public: virtual void bfmeObjectSlot0(); };
+
+class BfmeObjectDlinkBase
 {
 public:
-	void setScriptStatus(ObjectScriptStatusBit, bool);
-	void *m_vtbl;
-	ObjectHolder *m_holder;
+	Object *dlink_next_TeamMemberList() const;
 };
 
-class Team
+class BfmeObjectDlinkPad
 {
 public:
+	const ThingTemplate *m_template;	// +4
+	unsigned char m_pad[0x60];
+};
+
+class Object : public BfmeObjectVtbl, public BfmeObjectDlinkBase,
+	public BfmeObjectDlinkPad, public BfmeObjectVbptrCarrier
+{
+public:
+	const ThingTemplate *getTemplate() const { return m_template; }
+	void setScriptStatus(ObjectScriptStatusBit bit, Bool set);
+
+	unsigned char m_tail[0x40];
+};
+
+class MemoryPoolObject
+{
+public:
+	virtual ~MemoryPoolObject();
+};
+
+class Snapshot
+{
+public:
+	virtual void crc(void *xfer) = 0;
+};
+
+class Team : public MemoryPoolObject, public Snapshot
+{
+public:
+	Team *dlink_next_TeamInstanceList() const;
 	DLINK_ITERATOR<Object> iterate_TeamMemberList() const;
 };
 
-struct OuterNode
-{
-	OuterNode *m_next;
-	OuterNode *m_prev;
-	void *m_data;
-};
-
-struct OuterData
-{
-	char m_pad[0x334];
-	Team *m_team;
-};
-
-class Rva002ABD93
+class TeamPrototype
 {
 public:
-	void rva002ABD93(const AsciiString &name, bool flag);
+	DLINK_ITERATOR<Team> iterate_TeamInstanceList() const
+	{
+		return DLINK_ITERATOR<Team>(m_dlinkhead_TeamInstanceList, &Team::dlink_next_TeamInstanceList);
+	}
+
 private:
-	char m_pad[0x32c];
-	OuterNode *m_head;
+	unsigned char m_pad[0x334];
+	Team *m_dlinkhead_TeamInstanceList;	// +0x334
 };
 
-// ?rva002ABD93@Rva002ABD93@@QAEXABVAsciiString@@_N@Z present-unmatched
-void Rva002ABD93::rva002ABD93(const AsciiString &name, bool flag)
+typedef _STL::list<TeamPrototype *> PlayerTeamList;
+
+class Player
 {
-	int (Rva005C4AF5DwordField::*getNext)() const = &Rva005C4AF5DwordField::get;
-	OuterNode *cur = m_head->m_next;
-	if (cur == m_head)
-		return;
-	do
+public:
+	void setObjectsEnabled(const AsciiString &templateTypeToAffect, Bool enable);
+
+private:
+	unsigned char m_pad[0x32C];
+	PlayerTeamList m_playerTeamPrototypes;	// +0x32C
+};
+
+void Player::setObjectsEnabled(const AsciiString &templateTypeToAffect, Bool enable)
+{
+	for (PlayerTeamList::iterator it = m_playerTeamPrototypes.begin(); it != m_playerTeamPrototypes.end(); ++it)
 	{
-		OuterData *data = (OuterData *)cur->m_data;
-		Team *team = data->m_team;
-		while (team != 0)
+		for (DLINK_ITERATOR<Team> iter = (*it)->iterate_TeamInstanceList(); !iter.done(); iter.advance())
 		{
-			DLINK_ITERATOR<Object> it = team->iterate_TeamMemberList();
-			Rva001705A0DlinkIterator<Object> *rit = (Rva001705A0DlinkIterator<Object> *)&it;
-			for (;;)
+			Team *team = iter.cur();
+			if (!team)
+				continue;
+			Object *obj;
+			for (DLINK_ITERATOR<Object> iter2 = team->iterate_TeamMemberList(); (obj = iter2.cur()) != 0; iter2.advance())
 			{
-				Object *obj = rit->cur();
-				if (obj == 0)
-					break;
-				ObjectHolder *h = obj->m_holder;
-				if (h->m_name.compare(name) == 0)
-					obj->setScriptStatus(OBJECT_STATUS_SCRIPT_DISABLED, flag == false);
-				rit->advance();
+				if (obj->getTemplate()->getName() == templateTypeToAffect)
+					obj->setScriptStatus(OBJECT_STATUS_SCRIPT_DISABLED, !enable);
 			}
-			Rva005C4AF5DwordField *fp = (Rva005C4AF5DwordField *)team;
-			team = (Team *)((fp->*getNext)());
 		}
-		cur = cur->m_next;
-	} while (cur != m_head);
+	}
 }
