@@ -10415,3 +10415,9 @@ _xferThreeInts,0x0060BC53,donor_sweep: call target read from retail at a unique 
 ??0?$BitFlags@$0HE@@@QAE@ABV0@@Z,0x0004543D,ICF twin of rowed BfmeFixedStorage0004543D copy same 28B memcpy caller 0x003C2EC9
 ?rva0043B2A4Clear@Rva0043B725@@QAEXW4ObjectID@@H@Z,0x0043B2A4,ICF twin of the matched free stdcall ?Rva0043B2A4Clear@@YGXW4ObjectID@@H@Z: same 44-byte body at the same address. rva0043B73D loads this into ecx before each call, so the call site is thiscall on Rva0043B725.
 ?Rva002EBB53SiftUp@@YAXPAPAU_Rva002EBB53Wrap@@HHPAU1@PAX@Z,0x002EBB53,Push wrapper 5-arg passthrough same address as rowed 4-arg SiftUp caller 0x002EF216
+G00DEC4A8,0x00DEC4A8,Render2DClass ctor 0x0011C0F0 zeroes this dword first; opaque address-derived name
+G00DEC4A4,0x00DEC4A4,Render2DClass ctor 0x0011C0F0 zeroes this dword second; opaque address-derived name
+G00DEC4A0,0x00DEC4A0,Render2DClass ctor 0x0011C0F0 zeroes this dword third; opaque address-derived name
+G00DB5FBC,0x00DB5FBC,Render2DClass ctor 0x0011C0F0 stores 7; donor Render2DClassConstructor names this ThirdEB; opaque address-derived name
+G00DB5FC0,0x00DB5FC0,Render2DClass ctor 0x0011C0F0 stores 2; donor Render2DClassConstructor names this FourthEB; opaque address-derived name
+G00DB5FC4,0x00DB5FC4,Render2DClass ctor 0x0011C0F0 stores 5; donor Render2DClassConstructor names this FifthEB; opaque address-derived name
