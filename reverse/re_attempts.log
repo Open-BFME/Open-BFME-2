@@ -9344,3 +9344,4 @@ FUN_0047ffed	0x0007FFED	233	blocked	anonymous water-setting dispatch (thiscall +
 ?makeAssistanceRequest@@YAXPAVObject@@PAX@Z	0x005D71C3	217	blocked	name refuted: retail 217B calls 0x45EE2C/0x45ED4B x2 plus 0x28B6D6 x2 plus virtuals plus self-call plus delete 0x2FD60; not the assistance-request early-return chain; decode_calls crashes on this TU. t=10 model=muse-spark-1.3-contributor
 ?rva00282135@Rva00282135@@QAEXXZ	0x00282135	126	blocked	register wall ebx-esi swapped plus vector tmp ctor-dtor inline vs call t=25 model=muse-12
 ??1Rva005D4C61@@UAE@XZ	0x005D4C61	90	partial	missing or ebp-4 -1 before free plus vptr reloc t=20 model=muse-12 score=0.95 stash=reverse/attempts/0x005d4c61.cpp
+?rva0053E17E@Rva0053E17E@@QAEXIM@Z	0x0053E17E	312	blocked	5 diffs xor-mov pushes cmp movss-mulss no lever t=8 model=muse-09 (stash 0.93 kept)

@@ -57291,3 +57291,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ??1Rva005F86C3@@UAE@XZ,,0x005F86C3,59,Code/GameEngine/Source/Common/MemberBaseDtorsB01.cpp,matched,member-then-base destructor: vptr 0x00C79CBC then member dtor 0x005F85E1 at +0x20 then base dtor 0x00577936; shape of the rowed Rva0098477 destructor
 ??1Rva005FB1AD@@UAE@XZ,,0x005FB1AD,59,Code/GameEngine/Source/Common/MemberBaseDtorsB01.cpp,matched,member-then-base destructor: vptr 0x00C79EDC then member dtor 0x005FAFB2 at +0x20 then base dtor 0x006003FC; shape of the rowed Rva0098477 destructor
 ??1Rva005D4C61@@UAE@XZ,,0x005D4C61,90,Code/GameEngine/Source/Common/Rva005D4C61Dtor.cpp,matched,dtor via forEach holder clear and list free
+??1Rva005BA2CB@@UAE@XZ,,0x005BA2CB,40,Code/GameEngine/Source/Common/Rva005BA2CBDtor.cpp,matched,dtor three vptrs global clear tail-jmp base
