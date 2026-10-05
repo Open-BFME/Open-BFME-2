@@ -447,3 +447,22 @@ UnicodeString __cdecl Rva005F6C8EFormat(int unused, int turns)
 	(void)unused;
 	return Rva005F6BD4Format(turns);
 }
+
+// ?rva00579B17@Rva00579B17@@QAEXHABVUnicodeString@@@Z @0x00579B17 106B:
+// indexed text key APT:_level%u.%s.%d_Text from level +4 and name +8.
+class Rva00579B17
+{
+public:
+	void rva00579B17(int index, const UnicodeString &text);
+private:
+	char m_pad00[4];
+	unsigned int m_level;		// +0x04
+	StringBase<char> m_name;	// +0x08
+};
+
+void Rva00579B17::rva00579B17(int index, const UnicodeString &text)
+{
+	AsciiString key;
+	key.format("APT:_level%u.%s.%d_Text", m_level, m_name.str(), index);
+	((BfmeAptWindowManager *)TheRva00222A8BTarget)->bfmeSetText(key, text, false);
+}
