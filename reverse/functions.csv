@@ -63219,3 +63219,12 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva0005BDD2@MilesAudioManager@@QAE_NPAVAudioEventRTS@@@Z,,0x0005BDD2,135,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva0005BDD2.cpp,matched,MilesAudioManager positional volume less loop caller 0x0005D54F
 ?Rva005200C5Add@@YAXPAXW4ScienceType@@@Z,,0x005200C5,47,Code/Libraries/Source/WWVegas/WWLib/Rva005200C5.cpp,matched,caller 0x00407FA0 pod 0x0040AAD5 isEmpty 0x00001E2F pushback 0x002E01C6
 ?Rva005809DBLinearInsert@@YAXPAPAX0PAXVRva000795C1Record@@@Z,,0x005809DB,121,Code/Libraries/Source/WWVegas/WWLib/Rva00580776LinearInsert.cpp,matched,guarded linear insert with copy backward and 16B record teardown
+?rva00271BCC@Rva00271BCC@@QAEXHH@Z,,0x00271BCC,18,Code/GameEngine/Source/Common/RvaMixedMemberForwarders.cpp,matched,Member forwarder tail jmp by REL32
+?rva0029B16A@Rva0029B16A@@QAEXHH@Z,,0x0029B16A,18,Code/GameEngine/Source/Common/RvaMixedMemberForwarders.cpp,matched,Member forwarder tail jmp by REL32
+?rva002A9CDE@Rva002A9CDE@@QAEXHH@Z,,0x002A9CDE,18,Code/GameEngine/Source/Common/RvaMixedMemberForwarders.cpp,matched,Member forwarder tail jmp by REL32
+?rva002A9CF0@Rva002A9CF0@@QAEXH@Z,,0x002A9CF0,18,Code/GameEngine/Source/Common/RvaMixedMemberForwarders.cpp,matched,Member forwarder tail jmp by REL32
+?rva002A9DEC@Rva002A9BF2@@QAEXH@Z,,0x002A9DEC,18,Code/GameEngine/Source/Common/RvaMixedMemberForwarders.cpp,matched,Member forwarder tail jmp by REL32
+?rva0028BC4D@Object@@QAEXXZ,,0x0028BC4D,11,Code/GameEngine/Source/Common/RvaMixedMemberForwarders.cpp,matched,Member forwarder tail jmp by REL32
+?rva004EC072@Rva004EC072@@QAEXPAUArg@@@Z,,0x004EC072,11,Code/GameEngine/Source/Common/RvaMixedMemberForwarders.cpp,matched,Member forwarder tail jmp by REL32
+?rva004EC07D@Rva002A8AB1Record@@QAEXPAVTeamPrototype@@@Z,,0x004EC07D,11,Code/GameEngine/Source/Common/RvaMixedMemberForwarders.cpp,matched,Member forwarder tail jmp by REL32
+?rva0023D0B7@GameLogic@@QAEHXZ,,0x0023D0B7,11,Code/GameEngine/Source/Common/RvaMixedMemberForwarders.cpp,matched,Member forwarder tail jmp by REL32
