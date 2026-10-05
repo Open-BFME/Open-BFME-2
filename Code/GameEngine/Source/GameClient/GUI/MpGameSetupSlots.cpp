@@ -42,6 +42,25 @@ public:
 	bool m_accepted; // +0x08
 	unsigned char m_pad09[0x18 - 0x09];
 	int m_playerTemplate; // +0x18
+	unsigned char m_pad1c[0x50 - 0x1C];
+	int m_heroKind; // +0x50 (1 random, 2 or 3 by the hero's +0x48 flag)
+	int m_hero0c; // +0x54 (the hero's +0x0C)
+	int m_hero10; // +0x58 (the hero's +0x10)
+	int m_hero; // +0x5C
+};
+
+// The slot's +0x1A8 name getter (rowed as an AsciiString RVO getter).
+class Rva003821B9AsciiField
+{
+public:
+	AsciiString get() const;
+};
+
+// The slot's +0x5C setter (rowed as a Disp8 dword setter).
+class Rva003FF0E7DwordSlot
+{
+public:
+	void set(int value);
 };
 
 class GameInfo
@@ -137,7 +156,7 @@ public:
 	virtual bool applySlotPlayerTemplate(GameSlot *slot, int playerTemplate);
 	virtual void v11();
 	virtual bool applySlotTeam(GameSlot *slot, int team);
-	virtual void v13();
+	virtual bool v13(GameSlot *slot, const UnicodeString &name);
 	virtual void v14();
 	virtual void v15();
 	virtual void v16(bool value);
@@ -148,8 +167,71 @@ public:
 
 extern Rva00222A8BTarget *TheRva00222A8BTarget;
 
+// A hero as 0x0043DD34 and 0x0044149C read it.
+class CreateAHeroData
+{
+public:
+	unsigned char m_pad00[0x0C];
+	int m_0c; // +0x0C
+	int m_10; // +0x10
+	unsigned char m_pad14[0x48 - 0x14];
+	bool m_48; // +0x48
+};
+
+// The hero list at the hero manager's +0x174 (Rva0040A3F9Find.cpp's
+// vector of CreateAHeroData pointers).
+class Rva0040A3F9
+{
+public:
+	// Unrowed 0x0040A32F (28 bytes; the pointer at an index, or 0 past the
+	// end), pinned by address.
+	CreateAHeroData *rva0040A32F(int index);
+	int findIndex(CreateAHeroData *value) const;
+};
+
+// The side mask 0x00219F8E returns: bitset words, tested as STLport's
+// bitset does (word pos / 32, bit pos % 32).
+struct Rva00219F8EMask
+{
+	unsigned int m_words[1];
+
+	__forceinline bool test(unsigned int pos) const
+	{
+		return (m_words[pos / 32] & (1u << (pos % 32))) != 0;
+	}
+};
+
 // TheCreateAHeroManager (0x00DFE344), spelled as Rva00406E65.cpp does.
-class Rva00219B9E;
+class Rva00219B9E
+{
+public:
+	// Unrowed 0x0021F797 (16 bytes; runs 0x0021F47E and returns +0x174),
+	// pinned by address.
+	Rva0040A3F9 *rva0021F797();
+	void *rva00219F8E(unsigned int a, unsigned int b);
+
+	__forceinline bool allowsSide(unsigned int a, unsigned int b, int side)
+	{
+		return ((Rva00219F8EMask *)rva00219F8E(a, b))->test(side);
+	}
+	// Unrowed 0x0021A6C8 (a hero for a side, scanning the +0x174 list),
+	// pinned by address.
+	CreateAHeroData *rva0021A6C8(int side);
+};
+
+class PlayerTemplate
+{
+public:
+	int rva001FD234() const;
+};
+
+class PlayerTemplateStore
+{
+public:
+	const PlayerTemplate *getNthPlayerTemplate(int index) const;
+};
+
+extern PlayerTemplateStore *ThePlayerTemplateStore;
 extern Rva00219B9E *g_00DFE344;
 
 void Rva0043DB23(Rva00222A8BTarget *target, void *owner, const char *name);
@@ -162,6 +244,10 @@ class Rva0057E3DB
 public:
 	// Unrowed 0x0057C7BA (216 bytes; stores the mode at +0x1C), pinned.
 	void rva0057C7BA(int mode);
+	// Unrowed 0x0057E058 (499 bytes) and 0x0057DFFB (65 bytes; switches on
+	// the mode at +0x1C), pinned by address.
+	void rva0057E058();
+	void rva0057DFFB(int value);
 
 	unsigned char m_pad00[0x1C];
 	int m_mode; // +0x1C (the panel's +0x7C, MpGameSetupOnInitGadget.cpp's m_hideFlag)
@@ -183,12 +269,31 @@ public:
 	void rva0057F002(int mode);
 };
 
+// The member at +0x190's base (Rva004421E1Dtor.cpp's Rva0057F2DE).
+class Rva0057F2DE
+{
+public:
+	// Unrowed 0x0057F3A9 (113 bytes; the text of its +0xA0 combo box, or a
+	// global empty string without one), pinned by address.
+	UnicodeString rva0057F3A9();
+};
+
 // The member at +0x244 (rowed under its address name).
 class Rva0057FD6E
 {
 public:
 	void rva0057FD6E();
 	void rva0057FD94();
+	// Unrowed 0x0057FDB0 (15 bytes; hands the flag to its +0x64 member),
+	// pinned by address.
+	void rva0057FDB0(bool changed);
+};
+
+// A panel member rowed under its own address-named class (0x0043DBE0).
+class Rva0043DBE0
+{
+public:
+	void rva0043DBE0();
 };
 
 // Rva00446A71Get.cpp's byte setter for g_Va00A0335C.
@@ -282,11 +387,8 @@ public:
 	bool rva0043E04D(int index);
 	void rva0043E3E2(int index, int team);
 
-	// Unrowed 0x0043DD34 (138 bytes; stores a hero choice on the slot when
-	// the hero manager accepts it), pinned.
 	bool rva0043DD34(GameSlot *slot, int hero);
 
-	// Unrowed 0x0044149C (313 bytes; refreshes a slot's widgets), pinned.
 	void rva0044149C(GameSlot *slot, int index, bool flag);
 
 	void rva0043E30F(int slot, int value);
@@ -346,6 +448,13 @@ public:
 	void rva004415D5(const AsciiString &map);
 	void rva0043FB5C(int index);
 	bool rva0043FC1F(int kind, bool reset);
+	bool rva004409D2();
+	bool rva00442A68(int index);
+	bool rva00443EA8();
+	void rva0043EDB4();
+
+	// Unrowed 0x004428C9 (336 bytes), pinned by address.
+	void rva004428C9();
 	void rva00443BF3();
 
 	// Unrowed 0x00443538 (1723 bytes; ret 4, its argument a flag mask),
@@ -360,14 +469,18 @@ private:
 	Rva0057EE5C m_d0; // +0xD0
 	unsigned char m_pad0d1[0x15C - 0xD1];
 	MpGameSetupRules m_rules; // +0x15C
-	unsigned char m_pad184[0x244 - 0x184];
+	unsigned char m_pad184[0x190 - 0x184];
+	Rva0057F2DE m_190; // +0x190
+	unsigned char m_pad191[0x244 - 0x191];
 	Rva0057FD6E m_244; // +0x244
 	unsigned char m_pad245[0x2B0 - 0x245];
 	int m_2b0; // +0x2B0
-	unsigned char m_pad2b4[0x2B9 - 0x2B4];
+	unsigned char m_pad2b4[0x2B8 - 0x2B4];
+	bool m_2b8; // +0x2B8
 	bool m_2b9; // +0x2B9
 	bool m_2ba; // +0x2BA
-	unsigned char m_pad2bb[0x2BD - 0x2BB];
+	bool m_2bb; // +0x2BB
+	bool m_2bc; // +0x2BC
 	bool m_2bd; // +0x2BD
 	bool m_2be; // +0x2BE
 	bool m_2bf; // +0x2BF
@@ -1029,4 +1142,101 @@ void Rva0043DABD::rva0043FE01(int kind, bool reset)
 	MpGameSetup *setup = (MpGameSetup *)g_Va00E0333C;
 	if (setup)
 		setup->rva0043FC1F(kind, reset);
+}
+
+// Retail 0x0043DD34, 138 bytes. Name unknown. Stores a hero choice on a
+// slot: a listed hero gives kind 2 or 3 (by its +0x48 flag) and its +0x0C
+// and +0x10; -2 is kind 1 and anything else unlisted becomes -1. False
+// without a slot or hero manager, or when nothing changes. Called from
+// 0x0043E0A8 (rva0043E04D above).
+bool MpGameSetup::rva0043DD34(GameSlot *slot, int hero)
+{
+	if (!slot)
+		return false;
+	if (!g_00DFE344)
+		return false;
+
+	int field0c = 0;
+	int field10 = 0;
+	int kind;
+	Rva0040A3F9 *heroes = g_00DFE344->rva0021F797();
+	CreateAHeroData *entry = heroes->rva0040A32F(hero);
+	if (entry)
+	{
+		field0c = entry->m_0c;
+		field10 = entry->m_10;
+		kind = entry->m_48 ? 2 : 3;
+	}
+	else
+	{
+		kind = 0;
+		if (hero == -2)
+			kind = 1;
+		else
+			hero = -1;
+	}
+
+	if (kind == slot->m_heroKind && field0c == slot->m_hero0c && field10 == slot->m_hero10 && hero == slot->m_hero)
+		return false;
+	slot->m_heroKind = kind;
+	slot->m_hero0c = field0c;
+	slot->m_hero10 = field10;
+	((Rva003FF0E7DwordSlot *)slot)->set(hero);
+	return true;
+}
+
+// Retail 0x0044149C, 313 bytes. Name unknown. Checks a slot's hero against
+// its player template's side (7 without a template): template -2 clears the
+// hero (-1); otherwise a missing hero (when flag is set), a hero with the
+// +0x48 flag (when flag is set) or a hero whose side mask (0x00219F8E)
+// lacks the side is replaced by random (-2) for template -1 or by the
+// manager's hero for the side; a stored change goes to the owner's
+// applySlotHero. Then 0x004406BA and 0x0043E04D refresh the slot's widgets.
+// Called from handlePlayerTemplateSelection (0x00441B07).
+void MpGameSetup::rva0044149C(GameSlot *slot, int index, bool flag)
+{
+	if (!slot || !g_00DFE344 || !ThePlayerTemplateStore)
+		return;
+
+	int playerTemplate = slot->m_playerTemplate;
+	int side = 7;
+	const PlayerTemplate *pt = ThePlayerTemplateStore->getNthPlayerTemplate(playerTemplate);
+	if (pt)
+		side = pt->rva001FD234();
+	int heroIndex = slot->m_hero;
+	Rva0040A3F9 *heroes = g_00DFE344->rva0021F797();
+	CreateAHeroData *hero = heroes->rva0040A32F(heroIndex);
+	if (playerTemplate == -2)
+	{
+		if (rva0043DD34(slot, -1))
+			m_owner->applySlotHero(slot);
+	}
+	else
+	{
+		bool replace;
+		if (hero)
+		{
+			if (flag && hero->m_48)
+				replace = true;
+			else if (playerTemplate == -1)
+				replace = false;
+			else
+				replace = !g_00DFE344->allowsSide(hero->m_0c, hero->m_10, side);
+		}
+		else
+			replace = flag;
+		if (replace)
+		{
+			if (playerTemplate == -1)
+				rva0043DD34(slot, -2);
+			else
+			{
+				CreateAHeroData *data = g_00DFE344->rva0021A6C8(side);
+				if (data && rva0043DD34(slot, heroes->findIndex(data)))
+					m_owner->applySlotHero(slot);
+			}
+		}
+	}
+	rva004406BA(index);
+	rva0043E04D(index);
 }
