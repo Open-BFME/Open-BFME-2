@@ -61744,9 +61744,6 @@ _Rva00023540,,0x00023540,271,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleF
 ?rva005E1AB6@Rva005E1B41Primary@@QAEXH@Z,,0x005E1AB6,139,Code/GameEngine/Source/Common/VslotSmallBodiesAL.cpp,matched,setter interface +0x18 via v00/v04 and v04/v0c plus two Image lookups
 ?Rva00528C30Get@@YA_NPBDAAVAsciiString@@@Z,,0x00528C30,27,Code/GameEngine/Source/Common/Rva00528C30.cpp,matched,GetParam wrapper with literal name plus uchar local bool normalize
 ??0Rva00541A6E@@QAE@ABV0@@Z,,0x00541A6E,66,Code/GameEngine/Source/GameLogic/Object/Behavior/Rva00541A6ECopyCtor.cpp,matched,same shape as neighbour Rva00541913 copy with Rva0054103E vector
-?rva005FB83E@Rva005FB83E@@QAEXPBVImage@@@Z,,0x005FB83E,8,Code/GameEngine/Source/GameClient/GUI/AptPlayerNameSet.cpp,matched,tail-jmp forwarder via member at plus4 to rowed PlayerIcon 0x005FB666
-?rva005FB846@Rva005FB846@@QAEXXZ,,0x005FB846,8,Code/GameEngine/Source/GameClient/GUI/AptPlayerNameSet.cpp,matched,tail-jmp forwarder via member at plus4 to rowed 0x005FB6E2
-?rva005FB84E@Rva005FB84E@@QAEXXZ,,0x005FB84E,8,Code/GameEngine/Source/GameClient/GUI/AptPlayerNameSet.cpp,matched,tail-jmp forwarder via member at plus4 to rowed 0x005FB729
 ?rva0040E88B@Rva0040E88B@@QAEXAAV?$vector@URva0040DC56Element@@V?$allocator@URva0040DC56Element@@@_STL@@@_STL@@@Z,,0x0040E88B,70,Code/Libraries/Source/WWVegas/WWLib/Rva0040E88BCopy.cpp,matched,unlock lane erase 0x0040DC56 reserve 0x0040DC89 pushback 0x003F7B22 callers 0x002BBF61 0x004FA26F
 ?buildFieldParse@SpecialAbilityUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z,,0x0044ED95,17,Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp,matched,
 ??0SpecialAbilityUpdateModuleData@@QAE@XZ,,0x0044EB54,378,Code/GameEngine/Source/GameLogic/Object/Update/Rva0044EB54Ctor.cpp,matched,Pinned opaque intermediate default ctor with target vtable 0xC3F2A8 and 0xC8 derived prefix; this-only callers and chained parser 0x44ED95 support layout; exact semantic identity unproven
@@ -61824,3 +61821,4 @@ _Rva007F5790Callback,,0x00661F40,15,Code/GameEngine/Source/GameNetwork/Rva007F70
 ?Rva000C2B23_ParseModelName@INI@@SAXPAV1@PAX1PBX@Z,,0x000C2B23,174,Code/GameEngine/Source/Common/Rva000C2B23ParseModelName.cpp,matched,W3DModelDraw Model row 0x00BCAB20 via ExtraMesh keep plus rowed erase push_back
 ?rva001E67BF@Rva001E4DB0@@QAE?AV1@XZ,,0x001E67BF,94,Code/GameEngine/Source/Common/Rva001E67BFClone.cpp,matched,by-value copy via temp plus flag clear at +0x150 caller 0x004DA49E
 ?rva002F36E5@Pathfinder@@QAEPAVRva0052DE5B@@XZ,,0x002F36E5,40,Code/GameEngine/Source/GameLogic/AI/PathfinderRva002F36E5.cpp,matched,unlock lane queue 0x1D1F0 callees 0x0052DAE9 0x002F301F neighbours share flags
+??1Rva005FBBEE@@UAE@XZ,,0x005FBBEE,14,Code/GameEngine/Source/GameClient/GUI/Rva005FBBEEDtor.cpp,matched,virtual dtor via release-view alternatename to rowed clear 0x005FBBA6 plus vtable 0x00C79FF4
