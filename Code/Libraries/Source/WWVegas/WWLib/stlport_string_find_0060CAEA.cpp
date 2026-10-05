@@ -16,6 +16,11 @@
 namespace _STL
 {
 unsigned int __stl_string_hash(const string &s);
+// Declare the string equality specialization so this TU calls retail's /O2
+// repe-cmpsb body in w3d_dep.cpp instead of emitting its own /O1 copy.
+// This also drops the char_traits compare and string size/data copies that
+// only the inline instantiation needed.
+template<> bool operator==(const string &x, const string &y);
 }
 
 struct Rva0060CAEANode
