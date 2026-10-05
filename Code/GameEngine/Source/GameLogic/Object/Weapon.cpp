@@ -138,15 +138,9 @@ static void parseAllVetLevelsFXList( INI* ini, void* /*instance*/, void * store,
 }
 
 //-------------------------------------------------------------------------------------------------
-static void parsePerVetLevelPSys( INI* ini, void* /*instance*/, void * store, const void* /*userData*/ )
-{
-	typedef const ParticleSystemTemplate* ConstParticleSystemTemplatePtr;
-	ConstParticleSystemTemplatePtr* s = (ConstParticleSystemTemplatePtr*)store;
-	VeterancyLevel v = (VeterancyLevel)INI::scanIndexList(ini->getNextToken(), TheVeterancyNames);
-	ConstParticleSystemTemplatePtr pst = NULL;
-	INI::parseParticleSystemTemplate(ini, NULL, &pst, NULL);
-	s[v] = pst;
-}
+// parsePerVetLevelPSys lives in WeaponParseVetLevels.cpp (member scanIndexList
+// form); declared here for the field table below.
+void parsePerVetLevelPSys( INI* ini, void* /*instance*/, void * store, const void* /*userData*/ );
 
 //-------------------------------------------------------------------------------------------------
 static void parseAllVetLevelsPSys( INI* ini, void* /*instance*/, void * store, const void* /*userData*/ )
