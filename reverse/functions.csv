@@ -56125,3 +56125,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?Rva0033BC53Get@@YAPBVImage@@PAVThingTemplate@@PAX@Z,,0x0033BC53,23,Code/GameEngine/Source/Common/Thing/Rva0033BC53Get.cpp,matched,tail-jmp to rowed ThingTemplate rva0033BA46 with two null guards callers 0x002946C7 0x0029474F
 ?rva002C9AC5@Weapon@@QAEHPBVObject@@@Z,,0x002C9AC5,57,Code/GameEngine/Source/GameLogic/Object/WeaponRva002C9AC5.cpp,matched,Weapon bonus reload via rowed computeBonus plus clip time
 ??0Rva000A334F@@QAE@PAX@Z,,0x000A334F,24,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/Gadget/Rva000A3307Ctor.cpp,matched,ctor via base 0x000A3307 vtable 0x00BC9128 caller 0x0008F912
+?Rva0008F7C9Create@@YGPAVRva000A3DE3@@PAX@Z,,0x0008F7C9,58,Code/GameEngine/Source/Common/Rva0008F7C9Create.cpp,matched,neighbors same 58B shape as 0x0008F877 caller new 0x0002FDA0 ctor 0x000A3DE3

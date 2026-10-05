@@ -8704,3 +8704,9 @@ FUN_008e5559	0x004E5559	96	blocked	ctor 0x4E4F82 and dtor 0x4E5086 on same ebp-0
 ?rva0073F026@Rva0073F026@@QAEXXZ	0x0073F026	22	blocked	push-ecx-mov-store scheduling wall with edx-vs-eax-ecx regalloc tried O2 O1 O2-G7-SSE t=15 model=muse-01
 ?rva002C96D8@Weapon@@QAE_NXZ	0x002C96D8	31	partial	tail branch order ours jne-true xor-then-mov vs retail je-false mov-then-xor t=18 model=muse-04 score=0.93 stash=reverse/attempts/0x002c96d8.cpp
 ?Rva002C98E2Get@@YGMPAVObject@@@Z	0x002C98E2	123	blocked	addss mulss operand order swapped mov-stack-add-global vs mov-global-add-stack t=12 model=muse-04 (stash 0.93 kept)
+?rva001B230A@Rva001B230A@@QAEHXZ	0x001B230A	326	blocked	AdaptiveDelta decompress encoding1 9Bpkt 3comp donor motchan.cpp 950-1120 filtertable 0xDB6C28 Scale this+0x14 5 stack args vs donor 4 need full port t=12 model=muse-07
+?rva001B267B@Rva001B267B@@QAEHXZ	0x001B267B	304	blocked	sibling of 0x001B230A encoding2 17Bpkt 3comp donor motchan AdaptiveDelta 8bit delta same 5arg wall t=5 model=muse-07
+?rva001B27AB@Rva001B27AB@@QAEHXZ	0x001B27AB	307	blocked	sibling motion decode encoding2 17Bpkt 4comp imul 0x44 same donor wall as 0x001B230A 0x001B267B t=3 model=muse-07
+?rva001B2450@Rva001B2450@@QAEHXZ	0x001B2450	329	blocked	motion decode encoding1 9Bpkt 4comp imul 0x24 same donor wall t=2 model=muse-07
+?rva0034E3A5@Rva0034E3A5@@QAEHXZ	0x0034E3A5	528	blocked	AI state slot4 528B many callees strings globals Coord2D needs full model t=3 model=muse-07
+?Rva001B20E5Init@@YA_NXZ	0x001B20E5	83	blocked	sin table fsin EBP frame vs sub esp plus22B 8 regions 2 variants sin sinf same need frame globals investigation t=10 model=muse-07
