@@ -1,5 +1,4 @@
 // ?parseModuleName@ThingTemplate@@KAXPAVINI@@PAX1PBX@Z
-// partial score=0.99 date=2026-10-05
 // cl: /O1 /EHsc /DNDEBUG /MD /Ireference/shims/bfme2_ascii /Ireference/shims/iniexception
 // ZH semantic donor via BFME1 6583b3c1. Target33D865..33DB25, 704B.
 // Target field table DBF068/DBF078 labels Behavior/Body and this callback.
@@ -29,7 +28,7 @@ class ModuleInfo { public:
  bool rva0033C84A(int);
  bool clearAiModuleInfo();
  bool rva0033C8B5();
- void rva0033D553(ThingTemplate *,const AsciiString &,const AsciiString &,const ModuleData *,int,bool,bool);
+ void addModuleInfo(ThingTemplate *,const AsciiString &,const AsciiString &,const ModuleData *,int,bool,bool);
 private: char bytes[12];
 };
 class ThingTemplate { protected:
@@ -77,5 +76,5 @@ void ThingTemplate::parseModuleName(INI *ini,void *instance,void *store,const vo
  if (data->isAiModuleData()) mi->clearAiModuleInfo();
  if (data->rvaSlot7() && overrideFile) mi->rva0033C8B5();
  bool inheritable=self->mode==2;
- mi->rva0033D553(self,tokenStr,moduleTagStr,data,mask,inheritable,overrideFile);
+ mi->addModuleInfo(self,tokenStr,moduleTagStr,data,mask,inheritable,overrideFile);
 }
