@@ -168,7 +168,7 @@ private:
     HANDLER(Divide); HANDLER(Modulo); HANDLER(Increment); HANDLER(Decrement);
     HANDLER(Equals); HANDLER(LessThan); HANDLER(And); HANDLER(Or); HANDLER(Not);
     HANDLER(BranchAlways); HANDLER(BranchIfTrue); HANDLER(BranchIfFalse); HANDLER(Pop);
-    HANDLER(CallFunction); HANDLER(CallMethod);
+    HANDLER(CallFunction); HANDLER(CallMethod); HANDLER(With);
     HANDLER(CallFuncAndPop); HANDLER(CallFuncSetVar); HANDLER(CallMethodPop); HANDLER(CallMethodSetVar); HANDLER(DictCallFuncPop); HANDLER(DictCallFuncSetVar); HANDLER(DictCallMethodPop); HANDLER(DictCallMethodSetVar);
     HANDLER(ToInteger); HANDLER(StringLength); HANDLER(GetVariable);
     HANDLER(GetTimer);
@@ -1102,3 +1102,35 @@ void AptActionInterpreter::_FunctionAptActionBitURShift(AptActionInterpreter *co
     g_bfmeAptAssertAtE17734("false", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptActionInterpreter.cpp", 0x1b92);
     if (g_bfmeAptBreakOnAssertAtDDC01C) { __asm int 3 }
 }
+// With opcode0x94 points to native708B20; original PDB signature and later
+// handler source agree. Native assertions retain original spelling and lines.
+class BfmeAptValue006DCD20;
+void rva007065e0(int,int,BfmeAptValue006DCD20 *,BfmeAptValue006DCD20 **);
+__forceinline AptValue *convertWith(AptCIH *c,AptValue *v) { AptValue *out; rva007065e0((int)c,0,(BfmeAptValue006DCD20 *)v,(BfmeAptValue006DCD20 **)&out); return out; }
+void AptActionInterpreter::_FunctionAptActionWith(AptActionInterpreter *const p,LocalContextT *const c)
+{
+    c->pInstruction=(const unsigned char *)(((unsigned int)c->pInstruction+3)&~3U);
+    const unsigned char *const *data=(const unsigned char *const *)c->pInstruction;
+    c->pInstruction+=4;
+    AptValue *value=p->stack.At(0);
+    if(value->isUndefined()) {
+        c->pCurWith=0;
+        c->pInstruction=*data;
+    } else {
+        value=convertWith(c->pCurrentContext,value);
+        if(!value) {
+            g_bfmeAptAssertAtE17734("pWith","C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptActionInterpreter.cpp",0x1DA8);
+            if(g_bfmeAptBreakOnAssertAtDDC01C) { __asm int 3 }
+        }
+        if(c->pCurWith) {
+            g_bfmeAptAssertAtE17734("!pLocalContext->pCurWith","C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptActionInterpreter.cpp",0x1DA9);
+            if(g_bfmeAptBreakOnAssertAtDDC01C) { __asm int 3 }
+        }
+        c->pRemoveWithAt=*data;
+        c->pCurWith=value;
+        c->pCurWith->AddRef();
+    }
+    p->stack.Pop();
+}
+
+
