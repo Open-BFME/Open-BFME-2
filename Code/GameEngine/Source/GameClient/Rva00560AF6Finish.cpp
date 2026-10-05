@@ -1,5 +1,3 @@
-// ??1Rva005613B2@@QAE@XZ
-// partial score=1.0 date=2026-10-04
 // BANK: header-split proposal could not pass the full gate because the
 // unchanged51d47d324a baseline has4 byte failures plus DIR32/module/source debt.
 // A shared Code header is required to avoid private resource copies while
