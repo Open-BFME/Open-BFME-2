@@ -62666,3 +62666,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva00058913@Rva00057B27@@QAEXPAXI@Z,,0x00058913,42,Code/GameEngine/Source/Common/Rva00057B27ReserveSet.cpp,matched,precedent rva000E055A same recipe callers plus unblocks
 ?rva00278C6B@Drawable@@QAEXXZ,,0x00278C6B,17,Code/GameEngine/Source/GameClient/DrawableRva00278C6B.cpp,matched,Drawable flag 0x44B with Host 0x2783F6 call per packet and siblings
 ?Rva0033B634Get@@YAPBVImage@@PAVThingTemplate@@PAVRva0028F2F8Host@@@Z,,0x0033B634,67,Code/GameEngine/Source/Common/Thing/Rva0033B634Image.cpp,matched,linkbody via Rva0028F2F8 pattern tail rva0033B580 pin rva002197A6
+?rva002B4D41@Rva002B4D41@@QAEXXZ,,0x002B4D41,128,Code/GameEngine/Source/Common/Rva002B4D41Method.cpp,matched,caller 0x002BD9B4 thiscalls plus rowed callees and globals g_009FE1C8 and empty string
