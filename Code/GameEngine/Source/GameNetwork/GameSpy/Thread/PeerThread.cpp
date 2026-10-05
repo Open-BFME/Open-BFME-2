@@ -448,19 +448,7 @@ char PeerThreadClass::s_valueBuffers[6][20] = { "", "", "", "", "", "" };
 const char* PeerThreadClass::s_values[6] = { s_valueBuffers[0], s_valueBuffers[1], s_valueBuffers[2],
 	s_valueBuffers[3], s_valueBuffers[4], s_valueBuffers[5]};
 
-// ?trackStatsForPlayer@PeerThreadClass@@ present-unmatched
-void PeerThreadClass::trackStatsForPlayer(RoomType roomType, const char *nick, const char *key, const char *val)
-{
-	switch (roomType)
-	{
-		case GroupRoom:
-			m_groupRoomStats[packStatKey(nick, key)] = atoi(val);
-			break;
-		case StagingRoom:
-			m_stagingRoomStats[packStatKey(nick, key)] = atoi(val);
-			break;
-	}
-}
+// Player-stat writes are recovered in PeerThreadStats.cpp.
 
 // Stat-key concatenation is recovered in PeerThreadStats.cpp.
 

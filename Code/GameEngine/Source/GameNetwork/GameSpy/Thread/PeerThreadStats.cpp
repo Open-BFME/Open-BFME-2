@@ -32,7 +32,6 @@ std::string PeerThreadClass::packStatKey(const char *nick, const char *key) {
     s.append(key);
     return s;
 }
-// ?trackStatsForPlayer@PeerThreadClass@@ present-unmatched
 void PeerThreadClass::trackStatsForPlayer(RoomType roomType, const char *nick, const char *key, const char *val) {
     BfmePeerStats *state = reinterpret_cast<BfmePeerStats *>(this);
     switch (roomType) {
