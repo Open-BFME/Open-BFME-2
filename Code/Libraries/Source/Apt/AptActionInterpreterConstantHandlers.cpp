@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /O2 /MD /EHsc
 // Active PC interpreter handlers, identified by explicit opcode fields in the
 // 185-entry table at RVA9DC980. Every slot/pointer and complete native extent
 // was re-read; frozen research coverage was refreshed against the live ledger.
@@ -11,16 +11,18 @@
 // AptValue's opaque8-byte prefix is used solely to place AptString::str at+8.
 // PushThis/PushGlobal push pooled NAME strings, not the context objects.
 // Slots75(NULL) and76(Undefined) share705320; row it only once as Undefined.
-class AptValue { char m_valuePrefix[8]; };
+class AptString;
+class AptValue { char m_valuePrefix[8]; public: AptString *c_string() const; };
 class AptCIH;
 struct AptCharacterInst;
-class EAStringC { void *mpData; public: EAStringC &operator=(const EAStringC &); };
+class EAStringC { void *mpData; public: EAStringC(const char *); ~EAStringC(); EAStringC &operator=(const EAStringC &); };
 class AptString : public AptValue { public: static AptString *Create(); EAStringC str; };
 class AptInteger { public: static AptValue *Create(int); };
 class AptBoolean { public: static AptValue *Create(bool); };
 AptValue *Rva008A4EA0MakeFloat(float);
 EAStringC *Rva0070B4F0GetString(int);
 extern AptValue *gpUndefinedValue;
+extern AptValue *gpGlobalGlobalObject;
 struct AptConstantPool { int nItems; AptValue **apItems; };
 class AptBasePtrStack { public: void Push(AptValue *); int count,capacity; AptValue **items; };
 struct AptActionInterpreter
@@ -37,12 +39,16 @@ struct AptActionInterpreter
     AptBasePtrStack stack;
     unsigned char m_otherStacksAndDebugData[0x40-12];
     AptConstantPool constantPool;
+    AptValue *getVariable(AptValue *, AptValue *, const EAStringC *, int=1, int=1, int=0);
 private:
 #define HANDLER(n) static void _FunctionAptAction##n(AptActionInterpreter *const,LocalContextT *const)
     HANDLER(PushFloat); HANDLER(PushByte); HANDLER(PushWord); HANDLER(PushDWord);
     HANDLER(Return); HANDLER(DefineDictionary); HANDLER(PushStringDictByte); HANDLER(PushStringDictWord);
     HANDLER(PushThis); HANDLER(PushGlobal); HANDLER(Push0); HANDLER(Push1);
     HANDLER(PushTrue); HANDLER(PushFalse); HANDLER(PushUndefined);
+    HANDLER(PushThisVariable); HANDLER(PushGlobalVariable); HANDLER(PushZeroSetVar);
+    HANDLER(PushString); HANDLER(StringDictByteGetVar); HANDLER(StringDictByteGetMember);
+    HANDLER(SetVariable); HANDLER(GetMember);
 #undef HANDLER
 };
 void AptActionInterpreter::_FunctionAptActionPushFloat(AptActionInterpreter *const p, LocalContextT *const c)
@@ -120,3 +126,46 @@ typedef char LocalContextSize[sizeof(AptActionInterpreter::LocalContextT)==28 ? 
 typedef char ConstantPoolSize[sizeof(AptConstantPool)==8 ? 1 : -1];
 // Use the existing byte-verified stack provider's repository spelling.
 #pragma comment(linker, "/alternatename:?Push@AptBasePtrStack@@QAEXPAVAptValue@@@Z=?Push@AptBasePtrStack@@QAEXPAVBfmeAptValue006DCD20@@@Z")
+
+void AptActionInterpreter::_FunctionAptActionPushThisVariable(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    AptValue *v=p->getVariable((AptValue *)c->pCurrentContext,c->pCurWith,Rva0070B4F0GetString(0xA4),1);
+    p->stack.Push(v);
+}
+void AptActionInterpreter::_FunctionAptActionPushGlobalVariable(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    p->stack.Push(gpGlobalGlobalObject);
+}
+void AptActionInterpreter::_FunctionAptActionPushZeroSetVar(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    p->stack.Push(AptInteger::Create(0));
+    _FunctionAptActionSetVariable(p,c);
+}
+void AptActionInterpreter::_FunctionAptActionPushString(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    c->pInstruction=(const unsigned char *)(((unsigned int)c->pInstruction+3)&~3U);
+    const char *const *data=(const char *const *)c->pInstruction;
+    c->pInstruction+=4;
+    AptString *s=AptString::Create();
+    s->str=*data;
+    p->stack.Push(s);
+}
+void AptActionInterpreter::_FunctionAptActionStringDictByteGetVar(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    unsigned char index=*c->pInstruction++;
+    AptValue *s=p->constantPool.apItems[index];
+    EAStringC *name=&s->c_string()->str;
+    AptValue *v=p->getVariable((AptValue *)c->pCurrentContext,c->pCurWith,name,1);
+    p->stack.Push(v);
+}
+void AptActionInterpreter::_FunctionAptActionStringDictByteGetMember(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    unsigned char index=*c->pInstruction++;
+    p->stack.Push(p->constantPool.apItems[index]);
+    _FunctionAptActionGetMember(p,c);
+}
+
+// Source headers declare c_string() const; native callers select this exact
+// checked-string provider. The global shares the existing four-byte storage.
+#pragma comment(linker, "/alternatename:?c_string@AptValue@@QBEPAVAptString@@XZ=?checkedString@BfmeAptValue006DCD20@@QAEPAV1@XZ")
+#pragma comment(linker, "/alternatename:?gpGlobalGlobalObject@@3PAVAptValue@@A=?g_00E18650@@3VEAStringC@@A")
