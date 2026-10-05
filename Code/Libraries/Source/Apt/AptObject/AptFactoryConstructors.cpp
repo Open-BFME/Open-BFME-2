@@ -24,7 +24,7 @@ extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *,const char *,int);
 extern int g_bfmeAptBreakOnAssertAtDDC01C;
 struct SoundCharacter { char pad[4]; void *parent; };
 struct SoundSprite { char pad[12]; SoundCharacter *character; };
-class AptCIH { public: char pad[0x28];float redMultiplier,greenMultiplier,blueMultiplier;char pad2[0x4c-0x34];SoundSprite *sprite;char pad3[0x5c-0x50];unsigned int flags;bool rva006CFCD0() const;void factorySetProperty(int,float,bool);float factoryGetProperty(int) const; };
+class AptCIH { public: char pad[0x24];float alphaMultiplier,redMultiplier,greenMultiplier,blueMultiplier;float alphaOffset,redOffset,greenOffset,blueOffset;char pad2[0x4c-0x44];SoundSprite *sprite;char pad3[0x5c-0x50];unsigned int flags;bool rva006CFCD0() const;void factorySetProperty(int,float,bool);float factoryGetProperty(int) const; };
 // Target scalar destructors6F3960/6FE430/6E9B50 use this pool and class size.
 class Rva006D2A60 { public: void *allocBlock(int);void freeBlock(void *,int); };
 extern Rva006D2A60 *g_pChainBlockAllocatorF4;
@@ -69,7 +69,7 @@ typedef char ErrorSize[sizeof(AptError)==40?1:-1];
 // Original PDB ScriptColour is36B with pSprite+20; MAP supplies const-pointer
 // parameter. Donor f1e86798adbb054c supplies semantics. Native6F24E0..6F25C5
 // asserts non-null and only clears pSprite when isCIH fails (later code differs).
-class BfmeAptValue006DCD20 {public: BfmeAptValue006DCD20 *rva006DCF60(bool);int rva006E02B0() const;void setGCRootCount(unsigned int);void factorySetString(const char *);int isSound() const;BfmeAptValue006DCD20 *rva006DCFE0();void rva006DD6C0(EAStringC *);BfmeAptValue006DCD20 *rva006DD0A0();int toInteger() const;};
+class BfmeAptValue006DCD20 {public: BfmeAptValue006DCD20 *rva006DCF60(bool);int rva006E02B0() const;void setGCRootCount(unsigned int);void factorySetString(const char *);int isSound() const;BfmeAptValue006DCD20 *rva006DCFE0();void rva006DD6C0(EAStringC *);BfmeAptValue006DCD20 *rva006DD0A0();int toInteger() const;int isObject() const;BfmeAptValue006DCD20 *rva006DD0E0();};
 class AptScriptColour : public AptObject {
 public:
  AptScriptColour(AptValue *const);
@@ -234,3 +234,60 @@ AptValue *callback006F2640(AptValue *context,int) {
 }
 
 #pragma comment(linker, "/alternatename:?factoryGetProperty@AptCIH@@QBEMH@Z=?rva006E0920@Rva006E0920@@QBEMH@Z")
+
+// Donor f1e86798adbb054c getTransform semantics; native6F2760..6F29BF
+// uses eight CIH floats at24..40, integer scaling100/255, and hash properties.
+// Placement allocation keeps the native32B pool allocation local to this use.
+enum FactoryObjectAllocation { factoryObjectAllocation };
+// ?operator new absent-from-retail
+inline void *operator new(unsigned int n,FactoryObjectAllocation){return g_pChainBlockAllocatorF4->allocBlock(n);}
+// ?operator delete absent-from-retail
+inline void operator delete(void *p,FactoryObjectAllocation){g_pChainBlockAllocatorF4->freeBlock(p,32);}
+class Rva8D0D80String;class Rva8D0D80Value;
+class Rva8D0D80Table {public:void add(Rva8D0D80String *,Rva8D0D80Value *);};
+#define COLOUR_ASSERT(expr,line) if(!(expr)){g_bfmeAptAssertAtE17734(#expr,"C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptObject\\AptScriptColour.cpp",line);if(g_bfmeAptBreakOnAssertAtDDC01C){__asm int 3}}
+AptValue *callback006F2760(AptValue *context,int count) {
+ if(count>0)return gpUndefinedValue;
+ AptScriptColour *pTemp=(AptScriptColour *)((BfmeAptValue006DCD20 *)context)->rva006DD0A0();
+ COLOUR_ASSERT(pTemp,0xca);
+ AptCIH *pSpr=pTemp->pSprite;
+ COLOUR_ASSERT(pSpr,0xcc);
+ if(((AptValue *)pSpr)->getIsDefined()) {
+ AptObject *obj=new(factoryObjectAllocation) AptObject((AptVirtualFunctionTable_Indices)27);
+ {AptValue *v=AptInteger::Create((int)(pSpr->redMultiplier*100.f));EAStringC *name=Rva0070B4F0GetString(122);((Rva8D0D80Table *)((char *)obj+8))->add((Rva8D0D80String *)name,(Rva8D0D80Value *)v);}
+ {AptValue *v=AptInteger::Create((int)(pSpr->greenMultiplier*100.f));EAStringC *name=Rva0070B4F0GetString(58);((Rva8D0D80Table *)((char *)obj+8))->add((Rva8D0D80String *)name,(Rva8D0D80Value *)v);}
+ {AptValue *v=AptInteger::Create((int)(pSpr->blueMultiplier*100.f));EAStringC *name=Rva0070B4F0GetString(37);((Rva8D0D80Table *)((char *)obj+8))->add((Rva8D0D80String *)name,(Rva8D0D80Value *)v);}
+ {AptValue *v=AptInteger::Create((int)(pSpr->alphaMultiplier*100.f));EAStringC *name=Rva0070B4F0GetString(29);((Rva8D0D80Table *)((char *)obj+8))->add((Rva8D0D80String *)name,(Rva8D0D80Value *)v);}
+ {AptValue *v=AptInteger::Create((int)(pSpr->redOffset*255.f));EAStringC *name=Rva0070B4F0GetString(124);((Rva8D0D80Table *)((char *)obj+8))->add((Rva8D0D80String *)name,(Rva8D0D80Value *)v);}
+ {AptValue *v=AptInteger::Create((int)(pSpr->greenOffset*255.f));EAStringC *name=Rva0070B4F0GetString(59);((Rva8D0D80Table *)((char *)obj+8))->add((Rva8D0D80String *)name,(Rva8D0D80Value *)v);}
+ {AptValue *v=AptInteger::Create((int)(pSpr->blueOffset*255.f));EAStringC *name=Rva0070B4F0GetString(38);((Rva8D0D80Table *)((char *)obj+8))->add((Rva8D0D80String *)name,(Rva8D0D80Value *)v);}
+ {AptValue *v=AptInteger::Create((int)(pSpr->alphaOffset*255.f));EAStringC *name=Rva0070B4F0GetString(30);((Rva8D0D80Table *)((char *)obj+8))->add((Rva8D0D80String *)name,(Rva8D0D80Value *)v);}
+ return obj; }return gpUndefinedValue;
+}
+
+// Native setter6F29C0..6F2C14 uses inverse scale factors and per-property
+// integer conversion. Later donor supplies the transform property semantics.
+AptValue *callback006F29C0(AptValue *context,int count) {
+ if(count<=0)return gpUndefinedValue;
+ AptValue *pParam=(AptValue *)((AptBasePtrStack *)&g_aptDateInterpreter)->At(0);
+ COLOUR_ASSERT(!pParam->isUndefined(),0xf6);
+ AptScriptColour *pTemp=(AptScriptColour *)((BfmeAptValue006DCD20 *)context)->rva006DD0A0();
+ COLOUR_ASSERT(pTemp,0xf8);
+ AptCIH *pSpr=pTemp->pSprite;
+ COLOUR_ASSERT(pSpr,0xfa);
+ if(((AptValue *)pSpr)->isUndefined())return gpUndefinedValue;
+ if(pParam->getIsDefined() && (unsigned char)((BfmeAptValue006DCD20 *)pParam)->isObject()) {
+ BfmeAptValue006DCD20 *obj=((BfmeAptValue006DCD20 *)pParam)->rva006DD0E0();
+ {EAStringC *name=Rva0070B4F0GetString(122);AptValue *v=((AptNativeHash *)((char *)obj+8))->Lookup(name);if(v)pSpr->redMultiplier=((BfmeAptValue006DCD20 *)v)->toInteger()*.01f;}
+ {EAStringC *name=Rva0070B4F0GetString(124);AptValue *v=((AptNativeHash *)((char *)obj+8))->Lookup(name);if(v)pSpr->redOffset=((BfmeAptValue006DCD20 *)v)->toInteger()*(1.0f/255.0f);}
+ {EAStringC *name=Rva0070B4F0GetString(58);AptValue *v=((AptNativeHash *)((char *)obj+8))->Lookup(name);if(v)pSpr->greenMultiplier=((BfmeAptValue006DCD20 *)v)->toInteger()*.01f;}
+ {EAStringC *name=Rva0070B4F0GetString(59);AptValue *v=((AptNativeHash *)((char *)obj+8))->Lookup(name);if(v)pSpr->greenOffset=((BfmeAptValue006DCD20 *)v)->toInteger()*(1.0f/255.0f);}
+ {EAStringC *name=Rva0070B4F0GetString(37);AptValue *v=((AptNativeHash *)((char *)obj+8))->Lookup(name);if(v)pSpr->blueMultiplier=((BfmeAptValue006DCD20 *)v)->toInteger()*.01f;}
+ {EAStringC *name=Rva0070B4F0GetString(38);AptValue *v=((AptNativeHash *)((char *)obj+8))->Lookup(name);if(v)pSpr->blueOffset=((BfmeAptValue006DCD20 *)v)->toInteger()*(1.0f/255.0f);}
+ {EAStringC *name=Rva0070B4F0GetString(29);AptValue *v=((AptNativeHash *)((char *)obj+8))->Lookup(name);if(v)pSpr->alphaMultiplier=((BfmeAptValue006DCD20 *)v)->toInteger()*.01f;}
+ {EAStringC *name=Rva0070B4F0GetString(30);AptValue *v=((AptNativeHash *)((char *)obj+8))->Lookup(name);if(v)pSpr->alphaOffset=((BfmeAptValue006DCD20 *)v)->toInteger()*(1.0f/255.0f);}
+ }return gpUndefinedValue;
+}
+
+// Target call operands and original MAP bind canonical hash lookup to existing provider.
+#pragma comment(linker, "/alternatename:?Lookup@AptNativeHash@@QBEPAVAptValue@@QBVEAStringC@@@Z=?lookup@Rva0070B380@@QAEPAXABVEAStringC@@@Z")
