@@ -1,6 +1,8 @@
 // ?rva007097B0@AptScriptFunctionBase@@SAHPAX@Z
 // partial score=0.98 date=2026-10-05
 // ?rva007097B0@AptScriptFunctionBase@@SAHPAX@Z
+// partial score=0.98 date=2026-10-05
+// ?rva007097B0@AptScriptFunctionBase@@SAHPAX@Z
 // cl: /O2 /MD
 // experiment: default-construct + Release in the loop, no gpUndefinedValue store
 extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *,const char *,int);
