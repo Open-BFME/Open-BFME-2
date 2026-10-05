@@ -61745,3 +61745,4 @@ _Rva00023540,,0x00023540,271,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleF
 ??0Rva0042476C@@QAE@ABV0@@Z,,0x0042476C,61,Code/Libraries/Source/WWVegas/WWLib/Rva0042476C.cpp,matched,copy ctor two vectors calls rowed 0x004244EE and 0x002CFAB9 unblocks 0x00424BF4
 ?rva005E1AB6@Rva005E1B41Primary@@QAEXH@Z,,0x005E1AB6,139,Code/GameEngine/Source/Common/VslotSmallBodiesAL.cpp,matched,setter interface +0x18 via v00/v04 and v04/v0c plus two Image lookups
 ?Rva00528C30Get@@YA_NPBDAAVAsciiString@@@Z,,0x00528C30,27,Code/GameEngine/Source/Common/Rva00528C30.cpp,matched,GetParam wrapper with literal name plus uchar local bool normalize
+??0Rva00541A6E@@QAE@ABV0@@Z,,0x00541A6E,66,Code/GameEngine/Source/GameLogic/Object/Behavior/Rva00541A6ECopyCtor.cpp,matched,same shape as neighbour Rva00541913 copy with Rva0054103E vector

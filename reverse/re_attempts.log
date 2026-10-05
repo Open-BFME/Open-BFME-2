@@ -9827,3 +9827,8 @@ FUN_00607c02	0x00207C02	498	blocked	huge 0x1A500 object init chain needs ScriptE
 ?Rva0036CC94Get@@YAXXZ	0x0036CC94	499	blocked	complex 499B free function 6plus args terrain pathfinder virtuals single large unclaimed caller t=8 model=muse-12
 ?_M_insert_overflow@?$vector@URva00082BE6Element@@V?$allocator@URva00082BE6Element@@@_STL@@@_STL@@IAEXPAURva00082BE6Element@@ABU3@ABU__false_type@2@I_N@Z	0x0008257F	178	partial	gate unresolved 4 element helpers need pins t=12 model=muse-02 score=0.99 stash=reverse/attempts/0x0008257f.cpp
 ?_M_insert_overflow@?$vector@URva00082C1DElement@@V?$allocator@URva00082C1DElement@@@_STL@@@_STL@@IAEXPAURva00082C1DElement@@ABU3@ABU__false_type@2@I_N@Z	0x00082631	178	blocked	same 178B overflow helper wall as 0x8257F needs 4 element helper pins t=5 model=muse-02
+??0Rva005DAC85@@QAE@PAX@Z	0x005DAC38	53	blocked	store order only ints plus arg early vs floats then ints then arg late tried full-init partial-init body-only O1 G7 same order t=18 model=muse-01 (stash 0.93 kept)
+?rva005DACC0@Rva005DAC85@@QAEXXZ	0x005DACC0	273	blocked	swap rec-sub worsens esi-to-edi plus x87 max vs SSE needs new idea t=10 model=muse-01
+?rva00596F23@Rva00596F18@@QAEXXZ	0x00596F23	210	partial	K-mul spill movaps-movss vs mulss-mem plus nv addss-mem vs movss-addss-reg t=25 model=muse-01 score=0.91 stash=reverse/attempts/0x00596f23.cpp
+?rva00596F23@Rva00596F18@@QAEXXZ	0x00596F23	210	partial	K-mul second mul spill movaps-movss vs mulss-mem plus nv addss-mem vs movss-addss-reg t=18 model=muse-01 score=0.93 stash=reverse/attempts/0x00596f23.cpp
+?rva004B886F@Rva004B886F@@UAEHXZ	0x004B886F	341	blocked	MI B10-this with AsciiString temp flag and shift-test bit idioms unmatched; 310B vs 341B register/stack/temp-flag differ t=15 model=muse-01
