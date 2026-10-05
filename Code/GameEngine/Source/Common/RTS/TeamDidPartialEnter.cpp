@@ -294,3 +294,22 @@ void Team::transferUnitsTo(Team *newTeam)
 		rec->rva002C6A76(this);
 }
 
+void Team::rva0039E6D1(Team *newTeam, const BitFlags<69> &kinds)
+{
+	if (this == newTeam)
+		return;
+	if (newTeam == 0)
+		return;
+	DLINK_ITERATOR<Object> iter = iterate_TeamMemberList();
+	while (!iter.done()) {
+		if (iter.cur()->isAnyKindOf(kinds)) {
+			iter.cur()->rva00298AE4(newTeam);
+			iter = iterate_TeamMemberList();
+		} else {
+			iter.advance();
+		}
+	}
+	Rva002A8AB1Record *rec = g_00DFEEF8->rva002A8AB1(getControllingPlayer());
+	if (rec && !rva0039DEC4())
+		rec->rva002C6A76(this);
+}
