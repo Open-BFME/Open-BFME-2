@@ -59252,3 +59252,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva002E9042@Rva002E9042@@QAEXPAX@Z,,0x002E9042,93,Code/GameEngine/Source/Common/Rva002E9042.cpp,matched,LINK 2 files 103B via 0x0046094C; WorldToCell 0x002E7875 and getCell 0x002E6D62
 ?rva003F7BB4@Rva003F7BB4@@QAEXABURva003F7B22Element@@@Z,,0x003F7BB4,8,Code/GameEngine/Source/GameClient/EvaBucketPushBack.cpp,matched,tail-jmp forwarder add 0x2c to rowed push_back
 ??1Rva005F5EA6@@UAE@XZ,,0x005F5EA6,97,Code/GameEngine/Source/Common/Rva005F5EA6Dtor.cpp,matched,dtor via rowed erase plus pinned base caller deleting dtor
+?rva00502787@Rva00502787@@QAEXXZ,,0x00502787,41,Code/Libraries/Source/WWVegas/WWLib/Rva00502787Clear.cpp,matched,chain from 0x005025DB clear via rowed erase callers at 0x005029A2 0x00503693
