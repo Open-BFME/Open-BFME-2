@@ -55908,3 +55908,4 @@ ___Extract_locale_name,,0x000216A0,153,Code/Libraries/Source/WWVegas/WWLib/Local
 ?Rva002183D1SortHeap@@YAXPAURva004748F0Element@@0URva004748F0Compare@@@Z,,0x002183D1,58,Code/GameEngine/Source/Common/Q3SortHeap002183D1.cpp,matched,sort-heap tail via rowed pop-heap Aux for FileInfo partial-sort
 ?rva0070DFE0@BfmeAptValue006DCD20@@QAEXXZ,,0x0070DFE0,5,Code/GameEngine/Source/Common/BfmeAptValueRva0070DFE0.cpp,matched,vtable slot 11 thunk to rowed 0x006DE150
 ?rva00493805@SpecialPowerModule@@QAEXXZ,,0x00493805,64,Code/GameEngine/Source/GameLogic/Object/SpecialPower/Rva00493805.cpp,matched,vslot 12 SpecialPowerModule family via testStatus Overridable TheGameLogic
+?bfmeDoBOE@BfmeSinkBOE@@QAEXPAX0@Z,,0x005B7454,600,Code/GameEngine/Source/Common/BfmeSinkBOEDoBOE.cpp,matched,BFME1 donor plus retail list walk plus color ops
