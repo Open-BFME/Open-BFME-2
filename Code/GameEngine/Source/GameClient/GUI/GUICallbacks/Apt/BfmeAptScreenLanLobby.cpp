@@ -156,7 +156,7 @@ public:
 	virtual void v18() = 0;
 	virtual void v19() = 0;
 	virtual void v20() = 0;
-	virtual void v21() = 0;
+	virtual void v21(UnicodeString text, int kind, int unused) = 0;
 	virtual void v22(int value) = 0;
 	virtual void v23() = 0;
 	virtual void v24() = 0;
@@ -176,7 +176,7 @@ public:
 	virtual void OnPlayerLeave(UnicodeString player) = 0;
 	virtual void v38() = 0;
 	virtual void v39() = 0;
-	virtual void v40() = 0;
+	virtual void v40(const UnicodeString &name, int text) = 0;
 	virtual void v41() = 0;
 	virtual void v42() = 0;
 	virtual void v43() = 0;
@@ -193,6 +193,14 @@ public:
 	virtual bool v54() = 0;
 	virtual UnicodeString GetMyName() = 0;
 	virtual LANGameInfo *GetMyGame() = 0;
+	virtual void v57() = 0;
+	virtual void v58() = 0;
+	virtual void v59() = 0;
+	virtual void v60() = 0;
+	virtual void v61() = 0;
+	virtual void v62() = 0;
+	virtual void v63() = 0;
+	virtual int v64(const UnicodeString &text, int kind) = 0;
 };
 
 extern LANAPI *g_00DFE958;
@@ -243,6 +251,13 @@ extern GameTextInterface *TheGameText;
 void Rva00437E84(int type, const UnicodeString &text, const UnicodeString &title);
 void Rva00437E9C(int value);
 
+// Unrowed 0x0044C0A8 (158 bytes, cdecl, takes both strings by value and a
+// pointer that defaults to 0x004B3FD0 when null), pinned by address.
+void Rva0044C0A8(UnicodeString title, UnicodeString text, void *callback);
+
+struct Rva00511730State;
+extern Rva00511730State *g_Va00E046B8;
+
 class Rva0043DB47DoubleSetter
 {
 public:
@@ -279,6 +294,7 @@ public:
 	bool bfmeMapChanged(const AsciiString *mapName);
 	bool rva00444B90(GameSlot *slot, SlotState state, int unused);
 	void rva00444DC3(bool starting);
+	void rva004448E5(const UnicodeString &text, int kind);
 
 private:
 	unsigned char m_pad00[0x0C];
@@ -607,5 +623,31 @@ void BfmeAptScreenLanLobby::rva00444DC3(bool starting)
 	else
 	{
 		Rva00437E9C(1);
+	}
+}
+
+// Retail 0x004448E5, 280 bytes: vftable 0x00C3E098 slot 17. No BFME1
+// counterpart; the name is unknown. Kinds 0 and 1 pass the text through
+// LANAPI vslot 64 (with 3) and post the result under L"SYSTEM" through
+// vslot 40; kind 1 first hands (L"", text) to 0x0044C0A8 while
+// g_Va00E046B8 is unset. Kind 2 goes to vslot 21 as (text, 3, 0).
+void BfmeAptScreenLanLobby::rva004448E5(const UnicodeString &text, int kind)
+{
+	if (!TheLAN)
+		return;
+
+	switch (kind)
+	{
+	case 0:
+		TheLAN->v40(UnicodeString(L"SYSTEM"), TheLAN->v64(text, 3));
+		break;
+	case 1:
+		if (!g_Va00E046B8)
+			Rva0044C0A8(UnicodeString(L""), text, 0);
+		TheLAN->v40(UnicodeString(L"SYSTEM"), TheLAN->v64(text, 3));
+		break;
+	case 2:
+		TheLAN->v21(text, 3, 0);
+		break;
 	}
 }
