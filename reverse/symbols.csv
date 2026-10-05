@@ -13122,4 +13122,4 @@ _Rva00438083,0x00438083,Address-derived bool prompt helper directly called by 0x
 ?rva0059E0C1@@YAHH@Z,0x0059E0C1,cdecl 1-arg callee of 0x59E0F7 returning int-or-pointer (caller pops once and derefs +0xBC or tests null)
 ?rva005A57BA@@YGXH@Z,0x005A57BA,stdcall 1-arg callee of 0x5A5BAF (caller pushes 1 and returns; no cleanup); SEH function body; signature unproven
 ?rva005AE6F8@@YAHHHHPAD@Z,0x005AE6F8,cdecl 4-arg int-returning callee of 0x5AE78A (caller adds esp 16; result passes through); arg types guessed (3 int + char buffer); boundary has normal ebp prologue
-?rva00381618@@YAXHPAX@Z,0x00381618,cdecl 2-arg callee of 0x5AFC21 (batched caller cleanup); SEH function body; signature unproven
+?rva00381618@@YAXPAVGameWindow@@H@Z,0x00381618,cdecl 2-arg callee of 0x5AFC21 (batched caller cleanup; pushes m_C then m_4); SEH function body; signature unproven
