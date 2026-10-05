@@ -52,6 +52,12 @@ public:
 	void bfmeErase1279(BfmeKey1279 &key);
 };
 
+class Rva0070B380
+{
+public:
+	void *lookup(const EAStringC &key);
+};
+
 class BfmeNestedBE;
 
 BfmeNestedBE *bfmeUnlinkNestedBE(BfmeNestedBE *item);
@@ -73,10 +79,10 @@ void BfmeWrapper1279::bfmeProcess1279(void *value)
 				BfmeLookup1279 *lookup = provider->bfmeGetLookup1279();
 				BfmeKey1279 &key = node->m_key;
 				if (!((EAStringC *)&key)->IsEmpty()) {
-					if (lookup != 0) {
-						if (lookup->bfmeLookup1279(key) == node)
-							lookup->bfmeErase1279(key);
-					}
+				if (lookup != 0) {
+					if (((Rva0070B380 *)lookup)->lookup(*(EAStringC *)&key) == node)
+						lookup->bfmeErase1279(key);
+				}
 				}
 			}
 			bfmeUnlinkNestedBE((BfmeNestedBE *)node);
