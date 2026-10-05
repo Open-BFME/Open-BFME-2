@@ -92,6 +92,8 @@ public:
     AsciiString getAsciiVersion();
     // Reconstruction name: the original spelling is unknown.
     AsciiString rva00237F25MajorMinor();
+    // Reconstruction name; the original spelling is unknown.
+    AsciiString rva00237F83ConfiguredVersion();
     AsciiString getAsciiBuildLocation();
     AsciiString *getBuildGuid(void);
     ~Version();
@@ -138,6 +140,17 @@ AsciiString Version::rva00237F25MajorMinor()
 {
     AsciiString version;
     version.format("%d.%d", m_major, m_minor);
+    return version;
+}
+
+// Retail 0x00237F83, laid out right after rva00237F25MajorMinor and before
+// getUnicodeVersion: the four version numbers plus the CONFIG and MACHINE
+// build-metadata strings ("%d.%d.%d.%d_%s_%s"). No retail call reaches it.
+AsciiString Version::rva00237F83ConfiguredVersion()
+{
+    AsciiString version;
+    version.format("%d.%d.%d.%d_%s_%s", m_major, m_minor, m_buildNum, m_localBuildNum,
+        m_buildConfiguration.str(), m_buildLocation.str());
     return version;
 }
 
