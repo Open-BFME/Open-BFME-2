@@ -62975,3 +62975,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva006E0AC0@Rva006E0AC0@@QAEHXZ,,0x006E0AC0,96,Code/Libraries/Source/Apt/Rva006E0AC0.cpp,matched,virtual slot 0xC hash flags loop via GetString and AptValue findChild caller 0x006E2EE0
 ?rva002E1046@Rva002E1046@@QAE_NXZ,,0x002E1046,119,Code/GameEngine/Source/Common/Rva002E1046.cpp,matched,unlock scan LivingWorld players via rowed rva002B52A8 and pinned helper
 ?Rva003285D4Input@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z,,0x003285D4,101,Code/GameEngine/Source/GameClient/GUI/Gadget/GadgetPalantirCommandButtonInput.cpp,matched,palantir button input msg5 msg0xD status bit8 data bit0x80 via rowed callees
+?rva004FD5C7@Rva004FD37F@@QBE_NPAVRva002E1001@@@Z,,0x004FD5C7,76,Code/GameEngine/Source/Common/Rva004FD37F.cpp,matched,multimap equal_range loop via sibling Rva004FD37F
