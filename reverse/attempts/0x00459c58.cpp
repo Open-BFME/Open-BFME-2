@@ -2,6 +2,8 @@
 // partial score=0.97 date=2026-10-05
 // ?rva00459C58@SiegeDockingBehavior@@UAE_NW4ObjectID@@@Z
 // partial score=0.97 date=2026-10-05
+// ?rva00459C58@SiegeDockingBehavior@@UAE_NW4ObjectID@@@Z
+// partial score=0.97 date=2026-10-05
 // finish round: two structural corrections and one lever no earlier bank used
 // cl: /O1 /DNDEBUG /MD
 //
@@ -29,8 +31,8 @@ class Object
 public:
 	const Rva00459C58Template *getTemplate() const { return m_template; }
 private:
-	unsigned char m_pad00[8];
-	const Rva00459C58Template *m_template; // +0x08
+	unsigned char m_pad00[4];
+	const Rva00459C58Template *m_template; // +0x04
 };
 
 class GameLogic
