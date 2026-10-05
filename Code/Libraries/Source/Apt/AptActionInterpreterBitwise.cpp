@@ -1,6 +1,6 @@
 // cl: /O2 /MD
 // ActionScript bitwise opcode handlers 0x60-0x64. Each is named by its slot in
-// the {opcode, handler} dispatch table at 0x009DC960; names, parameters and
+// the {opcode, handler} dispatch table at 0x009DC980; names, parameters and
 // locals follow the Apt debug info of The Sims 2: Castaway (CC0). Stack layout
 // and the _AptBasePtrStack.h At() assertion (line 266) are read from retail.
 extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *, const char *, int);
