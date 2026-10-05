@@ -12968,3 +12968,5 @@ _Rva00337999Forward,0x00337999,REL32 callee decoded from target call bytes of wr
 ??1H1F8167@@QAE@XZ,0x001F8167,unrowed same-lane body called by chain root 0x001F9025 read from its REL32
 ?m001F9B69@H1F9B69@@QAEXXZ,0x001F9B69,unrowed same-shape body called by chain members 0x001FA5BB and 0x001FA5F6 read from their REL32
 ?rva0052B10F@Rva0052B10F@@QAEXXZ,0x0052B10F,thiscall no-arg no-ret callee of gate 0x004E0A58 read from its REL32 displacement; Ghidra FUN_0092b10f 112B; body unrowed
+?rva004E9C13@Rva004E9C13@@QAEXXZ,0x004E9C13,tail-call target of 0x004E9F6E (mov ecx esi then jmp); Ghidra range size 405B; body unrowed
+?rva004F418A@Rva004F418A@@QAEXXZ,0x004F418A,tail-call target of 0x004F4927 (mov ecx esi pop esi then jmp); dump-range-25 target 500B; body unrowed

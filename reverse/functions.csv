@@ -63654,3 +63654,5 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva004E99B1@@YAPAXPAX@Z,,0x004E99B1,37,Code/GameEngine/Source/Common/Rva004E99B1Scan.cpp,matched,global vector scan for entry with +0x44 equal to key else null; full byte gate
 ?rva004F8CE0@@YGPAXABURva004F868AElement@@@Z,,0x004F8CE0,34,Code/GameEngine/Source/Common/Rva004F8CE0Factory.cpp,matched,element factory: rowed allocator block plus rowed in-place construct at +0x10; full byte gate
 ?rva004F06E5@Rva004F06E5@@QAEXXZ,,0x004F06E5,49,Code/GameEngine/Source/Common/Rva004F06E5Teardown.cpp,matched,holder teardown: unless flag bit set free slot-0 result else pinned fallback; always clear holder; full byte gate
+?rva004E9F6E@Rva004E9F6E@@QAEXXZ,,0x004E9F6E,68,Code/GameEngine/Source/Common/Rva004E9F6EGate.cpp,matched,empty-name gate via world probe plus TheEmptyString compare then bounds-gated tail-call; full byte gate
+?rva004F4927@Rva004F4927@@QAEXXZ,,0x004F4927,59,Code/GameEngine/Source/Common/Rva004F4927Dispatch.cpp,matched,probe-gated quad slot dispatch then pinned tail worker; full byte gate
