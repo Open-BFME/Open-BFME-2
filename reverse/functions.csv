@@ -63911,3 +63911,6 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ??0Rva005422CF@@QAE@XZ,,0x005422CF,69,Code/GameEngine/Source/Common/Rva00540B03Ctors.cpp,matched,head + BfmeE16 vector + zero 0x1c then member init 0x00542148
 ??1Rva005C9659@@UAE@XZ,,0x005C9659,80,Code/GameEngine/Source/Common/Rva005C9659Dtors.cpp,matched,large-object dtor: +0x258 via 0x0056D76B and +0x218 via ~Rva00524BB4 and base ~GameWindow 0x00314A0C
 ??1Rva005FCFEA@@UAE@XZ,,0x005FCFEA,74,Code/GameEngine/Source/Common/Rva005FCFEADtor.cpp,matched,large-object dtor: +0x28 via rowed ~Rva005242D7 and +0x1c via rowed ~Rva0052413E and base ~Rva005FCF0E
+?rva005D30EE@Rva005D30EE@@QAEXHH@Z,,0x005D30EE,101,Code/GameEngine/Source/Common/Rva005D30EEAptSets.cpp,matched,APT text setter pair +0x08 suffix BuildPlots via by-value UnicodeString builder 0x005D303A
+?rva005D3153@Rva005D30EE@@QAEXHH@Z,,0x005D3153,101,Code/GameEngine/Source/Common/Rva005D30EEAptSets.cpp,matched,APT text setter pair +0x10 suffix ArmoryPoints via by-value UnicodeString builder 0x005D303A
+?rva005D31B8@Rva005D30EE@@QAEXHH@Z,,0x005D31B8,101,Code/GameEngine/Source/Common/Rva005D30EEAptSets.cpp,matched,APT text setter pair +0x18 suffix CommandPoints via by-value UnicodeString builder 0x005D303A

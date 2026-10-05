@@ -13276,4 +13276,4 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 ?rva00542067@Rva00542225@@QAEXXZ,0x00542067,no-arg thiscall member init called at the end of ctor 0x00542225; identity unproven; address-derived owner
 ?rva00542148@Rva005422CF@@QAEXXZ,0x00542148,no-arg thiscall member init called at the end of ctor 0x005422CF; identity unproven; address-derived owner
 ??1Rva0056D76B@@QAE@XZ,0x0056D76B,opaque member dtor called on the +0x258 member by dtor 0x005C9659; identity unproven; address-derived name
-?Rva005D303A@@YAPAVUnicodeString@@PAV1@HH@Z,0x005D303A,APT text builder (out*,a,b) returning out: 98B EH body formatting via L"%d/%d" and 0x00037050; retail REL32 at 0x005D3113/0x005D3178/0x005D31DD targets this address
+?Rva005D303A@@YA?AVUnicodeString@@HH@Z,0x005D303A,APT text builder returning UnicodeString by value (hidden pointer): 98B EH body formatting via L"%d/%d" and 0x00037050; retail REL32 at 0x005D3113/0x005D3178/0x005D31DD targets this address
