@@ -1,8 +1,20 @@
 // ?rva00493EA7@SpecialPowerModule@@UAEXPAVObject@@HPBV?$BitFlags@$0L@@@@Z
-// partial score=0.96 date=2026-10-05
+// partial score=0.98 date=2026-10-05
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
-// ?rva00493EA7@SpecialPowerModule@@UAEXPAVObject@@HPBV?$BitFlags@$0L@@@@Z @0x00493EA7 388B
+// model=space-bunny-alpha
+// @0x00493EA7 388B
 // Evidence: vslot 13 of 23 special-power vtables; callers 0x004C38BF 0x004C7BD0; sibling dtor 0x00493DEF same flags.
+// Two fixes move the first diff from +0x21 to +0x7F:
+//  1. The experience-tracker loop must be a do-while whose entry and back-edge
+//     both `jmp` to a single `test`/`jg`, with the failed predicate clearing
+//     the counter. Retail emits `mov ebx,[esi+0x58] / jmp test` then
+//     `call; test al,al; je xor ebx,ebx / dec ebx; jmp test`.
+//  2. The AsciiString text must test the data pointer for null FIRST and add 8
+//     in the fall-through, so the `""` literal at 0x00BBAC1C lands after the
+//     `add` exactly as retail places it.
+// Residual: retail materialises the player's +0x1BC byte into AL and tests it,
+// cl strength-reduces to `cmp [eax+0x1bc],bl`. Not source-controllable here;
+// bool locals and explicit byte locals both regress the size.
 #include "ascii_string.h"
 
 template <int N> class BitFlags
@@ -91,7 +103,7 @@ public:
 	int m_40;
 };
 
-extern const char *g_Rva0107301CEmptyString;
+extern const char g_bfmeEmptyF9[];
 
 class AttributeModifierPoolUpdate
 {
@@ -131,25 +143,29 @@ void SpecialPowerModule::rva00493EA7(Object *obj, int value, const BitFlags<11> 
 {
 	const SpecialPowerModuleData *data = m_moduleData;
 	ExperienceTracker *tracker = *(ExperienceTracker **)((char *)obj + 0x264);
+	// Retail emits a do-while on the counter: one `test/jg` pair, entry and
+	// back-edge both `jmp` to it, and the failed predicate clears the counter.
 	if (tracker != 0) {
 		int count = data->m_58;
 		while (count > 0) {
-			if (!tracker->rva0039ABFF()) {
+			if (tracker->rva0039ABFF()) {
+				tracker->rva0039B4EC(1, true, false);
+				--count;
+			} else {
 				count = 0;
-				break;
 			}
-			tracker->rva0039B4EC(1, true, false);
-			--count;
 		}
 	}
 	AsciiString *name = (AsciiString *)((char *)data + 0x18);
 	if (name->isEmpty()) {
 	} else {
+		// Retail branches on the null data pointer first and adds 8 in the
+		// fall-through, so the empty literal sits after the `add`.
 		const char *text = *(const char **)name;
-		if (text == 0)
-			text = g_Rva0107301CEmptyString;
-		else
+		if (text != 0)
 			text += 8;
+		else
+			text = g_bfmeEmptyF9;
 		AsciiString tmp(text);
 		obj->rva0028EA91(tmp, -1);
 	}
@@ -163,24 +179,20 @@ void SpecialPowerModule::rva00493EA7(Object *obj, int value, const BitFlags<11> 
 		if (data->m_5F != 0) {
 			Player *player = obj->getControllingPlayer();
 			int *t = *(int **)((char *)player + 0x34);
-			unsigned char v;
-			if (t == 0)
-				v = 0;
-			else
-				v = *((unsigned char *)t + 0x1BC);
-			if (v != 0)
-				flag = true;
+			if (t != 0) {
+				unsigned char v = *((unsigned char *)t + 0x1BC);
+				if (v != 0)
+					flag = true;
+			}
 		}
 		if (data->m_5E != 0) {
 			Player *player = obj->getControllingPlayer();
 			int *t = *(int **)((char *)player + 0x34);
-			unsigned char v;
-			if (t == 0)
-				v = 0;
-			else
-				v = *((unsigned char *)t + 0x1BC);
-			if (v == 0)
-				flag = true;
+			if (t != 0) {
+				unsigned char v = *((unsigned char *)t + 0x1BC);
+				if (v == 0)
+					flag = true;
+			}
 		}
 		if (data->m_5F == 0 && data->m_5E == 0) {
 			Object *self = m_object;
