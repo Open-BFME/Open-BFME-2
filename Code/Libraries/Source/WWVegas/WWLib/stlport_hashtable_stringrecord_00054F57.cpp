@@ -17,7 +17,7 @@ template <> class allocator<char> {
 public:
     static char *allocate(unsigned int bytes, const void *hint);
 };
-template <typename T1, typename T2> void _Construct(T1 *p, const T2 &value);
+template <> void _Construct<BfmeStringRecord00054F57, BfmeStringRecord00054F57>(BfmeStringRecord00054F57 *, const BfmeStringRecord00054F57 &);
 }
 
 struct HashNode00056E8C
