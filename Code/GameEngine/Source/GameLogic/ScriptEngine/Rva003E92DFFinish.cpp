@@ -1,5 +1,4 @@
 // ?evaluateNamedUnitRankLevel@ScriptConditions@@IAE_NPAVParameter@@0@Z
-// partial score=0.93 date=2026-10-04
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /arch:SSE2 /O1
 // ?evaluateNamedUnitRankLevel@ScriptConditions@@IAE_NPAVParameter@@0@Z @0x003E92DF 148B
 // Target evidence: retail pushes Parameter* to rowed getUnitNamed 0x003588E7,
@@ -10,6 +9,7 @@
 // evaluateNamedUnitRankLevel (same name/mangled/shape, Body+0x28 rank there).
 // Target layout from Rva003E514F/Rva003BC96F siblings: Object+0x264 inner
 // with rank at +0x24, not donor +0x210/+0x28.
+// TheScriptEngine is 0x00DFE16C (reverse/symbols.csv).
 #include "ascii_string.h"
 
 class Parameter
@@ -44,7 +44,7 @@ public:
 	Object *getUnitNamed(Parameter *);
 	void AppendDebugMessage(const AsciiString &, bool);
 };
-extern ScriptEngine *g_Va009FE16C;
+extern ScriptEngine *TheScriptEngine;
 extern bool g_00E02E34;
 
 class ScriptConditions
@@ -53,21 +53,24 @@ protected:
 	bool evaluateNamedUnitRankLevel(Parameter *, Parameter *);
 };
 
-// ?evaluateNamedUnitRankLevel@ScriptConditions@@IAE_NPAVParameter@@0@Z present-unmatched
+// The warn block is textual A and the rank load is textual B, because retail's
+// +0x1c is a jne OUT of the warn block into the out-of-line rank load; both
+// falses reach the single trailing return false, which is the xor al,al / ret 8
+// sink at +0x67.
 bool ScriptConditions::evaluateNamedUnitRankLevel(Parameter *pUnitParm, Parameter *pRankParm)
 {
-	Object *pUnit = g_Va009FE16C->getUnitNamed(pUnitParm);
+	Object *pUnit = TheScriptEngine->getUnitNamed(pUnitParm);
 	if (pUnit == 0) {
-		if (!g_00E02E34) {
-			g_00E02E34 = true;
-			AsciiString message("ScriptConditions::evaluateNamedUnitRankLevel: Unit not found: ");
-			message += pUnitParm->getString();
-			g_Va009FE16C->AppendDebugMessage(message, false);
-		}
-		return false;
+	if (!g_00E02E34) {
+		g_00E02E34 = true;
+		AsciiString message("ScriptConditions::evaluateNamedUnitRankLevel: Unit not found: ");
+		message += pUnitParm->getString();
+		TheScriptEngine->AppendDebugMessage(message, false);
 	}
-	ObjectInner003E92DF *body = pUnit->m_body;
-	if (body == 0)
-		return false;
-	return body->m_rankLevel >= pRankParm->getInt();
+	} else {
+		ObjectInner003E92DF *body = pUnit->m_body;
+		if (body != 0)
+			return body->m_rankLevel >= pRankParm->getInt();
+	}
+	return false;
 }
