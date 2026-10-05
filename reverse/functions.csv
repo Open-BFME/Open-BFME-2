@@ -63292,3 +63292,11 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?onDie@UpgradeDie@@UAEXPBVDamageInfo@@@Z,,0x00486C00,118,Code/GameEngine/Source/GameLogic/Object/Die/UpgradeDieOnDie.cpp,matched,ZH-guided upgrade death cleanup; BFME2 player vs producer branches and layouts independently supported; terminal ret4 proves full118B extent; address-named Player callee ABI verified separately
 ?initFromHLOD@W3DShadowGeometry@@QAEHPAVRenderObjClass@@@Z,,0x000F1F60,170,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowGeometryInitFromHLOD.cpp,matched,Zero Hour W3DVolumetricShadow donor identity; retail HLOD vtable calls and W3DShadowGeometry layout; direct helper call pinned from retail REL32 at 0xF1F60; exact target bytes
 ?Load_Geom@W3DShadowGeometryManager@@QAEHPAVRenderObjClass@@PBD@Z,,0x000F27D3,212,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowGeometryInitFromHLOD.cpp,matched,Zero Hour W3DShadowGeometryManager::Load_Geom donor identity; target class ids and per-mesh helper calls verified from retail flow
+?rva001F63F5@Rva001F63F5@@QAEXPAX0@Z,,0x001F63F5,22,Code/GameEngine/Source/Common/Thing/Rva001F63F5SlotStores.cpp,matched,Slot get store leaf by REL32
+?rva001F6430@Rva001F6430@@QAEXPAX0@Z,,0x001F6430,22,Code/GameEngine/Source/Common/Thing/Rva001F63F5SlotStores.cpp,matched,Slot get store leaf by REL32
+?rva001F6446@Rva001F6446@@QAEXPAX0@Z,,0x001F6446,22,Code/GameEngine/Source/Common/Thing/Rva001F63F5SlotStores.cpp,matched,Slot get store leaf by REL32
+?rva001F645C@Rva001F645C@@QAEXPAX0@Z,,0x001F645C,22,Code/GameEngine/Source/Common/Thing/Rva001F63F5SlotStores.cpp,matched,Slot get store leaf by REL32
+?rva001F6472@Rva001F6472@@QAEXPAX0@Z,,0x001F6472,22,Code/GameEngine/Source/Common/Thing/Rva001F63F5SlotStores.cpp,matched,Slot get store leaf by REL32
+?rva001F64BC@Rva001F64BC@@QAEXPAX0@Z,,0x001F64BC,22,Code/GameEngine/Source/Common/Thing/Rva001F63F5SlotStores.cpp,matched,Slot get store leaf by REL32
+?rva001F650B@Rva001F650B@@QAEXPAX0@Z,,0x001F650B,22,Code/GameEngine/Source/Common/Thing/Rva001F63F5SlotStores.cpp,matched,Slot get store leaf by REL32
+?rva001F6521@Rva001F6521@@QAEXPAX0@Z,,0x001F6521,22,Code/GameEngine/Source/Common/Thing/Rva001F63F5SlotStores.cpp,matched,Slot get store leaf by REL32
