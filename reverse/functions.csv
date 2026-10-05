@@ -63666,3 +63666,10 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva004F9E59@Rva004F9E59@@QAEXXZ,,0x004F9E59,29,Code/Libraries/Source/WWVegas/WWLib/Rva004F9E59Sort.cpp,matched,dual-range sort via thiscall alias of rowed sorter; full byte gate
 ?rva004E0425@Rva004E0425@@QAEXPAX@Z,,0x004E0425,180,Code/GameEngine/Source/Common/Rva004E0425Dispatch.cpp,matched,five-pointer dispatch plus name-keyed release via hero-remover predicates and rowed loop and _M_find; full byte gate
 ?rva004E063F@Rva004E063F@@QAEXXZ,,0x004E063F,104,Code/GameEngine/Source/Common/Rva004E063FFactory.cpp,matched,EH-guarded factory: rowed host lookup plus new 0x44 with bool tail call; full byte gate
+?rva004E0ADB@Rva004E0918@@QAEXURva004EFour@@H@Z,,0x004E0ADB,39,Code/GameEngine/Source/Common/Rva004E0ADBFamily.cpp,matched,pack 20B packet for EH pair first entry; full byte gate
+?rva004E0B02@Rva004E0918@@QAEXURva004EFour@@HH@Z,,0x004E0B02,45,Code/GameEngine/Source/Common/Rva004E0ADBFamily.cpp,matched,pack 24B packet for EH pair second entry; full byte gate
+?rva004E0B60@Rva004E0B60@@QAEXURva004EFour@@H@Z,,0x004E0B60,59,Code/GameEngine/Source/Common/Rva004E0ADBFamily.cpp,matched,forward packet to member plus global Y; full byte gate
+?rva004E0B9B@Rva004E0B60@@QAEXURva004EFour@@HH@Z,,0x004E0B9B,65,Code/GameEngine/Source/Common/Rva004E0ADBFamily.cpp,matched,forward 24B packet to member plus global Y; full byte gate
+?rva004E0C49@Rva004E0B60@@QAEXXZ,,0x004E0C49,90,Code/GameEngine/Source/Common/Rva004E0ADBFamily.cpp,matched,vslot-6 sweep plus world-FC store plus packet forward; full byte gate
+?rva004E0CCB@Rva004E0B60@@QAE_NXZ,,0x004E0CCB,78,Code/GameEngine/Source/Common/Rva004E0ADBFamily.cpp,matched,packet forward plus rowed gate plus rowed flush; full byte gate
+?rva004E0D19@Rva004E0B60@@QAEXH@Z,,0x004E0D19,53,Code/GameEngine/Source/Common/Rva004E0ADBFamily.cpp,matched,packet forward with this plus arg tails; full byte gate
