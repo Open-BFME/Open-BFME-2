@@ -28,8 +28,19 @@ class Rva007E8810Message;
 
 // Retail 0x007F6730 is the cdecl two-argument reply adapter: it forwards its
 // first argument to the browser object supplied as its second argument.
+class Rva007F66B0Browser
+{
+public:
+	void onLobbyCounts( Rva007E8810Message *message );
+};
+
+// BFME 2 0x00662EC0 (15B); the receiver is the browser whose onLobbyCounts
+// (0x00662E40) takes the reply.
 void __cdecl Rva007F6730Callback( Rva007E8810Message *message,
-	Rva007F6740Receiver *browser );
+	Rva007F6740Receiver *browser )
+{
+	((Rva007F66B0Browser *)browser)->onLobbyCounts( message );
+}
 
 class Rva007F6740RequestService
 {

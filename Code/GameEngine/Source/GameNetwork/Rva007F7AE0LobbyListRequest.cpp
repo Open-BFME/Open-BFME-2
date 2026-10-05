@@ -20,8 +20,19 @@ void Rva00800040JoinI64(const __int64 *parts, unsigned count,
 	char *dest, unsigned destSize, char separator);
 void Rva00800170Join(const char **parts, unsigned count,
 	char *dest, unsigned destSize, char separator);
+class Rva007F7980Browser
+{
+public:
+	void onLobbyCount(Rva007E8810Message *message);
+};
+
+// BFME 2 0x00664150 (15B): forward the reply to the browser's onLobbyCount
+// (0x006640E0).
 void __cdecl Rva007F7AD0Callback(Rva007E8810Message *message,
-	Rva007F7980Browser *browser);
+	Rva007F7980Browser *browser)
+{
+	browser->onLobbyCount(message);
+}
 
 class Rva007F7AE0RequestService
 {

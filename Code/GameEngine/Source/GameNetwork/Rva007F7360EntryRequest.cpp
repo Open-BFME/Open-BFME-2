@@ -38,11 +38,13 @@ public:
         Rva007F72D0Obj *owner, int transaction);
 };
 void Rva007F7350Thunk(int messageAddress, Rva007F72D0Obj *opaqueObject);
+class Rva007E8810Message;
 
 class BfmeThingZI
 {
 public:
     void requestEntry(int lid, int gid);
+    void Rva007F72D0(Rva007E8810Message *message);
 
     char m_pad00[0x10];
     Rva007F7360Sender *m_sender;
@@ -59,4 +61,11 @@ void BfmeThingZI::requestEntry(int lid, int gid)
     m_notifier->send(&message, Rva007F7350Thunk, (Rva007F72D0Obj *)this,
         m_transaction);
     ((Gen_007e86c0 *)&message)->m();
+}
+
+// BFME 2 0x00663A40 (15B; BFME 1 0x007F7350): the reply adapter handed to the
+// notifier above, forwarding the reply to the owner's Rva007F72D0 (0x006639C0).
+void Rva007F7350Thunk(int messageAddress, Rva007F72D0Obj *opaqueObject)
+{
+    ((BfmeThingZI *)opaqueObject)->Rva007F72D0((Rva007E8810Message *)messageAddress);
 }

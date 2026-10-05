@@ -1,6 +1,6 @@
 // cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHs-c-
-// The reply adapter at 0x007F8640 is separately matched; this is the
-// immediately following request body at 0x007F8650.
+// The reply adapter (BFME 1 0x007F8640, BFME 2 0x00664CC0) is defined below;
+// this unit's main body is the request that follows it (BFME 1 0x007F8650).
 class BfmeHostBT;
 class BfmeC994
 {
@@ -16,7 +16,18 @@ public:
 	~BfmeMsg1052();
 };
 
-void __cdecl Rva007F8640Callback(void *payload, BfmeHostBT *host);
+class BfmeHostBT
+{
+public:
+	void bfmeCloseBT(void *payload);
+};
+
+// BFME 2 0x00664CC0 (15B): forward the reply to the host's bfmeCloseBT
+// (0x00664C50).
+void __cdecl Rva007F8640Callback(void *payload, BfmeHostBT *host)
+{
+	host->bfmeCloseBT(payload);
+}
 
 class Rva007F8650RequestService
 {

@@ -84,7 +84,19 @@ public:
 };
 
 extern char *g_Rva012C3A18;
-extern char g_00A60FD0[];
+class Rva007E8810Message;
+class Rva007F45E0Aries
+{
+public:
+	void rva007F4530( Rva007E8810Message *message );
+};
+
+// Reply adapter 0x00660FD0 (15B) passed to the service below: forward the
+// reply to the Aries object registered with it (matched 0x00660FE0).
+void Rva00660FD0Handler( Rva007E8810Message *message, Rva007F45E0Aries *owner )
+{
+	owner->rva007F4530( message );
+}
 
 void Rva007F4440Runner::run( int mode, int, int )
 {
@@ -106,6 +118,6 @@ void Rva007F4440Runner::run( int mode, int, int )
 		( (Gen_007ea670 *)owner )->bfmePlatform(),
 		clientType );
 	// BFME2 retail passes 0x00A60FD0 here (BFME1 0x00BF4520 drifted).
-	primary->getService()->send( &message, (void *)g_00A60FD0, primary, 10000 );
+	primary->getService()->send( &message, (void *)Rva00660FD0Handler, primary, 10000 );
 	message.clear();
 }

@@ -2,7 +2,17 @@
 
 class Rva007E8810Message;
 class Rva007F6260GameBrowser;
-void Rva007F62E0Callback(Rva007E8810Message *, Rva007F6260GameBrowser *);
+class Rva007F6260GameBrowser
+{
+public:
+    void handleConnectingProtocolReply(Rva007E8810Message *message);
+};
+// Reply adapter 0x00662A70 (15B; BFME 1 0x007F62E0): forward the reply to the
+// browser registered with it.
+void Rva007F62E0Callback(Rva007E8810Message *message, Rva007F6260GameBrowser *browser)
+{
+    browser->handleConnectingProtocolReply(message);
+}
 void a_007ea650();
 
 struct Rva007EB810Diag

@@ -4,7 +4,18 @@
 // Retail 007F7030..007F70CD; INT3-delimited thiscall body with two args.
 // Callback VA00BF5790 independently decodes as a two-argument cdecl
 // forwarder to the one-argument thiscall body 007F5720.
-extern "C" void Rva007F5790Callback(void *, void *);
+class Rva007E8810Message;
+class Rva007F5720GameBrowser
+{
+public:
+    void handleLoginReply(Rva007E8810Message *message);
+};
+// BFME 2 0x00661F40 (15B): forward the reply to the browser's
+// handleLoginReply (0x00661ED0).
+extern "C" void Rva007F5790Callback(void *message, void *browser)
+{
+    ((Rva007F5720GameBrowser *)browser)->handleLoginReply((Rva007E8810Message *)message);
+}
 class BfmeC994 {
 public:
     BfmeC994(char *, int);
