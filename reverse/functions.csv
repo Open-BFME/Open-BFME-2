@@ -56472,3 +56472,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva00547188@MoveToGroupOrder@@QAE_NPAVObject@@H@Z,,0x00547188,21,Code/GameEngine/Source/GameLogic/AI/MoveToGroupOrderSlots.cpp,matched,MoveTo destination via Object rva0028ECDB caller 0x0054764C
 ?rva00373278@Rva00373278@@QAE_NPAX@Z,,0x00373278,71,Code/GameEngine/Source/Common/Rva00373278.cpp,matched,map int to vector int find plus empty plus size over 1
 ?rva0010225F@Rva0010225F@@QAEXABV?$vector@UEvaMessageInfo@@V?$allocator@UEvaMessageInfo@@@_STL@@@_STL@@@Z,,0x0010225F,37,Code/GameEngine/Source/Common/Rva0010225FMethod.cpp,matched,unlock vector assign at +4 then null-checked calls 0x00116496 0x00116482
+?Rva003C31F3Do@@YGXABVAsciiString@@0_N@Z,,0x003C31F3,217,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C31F3.cpp,matched,ScriptActions AutoAbilityBehavior via prev rva003C3175 pattern ret 0xc stdcall
