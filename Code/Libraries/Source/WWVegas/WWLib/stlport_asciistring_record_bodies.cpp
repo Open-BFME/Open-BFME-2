@@ -56,8 +56,9 @@ struct BfmeStringHeadRecord148 { AsciiString s; int a[36]; };
 inline bool operator==(const BfmeStringHeadRecord148 &x, const BfmeStringHeadRecord148 &y) { return x.s == y.s; }
 struct BfmeStringHeadRecord160 { AsciiString s; int a[39]; };
 inline bool operator==(const BfmeStringHeadRecord160 &x, const BfmeStringHeadRecord160 &y) { return x.s == y.s; }
-struct BfmeStringHeadRecord184 { AsciiString s; int a[45]; };
-inline bool operator==(const BfmeStringHeadRecord184 &x, const BfmeStringHeadRecord184 &y) { return x.s == y.s; }
+// Native184B stride; this algorithm view performs no member accesses.
+struct BfmeStringHeadRecord184 { unsigned char body[184]; ~BfmeStringHeadRecord184(); BfmeStringHeadRecord184 &operator=(const BfmeStringHeadRecord184 &); };
+bool operator==(const BfmeStringHeadRecord184 &x, const BfmeStringHeadRecord184 &y);
 struct BfmeAssignRecord40 { int a[9]; AsciiString s; };
 inline bool operator==(const BfmeAssignRecord40 &x, const BfmeAssignRecord40 &y) { return x.s == y.s; }
 struct BfmeAssignRecord80 { int a[19]; AsciiString s; };
@@ -102,7 +103,14 @@ template struct _STL::pair<const AsciiString, BfmePod8>;
 template class _STL::vector<BfmeAssignRecord84, _STL::allocator<BfmeAssignRecord84> >;
 template class _STL::vector<BfmeStringHeadRecord148, _STL::allocator<BfmeStringHeadRecord148> >;
 template class _STL::vector<BfmeStringHeadRecord160, _STL::allocator<BfmeStringHeadRecord160> >;
-template class _STL::vector<BfmeStringHeadRecord184, _STL::allocator<BfmeStringHeadRecord184> >;
+namespace _STL {
+template BfmeStringHeadRecord184 *__copy_backward<BfmeStringHeadRecord184 *, BfmeStringHeadRecord184 *, int>(BfmeStringHeadRecord184 *, BfmeStringHeadRecord184 *, BfmeStringHeadRecord184 *, const random_access_iterator_tag &, int *);
+template void __destroy_aux<BfmeStringHeadRecord184 *>(BfmeStringHeadRecord184 *, BfmeStringHeadRecord184 *, const __false_type &);
+template BfmeStringHeadRecord184 *__copy_backward_ptrs<BfmeStringHeadRecord184 *, BfmeStringHeadRecord184 *>(BfmeStringHeadRecord184 *, BfmeStringHeadRecord184 *, BfmeStringHeadRecord184 *, const __false_type &);
+template void _Destroy<BfmeStringHeadRecord184 *>(BfmeStringHeadRecord184 *, BfmeStringHeadRecord184 *);
+template BfmeStringHeadRecord184 *__copy<BfmeStringHeadRecord184 *, BfmeStringHeadRecord184 *, int>(BfmeStringHeadRecord184 *, BfmeStringHeadRecord184 *, BfmeStringHeadRecord184 *, const random_access_iterator_tag &, int *);
+template void vector<BfmeStringHeadRecord184, allocator<BfmeStringHeadRecord184> >::_M_clear();
+}
 template class _STL::vector<BfmeAssignRecord40, _STL::allocator<BfmeAssignRecord40> >;
 template class _STL::vector<BfmeAssignRecord80, _STL::allocator<BfmeAssignRecord80> >;
 template class _STL::vector<BfmeAssignRecord104, _STL::allocator<BfmeAssignRecord104> >;
@@ -122,3 +130,7 @@ template class _STL::vector<BfmeStringTailRecord180, _STL::allocator<BfmeStringT
 
 // Both assignment spellings designate the existing45B native body51C3F.
 #pragma comment(linker, "/alternatename:??4BfmeStringTailRecord144@@QAEAAU0@ABU0@@Z=??4Rva00051C3F@@QAEAAV0@ABV0@@Z")
+
+// Both ABI aliases preserve the existing native pin endpoints.
+#pragma comment(linker, "/alternatename:??1BfmeStringHeadRecord184@@QAE@XZ=??1RunwayInfo@FlightDeckBehavior@@QAE@XZ")
+#pragma comment(linker, "/alternatename:??4BfmeStringHeadRecord184@@QAEAAU0@ABU0@@Z=??4Rva003A35A0Element@@QAEAAU0@ABU0@@Z")
