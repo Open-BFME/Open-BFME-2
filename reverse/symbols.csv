@@ -12196,3 +12196,15 @@ _rva00286E33@8,0x00286E33,stdcall out-param 5B writer called from 0x287B2A with 
 ??1Rva00470398Record@@QAE@XZ,0x001EB940
 ??1Rva005C847BRecord@@QAE@XZ,0x005C8FBD
 ??1Rva002AE5CFRecord@@QAE@XZ,0x001EB63C
+??$_Construct@URva0073E4C0Record@@U1@@_STL@@YAXPAURva0073E4C0Record@@ABU1@@Z,0x0060C9D9
+?_M_push_back_aux_v@?$deque@URva0073E4C0Record@@V?$allocator@URva0073E4C0Record@@@_STL@@@_STL@@IAEXABURva0073E4C0Record@@@Z,0x0073E290
+?allocate@?$allocator@URva0037FF20Record@@@_STL@@QBEPAURva0037FF20Record@@IPBX@Z,0x000B4106
+??$__uninitialized_copy@PAURva0037FF20Record@@PAU1@@_STL@@YAPAURva0037FF20Record@@PAU1@00ABU__false_type@0@@Z,0x0037F731
+??$_Construct@URva0037FF20Record@@U1@@_STL@@YAXPAURva0037FF20Record@@ABU1@@Z,0x0037F71F
+??$__uninitialized_fill_n@PAURva0037FF20Record@@IU1@@_STL@@YAPAURva0037FF20Record@@PAU1@IABU1@ABU__false_type@0@@Z,0x0037F757
+??$_M_allocate_and_copy@PAURva0037FEA3Record@@@?$vector@URva0037FEA3Record@@V?$allocator@URva0037FEA3Record@@@_STL@@@_STL@@IAEPAURva0037FEA3Record@@IPAU2@0@Z,0x0037F77C
+?allocate@?$allocator@URva0037FEA3Record@@@_STL@@QBEPAURva0037FEA3Record@@IPBX@Z,0x000B4106
+?__copy_trivial@_STL@@YAPAXPBX0PAX@Z,0x000179B0
+?__copy_trivial_backward@_STL@@YAPAXPBX0PAX@Z,0x00620840
+??$fill_n@I@_STL@@YAPAEPAEIABE@Z,0x000AD829
+?_M_insert_overflow@?$vector@EV?$allocator@E@_STL@@@_STL@@IAEXPAEABEABU__true_type@2@I_N@Z,0x000AFB2E
