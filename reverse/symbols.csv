@@ -13101,3 +13101,7 @@ _Rva00438083,0x00438083,Address-derived bool prompt helper directly called by 0x
 ?rva001DA112@Rva001DA112@@QAEXHHPAD@Z,0x001DA112,thiscall callee of the F22 ebp-frame forwarders; takes the wrapper's first two args plus (char*)&arg2+3 in a vestigial third slot; name unknown
 ?rva00569F0C@Rva00569F0C@@QAEXHHPAD@Z,0x00569F0C,thiscall callee of the F22 ebp-frame forwarders; takes the wrapper's first two args plus (char*)&arg2+3 in a vestigial third slot; name unknown
 ?rva005F4F74@Rva005F4F74@@QAEXHHPAD@Z,0x005F4F74,thiscall callee of the F22 ebp-frame forwarders; takes the wrapper's first two args plus (char*)&arg2+3 in a vestigial third slot; name unknown
+?rva005B09D8@@YAXPAX00PAD@Z,0x005B09D8,cdecl helper of the F47 cursor-compaction wrapper 0x004ED3A2; takes (dst, cursor, p, (char*)&p+3); name unknown
+??0Rva003FAE68Base@@QAE@H@Z,0x003FAE68,pinned base constructor forwarding target of the F24 single-base ctor 0x00210EF1; name unknown
+??0Rva003B0454Base@@QAE@H@Z,0x003B0454,pinned base constructor forwarding target of the F24 single-base ctor 0x003B0835; name unknown
+??0Rva005D5095Base@@QAE@H@Z,0x005D5095,pinned base constructor forwarding target of the F24 single-base ctor 0x005D50C4; name unknown

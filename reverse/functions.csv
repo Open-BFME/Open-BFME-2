@@ -63792,3 +63792,6 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva0056A362@Rva0056A362@@QAEXHH@Z,,0x0056A362,22,Code/GameEngine/Source/Common/EbpParamForwarders.cpp,matched,F22 ebp-frame forwarder: forwards first two args plus (char*)&b+3 to pinned thiscall callee
 ?rva005F50A3@Rva005F50A3@@QAEXHHH@Z,,0x005F50A3,22,Code/GameEngine/Source/Common/EbpParamForwarders.cpp,matched,F22 ebp-frame forwarder: forwards first two args plus (char*)&b+3 to pinned thiscall callee
 ?rva005F50D3@Rva005F50D3@@QAEXHH@Z,,0x005F50D3,22,Code/GameEngine/Source/Common/EbpParamForwarders.cpp,matched,F22 ebp-frame forwarder: forwards first two args plus (char*)&b+3 to pinned thiscall callee
+??0Rva00210EF1@@QAE@H@Z,,0x00210EF1,24,Code/GameEngine/Source/Common/SingleBaseCtors.cpp,matched,F24 single-base ctor forwarding int to pinned base and stamping derived vtable
+??0Rva003B0835@@QAE@H@Z,,0x003B0835,24,Code/GameEngine/Source/Common/SingleBaseCtors.cpp,matched,F24 single-base ctor forwarding int to pinned base and stamping derived vtable
+??0Rva005D50C4@@QAE@XZ,,0x005D50C4,20,Code/GameEngine/Source/Common/SingleBaseCtors.cpp,matched,F24 single-base ctor forwarding constant 1 to pinned base and stamping derived vtable
