@@ -62066,3 +62066,4 @@ _Rva007F5790Callback,,0x00661F40,15,Code/GameEngine/Source/GameNetwork/Rva007F70
 ?_M_clear@?$vector@URva002B9062Element@@V?$allocator@URva002B9062Element@@@_STL@@@_STL@@IAEXXZ,,0x00577EF1,30,Code/Libraries/Source/WWVegas/WWLib/StlportVectorClearRva00577EF1.cpp,matched,Destroy plus free via overflow caller 0x002B820A plus rowed Destroy 0x005F97BC
 ?rva0029EAFA@Rva0029EAFA@@QAEXPBVGameMessage@@@Z,,0x0029EAFA,232,Code/GameEngine/Source/Common/Rva0029EAFA.cpp,matched,chain from 0x0029DE76 rowed shroud plus path test
 ?Rva0052D6EBCopy@@YAPAVRva0056616B@@PAV1@00@Z,,0x0052D6EB,47,Code/GameEngine/Source/Common/System/Rva0052D6EB.cpp,matched,chain copy via rowed 0x0052D6BE stride 0xB8
+?rva0057EF87@Rva0057EE5C@@QAEXXZ,,0x0057EF87,123,Code/GameEngine/Source/Common/Rva0057EF87.cpp,matched,shutdown via caller 0x0043DE41 and rowed resize erase close
