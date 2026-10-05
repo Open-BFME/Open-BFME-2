@@ -506,6 +506,36 @@ public:
 // (+4 frame +0xC template +0x10 status +0x1C alpha +0x20 collection), rowed
 // getFrame 0x002D6B2D, rowed W3DDisplay::rva0004D6B3 0x0004D6B3 via TheDisplay
 // 0x00DFE9D8, rowed tryNextFrame 0x002D6E26.
+void Anim2D::draw( Int x, Int y )
+{
+
+	// get the current image
+	const Image *image = m_template->getFrame( m_currentFrame );
+
+	// sanity
+	DEBUG_ASSERTCRASH( image != NULL, ("Anim2D::draw - Image not found for frame '%d' on animation '%s'\n",
+										 m_currentFrame, m_template->getName().str()) );
+
+	// get the natural width and height of this image
+	const ICoord2D *imageSize = image->getImageSize();
+
+	// draw the image
+	Color color = GameMakeColor( 255, 255, 255, 255 * m_alpha );
+	((W3DDisplay *)TheDisplay)->rva0004D6B3( (Image *)image, (float)x, (float)y, (float)( x + imageSize->x ), (float)( y + imageSize->y ), color, 2 );
+
+	//
+	// see if it's time for us to go to the next frame in the sequence, we do not update
+	// frame numbers for animation instances that are registered with a system as the
+	// system will update them during its update phase
+	//
+ 	if( m_collectionSystem == NULL && BitTest( m_status, ANIM_2D_STATUS_FROZEN ) == FALSE )
+		tryNextFrame();
+
+}  // end draw
+
+// ------------------------------------------------------------------------------------------------
+/** Drawing an Anim2D using a forced width and height */
+// ------------------------------------------------------------------------------------------------
 void Anim2D::draw( Int x, Int y, Int width, Int height )
 {
 
@@ -761,6 +791,12 @@ class Rva002D7127 : public Anim2D
 {
 public:
 	void rva002D7127(Int x, Int y, Int width, Int height);
+	void rva002D6FFF(Int x, Int y);
+	void rva002D6F80(Real x, Real y, UnsignedByte opacity);
+
+	// BFME 2 grows Anim2D by a draw size the real-coordinate draw reads.
+	Int m_drawWidth;	///< 0x2C
+	Int m_drawHeight;	///< 0x30
 };
 
 void Rva002D7127::rva002D7127(Int x, Int y, Int width, Int height)
@@ -786,3 +822,47 @@ void Rva002D7127::rva002D7127(Int x, Int y, Int width, Int height)
 		tryNextFrame();
 
 }  // end rva002D7127
+
+// ?rva002D6FFF@Rva002D7127@@QAEXHH@Z @0x002D6FFF 155B: the natural-size
+// sibling of rva002D7127. Same body as Anim2D::draw(x, y) (0x002D6EF1, the
+// image's own width and height at Image +0x24/+0x28) but straight into the
+// virtual Display slot 0xF8 core with mode 2, without the non-virtual
+// Display::drawImage wrapper (0x0004D6B3) that brackets the core between
+// slots 0xD4 and 0x100. No code or data reference reaches it.
+void Rva002D7127::rva002D6FFF(Int x, Int y)
+{
+
+	// get the current image
+	const Image *image = m_template->getFrame(m_currentFrame);
+
+	// sanity
+	DEBUG_ASSERTCRASH(image != NULL, ("Anim2D::draw - Image not found for frame '%d' on animation '%s'\n",
+		m_currentFrame, m_template->getName().str()));
+
+	// get the natural width and height of this image
+	const ICoord2D *imageSize = image->getImageSize();
+
+	// draw image to the display
+	Color color = GameMakeColor(255, 255, 255, 255 * m_alpha);
+	((DisplayVirt002D7127 *)TheDisplay)->drawImageCore((Image *)image, (float)x, (float)y, (float)(x + imageSize->x), (float)(y + imageSize->y), color, 2);
+
+	if (m_collectionSystem == NULL && BitTest(m_status, ANIM_2D_STATUS_FROZEN) == FALSE)
+		tryNextFrame();
+
+}  // end rva002D6FFF
+
+// ?rva002D6F80@Rva002D7127@@QAEXMME@Z @0x002D6F80 127B: BFME's real-coordinate
+// draw with an explicit opacity byte (BFME1 Anim2DRealCoordinateDrawing.cpp's
+// Rva005BA910Anim2D::draw is the same shape): the opacity fills all four
+// colour channels, the size comes from Anim2D +0x2C/+0x30, and the image goes
+// through the non-virtual Display::drawImage wrapper (0x0004D6B3) with mode 3.
+// Called from 0x002A4BC2.
+void Rva002D7127::rva002D6F80(Real x, Real y, UnsignedByte opacity)
+{
+	Color color = GameMakeColor( opacity, opacity, opacity, opacity );
+	((W3DDisplay *)TheDisplay)->rva0004D6B3( (Image *)m_template->getFrame( m_currentFrame ), x, y, x + m_drawWidth, y + m_drawHeight, color, 3 );
+
+	if (m_collectionSystem == NULL && BitTest(m_status, ANIM_2D_STATUS_FROZEN) == FALSE)
+		tryNextFrame();
+
+}  // end rva002D6F80
