@@ -253,6 +253,7 @@ class Rva005772BF : public Rva00575395
 {
 public:
 	virtual ~Rva005772BF();
+	void rva00577324(const void *buf, int len);
 
 private:
 	char m_unmodelled_04[0x4];
@@ -261,6 +262,32 @@ private:
 
 Rva005772BF::~Rva005772BF()
 {
+}
+
+class Rva005D1F14
+{
+public:
+	int rva005D1F14(int a, int b);
+};
+
+struct Rva005772BFHolder
+{
+	char m_pad00[0x14];
+	Rva005D1F14 *m_14;
+};
+
+class Rva005753AC
+{
+public:
+	int rva005753AC(const void *buffer, int bytes);
+};
+
+void Rva005772BF::rva00577324(const void *buf, int len)
+{
+	Rva005D1F14 *p = ((Rva005772BFHolder *)*(void **)(void *)&m_member)->m_14;
+	if (p && p->rva005D1F14((int)buf, len) != -1)
+		return;
+	((Rva005753AC *)this)->rva005753AC(buf, len);
 }
 
 class Rva00577FA7 : public Rva005C6C7B
