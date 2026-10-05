@@ -1,8 +1,6 @@
-// ?apply@Rva004C167EOwner@@QAEXMPAUDamageInfo@@@Z
-// partial score=0.988023952095808 date=2026-10-04
 // cl: /O1 /MD /arch:SSE /G7
 // ?apply@Rva004C167EOwner@@QAEXMPAUDamageInfo@@@Z
-// RVA 00212980, DelayedDeathBody secondary BodyModule interface slot +80.
+// RVA 004C167E, DelayedDeathBody secondary BodyModule interface slot +0x80.
 // Negative offsets address the primary module data and object through the
 // unchanged interface receiver; the qualified owner preserves that provenance.
 // Both upgrade predicates are evaluated. A transition clears the incoming
@@ -67,11 +65,15 @@ finish:
  ((Rva004C1395Owner*)this)->apply(amount,info);
 }
 
-// Donor revision1281192f semantic guide; BFME2 factory2515E7/ctor4C15B9
-// and DelayedDeath moduledata constructor4C180A independently establish the
-// target class family. Native4C167E-4C17CC proves secondary receiver+10,
-// owner/data at-8/-C, tailflagsF0/F1, modulefields6C/70/74/78/7C and damageflag24.
-// The base damage routine4C1395 is still unrowed; original method name unknown.
-
-// Pending pin: ?apply@Rva004C1395Owner@@QAEXMPAUDamageInfo@@@Z ->0x004C1395.
-// DelayedDeath ctor4C15B9 installs C5BB38 at+10; independently verified slot32 ->4C167E.
+// Provenance: semantic donor Open-BFME-1 1281192f, retained unchanged at
+// 6583b3c1ff21db4a561285717028fdafc780b7db in game/GameEngine/Source/
+// GameLogic/Object/Body/DelayedDeathBody.cpp. The method name remains unknown.
+// Target evidence: factory 0x2515E7 and ctor 0x4C15B9 establish the family;
+// ctor installs vtable VA 0xC5BB38 at +0x10, slot +0x80 points to this body.
+// Native [0x4C167E,0x4C17CC) ends RET8 and proves the secondary receiver,
+// owner/data at -8/-12, flags +0xF0/+0xF1, data +0x6C/+0x70/+0x74/+0x78/
+// +0x7C and damage flag +0x24 independently of the donor layout.
+// At 0x4C17C0 retail calls 0x4C1395 with this unchanged, a float and the
+// DamageInfo pointer. RespawnBody ctor 0x4C12EB installs VA 0xC5B8F0 at +0x10;
+// its slot +0x80 points to that same RET8 body. The callee retains an address
+// name because its original method identity has not been established.
