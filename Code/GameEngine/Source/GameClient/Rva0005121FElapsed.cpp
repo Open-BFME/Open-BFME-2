@@ -13,6 +13,12 @@
 // copy TheTacticalView's slot-71 position (0x11C), tail-call slot 32 (0x80)
 // of the object at 0x00DFEF18 with the same out pointer, or zero it. Its
 // ebp frame needs /Oy-, which leaves 0x0005121F unchanged.
+//
+// ?rva000516EF@Rva0005121F@@QAE_NPBUCoord3D@@@Z @0x000516EF 85B, the
+// virtual two entries before 0x0005121F (table VA 0x00BC575C): by the same
+// mode, whether TheTacticalView's slot 88 (0x160) projects the point to an
+// 8-byte screen coordinate with result 0, or the 0x00DFEF18 object's slot 15
+// (0x3C) answer for it; any other mode answers true, a missing object false.
 class ClientFrameSubsystem;
 extern ClientFrameSubsystem *TheGameClient;
 class Rva00DFE77CHolder
@@ -33,6 +39,10 @@ extern float g_Va00DBA4FC;
 struct Coord3D
 {
 	float x, y, z;
+};
+struct ICoord2D
+{
+	int x, y;
 };
 class TacticalView
 {
@@ -109,6 +119,23 @@ public:
 	virtual void _v069();
 	virtual void _v070();
 	virtual const Coord3D *slot11C();
+	virtual void _v072();
+	virtual void _v073();
+	virtual void _v074();
+	virtual void _v075();
+	virtual void _v076();
+	virtual void _v077();
+	virtual void _v078();
+	virtual void _v079();
+	virtual void _v080();
+	virtual void _v081();
+	virtual void _v082();
+	virtual void _v083();
+	virtual void _v084();
+	virtual void _v085();
+	virtual void _v086();
+	virtual void _v087();
+	virtual int slot160(const Coord3D *pos, ICoord2D *screen);
 };
 extern TacticalView *TheTacticalView;
 class Rva00DFEF18
@@ -129,7 +156,7 @@ public:
 	virtual void _w012();
 	virtual void _w013();
 	virtual void _w014();
-	virtual void _w015();
+	virtual bool slot3C(const Coord3D *pos, ICoord2D *screen);
 	virtual void _w016();
 	virtual void _w017();
 	virtual void _w018();
@@ -154,6 +181,7 @@ class Rva0005121F
 public:
 	float rva0005121F();
 	void rva000511C3(Coord3D *out);
+	bool rva000516EF(const Coord3D *pos);
 private:
 	char m_pad000[0x94];
 	unsigned int m_lastFrame;	// +0x94
@@ -198,4 +226,22 @@ void Rva0005121F::rva000511C3(Coord3D *out)
 	out->x = 0.0f;
 	out->y = 0.0f;
 	out->z = 0.0f;
+}
+
+bool Rva0005121F::rva000516EF(const Coord3D *pos)
+{
+	ICoord2D screen;
+	switch (m_678) {
+	case 0:
+		if (TheTacticalView)
+			return TheTacticalView->slot160(pos, &screen) == 0;
+		break;
+	case 1:
+		if (g_00DFEF18)
+			return g_00DFEF18->slot3C(pos, &screen);
+		break;
+	default:
+		return true;
+	}
+	return false;
 }
