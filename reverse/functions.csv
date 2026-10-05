@@ -62264,3 +62264,4 @@ _Rva007F5790Callback,,0x00661F40,15,Code/GameEngine/Source/GameNetwork/Rva007F70
 ?Start@Rva00082E1DObj@@QAEXH@Z,,0x00082E1D,22,Code/GameEngine/Source/Common/Rva00082E1DInitFamily.cpp,matched,back-adjusted base-init plus flag wrapper; identity unresolved
 ?Start@Rva003733B5Obj@@QAEXH@Z,,0x003733B5,19,Code/GameEngine/Source/Common/Rva00082E1DInitFamily.cpp,matched,back-adjusted base-init plus flag wrapper; identity unresolved
 ?rva003187A8@Rva003187A8Owner@@QAEXPAVRva003187A8Xfer@@@Z,,0x003187A8,95,Code/GameEngine/Source/Common/Rva003187A8Mask.cpp,matched,bitmask-to-2B emitter via slot-9 virtual (Xfer::xferUser lead); w3-g26
+?rva003186A5@Rva003186A5Owner@@QAEXXZ,,0x003186A5,73,Code/GameEngine/Source/Common/Rva003186A5Reset.cpp,matched,reset-style body with TheAudio removeAudioEvent idiom; w3-g26
