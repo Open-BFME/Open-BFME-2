@@ -24,20 +24,33 @@
 // GameModePreferences::rva0044DD1E 0x0044DD1E before its vslot 3 (write).
 // The player template goes through the rowed GameSlot::setPlayerTemplate
 // 0x00400E33 and sits at +0x18; the slot name is the UnicodeString at +0x30.
+// GameSlot vslot 5 yields the slot's LANGameSlot (BFME1's vslot 1), whose
+// isLocalPlayer is pinned at 0x0044770F; the color sits at +0x0C.
 
 #include "ascii_string.h"
 #include "unicode_string.h"
 
+class LANGameSlot;
+
 class GameSlot
 {
 public:
+	virtual void v00();
+	virtual void v01();
+	virtual void v02();
+	virtual void v03();
+	virtual void v04();
+	virtual LANGameSlot *getLANSlot();
+
 	void setPlayerTemplate(int playerTemplate);
+	int getColor() const { return m_color; }
 	int getPlayerTemplate() const { return m_playerTemplate; }
 	int getStartPos() const { return m_startPos; }
 	int getTeamNumber() const { return m_teamNumber; }
 	int getHandicap() const { return m_handicap; }
 
-	unsigned char m_pad00[0x10];
+	unsigned char m_pad04[0x0C - 0x04];
+	int m_color; // +0x0C
 	int m_startPos; // +0x10
 	int m_startPos14; // +0x14
 	int m_playerTemplate; // +0x18
@@ -45,6 +58,12 @@ public:
 	int m_handicap; // +0x20
 	unsigned char m_pad24[0x30 - 0x24];
 	UnicodeString m_name; // +0x30
+};
+
+class LANGameSlot : public GameSlot
+{
+public:
+	bool isLocalPlayer() const;
 };
 
 class GameInfo
@@ -163,6 +182,7 @@ public:
 	virtual void v02();
 	virtual bool write();
 
+	void rva0044DCB9(int color);
 	void rva0044DD1E(int playerTemplate);
 };
 
@@ -173,6 +193,7 @@ public:
 	bool applySlotHandicap(GameSlot *slot, int handicap);
 	bool applySlotStartPos(GameSlot *slot, int startPos);
 	bool applySlotPlayerTemplate(GameSlot *slot, int playerTemplate);
+	bool applySlotColor(GameSlot *slot, int color);
 
 private:
 	unsigned char m_pad00[0x0C];
@@ -294,6 +315,46 @@ bool BfmeAptScreenLanLobby::applySlotPlayerTemplate(GameSlot *slot, int playerTe
 	if (slot->m_name.compare(local->m_name) == 0)
 	{
 		m_prefs.rva0044DD1E(playerTemplate);
+		m_prefs.write();
+	}
+	return true;
+}
+
+// Retail 0x004454A1, 273 bytes: vftable 0x00C3E098 slot 4, "Color=%d".
+// Donor Rva00518BF0LanColor.cpp (BFME1 named it by address); a non-host
+// only sends its own slot's color, and the local color preference is stored
+// through the rowed GameModePreferences::rva0044DCB9 0x0044DCB9.
+bool BfmeAptScreenLanLobby::applySlotColor(GameSlot *slot, int color)
+{
+	if (!TheLAN)
+		return false;
+	LANGameInfo *game = TheLAN->GetMyGame();
+	if (!game)
+		return false;
+
+	slot->m_color = color;
+	if (game->rva004477C7())
+	{
+		TransportAddress address;
+		TheLAN->requestSerializedGameInfo(true, &address);
+	}
+	else
+	{
+		LANGameSlot *lanSlot = slot->getLANSlot();
+		if (!lanSlot)
+			return false;
+		if (!lanSlot->isLocalPlayer())
+			return false;
+
+		AsciiString options;
+		options.format("Color=%d", slot->getColor());
+		TheLAN->RequestGameOptions(options, true);
+	}
+
+	GameSlot *local = game->getSlot(game->getLocalSlotNum());
+	if (slot->m_name.compare(local->m_name) == 0)
+	{
+		m_prefs.rva0044DCB9(color);
 		m_prefs.write();
 	}
 	return true;
