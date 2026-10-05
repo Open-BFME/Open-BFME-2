@@ -9,7 +9,7 @@
 class Made002CCBCA;
 
 struct FieldParse;
-extern const FieldParse HordeAttackFieldTable;
+extern const FieldParse g_00864DCC;
 
 int __cdecl Rva00507552Get();
 
@@ -32,6 +32,6 @@ void q4Notify002CCBCA(void *ini, Made002CCBCA *m, int c, int d)
 {
     MultiIniFieldParse tmp;
     tmp.add((const FieldParse *)Rva00507552Get(), 0);
-    tmp.add(&HordeAttackFieldTable, 0);
+    tmp.add(&g_00864DCC, 0);
     ((INI *)ini)->initFromINIMulti(m, tmp);
 }
