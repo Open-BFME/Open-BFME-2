@@ -35,6 +35,17 @@
 
 class LANGameSlot;
 
+enum SlotState
+{
+	SLOT_PLAYER = 6
+};
+
+struct GameSlotConnectInfo
+{
+	unsigned int m_nat;
+	unsigned short m_port;
+};
+
 class GameSlot
 {
 public:
@@ -47,6 +58,9 @@ public:
 
 	void setPlayerTemplate(int playerTemplate);
 	void setMapAvailability(bool available);
+	void setState(SlotState state, UnicodeString name, const GameSlotConnectInfo *connectInfo);
+	bool isAI() const;
+	SlotState getState() const { return m_state; }
 	unsigned char rva003FF16F() const;
 	int getColor() const { return m_color; }
 	int getPlayerTemplate() const { return m_playerTemplate; }
@@ -54,7 +68,8 @@ public:
 	int getTeamNumber() const { return m_teamNumber; }
 	int getHandicap() const { return m_handicap; }
 
-	unsigned char m_pad04[0x0C - 0x04];
+	SlotState m_state; // +0x04
+	unsigned char m_pad08[0x0C - 0x08];
 	int m_color; // +0x0C
 	int m_startPos; // +0x10
 	int m_startPos14; // +0x14
@@ -158,7 +173,7 @@ public:
 	virtual void v34() = 0;
 	virtual void v35() = 0;
 	virtual void v36() = 0;
-	virtual void v37() = 0;
+	virtual void OnPlayerLeave(UnicodeString player) = 0;
 	virtual void v38() = 0;
 	virtual void v39() = 0;
 	virtual void v40() = 0;
@@ -233,6 +248,7 @@ public:
 	void saveRulesRva00444279();
 	bool setScenarioRva0044440C(int scenario);
 	bool bfmeMapChanged(const AsciiString *mapName);
+	bool rva00444B90(GameSlot *slot, SlotState state, int unused);
 
 private:
 	unsigned char m_pad00[0x0C];
@@ -501,6 +517,43 @@ bool BfmeAptScreenLanLobby::bfmeMapChanged(const AsciiString *mapName)
 		game->resetStartSpots();
 		game->adjustSlotsForMap();
 		game->resetAccepted();
+		TransportAddress address;
+		TheLAN->requestSerializedGameInfo(true, &address);
+	}
+	return true;
+}
+
+// Retail 0x00444B90, 276 bytes: vftable 0x00C3E098 slot 9. Donor
+// BfmeAptScreenLanLobby_rva00517B60.cpp (BFME1 0x00517B60, an address name
+// there too). LANAPI vslot 37 is the donor's OnPlayerLeave. BFME2 skips the
+// update when a non-player slot already has the state, and resets the
+// accepted flags only when the AI-ness changes.
+bool BfmeAptScreenLanLobby::rva00444B90(GameSlot *slot, SlotState state, int unused)
+{
+	if (!TheLAN)
+		return false;
+	LANGameInfo *game = TheLAN->GetMyGame();
+	if (!game)
+		return false;
+
+	GameSlotConnectInfo info;
+	if (slot->getState() == SLOT_PLAYER)
+	{
+		UnicodeString player = slot->m_name;
+		info.m_nat = 0;
+		info.m_port = 0;
+		slot->setState(state, UnicodeString::TheEmptyString, &info);
+		game->resetAccepted();
+		TheLAN->OnPlayerLeave(player);
+	}
+	else if (slot->getState() != state)
+	{
+		bool wasAI = slot->isAI();
+		info.m_nat = 0;
+		info.m_port = 0;
+		slot->setState(state, UnicodeString::TheEmptyString, &info);
+		if (slot->isAI() ^ wasAI)
+			game->resetAccepted();
 		TransportAddress address;
 		TheLAN->requestSerializedGameInfo(true, &address);
 	}
