@@ -62371,3 +62371,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva001E0AA5@Rva001E125D@@UAEXHH@Z,,0x001E0AA5,74,Code/GameEngine/Source/Common/Rva001E125DCtor.cpp,matched,vslot slot3 char array plus findTemplate
 ??$__copy_ptrs@PAURva000B690BRecord@@PAU1@@_STL@@YAPAURva000B690BRecord@@PAU1@00ABU__false_type@0@@Z,,0x000B9632,29,Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseRangeFamily.cpp,matched,STLport copy ptrs for B690BRecord
 ??1Rva00574A8A@@UAE@XZ,,0x00574A8A,14,Code/GameEngine/Source/Common/Rva00574A8ADtor.cpp,matched,vtable 0x0083C6D0 store plus tail-jmp to rowed base dtor 0x00577010
+?load@INI@@QAEXVAsciiString@@W4INILoadType@@PAVXfer@@P6AXPAV1@@Z@Z,,0x0002DA4B,411,Code/GameEngine/Source/Common/System/INI_loadWithParse.cpp,matched,
