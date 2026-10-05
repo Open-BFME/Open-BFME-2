@@ -62324,3 +62324,8 @@ _Rva007F5790Callback,,0x00661F40,15,Code/GameEngine/Source/GameNetwork/Rva007F70
 ?rva005CD3AA@@YAXPAVRva005CD1A9@@PAX111@Z,,0x005CD3AA,147,Code/GameEngine/Source/Common/Rva005CD3AAFamily.cpp,matched,Refcounted Rva005CD257 factory helper
 ?rva005CD43D@@YAXPAVRva005CD1A9@@PAX111@Z,,0x005CD43D,147,Code/GameEngine/Source/Common/Rva005CD3AAFamily.cpp,matched,Refcounted Rva005CD2A3 factory helper
 ?rva005CD4D0@@YAXPAVRva005CD1A9@@PAX111@Z,,0x005CD4D0,147,Code/GameEngine/Source/Common/Rva005CD3AAFamily.cpp,matched,Refcounted Rva005CD2EF factory helper
+?rva005CC468@Rva005CC37C@@UAE?AURva005E1753Result@@XZ,,0x005CC468,28,Code/GameEngine/Source/Common/Rva005CC468Family.cpp,matched,Virtual slot 7 getter returning Rva005E1753Result from global singleton
+?rva005E9295@Rva005E9295@@UAE?AURva005E1753Result@@XZ,,0x005E9295,28,Code/GameEngine/Source/Common/Rva005CC468Family.cpp,matched,Virtual slot 7 getter returning Rva005E1753Result from global singleton
+?rva005F5694@Rva005F5694@@UAE?AURva005E1753Result@@XZ,,0x005F5694,28,Code/GameEngine/Source/Common/Rva005CC468Family.cpp,matched,Virtual slot 7 getter returning Rva005E1753Result from global singleton
+?rva005F594C@Rva005F594C@@UAE?AURva005E1753Result@@XZ,,0x005F594C,28,Code/GameEngine/Source/Common/Rva005CC468Family.cpp,matched,Virtual slot 7 getter returning Rva005E1753Result from global singleton
+?rva005F5D25@Rva005F5D25@@UAE?AURva005E1753Result@@XZ,,0x005F5D25,28,Code/GameEngine/Source/Common/Rva005CC468Family.cpp,matched,Virtual slot 7 getter returning Rva005E1753Result from global singleton
