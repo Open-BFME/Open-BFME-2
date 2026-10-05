@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /arch:SSE /EHs /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /arch:SSE /EHs /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /G7
 // stlport
 //
 // Overrides of the interface HordeContain carries at +0x11C (vtable
@@ -636,6 +636,7 @@ public:
 	virtual bool rva0046A416();
 	virtual bool rva0047306E(Object *obj, int a2);
 	virtual bool rva00468DCD(Object *obj);
+	virtual void rva00468D7D(Object *obj);
 	virtual bool rva0046A4C8();
 	virtual void rva0046981C();
 	virtual void rva00469851();
@@ -1052,6 +1053,21 @@ bool HordeContain::rva00468DCD(Object *obj)
 	if ((obj->m_74 == m_288 || id == m_288) && TheGameLogic->m_frame < m_28C)
 		return true;
 	return m_2C8->rva00468DCDSlot14(obj);
+}
+
+// ?rva00468D7D@HordeContain@@UAEXPAVObject@@@Z @0x00468D7D: slot 89. For the
+// recorded Object, advance the expiration frame by three g_009BA4E4 units.
+void HordeContain::rva00468D7D(Object *obj)
+{
+	if (!obj)
+		return;
+	int id = obj->m_74;
+	unsigned int delay = g_009BA4E4 * 3;
+	Object *other = obj->rva002931F5(false);
+	if (other)
+		id = other->m_74;
+	if (obj->m_74 == m_288 || id == m_288)
+		m_28C = TheGameLogic->m_frame + delay;
 }
 
 // ?rva0046981C@HordeContain@@UAEXXZ @0x0046981C: slot 121, slot 118 for each name
