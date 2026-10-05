@@ -60475,3 +60475,7 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?doTeamSetRepulsor@ScriptActions@@IAEXABVAsciiString@@_N@Z,,0x003BEED1,79,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_doTeamSetRepulsor.cpp,matched,ZH ScriptActions::doTeamSetRepulsor executeAction case 0xEC named team setStatus 8
 ?rva003C05DE@ScriptActions@@IAEXABVAsciiString@@_N@Z,,0x003C05DE,79,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_doTeamSetRepulsor.cpp,matched,named team members setScriptStatus 0x20 flag
 ?rva003C375A@ScriptActions@@IAEXPAVParameter@@HM@Z,,0x003C375A,102,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C375A.cpp,matched,named team members emotion forward index 0-11 via Object rva0028ECA8
+?Rva003C30D9Do@@YGXABVAsciiString@@_N@Z,,0x003C30D9,156,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C30D9.cpp,matched,named team DualWeaponBehavior module flag
+?Rva003C36FEDo@@YGXPAVParameter@@_N@Z,,0x003C36FE,92,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C36FE.cpp,matched,named team member drawables rva00270FAC flag
+?Rva003C353BDo@@YGXPAVParameter@@PAX@Z,,0x003C353B,111,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C353B.cpp,matched,named team members rva0029660C position
+?doTeamEnableStealth@ScriptActions@@IAEXABVAsciiString@@_N@Z,,0x003C058A,84,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_doTeamEnableStealth.cpp,matched,ZH ScriptActions::doTeamEnableStealth

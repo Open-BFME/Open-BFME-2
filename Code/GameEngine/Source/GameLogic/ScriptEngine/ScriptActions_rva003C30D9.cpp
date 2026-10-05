@@ -1,6 +1,9 @@
-// ?Rva003C30D9Do@@YGXABVAsciiString@@_N@Z
-// partial score=0.96 date=2026-10-05
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /GX /arch:SSE
+//
+// Landed from the banked attempt once Zero Hour's null-member skip
+// (Object *obj = iter.cur(); if (!obj) continue;) was added to the member
+// loop: it keeps the member in ecx from the loop test into the call, the
+// mov-test wall the bank recorded.
 // ?Rva003C30D9Do@@YGXABVAsciiString@@_N@Z @0x003C30D9 156B: team DualWeaponBehavior module flag via getTeamNamed cached NameKey iterate findModule. Evidence: single Rva003C3175Do same DualWeapon static findModule set byte; rowed getTeamNamed 0x3584E9 iterate 0x263864 advance 0x263526 findModule 0x28B6D6 nameToKey PBD 0x148E1A StringBase copy 0x365F0 DualWeaponBehavior literal; caller 0x003CE542; ret 0x8 stdcall.
 #include "ascii_string.h"
 
@@ -72,7 +75,10 @@ void __stdcall Rva003C30D9Do(const AsciiString &teamName, bool flag)
 		return;
 	static NameKeyType dualKey = TheNameKeyGenerator->nameToKey("DualWeaponBehavior");
 	for (DLINK_ITERATOR<Object> it = team->iterate_TeamMemberList(); !it.done(); ((Rva001705A0DlinkIterator<Object> *)&it)->advance()) {
-		Module *module = it.cur()->findModule(dualKey);
+		Object *obj = it.cur();
+		if (!obj)
+			continue;
+		Module *module = obj->findModule(dualKey);
 		if (module == 0)
 			continue;
 		module->m_20 = flag;
