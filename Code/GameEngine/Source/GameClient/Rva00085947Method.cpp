@@ -13,6 +13,7 @@
 class BfmeThingBFG { public: void rva0025F3F3(); };
 class Rva0030E8DF { public: void rva0030E8DF(); };
 struct RvaFloatPair { float a; float b; };
+struct RvaLoc12 { int a; int b; int c; };
 class Rva00BCF670CameraSettings {
 public:
 	virtual void camSlot00();
@@ -33,6 +34,8 @@ public:
 	virtual void camSlot15();
 	virtual void camSlot16();
 	virtual void camSlot17();
+	virtual void camSlot18();
+	virtual bool camSlot19(int v, RvaLoc12 *loc);
 	void reset();
 };
 class Rva00085947 {
@@ -107,7 +110,7 @@ public:
 	virtual void vslot067();
 	virtual void vslot068();
 	virtual void vslot069();
-	virtual void vslot070();
+	virtual void vslot070(RvaLoc12 *loc);
 	virtual void vslot071();
 	virtual void vslot072();
 	virtual void vslot073();
@@ -150,8 +153,11 @@ public:
 	virtual void vslot110();
 	virtual void vslot111(RvaFloatPair *p);
 	void rva00085947();
+	bool rva000879A9(int v);
 private:
-	unsigned char m_pad000[0x138 - 4];
+	unsigned char m_pad004[0x8];
+	RvaLoc12 m_00C;
+	unsigned char m_pad018[0x138 - 4 - 0x8 - 12];
 	float m_138;
 	unsigned char m_pad13C[0x2408 - 0x13C];
 	float m_2408;
@@ -165,6 +171,9 @@ private:
 	Rva00BCF670CameraSettings m_24C8;
 };
 
+// ?rva000879A9@Rva00085947@@QAE_NH@Z @0x000879A9 61B: slot 158 of vtable 0xBC7514.
+// Fills a 12-byte local through slot70, probes CameraSettings slot19 with it plus
+// the int argument, copies to +0x0C when accepted, returns the probe result.
 void Rva00085947::rva00085947()
 {
 	((BfmeThingBFG *)this)->rva0025F3F3();
@@ -183,4 +192,17 @@ void Rva00085947::rva00085947()
 	((Rva0030E8DF *)((unsigned char *)this + 0x2458))->rva0030E8DF();
 	m_241C = 0;
 	m_24C8.reset();
+}
+
+// ?rva000879A9@Rva00085947@@QAE_NH@Z @0x000879A9 61B: slot 158 of vtable 0xBC7514.
+// Fills a 12-byte local through slot70, probes CameraSettings slot19 with it plus
+// the int argument, copies to +0x0C when accepted, returns the probe result.
+bool Rva00085947::rva000879A9(int v)
+{
+	RvaLoc12 loc;
+	vslot070(&loc);
+	bool ok = m_24C8.camSlot19(v, &loc);
+	if (ok)
+		m_00C = loc;
+	return ok;
 }
