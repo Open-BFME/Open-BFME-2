@@ -36,6 +36,12 @@
 // its two polymorphic bases here (MemoryPoolObject, Snapshot), which
 // leaves every offset above unchanged.
 //
+// ?rva003A0CD1@TeamPrototype@@QAEXXZ, retail 0x003A0CD1 (57 bytes), called
+// out of line by ~TeamPrototype. Zero Hour's destructor tail (owner and factory
+// list removal) with one BFME 2 addition: the owner's record in the
+// g_00DFEEF8 registry (rowed lookup 0x002A8AB1) also drops this prototype
+// through 0x004EC07D, an 11-byte forward to its +0x90 member.
+//
 // ?teamAboutToBeDeleted@TeamPrototype@@QAEXPAVTeam@@@Z, retail 0x003A2CA5
 // (70 bytes), pinned from the byte-verified TeamFactory::teamAboutToBeDeleted.
 // Zero Hour's body over the same team-list iterator: each team drops its
@@ -62,6 +68,7 @@ struct RetailPlayerRelationMap
 
 class Team;
 class Object;
+class TeamPrototype;
 class Player
 {
 public:
@@ -69,6 +76,7 @@ public:
 	Relationship getRelationship(const Player *that) const;
 	Relationship getRelationship(const Team *that) const;
 	Relationship getRelationship(const Object *that) const;
+	void removeTeamFromList(TeamPrototype *team);
 
 	char m_pad00[0x54];
 	int m_playerIndex; // +0x54
@@ -282,11 +290,23 @@ class TeamFactory
 {
 public:
 	void teamAboutToBeDeleted(Team *team);
+	void removeTeamPrototypeFromList(TeamPrototype *team);
 };
 
 extern TeamFactory *TheTeamFactory;
 
 enum { TEAM_SINGLETON = 0x01 };
+
+struct Rva002A8AB1Record
+{
+	void rva004EC07D(TeamPrototype *proto);
+};
+class Rva002A8F24
+{
+public:
+	Rva002A8AB1Record *rva002A8AB1(void *owner);
+};
+extern Rva002A8F24 *g_00DFEEF8;
 
 class TeamPrototype
 {
@@ -298,9 +318,13 @@ public:
 	bool getIsSingleton() const { return (m_flags & TEAM_SINGLETON) != 0; }
 	void updateState();
 	void teamAboutToBeDeleted(Team *team);
+	void rva003A0CD1();
 
 private:
-	unsigned char m_pad00[0x18];
+	unsigned char m_pad00[0x04];
+	TeamFactory *m_factory; // +0x04
+	Player *m_owningPlayer; // +0x08
+	unsigned char m_pad0C[0x18 - 0x0C];
 	int m_flags; // +0x18
 	unsigned char m_pad1C[0x334 - 0x1C];
 	Team *m_dlinkhead_TeamInstanceList; // +0x334
@@ -355,4 +379,17 @@ void TeamPrototype::teamAboutToBeDeleted(Team *team)
 	{
 		iter.cur()->removeOverrideTeamRelationship(team ? team->getTeamKey() : 0);
 	}
+}
+
+void TeamPrototype::rva003A0CD1()
+{
+	if (m_owningPlayer)
+	{
+		m_owningPlayer->removeTeamFromList(this);
+		Rva002A8AB1Record *record = g_00DFEEF8->rva002A8AB1(m_owningPlayer);
+		if (record)
+			record->rva004EC07D(this);
+	}
+	if (m_factory)
+		m_factory->removeTeamPrototypeFromList(this);
 }
