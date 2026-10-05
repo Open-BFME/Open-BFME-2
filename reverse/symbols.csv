@@ -14538,3 +14538,5 @@ _rva006F98C0Call,0x006F98C0,retail call at 0x006F9B84 supplies EAX ECX and two s
 ?_M_fill_insert@?$vector@URva00153729@@V?$allocator@URva00153729@@@_STL@@@_STL@@QAEXPAURva00153729@@IABU3@@Z,0x00153D5E,native REL32 at resize 00153E6F plus4A; canonical 76B entry ABI
 ??$__copy_backward_ptrs@PAURva00153729@@PAU1@@_STL@@YAPAURva00153729@@PAU1@00ABU__false_type@0@@Z,0x00153A5E,native REL32 from array-entry fill_insert 00153D5E; 76B canonical ABI
 ??$fill@PAURva00153729@@U1@@_STL@@YAXPAURva00153729@@0ABU1@@Z,0x00153A7B,native REL32 from array-entry fill_insert 00153D5E; 76B canonical ABI
+?clear@Rva00151248String@@QAEXXZ,0x00036410,native REL32 from reset151248; folded canonical narrow StringBase releaseBuffer; alias binds provider
+?assign@Rva00151248String@@QAEXPBD@Z,0x000055F5,native REL32 from constructor1512F1; canonical narrow StringBase set; alias binds provider
