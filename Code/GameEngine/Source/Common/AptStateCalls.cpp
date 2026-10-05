@@ -153,6 +153,25 @@ AsciiString Rva005779A0::rva005779A0() const
 	return path;
 }
 
+struct Rva00577A0EInner
+{
+	Rva005779A0 *m_00;
+};
+
+class Rva00577A0E
+{
+public:
+	AsciiString rva00577A0E() const;
+private:
+	char m_pad00[0x40];
+	Rva00577A0EInner *m_40;
+};
+
+AsciiString Rva00577A0E::rva00577A0E() const
+{
+	return m_40->m_00->rva005779A0();
+}
+
 // ?rva00525783@Rva00525783@@QAEXXZ @0x00525783 115B: leave the hero-select
 // button state. When the flag at +0x45 is set, the pending record at +0x1C8 is
 // first handed by value to 0x003591F4 (pinned) on the global at VA 0x00E01E28,
