@@ -65,6 +65,9 @@ class AptInGameChat
 {
 public:
 	void OnInitialized(const char *unused);
+	// Bound as "AptInGameChat::OnClosed" and "AptMessenger::OnClosed": one
+	// body or two folded, so it keeps its address.
+	void rva004E8213(const char *unused);
 	void InitGadgets(const char *name, void *argument, GameWindow *window);
 
 private:
@@ -103,6 +106,13 @@ void AptInGameChat::OnInitialized(const char *unused)
 {
 	if (m_state == 0)
 		m_state = 1;
+}
+
+// Retail 0x004E8213, 13 bytes: bound as "AptInGameChat::OnClosed" and
+// "AptMessenger::OnClosed".
+void AptInGameChat::rva004E8213(const char *unused)
+{
+	m_state = 4;
 }
 
 // Retail 0x00512CDF, 10 bytes: "AptDisconnectScreen::OnInitialized".

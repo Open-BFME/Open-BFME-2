@@ -43,9 +43,18 @@ class AptPlayerStatus
 {
 public:
 	void InitGadgets(const char *name, void *argument, GameWindow *window);
+	// Bound as "AptPlayerStatus::OnInitialized" and
+	// "AptObjectivesMenu::OnInitialized": one body or two folded, so it
+	// keeps its address.
+	void rva004E4A34(const char *unused);
+
+	// Unrowed 0x004E476C (refreshes the player rows; it checks +0x288
+	// again itself), pinned by address.
+	void rva004E476C();
 
 private:
-	unsigned char m_pad000[0x28C];
+	unsigned char m_pad000[0x288];
+	int m_state; // +0x288
 	GameWindow *m_mute[8]; // +0x28C
 	signed char m_slot[8]; // +0x2AC
 };
@@ -73,4 +82,12 @@ void AptPlayerStatus::InitGadgets(const char *name, void *argument, GameWindow *
 		window->winHide(false);
 		GadgetCheckBoxSetChecked(window, gameSlot->m_muted);
 	}
+}
+
+// Retail 0x004E4A34, 17 bytes: bound as "AptPlayerStatus::OnInitialized"
+// and "AptObjectivesMenu::OnInitialized".
+void AptPlayerStatus::rva004E4A34(const char *unused)
+{
+	if (m_state == 1)
+		rva004E476C();
 }

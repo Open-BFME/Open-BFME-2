@@ -42,6 +42,11 @@ class AptSaveLoad
 public:
 	void OnClosed(const char *unused);
 	void Cancel(const char *unused);
+	// Bound as "AptSaveLoad::OnInitialized" and
+	// "AptSaveLoad::ConfirmationCancel" (and by the options screen as
+	// "AptOptions::OnInitialized"): one body or several folded, so it keeps
+	// its address.
+	void rva00433DF1(const char *unused);
 	void Delete(const char *unused);
 	void Load(const char *unused);
 	void ConfirmationOk(const char *unused);
@@ -96,6 +101,13 @@ void AptSaveLoad::Cancel(const char *unused)
 {
 	if (m_state == 0)
 		Rva00433D27Enable();
+}
+
+// Retail 0x00433DF1, 13 bytes: bound as "AptSaveLoad::OnInitialized",
+// "AptSaveLoad::ConfirmationCancel" and "AptOptions::OnInitialized".
+void AptSaveLoad::rva00433DF1(const char *unused)
+{
+	m_state = 1;
 }
 
 // Retail 0x00434318, 31 bytes: "AptSaveLoad::Delete".
