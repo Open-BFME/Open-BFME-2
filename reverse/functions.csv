@@ -56189,3 +56189,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva007B9806@@YAXXZ,,0x007B9806,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk locale uninit global g_00E06665
 ?rva007B9810@@YAXXZ,,0x007B9810,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ios Init dtor global g_00E06664
 ??$_Construct@VRva0054000B@@V1@@_STL@@YAXPAVRva0054000B@@ABV1@@Z,,0x00540070,18,Code/Libraries/Source/WWVegas/WWLib/stlport_construct_rva0054000b.cpp,matched,null-guarded placement copy over rowed copy ctor 0x00540036 callers 0x005400B4 0x005400DA
+??_GRva0057C04F@@QAEPAXI@Z,,0x0042D55B,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_Rva0057C04F.cpp,matched,chain via rowed dtor 0x0057C04F plus delete
