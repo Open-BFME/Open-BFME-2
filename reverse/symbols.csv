@@ -12046,3 +12046,6 @@ _floor,0x00629940,call site 0x006F4403 in AptDate::getDayOfWeek (0x006F4290) enc
 ?rva003EFDF5@Rva003EFDF5Host@@QAEXPAX@Z,0x003EFDF5,this-retargeting forward used by Rva0020E374 at 0x0020E374; this arrives in the first stack slot with one arg
 ?vecErase2@Rva0020FD42Arg@@QAEPAPAXPAPAX0@Z,0x00532803,range erase used by Rva0020FD42 at 0x0020FD51 over the argument vector; same body as the rowed two-arg erases at this address
 ?rva003EFC1C@Rva003EFC1CHost@@QAEXHPAX@Z,0x003EFC1C,Rva0020FD42 member callee at 0x0020FD75 with this from [this+8]+0x4c and the argument dword plus argument
+?rva002100E6@Rva0020EE29@@QAEXPAX0@Z,0x002100E6,Rva0020EE29 member used twice by 0x002101C6 with this passthrough plus the arg and a member address; 224B range-7 target, reconstruct later
+?rva0020F483@Rva0020EE29@@QAEXXZ,0x0020F483,Rva0020EE29 member used by 0x002102CA with this passthrough and no args
+?rva0020F5B3@Rva0020EE29Inner@@QAEXXZ,0x0020F5B3,inner tail-target of 0x002102CA with this=inner and no args

@@ -17,6 +17,7 @@ struct Rva0020EE29Inner
 	char m_pad[0x2c];
 	Rva003F209C **m_begin;
 	Rva003F209C **m_end;
+	void rva0020F5B3();
 };
 
 // ?rva0020FB8B@Rva0020EE29@@QAEXPAURva0020FB8BNode@@@Z @0x0020FB8B 132B
@@ -66,6 +67,10 @@ class Rva0020EE29
 {
 public:
 	void rva0020EE29();
+	void rva0020F483();
+	void rva002100E6(void *a1, void *a2);
+	void rva002101C6(void *a1);
+	void rva002102CA();
 	bool rva0020F91D(void *a1, void *a2, void *a3);
 	void *rva0020F9F6(void *a1, void *a2, void *filter);
 	void rva0020FAEA(float *a1, void *a2);
@@ -391,6 +396,8 @@ class Rva0020FD42
 {
 public:
 	void rva0020FD42(void *a1, void *a2);
+	void rva002100E6(void *a1, void *a2);
+	void rva002101C6(void *a1);
 
 private:
 	char m_pad[8];
@@ -414,4 +421,61 @@ void Rva0020FD42::rva0020FD42(void *a1, void *a2)
 	if (!a1s)
 		return;
 	q->rva003EFC1C(a1s->m_12C, arg);
+}
+
+// ?rva002101C6@Rva0020EE29@@QAEXPAX@Z @0x002101C6 60B
+// Runs the argument's vtable slot-10 with a two-byte flags block, then
+// runs the rowed-pending same-class 0x002100E6 twice (once per member
+// vector at +0x14/+0x20) with the argument. Evidence: retail lea+push of
+// the ebp-4 block with this=arg into the indirect slot-10 call; the two
+// lea/push/mov/call sequences into 0x002100E6 with this passthrough. Slot
+// and flag meanings are unproven.
+class Rva002101C6Arg
+{
+public:
+	virtual void v00();
+	virtual void v01();
+	virtual void v02();
+	virtual void v03();
+	virtual void v04();
+	virtual void v05();
+	virtual void v06();
+	virtual void v07();
+	virtual void v08();
+	virtual void v09();
+	virtual void v10(void *b);
+};
+
+void Rva0020EE29::rva002101C6(void *arg)
+{
+	unsigned char b[2];
+	b[0] = 1;
+	b[1] = 1;
+	((Rva002101C6Arg *)arg)->v10(b);
+	rva002100E6(arg, &m_14);
+	rva002100E6(arg, &m_20);
+}
+
+// ?rva002102CA@Rva0020EE29@@QAEXXZ @0x002102CA 68B
+// Runs every entry of the +0x8 inner vector through its vtable slot-1, runs
+// the rowed-pending same-class 0x0020F483, and tail-jumps to the
+// rowed-pending inner 0x0020F5B3. Evidence: retail bounds-pointer traversal
+// with the reload-each-iteration count (rowed-EE29 idiom, indexed here
+// because the loop body calls out); the frameless-compatible tail jump
+// after restoring the saves; no null check on the inner. The slot-1 callee
+// goes through a stand-in element type (vtable layout only).
+class Rva002102CAElem
+{
+public:
+	virtual void v00();
+	virtual void v01();
+};
+
+void Rva0020EE29::rva002102CA()
+{
+	Rva002102CAElem ***bounds = (Rva002102CAElem ***)&m_inner->m_begin;
+	for (unsigned i = 0; i < (unsigned)(((char *)bounds[1] - (char *)bounds[0]) >> 2); ++i)
+		bounds[0][i]->v01();
+	rva0020F483();
+	m_inner->rva0020F5B3();
 }
