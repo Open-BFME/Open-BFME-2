@@ -9071,3 +9071,4 @@ _VP6_ConfigureMvEntropyDecoder	0x001C6EF0	331	partial	third-loop pre-increment p
 ?rva0007A7DD@W3DHordeModelDraw@@QAEXXZ	0x0007A7DD	95	blocked	95B vslot6 static guard plus atexit plus unclaimed push plus 3 pins needs header count plus shared models t=8 model=muse-02
 ??0Rva00563CAF@@QAE@PAXPAUDrawInfo@@@Z	0x00563CAF	115	partial	ebx for edx plus extra push pop t=15 model=muse-03 score=0.95 stash=reverse/attempts/0x00563caf.cpp
 ?Rva003E5B11Check@@YG_NPAVParameter@@0@Z	0x003E5B11	243	partial	setne vs je-mov for rva003971BF and neg-sbb-inc vs je for Foundation v03 t=25 model=muse-12 score=0.95 stash=reverse/attempts/0x003e5b11.cpp
+?rva004C1D49@Rva004C1D49@@QAEHXZ	0x004C1D49	322	blocked	vslot DetachableRiderBody slot18 with x87 SSE plus EH plus 10 calls t=5 model=muse-09

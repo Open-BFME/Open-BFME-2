@@ -56576,3 +56576,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva006006D9@Rva0060061A@@QAEXPAX@Z,,0x006006D9,158,Code/GameEngine/Source/Common/Rva006006D9.cpp,matched,same globals as dtor TU same Archive layout as FileSystemDoesFileExist rowed ctors string literal caller 0x0022E3B7
 ?rva00255D58@Rva00255D58@@QAE_NPBDPA_N1@Z,,0x00255D58,308,Code/GameEngine/Source/Common/System/KindOfParseToken00255D58.cpp,matched,KindOf token worker via VeterancyLevel sibling same shape
 ?Rva0050D176Set@@YAXXZ,,0x0050D176,377,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/MapSelectMenu_Rva0050D176.cpp,matched,ZH MapSelectMenu SetDifficultyRadioButton switch with temporaries plus caller 0x0050D541 plus neighbours
+?rva0002BF4A@Rva0002BF4A@@QAEXXZ,,0x0002BF4A,66,Code/GameEngine/Source/Common/System/Rva0002BF4AClear.cpp,matched,thiscall clear with None plus empty plus globals
