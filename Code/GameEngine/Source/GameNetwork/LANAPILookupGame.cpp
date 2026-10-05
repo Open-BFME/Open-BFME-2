@@ -19,7 +19,7 @@ public:
 	int compare( const StringBase<T> &other ) const throw();
 
 protected:
-	~StringBase() { releaseBuffer(); }
+	~StringBase();
 
 private:
 	StringBase( const StringBase<T> &other );
@@ -32,7 +32,7 @@ class UnicodeString : public StringBase<WideChar>
 public:
 	__forceinline UnicodeString( const UnicodeString &other )
 		: StringBase<WideChar>( other ) {}
-	~UnicodeString() {}
+	~UnicodeString();
 	int compare( const UnicodeString &other ) const;
 };
 
