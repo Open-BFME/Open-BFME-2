@@ -179,7 +179,7 @@ Debug &operator<<(Debug &debug, const ICoord3D &coord)
 
 // The empty pair: a bare `mov eax, ecx; ret`, ICF-folded across every default
 // constructor in the math headers.
-ICoord2D::ICoord2D()
+inline ICoord2D::ICoord2D()
 {
 }
 
@@ -216,3 +216,15 @@ ICoord2D &ICoord2D::operator=(const ICoord2DBase &that)
 
     return *this;
 }
+
+// ICoord2D default ctor is a header inline elsewhere: other units emit
+// select-any copies, so a strong definition here was a duplicate in the
+// linked build. This anchor only makes this unit emit its copy for the ledger
+// row; it is not retail code.
+#pragma inline_depth(0)
+// ?bfmeEmitICoord2DCtor@@YAXPAUICoord2D@@@Z present-unmatched
+void bfmeEmitICoord2DCtor(ICoord2D *p)
+{
+    p->ICoord2D::ICoord2D();
+}
+#pragma inline_depth()
