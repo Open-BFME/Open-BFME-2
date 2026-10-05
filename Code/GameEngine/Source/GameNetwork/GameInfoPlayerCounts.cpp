@@ -44,6 +44,48 @@ enum
 unsigned char Rva0056BD91Pack(unsigned char a, unsigned char b,
 	unsigned char c, unsigned char d);
 
+void Rva0056BDA5Split(unsigned char a, unsigned char b, unsigned char c,
+	unsigned char *out1, unsigned char *out2);
+
+class CreateAHeroData
+{
+public:
+	unsigned char m_pad00[0x0C];
+	int m_0c;
+	int m_10;
+};
+
+class Rva0040A3F9
+{
+public:
+	CreateAHeroData *rva0040A32F(int index);
+};
+
+struct OuterElem32
+{
+	char m_00[32];
+};
+
+struct Vec32
+{
+	OuterElem32 *m_start;
+	OuterElem32 *m_finish;
+	OuterElem32 *m_end;
+};
+
+class Rva00219B9E
+{
+	char m_pad[0x14C];
+public:
+	Vec32 m_outer;
+	int m_158;
+public:
+	Rva0040A3F9 *rva0021F797();
+	int rva00219D52(unsigned int o);
+};
+
+extern Rva00219B9E *g_00DFE344;
+
 struct BfmeNetAddress
 {
 	bool Rva00248CBF(const BfmeNetAddress *other) const;
@@ -60,6 +102,7 @@ public:
 	Int rva003FF145(const BfmeNetAddress *other) const;
 	bool isObserver() const;
 	unsigned char rva003FF16F() const;
+	bool rva003FF8B0(unsigned char v);
 	bool isOpen() const { return m_state == SLOT_OPEN; }
 	Int getPlayerTemplate() const { return m_playerTemplate; }
 
@@ -213,5 +256,58 @@ bool GameInfo::rva003FF496(unsigned short slotNum) const
 		if (slot->isOccupied() && slot->m_50 != 0 && !slot->rva64())
 			return false;
 	}
+	return true;
+}
+
+// ?rva003FF8B0@GameSlot@@QAE_NE@Z @0x003FF8B0 215B. GameSlot hero-kind setter,
+// inverse of rva003FF16F: kind 0 clears, 1 sets plain, hi==1 stores hero index
+// +0x5C and resolves +0x54/+0x58 via TheCreateAHeroManager 0x00DFE344, else
+// kind 3 stores hi-2/lo. Evidence: +0x50/+0x54/+0x58/+0x5C layout, rowed
+// Rva0056BDA5Split 0x0056BDA5, pinned rva0021F797/rva0040A32F, rowed
+// rva00219D52, callers 0x0024A6C6 0x00401A5D 0x00401D6C 0x00448BF0 0x005A431B.
+bool GameSlot::rva003FF8B0(unsigned char v)
+{
+	m_50 = 0;
+	m_54 = 0;
+	m_58 = 0;
+	if (v == 0) {
+		m_50 = 0;
+		return true;
+	}
+	if (v == 1) {
+		m_50 = 1;
+		return true;
+	}
+	unsigned char hi;
+	unsigned char lo;
+	Rva0056BDA5Split(v, 0, 0, &hi, &lo);
+	if (hi == 1) {
+		m_50 = 2;
+		unsigned int idx = lo;
+		if (idx >= (unsigned int)g_00DFE344->m_158)
+			return false;
+		m_5c = (int)idx;
+		Rva0040A3F9 *heroes = g_00DFE344->rva0021F797();
+		CreateAHeroData *data = heroes->rva0040A32F(m_5c);
+		if (data == 0)
+			return true;
+		m_54 = data->m_0c;
+		m_58 = data->m_10;
+		return true;
+	}
+	unsigned int hi2 = hi;
+	--hi2;
+	--hi2;
+	Vec32 *outer = &g_00DFE344->m_outer;
+	unsigned int outerCount = (unsigned int)(((char *)outer->m_finish - (char *)outer->m_start) >> 5);
+	if (hi2 >= outerCount)
+		return false;
+	unsigned int lo2 = lo;
+	int inner = g_00DFE344->rva00219D52(hi2);
+	if (lo2 >= (unsigned int)inner)
+		return false;
+	m_50 = 3;
+	m_54 = (int)hi2;
+	m_58 = (int)lo2;
 	return true;
 }
