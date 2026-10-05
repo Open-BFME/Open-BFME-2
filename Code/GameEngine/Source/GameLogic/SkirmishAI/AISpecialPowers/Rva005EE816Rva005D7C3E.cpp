@@ -1,6 +1,7 @@
-// ?rva005D7C3E@Rva005EE816@@QAE_NPAVObject@@@Z
-// partial score=0.97 date=2026-10-04
-// cl: /O1 /MD /GX /arch:SSE
+// cl: /O1 /MD /GX /arch:SSE /Oy- /Op
+//
+// ?rva005D7C3E@Rva005EE816@@QAE_NPAVObject@@@Z, retail 0x005d7c3e, 312 bytes. Banked partial (score 0.97) closed by tools/permute.py;
+// the body is the banked one up to statement/operand order and local types.
 #include <string.h>
 
 class Object;
@@ -127,11 +128,11 @@ bool Rva005EE816::rva005D7C3E(Object *source)
 	Object *target = m_finder.rva005EEA20(source->getControllingPlayer(), true, true);
 	if (target) {
 		Rva005D75BEMask mask;
-		mask.set(150);
 		mask.set(60);
-		mask.set(156);
+		mask.set(150);
 		mask.set(61);
 		mask.set(189);
+		mask.set(156);
 		BfmeWideResult hits = ThePartitionManager->iterateObjectsInRange(target->getPosition(), 500.0f, 0,
 			Rva0026119DFilter().link(Rva00261409Filter(source->getControllingPlayer(), true, 4)
 				.link(&Rva003959FA(*(BfmeFixedStorage0004543D *)&mask))), 1);

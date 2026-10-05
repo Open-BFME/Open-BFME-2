@@ -1,8 +1,8 @@
-// ?rva00209144@ScriptEngine@@IAEXPAVScriptAction@@H_N1@Z
-// partial score=0.92 date=2026-10-04
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /arch:SSE /Ireference/open-bfme-1/inputs/reference/shims/stringinline /Ireference/open-bfme-1/inputs/reference/shims/sweep /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
 //
-// ?rva00209144@ScriptEngine@@IAEXPAVScriptAction@@H_N1@Z @0x00209144 436B
+// ?rva00209144@ScriptEngine@@IAEXPAVScriptAction@@H_N1@Z, retail 0x00209144, 436 bytes. Banked partial (score 0.92) closed by tools/permute.py;
+// the body is the banked one up to statement/operand order and local types.
+//
 // Evidence: unlock lane, prev evaluateCounter 0x00208F61 next addCounter
 // 0x002092F8 in ScriptEngineEvaluateCounter.cpp, caller 0x0020C5C7, callees
 // bfmeCounter pinned plus rva002086C5 row plus GetGameLogicRandomValueReal
@@ -75,25 +75,24 @@ protected:
 	void rva00209144(ScriptAction *action, int randomKind, bool copyFrom, bool isFloat);
 };
 
-// ?rva00209144@ScriptEngine@@IAEXPAVScriptAction@@H_N1@Z present-unmatched
 void ScriptEngine::rva00209144(ScriptAction *action, int randomKind, bool copyFrom, bool isFloat)
 {
 	ScriptCounter *counter = bfmeCounter(action->getParameter(0)->m_string);
 	if (!counter)
 		return;
 	if (copyFrom) {
-		void *found = rva002086C5(action->getParameter(1)->m_string);
+		const void *found = rva002086C5(action->getParameter(1)->m_string);
 		if (found) {
 			counter->m_value = *(int *)found;
-			counter->m_isMillisecondTimer = false;
 			return;
+			counter->m_isMillisecondTimer = false;
 		}
 	}
 	if (isFloat) {
 		float value;
 		if (randomKind != 0) {
-			float lo = action->getParameter(1)->m_real;
-			float hi = action->getParameter(2)->m_real;
+			const float lo = action->getParameter(1)->m_real;
+			const float hi = action->getParameter(2)->m_real;
 			if (randomKind == 1)
 				value = GetGameLogicRandomValueReal(lo, hi, (char *)"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\ScriptEngine\\ScriptEngine.cpp", 0x804);
 			else
@@ -108,9 +107,9 @@ void ScriptEngine::rva00209144(ScriptAction *action, int randomKind, bool copyFr
 		counter->m_isMillisecondTimer = true;
 	} else {
 		int value;
-		if (randomKind != 0) {
-			int lo = action->getParameter(1)->m_int;
-			int hi = action->getParameter(2)->m_int;
+		if (0 != randomKind) {
+			unsigned int lo = action->getParameter(1)->m_int;
+			unsigned int hi = action->getParameter(2)->m_int;
 			if (randomKind == 1)
 				value = GetGameLogicRandomValue(lo, hi, (char *)"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\ScriptEngine\\ScriptEngine.cpp", 0x81e);
 			else
@@ -118,7 +117,7 @@ void ScriptEngine::rva00209144(ScriptAction *action, int randomKind, bool copyFr
 		} else {
 			value = action->getParameter(1)->m_int;
 		}
-		counter->m_value = value;
 		counter->m_isMillisecondTimer = false;
+		counter->m_value = value;
 	}
 }
