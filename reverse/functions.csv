@@ -64122,3 +64122,5 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?Rva003BFAC3Set@@YGXABVAsciiString@@H@Z,,0x003BFAC3,49,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptGlueRva003BFAC3.cpp,matched,dump range 18 team int setter via doSetTeamState idiom and pinned 0x003A10FE
 ?Rva003BFD5ASet@@YGXABVAsciiString@@@Z,,0x003BFD5A,46,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptGlueRva003BFD5A.cpp,matched,dump range 18 team nullary setter via doSetTeamState idiom and pinned 0x003A1D1A
 ?Rva003C0C3ESet@@YGXABVAsciiString@@@Z,,0x003C0C3E,51,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptGlueRva003C0C3E.cpp,matched,dump range 18 team forward via doSetTeamState idiom and pinned 0x002064CB
+?Rva003C3A3FSet@@YGXABVAsciiString@@H@Z,,0x003C3A3F,58,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptGlueRva003C3A3F.cpp,matched,dump range 18 trigger-area int setter with rowed area lookup and pinned 0x002872BA
+?rva003C3B4A@Rva003BE5C9@@QAEXXZ,,0x003C3B4A,51,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptGlueRva003C3B4A.cpp,matched,dump range 18 sibling member head-calling rowed 0x003BE5C9 with campaign bibs copier hero tail
