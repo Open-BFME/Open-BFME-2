@@ -55853,3 +55853,4 @@ ___Extract_locale_name,,0x000216A0,153,Code/Libraries/Source/WWVegas/WWLib/Local
 ?Term@CAtlWinModule@ATL@@QAEXXZ,,0x00006AF1,24,Code/Libraries/Source/ATL/atlbase.cpp,matched,Term via rowed AtlWinModuleTerm plus tail RemoveAll after ctor 0x00006ACE
 ?rva007B686F@@YAXXZ,,0x007B686F,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,global Term thunk via rowed 0x00006AF1 after ctor chain
 ??0BfmeAssignRecord32@@QAE@XZ,,0x001736D6,62,Code/Libraries/Source/WWVegas/WWLib/stlport_bfmeassignrecord32_ctor.cpp,matched,default ctor via neighbours push_heap copy stride 0x20 caller 0x00174A8A
+?rva0006ED36@Rva0006ED36@@QAEXPAX@Z,,0x0006ED36,31,Code/GameEngine/Source/Common/Rva0006ED36Call.cpp,matched,ecx plus 0x814 store plus 0x108 vslot 0x30 plus 7 callers in 0x87D42
