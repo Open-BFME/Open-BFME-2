@@ -17,6 +17,29 @@
 
 #include <new>
 
+extern char g_00E0A3EC[];
+extern char g_00E0A410[];
+extern char g_00E0A4C4[];
+extern char g_00E0A4B8[];
+extern char g_00E0A470[];
+extern char g_00E0A530[];
+extern char g_00E0A548[];
+extern char g_00E0A518[];
+extern char g_00E0A53C[];
+extern char g_00E0A4A0[];
+extern char g_00E0A494[];
+extern char g_00A63690[];
+extern char g_00A636A0[];
+extern char g_00A636B0[];
+extern char g_00A636D0[];
+extern char g_00A636E0[];
+extern char g_00A636F0[];
+extern char g_00A64A60[];
+extern char g_00A63FF0[];
+extern char g_00A63700[];
+extern char g_00A63710[];
+extern char g_00A64A70[];
+
 class Rva0112B800Base
 {
 public:
@@ -135,17 +158,17 @@ void BfmeThingDGD::rva007F8400( unsigned char arg34, int arg35, void *forwarded 
 	((BfmeThingRE *)m_0c)->bfmeRunRE( forwarded );
 	m_14 = m_10->v1();
 	m_14->m_6a8->v3( static_cast< Rva0112B7F8Base * >( this ), 0 );
-	m_14->v4( (void *)0x00e0a3ec, (void *)0x00a63690, this );
-	m_14->v4( (void *)0x00e0a410, (void *)0x00a636a0, this );
-	m_14->v4( (void *)0x00e0a4c4, (void *)0x00a636b0, this );
-	m_14->v4( (void *)0x00e0a4b8, (void *)0x00a636d0, this );
-	m_14->v4( (void *)0x00e0a470, (void *)0x00a636e0, this );
-	m_14->v4( (void *)0x00e0a530, (void *)0x00a636f0, this );
-	m_14->v4( (void *)0x00e0a548, (void *)0x00a64a60, this );
-	m_14->v4( (void *)0x00e0a518, (void *)0x00a63ff0, this );
-	m_14->v4( (void *)0x00e0a53c, (void *)0x00a63700, this );
-	m_14->v4( (void *)0x00e0a4a0, (void *)0x00a63710, this );
-	m_14->v4( (void *)0x00e0a494, (void *)0x00a64a70, this );
+	m_14->v4( (void *)g_00E0A3EC, (void *)g_00A63690, this );
+	m_14->v4( (void *)g_00E0A410, (void *)g_00A636A0, this );
+	m_14->v4( (void *)g_00E0A4C4, (void *)g_00A636B0, this );
+	m_14->v4( (void *)g_00E0A4B8, (void *)g_00A636D0, this );
+	m_14->v4( (void *)g_00E0A470, (void *)g_00A636E0, this );
+	m_14->v4( (void *)g_00E0A530, (void *)g_00A636F0, this );
+	m_14->v4( (void *)g_00E0A548, (void *)g_00A64A60, this );
+	m_14->v4( (void *)g_00E0A518, (void *)g_00A63FF0, this );
+	m_14->v4( (void *)g_00E0A53C, (void *)g_00A63700, this );
+	m_14->v4( (void *)g_00E0A4A0, (void *)g_00A63710, this );
+	m_14->v4( (void *)g_00E0A494, (void *)g_00A64A70, this );
 
 	if( byte35 != 0 )
 	{
