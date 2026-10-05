@@ -33,7 +33,9 @@ class AsciiString
 {
 public:
 	AsciiString();
-	void clear() { m_data = 0; }
+	// The pool loop stores an empty buffer pointer inline. It is not AsciiString::clear(), which is
+	// StringBase<char>::releaseBuffer in retail, so it must not define that name.
+	void reset() { m_data = 0; }
 private:
 	void *m_data;
 };
@@ -125,7 +127,7 @@ AttributeModifierPoolUpdate::AttributeModifierPoolUpdate(Thing *thing, const Mod
 	modifierView->EraseRange(modifierView->m_start, modifierView->m_finish);
 	m_maxFrame = UPDATE_SLEEP_FOREVER;
 	for (int i = 0; i < 15; ++i) {
-		m_poolNames[i].clear();
+		m_poolNames[i].reset();
 		m_poolCounts[i] = 0;
 	}
 	setWakeFrame(*(Object **)((char *)this + 8), UPDATE_SLEEP_FOREVER);

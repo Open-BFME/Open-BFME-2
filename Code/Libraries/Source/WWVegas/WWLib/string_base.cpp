@@ -329,3 +329,10 @@ void bfmeEmitstring_base(StringBase<char> *p, const StringBase<char> &that)
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
 #pragma comment(linker, "/alternatename:?bfmeTry1033@BfmeSub1033@@QAEHPAVBfmeF1033@@@Z=?compare@?$StringBase@D@@QBEHABV1@@Z")
+
+// AsciiString's own spellings of clear(), set(const char*) and concat(const char*) are these
+// StringBase<char> bodies in retail (symbols.csv pins 0x00036410, 0x000055F5, 0x00005629; callers
+// in matched rows land there). No unit defines the AsciiString names any more; bind them.
+#pragma comment(linker, "/alternatename:?clear@AsciiString@@QAEXXZ=?releaseBuffer@?$StringBase@D@@AAEXXZ")
+#pragma comment(linker, "/alternatename:?set@AsciiString@@QAEXPBD@Z=?set@?$StringBase@D@@QAEXPBD@Z")
+#pragma comment(linker, "/alternatename:?concat@AsciiString@@QAEXPBD@Z=?concat@?$StringBase@D@@QAEXPBD@Z")
