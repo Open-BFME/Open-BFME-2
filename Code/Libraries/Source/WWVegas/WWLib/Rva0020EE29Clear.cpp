@@ -359,3 +359,59 @@ void Rva002104C7::rva0020E374(void *a1, void *a2)
 {
 	((Rva003EFDF5Host *)a1)->rva003EFDF5(a2);
 }
+
+// ?rva0020FD42@Rva0020FD42@@QAEXPAX0@Z @0x0020FD42 61B
+// Clears the argument's +0x0 vector through the rowed-pending two-arg erase
+// at 0x00532803, then notifies via the rowed-pending 0x003EFC1C on the
+// object at [this+8]+0x4c with the argument's +0x12c dword, skipping out
+// when any link is null. The first stack arg is unused by retail. Evidence:
+// retail pushes [esi+4]/[esi] with this=arg into the erase; the three
+// test/je null gates in order; the final member call shape.
+struct Rva0020FD42Arg
+{
+	void **m_begin;
+	void **m_end;
+	char m_pad[0x124];
+	int m_12C;
+	void **vecErase2(void **first, void **last);
+};
+
+struct Rva0020FD42P
+{
+	char m_pad[0x4C];
+	struct Rva003EFC1CHost *m_4C;
+};
+
+struct Rva003EFC1CHost
+{
+	void rva003EFC1C(int val, void *arg);
+};
+
+class Rva0020FD42
+{
+public:
+	void rva0020FD42(void *a1, void *a2);
+
+private:
+	char m_pad[8];
+	Rva0020FD42P *m_08;
+};
+
+void Rva0020FD42::rva0020FD42(void *a1, void *a2)
+{
+	Rva0020FD42Arg *arg = (Rva0020FD42Arg *)a2;
+	arg->vecErase2(arg->m_begin, arg->m_end);
+	Rva0020FD42P *p = m_08;
+	if (!p)
+		return;
+	Rva003EFC1CHost *q = p->m_4C;
+	if (!q)
+		return;
+	// Retail checks the first arg slot here and reuses that register for the
+	// +0x12c read, so both go through one checked copy (a1 may be a distinct
+	// instance of the same layout rather than arg itself).
+	Rva0020FD42Arg *a1s = (Rva0020FD42Arg *)a1;
+	if (!a1s)
+		return;
+	q->rva003EFC1C(a1s->m_12C, arg);
+}

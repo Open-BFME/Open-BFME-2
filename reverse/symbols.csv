@@ -12044,3 +12044,5 @@ _floor,0x00629940,call site 0x006F4403 in AptDate::getDayOfWeek (0x006F4290) enc
 ?rva002104B6@@YGPAXPAX@Z,0x002104B6,free lookup used by Rva002104C7 at 0x002104C7; single stack arg, pointer return tested for null
 ?rva0020E374@Rva002104C7@@QAEXPAX0@Z,0x0020E374,Rva002104C7 member used at 0x002104DB with this passthrough and two stack args; return discarded
 ?rva003EFDF5@Rva003EFDF5Host@@QAEXPAX@Z,0x003EFDF5,this-retargeting forward used by Rva0020E374 at 0x0020E374; this arrives in the first stack slot with one arg
+?vecErase2@Rva0020FD42Arg@@QAEPAPAXPAPAX0@Z,0x00532803,range erase used by Rva0020FD42 at 0x0020FD51 over the argument vector; same body as the rowed two-arg erases at this address
+?rva003EFC1C@Rva003EFC1CHost@@QAEXHPAX@Z,0x003EFC1C,Rva0020FD42 member callee at 0x0020FD75 with this from [this+8]+0x4c and the argument dword plus argument
