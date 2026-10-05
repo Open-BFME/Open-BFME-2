@@ -12132,3 +12132,4 @@ _rva00286E33@8,0x00286E33,stdcall out-param 5B writer called from 0x287B2A with 
 ?rva003FDE1A@Rva003FDE1AHelper@@QAEXH@Z,0x003FDE1A,callee of setter 0x00318BC6 read from its REL32 displacement; w3-g26
 ?rva002E0BC0@Rva002E0BC0Helper@@QAEEH@Z,0x002E0BC0,callee of predicate 0x00318CA4 read from its REL32 displacement; w3-g26
 ?rva00318C32@Rva00318C79Owner@@QAEPAVRva00318C32Ret@@XZ,0x00318C32,callee of wrapper 0x00318C79 read from its REL32 displacement; w3-g26
+?rva003705C2@AIGroup@@QAEXXZ,0x003705C2,tail-callee of AIGroup 0x00372C05 on the same this (REL32 jmp at 0x372C1B); void-void thiscall; identity not recovered
