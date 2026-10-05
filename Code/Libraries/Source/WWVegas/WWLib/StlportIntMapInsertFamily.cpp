@@ -42,3 +42,20 @@ template class _STL::_Rb_tree<int, _STL::pair<const int, Rva004F90FFMapped>, _ST
 template class _STL::_Rb_tree<int, _STL::pair<const int, Rva00502861Mapped>, _STL::_Select1st<_STL::pair<const int, Rva00502861Mapped> >, _STL::less<int>, _STL::allocator<_STL::pair<const int, Rva00502861Mapped> > >;
 template class _STL::_Rb_tree<int, _STL::pair<const int, Rva00502BCDMapped>, _STL::_Select1st<_STL::pair<const int, Rva00502BCDMapped> >, _STL::less<int>, _STL::allocator<_STL::pair<const int, Rva00502BCDMapped> > >;
 template class _STL::_Rb_tree<int, _STL::pair<const int, Rva00559076Mapped>, _STL::_Select1st<_STL::pair<const int, Rva00559076Mapped> >, _STL::less<int>, _STL::allocator<_STL::pair<const int, Rva00559076Mapped> > >;
+
+// Multimap trees: insert_equal(value) (59 bytes) and insert_equal(hint,
+// value) (250 bytes) over the same int-keyed _M_insert shape, three more
+// trees whose bodies sit unclaimed; mapped placeholders are named after the
+// insert_equal address and _M_create_node is pinned per tree.
+//
+//   insert_equal  hint        _M_insert   _M_create_node
+//   0x002F1DA1    -           0x002F0D4E  0x002EF239
+//   0x00501130    0x00501374  0x005010A8  0x00501086
+//   0x00502FAE    0x00503554  0x00502F26  0x00502EA4
+
+struct Rva002F1DA1Mapped { int a; };
+struct Rva00501130Mapped { int a; };
+struct Rva00502FAEMapped { int a; };
+template class _STL::_Rb_tree<int, _STL::pair<const int, Rva002F1DA1Mapped>, _STL::_Select1st<_STL::pair<const int, Rva002F1DA1Mapped> >, _STL::less<int>, _STL::allocator<_STL::pair<const int, Rva002F1DA1Mapped> > >;
+template class _STL::_Rb_tree<int, _STL::pair<const int, Rva00501130Mapped>, _STL::_Select1st<_STL::pair<const int, Rva00501130Mapped> >, _STL::less<int>, _STL::allocator<_STL::pair<const int, Rva00501130Mapped> > >;
+template class _STL::_Rb_tree<int, _STL::pair<const int, Rva00502FAEMapped>, _STL::_Select1st<_STL::pair<const int, Rva00502FAEMapped> >, _STL::less<int>, _STL::allocator<_STL::pair<const int, Rva00502FAEMapped> > >;
