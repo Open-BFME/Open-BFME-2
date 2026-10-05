@@ -12850,3 +12850,9 @@ _Rva00337999Forward,0x00337999,REL32 callee decoded from target call bytes of wr
 ??1Rva0033D4ABVec@@QAE@XZ,0x0033D4AB,TU-local spelling for the vector member dtor at +0x370; RETAIL REL32 in 0x33DDA1 targets the rowed 0x33D4AB body
 ??1Rva0033CA81Vec@@QAE@XZ,0x0033CA81,TU-local spelling for the prereq-vector member dtor at +0x324; RETAIL REL32 in 0x33DDA1 targets the rowed 0x33CA81 body
 ??1Rva0033CD02Vec@@QAE@XZ,0x0033CD02,TU-local spelling for the string-record vector member dtors at +0x2e4/+0x2f0/+0x2fc/+0x308/+0x364; RETAIL REL32s in 0x33DDA1 target the rowed 0x33CD02 body
+?rva00390533@Rva00390533@@QAE_NXZ,0x00390533,TU-local flag-pair check (bit31 of +0x118 or bit8 of +0x114); RETAIL REL32 in 0x341C54 targets 0x390533
+?rva002F23A6@Rva002F23A6@@QAE_NPAVObject@@HHPAUCoord3D@@0@Z,0x002F23A6,TU-local five-arg dispatch reached via the +0x10 member of the global at 0xDFF0F8; RETAIL REL32 in 0x341C54 targets 0x2F23A6 (1215B EH body)
+?Rva006CEC42@@YAXPAXPBDNN@Z,0x006CEC42,TU-local double-printing log helper (file plus format plus two doubles); RETAIL REL32 in 0x341C54 targets 0x6CEC42
+?TheGameLogic@@3PAVGameLogic@@A,0x00DFE78C,TheGameLogic global; +0x1b4 count read by 0x341C54
+?g_00DFEFF0@@3PAXA,0x00DFEFF0,log-file global tested non-null by 0x341C54
+?g_00DFF0F8@@3PAXA,0x00DFF0F8,dispatch-table global whose +0x10 member receives the 0x341C54 five-arg call
