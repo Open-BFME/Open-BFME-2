@@ -8810,3 +8810,6 @@ $L62091	0x007AB0D0	25	blocked	Native FuncInfo VA D6490C state0 prior-1 owns acti
 ??0Rva000C6B17@@QAE@ABVRva000C6B17@@@Z	0x000C6B17	317	blocked	copy ctor needs full 0xF5 struct with StringBase WeaponTemplateSetHead 4 vectors list map array6 plus FixedObject60 assign t=10 model=muse-01
 ??0Rva000C6A4D@@QAE@XZ	0x000C6A4D	202	blocked	or-lea-state hoisted above mid scalars; flatten grouping Os no-G7 all leave 11B shift t=25 model=muse-spark (stash 0.93 kept)
 ?rva0035C2B9@Shell@@QAEXXZ	0x0035C2B9	266	partial	push-eax vs lea-ecx order before call 0x239099 t=18 model=muse-spark score=0.98 stash=reverse/attempts/0x0035c2b9.cpp
+?bfmeUse1035@BfmeT1035@@QAEXPAVBfmeX1035@@H@Z	0x002842CD	434	blocked	donor BfmeT1035Use 557B vs 434B divergent virtual slots 0x70 vs 40 and 0x4c vs 31 plus BitSet FixedStorage helpers t=10 model=muse-03
+?rva006d7670@@YAPAVAptString@@PAVBfmeAptValue006DCD20@@HH@Z	0x006D7670	318	blocked	chain Apt builder 298vs1250 EH hidden-pointer Mid Create layout wall t=12 model=muse-03
+??0Rva006FBF90@@QAE@HHHHHHH@Z	0x006FBF90	337	partial	ebx zero reuse vs immediates plus timezone jge shape t=25 model=muse-03 score=0.93 stash=reverse/attempts/0x006fbf90.cpp
