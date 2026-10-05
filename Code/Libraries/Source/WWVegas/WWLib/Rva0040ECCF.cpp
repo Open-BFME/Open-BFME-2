@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE /D_CRTIMP= /D_STLP_USE_STATIC_LIB /G7 /EHsc
+// cl: /O1 /DNDEBUG /MD /arch:SSE /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /G7 /EHsc
 // stlport
 // ?rva0040ECCF@Rva0040ECCF@@QAEHABVRva004F6093Holder@@@Z @0x0040ECCF 128B
 // Adds holder to sorted entry vector and broadcasts to listener list.
@@ -8,6 +8,14 @@
 // 0x0040F428 0x004F7D07; vector at +0x40 and index at +0x3c shared with
 // 0x0040ED4F; Entry (int plus Holder) and Holder layouts from
 // stlport_sort_rva0040cb11entry.cpp.
+// ?rva0040ED4F@Rva0040ECCF@@QAEXAAV1@@Z @0x0040ED4F 314B: drains another
+// instance's entries (back to front, notifying its listeners through vslots
+// 4 and 3) into a holder vector, resets its flag at +0x14 and index to 1,
+// then re-adds each holder here through rva0040ECCF. Target evidence: retail
+// REL32s at 0x0040ED7A..0x0040EE75 and the shared +0x40/+0x3C layout. The
+// /Ireference/shims/bfmealloc include matches the vector reserve/push_back
+// copies; the visible entry ctor (noinline, holder copy kept out of line as
+// at 0x0040CB11) lets MSVC keep the loop-2 holder in ESI across the call.
 // Retail keeps one unsigned max, RVA 0x00013740 (the vendored STLport row). This unit's
 // flags (/arch:SSE /G7) compile a different copy, and retail kept another unit's. This unit-local
 // overload keeps the inlined code and offers the link no second copy.
@@ -67,15 +75,24 @@ public:
 	Rva0040F454Target *m_ptr;
 };
 
+// Retail's dtor (0x002B703F) was built under different EH flags; call it.
+extern template _STL::vector<Rva004F6093Holder>::~vector();
+
 class Rva0040CB11Entry
 {
 public:
 	Rva0040CB11Entry(int key, const Rva004F6093Holder &val);
 
-private:
+public:
 	int m_first;
 	Rva004F6093Holder m_second;
 };
+
+#pragma inline_depth(0)
+inline __declspec(noinline) Rva0040CB11Entry::Rva0040CB11Entry(int key, const Rva004F6093Holder &val) : m_first(key), m_second(val)
+{
+}
+#pragma inline_depth()
 
 class Rva0040D8D6Listener
 {
@@ -83,6 +100,8 @@ public:
 	virtual void notify0(void *arg, int value);
 	virtual void dummy();
 	virtual void notify2(void *arg, int value);
+	virtual void notify3(void *arg, int value);
+	virtual void notify4(void *arg, int value);
 };
 
 class Rva0040D8D6List
@@ -101,11 +120,13 @@ class Rva0040ECCF
 {
 public:
 	int rva0040ECCF(const Rva004F6093Holder &holder);
+	void rva0040ED4F(Rva0040ECCF &other);
 
 private:
 	char m_pad00[4];
 	Rva0040D8D6List m_list;
-	char m_pad14[0x3C - 0x14];
+	bool m_14;
+	char m_pad15[0x3C - 0x15];
 	int m_next;
 	_STL::vector<Rva0040CB11Entry, _STL::allocator<Rva0040CB11Entry> > m_vec;
 };
@@ -121,4 +142,28 @@ int Rva0040ECCF::rva0040ECCF(const Rva004F6093Holder &holder)
 	}
 	m_list.forEach(&Rva0040D8D6Listener::notify2, this, old);
 	return old;
+}
+
+void Rva0040ECCF::rva0040ED4F(Rva0040ECCF &other)
+{
+	m_vec.reserve(m_vec.size() + other.m_vec.size());
+	_STL::vector<Rva004F6093Holder> holders;
+	holders.reserve(other.m_vec.size());
+	while (!other.m_vec.empty())
+	{
+		Rva0040CB11Entry &back = other.m_vec.back();
+		other.m_list.forEach(&Rva0040D8D6Listener::notify4, &other, back.m_first);
+		Rva004F6093Holder holder(back.m_second);
+		holders.push_back(holder);
+		other.m_vec.pop_back();
+		other.m_list.forEach(&Rva0040D8D6Listener::notify3, &other, (int)holder.m_ptr);
+	}
+	other.m_14 = false;
+	other.m_next = 1;
+	while (!holders.empty())
+	{
+		const Rva004F6093Holder holder(holders.back());
+		holders.pop_back();
+		rva0040ECCF(holder);
+	}
 }
