@@ -62837,3 +62837,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva007B70E0@@YAXXZ,,0x007B70E0,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00DF3410 tail-jmp pinned RenderObjClass Update_Sub_Object_Transforms 0x0069E440
 ?rva007B7A87@@YAXXZ,,0x007B7A87,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00DFF144 tail-jmp pinned Rva00200667 dtor 0x00200667
 ?rva007B7A91@@YAXXZ,,0x007B7A91,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00DFF148 tail-jmp pinned Rva00200667 dtor 0x00200667
+?rva007B6EF4@@YAXXZ,,0x007B6EF4,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00DEC174 tail-jmp pinned Rva004E5A24 dtor 0x000FB86C

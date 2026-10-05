@@ -6818,3 +6818,22 @@ void __cdecl rva007B9BB0()
 {
 	g_Va00DD83B4 = 0x00CE3934;
 }
+
+// Opaque-class view for the thunk below. The destructor is declared only;
+// symbols.csv / functions.csv pins ??1Rva004E5A24@@UAE@XZ to 0x000FB86C.
+class Rva004E5A24
+{
+public:
+	virtual ~Rva004E5A24();
+};
+
+extern unsigned g_Va00DEC174;
+unsigned int g_Va00DEC174;
+
+// ?rva007B6EF4@@YAXXZ @ 0x007B6EF4 (10B). Global Rva004E5A24 dtor thunk: ecx=&g_Va00DEC174 then tail-jmp to rowed ??1Rva004E5A24@@UAE@XZ (0x000FB86C). No callers. Honest address name.
+void __cdecl rva007B6EF4()
+{
+	Rva004E5A24 *p = (Rva004E5A24 *)&g_Va00DEC174;
+	return p->Rva004E5A24::~Rva004E5A24();
+}
+
