@@ -78,3 +78,23 @@ public:
 Rva001F9B52::Rva001F9B52() : m_00(0), m_04()
 {
 }
+
+// ??0ParticleSystemTemplateTail@FXParticleSystem@@QAE@XZ @0x001FBF37 22B:
+// the existing opaque pin (ParticleSystemTemplate ctor 0x001FC1E0 calls it on
+// +0xA4); zeroes two words then constructs Rva001FBA45 at +8. Member identity
+// stays unasserted as in the pin note.
+namespace FXParticleSystem
+{
+class ParticleSystemTemplateTail
+{
+public:
+    int m_00;
+    int m_04;
+    Rva001FBA45 m_08;
+    ParticleSystemTemplateTail();
+};
+
+ParticleSystemTemplateTail::ParticleSystemTemplateTail() : m_00(0), m_04(0), m_08()
+{
+}
+}
