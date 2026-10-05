@@ -56540,3 +56540,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva0046966C@Rva0046966C@@QAEXXZ,,0x0046966C,29,Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp,matched,gap between slot38 and callback StringBase-G validate plus outer 0x1D8 to 0x291
 ?Rva003C82EADo@@YGXPAVParameter@@0@Z,,0x003C82EA,103,Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003C82EADo.cpp,matched,two-unit guard attack via getUnitNamed plus leaveGroup
 ?Rva003C87F1Do@@YGXPAVParameter@@ABVAsciiString@@@Z,,0x003C87F1,121,Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003C87F1Do.cpp,matched,named follow waypoints via getUnitNamed plus closest waypoint
+?Rva00030730Init@@YAXXZ,,0x00030730,190,Code/GameEngine/Source/Common/System/Rva00030730Init.cpp,matched,leaf lane caller 0x0002FFA0 memory_pool resolver 13 exports via GetProcAddress
