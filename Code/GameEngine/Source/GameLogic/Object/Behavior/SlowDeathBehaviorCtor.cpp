@@ -29,6 +29,9 @@ extern "C" const void *const vtbl_00C42020[];  // ??_7Rva0045D39E@@6BRva0045D39E
 extern "C" const void *const vtbl_00C42040[];  // ??_7Rva0045D39E@@6BRva0024A797_Root@@@
 #pragma comment(linker, "/alternatename:_vtbl_00C42040=??_7Rva0045D39E@@6BRva0024A797_Root@@@")
 
+extern "C" const void *const vtbl_00C1C780[];  // folded, 49 classes; via ??_7?$CategoryModuleInfo@$00@FXParticleSystem@@6B@
+#pragma comment(linker, "/alternatename:_vtbl_00C1C780=??_7?$CategoryModuleInfo@$00@FXParticleSystem@@6B@")
+
 class Thing;
 class ModuleData;
 class Object;
@@ -114,7 +117,7 @@ SlowDeathBehavior::SlowDeathBehavior(Thing *thing, const ModuleData *moduleData)
 {
 	int *slot20 = (int *)&m_secondary20;
 	int *slot24 = (int *)&m_secondary24;
-	*slot20 = 0x00C1C780;
+	*slot20 = (int)((unsigned int)vtbl_00C1C780);
 	*slot24 = ((unsigned int)vtbl_00C4EF80);
 	m_4C = -1;
 	m_3C = 0;
