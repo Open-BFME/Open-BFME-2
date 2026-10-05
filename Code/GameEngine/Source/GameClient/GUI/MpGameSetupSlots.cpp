@@ -1334,3 +1334,85 @@ void MpGameSetup::rva0044149C(GameSlot *slot, int index, bool flag)
 	rva004406BA(index);
 	rva0043E04D(index);
 }
+
+// Retail 0x00443EA8, 358 bytes. Name unknown. The panel's update: unless a
+// refresh is under way or there is no current game, services each dirty
+// byte (+0x2B9..+0x2C1; most only once the local slot, game vslot 13, is
+// known) through its refresher and reports whether any ran, telling the
+// +0x244 member too. Otherwise a set +0x2B8 refreshes the +0xD0 and +0x60
+// members. Callers 0x0044675C (the LAN screen's update), 0x0052230B and
+// 0x005A6563.
+bool MpGameSetup::rva00443EA8()
+{
+	bool changed = false;
+	GameInfo *game = (GameInfo *)m_game->rva0043DA65();
+	if (!m_refreshing && game)
+	{
+		bool haveLocal = game->v13() >= 0;
+		if (m_2bc)
+		{
+			m_2bc = false;
+			rva00443BF3();
+			changed = true;
+		}
+		if (m_2bf && haveLocal)
+		{
+			m_2bf = false;
+			rva004427FA();
+			changed = true;
+		}
+		if (m_2c0 && haveLocal)
+		{
+			m_2c0 = false;
+			rva0043EDB4();
+			changed = true;
+		}
+		if (m_2b9 && haveLocal)
+		{
+			m_2b9 = false;
+			rva00442A19();
+			changed = true;
+		}
+		if (m_2c1)
+		{
+			m_2c1 = false;
+			((Rva0043DBE0 *)this)->rva0043DBE0();
+			changed = true;
+		}
+		if (m_2ba)
+		{
+			m_2ba = false;
+			rva0043DB6E();
+			changed = true;
+		}
+		if (m_2bb && haveLocal)
+		{
+			m_2bb = false;
+			rva004428C9();
+			changed = true;
+		}
+		if (m_2bd)
+		{
+			m_2bd = false;
+			m_60.rva0057E058();
+			changed = true;
+		}
+		if (m_2be && haveLocal)
+		{
+			m_2be = false;
+			m_60.rva0057DFFB(0);
+			changed = true;
+		}
+		m_244.rva0057FDB0(changed);
+		return changed;
+	}
+
+	if (m_2b8)
+	{
+		m_2b8 = false;
+		m_d0.rva0057EA0F();
+		m_60.rva0057E058();
+	}
+	m_244.rva0057FDB0(false);
+	return false;
+}
