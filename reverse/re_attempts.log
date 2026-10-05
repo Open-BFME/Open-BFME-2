@@ -10116,3 +10116,4 @@ FUN_005182a0	0x001182A0	399	blocked	big WW3D render 399B with x87 FPU cw plus SS
 ?rva00345BCF@Rva00340D1F@@QAEXXZ	0x00345BCF	220	blocked	AI vslot 220B with pin-only computeQuickPath plus TerrainLogic extent needs donor t=8 model=muse-08
 ?rva00588ABB@Rva00587D9C@@QAEXI@Z	0x00588ABB	207	blocked	vslot 207B idiv vector pin-only grow needs donor t=5 model=muse-08
 ?doFXPos@LaserFXNugget@@UBEXPBUCoord3D@@PBVMatrix3D@@M0@Z	0x001E04FE	251	blocked	LaserFXNugget doFXPos donor layout plus dual desync logs needs repair t=15 model=muse-08
+?remove@GameWindowTransitionsHandler@@QAEXVAsciiString@@_N@Z	0x001DC42C	166	blocked	Native Ghidra 1DC42C..1DC4D2; shared AsciiString header and declaration-only findGroup reproduce 166B; G5 G6 G7 declaration-order const-reference inverted guard direct group calls empty lock base and register trials all retain cs in EDI and group in EBX rather than native EBX/EDI. Existing 0.95 bank retained unchanged. No Code residue; t=4
