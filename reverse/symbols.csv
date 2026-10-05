@@ -12613,3 +12613,4 @@ _ceil,0x00629934,CRT ceil thunk identified by native PE import slot 0x00BBA578 a
 ?rva0060E873@@YAHHHPAH@Z,0x0020E873,3-arg cdecl compare helper forwarding to 0x009250A5; callee of Rva0040D82FHost::setFrom 0x0040D82F
 ?set@Rva0040D82FSub@@QAEHH@Z,0x0025BF5D,thiscall setter on the +0x14 subobject; callee of Rva0040D82FHost::setFrom 0x0040D82F read from its REL32
 ?setup@Rva004152BCHost@@QAEXH@Z,0x004151C4,thiscall 1-arg setup allocating +0x0 via new 0x1E0; callee of Rva004152BCHost::init 0x004152BC read from REL32
+?apply@Rva00418A8EHost@@QAEXHH@Z,0x00418A12,thiscall 2-arg applier called by Rva00418A8EHost::outer 0x00418A8E read from REL32
