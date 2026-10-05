@@ -1,17 +1,25 @@
 // ?Get_Current_Asset@AssetRegistry@@QAE?AVAssetReference@@XZ
-// partial score=0.85 date=2026-09-22
+// partial score=0.9 date=2026-10-05
 // cl: /DNDEBUG /MD /EHsc /O2 /Ob2
 // stlport
-//
-// ?Get_Current_Asset@AssetRegistry@@QAE?AVAssetReference@@XZ, retail 0x006214D0, 224 bytes.
-// Filtered current-asset iterator: lock at +0x34, current entry at +0x60,
-// buckets at +0x64, context filter at +0x1F0. Entries carry next at +0,
-// key at +4 and object at +8; buckets hold begin at +4 and end at +8.
-// Returns the old object while advancing current to the next entry whose
-// type (virtual slot 13) matches the context, or null when exhausted.
-// Shape follows Find_Asset (lock + AssetReference with raw-ptr ctor).
-// Work in progress.
-
+// Retail 0x006214D0, 224B, ret 4. AssetRegistry cursor lookup: nodes carry
+// next at +0, key at +4, entry at +8; exhausted chains resume at the next
+// non-empty bucket past the node's key; cursor advances past the hit; a
+// nonzero +0x1F0 tag skips entries whose vtable slot 0x34 disagrees; miss
+// returns empty. Identity: symbols.csv pins Get_Current_Asset here, layout
+// (+0x34 lock, +0x4C map, +0x60/+0x64 cursor, +0x1F0 tag, +0x1F8 nametable)
+// matches Find_Asset.cpp's proven AssetRegistry model, neighbors are
+// Find_Asset/Begin/Add_Prototype_Impl.
+// This v5 bank reproduces 221/224B: SEH prolog, this->edi, lock->ebx,
+// inline guard, bucket div/scan, shared LeaveCriticalSection tail all match.
+// Remaining gap is one frame dword (sub esp,8 + a duplicated guard spill):
+// retail keeps node/entry/next/i in regs with a single lock spill, this
+// shape spills twice. Next levers: fewer named locals (merge next into node
+// was tried and kept the frame), or a guard variant whose dtor shares the
+// funclet spill. Worked in Find_Asset.cpp (which owns AssetReference +
+// the +0x4C map model); the TU additions needed are the AssetLockGuard,
+// Rva6214D0Entry (13 pad virtuals + slot34), the cursor/tag members and the
+// method below.
 #define _STLP_NO_EXCEPTIONS 1
 #include <hash_map>
 
@@ -25,42 +33,43 @@ extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(
 	CRITICAL_SECTION *lock);
 
-class CriticalSectionLock
+struct AssetLockGuard
 {
-public:
-	explicit CriticalSectionLock(int lock) : m_lock(lock)
+	AssetLockGuard(CRITICAL_SECTION *section) : m_section(section)
 	{
-		EnterCriticalSection((CRITICAL_SECTION *)m_lock);
+		EnterCriticalSection(section);
 	}
-	~CriticalSectionLock()
+	~AssetLockGuard()
 	{
-		LeaveCriticalSection((CRITICAL_SECTION *)m_lock);
+		LeaveCriticalSection(m_section);
 	}
-
-	int m_lock;
+	CRITICAL_SECTION *m_section;
 };
 
 class CountedAsset
 {
 public:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void v03();
-	virtual void v04();
-	virtual void v05();
-	virtual void v06();
-	virtual void v07();
-	virtual void v08();
-	virtual void v09();
-	virtual void v10();
-	virtual void v11();
-	virtual void v12();
-	virtual int Get_Type();
+	virtual const char *rvaSlot0();
 	void Release_Ref();
+};
 
-private:
-	int m_refcount;
+class Rva6214D0Entry
+{
+public:
+	virtual int rvaV00();
+	virtual int rvaV01();
+	virtual int rvaV02();
+	virtual int rvaV03();
+	virtual int rvaV04();
+	virtual int rvaV05();
+	virtual int rvaV06();
+	virtual int rvaV07();
+	virtual int rvaV08();
+	virtual int rvaV09();
+	virtual int rvaV10();
+	virtual int rvaV11();
+	virtual int rvaV12();
+	virtual int rvaSlot34();
 };
 
 class AssetReference
@@ -78,30 +87,10 @@ public:
 			++*(unsigned short *)((char *)m_object + 4);
 		}
 	}
-	~AssetReference()
-	{
-		if ( m_object )
-		{
-			m_object->Release_Ref();
-		}
-	}
+	~AssetReference();
 
 private:
 	CountedAsset *m_object;
-};
-
-struct AssetEntry
-{
-	AssetEntry *m_next;
-	int m_key;
-	CountedAsset *m_object;
-};
-
-struct AssetBuckets
-{
-	int m_pad0;
-	AssetEntry **m_begin;
-	AssetEntry **m_end;
 };
 
 class AssetRegistry
@@ -112,46 +101,40 @@ public:
 private:
 	unsigned char m_unmodelled_000[0x34];
 	CRITICAL_SECTION m_lock;
-	unsigned char m_unmodelled_050[0x10];
-	AssetEntry *volatile m_current;
-	AssetBuckets *m_buckets;
-	unsigned char m_unmodelled_068[0x188];
-	int m_context;
+	unsigned char m_unmodelled_050[0x60 - 0x50];
+	void *m_cachedNode; // +0x60
+	void *m_cachedTable; // +0x64
+	unsigned char m_unmodelled_068[0x1F0 - 0x68];
+	unsigned m_tag; // +0x1F0
+	unsigned char m_unmodelled_1F4[0x1F8 - 0x1F4];
+	void *m_hash_context;
 };
 
+// ?Get_Current_Asset@AssetRegistry@@QAE?AVAssetReference@@XZ
 AssetReference AssetRegistry::Get_Current_Asset()
 {
-	CriticalSectionLock lock((int)&m_lock);
-	if (m_current != 0) {
-	for (;;) {
-		CountedAsset *object = m_current->m_object;
-		AssetEntry *next = m_current->m_next;
-		if (next != 0) {
-			m_current = next;
+	AssetLockGuard guard((CRITICAL_SECTION *)((char *)this + 0x34));
+
+	void *node = m_cachedNode;
+	if (!node)
+		return AssetReference();
+
+	for (;;)
+	{
+		Rva6214D0Entry *entry = *(Rva6214D0Entry **)((char *)node + 8);
+		node = *(void **)m_cachedNode;
+		if (!node)
+		{
+			unsigned i = *(unsigned *)((char *)m_cachedNode + 4) % (int)((*(char **)((char *)m_cachedTable + 8) - *(char **)((char *)m_cachedTable + 4)) >> 2);
+			node = 0;
+			while (++i < (unsigned)((*(char **)((char *)m_cachedTable + 8) - *(char **)((char *)m_cachedTable + 4)) >> 2) && (node = *(void **)(*(char **)((char *)m_cachedTable + 4) + i * 4)) == 0)
+				;
 		}
-		else {
-			AssetEntry **begin = m_buckets->m_begin;
-			AssetEntry **end = m_buckets->m_end;
-			unsigned count = (unsigned)(end - begin);
-			unsigned start = (unsigned)m_current->m_key % count;
-			unsigned i = start + 1;
-			AssetEntry *found = 0;
-			while (i < count) {
-				if (begin[i] != 0) {
-					found = begin[i];
-					break;
-				}
-				++i;
-			}
-			m_current = found;
-		}
-		if (m_context == 0)
-			return AssetReference(object);
-		if (object->Get_Type() == m_context)
-			return AssetReference(object);
-		if (m_current == 0)
+		m_cachedNode = node;
+		if (m_tag == 0 || entry->rvaSlot34() == (int)m_tag)
+			return AssetReference((CountedAsset *)entry);
+		node = m_cachedNode;
+		if (!node)
 			return AssetReference();
 	}
-	}
-	return AssetReference();
 }
