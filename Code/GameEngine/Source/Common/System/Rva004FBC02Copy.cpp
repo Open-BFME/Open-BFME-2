@@ -72,3 +72,28 @@ void Rva004FBDB0::rva004FBDB0(int arg)
 		return;
 	((Rva004FBDB0Target *)found)->slot12(arg);
 }
+
+// ?rva004FBDCC@Rva004FBDCC@@QAEXXZ 0x004FBDCC 19: pushes this+0x18 then sets
+// byte at +0x1c to 1 and forwards the int to Rva00DFE1C8Host::rva00212655
+// through global g_009FE1C8. Evidence: pin 0x00212655 plus caller 0x002BAF01.
+class Rva00DFE1C8Host
+{
+public:
+	void rva00212655(int val);
+};
+
+class Rva004FBDCC
+{
+private:
+	char m_pad[0x18];
+	int m_18;
+	bool m_1c;
+public:
+	void rva004FBDCC();
+};
+
+void Rva004FBDCC::rva004FBDCC()
+{
+	m_1c = true;
+	((Rva00DFE1C8Host *)g_009FE1C8)->rva00212655(m_18);
+}
