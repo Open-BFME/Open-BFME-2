@@ -456,3 +456,42 @@ Rva003AE5F9::Rva003AE5F9(const Rva003AE5F9 &other)
 	: Rva003AE61F(other)
 {
 }
+
+// ??0Rva003AF672@@QAE@ABV0@@Z @0x003AF672 98B: copy ctor with BoxEmissionVolumeInfo base at +0x1c.
+// Evidence: calls rowed base 0x003AF50D then rowed Box copy 0x003A6669; neg/sbb/and null-guarded
+// adjustment of source to +0x1c for the Box base; vptrs at +0/+0x14/+0x18/+0x1c DIR32;
+// same Intermediate3AFC6FC pre-Box stores as rowed 0x003AF5AC Line version; caller 0x003AF645 45B;
+// LINK BONUS: 1 matched file waiting via 0x003AF645.
+namespace FXParticleSystem
+{
+class Snapshot672
+{
+public:
+	virtual ~Snapshot672();
+};
+class EmissionVolumeInfo672 : public Snapshot672
+{
+public:
+	virtual ~EmissionVolumeInfo672();
+	bool m_flag;
+};
+class BoxEmissionVolumeInfo : public EmissionVolumeInfo672
+{
+public:
+  BoxEmissionVolumeInfo(const BoxEmissionVolumeInfo &that) throw();
+  virtual ~BoxEmissionVolumeInfo();
+};
+}
+
+class Rva003AF672 : public Intermediate3AFC6FC, public FXParticleSystem::BoxEmissionVolumeInfo
+{
+public:
+	Rva003AF672(const Rva003AF672 &other);
+	virtual ~Rva003AF672();
+};
+
+Rva003AF672::Rva003AF672(const Rva003AF672 &other)
+	: Intermediate3AFC6FC(other)
+	, FXParticleSystem::BoxEmissionVolumeInfo((const FXParticleSystem::BoxEmissionVolumeInfo &)other)
+{
+}
