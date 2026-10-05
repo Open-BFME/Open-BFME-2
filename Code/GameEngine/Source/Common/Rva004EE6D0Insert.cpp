@@ -45,6 +45,7 @@ public:
 class Rva004EE6D0
 {
 public:
+    void push_back(const Elem003AF8C0 &x);
 	void rva004EE6D0(Elem003AF8C0 *pos, const Elem003AF8C0 &x, const _STL::__false_type &, unsigned int n, bool at_end);
 
 private:
@@ -83,4 +84,17 @@ void Rva004EE6D0::rva004EE6D0(Elem003AF8C0 *pos, const Elem003AF8C0 &x, const _S
 	m_start = new_start;
 	m_finish = new_finish;
 	m_end = new_end;
+}
+
+// PC4EE9B1 calls this unit's recovered growth path with the same12-byte
+// element, constructor and three-pointer storage. Keep the caller with its
+// provider instead of reintroducing the removed speculative template pin.
+void Rva004EE6D0::push_back(const Elem003AF8C0 &x)
+{
+    if(m_finish != m_end) {
+        if(m_finish) new(m_finish) Elem003AF8C0(x);
+        ++m_finish;
+    } else {
+        rva004EE6D0(m_finish,x,_STL::__false_type(),1,true);
+    }
 }

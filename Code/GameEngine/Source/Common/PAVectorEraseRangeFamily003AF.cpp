@@ -50,5 +50,5 @@ template _STL::vector<Elem003AF9E0>::iterator
 	_STL::vector<Elem003AF9E0>::erase( _STL::vector<Elem003AF9E0>::iterator );
 template _STL::vector<Elem003B2540>::iterator
 	_STL::vector<Elem003B2540>::erase( _STL::vector<Elem003B2540>::iterator );
-template void _STL::vector<Elem003AF8C0>::push_back( const Elem003AF8C0 & );
+// The4EE9B1 push_back moved to its verified growth provider, Rva004EE6D0Insert.cpp.
 template void _STL::vector<Elem003AF9E0>::push_back( const Elem003AF9E0 & );
