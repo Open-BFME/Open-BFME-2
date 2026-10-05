@@ -8635,3 +8635,8 @@ FUN_0046eb6d	0x0006EB6D	444	blocked	WW3D render 444B many DX8 states plus unclea
 ??0Rva005EB2E7@@QAE@XZ	0x005EB2E7	118	blocked	ctor needs vector2 with EH dtor 0x005EB28A plus 2 vtables plus 3 globals plus Erase Unload clears t=25 model=muse-spark
 ?rva002D0469@Rva002D0588@@QAEXXZ	0x002D0469	58	blocked	redundant null-check test-ecx-je kept in retail but folded by MSVC71 O1-Os-GX t=14 model=muse-03
 ??0Rva001FA69F@@QAE@XZ	0x001FA69F	218	blocked	MI 218B List at plus4C needs 4B but vendored list is 12B plus SmartPtr assign plus EH plus SSE t=20 model=muse-03
+??0Rva003ED321@@QAE@XZ	0x003ED321	31	blocked	hash_map 100 ctor empty-temp pushes differ 14B vs 31B STL 4.5 vs 4.6 wall t=10 model=muse-spark
+??0Rva000E0AC3@@QAE@XZ	0x000E0AC3	31	blocked	same hash_map 100 wall as 0x003ED321 14B vs 31B STL version t=5 model=muse-spark
+??0Rva003FD348@@QAE@XZ	0x003FD348	40	blocked	ctor with EAX-passed Scale plus base ID plus vtable needs asm t=10 model=muse-spark
+??0Rva003FD237@@QAE@XZ	0x003FD237	71	blocked	same EAX Scale wall as 0x003FD348 t=5 model=muse-spark
+??0Rva003FD3C7@@QAE@IABVRva0036CA00Str@@D@Z	0x003FD3C7	40	blocked	ctor vtable plus str placement new size 57 vs 40 t=12 model=muse-spark
