@@ -4839,7 +4839,8 @@ void DX8Wrapper::Shutdown(void)
 
 	_RenderDeviceNameTable.Clear();		 // note - Delete_All() resizes the vector, causing a reallocation.  Clear is better. jba.
 	_RenderDeviceShortNameTable.Clear();
-	*(int *)((char *)&_RenderDeviceDescriptionTable + 0x14) = 0; reinterpret_cast<VectorClass<BfmeEnumerationDesc> &>(_RenderDeviceDescriptionTable).VectorClass<BfmeEnumerationDesc>::Clear();	
+// Native DEE5B8 is ActiveCount +0x10 from the table at DEE5A8.
+	_RenderDeviceDescriptionTable.Reset_Active(); reinterpret_cast<VectorClass<BfmeEnumerationDesc> &>(_RenderDeviceDescriptionTable).VectorClass<BfmeEnumerationDesc>::Clear();	
 
 	delete ShutdownMeshRenderer;
     ShutdownMeshRenderer = 0;
