@@ -65116,3 +65116,4 @@ _Rva0043802B,,0x0043802B,88,Code/GameEngine/Source/Common/Rva00437EDCFinish.cpp,
 ?rva005E219D@Rva005E218F@@UAEXXZ,,0x005E219D,14,Code/GameEngine/Source/Common/Rva005FED59Validate.cpp,matched,vtable slot4 0x00877B2C ref slot 0x00877B3C clears 0x2C sibling 0x5E218F
 ??4Rva001E3955@@QAEAAV0@ABV0@@Z,,0x001E3955,927,Code/GameEngine/Source/Common/Rva001E3955Assign.cpp,matched,copy assign base StreakDrawModuleTemplate plus AsciiString set and bulk copies
 ?rva006DAFE0@Rva006DB160@@QAEPAXI@Z,,0x006DAFE0,172,Code/Libraries/Source/Apt/DogmaPoolAllocBlock.cpp,matched,DogmaAllocator.cpp asserts plus caller allocBlock same-this
+?rva00109D64@Rva007B1380@@QAEXXZ,,0x00109D64,40,Code/GameEngine/Source/Common/Rva007B1380Ctor.cpp,matched,float reset abutting ctor via rowed base initialize plus 20.0f literal
