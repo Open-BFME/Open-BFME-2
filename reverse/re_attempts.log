@@ -9769,3 +9769,7 @@ FUN_0084f6d0	0x0044F6D0	94	blocked	Ghidra inventory provides only a placeholder 
 ?rva006EBFF0@Rva006EBFF0@@QAEXXZ	0x006EBFF0	377	blocked	Apt EAStringC 377B needs donor transfer t=10 model=muse-12
 ?rva005DE84E@Rva005DE7D1Vector@@QAEXI@Z	0x005DE84E	34	blocked	vector resize temp needs trivial-dtor proof t=12 model=muse-12
 ?rva005DC586@Rva005DB98E@@QAEXPAV?$vector@UElem003AF7A0@@V?$allocator@UElem003AF7A0@@@_STL@@@_STL@@@Z	0x005DC586	412	blocked	412B needs 9x9 layout plus dual vector types plus time 2 variants no progress t=20 model=muse-03
+?rva0027C79C@Rva0027C79C@@QAE_NPBURegion2D@@@Z	0x0027C79C	447	blocked	first-vector spill vs batched stores and frame 0x2c vs 0x3c persist across 6 variants t=20 model=muse-05
+?rva0027CB7F@Rva0027CB7F@@QAE_NPBURegion2D@@PAM@Z	0x0027CB7F	484	blocked	bridge entry-point with 2 vectors and float out persists 9-17 regions frame 0x40 vs 0x48 and mem-mul vs reg-mul across 6 variants t=25 model=muse-05
+?isCellOnSide@Bridge@@QAE_NPBURegion2D@@@Z	0x0027C95B	548	partial	xmm member-load hoist order and xmm register allocation differ with 5 regions and 1B delta after 6 variants t=18 model=muse-05 score=0.94 stash=reverse/attempts/0x0027c95b.cpp
+?showRallyPoint@ControlBar@@QAEXPBUCoord3D@@@Z	0x0031B892	264	partial	whole-body esi-edi swap plus edx vs esi vtable temp plus push edi late plus epilogue mov ecx order t=12 model=muse-05 score=0.93 stash=reverse/attempts/0x0031b892.cpp

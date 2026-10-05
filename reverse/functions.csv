@@ -61550,3 +61550,4 @@ _Rva00023540,,0x00023540,271,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleF
 ??0Gen005EDB10@@QAE@PAVHost005EDA90@@@Z,,0x003AF645,45,Code/GameEngine/Source/GameClient/System/FXParticleSystem/ParticleModuleInfoCopyCtors.cpp,matched,derived copy calling rowed base 0x003AF672 then own 4 vptrs caller 0x003AF60E LINK BONUS 1 file
 ?rva0050B479@Made002CCB04@@QAEXPAXPAVObject@@@Z,,0x0050B479,105,Code/GameEngine/Source/GameLogic/Object/Made002CCB04Rva0050B479.cpp,matched,Made slot1 plus GameLogic find plus Object rva
 ?rva0050B519@Made002CCB04@@QAEXPAX0@Z,,0x0050B519,130,Code/GameEngine/Source/GameLogic/Object/Made002CCB04Rva0050B519.cpp,matched,vtable slot 6 of 0x00864D10 max range SSE partition forward EOF loop
+?rva005B35E8@Rva005B35E8@@QAEXXZ,,0x005B35E8,33,Code/Libraries/Source/WWVegas/WWLib/Rva005B35E8Invoke.cpp,matched,rowed Invoke plus TheRva Target plus SetPowersSelectedNum plus owner plus0x274 arg plus0x50
