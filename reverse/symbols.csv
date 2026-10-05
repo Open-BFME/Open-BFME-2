@@ -10840,7 +10840,7 @@ G00DB5FC4,0x00DB5FC4,Render2DClass ctor 0x0011C0F0 stores 5; donor Render2DClass
 ??1Rva005E6D0D@@QAE@XZ,0x005E6D0D,pointee destructor called by the owning-pointer reset 0x005E6D90 (byte-exact modulo relocs in OwnedPointerResets.cpp); identity unproven; address-derived name
 ??1Rva005E7D72@@QAE@XZ,0x005E7D72,pointee destructor called by the owning-pointer reset 0x005E7FC8 (byte-exact modulo relocs in OwnedPointerResets.cpp); identity unproven; address-derived name
 ??1Rva005E98A0@@QAE@XZ,0x005E98A0,pointee destructor called by the owning-pointer reset 0x005E9E27 (byte-exact modulo relocs in OwnedPointerResets.cpp); identity unproven; address-derived name
-??1Rva005EB2E7@@QAE@XZ,0x005EB2E7,pointee destructor called by the owning-pointer reset 0x005EB430 (byte-exact modulo relocs in OwnedPointerResets.cpp); identity unproven; address-derived name
+??1Rva005EB2E7@@QAE@XZ,0x005EB2E7,pointee destructor called by the owning-pointer reset 0x005EB430 (byte-exact modulo relocs in OwnedPointerResets.cpp) and directly by scalar deleting dtor 0x005EB35D (118B body); identity unproven; address-derived name
 ??1Rva005EB8D6@@QAE@XZ,0x005EB8D6,pointee destructor called by the owning-pointer reset 0x005EBC74 (byte-exact modulo relocs in OwnedPointerResets.cpp); identity unproven; address-derived name
 ??1Rva005EC09B@@QAE@XZ,0x005EC09B,pointee destructor called by the owning-pointer reset 0x005EC422 (byte-exact modulo relocs in OwnedPointerResets.cpp); identity unproven; address-derived name
 ??1Rva005EDE64@@QAE@XZ,0x005EDE64,pointee destructor called by the owning-pointer reset 0x005EDFF5 (byte-exact modulo relocs in OwnedPointerResets.cpp); identity unproven; address-derived name
@@ -10883,7 +10883,6 @@ G00DB5FC4,0x00DB5FC4,Render2DClass ctor 0x0011C0F0 stores 5; donor Render2DClass
 ??1Rva005FAFB2@@QAE@XZ,0x005FAFB2,member destructor at +0x20 called by the destructor 0x005FB1AD (byte-exact modulo relocs in MemberBaseDtorsB01.cpp); identity unproven; address-derived name
 ??1Rva0040E3EE@@UAE@XZ,0x0040E499,twin of Rva0040E499 dtor same vtable 0x00C394F0 same 0x68 temp in 0x003B93BC ctor 0x40E3EE dtor 0x40E499
 ?updateCache@MapCache@@QAEXXZ,0x00305749,"MapCache::updateCache: 98-byte /O1 body called from isValidMap at 0x003057D2 where ZH calls TheMapCache->updateCache(); runs setFPMode then FileSystem createDirectory(getUserMapDir()) then loadUserMaps/writeCacheINI(TRUE)/loadStandardMaps as the ZH source"
-??1Rva005EB2E7@@QAE@XZ,0x005EB2E7,non-virtual dtor (118B body); called directly by scalar deleting dtor 0x005EB35D; owning class unproven
 ??1Rva0009A200@@QAE@XZ,0x001076E9,non-virtual dtor called directly by scalar deleting dtor 0x0009A200; owning class unproven
 ??1Rva000FE9C7@@QAE@XZ,0x000FE290,non-virtual dtor called directly by scalar deleting dtor 0x000FE9C7; owning class unproven (address also carries bfmeResetSH row)
 ??1Rva001732C6@@QAE@XZ,0x0018C57C,non-virtual dtor called directly by scalar deleting dtor 0x001732C6; owning class unproven
