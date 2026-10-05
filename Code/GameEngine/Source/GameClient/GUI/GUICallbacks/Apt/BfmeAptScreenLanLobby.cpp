@@ -477,3 +477,32 @@ bool BfmeAptScreenLanLobby::setScenarioRva0044440C(int scenario)
 	TheLAN->requestSerializedGameInfo(true, &address);
 	return true;
 }
+
+// Retail 0x00444F9C, 234 bytes: vftable 0x00C3E098 slot 7. Donor
+// BfmeAptScreenLanLobby_bfmeMapChanged.cpp (BFME1 0x005175B0). Target game
+// vslots called after the map size are 15 (resetStartSpots, rowed in
+// LANGameInfo's vtable 0x00C3E518), 16 and 14 (resetAccepted); slot 16 takes
+// the donor's adjustSlotsForMap name by Zero Hour's declaration order.
+bool BfmeAptScreenLanLobby::bfmeMapChanged(const AsciiString *mapName)
+{
+	LANGameInfo *game = TheLAN->GetMyGame();
+	if (!game)
+		return false;
+
+	AsciiString lowerMap = *mapName;
+	lowerMap.toLower();
+	game->setMapForwarder(lowerMap);
+	const MapMetaData *map = TheMapCache->findMap(lowerMap);
+	if (map)
+	{
+		game->getSlot(0)->setMapAvailability(true);
+		game->setMapCRC(map->m_CRC);
+		game->setMapSize(map->m_filesize);
+		game->resetStartSpots();
+		game->adjustSlotsForMap();
+		game->resetAccepted();
+		TransportAddress address;
+		TheLAN->requestSerializedGameInfo(true, &address);
+	}
+	return true;
+}
