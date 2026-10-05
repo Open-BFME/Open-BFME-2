@@ -90,6 +90,8 @@ public:
     Version();
     AsciiString getAsciiBuildTime();
     AsciiString getAsciiVersion();
+    // Reconstruction name: the original spelling is unknown.
+    AsciiString rva00237F25MajorMinor();
     AsciiString getAsciiBuildLocation();
     AsciiString *getBuildGuid(void);
     ~Version();
@@ -125,6 +127,17 @@ AsciiString Version::getAsciiVersion()
 {
     AsciiString version;
     version.format("%d.%.2d.%d.%d", m_major, m_minor, m_buildNum, m_localBuildNum);
+    return version;
+}
+
+// Retail 0x00237F25, laid out directly after getAsciiVersion: Zero Hour's
+// release getAsciiVersion shape, "%d.%d" over m_major and m_minor. BFME2 kept
+// it beside the four-part getAsciiVersion that WinMain calls; no retail call
+// reaches this one, so its name is not recoverable.
+AsciiString Version::rva00237F25MajorMinor()
+{
+    AsciiString version;
+    version.format("%d.%d", m_major, m_minor);
     return version;
 }
 
