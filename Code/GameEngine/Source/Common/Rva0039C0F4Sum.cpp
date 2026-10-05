@@ -10,7 +10,7 @@
 class ThingTemplate
 {
 public:
-	const AsciiString &getName() const { return *(const AsciiString *)((const char *)this + 0x64); }
+	__declspec(dllimport) __forceinline const AsciiString &getName() const { return *(const AsciiString *)((const char *)this + 0x64); }
 private:
 	char m_pad[0x108];
 };
