@@ -12573,3 +12573,6 @@ _ceil,0x00629934,CRT ceil thunk identified by native PE import slot 0x00BBA578 a
 ?ExecuteInitActions@AptCharacterAnimation@@QAEXPAVAptCIH@@H@Z,0x006E6B40,Native70F370 parent animation+8 receiver and CIH-characterID pair; donor ExecuteInitActions semantics; provider unrowed
 ?placeObject@AptDisplayList@@QAEXPAUAptPlaceControl@@PAVAptCIH@@@Z,0x006F8EC0,Native70F370 control+4 and CIH args; donor old PlaceObject2 semantic match; provider unrowed
 ?removeObject@AptDisplayList@@QAEXPAH@Z,0x006F72C0,Native70F370 remove-control depth pointer; alias rowed bfmeForward1279 provider
+?FindInst@AptPseudoDisplayList@@QAEXHPAPAUAptPseudoCIH_t@@0@Z,0x006F6AC0,Native70F040 depth and prev-item outputs; alias rowed depth lookup; original node20B reused
+?Insert@AptPseudoDisplayList@@QAEXPAUAptPseudoCIH_t@@@Z,0x006F8380,Native70F040 pseudo-node insertion; donor Insert and original PDB node; native101B supplier pending
+??3AptPseudoCIH_t@@SAXPAXI@Z,0x006D8680,Native throwing20B new unwind free; alias rowed sized pool free provider
