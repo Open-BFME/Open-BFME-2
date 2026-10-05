@@ -30,3 +30,19 @@ Rva005B09D8Record* Rva005B129FVector::erase(Rva005B09D8Record*first,Rva005B09D8R
 finish=copyPointersRva005B09D8(last,finish,first,_STL::__false_type());
 return first;
 }
+
+// Native [5B1A07,5B1A50),73B RET24: count plus a by-value20B record,
+// unlike the reference's const-reference resize signature. Shrink calls
+// full38B erase5B129F; growth calls full232B fill-insert5B1748. The target
+// independently supplies the three-pointer offsets, stride20 and value ABI.
+// BfmePod20 is the existing fill provider's size-only view. Declaration-only
+// specialization binds that full provider without emitting another copy.
+struct BfmePod20 { int a[5]; };
+#include <vector>
+namespace _STL {
+template<> void vector<BfmePod20>::_M_fill_insert(BfmePod20*,unsigned int,const BfmePod20&);
+}
+void Rva005B129FVector::resize(unsigned int count,Rva005B09D8Record value) {
+if(count < static_cast<unsigned int>(finish-start)) erase(start+count,finish);
+else reinterpret_cast<_STL::vector<BfmePod20>*>(this)->_M_fill_insert(reinterpret_cast<BfmePod20*>(finish),count-static_cast<unsigned int>(finish-start),reinterpret_cast<const BfmePod20&>(value));
+}
