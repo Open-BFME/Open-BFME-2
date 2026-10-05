@@ -20,27 +20,23 @@ public:
 class RenderObjClass : public RefCountClass {};
 class SegmentedLineClass : public RefCountClass {};
 
-class TextureBaseClass
+class TextureClass
 {
 public:
 	void Release_Ref(void);
 };
 
-class TextureClass : public TextureBaseClass
-{
-};
-
 class TextureRef
 {
 public:
-	TextureRef() : m_ptr(0) {}
 	~TextureRef()
 	{
-		if (m_ptr)
-			m_ptr->Release_Ref();
+		if (texture != 0)
+			texture->Release_Ref();
 	}
 
-	TextureClass *m_ptr;
+private:
+	TextureClass *texture;
 };
 
 class W3DWaypointBuffer
