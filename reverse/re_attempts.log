@@ -9791,3 +9791,5 @@ FUN_004e1f42	0x000E1F42	413	blocked	same esp wall as 0x000E67E3 family plus func
 ??0Rva00573E7C@@QAE@XZ	0x00573E7C	60	partial	ands at 58-5C hoisted before vptr-movss vs retail late after 48 plus vtable DIR32 0 vs C6E2C8 t=18 model=muse-04 score=0.9 stash=reverse/attempts/0x00573e7c.cpp
 ?Rva00573512Check@@YGHPAUThing@@PAX@Z	0x00573512	180	partial	ecx-vs-eax for 0x10000000 ors (2 ModRM bytes) plus g DIR32 gate-filled t=25 model=muse-04 score=0.98 stash=reverse/attempts/0x00573512.cpp
 ?rva0057F5ED@AptMpClans@@QAEXXZ	0x0057F5ED	447	blocked	register wall game-this swap plus color sbb shape and EH temps t=30 model=muse-10
+?rva0043566A@AptSaveLoad@@QAEXPBD@Z	0x0043566A	357	blocked	357B EH AptSaveLoad save path with 5 UnicodeString temps plus FileSystem GameState branches needs donor beyond 6-variant box t=12 model=muse-07
+??0Rva004A9D79@@QAE@PAVObject@@@Z	0x004A9D79	169	blocked	push hash 6B vs push imm 5B mov-eax-plus-push-eax remains; tried copy-ctor-dtor global-mem uint-implicit-explicit Os all still 6B; vtable store gate-fillable t=15 model=muse-07 (stash 0.98 kept)

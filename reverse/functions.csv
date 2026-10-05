@@ -61635,3 +61635,4 @@ _Rva00023540,,0x00023540,271,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleF
 ?rva005DDE01@Rva005DDE01@@QAEXIIABUBfmeStringRecord005DDD40@@_N@Z,,0x005DDE01,50,Code/GameEngine/Source/Common/Rva005DDE01Finish.cpp,matched,bounds-checked delegate to rowed setValue via sibling Rva005DDE33
 ??0Rva00573E7C@@QAE@XZ,,0x00573E7C,60,Code/GameEngine/Source/Common/Rva00573E7CCtor.cpp,matched,ctor via rowed base 0x00573A9B plus barrier-pinned store order plus vtable 0086E2C8
 ?Rva005E2D8AGet@@YAPAXPBD@Z,,0x005E2D8A,97,Code/GameEngine/Source/Common/Rva005E2D8AGet.cpp,matched,unlock GetParam id via rowed Get and empty fallback
+?rva0043611F@Rva00435B82@@QAEPAV1@PAV1@@Z,,0x0043611F,38,Code/GameEngine/Source/Common/S5HandleHashCompares.cpp,matched,chain from 0x00435D4F via tmp at ebp-8 plus const 0xBA792210 plus caller 0x004361FF
