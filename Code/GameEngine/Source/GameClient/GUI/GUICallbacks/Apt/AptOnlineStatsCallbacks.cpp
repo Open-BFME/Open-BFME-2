@@ -1,0 +1,40 @@
+// cl: /O1 /DNDEBUG /MD
+//
+// BFME2's online stats screen Apt callback "AptOnline::Stats::CurrentTab",
+// 0x005B8F04, bound by that name as a member pointer by the screen's
+// registration; that binding is its only reference. The scope and class
+// are named for the string.
+
+extern "C" int __cdecl strcmp(const char *left, const char *right);
+
+namespace AptOnline
+{
+class Stats
+{
+public:
+	void CurrentTab(const char *tab);
+
+	// Unrowed 0x005B8EBB (73 bytes; shows the selected tab), pinned by
+	// address.
+	void rva005B8EBB();
+
+private:
+	unsigned char m_pad00[0x8C];
+	int m_tab; // +0x8C
+};
+}
+
+// Retail 0x005B8F04, 101 bytes: "AptOnline::Stats::CurrentTab" selects the
+// "Tournament", "OpenPlay" or "Strategic" tab.
+void AptOnline::Stats::CurrentTab(const char *tab)
+{
+	if (strcmp(tab, "Tournament") == 0)
+		m_tab = 0;
+	else if (strcmp(tab, "OpenPlay") == 0)
+		m_tab = 1;
+	else if (strcmp(tab, "Strategic") == 0)
+		m_tab = 2;
+	else
+		return;
+	rva005B8EBB();
+}
