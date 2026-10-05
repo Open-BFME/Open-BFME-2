@@ -58,7 +58,7 @@ public:
 };
 class AptCIH;
 struct AptCharacterInst;
-class EAStringC { void *mpData; public: bool IsEqualTo(const EAStringC *) const; const char *rva00620090() const; int rva006d6070(const char *,int=0); EAStringC(); unsigned int rva006D3750() const; EAStringC(const char *); ~EAStringC(); EAStringC &operator=(const EAStringC &); };
+class EAStringC { void *mpData; public: EAStringC(unsigned int,unsigned int); EAStringC rva006D5ED0(int) const; EAStringC rva006d5f30(int,int) const; void rva006D3470(); bool IsEqualTo(const EAStringC *) const; const char *rva00620090() const; int rva006d6070(const char *,int=0); EAStringC(); unsigned int rva006D3750() const; EAStringC(const char *); ~EAStringC(); EAStringC &operator=(const EAStringC &); };
 class AptArray { public: AptValue *get(int); void set(int,AptValue *); };
 // PC callbacks occupy two independently zero-initialized slots in gAptFuncs.
 // Member handlers establish the getter/setter ABI; later source names their role.
@@ -168,6 +168,7 @@ private:
     HANDLER(CallFunction); HANDLER(CallMethod);
     HANDLER(CallFuncAndPop); HANDLER(CallFuncSetVar); HANDLER(CallMethodPop); HANDLER(CallMethodSetVar); HANDLER(DictCallFuncPop); HANDLER(DictCallFuncSetVar); HANDLER(DictCallMethodPop); HANDLER(DictCallMethodSetVar);
     HANDLER(ToInteger); HANDLER(StringLength); HANDLER(GetVariable);
+    HANDLER(SubString); HANDLER(AsciiToChar);
     HANDLER(Delete); HANDLER(Delete2);
     HANDLER(StringEquals);
     HANDLER(ToNumber); HANDLER(ToString);
@@ -935,3 +936,37 @@ void AptActionInterpreter::_FunctionAptActionSetMember(AptActionInterpreter *con
 #pragma comment(linker, "/alternatename:?PopAndPush@AptBasePtrStack@@QAEXHPAVAptValue@@@Z=?rva006FE880@AptBasePtrStack@@QAEXHPAVBfmeAptValue006DCD20@@@Z")
 
 #pragma comment(linker, "/alternatename:?isCIH@AptValue@@QBE_N_N@Z=?isCIH@BfmeAptValue006DCD20@@QBEH_N@Z")
+
+// The native UTF-8 substring overloads return EAStringC by value. Preserve
+// their temporary lifetimes and the clamped one-based ActionScript index.
+void AptActionInterpreter::_FunctionAptActionSubString(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    AptValue *count=p->stack.At(0);
+    AptValue *index=p->stack.At(1);
+    AptValue *value=p->stack.At(2);
+    int nCount=count->toInteger();
+    int nIndex=index->toInteger();
+    --nIndex;
+    if(nIndex<0) nIndex=0;
+    EAStringC text;
+    value->toString(text);
+    AptString *sub=AptString::Create();
+    if(nCount==0) sub->str.rva006D3470();
+    else if(nCount<0) sub->str=text.rva006D5ED0(nIndex);
+    else sub->str=text.rva006d5f30(nIndex,nCount);
+    p->stack.Pop(3);
+    p->stack.Push(sub);
+}
+void AptActionInterpreter::_FunctionAptActionAsciiToChar(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    AptValue *value=p->stack.At(0);
+    if(!value->isUndefined()) {
+        AptString *str=AptString::Create();
+        str->str=EAStringC(value->toInteger(),1);
+        p->stack.Pop();
+        p->stack.Push(str);
+    } else {
+        p->stack.Pop();
+        p->stack.Push(gpUndefinedValue);
+    }
+}
