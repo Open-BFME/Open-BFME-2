@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /O1 /DNDEBUG /MD /arch:SSE
 //
 // Small vtable-slot bodies with no ledger owner and no Ghidra entry (sized
 // from their bytes), batch E. As in VslotSmallBodiesA-D, each class and method
@@ -99,9 +99,9 @@ void Rva00483BA3::rva00483BA3()
 class Rva004885B8Target
 {
 public:
-	virtual void vslot00(); virtual void vslot01(); virtual void vslot02();
+	virtual void vslot00(); virtual void vslot01(); virtual float vslot02();
 	virtual void vslot03(); virtual void vslot04(); virtual void vslot05();
-	virtual void vslot06(); virtual void vslot07(); virtual void vslot08();
+	virtual void vslot06(); virtual void vslot07(); virtual Bool vslot08();
 	virtual void vslot09(); virtual void vslot10(); virtual void vslot11();
 	virtual void vslot12(); virtual void vslot13(); virtual void vslot14();
 	virtual void vslot15(); virtual void vslot16(); virtual void vslot17();
@@ -128,11 +128,23 @@ public:
 	virtual void vslot98();
 	virtual void vslot99();
 	virtual Rva004885B8Target *vslot100();
+	virtual void vslot101();
+	virtual void vslot102();
+	virtual void vslot103();
+	virtual void vslot104();
+	virtual void vslot105();
+	virtual void vslot106();
+	virtual void vslot107();
+	virtual void vslot108();
+	virtual void vslot109();
+	virtual Bool vslot110();
 };
 struct Rva004885B8Owner
 {
 	char m_pad00[0x258];
 	Rva004885B8AI *m_ai;
+	char m_pad25C[0x438 - 0x25C];
+	unsigned char m_438;
 };
 struct Rva004885B8Machine
 {
@@ -238,9 +250,10 @@ Int Rva00488545::rva00488573()
 // when +0x28 is set runs InGameUI vslot106 with owner and +0x24 then stamps
 // +0x24 to -1 and clears +0x28. Evidence: ret 4 with unused arg, TheInGameUI
 // at VA 0x009FEDF0, or -1 and bool clear, same machine/owner path as above.
-class InGameUI : public Rva004885B8Slots<106>
+class InGameUI : public Rva004885B8Slots<105>
 {
 public:
+	virtual void vslot105(Rva004885B8Owner *owner);
 	virtual void vslot106(Rva004885B8Owner *owner, Int val);
 };
 extern InGameUI *TheInGameUI;
@@ -313,6 +326,7 @@ class Rva004886C7
 public:
 	void rva0048873F(Int arg);
 	void rva004886F5(Xfer *xfer);
+	Int rva0048876B();
 private:
 	char m_pad00[0x18];
 	Rva004885B8Machine *m_machine;
@@ -345,4 +359,63 @@ void Rva004886C7::rva004886F5(Xfer *xfer)
 	*xfer == m_20;
 	*xfer == m_24;
 	*xfer == m_28;
+}
+
+class Player
+{
+public:
+	char m_pad00[0x54];
+	Int m_54;
+};
+class Object
+{
+public:
+	Player *getControllingPlayer() const;
+};
+
+// slot at VA 0x00C4B568 slot 6 (offset 0x18) of Rva004886C7 (vtable 0x0084B568,
+// class of ??0Rva004886C7@@QAE@PAVStateMachine@@@Z from AIStateHashCtorsMisc):
+// answers -2 without an AI or its vslot93 target; when AI vslot110 holds and
+// +0x28 is clear with owner +0x438 bit0 clear, stamps the controlling
+// player's +0x54 at +0x24 and runs InGameUI vslot105 then sets +0x28; when
+// +0x28 holds and (vslot110 fails or the bit is set) runs InGameUI vslot106,
+// stamps +0x24 to -1 and clears +0x28; stamps TheGameLogic's frame at +0x20
+// while vslot110 fails; resets +0x20 once the frame delta as float passes
+// the target's vslot02 while its vslot08 fails; answers 0. Evidence: ret
+// with EBP frame, AI vslot93 (0x174) plus vslot110 (0x1b8, AIUpdateInterface
+// isIdle per AIGroupIsIdle) plus target float slot 2 (0x08) plus bool slot 8
+// (0x20), rowed getControllingPlayer 0x0028AFA9, TheInGameUI slots 105/106,
+// TheGameLogic frame +0x40, unsigned fild/fadd float conversion, owner
+// +0x258 AI plus +0x438 EFFECTIVELY_DEAD bit like Object. The owner is
+// treated as Object only for the rowed call.
+Int Rva004886C7::rva0048876B()
+{
+	Rva004885B8Owner *owner = m_machine->m_owner;
+	Rva004885B8AI *ai = owner->m_ai;
+	if (!ai)
+		return -2;
+	Rva004885B8Target *target = ai->vslot93();
+	if (!target)
+		return -2;
+	if (ai->vslot110())
+	{
+		if (!m_28 && !(owner->m_438 & 1))
+		{
+			m_24 = ((Object *)owner)->getControllingPlayer()->m_54;
+			TheInGameUI->vslot105(m_machine->m_owner);
+			m_28 = true;
+		}
+	}
+	if (m_28 && (!ai->vslot110() || (owner->m_438 & 1)))
+	{
+		TheInGameUI->vslot106(m_machine->m_owner, m_24);
+		m_24 |= -1;
+		m_28 = false;
+	}
+	if (!ai->vslot110())
+		m_20 = TheGameLogic->getFrame();
+	UnsignedInt elapsed = TheGameLogic->getFrame() - m_20;
+	if ((float)elapsed > target->vslot02() && !target->vslot08())
+		m_20 = TheGameLogic->getFrame();
+	return 0;
 }

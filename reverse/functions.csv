@@ -61062,3 +61062,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva005B942A@Rva005B9378@@QAEXHH@Z,,0x005B942A,83,Code/GameEngine/Source/Common/AptHeroPowerText.cpp,matched,ticker numeric row via format L percent-d and rva005B9378
 ?rva005BA626@Rva005BA626@@QAE_NXZ,,0x005BA626,200,Code/GameEngine/Source/Common/Rva005BA626Populate.cpp,matched,sibling Rva005BA6EEPopulate caller 0x005BB5CE slot44 format loop 1-2
 ?rva004886F5@Rva004886C7@@QAEXPAVXfer@@@Z,,0x004886F5,56,Code/GameEngine/Source/Common/VslotSmallBodiesE.cpp,matched,vslot3 xfer of Rva004886C7 via Version1 plus uint int bool
+?rva0048876B@Rva004886C7@@QAEHXZ,,0x0048876B,280,Code/GameEngine/Source/Common/VslotSmallBodiesE.cpp,matched,vslot6 of Rva004886C7 via isIdle plus InGameUI plus frame delta
