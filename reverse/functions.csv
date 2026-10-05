@@ -62911,3 +62911,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva0037F38F@Rva0037F38F@@QAEXABURva002E2D10Record@@H@Z,,0x0037F38F,15,Code/GameEngine/Source/Common/Rva0037F38F.cpp,matched,unlock lane vec push_back forwarder via caller 0x001EC8C0
 ?rva003192B1@Rva003193EC@@QAEXXZ,,0x003192B1,8,Code/GameEngine/Source/Common/Rva003193EC.cpp,matched,chain on 0x3190E7 via false flag per packet
 ?rva003F1AFF@Rva003F1AFF@@QAEXH@Z,,0x003F1AFF,125,Code/GameEngine/Source/Common/System/Rva003F1AFF.cpp,matched,rowed find plus pin helper plus rowed broadcast and forwarder
+??4?$vector@UBfmeFloat4Record00469C61@@V?$allocator@UBfmeFloat4Record00469C61@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z,,0x0007C316,183,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_float4_469c61_assign.cpp,matched,16B float4 vector assign via rowed allocate 7C25C free 30830 uninit 5385F3 and in-TU copy_ptrs

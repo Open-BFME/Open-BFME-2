@@ -10292,3 +10292,6 @@ _M_assign_aux<const BfmeStringRecord00568CE0*>	0x00569F0C	167	blocked	568CE0 TU 
 ?rva0040D3FF@Rva0040D3FF@@QAEPAXXZ	0x0040D3FF	64	blocked	same loop CSE wall as 0x0040D2C3 count in ecx not eax loop-top reload folded; 5 variants on sibling all same t=5 model=muse-10
 ?rva00564E43@Rva00564E43@@QAEXXZ	0x00564E43	125	partial	count in ecx sub ecx eax sar ecx cmp edi ecx not retail eax sub mem sar eax cmp edi eax; loop-top begin reload folded; g reload shifted; null guard exact t=20 model=muse-10 score=0.94 stash=reverse/attempts/0x00564e43.cpp
 ?rva002B543D@GameMessage@@QAE_NPAPAURva002B488EResult@@H@Z	0x002B543D	58	blocked	ret 0 vs ret 8 plus jmp vs ret layout barriers no change t=15 model=muse-12 (stash 0.93 kept)
+?doFXObj@LaserFXNugget@@UBEXPBVObject@@0@Z	0x001E05F9	283	blocked	LaserFXNugget doFXObj donor far EH layout needs work t=12 model=muse-08
+?rva00359C31@Rva00359C31@@QAEXXZ	0x00359C31	273	blocked	linkbody 273B nested loops Pathfinder forEach needs work t=5 model=muse-08
+?rva0007C2F0@Rva0007C2F0@@QAEPAURegion2D@@PAU2@0@Z	0x0007C2F0	38	partial	lea flag slot [ebp+0xf] vs retail [ebp+0xb] t=30 model=muse-08 score=0.97 stash=reverse/attempts/0x0007c2f0.cpp
