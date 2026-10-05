@@ -63801,3 +63801,6 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva005CF22C@Rva005CF22COwner@@QAEXH@Z,,0x005CF22C,78,Code/GameEngine/Source/Common/ThrowingNewHelpers.cpp,matched,F78 throwing new plus in-place ctor plus final on member subobject
 ?rva005CF6B5@Rva005CF6B5Owner@@QAEXH@Z,,0x005CF6B5,78,Code/GameEngine/Source/Common/ThrowingNewHelpers.cpp,matched,F78 throwing new plus in-place ctor plus final on member subobject
 ?rva005CF703@Rva005CF703Owner@@QAEXH@Z,,0x005CF703,78,Code/GameEngine/Source/Common/ThrowingNewHelpers.cpp,matched,F78 throwing new plus in-place ctor plus final on member subobject
+?rva004ED3A2@Rva004ED3A2@@QAEPAXPAX@Z,,0x004ED3A2,47,Code/GameEngine/Source/Common/CursorCompaction.cpp,matched,F47 cursor-compaction wrapper cond-calling pinned cdecl helper with tag
+?rva005412E2@Rva005412E2@@QAEPAXPAX@Z,,0x005412E2,47,Code/GameEngine/Source/Common/CursorCompaction.cpp,matched,F47 cursor-compaction wrapper cond-calling pinned cdecl helper with tag
+?rva00541311@Rva00541311@@QAEPAXPAX@Z,,0x00541311,47,Code/GameEngine/Source/Common/CursorCompaction.cpp,matched,F47 cursor-compaction wrapper cond-calling pinned cdecl helper with tag
