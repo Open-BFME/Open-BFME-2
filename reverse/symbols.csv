@@ -14560,3 +14560,5 @@ _rva006F98C0Call,0x006F98C0,retail call at 0x006F9B84 supplies EAX ECX and two s
 ?get_allocator@?$vector@URva00540295Words@@V?$allocator@URva00540295Words@@@_STL@@@_STL@@QBE?AV?$allocator@URva00540295Words@@@2@XZ,0x0021983A,native REL32 from verified STLport scalar-word container 00540295
 ??0?$_Vector_base@URva00540295Words@@V?$allocator@URva00540295Words@@@_STL@@@_STL@@QAE@IABV?$allocator@URva00540295Words@@@1@@Z,0x0053FF92,native REL32 from verified STLport scalar-word container 00540295
 ??$__uninitialized_copy@PBURva00540295Words@@PAU1@@_STL@@YAPAURva00540295Words@@PBU1@0PAU1@ABU__false_type@0@@Z,0x005400B4,native REL32 from verified STLport scalar-word container 00540295
+??$__copy@PAURva0017341BWords@@PAU1@H@_STL@@YAPAURva0017341BWords@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z,0x0017341B,native scalar-copy REL32 chain from erase173DF8; pointer ABI and48B stride proved by callee body
+??$__copy_ptrs@PAURva0017341BWords@@PAU1@@_STL@@YAPAURva0017341BWords@@PAU1@00ABU__false_type@0@@Z,0x00173714,native scalar-copy REL32 chain from erase173DF8; pointer ABI and48B stride proved by callee body
