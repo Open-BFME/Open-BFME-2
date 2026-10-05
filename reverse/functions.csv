@@ -62165,3 +62165,4 @@ _Rva007F5790Callback,,0x00661F40,15,Code/GameEngine/Source/GameNetwork/Rva007F70
 ?rva000879A9@Rva00085947@@QAE_NH@Z,,0x000879A9,61,Code/GameEngine/Source/GameClient/Rva00085947Method.cpp,matched,dump range 2 slot 158 of vtable 0xBC7514 same class as 0x85947; honest address-derived name
 ?rva00087D42@Rva00085947@@QAEPAVVector3@@XZ,,0x00087D42,94,Code/GameEngine/Source/GameClient/Rva00085947Method.cpp,matched,dump range 2 slot 94 of vtable 0xBC7514 same class; honest address-derived name
 ?rva00094D44@@YGMMMM@Z,,0x00094D44,100,Code/GameEngine/Source/GameClient/Rva00094D44Func.cpp,matched,dump range 2 stdcall float function; 999999 literal plus global record dot; honest address-derived name
+?rva0008D253@Rva00085947@@QAEXXZ,,0x0008D253,101,Code/GameEngine/Source/GameClient/Rva00085947Method.cpp,matched,dump range 2 slot 100 of vtable 0xBC7514 same class with tail jmp to setCameraTransform; honest address-derived name

@@ -19,6 +19,14 @@ class RenderObjClass {
 public:
 	Vector3 Get_Position() const;
 };
+class W3DView {
+	void setCameraTransform();
+	friend class Rva00085947;
+};
+class Rva0025EB36 {
+public:
+	void rva0025EB36();
+};
 class Rva00BCF670CameraSettings {
 public:
 	virtual void camSlot00();
@@ -39,7 +47,7 @@ public:
 	virtual void camSlot15();
 	virtual void camSlot16();
 	virtual void camSlot17();
-	virtual void camSlot18();
+	virtual void camSlot18(int v, void *p);
 	virtual bool camSlot19(int v, RvaLoc12 *loc);
 	void reset();
 };
@@ -160,14 +168,25 @@ public:
 	void rva00085947();
 	bool rva000879A9(int v);
 	Vector3 *rva00087D42();
+	void rva0008D253();
 private:
 	unsigned char m_pad004[0x8];
 	RvaLoc12 m_00C;
-	unsigned char m_pad018[0x104 - 4 - 0x8 - 12];
+	unsigned char m_pad018[0x28 - 0x18];
+	int m_028;
+	unsigned char m_pad02C[0x6C - 0x2C];
+	float m_06C;
+	float m_070;
+	unsigned char m_pad074[0xA0 - 0x74];
+	float m_0A0;
+	unsigned char m_pad0A4[0x104 - 0xA4];
 	RenderObjClass *m_p104;
 	unsigned char m_pad108[0x138 - 0x108];
 	float m_138;
-	unsigned char m_pad13C[0x2408 - 0x13C];
+	unsigned char m_pad13C[0x23E8 - 0x13C];
+	float m_23E8;
+	float m_23EC;
+	unsigned char m_pad23F0[0x2408 - 0x23F0];
 	float m_2408;
 	unsigned char m_pad240C[0x241C - 0x240C];
 	unsigned char m_241C;
@@ -236,3 +255,18 @@ Vector3 *Rva00085947::rva00087D42()
 	return &g_00DE2068;
 }
 extern "C" void rva00BB6C15Cleanup() {}
+
+// ?rva0008D253@Rva00085947@@QAEXXZ @0x0008D253 101B: slot 100 of vtable
+// 0xBC7514. Frameless thiscall ending in a tail jump to W3DView::
+// setCameraTransform. Runs the View helper, probes CameraSettings slot18,
+// folds +0xA0 into +0x23E8/EC, plants the 1.0f and 0.87266463f defaults.
+void Rva00085947::rva0008D253()
+{
+	((Rva0025EB36 *)this)->rva0025EB36();
+	m_24C8.camSlot18(0, &m_028);
+	m_23E8 *= m_0A0;
+	m_23EC *= m_0A0;
+	m_070 = 1.0f;
+	m_06C = 0.87266463f;
+	((W3DView *)this)->setCameraTransform();
+}
