@@ -145,3 +145,13 @@ template void _STL::_Construct<Rva005668E9Element, Rva005668E9Element>(Rva005668
 template void _STL::_Construct<BfmePod252, BfmePod252>(BfmePod252 *, const BfmePod252 &);
 template void _STL::_Construct<BfmePod248, BfmePod248>(BfmePod248 *, const BfmePod248 &);
 template void _STL::_Construct<BfmePod264, BfmePod264>(BfmePod264 *, const BfmePod264 &);
+
+// Also the 45-byte _Construct for Rva00153729 (0x00153786, copy constructor
+// 0x0015375A), named by its rowed callers: the uninitialized fill/copy and
+// _M_insert_overflow of vector<Rva00153729>.
+struct Rva00153729
+{
+	int a;
+	Rva00153729(const Rva00153729 &that);
+};
+template void _STL::_Construct<Rva00153729, Rva00153729>(Rva00153729 *, const Rva00153729 &);
