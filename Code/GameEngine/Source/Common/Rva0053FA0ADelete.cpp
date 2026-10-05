@@ -1,7 +1,9 @@
 // cl: /O1 /DNDEBUG /MD /EHsc
 //
 // ?rva0053FA0A@Rva0053FA0A@@QAEXXZ @ 0x0053FA0A 40B
-// Evidence: forEach row 0x0053F9EC plus reverseAnimateWindow row 0x005CB265; virtual slot 6 plus operator delete row 0x0002FD60; unblocks Release 0x0053FA32 with refcount at +0x14; list at +4 per Rva0053F97FListenerWalks.
+// Evidence: forEach row 0x0053F9EC plus slot-3 update dispatch at 0x005CB265;
+// virtual slot 6 plus operator delete row 0x0002FD60; Release 0x0053FA32
+// uses refcount +0x14; list +4 per Rva0053F97FListenerWalks.
 class Rva0053F9ECListener {
 public:
   virtual void notify(void *);
@@ -18,6 +20,10 @@ private:
 class AnimateWindow;
 class ProcessAnimateWindowSlideFromBottomTimed {
 public:
+  virtual ~ProcessAnimateWindowSlideFromBottomTimed();
+  virtual void initAnimateWindow(AnimateWindow *);
+  virtual void initReverseAnimateWindow(AnimateWindow *, unsigned int);
+  virtual bool updateAnimateWindow(AnimateWindow *);
   virtual bool reverseAnimateWindow(AnimateWindow *);
 };
 void operator delete(void *p);
@@ -38,7 +44,7 @@ private:
 };
 void Rva0053FA0A::rva0053FA0A()
 {
-  m_list04.forEach(reinterpret_cast<void (Rva0053F9ECListener::*)(void *)>(&ProcessAnimateWindowSlideFromBottomTimed::reverseAnimateWindow), this);
+  m_list04.forEach(reinterpret_cast<void (Rva0053F9ECListener::*)(void *)>(&ProcessAnimateWindowSlideFromBottomTimed::updateAnimateWindow), this);
   void *p = 0;
   if (this != 0) {
     p = this->v6(0);
