@@ -57441,3 +57441,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ??$_M_allocate_and_copy@PAURva005C8624Element@@@?$vector@URva005C8624Element@@V?$allocator@URva005C8624Element@@@_STL@@@_STL@@IAEPAURva005C8624Element@@IPAU2@0@Z,,0x005C8445,45,Code/Libraries/Source/WWVegas/WWLib/StlportVectorRva005C8624AllocateCopy.cpp,matched,STLport vector allocate_and_copy stride 72 calls twin allocate 0xB4106 and uninitialized_copy 0x5C83FA
 ??1Rva0022CC67@@QAE@XZ,,0x0022CF13,57,Code/GameEngine/Source/Common/Rva0022CC67Dtor.cpp,matched,chain dtor via rowed clear plus free
 ??0Rva004333C0@@QAE@ABVRva001DA2D5@@H@Z,,0x00433762,52,Code/Libraries/Source/WWVegas/WWLib/Rva00433762Ctor.cpp,matched,vtable 0x0083CB1C plus rowed base 0x004335BC plus rowed BitFlags11 0x003B31AD
+??_GRva005F86C3@@UAEPAXI@Z,,0x005F8804,28,Code/GameEngine/Source/Common/MemberBaseDtorsB01.cpp,matched,dtor lane deleting dtor from own ??1 unit
