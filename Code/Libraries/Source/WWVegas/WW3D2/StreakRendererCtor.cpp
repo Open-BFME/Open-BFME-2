@@ -1,6 +1,8 @@
 // cl: /G7 /arch:SSE /Ireference/shims/bfmecamera /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2
 
+#pragma optimize("s", on)
 #include "../WWMath/vector2.h"
+#pragma optimize("", on)
 
 class TextureClass;
 
