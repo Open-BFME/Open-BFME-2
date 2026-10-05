@@ -19,6 +19,7 @@ typedef _STL::_Rb_tree<int, Rva00462D08Pair, _STL::_Select1st<Rva00462D08Pair>, 
 
 template void Rva00462D08Tree::_M_erase(Rva00462D08Tree::_Link_type);
 
-// Whole-class instantiation of this tree. It reproduces clear (retail 0x004633D3)
-// byte for byte; their calls read the tree's matched STL helpers.
-template class _STL::_Rb_tree<int,_STL::pair<int const ,Rva00462D08Mapped>,_STL::_Select1st<_STL::pair<int const ,Rva00462D08Mapped> >,_STL::less<int>,_STL::allocator<_STL::pair<int const ,Rva00462D08Mapped> > >;
+// Retain only the matched clear body at 0x004633D3. The former whole-class
+// instantiation emitted wrong COMDAT copies; explicit instantiation keeps
+// just clear (plus _M_erase above).
+template void Rva00462D08Tree::clear();
