@@ -140,3 +140,29 @@ void Rva000E0536::rva000E055A(void *dst, unsigned int b)
 	((int *)dst)[1] = tmp.c2;
 	((unsigned char *)dst)[8] = tmp.c3;
 }
+
+// 0x00058913 (42B): snapshot-after-set. Calls the 0x00057B27 twin above on
+// the SAME incoming this (no mov ecx: the callee's owner view is reused
+// here, owner identity unproven) with a stack 9-byte out-slot and the index,
+// then copies the slot (dword, dword, byte) to the caller's out pointer.
+struct Rva00058913Out
+{
+	int m_0;
+	int m_4;
+	char m_8;
+};
+
+class Rva00058913
+{
+public:
+	void rva00058913(Rva00058913Out *o, unsigned int b);
+};
+
+void Rva00058913::rva00058913(Rva00058913Out *o, unsigned int b)
+{
+	Rva00058913Out tmp;
+	((Rva00057B27 *)this)->rva00057B27((unsigned int)&tmp, b);
+	o->m_0 = tmp.m_0;
+	o->m_4 = tmp.m_4;
+	o->m_8 = tmp.m_8;
+}
