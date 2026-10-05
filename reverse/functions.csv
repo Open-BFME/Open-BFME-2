@@ -63738,3 +63738,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva002EBC34@Rva002EBC34@@QAEPAUICoord2D@@PAU2@PAXPBUCoord3D@@@Z,,0x002EBC34,37,Code/GameEngine/Source/GameLogic/AI/Rva002EBC34.cpp,matched,
 ?rva002EBC59@@YAPAXPAX0HHH@Z,,0x002EBC59,38,Code/GameEngine/Source/GameLogic/AI/Rva002EBC59.cpp,matched,
 ?rva002EBC7F@@YAPAXPAX0PAURva002EBC7FPair@@H@Z,,0x002EBC7F,40,Code/GameEngine/Source/GameLogic/AI/Rva002EBC7F.cpp,matched,
+??0Rva002EAB6F@@QAE@HPBURva002E8BCFSrc@@EHPAVObject@@EHH@Z,,0x002EAB6F,127,Code/GameEngine/Source/GameLogic/AI/Rva002EAB6F.cpp,matched,Dump range 13: 8-arg ctor with Rva002E8BCF member-init and 0x6E009 gate
