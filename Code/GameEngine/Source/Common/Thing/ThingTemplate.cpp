@@ -754,28 +754,8 @@ void ThingTemplate::parsePerUnitSounds( INI* ini, void *instance, void *store, c
 //-------------------------------------------------------------------------------------------------
 /** Parse modules to remove from the existing set of modules. */
 //-------------------------------------------------------------------------------------------------
-// ?ThingTemplate::parseRemoveModule present-unmatched
-void ThingTemplate::parseRemoveModule(INI *ini, void *instance, void *store, const void *userData)
-{
-	ThingTemplate* self = (ThingTemplate*)instance;	
+// Native RemoveModule parser lives in ThingTemplateParseRemoveModule.cpp.
 
-	ModuleParseMode oldMode = (ModuleParseMode)self->m_moduleParsingMode;
-	if (oldMode != MODULEPARSE_NORMAL)
-		throw INI_INVALID_DATA;
-
-	self->m_moduleParsingMode = MODULEPARSE_ADD_REMOVE_REPLACE;
-
-	const char *modToRemove = ini->getNextToken();
-	AsciiString removedModuleName;
-	Bool removed = self->removeModuleInfo(modToRemove, removedModuleName);
-	if (!removed)
-	{
-		DEBUG_ASSERTCRASH(removed, ("RemoveModule %s was not found for %s. The game will crash now!\n",modToRemove, self->getName().str()));
-		throw INI_INVALID_DATA;
-	}
-
-	self->m_moduleParsingMode = oldMode;
-}
 
 //-------------------------------------------------------------------------------------------------
 /** Replace the existing tagged modules with the new modules. */
