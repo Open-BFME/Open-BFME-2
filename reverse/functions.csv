@@ -61967,3 +61967,5 @@ _Rva007F5790Callback,,0x00661F40,15,Code/GameEngine/Source/GameNetwork/Rva007F70
 ??1Rva005EB753@@UAE@XZ,,0x005EB753,14,Code/GameEngine/Source/Common/Rva005EB753Dtor.cpp,matched,vtable 0x00C7823C slot0 plus clear row 0x005EB430 plus caller 0x005D06CB plus deleting dtor 0x005EB761
 ??0Rva00382398@@QAE@ABV0@@Z,,0x003830EA,257,Code/GameEngine/Source/Common/System/SaveGame/Rva00382398Copy.cpp,matched,vtable 0xC19424 base 0x2295D7 StringBase 0x365F0 dtor 0x382398
 ?rva0042DB21@Rva0042DB21@@QAEXPBD@Z,,0x0042DB21,184,Code/GameEngine/Source/Common/Rva0042DB21Method.cpp,matched,chain via rowed reset 0x002D38EB plus pinned ctor 0x00527C04 plus rowed path helpers plus rowed notifies 0x005785A2 0x005796B3
+?Rva00528C30Get@@YA_NPBDAAVAsciiString@@@Z,,0x00528C30,27,Code/GameEngine/Source/Common/Rva00528C30.cpp,matched,GetParam wrapper with literal name plus uchar local bool normalize
+??0Rva00577846@@QAE@PAVRva00577838@@H@Z,,0x00577846,29,Code/GameEngine/Source/Common/Rva00577846Ctor.cpp,matched,vtable plus args at plus4 plus8 plus byte 0 at plus0c via caller 0x00577863
