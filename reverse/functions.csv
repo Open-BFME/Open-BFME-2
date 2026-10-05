@@ -61710,3 +61710,4 @@ _Rva00023540,,0x00023540,271,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleF
 ??0Rva0032E81D@@QAE@PAX0@Z,,0x0032E81D,29,Code/GameEngine/Source/GameLogic/Object/Behavior/Rva0032E81DMethod.cpp,matched,unlock lane ctor meminit order copyctor
 ?rva004361F2@Rva00435B82@@QAEPAV1@PAV1@H@Z,,0x004361F2,29,Code/GameEngine/Source/Common/S5HandleHashCompares.cpp,matched,chain from 0x0043611F via tmp at ebp-8 plus saved plus4 plus ret8
 ?rva005CC26E@Rva005CC26E@@QAEHPAX@Z,,0x005CC26E,25,Code/GameEngine/Source/Common/Rva005CC26E.cpp,matched,caller 0x0057491D arg plus 0x10 compared to 0x70 true calls pin 0x005CC23B
+?doDrawModule@W3DLaserDraw@@UAEXPBVMatrix3D@@@Z,,0x000C9360,1689,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DLaserDrawBfmeDoDraw.cpp,matched,BFME1 donor W3DLaserDrawBfmeDoDraw.cpp plus /O1 /arch:SSE; single masked hit on unclaimed text; tile factor through the real SegmentedLineClass setter
