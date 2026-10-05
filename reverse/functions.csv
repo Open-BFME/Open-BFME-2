@@ -56441,3 +56441,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?Rva003BA96F@@YGXMMMMM@Z,,0x003BA96F,64,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsRva003BA96F.cpp,matched,ret 20 five float args null-guarded AudioManager slot 0xf4
 ?updateTeamSetAttitude@ScriptActions@@IAEXABVAsciiString@@H@Z,,0x003BEE5E,80,Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003BEE5EFinish.cpp,matched,retail clean C++; getTeamNamed by-value AsciiString yields copy ctor 0x365F0 plus unwind store 89 65 FC for the destructor-scoped temporary; TheAI 0xDFF0F8 createGroup 0x2FEC4B; Team::getTeamAsAIGroup 0x3A0F62; AIGroup::setAttitude 0x36DD16
 ?rva00272A51@Drawable@@QAEXXZ,,0x00272A51,25,Code/GameEngine/Source/GameClient/Drawable_rva00272A51.cpp,matched,same 0x14C walk as 0x00272A38 void slot38
+?rva0025DD48@Rva0025DDD2@@QBEMXZ,,0x0025DD48,46,Code/GameEngine/Source/Common/Rva0025DDD2Float.cpp,matched,wrapper over Transport rva004D4F7A chain sibling DDD2
