@@ -13138,3 +13138,6 @@ _Rva00438083,0x00438083,Address-derived bool prompt helper directly called by 0x
 ?g_rva0059EB6FInfo@@3PAURva0059EB6FInfo@@A,0x00E02320,info singleton tested and slot-0xDC-called by 0x59EB6F
 ?g_rva0059EB6FFlag@@3HA,0x00E02324,flag word gated by 0x59EB6F
 ?DoRefresh@Rva005A5B38Box@@QAEXHPAX@Z,0x005A51B9,wrapper-call spelling for the 0x5A5B38 helper refresh (thiscall 2 args callee cleanup ret 8 verified; true callee unrowed 325B SEH body); target REL32 from retail call at 0x005A5B82
+?DoX@Rva005A6903Sub@@QAEXH@Z,0x005DC291,wrapper-call spelling for the 0x5A6903 +0x28 sub-object index consumer (thiscall 1 arg callee cleanup); target REL32 from retail call at 0x005A6915
+?Check@Rva005A6903Box@@QAE_NXZ,0x005A6709,wrapper-call spelling for the 0x5A6903 gate (thiscall 0 args al result; true callee matched as const predicate rva005A6709); target REL32 from retail call at 0x005A6931
+?Rva005A671DNext@@YAHXZ,0x005A671D,free-function spelling for the 0x5A6903 counter (no ecx setup at the site; callee overwrites ecx first thing from the 0xE063FC global); target REL32 from retail call at 0x005A694E

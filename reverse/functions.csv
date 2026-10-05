@@ -63816,3 +63816,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva0059E2DC@@YA_NPAPAVFileClass@@0URva0059E2DCBox@@@Z,,0x0059E2DC,33,Code/GameEngine/Source/Common/Rva0059E2DCBox.cpp,matched,box-method loop over pointer range calling pinned thiscall 0x4FC957 per element; returns box low byte
 ?Run@Rva0059EB6FBox@@QAE_NH@Z,,0x0059EB6F,64,Code/GameEngine/Source/Common/Rva0059EB6FBox.cpp,matched,gated notify-set-go on info singleton and +0x40C sub-object via pinned 0x44D5EE
 ?Run@Rva005A5B38Box@@QAE_NXZ,,0x005A5B38,119,Code/GameEngine/Source/Common/Rva005A5B38Box.cpp,matched,flag-gated refresh toggle with AptCall and pinned 0x5A51B9 helper plus timeGetTime stamp
+?Run@Rva005A6903Box@@QAEXH@Z,,0x005A6903,92,Code/GameEngine/Source/Common/Rva005A6903Box.cpp,matched,bounds-checked slot refresh with pinned index consumer gate and free-function counter
