@@ -25,7 +25,39 @@ extern EAStringC g_eaStringAtE177D4;
 extern AptValue *gpUndefinedValue;
 extern AptValue *gpGlobalGlobalObject;
 struct AptConstantPool { int nItems; AptValue **apItems; };
-class AptBasePtrStack { public: void Push(AptValue *); int count,capacity; AptValue **items; };
+
+// Native At/PopNoDec inline bodies preserve the original stack semantics.
+// Later _AptBasePtrStack.h (4e14146a35139d6d) is the source lead; retail
+// independently supplies the field offsets, assertion text and line numbers.
+// MSVC7.1 schedules __debugbreak after argument setup in StackSwap's tail;
+// the native assertion requires the original inline int3 compiler barrier.
+extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *, const char *, int);
+extern int g_bfmeAptBreakOnAssertAtDDC01C;
+void Rva00709F70Set(int, AptValue *);
+class AptBasePtrStack
+{
+public:
+    void Push(AptValue *);
+    void PushNoInc(AptValue *);
+    __forceinline AptValue *At(int nPos) const
+    {
+        if (!(count-nPos>0)) {
+            g_bfmeAptAssertAtE17734("m_nElements - nPos > 0", "c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\_AptBasePtrStack.h", 0x10A);
+            if (g_bfmeAptBreakOnAssertAtDDC01C) { __asm int 3 }
+        }
+        return items[count-nPos-1];
+    }
+    __forceinline void PopNoDec()
+    {
+        if (count<=0) {
+            g_bfmeAptAssertAtE17734("false && \"[APT] Error, Popping from Stack with 0 elements. Please contact the Apt Team for Support.\"", "c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\_AptBasePtrStack.h", 0xBF);
+            if (g_bfmeAptBreakOnAssertAtDDC01C) { __asm int 3 }
+        } else --count;
+    }
+    int count,capacity;
+    AptValue **items;
+};
+
 struct AptActionInterpreter
 {
     struct LocalContextT {
@@ -49,6 +81,7 @@ private:
     HANDLER(PushTrue); HANDLER(PushFalse); HANDLER(PushUndefined);
     HANDLER(PushThisVariable); HANDLER(PushGlobalVariable); HANDLER(PushZeroSetVar);
     HANDLER(PushString); HANDLER(StringDictByteGetVar); HANDLER(StringDictByteGetMember);
+    HANDLER(PushDuplicate); HANDLER(StackSwap); HANDLER(StoreRegister);
     HANDLER(SetVariable); HANDLER(GetMember); HANDLER(SetMember);
     HANDLER(PushStringGetVar); HANDLER(PushStringGetMember); HANDLER(PushStringSetVar); HANDLER(PushStringSetMember);
 #undef HANDLER
@@ -214,3 +247,27 @@ void AptActionInterpreter::_FunctionAptActionPushStringSetMember(AptActionInterp
     p->stack.Push(s);
     _FunctionAptActionSetMember(p,c);
 }
+
+void AptActionInterpreter::_FunctionAptActionPushDuplicate(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    AptValue *v=p->stack.At(0);
+    p->stack.Push(v);
+}
+void AptActionInterpreter::_FunctionAptActionStackSwap(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    AptValue *a=p->stack.At(0);
+    AptValue *b=p->stack.At(1);
+    p->stack.PopNoDec();
+    p->stack.PopNoDec();
+    p->stack.PushNoInc(a);
+    p->stack.PushNoInc(b);
+}
+void AptActionInterpreter::_FunctionAptActionStoreRegister(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    c->pInstruction=(const unsigned char *)(((unsigned int)c->pInstruction+3)&~3U);
+    const int *data=(const int *)c->pInstruction;
+    c->pInstruction+=4;
+    Rva00709F70Set(*data,p->stack.At(0));
+}
+
+#pragma comment(linker, "/alternatename:?PushNoInc@AptBasePtrStack@@QAEXPAVAptValue@@@Z=?rva006FE7B0@AptBasePtrStack@@QAEXPAVBfmeAptValue006DCD20@@@Z")

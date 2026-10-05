@@ -12366,3 +12366,4 @@ _ceil,0x00629934,CRT ceil thunk identified by native PE import slot 0x00BBA578 a
 ?_FunctionAptActionSetVariable@AptActionInterpreter@@CAXQAU1@QAULocalContextT@1@@Z,0x007019B0,Native opcode1D dispatch pointer and PushZeroSetVar705380 direct call; original PDB private static signature
 ?_FunctionAptActionGetMember@AptActionInterpreter@@CAXQAU1@QAULocalContextT@1@@Z,0x00703AE0,Native opcode4E dispatch pointer and StringDictByteGetMember705720 direct call; original PDB private static signature
 ?_FunctionAptActionSetMember@AptActionInterpreter@@CAXQAU1@QAULocalContextT@1@@Z,0x00703CE0,Native opcode4F dispatch pointer and PushStringSetMember705640 direct call; original PDB private static signature
+?PushNoInc@AptBasePtrStack@@QAEXPAVAptValue@@@Z,0x006FE7B0,Native StackSwap7039F0 calls existing nonowning push195B; later source PushNoInc performs exactly this append without AddRef; alias binds existing provider
