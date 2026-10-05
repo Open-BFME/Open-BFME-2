@@ -1,10 +1,27 @@
 // ?rva0042B038@Rva0042B038@@QAEXPAX000@Z
-// partial score=0.93 date=2026-10-04
+// partial score=0.95 date=2026-10-05
 // cl: /O2 /EHsc /MD /Oy-
 // ?rva0042B038@Rva0042B038@@QAEXPAXPAXPAXPAX@Z, retail 0x0042B038 (48B).
 // Unlock: missing callee of 0x0042B068; landing makes 0x0042B068 ready.
-// Calls rowed ?Rva00239D02Insert@@YGPAPAXPAPAXPAX0@Z 0x00239D02; caller 0x0042B07D;
-// neighbours 0x004296C2 and 0x0042C083 share Common dir; __thiscall ret 0x10.
+// Calls rowed ?Rva00239D02Insert@@YGPAPAXPAPAXPAX0@Z 0x00239D02 (void
+// **out, void *pos, void **allocArg); caller 0x0042B07D; neighbours 0x004296C2
+// and 0x0042C083 share Common dir; __thiscall ret 0x10 (this=ecx, four stack
+// args at [ebp+8]/[ebp+c]/[ebp+10]/[ebp+14]).
+//
+// RETAIL SEMANTICS, decoded from the bytes (the earlier bank had them wrong):
+//   esi = cur = start([ebp+0xc]); this -> edi
+//   loop over a cursor, reloading pos([ebp+8]) and end([ebp+0x10]) from the
+//   frame every iteration, until cur == end:
+//       Insert(out = &start, pos = pos, allocArg = &cur->field08)
+//       cur = cur->m_next
+//   so it walks [start, end) inserting a node before every existing node whose
+//   payload lives at +8. arg4([ebp+0x14]) is unused.
+//   The bank had out = &start as the FIRST Insert arg and allocArg = &field08,
+//   which is what retail does, but it also hoisted end into a register and the
+//   do/while form lost the ebp frame. This while form reproduces retail's
+//   prologue (push ebp/mov ebp,esp/push esi/mov esi,[ebp+0xc]/push edi/mov
+//   edi,ecx/jmp test) and epilogue byte-for-byte; the body differs by 2 bytes
+//   (the redundant seed+store for the by-value pos, mov eax,esp/mov [eax],ecx).
 void **__stdcall Rva00239D02Insert(void **out, void *pos, void **allocArg);
 
 struct Rva0042B038Node
