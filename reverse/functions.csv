@@ -63762,6 +63762,9 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva0057FA1C@AptMpClans@@QAEXVUnicodeString@@@Z,,0x0057FA1C,148,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMpClansRva0057FA1C.cpp,matched,vslot write plus rowed toUpper trim AsciiFromUnicode plus pin rva0057F7AC plus callers 0x0057FCD8 0x0057FD34
 ?rva0004E4BD@Rva0004E4BD@@QAEXXZ,,0x0004E4BD,12,Code/GameEngine/Source/Common/PinnedForwarders1830.cpp,matched,guarded one-callee forward at its pinned address; see the source comment
 ?rva000A8AA6@Rva000A8AA6@@QAEXH@Z,,0x000A8AA6,14,Code/GameEngine/Source/Common/PinnedForwarders1830.cpp,matched,guarded one-callee forward at its pinned address; see the source comment
+?rva0004E4BD@Rva0004E4BD@@QAEXXZ,,0x0004E4BD,12,Code/GameEngine/Source/Common/PinnedForwarders1830.cpp,matched,guarded one-callee forward at its pinned address; see the source comment
+?rva000A8AA6@Rva000A8AA6@@QAEXH@Z,,0x000A8AA6,14,Code/GameEngine/Source/Common/PinnedForwarders1830.cpp,matched,guarded one-callee forward at its pinned address; see the source comment
+?rva00271BCC@Rva00271BCC@@QAEXHH@Z,,0x00271BCC,18,Code/GameEngine/Source/Common/PinnedForwarders1830.cpp,matched,guarded one-callee forward at its pinned address; see the source comment
 ?rva00068D43@Rva00068D43@@QAEXXZ,,0x00068D43,16,Code/GameEngine/Source/Common/PinnedForwarders1830.cpp,matched,guarded one-callee forward at its pinned address; see the source comment
 ?rva000A8AB4@Rva000A8AB4@@QAEXXZ,,0x000A8AB4,12,Code/GameEngine/Source/Common/PinnedForwarders1830.cpp,matched,guarded one-callee forward at its pinned address; see the source comment
 ?rva000A8ACC@Rva000A8ACC@@QAEXXZ,,0x000A8ACC,12,Code/GameEngine/Source/Common/PinnedForwarders1830.cpp,matched,guarded one-callee forward at its pinned address; see the source comment

@@ -13503,3 +13503,32 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 ?_M_lower_bound@?$_Rb_tree@GU?$pair@$$CBGVAsciiString@@@_STL@@U?$_Select1st@U?$pair@$$CBGVAsciiString@@@_STL@@@2@U?$less@G@2@V?$allocator@U?$pair@$$CBGVAsciiString@@@_STL@@@2@@_STL@@ABEPAU?$_Rb_tree_node@U?$pair@$$CBGVAsciiString@@@_STL@@@2@ABG@Z,0x0046A9AB,caller 0x004D2941 is map<ushort AsciiString> operator[] via pair ctor 0x004D04FF and string lifecycle; 39B body is byte-identical to matched lower_bound at 0x00156680
 ?insert@Rva004D272EMapHintInsert@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBGVAsciiString@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBGVAsciiString@@@_STL@@@2@@_STL@@U23@ABU?$pair@$$CBGVAsciiString@@@3@@Z,0x004D272E,caller 0x004D2941 passes its lower_bound iterator and pair; this 12B-cleanup wrapper forwards hint and value to rowed WORD-key insert_unique at 0x004D2209; structural adapter name only because exact target template identity remains unknown
 ?lower_bound@Rva0046A9ABMapLowerBound@@QBEPAU?$_Rb_tree_node@U?$pair@$$CBGVAsciiString@@@_STL@@@_STL@@ABG@Z,0x0046A9AB,structural adapter for operator[] at 0x004D2941; target performs the required map lower_bound search and matches the established ushort AsciiString map lower_bound body at 0x00156680
+?rva005E1B9A@Rva005E1B9A@@QAEXXZ,0x005E1B9A,jump target of 17B forwarder 0x005E1BC4; original name unknown
+?rva005E2180@Rva005E2180@@QAEXXZ,0x005E2180,jump target of 17B forwarder 0x005E2226; original name unknown
+?rva005E254C@Rva005E254C@@QAEXXZ,0x005E254C,jump target of 17B forwarder 0x005E25DE; original name unknown
+?rva005F1B51@Rva005F1B51@@QAEXXZ,0x005F1B51,jump target of 17B forwarder 0x005E35C9; original name unknown
+?rva005E589E@Rva005E589E@@QAEXXZ,0x005E589E,jump target of 17B forwarder 0x005E590F; original name unknown
+?rva005E69AC@Rva005E69AC@@QAEXXZ,0x005E69AC,jump target of 17B forwarder 0x005E6A00; original name unknown
+?rva005E6A9D@Rva005E6A9D@@QAEXXZ,0x005E6A9D,jump target of 17B forwarder 0x005E6BA3; original name unknown
+?rva005E6AD8@Rva005E6AD8@@QAEXXZ,0x005E6AD8,jump target of 17B forwarder 0x005E6BB4; original name unknown
+??4Rva001F8CC2@@QAEAAV0@ABV0@@Z,0x001F8CC2,second-base assign called from 0x001F9CE7 in 0x001F9CCA; vector holder assign; original name unknown
+?rva002D335B@Rva002D335B@@QAEXXZ,0x002D335B,tail-call target of the byte-verified Rva0004E4BD::rva0004E4BD 0x0004E4BD on its +0x0 member read from its REL32 displacement; name unknown
+?rva0010FA6B@Rva0010FA6B@@QAEXH@Z,0x0010FA6B,tail-call target of the byte-verified Rva000A8AA6::rva000A8AA6 0x000A8AA6 on its +0x0 member read from its REL32 displacement; name unknown
+?rva003626AD@Rva003626AD@@QAEXHH@Z,0x003626AD,tail-call target of the byte-verified Rva00271BCC::rva00271BCC 0x00271BCC on its +0x450 member read from its REL32 displacement; name unknown
+?rva000EDB47@Rva000EDB47@@QAEXXZ,0x000EDB47,tail-call target of the byte-verified Rva00068D43::rva00068D43 0x00068D43 on its +0x3850 member read from its REL32 displacement; name unknown
+?rva0010FAEA@Rva0010FAEA@@QAEXXZ,0x0010FAEA,tail-call target of the byte-verified Rva000A8AB4::rva000A8AB4 0x000A8AB4 on its +0x0 member read from its REL32 displacement; name unknown
+?rva0010FBDE@Rva0010FBDE@@QAEXXZ,0x0010FBDE,tail-call target of the byte-verified Rva000A8ACC::rva000A8ACC 0x000A8ACC on its +0x0 member read from its REL32 displacement; name unknown
+?rva0010FDE9@Rva0010FDE9@@QAEXH@Z,0x0010FDE9,tail-call target of the byte-verified Rva000A8B23::rva000A8B23 0x000A8B23 on its +0x0 member read from its REL32 displacement; name unknown
+?rva0010FEF3@Rva0010FEF3@@QAEXH@Z,0x0010FEF3,tail-call target of the byte-verified Rva000A8B4B::rva000A8B4B 0x000A8B4B on its +0x0 member read from its REL32 displacement; name unknown
+?rva0010FFA2@Rva0010FFA2@@QAEXH@Z,0x0010FFA2,tail-call target of the byte-verified Rva000A8C6E::rva000A8C6E 0x000A8C6E on its +0x0 member read from its REL32 displacement; name unknown
+?rva001EB68A@Rva001EB68A@@QAEXXZ,0x001EB68A,tail-call target of the byte-verified Rva001EB72F::rva001EB72F 0x001EB72F on its +0x10 member read from its REL32 displacement; name unknown
+?rva001EB6FE@Rva001EB6FE@@QAEXXZ,0x001EB6FE,tail-call target of the byte-verified Rva001EB75C::rva001EB75C 0x001EB75C on its +0x10 member read from its REL32 displacement; name unknown
+?rva0020E9A1@Rva0020E9A1@@QAEXXZ,0x0020E9A1,tail-call target of the byte-verified Rva0020EB41::rva0020EB41 0x0020EB41 on its +0x8 member read from its REL32 displacement; name unknown
+?rva004E5EBE@Rva004E5EBE@@QAEXHH@Z,0x004E5EBE,tail-call target of the byte-verified Rva0029B16A::rva0029B16A 0x0029B16A on its +0x7F4 member read from its REL32 displacement; name unknown
+?rva004F2ABC@Rva004F2ABC@@QAEXHH@Z,0x004F2ABC,tail-call target of the byte-verified Rva002A9CDE::rva002A9CDE 0x002A9CDE on its +0x2DC member read from its REL32 displacement; name unknown
+?rva004F0819@Rva004F0819@@QAEXH@Z,0x004F0819,tail-call target of the byte-verified Rva002A9CF0::rva002A9CF0 0x002A9CF0 on its +0x2DC member read from its REL32 displacement; name unknown
+?rva004F2C14@Rva004F2C14@@QAEXH@Z,0x004F2C14,tail-call target of the byte-verified Rva002A9DEC::rva002A9DEC 0x002A9DEC on its +0x2DC member read from its REL32 displacement; name unknown
+?rva0043CD3C@Rva0043CD3C@@QAEXXZ,0x0043CD3C,tail-call target of the byte-verified Rva0043D15F::rva0043D15F 0x0043D15F on its global g_Va00A03314 member read from its REL32 displacement; name unknown
+?rva004E0D19@Rva004E0D19@@QAEXH@Z,0x004E0D19,tail-call target of the byte-verified Rva004FC176::rva004FC176 0x004FC176 on its +0x20 member read from its REL32 displacement; name unknown
+?rva005CB283@Rva005CB283@@QAEXXZ,0x005CB283,tail-call target of the byte-verified Rva005CCB16::rva005CCB16 0x005CCB16 on its +0x4 member read from its REL32 displacement; name unknown
+?rva000B3FD0@Rva000B3FD0@@QAEXXZ,0x000B3FD0,tail-call target of the byte-verified Rva005D13D5::rva005D13D5 0x005D13D5 on its +0xC member read from its REL32 displacement; name unknown
