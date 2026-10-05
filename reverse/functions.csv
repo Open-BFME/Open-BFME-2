@@ -64658,3 +64658,4 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ?rva002DBCCA@Rva002DBCCAOwner@@QAEXPAX@Z,,0x002DBCCA,31,Code/GameEngine/Source/Common/Rva002DBCCAForward.cpp,matched,
 ?rva000B0298@Rva000B0298@@QAEXXZ,,0x000B0298,30,Code/GameEngine/Source/GameClient/Rva000B0298Clear.cpp,matched,dump range 2 vector destroy-free frameless twin honest address-derived name
 ?rva000BFB51@Rva000B8F5AOuter@@QAEXM@Z,,0x000BFB51,37,Code/GameEngine/Source/Common/Rva000B8F5A.cpp,matched,
+?rva00109D64@Rva007B1380@@QAEXXZ,,0x00109D64,40,Code/GameEngine/Source/Common/Rva007B1380Ctor.cpp,matched,float reset abutting ctor via rowed base initialize plus 20.0f literal
