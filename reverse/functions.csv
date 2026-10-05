@@ -62468,3 +62468,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?Rva0040D3E8Get@@YGHH@Z,,0x0040D3E8,23,Code/GameEngine/Source/Common/Rva0040D3E8Get.cpp,matched,chain from bfmeFind1038 then rva0040C9F4 returns 0 when null
 ?erase@?$vector@URva0054107FRecord@@V?$allocator@URva0054107FRecord@@@_STL@@@_STL@@QAEPAURva0054107FRecord@@PAU3@@Z,,0x005412E2,47,Code/Libraries/Source/WWVegas/WWLib/Rva005412E2Erase.cpp,matched,chain single erase via copy-ptrs pin precedent 0x00216267 sibling range 0x0054152D
 ?rva0028AB75@Object@@QAEX_N@Z,,0x0028AB75,135,Code/GameEngine/Source/GameLogic/Object/ObjectRva0028AB75.cpp,matched,unlock via rowed shim twins init; globals g_Va009FF0F8 g_00DFEC68; callers 0x00298970; prev-next Object O1
+?Rva003BC996Do@@YGXPAVParameter@@ABV?$StringBase@D@@M@Z,,0x003BC996,63,Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003BC996Do.cpp,matched,Script unit to Drawable anim via getUnitNamed getDrawable and slot10
