@@ -13328,3 +13328,9 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 ??_7Rva005E5F00@@6B@,0x00C77D84,holder vtable installed by clone 0x005E5F00; identity unproven; address-derived name
 ??_7Rva005E99D8@@6B@,0x00C78044,holder vtable installed by clone 0x005E99D8; identity unproven; address-derived name
 ??_7Rva005E9A1B@@6B@,0x00C78050,holder vtable installed by clone 0x005E9A1B; identity unproven; address-derived name
+?Copy0021D289@@YAHPAXRAXH@Z,0x0021D289,opaque head helper called by range proc 0x0021D905; identity unproven; address-derived name
+?Copy0021D2B6@@YAHPAXRAXH@Z,0x0021D2B6,opaque tail helper called by range proc 0x0021D905; identity unproven; address-derived name
+?Copy002B833C@@YAHPAXRAXH@Z,0x002B833C,opaque head helper called by range proc 0x002B9177; identity unproven; address-derived name
+?Copy002B6351@@YAHPAXRAXH@Z,0x002B6351,opaque tail helper called by range proc 0x002B9177; identity unproven; address-derived name
+?Copy003C6437@@YAHPAXRAXH@Z,0x003C6437,opaque head helper called by range proc 0x003C6973; identity unproven; address-derived name
+?Copy003C3AB0@@YAHPAXRAXH@Z,0x003C3AB0,opaque tail helper called by range proc 0x003C6973; identity unproven; address-derived name
