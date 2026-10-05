@@ -14659,3 +14659,15 @@ _rva006F98C0Call,0x006F98C0,retail call at 0x006F9B84 supplies EAX ECX and two s
 ?clear@?$_Rb_tree@HU?$pair@$$CBHURva002A3F5BRecord@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva002A3F5BRecord@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva002A3F5BRecord@@@_STL@@@2@@_STL@@QAEXXZ,0x002A1B9D
 ?clear@?$_Rb_tree@HU?$pair@$$CBHURva0040A603Record@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva0040A603Record@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva0040A603Record@@@_STL@@@2@@_STL@@QAEXXZ,0x0040A59B
 ?clear@?$_Rb_tree@HU?$pair@$$CBHURva004D755FRecord@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva004D755FRecord@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva004D755FRecord@@@_STL@@@2@@_STL@@QAEXXZ,0x004D751D
+?clear@?$_Rb_tree@HU?$pair@$$CBHURva004DA149Record@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva004DA149Record@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva004DA149Record@@@_STL@@@2@@_STL@@QAEXXZ,0x004D9FF2
+?clear@?$_Rb_tree@HU?$pair@$$CBHURva005026B6Record@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva005026B6Record@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva005026B6Record@@@_STL@@@2@@_STL@@QAEXXZ,0x0050247A
+?clear@?$_Rb_tree@HU?$pair@$$CBHURva0050298DRecord@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva0050298DRecord@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva0050298DRecord@@@_STL@@@2@@_STL@@QAEXXZ,0x00502787
+??1Rva00301621Record@@QAE@XZ,0x004EC395
+??1Rva0054FE47Record@@QAE@XZ,0x0007FAB3
+?insert@?$list@PAURva002AD027PointerTarget@@V?$allocator@PAURva002AD027PointerTarget@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAURva002AD027PointerTarget@@U?$_Nonconst_traits@PAURva002AD027PointerTarget@@@_STL@@@2@U32@ABQAURva002AD027PointerTarget@@@Z,0x002ACF9C
+?insert@?$list@PAURva002FED07PointerTarget@@V?$allocator@PAURva002FED07PointerTarget@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAURva002FED07PointerTarget@@U?$_Nonconst_traits@PAURva002FED07PointerTarget@@@_STL@@@2@U32@ABQAURva002FED07PointerTarget@@@Z,0x002FEC97
+?insert@?$list@PAURva00331D7EPointerTarget@@V?$allocator@PAURva00331D7EPointerTarget@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAURva00331D7EPointerTarget@@U?$_Nonconst_traits@PAURva00331D7EPointerTarget@@@_STL@@@2@U32@ABQAURva00331D7EPointerTarget@@@Z,0x002A1316
+?insert@?$list@PAURva0042B038PointerTarget@@V?$allocator@PAURva0042B038PointerTarget@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAURva0042B038PointerTarget@@U?$_Nonconst_traits@PAURva0042B038PointerTarget@@@_STL@@@2@U32@ABQAURva0042B038PointerTarget@@@Z,0x00239D02
+??0Rva0024314ARecord@@QAE@ABU0@@Z,0x002419E2
+??0Rva0028625DRecord@@QAE@ABU0@@Z,0x00285C30
+??0?$_Rb_tree_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z,0x002F0C32
