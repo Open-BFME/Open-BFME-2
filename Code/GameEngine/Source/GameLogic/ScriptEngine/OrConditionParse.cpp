@@ -1,22 +1,18 @@
-// ?ParseOrConditionDataChunk@OrCondition@@SA_NAAVDataChunkInput@@PAUDataChunkInfo@@PAX@Z
-// partial score=1.0 date=2026-10-05
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
-// Open-BFME5: retail OrCondition chunky parser in C++.
+// ?ParseOrConditionDataChunk@OrCondition@@SA_NAAVDataChunkInput@@PAUDataChunkInfo@@PAX@Z retail 0x003B7587 151B OrCondition list append plus Condition parser registration offset 0x30
 
 #include "ascii_string.h"
 
-// Retail vtable 0x00CE84D8 (targets/game/reverse/dir32_addresses.csv,
-// 0x010E84D8): ??_7OrCondition@@6B@. The declaration carries no C++ name:
-// __identifier spells the retail symbol exactly, so the store below
-// references the defining name.
-extern "C" const void *__identifier("??_7OrCondition@@6B@")[];
+// Retail vtable VA 0x00C1F3F4 (data 0x0081F3F4): OrCondition list node.
+// Packet annotates: no name yet, so use g_ stopgap per linking rules.
+extern const void *const g_00C1F3F4[];
 
 class OrConditionAllocation
 {
 public:
 	__forceinline OrConditionAllocation()
 	{
-		m_vtable = (unsigned int)__identifier("??_7OrCondition@@6B@");
+		m_vtable = (unsigned int)g_00C1F3F4;
 		m_next = 0;
 		m_first = 0;
 	}
