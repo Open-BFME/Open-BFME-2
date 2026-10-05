@@ -34,8 +34,10 @@ inline bool BitFlags<116>::testSetAndClear(const BitFlags &mustBeSet, const BitF
 
 // testSetAndClear is a header inline in retail: other units emit select-any
 // copies, so a strong definition here was a duplicate in the linked build.
-// This anchor only makes this unit emit its copy for the ledger row; it is
-// not retail code.
+// This anchor makes this unit emit its copy for the ledger row. Its own body
+// also compiles byte-identical to retail's 18-byte cdecl forwarder at
+// 0x0030A8D1 (object pointer as the first stack argument), which is rowed
+// under this placeholder name; that forwarder's real identity is unknown.
 #pragma inline_depth(0)
 void bfmeEmitBitFlags116TestSetAndClear(BitFlags<116> *p, const BitFlags<116> &a, const BitFlags<116> &b)
 {
