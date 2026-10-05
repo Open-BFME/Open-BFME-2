@@ -62253,3 +62253,6 @@ _Rva007F5790Callback,,0x00661F40,15,Code/GameEngine/Source/GameNetwork/Rva007F70
 ??0Rva00502667Element@@QAE@ABU0@@Z,,0x005020AF,29,Code/Libraries/Source/WWVegas/WWLib/StlportElementCopyCtorsW3G15.cpp,matched,29B element copy ctor: int plus subobject via pinned 0x00501B33; called by rowed _Construct 0x00502667
 ??0Rva00502C53Element@@QAE@ABU0@@Z,,0x00502909,29,Code/Libraries/Source/WWVegas/WWLib/StlportElementCopyCtorsW3G15.cpp,matched,29B element copy ctor: int plus subobject via pinned 0x005026EE; called by rowed _Construct 0x00502C53
 ??0Rva00557C90Element@@QAE@ABU0@@Z,,0x005564EB,29,Code/Libraries/Source/WWVegas/WWLib/StlportElementCopyCtorsW3G15.cpp,matched,29B element copy ctor: int plus subobject via pinned 0x0038630B; called by rowed _Construct 0x00557C90
+?Rva000A9DF8FireA@@YAXPAVRva000A9DF8ObjA@@H@Z,,0x000A9DF8,18,Code/GameEngine/Source/Common/Rva000A9DF8Fire.cpp,matched,null-guarded single-arg method forwarder; identity unresolved
+?Rva000A9DF8FireB@@YAXPAVRva000A9DF8ObjB@@H@Z,,0x000A9E0A,18,Code/GameEngine/Source/Common/Rva000A9DF8Fire.cpp,matched,null-guarded single-arg method forwarder; identity unresolved
+?Rva000A9DF8FireC@@YAXPAVRva000A9DF8ObjC@@H@Z,,0x004D9ACE,18,Code/GameEngine/Source/Common/Rva000A9DF8Fire.cpp,matched,null-guarded single-arg method forwarder; identity unresolved

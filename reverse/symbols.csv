@@ -12115,3 +12115,6 @@ _rva00286E33@8,0x00286E33,stdcall out-param 5B writer called from 0x287B2A with 
 ??0Rva005020AFSub@@QAE@ABU0@@Z,0x00501B33,subobject copy constructor: REL32 read at the tail call site in the 29B element copy ctor 0x005020AF; identity unproven
 ??0Rva00502909Sub@@QAE@ABU0@@Z,0x005026EE,subobject copy constructor: REL32 read at the tail call site in the 29B element copy ctor 0x00502909; identity unproven
 ??0Rva005564EBSub@@QAE@ABU0@@Z,0x0038630B,subobject copy constructor: REL32 read at the tail call site in the 29B element copy ctor 0x005564EB; identity unproven
+?Set@Rva000A9DF8ObjA@@QAEXH@Z,0x000A9851,address-derived thiscall single-int method; RETAIL REL32 at 0x000A9E04 in null-guarded forwarder 0x000A9DF8 targets this 44B Ghidra body; identity unproven
+?Set@Rva000A9DF8ObjB@@QAEXH@Z,0x000A987D,address-derived thiscall single-int method; RETAIL REL32 at 0x000A9E16 in null-guarded forwarder 0x000A9E0A targets this 44B Ghidra body; identity unproven
+?Set@Rva000A9DF8ObjC@@QAEXH@Z,0x004D971D,address-derived thiscall single-int method; RETAIL REL32 at 0x004D9ADA in null-guarded forwarder 0x004D9ACE targets this 33B Ghidra body; identity unproven
