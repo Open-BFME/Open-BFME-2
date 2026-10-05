@@ -11127,3 +11127,4 @@ _floor,0x00629940,call site 0x006F4403 in AptDate::getDayOfWeek (0x006F4290) enc
 ?rva0057E707@Rva0057EE5C@@QAE_NIII@Z,0x0057E707,unrowed 114B thiscall (Ghidra FUN_0097e707; ret 0xC; tested as al) on the MpGameSetup panel's +0xD0 member; REL32 read at the panel message handler 0x00442D1C with ECX=this+0xD0; address name
 ?rva0057FC75@Rva0057F2DE@@QAE_NIII@Z,0x0057FC75,unrowed 234B thiscall (Ghidra FUN_0097fc75; ret 0xC; tested as al) on the MpGameSetup panel's +0x190 member; REL32 read at the panel message handler 0x00442D30 with ECX=this+0x190; address name
 ?allocate@?$allocator@URva000AB3E2Element@@@_STL@@QBEPAURva000AB3E2Element@@IPBX@Z,0x00395944,24-byte allocate fold via 0x000AAF09 call site stride 0x18 same as BfmePod24
+?allocate@?$allocator@URva000AB419Element@@@_STL@@QBEPAURva000AB419Element@@IPBX@Z,0x002226BE,ICF 16-byte allocate twin of rowed BfmeE16 allocate at this address; retail REL32 target of overflow 0x000AAFC6 stride 0x10
