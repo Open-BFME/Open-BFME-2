@@ -55921,3 +55921,4 @@ ___Extract_locale_name,,0x000216A0,153,Code/Libraries/Source/WWVegas/WWLib/Local
 ??1Rva004962EA@@QAE@XZ,,0x004962EA,30,Code/GameEngine/Source/GameLogic/Object/Update/Rva004962EA.cpp,matched,vector teardown via destroy 0x00496292 and free
 ?rva00493313@Rva00493313@@QBE?AVAsciiString@@XZ,,0x00493313,32,Code/GameEngine/Source/Common/Rva00493313.cpp,matched,final override name at 0x5c via friend_getFinalOverride StringBase copy
 ??1Rva005B7FA4@@UAE@XZ,,0x005B7FA4,86,Code/GameEngine/Source/Common/Rva005B7FA4Dtor.cpp,matched,MI dtor via middle Rva0056DC6B inline plus bases rowed singleton g_00E06478
+?Rva0050407AParseColorControlPointBlock@@YAXPAVINI@@PAX1PBX@Z,,0x0050407A,151,Code/GameEngine/Source/Common/Rva0050407AParse.cpp,matched,chain via 0x0050406E ControlPoint pattern table 0x00863CE8 Scale pin Rva002BE7DB row
