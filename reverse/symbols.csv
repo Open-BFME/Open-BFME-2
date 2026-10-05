@@ -13041,3 +13041,6 @@ _Rva00438083,0x00438083,Address-derived bool prompt helper directly called by 0x
 ?rva001FF36A@Rva001FF36A@@QAE_NHHHHHH@Z,0x001FF36A,thiscall bool (int x6) conditional member-init with refill hookup to rowed-bool-pin 0x002E8548; retail E8 at 0x002EBABF in 0x002EBA88 read from REL32; identity unproven
 ?rva002E7964@Rva002E7964@@QAEXPAUICoord2D@@EPBUCoord3D@@@Z,0x002E7964,bounded WorldToCell variant (rowed WorldToCell plus rect clamp to this+0x14..0x20, stores cell-or-ffff to out): thiscall void (out,center,pos); retail E8 at 0x002EBC4C in 0x002EBC34 read from REL32; identity unproven
 ?rva002E79A8@@YAXHEHHH@Z,0x002E79A8,float-ish SSE worker (cdecl void (int,uchar,int,int,int), ret c3): retail E8 at 0x002EBC72 in 0x002EBC59 read from REL32; uchar 2nd matches rowed IsOdd return with no conversion; identity unproven
+?rva002E7BF0@Rva002EC3CEProbes@@QAE_NHH_NHHHPAX0@Z,0x002E7BF0,thiscall bool 8-stack-arg probe called at 0x002EC3F2/0x002EC420; signature shape-inferred from push sequence, identity unproven
+?rva002EAA41@Rva002EC3CEProbes@@QAE_NHHHHH_N@Z,0x002EAA41,thiscall bool 6-stack-arg probe called at 0x002EC45E; signature shape-inferred from push sequence, identity unproven
+?rva002CB35C@Rva002CB35CObj@@QAE_NHPAX00MH@Z,0x002CB35C,thiscall bool probe called at 0x002EC440 with float 0.0 fifth; signature shape-inferred from push sequence, identity unproven
