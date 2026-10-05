@@ -180,6 +180,7 @@ private:
     HANDLER(ToNumber); HANDLER(ToString);
     HANDLER(SetVariable); HANDLER(GetMember); HANDLER(SetMember);
     HANDLER(PushStringGetVar); HANDLER(PushStringGetMember); HANDLER(PushStringSetVar); HANDLER(PushStringSetMember);
+    HANDLER(End); HANDLER(ToggleQuality); HANDLER(StringLessThan); HANDLER(MBLength); HANDLER(CharToAscii); HANDLER(MBSubString); HANDLER(MBCharToAscii); HANDLER(MBAsciiToChar); HANDLER(BitURShift);
 #undef HANDLER
 };
 void AptActionInterpreter::_FunctionAptActionPushFloat(AptActionInterpreter *const p, LocalContextT *const c)
@@ -1053,3 +1054,51 @@ void AptActionInterpreter::_FunctionAptActionLessThan2(AptActionInterpreter *con
     p->stack.Pop(2); p->stack.Push(v);
 }
 
+// Native assertion-only handlers. The later source changes End to set the return
+// flag; PC retains the original unreachable assertion. Each dispatch slot and
+// full 35-byte body was checked independently, including literal and line.
+void AptActionInterpreter::_FunctionAptActionEnd(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    g_bfmeAptAssertAtE17734("false", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptActionInterpreter.cpp", 0xc6b);
+    if (g_bfmeAptBreakOnAssertAtDDC01C) { __asm int 3 }
+}
+void AptActionInterpreter::_FunctionAptActionToggleQuality(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    g_bfmeAptAssertAtE17734("false && \" [APT] \\\"Toggle Quality\\\" is NOT supported. Please do not use this in your actionscript\\n\"", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptActionInterpreter.cpp", 0xcf0);
+    if (g_bfmeAptBreakOnAssertAtDDC01C) { __asm int 3 }
+}
+void AptActionInterpreter::_FunctionAptActionStringLessThan(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    g_bfmeAptAssertAtE17734("false", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptActionInterpreter.cpp", 0x1204);
+    if (g_bfmeAptBreakOnAssertAtDDC01C) { __asm int 3 }
+}
+void AptActionInterpreter::_FunctionAptActionMBLength(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    g_bfmeAptAssertAtE17734("false", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptActionInterpreter.cpp", 0x123d);
+    if (g_bfmeAptBreakOnAssertAtDDC01C) { __asm int 3 }
+}
+void AptActionInterpreter::_FunctionAptActionCharToAscii(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    g_bfmeAptAssertAtE17734("false", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptActionInterpreter.cpp", 0x125a);
+    if (g_bfmeAptBreakOnAssertAtDDC01C) { __asm int 3 }
+}
+void AptActionInterpreter::_FunctionAptActionMBSubString(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    g_bfmeAptAssertAtE17734("false", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptActionInterpreter.cpp", 0x12b0);
+    if (g_bfmeAptBreakOnAssertAtDDC01C) { __asm int 3 }
+}
+void AptActionInterpreter::_FunctionAptActionMBCharToAscii(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    g_bfmeAptAssertAtE17734("false", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptActionInterpreter.cpp", 0x12ce);
+    if (g_bfmeAptBreakOnAssertAtDDC01C) { __asm int 3 }
+}
+void AptActionInterpreter::_FunctionAptActionMBAsciiToChar(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    g_bfmeAptAssertAtE17734("false", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptActionInterpreter.cpp", 0x12eb);
+    if (g_bfmeAptBreakOnAssertAtDDC01C) { __asm int 3 }
+}
+void AptActionInterpreter::_FunctionAptActionBitURShift(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    g_bfmeAptAssertAtE17734("false", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptActionInterpreter.cpp", 0x1b92);
+    if (g_bfmeAptBreakOnAssertAtDDC01C) { __asm int 3 }
+}
