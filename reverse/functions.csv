@@ -63795,3 +63795,6 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ??0Rva00210EF1@@QAE@H@Z,,0x00210EF1,24,Code/GameEngine/Source/Common/SingleBaseCtors.cpp,matched,F24 single-base ctor forwarding int to pinned base and stamping derived vtable
 ??0Rva003B0835@@QAE@H@Z,,0x003B0835,24,Code/GameEngine/Source/Common/SingleBaseCtors.cpp,matched,F24 single-base ctor forwarding int to pinned base and stamping derived vtable
 ??0Rva005D50C4@@QAE@XZ,,0x005D50C4,20,Code/GameEngine/Source/Common/SingleBaseCtors.cpp,matched,F24 single-base ctor forwarding constant 1 to pinned base and stamping derived vtable
+?rva005C834A@Rva005C834AOwner@@QAEXHH@Z,,0x005C834A,37,Code/GameEngine/Source/Common/RangeApplyWrappers.cpp,matched,F34 range-apply wrapper over 0x48-byte elements forwarding two args
+?rva005C839B@Rva005C839BOwner@@QAEXHH@Z,,0x005C839B,37,Code/GameEngine/Source/Common/RangeApplyWrappers.cpp,matched,F34 range-apply wrapper over 0x48-byte elements forwarding two args
+?rva00569393@Rva00569393Owner@@QAEXH@Z,,0x00569393,34,Code/GameEngine/Source/Common/RangeApplyWrappers.cpp,matched,F34 pointer-array wrapper forwarding one arg plus owner per element

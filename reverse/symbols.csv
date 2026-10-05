@@ -13105,3 +13105,6 @@ _Rva00438083,0x00438083,Address-derived bool prompt helper directly called by 0x
 ??0Rva003FAE68Base@@QAE@H@Z,0x003FAE68,pinned base constructor forwarding target of the F24 single-base ctor 0x00210EF1; name unknown
 ??0Rva003B0454Base@@QAE@H@Z,0x003B0454,pinned base constructor forwarding target of the F24 single-base ctor 0x003B0835; name unknown
 ??0Rva005D5095Base@@QAE@H@Z,0x005D5095,pinned base constructor forwarding target of the F24 single-base ctor 0x005D50C4; name unknown
+?rva005C8F50@Rva005C8F50Elem@@QAEXHH@Z,0x005C8F50,pinned per-element method called by the F34 range-apply wrapper 0x005C834A with the wrapper args; name unknown
+?rva005C90F1@Rva005C90F1Elem@@QAEXHH@Z,0x005C90F1,pinned per-element method called by the F34 range-apply wrapper 0x005C839B with the wrapper args; name unknown
+?rva005691DB@Rva005691DBHelper@@QAEXPAXH@Z,0x005691DB,pinned per-element method called by the F34 pointer-array wrapper 0x00569393 with the wrapper arg plus owner; name unknown
