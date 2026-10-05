@@ -63421,3 +63421,8 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva003551D3@AiOrdersManager@@QAEXH@Z,,0x003551D3,23,Code/GameEngine/Source/Common/RvaFindThenRunFamily.cpp,matched,Address-derived find-then-run void(int); 23B push/call/test/mov/call shape
 ?fwd@Rva0040D3E8Owner@@QAEXH@Z,,0x0040D3E8,23,Code/GameEngine/Source/Common/RvaFindThenRunFamily.cpp,matched,Address-derived find-then-run void(int); 23B push/call/test/mov/call shape
 ?fwd@Rva0040FAFEOwner@@QAEXH@Z,,0x0040FAFE,23,Code/GameEngine/Source/Common/RvaFindThenRunFamily.cpp,matched,Address-derived find-then-run void(int); 23B push/call/test/mov/call shape
+?rva00271BCC@Rva00271BCC@@QAEXHH@Z,,0x00271BCC,18,Code/GameEngine/Source/Common/RvaNullCheckArgFwds2.cpp,matched,Null-checked 2-arg member forward; 18B shape
+?fwd@Rva0029B16AOwner@@QAEXHH@Z,,0x0029B16A,18,Code/GameEngine/Source/Common/RvaNullCheckArgFwds2.cpp,matched,Address-derived null-checked member forward 2-arg; 18B/retN shape
+?fwd@Rva002A9CDEOwner@@QAEXHH@Z,,0x002A9CDE,18,Code/GameEngine/Source/Common/RvaNullCheckArgFwds2.cpp,matched,Address-derived null-checked member forward 2-arg; 18B/retN shape
+?fwd@Rva002A9CF0Owner@@QAEXH@Z,,0x002A9CF0,18,Code/GameEngine/Source/Common/RvaNullCheckArgFwds2.cpp,matched,Address-derived null-checked member forward 1-arg; 18B/retN shape
+?rva002A9DEC@Rva002A9BF2@@QAEXH@Z,,0x002A9DEC,18,Code/GameEngine/Source/Common/RvaNullCheckArgFwds2.cpp,matched,Address-derived null-checked member forward peer pin 1-arg; 18B/retN shape
