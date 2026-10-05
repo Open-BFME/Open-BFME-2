@@ -14517,3 +14517,7 @@ _rva006F98C0Call,0x006F98C0,retail call at 0x006F9B84 supplies EAX ECX and two s
 ?Rva0051EC31RangeCallee@@YAPAURva0051EC31Output@@PAURva0051EC31Input@@0PAU1@ABURva0051EC31IteratorTag@@PAH@Z,0x0051E939
 ?Rva00541231RangeCallee@@YAPAURva00541231Output@@PAURva00541231Input@@0PAU1@ABURva00541231IteratorTag@@PAH@Z,0x005410B1
 ?Rva00569109RangeCallee@@YAPAURva00569109Output@@PAURva00569109Input@@0PAU1@ABURva00569109IteratorTag@@PAH@Z,0x00568EB4
+?resize@?$vector@URva00150C97Entry@@V?$allocator@URva00150C97Entry@@@_STL@@@_STL@@QAEXI@Z,0x00150BF9,address-scoped resize wrapper; target REL32 from grow 0x00150C97; no application identity inferred
+?resize@?$vector@URva00150CD0Entry@@V?$allocator@URva00150CD0Entry@@@_STL@@@_STL@@QAEXI@Z,0x00150C22,address-scoped resize wrapper; target REL32 from grow 0x00150CD0; no application identity inferred
+?resize@?$vector@URva00150D09Entry@@V?$allocator@URva00150D09Entry@@@_STL@@@_STL@@QAEXI@Z,0x00150C4B,address-scoped resize wrapper; target REL32 from grow 0x00150D09; no application identity inferred
+?resize@?$vector@URva00150D42Entry@@V?$allocator@URva00150D42Entry@@@_STL@@@_STL@@QAEXI@Z,0x00150C74,address-scoped resize wrapper; target REL32 from grow 0x00150D42; no application identity inferred
