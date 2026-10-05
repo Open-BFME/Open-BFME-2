@@ -62970,3 +62970,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?_FunctionAptActionTypeOf@AptActionInterpreter@@CAXQAU1@QAULocalContextT@1@@Z,,0x007029A0,413,Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp,matched,PC opcode44 table9DC980 reread; native extent7029A0-702B3D; Redwood6 private static signature; later source0cbfd5f746c89504 semantics; target pool indices predicates and char-string assignment verified
 ?rva007B82D3@@YAXXZ,,0x007B82D3,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00E03168 tail-jmp pinned Rva00422CE9Tree 0x00422CE9
 ?rva007B82DD@@YAXXZ,,0x007B82DD,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00E0319C tail-jmp pinned Rva00422CEETree 0x00422CEE
+?rva00564E43@Rva00564E43@@QAEXXZ,,0x00564E43,125,Code/GameEngine/Source/Common/System/Rva00564E43.cpp,matched,finish stash 0.94 plus barrier ordering

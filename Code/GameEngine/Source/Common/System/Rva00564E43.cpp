@@ -1,5 +1,3 @@
-// ?rva00564E43@Rva00564E43@@QAEXXZ
-// partial score=0.94 date=2026-10-05
 // cl: /FIzh_ascii.h /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/reference/shims/cdmanager /Ireference/open-bfme-1/reference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib
 // stlport
 #include "PreRTS.h"
@@ -16,6 +14,8 @@ public:
 	Rva002104C7 *m_b0;
 };
 extern Rva002BA8F1Logic *g_009FEF10;
+extern "C" void _ReadWriteBarrier(void);
+#pragma intrinsic(_ReadWriteBarrier)
 struct Rva00564E43Item
 {
 	int m_0;
@@ -29,7 +29,6 @@ public:
 	Rva00564E43Item *m_end;
 	void rva00564E43();
 };
-// ?rva00564E43@Rva00564E43@@QAEXXZ present-unmatched
 void Rva00564E43::rva00564E43()
 {
 	AsciiString tmp;
@@ -37,7 +36,10 @@ void Rva00564E43::rva00564E43()
 		return;
 	for (unsigned i = 0; i < (unsigned)(((char *)m_end - (char *)m_begin) >> 3); ++i)
 	{
+		_ReadWriteBarrier();
 		tmp.set(m_begin[i].m_4);
-		g_009FEF10->m_b0->rva002104C7(&tmp, (void *)1);
+		Rva002104C7 *h = g_009FEF10->m_b0;
+		_ReadWriteBarrier();
+		h->rva002104C7(&tmp, (void *)1);
 	}
 }
