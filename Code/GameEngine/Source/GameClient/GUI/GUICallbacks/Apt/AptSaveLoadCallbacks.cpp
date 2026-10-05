@@ -32,6 +32,13 @@ public:
 	void OnClosed(const char *unused);
 	void Cancel(const char *unused);
 	void Delete(const char *unused);
+	void Load(const char *unused);
+	void ConfirmationOk(const char *unused);
+
+	// Unrowed 0x0043448C, 0x00435224 and 0x00434B8A, pinned by address.
+	void rva0043448C();
+	void rva00435224();
+	void rva00434B8A();
 
 	// Unrowed 0x00433F7F (94 bytes; banked), pinned by address.
 	int rva00433F7F();
@@ -40,6 +47,17 @@ private:
 	unsigned char m_pad000[0x27C];
 	int m_state; // +0x27C
 	AptSaveLoadPending *m_pending; // +0x280
+	unsigned char m_pad284[0x29C - 0x284];
+	bool m_29c; // +0x29C
+	unsigned char m_pad29d[0x2A0 - 0x29D];
+	int m_mode; // +0x2A0
+};
+
+// The rowed 0x00433FDD (Rva00433FDDSet.cpp's view of this screen).
+class Rva00433FDD
+{
+public:
+	void rva00433FDD();
 };
 
 // Retail 0x00433DB1, 47 bytes: "AptSaveLoad::OnClosed" flags the shell
@@ -66,4 +84,40 @@ void AptSaveLoad::Delete(const char *unused)
 {
 	if (m_state == 0 && rva00433F7F())
 		m_state = 16;
+}
+
+// Retail 0x004348CA, 76 bytes: "AptSaveLoad::Load" takes the selected
+// entry (0x00433F7F) and loads it: state 14 with +0x29C, 0x0043448C in mode
+// 4, else state 3.
+void AptSaveLoad::Load(const char *unused)
+{
+	if (m_state == 0)
+	{
+		m_pending = (AptSaveLoadPending *)rva00433F7F();
+		if (m_29c)
+			m_state = 14;
+		else if (m_mode == 4)
+			rva0043448C();
+		else
+			m_state = 3;
+	}
+}
+
+// Retail 0x004357CF, 74 bytes: "AptSaveLoad::ConfirmationOk" finishes the
+// confirmation the state (0x12..0x15) is waiting on.
+void AptSaveLoad::ConfirmationOk(const char *unused)
+{
+	if (m_state == 0x12)
+	{
+		if (m_mode == 4)
+			rva0043448C();
+		else
+			m_state = 3;
+	}
+	else if (m_state == 0x13)
+		rva00435224();
+	else if (m_state == 0x14)
+		rva00434B8A();
+	else if (m_state == 0x15)
+		((Rva00433FDD *)this)->rva00433FDD();
 }
