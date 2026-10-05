@@ -84,7 +84,7 @@ extern void __cdecl Rva009A9550(const void *, int, void *);
 extern void __cdecl Rva009A9660(unsigned char *, int, unsigned int);
 extern void __cdecl Rva009A9720(unsigned char *, int, unsigned int);
 extern void __cdecl Rva009A91D0(void);
-extern void __cdecl Rva009A92D0(void);
+extern void __cdecl Rva009A92D0(unsigned char *, int, unsigned int);
 extern void __cdecl Rva009A9370(void);
 struct Rva009B6BB0Context
 {
@@ -264,4 +264,33 @@ void __cdecl bfmeInstallCpuDispatchTable(void)
 	g_bfmeCodecDispatch.slot[3] = (BfmeDispatchFn)&bfmeBlurRows;
 	g_bfmeCodecDispatch.slot[19] = (BfmeDispatchFn)&Rva009B6BB0;
 	g_bfmeCodecDispatch.slot[0] = (BfmeDispatchFn)&d_009a5f50;
+}
+
+// Retail 0x001B9D10, 157 bytes. Demo relocation mapping recovers the
+// missing start; dispatch slot 7 supplies the callback identity. Layout and
+// weights follow retail loads and stores; the already-matched slot 6 scalar
+// interpolator is the source-shape guide. This five-row variant interpolates
+// between rows 0 and 5 rather than copying its final output row. The old
+// address-derived donor spelling does not assert an original source name.
+void __cdecl Rva009A92D0(unsigned char *source, int stride, unsigned int bytes)
+{
+    unsigned char *cursor = source;
+    while (bytes > 0)
+    {
+        unsigned int second = cursor[stride];
+        unsigned int first = cursor[0];
+        unsigned int firstWeight = first * 51;
+        unsigned int secondWeight = second * 205;
+        cursor[stride] = (unsigned char)((firstWeight + secondWeight + 128) >> 8);
+        unsigned int fourth;
+        unsigned int third;
+        third = cursor[stride * 2];
+        unsigned int thirdWeight = third * 154;
+        fourth = cursor[stride * 3];
+        cursor[stride * 2] = (unsigned char)((second * 102 + thirdWeight + 128) >> 8);
+        cursor[stride * 3] = (unsigned char)((fourth * 102 + thirdWeight + 128) >> 8);
+        cursor[stride * 4] = (unsigned char)((cursor[stride * 5] * 51 + fourth * 205 + 128) >> 8);
+        ++cursor;
+        --bytes;
+    }
 }
