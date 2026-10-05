@@ -101,7 +101,6 @@ void __cdecl PlaySound(const char *eventName)
 }
 
 // Retail 0x004127D3, 11 bytes: "OnClickThroughPress".
-// ?OnClickThroughPress@@YAXPBD@Z present-unmatched
 void __cdecl OnClickThroughPress(const char *unused)
 {
 	((Rva0043283C *)g_Va00E032C8)->rva00432AA2();
