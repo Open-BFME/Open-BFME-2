@@ -12093,9 +12093,6 @@ _rva00286E33@8,0x00286E33,stdcall out-param 5B writer called from 0x287B2A with 
 ??0Rva00557C90Element@@QAE@ABU0@@Z,0x005564EB,element copy constructor: REL32 read at the copy call site in the 45B EH _Construct 0x00557C90; element identity unproven; address-derived name
 ??0Rva00600F9CElement@@QAE@ABU0@@Z,0x00600F76,element copy constructor: REL32 read at the copy call site in the 45B EH _Construct 0x00600F9C; element identity unproven; address-derived name
 ??0Rva002BAE2AElement@@QAE@ABU0@@Z,0x002B9247,element copy constructor: REL32 read at the copy call site in the 45B EH _Construct 0x002BAE2A; callee already rowed as the vector<Rva002B72C9> copy ctor so the element is likely that vector; address-derived placeholder name
-?rva0021BDAB@Rva0021BDAccess@@QAEHI@Z,0x0021BDAB,middle entry of the 0x0021BE42 chain: REL32 read at the forward call site in 0x0021BE42; two-level forward via 0x0021BD22/0x0021BD41 with +4 element offset; owner class identity unproven
-?rva0021BDD3@Rva0021BDAccess@@QAEHI@Z,0x0021BDD3,middle entry of the 0x0021BE62 chain: REL32 read at the forward call site in 0x0021BE62; two-level forward via 0x0021BD22/0x0021BD41 with +8 element offset; owner class identity unproven
-?rva0021BDFB@Rva0021BDAccess@@QAEHI@Z,0x0021BDFB,middle entry of the 0x0021BE82 chain: REL32 read at the forward call site in 0x0021BE82; two-level forward via 0x0021BD22/0x0021BD41 with +0xC element offset; owner class identity unproven
 ?rva00056BFE@Rva00057B27@@QAEHI@Z,0x00056BFE,reserve-like grower: REL32 read at the count+1 call site in 0x00057B27; owner identity unproven
 ?rva00054BC3@Rva00057B27@@QAEXII@Z,0x00054BC3,indexed set: REL32 read at the two-arg call site in 0x00057B27; owner identity unproven
 ?rva0053F1EC@Rva00057D38@@QAEHI@Z,0x0053F1EC,reserve-like grower: REL32 read at the count+1 call site in 0x00057D38; owner identity unproven
@@ -12117,3 +12114,5 @@ _rva00286E33@8,0x00286E33,stdcall out-param 5B writer called from 0x287B2A with 
 ??0Rva005C802BChild@@QAE@PAVRva005C802B@@HH@Z,0x005C7D4A,child constructor taking owner and two ints: REL32 read at the new-trap-guarded call site in ctor 0x005C802B; owner identity unproven
 ??0Rva005D19F8Child@@QAE@PAVRva005D19F8@@HH@Z,0x005D18E2,child constructor taking owner and two ints: REL32 read at the new-trap-guarded call site in ctor 0x005D19F8; owner identity unproven
 ??0Rva005FF912Child@@QAE@PAVRva005FF912@@HH@Z,0x005FF675,child constructor taking owner and two ints: REL32 read at the new-trap-guarded call site in ctor 0x005FF912; owner identity unproven
+?rva0021BD22@Rva0021BDAccess@@QAEPAXI@Z,0x0021BD22,inner entry of the 0x0021BDAB chain: REL32 read at the first call site in 0x0021BDAB; int-vector lookup at this+0x54 via 0x00388F63; owner class identity unproven
+?rva0021BD41@Rva0021BDAccess@@QAEHIPAX@Z,0x0021BD41,inner entry of the 0x0021BDAB chain taking index then element pointer: REL32 read at the second call site in 0x0021BDAB; resolves through 0x0021BC0D and rowed 0x00219D85; owner class identity unproven

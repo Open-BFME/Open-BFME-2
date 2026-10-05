@@ -62245,3 +62245,6 @@ _Rva007F5790Callback,,0x00661F40,15,Code/GameEngine/Source/GameNetwork/Rva007F70
 ??0Rva005C802B@@QAE@HH@Z,,0x005C802B,74,Code/GameEngine/Source/Common/Rva005C802BFactory.cpp,matched,74B factory ctor: vtable 0x00C74ACC plus new 0x60 child guarded init storing return; identities unproven
 ??0Rva005D19F8@@QAE@HH@Z,,0x005D19F8,74,Code/GameEngine/Source/Common/Rva005C802BFactory.cpp,matched,74B factory ctor: vtable 0x00C75688 plus new 0x1C child guarded init storing return; twin of 0x005C802B
 ??0Rva005FF912@@QAE@HH@Z,,0x005FF912,74,Code/GameEngine/Source/Common/Rva005C802BFactory.cpp,matched,74B factory ctor: vtable 0x00C7A530 plus new 0x40 child guarded init storing return; twin of 0x005C802B
+?rva0021BDAB@Rva0021BDAccess@@QAEHI@Z,,0x0021BDAB,40,Code/GameEngine/Source/Common/Rva0021BE42Chain.cpp,matched,40B middle forward via pinned 0x0021BD22 then 0x0021BD41 with +4 offset; if/else-return layout; owner identity unproven
+?rva0021BDD3@Rva0021BDAccess@@QAEHI@Z,,0x0021BDD3,40,Code/GameEngine/Source/Common/Rva0021BE42Chain.cpp,matched,40B middle forward via pinned 0x0021BD22 then 0x0021BD41 with +8 offset; twin of 0x0021BDAB
+?rva0021BDFB@Rva0021BDAccess@@QAEHI@Z,,0x0021BDFB,40,Code/GameEngine/Source/Common/Rva0021BE42Chain.cpp,matched,40B middle forward via pinned 0x0021BD22 then 0x0021BD41 with +0xC offset; twin of 0x0021BDAB
