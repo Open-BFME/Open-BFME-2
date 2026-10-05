@@ -60874,3 +60874,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ??1?$vector@URva0040DC56Element@@V?$allocator@URva0040DC56Element@@@_STL@@@_STL@@QAE@XZ,,0x002B703F,63,Code/GameEngine/Source/GameLogic/Object/Update/Rva002B703FDtor.cpp,matched,EH vector dtor Rva0040DC56Element via explicit instantiation beside Member44
 ??1BfmeAssignRecord52@@QAE@XZ,,0x002B707E,53,Code/GameEngine/Source/GameLogic/Object/Update/BfmeAssignRecord52Dtor.cpp,matched,pin plus chain vector dtor and Rva002B5558
 ?rva003FF1A7@GameSlot@@QAEXH@Z,,0x003FF1A7,27,Code/GameEngine/Source/GameNetwork/GameInfoPlayerCounts.cpp,matched,GameSlot m_5c setter with Rva00559FAC reset at m_60 early-out on equal
+?rva002D3AB5@Rva002D3AB5Target@@QAEXH@Z,,0x002D3AB5,123,Code/GameEngine/Source/Common/Rva002D3AB5Target_Rva002D3AB5.cpp,matched,LINK BONUS caller 0x002D4683 state index plus254 style selection lock string findCommandButton rva004C1B60
