@@ -41,6 +41,35 @@
 // (a union does it, measured), but the trailing run then collapses into four
 // dword stores where retail keeps three dwords and a byte. The two requirements
 // have not been satisfied at the same time.
+//
+// A third seat re-measured the whole blocker space against a positional-byte
+// scorer and confirmed both walls, but improved the body by three bytes on a
+// fourth one. Driving the copy with an explicit `while (__s2 != __e2)` over two
+// hoisted locals instead of a for-loop with a comma-step makes cl emit a body of
+// EXACTLY 175 bytes -- retail's own size, against 178 for the for-loop -- and
+// moves 54 of 175 bytes onto retail's addresses against 51, which is where four
+// previous banks stalled. The size match matters as evidence beyond the score:
+// retail's prologue is 5 bytes longer than this body's, and the 175-byte
+// coincidence is what makes the loop bodies land on the same addresses at all.
+//
+// What this round measured and did not move: 25 element groupings (9 flat
+// scalars, int[8], Pod16+Pod8+char, 24-byte and 28-byte whole-tail groups,
+// 12-byte tail, union at 0x14 and at 0x1c both with and without a nontrivial
+// copy constructor, base-class sub-objects, user operator=, arrays) and 4 copy
+// drivers (__uninitialized_copy, placement-new for, placement-new while,
+// assignment) all reproduce either this 54/175 or something worse; the two that
+// collapse the loop do so by removing the hoisted block entirely. Flags /G3 /G4
+// /G5 /G6 /Gw /Gr /Gs collapse the loop; only /G7 -- with /O2 -- keeps it, and
+// /G3 /G4 combined with /G7 are byte-identical to /G7 alone.
+//
+// The anchor difference is now precisely characterised. Retail's `[eax-0x18]`
+// and this body's `[eax-0x10]` address the SAME absolute byte -- 0x04 within the
+// element -- because retail anchors its induction pointer at element+0x1C and
+// walks down through negative displacements while this one anchors at
+// element+0x14 and walks up. Nothing about the element's contents is in dispute;
+// what is in dispute is only which end of the copied range cl picks as the base
+// to hoist. That is a register-allocator choice made after the loop's induction
+// variables are fixed, and no source-level grouping tried here steers it.
 #include <vector>
 
 struct Pod16 { int a0, a1, a2, a3; };
@@ -66,9 +95,12 @@ public:
               size_t(__x._M_finish - __x._M_start), __x.get_allocator())
     {
         BfmePod36 *__f = this->_M_start;
-        for (const BfmePod36 *__s2 = __x._M_start; __s2 != __x._M_finish;
-             ++__s2, (void)++__f) {
+        const BfmePod36 *__s2 = __x._M_start;
+        const BfmePod36 *__e2 = __x._M_finish;
+        while (__s2 != __e2) {
             new (__f) BfmePod36(*__s2);
+            ++__s2;
+            ++__f;
         }
         this->_M_finish = __f;
     }
