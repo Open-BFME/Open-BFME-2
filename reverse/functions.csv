@@ -59798,3 +59798,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva00214A8A@Rva00214A8A@@QAEXXZ,,0x00214A8A,61,Code/GameEngine/Source/Common/Rva00214A8AClear.cpp,matched,vector clear with delete callers 0x002305B7 erase 0x0031BD55
 ?rva002F714B@Pathfinder@@QAEHPAVObject@@PBUCoord3D@@1@Z,,0x002F714B,91,Code/GameEngine/Source/GameLogic/AI/PathfinderRva002F714B.cpp,matched,chain from 0x002F6AE3 layer via TerrainLogic plus Rva002E7542 info
 ?rva005335B0@Rva005335B0@@QAEXGG@Z,,0x005335B0,35,Code/GameEngine/Source/Common/Rva005335B0Push.cpp,matched,tiny vector push_back helper caller 0x005337CA neighbours 0x005334A4 and 0x005335D3
+?rva000BC9B1@Rva000BC9B1@@QAEX_N@Z,,0x000BC9B1,164,Code/GameEngine/Source/Common/Rva000BC9B1Cleanup.cpp,matched,list B757D at +0x64 via erase copy releaseBuffer plus manager find destroy handle
