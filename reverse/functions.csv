@@ -61965,3 +61965,4 @@ _Rva007F5790Callback,,0x00661F40,15,Code/GameEngine/Source/GameNetwork/Rva007F70
 ?rva00264274@Rva00264274@@QAE_NPBUCoord3D@@@Z,,0x00264274,234,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/Rva00264274Path.cpp,matched,unlock path test with TransportShip locomotor set static key callers 0x0029DEFB
 ?rva004ABFB2@Rva004ABFB2@@QAEXH@Z,,0x004ABFB2,39,Code/Libraries/Source/WWVegas/WWLib/Rva004ABFB2Method.cpp,matched,unlock caller 0x004ABFD9 rowed tree-erase plus Rva0020DAE0
 ??1Rva005EB753@@UAE@XZ,,0x005EB753,14,Code/GameEngine/Source/Common/Rva005EB753Dtor.cpp,matched,vtable 0x00C7823C slot0 plus clear row 0x005EB430 plus caller 0x005D06CB plus deleting dtor 0x005EB761
+??0Rva00382398@@QAE@ABV0@@Z,,0x003830EA,257,Code/GameEngine/Source/Common/System/SaveGame/Rva00382398Copy.cpp,matched,vtable 0xC19424 base 0x2295D7 StringBase 0x365F0 dtor 0x382398
