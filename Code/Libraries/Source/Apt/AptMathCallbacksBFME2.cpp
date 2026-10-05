@@ -66,3 +66,12 @@ AptValue *aptMathSin(void *self, int argc)
     float value = g_aptDateInterpreter.stack.At(0)->rva006DD460();
     return Rva008A4EA0MakeFloat((float)sin(value));
 }
+
+// Native 6E85A0..6E85CF: checked top value followed by x87 fcos.
+AptValue *aptMathCos(void *self, int argc)
+{
+    if (argc < 1)
+        return reinterpret_cast<AptValue *>(g_aptUndefinedAtE18078);
+    float value = g_aptDateInterpreter.stack.At(0)->rva006DD460();
+    return Rva008A4EA0MakeFloat((float)cos(value));
+}
