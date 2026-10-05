@@ -61830,3 +61830,6 @@ _Rva007F5790Callback,,0x00661F40,15,Code/GameEngine/Source/GameNetwork/Rva007F70
 ?Rva004311A7Emit@@YAHPAXPAUICoord2D@@@Z,,0x004311A7,154,Code/GameEngine/Source/Common/Rva004311A7.cpp,matched,free Emit via slot75 screenToTerrain createMessage 0x430 plus voice response
 ?Rva005F1A5FGet@@YA_NPBDPAH@Z,,0x005F1A5F,150,Code/GameEngine/Source/Common/Rva005F1A5F.cpp,matched,free index GetParam plus empty plus isdigit plus atoi 0-5
 ?rva005F1AF5@Rva005F1AF5@@QAEXPBD@Z,,0x005F1AF5,35,Code/GameEngine/Source/Common/Rva005F1A5F.cpp,matched,chain setter parsing index via Get into +0x44
+?rva007B9B90@@YAXXZ,,0x007B9B90,11,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,Vftable store thunk: g_Va00DD828C = 0x00CE3168 then ret; honest address name
+?rva007B9BA0@@YAXXZ,,0x007B9BA0,11,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,Vftable store thunk: g_Va00DD8314 = 0x00CE36A0 then ret; honest address name
+?rva007B9BB0@@YAXXZ,,0x007B9BB0,11,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,Vftable store thunk: g_Va00DD83B4 = 0x00CE3934 then ret; honest address name

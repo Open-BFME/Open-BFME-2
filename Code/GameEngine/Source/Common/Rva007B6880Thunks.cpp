@@ -6727,3 +6727,30 @@ void __cdecl rva007B6BE1()
 	Rva007A4E6 *p = (Rva007A4E6 *)&g_Va00DE1FC8;
 	return p->~Rva007A4E6();
 }
+
+extern unsigned g_Va00DD828C;
+unsigned int g_Va00DD828C;
+
+// ?rva007B9B90@@YAXXZ @ 0x007B9B90 (11B). Vftable store thunk: g_Va00DD828C = 0x00CE3168 (vftable stored as slot 10 by the rowed ??_GRva006655B0 deleting dtor) then ret. No callers. Honest address name.
+void __cdecl rva007B9B90()
+{
+	g_Va00DD828C = 0x00CE3168;
+}
+
+extern unsigned g_Va00DD8314;
+unsigned int g_Va00DD8314;
+
+// ?rva007B9BA0@@YAXXZ @ 0x007B9BA0 (11B). Vftable store thunk: g_Va00DD8314 = 0x00CE36A0 (vftable stored as slot 10 by the rowed ??_GRva006680E0 deleting dtor) then ret. No callers. Honest address name.
+void __cdecl rva007B9BA0()
+{
+	g_Va00DD8314 = 0x00CE36A0;
+}
+
+extern unsigned g_Va00DD83B4;
+unsigned int g_Va00DD83B4;
+
+// ?rva007B9BB0@@YAXXZ @ 0x007B9BB0 (11B). Vftable store thunk: g_Va00DD83B4 = 0x00CE3934 (vftable stored as slot 10 by the rowed ??_GRva00669510 deleting dtor) then ret. No callers. Honest address name.
+void __cdecl rva007B9BB0()
+{
+	g_Va00DD83B4 = 0x00CE3934;
+}
