@@ -50,3 +50,8 @@ Gen_003BEA30::Gen_003BEA30(const BfmePairWI &pair, int kind,
 	  m_bfmeFlag(flag)
 {
 }
+
+// Retail's AsciiStringWI copy ctor already aliases to rowed StringBase copy
+// (StringBaseNarrowCopySet.cpp); bind its dtor the same way so BfmeStrWI's
+// inline dtor links without changing code bytes.
+#pragma comment(linker, "/alternatename:??1AsciiStringWI@@QAE@XZ=??1?$StringBase@D@@AAE@XZ")

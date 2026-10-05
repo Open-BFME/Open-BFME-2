@@ -9031,3 +9031,5 @@ _VP6_ConfigureMvEntropyDecoder	0x001C6EF0	331	partial	third-loop pre-increment p
 ?Rva003E8863Get@@YG_NPAVParameter@@000@Z	0x003E8863	326	blocked	same Disp8 getter chain 4-param counting family t=3 model=muse-09
 ?Rva003E8E23Get@@YG_NPAVParameter@@000@Z	0x003E8E23	459	blocked	largest Disp8 getter chain plus ObjectTypesTemp plus op switch family t=3 model=muse-09
 ?rva003F3708@Rva003F3708@@QAEPAUElem003B2540@@H@Z	0x003F3708	49	blocked	size exact 49B only lea-mov reg wall plus erase this reload t=18 model=muse-09 (stash 0.95 kept)
+?rva00102284@Rva0010225F@@QAEXXZ	0x00102284	64	partial	pop ecx before mov eax [esi+0x10] retail has pop at +0x25 ours at +0x2a t=12 model=muse-spark score=0.97 stash=reverse/attempts/0x00102284.cpp
+?rva00356413@Rva00355F3E@@UAEXH@Z	0x00356413	35	partial	scratch registers rotated TheNetwork in eax not ecx push esi late t=15 model=muse-spark score=0.93 stash=reverse/attempts/0x00356413.cpp
