@@ -24,7 +24,7 @@ extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *,const char *,int);
 extern int g_bfmeAptBreakOnAssertAtDDC01C;
 struct SoundCharacter { char pad[4]; void *parent; };
 struct SoundSprite { char pad[12]; SoundCharacter *character; };
-class AptCIH { public: char pad[0x4c];SoundSprite *sprite;bool rva006CFCD0() const; };
+class AptCIH { public: char pad[0x28];float redMultiplier,greenMultiplier,blueMultiplier;char pad2[0x4c-0x34];SoundSprite *sprite;char pad3[0x5c-0x50];unsigned int flags;bool rva006CFCD0() const;void factorySetProperty(int,float,bool);float factoryGetProperty(int) const; };
 // Target scalar destructors6F3960/6FE430/6E9B50 use this pool and class size.
 class Rva006D2A60 { public: void *allocBlock(int);void freeBlock(void *,int); };
 extern Rva006D2A60 *g_pChainBlockAllocatorF4;
@@ -69,7 +69,7 @@ typedef char ErrorSize[sizeof(AptError)==40?1:-1];
 // Original PDB ScriptColour is36B with pSprite+20; MAP supplies const-pointer
 // parameter. Donor f1e86798adbb054c supplies semantics. Native6F24E0..6F25C5
 // asserts non-null and only clears pSprite when isCIH fails (later code differs).
-class BfmeAptValue006DCD20 {public: BfmeAptValue006DCD20 *rva006DCF60(bool);int rva006E02B0() const;void setGCRootCount(unsigned int);void factorySetString(const char *);int isSound() const;BfmeAptValue006DCD20 *rva006DCFE0();void rva006DD6C0(EAStringC *);};
+class BfmeAptValue006DCD20 {public: BfmeAptValue006DCD20 *rva006DCF60(bool);int rva006E02B0() const;void setGCRootCount(unsigned int);void factorySetString(const char *);int isSound() const;BfmeAptValue006DCD20 *rva006DCFE0();void rva006DD6C0(EAStringC *);BfmeAptValue006DCD20 *rva006DD0A0();int toInteger() const;};
 class AptScriptColour : public AptObject {
 public:
  AptScriptColour(AptValue *const);
@@ -204,3 +204,33 @@ AptValue *callback006F3580(AptValue *context,int) {
  }
  return gpUndefinedValue;
 }
+
+// Colour donor setRGB/getRGB semantics with original procedural-property ABI:
+// native indices8/9/10, multiplier fields28/2C/30 and AS-change flag16 at5C.
+// Original getRGB omits later clamping and truncates each float to int.
+class AptInteger {public:static AptValue *Create(int);};
+AptValue *callback006F2700(AptValue *context,int) {
+ AptCIH *sprite=((AptScriptColour *)((BfmeAptValue006DCD20 *)context)->rva006DD0A0())->pSprite;
+ if(sprite) {
+  int rgb=((int)sprite->factoryGetProperty(8))<<16;
+  rgb|=((int)sprite->factoryGetProperty(9))<<8;
+  rgb|=(int)sprite->factoryGetProperty(10);
+  return AptInteger::Create(rgb);
+ }
+ return gpUndefinedValue;
+}
+AptValue *callback006F2640(AptValue *context,int) {
+ BfmeAptValue006DCD20 *param=((AptBasePtrStack *)&g_aptDateInterpreter)->At(0);
+ AptCIH *sprite=((AptScriptColour *)((BfmeAptValue006DCD20 *)context)->rva006DD0A0())->pSprite;
+ if(sprite) {
+  int rgb=param->toInteger();
+  sprite->factorySetProperty(8,(float)((rgb>>16)&255),false);
+  sprite->factorySetProperty(9,(float)((rgb>>8)&255),false);
+  sprite->factorySetProperty(10,(float)(rgb&255),false);
+  sprite->redMultiplier=0; sprite->greenMultiplier=0; sprite->blueMultiplier=0;
+  sprite->flags|=0x10000;
+ }
+ return gpUndefinedValue;
+}
+
+#pragma comment(linker, "/alternatename:?factoryGetProperty@AptCIH@@QBEMH@Z=?rva006E0920@Rva006E0920@@QBEMH@Z")
