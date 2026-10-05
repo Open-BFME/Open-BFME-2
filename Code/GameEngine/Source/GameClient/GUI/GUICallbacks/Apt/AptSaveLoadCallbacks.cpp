@@ -47,6 +47,9 @@ public:
 	// "AptOptions::OnInitialized"): one body or several folded, so it keeps
 	// its address.
 	void rva00433DF1(const char *unused);
+	// Bound without a name as the saved-game prompt's answer (0x00434EFA),
+	// so it keeps its address.
+	void rva00433D71(int button);
 	void Delete(const char *unused);
 	void Load(const char *unused);
 	void ConfirmationOk(const char *unused);
@@ -75,6 +78,8 @@ private:
 	bool m_29c; // +0x29C
 	unsigned char m_pad29d[0x2A0 - 0x29D];
 	int m_mode; // +0x2A0
+	unsigned char m_pad2a4[0x2A8 - 0x2A4];
+	int m_2a8; // +0x2A8
 };
 
 // The rowed 0x00433FDD (Rva00433FDDSet.cpp's view of this screen).
@@ -83,6 +88,16 @@ class Rva00433FDD
 public:
 	void rva00433FDD();
 };
+
+// Retail 0x00433D71, 37 bytes. Name unknown. Keeps the answer to the
+// "APT:MultiplayerGameSaved" prompt: button 2 gives 1, button 3 gives 2.
+void AptSaveLoad::rva00433D71(int button)
+{
+	if (button == 2)
+		m_2a8 = 1;
+	else if (button == 3)
+		m_2a8 = 2;
+}
 
 // Retail 0x00433DB1, 47 bytes: "AptSaveLoad::OnClosed" flags the shell
 // unless a kind 6 confirmation closed it in state 6.

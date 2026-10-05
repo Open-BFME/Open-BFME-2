@@ -124,6 +124,10 @@ extern GameEngine *TheGameEngine;
 class GlobalData;
 extern GlobalData *TheGlobalData;
 
+// OpaqueScalarDeletingDtorsB12.cpp's g_Va00E048DC (the open resource
+// holder).
+extern int g_Va00E048DC;
+
 struct AptMainMenuGlobalData
 {
 	unsigned char m_pad00[0x28];
@@ -204,6 +208,14 @@ public:
 	// pinned by address.
 	void ResetResolution(const char *unused);
 
+	// Bound without a name by the LAN and online openers (0x00515C64,
+	// 0x005160DE) and the tutorial prompt (0x00515980); they keep their
+	// addresses.
+	void rva00514B8D();
+	void rva00514BA1();
+	void rva00514BB5();
+	void rva00514DC0(int button);
+
 private:
 	unsigned char m_pad000[0x27C];
 	bool m_initialized; // +0x27C
@@ -212,7 +224,8 @@ private:
 	bool m_27f;
 	bool m_280;
 	bool m_tutorialPending; // +0x281
-	unsigned char m_pad282[0x288 - 0x282];
+	bool m_282; // +0x282
+	unsigned char m_pad283[0x288 - 0x283];
 	int m_state; // +0x288
 	int m_next; // +0x28C
 	unsigned char m_pad290[0x2A4 - 0x290];
@@ -367,4 +380,34 @@ void AptMainMenu::CreditsExit(const char *unused)
 	m_2a4.clear();
 	TheShell->m_5d = false;
 	((GameEngineRate *)TheGameEngine)->v18(((AptMainMenuGlobalData *)TheGlobalData)->m_28);
+}
+
+// Retail 0x00514B8D, 20 bytes. Name unknown. State 5 while the resource
+// holder g_Va00E048DC is set.
+void AptMainMenu::rva00514B8D()
+{
+	if (g_Va00E048DC)
+		m_state = 5;
+}
+
+// Retail 0x00514BA1, 20 bytes. Name unknown. State 6 likewise.
+void AptMainMenu::rva00514BA1()
+{
+	if (g_Va00E048DC)
+		m_state = 6;
+}
+
+// Retail 0x00514BB5, 20 bytes. Name unknown. State 7 likewise.
+void AptMainMenu::rva00514BB5()
+{
+	if (g_Va00E048DC)
+		m_state = 7;
+}
+
+// Retail 0x00514DC0, 26 bytes. Name unknown. In state 8 keeps whether the
+// prompt was answered with button 2.
+void AptMainMenu::rva00514DC0(int button)
+{
+	if (m_state == 8)
+		m_282 = button == 2;
 }

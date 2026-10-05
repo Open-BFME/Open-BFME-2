@@ -10,6 +10,7 @@
 #include "unicode_string.h"
 
 extern "C" int __cdecl strcmp(const char *left, const char *right);
+extern "C" char *__cdecl strcpy(char *destination, const char *source);
 
 class GameWindow;
 
@@ -95,6 +96,7 @@ public:
 	void InitGadgets(const char *name, void *argument, GameWindow *window);
 	void Quit(const char *unused);
 	void OnBttnEnterText(const char *unused);
+	void PlayerColor(int slot, char *result, bool skip);
 
 	// Zero Hour's DisconnectMenu::sendChat, filtered. Name unknown.
 	void rva005130E2(UnicodeString text);
@@ -183,3 +185,14 @@ void AptDisconnectScreen::OnBttnEnterText(const char *unused)
 	if (!unicodeIsEmpty(text))
 		rva005130E2(text);
 }
+
+// Retail 0x00512D97, 26 bytes: "DisconnectScreen:PlayerColor:%d" for each
+// slot, an Apt query answering white.
+void AptDisconnectScreen::PlayerColor(int slot, char *result, bool skip)
+{
+	if (!skip)
+		strcpy(result, "0xFFFFFFFF");
+}
+
+// Retail's strcpy call lands on the import thunk rowed as ji_00629176.
+#pragma comment(linker, "/alternatename:_strcpy=?ji_00629176@@YAXXZ")

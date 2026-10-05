@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /O1 /G7 /DNDEBUG /MD
 //
 // BFME2's options screen Apt callback "AptOptions::RefreshNat", 0x005182AB,
 // bound by that name as a member pointer by the screen's registration; that
@@ -32,10 +32,23 @@ public:
 	bool rva00595D95();
 };
 
+extern "C" __declspec(dllimport) int __cdecl sprintf(char *buffer, const char *format, ...);
+
+// OptionPreferences_enumDispatch.cpp's enum table at 0x00DBD120.
+struct BfmeEnumTableEntry
+{
+	const char *m_key;
+	const void *m_subtable;
+	int m_count;
+};
+
+extern BfmeEnumTableEntry BfmeEnumTable[];
+
 class AptOptions
 {
 public:
 	void RefreshNat(const char *unused);
+	void AdvancedOptionNum(int option, char *result, bool skip);
 
 private:
 	unsigned char m_pad000[0x283];
@@ -64,4 +77,16 @@ void AptOptions::RefreshNat(const char *unused)
 		::operator delete(TheFirewallHelper ? TheFirewallHelper->deleteInstance(0) : 0);
 		TheFirewallHelper = 0;
 	}
+}
+
+// Retail 0x00518277, 52 bytes: "AdvancedOption%dNum" for each option, an
+// Apt query answering the option's choice count from the enum table.
+void AptOptions::AdvancedOptionNum(int option, char *result, bool skip)
+{
+	if (skip)
+		return;
+	int count = 0;
+	if (option >= 0 && option < 9)
+		count = BfmeEnumTable[option].m_count;
+	sprintf(result, "%d", count);
 }

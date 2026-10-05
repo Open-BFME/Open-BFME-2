@@ -5,6 +5,8 @@
 // the screen's registration; that binding is their only reference. The
 // class is named for the strings' prefix.
 
+extern "C" char *__cdecl strcpy(char *destination, const char *source);
+
 class GameMessage;
 
 // Zero Hour's TheMessageStream (VA 0x00E00950, the ledger's
@@ -43,6 +45,11 @@ public:
 	void OnBttnLoadGame(const char *unused);
 	void OnBttnLastMission(const char *unused);
 	void OnBttnNextMission(const char *unused);
+	void Victorious(int query, char *result, bool skip);
+
+private:
+	unsigned char m_pad000[0x284];
+	bool m_victorious; // +0x284
 };
 
 // Retail 0x00521172, 11 bytes: "AptCampaignMenu::OnBttnMainMenu".
@@ -80,3 +87,19 @@ void AptCampaignMenu::OnBttnNextMission(const char *unused)
 	MessageStreamSubsystem->appendMessage(0x21);
 	Rva005210ECEnable(false);
 }
+
+// Retail 0x0052112F, 67 bytes: "CampaignMenu:Victorious" (the name comes
+// from the string table 0x00DD1728), an Apt query answering "1" when won.
+void AptCampaignMenu::Victorious(int query, char *result, bool skip)
+{
+	if (!skip)
+	{
+		result[0] = '0';
+		result[1] = 0;
+	}
+	if (query == 0 && m_victorious)
+		strcpy(result, "1");
+}
+
+// Retail's strcpy call lands on the import thunk rowed as ji_00629176.
+#pragma comment(linker, "/alternatename:_strcpy=?ji_00629176@@YAXXZ")

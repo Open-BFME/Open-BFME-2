@@ -11,6 +11,19 @@
 extern "C" unsigned int __cdecl strlen(const char *text);
 extern "C" __declspec(dllimport) int __cdecl strncmp(const char *left, const char *right, unsigned int count);
 extern "C" __declspec(dllimport) int __cdecl atoi(const char *text);
+extern "C" __declspec(dllimport) int __cdecl sprintf(char *buffer, const char *format, ...);
+extern "C" char *__cdecl strcpy(char *destination, const char *source);
+
+// The players' colors at +0x27C (a vector).
+struct AptPlayerStatusColors
+{
+	bool empty() const { return m_begin == m_end; }
+	unsigned int size() const { return m_end - m_begin; }
+	int operator[](unsigned int index) const { return m_begin[index]; }
+
+	int *m_begin;
+	int *m_end;
+};
 
 class GameWindow
 {
@@ -47,13 +60,16 @@ public:
 	// "AptObjectivesMenu::OnInitialized": one body or two folded, so it
 	// keeps its address.
 	void rva004E4A34(const char *unused);
+	void PlayerColor(int slot, char *result, bool set);
 
 	// Unrowed 0x004E476C (refreshes the player rows; it checks +0x288
 	// again itself), pinned by address.
 	void rva004E476C();
 
 private:
-	unsigned char m_pad000[0x288];
+	unsigned char m_pad000[0x27C];
+	AptPlayerStatusColors m_colors; // +0x27C
+	unsigned char m_pad284[0x288 - 0x284];
 	int m_state; // +0x288
 	GameWindow *m_mute[8]; // +0x28C
 	signed char m_slot[8]; // +0x2AC
@@ -91,3 +107,19 @@ void AptPlayerStatus::rva004E4A34(const char *unused)
 	if (m_state == 1)
 		rva004E476C();
 }
+
+// Retail 0x004E45FA, 89 bytes: "ScoreScreen:PlayerColor:%d" for each slot,
+// an Apt query answering the slot's color once the rows are up ("0"
+// otherwise).
+void AptPlayerStatus::PlayerColor(int slot, char *result, bool set)
+{
+	strcpy(result, "0");
+	if (!set && m_state == 1)
+	{
+		if (!m_colors.empty() && (unsigned int)slot < m_colors.size())
+			sprintf(result, "%d", m_colors[slot]);
+	}
+}
+
+// Retail's strcpy call lands on the import thunk rowed as ji_00629176.
+#pragma comment(linker, "/alternatename:_strcpy=?ji_00629176@@YAXXZ")

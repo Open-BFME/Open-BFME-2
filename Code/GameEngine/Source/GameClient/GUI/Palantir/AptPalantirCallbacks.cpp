@@ -5,6 +5,19 @@
 // pointers by the screen's registration; that binding is their only
 // reference. The class is named for the strings' prefix.
 
+extern "C" char *__cdecl strcpy(char *destination, const char *source);
+
+// The global at 0x00DFE144 (Rva00202BB2Parse.cpp's TheRva00DFE144); its
+// +0x1778 level picks the palantir's minimum LOD.
+struct Rva00DFE144Globals;
+extern Rva00DFE144Globals *TheRva00DFE144;
+
+struct AptPalantirLODView
+{
+	unsigned char m_pad0000[0x1778];
+	int m_level; // +0x1778
+};
+
 // The radar window override at +0x58 (RadarWindowOverride.cpp's class);
 // vslot 14 refreshes it.
 class RadarWindowOverrideSource
@@ -96,6 +109,7 @@ public:
 	void OnHelpBoxUnloaded(const char *unused);
 	void OnHeroSelectUnloaded(const char *unused);
 	void OnPlanningModeUIUnloaded(const char *unused);
+	void PalantirMinLOD(int query, char *result, bool skip);
 
 private:
 	unsigned char m_pad000[0x58];
@@ -181,3 +195,14 @@ void AptPalantir::OnPlanningModeUIUnloaded(const char *unused)
 {
 	m_planningModeUI.clear();
 }
+
+// Retail 0x002D2F9F, 53 bytes: "PalantirMinLOD", an Apt query answering
+// "1" at level 1 or below, else "0".
+void AptPalantir::PalantirMinLOD(int query, char *result, bool skip)
+{
+	if (query == 0 && !skip)
+		strcpy(result, ((AptPalantirLODView *)TheRva00DFE144)->m_level <= 1 ? "1" : "0");
+}
+
+// Retail's strcpy call lands on the import thunk rowed as ji_00629176.
+#pragma comment(linker, "/alternatename:_strcpy=?ji_00629176@@YAXXZ")

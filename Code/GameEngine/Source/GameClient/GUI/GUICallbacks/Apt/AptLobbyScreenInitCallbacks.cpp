@@ -8,6 +8,18 @@
 #include "unicode_string.h"
 
 extern "C" int __cdecl strcmp(const char *left, const char *right);
+extern "C" char *__cdecl strcpy(char *destination, const char *source);
+
+// TheLivingWorldCampaignManager (Rva002B256EThunk.cpp's g_00E02D6C); +0x2C
+// is set for the evil side.
+class Rva003B8BAA;
+extern Rva003B8BAA *g_00E02D6C;
+
+struct AptCampaignReviewCampaign
+{
+	unsigned char m_pad00[0x2C];
+	bool m_evil; // +0x2C
+};
 
 class GameWindow;
 class BfmeKeyLC;
@@ -91,6 +103,7 @@ class AptCampaignReview
 {
 public:
 	void Continue(const char *unused);
+	void playerSideType(int query, char *result, bool skip);
 };
 
 // Retail 0x00511540, 27 bytes: "AptMessenger::OnInitialized".
@@ -143,3 +156,19 @@ void AptInGameChat::InitGadgets(const char *name, void *argument, GameWindow *wi
 		m_entry = window;
 	}
 }
+
+// Retail 0x00512864, 48 bytes: "playerSideType", an Apt query answering
+// "evil" or "good".
+void AptCampaignReview::playerSideType(int query, char *result, bool skip)
+{
+	if (skip)
+		return;
+	AptCampaignReviewCampaign *campaign = (AptCampaignReviewCampaign *)g_00E02D6C;
+	if (campaign && campaign->m_evil)
+		strcpy(result, "evil");
+	else
+		strcpy(result, "good");
+}
+
+// Retail's strcpy call lands on the import thunk rowed as ji_00629176.
+#pragma comment(linker, "/alternatename:_strcpy=?ji_00629176@@YAXXZ")

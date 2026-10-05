@@ -27,6 +27,8 @@ public:
 	virtual void v00(); virtual void v01(); virtual void v02();
 	virtual void show();
 	virtual void hide();
+	virtual void v05(); virtual void v06();
+	virtual void v07(const char *value);
 };
 
 // The screen's +0x27C member; its unrowed 0x005B1288 is pinned by address.
@@ -55,6 +57,9 @@ public:
 	// pops four arguments and reads none, so their types are unknown.
 	void RenderPictureGuard(const void *origin, const void *extent, void *unused3, void *unused4);
 	void CreateAHeroDemo(int query, char *result, bool skip);
+	// Bound as "CreateAHero" (a method of that name would be the
+	// constructor), so it keeps its address.
+	void rva00513AF4(const char *value);
 
 private:
 	unsigned char m_pad000[0x27C];
@@ -103,6 +108,14 @@ void AptCreateAHero::CreateAHeroDemo(int query, char *result, bool skip)
 {
 	if (result && query == 0 && !skip)
 		strcpy(result, ((AptCreateAHeroGlobalData *)TheGlobalData)->m_9d1 ? "0" : "1");
+}
+
+// Retail 0x00513AF4, 23 bytes: bound as "CreateAHero"; hands the value to
+// the current page's vslot 7 (a tail jump).
+void AptCreateAHero::rva00513AF4(const char *value)
+{
+	if (m_page)
+		m_page->v07(value);
 }
 
 // Retail 0x00513AA8, 19 bytes: "AptCreateAHero::RotateLeft".
