@@ -1,7 +1,5 @@
 // ?rva00083D54@Rva00083D54@@QAEXXZ
-// partial score=0.93 date=2026-10-05
-// ?rva00083D54@Rva00083D54@@QAEXXZ
-// finish attempt for ?rva00083D54@Rva00083D54@@QAEXXZ @0x00083D54, 264B.
+// partial score=0.95 date=2026-10-05
 // cl: /O1 /G7 /Ireference/shims/bfmeterraintracks /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // ?rva00083D54@Rva00083D54@@QAEXXZ @ 0x00083D54 264B.
 //
@@ -26,12 +24,12 @@
 // 0x83E4F) rather than the raw block the placement new was handed, which
 // is why the members are typed as the constructed objects.
 //
-// The index-fill loop is written the way retail folds it: the loop counter
-// lives in edi and the doubled base is recomputed each iteration as
-// `lea ecx,[edi+edi]`, with v+1 and v+3 both materialised in edx and v+2
-// produced by `add ecx,2`. The store pointer is biased one element so that
-// `p[-1]` is the first index and the six stores land at p[-1], p[2], p[0],
-// p[4], p[1], p[3] -- retail's exact order and offsets.
+// The index-fill loop is written the way retail folds it: the store pointer
+// is a single running base that advances by six shorts per iteration, so the
+// six stores land at p[-1], p[2], p[0], p[4], p[1], p[3] -- retail's exact
+// order and offsets -- and the doubled index is the loop counter itself
+// (lea ecx,[counter+counter]), which is what keeps MSVC from parking a
+// separate doubled index or trip count in a frame slot.
 #include <new.h>
 
 typedef unsigned int Uint;
@@ -109,17 +107,19 @@ void Rva00083D54::rva00083D54()
 
 	{
 		void *ibRaw = ::operator new(0x18);
-		DX8IndexBufferClass *ib = (DX8IndexBufferClass *)ibRaw;
+		DX8IndexBufferClass *ib;
 		if (ibRaw)
 			ib = new (ibRaw) DX8IndexBufferClass(
 				(Uint)((m_1C - 1) * 6), DX8IndexBufferClass::USAGE_DEFAULT);
+		else
+			ib = 0;
 
 		IndexBufferClass::WriteLockClass lock(ib, 0);
 		m_4 = ib;
-		Int trip = m_1C - 1;
-		for (Int i = 0; i < trip; i++)
+		unsigned short *base = lock.Get_Index_Array() + 1;
+		for (Int i = 0; i < m_1C - 1; i++)
 		{
-			unsigned short *p = lock.Get_Index_Array() + i * 6 + 1;
+			unsigned short *p = base;
 			unsigned short v = (unsigned short)(i + i);
 			unsigned short v1 = (unsigned short)(v + 1);
 			unsigned short v3 = (unsigned short)(v + 3);
@@ -129,6 +129,7 @@ void Rva00083D54::rva00083D54()
 			p[4] = (unsigned short)(v + 2);
 			p[1] = v3;
 			p[3] = v3;
+			base += 6;
 		}
 	}
 
