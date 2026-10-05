@@ -5708,3 +5708,19 @@ void __cdecl rva007B686F()
 	return p->Term();
 }
 
+// ?rva007B685A@@YAXXZ @ 0x007B685A (10B). Global locale uninitialize thunk: ecx=&g_00DDE071 then tail-jmp to pinned ?rva00007670@Rva00007670@@QAEXXZ (0x00007670 twin of rowed ?_S_uninitialize@locale@_STL@@SAXXZ). Evidence: callees 0x00007670; same 10B mov ecx jmp shape as neighbours 0x007B6850 0x007B686F. Honest address names.
+class Rva00007670
+{
+public:
+	void rva00007670();
+};
+
+extern unsigned g_00DDE071;
+unsigned int g_00DDE071;
+
+void __cdecl rva007B685A()
+{
+	Rva00007670 *p = (Rva00007670 *)&g_00DDE071;
+	return p->rva00007670();
+}
+
