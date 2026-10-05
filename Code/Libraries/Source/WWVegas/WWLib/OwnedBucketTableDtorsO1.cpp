@@ -97,3 +97,16 @@ private:
     unsigned int m_count;
 };
 Rva00216AF6::~Rva00216AF6() { clear(); }
+
+// Native 002A4052: rowed 002A1D02 clear, then free the bucket vector.
+class Rva002A1D02
+{
+public:
+    void clear();
+    ~Rva002A1D02();
+private:
+    int m_functors;
+    OwnedBucketStorage m_buckets;
+    unsigned int m_count;
+};
+Rva002A1D02::~Rva002A1D02() { clear(); }
