@@ -13289,3 +13289,6 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 ?rva005E50E1@Rva005E50E1@@QAEXH@Z,0x005E50E1,pin for 0x005E51D3 second; address-derived
 ?rva00318C32@Rva00318C32@@QAEHXZ,0x00318C32,pin for 0x005E58ED first; address-derived
 ?rva005E6836@Rva005E6836@@QAEXHH@Z,0x005E6836,pin for 0x005E58ED second void-int-int; address-derived
+?rva005E1B4E@Rva005E1B4E@@QAEXXZ,0x005E1B4E,pin for 0x005E1B9A first; address-derived
+?rva005E19CA@Rva005E19CA@@QAEXH@Z,0x005E19CA,pin for 0x005E1B9A second void-int; address-derived
+?rva005EF3F6@Rva005EF3F6@@QAEXXZ,0x005EF3F6,pin for 0x005E1B9A tail; address-derived
