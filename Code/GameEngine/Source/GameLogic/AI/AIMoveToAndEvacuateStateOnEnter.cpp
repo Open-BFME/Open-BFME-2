@@ -1,8 +1,7 @@
-// ?onEnter@AIMoveToAndEvacuateState@@UAE?AW4StateReturnType@@XZ
-// partial score=0.97 date=2026-10-05
 // cl: /O1 /DNDEBUG /MD /arch:SSE
-// ?onEnter@AIMoveToAndEvacuateState@@UAE?AW4StateReturnType@@XZ @0x003500E6 103B finish from stash 0.96 plus INV.
-// Slot 4 of 0x00C12D50: goal +0x20 minus owner +0x38 then Rva0033FA64Do then base onEnter when length exceeds INV else CONTINUE. Evidence: callees rowed INV in use pin onEnter; prev 0x0034FCAC next 0x0035014D.
+// AIMoveToAndEvacuateState::onEnter, retail 0x003500E6 (103 bytes): slot 4
+// of vtable 0x00C12D50; subtracts owner position from the stored goal, calls
+// Rva0033FA64Do(owner), then runs AIMoveToState::onEnter when length exceeds INV.
 enum StateReturnType
 {
 	STATE_CONTINUE = 0,
@@ -86,11 +85,27 @@ public:
 
 extern "C" float INV;
 
+extern "C" void _ReadWriteBarrier(void);
+#pragma intrinsic(_ReadWriteBarrier)
+
 StateReturnType AIMoveToAndEvacuateState::onEnter()
 {
 	Object *owner = getMachineOwner();
 	const Coord3D *pos = owner->getPosition();
-	Coord3D delta = m_goalPosition - *pos;
+	float goalX = m_goalPosition.x;
+	float goalY = m_goalPosition.y;
+	float goalZ = m_goalPosition.z;
+	// Retail loads all three goal components before subtracting owner position.
+	_ReadWriteBarrier();
+	float dx = goalX - pos->x;
+	float dy = goalY - pos->y;
+	float dz = goalZ - pos->z;
+	// Keep the three arithmetic results live until the target's grouped stores.
+	_ReadWriteBarrier();
+	Coord3D delta;
+	delta.x = dx;
+	delta.y = dy;
+	delta.z = dz;
 	Rva0033FA64Do((const Object0033FA64 *)owner);
 	if (delta.length() > INV)
 		return AIMoveToState::onEnter();
