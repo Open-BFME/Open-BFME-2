@@ -171,10 +171,11 @@ struct AptActionInterpreter
     AptValue *getVariable(AptValue *, AptValue *, const EAStringC *, int=1, int=1, int=0);
     void stackPushIndirect(AptValue *const);
 private:
+    AptValue *_doCloneSprite(AptCIH *,AptValue *,AptValue *,AptValue *,int,AptValue *);
     static AptValue *getObject(AptValue *,AptValue *,const EAStringC *);
     static bool getContext(AptValue *,AptValue *,const EAStringC *,AptValue **,EAStringC &);
 #define HANDLER(n) static void _FunctionAptAction##n(AptActionInterpreter *const,LocalContextT *const)
-    HANDLER(SetTarget); HANDLER(SetTarget2); HANDLER(CallFrame); HANDLER(GotoLabel); HANDLER(GotoFrame); HANDLER(StopDragMovie); HANDLER(Play); HANDLER(Stop); HANDLER(NextFrame); HANDLER(PrevFrame);
+    HANDLER(CloneSprite); HANDLER(SetTarget); HANDLER(SetTarget2); HANDLER(CallFrame); HANDLER(GotoLabel); HANDLER(GotoFrame); HANDLER(StopDragMovie); HANDLER(Play); HANDLER(Stop); HANDLER(NextFrame); HANDLER(PrevFrame);
     HANDLER(PushFloat); HANDLER(PushByte); HANDLER(PushWord); HANDLER(PushDWord);
     HANDLER(Return); HANDLER(DefineDictionary); HANDLER(PushStringDictByte); HANDLER(PushStringDictWord);
     HANDLER(PushThis); HANDLER(PushGlobal); HANDLER(Push0); HANDLER(Push1);
@@ -1482,4 +1483,14 @@ void AptActionInterpreter::_FunctionAptActionSetTarget(AptActionInterpreter *con
         c->pCurWith=target;
         c->pCurWith->AddRef();
     }
+}
+
+void AptActionInterpreter::_FunctionAptActionCloneSprite(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    AptValue *depth=p->stack.At(0);
+    AptValue *target=p->stack.At(1);
+    AptValue *source=p->stack.At(2);
+    int n=depth->toInteger();
+    p->_doCloneSprite(c->pCurrentContext,c->pCurWith,source,target,n,0);
+    p->stack.Pop(3);
 }
