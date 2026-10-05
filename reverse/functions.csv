@@ -59910,3 +59910,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ??0Rva00500856@@QAE@ABU0@@Z,,0x00500856,29,Code/Libraries/Source/WWVegas/WWLib/StlportConstructFamily.cpp,matched,copy int plus Rva00501E3FElement via pinned 0x005007AA callers 0x00500CD1 0x0050366B
 ??HRva00077710Value@@QBE?AV0@ABV0@@Z,,0x0022CF80,31,Code/GameEngine/Source/Common/ObfuscatedValueOperators.cpp,matched,BFME1 donor operator+ with combine hook 0x0022CBB5 both operands named locals
 ??YRva00077710Value@@QAEAAV0@ABV0@@Z,,0x0022D1A2,33,Code/GameEngine/Source/Common/ObfuscatedValueOperators.cpp,matched,chain operator plus-equals via operator+ temp then assign
+??1Rva005D078B@@UAE@XZ,,0x005D078B,86,Code/GameEngine/Source/Common/System/Rva005D078BDtor.cpp,matched,deleting-dtor caller 0x005D0A9F via erase 0x002B7250 and base 0x005CF8E3
