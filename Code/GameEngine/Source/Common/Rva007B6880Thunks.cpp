@@ -5689,3 +5689,22 @@ void __cdecl rva007B9CA8()
 	p->rva001EAF7B();
 }
 
+// ?rva007B686F@@YAXXZ @ 0x007B686F (10B). Global CAtlWinModule thunk: ecx=&g_00DDE0AC then tail-jmp to rowed ?Term@CAtlWinModule@ATL@@QAEXXZ (0x00006AF1).
+namespace ATL
+{
+class CAtlWinModule
+{
+public:
+	void Term();
+};
+}
+
+extern unsigned g_00DDE0AC;
+unsigned int g_00DDE0AC;
+
+void __cdecl rva007B686F()
+{
+	ATL::CAtlWinModule *p = (ATL::CAtlWinModule *)&g_00DDE0AC;
+	return p->Term();
+}
+
