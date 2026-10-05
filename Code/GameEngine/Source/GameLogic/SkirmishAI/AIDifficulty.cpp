@@ -17,17 +17,22 @@ public:
 
 struct AIDiffEntry
 {
-	char _pad0[12];
+	char _pad0[4]; // +0x00
+	int m_04; // +0x04
+	int m_08; // +0x08
 	int m_num; // +0x0C
 	int m_den; // +0x10
 	int m_14; // +0x14
 	int m_18; // +0x18
-	char _pad2[4];
+	unsigned int m_1C; // +0x1C
 };
 
 struct Rva002A8AB1Record
 {
-	char m_pad[0x16C];
+	char _pad0[0xCC]; // +0x00
+	unsigned int m_cc; // +0xCC
+	unsigned int m_d0; // +0xD0
+	char _pad1[0x16C - 0xD4]; // +0xD4
 	int m_16C; // +0x16C
 };
 
@@ -85,4 +90,30 @@ bool Rva0058AFB3::rva0058AFB3(void *key)
 		return r < e.m_14;
 	}
 	return true;
+}
+
+// ?Rva0058AEBCCheck@@YG_NPAVRva002A9BF2@@@Z @0x0058AEBC 139B, caller 0x004EA88C.
+// Free stdcall chance test like 0x0058AF47 but with the +0x04/+0x08 num/den
+// columns and a record-gated early-out: fails when rec->m_cc + rec->m_d0
+// reaches e.m_1C, passes when num/den reaches 1.0, otherwise rolls the rowed
+// GetGameLogicRandomValue(0, den - 1) with the AIDifficulty.cpp __FILE__
+// literal and line 0x2d, and passes when the roll is below num.
+bool __stdcall Rva0058AEBCCheck(Rva002A9BF2 *p)
+{
+	int diff = (int)p->rva002A9BF2();
+	AIDiffEntry e = g_00DFEEF8->m_table[diff];
+	Rva002A8AB1Record *rec = g_00DFEEF8->rva002A8AB1(p);
+	if (rec->m_cc + rec->m_d0 < e.m_1C)
+	{
+		float num = (float)e.m_04;
+		float den = (float)e.m_08;
+		float ratio = num / den;
+		if (ratio < 1.0f)
+		{
+			int r = GetGameLogicRandomValue(0, e.m_08 - 1, "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\SkirmishAI\\AIDifficulty.cpp", 0x2d);
+			return r < e.m_04;
+		}
+		return true;
+	}
+	return false;
 }
