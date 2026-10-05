@@ -15,6 +15,23 @@ struct BfmeContainerRecord005FDEC7
 	UnicodeString text;
 };
 
+// Declared-only explicit specialization: the member below calls the rowed
+// retail vector dtor 0x005FE4A3 (owned by
+// stlport_vector_wide_record_5fdec7.cpp) instead of emitting this TU's own
+// /G7 /EHsc copy. Same pattern as VectorMemberRecordDtors.cpp.
+namespace _STL
+{
+template <> class vector<BfmeContainerRecord005FDEC7, allocator<BfmeContainerRecord005FDEC7> >
+{
+public:
+	~vector();
+private:
+	BfmeContainerRecord005FDEC7 *m_begin;
+	BfmeContainerRecord005FDEC7 *m_finish;
+	BfmeContainerRecord005FDEC7 *m_end;
+};
+}
+
 class Rva0052413E
 {
 public:
@@ -46,4 +63,13 @@ private:
 
 Rva005FE750::~Rva005FE750()
 {
+}
+
+// ?_bfmeRva005FE750DestroyAnchor@@YAXPAUBfmeContainerRecord005FDEC7@@@Z present-unmatched
+// Anchor: keeps emitting the rowed single-element _Destroy 0x005FE271 (the
+// inline vector-dtor chain that used to provide it is now a declared-only
+// specialization). It is not retail code.
+void _bfmeRva005FE750DestroyAnchor(BfmeContainerRecord005FDEC7 *p)
+{
+	_STL::_Destroy(p);
 }
