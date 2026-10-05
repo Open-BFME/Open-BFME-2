@@ -71,3 +71,16 @@ private:
     unsigned int m_count;
 };
 Rva002A8FE0::~Rva002A8FE0() { rva002A8FE0(); }
+
+// Native 0x002BFA4D: clear 0x002BF7BE and release the bucket allocation.
+class Rva002BF75A
+{
+public:
+    void rva002BF7BE();
+    ~Rva002BF75A();
+private:
+    int m_functors;
+    OwnedBucketStorage m_buckets;
+    unsigned int m_count;
+};
+Rva002BF75A::~Rva002BF75A() { rva002BF7BE(); }
