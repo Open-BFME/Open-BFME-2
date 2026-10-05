@@ -1,3 +1,5 @@
+// ?bind@Rva000E236DBinder@@UAEXPBD0PAVRva0015354E@@@Z
+// partial score=0.98 date=2026-10-05
 // cl: /O1 /MD /EHsc
 // Terrain FX parameter binder registered as "Terrain" (address-derived name
 // Rva000E19A3). Target facts: ctor 0x000E188F (called from 0x007AB7D2) stores
@@ -286,6 +288,35 @@ void Rva000E19A3::Rva000E21BENormalTexture(ID3DXEffect *effect, D3DXHANDLE handl
 		effect->SetTexture(handle, m_24.Peek_D3D_Base_Texture());
 	else
 		effect->SetTexture(handle, Rva00132F30BlackTexture().Peek_D3D_Base_Texture());
+}
+
+void Rva000E24C5ShroudTexture(ID3DXEffect *effect, D3DXHANDLE handle);
+void Rva000E2409ScaleOffset(ID3DXEffect *effect, D3DXHANDLE handle);
+void Rva000E249DObjectShroudStatus(ID3DXEffect *effect, D3DXHANDLE handle);
+
+void Rva000E236DBinder::bind(const char *name, const char *handle, Rva0015354E *registry)
+{
+	Rva00153664::bind(name, handle, registry);
+	if (name)
+	{
+		Rva001530E9Path path;
+		Rva001530E9Parse(name, &path);
+		if (_strcmpi(path.m_name, "Texture") == 0)
+		{
+			Rva000E19A3Callback callback = Rva000E24C5ShroudTexture;
+			registry->rva00153ACA(TreeHintRef00217D4C(&callback), handle);
+		}
+		else if (_strcmpi(path.m_name, "ScaleUV_OffsetUV") == 0)
+		{
+			Rva000E19A3Callback callback = Rva000E2409ScaleOffset;
+			registry->rva00153ACA(TreeHintRef00217D4C(&callback), handle);
+		}
+		else if (_strcmpi(path.m_name, "ObjectShroudStatus") == 0)
+		{
+			Rva000E19A3Callback callback = Rva000E249DObjectShroudStatus;
+			registry->rva00153ACA(TreeHintRef00217D4C(&callback), handle);
+		}
+	}
 }
 
 void Rva000E2A81Binder::bind(const char *name, const char *handle, Rva0015354E *registry)

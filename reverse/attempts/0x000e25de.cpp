@@ -1,3 +1,5 @@
+// ?bind@Rva000E25DEBinder@@UAEXPBD0PAVRva0015354E@@@Z
+// partial score=0.98 date=2026-10-05
 // cl: /O1 /MD /EHsc
 // Terrain FX parameter binder registered as "Terrain" (address-derived name
 // Rva000E19A3). Target facts: ctor 0x000E188F (called from 0x007AB7D2) stores
@@ -286,6 +288,53 @@ void Rva000E19A3::Rva000E21BENormalTexture(ID3DXEffect *effect, D3DXHANDLE handl
 		effect->SetTexture(handle, m_24.Peek_D3D_Base_Texture());
 	else
 		effect->SetTexture(handle, Rva00132F30BlackTexture().Peek_D3D_Base_Texture());
+}
+
+void Rva000E26CFIsEnabled(ID3DXEffect *effect, D3DXHANDLE handle);
+void Rva000E27D9MaskTexture(ID3DXEffect *effect, D3DXHANDLE handle);
+void Rva000E28C3LowTexture(ID3DXEffect *effect, D3DXHANDLE handle);
+void Rva000E29A2HighTexture(ID3DXEffect *effect, D3DXHANDLE handle);
+void Rva000E2700Offset(ID3DXEffect *effect, D3DXHANDLE handle);
+void Rva000E2763Scale(ID3DXEffect *effect, D3DXHANDLE handle);
+
+void Rva000E25DEBinder::bind(const char *name, const char *handle, Rva0015354E *registry)
+{
+	Rva00153664::bind(name, handle, registry);
+	if (name)
+	{
+		Rva001530E9Path path;
+		Rva001530E9Parse(name, &path);
+		if (_strcmpi(path.m_name, "IsEnabled") == 0)
+		{
+			Rva000E19A3Callback callback = Rva000E26CFIsEnabled;
+			registry->rva00153ACA(TreeHintRef00217D4C(&callback), handle);
+		}
+		else if (_strcmpi(path.m_name, "MaskTexture") == 0)
+		{
+			Rva000E19A3Callback callback = Rva000E27D9MaskTexture;
+			registry->rva00153ACA(TreeHintRef00217D4C(&callback), handle);
+		}
+		else if (_strcmpi(path.m_name, "LowTexture") == 0)
+		{
+			Rva000E19A3Callback callback = Rva000E28C3LowTexture;
+			registry->rva00153ACA(TreeHintRef00217D4C(&callback), handle);
+		}
+		else if (_strcmpi(path.m_name, "HighTexture") == 0)
+		{
+			Rva000E19A3Callback callback = Rva000E29A2HighTexture;
+			registry->rva00153ACA(TreeHintRef00217D4C(&callback), handle);
+		}
+		else if (_strcmpi(path.m_name, "Offset") == 0)
+		{
+			Rva000E19A3Callback callback = Rva000E2700Offset;
+			registry->rva00153ACA(TreeHintRef00217D4C(&callback), handle);
+		}
+		else if (_strcmpi(path.m_name, "Scale") == 0)
+		{
+			Rva000E19A3Callback callback = Rva000E2763Scale;
+			registry->rva00153ACA(TreeHintRef00217D4C(&callback), handle);
+		}
+	}
 }
 
 void Rva000E2A81Binder::bind(const char *name, const char *handle, Rva0015354E *registry)
