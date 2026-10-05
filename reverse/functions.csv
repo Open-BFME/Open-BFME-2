@@ -55865,3 +55865,4 @@ ___Extract_locale_name,,0x000216A0,153,Code/Libraries/Source/WWVegas/WWLib/Local
 ?rva00559C25@Rva00559AC1@@QAEPBVImage@@HH@Z,,0x00559C25,24,Code/GameEngine/Source/Common/Rva00559AC1.cpp,matched,chain via landed 0x00559AC1 search plus rowed GetImage 0x00559B64 ret 8
 ?rva00559A76@Rva00559AC1@@QAEPAV1@H@Z,,0x00559A76,75,Code/GameEngine/Source/Common/Rva00559AC1.cpp,matched,leaf table init returning this matching search class ret 4
 ?rva00559A11@Rva00559A11@@QAEPAV1@H@Z,,0x00559A11,101,Code/GameEngine/Source/Common/Rva00559A11.cpp,matched,leaf table init with two floats returning this ret 4
+??$_Construct@UGeometryShape@@U1@@_STL@@YAXPAUGeometryShape@@ABU1@@Z,,0x005EA9A9,18,Code/Libraries/Source/WWVegas/WWLib/GeometryShapeConstruct005EA9A9.cpp,matched,stlport _Construct null-guarded placement copy via rowed copy ctor 0x005EA922
