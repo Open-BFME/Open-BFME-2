@@ -1,22 +1,27 @@
-// ?_M_insert_overflow@?$vector@URva003F5F89Record@@V?$allocator@URva003F5F89Record@@@_STL@@@_STL@@IAEXPAURva003F5F89Record@@ABU3@ABU__false_type@2@I_N@Z
-// partial score=0.98 date=2026-10-05
-// cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// ?_M_insert_overflow@?$vector@UEvaMessageInfo@@V?$allocator@UEvaMessageInfo@@@_STL@@@_STL@@IAEXPAUEvaMessageInfo@@ABU3@ABU__false_type@2@I_N@Z
+// partial score=0.99 date=2026-10-05
+// ?_M_insert_overflow@EvaMessageInfo-vector
+// partial score=0.99 date=2026-10-05
+// cl: /O1 /D_STLP_NO_EXCEPTIONS /D_CRTIMP= /Ireference/shims/bfmealloc
 // stlport
-// Stock STLport 4.5.3 algorithm; native 003F6B24..003F6BDB ret14, stride28.
-// Copy 003F62F5 and fill 003F631B both call Construct 003F62C8, which
-// in turn calls 003F5F89. That constructor copies +0 as a scalar, constructs
-// a twelve-byte member at +4 via 003F5B5B, and another at +16 via 0054878E.
-// This contradicts the older BfmeStringRecord00111ACF {AsciiString first,...}
-// view; its generic helper pins cannot establish this record's identity.
-// Name only establishes the observed copy-ctor relationship, not Eva ownership.
+//
+// vector<EvaMessageInfo>::_M_insert_overflow 0x003F6B24 (183B). Split from
+// EvaMessageVectorAssign.cpp: that TU builds with _STLP_USE_STATIC_LIB,
+// whose rebound allocator emits the one-argument allocate (no hint push),
+// while retail carries the hint push (allocate with 0). Same 28B opaque
+// element, same helper pins (allocate 0x000B40EA, copy 0x003F62F5,
+// _Construct 0x003F62C8, fill 0x003F631B, Eva copy ctor 0x003F5F89).
 #include <vector>
-struct Rva003F5F89Record {
- char m_unported[28];
- Rva003F5F89Record(const Rva003F5F89Record &);
- ~Rva003F5F89Record();
+
+struct EvaMessageInfo
+{
+	char m_unported[ 28 ];
+	EvaMessageInfo();
+	EvaMessageInfo( const EvaMessageInfo & );
+	~EvaMessageInfo();
+	EvaMessageInfo &operator=( const EvaMessageInfo & );
 };
-namespace _STL {
-template<> void _Construct<Rva003F5F89Record,Rva003F5F89Record>(Rva003F5F89Record *,const Rva003F5F89Record &);
-}
-template<> void _STL::vector<Rva003F5F89Record>::_M_clear();
-template void _STL::vector<Rva003F5F89Record>::_M_insert_overflow(Rva003F5F89Record *,const Rva003F5F89Record &,const _STL::__false_type &,unsigned int,bool);
+
+template void _STL::vector<EvaMessageInfo>::_M_insert_overflow(
+	EvaMessageInfo *, const EvaMessageInfo &, const _STL::__false_type &,
+	_STL::vector<EvaMessageInfo>::size_type, bool );
