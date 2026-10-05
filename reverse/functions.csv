@@ -62390,3 +62390,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva001E4461@Pathfinder@@QAEPAXHH@Z,,0x001E4461,44,Code/GameEngine/Source/Common/Rva001E4461Func.cpp,matched,forwards this to pinned lookup then tag 4 plus 0x28 return
 ?rva000E055A@Rva000E0536@@QAEXPAXI@Z,,0x000E055A,42,Code/GameEngine/Source/Common/Rva00057B27ReserveSet.cpp,matched,same this rowed 0x000E0536 fills 9B temp then copies to dst ret 8
 ?rva00278644@Drawable@@QAEXXZ,,0x00278644,69,Code/GameEngine/Source/Common/DrawableRva00278644.cpp,matched,Drawable one-shot flag 0x44A via rowed callees and vslot table walk
+?rva002785FB@Drawable@@QAEX_N@Z,,0x002785FB,49,Code/GameEngine/Source/Common/DrawableRva002785FB.cpp,matched,Drawable bool setter 0x448 true via host and 784EB false via 743D7 and 714CA
