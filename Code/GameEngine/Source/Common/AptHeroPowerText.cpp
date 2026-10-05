@@ -9,6 +9,7 @@
 // ?Rva005B24CDHeroPowerText@@YAXPAXPBDH@Z                      @0x005B24CD 114B
 //   APT:%s_%d keyed by the prefix and the 1-based index
 // Names are address-derived; the keys are the retail strings.
+#include <stdio.h>
 #include "ascii_string.h"
 #include "unicode_string.h"
 
@@ -18,7 +19,11 @@ public:
 	void bfmeSetText(const AsciiString &key, const UnicodeString &value, bool b);
 };
 
-class Rva00222A8BTarget;
+class Rva00222A8BTarget
+{
+public:
+	void invoke(void *owner, const char *name, int argc, const char *a0, void *a1, void *a2, void *a3, void *a4);
+};
 extern Rva00222A8BTarget *TheRva00222A8BTarget;
 
 UnicodeString __cdecl Rva005B2376Describe(void *power, int unused, const AsciiString &fallback);
@@ -192,4 +197,36 @@ void Rva0051C2E2::rva0051C2E2(int *row, const AsciiString &label, int bonus)
 		((BfmeAptWindowManager *)TheRva00222A8BTarget)->bfmeSetText(key, UnicodeString(L" "), false);
 		++*row;
 	}
+}
+
+// ?rva00583121@Rva00583121@@QAEXHHVUnicodeString@@@Z @0x00583121 225B: one
+// file-transfer row. For a valid player (0..7) whose Apt slot at +0x5C is
+// assigned (-1 means none), it sets FileTransfer::Status%d to the text, then
+// calls SetBarTo with the slot and the percentage as "%d" strings through
+// the rowed Rva00222A8BTarget::invoke (owner 13, two arguments).
+
+class Rva00583121
+{
+public:
+	void rva00583121(int player, int percent, UnicodeString text);
+private:
+	char m_pad00[0x5C];
+	int m_slots[8];				// +0x5C
+};
+
+void Rva00583121::rva00583121(int player, int percent, UnicodeString text)
+{
+	if (player < 0 || player >= 8)
+		return;
+	int slot = m_slots[player];
+	if (slot == -1)
+		return;
+	AsciiString key;
+	key.format("FileTransfer::Status%d", slot);
+	((BfmeAptWindowManager *)TheRva00222A8BTarget)->bfmeSetText(key, text, false);
+	char slotText[64];
+	char percentText[64];
+	sprintf(slotText, "%d", slot);
+	sprintf(percentText, "%d", percent);
+	TheRva00222A8BTarget->invoke((void *)13, "SetBarTo", 2, slotText, percentText, 0, 0, 0);
 }
