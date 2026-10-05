@@ -37,18 +37,22 @@ public:
 	~EAStringC();
 };
 
-// Rva006D1090 is the rowed list worker's class (see symbols.csv pin for
-// 0x006D0D70); only the one member this body calls is declared.
+// Rva006D1090 is the address-derived list worker (pin for 0x006D0D70); only
+// the one member this body calls is declared. The global at VA 0xe176cc is
+// owned by Rva00893030RefDispatch.cpp as g_rva00893030Manager
+// (?g_rva00893030Manager@@3PAVRva00893030Manager@@A); cast at the call keeps
+// the callee name (pin ?rva006D0D70@Rva006D1090@@QAEXPAX@Z) byte-identical.
 class Rva006D1090
 {
 public:
 	void rva006D0D70(void *value);
 };
 
-extern Rva006D1090 *g_Rva006D1090AtE176CC;
-// g_Rva006D1090AtE176CC: matched references place it at VA 0xe176cc (zero-filled .bss).
+class Rva00893030Manager;
+extern Rva00893030Manager *g_rva00893030Manager;
+// g_rva00893030Manager: matched references place it at VA 0xe176cc (zero-filled .bss).
 
 void Rva006CC7C0(const char *text)
 {
-	g_Rva006D1090AtE176CC->rva006D0D70(&EAStringC(text));
+	((Rva006D1090 *)g_rva00893030Manager)->rva006D0D70(&EAStringC(text));
 }
