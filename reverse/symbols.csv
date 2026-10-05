@@ -13116,3 +13116,5 @@ _Rva00438083,0x00438083,Address-derived bool prompt helper directly called by 0x
 ?rva00541231@@YAXPAD0PAXABURva00541311Tag@@@Z,0x00541231,pinned cdecl helper of the F47 cursor-compaction wrapper 0x00541311; takes (dst, cursor, p, tag); name unknown
 ?rva00500659@Rva0059CFAACallee@@QAGXPAXHH0@Z,0x00500659,address-derived __stdcall callee of 0x0059CFAA (4 stack args, callee cleanup); target REL32 from retail call at 0x0059CFF5
 ?rva004FFB00@Rva0059CFAACallee@@QAGXPAXHH@Z,0x004FFB00,address-derived __stdcall callee of 0x0059CFAA (3 stack args, callee cleanup); target REL32 from retail call at 0x0059D019
+?rva0059CF34_fn@@YGXHHHH@Z,0x0059CF34,wrapper-call spelling for the 0x59D1A9 forwarder target; true signature unproven beyond 4-arg callee-cleanup (target ends ret 0x10); boundary from prologue at 0x59CF34
+?rva0059CFAA_fn@@YGXHHHH@Z,0x0059CFAA,wrapper-call spelling for the 0x59D1C3 forwarder target; true signature unproven (see banked partial attempt at this RVA); boundary proven by push-ebp prologue
