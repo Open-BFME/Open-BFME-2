@@ -9232,3 +9232,4 @@ _VP6_ConfigureMvEntropyDecoder	0x001C6EF0	331	partial	third-loop pre-increment p
 ?Rva0058C740Write@@YAXPADPAVNetCommandRef@@@Z	0x0058C740	207	blocked	identical if-else branches fold to OR plus single body but retail keeps three call blocks; tried O1 Os O2 switch pragma t=20 model=muse-07
 ?rva00590212@NetPacket@@QAE_NPAVNetCommandRef@@@Z	0x00590212	534	blocked	ID mov-ax-then-movzx vs mov-cx and loop indexed-dl vs pointer-bl remain; word-local grew to 546B t=15 model=muse-01 (stash 0.93 kept)
 ?Rva003FE20FGet@@YAPAXPAX@Z	0x003FE20F	54	blocked	EH vtable-global plus virtual slot4 needs honest Temp plus unwind; single POD-plus-manual-vtable probe 70B vs 54B with extra dtor EH t=12 model=muse-01
+?rva00463E4D@Rva00463782@@QAEPAPAU_Rb_tree_node_base@_STL@@PAPAU23@PAU23@PBVRva0046267A@@@Z	0x00463E4D	294	blocked	push reg vs push 1 flag plus mov ecx eax vs ebp-8 spill t=12 model=muse-02 (stash 0.95 kept)
