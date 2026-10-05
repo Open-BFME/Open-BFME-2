@@ -1,4 +1,6 @@
 // ?rva0035C2B9@Shell@@QAEXXZ
+// partial score=0.9887 date=2026-10-05
+// ?rva0035C2B9@Shell@@QAEXXZ
 // partial score=0.98 date=2026-10-05
 // cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /O1 /DNDEBUG /MD /EHsc
 // ?rva0035C2B9@Shell@@QAEXXZ retail 0x0035C2B9 266 bytes.
