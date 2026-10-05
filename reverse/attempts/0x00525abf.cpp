@@ -1,6 +1,6 @@
 // ?rva00525ABF@Rva00525ABF@@QAEXPAVXfer@@@Z
-// partial score=0.93 date=2026-10-05
-// cl: /Ireference/shims/bfmelist /O1 /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// partial score=0.94 date=2026-10-05
+// cl: /Ireference/shims/bfmelist /O1 /DNDEBUG /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /arch:SSE
 // stlport
 //
 // ?rva00525ABF@Rva00525ABF@@QAEXPAVXfer@@@Z, retail 0x00525ABF, 518 bytes.
@@ -176,28 +176,28 @@ void Rva00525ABF::rva00525ABF(Xfer *xfer)
 	int n10;
 	*xfer == n10;
 	_STL::list<BfmePod12> tmp10;
+	BfmePod12 v10;
 	for (; n10 > 0; --n10) {
-		BfmePod12 v;
-		v.a[0] = 0;
-		v.a[1] = 0;
-		v.a[2] = 0;
-		XferObjectID(xfer, (ObjectID *)&v.a[0]);
-		*xfer == v.a[1];
-		*xfer == v.a[2];
-		tmp10.insert(tmp10.end(), v);
+		v10.a[0] = 0;
+		v10.a[1] = 0;
+		v10.a[2] = 0;
+		XferObjectID(xfer, (ObjectID *)&v10.a[0]);
+		*xfer == v10.a[1];
+		*xfer == v10.a[2];
+		tmp10.insert(tmp10.end(), v10);
 	}
 	tmp10.swap(m_list10);
 	_STL::list<BfmePod12> tmp14;
 	if (version.m_minimum >= 2) {
 		int n14;
 		*xfer == n14;
+		BfmePod12 v14;
 		for (; n14 > 0; --n14) {
-			BfmePod12 v;
-			v.a[0] = 0;
-			((char *)&v.a[1])[0] = 0;
-			*(float *)&v.a[2] = g_00BBB9AC;
-			XferObjectID(xfer, (ObjectID *)&v.a[0]);
-			tmp14.insert(tmp14.end(), v);
+			v14.a[0] = 0;
+			((char *)&v14.a[1])[0] = 0;
+			*(float *)&v14.a[2] = g_00BBB9AC;
+			XferObjectID(xfer, (ObjectID *)&v14.a[0]);
+			tmp14.insert(tmp14.end(), v14);
 		}
 	}
 	tmp14.swap(m_list14);

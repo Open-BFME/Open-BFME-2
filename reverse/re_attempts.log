@@ -9494,3 +9494,5 @@ FUN_00731d7e	0x00331D7E	48	blocked	loop over Store needs thiscall twin at 0x002A
 ?rva002B43E7@Rva002B4349@@QAEPAVRva004FA2E2@@PAV1@@Z	0x002B43E7	29	blocked	steal p then holder-dtor on nulled stack slot exact via fresh=p p=0 m_ptr=fresh plus dtor-and-call t=15 model=muse-03
 ?rva002B54BB@Rva002B4349@@QAEPAV1@PAV1@@Z	0x002B54BB	62	blocked	transfer this-ptr to other with null temp plus holder-dtor needs EH_prolog t=14 model=muse-03
 ??1Rva005F501E@@QAE@XZ	0x005F501E	105	blocked	MI dtor missing base vptr restores and EH states 2-1 vs 0--1 t=25 model=muse-05
+?Rva005252CDAptCall@@YAHPAVRva00222A8BTarget@@PAXPBD2PAHPAPAX@Z	0x005252CD	107	partial	inline GetStr fixes string direct but a1 late push-memory vs early ecx plus zero ecx vs edx t=22 model=muse-04 score=0.94 stash=reverse/attempts/0x005252cd.cpp
+?rva00525ABF@Rva00525ABF@@QAEXPAVXfer@@@Z	0x00525ABF	518	partial	sse ehs fixed but frame 0x30 vs 0x2c plus swap plus esp-save t=25 model=muse-04 score=0.94 stash=reverse/attempts/0x00525abf.cpp
