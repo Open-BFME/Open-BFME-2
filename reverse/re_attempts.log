@@ -8967,3 +8967,5 @@ FUN_00588760	0x00188760	389	blocked	WW3D mesh chunk x87 SST plus SSE plus RGB sc
 ?Rva003BAF1D@@YGXMMMM@Z	0x003BAF1D	120	partial	fmul for k late vs early plus single 1000 literal vs two retail addrs t=25 model=muse-09 score=0.96 stash=reverse/attempts/0x003baf1d.cpp
 ?Rva003BAA46@@YGXPAVParameter@@_NM@Z	0x003BAA46	144	partial	TV vtable in esi reused vs edi cached plus push edi pop edi and cmp offset 0xc vs 0x10 143B vs 144B t=25 model=muse-09 score=0.97 stash=reverse/attempts/0x003baa46.cpp
 ?Rva003BAAE4@@YGXABVAsciiString@@MMMM@Z	0x003BAAE4	150	blocked	SSE movaps mulss-mem vs movss mulss-reg wall remains 144B vs 150B t=22 model=muse-09 (stash 0.9 kept)
+?rva00368E95@Rva00368344@@QAEXPBUCoord3D@@PBVWaypoint@@_N@Z	0x00368E95	115	blocked	register wall this-esi gate-edi vs eax plus fst-fadd-fstp needs edi plus float shape t=10 model=muse-05
+?rva005D8B0B@Rva005D8AE4@@QAE_NPAVObject@@@Z	0x005D8B0B	184	blocked	EH_prolog plus STL vector e16 plus float fild-fdivr-fcompi needs donor t=5 model=muse-05
