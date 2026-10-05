@@ -21,6 +21,7 @@ extern "C++"
 {
 	Int Rva00077140(Int a, Int b);
 	Int Rva0022CBB5Hook(Int a, Int b);
+	Int Rva0022CB5CHook(Int a, Int b);
 }
 
 class Rva00077710Value
@@ -31,6 +32,7 @@ public:
 	Rva00077710Value &operator+=(const Rva00077710Value &other);
 	Rva00077710Value *rva0022D89D(Rva00077710Value &other);
 	Rva00077710Value *rva0022D99A(Rva00077710Value &dst, int unused);
+	void rva0022D189(int value);
 
 private:
 	Rva00077710Value() {}
@@ -78,4 +80,9 @@ Rva00077710Value *Rva00077710Value::rva0022D99A(Rva00077710Value &dst, int unuse
 	rva0022D89D(tmp);
 	dst.m_value = old;
 	return &dst;
+}
+
+void Rva00077710Value::rva0022D189(int value)
+{
+	m_value = Rva0022CB5CHook(value, value);
 }
