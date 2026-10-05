@@ -63690,3 +63690,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva0044D986@GameModePreferences@@QAE?AVAsciiString@@XZ,,0x0044D986,290,Code/GameEngine/Source/Common/GameModePreferences.cpp,matched,
 ?rva007B700A@@YAXXZ,,0x007B700A,26,Code/GameEngine/Source/Common/Rva007B7024Cluster.cpp,matched,
 ?rva007B7230@@YAXXZ,,0x007B7230,35,Code/GameEngine/Source/Common/Rva007B7024Cluster.cpp,matched,
+?bfmeMakePairEL@@YA?AUBfmePairEL@@ABVBfmeWordEL@@0@Z,,0x0002C621,27,Code/GameEngine/Source/Common/Bfme5TwoWordPairFactory_Rva0002C621.cpp,matched,BFME1 reference-guided two-word factory; target hidden return buffer ABI and shared pair ctor2C4FD verified; donor6583b3c1
