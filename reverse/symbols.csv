@@ -12993,3 +12993,4 @@ _Rva00337999Forward,0x00337999,REL32 callee decoded from target call bytes of wr
 ?Switch_Thread@ThreadClass@@SAXXZ,0x006105C0,doQuickMatch at 0x0038E684 calls this address where the Zero Hour source calls Switch_Thread(); same body as the BFMEPoolYield row
 ?forward@Rva0040E6D6Sub@@QAEXPAH@Z,0x002E01C6,thiscall 1-arg subobject forwarder called by Rva0040E6D6Host::forwardFrom 0x0040E6D6; read from its REL32
 ??1Rva0042D4B3@@UAE@XZ,0x00577E3E,virtual dtor called by the scalar deleting dtor 0x0042D4B3; thiscall read from its REL32
+?rva0040F497@@YGXHHH@Z,0x0040F497,3-zero-arg helper called by BfmeY1038::rva0040F7E5 0x0040F7E5; retail callee cleans 12 (stdcall) but the caller bytes only need the address
