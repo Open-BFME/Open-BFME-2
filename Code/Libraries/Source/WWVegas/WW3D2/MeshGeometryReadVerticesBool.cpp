@@ -1,11 +1,3 @@
-// ?read_vertices@MeshGeometryClass@@IAE_NAAVChunkLoadClass@@_N@Z
-// partial score=0.84 date=2026-10-05
-// ?read_vertices@MeshGeometryClass@@IAE_NAAVChunkLoadClass@@_N@Z
-// partial score=0.8402061856 date=2026-10-05
-// ?read_vertices@MeshGeometryClass@@IAE_NAAVChunkLoadClass@@_N@Z
-// partial score=0.8402061856 date=2026-10-03
-// ?read_vertices@MeshGeometryClass@@IAE_NAAVChunkLoadClass@@_N@Z
-// partial score=0.8402061856 date=2026-09-23
 // cl: /G7 /arch:SSE /DNDEBUG /MD /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/game/Libraries/Source/Compression /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep
 /*
 ** Copyright 2025 Electronic Arts Inc.
@@ -14,17 +6,19 @@
 ** the Free Software Foundation, either version 3 of the License, or
 ** (at your option) any later version.
 */
-// Candidate identity: BFME1 MeshGeometryClass::read_vertices semantics paired
-// with BFME2 target 0x16AE70 by read_chunks: W3D chunk 0x02 dispatches through
-// 0x16D385 and calls this body with (cload, false).
-// Target evidence: VertexCount is read at this+0x28; the false path reads via
-// the pointer at +0x30. The true path allocates a ShareBuffer at +0x34 using
-// target literal "MeshGeometryClass::Vertex" and zeroes it before reading.
-// Offsets/behavior are target facts; member labels are not confirmed donor
-// layout. BFME1 meshgeometry.cpp::read_vertices reads W3dVectorStruct data;
-// the bool selector and +0x34 allocation are target-specific adaptation.
-// Ghidra boundary 0x16AE70, 194B; ret 8 at 0x16AF2F..31 (end 0x16AF32). This C++ candidate
-// has the correct target behavior but compiles to a 191B near match so far.
+// Trial A (shared offset/CSE cause test, seat-13-r9): 0x0016AE70 194B.
+// Target facts: VertexCount +0x28 (shared with MeshModel +0x28 and 16AF40),
+// false path via +0x30, true path NEW_REF ShareBuffer at +0x34 with literal
+// "MeshGeometryClass::Vertex" then zeroing, bulk Read via 0x6151A0, ret8.
+// Donor facts: BFME1 MeshGeometryReadVertices.cpp (bool, chunk 0x02/0xC00)
+// uses NEW_REF + Get_Count + Get_Array + memset(buffer,0,bufcount*sizeof)
+// then per-vertex loop (target is bulk, no loop/SKIN per bank evidence).
+// Shared-cause hypothesis under test: retail keeps count (not byte_count)
+// enregistered and emits lea+add+add TWICE (rep-stos dword-count + Read
+// byte-count); merged single-lea shape is 191B bank, reload shape is 201B.
+// This spelling separates the zeroing product (buffer_count via Get_Count)
+// from the Read/compare products (Get_Vertex_Count() twice, 16AF40 pattern)
+// so the compiler cannot merge them into one kept byte_count.
 #include "always.h"
 #include "refcount.h"
 #include "vector3.h"
@@ -42,8 +36,10 @@ protected:
     void *Slot2C;                             // field identity unproven
     ShareBufferClass<Vector3> *VertexSlot30;  // target this+0x30
     ShareBufferClass<Vector3> *VertexSlot34;  // target this+0x34
+    int Get_Vertex_Count() const { return VertexCount; }
 };
 
+// ?read_vertices@MeshGeometryClass@@IAE_NAAVChunkLoadClass@@_N@Z
 bool MeshGeometryClass::read_vertices(ChunkLoadClass &cload, bool use_secondary)
 {
     Vector3 *loc;
@@ -51,13 +47,16 @@ bool MeshGeometryClass::read_vertices(ChunkLoadClass &cload, bool use_secondary)
         if (VertexSlot34 == NULL) {
             VertexSlot34 = NEW_REF(ShareBufferClass<Vector3>,
                 (VertexCount, "MeshGeometryClass::Vertex"));
-            VertexSlot34->Clear();
+            int buffer_count = VertexSlot34->Get_Count();
+            Vector3 *buffer_array = VertexSlot34->Get_Array();
+            memset(buffer_array, 0, buffer_count * sizeof(Vector3));
         }
         loc = VertexSlot34->Get_Array();
     } else {
         loc = VertexSlot30->Get_Array();
     }
 
-    int count = VertexCount;
-    return cload.Read(loc, count * sizeof(W3dVectorStruct)) == count * 12;
+    bool matched = cload.Read(loc, Get_Vertex_Count() * sizeof(Vector3))
+        == Get_Vertex_Count() * sizeof(Vector3);
+    return matched;
 }

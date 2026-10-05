@@ -60082,3 +60082,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva0028EC88@Object@@QAEXH@Z,,0x0028EC88,32,Code/GameEngine/Source/GameLogic/Object/ObjectRva0028EBDA.cpp,matched,outermost container emotion tracker plus24C forward to 0x004B0DA0
 ?rva0028ECA8@Object@@QAEXHMH@Z,,0x0028ECA8,51,Code/GameEngine/Source/GameLogic/Object/ObjectRva0028EBDA.cpp,matched,first container with emotion tracker plus24C forward to 0x004B0DAC
 ?rva0028D253@Object@@QAEXXZ,,0x0028D253,47,Code/GameEngine/Source/GameLogic/Object/ObjectSetProducer.cpp,matched,drawable plus84 setIndicatorColor time-of-day object color
+?read_vertices@MeshGeometryClass@@IAE_NAAVChunkLoadClass@@_N@Z,,0x0016AE70,194,Code/Libraries/Source/WWVegas/WW3D2/MeshGeometryReadVerticesBool.cpp,matched,
