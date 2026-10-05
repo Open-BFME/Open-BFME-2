@@ -12419,3 +12419,4 @@ _ceil,0x00629934,CRT ceil thunk identified by native PE import slot 0x00BBA578 a
 ??$__copy_ptrs@PAUBfmeStringRecord000B9534@@PAU1@@_STL@@YAPAUBfmeStringRecord000B9534@@PAU1@00ABU__false_type@0@@Z,0x000B6782,callee read from retail REL32 in vector erase 0x0008B4D2; four-argument spelling of the rowed copy forwarder at this address
 ??$__copy@PAURva00173DF8Element@@PAU1@H@_STL@@YAPAURva00173DF8Element@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z,0x0017341B,callee read from retail REL32 in __copy_ptrs 0x00173714; body unrowed
 ??$__copy@PAURva00335C62Element@@PAU1@H@_STL@@YAPAURva00335C62Element@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z,0x00332EF3,callee read from retail REL32 in __copy_ptrs 0x003332FE; alias of the rowed dup_00332ef3 body
+??$__copy@PAVSidesInfo@@PAV1@H@_STL@@YAPAVSidesInfo@@PAV1@00ABUrandom_access_iterator_tag@0@PAH@Z,0x0032DD81,callee read from retail REL32 in __copy_ptrs 0x0032E51B; template-name alias of the rowed Rva0032DD81Copy loop
