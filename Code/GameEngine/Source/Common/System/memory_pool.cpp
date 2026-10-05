@@ -30,6 +30,12 @@ class MemoryPoolFactory;
 // placement unverified: no rowed DIR32 site yet; ZH initial value is null.
 MemoryPoolFactory *TheMemoryPoolFactory = 0;
 
+class Rva00033E90
+{
+public:
+	void freeBlock(void *p);
+};
+
 namespace EA
 {
 namespace Allocator
@@ -287,6 +293,25 @@ unsigned int GeneralAllocator::rva006C1D10(const void *block)
 	if (base >= (unsigned int)block)
 		return base - (unsigned int)block;
 	return rva00032A20(block);
+}
+
+// ?rva000338F0@GeneralAllocator@Allocator@EA@@QAEXPAX@Z @0x000338F0 63B
+// Free-like: lock at +0x4E4 with count at +0x18 around Rva00033E90::freeBlock pin 0x00033150.
+// Evidence: caller _Free 0x000305D6 plus 3 unclaimed; Enter/LeaveCriticalSection IAT; inc/dec at +0x18.
+__declspec(noinline) void GeneralAllocator::rva000338F0(void *block)
+{
+	Lock *lock = m_4E4;
+	if (lock != 0)
+	{
+		EnterCriticalSection(lock);
+		++lock->m_count;
+	}
+	((::Rva00033E90 *)this)->freeBlock(block);
+	if (lock != 0)
+	{
+		--lock->m_count;
+		LeaveCriticalSection(lock);
+	}
 }
 
 }

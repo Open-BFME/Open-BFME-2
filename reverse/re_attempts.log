@@ -8971,3 +8971,4 @@ FUN_00588760	0x00188760	389	blocked	WW3D mesh chunk x87 SST plus SSE plus RGB sc
 ?rva005D8B0B@Rva005D8AE4@@QAE_NPAVObject@@@Z	0x005D8B0B	184	blocked	EH_prolog plus STL vector e16 plus float fild-fdivr-fcompi needs donor t=5 model=muse-05
 ?rva0044E85E@Rva0044E85E@@QAE_NPBUCoord3D@@M@Z	0x0044E85E	361	blocked	SSE pathfinder loop with Normalize plus layer plus path test t=12 model=muse-12
 ?rva000AB193@Rva000AB193@@QAEXXZ	0x000AB193	591	blocked	591B AsciiString File sscanf loader no donor needs full reconstruction t=3 model=muse-07
+??0Rva0032EE24@@QAE@XZ	0x0032EE24	254	blocked	SidesList-like ctor with secondary vptr plus list map and 3 arrays needs full layout plus EH plus STL t=12 model=muse-03
