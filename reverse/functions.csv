@@ -60810,3 +60810,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva007B6D27@@YAXXZ,,0x007B6D27,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,Faction-set tree teardown: ecx=&g_Va00DEAF3C then tail-jmp to 0x00059068 stub; honest address name
 ?rva007B6E72@@YAXXZ,,0x007B6E72,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,Faction-set tree teardown: ecx=&g_Va00DEBFD8 then tail-jmp to 0x00059068 stub; honest address name
 ?rva007B6E7C@@YAXXZ,,0x007B6E7C,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,Faction-set tree teardown: ecx=&g_Va00DEBFE4 then tail-jmp to 0x00059068 stub; honest address name
+?Rva00438D58Update@@YGXPAVObject@@@Z,,0x00438D58,197,Code/GameEngine/Source/GameLogic/AI/Rva00438D58Update.cpp,matched,free stdcall via getDrawable and local control and audio event
