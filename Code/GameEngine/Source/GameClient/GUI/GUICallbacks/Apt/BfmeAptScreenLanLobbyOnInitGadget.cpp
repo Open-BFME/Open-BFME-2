@@ -120,6 +120,39 @@ public:
 	int getNumOpenOrOccupiedSlots() const;
 };
 
+// TheLAN's game list: eight 0x1D0-byte slots from +0xDC end at +0xF5C, where
+// the next game is linked.
+class LANGameInfo : public GameInfo
+{
+public:
+	unsigned char m_pad000[0x5C];
+	int m_5c; // +0x5C
+	unsigned char m_pad060[0xF5C - 0x60];
+	LANGameInfo *m_next; // +0xF5C
+};
+
+class ModuleData;
+
+// More views of the +0x668 object (rva00601941 resets it, rva00580B40 adds
+// an entry) and of the +0x288 panel (enable).
+class Rva00601941
+{
+public:
+	void rva00601941();
+};
+
+class Rva00580B40
+{
+public:
+	void rva00580B40(const ModuleData *entry);
+};
+
+class Rva0043DB66ByteOneSetter
+{
+public:
+	void enable();
+};
+
 // The +0x288 panel (destroyed by ??1Rva004421E1); 0x0043DE19 (265 bytes) is
 // unrowed and pinned by address.
 class Rva004421E1
@@ -178,11 +211,18 @@ public:
 	void submitNameRva00444760();
 	void rva00446772();
 	void rva0044469C();
+	void rva00445E3E(LANGameInfo *games);
+
+	// Unrowed 0x004457BC (1006 bytes; rebuilds the games list box), pinned by
+	// address.
+	void rva004457BC();
 
 private:
 	unsigned char m_pad000[0x288];
 	Rva004421E1 m_panel; // +0x288
-	unsigned char m_pad289[0x668 - 0x289];
+	unsigned char m_pad289[0x304 - 0x289];
+	int m_304; // +0x304
+	unsigned char m_pad308[0x668 - 0x308];
 	Rva00580316 m_668; // +0x668
 	LanLobbyUserNamePrefs m_prefs; // +0x684
 	UnicodeString m_userName; // +0x6A0
@@ -309,4 +349,19 @@ void BfmeAptScreenLanLobby::rva0044469C()
 		reinterpret_cast<Rva00444083 *>(this)->rva00444083(1);
 	else
 		reinterpret_cast<Rva00444083 *>(this)->rva004440F4(1);
+}
+
+// Retail 0x00445E3E, 77 bytes. Name unknown. Rebuilds the +0x668 object from
+// the games in TheLAN's list whose +0x5C matches the screen's +0x304, then
+// refreshes the games list box (0x004457BC) and enables the +0x288 panel.
+void BfmeAptScreenLanLobby::rva00445E3E(LANGameInfo *games)
+{
+	reinterpret_cast<Rva00601941 *>(&m_668)->rva00601941();
+	for (LANGameInfo *game = games; game; game = game->m_next)
+	{
+		if (game->m_5c == m_304)
+			reinterpret_cast<Rva00580B40 *>(&m_668)->rva00580B40((const ModuleData *)game);
+	}
+	rva004457BC();
+	reinterpret_cast<Rva0043DB66ByteOneSetter *>(&m_panel)->enable();
 }
