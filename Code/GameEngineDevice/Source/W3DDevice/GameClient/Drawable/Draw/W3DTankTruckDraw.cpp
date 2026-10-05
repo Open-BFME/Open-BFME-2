@@ -738,7 +738,6 @@ void W3DTankTruckDraw::xfer( Xfer *xfer )
 // ------------------------------------------------------------------------------------------------
 /** Load post process */
 // ------------------------------------------------------------------------------------------------
-// ?loadPostProcess@W3DTankTruckDraw@@ present-unmatched
 void W3DTankTruckDraw::loadPostProcess( void )
 {
 

@@ -211,7 +211,6 @@ RenderObjClass* MapObject::getBridgeRenderObject( BridgeTowerType type )
 }
 #pragma optimize("", on)
 
-// ?validate@MapObject@@ present-unmatched
 void MapObject::validate(void)
 {
 	verifyValidTeam();
