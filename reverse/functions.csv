@@ -56633,3 +56633,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?Rva000614F0@@YAHXZ,,0x003B9C9A,23,Code/GameEngine/Source/Common/S2DebugCommandRegistrars_Rva003B9C9A.cpp,matched,BFME1 /Os donor string-anchored ambiguous placement (ambig.py)
 ?Rva00061510@@YAHXZ,,0x003B9CB1,23,Code/GameEngine/Source/Common/S2DebugCommandRegistrars_Rva003B9CB1.cpp,matched,BFME1 /Os donor string-anchored ambiguous placement (ambig.py)
 ?Rva00061530@@YAHXZ,,0x003B9CC8,23,Code/GameEngine/Source/Common/S2DebugCommandRegistrars_Rva003B9CC8.cpp,matched,BFME1 /Os donor string-anchored ambiguous placement (ambig.py)
+?rva0058C100ObserveNext@@YGXPAX@Z,,0x002D3DCE,91,Code/GameEngine/Source/Common/Rva0058C100ObserverCommands_Rva002D3DCE.cpp,matched,BFME1 /Os donor string-anchored ambiguous placement (ambig.py)
