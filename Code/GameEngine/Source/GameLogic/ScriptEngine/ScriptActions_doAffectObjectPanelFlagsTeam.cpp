@@ -36,10 +36,13 @@ class Team
 public:
 	DLINK_ITERATOR<Object> iterate_TeamMemberList() const;
 };
+class Parameter;
+
 class ScriptEngine
 {
 public:
 	Team *getTeamNamed(AsciiString, bool);
+	Object *getUnitNamed(Parameter *unitParam);
 };
 extern ScriptEngine *g_Va009FE16C;
 
@@ -47,8 +50,20 @@ class ScriptActions
 {
 protected:
 	void changeObjectPanelFlagForSingleObject(Object *obj, const AsciiString &flagToChange, bool newVal);
+	void doAffectObjectPanelFlagsUnit(Parameter *unitParam, const AsciiString &flagName, bool enable);
 	void doAffectObjectPanelFlagsTeam(const AsciiString &teamName, const AsciiString &flagName, bool enable);
 };
+
+// ScriptActions::doAffectObjectPanelFlagsUnit, retail 0x003C5C69 (42B),
+// directly before the team version as in Zero Hour; BFME2 resolves the
+// unit from its parameter through the rowed getUnitNamed.
+void ScriptActions::doAffectObjectPanelFlagsUnit(Parameter *unitParam, const AsciiString &flagName, bool enable)
+{
+	Object *obj = g_Va009FE16C->getUnitNamed(unitParam);
+	if (!obj)
+		return;
+	changeObjectPanelFlagForSingleObject(obj, flagName, enable);
+}
 
 void ScriptActions::doAffectObjectPanelFlagsTeam(const AsciiString &teamName, const AsciiString &flagName, bool enable)
 {

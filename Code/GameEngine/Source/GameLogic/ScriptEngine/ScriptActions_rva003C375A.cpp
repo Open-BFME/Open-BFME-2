@@ -43,10 +43,13 @@ class Team
 public:
 	DLINK_ITERATOR<Object> iterate_TeamMemberList() const;
 };
+class Parameter;
+
 class ScriptEngine
 {
 public:
 	Team *getTeamNamed(AsciiString, bool);
+	Object *getUnitNamed(Parameter *unitParam);
 };
 extern ScriptEngine *g_Va009FE16C;
 
@@ -63,8 +66,21 @@ private:
 class ScriptActions
 {
 protected:
+	void rva003BD2CE(Parameter *pUnit, int index, float value);
 	void rva003C375A(Parameter *pTeam, int index, float value);
 };
+
+// ScriptActions::rva003BD2CE, retail 0x003BD2CE (56B): the single-unit
+// form - the unit resolved from its parameter by the rowed getUnitNamed.
+void ScriptActions::rva003BD2CE(Parameter *pUnit, int index, float value)
+{
+	if (index < 0 || index >= 12)
+		return;
+	Object *obj = g_Va009FE16C->getUnitNamed(pUnit);
+	if (!obj)
+		return;
+	obj->rva0028ECA8(index, value, 0);
+}
 
 void ScriptActions::rva003C375A(Parameter *pTeam, int index, float value)
 {
