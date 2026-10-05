@@ -211,6 +211,31 @@ steer the work, reading the census's index
   back to the home unit that already compiles an exact copy, removing the
   duplicate definition that stops both from linking.
 
+**When working on linking as a dedicated task, prefer sweeping BFME 1 linking repairs before rediscovering shared fixes.** During a
+linking pass, compare BFME 2's ranked blockers with linking repairs, canonical
+headers, and dependency reconciliations in `reference/open-bfme-1`. Inspect
+relevant donor commits and their verification evidence. Prioritize repairs to
+shared library and engine families already used by BFME 2.
+
+Routine linking and small dependency repairs accompanying a recovery should
+proceed directly; this donor-sweep preference applies to dedicated linking
+investigations.
+
+Track the donor revision reviewed and whether each relevant repair is already
+inherited, applicable, blocked, or inapplicable. Revisit blocked candidates when
+their dependencies or donor evidence change. Follow the existing
+reference-freshness rules; avoid repeating an unchanged donor scan.
+
+Try the donor repair directly where BFME 2 evidence supports it, then make
+localized target-specific adaptations. Preserve established BFME 2 layouts,
+addresses, ABI and behavior. Verify affected bodies and check providers and
+consumers together; a BFME 1 linking result is a lead, not BFME 2 proof.
+
+Once a repair succeeds, sweep related BFME 2 units that exhibit the same
+supported cause, batch compatible fixes, and refresh the remaining blockers.
+Continue with independent candidates when a repair needs unrelated
+investigation.
+
 **Reconcile classes, not just bodies.** Private per-unit views of one class
 are the root cause of most COMDAT and unresolved blockers.
 `python3 tools/class_views.py` ranks classes by private views or, with
