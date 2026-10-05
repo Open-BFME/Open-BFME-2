@@ -4,13 +4,25 @@
 // erase via rowed 0x002B7250 through +4->+0x14->+8, conditional virtual calls
 // on +0x10 slot4 and +0x0C slot9 when +0x14 != 0, implicit member dtor
 // rowed 0x005F23B2 at +0x18, inline empty base for second vptr + EH state 1.
-// Evidence: callees rowed 0x005F23B2 0x002B7250; callers 0x005FAF44 0x005FAFBE.
-class CreateAHeroData
+// Evidence: callees rowed 0x002B7250 0x005F23B2; callers 0x005FAF44 0x005FAFBE.
+// Retail vptr loads (Capstone over game.dat at 0x005FAD8D): C7 06 D4 9E C7 00
+// installs derived VA 0x00C79ED4 at [esi]; C7 06 84 52 C7 00 restores base VA
+// 0x00C75284 at [esi]. True CreateAHeroData vtable is VA 0x00C38D88 (RVA
+// 0x838D88 slot2 = 0x809353 typeName "CreateAHeroData" at 0x409353; copy/dtor
+// rowed); VA 0x00C75284 holds code pointers (slot0 0x0087A69C), no hero string.
+// The base installs vftable 0x00875284 (VA 0x00C75284). CreateAHeroData's own is
+// 0x00838D88 (VA 0x00C38D88), so the base is named after its vtable; spelling
+// it CreateAHeroData gave that vtable symbol two addresses (full-gate DIR32
+// consistency C38D88 vs C75284 in CI 37307445275, same pattern as the C6E330
+// fix in Rva005CD651Dtor). The erase callee keeps its rowed CreateAHeroData
+// pointer parameter through a cast.
+class CreateAHeroData;
+class Rva00875284Base
 {
 public:
 	virtual void f0();
 	virtual void f1();
-	~CreateAHeroData() {}
+	~Rva00875284Base() {}
 };
 
 class Rva002B7250
@@ -62,7 +74,7 @@ public:
 	~Rva005F23B2();
 };
 
-class Rva005FAD8D : public CreateAHeroData
+class Rva005FAD8D : public Rva00875284Base
 {
 public:
 	~Rva005FAD8D();
