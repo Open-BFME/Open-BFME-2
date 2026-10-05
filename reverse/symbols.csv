@@ -10971,3 +10971,5 @@ _Rva001118ECResampleRgb555,0x001118EC,"RETAIL REL32 at 0x00111A1A and six siblin
 ?notifyX@Rva003197EEListener@@QAEXPAX@Z,0x005CC208,forwarder same 5B ICF twin call site 0x00319B22 via forEach 0x003197EE
 ?isOpen@GameSlot@@QBE_NXZ,0x0029B257,ICF twin of dup empty via isOpen call sites in 0x0043EDB4 state at +0x04 equals 0
 ?notifyY@Rva003197EEListener@@QAEXPAX@Z,0x005CB265,forwarder same 5B ICF twin call site 0x00319B49 via forEach 0x003197EE
+??1Rva0060263EBase@@UAE@XZ,0x0060263E,Call-only base-destructor view aliases full7B rowed vptr reset C7A84C; target604465 cleanup calls it after tree teardown; original base identity unknown
+??1Rva00604396TreeView@@QAE@XZ,0x00604396,Call-only12B tree-prefix destructor view aliases full56B rowed RB tree cleanup; receiver604465+4; payload type not asserted by this view
