@@ -1,4 +1,5 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB
+// stlport
 //
 // Small MpGameSetup members of BFME2's LAN lobby panel (the screen's +0x288
 // object: its callback registration 0x0044303D binds the rowed
@@ -9,6 +10,8 @@
 // at +0x58 (BFME1's MpGameSetup kept its owner at +0x04 behind a smaller
 // base); the per-slot player template combo boxes are at +0x334 (as in
 // MpGameSetupOnInitGadget.cpp); +0x2C4 is a dirty flag.
+
+#include <vector>
 
 #include "unicode_string.h"
 #include "ascii_string.h"
@@ -36,13 +39,15 @@ public:
 	bool isHuman() const;
 	bool isObserver() const;
 	bool isOccupied() const;
+	bool isAI() const;
 
 	unsigned char m_pad00[0x04];
 	int m_state; // +0x04
 	bool m_accepted; // +0x08
 	unsigned char m_pad09[0x18 - 0x09];
 	int m_playerTemplate; // +0x18
-	unsigned char m_pad1c[0x50 - 0x1C];
+	int m_team; // +0x1C
+	unsigned char m_pad20[0x50 - 0x20];
 	int m_heroKind; // +0x50 (1 random, 2 or 3 by the hero's +0x48 flag)
 	int m_hero0c; // +0x54 (the hero's +0x0C)
 	int m_hero10; // +0x58 (the hero's +0x10)
@@ -276,6 +281,9 @@ public:
 	// Unrowed 0x0057F3A9 (113 bytes; the text of its +0xA0 combo box, or a
 	// global empty string without one), pinned by address.
 	UnicodeString rva0057F3A9();
+	// Unrowed 0x0057F5ED (447 bytes; refills its +0xA4 window), pinned by
+	// address.
+	void rva0057F5ED();
 };
 
 // The member at +0x244 (rowed under its address name).
@@ -453,7 +461,6 @@ public:
 	bool rva00443EA8();
 	void rva0043EDB4();
 
-	// Unrowed 0x004428C9 (336 bytes), pinned by address.
 	void rva004428C9();
 	void rva00443BF3();
 
@@ -1415,4 +1422,52 @@ bool MpGameSetup::rva00443EA8()
 	}
 	m_244.rva0057FDB0(false);
 	return false;
+}
+
+// Retail 0x004428C9, 336 bytes. Name unknown. In rules mode 1 (+0x160) the
+// host assigns teams by the slots' +0x1A8 tag: the first two distinct tags
+// of seated humans get teams 0 and 1, every other slot -1, each change
+// going through the owner's applySlotTeam (vslot 12) and setting +0x2B9;
+// AI slots are first set to state 1 through 0x0043E30F. The +0x190 member
+// is refreshed first. Called from the update 0x00443F8B.
+void MpGameSetup::rva004428C9()
+{
+	int mode = m_rules.m_04;
+	if (mode != 1)
+		return;
+
+	_STL::vector<AsciiString> tags;
+	m_190.rva0057F5ED();
+	if (!m_owner->v01())
+		return;
+	GameInfo *game = (GameInfo *)m_game->rva0043DA65();
+	if (!game)
+		return;
+
+	for (unsigned int i = 0; i < 8; ++i)
+	{
+		GameSlot *slot = game->getSlot(i);
+		if (!slot)
+			continue;
+		AsciiString tag = ((Rva003821B9AsciiField *)slot)->get();
+		if (slot->isAI())
+			rva0043E30F(i, 1);
+		unsigned int team;
+		if (slot->isHuman() && !slot->isObserver() && !tag.isEmpty())
+		{
+			AsciiString *found = _STL::find(tags.begin(), tags.end(), tag);
+			team = found - tags.begin();
+			if (team >= tags.size())
+				tags.push_back(tag);
+			if (team >= 2)
+				team = (unsigned int)-1;
+		}
+		else
+			team = (unsigned int)-1;
+		if (slot->m_team != (int)team)
+		{
+			m_owner->applySlotTeam(slot, team);
+			m_2b9 = true;
+		}
+	}
 }
