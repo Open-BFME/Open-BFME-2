@@ -14,6 +14,7 @@ class Rva0021BCA7
 public:
 	void *rva0021BCA7(int key, unsigned int index);
 	const AsciiString *rva0021C970(int key, unsigned int index);
+	void *rva0021C9A6(int key, unsigned int index);
 };
 
 extern void *g_00DFE354;
@@ -26,4 +27,13 @@ const AsciiString *Rva0021BCA7::rva0021C970(int key, unsigned int index)
 	if (p)
 		return (const AsciiString *)((const char *)p + 4);
 	return &AsciiString::TheEmptyString;
+}
+void *Rva0021BCA7::rva0021C9A6(int key, unsigned int index)
+{
+	if (!((Rva0021BC0D *)this)->rva0021BC0D(key, (void **)&g_00DFE354))
+		return (void *)&AsciiString::TheEmptyString;
+	void *p = rva0021BCA7(key, index);
+	if (p)
+		return p;
+	return (void *)&AsciiString::TheEmptyString;
 }
