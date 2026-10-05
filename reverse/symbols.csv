@@ -12723,3 +12723,7 @@ _g_pRva00437E9C,0x00E032FC,global pointer read by wrapper 0x00437E9C (peer notes
 ?run@Rva0020E9A1Run@@QAEXXZ,0x0020E9A1,REL32 callee decoded from target call bytes of null-checked forward 0x0020EB41; identity unproven
 ?run@Rva005CB283Run@@QAEXXZ,0x005CB283,REL32 callee decoded from target call bytes of null-checked forward 0x005CCB16; identity unproven
 ?run@Rva000B3FD0Run@@QAEXXZ,0x000B3FD0,opaque alias: shared folded empty body; callee of null-checked forward 0x005D13D5
+?run@Rva0010FA6BRun@@QAEXI@Z,0x0010FA6B,REL32 callee decoded from target call bytes of null-guarded forward 0x000A8AA6; identity unproven
+?run@Rva0010FDE9Run@@QAEXI@Z,0x0010FDE9,REL32 callee decoded from target call bytes of null-guarded forward 0x000A8B23; identity unproven
+?run@Rva0010FEF3Run@@QAEXI@Z,0x0010FEF3,REL32 callee decoded from target call bytes of null-guarded forward 0x000A8B4B; identity unproven
+?run@Rva0010FFA2Run@@QAEXI@Z,0x0010FFA2,REL32 callee decoded from target call bytes of null-guarded forward 0x000A8C6E; identity unproven
