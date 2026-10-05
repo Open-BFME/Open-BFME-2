@@ -3,6 +3,7 @@
 // Free Apt TimeRemaining setter: team name lookup then format APT:_level%u.%s_TimeRemaining plus GameText STRATEGICHUD:TurnTimeRemaining fetch then minutes:seconds format then bfmeSetText false.
 // Evidence: chain lane calls 0x0057A272 plus caller 0x0057A861 plus precedents Rva0057A51CApt Rva0057A685Apt plus globals TheGameText TheRva00222A8BTarget g_Rva0107301CEmptyString plus strings APT:_level%u.%s_TimeRemaining STRATEGICHUD:TurnTimeRemaining.
 #include "ascii_string.h"
+#include "unicode_string.h"
 
 class BfmeAptWindowManager
 {
@@ -16,19 +17,6 @@ class Rva00222A8BTarget
 
 extern Rva00222A8BTarget *TheRva00222A8BTarget;
 extern const char g_Rva0107301CEmptyString[];
-
-class UnicodeString : public StringBase<unsigned short>
-{
-public:
-	UnicodeString() {}
-	~UnicodeString() {}
-	void __cdecl format(const unsigned short *fmt, ...);
-	const unsigned short *str() const
-	{
-		static const unsigned short TheNullChr = 0;
-		return m_data ? &m_data->data[0] : &TheNullChr;
-	}
-};
 
 class GameTextInterface
 {
