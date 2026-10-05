@@ -22,10 +22,28 @@ struct Rva0039DF1CFilter
 };
 
 class BfmeTab1026;
+class Object;
+class ThingTemplate;
+typedef Int (*ObjectIterateFunc)(Object *obj, void *userData);
+
+template <int N>
+class BitFlags
+{
+public:
+	BitFlags(const BitFlags &other);
+private:
+	unsigned int m_bits[7];
+};
+typedef BitFlags<116> KindOfMaskType;
 
 class TeamPrototype
 {
 public:
+	void countObjectsByThingTemplate(Int numTmplates, const ThingTemplate* const* things, Bool ignoreDead, Int *counts, Bool ignoreUnderConstruction) const;
+	Int countBuildings();
+	Int countObjects(KindOfMaskType setMask, KindOfMaskType clearMask);
+	void healAllObjects();
+	Int rva0039ED9C(ObjectIterateFunc func, void *userData);
 	Bool rva0039EDE1(Bool flag);
 	Bool rva0039EE21(Rva0039DDC2Filter filter, Bool flag);
 	Bool rva0039EE70(BfmeTab1026 *tab, Bool flag);
@@ -47,6 +65,11 @@ struct PlayerTeamNode
 class Player
 {
 public:
+	void healAllObjects();
+	Int iterateObjects(ObjectIterateFunc func, void *userData) const;
+	void countObjectsByThingTemplate(Int numTmplates, const ThingTemplate* const* things, Bool ignoreDead, Int *counts, Bool ignoreUnderConstruction) const;
+	Int countBuildings();
+	Int countObjects(KindOfMaskType setMask, KindOfMaskType clearMask);
 	Bool rva002AB260(Bool flag) const;
 	Bool rva002AB295(Rva0039DDC2Filter filter, Bool flag) const;
 	Bool rva002AB2D9(BfmeTab1026 *tab, Bool flag) const;
@@ -60,6 +83,50 @@ private:
 	unsigned char m_pad[0x32C];
 	PlayerTeamNode *m_playerTeamPrototypes; // +0x32C list head node
 };
+
+// Zero Hour's Player::healAllObjects, iterateObjects (BFME: int callback,
+// stops when a team prototype's walk answers 0), countObjectsByThingTemplate,
+// countBuildings and countObjects (retail 0x002AB06A..0x002AB184), forwarding
+// to the TeamPrototype walks of the same names.
+void Player::healAllObjects()
+{
+	for (PlayerTeamNode *it = m_playerTeamPrototypes->m_next; it != m_playerTeamPrototypes; it = it->m_next)
+		it->m_value->healAllObjects();
+}
+
+Int Player::iterateObjects(ObjectIterateFunc func, void *userData) const
+{
+	for (PlayerTeamNode *it = m_playerTeamPrototypes->m_next; it != m_playerTeamPrototypes; it = it->m_next)
+	{
+		if (!it->m_value->rva0039ED9C(func, userData))
+			return 0;
+	}
+	return 1;
+}
+
+void Player::countObjectsByThingTemplate(Int numTmplates, const ThingTemplate* const* things, Bool ignoreDead, Int *counts, Bool ignoreUnderConstruction) const
+{
+	for (Int i = 0; i < numTmplates; ++i)
+		counts[i] = 0;
+	for (PlayerTeamNode *it = m_playerTeamPrototypes->m_next; it != m_playerTeamPrototypes; it = it->m_next)
+		it->m_value->countObjectsByThingTemplate(numTmplates, things, ignoreDead, counts, ignoreUnderConstruction);
+}
+
+Int Player::countBuildings()
+{
+	Int retVal = 0;
+	for (PlayerTeamNode *it = m_playerTeamPrototypes->m_next; it != m_playerTeamPrototypes; it = it->m_next)
+		retVal += it->m_value->countBuildings();
+	return retVal;
+}
+
+Int Player::countObjects(KindOfMaskType setMask, KindOfMaskType clearMask)
+{
+	Int retVal = 0;
+	for (PlayerTeamNode *it = m_playerTeamPrototypes->m_next; it != m_playerTeamPrototypes; it = it->m_next)
+		retVal += it->m_value->countObjects(setMask, clearMask);
+	return retVal;
+}
 
 Bool Player::rva002AB260(Bool flag) const
 {
