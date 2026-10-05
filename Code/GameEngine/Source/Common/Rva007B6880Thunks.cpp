@@ -5234,6 +5234,16 @@ void __cdecl rva007B9676()
 	p->rva001EAF7B();
 }
 
+extern unsigned g_00E06444;
+// g_00E06444: packet annotates VA 0x00E06444 (data RVA 0x00A06444), no name yet.
+
+// ?rva007B9680@@YAXXZ @ 0x007B9680 (10B). Global StringBase<char> clear thunk: ecx=&g_00E06444 then tail-jmp to rowed ?clear@?$StringBase@D@@QAEXXZ (0x0048BA39). No callers. Between 0x007B9676 and 0x007B9694. Honest address name.
+void __cdecl rva007B9680()
+{
+	StringBase<char> *p = (StringBase<char> *)&g_00E06444;
+	return p->clear();
+}
+
 // ?rva007B9694@@YAXXZ @ 0x007B9694 (10B). Global Rva001EAF7B thunk: ecx=&g_Va00DA60E8 then tail-jmp to rowed ?rva001EAF7B@Rva001EAF7B@@QAE_NXZ (0x001EAF7B).
 void __cdecl rva007B9694()
 {
