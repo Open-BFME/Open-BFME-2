@@ -59894,3 +59894,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ??$__uninitialized_fill_n@PAURva00413B16Element@@IU1@@_STL@@YAPAURva00413B16Element@@PAU1@IABU1@ABU__false_type@0@@Z,,0x004139E1,37,Code/Libraries/Source/WWVegas/WWLib/StlportUninitFillN413B16.cpp,matched,stride 0x18 via rowed _Construct 0x0041398E sibling Rva00403927FillN
 ?rva00396B25@Rva00396B25@@QAEXXZ,,0x00396B25,160,Code/GameEngine/Source/GameLogic/Object/Behavior/Rva00396B25Receiver.cpp,matched,Money receiver via Player+0x90+0x3BC holder early per shape lever
 ?reset@Rva005E7FE2@@QAEXPAVRva005E7D72@@@Z,,0x005E7FE2,35,Code/GameEngine/Source/Common/OwnedPointerResets.cpp,matched,reset same pointee as clear 0x005E7FC8 via callers 0x005E8447 0x005E86FA
+??1Rva004DDF3A@@QAE@XZ,,0x004DDF3A,23,Code/GameEngine/Source/Common/Rva004DDF3ADtor.cpp,matched,deleting-dtor caller 0x0028AB32 via three Rva004DD843 pins
