@@ -55929,3 +55929,4 @@ ___Extract_locale_name,,0x000216A0,153,Code/Libraries/Source/WWVegas/WWLib/Local
 ?Rva00218BD4Sort@@YAXPAURva004748F0Element@@00URva004748F0Compare@@@Z,,0x00218BD4,27,Code/Libraries/Source/WWVegas/WWLib/stlport_fileinfo_sort_00218BD4.cpp,matched,full-sort forwarder via rowed partial-sort
 ?Rva0021889AFinalSort@@YAXPAUQ3SortElem16@@0UQ3SortCompare@@@Z,,0x0021889A,74,Code/GameEngine/Source/Common/Q3FinalInsertionSort0021889A.cpp,matched,final-insertion-sort via rowed insertion-sort and Each
 ?rva003F9DB0@Rva003F9DB0@@QAEXXZ,,0x003F9DB0,14,Code/GameEngine/Source/Common/Rva003F9DB0Erase.cpp,matched,calls rowed erase 0x003FA4DB with vector at 0x3C caller 0x00210EBF tail-jmp
+?rva000B9A0E@Rva000B9A0E@@QAEXPAXHH@Z,,0x000B9A0E,144,Code/GameEngine/Source/GameLogic/ScriptEngine/Rva000B9A0EDispatch.cpp,matched,loop 0xC entries via global dispatch siblings rva00335FE1
