@@ -13511,3 +13511,4 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 ?rva00068436@Rva00068436@@QAEXH@Z,0x00068436,11B tail-jump stub (loads [ecx+0x385C], jumps to 0x00093D97) called from 0x00091DC4 with pushed int; original name unknown
 ?rva0010F9F1@Rva0010F9F1@@QAEXXZ,0x0010F9F1,122B no-arg thiscall method on the +0x0 member called from 0x000A8CC9; member carries an int at +0x20; original name unknown
 ?rva000AA966@Rva000AA966@@QAEPAXPAX@Z,0x000AA966,837B method on a freshly newed 0x30-byte object taking the 0x000AAD88 argument; returns pointer; original name unknown
+?rva00223E4B@Rva00222A8BTarget@@QAEXPAXPAD@Z,0x00223E4B,256B thiscall on the Apt window manager global 0x00DFE4CC filling a 0x100 caller buffer from the first arg; called from 0x000A9211; original name unknown
