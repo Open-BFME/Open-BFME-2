@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /GX /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata /O1 /GX /DNDEBUG /MD
 //
 // ??1RebuildHoleBehaviorModuleData@@UAE@XZ, retail 0x0048334A, 48 bytes.
 // RebuildHole ModuleData dtor over the pinned base vtable 0x00BBB554: destroys
@@ -9,24 +9,7 @@
 // 0x00C49950) plus parse table 0x00C49A10. Shape follows
 // AIUpdateModuleDataDtor (single member plus BBB554 base, no -1). Caller is
 // the audited ??_G at 0x0048332E (slot 0 of vtable 0x00C49950).
-extern "C" const void *const vtbl_00BBB554[];  // folded, 23 classes; via ??_7BfmeBaseVUQ@@6B@
-#pragma comment(linker, "/alternatename:_vtbl_00BBB554=??_7BfmeBaseVUQ@@6B@")
-
-class Xfer;
-
-class Snapshot
-{
-public:
-	virtual ~Snapshot();
-	virtual void crc(Xfer *xfer);
-	virtual void loadPostProcess();
-	virtual void xfer(Xfer *xfer);
-};
-
-inline Snapshot::~Snapshot()
-{
-	*(const void **)this = reinterpret_cast<const void *>(((unsigned int)vtbl_00BBB554));
-}
+#include "Common/Snapshot.h"
 
 #include "ascii_string.h"
 
