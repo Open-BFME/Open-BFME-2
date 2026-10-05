@@ -344,7 +344,7 @@ public:
 	virtual ~Rva000421C8() {}
 };
 
-Rva000421C8::Rva000421C8()
+inline Rva000421C8::Rva000421C8()
 {
 }
 
@@ -703,3 +703,15 @@ void Rva0054D5D3::rva0054D5D3(void *a, void *b)
 		m_08 = m_08->m_04;
 	}
 }
+
+// ??0Rva000421C8 is a header inline elsewhere: other units emit select-any
+// copies of it, so a strong definition here was a duplicate symbol in the
+// linked build. This anchor only makes this unit emit its copy for the ledger
+// row; it is not retail code.
+#pragma inline_depth(0)
+// ?bfmeEmitRva000421C8Ctor@@YAXPAVRva000421C8@@@Z present-unmatched
+void bfmeEmitRva000421C8Ctor(Rva000421C8 *p)
+{
+	p->Rva000421C8::Rva000421C8();
+}
+#pragma inline_depth()
