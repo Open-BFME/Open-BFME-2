@@ -69,6 +69,18 @@ public:
 	void rva005CB260();
 };
 
+class Rva0040DDD6
+{
+public:
+	int rva0040DDD6();
+};
+
+class Rva003FDEAD
+{
+public:
+	void rva003FDEAD();
+};
+
 void *Rva003192B9Get(void *key);
 
 class Rva003193EC
@@ -78,6 +90,7 @@ public:
 	bool rva00319413(Rva0037DCA5 *p);
 	void rva003190E7(bool flag);
 	void rva003198B8(Rva003193EC *other);
+	void rva003191B1();
 private:
 	char m_pad00[8];
 	Rva0031980CList m_list08;
@@ -123,4 +136,13 @@ void Rva003193EC::rva003198B8(Rva003193EC *other)
 	other->rva003190E7(false);
 	rva003190E7(false);
 	m_list08.forEach((void (Rva0031980CListener::*)(void *, int))&Rva005CB260::rva005CB260, this, (int)other);
+}
+
+void Rva003193EC::rva003191B1()
+{
+	if (((Rva0040DDD6 *)m_78)->rva0040DDD6() <= 0)
+		return;
+	if (((Rva003FDEAD *)m_88) != 0)
+		((Rva003FDEAD *)m_88)->rva003FDEAD();
+	rva003190E7(false);
 }

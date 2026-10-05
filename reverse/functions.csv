@@ -62832,3 +62832,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva003190E7@Rva003193EC@@QAEX_N@Z,,0x003190E7,56,Code/GameEngine/Source/Common/Rva003193EC.cpp,matched,unlock via pred plus BfmeY1038 forward setter per packet
 ?rva003198B8@Rva003193EC@@QAEXPAV1@@Z,,0x003198B8,76,Code/GameEngine/Source/Common/Rva003193EC.cpp,matched,chain on 0x3190E7 via validates plus forEach per packet
 ?rva0029895A@Object@@QAEXPAUBfmeCopyElementA@@@Z,,0x0029895A,31,Code/GameEngine/Source/GameLogic/Object/ObjectRva0029895A.cpp,matched,chain via landed 0x0028AB75 plus rowed bfmeAssign; member A8; callers 0x004868BF
+?rva003191B1@Rva003193EC@@QAEXXZ,,0x003191B1,41,Code/GameEngine/Source/Common/Rva003193EC.cpp,matched,chain on 0x3190E7 via sum plus notify per packet
