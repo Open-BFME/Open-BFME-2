@@ -126,7 +126,6 @@ UnsignedShort NetWrapperCommandMsg::getWrappedCommandID()
 	return m_wrappedCommandID;
 }
 
-// ?setWrappedCommandID@NetWrapperCommandMsg@@QAEXG@Z present-unmatched
 void NetWrapperCommandMsg::setWrappedCommandID(UnsignedShort wrappedCommandID)
 {
 	m_wrappedCommandID = wrappedCommandID;
