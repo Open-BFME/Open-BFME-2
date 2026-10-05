@@ -333,3 +333,29 @@ void Rva003EE7E1::rva003EE7E1(Int a)
 	m_owner.rva004E35D5(g_Rva00E02E7C, (Int)p, 0);
 	m_owner.rva004E35D5(g_Rva00E02E80, (Int)p, 0);
 }
+
+// ?rva003EE91A@Rva003EE91A@@QAEXH@Z @0x003EE91A 76B chain via landed 0x003EE7CA
+// Retail: tmp[3] at ebp-0xc; this->rva003EE7CA(&tmp,arg) then owner+8 three-call
+// forward with string 80 and (arg+0x54,1)/(arg+0x54,&tmp)/(80,0).
+class Rva003EE7CA
+{
+public:
+	int rva003EE7CA(int a, int b);
+};
+class Rva003EE91A
+{
+public:
+	void rva003EE91A(Int a);
+private:
+	char m_pad[8];
+	Rva004E35D5 m_owner;
+};
+void Rva003EE91A::rva003EE91A(Int a)
+{
+	Int tmp[3];
+	((Rva003EE7CA *)this)->rva003EE7CA((Int)&tmp, a);
+	char *p = (char *)a + 0x54;
+	m_owner.rva004E35D5(g_Rva00E02E80, (Int)p, 1);
+	((Rva004E35FF *)&m_owner)->rva004E35FF(g_Rva00E02E80, (Int)p, (Int)&tmp);
+	((Rva004E35AF *)&m_owner)->rva004E35AF(g_Rva00E02E80, 0);
+}
