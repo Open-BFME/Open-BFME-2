@@ -86,3 +86,19 @@ AptValue *__cdecl Rva00709EC0Get(int nIndex)
     CHECK_AT(AptScriptFunctionBase::spRegBlockCurrentFrameBase[nIndex],"spRegBlockCurrentFrameBase[nIndex]",0x2A0);
     return AptScriptFunctionBase::spRegBlockCurrentFrameBase[nIndex];
 }
+
+// Original MAP names PopStaticData; later e20eb4d1c0efde20 source supplies
+// register cleanup semantics. Native7097B0..709863 is179B (old171B lead
+// truncated the tail). Keep the existing cdecl void pointer ABI spelling.
+void rva007097B0(void *saved) {
+ CHECK_AT(AptScriptFunctionBase::spRegBlockBase,"spRegBlockBase",195);
+ AptValue **pSaveBase=(AptValue **)saved;
+ CHECK_AT(pSaveBase>=AptScriptFunctionBase::spRegBlockBase && pSaveBase<=AptScriptFunctionBase::spRegBlockCurrentFrameBase,"pSaveBase >= spRegBlockBase && pSaveBase <= spRegBlockCurrentFrameBase",199);
+ for(int i=0;i<AptScriptFunctionBase::snRegBlockCurrentFrameCount;++i){
+ AptValue *value=AptScriptFunctionBase::spRegBlockCurrentFrameBase[i];
+ AptScriptFunctionBase::spRegBlockCurrentFrameBase[i]=gpUndefinedValue;
+ value->Release();
+ }
+ AptScriptFunctionBase::snRegBlockCurrentFrameCount=AptScriptFunctionBase::spRegBlockCurrentFrameBase-pSaveBase;
+ AptScriptFunctionBase::spRegBlockCurrentFrameBase=pSaveBase;
+}
