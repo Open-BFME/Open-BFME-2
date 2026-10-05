@@ -13340,3 +13340,5 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 ?rva005C836F@Rva005C836F@@QAEXMH@Z,0x005C836F,float-key notify called by 0x00568939 per non-null +0x2C slot; identity unproven; address-derived signature
 ?rva00568939@Rva00568920@@QAEXH@Z,0x00568939,keyed slot notify (banked partial 0x00568939.cpp); caller 0x00568C1A passes outer this as key
 ?rva005C80D1@@YAXPAXPAMMPAH2@Z,0x005C80D1,five-arg helper called by 0x00568991 on null slots; identity unproven; address-derived signature
+?rva005C834A@Rva005C834A@@QAEXPAX0@Z,0x005C834A,"fan-out over [this+8,this+0xC) stride 0x48 via 0x005C8F50; RETAIL REL32 at 0x0056915C (body 0x0056913D) and 0x005691FA (body 0x005691DB) target this address; honest address-derived name, identity unproven"
+?rva00568BE2@BitRange@@QAE?AV?$StringBase@D@@XZ,0x00568BE2,alias pin: same 56B AsciiString-getter body rowed as ?rva00568BE2@BitRange@@QAE?AVAsciiString@@XZ; RETAIL REL32 at 0x005691FA (body 0x005691DB) and 0x00569225 (body 0x0056913D) target 0x00568BE2; StringBase-return spelling is the nothrow TU-local codegen view (shim AsciiString dtor path throws and emits an EH frame retail lacks)
