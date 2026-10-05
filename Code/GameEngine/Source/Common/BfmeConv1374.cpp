@@ -4,6 +4,8 @@
 
 void __cdecl operator delete(void *p);
 
+extern const void *const g_00CE4A10[];
+
 class BfmeThingVIH;
 
 class BfmeSubVIH
@@ -25,7 +27,7 @@ private:
 
 void *BfmeThingVIH::bfmeDelVIH(unsigned flags)
 {
-	m_vft = (void *)0x00CE4A10;
+	m_vft = (void *)g_00CE4A10;
 	if (m_sub)
 		m_sub->bfmeDropVIH(this);
 	if (flags & 1)
