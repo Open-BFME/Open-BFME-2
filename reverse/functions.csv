@@ -63549,3 +63549,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva005E39AE@Rva005E39AE@@QAEXXZ,,0x005E39AE,43,Code/GameEngine/Source/Common/Rva005E39AEUpdate.cpp,matched,
 ?rva005E5884@Rva005E5884@@QAEHHH@Z,,0x005E5884,26,Code/GameEngine/Source/Common/Rva005E5884Get.cpp,matched,
 ?rva005E3AAA@Rva005E39AE@@QAEXH@Z,,0x005E3AAA,55,Code/GameEngine/Source/Common/Rva005E39AEUpdate.cpp,matched,
+?rva005D3A91@Rva005D3A91@@QAEXXZ,,0x005D3A91,97,Code/GameEngine/Source/Common/Rva005D3A91Refresh.cpp,matched,

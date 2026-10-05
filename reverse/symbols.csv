@@ -12901,3 +12901,4 @@ _Rva00337999Forward,0x00337999,REL32 callee decoded from target call bytes of wr
 ?rva0052C7A2@Rva0052C7A2@@QAEHXZ,0x0052C7A2,no-arg entry method tail-called from indexed table in rva003B8D4D 0x003B8D4D; read from jmp at 0x003B8D67; identity unproven
 ?Rva005D303AFormat@@YA?AVUnicodeString@@HH@Z,0x005D303A,by-value UnicodeString formatter ("%d/%d" via 0x00C380FC) returning hidden retptr at [ebp+8]; read from REL32 at 0x005D3113 in rva005D30EE 0x005D30EE; Ghidra 99B
 ?rva0057C499@Rva0057C499@@QAEXHH@Z,0x0057C499,thiscall forwarder target of 0x005D4EA8 taking two dwords; int args assumed; read from REL32 at 0x005D4EAD in rva005D4EA8 0x005D4EA8; Ghidra 73B
+?rva005D388B@Rva005D388B@@QAE?AUTreeHintRef00217D4C@@XZ,0x005D388B,by-value TreeHintRef getter on +0x24 member (hidden retptr at [ebp-16]); read from REL32 at 0x005D3AB2 in rva005D3A91 0x005D3A91; Ghidra 61B blocked
