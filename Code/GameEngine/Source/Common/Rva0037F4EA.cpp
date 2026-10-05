@@ -1,12 +1,10 @@
-// ?rva0037F4EA@Rva0037F4EA@@QAEXH@Z
-// partial score=0.93 date=2026-10-03
-// cl: /O2 /arch:SSE /MD
-// ?rva0037F4EA@Rva0037F4EA@@QAEXH@Z retail 0x0037F4EA 48B
+// cl: /O1 /arch:SSE /MD
+// ?rva0037F4EA@Rva0037F4EA@@QAEPAV1@H@Z retail 0x0037F4EA 48B
 // Evidence: callers 0x0037F90F 0x0037F985 pass dword from +0x12c; zeroes six floats plus bool; second instance at +0x20
 class Rva0037F4EA
 {
 public:
-	void rva0037F4EA(int v);
+	Rva0037F4EA *rva0037F4EA(int v);
 private:
 	int m_00;
 	float m_04;
@@ -18,8 +16,7 @@ private:
 	bool m_1c;
 };
 
-// ?rva0037F4EA@Rva0037F4EA@@QAEXH@Z present-unmatched
-void Rva0037F4EA::rva0037F4EA(int v)
+Rva0037F4EA *Rva0037F4EA::rva0037F4EA(int v)
 {
 	m_00 = v;
 	m_04 = 0.0f;
@@ -29,4 +26,5 @@ void Rva0037F4EA::rva0037F4EA(int v)
 	m_14 = 0.0f;
 	m_18 = 0.0f;
 	m_1c = false;
+	return this;
 }
