@@ -9822,7 +9822,6 @@ _Rva003F417EConstructRecords,0x003F417E,"Native003F5254 calls existing verified 
 ?_M_fill_insert@?$vector@UICoord2D@@V?$allocator@UICoord2D@@@_STL@@@_STL@@QAEXPAUICoord2D@@IABU3@@Z,0x000B02B6,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?_M_increment@?$_Deque_iterator_base@VPlayingAudioRef@@@_STL@@QAEXXZ,0x0042187F,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?_M_insert@?$hashtable@U?$pair@$$CBVAsciiString@@VRva0045EF90Object@@@_STL@@VAsciiString@@U?$hash@VAsciiString@@@rts@@U?$_Select1st@U?$pair@$$CBVAsciiString@@VRva0045EF90Object@@@_STL@@@2@U?$equal_to@VAsciiString@@@5@V?$allocator@U?$pair@$$CBVAsciiString@@VRva0045EF90Object@@@_STL@@@2@@_STL@@QAEAAU?$pair@$$CBVAsciiString@@VRva0045EF90Object@@@2@ABU32@@Z,0x00410E23,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
-?_M_insert_overflow@?$vector@UElem003AF8C0@@V?$allocator@UElem003AF8C0@@@_STL@@@_STL@@IAEXPAUElem003AF8C0@@ABU3@ABU__false_type@2@I_N@Z,0x004EE6D0,address read from the REL32 displacement at a placed body
 ?_M_insert_overflow@?$vector@UElem003AF9E0@@V?$allocator@UElem003AF9E0@@@_STL@@@_STL@@IAEXPAUElem003AF9E0@@ABU3@ABU__false_type@2@I_N@Z,0x00565FC1,address read from the REL32 displacement at a placed body
 ?_M_insert_overflow@?$vector@UEvaMessageInfo@@V?$allocator@UEvaMessageInfo@@@_STL@@@_STL@@IAEXPAUEvaMessageInfo@@ABU3@ABU__false_type@2@I_N@Z,0x003F6B24,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?_bfme_slotIsLocalOrLive@ConnectionManager@@QAE_NH@Z,0x004CEF58,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
@@ -12226,3 +12225,11 @@ _ceil,0x00629934,CRT ceil thunk identified by native PE import slot 0x00BBA578 a
 ?prepFile@INI@@IAE_NABVAsciiString@@W4INILoadType@@@Z,0x0002D2C1,thiscall (&filename loadType) called once at the head of each INI load variant 0x0002DA4B/0x0002DC75/0x0002DD38 before the readLine loop; name and signature carried from BFME1 ini.cpp prepFile (donor); body unrowed
 ?unPrepFile@INI@@IAEXXZ,0x0002BF4A,alias of rowed 0x0002BF4A (Rva0002BF4AClear.cpp) called on normal and catch(...) exits of INI load variants 0x0002DA4B/0x0002DC75/0x0002DD38 after prepFile 0x0002D2C1; name carried from BFME1 ini.cpp unPrepFile (donor)
 ?rva0002C0F5@INI@@QAEXAAVAsciiString@@@Z,0x0002C0F5,thiscall (AsciiString &filename) ret 4 called by INI single-block load 0x0002DD38 once 0x0002C2C7 accepts the line; structural name (original not recovered); body unrowed (re_attempts blocked)
+?_M_clear@?$vector@VSaveMapPreview@@V?$allocator@VSaveMapPreview@@@_STL@@@_STL@@IAEXXZ,0x00565A42,REL32 at insert_overflow 0x002DDD48; ICF with rowed clear at this address
+?Rva004EE1E2UninitCopy@@YAPAUElem003AF8C0@@PAU1@00ABU__false_type@_STL@@@Z,0x004EE1E2,hand insert 0x004EE6D0 uninit-copy helper
+?Rva004EE20BFillN@@YAPAUElem003AF8C0@@PAU1@IABU1@ABU__false_type@_STL@@@Z,0x004EE20B,hand insert 0x004EE6D0 fill_n helper
+?rva004EE540@Rva004EE540@@QAEXXZ,0x004EE540,already rowed tidy for hand insert 0x004EE6D0
+?Rva002DBEFFUninitCopy@@YAPAVSaveMapPreview@@PAV1@00ABU__false_type@_STL@@@Z,0x002DBEFF,hand insert 0x002DDD48 uninit-copy helper
+?Rva002DBF28FillN@@YAPAVSaveMapPreview@@PAV1@IABV1@ABU__false_type@_STL@@@Z,0x002DBF28,hand insert 0x002DDD48 fill_n helper
+?rva00565A42@Rva00565A42@@QAEXXZ,0x00565A42,already rowed tidy
+??0SaveMapPreview@@QAE@ABV0@@Z,0x002262E7,already rowed
