@@ -1,4 +1,6 @@
 // ?isPosDifferent@@YA_NPBUCoord3D@@0@Z
+// partial score=0.95 date=2026-10-05
+// ?isPosDifferent@@YA_NPBUCoord3D@@0@Z
 // partial score=0.95 date=2026-09-28
 // ?isPosDifferent@@YA_NPBUCoord3D@@0@Z
 // partial score=0.95 date=2026-09-28
@@ -19,7 +21,7 @@ struct Coord3D
 	float z;
 };
 
-extern "C" float __cdecl fabs(double value);
+extern "C" double __cdecl fabs(double value);
 
 extern float g_Va00BCF628; // 0.01 at 0xBCF628, shared tolerance
 

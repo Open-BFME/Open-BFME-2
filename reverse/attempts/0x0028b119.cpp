@@ -1,6 +1,8 @@
 // ?isAngleDifferent@@YA_NMM@Z
+// partial score=0.95 date=2026-10-05
+// ?isPosDifferent@@YA_NPBUCoord3D@@0@Z
 // partial score=0.95 date=2026-09-28
-// ?isAngleDifferent@@YA_NMM@Z
+// ?isPosDifferent@@YA_NPBUCoord3D@@0@Z
 // partial score=0.95 date=2026-09-28
 // cl: /O1 /G7 /DNDEBUG /MD /EHsc /arch:SSE
 // ?isPosDifferent@@YA_NPBUCoord3D@@0@Z @0x0028B0A8 (113B) and
@@ -19,7 +21,7 @@ struct Coord3D
 	float z;
 };
 
-extern "C" float __cdecl fabs(double value);
+extern "C" double __cdecl fabs(double value);
 
 extern float g_Va00BCF628; // 0.01 at 0xBCF628, shared tolerance
 
