@@ -311,3 +311,26 @@ Rva00582FC1::~Rva00582FC1()
 	TheRva00222A8BTarget->invoke((void *)13, "FileTransferPopUpClose", 0, 0, 0, 0, 0, 0);
 	g_Va00E06398 = 0;
 }
+
+// ?rva0043A15D@Rva0043A15D@@QAEXHH@Z @0x0043A15D 99B: SetBarTo on the panel's
+// Apt owner (+0x8C) with the slot's id from the table at +0xB0 and the
+// percentage, both formatted by sprintf "%d".
+class Rva0043A15D
+{
+public:
+	void rva0043A15D(int slot, int percent);
+private:
+	char m_pad00[0x8C];
+	void *m_owner;				// +0x8C
+	char m_pad90[0x20];
+	int m_ids[1];				// +0xB0
+};
+
+void Rva0043A15D::rva0043A15D(int slot, int percent)
+{
+	char idText[64];
+	char percentText[64];
+	sprintf(idText, "%d", m_ids[slot]);
+	sprintf(percentText, "%d", percent);
+	TheRva00222A8BTarget->invoke(m_owner, "SetBarTo", 2, idText, percentText, 0, 0, 0);
+}
