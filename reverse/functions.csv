@@ -56548,3 +56548,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?Rva003C2CD8Do@@YGXPAVParameter@@0@Z,,0x003C2CD8,92,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C2CD8.cpp,matched,rowed mask player get bfmeCounter by value ret8
 ?Rva003C2C28Do@@YGXPAVParameter@@0@Z,,0x003C2C28,103,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C2C28.cpp,matched,rowed mask eachplayer get bfmeCounter sum ret8
 ?Rva003C2BC0Do@@YGXPAVParameter@@0@Z,,0x003C2BC0,104,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C2BC0.cpp,matched,rowed mask eachplayer field94 bfmeCounter ret8
+?Rva003C2DEADo@@YGXPAVParameter@@0@Z,,0x003C2DEA,119,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C2DEA.cpp,matched,rowed team iterate advance field618 bfmeCounter ret8
