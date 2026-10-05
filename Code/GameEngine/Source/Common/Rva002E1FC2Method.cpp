@@ -49,9 +49,14 @@ public:
 
 extern Rva002BA8F1Logic *g_009FEF10;
 
+// &rva005CC208 compiles to MSVC's vcall thunk for its vtable slot, and retail's DIR32 at
+// +0x6A is 0x009CC208 = mov eax,[ecx]; jmp [eax+8]: the slot at +8 (??_9@$B7AE). As the
+// only virtual (slot 0) it named the +0 thunk 0x005FF3A9 and failed DIR32 consistency.
 class Rva005CC208
 {
 public:
+	virtual void slot00();
+	virtual void slot04();
 	virtual void rva005CC208();
 };
 
