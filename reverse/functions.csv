@@ -62206,3 +62206,4 @@ _Rva007F5790Callback,,0x00661F40,15,Code/GameEngine/Source/GameNetwork/Rva007F70
 ?rva002856CF@Rva002856CFHost@@QAEXXZ,,0x002856CF,40,Code/GameEngine/Source/Common/Rva002856CF.cpp,matched,inverted-gate refresh if m10==-1 and global m3C>=-1 via 0x20D8F1
 ?rva0028F2F8@Rva0028F2F8Host@@QAEPAXXZ,,0x0028F2F8,46,Code/GameEngine/Source/Common/Rva0028F2F8.cpp,matched,flag-gated search via 0x2197A6 returning ptr+8 else aux+30
 ?Rva00334A3D@@YAHPAUlua_State@@@Z,,0x00334A3D,182,Code/GameEngine/Source/GameLogic/ScriptEngine/LuaObjectHideSubObjectRva00334A3D.cpp,matched,Lua ObjectHideSubObject binding registration 0x33870B via pushcclosure 0x747640 plus setglobal 0x747920 with enum ObjectID find 0x49DC5 plus Range lookups 0x747190 0x747370 plus AsciiString plus getDrawable 0x5508E2 plus hide 0x2724FD
+?rva002D34FE@Rva002D34FE@@QAEXH@Z,,0x002D34FE,46,Code/GameEngine/Source/Common/Rva002D34FEChain.cpp,matched,
