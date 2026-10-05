@@ -79,9 +79,11 @@ def test_failed_post_does_not_advance_state_or_leak_url(tmp_path, monkeypatch):
     assert not path.exists()
 
 
-def test_discord_posts_three_measures_and_links_the_readme():
-    embed = daily.announcement(sample(), previous(authored=36, generated=14))["embeds"][0]
-    M, C, L = (daily.BLOCK[key] for key in ("matched", "cpp", "linked"))
+def test_discord_posts_four_measures_and_links_the_readme():
+    names = {"declared_names": 200, "readable_names": 142}
+    embed = daily.announcement({**sample(), **names}, previous(authored=36, generated=14, declared_names=200,
+                                                              readable_names=140))["embeds"][0]
+    M, C, L, N = (daily.BLOCK[key] for key in ("matched", "cpp", "linked", "names"))
     R = daily.REST_BLOCK
     assert embed["description"].split("\n") == [
         "**Rebuilt from source: 60.00%**",
@@ -95,6 +97,11 @@ def test_discord_posts_three_measures_and_links_the_readme():
         "**Linking: 10.00%**",
         f"{L * 1}{R * 9}",
         "9 / 90 bytes of the game's own code linked (not measured yet)",
+        "",
+        f"**Readable names: 71.00%**  {UP} 1.00",
+        f"{N * 7}{R * 3}",
+        "142 / 200 declared names (files, types, functions, members, globals, parameters, locals) "
+        "that are not placeholders",
         "",
         f"[What each bar measures, with charts: README]({daily.README})"]
     assert "footer" not in embed and "Whole game" not in embed["description"]
@@ -157,3 +164,60 @@ def test_nothing_claims_the_game_is_100_percent_done():
 def test_blocks_always_fill_exactly_ten(value):
     text = daily.blocks(value, 100, daily.BLOCK["matched"])
     assert text.count(daily.BLOCK["matched"]) + text.count(daily.REST_BLOCK) == 10
+
+
+@pytest.mark.parametrize("before, after, change", [
+    (71.014, 71.016, "▲ 0.01"),
+    (71.016, 71.014, "▼ 0.01"),
+    (71.011, 71.014, "· 0.00"),
+    (71.01, 71.01, "· 0.00"),
+])
+def test_names_always_compare_the_displayed_percentages(before, after, change):
+    current = {**sample(), "declared_names": 100_000, "readable_names": round(after * 1000)}
+    old = previous(declared_names=100_000, readable_names=round(before * 1000))
+    text = daily.announcement(current, old)["embeds"][0]["description"]
+    assert f"**Readable names: {after:.2f}%**  {change}" in text
+    assert f">{change}<" in daily.render(current, old)
+    if change.startswith("·"):
+        assert f'class="muted" dx="10" font-size="13" font-weight="600">{change}<' in daily.render(current, old)
+
+
+def test_names_compare_shares_not_counts():
+    current = {**sample(), "declared_names": 400, "readable_names": 280}
+    old = previous(declared_names=200, readable_names=142)
+    assert "**Readable names: 70.00%**  ▼ 1.00" in daily.announcement(current, old)["embeds"][0]["description"]
+
+
+def test_first_names_measurement_has_no_invented_delta():
+    current = {**sample(), "declared_names": 200, "readable_names": 142}
+    for old in (None, previous()):
+        assert "**Readable names: 71.00%**\n" in daily.announcement(current, old)["embeds"][0]["description"]
+
+
+@pytest.mark.parametrize("counts", [
+    {"declared_names": 10}, {"readable_names": 5},
+    {"declared_names": 10, "readable_names": 11},
+    {"declared_names": 10, "readable_names": -1},
+])
+def test_invalid_names_counts_fail(counts):
+    with pytest.raises(ValueError, match="Invalid readable-names count"):
+        daily.measures({**sample(), **counts})
+
+
+def test_main_measures_names_and_persists_them(tmp_path, monkeypatch):
+    path = setup_state(tmp_path, monkeypatch)
+    monkeypatch.setattr(sys, "argv", ["readme_progress.py", "--discord"])
+    monkeypatch.setenv("DISCORD_PROGRESS_WEBHOOK", "https://discord.com/api/webhooks/test/token")
+    monkeypatch.setattr(daily, "urlopen", lambda *a, **k: io.BytesIO(b'{"id":"123"}'))
+    monkeypatch.setattr(daily.progress, "matched_at", lambda *a: [])
+    monkeypatch.setattr(daily.progress, "notes_at", lambda *a: {})
+    monkeypatch.setattr(daily.progress, "retail_text", lambda: (0, 100))
+    monkeypatch.setattr(daily.progress, "naked_cpp_rows_at", lambda *a: [])
+    monkeypatch.setattr(daily.progress, "real_split", lambda *a: sample())
+    monkeypatch.setattr(daily.progress, "census_at", lambda *a: None)
+    monkeypatch.setattr(daily.progress, "real_code_denominator", lambda *a: (0, 100))
+    monkeypatch.setattr(daily.name_metric, "readable", lambda: (200, 58))
+    daily.main()
+    state = json.loads(path.read_text())
+    assert state["declared_names"] == 200 and state["readable_names"] == 142
+    assert ">71.00%<" in (tmp_path / "docs/progress.svg").read_text()

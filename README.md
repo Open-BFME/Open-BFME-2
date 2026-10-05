@@ -17,6 +17,7 @@ Goal: Source code that rebuilds BFME 2's engine binary (`game.dat`) byte-for-byt
 * **Rebuilt from source**: code rebuilding to the original game.dat's exact bytes, partly generated code or prebuilt libraries.
 * **Game code in C++**: the game's own code (no libraries) in C++.
 * **Linking**: the part of that code in files that link cleanly (link census).
+* **Readable names**: declared names that are not placeholders (files, types, functions, members, globals, parameters and locals); not proof of original EA names. Its daily change compares the displayed percentages in percentage points; `· 0.00` means unchanged. The first post has no comparison.
 
 <details open>
 <summary><b>Progress over time and code map</b></summary>
