@@ -42,6 +42,8 @@ enum KindOfType
 {
 	KINDOF_INVALID = -1
 };
+enum ObjectStatusTypes;
+class Rva0047C07FAI;
 class Rva0010CBits
 {
 public:
@@ -74,6 +76,7 @@ class Object
 public:
 	const ThingTemplate *getTemplate() const { return m_template; }
 	Player *getControllingPlayer() const;
+	bool testStatus(ObjectStatusTypes bit) const;
 	void setWeaponSetFlag(WeaponSetType wst);
 	void clearWeaponSetFlag(WeaponSetType wst);
 	bool rva0029091E(unsigned int i) const;
@@ -82,6 +85,8 @@ public:
 	const ThingTemplate *m_template; // +0x04
 	unsigned char m_pad008[0x10C - 8];
 	Rva0010CBits m_conditionBits; // +0x10C
+	unsigned char m_pad15C[0x258 - 0x15C];
+	Rva0047C07FAI *m_258; // +0x258
 };
 static __forceinline void setModelConditionBit(Object *object, int bit)
 {
@@ -201,4 +206,67 @@ void HordeSiegeEngineContain::rva004638F1(Object *rider)
 	HordeTransportContain::rva004638F1(rider);
 	if (rider->getTemplate()->isKindOf((KindOfType)23))
 		m_130 = true;
+}
+class Rva2225E0Filter
+{
+public:
+	bool accepts(Object *obj, Player *context);
+};
+class Rva0047C07FModuleData
+{
+public:
+	unsigned char m_pad[0x18C];
+	Rva2225E0Filter m_18C; // +0x18C
+	int m_190; // +0x190
+};
+template <int N> class Rva0047C07FAISlots : public Rva0047C07FAISlots<N - 1>
+{
+public:
+	virtual void gap(char (*)[N]) = 0;
+};
+template <> class Rva0047C07FAISlots<0>
+{
+};
+class Rva0047C07FAI : public Rva0047C07FAISlots<142>
+{
+public:
+	virtual void rva0047C07FSlot142(int arg) = 0;
+};
+class Rva0047C07FContain : public TransportContain
+{
+public:
+	virtual void rva004638F1(Object *rider);
+private:
+	_STL::list<int> m_listFC; // primary+0x11C = secondary+0xFC
+	int m_100; // secondary+0x100
+	bool m_104; // secondary+0x104
+};
+void Rva0047C07FContain::rva004638F1(Object *rider)
+{
+	if (!rider)
+		return;
+	if (m_object->testStatus((ObjectStatusTypes)0))
+		return;
+	if (rider->testStatus((ObjectStatusTypes)0))
+		return;
+	Rva0047C07FModuleData *data = (Rva0047C07FModuleData *)m_moduleData;
+	Player *player = m_object->getControllingPlayer();
+	if (data->m_18C.accepts(rider, player) && data->m_190 > 0)
+	{
+		m_listFC.push_back(reinterpret_cast<const int &>(rider));
+		++m_100;
+		if (rider->rva0029091E(0x14))
+		{
+			rider->setWeaponSetFlag((WeaponSetType)0x14);
+			setModelConditionBit(rider, 7 * 32 + 18);
+		}
+		Rva0047C07FAI *ai = rider->m_258;
+		if (ai)
+			ai->rva0047C07FSlot142(0xA);
+		return;
+	}
+	setModelConditionBit(rider, 6 * 32 + 17);
+	TransportContain::rva004638F1(rider);
+	if (rider->getTemplate()->isKindOf((KindOfType)23))
+		m_104 = true;
 }
