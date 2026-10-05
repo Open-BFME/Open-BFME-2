@@ -509,3 +509,8 @@ void MpGameSetup::OnSortName(const char *)
 {
 	rva0043DC40(0);
 }
+
+void MpGameSetup::OnSortPlayers(const char *)
+{
+	rva0043DC40(2);
+}
