@@ -1,6 +1,5 @@
 // ?rva003FAAA1@Rva003FAAA1@@QAE_NPAX@Z
 // partial score=0.99 date=2026-10-05
-// ?rva003FAAA1@Rva003FAAA1@@QAE_NPAX@Z
 // cl: /O1 /arch:SSE /MD
 // ?rva003FAAA1@Rva003FAAA1@@QAE_NPAX@Z @0x003FAAA1, 236B.
 // Overlap test via rowed Region3D copy 0x0009AC04 LineSeg ctor 0x000927F9 and Overlap_Test 0x00723870.
@@ -93,6 +92,7 @@ class Rva003FAAA1
 {
 public:
 	bool rva003FAAA1(void *arg);
+
 private:
 	char m_00[0x10];
 	Inner1 *m_10;
@@ -137,3 +137,4 @@ bool Rva003FAAA1::rva003FAAA1(void *arg)
 		return false;
 	return true;
 }
+

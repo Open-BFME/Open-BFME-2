@@ -1,21 +1,9 @@
 // ?bfmeGo76A0@@YAXHPAHPAXHHH1@Z
 // partial score=0.98 date=2026-10-05
+// ?bfmeGo76A0@@YAXHPAHPAXHHH1@Z
+// partial score=0.98 date=2026-10-05
 // cl: /DNDEBUG /MD /O2
-// ?bfmeGo76A0@@YAXHPAHPAXHHH1@Z retail 0x001B8100, 177B. Bilinear-style filter
-// rescale: for each of `rows` output rows, walk `columns` input pixels and
-// accumulate four taps with weights[0..3], bias by 0x40 and >>7, clamp to a byte.
-//
-// Two shapes are load-bearing and neither is the natural spelling. (1) The
-// coefficient-0 tap reads (sourcePointer - a)[0] as a plain expression rather
-// than through a `previous` induction pointer: with a separate incremented
-// pointer MSVC keeps the loop body in its old tap order, and expressing the
-// offset inline lets it hoist `lea ecx,[esi+ebp*1]` and match retail's
-// ecx/esi/edi split. (2) `rows` is copied to a local (rowCount0) for the guard
-// while the loop counter re-reads `rows` directly; deriving rowCount from
-// rowCount0 instead changes the prologue register allocation. Both are codegen
-// devices, documented here so the shape is not "cleaned up" away.
-void __cdecl bfmeGo76A0(
-	int delta, int *table, void *p2, int a, int rows, int columns, void *weights)
+void __cdecl bfmeGo76A0(int delta, int *table, void *p2, int a, int rows, int columns, void *weights)
 {
 	int rowCount0 = rows;
 	if ((unsigned int)rowCount0 > 0)
@@ -51,3 +39,4 @@ void __cdecl bfmeGo76A0(
 		while (--rowCount != 0);
 	}
 }
+
