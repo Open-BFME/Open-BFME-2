@@ -1,3 +1,5 @@
+// ?rva0021BD41@Rva0021BCA7@@QAEHHABVAsciiString@@@Z
+// partial score=0.97 date=2026-10-05
 // cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD
 // stlport
 // ?rva0021BCA7@Rva0021BCA7@@QAEPAXHI@Z @ 0x0021BCA7 67B
@@ -8,6 +10,7 @@
 // mov ecx [0x00DFE344] call 0x00219D85 ret 8; unblocks 0x0021C970/0x0021C9A6.
 #include <map>
 #include <vector>
+#include "ascii_string.h"
 
 class Rva0021BC0D
 {
@@ -37,7 +40,7 @@ struct Rva0021BCA7
 	char pad[0x24];
 	_STL::map<int, _STL::vector<unsigned int> > m_map;
 	void *rva0021BCA7(int key, unsigned int index);
-	unsigned int rva0021BCEA(int key, unsigned int index);
+	int rva0021BD41(int key, const AsciiString &name);
 };
 
 void *Rva0021BCA7::rva0021BCA7(int key, unsigned int index)
@@ -51,14 +54,16 @@ void *Rva0021BCA7::rva0021BCA7(int key, unsigned int index)
 		return 0;
 	return g_00DFE344->rva00219D85(n->m_start[index]);
 }
-unsigned int Rva0021BCA7::rva0021BCEA(int key, unsigned int index)
+// ?rva0021BD41@Rva0021BCA7@@QAEHHABVAsciiString@@@Z present-unmatched
+int Rva0021BCA7::rva0021BD41(int key, const AsciiString &name)
 {
 	void *node = 0;
-	if (!((Rva0021BC0D *)this)->rva0021BC0D(key, &node))
-		return 0;
-	MapNodeVec *n = (MapNodeVec *)node;
-	unsigned int count = (unsigned int)(((char *)n->m_finish - (char *)n->m_start) >> 2);
-	if (index >= count)
-		return 0;
-	return n->m_start[index];
+	if (((Rva0021BC0D *)this)->rva0021BC0D(key, &node)) {
+		for (unsigned int i = 0; i < (unsigned int)(((char *)((MapNodeVec *)node)->m_finish - (char *)((MapNodeVec *)node)->m_start) >> 2); ++i) {
+			void *elem = g_00DFE344->rva00219D85(((MapNodeVec *)node)->m_start[i]);
+			if (elem && ((const StringBase<char> *)((const char *)elem + 8))->compare(*(const StringBase<char> *)&name) == 0)
+				return (int)i;
+		}
+	}
+	return -1;
 }
