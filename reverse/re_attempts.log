@@ -9567,3 +9567,17 @@ $L36270	0x796558	8	blocked	Refreshed ZH packet still compares32B compilerlocal a
 ?publish@Rva00435A40Sink@@QAEXABV?$StringBase@G@@I@Z	0x00260BBF	528	blocked	word-wrap publish 528B 3 variants best 425B vs 528B missing leading-space and measure branches EH states differ Helper 16-virtual and float offsets unproven t=18 model=muse-spark
 ?rva002239FA@Rva00222A8BTarget@@QAEXABVAsciiString@@0@Z	0x002239FA	154	blocked	debug virtual chain slots 14-19-24-27 plus StringBase operator<< needs Debug vtable donor t=15 model=muse-07
 ?rva000E7C20SciencePrereqMemo@ScienceStore@@ABE_NPBVPlayer@@W4ScienceType@@PAX@Z	0x001FFAA1	195	partial	outer entry cmp edi ecx+je vs jmp to shared cmp edi mem; divisor pop ebx vs pop ecx; begin cached in edi with mov eax ecx sub eax edi vs mov eax mem sub eax mem t=25 model=muse-07 score=0.93 stash=reverse/attempts/0x001ffaa1.cpp
+?rva005F8484@Rva005F86C3@@QAEXHH@Z	0x005F8484	115	partial	idx in esi vs edx count sub reg vs mem push timing t=25 model=muse-06 score=0.96 stash=reverse/attempts/0x005f8484.cpp
+?rva005F8484@Rva005F86C3@@QAEXHH@Z	0x005F8484	115	partial	push esi vs mov eax order only idx edx count mem fixed via barrier t=15 model=muse-06 score=0.97 stash=reverse/attempts/0x005f8484.cpp
+?rva000E2A81@Rva00153664@@QAEXHPBDPAVRva0015354E@@@Z	0x000E2A81	127	blocked	tail temp in local not arg-slot plus prolog push-esi deferred t=20 model=muse-06
+?rva000E2CA7@Rva00153664@@QAEXHPBDPAVRva0015354E@@@Z	0x000E2CA7	127	blocked	tail temp in local not arg-slot plus prolog push-esi deferred same shape as 0x000E2A81 size exact 127 t=15 model=muse-06
+?rva000E236D@Rva00153664@@QAEXHPBDPAVRva0015354E@@@Z	0x000E236D	156	blocked	dispatcher same wall as 0x000E2CA7 0x000E2A81 tail temp in local not arg-slot plus ebx edi enregistration missing t=10 model=muse-06
+?rva000E2DFD@Rva00153664@@QAEXHPBDPAVRva0015354E@@@Z	0x000E2DFD	186	blocked	dispatcher same wall as 0x000E2CA7 0x000E2A81 0x000E236D tail temp local plus ebx edi missing t=8 model=muse-06
+?rva000E25DE@Rva00153664@@QAEXHPBDPAVRva0015354E@@@Z	0x000E25DE	241	blocked	4 data handlers unclaimed 0xE26CF 0xE27D9 0xE28C3 0xE29A2 plus tail needs TreeHint-from-int twin at 0x80221 t=25 model=muse-06
+?rva0014FEB8@Rva00153664@@QAEXHPBDPAVRva0015354E@@@Z	0x0014FEB8	159	blocked	3 data handlers unclaimed 0x14D887 0x14D7D4 0x14D90E plus tail DelegateDesc pattern same wall as 0xE25DE t=3 model=muse-06
+?rva0014FD69@Rva00153664@@QAEXHPBDPAVRva0015354E@@@Z	0x0014FD69	97	blocked	tail temp in local not arg-slot t=15 model=muse-06
+?rva0014FDCA@Rva00153664@@QAEXHPBDPAVRva0015354E@@@Z	0x0014FDCA	105	blocked	tail temp in local not arg-slot t=20 model=muse-06
+?rva0014FC48@Rva00153664@@QAEXHPBDPAVRva0015354E@@@Z	0x0014FC48	126	partial	tail delegate temp in local not arg-slot plus esi-edi swap t=18 model=muse-06 score=0.92 stash=reverse/attempts/0x0014fc48.cpp
+?rva0014FE33@Rva00153664@@QAEXHPBDPAVRva0015354E@@@Z	0x0014FE33	133	partial	tail delegate temp in local not arg-slot t=10 model=muse-06 score=0.92 stash=reverse/attempts/0x0014fe33.cpp
+?rva0014FF57@Rva00153664@@QAEXHPBDPAVRva0015354E@@@Z	0x0014FF57	159	partial	tail delegate temp in local not arg-slot t=8 model=muse-06 score=0.9 stash=reverse/attempts/0x0014ff57.cpp
+?rva0014FCC6@Rva00153664@@QAEXHPBDPAVRva0015354E@@@Z	0x0014FCC6	163	blocked	virtual slot calls plus Rva00080221 temp wall t=5 model=muse-06
