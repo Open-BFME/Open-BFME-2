@@ -62977,3 +62977,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?Rva003285D4Input@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z,,0x003285D4,101,Code/GameEngine/Source/GameClient/GUI/Gadget/GadgetPalantirCommandButtonInput.cpp,matched,palantir button input msg5 msg0xD status bit8 data bit0x80 via rowed callees
 ?rva004FD5C7@Rva004FD37F@@QBE_NPAVRva002E1001@@@Z,,0x004FD5C7,76,Code/GameEngine/Source/Common/Rva004FD37F.cpp,matched,multimap equal_range loop via sibling Rva004FD37F
 ?rva004FD613@Rva004FD3E2@@QBE_NH@Z,,0x004FD613,67,Code/GameEngine/Source/Common/Rva004FD3E2.cpp,matched,multimap equal_range loop sibling of 0x004FD5C7
+?rva0028ABFC@Object@@QAEXM@Z,,0x0028ABFC,56,Code/GameEngine/Source/GameLogic/Object/ObjectRva0028ABFC.cpp,matched,rowed init and loop plus pinned float CNG per retail fld fstp
