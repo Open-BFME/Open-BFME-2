@@ -107,3 +107,29 @@ bool Gen_0056E190::bfmeDiffers(const Gen_0056E190 &other) const
 
 	return bfmeHash00010AFA(mine, theirs) != BFME_HASH_EQUAL_00010AFA;
 }
+
+// ?rva003F2352@Rva003F2352@@QAEPAV1@PAV1@0@Z 31B @0x003F2352
+// Retail: dst->m_val = Rva003F1D7CHook(this->m_val, src->m_val); return dst.
+// Evidence: contiguous after Gen_00528EC0::bfmeDiffers at 0x003F2330; same
+// +4 read order (theirs into eax first, mine into ecx) and same obf slot
+// 00DC34DC as bfmeHash0002A473; caller at 0x003F2956 passes (tmp, arg).
+int Rva003F1D7CHook(int left, int right);
+
+class Rva003F2352
+{
+public:
+	Rva003F2352 *rva003F2352(Rva003F2352 *dst, Rva003F2352 *src);
+
+private:
+	char m_head[4];
+	int m_val; // +0x04
+};
+
+Rva003F2352 *Rva003F2352::rva003F2352(Rva003F2352 *dst, Rva003F2352 *src)
+{
+	int theirs = src->m_val;
+	int mine = m_val;
+
+	dst->m_val = Rva003F1D7CHook(mine, theirs);
+	return dst;
+}
