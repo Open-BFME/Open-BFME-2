@@ -37,7 +37,7 @@ public:
 
 extern GameLogic *TheGameLogic;
 extern NameKeyGenerator *TheNameKeyGenerator;
-extern "C" UpgradeCenter *_TheUpgradeCenter;
+extern "C" UpgradeCenter *TheUpgradeCenter;
 extern const char *g_Rva0107301CEmptyString;
 
 class GameWindow
@@ -120,7 +120,7 @@ void Player::rva002AB8FB(Object *obj, bool flag)
 	}
 	const char *s = tmp.str();
 	NameKeyType key = TheNameKeyGenerator->nameToKey(s);
-	const UpgradeTemplate *upg = _TheUpgradeCenter->findUpgradeByKey(key);
+	const UpgradeTemplate *upg = TheUpgradeCenter->findUpgradeByKey(key);
 	if (upg != 0)
 		obj->rva00293077(upg);
 }
