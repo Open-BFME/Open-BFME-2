@@ -2894,10 +2894,14 @@ static void playerFlagsChangedCallback(PEER peer, RoomType roomType, const char 
 	if (!t)
 		return;
 
+	// Native passes these three outputs at response offsets 33C/340/344.
 	getPlayerInfo(t, peer, nick, resp.player.profileID, resp.player.IP,
 		resp.locale, resp.player.wins, resp.player.losses,
 		resp.player.rankPoints, resp.player.side, resp.player.preorder,
-		roomType, resp.player.flags);
+		roomType, resp.player.flags,
+		reinterpret_cast<Int &>(resp.unknown_payload[140]),
+		reinterpret_cast<Int &>(resp.unknown_payload[141]),
+		reinterpret_cast<Int &>(resp.unknown_payload[142]));
 	TheGameSpyPeerMessageQueue->addResponse(resp);
 }
 
