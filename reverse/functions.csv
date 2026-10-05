@@ -56705,3 +56705,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva00086C4A@Rva00086C4A@@QAEXXZ,,0x00086C4A,144,Code/GameEngine/Source/GameClient/Rva00086C4AUpdate.cpp,matched,camera lerp ParabolicEase Matrix3D view audio rowed
 ?Rva006E6E20Collect@@YAXXZ,,0x006E6E20,346,Code/Libraries/Source/Apt/AptGCRva006E6E20.cpp,matched,AptGC collector via AptGC.cpp151 assert plus rowed callees
 ?b_00042a50@@YAXXZ,,0x0044BA2A,9,Code/GameEngine/Source/Common/Rva0044BA2A.cpp,matched,pinned name forwards 0 to pinned 0x00437E9C per callers and BFME1 decl
+?Rva0058CEC5Write@@YAXPADPAVNetCommandRef@@@Z,,0x0058CEC5,190,Code/GameEngine/Source/GameNetwork/Rva0058CEC5Write.cpp,matched,tagged serializer sibling layout getDataLength getData rows
