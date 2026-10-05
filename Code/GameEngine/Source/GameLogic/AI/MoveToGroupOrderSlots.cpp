@@ -24,6 +24,12 @@ struct Coord3D
 	float z;
 };
 
+class Object
+{
+public:
+	bool rva0028ECDB(const Coord3D *pos) const;
+};
+
 struct GroupOrderCommand
 {
 	unsigned char m_pad00[0x14];
@@ -62,6 +68,7 @@ public:
 	virtual bool isNearDestination(const Coord3D *pos);
 	virtual bool slot11Command(int *outType, GroupOrderCommand *command);
 	virtual GroupOrder *clone();
+	bool rva00547188(Object *obj, int dummy);
 
 private:
 	Coord3D m_destination;             // +0x18
@@ -121,6 +128,16 @@ bool MoveToGroupOrder::slot11Command(int *outType, GroupOrderCommand *command)
 GroupOrder *MoveToGroupOrder::clone()
 {
 	return new MoveToGroupOrder(*this);
+}
+
+// ?rva00547188@MoveToGroupOrder@@QAE_NPAVObject@@H@Z, retail 0x00547188 21B.
+// MoveTo destination check used by 0x0054764C: passes &m_destination (+0x18)
+// to rowed Object::rva0028ECDB and normalises to bool. Evidence: this+0x18
+// Coord3D plus caller 0x0054764C layout (+0x18/+0x24) matches MoveToGroupOrder.
+bool MoveToGroupOrder::rva00547188(Object *obj, int)
+{
+	unsigned char tmp = obj->rva0028ECDB(&m_destination);
+	return tmp;
 }
 
 void MoveToFormationGroupOrder::slot07Set(int)

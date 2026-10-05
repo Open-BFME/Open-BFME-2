@@ -56469,3 +56469,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?ReAcquireResources@W3DSmudgeManager@@UAEXXZ,,0x000A6176,250,Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000A6176Finish.cpp,matched,BFME1 donor transfer; WriteLockClass third member BFMEDX8DeviceLock is the missing 4 bytes and SurfaceDescription is 12 bytes
 ?countVotesForPlayer@DisconnectManager@@IAEHHPAVConnectionManager@@@Z,,0x004D3BD7,91,Code/GameEngine/Source/GameNetwork/DisconnectManagerO1.cpp,matched,vote table plus rowed callees and 4 callers
 ?rva004D3E93@BFMEDisconnectManager@@QAEHHPAVConnectionManager@@@Z,,0x004D3E93,60,Code/GameEngine/Source/GameNetwork/DisconnectManagerO1.cpp,matched,eligible voter count plus rowed callees
+?rva00547188@MoveToGroupOrder@@QAE_NPAVObject@@H@Z,,0x00547188,21,Code/GameEngine/Source/GameLogic/AI/MoveToGroupOrderSlots.cpp,matched,MoveTo destination via Object rva0028ECDB caller 0x0054764C

@@ -1,5 +1,5 @@
 // ??0Rva00142EE0@@QAE@H@Z
-// partial score=0.92 date=2026-10-01
+// partial score=0.95 date=2026-10-05
 // ??0Rva00142EE0@@QAE@H@Z
 // partial score=0.92 date=2026-09-30
 // cl: /G7 /arch:SSE /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
@@ -43,16 +43,15 @@ private:
 // ??0Rva00142EE0@@QAE@H@Z present-unmatched
 Rva00142EE0::Rva00142EE0(int v)
 {
-	int a = v;
+	m_00 = v;
 	m_04 = 0.0f;
-	_ReadWriteBarrier();
-	m_00 = a;
 	m_08 = 0.0f;
 	m_0c = 0.0f;
 	m_10 = 0.0f;
-	m_138 = 0;
 	m_14 = 0.0f;
 	m_18 = 0.0f;
+	_ReadWriteBarrier();
+	m_138 = 0;
 	float one = g_Va00BBB8D8;
 	m_1c = one;
 	m_20 = one;
@@ -64,6 +63,7 @@ Rva00142EE0::Rva00142EE0(int v)
 	m_13c = 0;
 	m_140 = 0;
 	m_144 = 0;
+	_ReadWriteBarrier();
 	m_b8[m_138] = 0;
 	for (int i = 0; i < 32; ++i) {
 		m_30[i] = 0;
