@@ -1,4 +1,6 @@
 // ?startRenderToTexture@W3DShaderManager@@SAXXZ
+// partial score=0.98 date=2026-10-05
+// ?startRenderToTexture@W3DShaderManager@@SAXXZ
 // partial score=0.97 date=2026-09-22
 // ?startRenderToTexture@W3DShaderManager@@SAXXZ
 // partial score=0.97 date=2026-09-22
@@ -72,6 +74,11 @@ bool ScreenMotionBlurFilter::preRender(bool &skipRender, CustomScenePassModes &s
 // DX8Wrapper::Set_Render_Target after a device-lost guard, splits Clear into a
 // 7-arg form and extends drawViewport with a scale flag. Only the placed body
 // is defined here.
+// BFME2 repair: both Clear sites bind the opacity to a named float local
+// instead of reading TheWaterTransparency inline. That load-first ordering is
+// what makes retail emit `mov eax,ds:TheWaterTransparency; fld [eax+0x37e8]`
+// before the zero stores; with the inline read the compiler sinks the
+// xorps/movss pair into the push sequence and the whole Clear block misaligns.
 
 struct IDirect3DSurface8;
 
@@ -227,13 +234,15 @@ void W3DShaderManager::startRenderToTexture()
 		}
 		else
 		{
-			Vector3 zero = { 0.0f, 0.0f, 0.0f };
-			DX8Wrapper::Clear(true, false, false, zero, TheWaterTransparency->m_minWaterOpacity, 1.0f, 0);
+			float opacity1 = TheWaterTransparency->m_minWaterOpacity;
+			Vector3 zeroA = { 0.0f, 0.0f, 0.0f };
+			DX8Wrapper::Clear(true, false, false, zeroA, opacity1, 1.0f, 0);
 		}
 	}
 	else if (m_currentFilter == FT_VIEW_DEFAULT)
 	{
-		Vector3 zero = { 0.0f, 0.0f, 0.0f };
-		DX8Wrapper::Clear(true, false, false, zero, TheWaterTransparency->m_minWaterOpacity, 1.0f, 0);
+		float opacity2 = TheWaterTransparency->m_minWaterOpacity;
+		Vector3 zeroB = { 0.0f, 0.0f, 0.0f };
+		DX8Wrapper::Clear(true, false, false, zeroB, opacity2, 1.0f, 0);
 	}
 }
