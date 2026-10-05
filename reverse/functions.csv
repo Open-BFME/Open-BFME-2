@@ -56601,3 +56601,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?Rva003BB1FFAttack@@YGXPAVParameter@@ABVAsciiString@@@Z,,0x003BB1FF,52,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsRva003BB1FF.cpp,matched,leaf lane getUnitNamed AI258 getAttackInfo store70
 ??0Rva003608C9@@QAE@XZ,,0x003608C9,22,Code/GameEngine/Source/Common/DamageFXRva003608C9Ctor.cpp,matched,unlock lane DFX array78 vector iterator caller 0x00360ABA
 ?rva00375BFF@Rva00375BFF@@QAEXIM@Z,,0x00375BFF,41,Code/GameEngine/Source/Common/System/Rva00375BFFTimerPush.cpp,matched,null-checked uint plus float bitcast to 8B timer via rowed push_back 0x004DE74D
+??0Rva0021F804@@QAE@ABVAsciiString@@0000@Z,,0x0021F804,114,Code/GameEngine/Source/Common/Rva0021F804Ctor.cpp,matched,5-string ctor via StringBase copy row and Vector_base row ret 0x14
