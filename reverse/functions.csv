@@ -61850,3 +61850,4 @@ _Rva007F5790Callback,,0x00661F40,15,Code/GameEngine/Source/GameNetwork/Rva007F70
 ?rva002C717E@Rva002A8AB1Record@@QAEXABVAsciiString@@H@Z,,0x002C717E,24,Code/GameEngine/Source/Common/Rva002C717EMethod.cpp,matched,map store via rowed operator[] 14 tactic callers
 ?Rva00528C30Get@@YA_NPBDAAVAsciiString@@@Z,,0x00528C30,27,Code/GameEngine/Source/Common/Rva00528C30.cpp,matched,GetParam wrapper with literal name plus uchar local bool normalize
 ??1Rva00577838@@UAE@XZ,,0x00577838,14,Code/GameEngine/Source/Common/Rva00577838Dtor.cpp,matched,vptr plus member at plus4 tail-jmp to pinned 0x577010
+??1Rva00414520@@UAE@XZ,,0x00414520,78,Code/GameEngine/Source/Common/Rva00414520Dtor.cpp,matched,chain via Clear 0x0055A91A vptr C3A08C to BBB554 members +08 +18
