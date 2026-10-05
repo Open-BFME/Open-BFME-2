@@ -60870,3 +60870,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?Rva0048F472IsEqual@@YG_NPAX@Z,,0x0048F472,58,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/Rva0048F472Check.cpp,matched,arg plus254 slave slots 0x10 0x18 float equality caller 0x0048FAB5 unblocks 0x0048F828
 ?rva0002DE3C@INI@@SAXPAV1@PAX1PBX@Z,,0x0002DE3C,60,Code/GameEngine/Source/Common/System/INI_rva0002DE3C.cpp,matched,static INI parse via rowed 0x0002D6F8 plus set plus dtor
 ?rva003697F9@Rva003697F9@@QAEXABVRva0035149F@@PBVObject@@PBVWaypoint@@H@Z,,0x003697F9,172,Code/GameEngine/Source/Common/Rva003697F9.cpp,matched,unlock lane caller 0x0036BA77 via StateMachine setGoalPosition and vector assign
+?rva00529A7B@Rva00529A7B@@QAEXM@Z,,0x00529A7B,185,Code/GameEngine/Source/Common/Rva00529A7BRankProgress.cpp,matched,Rank progress Apt updater via literal and else-if

@@ -1,12 +1,11 @@
-// ?rva00529A7B@Rva00529A7B@@QAEXM@Z
-// partial score=0.96 date=2026-10-05
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /arch:SSE
 // ?rva00529A7B@Rva00529A7B@@QAEXM@Z 185B @0x00529A7B
 // Rank progress Apt updater: Show/HideRankProgress around a clamped
 // SetRankProgressBar from arg*scale. Evidence: strings ShowRankProgress
 // SetRankProgressBar HideRankProgress; float at +0x14 and void* at +0;
 // callee rows 0x00222A8B 0x002D4531 and pin-free; globals TheRva00222A8BTarget
-// g_00BCF9B0; caller at 0x00529D8A unclaimed so owner address-derived.
+// g_00BCF9B0 as -100.0f literal (retail -1e+02f per Rva002E0C2BMethod; literal loads v first);
+// caller at 0x00529D8A unclaimed so owner address-derived.
 class Rva00222A8BTarget
 {
 public:
@@ -15,7 +14,6 @@ public:
 };
 
 extern Rva00222A8BTarget *TheRva00222A8BTarget;
-extern float g_00BCF9B0;
 
 int __cdecl Rva002D4531Invoke(Rva00222A8BTarget *target, void *owner, const char *name, const int &arg);
 
@@ -29,7 +27,6 @@ private:
 	float m14; // +0x14
 };
 
-// ?rva00529A7B@Rva00529A7B@@QAEXM@Z present-unmatched
 void Rva00529A7B::rva00529A7B(float v)
 {
 	bool this_ge0 = m14 >= 0.0f;
@@ -38,10 +35,10 @@ void Rva00529A7B::rva00529A7B(float v)
 	{
 		if (!this_ge0)
 			TheRva00222A8BTarget->invoke(m00, "ShowRankProgress", 0, 0, 0, 0, 0, 0);
-		int iv = 1 - (int)(v * g_00BCF9B0);
+		int iv = 1 - (int)(v * -100.0f);
 		if (iv < 1)
 			iv = 1;
-		if (iv > 100)
+		else if (iv > 100)
 			iv = 100;
 		Rva002D4531Invoke(TheRva00222A8BTarget, m00, "SetRankProgressBar", iv);
 	}
