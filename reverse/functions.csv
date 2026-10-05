@@ -64127,3 +64127,5 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?rva002A7611@Rva002A7611@@QAEXHH@Z,,0x002A7611,51,Code/GameEngine/Source/Common/Rva002A7611Remove.cpp,matched,find-and-erase over 12-byte vector at +0x20 via rowed erase 0x2A75DA
 ?getSkirmishSideInfo@SidesList@@QAEPAUSidesInfo@@H@Z,,0x002A98D1,33,Code/GameEngine/Source/GameLogic/Map/SidesList_getSkirmishSideInfo.cpp,matched,ZH/BFME1 SidesList.h inline getSkirmishSideInfo; count +0x7C0 array +0x7C4 stride 0x60
 ?rva00109D64@Rva007B1380@@QAEXXZ,,0x00109D64,40,Code/GameEngine/Source/Common/Rva007B1380Ctor.cpp,matched,float reset abutting ctor via rowed base initialize plus 20.0f literal
+?rva0014F674@@YAPAXPAXI0H@Z,,0x0014F674,37,Code/GameEngine/Source/Common/Rva0014F674Loop.cpp,matched,cdecl stride loop via pinned helper
+?rva0014FA47@@YAPAXPAXI0@Z,,0x0014FA47,27,Code/GameEngine/Source/Common/Rva0014F674Loop.cpp,matched,forward via rowed stride loop
