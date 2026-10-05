@@ -29,14 +29,16 @@ private:
 class DefaultModuleSecondBase
 {
 public:
-	virtual ~DefaultModuleSecondBase();
+// ??1DefaultModuleSecondBase@@UAE@XZ present-unmatched
+	virtual ~DefaultModuleSecondBase() {}
 };
 
 // Extra third base at +0x18: vptr 0x00C1C780 (ICF-folded with the second).
 class DefaultModuleThirdBase
 {
 public:
-	virtual ~DefaultModuleThirdBase();
+// ??1DefaultModuleThirdBase@@UAE@XZ present-unmatched
+	virtual ~DefaultModuleThirdBase() {}
 };
 
 // Head base: vptr 0x00C1B590, smart member at +0x04, int at +0x10.
