@@ -61704,3 +61704,4 @@ _Rva00023540,,0x00023540,271,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleF
 ?rva00082B08@Rva00082B08@@QAEXXZ,,0x00082B08,127,Code/GameEngine/Source/Common/Rva00082B08.cpp,matched,triple erase under one guard plus two vector erases plus conditional tail
 ?resize@BfmePod36Vector@@QAEXI@Z,,0x000B0899,94,Code/Libraries/Source/WWVegas/WWLib/stlport_pod36_resize_byvalue.cpp,matched,Pod36 one-arg zero forward by-value chain
 ?rva000B08F7@Rva000B08F7@@QAEXXZ,,0x000B08F7,147,Code/GameEngine/Source/Common/Rva000B08F7.cpp,matched,large clear two 0x1000 blocks plus E16 Pod36 resizes
+?rva005D28F4@Rva005D2664@@QAEXPBD@Z,,0x005D28F4,44,Code/GameEngine/Source/Common/Rva005D27BEMethod.cpp,matched,chain from rowed 005D2505Get plus rowed clear
