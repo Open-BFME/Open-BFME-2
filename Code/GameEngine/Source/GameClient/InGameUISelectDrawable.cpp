@@ -90,6 +90,8 @@ class Drawable
 {
 public:
 	void rva002796B8();
+	void rva002754E3();
+	void rva00278C7C(int);
 	DrawableID getID() const;
 	void *m_vtable;
 	const BfmeSelectTemplateView *m_template;							///< this+0x04
@@ -218,4 +220,19 @@ void InGameUI::evaluateSoloNexus(Drawable *newlyAddedDrawable)
             return;
         }
     }
+}
+
+// Native selected-flag transition, 0x002796B8 (33B). BFME 1 donor
+// 6583b3c1 game/GameEngine/Source/Common/BfmeConv553.cpp, bfmeGoBXF:
+// update once when the selected flag changes, then always invoke the
+// one-argument helper. The matched selection caller establishes Drawable;
+// retail fixes the flag at +0x43C and calls at 0x2754E3/0x278C7C.
+void Drawable::rva002796B8()
+{
+    if (!m_selected)
+    {
+        m_selected = true;
+        rva002754E3();
+    }
+    rva00278C7C(0);
 }
