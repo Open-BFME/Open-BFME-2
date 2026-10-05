@@ -452,3 +452,30 @@ const Image *MpGameSetup::rva0043E512(int value)
 	}
 	return 0;
 }
+
+// Retail 0x0043E5C1, 264 bytes. Name unknown. Shows a slot's connection
+// state as the Apt image "ConnectionIcon~<slot>": failed, waiting,
+// connecting, or (kind 4) the ping image for the value.
+void MpGameSetup::rva0043E5C1(int slot, int kind, int value)
+{
+	const Image *image = 0;
+	switch (kind)
+	{
+	case 1:
+		image = TheMappedImageCollection->findImageByName(AsciiString("AptConnectionFailed"));
+		break;
+	case 2:
+		image = TheMappedImageCollection->findImageByName(AsciiString("AptWaitingToConnect"));
+		break;
+	case 3:
+		image = TheMappedImageCollection->findImageByName(AsciiString("AptConnecting"));
+		break;
+	case 4:
+		image = rva0043E512(value);
+		break;
+	}
+
+	char name[128];
+	sprintf(name, "ConnectionIcon~%d", slot);
+	TheRva00222A8BTarget->rva002239E2(AsciiString(name), image);
+}
