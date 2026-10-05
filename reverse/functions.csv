@@ -63806,3 +63806,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva00541311@Rva00541311@@QAEPAXPAX@Z,,0x00541311,47,Code/GameEngine/Source/Common/CursorCompaction.cpp,matched,F47 cursor-compaction wrapper cond-calling pinned cdecl helper with tag
 ?rva0059D1A9@@YGXHHHH@Z,,0x0059D1A9,26,Code/GameEngine/Source/Common/Rva0059CFAAFamily.cpp,matched,stdcall forwarder with a2+1 to pinned 0x59CF34
 ?rva0059D1C3@@YGXHHHH@Z,,0x0059D1C3,26,Code/GameEngine/Source/Common/Rva0059CFAAFamily.cpp,matched,stdcall forwarder with a2+1 to pinned 0x59CFAA
+?rva0059E0F7@@YAHH@Z,,0x0059E0F7,24,Code/GameEngine/Source/Common/Rva0059E098Small.cpp,matched,
