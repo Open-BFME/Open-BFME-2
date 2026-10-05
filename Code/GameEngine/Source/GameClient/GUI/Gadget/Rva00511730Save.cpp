@@ -124,15 +124,5 @@ void Rva005116C2()
 	}
 }
 
-// Retail 0x005117DF, 23 bytes: toggles the messenger, closing it when up
-// and opening it otherwise.
-void Rva005117DF()
-{
-	if (g_Va00E046B8)
-		Rva00511730(0);
-	else
-		Rva005116C2();
-}
-
 // ?g_Va00E046B8@@3PAURva00511730State@@A: the global at VA 0xe046b8 is ?g_Va00E046B8@@3HA.
 #pragma comment(linker, "/alternatename:?g_Va00E046B8@@3PAURva00511730State@@A=?g_Va00E046B8@@3HA")

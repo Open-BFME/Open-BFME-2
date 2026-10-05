@@ -5,9 +5,9 @@
 // names as member pointers by the screen's registration; that binding is
 // their only reference. The class is named for the strings' prefix. Both
 // buttons act on the active tab (Rva005118F3Show.cpp's g_Va00E046BC).
-// "AptMessenger::GameWindowSize" is a render callback and
-// "AptMessenger::IsOpen" a static query bound through the free-function
-// holder 0x004106FA.
+// "AptMessenger::GameWindowSize" is a render callback, "AptMessenger::IsOpen"
+// a static query bound through the free-function holder 0x004106FA and
+// "AptMessenger::OnMessengerBttn" a static callback bound through 0x0023E8D8.
 //
 // The screen object is itself the window: GameWindowSize runs GameWindow's
 // members on its own this. Its vftable 0x00C659A0 (destroyed by
@@ -32,6 +32,10 @@ extern char g_Va00E047C0[256];
 extern bool g_Va00DD13D8;
 
 void __cdecl Rva005118F3Show(int index, bool clear);
+
+// Rva00511730Save.cpp's close (0x00511730) and open (0x005116C2) helpers.
+void __cdecl Rva00511730(int unused);
+void Rva005116C2();
 
 extern "C" __declspec(dllimport) int __cdecl atoi(const char *text);
 extern "C" __declspec(dllimport) int __cdecl _snprintf(char *buffer, unsigned int count, const char *format, ...);
@@ -246,6 +250,7 @@ public:
 	void OnBttn_1(const char *unused);
 	void GameWindowSize(const Coord2D *position, const Coord2D *size, void *unused3, void *unused4);
 	static void IsOpen(int query, char *result, bool skip);
+	static void OnMessengerBttn(const char *unused);
 	void rva00511AD4(int query, char *value, bool set);
 	int rva00511990(int message, unsigned int wParam, unsigned int lParam);
 	void rva005118B2();
@@ -345,6 +350,16 @@ void AptMessenger::IsOpen(int query, char *result, bool skip)
 		else
 			strcpy(result, "0");
 	}
+}
+
+// Retail 0x005117DF, 23 bytes: "AptMessenger::OnMessengerBttn" (bound at
+// 0x005120A2) closes the messenger when it is up and opens it otherwise.
+void AptMessenger::OnMessengerBttn(const char *unused)
+{
+	if (g_Va00E046B8)
+		Rva00511730(0);
+	else
+		Rva005116C2();
 }
 
 // Retail 0x005119FF, 213 bytes: "AptMessenger::InitGadgets" hands the chat
