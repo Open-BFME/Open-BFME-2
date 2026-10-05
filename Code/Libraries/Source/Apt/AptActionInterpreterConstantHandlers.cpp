@@ -224,7 +224,7 @@ public:
     void stackPushIndirect(AptValue *const);
     static bool isObjectOfType(AptValue *,AptValue *);
 private:
-    AptValue *_doCloneSprite(AptCIH *,AptValue *,AptValue *,AptValue *,int,AptValue *);
+    void rva007092F0(AptCIH *,AptValue *,AptValue *,AptValue *,int,AptValue *);
     static AptValue *getObject(AptValue *,AptValue *,const EAStringC *);
     static bool getContext(AptValue *,AptValue *,const EAStringC *,AptValue **,EAStringC &);
     AptObject *_createObject(AptValue *,AptValue *,const EAStringC *,int,bool);
@@ -1584,7 +1584,7 @@ void AptActionInterpreter::_FunctionAptActionCloneSprite(AptActionInterpreter *c
     AptValue *target=p->stack.At(1);
     AptValue *source=p->stack.At(2);
     int n=depth->toInteger();
-    p->_doCloneSprite(c->pCurrentContext,c->pCurWith,source,target,n,0);
+    p->rva007092F0(c->pCurrentContext,c->pCurWith,source,target,n,0);
     p->stack.Pop(3);
 }
 
