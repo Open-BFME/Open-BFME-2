@@ -63856,3 +63856,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva000BBE29@@YG_NHPAUVector3@@@Z,,0x000BBE29,93,Code/GameEngine/Source/Common/Rva000BBE29.cpp,matched,
 ?rva000BFD77@Rva000B8F5A@@QAEXXZ,,0x000BFD77,40,Code/GameEngine/Source/Common/Rva000B8F5A.cpp,matched,
 ?rva000BFD9F@Rva000B8F5A@@QAEXXZ,,0x000BFD9F,40,Code/GameEngine/Source/Common/Rva000B8F5A.cpp,matched,
+?rva00109D64@Rva007B1380@@QAEXXZ,,0x00109D64,40,Code/GameEngine/Source/Common/Rva007B1380Ctor.cpp,matched,float reset abutting ctor via rowed base initialize plus 20.0f literal
