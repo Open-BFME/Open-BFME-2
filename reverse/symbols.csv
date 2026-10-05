@@ -12289,3 +12289,10 @@ _ceil,0x00629934,CRT ceil thunk identified by native PE import slot 0x00BBA578 a
 ??0AptPseudoCIH_t@@QAE@PAUAptControl@@HHPAUAptCharacter@@@Z,0x006F6A50,Original Redwood6 PDB prototype; PC pseudo-display-list ctor6E00E0 supplies four zero arguments; existing101B provider has same native member layout and machine ABI; linker alias binds it
 ?findChild@AptValue@@QAEPAV1@PBVEAStringC@@PAV1@@Z,0x006DF9A0
 ?getIsDefined@AptValue@@QBE_NXZ,0x006DBB60
+??0AptValueWithHash@@QAE@W4AptVirtualFunctionTable_Indices@@H@Z,0x006D6360,Original APT ABI and native709870 call or unwind target; existing providers aliased where recovered
+??0AptPrototype@@QAE@XZ,0x006DE1A0,Original APT ABI and native709870 call or unwind target; existing providers aliased where recovered
+?isCIH@AptValue@@QBE_N_N@Z,0x006DC580,Original APT ABI and native709870 call or unwind target; existing providers aliased where recovered
+?GetRootAnimation@AptCIH@@QAEPAV1@XZ,0x006E0CB0,Original APT ABI and native709870 call or unwind target; existing providers aliased where recovered
+?_AptGetAnimationAtLevel@@YAPAVAptCIH@@H@Z,0x006CC530,Original APT ABI and native709870 call or unwind target; existing providers aliased where recovered
+??1AptObject@@MAE@XZ,0x006D6470,Original APT ABI and native709870 call or unwind target; existing providers aliased where recovered
+??3AptPrototype@@SAXPAXI@Z,0x006F12F0,Original APT ABI and native709870 call or unwind target; existing providers aliased where recovered

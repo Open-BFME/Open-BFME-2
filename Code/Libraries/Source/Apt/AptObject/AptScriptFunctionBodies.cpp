@@ -109,3 +109,70 @@ void AptScriptFunction2::SetupBeforeExecution(_AptScriptFunctionState *pState, A
 // Existing providers own the predicate and the zero-initialized global storage.
 #pragma comment(linker, "/alternatename:?getIsDefined@AptValue@@QBE_NXZ=?get@Rva006DBB60ShrNAndField@@QBE_NXZ")
 #pragma comment(linker, "/alternatename:?gpGlobalGlobalObject@@3PAVAptValue@@A=?g_00E18650@@3VEAStringC@@A")
+
+#define CHECK_AT(c,s,f,l) if(!(c)) { g_bfmeAptAssertAtE17734(s,f,l); if(g_bfmeAptBreakOnAssertAtDDC01C) __debugbreak(); }
+class AptCIH : public AptValue
+{
+public:
+    AptCIH *GetRootAnimation();
+    void IncZombieCount() {
+        CHECK_AT(nZombieCounter < 65536, "nZombieCounter < 65536", "c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\AptCIH.h", 0x53);
+        nZombieCounter=nZombieCounter+1;
+    }
+private:
+    // Native CIH adds four bytes before this field versus the original donor.
+    // PC ctor709870 accesses the 16-bit zombie count at+5C, not donor+58.
+    char remaining[0x5c-8];
+    unsigned int nZombieCounter : 16;
+};
+class Rva006D2A60 { public: void *allocBlock(int); void freeBlock(void *, int); };
+extern Rva006D2A60 *g_pChainBlockAllocatorF4;
+class AptPrototype : public AptValueWithHash
+{
+public:
+    AptPrototype();
+    static void *operator new(unsigned int n) { return g_pChainBlockAllocatorF4->allocBlock(n); }
+    static void operator delete(void *, unsigned int);
+private:
+    AptValue *mp__constructor__;
+};
+AptCIH *_AptGetAnimationAtLevel(int);
+// Native E180F0 is zero-filled and has no existing provider.
+AptPrototype *gpObjectPrototype;
+// ?AptObject::AptObject present-unmatched
+inline AptObject::AptObject(AptVirtualFunctionTable_Indices t, int n) : AptValueWithHash(t,n), mnImplementedObjects(0), mbHasClass(0), mbIsInMainInst(0) {}
+inline void AptNativeHash::SetPrototype(AptValue *p) { if(p) p->AddRef(); if(mpPrototype) mpPrototype->Release(); mpPrototype=p; }
+inline void AptNativeHash::Set__Proto__(AptValue *p) { if(p) p->AddRef(); if(mp__proto__) mp__proto__->Release(); mp__proto__=p; }
+// Original private PDB signature and three native derived constructors establish
+// this identity. Later source confirms scope/prototype ownership; native lacks
+// the later init-action test and function-prototype assignment. FuncInfo964088
+// has base destruction and the 32-byte allocation cleanup; both providers alias
+// below. This also resolves the banked attempt's opaque-base codegen differences.
+AptScriptFunctionBase::AptScriptFunctionBase(AptVirtualFunctionTable_Indices eType, AptScriptFunctionBase *pCreatorFunction, AptCIH *pCurCIH, bool bNeedsPrototype)
+ : AptObject(eType), mpCIH(pCurCIH), mpParentAnim(0), mpCreatorScope(0), mnFrameStackReserve(0)
+{
+    CHECK_AT(spRegBlockBase, "spRegBlockBase", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptObject\\AptScriptFunction.cpp", 0xF4);
+    if(pCreatorFunction) {
+        pCreatorFunction->CreatingNestedFunction();
+        mpCreatorScope=spFrameStack;
+        if(mpCreatorScope) mpCreatorScope->AddRef();
+    }
+    if(pCurCIH->isCIH()) mpParentAnim=mpCIH->GetRootAnimation();
+    else mpParentAnim=_AptGetAnimationAtLevel(0);
+    mpCIH->AddRef();
+    mpParentAnim->AddRef();
+    mpParentAnim->IncZombieCount();
+    if(bNeedsPrototype) {
+        AptPrototype *pConstructorPrototype=new AptPrototype();
+        mNativeHash.SetPrototype(pConstructorPrototype);
+        pConstructorPrototype->GetNativeHashVirtual()->Set__Proto__(gpObjectPrototype);
+    }
+}
+
+#undef CHECK_AT
+#pragma comment(linker, "/alternatename:??0AptValueWithHash@@QAE@W4AptVirtualFunctionTable_Indices@@H@Z=??0Rva006D6360@@QAE@HH@Z")
+#pragma comment(linker, "/alternatename:??0AptPrototype@@QAE@XZ=??0Rva006DE1A0@@QAE@XZ")
+#pragma comment(linker, "/alternatename:?isCIH@AptValue@@QBE_N_N@Z=?isCIH@BfmeAptValue006DCD20@@QBEH_N@Z")
+#pragma comment(linker, "/alternatename:?GetRootAnimation@AptCIH@@QAEPAV1@XZ=?rva006E0CB0@AptCIH@@QBEPBV1@XZ")
+#pragma comment(linker, "/alternatename:??1AptObject@@MAE@XZ=??1Rva006D6470Owner@@UAE@XZ")
+#pragma comment(linker, "/alternatename:??3AptPrototype@@SAXPAXI@Z=?Rva006F12F0Free@@YAXPAXH@Z")

@@ -18,6 +18,8 @@ enum AptVirtualFunctionTable_Indices { AptVFT_ScriptFunctionByteCodeBlock = 45 }
 
 struct AptNativeHash
 {
+    void SetPrototype(AptValue *);
+    void Set__Proto__(AptValue *);
     int mnTotalSize;
     void *mpData; // Hash-item storage; its element layout is not needed here.
     AptValue *mp__proto__;
@@ -30,6 +32,7 @@ class AptValue
 public:
     AptValue *findChild(const EAStringC *, AptValue *);
     bool getIsDefined() const;
+    bool isCIH(bool = false) const;
     virtual void AddRef();
     virtual void Release();
     virtual void ForceDelete();
@@ -58,6 +61,7 @@ protected:
 class AptValueWithHash : public AptValueGC
 {
 public:
+    AptValueWithHash(AptVirtualFunctionTable_Indices, int);
     virtual AptNativeHash *GetNativeHashVirtual();
     virtual bool ContainsNativeHashVirtual() const;
     virtual void RegisterReferences() const;
@@ -79,6 +83,7 @@ struct _AptScriptFunctionState
 class AptObject : public AptValueWithHash
 {
 public:
+    AptObject(AptVirtualFunctionTable_Indices, int = 8);
     virtual void setHasClass(int);
     virtual int getHasClass() const;
     virtual AptValue *objectMemberLookup(AptValue *const, const EAStringC *const) const;
@@ -86,9 +91,11 @@ public:
     virtual void DestroyGCPointers();
 protected:
     virtual ~AptObject();
-    // Native constructor clears the low byte and bits8..9 at+1C. The donor
-    // calls these mnImplementedObjects, mbHasClass and mbIsInMainInst.
-    unsigned int m_objectFlags;
+    // Original donor names and widths; native constructor independently clears
+    // the low byte and bits8..9 at+1C.
+    unsigned int mnImplementedObjects : 8;
+    unsigned int mbHasClass : 1;
+    unsigned int mbIsInMainInst : 1;
 };
 
 class AptScriptFunctionBase : public AptObject
