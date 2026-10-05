@@ -1,5 +1,4 @@
 // ?rva00111A05@TileData@@QAEXPBEH@Z
-// partial score=1.0 date=2026-10-04
 // cl: /O1 /MD
 // Native111A05-111A8B, caller ABEA0 supplies64-row RGBA blocks plus stride.
 // All seven target offsets agree with rowedTileData getRGBDataForWidthABC71.
