@@ -33,7 +33,9 @@ __declspec(noinline) SBServer::SBServer(const SBServer &src)
     }
 }
 
+#pragma optimize("t", on)
 #include <map>
+#pragma optimize("", on)
 
 // Teardown shares the rowed 0x7DEEF release helper: it computes the same
 // slot-derived object and tail-jumps to it (the fastcall argument is already
@@ -111,4 +113,13 @@ inline void _Construct<_STL::pair<const int, SBServer>, _STL::pair<const int, SB
 
 } // namespace _STL
 
-template class _STL::map<int, SBServer, _STL::less<int>, _STL::allocator<_STL::pair<const int, SBServer> > >;
+typedef _STL::pair<const int, SBServer> SBServerPair;
+typedef _STL::_Rb_tree<int, SBServerPair, _STL::_Select1st<SBServerPair>, _STL::less<int>, _STL::allocator<SBServerPair> > SBServerTree;
+template SBServerTree::_Link_type SBServerTree::_M_create_node(const SBServerTree::value_type &);
+template void SBServerTree::_M_erase(SBServerTree::_Link_type);
+template void SBServerTree::clear();
+template void SBServerTree::erase(SBServerTree::iterator);
+template void SBServerTree::erase(SBServerTree::iterator, SBServerTree::iterator);
+template SBServerPair::pair(const int &, const SBServer &);
+template SBServerPair::pair(const SBServerPair &);
+template SBServerPair::~pair();
