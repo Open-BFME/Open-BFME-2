@@ -29,3 +29,5 @@ Rva003598D3::Rva003598D3(int a1, int a2, int a3, bool a4)
 	m_0C = a3;
 	m_18 = a4;
 }
+// ??1Rva003598D3@@UAE@XZ present-unmatched
+Rva003598D3::~Rva003598D3() {}
