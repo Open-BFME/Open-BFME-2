@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /O1 /arch:SSE /DNDEBUG /MD /EHsc
 // ?top@Shell@@QAEPAVWindowLayout@@XZ @ 0x0035BD7E (13B). Donor ZH GeneralsMD Shell.h top plus BFME1 Shell.cpp top; caller Shell push @0x0035C74A calls top then hidden check then runShutdown slot 3; prev Rva0035BD7BGet next GadgetTextEntryValidateCharacter.
 class AsciiString;
 class WindowLayout
@@ -6,7 +6,7 @@ class WindowLayout
 public:
 	virtual void runInit(void *userData) = 0;
 	virtual void *deleteInstance(int flags) = 0;
-	virtual void s02() = 0;
+	virtual void runUpdate(void *userData) = 0;
 	virtual void s03(bool *flag) = 0;
 	virtual void s04() = 0;
 	virtual void s05() = 0;
@@ -75,6 +75,7 @@ public:
 	virtual void a07() = 0;
 	virtual void a08() = 0;
 	virtual void reset() = 0;
+	virtual void update() = 0;
 	void registerGameWindow(GameWindow *win, AnimTypes animType, Bool needsToFinish, unsigned int ms, unsigned int delayMs);
 	void reverseAnimateWindow();
 };
@@ -142,6 +143,7 @@ class AsciiString : public StringBase<char>
 public:
 	AsciiString() {}
 	AsciiString(const AsciiString &other) : StringBase<char>(other) {}
+	AsciiString(const char *text) : StringBase<char>(text) {}
 	~AsciiString() {}
 	bool isEmpty() const { return m_data == 0 || m_data->length == 0; }
 	int compareNoCase(const AsciiString &s) const throw();
@@ -195,7 +197,8 @@ private:
 	int m_screenCount; // +0x4C
 	Bool m_pendingPush; // +0x50
 	Bool m_pendingPop; // +0x51
-	unsigned char _pad5253[2];
+	Bool m_byte52; // +0x52
+	Bool m_lowLODBackdropDone; // +0x53
 	Bool m_clearBackground; // +0x54
 	unsigned char _pad5557[3];
 	AsciiString m_pendingPushName; // +0x58
@@ -215,7 +218,10 @@ protected:
 	void doPush(AsciiString layoutFile);
 public:
 	virtual ~Shell();
+	virtual void update();
 	WindowLayout *top();
+	Bool rva0035BD5D();
+	void rva0035C2B9();
 	WindowLayout *findScreenByFilename(AsciiString filename);
 	void registerWithAnimateManager(GameWindow *win, AnimTypes animType, Bool needsToFinish, unsigned int delayMS);
 	void rva0035BE8F();
@@ -231,7 +237,40 @@ class ShellMenuSchemeManager
 {
 public:
 	void setShellMenuScheme(AsciiString name);
+	void update();
 };
+
+// BFME 2's Shell::update additions: the low-LOD shell map backdrop and the
+// transition it fades in with.
+extern "C" __declspec(dllimport) unsigned long __stdcall timeGetTime(void);
+class Image;
+class ImageCollection
+{
+public:
+	const Image *findImageByName(const AsciiString &name);
+};
+extern ImageCollection *TheMappedImageCollection;
+class BfmeStrVM0
+{
+public:
+	void rva0025C72C(int image, int arg, float x0, float y0, float x1, float y1);
+};
+struct ShellDisplayView
+{
+	unsigned char m_pad000[0x114];
+	Bool m_byte114;
+};
+extern ShellDisplayView *TheDisplay;
+class GameWindowTransitionsHandler
+{
+public:
+	virtual void t00(); virtual void t01(); virtual void t02(); virtual void t03();
+	virtual void t04(); virtual void t05(); virtual void t06(); virtual void t07();
+	virtual void t08(); virtual void t09();
+	virtual void slot0A();
+	void reverse(AsciiString groupName);
+};
+extern GameWindowTransitionsHandler *TheTransitionHandler;
 
 WindowLayout *Shell::top()
 {
@@ -239,6 +278,59 @@ WindowLayout *Shell::top()
 		return 0;
 	return m_screenStack[m_screenCount - 1];
 }
+
+// ?update@Shell@@UAEXXZ @ 0x0035C566 (334B), slot 10 of the Shell vftable
+// 0x00816208 (slot 9 is the rowed reset-like rva0035C16A). Zero Hour's timed
+// layout update (30 per second via a static timeGetTime stamp), without the
+// m_background teardown; the scheme manager's update is the empty folded
+// 0x000B3FD0. BFME 2 then shows the "ShellMapLowLOD" backdrop once when the
+// shell map is off, and finally runs 0x0035BD5D / 0x0035C2B9 (unrowed Shell
+// members, pinned from this body) while the shell map is off.
+void Shell::update()
+{
+	static int lastUpdate = timeGetTime();
+	static const int shellUpdateDelay = 30;  // try to update 30 frames a second
+	int now = timeGetTime();
+
+	//
+	// we keep the shell updates fixed in time so that we can write consitent animation
+	// speeds during the screen update functions
+	//
+	if( now - lastUpdate >= ((1000.0f / shellUpdateDelay ) - 1) )
+	{
+
+		// run the updates for every window layout on the stack
+		for( int i = m_screenCount - 1; i >= 0; i-- )
+			m_screenStack[ i ]->runUpdate( 0 );
+
+		// Update the animate window manager
+		m_animateWindowManager->update();
+
+		m_schemeManager->update();
+
+		// mark last time we ran the updates
+		lastUpdate = now;
+
+	}  // end if
+
+	if( !m_lowLODBackdropDone && m_byte52 && !m_shellMapOn )
+	{
+		m_lowLODBackdropDone = true;
+		AsciiString name( "ShellMapLowLOD" );
+		const Image *image = TheMappedImageCollection->findImageByName( name );
+		if( image )
+		{
+			TheDisplay->m_byte114 = true;
+			((BfmeStrVM0 *)TheDisplay)->rva0025C72C( (int)image, 0, 0.0f, 0.0f, 1.0f, 1.0f );
+			TheTransitionHandler->reverse( AsciiString( "FadeInGameMovie_NoAudio" ) );
+			TheTransitionHandler->slot0A();
+		}
+	}
+
+	if( !m_shellMapOn && !rva0035BD5D() )
+		rva0035C2B9();
+
+}  // end update
 
 // ?findScreenByFilename@Shell@@QAEPAVWindowLayout@@VAsciiString@@@Z @ 0x0035C6B4
 // (150B). Zero Hour's body: walk all sixteen stack slots from +0x0C and return
