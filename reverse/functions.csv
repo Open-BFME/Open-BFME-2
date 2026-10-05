@@ -11564,7 +11564,6 @@ _math_rad,,0x00748740,38,Code/Libraries/Source/Lua/lmathlib.c,matched,Lua math.r
 ??_GRva005AFA03@@UAEPAXI@Z,,0x005AFA20,28,Code/GameEngine/Source/Common/Rva005AFE3FDerived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GRva005D50D8@@UAEPAXI@Z,,0x005D5103,28,Code/GameEngine/Source/Common/Rva005AFE3FDerived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GRva005D583C@@UAEPAXI@Z,,0x005D58A8,28,Code/GameEngine/Source/Common/Rva005AFE3FDerived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
-??_GRva005D639A@@UAEPAXI@Z,,0x005D6C78,28,Code/GameEngine/Source/Common/FreeMemberDeleters.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GRva005D72FA@@UAEPAXI@Z,,0x005D733B,28,Code/GameEngine/Source/Common/Rva005EE2A0Derived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GRva005D7855@@UAEPAXI@Z,,0x005D78C5,28,Code/GameEngine/Source/Common/Rva005EE30CDerived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GRva005D7D88@@UAEPAXI@Z,,0x005D7E02,28,Code/GameEngine/Source/Common/Rva005EE30CDerived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
@@ -57983,3 +57982,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva005F22D2@Rva005F22D2@@QAEXXZ,,0x005F22D2,60,Code/GameEngine/Source/Common/Rva005F22D2Clear.cpp,matched,list at +0 map<int void*> at +0x10 clears via forEach 0x005F224E and erase begin
 ?Rva00381900@@YAXH@Z,,0x00381900,15,Code/GameEngine/Source/Common/Rva0038153BListenerWalks.cpp,matched,chain helper forwarding to list wrapper
 ??0?$pair@$$CBEF@_STL@@QAE@ABU01@@Z,,0x00381E41,21,Code/GameEngine/Source/Common/Rva00381E41PairCopy.cpp,matched,stlport uchar short pair copy via map instantiation
+??_GRva005D639A@@UAEPAXI@Z,,0x005D63AF,28,Code/GameEngine/Source/Common/FreeMemberDeleters.cpp,matched,vtable 875B8C slot0 direct call to rowed dtor
