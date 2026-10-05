@@ -6,6 +6,7 @@
 // for the strings' prefix. +0x27C is the screen's state.
 
 #include "unicode_string.h"
+#include "ascii_string.h"
 
 extern "C" int __cdecl strcmp(const char *left, const char *right);
 
@@ -163,6 +164,49 @@ void __cdecl Rva004341D8(int button)
 	else if (button == 3)
 		TheGameLogic->rva0023D30F(2, 2, &g_Va00E032E8);
 	g_Va00E032E8.clear();
+}
+
+// Rva00433FF3.cpp's 0x00433FF3: the first human GameSpy slot; its player's
+// name at +0x30 and profile id at +0x1AC.
+struct AptSaveLoadSlot
+{
+	int getProfileID() const { return m_profileID; }
+
+	unsigned char m_pad000[0x30];
+	UnicodeString m_name; // +0x30
+	unsigned char m_pad034[0x1AC - 0x34];
+	int m_profileID; // +0x1AC
+};
+
+class GameSpyGameSlot;
+GameSpyGameSlot *Rva00433FF3Get();
+
+class GameSpyInfoInterface;
+extern GameSpyInfoInterface *TheGameSpyInfo;
+
+// Unrowed 0x004178C1 (421 bytes; sends a buddy request for a profile) and
+// 0x00434EFA (525 bytes; shows the saved-game prompt), pinned by address.
+void __cdecl Rva004178C1(int profileID, const AsciiString &name);
+void __cdecl Rva00434EFA();
+
+// Set while the saved-game prompt is up (0x00E032E0).
+extern int g_Va00E032E0;
+
+// Retail 0x00435107, 107 bytes. Name unknown: bound without a name as the
+// answer to the "APT:AddFriendOnSaveTitle" prompt (0x004355B5/0x0043560D).
+// Button 2 asks the first human GameSpy player for friendship; the
+// saved-game prompt follows unless it is already up.
+void __cdecl Rva00435107(int button)
+{
+	if (button == 2)
+	{
+		AptSaveLoadSlot *slot = (AptSaveLoadSlot *)Rva00433FF3Get();
+		if (!slot || !TheGameSpyInfo)
+			return;
+		Rva004178C1(slot->getProfileID(), AsciiString(slot->m_name));
+	}
+	if (!g_Va00E032E0)
+		Rva00434EFA();
 }
 
 // Retail 0x00433D71, 37 bytes. Name unknown. Keeps the answer to the
