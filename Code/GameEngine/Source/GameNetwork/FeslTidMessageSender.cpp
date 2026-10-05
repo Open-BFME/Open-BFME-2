@@ -18,15 +18,18 @@ public:
 	char m_tail[0x10];
 };
 
+class Rva008038F0Sender
+{
+public:
+	void send(BfmeC994 *message);
+};
+
 class BfmeSinkSKA
 {
 public:
 	void bfmeSendSKA(int category, int transactionId, int depth);
 	void sendCreateGameRequest(int transactionId, int gameId,
 		int maxPlayers, const char *userGameId);
-
-private:
-	void submit(BfmeC994 *message);
 };
 
 void BfmeSinkSKA::bfmeSendSKA(int category, int transactionId, int depth)
@@ -36,7 +39,7 @@ void BfmeSinkSKA::bfmeSendSKA(int category, int transactionId, int depth)
 	message.m_category = category;
 	message.m_depth = depth;
 	message.addInt("TID", transactionId);
-	submit(&message);
+	((Rva008038F0Sender *)this)->send(&message);
 	message.clear();
 }
 
@@ -54,6 +57,6 @@ void BfmeSinkSKA::sendCreateGameRequest(int transactionId, int gameId,
 	message.addInt("MAX-PLAYERS", maxPlayers);
 	message.addString("UGID", userGameId);
 	message.addString("SECRET", "0");
-	submit(&message);
+	((Rva008038F0Sender *)this)->send(&message);
 	message.clear();
 }
