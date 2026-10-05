@@ -60919,3 +60919,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ??1Rva002BB281@@QAE@XZ,,0x002BB281,54,Code/GameEngine/Source/GameLogic/Object/Update/Rva002BB281Dtor.cpp,matched,EH dtor calls vector 0x002B703F at +0x2C then pinned Member08 at dup 0x002BAD1C at +8
 ?reset@GameInfo@@UAEXXZ,,0x003FFF8F,267,Code/GameEngine/Source/GameNetwork/GameInfoReset.cpp,matched,slot10 vtable 008193C8 ctor 00400A07 calls NOMAP tickcount rand rules
 ?rva0039B2C7@Rva003BD306Target@@QAEXHH@Z,,0x0039B2C7,31,Code/GameEngine/Source/Common/Rva0039B548Method.cpp,matched,loop calling rva0039B28F pin same owner unblocks
+?rva004BDA67@Rva004BDA67@@QAEXXZ,,0x004BDA67,66,Code/GameEngine/Source/GameLogic/Object/Body/ActiveBodyDamageState.cpp,matched,chain via landed rva0039B548 plus Object calls tail
