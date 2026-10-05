@@ -12430,3 +12430,7 @@ _ceil,0x00629934,CRT ceil thunk identified by native PE import slot 0x00BBA578 a
 ?IsSpriteInstBase@AptCIH@@QBE_NXZ,0x006CFCD0,alias of rowed sprite predicate; native Next Prev REL32 and accessor assertion; alternatename provider
 ?jumpToFrame@AptCIH@@QAEXH@Z,0x006E2C10,Next Prev opcode handlers call thiscall int RET4; native frame18 bounds and fast path then temporary display merge and queueFrameActions match donor jumpToFrame; helper unrowed
 ??0AptArray@@QAE@XZ,0x006D91B0,Native InitArray opcode0x42 alloc44B calls default ctor; ctor type0x16 array vtableCEA778 hash+8 and array slots+20/+24/+28; later AptArray.h semantic name
+?isLookup@AptValue@@QBE_NXZ,0x006DC080,Native stackPushIndirect calls checked existing provider; original AptValue header504032fc6593aab6 signature; linker alias binds provider
+?isRegister@AptValue@@QBE_NXZ,0x006DC1C0,Native stackPushIndirect calls checked existing provider; original AptValue header504032fc6593aab6 signature; linker alias binds provider
+?c_lookup@AptValue@@QBEPAVAptLookup@@XZ,0x006DCD50,Native stackPushIndirect calls checked existing provider; original AptValue header504032fc6593aab6 signature; linker alias binds provider
+?c_register@AptValue@@QBEPAVAptRegister@@XZ,0x006DCDD0,Native stackPushIndirect calls checked existing provider; original AptValue header504032fc6593aab6 signature; linker alias binds provider

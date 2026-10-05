@@ -29,6 +29,8 @@ static __forceinline float bfme_fmodf(float x,float y) { return (float)fmod(x,y)
 class EAStringC;
 class AptString;
 class AptInteger;
+class AptLookup;
+class AptRegister;
 class AptArray;
 class AptNativeHash;
 class AptCIH;
@@ -45,6 +47,10 @@ public:
     AptCIH *c_cih(bool=false);
     AptArray *c_array() const;
     bool isArray() const;
+    bool isLookup() const;
+    bool isRegister() const;
+    AptLookup *c_lookup() const;
+    AptRegister *c_register() const;
     bool isExtern() const;
     bool isCIH(bool=false) const;
     bool isObject() const;
@@ -162,6 +168,7 @@ struct AptActionInterpreter
     int mnStackFrameBase;
     bool setVariable(AptValue *, AptValue *, const EAStringC *, AptValue *, int=1, int=1, int=0);
     AptValue *getVariable(AptValue *, AptValue *, const EAStringC *, int=1, int=1, int=0);
+    void stackPushIndirect(AptValue *const);
 private:
 #define HANDLER(n) static void _FunctionAptAction##n(AptActionInterpreter *const,LocalContextT *const)
     HANDLER(GotoFrame); HANDLER(StopDragMovie); HANDLER(Play); HANDLER(Stop); HANDLER(NextFrame); HANDLER(PrevFrame);
@@ -191,6 +198,7 @@ private:
     HANDLER(SetVariable); HANDLER(GetMember); HANDLER(SetMember);
     HANDLER(PushStringGetVar); HANDLER(PushStringGetMember); HANDLER(PushStringSetVar); HANDLER(PushStringSetMember);
     HANDLER(End); HANDLER(ToggleQuality); HANDLER(StringLessThan); HANDLER(MBLength); HANDLER(CharToAscii); HANDLER(MBSubString); HANDLER(MBCharToAscii); HANDLER(MBAsciiToChar); HANDLER(BitURShift);
+    HANDLER(Push);
 #undef HANDLER
 };
 void AptActionInterpreter::_FunctionAptActionPushFloat(AptActionInterpreter *const p, LocalContextT *const c)
@@ -1267,3 +1275,45 @@ void AptActionInterpreter::_FunctionAptActionSetProperty(AptActionInterpreter *c
     if(object) p->setVariable(object,c->pCurWith,Rva0070B4F0GetString(g_aptPropertyCodesAtDDC928[n]),value,1);
     p->stack.Pop(3);
 }
+
+// The original AptValue header supplies bool predicates and const checked casts.
+// Lookup/Register headers c6dc857ff8e1760a/95fdc6cae0bddecc name these integer
+// payloads. PC independently reads +8 after checked casts; only prefixes used.
+class AptLookup : public AptValue { public: int nLookup; };
+class AptRegister : public AptValue { public: int nVal; };
+AptValue *Rva00709EC0Get(int);
+void AptActionInterpreter::stackPushIndirect(AptValue *const pValue)
+{
+    if (!pValue) {
+        g_bfmeAptAssertAtE17734("pValue", "c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\AptActionInterpreter.inl", 0x5E);
+        if (g_bfmeAptBreakOnAssertAtDDC01C) { __asm int 3 }
+    }
+    AptValue *pPushValue;
+    if (pValue->isLookup()) pPushValue=constantPool.apItems[pValue->c_lookup()->nLookup];
+    else if (pValue->isRegister()) {
+        int iRegNum=pValue->c_register()->nVal;
+        if (iRegNum<0) {
+            g_bfmeAptAssertAtE17734("iRegNum >= 0", "c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\AptActionInterpreter.inl", 0x68);
+            if (g_bfmeAptBreakOnAssertAtDDC01C) { __asm int 3 }
+        }
+        pPushValue=Rva00709EC0Get(iRegNum);
+    } else pPushValue=pValue;
+    // Native inlines Push here; preserve its capacity assertion and AddRef order.
+    if (stack.count>=stack.capacity) {
+        g_bfmeAptAssertAtE17734("m_nElements < m_nCapacity", "c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\_AptBasePtrStack.h", 0x80);
+        if (g_bfmeAptBreakOnAssertAtDDC01C) { __asm int 3 }
+    }
+    stack.items[stack.count++]=pPushValue;
+    pPushValue->AddRef();
+}
+void AptActionInterpreter::_FunctionAptActionPush(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    c->pInstruction=(const unsigned char *)(((unsigned int)c->pInstruction+3)&~3U);
+    const AptConstantPool *data=(const AptConstantPool *)c->pInstruction;
+    c->pInstruction+=sizeof(AptConstantPool);
+    for (int i=0;i<data->nItems;++i) p->stackPushIndirect(data->apItems[i]);
+}
+#pragma comment(linker, "/alternatename:?isLookup@AptValue@@QBE_NXZ=?isLookup@BfmeAptValue006DCD20@@QBEHXZ")
+#pragma comment(linker, "/alternatename:?isRegister@AptValue@@QBE_NXZ=?isRegister@BfmeAptValue006DCD20@@QBEHXZ")
+#pragma comment(linker, "/alternatename:?c_lookup@AptValue@@QBEPAVAptLookup@@XZ=?checkedLookup@BfmeAptValue006DCD20@@QAEPAV1@XZ")
+#pragma comment(linker, "/alternatename:?c_register@AptValue@@QBEPAVAptRegister@@XZ=?checkedRegister@BfmeAptValue006DCD20@@QAEPAV1@XZ")

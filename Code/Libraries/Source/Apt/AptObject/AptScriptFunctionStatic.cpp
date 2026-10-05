@@ -74,3 +74,15 @@ void __cdecl Rva00709F70Set(int nIndex, AptValue *pNewValue)
     pNewValue->AddRef();
     old->Release();
 }
+
+#undef CHECK_AT
+#define CHECK_AT(cond,text,line) if (!(cond)) { g_bfmeAptAssertAtE17734(text,"C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptObject\\AptScriptFunction.cpp",line); if (g_bfmeAptBreakOnAssertAtDDC01C) { __asm int 3 } }
+// Native GetRegisterValue helper; complete175B includes both return paths.
+// Donor supplies semantic name; PC assertions prove index bounds and state.
+AptValue *__cdecl Rva00709EC0Get(int nIndex)
+{
+    CHECK_AT(nIndex < 256,"nIndex < MAX_REGISTERS_IN_FUNCTION",0x29E);
+    CHECK_AT(nIndex < (AptScriptFunctionBase::snRegisterBlockSize - (AptScriptFunctionBase::spRegBlockCurrentFrameBase - AptScriptFunctionBase::spRegBlockBase)),"nIndex < ( snRegisterBlockSize - (spRegBlockCurrentFrameBase-spRegBlockBase))",0x29F);
+    CHECK_AT(AptScriptFunctionBase::spRegBlockCurrentFrameBase[nIndex],"spRegBlockCurrentFrameBase[nIndex]",0x2A0);
+    return AptScriptFunctionBase::spRegBlockCurrentFrameBase[nIndex];
+}
