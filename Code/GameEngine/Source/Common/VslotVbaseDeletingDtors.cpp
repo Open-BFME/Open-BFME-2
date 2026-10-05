@@ -19,13 +19,22 @@
 //  0x005CDF49 via dtor 0x005CDCEE, vbase +0x28 vft 0x00BC6F20
 //  0x005E5628 via dtor 0x005E54F7, vbase +0x1C vft 0x00BC6F20
 //  0x005E7003 via dtor 0x005E6F9D, vbase +0x24 vft 0x00BC6F20
-// A disp32 vbase offset (0x80 and up) does not inline ??_D under /O1 in this
-// non-virtual model, so the 38B members of this family are not here.
+// The three 38B members have a disp32 vbase offset, which this non-virtual
+// model does not inline under /O1. Each sits in a large vftable of its own
+// (0x00C07F80 slot 20, 0x00C088FC slot 10, 0x00C089A8 slot 20), so their
+// dtors are virtual here; retail 0x00C6EE28 holds __purecall 0x0003B810 in
+// slots 0-2, hence three pure slots on its vbase. They have no user ctor and
+// are emitted through anchors that call the implicit ctor, never called.
+//  0x00309332 via dtor 0x0030902E, vbase +0xD8 vft 0x00C6EE28
+//  0x0030C6A2 via dtor 0x0030C40A, vbase +0x90 vft 0x00C6EE28
+//  0x0030D0EB via dtor 0x0030CDCA, vbase +0xA8 vft 0x00C6EE28
 
 class VBase00C6EE28
 {
 public:
 	virtual void slot00() = 0;
+	virtual void slot04() = 0;
+	virtual void slot08() = 0;
 	~VBase00C6EE28() {}
 };
 
@@ -84,6 +93,30 @@ private:
 	char m_unknown[0x20];
 };
 
+class Rva0030902E : public virtual VBase00C6EE28
+{
+public:
+	virtual ~Rva0030902E();
+private:
+	char m_unknown[0xD8 - 8];
+};
+
+class Rva0030C40A : public virtual VBase00C6EE28
+{
+public:
+	virtual ~Rva0030C40A();
+private:
+	char m_unknown[0x90 - 8];
+};
+
+class Rva0030CDCA : public virtual VBase00C6EE28
+{
+public:
+	virtual ~Rva0030CDCA();
+private:
+	char m_unknown[0xA8 - 8];
+};
+
 void operator delete(void *p);
 
 void Rva002E4049_DeleteAnchor(Rva002E4049 *p) { delete p; }
@@ -92,3 +125,6 @@ void Rva005CD9C0_DeleteAnchor(Rva005CD9C0 *p) { delete p; }
 void Rva005CDCEE_DeleteAnchor(Rva005CDCEE *p) { delete p; }
 void Rva005E54F7_DeleteAnchor(Rva005E54F7 *p) { delete p; }
 void Rva005E6F9D_DeleteAnchor(Rva005E6F9D *p) { delete p; }
+void Rva0030902E_CtorAnchor(Rva0030902E *p) { p->Rva0030902E::Rva0030902E(); }
+void Rva0030C40A_CtorAnchor(Rva0030C40A *p) { p->Rva0030C40A::Rva0030C40A(); }
+void Rva0030CDCA_CtorAnchor(Rva0030CDCA *p) { p->Rva0030CDCA::Rva0030CDCA(); }
