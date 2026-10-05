@@ -14562,3 +14562,13 @@ _rva006F98C0Call,0x006F98C0,retail call at 0x006F9B84 supplies EAX ECX and two s
 ??$__uninitialized_copy@PBURva00540295Words@@PAU1@@_STL@@YAPAURva00540295Words@@PBU1@0PAU1@ABU__false_type@0@@Z,0x005400B4,native REL32 from verified STLport scalar-word container 00540295
 ??$__copy@PAURva0017341BWords@@PAU1@H@_STL@@YAPAURva0017341BWords@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z,0x0017341B,native scalar-copy REL32 chain from erase173DF8; pointer ABI and48B stride proved by callee body
 ??$__copy_ptrs@PAURva0017341BWords@@PAU1@@_STL@@YAPAURva0017341BWords@@PAU1@00ABU__false_type@0@@Z,0x00173714,native scalar-copy REL32 chain from erase173DF8; pointer ABI and48B stride proved by callee body
+??$__median@URva00218E09Record@@U?$less@URva00218E09Record@@@_STL@@@_STL@@YAABURva00218E09Record@@ABU1@00U?$less@URva00218E09Record@@@0@@Z,0x00331716
+??0Rva00218E09Record@@QAE@ABU0@@Z,0x00217624
+??$__unguarded_partition@PAURva00218E09Record@@U1@U?$less@URva00218E09Record@@@_STL@@@_STL@@YAPAURva00218E09Record@@PAU1@0U1@U?$less@URva00218E09Record@@@0@@Z,0x00217AB0
+??$__introsort_loop@PAURva00218E09Record@@U1@HU?$less@URva00218E09Record@@@_STL@@@_STL@@YAXPAURva00218E09Record@@00HU?$less@URva00218E09Record@@@0@@Z,0x00218E09
+??$partial_sort@PAURva00218E09Record@@U?$less@URva00218E09Record@@@_STL@@@_STL@@YAXPAURva00218E09Record@@00U?$less@URva00218E09Record@@@0@@Z,0x00218BD4
+??$__median@URva00337D21Record@@U?$less@URva00337D21Record@@@_STL@@@_STL@@YAABURva00337D21Record@@ABU1@00U?$less@URva00337D21Record@@@0@@Z,0x00335CFD
+??0Rva00337D21Record@@QAE@ABU0@@Z,0x003371B1
+??$__unguarded_partition@PAURva00337D21Record@@U1@U?$less@URva00337D21Record@@@_STL@@@_STL@@YAPAURva00337D21Record@@PAU1@0U1@U?$less@URva00337D21Record@@@0@@Z,0x00337655
+??$__introsort_loop@PAURva00337D21Record@@U1@HU?$less@URva00337D21Record@@@_STL@@@_STL@@YAXPAURva00337D21Record@@00HU?$less@URva00337D21Record@@@0@@Z,0x00337D21
+??$partial_sort@PAURva00337D21Record@@U?$less@URva00337D21Record@@@_STL@@@_STL@@YAXPAURva00337D21Record@@00U?$less@URva00337D21Record@@@0@@Z,0x00337C55
