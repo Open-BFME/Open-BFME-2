@@ -1,4 +1,6 @@
 // ?Update_Obj_Space_Bounding_Volumes@HLodClass@@MAEXXZ
+// partial score=0.9873 date=2026-10-05
+// ?Update_Obj_Space_Bounding_Volumes@HLodClass@@MAEXXZ
 // partial score=0.9760095962 date=2026-10-03
 // ?Update_Obj_Space_Bounding_Volumes@HLodClass@@MAEXXZ
 // partial score=0.976 date=2026-09-29
@@ -87,7 +89,7 @@ void HLodClass::Update_Obj_Space_Bounding_Volumes(void)
 	//	Do we still have a valid bounding box index?
 	//
 	ModelArrayClass &high_lod = Lod[LodCount - 1];
-	int count = high_lod.Count ();
+	const int count = high_lod.Count ();
 	if (	BoundingBoxIndex < 0 ||
 			BoundingBoxIndex >= count ||
 			high_lod[BoundingBoxIndex].Model->Class_ID () != RenderObjClass::CLASSID_OBBOX)
@@ -98,7 +100,7 @@ void HLodClass::Update_Obj_Space_Bounding_Volumes(void)
 	//
 	//	Attempt to find an OBBox mesh inside the heirarchy
 	//
-	int index = high_lod.Count ();
+	unsigned int index = high_lod.Count ();
 	while (index -- && BoundingBoxIndex == -1) {
 		RenderObjClass *model = high_lod[index].Model;
 
@@ -109,7 +111,7 @@ void HLodClass::Update_Obj_Space_Bounding_Volumes(void)
 		{
 			const char *name = model->Get_Name ();
 			const char *name_seg = ::strchr (name, '.');
-			if (name_seg != NULL) {
+			if (NULL != name_seg) {
 				name = name_seg + 1;
 			}
 
@@ -123,8 +125,8 @@ void HLodClass::Update_Obj_Space_Bounding_Volumes(void)
 	}
 
 
-	int i;
 	RenderObjClass * robj = NULL;
+	int i;
 
 	// if we don't have any sub objects, just set default bounds
 	if (Get_Num_Sub_Objects() <= 0) {
@@ -136,14 +138,14 @@ void HLodClass::Update_Obj_Space_Bounding_Volumes(void)
 
 	// loop through all sub-objects, combining their object-space bounding spheres and boxes.
 	// Put our HTree in its base pose at the origin.
-	SphereClass sphere;
 	AABoxClass obj_aabox;
 	MinMaxAABoxClass box;
+	SphereClass sphere;
 
 	HTree->Base_Update(Matrix3D(1));
 
-	robj = Get_Sub_Object(0);
 	WWASSERT(robj);
+	robj = Get_Sub_Object(0);
 
 	Matrix3D bonetm;
 	treeMatrix(HTree, Get_Sub_Object_Bone_Index(robj), bonetm);
@@ -157,8 +159,8 @@ void HLodClass::Update_Obj_Space_Bounding_Volumes(void)
 	robj->Release_Ref();
 
 	for (i=1; i<Get_Num_Sub_Objects(); i++) {
-		robj = Get_Sub_Object(i);
 		WWASSERT(robj);
+		robj = Get_Sub_Object(i);
 
 		Matrix3D bonetm;
 	treeMatrix(HTree, Get_Sub_Object_Bone_Index(robj), bonetm);
