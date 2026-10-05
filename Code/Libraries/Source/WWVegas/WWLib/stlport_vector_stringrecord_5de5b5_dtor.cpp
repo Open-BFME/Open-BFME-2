@@ -21,10 +21,14 @@ struct BfmeStringRecord005DDD40 {
     BfmeStringRecord005DDD40();
     BfmeStringRecord005DDD40(const BfmeStringRecord005DDD40 &);
     BfmeStringRecord005DDD40 &operator=(const BfmeStringRecord005DDD40 &);
-    ~BfmeStringRecord005DDD40();
+    // Implicit cleanup owns only text and expands to wide releaseBuffer.
+    // An out-of-line record destructor would create non-retail Destroy copies.
 };
 namespace _STL {
 template <> void _Construct<BfmeStringRecord005DDD40, BfmeStringRecord005DDD40>(BfmeStringRecord005DDD40 *, const BfmeStringRecord005DDD40 &);
+// Consume the full rowed63B destructor from the vector home. Canonical
+// inline string cleanup otherwise emits a59B EH variant in this consumer.
+template <> vector<BfmeStringRecord005DDD40, allocator<BfmeStringRecord005DDD40> >::~vector();
 }
 
 class Rva005DE5B5
