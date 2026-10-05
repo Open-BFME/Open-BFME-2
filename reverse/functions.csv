@@ -62082,3 +62082,4 @@ _Rva007F5790Callback,,0x00661F40,15,Code/GameEngine/Source/GameNetwork/Rva007F70
 ?rva002C7474@Rva002C7474@@QAEXXZ,,0x002C7474,30,Code/Libraries/Source/WWVegas/WW3D2/Rva002C7474Loop.cpp,matched,
 ?rva002CF1E2@Rva002CF1E2@@QAEXXZ,,0x002CF1E2,25,Code/GameEngine/Source/Common/Rva002CF1E2Walk.cpp,matched,
 ?rva002D2E30@Rva002D2E30@@QAEXH@Z,,0x002D2E30,39,Code/GameEngine/Source/Common/Rva002D2E30Callback.cpp,matched,
+?rva002D2DF6@Rva002D2DF6@@QAEXXZ,,0x002D2DF6,58,Code/GameEngine/Source/Common/Rva002D2DF6Init.cpp,matched,
