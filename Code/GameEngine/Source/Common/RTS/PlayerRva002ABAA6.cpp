@@ -11,9 +11,31 @@ public:
 	void rva002ABAA6();
 };
 
-void __cdecl Rva002AA264(Object *obj, void *userData);
+// The iterateObjects callback at 0x002AA264 (22B): it hands each object's +0x74
+// field to TheAiOrdersManager (global 0x00A01E18, registered as
+// "TheAiOrdersManager") and returns 1 to keep iterating.
+class AiOrdersManager
+{
+public:
+	void rva0035519E(int value);
+};
+
+extern AiOrdersManager *TheAiOrdersManager;
+
+// The object field at +0x74 is what the callee looks up through 0x0035516C.
+struct Rva002AA264Object
+{
+	char m_pad[0x74];
+	int m_74;
+};
+
+int __cdecl Rva002AA264(Object *obj, void *userData)
+{
+	TheAiOrdersManager->rva0035519E(((Rva002AA264Object *)obj)->m_74);
+	return 1;
+}
 
 void Player::rva002ABAA6()
 {
-	iterateObjects(Rva002AA264, 0);
+	iterateObjects((ObjectIterateFunc)Rva002AA264, 0);
 }
