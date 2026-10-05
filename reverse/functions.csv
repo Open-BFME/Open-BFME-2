@@ -63459,3 +63459,6 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?fwd@Rva0054152DOwner@@QAEHHH@Z,,0x0054152D,38,Code/GameEngine/Source/Common/RvaTagCombineFamily.cpp,matched,Address-derived tag-combine head=worker(extra;head;tag;&tag+3); 38B ebp-frame shape
 ?fwd@Rva00541553Owner@@QAEHHH@Z,,0x00541553,38,Code/GameEngine/Source/Common/RvaTagCombineFamily.cpp,matched,Address-derived tag-combine head=worker(extra;head;tag;&tag+3); 38B ebp-frame shape
 ?fwd@Rva005B129FOwner@@QAEHHH@Z,,0x005B129F,38,Code/GameEngine/Source/Common/RvaTagCombineFamily.cpp,matched,Address-derived tag-combine head=worker(extra;head;tag;&tag+3); 38B ebp-frame shape
+?step@Rva0033B1CD@@QAEXXZ,,0x0033B1CD,17,Code/GameEngine/Source/Common/RvaHelperMemberSteps.cpp,matched,Address-derived helper-then-sub step with narrow/wide and chained phases; 17B shape
+?step@Rva005CDDF0@@QAEXXZ,,0x005CDDF0,17,Code/GameEngine/Source/Common/RvaHelperMemberSteps.cpp,matched,Address-derived helper-then-sub step with narrow/wide and chained phases; 17B shape
+?step@Rva005E5554@@QAEXXZ,,0x005E5554,17,Code/GameEngine/Source/Common/RvaHelperMemberSteps.cpp,matched,Address-derived helper-then-sub step with narrow/wide and chained phases; 17B shape

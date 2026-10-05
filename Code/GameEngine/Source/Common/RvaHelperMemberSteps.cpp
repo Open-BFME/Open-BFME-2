@@ -239,3 +239,69 @@ void Rva005962E7::step()
 	prepare();
 	run();
 }
+
+class Rva0033B1CDNarrow
+{
+public:
+	void release();
+};
+
+class Rva0033B1CDWide
+{
+public:
+	void release();
+};
+
+class Rva005E549EHelper
+{
+public:
+	void prepare();
+};
+
+class Rva005F327ARun
+{
+public:
+	void run();
+};
+
+class Rva0033B1CD
+{
+public:
+	void step();
+};
+
+class Rva005E590FCaller
+{
+public:
+	void step();
+};
+
+class Rva005CDDF0
+{
+public:
+	void step();
+};
+
+class Rva005E5554
+{
+public:
+	void step();
+};
+
+void Rva0033B1CD::step()
+{
+	((Rva0033B1CDNarrow *)this)->release();
+	((Rva0033B1CDWide *)((char *)this + 4))->release();
+}
+
+void Rva005CDDF0::step()
+{
+	((Rva005E590FCaller *)this)->step();
+	((Rva000B3FD0Nop *)((char *)this + 0x0C))->noop();
+}
+
+void Rva005E5554::step()
+{
+	((Rva005E549EHelper *)this)->prepare();
+	((Rva005F327ARun *)((char *)this - 8))->run();
+}

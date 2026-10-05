@@ -12783,3 +12783,8 @@ _g_pRva00437E9C,0x00E032FC,global pointer read by wrapper 0x00437E9C (peer notes
 ?Rva00541214Worker@@YAHHHHPAD@Z,0x00541214,REL32 worker decoded from target call bytes of same-shape tag-combine member; identity unproven
 ?Rva00541231Worker@@YAHHHHPAD@Z,0x00541231,REL32 worker decoded from target call bytes of same-shape tag-combine member; identity unproven
 ?Rva005B09D8Worker@@YAHHHHPAD@Z,0x005B09D8,REL32 worker decoded from target call bytes of same-shape tag-combine member; identity unproven
+?release@Rva0033B1CDNarrow@@QAEXXZ,0x00036410,opaque alias: same body as rowed narrow StringBase releaseBuffer; first phase of step 0x0033B1CD
+?release@Rva0033B1CDWide@@QAEXXZ,0x00036E70,opaque alias: same body as rowed wide StringBase releaseBuffer; second phase of step 0x0033B1CD
+?prepare@Rva005E549EHelper@@QAEXXZ,0x005E549E,REL32 helper decoded from target call bytes of helper-member step 0x005E5554; identity unproven
+?run@Rva005F327ARun@@QAEXXZ,0x005F327A,REL32 callee decoded from target call bytes of helper-member step 0x005E5554; identity unproven
+?step@Rva005E590FCaller@@QAEXXZ,0x005E590F,opaque alias: same body as rowed step 0x005E590F; first phase of step 0x005CDDF0 (separate type blocks same-TU inlining)
