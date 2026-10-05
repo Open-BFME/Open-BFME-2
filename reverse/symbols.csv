@@ -13470,3 +13470,5 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 ?rva002B3621@Rva002B4C09@@QAE_NXZ,0x002B3621,thiscall bool: +0x160 target non-null with +0x25 flag set; Ghidra FUN_006b3621 23B
 ?rva0020E873@@YAHHHPAH@Z,0x0020E873,cdecl 3-arg int return; ICF-shares address with STL find bodies whose identity is unproven for this call site; Ghidra FUN_0060e873 27B
 ?rva002E0A9F@Rva002E0A9FElem@@QAEHPAX@Z,0x002E0A9F,thiscall int scan over +0x1B8/+0x1BC entries with 1 stack arg; head-decoded, Ghidra FUN_006e0a9f 75B
+?rva002B35F7@Rva002B4D41@@QAEXXZ,0x002B35F7,thiscall void firing bare 0x2B2B2D probe then +0x98 count-gated float handoff to 0x2D3772; Ghidra FUN_006b35f7 42B
+?rva004FBB25@Rva004FBB25Sub@@QAEXH@Z,0x004FBB25,thiscall with 1 int arg; head null-guards then 0x4FB382 probe; Ghidra FUN_008fbb25 198B
