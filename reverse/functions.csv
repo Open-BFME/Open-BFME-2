@@ -64730,3 +64730,4 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ?rva00488AC9@Rva00488AC9@@QAEXPAVObject@@W4CommandSourceType@@@Z,,0x00488AC9,81,Code/GameEngine/Source/Common/Rva00488AC9Repair.cpp,matched,repair gate slot 20 then slot 12
 ?rva0048AEC6@Rva0048AEC6@@QAEXH@Z,,0x0048AEC6,69,Code/GameEngine/Source/Common/Rva0048AEC6Clear.cpp,matched,slot 0x40 clears index stride then aiIdle
 ?rva004AAD69@Rva004AAD69@@QAEXXZ,,0x004AAD69,72,Code/GameEngine/Source/Common/Rva004AAD69Idle.cpp,matched,value 1 idles AI then slot 0x20
+?rva0048CACC@Rva0048CACC@@QAEXPAURva0048CACCArg@@@Z,,0x0048CACC,76,Code/GameEngine/Source/Common/Rva0048CACCAccumulate.cpp,matched,status 0xA accumulates until the limit then apply
