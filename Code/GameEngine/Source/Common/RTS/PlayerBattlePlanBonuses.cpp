@@ -217,3 +217,25 @@ void Player::removeBattlePlanBonusesForObject(Object *obj) const
 
 	delete bonus;
 }
+
+void Player::applyBattlePlanBonusesForPlayerObjects(const BattlePlanBonuses *bonus)
+{
+	if (!m_battlePlanBonuses)
+	{
+		m_battlePlanBonuses = new BattlePlanBonuses;
+		*m_battlePlanBonuses = *bonus;
+	}
+	else
+	{
+		m_battlePlanBonuses->m_armorScalar *= bonus->m_armorScalar;
+		m_battlePlanBonuses->m_sightRangeScalar *= bonus->m_sightRangeScalar;
+		m_battlePlanBonuses->m_bombardment += bonus->m_bombardment;
+		m_battlePlanBonuses->m_bombardment = MAX(0, m_battlePlanBonuses->m_bombardment);
+		m_battlePlanBonuses->m_holdTheLine += bonus->m_holdTheLine;
+		m_battlePlanBonuses->m_holdTheLine = MAX(0, m_battlePlanBonuses->m_holdTheLine);
+		m_battlePlanBonuses->m_searchAndDestroy += bonus->m_searchAndDestroy;
+		m_battlePlanBonuses->m_searchAndDestroy = MAX(0, m_battlePlanBonuses->m_searchAndDestroy);
+	}
+
+	iterateObjects(localApplyBattlePlanBonusesToObject, (void *)bonus);
+}
