@@ -55881,3 +55881,4 @@ ___Extract_locale_name,,0x000216A0,153,Code/Libraries/Source/WWVegas/WWLib/Local
 ?rva0040334B@Rva0040334B@@QAEXPAVObject@@@Z,,0x0040334B,55,Code/GameEngine/Source/Common/Rva0040334BLoop.cpp,matched,unlock loop via Object pin TheGameLogic age
 ?rva005FA874@Rva005FA874@@QAEXXZ,,0x005FA874,30,Code/GameEngine/Source/Common/Rva005FA874Clear.cpp,matched,guarded delete via rowed dtor 0x005FEBC8 plus rowed delete plus callers 0x005E9625
 ??1Rva005E9625@@UAE@XZ,,0x005E9625,53,Code/GameEngine/Source/Common/Rva005E9625Dtor.cpp,matched,dtor via base 0x005FA393 plus member 0x005FA874 at plus 0xC novtable
+?rva005E971F@Rva005E971F@@QAEXPAVRva005E9625@@@Z,,0x005E971F,35,Code/GameEngine/Source/Common/Rva005E971FAssign.cpp,matched,guarded assign via rowed dtor 0x005E9625 plus rowed delete
