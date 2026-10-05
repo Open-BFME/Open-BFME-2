@@ -61829,3 +61829,4 @@ _Rva007F5790Callback,,0x00661F40,15,Code/GameEngine/Source/GameNetwork/Rva007F70
 ??$_Construct@VRva0042476C@@V1@@_STL@@YAXPAVRva0042476C@@ABV1@@Z,,0x00424BF4,45,Code/Libraries/Source/WWVegas/WWLib/Rva0042476CConstruct.cpp,matched,calls rowed copy ctor 0x0042476C caller 0x00424D9F stride 0x18
 ?Rva004311A7Emit@@YAHPAXPAUICoord2D@@@Z,,0x004311A7,154,Code/GameEngine/Source/Common/Rva004311A7.cpp,matched,free Emit via slot75 screenToTerrain createMessage 0x430 plus voice response
 ?Rva005F1A5FGet@@YA_NPBDPAH@Z,,0x005F1A5F,150,Code/GameEngine/Source/Common/Rva005F1A5F.cpp,matched,free index GetParam plus empty plus isdigit plus atoi 0-5
+?rva005F1AF5@Rva005F1AF5@@QAEXPBD@Z,,0x005F1AF5,35,Code/GameEngine/Source/Common/Rva005F1A5F.cpp,matched,chain setter parsing index via Get into +0x44

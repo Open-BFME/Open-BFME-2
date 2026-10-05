@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /Oy-
 // ?Rva005F1A5FGet@@YA_NPBDPAH@Z @0x005F1A5F 150B: free cdecl bool const-char plus int-out with index GetParam plus empty plus isdigit plus atoi 0-5.
 // Evidence: unlock lane; string index plus atoi plus releaseBuffer; pin Rva004128F0GetParam plus IAT isdigit atoi; extern g_Rva0107301CEmptyString; callers 0x005F1B02 0x005F1B25.
 #include "ascii_string.h"
@@ -31,4 +31,21 @@ bool __cdecl Rva005F1A5FGet(const char *params, int *out)
 		return false;
 	*out = v;
 	return true;
+}
+
+// ?rva005F1AF5@Rva005F1AF5@@QAEXPBD@Z @0x005F1AF5 35B: thiscall setter parsing index via 0x005F1A5F into +0x44 reusing arg slot.
+// Evidence: chain from 0x005F1A5F; rowed callee; no Ghidra entry beyond size.
+class Rva005F1AF5
+{
+public:
+	void rva005F1AF5(const char *p);
+private:
+	char m_pad[0x44];
+	int m_44;
+};
+
+void Rva005F1AF5::rva005F1AF5(const char *p)
+{
+	if (Rva005F1A5FGet(p, (int *)&p))
+		m_44 = (int)p;
 }
