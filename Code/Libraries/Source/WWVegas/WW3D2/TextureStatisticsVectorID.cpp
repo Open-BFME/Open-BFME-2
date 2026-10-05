@@ -206,6 +206,24 @@ int VectorClass<T>::ID(T const &object)
 	return -1;
 }
 
+// VectorClass<TextureStatisticsStruct>::operator==, retail 0x00129950 (63
+// bytes): slot 1 of both the vector's and the dynamic vector's vftables,
+// missing from the Ghidra inventory; WWLib's element-wise comparison.
+template<class T>
+bool VectorClass<T>::operator==(VectorClass<T> const &vector) const
+{
+	if (VectorMax == vector.Length())
+	{
+		for (int index = 0; index < VectorMax; index++)
+		{
+			if (Vector[index] != vector.Vector[index])
+				return false;
+		}
+		return true;
+	}
+	return false;
+}
+
 // DynamicVectorClass<TextureStatisticsStruct>::ID, retail 0x0012A550 (40
 // bytes): slot 4 of the dynamic vector's vftable 0x00BD14EC, missing from the
 // Ghidra inventory; WWLib's linear search over the active entries.
@@ -289,6 +307,8 @@ template int VectorClass<TextureStatisticsStruct>::ID(
 template void DynamicVectorClass<TextureStatisticsStruct>::Clear();
 template int DynamicVectorClass<TextureStatisticsStruct>::ID(
 	TextureStatisticsStruct const &);
+template bool VectorClass<TextureStatisticsStruct>::operator==(
+	VectorClass<TextureStatisticsStruct> const &) const;
 template bool DynamicVectorClass<TextureStatisticsStruct>::Add(
 	TextureStatisticsStruct const &);
 template VectorClass<TextureStatisticsStruct>::~VectorClass();
