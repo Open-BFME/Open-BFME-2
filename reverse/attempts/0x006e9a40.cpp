@@ -1,6 +1,8 @@
 // ?rva006E9A40@Rva006E0DE0@@QAEXPAVAptValue@@@Z
 // partial score=0.8957 date=2026-10-05
 // ?rva006E9A40@Rva006E0DE0@@QAEXPAVAptValue@@@Z
+// partial score=0.8957 date=2026-10-05
+// ?rva006E9A40@Rva006E0DE0@@QAEXPAVAptValue@@@Z
 // cl: /O2 /MD
 extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *, const char *, int);
 extern int g_bfmeAptBreakOnAssertAtDDC01C;
