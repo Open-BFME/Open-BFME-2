@@ -1,5 +1,7 @@
 // ?rva0042B038@Rva0042B038@@QAEXPAX000@Z
 // partial score=0.95 date=2026-10-05
+// ?rva0042B038@Rva0042B038@@QAEXPAX000@Z
+// partial score=0.95 date=2026-10-05
 // cl: /O2 /EHsc /MD /Oy-
 // ?rva0042B038@Rva0042B038@@QAEXPAXPAXPAXPAX@Z, retail 0x0042B038 (48B).
 // Unlock: missing callee of 0x0042B068; landing makes 0x0042B068 ready.
@@ -22,8 +24,14 @@
 //   prologue (push ebp/mov ebp,esp/push esi/mov esi,[ebp+0xc]/push edi/mov
 //   edi,ecx/jmp test) and epilogue byte-for-byte; the body differs by 2 bytes
 //   (the redundant seed+store for the by-value pos, mov eax,esp/mov [eax],ecx).
-void **__stdcall Rva00239D02Insert(void **out, void *pos, void **allocArg);
-
+// Retail sets ecx (from edi) before this call, although the rowed callee at
+// 0x00239D02 is a plain __stdcall free function that ignores ecx. Both
+// conventions emit `ret 0xc` for three stack arguments, so the rowed global
+// name ?Rva00239D02Insert@@YGPAPAXPAPAXPAX0@Z does not distinguish them: a
+// __thiscall member taking three arguments pops the same 12 bytes and leaves
+// ecx untouched, which is exactly retail's shape. Calling it as a member of
+// this class is what puts `this` (already live in edi) into ecx without
+// spending a fourth push.
 struct Rva0042B038Node
 {
 	void *m_next;
@@ -35,6 +43,8 @@ class Rva0042B038
 {
 public:
 	void rva0042B038(void *pos, void *start, void *end, void *extra);
+
+	void *rva00239d02Insert(void **out, void *pos, void **allocArg);
 };
 
  // ?rva0042B038@Rva0042B038@@QAEXPAX000@Z present-unmatched
@@ -43,7 +53,7 @@ void Rva0042B038::rva0042B038(void *pos, void *start, void *end, void *extra)
 	Rva0042B038Node *cur = (Rva0042B038Node *)start;
 	(void)extra;
 	while (cur != (Rva0042B038Node *)end) {
-		Rva00239D02Insert((void **)&start, pos, (void **)&cur->m_field08);
+		rva00239d02Insert((void **)&start, pos, (void **)&cur->m_field08);
 		cur = (Rva0042B038Node *)cur->m_next;
 	}
 }
