@@ -63305,3 +63305,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva003193D1@Rva003193D1@@QAEXXZ,,0x003193D1,27,Code/GameEngine/Source/Common/Rva003193D1.cpp,matched,thiscall sync via 0x00318F64 then forward 0 via 0x003FDE8C
 ?rva00355155@Rva00355B61@@QBEPBVArmorTemplate@@W4NameKeyType@@@Z,,0x00355155,23,Code/GameEngine/Source/GameLogic/Object/Rva00355155Find.cpp,matched,finds ArmorTemplate in map at 0x10 via rowed _M_find 0x2888D4 twin of 0x35516C
 ?rva00355A09@Rva003559B5Host@@QAEXHPAVRva0036E346@@H@Z,,0x00355A09,84,Code/GameEngine/Source/GameLogic/Object/Rva00355A09Create.cpp,matched,creates GarrisonObjectGroupOrder 0x28 via rowed ctor 0x546C26 then Attach pin 0x3558A3 ret 0xC
+?rva002E8D74@Rva002E8D74@@QAEMHH@Z,,0x002E8D74,54,Code/GameEngine/Source/Common/Rva002E8D74.cpp,matched,x87 scaled squared distance via fild dance and G7 imul
