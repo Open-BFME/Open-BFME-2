@@ -56743,3 +56743,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?Rva0058C80FWrite@@YAXPADPAVNetCommandRef@@@Z,,0x0058C80F,213,Code/GameEngine/Source/GameNetwork/Rva0058C80FWrite.cpp,matched,tagged serializer T-R-P-S-F-C-D via sibling layout
 ??0Rva00236285@@QAE@XZ,,0x00236285,47,Code/GameEngine/Source/Common/System/Rva00236285Ctor.cpp,matched,ctor 5 zeros plus Vector_base 211E58 plus g_007ED97C plus 1 via Rva003F1F6A precedent
 ?rva00483C9F@Rva00483C9F@@QAE_NPAVObject@@@Z,,0x00483C9F,80,Code/GameEngine/Source/GameLogic/Object/Behavior/Rva00483C9FBoolCheck.cpp,matched,gap before pool-key same flags pin rva0028CE7B plus rowed airborne plus slot8 cmp3
+?rva00232AE8@Keyboard@@AAEXXZ,,0x00232AE8,147,Code/GameEngine/Source/GameClient/Input/KeyboardRva00232AE8.cpp,matched,clears key vector then re-adds flagged slots via erase push_back and slot3C

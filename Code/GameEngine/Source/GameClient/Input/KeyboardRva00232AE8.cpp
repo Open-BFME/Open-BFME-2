@@ -1,5 +1,3 @@
-// ?rva00232AE8@Keyboard@@AAEXXZ
-// partial score=0.97 date=2026-10-04
 // cl: /O1 /DNDEBUG /MD /EHsc
 // stlport
 // ?rva00232AE8@Keyboard@@AAEXXZ @0x00232AE8 147B. Clears key vector then re-adds flagged slots.
@@ -47,7 +45,7 @@ void Keyboard::rva00232AE8()
 		e.m4 = m_inputFrame;
 		m_keys.push_back(e);
 	}
-	if (m_keys.begin() != m_keys.end()) {
+	if (!m_keys.empty()) {
 		rva00232A42();
 		slot3C();
 	}
