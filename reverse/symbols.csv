@@ -12213,3 +12213,7 @@ _rva00286E33@8,0x00286E33,stdcall out-param 5B writer called from 0x287B2A with 
 ?allocate@?$allocator@URva005334A4Element@@@_STL@@QBEPAURva005334A4Element@@IPBX@Z,0x00068E15,ICF fold; for allocate_and_copy 0x00532303
 ??$__uninitialized_copy@PAURva005334A4Element@@PAU1@@_STL@@YAPAURva005334A4Element@@PAU1@00ABU__false_type@0@@Z,0x005322B8,REL32 at allocate_and_copy 0x00532303+30
 _ceil,0x00629934,CRT ceil thunk identified by native PE import slot 0x00BBA578 and target Math.ceil call at 0x006E88A6
+??1Rva00254024@@QAE@XZ,0x00254024,destructor called by the thunk-reached scalar deleting dtor 0x00254008 (REL32 at +4 of its 28B delete-flag wrapper; body is a 5B tail jmp to 0x00498798); identity unproven; address-derived name
+??1Rva002F213F@@QAE@XZ,0x002F213F,destructor called by the thunk-reached scalar deleting dtor 0x002F312E (REL32 at +4 of its 28B delete-flag wrapper); identity unproven; address-derived name
+??1Rva005E7ED7View@@QAE@XZ,0x005E7ED7,non-virtual view of rowed ??1Rva005E7ED7@@UAE@XZ called by the thunk-reached scalar deleting dtor 0x005E7EBB (REL32 at +4 of its 28B delete-flag wrapper); identity unproven; address-derived name
+??1Rva005F0584@@QAE@XZ,0x005F0584,destructor called by the thunk-reached scalar deleting dtor 0x005F06D3 (REL32 at +4 of its 28B delete-flag wrapper); identity unproven; address-derived name
