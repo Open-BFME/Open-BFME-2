@@ -215,7 +215,7 @@ public:
 	char m_pad00[0x64];
 	int m_64;
 };
-extern AudioManager *theBfmeDfdc14;
+AudioManager *theBfmeDfdc14;
 
 // ?rva001DC164@Rva001DBDA4@@QAEXXZ @0x001DC164 59B: Zero Hour's
 // TransitionGroup::init shape (frame 0 at +0x08, direction 1 at +0x04, init
