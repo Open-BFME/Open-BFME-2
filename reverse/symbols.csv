@@ -13506,3 +13506,4 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 
 ?erase@Rva00082XXHintVec@@QAEPAUTreeHintRef00217D4C@@PAU2@0@Z,0x000819EC,address-view alias for rowed vector TreeHintRef00217D4C range erase at same address
 ?erase@Rva0005E322TreeView@@QAEIABVAsciiString@@@Z,0x0005B5EA,address-view alias for rowed Rb-tree AsciiString single erase at same address
+?rva0007BF5A_4@@YAPAURegion2D@@PAU1@000@Z,0x0007BF5A,4-push call-site view of rowed 0x0007BF5A (retail pushes 4 and keeps leftover eax); definition ignores 4th
