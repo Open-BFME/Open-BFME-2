@@ -31,6 +31,7 @@ public:
   virtual void v5();
   virtual void *v6(int);
   void rva0053FA0A();
+  void rva0053FA32();
 private:
   Rva0053F9ECList m_list04;
   int m_ref14;
@@ -43,4 +44,12 @@ void Rva0053FA0A::rva0053FA0A()
     p = this->v6(0);
   }
   ::operator delete(p);
+}
+void Rva0053FA0A::rva0053FA32()
+{
+  --m_ref14;
+  if (m_ref14 > 0) {
+    return;
+  }
+  rva0053FA0A();
 }
