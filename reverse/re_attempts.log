@@ -8822,3 +8822,4 @@ $L62091	0x007AB0D0	25	blocked	Native FuncInfo VA D6490C state0 prior-1 owns acti
 ?Rva003BAE04@@YAXXZ	0x003BAE04	198	partial	loop sum kept in regs vs mem plus xor placement 210B vs 198B t=20 model=muse-09 score=0.85 stash=reverse/attempts/0x003bae04.cpp
 ?rva0039CF73@Rva0039CF73@@QAEXPAVObject@@@Z	0x0039CF73	392	blocked	register wall this-esi-vs-ebx old-reg-vs-stack 359-vs-392 lea-vs-add 1-local-vs-2 t=20 model=muse-spark
 ?rva0037E473@Rva0037E473@@QAEXXZ	0x0037E473	470	blocked	owner unknown honest-address xfer 470B EH; callers unclaimed no signatures; no donor hits; no ctor for member offsets; version-gated Xfer virtuals plus Image lookup t=12 model=muse-19
+?rva004BFB1C@Rva004BFB1C@@QAEXMPAUCoord3D@@@Z	0x004BFB1C	440	blocked	complex SSE float plus STL sort plus x87 distribute t=25 model=muse-05
