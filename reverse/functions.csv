@@ -62928,3 +62928,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ??$copy@PAUFXBoneInfo@@PAU1@@_STL@@YAPAUFXBoneInfo@@PAU1@00@Z,,0x001D9BD3,27,Code/Libraries/Source/WWVegas/WWLib/StlportCopyWrapperPairsFamily.cpp,matched,STLport copy wrapper over pinned __copy_ptrs 0x255CFA
 ?rva002B778A@Rva002B778A@@QAEXABVAsciiString@@@Z,,0x002B778A,24,Code/GameEngine/Source/Common/Rva002B778AMethod.cpp,matched,find-by-name then erase via rowed 0x002B68AA and 0x002B4CED; exact 24B
 ??1Rva004FF2C0@@UAE@XZ,,0x004FF2C0,18,Code/GameEngine/Source/Common/Rva004FF2C0.cpp,matched,dtor via own vtable plus Snapshot at 0x2c plus base per packet
+?rva002E2F39@Rva002E2F39@@QAEXABURva002E2D10Record@@@Z,,0x002E2F39,11,Code/GameEngine/Source/Common/Rva002E2F39.cpp,matched,rowed vector pushback tail plus caller
