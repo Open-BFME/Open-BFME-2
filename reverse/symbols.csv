@@ -7200,6 +7200,7 @@ _BfmeAux006FC670,0x006FC670,"callee of the 26B NULL-arg forwarder at 0x006FD040 
 ?peerGetPlayerInfoNoWait@@YAHPAXPBDPAIPAH@Z,0x00699090,GameSpy peerGetPlayerInfoNoWait called by getPlayerInfo at 0x38C4B4
 ?peerGetPlayerFlags@@YAHPAXPBDW4RoomType@@PAH@Z,0x006991B0,GameSpy peerGetPlayerFlags called by getPlayerInfo at 0x38C5A4
 ?lookupStatForPlayer@PeerThreadClass@@QAEHW4RoomType@@PBD1@Z,0x0038A63C,PeerThreadClass::lookupStatForPlayer called by getPlayerInfo at 0x38C4C5
+?pushStatsToRoom@PeerThreadClass@@QAEXPAX@Z,0x0038AF29,"joinRoomCallback native REL32 at 0x0038E4E3 targets 0x0038AF29 where the source calls t->pushStatsToRoom(peer); PeerThread.cpp carries the same name as present-unmatched (donor 6-key body, retail sends 7 keys); the call site is the target evidence binding this name to this body"
 ?freeBlock@Rva00033E90@@QAEXPAX@Z,0x00033150,address-derived member tail target reached from 0x00033E90
 ?rva0013331A@Rva0013331A@@QAEXXZ,0x0013331A,address-derived member tail target reached from 0x001333C6
 ?rva006DCB20@Rva006E05B0@@QAEXXZ,0x006DCB20,address-derived member tail target reached from 0x006E05B0
