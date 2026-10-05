@@ -34,6 +34,22 @@
 // ?rva0035F63B@CountUpTransition@@UAEXXZ @ 0x0035F63B (15B): slot 6 of the
 // CountUp (0x0081667C) and TextOnFrame (0x0081669C) tables; unless finished,
 // run update(m_endFrame). The slot's Zero Hour name is not established.
+//
+// ?draw@MainMenuMediumScaleUpTransition@@UAEXXZ @ 0x0035DDBD (152B): vtable
+// 0x00816574 slot 4 beside the rowed init 0x0035DF18; Zero Hour's body.
+//
+// ?init@ControlBarArrowTransition@@UAEXPAVGameWindow@@@Z @ 0x0035D83E (230B):
+// vtable 0x00816530 slot 1 beside the rowed update/draw; Zero Hour's body.
+// The retail rate literals 1/16 and 1/6 fix BEGIN_FADE 16 and END 22.
+//
+// ?update@Rva0035D0D1@@UAEXH@Z @ 0x0035D14A (115B): slot 2 of the same
+// table as the focus-volume draw; the volume (+0x20) runs 1 -> 0 forward
+// (computed in double) and snaps at either end.
+//
+// ?update@Rva0035D352@@UAEXH@Z @ 0x0035D3C7 (119B): vtable 0x00816478 slot
+// 2. Outside the end frames the audio is held through TheAudio slot +0x104
+// (+0x19 records it); at the end frame it is released through slot +0x108
+// with !(+0x18). The audio slot names are not established.
 
 typedef int Int;
 typedef bool Bool;
@@ -61,13 +77,69 @@ struct ICoord2D
 	Int y;
 };
 
-class Image;
+class Image
+{
+public:
+	Int getImageWidth() const { return m_imageSize.x; }
+	Int getImageHeight() const { return m_imageSize.y; }
+
+	unsigned char m_unreconstructed_00[0x24];
+	ICoord2D m_imageSize;	// +0x24
+};
 
 class GameWindow
 {
 public:
 	Int winHide(Bool hide);
+	Int winGetSize(Int *width, Int *height);
+	Int winGetScreenPosition(Int *x, Int *y);
 };
+
+enum NameKeyType
+{
+	NAMEKEY_INVALID = 0,
+	NAMEKEY_MAX = 1 << 23,
+	FORCE_NAMEKEYTYPE_LONG = 0x7fffffff
+};
+
+class NameKeyGenerator
+{
+public:
+	NameKeyType nameToKey(const char *name);
+};
+extern NameKeyGenerator *TheNameKeyGenerator;
+
+class GameWindowManager
+{
+public:
+	virtual void pad00(); virtual void pad01(); virtual void pad02(); virtual void pad03();
+	virtual void pad04(); virtual void pad05(); virtual void pad06(); virtual void pad07();
+	virtual void pad08(); virtual void pad09(); virtual void pad10(); virtual void pad11();
+	virtual void pad12(); virtual void pad13(); virtual void pad14(); virtual void pad15();
+	virtual void pad16(); virtual void pad17(); virtual void pad18(); virtual void pad19();
+	virtual void pad20(); virtual void pad21(); virtual void pad22(); virtual void pad23();
+	virtual void pad24(); virtual void pad25(); virtual void pad26(); virtual void pad27();
+	virtual void pad28(); virtual void pad29(); virtual void pad30(); virtual void pad31();
+	virtual void pad32(); virtual void pad33(); virtual void pad34(); virtual void pad35();
+	virtual void pad36(); virtual void pad37(); virtual void pad38(); virtual void pad39();
+	virtual void pad40(); virtual void pad41(); virtual void pad42(); virtual void pad43();
+	virtual void pad44(); virtual void pad45(); virtual void pad46(); virtual void pad47();
+	virtual void pad48(); virtual void pad49(); virtual void pad50(); virtual void pad51();
+	virtual void pad52(); virtual void pad53(); virtual void pad54(); virtual void pad55();
+	virtual void pad56(); virtual void pad57(); virtual void pad58(); virtual void pad59();
+	virtual GameWindow *winGetWindowFromId(GameWindow *window, Int id);	// +0xF0
+};
+extern GameWindowManager *TheWindowManager;
+
+class ControlBar
+{
+public:
+	const Image *getArrowImage() { return m_arrowImage; }
+
+	unsigned char m_unreconstructed_000[0x26c];
+	const Image *m_arrowImage;	// +0x26C
+};
+extern ControlBar *TheControlBar;
 
 // The window's instance data carries the enabled draw image at +0x48;
 // retail reads it inline (winGetEnabledImage(0)).
@@ -135,6 +207,9 @@ public:
 	virtual void s52(); virtual void s53(); virtual void s54(); virtual void s55();
 	virtual void s56(); virtual void s57(); virtual void s58(); virtual void s59();
 	virtual void setVolume(Real volume, Int whichToAffect);	// +0xF0
+	virtual void s61(); virtual void s62(); virtual void s63(); virtual void s64();
+	virtual void vslot104();		// +0x104
+	virtual void vslot108(Bool flag);	// +0x108
 };
 extern AudioManager *TheAudio;
 
@@ -457,13 +532,35 @@ void Rva0035D53C::update(Int frame)
 class Rva0035D0D1 : public Transition
 {
 public:
+	virtual void update(Int frame);
 	virtual void draw();
 
 	Int m_startFrame;	// +0x10
 	Int m_endFrame;		// +0x14
 	Int m_viewsToFade;	// +0x18
 	Bool m_leaveSilent;	// +0x1C
+	Real m_volume;		// +0x20
 };
+
+void Rva0035D0D1::update(Int frame)
+{
+	if (frame < m_startFrame || frame > m_endFrame)
+		return;
+	if (m_isForward && (frame == m_endFrame || m_startFrame == m_endFrame))
+	{
+		m_volume = 0.0f;
+		m_isFinished = TRUE;
+	}
+	else if (!m_isForward && (frame == m_startFrame || m_startFrame == m_endFrame))
+	{
+		m_isFinished = TRUE;
+		m_volume = 1.0f;
+	}
+	else
+	{
+		m_volume = 1.0 - (double)(frame - m_startFrame) / (m_endFrame - m_startFrame);
+	}
+}
 
 void Rva0035D0D1::draw()
 {
@@ -497,4 +594,127 @@ void CountUpTransition::rva0035F63B()
 {
 	if (!m_isFinished)
 		update(m_endFrame);
+}
+
+//-----------------------------------------------------------------------------
+
+class MainMenuMediumScaleUpTransition : public Transition
+{
+public:
+	virtual void draw();
+
+	Int m_startFrame;		// +0x10
+	Int m_endFrame;			// +0x14
+	ICoord2D m_pos;			// +0x18
+	ICoord2D m_size;		// +0x20
+	Int m_drawState;		// +0x28
+	ICoord2D m_growPos;		// +0x2c
+	ICoord2D m_growSize;		// +0x34
+	ICoord2D m_incrementSize;	// +0x3c
+	GameWindow *m_growWin;		// +0x44
+};
+
+void MainMenuMediumScaleUpTransition::draw()
+{
+	if (!m_win)
+		return;
+	const Image *image = ((const TransitionWindowImages *)m_win)->m_enabledImage[0];
+	if (m_drawState <= m_startFrame || m_drawState >= m_endFrame)
+		return;
+	Int x = m_pos.x - ((m_incrementSize.x * m_drawState) / 2);
+	Int y = m_pos.y - ((m_incrementSize.y * m_drawState) / 2);
+	Int x1 = m_pos.x + m_size.x + ((m_incrementSize.x * m_drawState) / 2);
+	Int y1 = m_pos.y + m_size.y + ((m_incrementSize.y * m_drawState) / 2);
+	drawImage(image, x, y, x1, y1);
+}
+
+//-----------------------------------------------------------------------------
+
+enum
+{
+	CONTROLBARARROWTRANSITION_START = 0,
+	CONTROLBARARROWTRANSITION_BEGIN_FADE = 16,
+	CONTROLBARARROWTRANSITION_END = 22
+};
+
+class ControlBarArrowTransition : public Transition
+{
+public:
+	virtual void init(GameWindow *win);
+
+	ICoord2D m_pos;			// +0x10
+	ICoord2D m_incrementPos;	// +0x18
+	ICoord2D m_size;		// +0x20
+	Real m_percent;			// +0x28
+	Real m_fadePercent;		// +0x2C
+	Int m_drawState;		// +0x30
+	const Image *m_arrowImage;	// +0x34
+};
+
+void ControlBarArrowTransition::init(GameWindow *win)
+{
+	m_isForward = FALSE;
+	update(CONTROLBARARROWTRANSITION_START);
+	m_isFinished = FALSE;
+	m_isForward = TRUE;
+
+	m_percent = 1.0f / CONTROLBARARROWTRANSITION_BEGIN_FADE;
+	m_fadePercent = 1.0f / (CONTROLBARARROWTRANSITION_END - CONTROLBARARROWTRANSITION_BEGIN_FADE);
+
+	m_arrowImage = TheControlBar->getArrowImage();
+	GameWindow *twin = TheWindowManager->winGetWindowFromId(NULL, TheNameKeyGenerator->nameToKey("ControlBar.wnd:ButtonGeneral"));
+	if (!twin || !m_arrowImage)
+	{
+		m_isFinished = TRUE;
+		return;
+	}
+	ICoord2D screenPos, screenSize;
+	twin->winGetScreenPosition(&screenPos.x, &screenPos.y);
+	twin->winGetSize(&screenSize.x, &screenSize.y);
+
+	m_incrementPos.x = 0;
+	m_incrementPos.y = screenPos.y * m_percent;
+
+	m_pos.y = 0 - m_arrowImage->getImageHeight() + 20;
+	m_pos.x = (screenPos.x + screenSize.x / 2) - m_arrowImage->getImageWidth() / 2;
+
+	m_size.x = m_arrowImage->getImageWidth();
+	m_size.y = m_arrowImage->getImageHeight();
+}
+
+//-----------------------------------------------------------------------------
+
+class Rva0035D352 : public Transition
+{
+public:
+	virtual void update(Int frame);
+
+	Int m_startFrame;	// +0x10
+	Int m_endFrame;		// +0x14
+	Bool m_keepFrozen;	// +0x18
+	Bool m_frozen;		// +0x19
+};
+
+void Rva0035D352::update(Int frame)
+{
+	if (frame < m_startFrame || frame > m_endFrame)
+		return;
+	if ((m_isForward && (frame == m_endFrame || m_startFrame == m_endFrame)) ||
+	    (!m_isForward && (frame == m_startFrame || m_startFrame == m_endFrame)))
+	{
+		if (m_frozen)
+		{
+			if (m_keepFrozen)
+				TheAudio->vslot108(FALSE);
+			else
+				TheAudio->vslot108(TRUE);
+			m_frozen = FALSE;
+		}
+		m_isFinished = TRUE;
+	}
+	else if (!m_frozen)
+	{
+		TheAudio->vslot104();
+		m_frozen = TRUE;
+	}
 }
