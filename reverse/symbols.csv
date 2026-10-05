@@ -12907,3 +12907,7 @@ _Rva00337999Forward,0x00337999,REL32 callee decoded from target call bytes of wr
 ??0Rva005C4B56@@QAE@ABUHelper005C4D4B@@HH@Z,0x005C4DE0,Rva005C4B56 constructor from Helper005C4D4B
 ?method_002BFFD4@Rva002D3627Host@@QAEXPAXH0@Z,0x002BFFD4,Rva002D3627Host method called by Rva005C4230 ctor
 ??$_Destroy@PAURva005C847BRecord@@@_STL@@YAXPAURva005C847BRecord@@0@Z,0x005C847B,Destroy range helper for Rva005C847BRecord
+?method_005C901B@Rva005C847BRecord@@QAEXXZ,0x005C901B,Rva005C847BRecord method called by HostClass005C815B::method_005C815B
+?method_005C8F50@Rva005C847BRecord@@QAEXHH@Z,0x005C8F50,Rva005C847BRecord method called by HostClass005C815B::method_005C834A
+?method_005C9311@Rva005C847BRecord@@QAEXHHM@Z,0x005C9311,Rva005C847BRecord method called by HostClass005C815B::method_005C836F
+?method_005C90F1@Rva005C847BRecord@@QAEXHH@Z,0x005C90F1,Rva005C847BRecord method called by HostClass005C815B::method_005C839B
