@@ -14,6 +14,8 @@ class BfmeAptValue006DCD20
 {
 public:
     float rva006DD460();
+    int isInteger() const;
+    int toInteger() const;
 };
 
 class AptBasePtrStack
@@ -161,4 +163,17 @@ AptValue *aptMathAtan2(void *self, int argc)
     float x = second->rva006DD460();
     float y = top->rva006DD460();
     return Rva008A4EA0MakeFloat((float)atan2(y, x));
+}
+
+class AptInteger { public: static AptValue *Create(int value); };
+// Native 6E8760..6E87B3: integer abs preserves integer type; otherwise fabs.
+// The BFME1 abs donor only has the integer path. The target's isInteger()
+// predicate and separate float factory independently establish this extension.
+AptValue *aptMathAbs(void *self, int argc)
+{
+    if (argc < 1) return reinterpret_cast<AptValue *>(g_aptUndefinedAtE18078);
+    BfmeAptValue006DCD20 *value = g_aptDateInterpreter.stack.At(0);
+    if (static_cast<unsigned char>(value->isInteger()))
+        return AptInteger::Create(abs(value->toInteger()));
+    return Rva008A4EA0MakeFloat((float)fabs(value->rva006DD460()));
 }
