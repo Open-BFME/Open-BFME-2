@@ -12807,3 +12807,5 @@ _Rva00337999Forward,0x00337999,REL32 callee decoded from target call bytes of wr
 ??0Rva005F6806Base@@QAE@PAX0H0@Z,0x005F3E93,base ctor at +0 for 0x005F6806 taking (a1,a2,1,a3): ghidra 80B EH ctor with ret 0x10; installs vtable 0x00C7936C and heap-inits +4 via 0x005F39D6
 ??0Rva005F6806Heap@@QAE@PAX00@Z,0x005F654C,0x38-byte heap class ctor for 0x005F6806 member +8 taking (owner,a1,a2): ghidra 698B EH ctor with ret 0xC; called on operator-new result
 ??0Rva005F830AHeap@@QAE@PAX0000@Z,0x005F7F21,0x68-byte heap class init for 0x005F830A member +4 taking (owner,a1,a2,a3,a4): ghidra 1001B; called on operator-new result like 0x005F39D6
+?rva00577944@Rva005F83B9@@QAEXXZ,0x00577944,thiscall helper refreshing the +4 slot pair for notifier 0x005F83B9: tail-jumps to 0x005C674A after two calls through [esi+4]; called with this and no stack args
+??0Rva005F86FEHeap@@QAE@PAX0@Z,0x005F8671,0x2C-byte heap class init for 0x005F86FE member +4 taking (a1,a2): ghidra 82B; installs vtable 0x00C79CBC with float words from 0x00BC6EA0; called on operator-new result
