@@ -99,3 +99,35 @@ void Rva003FD1C5::rva003FD1C5(Xfer *xfer)
 	*xfer == m_04;
 	*xfer == m_08;
 }
+
+// ?rva003FD1C5@Rva003FD219@@MAEXPAVXfer@@@Z @0x003FD219 30B and
+// ?rva003FD1C5@Rva003FD37A@@MAEXPAVXfer@@@Z @0x003FD37A 30B: derived
+// overrides of the slot above that chain to it and then persist the word at
+// +0x0C, an AsciiString (Xfer slot 0x6C) resp. an unsigned int (slot 0x78).
+class Rva003FD219 : public Rva003FD1C5
+{
+protected:
+	virtual void rva003FD1C5(Xfer *xfer);
+private:
+	void *m_0c; // AsciiString
+};
+
+void Rva003FD219::rva003FD1C5(Xfer *xfer)
+{
+	Rva003FD1C5::rva003FD1C5(xfer);
+	*xfer == *reinterpret_cast<AsciiString *>(&m_0c);
+}
+
+class Rva003FD37A : public Rva003FD1C5
+{
+protected:
+	virtual void rva003FD1C5(Xfer *xfer);
+private:
+	unsigned int m_0c;
+};
+
+void Rva003FD37A::rva003FD1C5(Xfer *xfer)
+{
+	Rva003FD1C5::rva003FD1C5(xfer);
+	*xfer == m_0c;
+}

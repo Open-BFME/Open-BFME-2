@@ -50,3 +50,23 @@ unsigned Rva00131B1FSurface::Get_Memory_Size() const
 		mem = mem * 4 / 3;
 	return mem + 0x58;
 }
+
+// ?rva00131CDB@Rva00131CDB@@QBEIXZ -- retail 0x00131CDB, 15 bytes.
+// Texture vtable slot (Rva00131BE5 family tables): the surface at +0x14's
+// memory size, 0 without a surface.
+class Rva00131CDB
+{
+public:
+	unsigned rva00131CDB() const;
+
+private:
+	int m_pad00[5]; // +0x00..0x13
+	Rva00131B1FSurface *m_surface14; // +0x14
+};
+
+unsigned Rva00131CDB::rva00131CDB() const
+{
+	if (!m_surface14)
+		return 0;
+	return m_surface14->Get_Memory_Size();
+}

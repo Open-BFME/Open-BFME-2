@@ -16,6 +16,7 @@ __declspec(dllimport) void __stdcall EnterCriticalSection(CRITICAL_SECTION *sect
 __declspec(dllimport) void __stdcall LeaveCriticalSection(CRITICAL_SECTION *section) throw();
 __declspec(dllimport) void __stdcall InitializeCriticalSection(CRITICAL_SECTION *section) throw();
 __declspec(dllimport) void __stdcall DeleteCriticalSection(CRITICAL_SECTION *section) throw();
+__declspec(dllimport) int __stdcall ReleaseMutex(void *handle) throw();
 }
 // ??1Rva0040EDB@@UAE@XZ @0x00040EDB 29B
 Rva0040EDB::~Rva0040EDB()
@@ -68,4 +69,18 @@ Rva00041004::Rva00041004(int x) : m_flag(0)
     InitializeCriticalSection(&m_cs);
     if (x == 0)
         lock(-1);
+}
+// ?unlock@Rva000411BC@@UAE_NXZ @0x00040F4C 24B
+// Table BC16C4 {40EF8;40F4C;411A0}: the base wait method, this mutex release
+// and the rowed ??_GRva000411BC scalar destructor.
+class Rva000411BC : public Rva0040EDB
+{
+public:
+    virtual bool unlock();
+};
+bool Rva000411BC::unlock()
+{
+    if (m_handle04)
+        return ReleaseMutex(m_handle04) != 0;
+    return false;
 }

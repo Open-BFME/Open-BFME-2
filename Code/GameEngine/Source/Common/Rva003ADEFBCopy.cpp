@@ -43,8 +43,16 @@ class Rva003ADEFB : public Rva003ADF21
 {
 public:
 	Rva003ADEFB(const Rva003ADEFB &other);
+	Rva003ADEFB *rva003ADEDE() const;
 };
 Rva003ADEFB::Rva003ADEFB(const Rva003ADEFB &other)
 	: Rva003ADF21(other)
 {
+}
+
+// ?rva003ADEDE@Rva003ADEFB@@QBEPAV1@XZ @0x003ADEDE 29B: vtable slot before
+// ?rva0055F805 (xfer); allocates 0x38 bytes and copy-constructs this object.
+Rva003ADEFB *Rva003ADEFB::rva003ADEDE() const
+{
+	return new Rva003ADEFB(*this);
 }
