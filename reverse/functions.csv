@@ -56574,3 +56574,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva0023C902@Rva0023C902@@QAEHXZ,,0x0023C902,34,Code/GameEngine/Source/Common/Rva0023C902Check.cpp,matched,thiscall int check plus0xa8 plus Display slot114
 ?Rva0058CCF2Write@@YAXPADPAVNetCommandRef@@@Z,,0x0058CCF2,120,Code/GameEngine/Source/GameNetwork/Rva0058CCF2Write.cpp,matched,tagged NetCommand T R S P C D via ji memcpy
 ?rva006006D9@Rva0060061A@@QAEXPAX@Z,,0x006006D9,158,Code/GameEngine/Source/Common/Rva006006D9.cpp,matched,same globals as dtor TU same Archive layout as FileSystemDoesFileExist rowed ctors string literal caller 0x0022E3B7
+?rva00255D58@Rva00255D58@@QAE_NPBDPA_N1@Z,,0x00255D58,308,Code/GameEngine/Source/Common/System/KindOfParseToken00255D58.cpp,matched,KindOf token worker via VeterancyLevel sibling same shape

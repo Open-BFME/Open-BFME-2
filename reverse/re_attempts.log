@@ -9069,3 +9069,4 @@ _VP6_ConfigureMvEntropyDecoder	0x001C6EF0	331	partial	third-loop pre-increment p
 ?rva0006B3F3@Rva00067878@@QAEXXZ	0x0006B3F3	217	blocked	214B vs 217B 66insns extra push ecx plus missing or -1 after IB new plus push-lea order for assign plus lea ebp-14 vs ebp-10 t=25 model=muse-02 (stash 0.91 kept)
 ?Rva0050C9EFDo@@YGXPAXH@Z	0x0050C9EF	435	blocked	435B file IO plus STL plus StringBase plus arg-slot reuse needs shared models plus time t=10 model=muse-02
 ?rva0007A7DD@W3DHordeModelDraw@@QAEXXZ	0x0007A7DD	95	blocked	95B vslot6 static guard plus atexit plus unclaimed push plus 3 pins needs header count plus shared models t=8 model=muse-02
+??0Rva00563CAF@@QAE@PAXPAUDrawInfo@@@Z	0x00563CAF	115	partial	ebx for edx plus extra push pop t=15 model=muse-03 score=0.95 stash=reverse/attempts/0x00563caf.cpp
