@@ -26,6 +26,13 @@ class Rva006DB270
 public:
     void freeBlock(void *pBlock, int size);
 };
+
+extern void *g_00E180F8;
+extern Rva006DB270 *g_pChainBlockAllocator;
+
+AptMath::ClipTransform_t *AptMath::m_pStackBase;
+unsigned short AptMath::m_nStackCapacity;
+unsigned short AptMath::m_nStackCount;
 // The unusual pop assertion is present in retail: preserve it literally.
 AptMath::ClipTransform_t *AptMath::ClipStackPop()
 {
@@ -57,9 +64,9 @@ void AptMath::ClipStackShutdown()
         return;
     }
     unsigned short capacity = m_nStackCapacity;
-    void *ptr = *(void * *)0x00E180F8;
+    void *ptr = g_00E180F8;
     int size = capacity * 96 + 16;
-    Rva006DB270 *pool = *(Rva006DB270 * *)0x00E176E8;
+    Rva006DB270 *pool = g_pChainBlockAllocator;
     pool->freeBlock(ptr, size);
     m_pStackBase = 0;
 }
