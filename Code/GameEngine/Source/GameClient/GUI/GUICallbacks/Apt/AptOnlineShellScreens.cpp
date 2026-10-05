@@ -298,7 +298,6 @@ AptOnlineSubScreen *__cdecl Rva00516E10(AptOnline *shell)
 }
 
 // Retail 0x00516E4E, 68 bytes: the shell table's factory for a new "OnlineQuickMatch" sub-screen unless one is up (0x00E06550).
-// ?Rva00516E4E@@YAPAUAptOnlineSubScreen@@PAVAptOnline@@@Z present-unmatched
 AptOnlineSubScreen *__cdecl Rva00516E4E(AptOnline *shell)
 {
 	if (g_Va00E06550)
