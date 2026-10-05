@@ -25,11 +25,17 @@ public:
 	virtual void f1();
 };
 
+// ?f1@MiBase1@@UAEXXZ present-unmatched
+void MiBase1::f1() {}
+
 class Rva004DF52E_B2
 {
 public:
 	virtual void f2();
 };
+
+// ?f2@Rva004DF52E_B2@@UAEXXZ present-unmatched
+void Rva004DF52E_B2::f2() {}
 
 class Rva004DF52E : public Rva004DF7C2, public MiBase1, public Rva004DF52E_B2
 {
@@ -47,6 +53,9 @@ public:
 	virtual void f2();
 };
 
+// ?f2@Rva004DF836_B2@@UAEXXZ present-unmatched
+void Rva004DF836_B2::f2() {}
+
 class Rva004DF836 : public Rva004DF7C2, public MiBase1, public Rva004DF836_B2
 {
 public:
@@ -63,6 +72,9 @@ public:
 	virtual void f2();
 };
 
+// ?f2@Rva004DF863_B2@@UAEXXZ present-unmatched
+void Rva004DF863_B2::f2() {}
+
 class Rva004DF863 : public Rva004DF7C2, public MiBase1, public Rva004DF863_B2
 {
 public:
@@ -78,6 +90,9 @@ class Rva004DF8A9_B2
 public:
 	virtual void f2();
 };
+
+// ?f2@Rva004DF8A9_B2@@UAEXXZ present-unmatched
+void Rva004DF8A9_B2::f2() {}
 
 class Rva004DF8A9 : public Rva004DF7C2, public MiBase1, public Rva004DF8A9_B2
 {
