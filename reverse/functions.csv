@@ -60605,3 +60605,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva00291080@Object@@QAEX_N@Z,,0x00291080,55,Code/GameEngine/Source/GameLogic/Object/ObjectRva00291080.cpp,matched,
 ?ObjectSetChanting@@YAHPAUlua_State@@@Z,,0x003357E0,113,Code/GameEngine/Source/GameLogic/ScriptEngine/LuaObjectSetChantingRva003357E0.cpp,matched,
 ?Create@AptBoolean@@SAPAVAptValue@@_N@Z,,0x006D88C0,263,Code/Libraries/Source/Apt/AptValue/AptBooleanCreateBFME2.cpp,matched,
+?Rva0044E6CD_ParseCustomAnimAndDuration@INI@@SAXPAV1@PAX1PBX@Z,,0x0044E6CD,218,Code/GameEngine/Source/Common/System/INI_Rva0044E6CDParseCustomAnim.cpp,matched,
