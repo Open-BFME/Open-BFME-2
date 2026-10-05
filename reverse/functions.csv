@@ -55839,3 +55839,4 @@ ___Extract_locale_name,,0x000216A0,153,Code/Libraries/Source/WWVegas/WWLib/Local
 ?Rva0032BF39Equal@@YA_NHH@Z,,0x0032BF39,21,Code/GameEngine/Source/Common/Rva0032BF39Equal.cpp,matched,chain via 0x0032B610 equality wrapper per Rva000B3EECNotEqual
 ?swap@SidesList@@QAEXPAV1@@Z,,0x0032B690,279,Code/GameEngine/Source/GameLogic/Map/SidesListSwap.cpp,matched,SidesList swap via rowed member swaps and notifier posts
 ?Rva002EBCD6Split@@YAXPAXPAH1@Z,,0x002EBCD6,32,Code/GameEngine/Source/Common/Rva002EBCD6Split.cpp,matched,unlock 9 callers sibling Split rowed Get div2 store
+?rva0055E969@OrthoEmissionVelocityModuleTemplate@FXParticleSystem@@QAEXPAVFile@@I@Z,,0x0055E969,275,Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva0055E969Write.cpp,matched,vslot3 Ortho template writeINI via header three fields
