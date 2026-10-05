@@ -15,3 +15,4 @@ template <> __declspec(nothrow) void _Construct<Rva0040C0C7Element, Rva0040C0C7E
 }
 
 template Rva0040C0C7Element *_STL::__uninitialized_copy<Rva0040C0C7Element *, Rva0040C0C7Element *>(Rva0040C0C7Element *, Rva0040C0C7Element *, Rva0040C0C7Element *, const _STL::__false_type &);
+template Rva0040C0C7Element *_STL::__uninitialized_fill_n<Rva0040C0C7Element *, unsigned int, Rva0040C0C7Element>(Rva0040C0C7Element *, unsigned int, const Rva0040C0C7Element &, const _STL::__false_type &);
