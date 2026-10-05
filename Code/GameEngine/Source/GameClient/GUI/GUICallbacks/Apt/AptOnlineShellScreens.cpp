@@ -74,6 +74,73 @@ struct AptOnlineScreenEntry
 
 extern AptOnlineScreenEntry g_Va00DD1568[];
 
+
+// The sub-screens the shell's table makes, each by its unrowed constructor
+// taking the shell (pinned by address; the classes keep those addresses).
+// The guards are the screens' instances: a factory makes nothing while
+// its screen is up.
+class Rva005B8F69
+{
+public:
+	Rva005B8F69(AptOnline *shell);
+
+private:
+	unsigned char m_pad[0x90];
+};
+
+extern void *g_Va00E06478;
+
+class Rva00572885
+{
+public:
+	Rva00572885(AptOnline *shell);
+
+private:
+	unsigned char m_pad[0xE0];
+};
+
+extern void *g_Va00E062EC;
+
+class Rva005B9BBC
+{
+public:
+	Rva005B9BBC(AptOnline *shell);
+
+private:
+	unsigned char m_pad[0x68];
+};
+
+extern void *g_Va00E06480;
+
+class Rva005BA1FD
+{
+public:
+	Rva005BA1FD(AptOnline *shell);
+
+private:
+	unsigned char m_pad[0x4E0];
+};
+
+class Rva005BA28E
+{
+public:
+	Rva005BA28E(AptOnline *shell);
+
+private:
+	unsigned char m_pad[0x4E0];
+};
+
+class Rva005BAB7E
+{
+public:
+	Rva005BAB7E(AptOnline *shell);
+
+private:
+	unsigned char m_pad[0xA0];
+};
+
+extern void *g_Va00E06550;
+
 class GameSpyInfoInterface
 {
 public:
@@ -193,3 +260,52 @@ void AptOnline::rva00517207(int query, char *value, bool set)
 
 // Retail's strcpy call lands on the import thunk rowed as ji_00629176.
 #pragma comment(linker, "/alternatename:_strcpy=?ji_00629176@@YAXXZ")
+
+// Retail 0x00516D09, 68 bytes: the shell table's factory for a new "Stats" sub-screen unless one is up (0x00E06478).
+AptOnlineSubScreen *__cdecl Rva00516D09(AptOnline *shell)
+{
+	if (g_Va00E06478)
+		return 0;
+	return (AptOnlineSubScreen *)new Rva005B8F69(shell);
+}
+
+// Retail 0x00516D4D, 68 bytes: the shell table's factory for a new "OnlineLogin" sub-screen unless one is up (0x00E062EC).
+// ?Rva00516D4D@@YAPAUAptOnlineSubScreen@@PAVAptOnline@@@Z present-unmatched
+AptOnlineSubScreen *__cdecl Rva00516D4D(AptOnline *shell)
+{
+	if (g_Va00E062EC)
+		return 0;
+	return (AptOnlineSubScreen *)new Rva00572885(shell);
+}
+
+// Retail 0x00516D91, 65 bytes: the shell table's factory for a new "OnlineHome" sub-screen unless one is up (0x00E06480).
+// ?Rva00516D91@@YAPAUAptOnlineSubScreen@@PAVAptOnline@@@Z present-unmatched
+AptOnlineSubScreen *__cdecl Rva00516D91(AptOnline *shell)
+{
+	if (g_Va00E06480)
+		return 0;
+	return (AptOnlineSubScreen *)new Rva005B9BBC(shell);
+}
+
+// Retail 0x00516DD2, 56 bytes: the shell table's factory for a new "OnlineOpenPlay" sub-screen.
+// ?Rva00516DD2@@YAPAUAptOnlineSubScreen@@PAVAptOnline@@@Z present-unmatched
+AptOnlineSubScreen *__cdecl Rva00516DD2(AptOnline *shell)
+{
+	return (AptOnlineSubScreen *)new Rva005BA1FD(shell);
+}
+
+// Retail 0x00516E10, 56 bytes: the shell table's factory for a new "OnlineStrategic" sub-screen.
+// ?Rva00516E10@@YAPAUAptOnlineSubScreen@@PAVAptOnline@@@Z present-unmatched
+AptOnlineSubScreen *__cdecl Rva00516E10(AptOnline *shell)
+{
+	return (AptOnlineSubScreen *)new Rva005BA28E(shell);
+}
+
+// Retail 0x00516E4E, 68 bytes: the shell table's factory for a new "OnlineQuickMatch" sub-screen unless one is up (0x00E06550).
+// ?Rva00516E4E@@YAPAUAptOnlineSubScreen@@PAVAptOnline@@@Z present-unmatched
+AptOnlineSubScreen *__cdecl Rva00516E4E(AptOnline *shell)
+{
+	if (g_Va00E06550)
+		return 0;
+	return (AptOnlineSubScreen *)new Rva005BAB7E(shell);
+}
