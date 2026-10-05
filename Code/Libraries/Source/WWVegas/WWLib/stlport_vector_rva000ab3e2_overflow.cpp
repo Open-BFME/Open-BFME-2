@@ -24,3 +24,24 @@ template void _STL::vector<Rva000AB3E2Element>::_M_insert_overflow(
 	const _STL::__false_type &,
 	unsigned int,
 	bool);
+
+// ?_M_insert_overflow@?$vector@URva0008DE1CElement@@V?$allocator@URva0008DE1CElement@@@_STL@@@_STL@@IAEXPAURva0008DE1CElement@@ABU3@ABU__false_type@2@I_N@Z @0x0008B6C0 189B.
+// The same 189B trivially-destructible growth path for the 24-byte element of
+// push_back 0x0008DE1C (its sole caller, StlportVectorPushBackFamily.cpp).
+// Its _Construct REL32 reads 0x0008A173, the pinned _Construct for this type.
+struct Rva0008DE1CElement
+{
+	int a[6];
+public:
+	Rva0008DE1CElement(const Rva0008DE1CElement &that);
+};
+namespace _STL
+{
+template <> void _Construct<Rva0008DE1CElement, Rva0008DE1CElement>(Rva0008DE1CElement *, const Rva0008DE1CElement &);
+}
+template void _STL::vector<Rva0008DE1CElement>::_M_insert_overflow(
+	Rva0008DE1CElement *,
+	const Rva0008DE1CElement &,
+	const _STL::__false_type &,
+	unsigned int,
+	bool);
