@@ -309,6 +309,7 @@ struct Rva005D3311 : Rva005D32EC
 {
 	int length() const;
 	int write(char *dst);
+	operator AsciiString();
 
 	Rva000B3F84Pair m_text3;
 };
@@ -325,6 +326,14 @@ int Rva005D3311::write(char *dst)
 {
 	int n = Rva005D32EC::write(dst);
 	return n + m_text3.write(dst + n);
+}
+
+// ??BRva005D3311@@QAE?AVAsciiString@@XZ 0x005D3336 98B narrow concat materializer: sized getBufferForRead then Rva005D3311 write; same shape as Rva005F9852 0x005F9D69.
+Rva005D3311::operator AsciiString()
+{
+	AsciiString tmp;
+	write(tmp.getBufferForRead(length()));
+	return tmp;
 }
 
 // ?write@Rva005F9852@@QAEHPAD@Z @0x005F9852 37B narrow concat node: base Rva005D3311 write 0x005D3311 then AsciiStringRef write 0x0002C5B1 at +0x20; caller 0x005F9D98.
