@@ -56219,3 +56219,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva0027264D@Drawable@@QAEHXZ,,0x0027264D,48,Code/GameEngine/Source/GameClient/Drawable_rva0027264D.cpp,matched,same 0x14C slotA8 walk as 0x0027261D second slot 0xA4
 ?rva0027257B@Drawable@@QAEHH@Z,,0x0027257B,54,Code/GameEngine/Source/GameClient/Drawable_rva0027257B.cpp,matched,same 0x14C slotA8 walk as 0x0027261D second slot 0x94 1 arg
 ?Rva003C3F26Apply@@YGXABVAsciiString@@0H@Z,,0x003C3F26,120,Code/GameEngine/Source/Common/Rva003C3F26Apply.cpp,matched,sibling Rva003C3EC5Apply with player lookup via rowed callees
+?rva002725B1@Drawable@@QAEHH@Z,,0x002725B1,54,Code/GameEngine/Source/GameClient/Drawable_rva002725B1.cpp,matched,same 0x14C slotA8 walk as 0x0027257B second slot 0x98 1 arg
