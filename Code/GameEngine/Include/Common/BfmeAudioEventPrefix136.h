@@ -47,6 +47,11 @@ struct OpaqueRefElement4 { OpaqueRefCounted *referent; OpaqueRefElement4 &operat
 class Rva000A8C9B { public: void clear(); };
 struct BfmeEventPositionView {
     float x,y,z;
+    // The native value-returning position worker copies each coordinate;
+    // these constructors preserve that return ABI without changing the layout.
+    BfmeEventPositionView() {}
+    BfmeEventPositionView(const BfmeEventPositionView &p) : x(p.x), y(p.y), z(p.z) {}
+    BfmeEventPositionView(float a, float b, float c) : x(a), y(b), z(c) {}
     // ?BfmeEventPositionView::zero present-unmatched
     __forceinline void zero() { x=0.0f; y=0.0f; z=0.0f; }
 };
