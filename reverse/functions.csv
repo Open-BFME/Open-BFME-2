@@ -57409,3 +57409,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?CheckReOpenPlayerInfo@@YAXXZ,,0x00548F93,25,Code/GameEngine/Source/GameNetwork/GameSpyOverlay.cpp,matched,ZH GameSpyOverlay.cpp body built /O1 places uniquely; reopens the player-info overlay via 0x00548DED
 ?bindObjectAndDrawable@GameLogic@@QAEXPAVObject@@PAVDrawable@@@Z,,0x0023CD4A,29,Code/GameEngine/Source/GameLogic/System/GameLogicBindObjectAndDrawable.cpp,matched,ZH GameLogic.cpp body built /O1 places uniquely; friend binders pinned from its call sites
 ??0Rva00246FD7@@QAE@XZ,,0x00246FD7,31,Code/GameEngine/Source/Common/RTS/Rva00246FD7Finish.cpp,matched,Armor hashtable wrapper ctor 100 buckets via ICF twin dup 0x0024619A proven by caller 31B identical pushes
+?rva0020202B@Rva0020202B@@QAEPAXH@Z,,0x0020202B,45,Code/GameEngine/Source/Common/Rva0020202BFinish.cpp,matched,fixed-slot pool allocator; ++count inline in return
