@@ -13508,3 +13508,4 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 ??0Rva00142960Base@@QAE@XZ,0x00142960,base ctor called from derived ctor 0x0009AA0F (vtable 0x00BC8900 family, 563B EH body); original name unknown
 ?rva0010E87A@@YAXHM@Z,0x0010E87A,463B callee of 0x0009AACF (int plus float on stack, caller-popped); frameless shared-frame body; original name unknown
 ?rva000F4AB7@Rva000F4AB7@@QAEXH@Z,0x000F4AB7,method on the 0x00DEBCD8 object called from 0x0009A361 with the global still in ecx; original name unknown
+?rva00068436@Rva00068436@@QAEXH@Z,0x00068436,11B tail-jump stub (loads [ecx+0x385C], jumps to 0x00093D97) called from 0x00091DC4 with pushed int; original name unknown
