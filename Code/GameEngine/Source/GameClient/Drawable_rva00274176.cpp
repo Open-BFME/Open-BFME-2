@@ -202,7 +202,7 @@ public:
 	void changedTeam();
 	void rva00270FAC(bool show);
 
-	Object *getObject() { return m_object; }
+	Object *getObject();
 private:
 	unsigned char m_pad0[0xFC - 4];
 	Object *m_object; // +0xFC
@@ -297,7 +297,7 @@ void Drawable::setIndicatorColor(Color color)
 // drawable's virtual slot 13. Called by Object::setCustomIndicatorColor.
 void Drawable::changedTeam()
 {
-	Object *object = getObject();
+	Object *object = m_object;
 	if (object)
 	{
 		if (TheGlobalData->m_timeOfDay == TIME_OF_DAY_NIGHT)
