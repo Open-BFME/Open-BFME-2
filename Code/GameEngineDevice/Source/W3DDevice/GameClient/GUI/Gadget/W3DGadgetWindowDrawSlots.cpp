@@ -553,3 +553,19 @@ Int Rva000A495EWindow::rva0009FD78()
 	Rva00328700(this);
 	return 1;
 }
+
+// ??0Rva000A26C7@@QAE@PAX@Z @0x000A26C7 24B chain via rowed base 0x000A2670 plus vtable 0x007C9078 (Rva000A26DFWindow table slot1 rowed)
+class Rva000A2670
+{
+public:
+	virtual ~Rva000A2670();
+	Rva000A2670(void *context);
+};
+class Rva000A26C7 : public Rva000A2670
+{
+public:
+	Rva000A26C7(void *context);
+};
+Rva000A26C7::Rva000A26C7(void *context) : Rva000A2670(context)
+{
+}

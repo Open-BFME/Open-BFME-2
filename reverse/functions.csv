@@ -56497,3 +56497,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?Rva003C3F9EApply@@YGXPAVParameter@@ABVAsciiString@@H@Z,,0x003C3F9E,101,Code/GameEngine/Source/Common/Rva003C3F9EApply.cpp,matched,sibling Rva003C3EC5Apply via getUnitNamed 0x3588E7 findSpecialPowerTemplate 0x29B6EB BfmeSubBEC 0x28BB9E StringBase copy 0x365F0 caller 0x003CC6BD ret 0xC stdcall
 ?rva000DE59C@Rva000DE59C@@QAE?AVAsciiString@@XZ,,0x000DE59C,27,Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DTerrainLogic.cpp,matched,AsciiString getter at +0x34 same shape as Rva000DE5B7
 ?rva00568BE2@BitRange@@QAE?AVAsciiString@@XZ,,0x00568BE2,56,Code/GameEngine/Source/Common/Rva003ED498Count.cpp,matched,BitRange AsciiString getter at +0x10 with rva003ED4E5 fallback
+??0Rva000A26C7@@QAE@PAX@Z,,0x000A26C7,24,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/Gadget/W3DGadgetWindowDrawSlots.cpp,matched,chain via rowed base 0x000A2670 plus vtable 0x007C9078
