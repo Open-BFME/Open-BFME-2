@@ -225,3 +225,30 @@ void TerrainRoadType::friend_setRepairedToFXString( BodyDamageType state, Int in
 		theInstance->friend_setRepairedToFXString( state, effectNum, token );
 
 }  // end parseTransitionToFX
+
+// TerrainRoadCollection: only the lookups are declared. findRoad (0x002DB496)
+// and findBridge (0x002DB4DA) are the ledger's rows reached through their
+// symbols.csv pins. findRoadOrBridge is the Zero Hour body verbatim, placed
+// by compiling the Open-BFME-1 donor at /O1. The calls and adjacency agree
+// with the pinned callees.
+class TerrainRoadCollection
+{
+public:
+	TerrainRoadType *findRoad( AsciiString name );
+	TerrainRoadType *findBridge( AsciiString name );
+	TerrainRoadType *findRoadOrBridge( AsciiString name );
+};
+
+//-------------------------------------------------------------------------------------------------
+/** Search the roads first, then the bridges */
+//-------------------------------------------------------------------------------------------------
+TerrainRoadType *TerrainRoadCollection::findRoadOrBridge( AsciiString name )
+{
+	TerrainRoadType *road = findRoad( name );
+
+	if( road )
+		return road;
+	else
+		return findBridge( name );
+
+}  // end findRoadOrBridge
