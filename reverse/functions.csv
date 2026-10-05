@@ -64660,3 +64660,4 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ?rva0014FA47@@YAPAXPAXI0@Z,,0x0014FA47,27,Code/GameEngine/Source/Common/Rva0014F674Loop.cpp,matched,forward via rowed stride loop
 ?rva002DBCCA@Rva002DBCCAOwner@@QAEXPAX@Z,,0x002DBCCA,31,Code/GameEngine/Source/Common/Rva002DBCCAForward.cpp,matched,
 ?bfmeMakePairEL@@YA?AUBfmePairEL@@ABVBfmeWordEL@@0@Z,,0x0002C621,27,Code/GameEngine/Source/Common/Bfme5TwoWordPairFactory_Rva0002C621.cpp,matched,BFME1 reference-guided two-word factory; target hidden return buffer ABI and shared pair ctor2C4FD verified; donor6583b3c1
+?rva00035080@GeneralAllocator@Allocator@EA@@QAEPAXIH@Z,,0x00035080,120,Code/GameEngine/Source/Common/System/Rva00035080Finish.cpp,matched,Target-proven 120B counted lock wrapper at this+0x4E4; existing allocator class spelling remains uncertain; imports are nonthrowing and allocation call retains SEH; no new pins
