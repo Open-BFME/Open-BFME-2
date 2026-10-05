@@ -336,6 +336,22 @@ void drawAudioLocations( Drawable *draw, void *userData );
 
 
 //-------------------------------------------------------------------------------------------------
+/** Sets the height of the viewport, while maintaining original camera perspective. */
+//-------------------------------------------------------------------------------------------------
+void W3DView::setHeight(Int height)
+{
+	BfmeW3DViewViewportFields *fields = (BfmeW3DViewViewportFields *)this;
+	BfmeW3DViewViewportVtable *view = (BfmeW3DViewViewportVtable *)this;
+	fields->m_height = height;
+
+	Vector2 vMin,vMax;
+	fields->m_3DCamera->Set_Aspect_Ratio((Real)view->getWidth()/(Real)height);
+	fields->m_3DCamera->Get_Viewport(vMin,vMax);
+	vMax.Y=(Real)(fields->m_originY+height)/(Real)((BfmeDisplayViewportVtable *)TheDisplay)->getHeight();
+	fields->m_3DCamera->Set_Viewport(vMin,vMax);
+}
+
+//-------------------------------------------------------------------------------------------------
 /** Sets the width of the viewport, while maintaining original camera perspective. */
 //-------------------------------------------------------------------------------------------------
 void W3DView::setWidth(Int width)
