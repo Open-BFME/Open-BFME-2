@@ -1,12 +1,7 @@
 // ?rva004320B1@Rva004320B1@@QAEHPAVGameMessage@@@Z
-// partial score=0.94 date=2026-10-04
+// partial score=0.95 date=2026-10-05
 // cl: /O1 /MD
-// ?rva004320B1@Rva004320B1@@QAEHPAVGameMessage@@@Z @0x004320B1 160B: thiscall dispatcher on GameMessage+0x10 for 3 vs 6/0x10 via rowed Rva00431A4D Rva00431E95 plus TacticalView screenToTerrain and InGameUI slots. Evidence: chain via 0x00431E95; globals TheTacticalView TheInGameUI; rowed getArgument 0x0030F4EA rva0029AA27 0x0029AA27; prev Rva00431F61Ctor next Rva0043216DCtor same dir.
-// RESIDUE (159B vs retail 160B, first diff +0x6): the register PAIR, not a
-// missing push. Retail allocates msg->edx (8b 55 08 / 8b 42 10) and this->esi
-// (56 8b f1); /O1 allocates msg->esi and this->edi, and every downstream push
-// and mov follows the swap. Body v1 below is the banked shape; v2..v6 are the
-// lever sweep and are byte-identical to it. See re_attempts.log row.
+// ?rva004320B1@Rva004320B1@@QAEHPAVGameMessage@@@Z @0x004320B1 160B.
 #include <stddef.h>
 
 struct ICoord2D { int m_x; int m_y; };
@@ -23,10 +18,14 @@ class GameMessage
 public:
 	char m_pad[0x10];
 	int m_10;
+	const GameMessageArgumentType *getArgument(int i) const;
 };
 
 class Rva00431A4D
 {
+	char m_00[4];
+	unsigned char m_04;
+	unsigned char m_05;
 public:
 	void rva00431A4D(GameMessage *msg);
 };
@@ -116,40 +115,32 @@ InGameUI *TheInGameUI;
 Rva0029AA27 *TheRva0029AA27;
 void *g_ks_30f4ea;
 
-#define CASE3_BODY \
-	const GameMessageArgumentType *a0 = (const GameMessageArgumentType *)g_ks_30f4ea; \
-	ICoord2D pixel; \
-	pixel.m_x = a0->pixel.x; \
-	pixel.m_y = a0->pixel.y; \
-	Coord3D world; \
-	TheTacticalView->screenToTerrain(&pixel, &world, false); \
-	if (TheInGameUI->slot51()) \
-		TheInGameUI->slot50(&world); \
-	if (TheInGameUI->m_9b4 != 0) \
-		TheRva0029AA27->rva0029AA27((const S12_0029AA27 *)&world); \
-	return 0;
-
-class C
+class Rva004320B1
 {
 	void *m_00;
 	Rva00431A4D *m_04;
 public:
-	int v1(GameMessage *msg);
-	int v2(GameMessage *msg);
-	int v3(GameMessage *msg);
-	int v4(GameMessage *msg);
-	int v5(GameMessage *msg);
-	int v6(GameMessage *msg);
+	int rva004320B1(GameMessage *msg);
 };
 
-// v1: switch, thiscall second half via m_00 receiver
-int C::v1(GameMessage *msg)
+// ?rva004320B1@Rva004320B1@@QAEHPAVGameMessage@@@Z present-unmatched
+int Rva004320B1::rva004320B1(GameMessage *msg)
 {
 	switch (msg->m_10)
 	{
 	case 3:
 	{
-		CASE3_BODY
+		const GameMessageArgumentType *a0 = msg->getArgument(0);
+		ICoord2D pixel;
+		pixel.m_x = a0->pixel.x;
+		pixel.m_y = a0->pixel.y;
+		Coord3D world;
+		TheTacticalView->screenToTerrain(&pixel, &world, false);
+		if (TheInGameUI->slot51())
+			TheInGameUI->slot50(&world);
+		if (TheInGameUI->m_9b4 != 0)
+			TheRva0029AA27->rva0029AA27((const S12_0029AA27 *)&world);
+		return 0;
 	}
 	case 6:
 	case 0x10:
@@ -158,100 +149,4 @@ int C::v1(GameMessage *msg)
 	default:
 		return 0;
 	}
-}
-
-// v2: switch, second call through a member of this
-int C::v2(GameMessage *msg)
-{
-	int t = msg->m_10;
-	switch (t)
-	{
-	case 6:
-	case 0x10:
-		m_04->rva00431A4D(msg);
-		return ((Rva00431E95 *)this)->rva00431E95(msg);
-	case 3:
-	{
-		CASE3_BODY
-	}
-	default:
-		return 0;
-	}
-}
-
-// v3: switch, case 3 body has no global-pointer argument source
-int C::v3(GameMessage *msg)
-{
-	switch (msg->m_10)
-	{
-	case 3:
-	{
-		CASE3_BODY
-	}
-	case 6:
-	case 0x10:
-	{
-		Rva00431A4D *f = m_04;
-		f->rva00431A4D(msg);
-		return ((Rva00431E95 *)this)->rva00431E95(msg);
-	}
-	default:
-		return 0;
-	}
-}
-
-// v4: if/else-if chain, 6/16 first
-int C::v4(GameMessage *msg)
-{
-	if (msg->m_10 == 3)
-	{
-		CASE3_BODY
-	}
-	if (msg->m_10 == 6 || msg->m_10 == 0x10)
-	{
-		m_04->rva00431A4D(msg);
-		return ((Rva00431E95 *)this)->rva00431E95(msg);
-	}
-	return 0;
-}
-
-// v5: nested switches (outer on 3, inner on 6/0x10)
-int C::v5(GameMessage *msg)
-{
-	switch (msg->m_10)
-	{
-	case 3:
-	{
-		CASE3_BODY
-	}
-	default:
-		switch (msg->m_10)
-		{
-		case 6:
-		case 0x10:
-			m_04->rva00431A4D(msg);
-			return ((Rva00431E95 *)this)->rva00431E95(msg);
-		}
-		return 0;
-	}
-}
-
-// v6: case 3 and case 6 share the fallthrough, single exit
-int C::v6(GameMessage *msg)
-{
-	int result = 0;
-	switch (msg->m_10)
-	{
-	case 3:
-	{
-		CASE3_BODY
-	}
-	case 6:
-	case 0x10:
-		m_04->rva00431A4D(msg);
-		return ((Rva00431E95 *)this)->rva00431E95(msg);
-	default:
-		break;
-	}
-	return result;
 }
