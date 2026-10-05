@@ -17,6 +17,8 @@ public:
 
 extern ScriptEngine *g_Va009FE16C;
 extern int g_00DD12D8;
+// g_00DD12D8: matched references place it at VA 0xdd12d8 (zero-filled .bss).
+int g_00DD12D8;
 
 void Rva0050D176Set()
 {
