@@ -62,6 +62,7 @@ public:
 	virtual void slot34() = 0;
 	virtual void slot38() = 0;
 	virtual UnicodeString fetch(const char *label, bool *exists = 0) = 0;
+	virtual const UnicodeString *fetchFormat(const AsciiString &label, int a) = 0;
 };
 
 extern GameTextInterface *TheGameText;
@@ -130,5 +131,65 @@ void Rva00513497::rva00513497(int slot, UnicodeString name)
 		((BfmeAptWindowManager *)TheRva00222A8BTarget)->bfmeSetText(key, name, false);
 		((Rva00512CE9 *)this)->rva00512CE9(slot, false);
 		((Rva00513040 *)this)->rva00513040(slot, 100);
+	}
+}
+
+// ?rva0057F538@Rva0057F538@@QAEXVUnicodeString@@@Z @0x0057F538 181B: the clan
+// error text. An unchanged message is skipped. Otherwise it runs the Apt
+// ResetClanErrorMessage callback on the owner (virtual slot 2) through the
+// rowed Rva0043DB23, keeps the message at +0xB0, and sets CLAN:Error to it
+// (L" " when empty).
+void Rva0043DB23(Rva00222A8BTarget *target, void *owner, const char *name);
+
+class Rva0057F538
+{
+public:
+	virtual void v00();
+	virtual void v04();
+	virtual void *v08();
+	void rva0057F538(UnicodeString message);
+private:
+	char m_pad04[0xAC];
+	UnicodeString m_error;		// +0xB0
+};
+
+void Rva0057F538::rva0057F538(UnicodeString message)
+{
+	if (message.compare(m_error) == 0)
+		return;
+	Rva0043DB23(TheRva00222A8BTarget, v08(), "ResetClanErrorMessage");
+	m_error = message;
+	if (Rva00513497IsEmpty(message))
+		message = L" ";
+	((BfmeAptWindowManager *)TheRva00222A8BTarget)->bfmeSetText(AsciiString("CLAN:Error"), message, false);
+}
+
+// ?rva0051C2E2@Rva0051C2E2@@QAEXPAHABVAsciiString@@H@Z @0x0051C2E2 201B: one
+// score-screen region bonus row, APT:ScoreRegionBonus%d keyed by the running
+// row counter. A positive bonus formats the label's game-text format string
+// (TheGameText slot 0x40, as in Rva0052906BUpdate.cpp) with it. A negative
+// bonus sets L" ". Either way the counter advances. A zero bonus sets
+// nothing. Callers pass this in ecx, which the body never reads.
+class Rva0051C2E2
+{
+public:
+	void rva0051C2E2(int *row, const AsciiString &label, int bonus);
+};
+
+void Rva0051C2E2::rva0051C2E2(int *row, const AsciiString &label, int bonus)
+{
+	AsciiString key;
+	key.format("APT:ScoreRegionBonus%d", *row);
+	if (bonus > 0)
+	{
+		UnicodeString text;
+		text.format(TheGameText->fetchFormat(label, 0), bonus);
+		((BfmeAptWindowManager *)TheRva00222A8BTarget)->bfmeSetText(key, text, false);
+		++*row;
+	}
+	else if (bonus < 0)
+	{
+		((BfmeAptWindowManager *)TheRva00222A8BTarget)->bfmeSetText(key, UnicodeString(L" "), false);
+		++*row;
 	}
 }
