@@ -1,5 +1,5 @@
 // ?VerifyGuardFill@GeneralAllocatorDebug@@QAE_NPAXHE@Z
-// partial score=0.96 date=2026-10-05
+// partial score=0.98 date=2026-10-05
 // ?VerifyGuardFill@GeneralAllocatorDebug@@QAE_NPAXHE@Z
 // cl: /O2 /DNDEBUG /MD
 // The guard verifier of GeneralAllocatorDebug, at retail 0x006C3020 (156
@@ -45,9 +45,10 @@ public:
 	// Retail's call site is `push 0x008E7C0C / push ebp / mov ecx,edi / call`
 	// with no add afterward, so the callee cleans both stack arguments: for a
 	// thiscall member the message is the FIRST stack argument and the block the
-	// second, which is the order retail pushes them in. The free __cdecl
-	// spelling gets the same push order only by declaring the message last, and
-	// then necessarily emits the trailing add esp,8 that retail does not have.
+	// second, and the compiler then pushes the block and the message in retail's
+	// order. The free __cdecl spelling gets the same push order only by
+	// declaring the message last, and then necessarily emits the trailing
+	// add esp,8 that retail does not have.
 	void rva006C2FB0Report(const char *msg, void *block);
 
 	unsigned int GetBlockSize(const void *block);
@@ -64,29 +65,36 @@ public:
 bool GeneralAllocatorDebug::VerifyGuardFill(void *block, int alsoBeyond,
                                             unsigned char mode)
 {
-	// The caller's block. Retail keeps it in ebp and forms both derived
-	// addresses from it -- the flag byte at block+4, the run block at block+8,
-	// and the beyond-the-guard limit at run block + 8 -- so the clamp is a limit
-	// of the CALLER's block and not of the allocator. An earlier bank read the
-	// clamp as `lea edx,[edi+0x10]` with edi holding `this` and moved the limit
-	// onto the allocator; retail's own instruction is `lea edx,[esi+8]` against
-	// esi, which holds the run block (block+8), so the limit is block+0x10.
+	// The caller's block. Retail keeps it in ebp and forms every derived address
+	// from it -- the flag byte at block+4, the run block at block+8, and the
+	// beyond-the-guard limit at run block + 8 -- so the clamp is a limit of the
+	// CALLER's block and not of the allocator. Two earlier banks read retail's
+	// `lea edx,[esi+8]` as `lea edx,[edi+0x10]` with edi holding `this` and moved
+	// the limit onto the wrong object.
 	void *callerBlock = block;
 
-	// A SET flag bit means the block needs no guard, so the verifier passes
-	// immediately. Spelled as the NEGATED condition guarding the WORK rather than
-	// as `if (set) return true`: MSVC7 lays the positive spelling out as
-	// `jne skip-to-return`, while retail jumps OVER the early return when the bit
-	// is CLEAR (`je`) and falls into the early return when it is set. Nesting the
-	// work under the negation is what produces `je`, and it keeps the work out of
-	// both early-return arms.
-	if (!(*(unsigned char *)((char *)callerBlock + 4) & 4)) {
+	// The flag byte is read into a named value and the bit compared with `!= 0`.
+	// That pair is what produces retail's two-instruction test
+	// `test BYTE PTR [ebp+4],4`. Neither the bare `& 4` nor the `== 0` spelling
+	// does: MSVC7 rewrites those as `mov al,[ebp+4] / shr al,2 / test al,1`,
+	// because it has already loaded the byte when it folds the bit into it.
+	//
+	// The result is held in a named bool that the whole work is nested under, and
+	// that is what produces the `je` rather than the `jne` MSVC7 otherwise emits
+	// here: with the work nested, the flag test branches forward over the body,
+	// exactly as retail's `je 0x6c3035` does. The direct
+	// `if (set) return true;` spelling instead relocates the early return to the
+	// end of the function and branches to it with `jne`.
+	const unsigned char flags = *(const unsigned char *)((const char *)callerBlock + 4);
+	const bool needsGuard = (flags & 4) != 0;
+
+	if (needsGuard) {
 		// Retail reads the flags dword and tests bit 3 of its HIGH byte, which is
 		// why the test is written against a shifted dword rather than against a
-		// narrowed field: the narrow spelling emits the byte test the body does not
-		// have. A clear bit 3 means the run needs no check, so the body returns
-		// true -- and only a non-zero `mode` overrides that.
-		if (mode || (((this->m_guardFlags >> 8) & 8) != 0)) {
+		// narrowed field: the narrow spelling emits the byte test the body does
+		// not have. A clear bit 3 means the run needs no check, so the body
+		// returns true -- and only a non-zero `mode` overrides that.
+		if (mode || ((this->m_guardFlags >> 8) & 8)) {
 			unsigned int len;
 			unsigned int *outLen = &len;
 			unsigned char *runBlock = (unsigned char *)callerBlock + 8;
