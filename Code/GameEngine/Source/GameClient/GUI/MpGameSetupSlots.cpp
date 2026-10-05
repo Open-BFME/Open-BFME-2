@@ -42,13 +42,19 @@ public:
 	virtual bool v12();
 
 	GameSlot *getSlot(int index);
+	AsciiString getMap() const;
+	void setMap(AsciiString map);
 };
 
-// The validated current game at +0x5C (rowed under its address name).
+// The validated current game at +0x5C (rowed under its address name); the
+// game itself is at +0x08.
 class Rva0043DA65
 {
 public:
 	int rva0043DA65();
+
+	unsigned char m_pad00[0x08];
+	GameInfo *m_current; // +0x08
 };
 
 void GadgetComboBoxGetSelectedPos(GameWindow *comboBox, int *selected);
@@ -110,7 +116,8 @@ public:
 	virtual bool v01();
 	virtual void v02(); virtual void v03(); virtual void v04(); virtual void v05();
 	virtual bool applySlotHero(GameSlot *slot);
-	virtual void v07(); virtual void v08();
+	virtual bool bfmeMapChanged(const AsciiString *map);
+	virtual void v08();
 	virtual bool setSlotState(GameSlot *slot, int state, const UnicodeString &name);
 	virtual bool applySlotPlayerTemplate(GameSlot *slot, int playerTemplate);
 	virtual void v11();
@@ -132,6 +139,20 @@ extern Rva00219B9E *g_00DFE344;
 
 void Rva0043DB23(Rva00222A8BTarget *target, void *owner, const char *name);
 
+// The member at +0x60 (0x70 bytes, destroyed through ??1Rva0057E3DB).
+class Rva0057E3DB
+{
+public:
+	// Unrowed 0x0057C7BA (216 bytes; stores the mode at +0x1C), pinned.
+	void rva0057C7BA(int mode);
+
+	unsigned char m_pad00[0x1C];
+	int m_mode; // +0x1C (the panel's +0x7C, MpGameSetupOnInitGadget.cpp's m_hideFlag)
+	unsigned char m_pad20[0x61 - 0x20];
+	bool m_61; // +0x61
+	unsigned char m_pad62[0x70 - 0x62];
+};
+
 // The member at +0xD0 (destroyed through ??1Rva0057EE5C); its 0x0057EA0F
 // (158 bytes) is unrowed and pinned.
 class Rva0057EE5C
@@ -140,14 +161,21 @@ public:
 	void rva0057EA0F();
 	// And its unrowed 0x0057E6D8 (5 bytes, a jump to 0x0057E6C1), pinned.
 	void rva0057E6D8();
+	// Unrowed 0x0057F002 (52 bytes; stores the mode at +0x60 when it
+	// changes), pinned.
+	void rva0057F002(int mode);
 };
 
 // The member at +0x244 (rowed under its address name).
 class Rva0057FD6E
 {
 public:
+	void rva0057FD6E();
 	void rva0057FD94();
 };
+
+// Rva00446A71Get.cpp's byte setter for g_Va00A0335C.
+void Rva00446A67Set(unsigned char value);
 
 class MpGameSetup
 {
@@ -182,22 +210,67 @@ public:
 	// same column again toggling to the next value), pinned by address.
 	void rva0043DC40(int column);
 
-	// Unrowed 0x00442C9C (23 bytes), pinned by address.
 	bool rva00442C9C();
+	void rva004427C5(int slot);
+	void rva004427FA();
+	void rva00442A19();
+	void rva0043FFCF();
+	void rva0043FFD7();
+	void rva00441685(bool flag);
+	void rva004422B4(int mode);
+	void rva00440017(const AsciiString &map);
+
+	// Unrowed per-slot refreshers called by 0x004427C5, pinned by address:
+	// 0x0043F483 (1072 bytes), 0x0043F244 (575 bytes; ret 8, its second
+	// argument a byte flag), 0x004424E7 (734 bytes) and 0x004406BA (792
+	// bytes).
+	void rva0043F483(int slot);
+	void rva0043F244(int slot, bool flag);
+	void rva004424E7(int slot);
+	void rva004406BA(int slot);
+
+	// Unrowed 0x004422DD (522 bytes) and the per-slot 0x00441B15 (607
+	// bytes), called by 0x00442A19, pinned by address.
+	void rva004422DD();
+	void rva00441B15(int slot);
+
+	// Unrowed 0x00442BCC (208 bytes; walks the slots through the encoded
+	// handle iterator of S5HandleHashCompares.cpp, true when every one has
+	// all six widget arrays), pinned by address.
+	bool rva00442BCC();
+
+	// Unrowed 0x0043FA68 (244 bytes; stores the game in the owner's holder 1
+	// and shows "APT:JoinGame" or "APT:Continue"), pinned by address.
+	void rva0043FA68(GameInfo *game);
+
+	// Unrowed 0x004404AC (526 bytes; ret 8, a byte flag then an int),
+	// pinned by address.
+	void rva004404AC(bool flag, int value);
+
+	// Unrowed 0x004419FA (176 bytes), pinned by address.
+	void rva004419FA();
 
 private:
 	unsigned char m_pad000[0x58];
 	MpGameSetupOwner *m_owner; // +0x58
 	Rva0043DA65 *m_game; // +0x5C
-	unsigned char m_pad060[0x7C - 0x60];
-	int m_mode; // +0x7C (MpGameSetupOnInitGadget.cpp's m_hideFlag)
-	unsigned char m_pad080[0xD0 - 0x80];
+	Rva0057E3DB m_60; // +0x60
 	Rva0057EE5C m_d0; // +0xD0
 	unsigned char m_pad0d1[0x160 - 0xD1];
 	int m_160; // +0x160
 	unsigned char m_pad164[0x244 - 0x164];
 	Rva0057FD6E m_244; // +0x244
-	unsigned char m_pad245[0x2C3 - 0x245];
+	unsigned char m_pad245[0x2B0 - 0x245];
+	int m_2b0; // +0x2B0
+	unsigned char m_pad2b4[0x2B9 - 0x2B4];
+	bool m_2b9; // +0x2B9
+	unsigned char m_pad2ba[0x2BD - 0x2BA];
+	bool m_2bd; // +0x2BD
+	bool m_2be; // +0x2BE
+	bool m_2bf; // +0x2BF
+	bool m_2c0; // +0x2C0
+	unsigned char m_pad2c1;
+	bool m_refreshing; // +0x2C2 (guards the all-slot refreshes)
 	bool m_pending; // +0x2C3
 	bool m_2c4; // +0x2C4
 	unsigned char m_pad2c5[0x2D4 - 0x2C5];
@@ -207,8 +280,10 @@ private:
 	GameWindow *m_playerTemplate[8]; // +0x334
 	GameWindow *m_handicap[8]; // +0x354
 	GameWindow *m_hero[8]; // +0x374
-	unsigned char m_pad394[0x3A4 - 0x394];
+	int m_394; // +0x394
+	unsigned char m_pad398[0x3A4 - 0x398];
 	int m_flags; // +0x3A4
+	int m_3a8; // +0x3A8
 };
 
 // Retail 0x0043DD02, 50 bytes: the item data of slot's selected player
@@ -347,7 +422,7 @@ void MpGameSetup::rva0043E3E2(int index, int team)
 	if (!comboBox)
 		return;
 
-	int mode = m_mode;
+	int mode = m_60.m_mode;
 	GameSlot *slot = game->getSlot(index);
 	if (mode == 1 && team == -1 && slot->m_state != 1)
 	{
@@ -536,4 +611,120 @@ void MpGameSetup::OnTabSelect(const char *tab)
 	else if (strcmp(tab, "MapTab") == 0)
 	{
 	}
+}
+
+// Retail 0x00442C9C, 23 bytes. Name unknown. False unless the +0x60
+// member's mode or +0x394 is set; then 0x00442BCC decides (a tail jump).
+// Callers 0x00442FA7 (query 1 above), 0x00443C7C, the LAN screen's
+// 0x004467C7 and 0x005216AF.
+bool MpGameSetup::rva00442C9C()
+{
+	if (m_60.m_mode == 0 && m_394 == 0)
+		return false;
+	return rva00442BCC();
+}
+
+// Retail 0x004427C5, 53 bytes. Name unknown. Refreshes one slot's widgets
+// through five per-slot members (0x0043E253 is the handicap combo box).
+// Only caller 0x00442813 (0x004427FA below).
+void MpGameSetup::rva004427C5(int slot)
+{
+	rva0043F483(slot);
+	rva0043F244(slot, false);
+	rva004424E7(slot);
+	rva0043E253(slot);
+	rva004406BA(slot);
+}
+
+// Retail 0x004427FA, 46 bytes. Name unknown. Runs 0x004427C5 on all eight
+// slots unless a refresh is already under way (+0x2C2). Called from
+// 0x00443F09.
+void MpGameSetup::rva004427FA()
+{
+	if (m_refreshing)
+		return;
+	m_refreshing = true;
+	for (int slot = 0; slot < 8; ++slot)
+		rva004427C5(slot);
+	m_refreshing = false;
+}
+
+// Retail 0x00442A19, 79 bytes. Name unknown. With a current game, runs
+// 0x004422DD and then (under the same +0x2C2 guard) 0x00441B15 on all eight
+// slots, setting the +0x2BD and +0x2BE flags. Called from 0x00443F41.
+void MpGameSetup::rva00442A19()
+{
+	if (!m_game->rva0043DA65())
+		return;
+	rva004422DD();
+	if (m_refreshing)
+		return;
+	m_refreshing = true;
+	for (int slot = 0; slot < 8; ++slot)
+		rva00441B15(slot);
+	m_2bd = true;
+	m_2be = true;
+	m_refreshing = false;
+}
+
+// Retail 0x0043FFCF, 8 bytes. Name unknown. 0x0043FA68 without a game; the
+// LAN screen's 0x004452DA calls it on its +0x288 panel.
+void MpGameSetup::rva0043FFCF()
+{
+	rva0043FA68(0);
+}
+
+// Retail 0x0043FFD7, 59 bytes. Name unknown. The panel's virtual slot 1
+// (vftable 0x00C3DD7C, between ??_GRva004421E1 and the +0x3A4 getter
+// 0x004421DA; declared here as a plain member, which compiles the same):
+// resets the +0x244 member, clears the +0x60 member's +0x61 flag,
+// g_Va00A0335C and the current game, then 0x0043FA68 without a game.
+void MpGameSetup::rva0043FFD7()
+{
+	m_244.rva0057FD6E();
+	m_60.m_61 = false;
+	Rva00446A67Set(0);
+	m_game->m_current = 0;
+	rva0043FA68(0);
+	m_3a8 = 0;
+	m_2b0 = 0;
+}
+
+// Retail 0x00441685, 14 bytes. Name unknown. 0x004404AC with -1; called
+// from 0x00441BBA (inside 0x00441B15).
+void MpGameSetup::rva00441685(bool flag)
+{
+	rva004404AC(flag, -1);
+}
+
+// Retail 0x004422B4, 41 bytes. Name unknown. Hands a mode to the +0x60 and
+// +0xD0 members, then 0x004419FA. Called from the LAN screen 0x004443DE and
+// from 0x00522BD5 and 0x005A5CF6.
+void MpGameSetup::rva004422B4(int mode)
+{
+	m_60.rva0057C7BA(mode);
+	m_d0.rva0057F002(mode);
+	rva004419FA();
+}
+
+// Retail 0x00440017, 134 bytes. Name unknown. A different map for the
+// current game goes to GameInfo::setMap and the owner's bfmeMapChanged
+// (vslot 7); then five refresh flags are set. Callers 0x00441679,
+// 0x00442E62, 0x00442E7F and 0x00443E3E.
+void MpGameSetup::rva00440017(const AsciiString &map)
+{
+	GameInfo *game = (GameInfo *)m_game->rva0043DA65();
+	if (game)
+	{
+		if (map != game->getMap())
+		{
+			game->setMap(map);
+			m_owner->bfmeMapChanged(&map);
+		}
+	}
+	m_2c0 = true;
+	m_2bf = true;
+	m_2b9 = true;
+	m_2bd = true;
+	m_2be = true;
 }
