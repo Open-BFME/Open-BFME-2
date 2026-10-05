@@ -64183,9 +64183,6 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?rva002B3EFA@@YAXPAX@Z,,0x002B3EFA,65,Code/GameEngine/Source/Common/Rva002B3EFA.cpp,matched,file-static EAX-incoming scan with rowed 0x40CB2C getter and bare-call 0x2B3E7E check and 0x40C45C notify
 ?rva002B3F9F@@YAXPAXH@Z,,0x002B3F9F,52,Code/GameEngine/Source/Common/Rva002B3F9F.cpp,matched,no-EH resolve then clear +0xC4 then tail-jmp rowed 0x7DEEF release; same family as banked 0x2B3F3B
 ?rva002B4650@Rva002B4650@@QAEHXZ,,0x002B4650,30,Code/GameEngine/Source/Common/Rva002B4650.cpp,matched,thiscall int gate: 0x2B2BAA guard then 0x2B3DB2 zero-measure returns 1 else 0
-?rva002B4623@@YAXHHH@Z,,0x002B4623,29,Code/GameEngine/Source/Common/Rva002B4623.cpp,matched,cdecl 3-arg forwarder into 5-arg cdecl 0x2B3049 worker with dead out-slot at ebp-1
 ?rva002B4BC9@Rva002B4BC9@@QAE_NPAURva002B4BC9Arg@@@Z,,0x002B4BC9,64,Code/GameEngine/Source/Common/Rva002B4BC9.cpp,matched,thiscall bool fetch through rowed isEmpty and cdecl 0x20E873 worker returning difference to +0x110
-?rva002B4D41@Rva002B4D41@@QAEXXZ,,0x002B4D41,128,Code/GameEngine/Source/Common/Rva002B4D41.cpp,matched,thiscall void countdown driver with 0x2B35F7 pin and rowed getter and PlaySound
 ?rva002B52CE@Rva002B52CE@@QAEXXZ,,0x002B52CE,102,Code/GameEngine/Source/Common/Rva002B52CE.cpp,matched,thiscall void sweep with rowed lookup and state pins and 0x4FBB25 worker and per-pass recount
-?rva002B5944@@YAXHHH@Z,,0x002B5944,27,Code/GameEngine/Source/Common/Rva002B5944.cpp,matched,cdecl forwarder into rowed 0x2B4623 with dead 4th arg
 ?rva002B5CFB@Rva002B5CFB@@QAE_NHH@Z,,0x002B5CFB,59,Code/GameEngine/Source/Common/Rva002B5CFB.cpp,matched,thiscall bool probe with rowed find and rowed 0x2104B6 check and +0x12C compare

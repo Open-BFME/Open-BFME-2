@@ -13473,5 +13473,4 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 ?rva002B35F7@Rva002B4D41@@QAEXXZ,0x002B35F7,thiscall void firing bare 0x2B2B2D probe then +0x98 count-gated float handoff to 0x2D3772; Ghidra FUN_006b35f7 42B
 ?rva004FBB25@Rva004FBB25Sub@@QAEXH@Z,0x004FBB25,thiscall with 1 int arg; head null-guards then 0x4FB382 probe; Ghidra FUN_008fbb25 198B
 ?rva002B488E@Rva002BA8F1Logic@@QAEHPAX@Z,0x002B488E,banked 83B int table scan with per-pass recount; address holds for callers until conversion; see attempts/0x2b488e.cpp
-?rva002B4623@@YAXHHHPAE@Z,0x002B4623,4-argument caller view of the rowed 3-argument worker; the 4th (stack-byte address) is never read by the 29B body
 ?rva002E2D8D@Rva002E2903Player@@QAEXPAX@Z,0x002E2D8D,thiscall with 1 pointer arg on the 0x2B51F8 find result; Ghidra FUN_006e2d8d 428B, head not decoded
