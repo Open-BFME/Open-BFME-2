@@ -1,5 +1,6 @@
 // ?rva006C39F0@Rva006C39F0Owner@@QAE_NIIIPAX@Z
-// partial score=0.97 date=2026-10-05
+// partial score=0.98 date=2026-10-05
+// ?rva006C39F0@Rva006C39F0Owner@@QAE_NIIIPAX@Z
 // cl: /O2 /DNDEBUG /MD
 // ?rva006C39F0@Rva006C39F0Owner@@QAE_NIIIPAX@Z @ 0x006C39F0 (191B, ret 0x10).
 //
@@ -72,65 +73,49 @@ public:
 };
 
 // ?rva006C39F0@Rva006C39F0Owner@@QAE_NIIIPAX@Z present-unmatched
-bool Rva006C39F0Owner::rva006C39F0(unsigned int key, unsigned int altLen,
-                                  unsigned int allocSize, void *buffer)
+bool Rva006C39F0Owner::rva006C39F0(unsigned int key, unsigned int runLen,
+                                  unsigned int insertLen, void *buffer)
 {
-	// Preset to 1 before the tracking test, and BOTH the tracking-off and the
-	// key-found exit jump to one shared return at the end: retail keeps this
-	// byte in bl and reads it back only through the single mov al,bl epilogue
-	// at 0x6C3A9F. Returning it from two separate points instead lets MSVC
-	// constant-fold the tracking-off exit to mov al,1 and drop the push ebx
-	// the whole rest of the body is built around.
-	bool owned = true;
-	if (!m_tracking)
-		goto done;
-
-	Rva006C17B0 *table = &m_table;
-	Rva006C17B0Node *node = table->m_array
-		? table->m_array[(key >> 3) % table->m_prime] : 0;
-
-	if (node)
+	unsigned char owned = 1;
+	if (m_tracking)
 	{
-		do
+		Rva006C17B0 *table = &m_table;
+		if (table->m_array)
 		{
-			if (node->m_key == key)
-				goto done;
-			node = node->m_next;
-		} while (node);
-	}
-
-	void *run = buffer;
-	owned = 0;
-	// Retail reuses arg1 (edi, loaded once at 0x6C3A13 and still live for the
-	// chain compare at 0x6C3A30) as the insert length on the direct-buffer
-	// path: the buffer!=0 branch at 0x6C3A46 goes straight to the shared
-	// insert at 0x6C3A70 without reloading edi. Only the allocated path
-	// reloads edi, with arg2 from 0x6C3A18, before the same insert. The
-	// allocSize that sizes the run is arg3, and it is what both trailing
-	// length words carry.
-	unsigned int insertLen = key;
-	if (!run)
-	{
-		if (!allocSize)
+			unsigned int k = key;
+			Rva006C17B0Node *node = table->m_array[(k >> 3) % table->m_prime];
+			if (node)
+			{
+				do
+				{
+					if (node->m_key == k)
+						goto done;
+					node = node->m_next;
+				} while (node);
+			}
+		}
+		owned = 0;
+		{
+			void *run = buffer;
+			unsigned int len = buffer ? key : insertLen;
+			if (!run)
+			{
+				if (!runLen)
+					return false;
+				run = rva006C3940Alloc(runLen);
+				if (!run)
+					return false;
+				*(unsigned short *)run = (unsigned short)runLen;
+				*(unsigned short *)((unsigned char *)run + runLen - 2) = 0;
+				owned = 1;
+			}
+			if (table->rva006C21C0(len, run))
+				return true;
+			if (owned)
+				rva006C1A50Free(run);
 			return false;
-
-		run = rva006C3940Alloc(allocSize);
-		if (!run)
-			return false;
-
-		*(unsigned short *)run = (unsigned short)allocSize;
-		*(unsigned short *)((unsigned char *)run + allocSize - 2) = 0;
-		insertLen = altLen;
-		owned = 1;
+		}
 	}
-
-	if (table->rva006C21C0(insertLen, run))
-		return true;
-
-	if (owned)
-		rva006C1A50Free(run);
-	return false;
-
 done:
 	return owned != 0;
 }
