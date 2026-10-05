@@ -229,7 +229,6 @@ void Rva000E2F77(ID3DXEffect *effect, D3DXHANDLE handle)
 	effect->SetFloat(handle, v);
 }
 
-// ?Rva000E2EB7@@YAXPAUID3DXEffect@@PBD@Z present-unmatched
 void Rva000E2EB7(ID3DXEffect *effect, D3DXHANDLE handle)
 {
 	Rva000E2409Vector4 value;
@@ -237,14 +236,10 @@ void Rva000E2EB7(ID3DXEffect *effect, D3DXHANDLE handle)
 	value.y = 0.0f;
 	value.z = 0.0f;
 	value.w = 0.0f;
-	if (TheTerrainRenderObject)
+	if (TheTerrainRenderObject && TheTerrainRenderObject->m_37C0)
 	{
-		if (*(BfmeTerrain37C0Target **)((char *)TheTerrainRenderObject + 0x37C0))
-		{
-			BfmeTerrain37C0Target *t = *(BfmeTerrain37C0Target **)((char *)TheTerrainRenderObject + 0x37C0);
-			value.x = (float)t->m_08 * BfmeGlobalBC2428;
-			value.y = (float)t->m_0C * BfmeGlobalBC2428;
-		}
+		value.x = (float)TheTerrainRenderObject->m_37C0->m_08 * BfmeGlobalBC2428;
+		value.y = (float)TheTerrainRenderObject->m_37C0->m_0C * BfmeGlobalBC2428;
 	}
 	effect->SetVector(handle, &value);
 }
