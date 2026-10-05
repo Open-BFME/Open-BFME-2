@@ -57296,3 +57296,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ??1Rva005613B2@@QAE@XZ,,0x00560AF6,27,Code/GameEngine/Source/GameClient/Rva00560AF6Finish.cpp,matched,finish delete global via rowed dtor and delete
 ?rva00539251@Rva0053947D@@UAEXH@Z,,0x00539251,48,Code/GameEngine/Source/Common/Rva00539316Slot5.cpp,matched,slot6 vtable 0x00869228 s13 s15 elem f08 int arg same loop as slots 5 and 7
 ??1Rva005FEF65@@UAE@XZ,,0x005FEF65,75,Code/GameEngine/Source/Common/Rva005FEF65.cpp,matched,dtor free buffer member base vtables caller
+??1Rva005CC37C@@UAE@XZ,,0x005CC37C,60,Code/GameEngine/Source/Common/Rva005CC37CDtor.cpp,matched,MI dtor second base at +8 via pin 0x005E12D1 vtable 0x00C74E38
