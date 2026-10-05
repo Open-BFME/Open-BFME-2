@@ -1,6 +1,6 @@
-// ??0LightningEmissionInfo@FXParticleSystem@@QAE@ABV01@@Z
-// partial score=0.95 date=2026-10-03
 // cl: /O1 /Ob2 /DNDEBUG /MD /GX-
+// partial score=0.95 date=2026-10-05
+// cl: /O1 /Ob0 /DNDEBUG /MD /GX-
 // LightningEmissionInfo copy ctor, retail 0x003A6AF5 (154B).
 //
 // Shape follows the landed LineEmissionVolumeInfo copy (0x003A653B): the base
