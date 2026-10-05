@@ -59224,3 +59224,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva003F1A03@Rva003F1A03@@QAEXP8Rva003F119CListener@@AEXPAXHH@Z0HH@Z,,0x003F1A03,34,Code/GameEngine/Source/Common/Rva003F1A03Broadcast.cpp,matched,forwards args to forEach 0x003F119C on this+4 then tail on global 0x00E02E88
 ?rva005025DB@Rva005025DB@@QAEXPAX@Z,,0x005025DB,53,Code/Libraries/Source/WWVegas/WWLib/Rva005025DBErase.cpp,matched,Rb-node erase recursing right walking left via dtor 0x0050174A and free
 ??1InstantDeathBehaviorModuleData@@UAE@XZ,,0x0045D28D,105,Code/GameEngine/Source/GameLogic/Object/Behavior/InstantDeathBehaviorModuleDataDtor.cpp,matched,named pin plus ctor vectors and rowed 0x45D137
+??$__uninitialized_fill_n@PAURva000AB3E2Element@@IU1@@_STL@@YAPAURva000AB3E2Element@@PAU1@IABU1@ABU__false_type@0@@Z,,0x000A9E42,37,Code/Libraries/Source/WWVegas/WWLib/StlportFillNRva000AB3E2.cpp,matched,STL fill_n for 24B element via 37B precedent
