@@ -9,6 +9,7 @@ class Rva005A688C
 {
 public:
 	void rva005A688C(int a, int b, int expected, int val);
+	void rva005A6C90(int val);
 private:
 	char m_pad00[0x14];
 	int m_14;
@@ -54,4 +55,8 @@ notify:
 		m_28.rva005DC3C1((unsigned short)a, (unsigned short)b, expected, 4);
 	else if (val == 4)
 		m_28.rva005DC3C1((unsigned short)a, (unsigned short)b, expected, 3);
+}
+void Rva005A688C::rva005A6C90(int val)
+{
+	rva005A688C(m_14, m_18, m_20, val);
 }
