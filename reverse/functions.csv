@@ -55858,3 +55858,4 @@ ___Extract_locale_name,,0x000216A0,153,Code/Libraries/Source/WWVegas/WWLib/Local
 ?rva001E3557@Rva001E3557@@QAE_NXZ,,0x001E3557,58,Code/GameEngine/Source/Common/Rva001E3557.cpp,matched,plus 4 plus 0x10 via row 0x363BC7 plus global 0x00BC2428 plus caller 0x1E9157
 ?Rva001E3FFDGet@@YAPAXPAURva001E3FFDOuter@@@Z,,0x001E3FFD,24,Code/GameEngine/Source/Common/Rva001E3FFDGet.cpp,matched,outer 0x258 inner 0x140 plus 11 callers in 0x1E6007 0x1E7389 0x1E756D 0x1E9083
 ?rva004E5542@ResourceOwnedEntryList@@QAEXXZ,,0x004E5542,23,Code/GameEngine/Source/GameClient/InGameUIResourceEntries.cpp,matched,same ecx to ResourceOwnedEntryList clear then free head callers 0x004E5654 and jmp 0x004E560B
+?rva005B7437@Rva005B77F1@@QAEXXZ,,0x005B7437,29,Code/GameEngine/Source/Common/Rva005B77F1Dtor.cpp,matched,Vslot9 clears list14 caches listC head resets 34 38 per retail

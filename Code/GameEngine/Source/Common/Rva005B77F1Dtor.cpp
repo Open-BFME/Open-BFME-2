@@ -38,6 +38,7 @@ class Rva005B77F1 : public GameEngineDeletingBase
 public:
 	Rva005B77F1();
 	virtual ~Rva005B77F1();
+	void rva005B7437();
 private:
 	_STL::list<int, _STL::allocator<int> > m_listC;
 	int m_pad10;
@@ -86,4 +87,14 @@ Rva005B77F1::~Rva005B77F1()
 		}
 		it = m_listC.erase(it);
 	}
+}
+// ?rva005B7437@Rva005B77F1@@QAEXXZ @0x005B7437 29B
+// Vslot 9 offset 0x24 of vtable 0x00873918: clears list +0x14 then caches first word of list +0xC into +0x10 while clearing +0x34 +0x38.
+// Evidence: retail lea [esi+0x14] call list clear 0x0023DAA5 then mov eax [esi+0xC] mov byte [esi+0x34] 0 mov eax [eax] and [esi+0x38] 0 mov [esi+0x10] eax; same TU same flags.
+void Rva005B77F1::rva005B7437()
+{
+	m_list14.clear();
+	m_at34 = false;
+	m_pad10 = *(int *)*(void **)&m_listC;
+	m_at38 = 0;
 }
