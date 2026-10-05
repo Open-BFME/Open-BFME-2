@@ -1,5 +1,6 @@
 // ?rva003FAAA1@Rva003FAAA1@@QAE_NPAX@Z
 // partial score=0.99 date=2026-10-05
+// ?rva003FAAA1@Rva003FAAA1@@QAE_NPAX@Z
 // cl: /O1 /arch:SSE /MD
 // ?rva003FAAA1@Rva003FAAA1@@QAE_NPAX@Z @0x003FAAA1, 236B.
 // Overlap test via rowed Region3D copy 0x0009AC04 LineSeg ctor 0x000927F9 and Overlap_Test 0x00723870.
@@ -8,9 +9,15 @@
 // The field write ORDER is load-bearing and is not the natural spelling. Writing
 // p0 as Y,Z,X (not X,Y,Z) is what fixes the register assignment: it makes
 // xmm4=[ebp-0x14] and xmm5=[ebp-0x10] load in retail's order rather than
-// swapped, which in turn fixes the addss operands. Restoring p0.X from the
-// captured sink BEFORE the p1 field writes (rather than after) is what moves the
-// final nine-store block to its retail order. Both are codegen devices.
+// swapped, which in turn fixes the addss operands. Both are codegen devices.
+//
+// The p0.X restore is placed between the b1.X add and the b1.Y/b1.Z adds, which
+// is what pulls the [ebp-0x30]=xmm3 store forward in the final nine-store block.
+// Measured at 236B retail-exact size, interleaving the restore takes the real
+// diff from 12 bytes to 8: no interleave 12 (the sink store lands sixth, after
+// all three b1 writes), after the b1.X add 8, after the b1.Y add 10, after the
+// b1.Z add 12, and before the b1.X add 28. The residual 8 bytes are still that
+// one store's position, at +0xA4..+0xBE.
 class Vector3
 {
 public:
@@ -125,9 +132,9 @@ bool Rva003FAAA1::rva003FAAA1(void *arg)
 	b2.Z *= scale;
 	float sink = p0.X;
 	b1.X += b2.X;
+	p0.X = sink;
 	b1.Y += b2.Y;
 	b1.Z += b2.Z;
-	p0.X = sink;
 	Vector3 p1;
 	p1.X = b1.X;
 	p1.Y = b1.Y;
