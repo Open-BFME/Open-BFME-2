@@ -53,3 +53,11 @@ void rvaKeyRangeAnchor(void *memory, Rva005E59FCKeyIterator first, Rva005E59FCKe
 void rvaKeyAssignAnchor(_STL::vector<int> *v, Rva005E59FCKeyIterator first,Rva005E59FCKeyIterator last,const _STL::forward_iterator_tag&t) {
  v->_M_assign_aux(first,last,t);
 }
+
+// Force-emit assign false-type dispatch (22B ret 0xC @0x005F50A3) and public
+// assign (22B ret 8 @0x005F50D3); both forward to matched _M_assign_aux @0x005F4F74.
+template void _STL::vector<int>::_M_assign_dispatch(Rva005E59FCKeyIterator, Rva005E59FCKeyIterator, const _STL::__false_type&);
+// ?rvaKeyAssignPublic absent-from-retail
+void rvaKeyAssignPublic(_STL::vector<int> *v, Rva005E59FCKeyIterator first, Rva005E59FCKeyIterator last) {
+  v->assign(first, last);
+}
