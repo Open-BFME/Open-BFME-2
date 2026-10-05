@@ -10,13 +10,13 @@
 class TextureBaseClass { public: void Release_Ref(); };
 class TextureClass : public TextureBaseClass {
 public:
-    void Add_Ref() { ++*reinterpret_cast<unsigned short *>(reinterpret_cast<char *>(this)+4); }
+    void Add_Ref();
 };
 template<class T> class RefCountPtr {
 public:
     T *p;
     RefCountPtr() : p(0) {}
-    RefCountPtr(RefCountPtr const &other) : p(other.p) { if (p) p->Add_Ref(); }
+    RefCountPtr(RefCountPtr const &other) : p(other.p) { if (p) ++*reinterpret_cast<unsigned short *>(reinterpret_cast<char *>(p)+4); }
     ~RefCountPtr() { if (p) p->Release_Ref(); }
 };
 class TexBufferClass {
