@@ -56721,3 +56721,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?Rva00590D19Add@@YAXHPAVNetGameCommandMsg@@PBXPAH@Z,,0x00590D19,506,Code/GameEngine/Source/GameNetwork/Rva00590D19Add.cpp,matched,ifchain memcpy sizes then addArgument via rowed 6291A8 and 4D5A7A
 ??0Rva002CC20E@@QAE@XZ,,0x002CC20E,47,Code/GameEngine/Source/Common/Rva002CC20ECtor.cpp,matched,baseConstruct plus vtable C02114 plus 2x Vector_base same as Rva00426402
 ?rva003B241A@Rva003B241A@@QAEXXZ,,0x003B241A,18,Code/GameEngine/Source/Common/Rva003B241AForwarder.cpp,matched,forwarder vtable plus handle rowed
+?rva0037BCA8@Rva0037BBED@@QAE?AVUnicodeString@@XZ,,0x0037BCA8,28,Code/GameEngine/Source/Common/Rva0037BCA8.cpp,matched,this+0x10 FILE forwards hidden+file to rowed readUnicodeString returning by value
