@@ -1,12 +1,14 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /G7
+// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /G7 /EHsc
 //
 // BFME2's online shell Apt callbacks "AptOnline::ShellUnloadScreen",
 // 0x005171A3, and "AptOnline::ShellLoadScreen", 0x00517724, bound by those
 // names as member pointers by the shell's registration; that binding is
 // their only reference. The class is named for the strings' prefix
-// (AptOnlineShellCallbacks.cpp views the same object).
+// (AptOnlineShellCallbacks.cpp views the same object). The shell's Apt
+// variables "OnlineShellStartScreen" and "OnlineAdvMode" share 0x00517207.
 
 extern "C" int __cdecl strcmp(const char *left, const char *right);
+extern "C" char *__cdecl strcpy(char *destination, const char *source);
 
 #include "ascii_string.h"
 
@@ -41,6 +43,26 @@ struct AptOnlineSubScreen
 
 class AptOnline;
 
+// The GameSpy misc preferences file and the UserPreferences members it
+// keeps (all rowed).
+class UserPreferences
+{
+public:
+	virtual ~UserPreferences();
+	virtual void setBool(const AsciiString &key, bool value);
+	virtual bool write();
+	virtual bool getBool(const AsciiString &key, bool defaultValue) const;
+};
+
+class GameSpyMiscPreferences : public UserPreferences
+{
+public:
+	GameSpyMiscPreferences();
+	virtual ~GameSpyMiscPreferences();
+
+	unsigned char m_rest[0x14 - 0x04];
+};
+
 // The shell's sub-screens by name (0x00DD1568, ended by a null name): each
 // is made by its factory and sets the shell's mode at +0x2B4.
 struct AptOnlineScreenEntry
@@ -68,6 +90,7 @@ class AptOnline
 public:
 	void ShellUnloadScreen(const char *name);
 	void ShellLoadScreen(const char *name);
+	void rva00517207(int query, char *value, bool set);
 	void rva00516F08();
 
 private:
@@ -138,3 +161,35 @@ void AptOnline::rva00516F08()
 	if (TheGameSpyInfo)
 		TheGameSpyInfo->slot10(1, m_mode);
 }
+
+// Retail 0x00517207, 263 bytes. Bound as the Apt variables
+// "OnlineShellStartScreen" (0: the current sub-screen's name, read only)
+// and "OnlineAdvMode" (1: the GameSpy misc preference "InAdvMode"), so it
+// keeps its address.
+void AptOnline::rva00517207(int query, char *value, bool set)
+{
+	if (!set)
+		value[0] = 0;
+	switch (query)
+	{
+	case 0:
+		if (!set)
+			strcpy(value, m_currentName.str());
+		break;
+	case 1:
+	{
+		GameSpyMiscPreferences prefs;
+		if (set)
+		{
+			prefs.setBool(AsciiString("InAdvMode"), value[0] == '1' || value[0] == 't');
+			prefs.write();
+		}
+		else
+			strcpy(value, prefs.getBool(AsciiString("InAdvMode"), false) ? "1" : "0");
+		break;
+	}
+	}
+}
+
+// Retail's strcpy call lands on the import thunk rowed as ji_00629176.
+#pragma comment(linker, "/alternatename:_strcpy=?ji_00629176@@YAXXZ")
