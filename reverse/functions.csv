@@ -60772,3 +60772,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva0010F557@Rva0010F557@@QAEXXZ,,0x0010F557,81,Code/GameEngine/Source/Common/Rva0010F557Finish.cpp,matched,banked 0.95 finish: unlock call duplicated into both arms keeps pop esi after it
 ??0Rva003AF672@@QAE@ABV0@@Z,,0x003AF672,98,Code/GameEngine/Source/GameClient/System/FXParticleSystem/ParticleModuleInfoCopyCtors.cpp,matched,Box copy via Intermediate3AFC6FC calls rowed base 0x003AF50D and rowed Box 0x003A6669; caller 0x003AF645; LINK BONUS file waiting
 ?onExit@AICowerState@@UAEXW4StateExitType@@@Z,,0x003402FC,70,Code/GameEngine/Source/GameLogic/AI/AICowerStateOnExit.cpp,matched,vslot slot5 of 0x00811958 via donor BFME1 onExit and caller 0x00347F3E
+?rva002A7461@Rva002A7461@@QAEHXZ,,0x002A7461,98,Code/GameEngine/Source/GameLogic/Object/Rva002A7461.cpp,matched,unlock lane neighbours share O1 cap via arch SSE ThePlayerList rowed
