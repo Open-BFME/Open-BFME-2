@@ -13417,3 +13417,6 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 ?rva003BBAD3@Rva003BBAD3@@QAEXXZ,0x003BBAD3,thiscall spelling of the body rowed as free ?Rva003BBAD3Set@@YAXXZ; retail mov ecx,esi proves this-pass although the callee only reads globals
 ?rva0021A54A@Rva0021A54A@@QAEXXZ,0x0021A54A,thiscall void(); tail target of dump-range-18 0x003BD598 on the hero-manager global
 ?rva003BA83F@@YAXPAXH@Z,0x003BA83F,cdecl (obj,0);-team-wiring callee of dump-range-18 0x003BD884 with caller-pop pair; body opens on the passed pointer
+?rva00397F45@Rva00397F45@@QAE_NPAVPlayer@@H@Z,0x00397F45,thiscall bool(Player*,int); module-gate callee of dump-range-18 0x003BE2DB on the pool-key module with the controlling player
+?rva0039718B@Rva0039718B@@QAE_NPAVPlayer@@@Z,0x0039718B,thiscall bool(Player*); conditional module-gate callee of dump-range-18 0x003BE2DB flag==0 path
+?rva00399C6C@Rva00399C6C@@QAEXHH@Z,0x00399C6C,thiscall void(int,int); module writer callee of dump-range-18 0x003BE2DB with (flag,0)
