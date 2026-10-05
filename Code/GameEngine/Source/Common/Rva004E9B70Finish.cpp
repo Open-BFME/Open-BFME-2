@@ -24,7 +24,7 @@ struct Elem
 	virtual void *deleteInstance(int flags);
 };
 
-extern RvaVector g_00E04484;
+RvaVector g_00E04484;
 
 class Rva004E9B70
 {
