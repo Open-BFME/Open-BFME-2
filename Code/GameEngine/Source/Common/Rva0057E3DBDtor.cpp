@@ -6,7 +6,12 @@
 // via rowed MapMetaData dtor 0x22DBC6 plus rowed operator delete 0x2FD60.
 // Evidence: packet disasm with all callees rowed, two callers 0x4421E1
 // 0x43A396, vtable stores at +0/+4.
-struct TargetRef00217D4C;
+struct TargetRef00217D4C
+{
+	int m_00;
+	int m_04;
+	int m_08;
+};
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
 class MapMetaData
 {
@@ -45,6 +50,8 @@ class Rva0057E3DB : public Rva0057E3DBBase
 {
 public:
 	virtual ~Rva0057E3DB();
+	void rva0057E058();
+	void rva0057E24B(int arg);
 private:
 	struct Mem04 m_04; // +0x04 second vptr slot
 	int m_08; // +0x08
@@ -60,4 +67,15 @@ private:
 Rva0057E3DB::~Rva0057E3DB()
 {
 	delete m_64;
+}
+
+// ?rva0057E24B@Rva0057E3DB@@QAEXH@Z @0x0057E24B 18B
+// Setter on the MpGameSetup +0x60 panel member: stores the int arg into the
+// +0x18 target's +8 slot, then refreshes via the pinned 0x0057E058 body.
+// Evidence: thiscall (ecx read), ret 4, caller 0x0043A0D9 passes [esi+0x88]
+// with ecx=esi+0x18, callee pin ?rva0057E058@Rva0057E3DB@@QAEXXZ.
+void Rva0057E3DB::rva0057E24B(int arg)
+{
+	m_18.m_ptr->m_08 = arg;
+	rva0057E058();
 }
