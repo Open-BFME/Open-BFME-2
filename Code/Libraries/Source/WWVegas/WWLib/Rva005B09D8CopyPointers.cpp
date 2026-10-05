@@ -14,3 +14,19 @@ template Rva005B09D8Record* _STL::__copy<Rva005B09D8Record*,Rva005B09D8Record*,i
 Rva005B09D8Record* copyPointersRva005B09D8(Rva005B09D8Record*first,Rva005B09D8Record*last,Rva005B09D8Record*result,const _STL::__false_type&) {
 return _STL::__copy(first,last,result,_STL::random_access_iterator_tag(),(int*)0);
 }
+
+// Native erase [5B129F,5B12C5),38B RET8, called by resize5B1A07.
+// Retail copies [last,finish) onto first with the full29B wrapper above,
+// stores its result at receiver+4 and returns first. No element destructor
+// is called on this path. The three-pointer view follows STLport vector;
+// application owner and element identity remain unknown.
+class Rva005B129FVector {
+public:
+ Rva005B09D8Record* erase(Rva005B09D8Record*,Rva005B09D8Record*);
+ void resize(unsigned int,Rva005B09D8Record);
+private: Rva005B09D8Record*start,*finish,*endStorage;
+};
+Rva005B09D8Record* Rva005B129FVector::erase(Rva005B09D8Record*first,Rva005B09D8Record*last) {
+finish=copyPointersRva005B09D8(last,finish,first,_STL::__false_type());
+return first;
+}
