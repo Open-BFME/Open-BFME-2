@@ -56755,3 +56755,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ??0Rva003ACD0F@@QAE@PAX0@Z,,0x003ACD0F,49,Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003ACD0FCtor.cpp,matched,chain ctor via base Rva003AC0DA
 ?rva0016ABC0@MeshGeometryClass@@QAEPAVVector3@@XZ,,0x0016ABC0,20,Code/Libraries/Source/WWVegas/WW3D2/MeshGeometryClassGetTangents.cpp,matched,MeshGeometry VertexTangents Array if Count positive else null via Reset Copy offsets caller 0x0018CC38
 ??1Rva00523775@@UAE@XZ,,0x00523775,137,Code/GameEngine/Source/Common/Rva00523775Dtor.cpp,matched,Apt-screen dtor with UI hide and free via TheInGameUI Shell hide plus AutoFreePtr plus base pin
+??1FunctorNotSet@@UAE@XZ,,0x00203EBA,6,Code/GameEngine/Source/Common/FunctorNotSetCtor.cpp,matched,novtable empty dtor tail-jmps to exception base via vtable 0x00BD3B54 and deleting dtor 0x002035F5

@@ -16,12 +16,14 @@ class __declspec(dllimport) exception
 {
 public:
 	exception();
+	virtual ~exception();
 };
 
 class __declspec(novtable) FunctorNotSet : public exception
 {
 public:
 	FunctorNotSet();
+	virtual ~FunctorNotSet();
 };
 
 // ??0FunctorNotSet@@QAE@XZ @0x2035E2
@@ -29,6 +31,10 @@ FunctorNotSet::FunctorNotSet()
 	: exception()
 {
 	*(unsigned int *)this = 0x00BD3B54;
+}
+
+FunctorNotSet::~FunctorNotSet()
+{
 }
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
