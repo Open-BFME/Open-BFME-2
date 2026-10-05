@@ -20,6 +20,7 @@ void __debugbreak();
 #pragma intrinsic(__debugbreak)
 class EAStringC {
 public:
+    void rva006D3C20();
     unsigned short rva006D2F40() const;
     bool rva006D3560(const EAStringC *) const;
     bool rva006D36F0(const EAStringC *) const;
@@ -55,6 +56,7 @@ class AptNativeHash {
 public:
     AptNativeHash(int size);
     ~AptNativeHash();
+    void ClearData(); void ClearDataNoDelete();
     void Set(const EAStringC *const,AptValue *const);
     void Unset(const EAStringC *const);
     void Set__Proto__(AptValue *const value);
@@ -453,3 +455,37 @@ void    AptNativeHash::HashSet(const EAStringC * const pKey, AptValue * const pV
 
 // Bind the existing addIfAbsent consumer to this now-recovered Set provider.
 #pragma comment(linker, "/alternatename:?add@Rva8D0D80Table@@QAEXPAVRva8D0D80String@@PAVRva8D0D80Value@@@Z=?Set@AptNativeHash@@QAEXQBVEAStringC@@QAVAptValue@@@Z")
+
+class Rva006DB270 { public: void freeBlock(void *,int); };
+extern Rva006DB270 *g_pChainBlockAllocator;
+// Donor7c62a278 source and original MAP names; PC ClearData148B/NoDelete137B.
+// Direct field accesses preserve native address scheduling across virtual Release.
+void AptNativeHash::ClearData()
+{
+    if(mpPrototype) { mpPrototype->Release();mpPrototype=0; }
+    if(mp__proto__) { mp__proto__->Release();mp__proto__=0; }
+    if(mpData) {
+        for(int i=0;i<mnTotalSize;++i) {
+            if(mpData[i].key.hasData()) {
+                if(mpData[i].value) { mpData[i].value->Release();mpData[i].value=0; }
+                ((EAStringC *)&mpData[i].key)->rva006D3C20();
+            }
+        }
+        g_pChainBlockAllocator->freeBlock(mpData,mnTotalSize*8);mpData=0;
+    }
+    nEventHandlers=0;
+}
+void AptNativeHash::ClearDataNoDelete()
+{
+    if(mpPrototype) { mpPrototype->Release();mpPrototype=0; }
+    if(mp__proto__) { mp__proto__->Release();mp__proto__=0; }
+    if(mpData) {
+        for(int i=0;i<mnTotalSize;++i) {
+            if(mpData[i].key.hasData()) {
+                if(mpData[i].value) { mpData[i].value->Release();mpData[i].value=0; }
+                ((EAStringC *)&mpData[i].key)->rva006D3C20();
+            }
+        }
+    }
+    nEventHandlers=0;
+}
