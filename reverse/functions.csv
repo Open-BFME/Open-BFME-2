@@ -61820,7 +61820,6 @@ _Rva007F5790Callback,,0x00661F40,15,Code/GameEngine/Source/GameNetwork/Rva007F70
 ?Rva000C2B23_ParseModelName@INI@@SAXPAV1@PAX1PBX@Z,,0x000C2B23,174,Code/GameEngine/Source/Common/Rva000C2B23ParseModelName.cpp,matched,W3DModelDraw Model row 0x00BCAB20 via ExtraMesh keep plus rowed erase push_back
 ?rva001E67BF@Rva001E4DB0@@QAE?AV1@XZ,,0x001E67BF,94,Code/GameEngine/Source/Common/Rva001E67BFClone.cpp,matched,by-value copy via temp plus flag clear at +0x150 caller 0x004DA49E
 ?rva002F36E5@Pathfinder@@QAEPAVRva0052DE5B@@XZ,,0x002F36E5,40,Code/GameEngine/Source/GameLogic/AI/PathfinderRva002F36E5.cpp,matched,unlock lane queue 0x1D1F0 callees 0x0052DAE9 0x002F301F neighbours share flags
-??1Rva005FBBEE@@UAE@XZ,,0x005FBBEE,14,Code/GameEngine/Source/GameClient/GUI/Rva005FBBEEDtor.cpp,matched,virtual dtor via release-view alternatename to rowed clear 0x005FBBA6 plus vtable 0x00C79FF4
 ??0Rva0057709A@@QAE@H@Z,,0x0057709A,49,Code/GameEngine/Source/Common/VslotSmallBodiesAI.cpp,matched,derived ctor of Rva005CBA04 via global plus outer arg plus vtable overwrite
 ?rva00577A0E@Rva00577A0E@@QBE?AVAsciiString@@XZ,,0x00577A0E,28,Code/GameEngine/Source/Common/AptStateCalls.cpp,matched,forwarder via plus40 plus00 to rowed Apt path by value
 ?rva00577324@Rva005772BF@@QAEXPBXH@Z,,0x00577324,50,Code/GameEngine/Source/Common/MemberBaseDtorsB01.cpp,matched,vslot 3 via plus8 plus14 to rowed 5 minus1 else write
@@ -61843,3 +61842,6 @@ _Rva007F5790Callback,,0x00661F40,15,Code/GameEngine/Source/GameNetwork/Rva007F70
 ?Rva00516DD2@@YAPAUAptOnlineSubScreen@@PAVAptOnline@@@Z,,0x00516DD2,56,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineShellScreens.cpp,matched,online shell screen table 0x00DD1568 factory for OnlineOpenPlay (its only reference): new sub-screen via the pinned constructor; guard none
 ?Rva00516E10@@YAPAUAptOnlineSubScreen@@PAVAptOnline@@@Z,,0x00516E10,56,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineShellScreens.cpp,matched,online shell screen table 0x00DD1568 factory for OnlineStrategic (its only reference): new sub-screen via the pinned constructor; guard none
 ?Rva00516E4E@@YAPAUAptOnlineSubScreen@@PAVAptOnline@@@Z,,0x00516E4E,68,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineShellScreens.cpp,matched,online shell screen table 0x00DD1568 factory for OnlineQuickMatch (its only reference): new sub-screen via the pinned constructor; guard 0x00E06550
+?rva005FB83E@Rva005FB83E@@QAEXPBVImage@@@Z,,0x005FB83E,8,Code/GameEngine/Source/GameClient/GUI/AptPlayerNameSet.cpp,matched,tail-jmp forwarder via member at plus4 to rowed PlayerIcon 0x005FB666
+?rva005FB846@Rva005FB846@@QAEXXZ,,0x005FB846,8,Code/GameEngine/Source/GameClient/GUI/AptPlayerNameSet.cpp,matched,tail-jmp forwarder via member at plus4 to rowed 0x005FB6E2
+?rva005FB84E@Rva005FB84E@@QAEXXZ,,0x005FB84E,8,Code/GameEngine/Source/GameClient/GUI/AptPlayerNameSet.cpp,matched,tail-jmp forwarder via member at plus4 to rowed 0x005FB729
