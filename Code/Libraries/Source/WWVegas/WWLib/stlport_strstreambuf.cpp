@@ -11,6 +11,13 @@
 #include <locale>
 #include <strstream>
 
+class Rva006026E0
+{
+public:
+	void *alloc(unsigned n);
+	void free(void *p);
+};
+
 namespace _STL
 {
 
@@ -62,7 +69,7 @@ strstreambuf::int_type strstreambuf::overflow(int_type c)
 		ptrdiff_t old_size = epptr() - pbase();
 		ptrdiff_t new_size = (max)(2 * old_size, ptrdiff_t(1));
 
-		char* buf = _M_alloc(new_size);
+		char* buf = (char*)((Rva006026E0*)this)->alloc(new_size);
 		if (buf) {
 			memcpy(buf, pbase(), old_size);
 
@@ -80,7 +87,7 @@ strstreambuf::int_type strstreambuf::overflow(int_type c)
 			if (reposition_get)
 				setg(buf, buf + old_get_offset, buf + (max)(old_get_offset, old_size));
 
-			_M_free(old_buffer);
+			((Rva006026E0*)this)->free(old_buffer);
 		}
 	}
 
