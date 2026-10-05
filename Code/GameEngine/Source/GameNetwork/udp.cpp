@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/open-bfme-1/inputs/reference/shims/sweep /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad
+// cl: /O1 /G7 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/open-bfme-1/inputs/reference/shims/sweep /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad
 // stlport
 //
 // BFME 2's udp.cpp, ported from Open-BFME-1's GameNetwork/udp.cpp (donor
@@ -89,6 +89,21 @@ Int UDP::Bind(const char *Host,UnsignedShort port)
 
 // You must call bind, implicit binding is for sissies
 //   Well... you can get implicit binding if you pass 0 for either arg
+
+// These are typed views of the existing named import slots, without a
+// second storage definition. Their undecorated COFF IAT names retain the
+// htonl/htons export identity and bind to the import library's stdcall names.
+extern "C" unsigned long (__stdcall * const _imp__htonl)(unsigned long);
+extern "C" unsigned short (__stdcall * const _imp__htons)(unsigned short);
+#pragma comment(linker, "/alternatename:__imp__htonl=__imp__htonl@4")
+#pragma comment(linker, "/alternatename:__imp__htons=__imp__htons@4")
+// Native [594B56,594C12),188B RET8. The PE declares both receive slots
+// as htonl/htons too; their distinct COFF IAT spellings avoid merging the
+// calls during compilation, and both bind to the genuine named imports.
+// /G7 preserves the target AX load for the 16-bit port argument.
+// The full118B enum-returning GetStatus was independently verified against
+// this UDP declaration before binding the existing int-returning provider.
+#pragma comment(linker, "/alternatename:?GetStatus@UDP@@QAE?AW4sockStat@1@XZ=?rva00594A06@UDP@@QAEHXZ")
 Int UDP::Bind(UnsignedInt IP,UnsignedShort Port)
 {
   int retval;
@@ -131,11 +146,10 @@ Int UDP::Bind(UnsignedInt IP,UnsignedShort Port)
   int namelen=sizeof(addr);
   getsockname(fd, (struct sockaddr *)&addr, &namelen); 
 
-  myIP=htonl(addr.sin_addr.s_addr);
-  myPort=htons(addr.sin_port);
+  myIP=_imp__htonl(addr.sin_addr.s_addr);
+  myPort=_imp__htons(addr.sin_port);
 
-  // Retail inlines this (/Ob2) and keeps only the ioctlsocket -- no test of the
-  // result, so the reference's fprintf is not in the shipped source.
+  // Retail calls the full53B SetBlocking at594976 and ignores its status.
   SetBlocking(FALSE);
 
   return(OK);
