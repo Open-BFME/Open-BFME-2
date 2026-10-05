@@ -321,6 +321,8 @@ class BFMEActionManager
 public:
 	Bool canEnterObject(const Object *, const Object *, CommandSourceType,
 		CanEnterType, Bool *);
+	Bool canEnterObject(const Object *, const Object *, CommandSourceType,
+		CanEnterType, Int, Bool *);
 	// Body 0x000C4080 (113 B, ret 0xC), reached through ILT 0x00012B57. A
 	// three-argument object/object/source test distinct from the five-argument
 	// canEnterObject above; its name is not evidenced, so it keeps the address.
@@ -340,6 +342,36 @@ class AICommandInterface
 public:
 	void rva0026C347(Object *obj, CommandSourceType commandSource);
 	void rva0026C3AC(Object *obj, CommandSourceType commandSource);
+};
+
+// Retail 0x00264775 slot 48 (privateEnter): the BFME2 contain module sits at
+// +0x250 (not ZH's +0x1FC) with the enter-view getter at slot 31 (+0x7C) and
+// enterObject at slot 32 (+0x80) of the returned view; the mobile gate is the
+// rowed Object::rva002907A1 and the ActionManager test is the six-argument
+// canEnterObject pinned at 0x0041C2D0.
+template <int N>
+class PrivateEnterSlots : public PrivateEnterSlots<N - 1>
+{
+public:
+	virtual void gap(char (*)[N]) = 0;
+};
+
+template <>
+class PrivateEnterSlots<0>
+{
+};
+
+class PrivateEnterTarget;
+class PrivateEnterContain : public PrivateEnterSlots<31>
+{
+public:
+	virtual PrivateEnterTarget *slot31() = 0;
+};
+
+class PrivateEnterTarget : public PrivateEnterSlots<32>
+{
+public:
+	virtual void enterObject(Object *object, CommandSourceType commandSource) = 0;
 };
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Object.h
@@ -362,7 +394,9 @@ public:
 	ContainModuleInterface *m_contain;			// +0x1FC
 	unsigned char m_unmodelled_200[0x214 - 0x200];
 	Object *m_containedBy;						// +0x214
-	unsigned char m_unmodelled_218[0x274 - 0x218];
+	unsigned char m_unmodelled_218[0x250 - 0x218];
+	PrivateEnterContain *m_enterContain;		// +0x250
+	unsigned char m_unmodelled_254[0x274 - 0x254];
 	Object *m_bfmeObject274;					// +0x274, bfmePrivateCommand3E's fallback target
 };
 
@@ -549,6 +583,38 @@ void AIUpdateInterface::privateMoveToObject(Object *obj, CommandSourceType comma
 	m_stateMachine->setGoalObject(obj);
 	m_lastCommandSource = commandSource;
 	m_stateMachine->setState((StateID)0x3c);
+}
+
+// Retail 0x00264775 slot 48. BFME2 privateEnter: when the owner's contain
+// module at +0x250 offers an enter view (slot 31) it handles the order with a
+// tail call (slot 32) and nothing else runs; otherwise the rva002907A1 gate
+// and the six-argument canEnterObject (DONT_CHECK_CAPACITY) lead to clear,
+// goal object, command source and state 0x0f. Donor is BFME1
+// AIUpdateInterfacePrivateCommands.cpp privateEnter with +0x1FC/slots
+// +0x68/+0x7C, isMobile and the five-argument canEnterObject; retail moves
+// the module, widens both interfaces by one slot and swaps the gates.
+void AIUpdateInterface::privateEnter(Object *object, CommandSourceType commandSource)
+{
+	Object *me = m_object;
+	PrivateEnterContain *contain = me->m_enterContain;
+	if (contain)
+	{
+		PrivateEnterTarget *enter = contain->slot31();
+		if (enter)
+		{
+			enter->enterObject(object, commandSource);
+			return;
+		}
+	}
+	if (!me->rva002907A1())
+		return;
+	if (TheActionManager->canEnterObject(me, object, commandSource, DONT_CHECK_CAPACITY, 0, 0))
+	{
+		m_stateMachine->clear();
+		m_stateMachine->setGoalObject(object);
+		m_lastCommandSource = commandSource;
+		m_stateMachine->setState((StateID)0x0f);
+	}
 }
 
 
