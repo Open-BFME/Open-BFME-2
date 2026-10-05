@@ -84,7 +84,9 @@ def all_exact(rows, home):
     object at its own address and size, instead of one explain_mismatch
     process, and one compile of the home, per row."""
     global _SYMBOLS
-    built = subprocess.run(["./build.sh", home], cwd=ROOT, capture_output=True, text=True)
+    command = ([sys.executable, str(ROOT / "tools" / "build.py"), home]
+               if sys.platform == "win32" else ["./build.sh", home])
+    built = subprocess.run(command, cwd=ROOT, capture_output=True, text=True)
     if built.returncode != 0 or "Functions: OK" not in built.stdout:
         return False
     if _SYMBOLS is None:
@@ -127,7 +129,7 @@ def main(argv=None):
         ok = True
         for row in rows:
             note = (row["notes"] + "; " if row["notes"] else "") + "row moved home from " + Path(split).name
-            result = subprocess.run(["python3", "tools/add_match.py", row["name"], row["target_rva"],
+            result = subprocess.run([sys.executable, "tools/add_match.py", row["name"], row["target_rva"],
                                      row["target_size"], home, "--replace-existing", "--notes", note],
                                     cwd=ROOT, capture_output=True, text=True)
             if "verified OK" not in result.stdout + result.stderr:
