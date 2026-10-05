@@ -6651,3 +6651,21 @@ void __cdecl rva007B54E0()
 	CPUDetectInitThunk *p = (CPUDetectInitThunk *)&g_Va00E08D38;
 	return p->init();
 }
+
+extern unsigned g_Va00E02C48;
+unsigned int g_Va00E02C48;
+
+// ?rva007B3EB4@@YAXXZ @ 0x007B3EB4 (11B). Global store thunk: g_Va00E02C48 = 0x00E02C40 then ret. The stored value is 8 below the global's own address; purpose unproven. No callers. Honest address name.
+void __cdecl rva007B3EB4()
+{
+	g_Va00E02C48 = 0x00E02C40;
+}
+
+extern unsigned g_Va00E02C4C;
+unsigned int g_Va00E02C4C;
+
+// ?rva007B3EBF@@YAXXZ @ 0x007B3EBF (11B). Global store thunk: g_Va00E02C4C = 0x00E02C44 then ret. The stored value is 8 below the global's own address; purpose unproven. No callers. Honest address name.
+void __cdecl rva007B3EBF()
+{
+	g_Va00E02C4C = 0x00E02C44;
+}
