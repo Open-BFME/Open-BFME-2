@@ -12898,3 +12898,4 @@ _Rva00337999Forward,0x00337999,REL32 callee decoded from target call bytes of wr
 ?rva002A8AB1@PlayerList@@QAEPAVPlayer@@PAVRva003A2BD4M08@@@Z,0x002A8AB1,PlayerList lookup by m08 returning Player; read from REL32 at 0x003A2BFA in rva003A2BD4 0x003A2BD4
 ?rva004EC072@Player@@QAEXPAVTeamPrototype@@@Z,0x004EC072,Player entry taking this; read from REL32 at 0x003A2C06 in rva003A2BD4 0x003A2BD4
 ?rva003A3B7E@Rva0039FE6COwner@@QAEPAVTeamPrototype@@ABVAsciiString@@0@Z,0x003A3B7E,fallback when findPrototype hits an empty inactive team; same (a1,a2) args; read from REL32 at 0x003A3E67 in rva003A3E37 0x003A3E37
+?rva0052C7A2@Rva0052C7A2@@QAEHXZ,0x0052C7A2,no-arg entry method tail-called from indexed table in rva003B8D4D 0x003B8D4D; read from jmp at 0x003B8D67; identity unproven
