@@ -1,41 +1,11 @@
-// cl: /DNDEBUG /MD /EHsc /O1 /Ob2
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /O1 /Ob2
 //
-// Open-BFME5: the mixed six-member copy constructor at retail 0x004E9FD0,
-// 148 bytes: a word, three narrow strings, a word and two wide strings.
-
-class AsciiStringWN
-{
-public:
-	AsciiStringWN(const AsciiStringWN &other);
-	~AsciiStringWN(void);
-
-private:
-	char *m_bfmeData;
-};
-
-class UnicodeStringWN
-{
-public:
-	UnicodeStringWN(const UnicodeStringWN &other);
-	~UnicodeStringWN(void);
-
-private:
-	unsigned short *m_bfmeData;
-};
-
-class BfmeStrWN : private AsciiStringWN
-{
-public:
-	BfmeStrWN(const AsciiStringWN &other) : AsciiStringWN(other) {}
-	~BfmeStrWN(void) {}
-};
-
-class BfmeWideWN : private UnicodeStringWN
-{
-public:
-	BfmeWideWN(const UnicodeStringWN &other) : UnicodeStringWN(other) {}
-	~BfmeWideWN(void) {}
-};
+// Open-BFME5: the mixed copy constructor at retail 0x00415FAB,
+// 125 bytes: a word, three narrow strings, a word and two wide strings.
+// Callees are the rowed StringBase copy ctors 0x000365F0 (narrow) and
+// 0x00037050 (wide) via the shared AsciiString/UnicodeString inline copies.
+#include "ascii_string.h"
+#include "unicode_string.h"
 
 class Gen_004E9FD0
 {
@@ -43,12 +13,12 @@ public:
 	Gen_004E9FD0(const Gen_004E9FD0 &other);
 
 	int m_bfmeKind;						// +0x00
-	BfmeStrWN m_bfmeFirst;					// +0x04
-	BfmeStrWN m_bfmeSecond;					// +0x08
-	BfmeStrWN m_bfmeThird;					// +0x0C
+	AsciiString m_bfmeFirst;					// +0x04
+	AsciiString m_bfmeSecond;					// +0x08
+	AsciiString m_bfmeThird;					// +0x0C
 	int m_bfmeCount;					// +0x10
-	BfmeWideWN m_bfmeText;					// +0x14
-	BfmeWideWN m_bfmeHint;					// +0x18
+	UnicodeString m_bfmeText;					// +0x14
+	UnicodeString m_bfmeHint;					// +0x18
 };
 
 // ??0Gen_004E9FD0@@QAE@ABV0@@Z
