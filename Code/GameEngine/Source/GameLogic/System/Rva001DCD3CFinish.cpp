@@ -3,8 +3,8 @@
 // Honest address name: __thiscall clearer beside GameLogicModeGateChecks.
 // Target evidence: 80B retail, SSE movss/xorps, no calls, 5 callers
 // (0x1DD238 0x1DEEA0 0x1DF1E8 0x1DF520 0x1DF78F); first two floats from
-// global VA 0x7BB9AC, rest zeroed through +0x30. Prev/next pin TU and flags.
-extern float g_007BB9AC;
+// global VA 0x00BBB9AC (-1.0f), rest zeroed through +0x30. Prev/next pin TU and flags.
+extern float g_00BBB9AC;
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 class Rva001DCD3C
@@ -31,7 +31,7 @@ private:
 };
 void Rva001DCD3C::rva001DCD3C()
 {
-    float v = g_007BB9AC;
+    float v = g_00BBB9AC;
     float zero = 0.0f;
     m_00 = v;
     m_04 = v;
@@ -50,7 +50,3 @@ void Rva001DCD3C::rva001DCD3C()
     m_2C = zero;
     m_30 = 0;
 }
-
-// The global(s) below are defined elsewhere under another name at the same
-// address (the census owner of that DIR32 target); bind this unit's spelling.
-#pragma comment(linker, "/alternatename:?g_007BB9AC@@3MA=?g_00BBB9AC@@3MA")
