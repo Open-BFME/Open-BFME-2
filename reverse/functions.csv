@@ -63536,3 +63536,5 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva003BBD84@@YGXABVAsciiString@@@Z,,0x003BBD84,64,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsRva003BBD84.cpp,matched,Mask sweep with constant 1 through pinned Player 0x002AEEA7; same family as rowed 0x003BB233
 ?rva003BBDC4@@YGXABVAsciiString@@@Z,,0x003BBDC4,64,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsRva003BBD84.cpp,matched,Mask sweep with constant 1 through pinned Player 0x002AF037; same family as rowed 0x003BB233
 ?rva003A2BD4@TeamPrototype@@QAEXXZ,,0x003A2BD4,57,Code/GameEngine/Source/Common/RTS/TeamPrototypeRva003A2BD4.cpp,matched,Factory register plus holder chain via rowed 0x003A2B78 and pinned 0x002AE228 0x002A8AB1 0x004EC072; straightline null guards
+??0Rva005D2F1D@@QAE@ABURvaS16@@ABURvaS08@@@Z,,0x005D2F1D,34,Code/GameEngine/Source/Common/Rva005D2F1DConcat.cpp,matched,
+??0Rva005D2F3F@@QAE@ABURvaS24@@ABURvaS08@@@Z,,0x005D2F3F,35,Code/GameEngine/Source/Common/Rva005D2F1DConcat.cpp,matched,
