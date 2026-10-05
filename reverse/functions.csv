@@ -57131,3 +57131,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva005392EC@Rva0053947D@@UAEXXZ,,0x005392EC,42,Code/GameEngine/Source/Common/Rva00539316Slot5.cpp,matched,slot7 vtable 0x00869228 s13 s15 f03 loop
 ??1Rva005D309D@@QAE@XZ,,0x005D309D,81,Code/GameEngine/Source/Common/Rva005D309D.cpp,matched,dtor AsciiString three Rva005D2EA8 members callers
 ?rva005D32AA@Rva005D32AA@@QAEXXZ,,0x005D32AA,26,Code/GameEngine/Source/Common/Rva005D32AA.cpp,matched,clear owned pointer dtor delete caller jmp
+?rva003307F2@Rva003307F2@@QAEXPBVModuleData@@@Z,,0x003307F2,61,Code/GameEngine/Source/GameLogic/Object/Behavior/Rva003307F2Method.cpp,matched,unlock broadcast via forEach vector push inc rowed callees
