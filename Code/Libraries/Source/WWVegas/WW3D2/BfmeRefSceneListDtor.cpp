@@ -19,6 +19,7 @@ public:
 class GenericMultiListClass
 {
 public:
+	GenericMultiListClass();
 	virtual ~GenericMultiListClass();
 
 	bool Is_Empty(void)
@@ -40,8 +41,16 @@ public:
 class BfmeRefSceneList : public RefMultiListClass<RenderObjClass>
 {
 public:
+	BfmeRefSceneList();
 	virtual ~BfmeRefSceneList();
 };
+
+// ??0BfmeRefSceneList@@QAE@XZ, retail 0x0006E518 (18B): the rowed
+// GenericMultiListClass constructor 0x00065815 (RefMultiListClass's own is
+// empty) then vtable 0x00BC6260, the one the destructor below restores.
+BfmeRefSceneList::BfmeRefSceneList()
+{
+}
 
 BfmeRefSceneList::~BfmeRefSceneList()
 {

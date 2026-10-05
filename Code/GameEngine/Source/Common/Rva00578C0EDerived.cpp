@@ -12,6 +12,7 @@
 class Rva00578C0E
 {
 public:
+	Rva00578C0E();
 	virtual ~Rva00578C0E();
 
 private:
@@ -21,8 +22,18 @@ private:
 class Rva00578C23 : public Rva00578C0E
 {
 public:
+	Rva00578C23();
 	virtual ~Rva00578C23();
 };
+
+// ??0Rva00578C23@@QAE@XZ, retail 0x00578D10 (18B): calls the base
+// constructor at 0x00578C2E (rowed as ??0Rva00578C2E; it stores vtable
+// 0x00BE2B78, the one ??1Rva00578C0E restores, so it is this base's
+// constructor - pinned under the base's name) then stores vtable
+// 0x00C6EAC0, the one the destructor below restores.
+Rva00578C23::Rva00578C23()
+{
+}
 
 Rva00578C23::~Rva00578C23()
 {

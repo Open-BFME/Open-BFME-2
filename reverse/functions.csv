@@ -59996,3 +59996,6 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ??0Rva00340391@@QAE@PAVStateMachine@@@Z,,0x00340391,28,Code/GameEngine/Source/GameLogic/AI/AIStateHashCtors0033F2FD.cpp,matched,derived from Rva0033F7C8 byte plus20 true caller 0x003523FD
 ??0Rva005D736E@@QAE@XZ,,0x005D735C,18,Code/GameEngine/Source/Common/Rva005EE30CDerived.cpp,matched,ctor base 0x005EE2E6 then vtable C75CEC matching its dtor 0x005D736E
 ??0Rva005D7AC5@@QAE@XZ,,0x005D7AB3,18,Code/GameEngine/Source/Common/Rva005EE30CDerived.cpp,matched,ctor base 0x005EE2E6 then vtable C75E44 matching its dtor 0x005D7AC5
+??0Rva005D7C17@@QAE@XZ,,0x005D7C05,18,Code/GameEngine/Source/Common/Rva005D7D88Derived.cpp,matched,ctor base 0x005D7D76 then vtable C75E88 matching its dtor
+??0BfmeRefSceneList@@QAE@XZ,,0x0006E518,18,Code/Libraries/Source/WWVegas/WW3D2/BfmeRefSceneListDtor.cpp,matched,ctor GenericMultiListClass 0x00065815 then vtable BC6260 matching its dtor
+??0Rva00578C23@@QAE@XZ,,0x00578D10,18,Code/GameEngine/Source/Common/Rva00578C0EDerived.cpp,matched,ctor base 0x00578C2E then vtable C6EAC0 matching its dtor

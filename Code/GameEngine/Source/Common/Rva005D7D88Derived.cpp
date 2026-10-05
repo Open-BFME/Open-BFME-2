@@ -33,8 +33,16 @@ Rva005D7531::~Rva005D7531()
 class Rva005D7C17 : public Rva005D7D88
 {
 public:
+	Rva005D7C17();
 	virtual ~Rva005D7C17();
 };
+
+// ??0Rva005D7C17@@QAE@XZ, retail 0x005D7C05 (18B): the rowed base
+// constructor 0x005D7D76 then vtable 0x00C75E88, the one the destructor
+// below restores.
+Rva005D7C17::Rva005D7C17()
+{
+}
 
 Rva005D7C17::~Rva005D7C17()
 {
