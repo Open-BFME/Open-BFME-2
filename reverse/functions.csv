@@ -63614,3 +63614,6 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva002BFCF5@Rva002BFCF5@@QAEXHH@Z,,0x002BFCF5,30,Code/GameEngine/Source/Common/Rva002BFCF5TwoIntWraps.cpp,matched,two-int pack wrapper calling unrowed member 0x002BFA86
 ?rva003A37DC@Rva003A37DC@@QAEXHH@Z,,0x003A37DC,30,Code/GameEngine/Source/Common/Rva002BFCF5TwoIntWraps.cpp,matched,two-int pack wrapper calling unrowed member 0x002ADCE1
 ?rva005258F8@Rva005258F8@@QAEXHH@Z,,0x005258F8,30,Code/GameEngine/Source/Common/Rva002BFCF5TwoIntWraps.cpp,matched,two-int pack wrapper calling unrowed member 0x00525407
+?rva002F1C5F@Rva002F1C5F@@QAEPAV1@HH@Z,,0x002F1C5F,42,Code/GameEngine/Source/Common/Rva002F1C5FSelfLink.cpp,matched,self-link init returning this calling unrowed member 0x002F0C32
+?rva002F1CB3@Rva002F1CB3@@QAEPAV1@HH@Z,,0x002F1CB3,42,Code/GameEngine/Source/Common/Rva002F1C5FSelfLink.cpp,matched,self-link init returning this calling unrowed member 0x002F0C55
+?rva004152BC@Rva004152BC@@QAEPAV1@HH@Z,,0x004152BC,42,Code/GameEngine/Source/Common/Rva002F1C5FSelfLink.cpp,matched,self-link init returning this calling unrowed member 0x004151C4
