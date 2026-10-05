@@ -3,8 +3,12 @@
 // ?rva001ED3A2@Rva001ED3A2@@QAEXXZ @0x001ED3A2 30B.
 // Manual destroy-plus-free of Rva001ED0DE range at +0..+4 via rowed 0x001ED34A plus rowed free 0x00030830.
 // Evidence: callees rowed 0x001ED34A 0x00030830; caller 0x001ED50F in 0x001ED476; same 30B shape as rowed 0x001ED01E.
-#include <vector>
 #include <stdlib.h>
+
+namespace _STL
+{
+template <class I> void __cdecl _Destroy(I first, I last);
+}
 
 class Rva001ED0DE
 {
