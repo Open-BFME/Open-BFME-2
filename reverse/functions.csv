@@ -56151,3 +56151,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?Update_Cached_Bounding_Volumes@MeshClass@@MBEXXZ,,0x0014B650,366,Code/Libraries/Source/WWVegas/WW3D2/MeshClassUpdateCached.cpp,matched,vslot 127 MeshClass vtable 0x007D35A8 ZH donor plus BFME2 bounds layout
 ?rva006D5EC0@EAStringC@@QAEHXZ,,0x006D5EC0,15,Code/Libraries/Source/EA/Apt/AptString/EAStringCLen.cpp,matched,caller Rva006D7A60Finish int return payload plus 8 rowed 0x006D4D80
 ??0Rva0054000B@@QAE@HABVRva0053FDE6@@@Z,,0x0054001B,27,Code/Libraries/Source/WWVegas/WW3D2/Rva0053FDE6Init.cpp,matched,overloaded outer ctor int plus rowed inner copy via Ob0
+?rva00219757@Rva00219757@@QAEXPAVObject@@@Z,,0x00219757,79,Code/GameEngine/Source/Common/Rva00219757Grant.cpp,matched,rowed getControllingPlayer findUpgrade pin Player rva002AE329 globals TheGameInfo TheUpgradeCenter
