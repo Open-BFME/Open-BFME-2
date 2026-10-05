@@ -293,6 +293,7 @@ public:
 	Bool rva003F82BA(Int a0);
 	Bool rva003F82CF();
 	Int rva003F834C(Int a0);
+	void rva003F8374();
 	Rva003F7D86Inner *rva003F81B0();			///< pinned 0x003F81B0
 private:
 	char m_lead[4];
@@ -481,4 +482,22 @@ Int Rva003F81FDProxy::rva003F834C(Int a0)
 	if (inner)
 		return inner->slot14(a0);
 	return 0;
+}
+
+class Rva003F8076
+{
+public:
+	void rva003F8076();
+};
+
+// ?rva003F8374@Rva003F81FDProxy@@QAEXXZ retail 0x003F8374 17B
+// Evidence: leaf lane; same proxy getter rva003F81B0 as siblings above;
+// tail-jmp to rowed ?rva003F8076@Rva003F8076@@QAEXXZ 0x003F8076
+// (WaterRenderObjRva003F8090.cpp); caller at 0x00574443.
+void Rva003F81FDProxy::rva003F8374()
+{
+	Rva003F7D86Inner *inner = rva003F81B0();
+	if (!inner)
+		return;
+	((Rva003F8076 *)inner)->rva003F8076();
 }
