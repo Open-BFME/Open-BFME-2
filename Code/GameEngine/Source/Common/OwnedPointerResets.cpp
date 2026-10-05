@@ -48,6 +48,7 @@
 //   0x005EBC74  0x005EB8D6    1
 //   0x005EC422  0x005EC09B    1
 //   0x005EDFF5  0x005EDE64    1
+//   0x005F13CC  0x005F1295    1
 //   0x005F4096  0x005F3FFC    1
 //   0x005F50B9  0x005F501E    5
 //   0x005F55FA  0x005F54DA    1
@@ -1463,5 +1464,29 @@ void Rva000AF160::reset(Rva000AD71D *p)
 			old->Rva000AD71D::~Rva000AD71D();
 			::operator delete(old);
 		}
+	}
+}
+
+class Rva005F1295
+{
+public:
+	~Rva005F1295();
+};
+
+class Rva005F13CC
+{
+public:
+	Rva005F1295 *m_ptr;
+	void clear();
+};
+
+void Rva005F13CC::clear()
+{
+	Rva005F1295 *p = m_ptr;
+	m_ptr = 0;
+	if (p)
+	{
+		p->Rva005F1295::~Rva005F1295();
+		::operator delete(p);
 	}
 }
