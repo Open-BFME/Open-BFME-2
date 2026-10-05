@@ -46,3 +46,21 @@ void __cdecl Rva00580D38FinishSort(void **first, void **last, Rva000795C1Record 
         Rva00580B5CInsertionSort(first,last,compare);
     }
 }
+
+void ** __cdecl Rva00580646Median(void * const &, void * const &, void * const &, Rva000795C1Record);
+void ** __cdecl Rva00580705Partition(void **, void **, void *, Rva000795C1Record);
+void __cdecl Rva00580F7FPartialSort(void **, void **, void **, Rva000795C1Record);
+// Native580FD1..5810B6/229B; STLport introsort depth fallback and median partition.
+// ?Rva00580FD1IntroSort@@YAXPAPAX00HVRva000795C1Record@@@Z
+void __cdecl Rva00580FD1IntroSort(void **first, void **last, void **, int depth, Rva000795C1Record compare) {
+    while (last-first > 16) {
+        if (depth == 0) {
+            Rva00580F7FPartialSort(first,last,last,compare);
+            return;
+        }
+        --depth;
+        void **cut = Rva00580705Partition(first,last,*Rva00580646Median(*first,*(first+(last-first)/2),*(last-1),compare),compare);
+        Rva00580FD1IntroSort(cut,last,(void **)0,depth,compare);
+        last=cut;
+    }
+}

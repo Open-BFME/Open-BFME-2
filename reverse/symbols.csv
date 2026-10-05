@@ -12323,3 +12323,6 @@ _ceil,0x00629934,CRT ceil thunk identified by native PE import slot 0x00BBA578 a
 ?Rva00580FD1IntroSort@@YAXPAPAX00HVRva000795C1Record@@@Z,0x00580FD1,Address-named callee read at5810FC; four4-byte arguments and16-byte copied record; native introsort threshold16 with supplied depth counter
 ?Rva00580B5CInsertionSort@@YAXPAPAX0VRva000795C1Record@@@Z,0x00580B5C,Address-named insertion callee at580D6D/580D96; native EH frame takes two4-byte iterator endpoints plus same16-byte record
 ?Rva00580BBFUnguardedSort@@YAXPAPAX0VRva000795C1Record@@@Z,0x00580BBF,Address-named unguarded insertion callee at580D86; native takes two4-byte iterator endpoints plus same16-byte record
+?Rva00580646Median@@YAPAPAXABQAX00VRva000795C1Record@@@Z,0x00580646,Address-named median callee read at58103B; three element addresses plus same16B copied record; return reference loaded by caller before partition
+?Rva00580705Partition@@YAPAPAXPAPAX0PAXVRva000795C1Record@@@Z,0x00580705,Address-named partition callee read at58104B; two4-byte iterators and4-byte median value plus same16B record; iterator result feeds recursive range
+?Rva00580F7FPartialSort@@YAXPAPAX00VRva000795C1Record@@@Z,0x00580F7F,Address-named depth-exhaustion partial sort callee read at58108C; first and duplicated last plus16B copied record; caller-cleaned ABI
