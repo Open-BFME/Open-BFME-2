@@ -4,10 +4,12 @@
 // bfmeHas1026 0x00362437; NULL table returns +0x18. Evidence: unlock packet
 // with 4 callers; sibling Rva004F553FEnum proves circular list with head at
 // +0x10 and data at +8; Rva00421A57Search proves BfmeTab1026::bfmeHas1026(int,int).
-class BfmeTab1026
+class BfmeTab1026;
+class Object;
+class Player;
+struct Rva2225E0Filter
 {
-public:
-	char bfmeHas1026(int a, int b);
+  bool accepts(Object *, Player *);
 };
 
 struct Rva004F5436Node {
@@ -33,7 +35,7 @@ int Rva004F5436::rva004F5436(BfmeTab1026 *tab)
 	if (tab == 0)
 		return m_18;
 	for (Rva004F5436Node *cur = m_head->m_next; cur != m_head; cur = cur->m_next) {
-		if (tab->bfmeHas1026(cur->m_value, 0))
+		if (((Rva2225E0Filter *)tab)->accepts((Object *)cur->m_value, (Player *)0))
 			++n;
 	}
 	return n;
