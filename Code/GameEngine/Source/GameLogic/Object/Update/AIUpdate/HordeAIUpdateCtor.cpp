@@ -41,6 +41,7 @@ extern "C" const void *const vtbl_00C505F8[];  // ??_7Rva0049A64B@@6BRva0026E836
 #pragma comment(linker, "/alternatename:_vtbl_00C505F8=??_7Rva0049A64B@@6BRva0026E836_Root@@@")
 extern "C" const void *const vtbl_00C52EE8[];  // ??_7DockUpdateInterface@@6B@
 #pragma comment(linker, "/alternatename:_vtbl_00C52EE8=??_7DockUpdateInterface@@6B@")
+extern const void *const g_00C50868[];
 
 class Thing;
 class ModuleData;
@@ -92,6 +93,6 @@ HordeAIUpdate::HordeAIUpdate(Thing *thing, const ModuleData *moduleData)
 	m_p10 = (const void *)((unsigned int)vtbl_00C5052C);
 	m_p20 = (const void *)((unsigned int)vtbl_00C50528);
 	m_p24 = (const void *)((unsigned int)vtbl_00C52F88);
-	m_p3E4 = (const void *)0x00C50868;
+	m_p3E4 = (const void *)g_00C50868;
 	setWakeFrame(m_object, UPDATE_SLEEP_NONE);
 }
