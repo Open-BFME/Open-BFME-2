@@ -59994,3 +59994,5 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ??0Rva00545B4F@@QAE@PAVStateMachine@@@Z,,0x00545B4F,29,Code/GameEngine/Source/GameLogic/AI/AIStateHashCtorsMisc.cpp,matched,State hash ctor
 ??0Rva003400CE@@QAE@PAVStateMachine@@@Z,,0x003400CE,37,Code/GameEngine/Source/GameLogic/AI/AIStateRva0034005DCtor.cpp,matched,AIInternalMoveToState-derived ctor hash f0a7ff17 plus4C plus50 caller 0x00351D2C
 ??0Rva00340391@@QAE@PAVStateMachine@@@Z,,0x00340391,28,Code/GameEngine/Source/GameLogic/AI/AIStateHashCtors0033F2FD.cpp,matched,derived from Rva0033F7C8 byte plus20 true caller 0x003523FD
+??0Rva005D736E@@QAE@XZ,,0x005D735C,18,Code/GameEngine/Source/Common/Rva005EE30CDerived.cpp,matched,ctor base 0x005EE2E6 then vtable C75CEC matching its dtor 0x005D736E
+??0Rva005D7AC5@@QAE@XZ,,0x005D7AB3,18,Code/GameEngine/Source/Common/Rva005EE30CDerived.cpp,matched,ctor base 0x005EE2E6 then vtable C75E44 matching its dtor 0x005D7AC5

@@ -11,14 +11,23 @@
 class Rva005EE30C
 {
 public:
+	Rva005EE30C();
 	virtual ~Rva005EE30C();
 };
 
 class Rva005D736E : public Rva005EE30C
 {
 public:
+	Rva005D736E();
 	virtual ~Rva005D736E();
 };
+
+// ??0Rva005D736E@@QAE@XZ, retail 0x005D735C (18B): calls the rowed base
+// constructor 0x005EE2E6 and stores vtable 0x00C75CEC, the one the
+// destructor below restores, so it is this class's constructor.
+Rva005D736E::Rva005D736E()
+{
+}
 
 Rva005D736E::~Rva005D736E()
 {
@@ -57,8 +66,16 @@ Rva005D7A1B::~Rva005D7A1B()
 class Rva005D7AC5 : public Rva005EE30C
 {
 public:
+	Rva005D7AC5();
 	virtual ~Rva005D7AC5();
 };
+
+// ??0Rva005D7AC5@@QAE@XZ, retail 0x005D7AB3 (18B): base constructor
+// 0x005EE2E6 then vtable 0x00C75E44, the one this class's destructor
+// restores.
+Rva005D7AC5::Rva005D7AC5()
+{
+}
 
 Rva005D7AC5::~Rva005D7AC5()
 {
