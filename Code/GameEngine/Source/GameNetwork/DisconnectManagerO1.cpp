@@ -124,7 +124,7 @@ class BFMEConnectionManager : public ConnectionManager
 {
 public:
 	Bool isPlayerInGame(Int slot);
-	Bool isPlayerSlotActive(Int slot);
+	Int isPlayerSlotActive(Int slot);
 	void sendDisconnectFrameCommand();
 	void resendFrameRangeToPlayer(Int playerID, UnsignedInt startFrame, UnsignedInt endFrame);
 };
@@ -133,6 +133,7 @@ class BFMEDisconnectManager : public DisconnectManager
 {
 public:
 	Bool hasPingSuccessRatioAtLeast(Real ratio);
+	Bool hasPlayerConnectionTimedOut(Int slot, void *connectionManager);
 };
 
 // BFME keeps the packet-router fallback plan at this address in its expanded
@@ -382,6 +383,27 @@ void DisconnectManager::playerHasAdvancedAFrame(Int slot, UnsignedInt frame) {
 		m_disconnectFrames[slot] = frame; // just in case we get a disconnect frame command after this is called.
 		m_disconnectFramesReceived[slot] = FALSE;
 	}
+}
+
+// ?countVotesForPlayer@DisconnectManager@@IAEHHPAVConnectionManager@@@Z @ 0x004D3BD7 (91B). Counts voting slots for a player: vote table at +0x30 rows of 8 entries stepped by 8 with flag at +0; skips timed-out and active slots.
+// Evidence: callees hasPlayerConnectionTimedOut 0x004D3B7E isPlayerSlotActive 0x004CF0CD rowed; vote table BfmeDisconnectVoteTable; callers 4 unclaimed; unlocks 4.
+Int DisconnectManager::countVotesForPlayer(Int slot, ConnectionManager *conMgr) {
+	if (slot < 0 || slot >= MAX_SLOTS)
+		return 0;
+	Int count = 0;
+	BfmeDisconnectVoteTable *votes = (BfmeDisconnectVoteTable *)this;
+	BFMEDisconnectManager *self = (BFMEDisconnectManager *)this;
+	BFMEConnectionManager *bfmeMgr = (BFMEConnectionManager *)conMgr;
+	for (Int voter = 0; voter < MAX_SLOTS; ++voter) {
+		if (votes->m_playerVotes[slot][voter].vote == TRUE) {
+			if (self->hasPlayerConnectionTimedOut(voter, conMgr))
+				continue;
+			if ((unsigned char)bfmeMgr->isPlayerSlotActive(voter) != 0)
+				continue;
+			++count;
+		}
+	}
+	return count;
 }
 
 
