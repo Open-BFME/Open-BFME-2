@@ -1,25 +1,16 @@
-// ?countKind@Team@@QAEHH_N0@Z
-// partial score=0.93 date=2026-09-28
-// ?countKind@Team@@QAEHH_N0@Z
-// partial score=0.93 date=2026-09-28
+// ?rva0039DC05@Team@@QBEHH_N0@Z
+// partial score=0.96 date=2026-10-05
 // cl: /O1 /DNDEBUG /MD
 //
-// ?rva0039D9E3@Team@@QBEHXZ @0x0039D9E3 (71B).
-// Team::rva0039D9E3(): counts live members that either have an AI interface
-// or whose template kind0 has bit 0x80. Retail walks via the rowed
-// iterate_TeamMemberList at 0x263864 and advance at 0x263526, skipping dead
-// bit at Object+0x438 bit0, then counting when AI at Object+0x258 is present
-// otherwise checking template at Object+0x04 kind byte at +0x108 bit 0x80.
-// Callers none yet; neighbours getControllingPlayer and healAllObjects share
-// the /O1 flags and 24-byte iterator shape.
-
-typedef unsigned int UnsignedInt;
-typedef bool Bool;
-
-enum ObjectStatusTypes
-{
-	OBJECT_STATUS_2 = 2
-};
+// ?rva0039DC05@Team@@QBEHH_N0@Z @0x0039DC05 (94B): counts the members whose
+// template passes the rowed kind test 0x000456AC for the given kind,
+// skipping effectively dead members (Object +0x438 bit 0) when asked and
+// members with object status 2 (Zero Hour's OBJECT_STATUS_UNDER_CONSTRUCTION
+// slot, via the rowed Object::testStatus) when asked - Zero Hour's
+// countObjectsByThingTemplate filters applied to a kind instead of a
+// template list. Same member walk as TeamRva0039DDC2.cpp. Retail tests the
+// kind test's AL, so it is declared bool here (alias pin beside the row's
+// int-returning name). Caller 0x003E5E6A.
 
 class Object;
 
@@ -36,98 +27,49 @@ public:
 	OBJCLASS *cur() const { return m_cur; }
 };
 
-struct ThingTemplate
+enum ObjectStatusTypes
 {
-	int rva000456AC(int bit) const;
-	unsigned char m_pad[0x108];
-	unsigned char m_kind0;
+	OBJECT_STATUS_UNDER_CONSTRUCTION = 2
 };
 
-class AIUpdateInterface;
+class ThingTemplate
+{
+public:
+	bool rva000456AC(int kind) const;
+};
 
 class Object
 {
 public:
-	Bool testStatus(ObjectStatusTypes bit) const;
+	bool testStatus(ObjectStatusTypes bit) const;
+	bool isEffectivelyDead() const { return (m_privateStatus & 1) != 0; }
+	const ThingTemplate *getTemplate() const { return m_template; }
 
-public:
+private:
 	unsigned char m_pad0[4];
-	ThingTemplate *m_template;
-	unsigned char m_pad1[0x258 - 0x08];
-	AIUpdateInterface *m_ai;
-	unsigned char m_pad2[0x438 - 0x25C];
-	unsigned char m_dead;
+	ThingTemplate *m_template; // +0x04
+	unsigned char m_pad8[0x438 - 8];
+	unsigned char m_privateStatus; // +0x438
 };
 
 class Team
 {
 public:
 	DLINK_ITERATOR<Object> iterate_TeamMemberList() const;
-	int rva0039D9E3() const;
-	int rva0039DC63() const;
-	int countKind(int kind, bool a, bool b);
+	int rva0039DC05(int kind, bool ignoreDead, bool ignoreUnderConstruction) const;
 };
 
-int Team::rva0039D9E3() const
-{
-	int count = 0;
-	for (DLINK_ITERATOR<Object> iter = iterate_TeamMemberList(); !iter.done(); iter.advance()) {
-		Object *cur = iter.cur();
-		if ((cur->m_dead & 1) != 0)
-			continue;
-		if (cur->m_ai != 0) {
-			++count;
-			continue;
-		}
-		ThingTemplate *tmpl = cur->m_template;
-		if ((tmpl->m_kind0 & 0x80) == 0)
-			continue;
-		++count;
-	}
-	return count;
-}
-
-// ?rva0039DC63@Team@@QBEHXZ @0x0039DC63 (59B).
-// Team::rva0039DC63(): counts members whose template is present and whose
-// template kind0 has bit 0x80. Retail walks via the rowed
-// iterate_TeamMemberList at 0x263864 and advance at 0x263526, with the same
-// 24-byte iterator and +0x04/+0x108 layout as the rva0039D9E3 sibling above.
-// Caller at 0x0039ECF4.
-int Team::rva0039DC63() const
-{
-	int count = 0;
-	for (DLINK_ITERATOR<Object> iter = iterate_TeamMemberList(); !iter.done(); iter.advance()) {
-		Object *cur = iter.cur();
-		ThingTemplate *tmpl = cur->m_template;
-		if( tmpl == 0 )
-			continue;
-		if( (tmpl->m_kind0 & 0x80) == 0 )
-			continue;
-		++count;
-	}
-	return count;
-}
-
-// ?countKind@Team@@QAEHH_N0@Z @0x0039DC05 (94B).
-// Team::countKind(): counts members whose template passes the kind-bit test
-// at 0x000456AC. Retail walks via the rowed iterate_TeamMemberList at
-// 0x00263864 and advance at 0x00263526, filtering dead bit at Object+0x438
-// when the second bool is set and status bit 2 via testStatus at 0x0004E536
-// when the third bool is set, then testing template at Object+0x04.
-// Caller at 0x003E5E6A in FUN_007E5E2F; BFME1 ScriptConditionsTeamCompare
-// proves the (int kind, Bool, Bool) shape.
-// ?countKind@Team@@QAEHH_N0@Z present-unmatched
-int Team::countKind(int kind, bool a, bool b)
+int Team::rva0039DC05(int kind, bool ignoreDead, bool ignoreUnderConstruction) const
 {
 	int count = 0;
 	DLINK_ITERATOR<Object> iter = iterate_TeamMemberList();
-	Object *cur;
-	for (; (cur = iter.cur()) != 0; iter.advance()) {
-		if (a && ((cur->m_dead & 1) != 0))
+	for (Object *obj; (obj = iter.cur()) != 0; iter.advance())
+	{
+		if (ignoreDead && obj->isEffectivelyDead())
 			continue;
-		if (b && cur->testStatus(OBJECT_STATUS_2))
+		if (ignoreUnderConstruction && obj->testStatus(OBJECT_STATUS_UNDER_CONSTRUCTION))
 			continue;
-		if ((unsigned char)cur->m_template->rva000456AC(kind) == 0)
+		if (!obj->getTemplate()->rva000456AC(kind))
 			continue;
 		++count;
 	}
