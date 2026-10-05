@@ -12,6 +12,11 @@ extern int g_stat10;			// 0x00DEE894, number of live entries (capped at 3)
 extern int g_Va00DEE8E8[];		// 0x00DEE8E8, three-entry buffer
 extern int g_Va00DEE910;		// 0x00DEE910, monotone source value
 
+// Defined here (DebugStatisticsBegin pattern for g_statN): .bss runtime
+// buffer/source at distinct VAs, not the g_stat array, so no alias.
+int g_Va00DEE8E8[3];
+int g_Va00DEE910;
+
 // ?Rva00129640Get@@YAHH@Z @ 0x00129640 (23B)
 int Rva00129640Get(int index)
 {
@@ -41,7 +46,3 @@ void Rva00129690(void)
 
 	g_stat10 = count + 1;
 }
-
-// The global(s) below are defined elsewhere under another name at the same
-// address (the census owner of that DIR32 target); bind this unit's spelling.
-#pragma comment(linker, "/alternatename:?g_Va00DEE910@@3HA=?g_stat8@@3HA")
