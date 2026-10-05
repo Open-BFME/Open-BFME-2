@@ -20,6 +20,7 @@
 
 #include <list>
 
+enum DrawableID { INVALID_DRAWABLE_ID = 0 };
 class Drawable;
 class FreelistPool { public: void *pop(); };
 extern FreelistPool g_pool00239BD8;
@@ -43,7 +44,9 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 
 struct BfmeSelectTemplateView
 {
-	unsigned char m_unmodelled000[0x118];
+	unsigned char m_unmodelled000[0x10C];
+	unsigned int m_kindOfWord10C;
+	unsigned char m_unmodelled110[8];
 	unsigned int m_kindOfWord118;							// +0x118; target tests bit 0x200
 };
 
@@ -77,6 +80,9 @@ class Object
 
 protected:
 	Module *findModule( NameKeyType key ) const;
+public:
+	void *m_vtable;
+	const BfmeSelectTemplateView *m_template;
 };
 
 // Retail Drawable prefix used by selectDrawable.
@@ -84,6 +90,7 @@ class Drawable
 {
 public:
 	void rva002796B8();
+	DrawableID getID() const;
 	void *m_vtable;
 	const BfmeSelectTemplateView *m_template;							///< this+0x04
 	unsigned char m_unmodelled008[0xf4];
@@ -118,7 +125,7 @@ public:
 	virtual void selectDrawable( Drawable *draw );
 
 protected:
-	void rva0029B967( Drawable *newlyAddedDrawable = 0 );
+	void evaluateSoloNexus( Drawable *newlyAddedDrawable = 0 );
 
 private:
 	unsigned char m_unmodelled004[0x1c];
@@ -127,6 +134,8 @@ private:
 	int m_selectCount;										// +0x568
 	unsigned char m_unmodelled56C[0x4];
 	unsigned int m_frameSelectionChanged;					// +0x570
+	unsigned char m_unmodelled574[0x40C];
+	DrawableID m_soloNexusSelectedDrawableID; // +0x980
 };
 
 // ?selectDrawable@InGameUI@@UAEXPAVDrawable@@@Z
@@ -161,10 +170,52 @@ void InGameUI::selectDrawable( Drawable *draw )
 	++m_selectCount;
 
 	// Donor evaluateSoloNexus role; retail tests the selected objects at +0xFC.
-	rva0029B967( draw );
+	evaluateSoloNexus( draw );
 
 	// the control needs to update its context sensitive display now
 	((BfmeWorldRV *)TheControlBar)->rva0031AA34((int)draw);
 
 	((Rva0029ACA0 *)this)->rva0029ACC7(0);
+}
+
+// ZH InGameUI::evaluateSoloNexus (same source in the BFME 1 donor 6583b3c1):
+// target 0x0029B967 (126B), called by the matched selectDrawable above.
+// Target accesses establish the result at +0x980, the selected list at +0x20,
+// Drawable's Object at +0xFC, and template flags at +0x10C. The same two-kind
+// short-circuit and single-nexus count support the ZH role; native bits are
+// 0x4000/0x8000. getID uses the independently pinned retail 0x0055A88B getter.
+void InGameUI::evaluateSoloNexus(Drawable *newlyAddedDrawable)
+{
+    m_soloNexusSelectedDrawableID = INVALID_DRAWABLE_ID;
+    if (newlyAddedDrawable)
+    {
+        const Object *newObj = newlyAddedDrawable->m_object;
+        if (newObj && !(newObj->m_template->m_kindOfWord10C & 0xC000))
+            return;
+    }
+    unsigned short nexaeFound = 0;
+    for (BfmeDrawableList::const_iterator it = m_selectedDrawables.begin();
+         it != m_selectedDrawables.end(); ++it)
+    {
+        Drawable *draw = *it;
+        const Object *obj = draw->m_object;
+        if (!obj)
+            continue;
+        if (obj->m_template->m_kindOfWord10C & 0x4000)
+        {
+            ++nexaeFound;
+            if (nexaeFound == 1)
+                m_soloNexusSelectedDrawableID = draw->getID();
+            else
+            {
+                m_soloNexusSelectedDrawableID = INVALID_DRAWABLE_ID;
+                return;
+            }
+        }
+        else if (!(obj->m_template->m_kindOfWord10C & 0x8000))
+        {
+            m_soloNexusSelectedDrawableID = INVALID_DRAWABLE_ID;
+            return;
+        }
+    }
 }

@@ -1322,56 +1322,7 @@ void InGameUI::triggerDoubleClickAttackMoveGuardHint( void )
 //-------------------------------------------------------------------------------------------------
 
 
-// ?InGameUI::evaluateSoloNexus present-unmatched
-void InGameUI::evaluateSoloNexus( Drawable *newlyAddedDrawable )
-{
-
-	m_soloNexusSelectedDrawableID = INVALID_DRAWABLE_ID;//failsafe...
-
-	// short test: If the thing just added is a nonmobster, bail with NULL
-	if ( newlyAddedDrawable )
-	{
-		const Object *newObj = newlyAddedDrawable->getObject();
-		if ( newObj && ! ( newObj->isKindOf(KINDOF_MOB_NEXUS) || newObj->isKindOf(KINDOF_IGNORED_IN_GUI) ) )
-			return;
-	}
-
-	//LoopAllSelectedDrawables
-	UnsignedShort nexaeFound = 0;
-	for( DrawableListCIt it = m_selectedDrawables.begin(); it != m_selectedDrawables.end(); ++it ) 
-	{
-
-		Drawable *draw = (*it);
-		const Object *obj = draw->getObject();
-
-
-		if ( ! obj )
-			continue;
-			
-		if ( obj->isKindOf( KINDOF_MOB_NEXUS ) )
-		{
-			++nexaeFound;
-			if ( nexaeFound == 1 )
-			{
-				m_soloNexusSelectedDrawableID = draw->getID();
-			}
-			else // darn! more than one!
-			{
-				m_soloNexusSelectedDrawableID = INVALID_DRAWABLE_ID;
-				return;
-			}
-		}
-		else if ( ! obj->isKindOf( KINDOF_IGNORED_IN_GUI ) )// darn! a non-angrymobster!
-		{
-			m_soloNexusSelectedDrawableID = INVALID_DRAWABLE_ID;
-			return;
-		}
-
-	}  // end for
-
-
-}
-
+// Native evaluateSoloNexus is recovered in InGameUISelectDrawable.cpp.
 
 // ?InGameUI::handleBuildPlacements present-unmatched
 void InGameUI::handleBuildPlacements( void )

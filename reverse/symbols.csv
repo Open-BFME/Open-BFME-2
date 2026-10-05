@@ -11890,7 +11890,6 @@ _floor,0x00629940,call site 0x006F4403 in AptDate::getDayOfWeek (0x006F4290) enc
 ?rva0025FCE8@BfmeItemKA@@AAEXHHH@Z,0x0025FCE8,native body start read from REL32 in 0x00260787; three integer args; ret12; same layout floats at+4C/+54/+68; no donor semantic name asserted
 ?invoke@Rva00498CB1Owner@@QAE_NXZ,0x00498CB1,selectDrawable target0x002A3805; gate-module bool query after Module pointer adjustment -4; native ECX and AL return
 ?rva002796B8@Drawable@@QAEXXZ,0x002796B8,selectDrawable target0x002A3805; sets selected byte+43C then invokes native update helpers; ECX same Drawable
-?rva0029B967@InGameUI@@IAEXPAVDrawable@@@Z,0x0029B967,selectDrawable target0x002A3805; ret4; accesses argument Object pointer+FC and selected list+20; native receiver unchanged
 ?_M_create_node@?$list@PAVDrawable@@V?$allocator@PAVDrawable@@@_STL@@@_STL@@IAEPAU?$_List_node@PAVDrawable@@@2@ABQAVDrawable@@@Z,0x00239BD8,selectDrawable target0x002A3805; same28B as matched Rva00239BD8Alloc; native pool+payload store and same stack ABI; template specialization verified
 ??1Rva002BEDA4@@QAE@XZ,0x002BEDA4,destructor called by the vtable-referenced scalar deleting dtor 0x005CBAEE (REL32 at +4 of its 28B delete-flag wrapper); identity unproven; address-derived name
 ??1Rva00419B8D@@QAE@XZ,0x00419B8D,destructor called by the vtable-referenced scalar deleting dtor 0x00419B71 (REL32 at +4 of its 28B delete-flag wrapper); identity unproven; address-derived name
