@@ -8603,3 +8603,6 @@ STILL OPEN, and now the ONLY thing between this body and a landing: the je DISPL
 ?rva00396B25@Rva00396B25@@QAEXXZ	0x00396B25	160	partial	159B Money receiver lea ecx late vs mov ecx early plus pop order t=40 model=muse-spark score=0.95 stash=reverse/attempts/0x00396b25.cpp
 ?rva0030E67C@Rva0030E7D0@@QBEMMM@Z	0x0030E67C	340	partial	353B bilinear two-order branch with extra moves vs retail 340B scheduling and cmovg clamp t=50 model=muse-spark score=0.92 stash=reverse/attempts/0x0030e67c.cpp
 ?rva004455B2@Rva004455B2@@QAEXXZ	0x004455B2	262	blocked	complex 262B EH AsciiString unknown thiscall class no callers no vtable t=12 model=muse-19
+??0Rva00256E19Base@@QAE@XZ	0x00256E19	117	blocked	ctor needs baseConstruct before map-vector with placement-new null checks t=20 model=muse-06
+??1Rva00256E96@@UAE@XZ	0x00256E96	163	blocked	same Rva00256E19 family as blocked ctor 0x00256E19 needs shared map-vector-vtable layout t=5 model=muse-06
+?Rva00339235@@YAXPBDPAX@Z	0x00339235	361	blocked	needs full Error EVA string truncated in packet plus 361B INI audio EVA with throw t=10 model=muse-06
