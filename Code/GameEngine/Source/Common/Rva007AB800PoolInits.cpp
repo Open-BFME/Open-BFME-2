@@ -306,6 +306,66 @@ void __cdecl rva007B8535();
 void __cdecl rva007B853F();
 void __cdecl rva007B8549();
 void __cdecl rva007B8553();
+void __cdecl rva007B855D();
+void __cdecl rva007B8567();
+void __cdecl rva007B8571();
+void __cdecl rva007B857B();
+void __cdecl rva007B8586();
+void __cdecl rva007B859A();
+void __cdecl rva007B85A4();
+void __cdecl rva007B85AE();
+void __cdecl rva007B85C2();
+void __cdecl rva007B85CC();
+void __cdecl rva007B85D6();
+void __cdecl rva007B85E3();
+void __cdecl rva007B85ED();
+void __cdecl rva007B85F7();
+void __cdecl rva007B8601();
+void __cdecl rva007B860B();
+void __cdecl rva007B8615();
+void __cdecl rva007B861F();
+void __cdecl rva007B8629();
+void __cdecl rva007B8633();
+void __cdecl rva007B863D();
+void __cdecl rva007B8647();
+void __cdecl rva007B8651();
+void __cdecl rva007B865B();
+void __cdecl rva007B8665();
+void __cdecl rva007B866F();
+void __cdecl rva007B8679();
+void __cdecl rva007B8683();
+void __cdecl rva007B868D();
+void __cdecl rva007B86A1();
+void __cdecl rva007B86AB();
+void __cdecl rva007B86B5();
+void __cdecl rva007B86BF();
+void __cdecl rva007B86C9();
+void __cdecl rva007B86D3();
+void __cdecl rva007B86DD();
+void __cdecl rva007B86E7();
+void __cdecl rva007B86F1();
+void __cdecl rva007B86FB();
+void __cdecl rva007B8705();
+void __cdecl rva007B870F();
+void __cdecl rva007B8719();
+void __cdecl rva007B8723();
+void __cdecl rva007B872D();
+void __cdecl rva007B8737();
+void __cdecl rva007B8741();
+void __cdecl rva007B874B();
+void __cdecl rva007B8755();
+void __cdecl rva007B875F();
+void __cdecl rva007B8773();
+void __cdecl rva007B877D();
+void __cdecl rva007B8787();
+void __cdecl rva007B8791();
+void __cdecl rva007B879B();
+void __cdecl rva007B87A5();
+void __cdecl rva007B87AF();
+void __cdecl rva007B87B9();
+void __cdecl rva007B87C3();
+void __cdecl rva007B87CD();
+void __cdecl rva007B87D7();
 
 struct Rva007AB800PoolInits
 {
@@ -589,6 +649,66 @@ struct Rva007AB800PoolInits
 	static void rva007B0BE5();
 	static void rva007B0C1F();
 	static void rva007B0C39();
+	static void rva007B0C63();
+	static void rva007B0C8D();
+	static void rva007B0D11();
+	static void rva007B0D2B();
+	static void rva007B0D72();
+	static void rva007B0D9C();
+	static void rva007B0DC6();
+	static void rva007B0E0A();
+	static void rva007B0E34();
+	static void rva007B0E5E();
+	static void rva007B0E88();
+	static void rva007B0EB2();
+	static void rva007B0EDC();
+	static void rva007B0F06();
+	static void rva007B0F30();
+	static void rva007B0F5A();
+	static void rva007B0F84();
+	static void rva007B0F9E();
+	static void rva007B0FC8();
+	static void rva007B0FE2();
+	static void rva007B100C();
+	static void rva007B1036();
+	static void rva007B1060();
+	static void rva007B107A();
+	static void rva007B10A4();
+	static void rva007B10CE();
+	static void rva007B10F8();
+	static void rva007B1132();
+	static void rva007B114C();
+	static void rva007B1176();
+	static void rva007B11AA();
+	static void rva007B11C4();
+	static void rva007B11DE();
+	static void rva007B11F8();
+	static void rva007B1222();
+	static void rva007B124C();
+	static void rva007B1276();
+	static void rva007B1290();
+	static void rva007B12BA();
+	static void rva007B12E4();
+	static void rva007B12FE();
+	static void rva007B1338();
+	static void rva007B1352();
+	static void rva007B137C();
+	static void rva007B13A6();
+	static void rva007B13D0();
+	static void rva007B13FA();
+	static void rva007B1414();
+	static void rva007B1458();
+	static void rva007B1472();
+	static void rva007B149C();
+	static void rva007B14C6();
+	static void rva007B14F0();
+	static void rva007B151A();
+	static void rva007B1544();
+	static void rva007B156E();
+	static void rva007B1588();
+	static void rva007B15BD();
+	static void rva007B15D7();
+	static void rva007B1601();
 };
 
 #define POOL_INIT(init, cleanup) \
@@ -1158,3 +1278,123 @@ POOL_INIT( rva007B0BE5, rva007B853F )
 POOL_INIT( rva007B0C1F, rva007B8549 )
 // ?rva007B0C39@Rva007AB800PoolInits@@SAXXZ @ 0x007B0C39 (26B), cleanup 0x007B8553
 POOL_INIT( rva007B0C39, rva007B8553 )
+// ?rva007B0C63@Rva007AB800PoolInits@@SAXXZ @ 0x007B0C63 (26B), cleanup 0x007B855D
+POOL_INIT( rva007B0C63, rva007B855D )
+// ?rva007B0C8D@Rva007AB800PoolInits@@SAXXZ @ 0x007B0C8D (26B), cleanup 0x007B8567
+POOL_INIT( rva007B0C8D, rva007B8567 )
+// ?rva007B0D11@Rva007AB800PoolInits@@SAXXZ @ 0x007B0D11 (26B), cleanup 0x007B8571
+POOL_INIT( rva007B0D11, rva007B8571 )
+// ?rva007B0D2B@Rva007AB800PoolInits@@SAXXZ @ 0x007B0D2B (26B), cleanup 0x007B857B
+POOL_INIT( rva007B0D2B, rva007B857B )
+// ?rva007B0D72@Rva007AB800PoolInits@@SAXXZ @ 0x007B0D72 (26B), cleanup 0x007B8586
+POOL_INIT( rva007B0D72, rva007B8586 )
+// ?rva007B0D9C@Rva007AB800PoolInits@@SAXXZ @ 0x007B0D9C (26B), cleanup 0x007B859A
+POOL_INIT( rva007B0D9C, rva007B859A )
+// ?rva007B0DC6@Rva007AB800PoolInits@@SAXXZ @ 0x007B0DC6 (26B), cleanup 0x007B85A4
+POOL_INIT( rva007B0DC6, rva007B85A4 )
+// ?rva007B0E0A@Rva007AB800PoolInits@@SAXXZ @ 0x007B0E0A (26B), cleanup 0x007B85AE
+POOL_INIT( rva007B0E0A, rva007B85AE )
+// ?rva007B0E34@Rva007AB800PoolInits@@SAXXZ @ 0x007B0E34 (26B), cleanup 0x007B85C2
+POOL_INIT( rva007B0E34, rva007B85C2 )
+// ?rva007B0E5E@Rva007AB800PoolInits@@SAXXZ @ 0x007B0E5E (26B), cleanup 0x007B85CC
+POOL_INIT( rva007B0E5E, rva007B85CC )
+// ?rva007B0E88@Rva007AB800PoolInits@@SAXXZ @ 0x007B0E88 (26B), cleanup 0x007B85D6
+POOL_INIT( rva007B0E88, rva007B85D6 )
+// ?rva007B0EB2@Rva007AB800PoolInits@@SAXXZ @ 0x007B0EB2 (26B), cleanup 0x007B85E3
+POOL_INIT( rva007B0EB2, rva007B85E3 )
+// ?rva007B0EDC@Rva007AB800PoolInits@@SAXXZ @ 0x007B0EDC (26B), cleanup 0x007B85ED
+POOL_INIT( rva007B0EDC, rva007B85ED )
+// ?rva007B0F06@Rva007AB800PoolInits@@SAXXZ @ 0x007B0F06 (26B), cleanup 0x007B85F7
+POOL_INIT( rva007B0F06, rva007B85F7 )
+// ?rva007B0F30@Rva007AB800PoolInits@@SAXXZ @ 0x007B0F30 (26B), cleanup 0x007B8601
+POOL_INIT( rva007B0F30, rva007B8601 )
+// ?rva007B0F5A@Rva007AB800PoolInits@@SAXXZ @ 0x007B0F5A (26B), cleanup 0x007B860B
+POOL_INIT( rva007B0F5A, rva007B860B )
+// ?rva007B0F84@Rva007AB800PoolInits@@SAXXZ @ 0x007B0F84 (26B), cleanup 0x007B8615
+POOL_INIT( rva007B0F84, rva007B8615 )
+// ?rva007B0F9E@Rva007AB800PoolInits@@SAXXZ @ 0x007B0F9E (26B), cleanup 0x007B861F
+POOL_INIT( rva007B0F9E, rva007B861F )
+// ?rva007B0FC8@Rva007AB800PoolInits@@SAXXZ @ 0x007B0FC8 (26B), cleanup 0x007B8629
+POOL_INIT( rva007B0FC8, rva007B8629 )
+// ?rva007B0FE2@Rva007AB800PoolInits@@SAXXZ @ 0x007B0FE2 (26B), cleanup 0x007B8633
+POOL_INIT( rva007B0FE2, rva007B8633 )
+// ?rva007B100C@Rva007AB800PoolInits@@SAXXZ @ 0x007B100C (26B), cleanup 0x007B863D
+POOL_INIT( rva007B100C, rva007B863D )
+// ?rva007B1036@Rva007AB800PoolInits@@SAXXZ @ 0x007B1036 (26B), cleanup 0x007B8647
+POOL_INIT( rva007B1036, rva007B8647 )
+// ?rva007B1060@Rva007AB800PoolInits@@SAXXZ @ 0x007B1060 (26B), cleanup 0x007B8651
+POOL_INIT( rva007B1060, rva007B8651 )
+// ?rva007B107A@Rva007AB800PoolInits@@SAXXZ @ 0x007B107A (26B), cleanup 0x007B865B
+POOL_INIT( rva007B107A, rva007B865B )
+// ?rva007B10A4@Rva007AB800PoolInits@@SAXXZ @ 0x007B10A4 (26B), cleanup 0x007B8665
+POOL_INIT( rva007B10A4, rva007B8665 )
+// ?rva007B10CE@Rva007AB800PoolInits@@SAXXZ @ 0x007B10CE (26B), cleanup 0x007B866F
+POOL_INIT( rva007B10CE, rva007B866F )
+// ?rva007B10F8@Rva007AB800PoolInits@@SAXXZ @ 0x007B10F8 (26B), cleanup 0x007B8679
+POOL_INIT( rva007B10F8, rva007B8679 )
+// ?rva007B1132@Rva007AB800PoolInits@@SAXXZ @ 0x007B1132 (26B), cleanup 0x007B8683
+POOL_INIT( rva007B1132, rva007B8683 )
+// ?rva007B114C@Rva007AB800PoolInits@@SAXXZ @ 0x007B114C (26B), cleanup 0x007B868D
+POOL_INIT( rva007B114C, rva007B868D )
+// ?rva007B1176@Rva007AB800PoolInits@@SAXXZ @ 0x007B1176 (26B), cleanup 0x007B86A1
+POOL_INIT( rva007B1176, rva007B86A1 )
+// ?rva007B11AA@Rva007AB800PoolInits@@SAXXZ @ 0x007B11AA (26B), cleanup 0x007B86AB
+POOL_INIT( rva007B11AA, rva007B86AB )
+// ?rva007B11C4@Rva007AB800PoolInits@@SAXXZ @ 0x007B11C4 (26B), cleanup 0x007B86B5
+POOL_INIT( rva007B11C4, rva007B86B5 )
+// ?rva007B11DE@Rva007AB800PoolInits@@SAXXZ @ 0x007B11DE (26B), cleanup 0x007B86BF
+POOL_INIT( rva007B11DE, rva007B86BF )
+// ?rva007B11F8@Rva007AB800PoolInits@@SAXXZ @ 0x007B11F8 (26B), cleanup 0x007B86C9
+POOL_INIT( rva007B11F8, rva007B86C9 )
+// ?rva007B1222@Rva007AB800PoolInits@@SAXXZ @ 0x007B1222 (26B), cleanup 0x007B86D3
+POOL_INIT( rva007B1222, rva007B86D3 )
+// ?rva007B124C@Rva007AB800PoolInits@@SAXXZ @ 0x007B124C (26B), cleanup 0x007B86DD
+POOL_INIT( rva007B124C, rva007B86DD )
+// ?rva007B1276@Rva007AB800PoolInits@@SAXXZ @ 0x007B1276 (26B), cleanup 0x007B86E7
+POOL_INIT( rva007B1276, rva007B86E7 )
+// ?rva007B1290@Rva007AB800PoolInits@@SAXXZ @ 0x007B1290 (26B), cleanup 0x007B86F1
+POOL_INIT( rva007B1290, rva007B86F1 )
+// ?rva007B12BA@Rva007AB800PoolInits@@SAXXZ @ 0x007B12BA (26B), cleanup 0x007B86FB
+POOL_INIT( rva007B12BA, rva007B86FB )
+// ?rva007B12E4@Rva007AB800PoolInits@@SAXXZ @ 0x007B12E4 (26B), cleanup 0x007B8705
+POOL_INIT( rva007B12E4, rva007B8705 )
+// ?rva007B12FE@Rva007AB800PoolInits@@SAXXZ @ 0x007B12FE (26B), cleanup 0x007B870F
+POOL_INIT( rva007B12FE, rva007B870F )
+// ?rva007B1338@Rva007AB800PoolInits@@SAXXZ @ 0x007B1338 (26B), cleanup 0x007B8719
+POOL_INIT( rva007B1338, rva007B8719 )
+// ?rva007B1352@Rva007AB800PoolInits@@SAXXZ @ 0x007B1352 (26B), cleanup 0x007B8723
+POOL_INIT( rva007B1352, rva007B8723 )
+// ?rva007B137C@Rva007AB800PoolInits@@SAXXZ @ 0x007B137C (26B), cleanup 0x007B872D
+POOL_INIT( rva007B137C, rva007B872D )
+// ?rva007B13A6@Rva007AB800PoolInits@@SAXXZ @ 0x007B13A6 (26B), cleanup 0x007B8737
+POOL_INIT( rva007B13A6, rva007B8737 )
+// ?rva007B13D0@Rva007AB800PoolInits@@SAXXZ @ 0x007B13D0 (26B), cleanup 0x007B8741
+POOL_INIT( rva007B13D0, rva007B8741 )
+// ?rva007B13FA@Rva007AB800PoolInits@@SAXXZ @ 0x007B13FA (26B), cleanup 0x007B874B
+POOL_INIT( rva007B13FA, rva007B874B )
+// ?rva007B1414@Rva007AB800PoolInits@@SAXXZ @ 0x007B1414 (26B), cleanup 0x007B8755
+POOL_INIT( rva007B1414, rva007B8755 )
+// ?rva007B1458@Rva007AB800PoolInits@@SAXXZ @ 0x007B1458 (26B), cleanup 0x007B875F
+POOL_INIT( rva007B1458, rva007B875F )
+// ?rva007B1472@Rva007AB800PoolInits@@SAXXZ @ 0x007B1472 (26B), cleanup 0x007B8773
+POOL_INIT( rva007B1472, rva007B8773 )
+// ?rva007B149C@Rva007AB800PoolInits@@SAXXZ @ 0x007B149C (26B), cleanup 0x007B877D
+POOL_INIT( rva007B149C, rva007B877D )
+// ?rva007B14C6@Rva007AB800PoolInits@@SAXXZ @ 0x007B14C6 (26B), cleanup 0x007B8787
+POOL_INIT( rva007B14C6, rva007B8787 )
+// ?rva007B14F0@Rva007AB800PoolInits@@SAXXZ @ 0x007B14F0 (26B), cleanup 0x007B8791
+POOL_INIT( rva007B14F0, rva007B8791 )
+// ?rva007B151A@Rva007AB800PoolInits@@SAXXZ @ 0x007B151A (26B), cleanup 0x007B879B
+POOL_INIT( rva007B151A, rva007B879B )
+// ?rva007B1544@Rva007AB800PoolInits@@SAXXZ @ 0x007B1544 (26B), cleanup 0x007B87A5
+POOL_INIT( rva007B1544, rva007B87A5 )
+// ?rva007B156E@Rva007AB800PoolInits@@SAXXZ @ 0x007B156E (26B), cleanup 0x007B87AF
+POOL_INIT( rva007B156E, rva007B87AF )
+// ?rva007B1588@Rva007AB800PoolInits@@SAXXZ @ 0x007B1588 (26B), cleanup 0x007B87B9
+POOL_INIT( rva007B1588, rva007B87B9 )
+// ?rva007B15BD@Rva007AB800PoolInits@@SAXXZ @ 0x007B15BD (26B), cleanup 0x007B87C3
+POOL_INIT( rva007B15BD, rva007B87C3 )
+// ?rva007B15D7@Rva007AB800PoolInits@@SAXXZ @ 0x007B15D7 (26B), cleanup 0x007B87CD
+POOL_INIT( rva007B15D7, rva007B87CD )
+// ?rva007B1601@Rva007AB800PoolInits@@SAXXZ @ 0x007B1601 (26B), cleanup 0x007B87D7
+POOL_INIT( rva007B1601, rva007B87D7 )
