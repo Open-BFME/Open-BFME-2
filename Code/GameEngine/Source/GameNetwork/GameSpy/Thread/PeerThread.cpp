@@ -394,7 +394,7 @@ private:
 	Bool m_sawCompleteGameList;
 
 #ifdef USE_BROADCAST_KEYS
-	enum { NumKeys = 6, ValBufSize = 20 };
+	enum { NumKeys = 9, ValBufSize = 20 };
 	static const char *s_keys[NumKeys];
 	static char s_valueBuffers[NumKeys][ValBufSize];
 	static const char *s_values[NumKeys];
@@ -443,9 +443,10 @@ private:
 };
 
 #ifdef USE_BROADCAST_KEYS
-const char* PeerThreadClass::s_keys[6] = { "b_locale", "b_wins", "b_losses", "b_points", "b_side", "b_pre" };
-char PeerThreadClass::s_valueBuffers[6][20] = { "", "", "", "", "", "" };
-const char* PeerThreadClass::s_values[6] = { s_valueBuffers[0], s_valueBuffers[1], s_valueBuffers[2],
+// Native data table DC0768 contains these nine literal pointers in this order.
+const char* PeerThreadClass::s_keys[NumKeys] = { "b_locale", "b_wins", "b_losses", "b_points", "b_side", "b_pre", "b_BSide", "b_rank1v1", "b_rank2v2" };
+char PeerThreadClass::s_valueBuffers[NumKeys][20] = { "", "", "", "", "", "" };
+const char* PeerThreadClass::s_values[NumKeys] = { s_valueBuffers[0], s_valueBuffers[1], s_valueBuffers[2],
 	s_valueBuffers[3], s_valueBuffers[4], s_valueBuffers[5]};
 
 // Player-stat writes are recovered in PeerThreadStats.cpp.
@@ -502,10 +503,10 @@ void PeerThreadClass::pushStatsToRoom(PEER peer)
 }
 
 void getRoomKeysCallback(PEER peer, PEERBool success, RoomType roomType, const char *nick, int num, char **keys, char **values, void *param);
-// ?getStatsFromRoom@PeerThreadClass@@ present-unmatched
+extern "C" void peerGetRoomKeysA(PEER, RoomType, const char *, int, const char **, void *, void *, int);
 void PeerThreadClass::getStatsFromRoom(PEER peer, RoomType roomType)
 {
-	peerGetRoomKeys(peer, GroupRoom, "*", NumKeys, s_keys, getRoomKeysCallback, this, PEERFalse);
+	peerGetRoomKeysA(peer, roomType, "*", NumKeys, s_keys, reinterpret_cast<void *>(getRoomKeysCallback), this, PEERFalse);
 }
 #endif // USE_BROADCAST_KEYS
 
