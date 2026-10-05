@@ -56730,3 +56730,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?accepts@Rva2225E0Filter@@QAE_NPAVObject@@PAVPlayer@@@Z,,0x00362437,42,Code/GameEngine/Source/GameLogic/Object/ObjectFilterAccepts.cpp,matched,Existing BFME1 address-based filter ABI; RespawnBody/HordeContain target callers corroborate Object and Player arguments; native362437..362461 RET8 null guard plus template/controller/context dispatch; exact /O1 /MD
 ?rva0036E269@Rva0036E269@@QAEXH@Z,,0x0036E269,62,Code/GameEngine/Source/Common/Rva0036E269.cpp,matched,circular list head+4 via Stances key and pinned rva0045F084
 ?Rva001363A1Get@@YAPBDI@Z,,0x001363A1,43,Code/GameEngine/Source/Common/Rva001363A1Get.cpp,matched,map find plus empty fallback plus data plus 8
+?rva00222597@Rva00222597@@QAEXPAH@Z,,0x00222597,121,Code/GameEngine/Source/Common/System/Rva00222597.cpp,matched,Window point to mouse via WindowManager bfmeGet SetMousePos scale
