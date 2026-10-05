@@ -17,6 +17,12 @@
 
 extern void __cdecl operator delete[](void *) throw();
 
+// Retail's out-of-line RefCountClass deleting-dtor copy is the /O1 form
+// (pop ecx after the delete call, e.g. TileDataGetRGBDataForWidth's TU);
+// this TU builds /G7 which emits add esp,4 instead. Compile just the base
+// class for size so our COMDAT matches the first copy in link order.
+// Code this TU's rows inline keeps this TU's flags.
+#pragma optimize("s", on)
 class RefCountClass
 {
 public:
@@ -30,6 +36,7 @@ protected:
 private:
 	int NumRefs;
 };
+#pragma optimize("", on)
 
 template <class Type>
 class ShareBufferClass : public RefCountClass
