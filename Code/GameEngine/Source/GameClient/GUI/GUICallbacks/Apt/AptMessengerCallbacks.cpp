@@ -468,7 +468,6 @@ void AptMessenger::rva00511826()
 // closes the screen (state 2) or tears its window object down (state 4),
 // updates both tabs, refreshes when marked, and stops a drag once both
 // mouse buttons are up.
-// ?rva00511E6D@AptMessenger@@QAEHXZ present-unmatched
 int AptMessenger::rva00511E6D()
 {
 	switch (m_state)
