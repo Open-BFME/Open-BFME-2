@@ -138,17 +138,10 @@ class Object
 public:
 	void rva0028AE6D();
 	void *rva0028BCF4() const;
-	BehaviorModule **getBehaviorModules() const { return m_behaviors; }
+	BehaviorModule **getBehaviorModules() const;
 	AIUpdateInterface *getAI() const { return m_ai; }
 	ObjectID getID() const { return m_id; }
-	__forceinline void setModelConditionState(unsigned int mc)
-	{
-		if (m_modelConditionFlags.test(mc) == 0)
-		{
-			m_modelConditionFlags.set(mc);
-			rva0028AE6D();
-		}
-	}
+	void setModelConditionState(unsigned int mc);
 	__forceinline void clearModelConditionState(unsigned int mc)
 	{
 		if (m_modelConditionFlags.test(mc) != 0)
@@ -157,13 +150,12 @@ public:
 			rva0028AE6D();
 		}
 	}
-private:
 	unsigned char m_pad000[0x74];
 	ObjectID m_id; // +0x74
 	unsigned char m_pad078[0x10C - 0x78];
 	ModelConditionFlags m_modelConditionFlags; // +0x10C
 	unsigned char m_pad158[0x244 - 0x158];
-	BehaviorModule **m_behaviors; // +0x244
+	BehaviorModule **m_modules244; // +0x244 distinct from rowed +0x18C getter
 	unsigned char m_pad248[0x258 - 0x248];
 	AIUpdateInterface *m_ai; // +0x258
 };
@@ -215,7 +207,7 @@ protected:
 void GarrisonUpgrade::upgradeRemovalImplementation()
 {
 	Object *object = m_object;
-	for (BehaviorModule **module = object->getBehaviorModules(); *module != 0; ++module)
+	for (BehaviorModule **module = object->m_modules244; *module != 0; ++module)
 	{
 		ContainModuleInterface *contain = (*module)->getBehaviorModuleInterface()->getContain();
 		if (contain != 0 && contain->isGarrisonable())
@@ -235,12 +227,16 @@ void GarrisonUpgrade::upgradeRemovalImplementation()
 void GarrisonUpgrade::upgradeImplementation()
 {
 	Object *object = m_object;
-	for (BehaviorModule **module = object->getBehaviorModules(); *module != 0; ++module)
+	for (BehaviorModule **module = object->m_modules244; *module != 0; ++module)
 	{
 		ContainModuleInterface *contain = (*module)->getBehaviorModuleInterface()->getContain();
 		if (contain != 0 && contain->isGarrisonable())
 		{
-			object->setModelConditionState(MODELCONDITION_UPGRADE_GARRISON);
+			if (object->m_modelConditionFlags.test(MODELCONDITION_UPGRADE_GARRISON) == 0)
+			{
+				object->m_modelConditionFlags.set(MODELCONDITION_UPGRADE_GARRISON);
+				object->rva0028AE6D();
+			}
 			contain->slot63(true);
 		}
 	}
